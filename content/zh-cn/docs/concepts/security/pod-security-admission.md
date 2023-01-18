@@ -84,7 +84,7 @@ predefined Pod Security Standard levels you want to use for a namespace. The lab
 defines what action the {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
 takes if a potential violation is detected:
 -->
-## 为名字空间设置 Pod 安全性准入控制标签
+## 为名字空间设置 Pod 安全性准入控制标签 {#pod-security-admission-labels-for-namespaces}
 
 一旦特性被启用或者安装了 Webhook，你可以配置名字空间以定义每个名字空间中
 Pod 安全性准入控制模式。

@@ -79,7 +79,7 @@ you can verify integrity for is a container image, using the experimental
 signing support.
 
 To manually verify signed container images of Kubernetes core components, refer to
-[Verify Signed Container Images](/docs/tasks/administer-cluster/verify-signed-images).
+[Verify Signed Container Images](/docs/tasks/administer-cluster/verify-signed-artifacts).
 
 
 

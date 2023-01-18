@@ -156,7 +156,7 @@ resources:
 ```
 
 <!-- 
-Use `kubectl top` to fetch the metrics for the pod:
+Use `kubectl top` to fetch the metrics for the Pod:
 -->
 使用 `kubectl top` 命令来获取该 Pod 的指标：
 

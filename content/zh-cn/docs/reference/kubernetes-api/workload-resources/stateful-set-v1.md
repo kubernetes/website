@@ -31,11 +31,13 @@ auto_generated: true
 StatefulSet represents a set of pods with consistent identities. Identities are defined as:
  - Network: A single stable DNS and hostname.
  - Storage: As many VolumeClaims as requested.
+  
 The StatefulSet guarantees that a given network identity will always map to the same storage identity. 
 -->
 StatefulSet 表示一组具有一致身份的 Pod。身份定义为：
  - 网络：一个稳定的 DNS 和主机名。
- - 存储：根据要求提供尽可能多的 VolumeClaims。
+ - 存储：根据要求提供尽可能多的 VolumeClaim。
+
 StatefulSet 保证给定的网络身份将始终映射到相同的存储身份。
 <hr>
 
@@ -81,7 +83,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
 - **serviceName** (string), 必需
 
   serviceName 是管理此 StatefulSet 服务的名称。
-  该服务必须在 StatefulSet 之前即已存在，并负责该集合的网络标识。 
+  该服务必须在 StatefulSet 之前即已存在，并负责该集合的网络标识。
   Pod 会获得符合以下模式的 DNS/主机名： pod-specific-string.serviceName.default.svc.cluster.local。
   其中 “pod-specific-string” 由 StatefulSet 控制器管理。
 
@@ -93,7 +95,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
 - **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>), 必需
 
   selector 是对 Pod 的标签查询，查询结果应该匹配副本个数。
-  此选择算符必须与 Pod 模板中的 labels 匹配。
+  此选择算符必须与 Pod 模板中的 label 匹配。
   更多信息： https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 
 <!-- 
@@ -103,7 +105,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
 -->
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), 必需
 
-  template 是用来描述 Pod 的对象，检测到副本不足时将创建所描述的 Pod。 
+  template 是用来描述 Pod 的对象，检测到副本不足时将创建所描述的 Pod。
   经由 StatefulSet 创建的每个 Pod 都将满足这个模板，但与 StatefulSet 的其余 Pod 相比，每个 Pod 具有唯一的标识。
 
 <!-- 
@@ -135,6 +137,11 @@ StatefulSetSpec 是 StatefulSet 的规约。
   **StatefulSetUpdateStrategy 表示 StatefulSet 控制器将用于执行更新的策略。其中包括为指定策略执行更新所需的额外参数。**
 
   - **updateStrategy.type** (string)
+
+  <!--
+  Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
+  -->
+  type 表示 StatefulSetUpdateStrategy 的类型，默认为 RollingUpdate。
 
   - **updateStrategy.rollingUpdate** (RollingUpdateStatefulSetStrategy)
 
@@ -218,12 +225,11 @@ StatefulSetSpec 是 StatefulSet 的规约。
 - **minReadySeconds** (int32)
 
   <!-- 
-  Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate. 
+  Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
   -->
 
   新创建的 Pod 应准备就绪（其任何容器都未崩溃）的最小秒数，以使其被视为可用。
   默认为 0（Pod 准备就绪后将被视为可用）。
-  这是一个 Alpha 字段，需要启用 StatefulSetMinReadySeconds 特性门控。
 
 - **persistentVolumeClaimRetentionPolicy** (StatefulSetPersistentVolumeClaimRetentionPolicy)
 
@@ -304,10 +310,9 @@ StatefulSetStatus 表示 StatefulSet 的当前状态。
 - **availableReplicas** (int32)
 
   <!-- 
-  Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate. 
+  Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
   -->
   此 StatefulSet 所对应的可用 Pod 总数（就绪时长至少为 minReadySeconds）。
-  这是一个 Beta 字段，由 StatefulSetMinReadySeconds 特性门控启用/禁用。
 
 - **collisionCount** (int32)
 

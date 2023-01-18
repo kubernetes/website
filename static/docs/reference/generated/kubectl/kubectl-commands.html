@@ -169,7 +169,7 @@ inspect them.</p>
 <blockquote class="code-block example">
 <p> Create a cluster role named &quot;foo&quot; with API Group specified</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl create clusterrole foo <span class="hljs-attribute">--verb</span>=get,list,watch <span class="hljs-attribute">--resource</span>=rs.extensions
+<pre class="code-block example"><code class="lang-shell">kubectl create clusterrole foo <span class="hljs-attribute">--verb</span>=get,list,watch <span class="hljs-attribute">--resource</span>=rs.apps
 </code></pre>
 <blockquote class="code-block example">
 <p> Create a cluster role named &quot;foo&quot; with SubResource specified</p>
@@ -329,7 +329,7 @@ inspect them.</p>
 <td>group</td>
 <td></td>
 <td>[]</td>
-<td>Groups to bind to the clusterrole </td>
+<td>Groups to bind to the clusterrole. The flag can be repeated to add multiple groups. </td>
 </tr>
 <tr>
 <td>output</td>
@@ -347,7 +347,7 @@ inspect them.</p>
 <td>serviceaccount</td>
 <td></td>
 <td>[]</td>
-<td>Service accounts to bind to the clusterrole, in the format &lt;namespace&gt;:&lt;name&gt; </td>
+<td>Service accounts to bind to the clusterrole, in the format &lt;namespace&gt;:&lt;name&gt;. The flag can be repeated to add multiple service accounts. </td>
 </tr>
 <tr>
 <td>show-managed-fields</td>
@@ -1292,7 +1292,7 @@ inspect them.</p>
 <blockquote class="code-block example">
 <p> Create a role named &quot;foo&quot; with API Group specified</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl create role foo <span class="hljs-attribute">--verb</span>=get,list,watch <span class="hljs-attribute">--resource</span>=rs.extensions
+<pre class="code-block example"><code class="lang-shell">kubectl create role foo <span class="hljs-attribute">--verb</span>=get,list,watch <span class="hljs-attribute">--resource</span>=rs.apps
 </code></pre>
 <blockquote class="code-block example">
 <p> Create a role named &quot;foo&quot; with SubResource specified</p>
@@ -1430,7 +1430,7 @@ inspect them.</p>
 <td>group</td>
 <td></td>
 <td>[]</td>
-<td>Groups to bind to the role </td>
+<td>Groups to bind to the role. The flag can be repeated to add multiple groups. </td>
 </tr>
 <tr>
 <td>output</td>
@@ -1454,7 +1454,7 @@ inspect them.</p>
 <td>serviceaccount</td>
 <td></td>
 <td>[]</td>
-<td>Service accounts to bind to the role, in the format &lt;namespace&gt;:&lt;name&gt; </td>
+<td>Service accounts to bind to the role, in the format &lt;namespace&gt;:&lt;name&gt;. The flag can be repeated to add multiple service accounts. </td>
 </tr>
 <tr>
 <td>show-managed-fields</td>
@@ -2458,7 +2458,7 @@ inspect them.</p>
 <td>output</td>
 <td>o</td>
 <td></td>
-<td>Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file, custom-columns, custom-columns-file, wide). See custom columns <span>[</span><a href="https://kubernetes.io/docs/reference/kubectl/overview/#custom-columns">https://kubernetes.io/docs/reference/kubectl/overview/#custom-columns</a><span>]</span>, golang template <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span> and jsonpath template <span>[</span><a href="https://kubernetes.io/docs/reference/kubectl/jsonpath/">https://kubernetes.io/docs/reference/kubectl/jsonpath/</a><span>]</span>. </td>
+<td>Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file, custom-columns, custom-columns-file, wide). See custom columns <span>[</span><a href="https://kubernetes.io/docs/reference/kubectl/#custom-columns">https://kubernetes.io/docs/reference/kubectl/#custom-columns</a><span>]</span>, golang template <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span> and jsonpath template <span>[</span><a href="https://kubernetes.io/docs/reference/kubectl/jsonpath/">https://kubernetes.io/docs/reference/kubectl/jsonpath/</a><span>]</span>. </td>
 </tr>
 <tr>
 <td>output-watch-events</td>
@@ -2626,12 +2626,6 @@ inspect them.</p>
 <td>If true, wait for the Pod to start running, and then attach to the Pod as if &#39;kubectl attach ...&#39; were called.  Default false, unless &#39;-i/--stdin&#39; is set, in which case the default is true. With &#39;--restart=Never&#39; the exit code of the container process is returned. </td>
 </tr>
 <tr>
-<td>cascade</td>
-<td></td>
-<td>background</td>
-<td>Must be &quot;background&quot;, &quot;orphan&quot;, or &quot;foreground&quot;. Selects the deletion cascading strategy for the dependents (e.g. Pods created by a ReplicationController). Defaults to background. </td>
-</tr>
-<tr>
 <td>command</td>
 <td></td>
 <td>false</td>
@@ -2662,24 +2656,6 @@ inspect them.</p>
 <td>Name of the manager used to track field ownership. </td>
 </tr>
 <tr>
-<td>filename</td>
-<td>f</td>
-<td>[]</td>
-<td>to use to replace the resource. </td>
-</tr>
-<tr>
-<td>force</td>
-<td></td>
-<td>false</td>
-<td>If true, immediately remove resources from API and bypass graceful deletion. Note that immediate deletion of some resources may result in inconsistency or data loss and requires confirmation. </td>
-</tr>
-<tr>
-<td>grace-period</td>
-<td></td>
-<td>-1</td>
-<td>Period of time in seconds given to the resource to terminate gracefully. Ignored if negative. Set to 1 for immediate shutdown. Can only be set to 0 when --force is true (force deletion). </td>
-</tr>
-<tr>
 <td>image</td>
 <td></td>
 <td></td>
@@ -2690,12 +2666,6 @@ inspect them.</p>
 <td></td>
 <td></td>
 <td>The image pull policy for the container.  If left empty, this value will not be specified by the client and defaulted by the server. </td>
-</tr>
-<tr>
-<td>kustomize</td>
-<td>k</td>
-<td></td>
-<td>Process a kustomization directory. This flag can&#39;t be used together with -f or -R. </td>
 </tr>
 <tr>
 <td>labels</td>
@@ -2758,12 +2728,6 @@ inspect them.</p>
 <td>Record current kubectl command in the resource annotation. If set to false, do not record the command. If set to true, record the command. If not set, default to updating the existing annotation value only if one already exists. </td>
 </tr>
 <tr>
-<td>recursive</td>
-<td>R</td>
-<td>false</td>
-<td>Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests organized within the same directory. </td>
-</tr>
-<tr>
 <td>restart</td>
 <td></td>
 <td>Always</td>
@@ -2800,22 +2764,10 @@ inspect them.</p>
 <td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
 </tr>
 <tr>
-<td>timeout</td>
-<td></td>
-<td>0s</td>
-<td>The length of time to wait before giving up on a delete, zero means determine a timeout from the size of the object </td>
-</tr>
-<tr>
 <td>tty</td>
 <td>t</td>
 <td>false</td>
 <td>Allocate a TTY for the container in the pod. </td>
-</tr>
-<tr>
-<td>wait</td>
-<td></td>
-<td>false</td>
-<td>If true, wait for resources to be gone before returning. This waits for finalizers. </td>
 </tr>
 </tbody>
 </table>
@@ -3031,7 +2983,7 @@ inspect them.</p>
 <blockquote class="code-block example">
 <p> Delete resources from all files that end with &#39;.json&#39; - i.e. expand wildcard characters in file names</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell"><span class="hljs-attribute">kubectl</span> apply -f <span class="hljs-string">'*.json'</span>
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">delete</span> -f <span class="hljs-string">'*.json'</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Delete a pod based on the type and name in the JSON passed into stdin</p>
@@ -3063,7 +3015,7 @@ inspect them.</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">delete</span> pods <span class="hljs-comment">--all</span>
 </code></pre>
-<p>Delete resources by file names, stdin, resources and names, or by resources and label selector.<br><br> JSON and YAML formats are accepted. Only one type of argument may be specified: file names, resources and names, or resources and label selector.<br><br> Some resources, such as pods, support graceful deletion. These resources define a default period before they are forcibly terminated (the grace period) but you may override that value with the --grace-period flag, or pass --now to set a grace-period of 1. Because these resources often represent entities in the cluster, deletion may not be acknowledged immediately. If the node hosting a pod is down or cannot reach the API server, termination may take significantly longer than the grace period. To force delete a resource, you must specify the --force flag. Note: only a subset of resources support graceful deletion. In absence of the support, the --grace-period flag is ignored.<br><br> IMPORTANT: Force deleting pods does not wait for confirmation that the pod&#39;s processes have been terminated, which can leave those processes running until the node detects the deletion and completes graceful deletion. If your processes use shared storage or talk to a remote API and depend on the name of the pod to identify themselves, force deleting those pods may result in multiple processes running on different machines using the same identification which may lead to data corruption or inconsistency. Only force delete pods when you are sure the pod is terminated, or if your application can tolerate multiple copies of the same pod running at once. Also, if you force delete pods, the scheduler may place new pods on those nodes before the node has released those resources and causing those pods to be evicted immediately.<br><br> Note that the delete command does NOT do resource version checks, so if someone submits an update to a resource right when you submit a delete, their update will be lost along with the rest of the resource.<br><br> After a CustomResourceDefinition is deleted, invalidation of discovery cache may take up to 10 minutes. If you don&#39;t want to wait, you might want to run &quot;kubectl api-resources&quot; to refresh the discovery cache.</p>
+<p>Delete resources by file names, stdin, resources and names, or by resources and label selector.<br><br> JSON and YAML formats are accepted. Only one type of argument may be specified: file names, resources and names, or resources and label selector.<br><br> Some resources, such as pods, support graceful deletion. These resources define a default period before they are forcibly terminated (the grace period) but you may override that value with the --grace-period flag, or pass --now to set a grace-period of 1. Because these resources often represent entities in the cluster, deletion may not be acknowledged immediately. If the node hosting a pod is down or cannot reach the API server, termination may take significantly longer than the grace period. To force delete a resource, you must specify the --force flag. Note: only a subset of resources support graceful deletion. In absence of the support, the --grace-period flag is ignored.<br><br> IMPORTANT: Force deleting pods does not wait for confirmation that the pod&#39;s processes have been terminated, which can leave those processes running until the node detects the deletion and completes graceful deletion. If your processes use shared storage or talk to a remote API and depend on the name of the pod to identify themselves, force deleting those pods may result in multiple processes running on different machines using the same identification which may lead to data corruption or inconsistency. Only force delete pods when you are sure the pod is terminated, or if your application can tolerate multiple copies of the same pod running at once. Also, if you force delete pods, the scheduler may place new pods on those nodes before the node has released those resources and causing those pods to be evicted immediately.<br><br> Note that the delete command does NOT do resource version checks, so if someone submits an update to a resource right when you submit a delete, their update will be lost along with the rest of the resource.<br><br> After a CustomResourceDefinition is deleted, invalidation of discovery cache may take up to 6 hours. If you don&#39;t want to wait, you might want to run &quot;kubectl api-resources&quot; to refresh the discovery cache.</p>
 <h3 id="usage">Usage</h3>
 <p><code>$ kubectl delete ([-f FILENAME] | [-k DIRECTORY] | TYPE [(NAME | -l label | --all)])</code></p>
 <h3 id="flags">Flags</h3>
@@ -3264,7 +3216,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>filename</td>
 <td>f</td>
 <td>[]</td>
-<td>that contains the configuration to apply </td>
+<td>The files that contain the configurations to apply. </td>
 </tr>
 <tr>
 <td>force</td>
@@ -4111,6 +4063,12 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>false</td>
 <td>If true, apply runs in the server instead of the client. </td>
 </tr>
+<tr>
+<td>show-managed-fields</td>
+<td></td>
+<td>false</td>
+<td>If true, include managed fields in the diff. </td>
+</tr>
 </tbody>
 </table>
 <hr>
@@ -4703,7 +4661,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>filename</td>
 <td>f</td>
 <td>[]</td>
-<td>to use to replace the resource. </td>
+<td>The files that contain the configurations to replace. </td>
 </tr>
 <tr>
 <td>force</td>
@@ -7302,6 +7260,12 @@ applications.</p>
 <td>If non-empty, sort pods list using specified field. The field can be either &#39;cpu&#39; or &#39;memory&#39;. </td>
 </tr>
 <tr>
+<td>sum</td>
+<td></td>
+<td>false</td>
+<td>Print the sum of the resource usage </td>
+</tr>
+<tr>
 <td>use-protocol-buffers</td>
 <td></td>
 <td>true</td>
@@ -7863,10 +7827,20 @@ applications.</p>
 </blockquote>
 <pre class="code-block example"><code class="lang-shell"><span class="hljs-comment">kubectl</span> <span class="hljs-comment">alpha</span> <span class="hljs-comment">events</span> --<span class="hljs-comment">for</span> <span class="hljs-comment">pod/web</span><span class="hljs-literal">-</span><span class="hljs-comment">pod</span><span class="hljs-literal">-</span><span class="hljs-comment">13je7</span> --<span class="hljs-comment">watch</span>
 </code></pre>
+<blockquote class="code-block example">
+<p> List recent events in given format. Supported ones, apart from default, are json and yaml.</p>
+</blockquote>
+<pre class="code-block example"><code class="lang-shell"><span class="hljs-attribute">kubectl alpha events -oyaml</span>
+</code></pre>
+<blockquote class="code-block example">
+<p> List recent only events in given event types</p>
+</blockquote>
+<pre class="code-block example"><code class="lang-shell">kubectl alpha events <span class="hljs-attribute">--types</span>=Warning,Normal
+</code></pre>
 <p>Experimental: Display events</p>
 <p> Prints a table of the most important information about events. You can request events for a namespace, for all namespace, or filtered to only those pertaining to a specified resource.</p>
 <h3 id="usage">Usage</h3>
-<p><code>$ kubectl alpha events [--for TYPE/NAME] [--watch]</code></p>
+<p><code>$ kubectl alpha events [(-o|--output=)json|yaml|name|go-template|go-template-file|template|templatefile|jsonpath|jsonpath-as-json|jsonpath-file] [--for TYPE/NAME] [--watch] [--event=Normal,Warning]</code></p>
 <h3 id="flags">Flags</h3>
 <table>
 <thead>
@@ -7885,6 +7859,12 @@ applications.</p>
 <td>If present, list the requested object(s) across all namespaces. Namespace in current context is ignored even if specified with --namespace. </td>
 </tr>
 <tr>
+<td>allow-missing-template-keys</td>
+<td></td>
+<td>true</td>
+<td>If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to golang and jsonpath output formats. </td>
+</tr>
+<tr>
 <td>chunk-size</td>
 <td></td>
 <td>500</td>
@@ -7895,6 +7875,36 @@ applications.</p>
 <td></td>
 <td></td>
 <td>Filter events to only those pertaining to the specified resource. </td>
+</tr>
+<tr>
+<td>no-headers</td>
+<td></td>
+<td>false</td>
+<td>When using the default output format, don&#39;t print headers. </td>
+</tr>
+<tr>
+<td>output</td>
+<td>o</td>
+<td></td>
+<td>Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath, jsonpath-as-json, jsonpath-file). </td>
+</tr>
+<tr>
+<td>show-managed-fields</td>
+<td></td>
+<td>false</td>
+<td>If true, keep the managedFields when printing objects in JSON or YAML format. </td>
+</tr>
+<tr>
+<td>template</td>
+<td></td>
+<td></td>
+<td>Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format is golang templates <span>[</span><a href="http://golang.org/pkg/text/template/#pkg-overview">http://golang.org/pkg/text/template/#pkg-overview</a><span>]</span>. </td>
+</tr>
+<tr>
+<td>types</td>
+<td></td>
+<td>[]</td>
+<td>Output only events of given types. </td>
 </tr>
 <tr>
 <td>watch</td>
@@ -7934,7 +7944,7 @@ applications.</p>
 <blockquote class="code-block example">
 <p> Print the supported API resources with a specific APIGroup</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl api-resources <span class="hljs-attribute">--api-group</span>=extensions
+<pre class="code-block example"><code class="lang-shell">kubectl api-resources <span class="hljs-attribute">--api-group</span>=rbac.authorization.k8s.io
 </code></pre>
 <p>Print the supported API resources on the server.</p>
 <h3 id="usage">Usage</h3>

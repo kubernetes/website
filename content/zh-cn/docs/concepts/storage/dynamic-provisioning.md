@@ -1,12 +1,17 @@
 ---
 title: 动态卷制备
 content_type: concept
-weight: 40
+weight: 50
 ---
 <!--
+reviewers:
+- saad-ali
+- jsafrane
+- thockin
+- msau42
 title: Dynamic Volume Provisioning
 content_type: concept
-weight: 40
+weight: 50
 -->
 
 <!-- overview -->
@@ -31,7 +36,7 @@ automatically provisions storage when it is requested by users.
 <!--
 ## Background
 -->
-## 背景
+## 背景    {#background}
 
 <!--
 The implementation of dynamic volume provisioning is based on the API object `StorageClass`
@@ -78,7 +83,8 @@ disk-like persistent disks.
 -->
 要启用动态制备功能，集群管理员需要为用户预先创建一个或多个 `StorageClass` 对象。
 `StorageClass` 对象定义当动态制备被调用时，哪一个驱动将被使用和哪些参数将被传递给驱动。
-StorageClass 对象的名字必须是一个合法的 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+StorageClass 对象的名字必须是一个合法的
+[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 以下清单创建了一个 `StorageClass` 存储类 "slow"，它提供类似标准磁盘的永久磁盘。
 
 ```yaml
@@ -122,7 +128,8 @@ this field must match the name of a `StorageClass` configured by the
 administrator (see [below](#enabling-dynamic-provisioning)).
 -->
 用户通过在 `PersistentVolumeClaim` 中包含存储类来请求动态制备的存储。
-在 Kubernetes v1.9 之前，这通过 `volume.beta.kubernetes.io/storage-class` 注解实现。然而，这个注解自 v1.6 起就不被推荐使用了。
+在 Kubernetes v1.9 之前，这通过 `volume.beta.kubernetes.io/storage-class` 注解实现。
+然而，这个注解自 v1.6 起就不被推荐使用了。
 用户现在能够而且应该使用 `PersistentVolumeClaim` 对象的 `storageClassName` 字段。
 这个字段的值必须能够匹配到集群管理员配置的 `StorageClass` 名称（见[下面](#enabling-dynamic-provisioning)）。
 
@@ -156,7 +163,7 @@ provisioned. When the claim is deleted, the volume is destroyed.
 <!--
 ## Defaulting Behavior
 -->
-## 设置默认值的行为
+## 设置默认值的行为    {#defaulting-behavior}
 
 <!--
 Dynamic provisioning can be enabled on a cluster such that all claims are
@@ -172,18 +179,19 @@ can enable this behavior by:
   is enabled on the API server.
 -->
 - 标记一个 `StorageClass` 为 **默认**；
-- 确保 [`DefaultStorageClass` 准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)在 API 服务端被启用。
+- 确保 [`DefaultStorageClass` 准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)在
+  API 服务器端被启用。
 
 <!--
 An administrator can mark a specific `StorageClass` as default by adding the
-`storageclass.kubernetes.io/is-default-class` [annotation](/docs/reference/labels-annotations-taints/#storageclass-kubernetes-io-is-default-class) to it.
+[`storageclass.kubernetes.io/is-default-class` annotation](/docs/reference/labels-annotations-taints/#storageclass-kubernetes-io-is-default-class) to it.
 When a default `StorageClass` exists in a cluster and a user creates a
 `PersistentVolumeClaim` with `storageClassName` unspecified, the
 `DefaultStorageClass` admission controller automatically adds the
 `storageClassName` field pointing to the default storage class.
 -->
-管理员可以通过向其添加 `storageclass.kubernetes.io/is-default-class`
-[annotation](/zh-cn/docs/reference/labels-annotations-taints/#storageclass-kubernetes-io-is-default-class)
+管理员可以通过向其添加
+[`storageclass.kubernetes.io/is-default-class` 注解](/zh-cn/docs/reference/labels-annotations-taints/#storageclass-kubernetes-io-is-default-class)
 来将特定的 `StorageClass` 标记为默认。
 当集群中存在默认的 `StorageClass` 并且用户创建了一个未指定 `storageClassName` 的 `PersistentVolumeClaim` 时，
 `DefaultStorageClass` 准入控制器会自动向其中添加指向默认存储类的 `storageClassName` 字段。
@@ -202,12 +210,13 @@ be created.
 ## 拓扑感知 {#topology-awareness}
 
 <!--
-In [Multi-Zone](/docs/setup/multiple-zones) clusters, Pods can be spread across
+In [Multi-Zone](/docs/setup/best-practices/multiple-zones/) clusters, Pods can be spread across
 Zones in a Region. Single-Zone storage backends should be provisioned in the Zones where
-Pods are scheduled. This can be accomplished by setting the [Volume Binding
-Mode](/docs/concepts/storage/storage-classes/#volume-binding-mode).
+Pods are scheduled. This can be accomplished by setting the
+[Volume Binding Mode](/docs/concepts/storage/storage-classes/#volume-binding-mode).
 -->
 在[多可用区](/zh-cn/docs/setup/best-practices/multiple-zones/)集群中，Pod 可以被分散到某个区域的多个可用区。
 单可用区存储后端应该被制备到 Pod 被调度到的可用区。
 这可以通过设置[卷绑定模式](/zh-cn/docs/concepts/storage/storage-classes/#volume-binding-mode)来实现。
+
 

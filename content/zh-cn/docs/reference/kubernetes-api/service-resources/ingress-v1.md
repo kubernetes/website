@@ -88,14 +88,14 @@ IngressSpec 描述用户希望存在的 Ingress。
 - **ingressClassName** (string)
 
   <!--
-  IngressClassName is the name of the IngressClass cluster resource. The associated IngressClass defines which controller will implement the resource. This replaces the deprecated `kubernetes.io/ingress.class` annotation. For backwards compatibility, when that annotation is set, it must be given precedence over this field. The controller may emit a warning if the field and annotation have different values. Implementations of this API should ignore Ingresses without a class specified. An IngressClass resource may be marked as default, which can be used to set a default value for this field. For more information, refer to the IngressClass documentation.
+  IngressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
   -->
-
-  ingressClassName 是 IngressClass 集群资源的名称。关联的 Ingress 类定义了将实际实现 Ingress 资源的控制器。
-  这一字段将取代不再推荐使用的 `kubernetes.io/ingress.class` 注解。
-  为了向后兼容，当设置了该注解时，注解必须优先于此字段。如果字段和注解具有不同的值，控制器可能会发出警告。
-  此 API 的实现应忽略未指定类的 Ingress 资源。IngressClass 资源可被标记为 default，用来设置此字段的默认值。
-  有关更多信息，请参阅 IngressClass 文档。
+  IngressClassName 是 IngressClass 集群资源的名称。
+  Ingress 控制器实现使用此字段来了解它们是否应该通过传递连接（控制器 -> IngressClass -> Ingress 资源）为该
+  Ingress 资源提供服务。尽管 `kubernetes.io/ingress.class` 注解（简单的常量名称）从未正式定义，
+  但它被 Ingress 控制器广泛支持，以在 Ingress 控制器和 Ingress 资源之间创建直接绑定。 
+  新创建的 Ingress 资源应该优先选择使用该字段。但是，即使注解已被正式弃用，
+  出于向后兼容性的原因，Ingress 控制器仍应能够处理该注解（如果存在）。
 
 - **rules** ([]IngressRule)
 
@@ -124,8 +124,8 @@ IngressSpec 描述用户希望存在的 Ingress。
     Host is the fully qualified domain name of a network host, as defined by RFC 3986. Note the following deviations from the "host" part of the URI as defined in RFC 3986: 1. IPs are not allowed. Currently an IngressRuleValue can only apply to
        the IP in the Spec of the parent Ingress.
     2. The `:` delimiter is not respected because ports are not allowed.
-    	  Currently the port of an Ingress is implicitly :80 for http and
-    	  :443 for https.
+        Currently the port of an Ingress is implicitly :80 for http and
+        :443 for https.
     Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
     -->
     
@@ -220,12 +220,13 @@ IngressSpec 描述用户希望存在的 Ingress。
         pathType 决定如何解释 path 匹配。pathType 可以是以下值之一：
 
         * `Exact`：与 URL 路径完全匹配。
-        * `Prefix`：根据按 “/” 拆分的 URL 路径前缀进行匹配。
 
+        * `Prefix`：根据按 “/” 拆分的 URL 路径前缀进行匹配。
           匹配是按路径元素逐个元素完成。路径元素引用的是路径中由“/”分隔符拆分的标签列表。
           如果每个 p 都是请求路径 p 的元素前缀，则请求与路径 p 匹配。
           请注意，如果路径的最后一个元素是请求路径中的最后一个元素的子字符串，则匹配不成功
           （例如 `/foo/bar` 匹配 `/foo/bar/baz`，但不匹配 `/foo/barbaz`）。
+
         * ImplementationSpecific：路径匹配的解释取决于 IngressClass。
           实现可以将其视为单独的路径类型，也可以将其视为前缀或确切的路径类型。
           实现需要支持所有路径类型。
@@ -379,61 +380,68 @@ IngressStatus 描述 Ingress 的当前状态。
 
 <hr>
 
-- **loadBalancer** (LoadBalancerStatus)
+- **loadBalancer** (IngressLoadBalancerStatus)
 
   <!--
   LoadBalancer contains the current status of the load-balancer.
 
-  <a name="LoadBalancerStatus"></a>
-  *LoadBalancerStatus represents the status of a load-balancer.*
+  <a name="IngressLoadBalancerStatus"></a>
+  *IngressLoadBalancerStatus represents the status of a load-balancer.*
   -->
 
   loadBalancer 包含负载均衡器的当前状态。
 
-  <a name="LoadBalancerStatus"></a>
-  **LoadBalancerStatus 表示负载均衡器的状态。**
+  <a name="IngressLoadBalancerStatus"></a>
+  **IngressLoadBalancerStatus 表示负载均衡器的状态。**
 
-  - **loadBalancer.ingress** ([]LoadBalancerIngress)
+  - **loadBalancer.ingress** ([]IngressLoadBalancerIngress)
 
     <!--
-    Ingress is a list containing ingress points for the load-balancer. Traffic intended for the service should be sent to these ingress points.
+    Ingress is a list containing ingress points for the load-balancer.
 
-    <a name="LoadBalancerIngress"></a>
-    *LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.*
+    <a name="IngressLoadBalancerIngress"></a>
+    *IngressLoadBalancerIngress represents the status of a load-balancer ingress point.*
     -->
 
-    ingress 是一个包含负载均衡器入口点的列表。用于服务的流量应发送到这些入口点。
+    ingress 是一个包含负载均衡器入口点的列表。
 
-    <a name="LoadBalancerIngress"></a>
-    **LoadBalancerIngress 表示负载均衡器入口点的状态：用于服务的流量应发送到入口点。**
+    <a name="IngressLoadBalancerIngress"></a>
+    **IngressLoadBalancerIngress 表示负载均衡器入口点的状态。**
 
     - **loadBalancer.ingress.hostname** (string)
 
       <!--
-      Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers)
+      Hostname is set for load-balancer ingress points that are DNS based.
       -->
 
-      hostname 是为基于 DNS 的负载平衡器（通常为 AWS 负载平衡器）入口点所设置的主机名。
+      hostname 是为基于 DNS 的负载平衡器入口点所设置的主机名。
 
     - **loadBalancer.ingress.ip** (string)
 
       <!--
-      IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
+      IP is set for load-balancer ingress points that are IP based.
       -->
 
-      ip 是为基于 IP 的负载平衡器（通常为 GCE 或 OpenStack 负载平衡器）入口点设置的 IP。
+      ip 是为基于 IP 的负载平衡器入口点设置的 IP。
 
-    - **loadBalancer.ingress.ports** ([]PortStatus)
+    - **loadBalancer.ingress.ports** ([]IngressPortStatus)
 
       <!--
       *Atomic: will be replaced during a merge*
       
       Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
+      Ports provides information about the ports exposed by this LoadBalancer.
+      
+      <a name="IngressPortStatus"></a>
+      *IngressPortStatus represents the error condition of a service port*
       -->
 
       **Atomic: 将在合并期间被替换**
-      
-      ports 是服务端口的记录列表。如果使用了此字段，服务中定义的每个端口中都应该有一个条目与之对应。
+    
+      ports 提供有关此 LoadBalancer 公开端口的信息。
+    
+      <a name="IngressPortStatus"></a>
+      **IngressPortStatus 表示服务端口的错误情况**
 
       <!--
       - **loadBalancer.ingress.ports.port** (int32), required
@@ -442,10 +450,10 @@ IngressStatus 描述 Ingress 的当前状态。
       - **loadBalancer.ingress.ports.port** (int32)，必需
         
         <!--
-        Port is the port number of the service port of which status is recorded here
+        Port is the port number of the ingress port.
         -->
 
-        port 在此是所记录状态对应的服务端口的端口号。
+        port 是入栈端口的端口号
 
       <!--  
       - **loadBalancer.ingress.ports.protocol** (string), required
@@ -454,10 +462,10 @@ IngressStatus 描述 Ingress 的当前状态。
       - **loadBalancer.ingress.ports.protocol** (string)，必需
         
         <!--
-        Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
+        Protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
         -->
 
-        protocol 是服务端口的协议，其状态记录在此。支持的值为：“TCP”、“UDP”、“SCTP”。
+        protocol 是入栈端口的协议。支持的值为：“TCP”、“UDP”、“SCTP”。
 
       - **loadBalancer.ingress.ports.error** (string)
 

@@ -2,7 +2,7 @@
 title: 파이널라이저(Finalizer)
 id: finalizer
 date: 2021-07-07
-full_link: /docs/concepts/overview/working-with-objects/finalizers/
+full_link: /ko/docs/concepts/overview/working-with-objects/finalizers/
 short_description: >
   쿠버네티스가 오브젝트를 완전히 삭제하기 이전, 삭제 표시를 위해
   특정 조건이 충족될 때까지 대기하도록 알려주기 위한 네임스페이스에 속한 키(namespaced key)이다.

@@ -71,7 +71,7 @@ Pod Template:
            job-name=pi
   Containers:
    pi:
-    Image:      perl
+    Image:      perl:5.34.0
     Port:       <none>
     Host Port:  <none>
     Command:
@@ -125,7 +125,7 @@ spec:
         - -Mbignum=bpi
         - -wle
         - print bpi(2000)
-        image: perl
+        image: perl:5.34.0
         imagePullPolicy: Always
         name: pi
         resources: {}
@@ -268,7 +268,7 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 
   각 인덱스에 대해 성공적으로 완료된 파드가 하나 있으면 작업이 완료된 것으로
   간주된다. 이 모드를 사용하는 방법에 대한 자세한 내용은
-  [정적 작업 할당을 사용한 병렬 처리를 위해 인덱싱된 잡](/docs/tasks/job/indexed-parallel-processing-static/)을 참고한다.
+  [정적 작업 할당을 사용한 병렬 처리를 위해 인덱싱된 잡](/ko/docs/tasks/job/indexed-parallel-processing-static/)을 참고한다.
   참고로, 드물기는 하지만, 동일한 인덱스에 대해 둘 이상의 파드를 시작할 수
   있지만, 그 중 하나만 완료 횟수에 포함된다.
 
@@ -356,7 +356,7 @@ spec:
     spec:
       containers:
       - name: pi
-        image: perl
+        image: perl:5.34.0
         command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
 ```
@@ -402,7 +402,7 @@ spec:
     spec:
       containers:
       - name: pi
-        image: perl
+        image: perl:5.34.0
         command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
 ```
@@ -486,7 +486,7 @@ spec:
 
 [작업 항목 당 파드가 있는 큐]: /ko/docs/tasks/job/coarse-parallel-processing-work-queue/
 [가변 파드 수를 가진 큐]: /ko/docs/tasks/job/fine-parallel-processing-work-queue/
-[정적 작업 할당을 사용한 인덱싱된 잡]: /docs/tasks/job/indexed-parallel-processing-static/
+[정적 작업 할당을 사용한 인덱싱된 잡]: /ko/docs/tasks/job/indexed-parallel-processing-static/
 [잡 템플릿 확장]: /ko/docs/tasks/job/parallel-processing-expansion/
 
 ## 고급 사용법
@@ -510,8 +510,7 @@ spec:
 현재 시간으로 재설정된다. 즉, 잡이 일시 중지 및 재개되면 `.spec.activeDeadlineSeconds`
 타이머가 중지되고 재설정된다.
 
-잡을 일시 중지하면 모든 활성 파드가 삭제된다. 잡이
-일시 중지되면, SIGTERM 시그널로 [파드가 종료된다](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
+잡을 일시 중지하면, `Completed` 상태가 아닌 모든 실행중인 파드가 SIGTERM 시그널로 [종료된다](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
 파드의 정상 종료 기간이 적용되며 사용자의 파드는 이 기간 동안에
 이 시그널을 처리해야 한다. 나중에 진행 상황을 저장하거나
 변경 사항을 취소하는 작업이 포함될 수 있다. 이 방법으로 종료된 파드는
@@ -535,6 +534,20 @@ spec:
   template:
     spec:
       ...
+```
+
+명령 줄에서 잡을 패치하여 잡 일시 중지를 전환할 수 있다.
+
+활성화된 잡 일시 중지
+
+```shell
+kubectl patch job/myjob --type=strategic --patch '{"spec":{"suspend":true}}'
+```
+
+일시 중지된 잡 재개
+
+```shell
+kubectl patch job/myjob --type=strategic --patch '{"spec":{"suspend":false}}'
 ```
 
 잡의 상태를 사용하여 잡이 일시 중지되었는지 또는 과거에 일시 중지되었는지
@@ -682,6 +695,89 @@ spec:
 `manualSelector: true` 를 설정하면 시스템에게 사용자가 무엇을 하는지 알고 있으며 
 이런 불일치를 허용한다고 알릴 수 있다.
 
+### 파드 실패 정책{#pod-failure-policy}
+
+{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+
+{{< note >}}
+잡(Job)에 대한 파드 실패 정책은
+`JobPodFailurePolicy` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가
+클러스터에서 활성화됐을 경우에만 구성할 수 있다. 추가적으로, 
+파드 장애 정책의 파드 중단 조건 (참조:
+[파드 중단 조건](/ko/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions))을 
+감지하고 처리할 수 있도록 `PodDisruptionConditions` 기능 게이트를 활성화하는 것을 권장한다. 두 기능 게이트 모두
+쿠버네티스 v1.25에서 사용할 수 있다.
+{{< /note >}}
+
+`.spec.podFailurePolicy` 필드로 정의되는 파드 실패 정책은, 클러스터가
+컨테이너 종료 코드와 파드 상태를 기반으로 파드의 실패를 
+처리하도록 활성화한다.
+
+어떤 상황에서는, 파드의 실패를 처리할 때 잡(Job)의 `.spec.backoffLimit`을 기반으로 하는 
+[파드 백오프(backoff) 실패 정책](#pod-backoff-failure-policy)에서 
+제공하는 제어보다 더 나은 제어를 원할 수 있다. 다음은 사용 사례의 몇 가지 예시다.
+* 불필요한 파드 재시작을 방지하여 워크로드 실행 비용을 최적화하려면, 
+  파드 중 하나가 소프트웨어 버그를 나타내는 종료 코드와 함께 실패하는 즉시 
+  잡을 종료할 수 있다.
+* 중단이 있더라도 잡이 완료되도록 하려면, 
+  중단(예: {{< glossary_tooltip text="선점(preemption)" term_id="preemption" >}},
+  {{< glossary_tooltip text="API를 이용한 축출(API-initiated Eviction)" term_id="api-eviction" >}}
+  또는 축출 기반 {{< glossary_tooltip text="테인트(Taints)" term_id="taint" >}})으로 인한 
+  파드 실패를 무시하여 `.spec.backoffLimit` 재시도 한도에 포함되지 않도록 할 수 있다.
+
+위의 사용 사례를 충족하기 위해 
+`.spec.podFailurePolicy` 필드에 파드 실패 정책을 구성할 수 있다.
+이 정책은 컨테이너 종료 코드 및 파드 상태를 기반으로 파드 실패를 처리할 수 있다.
+
+다음은 `podFailurePolicy`를 정의하는 잡의 매니페스트이다.
+
+{{< codenew file="/controllers/job-pod-failure-policy-example.yaml" >}}
+
+위 예시에서, 파드 실패 정책의 첫 번째 규칙은 `main` 컨테이너가 42 종료코드와 
+함께 실패하면 잡도 실패로 표시되는 것으로 
+지정한다. 다음은 구체적으로 `main` 컨테이너에 대한 규칙이다.
+
+- 종료 코드 0은 컨테이너가 성공했음을 의미한다.
+- 종료 코드 42는 **전체 잡**이 실패했음을 의미한다.
+- 다른 모든 종료 코드는 컨테이너 및 전체 파드가 실패했음을 
+  나타낸다. 재시작 횟수인 `backoffLimit`까지 파드가 
+  다시 생성된다. 만약 `backoffLimit`에 도달하면 **전체 잡**이 실패한다.
+
+{{< note >}}
+파드 템플릿이 `restartPolicy: Never`로 지정되었기 때문에,
+kubelet은 특정 파드에서 `main` 컨테이너를 재시작하지 않는다.
+{{< /note >}}
+
+`DisruptionTarget` 컨디션을 갖는 실패한 파드에 대해 
+`Ignore` 동작을 하도록 명시하고 있는 파드 실패 정책의 두 번째 규칙으로 인해, 
+`.spec.backoffLimit` 재시도 한도 계산 시 파드 중단(disruption)은 횟수에서 제외된다.
+
+{{< note >}}
+파드 실패 정책 또는 파드 백오프 실패 정책에 의해 잡이 실패하고,
+잡이 여러 파드를 실행중이면, 쿠버네티스는 아직 보류(Pending) 또는 
+실행(Running) 중인 해당 잡의 모든 파드를 종료한다.
+{{< /note >}}
+
+다음은 API의 몇 가지 요구 사항 및 의미이다.
+- 잡에 `.spec.podFailurePolicy` 필드를 사용하려면,
+  `.spec.restartPolicy`가 `Never`로 설정된 잡의 파드 템플릿 또한 정의해야 한다.
+- `spec.podFailurePolicy.rules`에 기재한 파드 실패 정책 규칙은 기재한 순서대로 평가된다. 
+  파드 실패 정책 규칙이 파드 실패와 매치되면 나머지 규칙은 무시된다. 
+  파드 실패와 매치되는 파드 실패 정책 규칙이 없으면 
+  기본 처리 방식이 적용된다.
+- `spec.podFailurePolicy.rules[*].containerName`에 컨테이너 이름을 지정하여 파드 실패 규칙을 특정 컨테이너에게만 제한할 수 있다. 
+  컨테이너 이름을 지정하지 않으면 파드 실패 규칙은 모든 컨테이너에 적용된다. 
+  컨테이너 이름을 지정한 경우, 
+  이는 파드 템플릿의 컨테이너 또는 `initContainer` 이름 중 하나와 일치해야 한다.
+- 파드 실패 정책이 `spec.podFailurePolicy.rules[*].action`과 일치할 때 취할 동작을 지정할 수 있다.
+  사용 가능한 값은 다음과 같다.
+  - `FailJob`: 파드의 잡을 `Failed`로 표시하고 
+    실행 중인 모든 파드를 종료해야 함을 나타낸다.
+  - `Ignore`: `.spec.backoffLimit`에 대한 카운터가 증가하지 않아야 하고 
+    대체 파드가 생성되어야 함을 나타낸다.
+  - `Count`: 파드가 기본 방식으로 처리되어야 함을 나타낸다.
+      `.spec.backoffLimit`에 대한 카운터가 증가해야 한다.
+
 ### 종료자(finalizers)를 이용한 잡 추적
 
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
@@ -727,7 +823,7 @@ API 서버에서 파드가 제거되면 이를 알아챈다.
 ### 베어(Bare) 파드
 
 파드가 실행 중인 노드가 재부팅되거나 실패하면 파드가 종료되고
-다시 시작되지 않는다.  그러나 잡은 종료된 항목을 대체하기 위해 새 파드를 생성한다.
+재시작되지 않는다.  그러나 잡은 종료된 항목을 대체하기 위해 새 파드를 생성한다.
 따라서, 애플리케이션에 단일 파드만 필요한 경우에도 베어 파드 대신
 잡을 사용하는 것을 권장한다.
 
@@ -760,13 +856,14 @@ API 서버에서 파드가 제거되면 이를 알아챈다.
 * 다른 방식으로 잡을 구동하는 방법에 대해서 읽는다.
   * [작업 대기열을 사용한 거친 병렬 처리](/ko/docs/tasks/job/coarse-parallel-processing-work-queue/)
   * [작업 대기열을 사용한 정밀 병렬 처리](/ko/docs/tasks/job/fine-parallel-processing-work-queue/)
-  * [병렬 처리를 위한 정적 작업 할당으로 인덱스된 잡](/docs/tasks/job/indexed-parallel-processing-static/)(베타) 사용
+  * [병렬 처리를 위한 정적 작업 할당으로 인덱스된 잡](/ko/docs/tasks/job/indexed-parallel-processing-static/)(베타) 사용
   * 템플릿 기반으로 복수의 잡 생성: [확장을 사용한 병렬 처리](/ko/docs/tasks/job/parallel-processing-expansion/)
 * [완료된 잡을 자동으로 정리](#clean-up-finished-jobs-automatically) 섹션 내 링크를 따라서
   클러스터가 완료되거나 실패된 태스크를 어떻게 정리하는지에 대해 더 배운다.
 * `Job`은 쿠버네티스 REST API의 일부이다.
   잡 API에 대해 이해하기 위해
   {{< api-reference page="workload-resources/job-v1" >}}
-  오브젝트 정의를 읽은다.
+  오브젝트 정의를 읽는다.
 * 스케줄을 기반으로 실행되는 일련의 잡을 정의하는데 사용할 수 있고, 유닉스 툴 `cron`과 유사한
   [`CronJob`](/ko/docs/concepts/workloads/controllers/cron-jobs/)에 대해 읽는다.
+* 단계별로 구성된 [예제](/docs/tasks/job/pod-failure-policy/)를 통해, `podFailurePolicy`를 사용하여 재시도 가능 및 재시도 불가능 파드의 실패 처리를 하기위한 구성 방법을 연습한다.

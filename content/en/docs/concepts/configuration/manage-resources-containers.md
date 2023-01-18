@@ -346,7 +346,8 @@ or 400 megabytes (`400M`).
 In the following example, the Pod has two containers. Each container has a request of
 2GiB of local ephemeral storage. Each container has a limit of 4GiB of local ephemeral
 storage. Therefore, the Pod has a request of 4GiB of local ephemeral storage, and
-a limit of 8GiB of local ephemeral storage.
+a limit of 8GiB of local ephemeral storage. 500Mi of that limit could be
+consumed by the `emptyDir` volume.
 
 ```yaml
 apiVersion: v1
@@ -377,7 +378,8 @@ spec:
       mountPath: "/tmp"
   volumes:
     - name: ephemeral
-      emptyDir: {}
+      emptyDir:
+        sizeLimit: 500Mi
 ```
 
 ### How Pods with ephemeral-storage requests are scheduled

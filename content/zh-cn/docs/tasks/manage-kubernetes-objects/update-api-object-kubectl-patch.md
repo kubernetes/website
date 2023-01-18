@@ -227,7 +227,7 @@ patch 策略：
     "x-kubernetes-patch-strategy": "merge"
 }
 ```
-<!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
+<!-- for editors: intentionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 <!--
 And you can see the patch strategy in the
@@ -450,7 +450,7 @@ Patch your Deployment:
 修补你的 Deployment:
 
 ```shell
-kubectl patch deployment retainkeys-demo --type merge --patch-file patch-file-no-retainkeys.yaml
+kubectl patch deployment retainkeys-demo --type strategic --patch-file patch-file-no-retainkeys.yaml
 ```
 
 <!--
@@ -492,7 +492,7 @@ Patch your Deployment again with this new patch:
 使用新的 patch 重新修补 Deployment：
 
 ```shell
-kubectl patch deployment retainkeys-demo --type merge --patch-file patch-file-retainkeys.yaml
+kubectl patch deployment retainkeys-demo --type strategic --patch-file patch-file-retainkeys.yaml
 ```
 
 <!--
@@ -574,7 +574,7 @@ You can also see the `retainKeys` strategy in the [OpenApi spec](https://raw.git
     ....
 }
 ```
-<!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
+<!-- for editors: intentionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 <!--
 And you can see the `retainKeys` strategy in the
@@ -585,12 +585,12 @@ And you can see the `retainKeys` strategy in the
 `retainKey` 策略。
 
 <!--
-## Alternate forms of the kubectl patch command
+### Alternate forms of the kubectl patch command
 
 The `kubectl patch` command takes YAML or JSON. It can take the patch as a file or
 directly on the command line.
 -->
-## kubectl patch 命令的其他形式    {#alternate-forms-of-the-kubectl-patch-command}
+### kubectl patch 命令的其他形式    {#alternate-forms-of-the-kubectl-patch-command}
 
 `kubectl patch` 命令使用 YAML 或 JSON。它可以接受以文件形式提供的补丁，也可以接受直接在命令行中给出的补丁。
 
@@ -628,6 +628,128 @@ kubectl patch deployment patch-demo --patch 'spec:\n template:\n  spec:\n   cont
 kubectl patch deployment patch-demo --patch-file patch-file.json
 kubectl patch deployment patch-demo --patch '{"spec": {"template": {"spec": {"containers": [{"name": "patch-demo-ctr-2","image": "redis"}]}}}}'
 ```
+<!--
+### Update an object's replica count using `kubectl patch` with `--subresource` {#scale-kubectl-patch}
+-->
+### 使用 `kubectl patch` 和 `--subresource` 更新一个对象的副本数   {#scale-kubectl-patch}
+
+{{< feature-state for_k8s_version="v1.24" state="alpha" >}}
+
+<!--
+The flag `--subresource=[subresource-name]` is used with kubectl commands like get, patch,
+edit and replace to fetch and update `status` and `scale` subresources of the resources
+(applicable for kubectl version v1.24 or more). This flag is used with all the API resources
+(built-in and CRs) which has `status` or `scale` subresource. Deployment is one of the
+examples which supports these subresources.
+
+Here's a manifest for a Deployment that has two replicas:
+-->
+使用 kubectl 命令（如 get、patch、edit 和 replace）时带上 `--subresource=[subresource-name]` 标志，
+可以获取和更新资源的 `status` 和 `scale` 子资源（适用于 kubectl v1.24 或更高版本）。
+这个标志可用于带有 `status` 或 `scale` 子资源的所有 API 资源 (内置资源和 CR 资源)。
+Deployment 是支持这些子资源的其中一个例子。
+
+下面是有两个副本的 Deployment 的清单。
+
+{{< codenew file="application/deployment.yaml" >}}
+
+<!--
+Create the Deployment:
+-->
+创建 Deployment：
+
+```shell
+kubectl apply -f https://k8s.io/examples/application/deployment.yaml
+```
+
+<!--
+View the Pods associated with your Deployment:
+-->
+查看与 Deployment 关联的 Pod：
+
+```shell
+kubectl get pods -l app=nginx
+```
+
+<!--
+In the output, you can see that Deployment has two Pods. For example:
+-->
+在输出中，你可以看到此 Deployment 有两个 Pod。例如：
+
+```
+NAME                                READY   STATUS    RESTARTS   AGE
+nginx-deployment-7fb96c846b-22567   1/1     Running   0          47s
+nginx-deployment-7fb96c846b-mlgns   1/1     Running   0          47s
+```
+
+<!--
+Now, patch that Deployment with `--subresource=[subresource-name]` flag:
+-->
+现在用 `--subresource=[subresource-name]` 标志修补此 Deployment：
+
+```shell
+kubectl patch deployment nginx-deployment --subresource='scale' --type='merge' -p '{"spec":{"replicas":3}}'
+```
+
+<!--
+The output is:
+-->
+输出为：
+
+```shell
+scale.autoscaling/nginx-deployment patched
+```
+
+<!--
+View the Pods associated with your patched Deployment:
+-->
+查看与你所修补的 Deployment 关联的 Pod：
+
+```shell
+kubectl get pods -l app=nginx
+```
+
+<!--
+In the output, you can see one new pod is created, so now you have 3 running pods.
+-->
+在输出中，你可以看到一个新的 Pod 被创建，因此现在你有 3 个正在运行的 Pod。
+
+```
+NAME                                READY   STATUS    RESTARTS   AGE
+nginx-deployment-7fb96c846b-22567   1/1     Running   0          107s
+nginx-deployment-7fb96c846b-lxfr2   1/1     Running   0          14s
+nginx-deployment-7fb96c846b-mlgns   1/1     Running   0          107s
+```
+
+<!--
+View the patched Deployment:
+-->
+查看所修补的 Deployment：
+
+```shell
+kubectl get deployment nginx-deployment -o yaml
+```
+
+```yaml
+...
+spec:
+  replicas: 3
+  ...
+status:
+  ...
+  availableReplicas: 3
+  readyReplicas: 3
+  replicas: 3
+```
+
+{{< note >}}
+<!--
+If you run `kubectl patch` and specify `--subresource` flag for resource that doesn't support that
+particular subresource, the API server returns a 404 Not Found error.
+-->
+如果你运行 `kubectl patch` 并指定 `--subresource` 标志时，所针对的是不支持特定子资源的资源，
+则 API 服务器会返回一个 404 Not Found 错误。
+{{< /note >}}
 
 <!--
 ## Summary

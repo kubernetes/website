@@ -116,11 +116,11 @@ If none are enabled, you can skip creating Pod Disruption Budgets.
 咨询集群管理员或联系云提供商，或者查询发布文档，以确定是否为集群启用了任何资源干扰源。
 如果没有启用，可以不用创建 Pod Disruption Budgets（Pod 干扰预算）
 
+{{< caution >}}
 <!--
 Not all voluntary disruptions are constrained by Pod Disruption Budgets. For example,
 deleting deployments or pods bypasses Pod Disruption Budgets.
 -->
-{{< caution >}}
 并非所有的自愿干扰都会受到 Pod 干扰预算的限制。
 例如，删除 Deployment 或 Pod 的删除操作就会跳过 Pod 干扰预算检查。
 {{< /caution >}}
@@ -172,14 +172,6 @@ in your pod spec can also cause voluntary (and involuntary) disruptions.
 有些配置选项，例如在 pod spec 中
 [使用 PriorityClasses](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 也会产生自愿（和非自愿）的干扰。
-
-<!--
-Kubernetes offers features to help run highly available applications at the same
-time as frequent voluntary disruptions.  We call this set of features
-*Disruption Budgets*.
--->
-Kubernetes 提供特性来满足在出现频繁自愿干扰的同时运行高可用的应用。我们称这些特性为
-**干扰预算（Disruption Budget）**。
 
 <!--
 ## Pod disruption budgets
@@ -242,7 +234,7 @@ PDB 指定应用可以容忍的副本数量（相当于应该有多少副本）�
 The group of pods that comprise the application is specified using a label selector, the same
 as the one used by the application's controller (deployment, stateful-set, etc).
 -->
-使用标签选择器来指定构成应用的一组 Pod，这与应用的控制器（Deployment，StatefulSet 等）
+使用标签选择器来指定构成应用的一组 Pod，这与应用的控制器（Deployment、StatefulSet 等）
 选择 Pod 的逻辑一样。
 
 <!--
@@ -275,8 +267,7 @@ during application updates is configured in the spec for the specific workload r
 
 <!--
 When a pod is evicted using the eviction API, it is gracefully
-[terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination),
-hornoring the
+[terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination), honoring the
 `terminationGracePeriodSeconds` setting in its [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 -->
 当使用驱逐 API 驱逐 Pod 时，Pod 会被体面地
@@ -286,6 +277,7 @@ hornoring the
 
 <!--
 ## PodDisruptionBudget example {#pdb-example}
+
 Consider a cluster with 3 nodes, `node-1` through `node-3`.
 The cluster is running several applications.  One of them has 3 replicas initially called
 `pod-a`, `pod-b`, and `pod-c`.  Another, unrelated pod without a PDB, called `pod-x`, is also shown.
@@ -435,19 +427,27 @@ can happen, according to:
 - 集群的资源能力
 
 <!-- 
-## Pod disruption conditions {#pod-disruption-conditions} 
+## Pod disruption conditions {#pod-disruption-conditions}
 -->
 ## Pod 干扰状况 {#pod-disruption-conditions}
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+
+{{< note >}}
+<!--
+If you are using an older version of Kubernetes than {{< skew currentVersion >}}
+please refer to the corresponding version of the documentation.
+-->
+如果你正使用的 Kubernetes 版本早于 {{< skew currentVersion >}}，请参阅对应版本的文档。
+{{< /note >}}
 
 {{< note >}}
 <!-- 
-In order to use this behavior, you must enable the `PodDisruptionsCondition`
+In order to use this behavior, you must have the `PodDisruptionConditions`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-in your cluster. 
+enabled in your cluster.
 -->
-要使用此行为，你必须在集群中启用 `PodDisruptionsCondition`
+要使用此行为，你必须在集群中启用 `PodDisruptionConditions`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 {{< /note >}}
 
@@ -455,7 +455,7 @@ in your cluster.
 When enabled, a dedicated Pod `DisruptionTarget` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions) is added to indicate
 that the Pod is about to be deleted due to a {{<glossary_tooltip term_id="disruption" text="disruption">}}.
 The `reason` field of the condition additionally
-indicates one of the following reasons for the Pod termination: 
+indicates one of the following reasons for the Pod termination:
 -->
 启用后，会给 Pod 添加一个 `DisruptionTarget`
 [状况](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)，
@@ -495,6 +495,15 @@ Taint Manager（`kube-controller-manager` 中节点生命周期控制器的一�
 : 绑定到一个不再存在的 Node 上的 Pod 将被
 [Pod 垃圾收集](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)删除。
 
+<!--
+`TerminationByKubelet`
+: Pod has been terminated by the kubelet, because of either {{<glossary_tooltip term_id="node-pressure-eviction" text="node pressure eviction">}} or the [graceful node shutdown](/docs/concepts/architecture/nodes/#graceful-node-shutdown).
+-->
+`TerminationByKubelet`
+: Pod
+  由于{{<glossary_tooltip term_id="node-pressure-eviction" text="节点压力驱逐">}}或[节点体面关闭](/zh-cn/docs/concepts/architecture/nodes/#graceful-node-shutdown)而被
+  kubelet 终止。
+
 {{< note >}}
 <!-- 
 A Pod disruption might be interrupted. The control plane might re-attempt to
@@ -508,6 +517,15 @@ Pod 的干扰可能会被中断。控制平面可能会重新尝试继续干扰�
 但该 Pod 实际上可能不会被删除。
 在这种情况下，一段时间后，Pod 干扰状况将被清除。
 {{< /note >}}
+
+<!--
+When the `PodDisruptionConditions` feature gate is enabled,
+along with cleaning up the pods, the Pod garbage collector (PodGC) will also mark them as failed if they are in a non-terminal
+phase (see also [Pod garbage collection](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)).
+-->
+当 `PodDisruptionConditions` 特性门控被启用时，在清理 Pod 的同时，如果这些 Pod 处于非终止阶段，
+则 Pod 垃圾回收器 (PodGC) 也会将这些 Pod 标记为失效
+（另见 [Pod 垃圾回收](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)）。
 
 <!-- 
 When using a Job (or CronJob), you may want to use these Pod disruption conditions as part of your Job's
@@ -571,26 +589,30 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
      disruptions largely overlaps with work to support autoscaling and tolerating
      involuntary disruptions.
 -->
-
 - 接受升级期间的停机时间。
 - 故障转移到另一个完整的副本集群。
-   -  没有停机时间，但是对于重复的节点和人工协调成本可能是昂贵的。
+  - 没有停机时间，但是对于重复的节点和人工协调成本可能是昂贵的。
 - 编写可容忍干扰的应用和使用 PDB。
-   - 不停机。
-   - 最小的资源重复。
-   - 允许更多的集群管理自动化。
-   - 编写可容忍干扰的应用是棘手的，但对于支持容忍自愿干扰所做的工作，和支持自动扩缩和容忍非
-     自愿干扰所做工作相比，有大量的重叠
+  - 不停机。
+  - 最小的资源重复。
+  - 允许更多的集群管理自动化。
+  - 编写可容忍干扰的应用是棘手的，但对于支持容忍自愿干扰所做的工作，和支持自动扩缩和容忍非
+    自愿干扰所做工作相比，有大量的重叠
 
 ## {{% heading "whatsnext" %}}
 
 <!--
 * Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application/configure-pdb/).
+
 * Learn more about [draining nodes](/docs/tasks/administer-cluster/safely-drain-node/)
+
 * Learn about [updating a deployment](/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
   including steps to maintain its availability during the rollout.
 -->
 * 参考[配置 Pod 干扰预算](/zh-cn/docs/tasks/run-application/configure-pdb/)中的方法来保护你的应用。
+
 * 进一步了解[排空节点](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)的信息。
+
 * 了解[更新 Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
   的过程，包括如何在其进程中维持应用的可用性
+

@@ -2,11 +2,9 @@
 title: 升级集群
 content_type: task
 ---
-<!-- 
----
+<!--
 title: Upgrade A Cluster
 content_type: task
----
 -->
 
 <!-- overview -->
@@ -180,3 +178,22 @@ Pod (unchanged), but with a revised `apiVersion`.
 `kubectl` 替换了 `pod.yaml` 的内容，
 在新的清单文件中，`kind` 被设置为 Pod（未变），
 但 `apiVersion` 则被修订了。
+
+<!--
+### Device Plugins
+
+If your cluster is running device plugins and the node needs to be upgraded to a Kubernetes
+release with a newer device plugin API version, device plugins must be upgraded to support
+both version before the node is upgraded in order to guarantee that device allocations
+continue to complete successfully during the upgrade.
+
+Refer to [API compatiblity](docs/concepts/extend-kubernetes/compute-storage-net/device-plugins.md/#api-compatibility) and [Kubelet Device Manager API Versions](docs/reference/node/device-plugin-api-versions.md) for more details.
+-->
+### 设备插件   {#device-plugins}
+
+如果你的集群正在运行设备插件（Device Plugins）并且节点需要升级到具有更新的设备插件（Device Plugins）
+API 版本的 Kubernetes 版本，则必须在升级节点之前升级设备插件以同时支持这两个插件 API 版本，
+以确保升级过程中设备分配能够继续成功完成。
+
+有关详细信息，请参阅 [API 兼容性](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins.md/#api-compatibility)和
+[kubelet 设备管理器 API 版本](/zh-cn/docs/reference/node/device-plugin-api-versions.md)。

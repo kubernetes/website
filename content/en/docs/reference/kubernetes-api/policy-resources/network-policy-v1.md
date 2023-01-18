@@ -87,15 +87,15 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
       IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
 
       <a name="IPBlock"></a>
-      *IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.*
+      *IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.*
 
       - **ingress.from.ipBlock.cidr** (string), required
 
-        CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
+        CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
 
       - **ingress.from.ipBlock.except** ([]string)
 
-        Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
+        Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
 
     - **ingress.from.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
@@ -150,15 +150,15 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
       IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
 
       <a name="IPBlock"></a>
-      *IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.*
+      *IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.*
 
       - **egress.to.ipBlock.cidr** (string), required
 
-        CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
+        CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
 
       - **egress.to.ipBlock.except** ([]string)
 
-        Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
+        Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
 
     - **egress.to.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 

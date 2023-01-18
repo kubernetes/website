@@ -2,7 +2,7 @@
 title: 代码贡献者（Code Contributor）
 id: code-contributor
 date: 2018-04-12
-full_link: /docs/community/devel/
+full_link: https://github.com/kubernetes/community/tree/master/contributors/devel
 short_description: >
   为 Kubernetes 开源代码库开发并贡献代码的人。
 
@@ -15,7 +15,7 @@ tags:
 title: Code Contributor
 id: code-contributor
 date: 2018-04-12
-full_link: /docs/community/devel/
+full_link: https://github.com/kubernetes/community/tree/master/contributors/devel
 short_description: >
   A person who develops and contributes code to the Kubernetes open source codebase.
 

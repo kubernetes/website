@@ -26,11 +26,9 @@ Kubernetes 为每个组件提供二进制文件以及一组标准的客户端应
 All Kubernetes container images are deployed to the
 `registry.k8s.io` container image registry.
 -->
-## 容器镜像
+## 容器镜像  {#container-images}
 
-所有 Kubernetes 容器镜像都部署到
-`registry.k8s.io` 容器镜像仓库。
-
+所有 Kubernetes 容器镜像都被部署到 `registry.k8s.io` 容器镜像仓库。
 
 {{< feature-state for_k8s_version="v1.24" state="alpha" >}}
 
@@ -114,11 +112,12 @@ you can verify integrity for is a container image, using the experimental
 signing support.
 
 To manually verify signed container images of Kubernetes core components, refer to
-[Verify Signed Container Images](/docs/tasks/administer-cluster/verify-signed-images).
+[Verify Signed Container Images](/docs/tasks/administer-cluster/verify-signed-artifacts).
 -->
 对于 Kubernetes v{{< skew currentVersion >}}，唯一可以验证完整性的代码工件就是容器镜像，它使用实验性签名支持。
 
-如需手动验证 Kubernetes 核心组件的签名容器镜像，请参考[验证签名容器镜像](/zh-cn/docs/tasks/administer-cluster/verify-signed-images)。
+如需手动验证 Kubernetes 核心组件的签名容器镜像，
+请参考[验证签名容器镜像](/zh-cn/docs/tasks/administer-cluster/verify-signed-artifacts)。
 
 <!-- 
 ## Binaries
@@ -127,7 +126,7 @@ Find links to download Kubernetes components (and their checksums) in the [CHANG
 
 Alternately, use [downloadkubernetes.com](https://www.downloadkubernetes.com/) to filter by version and architecture.
 -->
-## 二进制
+## 二进制  {#binaries}
 
 在 [CHANGELOG](https://github.com/kubernetes/kubernetes/tree/master/CHANGELOG) 文件中找到下载 Kubernetes 组件（及其校验和）的链接。
 

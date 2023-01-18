@@ -461,7 +461,7 @@ An example flow:
       order. If the order of shutdowns matters, consider using a `preStop` hook to synchronize.
       {{< /note >}}
 1. At the same time as the kubelet is starting graceful shutdown, the control plane removes that
-   shutting-down Pod from Endpoints (and, if enabled, EndpointSlice) objects where these represent
+   shutting-down Pod from EndpointSlice (and Endpoints) objects where these represent
    a {{< glossary_tooltip term_id="service" text="Service" >}} with a configured
    {{< glossary_tooltip text="selector" term_id="selector" >}}.
    {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}} and other workload resources
@@ -499,21 +499,35 @@ removes the Pod in the API immediately so a new Pod can be created with the same
 name. On the node, Pods that are set to terminate immediately will still be given
 a small grace period before being force killed.
 
+{{< caution >}}
+Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+{{< /caution >}}
+
 If you need to force-delete Pods that are part of a StatefulSet, refer to the task
 documentation for
 [deleting Pods from a StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 
-### Garbage collection of terminated Pods {#pod-garbage-collection}
+### Garbage collection of Pods {#pod-garbage-collection}
 
 For failed Pods, the API objects remain in the cluster's API until a human or
 {{< glossary_tooltip term_id="controller" text="controller" >}} process
 explicitly removes them.
 
-The control plane cleans up terminated Pods (with a phase of `Succeeded` or
+The Pod garbage collector (PodGC), which is a controller in the control plane, cleans up terminated Pods (with a phase of `Succeeded` or
 `Failed`), when the number of Pods exceeds the configured threshold
 (determined by `terminated-pod-gc-threshold` in the kube-controller-manager).
 This avoids a resource leak as Pods are created and terminated over time.
 
+Additionally, PodGC cleans up any Pods which satisfy any of the following conditions:
+1. are orphan pods - bound to a node which no longer exists,
+2. are unscheduled terminating pods,
+3. are terminating pods, bound to a non-ready node tainted with [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service), when the `NodeOutOfServiceVolumeDetach` feature gate is enabled.
+
+When the `PodDisruptionConditions` feature gate is enabled, along with
+cleaning up the pods, PodGC will also mark them as failed if they are in a non-terminal
+phase. Also, PodGC adds a pod disruption condition when cleaning up an orphan
+pod (see also:
+[Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)).
 
 ## {{% heading "whatsnext" %}}
 

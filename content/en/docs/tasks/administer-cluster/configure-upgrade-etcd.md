@@ -5,6 +5,7 @@ reviewers:
 - jpbetz
 title: Operating etcd clusters for Kubernetes
 content_type: task
+weight: 270
 ---
 
 <!-- overview -->
@@ -345,7 +346,12 @@ ETCDCTL_API=3 etcdctl --endpoints 10.2.0.9:2379 snapshot restore snapshotdb
 ```
 Another example for restoring using etcdctl options:
 ```shell
-ETCDCTL_API=3 etcdctl --data-dir <data-dir-location> snapshot restore snapshotdb
+ETCDCTL_API=3 etcdctl snapshot restore --data-dir <data-dir-location> snapshotdb
+```
+Yet another example would be to first export the environment variable
+```shell
+export ETCDCTL_API=3
+etcdctl snapshot restore --data-dir <data-dir-location> snapshotdb
 ```
 
 For more information and examples on restoring a cluster from a snapshot file, see

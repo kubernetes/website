@@ -127,11 +127,11 @@ Let's create two new namespaces to hold our work.
 让我们创建两个新的名字空间来保存我们的工作。
 
 <!--
-Use the file [`namespace-dev.json`](/examples/admin/namespace-dev.json) which describes a `development` namespace:
+Use the file [`namespace-dev.yaml`](/examples/admin/namespace-dev.yaml) which describes a `development` namespace:
 -->
-文件 [`namespace-dev.json`](/examples/admin/namespace-dev.json) 描述了 `development` 名字空间:
+文件 [`namespace-dev.yaml`](/examples/admin/namespace-dev.yaml) 描述了 `development` 名字空间:
 
-{{< codenew language="json" file="admin/namespace-dev.json" >}}
+{{< codenew language="yaml" file="admin/namespace-dev.yaml" >}}
 
 <!--
 Create the `development` namespace using kubectl.
@@ -140,16 +140,16 @@ Create the `development` namespace using kubectl.
 使用 kubectl 创建 `development` 名字空间。
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/namespace-dev.json
+kubectl create -f https://k8s.io/examples/admin/namespace-dev.yaml
 ```
 
 <!--
-Save the following contents into file [`namespace-prod.json`](/examples/admin/namespace-prod.json) which describes a `production` namespace:
+Save the following contents into file [`namespace-prod.yaml`](/examples/admin/namespace-prod.yaml) which describes a `production` namespace:
 -->
-将下列的内容保存到文件 [`namespace-prod.json`](/examples/admin/namespace-prod.json) 中，
+将下列的内容保存到文件 [`namespace-prod.yaml`](/examples/admin/namespace-prod.yaml) 中，
 这些内容是对 `production` 名字空间的描述：
 
-{{< codenew language="json" file="admin/namespace-prod.json" >}}
+{{< codenew language="yaml" file="admin/namespace-prod.yaml" >}}
 
 <!--
 And then let's create the `production` namespace using kubectl.
@@ -157,7 +157,7 @@ And then let's create the `production` namespace using kubectl.
 让我们使用 kubectl 创建 `production` 名字空间。
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/namespace-prod.json
+kubectl create -f https://k8s.io/examples/admin/namespace-prod.yaml
 ```
 
 <!--
@@ -397,7 +397,7 @@ Production likes to run cattle, so let's create some cattle pods.
 生产环境需要以放牛的方式运维，让我们创建一些名为 `cattle` 的 Pod。
 
 ```shell
-kubectl create deployment cattle --image=k8s.gcr.io/serve_hostname --replicas=5
+kubectl create deployment cattle --image=registry.k8s.io/serve_hostname --replicas=5
 kubectl get deployment
 ```
 

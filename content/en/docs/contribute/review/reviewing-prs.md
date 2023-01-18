@@ -124,6 +124,18 @@ When reviewing, use the following as a starting point.
 ### Language and grammar
 
 - Are there any obvious errors in language or grammar? Is there a better way to phrase something?
+  - Focus on the language and grammar of the parts of the page that the author is changing.
+     Unless the author is clearly aiming to update the entire page, they have no obligation to
+     fix every issue on the page.
+  - When a PR updates an existing page, you should focus on reviewing the parts of
+    the page that are being updated. That changed content should be reviewed for technical
+    and editorial correctness.
+    If you find errors on the page that don't directly relate to what the PR author
+    is attempting to address, then it should be treated as a separate issue (check
+    that there isn't an existing issue about this first).
+  - Watch out for pull requests that _move_ content. If an author renames a page
+    or combines two pages, we (Kubernetes SIG Docs) usually avoid asking that author to fix every grammar or spelling nit
+    that we could spot within that moved content.
 - Are there any complicated or archaic words which could be replaced with a simpler word?
 - Are there any words, terms or phrases in use which could be replaced with a non-discriminatory alternative?
 - Does the word choice and its capitalization follow the [style guide](/docs/contribute/style/style-guide/)?
@@ -153,6 +165,21 @@ When reviewing, use the following as a starting point.
 
 ### Other
 
-For small issues with a PR, like typos or whitespace, prefix your comments with `nit:`.
-This lets the author know the issue is non-critical.
+- Watch out for [trivial edits](https://www.kubernetes.dev/docs/guide/pull-requests/#trivial-edits);
+  if you see a change that you think is a trivial edit, please point out that policy
+  (it's still OK to accept the change if it is genuinely an improvement).
+- Encourage authors who are making whitespace fixes to do
+  so in the first commit of their PR, and then add other changes on top of that. This
+  makes both merges and reviews easier. Watch out especially for a trivial change that
+  happens in a single commit along with a large amount of whitespace cleanup
+  (and if you see that, encourage the author to fix it).
 
+As a reviewer, if you identify small issues with a PR that aren't essential to the meaning,
+such as typos or incorrect whitespace, prefix your comments with `nit:`.
+This lets the author know that this part of your feedback is non-critical.
+
+If you are considering a pull request for approval and all the remaining feedback is
+marked as a nit, you can merge the PR anyway. In that case, it's often useful to open
+an issue about the remaining nits. Consider whether you're able to meet the requirements
+for marking that new issue as a [Good First Issue](https://www.kubernetes.dev/docs/guide/help-wanted/#good-first-issue);
+if you can, these are a good source.

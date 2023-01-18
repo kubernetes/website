@@ -56,7 +56,7 @@ go get -u github.com/kubernetes/kompose
 {{% tab name="CentOS package" %}}
 
 Kompose is in [EPEL](https://fedoraproject.org/wiki/EPEL) CentOS repository.
-If you don't have [EPEL](https://fedoraproject.org/wiki/EPEL) repository already installed and enabled you can do it by running  `sudo yum install epel-release`
+If you don't have [EPEL](https://fedoraproject.org/wiki/EPEL) repository already installed and enabled you can do it by running `sudo yum install epel-release`.
 
 If you have [EPEL](https://fedoraproject.org/wiki/EPEL) enabled in your system, you can install Kompose like any other package.
 
@@ -76,7 +76,7 @@ sudo dnf -y install kompose
 {{% /tab %}}
 {{% tab name="Homebrew (macOS)" %}}
 
-On macOS you can install latest release via [Homebrew](https://brew.sh):
+On macOS you can install the latest release via [Homebrew](https://brew.sh):
 
 ```bash
 brew install kompose
@@ -281,7 +281,7 @@ frontend-service.yaml     mongodb-deployment.yaml                    redis-slave
 redis-master-deployment.yaml
 ```
 
-When multiple docker-compose files are provided the configuration is merged. Any configuration that is common will be over ridden by subsequent file.
+When multiple docker-compose files are provided the configuration is merged. Any configuration that is common will be overridden by subsequent file.
 
 ### OpenShift `kompose convert` example
 
@@ -347,7 +347,7 @@ INFO Kubernetes file "redis-replicationcontroller.yaml" created
 INFO Kubernetes file "web-replicationcontroller.yaml" created
 ```
 
-The `*-replicationcontroller.yaml` files contain the Replication Controller objects. If you want to specify replicas (default is 1), use `--replicas` flag: `kompose convert --replication-controller --replicas 3`
+The `*-replicationcontroller.yaml` files contain the Replication Controller objects. If you want to specify replicas (default is 1), use `--replicas` flag: `kompose convert --replication-controller --replicas 3`.
 
 ```shell
 kompose convert --daemon-set
@@ -357,7 +357,7 @@ INFO Kubernetes file "redis-daemonset.yaml" created
 INFO Kubernetes file "web-daemonset.yaml" created
 ```
 
-The `*-daemonset.yaml` files contain the DaemonSet objects
+The `*-daemonset.yaml` files contain the DaemonSet objects.
 
 If you want to generate a Chart to be used with [Helm](https://github.com/kubernetes/helm) run:
 
@@ -396,44 +396,44 @@ The chart structure is aimed at providing a skeleton for building your Helm char
 
 - `kompose.service.type` defines the type of service to be created.
 
-For example:
+  For example:
 
-```yaml
-version: "2"
-services:
-  nginx:
-    image: nginx
-    dockerfile: foobar
-    build: ./foobar
-    cap_add:
-      - ALL
-    container_name: foobar
-    labels:
-      kompose.service.type: nodeport
-```
+  ```yaml
+  version: "2"
+  services:
+    nginx:
+      image: nginx
+      dockerfile: foobar
+      build: ./foobar
+      cap_add:
+        - ALL
+      container_name: foobar
+      labels:
+        kompose.service.type: nodeport
+  ```
 
 - `kompose.service.expose` defines if the service needs to be made accessible from outside the cluster or not. If the value is set to "true", the provider sets the endpoint automatically, and for any other value, the value is set as the hostname. If multiple ports are defined in a service, the first one is chosen to be the exposed.
   - For the Kubernetes provider, an ingress resource is created and it is assumed that an ingress controller has already been configured.
   - For the OpenShift provider, a route is created.
 
-For example:
+  For example:
 
-```yaml
-version: "2"
-services:
-  web:
-    image: tuna/docker-counter23
-    ports:
-     - "5000:5000"
-    links:
-     - redis
-    labels:
-      kompose.service.expose: "counter.example.com"
-  redis:
-    image: redis:3.0
-    ports:
-     - "6379"
-```
+  ```yaml
+  version: "2"
+  services:
+    web:
+      image: tuna/docker-counter23
+      ports:
+      - "5000:5000"
+      links:
+      - redis
+      labels:
+        kompose.service.expose: "counter.example.com"
+    redis:
+      image: redis:3.0
+      ports:
+      - "6379"
+  ```
 
 The currently supported options are:
 
@@ -477,7 +477,7 @@ services:
 
 If the Docker Compose file has a volume specified for a service, the Deployment (Kubernetes) or DeploymentConfig (OpenShift) strategy is changed to "Recreate" instead of "RollingUpdate" (default). This is done to avoid multiple instances of a service from accessing a volume at the same time.
 
-If the Docker Compose file has service name with `_` in it (eg.`web_service`), then it will be replaced by `-` and the service name will be renamed accordingly (eg.`web-service`). Kompose does this because "Kubernetes" doesn't allow `_` in object name.
+If the Docker Compose file has service name with `_` in it (for example, `web_service`), then it will be replaced by `-` and the service name will be renamed accordingly (for example, `web-service`). Kompose does this because "Kubernetes" doesn't allow `_` in object name.
 
 Please note that changing service name might break some `docker-compose` files.
 

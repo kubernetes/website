@@ -1,6 +1,7 @@
 ---
 title: Downward API
 content_type: concept
+weight: 170
 description: >
   有两种方法可以将 Pod 和容器字段暴露给运行中的容器：环境变量和由特殊卷类型承载的文件。
   这两种暴露 Pod 和容器字段的方法统称为 Downward API。
@@ -8,6 +9,7 @@ description: >
 <!--
 title: Downward API
 content_type: concept
+weight: 170
 description: >
   There are two ways to expose Pod and container fields to a running container:
   environment variables, and as files that are populated by a special volume type.
@@ -39,12 +41,12 @@ inject the Pod's name into the well-known environment variable.
 <!--
 In Kubernetes, there are two ways to expose Pod and container fields to a running container:
 
-* as [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/#the-downward-api)
+* as [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 * as [files in a `downwardAPI` volume](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
 -->
 在 Kubernetes 中，有两种方法可以将 Pod 和容器字段暴露给运行中的容器：
 
-* 作为[环境变量](/zh-cn/docs/tasks/inject-data-application/environment-variable-expose-pod-information/#the-downward-api)
+* 作为[环境变量](/zh-cn/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 * 作为 [`downwardAPI` 卷中的文件](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
 
 <!--
@@ -260,11 +262,11 @@ calculation.
 You can read about [`downwardAPI` volumes](/docs/concepts/storage/volumes/#downwardapi).
 
 You can try using the downward API to expose container- or Pod-level information:
-* as [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/#the-downward-api)
+* as [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 * as [files in `downwardAPI` volume](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
 -->
 你可以阅读有关 [`downwardAPI` 卷](/zh-cn/docs/concepts/storage/volumes/#downwardapi)的内容。
 
 你可以尝试使用 Downward API 暴露容器或 Pod 级别的信息：
-* 作为[环境变量](/zh-cn/docs/tasks/inject-data-application/environment-variable-expose-pod-information/#the-downward-api)
+* 作为[环境变量](/zh-cn/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 * 作为 [`downwardAPI` 卷中的文件](/zh-cn/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)

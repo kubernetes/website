@@ -1,7 +1,7 @@
 ---
-title: 对象名称和 IDs
+title: 对象名称和 ID
 content_type: concept
-weight: 20
+weight: 30
 ---
 <!--
 reviewers:
@@ -9,7 +9,7 @@ reviewers:
 - thockin
 title: Object Names and IDs
 content_type: concept
-weight: 20
+weight: 30
 -->
 
 <!-- overview -->
@@ -21,12 +21,12 @@ Every Kubernetes object also has a [_UID_](#uids) that is unique across your who
 For example, you can only have one Pod named `myapp-1234` within the same [namespace](/docs/concepts/overview/working-with-objects/namespaces/), but you can have one Pod and one Deployment that are each named `myapp-1234`.
 -->
 
-集群中的每一个对象都有一个[**名称**]（#names）来标识在同类资源中的唯一性。
+集群中的每一个对象都有一个[**名称**](#names)来标识在同类资源中的唯一性。
 
-每个 Kubernetes 对象也有一个 [**UID**]（#uids）来标识在整个集群中的唯一性。
+每个 Kubernetes 对象也有一个 [**UID**](#uids) 来标识在整个集群中的唯一性。
 
 比如，在同一个[名字空间](/zh-cn/docs/concepts/overview/working-with-objects/namespaces/)
-中有一个名为 `myapp-1234` 的 Pod，但是可以命名一个 Pod 和一个 Deployment 同为 `myapp-1234`。
+中只能有一个名为 `myapp-1234` 的 Pod，但是可以命名一个 Pod 和一个 Deployment 同为 `myapp-1234`。
 
 <!--
 For non-unique user-provided attributes, Kubernetes provides [labels](/docs/concepts/overview/working-with-objects/labels/) and [annotations](/docs/concepts/overview/working-with-objects/annotations/).
@@ -164,7 +164,7 @@ Some resource types have additional restrictions on their names.
 某些资源类型可能具有额外的命名约束。
 {{< /note >}}
 
-## UIDs
+## UID
 
 {{< glossary_definition term_id="uid" length="all" >}}
 
@@ -172,14 +172,14 @@ Some resource types have additional restrictions on their names.
 Kubernetes UIDs are universally unique identifiers (also known as UUIDs).
 UUIDs are standardized as ISO/IEC 9834-8 and as ITU-T X.667.
 -->
-Kubernetes UID 是全局唯一标识符（也叫 UUIDs）。
-UUIDs 是标准化的，见 ISO/IEC 9834-8 和 ITU-T X.667。
+Kubernetes UID 是全局唯一标识符（也叫 UUID）。
+UUID 是标准化的，见 ISO/IEC 9834-8 和 ITU-T X.667。
 
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Read about [labels](/docs/concepts/overview/working-with-objects/labels/) in Kubernetes.
+* Read about [labels](/docs/concepts/overview/working-with-objects/labels/) and [annotations](/docs/concepts/overview/working-with-objects/annotations/) in Kubernetes.
 * See the [Identifiers and Names in Kubernetes](https://git.k8s.io/design-proposals-archive/architecture/identifiers.md) design document.
 -->
-* 进一步了解 Kubernetes [标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)
+* 进一步了解 Kubernetes [标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)和[注解](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)。
 * 参阅 [Kubernetes 标识符和名称](https://git.k8s.io/design-proposals-archive/architecture/identifiers.md)的设计文档

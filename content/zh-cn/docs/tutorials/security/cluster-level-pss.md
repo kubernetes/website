@@ -10,7 +10,9 @@ weight: 10
 -->
 
 {{% alert title="Note" %}}
-<!-- This tutorial applies only for new clusters. -->
+<!--
+This tutorial applies only for new clusters.
+-->
 本教程仅适用于新集群。
 {{% /alert %}}
 
@@ -24,35 +26,36 @@ created. This tutorial shows you how to enforce the `baseline` Pod Security
 Standard at the cluster level which applies a standard configuration
 to all namespaces in a cluster.
 
-To apply Pod Security Standards to specific namespaces, refer to [Apply Pod Security Standards at the namespace level](/docs/tutorials/security/ns-level-pss).
+To apply Pod Security Standards to specific namespaces, refer to
+[Apply Pod Security Standards at the namespace level](/docs/tutorials/security/ns-level-pss).
 
 If you are running a version of Kubernetes other than v{{< skew currentVersion >}},
 check the documentation for that version.
 -->
 Pod 安全准入（PSA）在 v1.23 及更高版本默认启用，
-因为它[升级到测试版（beta）](/blog/2021/12/09/pod-security-admission-beta/)。
+因为它已[进阶为 Beta](/blog/2021/12/09/pod-security-admission-beta/)。
 Pod 安全准入是在创建 Pod 时应用
 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)的准入控制器。
 本教程将向你展示如何在集群级别实施 `baseline` Pod 安全标准，
-该标准将标准配置应用于集群中的所有名称空间。
+该标准将标准配置应用于集群中的所有名字空间。
 
 要将 Pod 安全标准应用于特定名字空间，
 请参阅[在名字空间级别应用 Pod 安全标准](/zh-cn/docs/tutorials/security/ns-level-pss)。
 
 如果你正在运行 v{{< skew currentVersion >}} 以外的 Kubernetes 版本，
-检查该版本的文档。
+请查阅该版本的文档。
 
 ## {{% heading "prerequisites" %}}
 <!-- 
 Install the following on your workstation:
 
 - [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [kubectl](/docs/tasks/tools/)
 -->
 在你的工作站中安装以下内容：
 
 - [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [kubectl](/zh-cn/docs/tasks/tools/)
 
 <!--
 ## Choose the right Pod Security Standard to apply
@@ -68,14 +71,14 @@ that are most appropriate for your configuration, do the following:
 
 [Pod 安全准入](/zh-cn/docs/concepts/security/pod-security-admission/)
 允许你使用以下模式应用内置的
-[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/):
+[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)：
 `enforce`、`audit` 和 `warn`。
 
 要收集信息以便选择最适合你的配置的 Pod 安全标准，请执行以下操作：
 
 <!-- 
 1. Create a cluster with no Pod Security Standards applied:
- -->
+-->
 1. 创建一个没有应用 Pod 安全标准的集群：
 
    ```shell
@@ -97,7 +100,6 @@ that are most appropriate for your configuration, do the following:
    kubectl cluster-info --context kind-psa-wo-cluster-pss
    
    Thanks for using kind! 😊
-   
    ```
 
 <!-- 
@@ -110,11 +112,11 @@ that are most appropriate for your configuration, do the following:
    ```
    <!-- The output is similar to this: -->
    输出类似于：
-
    ```
-   Kubernetes control plane is running at https://127.0.0.1:61350 
+   Kubernetes control plane is running at https://127.0.0.1:61350
+
    CoreDNS is running at https://127.0.0.1:61350/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
-   
+    
    To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
    ```
 
@@ -140,7 +142,7 @@ that are most appropriate for your configuration, do the following:
 <!-- 
 1. Use `--dry-run=server` to understand what happens when different Pod Security Standards
    are applied:
- -->
+-->
 4. 使用 `--dry-run=server` 来了解应用不同的 Pod 安全标准时会发生什么：
 
    1. Privileged
@@ -158,7 +160,7 @@ that are most appropriate for your configuration, do the following:
        namespace/local-path-storage labeled
        ```
    2. Baseline
-      ```shell    
+      ```shell
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=baseline
       ```
@@ -174,7 +176,7 @@ that are most appropriate for your configuration, do the following:
       Warning: kube-proxy-m6hwf: host namespaces, hostPath volumes, privileged
       namespace/kube-system labeled
       namespace/local-path-storage labeled
-      ```   
+      ```
 
    3. Restricted
       ```shell
@@ -264,7 +266,7 @@ following:
    plugins:
    - name: PodSecurity
      configuration:
-       apiVersion: pod-security.admission.config.k8s.io/v1beta1
+       apiVersion: pod-security.admission.config.k8s.io/v1
        kind: PodSecurityConfiguration
        defaults:
          enforce: "baseline"
@@ -279,6 +281,17 @@ following:
          namespaces: [kube-system]
    EOF
    ```
+
+   {{< note >}}
+   <!--
+   `pod-security.admission.config.k8s.io/v1` configuration requires v1.25+.
+   For v1.23 and v1.24, use [v1beta1](https://v1-24.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
+   For v1.22, use [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
+   -->
+   `pod-security.admission.config.k8s.io/v1` 配置需要 v1.25+。
+   对于 v1.23 和 v1.24，使用 [v1beta1](https://v1-24.docs.kubernetes.io/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)。
+   对于 v1.22，使用 [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)。
+   {{< /note >}}
 
 <!-- 
 1. Configure the API server to consume this file during cluster creation:
@@ -428,7 +441,7 @@ created.
   [shell script](/examples/security/kind-with-cluster-level-baseline-pod-security.sh)
   to perform all the preceding steps at once:
   1. Create a Pod Security Standards based cluster level Configuration
-  2. Create a file to let API server consumes this configuration
+  2. Create a file to let API server consume this configuration
   3. Create a cluster that creates an API server with this configuration
   4. Set kubectl context to this new cluster
   5. Create a minimal pod yaml file

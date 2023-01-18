@@ -27,7 +27,7 @@ control, available resources, and expertise required to operate and manage a clu
 You can [download Kubernetes](/releases/download/) to deploy a Kubernetes cluster
 on a local machine, into the cloud, or for your own datacenter.
 
-Several [Kubernetes components](/docs/concepts/overview/components/) such as `kube-apiserver` or `kube-proxy` can also be
+Several [Kubernetes components](/docs/concepts/overview/components/) such as {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}} or {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}} can also be
 deployed as [container images](/releases/download/#container-images) within the cluster.
 
 It is **recommended** to run Kubernetes components as container images wherever

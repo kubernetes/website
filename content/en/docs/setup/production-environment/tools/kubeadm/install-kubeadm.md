@@ -12,21 +12,21 @@ card:
 
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
 This page shows how to install the `kubeadm` toolbox.
-For information on how to create a cluster with kubeadm once you have performed this installation process, see the [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
+For information on how to create a cluster with kubeadm once you have performed this installation process,
+see the [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
 
 
 ## {{% heading "prerequisites" %}}
 
 
-* A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions based on Debian and Red Hat, and those distributions without a package manager.
+* A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions
+  based on Debian and Red Hat, and those distributions without a package manager.
 * 2 GB or more of RAM per machine (any less will leave little room for your apps).
 * 2 CPUs or more.
 * Full network connectivity between all machines in the cluster (public or private network is fine).
 * Unique hostname, MAC address, and product_uuid for every node. See [here](#verify-mac-address) for more details.
 * Certain ports are open on your machines. See [here](#check-required-ports) for more details.
 * Swap disabled. You **MUST** disable swap in order for the kubelet to work properly.
-
-
 
 <!-- steps -->
 
@@ -46,9 +46,9 @@ If you have more than one network adapter, and your Kubernetes components are no
 route, we recommend you add IP route(s) so Kubernetes cluster addresses go via the appropriate adapter.
 
 ## Check required ports
-These
-[required ports](/docs/reference/ports-and-protocols/)
-need to be open in order for Kubernetes components to communicate with each other. You can use tools like netcat to check if a port is open. For example:
+These [required ports](/docs/reference/networking/ports-and-protocols/)
+need to be open in order for Kubernetes components to communicate with each other.
+You can use tools like netcat to check if a port is open. For example:
 
 ```shell
 nc 127.0.0.1 6443
@@ -156,13 +156,13 @@ For more information on version skews, see:
 2. Download the Google Cloud public signing key:
 
    ```shell
-   sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
    ```
 
 3. Add the Kubernetes `apt` repository:
 
    ```shell
-   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
 4. Update `apt` package index, install kubelet, kubeadm and kubectl, and pin their version:
@@ -172,6 +172,10 @@ For more information on version skews, see:
    sudo apt-get install -y kubelet kubeadm kubectl
    sudo apt-mark hold kubelet kubeadm kubectl
    ```
+{{< note >}}
+In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default.
+You can create this directory if you need to, making it world-readable but writeable only by admins.
+{{< /note >}}
 
 {{% /tab %}}
 {{% tab name="Red Hat-based distributions" %}}
@@ -182,7 +186,7 @@ name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
 enabled=1
 gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 exclude=kubelet kubeadm kubectl
 EOF
 
@@ -245,14 +249,16 @@ Install `kubeadm`, `kubelet`, `kubectl` and add a `kubelet` systemd service:
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
 ARCH="amd64"
 cd $DOWNLOAD_DIR
-sudo curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet,kubectl}
-sudo chmod +x {kubeadm,kubelet,kubectl}
+sudo curl -L --remote-name-all https://dl.k8s.io/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet}
+sudo chmod +x {kubeadm,kubelet}
 
 RELEASE_VERSION="v0.4.0"
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service
 sudo mkdir -p /etc/systemd/system/kubelet.service.d
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
+
+Install `kubectl` by following the instructions on [Install Tools page](/docs/tasks/tools/#kubectl).
 
 Enable and start `kubelet`:
 

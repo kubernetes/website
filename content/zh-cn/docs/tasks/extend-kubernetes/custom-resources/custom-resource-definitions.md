@@ -1930,7 +1930,7 @@ Avoid nested lists and maps if possible where validation rules are used.
 <!--
 ### Defaulting
 -->
-### 设置默认值   {#efaulting}
+### 设置默认值   {#defaulting}
 
 {{< note >}}
 <!--
@@ -2128,7 +2128,7 @@ on custom resources. The published schema can be consumed for other purposes as 
 ### 以 OpenAPI v2 形式发布合法性检查模式      {#publish-validation-schema-in-openapi-v2}
 
 CustomResourceDefinition 的[结构化的](#specifying-a-structural-schema)、
-[启用了剪裁的](#preserving-unknown-fields) [OpenAPI v3 合法性检查模式](#validation)会在
+[启用了剪裁的](#field-pruning) [OpenAPI v3 合法性检查模式](#validation)会在
 Kubernetes API 服务器上作为
 [OpenAPI v2 规约](/zh-cn/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions)的一部分发布出来。
 

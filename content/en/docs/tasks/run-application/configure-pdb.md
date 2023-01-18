@@ -127,7 +127,7 @@ is the `scale` of the controller managing the pods being selected by the
 `PodDisruptionBudget`.
 
 Example 1: With a `minAvailable` of 5, evictions are allowed as long as they leave behind
-5 or more healthy pods among those selected by the PodDisruptionBudget's `selector`.
+5 or more [healthy](#healthiness-of-a-pod) pods among those selected by the PodDisruptionBudget's `selector`.
 
 Example 2: With a `minAvailable` of 30%, evictions are allowed as long as at least 30%
 of the number of desired replicas are healthy. 
@@ -228,6 +228,51 @@ status:
   expectedPods: 3
   observedGeneration: 1
 ```
+
+### Healthiness of a Pod
+
+The current implementation considers healthy pods, as pods that have `.status.conditions` item with `type="Ready"` and `status="True"`.
+These pods are tracked via `.status.currentHealthy` field in the PDB status.
+
+## Unhealthy Pod Eviction Policy
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+{{< note >}}
+In order to use this behavior, you must enable the `PDBUnhealthyPodEvictionPolicy`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/).
+{{< /note >}}
+
+PodDisruptionBudget guarding an application ensures that `.status.currentHealthy` number of pods
+does not fall below the number specified in `.status.desiredHealthy` by disallowing eviction of healthy pods.
+By using `.spec.unhealthyPodEvictionPolicy`, you can also define the criteria when unhealthy pods 
+should be considered for eviction. The default behavior when no policy is specified corresponds 
+to the `IfHealthyBudget` policy.
+
+Policies:
+
+`IfHealthyBudget`
+: Running pods (`.status.phase="Running"`), but not yet healthy can be evicted only if the guarded application is not
+disrupted (`.status.currentHealthy` is at least equal to `.status.desiredHealthy`).
+
+: This policy ensures that running pods of an already disrupted application have the best chance to become healthy.
+This has negative implications for draining nodes, which can be blocked by misbehaving applications that are guarded by a PDB.
+More specifically applications with pods in `CrashLoopBackOff` state (due to a bug or misconfiguration),
+or pods that are just failing to report the `Ready` condition.
+
+`AlwaysAllow`
+: Running pods (`.status.phase="Running"`), but not yet healthy are considered disrupted and can be evicted
+regardless of whether the criteria in a PDB is met.
+
+: This means prospective running pods of a disrupted application might not get a chance to become healthy.
+By using this policy, cluster managers can easily evict misbehaving applications that are guarded by a PDB.
+More specifically applications with pods in `CrashLoopBackOff` state (due to a bug or misconfiguration),
+or pods that are just failing to report the `Ready` condition.
+
+{{< note >}}
+Pods in `Pending`, `Succeeded` or `Failed` phase are always considered for eviction.
+{{< /note >}}
 
 ## Arbitrary Controllers and Selectors
 

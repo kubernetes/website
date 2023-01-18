@@ -30,17 +30,22 @@ Secrets are similar to {{< glossary_tooltip text="ConfigMaps" term_id="configmap
 but are specifically intended to hold confidential data.
 
 {{< caution >}}
-Kubernetes Secrets are, by default, stored unencrypted in the API server's underlying data store (etcd). Anyone with API access can retrieve or modify a Secret, and so can anyone with access to etcd.
-Additionally, anyone who is authorized to create a Pod in a namespace can use that access to read any Secret in that namespace; this includes indirect access such as the ability to create a Deployment.
+Kubernetes Secrets are, by default, stored unencrypted in the API server's underlying data store
+(etcd). Anyone with API access can retrieve or modify a Secret, and so can anyone with access to etcd.
+Additionally, anyone who is authorized to create a Pod in a namespace can use that access to read
+any Secret in that namespace; this includes indirect access such as the ability to create a
+Deployment.
 
 In order to safely use Secrets, take at least the following steps:
 
 1. [Enable Encryption at Rest](/docs/tasks/administer-cluster/encrypt-data/) for Secrets.
-1. [Enable or configure RBAC rules](/docs/reference/access-authn-authz/authorization/) that
-   restrict reading and writing the Secret. Be aware that secrets can be obtained
-   implicitly by anyone with the permission to create a Pod.
-1. Where appropriate, also use mechanisms such as RBAC to limit which principals are allowed
-   to create new Secrets or replace existing ones.
+1. [Enable or configure RBAC rules](/docs/reference/access-authn-authz/authorization/) with
+   least-privilege access to Secrets.
+1. Restrict Secret access to specific containers.
+1. [Consider using external Secret store providers](https://secrets-store-csi-driver.sigs.k8s.io/concepts.html#provider-for-the-secrets-store-csi-driver).
+
+For more guidelines to manage and improve the security of your Secrets, refer to
+[Good practices for Kubernetes Secrets](/docs/concepts/security/secrets-good-practices).
 
 {{< /caution >}}
 
@@ -96,9 +101,9 @@ the exact mechanisms for issuing and refreshing those session tokens.
 
 There are several options to create a Secret:
 
-- [create Secret using `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- [create Secret from config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
-- [create Secret using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- [Use `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- [Use a configuration file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- [Use the Kustomize tool](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 
 #### Constraints on Secret names and data {#restriction-names-data}
 
@@ -127,41 +132,18 @@ number of Secrets (or other resources) in a namespace.
 
 ### Editing a Secret
 
-You can edit an existing Secret using kubectl:
+You can edit an existing Secret unless it is [immutable](#secret-immutable). To
+edit a Secret, use one of the following methods:
 
-```shell
-kubectl edit secrets mysecret
-```
+*  [Use `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#edit-secret)
+*  [Use a configuration file](/docs/tasks/configmap-secret/managing-secret-using-config-file/#edit-secret)
 
-This opens your default editor and allows you to update the base64 encoded Secret
-values in the `data` field; for example:
+You can also edit the data in a Secret using the [Kustomize tool](/docs/tasks/configmap-secret/managing-secret-using-kustomize/#edit-secret). However, this
+method creates a new `Secret` object with the edited data.
 
-```yaml
-# Please edit the object below. Lines beginning with a '#' will be ignored,
-# and an empty file will abort the edit. If an error occurs while saving this file, it will be
-# reopened with the relevant failures.
-#
-apiVersion: v1
-data:
-  username: YWRtaW4=
-  password: MWYyZDFlMmU2N2Rm
-kind: Secret
-metadata:
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: { ... }
-  creationTimestamp: 2020-01-22T18:41:56Z
-  name: mysecret
-  namespace: default
-  resourceVersion: "164619"
-  uid: cfee02d6-c137-11e5-8d73-42010af00002
-type: Opaque
-```
-
-That example manifest defines a Secret with two keys in the `data` field: `username` and `password`.
-The values are Base64 strings in the manifest; however, when you use the Secret with a Pod
-then the kubelet provides the _decoded_ data to the Pod and its containers.
-
-You can package many keys and values into one Secret, or use many Secrets, whichever is convenient.
+Depending on how you created the Secret, as well as how the Secret is used in
+your Pods, updates to existing `Secret` objects are propagated automatically to
+Pods that use the data. For more information, refer to [Mounted Secrets are updated automatically](#mounted-secrets-are-updated-automatically).
 
 ### Using a Secret
 
@@ -174,7 +156,7 @@ systems on your behalf.
 
 Secret volume sources are validated to ensure that the specified object
 reference actually points to an object of type Secret. Therefore, a Secret
-needs to be created before any Pods that depend on it.  
+needs to be created before any Pods that depend on it.
 
 If the Secret cannot be fetched (perhaps because it does not exist, or
 due to a temporary lack of connection to the API server) the kubelet
@@ -202,9 +184,14 @@ the filesystem of one or more of the Pod's containers.
 To configure that, you:
 
 1. Create a secret or use an existing one. Multiple Pods can reference the same secret.
-1. Modify your Pod definition to add a volume under `.spec.volumes[]`. Name the volume anything, and have a `.spec.volumes[].secret.secretName` field equal to the name of the Secret object.
-1. Add a `.spec.containers[].volumeMounts[]` to each container that needs the secret. Specify `.spec.containers[].volumeMounts[].readOnly = true` and `.spec.containers[].volumeMounts[].mountPath` to an unused directory name where you would like the secrets to appear.
-1. Modify your image or command line so that the program looks for files in that directory. Each key in the secret `data` map becomes the filename under `mountPath`.
+1. Modify your Pod definition to add a volume under `.spec.volumes[]`. Name the volume anything,
+   and have a `.spec.volumes[].secret.secretName` field equal to the name of the Secret object.
+1. Add a `.spec.containers[].volumeMounts[]` to each container that needs the secret. Specify
+   `.spec.containers[].volumeMounts[].readOnly = true` and
+   `.spec.containers[].volumeMounts[].mountPath` to an unused directory name where you would like the
+   secrets to appear.
+1. Modify your image or command line so that the program looks for files in that directory. Each
+   key in the secret `data` map becomes the filename under `mountPath`.
 
 This is an example of a Pod that mounts a Secret named `mysecret` in a volume:
 
@@ -320,11 +307,10 @@ spec:
 The secret is mounted on `/etc/foo`; all the files created by the
 secret volume mount have permission `0400`.
 
-
 {{< note >}}
 If you're defining a Pod or a Pod template using JSON, beware that the JSON
 specification doesn't support octal notation. You can use the decimal value
-for the `defaultMode` (for example, 0400 in octal is 256 in decimal) instead.  
+for the `defaultMode` (for example, 0400 in octal is 256 in decimal) instead.
 If you're writing YAML, you can write the `defaultMode` in octal.
 {{< /note >}}
 
@@ -382,8 +368,10 @@ automated Secret updates.
 
 The kubelet keeps a cache of the current keys and values for the Secrets that are used in
 volumes for pods on that node.
-You can configure the way that the kubelet detects changes from the cached values. The `configMapAndSecretChangeDetectionStrategy` field in
-the [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/) controls which strategy the kubelet uses. The default strategy is `Watch`.
+You can configure the way that the kubelet detects changes from the cached values. The
+`configMapAndSecretChangeDetectionStrategy` field in the
+[kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/) controls
+which strategy the kubelet uses. The default strategy is `Watch`.
 
 Updates to Secrets can be either propagated by an API watch mechanism (the default), based on
 a cache with a defined time-to-live, or polled from the cluster API server on each kubelet
@@ -502,38 +490,31 @@ the kubelet on each node to authenticate to that repository. You can configure
 _image pull secrets_ to make this possible. These secrets are configured at the Pod
 level.
 
-The `imagePullSecrets` field for a Pod is a list of references to Secrets in the same namespace
-as the Pod.
-You can use an `imagePullSecrets` to pass image registry access credentials to
-the kubelet. The kubelet uses this information to pull a private image on behalf of your Pod.
-See `PodSpec` in the [Pod API reference](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
-for more information about the `imagePullSecrets` field.
-
 #### Using imagePullSecrets
 
 The `imagePullSecrets` field is a list of references to secrets in the same namespace.
 You can use an `imagePullSecrets` to pass a secret that contains a Docker (or other) image registry
 password to the kubelet. The kubelet uses this information to pull a private image on behalf of your Pod.
-See the [PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core) for more information about the `imagePullSecrets` field.
+See the [PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
+for more information about the `imagePullSecrets` field.
 
 ##### Manually specifying an imagePullSecret
 
-You can learn how to specify `imagePullSecrets` from the [container images](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)
+You can learn how to specify `imagePullSecrets` from the
+[container images](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod)
 documentation.
 
 ##### Arranging for imagePullSecrets to be automatically attached
 
-You can manually create `imagePullSecrets`, and reference these from
-a ServiceAccount. Any Pods created with that ServiceAccount
-or created with that ServiceAccount by default, will get their `imagePullSecrets`
-field set to that of the service account.
+You can manually create `imagePullSecrets`, and reference these from a ServiceAccount. Any Pods
+created with that ServiceAccount or created with that ServiceAccount by default, will get their
+`imagePullSecrets` field set to that of the service account.
 See [Add ImagePullSecrets to a service account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
- for a detailed explanation of that process.
+for a detailed explanation of that process.
 
 ### Using Secrets with static Pods {#restriction-static-pod}
 
-You cannot use ConfigMaps or Secrets with
-{{< glossary_tooltip text="static Pods" term_id="static-pod" >}}.
+You cannot use ConfigMaps or Secrets with {{< glossary_tooltip text="static Pods" term_id="static-pod" >}}.
 
 ## Use cases
 
@@ -556,7 +537,8 @@ Create the Secret:
 kubectl apply -f mysecret.yaml
 ```
 
-Use `envFrom` to define all of the Secret's data as container environment variables. The key from the Secret becomes the environment variable name in the Pod.
+Use `envFrom` to define all of the Secret's data as container environment variables. The key from
+the Secret becomes the environment variable name in the Pod.
 
 ```yaml
 apiVersion: v1
@@ -634,9 +616,8 @@ The container is then free to use the secret data to establish an SSH connection
 
 ### Use case: Pods with prod / test credentials
 
-This example illustrates a Pod which consumes a secret containing production
-credentials and another Pod which consumes a secret with test environment
-credentials.
+This example illustrates a Pod which consumes a secret containing production credentials and
+another Pod which consumes a secret with test environment credentials.
 
 You can create a `kustomization.yaml` with a `secretGenerator` field or run
 `kubectl create secret`.
@@ -664,7 +645,8 @@ secret "test-db-secret" created
 ```
 
 {{< note >}}
-Special characters such as `$`, `\`, `*`, `=`, and `!` will be interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_(computing)) and require escaping.
+Special characters such as `$`, `\`, `*`, `=`, and `!` will be interpreted by your
+[shell](https://en.wikipedia.org/wiki/Shell_(computing)) and require escaping.
 
 In most shells, the easiest way to escape the password is to surround it with single quotes (`'`).
 For example, if your actual password is `S!B\*d$zDsb=`, you should execute the command this way:
@@ -931,7 +913,7 @@ data:
 After creating the Secret, wait for Kubernetes to populate the `token` key in the `data` field.
 
 See the [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/)
-documentation for more information on how service accounts work.  
+documentation for more information on how service accounts work.
 You can also check the `automountServiceAccountToken` field and the
 `serviceAccountName` field of the
 [`Pod`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
@@ -1052,8 +1034,7 @@ You can create an `Opaque` type for credentials used for basic authentication.
 However, using the defined and public Secret type (`kubernetes.io/basic-auth`) helps other
 people to understand the purpose of your Secret, and sets a convention for what key names
 to expect.
-The Kubernetes API verifies that the required keys are set for a Secret
-of this type.
+The Kubernetes API verifies that the required keys are set for a Secret of this type.
 
 ### SSH authentication secrets
 
@@ -1082,14 +1063,12 @@ You could instead create an `Opaque` type Secret for credentials used for SSH au
 However, using the defined and public Secret type (`kubernetes.io/ssh-auth`) helps other
 people to understand the purpose of your Secret, and sets a convention for what key names
 to expect.
-and the API server does verify if the required keys are provided in a Secret
-configuration.
+and the API server does verify if the required keys are provided in a Secret configuration.
 
 {{< caution >}}
 SSH private keys do not establish trusted communication between an SSH client and
 host server on their own. A secondary means of establishing trust is needed to
-mitigate "man in the middle" attacks, such as a `known_hosts` file added to a
-ConfigMap.
+mitigate "man in the middle" attacks, such as a `known_hosts` file added to a ConfigMap.
 {{< /caution >}}
 
 ### TLS secrets
@@ -1186,7 +1165,7 @@ A bootstrap type Secret has the following keys specified under `data`:
 - `token-secret`: A random 16 character string as the actual token secret. Required.
 - `description`: A human-readable string that describes what the token is
   used for. Optional.
-- `expiration`: An absolute UTC time using RFC3339 specifying when the token
+- `expiration`: An absolute UTC time using [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) specifying when the token
   should be expired. Optional.
 - `usage-bootstrap-<usage>`: A boolean flag indicating additional usage for
   the bootstrap token.
@@ -1234,6 +1213,7 @@ Preventing changes to the data of an existing Secret has the following benefits:
 ### Marking a Secret as immutable {#secret-immutable-create}
 
 You can create an immutable Secret by setting the `immutable` field to `true`. For example,
+
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -1280,62 +1260,16 @@ Secrets that a Pod requests are potentially visible within its containers.
 Therefore, one Pod does not have access to the Secrets of another Pod.
 
 {{< warning >}}
-Any privileged containers on a node are liable to have access to all Secrets used
-on that node.
+Any containers that run with `privileged: true` on a node can access all
+Secrets used on that node.
 {{< /warning >}}
-
-
-### Security recommendations for developers
-
-- Applications still need to protect the value of confidential information after reading it
-  from an environment variable or volume. For example, your application must avoid logging
-  the secret data in the clear or transmitting it to an untrusted party.
-- If you are defining multiple containers in a Pod, and only one of those
-  containers needs access to a Secret, define the volume mount or environment
-  variable configuration so that the other containers do not have access to that
-  Secret.
-- If you configure a Secret through a {{< glossary_tooltip text="manifest" term_id="manifest" >}},
-  with the secret data encoded as base64, sharing this file or checking it in to a
-  source repository means the secret is available to everyone who can read the manifest.
-  Base64 encoding is _not_ an encryption method, it provides no additional confidentiality
-  over plain text.
-- When deploying applications that interact with the Secret API, you should
-  limit access using
-  [authorization policies](/docs/reference/access-authn-authz/authorization/) such as
-  [RBAC](/docs/reference/access-authn-authz/rbac/).
-- In the Kubernetes API, `watch` and `list` requests for Secrets within a namespace
-  are extremely powerful capabilities. Avoid granting this access where feasible, since
-  listing Secrets allows the clients to inspect the values of every Secret in that
-  namespace.
-
-### Security recommendations for cluster administrators
-
-{{< caution >}}
-A user who can create a Pod that uses a Secret can also see the value of that Secret. Even
-if cluster policies do not allow a user to read the Secret directly, the same user could
-have access to run a Pod that then exposes the Secret.
-{{< /caution >}}
-
-- Reserve the ability to `watch` or `list` all secrets in a cluster (using the Kubernetes
-  API), so that only the most privileged, system-level components can perform this action.
-- When deploying applications that interact with the Secret API, you should
-  limit access using
-  [authorization policies](/docs/reference/access-authn-authz/authorization/) such as
-  [RBAC](/docs/reference/access-authn-authz/rbac/).
-- In the API server, objects (including Secrets) are persisted into
-  {{< glossary_tooltip term_id="etcd" >}}; therefore:
-  - only allow cluster administrators to access etcd (this includes read-only access);
-  - enable [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/)
-    for Secret objects, so that the data of these Secrets are not stored in the clear
-    into {{< glossary_tooltip term_id="etcd" >}};
-  - consider wiping / shredding the durable storage used by etcd once it is
-    no longer in use;
-  - if there are multiple etcd instances, make sure that etcd is
-    using SSL/TLS for communication between etcd peers.
 
 ## {{% heading "whatsnext" %}}
 
+- For guidelines to manage and improve the security of your Secrets, refer to
+  [Good practices for Kubernetes Secrets](/docs/concepts/security/secrets-good-practices).
 - Learn how to [manage Secrets using `kubectl`](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 - Learn how to [manage Secrets using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
 - Learn how to [manage Secrets using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 - Read the [API reference](/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/) for `Secret`
+

@@ -3,6 +3,11 @@ title: 配置存活、就绪和启动探针
 content_type: task
 weight: 110
 ---
+<!--
+title: Configure Liveness, Readiness and Startup Probes
+content_type: task
+weight: 110
+-->
 
 <!-- overview -->
 <!--
@@ -14,7 +19,7 @@ where an application is running, but unable to make progress. Restarting a
 container in such a state can help to make the application more available
 despite bugs.
 -->
-这篇文章介绍如何给容器配置活跃（Liveness）、就绪（Readiness）和启动（Startup）探针。
+这篇文章介绍如何给容器配置存活（Liveness）、就绪（Readiness）和启动（Startup）探针。
 
 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
 使用存活探针来确定什么时候要重启容器。
@@ -33,7 +38,7 @@ it succeeds, making sure those probes don't interfere with the application start
 This can be used to adopt liveness checks on slow starting containers, avoiding them
 getting killed by the kubelet before they are up and running.
 -->
-kubelet 使用就绪探针可以知道容器何时准备好接受请求流量，当一个 Pod 
+kubelet 使用就绪探针可以知道容器何时准备好接受请求流量，当一个 Pod
 内的所有容器都就绪时，才能认为该 Pod 就绪。
 这种信号的一个用途就是控制哪个 Pod 作为 Service 的后端。
 若 Pod 尚未就绪，会被从 Service 的负载均衡器中剔除。
@@ -174,7 +179,8 @@ kubectl get pod liveness-exec
 <!--
 The output shows that `RESTARTS` has been incremented. Note that the `RESTARTS` counter increments as soon as a failed container comes back to the running state:
 -->
-输出结果显示 `RESTARTS` 的值增加了 1。请注意，一旦失败的容器恢复为运行状态，`RESTARTS` 计数器就会增加 1：
+输出结果显示 `RESTARTS` 的值增加了 1。
+请注意，一旦失败的容器恢复为运行状态，`RESTARTS` 计数器就会增加 1：
 
 ```
 NAME            READY     STATUS    RESTARTS   AGE
@@ -263,7 +269,7 @@ kubectl apply -f https://k8s.io/examples/pods/probe/http-liveness.yaml
 After 10 seconds, view Pod events to verify that liveness probes have failed and
 the container has been restarted:
 -->
-10 秒之后，通过查看 Pod 事件来确认活跃探针已经失败，并且容器被重新启动了。
+10 秒之后，通过查看 Pod 事件来确认存活探针已经失败，并且容器被重新启动了。
 
 ```shell
 kubectl describe pod liveness-http
@@ -319,7 +325,7 @@ To try the TCP liveness check, create a Pod:
 
 除了就绪探针，这个配置包括了一个存活探针。
 kubelet 会在容器启动 15 秒后进行第一次存活探测。
-与就绪探针类似，活跃探针会尝试连接 `goproxy` 容器的 8080 端口。
+与就绪探针类似，存活探针会尝试连接 `goproxy` 容器的 8080 端口。
 如果存活探测失败，容器会被重新启动。
 
 ```shell
@@ -338,7 +344,7 @@ kubectl describe pod goproxy
 <!--
 ## Define a gRPC liveness probe
 -->
-## 定义 gRPC 活跃探针
+## 定义 gRPC 存活探针
 
 {{< feature-state for_k8s_version="v1.24" state="beta" >}}
 
@@ -353,7 +359,7 @@ Here is an example manifest:
 -->
 如果你的应用实现了
 [gRPC 健康检查协议](https://github.com/grpc/grpc/blob/master/doc/health-checking.md)，
-kubelet 可以配置为使用该协议来执行应用活跃性检查。
+kubelet 可以配置为使用该协议来执行应用存活性检查。
 你必须启用 `GRPCContainerProbe`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 才能配置依赖于 gRPC 的检查机制。
@@ -393,7 +399,7 @@ kubectl apply -f https://k8s.io/examples/pods/probe/grpc-liveness.yaml
 <!--
 After 15 seconds, view Pod events to verify that the liveness check has not failed:
 -->
-15 秒钟之后，查看 Pod 事件确认活跃性检查并未失败：
+15 秒钟之后，查看 Pod 事件确认存活性检查并未失败：
 
 ```shell
 kubectl describe pod etcd-with-grpc
@@ -509,8 +515,8 @@ subject to the pod's `restartPolicy`.
 -->
 幸亏有启动探测，应用程序将会有最多 5 分钟（30 * 10 = 300s）的时间来完成其启动过程。
 一旦启动探测成功一次，存活探测任务就会接管对容器的探测，对容器死锁作出快速响应。
-如果启动探测一直没有成功，容器会在 300 秒后被杀死，并且根据 `restartPolicy` 来
-执行进一步处置。
+如果启动探测一直没有成功，容器会在 300 秒后被杀死，并且根据 `restartPolicy`
+来执行进一步处置。
 
 <!--
 ## Define readiness probes
@@ -543,8 +549,8 @@ Readiness probes runs on the container during its whole lifecycle.
 <!--
 Liveness probes *do not* wait for readiness probes to succeed. If you want to wait before executing a liveness probe you should use initialDelaySeconds or a startupProbe.
 -->
-活跃探针 **不等待** 就绪性探针成功。
-如果要在执行活跃探针之前等待，应该使用 `initialDelaySeconds` 或 `startupProbe`。
+存活探针 **不等待** 就绪性探针成功。
+如果要在执行存活探针之前等待，应该使用 `initialDelaySeconds` 或 `startupProbe`。
 {{< /caution >}}
 
 <!--
@@ -591,15 +597,15 @@ Eventually, some of this section could be moved to a concept topic.
 
 <!--
 [Probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) have a number of fields that
-you can use to more precisely control the behavior of liveness and readiness
+you can use to more precisely control the behavior of startup, liveness and readiness
 checks:
 -->
 [Probe](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
-有很多配置字段，可以使用这些字段精确地控制活跃和就绪检测的行为：
+有很多配置字段，可以使用这些字段精确地控制启动、存活和就绪检测的行为：
 
 <!--
 * `initialDelaySeconds`: Number of seconds after the container has started
-before liveness or readiness probes are initiated. Defaults to 0 seconds. Minimum value is 0.
+before startup, liveness or readiness probes are initiated. Defaults to 0 seconds. Minimum value is 0.
 * `periodSeconds`: How often (in seconds) to perform the probe. Default to 10
 seconds. Minimum value is 1.
 * `timeoutSeconds`: Number of seconds after which the probe times out. Defaults
@@ -607,19 +613,47 @@ to 1 second. Minimum value is 1.
 * `successThreshold`: Minimum consecutive successes for the probe to be
 considered successful after having failed. Defaults to 1. Must be 1 for liveness
 and startup Probes. Minimum value is 1.
-* `failureThreshold`: When a probe fails, Kubernetes will
-try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the container. In case of readiness probe the Pod will be marked Unready.
-Defaults to 3. Minimum value is 1.
 -->
-* `initialDelaySeconds`：容器启动后要等待多少秒后才启动存活和就绪探针，
+* `initialDelaySeconds`：容器启动后要等待多少秒后才启动启动、存活和就绪探针，
   默认是 0 秒，最小值是 0。
 * `periodSeconds`：执行探测的时间间隔（单位是秒）。默认是 10 秒。最小值是 1。
 * `timeoutSeconds`：探测的超时后等待多少秒。默认值是 1 秒。最小值是 1。
 * `successThreshold`：探针在失败后，被视为成功的最小连续成功数。默认值是 1。
   存活和启动探测的这个值必须是 1。最小值是 1。
-* `failureThreshold`：当探测失败时，Kubernetes 的重试次数。
-  对存活探测而言，放弃就意味着重新启动容器。
-  对就绪探测而言，放弃意味着 Pod 会被打上未就绪的标签。默认值是 3。最小值是 1。
+<!--
+* `failureThreshold`: After a probe fails `failureThreshold` times in a row, Kubernetes
+  considers that the overall check has failed: the container is _not_ ready / healthy /
+  live.
+  For the case of a startup or liveness probe, if at least `failureThreshold` probes have
+  failed, Kubernetes treats the container as unhealthy and triggers a restart for that
+  specific container. The kubelet takes the setting of `terminationGracePeriodSeconds`
+  for that container into account.
+  For a failed readiness probe, the kubelet continues running the container that failed
+  checks, and also continues to run more probes; because the check failed, the kubelet
+  sets the `Ready` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)
+  on the Pod to `false`.
+-->
+* `failureThreshold`：探针连续失败了 `failureThreshold` 次之后，
+  Kubernetes 认为总体上检查已失败：容器状态未就绪、不健康、不活跃。
+  对于启动探针或存活探针而言，如果至少有 `failureThreshold` 个探针已失败，
+  Kubernetes 会将容器视为不健康并为这个特定的容器触发重启操作。
+  kubelet 会考虑该容器的 `terminationGracePeriodSeconds` 设置。
+  对于失败的就绪探针，kubelet 继续运行检查失败的容器，并继续运行更多探针；
+  因为检查失败，kubelet 将 Pod 的 `Ready`
+  [状况](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)设置为 `false`。
+<!--
+* `terminationGracePeriodSeconds`: configure a grace period for the kubelet to wait
+  between triggering a shut down of the failed container, and then forcing the
+  container runtime to stop that container.
+  The default is to inherit the Pod-level value for `terminationGracePeriodSeconds`
+  (30 seconds if not specified), and the minimum value is 1.
+  See [probe-level `terminationGracePeriodSeconds`](#probe-level-terminationgraceperiodseconds)
+  for more detail.
+-->
+* `terminationGracePeriodSeconds`：为 kubelet
+  配置从为失败的容器触发终止操作到强制容器运行时停止该容器之前等待的宽限时长。
+  默认值是继承 Pod 级别的 `terminationGracePeriodSeconds` 值（如果不设置则为 30 秒），最小值为 1。
+  更多细节请参见[探针级别 `terminationGracePeriodSeconds`](#probe-level-terminationgraceperiodseconds)。
 
 {{< note >}}
 <!--
@@ -629,7 +663,7 @@ until a result was returned.
 -->
 在 Kubernetes 1.20 版本之前，`exec` 探针会忽略 `timeoutSeconds`：
 探针会无限期地持续运行，甚至可能超过所配置的限期，直到返回结果为止。
- 
+
 <!--
 This defect was corrected in Kubernetes v1.20. You may have been relying on the previous behavior,
 even without realizing it, as the default timeout is 1 second.
@@ -706,8 +740,8 @@ case, you should not use `host`, but rather set the `Host` header in `httpHeader
 对于 HTTP 探测，kubelet 发送一个 HTTP 请求到指定的路径和端口来执行检测。
 除非 `httpGet` 中的 `host` 字段设置了，否则 kubelet 默认是给 Pod 的 IP 地址发送探测。
 如果 `scheme` 字段设置为了 `HTTPS`，kubelet 会跳过证书验证发送 HTTPS 请求。
-大多数情况下，不需要设置`host` 字段。
-这里有个需要设置 `host` 字段的场景，假设容器监听 127.0.0.1，并且 Pod 的 `hostNetwork` 
+大多数情况下，不需要设置 `host` 字段。
+这里有个需要设置 `host` 字段的场景，假设容器监听 127.0.0.1，并且 Pod 的 `hostNetwork`
 字段设置为了 `true`。那么 `httpGet` 中的 `host` 字段应该设置为 127.0.0.1。
 可能更常见的情况是如果 Pod 依赖虚拟主机，你不应该设置 `host` 字段，而是应该在
 `httpHeaders` 中设置 `Host`。
@@ -785,7 +819,7 @@ unusually long time to restart when a pod-level `terminationGracePeriodSeconds`
 was set.
 -->
 在 1.21 发行版之前，Pod 层面的 `terminationGracePeriodSeconds`
-被用来终止活跃探测或启动探测失败的容器。
+被用来终止存活探测或启动探测失败的容器。
 这一行为上的关联不是我们想要的，可能导致 Pod 层面设置了 `terminationGracePeriodSeconds`
 时容器要花非常长的时间才能重新启动。
 

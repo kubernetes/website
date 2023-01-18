@@ -83,6 +83,16 @@ namespace (`/apis/GROUP/VERSION/namespaces/NAMESPACE/*`). A namespace-scoped res
 type will be deleted when its namespace is deleted and access to that resource type
 is controlled by authorization checks on the namespace scope.
 
+Note: core resources use `/api` instead of `/apis` and omit the GROUP path segment.
+
+Examples:
+* `/api/v1/namespaces`
+* `/api/v1/pods`
+* `/api/v1/namespaces/my-namespace/pods`
+* `/apis/apps/v1/deployments`
+* `/apis/apps/v1/namespaces/my-namespace/deployments`
+* `/apis/apps/v1/namespaces/my-namespace/deployments/my-deployment`
+
 You can also access collections of resources (for example: listing all Nodes).
 The following paths are used to retrieve collections and resources:
 
@@ -737,7 +747,7 @@ by default.
 The `kubectl` tool uses the `--validate` flag to set the level of field validation.
 Historically `--validate` was used to toggle client-side validation on or off as
 a boolean flag. Since Kubernetes 1.25, kubectl uses
-server-side field validation when sending requests to a serer with this feature
+server-side field validation when sending requests to a server with this feature
 enabled. Validation will fall back to client-side only when it cannot connect
 to an API server with field validation enabled.
 It accepts the values `ignore`, `warn`,
@@ -782,7 +792,7 @@ If the non-dry-run version of a request would trigger an admission controller th
 side effects, the request will be failed rather than risk an unwanted side effect. All
 built in admission control plugins support dry-run. Additionally, admission webhooks can
 declare in their
-[configuration object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#webhook-v1beta1-admissionregistration-k8s-io)
+[configuration object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#validatingwebhook-v1-admissionregistration-k8s-io)
 that they do not have side effects, by setting their `sideEffects` field to `None`.
 
 {{< note >}}

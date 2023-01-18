@@ -194,44 +194,44 @@ IngressStatus describe the current state of the Ingress.
 
 <hr>
 
-- **loadBalancer** (LoadBalancerStatus)
+- **loadBalancer** (IngressLoadBalancerStatus)
 
   LoadBalancer contains the current status of the load-balancer.
 
-  <a name="LoadBalancerStatus"></a>
-  *LoadBalancerStatus represents the status of a load-balancer.*
+  <a name="IngressLoadBalancerStatus"></a>
+  *IngressLoadBalancerStatus represents the status of a load-balancer.*
 
-  - **loadBalancer.ingress** ([]LoadBalancerIngress)
+  - **loadBalancer.ingress** ([]IngressLoadBalancerIngress)
 
-    Ingress is a list containing ingress points for the load-balancer. Traffic intended for the service should be sent to these ingress points.
+    Ingress is a list containing ingress points for the load-balancer.
 
-    <a name="LoadBalancerIngress"></a>
-    *LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.*
+    <a name="IngressLoadBalancerIngress"></a>
+    *IngressLoadBalancerIngress represents the status of a load-balancer ingress point.*
 
     - **loadBalancer.ingress.hostname** (string)
 
-      Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers)
+      Hostname is set for load-balancer ingress points that are DNS based.
 
     - **loadBalancer.ingress.ip** (string)
 
-      IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
+      IP is set for load-balancer ingress points that are IP based.
 
-    - **loadBalancer.ingress.ports** ([]PortStatus)
+    - **loadBalancer.ingress.ports** ([]IngressPortStatus)
 
       *Atomic: will be replaced during a merge*
       
-      Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
+      Ports provides information about the ports exposed by this LoadBalancer.
 
-      <a name="PortStatus"></a>
-      **
+      <a name="IngressPortStatus"></a>
+      *IngressPortStatus represents the error condition of a service port*
 
       - **loadBalancer.ingress.ports.port** (int32), required
 
-        Port is the port number of the service port of which status is recorded here
+        Port is the port number of the ingress port.
 
       - **loadBalancer.ingress.ports.protocol** (string), required
 
-        Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
+        Protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
         
         
 

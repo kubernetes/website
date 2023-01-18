@@ -14,6 +14,7 @@ source: https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
 title: "Example: Deploying PHP Guestbook application with Redis"
 reviewers:
 - ahmetb
+- jimangel
 content_type: tutorial
 weight: 20
 card:
@@ -21,23 +22,26 @@ card:
   weight: 30
   title: "Stateless Example: PHP Guestbook with Redis"
 min-kubernetes-server-version: v1.14
+source: https://cloud.google.com/kubernetes-engine/docs/tutorials/guestbook
 -->
 
 <!-- overview -->
 
 <!--
-This tutorial shows you how to build and deploy a simple _(not production ready)_, multi-tier web application using Kubernetes and [Docker](https://www.docker.com/). This example consists of the following components:
+This tutorial shows you how to build and deploy a simple _(not production
+ready)_, multi-tier web application using Kubernetes and
+[Docker](https://www.docker.com/). This example consists of the following
+components:
 -->
 本教程向你展示如何使用 Kubernetes 和 [Docker](https://www.docker.com/)
-构建和部署一个简单的 **(非面向生产的)** 多层 web 应用程序。本例由以下组件组成：
+构建和部署一个简单的 **(非面向生产的)** 多层 Web 应用程序。本例由以下组件组成：
 
 <!--
 * A single-instance [Redis](https://www.redis.io/) to store guestbook entries
 * Multiple web frontend instances
 -->
-
 * 单实例 [Redis](https://www.redis.io/) 以保存留言板条目
-* 多个 web 前端实例
+* 多个 Web 前端实例
 
 ## {{% heading "objectives" %}}
 
@@ -64,7 +68,7 @@ This tutorial shows you how to build and deploy a simple _(not production ready)
 <!--
 ## Start up the Redis Database
 -->
-## 启动 Redis 数据库
+## 启动 Redis 数据库   {#start-up-the-redis-database}
 
 <!--
 The guestbook application uses Redis to store its data.
@@ -74,7 +78,7 @@ The guestbook application uses Redis to store its data.
 <!--
 ### Creating the Redis Deployment
 -->
-### 创建 Redis Deployment
+### 创建 Redis Deployment    {#creating-the-redis-deployment}
 
 <!--
 The manifest file, included below, specifies a Deployment controller that runs a single replica Redis Pod.
@@ -130,10 +134,13 @@ The manifest file, included below, specifies a Deployment controller that runs a
 <!--
 ### Creating the Redis leader Service
 -->
-### 创建 Redis 领导者服务
+### 创建 Redis 领导者服务   {#creating-the-redis-leader-service}
 
 <!--
-The guestbook application needs to communicate to the Redis to write its data. You need to apply a [Service](/docs/concepts/services-networking/service/) to proxy the traffic to the Redis Pod. A Service defines a policy to access the Pods.
+The guestbook application needs to communicate to the Redis to write its data.
+You need to apply a [Service](/docs/concepts/services-networking/service/) to
+proxy the traffic to the Redis Pod. A Service defines a policy to access the
+Pods.
 -->
 留言板应用程序需要往 Redis 中写数据。因此，需要创建
 [Service](/zh-cn/docs/concepts/services-networking/service/) 来转发 Redis Pod
@@ -169,16 +176,18 @@ The guestbook application needs to communicate to the Redis to write its data. Y
    -->
    响应应该与此类似：
 
-   ```shell
+   ```
    NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
    kubernetes     ClusterIP   10.0.0.1     <none>        443/TCP    1m
    redis-leader   ClusterIP   10.103.78.24 <none>        6379/TCP   16s
    ```
 
-<!--
-This manifest file creates a Service named `redis-leader` with a set of labels that match the labels previously defined, so the Service routes network traffic to the Redis Pod.
--->
 {{< note >}}
+<!--
+This manifest file creates a Service named `redis-leader` with a set of labels
+that match the labels previously defined, so the Service routes network
+traffic to the Redis Pod.
+-->
 这个清单文件创建了一个名为 `redis-leader` 的 Service，其中包含一组
 与前面定义的标签匹配的标签，因此服务将网络流量路由到 Redis Pod 上。
 {{< /note >}}
@@ -186,9 +195,10 @@ This manifest file creates a Service named `redis-leader` with a set of labels t
 <!--
 ### Set up Redis followers
 
-Although the Redis leader is a single Pod, you can make it highly available and meet traffic demands by adding a few Redis followers, or replicas.
+Although the Redis leader is a single Pod, you can make it highly available
+and meet traffic demands by adding a few Redis followers, or replicas.
 -->
-### 设置 Redis 跟随者
+### 设置 Redis 跟随者   {#set-up-redis-followers}
 
 尽管 Redis 领导者只有一个 Pod，你可以通过添加若干 Redis 跟随者来将其配置为高可用状态，
 以满足流量需求。
@@ -196,7 +206,7 @@ Although the Redis leader is a single Pod, you can make it highly available and 
 {{< codenew file="application/guestbook/redis-follower-deployment.yaml" >}}
 
 <!--
-1. Apply the Redis Service from the following `redis-follower-deployment.yaml` file:
+1. Apply the Redis Deployment from the following `redis-follower-deployment.yaml` file:
 -->
 1. 应用下面的 `redis-follower-deployment.yaml` 文件创建 Redis Deployment：
 
@@ -233,9 +243,11 @@ Although the Redis leader is a single Pod, you can make it highly available and 
 <!--
 ### Creating the Redis follower service
 
-The guestbook application needs to communicate with the Redis followers to read data. To make the Redis followers discoverable, you must set up another [Service](/docs/concepts/services-networking/service/).
+The guestbook application needs to communicate with the Redis followers to
+read data. To make the Redis followers discoverable, you must set up another
+[Service](/docs/concepts/services-networking/service/).
 -->
-### 创建 Redis 跟随者服务
+### 创建 Redis 跟随者服务   {#creating-the-redis-follower-service}
 
 Guestbook 应用需要与 Redis 跟随者通信以读取数据。
 为了让 Redis 跟随者可被发现，你必须创建另一个
@@ -280,23 +292,30 @@ Guestbook 应用需要与 Redis 跟随者通信以读取数据。
 
 {{< note >}}
 <!--
-This manifest file creates a Service named `redis-follower` with a set of labels that match the labels previously defined, so the Service routes network traffic to the Redis Pod.
+This manifest file creates a Service named `redis-follower` with a set of
+labels that match the labels previously defined, so the Service routes network
+traffic to the Redis Pod.
 -->
 清单文件创建了一个名为 `redis-follower` 的 Service，该 Service
-具有一些与之前所定义的标签相匹配的标签，因此该 Service 能够将网络流量
-路由到 Redis Pod 之上。
+具有一些与之前所定义的标签相匹配的标签，因此该 Service 能够将网络流量路由到
+Redis Pod 之上。
 {{< /note >}}
 
 
 <!--
 ## Set up and Expose the Guestbook Frontend
 -->
-## 设置并公开留言板前端
+## 设置并公开留言板前端   {#set-up-and-expose-the-guestbook-frontend}
 
 <!-- 
-Now that you have the Redis storage of your guestbook up and running, start the guestbook web servers. Like the Redis followers, the frontend is deployed using a Kubernetes Deployment.
+Now that you have the Redis storage of your guestbook up and running, start
+the guestbook web servers. Like the Redis followers, the frontend is deployed
+using a Kubernetes Deployment.
 
-The guestbook app uses a PHP frontend. It is configured to communicate with either the Redis follower or leader Services, depending on whether the request is a read or a write. The frontend exposes a JSON interface, and serves a jQuery-Ajax-based UX.
+The guestbook app uses a PHP frontend. It is configured to communicate with
+either the Redis follower or leader Services, depending on whether the request
+is a read or a write. The frontend exposes a JSON interface, and serves a
+jQuery-Ajax-based UX.
 -->
 现在你有了一个为 Guestbook 应用配置的 Redis 存储处于运行状态，
 接下来可以启动 Guestbook 的 Web 服务器了。
@@ -309,7 +328,7 @@ Guestbook 应用使用 PHP 前端。该前端被配置成与后端的 Redis 跟�
 <!--
 ### Creating the Guestbook Frontend Deployment
 -->
-### 创建 Guestbook 前端 Deployment
+### 创建 Guestbook 前端 Deployment   {#creating-the-guestbook-frontend-deployment}
 
 {{< codenew file="application/guestbook/frontend-deployment.yaml" >}}
 
@@ -351,20 +370,24 @@ Guestbook 应用使用 PHP 前端。该前端被配置成与后端的 Redis 跟�
 <!--
 ### Creating the Frontend Service
 -->
-### 创建前端服务
+### 创建前端服务   {#creating-the-frontend-service}
 
 <!--
-The `Redis` Services you applied is only accessible within the Kubernetes cluster because the default type for a Service is [ClusterIP](/docs/concepts/services-networking/service/#publishing-services-service-types). `ClusterIP` provides a single IP address for the set of Pods the Service is pointing to. This IP address is accessible only within the cluster.
+The `Redis` Services you applied is only accessible within the Kubernetes
+cluster because the default type for a Service is
+[ClusterIP](/docs/concepts/services-networking/service/#publishing-services-service-types).
+`ClusterIP` provides a single IP address for the set of Pods the Service is
+pointing to. This IP address is accessible only within the cluster.
 -->
 应用的 `Redis` 服务只能在 Kubernetes 集群中访问，因为服务的默认类型是
 [ClusterIP](/zh-cn/docs/concepts/services-networking/service/#publishing-services-service-types)。
 `ClusterIP` 为服务指向的 Pod 集提供一个 IP 地址。这个 IP 地址只能在集群中访问。
 
 <!--
-If you want guests to be able to access your guestbook, you must configure the 
-frontend Service to be externally visible, so a client can request the Service 
+If you want guests to be able to access your guestbook, you must configure the
+frontend Service to be externally visible, so a client can request the Service
 from outside the Kubernetes cluster. However a Kubernetes user can use
-`kubectl port-forward` to access the service even though it uses a 
+`kubectl port-forward` to access the service even though it uses a
 `ClusterIP`.
 -->
 如果你希望访客能够访问你的 Guestbook，你必须将前端服务配置为外部可见的，
@@ -372,10 +395,12 @@ from outside the Kubernetes cluster. However a Kubernetes user can use
 然而即便使用了 `ClusterIP`，Kubernetes 用户仍可以通过
 `kubectl port-forward` 访问服务。
 
-<!--
-Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, support external load balancers. If your cloud provider supports load balancers and you want to use it, uncomment `type: LoadBalancer`.
--->
 {{< note >}}
+<!--
+Some cloud providers, like Google Compute Engine or Google Kubernetes Engine,
+support external load balancers. If your cloud provider supports load
+balancers and you want to use it, uncomment `type: LoadBalancer`.
+-->
 一些云提供商，如 Google Compute Engine 或 Google Kubernetes Engine，
 支持外部负载均衡器。如果你的云提供商支持负载均衡器，并且你希望使用它，
 只需取消注释 `type: LoadBalancer`。
@@ -422,7 +447,7 @@ Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, su
 <!--
 ### Viewing the Frontend Service via `kubectl port-forward`
 -->
-### 通过 `kubectl port-forward` 查看前端服务
+### 通过 `kubectl port-forward` 查看前端服务   {#viewing-the-frontend-service-via-kubectl-port-forward}
 
 <!--
 1. Run the following command to forward port `8080` on your local machine to port `80` on the service.
@@ -446,19 +471,18 @@ Some cloud providers, like Google Compute Engine or Google Kubernetes Engine, su
 <!--
 1. load the page [http://localhost:8080](http://localhost:8080) in your browser to view your guestbook.
 -->
-2. 在浏览器中加载 [http://localhost:8080](http://localhost:8080)
-页面以查看 Guestbook。
+2. 在浏览器中加载 [http://localhost:8080](http://localhost:8080) 页面以查看 Guestbook。
 
 <!--
 ### Viewing the Frontend Service via `LoadBalancer`
 -->
-### 通过 `LoadBalancer` 查看前端服务
+### 通过 `LoadBalancer` 查看前端服务   {#viewing-the-frontend-service-via-loadbalancer}
 
 <!--
-If you deployed the `frontend-service.yaml` manifest with type: `LoadBalancer` you need to find the IP address to view your Guestbook.
+If you deployed the `frontend-service.yaml` manifest with type: `LoadBalancer`
+you need to find the IP address to view your Guestbook.
 -->
-如果你部署了 `frontend-service.yaml`，需要找到用来查看 Guestbook 的
-IP 地址。
+如果你部署了 `frontend-service.yaml`，需要找到用来查看 Guestbook 的 IP 地址。
 
 <!--
 1. Run the following command to get the IP address for the frontend Service.
@@ -486,20 +510,23 @@ IP 地址。
 
 {{< note >}}
 <!--
-Try adding some guestbook entries by typing in a message, and clicking Submit. The message you typed appears in the frontend. This message indicates that data is successfully added to Redis through the Services you created earlier.
+Try adding some guestbook entries by typing in a message, and clicking Submit.
+The message you typed appears in the frontend. This message indicates that
+data is successfully added to Redis through the Services you created earlier.
 -->
 尝试通过输入消息并点击 Submit 来添加一些留言板条目。
-你所输入的消息会在前端显示。这一消息表明数据被通过你
-之前所创建的 Service 添加到 Redis 存储中。
+你所输入的消息会在前端显示。这一消息表明数据被通过你之前所创建的
+Service 添加到 Redis 存储中。
 {{< /note >}}
 
 <!--
 ## Scale the Web Frontend
 -->
-## 扩展 Web 前端
+## 扩展 Web 前端   {#scale-the-web-frontend}
 
 <!--
-You can scale up or down as needed because your servers are defined as a Service that uses a Deployment controller.
+You can scale up or down as needed because your servers are defined as a
+Service that uses a Deployment controller.
 -->
 你可以根据需要执行伸缩操作，这是因为服务器本身被定义为使用一个
 Deployment 控制器的 Service。
@@ -574,7 +601,8 @@ Deployment 控制器的 Service。
 ## {{% heading "cleanup" %}}
 
 <!--
-Deleting the Deployments and Services also deletes any running Pods. Use labels to delete multiple resources with one command.
+Deleting the Deployments and Services also deletes any running Pods. Use
+labels to delete multiple resources with one command.
 -->
 删除 Deployments 和服务还会删除正在运行的 Pod。
 使用标签用一个命令删除多个资源。
@@ -582,7 +610,7 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
 <!--
 1. Run the following commands to delete all Pods, Deployments, and Services.
 -->
-1. 运行以下命令以删除所有 Pod，Deployments 和 Services。
+1. 运行以下命令以删除所有 Pod、Deployment 和 Service。
 
    ```shell
    kubectl delete deployment -l app=redis
@@ -602,6 +630,7 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
    deployment.apps "frontend" deleted
    service "frontend" deleted
    ```
+
 <!--
 1. Query the list of Pods to verify that no Pods are running:
 -->
@@ -617,7 +646,6 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
    响应应该是：
 
    ```
-
    No resources found in default namespace.
    ```
 
@@ -626,11 +654,11 @@ Deleting the Deployments and Services also deletes any running Pods. Use labels 
 <!--
 * Complete the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) Interactive Tutorials
 * Use Kubernetes to create a blog using [Persistent Volumes for MySQL and Wordpress](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
-* Read more about [connecting applications](/docs/concepts/services-networking/connect-applications-service/)
+* Read more about [connecting applications with services](/docs/tutorials/services/connect-applications-service/)
 * Read more about [Managing Resources](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)
 -->
 * 完成 [Kubernetes 基础](/zh-cn/docs/tutorials/kubernetes-basics/) 交互式教程
 * 使用 Kubernetes 创建一个博客，使用
   [MySQL 和 Wordpress 的持久卷](/zh-cn/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
-* 进一步阅读[连接应用程序](/zh-cn/docs/concepts/services-networking/connect-applications-service/)
+* 进一步阅读[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)
 * 进一步阅读[管理资源](/zh-cn/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)

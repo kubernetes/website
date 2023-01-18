@@ -139,7 +139,7 @@ POST /checkpoint/{namespace}/{pod}/{container}
 
 401: Unauthorized
 
-404: Not Found (if the `CheckpointContainer` feature gate is disabled)
+404: Not Found (if the `ContainerCheckpoint` feature gate is disabled)
 
 404: Not Found (if the specified `namespace`, `pod` or `container` cannot be found)
 
@@ -151,7 +151,7 @@ POST /checkpoint/{namespace}/{pod}/{container}
 
 401: Unauthorized
 
-404: Not Found（如果 `CheckpointContainer` 特性门控被禁用）
+404: Not Found（如果 `ContainerCheckpoint` 特性门控被禁用）
 
 404: Not Found（如果指定的 `namespace`、`pod` 或 `container` 无法被找到）
 
@@ -163,10 +163,10 @@ POST /checkpoint/{namespace}/{pod}/{container}
 <!--
 TODO: Add more information about return codes once CRI implementation have checkpoint/restore.
       This TODO cannot be fixed before the release, because the CRI implementation need
-      the Kubernetes changes to be merged to implement the new CheckpointContainer CRI API
+      the Kubernetes changes to be merged to implement the new ContainerCheckpoint CRI API
       call. We need to wait after the 1.25 release to fix this.
 -->
 TODO：一旦 CRI 实现具有检查点/恢复能力，就会添加有关返回码的更多信息。
       这个 TODO 在发布之前无法被修复，因为 CRI 实现需要先合并对 Kubernetes 的变更，
-      才能实现新的 CheckpointContainer CRI API 调用。我们需要等到 1.25 发布后才能修复此问题。
+      才能实现新的 ContainerCheckpoint CRI API 调用。我们需要等到 1.25 发布后才能修复此问题。
 {{< /comment >}}

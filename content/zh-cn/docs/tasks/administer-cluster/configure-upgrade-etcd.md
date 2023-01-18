@@ -612,7 +612,17 @@ Another example for restoring using etcdctl options:
 恢复时也可以指定操作选项，例如：
 
 ```shell
-ETCDCTL_API=3 etcdctl --data-dir <data-dir-location> snapshot restore snapshotdb
+ETCDCTL_API=3 etcdctl snapshot restore --data-dir <data-dir-location> snapshotdb
+```
+
+<!--
+Yet another example would be to first export the environment variable
+-->
+另一个例子是先导出环境变量：
+
+```shell
+export ETCDCTL_API=3
+etcdctl snapshot restore --data-dir <data-dir-location> snapshotdb
 ```
 
 <!--

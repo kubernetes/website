@@ -1,9 +1,9 @@
 ---
-
-
-
-
-
+# reviewers:
+# - bprashanth
+# - erictune
+# - foxish
+# - smarterclayton
 title: 스테이트풀셋(StatefulSet) 파드 강제 삭제하기
 content_type: task
 weight: 70

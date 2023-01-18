@@ -12,7 +12,7 @@ card:
 
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
 이 페이지에서는 `kubeadm` 툴박스 설치 방법을 보여준다.
-이 설치 프로세스를 수행한 후 kubeadm으로 클러스터를 만드는 방법에 대한 자세한 내용은 [kubeadm을 사용하여 클러스터 생성하기](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 페이지를 참고한다.
+이 설치 프로세스를 수행한 후 kubeadm으로 클러스터를 만드는 방법에 대한 자세한 내용은 [kubeadm으로 클러스터 생성하기](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) 페이지를 참고한다.
 
 
 ## {{% heading "prerequisites" %}}
@@ -89,7 +89,7 @@ cri-dockerd는 쿠버네티스 버전 1.24부터 kubelet에서 [제거](/dockers
 {{< tabs name="container_runtime" >}}
 {{% tab name="리눅스" %}}
 
-{{< table >}}
+{{< table caption="리눅스 컨테이너 런타임" >}}
 | 런타임                            | 유닉스 도메인 소켓 경로                   |
 |------------------------------------|----------------------------------------------|
 | containerd                         | `unix:///var/run/containerd/containerd.sock` |
@@ -101,7 +101,7 @@ cri-dockerd는 쿠버네티스 버전 1.24부터 kubelet에서 [제거](/dockers
 
 {{% tab name="윈도우" %}}
 
-{{< table >}}
+{{< table caption="윈도우 컨테이너 런타임" >}}
 | 런타임                            | 윈도우 네임드 파이프(named pipe) 경로                   |
 |------------------------------------|----------------------------------------------|
 | containerd                         | `npipe:////./pipe/containerd-containerd`     |
@@ -212,28 +212,29 @@ sudo systemctl enable --now kubelet
 CNI 플러그인 설치(대부분의 파드 네트워크에 필요)
 
 ```bash
-CNI_VERSION="v0.8.2"
+CNI_PLUGINS_VERSION="v1.1.1"
 ARCH="amd64"
-sudo mkdir -p /opt/cni/bin
-curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-${ARCH}-${CNI_VERSION}.tgz" | sudo tar -C /opt/cni/bin -xz
+DEST="/opt/cni/bin"
+sudo mkdir -p "$DEST"
+curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_PLUGINS_VERSION}/cni-plugins-linux-${ARCH}-${CNI_PLUGINS_VERSION}.tgz" | sudo tar -C "$DEST" -xz
 ```
 
 명령어 파일을 다운로드할 디렉터리 정의
 
 {{< note >}}
 `DOWNLOAD_DIR` 변수는 쓰기 가능한 디렉터리로 설정되어야 한다.
-Flatcar Container Linux를 실행 중인 경우, `DOWNLOAD_DIR=/opt/bin` 을 설정한다.
+Flatcar Container Linux를 실행 중인 경우, `DOWNLOAD_DIR="/opt/bin"` 을 설정한다.
 {{< /note >}}
 
 ```bash
-DOWNLOAD_DIR=/usr/local/bin
-sudo mkdir -p $DOWNLOAD_DIR
+DOWNLOAD_DIR="/usr/local/bin"
+sudo mkdir -p "$DOWNLOAD_DIR"
 ```
 
 crictl 설치(kubeadm / Kubelet 컨테이너 런타임 인터페이스(CRI)에 필요)
 
 ```bash
-CRICTL_VERSION="v1.22.0"
+CRICTL_VERSION="v1.25.0"
 ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```

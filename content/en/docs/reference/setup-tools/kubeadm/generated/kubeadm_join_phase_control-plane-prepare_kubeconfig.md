@@ -41,7 +41,7 @@ kubeadm join phase control-plane-prepare kubeconfig [api-server-endpoint] [flags
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to kubeadm config file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a kubeadm configuration file.</p></td>
 </tr>
 
 <tr>
@@ -77,6 +77,13 @@ kubeadm join phase control-plane-prepare kubeconfig [api-server-endpoint] [flags
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>For token-based discovery, allow joining without --discovery-token-ca-cert-hash pinning.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--dry-run</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Don't apply any changes; just output what would be done.</p></td>
 </tr>
 
 <tr>
