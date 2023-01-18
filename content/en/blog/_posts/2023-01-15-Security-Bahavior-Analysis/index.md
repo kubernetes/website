@@ -32,7 +32,7 @@ In this simple example one can already identify several opportunities to detect 
 
 More generally:
 
-- Monitoring the behavior of clients can help detect and block exploits against service API vulnerabilities. In fact, deploying an efficient client behavior monitoring makes many vulnerabilities unexploitable and others very hard to achieve. To succeed, the offender needs to create an exploit undetectable from regular requests.
+- Monitoring the behavior of clients can help detect and block exploits against service API vulnerabilities. In fact, deploying efficient client behavior monitoring makes many vulnerabilities unexploitable and others very hard to achieve. To succeed, the offender needs to create an exploit undetectable from regular requests.
 
 - Monitoring the behavior of services can help detect services as they are being exploited regardless of the attack vector used. Efficient service behavior monitoring limits what an attacker may be able to achieve as the offender needs to ensure the service behavior is undetectable from regular service behavior.
 
