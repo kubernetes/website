@@ -305,7 +305,7 @@ guaranteed to be non-breaking.
 API 是版本化的，并且自此特性进阶 Beta 后一直表现稳定。
 因此，kubelet 升级应该是无缝的，但在稳定之前 API 仍然可能会有变更，还不能保证升级不会中断。
 
-{{< caution >}}
+{{< note >}}
 <!--
 Although the Device Manager component of Kubernetes is a generally available feature,
 the _device plugin API_ is not stable. For information on the device plugin API and
@@ -314,7 +314,7 @@ version compatibility, read [Device Plugin API versions](/docs/reference/node/de
 尽管 Kubernetes 的设备管理器（Device Manager）组件是正式发布的特性，
 但**设备插件 API** 还不稳定。有关设备插件 API 和版本兼容性的信息，
 请参阅[设备插件 API 版本](/zh-cn/docs/reference/node/device-plugin-api-versions/)。
-{{< caution >}}
+{{< /note >}}
 
 <!--
 As a project, Kubernetes recommends that device plugin developers:
@@ -491,7 +491,6 @@ message AllocatableResourcesResponse {
     repeated int64 cpu_ids = 2;
     repeated ContainerMemory memory = 3;
 }
-
 ```
 
 <!--
@@ -601,6 +600,7 @@ NUMA 节点列表表示设备插件没有该设备的 NUMA 亲和偏好。
 ```
 pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.TopologyInfo{Nodes: []*pluginapi.NUMANode{&pluginapi.NUMANode{ID: 0,},}}}
 ```
+
 <!--
 ## Device plugin examples {#examples}
 -->
@@ -638,12 +638,15 @@ Here are some examples of device plugin implementations:
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Learn about [scheduling GPU resources](/docs/tasks/manage-gpus/scheduling-gpus/) using device plugins
-* Learn about [advertising extended resources](/docs/tasks/administer-cluster/extended-resource-node/) on a node
+* Learn about [scheduling GPU resources](/docs/tasks/manage-gpus/scheduling-gpus/) using device
+  plugins
+* Learn about [advertising extended resources](/docs/tasks/administer-cluster/extended-resource-node/)
+  on a node
 * Learn about the [Topology Manager](/docs/tasks/administer-cluster/topology-manager/)
-* Read about using [hardware acceleration for TLS ingress](/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/) with Kubernetes
+* Read about using [hardware acceleration for TLS ingress](/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/)
+  with Kubernetes
 -->
 * 查看[调度 GPU 资源](/zh-cn/docs/tasks/manage-gpus/scheduling-gpus/)来学习使用设备插件
-* 查看在上如何[公布节点上的扩展资源](/zh-cn/docs/tasks/administer-cluster/extended-resource-node/)
+* 查看在节点上如何[公布扩展资源](/zh-cn/docs/tasks/administer-cluster/extended-resource-node/)
 * 学习[拓扑管理器](/zh-cn/docs/tasks/administer-cluster/topology-manager/)
 * 阅读如何在 Kubernetes 中使用 [TLS Ingress 的硬件加速](/zh-cn/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/)
