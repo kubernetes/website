@@ -84,8 +84,6 @@ object.
 
 ## {{% heading "whatsnext" %}}
 
-Learn more about the following:
-* [Kubernetes finalizers](/docs/concepts/overview/working-with-objects/finalizers/).
-* [garbage collection](/docs/concepts/architecture/garbage-collection).
-* API reference for [object metadata](/docs/reference/kubernetes-api/common-definitions/object-meta/#System).
-* Objets such as [ReplicaSets](/docs/concepts/workloads/controllers/replicaset/), [DaemonSets](/docs/concepts/workloads/controllers/daemonset/), [Deployments](/docs/concepts/workloads/controllers/deployment/), [Jobs](/docs/concepts/workloads/controllers/job/), [CronJobs](/docs/concepts/workloads/controllers/cron-jobs/) and [ReplicationControllers](/docs/concepts/workloads/controllers/replicationcontroller/). 
+* Learn more about [Kubernetes finalizers](/docs/concepts/overview/working-with-objects/finalizers/).
+* Learn about [garbage collection](/docs/concepts/architecture/garbage-collection).
+* Read the API reference for [object metadata](/docs/reference/kubernetes-api/common-definitions/object-meta/#System).
