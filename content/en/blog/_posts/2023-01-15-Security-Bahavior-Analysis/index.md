@@ -16,7 +16,7 @@ Considering the current spread of offensive tools, sophistication of offensive p
 
 &#x27A5; **Admit that your services are vulnerable!**
 
-In other words, consciously accept that you will never create completely invulnerable services. If your opponents find even a single weakness as an entry-point, you may lose. Admitting that in spite of your best efforts, all your services are most likely vulnerable is an important first step. Next, this post discusses what you can do about it...
+In other words, consciously accept that you will never create completely invulnerable services. If your opponents find even a single weakness as an entry-point, you lose! Admitting that in spite of your best efforts, all your services are still vulnerable is an important first step. Next, this post discusses what you can do about it...
 
 ## How to protect microservices from being exploited
 
