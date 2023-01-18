@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: Consider All Microservices Vulnerable — And Monitor Their Behavior
-date: 2023-01-15
+date: 2023-01-20
 slug: security-behavior-analysis
 ---
 
