@@ -1,5 +1,5 @@
 ---
-title: Communicate Between Containers in the Same Pod Using a Shared Volume
+title: Comunicação entre contêineres no mesmo pod usando um volume compartilhado
 content_type: task
 weight: 110
 ---
