@@ -121,8 +121,12 @@ considered weak.
 
 ### Persistent volume creation
 
-As noted in the [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/#volumes-and-file-systems)
-documentation, access to create PersistentVolumes can allow for escalation of access to the underlying host.
+Creation of PersistentVolumes includes creation of `hostPath`-typed volumes, providing access to the underlying host filesystem.
+
+There are many ways a container with unrestricted access to the host filesystem can escalate privileges, including 
+reading data from other containers, and abusing the credentials of system services, such as Kubelet.
+
+Only trusted users should be granted permission to create PersistentVolume objects.
 Where access to persistent storage is required trusted administrators should create 
 PersistentVolumes, and constrained users should use PersistentVolumeClaims to access that storage.
 
