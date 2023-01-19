@@ -121,7 +121,9 @@ considered weak.
 
 ### Persistent volume creation
 
-Creation of PersistentVolumes includes creation of `hostPath`-typed volumes, providing access to the underlying host filesystem.
+If someone - or some application - is allowed to create arbitrary PersistentVolumes, that access
+includes the creation of `hostPath` volumes, which then means that a Pod would get access
+to the underlying host filesystem(s) on the associated node. Granting that ability is a security risk.
 
 There are many ways a container with unrestricted access to the host filesystem can escalate privileges, including 
 reading data from other containers, and abusing the credentials of system services, such as Kubelet.
