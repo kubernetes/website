@@ -19,9 +19,16 @@ Using the latest compatible version of kubectl helps avoid unforeseen issues.
 
 The following methods exist for installing kubectl on Linux:
 
-- [Install kubectl binary with curl on Linux](#install-kubectl-binary-with-curl-on-linux)
-- [Install using native package management](#install-using-native-package-management)
-- [Install using other package management](#install-using-other-package-management)
+- [{{% heading "prerequisites" %}}](#-heading-prerequisites-)
+- [Install kubectl on Linux](#install-kubectl-on-linux)
+  - [Install kubectl binary with curl on Linux](#install-kubectl-binary-with-curl-on-linux)
+  - [Install using native package management](#install-using-native-package-management)
+  - [Install using other package management](#install-using-other-package-management)
+- [Verify kubectl configuration](#verify-kubectl-configuration)
+- [Optional kubectl configurations and plugins](#optional-kubectl-configurations-and-plugins)
+  - [Enable shell autocompletion](#enable-shell-autocompletion)
+  - [Install `kubectl convert` plugin](#install-kubectl-convert-plugin)
+- [{{% heading "whatsnext" %}}](#-heading-whatsnext-)
 
 ### Install kubectl binary with curl on Linux
 
@@ -100,6 +107,15 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
    ```cmd
    kubectl version --client --output=yaml    
    ```
+
+   {{< note >}}
+   The curl commands processed in the previous steps will remain on your target directory indefinitely and will not be utilized after the kubectl install (step 3) is complete.
+
+   ```bash
+   rm kubectl kubectl.sha256
+   ```
+
+   {{< /note >}}
 
 ### Install using native package management
 
@@ -255,6 +271,15 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    ```
 
    If you do not see an error, it means the plugin is successfully installed.
+
+   {{< note >}}
+   The curl commands processed in the previous steps will remain on your target directory indefinitely and will not be utilized after the kubectl install (step 3) is complete.
+
+   ```bash
+   rm kubectl-convert kubectl-convert.sha256
+   ```
+
+   {{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 
