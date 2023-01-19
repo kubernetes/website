@@ -128,7 +128,13 @@ to the underlying host filesystem(s) on the associated node. Granting that abili
 There are many ways a container with unrestricted access to the host filesystem can escalate privileges, including 
 reading data from other containers, and abusing the credentials of system services, such as Kubelet.
 
-Only trusted users should be granted permission to create PersistentVolume objects.
+You should only allow access to create PersistentVolume objects for:
+
+- users (cluster operators) that need this access for their work, and who you trust
+- the Kubernetes control plane, which creates PersistentVolumes based on PersistentVolumeClaims
+  that are configured for automatic provisioning.
+  (Kubernetes usually sets up that access for the control plane when you deploy a cluster).
+
 Where access to persistent storage is required trusted administrators should create 
 PersistentVolumes, and constrained users should use PersistentVolumeClaims to access that storage.
 
