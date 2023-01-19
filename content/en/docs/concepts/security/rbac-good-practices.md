@@ -130,10 +130,10 @@ reading data from other containers, and abusing the credentials of system servic
 
 You should only allow access to create PersistentVolume objects for:
 
-- users (cluster operators) that need this access for their work, and who you trust
-- the Kubernetes control plane, which creates PersistentVolumes based on PersistentVolumeClaims
+- users (cluster operators) that need this access for their work, and who you trust,
+- the Kubernetes control plane components which creates PersistentVolumes based on PersistentVolumeClaims
   that are configured for automatic provisioning.
-  (Kubernetes usually sets up that access for the control plane when you deploy a cluster).
+  This is usually setup by the Kubernetes provider or by the operator when installing a CSI driver.
 
 Where access to persistent storage is required trusted administrators should create 
 PersistentVolumes, and constrained users should use PersistentVolumeClaims to access that storage.
