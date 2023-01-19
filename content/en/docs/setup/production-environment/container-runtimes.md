@@ -207,6 +207,8 @@ On Windows the default CRI endpoint is `npipe://./pipe/containerd-containerd`.
 
 #### Configuring the `systemd` cgroup driver {#containerd-systemd}
 
+Before proceeding to this step, make sure you've created a valid configuration file, `config.toml` by following the instructions mentioned above.
+
 To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`, set
 
 ```
