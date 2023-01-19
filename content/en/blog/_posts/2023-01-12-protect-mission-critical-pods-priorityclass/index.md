@@ -103,7 +103,7 @@ spec:
     resources:
       requests:
         memory: "256Mi"
-         cpu: "0.2"
+        cpu: "0.2"
       limits:
         memory: ".5Gi"
         cpu: "0.5"
