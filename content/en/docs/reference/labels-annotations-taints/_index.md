@@ -883,6 +883,14 @@ Used on: Service
 
 The control plane adds this label to an Endpoints object when the owning Service is headless.
 
+### service.kubernetes.io/topology-aware-hints {#servicekubernetesiotopology-aware-hints}
+
+Example: `service.kubernetes.io/topology-aware-hints: "auto"`
+
+Used on: Service
+
+This annotation is used for enabling [Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints/) for a service. This tells the EndpointSlice controller to set topology hints if it is deemed safe.
+
 ### kubernetes.io/service-name {#kubernetesioservice-name}
 
 Type: Label
