@@ -1,4 +1,3 @@
-git log -2
 ---
 layout: blog
 title: 'Kubernetes 1.14: Local Persistent Volumes GA'
