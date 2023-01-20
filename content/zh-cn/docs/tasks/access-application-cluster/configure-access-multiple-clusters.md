@@ -523,7 +523,7 @@ For example:
 ### Linux
 
 ```shell
-export KUBECONFIG="${KUBECONFIG}:$HOME/.kube/config"
+export KUBECONFIG="${KUBECONFIG}:${HOME}/.kube/config"
 ```
 
 ### Windows Powershell
