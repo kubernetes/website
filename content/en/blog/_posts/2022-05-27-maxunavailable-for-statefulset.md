@@ -50,6 +50,7 @@ spec:
         app: nginx
     spec:
       containers:
+      # image changed since publication (previously used registry "k8s.gcr.io")
       - image: registry.k8s.io/nginx-slim:0.8
         imagePullPolicy: IfNotPresent
         name: nginx
