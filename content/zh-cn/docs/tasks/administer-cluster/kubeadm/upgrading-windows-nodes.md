@@ -16,10 +16,9 @@ weight: 40
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 <!--
-This page explains how to upgrade a Windows node [created with kubeadm](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes).
+This page explains how to upgrade a Windows node created with kubeadm.
 -->
-本页解释如何升级[用 kubeadm 创建的](/zh-cn/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes)
-Windows 节点。
+本页解释如何升级用 kubeadm 创建的 Windows 节点。
 
 ## {{% heading "prerequisites" %}}
  
