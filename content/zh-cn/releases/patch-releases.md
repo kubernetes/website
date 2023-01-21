@@ -72,7 +72,7 @@ of the actual release.
 Cherry pick PRs which miss merge criteria will be carried over and tracked
 for the next patch release.
 -->
-## Cherry Picks
+## Cherry Pick
 
 请遵循 [Cherry Pick 流程](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/cherry-picks.md)。
 
@@ -143,13 +143,12 @@ releases may also occur in between these.
 -->
 ## 未来发布的月度版本  {#upcoming-monthly-releases}
 
-时间表可能会因错误修复的严重程度而有所不同，但为了便于规划，我们将针对以下每月发布点。
-计划外的关键版本也可能发生在这些版本之间。
+时间表可能会因错误修复的严重程度而有所不同，但为了便于规划，我们每月将按照以下时间点进行发布。
+中间可能会发布一些计划外的关键版本。
 
 <!--
 | Monthly Patch Release | Cherry Pick Deadline | Target date |
 | --------------------- | -------------------- | ----------- |
-| January 2023          | 2023-01-13           | 2023-01-18  |
 | February 2023         | 2023-02-10           | 2023-02-15  |
 | March 2023            | 2023-03-10           | 2023-03-15  |
 | April 2023            | 2023-04-07           | 2023-04-12  |
@@ -157,7 +156,6 @@ releases may also occur in between these.
 
 | 月度补丁发布    | Cherry Pick 截止日期 |   目标日期  |
 | -------------- | -------------------- | ----------- |
-| 2023 年 1 月   | 2023-01-13           | 2023-01-18  |
 | 2023 年 2 月   | 2023-02-10           | 2023-02-15  |
 | 2023 年 3 月   | 2023-03-10           | 2023-03-15  |
 | 2023 年 4 月   | 2023-04-07           | 2023-04-12  |
