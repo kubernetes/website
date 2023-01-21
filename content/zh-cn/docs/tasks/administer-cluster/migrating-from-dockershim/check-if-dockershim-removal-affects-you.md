@@ -1,14 +1,14 @@
 ---
 title: 检查移除 Dockershim 是否对你有影响
 content_type: task 
-weight: 20
+weight: 50
 ---
 <!-- 
 title: Check whether dockershim removal affects you
 content_type: task
 reviewers:
 - SergeyKanzhelev
-weight: 20
+weight: 50
 -->
 
 <!-- overview -->
@@ -131,7 +131,9 @@ You can read about it in [Kubernetes Containerd integration goes GA](/blog/2018/
 你可以阅读博文
 [Kubernetes 正式支持集成 Containerd](/blog/2018/05/24/kubernetes-containerd-integration-goes-ga/)。
 
-<!-- Dockershim vs. CRI with Containerd -->
+<!--
+![Dockershim vs. CRI with Containerd](/images/blog/2018-05-24-kubernetes-containerd-integration-goes-ga/cri-containerd.png)
+-->
 ![Dockershim 和 Containerd CRI 的实现对比图](/images/blog/2018-05-24-kubernetes-containerd-integration-goes-ga/cri-containerd.png)
 
 <!-- 

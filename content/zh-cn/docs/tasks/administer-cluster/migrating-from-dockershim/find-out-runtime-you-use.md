@@ -1,14 +1,14 @@
 ---
 title: 查明节点上所使用的容器运行时
 content_type: task
-weight: 10
+weight: 30
 ---
 <!--
 title: Find Out What Container Runtime is Used on a Node
 content_type: task
 reviewers:
 - SergeyKanzhelev
-weight: 10
+weight: 30
 -->
 
 <!-- overview -->
@@ -171,7 +171,7 @@ nodes.
 <!--
 If you want to change the Container Runtime on a Node from Docker Engine to containerd,
 you can find out more information on [migrating from Docker Engine to  containerd](/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/),
-or, if you want to continue using Docker Engine in v1.24 and later, migrate to a
+or, if you want to continue using Docker Engine in Kubernetes v1.24 and later, migrate to a
 CRI-compatible adapter like [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd).
 -->
 如果你将节点上的容器运行时从 Docker Engine 改变为 containerd，可在
