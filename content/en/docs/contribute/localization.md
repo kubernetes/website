@@ -93,7 +93,7 @@ to find your localization's two-letter language code. For example, the
 two-letter code for Korean is `ko`.
 
 If the language you are starting a localization for is spoken in various places
-with significative differences between the variants, it might make sense to
+with significant differences between the variants, it might make sense to
 combine the lowercased ISO-3166 country code with the language two-letter code.
 For example, Brazilian Portuguese is localized as `pt-br`.
 
