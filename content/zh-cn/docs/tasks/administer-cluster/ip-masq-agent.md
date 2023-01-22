@@ -1,10 +1,12 @@
 ---
 title: IP Masquerade Agent 用户指南
 content_type: task
+weight: 230
 ---
 <!--
 title: IP Masquerade Agent User Guide
 content_type: task
+weight: 230
 -->
 
 <!-- overview -->
@@ -171,7 +173,7 @@ You must also apply the appropriate node label to any nodes in your cluster that
 你必须同时将适当的节点标签应用于集群中希望代理运行的任何节点。
 
 ```shell
-kubectl label nodes my-node beta.kubernetes.io/masq-agent-ds-ready=true
+kubectl label nodes my-node node.kubernetes.io/masq-agent-ds-ready=true
 ```
 
 <!--
