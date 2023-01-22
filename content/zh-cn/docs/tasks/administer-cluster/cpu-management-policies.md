@@ -2,6 +2,7 @@
 title: 控制节点上的 CPU 管理策略
 content_type: task
 min-kubernetes-server-version: v1.26
+weight: 140
 ---
 <!--
 title: Control CPU Management Policies on the Node
@@ -12,6 +13,7 @@ reviewers:
 
 content_type: task
 min-kubernetes-server-version: v1.26
+weight: 140
 -->
 
 <!-- overview -->
