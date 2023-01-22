@@ -2,6 +2,7 @@
 title: 控制节点上的 CPU 管理策略
 content_type: task
 min-kubernetes-server-version: v1.26
+weight: 140
 ---
 <!--
 title: Control CPU Management Policies on the Node
@@ -12,6 +13,7 @@ reviewers:
 
 content_type: task
 min-kubernetes-server-version: v1.26
+weight: 140
 -->
 
 <!-- overview -->
@@ -444,7 +446,7 @@ kubelet 才会接受该 Pod。
 如果 Pod 没有被准入，它会被置于 Failed 状态，错误消息是 `SMTAlignmentError`。
 
 <!--
-If the `distribute-cpus-across-numa` policy option is specified, the static
+If the `distribute-cpus-across-numa`policy option is specified, the static
 policy will evenly distribute CPUs across NUMA nodes in cases where more than
 one NUMA node is required to satisfy the allocation.
 By default, the `CPUManager` will pack CPUs onto one NUMA node until it is

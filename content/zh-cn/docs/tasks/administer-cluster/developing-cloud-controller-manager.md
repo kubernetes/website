@@ -1,6 +1,7 @@
 ---
 title: 开发云控制器管理器
 content_type: task
+weight: 190
 ---
 
 <!--
@@ -10,6 +11,7 @@ reviewers:
 - wlan0
 title: Developing Cloud Controller Manager
 content_type: concept
+weight: 190
 -->
 
 <!-- overview -->
@@ -48,14 +50,14 @@ Kubernetes 核心代码导入软件包来实现一个 cloud-controller-manager�
 ### 树外（Out of Tree）
 
 <!--
-To build an out-of-tree cloud-controller-manager for your cloud, follow these steps:
+To build an out-of-tree cloud-controller-manager for your cloud:
 -->
 要为你的云环境构建一个树外（Out-of-Tree）云控制器管理器：
 
 <!--
 1. Create a go package with an implementation that satisfies [cloudprovider.Interface](https://github.com/kubernetes/cloud-provider/blob/master/cloud.go).
-2. Use [main.go in cloud-controller-manager](https://github.com/kubernetes/kubernetes/blob/master/cmd/cloud-controller-manager/main.go) from Kubernetes core as a template for your main.go. As mentioned above, the only difference should be the cloud package that will be imported.
-3. Import your cloud package in `main.go`, ensure your package has an `init` block to run [cloudprovider.RegisterCloudProvider](https://github.com/kubernetes/cloud-provider/blob/master/plugins.go).
+2. Use [`main.go` in cloud-controller-manager](https://github.com/kubernetes/kubernetes/blob/master/cmd/cloud-controller-manager/main.go) from Kubernetes core as a template for your `main.go`. As mentioned above, the only difference should be the cloud package that will be imported.
+3. Import your cloud package in `main.go`, ensure your package has an `init` block to run [`cloudprovider.RegisterCloudProvider`](https://github.com/kubernetes/cloud-provider/blob/master/plugins.go).
 -->
 1. 使用满足 [`cloudprovider.Interface`](https://github.com/kubernetes/cloud-provider/blob/master/cloud.go)
    接口的实现来创建一个 Go 语言包。
