@@ -83,10 +83,7 @@ kubeadm upgrade node [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-Caminho para um diretório contendo arquivos nomeados no padrão &quot;target[suffix][+patchtype].extension&quot;. Por exemplo, &quot;kube-apiserver0+merge.yaml&quot; ou somente &quot;etcd.json&quot;.
-&quot;target&quot; pode ser um dos seguintes valores: &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;.
-&quot;patchtype&quot; pode ser &quot;strategic&quot;, &quot;merge&quot; ou &quot;json&quot; e corresponde aos formatos de patch suportados pelo kubectl. O valor padrão para &quot;patchtype&quot; é &quot;strategic&quot;.
-&quot;extension&quot; deve ser &quot;json&quot; ou &quot;yaml&quot;. &quot;suffix&quot; é uma string opcional utilizada para determinar quais patches são aplicados primeiro em ordem alfanumérica.
+Caminho para um diretório contendo arquivos nomeados no padrão &quot;target[suffix][+patchtype].extension&quot;. Por exemplo, &quot;kube-apiserver0+merge.yaml&quot; ou somente &quot;etcd.json&quot;. &quot;target&quot; pode ser um dos seguintes valores: &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;. &quot;patchtype&quot; pode ser &quot;strategic&quot;, &quot;merge&quot; ou &quot;json&quot; e corresponde aos formatos de patch suportados pelo kubectl. O valor padrão para &quot;patchtype&quot; é &quot;strategic&quot;. &quot;extension&quot; deve ser &quot;json&quot; ou &quot;yaml&quot;. &quot;suffix&quot; é uma string opcional utilizada para determinar quais patches são aplicados primeiro em ordem alfanumérica.
 </p></td>
 </tr>
 

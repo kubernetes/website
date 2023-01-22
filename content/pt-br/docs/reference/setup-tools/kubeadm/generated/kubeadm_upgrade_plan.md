@@ -56,7 +56,7 @@ kubeadm upgrade plan [versão] [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Um conjunto de pares chave=valor que descreve feature gates para várias funcionalidades. As opções são:<br/>
-PublicKeysECDSA=true|false (ALPHA - padrão=false)<br/>RootlessControlPlane=true|false (ALPHA - padrão=false)<br/>UnversionedKubeletConfigMap=true|false (padrão=true)
+PublicKeysECDSA=true|false (ALPHA - padrão=false)<br/>RootlessControlPlane=true|false (ALPHA - padrão=false)
 </p></td>
 </tr>
 
