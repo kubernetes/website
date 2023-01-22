@@ -1,6 +1,7 @@
 ---
 title: 升级集群
 content_type: task
+weight: 350
 ---
 <!--
 title: Upgrade A Cluster
@@ -195,6 +196,5 @@ Refer to [API compatibility](/docs/concepts/extend-kubernetes/compute-storage-ne
 API 版本的 Kubernetes 版本，则必须在升级节点之前升级设备插件以同时支持这两个插件 API 版本，
 以确保升级过程中设备分配能够继续成功完成。
 
-有关详细信息，请参阅
-[API 兼容性](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#api-compatibility)和
+有关详细信息，请参阅 [API 兼容性](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#api-compatibility)和
 [kubelet 设备管理器 API 版本](/zh-cn/docs/reference/node/device-plugin-api-versions/)。
