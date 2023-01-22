@@ -49,18 +49,6 @@ other = "CVE ID"
 [cve_issue_url]
 other = "CVE GitHub Issue URL"
 
-[cve_json_external_url]
-other = "external_url"
-
-[cve_json_id]
-other = "id"
-
-[cve_json_summary]
-other = "summary"
-
-[cve_json_url]
-other = "url"
-
 [cve_summary]
 other = "Issue Summary"
 
