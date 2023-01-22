@@ -2,13 +2,13 @@
 title: 升级 Windows 节点
 min-kubernetes-server-version: 1.17
 content_type: task
-weight: 40
+weight: 50
 ---
 <!--
 title: Upgrading Windows nodes
 min-kubernetes-server-version: 1.17
 content_type: task
-weight: 40
+weight: 50
 -->
 
 <!-- overview -->
