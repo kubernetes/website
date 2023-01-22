@@ -1,6 +1,7 @@
 ---
 title: 关键插件 Pod 的调度保证
 content_type: concept
+weight: 220
 ---
 
 <!-- overview -->
