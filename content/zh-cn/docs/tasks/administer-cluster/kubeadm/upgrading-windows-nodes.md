@@ -2,13 +2,13 @@
 title: 升级 Windows 节点
 min-kubernetes-server-version: 1.17
 content_type: task
-weight: 40
+weight: 50
 ---
 <!--
 title: Upgrading Windows nodes
 min-kubernetes-server-version: 1.17
 content_type: task
-weight: 40
+weight: 50
 -->
 
 <!-- overview -->
@@ -16,10 +16,9 @@ weight: 40
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 <!--
-This page explains how to upgrade a Windows node [created with kubeadm](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes).
+This page explains how to upgrade a Windows node created with kubeadm.
 -->
-本页解释如何升级[用 kubeadm 创建的](/zh-cn/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes)
-Windows 节点。
+本页解释如何升级用 kubeadm 创建的 Windows 节点。
 
 ## {{% heading "prerequisites" %}}
  
@@ -150,7 +149,8 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
 {{< note >}}
 <!--
-If you are running kube-proxy in a HostProcess container within a Pod, and not as a Windows Service, you can upgrade kube-proxy by applying a newer version of your kube-proxy manifests.
+If you are running kube-proxy in a HostProcess container within a Pod, and not as a Windows Service,
+you can upgrade kube-proxy by applying a newer version of your kube-proxy manifests.
 -->
 如果你是在 Pod 内的 HostProcess 容器中运行 kube-proxy，而不是作为 Windows 服务，
 你可以通过应用更新版本的 kube-proxy 清单文件来升级 kube-proxy。
