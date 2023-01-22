@@ -2,6 +2,7 @@
 title: 静态加密 Secret 数据
 content_type: task
 min-kubernetes-server-version: 1.13
+weight: 210
 ---
 <!--
 title: Encrypting Secret Data at Rest
@@ -10,6 +11,7 @@ reviewers:
 - enj
 content_type: task
 min-kubernetes-server-version: 1.13
+weight: 210
 -->
 
 <!-- overview -->
@@ -61,7 +63,7 @@ decrypt data stored in the etcd.
 {{< /caution >}}
 
 <!--
-## Understanding the encryption at rest configuration.
+## Understanding the encryption at rest configuration
 -->
 ## 理解静态数据加密    {#understanding-the-encryption-at-rest-configuration}
 
@@ -154,7 +156,7 @@ Name | Encryption | Strength | Speed | Key Length | Other Considerations
 `secretbox` | XSalsa20 and Poly1305 | Strong | Faster | 32-byte | A newer standard and may not be considered acceptable in environments that require high levels of review.
 `aesgcm` | AES-GCM with random nonce | Must be rotated every 200k writes | Fastest | 16, 24, or 32-byte | Is not recommended for use except when an automated key rotation scheme is implemented.
 `aescbc` | AES-CBC with [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) padding | Weak | Fast | 32-byte | Not recommended due to CBC's vulnerability to padding oracle attacks.
-`kms` | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-CBC with [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) padding, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Fast | 32-bytes |  The recommended choice for using a third party tool for key management. Simplifies key rotation, with a new DEK generated for each encryption, and KEK rotation controlled by the user. [Configure the KMS provider](/docs/tasks/administer-cluster/kms-provider/)
+`kms` | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-CBC with [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) padding (prior to v1.25), using AES-GCM starting from v1.25, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Fast | 32-bytes |  The recommended choice for using a third party tool for key management. Simplifies key rotation, with a new DEK generated for each encryption, and KEK rotation controlled by the user. [Configure the KMS provider](/docs/tasks/administer-cluster/kms-provider/)
 
 Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
 is the first provider, the first key is used for encryption.
@@ -392,7 +394,7 @@ program to retrieve the contents of your secret data.
 4. 通过 API 检索，验证 Secret 是否被正确解密：
 
    ```shell
-   kubectl describe secret secret1 -n default
+   kubectl get secret secret1 -n default -o yaml
    ```
 
    <!--
@@ -489,8 +491,7 @@ resources:
 ```
 
 <!--
-Then run the following command to force decrypt
-all Secrets:
+Then run the following command to force decrypt all Secrets:
 -->
 然后运行以下命令以强制解密所有 Secret：
 
