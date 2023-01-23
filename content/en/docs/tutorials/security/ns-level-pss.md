@@ -155,7 +155,11 @@ with no warnings.
 
 ## Clean up
 
-Run `kind delete cluster --name psa-ns-level` to delete the cluster created.
+Now delete the cluster which you created above by running the following command:
+
+```shell
+kind delete cluster --name psa-ns-level
+```
 
 ## {{% heading "whatsnext" %}}
 
