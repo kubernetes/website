@@ -329,14 +329,19 @@ Events:
   33s          33s         1        {job-controller }                Normal      SuccessfulCreate  Created pod: job-wq-2-lglf8
 ```
 
-运行以下命令查看日志：
+<!--
+You can wait for the Job to succeed, with a timeout:
+-->
+你可以等待 Job 在某个超时时间后成功：
+
+```shell
+# 状况名称的检查不区分大小写
+kubectl wait --for=condition=complete --timeout=300s job/job-wq-2
+```
 
 ```shell
 kubectl logs pods/job-wq-2-7r7b2
 ```
-
-日志类似于：
-
 ```
 Worker with sessionID: bbd72d0a-9e5c-4dd6-abf6-416cc267991f
 Initial queue state: empty=False

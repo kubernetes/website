@@ -190,7 +190,7 @@ When you create this Job, the control plane creates a series of Pods, one for ea
 
 Because `.spec.parallelism` is less than `.spec.completions`, the control plane waits for some of the first Pods to complete before starting more of them.
 
-Once you have created the Job, wait a moment then check on progress:
+You can wait for the Job to succeed, with a timeout:
 -->
 当你创建此 Job 时，控制平面会创建一系列 Pod，你指定的每个索引都会运行一个 Pod。
 `.spec.parallelism` 的值决定了一次可以运行多少个 Pod，
@@ -199,7 +199,17 @@ Once you have created the Job, wait a moment then check on progress:
 因为 `.spec.parallelism` 小于 `.spec.completions`，
 所以控制平面在启动更多 Pod 之前，将等待第一批的某些 Pod 完成。
 
-创建 Job 后，稍等片刻，就能检查进度：
+你可以等待 Job 在某个超时时间后成功：
+
+```shell
+# 状况名称的检查不区分大小写
+kubectl wait --for=condition=complete --timeout=300s job/indexed-job
+```
+
+<!--
+Now, describe the Job and check that it was successful.
+-->
+现在，描述 Job 并检查它是否成功。
 
 ```shell
 kubectl describe jobs/indexed-job
