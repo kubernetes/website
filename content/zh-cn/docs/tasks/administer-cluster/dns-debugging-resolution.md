@@ -2,6 +2,7 @@
 title: 调试 DNS 问题
 content_type: task
 min-kubernetes-server-version: v1.6
+weight: 170
 ---
 
 <!-- overview -->
@@ -84,7 +85,7 @@ dnsutils   1/1       Running   0          <some-time>
 ```
 
 <!--
-Once that pod is running, you can exec `nslookup` in that environment.
+Once that Pod is running, you can exec `nslookup` in that environment.
 If you see something like the following, DNS is working correctly.
 -->
 一旦 Pod 处于运行状态，你就可以在该环境里执行 `nslookup`。
@@ -204,7 +205,7 @@ The value for label `k8s-app` is `kube-dns` for both CoreDNS and kube-dns deploy
 {{< /note >}}
 
 <!--
-If you see that no CoreDNS pod is running or that the pod has failed/completed,
+If you see that no CoreDNS Pod is running or that the Pod has failed/completed,
 the DNS add-on may not be deployed by default in your current environment and you
 will have to deploy it manually.
 -->
@@ -212,9 +213,9 @@ will have to deploy it manually.
 那可能这个 DNS 插件在你当前的环境里并没有成功部署，你将需要手动去部署它。
 
 <!--
-### Check for Errors in the DNS pod
+### Check for errors in the DNS pod
 
-Use `kubectl logs` command to see logs for the DNS containers.
+Use the `kubectl logs` command to see logs for the DNS containers.
 -->
 ### 检查 DNS Pod 里的错误    {#check-for-errors-in-the-dns-pod}
 
@@ -308,8 +309,8 @@ kube-dns   10.180.3.17:53,10.180.3.17:53    1h
 ```
 
 <!--
-If you do not see the endpoints, see endpoints section in the
-[debugging services](/docs/tasks/debug/debug-application/debug-service/) documentation.
+If you do not see the endpoints, see the endpoints section in the
+[debugging Services](/docs/tasks/debug/debug-application/debug-service/) documentation.
 
 For additional Kubernetes DNS examples, see the
 [cluster-dns examples](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns)
@@ -338,7 +339,7 @@ kubectl -n kube-system edit configmap coredns
 ```
 
 <!--
-Then add `log` in the Corefile section per the example below.
+Then add `log` in the Corefile section per the example below:
 -->
 然后按下面的例子给 Corefile 添加 `log`。
 
@@ -377,7 +378,7 @@ CoreDNS 的 Pod 里。
 <!--
 Next, make some queries and view the logs per the sections above in this document. If CoreDNS pods are receiving the queries, you should see them in the logs.
 
-Here is an example of a query in the log.
+Here is an example of a query in the log:
 -->
 接下来，发起一些查询并依照前文所述查看日志信息，如果 CoreDNS 的 Pod 接收到这些查询，
 你将可以在日志信息里看到它们。
@@ -504,9 +505,9 @@ To learn more about name resolution, see
 <!--
 ## Known issues
 
-Some Linux distributions (e.g. Ubuntu), use a local DNS resolver by default (systemd-resolved).
+Some Linux distributions (e.g. Ubuntu) use a local DNS resolver by default (systemd-resolved).
 Systemd-resolved moves and replaces `/etc/resolv.conf` with a stub file that can cause a fatal forwarding
-loop when resolving names in upstream servers. This can be fixed manually by using kubelet's `-resolv-conf` flag
+loop when resolving names in upstream servers. This can be fixed manually by using kubelet's `--resolv-conf` flag
 to point to the correct `resolv.conf` (With `systemd-resolved`, this is `/run/systemd/resolve/resolv.conf`).
 kubeadm automatically detects `systemd-resolved`, and adjusts the kubelet flags accordingly.
 -->
@@ -542,9 +543,9 @@ Linux 的 libc（又名 glibc）默认将 DNS `nameserver` 记录限制为 3，
 
 <!--
 If you are using Alpine version 3.3 or earlier as your base image, DNS may not
-work properly owing to a known issue with Alpine.
-Check [here](https://github.com/kubernetes/kubernetes/issues/30215)
-for more information.
+work properly due to a known issue with Alpine.
+Kubernetes [issue 30215](https://github.com/kubernetes/kubernetes/issues/30215)
+details more information on this.
 -->
 如果你使用 Alpine 3.3 或更早版本作为你的基础镜像，DNS 可能会由于 Alpine 中
 一个已知的问题导致无法正常工作。

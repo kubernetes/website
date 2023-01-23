@@ -334,21 +334,21 @@ option. Your cluster requirements may need a different configuration.
    {{< /note >}}
 
    <!--
-   - The output looks similar to:
+   The output looks similar to:
    -->
-   - 输出类似于：
+   输出类似于：
 
-     ```sh
-     ...
-     You can now join any number of control-plane node by running the following command on each as a root:
-     kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
+   ```sh
+   ...
+   You can now join any number of control-plane node by running the following command on each as a root:
+       kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
 
-     Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
-     As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use kubeadm init phase upload-certs to reload certs afterward.
+   Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
+   As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use kubeadm init phase upload-certs to reload certs afterward.
 
-     Then you can join any number of worker nodes by running the following on each as root:
+   Then you can join any number of worker nodes by running the following on each as root:
        kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
-     ```
+   ```
 
    <!--
    - Copy this output to a text file. You will need it later to join control plane and worker nodes to the cluster.
@@ -393,8 +393,8 @@ option. Your cluster requirements may need a different configuration.
 <!--
 1. Apply the CNI plugin of your choice:
    [Follow these instructions](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)
-    to install the CNI provider. Make sure the configuration corresponds to the Pod CIDR specified in the
-    kubeadm configuration file (if applicable).
+   to install the CNI provider. Make sure the configuration corresponds to the Pod CIDR specified in the
+   kubeadm configuration file (if applicable).
 -->
 2. 应用你所选择的 CNI 插件：
    [请遵循以下指示](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#pod-network)
@@ -438,6 +438,7 @@ For each additional control plane node you should:
    - The `--certificate-key ...` will cause the control plane certificates to be downloaded
      from the `kubeadm-certs` Secret in the cluster and be decrypted using the given key.
 
+You can join multiple control-plane nodes in parallel.
 -->
 对于每个其他控制平面节点，你应该：
 
@@ -452,6 +453,7 @@ For each additional control plane node you should:
    - `--certificate-key ...` 将导致从集群中的 `kubeadm-certs` Secret
      下载控制平面证书并使用给定的密钥进行解密。
 
+你可以并行地加入多个控制面节点。
 <!--
 ## External etcd nodes
 
@@ -555,7 +557,7 @@ in the kubeadm config file.
    {{< /note >}}
 
    <!--
-   -  Replace the following variables in the config template with the appropriate values for your cluster:
+   - Replace the following variables in the config template with the appropriate values for your cluster:
    -->
    - 在你的集群中，将配置模板中的以下变量替换为适当值：
 
