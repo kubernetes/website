@@ -52,6 +52,9 @@ plugins:
       # Array of namespaces to exempt.
       namespaces: []
 ```
+{{< note >}}
+The above manifest needs to be specified via the `--admission-control-config-file` to kube-apiserver.
+{{< /note >}}
 
 {{< note >}}
 `pod-security.admission.config.k8s.io/v1` configuration requires v1.25+.
