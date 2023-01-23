@@ -15,7 +15,7 @@ weight: 10
 <!-- overview -->
 
 <!--
-Kubernetes runs your workload by placing containers into Pods to run on _Nodes_.
+Kubernetes runs your {{< glossary_tooltip text="workload" term_id="workload" >}} by placing containers into Pods to run on _Nodes_.
 A node may be a virtual or physical machine, depending on the cluster. Each node
 is managed by the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
@@ -30,7 +30,8 @@ The [components](/docs/concepts/overview/components/#node-components) on a node 
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}, and the
 {{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}.
 -->
-Kubernetes 通过将容器放入在节点（Node）上运行的 Pod 中来执行你的工作负载。
+Kubernetes 通过将容器放入在节点（Node）上运行的 Pod
+中来执行你的{{< glossary_tooltip text="工作负载" term_id="workload" >}}。
 节点可以是一个虚拟机或者物理机器，取决于所在的集群配置。
 每个节点包含运行 {{< glossary_tooltip text="Pod" term_id="pod" >}} 所需的服务；
 这些节点由{{< glossary_tooltip text="控制面" term_id="control-plane" >}}负责管理。
@@ -372,7 +373,7 @@ Condition，被保护起来的节点在其规约中被标记为不可调度（Un
 In the Kubernetes API, a node's condition is represented as part of the `.status`
 of the Node resource. For example, the following JSON structure describes a healthy node:
 -->
-在 Kubernetes API 中，节点的状况表示节点资源中`.status` 的一部分。
+在 Kubernetes API 中，节点的状况表示节点资源中 `.status` 的一部分。
 例如，以下 JSON 结构描述了一个健康节点：
 
 ```json
@@ -425,7 +426,7 @@ names.
 -->
 节点控制器在确认 Pod 在集群中已经停止运行前，不会强制删除它们。
 你可以看到可能在这些无法访问的节点上运行的 Pod 处于 `Terminating` 或者 `Unknown` 状态。
-如果 kubernetes 不能基于下层基础设施推断出某节点是否已经永久离开了集群，
+如果 Kubernetes 不能基于下层基础设施推断出某节点是否已经永久离开了集群，
 集群管理员可能需要手动删除该节点对象。
 从 Kubernetes 删除节点对象将导致 API 服务器删除节点上所有运行的 Pod 对象并释放它们的名字。
 
@@ -1029,7 +1030,7 @@ section [Graceful Node Shutdown](#graceful-node-shutdown) for more details.
 
 <!--
 When a node is shutdown but not detected by kubelet's Node Shutdown Manager, the pods 
-that are part of a StatefulSet will be stuck in terminating status on 
+that are part of a {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} will be stuck in terminating status on 
 the shutdown node and cannot move to a new running node. This is because kubelet on 
 the shutdown node is not available to delete the pods so the StatefulSet cannot 
 create a new pod with the same name. If there are volumes used by the pods, the 
@@ -1041,7 +1042,8 @@ created on a different running node. If the original shutdown node does not come
 these pods will be stuck in terminating status on the shutdown node forever.
 -->
 当某节点关闭但 kubelet 的节点关闭管理器未检测到这一事件时，
-在那个已关闭节点上、属于 StatefulSet 的 Pod 将停滞于终止状态，并且不能移动到新的运行节点上。
+在那个已关闭节点上、属于 {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}
+的 Pod 将停滞于终止状态，并且不能移动到新的运行节点上。
 这是因为已关闭节点上的 kubelet 已不存在，亦无法删除 Pod，
 因此 StatefulSet 无法创建同名的新 Pod。
 如果 Pod 使用了卷，则 VolumeAttachments 不会从原来的已关闭节点上删除，
@@ -1054,14 +1056,15 @@ these pods will be stuck in terminating status on the shutdown node forever.
 To mitigate the above situation, a  user can manually add the taint `node.kubernetes.io/out-of-service` with either `NoExecute`
 or `NoSchedule` effect to a Node marking it out-of-service. 
 If the `NodeOutOfServiceVolumeDetach`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled on `kube-controller-manager`, and a Node is marked out-of-service with this taint, the
+is enabled on {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}, and a Node is marked out-of-service with this taint, the
 pods on the node will be forcefully deleted if there are no matching tolerations on it and volume
 detach operations for the pods terminating on the node will happen immediately. This allows the
 Pods on the out-of-service node to recover quickly on a different node. 
 -->
 为了缓解上述情况，用户可以手动将具有 `NoExecute` 或 `NoSchedule` 效果的
 `node.kubernetes.io/out-of-service` 污点添加到节点上，标记其无法提供服务。
-如果在 `kube-controller-manager` 上启用了 `NodeOutOfServiceVolumeDetach`
+如果在 {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}
+上启用了 `NodeOutOfServiceVolumeDetach`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
 并且节点被通过污点标记为无法提供服务，如果节点 Pod 上没有设置对应的容忍度，
 那么这样的 Pod 将被强制删除，并且该在节点上被终止的 Pod 将立即进行卷分离操作。
@@ -1186,15 +1189,21 @@ see [KEP-2400](https://github.com/kubernetes/enhancements/issues/2400) and its
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Learn about the [components](/docs/concepts/overview/components/#node-components) that make up a node.
-* Read the [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
-* Read the [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)
-  section of the architecture design document.
-* Read about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
+Learn more about the following:
+   * [Components](/docs/concepts/overview/components/#node-components) that make up a node.
+   * [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
+   * [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node) section of the architecture design document.
+   * [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
+   * [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).
+   * [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/).
 -->
-* 进一步了解节点[组件](/zh-cn/docs/concepts/overview/components/#node-components)。
-* 阅读 [Node 的 API 定义](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core)。
-* 阅读架构设计文档中有关
+进一步了解以下资料：
+
+* 构成节点的[组件](/zh-cn/docs/concepts/overview/components/#node-components)。
+* [Node 的 API 定义](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core)。
+* 架构设计文档中有关
   [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)
   的章节。
-* 了解[污点和容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)。
+* [污点和容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)。
+* [节点资源管理器](/zh-cn/docs/concepts/policy/node-resource-managers/)。
+* [Windows 节点的资源管理](/zh-cn/docs/concepts/configuration/windows-resource-management/)。
