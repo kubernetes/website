@@ -212,34 +212,36 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-After you create a binding, you cannot change the Role or ClusterRole that it refers to.
-If you try to change a binding's `roleRef`, you get a validation error. If you do want
-to change the `roleRef` for a binding, you need to remove the binding object and create
-a replacement.
+Après avoir créé un lien, vous ne pouvez pas modifier le Role ou le ClusterRole auquel il fait référence.
+Si vous essayez de modifier le `roleRef` d'un lien, vous obtenez une erreur de validation.
+Si vous souhaitez changer le `roleRef` d'un lien, vous devez supprimer l'objet binding 
+et en créer un autre.
 
-There are two reasons for this restriction:
+Il y a deux raisons à cette restriction :
 
-1. Making `roleRef` immutable allows granting someone `update` permission on an existing binding
-object, so that they can manage the list of subjects, without being able to change
-the role that is granted to those subjects.
-1. A binding to a different role is a fundamentally different binding.
-Requiring a binding to be deleted/recreated in order to change the `roleRef`
-ensures the full list of subjects in the binding is intended to be granted
-the new role (as opposed to enabling or accidentally modifying only the roleRef
-without verifying all of the existing subjects should be given the new role's
-permissions).
+1. Rendre `roleRef` immuable permet d'accorder à quelqu'un la permission `update` sur un objet de liaison existant,
+afin qu'il puisse gérer la liste des sujets, sans pouvoir changer le rôle qui est accordé à ces sujets.
+1. Un lien vers un rôle différent est un lien fondamentalement différent.
+Le fait d'exiger qu'un lien soit supprimé/créé afin de modifier le `roleRef`
+garantit que la liste complète des sujets dans le binding est destinée à
+recevoir le nouveau rôle (par opposition à l'activation ou à la modification
+accidentelle uniquement du roleRef sans vérifier que tous les sujets existants 
+doivent recevoir les permissions du nouveau rôle).
 
-The `kubectl auth reconcile` command-line utility creates or updates a manifest file containing RBAC objects,
-and handles deleting and recreating binding objects if required to change the role they refer to.
-See [command usage and examples](#kubectl-auth-reconcile) for more information.
+L'utilitaire de ligne de commande `kubectl auth reconcile` crée ou met à jour un fichier manifeste contenant des objets RBAC,
+et gère la suppression et la recréation des objets de liaison si nécessaire pour modifier le rôle auquel ils se réfèrent.
+Voir [utilisation de la commande et exemples](#kubectl-auth-reconcile) pour plus d'informations.
 
-### Referring to resources
+### Référence aux ressources
 
 In the Kubernetes API, most resources are represented and accessed using a string representation of
 their object name, such as `pods` for a Pod. RBAC refers to resources using exactly the same
 name that appears in the URL for the relevant API endpoint.
 Some Kubernetes APIs involve a
 _subresource_, such as the logs for a Pod. A request for a Pod's logs looks like:
+Dans l'API Kubernetes, la plupart des ressources sont représentées et accessibles à l'aide d'une chaîne de caractères de leur nom d'objet,
+comme `pods` pour un Pod. RBAC fait référence aux ressources en utilisant exactement le même nom que celui qui apparaît dans l'URL du point de terminaison de l'API concerné.
+Certaines API Kubernetes impliquent une _sous-ressource_, comme les journaux d'un Pod. Une requête pour les journaux d'un Pod ressemble à ceci :
 
 ```http
 GET /api/v1/namespaces/{namespace}/pods/{name}/log
