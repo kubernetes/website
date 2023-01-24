@@ -1,10 +1,13 @@
 ---
-title: Gibibyte
-id: GiB
-date: 2023-01-21
-full_link: https://kubernetes.io/docs/reference/kubernetes-api/common-definitions/quantity/
+title: Quantity
+id: Qty
+date: 2023-01-24
+full_link: https://kubernetes.io/docs/tasks/configure-pod-container/assign-memory-resource/
 short_description: >
-  GiB stands for Gibibyte. 1 GiB is defined as 1024³ bytes
+ Quantity contains GB and GiB unit. 
+GiB: Gibibyte 
+GB: Gigabyte.
+
 aka: 
 tags:
 - user-type
@@ -12,7 +15,7 @@ tags:
 
 
 
- 
+
 
 
 
