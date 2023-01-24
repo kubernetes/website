@@ -1,14 +1,14 @@
 ---
 title: 从 dockershim 迁移遥测和安全代理
 content_type: task 
-weight: 70
+weight: 60
 ---
 <!-- 
 title: Migrating telemetry and security agents from dockershim
 content_type: task 
 reviewers:
 - SergeyKanzhelev
-weight: 70
+weight: 60
 -->
 
 <!-- overview -->
@@ -16,7 +16,13 @@ weight: 70
 {{% thirdparty-content %}}
 
 <!-- 
-Kubernetes' support for direct integration with Docker Engine is deprecated and has been removed. Most apps do not have a direct dependency on runtime hosting containers. However, there are still a lot of telemetry and monitoring agents that has a dependency on docker to collect containers metadata, logs and metrics. This document aggregates information on how to detect these dependencies and links on how to migrate these agents to use generic tools or alternative runtimes.
+Kubernetes' support for direct integration with Docker Engine is deprecated and
+has been removed. Most apps do not have a direct dependency on runtime hosting
+containers. However, there are still a lot of telemetry and monitoring agents
+that have a dependency on Docker to collect containers metadata, logs, and
+metrics. This document aggregates information on how to detect these
+dependencies as well as links on how to migrate these agents to use generic tools or
+alternative runtimes.
 -->
 Kubernetes 对与 Docker Engine 直接集成的支持已被弃用且已经被删除。
 大多数应用程序不直接依赖于托管容器的运行时。但是，仍然有大量的遥测和监控代理依赖
@@ -65,8 +71,8 @@ might run a command such as
 [`docker ps`](https://docs.docker.com/engine/reference/commandline/ps/)
 or [`docker top`](https://docs.docker.com/engine/reference/commandline/top/) to list
 containers and processes or [`docker logs`](https://docs.docker.com/engine/reference/commandline/logs/)
-+to receive streamed logs. If nodes in your existing cluster use
-+Docker Engine, and you switch to a different container runtime,
+to receive streamed logs. If nodes in your existing cluster use
+Docker Engine, and you switch to a different container runtime,
 these commands will not work any longer.
 -->
 一些代理和 Docker 工具紧密绑定。比如代理会用到
@@ -164,6 +170,9 @@ Please contact the vendor to get up to date instructions for migrating from dock
 提供了为各类遥测和安全代理供应商准备的持续更新的迁移指导。
 请与供应商联系，获取从 dockershim 迁移的最新说明。
 
+<!--
+## Migration from dockershim
+-->
 ## 从 dockershim 迁移 {#migration-from-dockershim}
 
 ### [Aqua](https://www.aquasec.com)

@@ -1,7 +1,7 @@
 ---
 title: 使用 Romana 提供 NetworkPolicy
 content_type: task
-weight: 40
+weight: 50
 ---
 
 <!--
@@ -9,7 +9,7 @@ reviewers:
 - chrismarino
 title: Romana for NetworkPolicy
 content_type: task
-weight: 40
+weight: 50
 -->
 
 <!-- overview -->
@@ -22,7 +22,7 @@ This page shows how to use Romana for NetworkPolicy.
 ## {{% heading "prerequisites" %}}
 
 <!--
-Complete steps 1, 2, and 3 of  the [kubeadm getting started guide](/docs/getting-started-guides/kubeadm/).
+Complete steps 1, 2, and 3 of the [kubeadm getting started guide](/docs/reference/setup-tools/kubeadm/).
 -->
 完成 [kubeadm 入门指南](/zh-cn/docs/reference/setup-tools/kubeadm/)中的 1、2、3 步。
 
