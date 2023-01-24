@@ -47,6 +47,9 @@ Then verify the blob by using `cosign`:
 cosign verify-blob "$BINARY" --signature "$BINARY".sig --certificate "$BINARY".cert
 ```
 
+cosign v1.9.0 is required to be able to use the `--certificate` flag. Please use
+`--cert` for older versions of cosign.
+
 {{< note >}}
 To learn more about keyless signing, please refer to [Keyless
 Signatures](https://github.com/sigstore/cosign/blob/main/KEYLESS.md#keyless-signatures).
