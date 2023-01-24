@@ -70,8 +70,10 @@ spec:
 EOF
 kubectl apply -f -
 
-# Wait
-sleep 3
+# Await input
+sleep 1
+( bash -c 'true' 2>/dev/null && bash -c 'read -p "Press any key to continue... " -n1 -s' ) || \
+    ( printf "Press Enter to continue... " && read ) 1>&2
 
 # Clean up
 printf "\n\nCleaning up:\n" 1>&2
