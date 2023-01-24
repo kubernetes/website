@@ -73,8 +73,7 @@ Adding a new version:
 
 1. Pick a conversion strategy. Since custom resource objects need the ability to
    be served at both versions, that means they will sometimes be served in a
-   different version than the one stored. To make this possible, the custom
-   resource objects must sometimes be converted between the
+   different version than the one stored. To make this possible, the custom resource objects must sometimes be converted between the
    version they are stored at and the version they are served at. If the
    conversion involves schema changes and requires custom logic, a conversion
    webhook should be used. If there are no schema changes, the default `None`
@@ -132,7 +131,7 @@ Removing an old version:
 1. Set `served` to `false` for the old version in the `spec.versions` list. If
    any clients are still unexpectedly using the old version they may begin reporting
    errors attempting to access the custom resource objects at the old version.
-   If this occurs, switch back to using `served:true` on the old version, migrate the 
+   If this occurs, switch back to using `served:true` on the old version, migrate the
    remaining clients to the new version and repeat this step.
 1. Ensure the [upgrade of existing objects to the new stored version](#upgrade-existing-objects-to-a-new-stored-version) step has been completed.
    1. Verify that the `storage` is set to `true` for the new version in the `spec.versions` list in the CustomResourceDefinition.
@@ -532,9 +531,6 @@ spec:
 
 <!--
 ## Webhook conversion
-
-Webhook conversion is available as beta since 1.15, and as alpha since Kubernetes 1.13. The
-`CustomResourceWebhookConversion` feature should be enabled. Please refer to the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) documentation for more information.
 -->
 ## Webhook 转换   {#webhook-conversion}
 
@@ -627,7 +623,7 @@ how to [authenticate API servers](/docs/reference/access-authn-authz/extensible-
 A conversion webhook must not mutate anything inside of `metadata` of the converted object
 other than `labels` and `annotations`.
 Attempted changes to `name`, `UID` and `namespace` are rejected and fail the request
-which caused the conversion. All other changes are ignored. 
+which caused the conversion. All other changes are ignored.
 -->
 #### 被允许的变更
 
@@ -639,8 +635,10 @@ which caused the conversion. All other changes are ignored.
 <!--
 ### Deploy the conversion webhook service
 
-Documentation for deploying the conversion webhook is the same as for the [admission webhook example service](/docs/reference/access-authn-authz/extensible-admission-controllers/#deploy_the_admission_webhook_service).
-The assumption for next sections is that the conversion webhook server is deployed to a service named `example-conversion-webhook-server` in `default` namespace and serving traffic on path `/crdconvert`.
+Documentation for deploying the conversion webhook is the same as for the
+[admission webhook example service](/docs/reference/access-authn-authz/extensible-admission-controllers/#deploy_the_admission_webhook_service).
+The assumption for next sections is that the conversion webhook server is deployed to a service
+named `example-conversion-webhook-server` in `default` namespace and serving traffic on path `/crdconvert`.
 -->
 ### 部署转换 Webhook 服务   {#deploy-the-conversion-webhook-service}
 
@@ -842,7 +840,7 @@ API 服务器一旦确定请求应发送到转换 Webhook，它需要知道如�
 
 <!--
 `url` gives the location of the webhook, in standard URL form
-(`scheme://host:port/path`). 
+(`scheme://host:port/path`).
 
 The `host` should not refer to a service running in the cluster; use
 a service reference by specifying the `service` field instead.
@@ -1019,7 +1017,7 @@ spec:
 ```
 
 <!--
-`conversionReviewVersions` is a required field when creating 
+`conversionReviewVersions` is a required field when creating
 `apiextensions.k8s.io/v1` custom resource definitions.
 Webhooks are required to support at least one `ConversionReview`
 version understood by the current and previous API server.
@@ -1043,7 +1041,7 @@ spec:
     ...
 ```
 <!--
-If no `conversionReviewVersions` are specified, the default when creating 
+If no `conversionReviewVersions` are specified, the default when creating
 `apiextensions.k8s.io/v1beta1` custom resource definitions is `v1beta1`.
 -->
 创建 apiextensions.k8s.io/v1beta1 定制资源定义时若未指定
@@ -1298,7 +1296,7 @@ If conversion fails, a webhook should return a `response` stanza containing the 
 {{< warning >}}
 <!--
 Failing conversion can disrupt read and write access to the custom resources,
-including the ability to update or delete the resources. Conversion failures 
+including the ability to update or delete the resources. Conversion failures
 should be avoided whenever possible, and should not be used to enforce validation
  constraints (use validation schemas or webhook admission instead).
 -->
@@ -1383,7 +1381,7 @@ request depends on what is specified in the CRD's `spec.conversion`:
 <!--
 - if the default `strategy` value `None` is specified, the only modifications
   to the object are changing the `apiVersion` string and perhaps [pruning
-  unknown fields](/docs/concepts/extend-kubernetes/api-extension/custom-resources/custom-resource-definitions/#field-pruning)
+  unknown fields](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning)
   (depending on the configuration). Note that this is unlikely to lead to good
   results if the schemas differ between the storage and requested version.
   In particular, you should not use this strategy if the same data is
@@ -1493,7 +1491,7 @@ The following is an example procedure to upgrade from `v1beta1` to `v1`.
    `storedVersions`现在是 `v1beta1, v1`。
 2. 编写升级过程以列出所有现有对象并使用相同内容将其写回存储。
    这会强制后端使用当前存储版本（即 `v1`）写入对象。
-3. 从 CustomResourceDefinition  的 `status.storedVersions` 字段中删除 `v1beta1`。
+3. 从 CustomResourceDefinition 的 `status.storedVersions` 字段中删除 `v1beta1`。
 
 {{< note >}}
 <!--
