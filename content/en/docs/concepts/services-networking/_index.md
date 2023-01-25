@@ -14,10 +14,10 @@ Every [`Pod`](/docs/concepts/workloads/pods/) in your cluster gets its own uniqu
 [//]: # (This means you do not need to explicitly create links between `Pods` and you
 almost never need to deal with mapping container ports to host ports.)  
 
-This model provides you with the following advantages:
+This model offers you the following advantages:
 
-* clean, backwards-compatible model approach where `Pods` can be treated 
-much like VMs or physical hosts. from the perspectives of port allocation, networking,
+* clean, backwards-compatible approach where `Pods` can be treated 
+much like VMs or physical hosts from the perspectives of port allocation, networking,
 * supports naming, service discovery, [load balancing](/docs/concepts/services-networking/ingress/#load-balancing), 
 application configuration and migration.
   
@@ -37,6 +37,28 @@ without network address translation (NAT)
 Some platforms, such as Linux, support `Pods` running in the host network. Pods attached to the host network of a node can still communicate 
 with all pods on all nodes without NAT.
 
+## Terminology
+
+* IPv4 address
+
+* IPv6 address
+
+* Dual Stack
+
+* L2 bridge
+
+* CNI
+
+* Encapsulation
+
+* Virtual overlay 
+
+* Physical underlay
+
+* Virtual ethernet tunnel (VETH)
+
+...
+
 ## Architecture
 
 The Kubernetes network model introduces an architecture that allows you to support your cluster networking requirements.
@@ -51,22 +73,27 @@ The components of the architecture consist of the following:
   
 * Pods configured on each node with one or more containers.
   
-* Pods on each node that come with their own IP (v4-only, v6-only, 4/6 dual stack) and MAC address(es) run in their own network namespace.
+* Pods are come with their own IP (v4-only, v6-only, 4/6 dual stack) and MAC address(es) run in their own network namespace.
   
 * Pods use a virtual "link" between the pod network namespace and root network namespace. This permits pod packets to utilize network functions defined in the root network namespace 
   
-* L2bridge allows communications between pods on the same node. 
+* L2bridge is a virtual L2 bridge that allows communications between pods on the same node. Depending on your deployment of container runtimes and CNI, you might the know bridge as a basic linux bridge, `docker0`, `cbr0` or `cni0`. 
   
-* CNI plugin supporting different forms of inter-pod networking. Some plugins employ a virtual overlay network in which packets are encapsulated and tunneled between pods on different nodes. Other CNI plugins use L3 IP networking to route packets between pods on different hosts. You have a multitude of CNI plugins that can best meet your cluster network requirements.
+* CNI plugins supporting different forms of pod networking. Some plugins employ a virtual overlay network in which packets are encapsulated and tunneled between pods on different nodes. Other CNI plugins use L2 bridging for same host pod networking or L3 IP networking to route packets between pods on different hosts. You have a multitude of CNI plugins that can best meet your cluster network requirements.
 
-You might discover a different variant of this architecture that you prefer to run in your environment. However, it should meet the network requirements noted above. 
+
+{{< note >}}
+Your "physical underlay network" composed of L2 switches or L3 routers, for example, is used to transport encapsulated or un-encapsulated packets. In the former, your virtual overlay network runs on top of the physical underlay network.
+{{< /note >}}
+
+You might discover a different variant of this architecture and functions that you prefer to run in your environment. However, it should meet some or all of the network requirements noted above. 
 
 ### Containers on the same pod
 
 Kubernetes IP addresses exist at the `Pod` scope - containers within a `Pod`
 share their network namespaces - including their IP address and MAC address.
 Containers within a `Pod` can all reach each other's ports on
-`localhost`. 
+`localhost`. If you examine a pod you will see a `lo0` interface used for localhost communications between containers in the pod network namespace. 
 
 Figure 2 illustrates localhost communications between two containers on the same pod. You define a pod 1 network namespace that essentially provides pod 1 with its own network stack. Containers on pod 1 share a single IP and MAC address; containers on pod 1 are configured with separate port numbers.
 
@@ -83,7 +110,11 @@ blind to the existence or non-existence of host ports.
 
 ### Pods on the same node.
 
-Reference figure 2 with more details on components and data path
+Figure 3 illustrates communications between two pods running on the same host. 
+
+{{< figure src="/docs/images/k8net-PodSameHost.drawio.svg" alt="k8s pods samehost" class="diagram-large" caption="Figure 3. Pod 1 - Pod2 networking on the same host using L2 bridging" >}}
+
+
 
 ### Pods on different nodes
 
