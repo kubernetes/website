@@ -275,9 +275,9 @@ Authorization: Bearer 781292.db7bc3a58fc5f07e
 
 <!--
 You must enable the Bootstrap Token Authenticator with the
-`-enable-bootstrap-token-auth` flag on the API Server.  You must enable
-the TokenCleaner controller via the `-controllers` flag on the Controller
-Manager.  This is done with something like `-controllers=*,tokencleaner`.
+`--enable-bootstrap-token-auth` flag on the API Server.  You must enable
+the TokenCleaner controller via the `--controllers` flag on the Controller
+Manager.  This is done with something like `--controllers=*,tokencleaner`.
 `kubeadm` will do this for you if you are using it to bootstrap a cluster.
 -->
 你必须在 API 服务器上设置 `--enable-bootstrap-token-auth` 标志来启用基于启动引导令牌的身份认证组件。
@@ -495,26 +495,26 @@ sequenceDiagram
 {{< /mermaid >}}
 
 <!--
-1.  Login to your identity provider
-2.  Your identity provider will provide you with an `access_token`, `id_token` and a `refresh_token`
-3.  When using `kubectl`, use your `id_token` with the `-token` flag or add it directly to your `kubeconfig`
-4.  `kubectl` sends your `id_token` in a header called Authorization to the API server
-5.  The API server will make sure the JWT signature is valid by checking against the certificate named in the configuration
-6.  Check to make sure the `id_token` hasn't expired
-7.  Make sure the user is authorized
-8.  Once authorized the API server returns a response to `kubectl`
-9.  `kubectl` provides feedback to the user
+1. Login to your identity provider
+2. Your identity provider will provide you with an `access_token`, `id_token` and a `refresh_token`
+3. When using `kubectl`, use your `id_token` with the `--token` flag or add it directly to your `kubeconfig`
+4. `kubectl` sends your `id_token` in a header called Authorization to the API server
+5. The API server will make sure the JWT signature is valid by checking against the certificate named in the configuration
+6. Check to make sure the `id_token` hasn't expired
+7. Make sure the user is authorized
+8. Once authorized the API server returns a response to `kubectl`
+9. `kubectl` provides feedback to the user
 -->
-1.  登录到你的身份服务（Identity Provider）
-2.  你的身份服务将为你提供 `access_token`、`id_token` 和 `refresh_token`
-3.  在使用 `kubectl` 时，将 `id_token` 设置为 `--token` 标志值，或者将其直接添加到
-    `kubeconfig` 中
-4.  `kubectl` 将你的 `id_token` 放到一个称作 `Authorization` 的头部，发送给 API 服务器
-5.  API 服务器将负责通过检查配置中引用的证书来确认 JWT 的签名是合法的
-6.  检查确认 `id_token` 尚未过期
-7.  确认用户有权限执行操作
-8.  鉴权成功之后，API 服务器向 `kubectl` 返回响应
-9.  `kubectl` 向用户提供反馈信息
+1. 登录到你的身份服务（Identity Provider）
+2. 你的身份服务将为你提供 `access_token`、`id_token` 和 `refresh_token`
+3. 在使用 `kubectl` 时，将 `id_token` 设置为 `--token` 标志值，或者将其直接添加到
+   `kubeconfig` 中
+4. `kubectl` 将你的 `id_token` 放到一个称作 `Authorization` 的头部，发送给 API 服务器
+5. API 服务器将负责通过检查配置中引用的证书来确认 JWT 的签名是合法的
+6. 检查确认 `id_token` 尚未过期
+7. 确认用户有权限执行操作
+8. 鉴权成功之后，API 服务器向 `kubectl` 返回响应
+9. `kubectl` 向用户提供反馈信息
 
 <!--
 Since all of the data needed to validate who you are is in the `id_token`, Kubernetes doesn't need to
@@ -589,7 +589,7 @@ tokens on behalf of another.
 Kubernetes does not provide an OpenID Connect Identity Provider.
 You can use an existing public OpenID Connect Identity Provider (such as Google, or
 [others](https://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)).
-Or, you can run your own Identity Provider, such as CoreOS [dex](https://github.com/coreos/dex),
+Or, you can run your own Identity Provider, such as [dex](https://dexidp.io/),
 [Keycloak](https://github.com/keycloak/keycloak),
 CloudFoundry [UAA](https://github.com/cloudfoundry/uaa), or
 Tremolo Security's [OpenUnison](https://openunison.github.io/).
@@ -597,8 +597,7 @@ Tremolo Security's [OpenUnison](https://openunison.github.io/).
 Kubernetes 并未提供 OpenID Connect 的身份服务。
 你可以使用现有的公共的 OpenID Connect 身份服务
 （例如 Google 或者[其他服务](https://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)）。
-或者，你也可以选择自己运行一个身份服务，例如
-CoreOS [dex](https://github.com/coreos/dex)、
+或者，你也可以选择自己运行一个身份服务，例如 [dex](https://dexidp.io/)、
 [Keycloak](https://github.com/keycloak/keycloak)、
 CloudFoundry [UAA](https://github.com/cloudfoundry/uaa) 或者
 Tremolo Security 的 [OpenUnison](https://openunison.github.io/)。
@@ -735,6 +734,9 @@ Webhook authentication is a hook for verifying bearer tokens.
 
 * `--authentication-token-webhook-config-file` a configuration file describing how to access the remote webhook service.
 * `--authentication-token-webhook-cache-ttl` how long to cache authentication decisions. Defaults to two minutes.
+* `--authentication-token-webhook-version` determines whether to use `authentication.k8s.io/v1beta1` or `authentication.k8s.io/v1` 
+  `TokenReview` objects to send/receive information from the webhook. Defaults to `v1beta1`.
+
 -->
 ### Webhook 令牌身份认证   {#webhook-token-authentication}
 
@@ -744,6 +746,9 @@ Webhook 身份认证是一种用来验证持有者令牌的回调机制。
   其中描述如何访问远程的 Webhook 服务。
 * `--authentication-token-webhook-cache-ttl` 用来设定身份认证决定的缓存时间。
   默认时长为 2 分钟。
+* `--authentication-token-webhook-version` 决定是使用 `authentication.k8s.io/v1beta1` 还是
+  `authenticationk8s.io/v1` 版本的 `TokenReview` 对象从 webhook 发送/接收信息。
+  默认为“v1beta1”。
 
 <!--
 The configuration file uses the [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
