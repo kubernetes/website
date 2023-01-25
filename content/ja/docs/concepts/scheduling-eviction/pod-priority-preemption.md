@@ -1,7 +1,7 @@
 ---
 title: Podの優先度とプリエンプション
 content_type: concept
-weight: 70
+weight: 90
 ---
 
 <!-- overview -->
@@ -82,20 +82,20 @@ description: "この優先度クラスはXYZサービスのPodに対してのみ
 
 ## 非プリエンプトのPriorityClass {#non-preempting-priority-class}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
-`PreemptionPolicy: Never`と設定されたPodは、スケジューリングのキューにおいて他の優先度の低いPodよりも優先されますが、他のPodをプリエンプトすることはありません。
+`preemptionPolicy: Never`と設定されたPodは、スケジューリングのキューにおいて他の優先度の低いPodよりも優先されますが、他のPodをプリエンプトすることはありません。
 スケジューリングされるのを待つ非プリエンプトのPodは、リソースが十分に利用可能になるまでスケジューリングキューに残ります。
 非プリエンプトのPodは、他のPodと同様に、スケジューラーのバックオフの対象になります。これは、スケジューラーがPodをスケジューリングしようと試みたものの失敗した場合、低い頻度で再試行するようにして、より優先度の低いPodが先にスケジューリングされることを許します。
 
 非プリエンプトのPodは、他の優先度の高いPodにプリエンプトされる可能性はあります。
 
-`PreemptionPolicy`はデフォルトでは`PreemptLowerPriority`に設定されており、これが設定されているPodは優先度の低いPodをプリエンプトすることを許容します。これは既存のデフォルトの挙動です。
-`PreemptionPolicy`を`Never`に設定すると、これが設定されたPodはプリエンプトを行わないようになります。
+`preemptionPolicy`はデフォルトでは`PreemptLowerPriority`に設定されており、これが設定されているPodは優先度の低いPodをプリエンプトすることを許容します。これは既存のデフォルトの挙動です。
+`preemptionPolicy`を`Never`に設定すると、これが設定されたPodはプリエンプトを行わないようになります。
 
 ユースケースの例として、データサイエンスの処理を挙げます。
 ユーザーは他の処理よりも優先度を高くしたいジョブを追加できますが、そのとき既存の実行中のPodの処理結果をプリエンプトによって破棄させたくはありません。
-`PreemptionPolicy: Never`が設定された優先度の高いジョブは、他の既にキューイングされたPodよりも先に、クラスターのリソースが「自然に」開放されたときにスケジューリングされます。
+`preemptionPolicy: Never`が設定された優先度の高いジョブは、他の既にキューイングされたPodよりも先に、クラスターのリソースが「自然に」開放されたときにスケジューリングされます。
 
 ### 非プリエンプトのPriorityClassの例
 
@@ -143,14 +143,13 @@ Podが作成されると、スケジューリング待ちのキューに入り�
 
 Pod PがノードNのPodをプリエンプトした場合、ノードNの名称がPのステータスの`nominatedNodeName`フィールドに設定されます。このフィールドはスケジューラーがPod Pのために予約しているリソースの追跡を助け、ユーザーにクラスターにおけるプリエンプトに関する情報を与えます。
 
-Pod Pは必ずしも「指名したノード」へスケジューリングされないことに注意してください。Podがプリエンプトされると、そのPodは終了までの猶予期間を得ます。スケジューラーがPodの終了を待つ間に他のノードが利用可能になると、スケジューラーは他のノードをPod Pのスケジューリング先にします。この結果、Podの`nominatedNodeName`と`nodeName`は必ずしも一致しません。また、スケジューラーがノードNのPodをプリエンプトさせた後に、Pod Pよりも優先度の高いPodが来た場合、スケジューラーはノードNをその新しい優先度の高いPodへ与えます。このような場合は、スケジューラーはPod Pの`nominatedNodeName`を消去します。これによって、スケジューラーはPod Pが他のノードのPodをプリエンプトさせられるようにします。
+Pod Pは必ずしも「指名したノード」へスケジューリングされないことに注意してください。Podがプリエンプトされると、そのPodは終了までの猶予期間を得ます。スケジューラーがPodの終了を待つ間に他のノードが利用可能になると、スケジューラーは他のノードをPod Pのスケジューリング先にする可能性があります。この結果、Podの`nominatedNodeName`と`nodeName`は必ずしも一致しません。また、スケジューラーがノードNのPodをプリエンプトさせた後に、Pod Pよりも優先度の高いPodが来た場合、スケジューラーはノードNをその新しい優先度の高いPodへ与えます。このような場合は、スケジューラーはPod Pの`nominatedNodeName`を消去します。これによって、スケジューラーはPod Pが他のノードのPodをプリエンプトさせられるようにします。
 
 ### プリエンプトの制限
 
 #### プリエンプトされるPodの正常終了
 
 Podがプリエンプトされると、[猶予期間](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)が与えられます。
-
 Podは作業を完了し、終了するために十分な時間が与えられます。仮にそうでない場合、強制終了されます。この猶予期間によって、スケジューラーがPodをプリエンプトした時刻と、待機状態のPod Pがノード Nにスケジュール可能になるまでの時刻の間に間が開きます。この間、スケジューラーは他の待機状態のPodをスケジュールしようと試みます。プリエンプトされたPodが終了したら、スケジューラーは待ち行列にあるPodをスケジューリングしようと試みます。そのため、Podがプリエンプトされる時刻と、Pがスケジュールされた時刻には間が開くことが一般的です。この間を最小にするには、優先度の低いPodの猶予期間を0または小さい値にする方法があります。
 
 #### PodDisruptionBudgetは対応するが、保証されない
@@ -185,7 +184,7 @@ Pod PがノードNにスケジューリングできるよう、ノードNがプ�
 
 Pod Qがそのノードから追い出されると、Podアンチアフィニティに違反しなくなるので、Pod PはノードNへスケジューリング可能になります。
 
-複数ノードに対するプリエンプションに関しては、十分な需要があり、合理的な性能を持つアルゴリズムを見つけられた場合に、追加することを検討する可能性があります。
+複数ノードに対するプリエンプションに関しては、十分な需要があり、合理的な性能を持つアルゴリズムを見つけられた場合に、将来的に機能追加を検討する可能性があります。
 
 ## トラブルシューティング
 
@@ -227,10 +226,15 @@ Podがその期間内に終了しない場合、強制終了されます。プ�
 Podの優先度と{{< glossary_tooltip text="QoSクラス" term_id="qos-class" >}}は直交する機能で、わずかに相互作用がありますが、デフォルトではQoSクラスによる優先度の設定の制約はありません。スケジューラーのプリエンプションのロジックはプリエンプションの対象を決めるときにQoSクラスは考慮しません。
 プリエンプションはPodの優先度を考慮し、優先度が最も低いものを候補とします。より優先度の高いPodは優先度の低いPodを追い出すだけではプリエンプトを起こしたPodのスケジューリングに不十分な場合と、`PodDisruptionBudget`により優先度の低いPodが保護されている場合のみ対象になります。
 
-QoSとPodの優先度の両方を考慮するコンポーネントは[リソース不足によりkubeletがPodを追い出す](/docs/tasks/administer-cluster/out-of-resource/)のみです。
-kubeletは追い出すPodの順位付けを次の順で行います。枯渇したリソースを要求以上に使用しているか、優先度、枯渇したリソースの消費量の複数のPodの要求に対する相対値。
-詳細は[エンドユーザーのPodの追い出し](/docs/tasks/administer-cluster/out-of-resource/#evicting-end-user-pods)を参照してください。
+kubeletは[node-pressureによる退避](/docs/concepts/scheduling-eviction/node-pressure-eviction/)を行うPodの順番を決めるために、優先度を利用します。
+kubeletは追い出すPodの順位付けを次の順で行います。
 
+
+  1. 枯渇したリソースを要求以上に使用しているか
+  1. Podの優先度
+  1. 要求に対するリソースの使用量
+
+詳細は[kubeletによるPodの退避](/docs/concepts/scheduling-eviction/node-pressure-eviction/#pod-selection-for-kubelet-eviction)を参照してください。
 
 kubeletによるリソース不足時のPodの追い出しでは、リソースの消費が要求を超えないPodは追い出されません。優先度の低いPodのリソースの利用量がその要求を超えていなければ、追い出されることはありません。より優先度が高く、要求を超えてリソースを使用しているPodが追い出されます。
 
@@ -238,3 +242,6 @@ kubeletによるリソース不足時のPodの追い出しでは、リソース�
 ## {{% heading "whatsnext" %}}
 
 * PriorityClassと関連付けてResourceQuotaを使用することに関して [デフォルトで優先度クラスの消費を制限する](/ja/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
+* [Podの破壊](/docs/concepts/workloads/pods/disruptions/)を読む
+* [APIを起点とした退避](/ja/docs/concepts/scheduling-eviction/api-eviction/)を読む
+* [Node-pressureによる退避](/docs/concepts/scheduling-eviction/node-pressure-eviction/)を読む
