@@ -221,7 +221,7 @@ A structural schema is an [OpenAPI v3.0 validation schema](#validation) which:
 
 Non-structural example 1:
 
-```none
+```yaml
 allOf:
 - properties:
     foo:
@@ -230,7 +230,7 @@ allOf:
 
 conflicts with rule 2. The following would be correct:
 
-```none
+```yaml
 properties:
   foo:
     ...
@@ -242,7 +242,7 @@ allOf:
 
 Non-structural example 2:
 
-```none
+```yaml
 allOf:
 - items:
     properties:
@@ -251,7 +251,7 @@ allOf:
 ```
 conflicts with rule 2. The following would be correct:
 
-```none
+```yaml
 items:
   properties:
     foo:
@@ -265,7 +265,7 @@ allOf:
 
 Non-structural example 3:
 
-```none
+```yaml
 properties:
   foo:
     pattern: "abc"
@@ -479,7 +479,7 @@ properties:
 Also those nodes are partially excluded from rule 3 in the sense that the following two patterns are allowed
 (exactly those, without variations in order to additional fields):
 
-```none
+```yaml
 x-kubernetes-int-or-string: true
 anyOf:
   - type: integer
@@ -489,7 +489,7 @@ anyOf:
 
 and
 
-```none
+```yaml
 x-kubernetes-int-or-string: true
 allOf:
   - anyOf:
@@ -522,7 +522,7 @@ properties:
 
 Here, the field `foo` holds a complete object, e.g.:
 
-```none
+```yaml
 foo:
   apiVersion: v1
   kind: Pod
@@ -742,7 +742,7 @@ rules are supported.
 
 For example:
 
-```none
+```yaml
   ...
   openAPIV3Schema:
     type: object
@@ -854,7 +854,7 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
   `metadata.generateName`. This includes selection of fields in both the `spec` and `status` in the
   same expression:
 
-  ```none
+  ```yaml
     ...
     openAPIV3Schema:
       type: object
@@ -878,7 +878,7 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
   via `self.field` and field presence can be checked via `has(self.field)`. Null valued fields are treated as
   absent fields in CEL expressions.
 
-  ```none
+  ```yaml
     ...
     openAPIV3Schema:
       type: object
@@ -897,7 +897,7 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
   are accessible via `self[mapKey]`, map containment can be checked via `mapKey in self` and all
   entries of the map are accessible via CEL macros and functions such as `self.all(...)`.
 
-  ```none
+  ```yaml
     ...
     openAPIV3Schema:
       type: object
@@ -917,7 +917,7 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
 - If the Rule is scoped to an array, the elements of the array are accessible via `self[i]` and
   also by macros and functions.
 
-  ```none
+  ```yaml
     ...
     openAPIV3Schema:
       type: object
@@ -933,7 +933,7 @@ Xref: [Supported evaluation on CEL](https://github.com/google/cel-spec/blob/v0.6
 
 - If the Rule is scoped to a scalar, `self` is bound to the scalar value.
 
-  ```none
+  ```yaml
     ...
     openAPIV3Schema:
       type: object
