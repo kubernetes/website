@@ -12,7 +12,7 @@ schedules:
       cherryPickDeadline: 2023-01-13
       targetDate: 2023-01-18
     - release: 1.26.0
-      cherryPickDeadline: 2022-12-09
+      cherryPickDeadline: ""
       targetDate: 2022-12-09
 - release: 1.25
   releaseDate: 2022-08-23
@@ -46,7 +46,7 @@ schedules:
       note: >-
         [Regression](https://groups.google.com/a/kubernetes.io/g/dev/c/tA6LNOQTR4Q/m/zL73maPTAQAJ)
     - release: 1.25.0
-      cherryPickDeadline: 2022-08-23
+      cherryPickDeadline: ""
       targetDate: 2022-08-23
 - release: 1.24
   releaseDate: 2022-05-03
@@ -92,7 +92,7 @@ schedules:
       cherryPickDeadline: 2022-05-20
       targetDate: 2022-05-24
     - release: 1.24.0
-      cherryPickDeadline: 2022-05-03
+      cherryPickDeadline: ""
       targetDate: 2022-05-03
 - release: 1.23
   releaseDate: 2021-12-07
@@ -158,5 +158,5 @@ schedules:
       cherryPickDeadline: 2021-12-14
       targetDate: 2021-12-16
     - release: 1.23.0
-      cherryPickDeadline: 2021-12-07
+      cherryPickDeadline: ""
       targetDate: 2021-12-07
