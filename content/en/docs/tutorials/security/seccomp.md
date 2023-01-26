@@ -272,7 +272,8 @@ or not. You can adopt these defaults for your workload by setting the seccomp
 type in the security context of a pod or container to `RuntimeDefault`.
 
 {{< note >}}
-If you have the `SeccompDefault` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled, then Pods use the `RuntimeDefault` seccomp profile whenever
+If you have the `SeccompDefault` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled, then Pods use the `RuntimeDefault` seccomp profile whenever
 no other seccomp profile is specified. Otherwise, the default is `Unconfined`.
 {{< /note >}}
 
