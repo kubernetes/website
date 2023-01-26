@@ -39,25 +39,25 @@ with all pods on all nodes without NAT.
 
 ## Terminology
 
-* IPv4 address
+* IPv4 address - 32 bit IP addresses assigned to pod interfaces, host interfaces, L2 bridges, tunnel end-points and any other network resources requiring IPv4 connectivity. 
+* IPv6 address - 128 bit IP address assigned to pod interfaces, host interfaces, L2 bridges, L3 routers, tunnel end-points and any other network resources requiring IPv6 connectivity. You can configure one or more IPv6 addresses.
 
-* IPv6 address
+* Dual Stack - IPv4 and IPv6 addresses assigned to pod interfaces, host interfaces, L2 bridges, L3 routers, tunnel end-points and any other network resources requiring IPv4 or IPv6 connectivity.
 
-* Dual Stack
+* L2 bridge - supports a virtual L2 bridge function.
 
-* L2 bridge
+* Encapsulation - ability to encapsulate an L2 or L3 packet belonging to an `inner network` with an `outer network` header for transport across the `outer network`. This forms a `tunnel` where the encapsulation function is performed at tunnel ingress and de-encapsulation function is performed at tunnel egress. 
 
-* CNI
+* Virtual network overlay - network of tunnels connecting `inner network` resources.  
 
-* Encapsulation
+* Physical underlay network - Resources performing `outer network` packet forwarding. 
 
-* Virtual overlay 
+* Virtual ethernet link (VETH) - Virtual link allowing you to connect different namespaces together. 
 
-* Physical underlay
+* Network namespace - a form of isolation where resources share a common network stack.
 
-* Virtual ethernet tunnel (VETH)
+* CNI - Container Network Interface providing network configuration and IP address allocation for pod networking.
 
-...
 
 ## Architecture
 
@@ -77,7 +77,7 @@ The components of the architecture consist of the following:
   
 * Pods use a virtual "link" between the pod network namespace and root network namespace. This permits pod packets to utilize network functions defined in the root network namespace 
   
-* L2bridge is a virtual L2 bridge that allows communications between pods on the same node. Depending on your deployment of container runtimes and CNI, you might the know bridge as a basic linux bridge, `docker0`, `cbr0` or `cni0`. 
+* L2bridge is a virtual L2 bridge that allows communications between pods on the same node. Depending on your deployment of container runtimes and CNI, you might know thebridge as a basic linux bridge, `docker0`, `cbr0` or `cni0`. 
   
 * CNI plugins supporting different forms of pod networking. Some plugins employ a virtual overlay network in which packets are encapsulated and tunneled between pods on different nodes. Other CNI plugins use L2 bridging for same host pod networking or L3 IP networking to route packets between pods on different hosts. You have a multitude of CNI plugins that can best meet your cluster network requirements.
 
