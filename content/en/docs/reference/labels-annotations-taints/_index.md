@@ -178,7 +178,7 @@ Used on: StatefulSet
 This annotation on a Service denotes if the Endpoints controller should go ahead and create Endpoints for unready Pods.
 Endpoints of these Services retain their DNS records and continue receiving
 traffic for the Service from the moment the kubelet starts all containers in the pod
-and marks it "Running", till the kubelet stops all containers and deletes the pod from
+and marks it _Running_, til the kubelet stops all containers and deletes the pod from
 the API server.
 
 ### kubernetes.io/hostname {#kubernetesiohostname}
