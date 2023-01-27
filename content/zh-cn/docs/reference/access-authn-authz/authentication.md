@@ -1987,6 +1987,200 @@ The following `ExecCredential` manifest describes a cluster information sample.
 {{% /tab %}}
 {{< /tabs >}}
 
+<!--
+## API access to authentication information for a client {#self-subject-review}
+-->
+## 为客户端提供的对身份验证信息的 API 访问   {#self-subject-review}
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+<!--
+If your cluster has the API enabled, you can use the `SelfSubjectReview` API to find out how your Kubernetes cluster maps your authentication information to identify you as a client. This works whether you are authenticating as a user (typically representing a real person) or as a ServiceAccount.
+
+`SelfSubjectReview` objects do not have any configurable fields. On receiving a request, the Kubernetes API server fills the status with the user attributes and returns it to the user.
+
+Request example (the body would be a `SelfSubjectReview`):
+-->
+如果集群启用了此 API，你可以使用 `SelfSubjectReview` API 来了解 Kubernetes
+集群如何映射你的身份验证信息从而将你识别为某客户端。无论你是作为用户（通常代表一个真的人）还是作为
+ServiceAccount 进行身份验证，这一 API 都可以使用。
+
+`SelfSubjectReview` 对象没有任何可配置的字段。
+Kubernetes API 服务器收到请求后，将使用用户属性填充 status 字段并将其返回给用户。
+
+请求示例（主体将是 `SelfSubjectReview`）：
+
+```
+POST /apis/authentication.k8s.io/v1alpha1/selfsubjectreviews
+```
+
+```json
+{
+  "apiVersion": "authentication.k8s.io/v1alpha1",
+  "kind": "SelfSubjectReview"
+}
+```
+
+<!--
+Response example:
+-->
+响应示例：
+
+```json
+{
+  "apiVersion": "authentication.k8s.io/v1alpha1",
+  "kind": "SelfSubjectReview",
+  "status": {
+    "userInfo": {
+      "name": "jane.doe",
+      "uid": "b6c7cfd4-f166-11ec-8ea0-0242ac120002",
+      "groups": [
+        "viewers",
+        "editors",
+        "system:authenticated"
+      ],
+      "extra": {
+        "provider_id": ["token.company.example"]
+      }
+    }
+  }
+}
+```
+
+<!--
+For convenience, the `kubectl alpha auth whoami` command is present. Executing this command will produce the following output (yet different user attributes will be shown):
+
+* Simple output example
+-->
+为了方便，Kubernetes 提供了 `kubectl alpha auth whoami` 命令。
+执行此命令将产生以下输出（但将显示不同的用户属性）：
+
+* 简单的输出示例
+
+  ```
+  ATTRIBUTE         VALUE
+  Username          jane.doe
+  Groups            [system:authenticated]
+  ```
+
+<!--
+* Complex example including extra attributes
+-->
+* 包括额外属性的复杂示例
+
+  ```
+  ATTRIBUTE         VALUE
+  Username          jane.doe
+  UID               b79dbf30-0c6a-11ed-861d-0242ac120002
+  Groups            [students teachers system:authenticated]
+  Extra: skills     [reading learning]
+  Extra: subjects   [math sports]
+  ```
+
+<!--
+By providing the output flag, it is also possible to print the JSON or YAML representation of the result:
+-->
+通过提供 output 标志，也可以打印结果的 JSON 或 YAML 表现形式：
+
+{{< tabs name="self_subject_attributes_review_Example_1" >}}
+{{% tab name="JSON" %}}
+```json
+{
+  "apiVersion": "authentication.k8s.io/v1alpha1",
+  "kind": "SelfSubjectReview",
+  "status": {
+    "userInfo": {
+      "username": "jane.doe",
+      "uid": "b79dbf30-0c6a-11ed-861d-0242ac120002",
+      "groups": [
+        "students",
+        "teachers",
+        "system:authenticated"
+      ],
+      "extra": {
+        "skills": [
+          "reading",
+          "learning"
+        ],
+        "subjects": [
+          "math",
+          "sports"
+        ]
+      }
+    }
+  }
+}
+```
+{{% /tab %}}
+
+{{% tab name="YAML" %}}
+```yaml
+apiVersion: authentication.k8s.io/v1alpha1
+kind: SelfSubjectReview
+status:
+  userInfo:
+    username: jane.doe
+    uid: b79dbf30-0c6a-11ed-861d-0242ac120002
+    groups:
+    - students
+    - teachers
+    - system:authenticated
+    extra:
+      skills:
+      - reading
+      - learning
+      subjects:
+      - math
+      - sports
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+<!--
+This feature is extremely useful when a complicated authentication flow is used in a Kubernetes cluster, 
+for example, if you use [webhook token authentication](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) or [authenticating proxy](/docs/reference/access-authn-authz/authentication/#authenticating-proxy).
+-->
+在 Kubernetes 集群中使用复杂的身份验证流程时，例如如果你使用
+[Webhook 令牌身份验证](/zh-cn/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)或[身份验证代理](/zh-cn/docs/reference/access-authn-authz/authentication/#authenticating-proxy)时，
+此特性极其有用。
+
+{{< note >}}
+<!--
+The Kubernetes API server fills the `userInfo` after all authentication mechanisms are applied,
+including [impersonation](/docs/reference/access-authn-authz/authentication/#user-impersonation).
+If you, or an authentication proxy, make a SelfSubjectReview using impersonation,
+you see the user details and properties for the user that was impersonated.
+-->
+Kubernetes API 服务器在所有身份验证机制
+（包括[伪装](/zh-cn/docs/reference/access-authn-authz/authentication/#user-impersonation)），
+被应用后填充 `userInfo`，
+如果你或某个身份验证代理使用伪装进行 SelfSubjectReview，你会看到被伪装用户的用户详情和属性。
+{{< /note >}}
+
+<!--
+By default, all authenticated users can create `SelfSubjectReview` objects when the `APISelfSubjectReview` feature is enabled. It is allowed by the `system:basic-user` cluster role.
+-->
+默认情况下，所有经过身份验证的用户都可以在 `APISelfSubjectReview` 特性被启用时创建 `SelfSubjectReview` 对象。
+这是 `system:basic-user` 集群角色允许的操作。
+
+{{< note >}}
+<!--
+You can only make `SelfSubjectReview` requests if:
+* the `APISelfSubjectReview`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  is enabled for your cluster
+* the API server for your cluster has the `authentication.k8s.io/v1alpha1`
+  {{< glossary_tooltip term_id="api-group" text="API group" >}}
+  enabled.
+-->
+你只能在以下情况下进行 `SelfSubjectReview` 请求：
+
+* 集群启用了 `APISelfSubjectReview`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+* 集群的 API 服务器已启用 `authentication.k8s.io/v1alpha1`
+  {{< glossary_tooltip term_id="api-group" text="API 组" >}}。。
+{{< /note >}}
+
 ## {{% heading "whatsnext" %}}
 
 <!--
