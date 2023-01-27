@@ -179,7 +179,7 @@ This annotation on a Service denotes if the Endpoints controller should go ahead
 Endpoints of these Services retain their DNS records and continue receiving
 traffic for the Service from the moment the kubelet starts all containers in the pod
 and marks it "Running", till the kubelet stops all containers and deletes the pod from
-the apiserver.
+the API server.
 
 ### kubernetes.io/hostname {#kubernetesiohostname}
 
