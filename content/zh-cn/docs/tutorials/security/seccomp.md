@@ -1,7 +1,7 @@
 ---
 title: 使用 seccomp 限制容器的系统调用
 content_type: tutorial
-weight: 20
+weight: 40
 min-kubernetes-server-version: v1.22
 ---
 <!-- 
@@ -11,7 +11,7 @@ reviewers:
 - saschagrunert
 title: Restrict a Container's Syscalls with seccomp
 content_type: tutorial
-weight: 20
+weight: 40
 min-kubernetes-server-version: v1.22
 -->
 
@@ -424,6 +424,70 @@ docker exec -it kind-worker bash -c \
 }
 ```
 
+<!--
+## Create Pod that uses the container runtime default seccomp profile
+
+Most container runtimes provide a sane set of default syscalls that are allowed
+or not. You can adopt these defaults for your workload by setting the seccomp
+type in the security context of a pod or container to `RuntimeDefault`.
+-->
+## 创建使用容器运行时默认 seccomp 配置文件的 Pod {#create-pod-that-uses-the-container-runtime-default-seccomp-profile}
+
+大多数容器运行时都提供了一组合理的、默认被允许或默认被禁止的系统调用。
+你可以通过将 Pod 或容器的安全上下文中的 seccomp 类型设置为 `RuntimeDefault`
+来为你的工作负载采用这些默认值。
+
+{{< note >}}
+<!-- 
+If you have the `SeccompDefault` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled, then Pods use the `RuntimeDefault` seccomp profile whenever
+no other seccomp profile is specified. Otherwise, the default is `Unconfined`.
+-->
+如果你已经启用了 `SeccompDefault` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+只要没有指定其他 seccomp 配置文件，那么 Pod 就会使用 `RuntimeDefault` seccomp 配置文件。
+否则，默认值为 `Unconfined`。
+{{< /note >}}
+
+<!-- 
+Here's a manifest for a Pod that requests the `RuntimeDefault` seccomp profile
+for all its containers:
+-->
+这是一个 Pod 的清单，它要求其所有容器使用 `RuntimeDefault` seccomp 配置文件：
+
+{{< codenew file="pods/security/seccomp/ga/default-pod.yaml" >}}
+
+<!--
+Create that Pod:
+-->
+创建此 Pod：
+
+```shell
+kubectl apply -f https://k8s.io/examples/pods/security/seccomp/ga/default-pod.yaml
+```
+
+```shell
+kubectl get pod default-pod
+```
+
+<!--
+The Pod should be showing as having started successfully:
+-->
+此 Pod 应该显示为已成功启动：
+
+```
+NAME        READY   STATUS    RESTARTS   AGE
+default-pod 1/1     Running   0          20s
+```
+
+<!--
+Finally, now that you saw that work OK, clean up:
+-->
+最后，你看到一切正常之后，请清理：
+
+```shell
+kubectl delete pod default-pod --wait --now
+```
+
 <!-- 
 ## Create a Pod with a seccomp profile for syscall auditing
 
@@ -770,69 +834,6 @@ Clean up that Pod and Service before moving to the next section:
 ```shell
 kubectl delete service fine-pod --wait
 kubectl delete pod fine-pod --wait --now
-```
-
-<!--
-## Create Pod that uses the container runtime default seccomp profile
-
-Most container runtimes provide a sane set of default syscalls that are allowed
-or not. You can adopt these defaults for your workload by setting the seccomp
-type in the security context of a pod or container to `RuntimeDefault`. 
--->
-## 创建使用容器运行时默认 seccomp 配置文件的 Pod {#create-pod-that-uses-the-container-runtime-default-seccomp-profile}
-
-大多数容器运行时都提供了一组合理的默认系统调用，以及是否允许执行这些系统调用。
-你可以通过将 Pod 或容器的安全上下文中的 seccomp 类型设置为 `RuntimeDefault`
-来为你的工作负载采用这些默认值。
-
-{{< note >}}
-<!-- 
-If you have the `SeccompDefault` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled, then Pods use the `RuntimeDefault` seccomp profile whenever
-no other seccomp profile is specified. Otherwise, the default is `Unconfined`.
--->
-如果你已经启用了 `SeccompDefault` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-只要没有指定其他 seccomp 配置文件，那么 Pod 就会使用 `SeccompDefault` 的 seccomp 配置文件。
-否则，默认值为 `Unconfined`。
-{{< /note >}}
-
-<!-- 
-Here's a manifest for a Pod that requests the `RuntimeDefault` seccomp profile
-for all its containers:
--->
-这是一个 Pod 的清单，它要求其所有容器使用 `RuntimeDefault` seccomp 配置文件：
-
-{{< codenew file="pods/security/seccomp/ga/default-pod.yaml" >}}
-
-<!--
-Create that Pod:
--->
-创建此 Pod：
-
-```shell
-kubectl apply -f https://k8s.io/examples/pods/security/seccomp/ga/default-pod.yaml
-```
-
-```shell
-kubectl get pod default-pod
-```
-
-<!--
-The Pod should be showing as having started successfully:
--->
-此 Pod 应该显示为成功启动：
-
-```
-NAME        READY   STATUS    RESTARTS   AGE
-default-pod 1/1     Running   0          20s
-```
-
-<!--
-Finally, now that you saw that work OK, clean up:
--->
-最后，你看到一切正常之后，请清理：
-
-```shell
-kubectl delete pod default-pod --wait --now
 ```
 
 ## {{% heading "whatsnext" %}}
