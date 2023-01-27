@@ -3,6 +3,7 @@ title: 配置 kubelet 镜像凭据提供程序
 description: 配置 kubelet 的镜像凭据提供程序插件
 content_type: task
 min-kubernetes-server-version: v1.26
+weight: 120
 ---
 
 <!-- 
@@ -13,6 +14,7 @@ reviewers:
 description: Configure the kubelet's image credential provider plugin
 content_type: task
 min-kubernetes-server-version: v1.26
+weight: 120
 -->
 
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
@@ -133,8 +135,8 @@ providers:
     # 当以下所有条件都为真时，镜像和 matchImage 之间存在匹配：
     #
     # - 两者都包含相同数量的域部分并且每个部分都匹配。
-    # - imageMatch 的 URL 路径必须是目标镜像 URL 路径的前缀。
-    # - 如果 imageMatch 包含端口，则该端口也必须在镜像中匹配。
+    # - matchImages 的 URL 路径必须是目标镜像 URL 路径的前缀。
+    # - 如果 matchImages 包含端口，则该端口也必须在镜像中匹配。
     #
     # matchImages 的示例值：
     #
@@ -218,7 +220,7 @@ A match exists between an image name and a `matchImage` entry when all of the be
 
 * Both contain the same number of domain parts and each part matches.
 * The URL path of match image must be a prefix of the target image URL path.
-* If the imageMatch contains a port, then the port must match in the image as well.
+* If the matchImages contains a port, then the port must match in the image as well.
 
 Some example values of `matchImages` patterns are:
 -->
@@ -226,7 +228,7 @@ Some example values of `matchImages` patterns are:
 
 * 两者都包含相同数量的域部分并且每个部分都匹配。
 * 匹配图片的 URL 路径必须是目标图片 URL 路径的前缀。
-* 如果 imageMatch 包含端口，则该端口也必须在镜像中匹配。
+* 如果 matchImages 包含端口，则该端口也必须在镜像中匹配。
 
 `matchImages` 模式的一些示例值：
 
