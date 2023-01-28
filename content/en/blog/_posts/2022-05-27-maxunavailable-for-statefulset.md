@@ -50,7 +50,8 @@ spec:
         app: nginx
     spec:
       containers:
-      - image: k8s.gcr.io/nginx-slim:0.8
+      # image changed since publication (previously used registry "k8s.gcr.io")
+      - image: registry.k8s.io/nginx-slim:0.8
         imagePullPolicy: IfNotPresent
         name: nginx
   updateStrategy:
@@ -66,7 +67,7 @@ If you enable the new feature and you don't specify a value for `maxUnavailable`
 I'll run through a scenario based on that example manifest to demonstrate how this feature works. I will deploy a StatefulSet that
 has 5 replicas, with `maxUnavailable` set to 2 and `partition` set to 0.
 
-I can trigger a rolling update by changing the image to `k8s.gcr.io/nginx-slim:0.9`. Once I initiate the rolling update, I can 
+I can trigger a rolling update by changing the image to `registry.k8s.io/nginx-slim:0.9`. Once I initiate the rolling update, I can 
 watch the pods update 2 at a time as the current value of maxUnavailable is 2. The below output shows a span of time and is not 
 complete.  The maxUnavailable can be an absolute number (for example, 2) or a percentage of desired Pods (for example, 10%). The 
 absolute number is calculated from percentage by rounding up to the nearest integer.  
