@@ -517,9 +517,8 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"nginx-svc":        {&api.Service{}},
 		},
 		"application/ssa": {
-			"nginx-deployment":               {&apps.Deployment{}},
-			"nginx-deployment-no-replicas":   {&apps.Deployment{}},
-			"nginx-deployment-replicas-only": {&apps.Deployment{}},
+			"nginx-deployment":             {&apps.Deployment{}},
+			"nginx-deployment-no-replicas": {&apps.Deployment{}},
 		},
 		"application/web": {
 			"web":          {&api.Service{}, &apps.StatefulSet{}},
