@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  nodeName: foo-node # запланировать под на конкретный узел
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent
