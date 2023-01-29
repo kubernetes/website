@@ -744,17 +744,37 @@ for more information.
 
 ### SecurityContextDeny {#securitycontextdeny}
 
-This admission controller will deny any Pod that attempts to set certain escalating
-[SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
-fields, as shown in the
-[Configure a Security Context for a Pod or Container](/docs/tasks/configure-pod-container/security-context/)
-task.
-If you don't use [Pod Security admission](/docs/concepts/security/pod-security-admission/),
-[PodSecurityPolicies](/docs/concepts/security/pod-security-policy/), nor any external enforcement mechanism,
-then you could use this admission controller to restrict the set of values a security context can take.
+{{< feature-state for_k8s_version="v1.0" state="alpha" >}}
 
-See [Pod Security Standards](/docs/concepts/security/pod-security-standards/) for more context on restricting
-pod privileges.
+{{< caution >}}
+This admission controller plugin is **outdated** and **incomplete**, it may be
+unusable or not do what you would expect. It was originally designed to prevent
+the use of some, but not all, security-sensitive fields. Indeed, fields like
+`privileged`, were not filtered at creation and the plugin was not updated with
+the most recent fields, and new APIs like the `ephemeralContainers` field for a
+Pod.
+
+The [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
+plugin enforcing the [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
+`Restricted` profile captures what this plugin was trying to achieve in a better
+and up-to-date way.
+{{< /caution >}}
+
+This admission controller will deny any Pod that attempts to set the following
+[SecurityContext](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
+fields:
+- `.spec.securityContext.supplementalGroups`
+- `.spec.securityContext.seLinuxOptions`
+- `.spec.securityContext.runAsUser`
+- `.spec.securityContext.fsGroup`
+- `.spec.(init)Containers[*].securityContext.seLinuxOptions`
+- `.spec.(init)Containers[*].securityContext.runAsUser`
+
+For more historical context on this plugin, see
+[The birth of PodSecurityPolicy](/blog/2022/08/23/podsecuritypolicy-the-historical-context/#the-birth-of-podsecuritypolicy)
+from the Kubernetes blog article about PodSecurityPolicy and its removal. The
+article details the PodSecurityPolicy historical context and the birth of the
+`securityContext` field for Pods.
 
 ### ServiceAccount {#serviceaccount}
 
