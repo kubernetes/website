@@ -274,7 +274,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
 1. Optional: Check the cluster health.
 
     ```sh
-    docker run --rm -it \
+    crictl run --rm -it \
     --net host \
     -v /etc/kubernetes:/etc/kubernetes registry.k8s.io/etcd:${ETCD_TAG} etcdctl \
     --cert /etc/kubernetes/pki/etcd/peer.crt \
