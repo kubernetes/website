@@ -284,6 +284,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
     https://[HOST1 IP]:2379 is healthy: successfully committed proposal: took = 19.44402ms
     https://[HOST2 IP]:2379 is healthy: successfully committed proposal: took = 35.926451ms
     ```
+    
     - Set `${ETCD_TAG}` to the version tag of your etcd image. For example `3.4.3-0`. To see the etcd image and tag that kubeadm uses execute `kubeadm config images list --kubernetes-version ${K8S_VERSION}`, where `${K8S_VERSION}` is for example `v1.17.0`.
     - Set `${HOST0}`to the IP address of the host you are testing.
 
