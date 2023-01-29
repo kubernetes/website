@@ -23,50 +23,6 @@
 /zh-cn/docs/     /zh-cn/docs/home/ 301!
 /blog/2018/03/kubernetes-1.10-stabilizing-storage-security-networking/     /blog/2018/03/26/kubernetes-1.10-stabilizing-storage-security-networking/     301!
 /blog/2020/08/25/kubernetes-release-1.19-accentuate-the-paw-sitive/     /blog/2020/08/26/kubernetes-release-1.19-accentuate-the-paw-sitive/     301!
-/docs/admin/     /docs/concepts/cluster-administration/ 301
-/docs/admin/add-ons/     /docs/concepts/cluster-administration/addons/ 301
-/docs/admin/addons/     /docs/concepts/cluster-administration/addons/ 301
-/docs/admin/apparmor/     /docs/tutorials/clusters/apparmor/ 301
-/docs/admin/audit/     /docs/tasks/debug/debug-cluster/audit/ 301
-/docs/admin/authorization/rbac.md     /docs/admin/authorization/rbac/ 301
-/docs/admin/cluster-components/     /docs/concepts/overview/components/ 301
-/docs/admin/cluster-management/     /docs/tasks/administer-cluster/ 302
-/id/docs/admin/cluster-management/     /id/docs/tasks/administer-cluster/ 302
-/docs/admin/cluster-troubleshooting/     /docs/tasks/debug/debug-cluster/ 301
-/docs/admin/daemons/     /docs/concepts/workloads/controllers/daemonset/ 301
-/docs/admin/disruptions/     /docs/concepts/workloads/pods/disruptions/ 301
-/docs/admin/dns/     /docs/concepts/services-networking/dns-pod-service/ 301
-/docs/admin/etcd/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
-/docs/admin/etcd_upgrade/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
-/docs/admin/extensible-admission-controllers.md     /docs/reference/access-authn-authz/extensible-admission-controllers/ 301
-/docs/admin/garbage-collection/     /docs/concepts/cluster-administration/kubelet-garbage-collection/ 301
-/docs/admin/ha-master-gce/     /docs/setup/production-environment/#production-control-plane 301
-/docs/admin/ha-master-gce.md/     /docs/setup/production-environment/#production-control-plane 301
-/docs/admin/high-availability/      /docs/setup/production-environment/tools/kubeadm/high-availability/   301
-/docs/admin/kubelet-authentication-authorization/     /docs/reference/access-authn-authz/kubelet-authn-authz/ 301
-/docs/admin/kubelet-tls-bootstrapping/     /docs/reference/access-authn-authz/kubelet-tls-bootstrapping/ 301
-/docs/admin/limitrange/     /docs/tasks/administer-cluster/cpu-memory-limit/ 301
-/docs/admin/limitrange/Limits/     /docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage/ 301
-/docs/admin/master-node-communication/     /docs/concepts/architecture/master-node-communication/ 301
-/docs/admin/multiple-schedulers/     /docs/tasks/administer-cluster/configure-multiple-schedulers/ 301
-/docs/admin/namespaces/     /docs/tasks/administer-cluster/namespaces/ 301
-/docs/admin/namespaces/walkthrough/     /docs/tasks/administer-cluster/namespaces-walkthrough/ 301
-/docs/admin/network-plugins/     /docs/concepts/cluster-administration/network-plugins/ 301
-/docs/admin/networking/     /docs/concepts/cluster-administration/networking/ 301
-/docs/admin/node/     /docs/concepts/architecture/nodes/ 301
-/docs/admin/node-allocatable/     /docs/tasks/administer-cluster/reserve-compute-resources/ 301
-/docs/admin/node-allocatable.md     /docs/tasks/administer-cluster/reserve-compute-resources/ 301
-/docs/admin/node-conformance.md     /docs/admin/node-conformance/ 301
-/docs/admin/node-conformance/       /docs/setup/best-practices/node-conformance/ 301
-/docs/admin/node-problem/     /docs/tasks/debug/debug-cluster/monitor-node-health/ 301
-/docs/admin/out-of-resource/     /docs/concepts/scheduling-eviction/node-pressure-eviction/ 301
-/docs/admin/rescheduler/     /docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/ 301
-/docs/admin/resourcequota/*     /docs/concepts/policy/resource-quotas/ 301
-/docs/admin/resourcequota/limitstorageconsumption/     /docs/tasks/administer-cluster/limit-storage-consumption/ 301
-/docs/admin/resourcequota/walkthrough/     /docs/tasks/administer-cluster/quota-api-object/ 301
-/docs/admin/static-pods/     /docs/tasks/administer-cluster/static-pod/ 301
-/docs/admin/sysctls/     /docs/tasks/administer-cluster/sysctl-cluster/ 301
-/docs/admin/resource-quota/     /docs/concepts/policy/resource-quotas/     301
 
 /docs/api/     /docs/concepts/overview/kubernetes-api/ 301
 
@@ -501,40 +457,17 @@
 /serviceaccount/token/     /docs/tasks/configure-pod-container/configure-service-account/ 301
 /third_party/swagger-ui/*     /docs/reference/ 301
 
-/docs/admin/cloud-controller-manager/     /docs/reference/generated/cloud-controller-manager/ 301
-/docs/admin/kube-apiserver/     /docs/reference/generated/kube-apiserver/ 301
-/docs/admin/kube-controller-manager/     /docs/reference/generated/kube-controller-manager/ 301
-/docs/admin/kube-proxy/     /docs/reference/generated/kube-proxy/ 301
-/docs/admin/kube-scheduler/     /docs/reference/generated/kube-scheduler/ 301
-/docs/admin/kubeadm/     /docs/reference/generated/kubeadm/ 301
-/docs/admin/kubelet/      /docs/reference/generated/kubelet/ 301
-
 /docs/reference/generated/kubeadm/     /docs/reference/setup-tools/kubeadm/ 301
 /docs/reference/setup-tools/kubeadm/kubeadm/     /docs/reference/setup-tools/kubeadm/ 301
 
 /editdocs/     /docs/contribute/     301
 /docs/home/editdocs/  /docs/contribute/ 301
 
-/docs/admin/accessing-the-api/     /docs/concepts/overview/kubernetes-api/ 301
-/docs/admin/admission-controllers/     /docs/reference/access-authn-authz/admission-controllers/ 301
-/docs/admin/authentication/     /docs/reference/access-authn-authz/authentication/ 301
-/docs/admin/bootstrap-tokens/     /docs/reference/access-authn-authz/bootstrap-tokens/ 301
-
-/docs/admin/extensible-admission-controllers/     /docs/reference/access-authn-authz/extensible-admission-controllers/ 301
-/docs/admin/service-accounts-admin/     /docs/reference/access-authn-authz/service-accounts-admin/ 301
-/docs/admin/authorization/abac/     /docs/reference/access-authn-authz/abac/ 301
-/docs/admin/authorization/node/     /docs/reference/access-authn-authz/node/ 301
-/docs/admin/authorization/rbac/     /docs/reference/access-authn-authz/rbac/ 301
-/docs/admin/authorization/webhook/     /docs/reference/access-authn-authz/webhook/ 301
-/docs/admin/authorization/     /docs/reference/access-authn-authz/authorization/ 301
-/docs/admin/high-availability/building/     /docs/setup/production-environment/tools/kubeadm/high-availability/   301
-
 /code-of-conduct/     /community/code-of-conduct/   301
 /values/     /community/values/   302
 
 /dockershim /blog/2022/02/17/dockershim-faq/ 302
 /dockershim/ /blog/2022/02/17/dockershim-faq/ 302
-
 
 /docs/setup/release/notes/     /releases/notes/   302
 /docs/setup/release/                 /releases/   301
