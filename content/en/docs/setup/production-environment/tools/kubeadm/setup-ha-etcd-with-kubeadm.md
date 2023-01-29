@@ -274,13 +274,11 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
 1. Optional: Check the cluster health.
 
     ```sh
-    docker run --rm -it \
-    --net host \
-    -v /etc/kubernetes:/etc/kubernetes registry.k8s.io/etcd:${ETCD_TAG} etcdctl \
+    ETCDCTL_API=3 etcdctl \
     --cert /etc/kubernetes/pki/etcd/peer.crt \
     --key /etc/kubernetes/pki/etcd/peer.key \
     --cacert /etc/kubernetes/pki/etcd/ca.crt \
-    --endpoints https://${HOST0}:2379 endpoint health --cluster
+    --endpoints https://${HOST0}:2379 endpoint health
     ...
     https://[HOST0 IP]:2379 is healthy: successfully committed proposal: took = 16.283339ms
     https://[HOST1 IP]:2379 is healthy: successfully committed proposal: took = 19.44402ms
