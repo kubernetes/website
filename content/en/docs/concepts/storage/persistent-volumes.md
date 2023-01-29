@@ -59,7 +59,7 @@ needs to enable the `DefaultStorageClass` [admission controller](/docs/reference
 on the API server. This can be done, for example, by ensuring that `DefaultStorageClass` is
 among the comma-delimited, ordered list of values for the `--enable-admission-plugins` flag of
 the API server component. For more information on API server command-line flags,
-check [kube-apiserver](/docs/admin/kube-apiserver/) documentation.
+check [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) documentation.
 
 ### Binding
 
