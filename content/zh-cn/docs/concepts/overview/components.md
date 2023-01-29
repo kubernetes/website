@@ -3,7 +3,7 @@ title: Kubernetes 组件
 content_type: concept
 description: >
   Kubernetes 集群由控制平面的组件和一组称为节点的机器组成。
-weight: 20
+weight: 30
 card:
   name: concepts
   weight: 20
@@ -16,7 +16,7 @@ content_type: concept
 description: >
   A Kubernetes cluster consists of the components that are a part of the control
   plane and a set of machines called nodes.
-weight: 20
+weight: 30
 card:
   name: concepts
   weight: 20

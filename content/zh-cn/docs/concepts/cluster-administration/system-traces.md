@@ -143,7 +143,7 @@ The kubelet CRI interface and authenticated http servers are instrumented to gen
 trace spans. As with the apiserver, the endpoint and sampling rate are configurable.
 Trace context propagation is also configured. A parent span's sampling decision is always respected.
 A provided tracing configuration sampling rate will apply to spans without a parent.
-Enabled without a configured endpoint, the default OpenTelemetry Collector reciever address of "localhost:4317" is set.
+Enabled without a configured endpoint, the default OpenTelemetry Collector receiver address of "localhost:4317" is set.
 -->
 kubelet CRI 接口和实施身份验证的 HTTP 服务器被插桩以生成追踪 span。
 与 API 服务器一样，端点和采样率是可配置的。

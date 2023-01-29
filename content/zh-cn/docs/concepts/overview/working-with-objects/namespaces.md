@@ -268,7 +268,7 @@ kubectl api-resources --namespaced=false
 -->
 ## 自动打标签   {#automatic-labelling}
 
-{{< feature-state state="beta" for_k8s_version="1.21" >}}
+{{< feature-state state="beta" for_k8s_version="stable" >}}
 
 <!--
 The Kubernetes control plane sets an immutable {{< glossary_tooltip text="label" term_id="label" >}}
