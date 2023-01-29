@@ -47,11 +47,11 @@ You can set the TTL seconds at any time. Here are some examples for setting the
 * Manually set this field of existing, already finished Jobs, so that they become eligible
   for cleanup.
 * Use a
-  [mutating admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
+  [mutating admission webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)
   to set this field dynamically at Job creation time. Cluster administrators can
   use this to enforce a TTL policy for finished jobs.
 * Use a
-  [mutating admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
+  [mutating admission webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)
   to set this field dynamically after the Job has finished, and choose
   different TTL values based on job status, labels. For this case, the webhook needs
   to detect changes to the `.status` of the Job and only set a TTL when the Job
