@@ -2,6 +2,7 @@
 title: 安全地清空一个节点
 content_type: task
 min-kubernetes-server-version: 1.5
+weight: 310
 ---
 <!--
 reviewers:
@@ -12,6 +13,7 @@ reviewers:
 title: Safely Drain a Node
 content_type: task
 min-kubernetes-server-version: 1.5
+weight: 310
 -->
 
 <!-- overview -->
@@ -116,8 +118,21 @@ Next, tell Kubernetes to drain the node:
 接下来，告诉 Kubernetes 清空节点：
 
 ```shell
-kubectl drain <node name>
+kubectl drain --ignore-daemonsets <node name>
 ```
+
+<!--
+If there are pods managed by a DaemonSet, you will need to specify
+`--ignore-daemonsets` with `kubectl` to successfully drain the node. The `kubectl drain` subcommand on its own does not actually drain
+a node of its DaemonSet pods:
+the DaemonSet controller (part of the control plane) immediately replaces missing Pods with
+new equivalent Pods. The DaemonSet controller also creates Pods that ignore unschedulable
+taints, which allows the new Pods to launch onto a node that you are draining.
+-->
+如果存在由 DaemonSet 管理的 Pod，你需要使用 `kubectl` 指定 `--ignore-daemonsets` 才能成功腾空节点。
+`kubectl drain` 子命令本身并不会实际腾空节点上的 DaemonSet Pod：
+DaemonSet 控制器（控制平面的一部分）立即创建新的等效 Pod 替换丢失的 Pod。
+DaemonSet 控制器还会创建忽略不可调度污点的 Pod，这允许新的 Pod 启动到你正在腾空的节点上。
 
 <!-- 
 Once it returns (without giving an error), you can power down the node
