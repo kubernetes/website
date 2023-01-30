@@ -373,21 +373,21 @@ An example request body:
 
 ```json
 {
-  "apiVersion":"imagepolicy.k8s.io/v1alpha1",
-  "kind":"ImageReview",
-  "spec":{
-    "containers":[
+  "apiVersion": "imagepolicy.k8s.io/v1alpha1",
+  "kind": "ImageReview",
+  "spec": {
+    "containers": [
       {
-        "image":"myrepo/myimage:v1"
+        "image": "myrepo/myimage:v1"
       },
       {
-        "image":"myrepo/myimage@sha256:beb6bd6a68f114c1dc2ea4b28db81bdf91de202a9014972bec5e4d9171d90ed"
+        "image": "myrepo/myimage@sha256:beb6bd6a68f114c1dc2ea4b28db81bdf91de202a9014972bec5e4d9171d90ed"
       }
     ],
-    "annotations":{
+    "annotations": {
       "mycluster.image-policy.k8s.io/ticket-1234": "break-glass"
     },
-    "namespace":"mynamespace"
+    "namespace": "mynamespace"
   }
 }
 ```
@@ -610,9 +610,9 @@ This file may be json or yaml and has the following format:
 
 ```yaml
 podNodeSelectorPluginConfig:
- clusterDefaultNodeSelector: name-of-node-selector
- namespace1: name-of-node-selector
- namespace2: name-of-node-selector
+  clusterDefaultNodeSelector: name-of-node-selector
+  namespace1: name-of-node-selector
+  namespace2: name-of-node-selector
 ```
 
 Reference the `PodNodeSelector` configuration file from the file provided to the API server's
