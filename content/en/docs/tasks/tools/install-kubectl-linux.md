@@ -108,14 +108,12 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
    kubectl version --client --output=yaml    
    ```
 
-   {{< note >}}
-   The curl commands processed in the previous steps will remain on your target directory indefinitely and will not be utilized after the kubectl install (step 3) is complete.
+1. After installing the plugin, clean up the installation files:
 
    ```bash
    rm kubectl kubectl.sha256
    ```
 
-   {{< /note >}}
 
 ### Install using native package management
 
@@ -272,8 +270,7 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 
    If you do not see an error, it means the plugin is successfully installed.
 
-   {{< note >}}
-   The curl commands processed in the previous steps will remain on your target directory indefinitely and will not be utilized after the kubectl install (step 3) is complete.
+1. After installing the plugin, clean up the installation files:
 
    ```bash
    rm kubectl-convert kubectl-convert.sha256
