@@ -22,7 +22,7 @@ In other words, consciously accept that you will never create completely invulne
 
 Being vulnerable does not necessarily mean that your service will be exploited. Though your services are vulnerable in some ways unknown to you, offenders still need to identify these vulnerabilities and then exploit them. If offenders fail to exploit your service vulnerabilities, you win! In other words, having a vulnerability that can’t be exploited, represents a risk that can’t be realized.
 
-{{< figure src="Example.png" alt="Image of an example of offender gaining foothold in a service" class="diagram-large" caption="Figure 1. An Offender gaining foothold in a vulnerable service" >}}
+{{< figure src="security_behavior_figure_1.svg" alt="Image of an example of offender gaining foothold in a service" class="diagram-large" caption="Figure 1. An Offender gaining foothold in a vulnerable service" >}}
 
 The above diagram shows an example in which the offender does not yet have a foothold in the service; that is, it is assumed that your service does not run code controlled by the offender on day 1. In our example the service has vulnerabilities in the API exposed to clients. To gain an initial foothold the offender uses a malicious client to try and exploit one of the service API vulnerabilities. The malicious client sends an exploit that triggers some unplanned behavior of the service.
 
@@ -55,7 +55,7 @@ Fortunately, microservice architecture is well suited to security-behavior monit
 
 Kubernetes is often used to support workloads designed with microservice architecture. By design, microservices aim to follow the UNIX philosophy of "Do One Thing And Do It Well". Each microservice has a bounded context and a clear interface. In other words, you can expect the microservice clients to send relatively regular requests and the microservice to present a relatively regular behavior as a response to these requests. Consequently, a microservice architecture is an excellent candidate for security-behavior monitoring.
 
-{{< figure src="Microservices.png" alt="Image showing why microservices are well suited for security-behavior monitoring" class="diagram-large" caption="Figure 2. Microservices are well suited for security-behavior monitoring" >}}
+{{< figure src="security_behavior_figure_2.svg" alt="Image showing why microservices are well suited for security-behavior monitoring" class="diagram-large" caption="Figure 2. Microservices are well suited for security-behavior monitoring" >}}
 
 The diagram above clarifies how dividing a monolithic service to a set of microservices improves our ability to perform security-behavior monitoring and control. In a monolithic service approach, different client requests are intertwined, resulting in a diminished ability to identify irregular client behaviors. Without prior knowledge, an observer of the intertwined client requests will find it hard to distinguish between types of requests and their related characteristics. Further, internal client requests are not exposed to the observer. Lastly, the aggregated behavior of the monolithic service is a compound of the many different internal behaviors of its components, making it hard to identify irregular service behavior.
 
