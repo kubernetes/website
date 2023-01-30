@@ -84,7 +84,7 @@ to verify that backend Pods are working OK, so that kube-proxy in iptables mode
 only sees backends that test out as healthy. Doing this means you avoid
 having traffic sent via kube-proxy to a Pod that's known to have failed.
 
-{{< figure src="/images/docs/services-iptables-overview.svg" title="Services overview diagram for iptables proxy" class="diagram-medium" >}}
+{{< figure src="/images/docs/services-iptables-overview.svg" title="Virtual IP mechanism for Services, using iptables mode" class="diagram-medium" >}}
 
 #### Example {#packet-processing-iptables}
 
@@ -229,7 +229,7 @@ kernel modules are available. If the IPVS kernel modules are not detected, then 
 falls back to running in iptables proxy mode.
 {{< /note >}}
 
-{{< figure src="/images/docs/services-ipvs-overview.svg" title="Services overview diagram for IPVS proxy" class="diagram-medium" >}}
+{{< figure src="/images/docs/services-ipvs-overview.svg" title="Virtual IP address mechanism for Services, using IPVS mode" class="diagram-medium" >}}
 
 ## Session affinity
 
