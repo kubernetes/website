@@ -247,7 +247,7 @@
            id="text388"><tspan
              id="tspan386"
              x="0"
-             y="0">iregular request</tspan></text>
+             y="0">irregular request</tspan></text>
       </g>
     </g>
     <path
@@ -276,7 +276,7 @@
            id="tspan408"
            x="222.58043"
            y="165.78343"
-           style="stroke-width:0.352778">iregular request </tspan></text>
+           style="stroke-width:0.352778">irregular request</tspan></text>
     </g>
     <path
        d="m 90.500436,139.62355 v 0 c 0,-0.36018 0.0903,-0.71014 0.27023,-1.01 0.17992,-0.31009 0.43991,-0.57009 0.73978,-0.75 0.31009,-0.17004 0.66004,-0.27023 1.02023,-0.27023 l 5.66984,0.0102 -3.18981,-9.52006 14.759864,9.52006 h 24.94986 v 0 c 0.36018,0 0.71014,0.09 1.01,0.26987 0.31009,0.17992 0.57009,0.43992 0.75001,0.74013 0.17004,0.30974 0.27022,0.66005 0.27022,1.01988 v 0 -0.01 0 3.04977 5.07012 0 c 0,0.35983 -0.0899,0.71014 -0.27022,1.01 -0.17992,0.3101 -0.43992,0.57009 -0.73978,0.75001 -0.31009,0.17004 -0.66005,0.26987 -1.02023,0.26987 H 109.77057 98.200516 v 0 h -5.68007 v 0 c -0.35984,0 -0.70979,-0.0899 -1.01,-0.26987 -0.30974,-0.17992 -0.56974,-0.43991 -0.75001,-0.74013 -0.16969,-0.30974 -0.26988,-0.66005 -0.26988,-1.01988 l 0.01,-5.07012 z"
@@ -304,7 +304,7 @@
            id="tspan424"
            x="96.250717"
            y="148.6035"
-           style="stroke-width:0.352778">iregular response</tspan></text>
+           style="stroke-width:0.352778">irregular response</tspan></text>
     </g>
     <path
        d="m 194.81048,138.84356 v 0 c 0,-0.36018 0.09,-0.71014 0.27022,-1.01 0.17992,-0.31009 0.43992,-0.57009 0.73978,-0.75001 0.31009,-0.17003 0.66005,-0.27022 1.02023,-0.27022 l 5.66985,0.0102 -4.24004,-9.26007 15.81009,9.26007 h 24.94985 v 0 c 0.36019,0 0.71014,0.09 1.01,0.26987 0.3101,0.17992 0.57009,0.43992 0.75001,0.74013 0.17004,0.30974 0.27023,0.65969 0.27023,1.01988 v 0 -0.01 0 3.04977 5.07012 0 c 0,0.35983 -0.09,0.71014 -0.27023,1.01 -0.17992,0.31009 -0.43991,0.57009 -0.73977,0.75001 -0.3101,0.17004 -0.66005,0.26987 -1.02024,0.26987 h -24.94985 -11.57005 v 0 h -5.68008 v 0 c -0.35983,0 -0.70979,-0.09 -1.01,-0.26987 -0.30974,-0.17992 -0.56974,-0.43992 -0.75001,-0.74013 -0.17004,-0.30974 -0.26987,-0.66005 -0.26987,-1.01988 l 0.01,-5.07012 z"
@@ -332,7 +332,7 @@
            id="tspan440"
            x="200.56075"
            y="147.83339"
-           style="stroke-width:0.352778">iregular response</tspan></text>
+           style="stroke-width:0.352778">irregular response</tspan></text>
     </g>
     <path
        d="m 261.54051,146.90348 v 0 c 0,-0.69991 0.17991,-1.38995 0.5401,-1.9999 0.34995,-0.61031 0.84984,-1.12007 1.46015,-1.47003 0.60995,-0.34995 1.29998,-0.53022 1.99989,-0.53022 h 2.66982 l -1.01988,-9.58991 11.03983,9.58991 h 19.36009 v 0 c 0.69991,0 1.38995,0.18027 2.00025,0.5401 0.60995,0.34996 1.11972,0.84984 1.46967,1.46015 0.35031,0.60995 0.53023,1.29999 0.53023,1.9999 v 0 h 0.01 v 0 6.00004 10.01007 0 c 0,0.69991 -0.17992,1.38995 -0.54011,1.9999 -0.34995,0.60995 -0.84984,1.12007 -1.45979,1.47002 -0.60995,0.34996 -1.29999,0.52988 -1.9999,0.52988 l -19.37032,0.01 h -10.01995 v 0 h -2.66982 v 0 c -0.69991,0 -1.38994,-0.17991 -1.99989,-0.53975 -0.61031,-0.34995 -1.12007,-0.85019 -1.47003,-1.46014 -0.35031,-0.60996 -0.53022,-1.29999 -0.53022,-1.9999 v -10.02008 z"
@@ -360,7 +360,7 @@
            id="tspan456"
            x="266.07053"
            y="156.89343"
-           style="stroke-width:0.352778">iregular time to </tspan></text>
+           style="stroke-width:0.352778">irregular time to </tspan></text>
       <text
          xml:space="preserve"
          style="font-variant:normal;font-weight:normal;font-size:4.93995px;font-family:Carlito;-inkscape-font-specification:Carlito;writing-mode:lr-tb;fill:#c00000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352778"
@@ -399,7 +399,7 @@
            id="tspan478"
            x="163.20053"
            y="156.89343"
-           style="stroke-width:0.352778">iregular time </tspan></text>
+           style="stroke-width:0.352778">irregular time </tspan></text>
       <text
          xml:space="preserve"
          style="font-variant:normal;font-weight:normal;font-size:4.93995px;font-family:Carlito;-inkscape-font-specification:Carlito;writing-mode:lr-tb;fill:#c00000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.352778"
@@ -478,7 +478,7 @@
          x="43.120605"
          y="60.233383"><tspan
    style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Liberation Sans Narrow';-inkscape-font-specification:'Liberation Sans Narrow'"
-   id="tspan1041">RES:</tspan> data about tom</tspan></text>
+   id="tspan1041">RES:</tspan> data about Tom</tspan></text>
     <path
        id="path526"
        style="color:#000000;fill:#000000;stroke-width:0.352778;stroke-miterlimit:10;-inkscape-stroke:none"
