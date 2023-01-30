@@ -276,8 +276,6 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    rm kubectl-convert kubectl-convert.sha256
    ```
 
-   {{< /note >}}
-
 ## {{% heading "whatsnext" %}}
 
 {{< include "included/kubectl-whats-next.md" >}}
