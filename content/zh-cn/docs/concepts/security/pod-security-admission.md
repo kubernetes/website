@@ -167,10 +167,10 @@ applied to workload resources, only to the resulting pod objects.
 Pod 通常是通过创建 {{< glossary_tooltip term_id="deployment" >}} 或
 {{< glossary_tooltip term_id="job">}}
 这类[工作负载对象](/zh-cn/docs/concepts/workloads/controllers/)
-来间接创建的。工作负载对象为工作负载资源定义一个 **Pod 模板**
-和一个对应的负责基于该模板来创建 Pod 的{{< glossary_tooltip term_id="controller" text="控制器" >}}。
+来间接创建的。工作负载对象为工作负载资源定义一个 **Pod 模板**和一个对应的负责基于该模板来创建
+Pod 的{{< glossary_tooltip term_id="controller" text="控制器" >}}。
 为了尽早地捕获违例状况，`audit` 和 `warn` 模式都应用到负载资源。
-不过，`enforce` 模式并 **不** 应用到工作负载资源，仅应用到所生成的 Pod 对象上。
+不过，`enforce` 模式并**不**应用到工作负载资源，仅应用到所生成的 Pod 对象上。
 
 <!--
 ## Exemptions
@@ -182,7 +182,7 @@ Exemptions can be statically configured in the
 -->
 ## 豁免   {#exemptions}
 
-你可以为 Pod 安全性的实施设置 **豁免（Exemptions）** 规则，
+你可以为 Pod 安全性的实施设置**豁免（Exemptions）**规则，
 从而允许创建一些本来会被与给定名字空间相关的策略所禁止的 Pod。
 豁免规则可以在[准入控制器配置](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)
 中静态配置。
@@ -191,7 +191,7 @@ Exemptions can be statically configured in the
 Exemptions must be explicitly enumerated. Requests meeting exemption criteria are _ignored_ by the
 Admission Controller (all `enforce`, `audit` and `warn` behaviors are skipped). Exemption dimensions include:
 -->
-豁免规则可以显式枚举。满足豁免标准的请求会被准入控制器 **忽略**
+豁免规则必须显式枚举。满足豁免标准的请求会被准入控制器**忽略**
 （所有 `enforce`、`audit` 和 `warn` 行为都会被略过）。
 豁免的维度包括：
 

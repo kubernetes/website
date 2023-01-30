@@ -22,8 +22,8 @@ The Pod Security Standards define three different _policies_ to broadly cover th
 spectrum. These policies are _cumulative_ and range from highly-permissive to highly-restrictive.
 This guide outlines the requirements of each policy.
 -->
-Pod 安全性标准定义了三种不同的 **策略（Policy）**，以广泛覆盖安全应用场景。
-这些策略是 **叠加式的（Cumulative）**，安全级别从高度宽松至高度受限。
+Pod 安全性标准定义了三种不同的**策略（Policy）**，以广泛覆盖安全应用场景。
+这些策略是**叠加式的（Cumulative）**，安全级别从高度宽松至高度受限。
 本指南概述了每个策略的要求。
 
 <!--
@@ -84,7 +84,7 @@ containers_. If any of the listed containers fails to meet the requirements, the
 fail validation.
 -->
 在下述表格中，通配符（`*`）意味着一个列表中的所有元素。
-例如 `spec.containers[*].securityContext` 表示 _所定义的所有容器_ 的安全性上下文对象。
+例如 `spec.containers[*].securityContext` 表示**所定义的所有容器**的安全性上下文对象。
 如果所列出的任一容器不能满足要求，整个 Pod 将无法通过校验。
 {{< /note >}}
 
@@ -575,7 +575,7 @@ to a particular OS can be relaxed for the other OS.
 -->
 ### 限制性的 Pod Security Standard 变更   {#restricted-pod-security-standard-changes}
 
-Kubernetes v1.25 中的另一个重要变化是 **限制性的（Restricted）** Pod 安全性已更新，
+Kubernetes v1.25 中的另一个重要变化是**限制性的（Restricted）** Pod 安全性已更新，
 能够处理 `pod.spec.os.name` 字段。根据 OS 名称，专用于特定 OS 的某些策略对其他 OS 可以放宽限制。
 
 <!--
