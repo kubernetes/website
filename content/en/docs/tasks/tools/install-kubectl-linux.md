@@ -19,7 +19,6 @@ Using the latest compatible version of kubectl helps avoid unforeseen issues.
 
 The following methods exist for installing kubectl on Linux:
 
-- [{{% heading "prerequisites" %}}](#-heading-prerequisites-)
 - [Install kubectl on Linux](#install-kubectl-on-linux)
   - [Install kubectl binary with curl on Linux](#install-kubectl-binary-with-curl-on-linux)
   - [Install using native package management](#install-using-native-package-management)
