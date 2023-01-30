@@ -72,6 +72,13 @@ plugins:
 
 {{< note >}}
 <!--
+The above manifest needs to be specified via the `--admission-control-config-file` to kube-apiserver.
+-->
+上面的清单需要通过 `--admission-control-config-file` 指定给 kube-apiserver。
+{{< /note >}}
+
+{{< note >}}
+<!--
 `pod-security.admission.config.k8s.io/v1` configuration requires v1.25+.
 For v1.23 and v1.24, use [v1beta1](https://v1-24.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
 For v1.22, use [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
@@ -79,5 +86,4 @@ For v1.22, use [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-
 `pod-security.admission.config.k8s.io/v1` 配置需要 v1.25+。
 对于 v1.23 和 v1.24，使用 [v1beta1](https://v1-24.docs.kubernetes.io/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)。
 对于 v1.22，使用 [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)。
-v1beta1 配置结构需要使用 v1.23+ 版本；对于 v1.22 版本，可使用 v1alpha1。
 {{< /note >}}
