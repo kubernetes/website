@@ -645,7 +645,25 @@ First, the user defines a new configuration containing only the `replicas` field
 
 首先，用户新定义一个只包含 `replicas` 字段的配置文件：
 
-{{< codenew file="application/ssa/nginx-deployment-replicas-only.yaml" >}}
+```yaml
+# 将此文件另存为 'nginx-deployment-replicas-only.yaml'
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 3
+```
+
+{{< note >}}
+<!--
+The YAML file for SSA in this case only contains the fields you want to change.
+You are not supposed to provide a fully compliant Deployment manifest if you only
+want to modify the `spec.replicas` field using SSA.
+-->
+此场景中针对 SSA 的 YAML 文件仅包含你要更改的字段。
+如果只想使用 SSA 来修改 `spec.replicas` 字段，你无需提供完全兼容的 Deployment 清单。
+{{< /note >}}
 
 <!--
 The user applies that configuration using the field manager name `handover-to-hpa`:
@@ -653,7 +671,7 @@ The user applies that configuration using the field manager name `handover-to-hp
 用户使用名为 `handover-to-hpa` 的字段管理器，应用此配置文件。
 
 ```shell
-kubectl apply -f https://k8s.io/examples/application/ssa/nginx-deployment-replicas-only.yaml \
+kubectl apply -f nginx-deployment-replicas-only.yaml \
   --server-side --field-manager=handover-to-hpa \
   --validate=false
 ```
