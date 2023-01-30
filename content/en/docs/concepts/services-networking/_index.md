@@ -29,9 +29,9 @@ talk to other VMs in your project.  This is the same basic model.
 Kubernetes imposes the following requirements on any networking
 implementation (barring any intentional network segmentation policies):
 
-* containers in same pod can communicate with each other
+* containers in same pod can communicate with each other.
 * pods can communicate with all other pods on the same or separate [nodes](/docs/concepts/architecture/nodes/)
-without network address translation (NAT)
+without network address translation (NAT).
 * pods can communicate with other pods on the same or separate nodes using L2 bridging, native L3 (IPv4, IPv6) networking, tunneling, or other CNI-specific techniques for conveying packets from one pod to another.  
 
 Some platforms, such as Linux, support `Pods` running in the host network. Pods attached to the host network of a node can still communicate 
@@ -45,6 +45,8 @@ with all pods on all nodes without NAT.
 * Dual Stack - IPv4 and IPv6 addresses assigned to pod interfaces, host interfaces, L2 bridges, L3 routers, tunnel end-points and any other network resources requiring IPv4 or IPv6 connectivity.
 
 * L2 bridge - supports a virtual L2 bridge function.
+
+* Host Network - network functions residing in user space or the kernel.
 
 * Encapsulation - ability to encapsulate an L2 or L3 packet belonging to an `inner network` with an `outer network` header for transport across the `outer network`. This forms a `tunnel` where the encapsulation function is performed at tunnel ingress and de-encapsulation function is performed at tunnel egress. 
 
@@ -79,11 +81,11 @@ The components of the architecture consist of the following:
   
 * L2bridge is a virtual L2 bridge that allows communications between pods on the same node. Depending on your deployment of container runtimes and CNI, you might know thebridge as a basic linux bridge, `docker0`, `cbr0` or `cni0`. 
   
-* CNI plugins supporting different forms of pod networking. Some plugins employ a virtual overlay network in which packets are encapsulated and tunneled between pods on different nodes. Other CNI plugins use L2 bridging for same host pod networking or L3 IP networking to route packets between pods on different hosts. You have a multitude of CNI plugins that can best meet your cluster network requirements.
+* CNI plugins supporting different forms of pod networking. Some plugins employ a virtual overlay network in which packets are encapsulated and tunneled between pods on different nodes. Other CNI plugins use L2 bridging for same host pod networking or L3 IP networking to route packets between pods on different hosts. You have a multitude of CNI plugins to choose from that best meet your cluster network requirements.
 
 
 {{< note >}}
-Your "physical underlay network" composed of L2 switches or L3 routers, for example, is used to transport encapsulated or un-encapsulated packets. In the former, your virtual overlay network runs on top of the physical underlay network.
+Your "physical network underlay" composed of L2 switches or L3 routers, for example, is used to transport encapsulated or un-encapsulated packets between nodes. In the former, your virtual network overlay runs on top of the physical network underlay.
 {{< /note >}}
 
 You might discover a different variant of this architecture and functions that you prefer to run in your environment. However, it should meet some or all of the network requirements noted above. 
@@ -110,10 +112,21 @@ blind to the existence or non-existence of host ports.
 
 ### Pods on the same node.
 
-Figure 3 illustrates communications between two pods running on the same host. 
+You might configure your cluster deployment to include two or more pods running on the node. You might also require communications between your pods on the same node. 
 
-{{< figure src="/docs/images/k8net-PodSameHost.drawio.svg" alt="k8s pods samehost" class="diagram-large" caption="Figure 3. Pod 1 - Pod2 networking on the same host using L2 bridging" >}}
+Pods operate in their own namespace and have their own IP and MAC addresses. You can think of this as multiple distinct IP computers that want to talk with each other. Inter-pod networking on the same node is no different.
 
+Communications between pods, intra- or inter- host, requires L2 bridging, L3 networking or some other form of inter-pod networking. These network functions reside in the root namespace. 
+
+This scenario requires:
+
+* communication between the pod namespaces and root network namespace.
+
+* L2 or L3 networking between the pods.
+
+Figure 3 illustrates communications between two pods running on the same node. 
+
+{{< figure src="/docs/images/k8net-PodSameHost02.drawio.svg" alt="k8s pods samehost" class="diagram-large" caption="Figure 3. Pod 1 - Pod2 networking on the same node using L2 bridging" >}}
 
 
 ### Pods on different nodes
