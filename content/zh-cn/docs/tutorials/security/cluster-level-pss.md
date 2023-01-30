@@ -425,14 +425,18 @@ following:
 <!-- 
 ## Clean up
 
-Run `kind delete cluster --name psa-with-cluster-pss` and
-`kind delete cluster --name psa-wo-cluster-pss` to delete the clusters you
-created.
+Now delete the clusters which you created above by running the following command:
 -->
 ## 清理  {#clean-up}
 
-运行 `kind delete cluster --name psa-with-cluster-pss` 和
-`kind delete cluster --name psa-wo-cluster-pss` 来删除你创建的集群。
+现在通过运行以下命令删除你上面创建的集群：
+
+```shell
+kind delete cluster --name psa-with-cluster-pss
+```
+```shell
+kind delete cluster --name psa-wo-cluster-pss
+```
 
 ## {{% heading "whatsnext" %}}
 
