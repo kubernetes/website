@@ -320,6 +320,8 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	case *rbac.ClusterRoleBinding:
 		// clusterolebinding does not accept namespace
 		errors = rbac_validation.ValidateClusterRoleBinding(t)
+	case *rbac.RoleBinding:
+		errors = rbac_validation.ValidateRoleBinding(t)
 	case *storage.StorageClass:
 		// storageclass does not accept namespace
 		errors = storage_validation.ValidateStorageClass(t)
@@ -454,7 +456,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"admin/sched": {
 			"clusterrole":  {&rbac.ClusterRole{}},
-			"my-scheduler": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &rbac.ClusterRoleBinding{}, &api.ConfigMap{}, &apps.Deployment{}},
+			"my-scheduler": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &rbac.ClusterRoleBinding{}, &rbac.RoleBinding{}, &api.ConfigMap{}, &apps.Deployment{}},
 			"pod1":         {&api.Pod{}},
 			"pod2":         {&api.Pod{}},
 			"pod3":         {&api.Pod{}},
