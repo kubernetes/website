@@ -1,6 +1,6 @@
 ---
 title: Informações de Segurança e Divulgação do Kubernetes
-aliases: [/security/]
+aliases: [/pt-br/security/]
 content_type: concept
 weight: 20
 ---
