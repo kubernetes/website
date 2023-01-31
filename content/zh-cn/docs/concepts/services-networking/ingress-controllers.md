@@ -5,7 +5,7 @@ description: >-
   必须有一个 Ingress 控制器正在运行。你需要选择至少一个 Ingress 控制器并确保其已被部署到你的集群中。
   本页列出了你可以部署的常见 Ingress 控制器。
 content_type: concept
-weight: 30
+weight: 50
 ---
 
 <!--
@@ -16,7 +16,7 @@ description: >-
   You need to select at least one ingress controller and make sure it is set up in your cluster.  
   This page lists common ingress controllers that you can deploy.
 content_type: concept
-weight: 30
+weight: 50
 -->
 
 <!-- overview -->
@@ -136,6 +136,7 @@ Kubernetes 作为一个项目，目前支持和维护
 * [Tyk Operator](https://github.com/TykTechnologies/tyk-operator) extends Ingress with Custom Resources to bring API Management capabilities to Ingress. Tyk Operator works with the Open Source Tyk Gateway & Tyk Cloud control plane.
 * [Voyager](https://appscode.com/products/voyager) is an ingress controller for
   [HAProxy](https://www.haproxy.org/#desc).
+* [Wallarm Ingress Controller](https://www.wallarm.com/solutions/waf-for-kubernetes) is an Ingress Controller that provides WAAP (WAF) and API Security capabilities.
 -->
 * [Traefik Kubernetes Ingress 提供程序](https://doc.traefik.io/traefik/providers/kubernetes-ingress/)
   是一个用于 [Traefik](https://traefik.io/traefik/) 代理的 Ingress 控制器。
@@ -144,6 +145,8 @@ Kubernetes 作为一个项目，目前支持和维护
   使用开源的 Tyk Gateway & Tyk Cloud 控制面。
 * [Voyager](https://appscode.com/products/voyager) 是一个针对
   [HAProxy](https://www.haproxy.org/#desc) 的 Ingress 控制器。
+* [Wallarm Ingress Controller](https://www.wallarm.com/solutions/waf-for-kubernetes) 是提供 WAAP（WAF）
+  和 API 安全功能的 Ingress Controller。
 
 <!--
 ## Using multiple Ingress controllers
@@ -152,7 +155,7 @@ Kubernetes 作为一个项目，目前支持和维护
 
 <!--
 You may deploy any number of ingress controllers using [ingress class](/docs/concepts/services-networking/ingress/#ingress-class)
-within a cluster. Note the `.metadata.name` of your ingress class resource. When you create an ingress you would need that name to specify the `ingressClassName` field on your Ingress object (refer to [IngressSpec v1 reference](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec). `ingressClassName` is a replacement of the older [annotation method](/docs/concepts/services-networking/ingress/#deprecated-annotation).
+within a cluster. Note the `.metadata.name` of your ingress class resource. When you create an ingress you would need that name to specify the `ingressClassName` field on your Ingress object (refer to [IngressSpec v1 reference](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)). `ingressClassName` is a replacement of the older [annotation method](/docs/concepts/services-networking/ingress/#deprecated-annotation).
 -->
 你可以使用
 [Ingress 类](/zh-cn/docs/concepts/services-networking/ingress/#ingress-class)在集群中部署任意数量的
