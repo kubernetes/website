@@ -273,6 +273,10 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
 
 1. Optional: Check the cluster health.
 
+    If `etcdctl` isn't available, you can run this tool inside a container image.
+    You would do that directly with your container runtime using a tool such as
+    `crictl run` and not through Kubernetes
+
     ```sh
     ETCDCTL_API=3 etcdctl \
     --cert /etc/kubernetes/pki/etcd/peer.crt \
