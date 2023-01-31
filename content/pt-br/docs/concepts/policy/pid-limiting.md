@@ -92,7 +92,7 @@ Use o sinal de remoção `pid.available` para configurar o limite para o número
 Você pode definir políticas de despejo flexíveis e rígidas.
 Porém, mesmo com a política de despejo rígida, se o número de PIDs crescer muito rápido,
 o nó ainda pode entrar em estado instável ao atingir o limite de PIDs do nó.
-O valor do sinal de despejo é calculado periodicamente e NÃO impõe o limite.
+O valor do sinal de despejo é calculado periodicamente e assim NÃO impõe o limite.
 
 Limitação de PID - por pod e por nó define o limite rígido.
 Assim que o limite for atingido, a carga de trabalho começará a apresentar falhas ao tentar obter um novo PID.
