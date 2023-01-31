@@ -391,8 +391,7 @@ managed by Kubernetes' own control plane.
 #### Accessing a Service without a selector {#service-no-selector-access}
 
 Accessing a Service without a selector works the same as if it had a selector.
-In the [example](#services-without-selectors) for a Service without a selector,
-traffic is routed to one of the two endpoints defined in
+In the [example](#services-without-selectors) for a Service without a selector, traffic is routed to one of the two endpoints defined in
 the EndpointSlice manifest: a TCP connection to 10.1.2.3 or 10.4.5.6, on port 9376.
 -->
 #### 访问没有选择算符的 Service   {#service-no-selector-access}
@@ -804,7 +803,7 @@ Kubernetes `ServiceTypes` 允许指定你所需要的 Service 类型。
 * `ClusterIP`: Exposes the Service on a cluster-internal IP. Choosing this value
   makes the Service only reachable from within the cluster. This is the
   default that is used if you don't explicitly specify a `type` for a Service.
-  You can expose the service to the public with an [Ingress](docs/reference/kubernetes-api/service-resources/ingress-v1/) or the
+  You can expose the service to the public with an [Ingress](/docs/concepts/services-networking/ingress/) or the
   [Gateway API](https://gateway-api.sigs.k8s.io/).
 * [`NodePort`](#type-nodeport): Exposes the Service on each Node's IP at a static port
   (the `NodePort`).
@@ -818,7 +817,7 @@ Kubernetes `ServiceTypes` 允许指定你所需要的 Service 类型。
 -->
 * `ClusterIP`：通过集群的内部 IP 暴露服务，选择该值时服务只能够在集群内部访问。
   这也是你没有为服务显式指定 `type` 时使用的默认值。
-  你可以使用 [Ingress](/zh-cn/docs/reference/kubernetes-api/service-resources/ingress-v1/)
+  你可以使用 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)
   或者 [Gateway API](https://gateway-api.sigs.k8s.io/) 向公众暴露服务。
 * [`NodePort`](#type-nodeport)：通过每个节点上的 IP 和静态端口（`NodePort`）暴露服务。
   为了让节点端口可用，Kubernetes 设置了集群 IP 地址，这等同于你请求 `type: ClusterIP` 的服务。
@@ -1124,7 +1123,7 @@ cloud provider does not support mixed protocols they will provide only a single 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 <!--
-Starting in v1.20, you can optionally disable node port allocation for a Service Type=LoadBalancer by setting
+You can optionally disable node port allocation for a Service of `type=LoadBalancer`, by setting
 the field `spec.allocateLoadBalancerNodePorts` to `false`. This should only be used for load balancer implementations
 that route traffic directly to pods as opposed to using node ports. By default, `spec.allocateLoadBalancerNodePorts`
 is `true` and type LoadBalancer Services will continue to allocate node ports. If `spec.allocateLoadBalancerNodePorts`
@@ -1626,7 +1625,7 @@ the NLB Target Group's health check on the auto-assigned
 `.spec.healthCheckNodePort` 进行 NLB 目标组的运行状况检查，并且不会收到任何流量。
 
 <!--
-In order to achieve even traffic, either use a DaemonSet, or specify a
+In order to achieve even traffic, either use a DaemonSet or specify a
 [pod anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 to not locate on the same node.
 
