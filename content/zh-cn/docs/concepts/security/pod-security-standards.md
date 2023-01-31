@@ -196,7 +196,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap"><!--Host Ports-->宿主端口</td>
 			<td>
-				<p><!--HostPorts should be disallowed, or at minimum restricted to a known list.-->应该禁止使用宿主端口，或者至少限制只能使用某确定列表中的端口。</p>
+				<p><!--HostPorts should be disallowed entirely (recommended) or restricted to a known list.-->应该完全禁止使用宿主端口（推荐）或者至少限制只能使用某确定列表中的端口。</p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
 					<li><code>spec.containers[*].ports[*].hostPort</code></li>
@@ -206,7 +206,7 @@ fail validation.
 				<p><strong><!--Allowed Values-->准许的取值</strong></p>
 				<ul>
 					<li><!--Undefined/nil-->未定义、nil</li>
-					<li><!--Known list-->已知列表</li>
+					<li><!--Known list (not supported by the built-in <a href="/docs/concepts/security/pod-security-admission/">Pod Security Admission controller</a>)-->已知列表（不支持内置的 <a href="/docs/concepts/security/pod-security-admission/">Pod 安全性准入控制器</a> ）</li>
 					<li><code>0</code></li>
 				</ul>
 			</td>
