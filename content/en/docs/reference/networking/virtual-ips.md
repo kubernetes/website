@@ -131,6 +131,26 @@ iptables:
 ...
 ```
 
+##### Performance optimization for `iptables` mode {#minimize-iptables-restore}
+
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+
+In Kubernetes {{< skew currentVersion >}} the kube-proxy defaults to a minimal approach
+to `iptables-restore` operations, only making updates where Services or EndpointSlices have
+actually changed. This is a performance optimization.
+The original implementation updated all the rules for all Services on every sync; this
+sometimes led to performance issues (update lag) in large clusters.
+
+If you are not running kube-proxy from Kubernetes {{< skew currentVersion >}}, check
+the behavior and associated advice for the version that you are actually running.
+
+If you were previously overriding `minSyncPeriod`, you should try
+removing that override and letting kube-proxy use the default value
+(`1s`) or at least a smaller value than you were using before upgrading.
+You can select the legacy behavior by disabling the `MinimizeIPTablesRestore`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+(you should not need to).
+
 ##### `minSyncPeriod`
 
 The `minSyncPeriod` parameter sets the minimum duration between
@@ -142,7 +162,7 @@ things change in a small time period. For example, if you have a
 Service backed by a {{< glossary_tooltip term_id="deployment" text="Deployment" >}}
 with 100 pods, and you delete the
 Deployment, then with `minSyncPeriod: 0s`, kube-proxy would end up
-removing the Service's Endpoints from the iptables rules one by one,
+removing the Service's endpoints from the iptables rules one by one,
 for a total of 100 updates. With a larger `minSyncPeriod`, multiple
 Pod deletion events would get aggregated
 together, so kube-proxy might
@@ -154,20 +174,19 @@ The larger the value of `minSyncPeriod`, the more work that can be
 aggregated, but the downside is that each individual change may end up
 waiting up to the full `minSyncPeriod` before being processed, meaning
 that the iptables rules spend more time being out-of-sync with the
-current apiserver state.
+current API server state.
 
-The default value of `1s` is a good compromise for small and medium
-clusters. In large clusters, it may be necessary to set it to a larger
-value. (Especially, if kube-proxy's
-`sync_proxy_rules_duration_seconds` metric indicates an average
-time much larger than 1 second, then bumping up `minSyncPeriod` may
-make updates more efficient.)
+The default value of `1s` should work well in most clusters, but in very
+large clusters it may be necessary to set it to a larger value.
+Especially, if kube-proxy's `sync_proxy_rules_duration_seconds` metric
+indicates an average time much larger than 1 second, then bumping up
+`minSyncPeriod` may make updates more efficient.
 
 ##### `syncPeriod`
 
 The `syncPeriod` parameter controls a handful of synchronization
 operations that are not directly related to changes in individual
-Services and Endpoints. In particular, it controls how quickly
+Services and EndpointSlices. In particular, it controls how quickly
 kube-proxy notices if an external component has interfered with
 kube-proxy's iptables rules. In large clusters, kube-proxy also only
 performs certain cleanup operations once every `syncPeriod` to avoid
@@ -177,29 +196,6 @@ For the most part, increasing `syncPeriod` is not expected to have much
 impact on performance, but in the past, it was sometimes useful to set
 it to a very large value (eg, `1h`). This is no longer recommended,
 and is likely to hurt functionality more than it improves performance.
-
-##### Experimental performance improvements {#minimize-iptables-restore}
-
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
-
-In Kubernetes 1.26, some new performance improvements were made to the
-iptables proxy mode, but they are not enabled by default (and should
-probably not be enabled in production clusters yet). To try them out,
-enable the `MinimizeIPTablesRestore` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) for
-kube-proxy with `--feature-gates=MinimizeIPTablesRestore=true,…`.
-
-If you enable that feature gate and
-you were previously overriding
-`minSyncPeriod`, you should try removing that override and letting
-kube-proxy use the default value (`1s`) or at least a smaller value
-than you were using before.
-
-If you notice kube-proxy's
-`sync_proxy_rules_iptables_restore_failures_total` or
-`sync_proxy_rules_iptables_partial_restore_failures_total` metrics
-increasing after enabling this feature, that likely indicates you are
-encountering bugs in the feature and you should file a bug report.
 
 ### IPVS proxy mode {#proxy-mode-ipvs}
 
