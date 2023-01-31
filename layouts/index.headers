@@ -32,7 +32,9 @@
   {{- end -}}
 {{- end }}
 {{- end -}}
+{{ if strings.Contains .Site.BaseURL ".netlify.app" }}
+X-Robots-Tag: noindex
+{{ end }}
 {{- else }}
-/*
-  X-Robots-Tag: noindex
+X-Robots-Tag: noindex
 {{- end }}
