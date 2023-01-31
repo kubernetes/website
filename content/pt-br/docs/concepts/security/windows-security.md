@@ -12,17 +12,16 @@ Esta página descreve considerações de segurança e boas práticas específica
 
 ## Proteção para dados Secret nos Nós
 
-No Windows, os dados do Secret são escritos em texto não-encriptado no Nó local do
-armazenamento (em comparação ao uso de tmpfs / sistemas de arquivo em memória no Linux). Como um operador do cluster, você deve tomar as duas medidas adicionais a seguir:
+No Windows, os dados do Secret são escritos em texto não-encriptado no armazenamento local do nó (em comparação ao uso de tmpfs / sistemas de arquivo em memória no Linux). Como um operador do cluster, você deve tomar as duas medidas adicionais a seguir:
 
-1. Use ACLs em arquivos para proteger a localização do arquivo Secrets.
+1. Aplique ACLs em arquivos para proteger a localização do arquivo Secrets.
 2. Aplicar criptografia a nível de volume usando
    [BitLocker](https://docs.microsoft.com/windows/security/information-protection/bitlocker/bitlocker-how-to-deploy-on-windows-server).
 
 ## Usuários dos Contêineres
 
 [RunAsUsername](/docs/tasks/configure-pod-container/configure-runasusername)
-pode ser utilizado para Pods com Windows ou contêiner para executar os processos do contêiner como usuário específico. Isto é aproximadamente equivalente a
+pode ser utilizado para Pods ou contêineres com Windows para executar os processos do contêiner como usuário específico. Isto é aproximadamente equivalente a
 [RunAsUser](/docs/concepts/security/pod-security-policy/#users-and-groups).
 
 Os contêineres Windows oferecem duas contas de usuário padrão, ContainerUser e ContainerAdministrator. As diferenças entre estas duas contas de usuário são descritas em
@@ -45,7 +44,7 @@ Contêineres Windows também podem rodar como identidades do Active Directory us
 
 ## Isolamento de segurança a nível do Pod
 
-Mecanismos de contexto de segurança de Pod específicos para Linux (como SELinux, AppArmor, Seccomp, ou capabilities customizados para POSIX) não são suportados nos nós do Windows.
+Mecanismos de contexto de segurança de Pod específicos para Linux (como SELinux, AppArmor, Seccomp, ou capabilities customizados para POSIX) não são suportados nos nós com Windows.
 
 Contêineres privilegiados [não são suportados](/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext)
 no Windows.
