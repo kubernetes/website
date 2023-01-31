@@ -10,13 +10,13 @@ Distributed systems often have a need for _leases_, which provide a mechanism to
 and coordinate activity between members of a set.
 In Kubernetes, the lease concept is represented by [Lease](/docs/reference/kubernetes-api/cluster-resources/lease-v1/)
 objects in the `coordination.k8s.io` {{< glossary_tooltip text="API Group" term_id="api-group" >}},
-which are used for system-critical capabilities such as node heart beats and component-level leader election.
+which are used for system-critical capabilities such as node heartbeats and component-level leader election.
 
 <!-- body -->
 
-## Node heart beats {#node-heart-beats}
+## Node heartbeats {#node-heart-beats}
 
-Kubernetes uses the Lease API to communicate kubelet node heart beats to the Kubernetes API server.
+Kubernetes uses the Lease API to communicate kubelet node heartbeats to the Kubernetes API server.
 For every `Node` , there is a `Lease` object with a matching name in the `kube-node-lease`
 namespace. Under the hood, every kubelet heartbeat is an **update** request to this `Lease` object, updating
 the `spec.renewTime` field for the Lease. The Kubernetes control plane uses the time stamp of this field
