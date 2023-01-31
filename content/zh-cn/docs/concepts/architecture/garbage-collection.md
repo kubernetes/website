@@ -286,7 +286,7 @@ kubelet 会基于如下变量对所有未使用的容器执行垃圾收集操作
 <!--
 * `MinAge`: the minimum age at which the kubelet can garbage collect a
   container. Disable by setting to `0`.
-* `MaxPerPodContainer`: the maximum number of dead containers each Pod pair
+* `MaxPerPodContainer`: the maximum number of dead containers each Pod
   can have. Disable by setting to less than `0`.
 * `MaxContainers`: the maximum number of dead containers the cluster can have.
   Disable by setting to less than `0`. 

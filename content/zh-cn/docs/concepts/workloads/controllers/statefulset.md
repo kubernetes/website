@@ -169,7 +169,7 @@ In the above example:
   PersistentVolume Provisioner.
 
 The name of a StatefulSet object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+[DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 -->
 上述例子中：
 
@@ -179,7 +179,7 @@ The name of a StatefulSet object must be a valid
   [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/) 来提供稳定的存储。
 
 StatefulSet 的命名需要遵循
-[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)规范。
+[DNS 标签](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-label-names)规范。
 
 <!--
 ### Pod Selector

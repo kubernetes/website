@@ -81,17 +81,17 @@ Kubernetes 尊重 Job 对象的生命周期保证，例如等待
 * Manually set this field of existing, already finished Jobs, so that they become eligible
   for cleanup.
 * Use a
-  [mutating admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
+  [mutating admission webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)
   to set this field dynamically at Job creation time. Cluster administrators can
   use this to enforce a TTL policy for finished jobs.
 -->
 * 在 Job 清单（manifest）中指定此字段，以便 Job 在完成后的某个时间被自动清理。
 * 手动设置现有的、已完成的 Job 的此字段，以便这些 Job 可被清理。
-* 在创建 Job 时使用[修改性质的准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
+* 在创建 Job 时使用[修改性质的准入 Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)
   动态设置该字段。集群管理员可以使用它对已完成的作业强制执行 TTL 策略。
 <!--
 * Use a
-  [mutating admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
+  [mutating admission webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)
   to set this field dynamically after the Job has finished, and choose
   different TTL values based on job status, labels. For this case, the webhook needs
   to detect changes to the `.status` of the Job and only set a TTL when the Job
@@ -99,7 +99,7 @@ Kubernetes 尊重 Job 对象的生命周期保证，例如等待
 * Write your own controller to manage the cleanup TTL for Jobs that match a particular
   {{< glossary_tooltip term_id="selector" text="selector-selector" >}}.
 -->
-* 使用[修改性质的准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
+* 使用[修改性质的准入 Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)
   在 Job 完成后动态设置该字段，并根据 Job 状态、标签等选择不同的 TTL 值。
   对于这种情况，Webhook 需要检测 Job 的 `.status` 变化，并且仅在 Job 被标记为已完成时设置 TTL。
 * 编写你自己的控制器来管理与特定{{< glossary_tooltip term_id="selector" text="选择算符" >}}匹配的
