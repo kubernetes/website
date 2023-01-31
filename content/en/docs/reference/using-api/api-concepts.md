@@ -700,7 +700,7 @@ These situations are:
 
 ### Setting the field validation level
 
-  {{< feature-state for_k8s_version="v1.25" state="beta" >}}
+  {{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
 Provided that the `ServerSideFieldValidation` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled (disabled
 by default in 1.23 and 1.24, enabled by default starting in 1.25), you can take
