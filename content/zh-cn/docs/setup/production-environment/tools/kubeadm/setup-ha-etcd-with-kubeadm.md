@@ -18,7 +18,7 @@ weight: 70
 <!--
 While kubeadm is being used as the management tool for external etcd nodes
 in this guide, please note that kubeadm does not plan to support certificate rotation
-or upgrades for such nodes. The long term plan is to empower the tool
+or upgrades for such nodes. The long-term plan is to empower the tool
 [etcdadm](https://github.com/kubernetes-sigs/etcdadm) to manage these
 aspects.
 -->
@@ -46,27 +46,30 @@ etcd cluster of three members that can be used by kubeadm during cluster creatio
 ## {{% heading "prerequisites" %}}
 
 <!--
-* Three hosts that can talk to each other over TCP ports 2379 and 2380. This document assumes these default ports. However, they are configurable through the kubeadm config file.
+- Three hosts that can talk to each other over TCP ports 2379 and 2380. This
+  document assumes these default ports. However, they are configurable through
+  the kubeadm config file.
 -->
-* 三个可以通过 2379 和 2380 端口相互通信的主机。本文档使用这些作为默认端口。不过，它们可以通过 kubeadm 的配置文件进行自定义。
+- 三个可以通过 2379 和 2380 端口相互通信的主机。本文档使用这些作为默认端口。不过，它们可以通过 kubeadm 的配置文件进行自定义。
 <!--
-* Each host must have systemd and a bash compatible shell installed.
-* Each host must [have a container runtime, kubelet, and kubeadm installed](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
+- Each host must have systemd and a bash compatible shell installed.
+- Each host must [have a container runtime, kubelet, and kubeadm installed](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
 -->
-* 每个主机必须安装 systemd 和 bash 兼容的 shell。
-* 每台主机必须[安装有容器运行时、kubelet 和 kubeadm](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)。
+- 每个主机必须安装 systemd 和 bash 兼容的 shell。
+- 每台主机必须[安装有容器运行时、kubelet 和 kubeadm](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)。
 <!--
-* Each host should have access to the Kubernetes container image registry (`registry.k8s.io`) or list/pull the required etcd image using
-`kubeadm config images list/pull`. This guide will setup etcd instances as
-[static pods](/docs/tasks/configure-pod-container/static-pod/) managed by a kubelet.
+- Each host should have access to the Kubernetes container image registry (`registry.k8s.io`) or list/pull the required etcd image using
+  `kubeadm config images list/pull`. This guide will set up etcd instances as
+  [static pods](/docs/tasks/configure-pod-container/static-pod/) managed by a kubelet.
 -->
-* 每个主机都应该能够访问 Kubernetes 容器镜像仓库 (registry.k8s.io)，
-  或者使用 `kubeadm config images list/pull` 列出/拉取所需的 etcd 镜像。
-  本指南将把 etcd 实例设置为由 kubelet 管理的[静态 Pod](/zh-cn/docs/tasks/configure-pod-container/static-pod/)。
+- 每个主机都应该能够访问 Kubernetes 容器镜像仓库 (registry.k8s.io)，
+或者使用 `kubeadm config images list/pull` 列出/拉取所需的 etcd 镜像。
+本指南将把 etcd 实例设置为由 kubelet 管理的[静态 Pod](/zh-cn/docs/tasks/configure-pod-container/static-pod/)。
 <!--
-* Some infrastructure to copy files between hosts. For example `ssh` and `scp` can satisfy this requirement.
+- Some infrastructure to copy files between hosts. For example `ssh` and `scp`
+  can satisfy this requirement.
 -->
-* 一些可以用来在主机间复制文件的基础设施。例如 `ssh` 和 `scp` 就可以满足需求。
+- 一些可以用来在主机间复制文件的基础设施。例如 `ssh` 和 `scp` 就可以满足需求。
 
 <!-- steps -->
 
@@ -76,13 +79,16 @@ etcd cluster of three members that can be used by kubeadm during cluster creatio
 ## 建立集群
 
 <!--
-The general approach is to generate all certs on one node and only distribute the *necessary* files to the other nodes.
+The general approach is to generate all certs on one node and only distribute
+the _necessary_ files to the other nodes.
 -->
-一般来说，是在一个节点上生成所有证书并且只分发这些*必要*的文件到其它节点上。
+一般来说，是在一个节点上生成所有证书并且只分发这些**必要**的文件到其它节点上。
 
 {{< note >}}
 <!--
-kubeadm contains all the necessary cryptographic machinery to generate the certificates described below; no other cryptographic tooling is required for this example.
+kubeadm contains all the necessary cryptographic machinery to generate
+the certificates described below; no other cryptographic tooling is required for
+this example.
 -->
 kubeadm 包含生成下述证书所需的所有必要的密码学工具；在这个例子中，不需要其他加密工具。
 {{< /note >}}
@@ -119,7 +125,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    # 将下面的 "systemd" 替换为你的容器运行时所使用的 cgroup 驱动。
    # kubelet 的默认值为 "cgroupfs"。
    # 如果需要的话，将 "--container-runtime-endpoint " 的值替换为一个不同的容器运行时。
-   ExecStart=/usr/bin/kubelet --address=127.0.0.1 --pod-manifest-path=/etc/kubernetes/manifests --cgroup-driver=systemd
+   ExecStart=/usr/bin/kubelet --address=127.0.0.1 --pod-manifest-path=/etc/kubernetes/manifests --cgroup-driver=systemd --container-runtime=remote --container-runtime-endpoint=unix:///var/run/containerd/containerd.sock
    Restart=always
    EOF
 
@@ -196,7 +202,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    ```
 
 <!--
-1. Generate the certificate authority
+1. Generate the certificate authority.
 
    If you already have a CA then the only action that is copying the CA's `crt` and
    `key` file to `/etc/kubernetes/pki/etcd/ca.crt` and
@@ -219,7 +225,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    ```
 
    <!--
-   This creates two files
+   This creates two files:
    -->
    这一操作创建如下两个文件：
 
@@ -227,7 +233,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    - `/etc/kubernetes/pki/etcd/ca.key`
 
 <!--
-1. Create certificates for each member
+1. Create certificates for each member.
 -->
 4. 为每个成员创建证书
 
@@ -259,7 +265,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    ```
 
 <!--
-1. Copy certificates and kubeadm configs
+1. Copy certificates and kubeadm configs.
    The certificates have been generated and now they must be moved to their
    respective hosts.
 -->
@@ -278,7 +284,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    ```
 
 <!--
-1. Ensure all expected files exist
+1. Ensure all expected files exist.
 
    The complete list of required files on `$HOST0` is:
 -->
@@ -327,7 +333,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    ```
 
    <!--
-   On `$HOST2`
+   On `$HOST2`:
    -->
    在 `$HOST2` 上：
 
@@ -349,7 +355,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    ```
 
 <!--
-1. Create the static pod manifests
+1. Create the static pod manifests.
 
    Now that the certificates and configs are in place it's time to create the
    manifests. On each host run the `kubeadm` command to generate a static manifest
@@ -361,13 +367,13 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    在每台主机上运行 `kubeadm` 命令来生成 etcd 使用的静态清单。
 
    ```shell
-    root@HOST0 $ kubeadm init phase etcd local --config=/tmp/${HOST0}/kubeadmcfg.yaml
-    root@HOST1 $ kubeadm init phase etcd local --config=$HOME/kubeadmcfg.yaml
-    root@HOST2 $ kubeadm init phase etcd local --config=$HOME/kubeadmcfg.yaml
+   root@HOST0 $ kubeadm init phase etcd local --config=/tmp/${HOST0}/kubeadmcfg.yaml
+   root@HOST1 $ kubeadm init phase etcd local --config=$HOME/kubeadmcfg.yaml
+   root@HOST2 $ kubeadm init phase etcd local --config=$HOME/kubeadmcfg.yaml
    ```
 
 <!--
-1. Optional: Check the cluster health
+1. Optional: Check the cluster health.
 -->
 8. 可选：检查集群运行状况
 
@@ -385,8 +391,8 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    https://[HOST2 IP]:2379 is healthy: successfully committed proposal: took = 35.926451ms
    ```
    <!--
-   Set ${ETCD_TAG} to the version tag of your etcd image. For example 3.4.3-0. To see the etcd image and tag that             kubeadm uses execute kubeadm config images list --kubernetes-version ${K8S_VERSION}, where ${K8S_VERSION} is for           example v1.17.0
-   Set ${HOST0}to the IP address of the host you are testing.
+   - Set `${ETCD_TAG}` to the version tag of your etcd image. For example `3.4.3-0`. To see the etcd image and tag that kubeadm uses execute `kubeadm config images list --kubernetes-version ${K8S_VERSION}`, where `${K8S_VERSION}` is for example `v1.17.0`.
+   - Set `${HOST0}`to the IP address of the host you are testing.
    -->
    - 将 `${ETCD_TAG}` 设置为你的 etcd 镜像的版本标签，例如 `3.4.3-0`。
      要查看 kubeadm 使用的 etcd 镜像和标签，请执行
@@ -397,11 +403,10 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
 ## {{% heading "whatsnext" %}}
 
 <!--
-Once your have a working 3 member etcd cluster, you can continue setting up a
-highly available control plane using the [external etcd method with
-kubeadm](/docs/setup/independent/high-availability/).
+Once you have an etcd cluster with 3 working members, you can continue setting up a
+highly available control plane using the
+[external etcd method with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/).
 -->
 一旦拥有了一个正常工作的 3 成员的 etcd 集群，你就可以基于
 [使用 kubeadm 外部 etcd 的方法](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)，
 继续部署一个高可用的控制平面。
-
