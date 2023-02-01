@@ -80,16 +80,30 @@ securely with the API server.
 <!--
 ### Directly accessing the REST API
 
-While running in a Pod, the Kubernetes apiserver is accessible via a Service named
-`kubernetes` in the `default` namespace. Therefore, Pods can use the
-`kubernetes.default.svc` hostname to query the API server. Official client libraries
-do this automatically.
+While running in a Pod, your container can create an HTTPS URL for the Kubernetes API
+server by fetching the `KUBERNETES_SERVICE_HOST` and `KUBERNETES_SERVICE_PORT_HTTPS`
+environment variables. The API server's in-cluster address is also published to a
+Service named `kubernetes` in the `default` namespace so that pods may reference
+`kubernetes.default.svc` as a DNS name for the local API server.
 -->
 #### 直接访问 REST API   {#directly-accessing-the-rest-api}
 
-在运行在 Pod 中时，可以通过 `default` 命名空间中的名为 `kubernetes` 的服务访问
-Kubernetes API 服务器。也就是说，Pod 可以使用 `kubernetes.default.svc` 主机名
-来查询 API 服务器。官方客户端库自动完成这个工作。
+在运行在 Pod 中时，你的容器可以通过获取 `KUBERNETES_SERVICE_HOST` 和
+`KUBERNETES_SERVICE_PORT_HTTPS` 环境变量为 Kubernetes API
+服务器生成一个 HTTPS URL。
+API 服务器的集群内地址也发布到 `default` 命名空间中名为 `kubernetes` 的 Service 中，
+从而 Pod 可以引用 `kubernetes.default.svc` 作为本地 API 服务器的 DNS 名称。
+
+{{< note >}}
+<!--
+Kubernetes does not guarantee that the API server has a valid certificate for
+the hostname  `kubernetes.default.svc`;
+however, the control plane **is** expected to present a valid certificate for the
+hostname or IP address that `$KUBERNETES_SERVICE_HOST` represents.
+-->
+Kubernetes 不保证 API 服务器具有主机名 `kubernetes.default.svc` 的有效证书；
+但是，控制平面应该为 `$KUBERNETES_SERVICE_HOST` 代表的主机名或 IP 地址提供有效证书。
+{{< /note >}}
 
 <!--
 The recommended way to authenticate to the API server is with a
