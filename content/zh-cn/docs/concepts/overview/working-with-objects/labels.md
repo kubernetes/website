@@ -15,9 +15,12 @@ weight: 40
 
 <!--
 _Labels_ are key/value pairs that are attached to objects, such as pods.
-Labels are intended to be used to specify identifying attributes of objects that are meaningful and relevant to users, but do not directly imply semantics to the core system.
-Labels can be used to organize and to select subsets of objects. Labels can be attached to objects at creation time and subsequently added and modified at any time.
-Each object can have a set of key/value labels defined. Each Key must be unique for a given object.
+Labels are intended to be used to specify identifying attributes of objects
+that are meaningful and relevant to users, but do not directly imply semantics
+to the core system. Labels can be used to organize and to select subsets of
+objects. Labels can be attached to objects at creation time and subsequently
+added and modified at any time. Each object can have a set of key/value labels
+defined. Each Key must be unique for a given object.
 -->
 **标签（Labels）** 是附加到 Kubernetes 对象（比如 Pod）上的键值对。
 标签旨在用于指定对用户有意义且相关的对象的标识属性，但不直接对核心系统有语义含义。
@@ -46,14 +49,19 @@ and CLIs. Non-identifying information should be recorded using
 <!--
 ## Motivation
 
-Labels enable users to map their own organizational structures onto system objects in a loosely coupled fashion, without requiring clients to store these mappings.
+Labels enable users to map their own organizational structures onto system objects
+in a loosely coupled fashion, without requiring clients to store these mappings.
 -->
 ## 动机   {#motivation}
 
 标签使用户能够以松散耦合的方式将他们自己的组织结构映射到系统对象，而无需客户端存储这些映射。
 
 <!--
-Service deployments and batch processing pipelines are often multi-dimensional entities (e.g., multiple partitions or deployments, multiple release tracks, multiple tiers, multiple micro-services per tier). Management often requires cross-cutting operations, which breaks encapsulation of strictly hierarchical representations, especially rigid hierarchies determined by the infrastructure rather than by users.
+Service deployments and batch processing pipelines are often multi-dimensional entities
+(e.g., multiple partitions or deployments, multiple release tracks, multiple tiers,
+multiple micro-services per tier). Management often requires cross-cutting operations,
+which breaks encapsulation of strictly hierarchical representations, especially rigid
+hierarchies determined by the infrastructure rather than by users.
 
 Example labels:
 -->
@@ -69,7 +77,10 @@ Example labels:
 * `"track" : "daily"`, `"track" : "weekly"`
 
 <!--
-These are examples of [commonly used labels](/docs/concepts/overview/working-with-objects/common-labels/); you are free to develop your own conventions. Keep in mind that label Key must be unique for a given object.
+These are examples of
+[commonly used labels](/docs/concepts/overview/working-with-objects/common-labels/);
+you are free to develop your own conventions.
+Keep in mind that label Key must be unique for a given object.
 -->
 有一些[常用标签](/zh-cn/docs/concepts/overview/working-with-objects/common-labels/)的例子；你可以任意制定自己的约定。
 请记住，标签的 Key 对于给定对象必须是唯一的。
@@ -77,11 +88,21 @@ These are examples of [commonly used labels](/docs/concepts/overview/working-wit
 <!--
 ## Syntax and character set
 
-_Labels_ are key/value pairs. Valid label keys have two segments: an optional prefix and name, separated by a slash (`/`). The name segment is required and must be 63 characters or less, beginning and ending with an alphanumeric character (`[a-z0-9A-Z]`) with dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between. The prefix is optional. If specified, the prefix must be a DNS subdomain: a series of DNS labels separated by dots (`.`), not longer than 253 characters in total, followed by a slash (`/`).
+_Labels_ are key/value pairs. Valid label keys have two segments: an optional
+prefix and name, separated by a slash (`/`). The name segment is required and
+must be 63 characters or less, beginning and ending with an alphanumeric
+character (`[a-z0-9A-Z]`) with dashes (`-`), underscores (`_`), dots (`.`),
+and alphanumerics between. The prefix is optional. If specified, the prefix
+must be a DNS subdomain: a series of DNS labels separated by dots (`.`),
+not longer than 253 characters in total, followed by a slash (`/`).
 
-If the prefix is omitted, the label Key is presumed to be private to the user. Automated system components (e.g. `kube-scheduler`, `kube-controller-manager`, `kube-apiserver`, `kubectl`, or other third-party automation) which add labels to end-user objects must specify a prefix.
+If the prefix is omitted, the label Key is presumed to be private to the user.
+Automated system components (e.g. `kube-scheduler`, `kube-controller-manager`,
+`kube-apiserver`, `kubectl`, or other third-party automation) which add labels
+to end-user objects must specify a prefix.
 
-The `kubernetes.io/` and `k8s.io/` prefixes are [reserved](/docs/reference/labels-annotations-taints/) for Kubernetes core components.
+The `kubernetes.io/` and `k8s.io/` prefixes are
+[reserved](/docs/reference/labels-annotations-taints/) for Kubernetes core components.
 -->
 ## 语法和字符集   {#syntax-and-character-set}
 
@@ -111,7 +132,8 @@ Valid label value:
 * 包含破折号（`-`）、下划线（`_`）、点（`.`）和字母或数字
 
 <!--
-For example, here's the configuration file for a Pod that has two labels `environment: production` and `app: nginx` :
+For example, here's the configuration file for a Pod that has two labels
+`environment: production` and `app: nginx`:
 -->
 例如，这是一个有 `environment: production` 和 `app: nginx` 标签的 Pod 配置文件：
 
@@ -136,7 +158,8 @@ spec:
 <!--
 ## Label selectors
 
-Unlike [names and UIDs](/docs/concepts/overview/working-with-objects/names/), labels do not provide uniqueness. In general, we expect many objects to carry the same label(s).
+Unlike [names and UIDs](/docs/concepts/overview/working-with-objects/names/), labels
+do not provide uniqueness. In general, we expect many objects to carry the same label(s).
 -->
 ## 标签选择算符   {#label-selectors}
 
@@ -144,13 +167,16 @@ Unlike [names and UIDs](/docs/concepts/overview/working-with-objects/names/), la
 标签不支持唯一性。通常，我们希望许多对象携带相同的标签。
 
 <!--
-Via a _label selector_, the client/user can identify a set of objects. The label selector is the core grouping primitive in Kubernetes.
+Via a _label selector_, the client/user can identify a set of objects.
+The label selector is the core grouping primitive in Kubernetes.
 -->
 通过**标签选择算符**，客户端/用户可以识别一组对象。标签选择算符是 Kubernetes 中的核心分组原语。
 
 <!--
 The API currently supports two types of selectors: _equality-based_ and _set-based_.
-A label selector can be made of multiple _requirements_ which are comma-separated. In the case of multiple requirements, all must be satisfied so the comma separator acts as a logical _AND_ (`&&`) operator.
+A label selector can be made of multiple _requirements_ which are comma-separated.
+In the case of multiple requirements, all must be satisfied so the comma separator
+acts as a logical _AND_ (`&&`) operator.
 -->
 API 目前支持两种类型的选择算符：**基于等值的**和**基于集合的**。
 标签选择算符可以由逗号分隔的多个**需求**组成。
@@ -166,7 +192,9 @@ them.
 
 {{< note >}}
 <!--
-For some API types, such as ReplicaSets, the label selectors of two instances must not overlap within a namespace, or the controller can see that as conflicting instructions and fail to determine how many replicas should be present.
+For some API types, such as ReplicaSets, the label selectors of two instances must
+not overlap within a namespace, or the controller can see that as conflicting
+instructions and fail to determine how many replicas should be present.
 -->
 对于某些 API 类别（例如 ReplicaSet）而言，两个实例的标签选择算符不得在命名空间内重叠，
 否则它们的控制器将互相冲突，无法确定应该存在的副本个数。
@@ -174,7 +202,8 @@ For some API types, such as ReplicaSets, the label selectors of two instances mu
 
 {{< caution >}}
 <!--
-For both equality-based and set-based conditions there is no logical _OR_ (`||`) operator. Ensure your filter statements are structured accordingly.
+For both equality-based and set-based conditions there is no logical _OR_ (`||`) operator.
+Ensure your filter statements are structured accordingly.
 -->
 对于基于等值的和基于集合的条件而言，不存在逻辑或（`||`）操作符。
 你要确保你的过滤语句按合适的方式组织。
@@ -183,8 +212,11 @@ For both equality-based and set-based conditions there is no logical _OR_ (`||`)
 <!--
 ### _Equality-based_ requirement
 
-_Equality-_ or _inequality-based_ requirements allow filtering by label keys and values. Matching objects must satisfy all of the specified label constraints, though they may have additional labels as well.
-Three kinds of operators are admitted `=`,`==`,`!=`. The first two represent _equality_ (and are synonyms), while the latter represents _inequality_. For example:
+_Equality-_ or _inequality-based_ requirements allow filtering by label keys and values.
+Matching objects must satisfy all of the specified label constraints, though they may
+have additional labels as well. Three kinds of operators are admitted `=`,`==`,`!=`.
+The first two represent _equality_ (and are synonyms), while the latter represents _inequality_.
+For example:
 -->
 ### **基于等值的**需求
 
@@ -200,8 +232,9 @@ tier != frontend
 
 <!--
 The former selects all resources with key equal to `environment` and value equal to `production`.
-The latter selects all resources with key equal to `tier` and value distinct from `frontend`, and all resources with no labels with the `tier` key.
-One could filter for resources in `production` excluding `frontend` using the comma operator: `environment=production,tier!=frontend`
+The latter selects all resources with key equal to `tier` and value distinct from `frontend`,
+and all resources with no labels with the `tier` key. One could filter for resources in `production`
+excluding `frontend` using the comma operator: `environment=production,tier!=frontend`
 -->
 前者选择所有资源，其键名等于 `environment`，值等于 `production`。
 后者选择所有资源，其键名等于 `tier`，值不同于 `frontend`，所有资源都没有带有 `tier` 键的标签。
@@ -234,7 +267,9 @@ spec:
 <!--
 ### _Set-based_ requirement
 
-_Set-based_ label requirements allow filtering keys according to a set of values. Three kinds of operators are supported: `in`,`notin` and `exists` (only the key identifier). For example:
+_Set-based_ label requirements allow filtering keys according to a set of values.
+Three kinds of operators are supported: `in`,`notin` and `exists` (only the key identifier).
+For example:
 -->
 ### **基于集合**的需求
 
@@ -249,30 +284,39 @@ partition
 ```
 
 <!--
-* The first example selects all resources with key equal to `environment` and value equal to `production` or `qa`.
-* The second example selects all resources with key equal to `tier` and values other than `frontend` and `backend`, and all resources with no labels with the `tier` key.
-* The third example selects all resources including a label with key `partition`; no values are checked.
-* The fourth example selects all resources without a label with key `partition`; no values are checked.
+- The first example selects all resources with key equal to `environment` and value
+  equal to `production` or `qa`.
+- The second example selects all resources with key equal to `tier` and values other
+  than `frontend` and `backend`, and all resources with no labels with the `tier` key.
+- The third example selects all resources including a label with key `partition`;
+  no values are checked.
+- The fourth example selects all resources without a label with key `partition`;
+  no values are checked.
 
-Similarly the comma separator acts as an _AND_ operator. So filtering resources with a `partition` key (no matter the value) and with `environment` different than  `qa` can be achieved using `partition,environment notin (qa)`.
+Similarly the comma separator acts as an _AND_ operator. So filtering resources
+with a `partition` key (no matter the value) and with `environment` different
+than `qa` can be achieved using `partition,environment notin (qa)`.
 -->
 
-* 第一个示例选择了所有键等于 `environment` 并且值等于 `production` 或者 `qa` 的资源。
-* 第二个示例选择了所有键等于 `tier` 并且值不等于 `frontend` 或者 `backend` 的资源，以及所有没有 `tier` 键标签的资源。
-* 第三个示例选择了所有包含了有 `partition` 标签的资源；没有校验它的值。
-* 第四个示例选择了所有没有 `partition` 标签的资源；没有校验它的值。
+- 第一个示例选择了所有键等于 `environment` 并且值等于 `production` 或者 `qa` 的资源。
+- 第二个示例选择了所有键等于 `tier` 并且值不等于 `frontend` 或者 `backend` 的资源，以及所有没有 `tier` 键标签的资源。
+- 第三个示例选择了所有包含了有 `partition` 标签的资源；没有校验它的值。
+- 第四个示例选择了所有没有 `partition` 标签的资源；没有校验它的值。
 
 类似地，逗号分隔符充当**与**运算符。因此，使用 `partition` 键（无论为何值）和
 `environment` 不同于 `qa` 来过滤资源可以使用 `partition, environment notin (qa)` 来实现。
 
 <!--
-The _set-based_ label selector is a general form of equality since `environment=production` is equivalent to `environment in (production)`; similarly for `!=` and `notin`.
+The _set-based_ label selector is a general form of equality since
+`environment=production` is equivalent to `environment in (production)`;
+similarly for `!=` and `notin`.
 -->
 **基于集合**的标签选择算符是相等标签选择算符的一般形式，因为 `environment=production`
 等同于 `environment in (production)`；`!=` 和 `notin` 也是类似的。
 
 <!--
-_Set-based_ requirements can be mixed with _equality-based_ requirements. For example: `partition in (customerA, customerB),environment!=qa`.
+_Set-based_ requirements can be mixed with _equality-based_ requirements.
+For example: `partition in (customerA, customerB),environment!=qa`.
 -->
 **基于集合**的要求可以与基于**相等**的要求混合使用。例如：`partition in (customerA, customerB),environment!=qa`。
 
@@ -281,7 +325,9 @@ _Set-based_ requirements can be mixed with _equality-based_ requirements. For ex
 <!--
 ### LIST and WATCH filtering
 
-LIST and WATCH operations may specify label selectors to filter the sets of objects returned using a query parameter. Both requirements are permitted (presented here as they would appear in a URL query string):
+LIST and WATCH operations may specify label selectors to filter the sets of objects
+returned using a query parameter. Both requirements are permitted
+(presented here as they would appear in a URL query string):
 -->
 ### LIST 和 WATCH 过滤
 
@@ -296,7 +342,8 @@ LIST 和 WATCH 操作可以使用查询参数指定标签选择算符过滤一�
 * **基于集合**的需求：`?labelSelector=environment+in+%28production%2Cqa%29%2Ctier+in+%28frontend%29`
 
 <!--
-Both label selector styles can be used to list or watch resources via a REST client. For example, targeting `apiserver` with `kubectl` and using _equality-based_ one may write:
+Both label selector styles can be used to list or watch resources via a REST client.
+For example, targeting `apiserver` with `kubectl` and using _equality-based_ one may write:
 -->
 两种标签选择算符都可以通过 REST 客户端用于 list 或者 watch 资源。
 例如，使用 `kubectl` 定位 `apiserver`，可以使用**基于等值**的标签选择算符可以这么写：
@@ -316,7 +363,8 @@ kubectl get pods -l 'environment in (production),tier in (frontend)'
 ```
 
 <!--
-As already mentioned _set-based_ requirements are more expressive.  For instance, they can implement the _OR_ operator on values:
+As already mentioned _set-based_ requirements are more expressive.
+For instance, they can implement the _OR_ operator on values:
 -->
 正如刚才提到的，**基于集合**的需求更具有表达力。例如，它们可以实现值的**或**操作：
 
@@ -351,9 +399,12 @@ also use label selectors to specify sets of other resources, such as
 <!--
 #### Service and ReplicationController
 
-The set of pods that a `service` targets is defined with a label selector. Similarly, the population of pods that a `replicationcontroller` should manage is also defined with a label selector.
+The set of pods that a `service` targets is defined with a label selector.
+Similarly, the population of pods that a `replicationcontroller` should
+manage is also defined with a label selector.
 
-Labels selectors for both objects are defined in `json` or `yaml` files using maps, and only _equality-based_ requirement selectors are supported:
+Labels selectors for both objects are defined in `json` or `yaml` files using maps,
+and only _equality-based_ requirement selectors are supported:
 -->
 #### Service 和 ReplicationController
 
@@ -380,7 +431,8 @@ selector:
 ```
 
 <!---
-this selector (respectively in `json` or `yaml` format) is equivalent to `component=redis` or `component in (redis)`.
+This selector (respectively in `json` or `yaml` format) is equivalent to
+`component=redis` or `component in (redis)`.
 -->
 这个选择算符（分别在 `json` 或者 `yaml` 格式中）等价于 `component=redis` 或 `component in (redis)`。
 
@@ -411,7 +463,13 @@ selector:
 ```
 
 <!--
-`matchLabels` is a map of `{key,value}` pairs. A single `{key,value}` in the `matchLabels` map is equivalent to an element of `matchExpressions`, whose `key` field is "key", the `operator` is "In", and the `values` array contains only "value". `matchExpressions` is a list of pod selector requirements. Valid operators include In, NotIn, Exists, and DoesNotExist. The values set must be non-empty in the case of In and NotIn. All of the requirements, from both `matchLabels` and `matchExpressions` are ANDed together -- they must all be satisfied in order to match.
+`matchLabels` is a map of `{key,value}` pairs. A single `{key,value}` in the
+`matchLabels` map is equivalent to an element of `matchExpressions`, whose `key`
+field is "key", the `operator` is "In", and the `values` array contains only "value".
+`matchExpressions` is a list of pod selector requirements. Valid operators include
+In, NotIn, Exists, and DoesNotExist. The values set must be non-empty in the case of
+In and NotIn. All of the requirements, from both `matchLabels` and `matchExpressions`
+are ANDed together -- they must all be satisfied in order to match.
 -->
 
 `matchLabels` 是由 `{key,value}` 对组成的映射。
@@ -426,8 +484,9 @@ selector:
 <!--
 #### Selecting sets of nodes
 
-One use case for selecting over labels is to constrain the set of nodes onto which a pod can schedule.
-See the documentation on [node selection](/docs/concepts/scheduling-eviction/assign-pod-node/) for more information.
+One use case for selecting over labels is to constrain the set of nodes onto which
+a pod can schedule. See the documentation on
+[node selection](/docs/concepts/scheduling-eviction/assign-pod-node/) for more information.
 -->
 #### 选择节点集
 
