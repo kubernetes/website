@@ -698,29 +698,13 @@ These situations are:
    fields via `x-kubernetes-preserve-unknown-fields`).
 2. The field is duplicated in the object.
 
-### Setting the field validation level
+### Validation for unrecognized or duplicate fields (#setting-the-field-validation-level)
 
   {{< feature-state for_k8s_version="v1.25" state="beta" >}}
 
-Provided that the `ServerSideFieldValidation` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled (disabled
-by default in 1.23 and 1.24, enabled by default starting in 1.25), you can take
-advantage of server side field validation to catch these unrecognized fields.
-
-When you use HTTP verbs that can submit data (`POST`, `PUT`, and `PATCH`), field
-validation gives you the option to choose how you would like to be notified of
-these fields that are being dropped by the API server. Possible levels of
-validation are `Ignore`, `Warn`, and `Strict`.
-
-{{< note >}}
-If you submit a request that specifies an unrecognized field, and that is also invalid for
-a different reason (for example, the request provides a string value where the API expects
-an integer), then the API server responds with a 400 Bad Request error response.
-
-You always receive an error response in this case, no matter what field validation level you requested.
-{{< /note >}}
-
-Field validation is set by the `fieldValidation` query parameter. The three
-values that you can provide for this parameter are:
+From 1.25 onward, unrecognized or duplicate fields in an object are detected via
+validation on the server when you use HTTP verbs that can submit data (`POST`, `PUT`, and `PATCH`). Possible levels of
+validation are `Ignore`, `Warn` (default), and `Strict`.
 
 `Ignore`
 : The API server succeeds in handling the request as it would without the erroneous fields
@@ -740,20 +724,38 @@ detects any unknown or duplicate fields. The response message from the API
 server specifies all the unknown or duplicate fields that the API server has
 detected.
 
+The field validation level is set by the `fieldValidation` query parameter.
+
+{{< note >}}
+If you submit a request that specifies an unrecognized field, and that is also invalid for
+a different reason (for example, the request provides a string value where the API expects
+an integer for a known field), then the API server responds with a 400 Bad Request error, but will
+not provide any information on unknown or duplicate fields (only which fatal
+error it encountered first).
+
+You always receive an error response in this case, no matter what field validation level you requested.
+{{< /note >}}
+
 Tools that submit requests to the server (such as `kubectl`), might set their own
 defaults that are different from the `Warn` validation level that the API server uses
 by default.
 
-The `kubectl` tool uses the `--validate` flag to set the level of field validation.
-Historically `--validate` was used to toggle client-side validation on or off as
-a boolean flag. Since Kubernetes 1.25, kubectl uses
-server-side field validation when sending requests to a server with this feature
-enabled. Validation will fall back to client-side only when it cannot connect
-to an API server with field validation enabled.
-It accepts the values `ignore`, `warn`,
-and `strict` while also accepting the values `true` (equivalent to `strict`) and `false`
-(equivalent to `ignore`). The default validation setting for kubectl is `--validate=true`,
-which means strict server-side field validation.
+The `kubectl` tool uses the `--validate` flag to set the level of field
+validation. It accepts the values `ignore`, `warn`, and `strict` while
+also accepting the values `true` (equivalent to `strict`) and `false`
+(equivalent to `ignore`). The default validation setting for kubectl is
+`--validate=true`, which means strict server-side field validation.
+
+When kubectl cannot connect to an API server with field validation (API servers
+prior to Kubernetes 1.27), it will fall back to using client-side validation.
+Client-side validation will be removed entirely in a future version of kubectl.
+
+{{< note >}}
+
+Prior to Kubernetes 1.25  `kubectl --validate` was used to toggle client-side validation on or off as
+a boolean flag.
+
+{{< /note >}}
 
 ## Dry-run
 
