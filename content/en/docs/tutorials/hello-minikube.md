@@ -92,7 +92,7 @@ recommended way to manage the creation and scaling of Pods.
 
 1. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then click open a new terminal.
 
-2. Use the `kubectl create` command to create a Deployment that manages a Pod. The
+1. Use the `kubectl create` command to create a Deployment that manages a Pod. The
 Pod runs a Container based on the provided Docker image.
   
 
@@ -100,7 +100,7 @@ Pod runs a Container based on the provided Docker image.
     kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080
     ```
 
-3. View the Deployment:
+1. View the Deployment:
 
     ```shell
     kubectl get deployments
@@ -113,7 +113,7 @@ Pod runs a Container based on the provided Docker image.
     hello-node   1/1     1            1           1m
     ```
 
-4. View the Pod:
+1. View the Pod:
 
     ```shell
     kubectl get pods
@@ -126,13 +126,13 @@ Pod runs a Container based on the provided Docker image.
     hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
     ```
 
-5. View cluster events:
+1. View cluster events:
 
     ```shell
     kubectl get events
     ```
 
-6. View the `kubectl` configuration:
+1. View the `kubectl` configuration:
 
     ```shell
     kubectl config view
