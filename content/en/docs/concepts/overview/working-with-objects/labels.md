@@ -227,7 +227,7 @@ For instance, they can implement the _OR_ operator on values:
 kubectl get pods -l 'environment in (production, qa)'
 ```
 
-or restricting negative matching via _exists_ operator:
+or restricting negative matching via _notin_ operator:
 
 ```shell
 kubectl get pods -l 'environment,environment notin (frontend)'
