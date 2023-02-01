@@ -286,7 +286,7 @@ Kubernetes 提供了内置的签名者，每个签名者都有一个众所周知
    1. 允许/不允许 CA 位：不允许。
 
 <!--
-1. `kubernetes.io/legacy-unknown`:  has no guarantees for trust at all. Some third-party distributions of Kubernetes
+1. `kubernetes.io/legacy-unknown`: has no guarantees for trust at all. Some third-party distributions of Kubernetes
    may honor client certificates signed by it. The stable CertificateSigningRequest API (version `certificates.k8s.io/v1` and later)
    does not allow to set the `signerName` as `kubernetes.io/legacy-unknown`.
    Never auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
@@ -471,14 +471,18 @@ Some points to note:
 - `usages` has to be '`client auth`'
 - `expirationSeconds` could be made longer (i.e. `864000` for ten days) or shorter (i.e. `3600` for one hour)
 - `request` is the base64 encoded value of the CSR file content.
-  You can get the content using this command: ```cat myuser.csr | base64 | tr -d "\n"```
+  You can get the content using this command:
 -->
 需要注意的几点:
 
 - `usage` 字段必须是 '`client auth`'
 - `expirationSeconds` 可以设置为更长（例如 `864000` 是十天）或者更短（例如 `3600` 是一个小时）
 - `request` 字段是 CSR 文件内容的 base64 编码值。
-  要得到该值，可以执行命令 `cat myuser.csr | base64 | tr -d "\n"`。
+  要得到该值，可以执行命令
+
+  ```shell
+  cat myuser.csr | base64 | tr -d "\n"
+  ```
 
 <!--
 ### Approve certificate signing request
