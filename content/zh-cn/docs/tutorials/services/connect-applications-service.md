@@ -20,7 +20,12 @@ weight: 20
 
 Now that you have a continuously running, replicated application you can expose it on a network.
 
-Kubernetes assumes that pods can communicate with other pods, regardless of which host they land on. Kubernetes gives every pod its own cluster-private IP address, so you do not need to explicitly create links between pods or map container ports to host ports. This means that containers within a Pod can all reach each other's ports on localhost, and all pods in a cluster can see each other without NAT. The rest of this document elaborates on how you can run reliable services on such a networking model.
+Kubernetes assumes that pods can communicate with other pods, regardless of which host they land on.
+Kubernetes gives every pod its own cluster-private IP address, so you do not need to explicitly
+create links between pods or map container ports to host ports. This means that containers within
+a Pod can all reach each other's ports on localhost, and all pods in a cluster can see each other
+without NAT. The rest of this document elaborates on how you can run reliable services on such a
+networking model.
 
 This tutorial uses a simple nginx web server to demonstrate the concept.
 -->
@@ -72,7 +77,7 @@ Check your pods' IPs:
 -->
 检查 Pod 的 IP 地址：
 
-```
+```shell
 kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
     POD_IP
     [map[ip:10.244.3.4]]
@@ -80,9 +85,18 @@ kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
 ```
 
 <!--
-You should be able to ssh into any node in your cluster and use a tool such as `curl` to make queries against both IPs. Note that the containers are *not* using port 80 on the node, nor are there any special NAT rules to route traffic to the pod. This means you can run multiple nginx pods on the same node all using the same `containerPort`, and access them from any other pod or node in your cluster using the assigned IP address for the Service. If you want to arrange for a specific port on the host Node to be forwarded to backing Pods, you can - but the networking model should mean that you do not need to do so.
+You should be able to ssh into any node in your cluster and use a tool such as `curl`
+to make queries against both IPs. Note that the containers are *not* using port 80 on
+the node, nor are there any special NAT rules to route traffic to the pod. This means
+you can run multiple nginx pods on the same node all using the same `containerPort`,
+and access them from any other pod or node in your cluster using the assigned IP
+address for the Service. If you want to arrange for a specific port on the host
+Node to be forwarded to backing Pods, you can - but the networking model should
+mean that you do not need to do so.
 
-You can read more about the [Kubernetes Networking Model](/docs/concepts/cluster-administration/networking/#the-kubernetes-network-model) if you're curious.
+You can read more about the
+[Kubernetes Networking Model](/docs/concepts/cluster-administration/networking/#the-kubernetes-network-model)
+if you're curious.
 -->
 你应该能够通过 ssh 登录到集群中的任何一个节点上，并使用诸如 `curl` 之类的工具向这两个 IP 地址发出查询请求。
 需要注意的是，容器 **不会** 使用该节点上的 80 端口，也不会使用任何特定的 NAT 规则去路由流量到 Pod 上。
@@ -95,9 +109,17 @@ Pod 或节点上使用 IP 的方式访问到它们。
 <!--
 ## Creating a Service
 
-So we have pods running nginx in a flat, cluster wide, address space. In theory, you could talk to these pods directly, but what happens when a node dies? The pods die with it, and the Deployment will create new ones, with different IPs. This is the problem a Service solves.
+So we have pods running nginx in a flat, cluster wide, address space. In theory,
+you could talk to these pods directly, but what happens when a node dies? The pods
+die with it, and the Deployment will create new ones, with different IPs. This is
+the problem a Service solves.
 
-A Kubernetes Service is an abstraction which defines a logical set of Pods running somewhere in your cluster, that all provide the same functionality. When created, each Service is assigned a unique IP address (also called clusterIP). This address is tied to the lifespan of the Service, and will not change while the Service is alive. Pods can be configured to talk to the Service, and know that communication to the Service will be automatically load-balanced out to some pod that is a member of the Service.
+A Kubernetes Service is an abstraction which defines a logical set of Pods running
+somewhere in your cluster, that all provide the same functionality. When created,
+each Service is assigned a unique IP address (also called clusterIP). This address
+is tied to the lifespan of the Service, and will not change while the Service is alive.
+Pods can be configured to talk to the Service, and know that communication to the
+Service will be automatically load-balanced out to some pod that is a member of the Service.
 
 You can create a Service for your 2 nginx replicas with `kubectl expose`:
 -->
@@ -113,7 +135,7 @@ Kubernetes Service 是集群中提供相同功能的一组 Pod 的抽象表达�
 可以配置 Pod 使它与 Service 进行通信，Pod 知道与 Service 通信将被自动地负载均衡到该
 Service 中的某些 Pod 上。
 
-可以使用 `kubectl expose` 命令为 2个 Nginx 副本创建一个 Service：
+可以使用 `kubectl expose` 命令为 2 个 Nginx 副本创建一个 Service：
 
 ```shell
 kubectl expose deployment/my-nginx
@@ -161,7 +183,7 @@ exposed through
 The Service's selector will be evaluated continuously and the results will be POSTed
 to an EndpointSlice that is connected to the Service using a
 {{< glossary_tooltip text="labels" term_id="label" >}}.
-When a Pod dies, it is automatically removed from the EndpointSlices that contain it 
+When a Pod dies, it is automatically removed from the EndpointSlices that contain it
 as an endpoint. New Pods that match the Service's selector will automatically get added
 to an EndpointSlice for that Service.
 Check the endpoints, and note that the IPs are the same as the Pods created in
@@ -185,8 +207,12 @@ Labels:              run=my-nginx
 Annotations:         <none>
 Selector:            run=my-nginx
 Type:                ClusterIP
+IP Family Policy:    SingleStack
+IP Families:         IPv4
 IP:                  10.0.162.149
+IPs:                 10.0.162.149
 Port:                <unset> 80/TCP
+TargetPort:          80/TCP
 Endpoints:           10.244.2.5:80,10.244.3.4:80
 Session Affinity:    None
 Events:              <none>
@@ -223,9 +249,10 @@ Kubernetes 支持两种查找服务的主要模式：环境变量和 DNS。前�
 
 {{< note >}}
 <!--
-If the service environment variables are not desired (because possible clashing with expected program ones,
-too many variables to process, only using DNS, etc) you can disable this mode by setting the `enableServiceLinks`
-flag to `false` on the [pod spec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
+If the service environment variables are not desired (because possible clashing
+with expected program ones, too many variables to process, only using DNS, etc)
+you can disable this mode by setting the `enableServiceLinks` flag to `false` on
+the [pod spec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
 -->
 如果不需要服务环境变量（因为可能与预期的程序冲突，可能要处理的变量太多，或者仅使用DNS等），则可以通过在
 [pod spec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
@@ -300,7 +327,8 @@ KUBERNETES_SERVICE_PORT_HTTPS=443
 ### DNS
 
 <!--
-Kubernetes offers a DNS cluster addon Service that automatically assigns dns names to other Services. You can check if it's running on your cluster:
+Kubernetes offers a DNS cluster addon Service that automatically assigns dns names
+to other Services. You can check if it's running on your cluster:
 -->
 Kubernetes 提供了一个自动为其它 Service 分配 DNS 名字的 DNS 插件 Service。
 你可以通过如下命令检查它是否在工作：
@@ -315,7 +343,13 @@ kube-dns   ClusterIP   10.0.0.10    <none>        53/UDP,53/TCP   8m
 
 <!--
 The rest of this section will assume you have a Service with a long lived IP
-(my-nginx), and a DNS server that has assigned a name to that IP. Here we use the CoreDNS cluster addon (application name `kube-dns`), so you can talk to the Service from any pod in your cluster using standard methods (e.g. `gethostbyname()`). If CoreDNS isn't running, you can enable it referring to the [CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes) or [Installing CoreDNS](/docs/tasks/administer-cluster/coredns/#installing-coredns). Let's run another curl application to test this:
+(my-nginx), and a DNS server that has assigned a name to that IP. Here we use
+the CoreDNS cluster addon (application name `kube-dns`), so you can talk to the
+Service from any pod in your cluster using standard methods (e.g. `gethostbyname()`).
+If CoreDNS isn't running, you can enable it referring to the
+[CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes)
+or [Installing CoreDNS](/docs/tasks/administer-cluster/coredns/#installing-coredns).
+Let's run another curl application to test this:
 -->
 本段剩余的内容假设你已经有一个拥有持久 IP 地址的 Service（my-nginx），以及一个为其
 IP 分配名称的 DNS 服务器。 这里我们使用 CoreDNS 集群插件（应用名为 `kube-dns`），
@@ -350,13 +384,18 @@ Address 1: 10.0.162.149
 <!--
 ## Securing the Service
 
-Till now we have only accessed the nginx server from within the cluster. Before exposing the Service to the internet, you want to make sure the communication channel is secure. For this, you will need:
+Till now we have only accessed the nginx server from within the cluster. Before
+exposing the Service to the internet, you want to make sure the communication
+channel is secure. For this, you will need:
 
 * Self signed certificates for https (unless you already have an identity certificate)
 * An nginx server configured to use the certificates
 * A [secret](/docs/concepts/configuration/secret/) that makes the certificates accessible to pods
 
-You can acquire all these from the [nginx https example](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/). This requires having go and make tools installed. If you don't want to install those, then follow the manual steps later. In short:
+You can acquire all these from the
+[nginx https example](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/).
+This requires having go and make tools installed. If you don't want to install those,
+then follow the manual steps later. In short:
 -->
 ## 保护 Service {#securing-the-service}
 
@@ -419,7 +458,8 @@ cat /d/tmp/nginx.key | base64
 ```
 
 <!--
-Use the output from the previous commands to create a yaml file as follows. The base64 encoded value should all be on a single line.
+Use the output from the previous commands to create a yaml file as follows.
+The base64 encoded value should all be on a single line.
 -->
 使用前面命令的输出来创建 yaml 文件，如下所示。 base64 编码的值应全部放在一行上。
 
@@ -450,7 +490,8 @@ nginxsecret           kubernetes.io/tls                     2         1m
 ```
 
 <!--
-Now modify your nginx replicas to start an https server using the certificate in the secret, and the Service, to expose both ports (80 and 443):
+Now modify your nginx replicas to start an https server using the certificate
+in the secret, and the Service, to expose both ports (80 and 443):
 -->
 现在修改 Nginx 副本以启动一个使用 Secret 中的证书的 HTTPS 服务器以及相应的用于暴露其端口（80 和 443）的 Service：
 
@@ -482,22 +523,25 @@ At this point you can reach the nginx server from any node.
 -->
 这时，你可以从任何节点访问到 Nginx 服务器。
 
-```
+```shell
 kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
     POD_IP
     [map[ip:10.244.3.5]]
 ```
 
-```
+```shell
 node $ curl -k https://10.244.3.5
 ...
 <h1>Welcome to nginx!</h1>
 ```
 
 <!--
-Note how we supplied the `-k` parameter to curl in the last step, this is because we don't know anything about the pods running nginx at certificate generation time,
-so we have to tell curl to ignore the CName mismatch. By creating a Service we linked the CName used in the certificate with the actual DNS name used by pods during Service lookup.
-Let's test this from a pod (the same secret is being reused for simplicity, the pod only needs nginx.crt to access the Service):
+Note how we supplied the `-k` parameter to curl in the last step, this is because
+we don't know anything about the pods running nginx at certificate generation time,
+so we have to tell curl to ignore the CName mismatch. By creating a Service we
+linked the CName used in the certificate with the actual DNS name used by pods
+during Service lookup. Let's test this from a pod (the same secret is being reused
+for simplicity, the pod only needs nginx.crt to access the Service):
 -->
 注意最后一步我们是如何提供 `-k` 参数执行 curl 命令的，这是因为在证书生成时，
 我们不知道任何关于运行 nginx 的 Pod 的信息，所以不得不在执行 curl 命令时忽略 CName 不匹配的情况。
@@ -580,7 +624,8 @@ $ curl https://<EXTERNAL-IP>:<NODE-PORT> -k
 ```
 
 <!--
-Let's now recreate the Service to use a cloud load balancer. Change the `Type` of `my-nginx` Service from `NodePort` to `LoadBalancer`:
+Let's now recreate the Service to use a cloud load balancer.
+Change the `Type` of `my-nginx` Service from `NodePort` to `LoadBalancer`:
 -->
 让我们重新创建一个 Service 以使用云负载均衡器。
 将 `my-nginx` Service 的 `Type` 由 `NodePort` 改成 `LoadBalancer`：
@@ -600,8 +645,8 @@ curl https://<EXTERNAL-IP> -k
 ```
 
 <!--
-The IP address in the `EXTERNAL-IP` column is the one that is available on the public internet.  The `CLUSTER-IP` is only available inside your
-cluster/private cloud network.
+The IP address in the `EXTERNAL-IP` column is the one that is available on the public internet.
+The `CLUSTER-IP` is only available inside your cluster/private cloud network.
 
 Note that on AWS, type `LoadBalancer` creates an ELB, which uses a (long)
 hostname, not an IP.  It's too long to fit in the standard `kubectl get svc`
