@@ -396,7 +396,6 @@ metadata:
   name: game-config-env-file
   namespace: default
   resourceVersion: "809965"
-  selfLink: /api/v1/namespaces/default/configmaps/game-config-env-file
   uid: d9d1ca5b-eb34-11e7-887b-42010a8002b8
 data:
   allowed: '"true"'
@@ -837,13 +836,6 @@ configmap/special-config-2-c92b5mmcf2 created
 ## Configure all key-value pairs in a ConfigMap as container environment variables
 -->
 ## 将 ConfigMap 中的所有键值对配置为容器环境变量    {#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables}
-
-{{< note >}}
-<!--
-This functionality is available in Kubernetes v1.6 and later.
--->
-Kubernetes v1.6 和更高版本支持此功能。
-{{< /note >}}
 
 <!--
 * Create a ConfigMap containing multiple key-value pairs.
