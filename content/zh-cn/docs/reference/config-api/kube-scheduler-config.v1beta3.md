@@ -267,7 +267,7 @@ NodeAffinityArgs holds arguments to configure the NodeAffinity plugin.
 <tr><td><code>kind</code><br/>string</td><td><code>NodeAffinityArgs</code></td></tr>
 
 <tr><td><code>addedAffinity</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
 </td>
 <td>
    <!--
@@ -388,7 +388,7 @@ PodTopologySpreadArgs holds arguments used to configure the PodTopologySpread pl
 <tr><td><code>kind</code><br/>string</td><td><code>PodTopologySpreadArgs</code></td></tr>
 
 <tr><td><code>defaultConstraints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
 </td>
 <td>
    <!--
@@ -1052,6 +1052,15 @@ be invoked before default plugins, default plugins must be disabled and re-enabl
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
+
+<tr><td><code>preEnqueue</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="#kubescheduler-config-k8s-io-v1beta3-PluginSet"><code>PluginSet</code></a>
+</td>
+<td>
+<!-- PreEnqueue is a list of plugins that should be invoked before adding pods to the scheduling queue. -->
+   <p>PreEnqueue 是一个在将 Pod 添加到调度队列之前应该调用的插件列表。</p>
+</td>
+</tr>
 
 <tr><td><code>queueSort</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#kubescheduler-config-k8s-io-v1beta3-PluginSet"><code>PluginSet</code></a>
