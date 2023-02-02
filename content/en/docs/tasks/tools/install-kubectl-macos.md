@@ -19,7 +19,6 @@ Using the latest compatible version of kubectl helps avoid unforeseen issues.
 
 The following methods exist for installing kubectl on macOS:
 
-- [{{% heading "prerequisites" %}}](#-heading-prerequisites-)
 - [Install kubectl on macOS](#install-kubectl-on-macos)
   - [Install kubectl binary with curl on macOS](#install-kubectl-binary-with-curl-on-macos)
   - [Install with Homebrew on macOS](#install-with-homebrew-on-macos)
