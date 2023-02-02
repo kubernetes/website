@@ -1,7 +1,7 @@
 ---
 title: Rastreador de Issue Kubernetes
 weight: 10
-aliases: [/cve/,/cves/]
+aliases: [/pt-br/cve/,/pt-br/cves/]
 ---
 
 Para reportar um problema de segurança, siga [processo de divulgação de issues do Kubernetes](/docs/reference/issues-security/security/#report-a-vulnerability).
