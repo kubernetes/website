@@ -3,7 +3,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
+To update the reference content, please follow the 
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -61,6 +61,22 @@ The path to the directory where the certificates are stored. If specified, clean
 </tr>
 
 <tr>
+<td colspan="2">--cleanup-tmp-dir</td>
+</tr>
+<tr>
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Cleanup the &quot;/etc/kubernetes/tmp&quot; directory
+-->
+<p>
+清理 &quot;/etc/kubernetes/tmp&quot; 目录
+</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--cri-socket string</td>
 </tr>
 <tr>
@@ -69,7 +85,23 @@ The path to the directory where the certificates are stored. If specified, clean
 Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.
 -->
 <p>
-要连接的 CRI 套接字的路径。如果为空，则 kubeadm 将尝试自动检测此值；仅当安装了多个CRI 或具有非标准 CRI 插槽时，才使用此选项。
+要连接的 CRI 套接字的路径。如果为空，则 kubeadm 将尝试自动检测此值；仅当安装了多个 CRI 或具有非标准 CRI 插槽时，才使用此选项。
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--dry-run</td>
+</tr>
+<tr>
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Don't apply any changes; just output what would be done.
+-->
+<p>
+不要应用任何变更；只是输出将要执行的操作。
 </p>
 </td>
 </tr>
