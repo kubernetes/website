@@ -23,7 +23,7 @@ Find your preferred operating system below.
 
 ## kind
 
-[`kind`](https://kind.sigs.k8s.io/docs/) lets you run Kubernetes on
+[`kind`](https://kind.sigs.k8s.io/) lets you run Kubernetes on
 your local computer. This tool requires that you have
 [Docker](https://docs.docker.com/get-docker/) installed and configured.
 
