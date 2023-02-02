@@ -31,7 +31,7 @@ Check that kubectl is properly configured by getting the cluster state:
 [kubeconfig 文件](/zh-cn/docs/concepts/configuration/organize-cluster-access-kubeconfig/)，
 该文件在
 [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh)
-创建集群时，或成功部署一个 Miniube 集群时，均会自动生成。
+创建集群时，或成功部署一个 Minikube 集群时，均会自动生成。
 通常，kubectl 的配置信息存放于文件 `~/.kube/config` 中。
 
 通过获取集群状态的方法，检查是否已恰当地配置了 kubectl：
