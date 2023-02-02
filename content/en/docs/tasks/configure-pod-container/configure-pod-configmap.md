@@ -505,10 +505,6 @@ configmap/special-config-2-c92b5mmcf2 created
 
 ## Configure all key-value pairs in a ConfigMap as container environment variables
 
-{{< note >}}
-This functionality is available in Kubernetes v1.6 and later.
-{{< /note >}}
-
 * Create a ConfigMap containing multiple key-value pairs.
 
   {{< codenew file="configmap/configmap-multikeys.yaml" >}}
