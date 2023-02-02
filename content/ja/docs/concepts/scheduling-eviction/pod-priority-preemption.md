@@ -229,7 +229,6 @@ Podの優先度と{{< glossary_tooltip text="QoSクラス" term_id="qos-class" >
 kubeletは[node-pressureによる退避](/docs/concepts/scheduling-eviction/node-pressure-eviction/)を行うPodの順番を決めるために、優先度を利用します。QoSクラスを使用して、最も退避される可能性の高いPodの順番を推定することができます。
 kubeletは追い出すPodの順位付けを次の順で行います。
 
-
   1. 枯渇したリソースを要求以上に使用しているか
   1. Podの優先度
   1. 要求に対するリソースの使用量
