@@ -82,7 +82,7 @@ spec:
 ```
 
 これは、kubeletに対してPodを稼働させるためのRuntimeClassを使うように指示します。もし設定されたRuntimeClassが存在しない場合や、CRIが対応するハンドラーを実行できない場合、そのPodは`Failed`という[フェーズ](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)になります。
-エラーメッセージに関しては対応する[イベント](/docs/tasks/debug/debug-application/debug-running-pod/)を参照して下さい。
+エラーメッセージに関しては対応する[イベント](/ja/docs/tasks/debug/debug-application/debug-running-pod/)を参照して下さい。
 
 もし`runtimeClassName`が指定されていない場合、デフォルトのRuntimeHandlerが使用され、これはRuntimeClassの機能が無効であるときのふるまいと同じものとなります。
 
@@ -99,7 +99,7 @@ CRIランタイムのセットアップに関するさらなる詳細は、[CRI�
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.${HANDLER_NAME}]
 ```
 
-詳細はcontainerdの[設定に関するドキュメント](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)を参照してください。 
+詳細はcontainerdの[設定に関するドキュメント](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)を参照してください。
 
 #### {{< glossary_tooltip term_id="cri-o" >}}
 
