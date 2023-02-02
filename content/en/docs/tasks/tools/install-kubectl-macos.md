@@ -19,9 +19,16 @@ Using the latest compatible version of kubectl helps avoid unforeseen issues.
 
 The following methods exist for installing kubectl on macOS:
 
-- [Install kubectl binary with curl on macOS](#install-kubectl-binary-with-curl-on-macos)
-- [Install with Homebrew on macOS](#install-with-homebrew-on-macos)
-- [Install with Macports on macOS](#install-with-macports-on-macos)
+- [{{% heading "prerequisites" %}}](#-heading-prerequisites-)
+- [Install kubectl on macOS](#install-kubectl-on-macos)
+  - [Install kubectl binary with curl on macOS](#install-kubectl-binary-with-curl-on-macos)
+  - [Install with Homebrew on macOS](#install-with-homebrew-on-macos)
+  - [Install with Macports on macOS](#install-with-macports-on-macos)
+- [Verify kubectl configuration](#verify-kubectl-configuration)
+- [Optional kubectl configurations and plugins](#optional-kubectl-configurations-and-plugins)
+  - [Enable shell autocompletion](#enable-shell-autocompletion)
+  - [Install `kubectl convert` plugin](#install-kubectl-convert-plugin)
+- [{{% heading "whatsnext" %}}](#-heading-whatsnext-)
 
 ### Install kubectl binary with curl on macOS
 
@@ -115,6 +122,12 @@ The following methods exist for installing kubectl on macOS:
 
    ```cmd
    kubectl version --client --output=yaml
+   ```
+
+1. After installing the plugin, clean up the installation files:
+
+   ```bash
+   rm kubectl kubectl.sha256
    ```
 
 ### Install with Homebrew on macOS
@@ -249,6 +262,12 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    ```
 
    If you do not see an error, it means the plugin is successfully installed.
+
+1. After installing the plugin, clean up the installation files:
+
+   ```bash
+   rm kubectl kubectl.sha256
+   ```
 
 ## {{% heading "whatsnext" %}}
 
