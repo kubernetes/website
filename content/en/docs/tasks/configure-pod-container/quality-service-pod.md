@@ -51,6 +51,8 @@ For a Pod to be given a QoS class of Guaranteed:
 * For every Container in the Pod, the CPU limit must equal the CPU request.
 
 These restrictions apply to init containers and app containers equally.
+[Ephemeral containers](/docs/concepts/workloads/pods/ephemeral-containers/)
+cannot define resources so these restrictions do not apply.
 
 Here is the configuration file for a Pod that has one Container. The Container has a memory limit and a
 memory request, both equal to 200 MiB. The Container has a CPU limit and a CPU request, both equal to 700 milliCPU:
