@@ -550,7 +550,7 @@ images.
 首先，像示例一样创建一个 pod：
 
 ```shell
-kubectl run ephemeral-demo --image=k8s.gcr.io/pause:3.1 --restart=Never
+kubectl run ephemeral-demo --image=registry.k8s.io8s.io/pause:3.1 --restart=Never
 ```
 
 {{< note >}}

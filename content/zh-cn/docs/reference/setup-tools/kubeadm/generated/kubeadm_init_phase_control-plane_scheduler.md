@@ -96,9 +96,9 @@ kubeadm init phase control-plane scheduler [flags]
 <tr>
 <td colspan="2">
 <!--
---image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "k8s.gcr.io"
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "registry.k8s.io"
 -->
---image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值:"k8s.gcr.io"
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值:"registry.k8s.io"
 </td>
 </tr>
 <tr>

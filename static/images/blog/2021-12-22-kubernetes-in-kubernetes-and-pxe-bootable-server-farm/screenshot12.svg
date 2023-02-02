@@ -3137,7 +3137,7 @@
                  id="path1878" />
             </g>
             <g
-               aria-label="k8s.gcr.io/kube-proxy"
+               aria-label="registry.k8s.io/kube-proxy"
                id="text218"
                class="c"
                style="white-space:pre;fill:#b9c0cb">
@@ -3873,7 +3873,7 @@
                  id="path2222" />
             </g>
             <g
-               aria-label="k8s.gcr.io/pause:3.2"
+               aria-label="registry.k8s.io/pause:3.2"
                id="text242"
                class="c"
                style="white-space:pre;fill:#b9c0cb">
