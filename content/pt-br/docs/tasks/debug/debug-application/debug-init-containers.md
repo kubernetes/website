@@ -1,5 +1,5 @@
 ---
-title: Contêineres de inicialização de depuração
+title: Depurando Contêineres de Inicialização
 content_type: task
 weight: 40
 ---
@@ -42,13 +42,13 @@ valores de status e seus significados.
 
 ## Obtendo detalhes sobre os contêineres de inicialização
 
-Veja informações mais detalhadas sobre a execução da Inicialização de Contêineres:
+Veja informações mais detalhadas sobre a execução de contêineres de inicialização:
 
 ```shell
 kubectl describe pod <pod-name>
 ```
 
-Por exemplo, um pod com duas inicializações de contêineres pode mostrar o seguinte:
+Por exemplo, um pod com dois contêineres de inicialização pode mostrar o seguinte:
 
 ```
 Init Containers:
@@ -96,20 +96,20 @@ para acessar seus logs.
 kubectl logs <pod-name> -c <init-container-2>
 ```
 
-Inicializações de contêineres que executam uma impressão de comandos de script de shell
+Contêineres de inicialização que executam comandos de script de shell imprimem
 à medida que são executados. Por exemplo, você pode fazer isso no Bash executando `set -x` no início do script.
 
 <!-- discussion -->
 
 ## Entendendo sobre o status do pod { #understanding-pod-status }
 
-Um status do Pod começando com `Init:` resume o status da execução da inicialização de contêineres. 
+Um status do Pod começando com `Init:` resume o status da execução de contêineres de inicialização. 
 A tabela abaixo descreve alguns valores de status de exemplo que você pode ver durante a depuração de contêineres de inicialização.
 
 Status | Significado
 ------ | -------
-`Init:N/M` | O pod tem inicializações de contêineres `M` e `N` que foram concluídas até agora.
-`Init:Error` | Uma inicialização de contêiner falhou ao executar.
-`Init:CrashLoopBackOff` | Uma inicialização de contêiner falhou repetidamente.
-`Pending` | O pod ainda não começou a executar a inicialização de contêineres.
-`PodInitializing` ou `Running` | O pod já concluiu a execução das inicializações de contêineres.
+`Init:N/M` | O pod tem contêineres de inicialização `M` e `N` que foram concluídas até agora.
+`Init:Error` | Um contêiner de inicialização falhou ao executar.
+`Init:CrashLoopBackOff` | Um contêiner de inicialização falhou repetidamente.
+`Pending` | O pod ainda não começou a executar o contêiner de inicialização.
+`PodInitializing` ou `Running` | O pod já concluiu a execução dos contêineres de inicialização.
