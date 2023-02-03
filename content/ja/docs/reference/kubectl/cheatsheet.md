@@ -359,8 +359,8 @@ kubectl api-resources --api-group=extensions # "extensions" APIグループの�
 # クラスター内で実行中のすべてのイメージ名を表示する
 kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
 
-# "k8s.gcr.io/coredns:1.6.2"を除いたすべてのイメージ名を表示する
-kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
+# "registry.k8s.io/coredns:1.6.2"を除いたすべてのイメージ名を表示する
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="registry.k8s.io/coredns:1.6.2")].image'
 
 # 名前に関係なくmetadata以下のすべてのフィールドを表示する
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'

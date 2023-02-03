@@ -500,9 +500,9 @@ Podを取得して、コンテナイメージを確認してみましょう。
 for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
 ```
 ```
-k8s.gcr.io/nginx-slim:0.8
-k8s.gcr.io/nginx-slim:0.8
-k8s.gcr.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
 
 ```
 
@@ -528,7 +528,7 @@ statefulset.apps/web patched
 StatefulSetに再度patchを当てて、コンテナイメージを変更します。
 
 ```shell
-kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"k8s.gcr.io/nginx-slim:0.7"}]'
+kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"registry.k8s.io/nginx-slim:0.7"}]'
 ```
 ```
 statefulset.apps/web patched
@@ -562,7 +562,7 @@ Podのコンテナイメージを取得します。
 kubectl get pod web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 ```
 ```
-k8s.gcr.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
 ```
 
 アップデート戦略が`RollingUpdate`であっても、StatefulSetが元のコンテナを持つPodをリストアしたことがわかります。これは、Podの順序インデックスが`updateStrategy`で指定した`partition`より小さいためです。
@@ -599,7 +599,7 @@ Podのコンテナを取得します。
 kubectl get pod web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 ```
 ```
-k8s.gcr.io/nginx-slim:0.7
+registry.k8s.io/nginx-slim:0.7
 
 ```
 
@@ -640,7 +640,7 @@ web-1     1/1       Running   0         18s
 kubectl get pod web-1 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 ```
 ```
-k8s.gcr.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
 ```
 
 Podの順序インデックスがpartitionよりも小さいため、`web-1`は元の設定のコンテナイメージにリストアされました。partitionを指定すると、StatefulSetの`.spec.template`が更新されたときに、順序インデックスがそれ以上の値を持つすべてのPodがアップデートされます。partitionよりも小さな順序インデックスを持つPodが削除されたり終了されたりすると、元の設定のPodにリストアされます。
@@ -688,9 +688,9 @@ StatefulSet内のPodのコンテナイメージの詳細を取得します。
 for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
 ```
 ```
-k8s.gcr.io/nginx-slim:0.7
-k8s.gcr.io/nginx-slim:0.7
-k8s.gcr.io/nginx-slim:0.7
+registry.k8s.io/nginx-slim:0.7
+registry.k8s.io/nginx-slim:0.7
+registry.k8s.io/nginx-slim:0.7
 ```
 
 `partition`を`0`に移動することで、StatefulSetがアップデート処理を続けられるようにできます。

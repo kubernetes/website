@@ -8,4 +8,4 @@ spec:
   schedulerName: default-scheduler
   containers:
   - name: pod-with-default-annotation-container
-    image: k8s.gcr.io/pause:2.0
+    image: registry.k8s.io/pause:2.0
