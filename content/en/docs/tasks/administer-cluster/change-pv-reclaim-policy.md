@@ -1,6 +1,7 @@
 ---
 title: Change the Reclaim Policy of a PersistentVolume
 content_type: task
+weight: 100
 ---
 
 <!-- overview -->

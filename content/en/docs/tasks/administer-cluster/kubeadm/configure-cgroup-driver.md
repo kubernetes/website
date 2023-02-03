@@ -1,7 +1,7 @@
 ---
 title: Configuring a cgroup driver
 content_type: task
-weight: 10
+weight: 20
 ---
 
 <!-- overview -->

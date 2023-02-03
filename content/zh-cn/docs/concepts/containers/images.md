@@ -22,8 +22,7 @@ software dependencies. Container images are executable software bundles that can
 standalone and that make very well defined assumptions about their runtime environment.
 
 You typically create a container image of your application and push it to a registry
-before referring to it in a
-{{< glossary_tooltip text="Pod" term_id="pod" >}}
+before referring to it in a {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 
 This page provides an outline of the container image concept.
 -->
@@ -67,7 +66,7 @@ Tags let you identify different versions of the same series of images.
 
 如果你不指定仓库的主机名，Kubernetes 认为你在使用 Docker 公共仓库。
 
-在镜像名称之后，你可以添加一个标签（Tag）（与使用 `docker` 或 `podman` 等命令时的方式相同）。
+在镜像名称之后，你可以添加一个**标签（Tag）**（与使用 `docker` 或 `podman` 等命令时的方式相同）。
 使用标签能让你辨识同一镜像序列中的不同版本。
 
 <!--
@@ -124,10 +123,10 @@ these values have:
 `Always`
 : every time the kubelet launches a container, the kubelet queries the container
   image registry to resolve the name to an image
-  [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier). If the kubelet has a
-  container image with that exact digest cached locally, the kubelet uses its cached
-  image; otherwise, the kubelet pulls the image with the resolved digest,
-  and uses that image to launch the container.
+  [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier).
+  If the kubelet has a container image with that exact digest cached locally, the kubelet uses its
+  cached image; otherwise, the kubelet pulls the image with the resolved digest, and uses that image
+  to launch the container.
 
 `Never`
 : the kubelet does not try fetching the image. If the image is somehow already present
@@ -180,7 +179,11 @@ replace `<image-name>:<tag>` with `<image-name>@<digest>`
 将 `<image-name>:<tag>` 替换为 `<image-name>@<digest>`，例如 `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`。
 
 <!--
-When using image tags, if the image registry were to change the code that the tag on that image represents, you might end up with a mix of Pods running the old and new code. An image digest uniquely identifies a specific version of the image, so Kubernetes runs the same code every time it starts a container with that image name and digest specified. Specifying an image by digest fixes the code that you run so that a change at the registry cannot lead to that mix of versions.
+When using image tags, if the image registry were to change the code that the tag on that image
+represents, you might end up with a mix of Pods running the old and new code. An image digest
+uniquely identifies a specific version of the image, so Kubernetes runs the same code every time
+it starts a container with that image name and digest specified. Specifying an image by digest
+fixes the code that you run so that a change at the registry cannot lead to that mix of versions.
 
 There are third-party [admission controllers](/docs/reference/access-authn-authz/admission-controllers/)
 that mutate Pods (and pod templates) when they are created, so that the
@@ -249,7 +252,8 @@ If you would like to always force a pull, you can do one of the following:
   Kubernetes will set the policy to `Always` when you submit the Pod.
 - Omit the `imagePullPolicy` and the tag for the image to use;
   Kubernetes will set the policy to `Always` when you submit the Pod.
-- Enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) admission controller.
+- Enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
+  admission controller.
 -->
 #### 必要的镜像拉取   {#required-image-pull}
 
@@ -261,7 +265,6 @@ If you would like to always force a pull, you can do one of the following:
 - 省略 `imagePullPolicy` 和镜像的标签；
   当你提交 Pod 时，Kubernetes 会将策略设置为 `Always`。
 - 启用准入控制器 [AlwaysPullImages](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)。
-
 
 <!--
 ### ImagePullBackOff
@@ -293,9 +296,18 @@ Kubernetes 会增加每次尝试之间的延迟，直到达到编译限制，即
 <!--
 ## Multi-architecture images with image indexes
 
-As well as providing binary images, a container registry can also serve a [container image index](https://github.com/opencontainers/image-spec/blob/master/image-index.md). An image index can point to multiple [image manifests](https://github.com/opencontainers/image-spec/blob/master/manifest.md) for architecture-specific versions of a container. The idea is that you can have a name for an image (for example: `pause`, `example/mycontainer`, `kube-apiserver`) and allow different systems to fetch the right binary image for the machine architecture they are using.
+As well as providing binary images, a container registry can also serve a
+[container image index](https://github.com/opencontainers/image-spec/blob/master/image-index.md).
+An image index can point to multiple [image manifests](https://github.com/opencontainers/image-spec/blob/master/manifest.md)
+for architecture-specific versions of a container. The idea is that you can have a name for an image
+(for example: `pause`, `example/mycontainer`, `kube-apiserver`) and allow different systems to
+fetch the right binary image for the machine architecture they are using.
 
-Kubernetes itself typically names container images with a suffix `-$(ARCH)`. For backward compatibility, please generate the older images with suffixes. The idea is to generate say `pause` image which has the manifest for all the arch(es) and say `pause-amd64` which is backwards compatible for older configurations or YAML files which may have hard coded the images with suffixes.
+Kubernetes itself typically names container images with a suffix `-$(ARCH)`. For backward
+compatibility, please generate the older images with suffixes. The idea is to generate say `pause`
+image which has the manifest for all the arch(es) and say `pause-amd64` which is backwards
+compatible for older configurations or YAML files which may have hard coded the images with
+suffixes.
 -->
 ## 带镜像索引的多架构镜像  {#multi-architecture-images-with-image-indexes}
 
@@ -324,27 +336,27 @@ Credentials can be provided in several ways:
 凭据可以用以下方式提供:
 
 <!--
-  - Configuring Nodes to Authenticate to a Private Registry
-    - all pods can read any configured private registries
-    - requires node configuration by cluster administrator
-  - Kubelet Credential Provider to dynamically fetch credentials for private registries
-    - kubelet can be configured to use credential provider exec plugin 
-      for the respective private registry.
-  - Pre-pulled Images
-    - all pods can use any images cached on a node
-    - requires root access to all nodes to set up
-  - Specifying ImagePullSecrets on a Pod
-    - only pods which provide own keys can access the private registry
-  - Vendor-specific or local extensions
-    - if you're using a custom node configuration, you (or your cloud
-      provider) can implement your mechanism for authenticating the node
-      to the container registry.
+- Configuring Nodes to Authenticate to a Private Registry
+  - all pods can read any configured private registries
+  - requires node configuration by cluster administrator
+- Kubelet Credential Provider to dynamically fetch credentials for private registries
+  - kubelet can be configured to use credential provider exec plugin 
+    for the respective private registry.
+- Pre-pulled Images
+  - all pods can use any images cached on a node
+  - requires root access to all nodes to set up
+- Specifying ImagePullSecrets on a Pod
+  - only pods which provide own keys can access the private registry
+- Vendor-specific or local extensions
+  - if you're using a custom node configuration, you (or your cloud
+    provider) can implement your mechanism for authenticating the node
+    to the container registry.
 -->
 - 配置节点向私有仓库进行身份验证
   - 所有 Pod 均可读取任何已配置的私有仓库
   - 需要集群管理员配置节点
 - kubelet 凭据提供程序，动态获取私有仓库的凭据
- - kubelet 可以被配置为使用凭据提供程序 exec 插件来访问对应的私有镜像库
+  - kubelet 可以被配置为使用凭据提供程序 exec 插件来访问对应的私有镜像库
 - 预拉镜像
   - 所有 Pod 都可以使用节点上缓存的所有镜像
   - 需要所有节点的 root 访问权限才能进行设置
@@ -361,7 +373,8 @@ These options are explained in more detail below.
 <!--
 ### Configuring nodes to authenticate to a private registry
 
-Specific instructions for setting credentials depends on the container runtime and registry you chose to use. You should refer to your solution's documentation for the most accurate information.
+Specific instructions for setting credentials depends on the container runtime and registry you
+chose to use. You should refer to your solution's documentation for the most accurate information.
 -->
 ### 配置 Node 对私有仓库认证 {#configuring-nodes-to-authenticate-to-a-private-registry}
 
@@ -411,6 +424,7 @@ prefix-matched paths. This means that a `config.json` like this is valid:
 对于 `config.json` 的解释在原始 Docker 实现和 Kubernetes 的解释之间有所不同。
 在 Docker 中，`auths` 键只能指定根 URL，而 Kubernetes 允许 glob URLs 以及前缀匹配的路径。
 这意味着，像这样的 `config.json` 是有效的：
+
 ```json
 {
     "auths": {
@@ -443,6 +457,7 @@ character-range:
 ```
 -->
 使用以下语法匹配根 URL （`*my-registry.io`）：
+
 ```
 pattern:
     { term }
@@ -465,12 +480,6 @@ term:
 Image pull operations would now pass the credentials to the CRI container
 runtime for every valid pattern. For example the following container image names
 would match successfully:
-
-- `my-registry.io/images`
-- `my-registry.io/images/my-image`
-- `my-registry.io/images/another-image`
-- `sub.my-registry.io/images/my-image`
-- `a.sub.my-registry.io/images/my-image`
 -->
 现在镜像拉取操作会将每种有效模式的凭据都传递给 CRI 容器运行时。例如下面的容器镜像名称会匹配成功：
 
@@ -535,7 +544,8 @@ then a local image is used (preferentially or exclusively, respectively).
 If you want to rely on pre-pulled images as a substitute for registry authentication,
 you must ensure all nodes in the cluster have the same pre-pulled images.
 
-This can be used to preload certain images for speed or as an alternative to authenticating to a private registry.
+This can be used to preload certain images for speed or as an alternative to authenticating to a
+private registry.
 
 All pods will have read access to any pre-pulled images.
 -->
@@ -580,14 +590,19 @@ Run the following command, substituting the appropriate uppercase values:
 运行以下命令，注意替换适当的大写值：
 
 ```shell
-kubectl create secret docker-registry <name> --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD --docker-email=DOCKER_EMAIL
+kubectl create secret docker-registry <name> \
+  --docker-server=DOCKER_REGISTRY_SERVER \
+  --docker-username=DOCKER_USER \
+  --docker-password=DOCKER_PASSWORD \
+  --docker-email=DOCKER_EMAIL
 ```
 
 <!--
 If you already have a Docker credentials file then, rather than using the above
 command, you can import the credentials file as a Kubernetes
 {{< glossary_tooltip text="Secrets" term_id="secret" >}}.  
-[Create a Secret based on existing Docker credentials](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials) explains how to set this up.
+[Create a Secret based on existing Docker credentials](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials)
+explains how to set this up.
 -->
 如果你已经有 Docker 凭据文件，则可以将凭据文件导入为 Kubernetes
 {{< glossary_tooltip text="Secret" term_id="secret" >}}，
@@ -654,7 +669,8 @@ This needs to be done for each pod that is using a private registry.
 However, setting of this field can be automated by setting the imagePullSecrets
 in a [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/) resource.
 
-Check [Add ImagePullSecrets to a Service Account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account) for detailed instructions.
+Check [Add ImagePullSecrets to a Service Account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
+for detailed instructions.
 
 You can use this in conjunction with a per-node `.docker/config.json`.  The credentials
 will be merged.
@@ -682,7 +698,8 @@ common use cases and suggested solutions.
 1. Cluster running only non-proprietary (e.g. open-source) images.  No need to hide images.
    - Use public images from a public registry
      - No configuration required.
-     - Some cloud providers automatically cache or mirror public images, which improves availability and reduces the time to pull images.
+     - Some cloud providers automatically cache or mirror public images, which improves
+       availability and reduces the time to pull images.
 -->
 1. 集群运行非专有镜像（例如，开源镜像）。镜像不需要隐藏。
    - 使用来自公共仓库的公共镜像
@@ -711,7 +728,8 @@ common use cases and suggested solutions.
 
 <!--
 1. Cluster with proprietary images, a few of which require stricter access control.
-   - Ensure [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) is active. Otherwise, all Pods potentially have access to all images.
+   - Ensure [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
+     is active. Otherwise, all Pods potentially have access to all images.
    - Move sensitive data into a "Secret" resource, instead of packaging it in an image.
 -->
 3. 集群使用专有镜像，且有些镜像需要更严格的访问控制
@@ -720,9 +738,11 @@ common use cases and suggested solutions.
 
 <!--
 1. A multi-tenant cluster where each tenant needs own private registry.
-   - Ensure [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) is active. Otherwise, all Pods of all tenants potentially have access to all images.
+   - Ensure [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
+     is active. Otherwise, all Pods of all tenants potentially have access to all images.
    - Run a private registry with authorization required.
-   - Generate registry credential for each tenant, put into secret, and populate secret to each tenant namespace.
+   - Generate registry credential for each tenant, put into secret, and populate secret to each
+     tenant namespace.
    - The tenant adds that secret to imagePullSecrets of each namespace.
 -->
 4. 集群是多租户的并且每个租户需要自己的私有仓库
@@ -735,7 +755,6 @@ common use cases and suggested solutions.
 If you need access to multiple registries, you can create one secret for each registry.
 -->
 如果你需要访问多个仓库，可以为每个仓库创建一个 Secret。
-
 
 ## {{% heading "whatsnext" %}}
 

@@ -5,6 +5,7 @@ reviewers:
 title: Customizing DNS Service
 content_type: task
 min-kubernetes-server-version: v1.12
+weight: 160
 ---
 
 <!-- overview -->

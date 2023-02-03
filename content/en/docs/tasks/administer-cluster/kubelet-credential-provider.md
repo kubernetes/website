@@ -6,6 +6,7 @@ reviewers:
 description: Configure the kubelet's image credential provider plugin
 content_type: task
 min-kubernetes-server-version: v1.26
+weight: 120
 ---
 
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
