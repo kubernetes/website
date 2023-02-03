@@ -127,6 +127,7 @@ For a reference to old feature gates that are removed, please refer to
 | `CSIMigrationRBD` | `false` | Alpha | 1.23 | |
 | `CSINodeExpandSecret` | `false` | Alpha | 1.25 | |
 | `CSIVolumeHealth` | `false` | Alpha | 1.21 | |
+| `ComponentSLIs` | `false` | Alpha | 1.26 | |
 | `ContainerCheckpoint` | `false` | Alpha | 1.25 | |
 | `ContextualLogging` | `false` | Alpha | 1.24 | |
 | `CronJobTimeZone` | `false` | Alpha | 1.24 | 1.24 |
@@ -660,6 +661,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   详情请参见 [`csi` 卷类型](/zh-cn/docs/concepts/storage/volumes/#csi)。
 <!--
 - `CSIVolumeHealth`: Enable support for CSI volume health monitoring on node.
+- `ComponentSLIs`: Enable the `/metrics/slis` endpoint on Kubernetes components like
+  kubelet, kube-scheduler, kube-proxy, kube-controller-manager, cloud-controller-manager
+  allowing you to scrape health check metrics.
 - `ConsistentHTTPGetHandlers`: Normalize HTTP get URL and Header passing for lifecycle
   handlers with probers.
 - `ContextualLogging`: When you enable this feature gate, Kubernetes components that support
@@ -669,6 +673,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CronJobTimeZone`: Allow the use of the `timeZone` optional field in [CronJobs](/docs/concepts/workloads/controllers/cron-jobs/)
 -->
 - `CSIVolumeHealth`：启用对节点上的 CSI volume 运行状况监控的支持。
+- `ComponentSLIs`: 在 kubelet、kube-scheduler、kube-proxy、kube-controller-manager、cloud-controller-manager
+  等 Kubernetes 组件上启用 `/metrics/slis` 端点，从而允许你抓取健康检查指标。
 - `ConsistentHTTPGetHandlers`：使用探测器为生命周期处理程序规范化 HTTP get URL 和标头传递。
 - `ContextualLogging`：当你启用这个特性门控，支持日志上下文记录的 Kubernetes
   组件会为日志输出添加额外的详细内容。
@@ -927,8 +933,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   完成情况，而不是永远从集群剩余 Pod 来获取信息判断完成情况。Job 控制器使用
   Pod finalizers 和 Job 状态中的一个字段来跟踪已完成的 Pod 以计算完成。
 <!--
-- `KMSv2`: Enables KMS v2 API for encryption at rest.
-  See [Using a KMS Provider for data encryption](/docs/tasks/administer-cluster/kms-provider) for more details.
+- `KMSv2`: Enables KMS v2 API for encryption at rest. See [Using a KMS Provider for data encryption](/docs/tasks/administer-cluster/kms-provider) for more details.
 - `KubeletCredentialProviders`: Enable kubelet exec credential providers for
   image pull credentials.
 - `KubeletInUserNamespace`: Enables support for running kubelet in a
@@ -1154,22 +1159,17 @@ Each feature gate is designed for enabling/disabling a specific feature:
   更多详细信息，请参见
   [kubelet 配置](/zh-cn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#kubelet-configuration)。
 <!--
-- `SELinuxMountReadWriteOncePod`: Speed up container startup by mounting volumes with the correct
-  SELinux label instead of changing each file on the volumes recursively. The initial implementation
-  focused on ReadWriteOncePod volumes.
+- `SELinuxMountReadWriteOncePod`: Speeds up container startup by allowing kubelet to mount volumes
+  for a Pod directly with the correct SELinux label instead of changing each file on the volumes
+  recursively. The initial implementation focused on ReadWriteOncePod volumes.
 - `SeccompDefault`: Enables the use of `RuntimeDefault` as the default seccomp profile
   for all workloads.
   The seccomp profile is specified in the `securityContext` of a Pod and/or a Container.
-- `SELinuxMountReadWriteOncePod`: Allows kubelet to mount volumes for a Pod directly with the
-  right SELinux label instead of applying the SELinux label recursively on every file on the
-  volume.
 -->
-- `SELinuxMountReadWriteOncePod`：通过使用正确的 SELinux
-  标签挂载卷而不是以递归方式更改这些卷上的每个文件来加速容器启动。最初的实现侧重 ReadWriteOncePod 卷。
+- `SELinuxMountReadWriteOncePod`：通过允许 kubelet 直接用正确的 SELinux
+  标签为 Pod 挂载卷而不是以递归方式更改这些卷上的每个文件来加速容器启动。最初的实现侧重 ReadWriteOncePod 卷。
 - `SeccompDefault`: 允许将所有工作负载的默认  seccomp 配置文件为 `RuntimeDefault`。
   seccomp 配置在 Pod 或者容器的 `securityContext` 字段中指定。
-- `SELinuxMountReadWriteOncePod`：允许 kubelet 直接用合适的 SELinux 标签为 Pod 挂载卷，
-  而不是将 SELinux 标签以递归方式应用到卷上的每个文件。
 <!--
 - `ServerSideApply`: Enables the [Sever Side Apply (SSA)](/docs/reference/using-api/server-side-apply/)
   feature on the API Server.
