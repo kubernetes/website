@@ -44,7 +44,7 @@ bertransisi ke _state_ yang rusak (_broken_), dan tidak dapat pulih kecuali diul
 Kubernetes menyediakan _probe liveness_ untuk mendeteksi dan memperbaiki situasi tersebut.
 
 Pada latihan ini, kamu akan membuat Pod yang menjalankan Container dari image
-`k8s.gcr.io/busybox`. Berikut ini adalah berkas konfigurasi untuk Pod tersebut:
+`registry.k8s.io/busybox`. Berikut ini adalah berkas konfigurasi untuk Pod tersebut:
 
 {{< codenew file="pods/probe/exec-liveness.yaml" >}}
 
@@ -84,8 +84,8 @@ Keluaran dari perintah tersebut memperlihatkan bahwa belum ada _probe liveness_ 
 FirstSeen    LastSeen    Count   From            SubobjectPath           Type        Reason      Message
 --------- --------    -----   ----            -------------           --------    ------      -------
 24s       24s     1   {default-scheduler }                    Normal      Scheduled   Successfully assigned liveness-exec to worker0
-23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulling     pulling image "k8s.gcr.io/busybox"
-23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulled      Successfully pulled image "k8s.gcr.io/busybox"
+23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulling     pulling image "registry.k8s.io/busybox"
+23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulled      Successfully pulled image "registry.k8s.io/busybox"
 23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Created     Created container with docker id 86849c15382e; Security:[seccomp=unconfined]
 23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Started     Started container with docker id 86849c15382e
 ```
@@ -103,8 +103,8 @@ mengalami kegagalan, dan Container telah dimatikan dan dibuat ulang.
 FirstSeen LastSeen    Count   From            SubobjectPath           Type        Reason      Message
 --------- --------    -----   ----            -------------           --------    ------      -------
 37s       37s     1   {default-scheduler }                    Normal      Scheduled   Successfully assigned liveness-exec to worker0
-36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulling     pulling image "k8s.gcr.io/busybox"
-36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulled      Successfully pulled image "k8s.gcr.io/busybox"
+36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulling     pulling image "registry.k8s.io/busybox"
+36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulled      Successfully pulled image "registry.k8s.io/busybox"
 36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Created     Created container with docker id 86849c15382e; Security:[seccomp=unconfined]
 36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Started     Started container with docker id 86849c15382e
 2s        2s      1   {kubelet worker0}   spec.containers{liveness}   Warning     Unhealthy   Liveness probe failed: cat: can't open '/tmp/healthy': No such file or directory
@@ -126,7 +126,7 @@ liveness-exec   1/1       Running   1          1m
 ## Mendefinisikan probe liveness dengan permintaan HTTP
 
 Jenis kedua dari _probe liveness_ menggunakan sebuah permintaan GET HTTP. Berikut ini
-berkas konfigurasi untuk Pod yang menjalankan Container dari image `k8s.gcr.io/liveness`.
+berkas konfigurasi untuk Pod yang menjalankan Container dari image `registry.k8s.io/liveness`.
 
 {{< codenew file="pods/probe/http-liveness.yaml" >}}
 
