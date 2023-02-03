@@ -98,8 +98,7 @@ Figure 1. Steps for opening a PR using GitHub.
 图 1. 使用 GitHub 发起一个 PR 的步骤。
 
 <!--
-1. On the page where you see the issue, select the pencil icon at the top right.
-   You can also scroll to the bottom of the page and select **Edit this page**.
+1. On the page where you see the issue, select the **Edit this page** option in the right-hand side navigation panel.
 
 1. Make your changes in the GitHub markdown editor.
 
@@ -107,8 +106,7 @@ Figure 1. Steps for opening a PR using GitHub.
    In the first field, give your commit message a title.
    In the second field, provide a description.
 -->
-1. 在你发现问题的网页，选择右上角的铅笔图标。
-   你也可以滚动到页面底端，选择**编辑此页**。
+1. 在你发现问题的页面上，选择右侧导航面板中的**编辑此页面**选项。
 
 2. 在 GitHub 的 Markdown 编辑器中修改内容。
 
