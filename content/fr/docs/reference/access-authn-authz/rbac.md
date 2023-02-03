@@ -234,23 +234,20 @@ Voir [utilisation de la commande et exemples](#kubectl-auth-reconcile) pour plus
 
 ### Référence aux ressources
 
-In the Kubernetes API, most resources are represented and accessed using a string representation of
-their object name, such as `pods` for a Pod. RBAC refers to resources using exactly the same
-name that appears in the URL for the relevant API endpoint.
-Some Kubernetes APIs involve a
-_subresource_, such as the logs for a Pod. A request for a Pod's logs looks like:
 Dans l'API Kubernetes, la plupart des ressources sont représentées et accessibles à l'aide d'une chaîne de caractères de leur nom d'objet,
-comme `pods` pour un Pod. RBAC fait référence aux ressources en utilisant exactement le même nom que celui qui apparaît dans l'URL du point de terminaison de l'API concerné.
-Certaines API Kubernetes impliquent une _sous-ressource_, comme les journaux d'un Pod. Une requête pour les journaux d'un Pod ressemble à ceci :
+comme `pods` pour un Pod. RBAC fait référence aux ressources en utilisant exactement 
+le même nom que celui qui apparaît dans l'URL du endpoint de l'API concerné.
+Certaines API Kubernetes impliquent une
+_subresource_, comme les logs d'un Pod. Une requête pour les logs d'un Pod ressemble à ceci :
 
 ```http
 GET /api/v1/namespaces/{namespace}/pods/{name}/log
 ```
 
-In this case, `pods` is the namespaced resource for Pod resources, and `log` is a
-subresource of `pods`. To represent this in an RBAC role, use a slash (`/`) to
-delimit the resource and subresource. To allow a subject to read `pods` and
-also access the `log` subresource for each of those Pods, you write:
+Dans ce cas, `pods` est le namespaced ressource pour les ressources Pods,
+et `log` est une sous-ressource de `pods`. Pour représenter cela dans un rôle RBAC,
+utilisez une barre oblique (`/`) pour délimiter la ressource et la sous-ressource.
+Pour permettre à un sujet de lire `pods` et d'accéder également à la sous-ressource `log` pour chacun de ces Pods, vous écrivez :
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -264,11 +261,10 @@ rules:
   verbs: ["get", "list"]
 ```
 
-You can also refer to resources by name for certain requests through the `resourceNames` list.
-When specified, requests can be restricted to individual instances of a resource.
-Here is an example that restricts its subject to only `get` or `update` a
-{{< glossary_tooltip term_id="ConfigMap" >}} named `my-configmap`:
-
+Vous pouvez également faire référence à des ressources par leur nom pour certaines demandes par le biais de la liste `resourceNames`.
+Lorsque cela est spécifié, les demandes peuvent être limitées à des instances individuelles d'une ressource.
+Voici un exemple qui limite son sujet seulement à `get` ou `update` une
+{{< glossary_tooltip term_id="ConfigMap" >}} nommée `my-configmap`:
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -287,15 +283,15 @@ rules:
 ```
 
 {{< note >}}
-You cannot restrict `create` or `deletecollection` requests by their resource name.
-For `create`, this limitation is because the name of the new object may not be known at authorization time.
-If you restrict `list` or `watch` by resourceName, clients must include a `metadata.name` field selector in their `list` or `watch` request that matches the specified resourceName in order to be authorized.
-For example, `kubectl get configmaps --field-selector=metadata.name=my-configmap`
+Vous ne pouvez pas restreindre les demandes `create` ou `deletecollection` par leur nom de ressource.
+Pour `create`, cette limitation est due au fait que le nom du nouvel objet peut ne pas être connu au moment de l'autorisation.
+Si vous limitez `list` ou `watch` par le nom de la ressource, les clients doivent inclure un sélecteur de champ `metadata.name` dans leur demande de `list` ou `watch` qui correspond au nom de la ressource spécifiée afin d'être autorisés.
+Par exemple, `kubectl get configmaps --field-selector=metadata.name=my-configmap`
 {{< /note >}}
 
-Rather than referring to individual `resources` and `verbs` you can use the wildcard `*` symbol to refer to all such objects.
-For `nonResourceURLs` you can use the wildcard `*` symbol as a suffix glob match and for `apiGroups` and `resourceNames` an empty set means that everything is allowed.
-Here is an example that allows access to perform any current and future action on all current and future resources (note, this is similar to the built-in `cluster-admin` role).
+Plutôt que de faire référence à des `ressources` et des `verbes` individuels, vous pouvez utiliser le symbole astérisque `*` pour faire référence à tous ces objets.
+Pour les `nonResourceURLs`, vous pouvez utiliser le symbole astérisque `*` comme suffixe de correspondance glob et pour les `apiGroups` et les `resourceNames` un ensemble vide signifie que tout est autorisé. 
+Voici un exemple qui autorise l'accès pour effectuer toute action actuelle et future sur toutes les ressources actuelles et futures (remarque, ceci est similaire au rôle `cluster-admin` intégré).
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -310,9 +306,9 @@ rules:
 ```
 
 {{< caution >}}
-Using wildcards in resource and verb entries could result in overly permissive access being granted to sensitive resources.
-For instance, if a new resource type is added, or a new subresource is added, or a new custom verb is checked, the wildcard entry automatically grants access, which may be undesirable.
-The [principle of least privilege](/docs/concepts/security/rbac-good-practices/#least-privilege) should be employed, using specific resources and verbs to ensure only the permissions required for the workload to function correctly are applied. 
+L'utilisation d'astérisques dans les entrées de ressources et de verbes peut entraîner l'octroi d'un accès trop permissif à des ressources sensibles.
+Par exemple, si un nouveau type de ressource est ajouté, ou si une nouvelle sous-ressource est ajoutée, ou si un nouveau verbe personnalisé est coché, l'utilisation de l'astérisque accorde automatiquement l'accès, ce qui peut être indésirable.
+Le [principe du moindre privilège](/docs/concepts/security/rbac-good-practices/#least-privilege) doit être employé, en utilisant des ressources et des verbes spécifiques pour garantir que seules les autorisations nécessaires au bon fonctionnement de la charge de travail sont appliquées.
 {{< /caution >}}
 
 
