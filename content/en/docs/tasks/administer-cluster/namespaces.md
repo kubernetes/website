@@ -4,6 +4,7 @@ reviewers:
 - janetkuo
 title: Share a Cluster with Namespaces
 content_type: task
+weight: 340
 ---
 
 <!-- overview -->
