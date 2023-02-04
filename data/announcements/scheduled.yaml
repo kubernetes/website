@@ -130,3 +130,24 @@ announcements:
   message: |
     5 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
     October 24 - 28, 2022.
+
+- name: Katacoda removal
+  startTime: 2023-03-27T08:00:00
+  endTime: 2023-04-04T00:00:00
+  # CNCF stone gray on a very dark blue
+  #
+  # A pastel yellow for the banner title
+  style: >-
+    background: #181834;
+    color: rgb(229,229,229);
+  title: |
+    <span style="color: #d6d693;">Shutdown of interactive tutorials</span>
+  message: |
+    The interactive tutorials on the Kubernetes website are being shut down.
+    The Kubernetes project hopes to reinstate a similar interactive learning option in the long term future.
+
+    The shutdown follows O'Reilly Media's 2019 [acquisition](https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/) of Katacoda.
+    Kubernetes is grateful to O'Reilly and Katacoda for many years of helping
+    people take their first steps in learning Kubernetes.
+
+    The tutorials will cease to function after the 31<sup>st</sup> of March 2023.
