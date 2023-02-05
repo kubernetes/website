@@ -18,7 +18,7 @@ Kubernetes [v1.24のリリース](/releases/#release-v1-24)においてdockershi
 
 これが何を意味するかについては、ブログ記事[Don't Panic: Kubernetes and Docker](/ja/blog/2020/12/02/dont-panic-kubernetes-and-docker/)をご覧ください。
 
-[Check whether dockershim removal affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)をお読みいただくことで、
+[dockershim削除の影響範囲を確認する](/ja/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)をお読みいただくことで、
 dockershimの削除があなたやあなたの組織に与える影響をご判断いただけます。
 
 Kubernetes 1.24リリースに至るまでの間、Kubernetesコントリビューターはこの移行を円滑に行えるようにするために尽力してきました。
