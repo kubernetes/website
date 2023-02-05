@@ -384,21 +384,29 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
     <!-- 
     - **webhooks.rules.apiGroups** ([]string)
 
+      *Atomic: will be replaced during a merge*
+
       APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required. 
     -->
 
     - **webhooks.rules.apiGroups** ([]string)
 
+      *Atomic: 将在合并期间被替换*
+      
       apiGroups 是资源所属的 API 组列表。`*` 是所有组。
       如果存在 `*`，则列表的长度必须为 1。必需。
 
     <!-- 
     - **webhooks.rules.apiVersions** ([]string)
 
+      *Atomic: will be replaced during a merge*
+  
       APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required. 
     -->
 
     - **webhooks.rules.apiVersions** ([]string)
+
+      *Atomic: 将在合并期间被替换*
 
       apiVersions 是资源所属的 API 版本列表。`*` 是所有版本。
       如果存在 `*`，则列表的长度必须为 1。必需。
@@ -406,10 +414,14 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
     <!-- 
     - **webhooks.rules.operations** ([]string)
 
+      *Atomic: will be replaced during a merge*
+
       Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required. 
     -->
 
     - **webhooks.rules.operations** ([]string)
+
+      *Atomic: 将在合并期间被替换*
 
       operations 是准入 Webhook 所关心的操作 —— CREATE、UPDATE、DELETE、CONNECT
       或用来指代所有已知操作以及将来可能添加的准入操作的 `*`。
@@ -417,6 +429,8 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
 
     <!-- 
     - **webhooks.rules.resources** ([]string)
+
+      *Atomic: will be replaced during a merge*
 
       Resources is a list of resources this rule applies to.
       
@@ -428,6 +442,8 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
     -->
 
     - **webhooks.rules.resources** ([]string)
+
+      *Atomic: 将在合并期间被替换*
 
       resources 是此规则适用的资源列表。
 
