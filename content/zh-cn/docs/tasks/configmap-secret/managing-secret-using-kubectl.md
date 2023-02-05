@@ -38,7 +38,7 @@ the username and password needed to access a database.
 `Secret` 对象用来存储敏感数据，如 Pod 用于访问服务的凭据。例如，为访问数据库，你可能需要一个
 Secret 来存储所需的用户名及密码。
 
-<!-- 
+<!--
 You can create the Secret by passing the raw data in the command, or by storing
 the credentials in files that you pass in the command. The following commands
 create a Secret that stores the username `admin` and the password `S!B\*d$zDsb=`.
@@ -46,13 +46,13 @@ create a Secret that stores the username `admin` and the password `S!B\*d$zDsb=`
 你可以通过在命令中传递原始数据，或将凭据存储文件中，然后再在命令行中创建 Secret。以下命令
 将创建一个存储用户名 `admin` 和密码 `S!B\*d$zDsb=` 的 Secret。
 
-<!-- 
-### Use raw data 
+<!--
+### Use raw data
 -->
 ### 使用原始数据
 
-<!-- 
-Run the following command: 
+<!--
+Run the following command:
 -->
 执行以下命令：
 
@@ -62,21 +62,21 @@ kubectl create secret generic db-user-pass \
     --from-literal=password='S!B\*d$zDsb='
 ```
 
-<!-- 
+<!--
 You must use single quotes `''` to escape special characters such as `$`, `\`,
 `*`, `=`, and `!` in your strings. If you don't, your shell will interpret these
-characters. 
+characters.
 -->
 你必须使用单引号 `''` 转义字符串中的特殊字符，如 `$`、`\`、`*`、`=`和`!` 。否则，你的 shell
 将会解析这些字符。
 
-<!-- 
-### Use source files 
+<!--
+### Use source files
 -->
 ### 使用源文件
 
-<!-- 
-1.  Store the credentials in files: 
+<!--
+1. Store the credentials in files:
 -->
 1. 将凭据保存到文件：
 
@@ -85,19 +85,19 @@ characters.
    echo -n 'S!B\*d$zDsb=' > ./password.txt
    ```
 
-   <!-- 
-	 The `-n` flag ensures that the generated files do not have an extra newline
-	 character at the end of the text. This is important because when `kubectl`
-	 reads a file and encodes the content into a base64 string, the extra
-	 newline character gets encoded too. You do not need to escape special
-	 characters in strings that you include in a file. 
-	 -->
-	 `-n` 标志用来确保生成文件的文末没有多余的换行符。这很重要，因为当 `kubectl`
- 	 读取文件并将内容编码为 base64 字符串时，额外的换行符也会被编码。
-	 你不需要对文件中包含的字符串中的特殊字符进行转义。
+   <!--
+   The `-n` flag ensures that the generated files do not have an extra newline
+   character at the end of the text. This is important because when `kubectl`
+   reads a file and encodes the content into a base64 string, the extra
+   newline character gets encoded too. You do not need to escape special
+   characters in strings that you include in a file.
+   -->
+   `-n` 标志用来确保生成文件的文末没有多余的换行符。这很重要，因为当 `kubectl`
+   读取文件并将内容编码为 base64 字符串时，额外的换行符也会被编码。
+   你不需要对文件中包含的字符串中的特殊字符进行转义。
 
-<!-- 
-2.  Pass the file paths in the `kubectl` command: 
+<!--
+2. Pass the file paths in the `kubectl` command:
 -->
 2. 在 `kubectl` 命令中传递文件路径：
 
@@ -107,11 +107,11 @@ characters.
        --from-file=./password.txt
    ```
 
-   <!-- 
-	 The default key name is the file name. You can optionally set the key name
-	 using `--from-file=[key=]source`. For example: 
-	 -->
-	 默认键名为文件名。你也可以通过 `--from-file=[key=]source` 设置键名，例如：
+   <!--
+   The default key name is the file name. You can optionally set the key name
+   using `--from-file=[key=]source`. For example:
+    -->
+   默认键名为文件名。你也可以通过 `--from-file=[key=]source` 设置键名，例如：
 
    ```shell
    kubectl create secret generic db-user-pass \
@@ -119,8 +119,8 @@ characters.
        --from-file=password=./password.txt
    ```
 
-<!-- 
-With either method, the output is similar to: 
+<!--
+With either method, the output is similar to:
 -->
 无论使用哪种方法，输出都类似于：
 
@@ -128,13 +128,13 @@ With either method, the output is similar to:
 secret/db-user-pass created
 ```
 
-<!-- 
-### Verify the Secret {#verify-the-secret} 
+<!--
+### Verify the Secret {#verify-the-secret}
 -->
 ## 验证 Secret  {#verify-the-secret}
 
-<!-- 
-Check that the Secret was created: 
+<!--
+Check that the Secret was created:
 -->
 检查 Secret 是否已创建：
 
@@ -152,8 +152,8 @@ NAME              TYPE       DATA      AGE
 db-user-pass      Opaque     2         51s
 ```
 
-<!-- 
-View the details of the Secret: 
+<!--
+View the details of the Secret:
 -->
 查看 Secret 的细节：
 
@@ -161,8 +161,8 @@ View the details of the Secret:
 kubectl describe secret db-user-pass
 ```
 
-<!-- 
-The output is similar to: 
+<!--
+The output is similar to:
 -->
 输出类似于：
 
@@ -188,13 +188,13 @@ accidentally, or from being stored in a terminal log.
 `kubectl get` 和 `kubectl describe` 命令默认不显示 `Secret` 的内容。
 这是为了防止 `Secret` 被意外暴露或存储在终端日志中。
 
-<!-- 
-### Decode the Secret  {#decoding-secret} 
+<!--
+### Decode the Secret  {#decoding-secret}
 -->
 ### 解码 Secret  {#decoding-secret}
 
-<!-- 
-1.  View the contents of the Secret you created: 
+<!--
+1. View the contents of the Secret you created:
 -->
 1. 查看你所创建的 Secret 内容
 
@@ -208,7 +208,7 @@ accidentally, or from being stored in a terminal log.
    输出类似于：
 
    ```json
-   {"password":"UyFCXCpkJHpEc2I9","username":"YWRtaW4="}
+   { "password": "UyFCXCpkJHpEc2I9", "username": "YWRtaW4=" }
    ```
 
 <!--
@@ -230,7 +230,7 @@ accidentally, or from being stored in a terminal log.
    ```
 
    {{< caution >}}
-   <!-- 
+   <!--
    This is an example for documentation purposes. In practice,
    this method could cause the command with the encoded data to be stored in
    your shell history. Anyone with access to your computer could find the
@@ -246,15 +246,15 @@ accidentally, or from being stored in a terminal log.
    kubectl get secret db-user-pass -o jsonpath='{.data.password}' | base64 --decode
    ```
 
-<!-- 
-## Edit a Secret {#edit-secret} 
+<!--
+## Edit a Secret {#edit-secret}
 -->
 ## 编辑 Secret {#edit-secret}
 
-<!-- 
+<!--
 You can edit an existing `Secret` object unless it is
 [immutable](/docs/concepts/configuration/secret/#secret-immutable). To edit a
-Secret, run the following command: 
+Secret, run the following command:
 -->
 你可以编辑一个现存的 `Secret` 对象，除非它是[不可改变的](/zh-cn/docs/concepts/configuration/secret/#secret-immutable)。
 要想编辑一个 Secret，请执行以下命令：
@@ -263,9 +263,9 @@ Secret, run the following command:
 kubectl edit secrets <secret-name>
 ```
 
-<!-- 
+<!--
 This opens your default editor and allows you to update the base64 encoded
-Secret values in the `data` field, such as in the following example: 
+Secret values in the `data` field, such as in the following example:
 -->
 这将打开默认编辑器，并允许你更新 `data` 字段中的 base64 编码的 Secret 值，示例如下：
 
@@ -294,13 +294,13 @@ metadata:
 type: Opaque
 ```
 
-<!-- 
-## Clean up 
+<!--
+## Clean up
 -->
 ## 清理    {#clean-up}
 
-<!-- 
-To delete a Secret, run the following command: 
+<!--
+To delete a Secret, run the following command:
 -->
 要想删除一个 Secret，请执行以下命令：
 
