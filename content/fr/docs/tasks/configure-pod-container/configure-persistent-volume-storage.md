@@ -36,16 +36,18 @@ can open a shell to your Node by entering `minikube ssh`.
 
 In your shell on that Node, create a `/mnt/data` directory:
 
+Ouvrez une session shell sur le noeud de votre cluster. La facon d'ouvrir 
+la session va dependre de la configuration de votre cluster. Si vous utilisez Minikube,
+vous pouvez ouvrir une session via la commande `minikube ssh`.
+
 ```shell
-# This assumes that your Node uses "sudo" to run commands
-# as the superuser
+# En supposant que votre noeud utilise `sudo` pour les acces privilegies
 sudo mkdir /mnt/data
 ```
 
 Dans le dossier `/mnt/data`, creez un fichier `index.html`:  
 ```shell
-# This again assumes that your Node uses "sudo" to run commands
-# as the superuser
+# En supposant toujours que votre noeud utilise `sudo` pour les acces privilegies
 sudo sh -c "echo 'Hello from Kubernetes storage' > /mnt/data/index.html"
 ```
 
@@ -67,19 +69,18 @@ Vous pouvez maintenant fermer l'acces shell a votre Noeud.
 
 ## Creer un PersistentVolume
 
-In this exercise, you create a *hostPath* PersistentVolume. Kubernetes supports
-hostPath for development and testing on a single-node cluster. A hostPath
-PersistentVolume uses a file or directory on the Node to emulate network-attached storage.
+Dans cet exercice, vous allez créer un PersistentVolume de type *hostpath*. Prise en charge de Kubernetes
+hostPath pour le développement et les tests sur un cluster à nœud unique. Un hostPath
+PersistentVolume utilise un fichier ou un répertoire sur le nœud pour émuler le stockage en réseau.
 
-In a production cluster, you would not use hostPath. Instead a cluster administrator
-would provision a network resource like a Google Compute Engine persistent disk,
-an NFS share, or an Amazon Elastic Block Store volume. Cluster administrators can also
-use [StorageClasses](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageclass-v1-storage-k8s-io)
-to set up
-[dynamic provisioning](/docs/concepts/storage/dynamic-provisioning/).
+Dans un cluster de production, vous n'utiliseriez pas le type *hostPath*. Communement, un administrateur de cluster
+provisionnerait une ressource réseau comme un disque persistant Google Compute Engine,
+un partage NFS ou un volume Amazon Elastic Block Store. Les administrateurs de cluster peuvent également
+utiliser les [StorageClasses](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageclass-v1-storage-k8s-io)
+pour parametrer du 
+[provisioning dynamique](/docs/concepts/storage/dynamic-provisioning/).
 
-Here is the configuration file for the hostPath PersistentVolume:
-
+Voici le fichier de configuration pour le PersitentVolume de type hostPath:
 {{< codenew file="pods/storage/pv-volume.yaml" >}}
 
 The configuration file specifies that the volume is at `/mnt/data` on the
@@ -89,25 +90,25 @@ read-write by a single Node. It defines the [StorageClass name](/docs/concepts/s
 `manual` for the PersistentVolume, which will be used to bind
 PersistentVolumeClaim requests to this PersistentVolume.
 
-Create the PersistentVolume:
+Creez le PersistentVolume:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/storage/pv-volume.yaml
 ```
 
-View information about the PersistentVolume:
+Afficher les informations du PersistentVolume:
 
 ```shell
 kubectl get pv task-pv-volume
 ```
 
-The output shows that the PersistentVolume has a `STATUS` of `Available`. This
-means it has not yet been bound to a PersistentVolumeClaim.
+Le resultat affiche que le PersitentVolume a un `STATUS` de `Available`.
+Cela signifie qu'il n'a pas encore ete attache a un  PersistentVolumeClaim.
 
     NAME             CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS      CLAIM     STORAGECLASS   REASON    AGE
     task-pv-volume   10Gi       RWO           Retain          Available             manual                   4s
 
-## Create a PersistentVolumeClaim
+## Creer un PersistentVolumeClaim
 
 The next step is to create a PersistentVolumeClaim. Pods use PersistentVolumeClaims
 to request physical storage. In this exercise, you create a PersistentVolumeClaim
@@ -133,7 +134,7 @@ Look again at the PersistentVolume:
 kubectl get pv task-pv-volume
 ```
 
-Now the output shows a `STATUS` of `Bound`.
+Maintenant, le resultat affiche un `STATUS` a `Bound`.
 
     NAME             CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS    CLAIM                   STORAGECLASS   REASON    AGE
     task-pv-volume   10Gi       RWO           Retain          Bound     default/task-pv-claim   manual                   2m
@@ -144,17 +145,17 @@ Look at the PersistentVolumeClaim:
 kubectl get pvc task-pv-claim
 ```
 
-The output shows that the PersistentVolumeClaim is bound to your PersistentVolume,
+Le resultat montre que le PersistentVolumeClaim est attache au PersistentVolume
 `task-pv-volume`.
 
     NAME            STATUS    VOLUME           CAPACITY   ACCESSMODES   STORAGECLASS   AGE
     task-pv-claim   Bound     task-pv-volume   10Gi       RWO           manual         30s
 
-## Create a Pod
+## Creer un Pod
 
-The next step is to create a Pod that uses your PersistentVolumeClaim as a volume.
+La prochaine etape est de creer un Pod qui utilise le PersistentVolumeClaim comme volume de stockage.
 
-Here is the configuration file for the Pod:
+Voici le fichier de configuration du Pod:
 
 {{< codenew file="pods/storage/pv-pod.yaml" >}}
 
@@ -162,30 +163,26 @@ Notice that the Pod's configuration file specifies a PersistentVolumeClaim, but
 it does not specify a PersistentVolume. From the Pod's point of view, the claim
 is a volume.
 
-Create the Pod:
+Creez le Pod:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/pods/storage/pv-pod.yaml
 ```
 
-Verify that the container in the Pod is running;
-
+Verifiez que le container dans le Pod est operationnel:
 ```shell
 kubectl get pod task-pv-pod
 ```
 
-Get a shell to the container running in your Pod:
-
+Lancez un shell dans le container du Pod:
 ```shell
 kubectl exec -it task-pv-pod -- /bin/bash
 ```
 
-In your shell, verify that nginx is serving the `index.html` file from the
-hostPath volume:
-
+Depuis le shell, verifiez que nginx utilise le fichier `index.html` du volume hosPath:
 ```shell
-# Be sure to run these 3 commands inside the root shell that comes from
-# running "kubectl exec" in the previous step
+# Assurez vouys de lancer ces 3 commandes dans le shell qui provient de 
+# la commande "kubectl exec" executee precedemment
 apt update
 apt install curl
 curl http://localhost/
@@ -200,10 +197,9 @@ hostPath volume:
 If you see that message, you have successfully configured a Pod to
 use storage from a PersistentVolumeClaim.
 
-## Clean up
+## Nettoyage
 
-Delete the Pod,  the PersistentVolumeClaim and the PersistentVolume:
-
+Supprimez le Pod, the PersistentVolumeClaim et le PersistentVolume:
 ```shell
 kubectl delete pod task-pv-pod
 kubectl delete pvc task-pv-claim
@@ -222,7 +218,7 @@ sudo rm /mnt/data/index.html
 sudo rmdir /mnt/data
 ```
 
-You can now close the shell to your Node.
+Vous pouvez maintenant clore la session shell vers votre noeud.
 
 ## Mounting the same persistentVolume in two places
 
@@ -237,8 +233,10 @@ You can perform 2 volume mounts on your nginx container:
 
 ## Access control
 
-Storage configured with a group ID (GID) allows writing only by Pods using the same
-GID. Mismatched or missing GIDs cause permission denied errors. To reduce the
+Le stockage configure avec un ID de groupe (GID) ne permettra l'ecriture que par les Pods
+qui utilisent le meme GID. 
+
+Mismatched or missing GIDs cause permission denied errors. To reduce the
 need for coordination with users, an administrator can annotate a PersistentVolume
 with a GID. Then the GID is automatically added to any Pod that uses the
 PersistentVolume.
@@ -252,6 +250,7 @@ metadata:
   annotations:
     pv.beta.kubernetes.io/gid: "1234"
 ```
+
 When a Pod consumes a PersistentVolume that has a GID annotation, the annotated GID
 is applied to all containers in the Pod in the same way that GIDs specified in the
 Pod's security context are. Every GID, whether it originates from a PersistentVolume
@@ -272,7 +271,7 @@ PersistentVolume are not present on the Pod resource itself.
 * Pour en savoir plus sur les [PersistentVolumes](/docs/concepts/storage/persistent-volumes/).
 * Lire la [documentation de conception sur le stockage persistant](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
 
-### Reference
+### References
 
 * [PersistentVolume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolume-v1-core)
 * [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumespec-v1-core)
