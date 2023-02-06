@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "k8s.gcr.io image registry will be frozen from the 3rd of April 2023"
+title: "k8s.gcr.io Image Registry Will Be Frozen From the 3rd of April 2023"
 date: 2023-02-06T17:00:00
 slug: k8s-gcr-io-freeze-announcement
 ---
