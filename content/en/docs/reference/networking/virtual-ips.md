@@ -6,7 +6,8 @@ weight: 50
 
 <!-- overview -->
 Every {{< glossary_tooltip term_id="node" text="node" >}} in a Kubernetes
-cluster runs a [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)
+{{< glossary_tooltip term_id="cluster" text="cluster" >}} runs a
+[kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)
 (unless you have deployed your own alternative component in place of `kube-proxy`).
 
 The `kube-proxy` component is responsible for implementing a _virtual IP_
@@ -39,8 +40,10 @@ network proxying service on a computer.  Although the `kube-proxy` executable su
 to use as-is.
 
 <a id="example"></a>
-Some of the details in this reference refer to an example: the backend Pods for a stateless
-image-processing workload, running with three replicas. Those replicas are
+Some of the details in this reference refer to an example: the backend
+{{< glossary_tooltip term_id="pod" text="Pods" >}} for a stateless
+image-processing {{< glossary_tooltip term_id="workloads" text="workload," >}} running with
+three replicas. Those replicas are
 fungible&mdash;frontends do not care which backend they use.  While the actual Pods that
 compose the backend set may change, the frontend clients should not need to be aware of that,
 nor should they need to keep track of the set of backends themselves.
@@ -61,8 +64,10 @@ Note that the kube-proxy starts up in different modes, which are determined by i
 
 ### `iptables` proxy mode {#proxy-mode-iptables}
 
-In this mode, kube-proxy watches the Kubernetes control plane for the addition and
-removal of Service and EndpointSlice objects. For each Service, it installs
+In this mode, kube-proxy watches the Kubernetes
+{{< glossary_tooltip term_id="control-plane" text="control plane" >}} for the addition and
+removal of Service and EndpointSlice {{< glossary_tooltip term_id="object" text="objects." >}}
+For each Service, it installs
 iptables rules, which capture traffic to the Service's `clusterIP` and `port`,
 and redirect that traffic to one of the Service's
 backend sets. For each endpoint, it installs iptables rules which
@@ -134,11 +139,13 @@ attempts to resynchronize iptables rules with the kernel. If it is
 every time any Service or Endpoint changes. This works fine in very
 small clusters, but it results in a lot of redundant work when lots of
 things change in a small time period. For example, if you have a
-Service backed by a Deployment with 100 pods, and you delete the
+Service backed by a {{< glossary_tooltip term_id="deployment" text="Deployment" >}}
+with 100 pods, and you delete the
 Deployment, then with `minSyncPeriod: 0s`, kube-proxy would end up
 removing the Service's Endpoints from the iptables rules one by one,
 for a total of 100 updates. With a larger `minSyncPeriod`, multiple
-Pod deletion events would get aggregated together, so kube-proxy might
+Pod deletion {{< glossary_tooltip term_id="event" text="events" >}} would get aggregated
+together, so kube-proxy might
 instead end up making, say, 5 updates, each removing 20 endpoints,
 which will be much more efficient in terms of CPU, and result in the
 full set of changes being synchronized faster.
@@ -182,7 +189,8 @@ enable the `MinimizeIPTablesRestore` [feature
 gate](/docs/reference/command-line-tools-reference/feature-gates/) for
 kube-proxy with `--feature-gates=MinimizeIPTablesRestore=true,…`.
 
-If you enable that feature gate and you were previously overriding
+If you enable that {{< glossary_tooltip term_id="feature-gate" text="feature gate" >}} and
+you were previously overriding
 `minSyncPeriod`, you should try removing that override and letting
 kube-proxy use the default value (`1s`) or at least a smaller value
 than you were using before.
@@ -274,7 +282,7 @@ someone else's choice.  That is an isolation failure.
 In order to allow you to choose a port number for your Services, we must
 ensure that no two Services can collide. Kubernetes does that by allocating each
 Service its own IP address from within the `service-cluster-ip-range`
-CIDR range that is configured for the API server.
+CIDR range that is configured for the {{< glossary_tooltip term_id="kube-apiserver" text="API Server." >}}
 
 To ensure each Service receives a unique IP, an internal allocator atomically
 updates a global allocation map in {{< glossary_tooltip term_id="etcd" >}}
@@ -353,7 +361,8 @@ N to 0 replicas of that deployment. In some cases, external load balancers can s
 a node with 0 replicas in between health check probes. Routing traffic to terminating endpoints
 ensures that Node's that are scaling down Pods can gracefully receive and drain traffic to
 those terminating Pods. By the time the Pod completes termination, the external load balancer
-should have seen the node's health check failing and fully removed the node from the backend pool.
+should have seen the node's health check failing and fully removed the node from the backend
+pool.
 
 ## {{% heading "whatsnext" %}}
 
