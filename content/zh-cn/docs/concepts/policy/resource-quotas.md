@@ -79,7 +79,7 @@ You can use a [LimitRange](/docs/concepts/policy/limit-range/) to automatically 
 a default request for these resources.
 -->
 - 对于 `cpu` 和 `memory` 资源：ResourceQuota 强制该命名空间中的每个（新）Pod 为该资源设置限制。
-  如果你在命名空间中为 `cpu` 和 `memory` 制实施资源配额，
+  如果你在命名空间中为 `cpu` 和 `memory` 实施资源配额，
   你或其他客户端**必须**为你提交的每个新 Pod 指定该资源的 `requests` 或 `limits`。
   否则，控制平面可能会拒绝接纳该 Pod。
 - 对于其他资源：ResourceQuota 可以工作，并且会忽略命名空间中的 Pod，而无需为该资源设置限制或请求。
