@@ -265,7 +265,7 @@ parameters:
   fsType: ext4
 ```
 
-* `type`: `io1`, `gp2`, `sc1`, `st1`. See
+* `type`: `io1`, `gp2`, `sc1`, `st1`, `gp3`. See
   [AWS docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)
   for details. Default: `gp2`.
 * `zone` (Deprecated): AWS zone. If neither `zone` nor `zones` is specified, volumes are
