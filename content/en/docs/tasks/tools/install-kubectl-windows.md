@@ -72,6 +72,12 @@ The following methods exist for installing kubectl on Windows:
    kubectl version --client --output=yaml
    ```
 
+1. After installing the plugin, clean up the installation files:
+
+   ```bash
+   del kubectl.exe kubectl.exe.sha256
+   ```
+
 {{< note >}}
 [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes) adds its own version of `kubectl` to `PATH`.
 If you have installed Docker Desktop before, you may need to place your `PATH` entry before the one added by the Docker Desktop installer or remove the Docker Desktop's `kubectl`.
@@ -190,6 +196,12 @@ Below are the procedures to set up autocompletion for PowerShell.
    ```
 
    If you do not see an error, it means the plugin is successfully installed.
+
+1. After installing the plugin, clean up the installation files:
+
+   ```bash
+   del kubectl-convert.exe kubectl-convert.exe.sha256
+   ```
 
 ## {{% heading "whatsnext" %}}
 
