@@ -605,7 +605,7 @@ webhooks:
   - operations: ["CREATE"]
     apiGroups: ["*"]
     apiVersions: ["*"]
-    resources: ["*"]
+    resources: ["*/*"]
     scope: "*"
 ```
 
