@@ -85,7 +85,7 @@ CPU limit or a CPU request.
 Containers in a Pod can request other resources (not CPU or memory) and still be classified as
 `BestEffort`.
 
-### Some behavior is independent of QoS class
+## Some behavior is independent of QoS class {#class-independent-behavior}
 
 Certain behavior is independent of the QoS class assigned by Kubernetes. For example:
 
