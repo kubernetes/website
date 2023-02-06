@@ -65,7 +65,7 @@ Vous pouvez maintenant fermer l'accès shell à votre Noeud.
 
 ## Créer un PersistentVolume
 
-Dans cet exercice, vous allez créer un PersistentVolume de type *hostpath*. Kubernetes prend en charge le type hostPath pour le développement et les tests sur un cluster à noeud unique. Un PersistentVolume de type hostPath utilise un fichier ou un répertoire sur le noeud pour simuler un stockage réseau.
+Dans cet exercice, vous allez créer un PersistentVolume de type *hostpath*. Kubernetes prend en charge le type hostPath pour le développement et les tests sur un cluster à noeud unique. Un PersistentVolume de type hostPath utilise un fichier ou un dossier sur le noeud pour simuler un stockage réseau.
 
 Dans un cluster de production, vous n'utiliseriez pas le type *hostPath*. Plus communément, un administrateur de cluster
 provisionnerait une ressource réseau comme un disque persistant Google Compute Engine,
@@ -74,7 +74,7 @@ utiliser les [StorageClasses](/docs/reference/generated/kubernetes-api/{{< param
 pour paramétrer du 
 [provisioning dynamique](/docs/concepts/storage/dynamic-provisioning/).
 
-Voici le fichier de configuration pour le PersitentVolume de type hostPath:
+Voici le fichier de configuration pour le PersistentVolume de type hostPath:
 {{< codenew file="pods/storage/pv-volume.yaml" >}}
 
 Le fichier de configuration spécifie que le chemin du volume sur le noeud est `/mnt/data`. Il spécifie aussi une taille de 10 gibibytes, ainsi qu'un mode d'accès de type `ReadWriteOnce`, impliquant que le volume ne peut être monté en lecture et écriture que par un seul noeud. Le fichier définit un [nom de StorageClass](/docs/concepts/storage/persistent-volumes/#class) à `manual`, ce qui sera utilisé pour attacher un PersistentVolumeClaim à ce PersistentVolume
@@ -202,19 +202,14 @@ Vous pouvez monter plusieurs fois un même PersistentVolume
 
 {{< codenew file="pods/storage/pv-duplicate.yaml" >}}
 
-`/usr/share/nginx/html` pour le site statique
-`/etc/nginx/nginx.conf` pour la configuration par défaut
+- `/usr/share/nginx/html` pour le site statique
+- `/etc/nginx/nginx.conf` pour la configuration par défaut
 
 <!-- discussion -->
 
 ## Contrôle d'accès
 
-Le stockage configuré avec un ID de groupe (GID) ne permettra l'écriture que par les Pods qui utilisent le même GID. 
-
-Mismatched or missing GIDs cause permission denied errors. To reduce the
-need for coordination with users, an administrator can annotate a PersistentVolume
-with a GID. Then the GID is automatically added to any Pod that uses the
-PersistentVolume.
+Le stockage configuré avec un ID de groupe (GID) ne permettra l'écriture que par les Pods qui utilisent le même GID.
 
 Les GID manquants ou qui ne correspondent pas entraîneront des erreurs d'autorisation refusée. Pour alléger la coordination avec les utilisateurs, un administrateur peut annoter un PersistentVolume
 avec un GID. Ensuite, le GID sera automatiquement ajouté à tout pod qui utilise le PersistentVolume.
