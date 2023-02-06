@@ -231,11 +231,18 @@ status:
   qosClass: Burstable
 ```
 
-Delete your Pod:
+## Retrieve the QoS class for a Pod
 
-```shell
-kubectl delete pod qos-demo-4 --namespace=qos-example
+Rather than see all the fields, you can view just the field you need:
+
+```bash
+kubectl --namespace=qos-example get pod qos-demo-4 -o jsonpath='{ .status.qosClass}{"\n"}'
 ```
+
+```none
+Burstable
+```
+
 
 ## Clean up
 
