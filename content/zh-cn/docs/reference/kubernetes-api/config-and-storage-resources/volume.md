@@ -1136,47 +1136,6 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#gcepersistentdisk
 
 <!--
-- **glusterfs** (GlusterfsVolumeSource)
-  glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
-
-  <a name="GlusterfsVolumeSource"></a>
-  *Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.*
--->
-- **glusterfs** (GlusterfsVolumeSource)
-  
-  glusterfs 表示在与 Pod 共享生命周期的主机上挂载的 Glusterfs。更多信息：
-  https://examples.k8s.io/volumes/glusterfs/README.md
-  
-  <a name="GlusterfsVolumeSource"></a> 
-  **表示在 Pod 的生命周期内持续的 Glusterfs 挂载。glusterfs 卷不支持所有权管理或 SELinux 重新打标签。**
-  
-  <!--
-  - **glusterfs.endpoints** (string), required
-    endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-
-  - **glusterfs.path** (string), required
-    path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-
-  - **glusterfs.readOnly** (boolean)
-    readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-  -->
-
-  - **glusterfs.endpoints** (string)，必需
-    
-    endpoints 是详细说明 Glusterfs 拓扑的端点名称。更多信息：
-    https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-  
-  - **glusterfs.path** (string)，必需
-    
-    path 是 Glusterfs 卷路径。更多信息：
-    https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-  
-  - **glusterfs.readOnly** (boolean)
-    
-    此处 readOnly 将强制使用只读权限挂载 Glusterfs 卷。默认为 false。更多信息：
-    https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-
-<!--
 - **iscsi** (ISCSIVolumeSource)
   iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md
 

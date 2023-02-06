@@ -1338,6 +1338,56 @@ serves the following additional paths at its HTTP[S] ports.
   system,            system-nodes,   12,         1,                   system:node:127.0.0.1, 2020-07-23T15:31:03.594555947Z, system:node:127.0.0.1, create, /api/v1/namespaces/scaletest/configmaps,
   ```
 
+<!--
+### Debug logging
+
+At `-v=3` or more verbose the server outputs an httplog line for every
+request, and it includes the following attributes.
+-->
+### 调试日志生成行为  {#debug-logging}
+
+在 `-v=3` 或更详细的情况下，服务器会为每个请求输出一行 httplog，它包括以下属性。
+
+<!--
+- `apf_fs`: the name of the flow schema to which the request was classified.
+- `apf_pl`: the name of the priority level for that flow schema.
+- `apf_iseats`: the number of seats determined for the initial
+  (normal) stage of execution of the request.
+- `apf_fseats`: the number of seats determined for the final stage of
+  execution (accounting for the associated WATCH notifications) of the
+  request.
+- `apf_additionalLatency`: the duration of the final stage of
+  execution of the request.
+-->
+- `apf_fs`：请求被分类到的 FlowSchema 的名称。
+- `apf_pl`：该 FlowSchema 的优先级名称。
+- `apf_iseats`：为请求执行的初始（正常）阶段确定的席位数量。
+- `apf_fseats`：为请求的最后执行阶段（考虑关联的 WATCH 通知）确定的席位数量。
+- `apf_additionalLatency`：请求执行最后阶段的持续时间。
+
+<!--
+At higher levels of verbosity there will be log lines exposing details
+of how APF handled the request, primarily for debug purposes.
+-->
+在更高级别的精细度下，将有日志行揭示 APF 如何处理请求的详细信息，主要用于调试目的。
+
+<!--
+### Response headers
+
+APF adds the following two headers to each HTTP response message.
+
+- `X-Kubernetes-PF-FlowSchema-UID` holds the UID of the FlowSchema
+  object to which the corresponding request was classified.
+- `X-Kubernetes-PF-PriorityLevel-UID` holds the UID of the
+  PriorityLevelConfiguration object associated with that FlowSchema.
+-->
+### 响应头  {#response-headers}
+
+APF 将以下两个头添加到每个 HTTP 响应消息中。
+
+- `X-Kubernetes-PF-FlowSchema-UID` 保存相应请求被分类到的 FlowSchema 对象的 UID。
+- `X-Kubernetes-PF-PriorityLevel-UID` 保存与该 FlowSchema 关联的 PriorityLevelConfiguration 对象的 UID。
+
 ## {{% heading "whatsnext" %}}
 
 <!--
