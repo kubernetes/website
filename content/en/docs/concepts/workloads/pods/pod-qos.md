@@ -1,7 +1,7 @@
 ---
 title: Pod Quality of Service Classes
 content_type: concept
-weight: 30
+weight: 85
 ---
 
 <!-- overview -->
