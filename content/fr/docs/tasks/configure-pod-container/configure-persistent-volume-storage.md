@@ -100,7 +100,7 @@ Cela signifie qu'il n'a pas encore été attaché à un PersistentVolumeClaim.
 ## Créer un PersistentVolumeClaim
 
 La prochaine étape est de créer un PersistentVolumeClaim (demande de stockage). Les Pods utilisent les PersistentVolumeClaims pour demander un accès à du stockage physique. 
-Dans cet exercice, vous créez un PersistentVolumeClaim qui demande un volume d'au moins 3 gibibytes, et qui peut être monté en lecture et écriture sur au moins un noeud. 
+Dans cet exercice, vous créez un PersistentVolumeClaim qui demande un volume d'au moins 3 GB, et qui peut être monté en lecture et écriture sur au moins un noeud. 
 
 Voici le fichier de configuration du PersistentVolumeClaim:
 {{< codenew file="pods/storage/pv-claim.yaml" >}}
