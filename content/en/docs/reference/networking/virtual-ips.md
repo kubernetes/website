@@ -42,7 +42,7 @@ to use as-is.
 <a id="example"></a>
 Some of the details in this reference refer to an example: the backend
 {{< glossary_tooltip term_id="pod" text="Pods" >}} for a stateless
-image-processing {{< glossary_tooltip term_id="workloads" text="workload," >}} running with
+image-processing workloads, running with
 three replicas. Those replicas are
 fungible&mdash;frontends do not care which backend they use.  While the actual Pods that
 compose the backend set may change, the frontend clients should not need to be aware of that,
@@ -189,7 +189,7 @@ enable the `MinimizeIPTablesRestore` [feature
 gate](/docs/reference/command-line-tools-reference/feature-gates/) for
 kube-proxy with `--feature-gates=MinimizeIPTablesRestore=true,…`.
 
-If you enable that {{< glossary_tooltip term_id="feature-gate" text="feature gate" >}} and
+If you enable that feature gate and
 you were previously overriding
 `minSyncPeriod`, you should try removing that override and letting
 kube-proxy use the default value (`1s`) or at least a smaller value
