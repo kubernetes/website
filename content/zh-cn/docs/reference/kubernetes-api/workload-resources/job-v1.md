@@ -264,7 +264,8 @@ JobSpec 描述了任务执行的情况。
     <!--
     - **podFailurePolicy.rules.action** (string), required
 
-      Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are: - FailJob: indicates that the pod's job is marked as Failed and all
+      Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
+      - FailJob: indicates that the pod's job is marked as Failed and all
         running pods are terminated.
     -->
 
@@ -351,7 +352,8 @@ JobSpec 描述了任务执行的情况。
       <!--
       - **podFailurePolicy.rules.onExitCodes.operator** (string), required
 
-        Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are: - In: the requirement is satisfied if at least one container exit code
+        Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are:
+        - In: the requirement is satisfied if at least one container exit code
           (might be multiple if there are multiple containers not restricted
           by the 'containerName' field) is in the set of specified values.
         - NotIn: the requirement is satisfied if at least one container exit code
@@ -583,12 +585,11 @@ JobStatus 表示 Job 的当前状态。
   （1）将 Pod UID 添加到此字段的列表中。（2）去掉 Pod 中的终结器。（3）从数组中删除 Pod UID，同时为相应的计数器加一。
 
   <!--
-  This field is beta-level. The job controller only makes use of this field when the feature gate JobTrackingWithFinalizers is enabled (enabled by default). Old jobs might not be tracked using this field, in which case the field remains null.
+  Old jobs might not be tracked using this field, in which case the field remains null.
 
   <a name="UncountedTerminatedPods"></a>
   *UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.*
   -->
-  此字段为 Beta 级别。任务控制器仅在启用特性门控 JobTrackingWithFinalizers 时使用此字段（默认启用）。
   使用此字段可能无法跟踪旧任务，在这种情况下，该字段保持为空。
 
   <a name="UncountedTerminatedPods"></a>
