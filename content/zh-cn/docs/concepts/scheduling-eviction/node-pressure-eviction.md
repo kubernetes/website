@@ -238,7 +238,7 @@ the kubelet uses the lesser of the two grace periods. If you do not specify a
 maximum allowed grace period, the kubelet kills evicted pods immediately without
 graceful termination.
 -->
-你可以既指定软驱逐条件宽限期，又指定 Pod 终止宽限期的上限，，给 kubelet 在驱逐期间使用。
+你可以既指定软驱逐条件宽限期，又指定 Pod 终止宽限期的上限，给 kubelet 在驱逐期间使用。
 如果你指定了宽限期的上限并且 Pod 满足软驱逐阈条件，则 kubelet 将使用两个宽限期中的较小者。
 如果你没有指定宽限期上限，kubelet 会立即杀死被驱逐的 Pod，不允许其体面终止。
 
