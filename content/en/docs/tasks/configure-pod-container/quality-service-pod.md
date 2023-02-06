@@ -97,6 +97,9 @@ CPU limit, but does not specify a CPU request, Kubernetes automatically assigns 
 the limit.
 {{< /note >}}
 
+<!-- 4th level heading to suppress entry in nav -->
+#### Clean up {#clean-up-guaranteed}
+
 Delete your Pod:
 
 ```shell
@@ -145,6 +148,9 @@ status:
   qosClass: Burstable
 ```
 
+<!-- 4th level heading to suppress entry in nav -->
+#### Clean up {#clean-up-burstable}
+
 Delete your Pod:
 
 ```shell
@@ -184,6 +190,9 @@ spec:
 status:
   qosClass: BestEffort
 ```
+
+<!-- 4th level heading to suppress entry in nav -->
+#### Clean up {#clean-up-besteffort}
 
 Delete your Pod:
 
