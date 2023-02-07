@@ -383,7 +383,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   to see the requesting subject's authentication information.
   See [API access to authentication information for a client](/docs/reference/access-authn-authz/authentication/#self-subject-review)
   for more details.
-- `APIServerIdentity`: Assign each API server an ID in a cluster.
+- `APIServerIdentity`: Assign each API server an ID in a cluster, using a [Lease](/docs/concepts/architecture/leases).
 - `APIServerTracing`: Add support for distributed tracing in the API server.
   See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/system-traces) for more details.
 - `AdvancedAuditing`: Enable [advanced auditing](/docs/tasks/debug/debug-cluster/audit/#advanced-audit)
