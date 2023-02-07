@@ -28,7 +28,7 @@ A _Pod_ (as in a pod of whales or pea pod) is a group of one or more
 {{< glossary_tooltip text="containers" term_id="container" >}}, with shared storage and network resources, and a specification for how to run the containers. A Pod's contents are always co-located and
 co-scheduled, and run in a shared context. A Pod models an
 application-specific "logical host": it contains one or more application
-containers which are relatively tightly coupled. 
+containers which are relatively tightly coupled.
 In non-cloud contexts, applications executed on the same physical or virtual machine are analogous to cloud applications executed on the same logical host.
 -->
 **Pod** 是可以在 Kubernetes 中创建和管理的、最小的可部署的计算单元。
@@ -116,10 +116,9 @@ Pod 通常不是直接创建的，而是使用工作负载资源创建的。
 ### 用于管理 pod 的工作负载资源   {#workload-resources-for-managing-pods}
 
 <!--
-Usually you don't need to create Pods directly, even singleton Pods. 
-Instead, create them using workload resources such as {{< glossary_tooltip text="Deployment"
+Usually you don't need to create Pods directly, even singleton Pods. Instead, create them using workload resources such as {{< glossary_tooltip text="Deployment"
 term_id="deployment" >}} or {{< glossary_tooltip text="Job" term_id="job" >}}.
-If your Pods need to track state, consider the 
+If your Pods need to track state, consider the
 {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} resource.
 
 Pods in a Kubernetes cluster are used in two main ways:
@@ -538,23 +537,23 @@ Pod 中的容器所看到的系统主机名与为 Pod 配置的 `name` 属性值
 <!--
 ## Privileged mode for containers
 -->
-## 容器的特权模式     {#privileged-mode-for-containers}
+## 容器的特权模式  {#privileged-mode-for-containers}
 
 {{< note >}}
-<!--
-Your {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}} must support the concept of a privileged container for this setting to be relevant.
--->
-你的{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}必须支持特权容器的概念才能使用这一配置。
+<!-- Your -->
+你的{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}
+<!-- must support the concept of a privileged container for this setting to be relevant. -->
+必须支持特权容器才能使用这一配置。
 {{< /note >}}
 
 <!--
 Any container in a pod can run in privileged mode to use operating system administrative capabilities
 that would otherwise be inaccessible. This is available for both Windows and Linux.
 -->
-Pod 中的所有容器都可以在特权模式下运行，以使用原本无法访问的操作系统管理权能。
-此模式同时适用于 Windows 和 Linux。
+Pod 中的所有容器都可以在特权模式下使用操作系统管理功能，
+这些管理能力在其他情况下是无法访问的。这适用于 Windows 和 Linux。
 
-<!--
+<!-- 
 ### Linux priviledged containers
 
 In Linux, any container in a Pod can enable privileged mode using the `privileged` (Linux) flag
@@ -562,17 +561,20 @@ on the [security context](/docs/tasks/configure-pod-container/security-context/)
 container spec. This is useful for containers that want to use operating system administrative
 capabilities such as manipulating the network stack or accessing hardware devices.
 -->
-### Linux 特权容器   {#linux-priviledged-containers}
+### Linux 特权容器    {#linux-priviledged-containers}
 
 在 Linux 中，Pod 中的所有容器都可以使用容器规约中的
 [安全性上下文](/zh-cn/docs/tasks/configure-pod-container/security-context/)中的
 `privileged`（Linux）参数启用特权模式。
 这对于想要使用操作系统管理权能（Capabilities，如操纵网络堆栈和访问硬件设备）的容器很有用。
 
-<!--
+
+<!-- 
 ### Windows priviledged containers
+
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 -->
-### Windows 特权容器   {#windows-priviledged-containers}
+### Windows 特权容器 {#windows-priviledged-containers}
 
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
@@ -581,14 +583,14 @@ In Windows, you can create a [Windows HostProcess pod](/docs/tasks/configure-pod
 by setting the `windowsOptions.hostProcess` flag on the security context of the pod spec. All containers in these
 pods must run as Windows HostProcess containers. HostProcess pods run directly on the host and can also be used
 to perform administrative tasks as is done with Linux privileged containers. In order to use this feature, the
-`WindowsHostProcessContainers` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled.
+`WindowsHostProcessContainers`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled.
 -->
-在 Windows 中，你可以使用 Pod 规约中安全上下文的 `windowsOptions.hostProcess` 参数来创建
-[Windows HostProcess Pod](/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod/)。
-这些 Pod 中的所有容器都必须以 Windows HostProcess 容器方式运行。
-HostProcess Pod 可以直接运行在主机上，它也能像 Linux 特权容器一样，用于执行管理任务。
-想要使用此特性，`WindowsHostProcessContainers`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)必须被启用。
+在 Windows 中，你可以使用 Pod 规约中安全上下文的 `windowsOptions.hostProcess` 参数来创建 
+[Windows HostProcess Pod](/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod)
+这些 Pod 中的所有容器必须作为 Windows HostProcess 容器运行。
+HostProcess Pod 直接在主机上运行，也可以像使用 Linux 特权容器一样执行管理任务。
+为了使用`WindowsHostProcessContainers`功能，
+必须启用[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
 <!--
 ## Static Pods
