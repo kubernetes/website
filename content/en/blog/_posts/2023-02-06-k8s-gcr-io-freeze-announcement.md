@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "k8s.gcr.io image registry will be frozen from the 3rd of April 2023"
+title: "k8s.gcr.io Image Registry Will Be Frozen From the 3rd of April 2023"
 date: 2023-02-06
 slug: k8s-gcr-io-freeze-announcement
 ---
@@ -20,11 +20,11 @@ What does this change mean for end users:
 - Starting in 1.25, the default image registry has been set to `registry.k8s.io`. This value is overridable in `kubeadm` and `kubelet` but setting it to `k8s.gcr.io` will fail for new releases after April as they won’t be present in the old registry.
 - If you want to increase the reliability of your cluster and remove dependency on the community-owned registry or you are running Kubernetes in networks where external traffic is restricted, you should consider hosting local image registry mirrors. Some cloud vendors may offer hosted solutions for this.
 
-## Timeline of the Changes:
+## Timeline of the changes
 
 - `k8s.gcr.io` will be frozen on the 3rd of April 2023
 - 1.27 is expected to be released on the 12th of April 2023
-- The last 1.23 release on `k8s.gcr.io` will be 1.23.18 (1.23 goes EoL before the freeze)
+- The last 1.23 release on `k8s.gcr.io` will be 1.23.18 (1.23 goes end-of-life before the freeze)
 - The last 1.24 release on `k8s.gcr.io` will be 1.24.12
 - The last 1.25 release on `k8s.gcr.io` will be 1.25.8
 - The last 1.26 release on `k8s.gcr.io` will be 1.26.3
