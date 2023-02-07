@@ -41,7 +41,7 @@ This tutorial provides a container image that uses NGINX to echo back all the re
 
 ## Create a minikube cluster
 
-1. Click **Launch Terminal**
+1. Click **Launch Terminal**.
 
     {{< kat-button >}}
 
@@ -90,11 +90,10 @@ tutorial has only one Container. A Kubernetes
 Pod and restarts the Pod's Container if it terminates. Deployments are the
 recommended way to manage the creation and scaling of Pods.
 
-1. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then click open a new terminal.
+1. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then click **Open New Terminal**.
 
 1. Use the `kubectl create` command to create a Deployment that manages a Pod. The
 Pod runs a Container based on the provided Docker image.
-  
 
     ```shell
     kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080
