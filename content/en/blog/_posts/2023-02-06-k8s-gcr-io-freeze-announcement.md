@@ -20,7 +20,7 @@ What does this change mean for end users:
 - Starting in 1.25, the default image registry has been set to `registry.k8s.io`. This value is overridable in `kubeadm` and `kubelet` but setting it to `k8s.gcr.io` will fail for new releases after April as they won’t be present in the old registry.
 - If you want to increase the reliability of your cluster and remove dependency on the community-owned registry or you are running Kubernetes in networks where external traffic is restricted, you should consider hosting local image registry mirrors. Some cloud vendors may offer hosted solutions for this.
 
-## Timeline of the changes:
+## Timeline of the changes
 
 - `k8s.gcr.io` will be frozen on the 3rd of April 2023
 - 1.27 is expected to be released on the 12th of April 2023
