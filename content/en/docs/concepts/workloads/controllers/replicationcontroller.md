@@ -98,7 +98,7 @@ Pods Status:    3 Running / 0 Waiting / 0 Succeeded / 0 Failed
 To list all the pods that belong to the ReplicationController in a machine readable form, you can use a command like this:
 
 ```shell
-pods=$(kubectl get pods --selector=app=nginx --output=jsonpath={.items..metadata.name})
+pods=$(kubectl get pods --selector=app=nginx --output=jsonpath={.items.metadata.name})
 echo $pods
 ```
 
