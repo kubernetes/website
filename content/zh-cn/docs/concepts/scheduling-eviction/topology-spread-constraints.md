@@ -4,15 +4,15 @@ content_type: concept
 weight: 40
 ---
 
-<!-- 
+<!--
 title: Pod Topology Spread Constraints
 content_type: concept
-weight: 40 
+weight: 40
 -->
 
 <!-- overview -->
 
-<!-- 
+<!--
 You can use _topology spread constraints_ to control how
 {{< glossary_tooltip text="Pods" term_id="Pod" >}} are spread across your cluster
 among failure-domains such as regions, zones, nodes, and other user-defined topology
@@ -20,7 +20,7 @@ domains. This can help to achieve high availability as well as efficient resourc
 utilization.
 
 You can set [cluster-level constraints](#cluster-level-default-constraints) as a default,
-or configure topology spread constraints for individual workloads. 
+or configure topology spread constraints for individual workloads.
 -->
 你可以使用 **拓扑分布约束（Topology Spread Constraints）** 来控制
 {{< glossary_tooltip text="Pod" term_id="Pod" >}} 在集群内故障域之间的分布，
@@ -31,7 +31,7 @@ or configure topology spread constraints for individual workloads.
 
 <!-- body -->
 
-<!-- 
+<!--
 ## Motivation
 
 Imagine that you have a cluster of up to twenty nodes, and you want to run a
@@ -43,7 +43,7 @@ same node: you would run the risk that a single node failure takes your workload
 offline.
 
 In addition to this basic usage, there are some advanced usage examples that
-enable your workloads to benefit on high availability and cluster utilization. 
+enable your workloads to benefit on high availability and cluster utilization.
 -->
 ## 动机 {#motivation}
 
@@ -55,7 +55,7 @@ enable your workloads to benefit on high availability and cluster utilization.
 
 除了这个基本的用法之外，还有一些高级的使用案例，能够让你的工作负载受益于高可用性并提高集群利用率。
 
-<!-- 
+<!--
 As you scale up and run more Pods, a different concern becomes important. Imagine
 that you have three nodes running five Pods each. The nodes have enough capacity
 to run that many replicas; however, the clients that interact with this workload
@@ -81,7 +81,7 @@ Pod topology spread constraints offer you a declarative way to configure that.
 
 Pod 拓扑分布约束使你能够以声明的方式进行配置。
 
-<!-- 
+<!--
 ## `topologySpreadConstraints` field
 
 The Pod API includes a field, `spec.topologySpreadConstraints`. The usage of this field looks like
@@ -111,7 +111,7 @@ spec:
   ### 其他 Pod 字段置于此处
 ```
 
-<!-- 
+<!--
 You can read more about this field by running `kubectl explain Pod.spec.topologySpreadConstraints` or
 refer to [scheduling](/docs/reference/kubernetes-api/workload-resources/pod-v1/#scheduling) section of the API reference for Pod.
 -->
@@ -119,7 +119,7 @@ refer to [scheduling](/docs/reference/kubernetes-api/workload-resources/pod-v1/#
 参考的[调度](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#scheduling)一节，
 了解有关此字段的更多信息。
 
-<!-- 
+<!--
 ### Spread constraint definition
 
 You can define one or multiple `topologySpreadConstraints` entries to instruct the
@@ -147,7 +147,7 @@ your cluster. Those fields are:
 -->
 - **maxSkew** 描述这些 Pod 可能被均匀分布的程度。你必须指定此字段且该数值必须大于零。
   其语义将随着 `whenUnsatisfiable` 的值发生变化：
-  
+
   - 如果你选择 `whenUnsatisfiable: DoNotSchedule`，则 `maxSkew` 定义目标拓扑中匹配 Pod 的数量与
     **全局最小值**（符合条件的域中匹配的最小 Pod 数量，如果符合条件的域数量小于 MinDomains 则为零）
     之间的最大允许差值。例如，如果你有 3 个可用区，分别有 2、2 和 1 个匹配的 Pod，则 `MaxSkew` 设为 1，
@@ -161,7 +161,7 @@ your cluster. Those fields are:
 -->
 - **minDomains** 表示符合条件的域的最小数量。此字段是可选的。域是拓扑的一个特定实例。
   符合条件的域是其节点与节点选择器匹配的域。
-  
+
   {{< note >}}
   <!--
   The `minDomains` field is a beta field and disabled by default in 1.25. You can enable it by enabling the
@@ -171,7 +171,7 @@ your cluster. Those fields are:
   你可以通过启用 `MinDomainsInPodTopologySpread`
   [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来启用该字段。
   {{< /note >}}
-  
+
   <!--
   - The value of `minDomains` must be greater than 0, when specified.
     You can only specify `minDomains` in conjunction with `whenUnsatisfiable: DoNotSchedule`.
@@ -276,10 +276,10 @@ your cluster. Those fields are:
 
   {{< note >}}
   <!--
-  The `nodeAffinityPolicy` is an alpha-level field added in 1.25. You can disable it by disabling the
+  The `nodeAffinityPolicy` is a beta-level field and enabled by default in 1.26. You can disable it by disabling the
   `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   -->
-  `nodeAffinityPolicy` 是 1.25 中新增的一个 Alpha 级别字段。
+  `nodeAffinityPolicy` 是 1.26 中默认启用的一个 Beta 级别字段。
   你可以通过禁用 `NodeInclusionPolicyInPodTopologySpread`
   [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用此字段。
   {{< /note >}}
@@ -727,7 +727,7 @@ There are some implicit conventions worth noting here:
 - 只有与新来的 Pod 具有相同命名空间的 Pod 才能作为匹配候选者。
 
 - 调度器会忽略没有任何 `topologySpreadConstraints[*].topologyKey` 的节点。这意味着：
-  
+
   1. 位于这些节点上的 Pod 不影响 `maxSkew` 计算，在上面的例子中，假设节点 `node1` 没有标签 "zone"，
      则 2 个 Pod 将被忽略，因此新来的 Pod 将被调度到可用区 `A` 中。
   2. 新的 Pod 没有机会被调度到这类节点上。在上面的例子中，
@@ -904,8 +904,8 @@ Pod 彼此的调度方式（更密集或更分散）。
 
 `podAntiAffinity`
 : 驱逐 Pod。如果将此设为 `requiredDuringSchedulingIgnoredDuringExecution` 模式，
-  则只有单个 Pod 可以调度到单个拓扑域；如果你选择 `preferredDuringSchedulingIgnoredDuringExecution`，
-  则你将丢失强制执行此约束的能力。
+则只有单个 Pod 可以调度到单个拓扑域；如果你选择 `preferredDuringSchedulingIgnoredDuringExecution`，
+则你将丢失强制执行此约束的能力。
 
 <!--
 For finer control, you can specify topology spread constraints to distribute
@@ -937,7 +937,7 @@ section of the enhancement proposal about Pod topology spread constraints.
 ## 已知局限性 {#known-limitations}
 
 - 当 Pod 被移除时，无法保证约束仍被满足。例如，缩减某 Deployment 的规模时，Pod 的分布可能不再均衡。
-  
+
   你可以使用 [Descheduler](https://github.com/kubernetes-sigs/descheduler) 来重新实现 Pod 分布的均衡。
 
 - 具有污点的节点上匹配的 Pod 也会被统计。

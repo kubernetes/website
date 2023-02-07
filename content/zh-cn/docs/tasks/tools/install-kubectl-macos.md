@@ -5,7 +5,7 @@ weight: 10
 card:
   name: tasks
   weight: 20
-  title: 在 macOS 系统上安装 kubectl 
+  title: 在 macOS 系统上安装 kubectl
 ---
 <!-- 
 reviewers:
@@ -21,7 +21,7 @@ card:
 
 ## {{% heading "prerequisites" %}}
 
-<!-- 
+<!--
 You must use a kubectl version that is within one minor version difference of your cluster. For example, a v{{< skew currentVersion >}} client can communicate with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}, and v{{< skew currentVersionAddMinor 1 >}} control planes.
 Using the latest compatible version of kubectl helps avoid unforeseen issues.
 -->
@@ -30,31 +30,40 @@ kubectl 版本和集群之间的差异必须在一个小版本号之内。
 v{{< skew currentVersionAddMinor 0 >}} 和 v{{< skew currentVersionAddMinor 1 >}} 版本的控制面通信。
 用最新兼容版本的 kubectl 有助于避免不可预见的问题。
 
-<!-- 
+<!--
 ## Install kubectl on macOS
 -->
 ## 在 macOS 系统上安装 kubectl {#install-kubectl-on-macos}
 
-<!-- 
+<!--
 The following methods exist for installing kubectl on macOS:
 -->
 在 macOS 系统上安装 kubectl 有如下方法：
 
 <!--
-- [Install kubectl binary with curl on macOS](#install-kubectl-binary-with-curl-on-macos)
-- [Install with Homebrew on macOS](#install-with-homebrew-on-macos)
-- [Install with Macports on macOS](#install-with-macports-on-macos)
+- [Install kubectl on macOS](#install-kubectl-on-macos)
+  - [Install kubectl binary with curl on macOS](#install-kubectl-binary-with-curl-on-macos)
+  - [Install with Homebrew on macOS](#install-with-homebrew-on-macos)
+  - [Install with Macports on macOS](#install-with-macports-on-macos)
+- [Verify kubectl configuration](#verify-kubectl-configuration)
+- [Optional kubectl configurations and plugins](#optional-kubectl-configurations-and-plugins)
+  - [Enable shell autocompletion](#enable-shell-autocompletion)
+  - [Install `kubectl convert` plugin](#install-kubectl-convert-plugin)
 -->
-- [用 curl 在 macOS 系统上安装 kubectl](#install-kubectl-binary-with-curl-on-macos)
-- [用 Homebrew 在 macOS 系统上安装](#install-with-homebrew-on-macos)
-- [用 Macports 在 macOS 上安装](#install-with-macports-on-macos)
-
+- [在 macOS 系统上安装 kubectl](#install-kubectl-on-macos)
+  - [用 curl 在 macOS 系统上安装 kubectl](#install-kubectl-binary-with-curl-on-macos)
+  - [用 Homebrew 在 macOS 系统上安装](#install-with-homebrew-on-macos)
+  - [用 Macports 在 macOS 系统上安装](#install-with-macports-on-macos)
+- [验证 kubectl 配置](#verify-kubectl-configuration)
+- [可选的 kubectl 配置和插件](#optional-kubectl-configurations-and-plugins)
+  - [启用 shell 自动补全功能](#enable-shell-autocompletion)
+  - [安装 `kubectl convert` 插件](#install-kubectl-convert-plugin)
 <!-- 
 ### Install kubectl binary with curl on macOS
 -->
 ### 用 curl 在 macOS 系统上安装 kubectl {#install-kubectl-binary-with-curl-on-macos}
 
-<!-- 
+<!--
 1. Download the latest release:
 -->
 1. 下载最新的发行版：
@@ -69,7 +78,7 @@ The following methods exist for installing kubectl on macOS:
    {{< /tabs >}}
 
    {{< note >}}
-   <!-- 
+   <!--
    To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)` portion of the command with the specific version.
 
    For example, to download version {{< param "fullversion" >}} on Intel macOS, type:
@@ -91,7 +100,7 @@ The following methods exist for installing kubectl on macOS:
    ```
    {{< /note >}}
 
-<!-- 
+<!--
 1. Validate the binary (optional)
 
    Download the kubectl checksum file:
@@ -109,7 +118,7 @@ The following methods exist for installing kubectl on macOS:
    {{< /tab >}}
    {{< /tabs >}}
 
-   <!-- 
+   <!--
    Validate the kubectl binary against the checksum file:
    -->
    根据校验和文件，验证 kubectl：
@@ -126,7 +135,7 @@ The following methods exist for installing kubectl on macOS:
    kubectl: OK
    ```
 
-   <!-- 
+   <!--
    If the check fails, `shasum` exits with nonzero status and prints output similar to:
    -->
    验证失败时，`shasum` 将以非零值退出，并打印如下输出：
@@ -137,13 +146,13 @@ The following methods exist for installing kubectl on macOS:
    ```
 
    {{< note >}}
-   <!-- 
+   <!--
    Download the same version of the binary and checksum.
    -->
    下载的 kubectl 与校验和文件版本要相同。
    {{< /note >}}
 
-<!-- 
+<!--
 1. Make the kubectl binary executable.
 -->
 3. 将 kubectl 置为可执行文件：
@@ -152,7 +161,7 @@ The following methods exist for installing kubectl on macOS:
    chmod +x ./kubectl
    ```
 
-<!-- 
+<!--
 1. Move the kubectl binary to a file location on your system `PATH`.
 -->
 4. 将可执行文件 kubectl 移动到系统可寻址路径 `PATH` 内的一个位置：
@@ -169,7 +178,7 @@ The following methods exist for installing kubectl on macOS:
    确保 `/usr/local/bin` 在你的 PATH 环境变量中。
    {{< /note >}}
 
-<!-- 
+<!--
 1. Test to ensure the version you installed is up-to-date:
 -->
 5. 测试一下，确保你安装的是最新的版本：
@@ -187,33 +196,42 @@ The following methods exist for installing kubectl on macOS:
    kubectl version --client --output=yaml
    ```
 
+<!--
+1. After installing the plugin, clean up the installation files:
+-->
+1. 安装插件后，清理安装文件：
+
+   ```bash
+   rm kubectl kubectl.sha256
+   ```
 <!-- 
 ### Install with Homebrew on macOS
 -->
 ### 用 Homebrew 在 macOS 系统上安装 {#install-with-homebrew-on-macos}
 
-<!-- 
+<!--
 If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you can install kubectl with Homebrew.
 -->
 如果你是 macOS 系统，且用的是 [Homebrew](https://brew.sh/) 包管理工具，
 则可以用 Homebrew 安装 kubectl。
 
-<!-- 
+<!--
 1. Run the installation command:
 -->
 1. 运行安装命令：
 
    ```bash
-   brew install kubectl 
+   brew install kubectl
    ```
 
+   <!-- or -->
    或
 
    ```bash
    brew install kubernetes-cli
    ```
 
-<!-- 
+<!--
 1. Test to ensure the version you installed is up-to-date:
 -->
 2. 测试一下，确保你安装的是最新的版本：
@@ -222,17 +240,17 @@ If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you 
    kubectl version --client
    ```
 
-<!-- 
+<!--
 ### Install with Macports on macOS
 -->
-### 用 Macports 在 macOS 上安装 {#install-with-macports-on-macos}
+### 用 Macports 在 macOS 系统上安装 {#install-with-macports-on-macos}
 
-<!-- 
+<!--
 If you are on macOS and using [Macports](https://macports.org/) package manager, you can install kubectl with Macports.
 -->
-如果你用的是 macOS，且用 [Macports](https://macports.org/) 包管理工具，则你可以用 Macports 安装kubectl。
+如果你用的是 macOS，且用 [Macports](https://macports.org/) 包管理工具，则你可以用 Macports 安装 kubectl。
 
-<!-- 
+<!--
 1. Run the installation command:
 -->
 1. 运行安装命令：
@@ -242,7 +260,7 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
    sudo port install kubectl
    ```
 
-<!-- 
+<!--
 1. Test to ensure the version you installed is up-to-date:
 -->
 2. 测试一下，确保你安装的是最新的版本：
@@ -251,14 +269,14 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
    kubectl version --client
    ```
 
-<!-- 
+<!--
 ## Verify kubectl configuration
 -->
 ## 验证 kubectl 配置 {#verify-kubectl-configuration}
 
 {{< include "included/verify-kubectl.md" >}}
 
-<!-- 
+<!--
 ## Optional kubectl configurations and plugins
 
 ### Enable shell autocompletion
@@ -267,7 +285,7 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 
 ### 启用 shell 自动补全功能 {#enable-shell-autocompletion}
 
-<!-- 
+<!--
 kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell which can save you a lot of typing.
 
 Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
@@ -309,7 +327,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    Download the kubectl-convert checksum file:
 -->
 2. 验证该可执行文件（可选步骤）
-   
+
    下载 kubectl-convert 校验和文件：
 
    {{< tabs name="download_convert_checksum_macos" >}}
@@ -329,7 +347,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    ```bash
    echo "$(cat kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
    ```
-   
+
    <!--
    If valid, the output is:
    -->
@@ -396,7 +414,15 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    -->
    如果你没有看到任何错误就代表插件安装成功了。
 
+<!--
+1. After installing the plugin, clean up the installation files:
+-->
+1. 安装插件后，清理安装文件：
+
+   ```bash
+   rm kubectl kubectl.sha256
+   ```
+
 ## {{% heading "whatsnext" %}}
 
 {{< include "included/kubectl-whats-next.md" >}}
-
