@@ -149,7 +149,100 @@ Here is a configuration file you can use to create a Pod:
    39528$vdg7Jb
    ```
 
+Modify your image or command line so that the program looks for files in the
+`mountPath` directory. Each key in the Secret `data` map becomes a file name
+in this directory.
+
+### Project Secret keys to specific file paths
+
+You can also control the paths within the volume where Secret keys are projected. Use the `.spec.volumes[].secret.items` field to change the target
+path of each key:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: redis
+    volumeMounts:
+    - name: foo
+      mountPath: "/etc/foo"
+      readOnly: true
+  volumes:
+  - name: foo
+    secret:
+      secretName: mysecret
+      items:
+      - key: username
+        path: my-group/my-username
+```
+
+When you deploy this Pod, the following happens:
+
+* The `username` key from `mysecret` is available to the container at the path
+  `/etc/foo/my-group/my-username` instead of at `/etc/foo/username`.
+* The `password` key from that Secret object is not projected.
+
+If you list keys explicitly using `.spec.volumes[].secret.items`, consider the
+following:
+
+* Only keys specified in `items` are projected.
+* To consume all keys from the Secret, all of them must be listed in the
+  `items` field.
+* All listed keys must exist in the corresponding Secret. Otherwise, the volume
+  is not created.
+
+### Set POSIX permissions for Secret keys
+
+You can set the POSIX file access permission bits for a single Secret key.
+If you don't specify any permissions, `0644` is used by default.
+You can also set a default POSIX file mode for the entire Secret volume, and
+you can override per key if needed.
+
+For example, you can specify a default mode like this:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: redis
+    volumeMounts:
+    - name: foo
+      mountPath: "/etc/foo"
+  volumes:
+  - name: foo
+    secret:
+      secretName: mysecret
+      defaultMode: 0400
+```
+
+The Secret is mounted on `/etc/foo`; all the files created by the
+secret volume mount have permission `0400`.
+
+{{< note >}}
+If you're defining a Pod or a Pod template using JSON, beware that the JSON
+specification doesn't support octal literals for numbers because JSON considers
+`0400` to be the _decimal_ value `400`. In JSON, use decimal values for the
+`defaultMode` instead. If you're writing YAML, you can write the `defaultMode`
+in octal.
+{{< /note >}}
+
 ## Define container environment variables using Secret data
+
+You can consume the data in Secrets as environment variables in your
+containers.
+
+If a container already consumes a Secret in an environment variable,
+a Secret update will not be seen by the container unless it is
+restarted. There are third party solutions for triggering restarts when
+secrets change.
 
 ### Define a container environment variable with data from a single Secret
 
