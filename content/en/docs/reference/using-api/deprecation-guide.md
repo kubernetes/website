@@ -162,10 +162,10 @@ The **apiextensions.k8s.io/v1beta1** API version of CustomResourceDefinition is 
 * All existing persisted objects are accessible via the new API
 * Notable changes:
     * `spec.scope` is no longer defaulted to `Namespaced` and must be explicitly specified
-    * `spec.version` is removed in v1; use `spec.versions` instead
-    * `spec.validation` is removed in v1; use `spec.versions[*].schema` instead
-    * `spec.subresources` is removed in v1; use `spec.versions[*].subresources` instead
-    * `spec.additionalPrinterColumns` is removed in v1; use `spec.versions[*].additionalPrinterColumns` instead
+    * `spec.version` is removed in v1beta1; use `spec.versions` instead
+    * `spec.validation` is removed in v1beta1; use `spec.versions[*].schema` instead
+    * `spec.subresources` is removed in v1beta1; use `spec.versions[*].subresources` instead
+    * `spec.additionalPrinterColumns` is removed in v1beta1; use `spec.versions[*].additionalPrinterColumns` instead
     * `spec.conversion.webhookClientConfig` is moved to `spec.conversion.webhook.clientConfig` in v1
     * `spec.conversion.conversionReviewVersions` is moved to `spec.conversion.webhook.conversionReviewVersions` in v1
     * `spec.versions[*].schema.openAPIV3Schema` is now required when creating v1 CustomResourceDefinition objects, and must be a [structural schema](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema)
