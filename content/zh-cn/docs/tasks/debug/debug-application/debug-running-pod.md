@@ -176,12 +176,10 @@ Currently the only Condition associated with a Pod is the binary Ready condition
 并且应该添加到相应服务的负载均衡池中。
 
 <!--
-Lastly, you see a log of recent events related to your Pod. The system compresses multiple identical events by indicating the first and last time it was seen and the number of times it was seen. "From" indicates the component that is logging the event, "SubobjectPath" tells you which object (e.g. container within the pod) is being referred to, and "Reason" and "Message" tell you what happened.
+Lastly, you see a log of recent events related to your Pod. "From" indicates the component that is logging the event. "Reason" and "Message" tell you what happened.
 -->
 最后，你还可以看到与 Pod 相关的近期事件。
-系统通过指示第一次和最后一次看到事件以及看到该事件的次数来压缩多个相同的事件。
 “From” 标明记录事件的组件，
-“SubobjectPath” 告诉你引用了哪个对象（例如 Pod 中的容器），
 “Reason” 和 “Message” 告诉你发生了什么。
 
 <!--
