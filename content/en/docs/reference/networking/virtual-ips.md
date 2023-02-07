@@ -144,7 +144,7 @@ with 100 pods, and you delete the
 Deployment, then with `minSyncPeriod: 0s`, kube-proxy would end up
 removing the Service's Endpoints from the iptables rules one by one,
 for a total of 100 updates. With a larger `minSyncPeriod`, multiple
-Pod deletion {{< glossary_tooltip term_id="event" text="events" >}} would get aggregated
+Pod deletion events would get aggregated
 together, so kube-proxy might
 instead end up making, say, 5 updates, each removing 20 endpoints,
 which will be much more efficient in terms of CPU, and result in the
@@ -282,7 +282,7 @@ someone else's choice.  That is an isolation failure.
 In order to allow you to choose a port number for your Services, we must
 ensure that no two Services can collide. Kubernetes does that by allocating each
 Service its own IP address from within the `service-cluster-ip-range`
-CIDR range that is configured for the {{< glossary_tooltip term_id="kube-apiserver" text="API Server." >}}
+CIDR range that is configured for the {{< glossary_tooltip term_id="kube-apiserver" text="API Server" >}}.
 
 To ensure each Service receives a unique IP, an internal allocator atomically
 updates a global allocation map in {{< glossary_tooltip term_id="etcd" >}}
