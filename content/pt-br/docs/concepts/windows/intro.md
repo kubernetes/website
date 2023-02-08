@@ -109,7 +109,7 @@ Pods, rworkload resources, e Services são elementos críticos para gerenciar ca
 * `kubectl exec`
 * Métricas de pods e contêineres
 * {{< glossary_tooltip text="Horizontal pod autoscaling" term_id="horizontal-pod-autoscaler" >}}
-* {{< glossary_tooltip text="Cotas de recursos" term_id="cotas de recursos" >}}
+* {{< glossary_tooltip text="Cotas de recursos" term_id="resource-quota" >}}
 * Preempção do agendador
 
 ### Opções de linha de comando para o kubelet {#kubelet-compatibility}
