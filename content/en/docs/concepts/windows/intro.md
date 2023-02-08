@@ -274,7 +274,8 @@ This functionality requires a container runtime that supports this functionality
 
 #### Field compatibility for Pod security context {#compatibility-v1-pod-spec-containers-securitycontext}
 
-None of the Pod [`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) fields work on Windows.
+Only the `securityContext.runAsNonRoot` and `securityContext.windowsOptions` from the Pod
+[`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) fields work on Windows.
 
 ## Node problem detector
 
