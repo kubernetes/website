@@ -166,6 +166,12 @@ other = "Architecture"
 [layout_docs_glossary_architecture_description]
 other = "The inner components of Kubernetes."
 
+[layouts_docs_glossary_click_details_after]
+other = "indicators below to get a longer explanation for any particular term."
+
+[layouts_docs_glossary_click_details_before]
+other = "Click on the"
+
 [layout_docs_glossary_community_name]
 other = "Community"
 
@@ -178,11 +184,20 @@ other = "Core Object"
 [layout_docs_glossary_core-object_description]
 other = "A resource type that Kubernetes supports by default."
 
+[layouts_docs_glossary_description]
+other = "This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to Kubernetes, as well as more general terms that provide useful context."
+
+[layouts_docs_glossary_deselect_all]
+other = "Deselect all"
+
 [layout_docs_glossary_extension_name]
 other = "Extension"
 
 [layout_docs_glossary_extension_description]
 other = "Supported customizations of Kubernetes."
+
+[layouts_docs_glossary_filter]
+other = "Filter terms according to their tags"
 
 [layout_docs_glossary_fundamental_name]
 other = "Fundamental"
@@ -208,6 +223,9 @@ other = "Security"
 [layout_docs_glossary_security_description]
 other = "Keeping Kubernetes applications safe and secure."
 
+[layouts_docs_glossary_select_all]
+other = "Select all"
+
 [layout_docs_glossary_storage_name]
 other = "Storage"
 
@@ -231,24 +249,6 @@ other = "Workload"
 
 [layout_docs_glossary_workload_description]
 other = "Applications running on Kubernetes."
-
-[layouts_docs_glossary_description]
-other = "This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to Kubernetes, as well as more general terms that provide useful context."
-
-[layouts_docs_glossary_deselect_all]
-other = "Deselect all"
-
-[layouts_docs_glossary_click_details_after]
-other = "indicators below to get a longer explanation for any particular term."
-
-[layouts_docs_glossary_click_details_before]
-other = "Click on the"
-
-[layouts_docs_glossary_filter]
-other = "Filter terms according to their tags"
-
-[layouts_docs_glossary_select_all]
-other = "Select all"
 
 [layouts_docs_partials_feedback_improvement]
 other = "suggest an improvement"
