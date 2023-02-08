@@ -74,7 +74,7 @@ The following methods exist for installing kubectl on Windows:
 
 1. After installing the plugin, clean up the installation files:
 
-   ```bash
+   ```powershell
    del kubectl.exe kubectl.exe.sha256
    ```
 
@@ -199,7 +199,7 @@ Below are the procedures to set up autocompletion for PowerShell.
 
 1. After installing the plugin, clean up the installation files:
 
-   ```bash
+   ```powershell
    del kubectl-convert.exe kubectl-convert.exe.sha256
    ```
 
