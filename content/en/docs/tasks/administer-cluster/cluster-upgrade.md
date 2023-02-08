@@ -26,10 +26,6 @@ You must have an existing cluster. This page is about upgrading from Kubernetes
 is not currently running Kubernetes {{< skew currentVersionAddMinor -1 >}} then please check
 the documentation for the version of Kubernetes that you plan to upgrade to.
 
-## Upgrade approaches
-
-please go through [Urgent Upgrade Notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.24.md#urgent-upgrade-notes).
-
 ### kubeadm {#upgrade-kubeadm}
 
 If your cluster was deployed using the `kubeadm` tool, refer to 
