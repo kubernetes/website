@@ -507,14 +507,14 @@ Kubernetes 节点发送的心跳帮助你的集群确定每个节点的可用性
 
 <!--
 * updates to the `.status` of a Node
-* [Lease](/docs/reference/kubernetes-api/cluster-resources/lease-v1/) objects
+* [Lease](/docs/concepts/architecture/leases/) objects
   within the `kube-node-lease`
   {{< glossary_tooltip term_id="namespace" text="namespace">}}.
   Each Node has an associated Lease object.
 -->
 * 更新节点的 `.status`
 * `kube-node-lease` {{<glossary_tooltip term_id="namespace" text="名字空间">}}中的
-  [Lease（租约）](/zh-cn/docs/reference/kubernetes-api/cluster-resources/lease-v1/)对象。
+  [Lease（租约）](/zh-cn/docs/concepts/architecture/leases/)对象。
   每个节点都有一个关联的 Lease 对象。
 
 <!--
