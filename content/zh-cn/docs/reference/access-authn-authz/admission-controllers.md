@@ -194,7 +194,7 @@ the `admissionregistration.k8s.io/v1alpha1` API.
 但只有启用 `ValidatingAdmissionPolicy`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) **和**
 `admissionregistration.k8s.io/v1alpha1` API 时才会激活。
-{{< note >}}
+{{< /note >}}
 
 <!--
 ## What does each admission controller do?
@@ -647,21 +647,21 @@ An example request body:
 
 ```json
 {
-  "apiVersion":"imagepolicy.k8s.io/v1alpha1",
-  "kind":"ImageReview",
-  "spec":{
-    "containers":[
+  "apiVersion": "imagepolicy.k8s.io/v1alpha1",
+  "kind": "ImageReview",
+  "spec": {
+    "containers": [
       {
-        "image":"myrepo/myimage:v1"
+        "image": "myrepo/myimage:v1"
       },
       {
-        "image":"myrepo/myimage@sha256:beb6bd6a68f114c1dc2ea4b28db81bdf91de202a9014972bec5e4d9171d90ed"
+        "image": "myrepo/myimage@sha256:beb6bd6a68f114c1dc2ea4b28db81bdf91de202a9014972bec5e4d9171d90ed"
       }
     ],
-    "annotations":{
+    "annotations": {
       "mycluster.image-policy.k8s.io/ticket-1234": "break-glass"
     },
-    "namespace":"mynamespace"
+    "namespace": "mynamespace"
   }
 }
 ```
@@ -1263,30 +1263,59 @@ for more information.
 
 ### SecurityContextDeny {#securitycontextdeny}
 
+{{< feature-state for_k8s_version="v1.0" state="alpha" >}}
+
+{{< caution >}}
 <!--
-This admission controller will deny any Pod that attempts to set certain escalating
-[SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
-fields, as shown in the
-[Configure a Security Context for a Pod or Container](/docs/tasks/configure-pod-container/security-context/)
-task.
-If you don't use [Pod Security admission](/docs/concepts/security/pod-security-admission/),
-[PodSecurityPolicies](/docs/concepts/security/pod-security-policy/), nor any external enforcement mechanism,
-then you could use this admission controller to restrict the set of values a security context can take.
+This admission controller plugin is **outdated** and **incomplete**, it may be
+unusable or not do what you would expect. It was originally designed to prevent
+the use of some, but not all, security-sensitive fields. Indeed, fields like
+`privileged`, were not filtered at creation and the plugin was not updated with
+the most recent fields, and new APIs like the `ephemeralContainers` field for a
+Pod.
 -->
-此准入控制器将拒绝任何试图设置特定提升
-[SecurityContext](/zh-cn/docs/tasks/configure-pod-container/security-context/)
-中某些字段的 Pod，正如任务[为 Pod 或 Container 配置安全上下文](/zh-cn/docs/tasks/configure-pod-container/security-context/)
-中所展示的那样。如果集群没有使用
-[Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)、
-[PodSecurityPolicy](/zh-cn/docs/concepts/security/pod-security-policy/)，
-也没有任何外部强制机制，那么你可以使用此准入控制器来限制安全上下文所能获取的值集。
+这个准入控制器插件是**过时的**且**不完整的**，它可能无法使用或无法达到你的预期。
+它最初旨在防止使用某些（但不是全部）安全敏感字段。
+事实上，像 `privileged` 这样的字段在创建时并没有被过滤，
+而且该插件没有根据最新的字段和新的 API（例如 Pod 的 `ephemeralContainers` 字段）来更新。
 
 <!--
-See [Pod Security Standards](/docs/concepts/security/pod-security-standards/) for more context on restricting
-pod privileges.
+The [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
+plugin enforcing the [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
+`Restricted` profile captures what this plugin was trying to achieve in a better
+and up-to-date way.
 -->
-有关限制 Pod 权限的更多内容，请参阅
-[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)。
+采用 [Pod 安全性标准](/zh-cn/docs/concepts/security/pod-security-standards/)中的 `Restricted`
+方案的 [Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)插件，
+能以更好和最新的方式来表述此插件所要实现的目标。
+{{< /caution >}}
+
+<!--
+This admission controller will deny any Pod that attempts to set the following
+[SecurityContext](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
+fields:
+-->
+此准入控制器将拒绝任何尝试设置以下
+[SecurityContext](/zh-cn/docs/tasks/configure-pod-container/security-context/)
+字段的 Pod：
+
+- `.spec.securityContext.supplementalGroups`
+- `.spec.securityContext.seLinuxOptions`
+- `.spec.securityContext.runAsUser`
+- `.spec.securityContext.fsGroup`
+- `.spec.(init)Containers[*].securityContext.seLinuxOptions`
+- `.spec.(init)Containers[*].securityContext.runAsUser`
+
+<!--
+For more historical context on this plugin, see
+[The birth of PodSecurityPolicy](/blog/2022/08/23/podsecuritypolicy-the-historical-context/#the-birth-of-podsecuritypolicy)
+from the Kubernetes blog article about PodSecurityPolicy and its removal. The
+article details the PodSecurityPolicy historical context and the birth of the
+`securityContext` field for Pods.
+-->
+有关此插件的更多历史背景，请参阅 Kubernetes 博客中这篇有关 PodSecurityPolicy 及其移除的文章：
+[The birth of PodSecurityPolicy](/blog/2022/08/23/podsecuritypolicy-the-historical-context/#the-birth-of-podsecuritypolicy)。
+这篇文章详细地介绍了 PodSecurityPolicy 的历史背景以及 Pod 的 `securityContext` 字段的诞生。
 
 ### ServiceAccount {#serviceaccount}
 
