@@ -377,27 +377,29 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
 -->
 8. 可选：检查集群运行状况
 
-   ```shell
-   docker run --rm -it \
-   --net host \
-   -v /etc/kubernetes:/etc/kubernetes registry.k8s.io/etcd:${ETCD_TAG} etcdctl \
+   <!--
+   If `etcdctl` isn't available, you can run this tool inside a container image.
+   You would do that directly with your container runtime using a tool such as
+   `crictl run` and not through Kubernetes
+   -->
+   如果 `etcdctl` 不可用，你可以在容器镜像内运行此工具。
+   你可以使用 `crictl run` 这类工具直接在容器运行时执行此操作，而不是通过 Kubernetes。
+
+   ```sh
+   ETCDCTL_API=3 etcdctl \
    --cert /etc/kubernetes/pki/etcd/peer.crt \
    --key /etc/kubernetes/pki/etcd/peer.key \
    --cacert /etc/kubernetes/pki/etcd/ca.crt \
-   --endpoints https://${HOST0}:2379 endpoint health --cluster
+   --endpoints https://${HOST0}:2379 endpoint health
    ...
    https://[HOST0 IP]:2379 is healthy: successfully committed proposal: took = 16.283339ms
    https://[HOST1 IP]:2379 is healthy: successfully committed proposal: took = 19.44402ms
    https://[HOST2 IP]:2379 is healthy: successfully committed proposal: took = 35.926451ms
    ```
+
    <!--
-   - Set `${ETCD_TAG}` to the version tag of your etcd image. For example `3.4.3-0`. To see the etcd image and tag that kubeadm uses execute `kubeadm config images list --kubernetes-version ${K8S_VERSION}`, where `${K8S_VERSION}` is for example `v1.17.0`.
    - Set `${HOST0}`to the IP address of the host you are testing.
    -->
-   - 将 `${ETCD_TAG}` 设置为你的 etcd 镜像的版本标签，例如 `3.4.3-0`。
-     要查看 kubeadm 使用的 etcd 镜像和标签，请执行
-     `kubeadm config images list --kubernetes-version ${K8S_VERSION}`，
-     例如，其中的 `${K8S_VERSION}` 可以是 `v1.17.0`。
    - 将 `${HOST0}` 设置为要测试的主机的 IP 地址。
 
 ## {{% heading "whatsnext" %}}
@@ -407,6 +409,6 @@ Once you have an etcd cluster with 3 working members, you can continue setting u
 highly available control plane using the
 [external etcd method with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/).
 -->
-一旦拥有了一个正常工作的 3 成员的 etcd 集群，你就可以基于
-[使用 kubeadm 外部 etcd 的方法](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)，
+一旦拥有了一个正常工作的 3 成员的 etcd 集群，
+你就可以基于[使用 kubeadm 外部 etcd 的方法](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)，
 继续部署一个高可用的控制平面。
