@@ -10,6 +10,7 @@ Essa página provê uma visão geral de contêineres de inicialização: especia
 
 Você pode especificar contêineres de inicialização em uma especificação de Pod ao longo de um array de `containers` (que descreve app contêineres).
 
+
 <!-- body -->
 
 ## Entendendo contêineres de inicialização
