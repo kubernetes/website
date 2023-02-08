@@ -1,6 +1,6 @@
 ---
-title: Création d'un Cluster a master unique avec kubeadm
-description: Création d'un Cluster a master unique avec kubeadm
+title: Création d'un Cluster à master unique avec kubeadm
+description: Création d'un Cluster à master unique avec kubeadm
 content_type: task
 weight: 30
 ---
@@ -9,7 +9,7 @@ weight: 30
 
 <img src="https://raw.githubusercontent.com/cncf/artwork/master/projects/kubernetes/certified-kubernetes/versionless/color/certified-kubernetes-color.png" align="right" width="150px">**kubeadm** vous aide à démarrer un cluster Kubernetes minimum,
 viable et conforme aux meilleures pratiques. Avec kubeadm, votre cluster
-doit passer les [tests de Conformance Kubernetes](https://kubernetes.io/blog/2017/10/software-conformance-certification).
+doit passer les [tests de Conformité Kubernetes](https://kubernetes.io/blog/2017/10/software-conformance-certification).
  Kubeadm prend également en charge d'autres fonctions du cycle de vie, telles que les mises
  à niveau, la rétrogradation et la gestion des
  [bootstrap tokens](/docs/reference/access-authn-authz/bootstrap-tokens/).
@@ -676,7 +676,7 @@ si le master est irrécupérable, votre cluster peut perdre ses données et peut
 partir de zéro. L'ajout du support HA (plusieurs serveurs etcd, plusieurs API servers, etc.)
 à kubeadm est encore en cours de developpement.
 
-   Contournement: régulièrement [sauvegarder etcd](https://coreos.com/etcd/docs/latest/admin_guide.html).
+   Contournement: régulièrement [sauvegarder etcd](https://etcd.io/docs/v3.5/op-guide/recovery/).
 le répertoire des données etcd configuré par kubeadm se trouve dans `/var/lib/etcd` sur le master.
 
 ## Diagnostic {#troubleshooting}

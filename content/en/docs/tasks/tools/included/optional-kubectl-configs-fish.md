@@ -2,6 +2,10 @@
 title: "fish auto-completion"
 description: "Optional configuration to enable fish shell auto-completion."
 headless: true
+_build:
+  list: never
+  render: never
+  publishResources: false
 ---
 
 {{< note >}}

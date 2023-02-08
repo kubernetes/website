@@ -332,6 +332,7 @@ If you get the following error, go through the [Migrating from dockershim](/docs
   [monitoring resource usage](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 * Use Node Problem Detector to
   [monitor node health](/docs/tasks/debug/debug-cluster/monitor-node-health/)
+* Use `kubectl debug node` to [debug Kubernetes nodes](/docs/tasks/debug/debug-cluster/kubectl-node-debug) 
 * Use `crictl` to [debug Kubernetes nodes](/docs/tasks/debug/debug-cluster/crictl/)
 * Get more information about [Kubernetes auditing](/docs/tasks/debug/debug-cluster/audit/)
 * Use `telepresence` to [develop and debug services locally](/docs/tasks/debug/debug-cluster/local-debugging/)

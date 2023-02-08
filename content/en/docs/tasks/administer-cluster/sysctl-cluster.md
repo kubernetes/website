@@ -3,6 +3,7 @@ title: Using sysctls in a Kubernetes Cluster
 reviewers:
 - sttts
 content_type: task
+weight: 400
 ---
 
 <!-- overview -->

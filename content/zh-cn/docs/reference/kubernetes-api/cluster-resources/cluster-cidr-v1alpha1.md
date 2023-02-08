@@ -92,10 +92,10 @@ ClusterCIDRSpec 定义 ClusterCIDR 的预期状态。
 - **ipv6** (string)
 
   <!--
-  IPv6 defines an IPv6 IP block in CIDR notation(e.g. "fd12:3456:789a:1::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
+  IPv6 defines an IPv6 IP block in CIDR notation(e.g. "2001:db8::/64"). At least one of IPv4 and IPv6 must be specified. This field is immutable.
   -->
 
-  ipv6 以 CIDR 表示法定义 IPv6 IP 块（例如 “fd12:3456:789a:1::/64”）。
+  ipv6 以 CIDR 表示法定义 IPv6 IP 块（例如 “2001:db8::/64”）。
   必须至少指定 ipv4 和 ipv6 之一。 该字段是不可变的。
 
 - **nodeSelector** (NodeSelector)

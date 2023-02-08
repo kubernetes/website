@@ -844,20 +844,6 @@ level.
 Secret 是在 Pod 层面来配置的。
 
 <!--
-The `imagePullSecrets` field for a Pod is a list of references to Secrets in the same namespace
-as the Pod.
-You can use an `imagePullSecrets` to pass image registry access credentials to
-the kubelet. The kubelet uses this information to pull a private image on behalf of your Pod.
-See `PodSpec` in the [Pod API reference](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
-for more information about the `imagePullSecrets` field.
--->
-Pod 的 `imagePullSecrets` 字段是一个对 Pod 所在的名字空间中的 Secret
-的引用列表。你可以使用 `imagePullSecrets` 来将镜像仓库访问凭据传递给 kubelet。
-kubelet 使用这个信息来替你的 Pod 拉取私有镜像。
-参阅 [Pod API 参考](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
-中的 `PodSpec` 进一步了解 `imagePullSecrets` 字段。
-
-<!--
 #### Using imagePullSecrets
 
 The `imagePullSecrets` field is a list of references to secrets in the same namespace.

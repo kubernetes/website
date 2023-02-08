@@ -25,7 +25,7 @@ This page explains how Kubernetes objects are represented in the Kubernetes API,
 
 <!-- body -->
 <!--
-## Understanding Kubernetes Objects
+## Understanding Kubernetes objects {#kubernetes-objects}
 
 *Kubernetes objects* are persistent entities in the Kubernetes system. Kubernetes uses these
 entities to represent the state of your cluster. Specifically, they can describe:
@@ -45,17 +45,16 @@ Kubernetes 使用这些实体去表示整个集群的状态。
 * 关于应用运行时表现的策略，比如重启策略、升级策略以及容错策略
 
 <!--
-A Kubernetes object is a "record of intent" - once you create the object, 
-the Kubernetes system will constantly work to ensure that object exists. 
-By creating an object, you're effectively telling the Kubernetes system what 
-you want your cluster's workload to look like; this is your cluster's *desired state*.
+A Kubernetes object is a "record of intent"--once you create the object, the Kubernetes system
+will constantly work to ensure that object exists. By creating an object, you're effectively
+telling the Kubernetes system what you want your cluster's workload to look like; this is your
+cluster's *desired state*.
 
-To work with Kubernetes objects - whether to create, modify, or delete them - 
-you'll need to use the [Kubernetes API](/docs/concepts/overview/kubernetes-api/).
-When you use the `kubectl` command-line interface, for example, 
-the CLI makes the necessary Kubernetes API calls for you. 
-You can also use the Kubernetes API directly in your own programs using 
-one of the [Client Libraries](/docs/reference/using-api/client-libraries/).
+To work with Kubernetes objects--whether to create, modify, or delete them--you'll need to use the
+[Kubernetes API](/docs/concepts/overview/kubernetes-api/). When you use the `kubectl` command-line
+interface, for example, the CLI makes the necessary Kubernetes API calls for you. You can also use
+the Kubernetes API directly in your own programs using one of the
+[Client Libraries](/docs/reference/using-api/client-libraries/).
 -->
 Kubernetes 对象是“目标性记录” —— 一旦创建该对象，Kubernetes 系统将不断工作以确保该对象存在。
 通过创建对象，你就是在告知 Kubernetes 系统，你想要的集群工作负载状态看起来应是什么样子的，
@@ -68,7 +67,7 @@ Kubernetes 对象是“目标性记录” —— 一旦创建该对象，Kuberne
 来直接调用 Kubernetes API。
 
 <!--
-### Object Spec and Status
+### Object spec and status
 
 Almost every Kubernetes object includes two nested object fields that govern
 the object's configuration: the object *`spec`* and the object *`status`*.
@@ -99,10 +98,10 @@ For example: in Kubernetes, a Deployment is an object that can represent an
 application running on your cluster. When you create the Deployment, you
 might set the Deployment `spec` to specify that you want three replicas of
 the application to be running. The Kubernetes system reads the Deployment
-spec and starts three instances of your desired application-updating
+spec and starts three instances of your desired application--updating
 the status to match your spec. If any of those instances should fail
 (a status change), the Kubernetes system responds to the difference
-between spec and status by making a correction-in this case, starting
+between spec and status by making a correction--in this case, starting
 a replacement instance.
 -->
 例如，Kubernetes 中的 Deployment 对象能够表示运行在集群中的应用。
@@ -113,14 +112,14 @@ Kubernetes 系统读取 Deployment 的 `spec`，
 `spec` 和状态间的不一致 —— 意味着它会启动一个新的实例来替换。
 
 <!--
-For more information on the object spec, status, and metadata, see the 
+For more information on the object spec, status, and metadata, see the
 [Kubernetes API Conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md).
 -->
 关于对象 spec、status 和 metadata 的更多信息，可参阅
 [Kubernetes API 约定](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md)。
 
 <!--
-### Describing a Kubernetes Object
+### Describing a Kubernetes object
 
 When you create an object in Kubernetes, you must provide the object spec that describes its
 desired state, as well as some basic information about the object (such as a name). When you use
@@ -168,7 +167,7 @@ deployment.apps/nginx-deployment created
 ```
 
 <!--
-### Required Fields
+### Required fields
 
 In the `.yaml` file for the Kubernetes object you want to create, you'll need to set values for the following fields:
 
@@ -225,11 +224,11 @@ detail the structure of that `.status` field, and its content for each different
 
 <!--
 Learn more about the following:
-* [Pods](https://kubernetes.io/docs/concepts/workloads/pods/) which are the most important basic Kubernetes objects.
-* [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) objects. 
-* [Controllers](https://kubernetes.io/docs/concepts/architecture/controller/) in Kubernetes.
-* [Kubernetes API overview](https://kubernetes.io/docs/reference/using-api/) which explains some more API concepts.
-* [kubectl](https://kubernetes.io/docs/reference/kubectl/) and [kubectl commands](https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands).
+* [Pods](/docs/concepts/workloads/pods/) which are the most important basic Kubernetes objects.
+* [Deployment](/docs/concepts/workloads/controllers/deployment/) objects.
+* [Controllers](/docs/concepts/architecture/controller/) in Kubernetes.
+* [Kubernetes API overview](/docs/reference/using-api/) which explains some more API concepts.
+* [kubectl](/docs/reference/kubectl/) and [kubectl commands](/docs/reference/generated/kubectl/kubectl-commands).
 -->
 进一步了解以下信息：
 * 最重要的 Kubernetes 基本对象 [Pod](/zh-cn/docs/concepts/workloads/pods/)。

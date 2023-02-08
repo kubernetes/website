@@ -2,6 +2,7 @@
 title: Verify Signed Kubernetes Artifacts
 content_type: task
 min-kubernetes-server-version: v1.26
+weight: 420
 ---
 
 <!-- overview -->
@@ -45,6 +46,9 @@ Then verify the blob by using `cosign`:
 ```shell
 cosign verify-blob "$BINARY" --signature "$BINARY".sig --certificate "$BINARY".cert
 ```
+
+cosign v1.9.0 is required to be able to use the `--certificate` flag. Please use
+`--cert` for older versions of cosign.
 
 {{< note >}}
 To learn more about keyless signing, please refer to [Keyless

@@ -42,10 +42,18 @@ securely with the API server.
 
 ### Directly accessing the REST API
 
-While running in a Pod, the Kubernetes apiserver is accessible via a Service named
-`kubernetes` in the `default` namespace. Therefore, Pods can use the
-`kubernetes.default.svc` hostname to query the API server. Official client libraries
-do this automatically.
+While running in a Pod, your container can create an HTTPS URL for the Kubernetes API
+server by fetching the `KUBERNETES_SERVICE_HOST` and `KUBERNETES_SERVICE_PORT_HTTPS`
+environment variables. The API server's in-cluster address is also published to a
+Service named `kubernetes` in the `default` namespace so that pods may reference
+`kubernetes.default.svc` as a DNS name for the local API server.
+
+{{< note >}}
+Kubernetes does not guarantee that the API server has a valid certificate for
+the hostname  `kubernetes.default.svc`;
+however, the control plane **is** expected to present a valid certificate for the
+hostname or IP address that `$KUBERNETES_SERVICE_HOST` represents.
+{{< /note >}}
 
 The recommended way to authenticate to the API server is with a
 [service account](/docs/tasks/configure-pod-container/configure-service-account/)
