@@ -274,7 +274,7 @@ availability of each node, and to take action when failures are detected.
 For nodes there are two forms of heartbeats:
 
 * updates to the `.status` of a Node
-* [Lease](/docs/reference/kubernetes-api/cluster-resources/lease-v1/) objects
+* [Lease](/docs/concepts/architecture/leases/) objects
   within the `kube-node-lease`
   {{< glossary_tooltip term_id="namespace" text="namespace">}}.
   Each Node has an associated Lease object.

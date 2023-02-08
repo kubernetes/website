@@ -23,7 +23,8 @@ Kubernetes API 服务器是外部（用户和服务）与集群交互的主要�
 
 <!--
 As part of this role, the API server has several key built-in security controls, such as
-audit logging and {{< glossary_tooltip text="admission controllers" term_id="admission-controller" >}}. However, there are ways to modify the configuration
+audit logging and {{< glossary_tooltip text="admission controllers" term_id="admission-controller" >}}.
+However, there are ways to modify the configuration
 or content of the cluster that bypass these controls.
  -->
 作为此角色的一部分，API 服务器有几个关键的内置安全控制，
@@ -91,13 +92,13 @@ API server. However, the Pod still runs on the node. For more information, refer
 
 <!--
 - Only [enable the kubelet static Pod manifest functionality](/docs/tasks/configure-pod-container/static-pod/#static-pod-creation)
-   if required by the node.
+  if required by the node.
 - If a node uses the static Pod functionality, restrict filesystem access to the static Pod manifest directory
-   or URL to users who need the access.
+  or URL to users who need the access.
 - Restrict access to kubelet configuration parameters and files to prevent an attacker setting
-   a static Pod path or URL.
+  a static Pod path or URL.
 - Regularly audit and centrally report all access to directories or web storage locations that host
-   static Pod manifests and kubelet configuration files.
+  static Pod manifests and kubelet configuration files.
  -->
 - 仅在节点需要时[启用 kubelet 静态 Pod 清单功能](/zh-cn/docs/tasks/configure-pod-container/static-pod/#static-pod-creation)。
 - 如果节点使用静态 Pod 功能，请将对静态 Pod 清单目录或 URL 的文件系统的访问权限限制为需要访问的用户。
@@ -268,13 +269,13 @@ control plane components.
 
 <!--
 - Ensure that you tightly control filesystem access to container runtime sockets.
-   When possible, restrict this access to the `root` user.
+  When possible, restrict this access to the `root` user.
 - Isolate the kubelet from other components running on the node, using
-   mechanisms such as Linux kernel namespaces.
+  mechanisms such as Linux kernel namespaces.
 - Ensure that you restrict or forbid the use of [`hostPath` mounts](/docs/concepts/storage/volumes/#hostpath)
-   that include the container runtime socket, either directly or by mounting a parent
-   directory. Also `hostPath` mounts must be set as read-only to mitigate risks
-   of attackers bypassing directory restrictions.
+  that include the container runtime socket, either directly or by mounting a parent
+  directory. Also `hostPath` mounts must be set as read-only to mitigate risks
+  of attackers bypassing directory restrictions.
 - Restrict user access to nodes, and especially restrict superuser access to nodes.
 -->
 - 确保严格控制对容器运行时套接字所在的文件系统访问。如果可能，限制为仅 `root` 用户可访问。
