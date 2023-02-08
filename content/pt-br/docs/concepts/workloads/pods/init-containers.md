@@ -63,7 +63,7 @@ Aqui estão algumas ideias de como usar contêineres de inicialização:
 
 ### Contêineres de inicialização em uso
 
-Esse exemplo define um Pod simples que tem dois contêineres de inicialização. O primeiro espera pelo `myservice`, e o segundo espera pelo `mydb`. Uma vez que ambos contêineres de inicialização terminam, o Pod executa pela seção `spec`.
+Esse exemplo define um Pod simples que tem dois contêineres de inicialização. O primeiro espera pelo `myservice`, e o segundo espera pelo `mydb`. Uma vez que ambos contêineres de inicialização terminam, o Pod executa pela seção `spec`  .
 
 ```yaml
 apiVersion: v1
