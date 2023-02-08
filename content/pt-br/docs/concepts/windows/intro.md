@@ -1,10 +1,5 @@
 ---
-reviewers:
-- jayunit100
-- jsturtevant
-- marosset
-- perithompson
-title: Windows containers in Kubernetes
+title :Contêineres do Windows no Kubernetes
 content_type: concept
 weight: 65
 ---
