@@ -14,14 +14,14 @@ Esta página descreve considerações de segurança e boas práticas específica
 
 No Windows, os dados do Secret são escritos em texto não-encriptado no armazenamento local do nó (em comparação ao uso de tmpfs / sistemas de arquivo em memória no Linux). Como um operador do cluster, você deve tomar as duas medidas adicionais a seguir:
 
-1. Aplique ACLs em arquivos para proteger a localização do arquivo Secrets.
-2. Aplicar criptografia a nível de volume usando
+1. Use ACLs em arquivos para proteger a localização do arquivo Secrets.
+2. Aplique criptografia a nível de volume usando
    [BitLocker](https://docs.microsoft.com/windows/security/information-protection/bitlocker/bitlocker-how-to-deploy-on-windows-server).
 
 ## Usuários dos Contêineres
 
 [RunAsUsername](/docs/tasks/configure-pod-container/configure-runasusername)
-pode ser utilizado para Pods ou contêineres com Windows para executar os processos do contêiner como usuário específico. Isto é aproximadamente equivalente a
+pode ser utilizado em Pods ou contêineres com Windows para executar os processos do contêiner como usuário específico. Isto é aproximadamente equivalente a
 [RunAsUser](/docs/concepts/security/pod-security-policy/#users-and-groups).
 
 Os contêineres Windows oferecem duas contas de usuário padrão, ContainerUser e ContainerAdministrator. As diferenças entre estas duas contas de usuário são descritas em
