@@ -23,48 +23,17 @@ signatures:
 
 | Container Image                                                     | Supported Architectures                                                                  |
 | ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| [registry.k8s.io/kube-apiserver:{{< param "fullversion" >}}][0]          | [amd64][0-amd64], [arm][0-arm], [arm64][0-arm64], [ppc64le][0-ppc64le], [s390x][0-s390x] |
-| [registry.k8s.io/kube-controller-manager:{{< param "fullversion" >}}][1] | [amd64][1-amd64], [arm][1-arm], [arm64][1-arm64], [ppc64le][1-ppc64le], [s390x][1-s390x] |
-| [registry.k8s.io/kube-proxy:{{< param "fullversion" >}}][2]              | [amd64][2-amd64], [arm][2-arm], [arm64][2-arm64], [ppc64le][2-ppc64le], [s390x][2-s390x] |
-| [registry.k8s.io/kube-scheduler:{{< param "fullversion" >}}][3]          | [amd64][3-amd64], [arm][3-arm], [arm64][3-arm64], [ppc64le][3-ppc64le], [s390x][3-s390x] |
-| [registry.k8s.io/conformance:{{< param "fullversion" >}}][4]             | [amd64][4-amd64], [arm][4-arm], [arm64][4-arm64], [ppc64le][4-ppc64le], [s390x][4-s390x] |
-
-[0]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-apiserver
-[0-amd64]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-apiserver-amd64
-[0-arm]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-apiserver-arm
-[0-arm64]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-apiserver-arm64
-[0-ppc64le]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-apiserver-ppc64le
-[0-s390x]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-apiserver-s390x
-[1]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-controller-manager
-[1-amd64]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-controller-manager-amd64
-[1-arm]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-controller-manager-arm
-[1-arm64]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-controller-manager-arm64
-[1-ppc64le]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-controller-manager-ppc64le
-[1-s390x]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-controller-manager-s390x
-[2]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-proxy
-[2-amd64]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-proxy-amd64
-[2-arm]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-proxy-arm
-[2-arm64]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-proxy-arm64
-[2-ppc64le]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-proxy-ppc64le
-[2-s390x]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-proxy-s390x
-[3]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-scheduler
-[3-amd64]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-scheduler-amd64
-[3-arm]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-scheduler-arm
-[3-arm64]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-scheduler-arm64
-[3-ppc64le]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-scheduler-ppc64le
-[3-s390x]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/kube-scheduler-s390x
-[4]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/conformance
-[4-amd64]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/conformance-amd64
-[4-arm]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/conformance-arm
-[4-arm64]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/conformance-arm64
-[4-ppc64le]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/conformance-ppc64le
-[4-s390x]: https://console.cloud.google.com/gcr/images/k8s-artifacts-prod/us/conformance-s390x
+| registry.k8s.io/kube-apiserver:{{< param "fullversion" >}}          | amd64, arm, arm64, ppc64le, s390x |
+| registry.k8s.io/kube-controller-manager:{{< param "fullversion" >}} | amd64, arm, arm64, ppc64le, s390x |
+| registry.k8s.io/kube-proxy:{{< param "fullversion" >}}              | amd64, arm, arm64, ppc64le, s390x |
+| registry.k8s.io/kube-scheduler:{{< param "fullversion" >}}          | amd64, arm, arm64, ppc64le, s390x |
+| registry.k8s.io/conformance:{{< param "fullversion" >}}             | amd64, arm, arm64, ppc64le, s390x |
 
 All container images are available for multiple architectures, whereas the
 container runtime should choose the correct one based on the underlying
 platform. It is also possible to pull a dedicated architecture by suffixing the
 container image name, for example
-[`registry.k8s.io/kube-apiserver-arm64:{{< param "fullversion" >}}`][0-arm64]. All
+`registry.k8s.io/kube-apiserver-arm64:{{< param "fullversion" >}}`. All
 those derivations are signed in the same way as the multi-architecture manifest lists.
 
 The Kubernetes project publishes a list of signed Kubernetes container images
