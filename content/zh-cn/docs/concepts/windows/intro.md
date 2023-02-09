@@ -506,12 +506,13 @@ This functionality requires a container runtime that supports this functionality
 <!--
 #### Field compatibility for Pod security context {#compatibility-v1-pod-spec-containers-securitycontext}
 
-None of the Pod [`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) fields work on Windows.
+Only the `securityContext.runAsNonRoot` and `securityContext.windowsOptions` from the Pod
+[`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) fields work on Windows.
 -->
 #### Pod 安全上下文的字段兼容性 {#compatibility-v1-pod-spec-containers-securitycontext}
 
-Pod 的所有 [`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
-字段都无法在 Windows 上生效。
+只有 `securityContext.runAsNonRoot` 和 `securityContext.windowsOptions` 
+Pod 的 [`securityContext`](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) 字段适用于 Windows。
 
 <!--
 ## Node problem detector
