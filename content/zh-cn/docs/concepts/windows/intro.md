@@ -133,7 +133,14 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
   Linux containers in the same Pod. All containers in a Pod are scheduled onto a single
   Node where each Node represents a specific platform and architecture. The following
   Pod capabilities, properties and events are supported with Windows containers:
+-->
+* [Pod](/zh-cn/docs/concepts/workloads/pods/)
 
+  Pod 是 Kubernetes 的基本构建块，是可以创建或部署的最小和最简单的单元。
+  你不可以在同一个 Pod 中部署 Windows 和 Linux 容器。
+  Pod 中的所有容器都调度到同一 Node 上，每个 Node 代表一个特定的平台和体系结构。
+  Windows 容器支持以下 Pod 能力、属性和事件：
+  <!--
   * Single or multiple containers per Pod with process isolation and volume sharing
   * Pod `status` fields
   * Readiness, liveness, and startup probes
@@ -142,28 +149,7 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
   * `emptyDir` volumes
   * Named pipe host mounts
   * Resource limits
-  * OS field: 
-
-    The `.spec.os.name` field should be set to `windows` to indicate that the current Pod uses Windows containers.
-
-    {{< note >}}
-    Starting from 1.25, the `IdentifyPodOS` feature gate is in GA stage and defaults to be enabled.
-    {{< /note >}}
-
-    If you set the `.spec.os.name` field to `windows`,
-    you must not set the following fields in the `.spec` of that Pod:  
-    In the above list, wildcards (`*`) indicate all elements in a list.
-    For example, `spec.containers[*].securityContext` refers to the SecurityContext object
-    for all containers. If any of these fields is specified, the Pod will
-    not be admitted by the API server.
--->
-* [Pod](/zh-cn/docs/concepts/workloads/pods/)
-  
-  Pod 是 Kubernetes 的基本构建块，是可以创建或部署的最小和最简单的单元。
-  你不可以在同一个 Pod 中部署 Windows 和 Linux 容器。
-  Pod 中的所有容器都调度到同一 Node 上，每个 Node 代表一个特定的平台和体系结构。
-  Windows 容器支持以下 Pod 能力、属性和事件：
-  
+  -->
   * 每个 Pod 有一个或多个容器，具有进程隔离和卷共享能力
   * Pod `status` 字段
   * 就绪、存活和启动探针
@@ -172,14 +158,26 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
   * `emptyDir` 卷
   * 命名管道形式的主机挂载
   * 资源限制
+  <!--
+  * OS field:
+
+    The `.spec.os.name` field should be set to `windows` to indicate that the current Pod uses Windows containers.
+  -->
   * 操作系统字段：
 
     `.spec.os.name` 字段应设置为 `windows` 以表明当前 Pod 使用 Windows 容器。
 
     {{< note >}}
+    <!--
+    Starting from 1.25, the `IdentifyPodOS` feature gate is in GA stage and defaults to be enabled.
+    -->
     从 1.25 开始，`IdentifyPodOS` 特性门控进入 GA 阶段，默认启用。
     {{< /note >}}
 
+    <!--
+    If you set the `.spec.os.name` field to `windows`,
+    you must not set the following fields in the `.spec` of that Pod:
+    -->
     如果你将 `.spec.os.name` 字段设置为 `windows`，
     则你必须不能在对应 Pod 的 `.spec` 中设置以下字段：
 
@@ -203,7 +201,13 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
     * `spec.containers[*].securityContext.procMount`
     * `spec.containers[*].securityContext.runAsUser`
     * `spec.containers[*].securityContext.runAsGroup`
- 
+
+    <!--
+    In the above list, wildcards (`*`) indicate all elements in a list.
+    For example, `spec.containers[*].securityContext` refers to the SecurityContext object
+    for all containers. If any of these fields is specified, the Pod will
+    not be admitted by the API server.
+    -->
     在上述列表中，通配符（`*`）表示列表中的所有项。
     例如，`spec.containers[*].securityContext` 指代所有容器的 SecurityContext 对象。
     如果指定了这些字段中的任意一个，则 API 服务器不会接受此 Pod。
@@ -238,7 +242,7 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
 Pods, workload resources, and Services are critical elements to managing Windows
 workloads on Kubernetes. However, on their own they are not enough to enable
 the proper lifecycle management of Windows workloads in a dynamic cloud native
-environment. Kubernetes also supports:
+environment.
 
 * `kubectl exec`
 * Pod and container metrics
@@ -248,7 +252,6 @@ environment. Kubernetes also supports:
 -->
 Pod、工作负载资源和 Service 是在 Kubernetes 上管理 Windows 工作负载的关键元素。
 然而，它们本身还不足以在动态的云原生环境中对 Windows 工作负载进行恰当的生命周期管理。
-Kubernetes 还支持：
 
 * `kubectl exec`
 * Pod 和容器度量指标
@@ -356,7 +359,7 @@ passed from the Kubernetes components (kubelet, kube-proxy) are unchanged.
 但是，从 Kubernetes 组件（kubelet、kube-proxy）传递的退出码保持不变。
 
 <!--
-##### Field compatibility for container specifications {#compatibility-v1-pod-spec-containers}
+#### Field compatibility for container specifications {#compatibility-v1-pod-spec-containers}
 
 The following list documents differences between how Pod container specifications
 work between Windows and Linux:
@@ -371,9 +374,9 @@ work between Windows and Linux:
   node. They should be applied to all containers as a best practice if the operator
   wants to avoid overprovisioning entirely.
 -->
-##### 容器规范的字段兼容性 {#compatibility-v1-pod-spec-containers}
+#### 容器规约的字段兼容性 {#compatibility-v1-pod-spec-containers}
 
-以下列表记录了 Pod 容器规范在 Windows 和 Linux 之间的工作方式差异：
+以下列表记录了 Pod 容器规约在 Windows 和 Linux 之间的工作方式差异：
 
 * 巨页（Huge page）在 Windows 容器运行时中未实现，且不可用。
   巨页需要不可为容器配置的[用户特权生效](https://docs.microsoft.com/zh-cn/windows/win32/memory/large-page-support)。
@@ -419,7 +422,7 @@ work between Windows and Linux:
    default value is `/dev/termination-log`, which does work because it does not
    exist on Windows by default.
 -->
-* `securityContext.runAsNonRoot` - 
+* `securityContext.runAsNonRoot` -
   此设置将阻止以 `ContainerAdministrator` 身份运行容器，这是 Windows 上与 root 用户最接近的身份。
 * `securityContext.runAsUser` - 改用 [`runAsUserName`](/zh-cn/docs/tasks/configure-pod-container/configure-runasusername)。
 * `securityContext.seLinuxOptions` - 不能在 Windows 上使用，因为 SELinux 特定于 Linux。
@@ -427,7 +430,7 @@ work between Windows and Linux:
   默认值为 `/dev/termination-log`，因为默认情况下它在 Windows 上不存在，所以能生效。
 
 <!--
-##### Field compatibility for Pod specifications {#compatibility-v1-pod}
+#### Field compatibility for Pod specifications {#compatibility-v1-pod}
 
 The following list documents differences between how Pod specifications work between Windows and Linux:
 
@@ -441,9 +444,9 @@ The following list documents differences between how Pod specifications work bet
   which are not implemented on Windows. Windows cannot share process namespaces or
   the container's root filesystem. Only the network can be shared.
 -->
-##### Pod 规范的字段兼容性 {#compatibility-v1-pod}
+#### Pod 规约的字段兼容性 {#compatibility-v1-pod}
 
-以下列表记录了 Pod 规范在 Windows 和 Linux 之间的工作方式差异：
+以下列表记录了 Pod 规约在 Windows 和 Linux 之间的工作方式差异：
 
 * `hostIPC` 和 `hostpid` - 不能在 Windows 上共享主机命名空间。
 * `hostNetwork` - [参见下文](#compatibility-v1-pod-spec-containers-hostnetwork)
@@ -498,7 +501,7 @@ of creating a new pod network namespace. To enable this functionality pass `--fe
 
 {{< note >}}
 <!-- 
-This functionality requires a container runtime that supports this functionality. 
+This functionality requires a container runtime that supports this functionality.
 -->
 此功能需要支持该功能的容器运行时。
 {{< /note >}}
@@ -506,12 +509,13 @@ This functionality requires a container runtime that supports this functionality
 <!--
 #### Field compatibility for Pod security context {#compatibility-v1-pod-spec-containers-securitycontext}
 
-None of the Pod [`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) fields work on Windows.
+Only the `securityContext.runAsNonRoot` and `securityContext.windowsOptions` from the Pod
+[`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) fields work on Windows.
 -->
 #### Pod 安全上下文的字段兼容性 {#compatibility-v1-pod-spec-containers-securitycontext}
 
-Pod 的所有 [`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
-字段都无法在 Windows 上生效。
+Pod 的 [`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
+中只有 `securityContext.runAsNonRoot` 和 `securityContext.windowsOptions` 字段在 Windows 上生效。
 
 <!--
 ## Node problem detector
@@ -527,7 +531,7 @@ For more information, visit the project's [GitHub page](https://github.com/kuber
 有关更多信息，请访问该项目的 [GitHub 页面](https://github.com/kubernetes/node-problem-detector#windows)。
 
 <!--
-### Pause container
+## Pause container
 
 In a Kubernetes Pod, an infrastructure or “pause” container is first created
 to host the container. In Linux, the cgroups and namespaces that make up a pod
@@ -537,7 +541,7 @@ containers, share a common network endpoint (same IPv4 and / or IPv6 address, sa
 network port spaces). Kubernetes uses pause containers to allow for worker containers
 crashing or restarting without losing any of the networking configuration.
 -->
-### Pause 容器 {#pause-container}
+## Pause 容器 {#pause-container}
 
 在 Kubernetes Pod 中，首先创建一个基础容器或 “pause” 容器来承载容器。
 在 Linux 中，构成 Pod 的 cgroup 和命名空间维持持续存在需要一个进程；
@@ -572,7 +576,7 @@ Microsoft 进行了[验证码签名](https://docs.microsoft.com/zh-cn/windows-ha
 Kubernetes 项目建议使用 Microsoft 维护的镜像。
 
 <!--
-### Container runtimes {#container-runtime}
+## Container runtimes {#container-runtime}
 
 You need to install a
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
@@ -580,7 +584,7 @@ into each node in the cluster so that Pods can run there.
 
 The following container runtimes work with Windows:
 -->
-### 容器运行时 {#container-runtime}
+## 容器运行时 {#container-runtime}
 
 你需要将{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}安装到集群中的每个节点，
 这样 Pod 才能在这些节点上运行。
@@ -590,7 +594,7 @@ The following container runtimes work with Windows:
 {{% thirdparty-content %}}
 
 <!--
-#### ContainerD
+### ContainerD
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
@@ -599,7 +603,7 @@ as the container runtime for Kubernetes nodes that run Windows.
 
 Learn how to [install ContainerD on a Windows node](/docs/setup/production-environment/container-runtimes/#install-containerd).
 -->
-#### ContainerD {#containerd}
+### ContainerD {#containerd}
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
@@ -608,26 +612,26 @@ Learn how to [install ContainerD on a Windows node](/docs/setup/production-envir
 
 学习如何[在 Windows 上安装 ContainerD](/zh-cn/docs/setup/production-environment/container-runtimes/#install-containerd)。
 
+{{< note >}}
 <!--
 There is a [known limitation](/docs/tasks/configure-pod-container/configure-gmsa/#gmsa-limitations)
 when using GMSA with containerd to access Windows network shares, which requires a
 kernel patch.
 -->
-{{< note >}}
 将 GMSA 和 containerd 一起用于访问 Windows
 网络共享时存在[已知限制](/zh-cn/docs/tasks/configure-pod-container/configure-gmsa/#gmsa-limitations)，
 这需要一个内核补丁。
 {{< /note >}}
 
 <!--
-#### Mirantis Container Runtime {#mcr}
+### Mirantis Container Runtime {#mcr}
 
 [Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR)
 is available as a container runtime for all Windows Server 2019 and later versions.
 
 See [Install MCR on Windows Servers](https://docs.mirantis.com/mcr/20.10/install/mcr-windows.html) for more information.
 -->
-#### Mirantis 容器运行时 {#mcr}
+### Mirantis 容器运行时 {#mcr}
 
 [Mirantis 容器运行时](https://docs.mirantis.com/mcr/20.10/overview.html)（MCR）
 可作为所有 Windows Server 2019 和更高版本的容器运行时。
@@ -711,21 +715,21 @@ Kubernetes Slack 上的 SIG Windows 频道也是一个很好的途径，
 ## {{% heading "whatsnext" %}}
 
 <!--
-### Deployment tools
+## Deployment tools
 
 The kubeadm tool helps you to deploy a Kubernetes cluster, providing the control
 plane to manage the cluster it, and nodes to run your workloads.
 
 The Kubernetes [cluster API](https://cluster-api.sigs.k8s.io/) project also provides means to automate deployment of Windows nodes.
 -->
-### 部署工具 {#deployment-tools}
+## 部署工具 {#deployment-tools}
 
 kubeadm 工具帮助你部署 Kubernetes 集群，提供管理集群的控制平面以及运行工作负载的节点。
 
 Kubernetes [集群 API](https://cluster-api.sigs.k8s.io/) 项目也提供了自动部署 Windows 节点的方式。
 
 <!--
-### Windows distribution channels
+## Windows distribution channels
 
 For a detailed explanation of Windows distribution channels see the
 [Microsoft documentation](https://docs.microsoft.com/en-us/windows-server/get-started-19/servicing-channels-19).
@@ -734,7 +738,7 @@ Information on the different Windows Server servicing channels
 including their support models can be found at
 [Windows Server servicing channels](https://docs.microsoft.com/en-us/windows-server/get-started/servicing-channels-comparison).
 -->
-### Windows 分发渠道 {#windows-distribution-channels}
+## Windows 分发渠道 {#windows-distribution-channels}
 
 有关 Windows 分发渠道的详细阐述，请参考
 [Microsoft 文档](https://docs.microsoft.com/zh-cn/windows-server/get-started-19/servicing-channels-19)。
