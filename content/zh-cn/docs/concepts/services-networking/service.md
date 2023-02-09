@@ -70,7 +70,7 @@ Pod 是非永久性资源。
 这导致了一个问题： 如果一组 Pod（称为“后端”）为集群内的其他 Pod（称为“前端”）提供功能，
 那么前端如何找出并跟踪要连接的 IP 地址，以便前端可以使用提供工作负载的后端部分？
 
-进入 **Services**。
+进入 **Service**。
 
 <!--
 ## Service resources {#service-resource}
@@ -119,8 +119,8 @@ balancer in between your application and the backend Pods.
 ### 云原生服务发现   {#cloud-native-discovery}
 
 如果你想要在应用程序中使用 Kubernetes API 进行服务发现，则可以查询
-{{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}
-用于匹配 EndpointSlices。只要服务中的 Pod 集合发生更改，Kubernetes 就会为服务更新 EndpointSlices。
+{{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}用于匹配 EndpointSlices。
+只要服务中的 Pod 集合发生更改，Kubernetes 就会为服务更新 EndpointSlices。
 
 对于非本机应用程序，Kubernetes 提供了在应用程序和后端 Pod 之间放置网络端口或负载均衡器的方法。
 
@@ -708,15 +708,15 @@ the port number for `http`, as well as the IP address.
 
 The Kubernetes DNS server is the only way to access `ExternalName` Services.
 You can find more information about `ExternalName` resolution in
-[DNS Pods and Services](/docs/concepts/services-networking/dns-pod-service/).
+[DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/).
 -->
 Kubernetes 还支持命名端口的 DNS SRV（服务）记录。
 如果 `my-service.my-ns` 服务具有名为 `http`　的端口，且协议设置为 TCP，
 则可以对 `_http._tcp.my-service.my-ns` 执行 DNS SRV 查询以发现该端口号、`"http"` 以及 IP 地址。
 
 Kubernetes DNS 服务器是唯一的一种能够访问 `ExternalName` 类型的 Service 的方式。
-更多关于 `ExternalName` 信息可以查看
-[DNS Pod 和 Service](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
+更多关于 `ExternalName` 解析的信息可以查看
+[Service 与 Pod 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
 
 <!--
 ## Headless Services  {#headless-services}
@@ -1842,21 +1842,28 @@ Kubernetes 提供的使用虚拟 IP 地址公开服务的机制。
 ## {{% heading "whatsnext" %}}
 
 <!--
+Learn more about the following:
 * Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial
-* Read about [Ingress](/docs/concepts/services-networking/ingress/)
-* Read about [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)
-
-For more context:
-* Read [Virtual IPs and Service Proxies](/docs/reference/networking/virtual-ips/)
-* Read the [API reference](/docs/reference/kubernetes-api/service-resources/service-v1/) for the Service API
-* Read the [API reference](/docs/reference/kubernetes-api/service-resources/endpoints-v1/) for the Endpoints API
-* Read the [API reference](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/) for the EndpointSlice API
+* [Ingress](/docs/concepts/services-networking/ingress/) exposes HTTP and HTTPS routes from outside the cluster to services within the cluster.
+* [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)
 -->
-* 遵循[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)教程
-* 阅读了解 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)
-* 阅读了解[端点切片（Endpoint Slices）](/zh-cn/docs/concepts/services-networking/endpoint-slices/)
+进一步学习以下章节：
 
+* 遵循[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)教程
+* [Ingress](/zh-cn/docs/concepts/services-networking/ingress/) 将来自集群外部的 HTTP 和 HTTPS
+  请求路由暴露给集群内的服务。
+* [EndpointSlice](/zh-cn/docs/concepts/services-networking/endpoint-slices/)
+
+<!--
+For more context:
+* [Virtual IPs and Service Proxies](/docs/reference/networking/virtual-ips/)
+* [API reference](/docs/reference/kubernetes-api/service-resources/service-v1/) for the Service API
+* [API reference](/docs/reference/kubernetes-api/service-resources/endpoints-v1/) for the Endpoints API
+* [API reference](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/) for the EndpointSlice API
+-->
 更多上下文：
-* 阅读[虚拟 IP 和 Service 代理](/zh-cn/docs/reference/networking/virtual-ips/)
-* 阅读 Service API 的 [API 参考](/zh-cn/docs/reference/kubernetes-api/service-resources/service-v1/)
-* 阅读 EndpointSlice API 的 [API 参考](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/)
+
+* [虚拟 IP 和 Service 代理](/zh-cn/docs/reference/networking/virtual-ips/)
+* Service API 的 [API 参考](/zh-cn/docs/reference/kubernetes-api/service-resources/service-v1/)
+* Endpoints API 的 [API 参考](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+* EndpointSlice API 的 [API 参考](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/)
