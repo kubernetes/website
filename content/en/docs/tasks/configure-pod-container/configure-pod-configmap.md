@@ -62,9 +62,18 @@ about a ConfigMap.
 
 You can use `kubectl create configmap` to create a ConfigMap from multiple files in the same
 directory. When you are creating a ConfigMap based on a directory, kubectl identifies files
-whose basename is a valid key in the directory and packages each of those files into the new
+whose filename is a valid key in the directory and packages each of those files into the new
 ConfigMap. Any directory entries except regular files are ignored (for example: subdirectories,
 symlinks, devices, pipes, and more).
+
+
+{{< note >}}
+Each filename being used for ConfigMap creation must consist of only acceptable characters, which are: letters (`A` to `Z` and `a` to z`), digits (`0` to `9`), '-', '_', or '.'.
+If you use `kubectl create configmap` with a directory where any of the file names contains an unacceptable character, the `kubectl` command may fail.
+
+The `kubectl` command does not print an error when it encounters an invalid filename.
+{{< /note >}}
+
 
 Create the local directory:
 
