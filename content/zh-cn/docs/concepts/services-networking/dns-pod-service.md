@@ -532,7 +532,7 @@ in its `/etc/resolv.conf` file:
 创建上面的 Pod 后，容器 `test` 会在其 `/etc/resolv.conf` 文件中获取以下内容：
 
 ```
-nameserver 1.2.3.4
+nameserver 192.0.2.1
 search ns1.svc.cluster-domain.example my.dns.search.suffix
 options ndots:2 edns0
 ```
