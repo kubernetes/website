@@ -840,9 +840,9 @@ behavior using this {{< glossary_tooltip text="annotation" term_id="annotation" 
 See [Restrict a Container's Syscalls with seccomp](/docs/tutorials/security/seccomp/) to
 learn the supported way to specify seccomp restrictions for a Pod.
 
-### snapshot.storage.kubernetes.io/allowVolumeModeChange
+### snapshot.storage.kubernetes.io/allow-volume-mode-change
 
-Example: `snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"`
+Example: `snapshot.storage.kubernetes.io/allow-volume-mode-change: "true"`
 
 Used on: VolumeSnapshotContent
 
