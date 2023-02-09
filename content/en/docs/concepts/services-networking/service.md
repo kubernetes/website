@@ -286,7 +286,7 @@ information about this API.
 
 ### Endpoints
 
-In the Kubernetes API, an
+In the Kubernetes API, 
 [Endpoints](/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
 (the resource kind is plural) defines a list of network endpoints, typically
 referenced by a Service to define which Pods the traffic can be sent to.
