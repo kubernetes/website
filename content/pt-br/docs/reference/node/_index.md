@@ -10,7 +10,7 @@ Esta seção contém os seguintes tópicos de referência sobre os nós:
 
 * Uma lista de [Artigos sobre a remoção do dockershim e sobre o uso de agentes de execução compatíveis com o CRI](/docs/reference/node/topics-on-dockershim-and-cri-compatible-runtimes/)
 
-Você também pode ler os detalhes de referência do node em outros lugares na
+Você também pode ler os detalhes de referência do nó em outros lugares na
 documentação do Kubernetes, incluindo:
 
 * [Dados de métricas do Nó](/docs/reference/instrumentation/node-metrics).
