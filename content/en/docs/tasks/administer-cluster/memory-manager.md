@@ -111,11 +111,11 @@ This is the default policy and does not affect the memory allocation in any way.
 It acts the same as if the Memory Manager is not present at all.
 
 The `None` policy returns default topology hint. This special hint denotes that Hint Provider
-(Memory Manger in this case) has no preference for NUMA affinity with any resource.
+(Memory Manager in this case) has no preference for NUMA affinity with any resource.
 
 #### Static policy {#policy-static}
 
-In the case of the `Guaranteed` pod, the `Static` Memory Manger policy returns topology hints
+In the case of the `Guaranteed` pod, the `Static` Memory Manager policy returns topology hints
 relating to the set of NUMA nodes where the memory can be guaranteed,
 and reserves the memory through updating the internal [NodeMap][2] object.
 
