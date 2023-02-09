@@ -208,7 +208,9 @@ Provisioner.
 它可以使用 PersistentVolume 制备程序所准备的
 [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/) 来提供稳定的存储。
 
-<!-- ### Minimum ready seconds -->
+<!--
+### Minimum ready seconds
+-->
 ### 最短就绪秒数 {#minimum-ready-seconds}
 
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
@@ -356,7 +358,7 @@ Cluster Domain | Service (ns/name) | StatefulSet (ns/name)  | StatefulSet Domain
 {{< note >}}
 <!--
 Cluster Domain will be set to `cluster.local` unless
-[otherwise configured](/docs/concepts/services-networking/dns-pod-service/#how-it-works).
+[otherwise configured](/docs/concepts/services-networking/dns-pod-service/).
 -->
 集群域会被设置为 `cluster.local`，除非有[其他配置](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
 {{< /note >}}
@@ -477,8 +479,8 @@ described [above](#deployment-and-scaling-guarantees).
 `Parallel` pod management tells the StatefulSet controller to launch or
 terminate all Pods in parallel, and to not wait for Pods to become Running
 and Ready or completely terminated prior to launching or terminating another
-Pod. This option only affects the behavior for scaling operations. Updates are not affected.
-
+Pod. This option only affects the behavior for scaling operations. Updates are not
+affected.
 -->
 #### 并行 Pod 管理   {#parallel-pod-management}
 
@@ -487,7 +489,7 @@ Pod. This option only affects the behavior for scaling operations. Updates are n
 这个选项只会影响扩缩操作的行为，更新则不会被影响。
 
 <!--
-## Update Strategies
+## Update strategies
 
 A StatefulSet's `.spec.updateStrategy` field allows you to configure
 and disable automated rolling updates for containers, labels, resource request/limits, and
@@ -641,7 +643,9 @@ StatefulSet will then begin to recreate the Pods using the reverted template.
 恢复模板后，还必须删除 StatefulSet 尝试使用错误的配置来运行的 Pod。这样，
 StatefulSet 才会开始使用被还原的模板来重新创建 Pod。
 
-<!-- ## PersistentVolumeClaim retention -->
+<!--
+## PersistentVolumeClaim retention
+-->
 ## PersistentVolumeClaim 保留  {#persistentvolumeclaim-retention}
 
 {{< feature-state for_k8s_version="v1.23" state="alpha" >}}
@@ -666,7 +670,7 @@ Once enabled, there are two policies you can configure for each StatefulSet:
 `whenScaled`
 : configures the volume retention behavior that applies when the replica count of
   the StatefulSet   is reduced; for example, when scaling down the set.
-  
+
 For each policy that you can configure, you can set the value to either `Delete` or `Retain`.
 -->
 `whenDeleted`
@@ -704,7 +708,7 @@ StatefulSet being deleted or scaled down. For example, if a Pod associated with 
 fails due to node failure, and the control plane creates a replacement Pod, the StatefulSet
 retains the existing PVC.  The existing volume is unaffected, and the cluster will attach it to
 the node where the new Pod is about to launch.
-  
+
 The default for policies is `Retain`, matching the StatefulSet behavior before this new feature.
 
 Here is an example policy.
