@@ -50,8 +50,8 @@ cumprindo com as [especificações DNS](https://github.com/kubernetes/dns/blob/m
 CoreDNS é um servidor DNS que é modular e plugável, com plugins que adicionam novas funcionalidades.
 O servidor CoreDNS pode ser configurado por um [Corefile](https://coredns.io/2017/07/23/corefile-explained/),
 que é o arquivo de configuração do CoreDNS. Como administrador de cluster, você pode modificar o
-{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} para o arquivo Corefile do CoreDNS para
-mudar como o descobrimento de serviços DNS se comporta para esse cluster.
+{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} que contém o arquivo Corefile do CoreDNS para
+mudar como o descoberta de serviços DNS se comporta para esse cluster.
 
 No Kubernetes, o CoreDNS é instalado com a seguinte configuração padrão do Corefile:
 
@@ -90,8 +90,7 @@ A configuração do Corefile inclui os seguintes [plugins](https://coredns.io/pl
 `http://localhost:8080/health`. Nesta sintaxe estendida, `lameduck` marcará o processo como não-íntegro, esperando por 5 segundos antes que o processo seja encerrado.
 * [ready](https://coredns.io/plugins/ready/): Um endpoint HTTP na porta 8181 retornará 200 OK, quando todos os plugins que são capazes de sinalizar prontidão tiverem feito isso.
 * [kubernetes](https://coredns.io/plugins/kubernetes/): O CoreDNS responderá a consultas DNS
- baseado no IP dos Serviços e Pods. Você pode encontrar [mais detalhes em](https://coredns.io/plugins/kubernetes/).
-  sobre este plugin no site do CoreDNS.
+ baseado no IP dos Serviços e Pods. Você pode encontrar mais detalhes sobre este plugin no [site do CoreDNS](https://coredns.io/plugins/kubernetes/).
   * `ttl` permite que você defina um TTL personalizado para as respostas. O padrão é 5 segundos. O TTL mínimo permitido é de 0 segundos e o máximo é de 3600 segundos. Definir o TTL como 0 impedirá que os registros sejam armazenados em cache.
   * A opção `pods insecure` é fornecida para retrocompatibilidade  com o `kube-dns`.
   * Você pode usar a opção `pods verified`, que retorna um registro A somente se houver um Pod no mesmo namespace com um IP correspondente.
