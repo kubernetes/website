@@ -303,7 +303,7 @@ Bootstrap type Secretには、`data`で指定された次のキーがありま�
 - `token_id`：トークン識別子としてのランダムな6文字の文字列。必須。
 - `token-secret`：実際のtoken secretとしてのランダムな16文字の文字列。必須。
 - `description`：トークンの使用目的を説明する人間が読める文字列。オプション。
-- `expiration`：トークンの有効期限を指定するRFC3339を使用した絶対UTC時間。オプション。
+- `expiration`：トークンの有効期限を指定する[RFC3339](https://datatracker.ietf.org/doc/html/rfc3339)を使用した絶対UTC時間。オプション。
 - `usage-bootstrap-<usage>`：Bootstrap tokenの追加の使用法を示すブールフラグ。
 - `auth-extra-groups`：`system：bootstrappers`グループに加えて認証されるグループ名のコンマ区切りのリスト。
 
@@ -779,7 +779,7 @@ metadata:
 spec:
   containers:
     - name: test-container
-      image: k8s.gcr.io/busybox
+      image: registry.k8s.io/busybox
       command: [ "/bin/sh", "-c", "env" ]
       envFrom:
       - secretRef:
@@ -994,7 +994,7 @@ spec:
       secretName: dotfile-secret
   containers:
   - name: dotfile-test-container
-    image: k8s.gcr.io/busybox
+    image: registry.k8s.io/busybox
     command:
     - ls
     - "-l"

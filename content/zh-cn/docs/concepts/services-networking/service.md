@@ -70,7 +70,7 @@ Pod 是非永久性资源。
 这导致了一个问题： 如果一组 Pod（称为“后端”）为集群内的其他 Pod（称为“前端”）提供功能，
 那么前端如何找出并跟踪要连接的 IP 地址，以便前端可以使用提供工作负载的后端部分？
 
-进入 **Services**。
+进入 **Service**。
 
 <!--
 ## Service resources {#service-resource}
@@ -119,8 +119,8 @@ balancer in between your application and the backend Pods.
 ### 云原生服务发现   {#cloud-native-discovery}
 
 如果你想要在应用程序中使用 Kubernetes API 进行服务发现，则可以查询
-{{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}
-用于匹配 EndpointSlices。只要服务中的 Pod 集合发生更改，Kubernetes 就会为服务更新 EndpointSlices。
+{{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}用于匹配 EndpointSlices。
+只要服务中的 Pod 集合发生更改，Kubernetes 就会为服务更新 EndpointSlices。
 
 对于非本机应用程序，Kubernetes 提供了在应用程序和后端 Pod 之间放置网络端口或负载均衡器的方法。
 
@@ -391,8 +391,7 @@ managed by Kubernetes' own control plane.
 #### Accessing a Service without a selector {#service-no-selector-access}
 
 Accessing a Service without a selector works the same as if it had a selector.
-In the [example](#services-without-selectors) for a Service without a selector,
-traffic is routed to one of the two endpoints defined in
+In the [example](#services-without-selectors) for a Service without a selector, traffic is routed to one of the two endpoints defined in
 the EndpointSlice manifest: a TCP connection to 10.1.2.3 or 10.4.5.6, on port 9376.
 -->
 #### 访问没有选择算符的 Service   {#service-no-selector-access}
@@ -709,15 +708,15 @@ the port number for `http`, as well as the IP address.
 
 The Kubernetes DNS server is the only way to access `ExternalName` Services.
 You can find more information about `ExternalName` resolution in
-[DNS Pods and Services](/docs/concepts/services-networking/dns-pod-service/).
+[DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/).
 -->
 Kubernetes 还支持命名端口的 DNS SRV（服务）记录。
 如果 `my-service.my-ns` 服务具有名为 `http`　的端口，且协议设置为 TCP，
 则可以对 `_http._tcp.my-service.my-ns` 执行 DNS SRV 查询以发现该端口号、`"http"` 以及 IP 地址。
 
 Kubernetes DNS 服务器是唯一的一种能够访问 `ExternalName` 类型的 Service 的方式。
-更多关于 `ExternalName` 信息可以查看
-[DNS Pod 和 Service](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
+更多关于 `ExternalName` 解析的信息可以查看
+[Service 与 Pod 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
 
 <!--
 ## Headless Services  {#headless-services}
@@ -804,6 +803,8 @@ Kubernetes `ServiceTypes` 允许指定你所需要的 Service 类型。
 * `ClusterIP`: Exposes the Service on a cluster-internal IP. Choosing this value
   makes the Service only reachable from within the cluster. This is the
   default that is used if you don't explicitly specify a `type` for a Service.
+  You can expose the service to the public with an [Ingress](/docs/concepts/services-networking/ingress/) or the
+  [Gateway API](https://gateway-api.sigs.k8s.io/).
 * [`NodePort`](#type-nodeport): Exposes the Service on each Node's IP at a static port
   (the `NodePort`).
   To make the node port available, Kubernetes sets up a cluster IP address,
@@ -816,6 +817,8 @@ Kubernetes `ServiceTypes` 允许指定你所需要的 Service 类型。
 -->
 * `ClusterIP`：通过集群的内部 IP 暴露服务，选择该值时服务只能够在集群内部访问。
   这也是你没有为服务显式指定 `type` 时使用的默认值。
+  你可以使用 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)
+  或者 [Gateway API](https://gateway-api.sigs.k8s.io/) 向公众暴露服务。
 * [`NodePort`](#type-nodeport)：通过每个节点上的 IP 和静态端口（`NodePort`）暴露服务。
   为了让节点端口可用，Kubernetes 设置了集群 IP 地址，这等同于你请求 `type: ClusterIP` 的服务。
 * [`LoadBalancer`](#loadbalancer)：使用云提供商的负载均衡器向外部暴露服务。
@@ -1120,7 +1123,7 @@ cloud provider does not support mixed protocols they will provide only a single 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 <!--
-Starting in v1.20, you can optionally disable node port allocation for a Service Type=LoadBalancer by setting
+You can optionally disable node port allocation for a Service of `type=LoadBalancer`, by setting
 the field `spec.allocateLoadBalancerNodePorts` to `false`. This should only be used for load balancer implementations
 that route traffic directly to pods as opposed to using node ports. By default, `spec.allocateLoadBalancerNodePorts`
 is `true` and type LoadBalancer Services will continue to allocate node ports. If `spec.allocateLoadBalancerNodePorts`
@@ -1622,7 +1625,7 @@ the NLB Target Group's health check on the auto-assigned
 `.spec.healthCheckNodePort` 进行 NLB 目标组的运行状况检查，并且不会收到任何流量。
 
 <!--
-In order to achieve even traffic, either use a DaemonSet, or specify a
+In order to achieve even traffic, either use a DaemonSet or specify a
 [pod anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 to not locate on the same node.
 
@@ -1839,21 +1842,28 @@ Kubernetes 提供的使用虚拟 IP 地址公开服务的机制。
 ## {{% heading "whatsnext" %}}
 
 <!--
+Learn more about the following:
 * Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial
-* Read about [Ingress](/docs/concepts/services-networking/ingress/)
-* Read about [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)
-
-For more context:
-* Read [Virtual IPs and Service Proxies](/docs/reference/networking/virtual-ips/)
-* Read the [API reference](/docs/reference/kubernetes-api/service-resources/service-v1/) for the Service API
-* Read the [API reference](/docs/reference/kubernetes-api/service-resources/endpoints-v1/) for the Endpoints API
-* Read the [API reference](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/) for the EndpointSlice API
+* [Ingress](/docs/concepts/services-networking/ingress/) exposes HTTP and HTTPS routes from outside the cluster to services within the cluster.
+* [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)
 -->
-* 遵循[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)教程
-* 阅读了解 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)
-* 阅读了解[端点切片（Endpoint Slices）](/zh-cn/docs/concepts/services-networking/endpoint-slices/)
+进一步学习以下章节：
 
+* 遵循[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)教程
+* [Ingress](/zh-cn/docs/concepts/services-networking/ingress/) 将来自集群外部的 HTTP 和 HTTPS
+  请求路由暴露给集群内的服务。
+* [EndpointSlice](/zh-cn/docs/concepts/services-networking/endpoint-slices/)
+
+<!--
+For more context:
+* [Virtual IPs and Service Proxies](/docs/reference/networking/virtual-ips/)
+* [API reference](/docs/reference/kubernetes-api/service-resources/service-v1/) for the Service API
+* [API reference](/docs/reference/kubernetes-api/service-resources/endpoints-v1/) for the Endpoints API
+* [API reference](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/) for the EndpointSlice API
+-->
 更多上下文：
-* 阅读[虚拟 IP 和 Service 代理](/zh-cn/docs/reference/networking/virtual-ips/)
-* 阅读 Service API 的 [API 参考](/zh-cn/docs/reference/kubernetes-api/service-resources/service-v1/)
-* 阅读 EndpointSlice API 的 [API 参考](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/)
+
+* [虚拟 IP 和 Service 代理](/zh-cn/docs/reference/networking/virtual-ips/)
+* Service API 的 [API 参考](/zh-cn/docs/reference/kubernetes-api/service-resources/service-v1/)
+* Endpoints API 的 [API 参考](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+* EndpointSlice API 的 [API 参考](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/)

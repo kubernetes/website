@@ -160,7 +160,7 @@ each source also represents a single path within that volume. The three sources 
 1. A `configMap` source. The ConfigMap contains a bundle of certificate authority data. Pods can use these
    certificates to make sure that they are connecting to your cluster's kube-apiserver (and not to middlebox
    or an accidentally misconfigured peer).
-1. A `downwardAPI` source that looks up the name of thhe namespace containing the Pod, and makes
+1. A `downwardAPI` source that looks up the name of the namespace containing the Pod, and makes
    that name information available to application code running inside the Pod.
 -->
 该清单片段定义了由三个数据源组成的投射卷。在当前场景中，每个数据源也代表该卷内的一条独立路径。这三个数据源是：
@@ -315,7 +315,7 @@ it does the following when a Pod is created:
      `/var/run/secrets/kubernetes.io/serviceaccount`.
      For Linux containers, that volume is mounted at `/var/run/secrets/kubernetes.io/serviceaccount`;
      on Windows nodes, the mount is at the equivalent path.
-1. If the spec of the incoming Pod does already contain any `imagePullSecrets`, then the
+1. If the spec of the incoming Pod doesn't already contain any `imagePullSecrets`, then the
    admission controller adds `imagePullSecrets`, copying them from the `ServiceAccount`.
 -->
 3. 如果服务账号的 `automountServiceAccountToken` 字段或 Pod 的
@@ -326,7 +326,7 @@ it does the following when a Pod is created:
      忽略已为 `/var/run/secrets/kubernetes.io/serviceaccount` 路径定义的卷挂载的所有容器。
      对于 Linux 容器，此卷挂载在 `/var/run/secrets/kubernetes.io/serviceaccount`；
      在 Windows 节点上，此卷挂载在等价的路径上。
-4. 如果新来 Pod 的规约已包含任何 `imagePullSecrets`，则准入控制器添加 `imagePullSecrets`，
+4. 如果新来 Pod 的规约不包含任何 `imagePullSecrets`，则准入控制器添加 `imagePullSecrets`，
    并从 `ServiceAccount` 进行复制。
 
 ### TokenRequest API
@@ -392,14 +392,14 @@ kubelet 确保该卷包含允许容器作为正确 ServiceAccount 进行身份�
 <!--
 That manifest snippet defines a projected volume that combines information from three sources:
 
-1. A `serviceAccountToken` source, that contains a token that the kubelet acquires from kube-apiserver
+1. A `serviceAccountToken` source, that contains a token that the kubelet acquires from kube-apiserver.
    The kubelet fetches time-bound tokens using the TokenRequest API. A token served for a TokenRequest expires
    either when the pod is deleted or after a defined lifespan (by default, that is 1 hour).
    The token is bound to the specific Pod and has the kube-apiserver as its audience.
 1. A `configMap` source. The ConfigMap contains a bundle of certificate authority data. Pods can use these
    certificates to make sure that they are connecting to your cluster's kube-apiserver (and not to middlebox
    or an accidentally misconfigured peer).
-1. A `downwardAPI` source. This `downwardAPI` volume makes the name of the namespace container the Pod available
+1. A `downwardAPI` source. This `downwardAPI` volume makes the name of the namespace containing the Pod available
    to application code running inside the Pod.
 -->
 该清单片段定义了由三个数据源信息组成的投射卷。
@@ -536,7 +536,7 @@ metadata:
   selfLink: /api/v1/namespaces/examplens/serviceaccounts/example-automated-thing
   uid: f23fd170-66f2-4697-b049-e1e266b7f835
 secrets:
-- name: example-automated-thing-token-zyxwv
+  - name: example-automated-thing-token-zyxwv
 ```
 
 <!--
@@ -572,7 +572,7 @@ metadata:
   selfLink: /api/v1/namespaces/examplens/serviceaccounts/example-automated-thing
   uid: f23fd170-66f2-4697-b049-e1e266b7f835
 secrets:
-- name: example-automated-thing-token-4rdrh
+  - name: example-automated-thing-token-4rdrh
 ```
 
 <!--
