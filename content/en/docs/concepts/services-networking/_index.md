@@ -110,7 +110,7 @@ blind to the existence or non-existence of host ports.
 
 ### Pods on the same node.
 
-You cluster deployment might include two or more pods running on the node. You might also require communications between your pods on the same node. 
+You cluster deployment might include two or more pods running on the same node. You might also require communications between your pods on the same node. 
 
 Pods operate in their own namespace and have their own IP and MAC addresses. You can think of this as multiple distinct IP computers that want to talk with each other. Inter-pod networking on the same node is no different.
 
@@ -129,7 +129,20 @@ Figure 3 illustrates communications between two pods running on the same node.
 
 ### Pods on different nodes
 
-Create new figure with CNI details and data path. Include multiple examples.
+#### Container network interface
+
+add text about CNI functions and different types
+
+#### Using virtual overlay network
+
+
+{{< figure src="/docs/images/k8net-PodDiffHost-overlay.drawio.svg" alt="k8s pods virtual overlay" class="diagram-large" caption="Figure 4. Pod 1 - Pod4 networking on different hosts using virtual overlay network tunnel encapsulation" >}}
+
+
+
+#### Using physical underlay network
+
+{{< figure src="/docs/images/k8net-PodDiffHost-physical-underlay.drawio.svg" alt="k8s pods physical underay" class="diagram-large" caption="Figure 5. Pod 1 - Pod4 networking on different hosts using a physical underlay network" >}}
 
 ## Network Concerns
 
