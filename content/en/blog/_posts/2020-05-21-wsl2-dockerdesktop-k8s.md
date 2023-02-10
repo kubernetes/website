@@ -520,7 +520,7 @@ And the real strength of WSL2 integration, the port `8443` once open on WSL2 dis
 
 Working on the command line is always good and very insightful. However, when dealing with Kubernetes we might want, at some point, to have a visual overview.
 
-For that, Minikube embeded the [Kubernetes Dashboard](https://github.com/kubernetes/dashboard). Thanks to it, running and accessing the Dashboard is very simple:
+For that, Minikube embedded the [Kubernetes Dashboard](https://github.com/kubernetes/dashboard). Thanks to it, running and accessing the Dashboard is very simple:
 
 ```bash
 # Enable the Dashboard service
