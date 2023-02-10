@@ -21,7 +21,7 @@ echo 'compdef __start_kubectl k' >>~/.zshrc
 Después de recargar su shell, el autocompletado de kubectl debería estar funcionando.
 
 Si recibe un error como `complete:13: command not found: compdef`, 
-luego agregue lo siguiente al comienzo de su perfil `~/.zshrc`:
+agregue lo siguiente al comienzo de su perfil `~/.zshrc`:
 
 ```zsh
 autoload -Uz compinit
