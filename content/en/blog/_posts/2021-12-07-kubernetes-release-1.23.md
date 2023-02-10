@@ -81,7 +81,7 @@ If the `ServerSideFieldValidation` feature gate is enabled starting 1.23, users 
 
 With the feature gate enabled, we also introduce the `fieldValidation` query parameter so that users can specify the desired behavior of the server on a per request basis. Valid values for the `fieldValidation` query parameter are:
 
-- Ignore (default when feature gate is disabled, same as pre-1.23 behavior of dropping/ignoring unkonwn fields)
+- Ignore (default when feature gate is disabled, same as pre-1.23 behavior of dropping/ignoring unknown fields)
 - Warn (default when feature gate is enabled).
 - Strict (this will fail the request with an Invalid Request error)
 

@@ -18,7 +18,7 @@ case where you're using the `OrderedReady` Pod management policy for a StatefulS
 Here are some examples:
 
 -  I am using a StatefulSet to orchestrate a multi-instance, cache based application where the size of the cache is large. The cache 
-   starts cold and requires some siginificant amount of time before the container can start. There could be more initial startup tasks
+   starts cold and requires some significant amount of time before the container can start. There could be more initial startup tasks
    that are required. A RollingUpdate on this StatefulSet would take a lot of time before the application is fully updated. If the 
    StatefulSet supported updating more than one pod at a time, it would result in a much faster update.
 
