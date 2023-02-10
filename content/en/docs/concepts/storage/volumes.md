@@ -1282,8 +1282,13 @@ in `Container.volumeMounts`. Its values are:
   In similar fashion, no mounts created by the container will be visible on
   the host. This is the default mode.
 
-  This mode is equal to `private` mount propagation as described in the
-  [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
+  This mode is equal to `rprivate` mount propagation as described in
+  [`mount(8)`](https://man7.org/linux/man-pages/man8/mount.8.html)
+
+  However, the CRI runtime may choose `rslave` mount propagation (i.e.,
+  `HostToContainer`) instead, when `rprivate` propagation is not applicable.
+  cri-dockerd (Docker) is known to choose `rslave` mount propagation when the
+  mount source contains the Docker daemon's root directory (`/var/lib/docker`).
 
 * `HostToContainer` - This volume mount will receive all subsequent mounts
   that are mounted to this volume or any of its subdirectories.
@@ -1296,7 +1301,7 @@ in `Container.volumeMounts`. Its values are:
   propagation will see it.
 
   This mode is equal to `rslave` mount propagation as described in the
-  [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
+  [`mount(8)`](https://man7.org/linux/man-pages/man8/mount.8.html)
 
 * `Bidirectional` - This volume mount behaves the same the `HostToContainer` mount.
   In addition, all volume mounts created by the container will be propagated
@@ -1306,7 +1311,7 @@ in `Container.volumeMounts`. Its values are:
   a Pod that needs to mount something on the host using a `hostPath` volume.
 
   This mode is equal to `rshared` mount propagation as described in the
-  [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
+  [`mount(8)`](https://man7.org/linux/man-pages/man8/mount.8.html)
 
   {{< warning >}}
   `Bidirectional` mount propagation can be dangerous. It can damage
