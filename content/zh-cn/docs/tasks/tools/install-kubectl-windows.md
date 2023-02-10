@@ -132,6 +132,15 @@ The following methods exist for installing kubectl on Windows:
    kubectl version --client --output=yaml
    ```
 
+<!--
+1. After installing the plugin, clean up the installation files:
+-->
+5. 安装插件后，清理安装文件：
+
+   ```powershell
+   del kubectl.exe kubectl.exe.sha256
+   ```
+
 {{< note >}}
 <!-- 
 [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes) adds its own version of `kubectl` to `PATH`.
@@ -324,6 +333,15 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    If you do not see an error, it means the plugin is successfully installed.
    -->
    如果你没有看到任何错误就代表插件安装成功了。
+
+<!--
+1. After installing the plugin, clean up the installation files:
+-->
+5. 安装插件后，清理安装文件：
+
+   ```powershell
+   del kubectl-convert.exe kubectl-convert.exe.sha256
+   ```
 
 ## {{% heading "whatsnext" %}}
 
