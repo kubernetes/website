@@ -1,13 +1,19 @@
 ---
 title: DaemonSet
 content_type: concept
-weight: 50
+weight: 40
 ---
 
 <!--
+reviewers:
+- enisoc
+- erictune
+- foxish
+- janetkuo
+- kow3ns
 title: DaemonSet
 content_type: concept
-weight: 50
+weight: 40
 --->
 
 <!-- overview -->
@@ -131,7 +137,7 @@ A Pod Template in a DaemonSet must have a [`RestartPolicy`](/docs/concepts/workl
 ### Pod Selector
 
 The `.spec.selector` field is a pod selector.  It works the same as the `.spec.selector` of
-a [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/).
+a [Job](/docs/concepts/workloads/controllers/job/).
 
 You must specify a pod selector that matches the labels of the
 `.spec.template`.
@@ -177,7 +183,7 @@ Config with these two not matching will be rejected by the API.
 如果配置中这两个字段不匹配，则会被 API 拒绝。
 
 <!--
-### Running Pods on Only Some Nodes
+### Running Pods on select Nodes
 
 If you specify a `.spec.template.spec.nodeSelector`, then the DaemonSet controller will
 create Pods on nodes which match that [node selector](/docs/concepts/scheduling-eviction/assign-pod-node/).
@@ -186,7 +192,7 @@ then DaemonSet controller will create Pods on nodes which match that
 [node affinity](/docs/concepts/scheduling-eviction/assign-pod-node/).
 If you do not specify either, then the DaemonSet controller will create Pods on all nodes.
 -->
-### 仅在某些节点上运行 Pod   {#running-pods-on-only-some-nodes}
+### 在选定的节点上运行 Pod   {#running-pods-on-select-nodes}
 
 如果指定了 `.spec.template.spec.nodeSelector`，DaemonSet 控制器将在能够与
 [Node 选择算符](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)匹配的节点上创建 Pod。
@@ -195,7 +201,7 @@ If you do not specify either, then the DaemonSet controller will create Pods on 
 如果根本就没有指定，则 DaemonSet Controller 将在所有节点上创建 Pod。
 
 <!--
-## How Daemon Pods are Scheduled
+## How Daemon Pods are scheduled
 
 ### Scheduled by default scheduler
 -->
@@ -268,13 +274,13 @@ DaemonSet Pod。在调度 DaemonSet Pod 时，默认调度器会忽略 `unschedu
 ### Taints and Tolerations
 
 Although Daemon Pods respect
-[taints and tolerations](/docs/concepts/configuration/taint-and-toleration),
+[taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/),
 the following tolerations are added to DaemonSet Pods automatically according to
 the related features.
 -->
 ### 污点和容忍度   {#taint-and-toleration}
 
-尽管 Daemon Pod 遵循[污点和容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration)规则，
+尽管 Daemon Pod 遵循[污点和容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)规则，
 根据相关特性，控制器会自动将以下容忍度添加到 DaemonSet Pod：
 
 | 容忍度键名                               | 效果       | 版本    | 描述                                                         |
@@ -354,7 +360,7 @@ You can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/)
 <!--
 ## Alternatives to DaemonSet
 
-### Init Scripts
+### Init scripts
 -->
 ## DaemonSet 的替代方案   {#alternatives-to-daemon-set}
 
@@ -465,4 +471,3 @@ DaemonSet 与 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment
   [扩展（Addons）](/zh-cn/docs/concepts/cluster-administration/addons/)，它们常以 DaemonSet 运行。
 * `DaemonSet` 是 Kubernetes REST API 中的顶级资源。阅读 {{< api-reference page="workload-resources/daemon-set-v1" >}}
    对象定义理解关于该资源的 API。
-
