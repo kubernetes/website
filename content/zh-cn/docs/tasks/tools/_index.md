@@ -47,7 +47,7 @@ kubectl 可安装在各种 Linux 平台、 macOS 和 Windows 上。
 ## kind
 
 <!--
-[`kind`](https://kind.sigs.k8s.io/docs/) lets you run Kubernetes on
+[`kind`](https://kind.sigs.k8s.io/) lets you run Kubernetes on
 your local computer. This tool requires that you have
 [Docker](https://docs.docker.com/get-docker/) installed and configured.
 
@@ -56,10 +56,10 @@ shows you what you need to do to get up and running with kind.
 
 <a class="btn btn-primary" href="https://kind.sigs.k8s.io/docs/user/quick-start/" role="button" aria-label="View kind Quick Start Guide">View kind Quick Start Guide</a>
 -->
-[`kind`](https://kind.sigs.k8s.io/docs/) 让你能够在本地计算机上运行 Kubernetes。
+[`kind`](https://kind.sigs.k8s.io/) 让你能够在本地计算机上运行 Kubernetes。
 `kind` 要求你安装并配置好 [Docker](https://docs.docker.com/get-docker/)。
 
-kind [快速入门](https://kind.sigs.k8s.io/docs/user/quick-start/)页面展示了开始使用
+kind 的 [Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start/) 页面展示开始使用
 `kind` 所需要完成的操作。
 
 <a class="btn btn-primary" href="https://kind.sigs.k8s.io/docs/user/quick-start/"
@@ -81,8 +81,8 @@ on getting the tool installed.
 -->
 与 `kind` 类似，[`minikube`](https://minikube.sigs.k8s.io/) 是一个工具，
 能让你在本地运行 Kubernetes。
-`minikube` 在你的个人计算机（包括 Windows、macOS 和 Linux PC）上运行一个一体化（all-in-one）或多节点的本地
-Kubernetes 集群，以便你来尝试 Kubernetes 或者开展每天的开发工作。
+`minikube` 在你的个人计算机（包括 Windows、macOS 和 Linux PC）上运行一个一体化（all-in-one）
+或多节点的本地 Kubernetes 集群，以便你来尝试 Kubernetes 或者开展每天的开发工作。
 
 如果你关注如何安装此工具，可以按官方的
 [Get Started!](https://minikube.sigs.k8s.io/docs/start/)指南操作。
@@ -125,3 +125,4 @@ Once installed, you can use it to [create a cluster](/docs/setup/production-envi
 
 <a class="btn btn-primary" href="/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/"
   role="button" aria-label="查看 kubeadm 安装指南">查看 kubeadm 安装指南</a>
+
