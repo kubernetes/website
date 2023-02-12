@@ -58,6 +58,7 @@ The following methods exist for installing kubectl on macOS:
 - [可选的 kubectl 配置和插件](#optional-kubectl-configurations-and-plugins)
   - [启用 shell 自动补全功能](#enable-shell-autocompletion)
   - [安装 `kubectl convert` 插件](#install-kubectl-convert-plugin)
+
 <!-- 
 ### Install kubectl binary with curl on macOS
 -->
@@ -426,3 +427,4 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 ## {{% heading "whatsnext" %}}
 
 {{< include "included/kubectl-whats-next.md" >}}
+
