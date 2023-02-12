@@ -30,11 +30,11 @@ admission controller. This can be done effectively using a combination of dry-ru
 
 <!--
 If you are currently running a version of Kubernetes other than
-{{ skew currentVersion }}, you may want to switch to viewing this
+{{< skew currentVersion >}}, you may want to switch to viewing this
 page in the documentation for the version of Kubernetes that you
 are actually running.
 -->
-如果你目前运行的 Kubernetes 版本不是 {{ skew currentVersion }}，
+如果你目前运行的 Kubernetes 版本不是 {{< skew currentVersion >}}，
 你可能要切换本页面以查阅你实际所运行的 Kubernetes 版本文档。
 
 <!--
@@ -255,8 +255,7 @@ you must enforce these options, you will need to supplement Pod Security Admissi
 which is outside the scope of this guide.
 -->
 PodSecurityPolicy 中有一些字段未被 Pod 安全性准入机制覆盖。如果你必须使用这些选项，
-你需要在 Pod 安全性准入之外部署
-[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
+你需要在 Pod 安全性准入之外部署[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
 以补充这一能力，而这类操作不在本指南范围。
 
 <!--
@@ -265,8 +264,9 @@ These fields (also listed in the
 [Mapping PodSecurityPolicies to Pod Security Standards](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)
 reference with "no opinion") are:
 -->
-首先，你可以去掉 Pod 安全性标准所未覆盖的那些验证性字段。这些字段（也列举于
-[将 PodSecurityPolicy 映射到 Pod 安全性标准](/zh-cn/docs/reference/access-authn-authz/psp-to-pod-security-standards/)参考中，标记为“无意见”）有：
+首先，你可以去掉 Pod 安全性标准所未覆盖的那些验证性字段。这些字段
+（也列举于[将 PodSecurityPolicy 映射到 Pod 安全性标准](/zh-cn/docs/reference/access-authn-authz/psp-to-pod-security-standards/)参考中，
+标记为“无意见”）有：
 
 - `.spec.allowedHostPaths`
 - `.spec.allowedFlexVolumes`
@@ -449,8 +449,8 @@ There are several ways to choose a Pod Security level for your namespace:
    level that is at least as restrictive. You can see which PSPs are in use for pods in a given
    namespace with this command:
 -->
-2. **根据现有的 PodSecurityPolicy 来确定** - 基于
-   [将 PodSecurityPolicy 映射到 Pod 安全性标准](/zh-cn/docs/reference/access-authn-authz/psp-to-pod-security-standards/)
+2. **根据现有的 PodSecurityPolicy 来确定** -
+   基于[将 PodSecurityPolicy 映射到 Pod 安全性标准](/zh-cn/docs/reference/access-authn-authz/psp-to-pod-security-standards/)
    参考资料，你可以将各个 PSP 映射到某个 Pod 安全性标准级别。如果你的 PSP 不是基于
    Pod 安全性标准的，你可能或者需要选择一个至少与该 PSP 一样宽松的级别，
    或者选择一个至少与其一样严格的级别。使用下面的命令你可以查看被 Pod 使用的 PSP 有哪些：
