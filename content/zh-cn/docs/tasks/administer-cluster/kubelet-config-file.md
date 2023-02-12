@@ -1,6 +1,7 @@
 ---
 title: 通过配置文件设置 Kubelet 参数
 content_type: task
+weight: 330
 ---
 <!--
 reviewers:
@@ -8,6 +9,7 @@ reviewers:
 - dawnchen
 title: Set Kubelet parameters via a config file
 content_type: task
+weight: 330
 --->
 
 <!-- overview -->

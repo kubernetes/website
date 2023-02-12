@@ -1,12 +1,12 @@
 ---
 title: 手动生成证书
 content_type: task
-weight: 20
+weight: 30
 ---
 <!-- 
 title: Generate Certificates Manually
 content_type: task
-weight: 20
+weight: 30
 -->
 
 <!-- overview -->
