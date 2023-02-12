@@ -30,11 +30,11 @@ admission controller. This can be done effectively using a combination of dry-ru
 
 <!--
 If you are currently running a version of Kubernetes other than
-{{ skew currentVersion }}, you may want to switch to viewing this
+{{< skew currentVersion >}}, you may want to switch to viewing this
 page in the documentation for the version of Kubernetes that you
 are actually running.
 -->
-如果你目前运行的 Kubernetes 版本不是 {{ skew currentVersion }}，
+如果你目前运行的 Kubernetes 版本不是 {{< skew currentVersion >}}，
 你可能要切换本页面以查阅你实际所运行的 Kubernetes 版本文档。
 
 <!--
