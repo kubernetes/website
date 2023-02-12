@@ -1,6 +1,7 @@
 ---
 title: 保护集群
 content_type: task
+weight: 320
 ---
 <!--
 reviewers:
@@ -9,6 +10,7 @@ reviewers:
 - enj
 title: Securing a Cluster
 content_type: task
+weight: 320
 -->
 
 <!-- overview -->

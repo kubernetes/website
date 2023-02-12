@@ -1,6 +1,7 @@
 ---
 title: Kubernetes 云管理控制器
 content_type: concept
+weight: 110
 ---
 <!--
 reviewers:
@@ -9,6 +10,7 @@ reviewers:
 - wlan0
 title: Kubernetes Cloud Controller Manager
 content_type: concept
+weight: 110
 -->
 
 <!-- overview -->

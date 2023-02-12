@@ -1,6 +1,7 @@
 ---
 title: 在 Kubernetes 集群中使用 sysctl
 content_type: task
+weight: 400
 ---
 
 <!--
@@ -8,6 +9,7 @@ title: Using sysctls in a Kubernetes Cluster
 reviewers:
 - sttts
 content_type: task
+weight: 400
 --->
 
 <!-- overview -->
