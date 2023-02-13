@@ -533,14 +533,6 @@ https://github.com/GoogleContainerTools/distroless).
 
 You can use the `kubectl debug` command to add ephemeral containers to a
 running Pod. First, create a pod for the example:
-
-```shell
-kubectl run ephemeral-demo --image=registry.k8s.io/pause:3.1 --restart=Never
-```
-
-The examples in this section use the `pause` container image because it does not
-contain debugging utilities, but this method works with all container
-images.
 -->
 ## 使用临时容器来调试的例子 {#ephemeral-container-example}
 
@@ -548,12 +540,15 @@ images.
 首先，像示例一样创建一个 pod：
 
 ```shell
-kubectl run ephemeral-demo --image=k8s.gcr.io/pause:3.1 --restart=Never
+kubectl run ephemeral-demo --image=registry.k8s.io/pause:3.1 --restart=Never
 ```
 
-{{< note >}}
+<!--
+The examples in this section use the `pause` container image because it does not
+contain debugging utilities, but this method works with all container
+images.
+-->
 本节示例中使用 `pause` 容器镜像，因为它不包含调试程序，但是这个方法适用于所有容器镜像。
-{{< /note >}}
 
 <!--
 If you attempt to use `kubectl exec` to create a shell you will see an error
