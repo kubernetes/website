@@ -2,6 +2,7 @@
 title: 为系统守护进程预留计算资源
 content_type: task
 min-kubernetes-server-version: 1.8
+weight: 290
 ---
 <!--
 reviewers:
@@ -11,6 +12,7 @@ reviewers:
 title: Reserve Compute Resources for System Daemons
 content_type: task
 min-kubernetes-server-version: 1.8
+weight: 290
 -->
 
 <!-- overview -->
@@ -249,8 +251,10 @@ with `.slice` appended.
 
 <!--
 **Kubelet Flag**: `--reserved-cpus=0-3`
+**KubeletConfiguration Flag**: `reservedSystemCpus: 0-3`
 -->
-**Kubelet 标志**：`--reserved-cpus=0-3`
+**Kubelet 标志**: `--reserved-cpus=0-3`
+**KubeletConfiguration 标志**：`reservedSystemCpus: 0-3`
 
 <!--
 `reserved-cpus` is meant to define an explicit CPU set for OS system daemons and
