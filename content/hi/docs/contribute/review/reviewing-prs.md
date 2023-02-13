@@ -34,26 +34,27 @@ weight: 10
 
 ## पुनरावलोकन प्रक्रिया
 
-चित्र 1 समीक्षा प्रक्रिया के लिए चरणों की रूपरेखा देता है।
+सामान्य तौर पर, अंग्रेज़ी में सामग्री और शैली के लिए पुल अनुरोधों की समीक्षा करें। चित्र 1 
+समीक्षा प्रक्रिया के चरणों को रेखांकित करता है। प्रत्येक चरण का विवरण इस प्रकार है।
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
 
 {{< mermaid >}}
 flowchart LR
-    subgraph fourth[Start review]
+    subgraph fourth[समीक्षा शुरू करें]
     direction TB
     S[ ] -.-
-    M[add comments] --> N[review changes]
-    N --> O[new contributors should<br>choose Comment]
+    M[टिप्पणियाँ लिखें] --> N[परिवर्तनों की समीक्षा करें]
+    N --> O[नए योगदानकर्ताओं को <br>टिप्पणी का चयन करना चाहिए]
     end
-    subgraph third[Select PR]
+    subgraph third[PR का चयन करें]
     direction TB
     T[ ] -.-
-    J[read description<br>and comments]--> K[preview changes in<br>Netlify preview build]
+    J[विवरण<br>और टिप्पणियाँ पढ़ें]--> K[Netlify प्रीव्यू बिल्ड <br> के साथ अपने परिवर्तनों का पूर्वावलोकन करें]
     end
  
-  A[Review open PR list]--> B[Filter open PRs<br>by label]
+  A[खुली PR सूची की समीक्षा करें]--> B[खुले PR को <br>लेबल द्वारा फ़िल्टर करें]
   B --> third --> fourth
      
 
@@ -69,17 +70,17 @@ class third,fourth white
 
 
 1. यहाँ [https://github.com/kubernetes/website/pulls](https://github.com/kubernetes/website/pulls) पर जाएं।
-   आप कुबेरनेट्स वेबसाइट और डॉक्स में हर खुले पुल अनुरोध की एक सूची देख सकते हैं।
+   आप कुबेरनेट्स वेबसाइट और प्रलेखन में हर खुले पुल अनुरोध की एक सूची देख सकते हैं।
 
-2. निम्नलिखित में से एक या सभी लेबलों का उपयोग करके खुले पीआर को फ़िल्टर करें:
+2. निम्नलिखित में से एक या सभी लेबलों का उपयोग करके खुले PR को फ़िल्टर करें:
 
-   - `cncf-cla: yes` (अनुशंसित): जिन योगदानकर्ताओं ने सीएलए पर हस्ताक्षर नहीं किए हैं, उनके पीआर को मर्ज नहीं किया जा सकता है। अधिक जानकारी के लिए देखें [Sign the CLA](/docs/contribute/new-content/#sign-the-cla)
-   - `language/en` (अनुशंसित): केवल अंग्रेजी भाषा पीआर के लिए फ़िल्टर।
-   - `size/<size>`: एक निश्चित आकार के पीआर के लिए फ़िल्टर। यदि आप नए हैं, तो छोटे पीआर से शुरुआत करें।
+   - `cncf-cla: yes` (अनुशंसित): जिन योगदानकर्ताओं ने CLA पर हस्ताक्षर नहीं किए हैं, उनके PR का विलय नहीं किया जा सकता है। अधिक जानकारी के लिए [CLA पर हस्ताक्षर करें](/docs/contribute/new-content/#sign-the-cla) देखें।
+   - `language/en` (अनुशंसित): केवल अंग्रेजी भाषा में PR देखने के लिए फ़िल्टर।
+   - `size/<size>`: एक निश्चित आकार के PR के लिए फ़िल्टर। यदि आप नए हैं, तो छोटे PR से शुरुआत करें।
 
-   इसके अतिरिक्त, सुनिश्चित करें कि पीआर को `work in progress` पर चिह्नित नहीं किया गया है. `work in progress` लेबल का उपयोग करने वाले पीआर अभी तक समीक्षा के लिए तैयार नहीं हैं।
+   इसके अतिरिक्त, सुनिश्चित करें कि PR को कार्य प्रगति में है के रूप में चिह्नित नहीं किया गया है. `work in progress` लेबल का उपयोग करने वाले पीआर अभी तक समीक्षा के लिए तैयार नहीं हैं।
 
-3. समीक्षा के लिए एक पीआर चुनने के बाद, परिवर्तन को समझें:
+3. समीक्षा के लिए एक PR चुनने के बाद, परिवर्तन को समझें:
 
    - किए गए परिवर्तनों को समझने के लिए पीआर विवरण पढ़ना, और इससे जुड़े किसी भी मुद्दे को पढ़ना।
    - अन्य समीक्षकों द्वारा कोई टिप्पणी पढ़ना।
