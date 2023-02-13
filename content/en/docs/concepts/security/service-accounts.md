@@ -209,7 +209,7 @@ checks the token against the Secret.
 For more information about the authentication process, refer to
 [Authentication](/docs/reference/access-authn-authz/authentication/#service-account-tokens).
 
-### Authenticating service account credentials in your own code {authenticating-in-code}
+### Authenticating service account credentials in your own code {#authenticating-in-code}
 
 If you have services of your own that need to validate Kubernetes service
 account credentials, you can use the following methods:
