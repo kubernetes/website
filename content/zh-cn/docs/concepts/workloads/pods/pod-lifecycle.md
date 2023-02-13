@@ -235,7 +235,7 @@ a Reason field to summarize why the container is in that state.
 
 如果容器并不处在 `Running` 或 `Terminated` 状态之一，它就处在 `Waiting` 状态。
 处于 `Waiting` 状态的容器仍在运行它完成启动所需要的操作：例如，
-从某个容器镜像仓库拉取容器镜像，或者向容器应用 {{< glossary_tooltip text="Secret" term_id="secret" >}}
+从某个容器镜像仓库拉取容器镜像，或者向容器镜像仓库应用 {{< glossary_tooltip text="Secret" term_id="secret" >}}
 数据等等。
 当你使用 `kubectl` 来查询包含 `Waiting` 状态的容器的 Pod 时，你也会看到一个
 Reason 字段，其中给出了容器处于等待状态的原因。
