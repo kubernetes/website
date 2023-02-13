@@ -240,7 +240,7 @@ in the next version of your backend software, without breaking clients.
 例如，你可以在新版本中更改 Pod 中后端软件公开的端口号，而不会破坏客户端。
 
 <!--
-The default protocol for Services is 
+The default protocol for Services is
 [TCP](/docs/reference/networking/service-protocols/#protocol-tcp); you can also
 use any other [supported protocol](/docs/reference/networking/service-protocols/).
 
@@ -284,9 +284,9 @@ For example:
 
 例如：
 
-  * 希望在生产环境中使用外部的数据库集群，但测试环境使用自己的数据库。
-  * 希望服务指向另一个 {{< glossary_tooltip term_id="namespace" >}} 中或其它集群中的服务。
-  * 你正在将工作负载迁移到 Kubernetes。在评估该方法时，你仅在 Kubernetes 中运行一部分后端。
+* 希望在生产环境中使用外部的数据库集群，但测试环境使用自己的数据库。
+* 希望服务指向另一个 {{< glossary_tooltip term_id="namespace" >}} 中或其它集群中的服务。
+* 你正在将工作负载迁移到 Kubernetes。在评估该方法时，你仅在 Kubernetes 中运行一部分后端。
 
 在任何这些场景中，都能够定义没有选择算符的 Service。
 实例:
@@ -409,7 +409,7 @@ selector will fail due to this constraint. This prevents the Kubernetes API serv
 from being used as a proxy to endpoints the caller may not be authorized to access.
 -->
 Kubernetes API 服务器不允许代理到未被映射至 Pod 上的端点。由于此约束，当 Service
-没有选择算符时，诸如 `kubectl proxy <service-name>` 之类的操作将会失败。这可以防止 
+没有选择算符时，诸如 `kubectl proxy <service-name>` 之类的操作将会失败。这可以防止
 Kubernetes API 服务器被用作调用者可能无权访问的端点的代理。
 {{< /note >}}
 
@@ -515,7 +515,7 @@ The same API limit means that you cannot manually update an Endpoints to have mo
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
-<!-- 
+<!--
 The `appProtocol` field provides a way to specify an application protocol for
 each Service port. The value of this field is mirrored by the corresponding
 Endpoints and EndpointSlice objects.
@@ -530,7 +530,6 @@ domain prefixed names such as `mycompany.com/my-custom-protocol`.
 该字段遵循标准的 Kubernetes 标签语法。
 其值可以是 [IANA 标准服务名称](https://www.iana.org/assignments/service-names)
 或以域名为前缀的名称，如 `mycompany.com/my-custom-protocol`。
-
 
 <!--
 ## Multi-Port Services
@@ -925,7 +924,7 @@ spec:
   selector:
     app.kubernetes.io/name: MyApp
   ports:
-      # 默认情况下，为了方便起见，`targetPort` 被设置为与 `port` 字段相同的值。
+    # 默认情况下，为了方便起见，`targetPort` 被设置为与 `port` 字段相同的值。
     - port: 80
       targetPort: 80
       # 可选字段
@@ -977,7 +976,7 @@ IP 地址范围。
 （这也与早期的 Kubernetes 版本兼容。）
 
 {{< note >}}
-<!-- 
+<!--
 This Service is visible as `<NodeIP>:spec.ports[*].nodePort` and `.spec.clusterIP:spec.ports[*].port`.
 If the `--nodeport-addresses` flag for kube-proxy or the equivalent field
 in the kube-proxy configuration file is set, `<NodeIP>` would be a filtered node IP address (or possibly IP addresses).
@@ -1360,10 +1359,10 @@ you can use the following annotations:
 第二个注解指定 Pod 使用哪种协议。对于 HTTPS 和 SSL，ELB 希望 Pod
 使用证书通过加密连接对自己进行身份验证。
 
-HTTP 和 HTTPS 选择第7层代理：ELB 终止与用户的连接，解析标头，并在转发请求时向
+HTTP 和 HTTPS 选择第 7 层代理：ELB 终止与用户的连接，解析标头，并在转发请求时向
 `X-Forwarded-For` 标头注入用户的 IP 地址（Pod 仅在连接的另一端看到 ELB 的 IP 地址）。
 
-TCP 和 SSL 选择第4层代理：ELB 转发流量而不修改报头。
+TCP 和 SSL 选择第 4 层代理：ELB 转发流量而不修改报头。
 
 在某些端口处于安全状态而其他端口未加密的混合使用环境中，可以使用以下注解：
 
@@ -1474,14 +1473,14 @@ specifies the logical hierarchy you created for your Amazon S3 bucket.
     metadata:
       name: my-service
       annotations:
-        service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: "true"
         # 指定是否为负载均衡器启用访问日志
-        service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval: "60"
+        service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: "true"
         # 发布访问日志的时间间隔。你可以将其设置为 5 分钟或 60 分钟。
-        service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name: "my-bucket"
+        service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval: "60"
         # 用来存放访问日志的 Amazon S3 Bucket 名称
-        service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix: "my-bucket-prefix/prod"
+        service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name: "my-bucket"
         # 你为 Amazon S3 Bucket 所创建的逻辑层次结构，例如 `my-bucket-prefix/prod`
+        service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix: "my-bucket-prefix/prod"
 ```
 
 <!--
@@ -1552,7 +1551,7 @@ There are other annotations to manage Classic Elastic Load Balancers that are de
         # 由已有的安全组所构成的列表，可以配置到所创建的 ELB 之上。
         # 与注解 service.beta.kubernetes.io/aws-load-balancer-extra-security-groups 不同，
         # 这一设置会替代掉之前指定给该 ELB 的所有其他安全组，也会覆盖掉为此
-        # ELB 所唯一创建的安全组。 
+        # ELB 所唯一创建的安全组。
         # 此列表中的第一个安全组 ID 被用来作为决策源，以允许入站流量流入目标工作节点
         # (包括服务流量和健康检查）。
         # 如果多个 ELB 配置了相同的安全组 ID，为工作节点安全组添加的允许规则行只有一个，
@@ -1780,7 +1779,7 @@ In the example below, "`my-service`" can be accessed by clients on "`80.11.12.10
 `externalIPs` 不会被 Kubernetes 管理，它属于集群管理员的职责范畴。
 
 根据 Service 的规定，`externalIPs` 可以同任意的 `ServiceType` 来一起指定。
-在上面的例子中，`my-service` 可以在  "`80.11.12.10:80`"(`externalIP:port`) 上被客户端访问。
+在上面的例子中，`my-service` 可以在 "`80.11.12.10:80`"(`externalIP:port`) 上被客户端访问。
 
 ```yaml
 apiVersion: v1
@@ -1865,5 +1864,5 @@ For more context:
 
 * [虚拟 IP 和 Service 代理](/zh-cn/docs/reference/networking/virtual-ips/)
 * Service API 的 [API 参考](/zh-cn/docs/reference/kubernetes-api/service-resources/service-v1/)
-* Endpoints API 的 [API 参考](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
+* Endpoint API 的 [API 参考](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
 * EndpointSlice API 的 [API 参考](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/)
