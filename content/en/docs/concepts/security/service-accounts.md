@@ -1,7 +1,7 @@
 ---
 title: Service Accounts
 description: >
-  Learn about the Kubernetes ServiceAccount object.
+  Learn about ServiceAccount objects in Kubernetes.
 content_type: concept
 weight: 10
 ---
@@ -40,7 +40,8 @@ accounts have the following properties:
    the configurations portable.
 
 Service accounts are different from user accounts, which are authenticated
-human users in the cluster. By default, user accounts don't exist in the Kubernetes API server; instead, the API server treats user identities as opaque
+human users in the cluster. By default, user accounts don't exist in the Kubernetes
+API server; instead, the API server treats user identities as opaque
 data. You can authenticate as a user account using multiple methods. Some
 Kubernetes distributions might add custom extension APIs to represent user
 accounts in the API server.
@@ -61,9 +62,9 @@ When you create a cluster, Kubernetes automatically creates a ServiceAccount
 object named `default` for every namespace in your cluster. The `default`
 service accounts in each namespace get no permissions by default other than the
 [default API discovery permissions](/docs/reference/access-authn-authz/rbac/#default-roles-and-role-bindings)
-that Kubernetes grants to all authenticated principals if role-based access control (RBAC) is enabled. If you delete the
-`default` ServiceAccount object in a namespace, the
-{{<glossary_tooltip text="control plane" term_id="control-plane">}}
+that Kubernetes grants to all authenticated principals if role-based access control (RBAC) is enabled.
+If you delete the `default` ServiceAccount object in a namespace, the
+{{< glossary_tooltip text="control plane" term_id="control-plane" >}}
 replaces it with a new one.
 
 If you deploy a Pod in a namespace, and you don't
@@ -164,11 +165,14 @@ location, or for an audience that isn't the API server, use one of the
 following methods:
 
 * [TokenRequest API](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
-  (recommended): Request a short-lived service account token using your
-  *application code*. The token expires automatically and can rotate upon
-  expiration.
+  (recommended): Request a short-lived service account token from within
+  your own *application code*. The token expires automatically and can rotate
+  upon expiration.
+  If you have a legacy application that is not aware of Kubernetes, you
+  could use a sidecar container within the same pod to fetch these tokens
+  and make them available to the application workload.
 * [Token Volume Projection](/docs/tasks/configure-pod-container/configure-service-account/#service-account-token-volume-projection)
-  (recommended): In Kubernetes v1.20 and later, use the Pod specification to
+  (also recommended): In Kubernetes v1.20 and later, use the Pod specification to
   tell the kubelet to add the service account token to the Pod as a
   *projected volume*. Projected tokens expire automatically, and the kubelet
   rotates the token before it expires.
@@ -179,7 +183,8 @@ following methods:
   with static, long-lived credentials. In Kubernetes v1.24 and later, the
   [LegacyServiceAccountTokenNoAutoGeneration feature gate](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)
   prevents Kubernetes from automatically creating these tokens for
-  ServiceAccounts.
+  ServiceAccounts. `LegacyServiceAccountTokenNoAutoGeneration` is enabled
+  by default; in other words, Kubernetes does not create these tokens.
 
 ## Authenticating service account credentials {#authenticating-credentials}
 
@@ -189,16 +194,20 @@ to authenticate to the Kubernetes API server, and to any other system where a
 trust relationship exists. Depending on how the token was issued
 (either time-limited using a `TokenRequest` or using a legacy mechanism with
 a Secret), a ServiceAccount token might also have an expiry time, an audience,
-and a time after which the token *starts* being valid. When a process running
-in a Pod attempts to communicate with the Kubernetes API server, it adds an
-`Authorization: Bearer <token>` header to the HTTP request. The API server
-checks the validity of the bearer token as follows:
+and a time after which the token *starts* being valid. When a client that is
+acting as a ServiceAccount tries to communicate with the Kubernetes API server,
+the client includes an `Authorization: Bearer <token>` header with the HTTP
+request. The API server checks the validity of that bearer token as follows:
 
 1. Check the token signature.
 1. Check whether the token has expired.
-1. Checks whether object references in the token claims are currently valid
+1. Check whether object references in the token claims are currently valid.
 1. Check whether the token is currently valid.
 1. Check the audience claims.
+
+The TokenRequest API produces _bound tokens_ for a ServiceAccount. This
+binding is linked to the lifetime of the client, such as a Pod, that is acting
+as that ServiceAccount.
 
 For tokens issued using the `TokenRequest` API, the API server also checks that
 the specific object reference that is using the ServiceAccount still exists,
@@ -221,14 +230,15 @@ account credentials, you can use the following methods:
 The Kubernetes project recommends that you use the TokenReview API, because
 this method invalidates tokens that are bound to API objects such as Secrets,
 ServiceAccounts, and Pods when those objects are deleted. For example, if you
-delete the Pod that contains a projected ServiceAccount token, the TokenReview
-API invalidates that token immediately. If you use OIDC validation instead, your clients continue to treat the token as valid until the token reaches its
-expiration timestamp.
+delete the Pod that contains a projected ServiceAccount token, the cluster
+invalidates that token immediately and a TokenReview immediately fails.
+If you use OIDC validation instead, your clients continue to treat the token
+as valid until the token reaches its expiration timestamp.
 
 Your application should always define the audience that it accepts, and should
 check that the token's audiences match the audiences that the application
 expects. This helps to minimize the scope of the token so that it can only be
-used in your appplication and nowhere else.
+used in your application and nowhere else.
 
 ## Alternatives
 
