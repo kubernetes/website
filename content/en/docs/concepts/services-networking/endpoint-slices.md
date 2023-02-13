@@ -104,7 +104,7 @@ the pod is also terminating.
 
 {{< note >}}
 
-Although `serving` is almost identical to `ready`, it was added to prevent break the existing meaning
+Although `serving` is almost identical to `ready`, it was added to prevent breaking the existing meaning
 of `ready`. It may be unexpected for existing clients if `ready` could be `true` for terminating
 endpoints, since historically terminating endpoints were never included in the Endpoints or
 EndpointSlice API to begin with. For this reason, `ready` is _always_ `false` for terminating
