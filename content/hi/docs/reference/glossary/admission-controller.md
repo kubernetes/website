@@ -1,20 +1,15 @@
 ---
 title: एडमिशन कंट्रोलर (Admission Controller)
-
 id: admission-controller
-
 date: 2019-06-28
-
 full_link: /docs/reference/access-authn-authz/admission-controllers/
 short_description: >
-
-यह कोड का अंश ऑब्जेक्ट का कार्य शुरू होने से पहले Kubernetes API सर्वर पर ऑब्जेक्ट द्वारा किये हुए अनुरोध को अवरोध करता है|
+  यह कोड का अंश ऑब्जेक्ट का कार्य शुरू होने से पहले Kubernetes API सर्वर पर ऑब्जेक्ट द्वारा किये हुए अनुरोध को अवरोध करता है|
 
 aka:
 tags:
 - extension
 - security
-
 ---
 यह कोड का अंश ऑब्जेक्ट का कार्य शुरू होने से पहले Kubernetes API सर्वर पर ऑब्जेक्ट द्वारा किये हुए अनुरोध को अवरोध करता है|
 
