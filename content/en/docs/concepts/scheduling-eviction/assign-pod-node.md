@@ -461,6 +461,12 @@ Some of the limitations of using `nodeName` to select nodes are:
 -   Node names in cloud environments are not always predictable or
     stable.
 
+{{< note >}}
+`nodeName` is intended for use by custom schedulers or advanced use cases where
+you need to bypass any configured schedulers. Bypassing the schedulers might lead to
+failed Pods if the assigned Nodes get oversubscribed. You can use [node affinity](#node-affinity) or a the [`nodeselector` field](#nodeselector) to assign a Pod to a specific Node without bypassing the schedulers.
+{{</ note >}}
+
 Here is an example of a Pod spec using the `nodeName` field:
 
 ```yaml
