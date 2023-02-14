@@ -15,7 +15,7 @@ users and contributors, remained available and active after this change. Unfortu
 longer be the case, and Katacoda tutorials for learning Kubernetes will cease working after March 31st, 2023.
 
 The Kubernetes Project wishes to thank O'Reilly Media for the many years it has supported the community 
-via the Katacoda learning platform. You can read more about [the decision to shutter katacoda.com][https://www.oreilly.com/online-learning/leveraging-katacoda-technology.html) 
+via the Katacoda learning platform. You can read more about [the decision to shutter katacoda.com](https://www.oreilly.com/online-learning/leveraging-katacoda-technology.html) 
 on O'Reilly's own site. With this change, we’ll be focusing on the work needed to remove links to 
 their various tutorials. We have a general issue tracking this topic at [#33936](https://github.com/kubernetes/website/issues/33936) and [GitHub discussion](https://github.com/kubernetes/website/discussions/38878). We’re also 
 interested in researching what other learning platforms could be beneficial for the Kubernetes community, 
