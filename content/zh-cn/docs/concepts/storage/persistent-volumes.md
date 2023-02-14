@@ -1145,7 +1145,6 @@ The following volume types support mount options:
 * `cephfs`
 * `cinder`（于 v1.18 **弃用**）
 * `gcePersistentDisk`
-* `glusterfs`（于 v1.25 **弃用**）
 * `iscsi`
 * `nfs`
 * `rbd`
@@ -1397,7 +1396,7 @@ it won't be supported in a future Kubernetes release.
 -->
 #### 可追溯的默认 StorageClass 赋值 {#retroactive-default-storageclass-assignment}
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
 
 <!--
 You can create a PersistentVolumeClaim without specifying a `storageClassName` for the new PVC, and you can do so even when no default StorageClass exists in your cluster. In this case, the new PVC creates as you defined it, and the `storageClassName` of that PVC remains unset until default becomes available.
@@ -1727,6 +1726,47 @@ kube-apiserver 和 kube-controller-manager 启用 `AnyVolumeDataSource`
 对于启用了特性门控的集群，使用 `dataSourceRef` 比 `dataSource` 更好。
 
 <!--
+## Cross namespace data sources
+-->
+## 跨命名空间数据源    {#cross-namespace-data-sources}
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+<!--
+Kubernetes supports cross namespace volume data sources.
+To use cross namespace volume data sources, you must enable the `AnyVolumeDataSource` and `CrossNamespaceVolumeDataSource`
+[feature gates](/docs/reference/command-line-tools-reference/feature-gates/) for
+the kube-apiserver, kube-controller-manager.
+Also, you must enable the `CrossNamespaceVolumeDataSource` feature gate for the csi-provisioner.
+-->
+Kubernetes 支持跨命名空间的卷数据源。
+要使用跨命名空间卷数据源，你必须为 kube-apiserver、kube-controller-manager 启用
+`AnyVolumeDataSource` 和 `CrossNamespaceVolumeDataSource`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+此外，你必须为 csi-provisioner 启用 `CrossNamespaceVolumeDataSource` 特性门控。
+
+<!--
+Enabling the `CrossNamespaceVolumeDataSource` feature gate allow you to specify a namespace in the dataSourceRef field.
+-->
+启用 `CrossNamespaceVolumeDataSource` 特性门控允许你在 dataSourceRef 字段中指定命名空间。
+{{< note >}}
+<!--
+When you specify a namespace for a volume data source, Kubernetes checks for a
+ReferenceGrant in the other namespace before accepting the reference.
+ReferenceGrant is part of the `gateway.networking.k8s.io` extension APIs.
+See [ReferenceGrant](https://gateway-api.sigs.k8s.io/api-types/referencegrant/) in the Gateway API documentation for details.
+-->
+当你为卷数据源指定命名空间时，Kubernetes 会在接受引用之前检查其他命名空间中的 ReferenceGrant。
+ReferenceGrant 是 `gateway.networking.k8s.io` 扩展 API 的一部分。
+有关详细信息，请参阅网关 API 文档中的 [ReferenceGrant](https://gateway-api.sigs.k8s.io/api-types/referencegrant/)。
+
+<!--
+This means that you must extend your Kubernetes cluster with at least ReferenceGrant from the
+Gateway API before you can use this mechanism.
+-->
+这意味着你必须至少使用来自网关 API 的 ReferenceGrant 来扩展你的 Kubernetes 集群，然后才能使用此机制。
+{{< /note >}}
+
+<!--
 ## Data source references
 
 The `dataSourceRef` field behaves almost the same as the `dataSource` field. If either one is
@@ -1753,6 +1793,11 @@ users should be aware of:
 * The `dataSourceRef` field may contain different types of objects, while the `dataSource` field
   only allows PVCs and VolumeSnapshots.
 
+When the `CrossNamespaceVolumeDataSource` feature is enabled, there are additional differences:
+
+* The `dataSource` field only allows local objects, while the `dataSourceRef` field allows objects in any namespaces.  
+* When namespace is specified, `dataSource` and `dataSourceRef` are not synced.
+
 Users should always use `dataSourceRef` on clusters that have the feature gate enabled, and
 fall back to `dataSource` on clusters that do not. It is not necessary to look at both fields
 under any circumstance. The duplicated values with slightly different semantics exist only for
@@ -1765,6 +1810,11 @@ interoperate because the fields are the same.
    而 `dataSourceRef` 字段永远不会忽略值，并且若填入一个无效的值，会导致错误。
    无效值指的是 PVC 之外的核心对象（没有 apiGroup 的对象）。
 * `dataSourceRef` 字段可以包含不同类型的对象，而 `dataSource` 字段只允许 PVC 和卷快照。
+
+当启用 `CrossNamespaceVolumeDataSource` 功能后，还有其他差异：
+
+* `dataSource` 字段只允许本地对象，而 `dataSourceRef` 字段允许任何命名空间中的对象。
+* 当指定命名空间时，`dataSource` 和 `dataSourceRef` 不会进行同步。
 
 用户应该始终在启用了特性门控的集群上使用 `dataSourceRef`，而在没有启用特性门控的集群上使用 `dataSource`。
 在任何情况下都没有必要查看这两个字段。
@@ -1820,6 +1870,55 @@ the process.
 控制器安装到你的集群中。
 如果没有填充器处理该数据源的情况下，该控制器会在 PVC 上产生警告事件。
 当一个合适的填充器被安装到 PVC 上时，该控制器的职责是上报与卷创建有关的事件，以及在该过程中发生的问题。
+
+### 使用跨命名空间的卷数据源    {#using-a-cross-namespace-volume-data-source}
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+<!--
+Create a ReferenceGrant to allow the namespace owner to accept the reference.
+You define a populated volume by specifying a cross namespace volume data source using the `dataSourceRef` field. You must already have a valid ReferenceGrant in the source namespace:
+-->
+创建 ReferenceGrant 以允许命名空间所有者接受引用。
+你通过使用 `dataSourceRef` 字段指定跨命名空间的卷数据源来定义一个被填充的卷。你必须在源命名空间中已经有一个有效的 ReferenceGrant：
+
+   ```yaml
+   apiVersion: gateway.networking.k8s.io/v1beta1
+   kind: ReferenceGrant
+   metadata:
+     name: allow-ns1-pvc
+     namespace: default
+   spec:
+     from:
+     - group: ""
+       kind: PersistentVolumeClaim
+       namespace: ns1
+     to:
+     - group: snapshot.storage.k8s.io
+       kind: VolumeSnapshot
+       name: new-snapshot-demo
+   ```
+
+   ```yaml
+   apiVersion: v1
+   kind: PersistentVolumeClaim
+   metadata:
+     name: foo-pvc
+     namespace: ns1
+   spec:
+     storageClassName: example
+     accessModes:
+     - ReadWriteOnce
+     resources:
+       requests:
+         storage: 1Gi
+     dataSourceRef:
+       apiGroup: snapshot.storage.k8s.io
+       kind: VolumeSnapshot
+       name: new-snapshot-demo
+       namespace: default
+     volumeMode: Filesystem
+   ```
 
 <!--
 ## Writing Portable Configuration
