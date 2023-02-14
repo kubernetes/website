@@ -17,7 +17,7 @@ longer be the case, and Katacoda tutorials for learning Kubernetes will cease wo
 The Kubernetes Project wishes to thank O'Reilly Media for the many years it has supported the community 
 via the Katacoda learning platform. You can read more about [the decision to shutter katacoda.com][https://www.oreilly.com/online-learning/leveraging-katacoda-technology.html) 
 on O'Reilly's own site. With this change, we’ll be focusing on the work needed to remove links to 
-their various tutorials. We have a general issue tracking this topic at [#33936](https://github.com/kubernetes/website/issues/33936). We’re also 
+their various tutorials. We have a general issue tracking this topic at [#33936](https://github.com/kubernetes/website/issues/33936) and [GitHub discussion](https://github.com/kubernetes/website/discussions/38878). We’re also 
 interested in researching what other learning platforms could be beneficial for the Kubernetes community, 
 replacing Katacoda with a link to a platform or service that has a similar user experience. However, 
 this research will take time, so we’re actively looking for volunteers to help with this work. 
