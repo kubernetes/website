@@ -642,6 +642,40 @@ Kubernetes 1.27 and newer will ignore this annotation and always track Jobs
 using finalizers.
 {{< /note >}}
 
+### job-name (deprecated) {#job-name}
+
+Example: `job-name: "pi"`
+
+Used on: Jobs and Pods controlled by Jobs
+
+{{< note >}}
+Starting from Kubernetes 1.27, this label is deprecated.
+Kubernetes 1.27 and newer will ignore this label and use the prefixed job-name label
+{{< /note >}}
+
+### controller-uid (deprecated) {#controller-uid}
+
+Example: `controller-uid: "$UID"`
+
+Used on: Jobs and Pods controlled by Jobs
+
+{{< note >}}
+Starting from Kubernetes 1.27, this label is deprecated.
+Kubernetes 1.27 and newer will ignore this label and use the prefixed controller-uid label
+{{< /note >}}
+
+### batch.kubernetes.io/job-name {#batchkubernetesio-job-name}
+
+Example: `batch.kubernetes.io/job-name: "pi"`
+
+Used on: Jobs and Pods controlled by Jobs
+
+### batch.kubernetes.io/controller-uid {##batchkubernetesio-controller-uid}
+
+Example: `batch.kubernetes.io/controller-uid: "$UID"`
+
+Used on: Jobs and Pods controlled by Jobs
+
 ### scheduler.alpha.kubernetes.io/defaultTolerations {#scheduleralphakubernetesio-defaulttolerations}
 
 Example: `scheduler.alpha.kubernetes.io/defaultTolerations: '[{"operator": "Equal", "value": "value1", "effect": "NoSchedule", "key": "dedicated-node"}]'`
