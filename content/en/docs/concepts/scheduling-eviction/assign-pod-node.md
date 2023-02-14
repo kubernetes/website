@@ -461,6 +461,12 @@ Some of the limitations of using `nodeName` to select nodes are:
 -   Node names in cloud environments are not always predictable or
     stable.
 
+{{< note >}}
+`nodeName` is intended for use by custom schedulers or advanced use cases where
+you need to bypass any configured schedulers. Using affinity or a `nodeSelector` is 
+the recommended way to assign a pod to a node.
+{{</ note >}}
+
 Here is an example of a Pod spec using the `nodeName` field:
 
 ```yaml
