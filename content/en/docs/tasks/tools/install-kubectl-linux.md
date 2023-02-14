@@ -166,7 +166,7 @@ If you are on Ubuntu or another Linux distribution that supports the [snap](http
 
 ```shell
 snap install kubectl --classic
-kubectl version --client
+kubectl version --short
 ```
 
 {{% /tab %}}
@@ -176,7 +176,7 @@ If you are on Linux and using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux)
 
 ```shell
 brew install kubectl
-kubectl version --client
+kubectl version --short
 ```
 
 {{% /tab %}}
