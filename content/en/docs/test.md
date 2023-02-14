@@ -169,7 +169,7 @@ Checklists are technically bullet lists, but the bullets are suppressed by CSS.
 
 ## Code blocks
 
-You can create code blocks two different ways by surrounding the code block with
+You can create code blocks in two different ways by surrounding the code block with
 three back-tick characters on lines before and after the code block. **Only use
 back-ticks (code fences) for code blocks.** This allows you to specify the
 language of the enclosed code, which enables syntax highlighting. It is also more
