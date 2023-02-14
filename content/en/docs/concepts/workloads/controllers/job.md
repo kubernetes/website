@@ -54,22 +54,22 @@ Check on the status of the Job with `kubectl`:
 
 {{< tabs name="Check status of Job" >}}
 {{< tab name="kubectl describe job pi" codelang="bash" >}}
-Name:             pi
-Namespace:        default
-Selector:         controller-uid=0cd26dd5-88a2-4a5f-a203-ea19a1d5d578
-Labels:           controller-uid=0cd26dd5-88a2-4a5f-a203-ea19a1d5d578
-                  job-name=pi
-Annotations:      batch.kubernetes.io/job-tracking: 
-Parallelism:      1
-Completions:      1
-Completion Mode:  NonIndexed
-Start Time:       Fri, 28 Oct 2022 13:05:18 +0530
-Completed At:     Fri, 28 Oct 2022 13:05:21 +0530
-Duration:         3s
-Pods Statuses:    0 Active / 1 Succeeded / 0 Failed
+Name:           pi
+Namespace:      default
+Selector:       batch.kubernetes.io/controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
+Labels:         batch.kubernetes.io/controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
+                batch.kubernetes.io/job-name=pi
+                ...
+Annotations:    batch.kubernetes.io/job-tracking: ""
+Parallelism:    1
+Completions:    1
+Start Time:     Mon, 02 Dec 2019 15:20:11 +0200
+Completed At:   Mon, 02 Dec 2019 15:21:16 +0200
+Duration:       65s
+Pods Statuses:  0 Running / 1 Succeeded / 0 Failed
 Pod Template:
-  Labels:  controller-uid=0cd26dd5-88a2-4a5f-a203-ea19a1d5d578
-           job-name=pi
+  Labels:  batch.kubernetes.io/controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
+           batch.kubernetes.io/job-name=pi
   Containers:
    pi:
     Image:      perl:5.34.0
@@ -93,15 +93,13 @@ Events:
 apiVersion: batch/v1
 kind: Job
 metadata:
-  annotations:
-    batch.kubernetes.io/job-tracking: ""
-    kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"batch/v1","kind":"Job","metadata":{"annotations":{},"name":"pi","namespace":"default"},"spec":{"backoffLimit":4,"template":{"spec":{"containers":[{"command":["perl","-Mbignum=bpi","-wle","print bpi(2000)"],"image":"perl:5.34.0","name":"pi"}],"restartPolicy":"Never"}}}}
+  annotations: batch.kubernetes.io/job-tracking: ""
+             ...  
   creationTimestamp: "2022-11-10T17:53:53Z"
   generation: 1
   labels:
-    controller-uid: 204fb678-040b-497f-9266-35ffa8716d14
-    job-name: pi
+    batch.kubernetes.io/controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+    batch.kubernetes.io/job-name: pi
   name: pi
   namespace: default
   resourceVersion: "4751"
@@ -113,14 +111,14 @@ spec:
   parallelism: 1
   selector:
     matchLabels:
-      controller-uid: 204fb678-040b-497f-9266-35ffa8716d14
+      batch.kubernetes.io/controller-uid: 863452e6-270d-420e-9b94-53a54146c223
   suspend: false
   template:
     metadata:
       creationTimestamp: null
       labels:
-        controller-uid: 204fb678-040b-497f-9266-35ffa8716d14
-        job-name: pi
+        batch.kubernetes.io/controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+        batch.kubernetes.io/job-name: pi
     spec:
       containers:
       - command:
@@ -152,7 +150,7 @@ To view completed Pods of a Job, use `kubectl get pods`.
 To list all the Pods that belong to a Job in a machine readable form, you can use a command like this:
 
 ```shell
-pods=$(kubectl get pods --selector=job-name=pi --output=jsonpath='{.items[*].metadata.name}')
+pods=$(kubectl get pods --selector=batch.kubernetes.io/job-name=pi --output=jsonpath='{.items[*].metadata.name}')
 echo $pods
 ```
 
@@ -169,6 +167,12 @@ View the standard output of one of the pods:
 
 ```shell
 kubectl logs $pods
+```
+
+Another way to view the logs of a Job:
+
+```shell
+kubectl logs jobs/pi
 ```
 
 The output is similar to this:
@@ -191,6 +195,10 @@ Even when the name is a DNS subdomain, the name must be no longer than 63
 characters.
 
 A Job also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
+
+### Job Labels
+
+Job labels will have `batch.kubernetes.io/` prefix for `job-name` and `controller-uid`.
 
 ### Pod Template
 
@@ -696,12 +704,12 @@ metadata:
 spec:
   selector:
     matchLabels:
-      controller-uid: a8f3d00d-c6d2-11e5-9f87-42010af00002
+      batch.kubernetes.io/controller-uid: a8f3d00d-c6d2-11e5-9f87-42010af00002
   ...
 ```
 
 Then you create a new Job with name `new` and you explicitly specify the same selector.
-Since the existing Pods have label `controller-uid=a8f3d00d-c6d2-11e5-9f87-42010af00002`,
+Since the existing Pods have label `batch.kubernetes.io/controller-uid=a8f3d00d-c6d2-11e5-9f87-42010af00002`,
 they are controlled by Job `new` as well.
 
 You need to specify `manualSelector: true` in the new Job since you are not using
@@ -716,7 +724,7 @@ spec:
   manualSelector: true
   selector:
     matchLabels:
-      controller-uid: a8f3d00d-c6d2-11e5-9f87-42010af00002
+      batch.kubernetes.io/controller-uid: a8f3d00d-c6d2-11e5-9f87-42010af00002
   ...
 ```
 
