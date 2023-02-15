@@ -67,7 +67,7 @@ Figure 1 illustrates the Kubernetes network architecture.
 
 {{< figure src="/docs/images/k8net-net-arch.drawio.svg" alt="k8s net arch" class="diagram-large" caption="Figure 1. K8s Network Architecture" >}}
 
-The components of the architecture consist of the following:
+For this example, the network architecture includes:
 
 * Nodes configured in virtual (VM) or physical (bare-metal) environments.
   
