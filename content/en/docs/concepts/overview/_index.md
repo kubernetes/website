@@ -120,8 +120,10 @@ Kubernetes provides you with:
   containers onto your nodes to make the best use of your resources.
 * **Self-healing**
   Kubernetes restarts containers that fail, replaces containers, kills containers that don't
-  respond to your user-defined health check, and doesn't advertise them to clients until they
-  are ready to serve.
+  respond to your user-defined health check :- does Kubernetses really act on the container 
+  directly or restart the pod which having that container? kubernetes does not replace the 
+  containers directly,rather it created the another pod (if fails by obvious reasons) with 
+  same pod definition but assigning it different IP.
 * **Secret and configuration management**
   Kubernetes lets you store and manage sensitive information, such as passwords, OAuth tokens,
   and SSH keys. You can deploy and update secrets and application configuration without
