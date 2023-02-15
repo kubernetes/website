@@ -30,7 +30,7 @@ implementation (barring any intentional network segmentation policies):
 * Containers in same pod can communicate with each other.
 * Pods can communicate with all other pods on the same or separate [nodes](/docs/concepts/architecture/nodes/)
 without network address translation (NAT).
-* Pods can communicate with other pods on the same or separate nodes using L2 bridging, native L3 (IPv4, IPv6) networking, tunneling, or other techniques for conveying packets from one pod to another.  
+* Pods can communicate with other pods on the same or separate nodes using layer 2 bridging, native layer 3 (IPv4, IPv6) networking, tunneling, or other techniques for conveying packets from one pod to another.
 
 Some platforms, such as Linux, support pods running in the host network. Pods attached to the host network of a node can still communicate with all pods on all nodes without NAT.
 
@@ -77,11 +77,17 @@ The components of the architecture consist of the following:
   
 * Pods use a virtual "link" between the pod network namespace and root network namespace. This permits pod packets to utilize network functions defined in the root network namespace.  
   
-* L2bridge is a virtual L2 bridge that allows attachment, configuration and communications between pods on the same node. Depending on your deployment of container runtimes and CNI, you might know this entity as a `linux bridge`, `docker0`, `cbr0` or `cni0`. 
-  
-* CNI plugins supporting different techniques for pod networking that include virtual overlay networks and physical underlay networks. You can choose from any number of different CNI plugins to best meet your cluster networking requirements.
+* L2bridge is a virtual L2 bridge that allows attachment, configuration and communications between pods on the same node. Depending on your deployment of container runtimes and CNI, you might know this entity as a `linux bridge`, `docker0`, `cbr0` or `cni0`.
 
-[//]: # (Wondering if L2 bridge is the right term. Looking at some implementations for clarity. )
+* Network plugins are also responsible for allowing Pods to communicate even when the source
+  pod  and destination pod are running on different nodes. Network plugins achieve this in different
+  ways. In this example, the network plugin has set up an _overlay network_: packets that need to go
+  to a different node are encapsulated and sent over a tunnel mechanism such as
+  [GENEVE](https://en.wikipedia.org/wiki/Generic_Network_Virtualization_Encapsulation). The destination
+  node retrieves the inner packet and sends it to the target Pod, providing that there are no
+  [NetworkPolicy](/docs/concepts/services-networking/network-policies/) restrictions to block that packet.
+
+
 
 
 {{< note >}}
