@@ -42,7 +42,7 @@ Some platforms, such as Linux, support pods running in the host network. Pods at
 
 * Dual Stack - IPv4 and IPv6 addresses assigned to pod interfaces, host interfaces, L2 bridges, L3 routers, tunnel end-points and any other network resource requiring IPv4 and IPv6 connectivity.
 
-* L2 bridge - supports a virtual L2 bridge function.
+* L2 bridge - a (virtual) [layer 2](https://en.wikipedia.org/wiki/Data_link_layer) bridge.
 
 * Host Network - network functions residing in user space or the kernel.
 
