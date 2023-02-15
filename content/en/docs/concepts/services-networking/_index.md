@@ -73,7 +73,14 @@ For this example, the network architecture includes:
   
 * Pods configured on each node with one or more containers.
   
-* Pods come with their own IP (v4-only, v6-only, 4/6 dual stack) and MAC address(es). Pods run in their own network namespace.
+* Each Pod has its own IP address; this is per _address family_, so a cluster that uses IPv4
+  and IPv6 networking   assigns one IPv4 address to each Pod, and also assigns one IPv6
+  address to each Pod.
+  * Pods run in their own network namespace. All the containers in the Pod share this
+    network namespace. (Network namespaces are not the same as the Kubernetes
+    {{< glossary_tooltip text="namespace" term_id="namespace" >}} concept).
+  * This example also assigns an Ethernet MAC address to each Pod.
+    Kubernetes does not require that a Pod has a unique identity at the data-link layer.
   
 * Pods use a virtual "link" between the pod network namespace and root network namespace. This permits pod packets to utilize network functions defined in the root network namespace.  
   
