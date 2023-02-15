@@ -15,4 +15,14 @@ Quantities can represent values that are larger or smaller than 1.0, by using SI
 <!-- more -->
 One use of a quantity is to describe how much of a resource, like CPU or memory, is allotted to
 a Pod where a container is running.
-For example, a pod may be allocated 1 CPU core and 2 gigabytes of memory, which would be specified as "1 CPU" and "2Gi" for its respective resources. These quantities are used by the [Kubernetes scheduler](https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/) to determine which nodes have the available resources to run a pod, and to ensure that pods do not consume more resources than they are allocated.
+
+Imagine that you want to run a pod with one container, and to that container to use at most half
+of a virtual CPU core, and no more than 2 gibibytes of memory.
+You specify the CPU resource limit as `500m` (1000 millicores represent one core, so 500 millicores
+represent half a core). You specify the memory limit in bytes as `2Gi`. Kubernetes then defines the
+Pod with those resource limits applied to the container.
+
+The suffixes are taken from the
+[international system of units](https://en.wikipedia.org/wiki/International_System_of_Units).
+For more information, read the [API reference](/docs/reference/kubernetes-api/common-definitions/quantity/)
+for quantities.
