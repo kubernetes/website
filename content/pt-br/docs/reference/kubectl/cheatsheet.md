@@ -12,11 +12,7 @@ card:
 
 <!-- overview -->
 
-Veja também: [Visão geral do Kubectl](/docs/reference/kubectl/overview/) e [JsonPath Guide](/docs/reference/kubectl/jsonpath).
-
-Esta página é uma visão geral do comando `kubectl`.
-
-
+Esta página contém uma lista de comandos e sinalizadores `kubectl` comumente usados.
 
 <!-- body -->
 
@@ -45,6 +41,12 @@ source <(kubectl completion zsh)  # configuração para usar autocomplete no ter
 echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi" >> ~/.zshrc # adicionar auto completar permanentemente para o seu shell zsh
 ```
 
+### Uma nota sobre `--all-namespaces`
+
+Acrescentar `--all-namespaces` acontece com bastante frequência, onde você deve estar ciente da abreviação de `--all-namespaces`:
+
+```kubectl -A```
+
 ##  Contexto e Configuração do Kubectl
 
 Defina com qual cluster Kubernetes o `kubectl` se comunica e modifique os detalhes da configuração.
@@ -68,6 +70,11 @@ kubectl config get-contexts                          # exibir lista de contextos
 kubectl config current-context                       # exibir o contexto atual
 kubectl config use-context my-cluster-name           # defina o contexto padrão como my-cluster-name
 
+kubectl config set-cluster my-cluster-name           # defina uma entrada de cluster no kubeconfig
+
+# configurar a URL para um servidor proxy a ser usado para solicitações feitas por este cliente no kubeconfig
+kubectl config set-cluster my-cluster-name --proxy-url=my-proxy-url
+
 # adicione um novo cluster ao seu kubeconfig que suporte autenticação básica
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
 
@@ -79,6 +86,10 @@ kubectl config set-context gce --user=cluster-admin --namespace=foo \
   && kubectl config use-context gce
  
 kubectl config unset users.foo                       # excluir usuário foo
+
+# alias curto para definir/mostrar contexto/namespace (funciona apenas para bash e shells compatíveis com bash, contexto atual a ser definido antes de usar kn para definir namespace)
+alias kx='f() { [ "$1" ] && kubectl config use-context $1 || kubectl config current-context ; } ; f'
+alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 || kubectl config view --minify | grep namespace | cut -d" " -f6 ; } ; f'
 ```
 
 ## Aplicar
@@ -96,7 +107,14 @@ kubectl apply -f ./my1.yaml -f ./my2.yaml      # criar a partir de vários arqui
 kubectl apply -f ./dir                         # criar recurso(s) em todos os arquivos de manifesto no diretório
 kubectl apply -f https://git.io/vPieo          # criar recurso(s) a partir de URL
 kubectl create deployment nginx --image=nginx  # iniciar uma única instância do nginx
-kubectl explain pods,svc                       # obtenha a documentação de manifesto do pod
+
+# crie um Job que imprima "Hello World"
+kubectl create job hello --image=busybox:1.28 -- echo "Hello World"
+
+# crie um CronJob que imprima "Hello World" a cada minuto
+kubectl create cronjob hello --image=busybox:1.28   --schedule="*/1 * * * *" -- echo "Hello World"
+
+kubectl explain pods                           # obtenha a documentação de manifesto do pod
 
 # Crie vários objetos YAML a partir de stdin
 cat <<EOF | kubectl apply -f -
@@ -167,6 +185,13 @@ kubectl get pv --sort-by=.spec.capacity.storage
 kubectl get pods --selector=app=cassandra -o \
   jsonpath='{.items[*].metadata.labels.version}'
 
+# Recupere o valor de uma chave com pontos, por exemplo 'ca.crt'
+kubectl get configmap myconfig \
+  -o jsonpath='{.data.ca\.crt}'
+
+# Recupere um valor codificado em base64 com traços em vez de sublinhados
+kubectl get secret my-secret --template='{{index .data "key-name-with-dashes"}}'
+
 # Obter todos os nós workers (use um seletor para excluir resultados que possuem uma label
 # nomeado 'node-role.kubernetes.io/master')
 kubectl get node --selector='!node-role.kubernetes.io/master'
@@ -201,11 +226,23 @@ kubectl get events --sort-by=.metadata.creationTimestamp
 
 # Compara o estado atual do cluster com o estado em que o cluster estaria se o manifesto fosse aplicado.
 kubectl diff -f ./my-manifest.yaml
+
+# Produzir uma árvore delimitada por período de todas as chaves retornadas para nós
+# Útil ao localizar uma chave em uma estrutura JSON aninhada complexa
+kubectl get nodes -o json | jq -c 'paths|join(".")'
+
+# Produzir uma árvore delimitada por período de todas as chaves retornadas para pods, etc.
+kubectl get pods -o json | jq -c 'paths|join(".")'
+
+# Produza ENV para todos os pods, supondo que você tenha um contêiner padrão para os pods, namespace padrão e o comando `env` é compatível.
+# Útil ao executar qualquer comando suportado em todos os pods, não apenas `env`
+for pod in $(kubectl get po --output=jsonpath={.items..metadata.name}); do echo $pod && kubectl exec -it $pod -- env; done
+
+# Obtenha o sub-recurso de status de uma implantação
+kubectl get deployment nginx-deployment --subresource=status
 ```
 
 ## Atualizando Recursos
-
-A partir da versão 1.11 `rolling-update` foi descontinuado (veja [CHANGELOG-1.11.md](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.11.md)), utilize o comando `rollout` no lugar deste.
 
 ```bash
 kubectl set image deployment/frontend www=image:v2               # Aplica o rollout nos containers "www" do deployment "frontend", atualizando a imagem
@@ -214,13 +251,6 @@ kubectl rollout undo deployment/frontend                         # Rollback para
 kubectl rollout undo deployment/frontend --to-revision=2         # Rollback para uma revisão específica
 kubectl rollout status -w deployment/frontend                    # Acompanhe o status de atualização do "frontend" até sua conclusão sem interrupção 
 kubectl rollout restart deployment/frontend                      # Reinício contínuo do deployment "frontend"
-
-
-# versão inicial descontinuada 1.11
-kubectl rolling-update frontend-v1 -f frontend-v2.json           # (descontinuada) Atualização contínua dos pods de frontend-v1
-kubectl rolling-update frontend-v1 frontend-v2 --image=image:v2  # (descontinuada) Altera o nome do recurso e atualiza a imagem
-kubectl rolling-update frontend --image=image:v2                 # (descontinuada) Atualize a imagem dos pods do frontend
-kubectl rolling-update frontend-v1 frontend-v2 --rollback        # (descontinuada) Interromper o lançamento existente em andamento
 
 cat pod.json | kubectl replace -f -                              # Substitua um pod com base no JSON passado para std
 
@@ -255,6 +285,9 @@ kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "
 
 # Adicionar um novo elemento a uma matriz posicional
 kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", "value": {"name": "whatever" } }]'
+
+# Update a deployment's replica count by patching its scale subresource
+kubectl patch deployment nginx-deployment --subresource='scale' --type='merge' -p '{"spec":{"replicas":2}}'
 ```
 
 ## Editando Recursos
@@ -301,13 +334,46 @@ kubectl run -i --tty busybox --image=busybox -- sh  # Executar pod como shell in
 kubectl run nginx --image=nginx --restart=Never -n 
 mynamespace                                         # Execute o pod nginx em um namespace específico
 kubectl run nginx --image=nginx --restart=Never     # Execute o pod nginx e salve suas especificações em um arquivo chamado pod.yaml
+
 --dry-run -o yaml > pod.yaml
 
 kubectl attach my-pod -i                            # Anexar ao contêiner em execução
 kubectl port-forward my-pod 5000:6000               # Ouça na porta 5000 na máquina local e encaminhe para a porta 6000 no my-pod
 kubectl exec my-pod -- ls /                         # Executar comando no pod existente (1 contêiner)
+kubectl exec --stdin --tty my-pod -- /bin/sh        # Acesso de shell interativo a um pod em execução (1 caixa de contêiner)
 kubectl exec my-pod -c my-container -- ls /         # Executar comando no pod existente (pod com vários contêineres)
 kubectl top pod POD_NAME --containers               # Mostrar métricas para um determinado pod e seus contêineres
+kubectl top pod POD_NAME --sort-by=cpu              # Mostrar métricas para um determinado pod e classificá-lo por 'cpu' ou 'memória'
+```
+
+## Copiar arquivos e diretórios de e para contêineres
+
+```bash
+kubectl cp /tmp/foo_dir my-pod:/tmp/bar_dir            # Copie o diretório local /tmp/foo_dir para /tmp/bar_dir em um pod remoto no namespace atual
+kubectl cp /tmp/foo my-pod:/tmp/bar -c my-container    # Copie o arquivo local /tmp/foo para /tmp/bar em um pod remoto em um contêiner específico
+kubectl cp /tmp/foo my-namespace/my-pod:/tmp/bar       # Copie o arquivo local /tmp/foo para /tmp/bar em um pod remoto no namespace my-namespace
+kubectl cp my-namespace/my-pod:/tmp/foo /tmp/bar       # Copie /tmp/foo de um pod remoto para /tmp/bar localmente
+```
+{{< note >}}
+`kubectl cp` requer que o binário 'tar' esteja presente em sua imagem de container. Se 'tar' não estiver presente, `kubectl cp` falhará.
+Para casos de uso avançado, como links simbólicos, expansão curinga ou preservação do modo de arquivo, considere usar `kubectl exec`.
+{{< /note >}}
+
+```bash
+tar cf - /tmp/foo | kubectl exec -i -n my-namespace my-pod -- tar xf - -C /tmp/bar           # Copie o arquivo local /tmp/foo para /tmp/bar em um pod remoto no namespace my-namespace
+kubectl exec -n my-namespace my-pod -- tar cf - /tmp/foo | tar xf - -C /tmp/bar    # Copie /tmp/foo de um pod remoto para /tmp/bar localmente
+```
+
+## Interagindo com implantações e serviços
+```bash
+kubectl logs deploy/my-deployment                         # despejar logs de pod para uma implantação (caso de contêiner único)
+kubectl logs deploy/my-deployment -c my-container         # despejar logs de pod para uma implantação (caso de vários contêineres)
+
+kubectl port-forward svc/my-service 5000                  # escute na porta local 5000 e encaminhe para a porta 5000 no back-end do serviço
+kubectl port-forward svc/my-service 5000:my-service-port  # escute na porta local 5000 e encaminhe para a porta de destino do serviço com o nome <my-service-port>
+
+kubectl port-forward deploy/my-deployment 5000:6000       # escute na porta local 5000 e encaminhe para a porta 6000 em um pod criado por <my-deployment>
+kubectl exec deploy/my-deployment -- ls                   # execute o comando no primeiro pod e primeiro contêiner na implantação (casos de um ou vários contêineres)
 ```
 
 ## Interagindo com Nós e Cluster
@@ -321,13 +387,16 @@ kubectl cluster-info                                                  # Exibir e
 kubectl cluster-info dump                                             # Despejar o estado atual do cluster no stdout
 kubectl cluster-info dump --output-directory=/path/to/cluster-state   # Despejar o estado atual do cluster em /path/to/cluster-state
 
+# Veja os taints existentes nos nós atuais.
+kubectl get nodes -o='custom-columns=NodeName:.metadata.name,TaintKey:.spec.taints[*].key,TaintValue:.spec.taints[*].value,TaintEffect:.spec.taints[*].effect'
+
 # Se uma `taint` com essa chave e efeito já existir, seu valor será substituído conforme especificado.
 kubectl taint nodes foo dedicated=special-user:NoSchedule
 ```
 
 ### Tipos de Recursos
 
-Listar todos os tipos de recursos suportados, juntamente com seus nomes abreviados, [Grupo de API](/docs/concepts/overview/kubernetes-api/#api-groups), se eles são por [namespaces](/docs/concepts/overview/working-with-objects/namespaces), e [objetos](/docs/concepts/overview/working-with-objects/kubernetes-objects):
+Liste todos os tipos de recursos suportados junto com seus nomes abreviados, [grupo de API](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning), sejam eles [namespaced](/docs/concepts/overview/ trabalhando com objetos/namespaces) e [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects):
 
 ```bash
 kubectl api-resources
@@ -359,6 +428,24 @@ Formato de saída | Descrição
 `-o=wide`     | Saída no formato de texto sem formatação com qualquer informação adicional e, para pods, o nome do nó está incluído
 `-o=yaml`     | Saída de um objeto de API formatado em YAML
 
+Exemplos usando `-o=custom-columns`:
+
+```bash
+# Todas as imagens em execução em um cluster
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
+
+# Todas as imagens em execução no namespace: padrão, agrupadas por pod
+kubectl get pods --namespace default --output=custom-columns="NAME:.metadata.name,IMAGE:.spec.containers[*].image"
+
+ # Todas as imagens excluindo "registry.k8s.io/coredns:1.6.2"
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="registry.k8s.io/coredns:1.6.2")].image'
+
+# Todos os campos sob metadados, independentemente do nome
+kubectl get pods -A -o=custom-columns='DATA:metadata.*'
+```
+
+More examples in the kubectl [reference documentation](/docs/reference/kubectl/#custom-columns).
+
 ### Verbosidade da Saída do Kubectl e Debugging
 
 A verbosidade do Kubectl é controlado com os sinalizadores `-v` ou` --v` seguidos por um número inteiro representando o nível do log. As convenções gerais de log do Kubernetes e os níveis de log associados são descritos [aqui](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
@@ -370,6 +457,7 @@ Verbosidade | Descrição
 `--v=2` | Informações úteis sobre o estado estacionário sobre o serviço e mensagens importantes de log que podem se correlacionar com alterações significativas no sistema. Este é o nível de log padrão recomendado para a maioria dos sistemas.
 `--v=3` | Informações estendidas sobre alterações.
 `--v=4` | Detalhamento no nível de debugging.
+`--v=5` | Verbosidade do nível de rastreamento.
 `--v=6` | Exibir os recursos solicitados.
 `--v=7` | Exibir cabeçalhos de solicitação HTTP.
 `--v=8` | Exibir conteúdo da solicitação HTTP.
@@ -380,7 +468,7 @@ Verbosidade | Descrição
 ## {{% heading "whatsnext" %}}
 
 
-* Saiba mais em [Visão geral do kubectl](/docs/reference/kubectl/overview/).
+* Leia a [visão geral do kubectl](/docs/reference/kubectl/) e aprenda sobre [JsonPath](/docs/reference/kubectl/jsonpath).
 
 * Veja as opções do [kubectl](/docs/reference/kubectl/kubectl/).
 
