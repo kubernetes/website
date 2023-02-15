@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="211px" preserveAspectRatio="none" style="width:148px;height:211px;background:#FFFFFF;" version="1.1" viewBox="0 0 148 211" width="148px" zoomAndPan="magnify"><defs/><g><!--MD5=[848822673f42b97e5537134580a00c68]
+class plugA--><g id="elem_plugA"><rect codeLine="1" fill="#F1F1F1" height="26.2969" id="plugA" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="134" x="7" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="128" x="10" y="24.9951">NodeResourcesFit</text></g><!--MD5=[f4dd66613959840e77311c02c0333b2e]
+class plugB--><g id="elem_plugB"><rect codeLine="2" fill="#F1F1F1" height="26.2969" id="plugB" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="115" x="16.5" y="179"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="109" x="19.5" y="196.9951">TopologyScorer</text></g><!--MD5=[2d2d62b16bf9e31dcbe55defc64290f6]
+class cs1--><g id="elem_cs1"><rect codeLine="3" fill="#F1F1F1" height="26.2969" id="cs1" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="83" x="32.5" y="93"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="77" x="35.5" y="110.9951">Cycle State</text></g><!--MD5=[c4b37eaf87bc42155596184ccfab2535]
+link plugA to cs1--><g id="link_plugA_cs1"><path codeLine="4" d="M74,33.04 C74,47.38 74,71.46 74,87.78 " fill="none" id="plugA-to-cs1" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="74,92.99,78,83.99,74,87.99,70,83.99,74,92.99" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[c4841a311986f476622c889a4d887e99]
+link cs1 to plugB--><g id="link_cs1_plugB"><path codeLine="5" d="M74,119.04 C74,133.38 74,157.46 74,173.78 " fill="none" id="cs1-to-plugB" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="74,178.99,78,169.99,74,173.99,70,169.99,74,178.99" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[22936359cd9a7b6cc2d6dc112fdf2d3b]
+@startuml
+class "NodeResourcesFit" as plugA
+class "TopologyScorer" as plugB
+class "Cycle State" as cs1
+plugA - -> cs1
+cs1 - -> plugB
+hide empty members
+hide circle
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 20:01:30 EEST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>

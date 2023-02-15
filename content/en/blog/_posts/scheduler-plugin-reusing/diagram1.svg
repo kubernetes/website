@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="383px" preserveAspectRatio="none" style="width:173px;height:383px;background:#FFFFFF;" version="1.1" viewBox="0 0 173 383" width="173px" zoomAndPan="magnify"><defs/><g><!--MD5=[848822673f42b97e5537134580a00c68]
+class plugA--><g id="elem_plugA"><rect codeLine="1" fill="#F1F1F1" height="26.2969" id="plugA" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="61" x="55.5" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="55" x="58.5" y="24.9951">Plugin A</text></g><!--MD5=[f4dd66613959840e77311c02c0333b2e]
+class plugB--><g id="elem_plugB"><rect codeLine="2" fill="#F1F1F1" height="26.2969" id="plugB" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="62" x="7" y="179"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="56" x="10" y="196.9951">Plugin B</text></g><!--MD5=[32be580a8063dca15627328901a9e0b7]
+class plugC--><g id="elem_plugC"><rect codeLine="3" fill="#F1F1F1" height="26.2969" id="plugC" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="62" x="104" y="179"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="56" x="107" y="196.9951">Plugin C</text></g><!--MD5=[2d2d62b16bf9e31dcbe55defc64290f6]
+class cs1--><g id="elem_cs1"><rect codeLine="4" fill="#F1F1F1" height="26.2969" id="cs1" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="83" x="44.5" y="93"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="77" x="47.5" y="110.9951">Cycle State</text></g><!--MD5=[8e80e60e26345725f1c9185858284276]
+class cs2--><g id="elem_cs2"><rect codeLine="5" fill="#F1F1F1" height="26.2969" id="cs2" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="83" x="44.5" y="265"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="77" x="47.5" y="282.9951">Cycle State</text></g><!--MD5=[1f5026f7f0651e6765093293dfca62cc]
+class plugD--><g id="elem_plugD"><rect codeLine="6" fill="#F1F1F1" height="26.2969" id="plugD" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="63" x="54.5" y="351"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="57" x="57.5" y="368.9951">Plugin D</text></g><!--MD5=[c4b37eaf87bc42155596184ccfab2535]
+link plugA to cs1--><g id="link_plugA_cs1"><path codeLine="7" d="M86,33.04 C86,47.38 86,71.46 86,87.78 " fill="none" id="plugA-to-cs1" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="86,92.99,90,83.99,86,87.99,82,83.99,86,92.99" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[c4841a311986f476622c889a4d887e99]
+link cs1 to plugB--><g id="link_cs1_plugB"><path codeLine="8" d="M79.12,119.04 C70.78,133.63 56.68,158.3 47.36,174.62 " fill="none" id="cs1-to-plugB" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="44.86,178.99,52.7962,173.1575,47.3392,174.6479,45.8488,169.1909,44.86,178.99" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[21fd698ac1ce818700f93ed353ac9660]
+link cs1 to plugC--><g id="link_cs1_plugC"><path codeLine="9" d="M93.02,119.04 C101.53,133.63 115.93,158.3 125.45,174.62 " fill="none" id="cs1-to-plugC" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="127.99,178.99,126.9143,169.2001,125.4724,174.6701,120.0024,173.2282,127.99,178.99" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[1880f25f65012afc9eacebcc800739e8]
+link plugB to cs2--><g id="link_plugB_cs2"><path codeLine="10" d="M44.88,205.04 C53.22,219.63 67.32,244.3 76.64,260.62 " fill="none" id="plugB-to-cs2" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="79.14,264.99,78.1512,255.1909,76.6608,260.6479,71.2038,259.1575,79.14,264.99" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[76c46036bc686ba69c83981db89689d0]
+link plugC to cs2--><g id="link_plugC_cs2"><path codeLine="11" d="M127.98,205.04 C119.47,219.63 105.07,244.3 95.55,260.62 " fill="none" id="plugC-to-cs2" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="93.01,264.99,100.9976,259.2282,95.5276,260.6701,94.0857,255.2001,93.01,264.99" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[8445ffecd5715c1325650b9791b80f67]
+link cs2 to plugD--><g id="link_cs2_plugD"><path codeLine="12" d="M86,291.04 C86,305.38 86,329.46 86,345.78 " fill="none" id="cs2-to-plugD" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="86,350.99,90,341.99,86,345.99,82,341.99,86,350.99" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[2125520e0f49492eb8c552c0864a8776]
+@startuml
+class "Plugin A" as plugA
+class "Plugin B" as plugB
+class "Plugin C" as plugC
+class "Cycle State" as cs1
+class "Cycle State" as cs2
+class "Plugin D" as plugD
+plugA - -> cs1
+cs1 - -> plugB
+cs1 - -> plugC
+plugB - -> cs2
+plugC - -> cs2
+cs2 - -> plugD
+hide empty members
+hide circle
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 20:01:30 EEST 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
