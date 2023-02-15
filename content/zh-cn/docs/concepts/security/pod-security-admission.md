@@ -27,7 +27,7 @@ The Kubernetes [Pod Security Standards](/docs/concepts/security/pod-security-sta
 different isolation levels for Pods. These standards let you define how you want to restrict the
 behavior of pods in a clear, consistent fashion.
 -->
-Kubernetes [Pod 安全性标准（Security Standards）](/zh-cn/docs/concepts/security/pod-security-standards/)
+Kubernetes [Pod 安全性标准（Security Standard）](/zh-cn/docs/concepts/security/pod-security-standards/)
 为 Pod 定义不同的隔离级别。这些标准能够让你以一种清晰、一致的方式定义如何限制 Pod 行为。
 
 <!--
@@ -166,8 +166,8 @@ applied to workload resources, only to the resulting pod objects.
 
 Pod 通常是通过创建 {{< glossary_tooltip term_id="deployment" >}} 或
 {{< glossary_tooltip term_id="job">}}
-这类[工作负载对象](/zh-cn/docs/concepts/workloads/controllers/)
-来间接创建的。工作负载对象为工作负载资源定义一个 **Pod 模板**和一个对应的负责基于该模板来创建
+这类[工作负载对象](/zh-cn/docs/concepts/workloads/controllers/)来间接创建的。
+工作负载对象为工作负载资源定义一个 **Pod 模板**和一个对应的负责基于该模板来创建
 Pod 的{{< glossary_tooltip term_id="controller" text="控制器" >}}。
 为了尽早地捕获违例状况，`audit` 和 `warn` 模式都应用到负载资源。
 不过，`enforce` 模式并**不**应用到工作负载资源，仅应用到所生成的 Pod 对象上。
@@ -253,11 +253,16 @@ current policy level:
 - [Enforcing Pod Security Standards](/docs/setup/best-practices/enforcing-pod-security-standards)
 - [Enforce Pod Security Standards by Configuring the Built-in Admission Controller](/docs/tasks/configure-pod-container/enforce-standards-admission-controller)
 - [Enforce Pod Security Standards with Namespace Labels](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels)
-- [Migrate from PodSecurityPolicy to the Built-In PodSecurity Admission Controller](/docs/tasks/configure-pod-container/migrate-from-psp)
 -->
 - [Pod 安全性标准](/zh-cn/docs/concepts/security/pod-security-standards/)
 - [强制实施 Pod 安全性标准](/zh-cn/docs/setup/best-practices/enforcing-pod-security-standards/)
 - [通过配置内置的准入控制器强制实施 Pod 安全性标准](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)
 - [使用名字空间标签来实施 Pod 安全性标准](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/)
-- [从 PodSecurityPolicy 迁移到内置的 PodSecurity 准入控制器](/zh-cn/docs/tasks/configure-pod-container/migrate-from-psp/)
 
+<!--
+If you are running an older version of Kubernetes and want to upgrade
+to a version of Kubernetes that does not include PodSecurityPolicies,
+read [migrate from PodSecurityPolicy to the Built-In PodSecurity Admission Controller](/docs/tasks/configure-pod-container/migrate-from-psp).
+-->
+如果你正运行较老版本的 Kubernetes，想要升级到不包含 PodSecurityPolicy 的 Kubernetes 版本，
+可以参阅[从 PodSecurityPolicy 迁移到内置的 PodSecurity 准入控制器](/zh-cn/docs/tasks/configure-pod-container/migrate-from-psp)。
