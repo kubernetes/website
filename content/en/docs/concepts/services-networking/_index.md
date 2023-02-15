@@ -163,7 +163,7 @@ Add CNI explanation and references.
 
 {{< figure src="/docs/images/k8net-PodDiffHost-physical-underlay.drawio.svg" alt="k8s pods physical underay" class="diagram-large" caption="Figure 5. Pod 1 - Pod4 networking on different hosts using a physical underlay network" >}}
 
-## Network Concerns
+## Design principles for Kubernetes networking
 
 Kubernetes networking addresses four concerns:
 - Containers within a Pod [use networking to communicate](/docs/concepts/services-networking/dns-pod-service/) via loopback.
