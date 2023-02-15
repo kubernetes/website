@@ -3,7 +3,7 @@ title: Quantity
 id: quantity
 date: 2023-01-24
 short_description: >
- Quantity refers to a special notation which are portable across machines. 
+ A Kubernetes-specific notation for numeric values.
 aka: 
 tags:
 - fundamental
