@@ -21,7 +21,7 @@ application configuration and migration.
   
 The network model is not only less complex overall, but it is compatible
 with the desire for Kubernetes to enable low-friction porting of your apps from VMs
-to containers. If your job previously ran in a VM, your VM had an IP and could
+to containers. If your app previously ran in a VM, your VM had an IP address and could
 talk to other VMs in your project. This is the same basic model.
 
 Kubernetes imposes the following requirements on any networking
