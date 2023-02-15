@@ -7,6 +7,7 @@ short_description: >
 aka: 
 tags:
 - fundamental
+full_link: /docs/reference/kubernetes-api/common-definitions/quantity/
 ---
 
 In Kubernetes, a _quantity_ lets you specify a number in a way that always uses exact (integer) values.
