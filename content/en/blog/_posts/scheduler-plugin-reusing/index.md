@@ -20,7 +20,7 @@ Resource calculations and scoring of nodes is currently done quite nicely and wi
 > **Warning**
 > The simplest and probably most frowned upon code-reuse practice is of course copy-paste. Due to well known issues with copy-paste code, this approach can't be recommended, and is mentioned here only as an example of what not to do. Copy-pasting won't be any faster anyway, as you will see below.
 
-### Plugin Composition
+### Plugin composition
 
 Typically a valid option for reusing something is composition. Nothing really stops instantiating an existing plugin in the factory function of a new plugin, and then wrapping things up so that the implementation of the already existing plugin gets reused instead of rewriting the code.
 
@@ -32,16 +32,16 @@ type CompositionExample struct {
 }
 ```
 
-There we have a placeholder for the ScorePlugin composite in the new plugin's type. Next, it needs to be instantiated in the new plugin's factory function:
+The new plugin's type now has a placeholder for the ScorePlugin composite. Next, it needs to be instantiated in the new plugin's factory function:
 
 ```go
 fit, err := noderesources.NewFit(args.CompositeArgs, handle, fts)
 if err != nil {
-    return nil, fmt.Errorf("fit instantiation failed: %w", err)
+	return nil, fmt.Errorf("fit instantiation failed: %w", err)
 }
 
 ce := CompositionExample{
-    ScorePlugin: fit.(framework.ScorePlugin),
+	ScorePlugin: fit.(framework.ScorePlugin),
 }
 ```
 
@@ -54,7 +54,7 @@ Putting these unfortunate drawbacks aside, getting the newly calculated node res
 ```go
 // NormalizeScore implements framework.ScoreExtensions.
 func (ce *CompositionExample) NormalizeScore(ctx context.Context, state *framework.CycleState, p *v1.Pod, scores framework.NodeScoreList) *framework.Status {
-    // logic for using and adjusting the incoming scores goes here
+	// logic for using and adjusting the incoming scores goes here
 	return nil
 }
 
