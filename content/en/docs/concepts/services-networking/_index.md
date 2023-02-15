@@ -21,7 +21,7 @@ application configuration and migration.
   
 The network model is not only less complex overall, but it is compatible
 with the desire for Kubernetes to enable low-friction porting of your apps from VMs
-to containers. If your job previously ran in a VM, your VM had an IP and could
+to containers. If your app previously ran in a VM, your VM had an IP address and could
 talk to other VMs in your project. This is the same basic model.
 
 Kubernetes imposes the following requirements on any networking
@@ -42,7 +42,7 @@ Some platforms, such as Linux, support pods running in the host network. Pods at
 
 * Dual Stack - IPv4 and IPv6 addresses assigned to pod interfaces, host interfaces, L2 bridges, L3 routers, tunnel end-points and any other network resource requiring IPv4 and IPv6 connectivity.
 
-* L2 bridge - supports a virtual L2 bridge function.
+* L2 bridge - a (virtual) [layer 2](https://en.wikipedia.org/wiki/Data_link_layer) bridge.
 
 * Host Network - network functions residing in user space or the kernel.
 
@@ -67,13 +67,20 @@ Figure 1 illustrates the Kubernetes network architecture.
 
 {{< figure src="/docs/images/k8net-net-arch.drawio.svg" alt="k8s net arch" class="diagram-large" caption="Figure 1. K8s Network Architecture" >}}
 
-The components of the architecture consist of the following:
+For this example, the network architecture includes:
 
 * Nodes configured in virtual (VM) or physical (bare-metal) environments.
   
 * Pods configured on each node with one or more containers.
   
-* Pods come with their own IP (v4-only, v6-only, 4/6 dual stack) and MAC address(es). Pods run in their own network namespace.
+* Each Pod has its own IP address; this is per _address family_, so a cluster that uses IPv4
+  and IPv6 networking   assigns one IPv4 address to each Pod, and also assigns one IPv6
+  address to each Pod.
+  * Pods run in their own network namespace. All the containers in the Pod share this
+    network namespace. (Network namespaces are not the same as the Kubernetes
+    {{< glossary_tooltip text="namespace" term_id="namespace" >}} concept).
+  * This example also assigns an Ethernet MAC address to each Pod.
+    Kubernetes does not require that a Pod has a unique identity at the data-link layer.
   
 * Pods use a virtual "link" between the pod network namespace and root network namespace. This permits pod packets to utilize network functions defined in the root network namespace.  
   
@@ -156,7 +163,7 @@ Add CNI explanation and references.
 
 {{< figure src="/docs/images/k8net-PodDiffHost-physical-underlay.drawio.svg" alt="k8s pods physical underay" class="diagram-large" caption="Figure 5. Pod 1 - Pod4 networking on different hosts using a physical underlay network" >}}
 
-## Network Concerns
+## Design principles for Kubernetes networking
 
 Kubernetes networking addresses four concerns:
 - Containers within a Pod [use networking to communicate](/docs/concepts/services-networking/dns-pod-service/) via loopback.
