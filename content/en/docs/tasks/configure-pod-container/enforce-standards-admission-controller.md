@@ -13,9 +13,11 @@ You can configure this admission controller to set cluster-wide defaults and [ex
 ## {{% heading "prerequisites" %}}
 
 Following an alpha release in Kubernetes v1.22,
-Pod Security Admission becaome available by default in Kubernetes v1.23, as
+Pod Security Admission became available by default in Kubernetes v1.23, as
 a beta. From version 1.25 onwards, Pod Security Admission is generally
-available. {{% version-check %}}
+available.
+
+{{% version-check %}}
 
 If you are not running Kubernetes {{< skew currentVersion >}}, you can switch
 to viewing this page in the documentation for the Kubernetes version that you
@@ -28,7 +30,6 @@ are running.
 For v1.23 and v1.24, use [v1beta1](https://v1-24.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
 For v1.22, use [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
 {{< /note >}}
-
 
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1 # see compatibility note
@@ -63,6 +64,7 @@ plugins:
       # Array of namespaces to exempt.
       namespaces: []
 ```
+
 {{< note >}}
 The above manifest needs to be specified via the `--admission-control-config-file` to kube-apiserver.
 {{< /note >}}
