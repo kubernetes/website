@@ -22,9 +22,9 @@ DaemonSetのいくつかの典型的な使用例は以下の通りです。
 
 <!-- body -->
 
-## DaemonSet Specの記述
+## DaemonSet Specの記述 {#writing-a-daemonset-spec}
 
-### DaemonSetの作成
+### DaemonSetの作成 {#create-a-daemonset}
 
 ユーザーはYAMLファイル内でDaemonSetの設定を記述することができます。例えば、下記の`daemonset.yaml`ファイルでは`fluentd-elasticsearch`というDockerイメージを稼働させるDaemonSetの設定を記述します。
 
@@ -36,7 +36,7 @@ YAMLファイルに基づいてDaemonSetを作成します。
 kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 ```
 
-### 必須のフィールド
+### 必須のフィールド {#required-fields}
 
 他の全てのKubernetesの設定と同様に、DaemonSetは`apiVersion`、`kind`と`metadata`フィールドが必須となります。設定ファイルの活用法に関する一般的な情報は、[ステートレスアプリケーションの稼働](/ja/docs/tasks/run-application/run-stateless-application-deployment/)、[コンテナの設定](/ja/docs/tasks/)、[kubectlを用いたオブジェクトの管理](/ja/docs/concepts/overview/working-with-objects/object-management/)といったドキュメントを参照ください。
 
@@ -45,7 +45,7 @@ DaemonSetオブジェクトの名前は、有効な
 
 また、DaemonSetにおいて[`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)セクションも必須となります。
 
-### Podテンプレート
+### Podテンプレート {#pod-template}
 
 `.spec.template`は`.spec`内での必須のフィールドの1つです。
 
@@ -55,7 +55,7 @@ Podに対する必須のフィールドに加えて、DaemonSet内のPodテン�
 
 DaemonSet内のPodテンプレートでは、[`RestartPolicy`](/ja/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)フィールドを指定せずにデフォルトの`Always`を使用するか、明示的に`Always`を設定するかのどちらかである必要があります。
 
-### Podセレクター
+### Podセレクター {#pod-selector}
 
 `.spec.selector`フィールドはPodセレクターとなります。これは[Job](/docs/concepts/workloads/controllers/job/)の`.spec.selector`と同じものです。
 
@@ -70,14 +70,14 @@ Kubernetes1.8のように、ユーザーは`.spec.template`のラベルにマッ
 
 もし`spec.selector`が指定されたとき、`.spec.template.metadata.labels`とマッチしなければなりません。この2つの値がマッチしない設定をした場合、APIによってリジェクトされます。
 
-### 選択したNode上でPodを稼働させる
+### 選択したNode上でPodを稼働させる {#running-pods-on-select-nodes}
 
 もしユーザーが`.spec.template.spec.nodeSelector`を指定したとき、DaemonSetコントローラーは、その[node selector](/ja/docs/concepts/scheduling-eviction/assign-pod-node/)にマッチするNode上にPodを作成します。同様に、もし`.spec.template.spec.affinity`を指定したとき、DaemonSetコントローラーは[node affinity](/ja/docs/concepts/scheduling-eviction/assign-pod-node/)にマッチするNode上にPodを作成します。
 もしユーザーがどちらも指定しないとき、DaemonSetコントローラーは全てのNode上にPodを作成します。
 
-## Daemon Podがどのようにスケジューリングされるか
+## Daemon Podがどのようにスケジューリングされるか {#how-daemon-pods-are-scheduled}
 
-### デフォルトスケジューラーによってスケジューリングされる場合
+### デフォルトスケジューラーによってスケジューリングされる場合 {#scheduled-by-default-scheduler}
 
 {{< feature-state for_k8s_version="1.17" state="stable" >}}
 
@@ -102,7 +102,7 @@ nodeAffinity:
 
 さらに、`node.kubernetes.io/unschedulable:NoSchedule`というtolarationがDaemonSetのPodに自動的に追加されます。デフォルトスケジューラーは、DaemonSetのPodのスケジューリングのときに、`unschedulable`なNodeを無視します。
 
-### TaintsとTolerations
+### TaintsとTolerations {#taints-and-tolerations}
 
 DaemonSetのPodは[TaintsとTolerations](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)の設定を尊重します。下記のTolerationsは、関連する機能によって自動的にDaemonSetのPodに追加されます。
 
@@ -115,7 +115,7 @@ DaemonSetのPodは[TaintsとTolerations](/ja/docs/concepts/scheduling-eviction/t
 | `node.kubernetes.io/unschedulable`       | NoSchedule | 1.12+   | DaemonSetのPodはデフォルトスケジューラーによってスケジュール不可能な属性を許容(tolerate)します。 |
 | `node.kubernetes.io/network-unavailable` | NoSchedule | 1.12+   | ホストネットワークを使うDaemonSetのPodはデフォルトスケジューラーによってネットワーク利用不可能な属性を許容(tolerate)します。 |
 
-## Daemon Podとのコミュニケーション
+## Daemon Podとのコミュニケーション {#communicating-with-daemon-pods}
 
 DaemonSet内のPodとのコミュニケーションをする際に考えられるパターンは以下の通りです。:
 
@@ -124,7 +124,7 @@ DaemonSet内のPodとのコミュニケーションをする際に考えられ�
 - **DNS**: 同じPodセレクターを持つ[HeadlessService](/ja/docs/concepts/services-networking/service/#headless-service)を作成し、`endpoints`リソースを使ってDaemonSetを探すか、DNSから複数のAレコードを取得します。
 - **Service**: 同じPodセレクターを持つServiceを作成し、複数のうちのいずれかのNode上のDaemonに疎通させるためにそのServiceを使います。
 
-## DaemonSetの更新
+## DaemonSetの更新 {#updating-a-daemonset}
 
 もしNodeラベルが変更されたとき、そのDaemonSetは直ちに新しくマッチしたNodeにPodを追加し、マッチしなくなったNodeからPodを削除します。
 
@@ -134,9 +134,9 @@ DaemonSet内のPodとのコミュニケーションをする際に考えられ�
 
 ユーザーはDaemonSet上で[ローリングアップデートの実施](/docs/tasks/manage-daemon/update-daemon-set/)が可能です。
 
-## DaemonSetの代替案
+## DaemonSetの代替案 {#alternatives-to-daemonset}
 
-### Initスクリプト
+### Initスクリプト {#init-scripts}
 
 Node上で直接起動することにより(例: `init`、`upstartd`、`systemd`を使用する)、デーモンプロセスを稼働することが可能です。この方法は非常に良いですが、このようなプロセスをDaemonSetを介して起動することはいくつかの利点があります。
 
@@ -144,15 +144,15 @@ Node上で直接起動することにより(例: `init`、`upstartd`、`systemd`
 - デーモンとアプリケーションで同じ設定用の言語とツール(例: Podテンプレート、`kubectl`)を使える。
 - リソースリミットを使ったコンテナ内でデーモンを稼働させることにより、デーモンとアプリケーションコンテナの分離を促進します。しかし、これはPod内でなく、コンテナ内でデーモンを稼働させることにより可能です(Dockerを介して直接起動する)。
 
-### ベアPod
+### ベアPod {#bare-pods}
 
 特定のNode上で稼働するように指定したPodを直接作成することは可能です。しかし、DaemonSetはNodeの故障やNodeの破壊的なメンテナンスやカーネルのアップグレードなど、どのような理由に限らず、削除されたもしくは停止されたPodを置き換えます。このような理由で、ユーザーはPod単体を作成するよりもむしろDaemonSetを使うべきです。
 
-### 静的Pod Pods
+### 静的Pod Pods {#static-pods}
 
 Kubeletによって監視されているディレクトリに対してファイルを書き込むことによって、Podを作成することが可能です。これは[静的Pod](/ja/docs/tasks/configure-pod-container/static-pod/)と呼ばれます。DaemonSetと違い、静的Podはkubectlや他のKubernetes APIクライアントで管理できません。静的PodはApiServerに依存しておらず、クラスターの自立起動時に最適です。また、静的Podは将来的には廃止される予定です。
 
-### Deployment
+### Deployment {#deployments}
 
 DaemonSetは、Podの作成し、そのPodが停止されることのないプロセスを持つことにおいて[Deployment](/ja/docs/concepts/workloads/controllers/deployment/)と同様です(例: webサーバー、ストレージサーバー)。
 
