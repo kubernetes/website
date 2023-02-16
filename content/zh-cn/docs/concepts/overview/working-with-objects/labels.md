@@ -373,9 +373,9 @@ kubectl get pods -l 'environment in (production, qa)'
 ```
 
 <!--
-or restricting negative matching via _exists_ operator:
+or restricting negative matching via _notin_ operator:
 -->
-或者通过**exists**运算符限制不匹配：
+或者通过**notin**运算符限制不匹配：
 
 ```shell
 kubectl get pods -l 'environment,environment notin (frontend)'
