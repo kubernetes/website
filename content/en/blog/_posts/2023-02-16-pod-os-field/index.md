@@ -14,9 +14,7 @@ helps in securing Kubernetes clusters while ensuring that the workloads can run 
 
 In the first releases of Kubernetes the `kube-apiserver` did not record any detail about which operating system a Pod should run on. Initially, Kubernetes only supported Linux
 nodes; later, Kubernetes added support for Windows nodes (stable since Kubernetes v1.14).
-You could use [labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/)
-to give the scheduler a hint about where to place your Pod, but the actual Pod API didn't track that
-OS at all.
+While Kubernetes has multiple ways to hint scheduler about the node on which pod needs to run, a more common way is to use nodeSelector but the actual Pod API didn't track that pod OS at all.
 
 As a result, the end user of a Kubernetes cluster can specify Linux specific security constraints onto Windows pods, or vice-versa.
 These security constraints are passed on to the underlying container runtime from kubelet and since these security constraints 
@@ -28,9 +26,10 @@ security constraints to the pods based on the Pod security standard you choose t
 While the `kubelet` can identify the OS on which it runs and can strip certain security constraints before passing
 onto the container runtime, it'd be better to identify the target OS early in the life-cycle of pod and use the 
 identification mechanism consistently across all Kubernetes components including `kubelet`. 
-With that in mind, an `os` field was to the pod API in 1.23 release of Kubernetes (as an 
+With that in mind, an `os` field was added to the pod API in 1.23 release of Kubernetes (as an 
 alpha feature). With Kubernetes v1.25, that field is stable, and the `PodSecurity` admission
-plugin has been updated to take the `os` field into account.
+plugin has been updated to take the `os` field into account. More information on how `os` field impacts pod security standards can be found at
+https://kubernetes.io/docs/concepts/security/pod-security-standards
 
 
 ## How does it work?
