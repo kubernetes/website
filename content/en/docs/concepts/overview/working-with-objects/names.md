@@ -24,6 +24,8 @@ For non-unique user-provided attributes, Kubernetes provides [labels](/docs/conc
 
 {{< glossary_definition term_id="name" length="all" >}}
 
+**Names are unique across [API versions](https://kubernetes.io/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning) of the resource. API resources are distinguished by their API group, resource type, namespace (for namespaced resources), and name. In other words, API version is irrelevant in this context.**
+
 {{< note >}}
 In cases when objects represent a physical entity, like a Node representing a physical host, when the host is re-created under the same name without deleting and re-creating the Node, Kubernetes treats the new host as the old one, which may lead to inconsistencies.
 {{< /note >}}
