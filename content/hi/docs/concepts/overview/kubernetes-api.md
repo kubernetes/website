@@ -135,22 +135,22 @@ Kubernetes {{< param "संस्करण">}} अपने API को OpenAPI 
   </thead>
   <tbody>
      <tr>
-        <td><code>Accept-Encoding</code></td>
+        <td><code>स्वीकृति-एन्कोडिंग</code></td>
         <td><code>gzip</code></td>
-        <td><em>not supplying this header is also acceptable</em></td>
+        <td><em>इस हेडर की आपूर्ति नहीं करना भी स्वीकार्य है</em></td>
      </tr>
      <tr>
-        <td rowspan="3"><code>Accept</code></td>
-        <td><code>application/com.github.proto-openapi.spec.v3@v1.0+protobuf</code></td>
-        <td><em>mainly for intra-cluster use</em></td>
+        <td Rowspan="3"><code>स्वीकार करें</code></td>
+        <td><code>application/com.github.proto-openapi.spec.v2@v1.0+protobuf</code></td>
+        <td><em>मुख्य रूप से इंट्रा-क्लस्टर उपयोग के लिए</em></td>
      </tr>
      <tr>
         <td><code>application/json</code></td>
-        <td><em>default</em></td>
+        <td><em>डिफ़ॉल्ट</em></td>
      </tr>
      <tr>
         <td><code>*</code></td>
-        <td><em>serves </em><code>application/json</code></td>
+        <td><em>सेवा करता है </em><code>application/json</code></td>
      </tr>
   </tbody>
 </table>
