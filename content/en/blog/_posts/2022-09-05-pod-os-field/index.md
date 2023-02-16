@@ -26,16 +26,16 @@ which validates the
 security constraints to the pods based on the Pod security standard you choose to enforce.
 
 While the `kubelet` can identify the OS on which it runs and can strip certain security constraints before passing
-onto the container runtime, it'd be better to identify the OS early in the life-cycle of pod and use the 
+onto the container runtime, it'd be better to identify the target OS early in the life-cycle of pod and use the 
 identification mechanism consistently across all Kubernetes components including `kubelet`. 
 With that in mind, an `os` field was to the pod API in 1.23 release of Kubernetes (as an 
-alpha feature). With Kubernetes v1.25, that field is stable, andthe `PodSecurity` admission
+alpha feature). With Kubernetes v1.25, that field is stable, and the `PodSecurity` admission
 plugin has been updated to take the `os` field into account.
 
 
 ## How does it work?
 Pods now have an optional `.spec.os` field (and this is a stable feature, available in every cluster running
-Kubernetes v1.25 or later). Every object in Kubernetes is validated before it . Every object in Kubernetes is validated before it 
+Kubernetes v1.25 or later). Every object in Kubernetes is validated before it 
 gets persisted to etcd during API admission time, including Pods.  Kubernetes v1.25 also introduced new validation which forbids you from specify Linux-specific security controls for Windows pods, or vice-versa.
 
 The pod security standards `restricted` profile has been updated to ignore the following policies 
