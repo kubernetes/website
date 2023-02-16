@@ -201,25 +201,8 @@ If you want to access data from a Secret in a Pod, one way to do that is to
 have Kubernetes make the value of that Secret be available as a file inside
 the filesystem of one or more of the Pod's containers.
 
-{{< note >}}
-Versions of Kubernetes before v1.22 automatically created credentials for accessing
-the Kubernetes API. This older mechanism was based on creating token Secrets that
-could then be mounted into running Pods.
-In more recent versions, including Kubernetes v{{< skew currentVersion >}}, API credentials
-are obtained directly by using the [TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/) API,
-and are mounted into Pods using a [projected volume](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume).
-The tokens obtained using this method have bounded lifetimes, and are automatically
-invalidated when the Pod they are mounted into is deleted.
-
-You can still [manually create](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-a-service-account-api-token)
-a service account token Secret; for example, if you need a token that never expires.
-However, using the [TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
-subresource to obtain a token to access the API is recommended instead.
-You can use the [`kubectl create token`](/docs/reference/generated/kubectl/kubectl-commands#-em-token-em-)
-command to obtain a token from the `TokenRequest` API.
-{{< /note >}}
-
-#### Mounted Secrets are updated automatically
+For instructions, refer to
+[Distribute credentials securely using Secrets](/docs/tasks/inject-data-application/distribute-credentials-secure/#create-a-pod-that-has-access-to-the-secret-data-through-a-volume).
 
 When a volume contains data from a Secret, and that Secret is updated, Kubernetes tracks
 this and updates the data in the volume, using an eventually-consistent approach.
@@ -638,13 +621,28 @@ A `kubernetes.io/service-account-token` type of Secret is used to store a
 token credential that identifies a
 {{< glossary_tooltip text="service account" term_id="service-account" >}}.
 
-Since 1.22, this type of Secret is no longer used to mount credentials into Pods,
-and obtaining tokens via the [TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
-API is recommended instead of using service account token Secret objects.
-Tokens obtained from the `TokenRequest` API are more secure than ones stored in Secret objects,
-because they have a bounded lifetime and are not readable by other API clients.
-You can use the [`kubectl create token`](/docs/reference/generated/kubectl/kubectl-commands#-em-token-em-)
+{{< note >}}
+Versions of Kubernetes before v1.22 automatically created credentials for
+accessing the Kubernetes API. This older mechanism was based on creating token
+Secrets that could then be mounted into running Pods.
+In more recent versions, including Kubernetes v{{< skew currentVersion >}}, API
+credentials are obtained directly by using the
+[TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
+API, and are mounted into Pods using a
+[projected volume](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume).
+The tokens obtained using this method have bounded lifetimes, and are
+automatically invalidated when the Pod they are mounted into is deleted.
+
+You can still
+[manually create](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-a-service-account-api-token)
+a service account token Secret; for example, if you need a token that never
+expires. However, using the
+[TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
+subresource to obtain a token to access the API is recommended instead.
+You can use the
+[`kubectl create token`](/docs/reference/generated/kubectl/kubectl-commands#-em-token-em-)
 command to obtain a token from the `TokenRequest` API.
+{{< /note >}}
 
 You should only create a service account token Secret object
 if you can't use the `TokenRequest` API to obtain a token,
