@@ -19,8 +19,8 @@ is the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}. The 
 exposes an HTTP API that lets end users, different parts of your cluster, and
 external components communicate with one another.
 
-The Kubernetes API lets you query and manipulate the state of API objects in Kubernetes
-(for example: Pods, Namespaces, ConfigMaps, and Events).
+कुबेरनेट्स एपीआई आपको कुबेरनेट्स में एपीआई वस्तुओं की स्थिति को क्वेरी और हेरफेर करने देता है
+(उदाहरण के लिए: पॉड्स, नेमस्पेस, कॉन्फिगमैप्स और इवेंट्स)।
 
 Most operations can be performed through the
 [kubectl](/docs/reference/kubectl/) command-line interface or other
