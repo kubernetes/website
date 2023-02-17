@@ -87,12 +87,12 @@ kubectl create deployment nginx --image nginx
 <!--
 Advantages compared to object configuration:
 
-- Commands are simple, easy to learn and easy to remember.
+- Commands are expressed as a single action word.
 - Commands require only a single step to make changes to the cluster.
 -->
 与对象配置相比的优点：
 
-- 命令简单，易学且易于记忆。
+- 命令用单个动词表示。
 - 命令仅需一步即可对集群进行更改。
 
 <!--
