@@ -2,10 +2,10 @@
 # 注意：修改此文件时请维持字符串名称的字母顺序并与英文版保持一致
 
 [auto_generated_edit_notice]
-other = "(auto-generated page)"
+other = "(自动生成的页面)"
 
 [auto_generated_pageinfo]
-other = """<p>This page is automatically generated.</p><p>If you plan to report an issue with this page, mention that the page is auto-generated in your issue description. The fix may need to happen elsewhere in the Kubernetes project.</p>"""
+other = """<p>该页面是自动生成的。</p><p>如果你打算报告此页面的问题，请在问题描述中提及该页面是自动生成的。修复可能需要在 Kubernetes 项目的其他地方进行。</p>"""
 
 [caution]
 other = "注意："
@@ -129,7 +129,7 @@ other = "此页是否对你有帮助？"
 other = "是"
 
 [final_patch_release]
-other = "Final Patch Release"
+other = "最终补丁发布"
 
 [inline_list_separator]
 other = "、"
@@ -259,7 +259,7 @@ other = "选项"
 other = "这篇文章已经一年多了，较旧的文章可能包含过时的内容。请检查从发表以来，页面中的信息是否变得不正确。"
 
 [patch_release]
-other = "Patch Release"
+other = "补丁版本"
 
 [post_create_issue]
 other = "登记一个问题"
@@ -282,22 +282,22 @@ other = "(发布日期: "
 other = "2006-01-02"
 
 [release_cherry_pick_deadline]
-other = "Cherry Pick Deadline"
+other = "Cherry Pick 截止日期"
 
 [release_end_of_life_date]
-other = "End Of Life Date"
+other = "停止支持日期"
 
 [release_full_details_initial_text]
 other = "完整的"
 
 [release_information_navbar]
-other = "Release Information"
+other = "发布信息"
 
 [release_minor_version]
-other = "Minor Version"
+other = "次要版本"
 
 [release_info_next_patch]
-other = "Next patch release is **%s**."
+other = "下个补丁发布是 **%s**。"
 
 # Localization note: You can use Markdown here.
 # The three placeholders (in order) are:
@@ -308,16 +308,16 @@ other = "Next patch release is **%s**."
 # Keep this order. It is OK to use more than one sentence, and it's also OK to change the
 # tense of the text so long as the meaning is clear.
 [release_info_eol]
-other = "**%s** enters maintenance mode on **%s** and End of Life is on **%s**."
+other = "**%s** 于 **%s** 进入维护模式，生命周期结束于 **%s**。"
 
 [release_note]
-other = "Note"
+other = "说明"
 
 [release_schedule]
 other = "排期表"
 
 [release_target_date]
-other = "Target Date"
+other = "目标日期"
 
 [release_changelog]
 other = "变更记录"
@@ -366,73 +366,73 @@ other = "警告："
 other = "接下来"
 
 [layout_docs_glossary_architecture_name]
-other = "Architecture"
+other = "架构"
 
 [layout_docs_glossary_architecture_description]
-other = "The inner components of Kubernetes."
+other = "Kubernetes 的内部组件。"
 
 [layout_docs_glossary_community_name]
-other = "Community"
+other = "社区"
 
 [layout_docs_glossary_community_description]
-other = "Related to Kubernetes open-source development."
+other = "与 Kubernetes 开源开发相关。"
 
 [layout_docs_glossary_core-object_name]
-other = "Core Object"
+other = "核心对象"
 
 [layout_docs_glossary_core-object_description]
-other = "A resource type that Kubernetes supports by default."
+other = "Kubernetes 默认支持的资源类型。"
 
 [layout_docs_glossary_extension_name]
-other = "Extension"
+other = "扩展"
 
 [layout_docs_glossary_extension_description]
-other = "Supported customizations of Kubernetes."
+other = "支持自定义 Kubernetes。"
 
 [layout_docs_glossary_fundamental_name]
-other = "Fundamental"
+other = "基础"
 
 [layout_docs_glossary_fundamental_description]
-other = "Relevant for a first-time user of Kubernetes."
+other = "与首次使用 Kubernetes 的用户相关。"
 
 [layout_docs_glossary_networking_name]
-other = "Networking"
+other = "网络"
 
 [layout_docs_glossary_networking_description]
-other = "How Kubernetes components talk to each other (and to programs outside the cluster)."
+other = "Kubernetes 组件（以及集群外的程序）如何相互通信。"
 
 [layout_docs_glossary_operation_name]
-other = "Operation"
+other = "操作"
 
 [layout_docs_glossary_operation_description]
-other = "Starting and maintaining Kubernetes."
+other = "启动和维护 Kubernetes。"
 
 [layout_docs_glossary_security_name]
-other = "Security"
+other = "安全"
 
 [layout_docs_glossary_security_description]
-other = "Keeping Kubernetes applications safe and secure."
+other = "确保 Kubernetes 应用程序安全可靠。"
 
 [layout_docs_glossary_storage_name]
-other = "Storage"
+other = "存储"
 
 [layout_docs_glossary_storage_description]
-other = "How Kubernetes applications handle persistent data."
+other = "Kubernetes 应用程序如何处理持久数据。"
 
 [layout_docs_glossary_tool_name]
-other = "Tool"
+other = "工具"
 
 [layout_docs_glossary_tool_description]
-other = "Software that makes Kubernetes easier or better to use."
+other = "使 Kubernetes 更容易或更好用的软件。"
 
 [layout_docs_glossary_user-type_name]
-other = "User Type"
+other = "用户类型"
 
 [layout_docs_glossary_user-type_description]
-other = "Represents a common type of Kubernetes user."
+other = "常见的 Kubernetes 用户类型。"
 
 [layout_docs_glossary_workload_name]
-other = "Workload"
+other = "工作负载"
 
 [layout_docs_glossary_workload_description]
-other = "Applications running on Kubernetes."
+other = "在 Kubernetes 上运行的应用程序。"
