@@ -32,7 +32,7 @@ drivers, but the functionality is somewhat limited.
 
 Kubernetes supports many types of volumes. A {{< glossary_tooltip term_id="pod" text="Pod" >}}
 can use any number of volume types simultaneously.
-Ephemeral volume types have a lifetime of a pod, but persistent volumes exist beyond
+Ephemeral volume types have the lifetime of a pod, but persistent volumes exist beyond
 the lifetime of a pod. When a pod ceases to exist, Kubernetes destroys ephemeral volumes;
 however, Kubernetes does not destroy persistent volumes.
 For any kind of volume in a given pod, data is preserved across container restarts.
@@ -49,8 +49,8 @@ the {{< glossary_tooltip text="container image" term_id="image" >}}, plus volume
 (if defined) mounted inside the container.
 The process sees a root filesystem that initially matches the contents of the container
 image.
-Any writes to within that filesystem hierarchy, if allowed, affect what that process views
-when it performs a subsequent filesystem access.
+Any writes within that filesystem hierarchy, if allowed, affects what that process views
+when it performs subsequent filesystem access.
 Volumes mount at the [specified paths](#using-subpath) within
 the image.
 For each container defined within a Pod, you must independently specify where
@@ -262,7 +262,7 @@ The data stored in a ConfigMap can be referenced in a volume of type
 When referencing a ConfigMap, you provide the name of the ConfigMap in the
 volume. You can customize the path to use for a specific
 entry in the ConfigMap. The following configuration shows how to mount
-the `log-config` ConfigMap onto a Pod called `configmap-pod`:
+the `log-config` ConfigMap into a Pod called `configmap-pod`:
 
 ```yaml
 apiVersion: v1
@@ -1303,7 +1303,7 @@ in `Container.volumeMounts`. Its values are:
   This mode is equal to `rslave` mount propagation as described in the
   [`mount(8)`](https://man7.org/linux/man-pages/man8/mount.8.html)
 
-* `Bidirectional` - This volume mount behaves the same the `HostToContainer` mount.
+* `Bidirectional` - This volume mount behaves the same as the `HostToContainer` mount.
   In addition, all volume mounts created by the container will be propagated
   back to the host and to all containers of all pods that use the same volume.
 
