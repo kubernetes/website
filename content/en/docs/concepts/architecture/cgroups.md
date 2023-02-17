@@ -103,7 +103,8 @@ updated to newer versions that support cgroup v2. For example:
 * If you run [cAdvisor](https://github.com/google/cadvisor) as a stand-alone
  DaemonSet for monitoring pods and containers, update it to v0.43.0 or later.
 * If you use JDK, prefer to use JDK 11.0.16 and later or JDK 15 and later, which [fully support cgroup v2](https://bugs.openjdk.org/browse/JDK-8230305).
-* If you use uber-go/automaxprocs, update it to v1.5.1 or later.
+* If you are using the [uber-go/automaxprocs](https://github.com/uber-go/automaxprocs) package, make sure
+  the version you use is v1.5.1 or higher.
 
 ## Identify the cgroup version on Linux Nodes  {#check-cgroup-version}
 
