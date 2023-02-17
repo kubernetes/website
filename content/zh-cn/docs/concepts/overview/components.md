@@ -22,16 +22,16 @@ card:
   weight: 20
 -->
 
+<!-- overview -->
 <!--
 When you deploy Kubernetes, you get a cluster.
--{{ < glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of">}}
+{{< glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of">}}
 
 This document outlines the various components you need to have for
 a complete and working Kubernetes cluster.
 
-{{ < figure src="/images/docs/components-of-kubernetes.svg" alt="Components of Kubernetes" caption="The components of a Kubernetes cluster" class="diagram-large" >}}
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Components of Kubernetes" caption="The components of a Kubernetes cluster" class="diagram-large" >}}
 -->
-<!-- overview -->
 当你部署完 Kubernetes，便拥有了一个完整的集群。
 
 {{< glossary_definition term_id="cluster" length="all" >}}
@@ -152,7 +152,7 @@ Node components run on every node, maintaining running pods and providing the Ku
 {{< glossary_definition term_id="kube-proxy" length="all" >}}
 
 <!--
-### Container Runtime
+### Container runtime
 -->
 ### 容器运行时（Container Runtime）    {#container-runtime}
 

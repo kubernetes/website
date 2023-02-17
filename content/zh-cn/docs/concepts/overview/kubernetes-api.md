@@ -201,7 +201,7 @@ The relative URLs are pointing to immutable OpenAPI descriptions, in
 order to improve client-side caching. The proper HTTP caching headers
 are also set by the API server for that purpose (`Expires` to 1 year in
 the future, and `Cache-Control` to `immutable`). When an obsolete URL is
-used, the API server returns a redirect to the newest URL. 
+used, the API server returns a redirect to the newest URL.
 -->
 为了改进客户端缓存，相对的 URL 会指向不可变的 OpenAPI 描述。
 为了此目的，API 服务器也会设置正确的 HTTP 缓存标头
@@ -213,7 +213,7 @@ The Kubernetes API server publishes an OpenAPI v3 spec per Kubernetes
 group version at the `/openapi/v3/apis/<group>/<version>?hash=<hash>`
 endpoint.
 
-Refer to the table below for accepted request headers. 
+Refer to the table below for accepted request headers.
 -->
 Kubernetes API 服务器会在端点 `/openapi/v3/apis/<group>/<version>?hash=<hash>`
 发布一个 Kubernetes 组版本的 OpenAPI v3 规范。
@@ -311,14 +311,14 @@ API 服务器可以通过多个 API 版本提供相同的底层数据。
 直到 `v1beta1` 版本被废弃和移除为止。此后，你可以使用 `v1` API 继续访问和修改该对象。
 
 <!--
-## API changes
+### API changes
 
 Any system that is successful needs to grow and change as new use cases emerge or existing ones change.
 Therefore, Kubernetes has designed the Kubernetes API to continuously change and grow.
 The Kubernetes project aims to _not_ break compatibility with existing clients, and to maintain that
 compatibility for a length of time so that other projects have an opportunity to adapt.
 -->
-## API 变更     {#api-changes}
+### API 变更     {#api-changes}
 
 任何成功的系统都要随着新的使用案例的出现和现有案例的变化来成长和变化。
 为此，Kubernetes 已设计了 Kubernetes API 来持续变更和成长。
