@@ -1123,7 +1123,7 @@ and `CrossNamespaceVolumeDataSource`
 the kube-apiserver, kube-controller-manager.
 Also, you must enable the `CrossNamespaceVolumeDataSource` feature gate for the csi-provisioner.
 
-Enabling the `CrossNamespaceVolumeDataSource` feature gate allow you to specify
+Enabling the `CrossNamespaceVolumeDataSource` feature gate allows you to specify
 a namespace in the dataSourceRef field.
 
 {{< note >}}
@@ -1138,7 +1138,7 @@ Gateway API before you can use this mechanism.
 
 ## Data source references
 
-The `dataSourceRef` field behaves almost the same as the `dataSource` field. If either one is
+The `dataSourceRef` field behaves almost the same as the `dataSource` field. If one is
 specified while the other is not, the API server will give both fields the same value. Neither
 field can be changed after creation, and attempting to specify different values for the two
 fields will result in a validation error. Therefore the two fields will always have the same
