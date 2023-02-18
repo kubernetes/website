@@ -50,7 +50,9 @@ Resource quotas work like this:
 - If quota is enabled in a namespace for compute resources like `cpu` and `memory`, users must specify
   requests or limits for those values; otherwise, the quota system may reject pod creation.  Hint: Use
   the `LimitRanger` admission controller to force defaults for pods that make no compute resource requirements.
-  See the [walkthrough](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/) for an example of how to avoid this problem.
+
+  See the [walkthrough](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+  for an example of how to avoid this problem.
 -->
 - 不同的团队可以在不同的命名空间下工作。这可以通过
   [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/) 强制执行。
@@ -337,7 +339,7 @@ Secret 的数量进行配额限制。
 Job 而导致集群拒绝服务。
 
 <!--
-It is possible to do generic object count quota on a limited set of resources.
+It is also possible to do generic object count quota on a limited set of resources.
 The following types are supported:
 -->
 对有限的一组资源上实施一般性的对象数量配额也是可能的。
@@ -542,7 +544,9 @@ works as follows:
 - 集群中的 Pod 可取三个优先级类之一，即 "low"、"medium"、"high"。
 - 为每个优先级创建一个配额对象。
 
-<!-- Save the following YAML to a file `quota.yml`.  -->
+<!--
+Save the following YAML to a file `quota.yml`.
+-->
 将以下 YAML 保存到文件 `quota.yml` 中。
 
 ```yaml
@@ -560,7 +564,7 @@ items:
       pods: "10"
     scopeSelector:
       matchExpressions:
-      - operator : In
+      - operator: In
         scopeName: PriorityClass
         values: ["high"]
 - apiVersion: v1
@@ -574,7 +578,7 @@ items:
       pods: "10"
     scopeSelector:
       matchExpressions:
-      - operator : In
+      - operator: In
         scopeName: PriorityClass
         values: ["medium"]
 - apiVersion: v1
@@ -588,7 +592,7 @@ items:
       pods: "10"
     scopeSelector:
       matchExpressions:
-      - operator : In
+      - operator: In
         scopeName: PriorityClass
         values: ["low"]
 ```
@@ -746,7 +750,7 @@ from getting scheduled in a failure domain.
 因为带有反亲和性约束的 Pod 可能会阻止所有其他名字空间的 Pod 被调度到某失效域中。
 
 <!--
-Using this scope operators can prevent certain namespaces (`foo-ns` in the example below) 
+Using this scope operators can prevent certain namespaces (`foo-ns` in the example below)
 from having pods that use cross-namespace pod affinity by creating a resource quota object in
 that namespace with `CrossNamespaceAffinity` scope and hard limit of 0:
 -->
@@ -769,8 +773,8 @@ spec:
 ```
 
 <!--
-If operators want to disallow using `namespaces` and `namespaceSelector` by default, and 
-only allow it for specific namespaces, they could configure `CrossNamespaceAffinity` 
+If operators want to disallow using `namespaces` and `namespaceSelector` by default, and
+only allow it for specific namespaces, they could configure `CrossNamespaceAffinity`
 as a limited resource by setting the kube-apiserver flag --admission-control-config-file
 to the path of the following configuration file:
 -->
@@ -795,7 +799,7 @@ plugins:
 
 <!--
 With the above configuration, pods can use `namespaces` and `namespaceSelector` in pod affinity only
-if the namespace where they are created have a resource quota object with 
+if the namespace where they are created have a resource quota object with
 `CrossNamespaceAffinity` scope and a hard limit greater than or equal to the number of pods using those fields.
 -->
 基于上面的配置，只有名字空间中包含作用域为 `CrossNamespaceAffinity`
