@@ -705,14 +705,15 @@ serves the following additional paths at its HTTP[S] ports.
   The output is similar to this:
 
   ```none
-  PriorityLevelName, ActiveQueues, IsIdle, IsQuiescing, WaitingRequests, ExecutingRequests,
-  workload-low,      0,            true,   false,       0,               0,
-  global-default,    0,            true,   false,       0,               0,
-  exempt,            <none>,       <none>, <none>,      <none>,          <none>,
-  catch-all,         0,            true,   false,       0,               0,
-  system,            0,            true,   false,       0,               0,
-  leader-election,   0,            true,   false,       0,               0,
-  workload-high,     0,            true,   false,       0,               0,
+  PriorityLevelName, ActiveQueues, IsIdle, IsQuiescing, WaitingRequests, ExecutingRequests, DispatchedRequests, RejectedRequests, TimedoutRequests, CancelledRequests
+  catch-all,         0,            true,   false,       0,               0,                 1,                  0,                0,                0
+  exempt,            <none>,       <none>, <none>,      <none>,          <none>,            <none>,             <none>,           <none>,           <none>
+  global-default,    0,            true,   false,       0,               0,                 46,                 0,                0,                0
+  leader-election,   0,            true,   false,       0,               0,                 4,                  0,                0,                0
+  node-high,         0,            true,   false,       0,               0,                 34,                 0,                0,                0
+  system,            0,            true,   false,       0,               0,                 48,                 0,                0,                0
+  workload-high,     0,            true,   false,       0,               0,                 500,                0,                0,                0
+  workload-low,      0,            true,   false,       0,               0,                 0,                  0,                0,                0
   ```
 
 - `/debug/api_priority_and_fairness/dump_queues` - a listing of all the
