@@ -3,7 +3,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
+To update the reference content, please follow the 
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -12,18 +12,17 @@ guide. You can file document formatting bugs against the
 <!--
 Remove a local etcd member.
 -->
-删除本地 etcd 成员
+删除本地 etcd 成员。
 
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Remove a local etcd member for a control plane node.
 -->
-删除控制平面节点的本地 etcd 成员
+删除控制平面节点的本地 etcd 成员。
 
 ```
 kubeadm reset phase remove-etcd-member [flags]
@@ -32,7 +31,6 @@ kubeadm reset phase remove-etcd-member [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -41,6 +39,16 @@ kubeadm reset phase remove-etcd-member [flags]
 <col span="1" />
 </colgroup>
 <tbody>
+
+<tr>
+<td colspan="2">--dry-run</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!-- Don't apply any changes; just output what would be done. -->
+不应用任何更改；仅输出要完成的内容。
+</p></td>
+</tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
@@ -68,11 +76,9 @@ remove-etcd-member 的帮助信息
 </tbody>
 </table>
 
-
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">
