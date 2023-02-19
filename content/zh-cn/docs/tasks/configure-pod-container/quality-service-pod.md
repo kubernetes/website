@@ -62,7 +62,7 @@ kubectl create namespace qos-example
 <!--
 ## Create a Pod that gets assigned a QoS class of Guaranteed
 
-For a Pod to be given a QoS class of Guaranteed:
+For a Pod to be given a QoS class of `Guaranteed`:
 
 * Every Container in the Pod must have a memory limit and a memory request.
 * For every Container in the Pod, the memory limit must equal the memory request.
@@ -72,7 +72,7 @@ For a Pod to be given a QoS class of Guaranteed:
 -->
 ## 创建一个 QoS 类为 Guaranteed 的 Pod  {#create-a-pod-that-gets-assigned-a-qos-class-of-guaranteed}
 
-对于 QoS 类为 Guaranteed 的 Pod：
+对于 QoS 类为 `Guaranteed` 的 Pod：
 
 * Pod 中的每个容器都必须指定内存限制和内存请求。
 * 对于 Pod 中的每个容器，内存限制必须等于内存请求。
@@ -116,11 +116,11 @@ kubectl get pod qos-demo --namespace=qos-example --output=yaml
 ```
 
 <!--
-The output shows that Kubernetes gave the Pod a QoS class of Guaranteed. The output also
+The output shows that Kubernetes gave the Pod a QoS class of `Guaranteed`. The output also
 verifies that the Pod Container has a memory request that matches its memory limit, and it has
 a CPU request that matches its CPU limit.
 -->
-结果表明 Kubernetes 为 Pod 配置的 QoS 类为 Guaranteed。
+结果表明 Kubernetes 为 Pod 配置的 QoS 类为 `Guaranteed`。
 结果也确认了 Pod 容器设置了与内存限制匹配的内存请求，设置了与 CPU 限制匹配的 CPU 请求。
 
 ```yaml
@@ -247,7 +247,7 @@ kubectl delete pod qos-demo-2 --namespace=qos-example
 For a Pod to be given a QoS class of `BestEffort`, the Containers in the Pod must not
 have any memory or CPU limits or requests.
 
-Here is the configuration file for a Pod that has one Container. The Container has no memory or CPU
+Here is a manifest for a Pod that has one Container. The Container has no memory or CPU
 limits or requests:
 -->
 ## 创建一个 QoS 类为 BestEffort 的 Pod  {#create-a-pod-that-gets-assigned-a-qos-class-of-besteffort}
@@ -308,23 +308,23 @@ kubectl delete pod qos-demo-3 --namespace=qos-example
 <!--
 ## Create a Pod that has two Containers
 
-Here is the configuration file for a Pod that has two Containers. One container specifies a memory
+Here is a manifest for a Pod that has two Containers. One container specifies a memory
 request of 200 MiB. The other Container does not specify any requests or limits.
 -->
 ## 创建包含两个容器的 Pod  {#create-a-pod-that-has-two-containers}
 
-下面是包含两个 Container 的 Pod 配置文件。一个 Container 指定内存请求为 200 MiB。
+下面是包含两个 Container 的 Pod 清单。一个 Container 指定内存请求为 200 MiB。
 另外一个 Container 没有指定任何请求或限制。
 
 {{< codenew file="pods/qos/qos-pod-4.yaml" >}}
 
 <!--
 Notice that this Pod meets the criteria for QoS class `Burstable`. That is, it does not meet the
-criteria for QoS class Guaranteed, and one of its Containers has a memory request.
+criteria for QoS class `Guaranteed`, and one of its Containers has a memory request.
 
 Create the Pod:
 -->
-注意此 Pod 满足 `Burstable` QoS 类的标准。也就是说它不满足 Guaranteed QoS 类标准，
+注意此 Pod 满足 `Burstable` QoS 类的标准。也就是说它不满足 `Guaranteed` QoS 类标准，
 因为它的 Container 之一设有内存请求。
 
 创建 Pod：
