@@ -1,6 +1,7 @@
 ---
 title: 扩缩 StatefulSet
 content_type: task
+weight: 50
 ---
 
 <!-- overview -->
