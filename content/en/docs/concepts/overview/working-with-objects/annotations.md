@@ -8,7 +8,6 @@ weight: 60
 You can use Kubernetes annotations to attach arbitrary non-identifying metadata
 to objects. Clients such as tools and libraries can retrieve this metadata.
 
-
 <!-- body -->
 ## Attaching metadata to objects
 
@@ -74,10 +73,9 @@ If the prefix is omitted, the annotation Key is presumed to be private to the us
 
 The `kubernetes.io/` and `k8s.io/` prefixes are reserved for Kubernetes core components.
 
-For example, here's the configuration file for a Pod that has the annotation `imageregistry: https://hub.docker.com/` :
+For example, here's a manifest for a Pod that has the annotation `imageregistry: https://hub.docker.com/` :
 
 ```yaml
-
 apiVersion: v1
 kind: Pod
 metadata:
@@ -90,14 +88,8 @@ spec:
     image: nginx:1.14.2
     ports:
     - containerPort: 80
-
 ```
-
-
 
 ## {{% heading "whatsnext" %}}
 
 Learn more about [Labels and Selectors](/docs/concepts/overview/working-with-objects/labels/).
-
-
-
