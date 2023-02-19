@@ -75,6 +75,15 @@ Find the latest patch release for Kubernetes {{< skew currentVersion >}} using t
 The upgrade procedure on control plane nodes should be executed one node at a time.
 Pick a control plane node that you wish to upgrade first. It must have the `/etc/kubernetes/admin.conf` file.
 
+### Drain the node
+
+- Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
+
+  ```shell
+  # replace <node-to-drain> with the name of your node you are draining
+  kubectl drain <node-to-drain> --ignore-daemonsets
+  ```
+
 ### Call "kubeadm upgrade"
 
 **For the first control plane node**
@@ -164,15 +173,6 @@ sudo kubeadm upgrade apply
 ```
 
 Also calling `kubeadm upgrade plan` and upgrading the CNI provider plugin is no longer needed.
-
-### Drain the node
-
-- Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
-
-  ```shell
-  # replace <node-to-drain> with the name of your node you are draining
-  kubectl drain <node-to-drain> --ignore-daemonsets
-  ```
 
 ### Upgrade kubelet and kubectl
 
