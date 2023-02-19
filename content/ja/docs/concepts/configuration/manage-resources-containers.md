@@ -170,7 +170,7 @@ Dockerを使用する場合:
 
 Podのリソース使用量は、Podのステータスの一部として報告されます。
 
-オプションの[監視ツール](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)がクラスターにおいて利用可能な場合、Podのリソース使用量は[メトリクスAPI](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#the-metrics-api)から直接、もしくは監視ツールから取得できます。
+オプションの[監視ツール](/ja/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)がクラスターにおいて利用可能な場合、Podのリソース使用量は[メトリクスAPI](/ja/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#the-metrics-api)から直接、もしくは監視ツールから取得できます。
 
 ## ローカルのエフェメラルストレージ {#local-ephemeral-storage}
 
