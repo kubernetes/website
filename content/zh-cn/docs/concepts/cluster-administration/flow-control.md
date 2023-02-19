@@ -154,7 +154,7 @@ configurable set of _priority levels_. Each incoming request is assigned to a
 single priority level, and each priority level will only dispatch as many
 concurrent requests as its particular limit allows.
 -->
-### 优先级    {#Priority-Levels}
+### 优先级    {#priority-levels}
 
 如果未启用 APF，API 服务器中的整体并发量将受到 `kube-apiserver` 的参数
 `--max-requests-inflight` 和 `--max-mutating-requests-inflight` 的限制。
@@ -262,7 +262,7 @@ flows of the same priority level.
 To enable distinct handling of distinct instances, controllers that have
 many instances should authenticate with distinct usernames
 -->
-### 排队    {#Queuing}
+### 排队    {#queuing}
 
 即使在同一优先级内，也可能存在大量不同的流量源。
 在过载情况下，防止一个请求流饿死其他流是非常有价值的
@@ -304,7 +304,7 @@ any of the limitations imposed by this feature. These exemptions prevent an
 improperly-configured flow control configuration from totally disabling an API
 server.
 -->
-### 豁免请求    {#Exempt-requests}
+### 豁免请求    {#exempt-requests}
 
 某些特别重要的请求不受制于此特性施加的任何限制。
 这些豁免可防止不当的流控配置完全禁用 API 服务器。
@@ -322,7 +322,7 @@ single PriorityLevelConfiguration.  There is also a `v1alpha1` version
 of the same API group, and it has the same Kinds with the same syntax and
 semantics.
 -->
-## 资源    {#Resources}
+## 资源    {#resources}
 
 流控 API 涉及两种资源。
 [PriorityLevelConfiguration](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1beta2-flowcontrol-apiserver-k8s-io)
@@ -338,7 +338,7 @@ A PriorityLevelConfiguration represents a single priority level. Each
 PriorityLevelConfiguration has an independent limit on the number of outstanding
 requests, and limitations on the number of queued requests.
 -->
-### PriorityLevelConfiguration    {#PriorityLevelConfiguration}
+### PriorityLevelConfiguration
 
 一个 PriorityLevelConfiguration 表示单个优先级。每个 PriorityLevelConfiguration
 对未完成的请求数有各自的限制，对排队中的请求数也有限制。
@@ -511,7 +511,7 @@ FlowSchema in turn, starting with those with numerically lowest ---
 which we take to be the logically highest --- `matchingPrecedence` and
 working onward.  The first match wins.
 -->
-### FlowSchema  {#flowschema}
+### FlowSchema
 
 FlowSchema 匹配一些入站请求，并将它们分配给优先级。
 每个入站请求都会对所有 FlowSchema 测试是否匹配，
@@ -656,7 +656,7 @@ The suggested configuration groups requests into six priority levels:
   them.
 -->
 * `system` 优先级用于 `system:nodes` 组（即 kubelet）的与健康状态更新无关的请求；
-  kubelets 必须能连上 API 服务器，以便工作负载能够调度到其上。
+  kubelet 必须能连上 API 服务器，以便工作负载能够调度到其上。
 
 <!--
 * The `leader-election` priority level is for leader election requests from
@@ -807,7 +807,7 @@ suggested config, these requests get assigned to the `global-default`
 FlowSchema and the corresponding `global-default` priority level,
 where other traffic can crowd them out.
 -->
-## 健康检查并发豁免    {#Health-check-concurrency-exemption}
+## 健康检查并发豁免    {#health-check-concurrency-exemption}
 
 推荐配置没有为本地 kubelet 对 kube-apiserver 执行健康检查的请求进行任何特殊处理
 ——它们倾向于使用安全端口，但不提供凭据。
@@ -870,9 +870,9 @@ PriorityLevelConfigurations.
 
 ### Metrics
 -->
-## 可观察性    {#Observability}
+## 可观察性    {#observability}
 
-### 指标    {#Metrics}
+### 指标    {#metrics}
 
 {{< note >}}
 <!--
@@ -1233,9 +1233,9 @@ poorly-behaved workloads that may be harming system health.
 When you enable the API Priority and Fairness feature, the `kube-apiserver`
 serves the following additional paths at its HTTP[S] ports.
 -->
-### 调试端点    {#Debug-endpoints}
+### 调试端点    {#debug-endpoints}
 
-启用 APF 特性后， kube-apiserver 会在其 HTTP/HTTPS 端口提供以下路径：
+启用 APF 特性后，kube-apiserver 会在其 HTTP/HTTPS 端口提供以下路径：
 
 <!--
 - `/debug/api_priority_and_fairness/dump_priority_levels` - a listing of
@@ -1254,14 +1254,15 @@ serves the following additional paths at its HTTP[S] ports.
   输出类似于：
 
   ```none
-  PriorityLevelName, ActiveQueues, IsIdle, IsQuiescing, WaitingRequests, ExecutingRequests,
-  workload-low,      0,            true,   false,       0,               0,
-  global-default,    0,            true,   false,       0,               0,
-  exempt,            <none>,       <none>, <none>,      <none>,          <none>,
-  catch-all,         0,            true,   false,       0,               0,
-  system,            0,            true,   false,       0,               0,
-  leader-election,   0,            true,   false,       0,               0,
-  workload-high,     0,            true,   false,       0,               0,
+  PriorityLevelName, ActiveQueues, IsIdle, IsQuiescing, WaitingRequests, ExecutingRequests, DispatchedRequests, RejectedRequests, TimedoutRequests, CancelledRequests
+  catch-all,         0,            true,   false,       0,               0,                 1,                  0,                0,                0
+  exempt,            <none>,       <none>, <none>,      <none>,          <none>,            <none>,             <none>,           <none>,           <none>
+  global-default,    0,            true,   false,       0,               0,                 46,                 0,                0,                0
+  leader-election,   0,            true,   false,       0,               0,                 4,                  0,                0,                0
+  node-high,         0,            true,   false,       0,               0,                 34,                 0,                0,                0
+  system,            0,            true,   false,       0,               0,                 48,                 0,                0,                0
+  workload-high,     0,            true,   false,       0,               0,                 500,                0,                0,                0
+  workload-low,      0,            true,   false,       0,               0,                 0,                  0,                0,                0
   ```
 
 <!--
