@@ -861,10 +861,10 @@ Use the object selector only if the webhook is opt-in, because end users may ski
 跳过准入 Webhook。
 
 <!--
-This example shows a mutating webhook that would match a `CREATE` of any resource with the label `foo: bar`:
+This example shows a mutating webhook that would match a `CREATE` of any resource (but not subresources) with the label `foo: bar`:
 -->
-这个例子展示了一个 mutating webhook，它将匹配带有标签 `foo:bar` 的任何资源的
-`CREATE` 的操作：
+这个例子展示了一个变更性质的 Webhook，它将匹配带有标签 `foo:bar` 的所有资源（但不包括子资源）的
+`CREATE` 操作：
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1

@@ -130,8 +130,8 @@ the start of the clip.
 索引完成意味着 Job 中的每个 Pod 都知道通过从剪辑开始计算帧数，来确定渲染和发布哪一帧。
 
 <!-- 
-## Define an Indexed Job 
- 
+## Define an Indexed Job
+
 Here is a sample Job manifest that uses `Indexed` completion mode:
 -->
 ## 定义索引作业 {#define-an-indexed-job}
@@ -172,9 +172,9 @@ like shown in the following example:
 {{< codenew language="yaml" file="application/job/indexed-job-vol.yaml" >}}
 
 <!-- 
-## Running the Job 
+## Running the Job
 
-Now run the Job: 
+Now run the Job:
 -->
 ## 执行 Job {running-the-job}
 
@@ -189,8 +189,6 @@ kubectl apply -f https://kubernetes.io/examples/application/job/indexed-job.yaml
 When you create this Job, the control plane creates a series of Pods, one for each index you specified. The value of `.spec.parallelism` determines how many can run at once whereas `.spec.completions` determines how many Pods the Job creates in total.
 
 Because `.spec.parallelism` is less than `.spec.completions`, the control plane waits for some of the first Pods to complete before starting more of them.
-
-Once you have created the Job, wait a moment then check on progress:
 -->
 当你创建此 Job 时，控制平面会创建一系列 Pod，你指定的每个索引都会运行一个 Pod。
 `.spec.parallelism` 的值决定了一次可以运行多少个 Pod，
@@ -199,14 +197,27 @@ Once you have created the Job, wait a moment then check on progress:
 因为 `.spec.parallelism` 小于 `.spec.completions`，
 所以控制平面在启动更多 Pod 之前，将等待第一批的某些 Pod 完成。
 
-创建 Job 后，稍等片刻，就能检查进度：
+<!--
+You can wait for the Job to succeed, with a timeout:
+-->
+你可以等待 Job 成功，等待时间可以设置超时限制：
+
+```shell
+# 状况名称的检查不区分大小写
+kubectl wait --for=condition=complete --timeout=300s job/indexed-job
+```
+
+<!--
+Now, describe the Job and check that it was successful.
+-->
+现在，描述 Job 并检查它是否成功。
 
 ```shell
 kubectl describe jobs/indexed-job
 ```
 
 <!-- 
-The output is similar to: 
+The output is similar to:
 -->
 输出类似于：
 
@@ -277,7 +288,7 @@ kubectl logs indexed-job-fdhq5 # 更改它以匹配来自该 Job 的 Pod 的名�
 ```
 
 <!-- 
-The output is similar to: 
+The output is similar to:
 -->
 输出类似于：
 

@@ -30,7 +30,7 @@ cloud computing resources.
 In this release we want to recognise the importance of all these building blocks on which Kubernetes
 is developed and used, while at the same time raising awareness on the importance of taking the
 energy consumption footprint into account: environmental sustainability is an inescapable concern of
-creators and users of any software solution, and the environmental footprint of sofware, like
+creators and users of any software solution, and the environmental footprint of software, like
 Kubernetes, an area which we believe will play a significant role in future releases.
 
 As a community, we always work to make each new release process better than before (in this release,

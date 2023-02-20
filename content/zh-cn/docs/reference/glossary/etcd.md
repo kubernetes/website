@@ -4,7 +4,7 @@ id: etcd
 date: 2018-04-12
 full_link: /zh-cn/docs/tasks/administer-cluster/configure-upgrade-etcd/
 short_description: >
-  一致且高度可用的键值存储，用作 Kubernetes 的所有集群数据的后台数据库。
+  一致且高可用的键值存储，用作 Kubernetes 所有集群数据的后台数据库。
 
 aka: 
 tags:
@@ -17,7 +17,7 @@ id: etcd
 date: 2018-04-12
 full_link: /docs/tasks/administer-cluster/configure-upgrade-etcd/
 short_description: >
-  Consistent and highly-available key value store used as Kubernetes' backing store for all cluster data.
+  Consistent and highly-available key value store used as backing store of Kubernetes for all cluster data.
 
 aka: 
 tags:
@@ -26,9 +26,9 @@ tags:
 -->
 
 <!--
- Consistent and highly-available key value store used as Kubernetes' backing store for all cluster data.
+ Consistent and highly-available key value store used as backing store of Kubernetes for all cluster data.
 -->
-一致且高度可用的键值存储，用作 Kubernetes 的所有集群数据的后台数据库。
+一致且高可用的键值存储，用作 Kubernetes 所有集群数据的后台数据库。
 
 <!--more-->
 

@@ -24,12 +24,12 @@ components although they are unable to cause any behavior differences in a clust
 
 <!--
 For feature gates that are still recognized by the Kubernetes components, please refer to
-the [Alpha/Beta feature gate table](/docs/reference/command-line-tools/reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
-or the [Graduated/Deprecated feature gate table](/docs/reference/command-line-tools/reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)
+the [Alpha/Beta feature gate table](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
+or the [Graduated/Deprecated feature gate table](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)
 -->
 有关 Kubernetes 组件仍可识别的特性门控，请参阅
-[Alpha 和 Beta 状态的特性门控](/zh-cn/docs/reference/command-line-tools/reference/feature-gates/#feature-gates-for-alpha-or-beta-features)或
-[已毕业和已废弃的特性门控](/zh-cn/docs/reference/command-line-tools/reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)。
+[Alpha 和 Beta 状态的特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)或
+[已毕业和已废弃的特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)。
 
 <!--
 ### Feature gates that are removed
@@ -141,9 +141,6 @@ In the following table:
 | `DefaultPodTopologySpread` | `false` | Alpha | 1.19 | 1.19 |
 | `DefaultPodTopologySpread` | `true` | Beta | 1.20 | 1.23 |
 | `DefaultPodTopologySpread` | `true` | GA | 1.24 | 1.25 |
-| `NonPreemptingPriority` | `false` | Alpha | 1.15 | 1.18 |
-| `NonPreemptingPriority` | `true` | Beta | 1.19 | 1.23 |
-| `NonPreemptingPriority` | `true` | GA | 1.24 | - |
 | `DynamicAuditing` | `false` | Alpha | 1.13 | 1.18 |
 | `DynamicAuditing` | - | Deprecated | 1.19 | 1.19 |
 | `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
@@ -219,6 +216,9 @@ In the following table:
 | `NodeLease` | `false` | Alpha | 1.12 | 1.13 |
 | `NodeLease` | `true` | Beta | 1.14 | 1.16 |
 | `NodeLease` | `true` | GA | 1.17 | 1.23 |
+| `NonPreemptingPriority` | `false` | Alpha | 1.15 | 1.18 |
+| `NonPreemptingPriority` | `true` | Beta | 1.19 | 1.23 |
+| `NonPreemptingPriority` | `true` | GA | 1.24 | 1.25 |
 | `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
 | `PVCProtection` | - | Deprecated | 1.10 | 1.10 |
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
@@ -575,7 +575,7 @@ In the following table:
   [CSI（容器存储接口）](https://git.k8s.io/design-proposals-archive/storage/container-storage-interface.md)
   兼容卷插件配置的卷。
 
-- `CSIServiceAccountToken`：允许 CSI 驱动接收挂载卷目标 Pods 的服务账户令牌。
+- `CSIServiceAccountToken`：允许 CSI 驱动接收挂载卷目标 Pods 的服务账号令牌。
   参阅[令牌请求（Token Requests）](https://kubernetes-csi.github.io/docs/token-requests.html)。
 
 <!--
@@ -672,11 +672,11 @@ In the following table:
   除偏差策略场景外，不再支持该功能。该特性门控在 kubelet 1.24 版本中已被移除。
   请参阅[重新配置 kubelet](/zh-cn/docs/tasks/administer-cluster/reconfigure-kubelet/)。
 
-- `DynamicProvisioningScheduling`：扩展默认调度器以了解卷拓扑并处理 PV 配置。
+- `DynamicProvisioningScheduling`：扩展默认调度器以了解卷拓扑并处理 PV 制备。
   此特性已在 v1.12 中完全被 `VolumeScheduling` 特性取代。
 
 - `DynamicVolumeProvisioning`：启用持久化卷到 Pod
-  的[动态预配置](/zh-cn/docs/concepts/storage/dynamic-provisioning/)。
+  的[动态制备](/zh-cn/docs/concepts/storage/dynamic-provisioning/)。
 
 <!--
 - `EnableAggregatedDiscoveryTimeout`: Enable the five second
@@ -729,7 +729,7 @@ In the following table:
   用于[确保其被调度](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)。
   从 v1.13 开始已弃用此特性，转而使用 Pod 优先级和抢占功能。
 
-- `ExternalPolicyForExternalIP`： 修复 ExternalPolicyForExternalIP 没有应用于
+- `ExternalPolicyForExternalIP`：修复 ExternalPolicyForExternalIP 没有应用于
   Service ExternalIPs 的缺陷。
 
 - `GCERegionalPersistentDisk`：在 GCE 上启用带地理区域信息的 PD 特性。
@@ -946,7 +946,7 @@ In the following table:
 - `RootCAConfigMap`：配置 `kube-controller-manager`，使之发布一个名为 `kube-root-ca.crt`
   的 {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}，
   到所有名字空间中。该 ConfigMap 包含用来验证与 kube-apiserver 之间连接的 CA 证书包。
-  参阅[绑定服务账户令牌](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/1205-bound-service-account-tokens/README.md)
+  参阅[绑定服务账号令牌](https://github.com/kubernetes/enhancements/blob/master/keps/sig-auth/1205-bound-service-account-tokens/README.md)
   以了解更多细节。
 
 - `RotateKubeletClientCertificate`：在 kubelet 上启用客户端 TLS 证书的轮换。
@@ -997,9 +997,9 @@ In the following table:
 -->
 - `SelectorIndex`: 允许使用 API 服务器的 watch 缓存中基于标签和字段的索引来加速 list 操作。
 
-- `ServiceAccountIssuerDiscovery`：在 API 服务器中为服务帐户颁发者启用 OIDC 发现端点
+- `ServiceAccountIssuerDiscovery`：在 API 服务器中为服务账号颁发者启用 OIDC 发现端点
   （颁发者和 JWKS URL）。详情参见
-  [为 Pod 配置服务账户](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#service-account-issuer-discovery)。
+  [为 Pod 配置服务账号](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#service-account-issuer-discovery)。
 
 - `ServiceAppProtocol`：为 Service 和 Endpoints 启用 `appProtocol` 字段。
 
@@ -1109,12 +1109,12 @@ In the following table:
 - `TaintNodesByCondition`：
   根据[节点状况](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)启用自动为节点标记污点。
 
-- `TokenRequest`：在服务帐户资源上启用 `TokenRequest` 端点。
+- `TokenRequest`：在服务账号资源上启用 `TokenRequest` 端点。
 
 - `TokenRequestProjection`：启用通过
-  [`projected` 卷](/zh-cn/docs/concepts/storage/volumes/#projected)将服务帐户令牌注入到 Pod 中的特性。
+  [`projected` 卷](/zh-cn/docs/concepts/storage/volumes/#projected)将服务账号令牌注入到 Pod 中的特性。
 
-- `ValidateProxyRedirects`： 这个标志控制 API 服务器是否应该验证只跟随到相同的主机的重定向。
+- `ValidateProxyRedirects`：这个标志控制 API 服务器是否应该验证只跟随到相同的主机的重定向。
   仅在启用 `StreamingProxyRedirects` 标志时被使用。
 
 <!--
@@ -1137,7 +1137,7 @@ In the following table:
 
 - `VolumeSnapshotDataSource`：启用卷快照数据源支持。
 
-- `VolumeSubpath`： 允许在容器中挂载卷的子路径。
+- `VolumeSubpath`：允许在容器中挂载卷的子路径。
 
 <!--
 - `VolumeSubpathEnvExpansion`: Enable `subPathExpr` field for expanding environment

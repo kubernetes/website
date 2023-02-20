@@ -1,13 +1,13 @@
 ---
 title: 在名字空间级别应用 Pod 安全标准
 content_type: tutorial
-weight: 10
+weight: 20
 ---
 
 <!--
 title: Apply Pod Security Standards at the Namespace Level
 content_type: tutorial
-weight: 10
+weight: 20
 -->
 
 {{% alert title="Note" %}}
@@ -224,11 +224,15 @@ with no warnings.
 <!-- 
 ## Clean up
 
-Run `kind delete cluster --name psa-ns-level` to delete the cluster created.
+Now delete the cluster which you created above by running the following command:
 -->
 ## 清理  {#clean-up}
 
-运行 `kind delete cluster --name psa-ns-level` 删除创建的集群。
+现在通过运行以下命令删除你上面创建的集群：
+
+```shell
+kind delete cluster --name psa-ns-level
+```
 
 ## {{% heading "whatsnext" %}}
 

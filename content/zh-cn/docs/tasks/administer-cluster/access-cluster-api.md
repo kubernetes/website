@@ -1,10 +1,12 @@
 ---
 title: 使用 Kubernetes API 访问集群
 content_type: task
+weight: 60
 ---
 <!--
 title: Access Clusters Using the Kubernetes API
 content_type: task
+weight: 60
 -->
 
 <!-- overview -->
@@ -21,11 +23,11 @@ This page shows how to access clusters using the Kubernetes API.
 <!-- steps -->
 
 <!--
-## Accessing the cluster API
+## Accessing the Kubernetes API
 
 ### Accessing for the first time with kubectl
 -->
-## 访问集群 API
+## 访问 Kubernetes API
 
 ### 使用 kubectl 进行首次访问
 
@@ -72,8 +74,8 @@ kubectl handles locating and authenticating to the API server. If you want to di
 kubectl 处理对 API 服务器的定位和身份验证。如果你想通过 http 客户端（如 `curl` 或 `wget`，
 或浏览器）直接访问 REST API，你可以通过多种方式对 API 服务器进行定位和身份验证：
 
- <!--
-1. Run kubectl in proxy mode (recommended). This method is recommended, since it uses the stored apiserver location and verifies the identity of the API server using a self-signed cert. No man-in-the-middle (MITM) attack is possible using this method.
+<!--
+ 1. Run kubectl in proxy mode (recommended). This method is recommended, since it uses the stored apiserver location and verifies the identity of the API server using a self-signed cert. No man-in-the-middle (MITM) attack is possible using this method.
  1. Alternatively, you can provide the location and credentials directly to the http client. This works with client code that is confused by proxies. To protect against man in the middle attacks, you'll need to import a root cert into your browser.
 -->
 1. 以代理模式运行 kubectl（推荐）。
@@ -84,7 +86,7 @@ kubectl 处理对 API 服务器的定位和身份验证。如果你想通过 htt
    为防止中间人攻击，你需要将根证书导入浏览器。
 
 <!--
-Using the Go or Python client libraries provides accessing kubectl in proxy mode.
+ Using the Go or Python client libraries provides accessing kubectl in proxy mode.
 -->
 使用 Go 或 Python 客户端库可以在代理模式下访问 kubectl。
 
@@ -98,7 +100,9 @@ locating the API server and authenticating.
 
 下列命令使 kubectl 运行在反向代理模式下。它处理 API 服务器的定位和身份认证。
 
-<!-- Run it like this: -->
+<!--
+Run it like this:
+-->
 像这样运行它：
 
 ```shell
@@ -119,7 +123,9 @@ Then you can explore the API with curl, wget, or a browser, like so:
 curl http://localhost:8080/api/
 ```
 
-<!-- The output is similar to this: -->
+<!--
+The output is similar to this:
+-->
 输出类似如下：
 
 ```json
@@ -184,7 +190,9 @@ TOKEN=$(kubectl get secret default-token -o jsonpath='{.data.token}' | base64 --
 curl -X GET $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 ```
 
-<!-- The output is similar to this: -->
+<!--
+The output is similar to this:
+-->
 输出类似如下：
 
 ```json
@@ -239,7 +247,9 @@ Kubernetes 官方支持 [Go](#go-client)、[Python](#python-client)、[Java](#ja
 参考[客户端库](/zh-cn/docs/reference/using-api/client-libraries/)了解如何使用其他语言来访问 API
 以及如何执行身份认证。
 
-<!-- #### Go client -->
+<!--
+#### Go client
+-->
 
 #### Go 客户端  {#go-client}
 
@@ -252,16 +262,16 @@ Kubernetes 官方支持 [Go](#go-client)、[Python](#python-client)、[Java](#ja
   参见 [https://github.com/kubernetes/client-go/releases](https://github.com/kubernetes/client-go/releases) 查看受支持的版本。
 * 基于 client-go 客户端编写应用程序。
 
-<!--
-Note that client-go defines its own API objects, so if needed, please import API definitions from client-go rather than from the main repository, e.g., `import "k8s.io/client-go/kubernetes"` is correct.
--->
 {{< note >}}
-注意 client-go 定义了自己的 API 对象，因此如果需要，请从 client-go 而不是主仓库导入
+<!--
+client-go defines its own API objects, so if needed, import API definitions from client-go rather than from the main repository. For example, `import "k8s.io/client-go/kubernetes"` is correct.
+-->
+client-go 定义了自己的 API 对象，因此如果需要，从 client-go 而不是主仓库导入
 API 定义，例如 `import "k8s.io/client-go/kubernetes"` 是正确做法。
 {{< /note >}}
 
 <!--
-The Go client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
+The Go client can use the same [kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://git.k8s.io/client-go/examples/out-of-cluster-client-configuration/main.go):
 -->
 Go 客户端可以使用与 kubectl 命令行工具相同的
@@ -273,11 +283,11 @@ Go 客户端可以使用与 kubectl 命令行工具相同的
 package main
 
 import (
-   "context"
-   "fmt"
-   "k8s.io/apimachinery/pkg/apis/meta/v1"
-   "k8s.io/client-go/kubernetes"
-   "k8s.io/client-go/tools/clientcmd"
+  "context"
+  "fmt"
+  "k8s.io/apimachinery/pkg/apis/meta/v1"
+  "k8s.io/client-go/kubernetes"
+  "k8s.io/client-go/tools/clientcmd"
 )
 
 func main() {
@@ -298,7 +308,9 @@ If the application is deployed as a Pod in the cluster, see [Accessing the API f
 如果该应用程序部署为集群中的一个
 Pod，请参阅[从 Pod 内访问 API](/zh-cn/docs/tasks/access-application-cluster/access-cluster/#accessing-the-api-from-a-pod)。
 
-<!-- #### Python client -->
+<!--
+#### Python client
+-->
 #### Python 客户端 {#python-client}
 
 <!--
@@ -309,7 +321,7 @@ To use [Python client](https://github.com/kubernetes-client/python), run the fol
 参见 [Python 客户端库主页](https://github.com/kubernetes-client/python)了解更多安装选项。
 
 <!--
-The Python client can use the same [kubeconfig file](/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/)
+The Python client can use the same [kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/python/blob/master/examples/out_of_cluster_config.py):
 -->
 Python 客户端可以使用与 kubectl 命令行工具相同的
@@ -329,7 +341,9 @@ for i in ret.items:
     print("%s\t%s\t%s" % (i.status.pod_ip, i.metadata.namespace, i.metadata.name))
 ```
 
-<!-- #### Java client -->
+<!--
+#### Java client
+-->
 #### Java 客户端    {#java-client}
 
 <!--
