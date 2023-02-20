@@ -261,7 +261,7 @@ kubectl get deployment patch-demo --output yaml
 The `containers` list that you specified in the patch has only one Container.
 The output shows that your list of one Container replaced the existing `containers` list.
 
-```shell
+```yaml
 spec:
   containers:
   - image: gcr.io/google-samples/node-hello:1.0

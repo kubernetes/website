@@ -37,7 +37,7 @@ kubectl exec <POD-NAME> -c <CONTAINER-NAME> -- <COMMAND>
 
 
 ```shell
-kubectl create deployment hostnames --image=k8s.gcr.io/serve_hostname
+kubectl create deployment hostnames --image=registry.k8s.io/serve_hostname
 ```
 ```none
 deployment.apps/hostnames created
@@ -76,7 +76,7 @@ spec:
     spec:
       containers:
       - name: hostnames
-        image: k8s.gcr.io/serve_hostname
+        image: registry.k8s.io/serve_hostname
 ```
 
 "app"ラベルは`kubectl create deployment`によって、Deploymentの名前に自動的にセットされます。
