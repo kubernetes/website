@@ -79,7 +79,7 @@ Valid label value:
 * unless empty, must begin and end with an alphanumeric character (`[a-z0-9A-Z]`),
 * could contain dashes (`-`), underscores (`_`), dots (`.`), and alphanumerics between.
 
-For example, here's the configuration file for a Pod that has two labels
+For example, here's a manifest for a Pod that has two labels
 `environment: production` and `app: nginx`:
 
 ```yaml
@@ -259,7 +259,7 @@ or
 
 ```yaml
 selector:
-    component: redis
+  component: redis
 ```
 
 This selector (respectively in `json` or `yaml` format) is equivalent to
@@ -278,8 +278,8 @@ selector:
   matchLabels:
     component: redis
   matchExpressions:
-    - {key: tier, operator: In, values: [cache]}
-    - {key: environment, operator: NotIn, values: [dev]}
+    - { key: tier, operator: In, values: [cache] }
+    - { key: environment, operator: NotIn, values: [dev] }
 ```
 
 `matchLabels` is a map of `{key,value}` pairs. A single `{key,value}` in the
