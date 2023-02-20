@@ -48,7 +48,7 @@ been allocated will return an error.
 
 **静态地：**
 
-根据为 Service 配置的 IP 范围，选定并设置你的 IP 地址。
+根据为 Service 所配置的 IP 范围，选定并设置你的 IP 地址。
 
 在整个集群中，每个 Service 的 `ClusterIP` 都必须是唯一的。
 尝试使用已分配的 `ClusterIP` 创建 Service 将返回错误。
