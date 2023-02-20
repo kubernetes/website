@@ -132,10 +132,10 @@ Valid label value:
 * 包含破折号（`-`）、下划线（`_`）、点（`.`）和字母或数字
 
 <!--
-For example, here's the configuration file for a Pod that has two labels
+For example, here's a manifest for a Pod that has two labels
 `environment: production` and `app: nginx`:
 -->
-例如，这是一个有 `environment: production` 和 `app: nginx` 标签的 Pod 配置文件：
+例如，以下是一个清单 (manifest)，适用于具有 `environment: production` 和 `app: nginx` 这两个标签的 Pod：
 
 ```yaml
 
@@ -427,7 +427,7 @@ or
 
 ```yaml
 selector:
-    component: redis
+  component: redis
 ```
 
 <!---
@@ -458,8 +458,8 @@ selector:
   matchLabels:
     component: redis
   matchExpressions:
-    - {key: tier, operator: In, values: [cache]}
-    - {key: environment, operator: NotIn, values: [dev]}
+    - { key: tier, operator: In, values: [cache] }
+    - { key: environment, operator: NotIn, values: [dev] }
 ```
 
 <!--
