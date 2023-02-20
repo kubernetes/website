@@ -116,7 +116,7 @@ risk of collision.
 
 ## 如何避免 Service ClusterIP 冲突？{#avoid-ClusterIP-conflict}
 
-Kubernetes 中将 ClusterIP 分配给 Service 的分配策略降低了冲突的风险。
+Kubernetes 中用來将 ClusterIP 分配给 Service 的分配策略降低了冲突的风险。
 
 `ClusterIP` 范围根据公式 `min(max(16, cidrSize / 16), 256)` 进行划分，
 描述为不小于 16 且不大于 256，并在二者之间有一个渐进的步长。
