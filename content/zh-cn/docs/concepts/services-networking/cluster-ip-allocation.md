@@ -66,7 +66,7 @@ this:
 
 有时你可能希望 Services 在众所周知的 IP 上面运行，以便集群中的其他组件和用户可以使用它们。
 
-最好的例子是集群的 DNS Service。 作为一种非强制性的约定，一些 Kubernetes 安装程序
+最好的例子是集群的 DNS Service。作为一种非强制性的约定，一些 Kubernetes 安装程序
 将 Service IP 范围中的第 10 个 IP 地址分配给 DNS 服务。 假设将集群的 Service IP 范围配置为 
 10.96.0.0/16，并且希望 DNS Service IP 为 10.96.0.10，则必须创建如下 Service：
 
