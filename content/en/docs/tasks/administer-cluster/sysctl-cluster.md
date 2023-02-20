@@ -53,9 +53,9 @@ To get a list of all parameters, you can run
 sudo sysctl -a
 ```
 
-## Enabling Unsafe Sysctls
+## Safe and Unsafe Sysctls
 
-Sysctls are grouped into _safe_ and _unsafe_ sysctls. In addition to proper
+Kubernetes classes sysctls as either _safe_ or _unsafe_. In addition to proper
 namespacing, a _safe_ sysctl must be properly _isolated_ between pods on the
 same node. This means that setting a _safe_ sysctl for one pod
 
@@ -79,6 +79,8 @@ The example `net.ipv4.tcp_syncookies` is not namespaced on Linux kernel version 
 
 This list will be extended in future Kubernetes versions when the kubelet
 supports better isolation mechanisms.
+
+### Enabling Unsafe Sysctls
 
 All _safe_ sysctls are enabled by default.
 
