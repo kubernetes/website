@@ -156,7 +156,8 @@ This example uses the IP address range: 10.96.0.0/20 (CIDR notation) for the IP 
 of Services.
 -->
 ### 示例 2 {#allocation-example-2}
-此示例使用IP地址范围：10.96.00/20（CIDR表示法）作为 Services 的IP地址。
+
+此示例使用 IP 地址范围 10.96.00/20（CIDR 表示法）作为 Service 的 IP 地址。
 
 Range Size: 2<sup>12</sup> - 2 = 4094  
 Band Offset: `min(max(16, 4096/16), 256)` = `min(256, 256)` = 256  
