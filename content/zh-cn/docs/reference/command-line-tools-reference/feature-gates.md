@@ -485,16 +485,17 @@ Each feature gate is designed for enabling/disabling a specific feature:
   to see the requesting subject's authentication information.
   See [API access to authentication information for a client](/docs/reference/access-authn-authz/authentication/#self-subject-review)
   for more details.
-- `APIServerIdentity`: Assign each API server an ID in a cluster.
+- `APIServerIdentity`: Assign each API server an ID in a cluster, using a [Lease](/docs/concepts/architecture/leases).
 - `APIServerTracing`: Add support for distributed tracing in the API server.
   See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/system-traces) for more details.
 -->
-- `APIListChunking`：启用 API 客户端以块的形式从 API 服务器检索（“LIST” 或 “GET”）资源。
+- `APIListChunking`：启用 API 客户端以块的形式从 API 服务器检索（`LIST` 或 `GET`）资源。
 - `APIPriorityAndFairness`：在每个服务器上启用优先级和公平性来管理请求并发（由 `RequestManagement` 重命名而来）。
-- `APIResponseCompression`：压缩 “LIST” 或 “GET” 请求的 API 响应。
+- `APIResponseCompression`：压缩 `LIST` 或 `GET` 请求的 API 响应。
 - `APISelfSubjectReview`：激活 `SelfSubjectReview` API，允许用户查看请求主体的身份验证信息。
   更多细节请参阅 [API 访问客户端的身份验证信息](/zh-cn/docs/reference/access-authn-authz/authentication/#self-subject-review)。
-- `APIServerIdentity`：为集群中的每个 API 服务器赋予一个 ID。
+- `APIServerIdentity`：使用[租约](/zh-cn/docs/concepts/architecture/leases)为集群中的每个
+  API 服务器赋予一个 ID。
 - `APIServerTracing`：为集群中的每个 API 服务器添加对分布式跟踪的支持。
   参阅[针对 Kubernetes 系统组件的追踪](/zh-cn/docs/concepts/cluster-administration/system-traces/)
   获取更多详细信息。
@@ -775,7 +776,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   到正在运行的 Pod 的特性。
 - `EventedPLEG`：启用此特性后，kubelet 能够通过 {{<glossary_tooltip term_id="cri" text="CRI">}}
   扩展从{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}接收容器生命周期事件。
-  （PLEG 是 “Pod lifecycle event generator” 的缩写，即 Pod 生命周期事件生成器）。
+  （PLEG 是 `Pod lifecycle event generator` 的缩写，即 Pod 生命周期事件生成器）。
   要使用此特性，你还需要在集群中运行的每个容器运行时中启用对容器生命周期事件的支持。
   如果容器运行时未宣布支持容器生命周期事件，即使你已启用了此特性门控，kubelet 也会自动切换到原有的通用 PLEG 机制。
 - `ExecProbeTimeout`：确保 kubelet 会遵从 exec 探针的超时值设置。
@@ -1267,6 +1268,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `WindowsHostNetwork`: Enables support for joining Windows containers to a hosts' network namespace.
 - `WindowsHostProcessContainers`: Enables support for Windows HostProcess containers.
 -->
+
 - `WindowsHostNetwork`：启用对 Windows 容器接入主机网络名字空间的支持。
 - `WindowsHostProcessContainers`：启用对 Windows HostProcess 容器的支持。
 
