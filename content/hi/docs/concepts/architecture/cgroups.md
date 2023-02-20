@@ -9,7 +9,7 @@ weight: 50
 Linux पर, {{< glossary_tooltip text="control groups" term_id="cgroup" >}}
 प्रक्रियाओं को आवंटित संसाधनों को सीमित करें।
 
-{{< Glosary_tooltip text="kubelet" term_id="kubelet" >}} और
+{{< glosary_tooltip text="kubelet" term_id="kubelet" >}} और
 अंतर्निहित कंटेनर रनटाइम को लागू करने के लिए cgroups के साथ इंटरफ़ेस करने की आवश्यकता है
 [फली और कंटेनरों के लिए संसाधन प्रबंधन](/docs/concepts/configuration/manage-resources-containers/) जो
 सीपीयू/मेमोरी अनुरोध और कंटेनरीकृत वर्कलोड के लिए सीमाएं शामिल हैं।

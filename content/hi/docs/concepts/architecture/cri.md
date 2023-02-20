@@ -12,8 +12,8 @@ CRI एक प्लगइन इंटरफ़ेस है जो क्य�
 आपको काम करने की जरूरत है
 {{<glossary_tooltip text="container runtime" term_id="container-runtime">}} चालू
 आपके क्लस्टर में प्रत्येक नोड, ताकि
-{{< Glosary_tooltip text="kubelet" term_id="kubelet" >}} लॉन्च हो सकता है
-{{< Glosary_tooltip text="Pods" term_id="pod" >}} और उनके कंटेनर।
+{{< glosary_tooltip text="kubelet" term_id="kubelet" >}} लॉन्च हो सकता है
+{{< glosary_tooltip text="Pods" term_id="pod" >}} और उनके कंटेनर।
 
 {{< glossary_definition prepend="The Container Runtime Interface (CRI) is" term_id="container-runtime-interface" length="all" >}}
 
