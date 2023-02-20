@@ -1,6 +1,6 @@
 ---
 title: Extending Kubernetes
-weight: 110
+weight: 999 # this section should come last
 description: Different ways to change the behavior of your Kubernetes cluster.
 reviewers:
 - erictune
