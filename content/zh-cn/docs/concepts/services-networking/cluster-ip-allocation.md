@@ -42,7 +42,7 @@ been allocated will return an error.
 ## Service ClusterIP 是如何分配的？
 当 Kubernetes 需要为 Service 分配虚拟 IP 地址时，该分配会通过以下两种方式之一进行：
 
-**动态的：**
+**动态地：**
 
 集群的控制面自动从所配置的 IP 范围内为 `type: ClusterIP` 选择一个空闲 IP 地址。
 
@@ -137,7 +137,7 @@ of Services.
 ### 示例 1 {#allocation-example-1}
 
 此示例使用 IP 地址范围：10.96.0.0/24（CIDR 表示法）作为 Services 的 IP 地址。
-
+<!--
 Range Size: 2<sup>8</sup> - 2 = 254  
 Band Offset: `min(max(16, 256/16), 256)` = `min(16, 256)` = 16  
 Static band start: 10.96.0.1  
@@ -150,6 +150,20 @@ pie showData
     "Static" : 16
     "Dynamic" : 238
 {{< /mermaid >}}
+-->
+范围大小：2<sup>8</sup> - 2 = 254 
+带宽偏移量：`min(max(16, 256/16), 256)` = `min(16, 256)` = 16
+静态带宽起始地址：10.96.0.1
+静态带宽结束地址：10.96.0.16
+范围结束地址：10.96.0.254
+
+{{< mermaid >}}
+pie showData
+    title 10.96.0.0/24
+    "静态的" : 16
+    "动态的" : 238
+{{< /mermaid >}}
+
 <!--
 ### Example 2 {#allocation-example-2}
 This example uses the IP address range: 10.96.0.0/20 (CIDR notation) for the IP addresses
@@ -159,6 +173,7 @@ of Services.
 
 此示例使用 IP 地址范围 10.96.00/20（CIDR 表示法）作为 Service 的 IP 地址。
 
+<!--
 Range Size: 2<sup>12</sup> - 2 = 4094  
 Band Offset: `min(max(16, 4096/16), 256)` = `min(256, 256)` = 256  
 Static band start: 10.96.0.1  
@@ -171,6 +186,21 @@ pie showData
     "Static" : 256
     "Dynamic" : 3838
 {{< /mermaid >}}
+-->
+
+范围大小：2<sup>12</sup> - 2 = 4094
+带宽偏移量：`min(max(16, 4096/16), 256)` = `min(256, 256)` = 256
+静态带宽起始地址：10.96.0.1
+静态带宽结束地址：10.96.1.0
+范围结束地址：10.96.15.254
+
+{{< mermaid >}}
+pie showData
+    title 10.96.0.0/20
+    "静态的" : 256
+    "动态的" : 3838
+{{< /mermaid >}}
+
 <!--
 ### Example 3 {#allocation-example-3}
 This example uses the IP address range: 10.96.0.0/16 (CIDR notation) for the IP addresses
@@ -180,6 +210,7 @@ of Services.
 
 此示例使用 IP 地址范围 10.96.0.0/16（CIDR 表示法）作为 Service 的 IP 地址。
 
+<!--
 Range Size: 2<sup>16</sup> - 2 = 65534  
 Band Offset: `min(max(16, 65536/16), 256)` = `min(4096, 256)` = 256  
 Static band start: 10.96.0.1  
@@ -192,6 +223,21 @@ pie showData
     "Static" : 256
     "Dynamic" : 65278
 {{< /mermaid >}}
+
+-->
+范围大小：2<sup>16</sup> - 2 = 65534
+带宽偏移量：`min(max(16, 65536/16), 256)` = `min(4096, 256)` = 256
+静态带宽起始地址：10.96.0.1
+静态带宽结束地址：10.96.1.0
+范围结束地址：10.96.255.254
+
+{{< mermaid >}}
+pie showData
+    title 10.96.0.0/16
+    "静态的" : 256
+    "动态的" : 65278
+{{< /mermaid >}}
+
 <!--
 ## {{% heading "whatsnext" %}}
 * Read about [Service External Traffic Policy](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)
