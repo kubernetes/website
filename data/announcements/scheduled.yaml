@@ -130,3 +130,13 @@ announcements:
   message: |
     5 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
     October 24 - 28, 2022.
+
+- name: Freezing k8s.gcr.io
+  startTime: 2023-02-21T00:00:00 # Added in https://github.com/kubernetes/website/pull/39575
+                                 # This should run before and after Kubecon EU 2023
+  endTime: 2023-04-15T00:00:00
+  style: "background: #FF0000"
+  title: "k8s.gcr.io Image Registry Will Be Frozen From April 2023"
+  message: |
+    k8s.gcr.io image registry will be frozen from the 3rd of April 2023.<br/>
+    Please read our [announcement](/blog/2023/02/06/k8s-gcr-io-freeze-announcement/) for more details.
