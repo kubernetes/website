@@ -1191,7 +1191,7 @@ Learn more about Services and how they fit into Kubernetes:
 * Read about [Gateway](https://gateway-api.sigs.k8s.io/), an extension to
   Kubernetes that provides more flexibility than Ingress.
 
-For more context, read:
+For more context, read the following:
 * [Virtual IPs and Service Proxies](/docs/reference/networking/virtual-ips/)
 * [EndpointSlices](/docs/concepts/services-networking/endpoint-slices/)
 * [Service API reference](/docs/reference/kubernetes-api/service-resources/service-v1/)
