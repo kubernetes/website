@@ -73,8 +73,8 @@ sysctl --system
 | TCP       | Inbound    | 6443*      | Kubernetes API server   | 全て                      |
 | TCP       | Inbound    | 2379-2380  | etcd server client API  | kube-apiserver、etcd      |
 | TCP       | Inbound    | 10250      | Kubelet API             | 自身、コントロールプレーン |
-| TCP       | Inbound    | 10251      | kube-scheduler          | 自身                      |
-| TCP       | Inbound    | 10252      | kube-controller-manager | 自身                      |
+| TCP       | Inbound    | 10259      | kube-scheduler          | 自身                      |
+| TCP       | Inbound    | 10257      | kube-controller-manager | 自身                      |
 
 ### ワーカーノード
 

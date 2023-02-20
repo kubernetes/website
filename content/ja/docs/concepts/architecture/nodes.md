@@ -223,11 +223,6 @@ kubeletが`NodeStatus`とLeaseオブジェクトの作成および更新を担�
 ノードコントローラーは、Podがtaintを許容しない場合、 `NoExecute`のtaintを持つノード上で実行されているPodを排除する責務もあります。
 さらに、ノードコントローラーはノードに到達できない、または準備ができていないなどのノードの問題に対応する{{< glossary_tooltip text="taint" term_id="taint" >}}を追加する責務があります。これはスケジューラーが、問題のあるノードにPodを配置しない事を意味しています。
 
-{{< caution >}}
-`kubectl cordon`はノードに'unschedulable'としてマークします。それはロードバランサーのターゲットリストからノードを削除するという
-サービスコントローラーの副次的な効果をもたらします。これにより、ロードバランサトラフィックの流入をcordonされたノードから効率的に除去する事ができます。
-{{< /caution >}}
-
 ### ノードのキャパシティ {#node-capacity}
 
 Nodeオブジェクトはノードのリソースキャパシティ（CPUの数とメモリの量）を監視します。
@@ -296,7 +291,7 @@ Message:        Node is shutting, evicting pods
 
 ##  ノードの非正常終了 {#non-graceful-node-shutdown}
 
-{{< feature-state state="alpha" for_k8s_version="v1.24" >}}
+{{< feature-state state="beta" for_k8s_version="v1.26" >}}
 
 コマンドがkubeletのinhibitor locksメカニズムをトリガーしない場合や、ShutdownGracePeriodやShutdownGracePeriodCriticalPodsが適切に設定されていないといったユーザーによるミス等が原因で、ノードがシャットダウンしたことをkubeletのNode Shutdownマネージャーが検知できないことがあります。詳細は上記セクション[ノードの正常終了](#graceful-node-shutdown)を参照ください。
 

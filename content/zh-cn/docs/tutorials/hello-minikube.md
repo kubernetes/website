@@ -43,7 +43,7 @@ You can also follow this tutorial if you've installed minikube locally.
 See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
 -->
 如果你已在本地安装 Minikube，也可以按照本教程操作。
-安装指南参阅 [minikube start](https://minikube.sigs.k8s.io/docs/start/) 。
+安装指南参阅 [minikube start](https://minikube.sigs.k8s.io/docs/start/)。
 {{< /note >}}
 
 ## {{% heading "objectives" %}}
@@ -166,10 +166,15 @@ Kubernetes [**Deployment**](/zh-cn/docs/concepts/workloads/controllers/deploymen
 Deployment 是管理 Pod 创建和扩展的推荐方法。
 
 <!--
+1. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then click open a new terminal.
+-->
+1. 仅 Katacoda 环境：在终端窗格的顶部，点击加号，然后点击 **Open a new terminal**。
+
+<!--
 1. Use the `kubectl create` command to create a Deployment that manages a Pod. The
 Pod runs a Container based on the provided Docker image.
 -->
-1. 使用 `kubectl create` 命令创建管理 Pod 的 Deployment。该 Pod 根据提供的 Docker
+2. 使用 `kubectl create` 命令创建管理 Pod 的 Deployment。该 Pod 根据提供的 Docker
    镜像运行容器。
 
    ```shell
@@ -177,9 +182,9 @@ Pod runs a Container based on the provided Docker image.
    ```
 
 <!--
-2. View the Deployment:
+1. View the Deployment:
 -->
-2. 查看 Deployment：
+3. 查看 Deployment：
 
    ```shell
    kubectl get deployments
@@ -197,9 +202,9 @@ Pod runs a Container based on the provided Docker image.
    ```
 
 <!--
-3. View the Pod:
+1. View the Pod:
 -->
-3. 查看 Pod：
+4. 查看 Pod：
 
    ```shell
    kubectl get pods
@@ -217,18 +222,18 @@ Pod runs a Container based on the provided Docker image.
    ```
 
 <!--
-4. View cluster events:
+1. View cluster events:
 -->
-4. 查看集群事件：
+5. 查看集群事件：
 
    ```shell
    kubectl get events
    ```
 
 <!--
-5. View the `kubectl` configuration:
+1. View the `kubectl` configuration:
 -->
-5. 查看 `kubectl` 配置：
+6. 查看 `kubectl` 配置：
 
    ```shell
    kubectl config view
