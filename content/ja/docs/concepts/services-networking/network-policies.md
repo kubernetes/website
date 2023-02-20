@@ -1,7 +1,7 @@
 ---
 title: ネットワークポリシー
 content_type: concept
-weight: 50
+weight: 70
 ---
 
 <!-- overview -->
