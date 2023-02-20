@@ -44,7 +44,7 @@ been allocated will return an error.
 
 **动态的：**
 
-集群的控制器自动从配置的 IP 范围内为 `type: ClusterIP` 选择一个空闲 IP 地址。
+集群的控制面自动从所配置的 IP 范围内为 `type: ClusterIP` 选择一个空闲 IP 地址。
 
 **静态地：**
 
