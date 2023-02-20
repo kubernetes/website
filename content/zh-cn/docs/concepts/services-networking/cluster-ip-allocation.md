@@ -100,9 +100,8 @@ but as it was explained before, the IP address 10.96.0.10 has not been reserved;
 before or in parallel with dynamic allocation, there is a chance they can allocate this IP, hence,
 you will not be able to create the DNS Service because it will fail with a conflict error.
 -->
-但如前所述，IP 地址 10.96.0.10 尚未被保留。如果在动态分配
-之前或同时创建其他 Service，则它们有可能分配此 IP，因此，
-你将无法创建 DNS Service，因为它会因冲突错误而失败。
+但如前所述，IP 地址 10.96.0.10 尚未被保留。如果在动态分配之前或同时创建其他 Service，
+则它们有可能被分配此 IP，因此，你将无法创建 DNS Service，因为它会因冲突错误而失败。
 
 <!--
 ## How can you avoid Service ClusterIP conflicts? {#avoid-ClusterIP-conflict}
