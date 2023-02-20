@@ -365,7 +365,7 @@ Windowsでは、PodSecurityContextフィールドはどれも機能しません�
 
 ## ヘルプとトラブルシューティングを学ぶ {#troubleshooting}
 
-Kubernetesクラスターのトラブルシューティングの主なヘルプソースは、[トラブルシューティング](/ja/docs/tasks/debug/)ページから始める必要があります。このページには、いくつか追加的な、Windows固有のトラブルシューティングヘルプが含まれています。ログは、Kubernetesにおけるトラブルシューティング問題の重要な要素です。他のコントリビューターからトラブルシューティングの支援を求めるときは、必ずそれらを含めてください。SIG-Windows[ログ収集に関するコントリビュートガイド](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs)の指示に従ってください。
+Kubernetesクラスターのトラブルシューティングの主なヘルプソースは、[トラブルシューティング](/ja/docs/tasks/debug/)ページから始める必要があります。このセクションには、いくつか追加的な、Windows固有のトラブルシューティングヘルプが含まれています。ログは、Kubernetesにおけるトラブルシューティング問題の重要な要素です。他のコントリビューターからトラブルシューティングの支援を求めるときは、必ずそれらを含めてください。SIG-Windows[ログ収集に関するコントリビュートガイド](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs)の指示に従ってください。
 
 1. start.ps1が正常に完了したことをどのように確認できますか？
 
