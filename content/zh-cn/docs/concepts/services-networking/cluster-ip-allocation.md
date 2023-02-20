@@ -1,5 +1,5 @@
 ---
-title: 服务 ClusterIP 分配
+title: Service ClusterIP 分配
 content_type: concept
 weight: 120
 ---
