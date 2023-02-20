@@ -134,8 +134,8 @@ Kubernetes 中用來将 ClusterIP 分配给 Service 的分配策略降低了冲�
 This example uses the IP address range: 10.96.0.0/24 (CIDR notation) for the IP addresses
 of Services.
 -->
-
 ### 示例 1 {#allocation-example-1}
+
 此示例使用 IP 地址范围：10.96.0.0/24（CIDR 表示法）作为 Services 的 IP 地址。
 
 Range Size: 2<sup>8</sup> - 2 = 254  
