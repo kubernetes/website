@@ -106,7 +106,7 @@ The following methods exist for installing kubectl on Windows:
    - 用 PowerShell 自动验证，用运算符 `-eq` 来直接取得 `True` 或 `False` 的结果：
 
      ```powershell
-     $(Get-FileHash -Algorithm SHA256 .\kubectl.exe).Hash -eq $(Get-Content .\kubectl.exe.sha256)
+      $(Get-FileHash -Algorithm SHA256 .\kubectl.exe).Hash -eq $(Get-Content .\kubectl.exe.sha256)
      ```
 
 <!-- 
@@ -122,7 +122,22 @@ The following methods exist for installing kubectl on Windows:
    ```cmd
    kubectl version --client
    ```
+   {{< note >}}
+   <!--
+   The above command will generate a warning:
+   -->
+   上面的命令会产生一个警告：
+   ```
+   WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
+   ```
+   <!--
+   You can ignore this warning. You are only checking the version of `kubectl` that you
+   have installed.
+   -->
+   你可以忽略此警告。你只是通过检查版本证明 `kubectl` 已安装。
 
+   {{< /note >}}
+   
    <!--
    Or use this for detailed view of version:
    -->

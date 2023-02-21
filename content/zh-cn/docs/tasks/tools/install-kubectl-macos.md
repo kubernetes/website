@@ -187,6 +187,21 @@ The following methods exist for installing kubectl on macOS:
    ```bash
    kubectl version --client
    ```
+   {{< note >}}
+   <!--
+   The above command will generate a warning:
+   -->
+   上面的命令会产生一个警告：
+   ```
+   WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
+   ```
+   <!--
+   You can ignore this warning. You are only checking the version of `kubectl` that you
+   have installed.
+   -->
+   你可以忽略此警告。你只是通过检查版本证明 `kubectl` 已安装。
+   
+   {{< /note >}}
 
    <!--
    Or use this for detailed view of version:

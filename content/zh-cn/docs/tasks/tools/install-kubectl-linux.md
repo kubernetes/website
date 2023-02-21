@@ -64,11 +64,11 @@ The following methods exist for installing kubectl on Linux:
    ```
 
    {{< note >}}
-   <!-- 
+<!-- 
    To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)` portion of the command with the specific version.
 
    For example, to download version {{< param "fullversion" >}} on Linux, type:
-   -->
+-->
    如需下载某个指定的版本，请用指定版本号替换该命令的这一部分：
    `$(curl -L -s https://dl.k8s.io/release/stable.txt)`。
 
@@ -152,14 +152,31 @@ The following methods exist for installing kubectl on Linux:
 
 <!-- 
 1. Test to ensure the version you installed is up-to-date:
-Or use this for detailed view of version:
 -->
 4. 执行测试，以保障你安装的版本是最新的：
 
    ```bash
    kubectl version --client
    ```
+   {{< note >}}
+   <!--
+   The above command will generate a warning:
+   -->
+   上面的命令会产生一个警告：
+   ```
+   WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
+   ```
+   <!--
+   You can ignore this warning. You are only checking the version of `kubectl` that you
+   have installed.
+   -->
+   你可以忽略此警告。你只是通过检查版本证明 `kubectl` 已安装。
    
+   {{< /note >}}
+
+   <!-- 
+   Or use this for detailed view of version:
+   -->
    或者使用如下命令来查看版本的详细信息：
    ```cmd
    kubectl version --client --output=yaml
