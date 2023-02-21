@@ -134,7 +134,7 @@ announcements:
 - name: Freezing k8s.gcr.io - Before
   startTime: 2023-02-20T00:00:00 # Added in https://github.com/kubernetes/website/pull/39575
                                  # This should run before and after Kubecon EU 2023
-  endTime: 2023-04-02T00:00:00
+  endTime: 2023-03-26T00:00:00
   style: "background: #FF0000"
   title: "Legacy k8s.gcr.io container image registry will be frozen in early April 2023"
   message: |
@@ -143,7 +143,7 @@ announcements:
     Please read our [announcement](/blog/2023/02/06/k8s-gcr-io-freeze-announcement/) for more details.
 
 - name: Freezing k8s.gcr.io - After
-  startTime: 2023-04-03T00:00:00 # Added in https://github.com/kubernetes/website/pull/39575
+  startTime: 2023-04-05T00:00:00 # Added in https://github.com/kubernetes/website/pull/39575
                                  # This should run before and after Kubecon EU 2023
   endTime: 2023-05-31T00:00:00
   style: "background: #FF0000"
