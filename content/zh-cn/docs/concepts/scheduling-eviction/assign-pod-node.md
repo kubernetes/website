@@ -815,6 +815,18 @@ Some of the limitations of using `nodeName` to select nodes are:
   而其失败原因中会给出是否因为内存或 CPU 不足而造成无法运行。
 - 在云环境中的节点名称并不总是可预测的，也不总是稳定的。
 
+{{< note >}}
+<!--
+`nodeName` is intended for use by custom schedulers or advanced use cases where
+you need to bypass any configured schedulers. Bypassing the schedulers might lead to
+failed Pods if the assigned Nodes get oversubscribed. You can use [node affinity](#node-affinity) or a the [`nodeselector` field](#nodeselector) to assign a Pod to a specific Node without bypassing the schedulers.
+-->
+`nodeName` 旨在供自定义调度程序或需要绕过任何已配置调度程序的高级场景使用。
+如果已分配的 Node 负载过重，绕过调度程序可能会导致 Pod 失败。
+你可以使用[节点亲和性](#node-affinity)或 [`nodeselector` 字段](#nodeselector)将
+Pod 分配给特定 Node，而无需绕过调度程序。
+{{</ note >}}
+
 <!--
 Here is an example of a Pod spec using the `nodeName` field:
 -->
