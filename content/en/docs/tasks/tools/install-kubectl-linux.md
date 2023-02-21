@@ -266,6 +266,12 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 
    If you do not see an error, it means the plugin is successfully installed.
 
+1. After installing the plugin, clean up the installation files:
+
+   ```bash
+   rm kubectl-convert kubectl-convert.sha256
+   ```
+
 ## {{% heading "whatsnext" %}}
 
 {{< include "included/kubectl-whats-next.md" >}}
