@@ -267,6 +267,11 @@ after successful sandbox creation and network configuration by the runtime
 plugin). For a Pod without init containers, the kubelet sets the `Initialized`
 condition to `True` before sandbox creation and network configuration starts.
 
+### Pod scheduling readiness {#pod-scheduling-readiness-gate}
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+See [Pod Scheduling Readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/) for more information.
 
 ## Container probes
 
@@ -507,17 +512,27 @@ If you need to force-delete Pods that are part of a StatefulSet, refer to the ta
 documentation for
 [deleting Pods from a StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 
-### Garbage collection of terminated Pods {#pod-garbage-collection}
+### Garbage collection of Pods {#pod-garbage-collection}
 
 For failed Pods, the API objects remain in the cluster's API until a human or
 {{< glossary_tooltip term_id="controller" text="controller" >}} process
 explicitly removes them.
 
-The control plane cleans up terminated Pods (with a phase of `Succeeded` or
+The Pod garbage collector (PodGC), which is a controller in the control plane, cleans up terminated Pods (with a phase of `Succeeded` or
 `Failed`), when the number of Pods exceeds the configured threshold
 (determined by `terminated-pod-gc-threshold` in the kube-controller-manager).
 This avoids a resource leak as Pods are created and terminated over time.
 
+Additionally, PodGC cleans up any Pods which satisfy any of the following conditions:
+1. are orphan pods - bound to a node which no longer exists,
+2. are unscheduled terminating pods,
+3. are terminating pods, bound to a non-ready node tainted with [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service), when the `NodeOutOfServiceVolumeDetach` feature gate is enabled.
+
+When the `PodDisruptionConditions` feature gate is enabled, along with
+cleaning up the pods, PodGC will also mark them as failed if they are in a non-terminal
+phase. Also, PodGC adds a pod disruption condition when cleaning up an orphan
+pod (see also:
+[Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)).
 
 ## {{% heading "whatsnext" %}}
 

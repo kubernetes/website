@@ -24,9 +24,9 @@ Podが動作しているNodeに利用可能なリソースが十分にある場�
 
 たとえば、コンテナに256MiBの`メモリー`要求を設定し、そのコンテナが8GiBのメモリーを持つNodeにスケジュールされたPod内に存在し、他のPodが存在しない場合、コンテナはより多くのRAMを使用しようとする可能性があります。
 
-そのコンテナに4GiBの`メモリー`制限を設定すると、kubelet(および{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}) が制限を適用します。ランタイムは、コンテナーが設定済みのリソース制限を超えて使用するのを防ぎます。例えば、コンテナ内のプロセスが、許容量を超えるメモリを消費しようとすると、システムカーネルは、メモリ不足(OOM)エラーで、割り当てを試みたプロセスを終了します。
+そのコンテナに4GiBの`メモリー`制限を設定すると、kubelet(および{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}) が制限を適用します。ランタイムは、コンテナが設定済みのリソース制限を超えて使用するのを防ぎます。例えば、コンテナ内のプロセスが、許容量を超えるメモリを消費しようとすると、システムカーネルは、メモリ不足(OOM)エラーで、割り当てを試みたプロセスを終了します。
 
-制限は、違反が検出されるとシステムが介入するように事後的に、またはコンテナーが制限を超えないようにシステムが防ぐように強制的に、実装できます。
+制限は、違反が検出されるとシステムが介入するように事後的に、またはコンテナが制限を超えないようにシステムが防ぐように強制的に、実装できます。
 異なるランタイムは、同じ制限を実装するために異なる方法をとることができます。
 
 {{< note >}}
@@ -601,7 +601,7 @@ Conditions:
 Events:
   FirstSeen                         LastSeen                         Count  From                              SubobjectPath                       Reason      Message
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {scheduler }                                                          scheduled   Successfully assigned simmemleak-hra99 to kubernetes-node-tf0f
-  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   pulled      Pod container image "k8s.gcr.io/pause:0.8.0" already present on machine
+  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   pulled      Pod container image "registry.k8s.io/pause:0.8.0" already present on machine
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   created     Created with docker id 6a41280f516d
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   started     Started with docker id 6a41280f516d
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    spec.containers{simmemleak}         created     Created with docker id 87348f12526a

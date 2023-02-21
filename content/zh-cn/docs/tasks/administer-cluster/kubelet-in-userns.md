@@ -2,12 +2,14 @@
 title: 以非 root 用户身份运行 Kubernetes 节点组件
 content_type: task
 min-kubernetes-server-version: 1.22
+weight: 300
 ---
 
 <!--
 title: Running Kubernetes Node Components as a Non-root User
 content_type: task
 min-kubernetes-server-version: 1.22
+weight: 300
 -->
 
 <!-- overview -->
@@ -21,7 +23,7 @@ without root privileges, by using a {{< glossary_tooltip text="user namespace" t
 This technique is also known as _rootless mode_.
 
 {{< note >}}
-This document describes how to run Kubernetes Node components (and hence pods) a non-root user.
+This document describes how to run Kubernetes Node components (and hence pods) as a non-root user.
 
 If you are just looking for how to run a pod as a non-root user, see [SecurityContext](/docs/tasks/configure-pod-container/security-context/).
 {{< /note >}}
@@ -318,6 +320,7 @@ the host with an external port forwarder, such as RootlessKit, slirp4netns, or
 You can use the port forwarder from K3s.
 See [Running K3s in Rootless Mode](https://rancher.com/docs/k3s/latest/en/advanced/#known-issues-with-rootless-mode)
 for more details.
+The implementation can be found in [the `pkg/rootlessports` package](https://github.com/k3s-io/k3s/blob/v1.22.3+k3s1/pkg/rootlessports/controller.go) of k3s.
 
 ### Configuring CRI
 
@@ -343,6 +346,7 @@ Pod 的网络命名空间可以使用常规的 CNI 插件配置。对于多节�
 
 你可以使用 K3s 的端口转发器。更多细节请参阅
 [在 Rootless 模式下运行 K3s](https://rancher.com/docs/k3s/latest/en/advanced/#known-issues-with-rootless-mode)。
+该实现可以在 k3s 的 [`pkg/rootlessports` 包](https://github.com/k3s-io/k3s/blob/v1.22.3+k3s1/pkg/rootlessports/controller.go)中找到。
 
 ### 配置 CRI
 
@@ -355,8 +359,7 @@ kubelet 依赖于容器运行时。你需要部署一个容器运行时（例如
 
 Running CRI plugin of containerd in a user namespace is supported since containerd 1.4.
 
-Running containerd within a user namespace requires the following configurations
-in `/etc/containerd/containerd-config.toml`.
+Running containerd within a user namespace requires the following configurations.
 
 ```toml
 version = 2
@@ -379,6 +382,9 @@ version = 2
   SystemdCgroup = false
 ```
 
+The default path of the configuration file is `/etc/containerd/config.toml`.
+The path can be specified with `containerd -c /path/to/containerd/config.toml`.
+
 {{% /tab %}}
 
 {{% tab name="CRI-O" %}}
@@ -387,7 +393,7 @@ Running CRI-O in a user namespace is supported since CRI-O 1.22.
 
 CRI-O requires an environment variable `_CRIO_ROOTLESS=1` to be set.
 
-The following configurations (in `/etc/crio/crio.conf`) are also recommended:
+The following configurations are also recommended:
 
 ```toml
 [crio]
@@ -401,6 +407,8 @@ The following configurations (in `/etc/crio/crio.conf`) are also recommended:
   cgroup_manager = "cgroupfs"
 ```
 
+The default path of the configuration file is `/etc/crio/crio.conf`.
+The path can be specified with `crio --config /path/to/crio/crio.conf`.
 {{% /tab %}}
 {{< /tabs >}}
 -->
@@ -410,7 +418,7 @@ The following configurations (in `/etc/crio/crio.conf`) are also recommended:
 
 containerd 1.4 开始支持在用户命名空间运行 containerd 的 CRI 插件。
 
-在用户命名空间运行 containerd 需要在 `/etc/containerd/containerd-config.toml` 文件包含以下配置：
+在用户命名空间运行 containerd 必须进行如下配置：
 
 ```toml
 version = 2
@@ -432,7 +440,8 @@ version = 2
 # (除非你在命名空间内运行了另一个 systemd)
   SystemdCgroup = false
 ```
-
+配置文件的默认路径是 `/etc/containerd/config.toml`。
+可以用 `containerd -c /path/to/containerd/config.toml` 来指定该路径。
 {{% /tab %}}
 
 {{% tab name="CRI-O" %}}
@@ -441,7 +450,7 @@ CRI-O 1.22 开始支持在用户命名空间运行 CRI-O。
 
 CRI-O 必须配置一个环境变量 `_CRIO_ROOTLESS=1`。
 
-也推荐使用 `/etc/crio/crio.conf` 文件内的以下配置：
+也推荐使用以下配置：
 
 ```toml
 [crio]
@@ -454,7 +463,8 @@ CRI-O 必须配置一个环境变量 `_CRIO_ROOTLESS=1`。
 # (除非你在命名空间内运行了另一个 systemd)
   cgroup_manager = "cgroupfs"
 ```
-
+配置文件的默认路径是 `/etc/containerd/config.toml`。
+可以用 `containerd -c /path/to/containerd/config.toml` 来指定该路径。
 {{% /tab %}}
 {{< /tabs >}}
 

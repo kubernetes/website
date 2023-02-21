@@ -95,11 +95,11 @@ slightly as the tool evolves, but the overall implementation should be pretty st
 `kubeadm` 工具的整体功能状态为一般可用性（GA）。一些子功能仍在积极开发中。
 随着工具的发展，创建集群的实现可能会略有变化，但总体实现应相当稳定。
 
+{{< note >}}
 <!--
 Any commands under `kubeadm alpha` are, by definition, supported on an alpha level.
 -->
-{{< note >}}
-根据定义，在 `kubeadm alpha` 下的所有命令均在 alpha 级别上受支持。
+根据定义，在 `kubeadm alpha` 下的所有命令均在 Alpha 级别上受支持。
 {{< /note >}}
 
 <!-- steps -->
@@ -134,6 +134,7 @@ For detailed instructions and other prerequisites, see [Installing kubeadm](/doc
 在所有主机上安装 {{< glossary_tooltip term_id="container-runtime" text="容器运行时" >}} 和 kubeadm。
 详细说明和其他前提条件，请参见[安装 kubeadm](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)。
 
+{{< note >}}
 <!--
 If you have already installed kubeadm, run
 `apt-get update && apt-get upgrade` or
@@ -143,7 +144,6 @@ When you upgrade, the kubelet restarts every few seconds as it waits in a crashl
 kubeadm to tell it what to do. This crashloop is expected and normal.
 After you initialize your control-plane, the kubelet runs normally.
 -->
-{{< note >}}
 如果你已经安装了kubeadm，执行 `apt-get update && apt-get upgrade` 或 `yum update`
 以获取 kubeadm 的最新版本。
 
@@ -193,8 +193,8 @@ The control-plane node is the machine where the control plane components run, in
 communicates with).
 -->
 控制平面节点是运行控制平面组件的机器，
-包括 {{< glossary_tooltip term_id="etcd" >}} （集群数据库）
-和 {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}
+包括 {{< glossary_tooltip term_id="etcd" >}}（集群数据库）
+和 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}
 （命令行工具 {{< glossary_tooltip text="kubectl" term_id="kubectl" >}} 与之通信）。
 
 <!--
@@ -230,7 +230,7 @@ must specify an IPv6 address, for example `--apiserver-advertise-address=2001:db
 1. （可选）除非另有说明，否则 `kubeadm` 使用与默认网关关联的网络接口来设置此控制平面节点 API server 的广播地址。
    要使用其他网络接口，请为 `kubeadm init` 设置 `--apiserver-advertise-address=<ip-address>` 参数。
    要部署使用 IPv6 地址的 Kubernetes 集群，
-   必须指定一个 IPv6 地址，例如 `--apiserver-advertise-address=2001:db8::101`
+   必须指定一个 IPv6 地址，例如 `--apiserver-advertise-address=2001:db8::101`。
 
 <!--
 To initialize the control-plane node run:
@@ -315,8 +315,8 @@ for control plane components and etcd server, provide extra arguments to each co
 To reconfigure a cluster that has already been created see
 [Reconfiguring a kubeadm cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure).
 -->
-要重新配置一个已经创建的集群，请参见
-[重新配置一个 kubeadm 集群](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure)。
+要重新配置一个已经创建的集群，
+请参见[重新配置一个 kubeadm 集群](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure)。
 
 <!--
 To run `kubeadm init` again, you must first [tear down the cluster](#tear-down).
@@ -336,8 +336,8 @@ is ready to run Kubernetes. These prechecks expose warnings and exit on errors. 
 then downloads and installs the cluster control plane components. This may take several minutes.
 After it finishes you should see:
 -->
-`kubeadm init` 首先运行一系列预检查以确保机器
-准备运行 Kubernetes。这些预检查会显示警告并在错误时退出。然后 `kubeadm init`
+`kubeadm init` 首先运行一系列预检查以确保机器为运行 Kubernetes 准备就绪。
+这些预检查会显示警告并在错误时退出。然后 `kubeadm init`
 下载并安装集群控制平面组件。这可能会需要几分钟。
 完成之后你应该看到：
 
@@ -464,8 +464,9 @@ Cluster DNS (CoreDNS) will not start up before a network is installed.**
   Make sure that your Pod network plugin supports RBAC, and so do any manifests
   that you use to deploy it.
 -->
-- 默认情况下，`kubeadm` 将集群设置为使用和强制使用 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)（基于角色的访问控制）。
-  确保你的 Pod 网络插件支持 RBAC，以及用于部署它的 manifests 也是如此。
+- 默认情况下，`kubeadm` 将集群设置为使用和强制使用
+  [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/)（基于角色的访问控制）。
+  确保你的 Pod 网络插件支持 RBAC，以及用于部署它的清单也是如此。
 
 <!--
 - If you want to use IPv6--either dual-stack, or single-stack IPv6 only
@@ -478,12 +479,12 @@ Cluster DNS (CoreDNS) will not start up before a network is installed.**
   IPv6 支持已在 CNI [v0.6.0](https://github.com/containernetworking/cni/releases/tag/v0.6.0) 版本中添加。
 {{< /caution >}}
 
+{{< note >}}
 <!--
 Kubeadm should be CNI agnostic and the validation of CNI providers is out of the scope of our current e2e testing.
 If you find an issue related to a CNI plugin you should log a ticket in its respective issue
 tracker instead of the kubeadm or kubernetes issue trackers.
 -->
-{{< note >}}
 kubeadm 应该是与 CNI 无关的，对 CNI 驱动进行验证目前不在我们的端到端测试范畴之内。
 如果你发现与 CNI 插件相关的问题，应在其各自的问题跟踪器中记录而不是在 kubeadm
 或 kubernetes 问题跟踪器中记录。
@@ -530,13 +531,12 @@ If your network is not working or CoreDNS is not in the `Running` state, check o
 [troubleshooting guide](/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)
 for `kubeadm`.
 -->
-如果你的网络无法正常工作或 CoreDNS 不在“运行中”状态，请查看 `kubeadm` 的
-[故障排除指南](/zh-cn/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)。
+如果你的网络无法正常工作或 CoreDNS 不在 `Running` 状态，请查看 `kubeadm`
+的[故障排除指南](/zh-cn/docs/setup/production-environment/tools/kubeadm/troubleshooting-kubeadm/)。
 
 <!--
 ### Managed node labels
 -->
-
 ### 托管节点标签   {#managed-node-labels}
 
 <!--
@@ -548,7 +548,7 @@ a privileged client after a node has been created. To do that manually you can d
 and ensure it is using a privileged kubeconfig such as the kubeadm managed `/etc/kubernetes/admin.conf`.
 -->
 默认情况下，kubeadm 启用 [NodeRestriction](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
-准入控制器来限制 kubelets 在节点注册时可以应用哪些标签。准入控制器文档描述 kubelet `--node-labels` 选项允许使用哪些标签。
+准入控制器来限制 kubelet 在节点注册时可以应用哪些标签。准入控制器文档描述 kubelet `--node-labels` 选项允许使用哪些标签。
 其中 `node-role.kubernetes.io/control-plane` 标签就是这样一个受限制的标签，
 kubeadm 在节点创建后使用特权客户端手动应用此标签。
 你可以使用一个有特权的 kubeconfig，比如由 kubeadm 管理的 `/etc/kubernetes/admin.conf`，
@@ -568,15 +568,17 @@ for example for a single machine Kubernetes cluster, run:
 如果你希望能够在控制平面节点上调度 Pod，例如单机 Kubernetes 集群，请运行:
 
 ```bash
-kubectl taint nodes --all node-role.kubernetes.io/control-plane- node-role.kubernetes.io/master-
+kubectl taint nodes --all node-role.kubernetes.io/control-plane-
 ```
+
 <!--
 The output will look something like:
 -->
 输出看起来像：
 
-```console
+```
 node "test-01" untainted
+...
 ```
 
 <!--
@@ -675,10 +677,10 @@ The output is similar to:
 8cb2de97839780a412b93877f8507ad6c94f73add17d5d7058e91741c9d5ec78
 ```
 
+{{< note >}}
 <!--
 To specify an IPv6 tuple for `<control-plane-host>:<control-plane-port>`, IPv6 address must be enclosed in square brackets, for example: `[2001:db8::101]:2073`.
 -->
-{{< note >}}
 要为 `<control-plane-host>:<control-plane-port>` 指定 IPv6 元组，必须将 IPv6 地址括在方括号中，例如：`[2001:db8::101]:2073`
 {{< /note >}}
 
@@ -706,12 +708,12 @@ nodes` when run on the control-plane node.
 -->
 几秒钟后，当你在控制平面节点上执行 `kubectl get nodes`，你会注意到该节点出现在输出中。
 
+{{< note >}}
 <!--
 As the cluster nodes are usually initialized sequentially, the CoreDNS Pods are likely to all run
 on the first control-plane node. To provide higher availability, please rebalance the CoreDNS Pods
 with `kubectl -n kube-system rollout restart deployment coredns` after at least one new node is joined.
 -->
-{{< note >}}
 由于集群节点通常是按顺序初始化的，CoreDNS Pod 很可能都运行在第一个控制面节点上。
 为了提供更高的可用性，请在加入至少一个新节点后
 使用 `kubectl -n kube-system rollout restart deployment coredns` 命令，重新平衡这些 CoreDNS Pod。
@@ -734,6 +736,8 @@ to your workstation like this:
 scp root@<control-plane-host>:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf get nodes
 ```
+
+{{< note >}}
 <!--
 The example above assumes SSH access is enabled for root. If that is not the
 case, you can copy the `admin.conf` file to be accessible by some other user
@@ -747,7 +751,6 @@ command. That command will print out a KubeConfig file to STDOUT which you
 should save to a file and distribute to your user. After that, grant
 privileges by using `kubectl create (cluster)rolebinding`.
 -->
-{{< note >}}
 上面的示例假定为 root 用户启用了 SSH 访问。如果不是这种情况，
 你可以使用 `scp` 将 `admin.conf` 文件复制给其他允许访问的用户。
 
@@ -773,6 +776,7 @@ If you want to connect to the API Server from outside the cluster you can use
 scp root@<control-plane-host>:/etc/kubernetes/admin.conf .
 kubectl --kubeconfig ./admin.conf proxy
 ```
+
 <!--
 You can now access the API Server locally at `http://localhost:8001/api/v1`
 -->
@@ -789,7 +793,8 @@ switch those off and do no further clean up. You can use
 `kubectl config delete-cluster` to delete your local references to the
 cluster.
 -->
-如果你在集群中使用了一次性服务器进行测试，则可以关闭这些服务器，而无需进一步清理。你可以使用 `kubectl config delete-cluster` 删除对集群的本地引用。
+如果你在集群中使用了一次性服务器进行测试，则可以关闭这些服务器，而无需进一步清理。
+你可以使用 `kubectl config delete-cluster` 删除对集群的本地引用。
 
 <!--
 However, if you want to deprovision your cluster more cleanly, you should
@@ -846,7 +851,7 @@ Now remove the node:
 现在删除节点：
 
 ```bash
-kubectl delete node <node name>
+kubectl delete node <节点名称>
 ```
 
 <!--
@@ -871,7 +876,8 @@ See the [`kubeadm reset`](/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
 reference documentation for more information about this subcommand and its
 options.
 -->
-有关此子命令及其选项的更多信息，请参见 [`kubeadm reset`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-reset/) 参考文档。
+有关此子命令及其选项的更多信息，请参见
+[`kubeadm reset`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-reset/) 参考文档。
 
 <!-- discussion -->
 
@@ -903,8 +909,7 @@ options.
 * 有关 Pod 网络附加组件的更多列表，请参见[集群网络](/zh-cn/docs/concepts/cluster-administration/networking/)页面。
 * <a id="other-addons" />请参阅[附加组件列表](/zh-cn/docs/concepts/cluster-administration/addons/)以探索其他附加组件，
   包括用于 Kubernetes 集群的日志记录、监视、网络策略、可视化和控制的工具。
-* 配置集群如何处理集群事件的日志以及
-   在 Pod 中运行的应用程序。
+* 配置集群如何处理集群事件的日志以及在 Pod 中运行的应用程序。
   有关所涉及内容的概述，请参见[日志架构](/zh-cn/docs/concepts/cluster-administration/logging/)。
 
 <!--
@@ -946,7 +951,6 @@ match the kubeadm version with the versions of the control plane components, kub
 <!--
 ### kubeadm's skew against the Kubernetes version
 -->
-
 ### kubeadm 中的 Kubernetes 版本偏差 {#kubeadm-s-skew-against-the-kubernetes-version}
 
 <!--
@@ -1074,10 +1078,10 @@ Workarounds:
 解决方法：
 
 <!--
-* Regularly [back up etcd](https://coreos.com/etcd/docs/latest/admin_guide.html). The
+* Regularly [back up etcd](https://etcd.io/docs/v3.5/op-guide/recovery/). The
   etcd data directory configured by kubeadm is at `/var/lib/etcd` on the control-plane node.
 -->
-* 定期[备份 etcd](https://coreos.com/etcd/docs/latest/admin_guide.html)。
+* 定期[备份 etcd](https://etcd.io/docs/v3.5/op-guide/recovery/)。
   kubeadm 配置的 etcd 数据目录位于控制平面节点上的 `/var/lib/etcd` 中。
 
 <!--

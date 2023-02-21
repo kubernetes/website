@@ -2,7 +2,7 @@
 reviewers:
 title: Kubernetes API
 content_type: concept
-weight: 30
+weight: 40
 description: >
   Kubernetes APIを使用すると、Kubernetes内のオブジェクトの状態をクエリで操作できます。
   Kubernetesのコントロールプレーンの中核は、APIサーバーとそれが公開するHTTP APIです。ユーザー、クラスターのさまざまな部分、および外部コンポーネントはすべて、APIサーバーを介して互いに通信します。
@@ -91,7 +91,7 @@ Kubernetes {{< param "version" >}}では、OpenAPI v3によるAPI仕様をベー
     }
 }
 ```
-<!-- for editors: intionally use yaml instead of json here, to prevent syntax highlight error. -->
+<!-- for editors: intentionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 クライアントサイドのキャッシングを改善するために、相対URLはイミュータブルな(不変の)OpenAPI記述を指しています。
 また、APIサーバーも、同様の目的で適切なHTTPキャッシュヘッダー(`Expires`には1年先の日付、`Cache-Control`には`immutable`)をセットします。廃止されたURLが使用された場合、APIサーバーは最新のURLへのリダイレクトを返します。

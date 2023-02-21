@@ -362,3 +362,4 @@ CSR이 다음 두 가지 요구 사항을 충족하는지 확인하는 것이다
 활성화하려면 인증 기관(CA)의 키 쌍에 대한 경로와 함께 `--cluster-signing-cert-file` 와 
 `--cluster-signing-key-file` 매개 변수를 
 컨트롤러 관리자에 전달한다.
+

@@ -235,6 +235,8 @@
 
 /docs/reference/kubernetes-api/labels-annotations-taints/ /docs/reference/labels-annotations-taints/ 301
 
+/docs/reference/ports-and-protocols/ /docs/reference/networking/ports-and-protocols/ 301
+
 /docs/reporting-security-issues/     /docs/reference/issues-security/security/ 301
 /security/ /docs/reference/issues-security/security/ 302
 
@@ -314,6 +316,7 @@
 /docs/tasks/kubectl/install/     /docs/tasks/tools/ 301
 /docs/tasks/tools/install-kubectl/     /docs/tasks/tools/ 301
 /docs/tasks/kubectl/list-all-running-container-images/     /docs/tasks/access-application-cluster/list-all-running-container-images/ 301
+/docs/tasks/kubelet-credential-provider/kubelet-credential-provider/     /docs/tasks/administer-cluster/kubelet-credential-provider/ 301
 /docs/tasks/manage-stateful-set/debugging-a-statefulset/     /docs/tasks/debug/debug-application/debug-statefulset/ 301
 /docs/tasks/manage-stateful-set/delete-pods/     /docs/tasks/run-application/delete-stateful-set/ 301
 /docs/tasks/manage-stateful-set/deleting-a-statefulset/     /docs/tasks/run-application/delete-stateful-set/ 301
@@ -588,3 +591,4 @@
 /zh/*         /zh-cn/:splat  302!
 
 /docs/concepts/overview/what-is-kubernetes/      /docs/concepts/overview/ 301
+/docs/tasks/administer-cluster/verify-signed-images/     /docs/tasks/administer-cluster/verify-signed-artifacts/   301

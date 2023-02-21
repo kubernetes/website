@@ -238,11 +238,11 @@ work between Windows and Linux:
 The following list documents differences between how Pod specifications work between Windows and Linux:
 
 * `hostIPC` and `hostpid` - host namespace sharing is not possible on Windows
-* `hostNetwork` - There is no Windows OS support to share the host network
+* `hostNetwork` - [see below](/docs/concepts/windows/intro#compatibility-v1-pod-spec-containers-hostnetwork)
 * `dnsPolicy` - setting the Pod `dnsPolicy` to `ClusterFirstWithHostNet` is
    not supported on Windows because host networking is not provided. Pods always
    run with a container network.
-* `podSecurityContext` (see below)
+* `podSecurityContext` [see below](/docs/concepts/windows/intro#compatibility-v1-pod-spec-containers-securitycontext)
 * `shareProcessNamespace` - this is a beta feature, and depends on Linux namespaces
   which are not implemented on Windows. Windows cannot share process namespaces or
   the container's root filesystem. Only the network can be shared.
@@ -261,9 +261,21 @@ The following list documents differences between how Pod specifications work bet
 * You cannot enable `mountPropagation` for volume mounts as this is not
   supported on Windows.
 
+#### Field compatibility for hostNetwork {#compatibility-v1-pod-spec-containers-hostnetwork}
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+The kubelet can now request that pods running on Windows nodes use the host's network namespace instead
+of creating a new pod network namespace. To enable this functionality pass `--feature-gates=WindowsHostNetwork=true` to the kubelet.
+
+{{< note >}}
+This functionality requires a container runtime that supports this functionality.
+{{< /note >}}
+
 #### Field compatibility for Pod security context {#compatibility-v1-pod-spec-containers-securitycontext}
 
-None of the Pod [`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) fields work on Windows.
+Only the `securityContext.runAsNonRoot` and `securityContext.windowsOptions` from the Pod
+[`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) fields work on Windows.
 
 ## Node problem detector
 
@@ -371,8 +383,6 @@ troubleshooting ideas prior to creating a ticket.
 
 The kubeadm tool helps you to deploy a Kubernetes cluster, providing the control
 plane to manage the cluster it, and nodes to run your workloads.
-[Adding Windows nodes](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
-explains how to deploy Windows nodes to your cluster using kubeadm.
 
 The Kubernetes [cluster API](https://cluster-api.sigs.k8s.io/) project also provides means to automate deployment of Windows nodes.
 

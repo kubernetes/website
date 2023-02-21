@@ -13,8 +13,8 @@ However, a GA'ed or a deprecated feature gate is still recognized by the corresp
 components although they are unable to cause any behavior differences in a cluster.
 
 For feature gates that are still recognized by the Kubernetes components, please refer to
-the [Alpha/Beta feature gate table](/docs/reference/command-line-tools/reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
-or the [Graduated/Deprecated feature gate table](/docs/reference/command-line-tools/reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)
+the [Alpha/Beta feature gate table](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
+or the [Graduated/Deprecated feature gate table](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)
 
 ### Feature gates that are removed
 
@@ -36,6 +36,8 @@ In the following table:
 | `AffinityInAnnotations` | - | Deprecated | 1.8 | 1.8 |
 | `AllowExtTrafficLocalEndpoints` | `false` | Beta | 1.4 | 1.6 |
 | `AllowExtTrafficLocalEndpoints` | `true` | GA | 1.7 | 1.9 |
+| `AllowInsecureBackendProxy` | `true` | Beta | 1.17 | 1.20 |
+| `AllowInsecureBackendProxy` | `true` | GA | 1.21 | 1.25 |
 | `AttachVolumeLimit` | `false` | Alpha | 1.11 | 1.11 |
 | `AttachVolumeLimit` | `true` | Beta | 1.12 | 1.16 |
 | `AttachVolumeLimit` | `true` | GA | 1.17 | 1.21 |
@@ -64,6 +66,9 @@ In the following table:
 | `CSIMigrationAzureFileComplete` | - | Deprecated |  1.21 | 1.21 |
 | `CSIMigrationGCEComplete` | `false` | Alpha | 1.17 | 1.20 |
 | `CSIMigrationGCEComplete` | - | Deprecated | 1.21 | 1.21 |
+| `CSIMigrationOpenStack` | `false` | Alpha | 1.14 | 1.17 |
+| `CSIMigrationOpenStack` | `true` | Beta | 1.18 | 1.23 |
+| `CSIMigrationOpenStack` | `true` | GA | 1.24 | 1.25 |
 | `CSIMigrationOpenStackComplete` | `false` | Alpha | 1.17 | 1.20 |
 | `CSIMigrationOpenStackComplete` | - | Deprecated | 1.21 | 1.21 |
 | `CSIMigrationvSphereComplete` | `false` | Beta | 1.19 | 1.21 |
@@ -86,6 +91,8 @@ In the following table:
 | `CronJobControllerV2` | `false` | Alpha | 1.20 | 1.20 |
 | `CronJobControllerV2` | `true` | Beta | 1.21 | 1.21 |
 | `CronJobControllerV2` | `true` | GA | 1.22 | 1.23 |
+| `CSRDuration` | `true` | Beta | 1.22 | 1.23 |
+| `CSRDuration` | `true` | GA | 1.24 | 1.25 |
 | `CustomPodDNS` | `false` | Alpha | 1.9 | 1.9 |
 | `CustomPodDNS` | `true` | Beta| 1.10 | 1.13 |
 | `CustomPodDNS` | `true` | GA | 1.14 | 1.16 |
@@ -104,8 +111,14 @@ In the following table:
 | `CustomResourceWebhookConversion` | `false` | Alpha | 1.13 | 1.14 |
 | `CustomResourceWebhookConversion` | `true` | Beta | 1.15 | 1.15 |
 | `CustomResourceWebhookConversion` | `true` | GA | 1.16 | 1.18 |
+| `DefaultPodTopologySpread` | `false` | Alpha | 1.19 | 1.19 |
+| `DefaultPodTopologySpread` | `true` | Beta | 1.20 | 1.23 |
+| `DefaultPodTopologySpread` | `true` | GA | 1.24 | 1.25 |
 | `DynamicAuditing` | `false` | Alpha | 1.13 | 1.18 |
 | `DynamicAuditing` | - | Deprecated | 1.19 | 1.19 |
+| `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
+| `DynamicKubeletConfig` | `true` | Beta | 1.11 | 1.21 |
+| `DynamicKubeletConfig` | `false` | Deprecated | 1.22 | 1.25 |
 | `DynamicProvisioningScheduling` | `false` | Alpha | 1.11 | 1.11 |
 | `DynamicProvisioningScheduling` | - | Deprecated| 1.12 | - |
 | `DynamicVolumeProvisioning` | `true` | Alpha | 1.3 | 1.7 |
@@ -147,6 +160,9 @@ In the following table:
 | `ImmutableEphemeralVolumes` | `false` | Alpha | 1.18 | 1.18 |
 | `ImmutableEphemeralVolumes` | `true` | Beta | 1.19 | 1.20 |
 | `ImmutableEphemeralVolumes` | `true` | GA | 1.21 | 1.24 |
+| `IndexedJob` | `false` | Alpha | 1.21 | 1.21 |
+| `IndexedJob` | `true` | Beta | 1.22 | 1.23 |
+| `IndexedJob` | `true` | GA | 1.24 | 1.25 |
 | `IngressClassNamespacedParams` | `false` | Alpha | 1.21 | 1.21 |
 | `IngressClassNamespacedParams` | `true` | Beta | 1.22 | 1.22 |
 | `IngressClassNamespacedParams` | `true` | GA | 1.23 | 1.24 |
@@ -173,14 +189,23 @@ In the following table:
 | `NodeLease` | `false` | Alpha | 1.12 | 1.13 |
 | `NodeLease` | `true` | Beta | 1.14 | 1.16 |
 | `NodeLease` | `true` | GA | 1.17 | 1.23 |
+| `NonPreemptingPriority` | `false` | Alpha | 1.15 | 1.18 |
+| `NonPreemptingPriority` | `true` | Beta | 1.19 | 1.23 |
+| `NonPreemptingPriority` | `true` | GA | 1.24 | 1.25 |
 | `PVCProtection` | `false` | Alpha | 1.9 | 1.9 |
 | `PVCProtection` | - | Deprecated | 1.10 | 1.10 |
 | `PersistentLocalVolumes` | `false` | Alpha | 1.7 | 1.9 |
 | `PersistentLocalVolumes` | `true` | Beta | 1.10 | 1.13 |
 | `PersistentLocalVolumes` | `true` | GA | 1.14 | 1.16 |
+| `PodAffinityNamespaceSelector` | `false` | Alpha | 1.21 | 1.21 |
+| `PodAffinityNamespaceSelector` | `true` | Beta | 1.22 | 1.23 |
+| `PodAffinityNamespaceSelector` | `true` | GA | 1.24 | 1.25 |
 | `PodDisruptionBudget` | `false` | Alpha | 1.3 | 1.4 |
 | `PodDisruptionBudget` | `true` | Beta | 1.5 | 1.20 |
 | `PodDisruptionBudget` | `true` | GA | 1.21 | 1.25 |
+| `PodOverhead` | `false` | Alpha | 1.16 | 1.17 |
+| `PodOverhead` | `true` | Beta | 1.18 | 1.23 |
+| `PodOverhead` | `true` | GA | 1.24 | 1.25 |
 | `PodPriority` | `false` | Alpha | 1.8 | 1.10 |
 | `PodPriority` | `true` | Beta | 1.11 | 1.13 |
 | `PodPriority` | `true` | GA | 1.14 | 1.18 |
@@ -190,6 +215,9 @@ In the following table:
 | `PodShareProcessNamespace` | `false` | Alpha | 1.10 | 1.11 |
 | `PodShareProcessNamespace` | `true` | Beta | 1.12 | 1.16 |
 | `PodShareProcessNamespace` | `true` | GA | 1.17 | 1.19 |
+| `PreferNominatedNode` | `false` | Alpha | 1.21 | 1.21 |
+| `PreferNominatedNode` | `true` | Beta | 1.22 | 1.23 |
+| `PreferNominatedNode` | `true` | GA | 1.24 | 1.25 |
 | `RequestManagement` | `false` | Alpha | 1.15 | 1.16 |
 | `RequestManagement` | - | Deprecated | 1.17 | 1.17 |
 | `ResourceLimitsPriorityFunction` | `false` | Alpha | 1.9 | 1.18 |
@@ -199,7 +227,7 @@ In the following table:
 | `ResourceQuotaScopeSelectors` | `true` | GA | 1.17 | 1.18 |
 | `RootCAConfigMap` | `false` | Alpha | 1.13 | 1.19 |
 | `RootCAConfigMap` | `true` | Beta | 1.20 | 1.20 |
-| `RootCAConfigMap` | `true` | GA | 1.21 | 1.12 |
+| `RootCAConfigMap` | `true` | GA | 1.21 | 1.22 |
 | `RotateKubeletClientCertificate` | `true` | Beta | 1.8 | 1.18 |
 | `RotateKubeletClientCertificate` | `true` | GA | 1.19 | 1.21 |
 | `RunAsGroup` | `true` | Beta | 1.14 | 1.20 |
@@ -222,6 +250,12 @@ In the following table:
 | `ServiceAppProtocol` | `false` | Alpha | 1.18 | 1.18 |
 | `ServiceAppProtocol` | `true` | Beta | 1.19 | 1.19 |
 | `ServiceAppProtocol` | `true` | GA | 1.20 | 1.22 |
+| `ServiceLBNodePortControl` | `false` | Alpha | 1.20 | 1.21 |
+| `ServiceLBNodePortControl` | `true` | Beta | 1.22 | 1.23 |
+| `ServiceLBNodePortControl` | `true` | GA | 1.24 | 1.25 |
+| `ServiceLoadBalancerClass` | `false` | Alpha | 1.21 | 1.21 |
+| `ServiceLoadBalancerClass` | `true` | Beta | 1.22 | 1.23 |
+| `ServiceLoadBalancerClass` | `true` | GA | 1.24 | 1.25 |
 | `ServiceLoadBalancerFinalizer` | `false` | Alpha | 1.15 | 1.15 |
 | `ServiceLoadBalancerFinalizer` | `true` | Beta | 1.16 | 1.16 |
 | `ServiceLoadBalancerFinalizer` | `true` | GA | 1.17 | 1.20 |
@@ -252,6 +286,9 @@ In the following table:
 | `SupportPodPidsLimit` | `false` | Alpha | 1.10 | 1.13 |
 | `SupportPodPidsLimit` | `true` | Beta | 1.14 | 1.19 |
 | `SupportPodPidsLimit` | `true` | GA | 1.20 | 1.23 |
+| `SuspendJob` | `false` | Alpha | 1.21 | 1.21 |
+| `SuspendJob` | `true` | Beta | 1.22 | 1.23 |
+| `SuspendJob` | `true` | GA | 1.24 | 1.25 |
 | `Sysctls` | `true` | Beta | 1.11 | 1.20 |
 | `Sysctls` | `true` | GA | 1.21 | 1.22 |
 | `TTLAfterFinished` | `false` | Alpha | 1.12 | 1.20 |
@@ -308,6 +345,9 @@ In the following table:
   [Pod affinity or anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
 
 - `AllowExtTrafficLocalEndpoints`: Enable a service to route external requests to node local endpoints.
+
+- `AllowInsecureBackendProxy`: Enable the users to skip TLS verification of
+  kubelets on Pod log requests.
 
 - `AttachVolumeLimit`: Enable volume plugins to report limits on number of volumes
   that can be attached to a node.
@@ -378,6 +418,14 @@ In the following table:
   been deprecated in favor of the `InTreePluginGCEUnregister` feature flag which
   prevents the registration of in-tree GCE PD plugin.
 
+- `CSIMigrationOpenStack`: Enables shims and translation logic to route volume
+  operations from the Cinder in-tree plugin to Cinder CSI plugin. Supports
+  falling back to in-tree Cinder plugin for mount operations to nodes that have
+  the feature disabled or that do not have Cinder CSI plugin installed and
+  configured. Does not support falling back for provision operations, for those
+  the CSI plugin must be installed and configured. Requires CSIMigration
+  feature flag enabled.
+
 - `CSIMigrationOpenStackComplete`: Stops registering the Cinder in-tree plugin in
   kubelet and volume controllers and enables shims and translation logic to route
   volume operations from the Cinder in-tree plugin to Cinder CSI plugin.
@@ -408,6 +456,9 @@ In the following table:
   This field controls whether volumes created by a CSIDriver support volume ownership
   and permission modifications when these volumes are mounted.
 
+- `CSRDuration`: Allows clients to request a duration for certificates issued
+  via the Kubernetes CSR API.
+
 - `ConfigurableFSGroupPolicy`: Allows user to configure volume permission change policy
   for fsGroups when mounting a volume in a Pod. See
   [Configure volume permission and ownership change policy for Pods](/docs/tasks/configure-pod-container/security-context/#configure-volume-permission-and-ownership-change-policy-for-pods)
@@ -434,7 +485,14 @@ In the following table:
 - `CustomResourceWebhookConversion`: Enable webhook-based conversion
   on resources created from [CustomResourceDefinition](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 
+- `DefaultPodTopologySpread`: Enables the use of `PodTopologySpread` scheduling plugin to do
+  [default spreading](/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints).
+
 - `DynamicAuditing`: Used to enable dynamic auditing before v1.19.
+
+- `DynamicKubeletConfig`: Enable the dynamic configuration of kubelet. The
+  feature is no longer supported outside of supported skew policy. The feature
+  gate was removed from kubelet in 1.24. See [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/).
 
 - `DynamicProvisioningScheduling`: Extend the default scheduler to be aware of
   volume topology and handle PV provisioning.
@@ -492,6 +550,9 @@ In the following table:
 - `ImmutableEphemeralVolumes`: Allows for marking individual Secrets and ConfigMaps as
   immutable for better safety and performance.
 
+- `IndexedJob`: Allows the [Job](/docs/concepts/workloads/controllers/job/)
+  controller to manage Pod completions per completion index.
+
 - `IngressClassNamespacedParams`: Allow namespace-scoped parameters reference in
   `IngressClass` resource. This feature adds two fields - `Scope` and `Namespace`
   to `IngressClass.spec.parameters`.
@@ -525,13 +586,23 @@ In the following table:
 
 - `NodeLease`: Enable the new Lease API to report node heartbeats, which could be used as a node health signal.
 
+- `NonPreemptingPriority`: Enable `preemptionPolicy` field for PriorityClass and Pod.
+
 - `PVCProtection`: Enable the prevention of a PersistentVolumeClaim (PVC) from
   being deleted when it is still used by any Pod.
 
 - `PersistentLocalVolumes`: Enable the usage of `local` volume type in Pods.
   Pod affinity has to be specified if requesting a `local` volume.
 
+- `PodAffinityNamespaceSelector`: Enable the
+  [Pod Affinity Namespace Selector](/docs/concepts/scheduling-eviction/assign-pod-node/#namespace-selector)
+  and [CrossNamespacePodAffinity](/docs/concepts/policy/resource-quotas/#cross-namespace-pod-affinity-quota)
+  quota scope features.
+
 - `PodDisruptionBudget`: Enable the [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) feature.
+
+- `PodOverhead`: Enable the [PodOverhead](/docs/concepts/scheduling-eviction/pod-overhead/)
+  feature to account for pod overheads.
 
 - `PodPriority`: Enable the descheduling and preemption of Pods based on their
   [priorities](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
@@ -543,6 +614,10 @@ In the following table:
 - `PodShareProcessNamespace`: Enable the setting of `shareProcessNamespace` in a Pod for sharing
   a single process namespace between containers running in a pod.  More details can be found in
   [Share Process Namespace between Containers in a Pod](/docs/tasks/configure-pod-container/share-process-namespace/).
+
+- `PreferNominatedNode`: This flag tells the scheduler whether the nominated
+  nodes will be checked first before looping through all the other nodes in
+  the cluster.
 
 - `RequestManagement`: Enables managing request concurrency with prioritization and fairness
   at each API server. Deprecated by `APIPriorityAndFairness` since 1.17.
@@ -586,7 +661,13 @@ In the following table:
 
 - `ServiceAppProtocol`: Enables the `appProtocol` field on Services and Endpoints.
 
+- `ServiceLoadBalancerClass`: Enables the `loadBalancerClass` field on Services. See
+  [Specifying class of load balancer implementation](/docs/concepts/services-networking/service/#load-balancer-class)
+  for more details.
+
 - `ServiceLoadBalancerFinalizer`: Enable finalizer protection for Service load balancers.
+
+- `ServiceLBNodePortControl`: Enables the `allocateLoadBalancerNodePorts` field on Services.
 
 - `ServiceNodeExclusion`: Enable the exclusion of nodes from load balancers created by a cloud provider.
   A node is eligible for exclusion if labelled with "`node.kubernetes.io/exclude-from-external-load-balancers`".
@@ -617,6 +698,9 @@ In the following table:
    Kubernetes system daemons respectively.
 
 - `SupportPodPidsLimit`: Enable the support to limiting PIDs in Pods.
+
+- `SuspendJob`: Enable support to suspend and resume Jobs. For more details, see
+   [the Jobs docs](/docs/concepts/workloads/controllers/job/).
 
 - `Sysctls`: Enable support for namespaced kernel parameters (sysctls) that can be set for each
   pod. See [sysctls](/docs/tasks/administer-cluster/sysctl-cluster/) for more details.

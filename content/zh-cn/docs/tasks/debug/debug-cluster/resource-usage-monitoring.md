@@ -1,12 +1,14 @@
 ---
 content_type: concept
 title: 资源监控工具
+weight: 15
 ---
 <!--
 reviewers:
 - mikedanese
 content_type: concept
 title: Tools for Monitoring Resources
+weight: 15
 -->
 
 <!-- overview -->
@@ -24,9 +26,8 @@ where bottlenecks can be removed to improve overall performance.
 -->
 要扩展应用程序并提供可靠的服务，你需要了解应用程序在部署时的行为。
 你可以通过检测容器检查 Kubernetes 集群中的应用程序性能，
-[Pod](/zh-cn/docs/concepts/workloads/pods), 
-[服务](/zh-cn/docs/concepts/services-networking/service/)
-和整个集群的特征。
+[Pod](/zh-cn/docs/concepts/workloads/pods)、
+[服务](/zh-cn/docs/concepts/services-networking/service/)和整个集群的特征。
 Kubernetes 在每个级别上提供有关应用程序资源使用情况的详细信息。
 此信息使你可以评估应用程序的性能，以及在何处可以消除瓶颈以提高整体性能。
 
@@ -37,9 +38,8 @@ In Kubernetes, application monitoring does not depend on a single monitoring sol
 On new clusters, you can use [resource metrics](#resource-metrics-pipeline) or
 [full metrics](#full-metrics-pipeline) pipelines to collect monitoring statistics.
 -->
-在 Kubernetes 中，应用程序监控不依赖单个监控解决方案。
-在新集群上，你可以使用[资源度量](#resource-metrics-pipeline)或
-[完整度量](#full-metrics-pipeline)管道来收集监视统计信息。
+在 Kubernetes 中，应用程序监控不依赖单个监控解决方案。在新集群上，
+你可以使用[资源度量](#resource-metrics-pipeline)或[完整度量](#full-metrics-pipeline)管道来收集监视统计信息。
 
 <!--
 ## Resource metrics pipeline
@@ -116,10 +116,9 @@ Full metrics pipeline projects that are not part of the CNCF are outside the sco
 节点和 Prometheus 本身。
 完整度量管道项目不属于 CNCF 的一部分，不在 Kubernetes 文档的范围之内。
 
-<!--
 ## {{% heading "whatsnext" %}}
 
-
+<!--
 Learn about additional debugging tools, including:
 
 * [Logging](/docs/concepts/cluster-administration/logging/)
@@ -129,8 +128,6 @@ Learn about additional debugging tools, including:
 * [Connecting to containers via port forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 * [Inspect Kubernetes node with crictl](/docs/tasks/debug/debug-cluster/crictl/)
 -->
-## {{% heading "接下来" %}}
-
 了解其他调试工具，包括：
 
 * [日志记录](/zh-cn/docs/concepts/cluster-administration/logging/)

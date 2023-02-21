@@ -20,7 +20,7 @@ Using the latest compatible version of kubectl helps avoid unforeseen issues.
 The following methods exist for installing kubectl on Windows:
 
 - [Install kubectl binary with curl on Windows](#install-kubectl-binary-with-curl-on-windows)
-- [Install on Windows using Chocolatey, Scoop, or Winget](#install-nonstandard-package-tools)
+- [Install on Windows using Chocolatey, Scoop, or winget](#install-nonstandard-package-tools)
 
 ### Install kubectl binary with curl on Windows
 
@@ -56,7 +56,7 @@ The following methods exist for installing kubectl on Windows:
    - Using PowerShell to automate the verification using the `-eq` operator to get a `True` or `False` result:
 
      ```powershell
-     $($(CertUtil -hashfile .\kubectl.exe SHA256)[1] -replace " ", "") -eq $(type .\kubectl.exe.sha256)
+      $(Get-FileHash -Algorithm SHA256 .\kubectl.exe).Hash -eq $(Get-Content .\kubectl.exe.sha256)
      ```
 
 1. Append or prepend the `kubectl` binary folder to your `PATH` environment variable.
@@ -66,10 +66,26 @@ The following methods exist for installing kubectl on Windows:
    ```cmd
    kubectl version --client
    ```
+   {{< note >}}
+   The above command will generate a warning:
+   ```
+   WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
+   ```
+   You can ignore this warning. You are only checking the version of `kubectl` that you
+   have installed.
+   
+   {{< /note >}}
+   
    Or use this for detailed view of version:
 
    ```cmd
    kubectl version --client --output=yaml
+   ```
+
+1. After installing the plugin, clean up the installation files:
+
+   ```powershell
+   del kubectl.exe kubectl.exe.sha256
    ```
 
 {{< note >}}
@@ -77,9 +93,9 @@ The following methods exist for installing kubectl on Windows:
 If you have installed Docker Desktop before, you may need to place your `PATH` entry before the one added by the Docker Desktop installer or remove the Docker Desktop's `kubectl`.
 {{< /note >}}
 
-### Install on Windows using Chocolatey, Scoop, or Winget {#install-nonstandard-package-tools}
+### Install on Windows using Chocolatey, Scoop, or winget {#install-nonstandard-package-tools}
 
-1. To install kubectl on Windows you can use either [Chocolatey](https://chocolatey.org) package manager, [Scoop](https://scoop.sh) command-line installer, or [Winget](https://winget.run/) package manager.
+1. To install kubectl on Windows you can use either [Chocolatey](https://chocolatey.org) package manager, [Scoop](https://scoop.sh) command-line installer, or [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/) package manager.
 
    {{< tabs name="kubectl_win_install" >}}
    {{% tab name="choco" %}}
@@ -190,6 +206,12 @@ Below are the procedures to set up autocompletion for PowerShell.
    ```
 
    If you do not see an error, it means the plugin is successfully installed.
+
+1. After installing the plugin, clean up the installation files:
+
+   ```powershell
+   del kubectl-convert.exe kubectl-convert.exe.sha256
+   ```
 
 ## {{% heading "whatsnext" %}}
 

@@ -11,7 +11,7 @@ Change is an integral part of the Kubernetes life-cycle: as Kubernetes grows and
 
 ## The Kubernetes API Removal and Deprecation process {#k8s-api-deprecation-process}
 
-The Kubernetes project has a [well-documented deprecation policy](https://kubernetes.io/docs/reference/using-api/deprecation-policy/) for features. This policy states that stable APIs may only be deprecated when a newer, stable version of that same API is available and that APIs have a minimum lifetime for each stability level. A deprecated API is one that has been marked for removal in a future Kubernetes release; it will continue to function until removal (at least one year from the deprecation), but usage will result in a warning being displayed. Removed APIs are no longer available in the current version, at which point you must migrate to using the replacement.
+The Kubernetes project has a [well-documented deprecation policy](/docs/reference/using-api/deprecation-policy/) for features. This policy states that stable APIs may only be deprecated when a newer, stable version of that same API is available and that APIs have a minimum lifetime for each stability level. A deprecated API is one that has been marked for removal in a future Kubernetes release; it will continue to function until removal (at least one year from the deprecation), but usage will result in a warning being displayed. Removed APIs are no longer available in the current version, at which point you must migrate to using the replacement.
 
 * Generally available (GA) or stable API versions may be marked as deprecated but must not be removed within a major version of Kubernetes.
 * Beta or pre-release API versions must be supported for 3 releases after deprecation.
@@ -21,7 +21,7 @@ Whether an API is removed as a result of a feature graduating from beta to stabl
 
 ## A note about the removal of the CRI `v1alpha2` API and containerd 1.5 support {#cri-api-removal}
 
-Following the adoption of the [Container Runtime Interface](https://kubernetes.io/docs/concepts/architecture/cri/) (CRI) and the [removal of dockershim] in v1.24 , the CRI is the supported and documented way through which Kubernetes interacts withdifferent container runtimes. Each kubelet negotiates which version of CRI to use with the container runtime on that node.
+Following the adoption of the [Container Runtime Interface](/docs/concepts/architecture/cri/) (CRI) and the [removal of dockershim] in v1.24 , the CRI is the supported and documented way through which Kubernetes interacts with different container runtimes. Each kubelet negotiates which version of CRI to use with the container runtime on that node.
 
 The Kubernetes project recommends using CRI version `v1`; in Kubernetes v1.25 the kubelet can also negotiate the use of CRI `v1alpha2` (which was deprecated along at the same time as adding support for the stable `v1` interface).
 
@@ -37,11 +37,11 @@ In addition to the above, Kubernetes v1.26 is targeted to include several additi
 
 ### Removal of the `v1beta1` flow control API group
 
-The `flowcontrol.apiserver.k8s.io/v1beta1` API version of FlowSchema and PriorityLevelConfiguration [will no longer be served in v1.26](https://kubernetes.io/docs/reference/using-api/deprecation-guide/#flowcontrol-resources-v126). Users should migrate manifests and API clients to use the `flowcontrol.apiserver.k8s.io/v1beta2` API version, available since v1.23.
+The `flowcontrol.apiserver.k8s.io/v1beta1` API version of FlowSchema and PriorityLevelConfiguration [will no longer be served in v1.26](/docs/reference/using-api/deprecation-guide/#flowcontrol-resources-v126). Users should migrate manifests and API clients to use the `flowcontrol.apiserver.k8s.io/v1beta2` API version, available since v1.23.
 
 ### Removal of the `v2beta2` HorizontalPodAutoscaler API
 
-The `autoscaling/v2beta2` API version of HorizontalPodAutoscaler [will no longer be served in v1.26](https://kubernetes.io/docs/reference/using-api/deprecation-guide/#horizontalpodautoscaler-v126). Users should migrate manifests and API clients to use the `autoscaling/v2` API version, available since v1.23.
+The `autoscaling/v2beta2` API version of HorizontalPodAutoscaler [will no longer be served in v1.26](/docs/reference/using-api/deprecation-guide/#horizontalpodautoscaler-v126). Users should migrate manifests and API clients to use the `autoscaling/v2` API version, available since v1.23.
 
 ### Removal of in-tree credential management code
 
@@ -64,14 +64,14 @@ The `userspace` proxy mode, deprecated for over a year, is [no longer supported 
 ### Removal of in-tree OpenStack cloud provider
 
 Kubernetes is switching from in-tree code for storage integrations, in favor of the Container Storage Interface (CSI).
-As part of this, Kubernetes v1.26 will remove the the deprecated in-tree storage integration for OpenStack
+As part of this, Kubernetes v1.26 will remove the deprecated in-tree storage integration for OpenStack
 (the `cinder` volume type). You should migrate to external cloud provider and CSI driver from
 https://github.com/kubernetes/cloud-provider-openstack instead.
 For more information, visit [Cinder in-tree to CSI driver migration](https://github.com/kubernetes/enhancements/issues/1489).
 
 ### Removal of the GlusterFS in-tree driver
 
-The in-tree GlusterFS driver was [deprecated in v1.25](https://kubernetes.io/blog/2022/08/23/kubernetes-v1-25-release/#deprecations-and-removals), and will be removed from Kubernetes v1.26.
+The in-tree GlusterFS driver was [deprecated in v1.25](/blog/2022/08/23/kubernetes-v1-25-release/#deprecations-and-removals), and will be removed from Kubernetes v1.26.
 
 ### Deprecation of non-inclusive `kubectl` flag
 
@@ -91,7 +91,7 @@ Dynamic kubelet configuration was removed from the kubelet in v1.24, and will be
 
 The `--master-service-namespace` command line argument to the kube-apiserver doesn't have
 any effect, and was already informally [deprecated](https://github.com/kubernetes/kubernetes/pull/38186).
-That command line argument wil be formally marked as deprecated in v1.26, preparing for its
+That command line argument will be formally marked as deprecated in v1.26, preparing for its
 removal in a future release.
 The Kubernetes project does not expect any impact from this deprecation and removal.
 
@@ -108,7 +108,7 @@ Several unused option arguments for the `kubectl run` subcommand will be [marked
 * `--timeout`
 * `--wait`
 
-These arguments are already ignored so no impact is expected: the explicit deprecation sets a warning message and prepares the removal of the argumentsin a future release.
+These arguments are already ignored so no impact is expected: the explicit deprecation sets a warning message and prepares the removal of the arguments in a future release.
 
 ### Removal of legacy command line arguments relating to logging
 
@@ -119,7 +119,7 @@ For more information, see [Deprecate klog specific flags in Kubernetes Component
 
 ## Looking ahead {#looking-ahead}
 
-The official list of [API removals](https://kubernetes.io/docs/reference/using-api/deprecation-guide/#v1-27) planned for Kubernetes 1.27 includes:
+The official list of [API removals](/docs/reference/using-api/deprecation-guide/#v1-27) planned for Kubernetes 1.27 includes:
 
 * All beta versions of the CSIStorageCapacity API; specifically: `storage.k8s.io/v1beta1`
 

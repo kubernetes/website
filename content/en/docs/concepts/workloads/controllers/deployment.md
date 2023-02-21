@@ -44,7 +44,10 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 
 In this example:
 
-* A Deployment named `nginx-deployment` is created, indicated by the `.metadata.name` field.
+* A Deployment named `nginx-deployment` is created, indicated by the
+  `.metadata.name` field.  This name will become the basis for the ReplicaSets
+  and Pods which are created later.  See [Writing a Deployment Spec](#writing-a-deployment-spec)
+  for more details.
 * The Deployment creates a ReplicaSet that creates three replicated Pods, indicated by the `.spec.replicas` field.
 * The `.spec.selector` field defines how the created ReplicaSet finds which Pods to manage.
   In this case, you select a label that is defined in the Pod template (`app: nginx`).
@@ -120,8 +123,11 @@ Follow the steps given below to create the above Deployment:
    * `CURRENT` displays how many replicas are currently running.
    * `READY` displays how many replicas of the application are available to your users.
    * `AGE` displays the amount of time that the application has been running.
-     
-   Notice that the name of the ReplicaSet is always formatted as `[DEPLOYMENT-NAME]-[HASH]`.
+
+   Notice that the name of the ReplicaSet is always formatted as
+   `[DEPLOYMENT-NAME]-[HASH]`.  This name will become the basis for the Pods
+   which are created.
+
    The `HASH` string is the same as the `pod-template-hash` label on the ReplicaSet.
 
 6. To see the labels automatically generated for each Pod, run `kubectl get pods --show-labels`.
@@ -1076,8 +1082,13 @@ As with all other Kubernetes configs, a Deployment needs `.apiVersion`, `.kind`,
 For general information about working with config files, see
 [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/),
 configuring containers, and [using kubectl to manage resources](/docs/concepts/overview/working-with-objects/object-management/) documents.
-The name of a Deployment object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+
+When the control plane creates new Pods for a Deployment, the `.metadata.name` of the
+Deployment is part of the basis for naming those Pods.  The name of a Deployment must be a valid
+[DNS subdomain](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
+value, but this can produce unexpected results for the Pod hostnames.  For best compatibility,
+the name should follow the more restrictive rules for a
+[DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
 A Deployment also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 

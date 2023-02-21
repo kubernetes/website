@@ -69,7 +69,7 @@ The name of an Ingress object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 For general information about working with config files, see [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/), [configuring containers](/docs/tasks/configure-pod-container/configure-pod-configmap/), [managing resources](/docs/concepts/cluster-administration/manage-deployment/).
  Ingress frequently uses annotations to configure some options depending on the Ingress controller, an example of which
- is the [rewrite-target annotation](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md).
+ is the [rewrite-target annotation](https://github.com/kubernetes/ingress-nginx/blob/main/docs/examples/rewrite/README.md).
 Different [Ingress controllers](/docs/concepts/services-networking/ingress-controllers) support different annotations. Review the documentation for
  your choice of Ingress controller to learn which annotations are supported.
 
@@ -101,7 +101,7 @@ Each HTTP rule contains the following information:
   Service.
 * A backend is a combination of Service and port names as described in the
   [Service doc](/docs/concepts/services-networking/service/) or a [custom resource backend](#resource-backend) by way of a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRD" >}}. HTTP (and HTTPS) requests to the
-  Ingress that matches the host and path of the rule are sent to the listed backend.
+  Ingress that match the host and path of the rule are sent to the listed backend.
 
 A `defaultBackend` is often configured in an Ingress controller to service any requests that do not
 match a path in the spec.
@@ -170,7 +170,7 @@ supported path types:
 
   {{< note >}} If the last element of the path is a substring of the last
   element in request path, it is not a match (for example: `/foo/bar`
-  matches`/foo/bar/baz`, but does not match `/foo/barbaz`). {{< /note >}}
+  matches `/foo/bar/baz`, but does not match `/foo/barbaz`). {{< /note >}}
 
 ### Examples
 

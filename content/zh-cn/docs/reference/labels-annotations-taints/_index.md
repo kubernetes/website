@@ -902,6 +902,32 @@ ServiceAccount that the token (stored in the Secret of type `kubernetes.io/servi
 ServiceAccount 的{{<glossary_tooltip term_id="uid" text="唯一 ID" >}}。
 
 <!--
+### kubernetes.io/legacy-token-last-used
+
+Example: `kubernetes.io/legacy-token-last-used: 2022-10-24`
+
+Used on: Secret
+
+The control plane only adds this label for Secrets that have the type `kubernetes.io/service-account-token`.
+The value of this label records the date (ISO 8601 format, UTC time zone) when the control plane last saw
+a request where the client authenticated using the service account token.
+
+If a legacy token was last used before the cluster gained the feature (added in Kubernetes v1.26), then
+the label isn't set.
+-->
+### kubernetes.io/legacy-token-last-used
+
+例子：`kubernetes.io/legacy-token-last-used: 2022-10-24`
+
+用于：Secret
+
+控制面仅为 `kubernetes.io/service-account-token` 类型的 Secret 添加此标签。
+该标签的值记录着控制面最近一次接到客户端使用服务帐户令牌进行身份验证请求的日期（ISO 8601
+格式，UTC 时区）
+
+如果上一次使用老的令牌的时间在集群获得此特性（添加于 Kubernetes v1.26）之前，则不会设置此标签。
+
+<!--
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
 Example: `endpointslice.kubernetes.io/managed-by: "controller"`
@@ -1110,7 +1136,7 @@ If the number of backend endpoints falls below 1000, the control plane removes t
 如果后端端点的数量低于 1000，则控制平面将移除此注解。
 
 <!--
-### batch.kubernetes.io/job-tracking
+### batch.kubernetes.io/job-tracking (deprecated) {#batch-kubernetes-io-job-tracking}
 
 Example: `batch.kubernetes.io/job-tracking: ""`
 
@@ -1118,16 +1144,29 @@ Used on: Jobs
 
 The presence of this annotation on a Job indicates that the control plane is
 [tracking the Job status using finalizers](/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers).
+The control plane uses this annotation to safely transition to tracking Jobs
+using finalizers, while the feature is in development.
 You should **not** manually add or remove this annotation.
 -->
-### batch.kubernetes.io/job-tracking {#batch-kubernetes-io-job-tracking}
+### batch.kubernetes.io/job-tracking (已弃用) {#batch-kubernetes-io-job-tracking}
 
 例子：`batch.kubernetes.io/job-tracking: ""`
 
 用于：Job
 
 Job 上存在此注解表明控制平面正在[使用 Finalizer 追踪 Job](/zh-cn/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers)。
+控制平面使用此注解来安全地转换为使用 Finalizer 追踪 Job，而此特性正在开发中。
 你 **不** 可以手动添加或删除此注解。
+
+{{< note >}}
+<!--
+Starting from Kubernetes 1.26, this annotation is deprecated.
+Kubernetes 1.27 and newer will ignore this annotation and always track Jobs
+using finalizers.
+-->
+从 Kubernetes 1.26 开始，该注解被弃用。
+Kubernetes 1.27 及以上版本将忽略此注解，并始终使用 Finalizer 追踪 Job。
+{{< /note >}}
 
 <!--
 ### scheduler.alpha.kubernetes.io/defaultTolerations {#scheduleralphakubernetesio-defaulttolerations}
@@ -1576,6 +1615,31 @@ and the [Kubernetes CSI Developer Documentation](https://kubernetes-csi.github.i
 [Kubernetes CSI 开发者文档](https://kubernetes-csi.github.io/docs/)。
 
 <!--
+### scheduler.alpha.kubernetes.io/critical-pod (deprecated)
+
+Example: `scheduler.alpha.kubernetes.io/critical-pod: ""`
+
+Used on: Pod
+
+This annotation lets Kubernetes control plane know about a pod being a critical pod so that the descheduler will not remove this pod.
+-->
+### scheduler.alpha.kubernetes.io/critical-pod（已弃用）{#scheduler-alpha-kubernetes-io-critical-pod}
+
+例子：`scheduler.alpha.kubernetes.io/critical-pod: ""`
+
+用于：Pod
+
+此注解让 Kubernetes 控制平面知晓某个 Pod 是一个关键的 Pod，这样 descheduler
+将不会移除该 Pod。
+
+{{< note >}}
+<!--
+Starting in v1.16, this annotation was removed in favor of [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
+-->
+从 v1.16 开始，此注解被移除，取而代之的是 [Pod 优先级](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)。
+{{< /note >}}
+
+<!--
 ## Annotations used for audit
 
 - [`authorization.k8s.io/decision`](/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-decision)
@@ -1644,11 +1708,11 @@ kubeadm 为本地管理的 etcd Pod 设置的注解，用来跟踪 etcd 客户�
 ### kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint {#kube-apiserver-advertise-address-endpoint}
 
 <!--
-Example: `kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: https//172.17.0.18:6443`
+Example: `kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: https://172.17.0.18:6443`
 
 Used on: Pod
 -->
-例子：`kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: https//172.17.0.18:6443`
+例子：`kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: https://172.17.0.18:6443`
 
 用于：Pod
 

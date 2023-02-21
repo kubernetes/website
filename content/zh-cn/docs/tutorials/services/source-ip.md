@@ -8,7 +8,7 @@ weight: 10
 title: Using Source IP
 content_type: tutorial
 min-kubernetes-server-version: v1.5
-weight: 10
+weight: 40
 -->
 
 <!-- overview -->
@@ -118,11 +118,11 @@ deployment.apps/source-ip-app created
 <!-- 
 Packets sent to ClusterIP from within the cluster are never source NAT'd if
 you're running kube-proxy in
-[iptables mode](/docs/concepts/services-networking/service/#proxy-mode-iptables),
+[iptables mode](/docs/reference/networking/virtual-ips/#proxy-mode-iptables),
 (the default). You can query the kube-proxy mode by fetching
 `http://localhost:10249/proxyMode` on the node where kube-proxy is running.
 -->
-如果你在 [iptables 模式](/zh-cn/docs/concepts/services-networking/service/#proxy-mode-iptables)（默认）下运行
+如果你在 [iptables 模式](/zh-cn/docs/reference/networking/virtual-ips/#proxy-mode-iptables)（默认）下运行
 kube-proxy，则从集群内发送到 ClusterIP 的数据包永远不会进行源 NAT。
 你可以通过在运行 kube-proxy 的节点上获取 `http://localhost:10249/proxyMode` 来查询 kube-proxy 模式。
 
@@ -134,7 +134,7 @@ The output is similar to this:
 -->
 输出类似于：
 ```
-NAME                   STATUS     ROLES    AGE     VERSION
+NAME                           STATUS     ROLES    AGE     VERSION
 kubernetes-node-6jst   Ready      <none>   2h      v1.13.0
 kubernetes-node-cx31   Ready      <none>   2h      v1.13.0
 kubernetes-node-jj1t   Ready      <none>   2h      v1.13.0
@@ -174,7 +174,7 @@ service/clusterip exposed
 kubectl get svc clusterip
 ```
 <!--
-The output is similar to this:
+The output is similar to:
 -->
 输出类似于：
 ```
@@ -254,7 +254,6 @@ are source NAT'd by default. You can test this by creating a `NodePort` Service:
 ```shell
 kubectl expose deployment source-ip-app --name=nodeport --port=80 --target-port=8080 --type=NodePort
 ```
-
 <!-- 
 The output is: 
 -->
@@ -430,7 +429,7 @@ service/loadbalancer exposed
 Print out the IP addresses of the Service:
 -->
 打印 Service 的 IP 地址：
-```shell
+```console
 kubectl get svc loadbalancer
 ```
 <!--
@@ -640,8 +639,8 @@ kubectl delete deployment source-ip-app
 ## {{% heading "whatsnext" %}}
 
 <!-- 
-* Learn more about [connecting applications via services](/docs/concepts/services-networking/connect-applications-service/)
+* Learn more about [connecting applications via services](/docs/tutorials/services/connect-applications-service/)
 * Read how to [Create an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)
 -->
-* 详细了解[通过 Service 连接应用程序](/zh-cn/docs/concepts/services-networking/connect-applications-service/)
+* 详细了解[通过 Service 连接应用程序](/zh-cn/docs/tutorials/services/connect-applications-service/)
 * 阅读如何[创建外部负载均衡器](/zh-cn/docs/tasks/access-application-cluster/create-external-load-balancer/)

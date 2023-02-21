@@ -1,6 +1,7 @@
 ---
 reviewers:
-- davidopp
+- jbelamaric
+- bowei
 - thockin
 title: DNS for Services and Pods
 content_type: concept
@@ -16,13 +17,13 @@ Services with consistent DNS names instead of IP addresses.
 
 <!-- body -->
 
-Kubernetes DNS schedules a DNS Pod and Service on the cluster, and configures
-the kubelets to tell individual containers to use the DNS Service's IP to
-resolve DNS names.
+Kubernetes publishes information about Pods and Services which is used
+to program DNS.  Kubelet configures Pods' DNS so that running containers
+can lookup Services by name rather than IP.
 
-Every Service defined in the cluster (including the DNS server itself) is
-assigned a DNS name. By default, a client Pod's DNS search list includes the 
-Pod's own namespace and the cluster's default domain. 
+Services defined in the cluster are assigned DNS names. By default, a
+client Pod's DNS search list includes the Pod's own namespace and the
+cluster's default domain. 
 
 ### Namespaces of Services 
 
@@ -39,7 +40,7 @@ A query for `data.prod` returns the intended result, because it specifies the
 namespace. 
 
 DNS queries may be expanded using the Pod's `/etc/resolv.conf`. Kubelet 
-sets this file for each Pod. For example, a query for just `data` may be 
+configures this file for each Pod. For example, a query for just `data` may be 
 expanded to `data.test.svc.cluster.local`. The values of the `search` option 
 are used to expand queries. To learn more about DNS queries, see 
 [the `resolv.conf` manual page.](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html) 
@@ -70,29 +71,28 @@ For more up-to-date specification, see
 
 ### A/AAAA records
 
-"Normal" (not headless) Services are assigned a DNS A or AAAA record,
-depending on the IP family of the Service, for a name of the form
+"Normal" (not headless) Services are assigned DNS A and/or AAAA records,
+depending on the IP family or families of the Service, with a name of the form
 `my-svc.my-namespace.svc.cluster-domain.example`.  This resolves to the cluster IP
 of the Service.
 
-"Headless" (without a cluster IP) Services are also assigned a DNS A or AAAA record,
-depending on the IP family of the Service, for a name of the form
-`my-svc.my-namespace.svc.cluster-domain.example`.  Unlike normal
-Services, this resolves to the set of IPs of the Pods selected by the Service.
+[Headless Services](/docs/concepts/services-networking/service/#headless-services) 
+(without a cluster IP) Services are also assigned DNS A and/or AAAA records,
+with a name of the form `my-svc.my-namespace.svc.cluster-domain.example`.  Unlike normal
+Services, this resolves to the set of IPs of all of the Pods selected by the Service.
 Clients are expected to consume the set or else use standard round-robin
 selection from the set.
 
 ### SRV records
 
-SRV Records are created for named ports that are part of normal or [Headless
-Services](/docs/concepts/services-networking/service/#headless-services).
-For each named port, the SRV record would have the form
-`_my-port-name._my-port-protocol.my-svc.my-namespace.svc.cluster-domain.example`.
+SRV Records are created for named ports that are part of normal or headless
+services.  For each named port, the SRV record has the form
+`_port-name._port-protocol.my-svc.my-namespace.svc.cluster-domain.example`.
 For a regular Service, this resolves to the port number and the domain name:
 `my-svc.my-namespace.svc.cluster-domain.example`.
 For a headless Service, this resolves to multiple answers, one for each Pod
 that is backing the Service, and contains the port number and the domain name of the Pod
-of the form `auto-generated-name.my-svc.my-namespace.svc.cluster-domain.example`.
+of the form `hostname.my-svc.my-namespace.svc.cluster-domain.example`.
 
 ## Pods
 
@@ -113,17 +113,25 @@ Any Pods exposed by a Service have the following DNS resolution available:
 
 ### Pod's hostname and subdomain fields
 
-Currently when a Pod is created, its hostname is the Pod's `metadata.name` value.
+Currently when a Pod is created, its hostname (as observed from within the Pod)
+is the Pod's `metadata.name` value.
 
-The Pod spec has an optional `hostname` field, which can be used to specify the
-Pod's hostname. When specified, it takes precedence over the Pod's name to be
-the hostname of the Pod. For example, given a Pod with `hostname` set to
-"`my-host`", the Pod will have its hostname set to "`my-host`".
+The Pod spec has an optional `hostname` field, which can be used to specify a
+different hostname. When specified, it takes precedence over the Pod's name to be
+the hostname of the Pod (again, as observed from within the Pod). For example,
+given a Pod with `spec.hostname` set to `"my-host"`, the Pod will have its
+hostname set to `"my-host"`.
 
-The Pod spec also has an optional `subdomain` field which can be used to specify
-its subdomain. For example, a Pod with `hostname` set to "`foo`", and `subdomain`
-set to "`bar`", in namespace "`my-namespace`", will have the fully qualified
-domain name (FQDN) "`foo.bar.my-namespace.svc.cluster-domain.example`".
+The Pod spec also has an optional `subdomain` field which can be used to indicate
+that the pod is part of sub-group of the namespace. For example, a Pod with `spec.hostname`
+set to `"foo"`, and `spec.subdomain` set to `"bar"`, in namespace `"my-namespace"`, will
+have its hostname set to `"foo"` and its fully qualified domain name (FQDN) set to
+`"foo.bar.my-namespace.svc.cluster.local"` (once more, as observed from within
+the Pod).
+
+If there exists a headless Service in the same namespace as the Pod, with
+the same name as the subdomain, the cluster's DNS Server also returns A and/or AAAA
+records for the Pod's fully qualified hostname.
 
 Example:
 
@@ -131,15 +139,14 @@ Example:
 apiVersion: v1
 kind: Service
 metadata:
-  name: default-subdomain
+  name: busybox-subdomain
 spec:
   selector:
     name: busybox
   clusterIP: None
   ports:
-  - name: foo # Actually, no port is needed.
+  - name: foo # name is not required for single-port Services
     port: 1234
-    targetPort: 1234
 ---
 apiVersion: v1
 kind: Pod
@@ -149,7 +156,7 @@ metadata:
     name: busybox
 spec:
   hostname: busybox-1
-  subdomain: default-subdomain
+  subdomain: busybox-subdomain
   containers:
   - image: busybox:1.28
     command:
@@ -165,7 +172,7 @@ metadata:
     name: busybox
 spec:
   hostname: busybox-2
-  subdomain: default-subdomain
+  subdomain: busybox-subdomain
   containers:
   - image: busybox:1.28
     command:
@@ -174,24 +181,20 @@ spec:
     name: busybox
 ```
 
-If there exists a headless Service in the same namespace as the Pod and with
-the same name as the subdomain, the cluster's DNS Server also returns an A or AAAA
-record for the Pod's fully qualified hostname.
-For example, given a Pod with the hostname set to "`busybox-1`" and the subdomain set to
-"`default-subdomain`", and a headless Service named "`default-subdomain`" in
-the same namespace, the Pod will see its own FQDN as
-"`busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example`". DNS serves an
-A or AAAA record at that name, pointing to the Pod's IP. Both Pods "`busybox1`" and
-"`busybox2`" can have their distinct A or AAAA records.
+Given the above Service `"busybox-subdomain"` and the Pods which set `spec.subdomain`
+to `"busybox-subdomain"`, the first Pod will see its own FQDN as
+`"busybox-1.busybox-subdomain.my-namespace.svc.cluster-domain.example"`. DNS serves
+A and/or AAAA records at that name, pointing to the Pod's IP. Both Pods "`busybox1`" and
+"`busybox2`" will have their own address records.
 
 An {{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlice">}} can specify
 the DNS hostname for any endpoint addresses, along with its IP.
 
 {{< note >}}
-Because A or AAAA records are not created for Pod names, `hostname` is required for the Pod's A or AAAA
+Because A and AAAA records are not created for Pod names, `hostname` is required for the Pod's A or AAAA
 record to be created. A Pod with no `hostname` but with `subdomain` will only create the
-A or AAAA record for the headless Service (`default-subdomain.my-namespace.svc.cluster-domain.example`),
-pointing to the Pod's IP address. Also, Pod needs to become ready in order to have a
+A or AAAA record for the headless Service (`busybox-subdomain.my-namespace.svc.cluster-domain.example`),
+pointing to the Pods' IP addresses. Also, the Pod needs to be ready in order to have a
 record unless `publishNotReadyAddresses=True` is set on the Service.
 {{< /note >}}
 
@@ -199,7 +202,11 @@ record unless `publishNotReadyAddresses=True` is set on the Service.
 
 {{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
-When a Pod is configured to have fully qualified domain name (FQDN), its hostname is the short hostname. For example, if you have a Pod with the fully qualified domain name `busybox-1.default-subdomain.my-namespace.svc.cluster-domain.example`, then by default the `hostname` command inside that Pod returns `busybox-1` and  the `hostname --fqdn` command returns the FQDN.
+When a Pod is configured to have fully qualified domain name (FQDN), its
+hostname is the short hostname. For example, if you have a Pod with the fully
+qualified domain name `busybox-1.busybox-subdomain.my-namespace.svc.cluster-domain.example`, 
+then by default the `hostname` command inside that Pod returns `busybox-1` and  the
+`hostname --fqdn` command returns the FQDN.
 
 When you set `setHostnameAsFQDN: true` in the Pod spec, the kubelet writes the Pod's FQDN into the hostname for that Pod's namespace. In this case, both `hostname` and `hostname --fqdn` return the Pod's FQDN.
 
@@ -299,7 +306,7 @@ When the Pod above is created, the container `test` gets the following contents
 in its `/etc/resolv.conf` file:
 
 ```
-nameserver 1.2.3.4
+nameserver 192.0.2.1
 search ns1.svc.cluster-domain.example my.dns.search.suffix
 options ndots:2 edns0
 ```
@@ -316,16 +323,24 @@ search default.svc.cluster-domain.example svc.cluster-domain.example cluster-dom
 options ndots:5
 ```
 
-#### Expanded DNS Configuration
+## DNS search domain list limits
 
-{{< feature-state for_k8s_version="1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="1.26" state="beta" >}}
 
-By default, for Pod's DNS Config, Kubernetes allows at most 6 search domains and
-a list of search domains of up to 256 characters.
+Kubernetes itself does not limit the DNS Config until the length of the search
+domain list exceeds 32 or the total length of all search domains exceeds 2048.
+This limit applies to the node's resolver configuration file, the Pod's DNS
+Config, and the merged DNS Config respectively.
 
-If the feature gate `ExpandedDNSConfig` is enabled for the kube-apiserver and
-the kubelet, it is allowed for Kubernetes to have at most 32 search domains and
-a list of search domains of up to 2048 characters.
+{{< note >}}
+Some container runtimes of earlier versions may have their own restrictions on
+the number of DNS search domains. Depending on the container runtime
+environment, the pods with a large number of DNS search domains may get stuck in
+the pending state.
+
+It is known that containerd v1.5.5 or earlier and CRI-O v1.21 or earlier have
+this problem.
+{{< /note >}}
 
 ## DNS resolution on Windows nodes {#dns-windows}
 

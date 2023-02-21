@@ -60,11 +60,12 @@ Kubernetes as a project supports and maintains [AWS](https://github.com/kubernet
 * [Tyk Operator](https://github.com/TykTechnologies/tyk-operator) extends Ingress with Custom Resources to bring API Management capabilities to Ingress. Tyk Operator works with the Open Source Tyk Gateway & Tyk Cloud control plane.
 * [Voyager](https://appscode.com/products/voyager) is an ingress controller for
   [HAProxy](https://www.haproxy.org/#desc).
+* [Wallarm Ingress Controller](https://www.wallarm.com/solutions/waf-for-kubernetes) is an Ingress Controller that provides WAAP (WAF) and API Security capabilities.
 
 ## Using multiple Ingress controllers
 
 You may deploy any number of ingress controllers using [ingress class](/docs/concepts/services-networking/ingress/#ingress-class)
-within a cluster. Note the `.metadata.name` of your ingress class resource. When you create an ingress you would need that name to specify the `ingressClassName` field on your Ingress object (refer to [IngressSpec v1 reference](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec). `ingressClassName` is a replacement of the older [annotation method](/docs/concepts/services-networking/ingress/#deprecated-annotation).
+within a cluster. Note the `.metadata.name` of your ingress class resource. When you create an ingress you would need that name to specify the `ingressClassName` field on your Ingress object (refer to [IngressSpec v1 reference](/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec)). `ingressClassName` is a replacement of the older [annotation method](/docs/concepts/services-networking/ingress/#deprecated-annotation).
 
 If you do not specify an IngressClass for an Ingress, and your cluster has exactly one IngressClass marked as default, then Kubernetes [applies](/docs/concepts/services-networking/ingress/#default-ingress-class) the cluster's default IngressClass to the Ingress.
 You mark an IngressClass as default by setting the [`ingressclass.kubernetes.io/is-default-class` annotation](/docs/reference/labels-annotations-taints/#ingressclass-kubernetes-io-is-default-class) on that IngressClass, with the string value `"true"`.

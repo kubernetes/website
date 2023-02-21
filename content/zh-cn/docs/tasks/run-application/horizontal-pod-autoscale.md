@@ -88,7 +88,33 @@ horizontal pod autoscaling.
 -->
 ## HorizontalPodAutoscaler 是如何工作的？ {#how-does-a-horizontalpodautoscaler-work}
 
-{{< figure src="/images/docs/horizontal-pod-autoscaler.svg" caption="HorizontalPodAutoscaler 控制 Deployment 及其 ReplicaSet 的规模" class="diagram-medium">}}
+{{< mermaid >}}
+graph BT
+
+hpa[Pod 水平自动扩缩] --> scale[规模]
+
+subgraph rc[RC / Deployment]
+    scale
+end
+
+scale -.-> pod1[Pod 1]
+scale -.-> pod2[Pod 2]
+scale -.-> pod3[Pod N]
+
+classDef hpa fill:#D5A6BD,stroke:#1E1E1D,stroke-width:1px,color:#1E1E1D;
+classDef rc fill:#F9CB9C,stroke:#1E1E1D,stroke-width:1px,color:#1E1E1D;
+classDef scale fill:#B6D7A8,stroke:#1E1E1D,stroke-width:1px,color:#1E1E1D;
+classDef pod fill:#9FC5E8,stroke:#1E1E1D,stroke-width:1px,color:#1E1E1D;
+class hpa hpa;
+class rc rc;
+class scale scale;
+class pod1,pod2,pod3 pod
+{{< /mermaid >}}
+
+<!--
+Figure 1. HorizontalPodAutoscaler controls the scale of a Deployment and its ReplicaSet
+-->
+图 1. HorizontalPodAutoscaler 控制 Deployment 及其 ReplicaSet 的规模
 
 <!--
 Kubernetes implements horizontal pod autoscaling as a control loop that runs intermittently
@@ -116,24 +142,24 @@ or the custom metrics API (for all other metrics).
 * For per-pod resource metrics (like CPU), the controller fetches the metrics
   from the resource metrics API for each Pod targeted by the HorizontalPodAutoscaler.
   Then, if a target utilization value is set, the controller calculates the utilization
-  value as a percentage of the equivalent [resource request](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) on the containers in
-  each Pod.  If a target raw value is set, the raw metric values are used directly.
+  value as a percentage of the equivalent
+  [resource request](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
+  on the containers in each Pod.  If a target raw value is set, the raw metric values are used directly.
   The controller then takes the mean of the utilization or the raw value (depending on the type
   of target specified) across all targeted Pods, and produces a ratio used to scale
   the number of desired replicas.
 -->
 * 对于按 Pod 统计的资源指标（如 CPU），控制器从资源指标 API 中获取每一个
-  HorizontalPodAutoscaler 指定的 Pod 的度量值，如果设置了目标使用率，
-  控制器获取每个 Pod 中的容器[资源使用](/zh-cn/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) 情况，
+  HorizontalPodAutoscaler 指定的 Pod 的度量值，如果设置了目标使用率，控制器获取每个 Pod
+  中的容器[资源使用](/zh-cn/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)情况，
   并计算资源使用率。如果设置了 target 值，将直接使用原始数据（不再计算百分比）。
   接下来，控制器根据平均的资源使用率或原始值计算出扩缩的比例，进而计算出目标副本数。
 
   <!--
   Please note that if some of the Pod's containers do not have the relevant resource request set,
   CPU utilization for the Pod will not be defined and the autoscaler will
-  not take any action for that metric. See the [algorithm
-  details](#algorithm-details) section below for more information about
-  how the autoscaling algorithm works.
+  not take any action for that metric. See the [algorithm details](#algorithm-details) section below
+  for more information about how the autoscaling algorithm works.
   -->
   需要注意的是，如果 Pod 某些容器不支持资源采集，那么控制器将不会使用该 Pod 的 CPU 使用率。
   下面的[算法细节](#algorithm-details)章节将会介绍详细的算法。
@@ -147,13 +173,13 @@ or the custom metrics API (for all other metrics).
 <!--
 * For object metrics and external metrics, a single metric is fetched, which describes
   the object in question. This metric is compared to the target
-  value, to produce a ratio as above. In the `autoscaling/v2beta2` API
+  value, to produce a ratio as above. In the `autoscaling/v2` API
   version, this value can optionally be divided by the number of Pods before the
   comparison is made.
 -->
 * 如果 Pod 使用对象指标和外部指标（每个指标描述一个对象信息）。
   这个指标将直接根据目标设定值相比较，并生成一个上面提到的扩缩比例。
-  在 `autoscaling/v2beta2` 版本 API 中，这个指标也可以根据 Pod 数量平分后再计算。
+  在 `autoscaling/v2` 版本 API 中，这个指标也可以根据 Pod 数量平分后再计算。
 
 <!--
 The common use for HorizontalPodAutoscaler is to configure it to fetch metrics from
@@ -178,7 +204,7 @@ number of replicas and examine each of their current states.
 For general information about subresources in the Kubernetes API, see
 [Kubernetes API Concepts](/docs/reference/using-api/api-concepts/).
 -->
-对 [Metrics API 的支持](#support-for-metrics-apis)解释了这些不同 API 的稳定性保证和支持状态
+对 [Metrics API 的支持](#support-for-metrics-apis)解释了这些不同 API 的稳定性保证和支持状态。
 
 HorizontalPodAutoscaler 控制器访问支持扩缩的相应工作负载资源（例如：Deployment 和 StatefulSet）。
 这些资源每个都有一个名为 `scale` 的子资源，该接口允许你动态设置副本的数量并检查它们的每个当前状态。
@@ -186,9 +212,9 @@ HorizontalPodAutoscaler 控制器访问支持扩缩的相应工作负载资源�
 请参阅 [Kubernetes API 概念](/zh-cn/docs/reference/using-api/api-concepts/)。
 
 <!--
-### Algorithm Details
+### Algorithm details
 
-From the most basic perspective, the Horizontal Pod Autoscaler controller
+From the most basic perspective, the HorizontalPodAutoscaler controller
 operates on the ratio between desired metric value and current metric
 value:
 -->
@@ -231,7 +257,7 @@ are [`Ready`](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions).
 那么将会把指定 Pod 度量值的平均值做为 `currentMetricValue`。
 
 在检查容差并决定最终值之前，控制平面还会考虑是否缺少任何指标，
-以及有多少 Pod [`已就绪`](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)。
+以及有多少 Pod [`Ready`](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)。
 
 <!--
 All Pods with a deletion timestamp set (objects with a deletion timestamp are
@@ -248,8 +274,8 @@ with missing metrics will be used to adjust the final scaling amount.
 
 <!--
 When scaling on CPU, if any pod has yet to become ready (it's still
-initializing, or possibly is unhealthy) *or* the most recent metric point for the pod was before it
-became ready, that pod is set aside as well.
+initializing, or possibly is unhealthy) *or* the most recent metric point for
+the pod was before it became ready, that pod is set aside as well.
 -->
 当使用 CPU 指标来扩缩时，任何还未就绪（还在初始化，或者可能是不健康的）状态的 Pod **或**
 最近的指标度量值采集于就绪状态前的 Pod，该 Pod 也会被搁置。
@@ -463,7 +489,7 @@ pod usage is still within acceptable limits.
 {{< /note >}}
 
 <!--
-### Container Resource Metrics
+### Container resource metrics
 -->
 ### 容器资源指标   {#container-resource-metrics}
 
@@ -538,6 +564,8 @@ the old container name from the HPA specification.
 <!--
 ## Scaling on custom metrics
 
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
+
 (the `autoscaling/v2beta2` API version previously provided this ability as a beta feature)
 
 Provided that you use the `autoscaling/v2` API version, you can configure a HorizontalPodAutoscaler
@@ -561,6 +589,8 @@ HorizontalPodAutoscaler 控制器能够从 Kubernetes API 查询这些自定义�
 
 <!--
 ## Scaling on multiple metrics
+
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
 (the `autoscaling/v2beta2` API version previously provided this ability as a beta feature)
 
@@ -598,7 +628,7 @@ APIs, cluster administrators must ensure that:
 * The corresponding APIs are registered:
 
    * For resource metrics, this is the `metrics.k8s.io` API, generally provided by [metrics-server](https://github.com/kubernetes-sigs/metrics-server).
-     It can be launched as a cluster addon.
+     It can be launched as a cluster add-on.
 
    * For custom metrics, this is the `custom.metrics.k8s.io` API.  It's provided by "adapter" API servers provided by metrics solution vendors.
      Check with your metrics pipeline to see if there is a Kubernetes metrics adapter available.
@@ -613,21 +643,21 @@ APIs, cluster administrators must ensure that:
      它可以作为集群插件启动。
 
    * 对于自定义指标，将使用 `custom.metrics.k8s.io` API。
-    它由其他度量指标方案厂商的“适配器（Adapter）” API 服务器提供。
-    检查你的指标管道以查看是否有可用的 Kubernetes 指标适配器。
+     它由其他度量指标方案厂商的“适配器（Adapter）” API 服务器提供。
+     检查你的指标管道以查看是否有可用的 Kubernetes 指标适配器。
 
    * 对于外部指标，将使用 `external.metrics.k8s.io` API。可能由上面的自定义指标适配器提供。
 
 <!--
 For more information on these different metrics paths and how they differ please see the relevant design proposals for
-[the HPA V2](https://github.com/kubernetes/design-proposals-archive/blob/main/autoscaling/hpa-v2.md),
-[custom.metrics.k8s.io](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/custom-metrics-api.md)
-and [external.metrics.k8s.io](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/external-metrics-api.md).
+[the HPA V2](https://git.k8s.io/design-proposals-archive/autoscaling/hpa-v2.md),
+[custom.metrics.k8s.io](https://git.k8s.io/design-proposals-archive/instrumentation/custom-metrics-api.md)
+and [external.metrics.k8s.io](https://git.k8s.io/design-proposals-archive/instrumentation/external-metrics-api.md).
 -->
 关于指标来源以及其区别的更多信息，请参阅相关的设计文档，
-[HPA V2](https://github.com/kubernetes/design-proposals-archive/blob/main/autoscaling/hpa-v2.md)，
-[custom.metrics.k8s.io](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/custom-metrics-api.md) 和
-[external.metrics.k8s.io](https://github.com/kubernetes/design-proposals-archive/blob/main/instrumentation/external-metrics-api.md)。
+[HPA V2](https://git.k8s.io/design-proposals-archive/autoscaling/hpa-v2.md)，
+[custom.metrics.k8s.io](https://git.k8s.io/design-proposals-archive/instrumentation/custom-metrics-api.md) 和
+[external.metrics.k8s.io](https://git.k8s.io/design-proposals-archive/instrumentation/external-metrics-api.md)。
 
 <!--
 For examples of how to use them see [the walkthrough for using custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
@@ -639,6 +669,8 @@ and [the walkthrough for using external metrics](/docs/tasks/run-application/hor
 
 <!--
 ## Configurable scaling behavior
+
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
 (the `autoscaling/v2beta2` API version previously provided this ability as a beta feature)
 
@@ -668,7 +700,7 @@ rate of change of replicas while scaling.
 扩缩策略还允许你在扩缩时控制副本的变化率。
 
 <!--
-### Scaling Policies
+### Scaling policies
 
 One or more scaling policies can be specified in the `behavior` section of the spec.
 When multiple policies are specified the policy which allows the highest amount of
@@ -676,6 +708,7 @@ change is the policy which is selected by default. The following example shows t
 while scaling down:
 -->
 ### 扩缩策略 {#scaling-policies}
+
 可以在规约的 `behavior` 部分中指定一个或多个扩缩策略。当指定多个策略时，
 允许最大更改量的策略是默认选择的策略。以下示例显示了缩小时的这种行为：
 
@@ -727,7 +760,7 @@ scaling in that direction.
 将该值设置为 `Disabled` 将完全禁用该方向的扩缩。
 
 <!--
-### Stabilization Window
+### Stabilization window
 
 The stabilization window is used to restrict the [flapping](#flapping) of
 replica count when the metrics used for scaling keep fluctuating. The autoscaling algorithm

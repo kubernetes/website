@@ -58,13 +58,14 @@ If the kubelet cannot negotiate a supported CRI version, the kubelet gives up
 and doesn't register as a node.
 -->
 对 Kubernetes v{{< skew currentVersion >}}，kubelet 偏向于使用 CRI `v1` 版本。
-如果容器运行时不支持 CRI 的 `v1` 版本，那么 kubelet 会尝试协商任何旧的其他支持版本。
-如果 kubelet 无法协商支持的 CRI 版本，则 kubelet 放弃并且不会注册为节点。
+如果容器运行时不支持 CRI 的 `v1` 版本，那么 kubelet 会尝试协商较老的、仍被支持的所有版本。
+v{{< skew currentVersion >}} 版本的 kubelet 也可协商 CRI `v1alpha2` 版本，但该版本被视为已弃用。
+如果 kubelet 无法协商出可支持的 CRI 版本，则 kubelet 放弃并且不会注册为节点。
 
 <!-- 
 ## Upgrading
 
-When upgrading Kubernetes, then the kubelet tries to automatically select the
+When upgrading Kubernetes, the kubelet tries to automatically select the
 latest CRI version on restart of the component. If that fails, then the fallback
 will take place as mentioned above. If a gRPC re-dial was required because the
 container runtime has been upgraded, then the container runtime must also

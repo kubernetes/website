@@ -2,6 +2,10 @@
 title: "What's next?"
 description: "What's next after installing kubectl."
 headless: true
+_build:
+  list: never
+  render: never
+  publishResources: false
 ---
 
 * [Install Minikube](https://minikube.sigs.k8s.io/docs/start/)

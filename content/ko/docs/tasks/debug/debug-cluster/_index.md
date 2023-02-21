@@ -311,6 +311,6 @@ status:
 * [리소스 메트릭 파이프라인](/ko/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/)에서 사용할 수 있는 메트릭에 대해 알아 본다.
 * [리소스 사용량 모니터링](/ko/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)을 위한 추가 도구에 대해 알아 본다.
 * Node Problem Detector를 사용하여 [노드 헬스(health)를 모니터링](/ko/docs/tasks/debug/debug-cluster/monitor-node-health/)한다.
-* `crictl`을 사용하여 [쿠버네티스 노드를 디버깅](/docs/tasks/debug/debug-cluster/crictl/)한다.
-* [쿠버네티스 감사(auditing)](/docs/tasks/debug/debug-cluster/audit/)에 대한 더 자세한 정보를 본다.
+* `crictl`을 사용하여 [쿠버네티스 노드를 디버깅](/ko/docs/tasks/debug/debug-cluster/crictl/)한다.
+* [쿠버네티스 감사(auditing)](/ko/docs/tasks/debug/debug-cluster/audit/)에 대한 더 자세한 정보를 본다.
 * `telepresence`를 사용하여 [서비스를 로컬에서 개발 및 디버깅](/ko/docs/tasks/debug/debug-cluster/local-debugging/)한다.

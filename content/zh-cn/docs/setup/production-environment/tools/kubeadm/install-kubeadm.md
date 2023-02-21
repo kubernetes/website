@@ -22,7 +22,8 @@ card:
 <!--
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
 This page shows how to install the `kubeadm` toolbox.
-For information on how to create a cluster with kubeadm once you have performed this installation process, see the [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
+For information on how to create a cluster with kubeadm once you have performed this installation process,
+see the [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
 -->
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
 本页面显示如何安装 `kubeadm` 工具箱。
@@ -32,7 +33,8 @@ For information on how to create a cluster with kubeadm once you have performed 
 ## {{% heading "prerequisites" %}}
 
 <!--
-* A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions based on Debian and Red Hat, and those distributions without a package manager.
+* A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions
+  based on Debian and Red Hat, and those distributions without a package manager.
 * 2 GB or more of RAM per machine (any less will leave little room for your apps).
 * 2 CPUs or more.
 * Full network connectivity between all machines in the cluster (public or private network is fine).
@@ -85,12 +87,13 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 <!--
 ## Check required ports
 These
-[required ports](/docs/reference/ports-and-protocols/)
-need to be open in order for Kubernetes components to communicate with each other. You can use tools like netcat to check if a port is open. For example:
+These [required ports](/docs/reference/networking/ports-and-protocols/)
+need to be open in order for Kubernetes components to communicate with each other.
+You can use tools like netcat to check if a port is open. For example:
 -->
 ## 检查所需端口{#check-required-ports}
 
-启用这些[必要的端口](/zh-cn/docs/reference/ports-and-protocols/)后才能使 Kubernetes 的各组件相互通信。
+启用这些[必要的端口](/zh-cn/docs/reference/networking/ports-and-protocols/)后才能使 Kubernetes 的各组件相互通信。
 可以使用 netcat 之类的工具来检查端口是否启用，例如：
 
 ```shell
@@ -282,7 +285,7 @@ For more information on version skews, see:
 2. 下载 Google Cloud 公开签名秘钥：
 
    ```shell
-   sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
    ```
 
 <!--
@@ -291,7 +294,7 @@ For more information on version skews, see:
 3. 添加 Kubernetes `apt` 仓库：
 
    ```shell
-   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
 <!--
@@ -304,6 +307,14 @@ For more information on version skews, see:
    sudo apt-get install -y kubelet kubeadm kubectl
    sudo apt-mark hold kubelet kubeadm kubectl
    ```
+{{< note >}}
+<!--
+In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default.
+You can create this directory if you need to, making it world-readable but writeable only by admins.
+-->
+在低于 Debian 12 和 Ubuntu 22.04 的发行版本中，`/etc/apt/keyrings` 默认不存在。
+如有需要，你可以创建此目录，并将其设置为对所有人可读，但仅对管理员可写。
+{{< /note >}}
 
 {{% /tab %}}
 
@@ -339,8 +350,8 @@ sudo systemctl enable --now kubelet
   - You can leave SELinux enabled if you know how to configure it but it may require settings that are not supported by kubeadm.
 
   - If the `baseurl` fails because your Red Hat-based distribution cannot interpret `basearch`, replace `\$basearch` with your computer's architecture.
-    Type `uname -m` to see that value.
-    For example, the `baseurl` URL for `x86_64` could be: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`.
+  Type `uname -m` to see that value.
+  For example, the `baseurl` URL for `x86_64` could be: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`.
 -->
 **请注意：**
 

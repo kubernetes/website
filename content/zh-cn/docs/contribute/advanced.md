@@ -20,7 +20,6 @@ This page assumes that you understand how to
 to learn about more ways to contribute. You need to use the Git command line
 client and other tools for some of these tasks.
 -->
-
 如果你已经了解如何[贡献新内容](/zh-cn/docs/contribute/new-content/)和
 [评阅他人工作](/zh-cn/docs/contribute/review/reviewing-prs/)，并准备了解更多贡献的途径，
 请阅读此文。你需要使用 Git 命令行工具和其他工具做这些工作。
@@ -35,7 +34,7 @@ can propose improvements.
 -->
 ## 提出改进建议   {#propose-improvements}
 
-SIG Docs 的[成员](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#members) 可以提出改进建议。
+SIG Docs 的[成员](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#members)可以提出改进建议。
 
 <!--
 After you've been contributing to the Kubernetes documentation for a while, you
@@ -78,7 +77,7 @@ can coordinate docs for a Kubernetes release.
 -->
 ## 为 Kubernetes 版本发布协调文档工作   {#coordinate-docs-for-a-kubernetes-release}
 
-SIG Docs 的[批准者（approvers）](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#approvers)
+SIG Docs 的[批准人（Approver）](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#approvers)
 可以为 Kubernetes 版本发布协调文档工作。
 
 <!--
@@ -111,7 +110,6 @@ The SIG Docs representative for a given release coordinates the following tasks:
 - Publish the documentation changes related to the release when the release
   artifacts are published.
 -->
-
 SIG Docs 团队的代表需要为一个指定的版本协调以下工作：
 
 - 通过特性跟踪表来监视新功能特性或现有功能特性的修改。
@@ -140,10 +138,9 @@ few PR submissions.
 
 Responsibilities for New Contributor Ambassadors include:
 -->
-
 ## 担任新的贡献者大使   {#serve-as-a-new-contributor-ambassador}
 
-SIG Docs [批准人（Approvers）](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#approvers)
+SIG Docs [批准人（Approver）](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#approvers)
 可以担任新的贡献者大使。
 
 新的贡献者大使欢迎 SIG-Docs 的新贡献者，对新贡献者的 PR 提出建议，
@@ -152,7 +149,7 @@ SIG Docs [批准人（Approvers）](/zh-cn/docs/contribute/participate/roles-and
 新的贡献者大使的职责包括：
 
 <!--
-- Being available on the [Kubernetes #sig-docs channel](https://kubernetes.slack.com) to answer questions from new contributors.
+- Monitoring the [#sig-docs Slack channel](https://kubernetes.slack.com) for questions from new contributors.
 - Working with PR wranglers to identify [good first issues](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue) for new contributors.
 - Mentoring new contributors through their first few PRs to the docs repo.
 - Helping new contributors create the more complex PRs they need to become Kubernetes members.
@@ -160,7 +157,7 @@ SIG Docs [批准人（Approvers）](/zh-cn/docs/contribute/participate/roles-and
 - Hosting a monthly meeting to help and mentor new contributors.
 -->
 - 监听 [Kubernetes #sig-docs 频道](https://kubernetes.slack.com) 上新贡献者的 Issue。
-- 与 PR 管理者合作为新参与者寻找[合适的第一个 issues](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue)。
+- 与 PR 管理者合作为新参与者寻找[合适的第一个 issue](https://kubernetes.dev/docs/guide/help-wanted/#good-first-issue)。
 - 通过前几个 PR 指导新贡献者为文档存储库作贡献。
 - 帮助新的贡献者创建成为 Kubernetes 成员所需的更复杂的 PR。
 - [为贡献者提供保荐](#sponsor-a-new-contributor)，使其成为 Kubernetes 成员。
@@ -179,7 +176,7 @@ can sponsor new contributors.
 -->
 ## 为新的贡献者提供保荐 {#sponsor-a-new-contributor}
 
-SIG Docs 的[评审人（Reviewers）](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#reviewers)
+SIG Docs 的[评审人（Reviewer）](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#reviewers)
 可以为新的贡献者提供保荐。
 
 <!--
@@ -217,7 +214,7 @@ can serve a term as a co-chair of SIG Docs.
 -->
 ## 担任 SIG 联合主席   {#sponsor-a-new-contributor}
 
-SIG Docs [成员（Members）](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#members)
+SIG Docs [成员（Member）](/zh-cn/docs/contribute/participate/roles-and-responsibilities/#members)
 可以担任 SIG Docs 的联合主席。
 
 ### 前提条件   {#prerequisites}
@@ -228,10 +225,10 @@ A Kubernetes member must meet the following requirements to be a co-chair:
 - Understand SIG Docs workflows and tooling: git, Hugo, localization, blog subproject
 - Understand how other Kubernetes SIGs and repositories affect the SIG Docs
   workflow, including:
-  [teams in k/org](https://github.com/kubernetes/org/blob/main/config/kubernetes/sig-docs/teams.yaml), the
-  [process in k/community](https://github.com/kubernetes/community/tree/main/sig-docs),
+  [teams in k/org](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml), the
+  [process in k/community](https://github.com/kubernetes/community/tree/master/sig-docs),
   plugins in [k/test-infra](https://github.com/kubernetes/test-infra/), and the role of
-  [SIG Architecture](https://github.com/kubernetes/community/tree/main/sig-architecture).
+  [SIG Architecture](https://github.com/kubernetes/community/tree/master/sig-architecture).
   In addition, understand how the [Kubernetes docs release process](/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release) works.
 - Approved by the SIG Docs community either directly or via lazy consensus.
 - Commit at least 5 hours per week (and often more) to the role for a minimum of 6 months
@@ -240,8 +237,8 @@ Kubernetes 成员必须满足以下要求才能成为联合主席：
 
 - 理解 SIG Docs 工作流程和工具：git、Hugo、本地化、博客子项目
 - 理解其他 Kubernetes SIG 和仓库会如何影响 SIG Docs 工作流程，包括：
-  [k/org 中的团队](https://github.com/kubernetes/org/blob/main/config/kubernetes/sig-docs/teams.yaml)、
-  [k/community 中的流程](https://github.com/kubernetes/community/tree/main/sig-docs)、
+  [k/org 中的团队](https://github.com/kubernetes/org/blob/master/config/kubernetes/sig-docs/teams.yaml)、
+  [k/community 中的流程](https://github.com/kubernetes/community/tree/master/sig-docs)、
   [k/test-infra](https://github.com/kubernetes/test-infra/) 中的插件、
   [SIG Architecture](https://github.com/kubernetes/community/tree/main/sig-architecture) 中的角色。
   此外，了解 [Kubernetes 文档发布流程](/zh-cn/docs/contribute/advanced/#coordinate-docs-for-a-kubernetes-release)的工作原理。
@@ -251,14 +248,21 @@ Kubernetes 成员必须满足以下要求才能成为联合主席：
 <!--
 ### Responsibilities
 
-The role of co-chair is primarily one of service: co-chairs handle process and policy, schedule and run meetings, schedule PR wranglers, and generally do the things that no one else wants to do in order to build contributor capacity. 
+The role of co-chair is one of service: co-chairs build contributor capacity, handle process and policy, schedule and run meetings, schedule PR wranglers, advocate for docs in the Kubernetes community, make sure that docs succeed in Kubernetes release cycles, and keep SIG Docs focused on effective priorities.
 
 Responsibilities include:
 -->
 ### 职责范围   {#responsibilities}
 
-联合主席主要提供以下服务：
-联合主席负责处理流程和政策、时间安排和召开会议、安排 PR 管理员、以及一些其他人不想做的事情，目的是增长贡献者团队。
+联合主席的角色提供以下服务：
+
+- 拓展贡献者规模
+- 处理流程和政策
+- 安排时间和召开会议
+- 安排 PR 管理员
+- 在 Kubernetes 社区中提出文档倡议
+- 确保文档在 Kubernetes 发布周期中符合预期
+- 让 SIG Docs 专注于有效的优先事项
 
 职责范围包括：
 
@@ -354,17 +358,17 @@ Begin and end meetings on time.
 <!--
 **Use Zoom effectively**:
 
-- Familiarize yourself with [Zoom guidelines for Kubernetes](https://github.com/kubernetes/community/blob/main/communication/zoom-guidelines.md)
+- Familiarize yourself with [Zoom guidelines for Kubernetes](https://github.com/kubernetes/community/blob/master/communication/zoom-guidelines.md)
 - Claim the host role when you log in by entering the host key
 
 <img src="/images/docs/contribute/claim-host.png" width="75%" alt="Claiming the host role in Zoom" />
 -->
 **有效利用 Zoom**：
 
-- 熟悉 [ Kubernetes Zoom 指南](https://github.com/kubernetes/community/blob/main/communication/zoom-guidelines.md)
+- 熟悉 [Kubernetes Zoom 指南](https://github.com/kubernetes/community/blob/master/communication/zoom-guidelines.md)
 - 输入主持人密钥登录时声明主持人角色
 
-<img src="/images/docs/contribute/claim-host.png" width="75%" alt="声明 Zoom 角色" />
+<img src="/images/docs/contribute/claim-host.png" width="75%" alt="声明 Zoom 主持人角色" />
 
 <!--
 ### Recording meetings on Zoom
@@ -383,3 +387,11 @@ The video uploads automatically to YouTube.
 
 视频会自动上传到 YouTube。
 
+<!--
+### Offboarding a SIG Co-chair (Emeritus)
+
+See: [k/community/sig-docs/offboarding.md](https://github.com/kubernetes/community/blob/master/sig-docs/offboarding.md)
+-->
+### SIG 联合主席 (Emeritus) 离职  {#offboarding-a-sig-cochair}
+
+参见 [k/community/sig-docs/offboarding.md](https://github.com/kubernetes/community/blob/master/sig-docs/offboarding.md)

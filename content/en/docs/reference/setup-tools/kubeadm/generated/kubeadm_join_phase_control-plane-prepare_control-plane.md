@@ -48,7 +48,7 @@ kubeadm join phase control-plane-prepare control-plane [flags]
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to kubeadm config file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a kubeadm configuration file.</p></td>
 </tr>
 
 <tr>
@@ -56,6 +56,13 @@ kubeadm join phase control-plane-prepare control-plane [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Create a new control plane instance on this node</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--dry-run</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Don't apply any changes; just output what would be done.</p></td>
 </tr>
 
 <tr>

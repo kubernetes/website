@@ -9,6 +9,7 @@ reviewers:
 - davidopp
 - kevin-wangzefeng
 - bsalamat
+- alculquicondor
 title: Assigning Pods to Nodes
 content_type: concept
 weight: 20
@@ -278,20 +279,20 @@ for the Pod to be scheduled onto a node.
 才能将 Pod 调度到候选节点上。
 
 <!--
-If you specify multiple `nodeSelectorTerms` associated with `nodeAffinity`
-types, then the Pod can be scheduled onto a node if one of the specified `nodeSelectorTerms` can be
-satisfied.
+If you specify multiple terms in `nodeSelectorTerms` associated with `nodeAffinity`
+types, then the Pod can be scheduled onto a node if one of the specified terms
+can be satisfied (terms are ORed).
 -->
-如果你指定了多个与 `nodeAffinity` 类型关联的 `nodeSelectorTerms`，
-只要其中一个 `nodeSelectorTerms` 满足的话，Pod 就可以被调度到节点上。
+如果你在与 nodeAffinity 类型关联的 nodeSelectorTerms 中指定多个条件，
+只要其中一个 `nodeSelectorTerms` 满足（各个条件按逻辑或操作组合）的话，Pod 就可以被调度到节点上。
 
 <!--
-If you specify multiple `matchExpressions` associated with a single `nodeSelectorTerms`,
-then the Pod can be scheduled onto a node only if all the `matchExpressions` are
-satisfied.
+If you specify multiple expressions in a single `matchExpressions` field associated with a
+term in `nodeSelectorTerms`, then the Pod can be scheduled onto a node only
+if all the expressions are satisfied (expressions are ANDed).
 -->
-如果你指定了多个与同一 `nodeSelectorTerms` 关联的 `matchExpressions`，
-则只有当所有 `matchExpressions` 都满足时 Pod 才可以被调度到节点上。
+如果你在与 `nodeSelectorTerms` 中的条件相关联的单个 `matchExpressions` 字段中指定多个表达式，
+则只有当所有表达式都满足（各表达式按逻辑与操作组合）时，Pod 才能被调度到节点上。
 {{< /note >}}
 
 <!--
@@ -813,6 +814,18 @@ Some of the limitations of using `nodeName` to select nodes are:
 - 如果所指代的节点无法提供用来运行 Pod 所需的资源，Pod 会失败，
   而其失败原因中会给出是否因为内存或 CPU 不足而造成无法运行。
 - 在云环境中的节点名称并不总是可预测的，也不总是稳定的。
+
+{{< note >}}
+<!--
+`nodeName` is intended for use by custom schedulers or advanced use cases where
+you need to bypass any configured schedulers. Bypassing the schedulers might lead to
+failed Pods if the assigned Nodes get oversubscribed. You can use [node affinity](#node-affinity) or a the [`nodeselector` field](#nodeselector) to assign a Pod to a specific Node without bypassing the schedulers.
+-->
+`nodeName` 旨在供自定义调度程序或需要绕过任何已配置调度程序的高级场景使用。
+如果已分配的 Node 负载过重，绕过调度程序可能会导致 Pod 失败。
+你可以使用[节点亲和性](#node-affinity)或 [`nodeselector` 字段](#nodeselector)将
+Pod 分配给特定 Node，而无需绕过调度程序。
+{{</ note >}}
 
 <!--
 Here is an example of a Pod spec using the `nodeName` field:
