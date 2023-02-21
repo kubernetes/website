@@ -60,14 +60,34 @@ cd website
 <!--
 The Kubernetes website uses the [Docsy Hugo theme](https://github.com/google/docsy#readme). Even if you plan to run the website in a container, we strongly recommend pulling in the submodule and other development dependencies by running the following:
 -->
-
 Kubernetes 网站使用的是 [Docsy Hugo 主题](https://github.com/google/docsy#readme)。
 即使你打算在容器中运行网站，我们也强烈建议你通过运行以下命令来引入子模块和其他开发依赖项：
 
-```bash
-# 引入 Docsy 子模块
+<!-- 
+### Windows
+```powershell
+# fetch submodule dependencies
 git submodule update --init --recursive --depth 1
-```
+``` 
+-->
+### Windows
+```powershell
+# 获取子模块依赖
+git submodule update --init --recursive --depth 1
+``` 
+
+<!-- 
+### Linux / other Unix
+```bash
+# fetch submodule dependencies
+make module-init
+``` 
+-->
+### Linux / 其它 Unix
+```bash
+# 获取子模块依赖
+make module-init
+``` 
 
 <!--
 ## Running the website using a container
