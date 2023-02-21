@@ -6,3 +6,6 @@ options:
   no_parent_owners: true
 approvers:
 - committee-steering # defined in OWNERS_ALIASES
+
+labels:
+- committee/steering
