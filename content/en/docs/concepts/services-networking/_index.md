@@ -32,6 +32,7 @@ implementation (barring any intentional network segmentation policies):
 without network address translation (NAT).
 * Pods can communicate with other pods on the same or separate nodes using layer 2 bridging, native layer 3 (IPv4, IPv6) networking, tunneling, or other techniques for conveying packets from one pod to another.
 
+[//]: # ( We should cover this in future PR )
 Some platforms, such as Linux, support pods running in the host network. Pods attached to the host network of a node can still communicate with all pods on all nodes without NAT.
 
 ## Terminology
@@ -48,9 +49,9 @@ Some platforms, such as Linux, support pods running in the host network. Pods at
 
 * Encapsulation - ability to encapsulate an L2 or L3 packets belonging to an `inner network` with an `outer network` header for transport across the `outer network`. This forms a `tunnel` where the encapsulation function is performed at tunnel ingress and de-encapsulation function is performed at tunnel egress. 
   
-* Virtual overlay network - network of tunnels connecting `inner network` pods running on different nodes.    
+* Virtual overlay network - network of tunnels connecting pods running on different nodes.    
 
-* Physical underlay network - network resources performing `outer network` packet forwarding between nodes. 
+* Physical underlay network - network resources performing packet forwarding between nodes. 
 
 * Virtual ethernet link (VETH) - Virtual link allowing you to convey packets between namespaces. 
 
@@ -61,47 +62,54 @@ Some platforms, such as Linux, support pods running in the host network. Pods at
 
 ## Architecture
 
-The Kubernetes network model introduces an architecture that allows you to support your cluster networking requirements.
+The Kubernetes network model introduces a flexible architecture and accompanying components. You can configure and deploy a combination of different components to assemble an implementation to best meet your cluster networking requirements. 
 
-Figure 1 illustrates the Kubernetes network architecture.
+Figure 1 illustrates the Kubernetes network architecture and accompanying components. 
 
-{{< figure src="/docs/images/k8net-net-arch.drawio.svg" alt="k8s net arch" class="diagram-large" caption="Figure 1. K8s Network Architecture" >}}
+{{< figure src="/docs/images/k8net-net-arch2.drawio.svg" alt="k8s net arch" class="diagram-large" caption="Figure 1. K8s Network Architecture and Components" >}}
 
-For this example, the network architecture includes:
+The network architecture and components consist of the following:
 
 * Nodes configured in virtual (VM) or physical (bare-metal) environments.
   
 * Pods configured on each node with one or more containers.
   
-* Each Pod has its own IP address; this is per _address family_, so a cluster that uses IPv4
-  and IPv6 networking   assigns one IPv4 address to each Pod, and also assigns one IPv6
+* Each Pod has its own IP address (Pod IP) ; this is per _address family_, so a cluster that uses IPv4
+  and IPv6 networking assigns one IPv4 address to each Pod, and also assigns one IPv6
   address to each Pod.
+  
   * Pods run in their own network namespace. All the containers in the Pod share this
     network namespace. (Network namespaces are not the same as the Kubernetes
     {{< glossary_tooltip text="namespace" term_id="namespace" >}} concept).
+    
   * This example also assigns an Ethernet MAC address to each Pod.
     Kubernetes does not require that a Pod has a unique identity at the data-link layer.
-  
-* Pods use a virtual "link" between the pod network namespace and root network namespace. This permits pod packets to utilize network functions defined in the root network namespace.  
+ 
+
+ 
+* Pods use a virtual point-to-point (p2) "link" between the pod network namespace and root network namespace. This permits pod packets to utilize network functions defined in the root network namespace.  
   
 * L2bridge is a virtual L2 bridge that allows attachment, configuration and communications between pods on the same node. Depending on your deployment of container runtimes and CNI, you might know this entity as a `linux bridge`, `docker0`, `cbr0` or `cni0`.
 
-* Network plugins are also responsible for allowing Pods to communicate even when the source
-  pod  and destination pod are running on different nodes. Network plugins achieve this in different
+* Network plugins allow pods to communicate even when the source pod destination pod are running on different nodes. Network plugins achieve this in different
   ways. In this example, the network plugin has set up an _overlay network_: packets that need to go
   to a different node are encapsulated and sent over a tunnel mechanism such as
   [GENEVE](https://en.wikipedia.org/wiki/Generic_Network_Virtualization_Encapsulation). The destination
   node retrieves the inner packet and sends it to the target Pod, providing that there are no
   [NetworkPolicy](/docs/concepts/services-networking/network-policies/) restrictions to block that packet.
 
+* Virtual overlay network consists of a network of tunnels connecting pods running on different nodes.
 
+* Physical underlay network, composed of L2 switches or L3 routers for example, transport packets between nodes. 
 
+Kubernetes networking provides the following capabilities described below.
 
-{{< note >}}
-Your "physical underlay network" composed of L2 switches or L3 routers, for example, transports encapsulated or un-encapsulated packets between nodes. If you employ a CNI that uses encapsulation, you can think of your virtual overlay network _running on top_ of the physical underlay network.
-{{< /note >}}
+* [Containers on the same pod](#containers-on-the-same-pod)
+* [Pods on the same node](#pods-on-the-same-node)
+* [Pods on different nodes using a virtual overlay network](#pods-on-different-nodes-using-a-virtual-overlay-network)
+* [Pods on different nodes using a physical underlay network](#pods-on-different-nodes-using-a-physical-underlay-network)
 
-You might discover a different variant of this architecture and functions that you prefer to run in your environment. However, it should meet some or all of the network requirements noted above. 
+You might discover a different variant of this architecture and components that you prefer to run in your environment. However, it should meet some or all of the network requirements noted above.
 
 ### Containers on the same pod
 
@@ -121,7 +129,7 @@ How this is implemented is a detail of the particular container runtime you empl
 
 It is possible to request ports or call host ports on the node itself which forward packets to your pod. This is a very niche operation. How you implement this is a detail of the container runtime. The pod itself is blind to the existence or non-existence of host ports.
 
-### Pods on the same node.
+### Pods on the same node
 
 You cluster deployment might include two or more pods running on the same node. You might also require communications between your pods on the same node. 
 
@@ -146,20 +154,21 @@ Pod packets use the veth links to reach the L2 bridge function.
 
 Your Kubernetes deployment might place pods on a network of nodes. With this pod topology, you can distribute your workloads across many pods to increase scale and resiliency. Inter-pod networking between distinct nodes becomes a crucial function of your cluster network. 
 
+[//]: # ( Really think we need explanation and examples of CNI )
 #### Container network interface
 
 Add CNI explanation and references.
 
 
 
-#### Using virtual overlay network
+#### Pods on different nodes using a virtual overlay network
 
 
 {{< figure src="/docs/images/k8net-PodDiffHost-overlay.drawio.svg" alt="k8s pods virtual overlay" class="diagram-large" caption="Figure 4. Pod 1 - Pod4 networking on different hosts using virtual overlay network tunnel encapsulation" >}}
 
 
 
-#### Using physical underlay network
+#### Pods on different nodes using a physical underlay network
 
 {{< figure src="/docs/images/k8net-PodDiffHost-physical-underlay.drawio.svg" alt="k8s pods physical underay" class="diagram-large" caption="Figure 5. Pod 1 - Pod4 networking on different hosts using a physical underlay network" >}}
 
