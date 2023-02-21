@@ -26,7 +26,7 @@ para o Pod:
 {{< codenew file="pods/two-container-pod.yaml" >}}
 
 No arquivo de configuração, você pode ver que o Pod tem um shared-data chamado
-`dados compartilhados`.
+`shared-data`.
 
 O primeiro contêiner listado no arquivo de configuração executa um servidor nginx. 
 O caminho de montagem para o volume compartilhado é `/usr/share/nginx/html`.
