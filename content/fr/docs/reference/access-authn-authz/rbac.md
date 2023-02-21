@@ -314,20 +314,19 @@ Le [principe du moindre privilège](/docs/concepts/security/rbac-good-practices/
 
 ### Aggregated ClusterRoles
 
-You can _aggregate_ several ClusterRoles into one combined ClusterRole.
-A controller, running as part of the cluster control plane, watches for ClusterRole
-objects with an `aggregationRule` set. The `aggregationRule` defines a label
-{{< glossary_tooltip text="selector" term_id="selector" >}} that the controller
-uses to match other ClusterRole objects that should be combined into the `rules`
-field of this one.
+Vous pouvez _agréger_ plusieurs ClusterRoles en un seul ClusterRole combiné.
+Un contrôleur, qui s'exécute dans le cadre du plan de contrôle du cluster, recherche les objets ClusterRole
+avec une `aggregationRule` définie. L'`aggregationRule` définit un label
+{{< glossary_tooltip text="selector" term_id="selector" >}} que le contrôleur 
+utilise pour faire correspondre d'autres objets ClusterRole qui devraient être combinés dans le champ de règles de celui-ci.
 
 {{< caution >}}
-The control plane overwrites any values that you manually specify in the `rules` field of an
-aggregate ClusterRole. If you want to change or add rules, do so in the `ClusterRole` objects
-that are selected by the `aggregationRule`.
+Le plan de contrôle écrase toutes les valeurs que vous spécifiez manuellement dans le champ `rules` d'un ClusterRole agrégé.
+Si vous souhaitez modifier ou ajouter des règles, faites-le dans les objets `ClusterRole` 
+qui sont sélectionnés par l'`aggregationRule`.
 {{< /caution >}}
 
-Here is an example aggregated ClusterRole:
+Voici un exemple de ClusterRole agrégé :
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -341,10 +340,10 @@ aggregationRule:
 rules: [] # The control plane automatically fills in the rules
 ```
 
-If you create a new ClusterRole that matches the label selector of an existing aggregated ClusterRole,
-that change triggers adding the new rules into the aggregated ClusterRole.
-Here is an example that adds rules to the "monitoring" ClusterRole, by creating another
-ClusterRole labeled `rbac.example.com/aggregate-to-monitoring: true`.
+Si vous créez un nouvel ClusterRole qui correspond au sélecteur d'étiquette d'une ClusterRole
+agrégé existant, ce changement déclenche l'ajout des nouvelles règles dans le ClusterRole agrégé.
+Voici un exemple qui ajoute des règles au ClusterRole "monitoring", en créant un autre ClusterRole
+étiqueté `rbac.example.com/aggregate-to-monitoring: true`.
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -361,14 +360,14 @@ rules:
   verbs: ["get", "list", "watch"]
 ```
 
-The [default user-facing roles](#default-roles-and-role-bindings) use ClusterRole aggregation. This lets you,
-as a cluster administrator, include rules for custom resources, such as those served by
+Les [rôles par défaut](#default-roles-and-role-bindings) destinés aux utilisateurs utilisent l'agrégation ClusterRole. Cela vous permet,
+en tant qu'administrateur de cluster, d'inclure des règles pour les ressources personnalisées, telles que celles servies par
 {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinitions" >}}
-or aggregated API servers, to extend the default roles.
+ou les serveurs API agrégés, afin d'étendre les rôles par défaut.
 
-For example: the following ClusterRoles let the "admin" and "edit" default roles manage the custom resource
-named CronTab, whereas the "view" role can perform only read actions on CronTab resources.
-You can assume that CronTab objects are named `"crontabs"` in URLs as seen by the API server.
+Par exemple : les ClusterRoles suivants permettent aux rôles par défaut "admin" et "edit" de gérer la ressource personnalisée
+nommée CronTab, tandis que le rôle "view" ne peut effectuer que des actions de lecture sur les ressources CronTab.
+Vous pouvez supposer que les objets CronTab sont nommés `"crontabs"` dans les URLs telles que vues par le serveur API.
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -399,11 +398,11 @@ rules:
 
 #### Role examples
 
-The following examples are excerpts from Role or ClusterRole objects, showing only
-the `rules` section.
+Les exemples suivants sont des extraits d'objets Role ou ClusterRole,
+montrant uniquement la section `rules`.
 
-Allow reading `"pods"` resources in the core
-{{< glossary_tooltip text="API Group" term_id="api-group" >}}:
+Autoriser la lecture des ressources `"pods"` dans l'
+{{< glossary_tooltip text="API Group" term_id="api-group" >}} central :
 
 ```yaml
 rules:
@@ -415,8 +414,8 @@ rules:
   verbs: ["get", "list", "watch"]
 ```
 
-Allow reading/writing Deployments (at the HTTP level: objects with `"deployments"`
-in the resource part of their URL) in the `"apps"` API groups:
+Autoriser la lecture/écriture des Déploiements (au niveau HTTP : objets avec `"deployments"`
+dans la partie ressource de leur URL) dans les groupes API `"apps"` :
 
 ```yaml
 rules:
@@ -428,8 +427,8 @@ rules:
   verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 ```
 
-Allow reading Pods in the core API group, as well as reading or writing Job
-resources in the `"batch"` API group:
+Autorise la lecture des Pods dans le groupe d'API central, ainsi que de lire ou d'écrire 
+des ressources Job dans le groupe d'API `"batch"` :
 
 ```yaml
 rules:
@@ -447,8 +446,8 @@ rules:
   verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 ```
 
-Allow reading a ConfigMap named "my-config" (must be bound with a
-RoleBinding to limit to a single ConfigMap in a single namespace):
+Autoriser la lecture d'un ConfigMap nommé "my-config" 
+(doit être lié avec un RoleBinding pour limiter à un seul ConfigMap dans un seul namespace).
 
 ```yaml
 rules:
@@ -461,9 +460,9 @@ rules:
   verbs: ["get"]
 ```
 
-Allow reading the resource `"nodes"` in the core group (because a
-Node is cluster-scoped, this must be in a ClusterRole bound with a
-ClusterRoleBinding to be effective):
+Autoriser la lecture des ressources `"nodes"`dans le groupe central (parce 
+qu'un Node est à l'échelle-du-cluster, il doit être dans un ClusterRole
+lié à un ClusterRoleBinding pour être effectif) :
 
 ```yaml
 rules:
@@ -475,9 +474,9 @@ rules:
   verbs: ["get", "list", "watch"]
 ```
 
-Allow GET and POST requests to the non-resource endpoint `/healthz` and
-all subpaths (must be in a ClusterRole bound with a ClusterRoleBinding
-to be effective):
+Autorise les requêtes GET et POST vers l'endpoint non ressource `/healthz` et
+tous les subpaths (doit être dans un ClusterRole lié à un ClusterRoleBinding
+pour être effectif) :
 
 ```yaml
 rules:
