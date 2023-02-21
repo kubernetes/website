@@ -23,7 +23,7 @@ Seu cluster deve estar executando o complemento CoreDNS.
 DNS é um serviço integrado do Kubernetes que é iniciado automaticamente usando o _gerenciador de complementos_ [cluster add-on](http://releases.k8s.io/master/cluster/addons/README.md).
 
 {{< note >}}
-O service CoreDNS é chamado de `kube-dns` no campo `metadata.name`.
+O Service CoreDNS é chamado de `kube-dns` no campo `metadata.name`.
 O objetivo é garantir maior interoperabilidade com cargas de trabalho que dependiam do nome de serviço legado `kube-dns` para resolver endereços internos ao cluster.
 Usando o service chamado `kube-dns` abstrai o detalhe de implementação de qual provedor de DNS está sendo executado por trás desse nome comum.
 {{< /note >}}
