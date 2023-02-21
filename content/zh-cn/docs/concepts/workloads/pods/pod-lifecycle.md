@@ -508,6 +508,19 @@ condition to `True` before sandbox creation and network configuration starts.
 `Initialized` 状况设置为 `True`。
 
 <!--
+### Pod scheduling readiness {#pod-scheduling-readiness-gate}
+-->
+### Pod 调度就绪态   {#pod-scheduling-readiness-gate}
+
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+<!--
+See [Pod Scheduling Readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/) for more information.
+-->
+有关详细信息，请参阅 [Pod 调度就绪态](/zh-cn/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)。
+
+<!--
 ## Container probes
 
 A _probe_ is a diagnostic
@@ -609,6 +622,7 @@ Each probe has one of three results:
 
 <!--
 ### Types of probe
+
 The kubelet can optionally perform and react to three kinds of probes on running
 containers:
 -->
