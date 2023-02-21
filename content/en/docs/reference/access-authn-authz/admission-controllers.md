@@ -203,16 +203,15 @@ The default value for `default-not-ready-toleration-seconds` and `default-unreac
 
 ### DenyServiceExternalIPs
 
-This admission controller rejects all net-new usage of the `Service` field `externalIPs`.  This
-feature is very powerful (allows network traffic interception) and not well
-controlled by policy.  When enabled, users of the cluster may not create new
+This admission controller rejects all net-new usage of the `Service` field `externalIPs`. The
+ability to set the `externalIPs` for a `Service` is very powerful (allows network traffic interception) and not well
+controlled by policy. When the `DenyServiceExternalIPs` admission controller is enabled, users of the cluster may not create new
 Services which use `externalIPs` and may not add new values to `externalIPs` on
-existing `Service` objects.  Existing uses of `externalIPs` are not affected,
+existing `Service` objects. Existing uses of `externalIPs` are not affected,
 and users may remove values from `externalIPs` on existing `Service` objects.
 
-Most users do not need this feature at all, and cluster admins should consider disabling it.
-Clusters that do need to use this feature should consider using some custom policy to manage usage
-of it.
+Most users do not need the ability to set the `externalIPs` field for a `Service` at all, and cluster admins should consider disabling this
+functionality by enabling the `DenyServiceExternalIPs` admission controller. Clusters that do need to allow this functionality should consider using some custom policy to manage its usage.
 
 This admission controller is disabled by default.
 
