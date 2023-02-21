@@ -267,6 +267,11 @@ after successful sandbox creation and network configuration by the runtime
 plugin). For a Pod without init containers, the kubelet sets the `Initialized`
 condition to `True` before sandbox creation and network configuration starts.
 
+### Pod scheduling readiness {#pod-scheduling-readiness-gate}
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+See [Pod Scheduling Readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/) for more information.
 
 ## Container probes
 

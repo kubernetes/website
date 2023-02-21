@@ -141,10 +141,10 @@ spec:
 The general workflow of a device plugin includes the following steps:
 
 1. Initialization. During this phase, the device plugin performs vendor-specific
-  initialization and setup to make sure the devices are in a ready state.
+   initialization and setup to make sure the devices are in a ready state.
 
 1. The plugin starts a gRPC service, with a Unix socket under the host path
-  `/var/lib/kubelet/device-plugins/`, that implements the following interfaces:
+   `/var/lib/kubelet/device-plugins/`, that implements the following interfaces:
 -->
 ## 设备插件的实现    {#device-plugin-implementation}
 
@@ -348,7 +348,7 @@ of the device allocations during the upgrade.
 采用该方法将确保升级期间设备分配的连续运行。
 
 <!--
-## Monitoring Device Plugin Resources
+## Monitoring device plugin resources
 -->
 ## 监控设备插件资源   {#monitoring-device-plugin-resources}
 
@@ -375,7 +375,7 @@ for these devices:
 kubelet 提供了 gRPC 服务来使得正在使用中的设备被发现，并且还为这些设备提供了元数据：
 
 ```gRPC
-// PodResourcesLister 是一个由 kubelet 提供的服务，用来提供供节点上 
+// PodResourcesLister 是一个由 kubelet 提供的服务，用来提供供节点上
 // Pod 和容器使用的节点资源的信息
 service PodResourcesLister {
     rpc List(ListPodResourcesRequest) returns (ListPodResourcesResponse) {}
@@ -383,6 +383,9 @@ service PodResourcesLister {
 }
 ```
 
+<!--
+### `List` gRPC endpoint {#grpc-endpoint-list}
+-->
 ### `List` gRPC 端点 {#grpc-endpoint-list}
 
 <!--
@@ -522,7 +525,7 @@ Preceding Kubernetes v1.23, to enable this feature `kubelet` must be started wit
 
 <!--
 `ContainerDevices` do expose the topology information declaring to which NUMA cells the device is
-affine.  The NUMA cells are identified using a opaque integer ID, which value is consistent to
+affine. The NUMA cells are identified using a opaque integer ID, which value is consistent to
 what device plugins report
 [when they register themselves to the kubelet](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager).
 -->
@@ -535,7 +538,7 @@ NUMA 单元通过一个整数 ID 来标识，其取值与设备插件所报告�
 The gRPC service is served over a unix socket at `/var/lib/kubelet/pod-resources/kubelet.sock`.
 Monitoring agents for device plugin resources can be deployed as a daemon, or as a DaemonSet.
 The canonical directory `/var/lib/kubelet/pod-resources` requires privileged access, so monitoring
-agents must run in a privileged security context.  If a device monitoring agent is running as a
+agents must run in a privileged security context. If a device monitoring agent is running as a
 DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 {{< glossary_tooltip term_id="volume" >}} in the device monitoring agent's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
@@ -591,7 +594,7 @@ resource assignment decisions.
 `TopologyInfo` supports setting a `nodes` field to either `nil` or a list of NUMA nodes. This
 allows the Device Plugin to advertise a device that spans multiple NUMA nodes.
 
-Setting `TopologyInfo` to `nil`  or providing an empty list of NUMA nodes for a given device
+Setting `TopologyInfo` to `nil` or providing an empty list of NUMA nodes for a given device
 indicates that the Device Plugin does not have a NUMA affinity preference for that device.
 
 An example `TopologyInfo` struct populated for a device by a Device Plugin:

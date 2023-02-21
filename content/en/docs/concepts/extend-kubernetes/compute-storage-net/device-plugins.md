@@ -88,56 +88,56 @@ spec:
 The general workflow of a device plugin includes the following steps:
 
 1. Initialization. During this phase, the device plugin performs vendor-specific
-  initialization and setup to make sure the devices are in a ready state.
+   initialization and setup to make sure the devices are in a ready state.
 
 1. The plugin starts a gRPC service, with a Unix socket under the host path
-  `/var/lib/kubelet/device-plugins/`, that implements the following interfaces:
+   `/var/lib/kubelet/device-plugins/`, that implements the following interfaces:
 
-    ```gRPC
-    service DevicePlugin {
-          // GetDevicePluginOptions returns options to be communicated with Device Manager.
-          rpc GetDevicePluginOptions(Empty) returns (DevicePluginOptions) {}
+   ```gRPC
+   service DevicePlugin {
+         // GetDevicePluginOptions returns options to be communicated with Device Manager.
+         rpc GetDevicePluginOptions(Empty) returns (DevicePluginOptions) {}
 
-          // ListAndWatch returns a stream of List of Devices
-          // Whenever a Device state change or a Device disappears, ListAndWatch
-          // returns the new list
-          rpc ListAndWatch(Empty) returns (stream ListAndWatchResponse) {}
+         // ListAndWatch returns a stream of List of Devices
+         // Whenever a Device state change or a Device disappears, ListAndWatch
+         // returns the new list
+         rpc ListAndWatch(Empty) returns (stream ListAndWatchResponse) {}
 
-          // Allocate is called during container creation so that the Device
-          // Plugin can run device specific operations and instruct Kubelet
-          // of the steps to make the Device available in the container
-          rpc Allocate(AllocateRequest) returns (AllocateResponse) {}
+         // Allocate is called during container creation so that the Device
+         // Plugin can run device specific operations and instruct Kubelet
+         // of the steps to make the Device available in the container
+         rpc Allocate(AllocateRequest) returns (AllocateResponse) {}
 
-          // GetPreferredAllocation returns a preferred set of devices to allocate
-          // from a list of available ones. The resulting preferred allocation is not
-          // guaranteed to be the allocation ultimately performed by the
-          // devicemanager. It is only designed to help the devicemanager make a more
-          // informed allocation decision when possible.
-          rpc GetPreferredAllocation(PreferredAllocationRequest) returns (PreferredAllocationResponse) {}
+         // GetPreferredAllocation returns a preferred set of devices to allocate
+         // from a list of available ones. The resulting preferred allocation is not
+         // guaranteed to be the allocation ultimately performed by the
+         // devicemanager. It is only designed to help the devicemanager make a more
+         // informed allocation decision when possible.
+         rpc GetPreferredAllocation(PreferredAllocationRequest) returns (PreferredAllocationResponse) {}
 
-          // PreStartContainer is called, if indicated by Device Plugin during registeration phase,
-          // before each container start. Device plugin can run device specific operations
-          // such as resetting the device before making devices available to the container.
-          rpc PreStartContainer(PreStartContainerRequest) returns (PreStartContainerResponse) {}
-    }
-    ```
+         // PreStartContainer is called, if indicated by Device Plugin during registeration phase,
+         // before each container start. Device plugin can run device specific operations
+         // such as resetting the device before making devices available to the container.
+         rpc PreStartContainer(PreStartContainerRequest) returns (PreStartContainerResponse) {}
+   }
+   ```
 
-    {{< note >}}
-    Plugins are not required to provide useful implementations for
-    `GetPreferredAllocation()` or `PreStartContainer()`. Flags indicating
-    the availability of these calls, if any, should be set in the `DevicePluginOptions`
-    message sent back by a call to `GetDevicePluginOptions()`. The `kubelet` will
-    always call `GetDevicePluginOptions()` to see which optional functions are
-    available, before calling any of them directly.
-    {{< /note >}}
+   {{< note >}}
+   Plugins are not required to provide useful implementations for
+   `GetPreferredAllocation()` or `PreStartContainer()`. Flags indicating
+   the availability of these calls, if any, should be set in the `DevicePluginOptions`
+   message sent back by a call to `GetDevicePluginOptions()`. The `kubelet` will
+   always call `GetDevicePluginOptions()` to see which optional functions are
+   available, before calling any of them directly.
+   {{< /note >}}
 
 1. The plugin registers itself with the kubelet through the Unix socket at host
-  path `/var/lib/kubelet/device-plugins/kubelet.sock`.
+   path `/var/lib/kubelet/device-plugins/kubelet.sock`.
 
-    {{< note >}}
-    The ordering of the workflow is important. A plugin MUST start serving gRPC
-    service before registering itself with kubelet for successful registration.
-    {{< /note >}}
+   {{< note >}}
+   The ordering of the workflow is important. A plugin MUST start serving gRPC
+   service before registering itself with kubelet for successful registration.
+   {{< /note >}}
 
 1. After successfully registering itself, the device plugin runs in serving mode, during which it keeps
    monitoring device health and reports back to the kubelet upon any device state changes.
@@ -297,7 +297,6 @@ However, calling `GetAllocatableResources` endpoint is not sufficient in case of
 update and Kubelet needs to be restarted to reflect the correct resource capacity and allocatable.
 {{< /note >}}
 
-
 ```gRPC
 // AllocatableResourcesResponses contains informations about all the devices known by the kubelet
 message AllocatableResourcesResponse {
@@ -318,14 +317,14 @@ Preceding Kubernetes v1.23, to enable this feature `kubelet` must be started wit
 ```
 
 `ContainerDevices` do expose the topology information declaring to which NUMA cells the device is
-affine.  The NUMA cells are identified using a opaque integer ID, which value is consistent to
+affine. The NUMA cells are identified using a opaque integer ID, which value is consistent to
 what device plugins report
 [when they register themselves to the kubelet](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager).
 
 The gRPC service is served over a unix socket at `/var/lib/kubelet/pod-resources/kubelet.sock`.
 Monitoring agents for device plugin resources can be deployed as a daemon, or as a DaemonSet.
 The canonical directory `/var/lib/kubelet/pod-resources` requires privileged access, so monitoring
-agents must run in a privileged security context.  If a device monitoring agent is running as a
+agents must run in a privileged security context. If a device monitoring agent is running as a
 DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 {{< glossary_tooltip term_id="volume" >}} in the device monitoring agent's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
@@ -360,7 +359,7 @@ resource assignment decisions.
 `TopologyInfo` supports setting a `nodes` field to either `nil` or a list of NUMA nodes. This
 allows the Device Plugin to advertise a device that spans multiple NUMA nodes.
 
-Setting `TopologyInfo` to `nil`  or providing an empty list of NUMA nodes for a given device
+Setting `TopologyInfo` to `nil` or providing an empty list of NUMA nodes for a given device
 indicates that the Device Plugin does not have a NUMA affinity preference for that device.
 
 An example `TopologyInfo` struct populated for a device by a Device Plugin:
@@ -396,4 +395,3 @@ Here are some examples of device plugin implementations:
 * Learn about the [Topology Manager](/docs/tasks/administer-cluster/topology-manager/)
 * Read about using [hardware acceleration for TLS ingress](/blog/2019/04/24/hardware-accelerated-ssl/tls-termination-in-ingress-controllers-using-kubernetes-device-plugins-and-runtimeclass/)
   with Kubernetes
-

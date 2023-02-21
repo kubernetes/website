@@ -27,7 +27,6 @@ The following methods exist for installing kubectl on macOS:
 - [Optional kubectl configurations and plugins](#optional-kubectl-configurations-and-plugins)
   - [Enable shell autocompletion](#enable-shell-autocompletion)
   - [Install `kubectl convert` plugin](#install-kubectl-convert-plugin)
-- [{{% heading "whatsnext" %}}](#-heading-whatsnext-)
 
 ### Install kubectl binary with curl on macOS
 
@@ -117,6 +116,17 @@ The following methods exist for installing kubectl on macOS:
    ```bash
    kubectl version --client
    ```
+   
+   {{< note >}}
+   The above command will generate a warning:
+   ```
+   WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
+   ```
+   You can ignore this warning. You are only checking the version of `kubectl` that you
+   have installed.
+   
+   {{< /note >}}
+   
    Or use this for detailed view of version:
 
    ```cmd

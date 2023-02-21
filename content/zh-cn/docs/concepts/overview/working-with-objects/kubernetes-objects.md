@@ -18,7 +18,8 @@ card:
 
 <!-- overview -->
 <!--
-This page explains how Kubernetes objects are represented in the Kubernetes API, and how you can express them in `.yaml` format.
+This page explains how Kubernetes objects are represented in the Kubernetes API, and how you can
+express them in `.yaml` format.
 -->
 本页说明了在 Kubernetes API 中是如何表示 Kubernetes 对象的，
 以及使用 `.yaml` 格式的文件表示 Kubernetes 对象。
