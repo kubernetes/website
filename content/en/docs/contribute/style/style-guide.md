@@ -632,9 +632,10 @@ These steps ... | These simple steps ...
 {{< /table >}}
 
 ### EditorConfig
-EditorConfig is useful for maintaining a consistent coding style across all the editors , this helps the developers using different editors (like vim , emacs , atom , vscode etc) would be able to contribute to the project with the same style.usually for doing this an .editorconfig file is used. 
-
-to check out the .editorconfig click [here](https://github.com/kubernetes/website/blob/main/.editorconfig) 
+The Kubernetes project maintains an EditorConfig file that sets common style preferences in text editors
+such as VS Code.  You can use this file if you want to improve how consistent your contributions are with
+the rest of the project. To view the file, refer to
+[`.editorconfig`](https://github.com/kubernetes/website/blob/main/.editorconfig) in the repository root.
 ## {{% heading "whatsnext" %}}
 
 * Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
