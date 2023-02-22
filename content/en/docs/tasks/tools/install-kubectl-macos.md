@@ -275,7 +275,7 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 1. After installing the plugin, clean up the installation files:
 
    ```bash
-   rm kubectl kubectl.sha256
+   rm kubectl-convert kubectl-convert.sha256
    ```
 
 ## {{% heading "whatsnext" %}}
