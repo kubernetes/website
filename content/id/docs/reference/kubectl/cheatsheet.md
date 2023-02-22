@@ -360,8 +360,8 @@ Contoh-contoh yang menggunakan `-o=custom-columns`:
 # All images running in a cluster
 kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
 
- # All images excluding "k8s.gcr.io/coredns:1.6.2"
-kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
+ # All images excluding "registry.k8s.io/coredns:1.6.2"
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="registry.k8s.io/coredns:1.6.2")].image'
 
 # All fields under metadata regardless of name
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'
