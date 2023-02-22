@@ -88,7 +88,7 @@ spec:
 
 ### CRIの設定 {#cri-configuration}
 
-CRIランタイムのセットアップに関するさらなる詳細は、[CRIのインストール](/docs/setup/cri/)を参照してください。
+CRIランタイムのセットアップに関するさらなる詳細は、[コンテナランタイム](/ja/docs/setup/production-environment/container-runtimes/)を参照してください。
 
 #### {{< glossary_tooltip term_id="containerd" >}}
 

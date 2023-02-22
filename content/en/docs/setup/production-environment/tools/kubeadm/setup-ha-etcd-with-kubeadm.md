@@ -273,22 +273,24 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
 
 1. Optional: Check the cluster health.
 
-   ```sh
-   docker run --rm -it \
-   --net host \
-   -v /etc/kubernetes:/etc/kubernetes registry.k8s.io/etcd:${ETCD_TAG} etcdctl \
-   --cert /etc/kubernetes/pki/etcd/peer.crt \
-   --key /etc/kubernetes/pki/etcd/peer.key \
-   --cacert /etc/kubernetes/pki/etcd/ca.crt \
-   --endpoints https://${HOST0}:2379 endpoint health --cluster
-   ...
-   https://[HOST0 IP]:2379 is healthy: successfully committed proposal: took = 16.283339ms
-   https://[HOST1 IP]:2379 is healthy: successfully committed proposal: took = 19.44402ms
-   https://[HOST2 IP]:2379 is healthy: successfully committed proposal: took = 35.926451ms
-   ```
+    If `etcdctl` isn't available, you can run this tool inside a container image.
+    You would do that directly with your container runtime using a tool such as
+    `crictl run` and not through Kubernetes
 
-   - Set `${ETCD_TAG}` to the version tag of your etcd image. For example `3.4.3-0`. To see the etcd image and tag that kubeadm uses execute `kubeadm config images list --kubernetes-version ${K8S_VERSION}`, where `${K8S_VERSION}` is for example `v1.17.0`.
-   - Set `${HOST0}`to the IP address of the host you are testing.
+    ```sh
+    ETCDCTL_API=3 etcdctl \
+    --cert /etc/kubernetes/pki/etcd/peer.crt \
+    --key /etc/kubernetes/pki/etcd/peer.key \
+    --cacert /etc/kubernetes/pki/etcd/ca.crt \
+    --endpoints https://${HOST0}:2379 endpoint health
+    ...
+    https://[HOST0 IP]:2379 is healthy: successfully committed proposal: took = 16.283339ms
+    https://[HOST1 IP]:2379 is healthy: successfully committed proposal: took = 19.44402ms
+    https://[HOST2 IP]:2379 is healthy: successfully committed proposal: took = 35.926451ms
+    ```
+    
+    - Set `${HOST0}`to the IP address of the host you are testing.
+
 
 ## {{% heading "whatsnext" %}}
 

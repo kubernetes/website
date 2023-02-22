@@ -2,11 +2,13 @@
 title: 验证已签名容器镜像
 content_type: task
 min-kubernetes-server-version: v1.24
+weight: 420
 ---
 <!--
 title: Verify Signed Container Images
 content_type: task
 min-kubernetes-server-version: v1.24
+weight: 420
 -->
 
 <!-- overview -->
@@ -63,12 +65,17 @@ done
 
 <!--
 Then verify the blob by using `cosign`:
+
+cosign v1.9.0 is required to be able to use the `--certificate` flag. Please use
+`--cert` for older versions of cosign.
 -->
 然后使用 `cosign` 验证二进制文件：
 
 ```shell
 cosign verify-blob "$BINARY" --signature "$BINARY".sig --certificate "$BINARY".cert
 ```
+
+cosign 自 v1.9.0 版本开始才能使用 `--certificate` 标志，旧版本的 cosign 请使用 `--cert`。
 
 {{< note >}}
 <!-- 

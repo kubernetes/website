@@ -1,6 +1,7 @@
 ---
 title: 通过名字空间共享集群
 content_type: task
+weight: 340
 ---
 <!--
 reviewers:
@@ -8,6 +9,7 @@ reviewers:
 - janetkuo
 title: Share a Cluster with Namespaces
 content_type: task
+weight: 340
 -->
 
 <!-- overview -->
