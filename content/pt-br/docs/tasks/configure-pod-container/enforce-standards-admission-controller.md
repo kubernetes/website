@@ -3,7 +3,7 @@ title: Aplicando os Padrões de Segurança do Pod Através da Configuração do 
 content_type: task
 ---
 
-O Kubernetes force um [controlador de admissão](/docs/reference/access-authn-authz/admission-controllers/#podsecurity)
+O Kubernetes fornece um [controlador de admissão](/docs/reference/access-authn-authz/admission-controllers/#podsecurity)
 embutido para garantir os [padrões de segurança do Pod](/docs/concepts/security/pod-security-standards).
 Você pode configurar esse controlador de admissão para definir padrões e
 [isenções](/docs/concepts/security/pod-security-admission/#exemptions) em todo
