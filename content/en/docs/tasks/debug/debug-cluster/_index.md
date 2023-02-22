@@ -314,6 +314,14 @@ This is an incomplete list of things that could go wrong, and how to adjust your
   - Mitigates: Node shutdown
   - Mitigates: Kubelet software fault
 
+ {{<note>}} 
+Starting 1.24, since management of the CNI is no longer in scope for kubelet, the `--network-plugin` command line parameter has been removed from the binary and will throw the following error, if used:
+
+`Error: failed to parse kubelet flag: unknown flag: --network-plugin`
+
+To understand how to resolve this error, go through the [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/) guide.
+ 
+ {{</note>}} 
 
 ## {{% heading "whatsnext" %}}
 
