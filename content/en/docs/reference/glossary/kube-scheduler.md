@@ -12,7 +12,7 @@ tags:
 ---
 Control plane component that watches for newly created
 {{< glossary_tooltip term_id="pod" text="Pods" >}} that have not yet been assigned to any
-{{< glossary_tooltip term_id="nodes" text="nodes">}}, and selects a node for them
+{{< glossary_tooltip term_id="node" text="nodes">}}, and selects a node for them
 to run on.
 
 <!--more-->
