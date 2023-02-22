@@ -42,33 +42,35 @@ characters.
 
 ### Use source files
 
-1.  Store the credentials in files:
+1. Store the credentials in files:
 
-    ```shell
-    echo -n 'admin' > ./username.txt
-    echo -n 'S!B\*d$zDsb=' > ./password.txt
-    ```
-    The `-n` flag ensures that the generated files do not have an extra newline
-    character at the end of the text. This is important because when `kubectl`
-    reads a file and encodes the content into a base64 string, the extra
-    newline character gets encoded too. You do not need to escape special
-    characters in strings that you include in a file.
+   ```shell
+   echo -n 'admin' > ./username.txt
+   echo -n 'S!B\*d$zDsb=' > ./password.txt
+   ```
 
-1.  Pass the file paths in the `kubectl` command:
+   The `-n` flag ensures that the generated files do not have an extra newline
+   character at the end of the text. This is important because when `kubectl`
+   reads a file and encodes the content into a base64 string, the extra
+   newline character gets encoded too. You do not need to escape special
+   characters in strings that you include in a file.
 
-    ```shell
-    kubectl create secret generic db-user-pass \
-        --from-file=./username.txt \
-        --from-file=./password.txt
-    ```
-    The default key name is the file name. You can optionally set the key name
-    using `--from-file=[key=]source`. For example:
+1. Pass the file paths in the `kubectl` command:
 
-    ```shell
-    kubectl create secret generic db-user-pass \
-        --from-file=username=./username.txt \
-        --from-file=password=./password.txt
-    ```
+   ```shell
+   kubectl create secret generic db-user-pass \
+       --from-file=./username.txt \
+       --from-file=./password.txt
+   ```
+
+   The default key name is the file name. You can optionally set the key name
+   using `--from-file=[key=]source`. For example:
+
+   ```shell
+   kubectl create secret generic db-user-pass \
+       --from-file=username=./username.txt \
+       --from-file=password=./password.txt
+   ```
 
 With either method, the output is similar to:
 
@@ -119,41 +121,41 @@ accidentally, or from being stored in a terminal log.
 
 ### Decode the Secret  {#decoding-secret}
 
-1.  View the contents of the Secret you created:
+1. View the contents of the Secret you created:
 
-    ```shell
-    kubectl get secret db-user-pass -o jsonpath='{.data}'
-    ```
+   ```shell
+   kubectl get secret db-user-pass -o jsonpath='{.data}'
+   ```
 
-    The output is similar to:
+   The output is similar to:
 
-    ```json
-    {"password":"UyFCXCpkJHpEc2I9","username":"YWRtaW4="}
-    ```
+   ```json
+   { "password": "UyFCXCpkJHpEc2I9", "username": "YWRtaW4=" }
+   ```
 
-1.  Decode the `password` data:
+1. Decode the `password` data:
 
-    ```shell
-    echo 'UyFCXCpkJHpEc2I9' | base64 --decode
-    ```
+   ```shell
+   echo 'UyFCXCpkJHpEc2I9' | base64 --decode
+   ```
 
-    The output is similar to:
+   The output is similar to:
 
-    ```
-    S!B\*d$zDsb=
-    ```
+   ```
+   S!B\*d$zDsb=
+   ```
 
-    {{< caution >}}
-    This is an example for documentation purposes. In practice,
-    this method could cause the command with the encoded data to be stored in
-    your shell history. Anyone with access to your computer could find the
-    command and decode the secret. A better approach is to combine the view and
-    decode commands.
-    {{< /caution >}}
+   {{< caution >}}
+   This is an example for documentation purposes. In practice,
+   this method could cause the command with the encoded data to be stored in
+   your shell history. Anyone with access to your computer could find the
+   command and decode the secret. A better approach is to combine the view and
+   decode commands.
+   {{< /caution >}}
 
-    ```shell
-    kubectl get secret db-user-pass -o jsonpath='{.data.password}' | base64 --decode
-    ```
+   ```shell
+   kubectl get secret db-user-pass -o jsonpath='{.data.password}' | base64 --decode
+   ```
 
 ## Edit a Secret {#edit-secret}
 
