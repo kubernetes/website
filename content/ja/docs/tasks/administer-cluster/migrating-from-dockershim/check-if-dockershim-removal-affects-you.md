@@ -1,5 +1,5 @@
 ---
-title: Dockershim非推奨の影響範囲を確認する
+title: dockershim削除の影響範囲を確認する
 content_type: task
 weight: 20
 ---
@@ -7,9 +7,9 @@ weight: 20
 <!-- overview -->
 Kubernetesの`dockershim`コンポーネントは、DockerをKubernetesの{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}として使用することを可能にします。
 
-Kubernetesの組み込みコンポーネントである`dockershim`はリリースv1.20で非推奨となりました。
+Kubernetesの組み込みコンポーネントである`dockershim`はリリースv1.24で削除されました。
 
-このページでは、あなたのクラスターがどのようにDockerをコンテナランタイムとして使用しているか、使用中の`dockershim`が果たす役割について詳しく説明し、`dockershim`の廃止によって影響を受けるワークロードがあるかどうかをチェックするためのステップを示します。
+このページでは、あなたのクラスターがどのようにDockerをコンテナランタイムとして使用しているか、使用中の`dockershim`が果たす役割について詳しく説明し、`dockershim`の削除によって影響を受けるワークロードがあるかどうかをチェックするためのステップを示します。
 
 ## 自分のアプリがDockerに依存しているかどうかの確認 {#find-docker-dependencies}
 

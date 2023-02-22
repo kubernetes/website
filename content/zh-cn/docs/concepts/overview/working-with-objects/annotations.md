@@ -153,7 +153,7 @@ metadata:
 spec:
   containers:
   - name: nginx
-    image: nginx:1.7.9
+    image: nginx:1.14.2
     ports:
     - containerPort: 80
 ```
@@ -161,7 +161,6 @@ spec:
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Learn more about [Labels and Selectors](/docs/concepts/overview/working-with-objects/labels/).
+Learn more about [Labels and Selectors](/docs/concepts/overview/working-with-objects/labels/).
 -->
-* 进一步了解[标签和选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)。
-
+进一步了解[标签和选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)。

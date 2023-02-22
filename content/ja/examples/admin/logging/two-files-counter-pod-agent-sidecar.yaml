@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
   - name: count
-    image: busybox
+    image: busybox:1.28
     args:
     - /bin/sh
     - -c
@@ -22,7 +22,7 @@ spec:
     - name: varlog
       mountPath: /var/log
   - name: count-agent
-    image: k8s.gcr.io/fluentd-gcp:1.30
+    image: registry.k8s.io/fluentd-gcp:1.30
     env:
     - name: FLUENTD_ARGS
       value: -c /etc/fluentd-config/fluentd.conf
