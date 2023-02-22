@@ -1,6 +1,7 @@
 ---
 title: Use Cascading Deletion in a Cluster
 content_type: task
+weight: 360
 ---
 
 <!--overview-->

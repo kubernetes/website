@@ -37,7 +37,7 @@ on every resource object.
 | ----------------------------------- | --------------------- | -------- | ---- |
 | `app.kubernetes.io/name`            | The name of the application | `mysql` | string |
 | `app.kubernetes.io/instance`        | A unique name identifying the instance of an application | `mysql-abcxzy` | string |
-| `app.kubernetes.io/version`         | The current version of the application (e.g., a semantic version, revision hash, etc.) | `5.7.21` | string |
+| `app.kubernetes.io/version`         | The current version of the application (e.g., a [SemVer 1.0](https://semver.org/spec/v1.0.0.html), revision hash, etc.) | `5.7.21` | string |
 | `app.kubernetes.io/component`       | The component within the architecture | `database` | string |
 | `app.kubernetes.io/part-of`         | The name of a higher level application this one is part of | `wordpress` | string |
 | `app.kubernetes.io/managed-by`      | The tool being used to manage the operation of an application | `helm` | string |
@@ -171,4 +171,3 @@ metadata:
 ```
 
 With the MySQL `StatefulSet` and `Service` you'll notice information about both MySQL and WordPress, the broader application, are included.
-

@@ -148,6 +148,28 @@ namespace (`/apis/GROUP/VERSION/namespaces/NAMESPACE/*`). A namespace-scoped res
 type will be deleted when its namespace is deleted and access to that resource type
 is controlled by authorization checks on the namespace scope.
 
+Note: core resources use `/api` instead of `/apis` and omit the GROUP path segment.
+
+Examples:
+-->
+## 资源 URI {#resource-uris}
+
+所有资源类型要么是集群作用域的（`/apis/GROUP/VERSION/*`），
+要么是名字空间作用域的（`/apis/GROUP/VERSION/namespaces/NAMESPACE/*`）。
+名字空间作用域的资源类型会在其名字空间被删除时也被删除，
+并且对该资源类型的访问是由定义在名字空间域中的授权检查来控制的。
+
+注意： 核心资源使用 `/api` 而不是 `/apis`，并且不包含 GROUP 路径段。
+
+例如:
+* `/api/v1/namespaces`
+* `/api/v1/pods`
+* `/api/v1/namespaces/my-namespace/pods`
+* `/apis/apps/v1/deployments`
+* `/apis/apps/v1/namespaces/my-namespace/deployments`
+* `/apis/apps/v1/namespaces/my-namespace/deployments/my-deployment`
+
+<!--
 You can also access collections of resources (for example: listing all Nodes).
 The following paths are used to retrieve collections and resources:
 
@@ -162,13 +184,6 @@ The following paths are used to retrieve collections and resources:
   * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE` - return collection of all instances of the resource type in NAMESPACE
   * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME` - return the instance of the resource type with NAME in NAMESPACE
 -->
-## 资源 URI {#resource-uris}
-
-所有资源类型要么是集群作用域的（`/apis/GROUP/VERSION/*`），
-要么是名字空间作用域的（`/apis/GROUP/VERSION/namespaces/NAMESPACE/*`）。
-名字空间作用域的资源类型会在其名字空间被删除时也被删除，
-并且对该资源类型的访问是由定义在名字空间域中的授权检查来控制的。
-
 你还可以访问资源集合（例如：列出所有 Node）。以下路径用于检索集合和资源：
 
 * 集群作用域的资源：
@@ -1175,7 +1190,7 @@ by default.
 The `kubectl` tool uses the `--validate` flag to set the level of field validation.
 Historically `--validate` was used to toggle client-side validation on or off as
 a boolean flag. Since Kubernetes 1.25, kubectl uses
-server-side field validation when sending requests to a serer with this feature
+server-side field validation when sending requests to a server with this feature
 enabled. Validation will fall back to client-side only when it cannot connect
 to an API server with field validation enabled.
 -->

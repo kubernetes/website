@@ -50,7 +50,7 @@ The name of a LimitRange object must be a valid
 
 ## LimitRange and admission checks for Pods
 
-A `LimitRange` does **not** check the consistency of the default values it applies. This means that a default value for the _limit_ that is set by `LimitRange` may be less than the _request_ value specified for the container in the spec that a client submits to the API server. If that happens, the final Pod will not be scheduleable.
+A `LimitRange` does **not** check the consistency of the default values it applies. This means that a default value for the _limit_ that is set by `LimitRange` may be less than the _request_ value specified for the container in the spec that a client submits to the API server. If that happens, the final Pod will not be schedulable.
 
 For example, you define a `LimitRange` with this manifest:
 

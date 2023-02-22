@@ -155,6 +155,32 @@ This label has been deprecated. Please use `kubernetes.io/arch` instead.
 
 This label has been deprecated. Please use `kubernetes.io/os` instead.
 
+### kube-aggregator.kubernetes.io/automanaged {#kube-aggregator-kubernetesio-automanaged}
+
+Example: `kube-aggregator.kubernetes.io/automanaged: "onstart"`
+
+Used on: APIService
+
+The `kube-apiserver` sets this label on any APIService object that the API server has created automatically. The label marks how the control plane should manage that APIService. You should not add, modify, or remove this label by yourself.
+
+{{< note >}}
+Automanaged APIService objects are deleted by kube-apiserver when it has no built-in or custom resource API corresponding to the API group/version of the APIService.
+{{< /note >}}
+
+There are two possible values:
+- `onstart`: The APIService should be reconciled when an API server starts up, but not otherwise.
+- `true`: The API server should reconcile this APIService continuously.
+
+### service.alpha.kubernetes.io/tolerate-unready-endpoints (deprecated)
+
+Used on: StatefulSet
+
+This annotation on a Service denotes if the Endpoints controller should go ahead and create Endpoints for unready Pods.
+Endpoints of these Services retain their DNS records and continue receiving
+traffic for the Service from the moment the kubelet starts all containers in the pod
+and marks it _Running_, til the kubelet stops all containers and deletes the pod from
+the API server.
+
 ### kubernetes.io/hostname {#kubernetesiohostname}
 
 Example: `kubernetes.io/hostname: "ip-172-20-114-199.ec2.internal"`
@@ -294,6 +320,50 @@ See [topology.kubernetes.io/zone](#topologykubernetesiozone).
 
 {{< note >}} Starting in v1.17, this label is deprecated in favor of [topology.kubernetes.io/zone](#topologykubernetesiozone). {{< /note >}}
 
+### pv.kubernetes.io/bind-completed {#pv-kubernetesiobind-completed}
+
+Example: `pv.kubernetes.io/bind-completed: "yes"`
+
+Used on: PersistentVolumeClaim
+
+When this annotation is set on a PersistentVolumeClaim (PVC), that indicates that the lifecycle
+of the PVC has passed through initial binding setup. When present, that information changes
+how the control plane interprets the state of PVC objects.
+The value of this annotation does not matter to Kubernetes.
+
+### pv.kubernetes.io/bound-by-controller {#pv-kubernetesioboundby-controller}
+
+Example: `pv.kubernetes.io/bound-by-controller: "yes"`
+
+Used on: PersistentVolume, PersistentVolumeClaim
+
+If this annotation is set on a PersistentVolume or PersistentVolumeClaim, it indicates that a storage binding
+(PersistentVolume → PersistentVolumeClaim, or PersistentVolumeClaim → PersistentVolume) was installed
+by the {{< glossary_tooltip text="controller" term_id="controller" >}}.
+If the annotation isn't set, and there is a storage binding in place, the absence of that annotation means that
+the binding was done manually. The value of this annotation does not matter.
+
+### pv.kubernetes.io/provisioned-by {#pv-kubernetesiodynamically-provisioned}
+
+Example: `pv.kubernetes.io/provisioned-by: "kubernetes.io/rbd"`
+
+Used on: PersistentVolume
+
+This annotation is added to a PersistentVolume(PV) that has been dynamically provisioned by Kubernetes.
+Its value is the name of volume plugin that created the volume. It serves both user (to show where a PV
+comes from) and Kubernetes (to recognize dynamically provisioned PVs in its decisions).
+
+### pv.kubernetes.io/migrated-to {#pv-kubernetesio-migratedto}
+
+Example: `pv.kubernetes.io/migrated-to: pd.csi.storage.gke.io`
+
+Used on: PersistentVolume, PersistentVolumeClaim
+
+It is added to a PersistentVolume(PV) and PersistentVolumeClaim(PVC) that is supposed to be
+dynamically provisioned/deleted by its corresponding CSI driver through the `CSIMigration` feature gate.
+When this annotation is set, the Kubernetes components will "stand-down" and the `external-provisioner`
+will act on the objects.
+
 ### statefulset.kubernetes.io/pod-name {#statefulsetkubernetesiopod-name}
 
 Example:
@@ -376,6 +446,25 @@ This annotation has been deprecated.
 Used on: PersistentVolumeClaim
 
 This annotation will be added to dynamic provisioning required PVC.
+
+### volume.kubernetes.io/selected-node
+
+Used on: PersistentVolumeClaim
+
+This annotation is added to a PVC that is triggered by a scheduler to be dynamically provisioned. Its value is the name of the selected node.
+
+### volumes.kubernetes.io/controller-managed-attach-detach
+
+Used on: Node
+
+If a node has set the annotation `volumes.kubernetes.io/controller-managed-attach-detach`
+on itself, then its storage attach and detach operations are being managed
+by the _volume attach/detach_
+{{< glossary_tooltip text="controller" term_id="controller" >}} running within the
+{{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}.
+
+The value of the annotation isn't important; if this annotation exists on a node,
+then storage attaches and detaches are controller managed.
 
 ### node.kubernetes.io/windows-build {#nodekubernetesiowindows-build}
 
@@ -724,6 +813,17 @@ or updating objects that contain Pod templates, such as Deployments, Jobs, State
 See [Enforcing Pod Security at the Namespace Level](/docs/concepts/security/pod-security-admission)
 for more information.
 
+### rbac.authorization.kubernetes.io/autoupdate
+
+Example: `rbac.authorization.kubernetes.io/autoupdate: "false"`
+
+Used on: ClusterRole, ClusterRoleBinding, Role, RoleBinding
+
+When this annotation is set to `"true"` on default RBAC objects created by the kube-apiserver, they are automatically updated at server start to add missing permissions and subjects (extra permissions and subjects are left in place). To prevent autoupdating a particular role or rolebinding, set this annotation to `"false"`.
+If you create your own RBAC objects and set this annotation to `"false"`, `kubectl auth reconcile`
+(which allows reconciling arbitrary RBAC objects in a {{< glossary_tooltip text="manifest" term_id="manifest" >}}) respects this annotation and does not automatically add missing permissions and
+subjects.
+
 ### kubernetes.io/psp (deprecated) {#kubernetes-io-psp}
 
 Example: `kubernetes.io/psp: restricted`
@@ -755,9 +855,9 @@ you through the steps you follow to apply a seccomp profile to a Pod or to one o
 its containers. That tutorial covers the supported mechanism for configuring seccomp in Kubernetes,
 based on setting `securityContext` within the Pod's `.spec`.
 
-### snapshot.storage.kubernetes.io/allowVolumeModeChange
+### snapshot.storage.kubernetes.io/allow-volume-mode-change
 
-Example: `snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"`
+Example: `snapshot.storage.kubernetes.io/allow-volume-mode-change: "true"`
 
 Used on: VolumeSnapshotContent
 
@@ -768,6 +868,16 @@ created from a VolumeSnapshot.
 
 Refer to [Converting the volume mode of a Snapshot](/docs/concepts/storage/volume-snapshots/#convert-volume-mode)
 and the [Kubernetes CSI Developer Documentation](https://kubernetes-csi.github.io/docs/) for more information.
+
+### scheduler.alpha.kubernetes.io/critical-pod (deprecated)
+
+Example: `scheduler.alpha.kubernetes.io/critical-pod: ""`
+
+Used on: Pod
+
+This annotation lets Kubernetes control plane know about a pod being a critical pod so that the descheduler will not remove this pod.
+
+{{< note >}} Starting in v1.16, this annotation was removed in favor of [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/). {{< /note >}}
 
 ## Annotations used for audit
 
