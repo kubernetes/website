@@ -178,11 +178,11 @@ other = "Community"
 [layout_docs_glossary_community_description]
 other = "Related to Kubernetes open-source development."
 
-[layout_docs_glossary_core-object_name]
-other = "Core Object"
-
 [layout_docs_glossary_core-object_description]
 other = "A resource type that Kubernetes supports by default."
+
+[layout_docs_glossary_core-object_name]
+other = "Core Object"
 
 [layouts_docs_glossary_description]
 other = "This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to Kubernetes, as well as more general terms that provide useful context."
