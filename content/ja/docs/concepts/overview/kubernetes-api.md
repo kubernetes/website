@@ -2,7 +2,7 @@
 reviewers:
 title: Kubernetes API
 content_type: concept
-weight: 30
+weight: 40
 description: >
   Kubernetes APIを使用すると、Kubernetes内のオブジェクトの状態をクエリで操作できます。
   Kubernetesのコントロールプレーンの中核は、APIサーバーとそれが公開するHTTP APIです。ユーザー、クラスターのさまざまな部分、および外部コンポーネントはすべて、APIサーバーを介して互いに通信します。

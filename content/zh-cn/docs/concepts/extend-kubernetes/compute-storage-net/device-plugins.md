@@ -140,111 +140,121 @@ spec:
 
 The general workflow of a device plugin includes the following steps:
 
-* Initialization. During this phase, the device plugin performs vendor specific
-  initialization and setup to make sure the devices are in a ready state.
+1. Initialization. During this phase, the device plugin performs vendor-specific
+   initialization and setup to make sure the devices are in a ready state.
 
-* The plugin starts a gRPC service, with a Unix socket under host path
-  `/var/lib/kubelet/device-plugins/`, that implements the following interfaces:
+1. The plugin starts a gRPC service, with a Unix socket under the host path
+   `/var/lib/kubelet/device-plugins/`, that implements the following interfaces:
 -->
 ## 设备插件的实现    {#device-plugin-implementation}
 
 设备插件的常规工作流程包括以下几个步骤：
 
-* 初始化。在这个阶段，设备插件将执行供应商特定的初始化和设置，
-  以确保设备处于就绪状态。
-* 插件使用主机路径 `/var/lib/kubelet/device-plugins/` 下的 Unix 套接字启动一个
-  gRPC 服务，该服务实现以下接口：
+1. 初始化。在这个阶段，设备插件将执行特定于供应商的初始化和设置，以确保设备处于就绪状态。
 
-  <!--
-  ```gRPC
-  service DevicePlugin {
-        // GetDevicePluginOptions returns options to be communicated with Device Manager.
-        rpc GetDevicePluginOptions(Empty) returns (DevicePluginOptions) {}
+2. 插件使用主机路径 `/var/lib/kubelet/device-plugins/` 下的 UNIX 套接字启动一个
+   gRPC 服务，该服务实现以下接口：
 
-        // ListAndWatch returns a stream of List of Devices
-        // Whenever a Device state change or a Device disappears, ListAndWatch
-        // returns the new list
-        rpc ListAndWatch(Empty) returns (stream ListAndWatchResponse) {}
+   <!--
+   ```gRPC
+   service DevicePlugin {
+         // GetDevicePluginOptions returns options to be communicated with Device Manager.
+         rpc GetDevicePluginOptions(Empty) returns (DevicePluginOptions) {}
 
-        // Allocate is called during container creation so that the Device
-        // Plugin can run device specific operations and instruct Kubelet
-        // of the steps to make the Device available in the container
-        rpc Allocate(AllocateRequest) returns (AllocateResponse) {}
+         // ListAndWatch returns a stream of List of Devices
+         // Whenever a Device state change or a Device disappears, ListAndWatch
+         // returns the new list
+         rpc ListAndWatch(Empty) returns (stream ListAndWatchResponse) {}
 
-        // GetPreferredAllocation returns a preferred set of devices to allocate
-        // from a list of available ones. The resulting preferred allocation is not
-        // guaranteed to be the allocation ultimately performed by the
-        // devicemanager. It is only designed to help the devicemanager make a more
-        // informed allocation decision when possible.
-        rpc GetPreferredAllocation(PreferredAllocationRequest) returns (PreferredAllocationResponse) {}
+         // Allocate is called during container creation so that the Device
+         // Plugin can run device specific operations and instruct Kubelet
+         // of the steps to make the Device available in the container
+         rpc Allocate(AllocateRequest) returns (AllocateResponse) {}
 
-        // PreStartContainer is called, if indicated by Device Plugin during registeration phase,
-        // before each container start. Device plugin can run device specific operations
-        // such as resetting the device before making devices available to the container.
-        rpc PreStartContainer(PreStartContainerRequest) returns (PreStartContainerResponse) {}
-  }
-  ```
-  -->
-  ```gRPC
-  service DevicePlugin {
-        // GetDevicePluginOptions 返回与设备管理器沟通的选项。
-        rpc GetDevicePluginOptions(Empty) returns (DevicePluginOptions) {}
+         // GetPreferredAllocation returns a preferred set of devices to allocate
+         // from a list of available ones. The resulting preferred allocation is not
+         // guaranteed to be the allocation ultimately performed by the
+         // devicemanager. It is only designed to help the devicemanager make a more
+         // informed allocation decision when possible.
+         rpc GetPreferredAllocation(PreferredAllocationRequest) returns (PreferredAllocationResponse) {}
 
-        // ListAndWatch 返回 Device 列表构成的数据流。
-        // 当 Device 状态发生变化或者 Device 消失时，ListAndWatch
-        // 会返回新的列表。
-        rpc ListAndWatch(Empty) returns (stream ListAndWatchResponse) {}
+         // PreStartContainer is called, if indicated by Device Plugin during registeration phase,
+         // before each container start. Device plugin can run device specific operations
+         // such as resetting the device before making devices available to the container.
+         rpc PreStartContainer(PreStartContainerRequest) returns (PreStartContainerResponse) {}
+   }
+   ```
+   -->
+   ```gRPC
+   service DevicePlugin {
+         // GetDevicePluginOptions 返回与设备管理器沟通的选项。
+         rpc GetDevicePluginOptions(Empty) returns (DevicePluginOptions) {}
 
-        // Allocate 在容器创建期间调用，这样设备插件可以运行一些特定于设备的操作，
-        // 并告诉 kubelet 如何令 Device 可在容器中访问的所需执行的具体步骤
-        rpc Allocate(AllocateRequest) returns (AllocateResponse) {}
+         // ListAndWatch 返回 Device 列表构成的数据流。
+         // 当 Device 状态发生变化或者 Device 消失时，ListAndWatch
+         // 会返回新的列表。
+         rpc ListAndWatch(Empty) returns (stream ListAndWatchResponse) {}
 
-        // GetPreferredAllocation 从一组可用的设备中返回一些优选的设备用来分配，
-        // 所返回的优选分配结果不一定会是设备管理器的最终分配方案。
-        // 此接口的设计仅是为了让设备管理器能够在可能的情况下做出更有意义的决定。
-        rpc GetPreferredAllocation(PreferredAllocationRequest) returns (PreferredAllocationResponse) {}
+         // Allocate 在容器创建期间调用，这样设备插件可以运行一些特定于设备的操作，
+         // 并告诉 kubelet 如何令 Device 可在容器中访问的所需执行的具体步骤
+         rpc Allocate(AllocateRequest) returns (AllocateResponse) {}
 
-        // PreStartContainer 在设备插件注册阶段根据需要被调用，调用发生在容器启动之前。
-        // 在将设备提供给容器使用之前，设备插件可以运行一些诸如重置设备之类的特定于
-        // 具体设备的操作，
-        rpc PreStartContainer(PreStartContainerRequest) returns (PreStartContainerResponse) {}
-  }
-  ```
+         // GetPreferredAllocation 从一组可用的设备中返回一些优选的设备用来分配，
+         // 所返回的优选分配结果不一定会是设备管理器的最终分配方案。
+         // 此接口的设计仅是为了让设备管理器能够在可能的情况下做出更有意义的决定。
+         rpc GetPreferredAllocation(PreferredAllocationRequest) returns (PreferredAllocationResponse) {}
 
-  {{< note >}}
-  <!--
-  Plugins are not required to provide useful implementations for
-  `GetPreferredAllocation()` or `PreStartContainer()`. Flags indicating which
-  (if any) of these calls are available should be set in the `DevicePluginOptions`
-  message sent back by a call to `GetDevicePluginOptions()`. The `kubelet` will
-  always call `GetDevicePluginOptions()` to see which optional functions are
-  available, before calling any of them directly.
-  -->
-  插件并非必须为 `GetPreferredAllocation()` 或 `PreStartContainer()` 提供有用的实现逻辑，
-  调用 `GetDevicePluginOptions()` 时所返回的 `DevicePluginOptions`
-  消息中应该设置这些调用是否可用。`kubelet` 在真正调用这些函数之前，总会调用
-  `GetDevicePluginOptions()` 来查看是否存在这些可选的函数。
-  {{< /note >}}
+         // PreStartContainer 在设备插件注册阶段根据需要被调用，调用发生在容器启动之前。
+         // 在将设备提供给容器使用之前，设备插件可以运行一些诸如重置设备之类的特定于
+         // 具体设备的操作，
+         rpc PreStartContainer(PreStartContainerRequest) returns (PreStartContainerResponse) {}
+   }
+   ```
+
+   {{< note >}}
+   <!--
+   Plugins are not required to provide useful implementations for
+   `GetPreferredAllocation()` or `PreStartContainer()`. Flags indicating
+   the availability of these calls, if any, should be set in the `DevicePluginOptions`
+   message sent back by a call to `GetDevicePluginOptions()`. The `kubelet` will
+   always call `GetDevicePluginOptions()` to see which optional functions are
+   available, before calling any of them directly.
+   -->
+   插件并非必须为 `GetPreferredAllocation()` 或 `PreStartContainer()` 提供有用的实现逻辑，
+   调用 `GetDevicePluginOptions()` 时所返回的 `DevicePluginOptions`
+   消息中应该设置一些标志，表明这些调用（如果有）是否可用。`kubelet` 在直接调用这些函数之前，总会调用
+   `GetDevicePluginOptions()` 来查看哪些可选的函数可用。
+   {{< /note >}}
 
 <!--
-* The plugin registers itself with the kubelet through the Unix socket at host
-  path `/var/lib/kubelet/device-plugins/kubelet.sock`.
-
-* After successfully registering itself, the device plugin runs in serving mode, during which it keeps
-  monitoring device health and reports back to the kubelet upon any device state changes.
-  It is also responsible for serving `Allocate` gRPC requests. During `Allocate`, the device plugin may
-  do device-specific preparation; for example, GPU cleanup or QRNG initialization.
-  If the operations succeed, the device plugin returns an `AllocateResponse` that contains container
-  runtime configurations for accessing the allocated devices. The kubelet passes this information
-  to the container runtime.
+1. The plugin registers itself with the kubelet through the Unix socket at host
+   path `/var/lib/kubelet/device-plugins/kubelet.sock`.
 -->
-* 插件通过 Unix socket 在主机路径 `/var/lib/kubelet/device-plugins/kubelet.sock`
-  处向 kubelet 注册自身。
-* 成功注册自身后，设备插件将以服务模式运行，在此期间，它将持续监控设备运行状况，
-  并在设备状态发生任何变化时向 kubelet 报告。它还负责响应 `Allocate` gRPC 请求。
-  在 `Allocate` 期间，设备插件可能还会做一些设备特定的准备；例如 GPU 清理或 QRNG 初始化。
-  如果操作成功，则设备插件将返回 `AllocateResponse`，其中包含用于访问被分配的设备容器运行时的配置。
-  kubelet 将此信息传递到容器运行时。
+3. 插件通过位于主机路径 `/var/lib/kubelet/device-plugins/kubelet.sock` 下的 UNIX 套接字
+   向 kubelet 注册自身。
+
+   {{< note >}}
+   <!--
+   The ordering of the workflow is important. A plugin MUST start serving gRPC
+   service before registering itself with kubelet for successful registration.
+   -->
+   工作流程的顺序很重要。插件必须在向 kubelet 注册自己之前开始提供 gRPC 服务，才能保证注册成功。
+   {{< /note >}}
+
+<!--
+1. After successfully registering itself, the device plugin runs in serving mode, during which it keeps
+   monitoring device health and reports back to the kubelet upon any device state changes.
+   It is also responsible for serving `Allocate` gRPC requests. During `Allocate`, the device plugin may
+   do device-specific preparation; for example, GPU cleanup or QRNG initialization.
+   If the operations succeed, the device plugin returns an `AllocateResponse` that contains container
+   runtime configurations for accessing the allocated devices. The kubelet passes this information
+   to the container runtime.
+-->
+4. 成功注册自身后，设备插件将以提供服务的模式运行，在此期间，它将持续监控设备运行状况，
+   并在设备状态发生任何变化时向 kubelet 报告。它还负责响应 `Allocate` gRPC 请求。
+   在 `Allocate` 期间，设备插件可能还会做一些特定于设备的准备；例如 GPU 清理或 QRNG 初始化。
+   如果操作成功，则设备插件将返回 `AllocateResponse`，其中包含用于访问被分配的设备容器运行时的配置。
+   kubelet 将此信息传递到容器运行时。
 
 <!--
 ### Handling kubelet restarts
@@ -338,7 +348,7 @@ of the device allocations during the upgrade.
 采用该方法将确保升级期间设备分配的连续运行。
 
 <!--
-## Monitoring Device Plugin Resources
+## Monitoring device plugin resources
 -->
 ## 监控设备插件资源   {#monitoring-device-plugin-resources}
 
@@ -365,7 +375,7 @@ for these devices:
 kubelet 提供了 gRPC 服务来使得正在使用中的设备被发现，并且还为这些设备提供了元数据：
 
 ```gRPC
-// PodResourcesLister 是一个由 kubelet 提供的服务，用来提供供节点上 
+// PodResourcesLister 是一个由 kubelet 提供的服务，用来提供供节点上
 // Pod 和容器使用的节点资源的信息
 service PodResourcesLister {
     rpc List(ListPodResourcesRequest) returns (ListPodResourcesResponse) {}
@@ -373,6 +383,9 @@ service PodResourcesLister {
 }
 ```
 
+<!--
+### `List` gRPC endpoint {#grpc-endpoint-list}
+-->
 ### `List` gRPC 端点 {#grpc-endpoint-list}
 
 <!--
@@ -512,7 +525,7 @@ Preceding Kubernetes v1.23, to enable this feature `kubelet` must be started wit
 
 <!--
 `ContainerDevices` do expose the topology information declaring to which NUMA cells the device is
-affine.  The NUMA cells are identified using a opaque integer ID, which value is consistent to
+affine. The NUMA cells are identified using a opaque integer ID, which value is consistent to
 what device plugins report
 [when they register themselves to the kubelet](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#device-plugin-integration-with-the-topology-manager).
 -->
@@ -525,7 +538,7 @@ NUMA 单元通过一个整数 ID 来标识，其取值与设备插件所报告�
 The gRPC service is served over a unix socket at `/var/lib/kubelet/pod-resources/kubelet.sock`.
 Monitoring agents for device plugin resources can be deployed as a daemon, or as a DaemonSet.
 The canonical directory `/var/lib/kubelet/pod-resources` requires privileged access, so monitoring
-agents must run in a privileged security context.  If a device monitoring agent is running as a
+agents must run in a privileged security context. If a device monitoring agent is running as a
 DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 {{< glossary_tooltip term_id="volume" >}} in the device monitoring agent's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
@@ -581,7 +594,7 @@ resource assignment decisions.
 `TopologyInfo` supports setting a `nodes` field to either `nil` or a list of NUMA nodes. This
 allows the Device Plugin to advertise a device that spans multiple NUMA nodes.
 
-Setting `TopologyInfo` to `nil`  or providing an empty list of NUMA nodes for a given device
+Setting `TopologyInfo` to `nil` or providing an empty list of NUMA nodes for a given device
 indicates that the Device Plugin does not have a NUMA affinity preference for that device.
 
 An example `TopologyInfo` struct populated for a device by a Device Plugin:

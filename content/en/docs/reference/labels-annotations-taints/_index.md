@@ -171,6 +171,16 @@ There are two possible values:
 - `onstart`: The APIService should be reconciled when an API server starts up, but not otherwise.
 - `true`: The API server should reconcile this APIService continuously.
 
+### service.alpha.kubernetes.io/tolerate-unready-endpoints (deprecated)
+
+Used on: StatefulSet
+
+This annotation on a Service denotes if the Endpoints controller should go ahead and create Endpoints for unready Pods.
+Endpoints of these Services retain their DNS records and continue receiving
+traffic for the Service from the moment the kubelet starts all containers in the pod
+and marks it _Running_, til the kubelet stops all containers and deletes the pod from
+the API server.
+
 ### kubernetes.io/hostname {#kubernetesiohostname}
 
 Example: `kubernetes.io/hostname: "ip-172-20-114-199.ec2.internal"`
@@ -834,9 +844,9 @@ you through the steps you follow to apply a seccomp profile to a Pod or to one o
 its containers. That tutorial covers the supported mechanism for configuring seccomp in Kubernetes,
 based on setting `securityContext` within the Pod's `.spec`.
 
-### snapshot.storage.kubernetes.io/allowVolumeModeChange
+### snapshot.storage.kubernetes.io/allow-volume-mode-change
 
-Example: `snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"`
+Example: `snapshot.storage.kubernetes.io/allow-volume-mode-change: "true"`
 
 Used on: VolumeSnapshotContent
 
