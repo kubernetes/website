@@ -4,13 +4,11 @@ weight: 60
 description: >
   Concepts and resources behind networking in Kubernetes.
 ---
-
+[//]: # ( Still WIP state )
 [//]: # (Change section to Kubernetes network model and update docs references )
 ## The Kubernetes network model
 
 Every [`Pod`](/docs/concepts/workloads/pods/) in your cluster gets its own unique cluster-wide IP address. This is referred to as the "IP-per-pod" model.
-
-[//]: # (Understand the ports related to TCP/UDP. Don't think host ports is useful for the reader as this point.) 
 
 This model offers you with the following advantages:
 
@@ -32,14 +30,13 @@ implementation (barring any intentional network segmentation policies):
 without network address translation (NAT).
 * Pods can communicate with other pods on the same or separate nodes using layer 2 bridging, native layer 3 (IPv4, IPv6) networking, tunneling, or other techniques for conveying packets from one pod to another.
 
-[//]: # ( We should cover this in future PR )
 Some platforms, such as Linux, support pods running in the host network. Pods attached to the host network of a node can still communicate with all pods on all nodes without NAT.
 
 ## Terminology
 
-* IPv4 address - 32 bit IP addresses assigned to pod interfaces, host interfaces, L2 bridges, tunnel end-points and any other network resource requiring IPv4 connectivity. 
+* IPv4 address - 32 bit IP addresses assigned to pod interfaces, host interfaces, L2 bridges, tunnel end-points and any other network resource requiring IPv4 connectivity. An example is `192.68.13.1`.
   
-* IPv6 address - 128 bit IP address assigned to pod interfaces, host interfaces, L2 bridges, L3 routers, tunnel end-points and any other network resources requiring IPv6 connectivity. You can configure one or more IPv6 addresses.
+* IPv6 address - 128 bit IP address assigned to pod interfaces, host interfaces, L2 bridges, L3 routers, tunnel end-points and any other network resources requiring IPv6 connectivity. You can configure one or more IPv6 addresses on an interface. An exampole is `2001:db8:3333:4444:5555:6666:7777:8888.`
 
 * Dual Stack - IPv4 and IPv6 addresses assigned to pod interfaces, host interfaces, L2 bridges, L3 routers, tunnel end-points and any other network resource requiring IPv4 and IPv6 connectivity.
 
@@ -48,23 +45,25 @@ Some platforms, such as Linux, support pods running in the host network. Pods at
 * Host Network - network functions residing in user space or the kernel.
 
 * Encapsulation - ability to encapsulate an L2 or L3 packets belonging to an `inner network` with an `outer network` header for transport across the `outer network`. This forms a `tunnel` where the encapsulation function is performed at tunnel ingress and de-encapsulation function is performed at tunnel egress. 
+
+  * [IPIP](https://www.rfc-editor.org/rfc/rfc2003) and [VXLAN](https://www.rfc-editor.org/rfc/rfc7348) are two examples of encapsulation employed in K8s cluster networks. 
   
-* Virtual overlay network - network of tunnels connecting pods running on different nodes.    
+  * [Virtual overlay network](https://book.systemsapproach.org/applications/overlays.html) - logical or virtual network of tunnels using encapsulation that connect pods running on different nodes. The virtual overlay network runs "on top" of the physical underlay network.   
 
 * Physical underlay network - network resources performing packet forwarding between nodes. 
 
 * Virtual ethernet link (VETH) - Virtual link allowing you to convey packets between namespaces. 
 
-* Network namespace - a form of isolation where resources share a network stack, memory, processing and so on.
+* [Network namespace](https://man7.org/linux/man-pages/man7/network_namespaces.7.html) - a form of isolation where resources share a network stack, memory, processing and so on.
 
 * CNI - Container network interface providing network configuration and IP address allocation for pod networking.
 
 
-## Architecture
+## Architecture components
 
 The Kubernetes network model introduces a flexible architecture and accompanying components. You can configure and deploy a combination of different components to assemble an implementation to best meet your cluster networking requirements. 
 
-Figure 1 illustrates the Kubernetes network architecture and accompanying components. 
+Figure 1 illustrates the Kubernetes network architecture and accompanying components used in the examples below. 
 
 {{< figure src="/docs/images/k8net-net-arch2.drawio.svg" alt="k8s net arch" class="diagram-large" caption="Figure 1. K8s Network Architecture and Components" >}}
 
@@ -78,14 +77,12 @@ The network architecture and components consist of the following:
   and IPv6 networking assigns one IPv4 address to each Pod, and also assigns one IPv6
   address to each Pod.
   
-  * Pods run in their own network namespace. All the containers in the Pod share this
+  * Pods run in their own [network namespace](https://man7.org/linux/man-pages/man7/network_namespaces.7.html). All the containers in a pod share this
     network namespace. (Network namespaces are not the same as the Kubernetes
     {{< glossary_tooltip text="namespace" term_id="namespace" >}} concept).
     
-  * This example also assigns an Ethernet MAC address to each Pod.
+  * You can assign an Ethernet mac address to each Pod.
     Kubernetes does not require that a Pod has a unique identity at the data-link layer.
- 
-
  
 * Pods use a virtual point-to-point (p2) "link" between the pod network namespace and root network namespace. This permits pod packets to utilize network functions defined in the root network namespace.  
   
@@ -102,7 +99,7 @@ The network architecture and components consist of the following:
 
 * Physical underlay network, composed of L2 switches or L3 routers for example, transport packets between nodes. 
 
-Kubernetes networking provides the following capabilities described below.
+Kubernetes networking provides a number of capabilities. You can look over some of these capabilities and functions described in the examples below.
 
 * [Containers on the same pod](#containers-on-the-same-pod)
 * [Pods on the same node](#pods-on-the-same-node)
@@ -113,19 +110,18 @@ You might discover a different variant of this architecture and components that 
 
 ### Containers on the same pod
 
-Kubernetes IP addresses exist at the pod scope - containers within a pod
-share their network namespaces - including their IP address and MAC address.
+Containers within a pod share their network namespaces including their IP address and MAC addresses.
 
 Containers within a pod can all reach each other's ports on
-localhost:port number. If you examine a pod you will see a `lo0` interface used for localhost communications between containers in the pod network namespace. 
+`localhost:port number`. If you examine a pod you will see a `lo0` interface used for localhost communications between containers in the pod network namespace. 
 
-Figure 2 illustrates localhost communications between two containers on the same pod. You define a pod 1 network namespace that provides pod 1 with its own isolated network stack. Containers on pod 1 share a single IP and MAC address; Containers on pod 1 are configured with separate port numbers.
+Figure 2 illustrates an example of localhost communications between two containers on the same pod. You define a pod 1 network namespace that provides pod 1 with its own isolated network stack. Your containers on pod 1 share a single IP and MAC address; Containers on pod 1 are configured with separate port numbers.
 
-{{< figure src="/docs/images/k8net-localhost.drawio.svg" alt="k8s localhost" class="diagram-large" caption="Figure 2. Container 1 - Container 2 using localhost:port number" >}}
+{{< figure src="/docs/images/k8net-localhost.drawio.svg" alt="k8s localhost" class="diagram-large" caption="Figure 2. Example of container 1 communication with container 2 using localhost:port number" >}}
 
 Your containers within a pod must coordinate port usage, but this is no different from processes in a VM.  
 
-How this is implemented is a detail of the particular container runtime you employ in your environment .
+How you implement this is a detail of the particular container runtime you employ in your environment .
 
 It is possible to request ports or call host ports on the node itself which forward packets to your pod. This is a very niche operation. How you implement this is a detail of the container runtime. The pod itself is blind to the existence or non-existence of host ports.
 
@@ -135,19 +131,17 @@ You cluster deployment might include two or more pods running on the same node. 
 
 Pods operate in their own namespace and have their own IP and MAC addresses. You can think of this as multiple distinct IP computers that want to talk with each other. Inter-pod networking on the same node is no different.
 
-Communications between pods, intra- or inter- host, requires L2 bridging, L3 networking or some other form of inter-pod networking. These network functions reside in the root namespace. 
+This example of inter-pod networking on the same host requires:
 
-This scenario requires:
+* Communication between the pod network namespaces and root network namespace. The establishment of a veth p2p links accomplishes this.
 
-* Communication between the pod network namespaces and root network namespace.
+* L2 or L3 networking between the pods. This example uses a virtual L2 bridge. Your implementation might use a different approach implemented in a network plugin.
 
-* L2 or L3 networking between the pods.
+Figure 3 illustrates an example of two pods talking each other on the same node. 
 
-Figure 3 illustrates communications between two pods running on the same node. 
+{{< figure src="/docs/images/k8net-PodSameHost03.drawio.svg" alt="k8s pods samehost" class="diagram-large" caption="Figure 3. Example of Pod 1 and Pod 2 on Node 1 communicating with each other" >}}
 
-{{< figure src="/docs/images/k8net-PodSameHost02.drawio.svg" alt="k8s pods samehost" class="diagram-large" caption="Figure 3. Network data path between Pod 1 and Pod 2 running on the same node" >}}
-
-Pod packets use the veth links to reach the L2 bridge function.  
+ 
 
 
 ### Pods on different nodes
@@ -163,14 +157,22 @@ Add CNI explanation and references.
 
 #### Pods on different nodes using a virtual overlay network
 
+This example uses a virtual overlay network to support inter-pod networking.  
 
-{{< figure src="/docs/images/k8net-PodDiffHost-overlay.drawio.svg" alt="k8s pods virtual overlay" class="diagram-large" caption="Figure 4. Pod 1 - Pod4 networking on different hosts using virtual overlay network tunnel encapsulation" >}}
+{{< figure src="/docs/images/k8net-net-overlay.drawio.svg" alt="k8s pods virtual overlay" class="diagram-large" caption="Figure 4. Example of Pod 1 - Pod 4 networking on different nodes using a virtual overlay network" >}}
+
+The component of note in this example is a network plugin that supports tunnel setup and encap/decap. 
 
 
 
 #### Pods on different nodes using a physical underlay network
 
-{{< figure src="/docs/images/k8net-PodDiffHost-physical-underlay.drawio.svg" alt="k8s pods physical underay" class="diagram-large" caption="Figure 5. Pod 1 - Pod4 networking on different hosts using a physical underlay network" >}}
+This example uses the physical underlay network to support inter-pod networking. 
+
+{{< figure src="/docs/images/k8net-PodDiffHost-physical-underlay.drawio.svg" alt="k8s pods physical underay" class="diagram-large" caption="Figure 5. Example of Pod 1 - Pod2 networking on different nodes using a physical underlay network" >}}
+
+
+
 
 ## Design principles for Kubernetes networking
 
