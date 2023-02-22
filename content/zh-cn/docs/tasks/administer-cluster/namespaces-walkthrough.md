@@ -1,6 +1,7 @@
 ---
 title: 名字空间演练
 content_type: task
+weight: 260
 ---
 <!--
 reviewers:
@@ -8,6 +9,7 @@ reviewers:
 - janetkuo
 title: Namespaces Walkthrough
 content_type: task
+weight: 260
 -->
 
 <!-- overview -->

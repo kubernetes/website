@@ -283,7 +283,7 @@ acesso:
 * Obtenha o arquivo `cluster-info` do servidor da API:
 
 ```shell
-kubectl -n kube-public get cm cluster-info -o yaml | grep "kubeconfig:" -A11 | grep "apiVersion" -A10 | sed "s/    //" | tee cluster-info.yaml
+kubectl -n kube-public get cm cluster-info -o jsonpath='{.data.kubeconfig}' | tee cluster-info.yaml
 ```
 
 A saída é semelhante a:

@@ -104,54 +104,54 @@ Kubernetes provides built-in signers that each have a well-known `signerName`:
 
 1. `kubernetes.io/kube-apiserver-client`: signs certificates that will be honored as client certificates by the API server.
    Never auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
-    1. Trust distribution: signed certificates must be honored as client certificates by the API server. The CA bundle is not distributed by any other means.
-    1. Permitted subjects - no subject restrictions, but approvers and signers may choose not to approve or sign.
-       Certain subjects like cluster-admin level users or groups vary between distributions and installations,
-       but deserve additional scrutiny before approval and signing.
-       The `CertificateSubjectRestriction` admission plugin is enabled by default to restrict `system:masters`,
-       but it is often not the only cluster-admin subject in a cluster.
-    1. Permitted x509 extensions - honors subjectAltName and key usage extensions and discards other extensions.
-    1. Permitted key usages - must include `["client auth"]`. Must not include key usages beyond `["digital signature", "key encipherment", "client auth"]`.
-    1. Expiration/certificate lifetime - for the kube-controller-manager implementation of this signer, set to the minimum
-       of the `--cluster-signing-duration` option or, if specified, the `spec.expirationSeconds` field of the CSR object.
-    1. CA bit allowed/disallowed - not allowed.
+   1. Trust distribution: signed certificates must be honored as client certificates by the API server. The CA bundle is not distributed by any other means.
+   1. Permitted subjects - no subject restrictions, but approvers and signers may choose not to approve or sign.
+      Certain subjects like cluster-admin level users or groups vary between distributions and installations,
+      but deserve additional scrutiny before approval and signing.
+      The `CertificateSubjectRestriction` admission plugin is enabled by default to restrict `system:masters`,
+      but it is often not the only cluster-admin subject in a cluster.
+   1. Permitted x509 extensions - honors subjectAltName and key usage extensions and discards other extensions.
+   1. Permitted key usages - must include `["client auth"]`. Must not include key usages beyond `["digital signature", "key encipherment", "client auth"]`.
+   1. Expiration/certificate lifetime - for the kube-controller-manager implementation of this signer, set to the minimum
+      of the `--cluster-signing-duration` option or, if specified, the `spec.expirationSeconds` field of the CSR object.
+   1. CA bit allowed/disallowed - not allowed.
 
 1. `kubernetes.io/kube-apiserver-client-kubelet`: signs client certificates that will be honored as client certificates by the
    API server.
    May be auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
-    1. Trust distribution: signed certificates must be honored as client certificates by the API server. The CA bundle
-       is not distributed by any other means.
-    1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name starts with "`system:node:`".
-    1. Permitted x509 extensions - honors key usage extensions, forbids subjectAltName extensions and drops other extensions.
-    1. Permitted key usages - exactly `["key encipherment", "digital signature", "client auth"]`.
-    1. Expiration/certificate lifetime - for the kube-controller-manager implementation of this signer, set to the minimum
-       of the `--cluster-signing-duration` option or, if specified, the `spec.expirationSeconds` field of the CSR object.
-    1. CA bit allowed/disallowed - not allowed.
+   1. Trust distribution: signed certificates must be honored as client certificates by the API server. The CA bundle
+      is not distributed by any other means.
+   1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name starts with "`system:node:`".
+   1. Permitted x509 extensions - honors key usage extensions, forbids subjectAltName extensions and drops other extensions.
+   1. Permitted key usages - exactly `["key encipherment", "digital signature", "client auth"]`.
+   1. Expiration/certificate lifetime - for the kube-controller-manager implementation of this signer, set to the minimum
+      of the `--cluster-signing-duration` option or, if specified, the `spec.expirationSeconds` field of the CSR object.
+   1. CA bit allowed/disallowed - not allowed.
 
 1. `kubernetes.io/kubelet-serving`: signs serving certificates that are honored as a valid kubelet serving certificate
    by the API server, but has no other guarantees.
    Never auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
-    1. Trust distribution: signed certificates must be honored by the API server as valid to terminate connections to a kubelet.
-       The CA bundle is not distributed by any other means.
-    1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name starts with "`system:node:`".
-    1. Permitted x509 extensions - honors key usage and DNSName/IPAddress subjectAltName extensions, forbids EmailAddress and
-       URI subjectAltName extensions, drops other extensions. At least one DNS or IP subjectAltName must be present.
-    1. Permitted key usages - exactly `["key encipherment", "digital signature", "server auth"]`.
-    1. Expiration/certificate lifetime - for the kube-controller-manager implementation of this signer, set to the minimum
-       of the `--cluster-signing-duration` option or, if specified, the `spec.expirationSeconds` field of the CSR object.
-    1. CA bit allowed/disallowed - not allowed.
+   1. Trust distribution: signed certificates must be honored by the API server as valid to terminate connections to a kubelet.
+      The CA bundle is not distributed by any other means.
+   1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name starts with "`system:node:`".
+   1. Permitted x509 extensions - honors key usage and DNSName/IPAddress subjectAltName extensions, forbids EmailAddress and
+      URI subjectAltName extensions, drops other extensions. At least one DNS or IP subjectAltName must be present.
+   1. Permitted key usages - exactly `["key encipherment", "digital signature", "server auth"]`.
+   1. Expiration/certificate lifetime - for the kube-controller-manager implementation of this signer, set to the minimum
+      of the `--cluster-signing-duration` option or, if specified, the `spec.expirationSeconds` field of the CSR object.
+   1. CA bit allowed/disallowed - not allowed.
 
-1. `kubernetes.io/legacy-unknown`:  has no guarantees for trust at all. Some third-party distributions of Kubernetes
+1. `kubernetes.io/legacy-unknown`: has no guarantees for trust at all. Some third-party distributions of Kubernetes
    may honor client certificates signed by it. The stable CertificateSigningRequest API (version `certificates.k8s.io/v1` and later)
    does not allow to set the `signerName` as `kubernetes.io/legacy-unknown`.
    Never auto-approved by {{< glossary_tooltip term_id="kube-controller-manager" >}}.
-    1. Trust distribution: None. There is no standard trust or distribution for this signer in a Kubernetes cluster.
-    1. Permitted subjects - any
-    1. Permitted x509 extensions - honors subjectAltName and key usage extensions and discards other extensions.
-    1. Permitted key usages - any
-    1. Expiration/certificate lifetime - for the kube-controller-manager implementation of this signer, set to the minimum
-       of the `--cluster-signing-duration` option or, if specified, the `spec.expirationSeconds` field of the CSR object.
-    1. CA bit allowed/disallowed - not allowed.
+   1. Trust distribution: None. There is no standard trust or distribution for this signer in a Kubernetes cluster.
+   1. Permitted subjects - any
+   1. Permitted x509 extensions - honors subjectAltName and key usage extensions and discards other extensions.
+   1. Permitted key usages - any
+   1. Expiration/certificate lifetime - for the kube-controller-manager implementation of this signer, set to the minimum
+      of the `--cluster-signing-duration` option or, if specified, the `spec.expirationSeconds` field of the CSR object.
+   1. CA bit allowed/disallowed - not allowed.
 
 {{< note >}}
 Failures for all of these are only reported in kube-controller-manager logs.
@@ -238,7 +238,11 @@ Some points to note:
 - `usages` has to be '`client auth`'
 - `expirationSeconds` could be made longer (i.e. `864000` for ten days) or shorter (i.e. `3600` for one hour)
 - `request` is the base64 encoded value of the CSR file content.
-  You can get the content using this command: ```cat myuser.csr | base64 | tr -d "\n"```
+  You can get the content using this command: 
+
+  ```shell
+  cat myuser.csr | base64 | tr -d "\n"
+  ```
 
 ### Approve certificate signing request
 
