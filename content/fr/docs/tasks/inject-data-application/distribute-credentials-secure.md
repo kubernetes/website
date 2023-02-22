@@ -41,13 +41,13 @@ qui contiendra votre identifiant et mot de passe:
 
 {{< codenew file="pods/inject/secret.yaml" >}}
 
-1. Créer le Secret
+1. Créez le Secret:
 
    ```shell
    kubectl apply -f https://k8s.io/examples/pods/inject/secret.yaml
    ```
 
-1. Lister les informations du Secret:
+1. Listez les informations du Secret:
 
    ```shell
    kubectl get secret test-secret
@@ -60,7 +60,7 @@ qui contiendra votre identifiant et mot de passe:
    test-secret   Opaque    2         1m
    ```
 
-1. Afficher les informations détaillées du Secret:
+1. Affichez les informations détaillées du Secret:
 
    ```shell
    kubectl describe secret test-secret
@@ -150,8 +150,9 @@ Voici un fichier de configuration qui permet de créer un Pod:
    39528$vdg7Jb
    ```
 
-Vous pouvez alors modifier votre image ou votre ligne de commande pour que le programme recherche les fichiers contenus dans le dossier `mountPath`.
-Chaque clé du Secret `data` sera exposé comme un fichier à l'intérieur du dossier.
+Vous pouvez alors modifier votre image ou votre ligne de commande pour que le programme
+recherche les fichiers contenus dans le dossier du champ `mountPath`.
+Chaque clé du Secret `data` sera exposée comme un fichier à l'intérieur de ce dossier.
 
 ### Monter les données du Secret sur des chemins spécifiques
 
@@ -193,12 +194,12 @@ il est important de prendre en considération les points suivants:
 * Seules les clés listées dans le champ `items` seront montées.
 * Pour monter toutes les clés du Secret, toutes doivent être 
   définies dans le champ `items`.
-* Toutes les clés définis doivent exister dans le Secret. 
+* Toutes les clés définies doivent exister dans le Secret. 
   Sinon, le volume ne sera pas créé.
 
 ### Appliquer des permissions POSIX aux données
 
-Vous pouvez appliquer des  permissions POSIX pour une clé d'un Secret. Si vous n'en configurez pas, les permissions seront par défault `0644`.
+Vous pouvez appliquer des permissions POSIX pour une clé d'un Secret. Si vous n'en configurez pas, les permissions seront par défaut `0644`.
 Vous pouvez aussi définir des permissions pour tout un Secret, et redéfinir les permissions pour chaque clé si nécessaire.
 
 Par exemple, il est possible de définir un mode par défaut:
@@ -230,18 +231,18 @@ Si vous définissez un Pod en utilisant le format JSON, il est important de
 noter que la spécification JSON ne supporte pas le système octal, et qu'elle
 comprendra la valeur `0400` comme la valeur _décimale_ `400`.
 En JSON, utilisez plutôt l'écriture décimale pour le champ `defaultMode`.
-Si vous utilisez YAML, vous pouvez utiliser le système octal 
+Si vous utilisez le format YAML, vous pouvez utiliser le système octal 
 pour définir `defaultMode`.
 {{< /note >}}
 
 ## Définir des variables d'environnement avec des Secrets
 
-Il est possible de monter les données de Secrets comme variables d'environnement dans vos containers.
+Il est possible de monter les données des Secrets comme variables d'environnement dans vos containers.
 
 Si un container consomme déja un Secret en variables d'environnement,
-la mise à jour de ce Secret ne sera pas répercutée tant qu'il n'aura pas été
-redémarré. Il existe cependant des solutions tierces permettant de 
-redémarrer les containers lors d'une mise à jour du Secret.
+la mise à jour de ce Secret ne sera pas répercutée dans le container tant 
+qu'il n'aura pas été redémarré. Il existe cependant des solutions tierces 
+permettant de redémarrer les containers lors d'une mise à jour du Secret.
 
 ### Définir une variable d'environnement à partir d'un seul Secret
 
@@ -252,7 +253,7 @@ redémarrer les containers lors d'une mise à jour du Secret.
    ```
 
 *  Assignez la valeur de `backend-username` définie dans le Secret 
-à la variable d'environnement `SECRET_USERNAME` dans la configuration du Pod.
+   à la variable d'environnement `SECRET_USERNAME` dans la configuration du Pod.
 
    {{< codenew file="pods/inject/pod-single-secret-env-variable.yaml" >}}
 
@@ -298,7 +299,7 @@ redémarrer les containers lors d'une mise à jour du Secret.
    ```shell
    kubectl exec -i -t envvars-multiple-secrets -- /bin/sh -c 'env | grep _USERNAME'
    ```
-   Le résultat est
+   Le résultat est:
    ```
    DB_USERNAME=db-admin
    BACKEND_USERNAME=backend-admin
@@ -312,7 +313,7 @@ Cette fonctionnalité n'est disponible que dans les versions de Kubernetes
 égales ou supérieures à v1.6.
 {{< /note >}}
 
-*  Créez un Secret contenant plusieurs paires de clé-valeur
+*  Créez un Secret contenant plusieurs paires de clé-valeur:
 
    ```shell
    kubectl create secret generic test-secret --from-literal=username='my-app' --from-literal=password='39528$vdg7Jb'
@@ -330,13 +331,13 @@ Cette fonctionnalité n'est disponible que dans les versions de Kubernetes
    kubectl create -f https://k8s.io/examples/pods/inject/pod-secret-envFrom.yaml
    ```
 
-* Dans votre shell, affichez les variables d'environnement `username` et `password`
+* Dans votre shell, affichez les variables d'environnement `username` et `password`:
 
   ```shell
   kubectl exec -i -t envfrom-secret -- /bin/sh -c 'echo "username: $username\npassword: $password\n"'
   ```
 
-  Le résultat est
+  Le résultat est:
   ```
   username: my-app
   password: 39528$vdg7Jb
