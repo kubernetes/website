@@ -486,15 +486,15 @@ rules:
 
 ### Referring to subjects
 
-A RoleBinding or ClusterRoleBinding binds a role to subjects.
-Subjects can be groups, users or
+Un RoleBinding ou ClusterRoleBinding lie un rôle à des sujets.
+Les sujets peuvent être des groupes, des utilisateurs ou des
 {{< glossary_tooltip text="ServiceAccounts" term_id="service-account" >}}.
 
-Kubernetes represents usernames as strings.
-These can be: plain names, such as "alice"; email-style names, like "bob@example.com";
-or numeric user IDs represented as a string.  It is up to you as a cluster administrator
-to configure the [authentication modules](/docs/reference/access-authn-authz/authentication/)
-so that authentication produces usernames in the format you want.
+Kubernetes représente les noms d'utilisateurs sous forme de chaînes de caractères.
+Il peut s'agir: de noms simples, tels que "alice"; de noms de style e-mail, tels que "bob@example.com";
+ou des IDs d'utilisateur numériques représentés sous forme de chaîne de caractères. Il vous appartient, en tant qu'administrateur de cluster,
+de configurer les [modules d'authentification](/docs/reference/access-authn-authz/authentication/)
+afin que l'authentification produise des noms d'utilisateur dans le format que vous souhaitez.
 
 {{< caution >}}
 The prefix `system:` is reserved for Kubernetes system use, so you should ensure
