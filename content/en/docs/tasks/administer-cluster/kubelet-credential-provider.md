@@ -83,8 +83,8 @@ providers:
     #
     # A match exists between an image and a matchImage when all of the below are true:
     # - Both contain the same number of domain parts and each part matches.
-    # - The URL path of an imageMatch must be a prefix of the target image URL path.
-    # - If the imageMatch contains a port, then the port must match in the image as well.
+    # - The URL path of an matchImages must be a prefix of the target image URL path.
+    # - If the matchImages contains a port, then the port must match in the image as well.
     #
     # Example values of matchImages:
     # - 123456789.dkr.ecr.us-east-1.amazonaws.com
@@ -143,7 +143,7 @@ A match exists between an image name and a `matchImage` entry when all of the be
 
 * Both contain the same number of domain parts and each part matches.
 * The URL path of match image must be a prefix of the target image URL path.
-* If the imageMatch contains a port, then the port must match in the image as well.
+* If the matchImages contains a port, then the port must match in the image as well.
 
 Some example values of `matchImages` patterns are:
 

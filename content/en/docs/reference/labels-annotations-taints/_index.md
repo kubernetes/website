@@ -171,6 +171,16 @@ There are two possible values:
 - `onstart`: The APIService should be reconciled when an API server starts up, but not otherwise.
 - `true`: The API server should reconcile this APIService continuously.
 
+### service.alpha.kubernetes.io/tolerate-unready-endpoints (deprecated)
+
+Used on: StatefulSet
+
+This annotation on a Service denotes if the Endpoints controller should go ahead and create Endpoints for unready Pods.
+Endpoints of these Services retain their DNS records and continue receiving
+traffic for the Service from the moment the kubelet starts all containers in the pod
+and marks it _Running_, til the kubelet stops all containers and deletes the pod from
+the API server.
+
 ### kubernetes.io/hostname {#kubernetesiohostname}
 
 Example: `kubernetes.io/hostname: "ip-172-20-114-199.ec2.internal"`
@@ -310,6 +320,50 @@ See [topology.kubernetes.io/zone](#topologykubernetesiozone).
 
 {{< note >}} Starting in v1.17, this label is deprecated in favor of [topology.kubernetes.io/zone](#topologykubernetesiozone). {{< /note >}}
 
+### pv.kubernetes.io/bind-completed {#pv-kubernetesiobind-completed}
+
+Example: `pv.kubernetes.io/bind-completed: "yes"`
+
+Used on: PersistentVolumeClaim
+
+When this annotation is set on a PersistentVolumeClaim (PVC), that indicates that the lifecycle
+of the PVC has passed through initial binding setup. When present, that information changes
+how the control plane interprets the state of PVC objects.
+The value of this annotation does not matter to Kubernetes.
+
+### pv.kubernetes.io/bound-by-controller {#pv-kubernetesioboundby-controller}
+
+Example: `pv.kubernetes.io/bound-by-controller: "yes"`
+
+Used on: PersistentVolume, PersistentVolumeClaim
+
+If this annotation is set on a PersistentVolume or PersistentVolumeClaim, it indicates that a storage binding
+(PersistentVolume → PersistentVolumeClaim, or PersistentVolumeClaim → PersistentVolume) was installed
+by the {{< glossary_tooltip text="controller" term_id="controller" >}}.
+If the annotation isn't set, and there is a storage binding in place, the absence of that annotation means that
+the binding was done manually. The value of this annotation does not matter.
+
+### pv.kubernetes.io/provisioned-by {#pv-kubernetesiodynamically-provisioned}
+
+Example: `pv.kubernetes.io/provisioned-by: "kubernetes.io/rbd"`
+
+Used on: PersistentVolume
+
+This annotation is added to a PersistentVolume(PV) that has been dynamically provisioned by Kubernetes.
+Its value is the name of volume plugin that created the volume. It serves both user (to show where a PV
+comes from) and Kubernetes (to recognize dynamically provisioned PVs in its decisions).
+
+### pv.kubernetes.io/migrated-to {#pv-kubernetesio-migratedto}
+
+Example: `pv.kubernetes.io/migrated-to: pd.csi.storage.gke.io`
+
+Used on: PersistentVolume, PersistentVolumeClaim
+
+It is added to a PersistentVolume(PV) and PersistentVolumeClaim(PVC) that is supposed to be
+dynamically provisioned/deleted by its corresponding CSI driver through the `CSIMigration` feature gate.
+When this annotation is set, the Kubernetes components will "stand-down" and the `external-provisioner`
+will act on the objects.
+
 ### statefulset.kubernetes.io/pod-name {#statefulsetkubernetesiopod-name}
 
 Example:
@@ -392,6 +446,12 @@ This annotation has been deprecated.
 Used on: PersistentVolumeClaim
 
 This annotation will be added to dynamic provisioning required PVC.
+
+### volume.kubernetes.io/selected-node
+
+Used on: PersistentVolumeClaim
+
+This annotation is added to a PVC that is triggered by a scheduler to be dynamically provisioned. Its value is the name of the selected node.
 
 ### volumes.kubernetes.io/controller-managed-attach-detach
 
@@ -784,9 +844,9 @@ you through the steps you follow to apply a seccomp profile to a Pod or to one o
 its containers. That tutorial covers the supported mechanism for configuring seccomp in Kubernetes,
 based on setting `securityContext` within the Pod's `.spec`.
 
-### snapshot.storage.kubernetes.io/allowVolumeModeChange
+### snapshot.storage.kubernetes.io/allow-volume-mode-change
 
-Example: `snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"`
+Example: `snapshot.storage.kubernetes.io/allow-volume-mode-change: "true"`
 
 Used on: VolumeSnapshotContent
 

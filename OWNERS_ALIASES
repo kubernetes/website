@@ -44,6 +44,7 @@ aliases:
     - divya-mohan0209
     - kbhawkey
     - mehabhalodiya
+    - mengjiao-liu
     - natalisucks
     - nate-double-u
     - onlydole
@@ -104,11 +105,9 @@ aliases:
     - atoato88
     - bells17
     - kakts
-    - makocchi-git
     - ptux
     - t-inu
   sig-docs-ko-owners: # Admins for Korean content
-    - ClaudiaJKang
     - gochist
     - ianychoi
     - jihoon-seo
@@ -116,7 +115,6 @@ aliases:
     - yoonian
     - ysyukr
   sig-docs-ko-reviews: # PR reviews for Korean content
-    - ClaudiaJKang
     - gochist
     - ianychoi
     - jihoon-seo
@@ -146,6 +144,7 @@ aliases:
     - chenxuc
     - howieyuen
     # idealhack
+    - kinzhi
     - mengjiao-liu
     - my-git9
     # pigletfly
@@ -160,9 +159,7 @@ aliases:
     - devlware
     - edsoncelio
     - femrtnz
-    - jailton
     - jcjesus
-    - jhonmike
     - rikatz
     - stormqueen1990
     - yagonobre
@@ -170,9 +167,8 @@ aliases:
     - devlware
     - edsoncelio
     - femrtnz
-    - jailton
     - jcjesus
-    - jhonmike
+    - mrerlison
     - rikatz
     - stormqueen1990
     - yagonobre
@@ -196,9 +192,7 @@ aliases:
     - mfilocha
     - nvtkaszpir
   sig-docs-uk-owners: # Admins for Ukrainian content
-    - anastyakulyk
     - Arhell
-    - butuzov
     - MaxymVlasov
   sig-docs-uk-reviews: # PR reviews for Ukrainian content
     - Arhell

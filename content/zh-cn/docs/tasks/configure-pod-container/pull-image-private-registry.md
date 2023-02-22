@@ -44,11 +44,11 @@ as an example registry.
 <!-- steps -->
 
 <!--
-## Log in to Docker
+## Log in to Docker Hub
 
 On your laptop, you must authenticate with a registry in order to pull a private image.
 -->
-## 登录 Docker 镜像仓库  {#log-in-to-docker}
+## 登录 Docker 镜像仓库  {#log-in-to-docker-hub}
 
 在个人电脑上，要想拉取私有镜像必须在镜像仓库上进行身份验证。
 

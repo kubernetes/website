@@ -1930,7 +1930,7 @@ Avoid nested lists and maps if possible where validation rules are used.
 <!--
 ### Defaulting
 -->
-### 设置默认值   {#efaulting}
+### 设置默认值   {#defaulting}
 
 {{< note >}}
 <!--

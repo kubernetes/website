@@ -10,7 +10,7 @@ weight: 30
 <!-- overview -->
 This page shows how to use Cilium for NetworkPolicy.
 
-For background on Cilium, read the [Introduction to Cilium](https://docs.cilium.io/en/stable/intro).
+For background on Cilium, read the [Introduction to Cilium](https://docs.cilium.io/en/stable/overview/intro).
 
 
 ## {{% heading "prerequisites" %}}
