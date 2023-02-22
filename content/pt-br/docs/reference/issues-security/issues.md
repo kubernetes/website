@@ -4,9 +4,9 @@ weight: 10
 aliases: [/pt-br/cve/,/pt-br/cves/]
 ---
 
-Para reportar um problema de segurança, siga [processo de divulgação de issues do Kubernetes](/docs/reference/issues-security/security/#report-a-vulnerability).
+Para reportar um problema de segurança, siga [processo de divulgação de segurança do Kubernetes](/docs/reference/issues-security/security/#report-a-vulnerability).
 
-O trabalho no código do Kubernetes e os problemas de segurança podem ser encontrados usando [ GitHub Issues ](https://github.com/kubernetes/kubernetes/issues/).
+O trabalho no código do Kubernetes e os problemas de segurança podem ser encontrados usando [issues do GitHub](https://github.com/kubernetes/kubernetes/issues/).
 
 * Lista [oficial de CVEs conhecidos](/docs/reference/issues-security/official-cve-feed/)
   (vulnerabilidades de segurança) que foram anunciados pelo
