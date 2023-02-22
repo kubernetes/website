@@ -22,7 +22,7 @@ que o Kubernetes chama de {{< glossary_tooltip term_id="job" text="Job" >}}).
 Não há como executar um contêiner do Windows sem a filtragem de namespace. 
 Isso significa que os privilégios do sistema não podem ser assegurados no contexto do host e, 
 portanto, os contêineres privilegiados não estão disponíveis no Windows.
-Os contêineres não podem assumir uma identidade do host porque o Gerente de Conta de Segurança ( Security Account Manager , ou SAM) é separado.
+Os contêineres não podem assumir uma identidade do host porque o Gerente de Conta de Segurança (Security Account Manager, ou SAM) é separado.
 
 ## Gerenciamento de memória {#resource-management-memory}
 
