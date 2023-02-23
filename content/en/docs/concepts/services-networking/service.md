@@ -1129,6 +1129,9 @@ either:
   * For IPv4 endpoints, the DNS system creates A records.
   * For IPv6 endpoints, the DNS system creates AAAA records.
 
+When you define a headless Service without a selector, the `port` must
+match the `targetPort`.
+
 ## Discovering services
 
 For clients running inside your cluster, Kubernetes supports two primary modes of
