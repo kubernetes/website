@@ -108,10 +108,10 @@ kubectl apply -f ./dir                         # criar recurso(s) em todos os ar
 kubectl apply -f https://git.io/vPieo          # criar recurso(s) a partir de URL
 kubectl create deployment nginx --image=nginx  # iniciar uma única instância do nginx
 
-# crie um Job que imprima "Hello World"
+# crie um Job que imprime "Hello World"
 kubectl create job hello --image=busybox:1.28 -- echo "Hello World"
 
-# crie um CronJob que imprima "Hello World" a cada minuto
+# crie um CronJob que imprime "Hello World" a cada minuto
 kubectl create cronjob hello --image=busybox:1.28   --schedule="*/1 * * * *" -- echo "Hello World"
 
 kubectl explain pods                           # obtenha a documentação de manifesto do pod
@@ -227,11 +227,11 @@ kubectl get events --sort-by=.metadata.creationTimestamp
 # Compara o estado atual do cluster com o estado em que o cluster estaria se o manifesto fosse aplicado.
 kubectl diff -f ./my-manifest.yaml
 
-# Produzir uma árvore delimitada por período de todas as chaves retornadas para nós
+# Produzir uma árvore delimitada por ponto de todas as chaves retornadas para nós
 # Útil ao localizar uma chave em uma estrutura JSON aninhada complexa
 kubectl get nodes -o json | jq -c 'paths|join(".")'
 
-# Produzir uma árvore delimitada por período de todas as chaves retornadas para pods, etc.
+# Produzir uma árvore delimitada por ponto de todas as chaves retornadas para pods, etc.
 kubectl get pods -o json | jq -c 'paths|join(".")'
 
 # Produza ENV para todos os pods, supondo que você tenha um contêiner padrão para os pods, namespace padrão e o comando `env` é compatível.
@@ -286,7 +286,7 @@ kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "
 # Adicionar um novo elemento a uma matriz posicional
 kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", "value": {"name": "whatever" } }]'
 
-# Update a deployment's replica count by patching its scale subresource
+# Atualize a contagem de réplicas de uma implantação corrigindo seu sub-recurso de escala
 kubectl patch deployment nginx-deployment --subresource='scale' --type='merge' -p '{"spec":{"replicas":2}}'
 ```
 
@@ -340,7 +340,7 @@ kubectl run nginx --image=nginx --restart=Never     # Execute o pod nginx e salv
 kubectl attach my-pod -i                            # Anexar ao contêiner em execução
 kubectl port-forward my-pod 5000:6000               # Ouça na porta 5000 na máquina local e encaminhe para a porta 6000 no my-pod
 kubectl exec my-pod -- ls /                         # Executar comando no pod existente (1 contêiner)
-kubectl exec --stdin --tty my-pod -- /bin/sh        # Acesso de shell interativo a um pod em execução (1 caixa de contêiner)
+kubectl exec --stdin --tty my-pod -- /bin/sh        # Acesso de shell interativo a um pod em execução (apenas 1 contêiner)
 kubectl exec my-pod -c my-container -- ls /         # Executar comando no pod existente (pod com vários contêineres)
 kubectl top pod POD_NAME --containers               # Mostrar métricas para um determinado pod e seus contêineres
 kubectl top pod POD_NAME --sort-by=cpu              # Mostrar métricas para um determinado pod e classificá-lo por 'cpu' ou 'memória'
@@ -355,7 +355,7 @@ kubectl cp /tmp/foo my-namespace/my-pod:/tmp/bar       # Copie o arquivo local /
 kubectl cp my-namespace/my-pod:/tmp/foo /tmp/bar       # Copie /tmp/foo de um pod remoto para /tmp/bar localmente
 ```
 {{< note >}}
-`kubectl cp` requer que o binário 'tar' esteja presente em sua imagem de container. Se 'tar' não estiver presente, `kubectl cp` falhará.
+`kubectl cp` requer que o binário 'tar' esteja presente em sua imagem de contêiner. Se 'tar' não estiver presente, `kubectl cp` falhará.
 Para casos de uso avançado, como links simbólicos, expansão curinga ou preservação do modo de arquivo, considere usar `kubectl exec`.
 {{< /note >}}
 
@@ -444,7 +444,7 @@ kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="registry
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'
 ```
 
-More examples in the kubectl [reference documentation](/docs/reference/kubectl/#custom-columns).
+Mais exemplos no kubectl [documentação de referência](/docs/reference/kubectl/#custom-columns).
 
 ### Verbosidade da Saída do Kubectl e Debugging
 
