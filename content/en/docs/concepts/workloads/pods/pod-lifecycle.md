@@ -432,7 +432,8 @@ place, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} attempts gr
 shutdown.
 
 Typically, the container runtime sends a TERM signal to the main process in each
-container. Many container runtimes respect the `STOPSIGNAL` value defined in the container
+container. The signal is sent to all containers simultaneously without applying any execution sequence.
+Many container runtimes respect the `STOPSIGNAL` value defined in the container
 image and send this instead of TERM.
 Once the grace period has expired, the KILL signal is sent to any remaining processes, and the Pod
 is then deleted from the {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}.
