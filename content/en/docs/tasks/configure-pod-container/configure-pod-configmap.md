@@ -1,7 +1,7 @@
 ---
 title: Configure a Pod to Use a ConfigMap
 content_type: task
-weight: 150
+weight: 190
 card:
   name: tasks
   weight: 50
