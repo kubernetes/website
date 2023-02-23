@@ -312,7 +312,7 @@ Le [principe du moindre privilège](/docs/concepts/security/rbac-good-practices/
 {{< /caution >}}
 
 
-### Aggregated ClusterRoles
+### ClusterRoles agrégés
 
 Vous pouvez _agréger_ plusieurs ClusterRoles en un seul ClusterRole combiné.
 Un contrôleur, qui s'exécute dans le cadre du plan de contrôle du cluster, recherche les objets ClusterRole
@@ -484,7 +484,7 @@ rules:
   verbs: ["get", "post"]
 ```
 
-### Referring to subjects
+### Référence à des subjects
 
 Un RoleBinding ou ClusterRoleBinding lie un rôle à des sujets.
 Les sujets peuvent être des groupes, des utilisateurs ou des
@@ -497,31 +497,31 @@ de configurer les [modules d'authentification](/docs/reference/access-authn-auth
 afin que l'authentification produise des noms d'utilisateur dans le format que vous souhaitez.
 
 {{< caution >}}
-The prefix `system:` is reserved for Kubernetes system use, so you should ensure
-that you don't have users or groups with names that start with `system:` by
-accident.
-Other than this special prefix, the RBAC authorization system does not require any format
-for usernames.
+Le préfixe `system:` est réservé à l'utilisation du système Kubernetes, vous devez donc vous assurer
+que vous n'avez pas d'utilisateurs ou de groupes dont le nom commence par `system:`
+par accident.
+En dehors de ce préfixe spécial, le système d'autorisation RBAC ne requiert aucun format pour les
+noms d'utilisateurs.
 {{< /caution >}}
 
-In Kubernetes, Authenticator modules provide group information.
-Groups, like users, are represented as strings, and that string has no format requirements,
-other than that the prefix `system:` is reserved.
+Dans Kubernetes, les modules Authenticator fournissent des informations sur les groupes. 
+Les groupes, comme les utilisateurs, sont représentés sous forme de chaînes de caractères et cette chaîne n'a aucune exigence de format,
+si ce n'est que le préfixe `system:` est réservé.
 
-[ServiceAccounts](/docs/tasks/configure-pod-container/configure-service-account/) have names prefixed
-with `system:serviceaccount:`, and belong to groups that have names prefixed with `system:serviceaccounts:`.
+Les [ServiceAccounts](/docs/tasks/configure-pod-container/configure-service-account/) ont des noms préfixés par
+`system:serviceaccount:`, et appartiennent à des groupes qui ont des noms préfixés par `system:serviceaccounts:`.
 
 {{< note >}}
-- `system:serviceaccount:` (singular) is the prefix for service account usernames.
-- `system:serviceaccounts:` (plural) is the prefix for service account groups.
+- `system:serviceaccount:` (singulier) est le préfixe pour les noms d'utilisateur des comptes de service.
+- `system:serviceaccounts:` (pluriel) est le préfixe pour les groupes de comptes de service.
 {{< /note >}}
 
-#### RoleBinding examples {#role-binding-examples}
+#### Exemples de RoleBinding {#role-binding-examples}
 
-The following examples are `RoleBinding` excerpts that only
-show the `subjects` section.
+Les exemples suivants sont des extraits de `RoleBinding` 
+qui ne montrent que la section des `subjects`.
 
-For a user named `alice@example.com`:
+Pour un utilisateur nommé `alice@example.com` :
 
 ```yaml
 subjects:
@@ -530,7 +530,7 @@ subjects:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-For a group named `frontend-admins`:
+Pour un groupe nommé `frontend-admins`:
 
 ```yaml
 subjects:
@@ -539,7 +539,7 @@ subjects:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-For the default service account in the "kube-system" namespace:
+Pour le compte de service par défaut dans le namespace "kube-system" :
 
 ```yaml
 subjects:
@@ -548,7 +548,7 @@ subjects:
   namespace: kube-system
 ```
 
-For all service accounts in the "qa" namespace:
+Pour tous les comptes de service dans le namespace "qa" :
 
 ```yaml
 subjects:
@@ -557,7 +557,7 @@ subjects:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-For all service accounts in any namespace:
+Pour tous les comptes de service dans n'importe quel namespace :
 
 ```yaml
 subjects:
@@ -566,7 +566,7 @@ subjects:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-For all authenticated users:
+Pour tous les utilisateurs authentifiés :
 
 ```yaml
 subjects:
@@ -575,7 +575,7 @@ subjects:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-For all unauthenticated users:
+Pour tous les utilisateurs non authentifiés :
 
 ```yaml
 subjects:
@@ -584,7 +584,7 @@ subjects:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-For all users:
+Pour tous les utilisateurs :
 
 ```yaml
 subjects:
