@@ -54,7 +54,7 @@ Windows पर kubectl संस्थापित करने के लिए
    - `True` या `False` परिणाम प्राप्त करने के लिए `-eq` ऑपरेटर का उपयोग करके सत्यापन को ऑटोमेट करने के लिए powershell का उपयोग करें:
 
      ```powershell
-     $($(CertUtil -hashfile .\kubectl.exe SHA256)[1] -replace " ", "") -eq $(type .\kubectl.exe.sha256)
+      $(Get-FileHash -Algorithm SHA256 .\kubectl.exe).Hash -eq $(Get-Content .\kubectl.exe.sha256)
      ```
 
 1. अपने `PATH` में बाइनरी जोड़ें।
