@@ -388,7 +388,8 @@ You must configure FC SAN Zoning to allocate and mask those LUNs (volumes) to th
 beforehand so that Kubernetes hosts can access them.
 {{< /note >}}
 
-See the [fibre channel example](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel) for more details.
+See the [fibre channel example](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel)
+for more details.
 
 ### gcePersistentDisk (deprecated) {#gcepersistentdisk}
 
@@ -515,7 +516,9 @@ and the kubelet, set the `InTreePluginGCEUnregister` flag to `true`.
 ### gitRepo (deprecated) {#gitrepo}
 
 {{< warning >}}
-The `gitRepo` volume type is deprecated. To provision a container with a git repo, mount an [EmptyDir](#emptydir) into an InitContainer that clones the repo using git, then mount the [EmptyDir](#emptydir) into the Pod's container.
+The `gitRepo` volume type is deprecated. To provision a container with a git repo, mount an
+[EmptyDir](#emptydir) into an InitContainer that clones the repo using git, then mount the
+[EmptyDir](#emptydir) into the Pod's container.
 {{< /warning >}}
 
 A `gitRepo` volume is an example of a volume plugin. This plugin
@@ -546,7 +549,7 @@ spec:
 
 <!-- maintenance note: OK to remove all mention of glusterfs once the v1.25 release of
 Kubernetes has gone out of support -->
--
+
 Kubernetes {{< skew currentVersion >}} does not include a `glusterfs` volume type.
 
 The GlusterFS in-tree storage driver was deprecated in the Kubernetes v1.25 release
@@ -785,10 +788,13 @@ spec:
 {{< note >}}
 You must have your own NFS server running with the share exported before you can use it.
 
-Also note that you can't specify NFS mount options in a Pod spec. You can either set mount options server-side or use [/etc/nfsmount.conf](https://man7.org/linux/man-pages/man5/nfsmount.conf.5.html). You can also mount NFS volumes via PersistentVolumes which do allow you to set mount options.
+Also note that you can't specify NFS mount options in a Pod spec. You can either set mount options server-side or
+use [/etc/nfsmount.conf](https://man7.org/linux/man-pages/man5/nfsmount.conf.5.html).
+You can also mount NFS volumes via PersistentVolumes which do allow you to set mount options.
 {{< /note >}}
 
-See the [NFS example](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs) for an example of mounting NFS volumes with PersistentVolumes.
+See the [NFS example](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)
+for an example of mounting NFS volumes with PersistentVolumes.
 
 ### persistentVolumeClaim {#persistentvolumeclaim}
 
@@ -1163,7 +1169,7 @@ persistent volume:
   volume expansion, the kubelet passes that data via the `NodeExpandVolume()`
   call to the CSI driver. In order to use the `nodeExpandSecretRef` field, your
   cluster should be running Kubernetes version 1.25 or later and you must enable
-  the [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/)
+  the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
   named `CSINodeExpandSecret` for each kube-apiserver and for the kubelet on every
   node. You must also be using a CSI driver that supports or requires secret data during
   node-initiated storage resize operations.
@@ -1276,8 +1282,13 @@ in `Container.volumeMounts`. Its values are:
   In similar fashion, no mounts created by the container will be visible on
   the host. This is the default mode.
 
-  This mode is equal to `private` mount propagation as described in the
-  [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
+  This mode is equal to `rprivate` mount propagation as described in
+  [`mount(8)`](https://man7.org/linux/man-pages/man8/mount.8.html)
+
+  However, the CRI runtime may choose `rslave` mount propagation (i.e.,
+  `HostToContainer`) instead, when `rprivate` propagation is not applicable.
+  cri-dockerd (Docker) is known to choose `rslave` mount propagation when the
+  mount source contains the Docker daemon's root directory (`/var/lib/docker`).
 
 * `HostToContainer` - This volume mount will receive all subsequent mounts
   that are mounted to this volume or any of its subdirectories.
@@ -1290,7 +1301,7 @@ in `Container.volumeMounts`. Its values are:
   propagation will see it.
 
   This mode is equal to `rslave` mount propagation as described in the
-  [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
+  [`mount(8)`](https://man7.org/linux/man-pages/man8/mount.8.html)
 
 * `Bidirectional` - This volume mount behaves the same the `HostToContainer` mount.
   In addition, all volume mounts created by the container will be propagated
@@ -1300,7 +1311,7 @@ in `Container.volumeMounts`. Its values are:
   a Pod that needs to mount something on the host using a `hostPath` volume.
 
   This mode is equal to `rshared` mount propagation as described in the
-  [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
+  [`mount(8)`](https://man7.org/linux/man-pages/man8/mount.8.html)
 
   {{< warning >}}
   `Bidirectional` mount propagation can be dangerous. It can damage

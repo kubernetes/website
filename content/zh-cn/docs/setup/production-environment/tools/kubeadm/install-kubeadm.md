@@ -22,7 +22,8 @@ card:
 <!--
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
 This page shows how to install the `kubeadm` toolbox.
-For information on how to create a cluster with kubeadm once you have performed this installation process, see the [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
+For information on how to create a cluster with kubeadm once you have performed this installation process,
+see the [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
 -->
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
 本页面显示如何安装 `kubeadm` 工具箱。
@@ -32,7 +33,8 @@ For information on how to create a cluster with kubeadm once you have performed 
 ## {{% heading "prerequisites" %}}
 
 <!--
-* A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions based on Debian and Red Hat, and those distributions without a package manager.
+* A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions
+  based on Debian and Red Hat, and those distributions without a package manager.
 * 2 GB or more of RAM per machine (any less will leave little room for your apps).
 * 2 CPUs or more.
 * Full network connectivity between all machines in the cluster (public or private network is fine).
@@ -85,8 +87,9 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 <!--
 ## Check required ports
 These
-[required ports](/docs/reference/networking/ports-and-protocols/)
-need to be open in order for Kubernetes components to communicate with each other. You can use tools like netcat to check if a port is open. For example:
+These [required ports](/docs/reference/networking/ports-and-protocols/)
+need to be open in order for Kubernetes components to communicate with each other.
+You can use tools like netcat to check if a port is open. For example:
 -->
 ## 检查所需端口{#check-required-ports}
 
@@ -347,8 +350,8 @@ sudo systemctl enable --now kubelet
   - You can leave SELinux enabled if you know how to configure it but it may require settings that are not supported by kubeadm.
 
   - If the `baseurl` fails because your Red Hat-based distribution cannot interpret `basearch`, replace `\$basearch` with your computer's architecture.
-    Type `uname -m` to see that value.
-    For example, the `baseurl` URL for `x86_64` could be: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`.
+  Type `uname -m` to see that value.
+  For example, the `baseurl` URL for `x86_64` could be: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`.
 -->
 **请注意：**
 

@@ -24,6 +24,7 @@ weight: 5
 `import "k8s.io/api/core/v1"`
 
 ## PersistentVolume {#PersistentVolume}
+
 <!--
 PersistentVolume (PV) is a storage resource provisioned by an administrator. It is analogous to a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
 -->
@@ -437,7 +438,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
   cephfs 表示在主机上挂载的 Ceph FS，该文件系统挂载与 Pod 的生命周期相同。
   
-  <a name="CephFSPersistentVolumeSource"></a> 
+  <a name="CephFSPersistentVolumeSource"></a>
   **表示在 Pod 的生命周期内持续的 Ceph Filesystem 挂载。cephfs 卷不支持所有权管理或 SELinux 重新打标签。**
 
   <!--
@@ -1026,57 +1027,6 @@ PersistentVolumeSpec 是持久卷的规约。
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#gcepersistentdisk
 
 <!--
-- **glusterfs** (GlusterfsPersistentVolumeSource)
-  glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
-
-  <a name="GlusterfsPersistentVolumeSource"></a>
-  *Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.*
--->
-
-- **glusterfs** (GlusterfsPersistentVolumeSource)
-
-  glusterfs 表示挂接到主机并暴露给 Pod 的 Glusterfs 卷。由管理员进行制备。更多信息：
-  https://examples.k8s.io/volumes/glusterfs/README.md
-  
-  <a name="GlusterfsPersistentVolumeSource"></a> 
-  **表示与 Pod 生命周期相同的 Glusterfs 挂载。Glusterfs 卷不支持所有权管理或 SELinux 重新打标签。**
-
-<!--
-  - **glusterfs.endpoints** (string), required
-    endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-
-  - **glusterfs.path** (string), required
-    path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-
-  - **glusterfs.endpointsNamespace** (string)
-    endpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-
-  - **glusterfs.readOnly** (boolean)
-    readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
--->
-
-  - **glusterfs.endpoints** (string)，必需
-
-    endpoints 是详细说明 Glusterfs 拓扑的端点名称。更多信息：
-    https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-  
-  - **glusterfs.path** (string)，必需
-
-    path 是 Glusterfs 卷路径。更多信息：
-    https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-  
-  - **glusterfs.endpointsNamespace** (string)
-
-    endpointsNamespace 是包含 Glusterfs 端点的名字空间。
-    如果此字段为空，则 EndpointNamespace 默认为与绑定的 PVC 相同的名字空间。
-    更多信息： https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-  
-  - **glusterfs.readOnly** (boolean)
-
-    此处 readOnly 将强制使用只读权限挂载 Glusterfs 卷。默认为 false。更多信息：
-    https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-
-<!--
 - **iscsi** (ISCSIPersistentVolumeSource)
   iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
 
@@ -1088,7 +1038,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
   iscsi 表示挂接到 kubelet 的主机随后暴露给 Pod 的一个 ISCSI Disk 资源。由管理员进行制备。
   
-  <a name="ISCSIPersistentVolumeSource"></a> 
+  <a name="ISCSIPersistentVolumeSource"></a>
   **ISCSIPersistentVolumeSource 表示一个 ISCSI 磁盘。ISCSI 卷只能以读/写一次进行挂载。ISCSI 卷支持所有权管理和 SELinux 重新打标签。**
 
   <!--

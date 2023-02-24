@@ -102,13 +102,13 @@ to others, please don't hesitate to file an issue or submit a PR.
   See the [guestbook](https://github.com/kubernetes/examples/tree/master/guestbook/) app
   for examples of this approach.
 
-A Service can be made to span multiple Deployments by omitting release-specific labels from its
-selector. When you need to update a running service without downtime, use a
-[Deployment](/docs/concepts/workloads/controllers/deployment/).
+  A Service can be made to span multiple Deployments by omitting release-specific labels from its
+  selector. When you need to update a running service without downtime, use a
+  [Deployment](/docs/concepts/workloads/controllers/deployment/).
 
-A desired state of an object is described by a Deployment, and if changes to that spec are
-_applied_, the deployment controller changes the actual state to the desired state at a controlled
-rate.
+  A desired state of an object is described by a Deployment, and if changes to that spec are
+  _applied_, the deployment controller changes the actual state to the desired state at a controlled
+  rate.
 
 - Use the [Kubernetes common labels](/docs/concepts/overview/working-with-objects/common-labels/)
   for common use cases. These standardized labels enrich the metadata in a way that allows tools,

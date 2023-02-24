@@ -13,7 +13,7 @@ Un nœud est une machine de travail dans Kubernetes, connue auparavant sous le n
 Un nœud peut être une machine virtuelle ou une machine physique, selon le cluster.
 Chaque nœud contient les services nécessaires à l'exécution de [pods](/docs/concepts/workloads/pods/pod/) et est géré par les composants du master.
 Les services sur un nœud incluent le [container runtime](/docs/concepts/overview/components/#node-components), kubelet et kube-proxy.
-Consultez la section [Le Nœud Kubernetes](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) dans le document de conception de l'architecture pour plus de détails.
+Consultez la section [Le Nœud Kubernetes](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node) dans le document de conception de l'architecture pour plus de détails.
 
 
 

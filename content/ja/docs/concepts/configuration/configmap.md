@@ -164,7 +164,7 @@ Pod内に複数のコンテナが存在する場合、各コンテナにそれ�
 
 #### マウントしたConfigMapの自動的な更新
 
-ボリューム内で現在使用中のConfigMapが更新されると、射影されたキーも最終的に(eventually)更新されます。kubeletは定期的な同期のたびにマウントされたConfigMapが新しいかどうか確認します。しかし、kubeletが現在のConfigMapの値を取得するときにはローカルキャッシュを使用します。キャッシュの種類は、[KubeletConfiguration構造体](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)の中の`ConfigMapAndSecretChangeDetectionStrategy`フィールドで設定可能です。ConfigMapは、監視(デフォルト)、ttlベース、またはすべてのリクエストを直接APIサーバーへ単純にリダイレクトする方法のいずれかによって伝搬されます。その結果、ConfigMapが更新された瞬間から、新しいキーがPodに射影されるまでの遅延の合計は、最長でkubeletの同期期間+キャッシュの伝搬遅延になります。ここで、キャッシュの伝搬遅延は選択したキャッシュの種類に依存します(監視の伝搬遅延、キャッシュのttl、または0に等しくなります)。
+ボリューム内で現在使用中のConfigMapが更新されると、射影されたキーも最終的に(eventually)更新されます。kubeletは定期的な同期のたびにマウントされたConfigMapが新しいかどうか確認します。しかし、kubeletが現在のConfigMapの値を取得するときにはローカルキャッシュを使用します。キャッシュの種類は、[KubeletConfiguration構造体](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/kubelet/config/v1beta1/types.go)の中の`ConfigMapAndSecretChangeDetectionStrategy`フィールドで設定可能です。ConfigMapは、監視(デフォルト)、ttlベース、またはすべてのリクエストを直接APIサーバーへ単純にリダイレクトする方法のいずれかによって伝搬されます。その結果、ConfigMapが更新された瞬間から、新しいキーがPodに射影されるまでの遅延の合計は、最長でkubeletの同期期間+キャッシュの伝搬遅延になります。ここで、キャッシュの伝搬遅延は選択したキャッシュの種類に依存します(監視の伝搬遅延、キャッシュのttl、または0に等しくなります)。
 
 環境変数として使用されるConfigMapは自動的に更新されないため、ポッドを再起動する必要があります。
 ## イミュータブルなConfigMap {#configmap-immutable}

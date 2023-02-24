@@ -4,6 +4,7 @@ reviewers:
 - janetkuo
 title: Namespaces Walkthrough
 content_type: task
+weight: 260
 ---
 
 <!-- overview -->

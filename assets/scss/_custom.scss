@@ -163,7 +163,7 @@ body.td-404 main .error-details {
     margin-top: 3.5rem !important;
   }
 
-  @media only screen and (min-width: 1075px) {
+  @media only screen and (min-width: 1170px) {
     margin-top: 1rem !important;
   }
 }
@@ -877,4 +877,18 @@ div.alert > em.javascript-required {
 {
     color: #fff;
     background: #326de6;
+}
+
+// Adjust Bing search result page
+#bing-results-container {
+    padding: 1em;
+}
+#bing-pagination-container {
+    padding: 1em;
+    margin-bottom: 1em;
+
+    a.bing-page-anchor {
+        padding: 0.5em;
+        margin: 0.25em;
+    }
 }

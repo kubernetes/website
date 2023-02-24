@@ -1,6 +1,7 @@
 ---
 title: 为 Kubernetes 运行 etcd 集群
 content_type: task
+weight: 270
 ---
 <!--
 reviewers:
@@ -9,6 +10,7 @@ reviewers:
 - jpbetz
 title: Operating etcd clusters for Kubernetes
 content_type: task
+weight: 270
 -->
 
 <!-- overview -->

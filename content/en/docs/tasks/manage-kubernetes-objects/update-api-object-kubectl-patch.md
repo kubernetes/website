@@ -261,7 +261,7 @@ kubectl get deployment patch-demo --output yaml
 The `containers` list that you specified in the patch has only one Container.
 The output shows that your list of one Container replaced the existing `containers` list.
 
-```shell
+```yaml
 spec:
   containers:
   - image: gcr.io/google-samples/node-hello:1.0
@@ -434,7 +434,7 @@ kubectl patch deployment patch-demo --patch '{"spec": {"template": {"spec": {"co
 The flag `--subresource=[subresource-name]` is used with kubectl commands like get, patch,
 edit and replace to fetch and update `status` and `scale` subresources of the resources
 (applicable for kubectl version v1.24 or more). This flag is used with all the API resources
-(built-in and CRs) which has `status` or `scale` subresource. Deployment is one of the
+(built-in and CRs) that have `status` or `scale` subresource. Deployment is one of the
 examples which supports these subresources.
 
 Here's a manifest for a Deployment that has two replicas:

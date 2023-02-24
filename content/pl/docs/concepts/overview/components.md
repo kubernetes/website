@@ -24,7 +24,7 @@ W tym dokumencie opisujemy składniki niezbędne do zbudowania kompletnego, popr
 
 Komponenty warstwy sterowania podejmują ogólne decyzje dotyczące klastra (np. zlecanie zadań), a także wykrywają i reagują na zdarzenia w klastrze (przykładowo, start nowego {{< glossary_tooltip text="poda" term_id="pod">}}, kiedy wartość `replicas` dla deploymentu nie zgadza się z faktyczną liczbą replik).
 
-Komponenty warstwy sterowania mogą być uruchomione na dowolnej maszynie w klastrze. Dla uproszczenia jednak skrypty instalacyjne zazwyczaj startują wszystkie składniki na tej samej maszynie i jednocześnie nie pozwalają na uruchamianie na niej kontenerów użytkowników. Na stronie [Creating Highly Available clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/) znajdziesz opis konfiguracji warstwy sterowania działającej na wielu maszynach wirtualnych.
+Komponenty warstwy sterowania mogą być uruchomione na dowolnej maszynie w klastrze. Dla uproszczenia jednak skrypty instalacyjne zazwyczaj startują wszystkie składniki na tej samej maszynie, a jednocześnie nie pozwalają na uruchamianie na niej kontenerów użytkowników. Na stronie [Creating Highly Available clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/) znajdziesz opis konfiguracji warstwy sterowania działającej na wielu maszynach.
 
 ### kube-apiserver
 
@@ -104,7 +104,7 @@ Kontenery uruchomione przez Kubernetes automatycznie przeszukują ten serwer DNS
 
 ### Monitorowanie zasobów w kontenerach
 
-[Container Resource Monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/) zapisuje serie czasowe podstawowych metryk kontenerów w centralnej bazie danych i oferuje interfejs użytkownika do przeglądania tych danych.
+[Container Resource Monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/) zapisuje serie czasowe podstawowych metryk kontenerów w centralnej bazie danych i oferuje interfejs użytkownika do przeglądania tych danych.
 
 ### Logowanie na poziomie klastra
 
