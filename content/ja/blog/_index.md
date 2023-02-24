@@ -1,4 +1,4 @@
 ---
 linktitle: Kubernetesブログ
-title: ブログ
+title: Kubernetesブログ
 ---
