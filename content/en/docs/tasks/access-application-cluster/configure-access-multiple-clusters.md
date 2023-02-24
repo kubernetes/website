@@ -41,12 +41,12 @@ cluster's API server.
 
 ## Define clusters, users, and contexts
 
-Suppose you have two clusters, one for development work and one for scratch work.
+Suppose you have two clusters, one for development work and one for test work.
 In the `development` cluster, your frontend developers work in a namespace called `frontend`,
-and your storage developers work in a namespace called `storage`. In your `scratch` cluster,
+and your storage developers work in a namespace called `storage`. In your `test` cluster,
 developers work in the default namespace, or they create auxiliary namespaces as they
 see fit. Access to the development cluster requires authentication by certificate. Access
-to the scratch cluster requires authentication by username and password.
+to the test cluster requires authentication by username and password.
 
 Create a directory named `config-exercise`. In your
 `config-exercise` directory, create a file named `config-demo` with this content:
@@ -60,7 +60,7 @@ clusters:
 - cluster:
   name: development
 - cluster:
-  name: scratch
+  name: test
 
 users:
 - name: developer
@@ -72,7 +72,7 @@ contexts:
 - context:
   name: dev-storage
 - context:
-  name: exp-scratch
+  name: exp-test
 ```
 
 A configuration file describes clusters, users, and contexts. Your `config-demo` file
@@ -83,7 +83,7 @@ your configuration file:
 
 ```shell
 kubectl config --kubeconfig=config-demo set-cluster development --server=https://1.2.3.4 --certificate-authority=fake-ca-file
-kubectl config --kubeconfig=config-demo set-cluster scratch --server=https://5.6.7.8 --insecure-skip-tls-verify
+kubectl config --kubeconfig=config-demo set-cluster test --server=https://5.6.7.8 --insecure-skip-tls-verify
 ```
 
 Add user details to your configuration file:
@@ -108,7 +108,7 @@ Add context details to your configuration file:
 ```shell
 kubectl config --kubeconfig=config-demo set-context dev-frontend --cluster=development --namespace=frontend --user=developer
 kubectl config --kubeconfig=config-demo set-context dev-storage --cluster=development --namespace=storage --user=developer
-kubectl config --kubeconfig=config-demo set-context exp-scratch --cluster=scratch --namespace=default --user=experimenter
+kubectl config --kubeconfig=config-demo set-context exp-test --cluster=test --namespace=default --user=experimenter
 ```
 
 Open your `config-demo` file to see the added details. As an alternative to opening the
@@ -130,7 +130,7 @@ clusters:
 - cluster:
     insecure-skip-tls-verify: true
     server: https://5.6.7.8
-  name: scratch
+  name: test
 contexts:
 - context:
     cluster: development
@@ -143,10 +143,10 @@ contexts:
     user: developer
   name: dev-storage
 - context:
-    cluster: scratch
+    cluster: test
     namespace: default
     user: experimenter
-  name: exp-scratch
+  name: exp-test
 current-context: ""
 kind: Config
 preferences: {}
@@ -220,19 +220,19 @@ users:
     client-key: fake-key-file
 ```
 
-Now suppose you want to work for a while in the scratch cluster.
+Now suppose you want to work for a while in the test cluster.
 
-Change the current context to `exp-scratch`:
+Change the current context to `exp-test`:
 
 ```shell
-kubectl config --kubeconfig=config-demo use-context exp-scratch
+kubectl config --kubeconfig=config-demo use-context exp-test
 ```
 
 Now any `kubectl` command you give will apply to the default namespace of
-the `scratch` cluster. And the command will use the credentials of the user
-listed in the `exp-scratch` context.
+the `test` cluster. And the command will use the credentials of the user
+listed in the `exp-test` context.
 
-View configuration associated with the new current context, `exp-scratch`.
+View configuration associated with the new current context, `exp-test`.
 
 ```shell
 kubectl config --kubeconfig=config-demo view --minify
@@ -338,10 +338,10 @@ contexts:
     user: developer
   name: dev-storage
 - context:
-    cluster: scratch
+    cluster: test
     namespace: default
     user: experimenter
-  name: exp-scratch
+  name: exp-test
 ```
 
 For more information about how kubeconfig files are merged, see
