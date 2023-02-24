@@ -596,31 +596,33 @@ subjects:
   apiGroup: rbac.authorization.k8s.io
 ```
 
-## Default roles and role bindings
+## Rôles par défaut et liaisons de rôles
 
-API servers create a set of default ClusterRole and ClusterRoleBinding objects.
-Many of these are `system:` prefixed, which indicates that the resource is directly
-managed by the cluster control plane.
-All of the default ClusterRoles and ClusterRoleBindings are labeled with `kubernetes.io/bootstrapping=rbac-defaults`.
+Les serveurs API créent un ensemble d'objets ClusterRole et ClusterRoleBinding par défaut.
+Beaucoup d'entre eux sont préfixés `system:`, ce qui indique que la ressource est directement
+gérée par le plan de contrôle du cluster.
+Tous les ClusterRoles et ClusterRoleBindings par défaut sont étiquetés avec `kubernetes.io/bootstrapping=rbac-defaults`.
 
 {{< caution >}}
-Take care when modifying ClusterRoles and ClusterRoleBindings with names
-that have a `system:` prefix.
-Modifications to these resources can result in non-functional clusters.
+Faites attention lorsque vous modifiez les ClusterRoles et les ClusterRoleBindings
+dont les noms ont un préfixe `system:`.
+Les modifications apportées à ces ressources peuvent entraîner des clusters non fonctionnels.
 {{< /caution >}}
 
 ### Auto-reconciliation
 
-At each start-up, the API server updates default cluster roles with any missing permissions,
-and updates default cluster role bindings with any missing subjects.
-This allows the cluster to repair accidental modifications, and helps to keep roles and role bindings
-up-to-date as permissions and subjects change in new Kubernetes releases.
+À chaque démarrage, le serveur API met à jour les rôles de cluster par défaut avec toutes les permissions manquantes,
+et met à jour les liaisons de rôles de cluster par défaut avec tous les sujets manquants.
+Cela permet au cluster de réparer les modifications accidentelles, et aide à maintenir les rôles et les liaisons de rôles
+à jour lorsque les autorisations et les sujets changent dans les nouvelles versions de Kubernetes.
 
-To opt out of this reconciliation, set the `rbac.authorization.kubernetes.io/autoupdate`
-annotation on a default cluster role or rolebinding to `false`.
 Be aware that missing default permissions and subjects can result in non-functional clusters.
+Pour ne pas participer à cette reconciliation, définissez l'annotation `rbac.authorization.kubernetes.io/autoupdate`
+sur un rôle ou un rolebinding de cluster par défaut sur `false`.
+Sachez que les autorisations et les sujets par défaut manquants peuvent entraîner des clusters non fonctionnels.
 
-Auto-reconciliation is enabled by default if the RBAC authorizer is active.
+L'auto-réconciliation est activée par défaut si l'autorisateur RBAC est actif.
+
 
 ### API discovery roles {#discovery-roles}
 
