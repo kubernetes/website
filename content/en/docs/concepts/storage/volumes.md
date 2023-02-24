@@ -934,7 +934,7 @@ A container using a Secret as a [`subPath`](#using-subpath) volume mount will no
 receive Secret updates.
 {{< /note >}}
 
-For more details, see [Configuring Secrets](/docs/concepts/configuration/secret/).
+As a default, Secrets are readable only by `root`. For more details, see [Configuring Secrets](/docs/concepts/configuration/secret/).
 
 ### vsphereVolume (deprecated) {#vspherevolume}
 
