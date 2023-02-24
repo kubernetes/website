@@ -638,6 +638,10 @@ poorly-behaved workloads that may be harming system health.
   standard deviation of seat demand seen during the last concurrency
   borrowing adjustment period.
 
+* `apiserver_flowcontrol_demand_seats_smoothed` is a gauge vector
+  holding, for each priority level, the smoothed enveloped seat demand
+  determined at the last concurrency adjustment.
+
 * `apiserver_flowcontrol_target_seats` is a gauge vector holding, for
   each priority level, the concurrency target going into the borrowing
   allocation problem.
@@ -701,14 +705,15 @@ serves the following additional paths at its HTTP[S] ports.
   The output is similar to this:
 
   ```none
-  PriorityLevelName, ActiveQueues, IsIdle, IsQuiescing, WaitingRequests, ExecutingRequests,
-  workload-low,      0,            true,   false,       0,               0,
-  global-default,    0,            true,   false,       0,               0,
-  exempt,            <none>,       <none>, <none>,      <none>,          <none>,
-  catch-all,         0,            true,   false,       0,               0,
-  system,            0,            true,   false,       0,               0,
-  leader-election,   0,            true,   false,       0,               0,
-  workload-high,     0,            true,   false,       0,               0,
+  PriorityLevelName, ActiveQueues, IsIdle, IsQuiescing, WaitingRequests, ExecutingRequests, DispatchedRequests, RejectedRequests, TimedoutRequests, CancelledRequests
+  catch-all,         0,            true,   false,       0,               0,                 1,                  0,                0,                0
+  exempt,            <none>,       <none>, <none>,      <none>,          <none>,            <none>,             <none>,           <none>,           <none>
+  global-default,    0,            true,   false,       0,               0,                 46,                 0,                0,                0
+  leader-election,   0,            true,   false,       0,               0,                 4,                  0,                0,                0
+  node-high,         0,            true,   false,       0,               0,                 34,                 0,                0,                0
+  system,            0,            true,   false,       0,               0,                 48,                 0,                0,                0
+  workload-high,     0,            true,   false,       0,               0,                 500,                0,                0,                0
+  workload-low,      0,            true,   false,       0,               0,                 0,                  0,                0,                0
   ```
 
 - `/debug/api_priority_and_fairness/dump_queues` - a listing of all the
@@ -761,7 +766,34 @@ serves the following additional paths at its HTTP[S] ports.
   system,            system-nodes,   12,         0,                   system:node:127.0.0.1, 2020-07-23T15:31:03.583823404Z, system:node:127.0.0.1, create, /api/v1/namespaces/scaletest/configmaps,
   system,            system-nodes,   12,         1,                   system:node:127.0.0.1, 2020-07-23T15:31:03.594555947Z, system:node:127.0.0.1, create, /api/v1/namespaces/scaletest/configmaps,
   ```
-  
+
+### Debug logging
+
+At `-v=3` or more verbose the server outputs an httplog line for every
+request, and it includes the following attributes.
+
+- `apf_fs`: the name of the flow schema to which the request was classified.
+- `apf_pl`: the name of the priority level for that flow schema.
+- `apf_iseats`: the number of seats determined for the initial
+  (normal) stage of execution of the request.
+- `apf_fseats`: the number of seats determined for the final stage of
+  execution (accounting for the associated WATCH notifications) of the
+  request.
+- `apf_additionalLatency`: the duration of the final stage of
+  execution of the request.
+
+At higher levels of verbosity there will be log lines exposing details
+of how APF handled the request, primarily for debug purposes.
+
+### Response headers
+
+APF adds the following two headers to each HTTP response message.
+
+- `X-Kubernetes-PF-FlowSchema-UID` holds the UID of the FlowSchema
+  object to which the corresponding request was classified.
+- `X-Kubernetes-PF-PriorityLevel-UID` holds the UID of the
+  PriorityLevelConfiguration object associated with that FlowSchema.
+
 ## {{% heading "whatsnext" %}}
 
 

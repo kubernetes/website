@@ -97,7 +97,7 @@ your cluster. Those fields are:
   nodes match the node selector.
 
   {{< note >}}
-  The `minDomains` field is a beta field and enabled by default in 1.25. You can disable it by disabling the
+  The `minDomains` field is a beta field and disabled by default in 1.25. You can enable it by enabling the
   `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   {{< /note >}}
 

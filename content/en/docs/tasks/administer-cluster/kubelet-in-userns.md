@@ -2,6 +2,7 @@
 title: Running Kubernetes Node Components as a Non-root User
 content_type: task
 min-kubernetes-server-version: 1.22
+weight: 300
 ---
 
 <!-- overview -->

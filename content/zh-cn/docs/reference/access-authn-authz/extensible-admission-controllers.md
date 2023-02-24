@@ -211,7 +211,7 @@ which is a PEM-encoded CA bundle for validating the webhook's server certificate
 The `scope` field specifies if only cluster-scoped resources ("Cluster") or namespace-scoped
 resources ("Namespaced") will match this rule. "&lowast;" means that there are no scope restrictions.
 -->
-scope 字段指定是仅集群范围的资源（Cluster）还是名字空间范围的资源资源（Namespaced）将与此规则匹配。
+`scope` 字段指定是仅集群范围的资源（Cluster）还是名字空间范围的资源资源（Namespaced）将与此规则匹配。
 `*` 表示没有范围限制。
 
 <!--
@@ -861,10 +861,10 @@ Use the object selector only if the webhook is opt-in, because end users may ski
 跳过准入 Webhook。
 
 <!--
-This example shows a mutating webhook that would match a `CREATE` of any resource with the label `foo: bar`:
+This example shows a mutating webhook that would match a `CREATE` of any resource (but not subresources) with the label `foo: bar`:
 -->
-这个例子展示了一个 mutating webhook，它将匹配带有标签 `foo:bar` 的任何资源的
-`CREATE` 的操作：
+这个例子展示了一个变更性质的 Webhook，它将匹配带有标签 `foo:bar` 的所有资源（但不包括子资源）的
+`CREATE` 操作：
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1

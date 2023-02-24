@@ -470,8 +470,7 @@ The more files and directories in the volume, the longer that relabelling takes.
 In Kubernetes 1.25, the kubelet loses track of volume labels after restart. In
 other words, then kubelet may refuse to start Pods with errors similar to  "conflicting
 SELinux labels of volume", while there are no conflicting labels in Pods. Make sure
-nodes are
-[fully drained](https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/)
+nodes are [fully drained](/docs/tasks/administer-cluster/safely-drain-node/)
 before restarting kubelet.
 {{< /note >}}
 
@@ -519,4 +518,5 @@ kubectl delete pod security-context-demo-4
 * [AllowPrivilegeEscalation design
   document](https://git.k8s.io/design-proposals-archive/auth/no-new-privs.md)
 * For more information about security mechanisms in Linux, see
-[Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features) (Note: Some information is out of date)
+  [Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features)
+  (Note: Some information is out of date)

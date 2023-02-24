@@ -66,10 +66,26 @@ The following methods exist for installing kubectl on Windows:
    ```cmd
    kubectl version --client
    ```
+   {{< note >}}
+   The above command will generate a warning:
+   ```
+   WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
+   ```
+   You can ignore this warning. You are only checking the version of `kubectl` that you
+   have installed.
+   
+   {{< /note >}}
+   
    Or use this for detailed view of version:
 
    ```cmd
    kubectl version --client --output=yaml
+   ```
+
+1. After installing the plugin, clean up the installation files:
+
+   ```powershell
+   del kubectl.exe kubectl.exe.sha256
    ```
 
 {{< note >}}
@@ -190,6 +206,12 @@ Below are the procedures to set up autocompletion for PowerShell.
    ```
 
    If you do not see an error, it means the plugin is successfully installed.
+
+1. After installing the plugin, clean up the installation files:
+
+   ```powershell
+   del kubectl-convert.exe kubectl-convert.exe.sha256
+   ```
 
 ## {{% heading "whatsnext" %}}
 

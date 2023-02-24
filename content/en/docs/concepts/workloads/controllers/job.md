@@ -54,21 +54,21 @@ Check on the status of the Job with `kubectl`:
 
 {{< tabs name="Check status of Job" >}}
 {{< tab name="kubectl describe job pi" codelang="bash" >}}
-Name:           pi
-Namespace:      default
-Selector:       controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
-Labels:         controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
-                job-name=pi
-Annotations:    kubectl.kubernetes.io/last-applied-configuration:
-                  {"apiVersion":"batch/v1","kind":"Job","metadata":{"annotations":{},"name":"pi","namespace":"default"},"spec":{"backoffLimit":4,"template":...
-Parallelism:    1
-Completions:    1
-Start Time:     Mon, 02 Dec 2019 15:20:11 +0200
-Completed At:   Mon, 02 Dec 2019 15:21:16 +0200
-Duration:       65s
-Pods Statuses:  0 Running / 1 Succeeded / 0 Failed
+Name:             pi
+Namespace:        default
+Selector:         controller-uid=0cd26dd5-88a2-4a5f-a203-ea19a1d5d578
+Labels:           controller-uid=0cd26dd5-88a2-4a5f-a203-ea19a1d5d578
+                  job-name=pi
+Annotations:      batch.kubernetes.io/job-tracking: 
+Parallelism:      1
+Completions:      1
+Completion Mode:  NonIndexed
+Start Time:       Fri, 28 Oct 2022 13:05:18 +0530
+Completed At:     Fri, 28 Oct 2022 13:05:21 +0530
+Duration:         3s
+Pods Statuses:    0 Active / 1 Succeeded / 0 Failed
 Pod Template:
-  Labels:  controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
+  Labels:  controller-uid=0cd26dd5-88a2-4a5f-a203-ea19a1d5d578
            job-name=pi
   Containers:
    pi:
@@ -86,24 +86,26 @@ Pod Template:
 Events:
   Type    Reason            Age   From            Message
   ----    ------            ----  ----            -------
-  Normal  SuccessfulCreate  14m   job-controller  Created pod: pi-5rwd7
+  Normal  SuccessfulCreate  21s   job-controller  Created pod: pi-xf9p4
+  Normal  Completed         18s   job-controller  Job completed
 {{< /tab >}}
 {{< tab name="kubectl get job pi -o yaml" codelang="bash" >}}
 apiVersion: batch/v1
 kind: Job
 metadata:
   annotations:
+    batch.kubernetes.io/job-tracking: ""
     kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"batch/v1","kind":"Job","metadata":{"annotations":{},"name":"pi","namespace":"default"},"spec":{"backoffLimit":4,"template":{"spec":{"containers":[{"command":["perl","-Mbignum=bpi","-wle","print bpi(2000)"],"image":"perl","name":"pi"}],"restartPolicy":"Never"}}}}
-  creationTimestamp: "2022-06-15T08:40:15Z"
+      {"apiVersion":"batch/v1","kind":"Job","metadata":{"annotations":{},"name":"pi","namespace":"default"},"spec":{"backoffLimit":4,"template":{"spec":{"containers":[{"command":["perl","-Mbignum=bpi","-wle","print bpi(2000)"],"image":"perl:5.34.0","name":"pi"}],"restartPolicy":"Never"}}}}
+  creationTimestamp: "2022-11-10T17:53:53Z"
   generation: 1
   labels:
-    controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+    controller-uid: 204fb678-040b-497f-9266-35ffa8716d14
     job-name: pi
   name: pi
   namespace: default
-  resourceVersion: "987"
-  uid: 863452e6-270d-420e-9b94-53a54146c223
+  resourceVersion: "4751"
+  uid: 204fb678-040b-497f-9266-35ffa8716d14
 spec:
   backoffLimit: 4
   completionMode: NonIndexed
@@ -111,13 +113,13 @@ spec:
   parallelism: 1
   selector:
     matchLabels:
-      controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+      controller-uid: 204fb678-040b-497f-9266-35ffa8716d14
   suspend: false
   template:
     metadata:
       creationTimestamp: null
       labels:
-        controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+        controller-uid: 204fb678-040b-497f-9266-35ffa8716d14
         job-name: pi
     spec:
       containers:
@@ -127,7 +129,7 @@ spec:
         - -wle
         - print bpi(2000)
         image: perl:5.34.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: pi
         resources: {}
         terminationMessagePath: /dev/termination-log
@@ -139,8 +141,9 @@ spec:
       terminationGracePeriodSeconds: 30
 status:
   active: 1
-  ready: 1
-  startTime: "2022-06-15T08:40:15Z"
+  ready: 0
+  startTime: "2022-11-10T17:53:57Z"
+  uncountedTerminatedPods: {}
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -791,7 +794,7 @@ These are some requirements and semantics of the API:
   are evaluated in order. Once a rule matches a Pod failure, the remaining rules
   are ignored. When no rule matches the Pod failure, the default
   handling applies.
-- you may want to restrict a rule to a specific container by specifing its name
+- you may want to restrict a rule to a specific container by specifying its name
   in`spec.podFailurePolicy.rules[*].containerName`. When not specified the rule
   applies to all containers. When specified, it should match one the container
   or `initContainer` names in the Pod template.
