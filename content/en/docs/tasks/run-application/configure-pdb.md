@@ -86,12 +86,14 @@ Values for `minAvailable` or `maxUnavailable` can be expressed as integers or as
 - When you specify an integer, it represents a number of Pods. For instance, if you set `minAvailable` to 10, then 10
   Pods must always be available, even during a disruption.
 - When you specify a percentage by setting the value to a string representation of a percentage (eg. `"50%"`), it represents a percentage of
-  total Pods. For instance, if you set `maxUnavailable` to `"50%"`, then only 50% of the Pods can be unavailable during a
+  total Pods. For instance, if you set `minAvailable` to `"50%"`, then at least 50% of the Pods remain available during a
   disruption.
 
 When you specify the value as a percentage, it may not map to an exact number of Pods. For example, if you have 7 Pods and
 you set `minAvailable` to `"50%"`, it's not immediately obvious whether that means 3 Pods or 4 Pods must be available.
-Kubernetes rounds up to the nearest integer, so in this case, 4 Pods must be available. You can examine the
+Kubernetes rounds up to the nearest integer, so in this case, 4 Pods must be available. When you specify the value 
+`maxUnavailable` as a percentage, Kubernetes rounds up the number of Pods that may be disrupted. Thereby a disruption 
+can exceed your defined `maxUnavailable` percentage. You can examine the
 [code](https://github.com/kubernetes/kubernetes/blob/23be9587a0f8677eb8091464098881df939c44a9/pkg/controller/disruption/disruption.go#L539)
 that controls this behavior.
 
@@ -129,8 +131,10 @@ of the number of desired replicas are healthy.
 Example 3: With a `maxUnavailable` of 5, evictions are allowed as long as there are at most 5
 unhealthy replicas among the total number of desired replicas.
 
-Example 4: With a `maxUnavailable` of 30%, evictions are allowed as long as no more than 30%
-of the desired replicas are unhealthy.
+Example 4: With a `maxUnavailable` of 30%, evictions are allowed as long as the number of 
+unhealthy replicas does not exceed 30% of the total number of desired replica rounded up to 
+the nearest integer. If the total number of desired replicas is just one, the only one replica 
+is still allowed for disruption, leading to an effective unavailability of 100%.
 
 In typical usage, a single budget would be used for a collection of pods managed by
 a controller—for example, the pods in a single ReplicaSet or StatefulSet.
