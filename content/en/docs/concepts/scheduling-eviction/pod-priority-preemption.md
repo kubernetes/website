@@ -4,7 +4,7 @@ reviewers:
 - wojtek-t
 title: Pod Priority and Preemption
 content_type: concept
-weight: 50
+weight: 90
 ---
 
 <!-- overview -->
@@ -63,9 +63,10 @@ The name of a PriorityClass object must be a valid
 and it cannot be prefixed with `system-`.
 
 A PriorityClass object can have any 32-bit integer value smaller than or equal
-to 1 billion. Larger numbers are reserved for critical system Pods that should
-not normally be preempted or evicted. A cluster admin should create one
-PriorityClass object for each such mapping that they want.
+to 1 billion. This means that the range of values for a PriorityClass object is
+from -2147483648 to 1000000000 inclusive. Larger numbers are reserved for 
+built-in PriorityClasses that represent critical system Pods. A cluster
+admin should create one PriorityClass object for each such mapping that they want.
 
 PriorityClass also has two optional fields: `globalDefault` and `description`.
 The `globalDefault` field indicates that the value of this PriorityClass should
@@ -104,9 +105,9 @@ description: "This priority class should be used for XYZ service pods only."
 
 ## Non-preempting PriorityClass {#non-preempting-priority-class}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
-Pods with `PreemptionPolicy: Never` will be placed in the scheduling queue
+Pods with `preemptionPolicy: Never` will be placed in the scheduling queue
 ahead of lower-priority pods,
 but they cannot preempt other pods.
 A non-preempting pod waiting to be scheduled will stay in the scheduling queue,
@@ -122,16 +123,16 @@ allowing other pods with lower priority to be scheduled before them.
 Non-preempting pods may still be preempted by other,
 high-priority pods.
 
-`PreemptionPolicy` defaults to `PreemptLowerPriority`,
+`preemptionPolicy` defaults to `PreemptLowerPriority`,
 which will allow pods of that PriorityClass to preempt lower-priority pods
 (as is existing default behavior).
-If `PreemptionPolicy` is set to `Never`,
+If `preemptionPolicy` is set to `Never`,
 pods in that PriorityClass will be non-preempting.
 
 An example use case is for data science workloads.
 A user may submit a job that they want to be prioritized above other workloads,
 but do not wish to discard existing work by preempting running pods.
-The high priority job with `PreemptionPolicy: Never` will be scheduled
+The high priority job with `preemptionPolicy: Never` will be scheduled
 ahead of other queued pods,
 as soon as sufficient cluster resources "naturally" become free.
 
@@ -203,9 +204,10 @@ resources reserved for Pod P and also gives users information about preemptions
 in their clusters.
 
 Please note that Pod P is not necessarily scheduled to the "nominated Node".
+The scheduler always tries the "nominated Node" before iterating over any other nodes.
 After victim Pods are preempted, they get their graceful termination period. If
 another node becomes available while scheduler is waiting for the victim Pods to
-terminate, scheduler will use the other node to schedule Pod P. As a result
+terminate, scheduler may use the other node to schedule Pod P. As a result
 `nominatedNodeName` and `nodeName` of Pod spec are not always the same. Also, if
 scheduler preempts Pods on Node N, but then a higher priority Pod than Pod P
 arrives, scheduler may give Node N to the new higher priority Pod. In such a
@@ -252,12 +254,12 @@ Even so, the answer to the preceding question must be yes. If the answer is no,
 the Node is not considered for preemption.
 {{< /note >}}
 
-If a pending Pod has inter-pod affinity to one or more of the lower-priority
-Pods on the Node, the inter-Pod affinity rule cannot be satisfied in the absence
-of those lower-priority Pods. In this case, the scheduler does not preempt any
-Pods on the Node. Instead, it looks for another Node. The scheduler might find a
-suitable Node or it might not. There is no guarantee that the pending Pod can be
-scheduled.
+If a pending Pod has inter-pod {{< glossary_tooltip text="affinity" term_id="affinity" >}}
+to one or more of the lower-priority Pods on the Node, the inter-Pod affinity
+rule cannot be satisfied in the absence of those lower-priority Pods. In this case, 
+the scheduler does not preempt any Pods on the Node. Instead, it looks for another
+Node. The scheduler might find a suitable Node or it might not. There is no 
+guarantee that the pending Pod can be scheduled.
 
 Our recommended solution for this problem is to create inter-Pod affinity only
 towards equal or higher priority Pods.
@@ -353,7 +355,7 @@ the removal of the lowest priority Pods is not sufficient to allow the scheduler
 to schedule the preemptor Pod, or if the lowest priority Pods are protected by
 `PodDisruptionBudget`.
 
-The kubelet uses Priority to determine pod order for [out-of-resource eviction](/docs/tasks/administer-cluster/out-of-resource/).
+The kubelet uses Priority to determine pod order for [node-pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
 You can use the QoS class to estimate the order in which pods are most likely
 to get evicted. The kubelet ranks pods for eviction based on the following factors:
 
@@ -361,10 +363,10 @@ to get evicted. The kubelet ranks pods for eviction based on the following facto
   1. Pod Priority
   1. Amount of resource usage relative to requests 
 
-See [evicting end-user pods](/docs/tasks/administer-cluster/out-of-resource/#evicting-end-user-pods)
+See [Pod selection for kubelet eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/#pod-selection-for-kubelet-eviction)
 for more details.
 
-kubelet out-of-resource eviction does not evict Pods when their
+kubelet node-pressure eviction does not evict Pods when their
 usage does not exceed their requests. If a Pod with lower priority is not
 exceeding its requests, it won't be evicted. Another Pod with higher priority
 that exceeds its requests may be evicted.

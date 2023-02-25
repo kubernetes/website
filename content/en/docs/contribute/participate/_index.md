@@ -53,7 +53,7 @@ GitHub teams and OWNERS files.
 There are two categories of SIG Docs [teams](https://github.com/orgs/kubernetes/teams?query=sig-docs) on GitHub:
 
 - `@sig-docs-{language}-owners` are approvers and leads
-- `@sig-docs-{language}-reviewers` are reviewers
+- `@sig-docs-{language}-reviews` are reviewers
 
 Each can be referenced with their `@name` in GitHub comments to communicate with
 everyone in that group.
@@ -73,8 +73,8 @@ two [prow plugins](https://github.com/kubernetes/test-infra/tree/master/prow/plu
 - approve
 
 These two plugins use the
-[OWNERS](https://github.com/kubernetes/website/blob/master/OWNERS) and
-[OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS_ALIASES)
+[OWNERS](https://github.com/kubernetes/website/blob/main/OWNERS) and
+[OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)
 files in the top level of the `kubernetes/website` GitHub repository to control
 how prow works within the repository.
 
@@ -115,6 +115,6 @@ SIG Docs approvers. Here's how it works.
 
 For more information about contributing to the Kubernetes documentation, see:
 
-- [Contributing new content](/docs/contribute/new-content/overview/)
+- [Contributing new content](/docs/contribute/new-content/)
 - [Reviewing content](/docs/contribute/review/reviewing-prs)
 - [Documentation style guide](/docs/contribute/style/)

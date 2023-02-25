@@ -8,7 +8,11 @@
     <header>
       {{ partial "navbar.html" . }}
       {{ partial "announcement.html" . }}
-      <div class="header-filler"></div>
+      {{ block "hero" . }}
+        <section class="header-hero filler">
+        </section>
+         {{ block "hero-more" . }}{{ end }}
+      {{ end }}
     </header>
     <div class="container-fluid td-outer">
       <div class="td-main">
@@ -22,10 +26,20 @@
               {{ partial "deprecation-warning.html" . }}
             {{ end }}
               {{ block "main" . }}{{ end }}
+              {{- if .HasShortcode "thirdparty-content" -}}
+                {{ block "thirdparty-disclaimer" . }}
+                  {{ partial "docs/thirdparty-disclaimer.html" . }}
+                {{- end -}}
+              {{- end -}}
+              {{- if (.Param "auto_generated") -}}
+                {{ block "auto-generated-pageinfo" . }}
+                  {{ partial "docs/auto-generated-pageinfo.html" . }}
+                {{- end -}}
+              {{- end -}}
             {{ if (and (not .Params.hide_feedback) (.Site.Params.ui.feedback.enable) (.Site.GoogleAnalytics)) }}
               {{ partial "feedback.html" .Site.Params.ui.feedback }}
             {{ end }}
-            <div class="text-muted mt-5 pt-3 border-top">{{ partial "page-meta-lastmod.html" . }}</div>
+            {{ partial "page-meta-lastmod.html" . }}
             {{ if (.Site.DisqusShortname) }}
               <br />
               {{ partial "disqus-comment.html" . }}
@@ -36,8 +50,8 @@
           </div>
         </div>
       </div>
-      {{ partial "footer.html" . }}
     </div>
+    {{ partial "footer.html" . }}
     {{ partial "scripts.html" . }}
   </body>
 </html>

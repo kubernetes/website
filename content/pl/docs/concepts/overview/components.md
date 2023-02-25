@@ -15,19 +15,16 @@ W wyniku instalacji Kubernetesa otrzymujesz klaster.
 
 {{< glossary_definition term_id="cluster" length="all" prepend="Klaster Kubernetes to">}}
 
-W tym dokumencie opisujemy składniki niezbędne do zbudowania kompletnego, poprawnie działającego klastra Kubernetes.
+W tym dokumencie opisujemy składniki niezbędne do zbudowania kompletnego, poprawnie działającego klastra Kubernetesa.
 
-Poniższy rysunek przedstawia klaster Kubernetes i powiązania pomiędzy jego różnymi częściami składowymi.
-
-![Składniki Kubernetes](/images/docs/components-of-kubernetes.svg)
-
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Składniki Kubernetesa" caption="Części składowe klastra Kubernetes" class="diagram-large" >}}
 
 <!-- body -->
-## Częsci składowe warstwy sterowania
+## Części składowe warstwy sterowania
 
 Komponenty warstwy sterowania podejmują ogólne decyzje dotyczące klastra (np. zlecanie zadań), a także wykrywają i reagują na zdarzenia w klastrze (przykładowo, start nowego {{< glossary_tooltip text="poda" term_id="pod">}}, kiedy wartość `replicas` dla deploymentu nie zgadza się z faktyczną liczbą replik).
 
-Komponenty warstwy sterowania mogą być uruchomione na dowolnej maszynie w klastrze. Dla uproszczenia jednak skrypty instalacyjne zazwyczaj startują wszystkie składniki na tej samej maszynie i jednocześnie nie pozwalają na uruchamianie na niej kontenerów użytkowników. Na stronie [Tworzenie Wysoko Dostępnych Klastrów](/docs/admin/high-availability/) jest więcej informacji o konfiguracji typu *multi-master-VM*.
+Komponenty warstwy sterowania mogą być uruchomione na dowolnej maszynie w klastrze. Dla uproszczenia jednak skrypty instalacyjne zazwyczaj startują wszystkie składniki na tej samej maszynie, a jednocześnie nie pozwalają na uruchamianie na niej kontenerów użytkowników. Na stronie [Creating Highly Available clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/) znajdziesz opis konfiguracji warstwy sterowania działającej na wielu maszynach.
 
 ### kube-apiserver
 
@@ -45,10 +42,11 @@ Komponenty warstwy sterowania mogą być uruchomione na dowolnej maszynie w klas
 
 {{< glossary_definition term_id="kube-controller-manager" length="all" >}}
 
-Kontrolerami są:
+Przykładowe kontrolery:
 
 * Node controller: Odpowiada za rozpoznawanie i reagowanie na sytuacje, kiedy węzeł staje się z jakiegoś powodu niedostępny.
-* Replication controller: Odpowiada za utrzymanie prawidłowej liczby podów dla każdego obiektu typu *ReplicationController* w systemie.
+* Job controller: Czeka na obiekty typu *Job*, które definiują zadania uruchamiane jednorazowo
+  i startuje Pody, odpowiadające za ich wykonanie tych zadań.
 * Endpoints controller: Dostarcza informacji do obiektów typu *Endpoints* (tzn. łączy ze sobą Serwisy i Pody).
 * Service Account & Token controllers: Tworzy domyślne konta i tokeny dostępu API dla nowych przestrzeni nazw (*namespaces*).
 
@@ -106,12 +104,11 @@ Kontenery uruchomione przez Kubernetes automatycznie przeszukują ten serwer DNS
 
 ### Monitorowanie zasobów w kontenerach
 
-[Container Resource Monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/) zapisuje serie czasowe podstawowych metryk kontenerów w centralnej bazie danych i oferuje interfejs użytkownika do przeglądania tych danych.
+[Container Resource Monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/) zapisuje serie czasowe podstawowych metryk kontenerów w centralnej bazie danych i oferuje interfejs użytkownika do przeglądania tych danych.
 
 ### Logowanie na poziomie klastra
 
 Mechanizm [logowania na poziomie klastra](/docs/concepts/cluster-administration/logging/) odpowiada za zapisywanie logów pochodzących z poszczególnych kontenerów do wspólnego magazynu, który posiada interfejs do przeglądania i przeszukiwania.
-
 
 ## {{% heading "whatsnext" %}}
 
@@ -119,4 +116,3 @@ Mechanizm [logowania na poziomie klastra](/docs/concepts/cluster-administration/
 * Więcej o [Kontrolerach](/docs/concepts/architecture/controller/)
 * Więcej o [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/)
 * Oficjalna [dokumentacja](https://etcd.io/docs/) etcd
-

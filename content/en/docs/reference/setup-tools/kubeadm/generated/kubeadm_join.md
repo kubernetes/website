@@ -3,7 +3,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
+To update the reference content, please follow the 
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -23,8 +23,10 @@ Kubernetes Control Plane trust the Node).
 
 There are 2 main schemes for discovery. The first is to use a shared
 token along with the IP address of the API server. The second is to
-provide a file - a subset of the standard kubeconfig file. This file
-can be a local file or downloaded via an HTTPS URL. The forms are
+provide a file - a subset of the standard kubeconfig file. The
+discovery/kubeconfig file supports token, client-go authentication
+plugins ("exec"), "tokenFile", and "authProvider". This file can be a
+local file or downloaded via an HTTPS URL. The forms are
 kubeadm join --discovery-token abcdef.1234567890abcdef 1.2.3.4:6443,
 kubeadm join --discovery-file path/to/file.conf, or kubeadm join
 --discovery-file https://url/file.conf. Only one form can be used. If
@@ -69,7 +71,7 @@ control-plane-prepare  Prepare the machine for serving a control plane
 kubelet-start          Write kubelet settings, certificates and (re)start the kubelet
 control-plane-join     Join a machine as a control plane instance
   /etcd                  Add a new local etcd member
-  /update-status         Register the new control-plane node into the ClusterStatus maintained in the kubeadm-config ConfigMap
+  /update-status         Register the new control-plane node into the ClusterStatus maintained in the kubeadm-config ConfigMap (DEPRECATED)
   /mark-control-plane    Mark a node as a control-plane
 ```
 
@@ -112,7 +114,7 @@ kubeadm join [api-server-endpoint] [flags]
 <td colspan="2">--config string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to kubeadm config file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a kubeadm configuration file.</p></td>
 </tr>
 
 <tr>
@@ -158,10 +160,10 @@ kubeadm join [api-server-endpoint] [flags]
 </tr>
 
 <tr>
-<td colspan="2">--experimental-patches string</td>
+<td colspan="2">--dry-run</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Don't apply any changes; just output what would be done.</p></td>
 </tr>
 
 <tr>
@@ -183,6 +185,13 @@ kubeadm join [api-server-endpoint] [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Specify the node name.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--patches string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.</p></td>
 </tr>
 
 <tr>

@@ -3,17 +3,21 @@ reviewers:
 - robscott
 title: Topology Aware Hints
 content_type: concept
-weight: 45
+weight: 100
+description: >-
+  _Topology Aware Hints_ provides a mechanism to help keep network traffic within the zone
+  where it originated. Preferring same-zone traffic between Pods in your cluster can help
+  with reliability, performance (network latency and throughput), or cost.
 ---
 
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 _Topology Aware Hints_ enable topology aware routing by including suggestions
 for how clients should consume endpoints. This approach adds metadata to enable
-consumers of EndpointSlice and / or Endpoints objects, so that traffic to
+consumers of EndpointSlice (or Endpoints) objects, so that traffic to
 those network endpoints can be routed closer to where it originated.
 
 For example, you can route traffic within a locality to reduce
@@ -30,13 +34,12 @@ Routing". When calculating the endpoints for a {{< glossary_tooltip term_id="Ser
 the EndpointSlice controller considers the topology (region and zone) of each endpoint
 and populates the hints field to allocate it to a zone.
 Cluster components such as the {{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}}
-can then consume those hints, and use them to influence how traffic to is routed
+can then consume those hints, and use them to influence how the traffic is routed
 (favoring topologically closer endpoints).
 
 ## Using Topology Aware Hints
 
-If you have [enabled](/docs/tasks/administer-cluster/enabling-topology-aware-hints) the
-overall feature, you can activate Topology Aware Hints for a Service by setting the
+You can activate Topology Aware Hints for a Service by setting the
 `service.kubernetes.io/topology-aware-hints` annotation to `auto`. This tells
 the EndpointSlice controller to set topology hints if it is deemed safe.
 Importantly, this does not guarantee that hints will always be set.
@@ -54,7 +57,7 @@ when this feature is enabled. The controller allocates a proportional amount of
 endpoints to each zone. This proportion is based on the
 [allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 CPU cores for nodes running in that zone. For example, if one zone had 2 CPU
-cores and another zone only had 1 CPU core, the controller would allocated twice
+cores and another zone only had 1 CPU core, the controller would allocate twice
 as many endpoints to the zone with 2 CPU cores.
 
 The following example shows what an EndpointSlice looks like when hints have
@@ -123,7 +126,7 @@ zone.
 
 5. **A zone is not represented in hints:** If the kube-proxy is unable to find
    at least one endpoint with a hint targeting the zone it is running in, it falls
-   to using endpoints from all zones. This is most likely to happen as you add
+   back to using endpoints from all zones. This is most likely to happen as you add
    a new zone into your existing cluster.
 
 ## Constraints
@@ -143,7 +146,7 @@ zone.
   portion of nodes are unready.
 
 * The EndpointSlice controller does not take into account {{< glossary_tooltip
-  text="tolerations" term_id="toleration" >}} when deploying calculating the
+  text="tolerations" term_id="toleration" >}} when deploying or calculating the
   proportions of each zone. If the Pods backing a Service are limited to a
   subset of Nodes in the cluster, this will not be taken into account.
 
@@ -156,5 +159,4 @@ zone.
 
 ## {{% heading "whatsnext" %}}
 
-* Read about [enabling Topology Aware Hints](/docs/tasks/administer-cluster/enabling-topology-aware-hints/)
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial

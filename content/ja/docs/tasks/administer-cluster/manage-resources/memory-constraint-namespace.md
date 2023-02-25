@@ -255,4 +255,4 @@ kubectl delete namespace constraints-mem-example
 
 * [コンテナとPodへのCPUリソースの割り当て](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-* [PodのQoS(サービス品質)を設定](/docs/tasks/configure-pod-container/quality-service-pod/)
+* [PodのQoS(サービス品質)を設定](/ja/docs/tasks/configure-pod-container/quality-service-pod/)

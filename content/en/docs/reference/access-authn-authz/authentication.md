@@ -53,7 +53,7 @@ or be treated as an anonymous user.
 
 ## Authentication strategies
 
-Kubernetes uses client certificates, bearer tokens, an authenticating proxy, or HTTP basic auth to
+Kubernetes uses client certificates, bearer tokens, or an authenticating proxy to
 authenticate API requests through authentication plugins. As HTTP requests are
 made to the API server, plugins attempt to associate the following attributes
 with the request:
@@ -104,7 +104,7 @@ See [Managing Certificates](/docs/tasks/administer-cluster/certificates/) for ho
 ### Static Token File
 
 The API server reads bearer tokens from a file when given the `--token-auth-file=SOMEFILE` option on the command line.  Currently, tokens last indefinitely, and the token list cannot be
-changed without restarting API server.
+changed without restarting the API server.
 
 The token file is a csv file with a minimum of 3 columns: token, user name, user uid,
 followed by optional group names.
@@ -121,7 +121,7 @@ token,user,uid,"group1,group2,group3"
 
 When using bearer token authentication from an http client, the API
 server expects an `Authorization` header with a value of `Bearer
-THETOKEN`.  The bearer token must be a character sequence that can be
+<token>`.  The bearer token must be a character sequence that can be
 put in an HTTP header value using no more than the encoding and
 quoting facilities of HTTP.  For example: if the bearer token is
 `31ada4fd-adec-460c-809a-9e56ceb75269` then it would appear in an HTTP
@@ -171,8 +171,10 @@ how to manage these tokens with `kubeadm`.
 A service account is an automatically enabled authenticator that uses signed
 bearer tokens to verify requests. The plugin takes two optional flags:
 
-* `--service-account-key-file` A file containing a PEM encoded key for signing bearer tokens.
-If unspecified, the API server's TLS private key will be used.
+* `--service-account-key-file` File containing PEM-encoded x509 RSA or ECDSA
+private or public keys, used to verify ServiceAccount tokens. The specified file
+can contain multiple keys, and the flag can be specified multiple times with
+different files. If unspecified, --tls-private-key-file is used.
 * `--service-account-lookup` If enabled, tokens which are deleted from the API will be revoked.
 
 Service accounts are usually created automatically by the API server and
@@ -208,65 +210,42 @@ Service account bearer tokens are perfectly valid to use outside the cluster and
 can be used to create identities for long standing jobs that wish to talk to the
 Kubernetes API. To manually create a service account, use the `kubectl create
 serviceaccount (NAME)` command. This creates a service account in the current
-namespace and an associated secret.
+namespace.
 
 ```bash
 kubectl create serviceaccount jenkins
 ```
 
 ```none
-serviceaccount "jenkins" created
+serviceaccount/jenkins created
 ```
 
-Check an associated secret:
+Create an associated token:
 
 ```bash
-kubectl get serviceaccounts jenkins -o yaml
+kubectl create token jenkins
 ```
 
-```yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  # ...
-secrets:
-- name: jenkins-token-1yvwg
+```none
+eyJhbGciOiJSUzI1NiIsImtp...
 ```
 
-The created secret holds the public CA of the API server and a signed JSON Web
-Token (JWT).
-
-```bash
-kubectl get secret jenkins-token-1yvwg -o yaml
-```
-
-```yaml
-apiVersion: v1
-data:
-  ca.crt: (APISERVER'S CA BASE64 ENCODED)
-  namespace: ZGVmYXVsdA==
-  token: (BEARER TOKEN BASE64 ENCODED)
-kind: Secret
-metadata:
-  # ...
-type: kubernetes.io/service-account-token
-```
-
-{{< note >}}
-Values are base64 encoded because secrets are always base64 encoded.
-{{< /note >}}
+The created token is a signed JSON Web Token (JWT).
 
 The signed JWT can be used as a bearer token to authenticate as the given service
 account. See [above](#putting-a-bearer-token-in-a-request) for how the token is included
-in a request.  Normally these secrets are mounted into pods for in-cluster access to
+in a request.  Normally these tokens are mounted into pods for in-cluster access to
 the API server, but can be used from outside the cluster as well.
 
 Service accounts authenticate with the username `system:serviceaccount:(NAMESPACE):(SERVICEACCOUNT)`,
 and are assigned to the groups `system:serviceaccounts` and `system:serviceaccounts:(NAMESPACE)`.
 
-WARNING: Because service account tokens are stored in secrets, any user with
-read access to those secrets can authenticate as the service account. Be cautious
-when granting permissions to service accounts and read capabilities for secrets.
+{{< warning >}}
+Because service account tokens can also be stored in Secret API objects, any user with
+write access to Secrets can request a token, and any user with read access to those 
+Secrets can authenticate as the service account. Be cautious when granting permissions
+to service accounts and read or write capabilities for Secrets.
+{{< /warning >}}
 
 ### OpenID Connect Tokens
 
@@ -342,6 +321,7 @@ To enable the plugin, configure the following flags on the API server:
 | `--oidc-groups-prefix` | Prefix prepended to group claims to prevent clashes with existing names (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`. | `oidc:` | No |
 | `--oidc-required-claim` | A key=value pair that describes a required claim in the ID Token. If set, the claim is verified to be present in the ID Token with a matching value. Repeat this flag to specify multiple claims. | `claim=value` | No |
 | `--oidc-ca-file` | The path to the certificate for the CA that signed your identity provider's web certificate.  Defaults to the host's root CAs. | `/etc/kubernetes/ssl/kc-ca.pem` | No |
+| `--oidc-signing-algs` | The signing algorithms accepted. Default is "RS256". | `RS512` | No |
 
 Importantly, the API server is not an OAuth2 client, rather it can only be
 configured to trust a single issuer. This allows the use of public providers,
@@ -356,7 +336,7 @@ You can use an existing public OpenID Connect Identity Provider (such as Google,
 Or, you can run your own Identity Provider, such as [dex](https://dexidp.io/),
 [Keycloak](https://github.com/keycloak/keycloak),
 CloudFoundry [UAA](https://github.com/cloudfoundry/uaa), or
-Tremolo Security's [OpenUnison](https://github.com/tremolosecurity/openunison).
+Tremolo Security's [OpenUnison](https://openunison.github.io/).
 
 For an identity provider to work with Kubernetes it must:
 
@@ -733,22 +713,33 @@ The following HTTP headers can be used to performing an impersonation request:
 
 * `Impersonate-User`: The username to act as.
 * `Impersonate-Group`: A group name to act as. Can be provided multiple times to set multiple groups. Optional. Requires "Impersonate-User".
-* `Impersonate-Extra-( extra name )`: A dynamic header used to associate extra fields with the user. Optional. Requires "Impersonate-User". In order to be preserved consistently, `( extra name )` should be lower-case, and any characters which aren't [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6) MUST be utf8 and [percent-encoded](https://tools.ietf.org/html/rfc3986#section-2.1).
+* `Impersonate-Extra-( extra name )`: A dynamic header used to associate extra fields with the user. Optional. Requires "Impersonate-User". In order to be preserved consistently, `( extra name )` must be lower-case, and any characters which aren't [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6) MUST be utf8 and [percent-encoded](https://tools.ietf.org/html/rfc3986#section-2.1).
+* `Impersonate-Uid`: A unique identifier that represents the user being impersonated. Optional. Requires "Impersonate-User". Kubernetes does not impose any format requirements on this string.
 
 {{< note >}}
 Prior to 1.11.3 (and 1.10.7, 1.9.11), `( extra name )` could only contain characters which were [legal in HTTP header labels](https://tools.ietf.org/html/rfc7230#section-3.2.6).
 {{< /note >}}
 
-An example set of headers:
+{{< note >}}
+`Impersonate-Uid` is only available in versions 1.22.0 and higher.
+{{< /note >}}
 
+An example of the impersonation headers used when impersonating a user with groups:
 ```http
 Impersonate-User: jane.doe@example.com
 Impersonate-Group: developers
 Impersonate-Group: admins
+```
+
+An example of the impersonation headers used when impersonating a user with a UID and
+extra fields:
+```http
+Impersonate-User: jane.doe@example.com
 Impersonate-Extra-dn: cn=jane,ou=engineers,dc=example,dc=com
 Impersonate-Extra-acme.com%2Fproject: some-project
 Impersonate-Extra-scopes: view
 Impersonate-Extra-scopes: development
+Impersonate-Uid: 06f6ce97-e2c5-4ab8-7ba5-7654dd08d52b
 ```
 
 When using `kubectl` set the `--as` flag to configure the `Impersonate-User`
@@ -773,9 +764,13 @@ node/mynode cordoned
 node/mynode drained
 ```
 
-To impersonate a user, group, or set extra fields, the impersonating user must
+{{< note >}}
+`kubectl` cannot impersonate extra fields or UIDs.
+{{< /note >}}
+
+To impersonate a user, group, user identifier (UID) or extra fields, the impersonating user must
 have the ability to perform the "impersonate" verb on the kind of attribute
-being impersonated ("user", "group", etc.). For clusters that enable the RBAC
+being impersonated ("user", "group", "uid", etc.). For clusters that enable the RBAC
 authorization plugin, the following ClusterRole encompasses the rules needed to
 set user and group impersonation headers:
 
@@ -790,19 +785,20 @@ rules:
   verbs: ["impersonate"]
 ```
 
+For impersonation, extra fields and impersonated UIDs are both under the "authentication.k8s.io" `apiGroup`.
 Extra fields are evaluated as sub-resources of the resource "userextras". To
-allow a user to use impersonation headers for the extra field "scopes", a user
-should be granted the following role:
+allow a user to use impersonation headers for the extra field "scopes" and
+for UIDs, a user should be granted the following role:
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: scopes-impersonator
+  name: scopes-and-uid-impersonator
 rules:
-# Can set "Impersonate-Extra-scopes" header.
+# Can set "Impersonate-Extra-scopes" header and the "Impersonate-Uid" header.
 - apiGroups: ["authentication.k8s.io"]
-  resources: ["userextras/scopes"]
+  resources: ["userextras/scopes", "uids"]
   verbs: ["impersonate"]
 ```
 
@@ -832,11 +828,25 @@ rules:
   resources: ["userextras/scopes"]
   verbs: ["impersonate"]
   resourceNames: ["view", "development"]
+
+# Can impersonate the uid "06f6ce97-e2c5-4ab8-7ba5-7654dd08d52b"
+- apiGroups: ["authentication.k8s.io"]
+  resources: ["uids"]
+  verbs: ["impersonate"]
+  resourceNames: ["06f6ce97-e2c5-4ab8-7ba5-7654dd08d52b"]
 ```
+
+{{< note >}}
+Impersonating a user or group allows you to perform any action as if you were that user or group;
+for that reason, impersonation is not namespace scoped.
+If you want to allow impersonation using Kubernetes RBAC, 
+this requires using a `ClusterRole` and a `ClusterRoleBinding`,
+not a `Role` and `RoleBinding`.
+{{< /note >}}
 
 ## client-go credential plugins
 
-{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+{{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
 `k8s.io/client-go` and tools using it such as `kubectl` and `kubelet` are able to execute an
 external command to receive user credentials.
@@ -867,6 +877,8 @@ To authenticate against the API:
 Credential plugins are configured through [kubectl config files](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 as part of the user fields.
 
+{{< tabs name="exec_plugin_kubeconfig_example_1" >}}
+{{% tab name="client.authentication.k8s.io/v1" %}}
 ```yaml
 apiVersion: v1
 kind: Config
@@ -881,8 +893,82 @@ users:
       #
       # The API version returned by the plugin MUST match the version listed here.
       #
-      # To integrate with tools that support multiple versions (such as client.authentication.k8s.io/v1alpha1),
-      # set an environment variable or pass an argument to the tool that indicates which version the exec plugin expects.
+      # To integrate with tools that support multiple versions (such as client.authentication.k8s.io/v1beta1),
+      # set an environment variable, pass an argument to the tool that indicates which version the exec plugin expects,
+      # or read the version from the ExecCredential object in the KUBERNETES_EXEC_INFO environment variable.
+      apiVersion: "client.authentication.k8s.io/v1"
+
+      # Environment variables to set when executing the plugin. Optional.
+      env:
+      - name: "FOO"
+        value: "bar"
+
+      # Arguments to pass when executing the plugin. Optional.
+      args:
+      - "arg1"
+      - "arg2"
+
+      # Text shown to the user when the executable doesn't seem to be present. Optional.
+      installHint: |
+        example-client-go-exec-plugin is required to authenticate
+        to the current cluster.  It can be installed:
+
+        On macOS: brew install example-client-go-exec-plugin
+
+        On Ubuntu: apt-get install example-client-go-exec-plugin
+
+        On Fedora: dnf install example-client-go-exec-plugin
+
+        ...
+
+      # Whether or not to provide cluster information, which could potentially contain
+      # very large CA data, to this exec plugin as a part of the KUBERNETES_EXEC_INFO
+      # environment variable.
+      provideClusterInfo: true
+
+      # The contract between the exec plugin and the standard input I/O stream. If the
+      # contract cannot be satisfied, this plugin will not be run and an error will be
+      # returned. Valid values are "Never" (this exec plugin never uses standard input),
+      # "IfAvailable" (this exec plugin wants to use standard input if it is available),
+      # or "Always" (this exec plugin requires standard input to function). Required.
+      interactiveMode: Never
+clusters:
+- name: my-cluster
+  cluster:
+    server: "https://172.17.4.100:6443"
+    certificate-authority: "/etc/kubernetes/ca.pem"
+    extensions:
+    - name: client.authentication.k8s.io/exec # reserved extension name for per cluster exec config
+      extension:
+        arbitrary: config
+        this: can be provided via the KUBERNETES_EXEC_INFO environment variable upon setting provideClusterInfo
+        you: ["can", "put", "anything", "here"]
+contexts:
+- name: my-cluster
+  context:
+    cluster: my-cluster
+    user: my-user
+current-context: my-cluster
+```
+{{% /tab %}}
+{{% tab name="client.authentication.k8s.io/v1beta1" %}}
+```yaml
+apiVersion: v1
+kind: Config
+users:
+- name: my-user
+  user:
+    exec:
+      # Command to execute. Required.
+      command: "example-client-go-exec-plugin"
+
+      # API version to use when decoding the ExecCredentials resource. Required.
+      #
+      # The API version returned by the plugin MUST match the version listed here.
+      #
+      # To integrate with tools that support multiple versions (such as client.authentication.k8s.io/v1),
+      # set an environment variable, pass an argument to the tool that indicates which version the exec plugin expects,
+      # or read the version from the ExecCredential object in the KUBERNETES_EXEC_INFO environment variable.
       apiVersion: "client.authentication.k8s.io/v1beta1"
 
       # Environment variables to set when executing the plugin. Optional.
@@ -912,6 +998,14 @@ users:
       # very large CA data, to this exec plugin as a part of the KUBERNETES_EXEC_INFO
       # environment variable.
       provideClusterInfo: true
+
+      # The contract between the exec plugin and the standard input I/O stream. If the
+      # contract cannot be satisfied, this plugin will not be run and an error will be
+      # returned. Valid values are "Never" (this exec plugin never uses standard input),
+      # "IfAvailable" (this exec plugin wants to use standard input if it is available),
+      # or "Always" (this exec plugin requires standard input to function). Optional.
+      # Defaults to "IfAvailable".
+      interactiveMode: Never
 clusters:
 - name: my-cluster
   cluster:
@@ -930,6 +1024,8 @@ contexts:
     user: my-user
 current-context: my-cluster
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Relative command paths are interpreted as relative to the directory of the config file. If
 KUBECONFIG is set to `/home/jane/kubeconfig` and the exec command is `./bin/example-client-go-exec-plugin`,
@@ -941,21 +1037,53 @@ the binary `/home/jane/bin/example-client-go-exec-plugin` is executed.
     exec:
       # Path relative to the directory of the kubeconfig
       command: "./bin/example-client-go-exec-plugin"
-      apiVersion: "client.authentication.k8s.io/v1beta1"
+      apiVersion: "client.authentication.k8s.io/v1"
+      interactiveMode: Never
 ```
 
 ### Input and output formats
 
 The executed command prints an `ExecCredential` object to `stdout`. `k8s.io/client-go`
 authenticates against the Kubernetes API using the returned credentials in the `status`.
+The executed command is passed an `ExecCredential` object as input via the `KUBERNETES_EXEC_INFO`
+environment variable. This input contains helpful information like the expected API version
+of the returned `ExecCredential` object and whether or not the plugin can use `stdin` to interact
+with the user.
 
-When run from an interactive session, `stdin` is exposed directly to the plugin. Plugins should use a
-[TTY check](https://godoc.org/golang.org/x/crypto/ssh/terminal#IsTerminal) to determine if it's
-appropriate to prompt a user interactively.
+When run from an interactive session (i.e., a terminal), `stdin` can be exposed directly
+to the plugin. Plugins should use the `spec.interactive` field of the input
+`ExecCredential` object from the `KUBERNETES_EXEC_INFO` environment variable in order to
+determine if `stdin` has been provided. A plugin's `stdin` requirements (i.e., whether
+`stdin` is optional, strictly required, or never used in order for the plugin
+to run successfully) is declared via the `user.exec.interactiveMode` field in the
+[kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/) (see table
+below for valid values). The `user.exec.interactiveMode` field is optional in `client.authentication.k8s.io/v1beta1`
+and required in `client.authentication.k8s.io/v1`.
+
+{{< table caption="interactiveMode values" >}}
+| `interactiveMode` Value | Meaning |
+| ----------------------- | ------- |
+| `Never` | This exec plugin never needs to use standard input, and therefore the exec plugin will be run regardless of whether standard input is available for user input. |
+| `IfAvailable` | This exec plugin would like to use standard input if it is available, but can still operate if standard input is not available. Therefore, the exec plugin will be run regardless of whether stdin is available for user input. If standard input is available for user input, then it will be provided to this exec plugin. |
+| `Always` | This exec plugin requires standard input in order to run, and therefore the exec plugin will only be run if standard input is available for user input. If standard input is not available for user input, then the exec plugin will not be run and an error will be returned by the exec plugin runner. |
+{{< /table >}}
 
 To use bearer token credentials, the plugin returns a token in the status of the
 [`ExecCredential`](/docs/reference/config-api/client-authentication.v1beta1/#client-authentication-k8s-io-v1beta1-ExecCredential)
 
+{{< tabs name="exec_plugin_ExecCredential_example_1" >}}
+{{% tab name="client.authentication.k8s.io/v1" %}}
+```json
+{
+  "apiVersion": "client.authentication.k8s.io/v1",
+  "kind": "ExecCredential",
+  "status": {
+    "token": "my-bearer-token"
+  }
+}
+```
+{{% /tab %}}
+{{% tab name="client.authentication.k8s.io/v1beta1" %}}
 ```json
 {
   "apiVersion": "client.authentication.k8s.io/v1beta1",
@@ -965,6 +1093,8 @@ To use bearer token credentials, the plugin returns a token in the status of the
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Alternatively, a PEM-encoded client certificate and key can be returned to use TLS client auth.
 If the plugin returns a different certificate and key on a subsequent call, `k8s.io/client-go`
@@ -974,6 +1104,20 @@ If specified, `clientKeyData` and `clientCertificateData` must both must be pres
 
 `clientCertificateData` may contain additional intermediate certificates to send to the server.
 
+{{< tabs name="exec_plugin_ExecCredential_example_2" >}}
+{{% tab name="client.authentication.k8s.io/v1" %}}
+```json
+{
+  "apiVersion": "client.authentication.k8s.io/v1",
+  "kind": "ExecCredential",
+  "status": {
+    "clientCertificateData": "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----",
+    "clientKeyData": "-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----"
+  }
+}
+```
+{{% /tab %}}
+{{% tab name="client.authentication.k8s.io/v1beta1" %}}
 ```json
 {
   "apiVersion": "client.authentication.k8s.io/v1beta1",
@@ -984,9 +1128,13 @@ If specified, `clientKeyData` and `clientCertificateData` must both must be pres
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Optionally, the response can include the expiry of the credential formatted as a
-RFC3339 timestamp. Presence or absence of an expiry has the following impact:
+[RFC 3339](https://datatracker.ietf.org/doc/html/rfc3339) timestamp.
+
+Presence or absence of an expiry has the following impact:
 
 - If an expiry is included, the bearer token and TLS credentials are cached until
   the expiry time is reached, or if the server responds with a 401 HTTP status code,
@@ -994,6 +1142,20 @@ RFC3339 timestamp. Presence or absence of an expiry has the following impact:
 - If an expiry is omitted, the bearer token and TLS credentials are cached until
   the server responds with a 401 HTTP status code or until the process exits.
 
+{{< tabs name="exec_plugin_ExecCredential_example_3" >}}
+{{% tab name="client.authentication.k8s.io/v1" %}}
+```json
+{
+  "apiVersion": "client.authentication.k8s.io/v1",
+  "kind": "ExecCredential",
+  "status": {
+    "token": "my-bearer-token",
+    "expirationTimestamp": "2018-03-05T17:30:20-08:00"
+  }
+}
+```
+{{% /tab %}}
+{{% tab name="client.authentication.k8s.io/v1beta1" %}}
 ```json
 {
   "apiVersion": "client.authentication.k8s.io/v1beta1",
@@ -1004,14 +1166,38 @@ RFC3339 timestamp. Presence or absence of an expiry has the following impact:
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 To enable the exec plugin to obtain cluster-specific information, set `provideClusterInfo` on the `user.exec`
 field in the [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/).
-The plugin will then be supplied with an environment variable, `KUBERNETES_EXEC_INFO`.
+The plugin will then be supplied this cluster-specific information in the `KUBERNETES_EXEC_INFO` environment variable.
 Information from this environment variable can be used to perform cluster-specific
 credential acquisition logic.
 The following `ExecCredential` manifest describes a cluster information sample.
 
+{{< tabs name="exec_plugin_ExecCredential_example_4" >}}
+{{% tab name="client.authentication.k8s.io/v1" %}}
+```json
+{
+  "apiVersion": "client.authentication.k8s.io/v1",
+  "kind": "ExecCredential",
+  "spec": {
+    "cluster": {
+      "server": "https://172.17.4.100:6443",
+      "certificate-authority-data": "LS0t...",
+      "config": {
+        "arbitrary": "config",
+        "this": "can be provided via the KUBERNETES_EXEC_INFO environment variable upon setting provideClusterInfo",
+        "you": ["can", "put", "anything", "here"]
+      }
+    },
+    "interactive": true
+  }
+}
+```
+{{% /tab %}}
+{{% tab name="client.authentication.k8s.io/v1beta1" %}}
 ```json
 {
   "apiVersion": "client.authentication.k8s.io/v1beta1",
@@ -1025,12 +1211,157 @@ The following `ExecCredential` manifest describes a cluster information sample.
         "this": "can be provided via the KUBERNETES_EXEC_INFO environment variable upon setting provideClusterInfo",
         "you": ["can", "put", "anything", "here"]
       }
+    },
+    "interactive": true
+  }
+}
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+## API access to authentication information for a client {#self-subject-review}
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+If your cluster has the API enabled, you can use the `SelfSubjectReview` API to find out how your Kubernetes cluster maps your authentication
+information to identify you as a client. This works whether you are authenticating as a user (typically representing
+a real person) or as a ServiceAccount.
+
+`SelfSubjectReview` objects do not have any configurable fields. On receiving a request, the Kubernetes API server fills the status with the user attributes and returns it to the user.
+
+Request example (the body would be a `SelfSubjectReview`):
+```
+POST /apis/authentication.k8s.io/v1alpha1/selfsubjectreviews
+```
+```json
+{
+  "apiVersion": "authentication.k8s.io/v1alpha1",
+  "kind": "SelfSubjectReview"
+}
+```
+Response example:
+
+```json
+{
+  "apiVersion": "authentication.k8s.io/v1alpha1",
+  "kind": "SelfSubjectReview",
+  "status": {
+    "userInfo": {
+      "name": "jane.doe",
+      "uid": "b6c7cfd4-f166-11ec-8ea0-0242ac120002",
+      "groups": [
+        "viewers",
+        "editors",
+        "system:authenticated"
+      ],
+      "extra": {
+        "provider_id": ["token.company.example"]
+      }
     }
   }
 }
 ```
 
+For convenience, the `kubectl alpha auth whoami` command is present. Executing this command will produce the following output (yet different user attributes will be shown):
+
+* Simple output example
+    ```
+    ATTRIBUTE         VALUE
+    Username          jane.doe
+    Groups            [system:authenticated]
+    ```
+
+* Complex example including extra attributes
+    ```
+    ATTRIBUTE         VALUE
+    Username          jane.doe
+    UID               b79dbf30-0c6a-11ed-861d-0242ac120002
+    Groups            [students teachers system:authenticated]
+    Extra: skills     [reading learning]
+    Extra: subjects   [math sports]
+    ```
+By providing the output flag, it is also possible to print the JSON or YAML representation of the result:
+
+{{< tabs name="self_subject_attributes_review_Example_1" >}}
+{{% tab name="JSON" %}}
+```json
+{
+  "apiVersion": "authentication.k8s.io/v1alpha1",
+  "kind": "SelfSubjectReview",
+  "status": {
+    "userInfo": {
+      "username": "jane.doe",
+      "uid": "b79dbf30-0c6a-11ed-861d-0242ac120002",
+      "groups": [
+        "students",
+        "teachers",
+        "system:authenticated"
+      ],
+      "extra": {
+        "skills": [
+          "reading",
+          "learning"
+        ],
+        "subjects": [
+          "math",
+          "sports"
+        ]
+      }
+    }
+  }
+}
+```
+{{% /tab %}}
+
+{{% tab name="YAML" %}}
+```yaml
+apiVersion: authentication.k8s.io/v1alpha1
+kind: SelfSubjectReview
+status:
+  userInfo:
+    username: jane.doe
+    uid: b79dbf30-0c6a-11ed-861d-0242ac120002
+    groups:
+    - students
+    - teachers
+    - system:authenticated
+    extra:
+      skills:
+      - reading
+      - learning
+      subjects:
+      - math
+      - sports
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+This feature is extremely useful when a complicated authentication flow is used in a Kubernetes cluster, 
+for example, if you use [webhook token authentication](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) or [authenticating proxy](/docs/reference/access-authn-authz/authentication/#authenticating-proxy).
+
+{{< note >}}
+The Kubernetes API server fills the `userInfo` after all authentication mechanisms are applied,
+including [impersonation](/docs/reference/access-authn-authz/authentication/#user-impersonation).
+If you, or an authentication proxy, make a SelfSubjectReview using impersonation,
+you see the user details and properties for the user that was impersonated.
+{{< /note >}}
+
+By default, all authenticated users can create `SelfSubjectReview` objects when the `APISelfSubjectReview` feature is enabled. It is allowed by the `system:basic-user` cluster role. 
+
+{{< note >}}
+You can only make `SelfSubjectReview` requests if:
+* the `APISelfSubjectReview`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  is enabled for your cluster
+* the API server for your cluster has the `authentication.k8s.io/v1alpha1`
+  {{< glossary_tooltip term_id="api-group" text="API group" >}}
+  enabled.
+{{< /note >}}
+
+
+
 ## {{% heading "whatsnext" %}}
 
 * Read the [client authentication reference (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/)
+* Read the [client authentication reference (v1)](/docs/reference/config-api/client-authentication.v1/)
 

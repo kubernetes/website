@@ -34,8 +34,10 @@ IaaS Provider        | Link |
 Alibaba Cloud | https://www.alibabacloud.com/trust-center |
 Amazon Web Services | https://aws.amazon.com/security/ |
 Google Cloud Platform | https://cloud.google.com/security/ |
+Huawei Cloud | https://www.huaweicloud.com/securecenter/overallsafety.html |
 IBM Cloud | https://www.ibm.com/cloud/security |
 Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
+Oracle Cloud Infrastructure | https://www.oracle.com/security/ |
 VMWare VSphere | https://www.vmware.com/security/hardening-guides.html |
 
 Jika kamu mengoperasikan perangkat keras kamu sendiri, atau penyedia layanan cloud yang berbeda, kamu perlu merujuk pada dokumentasi penyedia layanan cloud yang kamu pakai untuk praktik keamanan terbaik.

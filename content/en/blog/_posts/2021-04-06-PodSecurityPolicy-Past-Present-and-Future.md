@@ -4,8 +4,11 @@ title: "PodSecurityPolicy Deprecation: Past, Present, and Future"
 date: 2021-04-06
 slug: podsecuritypolicy-deprecation-past-present-and-future
 ---
-
 **Author:** Tabitha Sable (Kubernetes SIG Security)
+
+{{% pageinfo color="primary" %}}
+**Update:** *With the release of Kubernetes v1.25, PodSecurityPolicy has been removed.* *You can read more information about the removal of PodSecurityPolicy in the [Kubernetes 1.25 release notes](/blog/2022/08/23/kubernetes-v1-25-release/#pod-security-changes).*
+{{% /pageinfo %}}
 
 PodSecurityPolicy (PSP) is being deprecated in Kubernetes 1.21, to be released later this week. This starts the countdown to its removal, but doesn’t change anything else. PodSecurityPolicy will continue to be fully functional for several more releases before being removed completely. In the meantime, we are developing a replacement for PSP that covers key use cases more easily and sustainably.
 
@@ -21,7 +24,7 @@ Until then, PSP is still PSP. There will be at least a year during which the new
 
 ## What is PodSecurityPolicy?
 
-[PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/) is a built-in [admission controller](/blog/2019/03/21/a-guide-to-kubernetes-admission-controllers/) that allows a cluster administrator to control security-sensitive aspects of the Pod specification. 
+[PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) is a built-in [admission controller](/blog/2019/03/21/a-guide-to-kubernetes-admission-controllers/) that allows a cluster administrator to control security-sensitive aspects of the Pod specification. 
 
 First, one or more PodSecurityPolicy resources are created in a cluster to define the requirements Pods must meet. Then, RBAC rules are created to control which PodSecurityPolicy applies to a given pod. If a pod meets the requirements of its PSP, it will be admitted to the cluster as usual. In some cases, PSP can also modify Pod fields, effectively creating new defaults for those fields. If a Pod does not meet the PSP requirements, it is rejected, and cannot run. 
 

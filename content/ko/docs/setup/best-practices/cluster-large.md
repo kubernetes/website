@@ -1,4 +1,7 @@
 ---
+# reviewers:
+# - davidopp
+# - lavalamp
 title: 대형 클러스터에 대한 고려 사항
 weight: 20
 ---
@@ -6,13 +9,13 @@ weight: 20
 클러스터는 {{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}에서 관리하는
 쿠버네티스 에이전트를 실행하는 {{< glossary_tooltip text="노드" term_id="node" >}}(물리
 또는 가상 머신)의 집합이다.
-쿠버네티스 {{<param "version">}}는 노드 5000개까지의 클러스터를 지원한다. 보다 정확하게는,
+쿠버네티스 {{<param "version">}}는 노드 5,000개까지의 클러스터를 지원한다. 보다 정확하게는,
 쿠버네티스는 다음 기준을 *모두* 만족하는 설정을 수용하도록 설계되었다.
 
-* 노드 당 파드 100 개 이하
-* 노드 5000개 이하
-* 전체 파드 150000개 이하
-* 전체 컨테이너 300000개 이하
+* 노드 당 파드 110 개 이하
+* 노드 5,000개 이하
+* 전체 파드 150,000개 이하
+* 전체 컨테이너 300,000개 이하
 
 노드를 추가하거나 제거하여 클러스터를 확장할 수 있다. 이를 수행하는 방법은
 클러스터 배포 방법에 따라 다르다.
@@ -121,3 +124,6 @@ _A_ 영역에 있는 컨트롤 플레인 호스트로만 전달한다. 단일 �
 [클러스터 오토스케일러](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)는
 여러 클라우드 프로바이더와 통합되어 클러스터의 리소스 요구 수준에 맞는
 노드 수를 실행할 수 있도록 도와준다.
+
+[addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)는 
+클러스터 스케일이 변경될 때 자동으로 애드온 크기를 조정할 수 있도록 도와준다.

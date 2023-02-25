@@ -200,10 +200,10 @@ kubectl diff -f ./my-manifest.yaml
 
 # Nodeから返されるすべてのキーをピリオド区切りの階層表記で生成します。
 # 複雑にネストされたJSON構造をもつキーを指定したい時に便利です
-kubectl get nodes -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
+kubectl get nodes -o json | jq -c 'paths|join(".")'
 
 # Pod等から返されるすべてのキーをピリオド区切り階層表記で生成します。
-kubectl get pods -o json | jq -c 'path(..)|[.[]|tostring]|join(".")'
+kubectl get pods -o json | jq -c 'paths|join(".")'
 ```
 
 ## リソースのアップデート
@@ -307,9 +307,9 @@ kubectl top pod POD_NAME --containers               # 特定のPodとそのコ�
 ## ノードおよびクラスターとの対話処理
 
 ```bash
-kubectl cordon my-node                                                # my-nodeをスケーリングされないように設定します
+kubectl cordon my-node                                                # my-nodeをスケジューリング不能に設定します
 kubectl drain my-node                                                 # メンテナンスの準備としてmy-nodeで動作中のPodを空にします
-kubectl uncordon my-node                                              # my-nodeをスケーリングされるように設定します
+kubectl uncordon my-node                                              # my-nodeをスケジューリング可能に設定します
 kubectl top node my-node                                              # 特定のノードのメトリクスを表示します
 kubectl cluster-info                                                  # Kubernetesクラスターのマスターとサービスのアドレスを表示します
 kubectl cluster-info dump                                             # 現在のクラスター状態を標準出力にダンプします
@@ -347,7 +347,7 @@ kubectl api-resources --api-group=extensions # "extensions" APIグループの�
 `-o=custom-columns=<spec>` | コンマ区切りされたカスタムカラムのリストを指定してテーブルを表示します
 `-o=custom-columns-file=<filename>` | `<filename>`ファイル内のカスタムカラムテンプレートを使用してテーブルを表示します
 `-o=json`     | JSON形式のAPIオブジェクトを出力します
-`-o=jsonpath=<template>` | [jsonpath](/docs/reference/kubectl/jsonpath)式で定義されたフィールドを出力します
+`-o=jsonpath=<template>` | [jsonpath](/ja/docs/reference/kubectl/jsonpath)式で定義されたフィールドを出力します
 `-o=jsonpath-file=<filename>` | `<filename>`ファイル内の[jsonpath](/docs/reference/kubectl/jsonpath)式で定義されたフィールドを出力します
 `-o=name`     | リソース名のみを出力し、それ以外は何も出力しません。
 `-o=wide`     | 追加の情報を含むプレーンテキスト形式で出力します。Podの場合、Node名が含まれます。
@@ -359,8 +359,8 @@ kubectl api-resources --api-group=extensions # "extensions" APIグループの�
 # クラスター内で実行中のすべてのイメージ名を表示する
 kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
 
-# "k8s.gcr.io/coredns:1.6.2"を除いたすべてのイメージ名を表示する
-kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
+# "registry.k8s.io/coredns:1.6.2"を除いたすべてのイメージ名を表示する
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="registry.k8s.io/coredns:1.6.2")].image'
 
 # 名前に関係なくmetadata以下のすべてのフィールドを表示する
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'

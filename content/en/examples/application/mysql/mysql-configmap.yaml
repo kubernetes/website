@@ -4,6 +4,7 @@ metadata:
   name: mysql
   labels:
     app: mysql
+    app.kubernetes.io/name: mysql
 data:
   primary.cnf: |
     # Apply this config only on the primary.

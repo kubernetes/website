@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  nodeName: foo-node # 调度 Pod 到特定的节点
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent

@@ -46,7 +46,7 @@ spec:
   containers:
     - name: cuda-vector-add
       # https://github.com/kubernetes/kubernetes/blob/v1.7.11/test/images/nvidia-cuda/Dockerfile
-      image: "k8s.gcr.io/cuda-vector-add:v0.1"
+      image: "registry.k8s.io/cuda-vector-add:v0.1"
       resources:
         limits:
           nvidia.com/gpu: 1 # 1 GPUをリクエストしています
@@ -111,7 +111,7 @@ Googleは、GKE上でNVIDIAのGPUを使用するための[手順](https://cloud.
 
 ## 異なる種類のGPUを搭載するクラスター
 
-クラスター上の別のノードに異なる種類のGPUが搭載されている場合、[NodeラベルとNodeセレクター](/docs/tasks/configure-pod-container/assign-pods-nodes/)を使用することで、Podを適切なノードにスケジューリングできます。
+クラスター上の別のノードに異なる種類のGPUが搭載されている場合、[NodeラベルとNodeセレクター](/ja/docs/tasks/configure-pod-container/assign-pods-nodes/)を使用することで、Podを適切なノードにスケジューリングできます。
 
 以下に例を示します。
 
@@ -173,7 +173,7 @@ spec:
   containers:
     - name: cuda-vector-add
       # https://github.com/kubernetes/kubernetes/blob/v1.7.11/test/images/nvidia-cuda/Dockerfile
-      image: "k8s.gcr.io/cuda-vector-add:v0.1"
+      image: "registry.k8s.io/cuda-vector-add:v0.1"
       resources:
         limits:
           nvidia.com/gpu: 1

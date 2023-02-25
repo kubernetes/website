@@ -7,11 +7,11 @@ metadata:
 spec:
   containers:
   - name: liveness
-    image: k8s.gcr.io/busybox
+    image: registry.k8s.io/busybox
     args:
     - /bin/sh
     - -c
-    - touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600
+    - touch /tmp/healthy; sleep 30; rm -f /tmp/healthy; sleep 600
     livenessProbe:
       exec:
         command:

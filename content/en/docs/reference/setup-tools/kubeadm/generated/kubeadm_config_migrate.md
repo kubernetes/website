@@ -3,7 +3,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
+To update the reference content, please follow the 
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -19,9 +19,9 @@ Read an older version of the kubeadm configuration API types from a file, and ou
 This command lets you convert configuration objects of older versions to the latest supported version,
 locally in the CLI tool without ever touching anything in the cluster.
 In this version of kubeadm, the following API versions are supported:
-- kubeadm.k8s.io/v1beta2
+- kubeadm.k8s.io/v1beta3
 
-Further, kubeadm can only write out config of version "kubeadm.k8s.io/v1beta2", but read both types.
+Further, kubeadm can only write out config of version "kubeadm.k8s.io/v1beta3", but read both types.
 So regardless of what version you pass to the --old-config parameter here, the API object will be
 read, deserialized, defaulted, converted, validated, and re-serialized when written to stdout or
 --new-config if specified.

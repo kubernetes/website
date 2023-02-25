@@ -45,7 +45,7 @@ Kubelet использует startup пробы, чтобы понять, ког
 и могут быть восстановлены только перезапуском.
 Kubernetes предоставляет liveness пробы, чтобы обнаруживать и исправлять такие ситуации.
 
-В этом упражнении вы создадите Pod, который запускает контейнер, основанный на образе `k8s.gcr.io/busybox`. Конфигурационный файл для Pod'а:
+В этом упражнении вы создадите Pod, который запускает контейнер, основанный на образе `registry.k8s.io/busybox`. Конфигурационный файл для Pod'а:
 
 {{< codenew file="pods/probe/exec-liveness.yaml" >}}
 
@@ -59,7 +59,7 @@ kubelet исполняет команду `cat /tmp/healthy` в целевом �
 Когда контейнер запускается, он исполняет команду
 
 ```shell
-/bin/sh -c "touch /tmp/healthy; sleep 30; rm -rf /tmp/healthy; sleep 600"
+/bin/sh -c "touch /tmp/healthy; sleep 30; rm -f /tmp/healthy; sleep 600"
 ```
 
 Для первых 30 секунд жизни контейнера существует файл `/tmp/healthy`.
@@ -83,8 +83,8 @@ kubectl describe pod liveness-exec
 FirstSeen    LastSeen    Count   From            SubobjectPath           Type        Reason      Message
 --------- --------    -----   ----            -------------           --------    ------      -------
 24s       24s     1   {default-scheduler }                    Normal      Scheduled   Successfully assigned liveness-exec to worker0
-23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulling     pulling image "k8s.gcr.io/busybox"
-23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulled      Successfully pulled image "k8s.gcr.io/busybox"
+23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulling     pulling image "registry.k8s.io/busybox"
+23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulled      Successfully pulled image "registry.k8s.io/busybox"
 23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Created     Created container with docker id 86849c15382e; Security:[seccomp=unconfined]
 23s       23s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Started     Started container with docker id 86849c15382e
 ```
@@ -102,8 +102,8 @@ kubectl describe pod liveness-exec
 FirstSeen LastSeen    Count   From            SubobjectPath           Type        Reason      Message
 --------- --------    -----   ----            -------------           --------    ------      -------
 37s       37s     1   {default-scheduler }                    Normal      Scheduled   Successfully assigned liveness-exec to worker0
-36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulling     pulling image "k8s.gcr.io/busybox"
-36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulled      Successfully pulled image "k8s.gcr.io/busybox"
+36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulling     pulling image "registry.k8s.io/busybox"
+36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Pulled      Successfully pulled image "registry.k8s.io/busybox"
 36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Created     Created container with docker id 86849c15382e; Security:[seccomp=unconfined]
 36s       36s     1   {kubelet worker0}   spec.containers{liveness}   Normal      Started     Started container with docker id 86849c15382e
 2s        2s      1   {kubelet worker0}   spec.containers{liveness}   Warning     Unhealthy   Liveness probe failed: cat: can't open '/tmp/healthy': No such file or directory
@@ -124,7 +124,7 @@ liveness-exec   1/1       Running   1          1m
 
 ## Определение liveness HTTP запроса
 
-Другой вид liveness пробы использует запрос HTTP GET. Ниже представлен файл конфигурации для Pod, который запускает контейнер, основанный на образе `k8s.gcr.io/liveness`.
+Другой вид liveness пробы использует запрос HTTP GET. Ниже представлен файл конфигурации для Pod, который запускает контейнер, основанный на образе `registry.k8s.io/liveness`.
 
 {{< codenew file="pods/probe/http-liveness.yaml" >}}
 
@@ -137,7 +137,7 @@ kubelet отправляет запрос HTTP GET на сервер, котор
 Любой код, больший или равный 200 и меньший 400, означает успех. Любой другой код интерпретируется как ошибка.
 
 Вы можете посмотреть исходные коды сервера в
-[server.go](https://github.com/kubernetes/kubernetes/blob/{{< param "githubbranch" >}}/test/images/agnhost/liveness/server.go).
+[server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go).
 
 В течение первых 10 секунд жизни контейнера обработчик `/healthz`
 возвращает статус 200. После обработчик возвращает статус 500.

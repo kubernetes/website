@@ -6,10 +6,10 @@ min-kubernetes-server-version: v1.5
 
 <!-- overview -->
 
-쿠버네티스 클러스터에서 실행 중인 애플리케이션은 서로 간에 외부 세계와
-서비스 추상화를 통해 찾고 통신한다. 이 문서는
-다른 종류의 서비스로 보내진 패킷의 소스 IP 주소에 어떤 일이 벌어지는지와
-이 동작을 요구에 따라 토글할 수 있는지 설명한다.
+쿠버네티스 클러스터에서 실행 중인 애플리케이션은 서비스 추상화를 통해서
+서로를, 그리고 외부 세계를 찾고 통신한다. 이 문서는
+다른 종류의 서비스로 전송된 패킷의 소스 IP에 어떤 일이 벌어지는지와
+이 동작을 필요에 따라 어떻게 전환할 수 있는지 설명한다.
 
 
 
@@ -29,16 +29,16 @@ min-kubernetes-server-version: v1.5
 : 네트워크 주소 변환
 
 [소스 NAT](https://en.wikipedia.org/wiki/Network_address_translation#SNAT)
-: 패킷 상의 소스 IP 주소를 변경함, 보통 노드의 IP 주소
+: 패킷 상의 소스 IP 주소를 변경하는 것. 이 페이지에서는 일반적으로 노드 IP 주소로의 변경을 의미함.
 
 [대상 NAT](https://en.wikipedia.org/wiki/Network_address_translation#DNAT)
-: 패킷 상의 대상 IP 주소를 변경함, 보통 파드의 IP 주소
+: 패킷 상의 대상 IP 주소를 변경하는 것. 이 페이지에서는 일반적으로 {{< glossary_tooltip term_id="pod" text="파드" >}} IP 주소로의 변경을 의미함.
 
 [VIP](/ko/docs/concepts/services-networking/service/#가상-ip와-서비스-프록시)
-: 가상 IP 주소, 모든 쿠버네티스 서비스에 할당된 것 같은
+: 쿠버네티스의 모든 {{< glossary_tooltip text="서비스" term_id="service" >}}에 할당되어 있는 것과 같은, 가상 IP 주소.
 
 [Kube-proxy](/ko/docs/concepts/services-networking/service/#가상-ip와-서비스-프록시)
-: 네트워크 데몬으로 모든 노드에서 서비스 VIP 관리를 관리한다.
+: 모든 노드에서 서비스 VIP 관리를 조율하는 네트워크 데몬.
 
 ### 전제 조건
 
@@ -48,7 +48,7 @@ min-kubernetes-server-version: v1.5
 작은 nginx 웹 서버를 이용한다. 다음과 같이 생성할 수 있다.
 
 ```shell
-kubectl create deployment source-ip-app --image=k8s.gcr.io/echoserver:1.4
+kubectl create deployment source-ip-app --image=registry.k8s.io/echoserver:1.4
 ```
 출력은 다음과 같다.
 ```
@@ -80,7 +80,7 @@ deployment.apps/source-ip-app created
 ```console
 kubectl get nodes
 ```
-출력은 다음과 유사하다
+출력은 다음과 유사하다.
 ```
 NAME                           STATUS     ROLES    AGE     VERSION
 kubernetes-node-6jst   Ready      <none>   2h      v1.13.0
@@ -119,7 +119,7 @@ clusterip    ClusterIP   10.0.170.92   <none>        80/TCP    51s
 그리고 동일한 클러스터의 파드에서 `클러스터IP`를 치면:
 
 ```shell
-kubectl run busybox -it --image=busybox --restart=Never --rm
+kubectl run busybox -it --image=busybox:1.28 --restart=Never --rm
 ```
 출력은 다음과 같다.
 ```
@@ -163,7 +163,7 @@ command=GET
 
 ## `Type=NodePort` 인 서비스에서 소스 IP
 
-[`Type=NodePort`](/ko/docs/concepts/services-networking/service/#nodeport)인
+[`Type=NodePort`](/ko/docs/concepts/services-networking/service/#type-nodeport)인
 서비스로 보내진 패킷은
 소스 NAT가 기본으로 적용된다. `NodePort` 서비스를 생성하여 이것을 테스트할 수 있다.
 
@@ -204,25 +204,12 @@ client_address=10.240.0.3
 * 파드의 응답은 node2로 다시 라우팅된다.
 * 파드의 응답은 클라이언트로 다시 전송된다.
 
-시각적으로
+이를 그림으로 표현하면 다음과 같다.
 
-{{< mermaid >}}
-graph LR;
-  client(client)-->node2[Node 2];
-  node2-->client;
-  node2-. SNAT .->node1[Node 1];
-  node1-. SNAT .->node2;
-  node1-->endpoint(Endpoint);
-
-  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  class node1,node2,endpoint k8s;
-  class client plain;
-{{</ mermaid >}}
-
+{{< figure src="/docs/images/tutor-service-nodePort-fig01.svg" alt="source IP nodeport figure 01" class="diagram-large" caption="그림. Source IP Type=NodePort using SNAT" link="https://mermaid.live/edit#pako:eNqNkV9rwyAUxb-K3LysYEqS_WFYKAzat9GHdW9zDxKvi9RoMIZtlH732ZjSbE970cu5v3s86hFqJxEYfHjRNeT5ZcUtIbXRaMNN2hZ5vrYRqt52cSXV-4iMSuwkZiYtyX739EqWaahMQ-V1qPxDVLNOvkYrO6fj2dupWMR2iiT6foOKdEZoS5Q2hmVSStoH7w7IMqXUVOefWoaG3XVftHbGeZYVRbH6ZXJ47CeL2-qhxvt_ucTe1SUlpuMN6CX12XeGpLdJiaMMFFr0rdAyvvfxjHEIDbbIgcVSohKDCRy4PUV06KQIuJU6OA9MCdMjBTEEt_-2NbDgB7xAGy3i97VJPP0ABRmcqg" >}}
 
 이를 피하기 위해 쿠버네티스는
-[클라이언트 소스 IP 주소를 보존](/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)하는 기능이 있다.
+[클라이언트 소스 IP 주소를 보존](/ko/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)하는 기능이 있다.
 `service.spec.externalTrafficPolicy` 의 값을 `Local` 로 하면
 오직 로컬 엔드포인트로만 프록시 요청하고
 다른 노드로 트래픽 전달하지 않는다. 이 방법은 원본
@@ -261,20 +248,9 @@ client_address=104.132.1.79
 * 클라이언트는 패킷을 엔드포인트를 가진 `node1:nodePort` 보낸다.
 * node1은 패킷을 올바른 소스 IP 주소로 엔드포인트로 라우팅 한다.
 
-시각적으로
+이를 시각적으로 표현하면 다음과 같다.
 
-{{< mermaid >}}
-graph TD;
-  client --> node1[Node 1];
-  client(client) --x node2[Node 2];
-  node1 --> endpoint(endpoint);
-  endpoint --> node1;
-
-  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  class node1,node2,endpoint k8s;
-  class client plain;
-{{</ mermaid >}}
+{{< figure src="/docs/images/tutor-service-nodePort-fig02.svg" alt="source IP nodeport figure 02" class="diagram-large" caption="그림. Source IP Type=NodePort preserves client source IP address" link="" >}}
 
 
 
@@ -325,7 +301,7 @@ client_address=10.240.0.5
 강제로 로드밸런싱 트래픽을 받을 수 있는 노드 목록에서
 자신을 스스로 제거한다.
 
-시각적으로:
+이를 그림으로 표현하면 다음과 같다.
 
 ![Source IP with externalTrafficPolicy](/images/docs/sourceip-externaltrafficpolicy.svg)
 
@@ -347,10 +323,10 @@ kubectl get svc loadbalancer -o yaml | grep -i healthCheckNodePort
 ```
 
 `service.spec.healthCheckNodePort` 필드는 `/healthz`에서 헬스 체크를 제공하는
-모든 노드의 포트를 가르킨다. 이것을 테스트할 수 있다.
+모든 노드의 포트를 가리킨다. 이것을 테스트할 수 있다.
 
 ```shell
-kubectl get pod -o wide -l run=source-ip-app
+kubectl get pod -o wide -l app=source-ip-app
 ```
 출력은 다음과 유사하다.
 ```
@@ -439,5 +415,5 @@ kubectl delete deployment source-ip-app
 
 ## {{% heading "whatsnext" %}}
 
-* [서비스를 통한 애플리케이션 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)에 더 자세히 본다.
-* 어떻게 [외부 로드밸런서 생성](/docs/tasks/access-application-cluster/create-external-load-balancer/)하는지 본다.
+* [서비스를 통한 애플리케이션 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)를 더 자세히 본다.
+* [외부 로드밸런서 생성](/ko/docs/tasks/access-application-cluster/create-external-load-balancer/) 방법을 본다.

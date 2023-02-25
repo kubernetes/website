@@ -80,7 +80,7 @@ content_type: task
       최대 1개의 스토리지클래스를 기본값으로 표시할 수 있다는 것을 알아두자. 만약
 	  2개 이상이 기본값으로 표시되면, 명시적으로 `storageClassName` 가 지정되지 않은 `PersistentVolumeClaim` 은 생성될 수 없다.
 
-1. 사용자가 선택한 스토리지클래스가 기본값으로 되어있는지 확인한다.
+1. 사용자가 선택한 스토리지클래스가 기본값으로 되어 있는지 확인한다.
 
       ```bash
       kubectl get storageclass

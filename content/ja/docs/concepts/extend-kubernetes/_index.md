@@ -19,18 +19,15 @@ Kubernetesは柔軟な設定が可能で、高い拡張性を持っています�
 
 *設定ファイル* と *フラグ* はオンラインドキュメントのリファレンスセクションの中の、各項目に記載されています:
 
-* [kubelet](/docs/admin/kubelet/)
-* [kube-apiserver](/docs/admin/kube-apiserver/)
-* [kube-controller-manager](/docs/admin/kube-controller-manager/)
-* [kube-scheduler](/docs/admin/kube-scheduler/)
 * [kubelet](/docs/reference/command-line-tools-reference/kubelet/)
+* [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)
 * [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)
 * [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/)
-* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/)
+* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/).
 
 ホスティングされたKubernetesサービスやマネージドなKubernetesでは、フラグと設定ファイルが常に変更できるとは限りません。変更可能な場合でも、通常はクラスターの管理者のみが変更できます。また、それらは将来のKubernetesバージョンで変更される可能性があり、設定変更にはプロセスの再起動が必要になるかもしれません。これらの理由により、この方法は他の選択肢が無いときにのみ利用するべきです。
 
-[ResourceQuota](/docs/concepts/policy/resource-quotas/)、[PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/)、[NetworkPolicy](/docs/concepts/services-networking/network-policies/)、そしてロールベースアクセス制御([RBAC](/docs/reference/access-authn-authz/rbac/))といった *ビルトインポリシーAPI* は、ビルトインのKubernetes APIです。APIは通常、ホスティングされたKubernetesサービスやマネージドなKubernetesで利用されます。これらは宣言的で、Podのような他のKubernetesリソースと同じ慣例に従っています。そのため、新しいクラスターの設定は繰り返し再利用することができ、アプリケーションと同じように管理することが可能です。さらに、安定版(stable)を利用している場合、他のKubernetes APIのような[定義済みのサポートポリシー](/docs/reference/deprecation-policy/)を利用することができます。これらの理由により、この方法は、適切な用途の場合、 *設定ファイル* や *フラグ* よりも好まれます。
+[ResourceQuota](/ja/docs/concepts/policy/resource-quotas/)、[PodSecurityPolicy](/docs/concepts/policy/pod-security-policy/)、[NetworkPolicy](/ja/docs/concepts/services-networking/network-policies/)、そしてロールベースアクセス制御([RBAC](/ja/docs/reference/access-authn-authz/rbac/))といった *ビルトインポリシーAPI* は、ビルトインのKubernetes APIです。APIは通常、ホスティングされたKubernetesサービスやマネージドなKubernetesで利用されます。これらは宣言的で、Podのような他のKubernetesリソースと同じ慣例に従っています。そのため、新しいクラスターの設定は繰り返し再利用することができ、アプリケーションと同じように管理することが可能です。さらに、安定版(stable)を利用している場合、他のKubernetes APIのような[定義済みのサポートポリシー](/docs/reference/deprecation-policy/)を利用することができます。これらの理由により、この方法は、適切な用途の場合、 *設定ファイル* や *フラグ* よりも好まれます。
 
 ## 拡張
 
@@ -75,7 +72,7 @@ Webhookのモデルでは、Kubernetesは外部のサービスを呼び出しま
 1.   ユーザーは頻繁に`kubectl`を使って、Kubernetes APIとやり取りをします。[Kubectlプラグイン](/docs/tasks/extend-kubectl/kubectl-plugins/)は、kubectlのバイナリを拡張します。これは個別ユーザーのローカル環境のみに影響を及ぼすため、サイト全体にポリシーを強制することはできません。
 2.   APIサーバーは全てのリクエストを処理します。APIサーバーのいくつかの拡張ポイントは、リクエストを認可する、コンテキストに基づいてブロックする、リクエストを編集する、そして削除を処理することを可能にします。これらは[APIアクセス拡張](/docs/concepts/extend-kubernetes/#api-access-extensions)セクションに記載されています。
 3.   APIサーバーは様々な種類の *リソース* を扱います。`Pod`のような *ビルトインリソース* はKubernetesプロジェクトにより定義され、変更できません。ユーザーも、自身もしくは、他のプロジェクトで定義されたリソースを追加することができます。それは *カスタムリソース* と呼ばれ、[カスタムリソース](/docs/concepts/extend-kubernetes/#user-defined-types)セクションに記載されています。カスタムリソースは度々、APIアクセス拡張と一緒に使われます。
-4.   KubernetesのスケジューラーはPodをどのノードに配置するかを決定します。スケジューリングを拡張するには、いくつかの方法があります。それらは[スケジューラー拡張](/docs/concepts/extend-kubernetes/#scheduler-extensions)セクションに記載されています。
+4.   KubernetesのスケジューラーはPodをどのノードに配置するかを決定します。スケジューリングを拡張するには、いくつかの方法があります。それらは[スケジューラー拡張](#scheduling-extensions)セクションに記載されています。
 5.   Kubernetesにおける多くの振る舞いは、APIサーバーのクライアントであるコントローラーと呼ばれるプログラムに実装されています。コントローラーは度々、カスタムリソースと共に使われます。
 6.   kubeletはサーバー上で実行され、Podが仮想サーバーのようにクラスターネットワーク上にIPを持った状態で起動することをサポートします。[ネットワークプラグイン](/docs/concepts/extend-kubernetes/#network-plugins)がPodのネットワーキングにおける異なる実装を適用することを可能にします。
 7.   kubeletはまた、コンテナのためにボリュームをマウント、アンマウントします。新しい種類のストレージは[ストレージプラグイン](/docs/concepts/extend-kubernetes/#storage-plugins)を通じてサポートされます。
@@ -115,7 +112,7 @@ Kubdernetesはいくつかのビルトイン認証方式をサポートしてい
 
 [認証](/ja/docs/reference/access-authn-authz/authentication/)は、全てのリクエストのヘッダーまたは証明書情報を、リクエストを投げたクライアントのユーザー名にマッピングします。
 
-Kubernetesはいくつかのビルトイン認証方式と、それらが要件に合わない場合、[認証Webhook](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)を提供します。
+Kubernetesはいくつかのビルトイン認証方式と、それらが要件に合わない場合、[認証Webhook](/ja/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)を提供します。
 
 ### 認可
 
@@ -142,7 +139,7 @@ Kubernetesはいくつかのビルトイン認証方式と、それらが要件�
 
 他のネットワークファブリックが[ネットワークプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)を通じてサポートされます。
 
-### スケジューラー拡張
+### スケジューラー拡張 {#scheduling-extensions}
 
 スケジューラーは特別な種類のコントローラーで、Podを監視し、Podをノードに割り当てます。デフォルトのコントローラーを完全に置き換えることもできますが、他のKubernetesのコンポーネントの利用を継続する、または[複数のスケジューラー](/docs/tasks/extend-kubernetes/configure-multiple-schedulers/)を同時に動かすこともできます。
 
@@ -161,4 +158,4 @@ Kubernetesはいくつかのビルトイン認証方式と、それらが要件�
   * [ネットワークプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
   * [デバイスプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 * [kubectlプラグイン](/docs/tasks/extend-kubectl/kubectl-plugins/)について学ぶ
-* [オペレーターパターン](/docs/concepts/extend-kubernetes/operator/)について学ぶ
+* [オペレーターパターン](/ja/docs/concepts/extend-kubernetes/operator/)について学ぶ

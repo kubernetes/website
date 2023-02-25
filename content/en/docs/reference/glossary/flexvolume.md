@@ -4,14 +4,14 @@ id: flexvolume
 date: 2018-06-25
 full_link: /docs/concepts/storage/volumes/#flexvolume
 short_description: >
-    FlexVolume is an interface for creating out-of-tree volume plugins. The {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}} is a newer interface which addresses several problems with FlexVolumes.
+    FlexVolume is a deprecated interface for creating out-of-tree volume plugins. The {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}} is a newer interface that addresses several problems with FlexVolume.
 
 
 aka: 
 tags:
 - storage 
 ---
- FlexVolume is an interface for creating out-of-tree volume plugins. The {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}} is a newer interface which addresses several problems with FlexVolumes.
+ FlexVolume is a deprecated interface for creating out-of-tree volume plugins. The {{< glossary_tooltip text="Container Storage Interface" term_id="csi" >}} is a newer interface that addresses several problems with FlexVolume.
 
 <!--more--> 
 

@@ -113,10 +113,4 @@ spec:
 - Huge page usage in a namespace is controllable via ResourceQuota similar
   to other compute resources like `cpu` or `memory` using the `hugepages-<size>`
   token.
-- Support of multiple sizes huge pages is feature gated. It can be
-  disabled with the `HugePageStorageMediumSize`
-  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  on the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} and
-  {{< glossary_tooltip text="kube-apiserver" term_id="kube-apiserver" >}}
-  (`--feature-gates=HugePageStorageMediumSize=false`).
 

@@ -58,8 +58,8 @@ kubectl create secret generic db-user-pass \
 たとえば、実際のパスワードが`S!B\*d$zDsb=`の場合、次のようにコマンドを実行します:
 
 ```shell
-kubectl create secret generic dev-db-secret \
-  --from-literal=username=devuser \
+kubectl create secret generic db-user-pass \
+  --from-literal=username=admin \
   --from-literal=password='S!B\*d$zDsb='
 ```
 

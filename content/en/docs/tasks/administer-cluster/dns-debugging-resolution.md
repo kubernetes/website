@@ -5,6 +5,7 @@ reviewers:
 title:  Debugging DNS Resolution
 content_type: task
 min-kubernetes-server-version: v1.6
+weight: 170
 ---
 
 <!-- overview -->
@@ -67,7 +68,7 @@ If the `nslookup` command fails, check the following:
 ### Check the local DNS configuration first
 
 Take a look inside the resolv.conf file.
-(See [Inheriting DNS from the node](/docs/tasks/administer-cluster/dns-custom-nameservers/#inheriting-dns-from-the-node) and
+(See [Customizing DNS Service](/docs/tasks/administer-cluster/dns-custom-nameservers) and
 [Known issues](#known-issues) below for more information)
 
 ```shell
@@ -176,7 +177,7 @@ The service name is `kube-dns` for both CoreDNS and kube-dns deployments.
 
 If you have created the Service or in the case it should be created by default
 but it does not appear, see
-[debugging Services](/docs/tasks/debug-application-cluster/debug-service/) for
+[debugging Services](/docs/tasks/debug/debug-application/debug-service/) for
 more information.
 
 ### Are DNS endpoints exposed?
@@ -193,7 +194,7 @@ kube-dns   10.180.3.17:53,10.180.3.17:53    1h
 ```
 
 If you do not see the endpoints, see the endpoints section in the
-[debugging Services](/docs/tasks/debug-application-cluster/debug-service/) documentation.
+[debugging Services](/docs/tasks/debug/debug-application/debug-service/) documentation.
 
 For additional Kubernetes DNS examples, see the
 [cluster-dns examples](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns)
@@ -252,6 +253,54 @@ linux/amd64, go1.10.3, 2e322f6
 2018/09/07 15:29:04 [INFO] Reloading complete
 172.17.0.18:41675 - [07/Sep/2018:15:29:11 +0000] 59925 "A IN kubernetes.default.svc.cluster.local. udp 54 false 512" NOERROR qr,aa,rd,ra 106 0.000066649s
 ```
+### Does CoreDNS have sufficient permissions?
+
+CoreDNS must be able to list {{< glossary_tooltip text="service"
+term_id="service" >}} and {{< glossary_tooltip text="endpoint"
+term_id="endpoint" >}} related resources to properly resolve service names.
+
+Sample error message:
+```
+2022-03-18T07:12:15.699431183Z [INFO] 10.96.144.227:52299 - 3686 "A IN serverproxy.contoso.net.cluster.local. udp 52 false 512" SERVFAIL qr,aa,rd 145 0.000091221s
+```
+
+First, get the current ClusterRole of `system:coredns`:
+
+```shell
+kubectl describe clusterrole system:coredns -n kube-system
+```
+
+Expected output:
+```
+PolicyRule:
+  Resources                        Non-Resource URLs  Resource Names  Verbs
+  ---------                        -----------------  --------------  -----
+  nodes                            []                 []              [get]
+  endpoints                        []                 []              [list watch]
+  namespaces                       []                 []              [list watch]
+  pods                             []                 []              [list watch]
+  services                         []                 []              [list watch]
+  endpointslices.discovery.k8s.io  []                 []              [list watch]
+```
+
+If any permissions are missing, edit the ClusterRole to add them:
+
+```shell
+kubectl edit clusterrole system:coredns -n kube-system
+```
+
+Example insertion of EndpointSlices permissions:
+```
+...
+- apiGroups:
+  - discovery.k8s.io
+  resources:
+  - endpointslices
+  verbs:
+  - list
+  - watch
+...
+```
 
 ### Are you in the right namespace for the service?
 
@@ -286,7 +335,12 @@ Kubernetes installs do not configure the nodes' `resolv.conf` files to use the
 cluster DNS by default, because that process is inherently distribution-specific.
 This should probably be implemented eventually.
 
-Linux's libc (a.k.a. glibc) has a limit for the DNS `nameserver` records to 3 by default. What's more, for the glibc versions which are older than glibc-2.17-222 ([the new versions update see this issue](https://access.redhat.com/solutions/58028)), the allowed number of DNS `search` records has been limited to 6 ([see this bug from 2005](https://bugzilla.redhat.com/show_bug.cgi?id=168253)). Kubernetes needs to consume 1 `nameserver` record and 3 `search` records. This means that if a local installation already uses 3 `nameserver`s or uses more than 3 `search`es while your glibc version is in the affected list, some of those settings will be lost. To work around the DNS `nameserver` records limit, the node can run `dnsmasq`, which will provide more `nameserver` entries. You can also use kubelet's `--resolv-conf` flag. To fix the DNS `search` records limit, consider upgrading your linux distribution or upgrading to an unaffected version of glibc.
+Linux's libc (a.k.a. glibc) has a limit for the DNS `nameserver` records to 3 by
+default and Kubernetes needs to consume 1 `nameserver` record. This means that
+if a local installation already uses 3 `nameserver`s, some of those entries will
+be lost. To work around this limit, the node can run `dnsmasq`, which will
+provide more `nameserver` entries. You can also use kubelet's `--resolv-conf`
+flag.
 
 If you are using Alpine version 3.3 or earlier as your base image, DNS may not
 work properly due to a known issue with Alpine.

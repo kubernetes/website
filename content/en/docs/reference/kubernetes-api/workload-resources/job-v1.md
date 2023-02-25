@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "Job represents the configuration of a single job."
 title: "Job"
-weight: 10
+weight: 9
 auto_generated: true
 ---
 
@@ -86,9 +86,9 @@ JobSpec describes how the job execution will look like.
   
   `NonIndexed` means that the Job is considered complete when there have been .spec.completions successfully completed Pods. Each Pod completion is homologous to each other.
   
-  `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5.
+  `Indexed` means that the Pods of a Job get an associated completion index from 0 to (.spec.completions - 1), available in the annotation batch.kubernetes.io/job-completion-index. The Job is considered complete when there is one successfully completed Pod for each index. When value is `Indexed`, .spec.completions must be specified and `.spec.parallelism` must be less than or equal to 10^5. In addition, The Pod name takes the form `$(job-name)-$(index)-$(random-string)`, the Pod hostname takes the form `$(job-name)-$(index)`.
   
-  This field is alpha-level and is only honored by servers that enable the IndexedJob feature gate. More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, the controller skips updates for the Job.
+  More completion modes can be added in the future. If the Job controller observes a mode that it doesn't recognize, which is possible during upgrades due to version skew, the controller skips updates for the Job.
 
 - **backoffLimit** (int32)
 
@@ -100,11 +100,11 @@ JobSpec describes how the job execution will look like.
 
 - **ttlSecondsAfterFinished** (int32)
 
-  ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes. This field is alpha-level and is only honored by servers that enable the TTLAfterFinished feature.
+  ttlSecondsAfterFinished limits the lifetime of a Job that has finished execution (either Complete or Failed). If this field is set, ttlSecondsAfterFinished after the Job finishes, it is eligible to be automatically deleted. When the Job is being deleted, its lifecycle guarantees (e.g. finalizers) will be honored. If this field is unset, the Job won't be automatically deleted. If this field is set to zero, the Job becomes eligible to be deleted immediately after it finishes.
 
 - **suspend** (boolean)
 
-  Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. This is an alpha field and requires the SuspendJob feature gate to be enabled; otherwise this field may not be set to true. Defaults to false.
+  Suspend specifies whether the Job controller should create Pods or not. If a Job is created with suspend set to true, no Pods are created by the Job controller. If a Job is suspended after creation (i.e. the flag goes from false to true), the Job controller will delete all active Pods associated with this Job. Users must design their workload to gracefully handle this. Suspending a Job will reset the StartTime field of the Job, effectively resetting the ActiveDeadlineSeconds timer too. Defaults to false.
 
 ### Selector
 
@@ -116,6 +116,87 @@ JobSpec describes how the job execution will look like.
 - **manualSelector** (boolean)
 
   manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
+
+### Alpha level
+
+
+- **podFailurePolicy** (PodFailurePolicy)
+
+  Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
+  
+  This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+
+  <a name="PodFailurePolicy"></a>
+  *PodFailurePolicy describes how failed pods influence the backoffLimit.*
+
+  - **podFailurePolicy.rules** ([]PodFailurePolicyRule), required
+
+    *Atomic: will be replaced during a merge*
+    
+    A list of pod failure policy rules. The rules are evaluated in order. Once a rule matches a Pod failure, the remaining of the rules are ignored. When no rule matches the Pod failure, the default handling applies - the counter of pod failures is incremented and it is checked against the backoffLimit. At most 20 elements are allowed.
+
+    <a name="PodFailurePolicyRule"></a>
+    *PodFailurePolicyRule describes how a pod failure is handled when the requirements are met. One of OnExitCodes and onPodConditions, but not both, can be used in each rule.*
+
+    - **podFailurePolicy.rules.action** (string), required
+
+      Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
+      - FailJob: indicates that the pod's job is marked as Failed and all
+        running pods are terminated.
+      - Ignore: indicates that the counter towards the .backoffLimit is not
+        incremented and a replacement pod is created.
+      - Count: indicates that the pod is handled in the default way - the
+        counter towards the .backoffLimit is incremented.
+      Additional values are considered to be added in the future. Clients should react to an unknown action by skipping the rule.
+      
+      
+
+    - **podFailurePolicy.rules.onPodConditions** ([]PodFailurePolicyOnPodConditionsPattern), required
+
+      *Atomic: will be replaced during a merge*
+      
+      Represents the requirement on the pod conditions. The requirement is represented as a list of pod condition patterns. The requirement is satisfied if at least one pattern matches an actual pod condition. At most 20 elements are allowed.
+
+      <a name="PodFailurePolicyOnPodConditionsPattern"></a>
+      *PodFailurePolicyOnPodConditionsPattern describes a pattern for matching an actual pod condition type.*
+
+      - **podFailurePolicy.rules.onPodConditions.status** (string), required
+
+        Specifies the required Pod condition status. To match a pod condition it is required that the specified status equals the pod condition status. Defaults to True.
+
+      - **podFailurePolicy.rules.onPodConditions.type** (string), required
+
+        Specifies the required Pod condition type. To match a pod condition it is required that specified type equals the pod condition type.
+
+    - **podFailurePolicy.rules.onExitCodes** (PodFailurePolicyOnExitCodesRequirement)
+
+      Represents the requirement on the container exit codes.
+
+      <a name="PodFailurePolicyOnExitCodesRequirement"></a>
+      *PodFailurePolicyOnExitCodesRequirement describes the requirement for handling a failed pod based on its container exit codes. In particular, it lookups the .state.terminated.exitCode for each app container and init container status, represented by the .status.containerStatuses and .status.initContainerStatuses fields in the Pod status, respectively. Containers completed with success (exit code 0) are excluded from the requirement check.*
+
+      - **podFailurePolicy.rules.onExitCodes.operator** (string), required
+
+        Represents the relationship between the container exit code(s) and the specified values. Containers completed with success (exit code 0) are excluded from the requirement check. Possible values are:
+        - In: the requirement is satisfied if at least one container exit code
+          (might be multiple if there are multiple containers not restricted
+          by the 'containerName' field) is in the set of specified values.
+        - NotIn: the requirement is satisfied if at least one container exit code
+          (might be multiple if there are multiple containers not restricted
+          by the 'containerName' field) is not in the set of specified values.
+        Additional values are considered to be added in the future. Clients should react to an unknown operator by assuming the requirement is not satisfied.
+        
+        
+
+      - **podFailurePolicy.rules.onExitCodes.values** ([]int32), required
+
+        *Set: unique values will be kept during a merge*
+        
+        Specifies the set of values. Each returned container exit code (might be multiple in case of multiple containers) is checked against this set of values with respect to the operator. The list of values must be ordered and must not contain duplicates. Value '0' cannot be used for the In operator. At least one element is required. At most 255 elements are allowed.
+
+      - **podFailurePolicy.rules.onExitCodes.containerName** (string)
+
+        Restricts the check for exit codes to the container with the specified name. When null, the rule applies to all containers. When specified, it should match one the container or initContainer names in the pod template.
 
 
 
@@ -141,7 +222,7 @@ JobStatus represents the current state of a Job.
 
 - **active** (int32)
 
-  The number of actively running pods.
+  The number of pending and running pods.
 
 - **failed** (int32)
 
@@ -196,7 +277,40 @@ JobStatus represents the current state of a Job.
 
     (brief) reason for the condition's last transition.
 
+- **uncountedTerminatedPods** (UncountedTerminatedPods)
 
+  UncountedTerminatedPods holds the UIDs of Pods that have terminated but the job controller hasn't yet accounted for in the status counters.
+  
+  The job controller creates pods with a finalizer. When a pod terminates (succeeded or failed), the controller does three steps to account for it in the job status: (1) Add the pod UID to the arrays in this field. (2) Remove the pod finalizer. (3) Remove the pod UID from the arrays while increasing the corresponding
+      counter.
+  
+  Old jobs might not be tracked using this field, in which case the field remains null.
+
+  <a name="UncountedTerminatedPods"></a>
+  *UncountedTerminatedPods holds UIDs of Pods that have terminated but haven't been accounted in Job status counters.*
+
+  - **uncountedTerminatedPods.failed** ([]string)
+
+    *Set: unique values will be kept during a merge*
+    
+    Failed holds UIDs of failed Pods.
+
+  - **uncountedTerminatedPods.succeeded** ([]string)
+
+    *Set: unique values will be kept during a merge*
+    
+    Succeeded holds UIDs of succeeded Pods.
+
+
+
+### Beta level
+
+
+- **ready** (int32)
+
+  The number of pods which have a Ready condition.
+  
+  This field is beta-level. The job controller populates the field when the feature gate JobReadyPods is enabled (enabled by default).
 
 
 
@@ -471,6 +585,11 @@ POST /apis/batch/v1/namespaces/{namespace}/jobs
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -523,6 +642,11 @@ PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -571,6 +695,11 @@ PUT /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **pretty** (*in query*): string
@@ -623,6 +752,11 @@ PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **force** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
@@ -638,6 +772,8 @@ PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}
 
 
 200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
+
+201 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): Created
 
 401: Unauthorized
 
@@ -676,6 +812,11 @@ PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **force** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
@@ -691,6 +832,8 @@ PATCH /apis/batch/v1/namespaces/{namespace}/jobs/{name}/status
 
 
 200 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): OK
+
+201 (<a href="{{< ref "../workload-resources/job-v1#Job" >}}">Job</a>): Created
 
 401: Unauthorized
 

@@ -1,4 +1,7 @@
 ---
+# reviewers
+#   - tallclair
+#   - dchen1107
 title: 런타임클래스(RuntimeClass)
 content_type: concept
 weight: 20
@@ -12,9 +15,6 @@ weight: 20
 
 런타임클래스는 컨테이너 런타임을 구성을 선택하는 기능이다. 컨테이너 런타임
 구성은 파드의 컨테이너를 실행하는 데 사용된다.
-
-
-
 
 <!-- body -->
 
@@ -59,16 +59,19 @@ weight: 20
 (`handler`)로 단 2개의 중요 필드만 가지고 있다. 오브젝트 정의는 다음과 같은 형태이다.
 
 ```yaml
-apiVersion: node.k8s.io/v1  # 런타임클래스는 node.k8s.io API 그룹에 정의되어 있음
+# 런타임클래스는 node.k8s.io API 그룹에 정의되어 있음
+apiVersion: node.k8s.io/v1
 kind: RuntimeClass
 metadata:
-  name: myclass  # 런타임클래스는 해당 이름을 통해서 참조됨
+  # 런타임클래스 참조에 사용될 이름
   # 런타임클래스는 네임스페이스가 없는 리소스임
-handler: myconfiguration  # 상응하는 CRI 설정의 이름임
+  name: myclass
+# 상응하는 CRI 설정의 이름
+handler: myconfiguration
 ```
 
 런타임클래스 오브젝트의 이름은 유효한
-[DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)어이야 한다.
+[DNS 레이블 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-레이블-이름)어이야 한다.
 
 {{< note >}}
 런타임클래스 쓰기 작업(create/update/patch/delete)은
@@ -78,8 +81,8 @@ handler: myconfiguration  # 상응하는 CRI 설정의 이름임
 
 ## 사용
 
-클러스터를 위해서 런타임클래스를 설정하고 나면, 그것을 사용하는 것은 매우 간단하다. 파드 스펙에
-`runtimeClassName`를 명시한다. 예를 들면 다음과 같다.
+클러스터에 런타임클래스를 설정하고 나면,
+다음과 같이 파드 스펙에 `runtimeClassName`를 명시하여 해당 런타임클래스를 사용할 수 있다.
 
 ```yaml
 apiVersion: v1
@@ -94,7 +97,7 @@ spec:
 이것은 kubelet이 지명된 런타임클래스를 사용하여 해당 파드를 실행하도록 지시할 것이다.
 만약 지명된 런타임클래스가 없거나, CRI가 상응하는 핸들러를 실행할 수 없는 경우, 파드는
 `Failed` 터미널 [단계](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-단계-phase)로 들어간다.
-에러 메시지에 상응하는 [이벤트](/docs/tasks/debug-application-cluster/debug-application-introspection/)를
+에러 메시지에 상응하는 [이벤트](/ko/docs/tasks/debug/debug-application/debug-running-pod/)를
 확인한다.
 
 만약 명시된 `runtimeClassName`가 없다면, 기본 런타임 핸들러가 사용되며,
@@ -104,22 +107,17 @@ spec:
 
 CRI 런타임 설치에 대한 자세한 내용은 [CRI 설치](/ko/docs/setup/production-environment/container-runtimes/)를 확인한다.
 
-#### dockershim
-
-dockershim을 사용하는 경우 RuntimeClass는 런타임 핸들러를 `docker`로 고정한다.
-dockershim은 사용자 정의 런타임 핸들러를 지원하지 않는다.
-
 #### {{< glossary_tooltip term_id="containerd" >}}
 
 런타임 핸들러는 containerd의 구성 파일인 `/etc/containerd/config.toml` 통해 설정한다.
 유효한 핸들러는 runtimes 단락 아래에서 설정한다.
 
 ```
-[plugins.cri.containerd.runtimes.${HANDLER_NAME}]
+[plugins."io.containerd.grpc.v1.cri".containerd.runtimes.${HANDLER_NAME}]
 ```
 
-더 자세한 containerd의 구성 문서를 살펴본다.
-https://github.com/containerd/cri/blob/master/docs/config.md
+더 자세한 내용은 containerd의 [구성 문서](https://github.com/containerd/cri/blob/master/docs/config.md)를
+살펴본다.
 
 #### {{< glossary_tooltip term_id="cri-o" >}}
 
@@ -132,13 +130,13 @@ https://github.com/containerd/cri/blob/master/docs/config.md
   runtime_path = "${PATH_TO_BINARY}"
 ```
 
-더 자세한 것은 CRI-O의 [설정 문서](https://raw.githubusercontent.com/cri-o/cri-o/9f11d1d/docs/crio.conf.5.md)를 본다.
+더 자세한 것은 CRI-O의 [설정 문서](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md)를 본다.
 
 ## 스케줄
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-RuntimeClass에 `scheduling` 필드를 지정하면, 이 RuntimeClass로 실행되는 파드가 
+RuntimeClass에 `scheduling` 필드를 지정하면, 이 RuntimeClass로 실행되는 파드가
 이를 지원하는 노드로 예약되도록 제약 조건을 설정할 수 있다.
 `scheduling`이 설정되지 않은 경우 이 RuntimeClass는 모든 노드에서 지원되는 것으로 간주된다.
 
@@ -158,22 +156,18 @@ RuntimeClass에 `scheduling` 필드를 지정하면, 이 RuntimeClass로 실행�
 
 ### 파드 오버헤드
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 파드 실행과 연관되는 _오버헤드_ 리소스를 지정할 수 있다. 오버헤드를 선언하면
 클러스터(스케줄러 포함)가 파드와 리소스에 대한 결정을 내릴 때 처리를 할 수 있다.
-PodOverhead를 사용하려면, PodOverhead [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)
-를 활성화 시켜야 한다. (기본으로 활성화 되어 있다.)
 
 파드 오버헤드는 런타임 클래스에서 `overhead` 필드를 통해 정의된다. 이 필드를 사용하면,
 해당 런타임 클래스를 사용해서 구동 중인 파드의 오버헤드를 특정할 수 있고 이 오버헤드가
 쿠버네티스 내에서 처리된다는 것을 보장할 수 있다.
 
-
 ## {{% heading "whatsnext" %}}
-
 
 - [런타임클래스 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md)
 - [런타임클래스 스케줄링 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
-- [파드 오버헤드](/ko/docs/concepts/configuration/pod-overhead/) 개념에 대해 읽기
-- [파드 오버헤드 기능 설계](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
+- [파드 오버헤드](/ko/docs/concepts/scheduling-eviction/pod-overhead/) 개념에 대해 읽기
+- [파드 오버헤드 기능 설계](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)

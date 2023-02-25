@@ -3,7 +3,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
+To update the reference content, please follow the 
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -19,10 +19,9 @@ Performs a best effort revert of changes made to this host by 'kubeadm init' or 
 
 The "reset" command executes the following phases:
 ```
-preflight              Run reset pre-flight checks
-update-cluster-status  Remove this node from the ClusterStatus object.
-remove-etcd-member     Remove a local etcd member.
-cleanup-node           Run cleanup node.
+preflight           Run reset pre-flight checks
+remove-etcd-member  Remove a local etcd member.
+cleanup-node        Run cleanup node.
 ```
 
 
@@ -47,10 +46,24 @@ kubeadm reset [flags]
 </tr>
 
 <tr>
+<td colspan="2">--cleanup-tmp-dir</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Cleanup the &quot;/etc/kubernetes/tmp&quot; directory</p></td>
+</tr>
+
+<tr>
 <td colspan="2">--cri-socket string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.</p></td>
+</tr>
+
+<tr>
+<td colspan="2">--dry-run</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Don't apply any changes; just output what would be done.</p></td>
 </tr>
 
 <tr>

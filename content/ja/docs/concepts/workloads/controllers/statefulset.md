@@ -29,7 +29,7 @@ StatefulSetは下記の1つ以上の項目を要求するアプリケーショ�
 
 ## 制限事項
 
-* 提供されたPodのストレージは、要求された`storage class`にもとづいて[PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/README.md)によってプロビジョンされるか、管理者によって事前にプロビジョンされなくてはなりません。
+* 提供されたPodのストレージは、要求された`storage class`にもとづいて[PersistentVolume Provisioner](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/README.md)によってプロビジョンされるか、管理者によって事前にプロビジョンされなくてはなりません。
 * StatefulSetの削除もしくはスケールダウンをすることにより、StatefulSetに関連したボリュームは削除*されません* 。 これはデータ安全性のためで、関連するStatefulSetのリソース全てを自動的に削除するよりもたいてい有効です。
 * StatefulSetは現在、Podのネットワークアイデンティティーに責務をもつために[Headless Service](/ja/docs/concepts/services-networking/service/#headless-service)を要求します。ユーザーはこのServiceを作成する責任があります。
 * StatefulSetは、StatefulSetが削除されたときにPodの停止を行うことを保証していません。StatefulSetにおいて、規則的で安全なPodの停止を行う場合、削除のために事前にそのStatefulSetの数を0にスケールダウンさせることが可能です。
@@ -72,7 +72,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: nginx
-        image: k8s.gcr.io/nginx-slim:0.8
+        image: registry.k8s.io/nginx-slim:0.8
         ports:
         - containerPort: 80
           name: web
@@ -94,7 +94,7 @@ spec:
 
 * nginxという名前のHeadlessServiceは、ネットワークドメインをコントロールするために使われます。
 * webという名前のStatefulSetは、specで3つのnginxコンテナのレプリカを持ち、そのコンテナはそれぞれ別のPodで稼働するように設定されています。
-* volumeClaimTemplatesは、PersistentVolumeプロビジョナーによってプロビジョンされた[PersistentVolume](/docs/concepts/storage/persistent-volumes/)を使って安定したストレージを提供します。
+* volumeClaimTemplatesは、PersistentVolumeプロビジョナーによってプロビジョンされた[PersistentVolume](/ja/docs/concepts/storage/persistent-volumes/)を使って安定したストレージを提供します。
 
 StatefulSetの名前は有効な[名前](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります。
 
@@ -159,7 +159,7 @@ StatefulSet {{< glossary_tooltip text="コントローラー" term_id="controlle
 
 StatefulSetは`pod.Spec.TerminationGracePeriodSeconds`を0に指定すべきではありません。これは不安全で、やらないことを強く推奨します。さらなる説明としては、[StatefulSetのPodの強制削除](/ja/docs/tasks/run-application/force-delete-stateful-set-pod/)を参照してください。
 
-上記の例のnginxが作成されたとき、3つのPodは`web-0`、`web-1`、`web-2`の順番でデプロイされます。`web-1`は`web-0`が[RunningかつReady状態](/docs/concepts/workloads/pods/pod-lifecycle/)になるまでは決してデプロイされないのと、同様に`web-2`は`web-1`がRunningかつReady状態にならないとデプロイされません。もし`web-0`が`web-1`がRunningかつReady状態になった後だが、`web-2`が起動する前に失敗した場合、`web-2`は`web-0`の再起動が成功し、RunningかつReady状態にならないと再起動されません。
+上記の例のnginxが作成されたとき、3つのPodは`web-0`、`web-1`、`web-2`の順番でデプロイされます。`web-1`は`web-0`が[RunningかつReady状態](/ja/docs/concepts/workloads/pods/pod-lifecycle/)になるまでは決してデプロイされないのと、同様に`web-2`は`web-1`がRunningかつReady状態にならないとデプロイされません。もし`web-0`が`web-1`がRunningかつReady状態になった後だが、`web-2`が起動する前に失敗した場合、`web-2`は`web-0`の再起動が成功し、RunningかつReady状態にならないと再起動されません。
 
 もしユーザーが`replicas=1`といったようにStatefulSetにパッチをあてることにより、デプロイされたものをスケールすることになった場合、`web-2`は最初に停止されます。`web-1`は`web-2`が完全にシャットダウンされ削除されるまでは、停止されません。もし`web-0`が、`web-2`が完全に停止され削除された後だが、`web-1`の停止の前に失敗した場合、`web-1`は`web-0`がRunningかつReady状態になるまでは停止されません。
 
@@ -205,6 +205,6 @@ Kubernetes1.7とそれ以降のバージョンにおいて、StatefulSetの`.spe
 ## {{% heading "whatsnext" %}}
 
 
-* [ステートフルなアプリケーションのデプロイ](/docs/tutorials/stateful-application/basic-stateful-set/)の例を参考にしてください。
-* [StatefulSetを使ったCassandraのデプロイ](/docs/tutorials/stateful-application/cassandra/)の例を参考にしてください。
+* [ステートフルなアプリケーションのデプロイ](/ja/docs/tutorials/stateful-application/basic-stateful-set/)の例を参考にしてください。
+* [StatefulSetを使ったCassandraのデプロイ](/ja/docs/tutorials/stateful-application/cassandra/)の例を参考にしてください。
 * [レプリカを持つステートフルアプリケーションを実行する](/ja/docs/tasks/run-application/run-replicated-stateful-application/)の例を参考にしてください。

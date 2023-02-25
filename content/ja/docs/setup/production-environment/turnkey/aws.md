@@ -53,9 +53,9 @@ export PATH=<path/to/kubernetes-directory>/platforms/linux/amd64:$PATH
 
 新しいクラスターを試すには、[簡単なnginxの例](/ja/docs/tasks/run-application/run-stateless-application-deployment/)を参照してください。
 
-"Guestbook"アプリケーションは、Kubernetesを始めるもう一つのポピュラーな例です: [guestbookの例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/)
+"Guestbook"アプリケーションは、Kubernetesを始めるもう一つのポピュラーな例です: [guestbookの例](https://github.com/kubernetes/examples/tree/master/guestbook/)
 
-より完全なアプリケーションについては、[examplesディレクトリ](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/)を参照してください。
+より完全なアプリケーションについては、[examplesディレクトリ](https://github.com/kubernetes/examples/tree/master/)を参照してください。
 
 ## クラスターのスケーリング
 

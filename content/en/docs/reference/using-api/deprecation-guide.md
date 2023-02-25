@@ -20,14 +20,57 @@ deprecated API versions to newer and more stable API versions.
 
 ## Removed APIs by release
 
+### v1.29
+
+The **v1.29** release will stop serving the following deprecated API versions:
+
+#### Flow control resources {#flowcontrol-resources-v129}
+
+The **flowcontrol.apiserver.k8s.io/v1beta2** API version of FlowSchema and PriorityLevelConfiguration will no longer be served in v1.29.
+
+* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1beta3** API version, available since v1.26.
+* All existing persisted objects are accessible via the new API
+* Notable changes in **flowcontrol.apiserver.k8s.io/v1beta3**:
+  * The PriorityLevelConfiguration `spec.limited.assuredConcurrencyShares` field is renamed to `spec.limited.nominalConcurrencyShares`
+
+### v1.27
+
+The **v1.27** release will stop serving the following deprecated API versions:
+
+#### CSIStorageCapacity {#csistoragecapacity-v127}
+
+The **storage.k8s.io/v1beta1** API version of CSIStorageCapacity will no longer be served in v1.27.
+
+* Migrate manifests and API clients to use the **storage.k8s.io/v1** API version, available since v1.24.
+* All existing persisted objects are accessible via the new API
+* No notable changes
+
+### v1.26
+
+The **v1.26** release stopped serving the following deprecated API versions:
+
+#### Flow control resources {#flowcontrol-resources-v126}
+
+The **flowcontrol.apiserver.k8s.io/v1beta1** API version of FlowSchema and PriorityLevelConfiguration is no longer served as of v1.26.
+
+* Migrate manifests and API clients to use the **flowcontrol.apiserver.k8s.io/v1beta3** API version, available since v1.26.
+* All existing persisted objects are accessible via the new API
+* No notable changes
+
+#### HorizontalPodAutoscaler {#horizontalpodautoscaler-v126}
+
+The **autoscaling/v2beta2** API version of HorizontalPodAutoscaler is no longer served as of v1.26.
+
+* Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
+* All existing persisted objects are accessible via the new API
 
 ### v1.25
 
-The **v1.25** release will stop serving the following deprecated API versions:
+The **v1.25** release stopped serving the following deprecated API versions:
 
 #### CronJob {#cronjob-v125}
 
-The **batch/v1beta1** API version of CronJob will no longer be served in v1.25.
+The **batch/v1beta1** API version of CronJob is no longer served as of v1.25.
 
 * Migrate manifests and API clients to use the **batch/v1** API version, available since v1.21.
 * All existing persisted objects are accessible via the new API
@@ -35,7 +78,7 @@ The **batch/v1beta1** API version of CronJob will no longer be served in v1.25.
 
 #### EndpointSlice {#endpointslice-v125}
 
-The **discovery.k8s.io/v1beta1** API version of EndpointSlice will no longer be served in v1.25.
+The **discovery.k8s.io/v1beta1** API version of EndpointSlice is no longer served as of v1.25.
 
 * Migrate manifests and API clients to use the **discovery.k8s.io/v1** API version, available since v1.21.
 * All existing persisted objects are accessible via the new API
@@ -46,23 +89,30 @@ The **discovery.k8s.io/v1beta1** API version of EndpointSlice will no longer be 
 
 #### Event {#event-v125}
 
-The **events.k8s.io/v1beta1** API version of Event will no longer be served in v1.25.
+The **events.k8s.io/v1beta1** API version of Event is no longer served as of v1.25.
 
 * Migrate manifests and API clients to use the **events.k8s.io/v1** API version, available since v1.19.
 * All existing persisted objects are accessible via the new API
 * Notable changes in **events.k8s.io/v1**:
     * `type` is limited to `Normal` and `Warning`
     * `involvedObject` is renamed to `regarding`
-    * `action`, `reason`, `reportingComponent`, and `reportingInstance` are required when creating new **events.k8s.io/v1** Events
+    * `action`, `reason`, `reportingController`, and `reportingInstance` are required when creating new **events.k8s.io/v1** Events
     * use `eventTime` instead of the deprecated `firstTimestamp` field (which is renamed to `deprecatedFirstTimestamp` and not permitted in new **events.k8s.io/v1** Events)
     * use `series.lastObservedTime` instead of the deprecated `lastTimestamp` field (which is renamed to `deprecatedLastTimestamp` and not permitted in new **events.k8s.io/v1** Events)
     * use `series.count` instead of the deprecated `count` field (which is renamed to `deprecatedCount` and not permitted in new **events.k8s.io/v1** Events)
-    * use `reportingComponent` instead of the deprecated `source.component` field (which is renamed to `deprecatedSource.component` and not permitted in new **events.k8s.io/v1** Events)
+    * use `reportingController` instead of the deprecated `source.component` field (which is renamed to `deprecatedSource.component` and not permitted in new **events.k8s.io/v1** Events)
     * use `reportingInstance` instead of the deprecated `source.host` field (which is renamed to `deprecatedSource.host` and not permitted in new **events.k8s.io/v1** Events)
+
+#### HorizontalPodAutoscaler {#horizontalpodautoscaler-v125}
+
+The **autoscaling/v2beta1** API version of HorizontalPodAutoscaler is no longer served as of v1.25.
+
+* Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
+* All existing persisted objects are accessible via the new API
 
 #### PodDisruptionBudget {#poddisruptionbudget-v125}
 
-The **policy/v1beta1** API version of PodDisruptionBudget will no longer be served in v1.25.
+The **policy/v1beta1** API version of PodDisruptionBudget is no longer served as of v1.25.
 
 * Migrate manifests and API clients to use the **policy/v1** API version, available since v1.21.
 * All existing persisted objects are accessible via the new API
@@ -71,14 +121,16 @@ The **policy/v1beta1** API version of PodDisruptionBudget will no longer be serv
 
 #### PodSecurityPolicy {#psp-v125}
 
-PodSecurityPolicy in the **policy/v1beta1** API version will no longer be served in v1.25, and the PodSecurityPolicy admission controller will be removed.
+PodSecurityPolicy in the **policy/v1beta1** API version is no longer served as of v1.25, and the PodSecurityPolicy admission controller will be removed.
 
-PodSecurityPolicy replacements are still under discussion, but current use can be migrated to
-[3rd-party admission webhooks](/docs/reference/access-authn-authz/extensible-admission-controllers/) now.
+Migrate to [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
+or a [3rd party admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/).
+For a migration guide, see [Migrate from PodSecurityPolicy to the Built-In PodSecurity Admission Controller](/docs/tasks/configure-pod-container/migrate-from-psp/).
+For more information on the deprecation, see [PodSecurityPolicy Deprecation: Past, Present, and Future](/blog/2021/04/06/podsecuritypolicy-deprecation-past-present-and-future/).
 
 #### RuntimeClass {#runtimeclass-v125}
 
-RuntimeClass in the **node.k8s.io/v1beta1** API version will no longer be served in v1.25.
+RuntimeClass in the **node.k8s.io/v1beta1** API version is no longer served as of v1.25.
 
 * Migrate manifests and API clients to use the **node.k8s.io/v1** API version, available since v1.20.
 * All existing persisted objects are accessible via the new API
@@ -86,11 +138,11 @@ RuntimeClass in the **node.k8s.io/v1beta1** API version will no longer be served
 
 ### v1.22
 
-The **v1.22** release will stop serving the following deprecated API versions:
+The **v1.22** release stopped serving the following deprecated API versions:
 
 #### Webhook resources {#webhook-resources-v122}
 
-The **admissionregistration.k8s.io/v1beta1** API version of MutatingWebhookConfiguration and ValidatingWebhookConfiguration will no longer be served in v1.22.
+The **admissionregistration.k8s.io/v1beta1** API version of MutatingWebhookConfiguration and ValidatingWebhookConfiguration is no longer served as of v1.22.
 
 * Migrate manifests and API clients to use the **admissionregistration.k8s.io/v1** API version, available since v1.16.
 * All existing persisted objects are accessible via the new APIs
@@ -104,7 +156,7 @@ The **admissionregistration.k8s.io/v1beta1** API version of MutatingWebhookConfi
 
 #### CustomResourceDefinition {#customresourcedefinition-v122}
 
-The **apiextensions.k8s.io/v1beta1** API version of CustomResourceDefinition will no longer be served in v1.22.
+The **apiextensions.k8s.io/v1beta1** API version of CustomResourceDefinition is no longer served as of v1.22.
 
 * Migrate manifests and API clients to use the **apiextensions.k8s.io/v1** API version, available since v1.16.
 * All existing persisted objects are accessible via the new API
@@ -122,7 +174,7 @@ The **apiextensions.k8s.io/v1beta1** API version of CustomResourceDefinition wil
 
 #### APIService {#apiservice-v122}
 
-The **apiregistration.k8s.io/v1beta1** API version of APIService will no longer be served in v1.22.
+The **apiregistration.k8s.io/v1beta1** API version of APIService is no longer served as of v1.22.
 
 * Migrate manifests and API clients to use the **apiregistration.k8s.io/v1** API version, available since v1.10.
 * All existing persisted objects are accessible via the new API
@@ -130,14 +182,14 @@ The **apiregistration.k8s.io/v1beta1** API version of APIService will no longer 
 
 #### TokenReview {#tokenreview-v122}
 
-The **authentication.k8s.io/v1beta1** API version of TokenReview will no longer be served in v1.22.
+The **authentication.k8s.io/v1beta1** API version of TokenReview is no longer served as of v1.22.
 
 * Migrate manifests and API clients to use the **authentication.k8s.io/v1** API version, available since v1.6.
 * No notable changes
 
 #### SubjectAccessReview resources {#subjectaccessreview-resources-v122}
 
-The **authorization.k8s.io/v1beta1** API version of LocalSubjectAccessReview, SelfSubjectAccessReview, and SubjectAccessReview will no longer be served in v1.22.
+The **authorization.k8s.io/v1beta1** API version of LocalSubjectAccessReview, SelfSubjectAccessReview, SubjectAccessReview, and SelfSubjectRulesReview is no longer served as of v1.22.
 
 * Migrate manifests and API clients to use the **authorization.k8s.io/v1** API version, available since v1.6.
 * Notable changes:
@@ -145,7 +197,7 @@ The **authorization.k8s.io/v1beta1** API version of LocalSubjectAccessReview, Se
 
 #### CertificateSigningRequest {#certificatesigningrequest-v122}
 
-The **certificates.k8s.io/v1beta1** API version of CertificateSigningRequest will no longer be served in v1.22.
+The **certificates.k8s.io/v1beta1** API version of CertificateSigningRequest is no longer served as of v1.22.
 
 * Migrate manifests and API clients to use the **certificates.k8s.io/v1** API version, available since v1.19.
 * All existing persisted objects are accessible via the new API
@@ -160,7 +212,7 @@ The **certificates.k8s.io/v1beta1** API version of CertificateSigningRequest wil
 
 #### Lease {#lease-v122}
 
-The **coordination.k8s.io/v1beta1** API version of Lease will no longer be served in v1.22.
+The **coordination.k8s.io/v1beta1** API version of Lease is no longer served as of v1.22.
 
 * Migrate manifests and API clients to use the **coordination.k8s.io/v1** API version, available since v1.14.
 * All existing persisted objects are accessible via the new API
@@ -168,7 +220,7 @@ The **coordination.k8s.io/v1beta1** API version of Lease will no longer be serve
 
 #### Ingress {#ingress-v122}
 
-The **extensions/v1beta1** and **networking.k8s.io/v1beta1** API versions of Ingress will no longer be served in v1.22.
+The **extensions/v1beta1** and **networking.k8s.io/v1beta1** API versions of Ingress is no longer served as of v1.22.
 
 * Migrate manifests and API clients to use the **networking.k8s.io/v1** API version, available since v1.19.
 * All existing persisted objects are accessible via the new API
@@ -181,7 +233,7 @@ The **extensions/v1beta1** and **networking.k8s.io/v1beta1** API versions of Ing
 
 #### IngressClass {#ingressclass-v122}
 
-The **networking.k8s.io/v1beta1** API version of IngressClass will no longer be served in v1.22.
+The **networking.k8s.io/v1beta1** API version of IngressClass is no longer served as of v1.22.
 
 * Migrate manifests and API clients to use the **networking.k8s.io/v1** API version, available since v1.19.
 * All existing persisted objects are accessible via the new API
@@ -189,7 +241,7 @@ The **networking.k8s.io/v1beta1** API version of IngressClass will no longer be 
 
 #### RBAC resources {#rbac-resources-v122}
 
-The **rbac.authorization.k8s.io/v1beta1** API version of ClusterRole, ClusterRoleBinding, Role, and RoleBinding will no longer be served in v1.22.
+The **rbac.authorization.k8s.io/v1beta1** API version of ClusterRole, ClusterRoleBinding, Role, and RoleBinding is no longer served as of v1.22.
 
 * Migrate manifests and API clients to use the **rbac.authorization.k8s.io/v1** API version, available since v1.8.
 * All existing persisted objects are accessible via the new APIs
@@ -197,7 +249,7 @@ The **rbac.authorization.k8s.io/v1beta1** API version of ClusterRole, ClusterRol
 
 #### PriorityClass {#priorityclass-v122}
 
-The **scheduling.k8s.io/v1beta1** API version of PriorityClass will no longer be served in v1.22.
+The **scheduling.k8s.io/v1beta1** API version of PriorityClass is no longer served as of v1.22.
 
 * Migrate manifests and API clients to use the **scheduling.k8s.io/v1** API version, available since v1.14.
 * All existing persisted objects are accessible via the new API
@@ -205,7 +257,7 @@ The **scheduling.k8s.io/v1beta1** API version of PriorityClass will no longer be
 
 #### Storage resources {#storage-resources-v122}
 
-The **storage.k8s.io/v1beta1** API version of CSIDriver, CSINode, StorageClass, and VolumeAttachment will no longer be served in v1.22.
+The **storage.k8s.io/v1beta1** API version of CSIDriver, CSINode, StorageClass, and VolumeAttachment is no longer served as of v1.22.
 
 * Migrate manifests and API clients to use the **storage.k8s.io/v1** API version
   * CSIDriver is available in **storage.k8s.io/v1** since v1.19.
@@ -291,7 +343,7 @@ For example:
 
 ### Locate use of deprecated APIs
 
-Use [client warnings, metrics, and audit information available in 1.19+](https://kubernetes.io/blog/2020/09/03/warnings/#deprecation-warnings)
+Use [client warnings, metrics, and audit information available in 1.19+](/blog/2020/09/03/warnings/#deprecation-warnings)
 to locate use of deprecated APIs.
 
 ### Migrate to non-deprecated APIs
@@ -299,14 +351,14 @@ to locate use of deprecated APIs.
 * Update custom integrations and controllers to call the non-deprecated APIs
 * Change YAML files to reference the non-deprecated APIs
 
-    You can use the `kubectl-convert` command (`kubectl convert` prior to v1.20)
-    to automatically convert an existing object:
-    
-    `kubectl-convert -f <file> --output-version <group>/<version>`.
+  You can use the `kubectl-convert` command (`kubectl convert` prior to v1.20)
+  to automatically convert an existing object:
 
-    For example, to convert an older Deployment to `apps/v1`, you can run:
-    
-    `kubectl-convert -f ./my-deployment.yaml --output-version apps/v1`
+  `kubectl-convert -f <file> --output-version <group>/<version>`.
 
-    Note that this may use non-ideal default values. To learn more about a specific
-    resource, check the Kubernetes [API reference](/docs/reference/kubernetes-api/).
+  For example, to convert an older Deployment to `apps/v1`, you can run:
+
+  `kubectl-convert -f ./my-deployment.yaml --output-version apps/v1`
+
+  Note that this may use non-ideal default values. To learn more about a specific
+  resource, check the Kubernetes [API reference](/docs/reference/kubernetes-api/).

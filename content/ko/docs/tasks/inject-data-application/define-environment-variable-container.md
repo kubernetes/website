@@ -30,39 +30,39 @@ weight: 20
 
 1. YAML 구성 파일을 활용해 파드를 생성한다.
 
-    ```shell
-    kubectl apply -f https://k8s.io/examples/pods/inject/envars.yaml
-    ```
+   ```shell
+   kubectl apply -f https://k8s.io/examples/pods/inject/envars.yaml
+   ```
 
 1. 실행 중인 파드들의 목록을 조회한다.
 
-    ```shell
-    kubectl get pods -l purpose=demonstrate-envars
-    ```
+   ```shell
+   kubectl get pods -l purpose=demonstrate-envars
+   ```
 
-    출력은 아래와 비슷할 것이다.
+   결과는 다음과 같다.
 
-    ```
-    NAME            READY     STATUS    RESTARTS   AGE
-    envar-demo      1/1       Running   0          9s
-    ```
+   ```
+   NAME            READY     STATUS    RESTARTS   AGE
+   envar-demo      1/1       Running   0          9s
+   ```
 
 1. 파드의 컨테이너 환경 변수를 나열한다.
 
-    ```shell
-    kubectl exec envar-demo -- printenv
-    ```
+   ```shell
+   kubectl exec envar-demo -- printenv
+   ```
 
-    출력은 아래와 비슷할 것이다.
+   결과는 다음과 같다.
 
-    ```
-    NODE_VERSION=4.4.2
-    EXAMPLE_SERVICE_PORT_8080_TCP_ADDR=10.3.245.237
-    HOSTNAME=envar-demo
-    ...
-    DEMO_GREETING=Hello from the environment
-    DEMO_FAREWELL=Such a sweet sorrow
-    ```
+   ```
+   NODE_VERSION=4.4.2
+   EXAMPLE_SERVICE_PORT_8080_TCP_ADDR=10.3.245.237
+   HOSTNAME=envar-demo
+   ...
+   DEMO_GREETING=Hello from the environment
+   DEMO_FAREWELL=Such a sweet sorrow
+   ```
 
 {{< note >}}
 `env` 나 `envFrom` 필드를 이용해 설정된 환경 변수들은 컨테이너 이미지
@@ -110,6 +110,6 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
-* [환경 변수](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)에 대해 알아본다.
+* [환경 변수](/ko/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)에 대해 알아본다.
 * [시크릿을 환경 변수로 사용하기](/ko/docs/concepts/configuration/secret/#시크릿을-환경-변수로-사용하기)에 대해 알아본다.
 * [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core)를 확인한다.

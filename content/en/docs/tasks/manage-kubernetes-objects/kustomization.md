@@ -113,10 +113,10 @@ The generated ConfigMap is:
 ```yaml
 apiVersion: v1
 data:
-    FOO=Bar
+  FOO: Bar
 kind: ConfigMap
 metadata:
-  name: example-configmap-1-8mbdf7882g
+  name: example-configmap-1-42cfbf598f
 ```
 
 {{< note >}}
@@ -299,7 +299,7 @@ metadata:
 type: Opaque
 ```
 
-Like ConfigMaps, generated Secrets can be used in Deployments by refering to the name of the secretGenerator:
+Like ConfigMaps, generated Secrets can be used in Deployments by referring to the name of the secretGenerator:
 
 ```shell
 # Create a password.txt file
@@ -748,8 +748,8 @@ Since the Service name may change as `namePrefix` or `nameSuffix` is added in th
 not recommended to hard code the Service name in the command argument. For this usage, Kustomize can inject the Service name into containers through `vars`.
 
 ```shell
-# Create a deployment.yaml file
-cat <<EOF > deployment.yaml
+# Create a deployment.yaml file (quoting the here doc delimiter)
+cat <<'EOF' > deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:

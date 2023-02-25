@@ -48,7 +48,7 @@ FOO_SERVICE_HOST=<El host donde está funcionando el servicio>
 FOO_SERVICE_PORT=<El puerto dónde está funcionando el servicio>
 ```
 Los servicios tienen direcciones IP dedicadas y están disponibles para el Container a través de DNS,
-si el [complemento para DNS](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/) está habilitado.
+si el [complemento para DNS](http://releases.k8s.io/master/cluster/addons/dns/) está habilitado.
 
 
 

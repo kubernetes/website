@@ -59,7 +59,7 @@ Towards the end of the twelve month, the following will happen:
 During the two-month maintenance mode period, Release Managers may cut
 additional maintenance releases to resolve:
 
-- CVEs (under the advisement of the Product Security Committee)
+- CVEs (under the advisement of the Security Response Committee)
 - dependency issues (including base image updates)
 - critical core component issues
 
@@ -76,89 +76,23 @@ Timelines may vary with the severity of bug fixes, but for easier planning we
 will target the following monthly release points. Unplanned, critical
 releases may also occur in between these.
 
-| Monthly Patch Release | Target date |
-| --------------------- | ----------- |
-| June 2021             | 2021-06-16  |
-| July 2021             | 2021-07-14  |
-| August 2021           | 2021-08-11  |
-| September 2021        | 2021-09-15  |
+| Monthly Patch Release | Cherry Pick Deadline | Target date |
+| --------------------- | -------------------- | ----------- |
+| February 2023         | 2023-02-10           | 2023-02-15  |
+| March 2023            | 2023-03-10           | 2023-03-15  |
+| April 2023            | 2023-04-07           | 2023-04-12  |
 
 ## Detailed Release History for Active Branches
 
-### 1.21
+{{< release-branches >}}
 
-**1.21** enters maintenance mode on **2022-04-28**
-
-End of Life for **1.21** is **2022-06-28**
-
-| PATCH RELEASE | CHERRY PICK DEADLINE | TARGET DATE |
-| ------------- | -------------------- | ----------- |
-| 1.21.2        | 2021-06-12           | 2021-06-16  |
-| 1.21.1        | 2021-05-07           | 2021-05-12  |
-
-### 1.20
-
-**1.20** enters maintenance mode on **2021-12-28**
-
-End of Life for **1.20** is **2022-02-28**
-
-| PATCH RELEASE | CHERRY PICK DEADLINE                                                                | TARGET DATE |
-| ------------- | ----------------------------------------------------------------------------------- | ----------- |
-| 1.20.8        | 2021-06-12                                                                          | 2021-06-16  |
-| 1.20.7        | 2021-05-07                                                                          | 2021-05-12  |
-| 1.20.6        | 2021-04-09                                                                          | 2021-04-14  |
-| 1.20.5        | 2021-03-12                                                                          | 2021-03-17  |
-| 1.20.4        | 2021-02-12                                                                          | 2021-02-18  |
-| 1.20.3        | [Conformance Tests Issue](https://groups.google.com/g/kubernetes-dev/c/oUpY9vWgzJo) | 2021-02-17  |
-| 1.20.2        | 2021-01-08                                                                          | 2021-01-13  |
-| 1.20.1        | [Tagging Issue](https://groups.google.com/g/kubernetes-dev/c/dNH2yknlCBA)           | 2020-12-18  |
-
-### 1.19
-
-**1.19** enters maintenance mode on **2021-08-28**
-
-End of Life for **1.19** is **2021-10-28**
-
-| PATCH RELEASE | CHERRY PICK DEADLINE                                                      | TARGET DATE |
-| ------------- | ------------------------------------------------------------------------- | ----------- |
-| 1.19.12       | 2021-06-12                                                                | 2021-06-16  |
-| 1.19.11       | 2021-05-07                                                                | 2021-05-12  |
-| 1.19.10       | 2021-04-09                                                                | 2021-04-14  |
-| 1.19.9        | 2021-03-12                                                                | 2021-03-17  |
-| 1.19.8        | 2021-02-12                                                                | 2021-02-17  |
-| 1.19.7        | 2021-01-08                                                                | 2021-01-13  |
-| 1.19.6        | [Tagging Issue](https://groups.google.com/g/kubernetes-dev/c/dNH2yknlCBA) | 2020-12-18  |
-| 1.19.5        | 2020-12-04                                                                | 2020-12-09  |
-| 1.19.4        | 2020-11-06                                                                | 2020-11-11  |
-| 1.19.3        | 2020-10-09                                                                | 2020-10-14  |
-| 1.19.2        | 2020-09-11                                                                | 2020-09-16  |
-| 1.19.1        | 2020-09-04                                                                | 2020-09-09  |
-
-## Non-Active Branch History
+## Non-Active Branch history
 
 These releases are no longer supported.
 
-| Minor Version | Final Patch Release | EOL date   |
-| ------------- | ------------------- | ---------- |
-| 1.18          | 1.18.19             | 2021-05-12 |
-| 1.17          | 1.17.17             | 2021-01-13 |
-| 1.16          | 1.16.15             | 2020-09-02 |
-| 1.15          | 1.15.12             | 2020-05-06 |
-| 1.14          | 1.14.10             | 2019-12-11 |
-| 1.13          | 1.13.12             | 2019-10-15 |
-| 1.12          | 1.12.10             | 2019-07-08 |
-| 1.11          | 1.11.10             | 2019-05-01 |
-| 1.10          | 1.10.13             | 2019-02-13 |
-| 1.9           | 1.9.11              | 2018-09-29 |
-| 1.8           | 1.8.15              | 2018-07-12 |
-| 1.7           | 1.7.16              | 2018-04-04 |
-| 1.6           | 1.6.13              | 2017-11-23 |
-| 1.5           | 1.5.8               | 2017-10-01 |
-| 1.4           | 1.4.12              | 2017-04-21 |
-| 1.3           | 1.3.10              | 2016-11-01 |
-| 1.2           | 1.2.7               | 2016-10-23 |
+{{< eol-releases >}}
 
 [cherry-picks]: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-release/cherry-picks.md
-[release-managers]: /release-managers.md
-[release process description]: /release.md
+[release-managers]: /releases/release-managers
+[release process description]: /releases/release
 [yearly-support]: https://git.k8s.io/enhancements/keps/sig-release/1498-kubernetes-yearly-support-period/README.md

@@ -3,12 +3,12 @@ reviewers:
 - ahg-g
 title: Scheduling Framework
 content_type: concept
-weight: 90
+weight: 60
 ---
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.15" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.19" state="stable" >}}
 
 The scheduling framework is a pluggable architecture for the Kubernetes scheduler.
 It adds a new set of "plugin" APIs to the existing scheduler. Plugins are compiled into the scheduler. The APIs allow most scheduling features to be implemented as plugins, while keeping the
@@ -52,7 +52,7 @@ equivalent to "Predicate" and "Scoring" is equivalent to "Priority function".
 One plugin may register at multiple extension points to perform more complex or
 stateful tasks.
 
-{{< figure src="/images/docs/scheduling-framework-extensions.png" title="scheduling framework extension points" >}}
+{{< figure src="/images/docs/scheduling-framework-extensions.png" title="scheduling framework extension points" class="diagram-large">}}
 
 ### QueueSort {#queue-sort}
 

@@ -4,13 +4,14 @@ metadata:
   name: mysql
   labels:
     app: mysql
+    app.kubernetes.io/name: mysql
 data:
   primary.cnf: |
     # Primary에만 이 구성을 적용한다.
     [mysqld]
-    log-bin
+    log-bin    
   replica.cnf: |
     # 레플리카에만 이 구성을 적용한다.
     [mysqld]
-    super-read-only
+    super-read-only    
 

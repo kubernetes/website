@@ -280,7 +280,7 @@ Kubernetesは、Serviceオブジェクトを見つけ出すために2つの主�
 
 PodがNode上で稼働するとき、kubeletはアクティブな各Serviceに対して、環境変数のセットを追加します。
 これは[Docker links互換性](https://docs.docker.com/userguide/dockerlinks/)のある変数(
-[makeLinkVariables関数](https://releases.k8s.io/{{< param "githubbranch" >}}/pkg/kubelet/envvars/envvars.go#L72)を確認してください)や、より簡単な`{SVCNAME}_SERVICE_HOST`や、`{SVCNAME}_SERVICE_PORT`変数をサポートします。この変数名で使われるService名は大文字に変換され、`-`は`_`に変換されます。
+[makeLinkVariables関数](https://releases.k8s.io/{{< param "fullversion" >}}/pkg/kubelet/envvars/envvars.go#L72)を確認してください)や、より簡単な`{SVCNAME}_SERVICE_HOST`や、`{SVCNAME}_SERVICE_PORT`変数をサポートします。この変数名で使われるService名は大文字に変換され、`-`は`_`に変換されます。
 
 例えば、TCPポート6379番を公開していて、さらにclusterIPが10.0.0.11に割り当てられている`redis-master`というServiceは、下記のような環境変数を生成します。
 
@@ -303,7 +303,7 @@ ServiceのclusterIPを発見するためにDNSのみを使う場合、このよ�
 
 ### DNS
 
-ユーザーは[アドオン](/docs/concepts/cluster-administration/addons/)を使ってKubernetesクラスターにDNS Serviceをセットアップできます(常にセットアップすべきです)。
+ユーザーは[アドオン](/ja/docs/concepts/cluster-administration/addons/)を使ってKubernetesクラスターにDNS Serviceをセットアップできます(常にセットアップすべきです)。
 
 CoreDNSなどのクラスター対応のDNSサーバーは新しいServiceや、各Service用のDNSレコードのセットのためにKubernetes APIを常に監視します。
 もしクラスターを通してDNSが有効になっている場合、全てのPodはDNS名によって自動的にServiceに対する名前解決をするようにできるはずです。

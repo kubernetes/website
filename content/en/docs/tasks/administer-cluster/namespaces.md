@@ -4,6 +4,7 @@ reviewers:
 - janetkuo
 title: Share a Cluster with Namespaces
 content_type: task
+weight: 340
 ---
 
 <!-- overview -->
@@ -71,14 +72,15 @@ to define *Hard* resource usage limits that a *Namespace* may consume.
 A limit range defines min/max constraints on the amount of resources a single entity can consume in
 a *Namespace*.
 
-See [Admission control: Limit Range](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md)
+See [Admission control: Limit Range](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md)
 
 A namespace can be in one of two phases:
 
    * `Active` the namespace is in use
    * `Terminating` the namespace is being deleted, and can not be used for new objects
 
-See the [design doc](https://git.k8s.io/community/contributors/design-proposals/architecture/namespaces.md#phases) for more details.
+For more details, see [Namespace](/docs/reference/kubernetes-api/cluster-resources/namespace-v1/)
+in the API reference.
 
 ## Creating a new namespace
 
@@ -111,7 +113,7 @@ The name of your namespace must be a valid
 
 There's an optional field `finalizers`, which allows observables to purge resources whenever the namespace is deleted. Keep in mind that if you specify a nonexistent finalizer, the namespace will be created but will get stuck in the `Terminating` state if the user tries to delete it.
 
-More information on `finalizers` can be found in the namespace [design doc](https://git.k8s.io/community/contributors/design-proposals/architecture/namespaces.md#finalizers).
+More information on `finalizers` can be found in the namespace [design doc](https://git.k8s.io/design-proposals-archive/architecture/namespaces.md#finalizers).
 
 ## Deleting a namespace
 
@@ -194,7 +196,7 @@ This delete is asynchronous, so for a time you will see the namespace in the `Te
     To demonstrate this, let's spin up a simple Deployment and Pods in the `development` namespace.
 
     ```shell
-    kubectl create deployment snowflake --image=k8s.gcr.io/serve_hostname  -n=development --replicas=2
+    kubectl create deployment snowflake --image=registry.k8s.io/serve_hostname  -n=development --replicas=2
     ```
     We have created a deployment whose replica size is 2 that is running the pod called `snowflake` with a basic container that serves the hostname.
 
@@ -228,7 +230,7 @@ This delete is asynchronous, so for a time you will see the namespace in the `Te
     Production likes to run cattle, so let's create some cattle pods.
 
     ```shell
-    kubectl create deployment cattle --image=k8s.gcr.io/serve_hostname -n=production
+    kubectl create deployment cattle --image=registry.k8s.io/serve_hostname -n=production
     kubectl scale deployment cattle --replicas=5 -n=production
 
     kubectl get deployment -n=production
@@ -313,7 +315,7 @@ across namespaces, you need to use the fully qualified domain name (FQDN).
 
 * Learn more about [setting the namespace preference](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-preference).
 * Learn more about [setting the namespace for a request](/docs/concepts/overview/working-with-objects/namespaces/#setting-the-namespace-for-a-request)
-* See [namespaces design](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/design-proposals/architecture/namespaces.md).
+* See [namespaces design](https://git.k8s.io/design-proposals-archive/architecture/namespaces.md).
 
 
 

@@ -174,18 +174,26 @@ ValidatingWebhookConfiguration describes the configuration of and admission webh
 
     - **webhooks.rules.apiGroups** ([]string)
 
+      *Atomic: will be replaced during a merge*
+      
       APIGroups is the API groups the resources belong to. '*' is all groups. If '*' is present, the length of the slice must be one. Required.
 
     - **webhooks.rules.apiVersions** ([]string)
 
+      *Atomic: will be replaced during a merge*
+      
       APIVersions is the API versions the resources belong to. '*' is all versions. If '*' is present, the length of the slice must be one. Required.
 
     - **webhooks.rules.operations** ([]string)
 
+      *Atomic: will be replaced during a merge*
+      
       Operations is the operations the admission hook cares about - CREATE, UPDATE, DELETE, CONNECT or * for all of those operations and any future admission operations that are added. If '*' is present, the length of the slice must be one. Required.
 
     - **webhooks.rules.resources** ([]string)
 
+      *Atomic: will be replaced during a merge*
+      
       Resources is a list of resources this rule applies to.
       
       For example: 'pods' means pods. 'pods/log' means the log subresource of pods. '*' means all resources, but not subresources. 'pods/*' means all subresources of pods. '*/scale' means all scale subresources. '*/*' means all resources and their subresources.
@@ -361,6 +369,11 @@ POST /apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -408,6 +421,11 @@ PUT /apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -453,6 +471,11 @@ PATCH /apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/{nam
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **force** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
@@ -468,6 +491,8 @@ PATCH /apis/admissionregistration.k8s.io/v1/validatingwebhookconfigurations/{nam
 
 
 200 (<a href="{{< ref "../extend-resources/validating-webhook-configuration-v1#ValidatingWebhookConfiguration" >}}">ValidatingWebhookConfiguration</a>): OK
+
+201 (<a href="{{< ref "../extend-resources/validating-webhook-configuration-v1#ValidatingWebhookConfiguration" >}}">ValidatingWebhookConfiguration</a>): Created
 
 401: Unauthorized
 

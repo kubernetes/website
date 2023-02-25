@@ -157,13 +157,13 @@ deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
 ```
 
-`kubectl`についてさらに知りたい場合は、[kubectlの概要](/docs/reference/kubectl/overview/)を参照してください。
+`kubectl`についてさらに知りたい場合は、[kubectlの概要](/ja/docs/reference/kubectl/overview/)を参照してください。
 
 ## ラベルを有効に使う
 
 これまで取り上げた例では、リソースに対して最大1つのラベルを適用してきました。リソースのセットを他のセットと区別するために、複数のラベルが必要な状況があります。
 
-例えば、異なるアプリケーション間では、異なる`app`ラベルを使用したり、[ゲストブックの例](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/)のようなマルチティアーのアプリケーションでは、各ティアーを区別する必要があります。frontendというティアーでは下記のラベルを持ちます。:
+例えば、異なるアプリケーション間では、異なる`app`ラベルを使用したり、[ゲストブックの例](https://github.com/kubernetes/examples/tree/master/guestbook/)のようなマルチティアーのアプリケーションでは、各ティアーを区別する必要があります。frontendというティアーでは下記のラベルを持ちます。:
 
 ```yaml
      labels:
@@ -294,7 +294,7 @@ my-nginx-2035384211-u3t6x   1/1       Running   0          23m       fe
 
 このコマンドでは"app=nginx"というラベルのついた全てのPodを出力し、Podのtierという項目も表示します(`-L`または`--label-columns`で指定)。
 
-さらなる情報は、[ラベル](/docs/concepts/overview/working-with-objects/labels/)や[kubectl label](/docs/reference/generated/kubectl/kubectl-commands/#label)を参照してください。
+さらなる情報は、[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)や[kubectl label](/docs/reference/generated/kubectl/kubectl-commands/#label)を参照してください。
 
 ## アノテーションの更新
 
@@ -313,7 +313,7 @@ metadata:
 ...
 ```
 
-さらなる情報は、[アノテーション](/docs/concepts/overview/working-with-objects/annotations/) や、[kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands/#annotate)を参照してください。
+さらなる情報は、[アノテーション](/ja/docs/concepts/overview/working-with-objects/annotations/) や、[kubectl annotate](/docs/reference/generated/kubectl/kubectl-commands/#annotate)を参照してください。
 
 ## アプリケーションのスケール
 
@@ -368,7 +368,7 @@ deployment.apps/my-nginx configured
 
 注意として、前回の変更適用時からの設定の変更内容を決めるため、`kubectl apply`はリソースに対してアノテーションを割り当てます。変更が実施されると`kubectl apply`は、1つ前の設定内容と、今回変更しようとする入力内容と、現在のリソースの設定との3つの間で変更内容の差分をとります。
 
-現在、リソースはこのアノテーションなしで作成されました。そのため、最初の`kubectl paply`の実行においては、与えられたにゅうチョクト、現在のリソースの設定の2つの間の差分が取られ、フォールバックします。この最初の実行の間、リソースが作成された時にプロパティーセットの削除を検知できません。この理由により、プロパティーの削除はされません。
+現在、リソースはこのアノテーションなしで作成されました。そのため、最初の`kubectl paply`の実行においては、与えられた入力と、現在のリソースの設定の2つの間の差分が取られ、フォールバックします。この最初の実行の間、リソースが作成された時にプロパティーセットの削除を検知できません。この理由により、プロパティーの削除はされません。
 
 `kubectl apply`の実行後の全ての呼び出しや、`kubectl replace`や`kubectl edit`などの設定を変更する他のコマンドではアノテーションを更新します。`kubectl apply`した後の全ての呼び出しにおいて3-wayの差分取得によってプロパティの検知と削除を実施します。
 
@@ -443,7 +443,7 @@ deployment.apps/my-nginx scaled
 kubectl edit deployment/my-nginx
 ```
 
-できました!Deploymentはデプロイされたnginxのアプリケーションを宣言的にプログレッシブに更新します。更新途中では、決まった数の古いレプリカのみダウンし、一定数の新しいレプリカが希望するPod数以上作成されても良いことを保証します。詳細について学ぶには[Deployment page](/docs/concepts/workloads/controllers/deployment/)を参照してください。
+できました!Deploymentはデプロイされたnginxのアプリケーションを宣言的にプログレッシブに更新します。更新途中では、決まった数の古いレプリカのみダウンし、一定数の新しいレプリカが希望するPod数以上作成されても良いことを保証します。詳細について学ぶには[Deployment page](/ja/docs/concepts/workloads/controllers/deployment/)を参照してください。
 
 
 

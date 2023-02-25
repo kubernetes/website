@@ -37,7 +37,6 @@ weight: 10
 
 {{< note >}}
 `command` 필드는 일부 컨테이너 런타임에서 `entrypoint`에 해당된다.
-아래의 [참고사항](#참고사항)을 확인하자.
 {{< /note >}}
 
 이 예제에서는 한 개의 컨테이너를 실행하는 파드를 생성한다. 파드를 위한 구성
@@ -47,33 +46,33 @@ weight: 10
 
 1. YAML 구성 파일을 활용해 파드를 생성한다.
 
-    ```shell
-    kubectl apply -f https://k8s.io/examples/pods/commands.yaml
-    ```
+   ```shell
+   kubectl apply -f https://k8s.io/examples/pods/commands.yaml
+   ```
 
 1. 실행 중인 파드들의 목록을 조회한다.
 
-    ```shell
-    kubectl get pods
-    ```
+   ```shell
+   kubectl get pods
+   ```
 
-    출력은 command-demo라는 파드 안에서 실행된 컨테이너가 완료되었다고 표시할
-    것이다.
+   command-demo라는 파드 안에서 실행된 컨테이너가 완료되었다고 출력될
+   것이다.
 
 1. 컨테이너 안에서 실행된 커맨드의 출력을 보기 위해, 파드의 로그를
 확인한다.
 
-    ```shell
-    kubectl logs command-demo
-    ```
+   ```shell
+   kubectl logs command-demo
+   ```
 
-    출력은 HOSTNAME과 KUBERNETES_PORT 환경 변수들의 값들을 표시할
-    것이다.
+   HOSTNAME과 KUBERNETES_PORT 환경 변수들의 값들이 출력될
+   것이다.
 
-    ```
-    command-demo
-    tcp://10.3.240.1:443
-    ```
+   ```
+   command-demo
+   tcp://10.3.240.1:443
+   ```
 
 ## 인자를 정의하기 위해 환경 변수를 사용하기
 
@@ -111,46 +110,9 @@ command: ["/bin/sh"]
 args: ["-c", "while true; do echo hello; sleep 10;done"]
 ```
 
-## 참고사항
-
-이 테이블은 도커와 쿠버네티스에서 사용되는 필드 이름들을 정리한 것이다.
-
-|                   설명                  |       도커 필드 이름      |    쿠버네티스 필드 이름    |
-|----------------------------------------|------------------------|-----------------------|
-|  컨테이너에서 실행되는 커맨드                 |  Entrypoint            |      command          |
-|  커맨드에 전달되는 인자들                    |  Cmd                   |      arg              |
-
-기본 Entrypoint와 Cmd 값을 덮어쓰려고 한다면, 아래의 규칙들이 적용된다.
-
-* 만약 컨테이너를 위한 `command` 값이나 `args` 값을 제공하지 않는다면, 도커 이미지 안에
-제공되는 기본 값들이 사용된다.
-
-* 만약 컨테이너를 위한 `command` 값을 제공하고, `args` 값을 제공하지 않는다면,
-제공된 `command` 값만이 사용된다. 도커 이미지 안에 정의된 기본 EntryPoint 값과 기본
-Cmd 값은 덮어쓰여진다.
-
-* 만약 컨테이너를 위한 `args` 값만 제공한다면, 도커 이미지 안에 정의된 기본 EntryPoint
-값이 정의한 `args` 값들과 함께 실행된다.
-
-* `command` 값과 `args` 값을 동시에 정의한다면, 도커 이미지 안에 정의된 기본
-EntryPoint 값과 기본 Cmd 값이 덮어쓰여진다. `command`가 `args` 값과 함께
-실행된다.
-
-여기 몇 가지 예시들이 있다.
-
-| 이미지 Entrypoint    |    이미지 Cmd      | 컨테이너 command      |  컨테이너 args      |    실행되는 커맨드   |
-|--------------------|------------------|---------------------|--------------------|------------------|
-|     `[/ep-1]`      |   `[foo bar]`    | &lt;설정되지 않음&gt;  | &lt;설정되지 않음&gt; | `[ep-1 foo bar]` |
-|     `[/ep-1]`      |   `[foo bar]`    |      `[/ep-2]`      | &lt;설정되지 않음&gt; |     `[ep-2]`     |
-|     `[/ep-1]`      |   `[foo bar]`    | &lt;설정되지 않음&gt;  |     `[zoo boo]`    | `[ep-1 zoo boo]` |
-|     `[/ep-1]`      |   `[foo bar]`    |   `[/ep-2]`         |     `[zoo boo]`    | `[ep-2 zoo boo]` |
-
-
-
-
 ## {{% heading "whatsnext" %}}
 
 
 * [파드와 컨테이너를 구성하는 방법](/ko/docs/tasks/)에 대해 더 알아본다.
-* [컨테이너 안에서 커맨드를 실행하는 방법](/docs/tasks/debug-application-cluster/get-shell-running-container/)에 대해 더 알아본다.
+* [컨테이너 안에서 커맨드를 실행하는 방법](/ko/docs/tasks/debug/debug-application/get-shell-running-container/)에 대해 더 알아본다.
 * [컨테이너](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)를 확인한다.

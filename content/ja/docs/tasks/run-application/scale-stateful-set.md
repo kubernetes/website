@@ -14,7 +14,7 @@ weight: 50
 * StatefulSetはKubernetesバージョン1.5以降でのみ利用可能です。
   Kubernetesのバージョンを確認するには、`kubectl version`を実行してください。
 
-* すべてのステートフルアプリケーションがうまくスケールできるわけではありません。StatefulSetがスケールするかどうかわからない場合は、[StatefulSetの概念](/ja/docs/concepts/workloads/controllers/statefulset/)または[StatefulSetのチュートリアル](/docs/tutorials/stateful-application/basic-stateful-set/)を参照してください。
+* すべてのステートフルアプリケーションがうまくスケールできるわけではありません。StatefulSetがスケールするかどうかわからない場合は、[StatefulSetの概念](/ja/docs/concepts/workloads/controllers/statefulset/)または[StatefulSetのチュートリアル](/ja/docs/tutorials/stateful-application/basic-stateful-set/)を参照してください。
 
 * ステートフルアプリケーションクラスターが完全に健全であると確信できる場合にのみ、スケーリングを実行してください。
 
@@ -40,7 +40,7 @@ kubectl scale statefulsets <stateful-set-name> --replicas=<new-replicas>
 
 ### StatefulSetのインプレースアップデート
 
-コマンドライン上でレプリカ数を変更する代わりに、StatefulSetに[インプレースアップデート](/docs/concepts/cluster-administration/manage-deployment/#in-place-updates-of-resources)が可能です。
+コマンドライン上でレプリカ数を変更する代わりに、StatefulSetに[インプレースアップデート](/ja/docs/concepts/cluster-administration/manage-deployment/#in-place-updates-of-resources)が可能です。
 
 StatefulSetが最初に `kubectl apply`で作成されたのなら、StatefulSetマニフェストの`.spec.replicas`を更新してから、`kubectl apply`を実行します:
 

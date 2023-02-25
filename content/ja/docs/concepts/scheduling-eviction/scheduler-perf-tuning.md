@@ -40,7 +40,7 @@ kubectl get pods -n kube-system | grep kube-scheduler
 
 スケジューリング性能を改善するため、kube-schedulerは割り当て可能なノードが十分に見つかるとノードの検索を停止できます。大規模クラスターでは、すべてのノードを考慮する単純なアプローチと比較して時間を節約できます。
 
-クラスター内のすべてのノードに対する十分なノード数を整数パーセンテージで指定します。kube-schedulerは、これをノード数に変換します。スケジューリング中に、kube-schedulerが設定されたパーセンテージを超える十分な割り当て可能なノードを見つけた場合、kube-schedulerはこれ以上割り当て可能なノードを探すのを止め、[スコアリングフェーズ](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation)に進みます。
+クラスター内のすべてのノードに対する十分なノード数を整数パーセンテージで指定します。kube-schedulerは、これをノード数に変換します。スケジューリング中に、kube-schedulerが設定されたパーセンテージを超える十分な割り当て可能なノードを見つけた場合、kube-schedulerはこれ以上割り当て可能なノードを探すのを止め、[スコアリングフェーズ](/ja/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler-implementation)に進みます。
 
 [スケジューラーはどのようにノードを探索するか](#how-the-scheduler-iterates-over-nodes)で処理を詳しく説明しています。
 

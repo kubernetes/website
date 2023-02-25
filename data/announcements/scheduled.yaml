@@ -30,6 +30,15 @@
 # leave the "announcements" key in place
 announcements:
 
+- name: Dockershim removal
+  startTime: 2022-04-07T00:00:00 # Added in PR: https://github.com/kubernetes/website/pull/32805
+  endTime: 2022-05-09T00:00:00 
+  style: "background: #326ce5"
+  title: "Dockershim removed from Kubernetes"
+  message: |
+    As of Kubernetes 1.24, Dockershim is no longer included in Kubernetes.
+    Read the [Dockershim Removal FAQ](/dockershim) to see what this means to you.
+
 - name: Kubecon 2020 NA
   startTime: 2020-10-26T00:00:00 # Added in https://github.com/kubernetes/website/pull/24714
   endTime: 2020-11-23T00:00:00 # Removed in https://github.com/kubernetes/website/pull/25173
@@ -63,8 +72,8 @@ announcements:
     It conflicts with the [core values of the Kubernetes project](https://git.k8s.io/community/values.md) and our community does not tolerate it.
 
 - name: Kubecon 2021 EU
-  startTime: 2021-04-30T00:00:00 
-  endTime: 2021-05-07T00:00:00 
+  startTime: 2021-04-30T00:00:00
+  endTime: 2021-05-07T00:00:00
   style: "background-image: linear-gradient(90deg, rgb(249, 145, 6) 0%, rgb(252, 29, 68) 100%)"
   title: |
     <img src="/images/announcements/kubecon-eu-2021-white.svg" style="float: right; height: 80px;" />
@@ -72,3 +81,52 @@ announcements:
   message: |
     4 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
     May 4 - May 7, 2021.
+
+- name: Kubecon 2021 NA
+  startTime: 2021-10-01T00:00:00
+  endTime: 2021-10-16T01:00:00
+  style: "background: linear-gradient(90deg, rgb(7, 132, 111) 0%, rgb(54, 214, 183) 100%)" 
+  title: |
+    <img src="/images/announcements/kubecon-NA-2021-white.svg" style="float: right; height: 80px;" />
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/"> KubeCon + CloudNativeCon North America 2021</a> <em>Los Angeles, California + Virtual</em>.
+  message: |
+    5 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
+    October 11 - 15, 2021.
+
+- name: Kubecon 2021 China
+  startTime: 2021-11-30T00:00:00
+  endTime: 2021-12-10T14:00:00
+  style: "background: linear-gradient(90deg, rgb(253, 133, 1) 0%, rgb(128, 34, 196) 100%)"
+  title: |
+    <img src="/images/announcements/kubecon-China-2021-white.svg" style="float: right; height: 80px;" /> 
+    <a href="https://www.lfasiallc.com/kubecon-cloudnativecon-open-source-summit-china/"> KubeCon + CloudNativeCon + Open Source Summit China 2021</a> <em>Virtual</em>.
+  message: |
+    2 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
+    December 9 + 10, 2021.
+
+- name: Kubecon 2022 EU
+  startTime: 2022-05-10T00:00:00  #Added in https://github.com/kubernetes/website/pull/33578
+  endTime: 2022-05-20T18:00:00
+  style: >-
+    background: linear-gradient(90deg, rgb(253, 225, 203) 0%, rgb(236, 107, 67) 75%, rgb(236, 107, 67) 100%);
+    color: #000;
+  title: |
+    <img src ="/images/announcements/kccnc-eu-2022-black.svg" style="float: right; height: 80px;" />
+    <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/">KubeCon + CloudNativeCon EU 2022</a> <em> Valencia, Spain + Virtual</em>.
+  message: |
+    5 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
+    May 16 - 20, 2022.
+
+- name: Kubecon 2022 NA
+  startTime: 2022-09-23T00:00:00 # Added in https://github.com/kubernetes/website/pull/36107
+                                 # Date amended in https://github.com/kubernetes/website/pull/36927
+  endTime: 2022-10-29T00:00:00
+  style: >-
+    background: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(114,114,255) 100%);
+    color: #fff;
+  title: |
+    <img src="/images/announcements/kccnc-na-2022-white.svg" style="float: right; height: 80px;" />
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/">KubeCon + CloudNativeCon NA 2022</a> <em>Detroit, Michigan + Virtual</em>.
+  message: |
+    5 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
+    October 24 - 28, 2022.

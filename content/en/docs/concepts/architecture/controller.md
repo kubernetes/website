@@ -80,7 +80,7 @@ indicate that your room is now at the temperature you set).
 
 ### Direct control
 
-By contrast with Job, some controllers need to make changes to
+In contrast with Job, some controllers need to make changes to
 things outside of your cluster.
 
 For example, if you use a control loop to make sure there
@@ -95,8 +95,8 @@ the current state closer in line.
 (There actually is a [controller](https://github.com/kubernetes/autoscaler/)
 that horizontally scales the nodes in your cluster.)
 
-The important point here is that the controller makes some change to bring about
-your desired state, and then reports current state back to your cluster's API server.
+The important point here is that the controller makes some changes to bring about
+your desired state, and then reports the current state back to your cluster's API server.
 Other control loops can observe that reported data and take their own actions.
 
 In the thermostat example, if the room is very cold then a different controller
@@ -159,11 +159,12 @@ You can run your own controller as a set of Pods,
 or externally to Kubernetes. What fits best will depend on what that particular
 controller does.
 
-
-
 ## {{% heading "whatsnext" %}}
 
 * Read about the [Kubernetes control plane](/docs/concepts/overview/components/#control-plane-components)
 * Discover some of the basic [Kubernetes objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/)
 * Learn more about the [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
-* If you want to write your own controller, see [Extension Patterns](/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns) in Extending Kubernetes.
+* If you want to write your own controller, see
+  [Extension Patterns](/docs/concepts/extend-kubernetes/#extension-patterns)
+  in Extending Kubernetes.
+

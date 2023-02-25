@@ -64,7 +64,7 @@ untuk memberikan akses baca pada {{< glossary_tooltip text="Pod" term_id="pod" >
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  Namespace: default
+  namespace: default
   name: pod-reader
 rules:
 - apiGroups: [""] # "" mengindikasikan grup API inti
@@ -248,7 +248,7 @@ rules:
 
 Kamu juga dapat merujuk ke sumber daya dengan nama untuk permintaan tertentu melalui daftar `resourceNames`.
 Ketika nama dicantumkan, permintaan dapat dibatasi untuk setiap objek sumber daya.
-Berikut adalah contoh yang membatasi subjeknya hanya untuk melakukan `get` atau` update` pada sebuah
+Berikut adalah contoh yang membatasi subjeknya hanya untuk melakukan `get` atau `update` pada sebuah
 {{< glossary_tooltip term_id="ConfigMap" >}} bernama `my-configmap`:
 
 ```yaml
@@ -268,7 +268,7 @@ rules:
 ```
 
 {{< note >}}
-Kamu tidak dapat membatasi permintaan `create` atau` deletecollection` dengan nama sumber daya. Untuk `create`, 
+Kamu tidak dapat membatasi permintaan `create` atau `deletecollection` dengan nama sumber daya. Untuk `create`, 
 keterbatasan ini dikarenakan nama objek tidak diketahui pada waktu otorisasi.
 {{< /note >}}
 
@@ -773,7 +773,7 @@ Hal ini umumnya digunakan oleh pugasan server API untuk otentikasi dan otorisasi
 <tr>
 <td><b>system:persistent-volume-provisioner</b></td>
 <td>Tidak ada</td>
-<td>Mengizinkan akses ke sumber daya yang dibutuhkan oleh kebanyakan <a href="/docs/concepts/storage/persistent-volumes/#provisioner">penyedia volume dinamis</a>.</td>
+<td>Mengizinkan akses ke sumber daya yang dibutuhkan oleh kebanyakan <a href="/id/docs/concepts/storage/persistent-volumes/#dinamis">penyedia volume dinamis</a>.</td>
 </tr>
 <tbody>
 </table>

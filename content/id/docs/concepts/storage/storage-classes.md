@@ -89,7 +89,7 @@ Kamu tidak dibatasi untuk hanya menggunakan _provisioner_ internal yang disediak
 pada list yang tersedia (yang memiliki nama dengan prefix "kubernetes.io" dan
 didistribusikan bersamaan dengan Kubernetes). Kamu juga dapat menjalankan dan
 mendefinisikan _provisioner_ eksternal yang merupakan program independen selama
-program tersebut menerapkan [spesifikasi](https://git.k8s.io/community/contributors/design-proposals/storage/volume-provisioning.md)
+program tersebut menerapkan [spesifikasi](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/volume-provisioning.md)
 yang didefinisikan oleh Kubernetes. Penulis dari _provisioner_ eksternal Kubernetes
 memiliki kuasa penuh akan tempat dimana kode sumber yang mereka tulis, bagaimana
 mekanisme penyediaan (_provisioning_) dilakukan, serta bagaimana hal tersebut dapat dijalankan,
@@ -198,8 +198,8 @@ allowedTopologies:
 - matchLabelExpressions:
   - key: failure-domain.beta.kubernetes.io/zone
     values:
-    - us-central1-a
-    - us-central1-b
+    - us-central-1a
+    - us-central-1b
 ```
 
 ## Parameter-Parameter
@@ -373,7 +373,7 @@ parameters:
   * Distribusi volume: `volumetype: none`
 
   Untuk tipe volume apa saja yang tersedia dan berbagai opsi administrasi yang ada, kamu dapat membaca
-  [Petunjuk Administrasi](https://access.redhat.com/documentation/en-US/Red_Hat_Storage/3.1/html/Administration_Guide/part-Overview.html).
+  [Petunjuk Administrasi](https://access.redhat.com/documentation/en-us/red_hat_gluster_storage/).
 
   Untuk informasi lebih lanjut, kamu dapat membaca
   [Bagaimana Cara Mengatur Heketi](https://github.com/heketi/heketi/wiki/Setting-up-the-topology).
@@ -595,11 +595,11 @@ metadata:
 provisioner: kubernetes.io/azure-disk
 parameters:
   storageaccounttype: Standard_LRS
-  kind: Shared
+  kind: managed
 ```
 
 * `storageaccounttype`: Akun penyimpanan Azure yang ada pada tingkatan Sku. Nilai _default_-nya adalah kosong.
-* `kind`: Nilai yang mungkin adalah `shared` (default), `dedicated`, dan `managed`.
+* `kind`: Nilai yang mungkin adalah `shared`, `dedicated`, dan `managed` (default).
   Ketika `kind` yang digunakan adalah `shared`, semua disk yang tidak di-_manage_ akan
   dibuat pada beberapa akun penyimpanan yang ada pada grup sumber daya yang sama dengan klaster.
   Ketika `kind` yang digunakan adalah `dedicated`, sebuah akun penyimpanan

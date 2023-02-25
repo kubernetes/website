@@ -22,8 +22,7 @@ be consumed by resources in that namespace.
 
 Resource quotas work like this:
 
-- Different teams work in different namespaces.  Currently this is voluntary, but
-  support for making this mandatory via ACLs is planned.
+- Different teams work in different namespaces. This can be enforced with [RBAC](/docs/reference/access-authn-authz/rbac/).
 
 - The administrator creates one ResourceQuota for each namespace.
 
@@ -39,6 +38,18 @@ Resource quotas work like this:
 
   See the [walkthrough](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
   for an example of how to avoid this problem.
+
+{{< note >}}
+- For `cpu` and `memory` resources, ResourceQuotas enforce that **every**
+(new) pod in that namespace sets a limit for that resource.
+If you enforce a resource quota in a namespace for either `cpu` or `memory`,
+you, and other clients, **must** specify either `requests` or `limits` for that resource,
+for every new Pod you submit. If you don't, the control plane may reject admission
+for that Pod.
+- For other resources: ResourceQuota works and will ignore pods in the namespace without setting a limit or request for that resource. It means that you can create a new pod without limit/request ephemeral storage if the resource quota limits the ephemeral storage of this namespace.
+You can use a [LimitRange](/docs/concepts/policy/limit-range/) to automatically set
+a default request for these resources.
+{{< /note >}}
 
 The name of a ResourceQuota object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
@@ -57,8 +68,9 @@ Neither contention nor changes to quota will affect already created resources.
 
 ## Enabling Resource Quota
 
-Resource Quota support is enabled by default for many Kubernetes distributions.  It is
-enabled when the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} `--enable-admission-plugins=` flag has `ResourceQuota` as
+Resource Quota support is enabled by default for many Kubernetes distributions. It is
+enabled when the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
+`--enable-admission-plugins=` flag has `ResourceQuota` as
 one of its arguments.
 
 A resource quota is enforced in a particular namespace when there is a
@@ -66,7 +78,9 @@ ResourceQuota in that namespace.
 
 ## Compute Resource Quota
 
-You can limit the total sum of [compute resources](/docs/concepts/configuration/manage-resources-containers/) that can be requested in a given namespace.
+You can limit the total sum of
+[compute resources](/docs/concepts/configuration/manage-resources-containers/)
+that can be requested in a given namespace.
 
 The following resource types are supported:
 
@@ -125,7 +139,9 @@ In release 1.8, quota support for local ephemeral storage is added as an alpha f
 | `ephemeral-storage` | Same as `requests.ephemeral-storage`. |
 
 {{< note >}}
-When using a CRI container runtime, container logs will count against the ephemeral storage quota. This can result in the unexpected eviction of pods that have exhausted their storage quotas. Refer to [Logging Architecture](/docs/concepts/cluster-administration/logging/) for details.
+When using a CRI container runtime, container logs will count against the ephemeral storage quota.
+This can result in the unexpected eviction of pods that have exhausted their storage quotas.
+Refer to [Logging Architecture](/docs/concepts/cluster-administration/logging/) for details.
 {{< /note >}}
 
 ## Object Count Quota
@@ -192,7 +208,7 @@ Resources specified on the quota outside of the allowed set results in a validat
 | `NotTerminating` | Match pods where `.spec.activeDeadlineSeconds is nil` |
 | `BestEffort` | Match pods that have best effort quality of service. |
 | `NotBestEffort` | Match pods that do not have best effort quality of service. |
-| `PriorityClass` | Match pods that references the specified [priority class](/docs/concepts/configuration/pod-priority-preemption). |
+| `PriorityClass` | Match pods that references the specified [priority class](/docs/concepts/scheduling-eviction/pod-priority-preemption). |
 | `CrossNamespacePodAffinity` | Match pods that have cross-namespace pod [(anti)affinity terms](/docs/concepts/scheduling-eviction/assign-pod-node). |
 
 The `BestEffort` scope restricts a quota to tracking the following resource:
@@ -248,13 +264,14 @@ specified.
 
 {{< feature-state for_k8s_version="v1.17" state="stable" >}}
 
-Pods can be created at a specific [priority](/docs/concepts/configuration/pod-priority-preemption/#pod-priority).
+Pods can be created at a specific [priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority).
 You can control a pod's consumption of system resources based on a pod's priority, by using the `scopeSelector`
 field in the quota spec.
 
 A quota is matched and consumed only if `scopeSelector` in the quota spec selects the pod.
 
-When quota is scoped for priority class using `scopeSelector` field, quota object is restricted to track only following resources:
+When quota is scoped for priority class using `scopeSelector` field, quota object
+is restricted to track only following resources:
 
 * `pods`
 * `cpu`
@@ -436,7 +453,7 @@ pods        0     10
 
 ### Cross-namespace Pod Affinity Quota
 
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 Operators can use `CrossNamespacePodAffinity` quota scope to limit which namespaces are allowed to
 have pods with affinity terms that cross namespaces. Specifically, it controls which pods are allowed
@@ -486,10 +503,6 @@ plugins:
 With the above configuration, pods can use `namespaces` and `namespaceSelector` in pod affinity only
 if the namespace where they are created have a resource quota object with 
 `CrossNamespaceAffinity` scope and a hard limit greater than or equal to the number of pods using those fields.
-
-This feature is alpha and disabled by default. You can enable it by setting the
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`PodAffinityNamespaceSelector` in both kube-apiserver and kube-scheduler.
 
 ## Requests compared to Limits {#requests-vs-limits}
 
@@ -554,7 +567,7 @@ kubectl create -f ./object-counts.yaml --namespace=myspace
 kubectl get quota --namespace=myspace
 ```
 
-```
+```none
 NAME                    AGE
 compute-resources       30s
 object-counts           32s
@@ -564,7 +577,7 @@ object-counts           32s
 kubectl describe quota compute-resources --namespace=myspace
 ```
 
-```
+```none
 Name:                    compute-resources
 Namespace:               myspace
 Resource                 Used  Hard
@@ -580,7 +593,7 @@ requests.nvidia.com/gpu  0     4
 kubectl describe quota object-counts --namespace=myspace
 ```
 
-```
+```none
 Name:                   object-counts
 Namespace:              myspace
 Resource                Used    Hard
@@ -677,10 +690,10 @@ Then, create a resource quota object in the `kube-system` namespace:
 {{< codenew file="policy/priority-class-resourcequota.yaml" >}}
 
 ```shell
-$ kubectl apply -f https://k8s.io/examples/policy/priority-class-resourcequota.yaml -n kube-system
+kubectl apply -f https://k8s.io/examples/policy/priority-class-resourcequota.yaml -n kube-system
 ```
 
-```
+```none
 resourcequota/pods-cluster-services created
 ```
 
@@ -696,7 +709,7 @@ and it is to be created in a namespace other than `kube-system`.
 
 ## {{% heading "whatsnext" %}}
 
-- See [ResourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) for more information.
+- See [ResourceQuota design doc](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_resource_quota.md) for more information.
 - See a [detailed example for how to use resource quota](/docs/tasks/administer-cluster/quota-api-object/).
-- Read [Quota support for priority class design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md).
+- Read [Quota support for priority class design doc](https://git.k8s.io/design-proposals-archive/scheduling/pod-priority-resourcequota.md).
 - See [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765)

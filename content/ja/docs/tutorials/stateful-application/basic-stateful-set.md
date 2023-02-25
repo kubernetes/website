@@ -15,7 +15,7 @@ weight: 10
 * [Cluster DNS](/ja/docs/concepts/services-networking/dns-pod-service/)
 * [Headless Service](/ja/docs/concepts/services-networking/service/#headless-services)
 * [PersistentVolume](/ja/docs/concepts/storage/persistent-volumes/)
-* [PersistentVolumeのプロビジョニング](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/staging/persistent-volume-provisioning/)
+* [PersistentVolumeのプロビジョニング](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
 * [StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)
 * [kubectl](/docs/reference/kubectl/kubectl/)コマンドラインツール
 
@@ -492,7 +492,7 @@ web-0     1/1       Running   0         10s
 
 StatefulSet内のPodは、順序インデックスの逆順に更新されました。StatefulSetコントローラーは各Podを終了させ、次のPodを更新する前に、新しいPodがRunningかつReadyの状態に変わるまで待機します。ここで、StatefulSetコントローラーは順序インデックスの前のPodがRunningかつReadyの状態になるまで次のPodの更新を始めず、現在の状態へのアップデートに失敗したPodがあった場合、そのPodをリストアすることに注意してください。
 
-すでにアップデートを受け取ったPodは、アップデートされたバージョンにリストアされます。まだアップデートを受け取っていないPodは、前のバージョンにリストアされます。このような方法により、もし途中で失敗が起こっても、コントローラはアプリケーションが健全な状態を保ち続けられるようにし、更新が一貫したものになるようにします。
+すでにアップデートを受け取ったPodは、アップデートされたバージョンにリストアされます。まだアップデートを受け取っていないPodは、前のバージョンにリストアされます。このような方法により、もし途中で失敗が起こっても、コントローラーはアプリケーションが健全な状態を保ち続けられるようにし、更新が一貫したものになるようにします。
 
 Podを取得して、コンテナイメージを確認してみましょう。
 
@@ -500,9 +500,9 @@ Podを取得して、コンテナイメージを確認してみましょう。
 for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
 ```
 ```
-k8s.gcr.io/nginx-slim:0.8
-k8s.gcr.io/nginx-slim:0.8
-k8s.gcr.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
 
 ```
 
@@ -528,7 +528,7 @@ statefulset.apps/web patched
 StatefulSetに再度patchを当てて、コンテナイメージを変更します。
 
 ```shell
-kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"k8s.gcr.io/nginx-slim:0.7"}]'
+kubectl patch statefulset web --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"registry.k8s.io/nginx-slim:0.7"}]'
 ```
 ```
 statefulset.apps/web patched
@@ -562,7 +562,7 @@ Podのコンテナイメージを取得します。
 kubectl get pod web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 ```
 ```
-k8s.gcr.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
 ```
 
 アップデート戦略が`RollingUpdate`であっても、StatefulSetが元のコンテナを持つPodをリストアしたことがわかります。これは、Podの順序インデックスが`updateStrategy`で指定した`partition`より小さいためです。
@@ -599,7 +599,7 @@ Podのコンテナを取得します。
 kubectl get pod web-2 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 ```
 ```
-k8s.gcr.io/nginx-slim:0.7
+registry.k8s.io/nginx-slim:0.7
 
 ```
 
@@ -640,7 +640,7 @@ web-1     1/1       Running   0         18s
 kubectl get pod web-1 --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'
 ```
 ```
-k8s.gcr.io/nginx-slim:0.8
+registry.k8s.io/nginx-slim:0.8
 ```
 
 Podの順序インデックスがpartitionよりも小さいため、`web-1`は元の設定のコンテナイメージにリストアされました。partitionを指定すると、StatefulSetの`.spec.template`が更新されたときに、順序インデックスがそれ以上の値を持つすべてのPodがアップデートされます。partitionよりも小さな順序インデックスを持つPodが削除されたり終了されたりすると、元の設定のPodにリストアされます。
@@ -688,9 +688,9 @@ StatefulSet内のPodのコンテナイメージの詳細を取得します。
 for p in 0 1 2; do kubectl get pod "web-$p" --template '{{range $i, $c := .spec.containers}}{{$c.image}}{{end}}'; echo; done
 ```
 ```
-k8s.gcr.io/nginx-slim:0.7
-k8s.gcr.io/nginx-slim:0.7
-k8s.gcr.io/nginx-slim:0.7
+registry.k8s.io/nginx-slim:0.7
+registry.k8s.io/nginx-slim:0.7
+registry.k8s.io/nginx-slim:0.7
 ```
 
 `partition`を`0`に移動することで、StatefulSetがアップデート処理を続けられるようにできます。
@@ -711,10 +711,10 @@ StatefulSetは、非カスケードな削除とカスケードな削除の両方
 kubectl get pods -w -l app=nginx
 ```
 
-[`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#delete)を使用して、StatefulSetを削除します。このとき、`--cascade=false`パラメーターをコマンドに与えてください。このパラメーターは、Kubernetesに対して、StatefulSetだけを削除して配下のPodは削除しないように指示します。
+[`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#delete)を使用して、StatefulSetを削除します。このとき、`--cascade=orphan`パラメーターをコマンドに与えてください。このパラメーターは、Kubernetesに対して、StatefulSetだけを削除して配下のPodは削除しないように指示します。
 
 ```shell
-kubectl delete statefulset web --cascade=false
+kubectl delete statefulset web --cascade=orphan
 ```
 ```
 statefulset.apps "web" deleted
@@ -814,7 +814,7 @@ web-1
 kubectl get pods -w -l app=nginx
 ```
 
-2つ目のターミナルで、StatefulSetをもう一度削除します。今回は、`--cascade=false`パラメーターを省略します。
+2つ目のターミナルで、StatefulSetをもう一度削除します。今回は、`--cascade=orphan`パラメーターを省略します。
 
 ```shell
 kubectl delete statefulset web

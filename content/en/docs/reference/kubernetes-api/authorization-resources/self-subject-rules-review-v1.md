@@ -40,6 +40,7 @@ SelfSubjectRulesReview enumerates the set of actions the current user can perfor
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
+  Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../authorization-resources/self-subject-rules-review-v1#SelfSubjectRulesReviewSpec" >}}">SelfSubjectRulesReviewSpec</a>), required
 
@@ -105,7 +106,7 @@ SelfSubjectRulesReview enumerates the set of actions the current user can perfor
 
 ## SelfSubjectRulesReviewSpec {#SelfSubjectRulesReviewSpec}
 
-
+SelfSubjectRulesReviewSpec defines the specification for SelfSubjectRulesReview.
 
 <hr>
 
@@ -150,6 +151,11 @@ POST /apis/authorization.k8s.io/v1/selfsubjectrulesreviews
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **pretty** (*in query*): string

@@ -17,23 +17,23 @@ Pod内のコンテナのリソース*要求*を指定すると、スケジュー
 
 <!-- body -->
 
-## 要求と制限
+## 要求と制限 {#requests-and-limits}
 
 Podが動作しているNodeに利用可能なリソースが十分にある場合、そのリソースの`要求`が指定するよりも多くのリソースをコンテナが使用することが許可されます
 ただし、コンテナはそのリソースの`制限`を超えて使用することはできません。
 
 たとえば、コンテナに256MiBの`メモリー`要求を設定し、そのコンテナが8GiBのメモリーを持つNodeにスケジュールされたPod内に存在し、他のPodが存在しない場合、コンテナはより多くのRAMを使用しようとする可能性があります。
 
-そのコンテナに4GiBの`メモリー`制限を設定すると、kubelet(および{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}) が制限を適用します。ランタイムは、コンテナーが設定済みのリソース制限を超えて使用するのを防ぎます。例えば、コンテナ内のプロセスが、許容量を超えるメモリを消費しようとすると、システムカーネルは、メモリ不足(OOM)エラーで、割り当てを試みたプロセスを終了します。
+そのコンテナに4GiBの`メモリー`制限を設定すると、kubelet(および{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}) が制限を適用します。ランタイムは、コンテナが設定済みのリソース制限を超えて使用するのを防ぎます。例えば、コンテナ内のプロセスが、許容量を超えるメモリを消費しようとすると、システムカーネルは、メモリ不足(OOM)エラーで、割り当てを試みたプロセスを終了します。
 
-制限は、違反が検出されるとシステムが介入するように事後的に、またはコンテナーが制限を超えないようにシステムが防ぐように強制的に、実装できます。
+制限は、違反が検出されるとシステムが介入するように事後的に、またはコンテナが制限を超えないようにシステムが防ぐように強制的に、実装できます。
 異なるランタイムは、同じ制限を実装するために異なる方法をとることができます。
 
 {{< note >}}
 コンテナが自身のメモリー制限を指定しているが、メモリー要求を指定していない場合、Kubernetesは制限に一致するメモリー要求を自動的に割り当てます。同様に、コンテナが自身のCPU制限を指定しているが、CPU要求を指定していない場合、Kubernetesは制限に一致するCPU要求を自動的に割り当てます。
 {{< /note >}}
 
-## リソースタイプ
+## リソースタイプ {#resource-types}
 
 *CPU*と*メモリー*はいずれも*リソースタイプ*です。リソースタイプには基本単位があります。
 CPUは計算処理を表し、[Kubernetes CPUs](#meaning-of-cpu)の単位で指定されます。
@@ -51,10 +51,10 @@ Huge PageはLinux固有の機能であり、Nodeのカーネルはデフォル�
 
 CPUとメモリーは、まとめて*コンピュートリソース*または単に*リソース*と呼ばれます。
 コンピューティングリソースは、要求され、割り当てられ、消費され得る測定可能な量です。
-それらは[API resources](/docs/concepts/overview/kubernetes-api/)とは異なります。
-Podや[Services](/docs/concepts/services-networking/service/)などのAPIリソースは、Kubernetes APIサーバーを介して読み取りおよび変更できるオブジェクトです。
+それらは[API resources](/ja/docs/concepts/overview/kubernetes-api/)とは異なります。
+Podや[Services](/ja/docs/concepts/services-networking/service/)などのAPIリソースは、Kubernetes APIサーバーを介して読み取りおよび変更できるオブジェクトです。
 
-## Podとコンテナのリソース要求と制限
+## Podとコンテナのリソース要求と制限 {#resource-requests-and-limits-of-pod-and-container}
 
 Podの各コンテナは、次の1つ以上を指定できます。
 
@@ -68,9 +68,9 @@ Podの各コンテナは、次の1つ以上を指定できます。
 要求と制限はそれぞれのコンテナでのみ指定できますが、このPodリソースの要求と制限の関係性について理解すると便利です。
 特定のリソースタイプの*Podリソース要求/制限*は、Pod内の各コンテナに対するそのタイプのリソース要求/制限の合計です。
 
-## Kubernetesにおけるリソースの単位
+## Kubernetesにおけるリソースの単位 {#resource-units-in-kubernetes}
 
-### CPUの意味
+### CPUの意味 {#meaning-of-cpu}
 
 CPUリソースの制限と要求は、*cpu*単位で測定されます。
 Kuberenetesにおける1つのCPUは、クラウドプロバイダーの**1 vCPU/コア**およびベアメタルのインテルプロセッサーの**1 ハイパースレッド**に相当します。
@@ -85,7 +85,7 @@ Kuberenetesにおける1つのCPUは、クラウドプロバイダーの**1 vCPU
 CPUは常に相対量としてではなく、絶対量として要求されます。
 0.1は、シングルコア、デュアルコア、あるいは48コアマシンのどのCPUに対してでも、同一の量を要求します。
 
-### メモリーの意味
+### メモリーの意味 {#meaning-of-memory}
 
 `メモリー`の制限と要求はバイト単位で測定されます。
 E、P、T、G、M、Kのいずれかのサフィックスを使用して、メモリーを整数または固定小数点数として表すことができます。
@@ -128,7 +128,7 @@ spec:
         cpu: "500m"
 ```
 
-## リソース要求を含むPodがどのようにスケジュールされるか
+## リソース要求を含むPodがどのようにスケジュールされるか {#how-pods-with-resource-requests-are-scheduled}
 
 Podを作成すると、KubernetesスケジューラーはPodを実行するNodeを選択します。
 各Nodeには、リソースタイプごとに最大容量があります。それは、Podに提供できるCPUとメモリの量です。
@@ -136,7 +136,7 @@ Podを作成すると、KubernetesスケジューラーはPodを実行するNode
 Node上の実際のメモリーまたはCPUリソースの使用率は非常に低いですが、容量チェックが失敗した場合、スケジューラーはNodeにPodを配置しないことに注意してください。
 これにより、例えば日々のリソース要求のピーク時など、リソース利用が増加したときに、Nodeのリソース不足から保護されます。
 
-## リソース制限のあるPodがどのように実行されるか
+## リソース制限のあるPodがどのように実行されるか {#how-pods-with-resource-limits-are-run}
 
 kubeletがPodのコンテナを開始すると、CPUとメモリーの制限がコンテナランタイムに渡されます。
 
@@ -166,13 +166,13 @@ Dockerを使用する場合:
 
 コンテナをスケジュールできないか、リソース制限が原因で強制終了されているかどうかを確認するには、[トラブルシューティング](#troubleshooting)のセクションを参照してください。
 
-### コンピュートリソースとメモリーリソースの使用量を監視する
+### コンピュートリソースとメモリーリソースの使用量を監視する {#monitoring-compute-memory-resource-usage}
 
 Podのリソース使用量は、Podのステータスの一部として報告されます。
 
 オプションの[監視ツール](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)がクラスターにおいて利用可能な場合、Podのリソース使用量は[メトリクスAPI](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#the-metrics-api)から直接、もしくは監視ツールから取得できます。
 
-## ローカルのエフェメラルストレージ
+## ローカルのエフェメラルストレージ {#local-ephemeral-storage}
 
 <!-- feature gate LocalStorageCapacityIsolation -->
 {{< feature-state for_k8s_version="v1.10" state="beta" >}}
@@ -192,7 +192,7 @@ Nodeに障害が発生すると、そのエフェメラルストレージ内の�
 
 ベータ版の機能として、Kubernetesでは、Podが消費するローカルのエフェメラルストレージの量を追跡、予約、制限することができます。
 
-### ローカルエフェメラルストレージの設定
+### ローカルエフェメラルストレージの設定 {#configurations-for-local-ephemeral-storage}
 
 Kubernetesは、Node上のローカルエフェメラルストレージを構成する2つの方法をサポートしています。
 {{< tabs name="local_storage_configurations" >}}
@@ -235,7 +235,7 @@ kubeletは、ローカルストレージの使用量を測定できます。
 kubeletは、`tmpfs`のemptyDirボリュームをローカルのエフェメラルストレージとしてではなく、コンテナメモリーとして追跡します。
 {{< /note >}}
 
-### ローカルのエフェメラルストレージの要求と制限設定
+### ローカルのエフェメラルストレージの要求と制限設定 {#setting-requests-and-limits-for-local-ephemeral-storage}
 
 ローカルのエフェメラルストレージを管理するためには _ephemeral-storage_ パラメーターを利用することができます。
 Podの各コンテナは、次の1つ以上を指定できます。
@@ -270,6 +270,9 @@ spec:
         ephemeral-storage: "2Gi"
       limits:
         ephemeral-storage: "4Gi"
+    volumeMounts:
+      - name: ephemeral
+        mountPath: "/tmp"
   - name: log-aggregator
     image: images.my-company.example/log-aggregator:v6
     resources:
@@ -277,9 +280,15 @@ spec:
         ephemeral-storage: "2Gi"
       limits:
         ephemeral-storage: "4Gi"
+    volumeMounts:
+      - name: ephemeral
+        mountPath: "/tmp"
+  volumes:
+    - name: ephemeral
+      emptyDir: {}
 ```
 
-### エフェメラルストレージを要求するPodのスケジュール方法
+### エフェメラルストレージを要求するPodのスケジュール方法 {#how-pods-with-ephemeral-storage-requests-are-scheduled}
 
 Podを作成すると、KubernetesスケジューラーはPodを実行するNodeを選択します。
 各Nodeには、Podに提供できるローカルのエフェメラルストレージの上限があります。
@@ -366,7 +375,7 @@ Kubernetesが使用しないようにする必要があります。
 {{% /tab %}}
 {{< /tabs >}}
 
-## 拡張リソース
+## 拡張リソース {#extended-resources}
 
 拡張リソースは`kubernetes.io`ドメインの外で完全に修飾されたリソース名です。
 これにより、クラスタオペレータはKubernetesに組み込まれていないリソースをアドバタイズし、ユーザはそれを利用することができるようになります。
@@ -375,16 +384,16 @@ Kubernetesが使用しないようにする必要があります。
 第一に、クラスタオペレーターは拡張リソースをアドバタイズする必要があります。
 第二に、ユーザーはPodで拡張リソースを要求する必要があります。
 
-### 拡張リソースの管理
+### 拡張リソースの管理 {#managing-extended-resources}
 
-#### Nodeレベルの拡張リソース
+#### Nodeレベルの拡張リソース {#node-level-extended-resources}
 
 Nodeレベルの拡張リソースはNodeに関連付けられています。
 
-##### デバイスプラグイン管理のリソース
+##### デバイスプラグイン管理のリソース {#device-plugin-managed-resources}
 各Nodeにデバイスプラグインで管理されているリソースをアドバタイズする方法については、[デバイスプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)を参照してください。
 
-##### その他のリソース
+##### その他のリソース {#other-resources}
 新しいNodeレベルの拡張リソースをアドバタイズするには、クラスタオペレータはAPIサーバに`PATCH`HTTPリクエストを送信し、クラスタ内のNodeの`status.capacity`に利用可能な量を指定します。
 この操作の後、ノードの`status.capacity`には新しいリソースが含まれます。
 `status.allocatable`フィールドは、kubeletによって非同期的に新しいリソースで自動的に更新されます。
@@ -407,7 +416,7 @@ JSON-Patchの操作パス値は、JSON-Pointerとして解釈されます。
 詳細については、[IETF RFC 6901, section 3](https://tools.ietf.org/html/rfc6901#section-3)を参照してください。
 {{< /note >}}
 
-#### クラスターレベルの拡張リソース
+#### クラスターレベルの拡張リソース {#cluster-level-extended-resources}
 
 クラスターレベルの拡張リソースはノードに関連付けられていません。
 これらは通常、リソース消費とリソースクォータを処理するスケジューラー拡張機能によって管理されます。
@@ -440,7 +449,7 @@ JSON-Patchの操作パス値は、JSON-Pointerとして解釈されます。
 }
 ```
 
-### 拡張リソースの消費
+### 拡張リソースの消費 {#consuming-extended-resources}
 
 ユーザーは、CPUやメモリのようにPodのスペックで拡張されたリソースを消費できます。
 利用可能な量以上のリソースが同時にPodに割り当てられないように、スケジューラーがリソースアカウンティングを行います。
@@ -484,9 +493,9 @@ spec:
         example.com/foo: 1
 ```
 
-## トラブルシューティング
+## トラブルシューティング {#troubleshooting}
 
-### failedSchedulingイベントメッセージが表示され、Podが保留中になる
+### failedSchedulingイベントメッセージが表示され、Podが保留中になる {#my-pods-are-pending-with-event-message-failedscheduling}
 
 スケジューラーがPodが収容されるNodeを見つけられない場合、場所が見つかるまでPodはスケジュールされないままになります。
 スケジューラーがPodの場所を見つけられないたびに、次のようなイベントが生成されます。
@@ -548,12 +557,12 @@ Allocated resources:
 
 システムデーモンが利用可能なリソースの一部を使用しているため、Podに利用可能なリソースの量はNodeの容量よりも少なくなっています。
 `allocatable`フィールド[NodeStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodestatus-v1-core)は、Podに利用可能なリソースの量を与えます。
-詳細については、[ノード割り当て可能なリソース](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md)を参照してください。
+詳細については、[ノード割り当て可能なリソース](https://git.k8s.io/design-proposals-archive/node/node-allocatable.md)を参照してください。
 
 [リソースクォータ](/docs/concepts/policy/resource-quotas/)機能は、消費できるリソースの総量を制限するように設定することができます。
 名前空間と組み合わせて使用すると、1つのチームがすべてのリソースを占有するのを防ぐことができます。
 
-### コンテナが終了した
+### コンテナが終了した {#my-container-is-terminated}
 
 コンテナはリソース不足のため、終了する可能性があります。
 コンテナがリソース制限に達したために強制終了されているかどうかを確認するには、対象のPodで`kubectl describe pod`を呼び出します。
@@ -592,7 +601,7 @@ Conditions:
 Events:
   FirstSeen                         LastSeen                         Count  From                              SubobjectPath                       Reason      Message
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {scheduler }                                                          scheduled   Successfully assigned simmemleak-hra99 to kubernetes-node-tf0f
-  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   pulled      Pod container image "k8s.gcr.io/pause:0.8.0" already present on machine
+  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   pulled      Pod container image "registry.k8s.io/pause:0.8.0" already present on machine
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   created     Created with docker id 6a41280f516d
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   started     Started with docker id 6a41280f516d
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    spec.containers{simmemleak}         created     Created with docker id 87348f12526a
@@ -615,11 +624,11 @@ LastState: map[terminated:map[exitCode:137 reason:OOM Killed startedAt:2015-07-0
 
 ## {{% heading "whatsnext" %}}
 
-* [コンテナとPodへのメモリーリソースの割り当て](/docs/tasks/configure-pod-container/assign-memory-resource/)ハンズオンを行う
+* [コンテナとPodへのメモリーリソースの割り当て](/ja/docs/tasks/configure-pod-container/assign-memory-resource/)ハンズオンを行う
 
-* [コンテナとPodへのCPUリソースの割り当て](/docs/tasks/configure-pod-container/assign-cpu-resource/)ハンズオンを行う
+* [コンテナとPodへのCPUリソースの割り当て](/ja/docs/tasks/configure-pod-container/assign-cpu-resource/)ハンズオンを行う
 
-* 要求と制限の違いの詳細については、[リソースQoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md)を参照する
+* 要求と制限の違いの詳細については、[リソースQoS](https://git.k8s.io/design-proposals-archive/node/resource-qos.md)を参照する
 
 * [コンテナ](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)APIリファレンスを読む
 

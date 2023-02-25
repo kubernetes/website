@@ -2,6 +2,10 @@
 title: "bash auto-completion on macOS"
 description: "Some optional configuration for bash auto-completion on macOS."
 headless: true
+_build:
+  list: never
+  render: never
+  publishResources: false
 ---
 
 ### Introduction
@@ -51,8 +55,7 @@ brew install bash-completion@2
 As stated in the output of this command, add the following to your `~/.bash_profile` file:
 
 ```bash
-export BASH_COMPLETION_COMPAT_DIR="/usr/local/etc/bash_completion.d"
-[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+brew_etc="$(brew --prefix)/etc" && [[ -r "${brew_etc}/profile.d/bash_completion.sh" ]] && . "${brew_etc}/profile.d/bash_completion.sh"
 ```
 
 Reload your shell and verify that bash-completion v2 is correctly installed with `type _init_completion`.
@@ -77,7 +80,7 @@ You now have to ensure that the kubectl completion script gets sourced in all yo
 
     ```bash
     echo 'alias k=kubectl' >>~/.bash_profile
-    echo 'complete -F __start_kubectl k' >>~/.bash_profile
+    echo 'complete -o default -F __start_kubectl k' >>~/.bash_profile
     ```
 
 - If you installed kubectl with Homebrew (as explained [here](/docs/tasks/tools/install-kubectl-macos/#install-with-homebrew-on-macos)), then the kubectl completion script should already be in `/usr/local/etc/bash_completion.d/kubectl`. In that case, you don't need to do anything.

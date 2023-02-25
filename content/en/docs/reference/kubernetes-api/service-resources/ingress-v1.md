@@ -66,7 +66,7 @@ IngressSpec describes the Ingress the user wishes to exist.
 
 - **ingressClassName** (string)
 
-  IngressClassName is the name of the IngressClass cluster resource. The associated IngressClass defines which controller will implement the resource. This replaces the deprecated `kubernetes.io/ingress.class` annotation. For backwards compatibility, when that annotation is set, it must be given precedence over this field. The controller may emit a warning if the field and annotation have different values. Implementations of this API should ignore Ingresses without a class specified. An IngressClass resource may be marked as default, which can be used to set a default value for this field. For more information, refer to the IngressClass documentation.
+  IngressClassName is the name of an IngressClass cluster resource. Ingress controller implementations use this field to know whether they should be serving this Ingress resource, by a transitive connection (controller -> IngressClass -> Ingress resource). Although the `kubernetes.io/ingress.class` annotation (simple constant name) was never formally defined, it was widely supported by Ingress controllers to create a direct binding between Ingress controller and Ingress resources. Newly created Ingress resources should prefer using the field. However, even though the annotation is officially deprecated, for backwards compatibility reasons, ingress controllers should still honor that annotation if present.
 
 - **rules** ([]IngressRule)
 
@@ -107,11 +107,7 @@ IngressSpec describes the Ingress the user wishes to exist.
 
         Backend defines the referenced service endpoint to which the traffic will be forwarded to.
 
-      - **rules.http.paths.path** (string)
-
-        Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/'. When unspecified, all paths from incoming requests are matched.
-
-      - **rules.http.paths.pathType** (string)
+      - **rules.http.paths.pathType** (string), required
 
         PathType determines the interpretation of the Path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
           done on a path element by element basis. A path element refers is the
@@ -124,6 +120,10 @@ IngressSpec describes the Ingress the user wishes to exist.
           the IngressClass. Implementations can treat this as a separate PathType
           or treat it identically to Prefix or Exact path types.
         Implementations are required to support all path types.
+
+      - **rules.http.paths.path** (string)
+
+        Path is matched against the path of an incoming request. Currently it can contain characters disallowed from the conventional "path" part of a URL as defined by RFC 3986. Paths must begin with a '/' and must be present when using PathType with value "Exact" or "Prefix".
 
 - **tls** ([]IngressTLS)
 
@@ -194,44 +194,46 @@ IngressStatus describe the current state of the Ingress.
 
 <hr>
 
-- **loadBalancer** (LoadBalancerStatus)
+- **loadBalancer** (IngressLoadBalancerStatus)
 
   LoadBalancer contains the current status of the load-balancer.
 
-  <a name="LoadBalancerStatus"></a>
-  *LoadBalancerStatus represents the status of a load-balancer.*
+  <a name="IngressLoadBalancerStatus"></a>
+  *IngressLoadBalancerStatus represents the status of a load-balancer.*
 
-  - **loadBalancer.ingress** ([]LoadBalancerIngress)
+  - **loadBalancer.ingress** ([]IngressLoadBalancerIngress)
 
-    Ingress is a list containing ingress points for the load-balancer. Traffic intended for the service should be sent to these ingress points.
+    Ingress is a list containing ingress points for the load-balancer.
 
-    <a name="LoadBalancerIngress"></a>
-    *LoadBalancerIngress represents the status of a load-balancer ingress point: traffic intended for the service should be sent to an ingress point.*
+    <a name="IngressLoadBalancerIngress"></a>
+    *IngressLoadBalancerIngress represents the status of a load-balancer ingress point.*
 
     - **loadBalancer.ingress.hostname** (string)
 
-      Hostname is set for load-balancer ingress points that are DNS based (typically AWS load-balancers)
+      Hostname is set for load-balancer ingress points that are DNS based.
 
     - **loadBalancer.ingress.ip** (string)
 
-      IP is set for load-balancer ingress points that are IP based (typically GCE or OpenStack load-balancers)
+      IP is set for load-balancer ingress points that are IP based.
 
-    - **loadBalancer.ingress.ports** ([]PortStatus)
+    - **loadBalancer.ingress.ports** ([]IngressPortStatus)
 
       *Atomic: will be replaced during a merge*
       
-      Ports is a list of records of service ports If used, every port defined in the service should have an entry in it
+      Ports provides information about the ports exposed by this LoadBalancer.
 
-      <a name="PortStatus"></a>
-      **
+      <a name="IngressPortStatus"></a>
+      *IngressPortStatus represents the error condition of a service port*
 
       - **loadBalancer.ingress.ports.port** (int32), required
 
-        Port is the port number of the service port of which status is recorded here
+        Port is the port number of the ingress port.
 
       - **loadBalancer.ingress.ports.protocol** (string), required
 
-        Protocol is the protocol of the service port of which status is recorded here The supported values are: "TCP", "UDP", "SCTP"
+        Protocol is the protocol of the ingress port. The supported values are: "TCP", "UDP", "SCTP"
+        
+        
 
       - **loadBalancer.ingress.ports.error** (string)
 
@@ -517,6 +519,11 @@ POST /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -569,6 +576,11 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -617,6 +629,11 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}/status
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **pretty** (*in query*): string
@@ -669,6 +686,11 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **force** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
@@ -684,6 +706,8 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}
 
 
 200 (<a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>): OK
+
+201 (<a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>): Created
 
 401: Unauthorized
 
@@ -722,6 +746,11 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **force** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
@@ -737,6 +766,8 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}/status
 
 
 200 (<a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>): OK
+
+201 (<a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>): Created
 
 401: Unauthorized
 

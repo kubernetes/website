@@ -8,8 +8,8 @@ weight: 40
 
 {{< feature-state state="beta" for_k8s_version="v1.11" >}}
 
-클라우드 인프라스트럭쳐 기술을 통해 퍼블릭, 프라이빗 그리고 하이브리드 클라우드에서 쿠버네티스를 실행할 수 있다.
-쿠버네티스는 컴포넌트간의 긴밀한 결합 없이 자동화된 API 기반의 인프라스트럭쳐를
+클라우드 인프라스트럭처 기술을 통해 퍼블릭, 프라이빗 그리고 하이브리드 클라우드에서 쿠버네티스를 실행할 수 있다.
+쿠버네티스는 컴포넌트간의 긴밀한 결합 없이 자동화된 API 기반의 인프라스트럭처를
 신뢰한다.
 
 {{< glossary_definition term_id="cloud-controller-manager" length="all" prepend="클라우드 컨트롤러 매니저는">}}
@@ -44,10 +44,10 @@ weight: 40
 ### 노드 컨트롤러
 
 노드 컨트롤러는 클라우드 인프라스트럭처에 새 서버가 생성될 때 {{< glossary_tooltip text="노드" term_id="node" >}}
-오브젝트를 생성하는 역할을 한다. 노드 컨트롤러는 클라우드 공급자의 사용자
+오브젝트를 업데이트하는 역할을 한다. 노드 컨트롤러는 클라우드 공급자의 사용자
 테넌시 내에서 실행되는 호스트에 대한 정보를 가져온다. 노드 컨트롤러는 다음 기능들을 수행한다.
 
-1. 컨트롤러가 클라우드 공급자 API를 통해 찾아내는 각 서버에 대해 노드 오브젝트를 초기화한다.
+1. 클라우드 공급자 API를 통해 획득한 해당 서버의 고유 ID를 노드 오브젝트에 업데이트한다.
 2. 클라우드 관련 정보(예를 들어, 노드가 배포되는 지역과 사용 가능한 리소스(CPU, 메모리 등))를
    사용해서 노드 오브젝트에 어노테이션과 레이블을 작성한다.
 3. 노드의 호스트 이름과 네트워크 주소를 가져온다.
@@ -210,7 +210,7 @@ rules:
 
 자체 클라우드 컨트롤러 매니저를 구현하거나 기존 프로젝트를 확장하는 방법을 알고 싶은가?
 
-클라우드 컨트롤러 매니저는 Go 인터페이스를 사용해서 모든 클라우드 플러그인을 구현할 수 있다. 구체적으로, [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider)의 [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.17/cloud.go#L42-L62)에 정의된 `CloudProvider` 인터페이스를 사용한다.
+클라우드 컨트롤러 매니저는 Go 인터페이스를 사용함으로써, 어떠한 클라우드에 대한 구현체(implementation)라도 플러그인 될 수 있도록 한다. 구체적으로는, [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider)의 [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.21/cloud.go#L42-L69)에 정의된 `CloudProvider` 인터페이스를 사용한다.
 
 이 문서(노드, 라우트와 서비스)에서 강조된 공유 컨트롤러의 구현과 공유 cloudprovider 인터페이스와 함께 일부 스캐폴딩(scaffolding)은 쿠버네티스 핵심의 일부이다. 클라우드 공급자 전용 구현은 쿠버네티스의 핵심 바깥에 있으며 `CloudProvider` 인터페이스를 구현한다.
 

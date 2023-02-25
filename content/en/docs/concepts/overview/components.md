@@ -4,9 +4,9 @@ reviewers:
 title: Kubernetes Components
 content_type: concept
 description: >
-  A Kubernetes cluster consists of the components that represent the control plane
-  and a set of machines called nodes.
-weight: 20
+  A Kubernetes cluster consists of the components that are a part of the control
+  plane and a set of machines called nodes.
+weight: 30
 card: 
   name: concepts
   weight: 20
@@ -16,14 +16,10 @@ card:
 When you deploy Kubernetes, you get a cluster.
 {{< glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of">}}
 
-This document outlines the various components you need to have
+This document outlines the various components you need to have for
 a complete and working Kubernetes cluster.
 
-Here's the diagram of a Kubernetes cluster with all the components tied together.
-
-![Components of Kubernetes](/images/docs/components-of-kubernetes.svg)
-
-
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Components of Kubernetes" caption="The components of a Kubernetes cluster" class="diagram-large" >}}
 
 <!-- body -->
 ## Control Plane Components
@@ -34,7 +30,7 @@ Control plane components can be run on any machine in the cluster. However,
 for simplicity, set up scripts typically start all control plane components on
 the same machine, and do not run user containers on this machine. See
 [Creating Highly Available clusters with kubeadm](/docs/setup/production-environment/tools/kubeadm/high-availability/)
-for an example control plane setup that runs across multiple VMs.
+for an example control plane setup that runs across multiple machines.
 
 ### kube-apiserver
 
@@ -57,8 +53,8 @@ Some types of these controllers are:
   * Node controller: Responsible for noticing and responding when nodes go down.
   * Job controller: Watches for Job objects that represent one-off tasks, then creates
     Pods to run those tasks to completion.
-  * Endpoints controller: Populates the Endpoints object (that is, joins Services & Pods).
-  * Service Account & Token controllers: Create default accounts and API access tokens for new namespaces.
+  * EndpointSlice controller: Populates EndpointSlice objects (to provide a link between Services and Pods).
+  * ServiceAccount controller: Create default ServiceAccounts for new namespaces.
 
 ### cloud-controller-manager
 
@@ -118,7 +114,7 @@ Containers started by Kubernetes automatically include this DNS server in their 
 
 ### Container Resource Monitoring
 
-[Container Resource Monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/) records generic time-series metrics
+[Container Resource Monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/) records generic time-series metrics
 about containers in a central database, and provides a UI for browsing that data.
 
 ### Cluster-level Logging

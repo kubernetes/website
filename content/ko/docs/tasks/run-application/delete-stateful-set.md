@@ -1,10 +1,10 @@
 ---
-
-
-
-
-
-
+# reviewers:
+# - bprashanth
+# - erictune
+# - foxish
+# - janetkuo
+# - smarterclayton
 title: 스테이트풀셋(StatefulSet) 삭제하기
 content_type: task
 weight: 60
@@ -50,10 +50,10 @@ kubectl을 통해 스테이트풀셋을 삭제하면, 스테이트풀셋의 크�
 kubectl delete -f <file.yaml> --cascade=orphan
 ```
 
-`kubectl delete` 에 `--cascade=orphan` 를 사용하면 스테이트풀셋 오브젝트가 삭제된 후에도 스테이트풀셋에 의해 관리된 파드는 남게 된다. 만약 파드가 `app=myapp` 레이블을 갖고 있다면, 다음과 같이 파드를 삭제할 수 있다.
+`kubectl delete` 에 `--cascade=orphan` 를 사용하면 스테이트풀셋 오브젝트가 삭제된 후에도 스테이트풀셋에 의해 관리된 파드는 남게 된다. 만약 파드가 `app.kubernetes.io/name=MyApp` 레이블을 갖고 있다면, 다음과 같이 파드를 삭제할 수 있다.
 
 ```shell
-kubectl delete pods -l app=myapp
+kubectl delete pods -l app.kubernetes.io/name=MyApp
 ```
 
 ### 퍼시스턴트볼륨(PersistentVolume)
@@ -70,21 +70,21 @@ PVC를 삭제할 때 데이터 손실될 수 있음에 주의하자.
 
 ```shell
 grace=$(kubectl get pods <stateful-set-pod> --template '{{.spec.terminationGracePeriodSeconds}}')
-kubectl delete statefulset -l app=myapp
+kubectl delete statefulset -l app.kubernetes.io/name=MyApp
 sleep $grace
-kubectl delete pvc -l app=myapp
+kubectl delete pvc -l app.kubernetes.io/name=MyApp
 
 ```
 
-위의 예에서 파드에는 `app=myapp` 라는 레이블이 있다. 사용자에게 적절한 레이블로 대체하자.
+위의 예에서 파드에는 `app.kubernetes.io/name=MyApp` 라는 레이블이 있다. 사용자에게 적절한 레이블로 대체하자.
 
 ### 스테이트풀셋 파드의 강제 삭제
 
-스테이트풀셋의 일부 파드가 오랫동안 'Terminating' 또는 'Unknown' 상태에 있는 경우, apiserver에 수동적으로 개입하여 파드를 강제 삭제할 수도 있다. 이것은 잠재적으로 위험한 작업이다. 자세한 설명은 [스테이트풀셋 파드 강제 삭제하기](/docs/tasks/run-application/force-delete-stateful-set-pod/)를 참고한다.
+스테이트풀셋의 일부 파드가 오랫동안 'Terminating' 또는 'Unknown' 상태에 있는 경우, apiserver에 수동적으로 개입하여 파드를 강제 삭제할 수도 있다. 이것은 잠재적으로 위험한 작업이다. 자세한 설명은 [스테이트풀셋 파드 강제 삭제하기](/ko/docs/tasks/run-application/force-delete-stateful-set-pod/)를 참고한다.
 
 
 
 ## {{% heading "whatsnext" %}}
 
 
-[스테이트풀셋 파드 강제 삭제하기](/docs/tasks/run-application/force-delete-stateful-set-pod/)에 대해 더 알아보기.
+[스테이트풀셋 파드 강제 삭제하기](/ko/docs/tasks/run-application/force-delete-stateful-set-pod/)에 대해 더 알아보기.

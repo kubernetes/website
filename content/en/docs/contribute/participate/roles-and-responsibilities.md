@@ -32,7 +32,7 @@ Anyone can:
 - Suggest improvements on [Slack](https://slack.k8s.io/) or the
   [SIG docs mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-docs).
 
-After [signing the CLA](/docs/contribute/new-content/overview/#sign-the-cla), anyone can also:
+After [signing the CLA](https://github.com/kubernetes/community/blob/master/CLA.md), anyone can also:
 
 - Open a pull request to improve existing content, add new content, or write a blog post or case study
 - Create diagrams, graphics assets, and embeddable screencasts and videos
@@ -102,7 +102,7 @@ After submitting at least 5 substantial pull requests and meeting the other
 ## Reviewers
 
 Reviewers are responsible for reviewing open pull requests. Unlike member
-feedback, you must address reviewer feedback. Reviewers are members of the
+feedback, the PR author must address reviewer feedback. Reviewers are members of the
 [@kubernetes/sig-docs-{language}-reviews](https://github.com/orgs/kubernetes/teams?query=sig-docs)
 GitHub team.
 
@@ -146,15 +146,15 @@ separately for reviewer status in SIG Docs.
 
 To apply:
 
-1. Open a pull request that adds your GitHub user name to a section of the
-   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS) file
+1. Open a pull request that adds your GitHub username to a section of the
+   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES) file
    in the `kubernetes/website` repository.
 
    {{< note >}}
    If you aren't sure where to add yourself, add yourself to `sig-docs-en-reviews`.
    {{< /note >}}
 
-1. Assign the PR to one or more SIG-Docs approvers (user names listed under
+1. Assign the PR to one or more SIG-Docs approvers (usernames listed under
    `sig-docs-{language}-owners`).
 
 If approved, a SIG Docs lead adds you to the appropriate GitHub team. Once added,
@@ -192,7 +192,7 @@ into the website repository. This comes with certain responsibilities.
   {{< /warning >}}
 
 - Make sure that proposed changes meet the
-  [contribution guidelines](/docs/contribute/style/content-guide/#contributing-content).
+  [documentation content guide](/docs/contribute/style/content-guide/).
 
   If you ever have a question, or you're not sure about something, feel free
   to call for additional review.
@@ -219,7 +219,7 @@ separately for approver status in SIG Docs.
 To apply:
 
 1. Open a pull request adding yourself to a section of the
-   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS)
+   [OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)
    file in the `kubernetes/website` repository.
 
     {{< note >}}

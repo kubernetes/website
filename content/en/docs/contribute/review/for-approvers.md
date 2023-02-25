@@ -79,16 +79,16 @@ The most common prow commands reviewers and approvers use are:
 {{< table caption="Prow commands for reviewing" >}}
 Prow Command | Role Restrictions | Description
 :------------|:------------------|:-----------
-`/lgtm` | Anyone, but triggers automation if a Reviewer or Approver uses it | Signals that you've finished reviewing a PR and are satisfied with the changes.
+`/lgtm` | Organization members | Signals that you've finished reviewing a PR and are satisfied with the changes.
 `/approve` | Approvers | Approves a PR for merging.
-`/assign` | Reviewers or Approvers | Assigns a person to review or approve a PR
-`/close` | Reviewers or Approvers | Closes an issue or PR.
+`/assign` | Anyone | Assigns a person to review or approve a PR
+`/close` | Organization members | Closes an issue or PR.
 `/hold` | Anyone | Adds the `do-not-merge/hold` label, indicating the PR cannot be automatically merged.
 `/hold cancel` | Anyone | Removes the `do-not-merge/hold` label.
 {{< /table >}}
 
-See [the Prow command reference](https://prow.k8s.io/command-help) to see the full list
-of commands you can use in a PR.
+To view the commands that you can use in a PR, see the
+[Prow Command Reference](https://prow.k8s.io/command-help?repo=kubernetes%2Fwebsite).
 
 ## Triage and categorize issues
 
@@ -121,7 +121,7 @@ finds issues that might need triage.
   `priority/important-longterm` | Do this within 6 months.
   `priority/backlog` | Deferrable indefinitely. Do when resources are available.
   `priority/awaiting-more-evidence` | Placeholder for a potentially good issue so it doesn't get lost.
-  `help` or `good first issue` | Suitable for someone with very little Kubernetes or SIG Docs experience. See [Help Wanted and Good First Issue Labels](https://github.com/kubernetes/community/blob/master/contributors/guide/help-wanted.md) for more information.
+  `help` or `good first issue` | Suitable for someone with very little Kubernetes or SIG Docs experience. See [Help Wanted and Good First Issue Labels](https://kubernetes.dev/docs/guide/help-wanted/) for more information.
 
   {{< /table >}}
 
@@ -141,7 +141,7 @@ To add a label, leave a comment in one of the following formats:
 To remove a label, leave a comment in one of the following formats:
 
 - `/remove-<label-to-remove>` (for example, `/remove-help`)
-- `/remove-<label-category> <label-to-remove>` (for example, `/remove-triage needs-information`)`
+- `/remove-<label-category> <label-to-remove>` (for example, `/remove-triage needs-information`)
 
 In both cases, the label must already exist. If you try to add a label that does not exist, the command is
 silently ignored.
@@ -181,7 +181,7 @@ If the dead link issue is in the API or `kubectl` documentation, assign them `/p
 
 ### Blog issues
 
-We expect [Kubernetes Blog](https://kubernetes.io/blog/) entries to become
+We expect [Kubernetes Blog](/blog/) entries to become
 outdated over time. Therefore, we only maintain blog entries less than a year old.
 If an issue is related to a blog entry that is more than one year old,
 close the issue without fixing.

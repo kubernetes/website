@@ -4,6 +4,7 @@ reviewers:
 - dawnchen
 title: Set Kubelet parameters via a config file
 content_type: task
+weight: 330
 ---
 
 <!-- overview -->
@@ -27,24 +28,33 @@ The configuration file must be a JSON or YAML representation of the parameters
 in this struct. Make sure the Kubelet has read permissions on the file.
 
 Here is an example of what this file might look like:
-```
+```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
 kind: KubeletConfiguration
+address: "192.168.0.8"
+port: 20250
+serializeImagePulls: false
 evictionHard:
     memory.available:  "200Mi"
 ```
 
-In the example, the Kubelet is configured to evict Pods when available memory drops below 200Mi.
+In the example, the Kubelet is configured to serve on IP address 192.168.0.8 and port 20250, pull images in parallel,
+and evict Pods when available memory drops below 200Mi. Since only one of the four evictionHard thresholds is configured,
+other evictionHard thresholds are reset to 0 from their built-in defaults.
 All other Kubelet configuration values are left at their built-in defaults, unless overridden
 by flags. Command line flags which target the same value as a config file will override that value.
 
-For a trick to generate a configuration file from a live node, see
-[Reconfigure a Node's Kubelet in a Live Cluster](/docs/tasks/administer-cluster/reconfigure-kubelet).
+{{< note >}}
+In the example, by changing the default value of only one parameter for
+evictionHard, the default values of other parameters will not be inherited and
+will be set to zero. In order to provide custom values, you should provide all
+the threshold values respectively.
+{{< /note >}}
 
 ## Start a Kubelet process configured via the config file
 
 {{< note >}}
-If you use kubeadm to initialize your cluster, use the kubelet-config while creating your cluster with `kubeadmin init`.
+If you use kubeadm to initialize your cluster, use the kubelet-config while creating your cluster with `kubeadm init`.
 See [configuring kubelet using kubeadm](/docs/setup/production-environment/tools/kubeadm/kubelet-integration/) for details.
 {{< /note >}}
 
@@ -64,12 +74,6 @@ defaults for the `KubeletConfiguration` version apply.
 In the above example, this version is `kubelet.config.k8s.io/v1beta1`.
 
 <!-- discussion -->
-
-## Relationship to Dynamic Kubelet Config
-
-If you are using the [Dynamic Kubelet Configuration](/docs/tasks/administer-cluster/reconfigure-kubelet)
-feature, the combination of configuration provided via `--config` and any flags which override these values
-is considered the default "last known good" configuration by the automatic rollback mechanism.
 
 ## {{% heading "whatsnext" %}}
 

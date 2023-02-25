@@ -1,0 +1,32 @@
+# 为 StatefulSet 成员提供稳定的 DNS 表项的无头服务（Headless Service）
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+    app.kubernetes.io/name: mysql
+spec:
+  ports:
+  - name: mysql
+    port: 3306
+  clusterIP: None
+  selector:
+    app: mysql
+---
+# 用于连接到任一 MySQL 实例执行读操作的客户端服务
+# 对于写操作，你必须连接到主服务器：mysql-0.mysql
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-read
+  labels:
+    app: mysql
+    app.kubernetes.io/name: mysql
+    readonly: "true"
+spec:
+  ports:
+  - name: mysql
+    port: 3306
+  selector:
+    app: mysql

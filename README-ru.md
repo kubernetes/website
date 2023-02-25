@@ -1,6 +1,6 @@
 # Документация по Kubernetes
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/be93b718-a6df-402a-b4a4-855ba186c97d/deploy-status)](https://app.netlify.com/sites/kubernetes-io-master-staging/deploys) [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/be93b718-a6df-402a-b4a4-855ba186c97d/deploy-status)](https://app.netlify.com/sites/kubernetes-io-main-staging/deploys) [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
 Данный репозиторий содержит все необходимые файлы для сборки [сайта Kubernetes и документации](https://kubernetes.io/). Мы благодарим вас за желание внести свой вклад!
 
@@ -13,7 +13,7 @@
 Чтобы работать с этим репозиторием, понадобятся следующие компоненты, установленные локально:
 
 - [npm](https://www.npmjs.com/)
-- [Go](https://golang.org/)
+- [Go](https://go.dev/)
 - [Hugo (Extended version)](https://gohugo.io/)
 - Исполняемая среда для контейнеров вроде [Docker](https://www.docker.com/)
 

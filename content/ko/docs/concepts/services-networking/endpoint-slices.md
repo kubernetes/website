@@ -1,4 +1,6 @@
 ---
+# reviewers:
+# - freehan
 title: 엔드포인트슬라이스
 content_type: concept
 weight: 45
@@ -106,7 +108,7 @@ endpoints:
 
 #### 제공(Serving)
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 `serving`은 종료 상태를 고려하지 않는다는 점을 제외하면 `ready` 조건과 동일하다.
 엔드포인트슬라이스 API 컨슈머는 파드가 종료되는 동안 파드 준비 상태에 관심이 있다면
@@ -125,7 +127,7 @@ endpoints:
 
 #### 종료(Terminating)
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 `종료(Terminating)`는 엔드포인트가 종료되는지 여부를 나타내는 조건이다.
 파드의 경우 삭제 타임 스탬프가 설정된 모든 파드이다.
@@ -144,17 +146,17 @@ endpoints:
 v1 API에서는, 전용 필드 `nodeName` 및 `zone` 을 위해 엔드 포인트별
 `topology` 가 효과적으로 제거되었다.
 
-`EndpointSlice` 리소스의 `endpoint` 필드에 임의의 토폴로지 필드를
-설정하는 것은 더 이상 사용되지 않으며, v1 API에서 지원되지 않는다. 대신,
-v1 API는 개별 `nodeName` 및 `zone` 필드 설정을 지원한다. 이러한
-필드는 API 버전 간에 자동으로 번역된다. 예를 들어,
-v1beta1 API의 `topology` 필드에 있는 `"topology.kubernetes.io/zone"`
-키 값은 v1 API의 `zone` 필드로 접근할 수 있다.
+`EndpointSlice` 리소스의 `endpoint` 필드에 임의의 토폴로지 필드를 설정하는 것은 
+더 이상 사용되지 않으며 v1 API에서 지원되지 않는다. 
+대신, v1 API는 개별 `nodeName` 및 `zone` 필드 설정을 지원한다. 
+이러한 필드는 API 버전 간에 자동으로 번역된다. 
+예를 들어, v1beta1 API의 `topology` 필드에 있는 `"topology.kubernetes.io/zone"` 키 값은 
+v1 API의 `zone` 필드로 접근할 수 있다.
 {{< /note >}}
 
 ### 관리
 
-대부분의 경우, 컨트롤 플레인(특히, 엔드포인트 슬라이스
+대부분의 경우, 컨트롤 플레인(특히, 엔드포인트슬라이스
 {{< glossary_tooltip text="컨트롤러" term_id="controller" >}})는
 엔드포인트슬라이스 오브젝트를 생성하고 관리한다. 다른 엔티티나 컨트롤러가 추가
 엔드포인트슬라이스 집합을 관리하게 할 수 있는 서비스 메시 구현과 같이
@@ -165,13 +167,13 @@ v1beta1 API의 `topology` 필드에 있는 `"topology.kubernetes.io/zone"`
 엔티티를 나타내는 `endpointslice.kubernetes.io/managed-by`
 {{< glossary_tooltip term_id="label" text="레이블" >}}을
 정의한다.
-엔드포인트 슬라이스 컨트롤러는 관리하는 모든 엔드포인트슬라이스에 레이블의 값으로
+엔드포인트슬라이스 컨트롤러는 관리하는 모든 엔드포인트슬라이스에 레이블의 값으로
 `endpointslice-controller.k8s.io` 를 설정한다. 엔드포인트슬라이스를
 관리하는 다른 엔티티도 이 레이블에 고유한 값을 설정해야 한다.
 
 ### 소유권
 
-대부분의 유스케이스에서, 엔드포인트 슬라이스 오브젝트가 엔드포인트를
+대부분의 유스케이스에서, 엔드포인트슬라이스 오브젝트가 엔드포인트를
 추적하는 서비스가 엔드포인트슬라이스를 소유한다. 이 소유권은 각 엔드포인트슬라이스의 소유자
 참조와 서비스에 속한 모든 엔드포인트슬라이스의 간단한 조회를 가능하게 하는
 `kubernetes.io/service-name` 레이블로 표시된다.
@@ -247,5 +249,4 @@ v1beta1 API의 `topology` 필드에 있는 `"topology.kubernetes.io/zone"`
 
 ## {{% heading "whatsnext" %}}
 
-* [엔드포인트슬라이스 활성화하기](/docs/tasks/administer-cluster/enabling-endpointslices)에 대해 배우기
-* [애플리케이션을 서비스와 함께 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)를 읽어보기
+* [서비스와 애플리케이션 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)를 읽어보기

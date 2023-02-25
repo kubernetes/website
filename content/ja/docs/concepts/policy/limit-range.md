@@ -6,7 +6,7 @@ weight: 10
 
 <!-- overview -->
 
-デフォルトでは、コンテナは、Kubernetesクラスター上の[計算リソース](/docs/concepts/configuration/manage-resources-containers/)の消費を制限されずに実行されます。リソースクォータを利用すれば、クラスター管理者はリソースの消費と作成を{{< glossary_tooltip text="名前空間" term_id="namespace" >}}ベースで制限することができます。名前空間内では、Podやコンテナは名前空間のリソースクォータで定義された範囲内でできるだけ多くのCPUとメモリーを消費できてしまうため、1つのPodまたはコンテナが利用可能なすべてのリソースを専有してしまう恐れがあります。LimitRangeを利用すれば、このような名前空間内での(Podやコンテナへの)リソースの割り当てを制限するポリシーを定めることができます。
+デフォルトでは、コンテナは、Kubernetesクラスター上の[計算リソース](/ja/docs/concepts/configuration/manage-resources-containers/)の消費を制限されずに実行されます。リソースクォータを利用すれば、クラスター管理者はリソースの消費と作成を{{< glossary_tooltip text="名前空間" term_id="namespace" >}}ベースで制限することができます。名前空間内では、Podやコンテナは名前空間のリソースクォータで定義された範囲内でできるだけ多くのCPUとメモリーを消費できてしまうため、1つのPodまたはコンテナが利用可能なすべてのリソースを専有してしまう恐れがあります。LimitRangeを利用すれば、このような名前空間内での(Podやコンテナへの)リソースの割り当てを制限するポリシーを定めることができます。
 
 <!-- body -->
 
@@ -45,12 +45,12 @@ LimitRangeに対する競合や変更は、すでに作成済みのリソース�
 
 ## {{% heading "whatsnext" %}}
 
-より詳しい情報は、[LimitRangerの設計ドキュメント](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_limit_range.md)を参照してください。
+より詳しい情報は、[LimitRangerの設計ドキュメント](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_limit_range.md)を参照してください。
 
 制限の使用例については、以下のページを読んでください。
 
 - [名前空間ごとにCPUの最小値と最大値の制約を設定する方法](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)。
-- [名前空間ごとにメモリーの最小値と最大値の制約を設定する方法](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)。
+- [名前空間ごとにメモリーの最小値と最大値の制約を設定する方法](/ja/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)。
 - [名前空間ごとにCPUのRequestとLimitのデフォルト値を設定する方法](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)。
 - [名前空間ごとにメモリーのRequestとLimitのデフォルト値を設定する方法](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)。
 - [名前空間ごとにストレージ消費量の最小値と最大値を設定する方法](/docs/tasks/administer-cluster/limit-storage-consumption/#limitrange-to-limit-requests-for-storage)。

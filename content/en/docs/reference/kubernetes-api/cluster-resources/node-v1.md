@@ -62,17 +62,17 @@ NodeSpec describes the attributes that a node is created with.
 
 - **configSource** (NodeConfigSource)
 
-  If specified, the source to get node configuration from The DynamicKubeletConfig feature gate must be enabled for the Kubelet to use this field
+  Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed.
 
   <a name="NodeConfigSource"></a>
-  *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil.*
+  *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22*
 
   - **configSource.configMap** (ConfigMapNodeConfigSource)
 
     ConfigMap is a reference to a Node's ConfigMap
 
     <a name="ConfigMapNodeConfigSource"></a>
-    *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node.*
+    *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration*
 
     - **configSource.configMap.kubeletConfigKey** (string), required
 
@@ -120,6 +120,8 @@ NodeSpec describes the attributes that a node is created with.
   - **taints.effect** (string), required
 
     Required. The effect of the taint on pods that do not tolerate the taint. Valid effects are NoSchedule, PreferNoSchedule and NoExecute.
+    
+    
 
   - **taints.key** (string), required
 
@@ -154,7 +156,7 @@ NodeStatus is information about the current status of a node.
 
   *Patch strategy: merge on key `type`*
   
-  List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See http://pr.k8s.io/79391 for an example.
+  List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example.
 
   <a name="NodeAddress"></a>
   *NodeAddress contains information for the node's address.*
@@ -226,14 +228,14 @@ NodeStatus is information about the current status of a node.
     Active reports the checkpointed config the node is actively using. Active will represent either the current version of the Assigned config, or the current LastKnownGood config, depending on whether attempting to use the Assigned config results in an error.
 
     <a name="NodeConfigSource"></a>
-    *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil.*
+    *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22*
 
     - **config.active.configMap** (ConfigMapNodeConfigSource)
 
       ConfigMap is a reference to a Node's ConfigMap
 
       <a name="ConfigMapNodeConfigSource"></a>
-      *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node.*
+      *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration*
 
       - **config.active.configMap.kubeletConfigKey** (string), required
 
@@ -260,14 +262,14 @@ NodeStatus is information about the current status of a node.
     Assigned reports the checkpointed config the node will try to use. When Node.Spec.ConfigSource is updated, the node checkpoints the associated config payload to local disk, along with a record indicating intended config. The node refers to this record to choose its config checkpoint, and reports this record in Assigned. Assigned only updates in the status after the record has been checkpointed to disk. When the Kubelet is restarted, it tries to make the Assigned config the Active config by loading and validating the checkpointed payload identified by Assigned.
 
     <a name="NodeConfigSource"></a>
-    *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil.*
+    *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22*
 
     - **config.assigned.configMap** (ConfigMapNodeConfigSource)
 
       ConfigMap is a reference to a Node's ConfigMap
 
       <a name="ConfigMapNodeConfigSource"></a>
-      *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node.*
+      *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration*
 
       - **config.assigned.configMap.kubeletConfigKey** (string), required
 
@@ -298,14 +300,14 @@ NodeStatus is information about the current status of a node.
     LastKnownGood reports the checkpointed config the node will fall back to when it encounters an error attempting to use the Assigned config. The Assigned config becomes the LastKnownGood config when the node determines that the Assigned config is stable and correct. This is currently implemented as a 10-minute soak period starting when the local record of Assigned config is updated. If the Assigned config is Active at the end of this period, it becomes the LastKnownGood. Note that if Spec.ConfigSource is reset to nil (use local defaults), the LastKnownGood is also immediately reset to nil, because the local default config is always assumed good. You should not make assumptions about the node's method of determining config stability and correctness, as this may change or become configurable in the future.
 
     <a name="NodeConfigSource"></a>
-    *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil.*
+    *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22*
 
     - **config.lastKnownGood.configMap** (ConfigMapNodeConfigSource)
 
       ConfigMap is a reference to a Node's ConfigMap
 
       <a name="ConfigMapNodeConfigSource"></a>
-      *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node.*
+      *ConfigMapNodeConfigSource contains the information to reference a ConfigMap as a config source for the Node. This API is deprecated since 1.22: https://git.k8s.io/enhancements/keps/sig-node/281-dynamic-kubelet-configuration*
 
       - **config.lastKnownGood.configMap.kubeletConfigKey** (string), required
 
@@ -352,9 +354,9 @@ NodeStatus is information about the current status of a node.
   <a name="ContainerImage"></a>
   *Describe a container image*
 
-  - **images.names** ([]string), required
+  - **images.names** ([]string)
 
-    Names by which this image is known. e.g. ["k8s.gcr.io/hyperkube:v1.0.7", "dockerhub.io/google_containers/hyperkube:v1.0.7"]
+    Names by which this image is known. e.g. ["kubernetes.example/hyperkube:v1.0.7", "cloud-vendor.registry.example/cloud-vendor/hyperkube:v1.0.7"]
 
   - **images.sizeBytes** (int64)
 
@@ -377,7 +379,7 @@ NodeStatus is information about the current status of a node.
 
   - **nodeInfo.containerRuntimeVersion** (string), required
 
-    ContainerRuntime Version reported by the node through runtime remote API (e.g. docker://1.5.0).
+    ContainerRuntime Version reported by the node through runtime remote API (e.g. containerd://1.4.2).
 
   - **nodeInfo.kernelVersion** (string), required
 
@@ -410,6 +412,8 @@ NodeStatus is information about the current status of a node.
 - **phase** (string)
 
   NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated.
+  
+  
 
 - **volumesAttached** ([]AttachedVolume)
 
@@ -617,6 +621,11 @@ POST /api/v1/nodes
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -664,6 +673,11 @@ PUT /api/v1/nodes/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **pretty** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
@@ -707,6 +721,11 @@ PUT /api/v1/nodes/{name}/status
 - **fieldManager** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 
 - **pretty** (*in query*): string
@@ -754,6 +773,11 @@ PATCH /api/v1/nodes/{name}
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **force** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
@@ -769,6 +793,8 @@ PATCH /api/v1/nodes/{name}
 
 
 200 (<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>): OK
+
+201 (<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>): Created
 
 401: Unauthorized
 
@@ -802,6 +828,11 @@ PATCH /api/v1/nodes/{name}/status
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
 - **force** (*in query*): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
@@ -817,6 +848,8 @@ PATCH /api/v1/nodes/{name}/status
 
 
 200 (<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>): OK
+
+201 (<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>): Created
 
 401: Unauthorized
 

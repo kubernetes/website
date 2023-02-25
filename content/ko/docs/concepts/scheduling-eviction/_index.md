@@ -23,6 +23,7 @@ no_list: true
 * [쿠버네티스 스케줄러](/ko/docs/concepts/scheduling-eviction/kube-scheduler/)
 * [노드에 파드 할당하기](/ko/docs/concepts/scheduling-eviction/assign-pod-node/)
 * [파드 오버헤드](/ko/docs/concepts/scheduling-eviction/pod-overhead/)
+* [파드 토폴로지 분배 제약 조건](/ko/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 * [테인트(Taints)와 톨러레이션(Tolerations)](/ko/docs/concepts/scheduling-eviction/taint-and-toleration/)
 * [스케줄링 프레임워크](/docs/concepts/scheduling-eviction/scheduling-framework/)
 * [스케줄러 성능 튜닝](/ko/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
@@ -32,6 +33,6 @@ no_list: true
 
 {{<glossary_definition term_id="pod-disruption" length="all">}}
 
-* [파드 우선순위와 선점](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
-* [노드-압박 축출](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
-* [API를 이용한 축출](/docs/concepts/scheduling-eviction/api-eviction/)
+* [파드 우선순위와 선점](/ko/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+* [노드-압박 축출](/ko/docs/concepts/scheduling-eviction/node-pressure-eviction/)
+* [API를 이용한 축출](/ko/docs/concepts/scheduling-eviction/api-eviction/)

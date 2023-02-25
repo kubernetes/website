@@ -10,7 +10,7 @@ card:
 
 <!-- overview -->
 
-<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">
+<img src="/images/kubeadm-stacked-color.png" align="right" width="150px">
 
 このページでは`kubeadm`コマンドをインストールする方法を示します。このインストール処理実行後にkubeadmを使用してクラスターを作成する方法については、[kubeadmを使用したシングルマスタークラスターの作成](/ja/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)を参照してください。
 
@@ -64,32 +64,6 @@ sysctl --system
 
 詳細は[ネットワークプラグインの要件](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements)を参照してください。
 
-## iptablesがnftablesバックエンドを使用しないようにする
-
-Linuxでは、カーネルのiptablesサブシステムの最新の代替品としてnftablesが利用できます。`iptables`ツールは互換性レイヤーとして機能し、iptablesのように動作しますが、実際にはnftablesを設定します。このnftablesバックエンドは現在のkubeadmパッケージと互換性がありません。(ファイアウォールルールが重複し、`kube-proxy`を破壊するためです。)
-
-もしあなたのシステムの`iptables`ツールがnftablesバックエンドを使用している場合、これらの問題を避けるために`iptables`ツールをレガシーモードに切り替える必要があります。これは、少なくともDebian 10(Buster)、Ubuntu 19.04、Fedora 29、およびこれらのディストリビューションの新しいリリースでのデフォルトです。RHEL 8はレガシーモードへの切り替えをサポートしていないため、現在のkubeadmパッケージと互換性がありません。
-
-{{< tabs name="iptables_legacy" >}}
-{{% tab name="DebianまたはUbuntu" %}}
-```bash
-# レガシーバイナリがインストールされていることを確認してください
-sudo apt-get install -y iptables arptables ebtables
-
-# レガシーバージョンに切り替えてください。
-sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
-sudo update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
-sudo update-alternatives --set arptables /usr/sbin/arptables-legacy
-sudo update-alternatives --set ebtables /usr/sbin/ebtables-legacy
-```
-{{% /tab %}}
-{{% tab name="Fedora" %}}
-```bash
-update-alternatives --set iptables /usr/sbin/iptables-legacy
-```
-{{% /tab %}}
-{{< /tabs >}}
-
 ## 必須ポートの確認
 
 ### コントロールプレーンノード
@@ -99,8 +73,8 @@ update-alternatives --set iptables /usr/sbin/iptables-legacy
 | TCP       | Inbound    | 6443*      | Kubernetes API server   | 全て                      |
 | TCP       | Inbound    | 2379-2380  | etcd server client API  | kube-apiserver、etcd      |
 | TCP       | Inbound    | 10250      | Kubelet API             | 自身、コントロールプレーン |
-| TCP       | Inbound    | 10251      | kube-scheduler          | 自身                      |
-| TCP       | Inbound    | 10252      | kube-controller-manager | 自身                      |
+| TCP       | Inbound    | 10259      | kube-scheduler          | 自身                      |
+| TCP       | Inbound    | 10257      | kube-controller-manager | 自身                      |
 
 ### ワーカーノード
 
@@ -199,7 +173,7 @@ baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
 enabled=1
 gpgcheck=1
 repo_gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 
 # SELinuxをpermissiveモードに設定する(効果的に無効化する)
@@ -223,26 +197,27 @@ CNIプラグインをインストールする(ほとんどのPodのネットワ�
 
 ```bash
 CNI_VERSION="v0.8.2"
+ARCH="amd64"
 mkdir -p /opt/cni/bin
-curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-amd64-${CNI_VERSION}.tgz" | tar -C /opt/cni/bin -xz
+curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-${ARCH}-${CNI_VERSION}.tgz" | tar -C /opt/cni/bin -xz
 ```
 
 crictlをインストールする (kubeadm / Kubelet Container Runtime Interface (CRI)に必要です)
 
 ```bash
-CRICTL_VERSION="v1.16.0"
-mkdir -p /opt/bin
-curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-amd64.tar.gz" | tar -C /opt/bin -xz
+CRICTL_VERSION="v1.22.0"
+ARCH="amd64"
+curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
 
 `kubeadm`、`kubelet`、`kubectl`をインストールし`kubelet`をsystemd serviceに登録します:
 
 ```bash
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
-
+ARCH="amd64"
 mkdir -p /opt/bin
 cd /opt/bin
-curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/amd64/{kubeadm,kubelet,kubectl}
+curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet,kubectl}
 chmod +x {kubeadm,kubelet,kubectl}
 
 curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/build/debs/kubelet.service" | sed "s:/usr/bin:/opt/bin:g" > /etc/systemd/system/kubelet.service

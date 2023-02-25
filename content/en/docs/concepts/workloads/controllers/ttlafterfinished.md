@@ -1,82 +1,87 @@
 ---
 reviewers:
 - janetkuo
-title: TTL Controller for Finished Resources
+title: Automatic Cleanup for Finished Jobs
 content_type: concept
 weight: 70
+description: >-
+  A time-to-live mechanism to clean up old Jobs that have finished execution.
 ---
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
-The TTL controller provides a TTL (time to live) mechanism to limit the lifetime of resource
-objects that have finished execution. TTL controller only handles
-{{< glossary_tooltip text="Jobs" term_id="job" >}} for now,
-and may be expanded to handle other resources that will finish execution,
-such as Pods and custom resources.
+When your Job has finished, it's useful to keep that Job in the API (and not immediately delete the Job)
+so that you can tell whether the Job succeeded or failed.
 
-This feature is currently beta and enabled by default, and can be disabled via 
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`TTLAfterFinished` in both kube-apiserver and kube-controller-manager.
+Kubernetes' TTL-after-finished {{<glossary_tooltip text="controller" term_id="controller">}} provides a
+TTL (time to live) mechanism to limit the lifetime of Job objects that
+have finished execution.
 
 <!-- body -->
 
-## TTL Controller
+## Cleanup for finished Jobs
 
-The TTL controller only supports Jobs for now. A cluster operator can use this feature to clean
+The TTL-after-finished controller is only supported for Jobs. You can use this mechanism to clean
 up finished Jobs (either `Complete` or `Failed`) automatically by specifying the
 `.spec.ttlSecondsAfterFinished` field of a Job, as in this
 [example](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically).
-The TTL controller will assume that a resource is eligible to be cleaned up
-TTL seconds after the resource has finished, in other words, when the TTL has expired. When the
-TTL controller cleans up a resource, it will delete it cascadingly, that is to say it will delete
-its dependent objects together with it. Note that when the resource is deleted,
-its lifecycle guarantees, such as finalizers, will be honored.
 
-The TTL seconds can be set at any time. Here are some examples for setting the
+The TTL-after-finished controller assumes that a Job is eligible to be cleaned up
+TTL seconds after the Job has finished. The timer starts once the
+status condition of the Job changes to show that the Job is either `Complete` or `Failed`; once the TTL has
+expired, that Job becomes eligible for
+[cascading](/docs/concepts/architecture/garbage-collection/#cascading-deletion) removal. When the
+TTL-after-finished controller cleans up a job, it will delete it cascadingly, that is to say it will delete
+its dependent objects together with it.
+
+Kubernetes honors object lifecycle guarantees on the Job, such as waiting for
+[finalizers](/docs/concepts/overview/working-with-objects/finalizers/).
+
+You can set the TTL seconds at any time. Here are some examples for setting the
 `.spec.ttlSecondsAfterFinished` field of a Job:
 
-* Specify this field in the resource manifest, so that a Job can be cleaned up
+* Specify this field in the Job manifest, so that a Job can be cleaned up
   automatically some time after it finishes.
-* Set this field of existing, already finished resources, to adopt this new
-  feature.
+* Manually set this field of existing, already finished Jobs, so that they become eligible
+  for cleanup.
 * Use a
-  [mutating admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
-  to set this field dynamically at resource creation time. Cluster administrators can
-  use this to enforce a TTL policy for finished resources.
+  [mutating admission webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)
+  to set this field dynamically at Job creation time. Cluster administrators can
+  use this to enforce a TTL policy for finished jobs.
 * Use a
-  [mutating admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)
-  to set this field dynamically after the resource has finished, and choose
-  different TTL values based on resource status, labels, etc.
+  [mutating admission webhook](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)
+  to set this field dynamically after the Job has finished, and choose
+  different TTL values based on job status, labels. For this case, the webhook needs
+  to detect changes to the `.status` of the Job and only set a TTL when the Job
+  is being marked as completed.
+* Write your own controller to manage the cleanup TTL for Jobs that match a particular
+  {{< glossary_tooltip term_id="selector" text="selector-selector" >}}.
 
-## Caveat
+## Caveats
 
-### Updating TTL Seconds
+### Updating TTL for finished Jobs
 
-Note that the TTL period, e.g. `.spec.ttlSecondsAfterFinished` field of Jobs,
-can be modified after the resource is created or has finished. However, once the
-Job becomes eligible to be deleted (when the TTL has expired), the system won't
-guarantee that the Jobs will be kept, even if an update to extend the TTL
-returns a successful API response.
+You can modify the TTL period, e.g. `.spec.ttlSecondsAfterFinished` field of Jobs,
+after the job is created or has finished. If you extend the TTL period after the
+existing `ttlSecondsAfterFinished` period has expired, Kubernetes doesn't guarantee
+to retain that Job, even if an update to extend the TTL returns a successful API
+response.
 
-### Time Skew
+### Time skew
 
-Because TTL controller uses timestamps stored in the Kubernetes resources to
+Because the TTL-after-finished controller uses timestamps stored in the Kubernetes jobs to
 determine whether the TTL has expired or not, this feature is sensitive to time
-skew in the cluster, which may cause TTL controller to clean up resource objects
+skew in your cluster, which may cause the control plane to clean up Job objects
 at the wrong time.
 
-In Kubernetes, it's required to run NTP on all nodes
-(see [#6159](https://github.com/kubernetes/kubernetes/issues/6159#issuecomment-93844058))
-to avoid time skew. Clocks aren't always correct, but the difference should be
+Clocks aren't always correct, but the difference should be
 very small. Please be aware of this risk when setting a non-zero TTL.
-
-
 
 ## {{% heading "whatsnext" %}}
 
-* [Clean up Jobs automatically](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)
+* Read [Clean up Jobs automatically](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)
 
-* [Design doc](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/592-ttl-after-finish/README.md)
-
+* Refer to the [Kubernetes Enhancement Proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-apps/592-ttl-after-finish/README.md)
+  (KEP) for adding this mechanism.

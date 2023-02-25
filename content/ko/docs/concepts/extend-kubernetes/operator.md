@@ -15,7 +15,7 @@ weight: 30
 
 ## 동기 부여
 
-오퍼레이터 패턴은 서비스 또는 서비스 셋을 관리하는 운영자의
+_오퍼레이터 패턴_은 서비스 또는 서비스 셋을 관리하는 운영자의
 주요 목표를 포착하는 것을 목표로 한다. 특정 애플리케이션 및
 서비스를 돌보는 운영자는 시스템의 작동 방식, 배포 방법 및 문제가 있는 경우
 대처 방법에 대해 깊이 알고 있다.
@@ -31,9 +31,7 @@ weight: 30
 및 실행을 자동화할 수 있고, *또한* 쿠버네티스가 수행하는 방식을
 자동화할 수 있다.
 
-쿠버네티스의 {{< glossary_tooltip text="컨트롤러" term_id="controller" >}}
-개념을 통해 쿠버네티스 코드 자체를 수정하지 않고도 클러스터의 동작을
-확장할 수 있다.
+쿠버네티스의 {{< glossary_tooltip text="오퍼레이터 패턴" term_id="operator-pattern" >}} 개념을 통해 쿠버네티스 코드 자체를 수정하지 않고도 {{< glossary_tooltip text="컨트롤러" term_id="controller" >}}를 하나 이상의 사용자 정의 리소스(custom resource)에 연결하여 클러스터의 동작을 확장할 수 있다.
 오퍼레이터는 [사용자 정의 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)의
 컨트롤러 역할을 하는 쿠버네티스 API의 클라이언트이다.
 
@@ -51,8 +49,7 @@ weight: 30
 * 내부 멤버 선출 절차없이 분산 애플리케이션의
   리더를 선택
 
-오퍼레이터의 모습을 더 자세하게 볼 수 있는 방법은 무엇인가? 자세한 예는
-다음과 같다.
+오퍼레이터의 모습을 더 자세하게 볼 수 있는 방법은 무엇인가? 예시는 다음과 같다.
 
 1. 클러스터에 구성할 수 있는 SampleDB라는 사용자 정의 리소스.
 2. 오퍼레이터의 컨트롤러 부분이 포함된 파드의 실행을
@@ -114,9 +111,13 @@ kubectl edit SampleDB/example-database # 일부 설정을 수동으로 변경하
 {{% thirdparty-content %}}
 
 * [Charmed Operator Framework](https://juju.is/)
+* [Java Operator SDK](https://github.com/java-operator-sdk/java-operator-sdk)
+* [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
+* [kube-rs](https://kube.rs/) (Rust)
 * [kubebuilder](https://book.kubebuilder.io/) 사용하기
+* [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (.NET 오퍼레이터 SDK)
 * [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
-* 웹훅(WebHook)과 함께 [Metacontroller](https://metacontroller.app/)를
+* 웹훅(WebHook)과 함께 [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html)를
   사용하여 직접 구현하기
 * [오퍼레이터 프레임워크](https://operatorframework.io)
 * [shell-operator](https://github.com/flant/shell-operator)
@@ -124,6 +125,7 @@ kubectl edit SampleDB/example-database # 일부 설정을 수동으로 변경하
 ## {{% heading "whatsnext" %}}
 
 
+* {{< glossary_tooltip text="CNCF" term_id="cncf" >}} [오퍼레이터 백서](https://github.com/cncf/tag-app-delivery/blob/eece8f7307f2970f46f100f51932db106db46968/operator-wg/whitepaper/Operator-WhitePaper_v1-0.md) 읽어보기
 * [사용자 정의 리소스](/ko/docs/concepts/extend-kubernetes/api-extension/custom-resources/)에 대해 더 알아보기
 * [OperatorHub.io](https://operatorhub.io/)에서 유스케이스에 맞는 이미 만들어진 오퍼레이터 찾기
 * 다른 사람들이 사용할 수 있도록 자신의 오퍼레이터를 [게시](https://operatorhub.io/)하기

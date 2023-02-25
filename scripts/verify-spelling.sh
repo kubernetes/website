@@ -15,14 +15,14 @@
 # limitations under the License.
 ##########
 # This script verifies mispellings in location. Today it only supports
-# verifying English locale but can be modified in a future to support 
-# also other locales.
+# verifying English locale but can be modified in a future to support
+# other locales also
 # You need to run this script inside the root directory of "website" git repo.
-# 
+#
 # Syntax: verify-spelling.sh LOCALE
 # Example: verify-spelling.sh en
 # If no locale is passed, it will assume "en"
-# 
+#
 # Requirements:
 # - go v1.14 or superior version
 
@@ -33,6 +33,8 @@ set -o nounset
 set -o pipefail
 
 TOOL_VERSION="v0.3.4"
+
+KUBE_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
 
 LANGUAGE="${1:-en}"
 # cd to the root path
@@ -60,10 +62,15 @@ cd "${ROOT}"
 RES=0
 echo "Checking spelling..."
 ERROR_LOG="${TMP_DIR}/errors.log"
-git ls-files | grep content/${LANGUAGE} | xargs misspell > "${ERROR_LOG}"
+
+# NOTE we usually don't correct old blog articles, so we ignore them in
+# this file.
+skipping_file="${KUBE_ROOT}/scripts/.spelling_failures"
+failing_packages=$(sed "s| | -e |g" "${skipping_file}")
+git ls-files -z | grep --null-data "^content/${LANGUAGE}" | grep --null-data -v -e "${failing_packages}" | xargs -0 -r misspell > "${ERROR_LOG}"
 if [[ -s "${ERROR_LOG}" ]]; then
   sed 's/^/error: /' "${ERROR_LOG}" # add 'error' to each line to highlight in e2e status
-  echo "Found spelling errors!"
+  echo "Found spelling errors!" >&2
   RES=1
 fi
 exit "${RES}"

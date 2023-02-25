@@ -74,5 +74,4 @@ StatefulSet Podの強制削除は、常に慎重に、関連するリスクを�
 ## {{% heading "whatsnext" %}}
 
 
-[StatefulSetのデバッグ](/docs/tasks/debug-application-cluster/debug-stateful-set/)の詳細
-
+[StatefulSetのデバッグ](/ja/docs/tasks/debug/debug-application/debug-statefulset/)の詳細

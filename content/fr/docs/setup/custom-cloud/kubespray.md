@@ -8,15 +8,15 @@ content_type: concept
 
 Cette documentation permet d'installer rapidement un cluster Kubernetes hébergé sur GCE, Azure, Openstack, AWS, vSphere, Oracle Cloud Infrastructure (expérimental) ou sur des serveurs physiques (bare metal) grâce à [Kubespray](https://github.com/kubernetes-incubator/kubespray).
 
-Kubespray se base sur des outils de provisioning, des [paramètres](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/ansible.md) et playbooks [Ansible](http://docs.ansible.com/) ainsi que sur des connaissances spécifiques à Kubernetes et l'installation de systèmes d'exploitation afin de fournir:
+Kubespray se base sur des outils de provisioning, des [paramètres](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/ansible.md) et playbooks [Ansible](https://docs.ansible.com/) ainsi que sur des connaissances spécifiques à Kubernetes et l'installation de systèmes d'exploitation afin de fournir:
 
 * Un cluster en haute disponibilité
 * des composants modulables
 * Le support des principales distributions Linux:
   * Container Linux de CoreOS
   * Debian Jessie, Stretch, Wheezy
-  * Ubuntu 16.04, 18.04
-  * CentOS/RHEL 7
+  * Ubuntu 16.04, 18.04, 20.04, 22.04
+  * CentOS/RHEL 7, 8
   * Fedora/CentOS Atomic
   * openSUSE Leap 42.3/Tumbleweed
 * des tests d'intégration continue
@@ -33,12 +33,12 @@ Afin de choisir l'outil le mieux adapté à votre besoin, veuillez lire [cette c
 
 Les serveurs doivent être installés en s'assurant des éléments suivants:
 
-* **Ansible v2.6 (ou version plus récente) et python-netaddr installés sur la machine qui exécutera les commandes Ansible**
-* **Jinja 2.9 (ou version plus récente) est nécessaire pour exécuter les playbooks Ansible**
+* **Ansible v2.11 (ou version plus récente) et python-netaddr installés sur la machine qui exécutera les commandes Ansible**
+* **Jinja 2.11 (ou version plus récente) est nécessaire pour exécuter les playbooks Ansible**
 * Les serveurs cibles doivent avoir **accès à Internet** afin de télécharger les images Docker. Autrement, une configuration supplémentaire est nécessaire, (se référer à [Offline Environment](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/downloads.md#offline-environment))
 * Les serveurs cibles doivent être configurés afin d'autoriser le transfert IPv4 (**IPv4 forwarding**)
 * **Votre clé ssh doit être copiée** sur tous les serveurs faisant partie de votre inventaire Ansible.
-* La configuration du **pare-feu n'est pas gérée**. Vous devrez vous en charger en utilisant votre méthode habituelle. Afin d'éviter tout problème pendant l'installation nous vous conseillons de le désacttiver.
+* La configuration du **pare-feu n'est pas gérée**. Vous devrez vous en charger en utilisant votre méthode habituelle. Afin d'éviter tout problème pendant l'installation nous vous conseillons de le désactiver.
 * Si Kubespray est exécuté avec un utilisateur autre que "root", une méthode d'autorisation appropriée devra être configurée sur les serveurs cibles (exemple: sudo). Il faudra aussi utiliser le paramètre `ansible_become` ou ajouter `--become` ou `b` à la ligne de commande.
 
 Afin de vous aider à préparer votre de votre environnement, Kubespray fournit les outils suivants:
@@ -49,7 +49,7 @@ Afin de vous aider à préparer votre de votre environnement, Kubespray fournit 
 
 ### (2/5) Construire un fichier d'inventaire Ansible
 
-Lorsque vos serveurs sont disponibles, créez un fichier d'inventaire Ansible ([inventory](http://docs.ansible.com/ansible/intro_inventory.html)).
+Lorsque vos serveurs sont disponibles, créez un fichier d'inventaire Ansible ([inventory](https://docs.ansible.com/ansible/latest/network/getting_started/first_inventory.html)).
 Vous pouvez le créer manuellement ou en utilisant un script d'inventaire dynamique. Pour plus d'informations se référer à [Building your own inventory](https://github.com/kubernetes-incubator/kubespray/blob/master/docs/getting-started.md#building-your-own-inventory).
 
 ### (3/5) Préparation au déploiement de votre cluster

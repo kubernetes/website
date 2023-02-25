@@ -2,17 +2,14 @@
 title: Upgrading Windows nodes
 min-kubernetes-server-version: 1.17
 content_type: task
-weight: 40
+weight: 50
 ---
 
 <!-- overview -->
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-This page explains how to upgrade a Windows node [created with kubeadm](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes).
-
-
-
+This page explains how to upgrade a Windows node created with kubeadm.
 
 ## {{% heading "prerequisites" %}}
  
@@ -20,9 +17,6 @@ This page explains how to upgrade a Windows node [created with kubeadm](/docs/ta
 * Familiarize yourself with [the process for upgrading the rest of your kubeadm
 cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade). You will want to
 upgrade the control plane nodes before upgrading your Windows nodes.
-
-
-
 
 <!-- steps -->
 
@@ -34,7 +28,7 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
     ```powershell
     # replace {{< param "fullversion" >}} with your desired version
-    curl.exe -Lo C:\k\kubeadm.exe https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubeadm.exe
+    curl.exe -Lo <path-to-kubeadm.exe>  "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubeadm.exe"
     ```
 
 ### Drain the node
@@ -62,15 +56,28 @@ upgrade the control plane nodes before upgrading your Windows nodes.
     kubeadm upgrade node
     ```
 
-### Upgrade kubelet
+### Upgrade kubelet and kube-proxy
 
 1.  From the Windows node, upgrade and restart the kubelet:
 
     ```powershell
     stop-service kubelet
-    curl.exe -Lo C:\k\kubelet.exe https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubelet.exe
+    curl.exe -Lo <path-to-kubelet.exe> "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubelet.exe"
     restart-service kubelet
     ```
+
+2. From the Windows node, upgrade and restart the kube-proxy.
+
+    ```powershell
+    stop-service kube-proxy
+    curl.exe -Lo <path-to-kube-proxy.exe> "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kube-proxy.exe"
+    restart-service kube-proxy
+    ```
+
+{{< note >}}
+If you are running kube-proxy in a HostProcess container within a Pod, and not as a Windows Service,
+you can upgrade kube-proxy by applying a newer version of your kube-proxy manifests.
+{{< /note >}}
 
 ### Uncordon the node
 
@@ -81,14 +88,4 @@ bring the node back online by marking it schedulable:
     # replace <node-to-drain> with the name of your node
     kubectl uncordon <node-to-drain>
     ```
-### Upgrade kube-proxy
-
-1. From a machine with access to the Kubernetes API, run the following,
-again replacing {{< param "fullversion" >}} with your desired version:
-
-    ```shell
-    curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/kube-proxy.yml | sed 's/VERSION/{{< param "fullversion" >}}/g' | kubectl apply -f -
-    ```
-
-
 

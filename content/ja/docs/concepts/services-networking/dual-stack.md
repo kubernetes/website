@@ -40,7 +40,7 @@ IPv4/IPv6デュアルスタックを有効にするには、クラスターの�
 
    * kube-apiserver:
       * `--feature-gates="IPv6DualStack=true"`
-      * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>
+      * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
    * kube-controller-manager:
       * `--feature-gates="IPv6DualStack=true"`
       * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
@@ -98,4 +98,4 @@ IPv6が有効になった外部ロードバランサーをサポートしてい�
 
 ## {{% heading "whatsnext" %}}
 
-* [IPv4/IPv6デュアルスタックのネットワークを検証する](/docs/tasks/network/validate-dual-stack)
+* [IPv4/IPv6デュアルスタックのネットワークを検証する](/ja/docs/tasks/network/validate-dual-stack)

@@ -51,7 +51,7 @@ GitHubには、二つのSIG Docs
 カテゴリがあります:
 
 - `@sig-docs-{language}-owners`は承認者かつリードです。
-- `@sig-docs-{language}-reviewers` はレビュアーです。
+- `@sig-docs-{language}-reviews` はレビュアーです。
 
 それぞれをGitHubコメントの`@name`で参照して、そのグループの全員とコミュニケーションできます。
 
@@ -68,8 +68,8 @@ Kubernetesプロジェクトは、GitHubのissueとPull Requestに関連する�
 - approve
 
 これらの2つのプラグインは`kubernetes.website`のGithubリポジトリのトップレベルにある
-[OWNERS](https://github.com/kubernetes/website/blob/master/OWNERS)ファイルと、
-[OWNERS_ALIASES](https://github.com/kubernetes/website/blob/master/OWNERS_ALIASES)ファイルを使用して、
+[OWNERS](https://github.com/kubernetes/website/blob/main/OWNERS)ファイルと、
+[OWNERS_ALIASES](https://github.com/kubernetes/website/blob/main/OWNERS_ALIASES)ファイルを使用して、
 リポジトリ内でのprowの動作を制御します。
 
 OWNERSファイルには、SIG Docsのレビュー担当者および承認者であるユーザーのリストが含まれています。 

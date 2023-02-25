@@ -6,6 +6,10 @@ date: 2018-10-01
 
 **Author**: [Ahmet Alp Balkan](https://twitter.com/ahmetb) (Google)
 
+**Update (December 2021):** _Kubernetes now has built-in gRPC health probes starting in v1.23.
+To learn more, see [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-a-grpc-liveness-probe).
+This article was originally written about an external tool to achieve the same task._
+
 [gRPC](https://grpc.io) is on its way to becoming the lingua franca for
 communication between cloud-native microservices. If you are deploying gRPC
 applications to Kubernetes today, you may be wondering about the best way to

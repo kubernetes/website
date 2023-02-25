@@ -678,7 +678,7 @@ Secretsの内容を読み取るとNamespaceのServiceAccountのクレデンシ�
 <tr>
 <td><b>system:kube-dns</b></td>
 <td><b><b>kube-system</b>Namespaceのサービスアカウントkube-dns</b></td>
-<td><a href="/docs/concepts/services-networking/dns-pod-service/">kube-dns</a>コンポーネントのRole。</td>
+<td><a href="/ja/docs/concepts/services-networking/dns-pod-service/">kube-dns</a>コンポーネントのRole。</td>
 </tr>
 <tr>
 <td><b>system:kubelet-api-admin</b></td>
@@ -698,7 +698,7 @@ Secretsの内容を読み取るとNamespaceのServiceAccountのクレデンシ�
 <tr>
 <td><b>system:persistent-volume-provisioner</b></td>
 <td>None</td>
-<td>ほとんどの<a href="/docs/concepts/storage/persistent-volumes/#provisioner">dynamic volume provisioners</a>が必要とするリソースへのアクセスを許可します。</td>
+<td>ほとんどの<a href="/ja/docs/concepts/storage/persistent-volumes/#dynamic">dynamic volume provisioners</a>が必要とするリソースへのアクセスを許可します。</td>
 </tr>
 </table>
 
@@ -707,7 +707,7 @@ Secretsの内容を読み取るとNamespaceのServiceAccountのクレデンシ�
 Kubernetes {{< glossary_tooltip term_id="kube-controller-manager" text="controller manager" >}}は、Kubernetesコントロールプレーンに組み込まれている{{< glossary_tooltip term_id="controller" text="controllers" >}}を実行します。
 `--use-service-account-credentials`を指定して呼び出すと、kube-controller-manager個別のサービスアカウントを使用して各コントローラーを起動します。
 組み込みコントローラーごとに、プレフィックス`system:controller:`付きの対応するRoleが存在します。
-コントローラーマネージャーが`--use-service-account-credentials`で開始されていない場合、コントローラマネージャーは、関連するすべてのRoleを付与する必要がある自身のクレデンシャルを使用して、すべてのコントロールループを実行します。
+コントローラーマネージャーが`--use-service-account-credentials`で開始されていない場合、コントローラーマネージャーは、関連するすべてのRoleを付与する必要がある自身のクレデンシャルを使用して、すべてのコントロールループを実行します。
 これらのRoleは次のとおりです。
 
 * `system:controller:attachdetach-controller`
@@ -995,7 +995,7 @@ subjects:
       --namespace=my-namespace
     ```
 
-    多くの[アドオン](https://kubernetes.io/docs/concepts/cluster-administration/addons/)は、
+    多くの[アドオン](/ja/docs/concepts/cluster-administration/addons/)は、
     Namespace`kube-system`のサービスアカウント「default」として実行されます。
     これらのアドオンをスーパーユーザーアクセスでの実行を許可するには、Namespace`kube-system`のサービスアカウント「default」のcluster-admin権限を付与します。
 

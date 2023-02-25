@@ -47,7 +47,7 @@ controllerManager:
     mountPath: "/etc/kubernetes/cloud.conf"
 ```
 
-I provider cloud in-tree in genere richiedono sia `--cloud-provider` e` --cloud-config` specificati nelle righe di
+I provider cloud in-tree in genere richiedono sia `--cloud-provider` e `--cloud-config` specificati nelle righe di
 comando per [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/)
 e il [Kubelet](/docs/admin/kubelet/). Anche il contenuto del file specificato in `--cloud-config` per ciascun provider
 è documentato di seguito.
@@ -91,8 +91,8 @@ spec:
 * `service.beta.kubernetes.io / aws-load-balancer-access-log-enabled`: utilizzato sul servizio per abilitare o disabilitare i log di accesso.
 * `service.beta.kubernetes.io / aws-load-balancer-access-log-s3-bucket-name`: usato per specificare il nome del bucket di log degli accessi s3.
 * `service.beta.kubernetes.io / aws-load-balancer-access-log-s3-bucket-prefix`: utilizzato per specificare il prefisso del bucket del registro di accesso s3.
-* `service.beta.kubernetes.io / aws-load-balancer-additional-resource-tags`: utilizzato sul servizio per specificare un elenco separato da virgole di coppie chiave-valore che verranno registrate come tag aggiuntivi nel ELB. Ad esempio: "Key1 = Val1, Key2 = Val2, KeyNoVal1 =, KeyNoVal2" `.
-* `service.beta.kubernetes.io / aws-load-balancer-backend-protocol`: utilizzato sul servizio per specificare il protocollo parlato dal backend (pod) dietro un listener. Se `http` (predefinito) o` https`, viene creato un listener HTTPS che termina la connessione e analizza le intestazioni. Se impostato su `ssl` o` tcp`, viene utilizzato un listener SSL "raw". Se impostato su `http` e` aws-load-balancer-ssl-cert` non viene utilizzato, viene utilizzato un listener HTTP.
+* `service.beta.kubernetes.io / aws-load-balancer-additional-resource-tags`: utilizzato sul servizio per specificare un elenco separato da virgole di coppie chiave-valore che verranno registrate come tag aggiuntivi nel ELB. Ad esempio: `"Key1 = Val1, Key2 = Val2, KeyNoVal1 =, KeyNoVal2"`.
+* `service.beta.kubernetes.io / aws-load-balancer-backend-protocol`: utilizzato sul servizio per specificare il protocollo parlato dal backend (pod) dietro un listener. Se `http` (predefinito) o `https`, viene creato un listener HTTPS che termina la connessione e analizza le intestazioni. Se impostato su `ssl` o `tcp`, viene utilizzato un listener SSL "raw". Se impostato su `http` e `aws-load-balancer-ssl-cert` non viene utilizzato, viene utilizzato un listener HTTP.
 * `service.beta.kubernetes.io / aws-load-balancer-ssl-cert`: utilizzato nel servizio per richiedere un listener sicuro. Il valore è un certificato ARN valido. Per ulteriori informazioni, vedere [ELB Listener Config](http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/elb-listener-config.html) CertARN è un ARN certificato IAM o CM, ad es. `ARN: AWS: ACM: US-est-1: 123456789012: certificato / 12345678-1234-1234-1234-123456789012`.
 * `service.beta.kubernetes.io / aws-load-balancer-connection-draining-enabled`: utilizzato sul servizio per abilitare o disabilitare il drenaggio della connessione.
 * `service.beta.kubernetes.io / aws-load-balancer-connection-draining-timeout`: utilizzato sul servizio per specificare un timeout di drenaggio della connessione.
@@ -125,7 +125,7 @@ corrispondere al nome VM di CloudStack.
 Il provider cloud GCE utilizza il nome host del nodo (come determinato dal kubelet o sovrascritto
 con `--hostname-override`) come nome dell'oggetto Nodo Kubernetes. Si noti che il primo segmento del nome del nodo
 Kubernetes deve corrispondere al nome dell'istanza GCE (ad esempio, un nodo denominato `kubernetes-node-2.c.my-proj.internal`
-deve corrispondere a un'istanza denominata` kubernetes-node-2`) .
+deve corrispondere a un'istanza denominata `kubernetes-node-2`) .
 
 ## OpenStack
 Questa sezione descrive tutte le possibili configurazioni che possono
@@ -243,7 +243,7 @@ file:
   il bilanciamento del carico.
 * `lb-method` (Opzionale): utilizzato per specificare l'algoritmo in base al quale verrà caricato il carico
   distribuito tra i membri del pool di bilanciamento del carico. Il valore può essere
-  `ROUND_ROBIN`,` LEAST_CONNECTIONS` o `SOURCE_IP`. Il comportamento predefinito se
+  `ROUND_ROBIN`, `LEAST_CONNECTIONS` o `SOURCE_IP`. Il comportamento predefinito se
   nessuno è specificato è `ROUND_ROBIN`.
 * `lb-provider` (Opzionale): utilizzato per specificare il provider del servizio di bilanciamento del carico.
   Se non specificato, sarà il servizio provider predefinito configurato in neutron
@@ -272,7 +272,7 @@ Queste opzioni di configurazione per il provider OpenStack riguardano lo storage
 e dovrebbe apparire nella sezione `[BlockStorage]` del file `cloud.conf`:
 
 * `bs-version` (Opzionale): usato per sovrascrivere il rilevamento automatico delle versioni. Valido
-  i valori sono `v1`,` v2`, `v3` e` auto`. Quando `auto` è specificato automatico
+  i valori sono `v1`, `v2`, `v3` e `auto`. Quando `auto` è specificato automatico
   il rilevamento selezionerà la versione supportata più alta esposta dal sottostante
   Cloud OpenStack. Il valore predefinito se nessuno è fornito è `auto`.
 * `trust-device-path` (Opzionale): Nella maggior parte degli scenari i nomi dei dispositivi a blocchi

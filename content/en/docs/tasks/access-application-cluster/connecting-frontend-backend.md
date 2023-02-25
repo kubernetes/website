@@ -27,7 +27,7 @@ Kubernetes {{< glossary_tooltip term_id="service" >}} object.
 This task uses
 [Services with external load balancers](/docs/tasks/access-application-cluster/create-external-load-balancer/), which
 require a supported environment. If your environment does not support this, you can use a Service of type
-[NodePort](/docs/concepts/services-networking/service/#nodeport) instead.
+[NodePort](/docs/concepts/services-networking/service/#type-nodeport) instead.
 
 <!-- lessoncontent -->
 

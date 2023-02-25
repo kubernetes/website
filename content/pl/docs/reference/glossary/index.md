@@ -1,5 +1,5 @@
 ---
-title: Ujednolicony słownik
+title: Słownik
 layout: glossary
 noedit: true
 default_active_tag: fundamental

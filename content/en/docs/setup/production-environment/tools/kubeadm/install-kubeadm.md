@@ -10,23 +10,23 @@ card:
 
 <!-- overview -->
 
-<img src="https://raw.githubusercontent.com/kubernetes/kubeadm/master/logos/stacked/color/kubeadm-stacked-color.png" align="right" width="150px">This page shows how to install the `kubeadm` toolbox.
-For information how to create a cluster with kubeadm once you have performed this installation process, see the [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
-
+<img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
+This page shows how to install the `kubeadm` toolbox.
+For information on how to create a cluster with kubeadm once you have performed this installation process,
+see the [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
 
 
 ## {{% heading "prerequisites" %}}
 
 
-* A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions based on Debian and Red Hat, and those distributions without a package manager.
+* A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions
+  based on Debian and Red Hat, and those distributions without a package manager.
 * 2 GB or more of RAM per machine (any less will leave little room for your apps).
 * 2 CPUs or more.
 * Full network connectivity between all machines in the cluster (public or private network is fine).
 * Unique hostname, MAC address, and product_uuid for every node. See [here](#verify-mac-address) for more details.
 * Certain ports are open on your machines. See [here](#check-required-ports) for more details.
 * Swap disabled. You **MUST** disable swap in order for the kubelet to work properly.
-
-
 
 <!-- steps -->
 
@@ -45,101 +45,71 @@ may [fail](https://github.com/kubernetes/kubeadm/issues/31).
 If you have more than one network adapter, and your Kubernetes components are not reachable on the default
 route, we recommend you add IP route(s) so Kubernetes cluster addresses go via the appropriate adapter.
 
-## Letting iptables see bridged traffic
+## Check required ports
+These [required ports](/docs/reference/networking/ports-and-protocols/)
+need to be open in order for Kubernetes components to communicate with each other.
+You can use tools like netcat to check if a port is open. For example:
 
-Make sure that the `br_netfilter` module is loaded. This can be done by running `lsmod | grep br_netfilter`. To load it explicitly call `sudo modprobe br_netfilter`.
-
-As a requirement for your Linux Node's iptables to correctly see bridged traffic, you should ensure `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config, e.g.
-
-```bash
-cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
-br_netfilter
-EOF
-
-cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-EOF
-sudo sysctl --system
+```shell
+nc 127.0.0.1 6443
 ```
 
-For more details please see the [Network Plugin Requirements](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) page.
-
-## Check required ports
-
-### Control-plane node(s)
-
-| Protocol | Direction | Port Range | Purpose                 | Used By                   |
-|----------|-----------|------------|-------------------------|---------------------------|
-| TCP      | Inbound   | 6443\*      | Kubernetes API server   | All                       |
-| TCP      | Inbound   | 2379-2380  | etcd server client API  | kube-apiserver, etcd      |
-| TCP      | Inbound   | 10250      | kubelet API             | Self, Control plane       |
-| TCP      | Inbound   | 10251      | kube-scheduler          | Self                      |
-| TCP      | Inbound   | 10252      | kube-controller-manager | Self                      |
-
-### Worker node(s)
-
-| Protocol | Direction | Port Range  | Purpose               | Used By                 |
-|----------|-----------|-------------|-----------------------|-------------------------|
-| TCP      | Inbound   | 10250       | kubelet API           | Self, Control plane     |
-| TCP      | Inbound   | 30000-32767 | NodePort Services†    | All                     |
-
-† Default port range for [NodePort Services](/docs/concepts/services-networking/service/).
-
-Any port numbers marked with * are overridable, so you will need to ensure any
-custom ports you provide are also open.
-
-Although etcd ports are included in control-plane nodes, you can also host your own
-etcd cluster externally or on custom ports.
-
-The pod network plugin you use (see below) may also require certain ports to be
+The pod network plugin you use may also require certain ports to be
 open. Since this differs with each pod network plugin, please see the
 documentation for the plugins about what port(s) those need.
 
-## Installing runtime {#installing-runtime}
+## Installing a container runtime {#installing-runtime}
 
 To run containers in Pods, Kubernetes uses a
 {{< glossary_tooltip term_id="container-runtime" text="container runtime" >}}.
-
-{{< tabs name="container_runtime" >}}
-{{% tab name="Linux nodes" %}}
 
 By default, Kubernetes uses the
 {{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}} (CRI)
 to interface with your chosen container runtime.
 
 If you don't specify a runtime, kubeadm automatically tries to detect an installed
-container runtime by scanning through a list of well known Unix domain sockets.
-The following table lists container runtimes and their associated socket paths:
+container runtime by scanning through a list of known endpoints.
 
-{{< table caption = "Container runtimes and their socket paths" >}}
-| Runtime    | Path to Unix domain socket        |
-|------------|-----------------------------------|
-| Docker     | `/var/run/dockershim.sock`        |
-| containerd | `/run/containerd/containerd.sock` |
-| CRI-O      | `/var/run/crio/crio.sock`         |
+If multiple or no container runtimes are detected kubeadm will throw an error
+and will request that you specify which one you want to use.
+
+See [container runtimes](/docs/setup/production-environment/container-runtimes/)
+for more information.
+
+{{< note >}}
+Docker Engine does not implement the [CRI](/docs/concepts/architecture/cri/)
+which is a requirement for a container runtime to work with Kubernetes.
+For that reason, an additional service [cri-dockerd](https://github.com/Mirantis/cri-dockerd)
+has to be installed. cri-dockerd is a project based on the legacy built-in
+Docker Engine support that was [removed](/dockershim) from the kubelet in version 1.24.
+{{< /note >}}
+
+The tables below include the known endpoints for supported operating systems:
+
+{{< tabs name="container_runtime" >}}
+{{% tab name="Linux" %}}
+
+{{< table caption="Linux container runtimes" >}}
+| Runtime                            | Path to Unix domain socket                   |
+|------------------------------------|----------------------------------------------|
+| containerd                         | `unix:///var/run/containerd/containerd.sock` |
+| CRI-O                              | `unix:///var/run/crio/crio.sock`             |
+| Docker Engine (using cri-dockerd)  | `unix:///var/run/cri-dockerd.sock`           |
 {{< /table >}}
 
-<br />
-If both Docker and containerd are detected, Docker takes precedence. This is
-needed because Docker 18.09 ships with containerd and both are detectable even if you only
-installed Docker.
-If any other two or more runtimes are detected, kubeadm exits with an error.
-
-The kubelet integrates with Docker through the built-in `dockershim` CRI implementation.
-
-See [container runtimes](/docs/setup/production-environment/container-runtimes/)
-for more information.
 {{% /tab %}}
-{{% tab name="other operating systems" %}}
-By default, kubeadm uses {{< glossary_tooltip term_id="docker" >}} as the container runtime.
-The kubelet integrates with Docker through the built-in `dockershim` CRI implementation.
 
-See [container runtimes](/docs/setup/production-environment/container-runtimes/)
-for more information.
+{{% tab name="Windows" %}}
+
+{{< table caption="Windows container runtimes" >}}
+| Runtime                            | Path to Windows named pipe                   |
+|------------------------------------|----------------------------------------------|
+| containerd                         | `npipe:////./pipe/containerd-containerd`     |
+| Docker Engine (using cri-dockerd)  | `npipe:////./pipe/cri-dockerd`               |
+{{< /table >}}
+
 {{% /tab %}}
 {{< /tabs >}}
-
 
 ## Installing kubeadm, kubelet and kubectl
 
@@ -186,13 +156,13 @@ For more information on version skews, see:
 2. Download the Google Cloud public signing key:
 
    ```shell
-   sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
    ```
 
 3. Add the Kubernetes `apt` repository:
 
    ```shell
-   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
 4. Update `apt` package index, install kubelet, kubeadm and kubectl, and pin their version:
@@ -202,6 +172,10 @@ For more information on version skews, see:
    sudo apt-get install -y kubelet kubeadm kubectl
    sudo apt-mark hold kubelet kubeadm kubectl
    ```
+{{< note >}}
+In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default.
+You can create this directory if you need to, making it world-readable but writeable only by admins.
+{{< /note >}}
 
 {{% /tab %}}
 {{% tab name="Red Hat-based distributions" %}}
@@ -212,8 +186,7 @@ name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
 enabled=1
 gpgcheck=1
-repo_gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 exclude=kubelet kubeadm kubectl
 EOF
 
@@ -234,48 +207,58 @@ sudo systemctl enable --now kubelet
 
   - You can leave SELinux enabled if you know how to configure it but it may require settings that are not supported by kubeadm.
 
+  - If the `baseurl` fails because your Red Hat-based distribution cannot interpret `basearch`, replace `\$basearch` with your computer's architecture.
+  Type `uname -m` to see that value.
+  For example, the `baseurl` URL for `x86_64` could be: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`.
+
 {{% /tab %}}
 {{% tab name="Without a package manager" %}}
 Install CNI plugins (required for most pod network):
 
 ```bash
-CNI_VERSION="v0.8.2"
-sudo mkdir -p /opt/cni/bin
-curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-linux-amd64-${CNI_VERSION}.tgz" | sudo tar -C /opt/cni/bin -xz
+CNI_PLUGINS_VERSION="v1.1.1"
+ARCH="amd64"
+DEST="/opt/cni/bin"
+sudo mkdir -p "$DEST"
+curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_PLUGINS_VERSION}/cni-plugins-linux-${ARCH}-${CNI_PLUGINS_VERSION}.tgz" | sudo tar -C "$DEST" -xz
 ```
 
 Define the directory to download command files
 
 {{< note >}}
 The `DOWNLOAD_DIR` variable must be set to a writable directory.
-If you are running Flatcar Container Linux, set `DOWNLOAD_DIR=/opt/bin`.
+If you are running Flatcar Container Linux, set `DOWNLOAD_DIR="/opt/bin"`.
 {{< /note >}}
 
 ```bash
-DOWNLOAD_DIR=/usr/local/bin
-sudo mkdir -p $DOWNLOAD_DIR
+DOWNLOAD_DIR="/usr/local/bin"
+sudo mkdir -p "$DOWNLOAD_DIR"
 ```
 
 Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI))
 
 ```bash
-CRICTL_VERSION="v1.17.0"
-curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-amd64.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
+CRICTL_VERSION="v1.25.0"
+ARCH="amd64"
+curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
 
 Install `kubeadm`, `kubelet`, `kubectl` and add a `kubelet` systemd service:
 
 ```bash
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
+ARCH="amd64"
 cd $DOWNLOAD_DIR
-sudo curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/amd64/{kubeadm,kubelet,kubectl}
-sudo chmod +x {kubeadm,kubelet,kubectl}
+sudo curl -L --remote-name-all https://dl.k8s.io/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet}
+sudo chmod +x {kubeadm,kubelet}
 
 RELEASE_VERSION="v0.4.0"
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service
 sudo mkdir -p /etc/systemd/system/kubelet.service.d
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
+
+Install `kubectl` by following the instructions on [Install Tools page](/docs/tasks/tools/#kubectl).
 
 Enable and start `kubelet`:
 
@@ -314,4 +297,3 @@ If you are running into difficulties with kubeadm, please consult our [troublesh
 ## {{% heading "whatsnext" %}}
 
 * [Using kubeadm to Create a Cluster](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
-

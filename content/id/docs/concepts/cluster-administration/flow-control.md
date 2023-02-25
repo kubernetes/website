@@ -199,7 +199,7 @@ di atas batas tersebut akan mengantri, dengan teknik _sharding shuffle_ dan _fai
 untuk menyelaraskan kemajuan antara _flow_ permintaan.
 
 Konfigurasi antrian memungkinkan mengatur algoritma _fair queuing_ untuk sebuah
-tingkat prioritas. Detail algoritma dapat dibaca di [proposal pembaharuan](#what-s-next), namun secara singkat:
+tingkat prioritas. Detail algoritma dapat dibaca di [proposal pembaharuan](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness), namun secara singkat:
 
 * Meningkatkan `queue` (antrian) berarti mengurangi tingkat tabrakan antara _flow_ yang berbeda, 
   sehingga berakibat pada biaya untuk meningkatkan penggunaan memori. Nilai 1 di sini secara 
@@ -263,7 +263,7 @@ perlu memastikan bahwa tidak ada dua FlowSchema yang memiliki `matchingPrecedenc
 
 Sebuah FlowSchema dianggap cocok dengan sebuah permintaan yang diberikan jika setidaknya salah satu dari `rules` nya
 ada yang cocok. Sebuah aturan (_rule_) cocok jika setidaknya satu dari `subject` *dan*
-ada salah satu dari `resourceRules` atau` nonResourceRules` (tergantung dari apakah permintaan 
+ada salah satu dari `resourceRules` atau `nonResourceRules` (tergantung dari apakah permintaan 
 yang masuk adalah untuk URL sumber daya atau non-sumber daya) yang cocok dengan permintaan tersebut.
 
 Untuk bagian `name` dalam subjek, dan bagian `verbs`, `apiGroups`, `resources`,
@@ -368,7 +368,7 @@ beban kerja yang berperilaku buruk yang dapat membahayakan kesehatan dari sistem
 
 
 Untuk latar belakang informasi mengenai detail desain dari prioritas dan kesetaraan API, silahkan lihat
-[proposal pembaharuan](https://github.com/kubernetes/enhancements/blob/master/keps/sig-api-machinery/20190228-priority-and-fairness.md).
+[proposal pembaharuan](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness).
 Kamu juga dapat membuat saran dan permintaan akan fitur melalui [SIG API
 Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery).
 

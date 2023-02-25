@@ -3,14 +3,18 @@ layout: blog
 title: "Dockershim Deprecation FAQ"
 date: 2020-12-02
 slug: dockershim-faq
-aliases: [ '/dockershim' ]
 ---
+
+
+_**Update**: There is a [newer version](/blog/2022/02/17/dockershim-faq/) of this article available._
 
 This document goes over some frequently asked questions regarding the Dockershim
 deprecation announced as a part of the Kubernetes v1.20 release. For more detail
 on the deprecation of Docker as a container runtime for Kubernetes kubelets, and
 what that means, check out the blog post
 [Don't Panic: Kubernetes and Docker](/blog/2020/12/02/dont-panic-kubernetes-and-docker/).
+
+Also, you can read [check whether Dockershim removal affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/) to check whether it does.
 
 ### Why is dockershim being deprecated?
 
@@ -28,7 +32,7 @@ as cgroups v2 and user namespaces are being implemented in these newer CRI
 runtimes. Removing support for the dockershim will allow further development in
 those areas.
 
-[drkep]: https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/1985-remove-dockershim
+[drkep]: https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2221-remove-dockershim
 
 ### Can I still use Docker in Kubernetes 1.20?
 
@@ -42,9 +46,11 @@ startup if using Docker as the runtime.
 
 Given the impact of this change, we are using an extended deprecation timeline.
 It will not be removed before Kubernetes 1.22, meaning the earliest release without
-dockershim would be 1.23 in late 2021. We will be working closely with vendors
-and other ecosystem groups to ensure a smooth transition and will evaluate things
-as the situation evolves.
+dockershim would be 1.23 in late 2021. 
+_Update_: removal of dockershim is scheduled for Kubernetes v1.24, see 
+[Dockershim Removal Kubernetes Enhancement Proposal][drkep].
+We will be working closely with vendors and other ecosystem groups to ensure a smooth transition and will evaluate 
+things as the situation evolves.
 
 
 ### Can I still use dockershim after it is removed from Kubernetes?
@@ -149,7 +155,7 @@ runtime where possible.
 
 Another thing to look out for is anything expecting to run for system maintenance
 or nested inside a container when building images will no longer work. For the
-former, you can use the [`crictl`][cr] tool as a drop-in replacement (see [mapping from docker cli to crictl](https://kubernetes.io/docs/tasks/debug-application-cluster/crictl/#mapping-from-docker-cli-to-crictl)) and for the
+former, you can use the [`crictl`][cr] tool as a drop-in replacement (see [mapping from dockercli to crictl](/docs/reference/tools/map-crictl-dockercli/)) and for the
 latter you can use newer container build options like [img], [buildah],
 [kaniko], or [buildkit-cli-for-kubectl] that don’t require Docker.
 

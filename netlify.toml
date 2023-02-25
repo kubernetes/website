@@ -1,15 +1,14 @@
 [build]
 # This default build command adds the robots noindex directive to the site headers.
-# It is turned off for only for the production site by using [context.master] below
+# It is turned off for only for the production site by using [context.main] below
 # DO NOT REMOVE THIS (contact @kubernetes/sig-docs-leads)
 publish = "public"
 functions = "functions"
 command = "git submodule update --init --recursive --depth 1 && make non-production-build"
 
 [build.environment]
-HUGO_VERSION = "0.82.0"
 NODE_VERSION = "10.20.0"
-RUBY_VERSION = "2.7.1"
+HUGO_VERSION = "0.110.0"
 
 [context.production.environment]
 HUGO_BASEURL = "https://kubernetes.io/"
@@ -20,17 +19,10 @@ HUGO_ENABLEGITINFO = "true"
 command = "git submodule update --init --recursive --depth 1 && make deploy-preview"
 
 [context.branch-deploy]
-command = "git submodule update --init --recursive --depth 1 && make deploy-preview"
+command = "git submodule update --init --recursive --depth 1 && make non-production-build"
 
-[context.master]
-# This context is triggered by the `master` branch and allows search indexing
+[context.main]
+# This context is triggered by the `main` branch and allows search indexing
 # DO NOT REMOVE THIS (contact @kubernetes/sig-docs-leads)
 publish = "public"
 command = "git submodule update --init --recursive --depth 1 && make production-build"
-
-# adding in headers to prevent clickjacking
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"

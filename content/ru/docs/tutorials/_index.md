@@ -47,6 +47,8 @@ content_type: concept
 
 * [AppArmor](/docs/tutorials/clusters/apparmor/)
 
+* [seccomp](/docs/tutorials/clusters/seccomp/)
+
 ## Сервисы
 
 * [Использование IP](/docs/tutorials/services/source-ip/)
