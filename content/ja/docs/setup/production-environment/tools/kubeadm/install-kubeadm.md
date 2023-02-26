@@ -172,7 +172,7 @@ kubeadmは`kubelet`や`kubectl`をインストールまたは管理**しない**
    echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
-4. `apt` のパッケージ一覧を更新し、kubelet、kubeadm、kubectlをインストールします。そしてバージョンを固定します。:
+4. `apt`のパッケージ一覧を更新し、kubelet、kubeadm、kubectlをインストールします。そしてバージョンを固定します:
 
    ```shell
    sudo apt-get update
