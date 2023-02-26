@@ -79,10 +79,10 @@ To create a token for this demo, you can follow our guide on
 [创建示例用户](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md)
 上的指南进行操作。
 
+{{< warning >}}
 <!--
 The sample user created in the tutorial will have administrative privileges and is for educational purposes only.
 -->
-{{< warning >}}
 在教程中创建的样本用户将具有管理特权，并且仅用于教育目的。
 {{< /warning >}}
 
@@ -110,11 +110,11 @@ The UI can _only_ be accessed from the machine where the command is executed. Se
 -->
 UI _只能_ 通过执行这条命令的机器进行访问。更多选项参见 `kubectl proxy --help`。
 
+{{< note >}}
 <!--
 The kubeconfig authentication method does **not** support external identity providers
 or X.509 certificate-based authentication.
 -->
-{{< note >}}
 Kubeconfig 身份验证方法**不**支持外部身份提供程序或基于 x509 证书的身份验证。
 {{< /note >}}
 
@@ -124,7 +124,10 @@ Kubeconfig 身份验证方法**不**支持外部身份提供程序或基于 x509
 ## 欢迎界面
 
 <!--
-When you access Dashboard on an empty cluster, you'll see the welcome page. This page contains a link to this document as well as a button to deploy your first application. In addition, you can view which system applications are running by default in the `kube-system` [namespace](/docs/tasks/administer-cluster/namespaces/) of your cluster, for example the Dashboard itself.
+When you access Dashboard on an empty cluster, you'll see the welcome page.
+This page contains a link to this document as well as a button to deploy your first application.
+In addition, you can view which system applications are running by default in the `kube-system`
+[namespace](/docs/tasks/administer-cluster/namespaces/) of your cluster, for example the Dashboard itself.
  -->
 当访问空集群的 Dashboard 时，你会看到欢迎界面。
 页面包含一个指向此文档的链接，以及一个用于部署第一个应用程序的按钮。
@@ -163,28 +166,37 @@ The deploy wizard expects that you provide the following information:
 部署向导需要你提供以下信息：
 
 <!--
-- **App name** (mandatory): Name for your application. A [label](/docs/concepts/overview/working-with-objects/labels/) with the name will be added to the Deployment and Service, if any, that will be deployed.
+- **App name** (mandatory): Name for your application.
+  A [label](/docs/concepts/overview/working-with-objects/labels/) with the name will be
+  added to the Deployment and Service, if any, that will be deployed.
 -->
 - **应用名称**（必填）：应用的名称。内容为 `应用名称` 的
   [标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/)
   会被添加到任何将被部署的 Deployment 和 Service。
 
   <!--
-  The application name must be unique within the selected Kubernetes [namespace](/docs/tasks/administer-cluster/namespaces/). It must start with a lowercase character, and end with a lowercase character or a number, and contain only lowercase letters, numbers and dashes (-). It is limited to 24 characters. Leading and trailing spaces are ignored.
+  The application name must be unique within the selected Kubernetes [namespace](/docs/tasks/administer-cluster/namespaces/).
+  It must start with a lowercase character, and end with a lowercase character or a number,
+  and contain only lowercase letters, numbers and dashes (-). It is limited to 24 characters.
+  Leading and trailing spaces are ignored.
   -->
   在选定的 Kubernetes [名字空间](/zh-cn/docs/tasks/administer-cluster/namespaces/) 中，
   应用名称必须唯一。必须由小写字母开头，以数字或者小写字母结尾，
   并且只含有小写字母、数字和中划线（-）。小于等于24个字符。开头和结尾的空格会被忽略。
 
 <!--
-- **Container image** (mandatory): The URL of a public Docker [container image](/docs/concepts/containers/images/) on any registry, or a private image (commonly hosted on the Google Container Registry or Docker Hub). The container image specification must end with a colon.
+- **Container image** (mandatory):
+  The URL of a public Docker [container image](/docs/concepts/containers/images/) on any registry,
+  or a private image (commonly hosted on the Google Container Registry or Docker Hub).
+  The container image specification must end with a colon.
  -->
 - **容器镜像**（必填）：公共镜像仓库上的 Docker
   [容器镜像](/zh-cn/docs/concepts/containers/images/) 或者私有镜像仓库
   （通常是 Google Container Registry 或者 Docker Hub）的 URL。容器镜像参数说明必须以冒号结尾。
 
 <!--
-- **Number of pods** (mandatory): The target number of Pods you want your application to be deployed in. The value must be a positive integer.
+- **Number of pods** (mandatory): The target number of Pods you want your application to be deployed in.
+  The value must be a positive integer.
 -->
 - **Pod 的数量**（必填）：你希望应用程序部署的 Pod 的数量。值必须为正整数。
 
@@ -196,16 +208,18 @@ The deploy wizard expects that you provide the following information:
   以保证集群中运行期望的 Pod 数量。
 
 <!--
-- **Service** (optional): For some parts of your application (e.g. frontends) you may want to expose a [Service](/docs/concepts/services-networking/service/) onto an external, maybe public IP address outside of your cluster (external Service).
+- **Service** (optional): For some parts of your application (e.g. frontends) you may want to expose a
+  [Service](/docs/concepts/services-networking/service/) onto an external,
+  maybe public IP address outside of your cluster (external Service).
  -->
 - **服务**（可选）：对于部分应用（比如前端），你可能想对外暴露一个
   [Service](/zh-cn/docs/concepts/services-networking/service/)，这个 Service
   可能用的是集群之外的公网 IP 地址（外部 Service）。
 
+  {{< note >}}
   <!-- 
   For external Services, you may need to open up one or more ports to do so.
   -->
-  {{< note >}}
   对于外部服务，你可能需要开放一个或多个端口才行。
   {{< /note >}}
 
@@ -241,7 +255,10 @@ If needed, you can expand the **Advanced options** section where you can specify
   添加到 Deployment，并显示在应用的详细信息中。
 
 <!--
-- **Labels**: Default [labels](/docs/concepts/overview/working-with-objects/labels/) to be used for your application are application name and version. You can specify additional labels to be applied to the Deployment, Service (if any), and Pods, such as release, environment, tier, partition, and release track.
+- **Labels**: Default [labels](/docs/concepts/overview/working-with-objects/labels/) to be used
+  for your application are application name and version.
+  You can specify additional labels to be applied to the Deployment, Service (if any), and Pods,
+  such as release, environment, tier, partition, and release track.
 -->
 - **标签**：应用默认使用的
   [标签](/zh-cn/docs/concepts/overview/working-with-objects/labels/) 是应用名称和版本。
@@ -259,7 +276,9 @@ If needed, you can expand the **Advanced options** section where you can specify
   ```
 
 <!--
-- **Namespace**: Kubernetes supports multiple virtual clusters backed by the same physical cluster. These virtual clusters are called [namespaces](/docs/tasks/administer-cluster/namespaces/). They let you partition resources into logically named groups.
+- **Namespace**: Kubernetes supports multiple virtual clusters backed by the same physical cluster.
+  These virtual clusters are called [namespaces](/docs/tasks/administer-cluster/namespaces/).
+  They let you partition resources into logically named groups.
 -->
 - **名字空间**：Kubernetes 支持多个虚拟集群依附于同一个物理集群。
   这些虚拟集群被称为
@@ -268,8 +287,7 @@ If needed, you can expand the **Advanced options** section where you can specify
 
   <!--
   Dashboard offers all available namespaces in a dropdown list, and allows you to create a new namespace.
-  The namespace name may contain a maximum of 63 alphanumeric characters and dashes (-) 
-  but can not contain capital letters.
+  The namespace name may contain a maximum of 63 alphanumeric characters and dashes (-) but can not contain capital letters.
   -->
   Dashboard 通过下拉菜单提供所有可用的名字空间，并允许你创建新的名字空间。
   名字空间的名称最长可以包含 63 个字母或数字和中横线（-），但是不能包含大写字母。
@@ -287,7 +305,9 @@ If needed, you can expand the **Advanced options** section where you can specify
   在名字空间创建成功的情况下，默认会使用新创建的名字空间。如果创建失败，那么第一个名字空间会被选中。
 
 <!--
-- **Image Pull Secret**: In case the specified Docker container image is private, it may require [pull secret](/docs/concepts/configuration/secret/) credentials.
+- **Image Pull Secret**:
+  In case the specified Docker container image is private, it may require
+  [pull secret](/docs/concepts/configuration/secret/) credentials.
 -->
 - **镜像拉取 Secret**：如果要使用私有的 Docker 容器镜像，需要拉取
   [Secret](/zh-cn/docs/concepts/configuration/secret/) 凭证。
@@ -306,8 +326,7 @@ If needed, you can expand the **Advanced options** section where you can specify
   文件中声明。Secret 名称最大可以包含 253 个字符。
   
   <!--
-  In case the creation of the image pull secret is successful, it is selected by default.
-  If the creation fails, no secret is applied.
+  In case the creation of the image pull secret is successful, it is selected by default. If the creation fails, no secret is applied.
   -->
   在镜像拉取 Secret 创建成功的情况下，默认会使用新创建的 Secret。
   如果创建失败，则不会使用任何 Secret。
@@ -343,7 +362,11 @@ If needed, you can expand the **Advanced options** section where you can specify
   特权容器可以使用诸如操纵网络堆栈和访问设备的功能。
 
 <!--
-- **Environment variables**: Kubernetes exposes Services through [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/). You can compose environment variable or pass arguments to your commands using the values of environment variables. They can be used in applications to find a Service. Values can reference other variables using the `$(VAR_NAME)` syntax.
+- **Environment variables**: Kubernetes exposes Services through
+  [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/).
+  You can compose environment variable or pass arguments to your commands using the values of environment variables.
+  They can be used in applications to find a Service.
+  Values can reference other variables using the `$(VAR_NAME)` syntax.
  -->
 - **环境变量**：Kubernetes 通过
   [环境变量](/zh-cn/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
@@ -382,7 +405,9 @@ Following sections describe views of the Kubernetes Dashboard UI; what they prov
 <!--
 ### Navigation
 
-When there are Kubernetes objects defined in the cluster, Dashboard shows them in the initial view. By default only objects from the _default_ namespace are shown and this can be changed using the namespace selector located in the navigation menu.
+When there are Kubernetes objects defined in the cluster, Dashboard shows them in the initial view.
+By default only objects from the _default_ namespace are shown and
+this can be changed using the namespace selector located in the navigation menu.
 -->
 ### 导航
 
@@ -435,7 +460,10 @@ HorizontalPodAutoscalers。
 <!--
 #### Services
 
-Shows Kubernetes resources that allow for exposing services to external world and discovering them within a cluster. For that reason, Service and Ingress views show Pods targeted by them, internal endpoints for cluster connections and external endpoints for external users.
+Shows Kubernetes resources that allow for exposing services to external world and
+discovering them within a cluster.
+For that reason, Service and Ingress views show Pods targeted by them,
+internal endpoints for cluster connections and external endpoints for external users.
 -->
 #### 服务
 
@@ -454,7 +482,8 @@ Storage view shows PersistentVolumeClaim resources which are used by application
 <!--
 #### ConfigMaps and Secrets {#config-maps-and-secrets}
 
-Shows all Kubernetes resources that are used for live configuration of applications running in clusters. The view allows for editing and managing config objects and displays secrets hidden by default.
+Shows all Kubernetes resources that are used for live configuration of applications running in clusters.
+The view allows for editing and managing config objects and displays secrets hidden by default.
 -->
 #### ConfigMap 和 Secret {#config-maps-and-secrets}
 
@@ -484,4 +513,3 @@ For more information, see the
 [Kubernetes Dashboard project page](https://github.com/kubernetes/dashboard).
 -->
 更多信息，参见 [Kubernetes Dashboard 项目页面](https://github.com/kubernetes/dashboard).
-
