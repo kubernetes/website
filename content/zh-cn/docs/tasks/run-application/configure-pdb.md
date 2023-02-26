@@ -115,17 +115,17 @@ due to a voluntary disruption.
 - Single-instance Stateful Application:
   - Concern: do not terminate this application without talking to me.
     - Possible Solution 1: Do not use a PDB and tolerate occasional downtime.
-    - Possible Solution 2: Set PDB with maxUnavailable=0.  Have an understanding
+    - Possible Solution 2: Set PDB with maxUnavailable=0. Have an understanding
       (outside of Kubernetes) that the cluster operator needs to consult you before
-      termination.  When the cluster operator contacts you, prepare for downtime,
-      and then delete the PDB to indicate readiness for disruption.  Recreate afterwards.
+      termination. When the cluster operator contacts you, prepare for downtime,
+      and then delete the PDB to indicate readiness for disruption. Recreate afterwards.
 - Multiple-instance Stateful application such as Consul, ZooKeeper, or etcd:
   - Concern: Do not reduce number of instances below quorum, otherwise writes fail.
     - Possible Solution 1: set maxUnavailable to 1 (works with varying scale of application).
-    - Possible Solution 2: set minAvailable to quorum-size (e.g. 3 when scale is 5).  (Allows more disruptions at once).
+    - Possible Solution 2: set minAvailable to quorum-size (e.g. 3 when scale is 5). (Allows more disruptions at once).
 - Restartable Batch Job:
   - Concern: Job needs to complete in case of voluntary disruption.
-    - Possible solution: Do not create a PDB.  The Job controller will create a replacement pod.
+    - Possible solution: Do not create a PDB. The Job controller will create a replacement pod.
 -->
 - 无状态的前端：
   - 关注：不能降低服务能力 10% 以上。
@@ -183,7 +183,7 @@ Kubernetes 采用向上取整到最接近的整数的办法，因此在这种情
 <!--
 ## Specifying a PodDisruptionBudget
 
-A `PodDisruptionBudget` has three fields: 
+A `PodDisruptionBudget` has three fields:
 -->
 ## 指定 PodDisruptionBudget
 
@@ -238,7 +238,7 @@ Example 1: With a `minAvailable` of 5, evictions are allowed as long as they lea
 
 <!--
 Example 2: With a `minAvailable` of 30%, evictions are allowed as long as at least 30%
-of the number of desired replicas are healthy. 
+of the number of desired replicas are healthy.
 -->
 示例 2：设置 `minAvailable` 值为 30% 的情况下，驱逐时需保证 Pod 所需副本的至少 30% 处于健康状态。
 
@@ -256,20 +256,20 @@ of the desired replicas are unhealthy.
 
 <!--
 In typical usage, a single budget would be used for a collection of pods managed by
-a controller—for example, the pods in a single ReplicaSet or StatefulSet. 
+a controller—for example, the pods in a single ReplicaSet or StatefulSet.
 -->
 在典型用法中，干扰预算会被用于一个控制器管理的一组 Pod 中 —— 例如：一个 ReplicaSet 或 StatefulSet
 中的 Pod。
 
+{{< note >}}
 <!--
 A disruption budget does not truly guarantee that the specified
-number/percentage of pods will always be up.  For example, a node that hosts a
+number/percentage of pods will always be up. For example, a node that hosts a
 pod from the collection may fail when the collection is at the minimum size
 specified in the budget, thus bringing the number of available pods from the
 collection below the specified size. The budget can only protect against
 voluntary evictions, not all causes of unavailability.
 -->
-{{< note >}}
 干扰预算并不能真正保证指定数量/百分比的 Pod 一直处于运行状态。例如： 当 Pod 集合的
 规模处于预算指定的最小值时，承载集合中某个 Pod 的节点发生了故障，这样就导致集合中可用 Pod 的
 数量低于预算指定值。预算只能够针对自发的驱逐提供保护，而不能针对所有 Pod 不可用的诱因。
@@ -440,8 +440,8 @@ on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/
 <!--
 PodDisruptionBudget guarding an application ensures that `.status.currentHealthy` number of pods
 does not fall below the number specified in `.status.desiredHealthy` by disallowing eviction of healthy pods.
-By using `.spec.unhealthyPodEvictionPolicy`, you can also define the criteria when unhealthy pods 
-should be considered for eviction. The default behavior when no policy is specified corresponds 
+By using `.spec.unhealthyPodEvictionPolicy`, you can also define the criteria when unhealthy pods
+should be considered for eviction. The default behavior when no policy is specified corresponds
 to the `IfHealthyBudget` policy.
 -->
 守护应用程序的 PodDisruptionBudget 通过不允许驱逐健康的 Pod 来确保 `.status.currentHealthy` 的 Pod
@@ -526,8 +526,8 @@ You can use a PDB with pods controlled by another type of controller, by an
 
 <!--
 You can use a selector which selects a subset or superset of the pods belonging to a built-in
-controller.  The eviction API will disallow eviction of any pod covered by multiple PDBs,
-so most users will want to avoid overlapping selectors.  One reasonable use of overlapping
+controller. The eviction API will disallow eviction of any pod covered by multiple PDBs,
+so most users will want to avoid overlapping selectors. One reasonable use of overlapping
 PDBs is when pods are being transitioned from one PDB to another.
 -->
 你可以令选择算符选择一个内置控制器所控制 Pod 的子集或父集。
