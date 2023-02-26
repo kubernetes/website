@@ -129,6 +129,11 @@ Por exemplo, para fazer download da versão {{< param "fullversion" >}} no Linux
    echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
+   3.1 To Ubuntu Jammy (22.04 LTS):
+
+   ```shell
+   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ ubuntu-jammy-mirror" | sudo tee /etc/apt/sources.list.d/kubernetes.list   
+
 4. Atualize o índice do `apt` com o novo repositório e instale o kubectl:
 
    ```shell
