@@ -1,7 +1,7 @@
 ---
 title: 在 Minikube 环境中使用 NGINX Ingress 控制器配置 Ingress
 content_type: task
-weight: 100
+weight: 110
 min-kubernetes-server-version: 1.19
 ---
 <!--
@@ -49,7 +49,7 @@ Locally
 : If you already [installed Minikube](/docs/tasks/tools/#minikube)
   locally, run `minikube start` to create a cluster.
 -->
-### 创建一个 Minikube  集群  {#create-minikube-cluster}
+### 创建一个 Minikube 集群  {#create-minikube-cluster}
 
 使用 Katacoda
 : {{< kat-button >}}
@@ -201,7 +201,7 @@ Locally
    ```
 
 <!--
-1. Visit the service via NodePort:
+1. Visit the Service via NodePort:
 -->
 4. 使用节点端口信息访问服务：
 
@@ -327,7 +327,7 @@ The following manifest defines an Ingress that sends traffic to your Service via
    Ingress 列表中显示的 IP 地址会是内部 IP 地址。
    {{< /note >}}
 
-   <!--     
+   <!--
    After you make this change, your web browser sends requests for
    `hello-world.info` URLs to Minikube.
    -->
@@ -439,7 +439,7 @@ The following manifest defines an Ingress that sends traffic to your Service via
    ```
 
 <!--
-## Test Your Ingress
+## Test your Ingress
 
 1. Access the 1st version of the Hello World app.
 -->
