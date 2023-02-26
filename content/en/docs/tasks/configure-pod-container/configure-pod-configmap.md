@@ -15,7 +15,8 @@ ConfigMaps are a Kubernetes mechanism that let you inject configuration data int
 
 The ConfigMap concept allow you to decouple configuration artifacts from image content to
 keep containerized applications portable. For example, you can download and run the same
-{{< glossary_tooltip text="container image" term_id="image" >}} to spin up containers for the purposes of local development, system test, or running a live end-user workload.
+{{< glossary_tooltip text="container image" term_id="image" >}} to spin up containers for 
+the purposes of local development, system test, or running a live end-user workload.
 
 This page provides a series of usage examples demonstrating how to create ConfigMaps and
 configure Pods using data stored in ConfigMaps.
@@ -29,7 +30,6 @@ such as `curl`, and you do not have `wget`, you will need to adapt the
 step that downloads example data.
 
 <!-- steps -->
-
 
 ## Create a ConfigMap
 
@@ -66,14 +66,14 @@ whose filename is a valid key in the directory and packages each of those files 
 ConfigMap. Any directory entries except regular files are ignored (for example: subdirectories,
 symlinks, devices, pipes, and more).
 
-
 {{< note >}}
-Each filename being used for ConfigMap creation must consist of only acceptable characters, which are: letters (`A` to `Z` and `a` to z`), digits (`0` to `9`), '-', '_', or '.'.
-If you use `kubectl create configmap` with a directory where any of the file names contains an unacceptable character, the `kubectl` command may fail.
+Each filename being used for ConfigMap creation must consist of only acceptable characters,
+which are: letters (`A` to `Z` and `a` to z`), digits (`0` to `9`), '-', '_', or '.'.
+If you use `kubectl create configmap` with a directory where any of the file names contains
+an unacceptable character, the `kubectl` command may fail.
 
 The `kubectl` command does not print an error when it encounters an invalid filename.
 {{< /note >}}
-
 
 Create the local directory:
 
@@ -396,7 +396,6 @@ data:
   special.type: charm
 ```
 
-
 ### Create a ConfigMap from generator
 
 You can also create a ConfigMap from generators and then apply it to create the object
@@ -543,7 +542,8 @@ section, and learn how to use these objects with Pods.
    kubectl create configmap special-config --from-literal=special.how=very
    ```
 
-2. Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY` environment variable in the Pod specification.
+2. Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY`
+   environment variable in the Pod specification.
 
    {{< codenew file="pods/pod-single-configmap-env-variable.yaml" >}}
 
@@ -597,7 +597,6 @@ Here is the manifest you will use:
   kubectl create -f https://kubernetes.io/examples/configmap/configmap-multikeys.yaml
   ```
 
-
 * Use `envFrom` to define all of the ConfigMap's data as container environment variables. The
   key from the ConfigMap becomes the environment variable name in the Pod.
 
@@ -627,7 +626,6 @@ For example, the following Pod manifest:
 
 Create that Pod, by running:
 
-
 ```shell
 kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-env-var-valueFrom.yaml
 ```
@@ -646,7 +644,7 @@ kubectl delete pod dapi-test-pod --now
 ## Add ConfigMap data to a Volume
 
 As explained in [Create ConfigMaps from files](#create-configmaps-from-files), when you create
-a ConfigMap using ``--from-file``, the filename becomes a key stored in the `data` section of
+a ConfigMap using `--from-file`, the filename becomes a key stored in the `data` section of
 the ConfigMap. The file contents become the key's value.
 
 The examples in this section refer to a ConfigMap named `special-config`:
@@ -682,7 +680,8 @@ SPECIAL_TYPE
 ```
 
 Text data is exposed as files using the UTF-8 character encoding. To use some other
-character encoding, use `binaryData` (see [ConfigMap object](/docs/concepts/configuration/configmap/#configmap-object) for more details).
+character encoding, use `binaryData`
+(see [ConfigMap object](/docs/concepts/configuration/configmap/#configmap-object) for more details).
 
 {{< note >}}
 If there are any files in the `/etc/config` directory of that container image, the volume
@@ -722,7 +721,6 @@ Delete that Pod:
 kubectl delete pod dapi-test-pod --now
 ```
 
-
 ### Project keys to specific paths and file permissions
 
 You can project keys to specific paths and specific permissions on a per-file
@@ -732,7 +730,7 @@ guide explains the syntax.
 
 ### Optional references
 
-A ConfigMap reference may be marked _optional_.  If the ConfigMap is non-existent, the mounted
+A ConfigMap reference may be marked _optional_. If the ConfigMap is non-existent, the mounted
 volume will be empty. If the ConfigMap exists, but the referenced key is non-existent, the path
 will be absent beneath the mount point. See [Optional ConfigMaps](#optional-configmaps) for more
 details.
@@ -751,7 +749,8 @@ minute by default) + TTL of ConfigMaps cache (1 minute by default) in kubelet. Y
 can trigger an immediate refresh by updating one of the pod's annotations.
 
 {{< note >}}
-A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes/#using-subpath) volume will not receive ConfigMap updates.
+A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes/#using-subpath)
+volume will not receive ConfigMap updates.
 {{< /note >}}
 
 <!-- discussion -->
@@ -821,7 +820,7 @@ spec:
   containers:
     - name: test-container
       image: gcr.io/google_containers/busybox
-      command: [ "/bin/sh", "-c", "env" ]
+      command: ["/bin/sh", "-c", "env"]
       env:
         - name: SPECIAL_LEVEL_KEY
           valueFrom:
@@ -850,7 +849,7 @@ spec:
   containers:
     - name: test-container
       image: gcr.io/google_containers/busybox
-      command: [ "/bin/sh", "-c", "ls /etc/config" ]
+      command: ["/bin/sh", "-c", "ls /etc/config"]
       volumeMounts:
       - name: config-volume
         mountPath: /etc/config
@@ -875,7 +874,8 @@ are projected to the pod can be as long as kubelet sync period (1 minute by defa
 ConfigMaps cache (1 minute by default) in kubelet.
 
 {{< note >}}
-A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes/#using-subpath) volume will not receive ConfigMap updates.
+A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes/#using-subpath)
+volume will not receive ConfigMap updates.
 {{< /note >}}
 
 ## Restrictions
@@ -925,7 +925,6 @@ kubectl delete configmap -l 'game-config in (config-4,config-5)’
 
 If you created a directory `configure-pod-container` and no longer need it, you should remove that too,
 or move it into the trash can / deleted files location.
-
 
 ## {{% heading "whatsnext" %}}
 
