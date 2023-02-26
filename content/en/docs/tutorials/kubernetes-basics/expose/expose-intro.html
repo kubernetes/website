@@ -17,18 +17,18 @@ weight: 10
 
 		<div class="row">
 			<div class="col-md-8">
-    		<h3>Objectives</h3>
+    		<h3>উদ্দেশ্য</h3>
 				<ul>
-					<li>Learn about a Service in Kubernetes</li>
-					<li>Understand how labels and LabelSelector objects relate to a Service</li>
-					<li>Expose an application outside a Kubernetes cluster using a Service</li>
+					<li>Kubernetes-এ একটি পরিষেবা সম্পর্কে জানুন</li>
+					<li>labels এবং LabelSelector একটি পরিষেবার সাথে কিভাবে সম্পর্কিত তা বুঝুন</li>
+					<li>একটি পরিষেবা ব্যবহার করে Kubernetes ক্লাস্টারের বাইরে একটি অ্যাপ্লিকেশন প্রকাশ করুন</li>
 				</ul>
 			</div>
 
 			<div class="col-md-8">
-			<h3>Overview of Kubernetes Services</h3>
+			<h3>কুবারর্নেটিস পরিষেবার ওভারভিউ</h3>
 
-			<p>Kubernetes <a href="/docs/concepts/workloads/pods/">Pods</a> are mortal. Pods in fact have a <a href="/docs/concepts/workloads/pods/pod-lifecycle/">lifecycle</a>. When a worker node dies, the Pods running on the Node are also lost. A <a href="/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a> might then dynamically drive the cluster back to desired state via creation of new Pods to keep your application running. As another example, consider an image-processing backend with 3 replicas. Those replicas are exchangeable; the front-end system should not care about backend replicas or even if a Pod is lost and recreated. That said, each Pod in a Kubernetes cluster has a unique IP address, even Pods on the same Node, so there needs to be a way of automatically reconciling changes among Pods so that your applications continue to function.</p>
+			<p>কুবারর্নেটিস <a href="/docs/concepts/workloads/pods/">পডসমূহ</a>হচ্ছে মরণশীল। পড এর একটি <a href="/docs/concepts/workloads/pods/pod-lifecycle/">জীবনচক্র</a> আছে। যখন একজন ওয়ার্কার নোড মারা যায়, তখন নোডে চলমান পডগুলিও হারিয়ে যায়। A <a href="/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a> might then dynamically drive the cluster back to desired state via creation of new Pods to keep your application running. As another example, consider an image-processing backend with 3 replicas. Those replicas are exchangeable; the front-end system should not care about backend replicas or even if a Pod is lost and recreated. That said, each Pod in a Kubernetes cluster has a unique IP address, even Pods on the same Node, so there needs to be a way of automatically reconciling changes among Pods so that your applications continue to function.</p>
 
 			<p>A Service in Kubernetes is an abstraction which defines a logical set of Pods and a policy by which to access them. Services enable a loose coupling between dependent Pods. A Service is defined using YAML <a href="/docs/concepts/configuration/overview/#general-configuration-tips">(preferred)</a> or JSON, like all Kubernetes objects. The set of Pods targeted by a Service is usually determined by a <i>LabelSelector</i> (see below for why you might want a Service without including <code>selector</code> in the spec).</p>
 
