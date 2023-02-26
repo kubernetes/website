@@ -389,7 +389,7 @@ kubectl taint nodes foo dedicated=special-user:NoSchedule
 
 ### Tipos de Recursos
 
-Liste todos os tipos de recursos suportados junto com seus nomes abreviados, [grupo de API](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning), sejam eles [namespaced](/docs/concepts/overview/ trabalhando com objetos/namespaces) e [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects):
+Liste todos os tipos de recursos suportados junto com seus nomes abreviados, [grupo de API](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning), sejam eles [namespaced](/docs/concepts/overview/working-with-objects/namespaces) e [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects):
 
 ```bash
 kubectl api-resources
@@ -441,7 +441,7 @@ Mais exemplos no kubectl [documentação de referência](/docs/reference/kubectl
 
 ### Verbosidade da Saída do Kubectl e Debugging
 
-A verbosidade do Kubectl é controlado com os sinalizadores `-v` ou` --v` seguidos por um número inteiro representando o nível do log. As convenções gerais de log do Kubernetes e os níveis de log associados são descritos [aqui](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
+A verbosidade do Kubectl é controlado com as flags `-v` ou` --v` seguidos por um número inteiro representando o nível do log. As convenções gerais de log do Kubernetes e os níveis de log associados são descritos [aqui](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 
 Verbosidade | Descrição
 --------------| -----------
