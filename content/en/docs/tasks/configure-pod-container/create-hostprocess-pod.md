@@ -1,7 +1,7 @@
 ---
 title: Create a Windows HostProcess Pod
 content_type: task
-weight: 20
+weight: 50
 min-kubernetes-server-version: 1.23
 ---
 

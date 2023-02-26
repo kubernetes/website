@@ -148,11 +148,11 @@ other = "Latest Release:"
 [latest_version]
 other = "latest version."
 
-[layouts_blog_pager_prev]
-other = "<< Prev"
-
 [layouts_blog_pager_next]
 other = "Next >>"
+
+[layouts_blog_pager_prev]
+other = "<< Prev"
 
 [layouts_case_studies_list_tell]
 other = "Tell your story"
@@ -160,11 +160,11 @@ other = "Tell your story"
 [layouts_docs_glossary_aka]
 other = "Also known as"
 
-[layouts_docs_glossary_description]
-other = "This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to Kubernetes, as well as more general terms that provide useful context."
+[layout_docs_glossary_architecture_description]
+other = "The inner components of Kubernetes."
 
-[layouts_docs_glossary_deselect_all]
-other = "Deselect all"
+[layout_docs_glossary_architecture_name]
+other = "Architecture"
 
 [layouts_docs_glossary_click_details_after]
 other = "indicators below to get a longer explanation for any particular term."
@@ -172,11 +172,83 @@ other = "indicators below to get a longer explanation for any particular term."
 [layouts_docs_glossary_click_details_before]
 other = "Click on the"
 
+[layout_docs_glossary_community_description]
+other = "Related to Kubernetes open-source development."
+
+[layout_docs_glossary_community_name]
+other = "Community"
+
+[layout_docs_glossary_core-object_description]
+other = "A resource type that Kubernetes supports by default."
+
+[layout_docs_glossary_core-object_name]
+other = "Core Object"
+
+[layouts_docs_glossary_description]
+other = "This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to Kubernetes, as well as more general terms that provide useful context."
+
+[layouts_docs_glossary_deselect_all]
+other = "Deselect all"
+
+[layout_docs_glossary_extension_description]
+other = "Supported customizations of Kubernetes."
+
+[layout_docs_glossary_extension_name]
+other = "Extension"
+
 [layouts_docs_glossary_filter]
 other = "Filter terms according to their tags"
 
+[layout_docs_glossary_fundamental_description]
+other = "Relevant for a first-time user of Kubernetes."
+
+[layout_docs_glossary_fundamental_name]
+other = "Fundamental"
+
+[layout_docs_glossary_networking_description]
+other = "How Kubernetes components talk to each other (and to programs outside the cluster)."
+
+[layout_docs_glossary_networking_name]
+other = "Networking"
+
+[layout_docs_glossary_operation_description]
+other = "Starting and maintaining Kubernetes."
+
+[layout_docs_glossary_operation_name]
+other = "Operation"
+
+[layout_docs_glossary_security_description]
+other = "Keeping Kubernetes applications safe and secure."
+
+[layout_docs_glossary_security_name]
+other = "Security"
+
 [layouts_docs_glossary_select_all]
 other = "Select all"
+
+[layout_docs_glossary_storage_description]
+other = "How Kubernetes applications handle persistent data."
+
+[layout_docs_glossary_storage_name]
+other = "Storage"
+
+[layout_docs_glossary_tool_description]
+other = "Software that makes Kubernetes easier or better to use."
+
+[layout_docs_glossary_tool_name]
+other = "Tool"
+
+[layout_docs_glossary_user-type_description]
+other = "Represents a common type of Kubernetes user."
+
+[layout_docs_glossary_user-type_name]
+other = "User Type"
+
+[layout_docs_glossary_workload_description]
+other = "Applications running on Kubernetes."
+
+[layout_docs_glossary_workload_name]
+other = "Workload"
 
 [layouts_docs_partials_feedback_improvement]
 other = "suggest an improvement"
@@ -367,74 +439,4 @@ other = "Warning:"
 [whatsnext_heading]
 other = "What's next"
 
-[layout_docs_glossary_architecture_name]
-other = "Architecture"
 
-[layout_docs_glossary_architecture_description]
-other = "The inner components of Kubernetes."
-
-[layout_docs_glossary_community_name]
-other = "Community"
-
-[layout_docs_glossary_community_description]
-other = "Related to Kubernetes open-source development."
-
-[layout_docs_glossary_core-object_name]
-other = "Core Object"
-
-[layout_docs_glossary_core-object_description]
-other = "A resource type that Kubernetes supports by default."
-
-[layout_docs_glossary_extension_name]
-other = "Extension"
-
-[layout_docs_glossary_extension_description]
-other = "Supported customizations of Kubernetes."
-
-[layout_docs_glossary_fundamental_name]
-other = "Fundamental"
-
-[layout_docs_glossary_fundamental_description]
-other = "Relevant for a first-time user of Kubernetes."
-
-[layout_docs_glossary_networking_name]
-other = "Networking"
-
-[layout_docs_glossary_networking_description]
-other = "How Kubernetes components talk to each other (and to programs outside the cluster)."
-
-[layout_docs_glossary_operation_name]
-other = "Operation"
-
-[layout_docs_glossary_operation_description]
-other = "Starting and maintaining Kubernetes."
-
-[layout_docs_glossary_security_name]
-other = "Security"
-
-[layout_docs_glossary_security_description]
-other = "Keeping Kubernetes applications safe and secure."
-
-[layout_docs_glossary_storage_name]
-other = "Storage"
-
-[layout_docs_glossary_storage_description]
-other = "How Kubernetes applications handle persistent data."
-
-[layout_docs_glossary_tool_name]
-other = "Tool"
-
-[layout_docs_glossary_tool_description]
-other = "Software that makes Kubernetes easier or better to use."
-
-[layout_docs_glossary_user-type_name]
-other = "User Type"
-
-[layout_docs_glossary_user-type_description]
-other = "Represents a common type of Kubernetes user."
-
-[layout_docs_glossary_workload_name]
-other = "Workload"
-
-[layout_docs_glossary_workload_description]
-other = "Applications running on Kubernetes."

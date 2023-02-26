@@ -1,7 +1,7 @@
 ---
 title: Configure Pod Initialization
 content_type: task
-weight: 130
+weight: 170
 ---
 
 <!-- overview -->
