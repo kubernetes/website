@@ -1,9 +1,5 @@
 ---
 title: kubectl Cheat Sheet
-reviewers:
-- erictune
-- krousey
-- clove
 content_type: concept
 card:
   name: reference
@@ -38,7 +34,7 @@ complete -F __start_kubectl k
 
 ```bash
 source <(kubectl completion zsh)  # configuração para usar autocomplete no terminal zsh no shell atual
-echo "if [ $commands[kubectl] ]; then source <(kubectl completion zsh); fi" >> ~/.zshrc # adicionar auto completar permanentemente para o seu shell zsh
+echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc # adicionar auto completar permanentemente para o seu shell zsh
 ```
 
 ### Uma nota sobre `--all-namespaces`
@@ -193,8 +189,8 @@ kubectl get configmap myconfig \
 kubectl get secret my-secret --template='{{index .data "key-name-with-dashes"}}'
 
 # Obter todos os nós workers (use um seletor para excluir resultados que possuem uma label
-# nomeado 'node-role.kubernetes.io/master')
-kubectl get node --selector='!node-role.kubernetes.io/master'
+# nomeado 'node-role.kubernetes.io/control-plane')
+kubectl get node --selector='!node-role.kubernetes.io/control-plane'
 
 # Obter todos os pods em execução no namespace
 kubectl get pods --field-selector=status.phase=Running
@@ -307,7 +303,7 @@ kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # Se o tamanho
 kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Escalar vários replicaset
 ```
 
-## Exclusão de Recursos
+## Deleting resources
 
 ```bash
 kubectl delete -f ./pod.json                                              # Exclua um pod usando o tipo e o nome especificados em pod.json
@@ -330,13 +326,10 @@ kubectl logs my-pod -c my-container --previous      # despejar logs de um contê
 kubectl logs -f my-pod                              # Fluxo de logs de pod (stdout)
 kubectl logs -f my-pod -c my-container              # Fluxo de logs para um específico contêiner em um pod (stdout, caixa com vários contêineres)
 kubectl logs -f -l name=myLabel --all-containers    # transmitir todos os logs de pods com a label name=myLabel (stdout)
-kubectl run -i --tty busybox --image=busybox -- sh  # Executar pod como shell interativo
-kubectl run nginx --image=nginx --restart=Never -n 
-mynamespace                                         # Execute o pod nginx em um namespace específico
-kubectl run nginx --image=nginx --restart=Never     # Execute o pod nginx e salve suas especificações em um arquivo chamado pod.yaml
-
---dry-run -o yaml > pod.yaml
-
+kubectl run -i --tty busybox --image=busybox:1.28 -- sh  # Executar pod como shell interativo
+kubectl run nginx --image=nginx -n mynamespace      # Inicie uma única instância do pod nginx no namespace de mynamespace
+kubectl run nginx --image=nginx --dry-run=client -o yaml > pod.yaml
+                                                    # Gere a especificação para executar o pod nginx e grave-a em um arquivo chamado pod.yaml 
 kubectl attach my-pod -i                            # Anexar ao contêiner em execução
 kubectl port-forward my-pod 5000:6000               # Ouça na porta 5000 na máquina local e encaminhe para a porta 6000 no my-pod
 kubectl exec my-pod -- ls /                         # Executar comando no pod existente (1 contêiner)
