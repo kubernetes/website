@@ -267,7 +267,7 @@ program to retrieve the contents of your secret data.
 
 ## Ensure all Secrets are encrypted
 
-Since Secrets are encrypted on write, performing an update on a Secret will encrypt that content.
+Since Secrets are unencrypted on write, performing an update on a Secret will encrypt that content.
 
 ```shell
 kubectl get secrets --all-namespaces -o json | kubectl replace -f -
