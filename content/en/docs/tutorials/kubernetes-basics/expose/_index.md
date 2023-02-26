@@ -1,4 +1,4 @@
 ---
-title: Expose Your App Publicly
-weight: 40
+শিরোনাম: পাবলিকলি আপনার অ্যাপ প্রকাশ করুন
+ওজন: ৪০
 ---
