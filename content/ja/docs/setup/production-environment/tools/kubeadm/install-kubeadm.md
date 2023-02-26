@@ -153,7 +153,7 @@ kubeadmは`kubelet`や`kubectl`をインストールまたは管理**しない**
 
 {{< tabs name="k8s_install" >}}
 {{% tab name="Ubuntu、Debian、またはHypriotOS" %}}
-1. `apt` のパッケージ一覧を更新し、Kubernetesの `apt` リポジトリを利用するのに必要なパッケージをインストールします。:
+1. `apt`のパッケージ一覧を更新し、Kubernetesの`apt`リポジトリを利用するのに必要なパッケージをインストールします:
 
    ```shell
    sudo apt-get update
