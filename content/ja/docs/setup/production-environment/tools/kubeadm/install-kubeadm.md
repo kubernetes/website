@@ -160,7 +160,7 @@ kubeadmは`kubelet`や`kubectl`をインストールまたは管理**しない**
    sudo apt-get install -y apt-transport-https ca-certificates curl
    ```
 
-2. Google Cloudの公開鍵をダウンロード:
+2. Google Cloudの公開鍵をダウンロードします:
 
    ```shell
    sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
