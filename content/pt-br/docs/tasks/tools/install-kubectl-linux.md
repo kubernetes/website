@@ -97,7 +97,7 @@ Por exemplo, para fazer download da versão {{< param "fullversion" >}} no Linux
    Ou use isso para visualizar mais detalhes da versão:
 
    ```cmd
-   kubectl version --client --output=yaml    
+   kubectl version --client --output=yaml
    ```
 
 ### Instale usando o gerenciador de pacotes nativo
@@ -111,7 +111,7 @@ Por exemplo, para fazer download da versão {{< param "fullversion" >}} no Linux
    sudo apt-get update
    sudo apt-get install -y ca-certificates curl
    ```
-   
+
    Se você usa o Debian 9 (stretch) ou anterior, também precisará instalar o `apt-transport-https`:
    ```shell
    sudo apt-get install -y apt-transport-https
@@ -132,7 +132,8 @@ Por exemplo, para fazer download da versão {{< param "fullversion" >}} no Linux
    3.1 To Ubuntu Jammy (22.04 LTS):
 
    ```shell
-   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ ubuntu-jammy-mirror" | sudo tee /etc/apt/sources.list.d/kubernetes.list   
+   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ ubuntu-jammy-mirror" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   ```
 
 4. Atualize o índice do `apt` com o novo repositório e instale o kubectl:
 
@@ -141,7 +142,7 @@ Por exemplo, para fazer download da versão {{< param "fullversion" >}} no Linux
    sudo apt-get install -y kubectl
    ```
 {{< note >}}
-Em versões anteriores ao Debian 12 e Ubuntu 22.04, o `/etc/apt/keyrings` não existe por padrão. 
+Em versões anteriores ao Debian 12 e Ubuntu 22.04, o `/etc/apt/keyrings` não existe por padrão.
 Você pode criar este diretório se precisar, tornando-o visível para todos, mas com permissão de escrita apenas aos administradores.
 {{< /note >}}
 
@@ -192,8 +193,8 @@ kubectl version --client
 
 {{< include "included/verify-kubectl.md" >}}
 
-## Configurações e plugins opcionais do kubectl 
-### Ative o autocompletar no shell 
+## Configurações e plugins opcionais do kubectl
+### Ative o autocompletar no shell
 
 O kubectl oferece recursos de autocompletar para Bash, Zsh, Fish e PowerShell, o que pode economizar muita digitação.
 

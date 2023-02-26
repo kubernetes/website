@@ -102,13 +102,13 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
    ```
    You can ignore this warning. You are only checking the version of `kubectl` that you
    have installed.
-   
+
    {{< /note >}}
-   
+
    Or use this for detailed view of version:
 
    ```cmd
-   kubectl version --client --output=yaml    
+   kubectl version --client --output=yaml
    ```
 
 ### Install using native package management
@@ -143,6 +143,7 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
 
    ```shell
    echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ ubuntu-jammy-mirror" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   ```
 
 4. Update `apt` package index with the new repository and install kubectl:
 
