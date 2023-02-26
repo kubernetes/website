@@ -166,7 +166,7 @@ kubeadmは`kubelet`や`kubectl`をインストールまたは管理**しない**
    sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
    ```
 
-3. Kubernetesの `apt` リポジトリを追加:
+3. Kubernetesの`apt`リポジトリを追加します:
 
    ```shell
    echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
