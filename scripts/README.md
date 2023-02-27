@@ -7,11 +7,11 @@
 | `test_examples.sh`      | This script tests whether a change affects example files bundled in the website.                                                      |
 | `check-headers-file.sh` | This script checks the headers if you are in a production environment.                                                                |
 | `diff_l10n_branches.py` | This script generates a report of outdated contents in `content/<l10n-lang>` directory by comparing two l10n team milestone branches. |
-| `hash-files.sh` | This script emits as hash for the files listed in $@ |
-| `linkchecker.py` | This a link checker for Kubernetes documentation website. |
-| `lsync.sh` | This script checks if the English version of a page has changed since a localized page has been committed. |
-| `replace-capture.sh` | This script sets K8S_WEBSITE in your env to your docs website root or rely on this script to determine it automatically |
-| `check-ctrlcode.py` | This script finds control-code(0x00-0x1f) in text files. |
+| `hash-files.sh`         | This script emits as hash for the files listed in $@.                                                                                 |
+| `linkchecker.py`        | This a link checker for Kubernetes documentation website.                                                                             |
+| `lsync.sh`              | This script checks if the English version of a page has changed since a localized page has been committed.                            |
+| `replace-capture.sh`    | This script sets K8S_WEBSITE in your env to your docs website root or rely on this script to determine it automatically.              |
+| `check-ctrlcode.py`     | This script finds control-code(0x00-0x1f) in text files.                                                                              |
 
 
 
@@ -142,7 +142,7 @@ Cases handled:
 ```
 ## lsync.sh
 
-This script checks if the English version of some localized contents have changed 
+This script checks if the English version of some localized contents have changed
 since a localized version has been committed.
 
 The following example checks a single file:
