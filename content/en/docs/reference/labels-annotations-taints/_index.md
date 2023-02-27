@@ -813,6 +813,17 @@ or updating objects that contain Pod templates, such as Deployments, Jobs, State
 See [Enforcing Pod Security at the Namespace Level](/docs/concepts/security/pod-security-admission)
 for more information.
 
+### rbac.authorization.kubernetes.io/autoupdate
+
+Example: `rbac.authorization.kubernetes.io/autoupdate: "false"`
+
+Used on: ClusterRole, ClusterRoleBinding, Role, RoleBinding
+
+When this annotation is set to `"true"` on default RBAC objects created by the kube-apiserver, they are automatically updated at server start to add missing permissions and subjects (extra permissions and subjects are left in place). To prevent autoupdating a particular role or rolebinding, set this annotation to `"false"`.
+If you create your own RBAC objects and set this annotation to `"false"`, `kubectl auth reconcile`
+(which allows reconciling arbitrary RBAC objects in a {{< glossary_tooltip text="manifest" term_id="manifest" >}}) respects this annotation and does not automatically add missing permissions and
+subjects.
+
 ### kubernetes.io/psp (deprecated) {#kubernetes-io-psp}
 
 Example: `kubernetes.io/psp: restricted`

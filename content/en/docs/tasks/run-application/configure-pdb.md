@@ -14,20 +14,17 @@ that your application experiences, allowing for higher availability
 while permitting the cluster administrator to manage the clusters
 nodes.
 
-
-
 ## {{% heading "prerequisites" %}}
 
 {{< version-check >}}
 
-* You are the owner of an application running on a Kubernetes cluster that requires
+- You are the owner of an application running on a Kubernetes cluster that requires
   high availability.
-* You should know how to deploy [Replicated Stateless Applications](/docs/tasks/run-application/run-stateless-application-deployment/)
+- You should know how to deploy [Replicated Stateless Applications](/docs/tasks/run-application/run-stateless-application-deployment/)
   and/or [Replicated Stateful Applications](/docs/tasks/run-application/run-replicated-stateful-application/).
-* You should have read about [Pod Disruptions](/docs/concepts/workloads/pods/disruptions/).
-* You should confirm with your cluster owner or service provider that they respect
+- You should have read about [Pod Disruptions](/docs/concepts/workloads/pods/disruptions/).
+- You should confirm with your cluster owner or service provider that they respect
   Pod Disruption Budgets.
-
 
 <!-- steps -->
 
@@ -37,8 +34,6 @@ nodes.
 1. Think about how your application reacts to disruptions.
 1. Create a PDB definition as a YAML file.
 1. Create the PDB object from the YAML file.
-
-
 
 <!-- discussion -->
 
@@ -61,29 +56,28 @@ You can also use PDBs with pods which are not controlled by one of the above
 controllers, or arbitrary groups of pods, but there are some restrictions,
 described in [Arbitrary Controllers and Selectors](#arbitrary-controllers-and-selectors).
 
-
 ## Think about how your application reacts to disruptions
 
 Decide how many instances can be down at the same time for a short period
 due to a voluntary disruption.
 
 - Stateless frontends:
-  - Concern: don't reduce serving capacity by more than 10%. 
+  - Concern: don't reduce serving capacity by more than 10%.
     - Solution: use PDB with minAvailable 90% for example.
 - Single-instance Stateful Application:
   - Concern: do not terminate this application without talking to me.
     - Possible Solution 1: Do not use a PDB and tolerate occasional downtime.
-    - Possible Solution 2: Set PDB with maxUnavailable=0.  Have an understanding
+    - Possible Solution 2: Set PDB with maxUnavailable=0. Have an understanding
       (outside of Kubernetes) that the cluster operator needs to consult you before
-      termination.  When the cluster operator contacts you, prepare for downtime,
-      and then delete the PDB to indicate readiness for disruption.  Recreate afterwards.
+      termination. When the cluster operator contacts you, prepare for downtime,
+      and then delete the PDB to indicate readiness for disruption. Recreate afterwards.
 - Multiple-instance Stateful application such as Consul, ZooKeeper, or etcd:
   - Concern: Do not reduce number of instances below quorum, otherwise writes fail.
     - Possible Solution 1: set maxUnavailable to 1 (works with varying scale of application).
-    - Possible Solution 2: set minAvailable to quorum-size (e.g. 3 when scale is 5).  (Allows more disruptions at once).
+    - Possible Solution 2: set minAvailable to quorum-size (e.g. 3 when scale is 5). (Allows more disruptions at once).
 - Restartable Batch Job:
   - Concern: Job needs to complete in case of voluntary disruption.
-    - Possible solution: Do not create a PDB.  The Job controller will create a replacement pod.
+    - Possible solution: Do not create a PDB. The Job controller will create a replacement pod.
 
 ### Rounding logic when specifying percentages
 
@@ -103,16 +97,16 @@ that controls this behavior.
 
 ## Specifying a PodDisruptionBudget
 
-A `PodDisruptionBudget` has three fields: 
+A `PodDisruptionBudget` has three fields:
 
-* A label selector `.spec.selector` to specify the set of
-pods to which it applies. This field is required.
-* `.spec.minAvailable` which is a description of the number of pods from that
-set that must still be available after the eviction, even in the absence
-of the evicted pod. `minAvailable` can be either an absolute number or a percentage.
-* `.spec.maxUnavailable` (available in Kubernetes 1.7 and higher) which is a description 
-of the number of pods from that set that can be unavailable after the eviction. 
-It can be either an absolute number or a percentage.
+- A label selector `.spec.selector` to specify the set of
+  pods to which it applies. This field is required.
+- `.spec.minAvailable` which is a description of the number of pods from that
+  set that must still be available after the eviction, even in the absence
+  of the evicted pod. `minAvailable` can be either an absolute number or a percentage.
+- `.spec.maxUnavailable` (available in Kubernetes 1.7 and higher) which is a description
+  of the number of pods from that set that can be unavailable after the eviction.
+  It can be either an absolute number or a percentage.
 
 {{< note >}}
 The behavior for an empty selector differs between the policy/v1beta1 and policy/v1 APIs for
@@ -120,8 +114,8 @@ PodDisruptionBudgets. For policy/v1beta1 an empty selector matches zero pods, wh
 for policy/v1 an empty selector matches every pod in the namespace.
 {{< /note >}}
 
-You can specify only one of `maxUnavailable` and `minAvailable` in a single `PodDisruptionBudget`. 
-`maxUnavailable` can only be used to control the eviction of pods 
+You can specify only one of `maxUnavailable` and `minAvailable` in a single `PodDisruptionBudget`.
+`maxUnavailable` can only be used to control the eviction of pods
 that have an associated controller managing them. In the examples below, "desired replicas"
 is the `scale` of the controller managing the pods being selected by the
 `PodDisruptionBudget`.
@@ -130,20 +124,20 @@ Example 1: With a `minAvailable` of 5, evictions are allowed as long as they lea
 5 or more [healthy](#healthiness-of-a-pod) pods among those selected by the PodDisruptionBudget's `selector`.
 
 Example 2: With a `minAvailable` of 30%, evictions are allowed as long as at least 30%
-of the number of desired replicas are healthy. 
+of the number of desired replicas are healthy.
 
 Example 3: With a `maxUnavailable` of 5, evictions are allowed as long as there are at most 5
 unhealthy replicas among the total number of desired replicas.
 
-Example 4: With a `maxUnavailable` of 30%, evictions are allowed as long as no more than 30% 
+Example 4: With a `maxUnavailable` of 30%, evictions are allowed as long as no more than 30%
 of the desired replicas are unhealthy.
 
 In typical usage, a single budget would be used for a collection of pods managed by
-a controller—for example, the pods in a single ReplicaSet or StatefulSet. 
+a controller—for example, the pods in a single ReplicaSet or StatefulSet.
 
 {{< note >}}
 A disruption budget does not truly guarantee that the specified
-number/percentage of pods will always be up.  For example, a node that hosts a
+number/percentage of pods will always be up. For example, a node that hosts a
 pod from the collection may fail when the collection is at the minimum size
 specified in the budget, thus bringing the number of available pods from the
 collection below the specified size. The budget can only protect against
@@ -156,7 +150,7 @@ object such as ReplicaSet, then you cannot successfully drain a Node running one
 If you try to drain a Node where an unevictable Pod is running, the drain never completes. This is permitted as per the
 semantics of `PodDisruptionBudget`.
 
-You can find examples of pod disruption budgets defined below. They match pods with the label 
+You can find examples of pod disruption budgets defined below. They match pods with the label
 `app: zookeeper`.
 
 Example PDB Using minAvailable:
@@ -246,8 +240,8 @@ on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/
 
 PodDisruptionBudget guarding an application ensures that `.status.currentHealthy` number of pods
 does not fall below the number specified in `.status.desiredHealthy` by disallowing eviction of healthy pods.
-By using `.spec.unhealthyPodEvictionPolicy`, you can also define the criteria when unhealthy pods 
-should be considered for eviction. The default behavior when no policy is specified corresponds 
+By using `.spec.unhealthyPodEvictionPolicy`, you can also define the criteria when unhealthy pods
+should be considered for eviction. The default behavior when no policy is specified corresponds
 to the `IfHealthyBudget` policy.
 
 Policies:
@@ -287,6 +281,6 @@ You can use a PDB with pods controlled by another type of controller, by an
 - only an integer value can be used with `.spec.minAvailable`, not a percentage.
 
 You can use a selector which selects a subset or superset of the pods belonging to a built-in
-controller.  The eviction API will disallow eviction of any pod covered by multiple PDBs,
-so most users will want to avoid overlapping selectors.  One reasonable use of overlapping
+controller. The eviction API will disallow eviction of any pod covered by multiple PDBs,
+so most users will want to avoid overlapping selectors. One reasonable use of overlapping
 PDBs is when pods are being transitioned from one PDB to another.
