@@ -133,7 +133,7 @@ unhealthy replicas among the total number of desired replicas.
 
 Example 4: With a `maxUnavailable` of 30%, evictions are allowed as long as the number of 
 unhealthy replicas does not exceed 30% of the total number of desired replica rounded up to 
-the nearest integer. If the total number of desired replicas is just one, the only one replica 
+the nearest integer. If the total number of desired replicas is just one, that single replica
 is still allowed for disruption, leading to an effective unavailability of 100%.
 
 In typical usage, a single budget would be used for a collection of pods managed by
