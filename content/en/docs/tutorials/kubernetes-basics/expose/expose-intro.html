@@ -28,31 +28,31 @@ weight: 10
 			<div class="col-md-8">
 			<h3>কুবারর্নেটিস পরিষেবার ওভারভিউ</h3>
 
-			<p>কুবারর্নেটিস <a href="/docs/concepts/workloads/pods/">পডসমূহ</a>হচ্ছে মরণশীল। পড এর একটি <a href="/docs/concepts/workloads/pods/pod-lifecycle/">জীবনচক্র</a> আছে। যখন একজন ওয়ার্কার নোড মারা যায়, তখন নোডে চলমান পডগুলিও হারিয়ে যায়। A <a href="/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a> might then dynamically drive the cluster back to desired state via creation of new Pods to keep your application running. As another example, consider an image-processing backend with 3 replicas. Those replicas are exchangeable; the front-end system should not care about backend replicas or even if a Pod is lost and recreated. That said, each Pod in a Kubernetes cluster has a unique IP address, even Pods on the same Node, so there needs to be a way of automatically reconciling changes among Pods so that your applications continue to function.</p>
+			<p>কুবারর্নেটিস <a href="/docs/concepts/workloads/pods/">পডসমূহ</a>হচ্ছে মরণশীল। পড এর একটি <a href="/docs/concepts/workloads/pods/pod-lifecycle/">জীবনচক্র</a> আছে। যখন একজন ওয়ার্কার নোড মারা যায়, তখন নোডে চলমান পডগুলিও হারিয়ে যায়। একটি <a href="/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a> আপনার অ্যাপ্লিকেশন চালু রাখার জন্য নতুন পড তৈরির মাধ্যমে গতিশীলভাবে ক্লাস্টারটিকে পছন্দসই অবস্থায় ফিরিয়ে আনতে পারে। আরেকটি উদাহরণ হিসাবে, ৩টি প্রতিলিপি সহ একটি চিত্র-প্রসেসিং ব্যাকএন্ড বিবেচনা করুন। সেই প্রতিলিপিগুলি বিনিময়যোগ্য; ফ্রন্ট-এন্ড সিস্টেমের ব্যাকএন্ড প্রতিলিপি বা পড হারিয়ে গেলেও আবার তৈরি করা উচিত নয়। তাছাড়াও, একটি কুবারনেটস ক্লাস্টারের প্রতিটি পডের একটি অনন্য IP Address রয়েছে, এমনকি একই নোডে পডও রয়েছে, তাই পডগুলির মধ্যে স্বয়ংক্রিয়ভাবে পরিবর্তনগুলি সমন্বয় করার একটি উপায় থাকা দরকার যাতে আপনার অ্যাপ্লিকেশনগুলি কাজ করতে থাকে।</p>
 
-			<p>A Service in Kubernetes is an abstraction which defines a logical set of Pods and a policy by which to access them. Services enable a loose coupling between dependent Pods. A Service is defined using YAML <a href="/docs/concepts/configuration/overview/#general-configuration-tips">(preferred)</a> or JSON, like all Kubernetes objects. The set of Pods targeted by a Service is usually determined by a <i>LabelSelector</i> (see below for why you might want a Service without including <code>selector</code> in the spec).</p>
+			<p>কুবার্নেটিস-এ একটি পরিষেবা হল একটি বিমূর্ততা যা পডগুলির একটি যৌক্তিক সেট এবং একটি নীতি যার দ্বারা সেগুলি অ্যাক্সেস করতে হবে সংজ্ঞায়িত করে৷ পরিষেবাগুলি নির্ভরশীল পডগুলির মধ্যে একটি আলগা সংযোগ সক্ষম করে ৷ সমস্ত কুবার্নেটিস অবজেক্টের মতো YAML <a href="/docs/concepts/configuration/overview/#general-configuration-tips">(পছন্দের)</a> বা JSON ব্যবহার করে একটি পরিষেবা সংজ্ঞায়িত করা হয়৷ একটি পরিষেবা দ্বারা লক্ষ্য করা পডের সেট সাধারণত একটি <i>LabelSelector</i> দ্বারা নির্ধারিত হয় (বিশেষে <code>নির্বাচক</code> অন্তর্ভুক্ত না করে কেন আপনি একটি পরিষেবা পেতে পারেন তা নীচে দেখুন)।</p>
 
-			<p>Although each Pod has a unique IP address, those IPs are not exposed outside the cluster without a Service. Services allow your applications to receive traffic. Services can be exposed in different ways by specifying a <code>type</code> in the ServiceSpec:</p>
+			<p>যদিও প্রতিটি পডের একটি অনন্য IP Address রয়েছে, তবে সেই আইপিগুলি কোনও পরিষেবা ছাড়া ক্লাস্টারের বাইরে প্রকাশিত হয় না। পরিষেবাগুলি আপনার অ্যাপ্লিকেশনগুলিকে ট্রাফিক পেতে অনুমতি দেয়৷ ServiceSpec-এ <code>টাইপ</code> উল্লেখ করে পরিষেবাগুলিকে বিভিন্ন উপায়ে প্রকাশ করা যেতে পারে:</p>
 			<ul>
-				<li><i>ClusterIP</i> (default) - Exposes the Service on an internal IP in the cluster. This type makes the Service only reachable from within the cluster.</li>
-				<li><i>NodePort</i> - Exposes the Service on the same port of each selected Node in the cluster using NAT. Makes a Service accessible from outside the cluster using <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code>. Superset of ClusterIP.</li>
-				<li><i>LoadBalancer</i> - Creates an external load balancer in the current cloud (if supported) and assigns a fixed, external IP to the Service. Superset of NodePort.</li>
-				<li><i>ExternalName</i> - Maps the Service to the contents of the <code>externalName</code> field (e.g. <code>foo.bar.example.com</code>), by returning a <code>CNAME</code> record with its value. No proxying of any kind is set up. This type requires v1.7 or higher of <code>kube-dns</code>, or CoreDNS version 0.0.8 or higher.</li>
+				<li><i>ClusterIP</i> (ডিফল্ট) - ক্লাস্টারে একটি অভ্যন্তরীণ IP তে পরিষেবাটি প্রকাশ করে৷ এই ধরনের পরিষেবা শুধুমাত্র ক্লাস্টারের মধ্যে থেকে পৌঁছানো যায়। </li>
+				<li><i>NodePort</i> - NAT ব্যবহার করে ক্লাস্টারে প্রতিটি নির্বাচিত নোডের একই পোর্টে পরিষেবাটি প্রকাশ করে। <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code> ব্যবহার করে ক্লাস্টারের বাইরে থেকে একটি পরিষেবা অ্যাক্সেসযোগ্য করে তোলে। ClusterIP এর সুপারসেট।</li>
+				<li><i>LoadBalancer</i> - বর্তমান ক্লাউডে একটি বাহ্যিক লোড ব্যালেন্সার তৈরি করে (যদি সমর্থিত হয়) এবং পরিষেবাতে একটি নির্দিষ্ট, বাহ্যিক IP বরাদ্দ করে৷ NodePort এর সুপারসেট।</li>
+				<li><i>ExternalName</i> - <code>externalName</code> ফিল্ডের বিষয়বস্তুতে (যেমন <code>foo.bar.example.com</code>) পরিষেবাটিকে মান সহ একটি <code>CNAME</code> রেকর্ড ফেরত দিয়ে ম্যাপ করে। কোন ধরনের প্রক্সি সেট আপ করা হয় না. এই ধরনের v1.7 বা উচ্চতর <code>kube-dns</code>, বা CoreDNS সংস্করণ 0.0.8 বা উচ্চতর প্রয়োজন।</li>
 			</ul>
-			<p>More information about the different types of Services can be found in the <a href="/docs/tutorials/services/source-ip/">Using Source IP</a> tutorial. Also see <a href="/docs/concepts/services-networking/connect-applications-service">Connecting Applications with Services</a>.</p>
-			<p>Additionally, note that there are some use cases with Services that involve not defining <code>selector</code> in the spec. A Service created without <code>selector</code> will also not create the corresponding Endpoints object. This allows users to manually map a Service to specific endpoints. Another possibility why there may be no selector is you are strictly using <code>type: ExternalName</code>.</p>
+			<p>বিভিন্ন ধরনের পরিষেবা সম্পর্কে আরও তথ্য <a href="/docs/tutorials/services/source-ip/">উৎস আইপি ব্যবহার করা</a> টিউটোরিয়ালে পাওয়া যাবে। এছাড়াও <a href="/docs/concepts/services-networking/connect-applications-service">পরিষেবাগুলির সাথে অ্যাপ্লিকেশন সংযোগ করা</a> দেখুন৷</p>
+			<p>এর পাশাপাশি, মনে রাখবেন যে পরিষেবাগুলির সাথে কিছু ব্যবহারের ক্ষেত্রে রয়েছে যেগুলি নির্দিষ্টকরণে <code>নির্বাচক</code> সংজ্ঞায়িত করে না। <code>নির্বাচক</code> ছাড়া তৈরি করা একটি পরিষেবা সংশ্লিষ্ট Endpoints অবজেক্ট তৈরি করবে না। এটি ব্যবহারকারীদের ম্যানুয়ালি নির্দিষ্ট endpoint একটি পরিষেবা ম্যাপ করতে দেয়। কোন নির্বাচক না থাকার আরেকটি সম্ভাবনা হল আপনি কঠোরভাবে <code>type: ExternalName</code> ব্যবহার করছেন।</p>
 			</div>
 			<div class="col-md-4">
 				<div class="content__box content__box_lined">
-					<h3>Summary</h3>
+					<h3>সারাংশ</h3>
 					<ul>
-						<li>Exposing Pods to external traffic</li>
-						<li>Load balancing traffic across multiple Pods</li>
-						<li>Using labels</li>
+						<li>বাহ্যিক ট্র্যাফিকের কাছে পড উন্মুক্ত করা</li>
+						<li>একাধিক পড জুড়ে ভারসাম্যপূর্ণ ট্র্যাফিক লোড করুন</li>
+						<li>লেবেল ব্যবহার করে</li>
 					</ul>
 				</div>
 				<div class="content__box content__box_fill">
-						<p><i>A Kubernetes Service is an abstraction layer which defines a logical set of Pods and enables external traffic exposure, load balancing and service discovery for those Pods.</i></p>
+						<p><i>একটি কুবার্নেটিস পরিষেবা হল একটি বিমূর্ত স্তর যা পডগুলির একটি যৌক্তিক সেটকে সংজ্ঞায়িত করে এবং সেই পডগুলির জন্য বাহ্যিক ট্র্যাফিক এক্সপোজার, লোড ব্যালেন্সিং এবং পরিষেবা আবিষ্কার সক্ষম করে৷</i></p>
 				</div>
 			</div>
 		</div>
@@ -60,18 +60,18 @@ weight: 10
 
 		<div class="row">
 			<div class="col-md-8">
-				<h3>Services and Labels</h3>
+				<h3>সেবা এবং লেবেল</h3>
 			</div>
 		</div>
 		
 		<div class="row">
 			<div class="col-md-8">
-				<p>A Service routes traffic across a set of Pods. Services are the abstraction that allow pods to die and replicate in Kubernetes without impacting your application. Discovery and routing among dependent Pods (such as the frontend and backend components in an application) is handled by Kubernetes Services.</p>
-				<p>Services match a set of Pods using <a href="/docs/concepts/overview/working-with-objects/labels">labels and selectors</a>, a grouping primitive that allows logical operation on objects in Kubernetes. Labels are key/value pairs attached to objects and can be used in any number of ways:</p>
+				<p>একটি পরিষেবা পডের একটি সেট জুড়ে ট্র্যাফিককে রুট করে। পরিষেবাগুলি হল বিমূর্ততা যা আপনার অ্যাপ্লিকেশনকে প্রভাবিত না করেই কুবারনেটে পডগুলো শেষ করে এবং প্রতিলিপি তৈরি করতে দেয়। নির্ভরশীল পডগুলির মধ্যে আবিষ্কার এবং রাউটিং (যেমন একটি অ্যাপ্লিকেশনে ফ্রন্টএন্ড এবং ব্যাকএন্ড উপাদান) Kubernetes Services দ্বারা পরিচালিত হয়।</p>
+				<p>পরিষেবাগুলি <a href="/docs/concepts/overview/working-with-objects/labels">লেবেল এবং নির্বাচকদের</a> ব্যবহার করে পডের একটি সেটের সাথে মেলে, একটি প্রিমিটিভ গ্রুপিং যা কুবারনেটসের বস্তুতে লজিক্যাল অপারেশনের অনুমতি দেয়৷ লেবেল হল কী/মান জোড়া বস্তুর সাথে সংযুক্ত এবং যেকোন উপায়ে ব্যবহার করা যেতে পারে:</p>
 				<ul>
-					<li>Designate objects for development, test, and production</li>
-					<li>Embed version tags</li>
-					<li>Classify an object using tags</li>
+					<li>উন্নয়ন, পরীক্ষা, এবং উৎপাদনের জন্য বস্তু নির্ধারণ করুন</li>
+					<li>এম্বেড ভার্সন ট্যাগ</li>
+					<li>ট্যাগ ব্যবহার করে একটি বস্তুর শ্রেণীবিভাগ করুন</li>
 				</ul>
 			</div>
 			
@@ -87,13 +87,13 @@ weight: 10
 		<br>
 		<div class="row">
 			<div class="col-md-8">
-				<p>Labels can be attached to objects at creation time or later on. They can be modified at any time. Let's expose our application now using a Service and apply some labels.</p>
+				<p>লেবেলগুলি সৃষ্টির সময় বা পরে বস্তুর সাথে সংযুক্ত করা যেতে পারে। এগুলি যে কোনও সময় পরিবর্তন করা যেতে পারে। আসুন এখন একটি পরিষেবা ব্যবহার করে আমাদের অ্যাপ্লিকেশনটি প্রকাশ করি এবং কিছু লেবেল প্রয়োগ করি।</p>
 			</div>
 		</div>
 		<br>
 		<div class="row">
 			<div class="col-md-12">
-				<a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/expose/expose-interactive/" role="button">Start Interactive Tutorial<span class="btn__next">›</span></a>
+				<a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/expose/expose-interactive/" role="button">ইন্টারেক্টিভ টিউটোরিয়াল শুরু করুন<span class="btn__next">›</span></a>
 			</div>
 		</div>
 	</main>
