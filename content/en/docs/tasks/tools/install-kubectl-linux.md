@@ -151,7 +151,7 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
    sudo apt-get install -y kubectl
    ```
 {{< note >}}
-In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default.
+In releases older than Debian 12, `/etc/apt/keyrings` does not exist by default.
 You can create this directory if you need to, making it world-readable but writeable only by admins.
 {{< /note >}}
 
