@@ -52,15 +52,15 @@ nor should they need to keep track of the set of backends themselves.
 
 ## Proxy modes
 
-Note that the kube-proxy starts up in different modes, which are determined by its configuration.
+The kube-proxy starts up in different modes, which are determined by its configuration.
 
-- The kube-proxy's configuration is done via a ConfigMap, and the ConfigMap for
-  kube-proxy effectively deprecates the behavior for almost all of the flags for
-  the kube-proxy.
-- The ConfigMap for the kube-proxy does not support live reloading of configuration.
-- The ConfigMap parameters for the kube-proxy cannot all be validated and verified on startup.
-  For example, if your operating system doesn't allow you to run iptables commands,
-  the standard kernel kube-proxy implementation will not work.
+The available modes for kube-proxy are:
+
+[`iptables`](#proxy-mode-iptables)
+: A mode where the kube-proxy configures packet forwarding rules using iptables.
+
+[`ipvs`](#proxy-mode-ipvs)
+: a mode where the kube-proxy configures packet forwarding rules using ipvs.
 
 ### `iptables` proxy mode {#proxy-mode-iptables}
 
