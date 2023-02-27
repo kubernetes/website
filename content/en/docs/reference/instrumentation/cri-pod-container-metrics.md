@@ -23,7 +23,7 @@ use the CRI based collection mechanism.
 
 ## CRI Pod & Container Metrics
 
-With `PodAndContainerStatsFromCRI` enabled, the kubelet will poll the underlying container
+With `PodAndContainerStatsFromCRI` enabled, the kubelet polls the underlying container
 runtime for pod and container stats instead of inspecting the host system directly using cAdvisor.
 The benefits of relying on the container runtime for this information as opposed to direct
 collection with cAdvisor include:
@@ -34,7 +34,5 @@ collection with cAdvisor include:
 
 - It further decouples the kubelet and the container runtime allowing collection of metrics for
   container runtimes that don't run processes directly on the host with kubelet where they are
-  observable by cAdvisor (e.g. VM based runtimes).
-
-Collecting this information from the CRI will become the default and the current cAdvisor collection
-of metrics from the host will become fully deprecated in a future Kubernetes release.
+  observable by cAdvisor (for example: container runtimes that use virtualization).
+  
