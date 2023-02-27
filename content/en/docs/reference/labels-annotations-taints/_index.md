@@ -431,6 +431,14 @@ Used on: PersistentVolumeClaim
 
 This annotation has been deprecated.
 
+### volume.beta.kubernetes.io/storage-class (deprecated)
+
+Used on: PersistentVolume, PersistentVolumeClaim
+
+This annotation can be used for PersistentVolume(PV) or PersistentVolumeClaim(PVC) to specify the name of [StorageClass](/docs/concepts/storage/storage-classes/).
+
+This annotation has been deprecated.
+
 ### volume.beta.kubernetes.io/mount-options (deprecated) {#mount-options}
 
 Example : `volume.beta.kubernetes.io/mount-options: "ro,soft"`
