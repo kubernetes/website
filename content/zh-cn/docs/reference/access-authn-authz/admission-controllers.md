@@ -1041,9 +1041,9 @@ This file may be json or yaml and has the following format:
 
 ```yaml
 podNodeSelectorPluginConfig:
- clusterDefaultNodeSelector: name-of-node-selector
- namespace1: name-of-node-selector
- namespace2: name-of-node-selector
+  clusterDefaultNodeSelector: name-of-node-selector
+  namespace1: name-of-node-selector
+  namespace2: name-of-node-selector
 ```
 
 <!--
@@ -1123,36 +1123,26 @@ PodNodeSelector 允许 Pod 强制在特定标签的节点上运行。
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 <!--
-This is the replacement for the deprecated [PodSecurityPolicy](#podsecuritypolicy) admission controller
-defined in the next section. This admission controller acts on creation and modification of the pod and
-determines if it should be admitted based on the requested security context and the 
-[Pod Security Standards](/docs/concepts/security/pod-security-standards/).
-
-See the [Pod Security Admission documentation](/docs/concepts/security/pod-security-admission/)
-for more information.
+The PodSecurity admission controller checks new Pods before they are
+admitted, determines if it should be admitted based on the requested security context and the restrictions on permitted
+[Pod Security Standards](/docs/concepts/security/pod-security-standards/)
+for the namespace that the Pod would be in.
 -->
-这是下节所讨论的已被废弃的 [PodSecurityPolicy](#podsecuritypolicy) 准入控制器的替代品。
-此准入控制器负责在创建和修改 Pod 时，根据请求的安全上下文和
-[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)来确定是否可以执行请求。
-
-更多信息请参阅 [Pod 安全性准入控制器](/zh-cn/docs/concepts/security/pod-security-admission/)。
-
-### PodSecurityPolicy {#podsecuritypolicy}
-
-{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
+PodSecurity 准入控制器在新 Pod 被准入之前对其进行检查，
+根据请求的安全上下文和 Pod 所在命名空间允许的
+[Pod 安全性标准](/zh/docs/concepts/security/pod-security-standards/)的限制来确定新 Pod
+是否应该被准入。
 
 <!--
-This admission controller acts on creation and modification of the pod and determines if it should be admitted
-based on the requested security context and the available Pod Security Policies.
+See the [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
+documentation for more information.
 -->
-此准入控制器负责在创建和修改 Pod 时根据请求的安全上下文和可用的 Pod
-安全策略确定是否可以执行请求。
+更多信息请参阅 [Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)。
 
 <!--
-See also the [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) documentation
-for more information.
+PodSecurity replaced an older admission controller named PodSecurityPolicy.
 -->
-查看 [Pod 安全策略文档](/zh-cn/docs/concepts/security/pod-security-policy/)进一步了解其间细节。
+PodSecurity 取代了一个名为 PodSecurityPolicy 的旧准入控制器。
 
 ### PodTolerationRestriction {#podtolerationrestriction}
 
@@ -1364,7 +1354,7 @@ conditions.
 ### ValidatingAdmissionPolicy {#validatingadmissionpolicy}
 
 <!--
-[This admission controller](/docs/reference/access-authn-authz/validating-admission-policy/) implements the CEL validation for incoming matched requests. 
+[This admission controller](/docs/reference/access-authn-authz/validating-admission-policy/) implements the CEL validation for incoming matched requests.
 It is enabled when both feature gate `validatingadmissionpolicy` and `admissionregistration.k8s.io/v1alpha1` group/version are enabled.
 If any of the ValidatingAdmissionPolicy fails, the request fails.
 -->
