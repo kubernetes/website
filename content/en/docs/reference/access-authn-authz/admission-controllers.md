@@ -376,8 +376,6 @@ plugins:
       retryBackoff: 500
       defaultAllow: true
 ```
-{{% /tab %}}
-{{< /tabs >}}
 
 The ImagePolicyWebhook config file must reference a
 [kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
