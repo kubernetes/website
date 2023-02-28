@@ -349,8 +349,6 @@ users:
       client-certificate: /path/to/cert.pem # cert for the webhook admission controller to use
       client-key: /path/to/key.pem          # key matching the cert
 ```
-{{% /tab %}}
-{{< /tabs >}}
 
 #### Enable the Admission Control Plugin(s)
 After doing above configuration open the `kube-apiserver` manifest for editing and in the `--enable-admissions-plugin` line under command, add the image policy webhook to the list:
