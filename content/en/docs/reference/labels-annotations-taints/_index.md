@@ -433,6 +433,8 @@ This annotation has been deprecated.
 
 ### volume.beta.kubernetes.io/storage-class (deprecated)
 
+Example: `volume.beta.kubernetes.io/storage-class: "example-class"`
+
 Used on: PersistentVolume, PersistentVolumeClaim
 
 This annotation can be used for PersistentVolume(PV) or PersistentVolumeClaim(PVC) to specify the name of [StorageClass](/docs/concepts/storage/storage-classes/). When both `storageClassName` attribute and `volume.beta.kubernetes.io/storage-class` annotation are specified, the annotation `volume.beta.kubernetes.io/storage-class` takes precedence over the `storageClassName` attribute.
