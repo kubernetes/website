@@ -243,7 +243,7 @@ pointing to. This IP address is accessible only within the cluster.
 
 If you want guests to be able to access your guestbook, you must configure the
 frontend Service to be externally visible, so a client can request the Service
-from outside the Kubernetes cluster. However a Kubernetes user you can use
+from outside the Kubernetes cluster. However a Kubernetes user can use
 `kubectl port-forward` to access the service even though it uses a
 `ClusterIP`.
 
@@ -418,5 +418,5 @@ labels to delete multiple resources with one command.
 
 * Complete the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) Interactive Tutorials
 * Use Kubernetes to create a blog using [Persistent Volumes for MySQL and Wordpress](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/#visit-your-new-wordpress-blog)
-* Read more about [connecting applications](/docs/concepts/services-networking/connect-applications-service/)
+* Read more about [connecting applications with services](/docs/tutorials/services/connect-applications-service/)
 * Read more about [Managing Resources](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively)

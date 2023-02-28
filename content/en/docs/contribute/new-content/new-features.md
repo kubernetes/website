@@ -1,5 +1,5 @@
 ---
-title:  Documenting a feature for a release
+title: Documenting a feature for a release
 linktitle: Documenting for a release
 content_type: concept
 main_menu: true
@@ -7,7 +7,7 @@ weight: 20
 card:
   name: contribute
   weight: 45
-  title:  Documenting a feature for a release
+  title: Documenting a feature for a release
 ---
 <!-- overview -->
 
@@ -32,12 +32,12 @@ After you've chosen a feature to document or assist, ask about it in the `#sig-d
 Slack channel, in a weekly SIG Docs meeting, or directly on the PR filed by the
 feature SIG. If you're given the go-ahead, you can edit into the PR using one of
 the techniques described in
-[Commit into another person's PR](/docs/contribute/review/for-approvers/#commit-into-another-persons-pr).
+[Commit into another person's PR](/docs/contribute/review/for-approvers/#commit-into-another-person-s-pr).
 
 ### Find out about upcoming features
 
 To find out about upcoming features, attend the weekly SIG Release meeting (see
-the [community](https://kubernetes.io/community/) page for upcoming meetings)
+the [community](/community/) page for upcoming meetings)
 and monitor the release-specific documentation
 in the [kubernetes/sig-release](https://github.com/kubernetes/sig-release/)
 repository. Each release has a sub-directory in the [/sig-release/tree/master/releases/](https://github.com/kubernetes/sig-release/tree/master/releases)
@@ -117,7 +117,7 @@ When ready, populate your placeholder PR with feature documentation and change
 the state of the PR from draft to **ready for review**. To mark a pull request
 as ready for review, navigate to the merge box and click **Ready for review**.
 
-Do your best to describe your feature and how to use it. If you need help structuring your documentation, ask in the `#sig-docs` slack channel.
+Do your best to describe your feature and how to use it. If you need help structuring your documentation, ask in the `#sig-docs` Slack channel.
 
 When you complete your content, the documentation person assigned to your feature reviews it.
 To ensure technical accuracy, the content may also require a technical review from corresponding SIG(s).
@@ -127,7 +127,9 @@ If your feature is an Alpha or Beta feature and is behind a feature gate,
 make sure you add it to [Alpha/Beta Feature gates](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)
 table as part of your pull request. With new feature gates, a description of
 the feature gate is also required. If your feature is GA'ed or deprecated,
-make sure to move it from that table to [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)
+make sure to move it from the
+[Feature gates for Alpha/Feature](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) table
+to [Feature gates for graduated or deprecated features](/docs/reference/command-line-tools-reference/feature-gates-removed/#feature-gates-that-are-removed)
 table with Alpha and Beta history intact.
 
 If your feature needs documentation and the first draft

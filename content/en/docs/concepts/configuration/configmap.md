@@ -15,7 +15,6 @@ If the data you want to store are confidential, use a
 or use additional (third party) tools to keep your data private.
 {{< /caution >}}
 
-
 <!-- body -->
 ## Motivation
 
@@ -42,7 +41,7 @@ that lets you store configuration for other objects to use. Unlike most
 Kubernetes objects that have a `spec`, a ConfigMap has `data` and `binaryData`
 fields. These fields accept key-value pairs as their values.  Both the `data`
 field and the `binaryData` are optional. The `data` field is designed to
-contain UTF-8 byte sequences while the `binaryData` field is designed to
+contain UTF-8 strings while the `binaryData` field is designed to
 contain binary data as base64-encoded strings.
 
 The name of a ConfigMap must be a valid
@@ -112,46 +111,7 @@ technique also lets you access a ConfigMap in a different namespace.
 
 Here's an example Pod that uses values from `game-demo` to configure a Pod:
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: configmap-demo-pod
-spec:
-  containers:
-    - name: demo
-      image: alpine
-      command: ["sleep", "3600"]
-      env:
-        # Define the environment variable
-        - name: PLAYER_INITIAL_LIVES # Notice that the case is different here
-                                     # from the key name in the ConfigMap.
-          valueFrom:
-            configMapKeyRef:
-              name: game-demo           # The ConfigMap this value comes from.
-              key: player_initial_lives # The key to fetch.
-        - name: UI_PROPERTIES_FILE_NAME
-          valueFrom:
-            configMapKeyRef:
-              name: game-demo
-              key: ui_properties_file_name
-      volumeMounts:
-      - name: config
-        mountPath: "/config"
-        readOnly: true
-  volumes:
-    # You set volumes at the Pod level, then mount them into containers inside that Pod
-    - name: config
-      configMap:
-        # Provide the name of the ConfigMap you want to mount.
-        name: game-demo
-        # An array of keys from the ConfigMap to create as files
-        items:
-        - key: "game.properties"
-          path: "game.properties"
-        - key: "user-interface.properties"
-          path: "user-interface.properties"
-```
+{{< codenew file="configmap/configure-pod.yaml" >}}
 
 A ConfigMap doesn't differentiate between single line property values and
 multi-line file-like values.
@@ -280,7 +240,6 @@ to the deleted ConfigMap, it is recommended to recreate these pods.
 
 * Read about [Secrets](/docs/concepts/configuration/secret/).
 * Read [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
+* Read about [changing a ConfigMap (or any other Kubernetes object)](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/)
 * Read [The Twelve-Factor App](https://12factor.net/) to understand the motivation for
   separating code from configuration.
-
-

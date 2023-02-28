@@ -15,7 +15,7 @@ Diese Seite ist eine Übersicht über Kubernetes.
 
 Kubernetes ist eine portable, erweiterbare Open-Source-Plattform zur Verwaltung von
 containerisierten Arbeitslasten und Services, die sowohl die deklarative Konfiguration als auch die Automatisierung erleichtert.
-Es hat einen großes, schnell wachsendes Ökosystem. Kubernetes Dienstleistungen, Support und Tools sind weit verbreitet.
+Es hat ein großes, schnell wachsendes Ökosystem. Kubernetes Dienstleistungen, Support und Tools sind weit verbreitet.
 
 Google hat das Kubernetes-Projekt 2014 als Open-Source-Projekt zur Verfügung gestellt. Kubernetes baut auf anderthalb Jahrzehnten
 Erfahrung auf, die Google mit der Ausführung von Produktions-Workloads in großem Maßstab hat, kombiniert mit den besten Ideen und Praktiken der Community.
@@ -50,18 +50,18 @@ für Managementtools zu bieten, den Status von Kontrollpunkten zu ermitteln.
 
 Darüber hinaus basiert die [Kubernetes-Steuerungsebene](/docs/concepts/overview/components/) auf den gleichen APIs,
 die Entwicklern und Anwendern zur Verfügung stehen. Benutzer können ihre eigenen Controller, wie z.B.
-[Scheduler](https://github.com/kubernetes/community/blob/{{< param "githubbranch" >}}/contributors/devel/scheduler.md), mit
+[Scheduler](https://github.com/kubernetes/community/blob/master/contributors/devel/scheduler.md), mit
 ihren [eigenen APIs](/docs/concepts/api-extension/custom-resources/) schreiben, die von einem
 universellen [Kommandozeilen-Tool](/docs/user-guide/kubectl-overview/) angesprochen werden können.
 
-Dieses [Design](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) hat es einer Reihe anderer Systeme ermöglicht, auf Kubernetes aufzubauen.
+Dieses [Design](https://git.k8s.io/design-proposals-archive/architecture/architecture.md) hat es einer Reihe anderer Systeme ermöglicht, auf Kubernetes aufzubauen.
 
 ## Was Kubernetes nicht ist
 
 Kubernetes ist kein traditionelles, allumfassendes PaaS (Plattform als ein Service) System. Da Kubernetes nicht auf Hardware-,
 sondern auf Containerebene arbeitet, bietet es einige allgemein anwendbare Funktionen, die PaaS-Angeboten gemeinsam sind,
 wie Bereitstellung, Skalierung, Lastausgleich, Protokollierung und Überwachung.
-Kubernetes ist jedoch nicht monolithisch, und diese Standardlösungen sind optional und modular etweiterbar.
+Kubernetes ist jedoch nicht monolithisch, und diese Standardlösungen sind optional und modular erweiterbar.
 Kubernetes liefert die Bausteine für den Aufbau von Entwicklerplattformen, bewahrt aber die
 Wahlmöglichkeiten und Flexibilität der Benutzer, wo es wichtig ist.
 
@@ -79,7 +79,7 @@ Kubernetes:
   Cluster-Speichersysteme (z.B. Ceph) als eingebaute Dienste. Solche Komponenten können
   auf Kubernetes laufen und/oder von Anwendungen, die auf Kubernetes laufen, über
   portable Mechanismen wie den Open Service Broker angesprochen werden.
-* Bietet keine Konfigurationssprache bzw. kein Konfigurationssystem (z.B.[jsonnet](https://github.com/google/jsonnet)).
+* Bietet keine Konfigurationssprache bzw. kein Konfigurationssystem (z.B. [jsonnet](https://github.com/google/jsonnet)).
   Es bietet eine deklarative API, die von beliebigen Formen deklarativer Spezifikationen angesprochen werden kann.
 * Bietet keine umfassenden Systeme zur Maschinenkonfiguration, Wartung, Verwaltung oder Selbstheilung.
 
@@ -135,17 +135,17 @@ Zusammenfassung der Container-Vorteile:
 * **Dev und Ops Trennung der Bedenken**:
     Erstellen Sie Anwendungscontainer-Images nicht zum Deployment-, sondern zum Build-Releasezeitpunkt
     und entkoppeln Sie so Anwendungen von der Infrastruktur.
-* **Überwachbarkeit**
+* **Überwachbarkeit**:
     Nicht nur Informationen und Metriken auf Betriebssystemebene werden angezeigt,
     sondern auch der Zustand der Anwendung und andere Signale.
 * **Umgebungskontinuität in Entwicklung, Test und Produktion**:
     Läuft auf einem Laptop genauso wie in der Cloud.
-* **Cloud- und OS-Distribution portabilität**:
+* **Cloud- und OS-Distribution-Portabilität**:
     Läuft auf Ubuntu, RHEL, CoreOS, On-Prem, Google Kubernetes Engine und überall sonst.
 * **Anwendungsorientiertes Management**:
     Erhöht den Abstraktionsgrad vom Ausführen eines Betriebssystems auf virtueller Hardware
     bis zum Ausführen einer Anwendung auf einem Betriebssystem unter Verwendung logischer Ressourcen.
-* **Locker gekoppelte, verteilte, elastische, freie [micro-services](https://martinfowler.com/articles/microservices.html)**:
+* **Locker gekoppelte, verteilte, elastische, freie [Microservices](https://martinfowler.com/articles/microservices.html)**:
     Anwendungen werden in kleinere, unabhängige Teile zerlegt und können dynamisch bereitgestellt
     und verwaltet werden -- nicht ein monolithischer Stack, der auf einer großen Single-Purpose-Maschine läuft.
 * **Ressourcenisolierung**:

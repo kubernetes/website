@@ -29,17 +29,18 @@ guide. You can file document formatting bugs against the
 ## Endpoints {#Endpoints}
 
 Endpoints is a collection of endpoints that implement the actual service. Example:
-  Name: "mysvc",
-  Subsets: [
-    {
-      Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-      Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-    },
-    {
-      Addresses: [{"ip": "10.10.3.3"}],
-      Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
-    },
- ]
+
+	 Name: "mysvc",
+	 Subsets: [
+	   {
+	     Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+	     Ports: [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+	   },
+	   {
+	     Addresses: [{"ip": "10.10.3.3"}],
+	     Ports: [{"name": "a", "port": 93}, {"name": "b", "port": 76}]
+	   },
+	]
 
 <hr>
 
@@ -59,13 +60,16 @@ Endpoints is a collection of endpoints that implement the actual service. Exampl
 
   <a name="EndpointSubset"></a>
   *EndpointSubset is a group of addresses with a common set of ports. The expanded set of endpoints is the Cartesian product of Addresses x Ports. For example, given:
-    {
-      Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
-      Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
-    }
+  
+  	{
+  	  Addresses: [{"ip": "10.10.1.1"}, {"ip": "10.10.2.2"}],
+  	  Ports:     [{"name": "a", "port": 8675}, {"name": "b", "port": 309}]
+  	}
+  
   The resulting set of endpoints can be viewed as:
-      a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
-      b: [ 10.10.1.1:309, 10.10.2.2:309 ]*
+  
+  	a: [ 10.10.1.1:8675, 10.10.2.2:8675 ],
+  	b: [ 10.10.1.1:309, 10.10.2.2:309 ]*
 
   - **subsets.addresses** ([]EndpointAddress)
 
@@ -128,10 +132,7 @@ Endpoints is a collection of endpoints that implement the actual service. Exampl
 
       The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
       
-      Possible enum values:
-       - `"SCTP"` is the SCTP protocol.
-       - `"TCP"` is the TCP protocol.
-       - `"UDP"` is the UDP protocol.
+      
 
     - **subsets.ports.name** (string)
 
@@ -139,7 +140,7 @@ Endpoints is a collection of endpoints that implement the actual service. Exampl
 
     - **subsets.ports.appProtocol** (string)
 
-      The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and http://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+      The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
 
 
 

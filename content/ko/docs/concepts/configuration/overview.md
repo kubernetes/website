@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - mikedanese
 title: 구성 모범 사례
 content_type: concept
 weight: 10
@@ -55,7 +55,7 @@ DNS 서버는 새로운 `서비스`를 위한 쿠버네티스 API를 Watch하며
 
   만약 오직 디버깅의 목적으로 포트에 접근해야 한다면, [apiserver proxy](/ko/docs/tasks/access-application-cluster/access-cluster/#수작업으로-apiserver-proxy-url을-구축) 또는 [`kubectl port-forward`](/ko/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)를 사용할 수 있다.
 
-  만약 파드의 포트를 노드에서 명시적으로 노출해야 한다면, `hostPort`에 의존하기 전에 [NodePort](/ko/docs/concepts/services-networking/service/#nodeport) 서비스를 사용하는 것을 고려할 수 있다.
+  만약 파드의 포트를 노드에서 명시적으로 노출해야 한다면, `hostPort`에 의존하기 전에 [NodePort](/ko/docs/concepts/services-networking/service/#type-nodeport) 서비스를 사용하는 것을 고려할 수 있다.
 
 - `hostPort`와 같은 이유로, `hostNetwork`를 사용하는 것을 피한다.
 
@@ -63,7 +63,7 @@ DNS 서버는 새로운 `서비스`를 위한 쿠버네티스 API를 Watch하며
 
 ## 레이블 사용하기
 
-- `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`처럼 애플리케이션이나 디플로이먼트의 __속성에 대한 의미__ 를 식별하는 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)을 정의해 사용한다. 다른 리소스를 위해 적절한 파드를 선택하는 용도로 이러한 레이블을 이용할 수 있다. 예를 들어, 모든 `tier: frontend` 파드를 선택하거나, `app: myapp`의 모든 `phase: test` 컴포넌트를 선택하는 서비스를 생각해 볼 수 있다. 이 접근 방법의 예시는 [방명록](https://github.com/kubernetes/examples/tree/master/guestbook/) 앱을 참고한다.
+- `{ app.kubernetes.io/name: MyApp, tier: frontend, phase: test, deployment: v3 }`처럼 애플리케이션이나 디플로이먼트의 __속성에 대한 의미__ 를 식별하는 [레이블](/ko/docs/concepts/overview/working-with-objects/labels/)을 정의해 사용한다. 다른 리소스를 위해 적절한 파드를 선택하는 용도로 이러한 레이블을 이용할 수 있다. 예를 들어, 모든 `tier: frontend` 파드를 선택하거나, `app.kubernetes.io/name: MyApp`의 모든 `phase: test` 컴포넌트를 선택하는 서비스를 생각해 볼 수 있다. 이 접근 방법의 예시는 [방명록](https://github.com/kubernetes/examples/tree/master/guestbook/) 앱을 참고한다.
 
 릴리스에 특정되는 레이블을 서비스의 셀렉터에서 생략함으로써 여러 개의 디플로이먼트에 걸치는 서비스를 생성할 수 있다. 동작 중인 서비스를 다운타임 없이 갱신하려면, [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)를 사용한다.
 

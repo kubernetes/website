@@ -1,73 +1,102 @@
 ---
-
-
-
-
-title: 확장된 리소스를 위한 리소스 빈 패킹(bin packing)
+# reviewers:
+# - bsalamat
+# - k82cn
+# - ahg-g
+title: 리소스 빈 패킹(bin packing)
 content_type: concept
 weight: 80
 ---
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.16" state="alpha" >}}
-
-kube-scheduler는 `RequestedToCapacityRatioResourceAllocation`
-우선 순위 기능을 사용해서 확장된 리소스와 함께 리소스의 빈 패킹이 가능하도록
-구성할 수 있다. 우선 순위 기능을 사용해서 맞춤 요구에 따라
-kube-scheduler를 미세 조정할 수 있다.
+kube-scheduler의 [스케줄링 플러그인](/ko/docs/reference/scheduling/config/#scheduling-plugins) `NodeResourcesFit`에는,
+리소스의 빈 패킹(bin packing)을 지원하는 `MostAllocated`과 `RequestedToCapacityRatio`라는 두 가지 점수 산정(scoring) 전략이 있다.
 
 <!-- body -->
 
-## RequestedToCapacityRatioResourceAllocation을 사용해서 빈 패킹 활성화하기
+## MostAllocated 전략을 사용하여 빈 패킹 활성화하기
+`MostAllocated` 전략은 리소스 사용량을 기반으로 할당량이 많은 노드를 높게 평가하여 노드에 점수를 매긴다.
+각 리소스 유형별로 가중치를 설정하여 노드 점수에 미치는 영향을 조정할 수 있다.
 
-쿠버네티스를 사용하면 사용자가 각 리소스에 대한 가중치와 함께 리소스를 지정하여
-용량 대비 요청 비율을 기반으로 노드의 점수를 매기는 것을 허용한다. 이를
-통해 사용자는 적절한 파라미터를 사용해서 확장된 리소스를 빈 팩으로 만들 수 있어
-대규모의 클러스터에서 부족한 리소스의 활용도가 향상된다.
-`RequestedToCapacityRatioResourceAllocation` 우선 순위 기능의
-동작은 `RequestedToCapacityRatioArgs`라는
-구성 옵션으로 제어할 수 있다. 이 인수는 `shape`와 `resources`
-두 개의 파라미터로 구성된다. `shape` 파라미터는 사용자가 `utilization`과
-`score` 값을 기반으로 최소 요청 또는 최대 요청된 대로 기능을
-조정할 수 있게 한다. `resources` 파라미터는 점수를 매길 때 고려할
-리소스의 `name` 과 각 리소스의 가중치를 지정하는 `weight` 로
-구성된다.
+`NodeResourcesFit` 플러그인에 대한 `MostAllocated` 전략을 설정하려면,
+다음과 유사한 [스케줄러 설정](/ko/docs/reference/scheduling/config)을 사용한다.
 
-다음은 확장된 리소스 `intel.com/foo` 와 `intel.com/bar` 에 대한
-`requestedToCapacityRatioArguments` 를 빈 패킹 동작으로
+```yaml
+apiVersion: kubescheduler.config.k8s.io/v1beta3
+kind: KubeSchedulerConfiguration
+profiles:
+- pluginConfig:
+  - args:
+      scoringStrategy:
+        resources:
+        - name: cpu
+          weight: 1
+        - name: memory
+          weight: 1
+        - name: intel.com/foo
+          weight: 3
+        - name: intel.com/bar
+          weight: 3
+        type: MostAllocated
+    name: NodeResourcesFit
+```
+
+기타 파라미터와 기본 구성에 대한 자세한 내용은 
+[`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-NodeResourcesFitArgs)에 대한 API 문서를 참조한다.
+
+## RequestedToCapacityRatio을 사용하여 빈 패킹 활성화하기
+
+`RequestedToCapacityRatio` 전략은 사용자가 각 리소스에 대한 가중치와 함께 리소스를 지정하여
+용량 대비 요청 비율을 기반으로 노드의 점수를 매길 수 있게 한다.
+이를 통해 사용자는 적절한 파라미터를 사용하여 확장된 리소스를 빈 팩으로 만들 수 있어
+대규모의 클러스터에서 부족한 리소스의 활용도를 향상시킬 수 있다. 이 전략은
+할당된 리소스의 구성된 기능에 따라 노드를 선호하게 한다. `NodeResourcesFit`점수 기능의
+`RequestedToCapacityRatio` 동작은 [scoringStrategy](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-ScoringStrategy)필드를
+이용하여 제어할 수 있다.
+`scoringStrategy` 필드에서 `requestedToCapacityRatio`와 `resources`라는 두 개의 파라미터를
+구성할 수 있다. `requestedToCapacityRatio`파라미터의
+`shape`를 사용하면 `utilization`과 `score` 값을 기반으로
+최소 요청 혹은 최대 요청된 대로 기능을 조정할 수 있게 한다.
+`resources` 파라미터는 점수를 매길 때 고려할 리소스의 `name` 과 
+각 리소스의 가중치를 지정하는 `weight` 로 구성된다.
+
+다음은 `requestedToCapacityRatio` 를 이용해
+확장된 리소스 `intel.com/foo` 와 `intel.com/bar` 에 대한 빈 패킹 동작을
 설정하는 구성의 예시이다.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta1
+apiVersion: kubescheduler.config.k8s.io/v1beta3
 kind: KubeSchedulerConfiguration
 profiles:
-# ...
-  pluginConfig:
-  - name: RequestedToCapacityRatio
-    args: 
-      shape:
-      - utilization: 0
-        score: 10
-      - utilization: 100
-        score: 0
-      resources:
-      - name: intel.com/foo
-        weight: 3
-      - name: intel.com/bar
-        weight: 5
+- pluginConfig:
+  - args:
+      scoringStrategy:
+        resources:
+        - name: intel.com/foo
+          weight: 3
+        - name: intel.com/bar
+          weight: 3
+        requestedToCapacityRatio:
+          shape:
+          - utilization: 0
+            score: 0
+          - utilization: 100
+            score: 10
+        type: RequestedToCapacityRatio
+    name: NodeResourcesFit
 ```
 
 kube-scheduler 플래그 `--config=/path/to/config/file` 을 사용하여 
 `KubeSchedulerConfiguration` 파일을 참조하면 구성이 스케줄러에
 전달된다.
 
-**이 기능은 기본적으로 비활성화되어 있다.**
+기타 파라미터와 기본 구성에 대한 자세한 내용은
+[`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-NodeResourcesFitArgs)에 대한 API 문서를 참조한다.
 
-### 우선 순위 기능 튜닝하기
+### 점수 기능 튜닝하기
 
-`shape` 는 `RequestedToCapacityRatioPriority` 기능의
-동작을 지정하는 데 사용된다.
+`shape` 는 `RequestedToCapacityRatio` 기능의 동작을 지정하는 데 사용된다.
 
 ```yaml
 shape:
@@ -222,3 +251,4 @@ NodeScore   =  (5 * 5) + (7 * 1) + (10 * 3) / (5 + 1 + 3)
 
 - [스케줄링 프레임워크](/docs/concepts/scheduling-eviction/scheduling-framework/)에 대해 더 읽어본다.
 - [스케줄러 구성](/ko/docs/reference/scheduling/config/)에 대해 더 읽어본다.
+

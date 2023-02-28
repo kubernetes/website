@@ -23,10 +23,10 @@ Currently, the following types of volume sources can be projected:
 * [`secret`](/docs/concepts/storage/volumes/#secret)
 * [`downwardAPI`](/docs/concepts/storage/volumes/#downwardapi)
 * [`configMap`](/docs/concepts/storage/volumes/#configmap)
-* `serviceAccountToken`
+* [`serviceAccountToken`](#serviceaccounttoken)
 
 All sources are required to be in the same namespace as the Pod. For more details,
-see the [all-in-one volume](https://github.com/kubernetes/design-proposals-archive/blob/main/node/all-in-one-volume.md) design document.
+see the [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md) design document.
 
 ### Example configuration with a secret, a downwardAPI, and a configMap {#example-configuration-secret-downwardapi-configmap}
 
@@ -45,15 +45,16 @@ parameters are nearly the same with two exceptions:
   volume source. However, as illustrated above, you can explicitly set the `mode`
   for each individual projection.
 
-When the `TokenRequestProjection` feature is enabled, you can inject the token
-for the current [service account](/docs/reference/access-authn-authz/authentication/#service-account-tokens)
+## serviceAccountToken projected volumes {#serviceaccounttoken}
+You can inject the token for the current [service account](/docs/reference/access-authn-authz/authentication/#service-account-tokens)
 into a Pod at a specified path. For example:
 
 {{< codenew file="pods/storage/projected-service-account-token.yaml" >}}
 
 The example Pod has a projected volume containing the injected service account
-token. This token can be used by a Pod's containers to access the Kubernetes API
-server. The `audience` field contains the intended audience of the
+token. Containers in this Pod can use that token to access the Kubernetes API
+server, authenticating with the identity of [the pod's ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/).
+The `audience` field contains the intended audience of the
 token. A recipient of the token must identify itself with an identifier specified
 in the audience of the token, and otherwise should reject the token. This field
 is optional and it defaults to the identifier of the API server.
@@ -71,7 +72,7 @@ volume mount will not receive updates for those volume sources.
 
 ## SecurityContext interactions
 
-The [proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/2451-service-account-token-volumes#proposal) for file permission handling in projected service account volume enhancement introduced the projected files having the the correct owner permissions set.
+The [proposal](https://git.k8s.io/enhancements/keps/sig-storage/2451-service-account-token-volumes#proposal) for file permission handling in projected service account volume enhancement introduced the projected files having the correct owner permissions set.
 
 ### Linux
 
@@ -79,6 +80,23 @@ In Linux pods that have a projected volume and `RunAsUser` set in the Pod
 [`SecurityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context),
 the projected files have the correct ownership set including container user
 ownership.
+
+When all containers in a pod have the same `runAsUser` set in their
+[`PodSecurityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
+or container
+[`SecurityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context-1),
+then the kubelet ensures that the contents of the `serviceAccountToken` volume are owned by that user,
+and the token file has its permission mode set to `0600`.
+
+{{< note >}}
+{{< glossary_tooltip text="Ephemeral containers" term_id="ephemeral-container" >}}
+added to a Pod after it is created do *not* change volume permissions that were
+set when the pod was created.
+
+If a Pod's `serviceAccountToken` volume permissions were set to `0600` because
+all other containers in the Pod have the same `runAsUser`, ephemeral
+containers must use the same `runAsUser` to be able to read the token.
+{{< /note >}}
 
 ### Windows
 
@@ -97,6 +115,7 @@ into their own volume mount outside of `C:\`.
 
 By default, the projected files will have the following ownership as shown for
 an example projected volume file:
+
 ```powershell
 PS C:\> Get-Acl C:\var\run\secrets\kubernetes.io\serviceaccount\..2021_08_31_22_22_18.318230061\ca.crt | Format-List
 
@@ -109,6 +128,7 @@ Access : NT AUTHORITY\SYSTEM Allow  FullControl
 Audit  :
 Sddl   : O:BAG:SYD:AI(A;ID;FA;;;SY)(A;ID;FA;;;BA)(A;ID;0x1200a9;;;BU)
 ```
+
 This implies all administrator users like `ContainerAdministrator` will have
 read, write and execute access while, non-administrator users will have read and
 execute access.

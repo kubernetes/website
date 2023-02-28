@@ -93,7 +93,7 @@ cassandra   ClusterIP   None         <none>        9042/TCP   45s
 ```
 
 If you don't see a Service named `cassandra`, that means creation failed. Read
-[Debug Services](/docs/tasks/debug-application-cluster/debug-service/)
+[Debug Services](/docs/tasks/debug/debug-application/debug-service/)
 for help troubleshooting common issues.
 
 ## Using a StatefulSet to create a Cassandra ring

@@ -3,6 +3,7 @@ layout: blog
 title: '쿠버네티스 1.22: 새로운 정점에 도달(Reaching New Peaks)'
 date: 2021-08-04
 slug: kubernetes-1-22-release-announcement
+evergreen: true
 ---
 
 **저자:** [쿠버네티스 1.22 릴리스 팀](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.22/release-team.md)
@@ -17,18 +18,18 @@ slug: kubernetes-1-22-release-announcement
 
 연간 4회에서 3회로의 릴리스 케이던스 변경을 통해 프로젝트의 다양한 측면(기여와 릴리스가 관리되는 방법, 업그레이드 및 최신 릴리스 유지에 대한 커뮤니티의 역량 등)에 대한 균형을 이루고자 하였습니다.
 
-더 자세한 사항은 공식 블로그 포스트 [쿠버네티스 릴리스 케이던스 변경: 알아두어야 할 사항](https://kubernetes.io/blog/2021/07/20/new-kubernetes-release-cadence/)에서 확인할 수 있습니다.
+더 자세한 사항은 공식 블로그 포스트 [쿠버네티스 릴리스 케이던스 변경: 알아두어야 할 사항](/blog/2021/07/20/new-kubernetes-release-cadence/)에서 확인할 수 있습니다.
 
 
 ## 주요 주제
 
 ### 서버-사이드 어플라이(Server-side Apply)가 GA로 졸업
 
-[서버-사이드 어플라이](https://kubernetes.io/docs/reference/using-api/server-side-apply/)는 쿠버네티스 API 서버에서 동작하는 신규 필드 오너십이며 오브젝트 병합 알고리즘입니다. 서버-사이드 어플라이는 사용자와 컨트롤러가 선언적인 구성을 통해서 자신의 리소스를 관리할 수 있도록 돕습니다. 이 기능은 단순히 fully specified intent를 전송하는 것만으로 자신의 오브젝트를 선언적으로 생성 또는 수정할 수 있도록 허용합니다. 몇 릴리스에 걸친 베타 과정 이후, 서버-사이드 어플라이는 이제 GA(generally available)가 되었습니다.
+[서버-사이드 어플라이](/docs/reference/using-api/server-side-apply/)는 쿠버네티스 API 서버에서 동작하는 신규 필드 오너십이며 오브젝트 병합 알고리즘입니다. 서버-사이드 어플라이는 사용자와 컨트롤러가 선언적인 구성을 통해서 자신의 리소스를 관리할 수 있도록 돕습니다. 이 기능은 단순히 fully specified intent를 전송하는 것만으로 자신의 오브젝트를 선언적으로 생성 또는 수정할 수 있도록 허용합니다. 몇 릴리스에 걸친 베타 과정 이후, 서버-사이드 어플라이는 이제 GA(generally available)가 되었습니다.
 
 ### 외부 크리덴셜 제공자가 이제 스테이블이 됨
 
-쿠버네티스 클라이언트 [크리덴셜 플러그인](https://kubernetes.io/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins)에 대한 지원은 1.11부터 베타였으나, 쿠버네티스 1.22 릴리스에서 스테이블로 졸업하였습니다. 해당 GA 기능 집합은 인터랙티브 로그인 플로우(interactive login flow)를 제공하는 플러그인에 대한 향상된 지원을 포함합니다. 또한, 많은 버그가 수정되었습니다. 플러그인 개발은 [sample-exec-plugin](https://github.com/ankeesler/sample-exec-plugin)을 통해 시작할 수 있습니다.
+쿠버네티스 클라이언트 [크리덴셜 플러그인](/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins)에 대한 지원은 1.11부터 베타였으나, 쿠버네티스 1.22 릴리스에서 스테이블로 졸업하였습니다. 해당 GA 기능 집합은 인터랙티브 로그인 플로우(interactive login flow)를 제공하는 플러그인에 대한 향상된 지원을 포함합니다. 또한, 많은 버그가 수정되었습니다. 플러그인 개발은 [sample-exec-plugin](https://github.com/ankeesler/sample-exec-plugin)을 통해 시작할 수 있습니다.
 
 ### etcd 3.5.0으로 변경
 
@@ -50,7 +51,7 @@ SIG Windows는 계속해서 성장하는 개발자 커뮤니티를 지원하기 
 
 ### 기본(default) seccomp 프로파일
 
-알파 기능인 기본 seccomp 프로파일이 신규 커맨드라인 플래그 및 설정과 함께 kubelet에 추가되었습니다. 이 신규 기능을 사용하면, `Unconfined`대신 `RuntimeDefault` seccomp 프로파일을 기본으로 사용하는 seccomp이 클러스터 전반에서 기본이 됩니다. 이는 쿠버네티스 디플로이먼트(Deployment)의 기본 보안을 강화합니다. 워크로드에 대한 보안이 기본으로 더 강화되었으므로, 이제 보안 관리자도 조금 더 안심하고 쉴 수 있습니다. 이 기능에 대한 자세한 사항은 공식적인 [seccomp 튜토리얼](https://kubernetes.io/docs/tutorials/clusters/seccomp/#enable-the-use-of-runtimedefault-as-the-default-seccomp-profile-for-all-workloads)을 참고하시기 바랍니다.
+알파 기능인 기본 seccomp 프로파일이 신규 커맨드라인 플래그 및 설정과 함께 kubelet에 추가되었습니다. 이 신규 기능을 사용하면, `Unconfined`대신 `RuntimeDefault` seccomp 프로파일을 기본으로 사용하는 seccomp이 클러스터 전반에서 기본이 됩니다. 이는 쿠버네티스 디플로이먼트(Deployment)의 기본 보안을 강화합니다. 워크로드에 대한 보안이 기본으로 더 강화되었으므로, 이제 보안 관리자도 조금 더 안심하고 쉴 수 있습니다. 이 기능에 대한 자세한 사항은 공식적인 [seccomp 튜토리얼](/docs/tutorials/security/seccomp/#enable-the-use-of-runtimedefault-as-the-default-seccomp-profile-for-all-workloads)을 참고하시기 바랍니다.
 
 ### kubeadm을 통한 보안성이 더 높은 컨트롤 플레인
 
@@ -64,13 +65,13 @@ SIG Windows는 계속해서 성장하는 개발자 커뮤니티를 지원하기 
 
 GA 버전과 중복된 사용 중단(deprecated)된 여러 베타 API가 1.22에서 제거되었습니다. 기존의 모든 오브젝트는 스테이블 APIs를 통해 상호 작용할 수 있습니다. 이 제거에는 `Ingress`, `IngressClass`, `Lease`, `APIService`, `ValidatingWebhookConfiguration`, `MutatingWebhookConfiguration`, `CustomResourceDefinition`, `TokenReview`, `SubjectAccessReview`, `CertificateSigningRequest` API의 베타 버전이 포함되었습니다.
 
-전체 항목은 [사용 중단된 API에 대한 마이그레이션 지침](https://kubernetes.io/docs/reference/using-api/deprecation-guide/#v1-22)과 블로그 포스트 [1.22에서 쿠버네티스 API와 제거된 기능: 알아두어야 할 사항](https://blog.k8s.io/2021/07/14/upcoming-changes-in-kubernetes-1-22/)에서 확인 가능합니다.
+전체 항목은 [사용 중단된 API에 대한 마이그레이션 지침](/docs/reference/using-api/deprecation-guide/#v1-22)과 블로그 포스트 [1.22에서 쿠버네티스 API와 제거된 기능: 알아두어야 할 사항](https://blog.k8s.io/2021/07/14/upcoming-changes-in-kubernetes-1-22/)에서 확인 가능합니다.
 
 ###  임시(ephemeral) 컨테이너에 대한 API 변경 및 개선
 
-1.22에서 [임시 컨테이너](https://kubernetes.io/ko/docs/concepts/workloads/pods/ephemeral-containers/)를 생성하기 위한 API가 변경되었습니다. 임시 컨테이너 기능은 알파이며 기본적으로 비활성화되었습니다. 신규 API는 예전 API를 사용하려는 클라이언트에 대해 동작하지 않습니다.
+1.22에서 [임시 컨테이너](/ko/docs/concepts/workloads/pods/ephemeral-containers/)를 생성하기 위한 API가 변경되었습니다. 임시 컨테이너 기능은 알파이며 기본적으로 비활성화되었습니다. 신규 API는 예전 API를 사용하려는 클라이언트에 대해 동작하지 않습니다.
 
-스테이블 기능에 대해서, kubectl 도구는 쿠버네티스의 [버전 차이(skew) 정책](https://kubernetes.io/ko/releases/version-skew-policy/)을 따릅니다. 그러나, kubectl v1.21 이하의 버전은 임시 컨테이너에 대한 신규 API를 지원하지 않습니다. 만약 `kubectl debug`를 사용하여 임시 컨테이너를 생성할 계획이 있고 클러스터에서 쿠버네티스 v1.22로 구동하고 있는 경우, kubectl v1.21 이하의 버전에서는 그렇게 할 수 없다는 것을 알아두어야 합니다. 따라서 만약 클러스터 버전을 혼합하여 `kubectl debug`를 사용하려면 kubectl를 1.22로 업데이트하길 바랍니다.
+스테이블 기능에 대해서, kubectl 도구는 쿠버네티스의 [버전 차이(skew) 정책](/ko/releases/version-skew-policy/)을 따릅니다. 그러나, kubectl v1.21 이하의 버전은 임시 컨테이너에 대한 신규 API를 지원하지 않습니다. 만약 `kubectl debug`를 사용하여 임시 컨테이너를 생성할 계획이 있고 클러스터에서 쿠버네티스 v1.22로 구동하고 있는 경우, kubectl v1.21 이하의 버전에서는 그렇게 할 수 없다는 것을 알아두어야 합니다. 따라서 만약 클러스터 버전을 혼합하여 `kubectl debug`를 사용하려면 kubectl를 1.22로 업데이트하길 바랍니다.
 
 ## 기타 업데이트
 
@@ -98,9 +99,9 @@ GA 버전과 중복된 사용 중단(deprecated)된 여러 베타 API가 1.22에
 
 # 릴리스 위치
 
-쿠버네티스 1.22는 [여기](https://kubernetes.io/releases/download/)에서 다운로드할 수 있고, [GitHub 프로젝트](https://github.com/kubernetes/kubernetes/releases/tag/v1.22.0)에서도 찾을 수 있습니다.
+쿠버네티스 1.22는 [여기](/releases/download/)에서 다운로드할 수 있고, [GitHub 프로젝트](https://github.com/kubernetes/kubernetes/releases/tag/v1.22.0)에서도 찾을 수 있습니다.
 
-쿠버네티스를 시작하는 데 도움이 되는 좋은 자료가 많이 있습니다. 쿠버네티스 사이트에서 [상호 작용형 튜토리얼](https://kubernetes.io/ko/docs/tutorials/)을 수행할 수도 있고, [kind](https://kind.sigs.k8s.io)와 도커 컨테이너를 사용하여 로컬 클러스터를 사용자의 머신에서 구동해볼 수도 있습니다. 클러스터를 스크래치(scratch)부터 구축해보고 싶다면, Kelsey Hightower의 [쿠버네티스 어렵게 익히기(the Hard Way)](https://github.com/kelseyhightower/kubernetes-the-hard-way) 튜토리얼을 확인해보시기 바랍니다.
+쿠버네티스를 시작하는 데 도움이 되는 좋은 자료가 많이 있습니다. 쿠버네티스 사이트에서 [상호 작용형 튜토리얼](/ko/docs/tutorials/)을 수행할 수도 있고, [kind](https://kind.sigs.k8s.io)와 도커 컨테이너를 사용하여 로컬 클러스터를 사용자의 머신에서 구동해볼 수도 있습니다. 클러스터를 스크래치(scratch)부터 구축해보고 싶다면, Kelsey Hightower의 [쿠버네티스 어렵게 익히기(the Hard Way)](https://github.com/kelseyhightower/kubernetes-the-hard-way) 튜토리얼을 확인해보시기 바랍니다.
 
 # 릴리스 팀
 
@@ -151,7 +152,7 @@ GA 버전과 중복된 사용 중단(deprecated)된 여러 베타 API가 1.22에
 * [쿠버네티스 기여자](https://www.kubernetes.dev/) 웹사이트에서 기여에 대한 더 자세한 사항을 확인
 * 최신 정보 업데이트를 위해 [@Kubernetesio](https://twitter.com/kubernetesio) 트위터 팔로우
 * [논의(discuss)](https://discuss.kubernetes.io/)에서 커뮤니티 논의에 참여
-* [슬랙](http://slack.k8s.io/)에서 커뮤니티에 참여
+* [슬랙](https://slack.k8s.io/)에서 커뮤니티에 참여
 * 쿠버네티스 [사용기](https://docs.google.com/a/linuxfoundation.org/forms/d/e/1FAIpQLScuI7Ye3VQHQTwBASrgkjQDSS5TP0g3AXfFhwSM9YpHgxRKFA/viewform) 공유
-* 쿠버네티스에서 일어나는 일에 대한 자세한 사항을 [블로그](https://kubernetes.io/blog/)를 통해 읽기
+* 쿠버네티스에서 일어나는 일에 대한 자세한 사항을 [블로그](/blog/)를 통해 읽기
 * [쿠버네티스 릴리스 팀](https://github.com/kubernetes/sig-release/tree/master/release-team)에 대해 더 알아보기

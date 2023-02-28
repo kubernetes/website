@@ -4,7 +4,7 @@ id: cloud-controller-manager
 date: 2018-04-12
 full_link: /ja/docs/concepts/architecture/cloud-controller/
 short_description: >
-  サードパーティクラウドプロバイダーにKubernetewを結合するコントロールプレーンコンポーネント
+  サードパーティクラウドプロバイダーにKubernetesを結合するコントロールプレーンコンポーネント
 aka: 
 tags:
 - core-object

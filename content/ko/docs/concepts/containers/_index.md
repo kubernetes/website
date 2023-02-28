@@ -2,6 +2,9 @@
 title: 컨테이너
 weight: 40
 description: 런타임 의존성과 함께 애플리케이션을 패키징하는 기술
+# reviewers:
+# - erictune
+# - thockin
 content_type: concept
 no_list: true
 ---
@@ -13,7 +16,7 @@ no_list: true
 의미한다.
 
 컨테이너는 기본 호스트 인프라에서 애플리케이션을 분리한다.
-따라서 다양한 클라우드 또는 OS 환경에서 보다 쉽게 ​​배포할 수 있다.
+따라서 다양한 클라우드 또는 OS 환경에서 보다 쉽게 배포할 수 있다.
 
 
 

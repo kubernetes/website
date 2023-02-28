@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - caseydavenport
+# - danwinship
 title: 네트워크 폴리시(Network Policy) 선언하기
 min-kubernetes-server-version: v1.8
 content_type: task
@@ -68,7 +68,7 @@ pod/nginx-701339712-e0qfq   1/1           Running       0          35s
 사용자는 다른 파드에서 새 `nginx` 서비스에 접근할 수 있어야 한다. `default` 네임스페이스에 있는 다른 파드에서 `nginx` 서비스에 접근하기 위하여, busybox 컨테이너를 생성한다.
 
 ```console
-kubectl run busybox --rm -ti --image=busybox -- /bin/sh
+kubectl run busybox --rm -ti --image=busybox:1.28 -- /bin/sh
 ```
 
 사용자 쉘에서, 다음의 명령을 실행한다.
@@ -111,7 +111,7 @@ networkpolicy.networking.k8s.io/access-nginx created
 올바른 레이블이 없는 파드에서 `nginx` 서비스에 접근하려 할 경우, 요청 타임 아웃이 발생한다.
 
 ```console
-kubectl run busybox --rm -ti --image=busybox -- /bin/sh
+kubectl run busybox --rm -ti --image=busybox:1.28 -- /bin/sh
 ```
 
 사용자 쉘에서, 다음의 명령을 실행한다.
@@ -130,7 +130,7 @@ wget: download timed out
 사용자는 요청이 허용되도록 하기 위하여 올바른 레이블을 갖는 파드를 생성한다.
 
 ```console
-kubectl run busybox --rm -ti --labels="access=true" --image=busybox -- /bin/sh
+kubectl run busybox --rm -ti --labels="access=true" --image=busybox:1.28 -- /bin/sh
 ```
 
 사용자 쉘에서, 다음의 명령을 실행한다.

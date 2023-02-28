@@ -2,13 +2,13 @@
 title: Advanced contributing
 slug: advanced
 content_type: concept
-weight: 98
+weight: 100
 ---
 
 <!-- overview -->
 
 This page assumes that you understand how to
-[contribute to new content](/docs/contribute/new-content/overview) and
+[contribute to new content](/docs/contribute/new-content/) and
 [review others' work](/docs/contribute/review/reviewing-prs/), and are ready
 to learn about more ways to contribute. You need to use the Git command line
 client and other tools for some of these tasks.
@@ -86,6 +86,7 @@ Responsibilities for New Contributor Ambassadors include:
 - Mentoring new contributors through their first few PRs to the docs repo.
 - Helping new contributors create the more complex PRs they need to become Kubernetes members.
 - [Sponsoring contributors](/docs/contribute/advanced/#sponsor-a-new-contributor) on their path to becoming Kubernetes members.
+- Hosting a monthly meeting to help and mentor new contributors.
 
 Current New Contributor Ambassadors are announced at each SIG-Docs meeting and in the [Kubernetes #sig-docs channel](https://kubernetes.slack.com).
 
@@ -135,7 +136,7 @@ The role of co-chair is one of service: co-chairs build contributor capacity, ha
 Responsibilities include:
 
 - Keep SIG Docs focused on maximizing developer happiness through excellent documentation
-- Exemplify the [community code of conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md) and hold SIG members accountable to it
+- Exemplify the [community code of conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md) and hold SIG members accountable to it
 - Learn and set best practices for the SIG by updating contribution guidelines
 - Schedule and run SIG meetings: weekly status updates, quarterly retro/planning sessions, and others as needed
 - Schedule and run doc sprints at KubeCon events and other conferences
@@ -146,7 +147,7 @@ Responsibilities include:
 
 To schedule and run effective meetings, these guidelines show what to do, how to do it, and why.
 
-**Uphold the [community code of conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md)**:
+**Uphold the [community code of conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md)**:
 
 - Hold respectful, inclusive discussions with respectful, inclusive language.
 
@@ -189,3 +190,7 @@ When you're ready to start the recording, click Record to Cloud.
 When you're ready to stop recording, click Stop.
 
 The video uploads automatically to YouTube.
+
+### Offboarding a SIG Co-chair (Emeritus)
+
+See: [k/community/sig-docs/offboarding.md](https://github.com/kubernetes/community/blob/master/sig-docs/offboarding.md)

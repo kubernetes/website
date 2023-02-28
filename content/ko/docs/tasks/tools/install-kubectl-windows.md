@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - mikedanese
 title: 윈도우에 kubectl 설치 및 설정
 content_type: task
 weight: 10
@@ -22,7 +22,6 @@ card:
 - [윈도우에서 curl을 사용하여 kubectl 바이너리 설치](#install-kubectl-binary-with-curl-on-windows)
 - [Chocolatey 또는 Scoop을 사용하여 윈도우에 설치](#install-on-windows-using-chocolatey-or-scoop)
 
-
 ### 윈도우에서 curl을 사용하여 kubectl 바이너리 설치 {#install-kubectl-binary-with-curl-on-windows}
 
 1. [최신 릴리스 {{< param "fullversion" >}}](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe)를 다운로드한다.
@@ -39,13 +38,13 @@ card:
 
 1. 바이너리를 검증한다. (선택 사항)
 
-   kubectl 체크섬 파일을 다운로드한다.
+   `kubectl` 체크섬 파일을 다운로드한다.
 
    ```powershell
    curl -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256"
    ```
 
-   kubectl 바이너리를 체크섬 파일을 통해 검증한다.
+   `kubectl` 바이너리를 체크섬 파일을 통해 검증한다.
 
    - 커맨드 프롬프트를 사용하는 경우, `CertUtil` 의 출력과 다운로드한 체크섬 파일을 수동으로 비교한다.
 
@@ -60,12 +59,17 @@ card:
      $($(CertUtil -hashfile .\kubectl.exe SHA256)[1] -replace " ", "") -eq $(type .\kubectl.exe.sha256)
      ```
 
-1. `PATH`로 설정된 디렉터리 중 하나에 kubectl 바이너리를 추가한다.
+1. `kubectl` 바이너리가 있는 폴더를 `PATH` 환경 변수의 앞부분 또는 뒷부분에 추가
 
 1. `kubectl` 의 버전이 다운로드한 버전과 같은지 확인한다.
 
    ```cmd
    kubectl version --client
+   ```
+   또는 다음을 실행하여 버전에 대한 더 자세한 정보를 본다.
+
+   ```cmd
+   kubectl version --client --output=yaml    
    ```
 
 {{< note >}}
@@ -134,11 +138,11 @@ card:
 
 ### 셸 자동 완성 활성화
 
-kubectl은 Bash 및 Zsh에 대한 자동 완성 지원을 제공하므로 입력을 위한 타이핑을 많이 절약할 수 있다.
+kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제공하므로 입력을 위한 타이핑을 많이 절약할 수 있다.
 
-다음은 Zsh에 대한 자동 완성을 설정하는 절차이다.
+다음은 PowerShell에 대한 자동 완성을 설정하는 절차이다.
 
-{{< include "included/optional-kubectl-configs-zsh.md" >}}
+{{< include "included/optional-kubectl-configs-pwsh.md" >}}
 
 ### `kubectl convert` 플러그인 설치
 
@@ -152,13 +156,13 @@ kubectl은 Bash 및 Zsh에 대한 자동 완성 지원을 제공하므로 입력
 
 1. 바이너리를 검증한다. (선택 사항)
 
-   kubectl-convert 체크섬(checksum) 파일을 다운로드한다.
+   `kubectl-convert` 체크섬(checksum) 파일을 다운로드한다.
 
    ```powershell
    curl -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
    ```
 
-   kubectl-convert 바이너리를 체크섬 파일을 통해 검증한다.
+   `kubectl-convert` 바이너리를 체크섬 파일을 통해 검증한다.
 
    - 커맨드 프롬프트를 사용하는 경우, `CertUtil` 의 출력과 다운로드한 체크섬 파일을 수동으로 비교한다.
 
@@ -173,7 +177,7 @@ kubectl은 Bash 및 Zsh에 대한 자동 완성 지원을 제공하므로 입력
      $($(CertUtil -hashfile .\kubectl-convert.exe SHA256)[1] -replace " ", "") -eq $(type .\kubectl-convert.exe.sha256)
      ```
 
-1. `PATH`로 설정된 디렉터리 중 하나에 kubectl-convert 바이너리를 추가한다.
+1. `kubectl-convert` 바이너리가 있는 폴더를 `PATH` 환경 변수의 앞부분 또는 뒷부분에 추가
 
 1. 플러그인이 정상적으로 설치되었는지 확인한다.
 

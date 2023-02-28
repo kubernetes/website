@@ -7,26 +7,25 @@ description: >
 
 ## The Kubernetes network model
 
-Every [`Pod`](/docs/concepts/workloads/pods/) gets its own IP address. 
+Every [`Pod`](/docs/concepts/workloads/pods/) in a cluster gets its own unique cluster-wide IP address. 
 This means you do not need to explicitly create links between `Pods` and you 
 almost never need to deal with mapping container ports to host ports.  
 This creates a clean, backwards-compatible model where `Pods` can be treated 
 much like VMs or physical hosts from the perspectives of port allocation, 
-naming, service discovery, [load balancing](/docs/concepts/services-networking/ingress/#load-balancing), application configuration, 
-and migration.
+naming, service discovery, [load balancing](/docs/concepts/services-networking/ingress/#load-balancing), 
+application configuration, and migration.
 
 Kubernetes imposes the following fundamental requirements on any networking
 implementation (barring any intentional network segmentation policies):
 
-   * pods on a [node](/docs/concepts/architecture/nodes/) can communicate with all pods on all nodes without NAT
+   * pods can communicate with all other pods on any other [node](/docs/concepts/architecture/nodes/) 
+     without NAT
    * agents on a node (e.g. system daemons, kubelet) can communicate with all
      pods on that node
 
 Note: For those platforms that support `Pods` running in the host network (e.g.
-Linux):
-
-   * pods in the host network of a node can communicate with all pods on all
-     nodes without NAT
+Linux), when pods are attached to the host network of a node they can still communicate 
+with all pods on all nodes without NAT.
 
 This model is not only less complex overall, but it is principally compatible
 with the desire for Kubernetes to enable low-friction porting of apps from VMs
@@ -50,5 +49,15 @@ blind to the existence or non-existence of host ports.
 Kubernetes networking addresses four concerns:
 - Containers within a Pod [use networking to communicate](/docs/concepts/services-networking/dns-pod-service/) via loopback.
 - Cluster networking provides communication between different Pods.
-- The [Service resource](/docs/concepts/services-networking/service/) lets you [expose an application running in Pods](/docs/concepts/services-networking/connect-applications-service/) to be reachable from outside your cluster.
-- You can also use Services to [publish services only for consumption inside your cluster](/docs/concepts/services-networking/service-traffic-policy/).
+- The [Service](/docs/concepts/services-networking/service/) API lets you
+  [expose an application running in Pods](/docs/tutorials/services/connect-applications-service/)
+  to be reachable from outside your cluster.
+  - [Ingress](/docs/concepts/services-networking/ingress/) provides extra functionality
+    specifically for exposing HTTP applications, websites and APIs.
+- You can also use Services to
+  [publish services only for consumption inside your cluster](/docs/concepts/services-networking/service-traffic-policy/).
+
+The [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial lets you learn about Services and Kubernetes networking with a hands-on example.
+
+[Cluster Networking](/docs/concepts/cluster-administration/networking/) explains how to set
+up networking for your cluster, and also provides an overview of the technologies involved.

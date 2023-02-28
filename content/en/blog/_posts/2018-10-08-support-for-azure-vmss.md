@@ -10,11 +10,11 @@ date: 2018-10-08
 
 With Kubernetes v1.12, Azure virtual machine scale sets (VMSS) and cluster-autoscaler have reached their General Availability (GA) and User Assigned Identity is available as a preview feature.
 
-_Azure VMSS allow you to create and manage identical, load balanced VMs that automatically increase or decrease based on demand or a set schedule. This enables you to easily manage and scale multiple VMs to provide high availability and application resiliency, ideal for large-scale applications like container workloads [[1]](https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/overview)._
+_Azure VMSS allow you to create and manage identical, load balanced VMs that automatically increase or decrease based on demand or a set schedule. This enables you to easily manage and scale multiple VMs to provide high availability and application resiliency, ideal for large-scale applications like container workloads [[1]](https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/overview)._
 
 Cluster autoscaler allows you to adjust the size of the Kubernetes clusters based on the load conditions automatically.
 
-Another exciting feature which v1.12 brings to the table is the ability to use User Assigned Identities with Kubernetes clusters [[12]](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview).
+Another exciting feature which v1.12 brings to the table is the ability to use User Assigned Identities with Kubernetes clusters [[12]](https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview).
 
 In this article, we will do a brief overview of VMSS, cluster autoscaler and user assigned identity features on Azure.
 
@@ -22,7 +22,7 @@ In this article, we will do a brief overview of VMSS, cluster autoscaler and use
 
 Azure’s Virtual Machine Scale sets (VMSS) feature offers users an ability to automatically create VMs from a single central configuration, provide load balancing via L4 and L7 load balancing, provide a path to use availability zones for high availability, provides large-scale VM instances et. al.
 
-VMSS consists of a group of virtual machines, which are identical and can be managed and configured at a group level. More details of this feature in Azure itself can be found at the following link [[1]](https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/overview).
+VMSS consists of a group of virtual machines, which are identical and can be managed and configured at a group level. More details of this feature in Azure itself can be found at the following link [[1]](https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/overview).
 
 With Kubernetes v1.12 customers can create k8s cluster out of VMSS instances and utilize VMSS features.
 
@@ -254,7 +254,7 @@ Cluster Autoscaler currently supports four VM types: standard (VMAS), VMSS, ACS 
 
 ## User Assigned Identity
 
-Inorder for the Kubernetes cluster components to securely talk to the cloud services, it needs to authenticate with the cloud provider. In Azure Kubernetes clusters, up until now this was done using two ways - Service Principals or Managed Identities. In case of service principal the credentials are stored within the cluster and there are password rotation and other challenges which user needs to incur to accommodate this model. Managed service identities takes out this burden from the user and manages the service instances directly [[12]](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview).
+Inorder for the Kubernetes cluster components to securely talk to the cloud services, it needs to authenticate with the cloud provider. In Azure Kubernetes clusters, up until now this was done using two ways - Service Principals or Managed Identities. In case of service principal the credentials are stored within the cluster and there are password rotation and other challenges which user needs to incur to accommodate this model. Managed service identities takes out this burden from the user and manages the service instances directly [[12]](https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview).
 
 There are two kinds of managed identities possible - one is system assigned and another is user assigned. In case of system assigned identity each vm in the Kubernetes cluster is assigned a managed identity during creation. This identity is used by various Kubernetes components needing access to Azure resources. Examples to these operations are getting/updating load balancer configuration, getting/updating vm information etc. With the system assigned managed identity, user has no control over the identity which is assigned to the underlying vm. The system automatically assigns it and this reduces the flexibility for the user.
 
@@ -273,7 +273,7 @@ env.ServiceManagementEndpoint,
 config.UserAssignedIdentityID)
 ```
 
-This calls hits either the instance metadata service or the vm extension [[12]](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview) to gather the token which is then used to access various resources.
+This calls hits either the instance metadata service or the vm extension [[12]](https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview) to gather the token which is then used to access various resources.
 
 ## Setting up a cluster with user assigned identity
 
@@ -304,11 +304,11 @@ For azure specific discussions - please checkout the Azure SIG page at [[6]](htt
 
 For CA, please checkout the Autoscaler project here [[7]](http://www.github.com/kubernetes/autoscaler) and join the [#sig-autoscaling](https://kubernetes.slack.com/messages/sig-autoscaling) Slack for more discussions.
 
-For the acs-engine (the unmanaged variety) on Azure docs can be found here: [[9]](https://github.com/Azure/acs-engine). More details about the managed service from Azure Kubernetes Service (AKS) here [[5]](https://docs.microsoft.com/en-us/azure/aks/).
+For the acs-engine (the unmanaged variety) on Azure docs can be found here: [[9]](https://github.com/Azure/acs-engine). More details about the managed service from Azure Kubernetes Service (AKS) here [[5]](https://learn.microsoft.com/en-us/azure/aks/).
 
 ## References
 
-1) https://docs.microsoft.com/en-us/azure/virtual-machine-scale-sets/overview
+1) https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/overview
 
 2) /docs/concepts/architecture/cloud-controller/
 
@@ -316,7 +316,7 @@ For the acs-engine (the unmanaged variety) on Azure docs can be found here: [[9]
 
 4) https://github.com/Azure/acs-engine/blob/master/docs/kubernetes/deploy.md
 
-5) https://docs.microsoft.com/en-us/azure/aks/
+5) https://learn.microsoft.com/en-us/azure/aks/
 
 6) https://github.com/kubernetes/community/tree/master/sig-azure
 
@@ -330,7 +330,7 @@ For the acs-engine (the unmanaged variety) on Azure docs can be found here: [[9]
 
 11) /docs/concepts/architecture/
 
-12) https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview
+12) https://learn.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview
 
 13) https://github.com/Azure/acs-engine/tree/master/examples/kubernetes-msi-userassigned
 

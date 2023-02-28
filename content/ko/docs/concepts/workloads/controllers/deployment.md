@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - janetkuo
 title: 디플로이먼트
 feature:
   title: 자동화된 롤아웃과 롤백
@@ -32,7 +32,7 @@ _디플로이먼트(Deployment)_ 는 {{< glossary_tooltip text="파드" term_id=
 * 디플로이먼트의 PodTemplateSpec을 업데이트해서 [파드의 새로운 상태를 선언한다](#디플로이먼트-업데이트). 새 레플리카셋이 생성되면, 디플로이먼트는 파드를 기존 레플리카셋에서 새로운 레플리카셋으로 속도를 제어하며 이동하는 것을 관리한다. 각각의 새로운 레플리카셋은 디플로이먼트의 수정 버전에 따라 업데이트한다.
 * 만약 디플로이먼트의 현재 상태가 안정적이지 않은 경우 [디플로이먼트의 이전 버전으로 롤백](#디플로이먼트-롤백)한다. 각 롤백은 디플로이먼트의 수정 버전에 따라 업데이트한다.
 * [더 많은 로드를 위해 디플로이먼트의 스케일 업](#디플로이먼트-스케일링).
-* [디플로이먼트 일시 중지](#디플로이먼트의-일시-중지와-재개)로 PodTemplateSpec에 여러 수정 사항을 적용하고, 새로운 롤아웃의 시작을 재개한다.
+* [디플로이먼트 롤아웃 일시 중지](#디플로이먼트의-일시-중지와-재개)로 PodTemplateSpec에 여러 수정 사항을 적용하고, 재개하여 새로운 롤아웃을 시작한다.
 * 롤아웃이 막혀있는지를 나타내는 [디플로이먼트 상태를 이용](#디플로이먼트-상태).
 * 더 이상 필요 없는 [이전 레플리카셋 정리](#정책-초기화).
 
@@ -121,8 +121,8 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
    * `READY` 는 사용자가 사용할 수 있는 애플리케이션의 레플리카의 수를 표시한다.
    * `AGE` 는 애플리케이션의 실행된 시간을 표시한다.
 
-   레플리카셋의 이름은 항상 `[DEPLOYMENT-NAME]-[RANDOM-STRING]` 형식으로 된 것을 알 수 있다. 무작위 문자열은
-   무작위로 생성되며, `pod-template-hash` 를 시드(seed)로 사용한다.
+   레플리카셋의 이름은 항상 `[DEPLOYMENT-NAME]-[HASH]` 형식으로 된 것을 알 수 있다.
+   `HASH` 문자열은 레플리카셋의 `pod-template-hash` 레이블과 같다.
 
 6. 각 파드에 자동으로 생성된 레이블을 보려면, `kubectl get pods --show-labels` 를 실행한다.
    다음과 유사하게 출력된다.
@@ -255,10 +255,11 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
     또한 디플로이먼트는 의도한 파드 수 보다 더 많이 생성되는 파드의 수를 제한한다.
     기본적으로, 의도한 파드의 수 기준 최대 125%까지만 추가 파드가 동작할 수 있도록 제한한다(최대 25% 까지).
 
-    예를 들어, 위 디플로이먼트를 자세히 살펴보면 먼저 새로운 파드를 생성한 다음
-    이전 파드를 삭제하고, 새로운 파드를 만든 것을 볼 수 있다. 충분한 수의 새로운 파드가 나올 때까지 이전 파드를 죽이지 않으며,
-    충분한 수의 이전 파드들이 죽기 전까지 새로운 파드를 만들지 않는다.
-    이것은 최소 2개의 파드를 사용할 수 있게 하고, 최대 4개의 파드를 사용할 수 있게 한다.
+    예를 들어, 위 디플로이먼트를 자세히 살펴보면 먼저 새로운 파드를 생성한 다음, 
+    이전 파드를 삭제하고, 또 다른 새로운 파드를 만든 것을 볼 수 있다. 
+    충분한 수의 새로운 파드가 나올 때까지 이전 파드를 죽이지 않으며, 충분한 수의 이전 파드들이 죽기 전까지 새로운 파드를 만들지 않는다. 
+    이것은 최소 3개의 파드를 사용할 수 있게 하고, 최대 4개의 파드를 사용할 수 있게 한다. 
+    디플로이먼트의 레플리카 크기가 4인 경우, 파드 숫자는 3개에서 5개 사이이다.
 
 * 디플로이먼트의 세부 정보 가져오기
   ```shell
@@ -303,12 +304,19 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
       Normal  ScalingReplicaSet  19s   deployment-controller  Scaled up replica set nginx-deployment-1564180365 to 3
       Normal  ScalingReplicaSet  14s   deployment-controller  Scaled down replica set nginx-deployment-2035384211 to 0
     ```
-    처음 디플로이먼트를 생성했을 때, 디플로이먼트가 레플리카셋(nginx-deployment-2035384211)을 생성해서
-    3개의 레플리카로 직접 스케일 업한 것을 볼 수 있다.
-    디플로이먼트를 업데이트할 때 새 레플리카셋(nginx-deployment-1564180365)을 생성하고, 1개로   스케일 업한 다음
-    이전 레플리카셋을 2개로 스케일 다운해서, 최소 2개의 파드를 사용할 수 있고 최대 4개의 파드가 항상 생성되어 있도록 하였다.
-    이후 지속해서 같은 롤링 업데이트 정책으로 새 레플리카셋은 스케일 업하고 이전 레플리카셋은 스케일 다운한다.
+    처음 디플로이먼트를 생성했을 때, 디플로이먼트가 레플리카셋(nginx-deployment-2035384211)을 생성하고 
+    3개의 레플리카로 직접 스케일 업한 것을 볼 수 있다. 
+    디플로이먼트를 업데이트하자, 새 레플리카셋(nginx-deployment-1564180365)을 생성하고, 1개로 스케일 업한 다음 모두 실행될 때까지 대기하였다. 
+    그 뒤 이전 레플리카셋을 2개로 스케일 다운하고 새 레플리카셋을 2개로 스케일 업하여 모든 시점에 대해 최소 3개 / 최대 3개의 파드가 존재하도록 하였다. 
+    이후 지속해서 같은 롤링 업데이트 정책으로 새 레플리카셋은 스케일 업하고 이전 레플리카셋은 스케일 다운한다. 
     마지막으로 새로운 레플리카셋에 3개의 사용 가능한 레플리카가 구성되며, 이전 레플리카셋은 0개로 스케일 다운된다.
+
+{{< note >}}
+쿠버네티스가 `availableReplicas` 수를 계산할 때 종료 중인(terminating) 파드는 포함하지 않으며, 
+이 수는 `replicas - maxUnavailable` 와 `replicas + maxSurge` 사이에 존재한다. 
+그 결과, 롤아웃 중에는 파드의 수가 예상보다 많을 수 있으며, 
+종료 중인 파드의 `terminationGracePeriodSeconds`가 만료될 때까지는 디플로이먼트가 소비하는 총 리소스가 `replicas + maxSurge` 이상일 수 있다.
+{{< /note >}}
 
 ### 롤오버(일명 인-플라이트 다중 업데이트)
 
@@ -524,7 +532,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
     ```
     deployment.apps/nginx-deployment rolled back
     ```
-    Alternatively, you can rollback to a specific revision by specifying it with `--to-revision`:
+    또는 특정 수정 버전으로 롤백하려면 `--to-revision` 옵션에 해당 수정 버전을 명시한다.
 
     ```shell
     kubectl rollout undo deployment/nginx-deployment --to-revision=2
@@ -697,12 +705,16 @@ nginx-deployment-1989198191   7         7         0         7m
 nginx-deployment-618515232    11        11        11        7m
 ```
 
-## 디플로이먼트의 일시 중지와 재개
+## 디플로이먼트 롤아웃 일시 중지와 재개 {#pausing-and-resuming-a-deployment}
 
-하나 이상의 업데이트를 트리거하기 전에 디플로이먼트를 일시 중지한 다음 다시 시작할 수 있다.
-이렇게 하면 불필요한 롤아웃을 트리거하지 않고 일시 중지와 재개 사이에 여러 수정 사항을 적용할 수 있다.
+디플로이먼트를 업데이트할 때 (또는 계획할 때), 
+하나 이상의 업데이트를 트리거하기 전에 해당 디플로이먼트에 대한 롤아웃을 일시 중지할 수 있다. 
+변경 사항을 적용할 준비가 되면, 디플로이먼트 롤아웃을 재개한다. 
+이러한 방법으로, 불필요한 롤아웃을 트리거하지 않고 
+롤아웃 일시 중지와 재개 사이에 여러 수정 사항을 적용할 수 있다.
 
 * 예를 들어, 생성된 디플로이먼트의 경우
+
   디플로이먼트 상세 정보를 가져온다.
   ```shell
   kubectl get deploy
@@ -753,7 +765,7 @@ nginx-deployment-618515232    11        11        11        7m
     REVISION  CHANGE-CAUSE
     1   <none>
     ```
-* 롤아웃 상태를 가져와서 디플로이먼트 업데이트가 성공적인지 확인한다.
+* 기존 레플리카셋이 변경되지 않았는지 확인하기 위해 롤아웃 상태를 출력한다.
     ```shell
     kubectl get rs
     ```
@@ -774,10 +786,10 @@ nginx-deployment-618515232    11        11        11        7m
     deployment.apps/nginx-deployment resource requirements updated
     ```
 
-    디플로이먼트를 일시 중지하기 전의 초기 상태는 해당 기능을 지속한다.
-    그러나 디플로이먼트가 일시 중지한 상태에서는 디플로이먼트의 새 업데이트에 영향을 주지 않는다.
+    디플로이먼트 롤아웃을 일시 중지하기 전 디플로이먼트의 초기 상태는 해당 기능을 지속한다.
+    그러나 디플로이먼트 롤아웃이 일시 중지한 상태에서는 디플로이먼트의 새 업데이트에 영향을 주지 않는다.
 
-* 결국, 디플로이먼트를 재개하고 새로운 레플리카셋이 새로운 업데이트를 제공하는 것을 관찰한다.
+* 결국, 디플로이먼트 롤아웃을 재개하고 새로운 레플리카셋이 새로운 업데이트를 제공하는 것을 관찰한다.
     ```shell
     kubectl rollout resume deployment/nginx-deployment
     ```
@@ -838,6 +850,13 @@ nginx-deployment-618515232    11        11        11        7m
 * 디플로이먼트로 기존 레플리카셋을 스케일 다운.
 * 새 파드가 준비되거나 이용할 수 있음(최소 [준비 시간(초)](#최소-대기-시간-초) 동안 준비됨).
 
+롤아웃이 "진행 중" 상태가 되면, 
+디플로이먼트 컨트롤러는 디플로이먼트의 `.status.conditions`에 다음 속성을 포함하는 컨디션을 추가한다.
+
+* `type: Progressing`
+* `status: "True"`
+* `reason: NewReplicaSetCreated` | `reason: FoundNewReplicaSet` | `reason: ReplicaSetUpdated`
+
 `kubectl rollout status` 를 사용해서 디플로이먼트의 진행사황을 모니터할 수 있다.
 
 ### 디플로이먼트 완료
@@ -848,6 +867,17 @@ nginx-deployment-618515232    11        11        11        7m
 즉, 요청한 모든 업데이트가 완료되었을 때.
 * 디플로이먼트와 관련한 모든 레플리카를 사용할 수 있을 때.
 * 디플로이먼트에 대해 이전 복제본이 실행되고 있지 않을 때.
+
+롤아웃이 "완료" 상태가 되면, 
+디플로이먼트 컨트롤러는 디플로이먼트의 `.status.conditions`에 다음 속성을 포함하는 컨디션을 추가한다.
+
+* `type: Progressing`
+* `status: "True"`
+* `reason: NewReplicaSetAvailable`
+
+이 `Progressing` 컨디션은 새로운 롤아웃이 시작되기 전까지는 `"True"` 상태값을 유지할 것이다. 
+레플리카의 가용성이 변경되는 경우에도(이 경우 `Available` 컨디션에 영향을 미침) 
+컨디션은 유지된다.
 
 `kubectl rollout status` 를 사용해서 디플로이먼트가 완료되었는지 확인할 수 있다.
 만약 롤아웃이 성공적으로 완료되면 `kubectl rollout status` 는 종료 코드로 0이 반환된다.
@@ -886,7 +916,7 @@ echo $?
 대기하는 시간(초)를 나타낸다.
 
 다음 `kubectl` 명령어로 `progressDeadlineSeconds` 를 설정해서 컨트롤러가
-10분 후 디플로이먼트에 대한 진행 상태의 부족에 대한 리포트를 수행하게 한다.
+10분 후 디플로이먼트 롤아웃에 대한 진행 상태의 부족에 대한 리포트를 수행하게 한다.
 
 ```shell
 kubectl patch deployment/nginx-deployment -p '{"spec":{"progressDeadlineSeconds":600}}'
@@ -898,21 +928,24 @@ deployment.apps/nginx-deployment patched
 만약 데드라인을 넘어서면 디플로이먼트 컨트롤러는 디플로이먼트의 `.status.conditions` 속성에 다음의
 디플로이먼트 컨디션(DeploymentCondition)을 추가한다.
 
-* Type=Progressing
-* Status=False
-* Reason=ProgressDeadlineExceeded
+* `type: Progressing`
+* `status: "False"`
+* `reason: ProgressDeadlineExceeded`
+
+이 컨디션은 일찍 실패할 수도 있으며 이러한 경우 `ReplicaSetCreateError`를 이유로 상태값을 `"False"`로 설정한다.
+또한, 디플로이먼트 롤아웃이 완료되면 데드라인은 더 이상 고려되지 않는다.
 
 컨디션 상태에 대한 자세한 내용은 [쿠버네티스 API 규칙](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#typical-status-properties)을 참고한다.
 
 {{< note >}}
-쿠버네티스는 `Reason=ProgressDeadlineExceeded` 과 같은 상태 조건을
+쿠버네티스는 `reason: ProgressDeadlineExceeded` 과 같은 상태 조건을
 보고하는 것 이외에 정지된 디플로이먼트에 대해 조치를 취하지 않는다. 더 높은 수준의 오케스트레이터는 이를 활용할 수 있으며,
 예를 들어 디플로이먼트를 이전 버전으로 롤백할 수 있다.
 {{< /note >}}
 
 {{< note >}}
-만약 디플로이먼트를 일시 중지하면 쿠버네티스는 지정된 데드라인과 비교하여 진행 상황을 확인하지 않는다.
-롤아웃 중에 디플로이먼트를 안전하게 일시 중지하고, 데드라인을 넘기도록 하는 조건을 트리거하지 않고
+만약 디플로이먼트 롤아웃을 일시 중지하면 쿠버네티스는 지정된 데드라인과 비교하여 진행 상황을 확인하지 않는다.
+롤아웃 중에 디플로이먼트 롤아웃을 안전하게 일시 중지하고, 데드라인을 넘기도록 하는 조건을 트리거하지 않고
 재개할 수 있다.
 {{< /note >}}
 
@@ -980,7 +1013,7 @@ Conditions:
 디플로이먼트를 스케일 다운하거나, 실행 중인 다른 컨트롤러를 스케일 다운하거나,
 네임스페이스에서 할당량을 늘려서 할당량이 부족한 문제를 해결할 수 있다.
 만약 할당량 컨디션과 디플로이먼트 롤아웃이 완료되어 디플로이먼트 컨트롤러를 만족한다면
-성공한 컨디션의 디플로이먼트 상태가 업데이트를 볼 수 있다(`Status=True` 와 `Reason=NewReplicaSetAvailable`).
+성공한 컨디션의 디플로이먼트 상태가 업데이트를 볼 수 있다(`status: "True"` 와 `reason: NewReplicaSetAvailable`).
 
 ```
 Conditions:
@@ -990,11 +1023,11 @@ Conditions:
   Progressing   True    NewReplicaSetAvailable
 ```
 
-`Type=Available` 과 `Status=True` 는 디플로이먼트가 최소한의 가용성을 가지고 있는 것을 의미한다.
-최소한의 가용성은 디플로이먼트 계획에 명시된 파라미터에 의해 결정된다. `Type=Progressing` 과 `Status=True` 는 디플로이먼트가
+`type: Available` 과 `status: "True"` 는 디플로이먼트가 최소한의 가용성을 가지고 있는 것을 의미한다.
+최소한의 가용성은 디플로이먼트 계획에 명시된 파라미터에 의해 결정된다. `type: Progressing` 과 `status: "True"` 는 디플로이먼트가
 롤아웃 도중에 진행 중 이거나, 성공적으로 완료되었으며, 진행 중 최소한으로 필요한 새로운 레플리카를 이용 가능하다는 것이다.
 (자세한 내용은 특정 조건의 이유를 참조한다.
-이 경우 `Reason=NewReplicaSetAvailable` 는 배포가 완료되었음을 의미한다.)
+이 경우 `reason: NewReplicaSetAvailable` 는 배포가 완료되었음을 의미한다.)
 
 `kubectl rollout status` 를 사용해서 디플로이먼트의 진행이 실패되었는지 확인할 수 있다.
 `kubectl rollout status` 는 디플로이먼트의 진행 데드라인을 초과하면 0이 아닌 종료 코드를 반환한다.
@@ -1052,8 +1085,7 @@ echo $?
 
 `.spec.template` 과 `.spec.selector` 은 `.spec` 에서 유일한 필수 필드이다.
 
-`.spec.template` 는 [파드 템플릿](/ko/docs/concepts/workloads/pods/#파드-템플릿)이다.
-이것은 {{< glossary_tooltip text="파드" term_id="pod" >}}와 정확하게 동일한 스키마를 가지고 있고, 중첩된 것을 제외하면 `apiVersion` 과 `kind` 를 가지고 있지 않는다.
+`.spec.template` 는 [파드 템플릿](/ko/docs/concepts/workloads/pods/#파드-템플릿)이다. 이것은 {{< glossary_tooltip text="파드" term_id="pod" >}}와 정확하게 동일한 스키마를 가지고 있고, 중첩된 것을 제외하면 `apiVersion` 과 `kind` 를 가지고 있지 않는다.
 
 파드에 필요한 필드 외에 디플로이먼트 파드 템플릿은 적절한 레이블과 적절한 재시작 정책을 명시해야 한다.
 레이블의 경우 다른 컨트롤러와 겹치지 않도록 해야 한다. 자세한 것은 [셀렉터](#셀렉터)를 참조한다.
@@ -1064,6 +1096,18 @@ echo $?
 ### 레플리카
 
 `.spec.replicas` 은 필요한 파드의 수를 지정하는 선택적 필드이다. 이것의 기본값은 1이다.
+
+예를 들어 `kubectl scale deployment deployment --replicas=X` 명령으로 
+디플로이먼트의 크기를 수동으로 조정한 뒤, 
+매니페스트를 이용하여 디플로이먼트를 업데이트하면(예: `kubectl apply -f deployment.yaml` 실행), 
+수동으로 설정했던 디플로이먼트의 크기가 오버라이드된다.
+
+[HorizontalPodAutoscaler](/ko/docs/tasks/run-application/horizontal-pod-autoscale/)(또는 수평 스케일링을 위한 유사 API)가 
+디플로이먼트 크기를 관리하고 있다면, `.spec.replicas` 를 설정해서는 안 된다.
+
+대신, 쿠버네티스 
+{{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}이 
+`.spec.replicas` 필드를 자동으로 관리한다.
 
 ### 셀렉터
 
@@ -1116,7 +1160,7 @@ API 버전 `apps/v1` 에서는 `.spec.selector` 와 `.metadata.labels` 이 설�
 
 `.spec.strategy.rollingUpdate.maxUnavailable` 은 업데이트 프로세스 중에 사용할 수 없는 최대 파드의 수를 지정하는 선택적 필드이다.
 이 값은 절대 숫자(예: 5) 또는 의도한 파드 비율(예: 10%)이 될 수 있다.
-절대 값은 반올림해서 백분율로 계산한다.
+절대 값은 내림해서 백분율로 계산한다.
 만약 `.spec.strategy.rollingUpdate.maxSurge` 가 0이면 값이 0이 될 수 없다. 기본 값은 25% 이다.
 
 예를 들어 이 값을 30%로 설정하면 롤링업데이트 시작시 즉각 이전 레플리카셋의 크기를
@@ -1129,7 +1173,7 @@ API 버전 `apps/v1` 에서는 `.spec.selector` 와 `.metadata.labels` 이 설�
 `.spec.strategy.rollingUpdate.maxSurge` 는 의도한 파드의 수에 대해 생성할 수 있는 최대 파드의 수를 지정하는 선택적 필드이다.
 이 값은 절대 숫자(예: 5) 또는 의도한 파드 비율(예: 10%)이 될 수 있다.
 `MaxUnavailable` 값이 0이면 이 값은 0이 될 수 없다.
-절대 값은 반올림해서 백분율로 계산한다. 기본 값은 25% 이다.
+절대 값은 올림해서 백분율로 계산한다. 기본 값은 25% 이다.
 
 예를 들어 이 값을 30%로 설정하면 롤링업데이트 시작시 새 레플리카셋의 크기를 즉시 조정해서
 기존 및 새 파드의 전체 갯수를 의도한 파드의 130%를 넘지 않도록 한다.
@@ -1138,8 +1182,8 @@ API 버전 `apps/v1` 에서는 `.spec.selector` 와 `.metadata.labels` 이 설�
 
 ### 진행 기한 시간(초)
 
-`.spec.progressDeadlineSeconds` 는 디플로어먼트가 표면적으로 `Type=Progressing`, `Status=False`의
-상태 그리고 리소스가 `Reason=ProgressDeadlineExceeded` 상태로 [진행 실패](#디플로이먼트-실패)를 보고하기 전에
+`.spec.progressDeadlineSeconds` 는 디플로어먼트가 표면적으로 `type: Progressing`, `status: "False"`의
+상태 그리고 리소스가 `reason: ProgressDeadlineExceeded` 상태로 [진행 실패](#디플로이먼트-실패)를 보고하기 전에
 디플로이먼트가 진행되는 것을 대기시키는 시간(초)를 명시하는 선택적 필드이다.
 디플로이먼트 컨트롤러는 디플로이먼트를 계속 재시도 한다. 기본값은 600(초)이다.
 미래에 자동화된 롤백이 구현된다면 디플로이먼트 컨트롤러는 상태를 관찰하고,

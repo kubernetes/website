@@ -147,11 +147,11 @@ since a localized version has been committed.
 
 The following example checks a single file:
 
-    ./scripts/lsync.sh content/zh/docs/concepts/_index.md
+    ./scripts/lsync.sh content/zh-cn/docs/concepts/_index.md
 
 The following command checks a subdirectory:
 
-    ./scripts/lsync.sh content/zh/docs/concepts/
+    ./scripts/lsync.sh content/zh-cn/docs/concepts/
 
 ## check-ctrlcode.py
 

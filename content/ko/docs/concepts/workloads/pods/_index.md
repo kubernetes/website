@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - erictune
 title: 파드
 content_type: concept
 weight: 10
@@ -117,7 +117,7 @@ term_id="deployment" >}} 또는 {{< glossary_tooltip text="잡(Job)" term_id="jo
 일부 파드에는 {{< glossary_tooltip text="앱 컨테이너" term_id="app-container" >}} 뿐만 아니라 {{< glossary_tooltip text="초기화 컨테이너" term_id="init-container" >}}를 갖고 있다. 초기화 컨테이너는 앱 컨테이너가 시작되기 전에 실행되고 완료된다.
 
 파드는 기본적으로 파드에 속한 컨테이너에 [네트워킹](#파드-네트워킹)과 [스토리지](#pod-storage)라는
-두 가지 종류의 공유 ​​리소스를 제공한다.
+두 가지 종류의 공유 리소스를 제공한다.
 
 ## 파드 작업
 
@@ -137,6 +137,23 @@ term_id="deployment" >}} 또는 {{< glossary_tooltip text="잡(Job)" term_id="jo
 
 파드 오브젝트에 대한 매니페스트를 만들 때, 지정된 이름이 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)인지 확인한다.
+
+### 파드 OS
+
+{{< feature-state state="stable" for_k8s_version="v1.25" >}}
+
+파드를 실행할 때 OS를 표시하려면 `.spec.os.name` 필드를 `windows` 또는 
+`linux`로 설정해야 한다. 이 두 가지 운영체제는 현재 쿠버네티스에서 지원되는 
+유일한 운영체제이다. 앞으로 이 목록이 확장될 수 있다.
+
+쿠버네티스 v{{< skew currentVersion >}}에서, 이 필드에 대해 설정한 값은
+파드의 {{< glossary_tooltip text="스케줄링" term_id="kube-scheduler" >}}에 영향을 미치지 않는다.
+`.spec.os.name`을 설정하면 파드 검증 시 
+OS를 식별하는 데 도움이 된다. 
+kubelet은 
+자신이 실행되고 있는 노드의 운영체제와 
+동일하지 않은 파드 OS가 명시된 파드의 실행을 거부한다.
+[파드 시큐리티 스탠다드](/ko/docs/concepts/security/pod-security-standards/)도 이 필드를 사용하여 해당 운영체제와 관련이 없는 정책을 시행하지 않도록 한다.
 
 ### 파드와 컨트롤러
 
@@ -180,7 +197,7 @@ spec:
     spec:
       containers:
       - name: hello
-        image: busybox
+        image: busybox:1.28
         command: ['sh', '-c', 'echo "Hello, Kubernetes!" && sleep 3600']
       restartPolicy: OnFailure
     # 여기까지 파드 템플릿이다
@@ -251,20 +268,19 @@ spec:
 
 ### 파드 네트워킹
 
-각 파드에는 각 주소 패밀리에 대해 고유한 IP 주소가 할당된다. 파드의
-모든 컨테이너는 IP 주소와 네트워크 포트를 포함하여 네트워크 네임스페이스를
-공유한다. 파드 내부(그때 **만** 해당)에서, 파드에 속한
-컨테이너는 `localhost` 를 사용하여 서로 통신할 수 있다. 파드의 컨테이너가
-*파드 외부의* 엔티티와 통신할 때,
-공유 네트워크 리소스(포트와 같은)를 사용하는 방법을 조정해야 한다.
-파드 내에서 컨테이너는 IP 주소와 포트 공간을 공유하며,
-`localhost` 를 통해 서로를 찾을 수 있다. 파드의 컨테이너는 SystemV 세마포어 또는
-POSIX 공유 메모리와 같은 표준 프로세스 간 통신을 사용하여 서로
-통신할 수도 있다. 다른 파드의 컨테이너는
-고유한 IP 주소를 가지며
-[특별한 구성](/ko/docs/concepts/policy/pod-security-policy/) 없이 IPC로 통신할 수 없다.
-다른 파드에서 실행되는 컨테이너와 상호 작용하려는 컨테이너는 IP 네트워킹을
-사용하여 통신할 수 있다.
+각 파드에는 각 주소 패밀리에 대해 고유한 IP 주소가 할당된다. 
+파드의 모든 컨테이너는 네트워크 네임스페이스를 공유하며, 
+여기에는 IP 주소와 네트워크 포트가 포함된다. 
+파드 내부(이 경우에 **만** 해당)에서, 파드에 속한 컨테이너는 
+`localhost` 를 사용하여 서로 통신할 수 있다. 
+파드의 컨테이너가 *파드 외부의* 엔티티와 통신할 때, 
+공유 네트워크 리소스(포트와 같은)를 사용하는 방법을 조정해야 한다. 
+파드 내에서 컨테이너는 IP 주소와 포트 공간을 공유하며, 
+`localhost` 를 통해 서로를 찾을 수 있다. 
+파드의 컨테이너는 SystemV 세마포어 또는 POSIX 공유 메모리와 같은 
+표준 프로세스 간 통신을 사용하여 서로 통신할 수도 있다. 
+다른 파드의 컨테이너는 고유한 IP 주소를 가지며 특별한 구성 없이 OS 수준의 IPC로 통신할 수 없다. 
+다른 파드에서 실행되는 컨테이너와 상호 작용하려는 컨테이너는 IP 네트워킹을 사용하여 통신할 수 있다.
 
 파드 내의 컨테이너는 시스템 호스트명이 파드에 대해 구성된
 `name` 과 동일한 것으로 간주한다. [네트워킹](/ko/docs/concepts/cluster-administration/networking/) 섹션에 이에 대한
@@ -321,12 +337,12 @@ _프로브_는 컨테이너의 kubelet에 의해 주기적으로 실행되는 �
 * [파드의 라이프사이클](/ko/docs/concepts/workloads/pods/pod-lifecycle/)에 대해 알아본다.
 * [런타임클래스(RuntimeClass)](/ko/docs/concepts/containers/runtime-class/)와 이를 사용하여
   다양한 컨테이너 런타임 구성으로 다양한 파드를 설정하는 방법에 대해 알아본다.
-* [파드 토폴로지 분배 제약 조건](/ko/docs/concepts/workloads/pods/pod-topology-spread-constraints/)에 대해 읽어본다.
 * [PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/)과 이를 사용하여 서비스 중단 중에 애플리케이션 가용성을 관리하는 방법에 대해 읽어본다.
 * 파드는 쿠버네티스 REST API의 최상위 리소스이다.
   {{< api-reference page="workload-resources/pod-v1" >}}
   오브젝트 정의는 오브젝트를 상세히 설명한다.
 * [분산 시스템 툴킷: 컴포지트 컨테이너에 대한 패턴](/blog/2015/06/the-distributed-system-toolkit-patterns/)은 둘 이상의 컨테이너가 있는 파드의 일반적인 레이아웃을 설명한다.
+* [파드 토폴로지 분배 제약 조건](/ko/docs/concepts/scheduling-eviction/topology-spread-constraints/)에 대해 읽어본다.
 
 쿠버네티스가 다른 리소스({{< glossary_tooltip text="스테이트풀셋" term_id="statefulset" >}}이나 {{< glossary_tooltip text="디플로이먼트" term_id="deployment" >}}와 같은)에서 공통 파드 API를 래핑하는 이유에 대한 콘텍스트를 이해하기 위해서, 다음과 같은 선행 기술에 대해 읽어볼 수 있다.
 

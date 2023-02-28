@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "PriorityClass defines mapping from a priority class name to the priority integer value."
 title: "PriorityClass"
-weight: 14
+weight: 13
 auto_generated: true
 ---
 
@@ -56,7 +56,7 @@ PriorityClass defines mapping from a priority class name to the priority integer
 
 - **preemptionPolicy** (string)
 
-  PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
+  PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
 
 
 

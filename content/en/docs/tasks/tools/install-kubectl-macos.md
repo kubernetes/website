@@ -19,9 +19,14 @@ Using the latest compatible version of kubectl helps avoid unforeseen issues.
 
 The following methods exist for installing kubectl on macOS:
 
-- [Install kubectl binary with curl on macOS](#install-kubectl-binary-with-curl-on-macos)
-- [Install with Homebrew on macOS](#install-with-homebrew-on-macos)
-- [Install with Macports on macOS](#install-with-macports-on-macos)
+- [Install kubectl on macOS](#install-kubectl-on-macos)
+  - [Install kubectl binary with curl on macOS](#install-kubectl-binary-with-curl-on-macos)
+  - [Install with Homebrew on macOS](#install-with-homebrew-on-macos)
+  - [Install with Macports on macOS](#install-with-macports-on-macos)
+- [Verify kubectl configuration](#verify-kubectl-configuration)
+- [Optional kubectl configurations and plugins](#optional-kubectl-configurations-and-plugins)
+  - [Enable shell autocompletion](#enable-shell-autocompletion)
+  - [Install `kubectl convert` plugin](#install-kubectl-convert-plugin)
 
 ### Install kubectl binary with curl on macOS
 
@@ -69,7 +74,7 @@ The following methods exist for installing kubectl on macOS:
    Validate the kubectl binary against the checksum file:
 
    ```bash
-   echo "$(<kubectl.sha256)  kubectl" | shasum -a 256 --check
+   echo "$(cat kubectl.sha256)  kubectl" | shasum -a 256 --check
    ```
 
    If valid, the output is:
@@ -111,6 +116,28 @@ The following methods exist for installing kubectl on macOS:
    ```bash
    kubectl version --client
    ```
+   
+   {{< note >}}
+   The above command will generate a warning:
+   ```
+   WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
+   ```
+   You can ignore this warning. You are only checking the version of `kubectl` that you
+   have installed.
+   
+   {{< /note >}}
+   
+   Or use this for detailed view of version:
+
+   ```cmd
+   kubectl version --client --output=yaml
+   ```
+
+1. After installing the plugin, clean up the installation files:
+
+   ```bash
+   rm kubectl kubectl.sha256
+   ```
 
 ### Install with Homebrew on macOS
 
@@ -119,7 +146,7 @@ If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you 
 1. Run the installation command:
 
    ```bash
-   brew install kubectl 
+   brew install kubectl
    ```
 
    or
@@ -200,7 +227,7 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    Validate the kubectl-convert binary against the checksum file:
 
    ```bash
-   echo "$(<kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
+   echo "$(cat kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
    ```
 
    If valid, the output is:
@@ -244,6 +271,12 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    ```
 
    If you do not see an error, it means the plugin is successfully installed.
+
+1. After installing the plugin, clean up the installation files:
+
+   ```bash
+   rm kubectl-convert kubectl-convert.sha256
+   ```
 
 ## {{% heading "whatsnext" %}}
 

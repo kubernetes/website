@@ -1,4 +1,6 @@
 ---
+# reviewers:
+# - freehan
 title: 엔드포인트슬라이스
 content_type: concept
 weight: 45
@@ -106,7 +108,7 @@ endpoints:
 
 #### 제공(Serving)
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 `serving`은 종료 상태를 고려하지 않는다는 점을 제외하면 `ready` 조건과 동일하다.
 엔드포인트슬라이스 API 컨슈머는 파드가 종료되는 동안 파드 준비 상태에 관심이 있다면
@@ -125,7 +127,7 @@ endpoints:
 
 #### 종료(Terminating)
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 `종료(Terminating)`는 엔드포인트가 종료되는지 여부를 나타내는 조건이다.
 파드의 경우 삭제 타임 스탬프가 설정된 모든 파드이다.
@@ -144,12 +146,12 @@ endpoints:
 v1 API에서는, 전용 필드 `nodeName` 및 `zone` 을 위해 엔드 포인트별
 `topology` 가 효과적으로 제거되었다.
 
-`EndpointSlice` 리소스의 `endpoint` 필드에 임의의 토폴로지 필드를
-설정하는 것은 더 이상 사용되지 않으며, v1 API에서 지원되지 않는다. 대신,
-v1 API는 개별 `nodeName` 및 `zone` 필드 설정을 지원한다. 이러한
-필드는 API 버전 간에 자동으로 번역된다. 예를 들어,
-v1beta1 API의 `topology` 필드에 있는 `"topology.kubernetes.io/zone"`
-키 값은 v1 API의 `zone` 필드로 접근할 수 있다.
+`EndpointSlice` 리소스의 `endpoint` 필드에 임의의 토폴로지 필드를 설정하는 것은 
+더 이상 사용되지 않으며 v1 API에서 지원되지 않는다. 
+대신, v1 API는 개별 `nodeName` 및 `zone` 필드 설정을 지원한다. 
+이러한 필드는 API 버전 간에 자동으로 번역된다. 
+예를 들어, v1beta1 API의 `topology` 필드에 있는 `"topology.kubernetes.io/zone"` 키 값은 
+v1 API의 `zone` 필드로 접근할 수 있다.
 {{< /note >}}
 
 ### 관리

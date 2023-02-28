@@ -12,7 +12,7 @@ to reaffirm our community values by supporting open source container runtimes,
 enabling a smaller kubelet, and increasing engineering velocity for teams using
 Kubernetes. If you [use Docker Engine as a container runtime](/docs/tasks/administer-cluster/migrating-from-dockershim/find-out-runtime-you-use/)
 for your Kubernetes cluster, get ready to migrate in 1.24! To check if you're
-affected, refer to [Check whether dockershim deprecation affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/).
+affected, refer to [Check whether dockershim removal affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/).
 
 ## Why we’re moving away from dockershim
 

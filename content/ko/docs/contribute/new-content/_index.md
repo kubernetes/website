@@ -43,10 +43,10 @@ class S,T spacewhite
 class first,second white
 {{</ mermaid >}}
 
-***Figure - Contributing new content preparation***
+***그림 - 새로운 콘텐츠 기여를 위한 준비***
 
-The figure above depicts the information you should know
-prior to submitting new content. The information details follow.
+위 그림은 새로운 콘텐츠를 제출하기 전에 알아야 할 정보를 설명한다.
+해당 정보에 대한 자세한 내용은 다음과 같다.
 
 
 
@@ -56,12 +56,14 @@ prior to submitting new content. The information details follow.
 
 - 마크다운(Markdown)으로 쿠버네티스 문서를 작성하고 
   [Hugo](https://gohugo.io/)를 사용하여 쿠버네티스 사이트를 구축한다.
+- 쿠버네티스 문서는 마크다운 스펙으로 [CommonMark](https://commonmark.org/)를 사용한다.
 - 소스는 [GitHub](https://github.com/kubernetes/website)에 있다. 
   쿠버네티스 문서는 `/content/ko/docs/` 에서 찾을 수 있다. 
   일부 참조 문서는 `update-imported-docs/` 디렉터리의 스크립트를 이용하여 
   자동으로 생성된다.
-- [페이지 템플릿](/docs/contribute/style/page-content-types/)은 
-  Hugo에서 문서 콘텐츠의 프리젠테이션을 제어한다.
+- [페이지 콘텐츠 타입](/docs/contribute/style/page-content-types/)은 
+  Hugo에서 문서 콘텐츠가 표시되는 방식을 기술한다.
+- 쿠버네티스 문서 기여 시 [Docsy shortcodes](https://www.docsy.dev/docs/adding-content/shortcodes/) 또는 [custom Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/)를 사용할 수 있다.
 - 표준 Hugo 단축코드(shortcode) 이외에도 설명서에서 여러
   [사용자 정의 Hugo 단축코드](/docs/contribute/style/hugo-shortcodes/)를 사용하여 
   콘텐츠 표시를 제어한다.

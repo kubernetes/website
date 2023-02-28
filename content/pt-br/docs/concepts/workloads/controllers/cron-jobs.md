@@ -20,7 +20,7 @@ Se a camada de gerenciamento do cluster executa o kube-controller-manager em Pod
 
 {{< /caution >}}
 
-Ao criar o manifesto para um objeto CronJob, verifique se o nome que você forneceu é um [nome de subdomínio DNS](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
+Ao criar o manifesto para um objeto CronJob, verifique se o nome que você forneceu é um [nome de subdomínio DNS](/pt-br/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
 O nome não pode ter mais que 52 caracteres. Esta limitação existe porque o controlador do CronJob adicionará automaticamente 11 caracteres ao final do nome escolhido para a tarefa, e o tamanho máximo de um nome de tarefa não pode ultrapassar 63 caracteres.
 
 <!-- body -->

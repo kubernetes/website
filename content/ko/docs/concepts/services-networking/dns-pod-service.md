@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - davidopp
+# - thockin
 title: 서비스 및 파드용 DNS
 content_type: concept
 weight: 20
@@ -39,7 +39,7 @@ DNS 쿼리는 그것을 생성하는 파드의 네임스페이스에 따라 다�
 
 DNS 쿼리는 파드의 `/etc/resolv.conf` 를 사용하여 확장될 수 있을 것이다. Kubelet은
 각 파드에 대해서 파일을 설정한다. 예를 들어, `data` 만을 위한 쿼리는
-`data.test.cluster.local` 로 확장된다. `search` 옵션의 값은
+`data.test.svc.cluster.local` 로 확장된다. `search` 옵션의 값은
 쿼리를 확장하기 위해서 사용된다. DNS 쿼리에 대해 더 자세히 알고 싶은 경우,
 [`resolv.conf` 설명 페이지.](https://www.man7.org/linux/man-pages/man5/resolv.conf.5.html)를 참고한다.
 
@@ -106,10 +106,9 @@ SRV 레코드는 노멀 서비스 또는
 
 `172-17-0-3.default.pod.cluster.local`.
 
-서비스에 의해 노출된 디플로이먼트(Deployment)나 데몬셋(DaemonSet)에 의해 생성된
-모든 파드는 다음과 같은 DNS 주소를 갖는다.
+서비스에 의해 노출된 모든 파드는 다음과 같은 DNS 주소를 갖는다.
 
-`pod-ip-address.deployment-name.my-namespace.svc.cluster-domain.example`.
+`pod-ip-address.service-name.my-namespace.svc.cluster-domain.example`.
 
 ### 파드의 hostname 및 subdomain 필드
 
@@ -227,6 +226,7 @@ DNS 정책은 파드별로 설정할 수 있다.
   확인할 수 있다.
 - "`ClusterFirstWithHostNet`": hostNetwork에서 running 상태인 파드의 경우 DNS 정책인
   "`ClusterFirstWithHostNet`"을 명시적으로 설정해야 한다.
+  - 참고: 윈도우에서는 지원되지 않는다.상세 정보는 [아래](#dns-windows)에서 확인한다.
 - "`None`": 이 정책은 파드가 쿠버네티스 환경의 DNS 설정을 무시하도록 한다.
   모든 DNS 설정은 파드 스펙 내에 `dnsConfig`필드를 사용하여 제공해야 한다.
   아래 절인 [파드의 DNS 설정](#pod-dns-config)에서
@@ -307,8 +307,8 @@ IPv6 셋업을 위해서 검색 경로와 네임 서버 셋업은 다음과 같�
 kubectl exec -it dns-example -- cat /etc/resolv.conf
 ```
 출력은 다음과 같은 형식일 것이다.
-```shell
-nameserver fd00:79:30::a
+```
+nameserver 2001:db8:30::a
 search default.svc.cluster-domain.example svc.cluster-domain.example cluster-domain.example
 options ndots:5
 ```
@@ -324,19 +324,25 @@ kube-apiserver와 kubelet에 `ExpandedDNSConfig` 기능 게이트가 활성화�
 쿠버네티스는 최대 32개의 탐색 도메인과 
 최대 2048자의 탐색 도메인 목록을 허용한다.
 
-### 기능 가용성
+## 윈도우 노드에서 DNS 해석(resolution) {#dns-windows}
 
-파드 DNS 환경 설정 기능과 DNS 정책 "`None`" 기능의 쿠버네티스 버전별 가용성은 다음과 같다.
-
-| 쿠버네티스 버전 | 기능 지원 |
-| :---------: |:-----------:|
-| 1.14 | 안정 |
-| 1.10 | 베타 (기본값으로 켜져 있음)|
-| 1.9 | 알파 |
-
-
+- ClusterFirstWithHostNet은 윈도우 노드에서 구동 중인 파드에는 지원되지 않는다.
+  윈도우는 `.`를 포함한 모든 네임(주소)을 FQDN으로 취급하여 FQDN 해석을 생략한다.
+- 윈도우에는 여러 DNS 해석기가 사용될 수 있다. 이러한 해석기는
+  각자 조금씩 다르게 동작하므로, 네임 쿼리 해석을 위해서
+  [`Resolve-DNSName`](https://docs.microsoft.com/powershell/module/dnsclient/resolve-dnsname)
+  파워쉘(powershell) cmdlet을 사용하는 것을 추천한다.
+- 리눅스에는 DNS 접미사 목록이 있는데, 이는 네임이 완전한 주소가 아니어서 주소
+  해석에 실패한 경우 사용한다.
+  윈도우에서는 파드의 네임스페이스(예: `mydns.svc.cluster.local`)와 연계된
+  하나의 DNS 접미사만 가질 수 있다. 윈도우는 이러한 단일 접미사 통해 해석될 수 있는
+  FQDNs, 서비스, 또는 네트워크 네임을 해석할 수 있다. 예를 들어, `default`에
+  소속된 파드는 DNS 접미사 `default.svc.cluster.local`를 가진다.
+  윈도우 파드 내부에서는 `kubernetes.default.svc.cluster.local`와
+  `kubernetes`를 모두 해석할 수 있다. 그러나, 일부에만 해당(partially qualified)하는 네임(`kubernetes.default` 또는
+  `kubernetes.default.svc`)은 해석할 수 없다.
+  
 ## {{% heading "whatsnext" %}}
-
 
 DNS 구성 관리에 대한 지침은
 [DNS 서비스 구성](/ko/docs/tasks/administer-cluster/dns-custom-nameservers/)에서 확인할 수 있다.

@@ -62,7 +62,7 @@ spec:
 Note that completion mode is an alpha feature in the 1.21 release. To be able to
 use it in your cluster, make sure to enable the `IndexedJob` [feature
 gate](/docs/reference/command-line-tools-reference/feature-gates/) on the
-[API server](docs/reference/command-line-tools-reference/kube-apiserver/) and
+[API server](/docs/reference/command-line-tools-reference/kube-apiserver/) and
 the [controller manager](/docs/reference/command-line-tools-reference/kube-controller-manager/).
 
 When you run the example, you will see that each of the three created Pods gets a

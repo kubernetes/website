@@ -1,6 +1,7 @@
 ---
 title: Access Clusters Using the Kubernetes API
 content_type: task
+weight: 60
 ---
 
 <!-- overview -->
@@ -22,7 +23,7 @@ Kubernetes command-line tool, `kubectl`.
 To access a cluster, you need to know the location of the cluster and have credentials
 to access it. Typically, this is automatically set-up when you work through
 a [Getting started guide](/docs/setup/),
-or someone else setup the cluster and provided you with credentials and a location.
+or someone else set up the cluster and provided you with credentials and a location.
 
 Check the location and credentials that kubectl knows about with this command:
 
@@ -31,7 +32,7 @@ kubectl config view
 ```
 
 Many of the [examples](https://github.com/kubernetes/examples/tree/master/) provide an introduction to using
-kubectl. Complete documentation is found in the [kubectl manual](/docs/reference/kubectl/overview/).
+kubectl. Complete documentation is found in the [kubectl manual](/docs/reference/kubectl/).
 
 ### Directly accessing the REST API
 
@@ -95,8 +96,25 @@ export CLUSTER_NAME="some_server_name"
 # Point to the API server referring the cluster name
 APISERVER=$(kubectl config view -o jsonpath="{.clusters[?(@.name==\"$CLUSTER_NAME\")].cluster.server}")
 
-# Gets the token value
-TOKEN=$(kubectl get secrets -o jsonpath="{.items[?(@.metadata.annotations['kubernetes\.io/service-account\.name']=='default')].data.token}"|base64 --decode)
+# Create a secret to hold a token for the default service account
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: default-token
+  annotations:
+    kubernetes.io/service-account.name: default
+type: kubernetes.io/service-account-token
+EOF
+
+# Wait for the token controller to populate the secret with a token:
+while ! kubectl describe secret default-token | grep -E '^token' >/dev/null; do
+  echo "waiting for token..." >&2
+  sleep 1
+done
+
+# Get the token value
+TOKEN=$(kubectl get secret default-token -o jsonpath='{.data.token}' | base64 --decode)
 
 # Explore the API with TOKEN
 curl -X GET $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
@@ -105,26 +123,6 @@ curl -X GET $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 The output is similar to this:
 
 ```json
-{
-  "kind": "APIVersions",
-  "versions": [
-    "v1"
-  ],
-  "serverAddressByClientCIDRs": [
-    {
-      "clientCIDR": "0.0.0.0/0",
-      "serverAddress": "10.0.1.149:443"
-    }
-  ]
-}
-```
-
-Using `jsonpath` approach:
-
-```shell
-APISERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
-TOKEN=$(kubectl get secret $(kubectl get serviceaccount default -o jsonpath='{.secrets[0].name}') -o jsonpath='{.data.token}' | base64 --decode )
-curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 {
   "kind": "APIVersions",
   "versions": [
@@ -153,7 +151,7 @@ describes how you can configure this as a cluster administrator.
 
 ### Programmatic access to the API
 
-Kubernetes officially supports client libraries for [Go](#go-client), [Python](#python-client), [Java](#java-client), [dotnet](#dotnet-client), [Javascript](#javascript-client), and [Haskell](#haskell-client). There are other client libraries that are provided and maintained by their authors, not the Kubernetes team. See [client libraries](/docs/reference/using-api/client-libraries/) for accessing the API from other languages and how they authenticate.
+Kubernetes officially supports client libraries for [Go](#go-client), [Python](#python-client), [Java](#java-client), [dotnet](#dotnet-client), [JavaScript](#javascript-client), and [Haskell](#haskell-client). There are other client libraries that are provided and maintained by their authors, not the Kubernetes team. See [client libraries](/docs/reference/using-api/client-libraries/) for accessing the API from other languages and how they authenticate.
 
 #### Go client
 
@@ -196,7 +194,7 @@ If the application is deployed as a Pod in the cluster, see [Accessing the API f
 
 #### Python client
 
-To use [Python client](https://github.com/kubernetes-client/python), run the following command: `pip install kubernetes` See [Python Client Library page](https://github.com/kubernetes-client/python) for more installation options.
+To use [Python client](https://github.com/kubernetes-client/python), run the following command: `pip install kubernetes`. See [Python Client Library page](https://github.com/kubernetes-client/python) for more installation options.
 
 The Python client can use the same [kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
 as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/python/blob/master/examples/out_of_cluster_config.py):
@@ -229,7 +227,7 @@ mvn install
 See [https://github.com/kubernetes-client/java/releases](https://github.com/kubernetes-client/java/releases) to see which versions are supported.
 
 The Java client can use the same [kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
-as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/java/blob/master/examples/src/main/java/io/kubernetes/client/examples/KubeConfigFileClientExample.java):
+as the kubectl CLI does to locate and authenticate to the API server. See this [example](https://github.com/kubernetes-client/java/blob/master/examples/examples-release-15/src/main/java/io/kubernetes/client/examples/KubeConfigFileClientExample.java):
 
 ```java
 package io.kubernetes.client.examples;

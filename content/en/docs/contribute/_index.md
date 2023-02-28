@@ -18,7 +18,14 @@ card:
 {{< note >}}
 To learn more about contributing to Kubernetes in general, see the
 [contributor documentation](https://www.kubernetes.dev/docs/).
+
+You can also read the
+{{< glossary_tooltip text="CNCF" term_id="cncf" >}}
+[page](https://contribute.cncf.io/contributors/projects/#kubernetes)
+about contributing to Kubernetes.
 {{< /note >}}
+
+---
 
 This website is maintained by [Kubernetes SIG Docs](/docs/contribute/#get-involved-with-sig-docs).
 
@@ -95,9 +102,9 @@ class A,B,C,D,E,F,G,H,M,Q,N,O,P,V grey
 class S,T,U spacewhite
 class first,second,third white
 {{</ mermaid >}}
-***Figure - Getting started for a new contributor***
+Figure 1. Getting started for a new contributor.
 
-The figure above outlines a roadmap for new contributors. You can follow some or all of the steps for `Sign up` and `Review`. Now you are ready to open PRs that achieve your contribution objectives with some listed under `Open PR`. Again, questions are always welcome!
+Figure 1 outlines a roadmap for new contributors. You can follow some or all of the steps for `Sign up` and `Review`. Now you are ready to open PRs that achieve your contribution objectives with some listed under `Open PR`. Again, questions are always welcome!
 
 Some tasks require more trust and more access in the Kubernetes organization.
 See [Participating in SIG Docs](/docs/contribute/participate/) for more details about
@@ -105,7 +112,7 @@ roles and permissions.
 
 ## Your first contribution
 
-You can prepare for your first contribution by reviewing several steps beforehand. The figure below outlines the steps and the details follow. 
+You can prepare for your first contribution by reviewing several steps beforehand. Figure 2 outlines the steps and the details follow. 
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
@@ -136,9 +143,9 @@ class A,B,D,E,F,G grey
 class S,T spacewhite
 class first,second white
 {{</ mermaid >}}
-***Figure - Preparation for your first contribution***
+Figure 2. Preparation for your first contribution.
 
-- Read the [Contribution overview](/docs/contribute/new-content/overview/) to
+- Read the [Contribution overview](/docs/contribute/new-content/) to
   learn about the different ways you can contribute.
 - Check [`kubernetes/website` issues list](https://github.com/kubernetes/website/issues/)
   for issues that make good entry points.

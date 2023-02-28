@@ -26,7 +26,7 @@ _availability zone_ yang sama.
 
 ## Pengantar
 
-Secara bawaan lalu lintas jaringan yang dikirim ke `ClusterIP` atau` NodePort` dari Service
+Secara bawaan lalu lintas jaringan yang dikirim ke `ClusterIP` atau `NodePort` dari Service
 dapat dialihkan ke alamat _backend_ untuk Service tersebut. Sejak Kubernetes 1.7
 dimungkinkan untuk merutekan lalu lintas jaringan "eksternal" ke Pod yang berjalan di 
 Node yang menerima lalu lintas jaringan, tetapi fitur ini tidak didukung untuk `ClusterIP` dari

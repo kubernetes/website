@@ -77,11 +77,17 @@ PodSpec is a description of a pod.
   
   List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 
+- **ephemeralContainers** ([]<a href="{{< ref "../workload-resources/pod-v1#EphemeralContainer" >}}">EphemeralContainer</a>)
+
+  *Patch strategy: merge on key `name`*
+  
+  List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.
+
 - **imagePullSecrets** ([]<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
 
   *Patch strategy: merge on key `name`*
   
-  ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. For example, in the case of docker, only DockerConfig type secrets are honored. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
+  ImagePullSecrets is an optional list of references to secrets in the same namespace to use for pulling any of the images used by this PodSpec. If specified, these secrets will be passed to individual puller implementations for them to use. More info: https://kubernetes.io/docs/concepts/containers/images#specifying-imagepullsecrets-on-a-pod
 
 - **enableServiceLinks** (boolean)
 
@@ -93,7 +99,7 @@ PodSpec is a description of a pod.
   
   If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
   
-  If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is an alpha field and requires the IdentifyPodOS feature
+  If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
 
   <a name="PodOS"></a>
   *PodOS defines the OS parameters of a pod.*
@@ -156,9 +162,7 @@ PodSpec is a description of a pod.
 
     Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
     
-    Possible enum values:
-     - `"Equal"`
-     - `"Exists"`
+    
 
   - **tolerations.value** (string)
 
@@ -168,10 +172,7 @@ PodSpec is a description of a pod.
 
     Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
     
-    Possible enum values:
-     - `"NoExecute"` Evict any already-running pods that do not tolerate the taint. Currently enforced by NodeController.
-     - `"NoSchedule"` Do not allow new pods to schedule onto the node unless they tolerate the taint, but allow all pods submitted to Kubelet without going through the scheduler to start, and allow all already-running pods to continue running. Enforced by the scheduler.
-     - `"PreferNoSchedule"` Like TaintEffectNoSchedule, but the scheduler tries not to schedule new pods onto the node, rather than prohibiting new pods from scheduling onto the node entirely. Enforced by the scheduler.
+    
 
   - **tolerations.tolerationSeconds** (int64)
 
@@ -183,7 +184,7 @@ PodSpec is a description of a pod.
 
 - **runtimeClassName** (string)
 
-  RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class This is a beta feature as of Kubernetes v1.14.
+  RuntimeClassName refers to a RuntimeClass object in the node.k8s.io group, which should be used to run this pod.  If no RuntimeClass resource matches the named class, the pod will not be run. If unset or empty, the "legacy" RuntimeClass will be used, which is an implicit class with an empty definition that uses the default runtime handler. More info: https://git.k8s.io/enhancements/keps/sig-node/585-runtime-class
 
 - **priorityClassName** (string)
 
@@ -192,6 +193,10 @@ PodSpec is a description of a pod.
 - **priority** (int32)
 
   The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
+
+- **preemptionPolicy** (string)
+
+  PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
 
 - **topologySpreadConstraints** ([]TopologySpreadConstraint)
 
@@ -206,26 +211,57 @@ PodSpec is a description of a pod.
 
   - **topologySpreadConstraints.maxSkew** (int32), required
 
-    MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 1/1/0: | zone1 | zone2 | zone3 | |   P   |   P   |       | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 1/1/1; scheduling it onto zone1(zone2) would make the ActualSkew(2-0) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
+    MaxSkew describes the degree to which pods may be unevenly distributed. When `whenUnsatisfiable=DoNotSchedule`, it is the maximum permitted difference between the number of matching pods in the target topology and the global minimum. The global minimum is the minimum number of matching pods in an eligible domain or zero if the number of eligible domains is less than MinDomains. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 2/2/1: In this case, the global minimum is 1. | zone1 | zone2 | zone3 | |  P P  |  P P  |   P   | - if MaxSkew is 1, incoming pod can only be scheduled to zone3 to become 2/2/2; scheduling it onto zone1(zone2) would make the ActualSkew(3-1) on zone1(zone2) violate MaxSkew(1). - if MaxSkew is 2, incoming pod can be scheduled onto any zone. When `whenUnsatisfiable=ScheduleAnyway`, it is used to give higher precedence to topologies that satisfy it. It's a required field. Default value is 1 and 0 is not allowed.
 
   - **topologySpreadConstraints.topologyKey** (string), required
 
-    TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each \<key, value> as a "bucket", and try to put balanced number of pods into each bucket. It's a required field.
+    TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each \<key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
 
   - **topologySpreadConstraints.whenUnsatisfiable** (string), required
 
-    WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
+    WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint.
+    - DoNotSchedule (default) tells the scheduler not to schedule it.
+    - ScheduleAnyway tells the scheduler to schedule the pod in any location,
       but giving higher precedence to topologies that would help reduce the
       skew.
+  
     A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
     
-    Possible enum values:
-     - `"DoNotSchedule"` instructs the scheduler not to schedule the pod when constraints are not satisfied.
-     - `"ScheduleAnyway"` instructs the scheduler to schedule the pod even if constraints are not satisfied.
+    
 
   - **topologySpreadConstraints.labelSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
     LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
+
+  - **topologySpreadConstraints.matchLabelKeys** ([]string)
+
+    *Atomic: will be replaced during a merge*
+    
+    MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+
+  - **topologySpreadConstraints.minDomains** (int32)
+
+    MinDomains indicates a minimum number of eligible domains. When the number of eligible domains with matching topology keys is less than minDomains, Pod Topology Spread treats "global minimum" as 0, and then the calculation of Skew is performed. And when the number of eligible domains with matching topology keys equals or greater than minDomains, this value has no effect on scheduling. As a result, when the number of eligible domains is less than minDomains, scheduler won't schedule more than maxSkew Pods to those domains. If value is nil, the constraint behaves as if MinDomains is equal to 1. Valid values are integers greater than 0. When value is not nil, WhenUnsatisfiable must be DoNotSchedule.
+    
+    For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
+    
+    This is a beta field and requires the MinDomainsInPodTopologySpread feature gate to be enabled (enabled by default).
+
+  - **topologySpreadConstraints.nodeAffinityPolicy** (string)
+
+    NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
+    
+    If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+
+  - **topologySpreadConstraints.nodeTaintsPolicy** (string)
+
+    NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
+    
+    If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+
+- **overhead** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+  Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
 
 ### Lifecycle
 
@@ -234,10 +270,7 @@ PodSpec is a description of a pod.
 
   Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
   
-  Possible enum values:
-   - `"Always"`
-   - `"Never"`
-   - `"OnFailure"`
+  
 
 - **terminationGracePeriodSeconds** (int64)
 
@@ -257,12 +290,6 @@ PodSpec is a description of a pod.
   - **readinessGates.conditionType** (string), required
 
     ConditionType refers to a condition in the pod's condition list with matching type.
-    
-    Possible enum values:
-     - `"ContainersReady"` indicates whether all containers in the pod are ready.
-     - `"Initialized"` means that all init containers in the pod have started successfully.
-     - `"PodScheduled"` represents status of the scheduling process for this pod.
-     - `"Ready"` means the pod is able to service requests and should be added to the load balancing pools of all matching services.
 
 ### Hostname and Name resolution
 
@@ -329,11 +356,7 @@ PodSpec is a description of a pod.
 
   Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
   
-  Possible enum values:
-   - `"ClusterFirst"` indicates that the pod should use cluster DNS first unless hostNetwork is true, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
-   - `"ClusterFirstWithHostNet"` indicates that the pod should use cluster DNS first, if it is available, then fall back on the default (as determined by kubelet) DNS settings.
-   - `"Default"` indicates that the pod should use the default (as determined by kubelet) DNS settings.
-   - `"None"` indicates that the pod should use empty DNS settings. DNS parameters such as nameservers and search paths should be defined via DNSConfig.
+  
 
 ### Hosts namespaces
 
@@ -389,7 +412,7 @@ PodSpec is a description of a pod.
 
   - **securityContext.supplementalGroups** ([]int64)
 
-    A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Note that this field cannot be set when spec.os.name is windows.
+    A list of groups applied to the first process run in each container, in addition to the container's primary GID, the fsGroup (if specified), and group memberships defined in the container image for the uid of the container process. If unspecified, no additional groups are added to any container. Note that group memberships defined in the container image for the uid of the container process are still effective, even if they are not included in this list. Note that this field cannot be set when spec.os.name is windows.
 
   - **securityContext.fsGroup** (int64)
 
@@ -416,10 +439,7 @@ PodSpec is a description of a pod.
       
       Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
       
-      Possible enum values:
-       - `"Localhost"` indicates a profile defined in a file on the node should be used. The file's location relative to \<kubelet-root-dir>/seccomp.
-       - `"RuntimeDefault"` represents the default container runtime seccomp profile.
-       - `"Unconfined"` indicates no seccomp profile is applied (A.K.A. unconfined).
+      
 
     - **securityContext.seccompProfile.localhostProfile** (string)
 
@@ -486,25 +506,71 @@ PodSpec is a description of a pod.
 
       The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
 
-### Beta level
-
-
-- **preemptionPolicy** (string)
-
-  PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset. This field is beta-level, gated by the NonPreemptingPriority feature-gate.
-
-- **overhead** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-  Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md This field is beta-level as of Kubernetes v1.18, and is only honored by servers that enable the PodOverhead feature.
-
 ### Alpha level
 
 
-- **ephemeralContainers** ([]<a href="{{< ref "../workload-resources/pod-v1#EphemeralContainer" >}}">EphemeralContainer</a>)
+- **hostUsers** (boolean)
+
+  Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+
+- **resourceClaims** ([]PodResourceClaim)
+
+  *Patch strategies: retainKeys, merge on key `name`*
+  
+  *Map: unique values on key name will be kept during a merge*
+  
+  ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
+  
+  This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+  
+  This field is immutable.
+
+  <a name="PodResourceClaim"></a>
+  *PodResourceClaim references exactly one ResourceClaim through a ClaimSource. It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.*
+
+  - **resourceClaims.name** (string), required
+
+    Name uniquely identifies this resource claim inside the pod. This must be a DNS_LABEL.
+
+  - **resourceClaims.source** (ClaimSource)
+
+    Source describes where to find the ResourceClaim.
+
+    <a name="ClaimSource"></a>
+    *ClaimSource describes a reference to a ResourceClaim.
+    
+    Exactly one of these fields should be set.  Consumers of this type must treat an empty object as if it has an unknown value.*
+
+    - **resourceClaims.source.resourceClaimName** (string)
+
+      ResourceClaimName is the name of a ResourceClaim object in the same namespace as this pod.
+
+    - **resourceClaims.source.resourceClaimTemplateName** (string)
+
+      ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.
+      
+      The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The name of the ResourceClaim will be \<pod name>-\<resource name>, where \<resource name> is the PodResourceClaim.Name. Pod validation will reject the pod if the concatenated name is not valid for a ResourceClaim (e.g. too long).
+      
+      An existing ResourceClaim with that name that is not owned by the pod will not be used for the pod to avoid using an unrelated resource by mistake. Scheduling and pod startup are then blocked until the unrelated ResourceClaim is removed.
+      
+      This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+
+- **schedulingGates** ([]PodSchedulingGate)
 
   *Patch strategy: merge on key `name`*
   
-  List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
+  *Map: unique values on key name will be kept during a merge*
+  
+  SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+  
+  This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+
+  <a name="PodSchedulingGate"></a>
+  *PodSchedulingGate is associated to a Pod to guard its scheduling.*
+
+  - **schedulingGates.name** (string), required
+
+    Name of the scheduling gate. Each scheduling gate must have a unique name field.
 
 ### Deprecated
 
@@ -532,27 +598,24 @@ A single application container that you want to run within a pod.
 
 - **image** (string)
 
-  Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
+  Container image name. More info: https://kubernetes.io/docs/concepts/containers/images This field is optional to allow higher level config management to default or override container images in workload controllers like Deployments and StatefulSets.
 
 - **imagePullPolicy** (string)
 
   Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
   
-  Possible enum values:
-   - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
-   - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
-   - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
+  
 
 ### Entrypoint
 
 
 - **command** ([]string)
 
-  Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+  Entrypoint array. Not executed within a shell. The container image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 
 - **args** ([]string)
 
-  Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+  Arguments to the entrypoint. The container image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 
 - **workingDir** (string)
 
@@ -567,7 +630,7 @@ A single application container that you want to run within a pod.
   
   *Map: unique values on keys `containerPort, protocol` will be kept during a merge*
   
-  List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Cannot be updated.
+  List of ports to expose from the container. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Modifying this array with strategic merge patch may corrupt the data. For more information See https://github.com/kubernetes/kubernetes/issues/108255. Cannot be updated.
 
   <a name="ContainerPort"></a>
   *ContainerPort represents a network port in a single container.*
@@ -592,10 +655,7 @@ A single application container that you want to run within a pod.
 
     Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
     
-    Possible enum values:
-     - `"SCTP"` is the SCTP protocol.
-     - `"TCP"` is the TCP protocol.
-     - `"UDP"` is the UDP protocol.
+    
 
 ### Environment variables
 
@@ -778,6 +838,23 @@ A single application container that you want to run within a pod.
   <a name="ResourceRequirements"></a>
   *ResourceRequirements describes the compute resource requirements.*
 
+  - **resources.claims** ([]ResourceClaim)
+
+    *Set: unique values will be kept during a merge*
+    
+    Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+    
+    This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+    
+    This field is immutable.
+
+    <a name="ResourceClaim"></a>
+    *ResourceClaim references one entry in PodSpec.ResourceClaims.*
+
+    - **resources.claims.name** (string), required
+
+      Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.
+
   - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
     Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
@@ -812,9 +889,7 @@ A single application container that you want to run within a pod.
 
   Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
   
-  Possible enum values:
-   - `"FallbackToLogsOnError"` will read the most recent contents of the container logs for the container status message when the container exits with an error and the terminationMessagePath has no contents.
-   - `"File"` is the default behavior and will set the container status message to the contents of the container's terminationMessagePath when the container exits.
+  
 
 - **livenessProbe** (<a href="{{< ref "../workload-resources/pod-v1#Probe" >}}">Probe</a>)
 
@@ -894,10 +969,7 @@ A single application container that you want to run within a pod.
       
       Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
       
-      Possible enum values:
-       - `"Localhost"` indicates a profile defined in a file on the node should be used. The file's location relative to \<kubelet-root-dir>/seccomp.
-       - `"RuntimeDefault"` represents the default container runtime seccomp profile.
-       - `"Unconfined"` indicates no seccomp profile is applied (A.K.A. unconfined).
+      
 
     - **securityContext.seccompProfile.localhostProfile** (string)
 
@@ -972,8 +1044,6 @@ An EphemeralContainer is a temporary container that you may add to an existing P
 
 To add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod. Ephemeral containers may not be removed or restarted.
 
-This is a beta feature available on clusters that haven't disabled the EphemeralContainers feature gate.
-
 <hr>
 
 - **name** (string), required
@@ -993,27 +1063,24 @@ This is a beta feature available on clusters that haven't disabled the Ephemeral
 
 - **image** (string)
 
-  Docker image name. More info: https://kubernetes.io/docs/concepts/containers/images
+  Container image name. More info: https://kubernetes.io/docs/concepts/containers/images
 
 - **imagePullPolicy** (string)
 
   Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
   
-  Possible enum values:
-   - `"Always"` means that kubelet always attempts to pull the latest image. Container will fail If the pull fails.
-   - `"IfNotPresent"` means that kubelet pulls if the image isn't present on disk. Container will fail if the image isn't present and the pull fails.
-   - `"Never"` means that kubelet never pulls an image, but only uses a local image. Container will fail if the image isn't present
+  
 
 ### Entrypoint
 
 
 - **command** ([]string)
 
-  Entrypoint array. Not executed within a shell. The docker image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+  Entrypoint array. Not executed within a shell. The image's ENTRYPOINT is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 
 - **args** ([]string)
 
-  Arguments to the entrypoint. The docker image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
+  Arguments to the entrypoint. The image's CMD is used if this is not provided. Variable references $(VAR_NAME) are expanded using the container's environment. If a variable cannot be resolved, the reference in the input string will be unchanged. Double $$ are reduced to a single $, which allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce the string literal "$(VAR_NAME)". Escaped references will never be expanded, regardless of whether the variable exists or not. Cannot be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell
 
 - **workingDir** (string)
 
@@ -1201,9 +1268,7 @@ This is a beta feature available on clusters that haven't disabled the Ephemeral
 
   Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
   
-  Possible enum values:
-   - `"FallbackToLogsOnError"` will read the most recent contents of the container logs for the container status message when the container exits with an error and the terminationMessagePath has no contents.
-   - `"File"` is the default behavior and will set the container status message to the contents of the container's terminationMessagePath when the container exits.
+  
 
 ### Debugging
 
@@ -1220,82 +1285,8 @@ This is a beta feature available on clusters that haven't disabled the Ephemeral
 
   Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
 
-### Not allowed
+### Security context
 
-
-- **ports** ([]ContainerPort)
-
-  *Patch strategy: merge on key `containerPort`*
-  
-  *Map: unique values on keys `containerPort, protocol` will be kept during a merge*
-  
-  Ports are not allowed for ephemeral containers.
-
-  <a name="ContainerPort"></a>
-  *ContainerPort represents a network port in a single container.*
-
-  - **ports.containerPort** (int32), required
-
-    Number of port to expose on the pod's IP address. This must be a valid port number, 0 \< x \< 65536.
-
-  - **ports.hostIP** (string)
-
-    What host IP to bind the external port to.
-
-  - **ports.hostPort** (int32)
-
-    Number of port to expose on the host. If specified, this must be a valid port number, 0 \< x \< 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this.
-
-  - **ports.name** (string)
-
-    If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services.
-
-  - **ports.protocol** (string)
-
-    Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
-    
-    Possible enum values:
-     - `"SCTP"` is the SCTP protocol.
-     - `"TCP"` is the TCP protocol.
-     - `"UDP"` is the UDP protocol.
-
-- **resources** (ResourceRequirements)
-
-  Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
-
-  <a name="ResourceRequirements"></a>
-  *ResourceRequirements describes the compute resource requirements.*
-
-  - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-    Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-
-  - **resources.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-    Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
-
-- **lifecycle** (Lifecycle)
-
-  Lifecycle is not allowed for ephemeral containers.
-
-  <a name="Lifecycle"></a>
-  *Lifecycle describes actions that the management system should take in response to container lifecycle events. For the PostStart and PreStop lifecycle handlers, management of the container blocks until the action is complete, unless the container process fails, in which case the handler is aborted.*
-
-  - **lifecycle.postStart** (<a href="{{< ref "../workload-resources/pod-v1#LifecycleHandler" >}}">LifecycleHandler</a>)
-
-    PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-
-  - **lifecycle.preStop** (<a href="{{< ref "../workload-resources/pod-v1#LifecycleHandler" >}}">LifecycleHandler</a>)
-
-    PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
-
-- **livenessProbe** (<a href="{{< ref "../workload-resources/pod-v1#Probe" >}}">Probe</a>)
-
-  Probes are not allowed for ephemeral containers.
-
-- **readinessProbe** (<a href="{{< ref "../workload-resources/pod-v1#Probe" >}}">Probe</a>)
-
-  Probes are not allowed for ephemeral containers.
 
 - **securityContext** (SecurityContext)
 
@@ -1360,10 +1351,7 @@ This is a beta feature available on clusters that haven't disabled the Ephemeral
       
       Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
       
-      Possible enum values:
-       - `"Localhost"` indicates a profile defined in a file on the node should be used. The file's location relative to \<kubelet-root-dir>/seccomp.
-       - `"RuntimeDefault"` represents the default container runtime seccomp profile.
-       - `"Unconfined"` indicates no seccomp profile is applied (A.K.A. unconfined).
+      
 
     - **securityContext.seccompProfile.localhostProfile** (string)
 
@@ -1414,6 +1402,97 @@ This is a beta feature available on clusters that haven't disabled the Ephemeral
     - **securityContext.windowsOptions.runAsUserName** (string)
 
       The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
+
+### Not allowed
+
+
+- **ports** ([]ContainerPort)
+
+  *Patch strategy: merge on key `containerPort`*
+  
+  *Map: unique values on keys `containerPort, protocol` will be kept during a merge*
+  
+  Ports are not allowed for ephemeral containers.
+
+  <a name="ContainerPort"></a>
+  *ContainerPort represents a network port in a single container.*
+
+  - **ports.containerPort** (int32), required
+
+    Number of port to expose on the pod's IP address. This must be a valid port number, 0 \< x \< 65536.
+
+  - **ports.hostIP** (string)
+
+    What host IP to bind the external port to.
+
+  - **ports.hostPort** (int32)
+
+    Number of port to expose on the host. If specified, this must be a valid port number, 0 \< x \< 65536. If HostNetwork is specified, this must match ContainerPort. Most containers do not need this.
+
+  - **ports.name** (string)
+
+    If specified, this must be an IANA_SVC_NAME and unique within the pod. Each named port in a pod must have a unique name. Name for the port that can be referred to by services.
+
+  - **ports.protocol** (string)
+
+    Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
+    
+    
+
+- **resources** (ResourceRequirements)
+
+  Resources are not allowed for ephemeral containers. Ephemeral containers use spare resources already allocated to the pod.
+
+  <a name="ResourceRequirements"></a>
+  *ResourceRequirements describes the compute resource requirements.*
+
+  - **resources.claims** ([]ResourceClaim)
+
+    *Set: unique values will be kept during a merge*
+    
+    Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+    
+    This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+    
+    This field is immutable.
+
+    <a name="ResourceClaim"></a>
+    *ResourceClaim references one entry in PodSpec.ResourceClaims.*
+
+    - **resources.claims.name** (string), required
+
+      Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.
+
+  - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+    Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+
+  - **resources.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+    Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+
+- **lifecycle** (Lifecycle)
+
+  Lifecycle is not allowed for ephemeral containers.
+
+  <a name="Lifecycle"></a>
+  *Lifecycle describes actions that the management system should take in response to container lifecycle events. For the PostStart and PreStop lifecycle handlers, management of the container blocks until the action is complete, unless the container process fails, in which case the handler is aborted.*
+
+  - **lifecycle.postStart** (<a href="{{< ref "../workload-resources/pod-v1#LifecycleHandler" >}}">LifecycleHandler</a>)
+
+    PostStart is called immediately after a container is created. If the handler fails, the container is terminated and restarted according to its restart policy. Other management of the container blocks until the hook completes. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+
+  - **lifecycle.preStop** (<a href="{{< ref "../workload-resources/pod-v1#LifecycleHandler" >}}">LifecycleHandler</a>)
+
+    PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks
+
+- **livenessProbe** (<a href="{{< ref "../workload-resources/pod-v1#Probe" >}}">Probe</a>)
+
+  Probes are not allowed for ephemeral containers.
+
+- **readinessProbe** (<a href="{{< ref "../workload-resources/pod-v1#Probe" >}}">Probe</a>)
+
+  Probes are not allowed for ephemeral containers.
 
 - **startupProbe** (<a href="{{< ref "../workload-resources/pod-v1#Probe" >}}">Probe</a>)
 
@@ -1479,9 +1558,7 @@ LifecycleHandler defines a specific action that should be taken in a lifecycle h
 
     Scheme to use for connecting to the host. Defaults to HTTP.
     
-    Possible enum values:
-     - `"HTTP"` means that the scheme used will be http://
-     - `"HTTPS"` means that the scheme used will be https://
+    
 
 - **tcpSocket** (TCPSocketAction)
 
@@ -1593,11 +1670,11 @@ Pod affinity is a group of inter pod affinity scheduling rules.
 
     - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-      A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+      A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
 
     - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.namespaces** ([]string)
 
-      namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
+      namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
 
   - **preferredDuringSchedulingIgnoredDuringExecution.weight** (int32), required
 
@@ -1620,11 +1697,11 @@ Pod affinity is a group of inter pod affinity scheduling rules.
 
   - **requiredDuringSchedulingIgnoredDuringExecution.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-    A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+    A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
 
   - **requiredDuringSchedulingIgnoredDuringExecution.namespaces** ([]string)
 
-    namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
+    namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
 
 
 
@@ -1660,11 +1737,11 @@ Pod anti affinity is a group of inter pod anti affinity scheduling rules.
 
     - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-      A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+      A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
 
     - **preferredDuringSchedulingIgnoredDuringExecution.podAffinityTerm.namespaces** ([]string)
 
-      namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
+      namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
 
   - **preferredDuringSchedulingIgnoredDuringExecution.weight** (int32), required
 
@@ -1687,11 +1764,11 @@ Pod anti affinity is a group of inter pod anti affinity scheduling rules.
 
   - **requiredDuringSchedulingIgnoredDuringExecution.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
-    A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces. This field is beta-level and is only honored when PodAffinityNamespaceSelector feature is enabled.
+    A label query over the set of namespaces that the term applies to. The term is applied to the union of the namespaces selected by this field and the ones listed in the namespaces field. null selector and null or empty namespaces list means "this pod's namespace". An empty selector ({}) matches all namespaces.
 
   - **requiredDuringSchedulingIgnoredDuringExecution.namespaces** ([]string)
 
-    namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace"
+    namespaces specifies a static list of namespace names that the term applies to. The term is applied to the union of the namespaces listed in this field and the ones selected by namespaceSelector. null or empty namespaces list and null namespaceSelector means "this pod's namespace".
 
 
 
@@ -1755,9 +1832,7 @@ Probe describes a health check to be performed against a container to determine 
 
     Scheme to use for connecting to the host. Defaults to HTTP.
     
-    Possible enum values:
-     - `"HTTP"` means that the scheme used will be http://
-     - `"HTTPS"` means that the scheme used will be https://
+    
 
 - **tcpSocket** (TCPSocketAction)
 
@@ -1803,7 +1878,7 @@ Probe describes a health check to be performed against a container to determine 
 
 - **grpc** (GRPCAction)
 
-  GRPC specifies an action involving a GRPC port. This is an alpha field and requires enabling GRPCContainerProbe feature gate.
+  GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
 
   <a name="GRPCAction"></a>
   **
@@ -1851,12 +1926,7 @@ PodStatus represents information about the status of a pod. Status may trail the
   
   More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
   
-  Possible enum values:
-   - `"Failed"` means that all containers in the pod have terminated, and at least one container has terminated in a failure (exited with a non-zero exit code or was stopped by the system).
-   - `"Pending"` means the pod has been accepted by the system, but one or more of the containers has not been started. This includes time before being bound to a node, as well as time spent pulling images onto the host.
-   - `"Running"` means the pod has been bound to a node and all of the containers have been started. At least one container is still running or is in the process of being restarted.
-   - `"Succeeded"` means that all containers in the pod have voluntarily terminated with a container exit code of 0, and the system is not going to restart any of these containers.
-   - `"Unknown"` means that for some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod. Deprecated: It isn't being set since 2015 (74da3b14b0c0f658b3bb8d2def5094686d0e9095)
+  
 
 - **message** (string)
 
@@ -1878,7 +1948,8 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   <a name="PodIP"></a>
   *IP address information for entries in the (plural) PodIPs field. Each entry includes:
-     IP: An IP address allocated to the pod. Routable at least within the cluster.*
+  
+  	IP: An IP address allocated to the pod. Routable at least within the cluster.*
 
   - **podIPs.ip** (string)
 
@@ -1900,12 +1971,6 @@ PodStatus represents information about the status of a pod. Status may trail the
   - **conditions.type** (string), required
 
     Type is the type of the condition. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-conditions
-    
-    Possible enum values:
-     - `"ContainersReady"` indicates whether all containers in the pod are ready.
-     - `"Initialized"` means that all init containers in the pod have started successfully.
-     - `"PodScheduled"` represents status of the scheduling process for this pod.
-     - `"Ready"` means the pod is able to service requests and should be added to the load balancing pools of all matching services.
 
   - **conditions.lastProbeTime** (Time)
 
@@ -1933,10 +1998,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md
   
-  Possible enum values:
-   - `"BestEffort"` is the BestEffort qos class.
-   - `"Burstable"` is the Burstable qos class.
-   - `"Guaranteed"` is the Guaranteed qos class.
+  
 
 - **initContainerStatuses** ([]ContainerStatus)
 
@@ -1959,7 +2021,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   - **initContainerStatuses.containerID** (string)
 
-    Container's ID in the format 'docker://\<container_id>'.
+    Container's ID in the format '\<type>://\<container_id>'.
 
   - **initContainerStatuses.state** (ContainerState)
 
@@ -1991,7 +2053,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
       - **initContainerStatuses.state.terminated.containerID** (string)
 
-        Container's ID in the format 'docker://\<container_id>'
+        Container's ID in the format '\<type>://\<container_id>'
 
       - **initContainerStatuses.state.terminated.exitCode** (int32), required
 
@@ -2068,7 +2130,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
       - **initContainerStatuses.lastState.terminated.containerID** (string)
 
-        Container's ID in the format 'docker://\<container_id>'
+        Container's ID in the format '\<type>://\<container_id>'
 
       - **initContainerStatuses.lastState.terminated.exitCode** (int32), required
 
@@ -2129,7 +2191,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
 - **containerStatuses** ([]ContainerStatus)
 
-  The list has one entry per container in the manifest. Each entry is currently the output of `docker inspect`. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
+  The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
 
   <a name="ContainerStatus"></a>
   *ContainerStatus contains details for the current status of this container.*
@@ -2148,7 +2210,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   - **containerStatuses.containerID** (string)
 
-    Container's ID in the format 'docker://\<container_id>'.
+    Container's ID in the format '\<type>://\<container_id>'.
 
   - **containerStatuses.state** (ContainerState)
 
@@ -2180,7 +2242,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
       - **containerStatuses.state.terminated.containerID** (string)
 
-        Container's ID in the format 'docker://\<container_id>'
+        Container's ID in the format '\<type>://\<container_id>'
 
       - **containerStatuses.state.terminated.exitCode** (int32), required
 
@@ -2257,7 +2319,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
       - **containerStatuses.lastState.terminated.containerID** (string)
 
-        Container's ID in the format 'docker://\<container_id>'
+        Container's ID in the format '\<type>://\<container_id>'
 
       - **containerStatuses.lastState.terminated.exitCode** (int32), required
 
@@ -2318,7 +2380,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
 - **ephemeralContainerStatuses** ([]ContainerStatus)
 
-  Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
+  Status for any ephemeral containers that have run in this pod.
 
   <a name="ContainerStatus"></a>
   *ContainerStatus contains details for the current status of this container.*
@@ -2337,7 +2399,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   - **ephemeralContainerStatuses.containerID** (string)
 
-    Container's ID in the format 'docker://\<container_id>'.
+    Container's ID in the format '\<type>://\<container_id>'.
 
   - **ephemeralContainerStatuses.state** (ContainerState)
 
@@ -2369,7 +2431,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
       - **ephemeralContainerStatuses.state.terminated.containerID** (string)
 
-        Container's ID in the format 'docker://\<container_id>'
+        Container's ID in the format '\<type>://\<container_id>'
 
       - **ephemeralContainerStatuses.state.terminated.exitCode** (int32), required
 
@@ -2446,7 +2508,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
       - **ephemeralContainerStatuses.lastState.terminated.containerID** (string)
 
-        Container's ID in the format 'docker://\<container_id>'
+        Container's ID in the format '\<type>://\<container_id>'
 
       - **ephemeralContainerStatuses.lastState.terminated.exitCode** (int32), required
 

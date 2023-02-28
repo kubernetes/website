@@ -1,13 +1,13 @@
 <div class="td-page-blog-meta ml-2 pb-1 pt-2 mb-4">
   {{ with site.Home.OutputFormats.Get "rss" -}}
   <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink | safeURL }}" title="{{ site.Title }}">
-  <a class="widget-link" href="{{ .Permalink | safeURL }}"><div> <i class="fas fa-rss fab-icon"> </i> <span class="widget-link-text">RSS Feed</span></div> </a>
+  <a class="widget-link" href="{{ .Permalink | safeURL }}" target="_blank"><div> <i class="fas fa-rss fab-icon"> </i> <span class="widget-link-text">RSS Feed</span></div> </a>
   {{ end -}}
-  <a class="widget-link" href="https://kubernetes.io/docs/contribute/new-content/blogs-case-studies/"><div> <i class="fa fa-edit fab-icon"></i> <span class="widget-link-text">Submit a Post</span></div></a>
-  <a class="widget-link" href="https://twitter.com/kubernetesio"><div> <i class="fab fa-twitter-square fab-icon"> </i> <span class="widget-link-text"> @Kubernetesio</span></div></a>
-  <a class="widget-link" href="https://github.com/kubernetes/kubernetes"><div> <i class="fab fa-github-square fab-icon"></i> <span class="widget-link-text"> on GitHub </span></div></a>
-  <a class="widget-link" href="http://slack.k8s.io"><div><i class="fab fa-slack fab-icon"> </i> <span class="widget-link-text">#kubernetes-users </span></div></a>
-  <a class="widget-link" href="https://stackoverflow.com/questions/tagged/kubernetes"><div><i class="fab fa-stack-overflow fab-icon"></i> <span class="widget-link-text"> Overflow</span></div></a>
-  <a class="widget-link" href="https://discuss.kubernetes.io"><div> <i class="fab fa-discourse fab-icon"></i><span class="widget-link-text"> Forum </span></div></a>
+  <a class="widget-link" href="https://kubernetes.io/docs/contribute/new-content/blogs-case-studies/" target="_blank"><div> <i class="fa fa-edit fab-icon"></i> <span class="widget-link-text">Submit a Post</span></div></a>
+  <a class="widget-link" href="https://twitter.com/kubernetesio" target="_blank"><div> <i class="fab fa-twitter-square fab-icon"> </i> <span class="widget-link-text"> @Kubernetesio</span></div></a>
+  <a class="widget-link" href="https://github.com/kubernetes/kubernetes" target="_blank"><div> <i class="fab fa-github-square fab-icon"></i> <span class="widget-link-text"> on GitHub </span></div></a>
+  <a class="widget-link" href="http://slack.k8s.io" target="_blank"><div><i class="fab fa-slack fab-icon"> </i> <span class="widget-link-text">#kubernetes-users </span></div></a>
+  <a class="widget-link" href="https://stackoverflow.com/questions/tagged/kubernetes" target="_blank"><div><i class="fab fa-stack-overflow fab-icon"></i> <span class="widget-link-text"> Stack Overflow</span></div></a>
+  <a class="widget-link" href="https://discuss.kubernetes.io" target="_blank"><div> <i class="fab fa-discourse fab-icon"></i><span class="widget-link-text"> Forum </span></div></a>
   <a class="widget-link" href="https://kubernetes.io/docs/setup"><div><i class="fa fa-download fab-icon"></i> <span class="widget-link-text"> Kubernetes</span></div></a>
 </div>

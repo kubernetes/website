@@ -1,8 +1,8 @@
 ---
 title: 커스텀 리소스
-
-
-
+# reviewers:
+# - enisoc
+# - deads2k
 content_type: concept
 weight: 10
 ---
@@ -26,7 +26,7 @@ weight: 10
 동적 등록을 통해 실행 중인 클러스터에서 커스텀 리소스가 나타나거나 사라질 수 있으며
 클러스터 관리자는 클러스터 자체와 독립적으로 커스텀 리소스를 업데이트 할 수 있다.
 커스텀 리소스가 설치되면 사용자는 *파드* 와 같은 빌트인 리소스와 마찬가지로
-[kubectl](/ko/docs/reference/kubectl/overview/)을 사용하여 해당 오브젝트를 생성하고
+{{< glossary_tooltip text="kubectl" term_id="kubectl" >}}을 사용하여 해당 오브젝트를 생성하고
 접근할 수 있다.
 
 ## 커스텀 컨트롤러
@@ -37,7 +37,8 @@ _선언적(declarative) API_ 를 제공하게 된다.
 
 쿠버네티스 [선언적 API](/ko/docs/concepts/overview/kubernetes-api/)는
 책임의 분리를 강제한다. 사용자는 리소스의 의도한 상태를 선언한다.
-쿠버네티스 컨트롤러는 쿠버네티스 오브젝트의 현재 상태가 선언한 의도한 상태에 동기화 되도록 한다.
+쿠버네티스 컨트롤러는 쿠버네티스 오브젝트의 현재 상태가
+선언한 의도한 상태에 동기화 되도록 한다.
 이는 서버에 무엇을 해야할지 *지시하는* 명령적인 API와는 대조된다.
 
 클러스터 라이프사이클과 관계없이 실행 중인 클러스터에 커스텀 컨트롤러를 배포하고
@@ -98,7 +99,7 @@ _선언적(declarative) API_ 를 제공하게 된다.
 * 파일이 업데이트될 때 디플로이먼트 등을 통해 롤링 업데이트를 수행하려고 한다.
 
 {{< note >}}
-민감한 데이터에는 [시크릿](/ko/docs/concepts/configuration/secret/)을 사용하자. 이는 컨피그맵과 비슷하지만 더 안전한다.
+민감한 데이터에는 {{< glossary_tooltip text="시크릿" term_id="secret" >}}을 사용하자. 이는 컨피그맵과 비슷하지만 더 안전하다.
 {{< /note >}}
 
 다음 중 대부분이 적용되는 경우 커스텀 리소스(CRD 또는 애그리게이트 API(aggregated API))를 사용하자.
@@ -144,11 +145,11 @@ CRD 오브젝트의 이름은 유효한
 
 ## API 서버 애그리게이션
 
-일반적으로 쿠버네티스 API의 각 리소스에는 REST 요청을 처리하고 오브젝트의 퍼시스턴트 스토리지를 관리하는 코드가 필요하다. 주요 쿠버네티스 API 서버는 *파드* 및 *서비스* 와 같은 빌트인 리소스를 처리하고, 일반적으로 [CRD](#커스텀리소스데피니션)를 통해 커스텀 리소스를 처리할 수 ​​있다.
+일반적으로 쿠버네티스 API의 각 리소스에는 REST 요청을 처리하고 오브젝트의 퍼시스턴트 스토리지를 관리하는 코드가 필요하다. 주요 쿠버네티스 API 서버는 *파드* 및 *서비스* 와 같은 빌트인 리소스를 처리하고, 일반적으로 [CRD](#커스텀리소스데피니션)를 통해 커스텀 리소스를 처리할 수 있다.
 
-[애그리게이션 레이어](/ko/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)를 사용하면 자체 독립형 API 서버를
+[애그리게이션 레이어](/ko/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)를 사용하면 자체 API 서버를
 작성하고 배포하여 커스텀 리소스에 대한 특수한 구현을 제공할 수 있다.
-기본 API 서버는 처리하는 커스텀 리소스에 대한 요청을 사용자에게 위임하여
+주(main) API 서버는 사용자의 커스텀 리소스에 대한 요청을 사용자의 자체 API 서버에 위임하여
 모든 클라이언트가 사용할 수 있게 한다.
 
 ## 커스텀 리소스를 추가할 방법 선택
@@ -179,7 +180,7 @@ CRD는 애그리게이트 API보다 생성하기가 쉽다.
 | ------- | ----------- | ---- | -------------- |
 | 유효성 검사 | 사용자가 오류를 방지하고 클라이언트와 독립적으로 API를 발전시킬 수 있도록 도와준다. 이러한 기능은 동시에 많은 클라이언트를 모두 업데이트할 수 없는 경우에 아주 유용하다. | 예. [OpenAPI v3.0 유효성 검사](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation)를 사용하여 CRD에서 대부분의 유효성 검사를 지정할 수 있다. [웹훅 유효성 검사](/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook-alpha-in-1-8-beta-in-1-9)를 추가해서 다른 모든 유효성 검사를 지원한다. | 예, 임의의 유효성 검사를 지원한다. |
 | 기본 설정 | 위를 참고하자. | 예, [OpenAPI v3.0 유효성 검사](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#defaulting)의 `default` 키워드(1.17에서 GA) 또는 [웹훅 변형(mutating)](/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)(이전 오브젝트의 etcd에서 읽을 때는 실행되지 않음)을 통해 지원한다. | 예 |
-| 다중 버전 관리 | 두 가지 API 버전을 통해 동일한 오브젝트를 제공할 수 있다. 필드 이름 바꾸기와 같은 API 변경을 쉽게 할 수 있다. 클라이언트 버전을 제어하는 ​​경우는 덜 중요하다. | [예](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning) | 예 |
+| 다중 버전 관리 | 두 가지 API 버전을 통해 동일한 오브젝트를 제공할 수 있다. 필드 이름 바꾸기와 같은 API 변경을 쉽게 할 수 있다. 클라이언트 버전을 제어하는 경우는 덜 중요하다. | [예](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning) | 예 |
 | 사용자 정의 스토리지 | 다른 성능 모드(예를 들어, 키-값 저장소 대신 시계열 데이터베이스)나 보안에 대한 격리(예를 들어, 암호화된 시크릿이나 다른 암호화) 기능을 가진 스토리지가 필요한 경우 | 아니오 | 예 |
 | 사용자 정의 비즈니스 로직 | 오브젝트를 생성, 읽기, 업데이트 또는 삭제를 할 때 임의의 점검 또는 조치를 수행한다. | 예, [웹훅](/docs/reference/access-authn-authz/extensible-admission-controllers/#admission-webhooks)을 사용한다. | 예 |
 | 서브리소스 크기 조정 | HorizontalPodAutoscaler 및 PodDisruptionBudget과 같은 시스템이 새로운 리소스와 상호 작용할 수 있다. | [예](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource)  | 예 |

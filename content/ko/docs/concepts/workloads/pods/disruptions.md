@@ -1,8 +1,8 @@
 ---
-
-
-
-
+# reviewers:
+# - erictune
+# - foxish
+# - davidopp
 title: 중단(disruption)
 content_type: concept
 weight: 60
@@ -128,8 +128,8 @@ Eviction API는 한 번에 1개(2개의 파드가 아닌)의 파드의 자발적
 기반으로 계산한다. 컨트롤 플레인은 파드의 `.metadata.ownerReferences` 를 검사하여
 소유하는 워크로드 리소스를 발견한다.
 
-PDB는 [비자발적 중단](#자발적-중단과-비자발적-중단)이 발생하는 것을 막을 수는 없지만,
-버짓이 차감된다.
+[비자발적 중단](#자발적-중단과-비자발적-중단)은 PDB로는 막을 수 없지만, 
+버짓은 차감된다.
 
 애플리케이션의 롤링 업그레이드로 파드가 삭제되거나 사용할 수 없는 경우 중단 버짓에 영향을 준다.
 그러나 워크로드 리소스(디플로이먼트, 스테이트풀셋과 같은)는
@@ -226,6 +226,44 @@ drain 커멘드는 `pod-b` 를 축출하는데 성공했다.
 - 새 인스턴스를 시작하는데 소요되는 시간
 - 컨트롤러의 유형
 - 클러스터의 리소스 용량
+
+## 파드 중단 조건 {#pod-disruption-conditions}
+
+{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+
+{{< note >}}
+클러스터에서 이 동작을 사용하려면 `PodDisruptionConditions`
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 
+활성화해야 한다.
+{{< /note >}}
+
+이 기능이 활성화되면, 파드 전용 `DisruptionTarget` [컨디션](/ko/docs/concepts/workloads/pods/pod-lifecycle/#파드의-컨디션)이 추가되어
+{{<glossary_tooltip term_id="disruption" text="중단(disruption)">}}으로 인해 파드가 삭제될 예정임을 나타낸다.
+추가로 컨디션의 `reason` 필드는
+파드 종료에 대한 다음 원인 중 하나를 나타낸다.
+
+`PreemptionByKubeScheduler`
+: 파드는 더 높은 우선순위를 가진 새 파드를 수용하기 위해 스케줄러에 의해 {{<glossary_tooltip term_id="preemption" text="선점(preempted)">}}된다. 자세한 내용은 [파드 우선순위(priority)와 선점(preemption)](/ko/docs/concepts/scheduling-eviction/pod-priority-preemption/)을 참조해보자.
+
+`DeletionByTaintManager`
+: 허용하지 않는 `NoExecute` 테인트(taint) 때문에 파드가 테인트 매니저(`kube-controller-manager` 내의 노드 라이프사이클 컨트롤러의 일부)에 의해 삭제될 예정이다. {{<glossary_tooltip term_id="taint" text="taint">}} 기반 축출을 참조해보자.
+
+`EvictionByEvictionAPI`
+: 파드에 {{<glossary_tooltip term_id="api-eviction" text="쿠버네티스 API를 이용한 축출">}}이 표시되었다.
+
+`DeletionByPodGC`
+: 더 이상 존재하지 않는 노드에 바인딩된 파드는 [파드의 가비지 콜렉션](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)에 의해 삭제될 예정이다.
+
+{{< note >}}
+파드 중단은 중단될 수 있다. 컨트롤 플레인은 동일한 파드의 중단을 
+계속 다시 시도하지만, 파드의 중단이 보장되지는 않는다. 결과적으로,
+`DisruptionTarget` 컨디션이 파드에 추가될 수 있지만, 해당 파드는 사실상 
+삭제되지 않았을 수 있다. 이러한 상황에서는, 일정 시간이 지난 뒤에
+파드 중단 상태가 해제된다.
+{{< /note >}}
+
+잡(또는 크론잡(CronJob))을 사용할 때, 이러한 파드 중단 조건을 잡의 
+[파드 실패 정책](/ko/docs/concepts/workloads/controllers/job#pod-failure-policy)의 일부로 사용할 수 있다.
 
 ## 클러스터 소유자와 애플리케이션 소유자의 역할 분리
 

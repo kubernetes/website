@@ -18,7 +18,7 @@ Kubernetes CLI, `kubectl`.
 To access a cluster, you need to know the location of the cluster and have credentials
 to access it.  Typically, this is automatically set-up when you work through
 a [Getting started guide](/docs/setup/),
-or someone else setup the cluster and provided you with credentials and a location.
+or someone else set up the cluster and provided you with credentials and a location.
 
 Check the location and credentials that kubectl knows about with this command:
 
@@ -27,8 +27,8 @@ kubectl config view
 ```
 
 Many of the [examples](/docs/reference/kubectl/cheatsheet/) provide an introduction to using
-kubectl and complete documentation is found in the
-[kubectl manual](/docs/reference/kubectl/overview/).
+`kubectl`, and complete documentation is found in the
+[kubectl reference](/docs/reference/kubectl/).
 
 ## Directly accessing the REST API
 
@@ -86,12 +86,36 @@ The output is similar to this:
 
 ### Without kubectl proxy
 
-Use `kubectl describe secret...` to get the token for the default service account with grep/cut:
+Use `kubectl apply` and `kubectl describe secret...` to create a token for the default service account with grep/cut:
+
+First, create the Secret, requesting a token for the default ServiceAccount:
+
+```shell
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: default-token
+  annotations:
+    kubernetes.io/service-account.name: default
+type: kubernetes.io/service-account-token
+EOF
+```
+
+Next, wait for the token controller to populate the Secret with a token:
+
+```shell
+while ! kubectl describe secret default-token | grep -E '^token' >/dev/null; do
+  echo "waiting for token..." >&2
+  sleep 1
+done
+```
+
+Capture and use the generated token:
 
 ```shell
 APISERVER=$(kubectl config view --minify | grep server | cut -f 2- -d ":" | tr -d " ")
-SECRET_NAME=$(kubectl get secrets | grep ^default | cut -f1 -d ' ')
-TOKEN=$(kubectl describe secret $SECRET_NAME | grep -E '^token' | cut -f2 -d':' | tr -d " ")
+TOKEN=$(kubectl describe secret default-token | grep -E '^token' | cut -f2 -d':' | tr -d " ")
 
 curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 ```
@@ -117,8 +141,7 @@ Using `jsonpath`:
 
 ```shell
 APISERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.server}')
-SECRET_NAME=$(kubectl get serviceaccount default -o jsonpath='{.secrets[0].name}')
-TOKEN=$(kubectl get secret $SECRET_NAME -o jsonpath='{.data.token}' | base64 --decode)
+TOKEN=$(kubectl get secret default-token -o jsonpath='{.data.token}' | base64 --decode)
 
 curl $APISERVER/api --header "Authorization: Bearer $TOKEN" --insecure
 ```
@@ -182,39 +205,16 @@ See documentation for other libraries for how they authenticate.
 ## Accessing the API from a Pod
 
 When accessing the API from a pod, locating and authenticating
-to the apiserver are somewhat different.
+to the API server are somewhat different.
 
-The recommended way to locate the apiserver within the pod is with
-the `kubernetes.default.svc` DNS name, which resolves to a Service IP which in turn
-will be routed to an apiserver.
-
-The recommended way to authenticate to the apiserver is with a
-[service account](/docs/tasks/configure-pod-container/configure-service-account/) credential. By kube-system, a pod
-is associated with a service account, and a credential (token) for that
-service account is placed into the filesystem tree of each container in that pod,
-at `/var/run/secrets/kubernetes.io/serviceaccount/token`.
-
-If available, a certificate bundle is placed into the filesystem tree of each
-container at `/var/run/secrets/kubernetes.io/serviceaccount/ca.crt`, and should be
-used to verify the serving certificate of the apiserver.
-
-Finally, the default namespace to be used for namespaced API operations is placed in a file
-at `/var/run/secrets/kubernetes.io/serviceaccount/namespace` in each container.
-
-From within a pod the recommended ways to connect to API are:
-
-  - Run `kubectl proxy` in a sidecar container in the pod, or as a background
-    process within the container. This proxies the
-    Kubernetes API to the localhost interface of the pod, so that other processes
-    in any container of the pod can access it.
-  - Use the Go client library, and create a client using the `rest.InClusterConfig()` and `kubernetes.NewForConfig()` functions.
-    They handle locating and authenticating to the apiserver. [example](https://git.k8s.io/client-go/examples/in-cluster-client-configuration/main.go)
-
-In each case, the credentials of the pod are used to communicate securely with the apiserver.
+Please check [Accessing the API from within a Pod](/docs/tasks/run-application/access-api-from-pod/)
+for more details.
 
 ## Accessing services running on the cluster
 
-The previous section describes how to connect to the Kubernetes API server. For information about connecting to other services running on a Kubernetes cluster, see [Access Cluster Services.](/docs/tasks/administer-cluster/access-cluster-services/)
+The previous section describes how to connect to the Kubernetes API server.
+For information about connecting to other services running on a Kubernetes cluster, see
+[Access Cluster Services](/docs/tasks/access-application-cluster/access-cluster-services/).
 
 ## Requesting redirects
 
@@ -233,7 +233,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - locates apiserver
     - adds authentication headers
 
-1.  The [apiserver proxy](#discovering-builtin-services):
+1.  The [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster-services/#discovering-builtin-services):
 
     - is a bastion built into the apiserver
     - connects a user outside of the cluster to cluster IPs which otherwise might not be reachable
@@ -265,5 +265,5 @@ There are several different proxies you may encounter when using Kubernetes:
     - implementation varies by cloud provider.
 
 Kubernetes users will typically not need to worry about anything other than the first two types.  The cluster admin
-will typically ensure that the latter types are setup correctly.
+will typically ensure that the latter types are set up correctly.
 

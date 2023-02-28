@@ -1,7 +1,7 @@
 ---
 title: Configuring a cgroup driver
 content_type: task
-weight: 10
+weight: 20
 ---
 
 <!-- overview -->
@@ -22,7 +22,7 @@ The [Container runtimes](/docs/setup/production-environment/container-runtimes) 
 explains that the `systemd` driver is recommended for kubeadm based setups instead
 of the `cgroupfs` driver, because kubeadm manages the kubelet as a systemd service.
 
-The page also provides details on how to setup a number of different container runtimes with the
+The page also provides details on how to set up a number of different container runtimes with the
 `systemd` driver by default.
 
 ## Configuring the kubelet cgroup driver
@@ -68,14 +68,12 @@ and passing it to the local node kubelet.
 
 ## Using the `cgroupfs` driver
 
-As this guide explains using the `cgroupfs` driver with kubeadm is not recommended.
-
-To continue using `cgroupfs` and to prevent `kubeadm upgrade` from modifying the
+To use `cgroupfs` and to prevent `kubeadm upgrade` from modifying the
 `KubeletConfiguration` cgroup driver on existing setups, you must be explicit
 about its value. This applies to a case where you do not wish future versions
 of kubeadm to apply the `systemd` driver by default.
 
-See the below section on "Modify the kubelet ConfigMap" for details on
+See the below section on "[Modify the kubelet ConfigMap](#modify-the-kubelet-configmap)" for details on
 how to be explicit about the value.
 
 If you wish to configure a container runtime to use the `cgroupfs` driver,
@@ -96,9 +94,7 @@ nodes before deleting the old nodes.
 
 ### Modify the kubelet ConfigMap
 
-- Find the kubelet ConfigMap name using `kubectl get cm -n kube-system | grep kubelet-config`.
-- Call `kubectl edit cm kubelet-config-x.yy -n kube-system` (replace `x.yy` with
-the Kubernetes version).
+- Call `kubectl edit cm kubelet-config -n kube-system`.
 - Either modify the existing `cgroupDriver` value or add a new field that looks like this:
 
   ```yaml

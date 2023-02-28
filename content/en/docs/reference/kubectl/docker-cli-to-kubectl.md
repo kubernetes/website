@@ -4,6 +4,7 @@ content_type: concept
 reviewers:
 - brendandburns
 - thockin
+weight: 50
 ---
 
 <!-- overview -->
@@ -187,7 +188,7 @@ kubectl exec -ti nginx-app-5jyvm -- /bin/sh
 # exit
 ```
 
-For more information, see [Get a Shell to a Running Container](/docs/tasks/debug-application-cluster/get-shell-running-container/).
+For more information, see [Get a Shell to a Running Container](/docs/tasks/debug/debug-application/get-shell-running-container/).
 
 ## docker logs
 

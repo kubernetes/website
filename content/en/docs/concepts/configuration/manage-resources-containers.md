@@ -47,10 +47,9 @@ or by enforcement (the system prevents the container from ever exceeding the lim
 runtimes can have different ways to implement the same restrictions.
 
 {{< note >}}
-If a container specifies its own memory limit, but does not specify a memory request, Kubernetes
-automatically assigns a memory request that matches the limit. Similarly, if a container specifies its own
-CPU limit, but does not specify a CPU request, Kubernetes automatically assigns a CPU request that matches
-the limit.
+If you specify a limit for a resource, but do not specify any request, and no admission-time
+mechanism has applied a default request for that resource, then Kubernetes copies the limit
+you specified and uses it as the requested value for the resource.
 {{< /note >}}
 
 ## Resource types
@@ -134,7 +133,7 @@ Mi, Ki. For example, the following represent roughly the same value:
 128974848, 129e6, 129M,  128974848000m, 123Mi
 ```
 
-Take care about case for suffixes. If you request `400m` of memory, this is a request
+Pay attention to the case of the suffixes. If you request `400m` of memory, this is a request
 for 0.4 bytes. Someone who types that probably meant to ask for 400 mebibytes (`400Mi`)
 or 400 megabytes (`400M`).
 
@@ -229,15 +228,15 @@ see the [Troubleshooting](#troubleshooting) section.
 The kubelet reports the resource usage of a Pod as part of the Pod
 [`status`](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status).
 
-If optional [tools for monitoring](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)
+If optional [tools for monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 are available in your cluster, then Pod resource usage can be retrieved either
-from the [Metrics API](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#the-metrics-api)
+from the [Metrics API](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-api)
 directly or from your monitoring tools.
 
 ## Local ephemeral storage
 
 <!-- feature gate LocalStorageCapacityIsolation -->
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 Nodes have local ephemeral storage, backed by
 locally-attached writeable devices or, sometimes, by RAM.
@@ -307,13 +306,8 @@ as you like.
 {{< /tabs >}}
 
 The kubelet can measure how much local storage it is using. It does this provided
-that:
-
-- the `LocalStorageCapacityIsolation`
-  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  is enabled (the feature is on by default), and
-- you have set up the node using one of the supported configurations
-  for local ephemeral storage.
+that you have set up the node using one of the supported configurations for local
+ephemeral storage.
 
 If you have a different configuration, then the kubelet does not apply resource
 limits for ephemeral local storage.
@@ -321,6 +315,10 @@ limits for ephemeral local storage.
 {{< note >}}
 The kubelet tracks `tmpfs` emptyDir volumes as container memory use, rather
 than as local ephemeral storage.
+{{< /note >}}
+
+{{< note >}}
+The kubelet will only track the root filesystem for ephemeral storage. OS layouts that mount a separate disk to `/var/lib/kubelet` or `/var/lib/containers` will not report ephemeral storage correctly.
 {{< /note >}}
 
 ### Setting requests and limits for local ephemeral storage
@@ -333,7 +331,7 @@ container of a Pod can specify either or both of the following:
 
 Limits and requests for `ephemeral-storage` are measured in byte quantities.
 You can express storage as a plain integer or as a fixed-point number using one of these suffixes:
-E, P, T, G, M, K. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
+E, P, T, G, M, k. You can also use the power-of-two equivalents: Ei, Pi, Ti, Gi,
 Mi, Ki. For example, the following quantities all represent roughly the same value:
 
 - `128974848`
@@ -341,10 +339,15 @@ Mi, Ki. For example, the following quantities all represent roughly the same val
 - `129M`
 - `123Mi`
 
+Pay attention to the case of the suffixes. If you request `400m` of ephemeral-storage, this is a request
+for 0.4 bytes. Someone who types that probably meant to ask for 400 mebibytes (`400Mi`)
+or 400 megabytes (`400M`).
+
 In the following example, the Pod has two containers. Each container has a request of
 2GiB of local ephemeral storage. Each container has a limit of 4GiB of local ephemeral
 storage. Therefore, the Pod has a request of 4GiB of local ephemeral storage, and
-a limit of 8GiB of local ephemeral storage.
+a limit of 8GiB of local ephemeral storage. 500Mi of that limit could be
+consumed by the `emptyDir` volume.
 
 ```yaml
 apiVersion: v1
@@ -375,7 +378,8 @@ spec:
       mountPath: "/tmp"
   volumes:
     - name: ephemeral
-      emptyDir: {}
+      emptyDir:
+        sizeLimit: 500Mi
 ```
 
 ### How Pods with ephemeral-storage requests are scheduled
@@ -709,13 +713,13 @@ Allocated resources:
   680m (34%)      400m (20%)    920Mi (11%)        1070Mi (13%)
 ```
 
-In the preceding output, you can see that if a Pod requests more than 1.120 CPUs,
+In the preceding output, you can see that if a Pod requests more than 1.120 CPUs
 or more than 6.23Gi of memory, that Pod will not fit on the node.
 
 By looking at the “Pods” section, you can see which Pods are taking up space on
 the node.
 
-The amount of resources available to Pods is less than the node capacity, because
+The amount of resources available to Pods is less than the node capacity because
 system daemons use a portion of the available resources. Within the Kubernetes API,
 each Node has a `.status.allocatable` field
 (see [NodeStatus](/docs/reference/kubernetes-api/cluster-resources/node-v1/#NodeStatus)
@@ -736,7 +740,7 @@ prevent one team from using so much of any resource that this over-use affects o
 
 You should also consider what access you grant to that namespace:
 **full** write access to a namespace allows someone with that access to remove any
-resource, include a configured ResourceQuota.
+resource, including a configured ResourceQuota.
 
 ### My container is terminated
 
@@ -800,7 +804,8 @@ memory limit (and possibly request) for that container.
 * Get hands-on experience [assigning Memory resources to containers and Pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
 * Get hands-on experience [assigning CPU resources to containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
 * Read how the API reference defines a [container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
-  and its [resource requirements](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)
-* Read about [project quotas](https://xfs.org/docs/xfsdocs-xml-dev/XFS_User_Guide/tmp/en-US/html/xfs-quotas.html) in XFS
+  and its [resource requirements](/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)
+* Read about [project quotas](https://xfs.org/index.php/XFS_FAQ#Q:_Quota:_Do_quotas_work_on_XFS.3F) in XFS
 * Read more about the [kube-scheduler configuration reference (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+* Read more about [Quality of Service classes for Pods](/docs/concepts/workloads/pods/pod-qos/)
 

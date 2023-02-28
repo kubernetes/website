@@ -1,11 +1,11 @@
 ---
 title: 쿠버네티스 보안과 공개 정보
 aliases: [/ko/security/]
-
-
-
-
-
+# reviewers:
+# - eparis
+# - erictune
+# - philips
+# - jessfraz
 content_type: concept
 weight: 20
 ---
@@ -18,8 +18,6 @@ weight: 20
 ## 보안 공지
 
 보안 및 주요 API 공지에 대한 이메일을 위해서는 [kubernetes-security-announce](https://groups.google.com/forum/#!forum/kubernetes-security-announce)) 그룹에 가입한다.
-
-[이 링크](https://groups.google.com/forum/feed/kubernetes-security-announce/msgs/rss_v2_0.xml?num=50)를 사용하여 RSS 피드도 구독할 수 있다.
 
 ## 취약점 보고
 

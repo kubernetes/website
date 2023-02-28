@@ -18,7 +18,7 @@ weight: 10
 
 - JSONではなくYAMLを使って設定ファイルを書いてください。これらのフォーマットはほとんどすべてのシナリオで互換的に使用できますが、YAMLはよりユーザーフレンドリーになる傾向があります。
 
-- 意味がある場合は常に、関連オブジェクトを単一ファイルにグループ化します。多くの場合、1つのファイルの方が管理が簡単です。例として[guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/all-in-one/guestbook-all-in-one.yaml)ファイルを参照してください。
+- 意味がある場合は常に、関連オブジェクトを単一ファイルにグループ化します。多くの場合、1つのファイルの方が管理が簡単です。例として[guestbook-all-in-one.yaml](https://github.com/kubernetes/examples/tree/master/guestbook/all-in-one/guestbook-all-in-one.yaml)ファイルを参照してください。
 
 - 多くの`kubectl`コマンドがディレクトリに対しても呼び出せることも覚えておきましょう。たとえば、設定ファイルのディレクトリで `kubectl apply`を呼び出すことができます。
 
@@ -58,11 +58,11 @@ weight: 10
 
 ## ラベルの使用
 
-- `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`のように、アプリケーションまたはデプロイメントの __セマンティック属性__ を識別する[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)を定義して使いましょう。これらのラベルを使用して、他のリソースに適切なPodを選択できます。例えば、すべての`tier：frontend`を持つPodを選択するServiceや、`app：myapp`に属するすべての`phase：test`コンポーネント、などです。このアプローチの例を知るには、[ゲストブック](https://github.com/kubernetes/examples/tree/{{< param "githubbranch" >}}/guestbook/)アプリも合わせてご覧ください。
+- `{ app: myapp, tier: frontend, phase: test, deployment: v3 }`のように、アプリケーションまたはデプロイメントの __セマンティック属性__ を識別する[ラベル](/ja/docs/concepts/overview/working-with-objects/labels/)を定義して使いましょう。これらのラベルを使用して、他のリソースに適切なPodを選択できます。例えば、すべての`tier：frontend`を持つPodを選択するServiceや、`app：myapp`に属するすべての`phase：test`コンポーネント、などです。このアプローチの例を知るには、[ゲストブック](https://github.com/kubernetes/examples/tree/master/guestbook/)アプリも合わせてご覧ください。
 
 セレクターからリリース固有のラベルを省略することで、Serviceを複数のDeploymentにまたがるように作成できます。 [Deployment](/ja/docs/concepts/workloads/controllers/deployment/)により、ダウンタイムなしで実行中のサービスを簡単に更新できます。
 
-オブジェクトの望ましい状態はDeploymentによって記述され、その仕様への変更が _適用_ されると、Deploymentコントローラは制御された速度で実際の状態を望ましい状態に変更します。
+オブジェクトの望ましい状態はDeploymentによって記述され、その仕様への変更が _適用_ されると、Deploymentコントローラーは制御された速度で実際の状態を望ましい状態に変更します。
 
 - デバッグ用にラベルを操作できます。Kubernetesコントローラー（ReplicaSetなど）とServiceはセレクターラベルを使用してPodとマッチするため、Podから関連ラベルを削除すると、コントローラーによって考慮されたり、Serviceによってトラフィックを処理されたりすることがなくなります。既存のPodのラベルを削除すると、そのコントローラーはその代わりに新しいPodを作成します。これは、「隔離」環境で以前の「ライブ」Podをデバッグするのに便利な方法です。対話的にラベルを削除または追加するには、[`kubectl label`](/docs/reference/generated/kubectl/kubectl-commands#label)を使います。
 

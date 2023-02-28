@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - janetkuo
 title: 리소스 관리
 content_type: concept
 weight: 40
@@ -154,7 +154,7 @@ deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
 ```
 
-`kubectl` 에 대해 더 자세히 알고 싶다면, [kubectl 개요](/ko/docs/reference/kubectl/overview/)를 참조한다.
+`kubectl` 에 대해 더 자세히 알고 싶다면, [명령줄 도구 (kubectl)](/ko/docs/reference/kubectl/)를 참조한다.
 
 ## 효과적인 레이블 사용
 
@@ -397,7 +397,7 @@ deployment.apps/my-nginx configured
 rm /tmp/nginx.yaml
 ```
 
-이를 통해 보다 중요한 변경을 더 쉽게 ​​수행할 수 있다. 참고로 `EDITOR` 또는 `KUBE_EDITOR` 환경 변수를 사용하여 편집기를 지정할 수 있다.
+이를 통해 보다 중요한 변경을 더 쉽게 수행할 수 있다. 참고로 `EDITOR` 또는 `KUBE_EDITOR` 환경 변수를 사용하여 편집기를 지정할 수 있다.
 
 더 자세한 내용은, [kubectl edit](/docs/reference/generated/kubectl/kubectl-commands/#edit) 문서를 참고하길 바란다.
 
@@ -454,12 +454,12 @@ deployment.apps/my-nginx scaled
 kubectl edit deployment/my-nginx
 ```
 
-이것으로 끝이다! 디플로이먼트는 배포된 nginx 애플리케이션을 배후에서 점차적으로 업데이트한다. 업데이트되는 동안 특정 수의 이전 레플리카만 중단될 수 있으며, 원하는 수의 파드 위에 특정 수의 새 레플리카만 생성될 수 있다. 이에 대한 더 자세한 내용을 보려면, [디플로이먼트 페이지](/ko/docs/concepts/workloads/controllers/deployment/)를 방문한다.
+이것으로 끝이다! 디플로이먼트는 배포된 nginx 애플리케이션을 배후에서 점차적으로 업데이트한다. 업데이트되는 동안 특정 수의 이전 레플리카만 중단될 수 있으며, 원하는 수의 파드 위에 특정 수의 새 레플리카만 생성될 수 있다. 이에 대한 더 자세한 내용을 보려면, [디플로이먼트 페이지](/ko/docs/tasks/debug/debug-application/debug-running-pod/)를 방문한다.
 
 
 
 ## {{% heading "whatsnext" %}}
 
 
-- [애플리케이션 검사 및 디버깅에 `kubectl` 을 사용하는 방법](/docs/tasks/debug-application-cluster/debug-application-introspection/)에 대해 알아본다.
+- [애플리케이션 검사 및 디버깅에 `kubectl` 을 사용하는 방법](/ko/docs/tasks/debug/debug-application/debug-running-pod/)에 대해 알아본다.
 - [구성 모범 사례 및 팁](/ko/docs/concepts/configuration/overview/)을 참고한다.

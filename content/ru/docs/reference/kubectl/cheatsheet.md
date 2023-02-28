@@ -235,7 +235,7 @@ kubectl get pod mypod -o yaml | sed 's/\(image: myimage\):.*$/\1:v4/' | kubectl 
 
 kubectl label pods my-pod new-label=awesome                      # Добавить метку
 kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq       # Добавить аннотацию
-kubectl autoscale deployment foo --min=2 --max=10                # Автоматически промасштабировать развёртывание "foo"
+kubectl autoscale deployment foo --min=2 --max=10                # Автоматически масштабировать развёртывание "foo" в диапазоне от 2 до 10 подов
 ```
 
 ## Обновление ресурсов
@@ -269,10 +269,10 @@ KUBE_EDITOR="nano" kubectl edit svc/docker-registry   # Использовать
 ## Масштабирование ресурсов
 
 ```bash
-kubectl scale --replicas=3 rs/foo                                 # Промасштабировать набор реплик (replicaset) 'foo' до 3
-kubectl scale --replicas=3 -f foo.yaml                            # Промасштабировать ресурс в "foo.yaml" до 3
-kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # Если количество реплик в развёртывании mysql равен 2, промасштабировать его до 3
-kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Промасштабировать несколько контроллеров репликации
+kubectl scale --replicas=3 rs/foo                                 # Масштабирование набора реплик (replicaset) 'foo' до 3
+kubectl scale --replicas=3 -f foo.yaml                            # Масштабирование ресурса в "foo.yaml" до 3
+kubectl scale --current-replicas=2 --replicas=3 deployment/mysql  # Если количество реплик в развёртывании mysql равен 2, масштабировать его до 3
+kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # Масштабирование нескольких контроллеров репликации до 5
 ```
 
 ## Удаление ресурсов
@@ -362,7 +362,7 @@ kubectl api-resources --api-group=extensions # Все ресурсы в API-гр
 
 ### Уровни детальности вывода и отладки в Kubectl
 
-Уровни детальности вывода Kubectl регулируются с помощью флагов `-v` или `--v`, за которыми следует целое число, представляющее уровни логирования. Общие соглашения по логированиия Kubernetes и связанные с ними уровни описаны [здесь](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
+Уровни детальности вывода Kubectl регулируются с помощью флагов `-v` или `--v`, за которыми следует целое число, представляющее уровни логирования. Общие соглашения по логированию Kubernetes и связанные с ними уровни описаны [здесь](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md).
 
 
 Уровень детальности | Описание

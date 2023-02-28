@@ -3,7 +3,7 @@ reviewers:
 - stclair
 title: Restrict a Container's Access to Resources with AppArmor
 content_type: tutorial
-weight: 10
+weight: 30
 ---
 
 <!-- overview -->
@@ -106,7 +106,7 @@ on nodes by checking the node ready condition message (though this is likely to 
 later release):
 
 ```shell
-kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {.status.conditions[?(@.reason=="KubeletReady")].message}\n{end}'
+kubectl get nodes -o=jsonpath='{range .items[*]}{@.metadata.name}: {.status.conditions[?(@.reason=="KubeletReady")].message}{"\n"}{end}'
 ```
 ```
 gke-test-default-pool-239f5d02-gyn2: kubelet is posting ready status. AppArmor enabled
@@ -158,7 +158,7 @@ kubectl get events | grep Created
 You can also verify directly that the container's root process is running with the correct profile by checking its proc attr:
 
 ```shell
-kubectl exec <pod_name> cat /proc/1/attr/current
+kubectl exec <pod_name> -- cat /proc/1/attr/current
 ```
 ```
 k8s-apparmor-example-deny-write (enforce)
@@ -264,7 +264,7 @@ metadata:
 spec:
   containers:
   - name: hello
-    image: busybox
+    image: busybox:1.28
     command: [ "sh", "-c", "echo 'Hello AppArmor!' && sleep 1h" ]
 EOF
 pod/hello-apparmor-2 created
@@ -330,7 +330,7 @@ Note the pod status is Pending, with a helpful error message: `Pod Cannot enforc
 ### Setting up nodes with profiles
 
 Kubernetes does not currently provide any native mechanisms for loading AppArmor profiles onto
-nodes. There are lots of ways to setup the profiles though, such as:
+nodes. There are lots of ways to set up the profiles though, such as:
 
 * Through a [DaemonSet](/docs/concepts/workloads/controllers/daemonset/) that runs a Pod on each node to
   ensure the correct profiles are loaded. An example implementation can be found
@@ -346,33 +346,6 @@ class of profiles) on the node, and use a
 [node selector](/docs/concepts/scheduling-eviction/assign-pod-node/) to ensure the Pod is run on a
 node with the required profile.
 
-### Restricting profiles with the PodSecurityPolicy
-
-{{< note >}}
-PodSecurityPolicy is deprecated in Kubernetes v1.21, and will be removed in v1.25.
-See [PodSecurityPolicy documentation](/docs/concepts/policy/pod-security-policy/) for more information.
-{{< /note >}}
-
-If the PodSecurityPolicy extension is enabled, cluster-wide AppArmor restrictions can be applied. To
-enable the PodSecurityPolicy, the following flag must be set on the `apiserver`:
-
-```
---enable-admission-plugins=PodSecurityPolicy[,others...]
-```
-
-The AppArmor options can be specified as annotations on the PodSecurityPolicy:
-
-```yaml
-apparmor.security.beta.kubernetes.io/defaultProfileName: <profile_ref>
-apparmor.security.beta.kubernetes.io/allowedProfileNames: <profile_ref>[,others...]
-```
-
-The default profile name option specifies the profile to apply to containers by default when none is
-specified. The allowed profile names option specifies a list of profiles that Pod containers are
-allowed to be run with. If both options are provided, the default must be allowed. The profiles are
-specified in the same format as on containers. See the [API Reference](#api-reference) for the full
-specification.
-
 ### Disabling AppArmor
 
 If you do not want AppArmor to be available on your cluster, it can be disabled by a command-line flag:
@@ -382,27 +355,13 @@ If you do not want AppArmor to be available on your cluster, it can be disabled 
 ```
 
 When disabled, any Pod that includes an AppArmor profile will fail validation with a "Forbidden"
-error. Note that by default docker always enables the "docker-default" profile on non-privileged
-pods (if the AppArmor kernel module is enabled), and will continue to do so even if the feature-gate
-is disabled. The option to disable AppArmor will be removed when AppArmor graduates to general
+error.
+
+{{<note>}}
+Even if the Kubernetes feature is disabled, runtimes may still enforce the default profile. The
+option to disable the AppArmor feature will be removed when AppArmor graduates to general
 availability (GA).
-
-### Upgrading to Kubernetes v1.4 with AppArmor
-
-No action is required with respect to AppArmor to upgrade your cluster to v1.4. However, if any
-existing pods had an AppArmor annotation, they will not go through validation (or PodSecurityPolicy
-admission). If permissive profiles are loaded on the nodes, a malicious user could pre-apply a
-permissive profile to escalate the pod privileges above the docker-default. If this is a concern, it
-is recommended to scrub the cluster of any pods containing an annotation with
-`apparmor.security.beta.kubernetes.io`.
-
-### Upgrade path to General Availability
-
-When AppArmor is ready to be graduated to general availability (GA), the options currently specified
-through annotations will be converted to fields. Supporting all the upgrade and downgrade paths
-through the transition is very nuanced, and will be explained in detail when the transition
-occurs. We will commit to supporting both fields and annotations for at least 2 releases, and will
-explicitly reject the annotations for at least 2 releases after that.
+{{</note>}}
 
 ## Authoring Profiles
 
@@ -414,10 +373,6 @@ tools to help with that:
   [AppArmor documentation](https://gitlab.com/apparmor/apparmor/wikis/Profiling_with_tools).
 * [bane](https://github.com/jfrazelle/bane) is an AppArmor profile generator for Docker that uses a
   simplified profile language.
-
-It is recommended to run your application through Docker on a development workstation to generate
-the profiles, but there is nothing preventing running the tools on the Kubernetes node where your
-Pod is running.
 
 To debug problems with AppArmor, you can check the system logs to see what, specifically, was
 denied. AppArmor logs verbose messages to `dmesg`, and errors can usually be found in the system
@@ -439,33 +394,16 @@ Specifying the profile a container will run with:
 ### Profile Reference
 
 - `runtime/default`: Refers to the default runtime profile.
-  - Equivalent to not specifying a profile (without a PodSecurityPolicy default), except it still
+  - Equivalent to not specifying a profile, except it still
     requires AppArmor to be enabled.
-  - For Docker, this resolves to the
-    [`docker-default`](https://docs.docker.com/engine/security/apparmor/) profile for non-privileged
-    containers, and unconfined (no profile) for privileged containers.
+  - In practice, many container runtimes use the same OCI default profile, defined here:
+    https://github.com/containers/common/blob/main/pkg/apparmor/apparmor_linux_template.go
 - `localhost/<profile_name>`: Refers to a profile loaded on the node (localhost) by name.
   - The possible profile names are detailed in the
     [core policy reference](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Core_Policy_Reference#profile-names-and-attachment-specifications).
 - `unconfined`: This effectively disables AppArmor on the container.
 
 Any other profile reference format is invalid.
-
-### PodSecurityPolicy Annotations
-
-Specifying the default profile to apply to containers when none is provided:
-
-* **key**: `apparmor.security.beta.kubernetes.io/defaultProfileName`
-* **value**: a profile reference, described above
-
-Specifying the list of profiles Pod containers is allowed to specify:
-
-* **key**: `apparmor.security.beta.kubernetes.io/allowedProfileNames`
-* **value**: a comma-separated list of profile references (described above)
-  - Although an escaped comma is a legal character in a profile name, it cannot be explicitly
-    allowed here.
-
-
 
 ## {{% heading "whatsnext" %}}
 
@@ -474,5 +412,3 @@ Additional resources:
 
 * [Quick guide to the AppArmor profile language](https://gitlab.com/apparmor/apparmor/wikis/QuickProfileLanguage)
 * [AppArmor core policy reference](https://gitlab.com/apparmor/apparmor/wikis/Policy_Layout)
-
-

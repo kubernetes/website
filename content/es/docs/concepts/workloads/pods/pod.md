@@ -129,7 +129,7 @@ Un ejemplo del ciclo de terminación de un Pod:
 1. El Kubelet terminará de eliminar el Pod en el servidor API configurando el período de gracia 0 (eliminación inmediata). El Pod desaparece de la API y ya no es visible desde el cliente.
 
 Por defecto, todas las eliminaciones se realizan correctamente en 30 segundos. El comando `kubectl delete` admite la opción` --grace-period = <seconds> `que permite al usuario anular el valor predeterminado y especificar su propio valor. El valor `0` [forzar eliminación](/es/docs/concepts/workloads/pods/pod/#forzar-destrucción-de-pods) del Pod.
-Debe especificar un indicador adicional `--force` junto con` --grace-period = 0` para realizar eliminaciones forzadas.
+Debe especificar un indicador adicional `--force` junto con `--grace-period = 0` para realizar eliminaciones forzadas.
 
 ### Forzar destrucción de Pods
 

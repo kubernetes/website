@@ -8,7 +8,7 @@ content_type: tutorial
 
 <!-- overview -->
 
-This page provides a real world example of how to configure Redis using a ConfigMap and builds upon the [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task. 
+This page provides a real world example of how to configure Redis using a ConfigMap and builds upon the [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) task. 
 
 
 
@@ -27,7 +27,7 @@ This page provides a real world example of how to configure Redis using a Config
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 * The example shown on this page works with `kubectl` 1.14 and above.
-* Understand [Configure Containers Using a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
+* Understand [Configure a Pod to Use a ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 
 
 
@@ -78,7 +78,7 @@ kubectl get pod/redis configmap/example-redis-config
 
 You should see the following output:
 
-```shell
+```
 NAME        READY   STATUS    RESTARTS   AGE
 pod/redis   1/1     Running   0          8s
 

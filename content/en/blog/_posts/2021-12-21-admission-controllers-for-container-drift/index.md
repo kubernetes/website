@@ -67,8 +67,11 @@ As you can see in the above event messages, the affected Pod is not evicted imme
 
 For our production clusters, we specify a lower time limit so as to avoid the impacted Pods serving traffic abidingly. The *kube-exec-controller* internally sets and tracks a timer for each Pod that matches the associated TTL. Once the timer is up, the controller evicts that Pod using K8s API. The eviction (rather than deletion) is to ensure service availability, since the cluster respects any configured [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) (PDB). Let's say if a user has defined *x* number of Pods as critical in their PDB, the eviction (as requested by *kube-exec-controller*) does not continue when the target workload has fewer than *x* Pods running.
 
-Here comes a sequence diagram of the entire workflow mentioned above: 
-{{< figure src="workflow-diagram.svg" alt="Workflow Diagram" class="diagram-medium" >}}
+Here comes a sequence diagram of the entire workflow mentioned above:
+
+ <!-- Mermaid Live Editor link - https://mermaid-js.github.io/mermaid-live-editor/edit/#pako:eNp9kjFPAzEMhf-KlalIbWd0QpUQdGJB3JrFTUyJmjhHzncFof53nGtpqYTYEuu958-Wv4zLnkxjenofiB09BtwWTJbRSS6QCLCHu01ZPdJIMXdUYNZTGYOjRd4zlRvLHRYJLnTIArvbtozV83TbAnZhUcVUrkXo04OU2I6uKu99Cn0fMsNDZik5Rm3SHntYTrRYrabUBl4GBmt2w4acRKAPcrBcLq0Bl1NC9pYnoRouHZopX9RX9aotddJeADaf4DDGwFuQN4IRY_Ao9bunzVvOO13COeYCcR9j3k-OCQDP9KfgC8TJsFbZIHSxnGljzp1lgKs2v9HXugMBwe2WPHTZ94CvottB6Ap5eg2s9cBaUnrLVEP_Yp5ynrOf3fxPV2V1lBOhmZtEJWHweiFfldQa1SWyptGnAuAQxRrLB5UOna6P1j7o4ZhGykBzg4Pk9pPdz_-oOR3ZsXj4BjrP5rU-->
+
+![Sequence Diagram](/images/sequence_diagram.svg)
 
 ## A new kubectl plugin for better user experience
 Our admission controller component works great for solving the container drift issue we had on the platform. It is also able to submit all related Events to the target Pod that has been affected. However, K8s clusters don't retain Events very long (the default retention period is one hour). We need to provide other ways for developers to get their Pod interaction activity. A [kubectl plugin](/docs/tasks/extend-kubectl/kubectl-plugins/) is a perfect choice for us to expose this information. We named our plugin `kubectl pi` (short for `pod-interaction`) and provide two subcommands: `get` and `extend`.

@@ -4,7 +4,7 @@ id: namespace
 date: 2018-04-12
 full_link: /docs/concepts/overview/working-with-objects/namespaces
 short_description: >
-  An abstraction used by Kubernetes to support multiple virtual clusters on the same physical cluster.
+  An abstraction used by Kubernetes to support isolation of groups of resources within a single cluster.
 
 aka: 
 tags:

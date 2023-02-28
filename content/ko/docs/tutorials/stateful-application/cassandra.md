@@ -1,5 +1,7 @@
 ---
 title: "예시: 카산드라를 스테이트풀셋으로 배포하기"
+# reviewers:
+# - ahmetb
 content_type: tutorial
 weight: 30
 ---
@@ -93,7 +95,7 @@ cassandra   ClusterIP   None         <none>        9042/TCP   45s
 ```
 
 `cassandra` 서비스가 보이지 않는다면, 이와 다른 응답이라면 서비스 생성에 실패한 것이다. 일반적인 문제에 대한
-[서비스 디버깅하기](/docs/tasks/debug-application-cluster/debug-service/)를
+[서비스 디버깅하기](/docs/tasks/debug/debug-application/debug-service/)를
 읽어보자.
 
 ## 카산드라 링을 생성하는 스테이트풀셋 이용하기
@@ -283,6 +285,6 @@ kubectl apply -f cassandra-statefulset.yaml
 ## {{% heading "whatsnext" %}}
 
 
-* 어떻게 [스테이트풀셋 스케일](/docs/tasks/run-application/scale-stateful-set/)하는지 살펴본다.
+* 어떻게 [스테이트풀셋 스케일](/ko/docs/tasks/run-application/scale-stateful-set/)하는지 살펴본다.
 * [*쿠버네티스시드제공자*](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)에 대해 더 살펴본다.
 * 커스텀 [시드 제공자 설정](https://git.k8s.io/examples/cassandra/java/README.md)를 살펴본다.

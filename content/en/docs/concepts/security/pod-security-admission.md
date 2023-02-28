@@ -8,63 +8,27 @@ description: >
   Standards.
 content_type: concept
 weight: 20
-min-kubernetes-server-version: v1.22
 ---
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 The Kubernetes [Pod Security Standards](/docs/concepts/security/pod-security-standards/) define
 different isolation levels for Pods. These standards let you define how you want to restrict the
 behavior of pods in a clear, consistent fashion.
 
-As an Beta feature, Kubernetes offers a built-in _Pod Security_ {{< glossary_tooltip
-text="admission controller" term_id="admission-controller" >}}, the successor
-to [PodSecurityPolicies](/docs/concepts/policy/pod-security-policy/). Pod security restrictions
-are applied at the {{< glossary_tooltip text="namespace" term_id="namespace" >}} level when pods
-are created.
+Kubernetes offers a built-in _Pod Security_ {{< glossary_tooltip text="admission controller"
+term_id="admission-controller" >}} to enforce the Pod Security Standards. Pod security restrictions
+are applied at the {{< glossary_tooltip text="namespace" term_id="namespace" >}} level when pods are
+created.
 
-{{< note >}}
-The PodSecurityPolicy API is deprecated and will be 
-[removed](/docs/reference/using-api/deprecation-guide/#v1-25) from Kubernetes in v1.25.
-{{< /note >}}
+### Built-in Pod Security admission enforcement
+
+This page is part of the documentation for Kubernetes v{{< skew currentVersion >}}.
+If you are running a different version of Kubernetes, consult the documentation for that release.
 
 <!-- body -->
-
-## Enabling the `PodSecurity` admission plugin
-
-In v1.23, the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is a Beta feature and is enabled by default.
-
-In v1.22, the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is an Alpha feature and must be enabled in `kube-apiserver` in order to use the built-in admission plugin.
-
-```shell
---feature-gates="...,PodSecurity=true"
-```
-
-## Alternative: installing the `PodSecurity` admission webhook {#webhook}
-
-For environments where the built-in `PodSecurity` admission plugin cannot be used,
-either because the cluster is older than v1.22, or the `PodSecurity` feature cannot be enabled,
-the `PodSecurity` admission logic is also available as a Beta [validating admission webhook](https://git.k8s.io/pod-security-admission/webhook).
-
-A pre-built container image, certificate generation scripts, and example manifests
-are available at [https://git.k8s.io/pod-security-admission/webhook](https://git.k8s.io/pod-security-admission/webhook).
-
-To install:
-```shell
-git clone git@github.com:kubernetes/pod-security-admission.git
-cd pod-security-admission/webhook
-make certs
-kubectl apply -k .
-```
-
-{{< note >}}
-The generated certificate is valid for 2 years. Before it expires,
-regenerate the certificate or remove the webhook in favor of the built-in admission plugin.
-{{< /note >}}
 
 ## Pod Security levels
 
@@ -88,7 +52,7 @@ takes if a potential violation is detected:
 Mode | Description
 :---------|:------------
 **enforce** | Policy violations will cause the pod to be rejected.
-**audit** | Policy violations will trigger the addition of an audit annotation to the event recorded in the [audit log](/docs/tasks/debug-application-cluster/audit/), but are otherwise allowed.
+**audit** | Policy violations will trigger the addition of an audit annotation to the event recorded in the [audit log](/docs/tasks/debug/debug-cluster/audit/), but are otherwise allowed.
 **warn** | Policy violations will trigger a user-facing warning, but are otherwise allowed.
 {{< /table >}}
 
@@ -104,7 +68,7 @@ For each mode, there are two labels that determine the policy used:
 pod-security.kubernetes.io/<MODE>: <LEVEL>
 
 # Optional: per-mode version label that can be used to pin the policy to the
-# version that shipped with a given Kubernetes minor version (for example v{{< skew latestVersion >}}).
+# version that shipped with a given Kubernetes minor version (for example v{{< skew currentVersion >}}).
 #
 # MODE must be one of `enforce`, `audit`, or `warn`.
 # VERSION must be a valid Kubernetes minor version, or `latest`.
@@ -125,7 +89,7 @@ applied to workload resources, only to the resulting pod objects.
 
 ## Exemptions
 
-You can define _exemptions_ from pod security enforcement in order allow the creation of pods that
+You can define _exemptions_ from pod security enforcement in order to allow the creation of pods that
 would have otherwise been prohibited due to the policy associated with a given namespace.
 Exemptions can be statically configured in the
 [Admission Controller configuration](/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller).
@@ -167,4 +131,7 @@ current policy level:
 - [Enforcing Pod Security Standards](/docs/setup/best-practices/enforcing-pod-security-standards)
 - [Enforce Pod Security Standards by Configuring the Built-in Admission Controller](/docs/tasks/configure-pod-container/enforce-standards-admission-controller)
 - [Enforce Pod Security Standards with Namespace Labels](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels)
-- [Migrate from PodSecurityPolicy to the Built-In PodSecurity Admission Controller](/docs/tasks/configure-pod-container/migrate-from-psp)
+
+If you are running an older version of Kubernetes and want to upgrade
+to a version of Kubernetes that does not include PodSecurityPolicies,
+read [migrate from PodSecurityPolicy to the Built-In PodSecurity Admission Controller](/docs/tasks/configure-pod-container/migrate-from-psp).

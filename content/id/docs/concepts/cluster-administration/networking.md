@@ -139,7 +139,7 @@ DOCKER_OPTS="--bridge=cbr0 --iptables=false --ip-masq=false"
 
 Jembatan ini dibuat oleh Kubelet (dikontrol oleh _flag_ `--network-plugin=kubenet`) sesuai dengan `.spec.podCIDR` yang dimiliki oleh Node.
 
-Docker sekarang akan mengalokasikan IP dari blok `cbr-cidr`. Kontainer dapat menjangkau satu sama lain dan Node di atas jembatan` cbr0`. IP-IP tersebut semuanya dapat dirutekan dalam jaringan proyek GCE.
+Docker sekarang akan mengalokasikan IP dari blok `cbr-cidr`. Kontainer dapat menjangkau satu sama lain dan Node di atas jembatan `cbr0`. IP-IP tersebut semuanya dapat dirutekan dalam jaringan proyek GCE.
 
 GCE sendiri tidak tahu apa-apa tentang IP ini, jadi tidak akan NAT untuk lalu lintas internet keluar. Untuk mencapai itu aturan iptables digunakan untuk menyamar (alias SNAT - untuk membuatnya seolah-olah paket berasal dari lalu lintas `Node` itu sendiri) yang terikat untuk IP di luar jaringan proyek GCE (10.0.0.0/8).
 

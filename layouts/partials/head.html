@@ -1,20 +1,12 @@
 {{- $isBlogPost := eq .Section "blog" }}
 {{- $ogType := cond (.IsHome) "website" "article" }}
-<!-- per-page robot indexing controls -->
-{{- if hugo.IsProduction -}}
-<meta name="ROBOTS" content="INDEX, FOLLOW">
-{{- else -}}
-<meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
-{{- end -}}
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-36037335-10"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'UA-36037335-10');
-</script>
+{{ $outputFormat := partial "outputformat.html" . -}}
+{{ if and hugo.IsProduction (ne $outputFormat "print") -}}
+<meta name="robots" content="index, follow">
+{{ else -}}
+<meta name="robots" content="noindex, nofollow">
+{{ end -}}
 
 <!-- alternative translations -->
 {{ range .Translations -}}
@@ -31,17 +23,12 @@
 {{ partialCached "favicons.html" . }}
 <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ with .Title }}{{ . }} | {{ end }}{{ .Site.Title }}{{ end }}</title>
 {{- template "_internal/opengraph.html" . -}}
-{{- template "_internal/google_news.html" . -}}
 {{- template "_internal/schema.html" . -}}
 {{- template "_internal/twitter_cards.html" . -}}
 {{- if hugo.IsProduction -}}
-{{ template "_internal/google_analytics_async.html" . }}
+{{ template "_internal/google_analytics.html" . }}
 {{ end }}
 {{ partialCached "head-css.html" . "asdf" }}
-<script
-  src="{{ "js/jquery-3.3.1.min.js" | relURL }}"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
 {{ if and (.Site.Params.offlineSearch) (not .Site.Params.gcs_engine_id) }}
 <script src="https://unpkg.com/lunr@2.1.6/lunr.js"></script>
 <script src="/js/offline-search.js"></script>
@@ -88,10 +75,19 @@
 <meta property="og:type" content="{{ $ogType }}">
 
 {{ if .HasShortcode "mermaid" }}
-<!-- Copied from https://unpkg.com/mermaid@8.11.2/dist/mermaid.min.js -->
-<script async src="{{ "js/mermaid.min.js" | relURL }}"></script>
+<!-- Copied from https://unpkg.com/mermaid@8.13.4/dist/mermaid.min.js -->
+<script async src="{{ "js/mermaid-8.13.4.min.js" | relURL }}"></script>
 {{ end }}
 
-<script src="{{ "js/script.js" | relURL }}"></script>
+<script src="/js/jquery-3.6.0.min.js" intregrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK" crossorigin="anonymous"></script>
+
+{{- if eq (lower .Params.cid) "community" -}}
+{{- if eq .Params.community_styles_migrated true -}}
+<link href="/css/community.css" rel="stylesheet"><!-- legacy styles -->
+{{- else -}}
+<link href="/css/legacy_community.css" rel="stylesheet">
+{{- end -}}
+<script defer src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+{{- end -}}
 {{ with .Params.js }}{{ range (split . ",") }}<script src="{{ (trim . " ") | relURL }}"></script><!-- custom js added -->
 {{ end }}{{ else }}<!-- no custom js detected -->{{ end }}

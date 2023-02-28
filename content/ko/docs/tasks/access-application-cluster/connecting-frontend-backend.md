@@ -26,7 +26,7 @@ weight: 70
 
 이 작업은
 지원되는 환경이 필요한
-[외부 로드밸런서가 있는 서비스](/docs/tasks/access-application-cluster/create-external-load-balancer/)를 사용한다. 만약, 이를 지원하지 않는 환경이라면, [노드포트](/ko/docs/concepts/services-networking/service/#nodeport) 서비스 타입을
+[외부 로드밸런서가 있는 서비스](/ko/docs/tasks/access-application-cluster/create-external-load-balancer/)를 사용한다. 만약, 이를 지원하지 않는 환경이라면, [노드포트](/ko/docs/concepts/services-networking/service/#type-nodeport) 서비스 타입을
 대신 사용할 수 있다.
 
 <!-- lessoncontent -->

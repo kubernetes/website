@@ -16,7 +16,7 @@ You can run the website locally using Hugo (Extended version), or you can run it
 To use this repository, you need the following installed locally:
 
 - [npm](https://www.npmjs.com/)
-- [Go](https://golang.org/)
+- [Go](https://go.dev/)
 - [Hugo (Extended version)](https://gohugo.io/)
 - A container runtime, like [Docker](https://www.docker.com/).
 
@@ -29,17 +29,24 @@ cd website
 
 The Kubernetes website uses the [Docsy Hugo theme](https://github.com/google/docsy#readme). Even if you plan to run the website in a container, we strongly recommend pulling in the submodule and other development dependencies by running the following:
 
-```bash
-# pull in the Docsy submodule
+### Windows
+```powershell
+# fetch submodule dependencies
 git submodule update --init --recursive --depth 1
+```
+
+### Linux / other Unix
+```bash
+# fetch submodule dependencies
+make module-init
 ```
 
 ## Running the website using a container
 
-To build the site in a container, run the following to build the container image and run it:
+To build the site in a container, run the following:
 
 ```bash
-make container-image
+# You can set $CONTAINER_ENGINE to the name of any Docker-like container tool
 make container-serve
 ```
 
@@ -65,9 +72,9 @@ This will start the local Hugo server on port 1313. Open up your browser to <htt
 
 The API reference pages located in `content/en/docs/reference/kubernetes-api` are built from the Swagger specification, using <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>.
 
-To update the reference pages for a new Kubernetes release (replace v1.20 in the following examples with the release to update to):
+To update the reference pages for a new Kubernetes release follow these steps:
 
-1. Pull the `kubernetes-resources-reference` submodule:
+1. Pull in the `api-ref-generator` submodule:
 
    ```bash
    git submodule update --init --recursive --depth 1
@@ -75,9 +82,9 @@ To update the reference pages for a new Kubernetes release (replace v1.20 in the
 
 2. Update the Swagger specification:
 
-```
-curl 'https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json' > api-ref-assets/api/swagger.json
-```
+   ```bash
+   curl 'https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json' > api-ref-assets/api/swagger.json
+   ```
 
 3. In `api-ref-assets/config/`, adapt the files `toc.yaml` and `fields.yaml` to reflect the changes of the new release.
 
@@ -167,6 +174,14 @@ For more information about contributing to the Kubernetes documentation, see:
 - [Documentation Style Guide](https://kubernetes.io/docs/contribute/style/style-guide/)
 - [Localizing Kubernetes Documentation](https://kubernetes.io/docs/contribute/localization/)
 
+### New contributor ambassadors
+
+If you need help at any point when contributing, the [New Contributor Ambassadors](https://kubernetes.io/docs/contribute/advanced/#serve-as-a-new-contributor-ambassador) are a good point of contact. These are SIG Docs approvers whose responsibilities include mentoring new contributors and helping them through their first few pull requests. The best place to contact the New Contributors Ambassadors would be on the [Kubernetes Slack](https://slack.k8s.io/). Current New Contributors Ambassadors for SIG Docs:
+
+| Name                       | Slack                      | GitHub                     |                   
+| -------------------------- | -------------------------- | -------------------------- |
+| Arsh Sharma                | @arsh                      | @RinkiyaKeDad              |
+
 ## Localization `README.md`'s
 
 | Language                   | Language                   |
@@ -181,7 +196,7 @@ For more information about contributing to the Kubernetes documentation, see:
 
 ## Code of conduct
 
-Participation in the Kubernetes community is governed by the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md).
+Participation in the Kubernetes community is governed by the [CNCF Code of Conduct](https://github.com/cncf/foundation/blob/main/code-of-conduct.md).
 
 ## Thank you
 

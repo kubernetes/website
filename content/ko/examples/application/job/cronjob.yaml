@@ -3,14 +3,14 @@ kind: CronJob
 metadata:
   name: hello
 spec:
-  schedule: "*/1 * * * *"
+  schedule: "* * * * *"
   jobTemplate:
     spec:
       template:
         spec:
           containers:
           - name: hello
-            image: busybox
+            image: busybox:1.28
             imagePullPolicy: IfNotPresent
             command:
             - /bin/sh

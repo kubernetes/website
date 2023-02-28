@@ -2,6 +2,7 @@
 layout: blog
 title: Production-Ready Kubernetes Cluster Creation with kubeadm
 date: 2018-12-04
+evergreen: true
 ---
 
 **Authors**: Lucas Käldström (CNCF Ambassador) and Luc Perkins (CNCF Developer Advocate)

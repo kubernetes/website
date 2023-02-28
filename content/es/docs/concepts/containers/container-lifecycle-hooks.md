@@ -64,7 +64,7 @@ el contenedor no puede alcanzar el estado de `running` (en ejecución).
 El comportamiento es similar para un hook `PreStop`.
 Si el hook se cuelga durante la ejecución,
 la fase del Pod permanece en un estado de `terminating` (finalizando) y se cancela después del  `terminationGracePeriodSeconds` (finalización después del periodo de gracia) del pod en cuestión.
-Si un hook `PostStart` o` PreStop` falla, se mata el contenedor.
+Si un hook `PostStart` o `PreStop` falla, se mata el contenedor.
 
 Los usuarios deben hacer que sus controladores de hooks sean lo más livianos posible.
 Hay casos, sin embargo, que los comandos de larga ejecución tienen sentido,
@@ -74,7 +74,7 @@ como cuando se guarda el estado antes de detener un contenedor.
 
 La entrega de un hook está destinada a ser enviada *al menos una vez*,
 lo que significa que un hook puede ser llamado varias veces para cualquier evento dado,
-tanto para `PostStart` como para ` PreStop`.
+tanto para `PostStart` como para `PreStop`.
 Depende de la implementación del hook manejar esto correctamente.
 
 En general, solo se realizan entregas individuales.

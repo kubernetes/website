@@ -72,15 +72,14 @@ Kubernetes1.8のように、ユーザーは`.spec.template`のラベルにマッ
 
 ### 選択したNode上でPodを稼働させる
 
-もしユーザーが`.spec.template.spec.nodeSelector`を指定したとき、DaemonSetコントローラーは、その[node
-selector](/ja/docs/concepts/scheduling-eviction/assign-pod-node/)にマッチするPodをNode上に作成します。同様に、もし`.spec.template.spec.affinity`を指定したとき、DaemonSetコントローラーは[node affinity](/ja/docs/concepts/scheduling-eviction/assign-pod-node/)マッチするPodをNode上に作成します。
+もしユーザーが`.spec.template.spec.nodeSelector`を指定したとき、DaemonSetコントローラーは、その[node selector](/ja/docs/concepts/scheduling-eviction/assign-pod-node/)にマッチするNode上にPodを作成します。同様に、もし`.spec.template.spec.affinity`を指定したとき、DaemonSetコントローラーは[node affinity](/ja/docs/concepts/scheduling-eviction/assign-pod-node/)にマッチするNode上にPodを作成します。
 もしユーザーがどちらも指定しないとき、DaemonSetコントローラーは全てのNode上にPodを作成します。
 
 ## Daemon Podがどのようにスケジューリングされるか
 
 ### デフォルトスケジューラーによってスケジューリングされる場合
 
-{{< feature-state state="stable" for-kubernetes-version="1.17" >}}
+{{< feature-state for_k8s_version="1.17" state="stable" >}}
 
 DaemonSetは全ての利用可能なNodeが単一のPodのコピーを稼働させることを保証します。通常、Podが稼働するNodeはKubernetesスケジューラーによって選択されます。しかし、DaemonSetのPodは代わりにDaemonSetコントローラーによって作成され、スケジューリングされます。   
 下記の問題について説明します:

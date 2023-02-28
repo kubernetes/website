@@ -3,8 +3,10 @@ layout: blog
 title: "Dockershim Deprecation FAQ"
 date: 2020-12-02
 slug: dockershim-faq
-aliases: [ '/dockershim' ]
 ---
+
+
+_**Update**: There is a [newer version](/blog/2022/02/17/dockershim-faq/) of this article available._
 
 This document goes over some frequently asked questions regarding the Dockershim
 deprecation announced as a part of the Kubernetes v1.20 release. For more detail
@@ -12,7 +14,7 @@ on the deprecation of Docker as a container runtime for Kubernetes kubelets, and
 what that means, check out the blog post
 [Don't Panic: Kubernetes and Docker](/blog/2020/12/02/dont-panic-kubernetes-and-docker/).
 
-Also, you can read [check whether Dockershim deprecation affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/) to check whether it does.
+Also, you can read [check whether Dockershim removal affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/) to check whether it does.
 
 ### Why is dockershim being deprecated?
 
@@ -153,7 +155,7 @@ runtime where possible.
 
 Another thing to look out for is anything expecting to run for system maintenance
 or nested inside a container when building images will no longer work. For the
-former, you can use the [`crictl`][cr] tool as a drop-in replacement (see [mapping from docker cli to crictl](https://kubernetes.io/docs/tasks/debug-application-cluster/crictl/#mapping-from-docker-cli-to-crictl)) and for the
+former, you can use the [`crictl`][cr] tool as a drop-in replacement (see [mapping from dockercli to crictl](/docs/reference/tools/map-crictl-dockercli/)) and for the
 latter you can use newer container build options like [img], [buildah],
 [kaniko], or [buildkit-cli-for-kubectl] that don’t require Docker.
 

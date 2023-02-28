@@ -5,13 +5,7 @@ date: 2019-10-10
 slug: contributor-summit-san-diego-schedule
 ---
 
-
-Authors: Josh Berkus (Red Hat), Paris Pittman (Google), Jonas Rosland (VMware)
-
-tl;dr A week ago we announced that [registration is open][reg] for the contributor
-summit , and we're now live with [the full Contributor Summit schedule!][schedule]
-Grab your spot while tickets are still available. There is currently a waitlist
-for new contributor workshop.  ([Register here!][reg])
+**Authors:** Josh Berkus (Red Hat), Paris Pittman (Google), Jonas Rosland (VMware)
 
 There are many great sessions planned for the Contributor Summit, spread across
 five rooms of current contributor content in addition to the new contributor
@@ -32,7 +26,7 @@ While the schedule contains difficult decisions in every timeslot, we've picked
 a few below to give you a taste of what you'll hear, see, and participate in, at
 the summit:
 
-* **[Vision]**: SIG-Architecture will be sharing their vision of where we're going
+* **[Vision]**: SIG Architecture will be sharing their vision of where we're going
   with Kubernetes development for the next year and beyond.
 * **[Security]**: Tim Allclair and CJ Cullen will present on the current state of
   Kubernetes security. In another security talk, Vallery Lancey will lead a
@@ -47,7 +41,7 @@ the summit:
   one, or at least pass one.
 * **[End Users]**: Several end users from the CNCF partner ecosystem, invited by
   Cheryl Hung, will hold a Q&A with contributors to strengthen our feedback loop.
-* **[Docs]**: As always, SIG-Docs will run a three-hour contributing-to-documentation
+* **[Docs]**: As always, SIG Docs will run a three-hour contributing-to-documentation
   workshop.
 
 We're also giving out awards to contributors who distinguished themselves in 2019,

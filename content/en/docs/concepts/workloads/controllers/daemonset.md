@@ -76,9 +76,9 @@ A Pod Template in a DaemonSet must have a [`RestartPolicy`](/docs/concepts/workl
 The `.spec.selector` field is a pod selector.  It works the same as the `.spec.selector` of
 a [Job](/docs/concepts/workloads/controllers/job/).
 
-As of Kubernetes 1.8, you must specify a pod selector that matches the labels of the
-`.spec.template`. The pod selector will no longer be defaulted when left empty. Selector
-defaulting was not compatible with `kubectl apply`. Also, once a DaemonSet is created,
+You must specify a pod selector that matches the labels of the
+`.spec.template`.
+Also, once a DaemonSet is created,
 its `.spec.selector` can not be mutated. Mutating the pod selector can lead to the
 unintentional orphaning of Pods, and it was found to be confusing to users.
 
@@ -91,8 +91,8 @@ The `.spec.selector` is an object consisting of two fields:
 
 When the two are specified the result is ANDed.
 
-If the `.spec.selector` is specified, it must match the `.spec.template.metadata.labels`.
-Config with these not matching will be rejected by the API.
+The `.spec.selector` must match the `.spec.template.metadata.labels`.
+Config with these two not matching will be rejected by the API.
 
 ### Running Pods on select Nodes
 
@@ -105,30 +105,24 @@ If you do not specify either, then the DaemonSet controller will create Pods on 
 
 ## How Daemon Pods are scheduled
 
-### Scheduled by default scheduler
+A DaemonSet ensures that all eligible nodes run a copy of a Pod. The DaemonSet
+controller creates a Pod for each eligible node and adds the
+`spec.affinity.nodeAffinity` field of the Pod to match the target host. After
+the Pod is created, the default scheduler typically takes over and then binds
+the Pod to the target host by setting the `.spec.nodeName` field.  If the new
+Pod cannot fit on the node, the default scheduler may preempt (evict) some of
+the existing Pods based on the
+[priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority)
+of the new Pod.
 
-{{< feature-state state="stable" for-kubernetes-version="1.17" >}}
+The user can specify a different scheduler for the Pods of the DamonSet, by
+setting the `.spec.template.spec.schedulerName` field of the DaemonSet.
 
-A DaemonSet ensures that all eligible nodes run a copy of a Pod. Normally, the
-node that a Pod runs on is selected by the Kubernetes scheduler. However,
-DaemonSet pods are created and scheduled by the DaemonSet controller instead.
-That introduces the following issues:
-
-* Inconsistent Pod behavior: Normal Pods waiting to be scheduled are created
-  and in `Pending` state, but DaemonSet pods are not created in `Pending`
-  state. This is confusing to the user.
-* [Pod preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
-  is handled by default scheduler. When preemption is enabled, the DaemonSet controller
-  will make scheduling decisions without considering pod priority and preemption.
-
-`ScheduleDaemonSetPods` allows you to schedule DaemonSets using the default
-scheduler instead of the DaemonSet controller, by adding the `NodeAffinity` term
-to the DaemonSet pods, instead of the `.spec.nodeName` term. The default
-scheduler is then used to bind the pod to the target host. If node affinity of
-the DaemonSet pod already exists, it is replaced (the original node affinity was
-taken into account before selecting the target host). The DaemonSet controller only
-performs these operations when creating or modifying DaemonSet pods, and no
-changes are made to the `spec.template` of the DaemonSet.
+The original node affinity specified at the
+`.spec.template.spec.affinity.nodeAffinity` field (if specified) is taken into
+consideration by the DaemonSet controller when evaluating the eligible nodes,
+but is replaced on the created Pod with the node affinity that matches the name
+of the eligible node.
 
 ```yaml
 nodeAffinity:
@@ -141,25 +135,40 @@ nodeAffinity:
         - target-host-name
 ```
 
-In addition, `node.kubernetes.io/unschedulable:NoSchedule` toleration is added
-automatically to DaemonSet Pods. The default scheduler ignores
-`unschedulable` Nodes when scheduling DaemonSet Pods.
 
-### Taints and Tolerations
+### Taints and tolerations
 
-Although Daemon Pods respect
-[taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/),
-the following tolerations are added to DaemonSet Pods automatically according to
-the related features.
+The DaemonSet controller automatically adds a set of {{< glossary_tooltip
+text="tolerations" term_id="toleration" >}} to DaemonSet Pods:
 
-| Toleration Key                           | Effect     | Version | Description |
-| ---------------------------------------- | ---------- | ------- | ----------- |
-| `node.kubernetes.io/not-ready`           | NoExecute  | 1.13+   | DaemonSet pods will not be evicted when there are node problems such as a network partition. |
-| `node.kubernetes.io/unreachable`         | NoExecute  | 1.13+   | DaemonSet pods will not be evicted when there are node problems such as a network partition. |
-| `node.kubernetes.io/disk-pressure`       | NoSchedule | 1.8+    | DaemonSet pods tolerate disk-pressure attributes by default scheduler. |
-| `node.kubernetes.io/memory-pressure`     | NoSchedule | 1.8+    | DaemonSet pods tolerate memory-pressure attributes by default scheduler. |
-| `node.kubernetes.io/unschedulable`       | NoSchedule | 1.12+   | DaemonSet pods tolerate unschedulable attributes by default scheduler. |
-| `node.kubernetes.io/network-unavailable` | NoSchedule | 1.12+   | DaemonSet pods, who uses host network, tolerate network-unavailable attributes by default scheduler. |
+{{< table caption="Tolerations for DaemonSet pods" >}}
+
+| Toleration key                                                                                                        | Effect       | Details                                                                                                                                       |
+| --------------------------------------------------------------------------------------------------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`node.kubernetes.io/not-ready`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-not-ready)             | `NoExecute`  | DaemonSet Pods can be scheduled onto nodes that are not healthy or ready to accept Pods. Any DaemonSet Pods running on such nodes will not be evicted. |
+| [`node.kubernetes.io/unreachable`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-unreachable)         | `NoExecute`  | DaemonSet Pods can be scheduled onto nodes that are unreachable from the node controller. Any DaemonSet Pods running on such nodes will not be evicted. |
+| [`node.kubernetes.io/disk-pressure`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-disk-pressure)     | `NoSchedule` | DaemonSet Pods can be scheduled onto nodes with disk pressure issues.                                                                         |
+| [`node.kubernetes.io/memory-pressure`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-memory-pressure) | `NoSchedule` | DaemonSet Pods can be scheduled onto nodes with memory pressure issues.                                                                        |
+| [`node.kubernetes.io/pid-pressure`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-pid-pressure) | `NoSchedule` | DaemonSet Pods can be scheduled onto nodes with process pressure issues.                                                                        |
+| [`node.kubernetes.io/unschedulable`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-unschedulable)   | `NoSchedule` | DaemonSet Pods can be scheduled onto nodes that are unschedulable.                                                                            |
+| [`node.kubernetes.io/network-unavailable`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-network-unavailable) | `NoSchedule` | **Only added for DaemonSet Pods that request host networking**, i.e., Pods having `spec.hostNetwork: true`. Such DaemonSet Pods can be scheduled onto nodes with unavailable network.|
+
+{{< /table >}}
+
+You can add your own tolerations to the Pods of a Daemonset as well, by
+defining these in the Pod template of the DaemonSet.
+
+Because the DaemonSet controller sets the
+`node.kubernetes.io/unschedulable:NoSchedule` toleration automatically,
+Kubernetes can run DaemonSet Pods on nodes that are marked as _unschedulable_.
+
+If you use a DaemonSet to provide an important node-level function, such as
+[cluster networking](/docs/concepts/cluster-administration/networking/), it is
+helpful that Kubernetes places DaemonSet Pods on nodes before they are ready.
+For example, without that special toleration, you could end up in a deadlock
+situation where the node is not marked as ready because the network plugin is
+not running there, and at the same time the network plugin is not running on
+that node because the node is not yet ready.
 
 ## Communicating with Daemon Pods
 
@@ -203,8 +212,7 @@ running such processes via a DaemonSet:
 - Ability to monitor and manage logs for daemons in the same way as applications.
 - Same config language and tools (e.g. Pod templates, `kubectl`) for daemons and applications.
 - Running daemons in containers with resource limits increases isolation between daemons from app
-  containers.  However, this can also be accomplished by running the daemons in a container but not in a Pod
-  (e.g. start directly via Docker).
+  containers.  However, this can also be accomplished by running the daemons in a container but not in a Pod.
 
 ### Bare Pods
 

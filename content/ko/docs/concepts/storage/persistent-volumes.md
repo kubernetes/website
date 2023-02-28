@@ -1,23 +1,22 @@
 ---
-
-
-
-
-
-
+# reviewers:
+# - jsafrane
+# - saad-ali
+# - thockin
+# - msau42
+# - xing-yang
 title: 퍼시스턴트 볼륨
 feature:
   title: 스토리지 오케스트레이션
   description: >
-    로컬 스토리지, <a href="https://cloud.google.com/storage/">GCP</a>나 <a href="https://aws.amazon.com/products/storage/">AWS</a>와 같은 퍼블릭 클라우드 공급자 또는 NFS, iSCSI, Gluster, Ceph, Cinder나 Flocker와 같은 네트워크 스토리지 시스템에서 원하는 스토리지 시스템을 자동으로 마운트한다.
-
+    로컬 스토리지, <a href="https://aws.amazon.com/products/storage/">AWS</a>나 <a href="https://cloud.google.com/storage/">GCP</a>와 같은 퍼블릭 클라우드 공급자 또는 NFS, iSCSI, Ceph, Cinder와 같은 네트워크 스토리지 시스템에서 원하는 스토리지 시스템을 자동으로 마운트한다.
 content_type: concept
 weight: 20
 ---
 
 <!-- overview -->
 
-이 페이지는 쿠버네티스의 _퍼시스턴트 볼륨_ 의 현재 상태를 설명한다. [볼륨](/ko/docs/concepts/storage/volumes/)에 대해 익숙해지는 것을 추천한다.
+이 페이지에서는 쿠버네티스의 _퍼시스턴트 볼륨_ 에 대해 설명한다. [볼륨](/ko/docs/concepts/storage/volumes/)에 대해 익숙해지는 것을 추천한다.
 
 <!-- body -->
 
@@ -74,8 +73,8 @@ API 서버 커맨드라인 플래그에 대한 자세한 정보는
 
 일단 사용자에게 클레임이 있고 그 클레임이 바인딩되면, 바인딩된 PV는 사용자가 필요로 하는 한 사용자에게 속한다. 사용자는 파드의 `volumes` 블록에 `persistentVolumeClaim`을 포함하여 파드를 스케줄링하고 클레임한 PV에 접근한다. 이에 대한 자세한 내용은 [볼륨으로 클레임하기](#볼륨으로-클레임하기)를 참고하길 바란다.
 
-### 사용 중인 스토리지 오브젝트 ​​보호
-사용 중인 스토리지 오브젝트 ​​보호 기능의 목적은 PVC에 바인딩된 파드와 퍼시스턴트볼륨(PV)이 사용 중인 퍼시스턴트볼륨클레임(PVC)을 시스템에서 삭제되지 않도록 하는 것이다. 삭제되면 이로 인해 데이터의 손실이 발생할 수 있기 때문이다.
+### 사용 중인 스토리지 오브젝트 보호
+사용 중인 스토리지 오브젝트 보호 기능의 목적은 PVC에 바인딩된 파드와 퍼시스턴트볼륨(PV)이 사용 중인 퍼시스턴트볼륨클레임(PVC)을 시스템에서 삭제되지 않도록 하는 것이다. 삭제되면 이로 인해 데이터의 손실이 발생할 수 있기 때문이다.
 
 {{< note >}}
 PVC를 사용하는 파드 오브젝트가 존재하면 파드가 PVC를 사용하고 있는 상태이다.
@@ -167,7 +166,7 @@ spec:
       path: /any/path/it/will/be/replaced
   containers:
   - name: pv-recycler
-    image: "k8s.gcr.io/busybox"
+    image: "registry.k8s.io/busybox"
     command: ["/bin/sh", "-c", "test -e /scrub && rm -rf /scrub/..?* /scrub/.[!.]* /scrub/*  && test -z \"$(ls -A /scrub)\" || exit 1"]
     volumeMounts:
     - name: vol
@@ -175,6 +174,73 @@ spec:
 ```
 
 그러나 `volumes` 부분의 사용자 정의 재활용 파드 템플릿에 지정된 특정 경로는 재활용되는 볼륨의 특정 경로로 바뀐다.
+
+### 퍼시스턴트볼륨 삭제 보호 파이널라이저(finalizer) {#persistentvolume-deletion-protection-finalizer}
+{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+
+퍼시스턴트볼륨에 파이널라이저를 추가하여, `Delete` 반환 정책을 갖는 퍼시스턴트볼륨이 
+기반 스토리지(backing storage)가 삭제된 이후에만 삭제되도록 할 수 있다.
+
+새롭게 도입된 `kubernetes.io/pv-controller` 및 `external-provisioner.volume.kubernetes.io/finalizer` 파이널라이저는 
+동적으로 프로비전된 볼륨에만 추가된다.
+
+`kubernetes.io/pv-controller` 파이널라이저는 인-트리 플러그인 볼륨에 추가된다. 다음은 이에 대한 예시이다.
+
+```shell
+kubectl describe pv pvc-74a498d6-3929-47e8-8c02-078c1ece4d78
+Name:            pvc-74a498d6-3929-47e8-8c02-078c1ece4d78
+Labels:          <none>
+Annotations:     kubernetes.io/createdby: vsphere-volume-dynamic-provisioner
+                 pv.kubernetes.io/bound-by-controller: yes
+                 pv.kubernetes.io/provisioned-by: kubernetes.io/vsphere-volume
+Finalizers:      [kubernetes.io/pv-protection kubernetes.io/pv-controller]
+StorageClass:    vcp-sc
+Status:          Bound
+Claim:           default/vcp-pvc-1
+Reclaim Policy:  Delete
+Access Modes:    RWO
+VolumeMode:      Filesystem
+Capacity:        1Gi
+Node Affinity:   <none>
+Message:         
+Source:
+    Type:               vSphereVolume (a Persistent Disk resource in vSphere)
+    VolumePath:         [vsanDatastore] d49c4a62-166f-ce12-c464-020077ba5d46/kubernetes-dynamic-pvc-74a498d6-3929-47e8-8c02-078c1ece4d78.vmdk
+    FSType:             ext4
+    StoragePolicyName:  vSAN Default Storage Policy
+Events:                 <none>
+```
+
+`external-provisioner.volume.kubernetes.io/finalizer` 파이널라이저는 CSI 볼륨에 추가된다.
+다음은 이에 대한 예시이다.
+```shell
+Name:            pvc-2f0bab97-85a8-4552-8044-eb8be45cf48d
+Labels:          <none>
+Annotations:     pv.kubernetes.io/provisioned-by: csi.vsphere.vmware.com
+Finalizers:      [kubernetes.io/pv-protection external-provisioner.volume.kubernetes.io/finalizer]
+StorageClass:    fast
+Status:          Bound
+Claim:           demo-app/nginx-logs
+Reclaim Policy:  Delete
+Access Modes:    RWO
+VolumeMode:      Filesystem
+Capacity:        200Mi
+Node Affinity:   <none>
+Message:         
+Source:
+    Type:              CSI (a Container Storage Interface (CSI) volume source)
+    Driver:            csi.vsphere.vmware.com
+    FSType:            ext4
+    VolumeHandle:      44830fa8-79b4-406b-8b58-621ba25353fd
+    ReadOnly:          false
+    VolumeAttributes:      storage.kubernetes.io/csiProvisionerIdentity=1648442357185-8081-csi.vsphere.vmware.com
+                           type=vSphere CNS Block Volume
+Events:                <none>
+```
+
+특정 인-트리 볼륨 플러그인에 대해 `CSIMigration{provider}` 기능 플래그가 활성화되어 있을 때,
+`kubernetes.io/pv-controller` 파이널라이저는
+`external-provisioner.volume.kubernetes.io/finalizer` 파이널라이저로 대체된다.
 
 ### 퍼시스턴트볼륨 예약
 
@@ -219,21 +285,21 @@ spec:
 
 ### 퍼시스턴트 볼륨 클레임 확장
 
-{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
-이제 퍼시스턴트볼륨클레임(PVC) 확장 지원이 기본적으로 활성화되어 있다. 다음 유형의
+퍼시스턴트볼륨클레임(PVC) 확장 지원은 기본적으로 활성화되어 있다. 다음 유형의
 볼륨을 확장할 수 있다.
 
-* gcePersistentDisk
+* azureDisk
+* azureFile
 * awsElasticBlockStore
-* Cinder
+* cinder (deprecated)
+* {{< glossary_tooltip text="csi" term_id="csi" >}}
+* flexVolume (deprecated)
+* gcePersistentDisk
 * glusterfs
 * rbd
-* Azure File
-* Azure Disk
-* Portworx
-* FlexVolumes
-* {{< glossary_tooltip text="CSI" term_id="csi" >}}
+* portworxVolume
 
 스토리지 클래스의 `allowVolumeExpansion` 필드가 true로 설정된 경우에만 PVC를 확장할 수 있다.
 
@@ -255,6 +321,16 @@ PVC에 대해 더 큰 볼륨을 요청하려면 PVC 오브젝트를 수정하여
 지정한다. 이는 기본 퍼시스턴트볼륨을 지원하는 볼륨의 확장을 트리거한다. 클레임을 만족시키기 위해
 새로운 퍼시스턴트볼륨이 생성되지 않고 기존 볼륨의 크기가 조정된다.
 
+{{< warning >}}
+퍼시스턴트볼륨의 크기를 직접 변경하면 자동 볼륨 리사이즈 기능을 이용할 수 없게 된다. 
+퍼시스턴트볼륨의 크기를 변경하고, 
+퍼시스턴트볼륨에 해당되는 퍼시스턴트볼륨클레임의 `.spec`에 적혀 있는 크기를 동일하게 변경하면, 
+스토리지 리사이즈가 발생하지 않는다.
+쿠버네티스 컨트롤 플레인은 
+두 리소스의 목표 상태(desired state)가 일치하는 것을 확인하고, 
+배후(backing) 볼륨 크기가 수동으로 증가되어 리사이즈가 필요하지 않다고 판단할 것이다.
+{{< /warning >}}
+
 #### CSI 볼륨 확장
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
@@ -270,22 +346,17 @@ CSI 볼륨 확장 지원은 기본적으로 활성화되어 있지만 볼륨 확
 경우에만 파일시스템의 크기가 조정된다. 파일시스템 확장은 파드가 시작되거나
 파드가 실행 중이고 기본 파일시스템이 온라인 확장을 지원할 때 수행된다.
 
-FlexVolumes는 `RequiresFSResize` 기능으로 드라이버가 `true`로 설정된 경우 크기 조정을 허용한다.
+FlexVolumes(쿠버네티스 v1.23부터 사용 중단됨)는 드라이버의 `RequiresFSResize` 기능이 `true`로 설정된 경우 크기 조정을 허용한다.
 FlexVolume은 파드 재시작 시 크기를 조정할 수 있다.
 
 #### 사용 중인 퍼시스턴트볼륨클레임 크기 조정
 
-{{< feature-state for_k8s_version="v1.15" state="beta" >}}
-
-{{< note >}}
-사용 중인 PVC 확장은 쿠버네티스 1.15 이후 버전에서는 베타로, 1.11 이후 버전에서는 알파로 제공된다. `ExpandInUsePersistentVolumes` 기능을 사용하도록 설정해야 한다. 베타 기능의 경우 여러 클러스터에서 자동으로 적용된다. 자세한 내용은 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/) 문서를 참고한다.
-{{< /note >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 이 경우 기존 PVC를 사용하는 파드 또는 디플로이먼트를 삭제하고 다시 만들 필요가 없다.
 파일시스템이 확장되자마자 사용 중인 PVC가 파드에서 자동으로 사용 가능하다.
 이 기능은 파드나 디플로이먼트에서 사용하지 않는 PVC에는 영향을 미치지 않는다. 확장을 완료하기 전에
 PVC를 사용하는 파드를 만들어야 한다.
-
 
 다른 볼륨 유형과 비슷하게 FlexVolume 볼륨도 파드에서 사용 중인 경우 확장할 수 있다.
 
@@ -299,6 +370,11 @@ EBS 볼륨 확장은 시간이 많이 걸리는 작업이다. 또한 6시간마�
 
 #### 볼륨 확장 시 오류 복구
 
+사용자가 기반 스토리지 시스템이 제공할 수 있는 것보다 더 큰 사이즈를 지정하면, 사용자 또는 클러스터 관리자가 조치를 취하기 전까지 PVC 확장을 계속 시도한다. 이는 바람직하지 않으며 따라서 쿠버네티스는 이러한 오류 상황에서 벗어나기 위해 다음과 같은 방법을 제공한다.
+
+{{< tabs name="recovery_methods" >}}
+{{% tab name="클러스터 관리자 접근 권한을 이용하여 수동으로" %}}
+
 기본 스토리지 확장에 실패하면, 클러스터 관리자가 수동으로 퍼시스턴트 볼륨 클레임(PVC) 상태를 복구하고 크기 조정 요청을 취소할 수 있다. 그렇지 않으면, 컨트롤러가 관리자 개입 없이 크기 조정 요청을 계속해서 재시도한다.
 
 1. 퍼시스턴트볼륨클레임(PVC)에 바인딩된 퍼시스턴트볼륨(PV)을 `Retain` 반환 정책으로 표시한다.
@@ -307,20 +383,38 @@ EBS 볼륨 확장은 시간이 많이 걸리는 작업이다. 또한 6시간마�
 4. PV 보다 작은 크기로 PVC를 다시 만들고 PVC의 `volumeName` 필드를 PV 이름으로 설정한다. 이것은 새 PVC를 기존 PV에 바인딩해야 한다.
 5. PV의 반환 정책을 복원하는 것을 잊지 않는다.
 
+{{% /tab %}}
+{{% tab name="더 작은 크기로의 확장을 요청하여" %}}
+{{% feature-state for_k8s_version="v1.23" state="alpha" %}}
+
+{{< note >}}
+PVC 확장 실패의 사용자에 의한 복구는 쿠버네티스 1.23부터 제공되는 알파 기능이다. 이 기능이 작동하려면 `RecoverVolumeExpansionFailure` 기능이 활성화되어 있어야 한다. 더 많은 정보는 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/) 문서를 참조한다.
+{{< /note >}}
+
+클러스터에 `RecoverVolumeExpansionFailure` 
+기능 게이트가 활성화되어 있는 상태에서 PVC 확장이 실패하면 
+이전에 요청했던 값보다 작은 크기로의 확장을 재시도할 수 있다. 
+더 작은 크기를 지정하여 확장 시도를 요청하려면, 
+이전에 요청했던 값보다 작은 크기로 PVC의 `.spec.resources` 값을 수정한다.
+이는 총 용량 제한(capacity constraint)으로 인해 큰 값으로의 확장이 실패한 경우에 유용하다. 
+만약 확장이 실패했다면, 또는 실패한 것 같다면, 기반 스토리지 공급자의 용량 제한보다 작은 값으로 확장을 재시도할 수 있다. 
+`.status.resizeStatus`와 PVC의 이벤트를 감시하여 리사이즈 작업의 상태를 모니터할 수 있다.
+
+참고: 
+이전에 요청했던 값보다 작은 크기를 요청했더라도, 
+새로운 값이 여전히 `.status.capacity`보다 클 수 있다. 
+쿠버네티스는 PVC를 현재 크기보다 더 작게 축소하는 것은 지원하지 않는다.
+{{% /tab %}}
+{{% /tabs %}}
+
 
 ## 퍼시스턴트 볼륨의 유형
 
 퍼시스턴트볼륨 유형은 플러그인으로 구현된다. 쿠버네티스는 현재 다음의 플러그인을 지원한다.
 
-* [`awsElasticBlockStore`](/ko/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
-* [`azureDisk`](/ko/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
-* [`azureFile`](/ko/docs/concepts/storage/volumes/#azurefile) - Azure File
 * [`cephfs`](/ko/docs/concepts/storage/volumes/#cephfs) - CephFS 볼륨
 * [`csi`](/ko/docs/concepts/storage/volumes/#csi) - 컨테이너 스토리지 인터페이스 (CSI)
 * [`fc`](/ko/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) 스토리지
-* [`flexVolume`](/ko/docs/concepts/storage/volumes/#flexVolume) - FlexVolume
-* [`gcePersistentDisk`](/ko/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
-* [`glusterfs`](/ko/docs/concepts/storage/volumes/#glusterfs) - Glusterfs 볼륨
 * [`hostPath`](/ko/docs/concepts/storage/volumes/#hostpath) - HostPath 볼륨
   (단일 노드 테스트 전용. 다중-노드 클러스터에서 작동하지 않음.
   대신 `로컬` 볼륨 사용 고려)
@@ -328,27 +422,41 @@ EBS 볼륨 확장은 시간이 많이 걸리는 작업이다. 또한 6시간마�
 * [`local`](/ko/docs/concepts/storage/volumes/#local) - 노드에 마운트된
   로컬 스토리지 디바이스
 * [`nfs`](/ko/docs/concepts/storage/volumes/#nfs) - 네트워크 파일 시스템 (NFS) 스토리지
-* [`portworxVolume`](/ko/docs/concepts/storage/volumes/#portworxvolume) - Portworx 볼륨
 * [`rbd`](/ko/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) 볼륨
-* [`vsphereVolume`](/ko/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK 볼륨
 
 아래의 PersistentVolume 타입은 사용 중단되었다. 이 말인 즉슨, 지원은 여전히 제공되지만 추후 쿠버네티스 릴리스에서는 삭제될 예정이라는 것이다.
 
+* [`awsElasticBlockStore`](/ko/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
+  (v1.17에서 **사용 중단**)
+* [`azureDisk`](/ko/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
+  (v1.19에서 **사용 중단**)
+* [`azureFile`](/ko/docs/concepts/storage/volumes/#azurefile) - Azure File
+  (v1.21에서 **사용 중단**)
 * [`cinder`](/ko/docs/concepts/storage/volumes/#cinder) - Cinder (오픈스택 블록 스토리지)
   (v1.18에서 **사용 중단**)
-* [`flocker`](/ko/docs/concepts/storage/volumes/#flocker) - Flocker 스토리지
-  (v1.22에서 **사용 중단**)
-* [`quobyte`](/ko/docs/concepts/storage/volumes/#quobyte) - Quobyte 볼륨
-  (v1.22에서 **사용 중단**)
-* [`storageos`](/ko/docs/concepts/storage/volumes/#storageos) - StorageOS 볼륨
-  (v1.22에서 **사용 중단**)
+* [`flexVolume`](/ko/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
+  (v1.23에서 **사용 중단**)
+* [`gcePersistentDisk`](/ko/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
+  (v1.17에서 **사용 중단**)
+* [`glusterfs`](/ko/docs/concepts/storage/volumes/#glusterfs) - Glusterfs 볼륨
+  (v1.25에서 **사용 중단**)
+* [`portworxVolume`](/ko/docs/concepts/storage/volumes/#portworxvolume) - Portworx 볼륨
+  (v1.25에서 **사용 중단**)
+* [`vsphereVolume`](/ko/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK 볼륨
+  (v1.19에서 **사용 중단**)
 
 이전 쿠버네티스 버전은 아래의 인-트리 PersistentVolume 타입도 지원했었다.
 
 * `photonPersistentDisk` - Photon 컨트롤러 퍼시스턴트 디스크.
-  (v1.15 이후 **사용 불가**)
+  (v1.15부터 **사용 불가**)
 * [`scaleIO`](/ko/docs/concepts/storage/volumes/#scaleio) - ScaleIO 볼륨
-  (v1.21 이후 **사용 불가**)
+  (v1.21부터 **사용 불가**)
+* [`flocker`](/ko/docs/concepts/storage/volumes/#flocker) - Flocker 스토리지
+  (v1.25부터 **사용 불가**)
+* [`quobyte`](/ko/docs/concepts/storage/volumes/#quobyte) - Quobyte 볼륨
+  (v1.25부터 **사용 불가**)
+* [`storageos`](/ko/docs/concepts/storage/volumes/#storageos) - StorageOS 볼륨
+  (v1.25부터 **사용 불가**)
 
 ## 퍼시스턴트 볼륨
 
@@ -383,7 +491,7 @@ spec:
 
 ### 용량
 
-일반적으로 PV는 특정 저장 용량을 가진다. 이것은 PV의 `capacity` 속성을 사용하여 설정된다. `capacity`가 사용하는 단위를 이해하려면 쿠버네티스 [리소스 모델](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md)을 참고한다.
+일반적으로 PV는 특정 저장 용량을 가진다. 이것은 PV의 `capacity` 속성을 사용하여 설정된다. `capacity`가 사용하는 단위를 이해하려면 용어집에 있는 [수량](/ko/docs/reference/glossary/?all=true#term-quantity) 항목을 참고한다.
 
 현재 스토리지 용량 크기는 설정하거나 요청할 수 있는 유일한 리소스이다. 향후 속성에 IOPS, 처리량 등이 포함될 수 있다.
 
@@ -415,10 +523,13 @@ spec:
 접근 모드는 다음과 같다.
 
 `ReadWriteOnce`
-: 하나의 노드에서 해당 볼륨이 읽기-쓰기로 마운트 될 수 있다. ReadWriteOnce 접근 모드에서도 파트가 동일 노드에서 구동되는 경우에는 복수의 파드에서 볼륨에 접근할 수 있다.
+: 하나의 노드에서 해당 볼륨이 읽기-쓰기로 마운트 될 수 있다. ReadWriteOnce 접근 모드에서도 파드가 동일 노드에서 구동되는 경우에는 복수의 파드에서 볼륨에 접근할 수 있다.
+
+`ReadOnlyMany`
+: 볼륨이 다수의 노드에서 읽기 전용으로 마운트 될 수 있다.
 
 `ReadWriteMany`
-: 볼륨이 다수의 노드에서 읽기 전용으로 마운트 될 수 있다.
+: 볼륨이 다수의 노드에서 읽기-쓰기로 마운트 될 수 있다.
 
 `ReadWriteOncePod`
 : 볼륨이 단일 파드에서 읽기-쓰기로 마운트될 수 있다. 전체 클러스터에서 단 하나의 파드만 해당 PVC를 읽거나 쓸 수 있어야하는 경우 ReadWriteOncePod 접근 모드를 사용한다. 이 기능은 CSI 볼륨과 쿠버네티스 버전 1.22+ 에서만 지원된다.
@@ -435,6 +546,15 @@ CLI에서 접근 모드는 다음과 같이 약어로 표시된다.
 * RWX - ReadWriteMany
 * RWOP - ReadWriteOncePod
 
+{{< note >}}
+쿠버네티스는 볼륨 접근 모드를 이용해 퍼시스턴트볼륨클레임과 퍼시스턴트볼륨을 연결한다.
+경우에 따라 볼륨 접근 모드는 퍼시스턴트볼륨을 탑재할 수 있는 위치도 제한한다.
+볼륨 접근 모드는 스토리지를 마운트 한 후에는 쓰기 보호를 적용하지 않는다.
+접근 모드가 ReadWriteOnce, ReadOnlyMany 혹은 ReadWriteMany로 지정된 경우에도 접근 모드는 볼륨에 제약 조건을 설정하지 않는다.
+예를 들어 퍼시스턴트볼륨이 ReadOnlyMany로 생성되었다 하더라도, 해당 퍼시스턴트 볼륨이 읽기 전용이라는 것을 보장하지 않는다.
+만약 접근 모드가 ReadWriteOncePod로 지정된 경우, 볼륨에 제한이 설정되어 단일 파드에만 마운트 할 수 있게 된다.
+{{< /note >}}
+
 > __중요!__ 볼륨이 여러 접근 모드를 지원하더라도 한 번에 하나의 접근 모드를 사용하여 마운트할 수 있다. 예를 들어 GCEPersistentDisk는 하나의 노드가 ReadWriteOnce로 마운트하거나 여러 노드가 ReadOnlyMany로 마운트할 수 있지만 동시에는 불가능하다.
 
 
@@ -444,21 +564,18 @@ CLI에서 접근 모드는 다음과 같이 약어로 표시된다.
 | AzureFile            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | AzureDisk            | &#x2713;               | -                     | -             | -                      |
 | CephFS               | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
-| Cinder               | &#x2713;               | -                     | -             | -                      |
-| CSI                  | depends on the driver  | depends on the driver | depends on the driver | depends on the driver |
+| Cinder               | &#x2713;               | -                     | ([다중 부착(multi-attached)이 가능한 볼륨이라면](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/features.md#multi-attach-volumes))            | -                      |
+| CSI                  | 드라이버에 의존            | 드라이버에 의존           | 드라이버에 의존   | 드라이버에 의존            |
 | FC                   | &#x2713;               | &#x2713;              | -             | -                      |
-| FlexVolume           | &#x2713;               | &#x2713;              | depends on the driver | -              |
-| Flocker              | &#x2713;               | -                     | -             | -                      |
+| FlexVolume           | &#x2713;               | &#x2713;              | 드라이버에 의존   | -                      |
 | GCEPersistentDisk    | &#x2713;               | &#x2713;              | -             | -                      |
 | Glusterfs            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | HostPath             | &#x2713;               | -                     | -             | -                      |
 | iSCSI                | &#x2713;               | &#x2713;              | -             | -                      |
-| Quobyte              | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | NFS                  | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | RBD                  | &#x2713;               | &#x2713;              | -             | -                      |
-| VsphereVolume        | &#x2713;               | -                     | - (works when Pods are collocated) | - |
+| VsphereVolume        | &#x2713;               | -                     | - (파드를 배치할(collocated) 때 동작한다)      | - |
 | PortworxVolume       | &#x2713;               | -                     | &#x2713;      | -                  | - |
-| StorageOS            | &#x2713;               | -                     | -             | -                      |
 
 ### 클래스
 
@@ -493,19 +610,17 @@ PV는 `storageClassName` 속성을
 
 다음 볼륨 유형은 마운트 옵션을 지원한다.
 
-* AWSElasticBlockStore
-* AzureDisk
-* AzureFile
-* CephFS
-* Cinder (OpenStack 블록 스토리지)
-* GCEPersistentDisk
-* Glusterfs
-* NFS
-* Quobyte Volumes
-* RBD (Ceph Block Device)
-* StorageOS
-* VsphereVolume
-* iSCSI
+* `awsElasticBlockStore`
+* `azureDisk`
+* `azureFile`
+* `cephfs`
+* `cinder` (v1.18에서 **사용 중단됨**)
+* `gcePersistentDisk`
+* `glusterfs`
+* `iscsi`
+* `nfs`
+* `rbd`
+* `vsphereVolume`
 
 마운트 옵션의 유효성이 검사되지 않는다. 마운트 옵션이 유효하지 않으면, 마운트가 실패한다.
 
@@ -568,7 +683,7 @@ spec:
 
 ### 리소스
 
-파드처럼 클레임은 특정 수량의 리소스를 요청할 수 있다. 이 경우는 스토리지에 대한 요청이다. 동일한 [리소스 모델](https://git.k8s.io/community/contributors/design-proposals/scheduling/resources.md)이 볼륨과 클레임 모두에 적용된다.
+파드처럼 클레임은 특정 수량의 리소스를 요청할 수 있다. 이 경우는 스토리지에 대한 요청이다. 동일한 [리소스 모델](https://git.k8s.io/design-proposals-archive/scheduling/resources.md)이 볼륨과 클레임 모두에 적용된다.
 
 ### 셀렉터
 
@@ -604,9 +719,13 @@ PVC는 항상 클래스가 없는 PV를 요청하는 것으로 해석되므로
   플러그인은 모든 PVC 생성을
   금지한다.
 * 어드미션 플러그인이 꺼져 있으면 기본 스토리지클래스에 대한 기본값 자체가 없다.
-  `storageClassName`이 없는 모든 PVC는 클래스가 없는 PV에만 바인딩할 수 있다. 이 경우
-  `storageClassName`이 없는 PVC는 `storageClassName`이 `""`로 설정된 PVC와
-  같은 방식으로 처리된다.
+  `storageClassName`이 `""`으로 설정된 모든 PVC는
+  `storageClassName`이 마찬가지로 `""`로 설정된 PV에만 바인딩할 수 있다.
+  하지만, `storageClassName`이 없는 PVC는
+  기본 스토리지클래스가 사용 가능해지면 갱신될 수 있다. PVC가 갱신되면
+  해당 PVC는 더 이상 `storageClassName`이 `""`로 설정된 PV와 바인딩되어있지 않게 된다.
+
+더 자세한 정보는 [retroactive default StorageClass assignment](#retroactive-default-storageclass-assignment)를 참조한다.
 
 설치 방법에 따라 설치 중에 애드온 관리자가 기본 스토리지클래스를 쿠버네티스 클러스터에
 배포할 수 있다.
@@ -622,6 +741,20 @@ AND 조건으로 동작한다. 요청된 클래스와 요청된 레이블이 있
 이전에는 `volume.beta.kubernetes.io/storage-class` 어노테이션이 `storageClassName`
 속성 대신 사용되었다. 이 어노테이션은 아직까지는 사용할 수 있지만,
 향후 쿠버네티스 릴리스에서는 지원되지 않는다.
+
+
+#### 기본 스토리지클래스 할당 소급 적용하기 {#retroactive-default-storageclass-assignment}
+
+{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+
+새로운 PVC를 위한 `storageClassName`을 설정하지 않고 퍼시스턴트볼륨클레임을 생성할 수 있으며, 이는 클러스터에 기본 스토리지클래스가 존재하지 않을 때에도 가능하다. 이 경우, 새로운 PVC는 정의된 대로 생성되며, 해당 PVC의 `storageClassName`은 기본값이 사용 가능해질 때까지 미설정 상태로 남는다.
+하지만, [`RetroactiveDefaultStorageClass` 기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화하면 쿠버네티스는 다르게 동작하여, 기존에 존재하는 PVC 중 `storageClassName`가 설정되지 않은 PVC는 새로운 기본 스토리지클래스를 사용하도록 갱신된다.
+
+기본 스토리지클래스가 사용 가능해지면, 컨트롤플레인은 `storageClassName`가 없는 PVC를 찾는다. `storageClassName`의 값이 비어있거나 해당 키 자체가 없는 PVC라면, 컨트롤플레인은 해당 PVC의 `storageClassName`가 새로운 기본 스토리지클래스와 일치하도록 설정하여 갱신한다. `storageClassName`가 `""`인 PVC가 있고, 기본 스토리지클래스를 설정한다면, 해당 PVC는 갱신되지 않는다.
+
+기본 스토리지클래스가 존재할 때 `storageClassName`가 `""`로 설정된 PV와의 바인딩을 유지하고싶다면, 연결된 PVC의 `storageClassName`를 `""`로 설정해야 한다.
+
+이 행동은 관리자가 오래된 기본 스토리지클래스를 삭제하고 새로운 기본 스토리지클래스를 생성하거나 설정하여 기본 스토리지클래스를 변경하는 데 도움이 된다.  기본값이 설정되어있지 않을 때의 이 작은 틈새로 인해 이 때 생성된 `storageClassName`가 없는 PVC는 아무런 기본값도 없이 생성될 수 있지만, 기본 스토리지클래스 할당 소급 적용에 의해 이러한 방식으로 기본값을 변경하는 것은 안전하다.
 
 ## 볼륨으로 클레임하기
 
@@ -807,17 +940,12 @@ spec:
 
 ## 볼륨 파퓰레이터(Volume populator)와 데이터 소스
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.24" state="beta" >}}
 
-{{< note >}}
 쿠버네티스는 커스텀 볼륨 파퓰레이터를 지원한다. 
-이 알파 기능은 쿠버네티스 1.18에서 도입되었으며 
-1.22에서는 새로운 메카니즘과 리디자인된 API로 새롭게 구현되었다.
-현재 사용 중인 클러스터의 버전에 맞는 쿠버네티스 문서를 읽고 있는지 다시 한번 
-확인한다. {{% version-check %}}
-커스텀 볼륨 파퓰레이터를 사용하려면, kube-apiserver와 kube-controller-manager에 대해 
-`AnyVolumeDataSource` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다.
-{{< /note >}}
+커스텀 볼륨 파퓰레이터를 사용하려면, 
+kube-apiserver와 kube-controller-manager에 대해 `AnyVolumeDataSource` 
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다.
 
 볼륨 파퓰레이터는 `dataSourceRef`라는 PVC 스펙 필드를 활용한다. 
 다른 PersistentVolumeClaim 또는 VolumeSnapshot을 가리키는 참조만 명시할 수 있는 
@@ -835,6 +963,7 @@ spec:
 
 `dataSourceRef` 필드와 `dataSource` 필드 사이에는 
 사용자가 알고 있어야 할 두 가지 차이점이 있다.
+
 * `dataSource` 필드는 유효하지 않은 값(예를 들면, 빈 값)을 무시하지만, 
   `dataSourceRef` 필드는 어떠한 값도 무시하지 않으며 유효하지 않은 값이 들어오면 에러를 발생할 것이다. 
   유효하지 않은 값은 PVC를 제외한 모든 코어 오브젝트(apiGroup이 없는 오브젝트)이다.
@@ -892,12 +1021,12 @@ PVC를 위한 적절한 파퓰레이터가 설치되어 있다면,
   퍼시스턴트볼륨 오브젝트를 구성에 포함하지 않는다.
 - 템플릿을 인스턴스화 할 때 스토리지 클래스 이름을 제공하는 옵션을
   사용자에게 제공한다.
-	- 사용자가 스토리지 클래스 이름을 제공하는 경우 해당 값을
-  	`permanentVolumeClaim.storageClassName` 필드에 입력한다.
+  - 사용자가 스토리지 클래스 이름을 제공하는 경우 해당 값을
+    `permanentVolumeClaim.storageClassName` 필드에 입력한다.
     클러스터에서 관리자가 스토리지클래스를 활성화한 경우
     PVC가 올바른 스토리지 클래스와 일치하게 된다.
-	- 사용자가 스토리지 클래스 이름을 제공하지 않으면
-  	`permanentVolumeClaim.storageClassName` 필드를 nil로 남겨둔다.
+  - 사용자가 스토리지 클래스 이름을 제공하지 않으면
+    `permanentVolumeClaim.storageClassName` 필드를 nil로 남겨둔다.
     그러면 클러스터에 기본 스토리지클래스가 있는 사용자에 대해 PV가 자동으로 프로비저닝된다.
     많은 클러스터 환경에 기본 스토리지클래스가 설치되어 있거나 관리자가
     고유한 기본 스토리지클래스를 생성할 수 있다.
@@ -911,7 +1040,7 @@ PVC를 위한 적절한 파퓰레이터가 설치되어 있다면,
 
 * [퍼시스턴트볼륨 생성](/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#퍼시스턴트볼륨-생성하기)에 대해 자세히 알아보기
 * [퍼시스턴트볼륨클레임 생성](/ko/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#퍼시스턴트볼륨클레임-생성하기)에 대해 자세히 알아보기
-* [퍼시스턴트 스토리지 설계 문서](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md) 읽어보기
+* [퍼시스턴트 스토리지 설계 문서](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md) 읽어보기
 
 ### API 레퍼런스 {#reference}
 

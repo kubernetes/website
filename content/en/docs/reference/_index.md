@@ -9,12 +9,9 @@ content_type: concept
 no_list: true
 ---
 
-
 <!-- overview -->
 
 This section of the Kubernetes documentation contains references.
-
-
 
 <!-- body -->
 
@@ -43,8 +40,8 @@ client libraries:
 
 ## CLI
 
-* [kubectl](/docs/reference/kubectl/overview/) - Main CLI tool for running commands and managing Kubernetes clusters.
-    * [JSONPath](/docs/reference/kubectl/jsonpath/) - Syntax guide for using [JSONPath expressions](https://goessner.net/articles/JsonPath/) with kubectl.
+* [kubectl](/docs/reference/kubectl/) - Main CLI tool for running commands and managing Kubernetes clusters.
+  * [JSONPath](/docs/reference/kubectl/jsonpath/) - Syntax guide for using [JSONPath expressions](https://goessner.net/articles/JsonPath/) with kubectl.
 * [kubeadm](/docs/reference/setup-tools/kubeadm/) - CLI tool to easily provision a secure Kubernetes cluster.
 
 ## Components
@@ -55,17 +52,20 @@ client libraries:
 * [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) -
   REST API that validates and configures data for API objects such as  pods,
   services, replication controllers.
-* [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) - Daemon that embeds the core control loops shipped with Kubernetes.
+* [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) -
+  Daemon that embeds the core control loops shipped with Kubernetes.
 * [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - Can
   do simple TCP/UDP stream forwarding or round-robin TCP/UDP forwarding across
   a set of back-ends.
-* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) - Scheduler that manages availability, performance, and capacity.
+* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) -
+  Scheduler that manages availability, performance, and capacity.
   
   * [Scheduler Policies](/docs/reference/scheduling/policies)
   * [Scheduler Profiles](/docs/reference/scheduling/config#profiles)
 
-* List of [ports and protocols](/docs/reference/ports-and-protocols/) that
+* List of [ports and protocols](/docs/reference/networking/ports-and-protocols/) that
   should be open on control plane and worker nodes
+
 ## Config APIs
 
 This section hosts the documentation for "unpublished" APIs which are used to
@@ -74,16 +74,27 @@ by the API server in a RESTful way though they are essential for a user or an
 operator to use or manage a cluster.
 
 
-* [kube-apiserver configuration (v1)](/docs/reference/config-api/apiserver-config.v1/)
+* [kubeconfig (v1)](/docs/reference/config-api/kubeconfig.v1/)
+* [kube-apiserver admission (v1)](/docs/reference/config-api/apiserver-admission.v1/)
+* [kube-apiserver configuration (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/) and
+  [kube-apiserver configuration (v1)](/docs/reference/config-api/apiserver-config.v1/)
+* [kube-apiserver encryption (v1)](/docs/reference/config-api/apiserver-encryption.v1/)
+* [kube-apiserver event rate limit (v1alpha1)](/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
 * [kubelet configuration (v1alpha1)](/docs/reference/config-api/kubelet-config.v1alpha1/) and
   [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
-* [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) and
-  [kube-scheduler configuration (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+  [kubelet configuration (v1)](/docs/reference/config-api/kubelet-config.v1/)
+* [kubelet credential providers (v1alpha1)](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/),
+  [kubelet credential providers (v1beta1)](/docs/reference/config-api/kubelet-credentialprovider.v1beta1/) and
+  [kubelet credential providers (v1)](/docs/reference/config-api/kubelet-credentialprovider.v1/)
+* [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/),
+  [kube-scheduler configuration (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) and
+  [kube-scheduler configuration (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
 * [kube-proxy configuration (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 * [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
 * [Client authentication API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/) and 
   [Client authentication API (v1)](/docs/reference/config-api/client-authentication.v1/)
 * [WebhookAdmission configuration (v1)](/docs/reference/config-api/apiserver-webhookadmission.v1/)
+* [ImagePolicy API (v1alpha1)](/docs/reference/config-api/imagepolicy.v1alpha1/)
 
 ## Config API for kubeadm
 
@@ -93,6 +104,6 @@ operator to use or manage a cluster.
 ## Design Docs
 
 An archive of the design docs for Kubernetes functionality. Good starting points are
-[Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) and
-[Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).
+[Kubernetes Architecture](https://git.k8s.io/design-proposals-archive/architecture/architecture.md) and
+[Kubernetes Design Overview](https://git.k8s.io/design-proposals-archive).
 

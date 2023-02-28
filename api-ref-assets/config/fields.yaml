@@ -4,6 +4,7 @@
     fields:
     - containers
     - initContainers
+    - ephemeralContainers
     - imagePullSecrets
     - enableServiceLinks
     - os
@@ -20,7 +21,9 @@
     - runtimeClassName
     - priorityClassName
     - priority
+    - preemptionPolicy
     - topologySpreadConstraints
+    - overhead
   - name: Lifecycle
     fields:
     - restartPolicy
@@ -48,13 +51,11 @@
   - name: Security context
     fields:
     - securityContext
-  - name: Beta level
-    fields:
-    - preemptionPolicy
-    - overhead
   - name: Alpha level
     fields:
-    - ephemeralContainers
+    - hostUsers
+    - resourceClaims
+    - schedulingGates
   - name: Deprecated
     fields:
     - serviceAccount
@@ -227,6 +228,9 @@
     - stdin
     - stdinOnce
     - tty
+  - name: Security context
+    fields:
+    - securityContext
   - name: Not allowed
     fields:
     - ports
@@ -234,7 +238,6 @@
     - lifecycle
     - livenessProbe
     - readinessProbe
-    - securityContext
     - startupProbe
 
 - definition: io.k8s.api.core.v1.ReplicationControllerSpec
@@ -316,6 +319,7 @@
     - volumeClaimTemplates
     - minReadySeconds
     - persistentVolumeClaimRetentionPolicy
+    - ordinals
 
 - definition: io.k8s.api.apps.v1.StatefulSetUpdateStrategy
   field_categories:
@@ -384,6 +388,9 @@
     fields:
     - selector
     - manualSelector
+  - name: Alpha level
+    fields:
+    - podFailurePolicy
 
 - definition: io.k8s.api.batch.v1.JobStatus
   field_categories:
@@ -396,7 +403,7 @@
     - completedIndexes
     - conditions
     - uncountedTerminatedPods
-  - name: Alpha level
+  - name: Beta level
     fields:
     - ready
 
@@ -405,6 +412,7 @@
   - fields:
     - jobTemplate
     - schedule
+    - timeZone
     - concurrencyPolicy
     - startingDeadlineSeconds
     - suspend
@@ -524,6 +532,7 @@
     - cephfs
     - cinder
     - csi
+    - ephemeral
     - fc
     - flexVolume
     - flocker
@@ -538,9 +547,6 @@
     - scaleIO
     - storageos
     - vsphereVolume
-  - name: Alpha level
-    fields:
-    - ephemeral
   - name: Deprecated
     fields:
     - gitRepo
@@ -590,7 +596,7 @@
     - volumeName
     - storageClassName
     - volumeMode
-  - name: Alpha level
+  - name: Beta level
     fields:
     - dataSource
     - dataSourceRef
@@ -713,6 +719,3 @@
     - resourceVersion
     - selfLink
     - uid
-  - name: Ignored
-    fields:
-    - clusterName

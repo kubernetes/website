@@ -18,7 +18,7 @@ kubeconfig 파일들을 사용하여 클러스터, 사용자, 네임스페이스
 {{< /note >}}
 
 {{< warning >}}
-신뢰할 수 있는 소스의 kubeconfig 파일만 사용한다. 특수 제작된 kubeconfig 파일을 사용하면 악성 코드가 실행되거나 파일이 노출될 수 있다. 
+신뢰할 수 있는 소스의 kubeconfig 파일만 사용한다. 특수 제작된 kubeconfig 파일을 사용하면 악성 코드가 실행되거나 파일이 노출될 수 있다.
 신뢰할 수 없는 kubeconfig 파일을 사용해야 하는 경우 셸 스크립트를 사용하는 경우처럼 먼저 신중하게 검사한다.
 {{< /warning>}}
 
@@ -148,7 +148,27 @@ kubeconfig 파일에서 파일과 경로 참조는 kubeconfig 파일의 위치�
 `$HOME/.kube/config`에서 상대 경로는 상대적으로, 절대 경로는
 절대적으로 저장한다.
 
+## 프록시
 
+다음과 같이 kubeconfig 파일에서 `proxy-url`를 사용하여 `kubectl`이 각 클러스터마다 프록시를 거치도록 설정할 수 있다.
+
+```yaml
+apiVersion: v1
+kind: Config
+
+clusters:
+- cluster:
+    proxy-url: http://proxy.example.org:3128
+    server: https://k8s.example.org/k8s/clusters/c-xxyyzz
+  name: development
+
+users:
+- name: developer
+
+contexts:
+- context:
+  name: development
+```
 
 
 ## {{% heading "whatsnext" %}}

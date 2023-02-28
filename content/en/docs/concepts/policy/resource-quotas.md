@@ -22,8 +22,7 @@ be consumed by resources in that namespace.
 
 Resource quotas work like this:
 
-- Different teams work in different namespaces.  Currently this is voluntary, but
-  support for making this mandatory via ACLs is planned.
+- Different teams work in different namespaces. This can be enforced with [RBAC](/docs/reference/access-authn-authz/rbac/).
 
 - The administrator creates one ResourceQuota for each namespace.
 
@@ -39,6 +38,18 @@ Resource quotas work like this:
 
   See the [walkthrough](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
   for an example of how to avoid this problem.
+
+{{< note >}}
+- For `cpu` and `memory` resources, ResourceQuotas enforce that **every**
+(new) pod in that namespace sets a limit for that resource.
+If you enforce a resource quota in a namespace for either `cpu` or `memory`,
+you, and other clients, **must** specify either `requests` or `limits` for that resource,
+for every new Pod you submit. If you don't, the control plane may reject admission
+for that Pod.
+- For other resources: ResourceQuota works and will ignore pods in the namespace without setting a limit or request for that resource. It means that you can create a new pod without limit/request ephemeral storage if the resource quota limits the ephemeral storage of this namespace.
+You can use a [LimitRange](/docs/concepts/policy/limit-range/) to automatically set
+a default request for these resources.
+{{< /note >}}
 
 The name of a ResourceQuota object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
@@ -442,7 +453,7 @@ pods        0     10
 
 ### Cross-namespace Pod Affinity Quota
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 Operators can use `CrossNamespacePodAffinity` quota scope to limit which namespaces are allowed to
 have pods with affinity terms that cross namespaces. Specifically, it controls which pods are allowed
@@ -492,10 +503,6 @@ plugins:
 With the above configuration, pods can use `namespaces` and `namespaceSelector` in pod affinity only
 if the namespace where they are created have a resource quota object with 
 `CrossNamespaceAffinity` scope and a hard limit greater than or equal to the number of pods using those fields.
-
-This feature is beta and enabled by default. You can disable it using the
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`PodAffinityNamespaceSelector` in both kube-apiserver and kube-scheduler.
 
 ## Requests compared to Limits {#requests-vs-limits}
 
@@ -702,7 +709,7 @@ and it is to be created in a namespace other than `kube-system`.
 
 ## {{% heading "whatsnext" %}}
 
-- See [ResourceQuota design doc](https://git.k8s.io/community/contributors/design-proposals/resource-management/admission_control_resource_quota.md) for more information.
+- See [ResourceQuota design doc](https://git.k8s.io/design-proposals-archive/resource-management/admission_control_resource_quota.md) for more information.
 - See a [detailed example for how to use resource quota](/docs/tasks/administer-cluster/quota-api-object/).
-- Read [Quota support for priority class design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/scheduling/pod-priority-resourcequota.md).
+- Read [Quota support for priority class design doc](https://git.k8s.io/design-proposals-archive/scheduling/pod-priority-resourcequota.md).
 - See [LimitedResources](https://github.com/kubernetes/kubernetes/pull/36765)

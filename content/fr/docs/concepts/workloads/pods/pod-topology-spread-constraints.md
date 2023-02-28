@@ -62,6 +62,7 @@ metadata:
 spec:
   topologySpreadConstraints:
     - maxSkew: <integer>
+      minDomains: <integer>
       topologyKey: <string>
       whenUnsatisfiable: <string>
       labelSelector: <object>
@@ -205,6 +206,7 @@ apiVersion: kubescheduler.config.k8s.io/v1alpha2
 kind: KubeSchedulerConfiguration
 
 profiles:
+  - schedulerName: default-scheduler
   - pluginConfig:
       - name: PodTopologySpread
         args:

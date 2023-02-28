@@ -3,7 +3,12 @@ reviewers:
 - bprashanth
 title: Ingress
 content_type: concept
-weight: 40
+description: >-
+  Make your HTTP (or HTTPS) network service available using a protocol-aware configuration
+  mechanism, that understands web concepts like URIs, hostnames, paths, and more.
+  The Ingress concept lets you map traffic to different backends based on rules you define
+  via the Kubernetes API.
+weight: 30
 ---
 
 <!-- overview -->
@@ -30,23 +35,8 @@ For clarity, this guide defines the following terms:
 Traffic routing is controlled by rules defined on the Ingress resource.
 
 Here is a simple example where an Ingress sends all its traffic to one Service:
-{{< mermaid >}}
-graph LR;
-  client([client])-. Ingress-managed <br> load balancer .->ingress[Ingress];
-  ingress-->|routing rule|service[Service];
-  subgraph cluster
-  ingress;
-  service-->pod1[Pod];
-  service-->pod2[Pod];
-  end
-  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-  class ingress,service,pod1,pod2 k8s;
-  class client plain;
-  class cluster cluster;
-{{</ mermaid >}}
 
+{{< figure src="/docs/images/ingress.svg" alt="ingress-diagram" class="diagram-large" caption="Figure. Ingress" link="https://mermaid.live/edit#pako:eNqNkstuwyAQRX8F4U0r2VHqPlSRKqt0UamLqlnaWWAYJygYLB59KMm_Fxcix-qmGwbuXA7DwAEzzQETXKutof0Ovb4vaoUQkwKUu6pi3FwXM_QSHGBt0VFFt8DRU2OWSGrKUUMlVQwMmhVLEV1Vcm9-aUksiuXRaO_CEhkv4WjBfAgG1TrGaLa-iaUw6a0DcwGI-WgOsF7zm-pN881fvRx1UDzeiFq7ghb1kgqFWiElyTjnuXVG74FkbdumefEpuNuRu_4rZ1pqQ7L5fL6YQPaPNiFuywcG9_-ihNyUkm6YSONWkjVNM8WUIyaeOJLO3clTB_KhL8NQDmVe-OJjxgZM5FhFiiFTK5zjDkxHBQ9_4zB4a-x20EGNSZhyaKmXrg7f5hSsvufUwTMXThtMWiot5Jh6p9ffimHijIezaSVoeN0uiqcfMJvf7w" >}}
 
 An Ingress may be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name-based virtual hosting. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers) is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic.
 
@@ -74,12 +64,12 @@ A minimal Ingress resource example:
 
 {{< codenew file="service/networking/minimal-ingress.yaml" >}}
 
-As with all other Kubernetes resources, an Ingress needs `apiVersion`, `kind`, and `metadata` fields.
+An Ingress needs `apiVersion`, `kind`, `metadata` and `spec` fields.
 The name of an Ingress object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 For general information about working with config files, see [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/), [configuring containers](/docs/tasks/configure-pod-container/configure-pod-configmap/), [managing resources](/docs/concepts/cluster-administration/manage-deployment/).
  Ingress frequently uses annotations to configure some options depending on the Ingress controller, an example of which
- is the [rewrite-target annotation](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md).
+ is the [rewrite-target annotation](https://github.com/kubernetes/ingress-nginx/blob/main/docs/examples/rewrite/README.md).
 Different [Ingress controllers](/docs/concepts/services-networking/ingress-controllers) support different annotations. Review the documentation for
  your choice of Ingress controller to learn which annotations are supported.
 
@@ -88,13 +78,13 @@ has all the information needed to configure a load balancer or proxy server. Mos
 contains a list of rules matched against all incoming requests. Ingress resource only supports rules
 for directing HTTP(S) traffic.
 
-If the `ingressClassName` is omitted, a [default Ingress class](#default-ingress-class) 
+If the `ingressClassName` is omitted, a [default Ingress class](#default-ingress-class)
 should be defined.
 
-There are some ingress controllers, that work without the definition of a 
-default `IngressClass`. For example, the Ingress-NGINX controller can be 
-configured with a [flag](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class) 
-`--watch-ingress-without-class`. It is [recommended](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)  though, to specify the 
+There are some ingress controllers, that work without the definition of a
+default `IngressClass`. For example, the Ingress-NGINX controller can be
+configured with a [flag](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class)
+`--watch-ingress-without-class`. It is [recommended](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)  though, to specify the
 default `IngressClass` as shown [below](#default-ingress-class).
 
 ### Ingress rules
@@ -111,15 +101,21 @@ Each HTTP rule contains the following information:
   Service.
 * A backend is a combination of Service and port names as described in the
   [Service doc](/docs/concepts/services-networking/service/) or a [custom resource backend](#resource-backend) by way of a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRD" >}}. HTTP (and HTTPS) requests to the
-  Ingress that matches the host and path of the rule are sent to the listed backend.
+  Ingress that match the host and path of the rule are sent to the listed backend.
 
 A `defaultBackend` is often configured in an Ingress controller to service any requests that do not
 match a path in the spec.
 
 ### DefaultBackend {#default-backend}
 
-An Ingress with no rules sends all traffic to a single default backend. The `defaultBackend` is conventionally a configuration option
-of the [Ingress controller](/docs/concepts/services-networking/ingress-controllers) and is not specified in your Ingress resources.
+An Ingress with no rules sends all traffic to a single default backend and `.spec.defaultBackend`
+is the backend that should handle requests in that case.
+The `defaultBackend` is conventionally a configuration option of the
+[Ingress controller](/docs/concepts/services-networking/ingress-controllers) and
+is not specified in your Ingress resources.
+If no `.spec.rules` are specified, `.spec.defaultBackend` must be specified.
+If `defaultBackend` is not set, the handling of requests that do not match any of the rules will be up to the
+ingress controller (consult the documentation for your ingress controller to find out how it handles this case).
 
 If none of the hosts or paths match the HTTP request in the Ingress objects, the traffic is
 routed to your default backend.
@@ -174,7 +170,7 @@ supported path types:
 
   {{< note >}} If the last element of the path is a substring of the last
   element in request path, it is not a match (for example: `/foo/bar`
-  matches`/foo/bar/baz`, but does not match `/foo/barbaz`). {{< /note >}}
+  matches `/foo/bar/baz`, but does not match `/foo/barbaz`). {{< /note >}}
 
 ### Examples
 
@@ -310,7 +306,7 @@ spec:
   parameters:
     # The parameters for this IngressClass are specified in an
     # IngressParameter (API group k8s.example.com) named "external-config",
-    # that's in the "external-configuration" configuration namespace.
+    # that's in the "external-configuration" namespace.
     scope: Namespace
     apiGroup: k8s.example.com
     kind: IngressParameter
@@ -392,25 +388,8 @@ A fanout configuration routes traffic from a single IP address to more than one 
 based on the HTTP URI being requested. An Ingress allows you to keep the number of load balancers
 down to a minimum. For example, a setup like:
 
-{{< mermaid >}}
-graph LR;
-  client([client])-. Ingress-managed <br> load balancer .->ingress[Ingress, 178.91.123.132];
-  ingress-->|/foo|service1[Service service1:4200];
-  ingress-->|/bar|service2[Service service2:8080];
-  subgraph cluster
-  ingress;
-  service1-->pod1[Pod];
-  service1-->pod2[Pod];
-  service2-->pod3[Pod];
-  service2-->pod4[Pod];
-  end
-  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-  class ingress,service1,service2,pod1,pod2,pod3,pod4 k8s;
-  class client plain;
-  class cluster cluster;
-{{</ mermaid >}}
+{{< figure src="/docs/images/ingressFanOut.svg" alt="ingress-fanout-diagram" class="diagram-large" caption="Figure. Ingress Fan Out" link="https://mermaid.live/edit#pako:eNqNUslOwzAQ_RXLvYCUhMQpUFzUUzkgcUBwbHpw4klr4diR7bCo8O8k2FFbFomLPZq3jP00O1xpDpjijWHtFt09zAuFUCUFKHey8vf6NE7QrdoYsDZumGIb4Oi6NAskNeOoZJKpCgxK4oXwrFVgRyi7nCVXWZKRPMlysv5yD6Q4Xryf1Vq_WzDPooJs9egLNDbolKTpT03JzKgh3zWEztJZ0Niu9L-qZGcdmAMfj4cxvWmreba613z9C0B-AMQD-V_AdA-A4j5QZu0SatRKJhSqhZR0wjmPrDP6CeikrutQxy-Cuy2dtq9RpaU2dJKm6fzI5Glmg0VOLio4_5dLjx27hFSC015KJ2VZHtuQvY2fuHcaE43G0MaCREOow_FV5cMxHZ5-oPX75UM5avuXhXuOI9yAaZjg_aLuBl6B3RYaKDDtSw4166QrcKE-emrXcubghgunDaY1kxYizDqnH99UhakzHYykpWD9hjS--fEJoIELqQ" >}}
+
 
 would require an Ingress such as:
 
@@ -454,25 +433,7 @@ you are using, you may need to create a default-http-backend
 
 Name-based virtual hosts support routing HTTP traffic to multiple host names at the same IP address.
 
-{{< mermaid >}}
-graph LR;
-  client([client])-. Ingress-managed <br> load balancer .->ingress[Ingress, 178.91.123.132];
-  ingress-->|Host: foo.bar.com|service1[Service service1:80];
-  ingress-->|Host: bar.foo.com|service2[Service service2:80];
-  subgraph cluster
-  ingress;
-  service1-->pod1[Pod];
-  service1-->pod2[Pod];
-  service2-->pod3[Pod];
-  service2-->pod4[Pod];
-  end
-  classDef plain fill:#ddd,stroke:#fff,stroke-width:4px,color:#000;
-  classDef k8s fill:#326ce5,stroke:#fff,stroke-width:4px,color:#fff;
-  classDef cluster fill:#fff,stroke:#bbb,stroke-width:2px,color:#326ce5;
-  class ingress,service1,service2,pod1,pod2,pod3,pod4 k8s;
-  class client plain;
-  class cluster cluster;
-{{</ mermaid >}}
+{{< figure src="/docs/images/ingressNameBased.svg" alt="ingress-namebase-diagram" class="diagram-large" caption="Figure. Ingress Name Based Virtual hosting" link="https://mermaid.live/edit#pako:eNqNkl9PwyAUxb8KYS-atM1Kp05m9qSJJj4Y97jugcLtRqTQAPVPdN_dVlq3qUt8gZt7zvkBN7xjbgRgiteW1Rt0_zjLNUJcSdD-ZBn21WmcoDu9tuBcXDHN1iDQVWHnSBkmUMEU0xwsSuK5DK5l745QejFNLtMkJVmSZmT1Re9NcTz_uDXOU1QakxTMJtxUHw7ss-SQLhehQEODTsdH4l20Q-zFyc84-Y67pghv5apxHuweMuj9eS2_NiJdPhix-kMgvwQShOyYMNkJoEUYM3PuGkpUKyY1KqVSdCSEiJy35gnoqCzLvo5fpPAbOqlfI26UsXQ0Ho9nB5CnqesRGTnncPYvSqsdUvqp9KRdlI6KojjEkB0mnLgjDRONhqENBYm6oXbLV5V1y6S7-l42_LowlIN2uFm_twqOcAW2YlK0H_i9c-bYb6CCHNO2FFCyRvkc53rbWptaMA83QnpjMS2ZchBh1nizeNMcU28bGEzXkrV_pArN7Sc0rBTu" >}}
 
 
 The following Ingress tells the backing load balancer to route requests based on
@@ -485,9 +446,7 @@ web traffic to the IP address of your Ingress controller can be matched without 
 virtual host being required.
 
 For example, the following Ingress routes traffic
-requested for `first.bar.com` to `service1`, `second.bar.com` to `service2`, and any traffic
-to the IP address without a hostname defined in request (that is, without a request header being
-presented) to `service3`.
+requested for `first.bar.com` to `service1`, `second.bar.com` to `service2`, and any traffic whose request host header doesn't match `first.bar.com` and `second.bar.com` to `service3`.
 
 {{< codenew file="service/networking/name-virtual-host-ingress-no-third-host.yaml" >}}
 

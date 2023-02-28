@@ -20,14 +20,14 @@ welche Anwendungen oder anderen Workloads Sie ausführen möchten, welche Contai
 
 Sobald Sie den gewünschten Status eingestellt haben, wird das *Kubernetes Control Plane* dafür sorgen, dass der aktuelle Status des Clusters mit dem gewünschten Status übereinstimmt. Zu diesem Zweck führt Kubernetes verschiedene Aufgaben automatisch aus, z. B. das Starten oder Neustarten von Containern, Skalieren der Anzahl der Repliken einer bestimmten Anwendung und vieles mehr. Das Kubernetes Control Plane besteht aus einer Reihe von Prozessen, die in Ihrem Cluster ausgeführt werden:
 
-* Der **Kubernetes Master** bestehet aus drei Prozessen, die auf einem einzelnen Node in Ihrem Cluster ausgeführt werden, der als Master-Node bezeichnet wird. Diese Prozesse sind:[kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) und [kube-scheduler](/docs/admin/kube-scheduler/).
+* Der **Kubernetes Master** besteht aus drei Prozessen, die auf einem einzelnen Node in Ihrem Cluster ausgeführt werden, der als Master-Node bezeichnet wird. Diese Prozesse sind: [kube-apiserver](/docs/admin/kube-apiserver/), [kube-controller-manager](/docs/admin/kube-controller-manager/) und [kube-scheduler](/docs/admin/kube-scheduler/).
 * Jeder einzelne Node in Ihrem Cluster, welcher nicht der Master ist, führt zwei Prozesse aus:
   * **[kubelet](/docs/admin/kubelet/)**, das mit dem Kubernetes Master kommuniziert.
   * **[kube-proxy](/docs/admin/kube-proxy/)**, ein Netzwerk-Proxy, der die Netzwerkdienste von Kubernetes auf jedem Node darstellt.
 
 ## Kubernetes Objects
 
-Kubernetes enthält eine Reihe von Abstraktionen, die den Status Ihres Systems darstellen: im Container eingesetzte Anwendungen und Workloads, die zugehörigen Netzwerk- und Festplattenressourcen sowie weitere Informationen zu den Aufgaben Ihres Clusters. Diese Abstraktionen werden durch Objekte in der Kubernetes-API dargestellt; Lesen Sie [Kubernetes Objects Überblick](/docs/concepts/abstractions/overview/) für weitere Details.
+Kubernetes enthält eine Reihe von Abstraktionen, die den Status Ihres Systems darstellen: im Container eingesetzte Anwendungen und Workloads, die zugehörigen Netzwerk- und Festplattenressourcen sowie weitere Informationen zu den Aufgaben Ihres Clusters. Diese Abstraktionen werden durch Objekte in der Kubernetes-API dargestellt. Lesen Sie [Kubernetes Objects Überblick](/docs/concepts/abstractions/overview/) für weitere Details.
 
 Die Basisobjekte von Kubernetes umfassen:
 

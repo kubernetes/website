@@ -46,6 +46,9 @@ import (
 	api "k8s.io/kubernetes/pkg/apis/core"
 	"k8s.io/kubernetes/pkg/apis/core/validation"
 
+	// "k8s.io/kubernetes/pkg/apis/flowcontrol"
+	// flowcontrol_validation "k8s.io/kubernetes/pkg/apis/flowcontrol/validation"
+
 	"k8s.io/kubernetes/pkg/apis/networking"
 	networking_validation "k8s.io/kubernetes/pkg/apis/networking/validation"
 
@@ -152,12 +155,16 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		AllowDownwardAPIHugePages:       true,
 		AllowInvalidPodDeletionCost:     false,
 		AllowIndivisibleHugePagesValues: true,
-		AllowWindowsHostProcessField:    true,
 		AllowExpandedDNSConfig:          true,
 	}
-
-	quotaValidationOptions := validation.ResourceQuotaValidationOptions{
-		AllowPodAffinityNamespaceSelector: true,
+	netValidationOptions := networking_validation.NetworkPolicyValidationOptions{
+		AllowInvalidLabelValueInSelector: false,
+	}
+	pdbValidationOptions := policy_validation.PodDisruptionBudgetValidationOptions{
+		AllowInvalidLabelValueInSelector: false,
+	}
+	clusterroleValidationOptions := rbac_validation.ClusterRoleValidationOptions{
+		AllowInvalidLabelValueInSelector: false,
 	}
 
 	// Enable CustomPodDNS for testing
@@ -220,7 +227,7 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = validation.ValidateResourceQuota(t, quotaValidationOptions)
+		errors = validation.ValidateResourceQuota(t)
 	case *api.Secret:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -249,11 +256,31 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 			t.Namespace = api.NamespaceDefault
 		}
 		errors = apps_validation.ValidateStatefulSet(t, podValidationOptions)
+	case *apps.DaemonSet:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = apps_validation.ValidateDaemonSet(t, podValidationOptions)
+	case *apps.Deployment:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = apps_validation.ValidateDeployment(t, podValidationOptions)
+	case *apps.ReplicaSet:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = apps_validation.ValidateReplicaSet(t, podValidationOptions)
 	case *autoscaling.HorizontalPodAutoscaler:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
 		errors = autoscaling_validation.ValidateHorizontalPodAutoscaler(t)
+	case *batch.CronJob:
+		if t.Namespace == "" {
+			t.Namespace = api.NamespaceDefault
+		}
+		errors = batch_validation.ValidateCronJobCreate(t, podValidationOptions)
 	case *batch.Job:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -265,61 +292,36 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 			t.ObjectMeta.Name = "skip-for-good"
 		}
 		errors = job.Strategy.Validate(nil, t)
-	case *apps.DaemonSet:
-		if t.Namespace == "" {
-			t.Namespace = api.NamespaceDefault
-		}
-		errors = apps_validation.ValidateDaemonSet(t, podValidationOptions)
-	case *apps.Deployment:
-		if t.Namespace == "" {
-			t.Namespace = api.NamespaceDefault
-		}
-		errors = apps_validation.ValidateDeployment(t, podValidationOptions)
+	// case *flowcontrol.FlowSchema:
+	// TODO: This is still failing
+	// errors = flowcontrol_validation.ValidateFlowSchema(t)
 	case *networking.Ingress:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
 		errors = networking_validation.ValidateIngressCreate(t)
 	case *networking.IngressClass:
-		/*
-			if t.Namespace == "" {
-				t.Namespace = api.NamespaceDefault
-			}
-			gv := schema.GroupVersion{
-				Group:   networking.GroupName,
-				Version: legacyscheme.Scheme.PrioritizedVersionsForGroup(networking.GroupName)[0].Version,
-			}
-		*/
 		errors = networking_validation.ValidateIngressClass(t)
-
-	case *policy.PodSecurityPolicy:
-		errors = policy_validation.ValidatePodSecurityPolicy(t)
-	case *apps.ReplicaSet:
-		if t.Namespace == "" {
-			t.Namespace = api.NamespaceDefault
-		}
-		errors = apps_validation.ValidateReplicaSet(t, podValidationOptions)
-	case *batch.CronJob:
-		if t.Namespace == "" {
-			t.Namespace = api.NamespaceDefault
-		}
-		errors = batch_validation.ValidateCronJob(t, podValidationOptions)
 	case *networking.NetworkPolicy:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = networking_validation.ValidateNetworkPolicy(t)
+		errors = networking_validation.ValidateNetworkPolicy(t, netValidationOptions)
+	case *policy.PodSecurityPolicy:
+		errors = policy_validation.ValidatePodSecurityPolicy(t)
 	case *policy.PodDisruptionBudget:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = policy_validation.ValidatePodDisruptionBudget(t)
+		errors = policy_validation.ValidatePodDisruptionBudget(t, pdbValidationOptions)
 	case *rbac.ClusterRole:
 		// clusterole does not accept namespace
-		errors = rbac_validation.ValidateClusterRole(t)
+		errors = rbac_validation.ValidateClusterRole(t, clusterroleValidationOptions)
 	case *rbac.ClusterRoleBinding:
 		// clusterolebinding does not accept namespace
 		errors = rbac_validation.ValidateClusterRoleBinding(t)
+	case *rbac.RoleBinding:
+		errors = rbac_validation.ValidateRoleBinding(t)
 	case *storage.StorageClass:
 		// storageclass does not accept namespace
 		errors = storage_validation.ValidateStorageClass(t)
@@ -387,6 +389,14 @@ func TestExampleObjectSchemas(t *testing.T) {
 
 	// Please help maintain the alphabeta order in the map
 	cases := map[string]map[string][]runtime.Object{
+		"access": {
+			"endpoints-aggregated": {&rbac.ClusterRole{}},
+		},
+		"access/certificate-signing-request": {
+			"clusterrole-approve": {&rbac.ClusterRole{}},
+			"clusterrole-create":  {&rbac.ClusterRole{}},
+			"clusterrole-sign":    {&rbac.ClusterRole{}},
+		},
 		"admin": {
 			"namespace-dev":        {&api.Namespace{}},
 			"namespace-prod":       {&api.Namespace{}},
@@ -400,6 +410,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"dns-horizontal-autoscaler": {&api.ServiceAccount{}, &rbac.ClusterRole{}, &rbac.ClusterRoleBinding{}, &apps.Deployment{}},
 			"dnsutils":                  {&api.Pod{}},
 		},
+		// TODO: "admin/konnectivity" is not include yet.
 		"admin/logging": {
 			"fluentd-sidecar-config":                  {&api.ConfigMap{}},
 			"two-files-counter-pod":                   {&api.Pod{}},
@@ -445,7 +456,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"admin/sched": {
 			"clusterrole":  {&rbac.ClusterRole{}},
-			"my-scheduler": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &rbac.ClusterRoleBinding{}, &api.ConfigMap{}, &apps.Deployment{}},
+			"my-scheduler": {&api.ServiceAccount{}, &rbac.ClusterRoleBinding{}, &rbac.ClusterRoleBinding{}, &rbac.RoleBinding{}, &api.ConfigMap{}, &apps.Deployment{}},
 			"pod1":         {&api.Pod{}},
 			"pod2":         {&api.Pod{}},
 			"pod3":         {&api.Pod{}},
@@ -478,10 +489,6 @@ func TestExampleObjectSchemas(t *testing.T) {
 		"application/hpa": {
 			"php-apache": {&autoscaling.HorizontalPodAutoscaler{}},
 		},
-		"application/nginx": {
-			"nginx-deployment": {&apps.Deployment{}},
-			"nginx-svc":        {&api.Service{}},
-		},
 		"application/job": {
 			"cronjob":         {&batch.CronJob{}},
 			"job-tmpl":        {&batch.Job{}},
@@ -496,12 +503,24 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"redis-pod":     {&api.Pod{}},
 			"redis-service": {&api.Service{}},
 		},
+		"application/mongodb": {
+			"mongo-deployment": {&apps.Deployment{}},
+			"mongo-service":    {&api.Service{}},
+		},
 		"application/mysql": {
 			"mysql-configmap":   {&api.ConfigMap{}},
 			"mysql-deployment":  {&api.Service{}, &apps.Deployment{}},
 			"mysql-pv":          {&api.PersistentVolume{}, &api.PersistentVolumeClaim{}},
 			"mysql-services":    {&api.Service{}, &api.Service{}},
 			"mysql-statefulset": {&apps.StatefulSet{}},
+		},
+		"application/nginx": {
+			"nginx-deployment": {&apps.Deployment{}},
+			"nginx-svc":        {&api.Service{}},
+		},
+		"application/ssa": {
+			"nginx-deployment":             {&apps.Deployment{}},
+			"nginx-deployment-no-replicas": {&apps.Deployment{}},
 		},
 		"application/web": {
 			"web":          {&api.Service{}, &apps.StatefulSet{}},
@@ -514,22 +533,31 @@ func TestExampleObjectSchemas(t *testing.T) {
 		"application/zookeeper": {
 			"zookeeper": {&api.Service{}, &api.Service{}, &policy.PodDisruptionBudget{}, &apps.StatefulSet{}},
 		},
+		"concepts/policy/limit-range": {
+			"example-conflict-with-limitrange-cpu":    {&api.Pod{}},
+			"problematic-limit-range":                 {&api.LimitRange{}},
+			"example-no-conflict-with-limitrange-cpu": {&api.Pod{}},
+		},
 		"configmap": {
 			"configmaps":          {&api.ConfigMap{}, &api.ConfigMap{}},
 			"configmap-multikeys": {&api.ConfigMap{}},
+			"configure-pod":       {&api.Pod{}},
 		},
 		"controllers": {
-			"daemonset":                {&apps.DaemonSet{}},
-			"fluentd-daemonset":        {&apps.DaemonSet{}},
-			"fluentd-daemonset-update": {&apps.DaemonSet{}},
-			"frontend":                 {&apps.ReplicaSet{}},
-			"hpa-rs":                   {&autoscaling.HorizontalPodAutoscaler{}},
-			"job":                      {&batch.Job{}},
-			"replicaset":               {&apps.ReplicaSet{}},
-			"replication":              {&api.ReplicationController{}},
-			"replication-nginx-1.14.2": {&api.ReplicationController{}},
-			"replication-nginx-1.16.1": {&api.ReplicationController{}},
-			"nginx-deployment":         {&apps.Deployment{}},
+			"daemonset":                      {&apps.DaemonSet{}},
+			"fluentd-daemonset":              {&apps.DaemonSet{}},
+			"fluentd-daemonset-update":       {&apps.DaemonSet{}},
+			"frontend":                       {&apps.ReplicaSet{}},
+			"hpa-rs":                         {&autoscaling.HorizontalPodAutoscaler{}},
+			"job":                            {&batch.Job{}},
+			"job-pod-failure-policy-example": {&batch.Job{}},
+			"job-pod-failure-policy-failjob": {&batch.Job{}},
+			"job-pod-failure-policy-ignore":  {&batch.Job{}},
+			"replicaset":                     {&apps.ReplicaSet{}},
+			"replication":                    {&api.ReplicationController{}},
+			"replication-nginx-1.14.2":       {&api.ReplicationController{}},
+			"replication-nginx-1.16.1":       {&api.ReplicationController{}},
+			"nginx-deployment":               {&apps.Deployment{}},
 		},
 		"debug": {
 			"counter-pod":                     {&api.Pod{}},
@@ -556,13 +584,17 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"pod-projected-svc-token":             {&api.Pod{}},
 			"pod-rs":                              {&api.Pod{}, &api.Pod{}},
 			"pod-single-configmap-env-variable":   {&api.Pod{}},
+			"pod-with-affinity-anti-affinity":     {&api.Pod{}},
 			"pod-with-node-affinity":              {&api.Pod{}},
 			"pod-with-pod-affinity":               {&api.Pod{}},
+			"pod-with-scheduling-gates":           {&api.Pod{}},
 			"pod-with-toleration":                 {&api.Pod{}},
+			"pod-without-scheduling-gates":        {&api.Pod{}},
 			"private-reg-pod":                     {&api.Pod{}},
 			"share-process-namespace":             {&api.Pod{}},
 			"simple-pod":                          {&api.Pod{}},
 			"two-container-pod":                   {&api.Pod{}},
+			"user-namespaces-stateless":           {&api.Pod{}},
 		},
 		"pods/config": {
 			"redis-pod":            {&api.Pod{}},
@@ -623,6 +655,11 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"pv-volume":                                    {&api.PersistentVolume{}},
 			"redis":                                        {&api.Pod{}},
 		},
+		"pods/topology-spread-constraints": {
+			"one-constraint":                   {&api.Pod{}},
+			"one-constraint-with-nodeaffinity": {&api.Pod{}},
+			"two-constraints":                  {&api.Pod{}},
+		},
 		"policy": {
 			"baseline-psp":                 {&policy.PodSecurityPolicy{}},
 			"example-psp":                  {&policy.PodSecurityPolicy{}},
@@ -631,6 +668,19 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"restricted-psp":               {&policy.PodSecurityPolicy{}},
 			"zookeeper-pod-disruption-budget-maxunavailable": {&policy.PodDisruptionBudget{}},
 			"zookeeper-pod-disruption-budget-minavailable":   {&policy.PodDisruptionBudget{}},
+		},
+		/* TODO: This doesn't work yet.
+		"priority-and-fairness": {
+			"health-for-strangers": {&flowcontrol.FlowSchema{}},
+		},
+		*/
+		"secret/serviceaccount": {
+			"mysecretname": {&api.Secret{}},
+		},
+		"security": {
+			"podsecurity-baseline":   {&api.Namespace{}},
+			"podsecurity-privileged": {&api.Namespace{}},
+			"podsecurity-restricted": {&api.Namespace{}},
 		},
 		"service": {
 			"nginx-service":         {&api.Service{}},
@@ -646,6 +696,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		"service/networking": {
 			"curlpod":                                 {&apps.Deployment{}},
 			"custom-dns":                              {&api.Pod{}},
+			"default-ingressclass":                    {&networking.IngressClass{}},
 			"dual-stack-default-svc":                  {&api.Service{}},
 			"dual-stack-ipfamilies-ipv6":              {&api.Service{}},
 			"dual-stack-ipv6-svc":                     {&api.Service{}},
@@ -661,6 +712,8 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"name-virtual-host-ingress":               {&networking.Ingress{}},
 			"name-virtual-host-ingress-no-third-host": {&networking.Ingress{}},
 			"namespaced-params":                       {&networking.IngressClass{}},
+			"networkpolicy":                           {&networking.NetworkPolicy{}},
+			"networkpolicy-multiport-egress":          {&networking.NetworkPolicy{}},
 			"network-policy-allow-all-egress":         {&networking.NetworkPolicy{}},
 			"network-policy-allow-all-ingress":        {&networking.NetworkPolicy{}},
 			"network-policy-default-deny-egress":      {&networking.NetworkPolicy{}},

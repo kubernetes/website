@@ -1,5 +1,7 @@
 ---
 title: I componenti di Kubernetes
+description: >
+  Un cluster di Kubernetes è costituito da un insieme di componenti che sono, come minimo, un Control Plane e uno o più sistemi di elaborazione, detti nodi.
 content_type: concept
 weight: 20
 card: 

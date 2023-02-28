@@ -7,6 +7,7 @@ reviewers:
 
 content_type: task
 min-kubernetes-server-version: v1.21
+weight: 410
 ---
 
 <!-- overview -->
@@ -92,7 +93,7 @@ illustrates how the management of groups occurs.
 
 ## Memory Manager configuration
 
-Other Managers should be first pre-configured. Next, the Memory Manger feature should be enabled
+Other Managers should be first pre-configured. Next, the Memory Manager feature should be enabled
 and be run with `Static` policy (section [Static policy](#policy-static)).
 Optionally, some amount of memory can be reserved for system or kubelet processes to increase
 node stability (section [Reserved memory flag](#reserved-memory-flag)).
@@ -110,11 +111,11 @@ This is the default policy and does not affect the memory allocation in any way.
 It acts the same as if the Memory Manager is not present at all.
 
 The `None` policy returns default topology hint. This special hint denotes that Hint Provider
-(Memory Manger in this case) has no preference for NUMA affinity with any resource.
+(Memory Manager in this case) has no preference for NUMA affinity with any resource.
 
 #### Static policy {#policy-static}
 
-In the case of the `Guaranteed` pod, the `Static` Memory Manger policy returns topology hints
+In the case of the `Guaranteed` pod, the `Static` Memory Manager policy returns topology hints
 relating to the set of NUMA nodes where the memory can be guaranteed,
 and reserves the memory through updating the internal [NodeMap][2] object.
 
@@ -138,7 +139,8 @@ The sum of their values will account for the total amount of reserved memory.
 A new `--reserved-memory` flag was added to Memory Manager to allow for this total reserved memory
 to be split (by a node administrator) and accordingly reserved across many NUMA nodes.
 
-The flag specifies a comma-separated list of memory reservations per NUMA node.
+The flag specifies a comma-separated list of memory reservations of different memory types per NUMA node.
+Memory reservations across multiple NUMA nodes can be specified using semicolon as separator.
 This parameter is only useful in the context of the Memory Manager feature.
 The Memory Manager will not use this reserved memory for the allocation of container workloads.
 
@@ -180,6 +182,10 @@ or
 
 `--reserved-memory 0:memory=1Gi --reserved-memory 1:memory=2Gi`
 
+or
+
+`--reserved-memory '0:memory=1Gi;1:memory=2Gi'`
+
 When you specify values for `--reserved-memory` flag, you must comply with the setting that
 you prior provided via Node Allocatable Feature flags.
 That is, the following rule must be obeyed for each memory type:
@@ -215,7 +221,7 @@ Here is an example of a correct configuration:
 --kube-reserved=cpu=4,memory=4Gi
 --system-reserved=cpu=1,memory=1Gi
 --memory-manager-policy=Static
---reserved-memory 0:memory=3Gi --reserved-memory 1:memory=2148Mi
+--reserved-memory '0:memory=3Gi;1:memory=2148Mi'
 ```
 
 Let us validate the configuration above:
@@ -454,8 +460,9 @@ by using `--reserved-memory` flag.
 
 ### Device plugin resource API
 
-By employing the [API](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/),
-the information about reserved memory for each container can be retrieved, which is contained
+The kubelet provides a `PodResourceLister` gRPC service to enable discovery of resources and associated metadata.
+By using its [List gRPC endpoint](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#grpc-endpoint-list),
+information about reserved memory for each container can be retrieved, which is contained
 in protobuf `ContainerMemory` message.
 This information can be retrieved solely for pods in Guaranteed QoS class.
 

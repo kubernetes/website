@@ -5,13 +5,20 @@ date: 2021-11-12
 slug: are-you-ready-for-dockershim-removal
 ---
 
-**Author:** Sergey Kanzhelev, Google. With reviews from Davanum Srinivas, Elana Hashman, Noah Kantrowitz, Rey Lejano.
+**Authors:** Sergey Kanzhelev, Google. With reviews from Davanum Srinivas, Elana Hashman, Noah Kantrowitz, Rey Lejano.
 
 {{% alert color="info" title="Poll closed" %}}
 This poll closed on January 7, 2022.
 {{% /alert %}}
 
-Last year we announced that Dockershim is being deprecated: [Dockershim Deprecation FAQ](/blog/2020/12/02/dockershim-faq/).
+Last year we [announced](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)
+that Kubernetes' dockershim component (which provides a built-in integration for
+Docker Engine) is deprecated.
+
+_Update: There's a [Dockershim Deprecation FAQ](/blog/2020/12/02/dockershim-faq/)
+with more information, and you can also discuss the deprecation via a dedicated
+[GitHub issue](https://github.com/kubernetes/kubernetes/issues/106917)._
+
 Our current plan is to remove dockershim from the Kubernetes codebase soon.
 We are looking for feedback from you whether you are ready for dockershim
 removal and to ensure that you are ready when the time comes.

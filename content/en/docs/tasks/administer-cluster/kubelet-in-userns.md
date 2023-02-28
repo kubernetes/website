@@ -2,6 +2,7 @@
 title: Running Kubernetes Node Components as a Non-root User
 content_type: task
 min-kubernetes-server-version: 1.22
+weight: 300
 ---
 
 <!-- overview -->
@@ -41,13 +42,30 @@ See [Running kind with Rootless Docker](https://kind.sigs.k8s.io/docs/user/rootl
 
 ### minikube
 
-[minikube](https://minikube.sigs.k8s.io/) also supports running Kubernetes inside Rootless Docker.
+[minikube](https://minikube.sigs.k8s.io/) also supports running Kubernetes inside Rootless Docker or Rootless Podman.
 
-See the page about the [docker](https://minikube.sigs.k8s.io/docs/drivers/docker/) driver in the Minikube documentation.
+See the Minikube documentation:
 
-Rootless Podman is not supported.
+* [Rootless Docker](https://minikube.sigs.k8s.io/docs/drivers/docker/)
+* [Rootless Podman](https://minikube.sigs.k8s.io/docs/drivers/podman/)
 
-<!-- Supporting rootless podman is discussed in https://github.com/kubernetes/minikube/issues/8719 -->
+## Running Kubernetes inside Unprivileged Containers
+
+{{% thirdparty-content %}}
+
+### sysbox
+
+[Sysbox](https://github.com/nestybox/sysbox) is an open-source container runtime
+(similar to "runc") that supports running system-level workloads such as Docker
+and Kubernetes inside unprivileged containers isolated with the Linux user
+namespace.
+
+See [Sysbox Quick Start Guide: Kubernetes-in-Docker](https://github.com/nestybox/sysbox/blob/master/docs/quickstart/kind.md) for more info.
+
+Sysbox supports running Kubernetes inside unprivileged containers without
+requiring Cgroup v2 and without the `KubeletInUserNamespace` feature gate. It
+does this by exposing specially crafted `/proc` and `/sys` filesystems inside
+the container plus several other advanced OS virtualization techniques.
 
 ## Running Rootless Kubernetes directly on a host
 
@@ -235,7 +253,7 @@ This feature gate also allows kube-proxy to ignore an error during setting `RLIM
 The `KubeletInUserNamespace` feature gate was introduced in Kubernetes v1.22 with "alpha" status.
 
 Running kubelet in a user namespace without using this feature gate is also possible
-by mounting a specially crafted proc filesystem, but not officially supported.
+by mounting a specially crafted proc filesystem (as done by [Sysbox](https://github.com/nestybox/sysbox)), but not officially supported.
 
 ### Configuring kube-proxy
 
@@ -272,4 +290,3 @@ on the rootlesscontaine.rs website.
 - [Usernetes](https://github.com/rootless-containers/usernetes)
 - [Running K3s with rootless mode](https://rancher.com/docs/k3s/latest/en/advanced/#running-k3s-with-rootless-mode-experimental)
 - [KEP-2033: Kubelet-in-UserNS (aka Rootless mode)](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2033-kubelet-in-userns-aka-rootless)
-
