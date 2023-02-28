@@ -2,7 +2,7 @@
 title: Ingressコントローラー
 reviewers:
 content_type: concept
-weight: 40
+weight: 50
 ---
 
 <!-- overview -->
