@@ -3,6 +3,7 @@ layout: blog
 title: "Introducing KWOK: Kubernetes WithOut Kubelet"
 date: 2023-03-01
 slug: introducing-kwok
+canonicalUrl: https://kubernetes.dev/blog/2023/03/01/introducing-kwok/
 ---
 
 **Author:** Shiming Zhang (DaoCloud), Wei Huang (Apple), Yibo Zhuang (Apple)
