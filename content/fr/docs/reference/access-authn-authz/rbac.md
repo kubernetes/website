@@ -624,29 +624,30 @@ Sachez que les autorisations et les sujets par défaut manquants peuvent entraî
 L'auto-réconciliation est activée par défaut si l'autorisateur RBAC est actif.
 
 
-### API discovery roles {#discovery-roles}
+### Rôles de détection de l'API {#discovery-roles}
 
-Default role bindings authorize unauthenticated and authenticated users to read API information that is deemed safe to be publicly accessible (including CustomResourceDefinitions). To disable anonymous unauthenticated access, add `--anonymous-auth=false` to the API server configuration.
+Les liaisons de rôles par défaut autorisent les utilisateurs authentifiés et non authentifiés à lire les informations de l'API qui sont jugées sûres pour être accessibles au public (y compris les CustomResourceDefinitions). Pour désactiver l'accès anonyme non authentifié, ajoutez `--anonymous-auth=false` à la configuration du serveur d'API.
 
-To view the configuration of these roles via `kubectl` run:
+Pour afficher la configuration de ces rôles via `kubectl`, exécutez :
+
 
 ```shell
 kubectl get clusterroles system:discovery -o yaml
 ```
 
 {{< note >}}
-If you edit that ClusterRole, your changes will be overwritten on API server restart
-via [auto-reconciliation](#auto-reconciliation). To avoid that overwriting,
-either do not manually edit the role, or disable auto-reconciliation.
+Si vous modifiez ce ClusterRole, vos modifications seront écrasées au redémarrage du serveur API
+via l'[auto-reconciliation](#auto-reconciliation). Pour éviter cet écrasement,
+ne modifiez pas manuellement le rôle ou désactivez l'auto-reconciliation.
 {{< /note >}}
 
 <table>
-<caption>Kubernetes RBAC API discovery roles</caption>
+<caption>Rôles de détection de l'API RBAC de Kubernetes</caption>
 <colgroup><col style="width: 25%;" /><col style="width: 25%;" /><col /></colgroup>
 <thead>
 <tr>
-<th>Default ClusterRole</th>
-<th>Default ClusterRoleBinding</th>
+<th>ClusterRole par défaut</th>
+<th>ClusterRoleBinding par défaut</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -654,17 +655,17 @@ either do not manually edit the role, or disable auto-reconciliation.
 <tr>
 <td><b>system:basic-user</b></td>
 <td><b>system:authenticated</b> group</td>
-<td>Allows a user read-only access to basic information about themselves. Prior to v1.14, this role was also bound to <tt>system:unauthenticated</tt> by default.</td>
+<td>Permet à un utilisateur d'accéder en lecture seule aux informations de base le concernant. Avant la v1.14, ce rôle était également lié à <tt>system:unauthenticated</tt> par défaut.</td>
 </tr>
 <tr>
 <td><b>system:discovery</b></td>
 <td><b>system:authenticated</b> group</td>
-<td>Allows read-only access to API discovery endpoints needed to discover and negotiate an API level. Prior to v1.14, this role was also bound to <tt>system:unauthenticated</tt> by default.</td>
+<td>Permet un accès en lecture seule aux points de terminaison de découverte d'API nécessaires pour découvrir et négocier un niveau d'API. Avant la v1.14, ce rôle était également lié à l'option <tt>system:unauthenticated</tt> par défaut.</td>
 </tr>
 <tr>
 <td><b>system:public-info-viewer</b></td>
 <td><b>system:authenticated</b> and <b>system:unauthenticated</b> groups</td>
-<td>Allows read-only access to non-sensitive information about the cluster. Introduced in Kubernetes v1.14.</td>
+<td>Permet un accès en lecture seule à des informations non sensibles sur le cluster. Introduit dans Kubernetes v1.14.</td>
 </tr>
 </tbody>
 </table>
