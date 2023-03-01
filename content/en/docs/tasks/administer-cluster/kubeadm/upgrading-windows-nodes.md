@@ -88,4 +88,6 @@ bring the node back online by marking it schedulable:
     # replace <node-to-drain> with the name of your node
     kubectl uncordon <node-to-drain>
     ```
+ ## {{% heading "whatsnext" %}}
 
+* See how to [Upgrade Linux nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes/).
