@@ -135,6 +135,9 @@ You can use the `operator` field to specify a logical operator for Kubernetes to
 interpreting the rules. You can use `In`, `NotIn`, `Exists`, `DoesNotExist`,
 `Gt` and `Lt`.
 
+Read [Operators](/docs/concepts/scheduling-eviction/assign-pod-node/#operators)
+to learn more about how these work.
+
 `NotIn` and `DoesNotExist` allow you to define node anti-affinity behavior.
 Alternatively, you can use [node taints](/docs/concepts/scheduling-eviction/taint-and-toleration/)
 to repel Pods from specific nodes.
@@ -309,6 +312,9 @@ refer to the [design proposal](https://git.k8s.io/design-proposals-archive/sched
 
 You can use the `In`, `NotIn`, `Exists` and `DoesNotExist` values in the
 `operator` field for Pod affinity and anti-affinity.
+
+Read [Operators](/docs/concepts/scheduling-eviction/assign-pod-node/#operators)
+to learn more about how these work.
 
 In principle, the `topologyKey` can be any allowed label key with the following
 exceptions for performance and security reasons:
@@ -491,6 +497,24 @@ overall utilization.
 
 Read [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 to learn more about how these work.
+
+## Operators
+
+The following are all the logical operators that you can use with the `operator` field for `nodeAffinity` and `podAffinity` as mentioned above.
+
+|    <div style="width:150px">Operator</div>    |    Behaviour    |
+| :------------: | :-------------: |
+| In | The label value is contained in the supplied set of strings |
+|   NotIn   | The label value is not contained in the supplied set of strings |
+| Exists | A label with this key is applied to the object |
+| DoesNotExist | No such label with this key is applied to the object |
+| Gt | The supplied value will be parsed as an integer, and that integer is less than or equal to the integer that results from parsing the value of a label named by this selector | 
+| Lt | The supplied value will be parsed as an integer, and that integer is greater than or equal to the integer that results from parsing the value of a label named by this selector | 
+
+
+{{<note>}}
+`Gt` and `Lt` are not available for `nodeAffinity` as of now.
+{{</note>}}
 
 ## {{% heading "whatsnext" %}}
 
