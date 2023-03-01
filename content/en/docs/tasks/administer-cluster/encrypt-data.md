@@ -96,13 +96,13 @@ read that resource will fail until it is deleted or a valid decryption key is pr
 ### Providers
 
 {{< table caption="Providers for Kubernetes encryption at rest" >}}
-Name | Encryption | Strength | Speed | Key Length | Other Considerations
------|------------|----------|-------|------------|---------------------
-`identity` | None | N/A | N/A | N/A | Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written.
-`secretbox` | XSalsa20 and Poly1305 | Strong | Faster | 32-byte | A newer standard and may not be considered acceptable in environments that require high levels of review.
-`aesgcm` | AES-GCM with random nonce | Must be rotated every 200k writes | Fastest | 16, 24, or 32-byte | Is not recommended for use except when an automated key rotation scheme is implemented.
-`aescbc` | AES-CBC with [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) padding | Weak | Fast | 32-byte | Not recommended due to CBC's vulnerability to padding oracle attacks.
-`kms` | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-CBC with [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) padding (prior to v1.25), using AES-GCM starting from v1.25, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Fast | 32-bytes |  The recommended choice for using a third party tool for key management. Simplifies key rotation, with a new DEK generated for each encryption, and KEK rotation controlled by the user. [Configure the KMS provider](/docs/tasks/administer-cluster/kms-provider/).
+Name | Encryption | Strength | Speed | Key Length | [Rotation](#key-rotation) | Other Considerations
+-----|------------|----------|-------|------------|---------------------------|---------------------
+`identity` | None | N/A | N/A | N/A | N/A | Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written.
+`secretbox` | XSalsa20 and Poly1305 | Strong | Faster | 32-byte | N/A | A newer standard and may not be considered acceptable in environments that require high levels of review.
+`aesgcm` | AES-GCM with random nonce | Strong | Fastest | 16, 24, or 32-byte | 2<sup>32</sup> writes| Is not recommended for use except when an automated key rotation scheme is implemented.
+`aescbc` | AES-CBC with [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) padding | Weak | Fast | 32-byte | N/A| Not recommended due to CBC's vulnerability to padding oracle attacks.
+`kms` | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-CBC with [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) padding (prior to v1.25), using AES-GCM starting from v1.25, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Fast | 32-bytes | N/A | The recommended choice for using a third party tool for key management. Simplifies key rotation, with a new DEK generated for each encryption, and KEK rotation controlled by the user. [Configure the KMS provider](/docs/tasks/administer-cluster/kms-provider/).
 {{< /table >}}
 
 Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
@@ -321,6 +321,63 @@ Then run the following command to force decrypt all Secrets:
 ```shell
 kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 ```
+
+
+## Key rotation
+
+It is recommended to frequently rotate keys to reduce the amount of data encrypted by a single key so that if one of the keys is compromised, the amount of data leaked is reduced.
+
+The cryptoperiod recommendations and requirements are highly dependent on certification authorities, but as an example, the NIST recommends not using symmetric data encryption keys for more than two years for encryption and three years after that period for decryption. [NIST.SP.800-57](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-57pt1r5.pdf#page=59)
+
+For Kubernetes encryption at rest, this would mean that keys should be rotated at least once every two years, and a complete storage migration should be done at the minimum once every three years after the first rotation.
+
+However, depending on the encryption provider, these cryptoperiod might be too long, and other threats need to be considered.
+
+### aesgcm
+
+The `aesgcm` provider is using the AES-GCM encryption algorithm with a random nonce to encrypt data. This algorithm is well known for being vulnerable to nonce collision attacks and as such it is highly recommended to have an automated key rotation mechanism in place to use it.
+
+For this type of attack, the construction of the IV is important and the NIST recommends only supporting nonce of the length of 96 bits which is what Kubernetes does.
+
+> For IVs, it is recommended that implementations restrict support to the length of 96 bits, to promote interoperability, efficiency, and simplicity of design.
+> -- <cite>[NIST.SP.800-38D](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38d.pdf#page=16)<cite>
+
+For this type of IV construction, the NIST has the following requirement for the number of invocations of the keys:
+
+> The total number of invocations of the authenticated encryption function shall not exceed 2<sup>32</sup>, including all IV lengths and all instances of the authenticated encryption function with the given key.
+> -- <cite>[NIST.SP.800-38D](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-38d.pdf#page=29)<cite>
+
+This key invocation requirement is calculated based on the [birthday problem](https://en.wikipedia.org/wiki/Birthday_problem). It is used to know the change of a nonce collision happening based on the number of encryptions performed by a single key.
+
+The formula provided by this problem to calculate the chance of a collision happening is as follow, with `n` being the number of unique combination of values for the nonce and `k` the number of encryption done by a single-key:
+
+<!-- Vnr = {\frac{n!}{(n-k)!}} -->
+{{< figure src="/images/docs/administer-cluster/encrypt-data/formula-aesgcm-1.svg" class="diagram-medium" >}}
+
+Kubernetes uses a 96 bits nonce so there are 2<sup>96</sup> possible combinaisons
+
+<!--Vnr = {\frac{2^{96}!}{(2^{96}-k)!}} -->
+{{< figure src="/images/docs/administer-cluster/encrypt-data/formula-aesgcm-2.svg" class="diagram-medium" >}}
+
+This is a complex formula to solve with big numbers, so we will use an approximation to calculate the probability of a nonce collision happening
+
+<!-- p(n,k) \approx 1 - e^{-{\frac{(k^2)}{2n}}} -->
+{{< figure src="/images/docs/administer-cluster/encrypt-data/formula-aesgcm-3.svg" class="diagram-medium" >}}
+
+<!-- p(k) \approx 1 - e^{-{\frac{(k^2)}{2^{97}}}} -->
+{{< figure src="/images/docs/administer-cluster/encrypt-data/formula-aesgcm-4.svg" class="diagram-medium" >}}
+
+A negligeable chance of collision by current security standards is 1/2<sup>32</sup> so in Kubernetes' case we want to make sure that the chance of a none collision is less than one in 2<sup>32</sup>
+
+<!-- p(k) \approx 1 - e^{-{\frac{(k^2)}{2^{97}}}} \leq 2^{32} -->
+{{< figure src="/images/docs/administer-cluster/encrypt-data/formula-aesgcm-5.svg" class="diagram-medium" >}}
+
+The smallest power of 2 for which this equation is satified is 2<sup>32</sup>
+
+<!-- 1-e^{-\frac{2^{32}}{2^{97}}} \approx 1.164\times{10}^{-10} \leq \frac{1}{2^{32}} \approx 2.32\times{10}^{-10} \leq 1-e^{-\frac{2^{33}}{2^{97}}} \approx 4.656\times{10}^{-10} -->
+{{< figure src="/images/docs/administer-cluster/encrypt-data/formula-aesgcm-6.svg" class="diagram-medium" >}}
+
+So, to keep a safety net of a chance in 2<sup>32</sup> of a nonce collision happening, an AES-GCM key must not be used more than 2<sup>32</sup> times, which is what the NIST requires.
 
 ## {{% heading "whatsnext" %}}
 
