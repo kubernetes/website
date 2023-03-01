@@ -38,19 +38,19 @@ weight: 10
 
 {{< mermaid >}}
 flowchart LR
-    subgraph fourth[Start review]
+    subgraph fourth[レビューの開始]
     direction TB
     S[ ] -.-
-    M[add comments] --> N[review changes]
-    N --> O[new contributors should<br>choose Comment]
+    M[コメントを追加] --> N[変更の確認]
+    N --> O[Commentを選択]
     end
-    subgraph third[Select PR]
+    subgraph third[PRの選択]
     direction TB
     T[ ] -.-
-    J[read description<br>and comments]--> K[preview changes in<br>Netlify preview build]
+    J[説明とコメントを読む]--> K[Netlifyプレビューで<br>変更点を表示]
     end
 
-  A[Review open PR list]--> B[Filter open PRs<br>by label]
+  A[オープン状態の<br>PR一覧を確認]--> B[オープン状態のPRを<br>ラベルで絞り込む]
   B --> third --> fourth
 
 
@@ -78,7 +78,7 @@ class third,fourth white
     - PRの説明を読み、行われた変更について理解し、関連するissueがあればそれも読みます。
     - 他のレビュアのコメントがあれば読みます。
     - **Files changed**タブをクリックし、変更されたファイルと行を確認します。
-    - **Conversation**タブの下にあるPRのbuild checkセクションまでスクロールし、Netlifyのプレビュービルドで変更点をプレビューします。これはスクリーンショットです(これは、GitHubのデスクトップサイトを見せています; タブレットやスマートフォンデバイスでレビューしている場合は、GitHubウェブのUIは少し異なります):
+    - **Conversation**タブの下にあるPRのbuild checkセクションまでスクロールし、Netlifyのプレビュービルドで変更点をプレビューします。これはスクリーンショットです(これは、GitHubのデスクトップサイトを見せています。タブレットやスマートフォンデバイスでレビューしている場合は、GitHubウェブのUIは少し異なります):
       {{< figure src="/images/docs/github_netlify_deploy_preview.png" alt="GitHub pull request details including link to Netlify preview" >}}
       プレビューを開くには、チェックリストの**deploy/netlify**行の**Details**リンクをクリックします。
 
@@ -122,12 +122,10 @@ class third,fourth white
 
 ### その他
 
-- [些細な編集](https://www.kubernetes.dev/docs/guide/pull-requests/#trivial-edits)に注意してください;
-  些細な編集だと思われる変更を見つけた場合は、そのポリシーを指摘してください (それが本当に改善である場合は、変更を受け入れても問題ありません)。
+- [些細な編集](https://www.kubernetes.dev/docs/guide/pull-requests/#trivial-edits)に注意してください。些細な編集だと思われる変更を見つけた場合は、そのポリシーを指摘してください (それが本当に改善である場合は、変更を受け入れても問題ありません)。
 - 空白の修正を行っている作成者には、PRの最初のコミットでそれを行い、その後に他の変更を加えるよう促してください。これにより、マージとレビューの両方が容易になります。特に、大量の空白文字の整理と共に1回のコミットで発生する些細な変更に注意してください(もしそれを見つけたら、作成者に修正を促してください)。
 
 レビュアーが誤字や不適切な空白など、PRの本質でない小さな問題を発見した場合は、コメントの先頭に`nit:`を付けてください。これにより、作成者はこのフィードバックが重要でないことを知ることができます。
 
-Pull Requestの承認を検討する際、残りのすべてのフィードバックがnitとしてマークされていれば、残っていたとしてもPRをマージできます。その場合、残っているnitに関するIssueをオープンすると役立つことがよくあります。その新しいIssueを[Good First Issue](https://www.kubernetes.dev/docs/guide/help-wanted/#good-first-issue)としてマークするための条件を満たすことができるかどうか検討してください;
-それができたら、これらは良い情報源になります。
+Pull Requestの承認を検討する際、残りのすべてのフィードバックがnitとしてマークされていれば、残っていたとしてもPRをマージできます。その場合、残っているnitに関するIssueをオープンすると役立つことがよくあります。その新しいIssueを[Good First Issue](https://www.kubernetes.dev/docs/guide/help-wanted/#good-first-issue)としてマークするための条件を満たすことができるかどうか検討してください。それができたら、これらは良い情報源になります。
 
