@@ -1,7 +1,7 @@
 ---
-title: Containers
+title: कंटेनर्स (Containers)
 weight: 40
-description: Technology for packaging an application along with its runtime dependencies.
+description: एक एप्लिकेशन के साथ उसकी रनटाइम डिपेंडेंसी को पैकेजिंग करने के लिए प्रौद्योगिकी।
 reviewers:
 - erictune
 - thockin
@@ -10,44 +10,27 @@ content_type: concept
 
 <!-- overview -->
 
-Each container that you run is repeatable; the standardization from having
-dependencies included means that you get the same behavior wherever you
-run it.
+आप जिस कंटेनर को चलाते हैं, वह दोहराया जाता है; समेतता से निर्भरताओं के शामिल होने से अर्थ है कि जहां आप भी उसे चलाते हैं, आपको उसी व्यवहार का पता चलता है।
 
-Containers decouple applications from underlying host infrastructure.
-This makes deployment easier in different cloud or OS environments.
+कंटेनर अनुप्रयोगों को मूल अधोसंरचना से अलग करते हैं। इससे विभिन्न क्लाउड या ओएस पर्यावरणों में डिप्लॉयमेंट आसान हो जाता है।
 
-Each {{< glossary_tooltip text="node" term_id="node" >}} in a Kubernetes
-cluster runs the containers that form the
-[Pods](/docs/concepts/workloads/pods/) assigned to that node.
-Containers in a Pod are co-located and co-scheduled to run on the same node.
+एक कुबरनेट्स क्लस्टर में हर {{< glossary_tooltip text="node" term_id="node" >}} कंटेनर चलाता है जो उस नोड को सौंपा जाता है।
+[Pods](/docs/concepts/workloads/pods/) में कंटेनर सह-स्थापित और सह-अनुसूचित किए जाते हैं ताकि वे एक ही नोड पर चलें।
 
 
 <!-- body -->
 
-## Container images
-A [container image](/docs/concepts/containers/images/) is a ready-to-run
-software package, containing everything needed to run an application:
-the code and any runtime it requires, application and system libraries,
-and default values for any essential settings.
+## कंटेनर छवियां
 
-Containers are intended to be stateless and
-[immutable](https://glossary.cncf.io/immutable-infrastructure/):
-you should not change
-the code of a container that is already running. If you have a containerized
-application and want to make changes, the correct process is to build a new
-image that includes the change, then recreate the container to start from the
-updated image.
+एक [कंटेनर छवि](/docs/concepts/containers/images/) एक तैयार चलाने योग्य सॉफ्टवेयर पैकेज होता है, जो किसी एप्लिकेशन को चलाने के लिए सब कुछ शामिल करता है: कोड और कोई भी रनटाइम जो इसे आवश्यकता होती है, एप्लिकेशन और सिस्टम लाइब्रेरी, और किसी भी महत्वपूर्ण सेटिंग्स के लिए डिफ़ॉल्ट मान।
 
-## Container runtimes
+
+कंटेनर अवस्थाहीन और [अविनाशी](https://glossary.cncf.io/immutable-infrastructure/) होने के लिए निर्मित होते हैं: जो कंटेनर पहले से चल रहा है, उसके कोड को नहीं बदलना चाहिए। अगर आपके पास एक कंटेनर आधारित एप्लिकेशन है और आप उसमें बदलाव करना चाहते हैं, तो सही प्रक्रिया नई तस्वीर बनाना होगा जो उस बदलाव को शामिल करती है, और फिर कंटेनर को अपडेट की गई छवि से शुरू करने के लिए फिर से बनाना होगा।
+
+## कंटेनर रनटाइम
 
 {{< glossary_definition term_id="container-runtime" length="all" >}}
 
-Usually, you can allow your cluster to pick the default container runtime
-for a Pod. If you need to use more than one container runtime in your cluster,
-you can specify the [RuntimeClass](/docs/concepts/containers/runtime-class/)
-for a Pod to make sure that Kubernetes runs those containers using a
-particular container runtime.
+आमतौर पर, आप अपनी क्लस्टर को एक पॉड के लिए डिफ़ॉल्ट कंटेनर रनटाइम का चयन करने दे सकते हैं। अगर आप अपनी क्लस्टर में एक से अधिक कंटेनर रनटाइम का उपयोग करना चाहते हैं, तो आप एक पॉड के लिए RuntimeClass निर्दिष्ट कर सकते हैं ताकि Kubernetes एक विशिष्ट कंटेनर रनटाइम का उपयोग करते हुए उन कंटेनरों को चलाए।
 
-You can also use RuntimeClass to run different Pods with the same container
-runtime but with different settings.
+आप [RuntimeClass](/docs/concepts/containers/runtime-class/) का उपयोग करके भी समान कंटेनर रनटाइम के साथ भिन्न सेटिंग्स वाले विभिन्न पॉड को चला सकते हैं।
