@@ -139,7 +139,7 @@ announcements:
   title: "Legacy k8s.gcr.io container image registry will be frozen in early April 2023"
   message: |
     k8s.gcr.io image registry will be frozen from the 3rd of April 2023.<br/>
-    Images for Kubernetes 1.27 will not available in the k8s.gcr.io image registry.<br/>
+    Images for Kubernetes 1.27 will not be available in the k8s.gcr.io image registry.<br/>
     Please read our [announcement](/blog/2023/02/06/k8s-gcr-io-freeze-announcement/) for more details.
 
 - name: Freezing k8s.gcr.io - After
