@@ -670,16 +670,16 @@ ne modifiez pas manuellement le rôle ou désactivez l'auto-reconciliation.
 </tbody>
 </table>
 
-### User-facing roles
+### Rôle des utilisateurs
 
-Some of the default ClusterRoles are not `system:` prefixed. These are intended to be user-facing roles.
-They include super-user roles (`cluster-admin`), roles intended to be granted cluster-wide
-using ClusterRoleBindings, and roles intended to be granted within particular
-namespaces using RoleBindings (`admin`, `edit`, `view`).
+Certains des ClusterRoles par défaut ne sont pas précédés du préfixe `system:`. Il s'agit de rôles destinés à l'utilisateur.
+Ils incluent les rôles de super-utilisateur (`cluster-admin`), les rôles destinés à être accordés à l'échelle du cluster
+à l'aide de ClusterRoleBindings, et les rôles destinés à être accordés dans
+des namespaces particuliers à l'aide de RoleBindings (`admin`, `edit`, `view`).
 
-User-facing ClusterRoles use [ClusterRole aggregation](#aggregated-clusterroles) to allow admins to include
-rules for custom resources on these ClusterRoles. To add rules to the `admin`, `edit`, or `view` roles, create
-a ClusterRole with one or more of the following labels:
+Les ClusterRoles des utilisateurs utilisent l'[agrégation de ClusterRole](#aggregated-clusterroles) pour permettre aux administrateurs d'inclure
+des règles pour les ressources personnalisées sur ces ClusterRoles. Pour ajouter des règles aux rôles `admin`, `edit`, ou `view`, créez
+une ClusterRole avec un ou plusieurs des labels suivants :
 
 ```yaml
 metadata:
@@ -693,48 +693,51 @@ metadata:
 <colgroup><col style="width: 25%;" /><col style="width: 25%;" /><col /></colgroup>
 <thead>
 <tr>
-<th>Default ClusterRole</th>
-<th>Default ClusterRoleBinding</th>
+<th>ClusterRole par défaut</th>
+<th>ClusterRoleBinding par défaut</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><b>cluster-admin</b></td>
-<td><b>system:masters</b> group</td>
-<td>Allows super-user access to perform any action on any resource.
-When used in a <b>ClusterRoleBinding</b>, it gives full control over every resource in the cluster and in all namespaces.
-When used in a <b>RoleBinding</b>, it gives full control over every resource in the role binding's namespace, including the namespace itself.</td>
+<td><b>system:masters</b> groupe</td>
+<td>Permet au super-utilisateur d'effectuer n'importe quelle action sur n'importe quelle ressource.
+Lorsqu'il est utilisé dans un <b>ClusterRoleBinding</b>, il donne un contrôle total sur chaque ressource dans le cluster et dans tous les namespaces.
+Lorsqu'il est utilisé dans un <b>RoleBinding</b>, il donne un contrôle total sur chaque ressource dans le namespace du role binding, y compris le namespace lui-même.</td>
 </tr>
 <tr>
 <td><b>admin</b></td>
-<td>None</td>
-<td>Allows admin access, intended to be granted within a namespace using a <b>RoleBinding</b>.
+<td>Aucun</td>
+<td>Permet l'accès administrateur, destiné à être accordé au sein d'un espace de nom en utilisant un <b>RoleBinding</b>.
 
-If used in a <b>RoleBinding</b>, allows read/write access to most resources in a namespace,
-including the ability to create roles and role bindings within the namespace.
-This role does not allow write access to resource quota or to the namespace itself.
-This role also does not allow write access to EndpointSlices (or Endpoints) in clusters created
-using Kubernetes v1.22+. More information is available in the
-["Write Access for EndpointSlices and Endpoints" section](#write-access-for-endpoints).</td>
+S'il est utilisé dans un <b>RoleBinding</b>, il permet un accès en lecture/écriture à la plupart des ressources d'un namespace,
+y compris la possibilité de créer des rôles et des liaisons de rôles dans le namespace.
+Ce rôle ne permet pas l'accès en écriture au quota de ressources ou au namespace lui-même.
+Ce rôle ne permet pas non plus l'accès en écriture aux EndpointSlices (ou Endpoints) dans les clusters créés
+à l'aide de Kubernetes v1.22+. Plus d'informations sont disponibles dans la 
+[section "Accès en écriture pour les EndpointSlices et les Endpoints"](#write-access-for-endpoints).</td>
 </tr>
 <tr>
 <td><b>edit</b></td>
-<td>None</td>
-<td>Allows read/write access to most objects in a namespace.
+<td>Aucun</td>
+<td>Permet l'accès en lecture/écriture à la plupart des objets d'un namespace.
 
-This role does not allow viewing or modifying roles or role bindings.
-However, this role allows accessing Secrets and running Pods as any ServiceAccount in
-the namespace, so it can be used to gain the API access levels of any ServiceAccount in
-the namespace. This role also does not allow write access to EndpointSlices (or Endpoints) in
-clusters created using Kubernetes v1.22+. More information is available in the
-["Write Access for EndpointSlices and Endpoints" section](#write-access-for-endpoints).</td>
+Ce rôle ne permet pas de visualiser ou de modifier les rôles ou les liaisons de rôles.
+Cependant, ce rôle permet d'accéder aux Secrets et d'exécuter des Pods comme n'importe quel ServiceAccount
+du namespace, il peut donc être utilisé pour obtenir les niveaux d'accès API de n'importe quel ServiceAccount
+du namespace. Ce rôle ne permet pas non plus d'accéder en écriture aux EndpointSlices (ou Endpoints) dans
+les clusters créés à l'aide de Kubernetes v1.22+. Plus d'informations sont disponibles dans la
+[section "Write Access for EndpointSlices and Endpoints"](#write-access-for-endpoints).</td>
 </tr>
 <tr>
 <td><b>view</b></td>
-<td>None</td>
-<td>Allows read-only access to see most objects in a namespace.
-It does not allow viewing roles or role bindings.
+<td>Aucun</td>
+<td>Permet un accès en lecture seule pour voir la plupart des objets d'un namespace.
+Il ne permet pas de visualiser les rôles ou les liens entre les rôles.
+Ce rôle ne permet pas de visualiser les Secrets, car la lecture du contenu
+des Secrets permet d'accéder aux informations d'identification du ServiceAccount dans le namespace,
+ce qui permettrait d'accéder à l'API en tant que tout ServiceAccount dans l'espace de noms (une forme d'escalade des privilèges).
 
 This role does not allow viewing Secrets, since reading
 the contents of Secrets enables access to ServiceAccount credentials
