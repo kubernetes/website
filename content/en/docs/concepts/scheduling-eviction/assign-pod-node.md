@@ -513,7 +513,7 @@ The following are all the logical operators that you can use with the `operator`
 
 
 {{<note>}}
-`Gt` and `Lt` operators will not work with non integer values. Also, `Gt` and `Lt` are not available for `podAffinity` as of now. 
+`Gt` and `Lt` operators will not work with non integer values. If the given value doesn't parse as an integer, the pod will fail to get scheduled. Also, `Gt` and `Lt` are not available for `podAffinity` as of now. 
 {{</note>}}
 
 ## {{% heading "whatsnext" %}}
