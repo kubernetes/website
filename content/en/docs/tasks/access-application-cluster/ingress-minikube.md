@@ -210,7 +210,7 @@ The following manifest defines an Ingress that sends traffic to your Service via
    {{< /note >}}
    
    {{< note >}}
-   For Mac, if you are running Minikube locally, point to localhost in the hosts file instead of the minikube ip
+   For Mac, if you are running Minikube locally with Docker, point to localhost in the hosts file instead of the minikube ip
    
     ```none
     127.0.0.1 hello-world.info
