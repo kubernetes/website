@@ -40,11 +40,11 @@ dependency on Docker:
 1. Third-party tools that perform above mentioned privileged operations. See
    [Migrating telemetry and security agents from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/migrating-telemetry-and-security-agents)
    for more information.
-1. Make sure there is no indirect dependencies on dockershim behavior.
+1. Make sure there are no indirect dependencies on dockershim behavior.
    This is an edge case and unlikely to affect your application. Some tooling may be configured
    to react to Docker-specific behaviors, for example, raise alert on specific metrics or search for
    a specific log message as part of troubleshooting instructions.
-   If you have such tooling configured, test the behavior on test
+   If you have such tooling configured, test the behavior on a test
    cluster before migration.
 
 ## Dependency on Docker explained {#role-of-dockershim}
@@ -74,7 +74,7 @@ before to check on these containers is no longer available.
 
 You cannot get container information using `docker ps` or `docker inspect`
 commands. As you cannot list containers, you cannot get logs, stop containers,
-or execute something inside container using `docker exec`.
+or execute something inside a container using `docker exec`.
 
 {{< note >}}
 
