@@ -208,6 +208,15 @@ The following manifest defines an Ingress that sends traffic to your Service via
    If you are running Minikube locally, use `minikube ip` to get the external IP.
    The IP address displayed within the ingress list will be the internal IP.
    {{< /note >}}
+   
+   {{< note >}}
+   For Mac, if you are running Minikube locally, point to localhost in the hosts file instead of the minikube ip
+   
+    ```none
+    127.0.0.1 hello-world.info
+    ```
+   And then use `minikube tunnel`
+   {{< /note >}}
 
    After you make this change, your web browser sends requests for
    `hello-world.info` URLs to Minikube.
