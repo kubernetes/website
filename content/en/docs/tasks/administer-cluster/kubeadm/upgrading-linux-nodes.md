@@ -1,7 +1,7 @@
 ---
 title: Upgrading Linux nodes
 content_type: task
-weight: 50
+weight: 100
 ---
 
 <!-- overview -->
