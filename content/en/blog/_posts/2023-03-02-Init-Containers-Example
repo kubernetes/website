@@ -1,0 +1,51 @@
+---
+layout: blog
+title: "Init Containers"
+date: 2023-03-02
+slug: Init-Containers-Example
+---
+
+## Init containers run to completion before the main container starts up
+
+That is an example of an Init Container :
+
+````
+apiVersion: v1
+kind: Pod
+metadata:
+    name: init-cont
+spec:
+containers:
+- name: nginx
+image: nginx:stable
+initContainers:
+- name: busybox
+image: busybox:stable
+command: ['sh', '-c', 'sleep 10']
+````
+
+The initContainer is named "busybox" and uses the busybox:stable image to run a shell command that sleeps for 10 seconds. The
+regular container is named "nginx" and uses the nginx:stable image.
+
+When the Pod is created, Kubernetes will first start the initContainer and wait for it to complete before starting the regular
+container. The purpose of the initContainer is to perform some setup or initialization tasks that the regular container needs
+before it can start running. In this case, the initContainer simply waits for 10 seconds before exiting.
+
+
+Here is a breakdown of the YAML manifest:
+
+- `apiVersion: v1`: This specifies the Kubernetes API version that this manifest is written for.
+- `kind: Pod`: This indicates that we are creating a Pod object.
+- `metadata`: This section contains metadata about the Pod, such as its name.
+- `name: init-cont`: This sets the name of the Pod to "init-cont".
+- `spec`: This section contains the Pod's specification, including its containers and initContainers.
+- `containers`: This is a list of containers that will run inside the Pod. In this case, there is only one container named "nginx"
+that uses the nginx:stable image.
+- `name: nginx`: This sets the name of the container to "nginx".
+- `image: nginx:stable`: This specifies the Docker image to use for the container.
+- `initContainers`: This is a list of initContainers that will run before the regular containers. In this case, there is only one
+initContainer named "busybox" that uses the busybox:stable image.
+- `name: busybox`: This sets the name of the initContainer to "busybox".
+- `image: busybox:stable`: This specifies the Docker image to use for the initContainer.
+- `command: ['sh', '-c', 'sleep 10']`: This sets the command to be executed by the initContainer. In this case, it will run a
+shell command that sleeps for 10 seconds.
