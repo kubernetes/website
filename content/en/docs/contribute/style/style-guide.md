@@ -408,7 +408,7 @@ The output is:
 
 {{< kat-button >}}
 
-### Codenew
+### Source code files
 
 Use `{{</* codenew */>}}` to embed the contents of file in a code block to allow users to download or copy its content to their clipboard. This method is used when the contents of the sample file is generic and reusable, and you want the users to try it out themselves.
 
