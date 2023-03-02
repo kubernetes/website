@@ -8,7 +8,7 @@ weight: 50
 
 <!-- overview -->
 
-The `dockershim` component of Kubernetes allows to use Docker as a Kubernetes's
+The `dockershim` component of Kubernetes allows the use of Docker as a Kubernetes's
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
 Kubernetes' built-in `dockershim` component was removed in release v1.24.
 
