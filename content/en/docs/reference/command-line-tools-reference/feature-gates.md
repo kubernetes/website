@@ -251,9 +251,6 @@ For a reference to old feature gates that are removed, please refer to
 | `CSIStorageCapacity` | `true` | Beta | 1.21 | 1.23 |
 | `CSIStorageCapacity` | `true` | GA | 1.24 | - |
 | `ConsistentHTTPGetHandlers` | `true` | GA | 1.25 | - |
-| `ControllerManagerLeaderMigration` | `false` | Alpha | 1.21 | 1.21 |
-| `ControllerManagerLeaderMigration` | `true` | Beta | 1.22 | 1.23 |
-| `ControllerManagerLeaderMigration` | `true` | GA | 1.24 | - |
 | `DaemonSetUpdateSurge` | `false` | Alpha | 1.21 | 1.21 |
 | `DaemonSetUpdateSurge` | `true` | Beta | 1.22 | 1.24 |
 | `DaemonSetUpdateSurge` | `true` | GA | 1.25 | - |
@@ -390,12 +387,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   See [AppArmor Tutorial](/docs/tutorials/security/apparmor/) for more details.
 - `ContainerCheckpoint`: Enables the kubelet `checkpoint` API.
   See [Kubelet Checkpoint API](/docs/reference/node/kubelet-checkpoint-api/) for more details.
-- `ControllerManagerLeaderMigration`: Enables Leader Migration for
-  [kube-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#initial-leader-migration-configuration) and
-  [cloud-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#deploy-cloud-controller-manager)
-  which allows a cluster operator to live migrate
-  controllers from the kube-controller-manager into an external controller-manager
-  (e.g. the cloud-controller-manager) in an HA cluster without downtime.
 - `CPUManager`: Enable container level CPU affinity support, see
   [CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
 - `CPUManagerPolicyAlphaOptions`: This allows fine-tuning of CPUManager policies,
@@ -467,8 +458,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   handlers with probers.
 - `ContextualLogging`: When you enable this feature gate, Kubernetes components that support
    contextual logging add extra detail to log output.
-- `ControllerManagerLeaderMigration`: Enables leader migration for
-  `kube-controller-manager` and `cloud-controller-manager`.
 - `CronJobTimeZone`: Allow the use of the `timeZone` optional field in [CronJobs](/docs/concepts/workloads/controllers/cron-jobs/)
 - `CrossNamespaceVolumeDataSource`: Enable the usage of cross namespace volume data source
    to allow you to specify a source namespace in the `dataSourceRef` field of a
