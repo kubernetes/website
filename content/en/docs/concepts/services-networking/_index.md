@@ -4,7 +4,8 @@ weight: 60
 description: >
   Concepts and resources behind networking in Kubernetes.
 ---
-
+[//]: # ( Still WIP state )
+[//]: # (Change section to Kubernetes network model and update docs references )
 ## The Kubernetes network model
 
 Every [`Pod`](/docs/concepts/workloads/pods/) in your cluster gets its own unique cluster-wide IP address. This is referred to as the "IP-per-pod" model.
@@ -55,7 +56,6 @@ Some platforms, such as Linux, support pods running in the host network. Pods at
 
 * CNI - Container network interface providing network configuration, IP address allocation and possibly CNI-specific methods for packet forwarding that enables inter-pod networking. 
 
-
 ## Architecture components
 
 The Kubernetes network model introduces a flexible architecture and accompanying components. You can configure and deploy a combination of these different components to assemble an implementation to best meet your cluster networking requirements. 
@@ -69,7 +69,7 @@ The network architecture and components consist of the following:
 * Nodes configured in virtual (VM) or physical (bare-metal) environments.
   
 * Pods configured on each node with one or more containers.
-  
+
 * Each Pod has its own IP address (Pod IP) ; this is per [_address family_](https://www.iana.org/assignments/address-family-numbers/address-family-numbers.xhtml), so a cluster that uses IPv4 and IPv6 networking assigns one IPv4 address to each Pod, and also assigns one IPv6 address to each Pod.
   
   * Pods run in their own [network namespace](https://man7.org/linux/man-pages/man7/network_namespaces.7.html). All the containers in a pod share this
@@ -137,6 +137,7 @@ Figure 3 illustrates an example of two pods talking each other on the same node.
 
 Your Kubernetes deployment might place pods on a network of nodes. With this pod topology, you can distribute your workloads across many pods to increase scale and resiliency. Inter-pod networking between distinct nodes becomes a crucial function of your cluster network. 
 
+[//]: # ( Really think we need explanation and examples of CNI )
 
 #### Container network interface
 
