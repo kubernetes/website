@@ -2,7 +2,7 @@
 reviewers:
 - erictune
 - thockin
-title: Images
+title: इमेजेज (Images)
 content_type: concept
 weight: 10
 hide_summary: true # Listed separately in section index
@@ -10,51 +10,49 @@ hide_summary: true # Listed separately in section index
 
 <!-- overview -->
 
-A container image represents binary data that encapsulates an application and all its
-software dependencies. Container images are executable software bundles that can run
-standalone and that make very well defined assumptions about their runtime environment.
+एक कंटेनर इमेज बाइनरी डेटा को दर्शाती है जो एक एप्लिकेशन और उसकी सभी सॉफ्टवेयर डिपेंडेंसियों को एनकैप्सुलेट करता है। कंटेनर इमेजेज स्वतंत्र रूप से चल सकने वाले सॉफ्टवेयर बंडल होते हैं जो अपने रनटाइम एनवायरनमेंट के बारे में बहुत अच्छी परिभाषा करते हैं।
 
-You typically create a container image of your application and push it to a registry
-before referring to it in a {{< glossary_tooltip text="Pod" term_id="pod" >}}.
+आप अपने एप्लिकेशन की एक कंटेनर इमेज बनाते हैं और इसे रजिस्ट्री में पुश करते हैं पहले इससे संबंधित करते हुए {{< glossary_tooltip text="पॉड" term_id="pod" >}}।
 
-This page provides an outline of the container image concept.
+यह पृष्ठ कंटेनर इमेज कॉन्सेप्ट की एक आउटलाइन प्रदान करता है।
+
 
 {{< note >}}
-If you are looking for the container images for a Kubernetes
-release (such as v{{< skew latestVersion >}}, the latest minor release),
-visit [Download Kubernetes](https://kubernetes.io/releases/download/).
+यदि आप कुबरनेटीज़ रिलीज के लिए कंटेनर इमेज ढूंढ रहे हैं (जैसे v{{< skew latestVersion >}}, नवीनतम माइनर रिलीज), तो [कुबरनेटीज़ डाउनलोड](https://kubernetes.io/releases/download/) करें पर जाएं।
 {{< /note >}}
 
 <!-- body -->
 
 ## Image names
 
-Container images are usually given a name such as `pause`, `example/mycontainer`, or `kube-apiserver`.
-Images can also include a registry hostname; for example: `fictional.registry.example/imagename`,
-and possibly a port number as well; for example: `fictional.registry.example:10443/imagename`.
 
-If you don't specify a registry hostname, Kubernetes assumes that you mean the Docker public registry.
+कंटेनर इमेजेज आमतौर पर `pause`, `example/mycontainer`, या `kube-apiserver` जैसे नाम दिए जाते हैं।
+इमेजयों में एक रजिस्ट्री होस्टनाम भी शामिल हो सकता है; उदाहरण के लिए: `fictional.registry.example/imagename`,
+और संभवतः एक पोर्ट नंबर भी हो सकता है; उदाहरण के लिए: `fictional.registry.example:10443/imagename`।
 
-After the image name part you can add a _tag_ (in the same way you would when using with commands
-like `docker` or `podman`).  Tags let you identify different versions of the same series of images.
+यदि आप एक रजिस्ट्री होस्टनाम निर्दिष्ट नहीं करते हैं, तो कुबरनेटीज़ कुबेरनेटीज़ को मानते हैं कि आपका मतलब डॉकर सार्वजनिक रजिस्ट्री है।
 
-Image tags consist of lowercase and uppercase letters, digits, underscores (`_`),
-periods (`.`), and dashes (`-`).  
-There are additional rules about where you can place the separator
-characters (`_`, `-`, and `.`) inside an image tag.  
-If you don't specify a tag, Kubernetes assumes you mean the tag `latest`.
+इमेज नाम भाग के बाद आप टैग जोड़ सकते हैं (जैसा कि आप दृष्टिगत कमांड का उपयोग करते हुए करेंगे
+`docker` या `podman`). टैग आपको एकीकृत इमेज सीरीज के विभिन्न संस्करणों की पहचान करने देते हैं।
 
-## Updating images
 
-When you first create a {{< glossary_tooltip text="Deployment" term_id="deployment" >}},
-{{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}, Pod, or other
-object that includes a Pod template, then by default the pull policy of all
-containers in that pod will be set to `IfNotPresent` if it is not explicitly
-specified. This policy causes the
-{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} to skip pulling an
-image if it already exists.
 
-### Image pull policy
+इमेज टैग कम से कम अक्षरों के लिए निम्नलिखित चरित्रों में से किसी एक का उपयोग करते हुए बनाए जाते हैं: छोटे और बड़े अक्षर,
+अंक, अंडरस्कोर (_), डॉट (.) और डैश (-)। इमेज टैग के भीतर विभाजक वर्णों (_, -, और .) को कहाँ रखा जा सकता है
+इसके लिए अतिरिक्त नियम होते हैं। यदि आप टैग निर्दिष्ट नहीं करते हैं, तो Kubernetes आपका मतलब `latest` टैग से मानता है।
+
+
+
+## इमेज अपडेट करना
+
+जब आप पहली बार एक {{< glossary_tooltip text="Deployment" term_id="deployment" >}},
+{{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}, Pod या किसी अन्य ऑब्जेक्ट को
+बनाते हैं जो एक पॉड टेम्पलेट शामिल करता है, तो दरअसल उस पॉड में सभी कंटेनरों की खींचने की नीति डिफ़ॉल्ट रूप से `IfNotPresent`
+पर सेट की जाती है अगर यह उज्ज्वल रूप से निर्दिष्ट नहीं है। यह नीति कुबेलेट को इमेज को छोड़ने के लिए प्रेरित करती है अगर वह पहले से
+मौजूद होता है।
+
+
+### इमेज खींचने की नीति
 
 The `imagePullPolicy` for a container and the tag of the image affect when the
 [kubelet](/docs/reference/command-line-tools-reference/kubelet/) attempts to pull (download) the specified image.
