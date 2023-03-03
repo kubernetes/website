@@ -2,64 +2,56 @@
 reviewers:
 - mikedanese
 - thockin
-title: Container Environment
+title: कंटेनर वातावरण (Container Environment)
 content_type: concept
 weight: 20
 ---
 
 <!-- overview -->
 
-This page describes the resources available to Containers in the Container environment. 
-
+यह पृष्ठ कंटेनर वातावरण में कंटेनरों के लिए उपलब्ध संसाधनों का विवरण देता है।
 
 
 
 <!-- body -->
 
-## Container environment
+## कंटेनर वातावरण (Container Environment)
 
-The Kubernetes Container environment provides several important resources to Containers:
+कुबरनेटीज़ कंटेनर वातावरण कंटेनरों के लिए कई महत्वपूर्ण संसाधन प्रदान करता है |
 
-* A filesystem, which is a combination of an [image](/docs/concepts/containers/images/) and one or more [volumes](/docs/concepts/storage/volumes/).
-* Information about the Container itself.
-* Information about other objects in the cluster.
+* एक फ़ाइल सिस्टम, जो एक [image](/docs/concepts/containers/images/) और एक या अधिक [volumes](/docs/concepts/storage/volumes/) का संयोजन होता है।
+* कंटेनर के बारे में जानकारी।
+* क्लस्टर में अन्य ऑब्जेक्ट्स के बारे में जानकारी।
 
-### Container information
 
-The *hostname* of a Container is the name of the Pod in which the Container is running.
-It is available through the `hostname` command or the
-[`gethostname`](https://man7.org/linux/man-pages/man2/gethostname.2.html)
-function call in libc.
+### कंटेनर जानकारी
 
-The Pod name and namespace are available as environment variables through the
-[downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/).
+कंटेनर का *hostname* उस Pod का नाम है जिसमें कंटेनर चल रहा है।
 
-User defined environment variables from the Pod definition are also available to the Container,
-as are any environment variables specified statically in the container image.
+यह `hostname` कमांड या libc में [`gethostname`](https://man7.org/linux/man-pages/man2/gethostname.2.html) फंक्शन के माध्यम से उपलब्ध होता है।
 
-### Cluster information
+Pod का नाम और नेमस्पेस, [downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/) के माध्यम से environment variables के रूप में उपलब्ध होते हैं।
 
-A list of all services that were running when a Container was created is available to that Container as environment variables.
-This list is limited to services within the same namespace as the new Container's Pod and Kubernetes control plane services.
+पॉड की परिभाषा से उपयोगकर्ता परिभाषित environment variables भी कंटेनर के लिए उपलब्ध होते हैं, जैसे कि कंटेनर इमेज में स्थायी रूप से निर्दिष्ट किए गए environment variables भी।
 
-For a service named *foo* that maps to a Container named *bar*,
-the following variables are defined:
+
+### क्लस्टर जानकारी
+
+कंटेनर बनाए जाने पर जिन सभी सेवाओं को चलाया जा रहा था, उनकी सूची उस कंटेनर के लिए environment variables के रूप में उपलब्ध होती है। यह सूची, नए कंटेनर के पॉड और Kubernetes कंट्रोल प्लेन सेवाओं के नेमस्पेस के अंदर की सेवाओं की सीमित होती है।
+
+foo नाम की सेवा जो कंटेनर bar से मैप होती है, निम्नलिखित variables को परिभाषित करती हैं:
 
 ```shell
-FOO_SERVICE_HOST=<the host the service is running on>
-FOO_SERVICE_PORT=<the port the service is running on>
+FOO_SERVICE_HOST=<सेवा जो चल रही है उस होस्ट>
+FOO_SERVICE_PORT=<सेवा जो चल रही है उस पोर्ट>
 ```
 
-Services have dedicated IP addresses and are available to the Container via DNS,
-if [DNS addon](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/) is enabled. 
-
+यदि [DNS addon](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/) सक्षम है, तो सेवाएं अलग-अलग IP पतों के साथ समरूप होती हैं और DNS के माध्यम से कंटेनर के लिए उपलब्ध होती हैं।  
 
 
 ## {{% heading "whatsnext" %}}
 
 
-* Learn more about [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/).
-* Get hands-on experience
-  [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
-
-
+* [Container lifecycle hooks](/docs/concepts/containers/container-lifecycle-hooks/) के बारे में और अधिक जानें।
+* हाथों पर अनुभव प्राप्त करें
+[कंटेनर लाइफसाइकल घटनाओं के लिए हैंडलर जोड़ना।](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
