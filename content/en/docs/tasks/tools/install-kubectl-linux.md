@@ -130,6 +130,7 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
 2. Download the Google Cloud public signing key:
 
    ```shell
+   sudo mkdir -p /etc/apt/keyrings/
    sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
    ```
 
