@@ -2,111 +2,105 @@
 reviewers:
 - mikedanese
 - thockin
-title: Container Lifecycle Hooks
-content_type: concept
+title: कंटेनर लाइफसाइकल हुक्स (Container Lifecycle Hooks)
+content_type: कांसेप्ट (concept)
 weight: 40
 ---
 
 <!-- overview -->
 
-This page describes how kubelet managed Containers can use the Container lifecycle hook framework
-to run code triggered by events during their management lifecycle.
-
-
+यह पृष्ठ बताता है कि क्यूबलेट द्वारा प्रबंधित किए जाने वाले कंटेनर जीवन चक्र हुक फ्रेमवर्क का उपयोग करके उनमें घटनाओं के द्वारा ट्रिगर किए गए कोड को चलाने के लिए कैसे उपयोग कर सकते हैं।
 
 
 <!-- body -->
 
-## Overview
+## अवलोकन
 
-Analogous to many programming language frameworks that have component lifecycle hooks, such as Angular,
-Kubernetes provides Containers with lifecycle hooks.
-The hooks enable Containers to be aware of events in their management lifecycle
-and run code implemented in a handler when the corresponding lifecycle hook is executed.
+कई प्रोग्रामिंग भाषा फ्रेमवर्क के अनुरूप जैसे Angular, कुबरनेटीज Containers को lifecycle hooks के साथ प्रदान करता है।
+Hooks Containers को उनके मैनेजमेंट lifecycle के घटनाओं के बारे में जागरूक बनाते हैं
+और जब संबंधित lifecycle hook को निष्पादित किया जाता है तो एक हैंडलर में लिखी कोड चलाने की सुविधा प्रदान करते हैं।
 
-## Container hooks
+## कंटेनर हुक्स
 
-There are two hooks that are exposed to Containers:
+कंटेनर्स के लिए दो हुक्स होते हैं जिनको बेहतरीन रूप से उपलब्ध कराया जाता है:
 
-`PostStart`
+PostStart
 
-This hook is executed immediately after a container is created.
-However, there is no guarantee that the hook will execute before the container ENTRYPOINT.
-No parameters are passed to the handler.
+यह हुक तुरंत एक कंटेनर बनाया जाने के बाद निष्पादित किया जाता है।
+हालांकि, कंटेनर ENTRYPOINT से पहले हुक निष्पादित होने का कोई भरोसा नहीं है।
+हैंडलर को कोई पैरामीटर नहीं पारित किए जाते हैं।
 
-`PreStop`
+PreStop
 
-This hook is called immediately before a container is terminated due to an API request or management
-event such as a liveness/startup probe failure, preemption, resource contention and others. A call
-to the `PreStop` hook fails if the container is already in a terminated or completed state and the
-hook must complete before the TERM signal to stop the container can be sent. The Pod's termination
-grace period countdown begins before the `PreStop` hook is executed, so regardless of the outcome of
-the handler, the container will eventually terminate within the Pod's termination grace period. No
-parameters are passed to the handler.
+यह हुक API अनुरोध या प्रबंधन घटना जैसे लिवलीहूड/स्टार्टअप परीक्षण में विफलता, पूर्ववर्तन, संसाधन संघर्ष और अन्य कारणों से कंटेनर को समाप्त करने से पहले तुरंत बुलाया जाता है।
+कंटेनर पहले से ही एक समाप्त या पूर्णावस्था में है तो PreStop हुक कोल नहीं होगा और हुक को पूरा करने से पहले कंटेनर को रोकने के लिए TERM सिग्नल भेजा जाना चाहिए। पॉड की समाप्ति का ग्रेस अवधि नीचे गिनती शुरू होती है पहले PreStop हुक निष्पादित होने से पहले, इसलिए हैंडलर के नतीजे का अनुसरण करने के बावजूद, कंटेनर अंततः पॉड की समाप्ति ग्रेस अवधि के भीतर ही समाप्त हो जाएगा।
 
-A more detailed description of the termination behavior can be found in
-[Termination of Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
+पॉडों के समाप्ति व्यवहार का और अधिक विस्तृत विवरण [पॉडों की समाप्ति](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination) में दिया गया है।
 
-### Hook handler implementations
 
-Containers can access a hook by implementing and registering a handler for that hook.
-There are two types of hook handlers that can be implemented for Containers:
+### हुक हैंडलर कार्यान्वयन
 
-* Exec - Executes a specific command, such as `pre-stop.sh`, inside the cgroups and namespaces of the Container.
-Resources consumed by the command are counted against the Container.
-* HTTP - Executes an HTTP request against a specific endpoint on the Container.
+कंटेनर उस हुक को लागू कर सकता है जिसके लिए उसने हैंडलर का कार्यान्वयन किया और पंजीकृत किया है।
+कंटेनरों के लिए दो प्रकार के हुक हैंडलर का कार्यान्वयन किया जा सकता है:
 
-### Hook handler execution
 
-When a Container lifecycle management hook is called,
-the Kubernetes management system executes the handler according to the hook action,
-`httpGet` and `tcpSocket` are executed by the kubelet process, and `exec` is executed in the container.
+* Exec - कंटेनर के cgroups और namespaces के भीतर pre-stop.sh जैसे विशिष्ट कमांड को निष्पादित करता है।
+कमांड द्वारा संभावित संसाधन कंटेनर के खिलाफ गिनती की जाती है।
+* HTTP - कंटेनर पर एक विशिष्ट endpoint पर एक HTTP अनुरोध निष्पादित करता है।
 
-Hook handler calls are synchronous within the context of the Pod containing the Container.
-This means that for a `PostStart` hook,
-the Container ENTRYPOINT and hook fire asynchronously.
-However, if the hook takes too long to run or hangs,
-the Container cannot reach a `running` state.
 
-`PreStop` hooks are not executed asynchronously from the signal to stop the Container; the hook must
-complete its execution before the TERM signal can be sent. If a `PreStop` hook hangs during
-execution, the Pod's phase will be `Terminating` and remain there until the Pod is killed after its
-`terminationGracePeriodSeconds` expires. This grace period applies to the total time it takes for
-both the `PreStop` hook to execute and for the Container to stop normally. If, for example,
-`terminationGracePeriodSeconds` is 60, and the hook takes 55 seconds to complete, and the Container
-takes 10 seconds to stop normally after receiving the signal, then the Container will be killed
-before it can stop normally, since `terminationGracePeriodSeconds` is less than the total time
-(55+10) it takes for these two things to happen.
+### हुक हैंडलर क्रियान्वयण
 
-If either a `PostStart` or `PreStop` hook fails,
-it kills the Container.
+जब एक कंटेनर जीवन चक्र प्रबंधन हुक को कॉल किया जाता है,
+तो Kubernetes प्रबंधन प्रणाली हुक कार्रवाई के अनुसार हैंडलर को निष्पादित करता है,
+`httpGet` और `tcpSocket` kubelet प्रक्रिया द्वारा निष्पादित किए जाते हैं, और `exec` कंटेनर में निष्पादित किया जाता है।
 
-Users should make their hook handlers as lightweight as possible.
-There are cases, however, when long running commands make sense,
-such as when saving state prior to stopping a Container.
+हुक हैंडलर कॉल पॉड के संदर्भ में समन्वयात्मक होते हैं जो कंटेनर को समायोजित करते हैं।
+यह यह मतलब होता है कि `PostStart` हुक के लिए,
+कंटेनर ENTRYPOINT और हुक असमन्वित रूप से फायर करते हैं।
+हालांकि, अगर हुक चलाने में बहुत अधिक समय लगता है या फंस जाता है,
+तो कंटेनर `running` स्थिति तक पहुँच नहीं सकता।
 
-### Hook delivery guarantees
 
-Hook delivery is intended to be *at least once*,
-which means that a hook may be called multiple times for any given event,
-such as for `PostStart` or `PreStop`.
-It is up to the hook implementation to handle this correctly.
+`PreStop` हुक कंटेनर को रोकने के सिग्नल से असिंक्रोनस रूप से नहीं चलाए जाते हैं; हुक को पूरा करना होगा पहले जब टर्म सिग्नल भेजा जाए।
+यदि `PreStop` हुक के दौरान कोई खट्टा जाम होता है, तो पॉड का चरण `Terminating` होगा और इससे पहले कि `terminationGracePeriodSeconds`
+समाप्त हो जाए, पॉड को मार दिया जाएगा। यह ग्रेस पीरियड यह दोनों चीजों के लिए लागू होता है - `PreStop` हुक को कार्यान्वित करने में और कंटेनर को
+सामान्य रूप से रोकने में। उदाहरण के लिए, यदि `terminationGracePeriodSeconds` 60 है और हुक को पूरा करने में 55 सेकंड लगते हैं और कंटेनर
+को सिग्नल प्राप्त करने के बाद सामान्य रूप से रोकने में 10 सेकंड लगते हैं, तो कंटेनर को सामान्य रूप से रोकने से पहले ही उसे मार दिया जाएगा
+क्योंकि `terminationGracePeriodSeconds` उन दो चीजों के लिए कम है (55+10) जिसमें इन दोनों चीजों का होने में समय लगता है।
 
-Generally, only single deliveries are made.
-If, for example, an HTTP hook receiver is down and is unable to take traffic,
-there is no attempt to resend.
-In some rare cases, however, double delivery may occur.
-For instance, if a kubelet restarts in the middle of sending a hook,
-the hook might be resent after the kubelet comes back up.
+
+अगर `PostStart` या `PreStop` हुक असफल होता है, तो वह Container को रद्द कर देता है।
+
+उपयोगकर्ताओं को अपने हुक हैंडलर को जितना हल्का संभव बनाना चाहिए।
+हालांकि, लंबे समय तक चलने वाले कमांडों के मामलों में समझौता किया जा सकता है,
+जैसे कि कंटेनर को बंद करने से पहले स्थिति को बचाने के लिए।
+
+
+### हुक वितरण गारंटीज़
+
+हुक वितरण कम से कम एक बार होना निर्धारित है,
+जिसका अर्थ है कि किसी भी घटना के लिए एक हुक को एकाधिक बार बुलाया जा सकता है,
+जैसे कि `PostStart` या `PreStop` के लिए।
+इसे सही ढंग से संचालित करना हुक अंमल के लिए अधिकृत होता है।
+
+
+आमतौर पर, केवल एकल पहुँच की जाती है।
+उदाहरण के लिए, अगर एक HTTP हुक रिसीवर नीचे होता है और ट्रैफिक ले नहीं सकता है,
+तो दोबारा भेजने का कोई प्रयास नहीं होता है।
+हालांकि, कुछ दुर्लभ मामलों में, दोहरी पहुंच हो सकती है।
+उदाहरण के लिए, यदि कोई kubelet हुक भेजने के बीच में बंद हो जाता है,
+तो kubelet फिर से शुरू होने के बाद हुक फिर से भेजा जा सकता है।
 
 ### Debugging Hook handlers
 
-The logs for a Hook handler are not exposed in Pod events.
-If a handler fails for some reason, it broadcasts an event.
-For `PostStart`, this is the `FailedPostStartHook` event,
-and for `PreStop`, this is the `FailedPreStopHook` event.
-To generate a failed `FailedPostStartHook` event yourself, modify the [lifecycle-events.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/lifecycle-events.yaml) file to change the postStart command to "badcommand" and apply it.
-Here is some example output of the resulting events you see from running `kubectl describe pod lifecycle-demo`:
+एक हुक हैंडलर के लॉग पॉड इवेंट्स में प्रदर्शित नहीं होते हैं।
+यदि किसी कारण से हैंडलर विफल हो जाता है, तो एक इवेंट प्रसारित किया जाता है।
+`PostStart` के लिए, यह `FailedPostStartHook` इवेंट है,
+और `PreStop` के लिए, यह `FailedPreStopHook` इवेंट है।
+अपने आप `FailedPostStartHook` इवेंट उत्पन्न करने के लिए, फ़ाइल [lifecycle-events.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/lifecycle-events.yaml) में postStart कमांड को "badcommand" में बदलें और इसे लागू करें।
+यहां कुछ उदाहरण आउटपुट है जो आपको `kubectl describe pod lifecycle-demo` चलाकर देखने को मिलेगा:
+
 
 ```
 Events:
@@ -128,7 +122,6 @@ Events:
 ## {{% heading "whatsnext" %}}
 
 
-* Learn more about the [Container environment](/docs/concepts/containers/container-environment/).
-* Get hands-on experience
-  [attaching handlers to Container lifecycle events](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
-
+* कंटेनर वातावरण के बारे में अधिक जानें [Container environment](/docs/concepts/containers/container-environment/).
+* हाथों का अनुभव प्राप्त करें
+[कंटेनर लाइफसाइकल घटनाओं के हैंडलर लगाने के लिए](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/).
