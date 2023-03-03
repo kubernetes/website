@@ -107,7 +107,7 @@ CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultI
 
 {{< note >}}
 The [`ValidatingAdmissionPolicy`](#validatingadmissionpolicy) admission plugin is enabled
-by default, but is only active if you enable the the `ValidatingAdmissionPolicy`
+by default, but is only active if you enable the `ValidatingAdmissionPolicy`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) **and**
 the `admissionregistration.k8s.io/v1alpha1` API.
 {{< /note >}}
