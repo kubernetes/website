@@ -3,6 +3,7 @@ title: スケジューリングポリシー
 content_type: concept
 sitemap:
   priority: 0.2 # スケジューリングポリシーは廃止されました。
+weight: 30
 ---
 
 <!-- overview -->

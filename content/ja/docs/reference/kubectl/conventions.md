@@ -1,6 +1,7 @@
 ---
 title: kubectlの使用規則
 content_type: concept
+weight: 60
 ---
 
 <!-- overview -->
