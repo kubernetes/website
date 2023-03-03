@@ -216,7 +216,8 @@ The following manifest defines an Ingress that sends traffic to your Service via
     ```none
     127.0.0.1 hello-world.info
     ```
-   And then use `minikube tunnel`
+   and then run `minikube tunnel` (you may need to provide a superuser password). Leave that
+   running whilst you continue the task.
    {{< /note >}}
 
    After you make this change, your web browser sends requests for
