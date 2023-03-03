@@ -4,8 +4,7 @@ weight: 60
 description: >
   Concepts and resources behind networking in Kubernetes.
 ---
-[//]: # ( Still WIP state )
-[//]: # (Change section to Kubernetes network model and update docs references )
+
 ## The Kubernetes network model
 
 Every [`Pod`](/docs/concepts/workloads/pods/) in your cluster gets its own unique cluster-wide IP address. This is referred to as the "IP-per-pod" model.
@@ -42,26 +41,24 @@ Some platforms, such as Linux, support pods running in the host network. Pods at
 
 * L2 bridge - a (virtual) [layer 2](https://en.wikipedia.org/wiki/Data_link_layer) bridge.
 
-* Host Network - network functions residing in user space or the kernel.
+* Host Network - Network functions residing in user space or the kernel of physical or virtual nodes. 
 
-* Encapsulation - ability to encapsulate an L2 or L3 packets belonging to an `inner network` with an `outer network` header for transport across the `outer network`. This forms a `tunnel` where the encapsulation function is performed at tunnel ingress and de-encapsulation function is performed at tunnel egress. 
+* Encapsulation - ability to encapsulate an L2 or L3 packets belonging to an `inner network` with an `outer network` header for transport across the `outer network`. This forms a `tunnel` where the encapsulation function is performed at tunnel ingress and de-encapsulation function is performed at tunnel egress. You can think of pods on nodes as the `inner network` and nodes networked together as the `outer network`. [IPIP](https://www.rfc-editor.org/rfc/rfc2003) and [VXLAN](https://www.rfc-editor.org/rfc/rfc7348) are two examples of encapsulation employed in K8s cluster networks.
 
-  * [IPIP](https://www.rfc-editor.org/rfc/rfc2003) and [VXLAN](https://www.rfc-editor.org/rfc/rfc7348) are two examples of encapsulation employed in K8s cluster networks. 
-  
-  * [Virtual overlay network](https://book.systemsapproach.org/applications/overlays.html) - logical or virtual network of tunnels using encapsulation that connect pods running on different nodes. The virtual overlay network runs "on top" of the physical underlay network.   
+* [Virtual overlay network](https://book.systemsapproach.org/applications/overlays.html) - Logical or virtual network of tunnels using encapsulation that connect pods running on different nodes. You can imagine the virtual overlay network runs "on top" of the physical underlay network.   
 
-* Physical underlay network - network resources performing packet forwarding between nodes. 
+* Physical underlay network - Network resources performing packet forwarding between nodes. 
 
-* Virtual ethernet link (VETH) - Virtual link allowing you to convey packets between namespaces. 
+* Virtual ethernet link ([VETH](https://man7.org/linux/man-pages/man4/veth.4.html)) - Virtual link allowing you to convey packets between namespaces. 
 
-* [Network namespace](https://man7.org/linux/man-pages/man7/network_namespaces.7.html) - a form of isolation where resources share a network stack, memory, processing and so on.
+* [Network namespace](https://man7.org/linux/man-pages/man7/network_namespaces.7.html) - Form of isolation where resources share a network stack, memory, processing and so on.
 
-* CNI - Container network interface providing network configuration and IP address allocation for pod networking.
+* CNI - Container network interface providing network configuration, IP address allocation and possibly CNI-specific methods for packet forwarding that enables inter-pod networking. 
 
 
 ## Architecture components
 
-The Kubernetes network model introduces a flexible architecture and accompanying components. You can configure and deploy a combination of different components to assemble an implementation to best meet your cluster networking requirements. 
+The Kubernetes network model introduces a flexible architecture and accompanying components. You can configure and deploy a combination of these different components to assemble an implementation to best meet your cluster networking requirements. 
 
 Figure 1 illustrates the Kubernetes network architecture and accompanying components used in the examples below. 
 
@@ -73,9 +70,7 @@ The network architecture and components consist of the following:
   
 * Pods configured on each node with one or more containers.
   
-* Each Pod has its own IP address (Pod IP) ; this is per _address family_, so a cluster that uses IPv4
-  and IPv6 networking assigns one IPv4 address to each Pod, and also assigns one IPv6
-  address to each Pod.
+* Each Pod has its own IP address (Pod IP) ; this is per [_address family_](https://www.iana.org/assignments/address-family-numbers/address-family-numbers.xhtml), so a cluster that uses IPv4 and IPv6 networking assigns one IPv4 address to each Pod, and also assigns one IPv6 address to each Pod.
   
   * Pods run in their own [network namespace](https://man7.org/linux/man-pages/man7/network_namespaces.7.html). All the containers in a pod share this
     network namespace. (Network namespaces are not the same as the Kubernetes
@@ -88,13 +83,9 @@ The network architecture and components consist of the following:
   
 * L2bridge is a virtual L2 bridge that allows attachment, configuration and communications between pods on the same node. Depending on your deployment of container runtimes and CNI, you might know this entity as a `linux bridge`, `docker0`, `cbr0` or `cni0`.
 
-* Network plugins allow pods to communicate even when the source pod destination pod are running on different nodes. Network plugins achieve this in different
-  ways. In this example, the network plugin has set up an _overlay network_: packets that need to go
-  to a different node are encapsulated and sent over a tunnel mechanism such as
-  [GENEVE](https://en.wikipedia.org/wiki/Generic_Network_Virtualization_Encapsulation). The destination
-  node retrieves the inner packet and sends it to the target Pod, providing that there are no
-  [NetworkPolicy](/docs/concepts/services-networking/network-policies/) restrictions to block that packet.
-
+* [Network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#:~:text=A%20CNI%20plugin%20is%20required,releases%20of%20the%20CNI%20specification.) allow pods to communicate even when the source pod destination pod are running on different nodes. Network plugins achieve this in different
+  ways. 
+  
 * Virtual overlay network consists of a network of tunnels connecting pods running on different nodes.
 
 * Physical underlay network, composed of L2 switches or L3 routers for example, transport packets between nodes. 
@@ -142,17 +133,14 @@ Figure 3 illustrates an example of two pods talking each other on the same node.
 {{< figure src="/docs/images/k8net-PodSameHost03.drawio.svg" alt="k8s pods samehost" class="diagram-large" caption="Figure 3. Example of Pod 1 and Pod 2 on Node 1 communicating with each other" >}}
 
  
-
-
 ### Pods on different nodes
 
 Your Kubernetes deployment might place pods on a network of nodes. With this pod topology, you can distribute your workloads across many pods to increase scale and resiliency. Inter-pod networking between distinct nodes becomes a crucial function of your cluster network. 
 
-[//]: # ( Really think we need explanation and examples of CNI )
+
 #### Container network interface
 
 Add CNI explanation and references.
-
 
 
 #### Pods on different nodes using a virtual overlay network
@@ -161,9 +149,12 @@ This example uses a virtual overlay network to support inter-pod networking.
 
 {{< figure src="/docs/images/k8net-net-overlay.drawio.svg" alt="k8s pods virtual overlay" class="diagram-large" caption="Figure 4. Example of Pod 1 - Pod 4 networking on different nodes using a virtual overlay network" >}}
 
-The component of note in this example is a network plugin that supports tunnel setup and encap/decap. 
+In this example, the network plugin has set up an _virtual overlay network_. Packets that need to go
+to a different node are encapsulated and sent over a tunnel mechanism such as
+[GENEVE](https://en.wikipedia.org/wiki/Generic_Network_Virtualization_Encapsulation). 
 
-
+The destination node retrieves the inner packet and sends it to the target Pod, providing that there are no
+[NetworkPolicy](/docs/concepts/services-networking/network-policies/) restrictions to block that packet.
 
 #### Pods on different nodes using a physical underlay network
 
