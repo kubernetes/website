@@ -1,6 +1,7 @@
 ---
 title: kubectlチートシート
 content_type: concept
+weight: 10 # highlight it
 card:
   name: reference
   weight: 30
