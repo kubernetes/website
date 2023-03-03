@@ -408,33 +408,6 @@ The output is:
 
 {{< kat-button >}}
 
-### Source code files
-
-Use `{{</* codenew */>}}` to embed the contents of file in a code block to allow users to download or copy its content to their clipboard. This method is used when the contents of the sample file is generic and reusable, and you want the users to try it out themselves.
-
-This shortcode takes in two named parameters: `language` and `file`. The mandatory parameter `file` is used to specify the path to the file being displayed. The optional parameter `language` is used to specify the programming language of the file. If `language` parameter is not provided, the shortcode will attempt to guess the language based on the file extension.
-
-For example:
-
-```none
-{{< codenew language="yaml" file="application/deployment-scale.yaml" >}}
-```
-
-The output is:
-
-{{< codenew language="yaml" file="application/deployment-scale.yaml" >}}
-
-When adding a new sample file, such as a YAML file, create the file in one of the `<LANG>/examples/` subdirectories where `<LANG>` is the language for the page. In the markdown of your page, use the `codenew` shortcode:
-
-```none
-{{</* codenew file="<RELATIVE-PATH>/example-yaml>" */>}}
-```
-where `<RELATIVE-PATH>` is the path to the sample file to include, relative to the `examples` directory. The following shortcode references a YAML file located at `/content/en/examples/configmap/configmaps.yaml`.
-
-```none
-{{</* codenew file="configmap/configmaps.yaml" */>}}
-```
-
 ## Common Shortcode Issues
 
 ### Ordered Lists
@@ -658,4 +631,5 @@ These steps ... | These simple steps ...
 
 * Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
 * Learn about [using page templates](/docs/contribute/style/page-content-types/).
+* Learn about [custom hugo shortcodes](/docs/contribute/style/hugo-shortcodes/).
 * Learn about [creating a pull request](/docs/contribute/new-content/open-a-pr/).
