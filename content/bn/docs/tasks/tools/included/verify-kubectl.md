@@ -3,9 +3,9 @@ title: "kubectl ইনস্টল যাচাই করুন"
 description: "কিভাবে kubectl যাচাই করবেন।"
 headless: true
 _build:
-	list: never
-	render: never
-	publishResources: false
+  list: never
+  render: never
+  publishResources: false
 ---
 
 kubectl-এর জন্য একটি কুবারনেটিস ক্লাস্টার খুঁজে পেতে এবং নেটওয়ার্ক পেতে, এটির একটি প্রয়োজন
