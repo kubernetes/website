@@ -739,56 +739,56 @@ Ce rôle ne permet pas de visualiser les Secrets, car la lecture du contenu
 des Secrets permet d'accéder aux informations d'identification du ServiceAccount dans le namespace,
 ce qui permettrait d'accéder à l'API en tant que tout ServiceAccount dans l'espace de noms (une forme d'escalade des privilèges).
 
-This role does not allow viewing Secrets, since reading
-the contents of Secrets enables access to ServiceAccount credentials
-in the namespace, which would allow API access as any ServiceAccount
-in the namespace (a form of privilege escalation).</td>
+Ce rôle ne permet pas de consulter les secrets, car la lecture
+du contenu des secrets permet d'accéder aux informations d'identification du ServiceAccount dans le namespace,
+ce qui permettrait d'accéder à l'API en tant que n'importe quel ServiceAccount 
+dans le namespace (une forme d'escalade des privilèges).</td>
 </tr>
 </tbody>
 </table>
 
-### Core component roles
+### Rôles des composants de base
 
 <table>
 <colgroup><col style="width: 25%;" /><col style="width: 25%;" /><col /></colgroup>
 <thead>
 <tr>
-<th>Default ClusterRole</th>
-<th>Default ClusterRoleBinding</th>
+<th>ClusterRole par défaut</th>
+<th>ClusterRoleBinding par défaut</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><b>system:kube-scheduler</b></td>
-<td><b>system:kube-scheduler</b> user</td>
-<td>Allows access to the resources required by the {{< glossary_tooltip term_id="kube-scheduler" text="scheduler" >}} component.</td>
+<td>utilisateur <b>system:kube-scheduler</b></td>
+<td>Permet l'accès aux ressources requises par le composant {{< glossary_tooltip term_id="kube-scheduler" text="scheduler" >}}.</td>
 </tr>
 <tr>
 <td><b>system:volume-scheduler</b></td>
 <td><b>system:kube-scheduler</b> user</td>
-<td>Allows access to the volume resources required by the kube-scheduler component.</td>
+<td>Permet l'accès aux ressources de volume requises par le composant kube-scheduler.</td>
 </tr>
 <tr>
 <td><b>system:kube-controller-manager</b></td>
-<td><b>system:kube-controller-manager</b> user</td>
-<td>Allows access to the resources required by the {{< glossary_tooltip term_id="kube-controller-manager" text="controller manager" >}} component.
-The permissions required by individual controllers are detailed in the <a href="#controller-roles">controller roles</a>.</td>
+<td>utilisateur <b>system:kube-controller-manager</b></td>
+<td>Permet l'accès aux ressources requises par le composant {{< glossary_tooltip term_id="kube-controller-manager" text="gestionnaire de contrôleur" >}}.
+Les autorisations requises par les contrôleurs individuels sont détaillées dans les <a href="#controller-roles">rôles des contrôleurs</a>.</td>
 </tr>
 <tr>
 <td><b>system:node</b></td>
-<td>None</td>
-<td>Allows access to resources required by the kubelet, <b>including read access to all secrets, and write access to all pod status objects</b>.
+<td>Aucun</td>
+<td>Permet l'accès aux ressources requises par le kubelet, <b>y compris l'accès en lecture à tous les secrets, et l'accès en écriture à tous les objets d'état des pods</b>.
 
-You should use the <a href="/docs/reference/access-authn-authz/node/">Node authorizer</a> and <a href="/docs/reference/access-authn-authz/admission-controllers/#noderestriction">NodeRestriction admission plugin</a> instead of the <tt>system:node</tt> role, and allow granting API access to kubelets based on the Pods scheduled to run on them.
+Vous devriez utiliser le  <a href="/docs/reference/access-authn-authz/node/">Node authorizer</a> et le <a href="/docs/reference/access-authn-authz/admission-controllers/#noderestriction">plugin d'admission NodeRestriction</a> au lieu du rôle <tt>system:node</tt>, et autoriser l'octroi d'un accès API aux kubelets en fonction des Pods programmés pour s'exécuter sur eux.
 
-The <tt>system:node</tt> role only exists for compatibility with Kubernetes clusters upgraded from versions prior to v1.8.
+Le rôle <tt>system:node</tt> n'existe que pour la compatibilité avec les clusters Kubernetes mis à niveau à partir de versions antérieures à la v1.8.
 </td>
 </tr>
 <tr>
 <td><b>system:node-proxier</b></td>
 <td><b>system:kube-proxy</b> user</td>
-<td>Allows access to the resources required by the {{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}} component.</td>
+<td>Permet l'accès aux ressources requises par le composant {{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}}.</td>
 </tr>
 </tbody>
 </table>
