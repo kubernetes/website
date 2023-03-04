@@ -54,172 +54,136 @@ hide_summary: true # Listed separately in section index
 
 ### इमेज खींचने की नीति
 
-The `imagePullPolicy` for a container and the tag of the image affect when the
-[kubelet](/docs/reference/command-line-tools-reference/kubelet/) attempts to pull (download) the specified image.
+`imagePullPolicy` एक कंटेनर के लिए तथा इमेज की tag को कैसे आधार बनाता है कि कब [kubelet](/docs/reference/command-line-tools-reference/kubelet/) निर्दिष्ट इमेज को पुल (डाउनलोड) करने का प्रयास करेगा।
 
-Here's a list of the values you can set for `imagePullPolicy` and the effects
-these values have:
+यहाँ `imagePullPolicy` के लिए आप सेट कर सकते हैं वैल्यूज़ की एक सूची है तथा इन वैल्यूज़ के प्रभाव इस प्रकार हैं:
 
 `IfNotPresent`
-: the image is pulled only if it is not already present locally.
+: यदि इमेज स्थानीय रूप से पहले से मौजूद नहीं है तो इमेज केवल पुल होगा।
 
 `Always`
-: every time the kubelet launches a container, the kubelet queries the container
-  image registry to resolve the name to an image
-  [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier).
-  If the kubelet has a container image with that exact digest cached locally, the kubelet uses its
-  cached image; otherwise, the kubelet pulls the image with the resolved digest, and uses that image
-  to launch the container.
+: हर बार जब कुबलेट एक कंटेनर लॉन्च करता है, तब कुबलेट कंटेनर इमेज रजिस्ट्री से नाम को इमेज के [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier) में रूपांतरित करता है।
+यदि कुबलेट एक इमेज को इस बिल्कुल समान डाइजेस्ट के साथ कैश करता है, तो कुबलेट इसका उपयोग करता है; अन्यथा, कुबलेट निर्धारित डाइजेस्ट के साथ इमेज को पुल करता है, और उस इमेज का उपयोग करता है कंटेनर लॉन्च करने के लिए।
 
 `Never`
-: the kubelet does not try fetching the image. If the image is somehow already present
-  locally, the kubelet attempts to start the container; otherwise, startup fails.
-  See [pre-pulled images](#pre-pulled-images) for more details.
+: kubelet छवि को लाने का प्रयास नहीं करता। यदि छवि किसी तरह से पहले से ही स्थानीय रूप से मौजूद है, तो kubelet कंटेनर शुरू करने का प्रयास करता है; अन्यथा, स्टार्टअप असफल हो जाता है। अधिक विवरण के लिए [पूर्व-खींची](#pre-pulled-images) छवियों को देखें।
 
-The caching semantics of the underlying image provider make even
-`imagePullPolicy: Always` efficient, as long as the registry is reliably accessible.
-Your container runtime can notice that the image layers already exist on the node
-so that they don't need to be downloaded again.
+
+अंतर्निहित छवि प्रदाता की कैशिंग सेमांटिक्स ने भी सुनिश्चित किया है कि जब तक रजिस्ट्री विश्वसनीय रूप से उपलब्ध हो, `imagePullPolicy: Always` भी अधिक दक्ष होता है। आपके कंटेनर रनटाइम को यह पता लगा सकता है कि छवि लेयर पहले से ही नोड पर मौजूद हैं, ताकि वे फिर से डाउनलोड नहीं करने हों।
 
 {{< note >}}
-You should avoid using the `:latest` tag when deploying containers in production as
-it is harder to track which version of the image is running and more difficult to
-roll back properly.
+आपको उत्पादन में कंटेनर डिप्लॉय करते समय `:latest` टैग का उपयोग नहीं करना चाहिए क्योंकि यह छवि के कौनसे संस्करण का उपयोग हो रहा है उसे ट्रैक करना अधिक मुश्किल होता है और यथार्थ रूप से वापस रोलबैक करना अधिक कठिन होता है।
 
-Instead, specify a meaningful tag such as `v1.42.0`.
-{{< /note >}}
+इसके बजाय, आप `v1.42.0` जैसे कोई अर्थपूर्ण टैग निर्दिष्ट करें।
 
-To make sure the Pod always uses the same version of a container image, you can specify
-the image's digest;
-replace `<image-name>:<tag>` with `<image-name>@<digest>`
-(for example, `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`).
+एक कंटेनर इमेज के संस्करण को हमेशा समान रखने के लिए, आप इमेज के डाइजेस्ट को निर्दिष्ट कर सकते हैं;
+<`image-name`>:<tag> को `<image-name>@<digest>` से बदलें
+(उदाहरण के लिए, `image@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`).
 
-When using image tags, if the image registry were to change the code that the tag on that image
-represents, you might end up with a mix of Pods running the old and new code. An image digest
-uniquely identifies a specific version of the image, so Kubernetes runs the same code every time
-it starts a container with that image name and digest specified. Specifying an image by digest
-fixes the code that you run so that a change at the registry cannot lead to that mix of versions.
+जब आप इमेज टैग का उपयोग करते हैं, तो यदि इमेज रजिस्ट्री कोड में उस टैग को बदल देता है तो आप पुराने और नए कोड दोनों के साथ पोड चलाने के मिश्रण से गुजर सकते हैं। एक इमेज डाइजेस्ट एक विशिष्ट संस्करण को अकेले अंकित करता है, इसलिए Kubernetes उस इमेज नाम और डाइजेस्ट को निर्दिष्ट करते समय हर बार उसी कोड को चलाता है जिसे स्पष्ट किया गया है। डाइजेस्ट द्वारा इमेज का निर्दिष्टीकरण करने से आप उस कोड को ठीक करते हैं जिसे आप चलाते हैं ताकि रजिस्ट्री में कोई भी टैग परिवर्तन उस मिश्रण के लिए नहीं हो सकता जो आपने चलाया है।
 
-There are third-party [admission controllers](/docs/reference/access-authn-authz/admission-controllers/)
-that mutate Pods (and pod templates) when they are created, so that the
-running workload is defined based on an image digest rather than a tag.
-That might be useful if you want to make sure that all your workload is
-running the same code no matter what tag changes happen at the registry.
 
-#### Default image pull policy {#imagepullpolicy-defaulting}
+पॉड बनाए जाते समय थर्ड-पार्टी [एडमिशन कंट्रोलर](/docs/reference/access-authn-authz/admission-controllers/) होते हैं जो पॉड (और पॉड टेम्पलेट) में म्यूटेट करते हैं, ताकि चल रहे workload को tag
+के बजाय एक इमेज डाइजेस्ट पर निर्धारित किया जाए। इससे सुनिश्चित होता है कि रजिस्ट्री में कुछ टैग के बदलाव के बाद भी आपका सभी workload उसी कोड पर चल रहा हो।
 
-When you (or a controller) submit a new Pod to the API server, your cluster sets the
-`imagePullPolicy` field when specific conditions are met:
 
-- if you omit the `imagePullPolicy` field, and the tag for the container image is
-  `:latest`, `imagePullPolicy` is automatically set to `Always`;
-- if you omit the `imagePullPolicy` field, and you don't specify the tag for the
-  container image, `imagePullPolicy` is automatically set to `Always`;
-- if you omit the `imagePullPolicy` field, and you specify the tag for the
-  container image that isn't `:latest`, the `imagePullPolicy` is automatically set to
-  `IfNotPresent`.
+
+#### पूर्व निर्धारित मूल्य इमेज पुल पालिसी  {#imagepullpolicy-defaulting}
+
+जब आप (या एक नियंत्रक) नई Pod को API सर्वर पर सबमिट करते हैं, तो आपके क्लस्टर निश्चित स्थितियों को पूरा करते हुए `imagePullPolicy` फ़ील्ड सेट करता है:
+
+
+- यदि आप कंटेनर छवि के लिए `:latest` टैग निर्दिष्ट नहीं करते हैं, और आप `imagePullPolicy` फ़ील्ड छोड़ते हैं, तो `imagePullPolicy` स्वचालित रूप से `Always` पर सेट किया जाता है।
+- यदि आप कंटेनर छवि के लिए टैग निर्दिष्ट नहीं करते हैं, और आप `imagePullPolicy` फ़ील्ड छोड़ते हैं, तो `imagePullPolicy` स्वचालित रूप से `Always` पर सेट किया जाता है।
+- यदि आप कंटेनर छवि के लिए टैग निर्दिष्ट करते हैं जो `:latest` नहीं है, और आप `imagePullPolicy` फ़ील्ड छोड़ते हैं, तो `imagePullPolicy` स्वचालित रूप से `IfNotPresent` पर सेट किया जाता है।
+
 
 {{< note >}}
-The value of `imagePullPolicy` of the container is always set when the object is
-first _created_, and is not updated if the image's tag later changes.
+जब ऑब्जेक्ट पहली बार बनाया जाता है, तब कंटेनर का `imagePullPolicy` का मान सेट होता है, और यदि बाद में उस इमेज की टैग बदल जाती है, तो यह फ़ील्ड अपडेट नहीं होती है।
 
-For example, if you create a Deployment with an image whose tag is _not_
-`:latest`, and later update that Deployment's image to a `:latest` tag, the
-`imagePullPolicy` field will _not_ change to `Always`. You must manually change
-the pull policy of any object after its initial creation.
+उदाहरण के लिए, यदि आप एक Deployment बनाते हैं जिसमें इमेज की टैग अपडेट नहीं होती है, और बाद में उस Deployment की इमेज को एक `:latest` टैग के साथ अपडेट करते हैं, तो `imagePullPolicy` फ़ील्ड `Always` पर नहीं बदलेगी। आपको किसी भी ऑब्जेक्ट की इनिशियल क्रिएशन के बाद उसकी पुल पॉलिसी को मैन्युअल रूप से बदलना होगा।
 {{< /note >}}
 
-#### Required image pull
 
-If you would like to always force a pull, you can do one of the following:
+#### ज़रूरी इमेज पुल
 
-- Set the `imagePullPolicy` of the container to `Always`.
-- Omit the `imagePullPolicy` and use `:latest` as the tag for the image to use;
-  Kubernetes will set the policy to `Always` when you submit the Pod.
-- Omit the `imagePullPolicy` and the tag for the image to use;
-  Kubernetes will set the policy to `Always` when you submit the Pod.
-- Enable the [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
-  admission controller.
+
+यदि आप हमेशा एक फोर्स पुल करना चाहते हैं, तो आप निम्नलिखित में से कुछ कर सकते हैं:
+
+- कंटेनर के `imagePullPolicy` को `Always` पर सेट करें।
+- `imagePullPolicy` को छोड़ दें और उपयोग करें `:latest` इमेज के लिए टैग; Kubernetes
+पॉड सबमिट करते समय नीति को `Always` पर सेट कर देगा।
+- `imagePullPolicy` और उपयोग करें इमेज के लिए टैग को छोड़ दें;
+Kubernetes पॉड सबमिट करते समय नीति को `Always` पर सेट कर देगा।
+- [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) एडमिशन कंट्रोलर को सक्षम करें।
+
 
 ### ImagePullBackOff
 
-When a kubelet starts creating containers for a Pod using a container runtime,
-it might be possible the container is in [Waiting](/docs/concepts/workloads/pods/pod-lifecycle/#container-state-waiting)
-state because of `ImagePullBackOff`.
+जब कोई kubelet किसी Pod के लिए container runtime का उपयोग करते हुए containers बनाना शुरू करता है, तो यह संभव है कि `ImagePullBackOff` के कारण container [Waiting](/docs/concepts/workloads/pods/pod-lifecycle/#container-state-waiting) स्थिति में हो।
 
-The status `ImagePullBackOff` means that a container could not start because Kubernetes
-could not pull a container image (for reasons such as invalid image name, or pulling
-from a private registry without `imagePullSecret`). The `BackOff` part indicates
-that Kubernetes will keep trying to pull the image, with an increasing back-off delay.
 
-Kubernetes raises the delay between each attempt until it reaches a compiled-in limit,
-which is 300 seconds (5 minutes).
+स्थिति `ImagePullBackOff` यह दर्शाती है कि कुबरनेटीज एक कंटेनर इमेज को पुल करने में असमर्थ हो गया है (गलत इमेज नाम या `imagePullSecret` के बिना निजी रजिस्ट्री से पुल करने के जैसे कारणों के कारण). `BackOff` भाग इस बात को दर्शाता है कि कुबरनेटीज इमेज पुल करने का प्रयास करता रहेगा, जिसमें बैक-ऑफ देरी को बढ़ाया जाएगा।
 
-## Multi-architecture images with image indexes
+कुबरनेटीज प्रत्येक प्रयास के बीच देरी को बढ़ाते हुए उस सीमा तक पहुंचता है, जो कंपाइल किए गए लिमिट, अर्थात 300 सेकंड (5 मिनट) है।
 
-As well as providing binary images, a container registry can also serve a
-[container image index](https://github.com/opencontainers/image-spec/blob/master/image-index.md).
-An image index can point to multiple [image manifests](https://github.com/opencontainers/image-spec/blob/master/manifest.md)
-for architecture-specific versions of a container. The idea is that you can have a name for an image
-(for example: `pause`, `example/mycontainer`, `kube-apiserver`) and allow different systems to
-fetch the right binary image for the machine architecture they are using.
+## इमेज इंडेक्स के साथ मल्टी-आर्किटेक्चर इमेजेज (Multi-architecture images with image indexes)
 
-Kubernetes itself typically names container images with a suffix `-$(ARCH)`. For backward
-compatibility, please generate the older images with suffixes. The idea is to generate say `pause`
-image which has the manifest for all the arch(es) and say `pause-amd64` which is backwards
-compatible for older configurations or YAML files which may have hard coded the images with
-suffixes.
+बाइनरी छवियों की प्रदान के साथ-साथ, एक कंटेनर रजिस्ट्री एक [container image index](https://github.com/opencontainers/image-spec/blob/master/image-index.md) भी प्रदान कर सकती है। छवि इंडेक्स एक कंटेनर
+के विभिन्न संरचना-विशिष्ट संस्करणों के लिए अनुशंसित [image manifests](https://github.com/opencontainers/image-spec/blob/master/manifest.md) को निर्देशित कर सकता है। यह विचार है कि आप एक छवि के लिए
+एक नाम रख सकते हैं (उदाहरण के लिए: `pause`, `example/mycontainer`, `kube-apiserver`) और अलग-अलग सिस्टम को वे
+उपयोग कर रहे मशीन आर्किटेक्चर के लिए सही बाइनरी छवि फेच करने की अनुमति दें।
 
-## Using a private registry
+कुबरनेट्स आमतौर पर कंटेनर छवियों को एक सुफ़िक्स `-$(ARCH)` के साथ नामकरण करता है। पूर्व संगतता के लिए, कृपया सुफ़िक्स के साथ पुरानी छवियां उत्पन्न करें। विचार यह है कि आप
+उदाहरण के रूप में `pause` छवि उत्पन्न कर सकते हैं जिसमें सभी arch(es) के लिए मैनिफ़ेस्ट होता है और `pause-amd64` उत्पन्न कर सकते हैं जो पुराने विन्यास या YAML फ़ाइलों में सुफ़िक्स के साथ नाम रखने वाली पुरानी छवि संगत होती हैं।
 
-Private registries may require keys to read images from them.  
-Credentials can be provided in several ways:
 
-- Configuring Nodes to Authenticate to a Private Registry
-  - all pods can read any configured private registries
-  - requires node configuration by cluster administrator
-- Kubelet Credential Provider to dynamically fetch credentials for private registries
-  - kubelet can be configured to use credential provider exec plugin 
-    for the respective private registry.
-- Pre-pulled Images
-  - all pods can use any images cached on a node
-  - requires root access to all nodes to set up
-- Specifying ImagePullSecrets on a Pod
-  - only pods which provide own keys can access the private registry
-- Vendor-specific or local extensions
-  - if you're using a custom node configuration, you (or your cloud
-    provider) can implement your mechanism for authenticating the node
-    to the container registry.
+## एक निजी रजिस्ट्री का उपयोग करना
 
-These options are explained in more detail below.
+निजी रजिस्ट्री को पढ़ने के लिए ताकत की आवश्यकता हो सकती है।
+क्रेडेंशियल कई तरीकों से प्रदान किए जा सकते हैं:
 
-### Configuring nodes to authenticate to a private registry
+- नोड को निजी रजिस्ट्री से प्रमाणित करने के लिए नोड को कॉन्फ़िगर करना 
+  - सभी पॉड को कॉन्फ़िगर किए गए निजी रजिस्ट्रियों को पढ़ सकते हैं
+  - क्लस्टर प्रशासक द्वारा नोड कॉन्फ़िगर की आवश्यकता होती है
+- निजी रजिस्ट्री के लिए क्रेडेंशियल डायनामिक रूप से प्राप्त करने के लिए kubelet क्रेडेंशियल प्रदाता
+  - kubelet क्रेडेंशियल प्रदाता exec प्लगइन का उपयोग करने के लिए कॉन्फ़िगर किया जा सकता है निजी रजिस्ट्री के लिए।
+- पूर्व-खींची गई छवियां
+  - सभी पॉड किसी भी नोड पर कैश की गई कोई भी छवि का उपयोग कर सकते हैं
+  - सेटअप के लिए सभी नोडों में रूट एक्सेस की आवश्यकता होती है
+- पॉड पर ImagePullSecrets निर्दिष्ट करना
+  - केवल वे पॉड जिनके पास अपने कुंजी हैं वह निजी रजिस्ट्री तक पहुंच प्राप्त कर सकते हैं।
+- वेंडर-विशिष्ट या स्थानीय विस्तार 
+  - यदि आप एक कस्टम नोड कॉन्फ़िगरेशन का उपयोग कर रहे हैं, तो आप (या अपने क्लाउड प्रोवाइडर) अपनी तरह से नोड को प्रमाणित करने के लिए अपनी युक्ति को लागू कर सकते हैं।
 
-Specific instructions for setting credentials depends on the container runtime and registry you
-chose to use. You should refer to your solution's documentation for the most accurate information.
 
-For an example of configuring a private container image registry, see the
-[Pull an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry)
-task. That example uses a private registry in Docker Hub.
+इन विकल्पों का नीचे और अधिक विस्तार से व्याख्या दी गई है।
 
-### Kubelet credential provider for authenticated image pulls {#kubelet-credential-provider}
+### निजी रजिस्ट्री में प्रमाणित करने के लिए नोड कॉन्फ़िगर करना
+
+
+container रनटाइम और रजिस्ट्री के सेट करने के लिए निश्चित निर्देशों के लिए आपको अपने सॉल्यूशन के दस्तावेज़ का संदर्भ देना चाहिए। सटीक जानकारी के लिए अपने सॉल्यूशन के दस्तावेज़ का संदर्भ दें।
+
+निजी कंटेनर इमेज रजिस्ट्री कॉन्फ़िगर करने के उदाहरण के लिए, [प्राइवेट रजिस्ट्री से इमेज खींचें](/docs/tasks/configure-pod-container/pull-image-private-registry) टास्क देखें। उस उदाहरण में Docker Hub में एक निजी रजिस्ट्री का उपयोग किया गया है।
+
+
+### प्रमाणित इमेज खींचने के लिए कुबलेट प्रमाणित प्रदाता {#kubelet-credential-provider}
 
 {{< note >}}
-This approach is especially suitable when kubelet needs to fetch registry credentials dynamically.
-Most commonly used for registries provided by cloud providers where auth tokens are short-lived. 
+यह दृष्टिकोण विशेष रूप से उपयुक्त है जब कुबलेट को रजिस्ट्री प्रमाणपत्र डायनामिक रूप से फ़ेच करने की आवश्यकता होती है।
+सबसे अधिक प्रयोग किया जाने वाला रजिस्ट्री क्लाउड प्रोवाइडर द्वारा प्रदान किए जाने वाले रजिस्ट्री के लिए जहां ऑथ टोकन छोटी अवधि वाले होते हैं।
 {{< /note >}}
 
-You can configure the kubelet to invoke a plugin binary to dynamically fetch registry credentials for a container image.
-This is the most robust and versatile way to fetch credentials for private registries, but also requires kubelet-level configuration to enable.
+आप कुबलेट को कॉन्टेनर इमेज के लिए रजिस्ट्री प्रमाणपत्र डायनामिक रूप से फ़ेच करने के लिए प्लगइन बाइनरी को आवाहित करने के लिए कॉन्फ़िगर कर सकते हैं।
+यह निजी रजिस्ट्री के लिए प्रमाणपत्र फ़ेच करने के लिए सबसे मजबूत और विविध तरीके में से एक है, लेकिन कुबलेट-स्तरीय विन्यास को सक्षम करने के लिए भी आवश्यक होता है।
 
-See [Configure a kubelet image credential provider](/docs/tasks/administer-cluster/kubelet-credential-provider/) for more details.
+अधिक जानकारी के लिए [कुबलेट इमेज प्रमाणपत्र प्रदाता कॉन्फ़िगर करें](/docs/tasks/administer-cluster/kubelet-credential-provider/) देखें।
 
-### Interpretation of config.json {#config-json}
+### config.json की व्याख्या (Interpretation of config.json) {#config-json}
 
-The interpretation of `config.json` varies between the original Docker
-implementation and the Kubernetes interpretation. In Docker, the `auths` keys
-can only specify root URLs, whereas Kubernetes allows glob URLs as well as
-prefix-matched paths. This means that a `config.json` like this is valid:
+`config.json` की व्याख्या मूल Docker अंमलवार्ता और Kubernetes व्याख्या के बीच भिन्न होती है। Docker में, `auths` कुंजियाँ केवल रूट URL निर्दिष्ट कर सकती हैं,
+जबकि Kubernetes विस्तृत URL के साथ साथ उपसर्ग-मेलित पथ भी अनुमति देता है। इसका अर्थ है कि एक `config.json` जैसा कि यह मान्य है:
+
 
 ```json
 {
@@ -231,7 +195,7 @@ prefix-matched paths. This means that a `config.json` like this is valid:
 }
 ```
 
-The root URL (`*my-registry.io`) is matched by using the following syntax:
+निम्नलिखित वाक्यांश का उपयोग करके रूट URL (`*my-registry.io`) का मेल लिया जाता है:
 
 ```
 pattern:
@@ -251,9 +215,8 @@ character-range:
     lo '-' hi   matches character c for lo <= c <= hi
 ```
 
-Image pull operations would now pass the credentials to the CRI container
-runtime for every valid pattern. For example the following container image names
-would match successfully:
+
+छवि पुल ऑपरेशन अब हर मान्य पैटर्न के लिए CRI कंटेनर रनटाइम को क्रेडेंशियल पास कर देंगे। उदाहरण के लिए, निम्नलिखित कंटेनर छवि नाम सफलतापूर्वक मेल खाएंगे:
 
 - `my-registry.io/images`
 - `my-registry.io/images/my-image`
@@ -261,8 +224,8 @@ would match successfully:
 - `sub.my-registry.io/images/my-image`
 - `a.sub.my-registry.io/images/my-image`
 
-The kubelet performs image pulls sequentially for every found credential. This
-means, that multiple entries in `config.json` are possible, too:
+
+कुबलेट हर पाए गए क्रेडेंशियल के लिए छवि पुल को क्रमशः करता है। इसका अर्थ है कि `config.json` में एकाधिक प्रविष्टियां भी संभव हैं:
 
 ```json
 {
@@ -277,46 +240,48 @@ means, that multiple entries in `config.json` are possible, too:
 }
 ```
 
-If now a container specifies an image `my-registry.io/images/subpath/my-image`
-to be pulled, then the kubelet will try to download them from both
-authentication sources if one of them fails.
 
-### Pre-pulled images
+यदि अब एक कंटेनर एक छवि `my-registry.io/images/subpath/my-image` को खींचने के लिए निर्दिष्ट करता है, तो kubelet दोनों प्रमाणीकरण स्रोतों से उन्हें डाउनलोड करने की कोशिश करेगा यदि उनमें से एक विफल हो जाए।
 
-{{< note >}}
-This approach is suitable if you can control node configuration.  It
-will not work reliably if your cloud provider manages nodes and replaces
-them automatically.
-{{< /note >}}
+### पूर्व-खींची गई छवियाँ (Pre-pulled images)
 
-By default, the kubelet tries to pull each image from the specified registry.
-However, if the `imagePullPolicy` property of the container is set to `IfNotPresent` or `Never`,
-then a local image is used (preferentially or exclusively, respectively).
-
-If you want to rely on pre-pulled images as a substitute for registry authentication,
-you must ensure all nodes in the cluster have the same pre-pulled images.
-
-This can be used to preload certain images for speed or as an alternative to authenticating to a
-private registry.
-
-All pods will have read access to any pre-pulled images.
-
-### Specifying imagePullSecrets on a Pod
 
 {{< note >}}
-This is the recommended approach to run containers based on images
-in private registries.
+यदि आप नोड कॉन्फ़िगरेशन को नियंत्रित कर सकते हैं तो यह दृष्टिकोण उपयुक्त है। यदि आपका क्लाउड प्रदाता नोडों को प्रबंधित करता है और उन्हें स्वचालित रूप से बदलता है तो यह स्पष्ट नहीं है कि यह निष्पक्ष काम करेगा।
 {{< /note >}}
 
-Kubernetes supports specifying container image registry keys on a Pod.
-`imagePullSecrets` must all be in the same namespace as the Pod. The referenced
-Secrets must be of type `kubernetes.io/dockercfg` or `kubernetes.io/dockerconfigjson`.
 
-#### Creating a Secret with a Docker config
+डिफ़ॉल्ट रूप से, kubelet निर्दिष्ट रजिस्ट्री से प्रत्येक छवि खींचने की कोशिश करता है।
+हालांकि, यदि कंटेनर की `imagePullPolicy` संपत्ति को `IfNotPresent` या `Never` में सेट किया गया है,
+तो एक स्थानीय छवि का उपयोग किया जाता है (प्राथमिक रूप से या अकेले रूप से।)
 
-You need to know the username, registry password and client email address for authenticating
-to the registry, as well as its hostname.
-Run the following command, substituting the appropriate uppercase values:
+यदि आप रजिस्ट्री प्रमाणीकरण के बदले पूर्व-खींची गई छवियों पर भरोसा करना चाहते हैं,
+तो आपको सुनिश्चित करना होगा कि क्लस्टर में सभी नोड एक ही पूर्व-खींची गई छवियों के साथ हों।
+
+यह स्पीड के लिए निशुल्क रूप से कुछ छवियों को पूर्व-लोड करने या एक निजी रजिस्ट्री को प्रमाणित करने के विकल्प के रूप में उपयोग किया जा सकता है।
+
+सभी पॉडों को किसी भी पूर्व-खींची गई छवियों के लिए रीड एक्सेस होगा।
+
+
+### कंटेनर इमेज रजिस्ट्री कुंजियों को पॉड पर निर्दिष्ट करना
+
+
+{{< note >}}
+यह निजी रजिस्ट्री से आधारित इमेजों पर आधारित कंटेनर चलाने के लिए सिफारिश की जाती है।
+{{< /note >}}
+
+कुबरनेटीज़ पॉड पर कंटेनर इमेज रजिस्ट्री कुंजियों को निर्दिष्ट करने का समर्थन करता है।
+`imagePullSecrets` पॉड के समान नेमस्पेस में होना चाहिए। उल्लिखित गुप्ततासूत्रों को
+क्रमशः टाइप `kubernetes.io/dockercfg` या `kubernetes.io/dockerconfigjson` होना चाहिए।
+
+
+#### डॉकर कॉन्फ़िग के साथ एक सीक्रेट बनाना
+
+
+डॉकर कॉन्फ़िग के साथ एक सीक्रेट बनाना
+
+आपको रजिस्ट्री में प्रमाणित होने के लिए उपयोगकर्ता नाम, रजिस्ट्री पासवर्ड और क्लाइंट ईमेल पता,
+उसके होस्टनेम की भी जानकारी होनी चाहिए। निम्नलिखित आदेश को चलाएं, उचित अपरकेस मूल्यों का उपयोग करते हुए:
 
 ```shell
 kubectl create secret docker-registry <name> \
@@ -326,28 +291,27 @@ kubectl create secret docker-registry <name> \
   --docker-email=DOCKER_EMAIL
 ```
 
-If you already have a Docker credentials file then, rather than using the above
-command, you can import the credentials file as a Kubernetes
-{{< glossary_tooltip text="Secrets" term_id="secret" >}}.  
-[Create a Secret based on existing Docker credentials](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials)
-explains how to set this up.
 
-This is particularly useful if you are using multiple private container
-registries, as `kubectl create secret docker-registry` creates a Secret that
-only works with a single private registry.
+यदि आपके पास पहले से ही एक Docker प्रमाणीकरण फ़ाइल है तो उपरोक्त आदेश का उपयोग करने के बजाय, आप इसे Kubernetes
+{{<glossary_tooltip text="Secrets" term_id="secret">}} के रूप में आयात कर सकते हैं। [मौजूदा Docker प्रमाणीकरण के आधार पर एक Secret बनाएं](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials) इसका विवरण बताता है।
+
+यह विशेष रूप से उपयोगी होता है यदि आप एक से अधिक निजी कंटेनर रजिस्ट्री का उपयोग कर रहे हैं, क्योंकि `kubectl create secret docker-registry` एक Secret बनाता है जो केवल एक निजी रजिस्ट्री के साथ काम करता है।
 
 {{< note >}}
-Pods can only reference image pull secrets in their own namespace,
-so this process needs to be done one time per namespace.
+Pods केवल अपनी खुद की नेमस्पेस में छवि पुल सीक्रेट को संदर्भित कर सकते हैं, इसलिए इस प्रक्रिया को एक बार प्रति नेमस्पेस करने की आवश्यकता होती है।
 {{< /note >}}
 
-#### Referring to an imagePullSecrets on a Pod
 
-Now, you can create pods which reference that secret by adding an `imagePullSecrets`
-section to a Pod definition. Each item in the `imagePullSecrets` array can only
-reference a Secret in the same namespace.
 
-For example:
+#### एक Pod पर imagePullSecrets को संदर्भित करना
+
+
+एक Pod पर imagePullSecrets को संदर्भित करना
+
+अब, आप `imagePullSecrets` कोड सेक्शन को Pod definition में जोड़कर उस सीक्रेट का संदर्भ जोड़ सकते हैं। `imagePullSecrets` एरे में हर आइटम केवल एक नेमस्पेस में एक सीक्रेट को संदर्भित कर सकता है।
+
+उदाहरण के लिए:
+
 
 ```shell
 cat <<EOF > pod.yaml
@@ -370,53 +334,47 @@ resources:
 EOF
 ```
 
-This needs to be done for each pod that is using a private registry.
 
-However, setting of this field can be automated by setting the imagePullSecrets
-in a [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/) resource.
+यह हर Pod के लिए किया जाना चाहिए जो निजी रजिस्ट्री का उपयोग कर रहा है।
 
-Check [Add ImagePullSecrets to a Service Account](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account)
-for detailed instructions.
+हालांकि, इस फ़ील्ड की सेटिंग को इमेजपुल सीक्रेट्स को सेट करके [ServiceAccount](/docs/tasks/configure-pod-container/configure-service-account/) रिसोर्स में सेट करके स्वचालित बनाया जा सकता है।
 
-You can use this in conjunction with a per-node `.docker/config.json`.  The credentials
-will be merged.
+विस्तृत निर्देशों के लिए [Service Account में ImagePullSecrets जोड़ें](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account) की जांच करें।
 
-## Use cases
+आप इसे प्रति-नोड `.docker/config.json` के साथ उपयोग कर सकते हैं। प्रमाणिकरण मिलाया जाएगा।
 
-There are a number of solutions for configuring private registries.  Here are some
-common use cases and suggested solutions.
 
-1. Cluster running only non-proprietary (e.g. open-source) images.  No need to hide images.
-   - Use public images from a public registry
-     - No configuration required.
-     - Some cloud providers automatically cache or mirror public images, which improves
-       availability and reduces the time to pull images.
-1. Cluster running some proprietary images which should be hidden to those outside the company, but
-   visible to all cluster users.
-   - Use a hosted private registry
-     - Manual configuration may be required on the nodes that need to access to private registry
-   - Or, run an internal private registry behind your firewall with open read access.
-     - No Kubernetes configuration is required.
-   - Use a hosted container image registry service that controls image access
-     - It will work better with cluster autoscaling than manual node configuration.
-   - Or, on a cluster where changing the node configuration is inconvenient, use `imagePullSecrets`.
-1. Cluster with proprietary images, a few of which require stricter access control.
-   - Ensure [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
-     is active. Otherwise, all Pods potentially have access to all images.
-   - Move sensitive data into a "Secret" resource, instead of packaging it in an image.
-1. A multi-tenant cluster where each tenant needs own private registry.
-   - Ensure [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages)
-     is active. Otherwise, all Pods of all tenants potentially have access to all images.
-   - Run a private registry with authorization required.
-   - Generate registry credential for each tenant, put into secret, and populate secret to each
-     tenant namespace.
-   - The tenant adds that secret to imagePullSecrets of each namespace.
+## उपयोग मामले
 
-If you need access to multiple registries, you can create one secret for each registry.
+निजी रजिस्ट्री को कॉन्फ़िगर करने के लिए कई समाधान हैं। यहां कुछ सामान्य उपयोग मामले और सुझाए गए समाधान हैं।
 
-## {{% heading "whatsnext" %}}
 
-* Read the [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md).
-* Learn about [container image garbage collection](/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection).
-* Learn more about [pulling an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry).
+1. केवल गैर-प्राप्राइटरी (जैसे ओपन सोर्स) इमेजों से चल रहा क्लस्टर। इमेजों को छुपाने की आवश्यकता नहीं है। 
+   - पब्लिक रजिस्ट्री से पब्लिक इमेज का उपयोग करें
+     - कोई कॉन्फ़िगरेशन आवश्यक नहीं है।
+     - कुछ क्लाउड प्रदाताओं अपने आप पब्लिक इमेज कैश या मिरर कर देते हैं, जो उपलब्धता को बढ़ाता है और इमेज खींचने के लिए समय को कम करता है।
+1. कंपनी के बाहर वालों को छुपाया जाना चाहिए, लेकिन सभी क्लस्टर उपयोगकर्ताओं के लिए दृश्यमान होना चाहिए।
+   - एक होस्ट किए गए निजी रजिस्ट्री का उपयोग करें
+   - निजी रजिस्ट्री तक पहुँच करने वाले नोडों पर मैन्युअल कॉन्फ़िगरेशन की आवश्यकता हो सकती है
+   - या फिर, अपने फ़ायरवॉल के पीछे एक आंतरिक निजी रजिस्ट्री चलाएं जिसके खोलने की अनुमति है।
+   - कुबरनेटीस कॉन्फ़िगरेशन की कोई आवश्यकता नहीं है।
+   - एक होस्ट किए गए कंटेनर छवि रजिस्ट्री सेवा का उपयोग करें जो छवि उपयोग की निगरानी करती है
+   - इससे मैन्युअल नोड कॉन्फ़िगरेशन से क्लस्टर ऑटोस्केलिंग बेहतर काम करेगा।
+   - या फिर, जहाँ नोड कॉन्फ़िगरेशन बदलना असुविधाजनक हो, `imagePullSecrets` का उपयोग करें।
+1. एक cluster जिसमें proprietary images होती हैं, उनमें से कुछ को अधिक सख्त एक्सेस कंट्रोल की आवश्यकता होती है।
+   - [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) सक्रिय होने का सुनिश्चय करें। इससे पहले, सभी Pods के पास संभवतः सभी छवियों तक पहुंच होती है।
+   - संवेदनशील डेटा को छवि में पैकेज करने की बजाय, इसे "Secret" resource में ले जाएँ।
+1. एक मल्टी-टेनेंट क्लस्टर जहां हर टेनेंट को अपनी निजी रजिस्ट्री की आवश्यकता है।
+   - सुनिश्चित करें कि [AlwaysPullImages admission controller](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) सक्रिय है। अन्यथा, सभी Pods या सभी tenants को संभवतः सभी छवियों तक पहुँच होगी।
+   - एक ऑथराइज़ेशन के साथ एक निजी रजिस्ट्री चलाएं।
+   - हर टेनेंट के लिए रजिस्ट्री credential उत्पन्न करें, सीक्रेट में डालें, और हर टेनेंट नेमस्पेस में सीक्रेट को भरें।
+   - टेनेंट नेमस्पेस के imagePullSecrets में उस सीक्रेट को जोड़ें।
 
+
+यदि आपको कई रजिस्ट्री का उपयोग करने की आवश्यकता है, तो आप प्रत्येक रजिस्ट्री के लिए एक सीक्रेट बना सकते हैं।
+
+
+{{% heading "whatsnext" %}}
+* [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md) को पढ़ें।
+* [container image garbage collection](/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection) के बारे में जानें।
+* [pulling an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry) के बारे में अधिक जानें।

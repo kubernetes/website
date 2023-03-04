@@ -1,63 +1,57 @@
 ---
 reviewers:
-  - tallclair
-  - dchen1107
-title: Runtime Class
-content_type: concept
-weight: 30
-hide_summary: true # Listed separately in section index
+- tallclair
+- dchen1107
+  title: Runtime Class
+  content_type: concept
+  weight: 30
+  hide_summary: true # Listed separately in section index
 ---
 
 <!-- overview -->
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
-This page describes the RuntimeClass resource and runtime selection mechanism.
+यह पृष्ठ RuntimeClass संसाधन और रनटाइम चयन तंत्र का वर्णन करता है।
 
-RuntimeClass is a feature for selecting the container runtime configuration. The container runtime
-configuration is used to run a Pod's containers.
+RuntimeClass एक विशेषता है जो कंटेनर रनटाइम कॉन्फ़िगरेशन का चयन करने के लिए उपयोग की जाती है।
+कंटेनर रनटाइम कॉन्फ़िगरेशन Pod के containers को चलाने के लिए उपयोग किया जाता है।
 
 <!-- body -->
 
-## Motivation
+## प्रेरणा
 
-You can set a different RuntimeClass between different Pods to provide a balance of
-performance versus security. For example, if part of your workload deserves a high
-level of information security assurance, you might choose to schedule those Pods so
-that they run in a container runtime that uses hardware virtualization. You'd then
-benefit from the extra isolation of the alternative runtime, at the expense of some
-additional overhead.
+आप भिन्न Pods के बीच अलग RuntimeClass सेट कर सकते हैं ताकि प्रदर्शन बनाम सुरक्षा का संतुलन प्रदान कर सकें। उदाहरण के लिए, यदि आपके workload का एक हिस्सा जानकारी सुरक्षा आश्वासन के उच्च स्तर के पात्र हैं, तो आप उन Pods को शेड्यूल करना चाहेंगे ताकि वे हार्डवेयर वर्चुअलाइजेशन का उपयोग करने वाले कंटेनर रनटाइम में चलें। इससे आप विकल्प रनटाइम के अतिरिक्त अलगाव के लाभ से लाभान्वित होंगे, लेकिन कुछ अतिरिक्त ओवरहेड के खर्च में।
 
-You can also use RuntimeClass to run different Pods with the same container runtime
-but with different settings.
+आप RuntimeClass का उपयोग उन समान कंटेनर रनटाइम के साथ भिन्न सेटिंग के साथ भी कर सकते हैं।
 
-## Setup
 
-1. Configure the CRI implementation on nodes (runtime dependent)
-2. Create the corresponding RuntimeClass resources
+## सेटअप
 
-### 1. Configure the CRI implementation on nodes
+1. नोडों पर सीआरआई अंमलन कॉन्फ़िगर करें (रनटाइम आधारित)
+2. संबंधित रनटाइम क्लास संसाधन बनाएँ
 
-The configurations available through RuntimeClass are Container Runtime Interface (CRI)
-implementation dependent. See the corresponding documentation ([below](#cri-configuration)) for your
-CRI implementation for how to configure.
+### 1. नोडों पर सीआरआई अंमलन कॉन्फ़िगर करें
+
+RuntimeClass के माध्यम से उपलब्ध कॉन्‍फ़िगरेशन Container Runtime Interface (CRI) अंमलन निर्भर होते हैं।
+कृपया कॉन्फ़िगर करने के लिए अपने CRI अंमलन के लिए संबंधित दस्तावेज़ीकरण देखें ([नीचे](#cri-configuration))।
 
 {{< note >}}
-RuntimeClass assumes a homogeneous node configuration across the cluster by default (which means
-that all nodes are configured the same way with respect to container runtimes). To support
-heterogeneous node configurations, see [Scheduling](#scheduling) below.
+डिफ़ॉल्ट रूप से, रनटाइम क्लास हॉमोजेनस नोड कॉन्फ़िगरेशन का अनुमान लगाता है (जिसका अर्थ है कि सभी नोड कंटेनर रनटाइम के संबंध में एक जैसे कॉन्फ़िगर किए जाते हैं)। हेटरोजेनस नोड कॉन्फ़िगरेशन का समर्थन करने के लिए, [Scheduling](#scheduling) देखें।
 {{< /note >}}
 
-The configurations have a corresponding `handler` name, referenced by the RuntimeClass. The
-handler must be a valid [DNS label name](/docs/concepts/overview/working-with-objects/names/#dns-label-names).
+कॉन्फ़िगरेशन में हर एक `handler` नाम होता है जिसे RuntimeClass द्वारा संदर्भित किया जाता है।
+हैंडलर [DNS label name](/docs/concepts/overview/working-with-objects/names/#dns-label-names) का एक वैध नाम होना चाहिए।
 
-### 2. Create the corresponding RuntimeClass resources
 
-The configurations setup in step 1 should each have an associated `handler` name, which identifies
-the configuration. For each handler, create a corresponding RuntimeClass object.
+### 2. "संबंधित रनटाइम कक्षा संसाधन बनाएँ।"
 
-The RuntimeClass resource currently only has 2 significant fields: the RuntimeClass name
-(`metadata.name`) and the handler (`handler`). The object definition looks like this:
+चरण 1 में विन्यास सेटअप में प्रत्येक का एक संबद्ध `handler` नाम होना चाहिए, जो विन्यास को पहचानता है। प्रत्येक हैंडलर के लिए,
+एक संबंधित रनटाइम कक्षा ऑब्जेक्ट बनाएँ।
+
+वर्तमान में, RuntimeClass संसाधन में केवल 2 महत्वपूर्ण फ़ील्ड होते हैं: RuntimeClass नाम (`metadata.name`) और handler
+(`handler`)। ऑब्जेक्ट परिभाषा इस तरह दिखती है:
+
 
 ```yaml
 # RuntimeClass is defined in the node.k8s.io API group
@@ -71,19 +65,17 @@ metadata:
 handler: myconfiguration 
 ```
 
-The name of a RuntimeClass object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+एक RuntimeClass ऑब्जेक्ट का नाम एक मान्य [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) सबडोमेन नाम होना चाहिए।
 
 {{< note >}}
-It is recommended that RuntimeClass write operations (create/update/patch/delete) be
-restricted to the cluster administrator. This is typically the default. See
-[Authorization Overview](/docs/reference/access-authn-authz/authorization/) for more details.
+रनटाइम कक्षा लिखने ऑपरेशन (create/update/patch/delete) को क्लस्टर व्यवस्थापक तक सीमित करना सुझाव दिया जाता है। यह
+आमतौर पर डिफ़ॉल्ट होता है। अधिक विवरण के लिए, [Authorization Overview](/docs/reference/access-authn-authz/authorization/) देखें।
 {{< /note >}}
 
-## Usage
+## उपयोग
 
-Once RuntimeClasses are configured for the cluster, you can specify a
-`runtimeClassName` in the Pod spec to use it. For example:
+एक बार जब रनटाइम कक्षाएँ क्लस्टर के लिए विन्यासित हों, आप इसे उपयोग करने के लिए Pod स्पेक में `runtimeClassName` निर्दिष्ट
+कर सकते हैं। उदाहरण के लिए:
 
 ```yaml
 apiVersion: v1
@@ -95,35 +87,34 @@ spec:
   # ...
 ```
 
-This will instruct the kubelet to use the named RuntimeClass to run this pod. If the named
-RuntimeClass does not exist, or the CRI cannot run the corresponding handler, the pod will enter the
-`Failed` terminal [phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase). Look for a
-corresponding [event](/docs/tasks/debug/debug-application/debug-running-pod/) for an
-error message.
+यह इस पॉड को चलाने के लिए नामित RuntimeClass का उपयोग करने के लिए kubelet को निर्देशित करेगा। यदि नामित RuntimeClass
+मौजूद नहीं है, या CRI में संबंधित handler नहीं चला सकता है, तो पॉड `Failed` हो जाएगा टर्मिनल [phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) में आ जाएगा। एक त्रुटि संदेश के लिए
+एक संबंधित घटना [event](/docs/tasks/debug/debug-application/debug-running-pod/) खोजें।
 
-If no `runtimeClassName` is specified, the default RuntimeHandler will be used, which is equivalent
-to the behavior when the RuntimeClass feature is disabled.
+यदि `runtimeClassName` निर्दिष्ट नहीं किया गया है, तो डिफ़ॉल्ट RuntimeHandler का उपयोग किया जाएगा, जो
+RuntimeClass सुविधा अक्षम होने पर कृत्रिम व्यवहार के समान होता है।
 
-### CRI Configuration
+### CRI विन्यास
 
-For more details on setting up CRI runtimes, see [CRI installation](/docs/setup/production-environment/container-runtimes/).
+
+CRI रनटाइम को सेटअप करने के अधिक विवरणों के लिए, [CRI installation](/docs/setup/production-environment/container-runtimes/) देखें।
 
 #### {{< glossary_tooltip term_id="containerd" >}}
 
-Runtime handlers are configured through containerd's configuration at
-`/etc/containerd/config.toml`. Valid handlers are configured under the runtimes section:
+टॉमेल पर `/etc/containerd/config.toml` के माध्यम से containerd के माध्यम से रनटाइम हैंडलर को कॉन्फ़िगर
+किया जाता है। वैध हैंडलर रनटाइम अनुभाग के तहत कॉन्फ़िगर किए जाते हैं:
 
 ```
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.${HANDLER_NAME}]
 ```
 
-See containerd's [config documentation](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
-for more details:
+अधिक विवरणों के लिए containerd के [config documentation](https://github.com/containerd/containerd/blob/main/docs/cri/config.md) देखें:
+
 
 #### {{< glossary_tooltip term_id="cri-o" >}}
 
-Runtime handlers are configured through CRI-O's configuration at `/etc/crio/crio.conf`. Valid
-handlers are configured under the
+रनटाइम हैंडलर CRI-O की कॉन्फ़िगरेशन के माध्यम से `/etc/crio/crio.conf` पर कॉन्फ़िगर किए जाते हैं। वैध हैंडलर
+निम्नलिखित तालिका के तहत कॉन्फ़िगर किए जाते हैं:
 [crio.runtime table](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md#crioruntime-table):
 
 ```
@@ -131,45 +122,47 @@ handlers are configured under the
   runtime_path = "${PATH_TO_BINARY}"
 ```
 
-See CRI-O's [config documentation](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md) for more details.
+अधिक विवरणों के लिए CRI-O की [config documentation](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md) देखें।
 
 ## Scheduling
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-By specifying the `scheduling` field for a RuntimeClass, you can set constraints to
-ensure that Pods running with this RuntimeClass are scheduled to nodes that support it.
-If `scheduling` is not set, this RuntimeClass is assumed to be supported by all nodes.
+RuntimeClass के लिए `scheduling` फ़ील्ड को निर्दिष्ट करके, आप नियंत्रण सेट कर सकते हैं ताकि इस RuntimeClass के साथ चल
+रहे पॉड को केवल उन नोड पर स्केड्यूल किया जाए जो इसे समर्थन करते हैं। यदि `scheduling` सेट नहीं किया गया है, तो सभी नोड इस RuntimeClass को समर्थित माने जाएंगे।
 
-To ensure pods land on nodes supporting a specific RuntimeClass, that set of nodes should have a
-common label which is then selected by the `runtimeclass.scheduling.nodeSelector` field. The
-RuntimeClass's nodeSelector is merged with the pod's nodeSelector in admission, effectively taking
-the intersection of the set of nodes selected by each. If there is a conflict, the pod will be
-rejected.
+एक विशिष्ट RuntimeClass का समर्थन करने वाले नोडों पर पॉडों को लैंड कराने के लिए, उन नोडों का एक सेट एक सामान्य लेबल होना चाहिए, जिसे फिर
+`runtimeclass.scheduling.nodeSelector` फ़ील्ड द्वारा चयनित किया जाता है। RuntimeClass का nodeSelector प्रवेश में पॉड के
+nodeSelector से मर्ज किया जाता है, असरदार रूप से प्रत्येक द्वारा चयनित नोड सेट के अंतरवर्ती समानांतर होते हुए। यदि कोई विवाद होता है, तो पॉड को अस्वीकार कर दिया जाएगा।
 
-If the supported nodes are tainted to prevent other RuntimeClass pods from running on the node, you
-can add `tolerations` to the RuntimeClass. As with the `nodeSelector`, the tolerations are merged
-with the pod's tolerations in admission, effectively taking the union of the set of nodes tolerated
-by each.
 
-To learn more about configuring the node selector and tolerations, see
-[Assigning Pods to Nodes](/docs/concepts/scheduling-eviction/assign-pod-node/).
+यदि एक विशिष्ट RuntimeClass पर चलने वाले पॉडों को रोकने के लिए समर्थित नोड तट्ट करने के लिए `tainted` हैं, तो आप RuntimeClass में tolerations
+जोड़ सकते हैं। `nodeSelector` की तरह, प्रवेश में tolerations पॉड की tolerations के साथ मर्ज किए जाते हैं, जिससे प्रभावी रूप से दोनों द्वारा संभव नोड सेट का संघ बनता है।
+
+नोड सेलेक्टर और टॉलरेंस को कॉन्फ़िगर करने के बारे में अधिक जानने के लिए, देखें [पॉड को नोडों पर असाइन करना](/docs/concepts/scheduling-eviction/assign-pod-node/)।
 
 ### Pod Overhead
 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
-You can specify _overhead_ resources that are associated with running a Pod. Declaring overhead allows
-the cluster (including the scheduler) to account for it when making decisions about Pods and resources.
+आप पॉड चलाने से जुड़े ओवरहेड संसाधनों को निर्दिष्ट कर सकते हैं। ओवरहेड घोषणा करने से, क्लस्टर (स्केड्यूलर सहित) इसे ध्यान में रख सकता है जब वह पॉड और संसाधनों के बारे में निर्णय लेता है।
 
-Pod overhead is defined in RuntimeClass through the `overhead` field. Through the use of this field,
-you can specify the overhead of running pods utilizing this RuntimeClass and ensure these overheads
-are accounted for in Kubernetes.
+पॉड ओवरहेड `overhead` फ़ील्ड के माध्यम से RuntimeClass में परिभाषित किया जाता है। इस फ़ील्ड का उपयोग करके, आप इस RuntimeClass का उपयोग
+करते हुए पॉड को चलाने के लिए ओवरहेड निर्दिष्ट कर सकते हैं और सुनिश्चित कर सकते हैं कि Kubernetes में इन ओवरहेड का खाता रखा जाता है।
+
 
 ## {{% heading "whatsnext" %}}
 
 - [RuntimeClass Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md)
 - [RuntimeClass Scheduling Design](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
-- Read about the [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/) concept
+- [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/) अवधारणा के बारे में पढ़ें
 - [PodOverhead Feature Design](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)
+
+
+
+
+
+
+
+
 
