@@ -41,7 +41,7 @@ En este ejercicio crearás un Pod que ejecuta un único Contenedor. Este Pod tie
 
     La salida debería ser similar a:
 
-    ```shell
+    ```console
     NAME      READY     STATUS    RESTARTS   AGE
     redis     1/1       Running   0          13s
     ```
@@ -69,7 +69,7 @@ En este ejercicio crearás un Pod que ejecuta un único Contenedor. Este Pod tie
 
     La salida debería ser similar a:
 
-    ```shell
+    ```console
     USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
     redis        1  0.1  0.1  33308  3828 ?        Ssl  00:46   0:00 redis-server *:6379
     root        12  0.0  0.0  20228  3020 ?        Ss   00:47   0:00 /bin/bash
@@ -86,7 +86,7 @@ En este ejercicio crearás un Pod que ejecuta un único Contenedor. Este Pod tie
 
 1. En el terminal original, observa los cambios en el Pod de Redis. Eventualmente verás algo como lo siguiente:
 
-    ```shell
+    ```console
     NAME      READY     STATUS     RESTARTS   AGE
     redis     1/1       Running    0          13s
     redis     0/1       Completed  0         6m
