@@ -10,7 +10,7 @@ card:
   title: উইন্ডোজে kubectl ইনস্টল করুন
 ---
 
-## {{% heading "পূর্বশর্ত" %}}
+## {{% heading "prerequisites" %}}
 
 আপনাকে অবশ্যই একটি kubectl সংস্করণ ব্যবহার করতে হবে যা আপনার ক্লাস্টারের একটি ছোট সংস্করণের পার্থক্যের মধ্যে রয়েছে। উদাহরণ স্বরূপ, একটি v{{< skew currentVersion >}} ক্লায়েন্ট v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}, and v{{< skew currentVersionAddMinor 1 >}} কন্ট্রল প্লেনের সাথে যোগাযোগ করতে পারবে।
 kubectl এর সর্বশেষ সামঞ্জস্যপূর্ণ সংস্করণ ব্যবহার করা অপ্রত্যাশিত সমস্যাগুলি এড়াতে সাহায্য করে৷
