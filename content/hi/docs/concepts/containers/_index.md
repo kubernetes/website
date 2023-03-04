@@ -2,9 +2,6 @@
 title: कंटेनर्स (Containers)
 weight: 40
 description: एक एप्लिकेशन के साथ उसकी रनटाइम डिपेंडेंसी को पैकेजिंग करने के लिए प्रौद्योगिकी।
-<!-- reviewers:
-!-- - erictune
-!-- - thockin -->
 content_type: concept
 ---
 

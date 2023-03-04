@@ -1,8 +1,4 @@
 ---
-<!--
-reviewers:
-- tallclair
-- dchen1107 -->
 title: Runtime Class
 content_type: concept
 weight: 30

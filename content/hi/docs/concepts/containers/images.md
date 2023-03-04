@@ -1,8 +1,4 @@
 ---
-<!-- 
-reviewers:
-- erictune
-- thockin -->
 title: इमेजेज (Images)
 content_type: concept
 weight: 10

@@ -1,7 +1,4 @@
 ---
-<!-- reviewers:
-- mikedanese
-- thockin -->
 title: कंटेनर वातावरण (Container Environment)
 content_type: concept
 weight: 20

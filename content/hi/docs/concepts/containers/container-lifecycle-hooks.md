@@ -1,8 +1,4 @@
 ---
-<!-- 
-reviewers:
-- mikedanese
-- thockin -->
 title: कंटेनर लाइफसाइकल हुक्स (Container Lifecycle Hooks)
 content_type: कांसेप्ट (concept)
 weight: 40
