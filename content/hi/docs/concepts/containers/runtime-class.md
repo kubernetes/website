@@ -1,11 +1,12 @@
 ---
+<!--
 reviewers:
 - tallclair
-- dchen1107
-  title: Runtime Class
-  content_type: concept
-  weight: 30
-  hide_summary: true # Listed separately in section index
+- dchen1107 -->
+title: Runtime Class
+content_type: concept
+weight: 30
+hide_summary: true # Listed separately in section index
 ---
 
 <!-- overview -->
@@ -124,7 +125,7 @@ CRI रनटाइम को सेटअप करने के अधिक �
 
 अधिक विवरणों के लिए CRI-O की [config documentation](https://github.com/cri-o/cri-o/blob/master/docs/crio.conf.5.md) देखें।
 
-## Scheduling
+## सचेंडुलिंग
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
@@ -141,7 +142,7 @@ nodeSelector से मर्ज किया जाता है, असरद�
 
 नोड सेलेक्टर और टॉलरेंस को कॉन्फ़िगर करने के बारे में अधिक जानने के लिए, देखें [पॉड को नोडों पर असाइन करना](/docs/concepts/scheduling-eviction/assign-pod-node/)।
 
-### Pod Overhead
+### पोड ओवरहेड
 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
 

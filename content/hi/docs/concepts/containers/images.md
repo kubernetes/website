@@ -1,7 +1,8 @@
 ---
+<!-- 
 reviewers:
 - erictune
-- thockin
+- thockin -->
 title: इमेजेज (Images)
 content_type: concept
 weight: 10
@@ -23,7 +24,7 @@ hide_summary: true # Listed separately in section index
 
 <!-- body -->
 
-## Image names
+## इमेज के नाम
 
 
 कंटेनर इमेजेज आमतौर पर `pause`, `example/mycontainer`, या `kube-apiserver` जैसे नाम दिए जाते हैं।
@@ -118,7 +119,7 @@ Kubernetes पॉड सबमिट करते समय नीति को 
 - [AlwaysPullImages](/docs/reference/access-authn-authz/admission-controllers/#alwayspullimages) एडमिशन कंट्रोलर को सक्षम करें।
 
 
-### ImagePullBackOff
+### इमेजपुलबैकॉफ (ImagePullBackOff)
 
 जब कोई kubelet किसी Pod के लिए container runtime का उपयोग करते हुए containers बनाना शुरू करता है, तो यह संभव है कि `ImagePullBackOff` के कारण container [Waiting](/docs/concepts/workloads/pods/pod-lifecycle/#container-state-waiting) स्थिति में हो।
 
