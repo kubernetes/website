@@ -1,5 +1,5 @@
 ---
-title: Migrando de PodSecurityPolicy Para Controlador de Admissão Integrado
+title: Migrando de PodSecurityPolicy para Controlador de Admissão Integrado
 reviewers:
 - tallclair
 - liggitt
@@ -11,15 +11,14 @@ min-kubernetes-server-version: v1.22
 
 Esta página descreve o processo de migração de `PodSecurityPolicies` para 
 o controlador de admissão `PodSecurity` integrado. Isso pode ser feito de maneira 
-eficaz usando uma combinação de modos `dry-run` (ensaio/simulação), `audit` e
-`warn`, embora isso se torne mais difícil se PSPs mutáveis forem usados.
+eficaz usando uma combinação dos modos `dry-run` (ensaio/simulação), `audit` e
+`warn`, embora isso se torne mais difícil se os PSPs mutáveis forem usados.
 
 ## {{% heading "prerequisites" %}}
 
 {{% version-check %}}
 
-- Garantir que a funcionalidade `PodSecurity` do [portal de funcionalidades]
-(/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) 
+- Garantir que a funcionalidade `PodSecurity` do [portal de funcionalidades](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) 
 esteja habilitada.
 
 Esta página pressupõe que você já esteja familiarizado com os conceitos básicos da
@@ -57,17 +56,14 @@ recursos são suportados pela `PodSecurityPolicy` mas não pela Segurança de Ad
   é um controlador de admissão não mutável, significando que não modificará 
   os pods antes de validá-los. Se você estava confiando nesse aspecto do PSP, 
   você precisará modificar suas cargas de trabalho para atender às restrições 
-  de segurança do Pod, ou usar um [Webhook de admissão mutante]
-  (/docs/reference/access-authn-authz/extensible-admission-controllers/)
-  para fazer essas mudanças. Veja [Simplificando e padronizando `PodSecurityPolicies`]
-  (#simplify-psps) abaixo, para mais detalhes.
+  de segurança do Pod, ou usar um [Webhook de admissão mutante](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+  para fazer essas mudanças. Veja [Simplificando e padronizando `PodSecurityPolicies`](#simplify-psps) abaixo, para mais detalhes.
 
 - **Controle de granularidade sobre a definição de política** 
 - A Segurança de Admissão de Pod somente suporta 
   [3 níveis padrão](/docs/concepts/security/pod-security-standards/).
   Se você precisar de mais controle sobre restrições específicas, então você 
-  precisará usar um [Webhook de validação de admissão]
-  (/docs/reference/access-authn-authz/extensible-admission-controllers/) 
+  precisará usar um [Webhook de validação de admissão](/docs/reference/access-authn-authz/extensible-admission-controllers/) 
   para fazer cumprir essas políticas.
 
 - **Granularidade da política de sub-namespace** - `PodSecurityPolicy` permite 
@@ -86,8 +82,7 @@ e pode fornecer um controle de falha útil, rodando ao lado de outro Webhook de 
 
 ## 1. Revise as permissões de namespace {#review-namespace-permissions}
 
-A Admissão de segurança do Pod é controlada através de [rótulos em namespaces]
-(/docs/concepts/security/pod-security-admission/#pod-security-admission-labels-for-namespaces).
+A Admissão de Segurança do Pod é controlada através de [rótulos em namespaces](/docs/concepts/security/pod-security-admission/#pod-security-admission-labels-for-namespaces).
 Isso significa que qualquer um que pode atualizar (ou corrigir, ou criar) um namespace, 
 também pode modificar o nível de segurança para esse namespace, o que poderia ser 
 usado para burlar uma política mais restritiva. Antes de continuar, garanta que 
@@ -118,8 +113,7 @@ e de validação, portanto, esta não é uma migração direta.
 
 Você pode começar eliminando os campos que são puramente mutantes e não têm nenhuma 
 influência na política de validação. Esses campos de referência (também listados no 
-[Mapeando Padrões de Segurança `PodSecurityPolicies` ao Pod]
-(/docs/reference/access-authn-authz/psp-to-pod-security-standards/)) são:
+[Mapeando Padrões de Segurança `PodSecurityPolicies` ao Pod](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)) são:
 
 - `.spec.defaultAllowPrivilegeEscalation`
 - `.spec.runtimeClass.defaultRuntimeClassName`
@@ -130,7 +124,7 @@ influência na política de validação. Esses campos de referência (também li
    que executa a mesma validação sem realizar mutações.
 
 {{< caution >}}
-Remover isso pode resultar em cargas de trabalho perdendo configuração necessária, 
+Remover isso pode resultar em cargas de trabalho perdendo a configuração, 
 e causar problemas. Veja [Implementando as políticas atualizadas](#psp-update-rollout) 
 abaixo, para obter sugestões sobre como implementar essas mudanças com segurança.
 {{< /caution >}}
@@ -139,7 +133,7 @@ abaixo, para obter sugestões sobre como implementar essas mudanças com seguran
 de pod {#eliminate-non-standard-options}
 
 Existem vários campos em `PodSecurityPolicy` que não são cobertos pelos padrões 
-de segurança de Pod. Se você precisa aplicar essas opções, você precisará complementar 
+de segurança de Pod. Se você precisar aplicar essas opções, você precisará complementar 
 a admissão de segurança de Pod com um
 [webhook de admissão](/docs/reference/access-authn-authz/extensible-admission-controllers/),
 que está fora do escopo deste guia.
@@ -161,8 +155,7 @@ de contrôles POSIX / UNIX.
 {{< caution >}}
 Se algum deles usar a estratégia `MustRunAs` eles podem estar mudando! 
 Remover isso pode resultar em cargas de trabalho, não definindo corretamente 
-os grupos necessários, e causar problemas. Veja [Implantando as políticas atualizadas]
-(#psp-update-rollout) abaixo para obter sugestões sobre como implementar 
+os grupos necessários, e causar problemas. Veja [Implantando as políticas atualizadas](#psp-update-rollout) abaixo para obter sugestões sobre como implementar 
 essas mudanças com segurança. 
 
 {{< /caution >}}
@@ -174,7 +167,7 @@ essas mudanças com segurança.
 Os campos de mutação restantes são necessários para suportar adequadamente os padrões 
 de segurança de Pod, e precisarão ser tratados caso a caso mais tarde:
 
-- `.spec.requiredDropCapabilities` - Necessário para derrubar `ALL` para o perfil restrito.
+- `.spec.requiredDropCapabilities` - Necessário para derrubar *todos* para o perfil restrito.
 - `.spec.seLinux` - (Apenas mutação com a regra `MustRunAs`) necessário para fazer cumprir 
   os requisitos de SELinux da `Baseline` e Perfis restritos.
 - `.spec.runAsUser` - (Não mutante com a regra `RunAsAny`) necessário para aplicar 
@@ -190,7 +183,7 @@ em cargas de trabalho com perda da configuração necessária.
 
 Para cada atualização `PodSecurityPolicy`:
 
-1. Identifique Pods em execução sob o PSP original. Isso pode ser feito usando 
+1. Identifique os Pods em execução sob o PSP original. Isso pode ser feito usando 
 a anotação `kubernetes.io/psp`. 
 Por exemplo, usando o kubectl:
    ```sh
@@ -211,7 +204,7 @@ Por exemplo, usando o kubectl:
    - `.spec.securityContext.seccompProfile`
    - `.spec.securityContext.seLinuxOptions`
    - `.spec.securityContext.supplementalGroups`
-   - Em contêneres, sob `.spec.containers[*]` e `.spec.initContainers[*]`:
+   - Em contêineres, sob `.spec.containers[*]` e `.spec.initContainers[*]`:
        - `.securityContext.allowPrivilegeEscalation`
        - `.securityContext.capabilities.add`
        - `.securityContext.capabilities.drop`
@@ -222,7 +215,7 @@ Por exemplo, usando o kubectl:
        - `.securityContext.seccompProfile`
        - `.securityContext.seLinuxOptions`
 3. Crie a nova `PodSecurityPolicies`. Se quaisquer `Roles` ou `ClusterRoles` estão 
-   permitindo `use` em todas as PSPs, isso poderia ocasionar que um novo PSPs 
+   permitindo o uso em todas as PSPs, isso poderia ocasionar que um novo PSPs 
    fosse usado em vez de suas contrapartes mutantes.
 4. Altere sua autorização, para permitir o acesso aos novos PSPs. No RBAC isso 
    significa alterar todas `Roles` ou `ClusterRoles`, que dão a permissão `use` 
@@ -249,11 +242,9 @@ Existem várias maneiras de escolher um nível de segurança de Pod para o seu n
 
 1. **Por requisitos de segurança para o namespace** - Se você estiver familiarizado 
    com o nível de acesso esperado para o namespace, você pode escolher um nível 
-   apropriado com base nesses requisitos, semelhante a como alguém poderia 
-   abordar isso em um novo cluster.
+   apropriado com base nesses requisitos, semelhante a como se poderia abordar isso em um novo cluster.
 2. **Por existir PodSecurityPolicies** - Usando a referência
-   [Mapeando a `PodSecurityPolicies` para os Padrões de Segurança de Pod]
-   (/docs/reference/access-authn-authz/psp-to-pod-security-standards/)
+   [Mapeando a `PodSecurityPolicies` para os Padrões de Segurança de Pod](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)
    você pode mapear cada PSP para um nível Padrão de Segurança de Pod.
    Se os seus PSPs não são baseados nos Padrões de Segurança de Pod, você
    pode precisar decidir, entre escolher um nível que seja pelo menos tão permissivo 
@@ -264,8 +255,7 @@ Existem várias maneiras de escolher um nível de segurança de Pod para o seu n
    kubectl get pods -n $NAMESPACE -o jsonpath="{.items[*].metadata.annotations.kubernetes\.io\/psp}" | tr " " "\n" | sort -u
    ```
 
-3. **Por existirem pods** - Usando as estratégias em [verificando o nível de segurança do pod]
-   (#verify-pss-level), você pode testar os dois níveis `Baseline` e `Restricted` para 
+3. **Por existirem pods** - Usando as estratégias em [verificando o nível de segurança do pod](#verify-pss-level), você pode testar os dois níveis `Baseline` e `Restricted` para 
    ver se eles são suficientemente permissivos para as cargas de trabalho existentes, 
    e escolher o nível menos privilegiado válido.
 
@@ -305,7 +295,7 @@ kubectl label --overwrite ns $NAMESPACE pod-security.kubernetes.io/audit=$LEVEL
 ```
 
 Se qualquer uma dessas abordagens produz violações inesperadas, você precisará 
-atualizar quem estiver violando as cargas de trabalho: para atender aos requisitos 
+atualizar quem estiver violando as cargas de trabalho para atender aos requisitos 
 da política, ou relaxar o nível de segurança do namespace de Pod.
 
 ### 3.c. Aplicar o nível de segurança do pod {#enforce-pod-security-level}
@@ -352,20 +342,18 @@ kubectl delete -n $NAMESPACE rolebinding disable-psp
 Agora que os namespaces existentes foram atualizados para aplicar a segurança 
 de admissão dos Pods, você deve garantir que seus processos, e/ou políticas 
 para criar novos namespaces, estão atualizadas para garantir que um
-apropriado perfil se seguranca do Pod, seja aplicado aos seus novos namespaces.
+perfil apropriado se seguranca do Pod, seja aplicado aos seus novos namespaces.
 
 Você também pode configurar estaticamente o controlador de admissão de segurança 
 de Pods para aplicar um nível padrão, `audit`, e/ou `warn` para os namespaces sem rótulos. 
-Veja [Configurar o controlador de admissão]
-(/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)
+Veja [Configurar o controlador de admissão](/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)
 para mais informações.
 
 ## 5. Desative a `PodSecurityPolicy` {#disable-psp}
 
 Finalmente, você está pronto para desativar a `PodSecurityPolicy`. Para fazer isso, 
 você precisará modificar a configuração de admissão do servidor de API:
-[Como faço para desligar um controlador de admissão?]
-(/docs/reference/access-authn-authz/admission-controllers/#how-do-i-turn-off-an-admission-controller).
+[Como faço para desligar um controlador de admissão?](/docs/reference/access-authn-authz/admission-controllers/#how-do-i-turn-off-an-admission-controller).
 
 Para verificar se a `PodSecurityPolicy` no controlador de admissão não está mais ativada, 
 você pode executar manualmente um teste, se passando por um usuário sem acesso a nenhuma 
