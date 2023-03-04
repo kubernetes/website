@@ -70,8 +70,8 @@ O contêiner solicita dois *dongles*.
 
 {{< codenew file="pods/resource/extended-resource-pod-2.yaml" >}}
 
-O Kubernetes não poderá satisfazer o pedido de dois `dongles`, porque o primeiro pod
-usou três dos quatro `dongles` disponíveis.
+O Kubernetes não poderá satisfazer o pedido de dois *dongles*, porque o primeiro pod
+usou três dos quatro *dongles* disponíveis.
 
 Tente criar um pod:
 
