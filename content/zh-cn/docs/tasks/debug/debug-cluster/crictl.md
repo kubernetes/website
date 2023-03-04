@@ -52,7 +52,7 @@ of Kubernetes. Extract it and move it to a location on your system path, such as
 你可以从 cri-tools [发布页面](https://github.com/kubernetes-sigs/cri-tools/releases)
 下载一个压缩的 `crictl` 归档文件，用于几种不同的架构。
 下载与你的 kubernetes 版本相对应的版本。
-提取它并将其移动到系统路径上的某个位置，例如`/usr/local/bin/`。
+提取它并将其移动到系统路径上的某个位置，例如 `/usr/local/bin/`。
 
 <!--
 ## General usage
@@ -386,15 +386,15 @@ deleted by the Kubelet.
 
    ```json
    {
-       "metadata": {
-           "name": "nginx-sandbox",
-           "namespace": "default",
-           "attempt": 1,
-           "uid": "hdishd83djaidwnduwk28bcsb"
-       },
-       "logDirectory": "/tmp",
-       "linux": {
-       }
+     "metadata": {
+       "name": "nginx-sandbox",
+       "namespace": "default",
+       "attempt": 1,
+       "uid": "hdishd83djaidwnduwk28bcsb"
+     },
+     "log_directory": "/tmp",
+     "linux": {
+     }
    }
    ```
 
@@ -448,15 +448,15 @@ deleted by the Kubelet.
 
    ```json
    {
-       "metadata": {
-           "name": "nginx-sandbox",
-           "namespace": "default",
-           "attempt": 1,
-           "uid": "hdishd83djaidwnduwk28bcsb"
-       },
-       "log_directory": "/tmp",
-       "linux": {
-       }
+     "metadata": {
+       "name": "busybox-sandbox",
+       "namespace": "default",
+       "attempt": 1,
+       "uid": "aewi4aeThua7ooShohbo1phoj"
+     },
+     "log_directory": "/tmp",
+     "linux": {
+     }
    }
    ```
 

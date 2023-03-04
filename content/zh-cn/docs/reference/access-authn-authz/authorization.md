@@ -169,8 +169,6 @@ The `get`, `list` and `watch` verbs can all return the full details of a resourc
 <!--
 Kubernetes sometimes checks authorization for additional permissions using specialized verbs. For example:
 
-* [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/)
-  * `use` verb on `podsecuritypolicies` resources in the `policy` API group.
 * [RBAC](/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping)
   * `bind` and `escalate` verbs on `roles` and `clusterroles` resources in the `rbac.authorization.k8s.io` API group.
 * [Authentication](/docs/reference/access-authn-authz/authentication/)
@@ -178,8 +176,6 @@ Kubernetes sometimes checks authorization for additional permissions using speci
 -->
 Kubernetes 有时使用专门的动词以对额外的权限进行鉴权。例如：
 
-* [PodSecurityPolicy](/zh-cn/docs/concepts/security/pod-security-policy/)
-  * `policy` API 组中 `podsecuritypolicies` 资源使用 `use` 动词
 * [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/#privilege-escalation-prevention-and-bootstrapping)
   * 对 `rbac.authorization.k8s.io` API 组中 `roles` 和 `clusterroles` 资源的 `bind`
     和 `escalate` 动词

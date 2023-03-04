@@ -1,9 +1,9 @@
 ---
 title: kubectl 치트 시트
-
-
-
-
+# reviewers:
+# - erictune
+# - krousey
+# - clove
 content_type: concept
 weight: 10 # highlight it
 card:
@@ -30,14 +30,14 @@ echo "source <(kubectl completion bash)" >> ~/.bashrc # 자동 완성을 bash �
 
 ```bash
 alias k=kubectl
-complete -F __start_kubectl k
+complete -o default -F __start_kubectl k
 ```
 
 ### ZSH
 
 ```bash
 source <(kubectl completion zsh)  # 현재 셸에 zsh의 자동 완성 설정
-echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc # 자동 완성을 zsh 셸에 영구적으로 추가한다.
+echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc # 자동 완성을 zsh 셸에 영구적으로 추가한다.
 ```
 ### --all-namespaces 에 대한 노트
 
@@ -67,6 +67,11 @@ kubectl config view -o jsonpath='{.users[*].name}'    # 사용자 리스트 조�
 kubectl config get-contexts                           # 컨텍스트 리스트 출력
 kubectl config current-context                        # 현재 컨텍스트 출력
 kubectl config use-context my-cluster-name            # my-cluster-name를 기본 컨텍스트로 설정
+
+kubectl config set-cluster my-cluster-name            # kubeconfig에 클러스터 엔트리를 설정
+
+# kubeconfig에 이 클라이언트가 발생시킨 요청에 사용할 프록시 서버의 URL을 구성한다.
+kubectl config set-cluster my-cluster-name --proxy-url=my-proxy-url
 
 # 기본 인증을 지원하는 새로운 사용자를 kubeconf에 추가한다
 kubectl config set-credentials kubeuser/foo.kubernetes.com --username=kubeuser --password=kubepassword
@@ -182,6 +187,9 @@ kubectl get pods --selector=app=cassandra -o \
 kubectl get configmap myconfig \
   -o jsonpath='{.data.ca\.crt}'
 
+# 밑줄(`_`) 대신 대시(`-`)를 사용하여 base64 인코딩된 값을 조회
+kubectl get secret my-secret --template='{{index .data "key-name-with-dashes"}}'
+
 # 모든 워커 노드 조회 (셀렉터를 사용하여 'node-role.kubernetes.io/control-plane'
 # 으로 명명된 라벨의 결과를 제외)
 kubectl get node --selector='!node-role.kubernetes.io/control-plane'
@@ -265,22 +273,22 @@ kubectl autoscale deployment foo --min=2 --max=10                # 디플로이�
 ## 리소스 패치
 
 ```bash
-kubectl patch node k8s-node-1 -p '{"spec":{"unschedulable":true}}' # 노드를 부분적으로 업데이트
+# 노드를 부분적으로 업데이트
+kubectl patch node k8s-node-1 -p '{"spec":{"unschedulable":true}}'
 
-# 컨테이너의 이미지를 업데이트. 병합(merge) 키이므로, spec.containers[*].name이 필요.
+# 컨테이너의 이미지를 업데이트. 병합(merge) 키이므로, spec.containers[*].name이 필요
 kubectl patch pod valid-pod -p '{"spec":{"containers":[{"name":"kubernetes-serve-hostname","image":"new image"}]}}'
 
-# 위치 배열을 이용한 json 패치를 사용하여, 컨테이너의 이미지를 업데이트.
+# 위치 배열을 이용한 json 패치를 사용하여, 컨테이너의 이미지를 업데이트
 kubectl patch pod valid-pod --type='json' -p='[{"op": "replace", "path": "/spec/containers/0/image", "value":"new image"}]'
 
-# 위치 배열을 이용한 json 패치를 사용하여 livenessProbe 디플로이먼트 비활성화.
+# 위치 배열을 이용한 json 패치를 사용하여 livenessProbe 디플로이먼트 비활성화
 kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "path": "/spec/template/spec/containers/0/livenessProbe"}]'
 
 # 위치 배열에 새 요소 추가
 kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", "value": {"name": "whatever" } }]'
 
-# Update a deployment's replicas count by patching it's scale subresource
-# 디플로이먼트의 scale 서브리소스를 패치하여 레플리카 카운트를 업데이트.
+# 디플로이먼트의 scale 서브리소스를 패치하여 레플리카 수 업데이트
 kubectl patch deployment nginx-deployment --subresource='scale' --type='merge' -p '{"spec":{"replicas":2}}'
 ```
 
@@ -381,7 +389,10 @@ kubectl cluster-info                                                  # 마스�
 kubectl cluster-info dump                                             # 현재 클러스터 상태를 stdout으로 덤프
 kubectl cluster-info dump --output-directory=/path/to/cluster-state   # 현재 클러스터 상태를 /path/to/cluster-state으로 덤프
 
-# key와 effect가 있는 테인트(taint)가 이미 존재하면, 그 값이 지정된 대로 대체된다.
+# 현재 노드에 존재하고 있는 테인트(taint)들을 확인
+kubectl get nodes -o=custom-columns=NodeName:.metadata.name,TaintKey:.spec.taints[*].key,TaintValue:.spec.taints[*].value,TaintEffect:.spec.taints[*].effect
+
+# 이미 존재하고 있는 key와 effect를 갖는 테인트의 경우, 지정한 값으로 대체
 kubectl taint nodes foo dedicated=special-user:NoSchedule
 ```
 
@@ -428,8 +439,8 @@ kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
 # `default` 네임스페이스의 모든 이미지를 파드별로 그룹지어 출력
 kubectl get pods --namespace default --output=custom-columns="NAME:.metadata.name,IMAGE:.spec.containers[*].image"
 
- # "k8s.gcr.io/coredns:1.6.2" 를 제외한 모든 이미지
-kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
+ # "registry.k8s.io/coredns:1.6.2" 를 제외한 모든 이미지
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="registry.k8s.io/coredns:1.6.2")].image'
 
 # 이름에 관계없이 메타데이터 아래의 모든 필드
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'

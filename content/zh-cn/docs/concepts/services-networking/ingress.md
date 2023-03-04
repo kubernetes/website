@@ -1,12 +1,22 @@
 ---
 title: Ingress
 content_type: concept
-weight: 40
+description: >-
+  使用一种能感知协议配置的机制来理解 URI、主机名称、路径和更多 Web 概念，使得 HTTP（或 HTTPS）网络服务可用。
+  Ingress 概念允许你通过 Kubernetes API 定义的规则将流量映射到不同的后端。
+weight: 30
 ---
 <!--
+reviewers:
+- bprashanth
 title: Ingress
 content_type: concept
-weight: 40
+description: >-
+  Make your HTTP (or HTTPS) network service available using a protocol-aware configuration
+  mechanism, that understands web concepts like URIs, hostnames, paths, and more.
+  The Ingress concept lets you map traffic to different backends based on rules you define
+  via the Kubernetes API.
+weight: 30
 -->
 
 <!-- overview -->
@@ -60,7 +70,7 @@ Here is a simple example where an Ingress sends all its traffic to one Service:
 -->
 下面是一个将所有流量都发送到同一 Service 的简单 Ingress 示例：
 
-{{< figure src="/zh-cn/docs/images/ingress.svg" alt="ingress-diagram" class="diagram-large" caption="图. Ingress" link="https://mermaid.live/edit#pako:eNqNkstuwyAQRX8F4U0r2VHqPlSRKqt0UamLqlnaWWAYJygYLB59KMm_Fxcix-qmGwbuXA7DwAEzzQETXKutof0Ovb4vaoUQkwKUu6pi3FwXM_QSHGBt0VFFt8DRU2OWSGrKUUMlVQwMmhVLEV1Vcm9-aUksiuXRaO_CEhkv4WjBfAgG1TrGaLa-iaUw6a0DcwGI-WgOsF7zm-pN881fvRx1UDzeiFq7ghb1kgqFWiElyTjnuXVG74FkbdumefEpuNuRu_4rZ1pqQ7L5fL6YQPaPNiFuywcG9_-ihNyUkm6YSONWkjVNM8WUIyaeOJLO3clTB_KhL8NQDmVe-OJjxgZM5FhFiiFTK5zjDkxHBQ9_4zB4a-x20EGNSZhyaKmXrg7f5hSsvufUwTMXThtMWiot5Jh6p9ffimHijIezaSVoeN0uiqcfMJvf7w" >}}
+{{< figure src="/zh-cn/docs/images/ingress.svg" alt="ingress-diagram" class="diagram-large" caption="图. Ingress" link="https://mermaid.live/edit#pako:eNqNkktLAzEQgP9KSC8Ku6XWBxKlJz0IHsQeuz1kN7M2uC-SrA9sb6X26MFLFZGKoCC0CIIn_Td1139halZq8eJlE2a--TI7yRn2YgaYYCc6EDRpod39DSdCyAs4RGqhMRndffRfs6dxc9Euox0NgZR2NhpmF73sqos2XVFD-ctt_vY2uTnPh8PJ4BGV7Ro3ZKOoaH5Li6Bt19r56zi7fM4fupP-oC1BHHEPGnWzGlimruno87qXvd__qjdpw2pXErOlxl7Mmn_j1VkcImb-i0q5BT5KAsoj5PMgICXGmCWViA-BlHzfL_b2MWeqRVaSE8uLg1iQUqVS2ZiTHK7LQrFcXfNg9V8WnZu3eEEqFYjCNCslJdd15zXVmcacODP9TMcqJmBN5zL9VKdt_uLM1ZoBzIVNF8WqM06ELRyCCCln-oWcTVkHqxaE4GCitwx8mgbK0Y-no9E0YVTBNuMqFpj4NJBgYZqquH4aeZgokcIPtMWpvtywoDpfU3_yww" >}}
 
 <!-- 
 An Ingress may be configured to give Services externally-reachable URLs, load balance traffic, terminate SSL / TLS, and offer name based virtual hosting. An [Ingress controller](/docs/concepts/services-networking/ingress-controllers) is responsible for fulfilling the Ingress, usually with a load balancer, though it may also configure your edge router or additional frontends to help handle the traffic.
@@ -189,7 +199,7 @@ Each HTTP rule contains the following information:
   load balancer directs traffic to the referenced Service.
 * A backend is a combination of Service and port names as described in the
   [Service doc](/docs/concepts/services-networking/service/). HTTP (and HTTPS) requests to the
-  Ingress that matches the host and path of the rule are sent to the listed backend.
+  Ingress that match the host and path of the rule are sent to the listed backend.
 -->
 * 可选的 `host`。在此示例中，未指定 `host`，因此该规则适用于通过指定 IP 地址的所有入站 HTTP 通信。
   如果提供了 `host`（例如 foo.bar.com），则 `rules` 适用于该 `host`。
@@ -224,8 +234,8 @@ routed to your default backend.
 没有设置规则的 Ingress 将所有流量发送到同一个默认后端，而
 `.spec.defaultBackend` 则是在这种情况下处理请求的那个默认后端。
 `defaultBackend` 通常是
-[Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers)的配置选项，而非在
-Ingress 资源中指定。
+[Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers)的配置选项，
+而非在 Ingress 资源中指定。
 如果未设置任何的 `.spec.rules`，那么必须指定 `.spec.defaultBackend`。
 如果未设置 `defaultBackend`，那么如何处理所有与规则不匹配的流量将交由
 Ingress 控制器决定（请参考你的 Ingress 控制器的文档以了解它是如何处理那些流量的）。
@@ -299,7 +309,7 @@ Ingress 中的每个路径都需要有对应的路径类型（Path Type）。未
 
   If the last element of the path is a substring of the last
   element in request path, it is not a match (for example: `/foo/bar`
-  matches`/foo/bar/baz`, but does not match `/foo/barbaz`).
+  matches `/foo/bar/baz`, but does not match `/foo/barbaz`).
  -->
 * `ImplementationSpecific`：对于这种路径类型，匹配方法取决于 IngressClass。
   具体实现可以将其作为单独的 `pathType` 处理或者与 `Prefix` 或 `Exact` 类型作相同处理。
@@ -308,7 +318,7 @@ Ingress 中的每个路径都需要有对应的路径类型（Path Type）。未
 
 * `Prefix`：基于以 `/` 分隔的 URL 路径前缀匹配。匹配区分大小写，并且对路径中的元素逐个完成。
   路径元素指的是由 `/` 分隔符分隔的路径中的标签列表。
-  如果每个 _p_ 都是请求路径 _p_ 的元素前缀，则请求与路径 _p_ 匹配。
+  如果每个 **p** 都是请求路径 **p** 的元素前缀，则请求与路径 **p** 匹配。
 
   {{< note >}}
   如果路径的最后一个元素是请求路径中最后一个元素的子字符串，则不会匹配
@@ -386,8 +396,8 @@ equal to the suffix of the wildcard rule.
 -->
 ## 主机名通配符   {#hostname-wildcards}
 
-主机名可以是精确匹配（例如“`foo.bar.com`”）或者使用通配符来匹配
-（例如“`*.foo.com`”）。
+主机名可以是精确匹配（例如 “`foo.bar.com`”）或者使用通配符来匹配
+（例如 “`*.foo.com`”）。
 精确匹配要求 HTTP `host` 头部字段与 `host` 字段值完全匹配。
 通配符匹配则要求 HTTP `host` 头部字段与通配符规则中的后缀部分相同。
 
@@ -461,8 +471,8 @@ For example:
 IngressClass 的参数默认是集群范围的。
 
 如果你设置了 `.spec.parameters` 字段且未设置 `.spec.parameters.scope`
-字段，或是将 `.spec.parameters.scope` 字段设为了 `Cluster`，那么该
-IngressClass 所指代的即是一个集群作用域的资源。
+字段，或是将 `.spec.parameters.scope` 字段设为了 `Cluster`，
+那么该 IngressClass 所指代的即是一个集群作用域的资源。
 参数的 `kind`（和 `apiGroup` 一起）指向一个集群作用域的
 API（可能是一个定制资源（Custom Resource）），而它的
 `name` 则为此 API 确定了一个具体的集群作用域的资源。
@@ -568,8 +578,8 @@ never formally defined, but was widely supported by Ingress controllers.
 -->
 ### 废弃的注解  {#deprecated-annotation}
 
-在 Kubernetes 1.18 版本引入 IngressClass 资源和 `ingressClassName` 字段之前，Ingress
-类是通过 Ingress 中的一个 `kubernetes.io/ingress.class` 注解来指定的。
+在 Kubernetes 1.18 版本引入 IngressClass 资源和 `ingressClassName` 字段之前，
+Ingress 类是通过 Ingress 中的一个 `kubernetes.io/ingress.class` 注解来指定的。
 这个注解从未被正式定义过，但是得到了 Ingress 控制器的广泛支持。
 
 <!-- 
@@ -639,7 +649,7 @@ There are existing Kubernetes concepts that allow you to expose a single Service
 ### 由单个 Service 来完成的 Ingress   {#single-service-ingress}
 
 现有的 Kubernetes 概念允许你暴露单个 Service (参见[替代方案](#alternatives))。
-你也可以通过指定无规则的 *默认后端* 来对 Ingress 进行此操作。
+你也可以通过指定无规则的**默认后端**来对 Ingress 进行此操作。
 
 {{< codenew file="service/networking/test-ingress.yaml" >}}
 
@@ -685,8 +695,7 @@ down to a minimum. For example, a setup like:
 一个扇出（fanout）配置根据请求的 HTTP URI 将来自同一 IP 地址的流量路由到多个 Service。
 Ingress 允许你将负载均衡器的数量降至最低。例如，这样的设置：
 
-{{< figure src="/zh-cn/docs/images/ingressFanOut.svg" alt="ingress-fanout-diagram" class="diagram-large" caption="图. Ingress 扇出" link="https://mermaid.live/edit#pako:eNqNUslOwzAQ_RXLvYCUhMQpUFzUUzkgcUBwbHpw4klr4diR7bCo8O8k2FFbFomLPZq3jP00O1xpDpjijWHtFt09zAuFUCUFKHey8vf6NE7QrdoYsDZumGIb4Oi6NAskNeOoZJKpCgxK4oXwrFVgRyi7nCVXWZKRPMlysv5yD6Q4Xryf1Vq_WzDPooJs9egLNDbolKTpT03JzKgh3zWEztJZ0Niu9L-qZGcdmAMfj4cxvWmreba613z9C0B-AMQD-V_AdA-A4j5QZu0SatRKJhSqhZR0wjmPrDP6CeikrutQxy-Cuy2dtq9RpaU2dJKm6fzI5Glmg0VOLio4_5dLjx27hFSC015KJ2VZHtuQvY2fuHcaE43G0MaCREOow_FV5cMxHZ5-oPX75UM5avuXhXuOI9yAaZjg_aLuBl6B3RYaKDDtSw4166QrcKE-emrXcubghgunDaY1kxYizDqnH99UhakzHYykpWD9hjS--fEJoIELqQ" >}}
-
+{{< figure src="/zh-cn/docs/images/ingressFanOut.svg" alt="ingress-fanout-diagram" class="diagram-large" caption="图. Ingress 扇出" link="https://mermaid.live/edit#pako:eNqNUk1v0zAY_iuWewEpyRKnjM5FPY0DEgfEjk0PTvxmtZbGke3woW03NDjuChNCRRyQkMYFidP4NyXlX5DMjroykLg4j_x8vM6j9xhnkgOm-FCxao4ePx0nJUJZIaA0d6ary48_33xvvnyd3fUD9Kg8VKC131wum_Oz5t0r9CBVE7T-9mF9dbV6_3q9XK7efkaBPxFWOXUOD0X3R8FeFEQkDqKYzK6HOJHvT052cilPNKhnIoNoemAB6i_okIThbU_KVO8hf3oIHYUj59F1an_u18VZ8-PTjRhLuyltZiV5NH0i-ewvBLlFEEvE_yKGGwJKbmtlWu9DjqqCiRLloijogHPuaaPkEdBBnucO-88FN3M6rF54mSykooMwDMdbIUcj7SJispvBvf9KabntlKyotQHlkjZWOkjTdDuGbGLsxE1S36jXl9YD4nWldsc1irtj2D39htdumy1l69q-zH3H2MMLUAsmeLuux50uwWYOC0gwbSGHnNWFSXBSnrbSuuLMwEMujFSY5qzQ4GFWG3nwsswwNaqGXrQvWLsgC6c6_Q0zxBrK" >}}
 
 <!--
 would require an Ingress such as:
@@ -752,14 +761,14 @@ Name-based virtual hosts support routing HTTP traffic to multiple host names at 
 
 基于名称的虚拟主机支持将针对多个主机名的 HTTP 流量路由到同一 IP 地址上。
 
-{{< figure src="/zh-cn/docs/images/ingressNameBased.svg" alt="ingress-namebase-diagram" class="diagram-large" caption="图. 基于名称实现虚拟托管的 Ingress" link="https://mermaid.live/edit#pako:eNqNkl9PwyAUxb8KYS-atM1Kp05m9qSJJj4Y97jugcLtRqTQAPVPdN_dVlq3qUt8gZt7zvkBN7xjbgRgiteW1Rt0_zjLNUJcSdD-ZBn21WmcoDu9tuBcXDHN1iDQVWHnSBkmUMEU0xwsSuK5DK5l745QejFNLtMkJVmSZmT1Re9NcTz_uDXOU1QakxTMJtxUHw7ss-SQLhehQEODTsdH4l20Q-zFyc84-Y67pghv5apxHuweMuj9eS2_NiJdPhix-kMgvwQShOyYMNkJoEUYM3PuGkpUKyY1KqVSdCSEiJy35gnoqCzLvo5fpPAbOqlfI26UsXQ0Ho9nB5CnqesRGTnncPYvSqsdUvqp9KRdlI6KojjEkB0mnLgjDRONhqENBYm6oXbLV5V1y6S7-l42_LowlIN2uFm_twqOcAW2YlK0H_i9c-bYb6CCHNO2FFCyRvkc53rbWptaMA83QnpjMS2ZchBh1nizeNMcU28bGEzXkrV_pArN7Sc0rBTu" >}}
+{{< figure src="/zh-cn/docs/images/ingressNameBased.svg" alt="ingress-namebase-diagram" class="diagram-large" caption="图. 基于名称实现虚拟托管的 Ingress" link="https://mermaid.live/edit#pako:eNqNkk9v0zAYxr-K5V6GlESNU6B4qKdxQOKA2LHpwYnfrNaSOLId_mjbDQ2OXAdMUxEHJKRxQWLaND4NXcq3IJkT2gKTuDiv_Dzv73UevXs4lhwwxTuKFVP06MlmmCMUpwJyszGen364ev2t-vxlcsv10MN8R4HWbnU6q94cVm9fovuRGqHF15PF5eX8-NViNpsffUKeOxLWOW47HOTfHXr3fM8ngecHZHI9pDW57mj_x9nF1ftzihIpvYgpL5bZvgb1VMTgj7dtgboLOuzfCGiaG8gKgPwJIL8Buozsb_98d1h9_7jCtHI7sB5QSO6PH0s--YdA_hKIFYKbhMFSgJzbwJnWW5CgImUiR4lIU9rjnDvaKLkLtJckSVu7zwQ3UzoonjuxTKWivX6_v7kG2R3qFhGQOzHc_i9Kra1T4rTUBlRLWrbSXhRF6xiyxNiJS1KXqNOF1hXEaUJtjusqaI5B8_SVXruHNpS1a_uy9lsr2MEZqIwJXq_yXuMMsZlCBiGmdckhYWVqQhzmB7W1LDgz8IALIxWmCUs1OJiVRm6_yGNMjSqhM20JVq9I1roOfgEKNyn5" >}}
 
 <!--
 The following Ingress tells the backing load balancer to route requests based on
 the [Host header](https://tools.ietf.org/html/rfc7230#section-5.4).
 -->
-以下 Ingress 让后台负载均衡器基于[host 头部字段](https://tools.ietf.org/html/rfc7230#section-5.4)
-来路由请求。
+以下 Ingress 让后台负载均衡器基于
+[host 头部字段](https://tools.ietf.org/html/rfc7230#section-5.4)来路由请求。
 
 {{< codenew file="service/networking/name-virtual-host-ingress.yaml" >}}
 
@@ -1025,7 +1034,7 @@ You can expose a Service in multiple ways that don't directly involve the Ingres
 * Learn about [Ingress Controllers](/docs/concepts/services-networking/ingress-controllers/)
 * [Set up Ingress on Minikube with the NGINX Controller](/docs/tasks/access-application-cluster/ingress-minikube/)
 -->
-* 进一步了解 [Ingress](/docs/reference/kubernetes-api/service-resources/ingress-v1/) API
+* 进一步了解 [Ingress](/zh-cn/docs/reference/kubernetes-api/service-resources/ingress-v1/) API
 * 进一步了解 [Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers/)
 * [使用 NGINX 控制器在 Minikube 上安装 Ingress](/zh-cn/docs/tasks/access-application-cluster/ingress-minikube/)
 

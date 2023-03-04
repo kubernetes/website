@@ -535,9 +535,9 @@ this always falls back to the userspace proxy.</p>
 
 - [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
 
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
-
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 
@@ -595,9 +595,9 @@ client.</p>
 
 **Appears in:**
 
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
-
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 
@@ -623,68 +623,6 @@ client.</p>
 <td>
    <p>enableContentionProfiling enables lock contention profiling, if
 enableProfiling is true.</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `FormatOptions`     {#FormatOptions}
-    
-
-**Appears in:**
-
-- [LoggingConfiguration](#LoggingConfiguration)
-
-
-<p>FormatOptions contains options for the different logging formats.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>json</code> <B>[Required]</B><br/>
-<a href="#JSONOptions"><code>JSONOptions</code></a>
-</td>
-<td>
-   <p>[Experimental] JSON contains options for logging format &quot;json&quot;.</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `JSONOptions`     {#JSONOptions}
-    
-
-**Appears in:**
-
-- [FormatOptions](#FormatOptions)
-
-
-<p>JSONOptions contains options for logging format &quot;json&quot;.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>splitStream</code> <B>[Required]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <p>[Experimental] SplitStream redirects error messages to stderr while
-info messages go to stdout, with buffering. The default is to write
-both to stdout, without buffering.</p>
-</td>
-</tr>
-<tr><td><code>infoBufferSize</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#QuantityValue"><code>k8s.io/apimachinery/pkg/api/resource.QuantityValue</code></a>
-</td>
-<td>
-   <p>[Experimental] InfoBufferSize sets the size of the info stream when
-using split streams. The default is zero, which disables buffering.</p>
 </td>
 </tr>
 </tbody>
@@ -777,82 +715,3 @@ during leader election cycles.</p>
 </tr>
 </tbody>
 </table>
-
-## `LoggingConfiguration`     {#LoggingConfiguration}
-    
-
-**Appears in:**
-
-- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
-
-
-<p>LoggingConfiguration contains logging options
-Refer <a href="https://github.com/kubernetes/component-base/blob/master/logs/options.go">Logs Options</a> for more information.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>format</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>Format Flag specifies the structure of log messages.
-default value of format is <code>text</code></p>
-</td>
-</tr>
-<tr><td><code>flushFrequency</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/time#Duration"><code>time.Duration</code></a>
-</td>
-<td>
-   <p>Maximum number of nanoseconds (i.e. 1s = 1000000000) between log
-flushes.  Ignored if the selected logging backend writes log
-messages without buffering.</p>
-</td>
-</tr>
-<tr><td><code>verbosity</code> <B>[Required]</B><br/>
-<code>uint32</code>
-</td>
-<td>
-   <p>Verbosity is the threshold that determines which log messages are
-logged. Default is zero which logs only the most important
-messages. Higher values enable additional messages. Error messages
-are always logged.</p>
-</td>
-</tr>
-<tr><td><code>vmodule</code> <B>[Required]</B><br/>
-<a href="#VModuleConfiguration"><code>VModuleConfiguration</code></a>
-</td>
-<td>
-   <p>VModule overrides the verbosity threshold for individual files.
-Only supported for &quot;text&quot; log format.</p>
-</td>
-</tr>
-<tr><td><code>options</code> <B>[Required]</B><br/>
-<a href="#FormatOptions"><code>FormatOptions</code></a>
-</td>
-<td>
-   <p>[Experimental] Options holds additional parameters that are specific
-to the different logging formats. Only the options for the selected
-format get used, but all of them get validated.</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `VModuleConfiguration`     {#VModuleConfiguration}
-    
-(Alias of `[]k8s.io/component-base/config/v1alpha1.VModuleItem`)
-
-**Appears in:**
-
-- [LoggingConfiguration](#LoggingConfiguration)
-
-
-<p>VModuleConfiguration is a collection of individual file names or patterns
-and the corresponding verbosity threshold.</p>
-
-
-

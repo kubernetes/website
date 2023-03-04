@@ -4,10 +4,22 @@ feature:
   title: 水平扩缩
   description: >
     使用一个简单的命令、一个 UI 或基于 CPU 使用情况自动对应用程序进行扩缩。
-
 content_type: concept
 weight: 90
 ---
+<!--
+reviewers:
+- fgrzadkowski
+- jszczepkowski
+- directxman12
+title: Horizontal Pod Autoscaling
+feature:
+  title: Horizontal scaling
+  description: >
+    Scale your application up and down with a simple command, with a UI, or automatically based on CPU usage.
+content_type: concept
+weight: 90
+-->
 
 <!-- overview -->
 
@@ -17,7 +29,7 @@ a {{< glossary_tooltip text="Deployment" term_id="deployment" >}} or
 {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}), with the
 aim of automatically scaling the workload to match demand.
 -->
-在 Kubernetes 中，_HorizontalPodAutoscaler_ 自动更新工作负载资源
+在 Kubernetes 中，**HorizontalPodAutoscaler** 自动更新工作负载资源
 （例如 {{< glossary_tooltip text="Deployment" term_id="deployment" >}} 或者
 {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}），
 目的是自动扩缩工作负载以满足需求。
@@ -33,12 +45,12 @@ If the load decreases, and the number of Pods is above the configured minimum,
 the HorizontalPodAutoscaler instructs the workload resource (the Deployment, StatefulSet,
 or other similar resource) to scale back down.
 -->
-水平扩缩意味着对增加的负载的响应是部署更多的 {{< glossary_tooltip text="Pods" term_id="pod" >}}。
+水平扩缩意味着对增加的负载的响应是部署更多的 {{< glossary_tooltip text="Pod" term_id="pod" >}}。
 这与 “垂直（Vertical）” 扩缩不同，对于 Kubernetes，
 垂直扩缩意味着将更多资源（例如：内存或 CPU）分配给已经为工作负载运行的 Pod。
 
 如果负载减少，并且 Pod 的数量高于配置的最小值，
-HorizontalPodAutoscaler 会指示工作负载资源（ Deployment、StatefulSet 或其他类似资源）缩减。
+HorizontalPodAutoscaler 会指示工作负载资源（Deployment、StatefulSet 或其他类似资源）缩减。
 
 <!--
 Horizontal pod autoscaling does not apply to objects that can't be scaled (for example:
@@ -55,9 +67,11 @@ The horizontal pod autoscaling controller, running within the Kubernetes
 desired scale of its target (for example, a Deployment) to match observed metrics such as average
 CPU utilization, average memory utilization, or any other custom metric you specify.
  -->
-HorizontalPodAutoscaler 被实现为 Kubernetes API 资源和{{< glossary_tooltip text="控制器" term_id="controller" >}}。
+HorizontalPodAutoscaler 被实现为 Kubernetes API
+资源和{{< glossary_tooltip text="控制器" term_id="controller" >}}。
 
-资源决定了控制器的行为。在 Kubernetes {{< glossary_tooltip text="控制平面" term_id="control-plane" >}}内运行的水平
+资源决定了控制器的行为。
+在 Kubernetes {{< glossary_tooltip text="控制平面" term_id="control-plane" >}}内运行的水平
 Pod 自动扩缩控制器会定期调整其目标（例如：Deployment）的所需规模，以匹配观察到的指标，
 例如，平均 CPU 利用率、平均内存利用率或你指定的任何其他自定义指标。
 
@@ -74,7 +88,33 @@ horizontal pod autoscaling.
 -->
 ## HorizontalPodAutoscaler 是如何工作的？ {#how-does-a-horizontalpodautoscaler-work}
 
-{{< figure src="/images/docs/horizontal-pod-autoscaler.svg" caption="HorizontalPodAutoscaler 控制 Deployment 及其 ReplicaSet 的规模" class="diagram-medium">}}
+{{< mermaid >}}
+graph BT
+
+hpa[Pod 水平自动扩缩] --> scale[规模]
+
+subgraph rc[RC / Deployment]
+    scale
+end
+
+scale -.-> pod1[Pod 1]
+scale -.-> pod2[Pod 2]
+scale -.-> pod3[Pod N]
+
+classDef hpa fill:#D5A6BD,stroke:#1E1E1D,stroke-width:1px,color:#1E1E1D;
+classDef rc fill:#F9CB9C,stroke:#1E1E1D,stroke-width:1px,color:#1E1E1D;
+classDef scale fill:#B6D7A8,stroke:#1E1E1D,stroke-width:1px,color:#1E1E1D;
+classDef pod fill:#9FC5E8,stroke:#1E1E1D,stroke-width:1px,color:#1E1E1D;
+class hpa hpa;
+class rc rc;
+class scale scale;
+class pod1,pod2,pod3 pod
+{{< /mermaid >}}
+
+<!--
+Figure 1. HorizontalPodAutoscaler controls the scale of a Deployment and its ReplicaSet
+-->
+图 1. HorizontalPodAutoscaler 控制 Deployment 及其 ReplicaSet 的规模
 
 <!--
 Kubernetes implements horizontal pod autoscaling as a control loop that runs intermittently
@@ -109,8 +149,8 @@ or the custom metrics API (for all other metrics).
   the number of desired replicas.
 -->
 * 对于按 Pod 统计的资源指标（如 CPU），控制器从资源指标 API 中获取每一个
-  HorizontalPodAutoscaler 指定的 Pod 的度量值，如果设置了目标使用率，
-  控制器获取每个 Pod 中的容器[资源使用](/zh-cn/docs/concepts/configuration/manage-resources-containers/#requests-and-limits) 情况，
+  HorizontalPodAutoscaler 指定的 Pod 的度量值，如果设置了目标使用率，控制器获取每个 Pod
+  中的容器[资源使用](/zh-cn/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)情况，
   并计算资源使用率。如果设置了 target 值，将直接使用原始数据（不再计算百分比）。
   接下来，控制器根据平均的资源使用率或原始值计算出扩缩的比例，进而计算出目标副本数。
 
@@ -128,8 +168,7 @@ or the custom metrics API (for all other metrics).
 * For per-pod custom metrics, the controller functions similarly to per-pod resource metrics,
   except that it works with raw values, not utilization values.
 -->
-* 如果 Pod 使用自定义指示，控制器机制与资源指标类似，区别在于自定义指标只使用
-  原始值，而不是使用率。
+* 如果 Pod 使用自定义指示，控制器机制与资源指标类似，区别在于自定义指标只使用原始值，而不是使用率。
 
 <!--
 * For object metrics and external metrics, a single metric is fetched, which describes
@@ -165,9 +204,9 @@ number of replicas and examine each of their current states.
 For general information about subresources in the Kubernetes API, see
 [Kubernetes API Concepts](/docs/reference/using-api/api-concepts/).
 -->
-对 [Metrics API 的支持](#support-for-metrics-apis)解释了这些不同 API 的稳定性保证和支持状态
+对 [Metrics API 的支持](#support-for-metrics-apis)解释了这些不同 API 的稳定性保证和支持状态。
 
-HorizontalPodAutoscaler 控制器访问支持扩缩的相应工作负载资源（例如：Deployments 和 StatefulSet）。
+HorizontalPodAutoscaler 控制器访问支持扩缩的相应工作负载资源（例如：Deployment 和 StatefulSet）。
 这些资源每个都有一个名为 `scale` 的子资源，该接口允许你动态设置副本的数量并检查它们的每个当前状态。
 有关 Kubernetes API 子资源的一般信息，
 请参阅 [Kubernetes API 概念](/zh-cn/docs/reference/using-api/api-concepts/)。
@@ -218,7 +257,7 @@ are [`Ready`](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions).
 那么将会把指定 Pod 度量值的平均值做为 `currentMetricValue`。
 
 在检查容差并决定最终值之前，控制平面还会考虑是否缺少任何指标，
-以及有多少 Pod [`已就绪`](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)。
+以及有多少 Pod [`Ready`](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)。
 
 <!--
 All Pods with a deletion timestamp set (objects with a deletion timestamp are
@@ -246,7 +285,7 @@ Due to technical constraints, the HorizontalPodAutoscaler controller
 cannot exactly determine the first time a pod becomes ready when
 determining whether to set aside certain CPU metrics. Instead, it
 considers a Pod "not yet ready" if it's unready and transitioned to
-unready within a short, configurable window of time since it started.
+ready within a short, configurable window of time since it started.
 This value is configured with the `--horizontal-pod-autoscaler-initial-readiness-delay` flag, and its default is 30
 seconds.  Once a pod has become ready, it considers any transition to
 ready to be the first if it occurred within a longer, configurable time
@@ -254,7 +293,7 @@ since it started. This value is configured with the `--horizontal-pod-autoscaler
 default is 5 minutes.
 -->
 由于技术限制，HorizontalPodAutoscaler 控制器在确定是否保留某些 CPU 指标时无法准确确定 Pod 首次就绪的时间。
-相反，如果 Pod 未准备好并在其启动后的一个可配置的短时间窗口内转换为未准备好，它会认为 Pod “尚未准备好”。
+相反，如果 Pod 未准备好并在其启动后的一个可配置的短时间窗口内转换为准备好，它会认为 Pod “尚未准备好”。
 该值使用 `--horizontal-pod-autoscaler-initial-readiness-delay` 标志配置，默认值为 30 秒。
 一旦 Pod 准备就绪，如果它发生在自启动后较长的、可配置的时间内，它就会认为任何向准备就绪的转换都是第一个。
 该值由 `-horizontal-pod-autoscaler-cpu-initialization-period` 标志配置，默认为 5 分钟。
@@ -359,7 +398,7 @@ More details about the API object can be found at
 创建 HorizontalPodAutoscaler 对象时，需要确保所给的名称是一个合法的
 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 有关 API 对象的更多信息，请查阅
-[HorizontalPodAutoscaler 对象设计文档](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v2-autoscaling)。
+[HorizontalPodAutoscaler 对象文档](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#horizontalpodautoscaler-v2-autoscaling)。
 
 <!--
 ## Stability of workload scale {#flapping}
@@ -372,7 +411,8 @@ or *flapping*. It's similar to the concept of *hysteresis* in cybernetics.
 ## 工作量规模的稳定性 {#flapping}
 
 在使用 HorizontalPodAutoscaler 管理一组副本的规模时，由于评估的指标的动态特性，
-副本的数量可能会经常波动。这有时被称为 **抖动（thrashing）** 或 **波动（flapping）**。它类似于控制论中的 **滞后（hysteresis）** 概念。
+副本的数量可能会经常波动。这有时被称为 **抖动（thrashing）** 或 **波动（flapping）**。
+它类似于控制论中的 **滞后（hysteresis）** 概念。
 
 <!--
 ## Autoscaling during rolling update
@@ -433,8 +473,8 @@ resources of the pod. See [Algorithm](#algorithm-details) for more details about
 is calculated and averaged.
 -->
 基于这一指标设定，HPA 控制器会维持扩缩目标中的 Pods 的平均资源利用率在 60%。
-利用率是 Pod 的当前资源用量与其请求值之间的比值。关于如何计算利用率以及如何计算平均值
-的细节可参考[算法](#algorithm-details)小节。
+利用率是 Pod 的当前资源用量与其请求值之间的比值。
+关于如何计算利用率以及如何计算平均值的细节可参考[算法](#algorithm-details)小节。
 
 {{< note >}}
 <!--
@@ -443,10 +483,9 @@ accurately represent the individual container resource usage. This could lead to
 a single container might be running with high usage and the HPA will not scale out because the overall
 pod usage is still within acceptable limits.
 -->
-由于所有的容器的资源用量都会被累加起来，Pod 的总体资源用量值可能不会精确体现
-各个容器的资源用量。这一现象也会导致一些问题，例如某个容器运行时的资源用量非常
-高，但因为 Pod 层面的资源用量总值让人在可接受的约束范围内，HPA 不会执行扩大
-目标对象规模的操作。
+由于所有的容器的资源用量都会被累加起来，Pod 的总体资源用量值可能不会精确体现各个容器的资源用量。
+这一现象也会导致一些问题，例如某个容器运行时的资源用量非常高，但因为 Pod
+层面的资源用量总值让人在可接受的约束范围内，HPA 不会执行扩大目标对象规模的操作。
 {{< /note >}}
 
 <!--
@@ -463,11 +502,11 @@ This lets you configure scaling thresholds for the containers that matter most i
 For example, if you have a web application and a logging sidecar, you can scale based on the resource
 use of the web application, ignoring the sidecar container and its resource use.
 -->
-HorizontalPodAutoscaler API 也支持容器指标源，这时 HPA 可以跟踪记录一组 Pods 中各个容器的
-资源用量，进而触发扩缩目标对象的操作。
+HorizontalPodAutoscaler API 也支持容器指标源，这时 HPA 可以跟踪记录一组 Pod
+中各个容器的资源用量，进而触发扩缩目标对象的操作。
 容器资源指标的支持使得你可以为特定 Pod 中最重要的容器配置规模扩缩阈值。
-例如，如果你有一个 Web 应用和一个执行日志操作的边车容器，你可以基于 Web 应用的
-资源用量来执行扩缩，忽略边车容器的存在及其资源用量。
+例如，如果你有一个 Web 应用和一个执行日志操作的边车容器，你可以基于 Web
+应用的资源用量来执行扩缩，忽略边车容器的存在及其资源用量。
 
 <!--
 If you revise the target resource to have a new Pod specification with a different set of containers,
@@ -477,9 +516,9 @@ of the pods then those pods are ignored and the recommendation is recalculated. 
 for more details about the calculation. To use container resources for autoscaling define a metric
 source as follows:
 -->
-如果你更改扩缩目标对象，令其使用新的、包含一组不同的容器的 Pod 规约，你就需要
-修改 HPA 的规约才能基于新添加的容器来执行规模扩缩操作。
-如果指标源中指定的容器不存在或者仅存在于部分 Pods 中，那么这些 Pods 会被忽略，
+如果你更改扩缩目标对象，令其使用新的、包含一组不同的容器的 Pod 规约，你就需要修改
+HPA 的规约才能基于新添加的容器来执行规模扩缩操作。
+如果指标源中指定的容器不存在或者仅存在于部分 Pod 中，那么这些 Pod 会被忽略，
 HPA 会重新计算资源用量值。参阅[算法](#algorithm-details)小节进一步了解计算细节。
 要使用容器资源用量来完成自动扩缩，可以像下面这样定义指标源：
 
@@ -497,7 +536,7 @@ containerResource:
 In the above example the HPA controller scales the target such that the average utilization of the cpu
 in the `application` container of all the pods is 60%.
 -->
-在上面的例子中，HPA 控制器会对目标对象执行扩缩操作以确保所有 Pods 中
+在上面的例子中，HPA 控制器会对目标对象执行扩缩操作以确保所有 Pod 中
 `application` 容器的平均 CPU 用量为 60%。
 
 {{< note >}}
@@ -509,10 +548,10 @@ whilst the change is being applied. Before you update the resource that defines 
 old container names. This way, the HPA is able to calculate a scaling recommendation
 throughout the update process.
 -->
-如果你要更改 HorizontalPodAutoscaler 所跟踪记录的容器的名称，你可以按一定顺序
-来执行这一更改，确保在应用更改的过程中用来判定扩缩行为的容器可用。
-在更新定义容器的资源（如 Deployment）之前，你需要更新相关的 HPA，使之能够同时
-跟踪记录新的和老的容器名称。这样，HPA 就能够在整个更新过程中继续计算并提供扩缩操作建议。
+如果你要更改 HorizontalPodAutoscaler 所跟踪记录的容器的名称，你可以按一定顺序来执行这一更改，
+确保在应用更改的过程中用来判定扩缩行为的容器可用。
+在更新定义容器的资源（如 Deployment）之前，你需要更新相关的 HPA，
+使之能够同时跟踪记录新的和老的容器名称。这样，HPA 就能够在整个更新过程中继续计算并提供扩缩操作建议。
 
 <!--
 Once you have rolled out the container name change to the workload resource, tidy up by removing
@@ -600,8 +639,8 @@ APIs, cluster administrators must ensure that:
      它可以作为集群插件启动。
 
    * 对于自定义指标，将使用 `custom.metrics.k8s.io` API。
-    它由其他度量指标方案厂商的“适配器（Adapter）” API 服务器提供。
-    检查你的指标管道以查看是否有可用的 Kubernetes 指标适配器。
+     它由其他度量指标方案厂商的“适配器（Adapter）” API 服务器提供。
+     检查你的指标管道以查看是否有可用的 Kubernetes 指标适配器。
 
    * 对于外部指标，将使用 `external.metrics.k8s.io` API。可能由上面的自定义指标适配器提供。
 
@@ -620,8 +659,8 @@ and [external.metrics.k8s.io](https://github.com/kubernetes/design-proposals-arc
 For examples of how to use them see [the walkthrough for using custom metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
 and [the walkthrough for using external metrics](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects).
 -->
-关于如何使用它们的示例，请参考
-[使用自定义指标的教程](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
+关于如何使用它们的示例，
+请参考[使用自定义指标的教程](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-multiple-metrics-and-custom-metrics)
 和[使用外部指标的教程](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/#autoscaling-on-metrics-not-related-to-kubernetes-objects)。
 
 <!--
@@ -663,6 +702,7 @@ change is the policy which is selected by default. The following example shows t
 while scaling down:
 -->
 ### 扩缩策略 {#scaling-policies}
+
 可以在规约的 `behavior` 部分中指定一个或多个扩缩策略。当指定多个策略时，
 允许最大更改量的策略是默认选择的策略。以下示例显示了缩小时的这种行为：
 
@@ -793,8 +833,8 @@ For scaling up there is no stabilization window. When the metrics indicate that 
 scaled up the target is scaled up immediately. There are 2 policies where 4 pods or a 100% of the currently
 running replicas will be added every 15 seconds till the HPA reaches its steady state.
 -->
-用于缩小稳定窗口的时间为 _300_ 秒(或是 `--horizontal-pod-autoscaler-downscale-stabilization`
-参数设定值)。
+用于缩小稳定窗口的时间为 **300** 秒（或是 `--horizontal-pod-autoscaler-downscale-stabilization`
+参数设定值）。
 只有一种缩容的策略，允许 100% 删除当前运行的副本，这意味着扩缩目标可以缩小到允许的最小副本数。
 对于扩容，没有稳定窗口。当指标显示目标应该扩容时，目标会立即扩容。
 这里有两种策略，每 15 秒添加 4 个 Pod 或 100% 当前运行的副本数，直到 HPA 达到稳定状态。
@@ -895,7 +935,7 @@ and the number of replicas between 2 and 5.
 -->
 此外，还有一个特殊的 `kubectl autoscale` 命令用于创建 HorizontalPodAutoscaler 对象。
 例如，执行 `kubectl autoscale rs foo --min=2 --max=5 --cpu-percent=80`
-将为 ReplicaSet *foo* 创建一个自动扩缩器，目标 CPU 利用率设置为 `80%`，副本数在 2 到 5 之间。
+将为 ReplicaSet **foo** 创建一个自动扩缩器，目标 CPU 利用率设置为 `80%`，副本数在 2 到 5 之间。
 
 <!--
 ## Implicit maintenance-mode deactivation
@@ -928,8 +968,8 @@ desired and could be troublesome when an HPA is active.
 
 ### 将 Deployment 和 StatefulSet 迁移到水平自动扩缩 {#migrating-deployments-and-statefulsets-to-horizontal-autoscaling}
 
-当启用 HPA 时，建议从它们的{{< glossary_tooltip text="清单" term_id="manifest" >}}中
-删除 Deployment 和/或 StatefulSet 的 `spec.replicas` 的值。
+当启用 HPA 时，建议从它们的{{< glossary_tooltip text="清单" term_id="manifest" >}}中删除
+Deployment 和/或 StatefulSet 的 `spec.replicas` 的值。
 如果不这样做，则只要应用对该对象的更改，例如通过 `kubectl apply -f deployment.yaml`，
 这将指示 Kubernetes 将当前 Pod 数量扩缩到 `spec.replicas` 键的值。这可能不是所希望的，
 并且当 HPA 处于活动状态时可能会很麻烦。
@@ -976,11 +1016,12 @@ you can follow the [transferring ownership](/docs/reference/using-api/server-sid
 guidelines, which cover this exact use case.
 -->
 使用[服务器端 Apply](/zh-cn/docs/reference/using-api/server-side-apply/) 机制，
-你可以遵循[交出所有权](/zh-cn/docs/reference/using-api/server-side-apply/#transferring-ownership) 说明，
+你可以遵循[交出所有权](/zh-cn/docs/reference/using-api/server-side-apply/#transferring-ownership)说明，
 该指南涵盖了这个确切的用例。
 
 {{% /tab %}}
 {{< /tabs >}}
+
 ## {{% heading "whatsnext" %}}
 
 <!--
@@ -1005,4 +1046,5 @@ For more information on HorizontalPodAutoscaler:
 * 阅读 [`kubectl autoscale`](/docs/reference/generated/kubectl/kubectl-commands/#autoscale) 的文档。
 * 如果你想编写自己的自定义指标适配器，
   请查看 [boilerplate](https://github.com/kubernetes-sigs/custom-metrics-apiserver) 以开始使用。
-* 阅读 [API 参考](/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/)。
+* 阅读 [API 参考](/zh-cn/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/)。
+

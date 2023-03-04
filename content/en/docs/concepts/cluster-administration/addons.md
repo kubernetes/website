@@ -1,6 +1,7 @@
 ---
 title: Installing Addons
 content_type: concept
+weight: 120
 ---
 
 <!-- overview -->
@@ -9,7 +10,7 @@ content_type: concept
 
 Add-ons extend the functionality of Kubernetes.
 
-This page lists some of the available add-ons and links to their respective installation instructions.
+This page lists some of the available add-ons and links to their respective installation instructions. The list does not try to be exhaustive.
 
 <!-- body -->
 
@@ -19,7 +20,7 @@ This page lists some of the available add-ons and links to their respective inst
 * [Antrea](https://antrea.io/) operates at Layer 3/4 to provide networking and security services for Kubernetes, leveraging Open vSwitch as the networking data plane.
 * [Calico](https://docs.projectcalico.org/latest/introduction/) is a networking and network policy provider. Calico supports a flexible set of networking options so you can choose the most efficient option for your situation, including non-overlay and overlay networks, with or without BGP. Calico uses the same engine to enforce network policy for hosts, pods, and (if using Istio & Envoy) applications at the service mesh layer.
 * [Canal](https://projectcalico.docs.tigera.io/getting-started/kubernetes/flannel/flannel) unites Flannel and Calico, providing networking and network policy.
-* [Cilium](https://github.com/cilium/cilium) is a L3 network and network policy plugin that can enforce HTTP/API/L7 policies transparently. Both routing and overlay/encapsulation mode are supported, and it can work on top of other CNI plugins.
+* [Cilium](https://github.com/cilium/cilium) is a networking, observability, and security solution with an eBPF-based data plane. Cilium provides a simple flat Layer 3 network with the ability to span multiple clusters in either a native routing or overlay/encapsulation mode, and can enforce network policies on L3-L7 using an identity-based security model that is decoupled from network addressing. Cilium can act as a replacement for kube-proxy; it also offers additional, opt-in observability and security features.
 * [CNI-Genie](https://github.com/cni-genie/CNI-Genie) enables Kubernetes to seamlessly connect to a choice of CNI plugins, such as Calico, Canal, Flannel, or Weave.
 * [Contiv](https://contivpp.io/) provides configurable networking (native L3 using BGP, overlay using vxlan, classic L2, and Cisco-SDN/ACI) for various use cases and a rich policy framework. Contiv project is fully [open sourced](https://github.com/contiv). The [installer](https://github.com/contiv/install) provides both kubeadm and non-kubeadm based installation options.
 * [Contrail](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/), based on [Tungsten Fabric](https://tungsten.io), is an open source, multi-cloud network virtualization and policy management platform. Contrail and Tungsten Fabric are integrated with orchestration systems such as Kubernetes, OpenShift, OpenStack and Mesos, and provide isolation modes for virtual machines, containers/pods and bare metal workloads.
@@ -27,7 +28,7 @@ This page lists some of the available add-ons and links to their respective inst
 * [Knitter](https://github.com/ZTE/Knitter/) is a plugin to support multiple network interfaces in a Kubernetes pod.
 * [Multus](https://github.com/k8snetworkplumbingwg/multus-cni) is a Multi plugin for multiple network support in Kubernetes to support all CNI plugins (e.g. Calico, Cilium, Contiv, Flannel), in addition to SRIOV, DPDK, OVS-DPDK and VPP based workloads in Kubernetes.
 * [OVN-Kubernetes](https://github.com/ovn-org/ovn-kubernetes/) is a networking provider for Kubernetes based on [OVN (Open Virtual Network)](https://github.com/ovn-org/ovn/), a virtual networking implementation that came out of the Open vSwitch (OVS) project. OVN-Kubernetes provides an overlay based networking implementation for Kubernetes, including an OVS based implementation of load balancing and network policy.
-* [OVN4NFV-K8S-Plugin](https://github.com/opnfv/ovn4nfv-k8s-plugin) is OVN based CNI controller plugin to provide cloud native based Service function chaining(SFC), Multiple OVN overlay networking, dynamic subnet creation, dynamic creation of virtual networks, VLAN Provider network, Direct provider network and pluggable with other Multi-network plugins, ideal for edge based cloud native workloads in Multi-cluster networking.
+* [Nodus](https://github.com/akraino-edge-stack/icn-nodus) is an OVN based CNI controller plugin to provide cloud native based Service function chaining(SFC).
 * [NSX-T](https://docs.vmware.com/en/VMware-NSX-T-Data-Center/index.html) Container Plug-in (NCP) provides integration between VMware NSX-T and container orchestrators such as Kubernetes, as well as integration between NSX-T and container-based CaaS/PaaS platforms such as Pivotal Container Service (PKS) and OpenShift.
 * [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst) is an SDN platform that provides policy-based networking between Kubernetes Pods and non-Kubernetes environments with visibility and security monitoring.
 * [Romana](https://github.com/romana) is a Layer 3 networking solution for pod networks that also supports the [NetworkPolicy](/docs/concepts/services-networking/network-policies/) API.

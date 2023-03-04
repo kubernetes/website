@@ -76,8 +76,7 @@ Preceding v1.22, the `kubelet` must be started with the following flag:
 
 in order to enable the Memory Manager feature.
 -->
-从 v1.22 开始，内存管理器通过
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+从 v1.22 开始，内存管理器通过[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 `MemoryManager` 默认启用。
 
 在 v1.22 之前，`kubelet` 必须在启动时设置如下标志：
@@ -114,8 +113,8 @@ The complete flow diagram concerning pod admission and deployment process is ill
 内存管理器是一个提示驱动组件（Hint Provider），负责为拓扑管理器提供拓扑提示，
 后者根据这些拓扑提示对所请求的资源执行对齐操作。
 内存管理器也会为 Pods 应用 `cgroups` 设置（即 `cpuset.mems`）。
-与 Pod 准入和部署流程相关的完整流程图在[Memory Manager KEP: Design Overview][4]
-和下面。
+与 Pod 准入和部署流程相关的完整流程图在[Memory Manager KEP: Design Overview][4]，
+下面也有说明。
 
 <!--
 ![Memory Manager in the pod admission and deployment process](/images/docs/memory-manager-diagram.svg)
@@ -189,15 +188,15 @@ NUMA 节点的分组，从而扩展内存容量。解决这个问题的详细描
 ## 内存管理器配置   {#memory-manager-configuration}
 
 <!--
-Other Managers should be first pre-configured. Next, the Memory Manger feature should be enabled
-and be run with `Static` policy (section [Static policy](#static-policy)).
+Other Managers should be first pre-configured. Next, the Memory Manager feature should be enabled
+and be run with `Static` policy (section [Static policy](#policy-static)).
 Optionally, some amount of memory can be reserved for system or kubelet processes to increase
 node stability (section [Reserved memory flag](#reserved-memory-flag)).
 -->
 其他管理器也要预先配置。接下来，内存管理器特性需要被启用，
 并且采用 `Static` 策略（[静态策略](#policy-static)）运行。
-作为可选操作，可以预留一定数量的内存给系统或者 kubelet 进程以增强节点的
-稳定性（[预留内存标志](#reserved-memory-flag)）。
+作为可选操作，可以预留一定数量的内存给系统或者 kubelet 进程以增强节点的稳定性
+（[预留内存标志](#reserved-memory-flag)）。
 
 <!--
 ### Policies 
@@ -210,8 +209,8 @@ Memory Manager supports two policies. You can select a policy via a `kubelet` fl
 * `None` (default)
 * `Static`
 -->
-内存管理器支持两种策略。你可以通过 `kubelet` 标志 `--memory-manager-policy` 来
-选择一种策略：
+内存管理器支持两种策略。你可以通过 `kubelet` 标志 `--memory-manager-policy`
+来选择一种策略：
 
 * `None` （默认）
 * `Static`
@@ -245,13 +244,12 @@ and does not reserve the memory in the internal [NodeMap][2] object.
 -->
 #### Static 策略    {#policy-static}
 
-对 `Guaranteed` Pod 而言，`Static` 内存管理器策略会返回拓扑提示信息，该信息
-与内存分配有保障的 NUMA 节点集合有关，并且内存管理器还通过更新内部的
-[节点映射][2] 对象来完成内存预留。
+对 `Guaranteed` Pod 而言，`Static` 内存管理器策略会返回拓扑提示信息，
+该信息与内存分配有保障的 NUMA 节点集合有关，并且内存管理器还通过更新内部的[节点映射][2]
+对象来完成内存预留。
 
 对 `BestEffort` 或 `Burstable` Pod 而言，因为不存在对有保障的内存资源的请求，
-`Static` 内存管理器策略会返回默认的拓扑提示，并且不会通过内部的[节点映射][2]对象
-来预留内存。
+`Static` 内存管理器策略会返回默认的拓扑提示，并且不会通过内部的[节点映射][2]对象来预留内存。
 
 <!--
 ### Reserved memory flag
@@ -266,8 +264,8 @@ A dedicated set of flags can be used for this purpose to set the total amount of
 for a node. This pre-configured value is subsequently utilized to calculate
 the real amount of node's "allocatable" memory available to pods.
 -->
-[节点可分配](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/)机制通常
-被节点管理员用来为 kubelet 或操作系统进程预留 K8S 节点上的系统资源，目的是提高节点稳定性。
+[节点可分配](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/)机制通常被节点管理员用来为
+kubelet 或操作系统进程预留 K8S 节点上的系统资源，目的是提高节点稳定性。
 有一组专用的标志可用于这个目的，为节点设置总的预留内存量。
 此预配置的值接下来会被用来计算节点上对 Pods “可分配的”内存。
 
@@ -314,8 +312,8 @@ If at least one node allocatable parameter is non-zero, you will need to specify
 In fact, `eviction-hard` threshold value is equal to `100Mi` by default, so
 if `Static` policy is used, `--reserved-memory` is obligatory.
 -->
-你也可以忽略此参数，不过这样做时，你要清楚，所有 NUMA 节点上预留内存的数量要等于
-[节点可分配特性](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/)
+你也可以忽略此参数，不过这样做时，你要清楚，所有 NUMA
+节点上预留内存的数量要等于[节点可分配特性](/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/)
 所设定的内存量。如果至少有一个节点可分配参数值为非零，你就需要至少为一个 NUMA
 节点设置 `--reserved-memory`。实际上，`eviction-hard` 阈值默认为 `100Mi`，
 所以当使用 `Static` 策略时，`--reserved-memory` 是必须设置的。
@@ -364,10 +362,18 @@ Example usage:
 
 `--reserved-memory 0:memory=1Gi,hugepages-1Gi=2Gi`
 
-<!-- or -->
+<!--
+or
+-->
 或者
 
 `--reserved-memory 0:memory=1Gi --reserved-memory 1:memory=2Gi`
+
+<!--
+or
+-->
+
+`--reserved-memory '0:memory=1Gi;1:memory=2Gi'`
 
 <!--
 When you specify values for `--reserved-memory` flag, you must comply with the setting that
@@ -391,7 +397,7 @@ If you do not follow the formula above, the Memory Manager will show an error on
 In other words, the example above illustrates that for the conventional memory (`type=memory`),
 we reserve `3Gi` in total, i.e.: 
 -->
-如果你不遵守上面的公示，内存管理器会在启动时输出错误信息。
+如果你不遵守上面的公式，内存管理器会在启动时输出错误信息。
 
 换言之，上面的例子我们一共要预留 `3Gi` 的常规内存（`type=memory`），即：
 
@@ -454,8 +460,7 @@ to the Topology Manager.
 
 若所选择的策略不是 `None`，则内存管理器会辨识处于 `Guaranteed` QoS 类中的 Pod。
 内存管理器为每个 `Guaranteed` Pod 向拓扑管理器提供拓扑提示信息。
-对于不在 `Guaranteed` QoS 类中的其他 Pod，内存管理器向拓扑管理器提供默认的 
-拓扑提示信息。
+对于不在 `Guaranteed` QoS 类中的其他 Pod，内存管理器向拓扑管理器提供默认的拓扑提示信息。
 
 <!--
 The following excerpts from pod manifests assign a pod to the `Guaranteed` QoS class.
@@ -464,8 +469,7 @@ Pod with integer CPU(s) runs in the `Guaranteed` QoS class, when `requests` are 
 -->
 下面的来自 Pod 清单的片段将 Pod 加入到 `Guaranteed` QoS 类中。
 
-当 Pod 的 CPU `requests` 等于 `limits` 且为整数值时，Pod 将运行在 `Guaranteed`
-QoS 类中。
+当 Pod 的 CPU `requests` 等于 `limits` 且为整数值时，Pod 将运行在 `Guaranteed` QoS 类中。
 
 ```yaml
 spec:
@@ -486,8 +490,7 @@ spec:
 <!--
 Also, a pod sharing CPU(s) runs in the `Guaranteed` QoS class, when `requests` are equal to `limits`.
 -->
-此外，共享 CPU 的 Pods 在 `requests` 等于 `limits` 值时也运行在 `Guaranteed`
-QoS 类中。
+此外，共享 CPU 的 Pods 在 `requests` 等于 `limits` 值时也运行在 `Guaranteed` QoS 类中。
 
 ```yaml
 spec:
@@ -531,8 +534,8 @@ became rejected at a node:
 - Pod 状态 - 可表明拓扑亲和性错误
 - 系统日志 - 包含用来调试的有价值的信息，例如，关于所生成的提示信息
 - 状态文件 - 其中包含内存管理器内部状态的转储（包含[节点映射和内存映射][2]）
-- 从 v1.22 开始，[设备插件资源 API](#device-plugin-resource-api) 可以用来
-  检索关于为容器预留的内存的信息
+- 从 v1.22 开始，[设备插件资源 API](#device-plugin-resource-api) 
+  可以用来检索关于为容器预留的内存的信息
 
 <!--
 ### Pod status (TopologyAffinityError) {#TopologyAffinityError}
@@ -730,8 +733,7 @@ to these NUMA nodes.
 This automatically implies that Memory Manager instantiated a new group that
 comprises these two NUMA nodes, i.e. `0` and `1` indexed NUMA nodes. 
 -->
-术语绑定（pinned）意味着 Pod 的内存使用被（通过 `cgroups` 配置）限制到
-这些 NUMA 节点。
+术语绑定（pinned）意味着 Pod 的内存使用被（通过 `cgroups` 配置）限制到这些 NUMA 节点。
 
 这也直接意味着内存管理器已经创建了一个 NUMA 分组，由这两个 NUMA 节点组成，
 即索引值分别为 `0` 和 `1` 的 NUMA 节点。
@@ -743,8 +745,8 @@ further elaboration is provided in Memory Manager KEP in [this][1] and [this][3]
 In order to analyse memory resources available in a group,the corresponding entries from
 NUMA nodes belonging to the group must be added up.  
 -->
-注意 NUMA 分组的管理是有一个相对复杂的管理器处理的，相关逻辑的进一步细节可在内存管理器的
-KEP 中[示例1][1]和[跨 NUMA 节点][3]节找到。
+注意 NUMA 分组的管理是有一个相对复杂的管理器处理的，
+相关逻辑的进一步细节可在内存管理器的 KEP 中[示例1][1]和[跨 NUMA 节点][3]节找到。
 
 为了分析 NUMA 组中可用的内存资源，必须对分组内 NUMA 节点对应的条目进行汇总。
 
@@ -799,3 +801,4 @@ This information can be retrieved solely for pods in Guaranteed QoS class.
 [4]: https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/1769-memory-manager#design-overview
 [5]: https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/1769-memory-manager#memory-maps-at-start-up-with-examples
 [6]: https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/1769-memory-manager#memory-maps-at-runtime-with-examples
+

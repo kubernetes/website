@@ -7,7 +7,7 @@ weight: 20
 <!-- overview -->
 
 When using client certificate authentication, you can generate certificates
-manually through `easyrsa`, `openssl` or `cfssl`.
+manually through [`easyrsa`](https://github.com/OpenVPN/easy-rsa), [`openssl`](https://github.com/openssl/openssl) or [`cfssl`](https://github.com/cloudflare/cfssl).
 
 <!-- body -->
 
@@ -140,7 +140,7 @@ manually through `easyrsa`, `openssl` or `cfssl`.
    ```shell
    openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key \
        -CAcreateserial -out server.crt -days 10000 \
-       -extensions v3_ext -extfile csr.conf
+       -extensions v3_ext -extfile csr.conf -sha256
    ```
 
 1. View the certificate signing request:

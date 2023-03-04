@@ -19,7 +19,7 @@ card:
 <!--
 Many applications rely on configuration which is used during either application initialization or runtime.
 Most of the times there is a requirement to adjust values assigned to configuration parameters.
-ConfigMaps is the kubernetes way to inject application pods with configuration data.
+ConfigMaps are the Kubernetes way to inject application pods with configuration data.
 ConfigMaps allow you to decouple configuration artifacts from image content to keep containerized applications portable. This page provides a series of usage examples demonstrating how to create ConfigMaps and configure Pods using data stored in ConfigMaps.
 -->
 很多应用在其初始化或运行期间要依赖一些配置信息。大多数时候，
@@ -85,19 +85,13 @@ You can use [`kubectl describe`](/docs/reference/generated/kubectl/kubectl-comma
 [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) to retrieve information
 about a ConfigMap.
 -->
-你可以使用[`kubectl describe`](/docs/reference/generated/kubectl/kubectl-commands/#describe) 或者
+你可以使用 [`kubectl describe`](/docs/reference/generated/kubectl/kubectl-commands/#describe) 或者
 [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) 获取有关 ConfigMap 的信息。
 
 <!--
 #### Create ConfigMaps from directories
 
-You can use `kubectl create configmap` to create a ConfigMap from multiple
-files in the same directory.
-When you are creating a ConfigMap based on a directory, kubectl identifies
-files whose basename is a valid key in the directory and packages each of
-those files into the new ConfigMap. Any directory entries except regular files
-are ignored (e.g. subdirectories, symlinks, devices, pipes, etc).
-
+You can use `kubectl create configmap` to create a ConfigMap from multiple files in the same directory. When you are creating a ConfigMap based on a directory, kubectl identifies files whose basename is a valid key in the directory and packages each of those files into the new ConfigMap. Any directory entries except regular files are ignored (e.g. subdirectories, symlinks, devices, pipes, etc).
 For example:
 -->
 #### 基于目录创建 ConfigMap     {#create-configmaps-from-directories}
@@ -135,10 +129,7 @@ kubectl create configmap game-config --from-file=configure-pod-container/configm
 ```
 
 <!--
-The above command packages each file, in this case, `game.properties` and
-`ui.properties` in the `configure-pod-container/configmap/` directory into the
-game-config ConfigMap. You can display details of the ConfigMap using the
-following command:
+The above command packages each file, in this case, `game.properties` and `ui.properties` in the `configure-pod-container/configmap/` directory into the game-config ConfigMap. You can display details of the ConfigMap using the following command:
 -->
 以上命令将 `configure-pod-container/configmap` 目录下的所有文件，也就是
 `game.properties` 和 `ui.properties` 打包到 game-config ConfigMap
@@ -1056,49 +1047,7 @@ basis. The [Secrets](/docs/concepts/configuration/secret/#using-secrets-as-files
 [Secret 用户指南](/zh-cn/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod)
 中为这一语法提供了解释。
 
-<!--
-### Optional References
 
-A ConfigMap reference may be marked "optional".  If the ConfigMap is non-existent, the mounted volume will be empty. If the ConfigMap exists, but the referenced
-key is non-existent the path will be absent beneath the mount point.
--->
-### 可选的引用   {#optional-references}
-
-ConfigMap 引用可以被标记为 “optional（可选的）”。如果所引用的 ConfigMap 不存在，
-则所挂载的卷将会是空的。如果所引用的 ConfigMap 确实存在，但是所引用的主键不存在，
-则在挂载点下对应的路径也会不存在。
-
-<!--
-### Mounted ConfigMaps are updated automatically
--->
-### 挂载的 ConfigMap 将自动更新   {#mounted-configmaps-are-updated-automatically}
-
-<!--
-When a mounted ConfigMap is updated, the projected content is eventually updated too.  This applies in the case where an optionally referenced ConfigMap comes into
-existence after a pod has started.
--->
-当某个已被挂载的 ConfigMap 被更新，所投射的内容最终也会被更新。
-对于 Pod 已经启动之后所引用的、可选的 ConfigMap 才出现的情形，
-这一动态更新现象也是适用的。
-
-<!--
-Kubelet checks whether the mounted ConfigMap is fresh on every periodic sync. However, it uses its local TTL-based cache for getting the current value of the
-ConfigMap. As a result, the total delay from the moment when the ConfigMap is updated to the moment when new keys are projected to the pod can be as long as
-kubelet sync period (1 minute by default) + TTL of ConfigMaps cache (1 minute by default) in kubelet.
--->
-`kubelet` 在每次周期性同步时都会检查已挂载的 ConfigMap 是否是最新的。
-但是，它使用其本地的基于 TTL 的缓存来获取 ConfigMap 的当前值。
-因此，从更新 ConfigMap 到将新键映射到 Pod 的总延迟可能与
-kubelet 同步周期（默认 1 分钟） + ConfigMap 在 kubelet 中缓存的 TTL
-（默认 1 分钟）一样长。
-
-{{< note >}}
-<!--
-A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes/#using-subpath) volume will not receive ConfigMap updates.
--->
-使用 ConfigMap 作为 [subPath](/zh-cn/docs/concepts/storage/volumes/#using-subpath)
-的数据卷将不会收到 ConfigMap 更新。
-{{< /note >}}
 
 <!-- discussion -->
 
@@ -1132,25 +1081,7 @@ ConfigMap 的 `data` 字段包含配置数据。如下例所示，它可以简�
 （如用 `--from-literal` 的单个属性定义）或复杂
 （如用 `--from-file` 的配置文件或 JSON blob定义）。
 
-<!--
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  creationTimestamp: 2016-02-18T19:14:38Z
-  name: example-config
-  namespace: default
-data:
-  # example of a simple property defined using --from-literal
-  example.property.1: hello
-  example.property.2: world
-  # example of a complex property defined using --from-file
-  example.property.file: |-
-    property.1=value-1
-    property.2=value-2
-    property.3=value-3
-```
--->
+
 ```yaml
 apiVersion: v1
 kind: ConfigMap
@@ -1172,13 +1103,14 @@ data:
 <!--
 ### Restrictions
 
-- You must create a ConfigMap before referencing it in a Pod specification (unless you mark the ConfigMap as "optional"). If you reference a ConfigMap that doesn't exist, the Pod won't start. Likewise, references to keys that don't exist in the ConfigMap will prevent the pod from starting.
+- You must create the `ConfigMap` object before you reference it in a Pod specification. Alternatively, mark the ConfigMap reference as `optional` in the Pod spec (see [Optional ConfigMaps](#optional-configmaps)). If you reference a ConfigMap that doesn't exist and you don't mark the reference as `optional`, the Pod won't start. Similarly, references to keys that don't exist in the ConfigMap will also prevent the Pod from starting, unless you mark the key references as `optional`.
 -->
 ### 限制   {#restrictions}
 
-- 在 Pod 规约中引用某个 ConfigMap 之前，必须先创建它（除非将 ConfigMap 标记为
-  “optional（可选）”）。如果引用的 ConfigMap 不存在，则 Pod 将不会启动。
-  同样，引用 ConfigMap 中不存在的主键也会令 Pod 无法启动。
+- 在 Pod 规约中引用某个 `ConfigMap` 之前，必须先创建这个对象，
+或者在 Pod 规约中将 ConfigMap 标记为 `optional`（请参阅[可选的 ConfigMaps](#optional-configmaps)）。
+如果所引用的 ConfigMap 不存在，并且没有将应用标记为 `optional` 则 Pod 将无法启动。
+同样，引用 ConfigMap 中不存在的主键也会令 Pod 无法启动，除非你将 Configmap 标记为 `optional`。
 
 <!--
 - If you use `envFrom` to define environment variables from ConfigMaps, keys that are considered invalid will be skipped. The pod will be allowed to start, but the invalid names will be recorded in the event log (`InvalidVariableNames`). The log message lists each skipped key. For example:
@@ -1213,6 +1145,113 @@ data:
 - 你不能将 ConfigMap 用于{{< glossary_tooltip text="静态 Pod" term_id="static-pod" >}}，
   因为 Kubernetes 不支持这种用法。
 
+<!--
+### Optional ConfigMaps
+-->
+### 可选的 ConfigMap {#optional-configmaps}
+
+<!--
+You can mark a reference to a ConfigMap as _optional_ in a Pod specification.
+If the ConfigMap doesn't exist, the configuration for which it provides data in the Pod (e.g. environment variable, mounted volume) will be empty.
+If the ConfigMap exists, but the referenced key is non-existent the data is also empty.
+-->
+你可以在 Pod 规约中将对 ConfigMap 的引用标记为 **可选（optional）**。
+如果 ConfigMap 不存在，那么它在 Pod 中为其提供数据的配置（例如环境变量、挂载的卷）将为空。
+如果 ConfigMap 存在，但引用的键不存在，那么数据也是空的。
+
+<!--
+For example, the following Pod specification marks an environment variable from a ConfigMap as optional:
+-->
+例如，以下 Pod 规约将 ConfigMap 中的环境变量标记为可选：
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: gcr.io/google_containers/busybox
+      command: [ "/bin/sh", "-c", "env" ]
+      env:
+        - name: SPECIAL_LEVEL_KEY
+          valueFrom:
+            configMapKeyRef:
+              name: a-config
+              key: akey
+              optional: true # 将环境变量标记为可选
+  restartPolicy: Never
+```
+<!--
+If you run this pod, and there is no ConfigMap named `a-config`, the output is empty.
+If you run this pod, and there is a ConfigMap named `a-config` but that ConfigMap doesn't have
+a key named `akey`, the output is also empty. If you do set a value for `akey` in the `a-config`
+ConfigMap, this pod prints that value and then terminates.
+-->
+当你运行这个 Pod 并且名称为 `a-config` 的 ConfigMap 不存在时，输出空值。
+当你运行这个 Pod 并且名称为 `a-config` 的 ConfigMap 存在，
+但是在 ConfigMap 中没有名称为 `akey` 的键时，控制台输出也会为空。
+如果你确实在名为 `a-config` 的 ConfigMap 中为 `akey` 设置了键值，
+那么这个 Pod 会打印该值，然后终止。
+
+<!--
+You can also mark the volumes and files provided by a ConfigMap as optional. Kubernetes always creates the mount paths for the volume, even if the referenced ConfigMap or key doesn't exist. For example, the following
+Pod specification marks a volume that references a ConfigMap as optional:
+-->
+你也可以在 Pod 规约中将 ConfigMap 提供的卷和文件标记为可选。
+此时 Kubernetes 将总是为卷创建挂载路径，即使引用的 ConfigMap 或键不存在。
+例如，以下 Pod 规约将所引用得 ConfigMap 的卷标记为可选：
+
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: gcr.io/google_containers/busybox
+      command: [ "/bin/sh", "-c", "ls /etc/config" ]
+      volumeMounts:
+      - name: config-volume
+        mountPath: /etc/config
+  volumes:
+    - name: config-volume
+      configMap:
+        name: no-config
+        optional: true # 将引用的 ConfigMap 的卷标记为可选
+  restartPolicy: Never
+```
+
+### 挂载的 ConfigMap 将被自动更新   {#mounted-configmaps-are-updated-automatically}
+
+<!--
+When a mounted ConfigMap is updated, the projected content is eventually updated too.  This applies in the case where an optionally referenced ConfigMap comes into
+existence after a pod has started.
+-->
+当某个已被挂载的 ConfigMap 被更新，所投射的内容最终也会被更新。
+对于 Pod 已经启动之后所引用的、可选的 ConfigMap 才出现的情形，
+这一动态更新现象也是适用的。
+
+<!--
+The kubelet checks whether the mounted ConfigMap is fresh on every periodic sync. However, it uses its local TTL-based cache for getting the current value of the
+ConfigMap. As a result, the total delay from the moment when the ConfigMap is updated to the moment when new keys are projected to the pod can be as long as
+kubelet sync period (1 minute by default) + TTL of ConfigMaps cache (1 minute by default) in kubelet.
+-->
+kubelet 在每次周期性同步时都会检查已挂载的 ConfigMap 是否是最新的。
+但是，它使用其本地的基于 TTL 的缓存来获取 ConfigMap 的当前值。
+因此，从更新 ConfigMap 到将新键映射到 Pod 的总延迟可能等于 kubelet 同步周期
+（默认 1 分钟） + ConfigMap 在 kubelet 中缓存的 TTL（默认 1 分钟）。
+
+{{< note >}}
+<!--
+A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes/#using-subpath) volume will not receive ConfigMap updates.
+-->
+使用 ConfigMap 作为 [subPath](/zh-cn/docs/concepts/storage/volumes/#using-subpath)
+的数据卷将不会收到 ConfigMap 更新。
+{{< /note >}}
 ## {{% heading "whatsnext" %}}
 
 <!--

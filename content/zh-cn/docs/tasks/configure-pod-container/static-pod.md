@@ -3,6 +3,13 @@ title: 创建静态 Pod
 weight: 170
 content_type: task
 ---
+<!--
+reviewers:
+- jsafrane
+title: Create static Pods
+weight: 170
+content_type: task
+-->
 
 <!-- overview -->
 
@@ -14,9 +21,8 @@ Unlike Pods that are managed by the control plane (for example, a
 {{< glossary_tooltip text="Deployment" term_id="deployment" >}});
 instead, the kubelet watches each static Pod (and restarts it if it fails).
 -->
-
 **静态 Pod** 在指定的节点上由 kubelet 守护进程直接管理，不需要
-{{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}} 监管。
+{{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}监管。
 与由控制面管理的 Pod（例如，{{< glossary_tooltip text="Deployment" term_id="deployment" >}}）
 不同；kubelet 监视每个静态 Pod（在它失败之后重新启动）。
 
@@ -48,7 +54,6 @@ instead.
 替代这种方式。
 {{< /note >}}
 
-
 {{< note >}}
 <!--
 The `spec` of a static Pod cannot refer to other API objects
@@ -60,6 +65,13 @@ The `spec` of a static Pod cannot refer to other API objects
 （如：{{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}}、
 {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}}、
 {{< glossary_tooltip text="Secret" term_id="secret" >}} 等）。
+{{< /note >}}
+
+{{< note >}}
+<!--
+Static pods do not support [ephemeral containers](/docs/concepts/workloads/pods/ephemeral-containers/).
+-->
+静态 Pod 不支持[临时容器](/zh-cn/docs/concepts/workloads/pods/ephemeral-containers/)。
 {{< /note >}}
 
 ## {{% heading "prerequisites" %}}
@@ -84,9 +96,8 @@ You can configure a static Pod with either a [file system hosted configuration f
 -->
 ## 创建静态 Pod {#static-pod-creation}
 
-可以通过[文件系统上的配置文件](/zh-cn/docs/tasks/configure-pod-container/static-pod/#configuration-files)
-或者 [Web 网络上的配置文件](/zh-cn/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http)
-来配置静态 Pod。
+可以通过[文件系统上的配置文件](/zh-cn/docs/tasks/configure-pod-container/static-pod/#configuration-files)或者
+[Web 网络上的配置文件](/zh-cn/docs/tasks/configure-pod-container/static-pod/#pods-created-via-http)来配置静态 Pod。
 
 <!--
 ### Filesystem-hosted static Pod manifest {#configuration-files}
@@ -101,8 +112,8 @@ For example, this is how to start a simple web server as a static Pod:
 ### 文件系统上的静态 Pod 声明文件 {#configuration-files}
 
 声明文件是标准的 Pod 定义文件，以 JSON 或者 YAML 格式存储在指定目录。路径设置在
-[Kubelet 配置文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
-的 `staticPodPath: <目录>` 字段，kubelet 会定期的扫描这个文件夹下的 YAML/JSON
+[Kubelet 配置文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)的
+`staticPodPath: <目录>` 字段，kubelet 会定期的扫描这个文件夹下的 YAML/JSON
 文件来创建/删除静态 Pod。
 注意 kubelet 扫描目录的时候会忽略以点开头的文件。
 
@@ -116,8 +127,9 @@ For example, this is how to start a simple web server as a static Pod:
    ```shell
    ssh my-node1
    ```
+
 <!--
-2. Choose a directory, say `/etc/kubelet.d` and place a web server Pod definition there, e.g. `/etc/kubelet.d/static-web.yaml`:
+2. Choose a directory, say `/etc/kubernetes/manifests` and place a web server Pod definition there, for example `/etc/kubernetes/manifests/static-web.yaml`:
 
    ```shell
     # Run this command on the node where kubelet is running
@@ -177,8 +189,8 @@ For example, this is how to start a simple web server as a static Pod:
    or add the `staticPodPath: <the directory>` field in the
    [kubelet configuration file](/docs/reference/config-api/kubelet-config.v1beta1/).
    -->
-   或者在 [Kubelet 配置文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
-   中添加 `staticPodPath: <目录>`字段。
+   或者在 [Kubelet 配置文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中添加
+   `staticPodPath: <目录>`字段。
 
 <!--
 4. Restart the kubelet. On Fedora, you would run:
@@ -241,7 +253,7 @@ JSON/YAML 格式的 Pod 定义文件。
 2. Configure the kubelet on your selected node to use this web manifest by running it with `--manifest-url=<manifest-url>`. On Fedora, edit `/etc/kubernetes/kubelet` to include this line:
 -->
 2. 通过在选择的节点上使用 `--manifest-url=<manifest-url>` 配置运行 kubelet。
-   在 Fedora 添加下面这行到 `/etc/kubernetes/kubelet` ：
+   在 Fedora 添加下面这行到 `/etc/kubernetes/kubelet`：
 
    ```
    KUBELET_ARGS="--cluster-dns=10.254.0.10 --cluster-domain=kube.local --manifest-url=<manifest-url>"
@@ -271,7 +283,7 @@ already be running.
 
 You can view running containers (including static Pods) by running (on the node):
 ```shell
-# Run this command on the node where kubelet is running
+# Run this command on the node where the kubelet is running
 crictl ps
 ```
 
@@ -324,12 +336,9 @@ static-web   1/1     Running   0               2m
 
 {{< note >}}
 <!--
-Make sure the kubelet has permission to create the mirror Pod in the API server. If not, the creation request is rejected by the API server. See
-[Pod Security admission](/docs/concepts/security/pod-security-admission) and [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/).
+Make sure the kubelet has permission to create the mirror Pod in the API server. If not, the creation request is rejected by the API server.
 -->
 要确保 kubelet 在 API 服务上有创建镜像 Pod 的权限。如果没有，创建请求会被 API 服务拒绝。
-参阅 [Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)和
-[Pod 安全策略](/zh-cn/docs/concepts/security/pod-security-policy/)。
 {{< /note >}}
 
 <!--
@@ -401,7 +410,7 @@ CONTAINER       IMAGE                                 CREATED           STATE   
 
 The running kubelet periodically scans the configured directory (`/etc/kubernetes/manifests` in our example) for changes and adds/removes Pods as files appear/disappear in this directory.
 -->
-## 动态增加和删除静态 Pod
+## 动态增加和删除静态 Pod  {#dynamic-addition-and-removal-of-static-pods}
 
 运行中的 kubelet 会定期扫描配置的目录（比如例子中的 `/etc/kubernetes/manifests` 目录）中的变化，
 并且根据文件中出现/消失的 Pod 来添加/删除 Pod。
@@ -411,11 +420,11 @@ The running kubelet periodically scans the configured directory (`/etc/kubernete
 # This assumes you are using filesystem-hosted static Pod configuration
 # Run these commands on the node where the kubelet is running
 #
-mv /etc/kubelet.d/static-web.yaml /tmp
+mv /etc/kubernetes/manifests/static-web.yaml /tmp
 sleep 20
 crictl ps
 # You see that no nginx container is running
-mv /tmp/static-web.yaml  /etc/kubelet.d/
+mv /tmp/static-web.yaml  /etc/kubernetes/manifests/
 sleep 20
 crictl ps
 ```
@@ -423,11 +432,11 @@ crictl ps
 ```shell
 # 这里假定你在用主机文件系统上的静态 Pod 配置文件
 # 在 kubelet 运行的节点上执行以下命令
-mv /etc/kubelet.d/static-web.yaml /tmp
+mv /etc/kubernetes/manifests/static-web.yaml /tmp
 sleep 20
 crictl ps
 # 可以看到没有 nginx 容器在运行
-mv /tmp/static-web.yaml  /etc/kubelet.d/
+mv /tmp/static-web.yaml  /etc/kubernetes/manifests/
 sleep 20
 crictl ps
 ```

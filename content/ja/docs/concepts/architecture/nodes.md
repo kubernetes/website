@@ -23,7 +23,7 @@ Kubernetesはコンテナを _Node_ 上で実行されるPodに配置するこ�
 1. ノード上のkubeletが、コントロールプレーンに自己登録する。
 2. あなた、もしくは他のユーザーが手動でNodeオブジェクトを追加する。
 
-Nodeオブジェクトの作成、もしくはノード上のkubeketによる自己登録の後、コントロールプレーンはNodeオブジェクトが有効かチェックします。例えば、下記のjsonマニフェストでノードを作成してみましょう:
+Nodeオブジェクトの作成、もしくはノード上のkubeletによる自己登録の後、コントロールプレーンはNodeオブジェクトが有効かチェックします。例えば、下記のjsonマニフェストでノードを作成してみましょう:
 
 ```json
 {
@@ -294,6 +294,26 @@ Message:        Node is shutting, evicting pods
 
 {{< /note >}}
 
+##  ノードの非正常終了 {#non-graceful-node-shutdown}
+
+{{< feature-state state="alpha" for_k8s_version="v1.24" >}}
+
+コマンドがkubeletのinhibitor locksメカニズムをトリガーしない場合や、ShutdownGracePeriodやShutdownGracePeriodCriticalPodsが適切に設定されていないといったユーザーによるミス等が原因で、ノードがシャットダウンしたことをkubeletのNode Shutdownマネージャーが検知できないことがあります。詳細は上記セクション[ノードの正常終了](#graceful-node-shutdown)を参照ください。
+
+ノードのシャットダウンがkubeletのNode Shutdownマネージャーに検知されない場合、StatefulSetを構成するPodはシャットダウン状態のノード上でterminating状態のままになってしまい、他の実行中のノードに移動することができなくなってしまいます。これは、ノードがシャットダウンしているため、その上のkubeletがPodを削除できず、それにより、StatefulSetが新しいPodを同じ名前で作成できなくなってしまうためです。Podがボリュームを使用している場合、VolumeAttachmentsはシャットダウン状態のノードによって削除されないため、Podが使用しているボリュームは他の実行中のノードにアタッチすることができなくなってしまいます。その結果として、StatefulSet上で実行中のアプリケーションは適切に機能しなくなってしまいます。シャットダウンしていたノードが復旧した場合、そのノード上のPodはkubeletに削除され、他の実行中のノード上に作成されます。また、シャットダウン状態のノードが復旧できなかった場合は、そのノード上のPodは永久にterminating状態のままとなります。
+
+上記の状況を脱却するには、ユーザーが手動で`NoExecute`または`NoSchedule` effectを設定して`node.kubernetes.io/out-of-service` taintをノードに付与することで、故障中の状態に設定することができます。`kube-controller-manager` において `NodeOutOfServiceVolumeDetach`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効になっており、かつノードがtaintによって故障中としてマークされている場合は、ノードに一致するtolerationがないPodは強制的に削除され、ノード上のterminating状態のPodに対するボリュームデタッチ操作が直ちに実行されます。これにより、故障中のノード上のPodを異なるノード上にすばやく復旧させることが可能になります。
+
+non-graceful shutdownの間に、Podは以下の2段階で終了します:
+
+1. 一致する`out-of-service` tolerationを持たないPodを強制的に削除する。
+2. 上記のPodに対して即座にボリュームデタッチ操作を行う。
+
+{{< note >}}
+- `node.kubernetes.io/out-of-service` taintを付与する前に、ノードがシャットダウンしているか電源がオフになっていることを確認してください(再起動中ではないこと)。
+- Podの別ノードへの移動後、シャットダウンしていたノードが回復した場合は、ユーザーが手動で付与したout-of-service taintをユーザー自ら手動で削除する必要があります。
+{{< /note >}}
+
 ## スワップメモリの管理 {#swap-memory}
 
 {{< feature-state state="alpha" for_k8s_version="v1.22" >}}
@@ -334,5 +354,5 @@ Kubernetesのワークロードでは、メモリとスワップを組み合わ�
 
 * [ノードコンポーネント](/ja/docs/concepts/overview/components/#node-components)について学習する。
 * [Node APIオブジェクト](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core)について読む。
-* アーキテクチャ設計文書の[Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)という章を読む。
+* アーキテクチャ設計文書の[Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)という章を読む。
 * [TaintとToleration](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)について読む。

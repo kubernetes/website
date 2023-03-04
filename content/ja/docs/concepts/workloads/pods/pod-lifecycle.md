@@ -261,7 +261,7 @@ Podは、クラスター内のNodeで実行中のプロセスを表すため、�
 StatefulSetのPodについては、[StatefulSetからPodを削除するためのタスクのドキュメント](/ja/docs/tasks/run-application/force-delete-stateful-set-pod/)を参照してください。
 
 
-### 失敗したPodのガベージコレクション {#pod-garbage-collection}
+### 終了したPodのガベージコレクション {#pod-garbage-collection}
 
 失敗したPodは人間または{{< glossary_tooltip term_id="controller" text="controller" >}}が明示的に削除するまで存在します。
 

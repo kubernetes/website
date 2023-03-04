@@ -155,7 +155,7 @@ with no warnings.
 
 ## Clean up
 
-Run `kind delete cluster -name psa-ns-level` to delete the cluster created.
+Run `kind delete cluster --name psa-ns-level` to delete the cluster created.
 
 ## {{% heading "whatsnext" %}}
 

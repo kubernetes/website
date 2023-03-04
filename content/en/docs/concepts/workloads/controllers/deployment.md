@@ -45,8 +45,8 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 In this example:
 
 * A Deployment named `nginx-deployment` is created, indicated by the `.metadata.name` field.
-* The Deployment creates three replicated Pods, indicated by the `.spec.replicas` field.
-* The `.spec.selector` field defines how the Deployment finds which Pods to manage.
+* The Deployment creates a ReplicaSet that creates three replicated Pods, indicated by the `.spec.replicas` field.
+* The `.spec.selector` field defines how the created ReplicaSet finds which Pods to manage.
   In this case, you select a label that is defined in the Pod template (`app: nginx`).
   However, more sophisticated selection rules are possible,
   as long as the Pod template itself satisfies the rule.
@@ -121,8 +121,8 @@ Follow the steps given below to create the above Deployment:
    * `READY` displays how many replicas of the application are available to your users.
    * `AGE` displays the amount of time that the application has been running.
      
-   Notice that the name of the ReplicaSet is always formatted as `[DEPLOYMENT-NAME]-[RANDOM-STRING]`.
-   The random string is randomly generated and uses the `pod-template-hash` as a seed.
+   Notice that the name of the ReplicaSet is always formatted as `[DEPLOYMENT-NAME]-[HASH]`.
+   The `HASH` string is the same as the `pod-template-hash` label on the ReplicaSet.
 
 6. To see the labels automatically generated for each Pod, run `kubectl get pods --show-labels`.
    The output is similar to:
@@ -620,7 +620,7 @@ deployment.apps/nginx-deployment scaled
 ```
 
 Assuming [horizontal Pod autoscaling](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/) is enabled
-in your cluster, you can setup an autoscaler for your Deployment and choose the minimum and maximum number of
+in your cluster, you can set up an autoscaler for your Deployment and choose the minimum and maximum number of
 Pods you want to run based on the CPU utilization of your existing Pods.
 
 ```shell

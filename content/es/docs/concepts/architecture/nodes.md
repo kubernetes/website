@@ -8,7 +8,7 @@ weight: 10
 
 <!-- overview -->
 
-Un nodo es una máquina de trabajo en Kubernetes, previamente conocida como `minion`. Un nodo puede ser una máquina virtual o física, dependiendo del tipo de clúster. Cada nodo está gestionado por el componente máster y contiene los servicios necesarios para ejecutar [pods](/docs/concepts/workloads/pods/pod). Los servicios en un nodo incluyen el [container runtime](/docs/concepts/overview/components/#node-components), kubelet y el kube-proxy. Accede a la sección [The Kubernetes Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node) en el documento de diseño de arquitectura para más detalle.
+Un nodo es una máquina de trabajo en Kubernetes, previamente conocida como `minion`. Un nodo puede ser una máquina virtual o física, dependiendo del tipo de clúster. Cada nodo está gestionado por el componente máster y contiene los servicios necesarios para ejecutar [pods](/docs/concepts/workloads/pods/pod). Los servicios en un nodo incluyen el [container runtime](/docs/concepts/overview/components/#node-components), kubelet y el kube-proxy. Accede a la sección [The Kubernetes Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node) en el documento de diseño de arquitectura para más detalle.
 
 
 

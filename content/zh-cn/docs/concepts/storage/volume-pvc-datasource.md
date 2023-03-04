@@ -59,18 +59,18 @@ Users need to be aware of the following when using this feature:
 * Cloning support is only available for dynamic provisioners.
 * CSI drivers may or may not have implemented the volume cloning functionality.
 * You can only clone a PVC when it exists in the same namespace as the destination PVC (source and destination must be in the same namespace).
-* Cloning is only supported within the same Storage Class.
-    - Destination volume must be the same storage class as the source
-    - Default storage class can be used and storageClassName omitted in the spec
+* Cloning is supported with a different Storage Class.
+    - Destination volume can be the same or a different storage class as the source.
+    - Default storage class can be used and storageClassName omitted in the spec.
 * Cloning can only be performed between two volumes that use the same VolumeMode setting (if you request a block mode volume, the source MUST also be block mode)
 -->
 * 克隆支持（`VolumePVCDataSource`）仅适用于 CSI 驱动。
 * 克隆支持仅适用于 动态供应器。
 * CSI 驱动可能实现，也可能未实现卷克隆功能。
 * 仅当 PVC 与目标 PVC 存在于同一命名空间（源和目标 PVC 必须在相同的命名空间）时，才可以克隆 PVC。
-* 仅在同一存储类中支持克隆。
-    - 目标卷必须和源卷具有相同的存储类
-    - 可以使用默认的存储类并且 storageClassName 字段在规格中忽略了
+* 支持用一个不同存储类进行克隆。
+    - 目标卷和源卷可以是相同的存储类，也可以不同。
+    - 可以使用默认的存储类，也可以在 spec 中省略 storageClassName 字段。
 * 克隆只能在两个使用相同 VolumeMode 设置的卷中进行
   （如果请求克隆一个块存储模式的卷，源卷必须也是块存储模式）。
 

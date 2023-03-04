@@ -39,6 +39,6 @@ Your anonymity will be protected. -->
 </p>
 </div>
 
-<div id="cncf_coc_container">
+<div id="cncf-code-of-conduct">
 {{< include "/static/cncf-code-of-conduct.md" >}}
 </div>

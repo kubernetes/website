@@ -99,40 +99,14 @@ Configurations with a single API server will experience unavailability while the
    {{< /note >}}
 
 <!--
-1. Update all Secrets that hold service account tokens to include both old and new CA certificates.
+1. Wait for the controller manager to update ca.crt in the service account Secrets to include both old and new CA certificates.
 
-   If any pods are started before new CA is used by API servers, the new Pods get this update and will trust both
-   old and new CAs.
+If any Pods are started before new CA is used by API servers, the new Pods get this update and will trust both old and new CAs.
 -->
-3. 更新所有的保存服务账号令牌的 Secret，使之同时包含老的和新的 CA 证书。
+3. 等待该控制器管理器更新服务账号 Secret 中的 `ca.crt`，使之同时包含老的和新的 CA 证书。
 
    如果在 API 服务器使用新的 CA 之前启动了新的 Pod，这些新的 Pod
    也会获得此更新并且同时信任老的和新的 CA 证书。
-
-   <!--
-   ```shell
-   base64_encoded_ca="$(base64 -w0 <path to file containing both old and new CAs>)"
-
-   for namespace in $(kubectl get ns --no-headers | awk '{print $1}'); do
-       for token in $(kubectl get secrets --namespace "$namespace" --field-selector type=kubernetes.io/service-account-token -o name); do
-           kubectl get $token --namespace "$namespace" -o yaml | \
-             /bin/sed "s/\(ca.crt:\).*/\1 ${base64_encoded_ca}/" | \
-             kubectl apply -f -
-       done
-   done
-   ```
-   -->
-   ```shell
-   base64_encoded_ca="$(base64 -w0 <同时包含老的和新的 CA 的文件路径>)"
-
-   for namespace in $(kubectl get ns --no-headers | awk '{print $1}'); do
-       for token in $(kubectl get secrets --namespace "$namespace" --field-selector type=kubernetes.io/service-account-token -o name); do
-           kubectl get $token --namespace "$namespace" -o yaml | \
-             /bin/sed "s/\(ca.crt:\).*/\1 ${base64_encoded_ca}/" | \
-             kubectl apply -f -
-       done
-   done
-   ```
 
 <!--
 1. Restart all pods using in-cluster configurations (for example: kube-proxy, CoreDNS, etc) so they can use the

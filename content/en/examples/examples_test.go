@@ -156,10 +156,6 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		AllowExpandedDNSConfig:          true,
 	}
 
-	quotaValidationOptions := validation.ResourceQuotaValidationOptions{
-		AllowPodAffinityNamespaceSelector: true,
-	}
-
 	// Enable CustomPodDNS for testing
 	// feature.DefaultFeatureGate.Set("CustomPodDNS=true")
 	switch t := obj.(type) {
@@ -220,7 +216,7 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = validation.ValidateResourceQuota(t, quotaValidationOptions)
+		errors = validation.ValidateResourceQuota(t)
 	case *api.Secret:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -303,7 +299,7 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
 		}
-		errors = batch_validation.ValidateCronJob(t, podValidationOptions)
+		errors = batch_validation.ValidateCronJobCreate(t, podValidationOptions)
 	case *networking.NetworkPolicy:
 		if t.Namespace == "" {
 			t.Namespace = api.NamespaceDefault
@@ -519,17 +515,20 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"configmap-multikeys": {&api.ConfigMap{}},
 		},
 		"controllers": {
-			"daemonset":                {&apps.DaemonSet{}},
-			"fluentd-daemonset":        {&apps.DaemonSet{}},
-			"fluentd-daemonset-update": {&apps.DaemonSet{}},
-			"frontend":                 {&apps.ReplicaSet{}},
-			"hpa-rs":                   {&autoscaling.HorizontalPodAutoscaler{}},
-			"job":                      {&batch.Job{}},
-			"replicaset":               {&apps.ReplicaSet{}},
-			"replication":              {&api.ReplicationController{}},
-			"replication-nginx-1.14.2": {&api.ReplicationController{}},
-			"replication-nginx-1.16.1": {&api.ReplicationController{}},
-			"nginx-deployment":         {&apps.Deployment{}},
+			"daemonset":                      {&apps.DaemonSet{}},
+			"fluentd-daemonset":              {&apps.DaemonSet{}},
+			"fluentd-daemonset-update":       {&apps.DaemonSet{}},
+			"frontend":                       {&apps.ReplicaSet{}},
+			"hpa-rs":                         {&autoscaling.HorizontalPodAutoscaler{}},
+			"job":                            {&batch.Job{}},
+			"job-pod-failure-policy-example": {&batch.Job{}},
+			"job-pod-failure-policy-failjob": {&batch.Job{}},
+			"job-pod-failure-policy-ignore":  {&batch.Job{}},
+			"replicaset":                     {&apps.ReplicaSet{}},
+			"replication":                    {&api.ReplicationController{}},
+			"replication-nginx-1.14.2":       {&api.ReplicationController{}},
+			"replication-nginx-1.16.1":       {&api.ReplicationController{}},
+			"nginx-deployment":               {&apps.Deployment{}},
 		},
 		"debug": {
 			"counter-pod":                     {&api.Pod{}},
@@ -564,6 +563,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"share-process-namespace":             {&api.Pod{}},
 			"simple-pod":                          {&api.Pod{}},
 			"two-container-pod":                   {&api.Pod{}},
+			"user-namespaces-stateless":           {&api.Pod{}},
 		},
 		"pods/config": {
 			"redis-pod":            {&api.Pod{}},

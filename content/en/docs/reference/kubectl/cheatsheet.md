@@ -22,7 +22,7 @@ This page contains a list of commonly used `kubectl` commands and flags.
 ### BASH
 
 ```bash
-source <(kubectl completion bash) # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
+source <(kubectl completion bash) # set up autocomplete in bash into the current shell, bash-completion package should be installed first.
 echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
 ```
 
@@ -36,12 +36,12 @@ complete -o default -F __start_kubectl k
 ### ZSH
 
 ```bash
-source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
+source <(kubectl completion zsh)  # set up autocomplete in zsh into the current shell
 echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc # add autocomplete permanently to your zsh shell
 ```
-### A Note on --all-namespaces
+### A note on `--all-namespaces`
 
-Appending `--all-namespaces` happens frequently enough where you should be aware of the  shorthand for `--all-namespaces`:
+Appending `--all-namespaces` happens frequently enough where you should be aware of the shorthand for `--all-namespaces`:
 
 ```kubectl -A```
 
@@ -155,7 +155,7 @@ EOF
 
 ```
 
-## Viewing, finding resources
+## Viewing and finding resources
 
 ```bash
 # Get commands with basic output
@@ -225,6 +225,9 @@ kubectl get pods --all-namespaces -o jsonpath='{range .items[*].status.initConta
 # List Events sorted by timestamp
 kubectl get events --sort-by=.metadata.creationTimestamp
 
+# List all warning events
+kubectl events --types=Warning
+
 # Compares the current state of the cluster against the state that the cluster would be in if the manifest was applied.
 kubectl diff -f ./my-manifest.yaml
 
@@ -266,6 +269,7 @@ kubectl expose rc nginx --port=80 --target-port=8000
 kubectl get pod mypod -o yaml | sed 's/\(image: myimage\):.*$/\1:v4/' | kubectl replace -f -
 
 kubectl label pods my-pod new-label=awesome                      # Add a Label
+kubectl label pods my-pod new-label-                             # Remove a label
 kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq       # Add an annotation
 kubectl autoscale deployment foo --min=2 --max=10                # Auto scale a deployment "foo"
 ```
@@ -336,9 +340,8 @@ kubectl logs -f my-pod -c my-container              # stream pod container logs 
 kubectl logs -f -l name=myLabel --all-containers    # stream all pods logs with label name=myLabel (stdout)
 kubectl run -i --tty busybox --image=busybox:1.28 -- sh  # Run pod as interactive shell
 kubectl run nginx --image=nginx -n mynamespace      # Start a single instance of nginx pod in the namespace of mynamespace
-kubectl run nginx --image=nginx                     # Run pod nginx and write its spec into a file called pod.yaml
---dry-run=client -o yaml > pod.yaml
-
+kubectl run nginx --image=nginx --dry-run=client -o yaml > pod.yaml
+                                                    # Generate spec for running pod nginx and write it into a file called pod.yaml
 kubectl attach my-pod -i                            # Attach to Running Container
 kubectl port-forward my-pod 5000:6000               # Listen on port 5000 on the local machine and forward to port 6000 on my-pod
 kubectl exec my-pod -- ls /                         # Run command in existing pod (1 container case)
@@ -347,7 +350,7 @@ kubectl exec my-pod -c my-container -- ls /         # Run command in existing po
 kubectl top pod POD_NAME --containers               # Show metrics for a given pod and its containers
 kubectl top pod POD_NAME --sort-by=cpu              # Show metrics for a given pod and sort it by 'cpu' or 'memory'
 ```
-## Copy files and directories to and from containers
+## Copying files and directories to and from containers
 
 ```bash
 kubectl cp /tmp/foo_dir my-pod:/tmp/bar_dir            # Copy /tmp/foo_dir local directory to /tmp/bar_dir in a remote pod in the current namespace
@@ -356,7 +359,7 @@ kubectl cp /tmp/foo my-namespace/my-pod:/tmp/bar       # Copy /tmp/foo local fil
 kubectl cp my-namespace/my-pod:/tmp/foo /tmp/bar       # Copy /tmp/foo from a remote pod to /tmp/bar locally
 ```
 {{< note >}}
-`kubectl cp` requires that the 'tar' binary is present in your container image. If 'tar' is not present,`kubectl cp` will fail.
+`kubectl cp` requires that the 'tar' binary is present in your container image. If 'tar' is not present, `kubectl cp` will fail.
 For advanced use cases, such as symlinks, wildcard expansion or file mode preservation consider using `kubectl exec`.
 {{< /note >}}
 
@@ -390,7 +393,7 @@ kubectl cluster-info dump                                             # Dump cur
 kubectl cluster-info dump --output-directory=/path/to/cluster-state   # Dump current cluster state to /path/to/cluster-state
 
 # View existing taints on which exist on current nodes.
-kubectl get nodes -o=custom-columns=NodeName:.metadata.name,TaintKey:.spec.taints[*].key,TaintValue:.spec.taints[*].value,TaintEffect:.spec.taints[*].effect
+kubectl get nodes -o='custom-columns=NodeName:.metadata.name,TaintKey:.spec.taints[*].key,TaintValue:.spec.taints[*].value,TaintEffect:.spec.taints[*].effect'
 
 # If a taint with that key and effect already exists, its value is replaced as specified.
 kubectl taint nodes foo dedicated=special-user:NoSchedule
@@ -439,8 +442,8 @@ kubectl get pods -A -o=custom-columns='DATA:spec.containers[*].image'
 # All images running in namespace: default, grouped by Pod
 kubectl get pods --namespace default --output=custom-columns="NAME:.metadata.name,IMAGE:.spec.containers[*].image"
 
- # All images excluding "k8s.gcr.io/coredns:1.6.2"
-kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="k8s.gcr.io/coredns:1.6.2")].image'
+ # All images excluding "registry.k8s.io/coredns:1.6.2"
+kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="registry.k8s.io/coredns:1.6.2")].image'
 
 # All fields under metadata regardless of name
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'

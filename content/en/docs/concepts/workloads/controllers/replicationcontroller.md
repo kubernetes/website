@@ -3,12 +3,6 @@ reviewers:
 - bprashanth
 - janetkuo
 title: ReplicationController
-feature:
-  title: Self-healing
-  anchor: How a ReplicationController Works
-  description: >
-    Restarts containers that fail, replaces and reschedules containers when nodes die, kills containers that don't respond to your user-defined health check, and doesn't advertise them to clients until they are ready to serve.
-
 content_type: concept
 weight: 90
 ---
@@ -139,7 +133,7 @@ labels and an appropriate restart policy. For labels, make sure not to overlap w
 Only a [`.spec.template.spec.restartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) equal to `Always` is allowed, which is the default if not specified.
 
 For local container restarts, ReplicationControllers delegate to an agent on the node,
-for example the [Kubelet](/docs/reference/command-line-tools-reference/kubelet/) or Docker.
+for example the [Kubelet](/docs/reference/command-line-tools-reference/kubelet/).
 
 ### Labels on the ReplicationController
 
@@ -270,7 +264,7 @@ Note that we recommend using Deployments instead of directly using Replica Sets,
 
 ### Bare Pods
 
-Unlike in the case where a user directly created pods, a ReplicationController replaces pods that are deleted or terminated for any reason, such as in the case of node failure or disruptive node maintenance, such as a kernel upgrade. For this reason, we recommend that you use a ReplicationController even if your application requires only a single pod. Think of it similarly to a process supervisor, only it supervises multiple pods across multiple nodes instead of individual processes on a single node.  A ReplicationController delegates local container restarts to some agent on the node (for example, Kubelet or Docker).
+Unlike in the case where a user directly created pods, a ReplicationController replaces pods that are deleted or terminated for any reason, such as in the case of node failure or disruptive node maintenance, such as a kernel upgrade. For this reason, we recommend that you use a ReplicationController even if your application requires only a single pod. Think of it similarly to a process supervisor, only it supervises multiple pods across multiple nodes instead of individual processes on a single node.  A ReplicationController delegates local container restarts to some agent on the node, such as the kubelet.
 
 ### Job
 

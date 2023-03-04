@@ -5,7 +5,12 @@ reviewers:
 - danwinship
 title: Network Policies
 content_type: concept
-weight: 50
+weight: 70
+description: >-
+  If you want to control traffic flow at the IP address or port level (OSI layer 3 or 4),
+  NetworkPolicies allow you to specify rules for traffic flow within your cluster, and
+  also between Pods and the outside world.
+  Your cluster must use a network plugin that supports NetworkPolicy enforcement.
 ---
 
 <!-- overview -->
@@ -193,9 +198,9 @@ When the feature gate is enabled, you can set the `protocol` field of a NetworkP
 You must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin that supports SCTP protocol NetworkPolicies.
 {{< /note >}}
 
-## Targeting a range of Ports
+## Targeting a range of ports
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 When writing a NetworkPolicy, you can target a range of ports instead of a single port.
 
@@ -228,10 +233,6 @@ with any IP within the range `10.0.0.0/24` over TCP, provided that the target
 port is between the range 32000 and 32768.
 
 The following restrictions apply when using this field:
-* As a beta feature, this is enabled by default. To disable the `endPort` field 
-at a cluster level, you (or your cluster administrator) need to disable the 
-`NetworkPolicyEndPort` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
-for the API server with `--feature-gates=NetworkPolicyEndPort=false,…`.
 * The `endPort` field must be equal to or greater than the `port` field.
 * `endPort` can only be defined if `port` is also defined.
 * Both ports must be numeric.

@@ -1,14 +1,14 @@
 ---
 title: PKI 证书和要求
 content_type: concept
-weight: 40
+weight: 50
 ---
 <!--
 title: PKI certificates and requirements
 reviewers:
 - sig-cluster-lifecycle
 content_type: concept
-weight: 40
+weight: 50
 -->
 
 <!-- overview -->
@@ -54,17 +54,17 @@ Kubernetes 需要 PKI 才能执行以下操作：
 * 集群管理员的客户端证书，用于 API 服务器身份认证
 * API 服务器的客户端证书，用于和 Kubelet 的会话
 * API 服务器的客户端证书，用于和 etcd 的会话
-* 控制器管理器的客户端证书/kubeconfig，用于和 API 服务器的会话
-* 调度器的客户端证书/kubeconfig，用于和 API 服务器的会话
-* [前端代理](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/) 的客户端及服务端证书
+* 控制器管理器的客户端证书或 kubeconfig，用于和 API 服务器的会话
+* 调度器的客户端证书或 kubeconfig，用于和 API 服务器的会话
+* [前端代理](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/)的客户端及服务端证书
 
+{{< note >}}
 <!--
 `front-proxy` certificates are required only if you run kube-proxy to support [an extension API server](/docs/tasks/extend-kubernetes/setup-extension-api-server/).
 -->
-{{< note >}}
-只有当你运行 kube-proxy 并要支持
-[扩展 API 服务器](/zh-cn/docs/tasks/extend-kubernetes/setup-extension-api-server/)
-时，才需要 `front-proxy` 证书
+只有当你运行 kube-proxy
+并要支持[扩展 API 服务器](/zh-cn/docs/tasks/extend-kubernetes/setup-extension-api-server/)时，
+才需要 `front-proxy` 证书。
 {{< /note >}}
 
 <!--
@@ -121,7 +121,7 @@ On top of the above CAs, it is also necessary to get a public/private key pair f
 |------------------------|---------------------------|----------------------------------|
 | ca.crt,key             | kubernetes-ca             | Kubernetes 通用 CA                |
 | etcd/ca.crt,key        | etcd-ca                   | 与 etcd 相关的所有功能              |
-| front-proxy-ca.crt,key | kubernetes-front-proxy-ca | 用于 [前端代理](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/) |
+| front-proxy-ca.crt,key | kubernetes-front-proxy-ca | 用于[前端代理](/zh-cn/docs/tasks/extend-kubernetes/configure-aggregation-layer/) |
 
 上面的 CA 之外，还需要获取用于服务账户管理的密钥对，也就是 `sa.key` 和 `sa.pub`。
 
@@ -182,7 +182,7 @@ where `kind` maps to one or more of the [x509 key usage](https://pkg.go.dev/k8s.
 -->
 [1]: 用来连接到集群的不同 IP 或 DNS 名
 （就像 [kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/) 为负载均衡所使用的固定
-IP 或 DNS 名，`kubernetes`、`kubernetes.default`、`kubernetes.default.svc`、
+IP 或 DNS 名：`kubernetes`、`kubernetes.default`、`kubernetes.default.svc`、
 `kubernetes.default.svc.cluster`、`kubernetes.default.svc.cluster.local`）。
 
 其中，`kind` 对应一种或多种类型的 [x509 密钥用途](https://pkg.go.dev/k8s.io/api/certificates/v1beta1#KeyUsage)：
@@ -216,7 +216,8 @@ For kubeadm users only:
 对于 kubeadm 用户：
 
 * 不使用私钥，将证书复制到集群 CA 的方案，在 kubeadm 文档中将这种方案称为外部 CA。
-* 如果将以上列表与 kubeadm 生成的 PKI 进行比较，你会注意到，如果使用外部 etcd，则不会生成 `kube-etcd`、`kube-etcd-peer` 和 `kube-etcd-healthcheck-client` 证书。
+* 如果将以上列表与 kubeadm 生成的 PKI 进行比较，你会注意到，如果使用外部 etcd，则不会生成
+  `kube-etcd`、`kube-etcd-peer` 和 `kube-etcd-healthcheck-client` 证书。
 
 {{< /note >}}
 
@@ -337,10 +338,10 @@ You must manually configure these administrator account and service accounts:
 | controller-manager.conf | default-controller-manager | system:kube-controller-manager |                     |
 | scheduler.conf          | default-scheduler          | system:kube-scheduler          |                     |
 
+{{< note >}}
 <!--
 The value of `<nodeName>` for `kubelet.conf` **must** match precisely the value of the node name provided by the kubelet as it registers with the apiserver. For further details, read the [Node Authorization](/docs/reference/access-authn-authz/node/).
 -->
-{{< note >}}
 `kubelet.conf` 中 `<nodeName>` 的值 **必须** 与 kubelet 向 apiserver 注册时提供的节点名称的值完全匹配。
 有关更多详细信息，请阅读[节点授权](/zh-cn/docs/reference/access-authn-authz/node/)。
 {{< /note >}}

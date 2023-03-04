@@ -444,7 +444,7 @@ reserved for terminating [critical pods](/docs/tasks/administer-cluster/guarante
 
 {{< note >}}
 When pods were evicted during the graceful node shutdown, they are marked as shutdown.
-Running `kubectl get pods` shows the status of the the evicted pods as `Terminated`.
+Running `kubectl get pods` shows the status of the evicted pods as `Terminated`.
 And `kubectl describe pod` indicates that the pod was evicted because of node shutdown:
 
 ```
@@ -456,7 +456,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 
 ## Non Graceful node shutdown {#non-graceful-node-shutdown}
 
-{{< feature-state state="alpha" for_k8s_version="v1.24" >}}
+{{< feature-state state="beta" for_k8s_version="v1.26" >}}
 
 A node shutdown action may not be detected by kubelet's Node Shutdown Manager, 
 either because the command does not trigger the inhibitor locks mechanism used by 
@@ -476,9 +476,8 @@ shutdown node comes up, the pods will be deleted by kubelet and new pods will be
 created on a different running node. If the original shutdown node does not come up,  
 these pods will be stuck in terminating status on the shutdown node forever.
 
-To mitigate the above situation, a  user can manually add the taint `node 
-kubernetes.io/out-of-service` with either `NoExecute` or `NoSchedule` effect to 
-a Node marking it out-of-service. 
+To mitigate the above situation, a  user can manually add the taint `node.kubernetes.io/out-of-service` with either `NoExecute`
+or `NoSchedule` effect to a Node marking it out-of-service. 
 If the `NodeOutOfServiceVolumeDetach`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 is enabled on `kube-controller-manager`, and a Node is marked out-of-service with this taint, the
 pods on the node will be forcefully deleted if there are no matching tolerations on it and volume

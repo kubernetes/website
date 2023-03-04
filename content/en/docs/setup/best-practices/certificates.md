@@ -3,7 +3,7 @@ title: PKI certificates and requirements
 reviewers:
 - sig-cluster-lifecycle
 content_type: concept
-weight: 40
+weight: 50
 ---
 
 <!-- overview -->

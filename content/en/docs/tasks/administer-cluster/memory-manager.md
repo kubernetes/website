@@ -92,7 +92,7 @@ illustrates how the management of groups occurs.
 
 ## Memory Manager configuration
 
-Other Managers should be first pre-configured. Next, the Memory Manger feature should be enabled
+Other Managers should be first pre-configured. Next, the Memory Manager feature should be enabled
 and be run with `Static` policy (section [Static policy](#policy-static)).
 Optionally, some amount of memory can be reserved for system or kubelet processes to increase
 node stability (section [Reserved memory flag](#reserved-memory-flag)).
@@ -459,8 +459,9 @@ by using `--reserved-memory` flag.
 
 ### Device plugin resource API
 
-By employing the [API](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/),
-the information about reserved memory for each container can be retrieved, which is contained
+The kubelet provides a `PodResourceLister` gRPC service to enable discovery of resources and associated metadata.
+By using its [List gRPC endpoint](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#grpc-endpoint-list),
+information about reserved memory for each container can be retrieved, which is contained
 in protobuf `ContainerMemory` message.
 This information can be retrieved solely for pods in Guaranteed QoS class.
 

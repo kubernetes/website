@@ -6,7 +6,7 @@ reviewers:
 - enj
 title: Certificate Signing Requests
 content_type: concept
-weight: 20
+weight: 25
 ---
 
 <!-- overview -->
@@ -268,7 +268,7 @@ The certificate value is in Base64-encoded format under `status.certificate`.
 
 Export the issued certificate from the CertificateSigningRequest.
 
-```
+```shell
 kubectl get csr myuser -o jsonpath='{.status.certificate}'| base64 -d > myuser.crt
 ```
 
@@ -295,20 +295,20 @@ The last step is to add this user into the kubeconfig file.
 
 First, you need to add new credentials:
 
-```
+```shell
 kubectl config set-credentials myuser --client-key=myuser.key --client-certificate=myuser.crt --embed-certs=true
 
 ```
 
 Then, you need to add the context:
 
-```
+```shell
 kubectl config set-context myuser --cluster=kubernetes --user=myuser
 ```
 
 To test it, change the context to `myuser`:
 
-```
+```shell
 kubectl config use-context myuser
 ```
 
@@ -442,7 +442,7 @@ M1fLPhLyR54fGaY+7/X8P9AZzPefAkwizeXwe9ii6/a08vWoiE4=
 ```
 
 Non-PEM content may appear before or after the CERTIFICATE PEM blocks and is unvalidated,
-to allow for explanatory text as described in section 5.2 of RFC7468.
+to allow for explanatory text as described in [section 5.2 of RFC7468](https://www.rfc-editor.org/rfc/rfc7468#section-5.2).
 
 When encoded in JSON or YAML, this field is base-64 encoded.
 A CertificateSigningRequest containing the example certificate above would look like this:

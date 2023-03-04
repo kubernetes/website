@@ -231,7 +231,7 @@ Para solicitar um volume maior para uma PVC, edite a PVC e especifique um tamanh
 
 #### Expansão de volume CSI 
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 O suporte à expansão de volumes CSI é habilitada por padrão, porém é necessário um driver CSI específico para suportar a expansão do volume. Verifique a documentação do driver CSI específico para mais informações.
 
@@ -723,7 +723,7 @@ Se você está criando templates ou exemplos que rodam numa grande quantidade de
 
 * Saiba mais sobre [Criando um PersistentVolume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
 * Saiba mais sobre [Criando um PersistentVolumeClaim](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim).
-* Leia a [documentação sobre planejamento de Armazenamento Persistente](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md).
+* Leia a [documentação sobre planejamento de Armazenamento Persistente](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
 
 ### Referência
 

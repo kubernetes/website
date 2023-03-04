@@ -6,6 +6,7 @@ reviewers:
 - awly
 title: TLS bootstrapping
 content_type: concept
+weight: 120
 ---
 
 <!-- overview -->
@@ -64,8 +65,8 @@ In the bootstrap initialization process, the following occurs:
 6. kubelet now has limited credentials to create and retrieve a certificate signing request (CSR)
 7. kubelet creates a CSR for itself with the signerName set to `kubernetes.io/kube-apiserver-client-kubelet`
 8. CSR is approved in one of two ways:
-  * If configured, kube-controller-manager automatically approves the CSR
-  * If configured, an outside process, possibly a person, approves the CSR using the Kubernetes API or via `kubectl`
+   * If configured, kube-controller-manager automatically approves the CSR
+   * If configured, an outside process, possibly a person, approves the CSR using the Kubernetes API or via `kubectl`
 9. Certificate is created for the kubelet
 10. Certificate is issued to the kubelet
 11. kubelet retrieves the certificate
@@ -125,7 +126,7 @@ of provisioning.
 1. [Bootstrap Tokens](#bootstrap-tokens)
 2. [Token authentication file](#token-authentication-file)
 
-Bootstrap tokens are a simpler and more easily managed method to authenticate kubelets, and do not require any additional flags when starting kube-apiserver.
+Using bootstrap tokens is a simpler and more easily managed method to authenticate kubelets, and does not require any additional flags when starting kube-apiserver.
 
 Whichever method you choose, the requirement is that the kubelet be able to authenticate as a user with the rights to:
 
@@ -175,7 +176,7 @@ systems). There are multiple ways you can generate a token. For example:
 head -c 16 /dev/urandom | od -An -t x | tr -d ' '
 ```
 
-will generate tokens that look like `02b50b05283e98dd0fd71db496ef01e8`.
+This will generate tokens that look like `02b50b05283e98dd0fd71db496ef01e8`.
 
 The token file should look like the following example, where the first three
 values can be anything and the quoted group name should be as depicted:
@@ -185,7 +186,7 @@ values can be anything and the quoted group name should be as depicted:
 ```
 
 Add the `--token-auth-file=FILENAME` flag to the kube-apiserver command (in your
-systemd unit file perhaps) to enable the token file.  See docs
+systemd unit file perhaps) to enable the token file. See docs
 [here](/docs/reference/access-authn-authz/authentication/#static-token-file) for
 further details.
 
@@ -246,7 +247,7 @@ To provide the Kubernetes CA key and certificate to kube-controller-manager, use
 --cluster-signing-cert-file="/etc/path/to/kubernetes/ca/ca.crt" --cluster-signing-key-file="/etc/path/to/kubernetes/ca/ca.key"
 ```
 
-for example:
+For example:
 
 ```shell
 --cluster-signing-cert-file="/var/lib/kubernetes/ca.pem" --cluster-signing-key-file="/var/lib/kubernetes/ca-key.pem"
@@ -311,7 +312,7 @@ by default. The controller uses the
 [`SubjectAccessReview` API](/docs/reference/access-authn-authz/authorization/#checking-api-access) to
 determine if a given user is authorized to request a CSR, then approves based on
 the authorization outcome. To prevent conflicts with other approvers, the
-builtin approver doesn't explicitly deny CSRs. It only ignores unauthorized
+built-in approver doesn't explicitly deny CSRs. It only ignores unauthorized
 requests. The controller also prunes expired certificates as part of garbage
 collection.
 
@@ -434,12 +435,12 @@ controller, or manually approve the serving certificate requests.
 
 A deployment-specific approval process for kubelet serving certificates should typically only approve CSRs which:
 
-1. are requested by nodes (ensure the `spec.username` field is of the form 
-   `system:node:<nodeName>` and `spec.groups` contains `system:nodes`) 
-2. request usages for a serving certificate (ensure `spec.usages` contains `server auth`, 
+1. are requested by nodes (ensure the `spec.username` field is of the form
+   `system:node:<nodeName>` and `spec.groups` contains `system:nodes`)
+2. request usages for a serving certificate (ensure `spec.usages` contains `server auth`,
    optionally contains `digital signature` and `key encipherment`, and contains no other usages)
-3. only have IP and DNS subjectAltNames that belong to the requesting node, 
-   and have no URI and Email subjectAltNames (parse the x509 Certificate Signing Request 
+3. only have IP and DNS subjectAltNames that belong to the requesting node,
+   and have no URI and Email subjectAltNames (parse the x509 Certificate Signing Request
    in `spec.request` to verify `subjectAltNames`)
 
 {{< /note >}}
@@ -448,7 +449,7 @@ A deployment-specific approval process for kubelet serving certificates should t
 
 All of TLS bootstrapping described in this document relates to the kubelet. However,
 other components may need to communicate directly with kube-apiserver. Notable is kube-proxy, which
-is part of the Kubernetes control plane and runs on every node, but may also include other components such as monitoring or networking.
+is part of the Kubernetes node components and runs on every node, but may also include other components such as monitoring or networking.
 
 Like the kubelet, these other components also require a method of authenticating to kube-apiserver.
 You have several options for generating these credentials:
@@ -459,7 +460,7 @@ You have several options for generating these credentials:
 
 ## kubectl approval
 
-CSRs can be approved outside of the approval flows builtin to the controller
+CSRs can be approved outside of the approval flows built into the controller
 manager.
 
 The signing controller does not immediately sign all certificate requests.
@@ -468,6 +469,6 @@ appropriately-privileged user. This flow is intended to allow for automated
 approval handled by an external approval controller or the approval controller
 implemented in the core controller-manager. However cluster administrators can
 also manually approve certificate requests using kubectl. An administrator can
-list CSRs with `kubectl get csr` and describe one in detail with `kubectl
-describe csr <name>`. An administrator can approve or deny a CSR with `kubectl
-certificate approve <name>` and `kubectl certificate deny <name>`.
+list CSRs with `kubectl get csr` and describe one in detail with
+`kubectl describe csr <name>`. An administrator can approve or deny a CSR with
+`kubectl certificate approve <name>` and `kubectl certificate deny <name>`.

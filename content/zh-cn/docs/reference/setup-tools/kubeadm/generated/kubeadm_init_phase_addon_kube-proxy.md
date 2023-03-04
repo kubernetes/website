@@ -3,7 +3,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
+To update the reference content, please follow the 
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -111,9 +111,9 @@ kubeadm init phase addon kube-proxy [flags]
 <tr>
 <td colspan="2">
 <!--
---image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "k8s.gcr.io"
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "registry.k8s.io"
 -->
---image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："k8s.gcr.io"
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："registry.k8s.io"
 </td>
 </tr>
 <tr>
@@ -169,6 +169,17 @@ kubeadm init phase addon kube-proxy [flags]
 -->
 <p>指定 Pod 网络的 IP 地址范围。如果已设置，控制平面将自动为每个节点分配 CIDR。</p>
 </td>
+</tr>
+
+<tr>
+<td colspan="2">--print-manifest</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!--Print the addon manifests to STDOUT instead of installing them
+-->
+向 STDOUT 打印插件清单，而非安装这些插件
+</p></td>
 </tr>
 
 </tbody>

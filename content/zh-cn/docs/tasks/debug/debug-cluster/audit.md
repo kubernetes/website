@@ -98,13 +98,13 @@ API 对象不同。
 <!--
 The audit logging feature increases the memory consumption of the API server
 because some context required for auditing is stored for each request.
-Additionally, memory consumption depends on the audit logging configuration.
+Memory consumption depends on the audit logging configuration.
 -->
 审计日志记录功能会增加 API server 的内存消耗，因为需要为每个请求存储审计所需的某些上下文。
-此外，内存消耗取决于审计日志记录的配置。
+内存消耗取决于审计日志记录的配置。
 
 <!--
-## Audit Policy
+## Audit policy
 
 Audit policy defines rules about what events should be recorded and what data
 they should include. The audit policy object structure is defined in the
@@ -169,7 +169,7 @@ rules:
 <!--
 If you're crafting your own audit profile, you can use the audit profile for Google Container-Optimized OS as a starting point. You can check the
 [configure-helper.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/gce/gci/configure-helper.sh)
-script, which generates the audit policy file. You can see most of the audit policy file by looking directly at the script.
+script, which generates an audit policy file. You can see most of the audit policy file by looking directly at the script.
 
 You can also refer to the [`Policy` configuration reference](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
 for details about the fields defined.
@@ -266,13 +266,14 @@ to the location of the policy file and log file, so that audit records are persi
 卷来访问策略文件和日志文件所在的目录，这样审计记录才会持久保存下来。例如：
 
 ```shell
-  --audit-policy-file=/etc/kubernetes/audit-policy.yaml
-  --audit-log-path=/var/log/kubernetes/audit/audit.log
+--audit-policy-file=/etc/kubernetes/audit-policy.yaml \
+--audit-log-path=/var/log/kubernetes/audit/audit.log
 ```
 
 接下来挂载数据卷：
 
 ```yaml
+...
 volumeMounts:
   - mountPath: /etc/kubernetes/audit-policy.yaml
     name: audit
@@ -359,7 +360,7 @@ throttling is enabled in `webhook` and disabled in `log`.
     失败时，整个 API 服务请求会失效。
 
 <!--
-The following flags are used only in the `batch` mode.
+The following flags are used only in the `batch` mode:
 
 - `--audit-webhook-batch-buffer-size` defines the number of events to buffer before batching.
   If the rate of incoming events overflows the buffer, events are dropped.
@@ -371,7 +372,7 @@ The following flags are used only in the `batch` mode.
 - `--audit-webhook-batch-throttle-burst` defines the maximum number of batches generated at the same
   moment if the allowed QPS was underutilized previously.
 -->
-以下参数仅用于 `batch` 模式。
+以下参数仅用于 `batch` 模式：
 
 - `--audit-webhook-batch-buffer-size` 定义 batch 之前要缓存的事件数。
   如果传入事件的速率溢出缓存区，则会丢弃事件。
@@ -444,9 +445,15 @@ By default truncate is disabled in both `webhook` and `log`, a cluster administr
 默认情况下，截断操作在 `webhook` 和 `log` 后端都是被禁用的，集群管理员需要设置
 `audit-log-truncate-enabled` 或 `audit-webhook-truncate-enabled` 标志来启用此操作。
 
-## {{% heading "whatsnext" %}}
+## {{% heading "接下来" %}}
 
 <!--
 * Learn about [Mutating webhook auditing annotations](/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations).
+* Learn more about [`Event`](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
+  and the [`Policy`](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy)
+  resource types by reading the Audit configuration reference.
 -->
-* 了解 [Mutating webhook 审计注解](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations)。
+* 进一步了解 [Mutating webhook 审计注解](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations)。
+* 通过阅读审计配置参考，进一步了解
+  [`Event`](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Event)
+  和 [`Policy`](/docs/reference/config-api/apiserver-audit.v1/#audit-k8s-io-v1-Policy) 资源的信息。

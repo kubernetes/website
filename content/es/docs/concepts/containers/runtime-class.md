@@ -138,7 +138,7 @@ configuran en la sección de motores de ejecución:
 ```
 
 Véase la configuración de containerd para más detalles:
-https://github.com/containerd/cri/blob/master/docs/config.md
+https://github.com/containerd/containerd/blob/main/docs/cri/config.md
 
 #### {{< glossary_tooltip term_id="cri-o" >}}
 
@@ -202,4 +202,4 @@ cuentan en Kubernetes.
 - [Diseño de RuntimeClass](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md)
 - [Diseño de programación de RuntimeClass](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/585-runtime-class/README.md#runtimeclass-scheduling)
 - Leer sobre el concepto de [Pod Overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
-- [Diseño de capacidad de PodOverhead](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/20190226-pod-overhead.md)
+- [Diseño de capacidad de PodOverhead](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/688-pod-overhead)

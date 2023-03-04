@@ -43,7 +43,7 @@ whether the pod is throttled and which CPU cores are available at
 scheduling time.  Many workloads are not sensitive to this migration and thus
 work fine without any intervention.
 -->
-## CPU 管理策略
+## CPU 管理策略   {#cpu-management-policies}
 
 默认情况下，kubelet 使用 [CFS 配额](https://en.wikipedia.org/wiki/Completely_Fair_Scheduler)
 来执行 Pod 的 CPU 约束。
@@ -66,7 +66,7 @@ The CPU Manager policy is set with the `--cpu-manager-policy` kubelet
 flag or the `cpuManagerPolicy` field in [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/).
 There are two supported policies:
 -->
-### 配置
+### 配置   {#configuration}
 
 CPU 管理策略通过 kubelet 参数 `--cpu-manager-policy`
 或 [KubeletConfiguration](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
@@ -85,8 +85,8 @@ CPU 管理策略通过 kubelet 参数 `--cpu-manager-policy`
 The CPU manager periodically writes resource updates through the CRI in
 order to reconcile in-memory CPU assignments with cgroupfs. The reconcile
 frequency is set through a new Kubelet configuration value
-`-cpu-manager-reconcile-period`. If not specified, it defaults to the same
-duration as `-node-status-update-frequency`.
+`--cpu-manager-reconcile-period`. If not specified, it defaults to the same
+duration as `--node-status-update-frequency`.
 -->
 CPU 管理器定期通过 CRI 写入资源更新，以保证内存中 CPU 分配与 cgroupfs 一致。
 同步频率通过新增的 Kubelet 配置参数 `--cpu-manager-reconcile-period` 来设置。
@@ -115,11 +115,11 @@ gate for each individual option.
 <!--
 ### Changing the CPU Manager Policy
 
-Since the CPU manger policy can only be applied when kubelet spawns new pods, simply changing from
+Since the CPU manager policy can only be applied when kubelet spawns new pods, simply changing from
 "none" to "static" won't apply to existing pods. So in order to properly change the CPU manager
 policy on a node, perform the following steps:
 -->
-### 更改 CPU 管理器策略
+### 更改 CPU 管理器策略   {#changing-the-cpu-manager-policy}
 
 由于 CPU 管理器策略只能在 kubelet 生成新 Pod 时应用，所以简单地从 "none" 更改为 "static"
 将不会对现有的 Pod 起作用。
@@ -166,7 +166,7 @@ automatically.  Limits on CPU usage for
 [Burstable pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 are enforced using CFS quota.
 -->
-### none 策略
+### none 策略   {#none-policy}
 
 `none` 策略显式地启用现有的默认 CPU 亲和方案，不提供操作系统调度器默认行为之外的亲和性策略。
 通过 CFS 配额来实现 [Guaranteed Pods](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)
@@ -180,11 +180,11 @@ The `static` policy allows containers in `Guaranteed` pods with integer CPU
 `requests` access to exclusive CPUs on the node. This exclusivity is enforced
 using the [cpuset cgroup controller](https://www.kernel.org/doc/Documentation/cgroup-v1/cpusets.txt).
 -->
-### static 策略
+### static 策略   {#static-policy}
 
-`static` 策略针对具有整数型 CPU `requests` 的 `Guaranteed` Pod ，它允许该类 Pod
-中的容器访问节点上的独占 CPU 资源。这种独占性是使用
-[cpuset cgroup 控制器](https://www.kernel.org/doc/Documentation/cgroup-v1/cpusets.txt) 来实现的。
+`static` 策略针对具有整数型 CPU `requests` 的 `Guaranteed` Pod，
+它允许该类 Pod 中的容器访问节点上的独占 CPU 资源。这种独占性是使用
+[cpuset cgroup 控制器](https://www.kernel.org/doc/Documentation/cgroup-v1/cpusets.txt)来实现的。
 
 <!--
 System services such as the container runtime and the kubelet itself can continue to run on these exclusive CPUs.  The exclusivity only extends to other pods.
@@ -200,7 +200,7 @@ the node must be drained and CPU manager manually reset by deleting the
 state file `cpu_manager_state` in the kubelet root directory.
 -->
 {{< note >}}
-CPU 管理器不支持运行时下线和上线 CPUs。此外，如果节点上的在线 CPUs 集合发生变化，
+CPU 管理器不支持运行时下线和上线 CPU。此外，如果节点上的在线 CPU 集合发生变化，
 则必须驱逐节点上的 Pod，并通过删除 kubelet 根目录中的状态文件 `cpu_manager_state`
 来手动重置 CPU 管理器。
 {{< /note >}}
@@ -233,7 +233,7 @@ exclusive CPUs.
 
 <!--
 The kubelet requires a CPU reservation greater than zero be made
-using either `--kube-reserved` and/or `--system-reserved`  or `--reserved-cpus` when the static
+using either `--kube-reserved` and/or `--system-reserved` or `--reserved-cpus` when the static
 policy is enabled. This is because zero CPU reservation would allow the shared
 pool to become empty.
 --->
@@ -395,8 +395,9 @@ using the following feature gates:
 You will still have to enable each option using the `CPUManagerPolicyOptions` kubelet option.
 
 The following policy options exist for the static `CPUManager` policy:
-* `full-pcpus-only` (beta, visible by default)
-* `distribute-cpus-across-numa` (alpha, hidden by default)
+* `full-pcpus-only` (beta, visible by default) (1.22 or higher)
+* `distribute-cpus-across-numa` (alpha, hidden by default) (1.23 or higher)
+* `align-by-socket` (alpha, hidden by default) (1.25 or higher)
 -->
 #### Static 策略选项
 
@@ -406,8 +407,9 @@ The following policy options exist for the static `CPUManager` policy:
 你仍然必须使用 `CPUManagerPolicyOptions` kubelet 选项启用每个选项。
 
 静态 `CPUManager` 策略存在以下策略选项：
-* `full-pcpus-only`（beta，默认可见）
-* `distribute-cpus-across-numa`（alpha，默认隐藏）
+* `full-pcpus-only`（beta，默认可见）（1.22 或更高版本）
+* `distribute-cpus-across-numa`（alpha，默认隐藏）（1.23 或更高版本）
+* `align-by-socket`（alpha，默认隐藏）（1.25 或更高版本）
 
 <!--
 If the `full-pcpus-only` policy option is specified, the static policy will always allocate full physical cores.
@@ -419,8 +421,8 @@ to the [noisy neighbours problem](https://en.wikipedia.org/wiki/Cloud_computing_
 如果使用 `full-pcpus-only` 策略选项，static 策略总是会分配完整的物理核心。
 默认情况下，如果不使用该选项，static 策略会使用拓扑感知最适合的分配方法来分配 CPU。
 在启用了 SMT 的系统上，此策略所分配是与硬件线程对应的、独立的虚拟核。
-这会导致不同的容器共享相同的物理核心，该行为进而会导致
-[吵闹的邻居问题](https://en.wikipedia.org/wiki/Cloud_computing_issues#Performance_interference_and_noisy_neighbors)。
+这会导致不同的容器共享相同的物理核心，
+该行为进而会导致[吵闹的邻居问题](https://en.wikipedia.org/wiki/Cloud_computing_issues#Performance_interference_and_noisy_neighbors)。
 <!--
 With the option enabled, the pod will be admitted by the kubelet only if the CPU request of all its containers
 can be fulfilled by allocating full physical cores.
@@ -457,16 +459,40 @@ static 策略会在 NUMA 节点上平均分配 CPU。
 从而提高这些类型应用程序的整体性能。
 
 <!--
-The `full-pcpus-only` option can be enabled by adding `full-pcups-only=true` to
+If the `align-by-socket` policy option is specified, CPUs will be considered
+aligned at the socket boundary when deciding how to allocate CPUs to a
+container. By default, the `CPUManager` aligns CPU allocations at the NUMA
+boundary, which could result in performance degradation if CPUs need to be
+pulled from more than one NUMA node to satisfy the allocation. Although it
+tries to ensure that all CPUs are allocated from the _minimum_ number of NUMA
+nodes, there is no guarantee that those NUMA nodes will be on the same socket.
+By directing the `CPUManager` to explicitly align CPUs at the socket boundary
+rather than the NUMA boundary, we are able to avoid such issues. Note, this
+policy option is not compatible with `TopologyManager` `single-numa-node`
+policy and does not apply to hardware where the number of sockets is greater
+than number of NUMA nodes.
+-->
+如果指定了 `align-by-socket` 策略选项，那么在决定如何分配 CPU 给容器时，CPU 将被视为在 CPU 的插槽边界对齐。
+默认情况下，`CPUManager` 在 NUMA 边界对齐 CPU 分配，如果需要从多个 NUMA 节点提取出 CPU 以满足分配，将可能会导致系统性能下降。
+尽管 `align-by-socket` 策略试图确保从 NUMA 节点的**最小**数量分配所有 CPU，但不能保证这些 NUMA 节点将位于同一个 CPU 的插槽上。
+通过指示 `CPUManager` 在 CPU 的插槽边界而不是 NUMA 边界显式对齐 CPU，我们能够避免此类问题。
+注意，此策略选项不兼容 `TopologyManager` 与 `single-numa-node` 策略，并且不适用于 CPU 的插槽数量大于 NUMA 节点数量的硬件。
+
+<!--
+The `full-pcpus-only` option can be enabled by adding `full-pcpus-only=true` to
 the CPUManager policy options.
 Likewise, the `distribute-cpus-across-numa` option can be enabled by adding
 `distribute-cpus-across-numa=true` to the CPUManager policy options.
 When both are set, they are "additive" in the sense that CPUs will be
 distributed across NUMA nodes in chunks of full-pcpus rather than individual
 cores.
+The `align-by-socket` policy option can be enabled by adding `align-by-socket=true`
+to the `CPUManager` policy options. It is also additive to the `full-pcpus-only`
+and `distribute-cpus-across-numa` policy options.
 -->
-可以通过将 `full-pcups-only=true` 添加到 CPUManager 策略选项来启用 `full-pcpus-only` 选项。
-同样地，可以通过将 `distribute-cpus-across-numa=true`
-添加到 CPUManager 策略选项来启用 `distribute-cpus-across-numa` 选项。
-当两者都设置时，它们是“累加的”，因为 CPU 将分布在 NUMA 节点的 full-pcpus 块中，
-而不是单个核心。
+可以通过将 `full-pcpus-only=true` 添加到 CPUManager 策略选项来启用 `full-pcpus-only` 选项。
+同样地，可以通过将 `distribute-cpus-across-numa=true` 添加到 CPUManager 策略选项来启用 `distribute-cpus-across-numa` 选项。
+当两者都设置时，它们是“累加的”，因为 CPU 将分布在 NUMA 节点的 full-pcpus 块中，而不是单个核心。
+可以通过将 `align-by-socket=true` 添加到 `CPUManager` 策略选项来启用 `align-by-socket` 策略选项。
+同样，也能够将 `distribute-cpus-across-numa=true` 添加到 `full-pcpus-only`
+和 `distribute-cpus-across-numa` 策略选项中。

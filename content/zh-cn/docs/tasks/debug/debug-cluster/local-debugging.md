@@ -26,7 +26,7 @@ Kubernetes 应用程序通常由多个独立的服务组成，每个服务都在
 -->
 
 `telepresence` 是一个工具，用于简化本地开发和调试服务的过程，同时可以将服务代理到远程 Kubernetes 集群。
-`telepresence` 允许你使用使用自定义工具（例如：调试器 和 IDE）调试服务，
+`telepresence` 允许你使用自定义工具（例如：调试器 和 IDE）调试服务，
 并提供对 Configmap、Secret 和远程集群上运行的服务的完全访问。
 
 
@@ -85,7 +85,7 @@ When developing an application on Kubernetes, you typically program or debug a s
 一种选择是使用连续部署流水线，但即使最快的部署流水线也会在程序或调试周期中引入延迟。
 
 <!--
-Use the `telepresence intercept $SERVICE_NAME --port $LOCAL_PORT:REMOTE_PORT` command to create an "intercept" for rerouting remote service traffic.
+Use the `telepresence intercept $SERVICE_NAME --port $LOCAL_PORT:$REMOTE_PORT` command to create an "intercept" for rerouting remote service traffic.
 
 Where:
 
@@ -94,7 +94,7 @@ Where:
 -   And `$REMOTE_PORT` is the port your service listens to in the cluster
 -->
 
-使用 `telepresence intercept $SERVICE_NAME --port $LOCAL_PORT:REMOTE_PORT` 命令创建一个 "拦截器" 用于重新路由远程服务流量。
+使用 `telepresence intercept $SERVICE_NAME --port $LOCAL_PORT:$REMOTE_PORT` 命令创建一个 "拦截器" 用于重新路由远程服务流量。
 
 环境变量：
 
@@ -106,7 +106,7 @@ Where:
 Running this command tells Telepresence to send remote traffic to your local service instead of the service in the remote Kubernetes cluster. Make edits to your service source code locally, save, and see the corresponding changes when accessing your remote application take effect immediately. You can also run your local service using a debugger or any other local development tool.
 -->
 
-运行此命令会告诉 Telepresence 将远程流量发送到的本地服务，而不是远程 Kubernetes 集群中的服务中。
+运行此命令会告诉 Telepresence 将远程流量发送到本地服务，而不是远程 Kubernetes 集群中的服务中。
 在本地编辑保存服务源代码，并在访问远程应用时查看相应变更会立即生效。
 还可以使用调试器或任何其他本地开发工具运行本地服务。
 
