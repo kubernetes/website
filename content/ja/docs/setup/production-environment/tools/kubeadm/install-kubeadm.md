@@ -48,22 +48,6 @@ card:
 
 複数のネットワークアダプターがあり、Kubernetesコンポーネントにデフォルトで到達できない場合、IPルートを追加して、Kubernetesクラスターのアドレスが適切なアダプターを経由するように設定することをお勧めします。
 
-## iptablesがブリッジを通過するトラフィックを処理できるようにする
-
-Linuxノードのiptablesがブリッジを通過するトラフィックを正確に処理する要件として、`net.bridge.bridge-nf-call-iptables`を`sysctl`の設定ファイルで1に設定してください。例えば以下のようにします。
-
-```bash
-cat <<EOF > /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-EOF
-sysctl --system
-```
-
-この手順の前に`br_netfilter`モジュールがロードされていることを確認してください。`lsmod | grep br_netfilter`を実行することで確認できます。明示的にロードするには`modprobe br_netfilter`を実行してください。
-
-詳細は[ネットワークプラグインの要件](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements)を参照してください。
-
 ## 必須ポートの確認
 
 ### コントロールプレーンノード
