@@ -62,7 +62,8 @@ For a reference to old feature gates that are removed, please refer to
 | `APIPriorityAndFairness` | `true` | Beta | 1.20 | |
 | `APIResponseCompression` | `false` | Alpha | 1.7 | 1.15 |
 | `APIResponseCompression` | `true` | Beta | 1.16 | |
-| `APISelfSubjectReview` | `false` | Alpha | 1.26 | |
+| `APISelfSubjectReview` | `false` | Alpha | 1.26 | 1.26 |
+| `APISelfSubjectReview` | `true` | Beta | 1.27 | |
 | `APIServerIdentity` | `false` | Alpha | 1.20 | 1.25 |
 | `APIServerIdentity` | `true` | Beta | 1.26 | |
 | `APIServerTracing` | `false` | Alpha | 1.22 | |
