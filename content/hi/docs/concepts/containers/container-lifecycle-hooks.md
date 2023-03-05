@@ -50,7 +50,7 @@ PreStop
 
 जब एक कंटेनर जीवन चक्र प्रबंधन हुक को कॉल किया जाता है,
 तो Kubernetes प्रबंधन प्रणाली हुक कार्रवाई के अनुसार हैंडलर को निष्पादित करता है,
-`httpGet` और `tcpSocket` kubelet प्रक्रिया द्वारा निष्पादित किए जाते हैं, और `exec` कंटेनर में निष्पादित किया जाता है।
+`httpGet` और `tcpSocket` कुबलेट प्रक्रिया द्वारा निष्पादित किए जाते हैं, और `exec` कंटेनर में निष्पादित किया जाता है।
 
 हुक हैंडलर कॉल पॉड के संदर्भ में समन्वयात्मक होते हैं जो कंटेनर को समायोजित करते हैं।
 यह यह मतलब होता है कि `PostStart` हुक के लिए,
@@ -86,8 +86,8 @@ PreStop
 उदाहरण के लिए, अगर एक HTTP हुक रिसीवर नीचे होता है और ट्रैफिक ले नहीं सकता है,
 तो दोबारा भेजने का कोई प्रयास नहीं होता है।
 हालांकि, कुछ दुर्लभ मामलों में, दोहरी पहुंच हो सकती है।
-उदाहरण के लिए, यदि कोई kubelet हुक भेजने के बीच में बंद हो जाता है,
-तो kubelet फिर से शुरू होने के बाद हुक फिर से भेजा जा सकता है।
+उदाहरण के लिए, यदि कोई कुबलेट हुक भेजने के बीच में बंद हो जाता है,
+तो कुबलेट फिर से शुरू होने के बाद हुक फिर से भेजा जा सकता है।
 
 ### हुक हैंडलर को डिबग करना
 
@@ -104,14 +104,14 @@ Events:
   Type     Reason               Age              From               Message
   ----     ------               ----             ----               -------
   Normal   Scheduled            7s               default-scheduler  Successfully assigned default/lifecycle-demo to ip-XXX-XXX-XX-XX.us-east-2...
-  Normal   Pulled               6s               kubelet            Successfully pulled image "nginx" in 229.604315ms
-  Normal   Pulling              4s (x2 over 6s)  kubelet            Pulling image "nginx"
-  Normal   Created              4s (x2 over 5s)  kubelet            Created container lifecycle-demo-container
-  Normal   Started              4s (x2 over 5s)  kubelet            Started container lifecycle-demo-container
-  Warning  FailedPostStartHook  4s (x2 over 5s)  kubelet            Exec lifecycle hook ([badcommand]) for Container "lifecycle-demo-container" in Pod "lifecycle-demo_default(30229739-9651-4e5a-9a32-a8f1688862db)" failed - error: command 'badcommand' exited with 126: , message: "OCI runtime exec failed: exec failed: container_linux.go:380: starting container process caused: exec: \"badcommand\": executable file not found in $PATH: unknown\r\n"
-  Normal   Killing              4s (x2 over 5s)  kubelet            FailedPostStartHook
-  Normal   Pulled               4s               kubelet            Successfully pulled image "nginx" in 215.66395ms
-  Warning  BackOff              2s (x2 over 3s)  kubelet            Back-off restarting failed container
+  Normal   Pulled               6s               कुबलेट            Successfully pulled image "nginx" in 229.604315ms
+  Normal   Pulling              4s (x2 over 6s)  कुबलेट            Pulling image "nginx"
+  Normal   Created              4s (x2 over 5s)  कुबलेट            Created container lifecycle-demo-container
+  Normal   Started              4s (x2 over 5s)  कुबलेट            Started container lifecycle-demo-container
+  Warning  FailedPostStartHook  4s (x2 over 5s)  कुबलेट            Exec lifecycle hook ([badcommand]) for Container "lifecycle-demo-container" in Pod "lifecycle-demo_default(30229739-9651-4e5a-9a32-a8f1688862db)" failed - error: command 'badcommand' exited with 126: , message: "OCI runtime exec failed: exec failed: container_linux.go:380: starting container process caused: exec: \"badcommand\": executable file not found in $PATH: unknown\r\n"
+  Normal   Killing              4s (x2 over 5s)  कुबलेट            FailedPostStartHook
+  Normal   Pulled               4s               कुबलेट            Successfully pulled image "nginx" in 215.66395ms
+  Warning  BackOff              2s (x2 over 3s)  कुबलेट            Back-off restarting failed container
 ```
 
 
