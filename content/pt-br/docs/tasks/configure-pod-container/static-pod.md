@@ -23,7 +23,7 @@ O Kubelet tenta automaticamente criar um {{< glossary_tooltip text="mirror Pod" 
 no servidor de API do Kubernetes para cada Pod estático.
 Isso significa que os pods em execução em um nó são visíveis no servidor de API,
 mas não podem ser controlados a partir daí.
-Aos nomes de Pods será acrescido um sufixo com o nome de host do nó, com um hífem. 
+Aos nomes de Pods será sufixados com o nome de host do nó, com um hífem a esquerda. 
 
 
 {{< note >}}
@@ -33,9 +33,9 @@ provávelmente você deveria estar usando um {{< glossary_tooltip text="DaemonSe
 
 {{< note >}}
 A `especificação` de um Pod estático não pode referir-se à outros objetos da API
-(ex., {{< glossary_tooltip text="Conta de Serviço" term_id="service-account" >}},
-{{< glossary_tooltip text="Mapa de Configuração" term_id="configmap" >}},
-{{< glossary_tooltip text="Segredo" term_id="secret" >}}, etc).
+(ex., {{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}},
+{{< glossary_tooltip text="ConfigMap" term_id="configmap" >}},
+{{< glossary_tooltip text="Secret" term_id="secret" >}}, etc).
 {{< /note >}}
 
 ## {{% heading "prerequisites" %}}
