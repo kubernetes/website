@@ -59,8 +59,7 @@ recursos são suportados pela `PodSecurityPolicy` mas não pela Segurança de Ad
   de segurança do Pod, ou usar um [Webhook de admissão mutante](/docs/reference/access-authn-authz/extensible-admission-controllers/)
   para fazer essas mudanças. Veja [Simplificando e padronizando `PodSecurityPolicies`](#simplify-psps) abaixo, para mais detalhes.
 
-- **Controle de granularidade sobre a definição de política** 
-- A Segurança de Admissão de Pod somente suporta 
+- **Controle de granularidade sobre a definição de política** - A Segurança de Admissão de Pod somente suporta 
   [3 níveis padrão](/docs/concepts/security/pod-security-standards/).
   Se você precisar de mais controle sobre restrições específicas, então você 
   precisará usar um [Webhook de validação de admissão](/docs/reference/access-authn-authz/extensible-admission-controllers/) 
@@ -99,8 +98,7 @@ Nesta seção, você reduzirá as `PodSecurityPolicies` mutantes e removerá as 
 que estão fora do escopo dos padrões de segurança de pod. Você deve fazer 
 as alterações recomendadas aqui, em uma cópia da `PodSecurityPolicy` original,  
 sendo modificada offline. O PSP clonado deve ter um nome diferente do original 
-(por exemplo, coloque um `0` antes). Não crie as novas políticas no Kubernetes ainda
-- que será coberto no [implementador de políticas atualizadas](#psp-update-rollout) 
+(por exemplo, coloque um `0` antes). Não crie as novas políticas no Kubernetes ainda que será coberto no [implementador de políticas atualizadas](#psp-update-rollout) 
 na seção abaixo.
 
 ### 2.a. Elimine campos puramente mutantes {#eliminate-mutating-fields}
