@@ -7,8 +7,7 @@ content_type: task
 min-kubernetes-server-version: v1.22
 ---
 
-Os namespaces podem ser rotulados para aplicar os [Padrões de segurança de pod]
-(/docs/concepts/security/pod-security-standards). As três políticas
+Os namespaces podem ser rotulados para aplicar os [Padrões de segurança de pod](/docs/concepts/security/pod-security-standards). As três políticas
 [privilegiado](/docs/concepts/security/pod-security-standards/#privileged), 
 [linha de base](/docs/concepts/security/pod-security-standards/#baseline)
 e [restrito](/docs/concepts/security/pod-security-standards/#restricted) 
@@ -20,8 +19,7 @@ cobrem amplamente o espectro de segurança e são implementados pela
 
 {{% version-check %}}
 
-- Garantir que a `PodSecurity` do [portal de funcionalidades]
-(/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) 
+- Garantir que a `PodSecurity` do [portal de funcionalidades](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) 
 está habilitada.
 
 ## Exigindo o padrão de segurança `baseline` de pod com rótulos em namespace
@@ -52,14 +50,14 @@ metadata:
 ## Adicionar Rótulos aos Namespaces Existentes com `kubectl label`
 
 {{< note >}}
-Quando uma política de label `enforce` (ou version) é adicionada our modificada, 
+Quando um rótulo de política `enforce` (ou version) é adicionada ou modificada, 
 O plugin de admissão testará cada Pod no namespace contra a nova política. 
 Violações são devolvidas ao usuário como avisos.
 {{< /note >}}
 
 É útil aplicar a flag `--dry-run` ao avaliar inicialmente as alterações 
 do perfil de segurança para namespaces. As verificações padrão de segurança 
-do pod ainda serão executadas em _dry run_ mode, dando-lhe informações sobre 
+do pod ainda serão executadas em modo _dry run_, dando-lhe informações sobre 
 como a nova política trataria os pods existentes, sem realmente atualizar a política.
 
 ```shell
