@@ -94,6 +94,6 @@ kubectl delete secret user pass
 
 ## {{% heading "whatsnext" %}}
 
-* Aprensa mais sobre volume [`projetado`](/docs/concepts/storage/volumes/#projected).
+* Aprensa mais sobre volume [`projected`](/docs/concepts/storage/volumes/#projected).
 * Leia o documento de desenho de [volume tudo-em-um](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md).
 
