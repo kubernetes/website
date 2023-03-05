@@ -6,9 +6,9 @@ weight: 100
 
 <!-- overview -->
 
-Esta página mostra como criar uma Pod que usa uma 
+Esta página mostra como criar um Pod que usa uma 
 {{< glossary_tooltip text="Secret" term_id="secret" >}} para puxar uma imagem
-de um registro de imagens de contêiner privado ou de um repositório. Existem muitos registros privados em uso. 
+de um registro de imagens de contêiner ou de um repositório privado. Existem muitos registros privados em uso. 
 Esta tarefa usa o [Docker Hub](https://www.docker.com/products/docker-hub)
 como exemplo de registro.
 
@@ -63,9 +63,9 @@ A saída contém uma seção semelhante a esta:
 Se você usar o armazenador de credenciais do Docker, você não vai ver essa entrada `auth`, mas sim uma `credsStore` com o nome do armazenador como valor.
 {{< /note >}}
 
-## Crie um segredo com base nas credenciais existentes {#registry-secret-existing-credentials}
+## Crie um `Secret` com base nas credenciais existentes {#registry-secret-existing-credentials}
 
-Um cluster de Kubernetes usa o Segredo do tipo `kubernetes.io/dockerconfigjson` para autenticar com um registro de contêineres
+Um cluster de Kubernetes usa o `Secret` do tipo `kubernetes.io/dockerconfigjson` para autenticar com um registro de contêineres
 para pegar uma imagem privada.
 
 Se você já executou `docker login`, você pode copiar
@@ -77,7 +77,7 @@ kubectl create secret generic regcred \
     --type=kubernetes.io/dockerconfigjson
 ```
 
-Se você precisar de mais controle (por exemplo, para definir um namespace ou um novo
+Se você precisar de mais controle (por exemplo, para definir um namespace ou um rótulo no novo
 segredo) então você pode personalizar o segredo antes de armazená-lo.
 Tenha certeza de:
 
@@ -198,11 +198,11 @@ No arquivo `my-private-reg-pod.yaml`, altere `<your-private-image>` com o caminh
 your.private.registry.example.com/janedoe/jdoe-private:v1
 ```
 
-Para puxar a imagem do registro privado, o Kubernetes precisa das credencias.
+Para puxar a imagem do registro privado, o Kubernetes precisa das credenciais.
 O campo `imagePullSecrets` no arquivo de configuração especifica que
 o Kubernetes deve obter as credenciais de um segredo nomeado `regcred`.
 
-Crie um Pod que use o seu segredo e verifique se o pod está executando:
+Crie um Pod que use o seu `Secret´ e verifique se o pod está executando:
 
 ```shell
 kubectl apply -f my-private-reg-pod.yaml
@@ -211,9 +211,9 @@ kubectl get pod private-reg
 
 ## {{% heading "whatsnext" %}}
 
-* Aprenda mais sobre [Segredos](/docs/concepts/configuration/secret/)
+* Aprenda mais sobre [Secrets](/docs/concepts/configuration/secret/)
   * ou leia a referência da API para {{< api-reference page="config-and-storage-resources/secret-v1" >}}
-* Aprenda mais sobre [usando um registro privado](/docs/concepts/containers/images/#using-a-private-registry).
+* Aprenda mais sobre [usando um registro privado](/docs/concepts/containers/images/#usando-um-registro-privado).
 * Aprenda mais sobre [adicionando segredos para puxar imagens com uma conta de serviço](/docs/tasks/configure-pod-container/configure-service-account/#add-imagepullsecrets-to-a-service-account).
-* Veja [kubectl criando segredos docker-registry](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-).
+* Veja [kubectl create secret docker-registry](/docs/reference/generated/kubectl/kubectl-commands/#-em-secret-docker-registry-em-).
 * Veja o campo `imagePullSecrets` dentro das [definições do contêiner](/docs/reference/kubernetes-api/workload-resources/pod-v1/#containers) de um Pod
