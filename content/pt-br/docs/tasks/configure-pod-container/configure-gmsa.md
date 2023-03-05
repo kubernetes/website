@@ -24,12 +24,12 @@ serviços Windows.
 
 Você precisa ter um cluster Kubernetes, e a ferramenta de linha de comando `kubectl` 
 precisa estar configurada para comunicar-se com seu cluster.
-O cluster deve possuir nós trabalhadores Windows. 
+O cluster deve possuir nós de carga de trabalho Windows. 
 Esta seção cobre o conjunto inicial de passos requeridos para cada cluster:
 
 ### Instale o `GMSACredentialSpec CRD`
 
-Uma [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)(CRD) uma especificação de recursos de credencial GMSA precisa ser configurada no cluster, para definir o tipo de recurso do cliente `GMSACredentialSpec`. Faça o download da GMSA CRD [YAML](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-crd.yml) 
+Uma [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)(CRD) para uma especificação de recursos de credencial GMSA precisa ser configurada no cluster, para definir o tipo de recurso do cliente `GMSACredentialSpec`. Faça o download do [YAML](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-crd.yml) GMSA CRD
 e salve como gmsa-crd.yaml.
 A seguir, instale o CRD com `kubectl apply -f gmsa-crd.yaml`
 
@@ -50,7 +50,7 @@ A instalação dos webhooks acima e dos objetos associados requer as etapas abai
 1. Crie um par de chaves de certificado (que será usado para permitir que o 
 contêiner do webhook se comunique com o cluster)
 
-1. Instale a `Secret` com o certificado acima.
+1. Instale um `Secret` com o certificado acima.
 
 1. Crie um Deployment para a lógica principal do webhook.
 
@@ -72,7 +72,7 @@ associados manualmente (com as substituições apropriadas para os parâmetros).
 
 Antes que os Pods no Kubernetes possam ser configurados para usar GMSAs, as GMSAs apropriadas precisam ser provisionadas no Active Directory como descrito na 
 [documentação do Windows GMSA](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#BKMK_Step1). 
-Nós `worker` Windows (que são parte do cluster Kubernetes) precisam ser configurados no 
+Nós de carga de trabalho Windows (que são parte do cluster Kubernetes) precisam ser configurados no 
 Active Directory para acessar as credenciais secretas associadas com a GMSA apropriada, 
 como descrito na [documentação Windows GMSA](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#to-add-member-hosts-using-the-set-adserviceaccount-cmdlet).
 
@@ -81,7 +81,7 @@ como descrito na [documentação Windows GMSA](https://docs.microsoft.com/en-us/
 Com o `GMSACredentialSpec CRD` instalado (como descrito anteriormente), 
 recursos customizados contendo recursos de especificação de credenciais GMSA podem 
 ser configurados. A especificação de credencial GMSA não contém segredos nem dados 
-sensíveis. É informação que o contêiner runtime pode usar para descrever a apropriada 
+sensíveis. É informação que o agente de execução de contêiner pode usar para descrever a apropriada 
 GMSA de um contêiner para o Windows. Especificações de credenciais GMSA podem 
 ser geradas em formato YAML com o utilitário [PowerShell script](https://github.com/kubernetes-sigs/windows-gmsa/tree/master/scripts/GenerateCredentialSpecResource.ps1).
 
@@ -154,12 +154,11 @@ rules:
   resourceNames: ["gmsa-WebApp1"]
 ```
 
-## Atribua o papel ao serviço de contas para usar a especificação de credencial GMSA especifíca
+## Atribua o papel as contas serviço para usar a especificação de credencial GMSA especifíca
 
-Um serviço de conta (com a qual os Pods virão configurados), precisa ser vinculado 
-ao `cluster role` criado acima. Isto autoriza o serviço de conta a usar, a apropriada 
-especificação de recurso de credencial GMSA. A seguir mostra o serviço de conta 
-padrão vinculado a `cluster role` `webapp1-role`, para usar a especificação 
+Uma conta de serviço (com a qual os Pods virão configurados), precisa ser vinculada 
+ao `cluster role` criado acima. Isto autoriza a conta de serviço a usar a apropriada 
+especificação de recurso de credencial GMSA. A seguir mostra a conta de serviço padrão vinculada a `cluster role` `webapp1-role`, para usar a especificação 
 de recurso da credencial `gmsa-WebApp1` criada acima.
 
 ```yaml
@@ -251,13 +250,13 @@ spec:
 Assim que as especificações do Pod com os campos GMSA preenchidos 
 (como descrito acima) são aplicadas em um cluster, ocorre a seguinte sequência de eventos:
 
-1. O webhook mutante resolve e expande todas as referências aos recursos de 
+1. O webhook de mutação resolve e expande todas as referências aos recursos de 
 especificações de credenciais GMSA para o conteúdo das especificações de credenciais GMSA.
 
-1. O webhook validador garante que a conta de serviço associada ao Pod, seja autorizada 
-para o `uso` verbal na especificação GMSA especificada.
+1. O webhook de validação garante que a conta de serviço associada ao Pod, seja autorizada 
+para o verbo `use` na especificação GMSA especificada.
 
-1. O `contêiner Runtime` configura cada contêiner do Windows com a especificação 
+1. O agente de execução de contêiner configura cada contêiner do Windows com a especificação 
 de credencial GMSA especificada, para que o contêiner possa assumir a identidade 
 do GMSA no Active Directory, e tenha acesso aos serviços no domínio usando essa identidade.
 
@@ -338,7 +337,7 @@ Trusted DC Connection Status Status = 0 0x0 NERR_Success
 The command completed successfully
 ```
 
-Se o exposto acima corrigir o erro, você poderá automatizar a etapa adicionando 
+Se o excerto acima corrigir o erro, você poderá automatizar a etapa adicionando 
 o seguinte `lifecycle hook` à sua especificação de Pod. Se não corrigiu o erro, você 
 precisará examinar sua especificação de credencial novamente e confirmar que ela está correta e completa.
 
