@@ -1223,7 +1223,7 @@ mismatch.
 是在告诉系统你知道自己在干什么并要求系统允许这种不匹配的存在。
 
 <!-- 
-### Pod failure policy {#pod-failure-policy} 
+### Pod failure policy {#pod-failure-policy}
 -->
 ### Pod 失效策略 {#pod-failure-policy}
 
@@ -1250,7 +1250,7 @@ available in Kubernetes {{< skew currentVersion >}}.
 <!-- 
 A Pod failure policy, defined with the `.spec.podFailurePolicy` field, enables
 your cluster to handle Pod failures based on the container exit codes and the
-Pod conditions. 
+Pod conditions.
 -->
 Pod 失效策略使用 `.spec.podFailurePolicy` 字段来定义，
 它能让你的集群根据容器的退出码和 Pod 状况来处理 Pod 失效事件。
@@ -1258,7 +1258,7 @@ Pod 失效策略使用 `.spec.podFailurePolicy` 字段来定义，
 <!-- 
 In some situations, you  may want to have a better control when handling Pod
 failures than the control provided by the [Pod backoff failure policy](#pod-backoff-failure-policy),
-which is based on the Job's `.spec.backoffLimit`. These are some examples of use cases: 
+which is based on the Job's `.spec.backoffLimit`. These are some examples of use cases:
 -->
 在某些情况下，你可能希望更好地控制 Pod 失效的处理方式，
 而不是仅限于 [Pod 回退失效策略](#pod-backoff-failure-policy)所提供的控制能力，
@@ -1284,22 +1284,22 @@ which is based on the Job's `.spec.backoffLimit`. These are some examples of use
 <!-- 
 You can configure a Pod failure policy, in the `.spec.podFailurePolicy` field,
 to meet the above use cases. This policy can handle Pod failures based on the
-container exit codes and the Pod conditions. 
+container exit codes and the Pod conditions.
 -->
 你可以在 `.spec.podFailurePolicy` 字段中配置 Pod 失效策略，以满足上述使用场景。
 该策略可以根据容器退出码和 Pod 状况来处理 Pod 失效。
 
 <!-- 
-Here is a manifest for a Job that defines a `podFailurePolicy`: 
+Here is a manifest for a Job that defines a `podFailurePolicy`:
 -->
 下面是一个定义了 `podFailurePolicy` 的 Job 的清单：
 
-{{< codenew file="controllers/job-pod-failure-policy-example.yaml" >}}
+{{< codenew file="/controllers/job-pod-failure-policy-example.yaml" >}}
 
 <!-- 
 In the example above, the first rule of the Pod failure policy specifies that
 the Job should be marked failed if the `main` container fails with the 42 exit
-code. The following are the rules for the `main` container specifically: 
+code. The following are the rules for the `main` container specifically:
 -->
 在上面的示例中，Pod 失效策略的第一条规则规定如果 `main` 容器失败并且退出码为 42，
 Job 将被标记为失败。以下是 `main` 容器的具体规则：
@@ -1320,7 +1320,7 @@ Job 将被标记为失败。以下是 `main` 容器的具体规则：
 {{< note >}}
 <!-- 
 Because the Pod template specifies a `restartPolicy: Never`,
-the kubelet does not restart the `main` container in that particular Pod. 
+the kubelet does not restart the `main` container in that particular Pod.
 -->
 因为 Pod 模板中指定了 `restartPolicy: Never`，
 所以 kubelet 将不会重启 Pod 中的 `main` 容器。
@@ -1329,7 +1329,7 @@ the kubelet does not restart the `main` container in that particular Pod.
 <!-- 
 The second rule of the Pod failure policy, specifying the `Ignore` action for
 failed Pods with condition `DisruptionTarget` excludes Pod disruptions from
-being counted towards the `.spec.backoffLimit` limit of retries. 
+being counted towards the `.spec.backoffLimit` limit of retries.
 -->
 Pod 失效策略的第二条规则，
 指定对于状况为 `DisruptionTarget` 的失效 Pod 采取 `Ignore` 操作，
@@ -1339,7 +1339,7 @@ Pod 失效策略的第二条规则，
 <!-- 
 If the Job failed, either by the Pod failure policy or Pod backoff
 failure policy, and the Job is running multiple Pods, Kubernetes terminates all
-the Pods in that Job that are still Pending or Running. 
+the Pods in that Job that are still Pending or Running.
 -->
 如果根据 Pod 失效策略或 Pod 回退失效策略判定 Pod 已经失效，
 并且 Job 正在运行多个 Pod，Kubernetes 将终止该 Job 中仍处于 Pending 或 Running 的所有 Pod。
@@ -1353,7 +1353,7 @@ These are some requirements and semantics of the API:
   are evaluated in order. Once a rule matches a Pod failure, the remaining rules
   are ignored. When no rule matches the Pod failure, the default
   handling applies.
-- you may want to restrict a rule to a specific container by specifing its name
+- you may want to restrict a rule to a specific container by specifying its name
   in`spec.podFailurePolicy.rules[*].containerName`. When not specified the rule
   applies to all containers. When specified, it should match one the container
   or `initContainer` names in the Pod template.
