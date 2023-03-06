@@ -465,7 +465,7 @@ An example flow:
       The containers in the Pod receive the TERM signal at different times and in an arbitrary
       order. If the order of shutdowns matters, consider using a `preStop` hook to synchronize.
       {{< /note >}}
-1. At the same time as the kubelet is starting graceful shutdown, the control plane evaluates whether to remove that shutting-down Pod from EndpointSlice (and Endpoints) objects, where those objects represent
+1. At the same time as the kubelet is starting graceful shutdown of the Pod, the control plane evaluates whether to remove that shutting-down Pod from EndpointSlice (and Endpoints) objects, where those objects represent
    a {{< glossary_tooltip term_id="service" text="Service" >}} with a configured
    {{< glossary_tooltip text="selector" term_id="selector" >}}.
    {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}} and other workload resources
