@@ -472,7 +472,7 @@ An example flow:
    no longer treat the shutting-down Pod as a valid, in-service replica. Pods that shut down slowly
    should not continue to serve regular traffic and should start terminating and finish processing open connections.
    Some applications need to go beyond finishing open connections and need more graceful termination -
-   for example session draining and completion. Endpoints that represent the terminating pods
+   for example: session draining and completion. Any endpoints that represent the terminating pods
    are not immediately removed from EndpointSlices,
    and a status indicating [terminating state](/docs/concepts/services-networking/endpoint-slices/#conditions)
    is exposed from the EndpointSlice API (and the legacy Endpoints API). Terminating
