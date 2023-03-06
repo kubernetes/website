@@ -229,7 +229,7 @@ can happen, according to:
 
 ## Pod disruption conditions {#pod-disruption-conditions}
 
-{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 {{< note >}}
 If you are using an older version of Kubernetes than {{< skew currentVersion >}}

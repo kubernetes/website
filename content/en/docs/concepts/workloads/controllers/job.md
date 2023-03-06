@@ -726,7 +726,7 @@ mismatch.
 
 ### Pod failure policy {#pod-failure-policy}
 
-{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 {{< note >}}
 You can only configure a Pod failure policy for a Job if you have the
@@ -806,6 +806,16 @@ These are some requirements and semantics of the API:
      should not be incremented and a replacement Pod should be created.
   - `Count`: use to indicate that the Pod should be handled in the default way.
      The counter towards the `.spec.backoffLimit` should be incremented.
+
+{{< note >}}
+Since the 1.27 version Kubelet transitions deleted pods to a terminal phase
+(see: [Pod Phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)).
+This solves the known issue for using pod failure policy in 1.26.
+In the previous version a pod could get stuck in the `Pending` phase if deleted
+while in that phase. This is because Job controller delays removal of the pod
+finalizer (hence blocking the pod deletion from the API server) until the pod is
+transitioned into a terminal phase.
+{{< /note >}}
 
 ### Job tracking with finalizers
 
