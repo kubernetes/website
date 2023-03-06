@@ -1,6 +1,6 @@
 ---
 reviewers:
-- mikedanese
+- mitul3737
 title: উইন্ডোজে kubectl ইনস্টল এবং সেট আপ করুন
 content_type: টাস্ক
 weight: 10
