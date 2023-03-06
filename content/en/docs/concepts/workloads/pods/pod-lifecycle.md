@@ -485,8 +485,8 @@ An example flow:
 
 {{<note>}}
 If you don't have the `EndpointSliceTerminatingCondition` feature gate enabled
-in your cluster (before the version 1.26), then load balancers (like the service proxy)
-remove the Pod from the list of endpoints in EndpointSlices as soon as the
+in your cluster (the gate is on by default from Kubernetes 1.26), then the Kubernetes control
+plane removes a Pod from any relevant EndpointSlices as soon as the Pod's
 termination grace period _begins_. The behavior above is described when the
 feature gate `EndpointSliceTerminatingCondition` is enabled.
 {{</note>}}
