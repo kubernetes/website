@@ -807,6 +807,17 @@ These are some requirements and semantics of the API:
   - `Count`: use to indicate that the Pod should be handled in the default way.
      The counter towards the `.spec.backoffLimit` should be incremented.
 
+{{< note >}}
+When you use a `podFailurePolicy`, the job controller only matches Pods in the
+`Failed` phase. Pods with a deletion timestamp that are not in a terminal phase
+(`Failed` or `Succeeded`) are considered still terminating. This implies that
+terminating pods retain a [tracking finalizer](#job-tracking-with-finalizers)
+until they reach a terminal phase.
+Since Kubernetes 1.27, Kubelet transitions deleted pods to a terminal phase
+(see: [Pod Phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)). This
+ensures that deleted pods have their finalizers removed by the Job controller.
+{{< /note >}}
+
 ### Job tracking with finalizers
 
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}

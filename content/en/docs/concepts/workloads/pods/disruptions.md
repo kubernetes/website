@@ -232,11 +232,6 @@ can happen, according to:
 {{< feature-state for_k8s_version="v1.26" state="beta" >}}
 
 {{< note >}}
-If you are using an older version of Kubernetes than {{< skew currentVersion >}}
-please refer to the corresponding version of the documentation.
-{{< /note >}}
-
-{{< note >}}
 In order to use this behavior, you must have the `PodDisruptionConditions`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 enabled in your cluster.
