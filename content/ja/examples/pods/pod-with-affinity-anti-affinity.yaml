@@ -30,4 +30,3 @@ spec:
   containers:
   - name: with-node-affinity
     image: registry.k8s.io/pause:2.0
-    
