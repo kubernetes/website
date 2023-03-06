@@ -67,6 +67,7 @@ cat /mnt/data/index.html
 ```
 
 The output should be:
+
 ```
 Hello from Kubernetes storage
 ```
@@ -247,8 +248,8 @@ You can now close the shell to your Node.
 
 You can perform 2 volume mounts on your nginx container:
 
-`/usr/share/nginx/html` for the static website
-`/etc/nginx/nginx.conf` for the default config
+- `/usr/share/nginx/html` for the static website
+- `/etc/nginx/nginx.conf` for the default config
 
 <!-- discussion -->
 
@@ -261,6 +262,7 @@ with a GID. Then the GID is automatically added to any Pod that uses the
 PersistentVolume.
 
 Use the `pv.beta.kubernetes.io/gid` annotation as follows:
+
 ```yaml
 apiVersion: v1
 kind: PersistentVolume
@@ -269,6 +271,7 @@ metadata:
   annotations:
     pv.beta.kubernetes.io/gid: "1234"
 ```
+
 When a Pod consumes a PersistentVolume that has a GID annotation, the annotated GID
 is applied to all containers in the Pod in the same way that GIDs specified in the
 Pod's security context are. Every GID, whether it originates from a PersistentVolume
