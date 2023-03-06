@@ -55,7 +55,7 @@ kubectl get pod test-pod -o jsonpath='{.spec.schedulingGates}'
 The output is:
 
 ```none
-[{"name":"foo"},{"name":"bar"}]
+[{"name":"example.com/foo"},{"name":"example.com/bar"}]
 ```
 
 To inform scheduler this Pod is ready for scheduling, you can remove its `schedulingGates` entirely
