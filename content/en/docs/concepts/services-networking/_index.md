@@ -36,7 +36,7 @@ Some platforms, such as Linux, support pods running in the host network. Pods at
 
 * IPv4 address - 32 bit IP addresses assigned to pod interfaces, host interfaces, L2 bridges, tunnel end-points and any other network resource requiring IPv4 connectivity. An example is `192.68.13.1`.
   
-* IPv6 address - 128 bit IP address assigned to pod interfaces, host interfaces, L2 bridges, L3 routers, tunnel end-points and any other network resources requiring IPv6 connectivity. You can configure one or more IPv6 addresses on an interface. An exampole is `2001:db8:3333:4444:5555:6666:7777:8888.`
+* IPv6 address - 128 bit IP address assigned to pod interfaces, host interfaces, L2 bridges, L3 routers, tunnel end-points and any other network resources requiring IPv6 connectivity. You can configure one or more IPv6 addresses on an interface. An example is `2001:db8:3333:4444:5555:6666:7777:8888.`
 
 * Dual Stack - IPv4 and IPv6 addresses assigned to pod interfaces, host interfaces, L2 bridges, L3 routers, tunnel end-points and any other network resource requiring IPv4 and IPv6 connectivity.
 
@@ -44,13 +44,13 @@ Some platforms, such as Linux, support pods running in the host network. Pods at
 
 * Host Network - Network functions residing in user space or the kernel of physical or virtual nodes. 
 
-* Encapsulation - ability to encapsulate an L2 or L3 packets belonging to an `inner network` with an `outer network` header for transport across the `outer network`. This forms a `tunnel` where the encapsulation function is performed at tunnel ingress and de-encapsulation function is performed at tunnel egress. You can think of pods on nodes as the `inner network` and nodes networked together as the `outer network`. [IPIP](https://www.rfc-editor.org/rfc/rfc2003) and [VXLAN](https://www.rfc-editor.org/rfc/rfc7348) are two examples of encapsulation employed in K8s cluster networks.
+* Encapsulation - Ability to encapsulate L2 or L3 packets belonging to an `inner network` with an `outer network` header for transport across the `outer network`. This forms a `tunnel` where the encapsulation function is performed at tunnel ingress and de-encapsulation function is performed at tunnel egress. You can think of pods on nodes as the `inner network` and nodes networked together as the `outer network`. [IPIP](https://www.rfc-editor.org/rfc/rfc2003) and [VXLAN](https://www.rfc-editor.org/rfc/rfc7348) are two examples of encapsulation employed in K8s cluster networks.
 
 * [Virtual overlay network](https://book.systemsapproach.org/applications/overlays.html) - Logical or virtual network of tunnels using encapsulation that connect pods running on different nodes. You can imagine the virtual overlay network runs "on top" of the physical underlay network.   
 
-* Physical underlay network - Network resources performing packet forwarding between nodes. 
+* Physical underlay network - Network resources such as routers or switches that forward packets between nodes. 
 
-* Virtual ethernet link ([VETH](https://man7.org/linux/man-pages/man4/veth.4.html)) - Virtual link allowing you to convey packets between namespaces. 
+* Virtual ethernet link ([veth](https://man7.org/linux/man-pages/man4/veth.4.html)) - Virtual link allowing you to convey packets between namespaces. 
 
 * [Network namespace](https://man7.org/linux/man-pages/man7/network_namespaces.7.html) - Form of isolation where resources share a network stack, memory, processing and so on.
 
@@ -79,18 +79,17 @@ The network architecture and components consist of the following:
   * You can assign an Ethernet mac address to each Pod.
     Kubernetes does not require that a Pod has a unique identity at the data-link layer.
  
-* Pods use a virtual point-to-point (p2) "link" between the pod network namespace and root network namespace. This permits pod packets to utilize network functions defined in the root network namespace.  
+* Pods use a virtual point-to-point veth "link" between the pod network namespace and root network namespace. This allows pod packets to utilize network functions defined in the root network namespace.  
   
-* L2bridge is a virtual L2 bridge that allows attachment, configuration and communications between pods on the same node. Depending on your deployment of container runtimes and CNI, you might know this entity as a `linux bridge`, `docker0`, `cbr0` or `cni0`.
+* L2bridge is a virtual L2 bridge that allows attachment, configuration and communications between pods on the same node. Depending on your deployment of container runtimes and CNI plugins, this bridge function could be implemented within the CNI plugin itself.  
 
-* [Network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#:~:text=A%20CNI%20plugin%20is%20required,releases%20of%20the%20CNI%20specification.) allow pods to communicate even when the source pod destination pod are running on different nodes. Network plugins achieve this in different
-  ways. 
+* [Network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#:~:text=A%20CNI%20plugin%20is%20required,releases%20of%20the%20CNI%20specification.) allow pods to communicate even when the source pod destination pod are running on different nodes. Network plugins achieve this in different ways. Networks plugins are also known as _CNI plugins_.
   
 * Virtual overlay network consists of a network of tunnels connecting pods running on different nodes.
 
-* Physical underlay network, composed of L2 switches or L3 routers for example, transport packets between nodes. 
+* Physical underlay network, composed of L2 switches, L3 routers, load balancers for example, transport packets between nodes. 
 
-Kubernetes networking provides a number of capabilities. You can look over some of these capabilities and functions described in the examples below.
+Kubernetes networking provides you with a number of capabilities. You can look over some of these capabilities and functions described in the examples below.
 
 * [Containers on the same pod](#containers-on-the-same-pod)
 * [Pods on the same node](#pods-on-the-same-node)
@@ -132,12 +131,12 @@ Figure 3 illustrates an example of two pods talking each other on the same node.
 
 {{< figure src="/docs/images/k8net-PodSameHost03.drawio.svg" alt="k8s pods samehost" class="diagram-large" caption="Figure 3. Example of Pod 1 and Pod 2 on Node 1 communicating with each other" >}}
 
+
  
 ### Pods on different nodes
 
 Your Kubernetes deployment might place pods on a network of nodes. With this pod topology, you can distribute your workloads across many pods to increase scale and resiliency. Inter-pod networking between distinct nodes becomes a crucial function of your cluster network. 
 
-[//]: # ( Really think we need explanation and examples of CNI )
 
 #### Container network interface
 
@@ -148,7 +147,7 @@ Add CNI explanation and references.
 
 This example uses a virtual overlay network to support inter-pod networking.  
 
-{{< figure src="/docs/images/k8net-net-overlay.drawio.svg" alt="k8s pods virtual overlay" class="diagram-large" caption="Figure 4. Example of Pod 1 - Pod 4 networking on different nodes using a virtual overlay network" >}}
+{{< figure src="/docs/images/k8net-net-overlay.drawio.svg" alt="k8s pods virtual overlay" class="diagram-large" caption="Figure 4. Example of Pod 1 - Pod 2 networking on different nodes using a virtual overlay network" >}}
 
 In this example, the network plugin has set up an _virtual overlay network_. Packets that need to go
 to a different node are encapsulated and sent over a tunnel mechanism such as
@@ -157,11 +156,31 @@ to a different node are encapsulated and sent over a tunnel mechanism such as
 The destination node retrieves the inner packet and sends it to the target Pod, providing that there are no
 [NetworkPolicy](/docs/concepts/services-networking/network-policies/) restrictions to block that packet.
 
+The virtual overlay approach in this example offers several advantages: isolates the pod network from the physical underay network. 
+
+* Isolates the pod network from the physical underlay network. 
+* Enhanced security if the CNI plugin supports encrypted communications such as IPsec.
+ 
+A disadvantage to this approach is CNI plugin management, tunnel encap/decap performance overhead and network troubleshooting.
+
+For more information on virtual overlay network implementations, see [Flannel](https://github.com/flannel-io/flannel) and [Weavenet](https://www.weave.works/docs/net/latest/overview/). 
+
+
 #### Pods on different nodes using a physical underlay network
 
 This example uses the physical underlay network to support inter-pod networking. 
 
-{{< figure src="/docs/images/k8net-PodDiffHost-physical-underlay.drawio.svg" alt="k8s pods physical underay" class="diagram-large" caption="Figure 5. Example of Pod 1 - Pod2 networking on different nodes using a physical underlay network" >}}
+{{< figure src="/docs/images/k8net-net-phys-underlay.drawio.svg" alt="k8s pods physical underay" class="diagram-large" caption="Figure 5. Example of Pod 1 - Pod2 networking on different nodes using a physical underlay network" >}}
+
+There several advantages to the physical underlay approach in this example. 
+
+* No need for you to deploy and manage a separate virtual overlay network.   
+* Leverage existing deployment routing protocols such as BGP, address management and operational troubleshooting.  
+
+A disadvantage you can consider is the additional work to protect the pod network.
+
+For more information on physical network underlay implementations, see [Calico BGP](https://github.com/projectcalico/calico) and [Cilium native-routing](https://docs.cilium.io/en/v1.13/network/concepts/routing/#native-routing). 
+ 
 
 
 
