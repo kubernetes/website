@@ -1,13 +1,12 @@
 ---
 title: 配置 Pod 以使用 PersistentVolume 作为存储
 content_type: task
-weight: 60
+weight: 90
 ---
-
 <!--
 title: Configure a Pod to Use a PersistentVolume for Storage
 content_type: task
-weight: 60
+weight: 90
 -->
 
 <!-- overview -->
@@ -19,11 +18,11 @@ for storage.
 Here is a summary of the process:
 
 1. You, as cluster administrator, create a PersistentVolume backed by physical
-storage. You do not associate the volume with any Pod.
+   storage. You do not associate the volume with any Pod.
 
 1. You, now taking the role of a developer / cluster user, create a
-PersistentVolumeClaim that is automatically bound to a suitable
-PersistentVolume.
+   PersistentVolumeClaim that is automatically bound to a suitable
+   PersistentVolume.
 
 1. You create a Pod that uses the above PersistentVolumeClaim for storage.
 -->
@@ -43,15 +42,14 @@ PersistentVolume.
 
 <!--
 * You need to have a Kubernetes cluster that has only one Node, and the
-{{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
-command-line tool must be configured to communicate with your cluster. If you
-do not already have a single-node cluster, you can create one by using
-[Minikube](https://minikube.sigs.k8s.io/docs/).
+  {{< glossary_tooltip text="kubectl" term_id="kubectl" >}}
+  command-line tool must be configured to communicate with your cluster. If you
+  do not already have a single-node cluster, you can create one by using
+  [Minikube](https://minikube.sigs.k8s.io/docs/).
 
 * Familiarize yourself with the material in
-[Persistent Volumes](/docs/concepts/storage/persistent-volumes/).
+  [Persistent Volumes](/docs/concepts/storage/persistent-volumes/).
 -->
-
 * 你需要一个包含单个节点的 Kubernetes 集群，并且必须配置
   {{< glossary_tooltip text="kubectl" term_id="kubectl" >}} 命令行工具以便与集群交互。
   如果还没有单节点集群，可以使用
@@ -101,11 +99,11 @@ In the `/mnt/data` directory, create an `index.html` file:
 sudo sh -c "echo 'Hello from Kubernetes storage' > /mnt/data/index.html"
 ```
 
+{{< note >}}
 <!--
 If your Node uses a tool for superuser access other than `sudo`, you can
 usually make this work if you replace `sudo` with the name of the other tool.
 -->
-{{< note >}}
 如果你的节点使用某工具而不是 `sudo` 来完成超级用户访问，你可以将上述命令中的 `sudo` 替换为该工具的名称。
 {{< /note >}}
 
@@ -374,7 +372,7 @@ use storage from a PersistentVolumeClaim.
 <!--
 ## Clean up
 
-Delete the Pod,  the PersistentVolumeClaim and the PersistentVolume:
+Delete the Pod, the PersistentVolumeClaim and the PersistentVolume:
 -->
 ## 清理    {#clean-up}
 
@@ -395,11 +393,11 @@ In the shell on your Node, remove the file and directory that you created:
 如果你还没有连接到集群中节点的 Shell，可以按之前所做操作，打开一个新的 Shell。
 
 在节点的 Shell 上，删除你所创建的目录和文件：
+
 <!--
 # This assumes that your Node uses "sudo" to run commands
 # as the superuser
 -->
-
 ```shell
 # 这里假定你使用 "sudo" 来以超级用户的角色执行命令
 sudo rm /mnt/data/index.html
@@ -426,8 +424,8 @@ You can perform 2 volume mounts on your nginx container:
 -->
 你可以在 nginx 容器上执行两个卷挂载:
 
-`/usr/share/nginx/html` 用于静态网站
-`/etc/nginx/nginx.conf` 作为默认配置
+- `/usr/share/nginx/html` 用于静态网站
+- `/etc/nginx/nginx.conf` 作为默认配置
 
 <!-- discussion -->
 
@@ -472,11 +470,11 @@ each container.
 应用的方法与 Pod 的安全上下文中指定的 GID 相同。
 每个 GID，无论是来自 PersistentVolume 注解还是来自 Pod 规约，都会被应用于每个容器中运行的第一个进程。
 
+{{< note >}}
 <!--
 When a Pod consumes a PersistentVolume, the GIDs associated with the
 PersistentVolume are not present on the Pod resource itself.
 -->
-{{< note >}}
 当 Pod 使用 PersistentVolume 时，与 PersistentVolume 关联的 GID 不会在 Pod
 资源本身的对象上出现。
 {{< /note >}}
@@ -493,7 +491,7 @@ PersistentVolume are not present on the Pod resource itself.
 <!--
 ### Reference
 -->
-### 参考
+### 参考   {#reference}
 
 * [PersistentVolume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolume-v1-core)
 * [PersistentVolumeSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#persistentvolumespec-v1-core)
