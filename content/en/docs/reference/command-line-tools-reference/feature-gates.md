@@ -160,7 +160,8 @@ For a reference to old feature gates that are removed, please refer to
 | `PodDisruptionConditions` | `false` | Alpha | 1.25 | 1.25 |
 | `PodDisruptionConditions` | `true` | Beta | 1.26 | |
 | `PodHasNetworkCondition` | `false` | Alpha | 1.25 | |
-| `PodSchedulingReadiness` | `false` | Alpha | 1.26 | |
+| `PodSchedulingReadiness` | `false` | Alpha | 1.26 | 1.26 |
+| `PodSchedulingReadiness` | `true` | Beta | 1.27 | |
 | `ProbeTerminationGracePeriod` | `false` | Alpha | 1.21 | 1.21 |
 | `ProbeTerminationGracePeriod` | `false` | Beta | 1.22 | 1.24 |
 | `ProbeTerminationGracePeriod` | `true` | Beta | 1.25 | |
