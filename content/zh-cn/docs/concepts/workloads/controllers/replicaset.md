@@ -358,9 +358,9 @@ As with all other Kubernetes API objects, a ReplicaSet needs the `apiVersion`, `
 For ReplicaSets, the `kind` is always a ReplicaSet.
 
 When the control plane creates new Pods for a ReplicaSet, the `.metadata.name` of the
-ReplicaSet is part of the basis for naming those Pods.  The name of a ReplicaSet must be a valid
+ReplicaSet is part of the basis for naming those Pods. The name of a ReplicaSet must be a valid
 [DNS subdomain](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
-value, but this can produce unexpected results for the Pod hostnames.  For best compatibility,
+value, but this can produce unexpected results for the Pod hostnames. For best compatibility,
 the name should follow the more restrictive rules for a
 [DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
@@ -513,7 +513,7 @@ curl -X DELETE  'localhost:8080/apis/apps/v1/namespaces/default/replicasets/fron
 ```
 
 <!--
-Once the original is deleted, you can create a new ReplicaSet to replace it.  As long
+Once the original is deleted, you can create a new ReplicaSet to replace it. As long
 as the old and new `.spec.selector` are the same, then the new one will adopt the old Pods.
 However, it will not make any effort to make existing Pods match a new, different pod template.
 To update Pods to a new spec in a controlled way, use a
@@ -574,17 +574,20 @@ prioritize scaling down pods based on the following general algorithm:
    （当 `LogarithmicScaleDown` 这一[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
    被启用时，创建时间是按整数幂级来分组的）。
 
+<!--
+If all of the above match, then selection is random.
+-->
 如果以上比较结果都相同，则随机选择。
 
 <!--
-### Pod deletion cost 
+### Pod deletion cost
 -->
 ### Pod 删除开销   {#pod-deletion-cost}
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 <!--
-Using the [`controller.kubernetes.io/pod-deletion-cost`](/docs/reference/labels-annotations-taints/#pod-deletion-cost) 
+Using the [`controller.kubernetes.io/pod-deletion-cost`](/docs/reference/labels-annotations-taints/#pod-deletion-cost)
 annotation, users can set a preference regarding which pods to remove first when downscaling a ReplicaSet.
 -->
 通过使用 [`controller.kubernetes.io/pod-deletion-cost`](/zh-cn/docs/reference/labels-annotations-taints/#pod-deletion-cost)
@@ -593,7 +596,7 @@ annotation, users can set a preference regarding which pods to remove first when
 <!--
 The annotation should be set on the pod, the range is [-2147483647, 2147483647]. It represents the cost of
 deleting a pod compared to other pods belonging to the same ReplicaSet. Pods with lower deletion
-cost are preferred to be deleted before pods with higher deletion cost. 
+cost are preferred to be deleted before pods with higher deletion cost.
 -->
 此注解要设置到 Pod 上，取值范围为 [-2147483647, 2147483647]。
 所代表的是删除同一 ReplicaSet 中其他 Pod 相比较而言的开销。
@@ -629,9 +632,9 @@ kube-controller-manager 设置[特性门控](/zh-cn/docs/reference/command-line-
 <!--
 #### Example Use Case
 
-The different pods of an application could have different utilization levels. On scale down, the application 
+The different pods of an application could have different utilization levels. On scale down, the application
 may prefer to remove the pods with lower utilization. To avoid frequently updating the pods, the application
-should update `controller.kubernetes.io/pod-deletion-cost` once before issuing a scale down (setting the 
+should update `controller.kubernetes.io/pod-deletion-cost` once before issuing a scale down (setting the
 annotation to a value proportional to pod utilization level). This works if the application itself controls
 the down scaling; for example, the driver pod of a Spark deployment.
 -->
@@ -688,7 +691,7 @@ kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
 
 [`Deployment`](/docs/concepts/workloads/controllers/deployment/) is an object which can own ReplicaSets and update
 them and their Pods via declarative, server-side rolling updates.
-While ReplicaSets can be used independently, today they're  mainly used by Deployments as a mechanism to orchestrate Pod
+While ReplicaSets can be used independently, today they're mainly used by Deployments as a mechanism to orchestrate Pod
 creation, deletion and updates. When you use Deployments you don't have to worry about managing the ReplicaSets that
 they create. Deployments own and manage their ReplicaSets.
 As such, it is recommended to use Deployments when you want ReplicaSets.
@@ -738,7 +741,7 @@ expected to terminate on their own (that is, batch jobs).
 ### DaemonSet
 
 Use a [`DaemonSet`](/docs/concepts/workloads/controllers/daemonset/) instead of a ReplicaSet for Pods that provide a
-machine-level function, such as machine monitoring or machine logging.  These Pods have a lifetime that is tied
+machine-level function, such as machine monitoring or machine logging. These Pods have a lifetime that is tied
 to a machine lifetime: the Pod needs to be running on the machine before other Pods start, and are
 safe to terminate when the machine is otherwise ready to be rebooted/shutdown.
 -->
