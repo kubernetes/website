@@ -13,4 +13,4 @@ _build:
 * [আপনার অ্যাপ্লিকেশানটি কীভাবে লঞ্চ করবেন এবং প্রকাশ করবেন তা জানুন ।](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 * আপনার যদি এমন একটি ক্লাস্টারে অ্যাক্সেসের প্রয়োজন হয় যা আপনি তৈরি করেননি, দেখুন
   [ক্লাস্টার অ্যাক্সেস নথি ভাগ করেন](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
-* এটা পড়ুন [kubectl রেফারেন্স ডক্স](/docs/reference/kubectl/kubectl/)
+* [kubectl রেফারেন্স ডক্স](/docs/reference/kubectl/kubectl/) পড়ুন ।
