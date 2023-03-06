@@ -1,276 +1,429 @@
 # i18n strings for the Bengali (main) site.
 # NOTE: Please keep the entries in alphabetical order when editing
-[caution]
-other = "Caution:"
 
-[cleanup_heading]
-other = "Cleaning up"
+#[auto_generated_edit_notice]
+#other = "(auto-generated page)"
 
-[community_events_calendar]
-other = "Events Calendar"
+#[auto_generated_pageinfo]
+#other = """<p>This page is automatically generated.</p><p>If you plan to report an issue with this page, mention that the page is auto-generated in your issue description. The fix may need to happen elsewhere in the Kubernetes project.</p>"""
 
-[community_forum_name]
-other = "Forum"
+#[caution]
+#other = "Caution:"
 
-[community_github_name]
-other = "GitHub"
+#[cleanup_heading]
+#other = "Cleaning up"
 
-[community_slack_name]
-other = "Slack"
+#[community_events_calendar]
+#other = "Events Calendar"
 
-[community_stack_overflow_name]
-other = "Stack Overflow"
+#[community_forum_name]
+#other = "Forum"
 
-[community_twitter_name]
-other = "Twitter"
+#[community_github_name]
+#other = "GitHub"
 
-[community_youtube_name]
-other = "YouTube"
+#[community_slack_name]
+#other = "Slack"
 
-[deprecation_title]
-other = "You are viewing documentation for Kubernetes version:"
+#[community_stack_overflow_name]
+#other = "Stack Overflow"
 
-[deprecation_warning]
-other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date documentation, see the "
+#[community_twitter_name]
+#other = "Twitter"
 
-[deprecation_file_warning]
-other = "Deprecated"
+#[community_youtube_name]
+#other = "YouTube"
 
-[docs_label_browse]
-other = "Browse Docs"
+## Avoid using conjunction_1.
+## Must match the context in layouts/shortcodes/release-data.html
+## Appears on https://kubernetes.io/releases/
+## For example the "and" in "Complete 1.25 Schedule and Changelog"
+#[conjunction_1]
+#other = "and"
 
-[docs_label_contributors]
-other = "Contributors"
+#[cve_id]
+#other = "CVE ID"
 
-[docs_label_i_am]
-other = "I AM..."
+#[cve_issue_url]
+#other = "CVE GitHub Issue URL"
 
-[docs_label_users]
-other = "Users"
+#[cve_summary]
+#other = "Issue Summary"
 
-[docs_version_current]
-other = "(this documentation)"
+#[cve_table]
+#other = "Official Kubernetes CVE List"
 
-[docs_version_latest_heading]
-other = "Latest version"
+#[cve_table_date_format]
+#other = "02 Jan 2006 15:04:05 MST"
 
-[docs_version_other_heading]
-other = "Older versions"
+#[cve_table_date_format_string]
+#other = "(last updated: %s)"
 
-[end_of_life]
-other = "End of Life:"
+#[deprecation_title]
+#other = "You are viewing documentation for Kubernetes version:"
 
-[envvars_heading]
-other = "Environment variables"
+#[deprecation_warning]
+#other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date documentation, see the "
 
-[error_404_were_you_looking_for]
-other = "Were you looking for:"
+#[deprecation_file_warning]
+#other = "Deprecated"
 
-[examples_heading]
-other = "Examples"
+#[dockershim_message]
+#other = """Dockershim has been removed from the Kubernetes project as of release 1.24. Read the <a href="/dockershim">Dockershim Removal FAQ</a> for further details."""
 
-[feature_state]
-other = "FEATURE STATE:"
+#[docs_label_browse]
+#other = "Browse Docs"
 
-[feedback_heading]
-other = "Feedback"
+#[docs_label_contributors]
+#other = "Contributors"
 
-[feedback_no]
-other = "No"
+#[docs_label_i_am]
+#other = "I AM..."
 
-[feedback_question]
-other = "Was this page helpful?"
+#[docs_label_users]
+#other = "Users"
 
-[feedback_yes]
-other = "Yes"
+#[docs_version_current]
+#other = "(this documentation)"
 
-[inline_list_separator]
-other = ","
+#[docs_version_latest_heading]
+#other = "Latest version"
 
-[input_placeholder_email_address]
-other = "email address"
+#[docs_version_other_heading]
+#other = "Older versions"
 
-[javascript_required]
-other = "JavaScript must be [enabled](https://www.enable-javascript.com/) to view this content"
+#[end_of_life]
+#other = "End of Life:"
 
-[latest_release]
-other = "Latest Release:"
+#[envvars_heading]
+#other = "Environment variables"
 
-[latest_version]
-other = "latest version."
+#[error_404_were_you_looking_for]
+#other = "Were you looking for:"
 
-[layouts_blog_pager_prev]
-other = "<< Prev"
+#[examples_heading]
+#other = "Examples"
 
-[layouts_blog_pager_next]
-other = "Next >>"
+#[feature_state]
+#other = "FEATURE STATE:"
 
-[layouts_case_studies_list_tell]
-other = "Tell your story"
+#[feedback_heading]
+#other = "Feedback"
 
-[layouts_docs_glossary_aka]
-other = "Also known as"
+#[feedback_no]
+#other = "No"
 
-[layouts_docs_glossary_description]
-other = "This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to Kubernetes, as well as more general terms that provide useful context."
+#[feedback_question]
+#other = "Was this page helpful?"
 
-[layouts_docs_glossary_deselect_all]
-other = "Deselect all"
+#[feedback_yes]
+#other = "Yes"
 
-[layouts_docs_glossary_click_details_after]
-other = "indicators below to get a longer explanation for any particular term."
+#[final_patch_release]
+#other = "Final Patch Release"
 
-[layouts_docs_glossary_click_details_before]
-other = "Click on the"
+#[inline_list_separator]
+#other = ","
 
-[layouts_docs_glossary_filter]
-other = "Filter terms according to their tags"
+#[input_placeholder_email_address]
+#other = "email address"
 
-[layouts_docs_glossary_select_all]
-other = "Select all"
+#[javascript_required]
+#other = "JavaScript must be [enabled](https://www.enable-javascript.com/) to view this content"
 
-[layouts_docs_partials_feedback_improvement]
-other = "suggest an improvement"
+#[latest_release]
+#other = "Latest Release:"
 
-[layouts_docs_partials_feedback_issue]
-other = "Open an issue in the GitHub repo if you want to "
+#[latest_version]
+#other = "latest version."
 
-[layouts_docs_partials_feedback_or]
-other = "or"
+#[layouts_blog_pager_next]
+#other = "Next >>"
 
-[layouts_docs_partials_feedback_problem]
-other = "report a problem"
+#[layouts_blog_pager_prev]
+#other = "<< Prev"
 
-[layouts_docs_partials_feedback_thanks]
-other = "Thanks for the feedback. If you have a specific, answerable question about how to use Kubernetes, ask it on"
+#[layouts_case_studies_list_tell]
+#other = "Tell your story"
 
-[layouts_docs_search_fetching]
-other = "Fetching results..."
+#[layouts_docs_glossary_aka]
+#other = "Also known as"
 
-[main_by]
-other = "by"
+#[layout_docs_glossary_architecture_description]
+#other = "The inner components of Kubernetes."
 
-[main_cncf_project]
-other = """We are a <a href="https://cncf.io/">CNCF</a> graduated project</p>"""
+#[layout_docs_glossary_architecture_name]
+#other = "Architecture"
 
-[main_community_explore]
-other = "Explore the community"
+#[layouts_docs_glossary_click_details_after]
+#other = "indicators below to get a longer explanation for any particular term."
 
-[main_contribute]
-other = "Contribute"
+#[layouts_docs_glossary_click_details_before]
+#other = "Click on the"
 
-[main_copyright_notice]
-other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+#[layout_docs_glossary_community_description]
+#other = "Related to Kubernetes open-source development."
 
-[main_documentation_license]
-other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+#[layout_docs_glossary_community_name]
+#other = "Community"
 
-[main_github_invite]
-other = "Interested in hacking on the core Kubernetes code base?"
+#[layout_docs_glossary_core-object_description]
+#other = "A resource type that Kubernetes supports by default."
 
-[main_github_view_on]
-other = "View On GitHub"
+#[layout_docs_glossary_core-object_name]
+#other = "Core Object"
 
-[main_kubernetes_features]
-other = "Kubernetes Features"
+#[layouts_docs_glossary_description]
+#other = "This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to Kubernetes, as well as more general terms that provide useful context."
 
-[main_kubeweekly_baseline]
-other = "Interested in receiving the latest Kubernetes news? Sign up for KubeWeekly."
+#[layouts_docs_glossary_deselect_all]
+#other = "Deselect all"
 
-[main_kubernetes_past_link]
-other = "View past newsletters"
+#[layout_docs_glossary_extension_description]
+#other = "Supported customizations of Kubernetes."
 
-[main_kubeweekly_signup]
-other = "Subscribe"
+#[layout_docs_glossary_extension_name]
+#other = "Extension"
 
-[main_page_history]
-other ="Page History"
+#[layouts_docs_glossary_filter]
+#other = "Filter terms according to their tags"
 
-[main_page_last_modified_on]
-other = "Page last modified on"
+#[layout_docs_glossary_fundamental_description]
+#other = "Relevant for a first-time user of Kubernetes."
 
-[main_read_about]
-other = "Read about"
+#[layout_docs_glossary_fundamental_name]
+#other = "Fundamental"
 
-[main_read_more]
-other = "Read more"
+#[layout_docs_glossary_networking_description]
+#other = "How Kubernetes components talk to each other (and to programs outside the cluster)."
 
-[not_applicable]
-# Localization teams: it's OK to use a longer text here
-other = "n/a"
+#[layout_docs_glossary_networking_name]
+#other = "Networking"
 
-[note]
-other = "Note:"
+#[layout_docs_glossary_operation_description]
+#other = "Starting and maintaining Kubernetes."
 
-[objectives_heading]
-other = "Objectives"
+#[layout_docs_glossary_operation_name]
+#other = "Operation"
 
-[options_heading]
-other = "Options"
+#[layout_docs_glossary_security_description]
+#other = "Keeping Kubernetes applications safe and secure."
 
-[outdated_blog__message]
-other = "This article is more than one year old. Older articles may contain outdated content. Check that the information in the page has not become incorrect since its publication."
+#[layout_docs_glossary_security_name]
+#other = "Security"
 
-[post_create_issue]
-other = "Create an issue"
+#[layouts_docs_glossary_select_all]
+#other = "Select all"
 
-[prerequisites_heading]
-other = "Before you begin"
+#[layout_docs_glossary_storage_description]
+#other = "How Kubernetes applications handle persistent data."
 
-[previous_patches]
-other = "Patch Releases:"
+#[layout_docs_glossary_storage_name]
+#other = "Storage"
 
-[release_date_after]
-other = ")"
+#[layout_docs_glossary_tool_description]
+#other = "Software that makes Kubernetes easier or better to use."
 
-[release_date_before]
-other = "(released: "
+#[layout_docs_glossary_tool_name]
+#other = "Tool"
 
-# See https://gohugo.io/functions/format/#gos-layout-string
-# Use a suitable format for your locale
-[release_date_format]
-other = "2006-01-02"
+#[layout_docs_glossary_user-type_description]
+#other = "Represents a common type of Kubernetes user."
 
-[seealso_heading]
-other = "See Also"
+#[layout_docs_glossary_user-type_name]
+#other = "User Type"
 
-[subscribe_button]
-other = "Subscribe"
+#[layout_docs_glossary_workload_description]
+#other = "Applications running on Kubernetes."
 
-[synopsis_heading]
-other = "Synopsis"
+#[layout_docs_glossary_workload_name]
+#other = "Workload"
 
-[thirdparty_message]
-other = """This section links to third party projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for these projects, which are listed alphabetically. To add a project to this list, read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before submitting a change. <a href="#third-party-content-disclaimer">More information.</a>"""
+#[layouts_docs_partials_feedback_improvement]
+#other = "suggest an improvement"
 
-[thirdparty_message_edit_disclaimer]
-other="""Third party content advice"""
+#[layouts_docs_partials_feedback_issue]
+#other = "Open an issue in the GitHub repo if you want to "
 
+#[layouts_docs_partials_feedback_or]
+#other = "or"
 
-[thirdparty_message_single_item]
-other = """&#128711; This item links to a third party project or product that is not part of Kubernetes itself. <a class="alert-more-info" href="#third-party-content-disclaimer">More information</a>"""
+#[layouts_docs_partials_feedback_problem]
+#other = "report a problem"
 
-[thirdparty_message_disclaimer]
-other = """<p>Items on this page refer to third party products or projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for those third-party products or projects. See the <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF website guidelines</a> for more details.</p><p>You should read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before proposing a change that adds an extra third-party link.</p>"""
+#[layouts_docs_partials_feedback_thanks]
+#other = "Thanks for the feedback. If you have a specific, answerable question about how to use Kubernetes, ask it on"
 
-[ui_search_placeholder]
-other = "Search"
+#[layouts_docs_search_fetching]
+#other = "Fetching results..."
 
-[version_check_mustbe]
-other = "Your Kubernetes server must be version "
+#[main_by]
+#other = "by"
 
-[version_check_mustbeorlater]
-other = "Your Kubernetes server must be at or later than version "
+#[main_cncf_project]
+#other = """We are a <a href="https://cncf.io/">CNCF</a> graduated project</p>"""
 
-[version_check_tocheck]
-other = "To check the version, enter "
+#[main_community_explore]
+#other = "Explore the community"
 
-[version_menu]
-other = "Versions"
+#[main_contribute]
+#other = "Contribute"
 
-[warning]
-other = "Warning:"
+#[main_copyright_notice]
+#other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
 
-[whatsnext_heading]
-other = "What's next"
+#[main_documentation_license]
+#other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
 
+#[main_github_invite]
+#other = "Interested in hacking on the core Kubernetes code base?"
+
+#[main_github_view_on]
+#other = "View On GitHub"
+
+#[main_kubernetes_features]
+#other = "Kubernetes Features"
+
+#[main_kubeweekly_baseline]
+#other = "Interested in receiving the latest Kubernetes news? Sign up for KubeWeekly."
+
+#[main_kubernetes_past_link]
+#other = "View past newsletters"
+
+#[main_kubeweekly_signup]
+#other = "Subscribe"
+
+#[main_page_history]
+#other ="Page History"
+
+#[main_page_last_modified_on]
+#other = "Page last modified on"
+
+#[main_read_about]
+#other = "Read about"
+
+#[main_read_more]
+#other = "Read more"
+
+#[not_applicable]
+## Localization teams: it's OK to use a longer text here
+#other = "n/a"
+
+#[note]
+#other = "Note:"
+
+#[objectives_heading]
+#other = "Objectives"
+
+#[options_heading]
+#other = "Options"
+
+#[outdated_blog__message]
+#other = "This article is more than one year old. Older articles may contain outdated content. Check that the information in the page has not become incorrect since its publication."
+
+#[patch_release]
+#other = "Patch Release"
+
+#[post_create_issue]
+#other = "Create an issue"
+
+#[prerequisites_heading]
+#other = "Before you begin"
+
+#[previous_patches]
+#other = "Patch Releases:"
+
+#[release_date_after]
+#other = ")"
+
+#[release_date_before]
+#other = "(released: "
+
+## See https://gohugo.io/functions/format/#gos-layout-string
+## Use a suitable format for your locale
+#[release_date_format]
+#other = "2006-01-02"
+
+#[release_cherry_pick_deadline]
+#other = "Cherry Pick Deadline"
+
+#[release_end_of_life_date]
+#other = "End Of Life Date"
+
+#[release_full_details_initial_text]
+#other = "Complete"
+
+#[release_information_navbar]
+#other = "Release Information"
+
+#[release_minor_version]
+#other = "Minor Version"
+
+#[release_info_next_patch]
+#other = "Next patch release is **%s**."
+
+## Localization note: You can use Markdown here.
+## The three placeholders (in order) are:
+##   Kubernetes minor version
+##   maintenance mode date
+##   end of life date
+##
+## Keep this order. It is OK to use more than one sentence, and it's also OK to change the
+## tense of the text so long as the meaning is clear.
+#[release_info_eol]
+#other = "**%s** enters maintenance mode on **%s** and End of Life is on **%s**."
+
+#[release_note]
+#other = "Note"
+
+#[release_schedule]
+#other = "Schedule"
+
+#[release_target_date]
+#other = "Target Date"
+
+#[release_changelog]
+#other = "Changelog"
+
+#[seealso_heading]
+#other = "See Also"
+
+#[subscribe_button]
+#other = "Subscribe"
+
+#[synopsis_heading]
+#other = "Synopsis"
+
+#[thirdparty_message]
+#other = """This section links to third party projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for these projects, which are listed alphabetically. To add a project to this list, read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before submitting a change. <a href="#third-party-content-disclaimer">More information.</a>"""
+
+#[thirdparty_message_edit_disclaimer]
+#other="""Third party content advice"""
+
+
+#[thirdparty_message_single_item]
+#other = """&#128711; This item links to a third party project or product that is not part of Kubernetes itself. <a class="alert-more-info" href="#third-party-content-disclaimer">More information</a>"""
+
+#[thirdparty_message_disclaimer]
+#other = """<p>Items on this page refer to third party products or projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for those third-party products or projects. See the <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF website guidelines</a> for more details.</p><p>You should read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before proposing a change that adds an extra third-party link.</p>"""
+
+#[ui_search_placeholder]
+#other = "Search"
+
+#[version_check_mustbe]
+#other = "Your Kubernetes server must be version "
+
+#[version_check_mustbeorlater]
+#other = "Your Kubernetes server must be at or later than version "
+
+#[version_check_tocheck]
+#other = "To check the version, enter "
+
+#[version_menu]
+#other = "Versions"
+
+#[warning]
+#other = "Warning:"
+
+#[whatsnext_heading]
+#other = "What's next"
