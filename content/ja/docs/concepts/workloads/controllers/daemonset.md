@@ -117,7 +117,7 @@ DaemonSetのPodは[TaintsとTolerations](/ja/docs/concepts/scheduling-eviction/t
 
 ## Daemon Podとのコミュニケーション {#communicating-with-daemon-pods}
 
-DaemonSet内のPodとのコミュニケーションをする際に考えられるパターンは以下の通りです。:
+DaemonSet内のPodとのコミュニケーションをする際に考えられるパターンは以下の通りです:
 
 - **Push**: DaemonSet内のPodは他のサービスに対して更新情報を送信するように設定されます。
 - **NodeIPとKnown Port**: PodがNodeIPを介して疎通できるようにするため、DaemonSet内のPodは`hostPort`を使用できます。慣例により、クライアントはNodeIPのリストとポートを知っています。
