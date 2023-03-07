@@ -129,7 +129,7 @@ DaemonSet内のPodとのコミュニケーションをする際に考えられ�
 - **Push**: DaemonSet内のPodは統計データベースなどの他のサービスに対して更新情報を送信するように設定されます。クライアントは持っていません。
 - **NodeIPとKnown Port**: PodがNodeIPを介して疎通できるようにするため、DaemonSet内のPodは`hostPort`を使用できます。慣例により、クライアントはNodeIPのリストとポートを知っています。
 - **DNS**: 同じPodセレクターを持つ[HeadlessService](/ja/docs/concepts/services-networking/service/#headless-service)を作成し、`endpoints`リソースを使ってDaemonSetを探すか、DNSから複数のAレコードを取得します。
-- **Service**: 同じPodセレクターを持つServiceを作成し、複数のうちのいずれかのNode上のDaemonに疎通させるためにそのServiceを使います。(特定のNodeにアクセスする方法がありません。)
+- **Service**: 同じPodセレクターを持つServiceを作成し、複数のうちのいずれかのNode上のDaemonに疎通させるためにそのServiceを使います。(特定のNodeにアクセスする方法はありません。)
 
 ## DaemonSetの更新
 
