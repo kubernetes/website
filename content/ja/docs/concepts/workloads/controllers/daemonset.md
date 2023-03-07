@@ -80,7 +80,7 @@ DaemonSet内のPodテンプレートでは、[`RestartPolicy`](/ja/docs/concepts
 
 DaemonSetは、全ての利用可能なNodeがPodのコピーを稼働させることを保証します。DaemonSetコントローラーは対象となる各Nodeに対してPodを作成し、ターゲットホストに一致するようにPodの`spec.affinity.nodeAffinity`フィールドを追加します。Podが作成されると、通常はデフォルトのスケジューラーが引き継ぎ、`.spec.nodeName`を設定することでPodをターゲットホストにバインドします。新しいNodeに適合できない場合、デフォルトスケジューラーは新しいPodの[優先度](/ja/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority)に基づいて、既存Podのいくつかを先取り(退避)させることがあります。
 
-ユーザーは、DaemonSetの`.spec.template.spec.schedulerName`フィールドを設定することにより、DaemonSetのPodsに対して異なるスケジューラーを指定することができます。
+ユーザーは、DaemonSetの`.spec.template.spec.schedulerName`フィールドを設定することにより、DaemonSetのPodに対して異なるスケジューラーを指定することができます。
 
 `.spec.template.spec.affinity.nodeAffinity`フィールド(指定された場合)で指定された元のNodeアフィニティは、DaemonSetコントローラーが対象Nodeを評価する際に考慮されますが、作成されたPod上では対象Nodeの名前と一致するNodeアフィニティに置き換わります。
 
