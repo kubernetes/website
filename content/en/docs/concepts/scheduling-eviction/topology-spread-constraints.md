@@ -64,7 +64,7 @@ spec:
       topologyKey: <string>
       whenUnsatisfiable: <string>
       labelSelector: <object>
-      matchLabelKeys: <list> # optional; alpha since v1.25
+      matchLabelKeys: <list> # optional; beta since v1.27
       nodeAffinityPolicy: [Honor|Ignore] # optional; beta since v1.26
       nodeTaintsPolicy: [Honor|Ignore] # optional; beta since v1.26
   ### other Pod fields go here
@@ -144,9 +144,8 @@ your cluster. Those fields are:
   ```
 
   {{< note >}}
-  The `matchLabelKeys` field is an alpha field added in 1.25. You have to enable the
-  `MatchLabelKeysInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  in order to use it.
+  The `matchLabelKeys` field is a beta-level field and enabled by default in 1.27. You can disable it by disabling the
+  `MatchLabelKeysInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   {{< /note >}}
 
 - **nodeAffinityPolicy** indicates how we will treat Pod's nodeAffinity/nodeSelector
