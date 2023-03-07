@@ -11,10 +11,11 @@ exposer ses propres informations aux containers qu'il exécute via la
 _downward API_.
 Vous pouvez utiliser des variables d'environnement pour exposer des champs 
 de configuration du Pod, des containers ou les deux.
+
 Dans Kubernetes, il y a deux façons distinctes d'exposer les champs de
 configuration de Pod et de container à l'intérieur d'un container:
 
-* _Via les variables d'environnement_, comme expliqué ci-dessous
+* _Via les variables d'environnement_, comme expliqué dans cette tâche,
 * Via un [volume](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
 
 Ensemble, ces deux façons d'exposer des informations du Pod et du container sont appelées la _downward API_.
@@ -33,11 +34,12 @@ container comme variables d'environnement.
 
 {{< codenew file="pods/inject/dapi-envars-pod.yaml" >}}
 
-Dans ce fichier de configuration, on trouve cinq variables d'environnement. Le champ `env` est une liste de variables d'environnement. 
-Le premier élément de la liste spécifie que la variable d'environnement
-`MY_NODE_NAME` aura sa valeur à partir du champ `spec.nodeName` du Pod.
+Dans ce fichier de configuration, on trouve cinq variables d'environnement.
+Le champ `env` est une liste de variables d'environnement.
+Le premier élément de la liste spécifie que la valeur de la variable d'environnement
+`MY_NODE_NAME` hérite du champ `spec.nodeName` du Pod.
 Il en va de même pour les autres variables d'environnement, qui héritent
-des champs du Pod.
+des autres champs du Pod.
 {{< note >}}
 Les champs de configuration présents dans cet exemple sont des champs du Pod. Ce ne sont pas les champs du container à l'intérieur du Pod.
 {{< /note >}}
@@ -148,13 +150,13 @@ Le résultat doit afficher les valeurs des variables selectionnées:
 ## {{% heading "whatsnext" %}}
 
 
-* Lire [Defining Environment Variables for a Container](/docs/tasks/inject-data-application/define-environment-variable-container/)
-* Read the [`spec`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
-  API definition for Pod. This includes the definition of Container (part of Pod).
-* Read the list of [available fields](/docs/concepts/workloads/pods/downward-api/#available-fields) that you
-  can expose using the downward API.
+* Lire [Définir des variables d'environnement pour un Container](/docs/tasks/inject-data-application/define-environment-variable-container/)
+* Lire la [`documentation de référence des Pod`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec).
+  Elle inclut la documentation pour les containers.
+* Lire la liste des [champs de configuration disponibles](/docs/concepts/workloads/pods/downward-api/#available-fields)
+  qui peuvent être exposés via la downward API.
 
-Read about Pods, containers and environment variables in the legacy API reference:
+En savoir plus sur les pods, les containers et les variables d'environnement avec les documentations de référence:
 
 * [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
 * [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
