@@ -351,6 +351,6 @@ _トポロジー分散制約_ を使って、リージョン、ゾーン、Node�
 
 * [TaintとToleration](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)についてもっと読む。
 * [Nodeアフィニティ](https://git.k8s.io/design-proposals-archive/scheduling/nodeaffinity.md)と[Pod間アフィニティ/アンチアフィニティ](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md)のデザインドキュメントを読む。
-* [トポロジーマネージャー](/ja/docs/tasks/administer-cluster/topology-manager/)がNodeレベルリソースの割り当て決定に参加する方法について学ぶ。
+* [トポロジーマネージャー](/ja/docs/tasks/administer-cluster/topology-manager/)がNodeレベルのリソース割り当ての決定にどのように関与しているかについて学ぶ。
 * [nodeSelector](/ja/docs/tasks/configure-pod-container/assign-pods-nodes/)の使用方法について学ぶ。
 * [アフィニティとアンチアフィニティ](/ja/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)の使用方法について学ぶ。
