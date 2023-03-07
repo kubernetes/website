@@ -317,7 +317,7 @@ Podアンチアフィニティを使用する理由は他にもあります。
 
 ## nodeName
 
-`nodeName`はアフィニティや`nodeSelector`よりも直接的なNode選択形式になります。`nodeName`はPod仕様(spec)のフィールドです。`nodeName`フィールドが空でない場合、スケジューラーはPodを考慮せずに、指定されたNodeにあるkubeletはそのNodeにPodを配置しようとします。`nodeName`を使用すると、`nodeSelector`やアフィニティおよびアンチアフィニティルールを使用するよりも優先されます。
+`nodeName`はアフィニティや`nodeSelector`よりも直接的なNode選択形式になります。`nodeName`はPod仕様(spec)内のフィールドです。`nodeName`フィールドが空でない場合、スケジューラーはPodを考慮せずに、指定されたNodeにあるkubeletがそのNodeにPodを配置しようとします。`nodeName`を使用すると、`nodeSelector`やアフィニティおよびアンチアフィニティルールを使用するよりも優先されます。
 
  `nodeName`を使ってNodeを選択する場合の制約は以下の通りです:
 
