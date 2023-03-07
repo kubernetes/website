@@ -124,7 +124,7 @@ DaemonSetコントローラーは`node.kubernetes.io/unschedulable:NoSchedule`�
 
 ## Daemon Podとのコミュニケーション
 
-DaemonSet内のPodとのコミュニケーションをする際に考えられるパターンは以下の通りです。:
+DaemonSet内のPodとのコミュニケーションをする際に考えられるパターンは以下の通りです:
 
 - **Push**: DaemonSet内のPodは統計データベースなどの他のサービスに対して更新情報を送信するように設定されます。クライアントは持っていません。
 - **NodeIPとKnown Port**: PodがNodeIPを介して疎通できるようにするため、DaemonSet内のPodは`hostPort`を使用できます。慣例により、クライアントはNodeIPのリストとポートを知っています。
