@@ -157,7 +157,7 @@ profiles:
 `addedAffinity`はエンドユーザーには見えないので、その動作はエンドユーザーにとって予期しないものになる可能性があります。スケジューラープロファイル名と明確な相関関係のあるNodeラベルを使用すべきです。
 
 {{< note >}}
-[DaemonSetのPodを作成する](/ja/docs/concepts/workloads/controllers/daemonset/#how-daemon-pods-are-scheduled)DaemonSetコントローラーは、スケジューリングプロファイルをサポートしていません。DaemonSetコントローラーがPodを作成すると、デフォルトのKubernetesスケジューラーがそれらのPodを配置し、DaemonSetコントローラーの`nodeAffinity`ルールに優先して従います。
+[DaemonSetのPodを作成する](/ja/docs/concepts/workloads/controllers/daemonset/#scheduled-by-default-scheduler)DaemonSetコントローラーは、スケジューリングプロファイルをサポートしていません。DaemonSetコントローラーがPodを作成すると、デフォルトのKubernetesスケジューラーがそれらのPodを配置し、DaemonSetコントローラーの`nodeAffinity`ルールに優先して従います。
 {{< /note >}}
 
 ### Pod間のアフィニティとアンチアフィニティ
