@@ -33,7 +33,7 @@ DaemonSetのいくつかの典型的な使用例は以下の通りです。
 YAMLファイルに基づいてDaemonSetを作成します。
 
 ```
-kubectl apply -f https://k8s.io/examples/controllers/daemonset.yal
+kubectl apply -f https://k8s.io/examples/controllers/daemonset.yaml
 ```
 
 ### 必須のフィールド
