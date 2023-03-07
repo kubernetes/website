@@ -9,9 +9,8 @@ short_description: >
 aka: 
 tags:
 - fundamental
-- operation
 ---
-Los finalizadores son atributos de un namespace que dictan a Kubernetes a
+Los finalizadores son atributos de un namespace que instruyen a Kubernetes a
 esperar a que ciertas condiciones sean satisfechas antes que pueda borrar
 definitivamente un objeto que ha sido marcado para eliminarse.
 Los finalizadores alertan a los {{<glossary_tooltip text="controladores" term_id="controller">}}
