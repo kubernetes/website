@@ -134,7 +134,8 @@ For a reference to old feature gates that are removed, please refer to
 | `LogarithmicScaleDown` | `true` | Beta | 1.22 | |
 | `LoggingAlphaOptions` | `false` | Alpha | 1.24 | - |
 | `LoggingBetaOptions` | `true` | Beta | 1.24 | - |
-| `MatchLabelKeysInPodTopologySpread` | `false` | Alpha | 1.25 | |
+| `MatchLabelKeysInPodTopologySpread` | `false` | Alpha | 1.25 | 1.26 |
+| `MatchLabelKeysInPodTopologySpread` | `true` | Beta | 1.27 | - |
 | `MaxUnavailableStatefulSet` | `false` | Alpha | 1.24 | |
 | `MemoryManager` | `false` | Alpha | 1.21 | 1.21 |
 | `MemoryManager` | `true` | Beta | 1.22 | |
