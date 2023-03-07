@@ -5,7 +5,7 @@ reviewers:
 - thockin
 title: Configure Service Accounts for Pods
 content_type: task
-weight: 90
+weight: 120
 ---
 
 Kubernetes offers two distinct ways for clients that run within your
