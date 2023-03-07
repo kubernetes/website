@@ -55,7 +55,7 @@ Podに対する必須のフィールドに加えて、DaemonSet内のPodテン�
 
 DaemonSet内のPodテンプレートでは、[`RestartPolicy`](/ja/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)フィールドを指定せずにデフォルトの`Always`を使用するか、明示的に`Always`を設定するかのどちらかである必要があります。
 
-### Podセレクター 
+### Podセレクター
 
 `.spec.selector`フィールドはPodセレクターとなります。これは[Job](/ja/docs/concepts/workloads/controllers/job/)の`.spec.selector`と同じものです。
 
