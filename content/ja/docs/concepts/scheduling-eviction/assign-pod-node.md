@@ -262,7 +262,7 @@ spec:
         image: redis:3.2-alpine
 ```
 
-次の Web サーバーのDeployment例では、`app=web-store`ラベルが付与されたレプリカを作成します。Podアフィニティルールは、各レプリカを、`app=store`ラベルが付与されたPodを持つNodeに配置するようスケジューラーに指示します。Podアンチアフィニティルールは、1つのNodeに複数の`app=web-store`サーバーを配置しないようにスケジューラーに指示します。
+次のウェブサーバーのDeployment例では、`app=web-store`ラベルが付与されたレプリカを作成します。Podアフィニティルールは、各レプリカを、`app=store`ラベルが付与されたPodを持つNodeに配置するようスケジューラーに指示します。Podアンチアフィニティルールは、1つのNodeに複数の`app=web-store`サーバーを配置しないようにスケジューラーに指示します。
 
 ```yaml
 apiVersion: apps/v1
