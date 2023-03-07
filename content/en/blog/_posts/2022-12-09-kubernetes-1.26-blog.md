@@ -55,7 +55,7 @@ across multiple Cloud Providers and Regions, a change that reduced the reliance 
 and provided a faster download experience for a large number of users.
 
 This release of Kubernetes is the first that is exclusively published in the new `registry.k8s.io`
-container image registry. In the (now legacy) `k8s.gcr.io` image registry, no container images tags
+container image registry. In the (now legacy) `registry.k8s.io` image registry, no container images tags
 for v1.26 will be published, and only tags from releases before v1.26 will continue to be
 updated. Refer to [registry.k8s.io: faster, cheaper and Generally
 Available](/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/) for more information on the

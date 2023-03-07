@@ -115,7 +115,7 @@ metadata:
 spec:
   containers:
   - name: agnhost
-    # image changed since publication (previously used registry "k8s.gcr.io")
+    # image changed since publication (previously used registry "registry.k8s.io")
     image: registry.k8s.io/e2e-test-images/agnhost:2.35
     command: ["/agnhost", "grpc-health-checking"]
     ports:
