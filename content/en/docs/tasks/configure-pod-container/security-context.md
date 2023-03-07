@@ -449,8 +449,7 @@ SELinux label of a volume instantly by using a mount option
 
 To benefit from this speedup, all these conditions must be met:
 
-* Alpha feature gates `ReadWriteOncePod` and `SELinuxMountReadWriteOncePod` must
-  be enabled.
+* Alpha feature gate `SELinuxMountReadWriteOncePod` must be enabled.
 * Pod must use PersistentVolumeClaim with `accessModes: ["ReadWriteOncePod"]`.
 * Pod (or all its Containers that use the PersistentVolumeClaim) must
   have `seLinuxOptions` set.

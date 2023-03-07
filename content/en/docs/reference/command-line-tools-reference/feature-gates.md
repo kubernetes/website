@@ -169,7 +169,8 @@ For a reference to old feature gates that are removed, please refer to
 | `ProxyTerminatingEndpoints` | `false` | Alpha | 1.22 | 1.25 |
 | `ProxyTerminatingEndpoints` | `true` | Beta | 1.26 | |
 | `QOSReserved` | `false` | Alpha | 1.11 | |
-| `ReadWriteOncePod` | `false` | Alpha | 1.22 | |
+| `ReadWriteOncePod` | `false` | Alpha | 1.22 | 1.26 |
+| `ReadWriteOncePod` | `true` | Beta | 1.27 | |
 | `RecoverVolumeExpansionFailure` | `false` | Alpha | 1.23 | |
 | `RemainingItemCount` | `false` | Alpha | 1.15 | 1.15 |
 | `RemainingItemCount` | `true` | Beta | 1.16 | |
