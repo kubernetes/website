@@ -53,7 +53,7 @@ kubectl apply -f https://k8s.io/examples/pods/inject/dapi-envars-pod.yaml
 Vérifiez que le container dans le Pod fonctionne:
 
 ```shell
-# If the new Pod isn't yet healthy, rerun this command a few times.
+# Si le nouveau Pod n'est pas fonctionnel, re-exécutez cette commande plusieurs fois
 kubectl get pods
 ```
 
