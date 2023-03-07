@@ -119,7 +119,7 @@ DaemonSetのPodテンプレートで定義すれば、DaemonSetのPodに独自�
 
 DaemonSetコントローラーは`node.kubernetes.io/unschedulable:NoSchedule`のTolerationを自動的に設定するため、Kubernetesは _スケジューリング不可能_ としてマークされているNodeでDaemonSet Podを実行することが可能です。
 
-[クラスターのネットワーク](/ja/docs/concepts/cluster-administration/networking/)のような重要なNodeレベル機能をDaemonSetで提供する場合、KubernetesがDaemonSet PodをNodeが準備完了になる前に配置することは有用です。
+[クラスターのネットワーク](/ja/docs/concepts/cluster-administration/networking/)のような重要なNodeレベルの機能をDaemonSetで提供する場合、KubernetesがDaemonSet PodをNodeが準備完了になる前に配置することは有用です。
 例えば、その特別なTolerationがなければ、ネットワークプラグインがそこで実行されていないためにNodeが準備完了としてマークされず、同時にNodeがまだ準備完了でないためにそのNode上でネットワークプラグインが実行されていないというデッドロック状態に陥ってしまう可能性があるのです。
 
 ## Daemon Podとのコミュニケーション
