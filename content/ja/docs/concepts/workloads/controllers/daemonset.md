@@ -78,7 +78,7 @@ DaemonSet内のPodテンプレートでは、[`RestartPolicy`](/ja/docs/concepts
 
 ## Daemon Podがどのようにスケジューリングされるか
 
-DaemonSetは全ての利用可能なNodeが単一のPodのコピーを稼働させることを保証します。DaemonSetコントローラーは対象となる各Nodeに対してPodを作成し、ターゲットホストに一致するようにPodの`spec.affinity.nodeAffinity`フィールドを追加します。Podが作成されると、デフォルトのスケジューラーが慣例的に引き継ぎ、`.spec.nodeName`を設定することでPodをターゲットホストにバインドします。新しいNodeに適合できない場合、デフォルトスケジューラーは新しいPodの[優先度](/ja/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority)に基づいて既存Podのいくつかを先取り（退避）させることがあります。
+DaemonSetは、全ての利用可能なNodeがPodのコピーを稼働させることを保証します。DaemonSetコントローラーは対象となる各Nodeに対してPodを作成し、ターゲットホストに一致するようにPodの`spec.affinity.nodeAffinity`フィールドを追加します。Podが作成されると、通常はデフォルトのスケジューラーが引き継ぎ、`.spec.nodeName`を設定することでPodをターゲットホストにバインドします。新しいNodeに適合できない場合、デフォルトスケジューラーは新しいPodの[優先度](/ja/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority)に基づいて、既存Podのいくつかを先取り(退避)させることがあります。
 
 ユーザーは、DaemonSetの`.spec.template.spec.schedulerName`フィールドを設定することにより、DaemonSetのPodsに対して異なるスケジューラーを指定することができます。
 
