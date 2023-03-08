@@ -1,6 +1,6 @@
 ---
 reviewers:
-- mikedanese
+- mitul3737
 title: Install and Set Up kubectl on macOS
 content_type: task
 weight: 10
