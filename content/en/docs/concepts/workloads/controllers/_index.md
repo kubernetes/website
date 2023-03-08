@@ -1,6 +1,7 @@
 ---
 title: "Workload Resources"
 weight: 20
+simple_list: true
 ---
 
 Kubernetes provides several built-in APIs for declarative management of your
@@ -55,3 +56,6 @@ You can use a [Job](/docs/concepts/workloads/controllers/job/) and / or
 a [CronJob](/docs/concepts/workloads/controllers/cron-jobs/) to
 define tasks that run to completion and then stop. A Job represents a one-off task,
 whereas each CronJob repeats according to a schedule.
+
+Other topics in this section:
+<!-- relies on simple_list: true in the front matter -->
