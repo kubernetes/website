@@ -23,6 +23,12 @@ those network endpoints can be routed closer to where it originated.
 For example, you can route traffic within a locality to reduce
 costs, or to improve network performance.
 
+{{< note >}}
+
+Currently this feature is only viable for large scale workloads, since the `auto` heuristic requires you to constantly have a proportional number of endpoints based on the amount of allocatable CPU in your cluster per zone (for all nodes in that zone), as your cluster grows, so must your endpoints grow.
+This can lead to situations where if your endpoints don't scale fast enough, topology hints will be removed, this can potentialy lead to additional data transfer costs.
+{{</ note >}}
+
 <!-- body -->
 
 ## Motivation
