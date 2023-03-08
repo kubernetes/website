@@ -1,6 +1,6 @@
 ---
 title: "এরপর কি?"
-description: "kubectl ইন্সটল করার পর কি হবে."
+description: "kubectl ইন্সটল করার পর যা হবে"
 headless: true
 _build:
   list: never
