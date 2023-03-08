@@ -16,8 +16,8 @@ description: >-
 
 <!-- overview -->
 
-If you want to control traffic flow at the IP address or port level (OSI layer 3 or 4), then you
-might consider using Kubernetes NetworkPolicies for particular applications in your cluster.
+If you want to control traffic flow at the IP address or port level for TCP, UDP, and SCTP protocols,
+then you might consider using Kubernetes NetworkPolicies for particular applications in your cluster.
 NetworkPolicies are an application-centric construct which allow you to specify how a {{<
 glossary_tooltip text="pod" term_id="pod">}} is allowed to communicate with various network
 "entities" (we use the word "entity" here to avoid overloading the more common terms such as
@@ -257,7 +257,18 @@ creating the following NetworkPolicy in that namespace.
 This ensures that even pods that aren't selected by any other NetworkPolicy will not be allowed
 ingress or egress traffic.
 
-## SCTP support
+## Network traffic filtering
+
+NetworkPolicy is defined for [layer 4](https://en.wikipedia.org/wiki/OSI_model#Layer_4:_Transport_layer) 
+connections (TCP, UDP, and optionally SCTP). For all the other protocols, the behaviour may vary 
+across network plugins.
+When a `deny all` network policy is defined, it is only guaranteed to deny TCP, UDP and SCTP
+connections. For other protocols, such as ARP or ICMP, the behaviour is undefined.
+The same applies to allow rules: when a specific pod is allowed as ingress source or egress destination,
+it is undefined what happens with (for example) ICMP packets. Protocols such as ICMP may be allowed by some 
+network plugins and denied by others.
+
+### SCTP support
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
