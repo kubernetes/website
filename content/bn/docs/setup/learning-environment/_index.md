@@ -4,32 +4,25 @@ weight: 20
 ---
 
 <!--
-{{/* There is a Netlify redirect from this page to /docs/tasks/tools/ */}}
-{{/* This page content only exists to provide a navigation stub */}}
-{{/* and to protect in case that redirect is one day removed. */}}
+{{/* এই পৃষ্ঠা থেকে /docs/tasks/tools/ Netlify -এ একটি পুনঃনির্দেশ রয়েছে */}}
+{{/* এই পৃষ্ঠার বিষয়বস্তু শুধুমাত্র একটি নেভিগেশন স্টাব (navigation stub) প্রদানের জন্য বিদ্যমান */}}
+{{/* এবং পুনঃনির্দেশ একদিন মুছে ফেলার ক্ষেত্রে রক্ষা করতে। */}}
 
-{{/* If you're localizing this page, you only need to copy the front matter */}}
-{{/* and add a redirect into "/static/_redirects", for YOUR localization. */}}
+{{/* আপনি যদি এই পৃষ্ঠাটি স্থানীয়করণ করে থাকেন তবে আপনাকে শুধুমাত্র সামনের বিষয়টি অনুলিপি করতে হবে */}}
+{{/* এবং আপনার স্থানীয়করণের জন্য "/static/_redirects"-এ একটি পুনঃনির্দেশ যোগ করুন। */}}
 -->
 <!--
-## kind
+## কাইন্ড (kind)
 
-[`kind`](https://kind.sigs.k8s.io/docs/) lets you run Kubernetes on
-your local computer. This tool requires that you have
-[Docker](https://docs.docker.com/get-docker/) installed and configured.
+[`kind`](https://kind.sigs.k8s.io/docs/) আপনাকে আপনার স্থানীয় কম্পিউটারে Kubernetes চালাতে দেয়। এই টুলের জন্য আপনার [ডকার (docker)](https://docs.docker.com/get-docker/) ইনস্টল এবং কনফিগার করা প্রয়োজন।
 
-The kind [Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start/) page
-shows you what you need to do to get up and running with kind.
+কাইন্ড (kind) [দ্রুত শুরু (Quick Start)](https://kind.sigs.k8s.io/docs/user/quick-start/) পৃষ্ঠাটি আপনাকে দেখায় যে আপনি কাইন্ড (kind) সাথে উঠতে এবং দৌড়াতে আপনাকে কী করতে হবে।
 
-## minikube
+## মিনিকুব (minikube)
 
-Like `kind`, [`minikube`](https://minikube.sigs.k8s.io/) is a tool that lets you run Kubernetes
-locally. `minikube` runs a single-node Kubernetes cluster on your personal
-computer (including Windows, macOS and Linux PCs) so that you can try out
-Kubernetes, or for daily development work.
+`kind` এরমত [`minikube`](https://minikube.sigs.k8s.io/) একটি টুল যেটি আপনাকে স্থানীয়ভাবে কুবারনেট (Kubernetes) চালাতে দেয়। `minikube` আপনার ব্যক্তিগত কম্পিউটারে (Windows, macOS এবং Linux PC সহ) একটি একক-নোড (single-node) কুবারনেট (Kubernetes) ক্লাস্টার (cluster) চালায় যাতে আপনি কুবারনেট (Kubernetes) ব্যবহার করে দেখতে পারেন, অথবা দৈনন্দিন উন্নয়ন (development) কাজের জন্য।
 
-You can follow the official
-[Get Started!](https://minikube.sigs.k8s.io/docs/start/) guide if your focus is
-on getting the tool installed.
+আপনি দাপ্তরিক অনুসরণ করতে পারেন
+[শুরু করুন! (Get Started!)](https://minikube.sigs.k8s.io/docs/start/) নির্দেশিকা যদি আপনার ক্রিয়া-কেন্দ্র টুল ইনস্টল করার দিকে থাকে।
 -->
 
