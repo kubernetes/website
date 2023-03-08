@@ -46,7 +46,7 @@ previene el borrado accidental de objetos `PersistentVolume`. Cuando un objeto
 Cuando el Pod deja de utilizar el `PersistentVolume`, Kubernetes borra el finalizador
 `pv-protection` y el controlador borra el volumen.
 
-## Referencias de dueño, etiquetas y finalizadores (#dueños-etiquetas-finalizadores)
+## Referencias de dueño, etiquetas y finalizadores (#owners-labels-finalizers)
 
 Al igual que las {{<glossary_tooltip text="etiquetas" term_id="label">}}, las
 [referencias de dueño](/docs/concepts/overview/working-with-objects/owners-dependents/)
