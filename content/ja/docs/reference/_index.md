@@ -30,7 +30,7 @@ content_type: concept
 
 ## CLIリファレンス
 
-* [kubectl](/ja/docs/reference/kubectl/overview/) - コマンドの実行やKubernetesクラスターの管理に使う主要なCLIツールです。
+* [kubectl](/ja/docs/reference/kubectl/) - コマンドの実行やKubernetesクラスターの管理に使う主要なCLIツールです。
     * [JSONPath](/ja/docs/reference/kubectl/jsonpath/) - kubectlで[JSONPath記法](https://goessner.net/articles/JsonPath/)を使うための構文ガイドです。
 * [kubeadm](/ja/docs/reference/setup-tools/kubeadm/) - セキュアなKubernetesクラスターを簡単にプロビジョニングするためのCLIツールです。
 
