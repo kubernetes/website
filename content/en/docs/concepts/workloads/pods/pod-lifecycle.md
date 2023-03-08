@@ -485,7 +485,7 @@ An example flow:
 
 {{<note>}}
 If you don't have the `EndpointSliceTerminatingCondition` feature gate enabled
-in your cluster (the gate is on by default from Kubernetes 1.26), then the Kubernetes control
+in your cluster (the gate is on by default from Kubernetes 1.22, and locked to default in 1.26), then the Kubernetes control
 plane removes a Pod from any relevant EndpointSlices as soon as the Pod's
 termination grace period _begins_. The behavior above is described when the
 feature gate `EndpointSliceTerminatingCondition` is enabled.
