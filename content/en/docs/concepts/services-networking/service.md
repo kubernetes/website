@@ -656,7 +656,7 @@ by making the changes that are equivalent to you requesting a Service of
 `type: NodePort`. The cloud-controller-manager component then configures the external load balancer to
 forward traffic to that assigned node port.
 
-_As an alpha feature_, you can configure a load balanced Service to
+You can configure a load balanced Service to
 [omit](#load-balancer-nodeport-allocation) assigning a node port, provided that the
 cloud provider implementation supports this.
 
