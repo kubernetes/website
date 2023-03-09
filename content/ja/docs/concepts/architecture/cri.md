@@ -1,7 +1,7 @@
 ---
 title: コンテナランタイムインターフェイス(CRI)
 content_type: concept
-weight: 50
+weight: 60
 ---
 
 <!-- overview -->
