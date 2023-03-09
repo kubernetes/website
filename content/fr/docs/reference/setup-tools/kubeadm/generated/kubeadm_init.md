@@ -62,7 +62,7 @@ kubeadm init [flags]
       --feature-gates string                 Un ensemble de paires clef=valeur qui décrivent l'entrée de configuration pour des fonctionnalités diverses. Il n'y en a aucune dans cette version.
   -h, --help                                 aide pour l'initialisation (init)
       --ignore-preflight-errors strings      Une liste de contrôles dont les erreurs seront catégorisées comme "warnings" (avertissements). Par exemple : 'IsPrivilegedUser,Swap'. La valeur 'all' ignore les erreurs de tous les contrôles.
-      --image-repository string              Choisis un container registry d'où télécharger les images du control plane. (par défaut "k8s.gcr.io")
+      --image-repository string              Choisis un container registry d'où télécharger les images du control plane. (par défaut "registry.k8s.io")
       --kubernetes-version string            Choisis une version Kubernetes spécifique pour le control plane. (par défaut "stable-1")
       --node-name string                     Spécifie le nom du noeud.
       --pod-network-cidr string              Spécifie l'intervalle des adresses IP pour le réseau des pods. Si fournie, le control plane allouera automatiquement les CIDRs pour chacun des noeuds.
