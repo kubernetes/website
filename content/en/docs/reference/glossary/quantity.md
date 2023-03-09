@@ -30,3 +30,4 @@ intentionally lowercase), `M` (mega), `G` (giga), `T` (tera), `P` (peta),
 The accepted binary (power-of-2) units are `Ki` (kibi), `Mi` (mebi), `Gi` (gibi),
 `Ti` (tebi), `Pi` (pebi), `Ei` (exbi).
 
+Some terminologies - `mB` stands for millibyte, `KB` stands for kilobyte, `MB` stands for megabyte, `GB` stands for gigabyte, `TB` stands for terabyte, `PB` stands for petabyte, `EB` stands for exabyte, `KiB` stands for kibibyte, `MiB` stands for mebibyte, `GiB` stands for gibibyte, `TiB` stands for tebibyte, `PiB` stands for pebibyte, `EiB` stands for exbibyte
