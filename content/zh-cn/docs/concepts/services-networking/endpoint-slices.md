@@ -176,7 +176,7 @@ the pod is also terminating.
 
 {{< note >}}
 <!--
-Although `serving` is almost identical to `ready`, it was added to prevent break the existing meaning
+Although `serving` is almost identical to `ready`, it was added to prevent breaking the existing meaning
 of `ready`. It may be unexpected for existing clients if `ready` could be `true` for terminating
 endpoints, since historically terminating endpoints were never included in the Endpoints or
 EndpointSlice API to begin with. For this reason, `ready` is _always_ `false` for terminating
@@ -433,13 +433,13 @@ at different times.
 <!--
 Clients of the EndpointSlice API must iterate through all the existing EndpointSlices
 associated to a Service and build a complete list of unique network endpoints. It is
-important to mention that endpoints may be duplicated in different EndointSlices.
+important to mention that endpoints may be duplicated in different EndpointSlices.
 
 You can find a reference implementation for how to perform this endpoint aggregation
 and deduplication as part of the `EndpointSliceCache` code within `kube-proxy`.
 -->
 EndpointSlice API 的客户端必须遍历与 Service 关联的所有现有 EndpointSlices，
-并构建唯一网络端点的完整列表。值得一提的是端点可能在不同的 EndointSlices 中重复。
+并构建唯一网络端点的完整列表。值得一提的是端点可能在不同的 EndpointSlices 中重复。
 
 你可以在 `kube-proxy` 中的 `EndpointSliceCache` 代码中找到有关如何执行此端点聚合和重复数据删除的参考实现。
 {{< /note >}}
