@@ -136,6 +136,18 @@ RuntimeClass in the **node.k8s.io/v1beta1** API version is no longer served as o
 * All existing persisted objects are accessible via the new API
 * No notable changes
 
+### v1.23
+
+The **v1.23** release stopped serving the following deprecated API versions:
+
+#### HorizontalPodAutoscaler {#horizontalpodautoscaler-v123}
+
+The **autoscaling/v2beta2** API version of HorizontalPodAutoscaler will no longer be served in v1.23.
+
+* Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
+* All existing persisted objects are accessible via the new API
+* No notable changes
+
 ### v1.22
 
 The **v1.22** release stopped serving the following deprecated API versions:
