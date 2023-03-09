@@ -974,12 +974,8 @@ Do | Don't
 Update the title in the front matter of the page or blog post. | Use first level heading, as Hugo automatically converts the title in the front matter of the page into a first-level heading.
 Use ordered headings to provide a meaningful high-level outline of your content. | Use headings level 4 through 6, unless it is absolutely necessary. If your content is that detailed, it may need to be broken into separate articles.
 Use pound or hash signs (`#`) for non-blog post content. | Use underlines (`---` or `===`) to designate first-level headings.
-Use sentence case for headings in the page body. For example,
-**Extend kubectl with plugins** | Use title case for headings in the page body. For example, **Extend Kubectl With Plugins**
-Use title case for the page title in the front matter. For example,
-`title: Kubernetes API Server Bypass Risks` | Use sentence case for page titles
-in the front matter. For example, don't use
-`title: Kubernetes API server bypass risks`
+Use sentence case for headings in the page body. For example, **Extend kubectl with plugins** | Use title case for headings in the page body. For example, **Extend Kubectl With Plugins**
+Use title case for the page title in the front matter. For example, `title: Kubernetes API Server Bypass Risks` | Use sentence case for page titles in the front matter. For example, don't use `title: Kubernetes API server bypass risks`
 {{< /table >}}
 -->
 {{< table caption = "标题约定" >}}
@@ -1342,9 +1338,11 @@ These steps ... | These simple steps ...
 <!--
 * Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
 * Learn about [using page templates](/docs/contribute/style/page-content-types/).
+* Learn about [custom hugo shortcodes](/docs/contribute/style/hugo-shortcodes/).
 * Learn about [creating a pull request](/docs/contribute/new-content/open-a-pr/).
 -->
 * 了解[编写新主题](/zh-cn/docs/contribute/style/write-new-topic/)。
 * 了解[页面内容类型](/zh-cn/docs/contribute/style/page-content-types/)。
+* 了解[定制 Hugo 短代码](/zh-cn/docs/contribute/style/hugo-shortcodes/)。
 * 了解[发起 PR](/zh-cn/docs/contribute/new-content/open-a-pr/)。
 
