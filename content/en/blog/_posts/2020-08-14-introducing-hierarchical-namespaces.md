@@ -59,7 +59,7 @@ toil as the organization grows.
 # Introducing hierarchical namespaces
 
 [Hierarchical
-namespaces](https://github.com/kubernetes-sigs/multi-tenancy/blob/master/incubator/hnc/docs/user-guide/concepts.md#basic)
+namespaces](https://github.com/kubernetes-sigs/hierarchical-namespaces/blob/master/docs/user-guide/concepts.md#basic-concepts)
 are a new concept developed by the [Kubernetes Working Group for Multi-Tenancy
 (wg-multitenancy)](https://github.com/kubernetes-sigs/multi-tenancy) in order to
 solve these problems. In its simplest form, a hierarchical namespace is a
@@ -71,10 +71,10 @@ This concept of ownership enables two additional types of behaviours:
 
 * **Policy inheritance:** if one namespace is a child of another, policy objects
   such as RBAC RoleBindings are [copied from the parent to the
-  child](https://github.com/kubernetes-sigs/multi-tenancy/blob/master/incubator/hnc/docs/user-guide/concepts.md#basic-propagation).
+  child](https://github.com/kubernetes-sigs/hierarchical-namespaces/blob/master/docs/user-guide/concepts.md#policy-inheritance-and-object-propagation).
 * **Delegated creation:** you usually need cluster-level privileges to create a
   namespace, but hierarchical namespaces adds an alternative:
-  [_subnamespaces_](https://github.com/kubernetes-sigs/multi-tenancy/blob/master/incubator/hnc/docs/user-guide/concepts.md#basic-subns),
+  [_subnamespaces_](https://github.com/kubernetes-sigs/hierarchical-namespaces/blob/master/docs/user-guide/concepts.md#subnamespaces-and-full-namespaces),
   which can be manipulated using only limited permissions in the parent
   namespace.
 
@@ -88,7 +88,7 @@ without violating the policies that were imposed by the cluster administrators.
 
 Hierarchical namespaces are provided by a Kubernetes extension known as the
 [**Hierarchical Namespace
-Controller**](https://github.com/kubernetes-sigs/multi-tenancy/tree/master/incubator/hnc),
+Controller**](https://github.com/kubernetes-sigs/hierarchical-namespaces#the-hierarchical-namespace-controller-hnc),
 or **HNC**. The HNC consists of two components:
 
 * The **manager** runs on your cluster, manages subnamespaces, propagates policy
@@ -97,7 +97,7 @@ or **HNC**. The HNC consists of two components:
   interact with the manager.
 
 Both can be easily installed from the [releases page of our
-repo](https://github.com/kubernetes-sigs/multi-tenancy/releases).
+repo](https://github.com/kubernetes-sigs/hierarchical-namespaces/releases).
 
 Let’s see HNC in action. Imagine that I do not have namespace creation
 privileges, but I can view the namespace `team-a` and create subnamespaces
@@ -161,24 +161,22 @@ _also_ allow ingress traffic between all of those namespaces. The “tree” lab
 can only be applied by HNC, and is guaranteed to reflect the latest hierarchy.
 
 You can learn all about the features of HNC from the [user
-guide](https://github.com/kubernetes-sigs/multi-tenancy/tree/master/incubator/hnc/docs/user-guide).
+guide](https://github.com/kubernetes-sigs/hierarchical-namespaces/tree/master/docs/user-guide).
 
 # Next steps and getting involved
 
 If you think that hierarchical namespaces can work for your organization, [HNC
-v0.5.1 is available on
-GitHub](https://github.com/kubernetes-sigs/multi-tenancy/releases/tag/hnc-v0.5.1).
+v1.0.0 is available on
+GitHub](https://github.com/kubernetes-sigs/hierarchical-namespaces/releases/tag/v1.0.0).
 We’d love to know what you think of it, what problems you’re using it to solve
-and what features you’d most like to see added. As with all early software, you
-should be cautious about using HNC in production environments, but the more
-feedback we get, the sooner we’ll be able to drive to HNC 1.0.
+and what features you’d most like to see added. 
 
 We’re also open to additional contributors, whether it’s to fix or report bugs,
 or help prototype new features such as exceptions, improved monitoring,
 hierarchical resource quotas or fine-grained configuration.
 
 Please get in touch with us via our
-[repo](https://github.com/kubernetes-sigs/multi-tenancy), [mailing
+[repo](https://github.com/kubernetes-sigs/hierarchical-namespaces), [mailing
 list](https://groups.google.com/g/kubernetes-wg-multitenancy) or on
 [Slack](https://kubernetes.slack.com/messages/wg-multitenancy) - we look forward
 to hearing from you!
