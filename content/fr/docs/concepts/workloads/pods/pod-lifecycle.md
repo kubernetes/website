@@ -329,7 +329,7 @@ spec:
   containers:
   - args:
     - /server
-    image: k8s.gcr.io/liveness
+    image: registry.k8s.io/liveness
     livenessProbe:
       httpGet:
         # lorsque "host" n'est pas défini, "PodIP" sera utilisé
