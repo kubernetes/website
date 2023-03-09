@@ -1,6 +1,6 @@
 ---
 reviewers:
-- 
+-
 title: リソースの管理
 content_type: concept
 weight: 40
@@ -449,6 +449,5 @@ kubectl edit deployment/my-nginx
 
 ## {{% heading "whatsnext" %}}
 
-- [アプリケーションの調査とデバッグのための`kubectl`の使用方法](/docs/tasks/debug-application-cluster/debug-application-introspection/)について学んでください。
+- [アプリケーションの調査とデバッグのための`kubectl`の使用方法](/ja/docs/tasks/debug/debug-application/debug-running-pod/)について学んでください。
 - [設定のベストプラクティスとTIPS](/ja/docs/concepts/configuration/overview/)を参照してください。
-

@@ -95,6 +95,16 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
    ```bash
    kubectl version --client
    ```
+   {{< note >}}
+   The above command will generate a warning:
+   ```
+   WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
+   ```
+   You can ignore this warning. You are only checking the version of `kubectl` that you
+   have installed.
+   
+   {{< /note >}}
+   
    Or use this for detailed view of version:
 
    ```cmd
@@ -255,6 +265,12 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    ```
 
    If you do not see an error, it means the plugin is successfully installed.
+
+1. After installing the plugin, clean up the installation files:
+
+   ```bash
+   rm kubectl-convert kubectl-convert.sha256
+   ```
 
 ## {{% heading "whatsnext" %}}
 
