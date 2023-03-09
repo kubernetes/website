@@ -130,7 +130,11 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
 2. Download the Google Cloud public signing key:
 
    ```shell
-   sudo mkdir -p /etc/apt/keyrings/
+  # /etc/apt/keyrings might not yet exist on older operating systems.
+  # On the latest Debian or Ubuntu releases, you can skip the next 3 lines.
+  [ ! -d /etc/apt/keyrings ] && \
+    sudo mkdir -p /etc/apt/keyrings && \
+    sudo chmod 0755 /etc/apt/keyrings
    sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
    ```
 
