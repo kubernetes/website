@@ -1027,8 +1027,23 @@ Conditions:
   Progressing   True    NewReplicaSetAvailable
 ```
 
-`type: Available` with `status: "True"` means that your Deployment has minimum availability. Minimum availability is dictated
-by the parameters specified in the deployment strategy. `type: Progressing` with `status: "True"` means that your Deployment
+`type: Available` with `status: "True"` means that your Deployment is healthy and has a minimum availability (`.status.availableReplicas` is at least equal to `.spec.replicas  - maxUnavailable`).
+`maxUnavailable` is computed according to the deployment strategy:
+- For the `RollingUpdate` strategy, it is a resolved value of `.spec.strategy.rollingUpdate.maxUnavailable`.
+- For the `Recreate` strategy, it is always equal to 100% of the replicas that we allow to be down, so that new rollouts can proceed.
+
+This condition should always have `status: "True"` in day-to-day operations; during and also after a rollout is completed.
+The condition will become `status: "False"` if there is an abnormal amount of disrupted pods (higher than a resolved value of `maxUnavailable`).
+
+{{< note >}}
+The `Available` condition is designed to support rollouts first. If `maxUnavailable` is equal to `.spec.replicas`, 
+then this condition will never become `status: "False"`, even if no pods are running. 
+In this case you should check `.status.availableReplicas` to be sure that at least 1 pod is present. 
+It is recommended to have the number of `.spec.replicas` higher than `maxUnavailable`, to have always some pods available during a rollout.
+{{< /note >}}
+
+
+`type: Progressing` with `status: "True"` means that your Deployment
 is either in the middle of a rollout and it is progressing or that it has successfully completed its progress and the minimum
 required new replicas are available (see the Reason of the condition for the particulars - in our case
 `reason: NewReplicaSetAvailable` means that the Deployment is complete).
