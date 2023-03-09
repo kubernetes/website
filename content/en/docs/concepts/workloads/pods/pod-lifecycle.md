@@ -11,9 +11,9 @@ in the `Pending` [phase](#pod-phase), moving through `Running` if at least one
 of its primary containers starts OK, and then through either the `Succeeded` or
 `Failed` phases depending on whether any container in the Pod terminated in failure.
 
-Whilst a Pod is running, the kubelet is able to restart containers to handle some
-kind of faults. Within a Pod, Kubernetes tracks different container
-[states](#container-states) and determines what action to take to make the Pod
+Whilst a pod is running, the kubelet is able to restart containers to handle some
+kinds of faults. Within a pod, Kubernetes tracks different container
+[states](#container-states) and determines what action to take to make the pod
 healthy again.
 
 In the Kubernetes API, Pods have both a specification and an actual status. The
