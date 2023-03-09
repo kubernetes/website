@@ -1,7 +1,6 @@
 ---
 title: Pull an Image from a Private Registry
-content_type: task
-weight: 100
+weight: 130
 ---
 
 <!-- overview -->
