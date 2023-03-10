@@ -150,7 +150,7 @@ announcements:
   message: |
     k8s.gcr.io image registry will be redirected to registry.k8s.io on Monday March 20th.<br>
     All images available in k8s.gcr.io are available at registry.k8s.io.</br>
-    Please read our [announcement](blog/2023/03/10/image-registry-redirect/) for more details.
+    Please read our [announcement](/blog/2023/03/10/image-registry-redirect/) for more details.
 
 - name: Redirecting k8s.gcr.io - After
   startTime: 2023-04-05T00:00:00 # This should run before and after Kubecon EU 2023
@@ -158,6 +158,6 @@ announcements:
   style: "background: #c70202"
   title: Legacy k8s.gcr.io container image registry will be redirected to registry.k8s.io
   message: |
-    k8s.gcr.io image registry will be redirected to registry.k8s.io on Monday March 20th.<br>
+    k8s.gcr.io image registry is being redirected to registry.k8s.io (since Monday March 20th).<br>
     All images available in k8s.gcr.io are available at registry.k8s.io.</br>
-    Please read our [announcement](blog/2023/03/10/image-registry-redirect/) for more details.
+    Please read our [announcement](/blog/2023/03/10/image-registry-redirect/) for more details.
