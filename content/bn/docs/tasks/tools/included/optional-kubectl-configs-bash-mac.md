@@ -1,6 +1,6 @@
 ---
-title: "bash auto-completion on macOS"
-description: "Some optional configuration for bash auto-completion on macOS."
+title: "macOS এ ব্যাশ অটোকমপ্লিট"
+description: "macOS-এ ব্যাশ অটোকমপ্লিট এর জন্য কিছু ঐচ্ছিক কনফিগারেশন।"
 headless: true
 _build:
   list: never
@@ -8,85 +8,85 @@ _build:
   publishResources: false
 ---
 
-### Introduction
+### ভূমিকা
 
-The kubectl completion script for Bash can be generated with `kubectl completion bash`. Sourcing this script in your shell enables kubectl completion.
+Bash-এর জন্য kubectl কমপ্লিশন স্ক্রিপ্ট `kubectl completion bash` দিয়ে তৈরি করা যেতে পারে। আপনার শেলে এই স্ক্রিপ্টটি সোর্স করা kubectl সম্পূর্ণতা সক্ষম করে। 
 
-However, the kubectl completion script depends on [**bash-completion**](https://github.com/scop/bash-completion) which you thus have to previously install.
+কিন্তু, kubectl কমপ্লিসন স্ক্রিপ্ট নির্ভর করে [**bash-completion**](https://github.com/scop/bash-completion) যা আপনাকে আগে ইনস্টল করতে হবে।
 
 {{< warning>}}
-There are two versions of bash-completion, v1 and v2. V1 is for Bash 3.2 (which is the default on macOS), and v2 is for Bash 4.1+. The kubectl completion script **doesn't work** correctly with bash-completion v1 and Bash 3.2. It requires **bash-completion v2** and **Bash 4.1+**. Thus, to be able to correctly use kubectl completion on macOS, you have to install and use Bash 4.1+ ([*instructions*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)). The following instructions assume that you use Bash 4.1+ (that is, any Bash version of 4.1 or newer).
+bash-completion এর দুটি সংস্করণ আছে, v1 এবং v2। V1 Bash 3.2 এর জন্য (যা macOS-এ ডিফল্ট), এবং v2 হল Bash 4.1+ এর জন্য। kubectl পূর্ণতা স্ক্রিপ্ট ** কাজ করে না** সঠিকভাবে bash-completion v1 এবং Bash 3.2 এর সাথে। এর জন্য **ব্যাশ-সম্পূর্ণ v2** এবং **ব্যাশ 4.1+** প্রয়োজন। সুতরাং, macOS-এ kubectl সমাপ্তি সঠিকভাবে ব্যবহার করতে সক্ষম হতে, আপনাকে Bash 4.1+ ([*instructions*](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)) ইনস্টল এবং ব্যবহার করতে হবে। নিম্নলিখিত নির্দেশাবলী অনুমান করে যে আপনি Bash 4.1+ ব্যবহার করেন (অর্থাৎ, 4.1 বা তার পরবর্তী যেকোনো Bash সংস্করণ)।
 {{< /warning >}}
 
-### Upgrade Bash
+### Bash আপগ্রেড করুন
 
-The instructions here assume you use Bash 4.1+. You can check your Bash's version by running:
+এখানে নির্দেশাবলী অনুমান করে আপনি ব্যাশ 4.1+ ব্যবহার করছেন। আপনি রান করে আপনার ব্যাশের সংস্করণটি পরীক্ষা করতে পারেন: 
 
 ```bash
 echo $BASH_VERSION
 ```
 
-If it is too old, you can install/upgrade it using Homebrew:
+যদি এটি খুব পুরানো হয়, আপনি Homebrew ব্যবহার করে এটি ইনস্টল/আপগ্রেড করতে পারেন: 
 
 ```bash
 brew install bash
 ```
 
-Reload your shell and verify that the desired version is being used:
+আপনার শেল পুনরায় লোড করুন এবং যাচাই করুন যে পছন্দসই সংস্করণটি ব্যবহার করা হচ্ছে: 
 
 ```bash
 echo $BASH_VERSION $SHELL
 ```
 
-Homebrew usually installs it at `/usr/local/bin/bash`.
+Homebrew সাধারণত `/usr/local/bin/bash` এ ইনস্টল হয়। 
 
-### Install bash-completion
+### ব্যাশ-কমপ্লিসন ইনস্টল করুন
 
 {{< note >}}
-As mentioned, these instructions assume you use Bash 4.1+, which means you will install bash-completion v2 (in contrast to Bash 3.2 and bash-completion v1, in which case kubectl completion won't work).
+উল্লিখিত হিসাবে, এই নির্দেশাবলী অনুমান করে আপনি Bash 4.1+ ব্যবহার করেন, যার মানে আপনি bash-completion v2 ইনস্টল করবেন (Bash 3.2 এবং bash-completion v1 এর বিপরীতে, এই ক্ষেত্রে kubectl সমাপ্তি কাজ করবে না)।
 {{< /note >}}
 
-You can test if you have bash-completion v2 already installed with `type _init_completion`. If not, you can install it with Homebrew:
+আপনি পরীক্ষা করতে পারেন যদি আপনার bash-completion v2 ইতিমধ্যেই `type _init_completion` দিয়ে ইনস্টল করা আছে। যদি না হয়, আপনি homebrew দিয়ে এটি ইনস্টল করতে পারেন:
 
 ```bash
 brew install bash-completion@2
 ```
 
-As stated in the output of this command, add the following to your `~/.bash_profile` file:
+এই কমান্ডের আউটপুটে যেমন বলা হয়েছে, আপনার `~/.bash_profile` ফাইলে নিম্নলিখিত যোগ করুন: 
 
 ```bash
 brew_etc="$(brew --prefix)/etc" && [[ -r "${brew_etc}/profile.d/bash_completion.sh" ]] && . "${brew_etc}/profile.d/bash_completion.sh"
 ```
 
-Reload your shell and verify that bash-completion v2 is correctly installed with `type _init_completion`.
+আপনার শেল পুনরায় লোড করুন এবং যাচাই করুন যে bash-completion v2 সঠিকভাবে `type _init_completion` দিয়ে ইনস্টল করা আছে। 
 
-### Enable kubectl autocompletion
+### kubectl অটোকমপ্লিসন চালু করুন
 
-You now have to ensure that the kubectl completion script gets sourced in all your shell sessions. There are multiple ways to achieve this:
+আপনাকে এখন নিশ্চিত করতে হবে যে আপনার সমস্ত শেল সেশনে kubectl কমপ্লিসনের স্ক্রিপ্টটি পাওয়া যায়। এটি অর্জন করার একাধিক উপায় রয়েছে:  
 
-- Source the completion script in your `~/.bash_profile` file:
+- আপনার `~/.bash_profile` ফাইলে কমপ্লিসনের স্ক্রিপ্ট উৎস করুন:
 
     ```bash
     echo 'source <(kubectl completion bash)' >>~/.bash_profile
     ```
 
-- Add the completion script to the `/usr/local/etc/bash_completion.d` directory:
+- `/usr/local/etc/bash_completion.d` ডিরেক্টরিতে কমপ্লিসনের স্ক্রিপ্ট যোগ করুন:
 
     ```bash
     kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
     ```
 
-- If you have an alias for kubectl, you can extend shell completion to work with that alias:
+- আপনার যদি kubectl এর জন্য একটি উপনাম থাকে তবে আপনি সেই উপনামের সাথে কাজ করার জন্য শেল কমপ্লিসন বাড়াতে পারেন:
 
     ```bash
     echo 'alias k=kubectl' >>~/.bash_profile
     echo 'complete -o default -F __start_kubectl k' >>~/.bash_profile
     ```
 
-- If you installed kubectl with Homebrew (as explained [here](/docs/tasks/tools/install-kubectl-macos/#install-with-homebrew-on-macos)), then the kubectl completion script should already be in `/usr/local/etc/bash_completion.d/kubectl`. In that case, you don't need to do anything.
+- আপনি যদি হোমব্রু দিয়ে kubectl ইনস্টল করেন (যেমন [এখানে ব্যাখ্যা করা হয়েছে](/docs/tasks/tools/install-kubectl-macos/#install-with-homebrew-on-macos)), তাহলে kubectl কমপ্লিসনের স্ক্রিপ্ট ইতিমধ্যেই `/-এ থাকা উচিত usr/local/etc/bash_completion.d/kubectl`। সেক্ষেত্রে আপনার কিছু করার দরকার নেই।
 
    {{< note >}}
-   The Homebrew installation of bash-completion v2 sources all the files in the `BASH_COMPLETION_COMPAT_DIR` directory, that's why the latter two methods work.
+   bash-completion v2-এর Homebrew ইনস্টলেশনটি `BASH_COMPLETION_COMPAT_DIR` ডিরেক্টরির সমস্ত ফাইলকে উৎস করে, তাই পরবর্তী দুটি পদ্ধতি কাজ করে।
    {{< /note >}}
 
-In any case, after reloading your shell, kubectl completion should be working.
+যে কোনো ক্ষেত্রে, আপনার শেল পুনরায় লোড করার পরে, kubectl সমাপ্তি কাজ করা উচিত।
