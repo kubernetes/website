@@ -33,83 +33,24 @@ registry](https://kubernetes.io/blog/2022/11/28/registry-k8s-io-faster-cheaper-g
 
 If you think you may be impacted, or would like to know more about this change, please keep reading.
 
-## Why did Kubernetes change to a different image registry?
-
-k8s.gcr.io is hosted on a custom [Google Container Registry
-(GCR)](https://cloud.google.com/container-registry) domain that was set up solely for the Kubernetes
-project. This has worked well since the inception of the project, and we thank Google for providing
-these resources, but today, there are other cloud providers and vendors that would like to host
-images to provide a better experience for the people on their platforms. In addition to Google’s
-[renewed commitment to donate $3
-million](https://www.cncf.io/google-cloud-recommits-3m-to-kubernetes/) to support the project's
-infrastructure last year, Amazon Web Services announced a matching donation [during their Kubecon NA
-2022 keynote in Detroit](https://youtu.be/PPdimejomWo?t=236). This will provide a better experience
-for users (closer servers = faster downloads) and will reduce the egress bandwidth and costs from
-GCR at the same time.
-
-For more details on this change, check out [registry.k8s.io: faster, cheaper and Generally Available
-(GA)](/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/).
-
-## Why is a redirect being put in place?
-
-The project switched to [registry.k8s.io last year with the 1.25
-release](https://kubernetes.io/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/); however, most of
-the image pull traffic is still directed at the old endpoint k8s.gcr.io. This has not been
-sustainable for us as a project, as it is not utilizing the resources that have been donated to the
-project from other providers, and we are in the danger of running out of funds due to the cost of
-serving this traffic.
-
-A redirect will enable the project to take advantage of these new resources, significantly reducing
-our egress bandwidth costs. We only expect this change to impact a small subset of users running in
-restricted environments or using very old clients that do not respect redirects properly.
-
-## What images will be impacted?
-
-**ALL** images on k8s.gcr.io will be impacted by this change. k8s.gcr.io hosts many images beyond
-Kubernetes releases. A large number of Kubernetes subprojects host their images there as well. Some
-examples include the `dns/k8s-dns-node-cache`, `ingress-nginx/controller`, and
-`node-problem-detector/node-problem-detector` images.
-
-## What will happen to k8s.gcr.io?
-
-Separate from the the redirect, k8s.gcr.io will be frozen [and will not be updated with new images
-after April 3rd, 2023](https://kubernetes.io/blog/2023/02/06/k8s-gcr-io-freeze-announcement/). `k8s.gcr.io` 
-will not get any new releases, patches, or security updates. It will continue to remain available to
-help people migrate, but it **WILL** be phased out entirely in the future.
-
-## I run in a restricted environment. What should I do?
-
-For impacted users that run in a restricted environment, the best option is to copy over the
-required images to a private registry or configure a pull-through cache in their registry.
-
-There are several tools to copy images between registries;
-[crane](https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane_copy.md) is one
-of those tools, and images can be copied to a private registry by using `crane copy SRC DST`. There
-are also vendor-specific tools, like e.g. Google’s
-[gcrane](https://cloud.google.com/container-registry/docs/migrate-external-containers#copy), that
-perform a similar function but are streamlined for their platform.
-
-## How can I check registry.k8s.io is accessible from my cluster?
+## How can I check if I am impacted?
 
 To test connectivity to registry.k8s.io and being able to pull images from there, here is a sample
 command that can be executed in the namespace of your choosing:
 
 ```
-kubectl run hello-world --tty --rm -i --image=registry.k8s.io/busybox:latest sh
+kubectl run hello-world -ti --rm --image=registry.k8s.io/busybox:latest --restart=Never -- date
 ```
 
 When you run the command above, here’s what to expect when things work correctly:
 
 ```
-$ kubectl run hello-world --tty --rm -i --image=registry.k8s.io/busybox:latest sh
-If you don't see a command prompt, try pressing enter.
-/ # exit
-Session ended, resume using 'kubectl attach hello-world -c hello-world -i -t' command when the pod is running
+$ kubectl run hello-world -ti --rm --image=registry.k8s.io/busybox:latest --restart=Never -- date
+Fri Feb 31 07:07:07 UTC 2023
 pod "hello-world" deleted
 ```
 
-
-## What kind of errors will I see if I’m impacted? 
+## What kind of errors will I see if I’m impacted?
 
 Errors may depend on what kind of container runtime you are using, and what endpoint you are routed
 to, but it should present such as `ErrImagePull`, `ImagePullBackOff`, or a container failing to be
@@ -121,6 +62,25 @@ certificate:
 ```
 FailedCreatePodSandBox: Failed to create pod sandbox: rpc error: code = Unknown desc = Error response from daemon: Head “https://us-west1-docker.pkg.dev/v2/k8s-artifacts-prod/images/pause/manifests/3.8”: x509: certificate signed by unknown authority
 ```
+
+## What images will be impacted?
+
+**ALL** images on k8s.gcr.io will be impacted by this change. k8s.gcr.io hosts many images beyond
+Kubernetes releases. A large number of Kubernetes subprojects host their images there as well. Some
+examples include the `dns/k8s-dns-node-cache`, `ingress-nginx/controller`, and
+`node-problem-detector/node-problem-detector` images.
+
+## I am impacted. What should I do?
+
+For impacted users that run in a restricted environment, the best option is to copy over the
+required images to a private registry or configure a pull-through cache in their registry.
+
+There are several tools to copy images between registries;
+[crane](https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane_copy.md) is one
+of those tools, and images can be copied to a private registry by using `crane copy SRC DST`. There
+are also vendor-specific tools, like e.g. Google’s
+[gcrane](https://cloud.google.com/container-registry/docs/migrate-external-containers#copy), that
+perform a similar function but are streamlined for their platform.
 
 ## How can I find which images are using the legacy registry, and fix them?
 
@@ -169,6 +129,43 @@ to change the image address dynamically. This should only be
 considered a stopgap till your manifests have been updated. You can
 find a (third party) Mutating Webhook and Kyverno policy in
 [k8s-gcr-quickfix](https://github.com/abstractinfrastructure/k8s-gcr-quickfix).
+
+## Why did Kubernetes change to a different image registry?
+
+k8s.gcr.io is hosted on a custom [Google Container Registry
+(GCR)](https://cloud.google.com/container-registry) domain that was set up solely for the Kubernetes
+project. This has worked well since the inception of the project, and we thank Google for providing
+these resources, but today, there are other cloud providers and vendors that would like to host
+images to provide a better experience for the people on their platforms. In addition to Google’s
+[renewed commitment to donate $3
+million](https://www.cncf.io/google-cloud-recommits-3m-to-kubernetes/) to support the project's
+infrastructure last year, Amazon Web Services announced a matching donation [during their Kubecon NA
+2022 keynote in Detroit](https://youtu.be/PPdimejomWo?t=236). This will provide a better experience
+for users (closer servers = faster downloads) and will reduce the egress bandwidth and costs from
+GCR at the same time.
+
+For more details on this change, check out [registry.k8s.io: faster, cheaper and Generally Available
+(GA)](/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/).
+
+## Why is a redirect being put in place?
+
+The project switched to [registry.k8s.io last year with the 1.25
+release](https://kubernetes.io/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/); however, most of
+the image pull traffic is still directed at the old endpoint k8s.gcr.io. This has not been
+sustainable for us as a project, as it is not utilizing the resources that have been donated to the
+project from other providers, and we are in the danger of running out of funds due to the cost of
+serving this traffic.
+
+A redirect will enable the project to take advantage of these new resources, significantly reducing
+our egress bandwidth costs. We only expect this change to impact a small subset of users running in
+restricted environments or using very old clients that do not respect redirects properly.
+
+## What will happen to k8s.gcr.io?
+
+Separate from the the redirect, k8s.gcr.io will be frozen [and will not be updated with new images
+after April 3rd, 2023](https://kubernetes.io/blog/2023/02/06/k8s-gcr-io-freeze-announcement/). `k8s.gcr.io`
+will not get any new releases, patches, or security updates. It will continue to remain available to
+help people migrate, but it **WILL** be phased out entirely in the future.
 
 ## I still have questions, where should I go?
 
