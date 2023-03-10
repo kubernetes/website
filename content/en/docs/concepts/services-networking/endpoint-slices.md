@@ -235,7 +235,7 @@ at different times.
 {{< note >}}
 Clients of the EndpointSlice API must iterate through all the existing EndpointSlices
 associated to a Service and build a complete list of unique network endpoints. It is
-important to mention that endpoints may be duplicated in different EndointSlices.
+important to mention that endpoints may be duplicated in different EndpointSlices.
 
 You can find a reference implementation for how to perform this endpoint aggregation
 and deduplication as part of the `EndpointSliceCache` code within `kube-proxy`.
