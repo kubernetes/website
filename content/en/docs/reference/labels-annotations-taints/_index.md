@@ -168,6 +168,7 @@ Automanaged APIService objects are deleted by kube-apiserver when it has no buil
 {{< /note >}}
 
 There are two possible values:
+
 - `onstart`: The APIService should be reconciled when an API server starts up, but not otherwise.
 - `true`: The API server should reconcile this APIService continuously.
 
@@ -190,7 +191,6 @@ Used on: Node
 The Kubelet populates this label with the hostname. Note that the hostname can be changed from the "actual" hostname by passing the `--hostname-override` flag to the `kubelet`.
 
 This label is also used as part of the topology hierarchy.  See [topology.kubernetes.io/zone](#topologykubernetesiozone) for more information.
-
 
 ### kubernetes.io/change-cause {#change-cause}
 
@@ -409,6 +409,7 @@ A zone represents a logical failure domain.  It is common for Kubernetes cluster
 A region represents a larger domain, made up of one or more zones.  It is uncommon for Kubernetes clusters to span multiple regions,  While the exact definition of a zone or region is left to infrastructure implementations, common properties of a region include higher network latency between them than within them, non-zero cost for network traffic between them, and failure independence from other zones or regions.  For example, nodes within a region might share power infrastructure (e.g. a UPS or generator), but nodes in different regions typically would not.
 
 Kubernetes makes a few assumptions about the structure of zones and regions:
+
 1) regions and zones are hierarchical: zones are strict subsets of regions and no zone can be in 2 regions
 2) zone names are unique across regions; for example region "africa-east-1" might be comprised of zones "africa-east-1a" and "africa-east-1b"
 
@@ -539,7 +540,6 @@ a request where the client authenticated using the service account token.
 If a legacy token was last used before the cluster gained the feature (added in Kubernetes v1.26), then
 the label isn't set.
 
-
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
 Example: `endpointslice.kubernetes.io/managed-by: "controller"`
@@ -625,6 +625,17 @@ Example: `kubectl.kubernetes.io/default-container: "front-end-app"`
 
 The value of the annotation is the container name that is default for this Pod. For example, `kubectl logs` or `kubectl exec` without `-c` or `--container` flag will use this default container.
 
+### kubectl.kubernetes.io/default-logs-container (deprecated)
+
+Example: `kubectl.kubernetes.io/default-logs-container: "front-end-app"`
+
+The value of the annotation is the container name that is the default logging container for this Pod. For example, `kubectl logs` without `-c` or `--container` flag will use this default container.
+
+{{< note >}}
+This annotation is deprecated. You should use the [`kubectl.kubernetes.io/default-container`](#kubectl-kubernetes-io-default-container) annotation instead.
+Kubernetes versions 1.25 and newer ignore this annotation.
+{{< /note >}}
+
 ### endpoints.kubernetes.io/over-capacity
 
 Example: `endpoints.kubernetes.io/over-capacity:truncated`
@@ -645,7 +656,7 @@ The presence of this annotation on a Job indicates that the control plane is
 [tracking the Job status using finalizers](/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers).
 The control plane uses this annotation to safely transition to tracking Jobs
 using finalizers, while the feature is in development.
-You should **not** manually add or remove this annotation. 
+You should **not** manually add or remove this annotation.
 
 {{< note >}}
 Starting from Kubernetes 1.26, this annotation is deprecated.
@@ -726,7 +737,6 @@ Refer to
 [Non-graceful node shutdown](/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)
 for further details about when and how to use this taint.
 {{< /caution >}}
-
 
 ### node.cloudprovider.kubernetes.io/uninitialized
 
