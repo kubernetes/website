@@ -25,7 +25,12 @@ it succeeds, making sure those probes don't interfere with the application start
 This can be used to adopt liveness checks on slow starting containers, avoiding them
 getting killed by the kubelet before they are up and running.
 
-
+{{< note >}}
+Please note that liveness probes can lead to cascading failures,
+e.g. causing excessive downtime due to container restarts in high-load situations.
+Understand the difference between readiness and liveness probes
+and when to apply them for your app.
+{{< /note >}}
 
 ## {{% heading "prerequisites" %}}
 
