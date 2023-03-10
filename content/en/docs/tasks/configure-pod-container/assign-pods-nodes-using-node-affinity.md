@@ -2,7 +2,7 @@
 title: Assign Pods to Nodes using Node Affinity
 min-kubernetes-server-version: v1.10
 content_type: task
-weight: 120
+weight: 160
 ---
 
 <!-- overview -->

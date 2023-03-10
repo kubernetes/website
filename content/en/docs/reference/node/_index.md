@@ -14,4 +14,4 @@ Kubernetes documentation, including:
 
 * [Node Metrics Data](/docs/reference/instrumentation/node-metrics).
 
-
+* [CRI Pod & Container Metrics](/docs/reference/instrumentation/cri-pod-container-metrics).
