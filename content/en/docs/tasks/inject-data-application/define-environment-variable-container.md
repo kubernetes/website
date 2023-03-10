@@ -21,14 +21,6 @@ When you create a Pod, you can set environment variables for the containers
 that run in the Pod. To set environment variables, include the `env` or
 `envFrom` field in the configuration file.
 
-Now lets look at the difference between `env` and `envFrom`
-
-`env` : This is a field in the pod specification that allows you to set environment variables for a specific container.
-
-`envFrom` :  This is a field in the pod specification that allows you to set environment variables by referencing a ConfigMap or a Secret. When you use `envFrom`, all the key-value pairs in the referenced ConfigMap or Secret are set as environment variables in the container. Hence `envFrom` is used to set multiple environment variables by referencing a ConfigMap or Secret
-
-You can read more about <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables"> ConfigMap </a> and <a href="https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables"> Secret </a>      
-
 In this exercise, you create a Pod that runs one container. The configuration
 file for the Pod defines an environment variable with name `DEMO_GREETING` and
 value `"Hello from the environment"`. Here is the configuration manifest for the
