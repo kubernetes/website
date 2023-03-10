@@ -202,7 +202,7 @@ That is, the CronJob does _not_ update existing Jobs, even if those remain runni
 A CronJob creates a Job object approximately once per execution time of its schedule.
 The scheduling is approximate because there
 are certain circumstances where two Jobs might be created, or no Job might be created.
-Kubernetes tries to avoid those situations, but do not completely prevent them. Therefore,
+Kubernetes tries to avoid those situations, but does not completely prevent them. Therefore,
 the Jobs that you define should be _idempotent_.
 
 If `startingDeadlineSeconds` is set to a large value or left unset (the default)
