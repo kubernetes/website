@@ -166,10 +166,12 @@ guide](https://github.com/kubernetes-sigs/hierarchical-namespaces/tree/master/do
 # Next steps and getting involved
 
 If you think that hierarchical namespaces can work for your organization, [HNC
-v1.0.0 is available on
-GitHub](https://github.com/kubernetes-sigs/hierarchical-namespaces/releases/tag/v1.0.0).
+v0.5.1 is available on
+GitHub](https://github.com/kubernetes-sigs/multi-tenancy/releases/tag/hnc-v0.5.1).
 We’d love to know what you think of it, what problems you’re using it to solve
-and what features you’d most like to see added. 
+and what features you’d most like to see added. As with all early software, you
+should be cautious about using HNC in production environments, but the more
+feedback we get, the sooner we’ll be able to drive to HNC 1.0.
 
 We’re also open to additional contributors, whether it’s to fix or report bugs,
 or help prototype new features such as exceptions, improved monitoring,
