@@ -157,7 +157,7 @@ deployment.apps/my-deployment created
 persistentvolumeclaim/my-pvc created
 ```
 
-`kubectl`についてさらに知りたい場合は、[kubectlの概要](/ja/docs/reference/kubectl/overview/)を参照してください。
+`kubectl`についてさらに知りたい場合は、[コマンドラインツール(kubectl)](/ja/docs/reference/kubectl/)を参照してください。
 
 ## ラベルを有効に使う
 
