@@ -31,7 +31,7 @@ Kubernetesが特定のPodの配置場所を選択するために、以下の方�
 例えば、`kubernetes.io/hostname`の値はある環境ではNode名と同じになり、他の環境では異なる値になることがあります。
 {{</note>}}
 
-### Nodeの分離/制限
+### Nodeの分離/制限 {#node-isolation-restriction}
 
 Nodeにラベルを追加することで、Podを特定のNodeまたはNodeグループ上でのスケジューリングの対象にすることができます。この機能を使用すると、特定のPodが一定の独立性、安全性、または規制といった属性を持ったNode上でのみ実行されるようにすることができます。
 
@@ -109,7 +109,7 @@ Podのspec(仕様)にある`.spec.affinity.nodeAffinity`フィールドを使用
 
 詳細については[Nodeアフィニティを利用してPodをNodeに割り当てる](/ja/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)を参照してください。
 
-#### Nodeアフィニティの重み
+#### Nodeアフィニティの重み {#node-affinity-weight}
 
 `preferredDuringSchedulingIgnoredDuringExecution`アフィニティタイプの各インスタンスに、1から100の範囲の`weight`を指定できます。
 Podの他のスケジューリング要件をすべて満たすNodeを見つけると、スケジューラーはそのNodeが満たすすべての優先ルールを繰り返し実行し、対応する式の`weight`値を合計に加算します。
@@ -160,7 +160,7 @@ profiles:
 [DaemonSetのPodを作成する](/ja/docs/concepts/workloads/controllers/daemonset/#scheduled-by-default-scheduler)DaemonSetコントローラーは、スケジューリングプロファイルをサポートしていません。DaemonSetコントローラーがPodを作成すると、デフォルトのKubernetesスケジューラーがそれらのPodを配置し、DaemonSetコントローラーの`nodeAffinity`ルールに優先して従います。
 {{< /note >}}
 
-### Pod間のアフィニティとアンチアフィニティ
+### Pod間のアフィニティとアンチアフィニティ {#inter-pod-affinity-and-anti-affinity}
 
 Pod間のアフィニティとアンチアフィニティは、Nodeのラベルではなく、すでにNode上で稼働している**Pod**のラベルに従って、PodがどのNodeにスケジュールされるかを制限できます。
 
@@ -181,7 +181,7 @@ Podのアンチアフィニティは、Nodeに必ず一貫性の持つラベル�
 一部、または全部のNodeに`topologyKey`ラベルが指定されていない場合、意図しない挙動に繋がる可能性があります。
 {{< /note >}}
 
-#### Pod間のアフィニティとアンチアフィニティの種類
+#### Pod間のアフィニティとアンチアフィニティの種類 {#types-of-inter-pod-affinity-and-anti-affinity}
 
 [Nodeアフィニティ](#node-affinity)と同様に、Podアフィニティとアンチアフィニティにも下記の2種類があります:
 
@@ -217,14 +217,14 @@ Podアフィニティとアンチアフィニティの`operator`フィールド�
 
 `labelSelector`と`topologyKey`に加え、`labelSelector`と`topologyKey`と同じレベルの`namespaces`フィールドを使用して、`labelSelector`が合致すべき名前空間のリストを任意に指定することができます。省略または空の場合、`namespaces`がデフォルトで、アフィニティとアンチアフィニティが定義されたPodの名前空間に設定されます。
 
-#### 名前空間セレクター
+#### 名前空間セレクター {#namespace-selector}
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 `namespaceSelector`を使用し、ラベルで名前空間の集合に対して検索することによって、名前空間を選択することができます。
 アフィニティ項は`namespaceSelector`と`namespaces`フィールドによって選択された名前空間に適用されます。
 要注意なのは、空の`namespaceSelector`({})はすべての名前空間にマッチし、nullまたは空の`namespaces`リストとnullの`namespaceSelector`は、ルールが定義されているPodの名前空間にマッチします。
 
-#### 実践的なユースケース
+#### 実践的なユースケース {#more-practical-use-cases}
 
 Pod間アフィニティとアンチアフィニティは、ReplicaSet、StatefulSet、Deploymentなどのより高レベルなコレクションと併せて使用するとさらに有用です。これらのルールにより、ワークロードのセットが同じ定義されたトポロジーに併置されるように設定できます。たとえば、2つの関連するPodを同じNodeに配置することが好ましい場合です。
 
@@ -315,7 +315,7 @@ spec:
 Podアンチアフィニティを使用する理由は他にもあります。
 この例と同様の方法で、アンチアフィニティを用いて高可用性を実現したStatefulSetの使用例は[ZooKeeperチュートリアル](/docs/tutorials/stateful-application/zookeeper/#tolerating-node-failure)を参照してください。
 
-## nodeName
+## nodeName {#nodename}
 
 `nodeName`はアフィニティや`nodeSelector`よりも直接的なNode選択形式になります。`nodeName`はPod仕様(spec)内のフィールドです。`nodeName`フィールドが空でない場合、スケジューラーはPodを考慮せずに、指定されたNodeにあるkubeletがそのNodeにPodを配置しようとします。`nodeName`を使用すると、`nodeSelector`やアフィニティおよびアンチアフィニティルールを使用するよりも優先されます。
 
