@@ -131,7 +131,8 @@ For a reference to old feature gates that are removed, please refer to
 | `KubeletPodResourcesGetAllocatable` | `false` | Alpha | 1.21 | 1.22 |
 | `KubeletPodResourcesGetAllocatable` | `true` | Beta | 1.23 | |
 | `KubeletPodResourcesDynamicResources` | `false` | Alpha | 1.27 | |
-| `KubeletTracing` | `false` | Alpha | 1.25 | |
+| `KubeletTracing` | `false` | Alpha | 1.25 | 1.26 |
+| `KubeletTracing` | `true` | Beta | 1.27 | |
 | `LegacyServiceAccountTokenTracking` | `false` | Alpha | 1.26 | 1.26 |
 | `LegacyServiceAccountTokenTracking` | `true` | Beta | 1.27 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | - |
