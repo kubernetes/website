@@ -131,12 +131,12 @@ Pour de l'information sur comment passer des options aux composants du control p
 
 ### Utiliser des images personnalisées {#custom-images}
 
-Par défaut, kubeadm télécharge les images depuis `k8s.gcr.io`, à moins que la version demandée de Kubernetes soit une version Intégration Continue (CI). Dans ce cas, `gcr.io/k8s-staging-ci-images` est utilisé.
+Par défaut, kubeadm télécharge les images depuis `registry.k8s.io`, à moins que la version demandée de Kubernetes soit une version Intégration Continue (CI). Dans ce cas, `gcr.io/k8s-staging-ci-images` est utilisé.
 
 Vous pouvez outrepasser ce comportement en utilisant [kubeadm avec un fichier de configuration](#config-file).
 Les personnalisations permises sont :
 
-* fournir un `imageRepository` à utiliser à la place de `k8s.gcr.io`.
+* fournir un `imageRepository` à utiliser à la place de `registry.k8s.io`.
 * régler `useHyperKubeImage` à `true` pour utiliser l'image HyperKube.
 * fournir un `imageRepository` et un `imageTag` pour etcd et l'extension (add-on) DNS.
 
@@ -264,7 +264,7 @@ kubeadm config images list
 kubeadm config images pull
 ```
 
-A partir de Kubernetes 1.12, les images prefixées par `k8s.gcr.io/kube-*`, `k8s.gcr.io/etcd` et `k8s.gcr.io/pause`
+A partir de Kubernetes 1.12, les images prefixées par `registry.k8s.io/kube-*`, `registry.k8s.io/etcd` et `registry.k8s.io/pause`
 ne nécessitent pas un suffix `-${ARCH}`.
 
 ### Automatiser kubeadm
