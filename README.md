@@ -70,7 +70,7 @@ This will start the local Hugo server on port 1313. Open up your browser to <htt
 
 ## Building the API reference pages
 
-The API reference pages located in `content/en/docs/reference/kubernetes-api` are built from the Swagger specification, using <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>.
+The API reference pages located in `content/en/docs/reference/kubernetes-api` are built from the Swagger specification, also known as OpenAPI specification, using <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>.
 
 To update the reference pages for a new Kubernetes release follow these steps:
 
