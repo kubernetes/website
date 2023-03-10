@@ -101,8 +101,6 @@ For a reference to old feature gates that are removed, please refer to
 | `ExpandedDNSConfig` | `false` | Alpha | 1.22 | 1.25 |
 | `ExpandedDNSConfig` | `true` | Beta | 1.26 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
-| `GRPCContainerProbe` | `false` | Alpha | 1.23 | 1.23 |
-| `GRPCContainerProbe` | `true` | Beta | 1.24 | |
 | `GracefulNodeShutdown` | `false` | Alpha | 1.20 | 1.20 |
 | `GracefulNodeShutdown` | `true` | Beta | 1.21 | |
 | `GracefulNodeShutdownBasedOnPodPriority` | `false` | Alpha | 1.23 | 1.23 |
@@ -291,6 +289,12 @@ For a reference to old feature gates that are removed, please refer to
 | `ExecProbeTimeout` | `true` | GA | 1.20 | - |
 | `JobMutableNodeSchedulingDirectives` | `true` | Beta | 1.23 | 1.26 |
 | `JobMutableNodeSchedulingDirectives` | `true` | GA | 1.27 | |
+| `GRPCContainerProbe` | `false` | Alpha | 1.23 | 1.23 |
+| `GRPCContainerProbe` | `true` | Beta | 1.24 | 1.26 |
+| `GRPCContainerProbe` | `true` | GA | 1.27 | |
+| `IdentifyPodOS` | `false` | Alpha | 1.23 | 1.23 |
+| `IdentifyPodOS` | `true` | Beta | 1.24 | 1.24 |
+| `IdentifyPodOS` | `true` | GA | 1.25 | - |
 | `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | 1.22 |
 | `JobTrackingWithFinalizers` | `false` | Beta | 1.23 | 1.24 |
 | `JobTrackingWithFinalizers` | `true` | Beta | 1.25 | 1.25 |
