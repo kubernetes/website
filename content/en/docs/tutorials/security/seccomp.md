@@ -156,14 +156,12 @@ running within kind.
 
 ## Enable the use of `RuntimeDefault` as the default seccomp profile for all workloads
 
-{{< feature-state state="beta" for_k8s_version="v1.25" >}}
+{{< feature-state state="stable" for_k8s_version="v1.27" >}}
 
-To use seccomp profile defaulting, you must run the kubelet with the `SeccompDefault`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled
-(this is the default). You must also explicitly enable the defaulting behavior for each
-node where you want to use this with the corresponding `--seccomp-default`
-[command line flag](/docs/reference/command-line-tools-reference/kubelet).
-Both have to be enabled simultaneously to use the feature.
+To use seccomp profile defaulting, you must run the kubelet with the
+`--seccomp-default`
+[command line flag](/docs/reference/command-line-tools-reference/kubelet)
+enabled for each node where you want to use it. 
 
 If enabled, the kubelet will use the `RuntimeDefault` seccomp profile by default, which is
 defined by the container runtime, instead of using the `Unconfined` (seccomp disabled) mode.
@@ -200,10 +198,8 @@ in the related Kubernetes Enhancement Proposal (KEP):
 
 Kubernetes {{< skew currentVersion >}} lets you configure the seccomp profile
 that applies when the spec for a Pod doesn't define a specific seccomp profile.
-This is a beta feature and the corresponding `SeccompDefault` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled by
-default. However, you still need to enable this defaulting for each node where
-you would like to use it.
+However, you still need to enable this defaulting for each node where you would
+like to use it.
 
 If you are running a Kubernetes {{< skew currentVersion >}} cluster and want to
 enable the feature, either run the kubelet with the `--seccomp-default` command
@@ -216,8 +212,6 @@ the minimum required Kubernetes version and enables the `SeccompDefault` feature
 ```yaml
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
-featureGates:
-  SeccompDefault: true
 nodes:
   - role: control-plane
     image: kindest/node:v1.23.0@sha256:49824ab1727c04e56a21a5d8372a402fcd32ea51ac96a2706a12af38934f81ac
@@ -234,7 +228,6 @@ nodes:
         kind: JoinConfiguration
         nodeRegistration:
           kubeletExtraArgs:
-            feature-gates: SeccompDefault=true
             seccomp-default: "true"
 ```
 
@@ -272,7 +265,7 @@ or not. You can adopt these defaults for your workload by setting the seccomp
 type in the security context of a pod or container to `RuntimeDefault`.
 
 {{< note >}}
-If you have the `SeccompDefault` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+If you have the `seccompDefault` [configuration](/docs/reference/config-api/kubelet-config.v1beta1/)
 enabled, then Pods use the `RuntimeDefault` seccomp profile whenever
 no other seccomp profile is specified. Otherwise, the default is `Unconfined`.
 {{< /note >}}

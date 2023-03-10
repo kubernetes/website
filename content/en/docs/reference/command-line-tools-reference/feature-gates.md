@@ -179,8 +179,6 @@ For a reference to old feature gates that are removed, please refer to
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
 | `SELinuxMountReadWriteOncePod` | `false` | Alpha | 1.25 | |
-| `SeccompDefault` | `false` | Alpha | 1.22 | 1.24 |
-| `SeccompDefault` | `true` | Beta | 1.25 | |
 | `ServiceNodePortStaticSubrange` | `false` | Alpha | 1.27 | |
 | `SizeMemoryBackedVolumes` | `false` | Alpha | 1.20 | 1.21 |
 | `SizeMemoryBackedVolumes` | `true` | Beta | 1.22 | |
@@ -308,6 +306,9 @@ For a reference to old feature gates that are removed, please refer to
 | `RemoveSelfLink` | `false` | Alpha | 1.16 | 1.19 |
 | `RemoveSelfLink` | `true` | Beta | 1.20 | 1.23 |
 | `RemoveSelfLink` | `true` | GA | 1.24 | - |
+| `SeccompDefault` | `false` | Alpha | 1.22 | 1.24 |
+| `SeccompDefault` | `true` | Beta | 1.25 | 1.26 |
+| `SeccompDefault` | `true` | GA | 1.27 | - |
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | 1.21 |
 | `ServerSideApply` | `true` | GA | 1.22 | - |
