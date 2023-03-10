@@ -90,9 +90,6 @@ For a reference to old feature gates that are removed, please refer to
 | `CustomResourceValidationExpressions` | `true` | Beta | 1.25 | |
 | `DisableCloudProviders` | `false` | Alpha | 1.22 | |
 | `DisableKubeletCloudCredentialProviders` | `false` | Alpha | 1.23 | |
-| `DownwardAPIHugePages` | `false` | Alpha | 1.20 | 1.20 |
-| `DownwardAPIHugePages` | `false` | Beta | 1.21 | 1.21 |
-| `DownwardAPIHugePages` | `true` | Beta | 1.22 | |
 | `DynamicResourceAllocation` | `false` | Alpha | 1.26 | |
 | `EventedPLEG` | `false` | Alpha | 1.26 | - |
 | `ExpandedDNSConfig` | `false` | Alpha | 1.22 | 1.25 |
@@ -265,6 +262,10 @@ For a reference to old feature gates that are removed, please refer to
 | `DisableAcceleratorUsageMetrics` | `false` | Alpha | 1.19 | 1.19 |
 | `DisableAcceleratorUsageMetrics` | `true` | Beta | 1.20 | 1.24 |
 | `DisableAcceleratorUsageMetrics` | `true` | GA | 1.25 |- |
+| `DownwardAPIHugePages` | `false` | Alpha | 1.20 | 1.20 |
+| `DownwardAPIHugePages` | `false` | Beta | 1.21 | 1.21 |
+| `DownwardAPIHugePages` | `true` | Beta | 1.22 | 1.26 |
+| `DownwardAPIHugePages` | `true` | GA | 1.27 | - |
 | `DryRun` | `false` | Alpha | 1.12 | 1.12 |
 | `DryRun` | `true` | Beta | 1.13 | 1.18 |
 | `DryRun` | `true` | GA | 1.19 | - |
