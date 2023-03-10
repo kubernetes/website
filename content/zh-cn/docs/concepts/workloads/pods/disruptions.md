@@ -150,7 +150,7 @@ and [stateful](/docs/tasks/run-application/run-replicated-stateful-application/)
   （了解有关运行多副本的[无状态](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)
   和[有状态](/zh-cn/docs/tasks/run-application/run-replicated-stateful-application/)应用的信息。）
 - 为了在运行复制应用时获得更高的可用性，请跨机架（使用
-  [反亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
+  [反亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)）
   或跨区域（如果使用[多区域集群](/zh-cn/docs/setup/best-practices/multiple-zones/)）扩展应用。
 
 <!--
