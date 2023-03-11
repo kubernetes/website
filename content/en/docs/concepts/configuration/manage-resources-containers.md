@@ -805,7 +805,7 @@ memory limit (and possibly request) for that container.
 * Get hands-on experience [assigning CPU resources to containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
 * Read how the API reference defines a [container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
   and its [resource requirements](/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)
-* Read about [project quotas](https://xfs.wiki.kernel.org/) in XFS
+* Read about [project quotas](https://www.linux.org/docs/man8/xfs_quota.html) in XFS
 * Read more about the [kube-scheduler configuration reference (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
 * Read more about [Quality of Service classes for Pods](/docs/concepts/workloads/pods/pod-qos/)
 
