@@ -30,7 +30,7 @@ Liveness probes can be a powerful way to recover from application failures, but 
 {{< /caution >}}
 
 {{< note >}}
-Incorrect configuration of liveness probes can lead to cascading failures. For example, killing the pod when it has high load, as opposed to being crashed, can lead to failed client requests or traffic being shifted onto other pods in the same deployment or service, thereby overloading them.
+Incorrect configuration of liveness probes can lead to cascading failures. For example, restarting the container when it has high load, as opposed to being crashed, can lead to failed client requests or traffic being shifted onto other pods in the same deployment or service, thereby overloading them.
 {{< /note >}}
 
 ## {{% heading "prerequisites" %}}
