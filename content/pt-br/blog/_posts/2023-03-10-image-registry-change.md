@@ -22,7 +22,7 @@ ou endereços IPs limitado a k8s.gcr.io, **o pull de imagens não vai funcionar*
 a redirecionar para o novo registry.
 - Um pequeno subconjunto de clientes que não seguem o padrão não lidam com redirecionamentos HTTP, e neste caso eles
 precisam ser apontados diretamente para registry.k8s.io.
-- O redirecionamento é um paliativo para ajudar os usuários a fazer essa trocy. O registro obsoleto k8s.gcr.io será desativado em algum momento. **Por isso, atualize seus manifestos o mais rápido possível para apontar para registry.k8s.io**.
+- O redirecionamento é um paliativo para ajudar os usuários a fazer essa troca. O registro obsoleto k8s.gcr.io será desativado em algum momento. **Por isso, atualize seus manifestos o mais rápido possível para apontar para registry.k8s.io**.
 - Se você mantém seu próprio registry de imagens, voc6e pode copiar as imagens que você precisa para reduzir o tráfego
 ao registry da comunidade.
 
