@@ -102,7 +102,8 @@ For a reference to old feature gates that are removed, please refer to
 | `GracefulNodeShutdown` | `true` | Beta | 1.21 | |
 | `GracefulNodeShutdownBasedOnPodPriority` | `false` | Alpha | 1.23 | 1.23 |
 | `GracefulNodeShutdownBasedOnPodPriority` | `true` | Beta | 1.24 | |
-| `HPAContainerMetrics` | `false` | Alpha | 1.20 | |
+| `HPAContainerMetrics` | `false` | Alpha | 1.20 | 1.26 |
+| `HPAContainerMetrics` | `true` | Beta | 1.27 | |
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
 | `HonorPVReclaimPolicy` | `false` | Alpha | 1.23 |  |
 | `InTreePluginAWSUnregister` | `false` | Alpha | 1.21 | |
