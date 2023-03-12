@@ -4835,7 +4835,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <blockquote class="code-block example">
 <p> Restart deployments with the app=nginx label</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl rollout <span class="hljs-keyword">restart</span> deployment <span class="hljs-comment">--selector=app=nginx</span>
+<pre class="code-block example"><code class="lang-shell">kubectl rollout <span class="hljs-keyword">restart</span> deployment <span class="hljs-keyword">--selector</span><span class="hljs-literal">=app=nginx</span>
 </code></pre>
 <p>Manage the rollout of one or many resources.<br>  <br> Valid resource types include:<br><br>  <em>  deployments<br>  </em>  daemonsets<br>  *  statefulsets</p>
 <h3 id="usage">Usage</h3>
@@ -5602,7 +5602,7 @@ viewing your workloads in a Kubernetes cluster.</p>
 <td>list</td>
 <td></td>
 <td>false</td>
-<td>If true, display the environment and any changes in the standard format. this flag will removed when we have kubectl view env. </td>
+<td>If true, display the environment and any changes in the standard format. This flag will be removed when we have kubectl view env. </td>
 </tr>
 <tr>
 <td>local</td>
@@ -6016,7 +6016,7 @@ kubectl create deployment my-dep -o yaml <span class="hljs-attribute">--dry-run<
 <blockquote class="code-block example">
 <p> Set deployment nginx-deployment&#39;s service account to serviceaccount1</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">set</span> serviceaccount <span class="hljs-comment">deployment nginx-deployment serviceaccount1</span>
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-keyword">set</span> serviceaccount <span class="hljs-builtin-name">deployment</span><span class="hljs-literal> nginx-deployment serviceaccount1</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> Print the result (in YAML format) of updated nginx deployment with the service account from local file, without hitting the API server</p>
@@ -6241,7 +6241,7 @@ kubectl create deployment my-dep -o yaml <span class="hljs-attribute">--dry-run<
 <blockquote class="code-block example">
 <p> Wait for the pod &quot;busybox1&quot; to contain the status condition of type &quot;Ready&quot;</p>
 </blockquote>
-<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">wait</span> <span class="hljs-comment">--for=condition=Ready pod/busybox1</span>
+<pre class="code-block example"><code class="lang-shell">kubectl <span class="hljs-built_in">wait</span> --<span class="hljs-keyword">for</span><span class="hljs-literal">=condition=Ready pod/busybox1</span>
 </code></pre>
 <blockquote class="code-block example">
 <p> The default value of status condition is true; you can wait for other targets after an equal delimiter (compared after Unicode simple case folding, which is a more general form of case-insensitivity):</p>
