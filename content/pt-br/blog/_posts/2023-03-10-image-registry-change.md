@@ -11,7 +11,7 @@ Ali (Rackspace Technology), Mars Toktonaliev (independent), Laura Santamaria (De
 (Dell)
 
 
-Na segunda-feira, dia 20 de Março, o registry de imagens k8s.gcr.io [vai ser redirecionado para o registry da comunidade](https://kubernetes.io/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/),**registry.k8s.io**.
+Na segunda-feira, dia 20 de março, o registry de imagens k8s.gcr.io [vai ser redirecionado para o registry da comunidade](https://kubernetes.io/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/), **registry.k8s.io**.
 
 
 ## TL;DR: O que você precisa saber sobre essa mudança
