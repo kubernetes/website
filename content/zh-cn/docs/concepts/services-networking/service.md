@@ -26,7 +26,10 @@ weight: 10
 
 <!-- overview -->
 
+<!--
 {{< glossary_definition term_id="service" length="short" >}}
+-->
+{{< glossary_definition term_id="service" length="short" prepend="Kubernetes 中 Service 是" >}}
 
 <!--
 A key aim of Services in Kubernetes is that you don't need to modify your existing
@@ -1091,14 +1094,14 @@ by making the changes that are equivalent to you requesting a Service of
 `type: NodePort`. The cloud-controller-manager component then configures the external load balancer to
 forward traffic to that assigned node port.
 
-_As an alpha feature_, you can configure a load balanced Service to
+You can configure a load balanced Service to
 [omit](#load-balancer-nodeport-allocation) assigning a node port, provided that the
 cloud provider implementation supports this.
 -->
 要实现 `type: LoadBalancer` 的服务，Kubernetes 通常首先进行与请求 `type: NodePort` 服务等效的更改。
 cloud-controller-manager 组件然后配置外部负载均衡器以将流量转发到已分配的节点端口。
 
-**作为 Alpha 特性**，你可以将负载均衡服务配置为[忽略](#load-balancer-nodeport-allocation)分配节点端口，
+你可以将负载均衡服务配置为[忽略](#load-balancer-nodeport-allocation)分配节点端口，
 前提是云提供商实现支持这点。
 
 {{< note >}}
@@ -1810,7 +1813,7 @@ will be routed to one of the Service endpoints. `externalIPs` are not managed by
 of the cluster administrator.
 
 In the Service spec, `externalIPs` can be specified along with any of the `ServiceTypes`.
-In the example below, "`my-service`" can be accessed by clients on "`80.11.12.10:80`" (`externalIP:port`)
+In the example below, "`my-service`" can be accessed by clients on "198.51.100.32:80`" (`externalIP:port`)
 -->
 ### 外部 IP  {#external-ips}
 
@@ -1820,7 +1823,7 @@ In the example below, "`my-service`" can be accessed by clients on "`80.11.12.10
 `externalIPs` 不会被 Kubernetes 管理，它属于集群管理员的职责范畴。
 
 根据 Service 的规定，`externalIPs` 可以同任意的 `ServiceType` 来一起指定。
-在上面的例子中，`my-service` 可以在 "`80.11.12.10:80`" (`externalIP:port`) 上被客户端访问。
+在上面的例子中，`my-service` 可以在 "`198.51.100.32:80`" (`externalIP:port`) 上被客户端访问。
 
 ```yaml
 apiVersion: v1
