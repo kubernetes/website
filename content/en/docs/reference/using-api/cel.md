@@ -59,6 +59,7 @@ Example CEL expressions:
 | `self.metadata.name == 'singleton'`                                                | Validate that an object's name matches a specific value (making it a singleton)   |
 | `self.set1.all(e, !(e in self.set2))`                                              | Validate that two listSets are disjoint                                           |
 | `self.names.size() == self.details.size() && self.names.all(n, n in self.details)` | Validate the 'details' map is keyed by the items in the 'names' listSet           |
+{{< /table >}}
 
 ## CEL community libraries
 
@@ -95,6 +96,7 @@ Examples:
 | `items.map(x, x.weight).sum() == 1.0`                                              | Verify that the "weights" of a list of objects sum to 1.0 |
 | `lowPriorities.map(x, x.priority).max() < highPriorities.map(x, x.priority).min()` | Verify that two sets of priorities do not overlap         |
 | `names.indexOf('should-be-first') == 1`                                            | Require that the first name in a list if a specific value | 
+{{< /table >}}
 
 See the [Kubernetes List Library](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#Lists)
 godoc for more information.
@@ -112,6 +114,7 @@ Examples:
 |-------------------------------------------------------------|----------------------------------------------------------|
 | `"abc 123".find('[0-9]*')`                                  | Find the first number in a string                        |
 | `"1, 2, 3, 4".findAll('[0-9]*').map(x, int(x)).sum() < 100` | Verify that the numbers in a string sum to less than 100 |
+{{< /table >}}
 
 See the [Kubernetes regex library](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#Regex)
 godoc for more information.
@@ -136,6 +139,7 @@ Examples:
 |-----------------------------------------------------------------|------------------------------------------------|
 | `url('https://example.com:80/').getHost()`                      | Get the 'example.com:80' host part of the URL. |
 | `url('https://example.com/path with spaces/').getEscapedPath()` | Returns '/path%20with%20spaces/'               |
+{{< /table >}}
 
 See the [Kubernetes URL library](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#URLs)
 godoc for more information.
@@ -191,6 +195,7 @@ has(object.namex) ? object.namex == 'special' : request.name == 'special'
 | 'string' with format=date                          | timestamp (google.protobuf.Timestamp)                                                                                        |
 | 'string' with format=datetime                      | timestamp (google.protobuf.Timestamp)                                                                                        |
 | 'string' with format=duration                      | duration (google.protobuf.Duration)                                                                                          |
+{{< /table >}}
 
 Also see: [CEL types](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#values),
 [OpenAPI types](https://swagger.io/specification/#data-types),
@@ -225,6 +230,7 @@ expression:
 | `__dash__`        | `-`                                                                                          |
 | `__slash__`       | `/`                                                                                          |
 | `__{keyword}__`   | [CEL **RESERVED** keyword](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#syntax) |
+{{< /table >}}
 
 When you escape any of CEL's **RESERVED** keywords you need to match the exact property name
 use the underscore escaping
@@ -239,6 +245,7 @@ Examples on escaping:
 | `x-prop`      | `self.x__dash__prop > 0`          |
 | `redact__d`   | `self.redact__underscores__d > 0` |
 | `string`      | `self.startsWith('kube')`         |
+{{< /table >}}
 
 ## Resource constraints
 
