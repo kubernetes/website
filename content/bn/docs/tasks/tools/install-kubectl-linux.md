@@ -1,13 +1,13 @@
 ---
 reviewers:
-- mikedanese
-title: Install and Set Up kubectl on Linux
+- mitul3737
+title: লিনাক্সে kubectl ইনস্টল এবং সেট আপ করুন
 content_type: task
 weight: 10
 card:
   name: tasks
   weight: 20
-  title: Install kubectl on Linux
+  title: লিনাক্সে kubectl ইনস্টল করুন
 ---
 
 ## {{% heading "prerequisites" %}}
@@ -15,53 +15,56 @@ card:
 You must use a kubectl version that is within one minor version difference of your cluster. For example, a v{{< skew currentVersion >}} client can communicate with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}, and v{{< skew currentVersionAddMinor 1 >}} control planes.
 Using the latest compatible version of kubectl helps avoid unforeseen issues.
 
-## Install kubectl on Linux
+আপনাকে অবশ্যই একটি kubectl সংস্করণ ব্যবহার করতে হবে যা আপনার ক্লাস্টারের একটি ছোট সংস্করণের পার্থক্যের মধ্যে রয়েছে। উদাহরণস্বরূপ, একটি v{{< skew currentVersion >}} ক্লায়েন্ট v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}, এবং v{{< skew currentVersionAddMinor 1 >}} এর কন্ট্রোল প্লেনের সাথে যোগাযোগ করতে পারে।
+kubectl এর সর্বশেষ সামঞ্জস্যপূর্ণ সংস্করণ ব্যবহার করা অপ্রত্যাশিত সমস্যাগুলি এড়াতে সাহায্য করে৷
 
-The following methods exist for installing kubectl on Linux:
+## লিনাক্সে kubectl ইনস্টল করুন
 
-- [Install kubectl binary with curl on Linux](#install-kubectl-binary-with-curl-on-linux)
-- [Install using native package management](#install-using-native-package-management)
-- [Install using other package management](#install-using-other-package-management)
+লিনাক্সে kubectl ইনস্টল করার জন্য নিম্নলিখিত পদ্ধতি বিদ্যমানঃ
 
-### Install kubectl binary with curl on Linux
+- [লিনাক্সে কার্ল দিয়ে kubectl বাইনারি ইনস্টল করুন](#install-kubectl-binary-with-curl-on-linux)
+- [নেটিভ প্যাকেজ ম্যানেজমেন্ট দিয়ে ইনস্টল করুন](#install-using-native-package-management)
+- [অন্যান্য প্যাকেজ ব্যবস্থাপনা ব্যবহার করে ইনস্টল করুন](#install-using-other-package-management)
 
-1. Download the latest release with the command:
+### লিনাক্সে কার্ল সহ kubectl বাইনারি ইনস্টল করুন
+
+১. কমান্ড সহ সর্বশেষ রিলিজ ডাউনলোড করুন:
 
    ```bash
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
    ```
 
    {{< note >}}
-To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)` portion of the command with the specific version.
+একটি নির্দিষ্ট সংস্করণ ডাউনলোড করতে, নির্দিষ্ট সংস্করণের সাথে কমান্ডের `$(curl -L -s https://dl.k8s.io/release/stable.txt)` অংশটি প্রতিস্থাপন করুন। 
 
-For example, to download version {{< param "fullversion" >}} on Linux, type:
+উদাহরণস্বরূপ, লিনাক্সে সংস্করণ {{< param "fullversion" >}} ডাউনলোড করতে, টাইপ করুন:
 
    ```bash
    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
    ```
    {{< /note >}}
 
-1. Validate the binary (optional)
+২. বাইনারি যাচাই করুন (ঐচ্ছিক)
 
-   Download the kubectl checksum file:
-
+   kubectl চেকসাম ফাইল ডাউনলোড করুন:
+ 
    ```bash
    curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
    ```
 
-   Validate the kubectl binary against the checksum file:
+   চেকসাম ফাইলের বিপরীতে kubectl বাইনারি যাচাই করুন:
 
    ```bash
    echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
    ```
 
-   If valid, the output is:
+   বৈধ হলে, আউটপুট হবে:
 
    ```console
    kubectl: OK
    ```
 
-   If the check fails, `sha256` exits with nonzero status and prints output similar to:
+   চেক ব্যর্থ হলে, `sha256` অশূন্য স্থিতি সহ প্রস্থান করে এবং অনুরূপ আউটপুট প্রিন্ট করে:
 
    ```bash
    kubectl: FAILED
@@ -69,17 +72,17 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
    ```
 
    {{< note >}}
-   Download the same version of the binary and checksum.
+   বাইনারি এবং চেকসামের একই সংস্করণ ডাউনলোড করুন।
    {{< /note >}}
 
-1. Install kubectl
+৩. kubectl ইনস্টল করুন
 
    ```bash
    sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
    ```
 
    {{< note >}}
-   If you do not have root access on the target system, you can still install kubectl to the `~/.local/bin` directory:
+   যদি আপনার টার্গেট সিস্টেমে রুট অ্যাক্সেস না থাকে, তাহলেও আপনি `~/.local/bin` ডিরেক্টরিতে kubectl ইনস্টল করতে পারেন:
 
    ```bash
    chmod +x kubectl
@@ -90,65 +93,66 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
 
    {{< /note >}}
 
-1. Test to ensure the version you installed is up-to-date:
+৪. আপনার ইনস্টল করা সংস্করণ আপ-টু-ডেট কিনা তা নিশ্চিত করতে পরীক্ষা করুন:
 
    ```bash
    kubectl version --client
    ```
    {{< note >}}
-   The above command will generate a warning:
+   উপরের কমান্ডটি একটি সতর্কতা তৈরি করবে:
    ```
    WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
    ```
-   You can ignore this warning. You are only checking the version of `kubectl` that you
-   have installed.
+  আপনি এই সতর্কতা উপেক্ষা করতে পারেন। আপনি শুধুমাত্র `kubectl` এর সংস্করণটি পরীক্ষা করছেন যা আপনি ইনস্টল করেছেন।
+
    
    {{< /note >}}
    
-   Or use this for detailed view of version:
+   অথবা সংস্করণের বিস্তারিত দেখার জন্য এটি ব্যবহার করুনঃ 
 
    ```cmd
    kubectl version --client --output=yaml    
    ```
 
-### Install using native package management
+### নেটিভ প্যাকেজ ম্যানেজমেন্ট ব্যবহার করে ইনস্টল করুন
 
 {{< tabs name="kubectl_install" >}}
 {{% tab name="Debian-based distributions" %}}
 
-1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
+১. `apt` প্যাকেজ ইনডেক্স আপডেট করুন এবং Kubernetes `apt` রিপোযিটোরী ব্যবহার করার জন্য প্রয়োজনীয় প্যাকেজ ইনস্টল করুন:
 
    ```shell
    sudo apt-get update
    sudo apt-get install -y ca-certificates curl
    ```
-   If you use Debian 9 (stretch) or earlier you would also need to install `apt-transport-https`:
+   আপনি যদি ডেবিয়ান ৯ (স্ট্রেচ) বা তার আগে ব্যবহার করেন তবে আপনাকে `apt-transport-https` ইনস্টল করতে হবে:
    ```shell
    sudo apt-get install -y apt-transport-https
    ```
 
-2. Download the Google Cloud public signing key:
+২. গুগল ক্লাউড পাবলিক সাইনিং কী ডাউনলোড করুন: 
 
    ```shell
    sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
    ```
 
-3. Add the Kubernetes `apt` repository:
+৩. কুবারনেটিস `apt` রিপোযিটোরী যোগ করুন:
 
    ```shell
    echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
-4. Update `apt` package index with the new repository and install kubectl:
+৪. নতুন রিপোযিটোরীর সাথে `apt` প্যাকেজ ইনডেক্স আপডেট করুন এবং kubectl ইনস্টল করুন:
 
    ```shell
    sudo apt-get update
    sudo apt-get install -y kubectl
    ```
 {{< note >}}
-In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default.
-You can create this directory if you need to, making it world-readable but writeable only by admins.
-{{< /note >}}
+ডেবিয়ান ১২ এবং উবুন্টু ২২.০৪ এর চেয়ে পুরানো রিলিজে, `/etc/apt/keyrings` ডিফল্টরূপে বিদ্যমান নেই।
+আপনার প্রয়োজন হলে আপনি এই ডিরেক্টরিটি তৈরি করতে পারেন, এটি ওয়ার্ল্ড-রিডেবল কিন্তু শুধুমাত্র অ্যাডমিনদের দ্বারা লেখার যোগ্য।
+
+{{< /note >}} 
 
 {{% /tab %}}
 
@@ -168,11 +172,12 @@ sudo yum install -y kubectl
 {{% /tab %}}
 {{< /tabs >}}
 
-### Install using other package management
+### অন্যান্য প্যাকেজ ব্যবস্থাপনা ব্যবহার করে ইনস্টল করুন
 
 {{< tabs name="other_kubectl_install" >}}
 {{% tab name="Snap" %}}
-If you are on Ubuntu or another Linux distribution that supports the [snap](https://snapcraft.io/docs/core/install) package manager, kubectl is available as a [snap](https://snapcraft.io/) application.
+আপনি যদি উবুন্টু বা অন্য একটি লিনাক্স ডিস্ট্রিবিউশনে থাকেন যা [স্ন্যাপ](https://snapcraft.io/docs/core/install) প্যাকেজ ম্যানেজার সমর্থন করে, তাহলে kubectl একটি [স্ন্যাপ](https://snapcraft.io/) অ্যাপ্লিকেশান হিসেবে পাওয়া যাবে।
+
 
 ```shell
 snap install kubectl --classic
@@ -182,7 +187,7 @@ kubectl version --client
 {{% /tab %}}
 
 {{% tab name="Homebrew" %}}
-If you are on Linux and using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux) package manager, kubectl is available for [installation](https://docs.brew.sh/Homebrew-on-Linux#install).
+আপনি যদি লিনাক্সে থাকেন এবং [হোম্ব্রু](https://docs.brew.sh/Homebrew-on-Linux) প্যাকেজ ম্যানেজার ব্যবহার করেন, তাহলে kubectl [ইনস্টলেশন](https://docs.brew.sh/Homebrew-on-Linux#install) এর জন্য পাওয়া যাবে।
 
 ```shell
 brew install kubectl
@@ -193,17 +198,17 @@ kubectl version --client
 
 {{< /tabs >}}
 
-## Verify kubectl configuration
+## kubectl কনফিগারেশন যাচাই করুন
 
 {{< include "included/verify-kubectl.md" >}}
 
-## Optional kubectl configurations and plugins
+## ঐচ্ছিক kubectl কনফিগারেশন এবং প্লাগই
 
-### Enable shell autocompletion
+### শেল অটোকম্পিসন চালু করুন
 
-kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell, which can save you a lot of typing.
+kubectl Bash, Zsh, Fish এবং PowerShell-এর জন্য অটোকম্পিসন সমর্থন প্রদান করে, যা আপনাকে অনেক টাইপিং বাঁচাতে পারে।
 
-Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
+নীচে Bash, Fish, এবং Zsh-এর জন্য স্বয়ংসম্পূর্ণতা সেট আপ করার পদ্ধতিগুলি রয়েছে৷
 
 {{< tabs name="kubectl_autocompletion" >}}
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-linux.md" />}}
@@ -211,37 +216,37 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
-### Install `kubectl convert` plugin
+### `kubectl convert` প্লাগইন ইনস্টল করুন
 
 {{< include "included/kubectl-convert-overview.md" >}}
 
-1. Download the latest release with the command:
+১. কমান্ড সহ সর্বশেষ রিলিজ ডাউনলোড করুন:
 
    ```bash
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert"
    ```
 
-1. Validate the binary (optional)
+২. বাইনারি যাচাই করুন (ঐচ্ছিক)
 
-   Download the kubectl-convert checksum file:
+   kubectl-convert চেকসাম ফাইলটি ডাউনলোড করুন:
 
    ```bash
    curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
    ```
 
-   Validate the kubectl-convert binary against the checksum file:
+   চেকসাম ফাইলের বিপরীতে kubectl-রূপান্তর বাইনারি যাচাই করুন: 
 
    ```bash
    echo "$(cat kubectl-convert.sha256) kubectl-convert" | sha256sum --check
    ```
 
-   If valid, the output is:
+   বৈধ হলে, আউটপুট হল:
 
    ```console
    kubectl-convert: OK
    ```
 
-   If the check fails, `sha256` exits with nonzero status and prints output similar to:
+   চেক ব্যর্থ হলে, `sha256` অশূন্য স্থিতি সহ প্রস্থান করে এবং অনুরূপ আউটপুট প্রিন্ট করে:
 
    ```bash
    kubectl-convert: FAILED
@@ -249,24 +254,24 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    ```
 
    {{< note >}}
-   Download the same version of the binary and checksum.
+   বাইনারি এবং চেকসামের একই সংস্করণ ডাউনলোড করুন।
    {{< /note >}}
 
-1. Install kubectl-convert
+৩. kubectl-convert ইনস্টল করুন
 
    ```bash
    sudo install -o root -g root -m 0755 kubectl-convert /usr/local/bin/kubectl-convert
    ```
 
-1. Verify plugin is successfully installed
+৪. প্লাগইন সফলভাবে ইনস্টল করা হয়েছে যাচাই করুন
 
    ```shell
    kubectl convert --help
    ```
 
-   If you do not see an error, it means the plugin is successfully installed.
+   আপনি যদি একটি ত্রুটি দেখতে না পান, এর মানে হল প্লাগইনটি সফলভাবে ইনস্টল করা হয়েছে।
 
-1. After installing the plugin, clean up the installation files:
+৫. প্লাগইন ইনস্টল করার পরে, ইনস্টলেশন ফাইলগুলি পরিষ্কার করুন:
 
    ```bash
    rm kubectl-convert kubectl-convert.sha256
