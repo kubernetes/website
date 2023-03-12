@@ -617,7 +617,7 @@ metadata:
 spec:
   containers:
     - name: test-container
-      image: k8s.gcr.io/busybox
+      image: registry.k8s.io/busybox
       command: [ "/bin/sh", "-c", "env" ]
       envFrom:
       - secretRef:
@@ -855,7 +855,7 @@ spec:
       secretName: dotfile-secret
   containers:
   - name: dotfile-test-container
-    image: k8s.gcr.io/busybox
+    image: registry.k8s.io/busybox
     command:
     - ls
     - "-l"
