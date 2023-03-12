@@ -138,7 +138,7 @@ apropriadamente sejam impactados.
 
 ## O que vai acontecer com o k8s.gcr.io?
 Para além do redirecionamento, o k8s.gcr.io vai ser congelado [e não vai ser atualizado com novas imagens
-depois do dia 03 de Abril de 2023](https://kubernetes.io/blog/2023/02/06/k8s-gcr-io-freeze-announcement/).
+depois do dia 03 de abril de 2023](https://kubernetes.io/blog/2023/02/06/k8s-gcr-io-freeze-announcement/).
 O `k8s.gcr.io` não vai receber nenhuma nova release, patch ou atualização de segurança. Ele continuará 
 disponível para ajudar as pessoas a migrar, mas **SERÁ** removido totalmente no futuro.
 
