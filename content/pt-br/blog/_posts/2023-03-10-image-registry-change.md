@@ -45,8 +45,8 @@ pod "hello-world" deleted
 ```
 
 ## Quais erros são esperados caso eu seja afetado?
-Os erros podem depender do tipo de container runtime que está usando, e de qual endpoint você está 
-roteando para, mas devem ser erros como `ErrImagePull`, `ImagePullBackOff`, ou falha na criação do
+Os erros podem depender do tipo de agente de execução de contêiner que você está usando, e para qual endpoint você está
+sendo direcionado, mas devem ser erros como `ErrImagePull`, `ImagePullBackOff`, ou falha na criação do
 container com o aviso `FailedCreatePodSandBox`.
 
 Abaixo um exemplo de uma mensagem de erro mostrando um deployment de proxy falhando devido um certificado desconhecido:
@@ -78,7 +78,7 @@ sort |\
 uniq -c
 ```
 
-**Opção 2**: Um plugin do `kubectl` [krew]((https://krew.sigs.k8s.io/) chamado [`community-images`](https://github.com/kubernetes-sigs/community-images#kubectl-community-images) foi desenvolvido para escanear e reportar qualquer
+**Opção 2**: Um plugin do `kubectl` [krew](https://krew.sigs.k8s.io/) chamado [`community-images`](https://github.com/kubernetes-sigs/community-images#kubectl-community-images) foi desenvolvido para escanear e reportar qualquer
 imagem usando o endpoint k8s.gcr.io.
 
 Se você tem o krew instalado, pode instalar o plugin com:
@@ -114,8 +114,8 @@ kyverno (de terceiros) em [k8s-gcr-quickfix](https://github.com/abstractinfrastr
 O k8s.gcr.io é hospedado em um domínio customizado no [Google Cloud Registry - (GCR)](https://cloud.google.com/container-registry)
 que foi configurado exclusivamente para o projeto do Kubernetes. Isso funcionou desde o nascimento do projeto,
 e nós agradecemos ao Google por prover esses recursos, mas atualmente, existem outros provedores de nuvem e fornecedores
-que gostariam de hospedam imagens para fornecer uma melhor experiência para as pessoas nas suas plataformas. 
-Além do Google ter [renovado o compromisso de doar $3 milhões]((https://www.cncf.io/google-cloud-recommits-3m-to-kubernetes/) para manter a infraestrutura do projeto ano passado, a Amazon Web Services anunciou uma doação correspondente 
+que gostariam de hospedar imagens para fornecer uma melhor experiência para as pessoas nas suas plataformas. 
+Além do Google ter [renovado o compromisso de doar $3 milhões](https://www.cncf.io/google-cloud-recommits-3m-to-kubernetes/) para manter a infraestrutura do projeto ano passado, a Amazon Web Services anunciou uma doação correspondente 
 [durante o keynote deles na Kubecon NA 2022 em Detroit](https://youtu.be/PPdimejomWo?t=236). Isso proporcionará
 uma melhor experiência para os usuários (servidores mais pertos = downloads mais rápidos) e vai reduzir 
 a largura de banda de saída e os custos do GCR ao mesmo tempo.
