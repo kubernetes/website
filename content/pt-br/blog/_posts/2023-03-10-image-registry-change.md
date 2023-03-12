@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Redirecionamento do registry de imagens k8s.gcr.io para registry.k8s.io - O que você precisa saber"
+title: "Redirecionamento do registro de imagens k8s.gcr.io para registry.k8s.io - O que você precisa saber"
 date: 2023-03-10T17:00:00.000Z
 slug: image-registry-redirect
 ---
@@ -11,20 +11,20 @@ Ali (Rackspace Technology), Mars Toktonaliev (independent), Laura Santamaria (De
 (Dell)
 
 
-Na segunda-feira, dia 20 de março, o registry de imagens k8s.gcr.io [vai ser redirecionado para o registry da comunidade](https://kubernetes.io/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/), **registry.k8s.io**.
+Na segunda-feira, dia 20 de março, o registro de imagens k8s.gcr.io [vai ser redirecionado para o registro de imagens da comunidade](https://kubernetes.io/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/), **registry.k8s.io**.
 
 
 ## O que você precisa saber sobre essa mudança
-- Na segunda-feira, dia 20 de março, o tráfego do registry antigo k8s.gcr.io vai ser redirecionado para
+- Na segunda-feira, dia 20 de março, o tráfego do registro de imagens antigo k8s.gcr.io vai ser redirecionado para
 registry.k8s.io com o objetivo final de encerramento do k8s.gcr.io.
 - Se você está executando em um ambiente restrito, e aplica políticas rígidas de acesso a nomes de domínios
 ou endereços IPs limitado a k8s.gcr.io, **o pull de imagens não vai funcionar** depois que o k8s.gcr.io começar
-a redirecionar para o novo registry.
+a redirecionar para o novo registro de imagens.
 - Um pequeno subconjunto de clientes que não seguem o padrão não lidam com redirecionamentos HTTP, e neste caso eles
 precisam ser apontados diretamente para registry.k8s.io.
 - O redirecionamento é um paliativo para ajudar os usuários a fazer essa troca. O registro obsoleto k8s.gcr.io será desativado em algum momento. **Por isso, atualize seus manifestos o mais rápido possível para apontar para registry.k8s.io**.
-- Se você mantém seu próprio registry de imagens, você pode copiar as imagens que você precisa para reduzir o tráfego
-ao registry da comunidade.
+- Se você mantém seu próprio registro de imagens, você pode copiar as imagens que você precisa para reduzir o tráfego
+ao registro de imagens da comunidade.
 
 Se você acha que vai ser impactado, ou gostaria de saber mais sobre essa mudança, leia mais abaixo.
 
@@ -62,12 +62,12 @@ as imagens `dns/k8s-dns-node-cache`, `ingress-nginx/controller`, e
 
 ## Eu fui afetado, o que devo fazer?
 Para usuários afetados que usam um ambiente restrito, a melhor opção é copiar as imagens necessárias
-para um registro privado ou configurar um cache de _pull-through_ nos seu registry.
+para um registro privado ou configurar um cache de _pull-through_ nos seu registro de imagens.
 
-Existem várias ferramentas para copiar imagens entre registries. [Crane](https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane_copy.md) é uma dessas ferramentas, as imagens podem ser copiadas para um registry privado com `crane copy SRC DST`. Também existem ferramentas específicas de fornecedores, como o [gcrane](https://cloud.google.com/container-registry/docs/migrate-external-containers#copy) que faz uma função similar mas simplificada para a plataforma da Google.
+Existem várias ferramentas para copiar imagens entre registries. [Crane](https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane_copy.md) é uma dessas ferramentas, as imagens podem ser copiadas para um registro de imagens privado com `crane copy SRC DST`. Também existem ferramentas específicas de fornecedores, como o [gcrane](https://cloud.google.com/container-registry/docs/migrate-external-containers#copy) que faz uma função similar mas simplificada para a plataforma da Google.
 
 
-## Como eu posso encontrar quais imagens estão usando o registry antigo, e corrigir elas?
+## Como eu posso encontrar quais imagens estão usando o registro de imagens antigo, e corrigir elas?
 
 **Opção 1**: Veja esse comando do kubectl no [blog post anterior](/pt-br/blog/2023/02/06/k8s-gcr-io-freeze-announcement/#próximos-passos):
 
@@ -109,7 +109,7 @@ seus manifestos são atualizados. Você pode encontrar um webhook de admissão e
 Kyverno (de terceiros) em [k8s-gcr-quickfix](https://github.com/abstractinfrastructure/k8s-gcr-quickfix).
 
 
-## Por que o Kubernetes mudou para um registry de imagem diferente?
+## Por que o Kubernetes mudou para um registro de imagem diferente?
 
 O k8s.gcr.io é hospedado em um domínio customizado no [Google Cloud Registry (GCR)](https://cloud.google.com/container-registry?hl=pt-br)
 que foi configurado exclusivamente para o projeto do Kubernetes. Isso funcionou desde o nascimento do projeto,
@@ -142,7 +142,7 @@ O `k8s.gcr.io` não vai receber nenhuma nova release, patch ou atualização de 
 disponível para ajudar as pessoas na migração, mas **SERÁ** removido totalmente no futuro.
 
 ## Ainda tenho perguntas, onde devo ir?
-Para mais informações sobre o registry.k8s.io e porque foi desenvolvido, leia em [rregistry.k8s.io: rápido, barato e em disponibilidade geral (GA)](/pt-br/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/).
+Para mais informações sobre o registry.k8s.io e porque foi desenvolvido, leia em [registry.k8s.io: rápido, barato e em disponibilidade geral (GA)](/pt-br/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/).
 
 Se você quer saber mais sobre o congelamento das imagens e as últimas imagens que vão ficar disponíveis lá, 
 leia o blog post: [kk8s.gcr.io O registro de imagens será congelado a partir de 3 de abril de 2023](/pt-br/blog/2023/02/06/k8s-gcr-io-freeze-announcement/).
@@ -150,6 +150,6 @@ leia o blog post: [kk8s.gcr.io O registro de imagens será congelado a partir de
 Informações sobre a arquitetura do registry.k8s.io e sobre sua [árvore de decisão de tratamento das requisições](https://github.com/kubernetes/registry.k8s.io/blob/8408d0501a88b3d2531ff54b14eeb0e3c900a4f3/cmd/archeio/docs/request-handling.md) 
 pode ser encontradas no repositório [kubernetes/registry.k8s.io](https://github.com/kubernetes/registry.k8s.io).
 
-Se você encontrar um bug no novo registry ou no redirecionamento, por favor abra uma issue no repositório [kubernetes/registry.k8s.io](https://github.com/kubernetes/registry.k8s.io/issues/new/choose).
+Se você encontrar um bug no novo registro de imagens ou no redirecionamento, por favor abra uma issue no repositório [kubernetes/registry.k8s.io](https://github.com/kubernetes/registry.k8s.io/issues/new/choose).
 **Por favor verifique se já não existe uma issue aberta parecida antes de abrir uma nova**.
 
