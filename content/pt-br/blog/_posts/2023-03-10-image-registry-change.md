@@ -15,7 +15,7 @@ Na segunda-feira, dia 20 de março, o registry de imagens k8s.gcr.io [vai ser re
 
 
 ## TL;DR: O que você precisa saber sobre essa mudança
-- Na segunda-feira, dia 20 de Março, o tráfego do registry antigo k8s.gcr.io vai ser redirecionado para
+- Na segunda-feira, dia 20 de março, o tráfego do registry antigo k8s.gcr.io vai ser redirecionado para
 registry.k8s.io no eventual objetivo de encerramento do k8s.gcr.io.
 - Se você está executando em um ambiente restrito, e aplica políticas rígidas de acesso a nomes de domínios
 ou endereços IPs limitado a k8s.gcr.io, **o pull de imagens não vai funcionar** depois que o k8s.gcr.io começar
