@@ -23,13 +23,13 @@ a redirecionar para o novo registry.
 - Um pequeno subconjunto de clientes que não seguem o padrão não lidam com redirecionamentos HTTP, e neste caso eles
 precisam ser apontados diretamente para registry.k8s.io.
 - O redirecionamento é um paliativo para ajudar os usuários a fazer essa troca. O registro obsoleto k8s.gcr.io será desativado em algum momento. **Por isso, atualize seus manifestos o mais rápido possível para apontar para registry.k8s.io**.
-- Se você mantém seu próprio registry de imagens, você pode copiar as imagens que você precisa para reduzir o tráfego.
+- Se você mantém seu próprio registry de imagens, você pode copiar as imagens que você precisa para reduzir o tráfego
 ao registry da comunidade.
 
 Se você acha que vai ser impactado, ou gostaria de saber mais sobre essa mudança, leia mais abaixo.
 
 ## Como eu posso checar se eu vou ser afetado?
-Para testar a conectividade ao registry.k8s.io (e saber se consegue fazer baixar as imagens), pode executar o
+Para testar a conectividade ao registry.k8s.io (e saber se consegue baixar as imagens), pode executar o
 comando abaixo em um namespace da sua escolha:
 
 ```
@@ -151,5 +151,5 @@ Informações sobre a arquitetura do registry.k8s.io e sobre sua [árvore de dec
 pode ser encontradas no repositório [kubernetes/registry.k8s.io](https://github.com/kubernetes/registry.k8s.io).
 
 Se você encontrar um bug no novo registry ou no redirecionamento, por favor abra uma issue no repositório [kubernetes/registry.k8s.io](https://github.com/kubernetes/registry.k8s.io/issues/new/choose).
-**Por favor verifique se não já existe uma issue aberta parecida antes de abrir uma nova**.
+**Por favor verifique se já não existe uma issue aberta parecida antes de abrir uma nova**.
 
