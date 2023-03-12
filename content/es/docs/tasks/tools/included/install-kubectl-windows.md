@@ -30,7 +30,7 @@ Existen los siguientes métodos para instalar kubectl en Windows:
    O si tiene `curl` instalado, use este comando:
 
    ```powershell
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+   curl -LO https://dl.k8s.io/release/{{% param "fullversion" %}}/bin/windows/amd64/kubectl.exe
    ```
 
    {{< note >}}
@@ -42,7 +42,7 @@ Existen los siguientes métodos para instalar kubectl en Windows:
    Descargue el archivo de comprobación de kubectl:
 
    ```powershell
-   curl -LO https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256
+   curl -LO https://dl.k8s.io/{{% param "fullversion" %}}/bin/windows/amd64/kubectl.exe.sha256
    ```
 
    Valide el binario kubectl con el archivo de comprobación:
@@ -148,7 +148,7 @@ A continuación se muestran los procedimientos para configurar el autocompletado
 1. Descargue la última versión con el comando:
 
    ```powershell
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe
+   curl -LO https://dl.k8s.io/release/{{% param "fullversion" %}}/bin/windows/amd64/kubectl-convert.exe
    ```
 
 1. Validar el binario (opcional)
@@ -156,7 +156,7 @@ A continuación se muestran los procedimientos para configurar el autocompletado
    Descargue el archivo de comprobación kubectl-convert:
 
    ```powershell
-   curl -LO https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe.sha256
+   curl -LO https://dl.k8s.io/{{% param "fullversion" %}}/bin/windows/amd64/kubectl-convert.exe.sha256
    ```
 
    Valide el binario kubectl-convert con el archivo de comprobación:
