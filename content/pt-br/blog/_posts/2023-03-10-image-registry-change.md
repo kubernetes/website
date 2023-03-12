@@ -23,7 +23,7 @@ a redirecionar para o novo registry.
 - Um pequeno subconjunto de clientes que não seguem o padrão não lidam com redirecionamentos HTTP, e neste caso eles
 precisam ser apontados diretamente para registry.k8s.io.
 - O redirecionamento é um paliativo para ajudar os usuários a fazer essa troca. O registro obsoleto k8s.gcr.io será desativado em algum momento. **Por isso, atualize seus manifestos o mais rápido possível para apontar para registry.k8s.io**.
-- Se você mantém seu próprio registry de imagens, voc6e pode copiar as imagens que você precisa para reduzir o tráfego
+- Se você mantém seu próprio registry de imagens, você pode copiar as imagens que você precisa para reduzir o tráfego.
 ao registry da comunidade.
 
 Se você acha que vai ser impactado, ou gostaria de saber mais sobre essa mudança, continue a leitura.
