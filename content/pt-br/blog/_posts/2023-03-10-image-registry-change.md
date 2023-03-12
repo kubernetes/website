@@ -20,7 +20,7 @@ registry.k8s.io no eventual objetivo de encerramento do k8s.gcr.io.
 - Se você está executando em um ambiente restrito, e aplica políticas rígidas de acesso a nomes de domínios
 ou endereços IPs limitado a k8s.gcr.io, **o pull de imagens não vai funcionar** depois que o k8s.gcr.io começar
 a redirecionar para o novo registry.
-- Um pequeno subconjunto de clients que não seguem o padrão não lidam com redirecionamentos HTTP, nesse caso eles
+- Um pequeno subconjunto de clientes que não seguem o padrão não lidam com redirecionamentos HTTP, e neste caso eles
 precisam ser apontados diretamente para registry.k8s.io.
 - O redirecionamento é um paliativo para ajudar os usuários a fazer essa trocy. O registro obsoleto k8s.gcr.io será desativado em algum momento. **Por isso, atualize seus manifestos o mais rápido possível para apontar para registry.k8s.io**.
 - Se você mantém seu próprio registry de imagens, voc6e pode copiar as imagens que você precisa para reduzir o tráfego
