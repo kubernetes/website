@@ -12,9 +12,6 @@ card:
 
 ## {{% heading "prerequisites" %}}
 
-You must use a kubectl version that is within one minor version difference of your cluster. For example, a v{{< skew currentVersion >}} client can communicate with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}, and v{{< skew currentVersionAddMinor 1 >}} control planes.
-Using the latest compatible version of kubectl helps avoid unforeseen issues.
-
 আপনাকে অবশ্যই একটি kubectl সংস্করণ ব্যবহার করতে হবে যা আপনার ক্লাস্টারের একটি ছোট সংস্করণের পার্থক্যের মধ্যে রয়েছে। উদাহরণস্বরূপ, একটি v{{< skew currentVersion >}} ক্লায়েন্ট v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}, এবং v{{< skew currentVersionAddMinor 1 >}} এর কন্ট্রোল প্লেনের সাথে যোগাযোগ করতে পারে।
 kubectl এর সর্বশেষ সামঞ্জস্যপূর্ণ সংস্করণ ব্যবহার করা অপ্রত্যাশিত সমস্যাগুলি এড়াতে সাহায্য করে৷
 
