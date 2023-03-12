@@ -360,6 +360,7 @@ In the following table:
 | `WindowsRunAsUserName` | `false` | Alpha | 1.16 | 1.16 |
 | `WindowsRunAsUserName` | `true` | Beta | 1.17 | 1.17 |
 | `WindowsRunAsUserName` | `true` | GA | 1.18 | 1.20 |
+{{< /table >}}
 
 <!--
 ## Descriptions for removed feature gates
