@@ -118,7 +118,7 @@ que gostariam de hospedam imagens para fornecer uma melhor experiência para as 
 Além do Google ter [renovado o compromisso de doar $3 milhões]((https://www.cncf.io/google-cloud-recommits-3m-to-kubernetes/) para manter a infraestrutura do projeto ano passado, a Amazon Web Services anunciou uma doação correspondente 
 [durante o keynote deles na Kubecon NA 2022 em Detroit](https://youtu.be/PPdimejomWo?t=236). Isso proporcionará
 uma melhor experiência para os usuários (servidores mais pertos = downloads mais rápidos) e vai reduzir 
-a largura de banda de saída e os custos de GCR ao mesmo tempo.
+a largura de banda de saída e os custos do GCR ao mesmo tempo.
 
 Para mais detalhes sobre essa mudança, leia mais em [registry.k8s.io: faster, cheaper and Generally Available
 (GA)](/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/).
