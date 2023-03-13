@@ -87,7 +87,7 @@ resources:
 
 Each `resources` array item is a separate config and contains a complete configuration. The
 `resources.resources` field is an array of Kubernetes resource names (`resource` or `resource.group`
-that should be encrypted like Secrets, ConfigMaps, or other resources). 
+that should be encrypted like Secrets, ConfigMaps, or other resources. 
 
 If custom resources are added to `EncryptionConfiguration` and the cluster version is 1.26 or newer, 
 any newly created custom resources mentioned in the `EncryptionConfiguration` will be encrypted. 
