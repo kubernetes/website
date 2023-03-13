@@ -7,27 +7,27 @@ weight: 40
 パブリッククラウドにおける仮想ネットワークや、物理ネットワークファイアウォールを持つオンプレミスのデータセンターのようなネットワークの境界が厳しい環境でKubernetsを実行する場合、
 Kubernetesのコンポーネントが使用するポートやプロトコルを認識しておくと便利です。
 
-## Control plane
+## コントロールプレーン {#control-plane}
 
 
 | プロトコル | 通信の向き | ポート範囲  | 目的                    | 使用者                    |
 |------------|------------|-------------|-------------------------|---------------------------|
-| TCP        | Inbound    | 6443        | Kubernetes API server   | All                       |
+| TCP        | Inbound    | 6443        | Kubernetes API server   | 全て                       |
 | TCP        | Inbound    | 2379-2380   | etcd server client API  | kube-apiserver, etcd      |
-| TCP        | Inbound    | 10250       | Kubelet API             | Self, Control plane       |
-| TCP        | Inbound    | 10259       | kube-scheduler          | Self                      |
-| TCP        | Inbound    | 10257       | kube-controller-manager | Self                      |
+| TCP        | Inbound    | 10250       | Kubelet API             | 自身, コントロールプレーン       |
+| TCP        | Inbound    | 10259       | kube-scheduler          | 自身                      |
+| TCP        | Inbound    | 10257       | kube-controller-manager | 自身                      |
 
 etcdポートはコントロールプレーンノードに含まれていますが、独自のetcdクラスターを外部またはカスタムポートでホストすることもできます。
 
-## Worker node(s) {#node}
+## ワーカーノード {#node}
 
 | プロトコル | 通信の向き | ポート範囲  | 目的                  | 使用者                  |
 |------------|------------|-------------|-----------------------|-------------------------|
-| TCP        | Inbound    | 10250       | Kubelet API           | Self, Control plane     |
-| TCP        | Inbound    | 30000-32767 | NodePort Services†    | All                     |
+| TCP        | Inbound    | 10250       | Kubelet API           | 自身, コントロールプレーン     |
+| TCP        | Inbound    | 30000-32767 | NodePort Services†    | 全て                     |
 
-† デフォルトポートの範囲は[NodePort Services](/ja/docs/concepts/services-networking/service/)を参照。
+† [NodePort Services](/ja/docs/concepts/services-networking/service/)のデフォルトのポート範囲。
 
 
 すべてのデフォルトのポート番号が書き換え可能です。
