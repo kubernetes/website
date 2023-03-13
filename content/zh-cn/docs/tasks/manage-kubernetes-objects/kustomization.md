@@ -172,12 +172,12 @@ metadata:
   name: example-configmap-1-42cfbf598f
 ```
 
-<!--
-Each variable in the `.env` file becomes a separate key in the ConfigMap that you generate. This is different from the previous example which embeds a file named `.properties` (and all its entries) as the value for a single key.
--->
 {{< note >}}
-`.env` 文件中的每个变量在生成的 ConfigMap 中成为一个单独的键。
-这与之前的示例不同，前一个示例将一个名为 `.properties` 的文件（及其所有条目）嵌入到同一个键的值中。
+<!--
+Each variable in the `.env` file becomes a separate key in the ConfigMap that you generate. This is different from the previous example which embeds a file named `application.properties` (and all its entries) as the value for a single key.
+-->
+`.env` 文件中的每个变量在生成的 ConfigMap 中成为一个单独的键。这与之前的示例不同，
+前一个示例将一个名为 `application.properties` 的文件（及其所有条目）嵌入到同一个键的值中。
 {{< /note >}}
 
 <!--
