@@ -18,7 +18,7 @@ Na segunda-feira, dia 20 de março, o registro de imagens k8s.gcr.io [vai ser re
 - Na segunda-feira, dia 20 de março, o tráfego do registro de imagens antigo k8s.gcr.io vai ser redirecionado para
 registry.k8s.io com o objetivo final de encerramento do k8s.gcr.io.
 - Se você está executando em um ambiente restrito, e aplica políticas rígidas de acesso a nomes de domínios
-ou endereços IPs limitado a k8s.gcr.io, **o pull de imagens não vai funcionar** depois que o k8s.gcr.io começar
+ou endereços IPs limitado a k8s.gcr.io, **o _pull_ de imagens não vai funcionar** depois que o k8s.gcr.io começar
 a redirecionar para o novo registro de imagens.
 - Um pequeno subconjunto de clientes que não seguem o padrão não lidam com redirecionamentos HTTP, e neste caso eles
 precisam ser apontados diretamente para registry.k8s.io.
@@ -49,7 +49,7 @@ Os erros podem depender do tipo de agente de execução de contêiner que você 
 sendo direcionado, mas devem ser erros como `ErrImagePull`, `ImagePullBackOff`, ou falha na criação do
 container com o aviso `FailedCreatePodSandBox`.
 
-Abaixo um exemplo de uma mensagem de erro mostrando uma instalação por trás de um proxy falhando devido um certificado desconhecido:
+Abaixo um exemplo de uma mensagem de erro mostrando uma instalação por trás de um proxy falhando devido a um certificado desconhecido:
 
 ```
 FailedCreatePodSandBox: Failed to create pod sandbox: rpc error: code = Unknown desc = Error response from daemon: Head “https://us-west1-docker.pkg.dev/v2/k8s-artifacts-prod/images/pause/manifests/3.8”: x509: certificate signed by unknown authority
@@ -62,9 +62,9 @@ as imagens `dns/k8s-dns-node-cache`, `ingress-nginx/controller`, e
 
 ## Eu fui afetado, o que devo fazer?
 Para usuários afetados que usam um ambiente restrito, a melhor opção é copiar as imagens necessárias
-para um registro privado ou configurar um cache de _pull-through_ nos seu registro de imagens.
+para um registro privado ou configurar um cache de _pull-through_ no seu registro de imagens.
 
-Existem várias ferramentas para copiar imagens entre registries. [Crane](https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane_copy.md) é uma dessas ferramentas, as imagens podem ser copiadas para um registro de imagens privado com `crane copy SRC DST`. Também existem ferramentas específicas de fornecedores, como o [gcrane](https://cloud.google.com/container-registry/docs/migrate-external-containers#copy) que faz uma função similar mas simplificada para a plataforma da Google.
+Existem várias ferramentas para copiar imagens entre registros de imagens. [Crane](https://github.com/google/go-containerregistry/blob/main/cmd/crane/doc/crane_copy.md) é uma dessas ferramentas, as imagens podem ser copiadas para um registro de imagens privado com `crane copy SRC DST`. Também existem ferramentas específicas de fornecedores, como o [gcrane](https://cloud.google.com/container-registry/docs/migrate-external-containers#copy) que faz uma função similar mas simplificada para a plataforma da Google.
 
 
 ## Como eu posso encontrar quais imagens estão usando o registro de imagens antigo, e corrigir elas?
@@ -145,7 +145,7 @@ disponível para ajudar as pessoas na migração, mas **SERÁ** removido totalme
 Para mais informações sobre o registry.k8s.io e porque foi desenvolvido, leia em [registry.k8s.io: rápido, barato e em disponibilidade geral (GA)](/pt-br/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/).
 
 Se você quer saber mais sobre o congelamento das imagens e as últimas imagens que vão ficar disponíveis lá, 
-leia o blog post: [kk8s.gcr.io O registro de imagens será congelado a partir de 3 de abril de 2023](/pt-br/blog/2023/02/06/k8s-gcr-io-freeze-announcement/).
+leia o blog post: [k8s.gcr.io O registro de imagens será congelado a partir de 3 de abril de 2023](/pt-br/blog/2023/02/06/k8s-gcr-io-freeze-announcement/).
 
 Informações sobre a arquitetura do registry.k8s.io e sobre sua [árvore de decisão de tratamento das requisições](https://github.com/kubernetes/registry.k8s.io/blob/8408d0501a88b3d2531ff54b14eeb0e3c900a4f3/cmd/archeio/docs/request-handling.md) 
 pode ser encontradas no repositório [kubernetes/registry.k8s.io](https://github.com/kubernetes/registry.k8s.io).
