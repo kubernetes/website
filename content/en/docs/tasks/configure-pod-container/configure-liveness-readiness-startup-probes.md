@@ -26,11 +26,19 @@ This can be used to adopt liveness checks on slow starting containers, avoiding 
 getting killed by the kubelet before they are up and running.
 
 {{< caution >}}
-Liveness probes can be a powerful way to recover from application failures, but they should be used with caution. Liveness probes must be configured carefully to ensure that they truly indicate unrecoverable application failure, for example a deadlock. A common pattern for liveness probes is to use the same low-cost HTTP endpoint as for readiness probes, but with a higher failureThreshold. This ensures that the pod is observed as not-ready for some period of time before it is hard killed.
+Liveness probes can be a powerful way to recover from application failures, but
+they should be used with caution. Liveness probes must be configured carefully
+to ensure that they truly indicate unrecoverable application failure, for example a deadlock.
+A common pattern for liveness probes is to use the same low-cost HTTP endpoint
+as for readiness probes, but with a higher failureThreshold. This ensures that the pod
+is observed as not-ready for some period of time before it is hard killed.
 {{< /caution >}}
 
 {{< note >}}
-Incorrect configuration of liveness probes can lead to cascading failures. For example, restarting the container when it has high load, as opposed to being crashed, can lead to failed client requests or traffic being shifted onto other pods in the same deployment or service, thereby overloading them.
+Incorrect implementation of liveness probes can lead to cascading failures. This results in
+restarting of container under high load; failed client requests as your application became less
+scalable; and increased workload on remaining pods due to some failed pods.
+Understand the difference between readiness and liveness probes and when to apply them for your app.
 {{< /note >}}
 
 ## {{% heading "prerequisites" %}}
