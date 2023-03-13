@@ -30,7 +30,7 @@ We will create a {{<glossary_tooltip term_id="daemonset" text="DaemonSet">}} whi
 
 we will use the nodeSelector to select the {{<glossary_tooltip term_id="node" text="nodes">}} based on the labels assigned to them
 
-{{<codenew file="controllers/fluentd-daemonset.yaml">}}
+{{<codenew file="controllers/daemonset-label-selector.yaml">}}
 
 ### Step 3: Create the {{<glossary_tooltip term_id="daemonset" text="DaemonSet">}}
 
