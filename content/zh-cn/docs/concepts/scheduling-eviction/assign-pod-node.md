@@ -411,12 +411,12 @@ scheduler profile name.
 
 {{< note >}}
 <!--
-The DaemonSet controller, which [creates Pods for DaemonSets](/docs/concepts/workloads/controllers/daemonset/#scheduled-by-default-scheduler),
+The DaemonSet controller, which [creates Pods for DaemonSets](/docs/concepts/workloads/controllers/daemonset/#how-daemon-pods-are-scheduled),
 does not support scheduling profiles. When the DaemonSet controller creates
 Pods, the default Kubernetes scheduler places those Pods and honors any
 `nodeAffinity` rules in the DaemonSet controller.
 -->
-DaemonSet 控制器[为 DaemonSet 创建 Pods](/zh-cn/docs/concepts/workloads/controllers/daemonset/#scheduled-by-default-scheduler)，
+DaemonSet 控制器[为 DaemonSet 创建 Pod](/zh-cn/docs/concepts/workloads/controllers/daemonset/#how-daemon-pods-are-scheduled)，
 但该控制器不理会调度方案。
 DaemonSet 控制器创建 Pod 时，默认的 Kubernetes 调度器负责放置 Pod，
 并遵从 DaemonSet 控制器中奢侈的 `nodeAffinity` 规则。
