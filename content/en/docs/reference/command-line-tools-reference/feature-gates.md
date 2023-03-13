@@ -128,8 +128,10 @@ For a reference to old feature gates that are removed, please refer to
 | `KubeletInUserNamespace` | `false` | Alpha | 1.22 | |
 | `KubeletPodResources` | `false` | Alpha | 1.13 | 1.14 |
 | `KubeletPodResources` | `true` | Beta | 1.15 | |
+| `KubeletPodResourcesGet` | `false` | Alpha | 1.27 | |
 | `KubeletPodResourcesGetAllocatable` | `false` | Alpha | 1.21 | 1.22 |
 | `KubeletPodResourcesGetAllocatable` | `true` | Beta | 1.23 | |
+| `KubeletPodResourcesDynamicResources` | `false` | Alpha | 1.27 | |
 | `KubeletTracing` | `false` | Alpha | 1.25 | |
 | `LegacyServiceAccountTokenTracking` | `false` | Alpha | 1.26 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | 1.24 |
@@ -627,9 +629,14 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `KubeletPodResources`: Enable the kubelet's pod resources gRPC endpoint. See
   [Support Device Monitoring](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/606-compute-device-assignment/README.md)
   for more details.
+- `KubeletPodResourcesGet`: Enable the `Get` gRPC endpoint on kubelet's for Pod resources.
+  This API augments the [resource allocation reporting](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources).
 - `KubeletPodResourcesGetAllocatable`: Enable the kubelet's pod resources
   `GetAllocatableResources` functionality. This API augments the
   [resource allocation reporting](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)
+- `KubeletPodResourcesDynamiceResources`: Extend the kubelet's pod resources gRPC endpoint to
+  to include resources allocated in `ResourceClaims` via `DynamicResourceAllocation` API.
+  See [resource allocation reporting](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources) for more details.
   with informations about the allocatable resources, enabling clients to properly
   track the free compute resources on a node.
 - `KubeletTracing`: Add support for distributed tracing in the kubelet.

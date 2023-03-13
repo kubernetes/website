@@ -162,6 +162,12 @@ gets scheduled onto one node and then cannot run there, which is bad because
 such a pending Pod also blocks all other resources like RAM or CPU that were
 set aside for it.
 
+## Monitoring resources
+
+The kubelet provides a gRPC service to enable discovery of dynamic resources of
+running Pods. For more information on the gRPC endpoints, see the
+[resource allocation reporting](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources).
+
 ## Limitations
 
 The scheduler plugin must be involved in scheduling Pods which use
