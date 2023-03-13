@@ -125,8 +125,10 @@ For a reference to old feature gates that are removed, please refer to
 | `KubeletInUserNamespace` | `false` | Alpha | 1.22 | |
 | `KubeletPodResources` | `false` | Alpha | 1.13 | 1.14 |
 | `KubeletPodResources` | `true` | Beta | 1.15 | |
+| `KubeletPodResourcesGet` | `false` | Alpha | 1.27 | |
 | `KubeletPodResourcesGetAllocatable` | `false` | Alpha | 1.21 | 1.22 |
 | `KubeletPodResourcesGetAllocatable` | `true` | Beta | 1.23 | |
+| `KubeletPodResourcesDynamicResources` | `false` | Alpha | 1.27 | |
 | `KubeletTracing` | `false` | Alpha | 1.25 | |
 | `LegacyServiceAccountTokenTracking` | `false` | Alpha | 1.25 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | - |
