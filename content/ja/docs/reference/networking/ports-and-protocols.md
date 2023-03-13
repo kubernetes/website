@@ -1,5 +1,5 @@
 ---
-title: Ports and Protocols
+title: ポートとプロトコル
 content_type: reference
 weight: 40
 ---

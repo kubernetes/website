@@ -1,5 +1,5 @@
 ---
-title: Networking Reference
+title: ネットワーキングのリファレンス
 content_type: reference
 weight: 85
 ---
