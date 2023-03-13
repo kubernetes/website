@@ -1,15 +1,16 @@
 ---
 layout: blog
 title: "Kubernetes 1.26: StatefulSet Start Ordinal Simplifies Migration"
-date: 2023-01-03
+date: 2023-04-19
 slug: statefulset-start-ordinal
 ---
 
 **Author**: Peter Schuurman (Google)
 
-Kubernetes v1.26 introduces a new, alpha-level feature for
+Kubernetes v1.26 introduced a new, alpha-level feature for
 [StatefulSets](/docs/concepts/workloads/controllers/statefulset/) that controls
-the ordinal numbering of Pod replicas. Ordinals can start from arbitrary
+the ordinal numbering of Pod replicas. As of Kubernetes v1.27, this feature is
+now beta. Ordinals can start from arbitrary
 non-negative numbers. This blog post will discuss how this feature can be
 used.
 
