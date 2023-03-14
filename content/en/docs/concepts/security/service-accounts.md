@@ -178,13 +178,19 @@ following methods:
   rotates the token before it expires.
 * [Service Account Token Secrets](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-a-service-account-api-token)
   (not recommended): You can mount service account tokens as Kubernetes
-  Secrets in Pods and External applications. These tokens don't expire and don't rotate.
+  Secrets in Pods. These tokens don't expire and don't rotate.
   This method is not recommended, especially at scale, because of the risks associated
   with static, long-lived credentials. In Kubernetes v1.24 and later, the
   [LegacyServiceAccountTokenNoAutoGeneration feature gate](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-graduated-or-deprecated-features)
   prevents Kubernetes from automatically creating these tokens for
   ServiceAccounts. `LegacyServiceAccountTokenNoAutoGeneration` is enabled
   by default; in other words, Kubernetes does not create these tokens.
+
+{{< note >}}
+For applications running outside your Kubernetes cluster, you can use ServiceAccount token
+that is stored in a Secret. This is not recommended. You are encouraged to use the
+TokenRequest API instead.
+{{< /note >}}
 
 ## Authenticating service account credentials {#authenticating-credentials}
 
