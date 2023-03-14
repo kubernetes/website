@@ -2,47 +2,51 @@
 title: Running Pods on Only Some Nodes
 content_type: task
 weight: 30
-min-kubernetes-server-version: 1.7
 ---
 <!-- overview -->
 
-This page shows how you can run {{<glossary_tooltip term_id="pod" text="Pods">}} on only some {{<glossary_tooltip term_id="node" text="Nodes">}}
+This page shows how you can run {{<glossary_tooltip term_id="pod" text="Pods">}} on only some {{<glossary_tooltip term_id="node" text="Nodes">}} as part of a {{<glossary_tooltip term_id="daemonset" text="DaemonSet">}}
 
 ## {{% heading "prerequisites" %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
 ## Running Pods on only some Nodes
 
-Consider a scenario where we want to run some of our {{<glossary_tooltip term_id="pod" text="Pods">}} only on those {{<glossary_tooltip term_id="node" text="Nodes">}} which do have ssd. 
+Consider a scenario where we want to run a {{<glossary_tooltip term_id="daemonset" text="DaemonSet">}}, but you only need to run those daemon pods
+on nodes that have local solid state (SSD) storage. For example, the Pod might provide cache service to the
+node, and the cache is only useful when low-latency local storage is available.
 
 ### Step 1: Add labels to your nodes
 
 Adding the label `ssd=true` to the nodes which have ssd.
 
 ```shell
-kubectl label nodes my-node ssd=true
+kubectl label nodes example-node-1 example-node-2 ssd=true
 ```
 
 ### Step 2: Creating the configuration file
 
-We will create a {{<glossary_tooltip term_id="daemonset" text="DaemonSet">}} which will provision the nginx on the ssd labeled {{<glossary_tooltip term_id="node" text="nodes">}} only.
+Let's create a {{<glossary_tooltip term_id="daemonset" text="DaemonSet">}} which will provision the daemon pods on the SSD labeled {{<glossary_tooltip term_id="node" text="nodes">}} only.
 
-we will use the nodeSelector to select the {{<glossary_tooltip term_id="node" text="nodes">}} based on the labels assigned to them
+
+Next, use a `nodeSelector` to ensure that the DaemonSet only runs Pods on nodes
+with the `ssd` label set to `"true"`.
 
 {{<codenew file="controllers/daemonset-label-selector.yaml">}}
 
 ### Step 3: Create the {{<glossary_tooltip term_id="daemonset" text="DaemonSet">}}
 
-Create the daemonset from the configuration file by using `kubectl create` or `kubectl apply`
+Create the daemonset from the manifest by using `kubectl create` or `kubectl apply`
 
-Now suppose we label another node as `ssd=true`.
+Let's label another node as `ssd=true`.
 
 ```shell
-kubectl label nodes another-node ssd=true
+kubectl label nodes example-node-3 ssd=true
 ```
 
-Now our {{<glossary_tooltip term_id="pod" text="pod">}} would be automatically deployed there. We can check this using
+Labelling the node automatically triggers the control plane (specifically, the DaemonSet controller)
+to run a new daemon pod on that node.
 
 ```shell
 kubectl get pods -o wide
@@ -51,6 +55,7 @@ This returns
 
 ```
 NAME                              READY     STATUS    RESTARTS   AGE    IP      NODE
-<daemonset-name><some-hash-01>    1/1       Running   0          13s    .....   my-node
-<daemonset-name><some-hash-02>    1/1       Running   0          13s    .....   another-node
+<daemonset-name><some-hash-01>    1/1       Running   0          13s    .....   example-node-1
+<daemonset-name><some-hash-02>    1/1       Running   0          13s    .....   example-node-2
+<daemonset-name><some-hash-03>    1/1       Running   0          5s     .....   example-node-3
 ```

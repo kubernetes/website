@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: nginx-ssd
+  name: ssd-driver
   labels:
     app: nginx
 spec:
   selector:
     matchLabels:
-      app: web-server
+      app: ssd-driver-pod
   template:
     metadata:
       labels:
-        app: web-server
+        app: ssd-driver-pod
     spec:
       nodeSelector:
         ssd: "true"
       containers:
-        - name: nginx
-          image: nginx:latest
+        - name: example-container
+          image: example-image
