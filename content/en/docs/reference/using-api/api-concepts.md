@@ -195,7 +195,7 @@ For subscribing to collections, Kubernetes client libraries typically offer some
 of standard tool for this **list**-then-**watch** logic. (In the Go client library,
 this is called a `Reflector` and is located in the `k8s.io/client-go/tools/cache` package.)
 
-### Watch bookmarks
+### Watch bookmarks {#watch-bookmarks}
 
 To mitigate the impact of short history window, the Kubernetes API provides a watch
 event named `BOOKMARK`. It is a special kind of event to mark that all changes up
@@ -225,6 +225,64 @@ As a client, you can request `BOOKMARK` events by setting the
 `allowWatchBookmarks=true` query parameter to a **watch** request, but you shouldn't
 assume bookmarks are returned at any specific interval, nor can clients assume that
 the API server will send any `BOOKMARK` event even when requested.
+
+## Streaming lists
+
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+
+On large clusters, retrieving the collection of some resource types may result in
+a significant increase of resource usage (primarily RAM) on the control plane.
+In order to alleviate its impact and simplify the user experience of the **list** + **watch**
+pattern, Kubernetes v1.27 introduces as an alpha feature the support
+for requesting the initial state (previously requested via the **list** request) as part of
+the **watch** request.
+
+Provided that the `WatchList` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled, this can be achieved by specifying `sendInitialEvents=true` as query string parameter
+in a **watch** request. If set, the API server starts the watch stream with synthetic init
+events (of type `ADDED`) to build the whole state of all existing objects followed by a
+[`BOOKMARK` event](/docs/reference/using-api/api-concepts/#watch-bookmarks)
+(if requested via `allowWatchBookmarks=true` option). The bookmark event includes the resource version
+to which is synced. After sending the bookmark event, the API server continues as for any other **watch**
+request.
+
+When you set `sendInitialEvents=true` in the query string, Kubernetes also requires that you set
+`resourceVersionMatch` to `NotOlderThan` value.
+If you provided `resourceVersion` in the query string without providing a value or don't provide
+it at all, this is interpreted as a request for _consistent read_;
+the bookmark event is sent when the state is synced at least to the moment of a consistent read
+from when the request started to be processed. If you specify `resourceVersion` (in the query string),
+the bookmark event is sent when the state is synced at least to the provided resource version.
+
+### Example {#example-streaming-lists}
+
+An example: you want to watch a collection of Pods. For that collection, the current resource version
+is 10245 and there are two pods: `foo` and `bar`. Then sending the following request (explicitly requesting
+_consistent read_ by setting empty resource version using `resourceVersion=`) could result
+in the following sequence of events:
+
+```console
+GET /api/v1/namespaces/test/pods?watch=1&sendInitialEvents=true&allowWatchBookmarks=true&resourceVersion=&resourceVersionMatch=NotOlderThan
+---
+200 OK
+Transfer-Encoding: chunked
+Content-Type: application/json
+
+{
+  "type": "ADDED",
+  "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "8467", "name": "foo"}, ...}
+}
+{
+  "type": "ADDED",
+  "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "5726", "name": "bar"}, ...}
+}
+{
+  "type": "BOOKMARK",
+  "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "10245"} }
+}
+...
+<followed by regular watch stream starting from resourceVersion="10245">
+```
 
 ## Retrieving large results sets in chunks
 
