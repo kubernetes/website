@@ -849,6 +849,19 @@ checking if the Job has the annotation
 this annotation from Jobs. Instead, you can recreate the Jobs to ensure they
 are tracked using Pod finalizers.
 
+### Elastic Indexed Jobs
+
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+
+You can scale Indexed Jobs up or down by mutating both `.spec.parallelism` 
+and `.spec.completions` together such that `.spec.parallelism == .spec.completions`. 
+When the `ElasticIndexedJob`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/)
+is disabled, `.spec.completions` is immutable.
+
+Use cases for elastic Indexed Jobs include batch workloads which require 
+scaling an indexed Job, such as MPI, Horovord, Ray, and PyTorch training jobs.
+
 ## Alternatives
 
 ### Bare Pods
