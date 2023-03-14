@@ -45,17 +45,17 @@ Pod 被部署到哪个节点。例如，确保 Pod 最终落在连接了 SSD 的
 You can use any of the following methods to choose where Kubernetes schedules
 specific Pods:
 
-* [nodeSelector](#nodeselector) field matching against [node labels](#built-in-node-labels)
-* [Affinity and anti-affinity](#affinity-and-anti-affinity)
-* [nodeName](#nodename) field
-* [Pod topology spread constraints](#pod-topology-spread-constraints)
+- [nodeSelector](#nodeselector) field matching against [node labels](#built-in-node-labels)
+- [Affinity and anti-affinity](#affinity-and-anti-affinity)
+- [nodeName](#nodename) field
+- [Pod topology spread constraints](#pod-topology-spread-constraints)
 -->
 你可以使用下列方法中的任何一种来选择 Kubernetes 对特定 Pod 的调度：
 
-* 与[节点标签](#built-in-node-labels)匹配的 [nodeSelector](#nodeSelector)
-* [亲和性与反亲和性](#affinity-and-anti-affinity)
-* [nodeName](#nodename) 字段
-* [Pod 拓扑分布约束](#pod-topology-spread-constraints)
+- 与[节点标签](#built-in-node-labels)匹配的 [nodeSelector](#nodeSelector)
+- [亲和性与反亲和性](#affinity-and-anti-affinity)
+- [nodeName](#nodename) 字段
+- [Pod 拓扑分布约束](#pod-topology-spread-constraints)
 
 <!--
 ## Node labels {#built-in-node-labels}
@@ -162,33 +162,33 @@ define. Some of the benefits of affinity and anti-affinity include:
 亲和性和反亲和性扩展了你可以定义的约束类型。使用亲和性与反亲和性的一些好处有：
 
 <!--
-* The affinity/anti-affinity language is more expressive. `nodeSelector` only
+- The affinity/anti-affinity language is more expressive. `nodeSelector` only
   selects nodes with all the specified labels. Affinity/anti-affinity gives you
   more control over the selection logic.
-* You can indicate that a rule is *soft* or *preferred*, so that the scheduler
+- You can indicate that a rule is *soft* or *preferred*, so that the scheduler
   still schedules the Pod even if it can't find a matching node.
-* You can constrain a Pod using labels on other Pods running on the node (or other topological domain),
+- You can constrain a Pod using labels on other Pods running on the node (or other topological domain),
   instead of just node labels, which allows you to define rules for which Pods
   can be co-located on a node.
 -->
-* 亲和性、反亲和性语言的表达能力更强。`nodeSelector` 只能选择拥有所有指定标签的节点。
+- 亲和性、反亲和性语言的表达能力更强。`nodeSelector` 只能选择拥有所有指定标签的节点。
   亲和性、反亲和性为你提供对选择逻辑的更强控制能力。
-* 你可以标明某规则是“软需求”或者“偏好”，这样调度器在无法找到匹配节点时仍然调度该 Pod。
-* 你可以使用节点上（或其他拓扑域中）运行的其他 Pod 的标签来实施调度约束，
+- 你可以标明某规则是“软需求”或者“偏好”，这样调度器在无法找到匹配节点时仍然调度该 Pod。
+- 你可以使用节点上（或其他拓扑域中）运行的其他 Pod 的标签来实施调度约束，
   而不是只能使用节点本身的标签。这个能力让你能够定义规则允许哪些 Pod 可以被放置在一起。
 
 <!--
 The affinity feature consists of two types of affinity:
 
-* *Node affinity* functions like the `nodeSelector` field but is more expressive and
+- *Node affinity* functions like the `nodeSelector` field but is more expressive and
   allows you to specify soft rules.
-* *Inter-pod affinity/anti-affinity* allows you to constrain Pods against labels
+- *Inter-pod affinity/anti-affinity* allows you to constrain Pods against labels
   on other Pods.
 -->
 亲和性功能由两种类型的亲和性组成：
 
-* **节点亲和性**功能类似于 `nodeSelector` 字段，但它的表达能力更强，并且允许你指定软规则。
-* Pod 间亲和性/反亲和性允许你根据其他 Pod 的标签来约束 Pod。
+- **节点亲和性**功能类似于 `nodeSelector` 字段，但它的表达能力更强，并且允许你指定软规则。
+- Pod 间亲和性/反亲和性允许你根据其他 Pod 的标签来约束 Pod。
 
 <!--
 ### Node affinity
@@ -204,17 +204,17 @@ affinity:
 节点亲和性有两种：
 
 <!--
-* `requiredDuringSchedulingIgnoredDuringExecution`: The scheduler can't
+- `requiredDuringSchedulingIgnoredDuringExecution`: The scheduler can't
   schedule the Pod unless the rule is met. This functions like `nodeSelector`,
   but with a more expressive syntax.
-* `preferredDuringSchedulingIgnoredDuringExecution`: The scheduler tries to
+- `preferredDuringSchedulingIgnoredDuringExecution`: The scheduler tries to
   find a node that meets the rule. If a matching node is not available, the
   scheduler still schedules the Pod.
 -->
-* `requiredDuringSchedulingIgnoredDuringExecution`：
+- `requiredDuringSchedulingIgnoredDuringExecution`：
   调度器只有在规则被满足的时候才能执行调度。此功能类似于 `nodeSelector`，
   但其语法表达能力更强。
-* `preferredDuringSchedulingIgnoredDuringExecution`：
+- `preferredDuringSchedulingIgnoredDuringExecution`：
   调度器会尝试寻找满足对应规则的节点。如果找不到匹配的节点，调度器仍然会调度该 Pod。
 
 {{<note>}}
@@ -240,16 +240,16 @@ For example, consider the following Pod spec:
 <!--
 In this example, the following rules apply:
 
-* The node *must* have a label with the key `topology.kubernetes.io/zone` and
+- The node *must* have a label with the key `topology.kubernetes.io/zone` and
   the value of that label *must* be either `antarctica-east1` or `antarctica-west1`.
-* The node *preferably* has a label with the key `another-node-label-key` and
+- The node *preferably* has a label with the key `another-node-label-key` and
   the value `another-node-label-value`.
 -->
 在这一示例中，所应用的规则如下：
 
-* 节点**必须**包含一个键名为 `topology.kubernetes.io/zone` 的标签，
+- 节点**必须**包含一个键名为 `topology.kubernetes.io/zone` 的标签，
   并且该标签的取值**必须**为 `antarctica-east1` 或 `antarctica-west1`。
-* 节点**最好**具有一个键名为 `another-node-label-key` 且取值为
+- 节点**最好**具有一个键名为 `another-node-label-key` 且取值为
   `another-node-label-value` 的标签。
 
 <!--
@@ -499,8 +499,8 @@ anti-affinity as follows:
 
 与[节点亲和性](#node-affinity)类似，Pod 的亲和性与反亲和性也有两种类型：
 
-* `requiredDuringSchedulingIgnoredDuringExecution`
-* `preferredDuringSchedulingIgnoredDuringExecution`
+- `requiredDuringSchedulingIgnoredDuringExecution`
+- `preferredDuringSchedulingIgnoredDuringExecution`
 
 <!--
 For example, you could use
@@ -590,17 +590,17 @@ exceptions for performance and security reasons:
 有一些限制：
 
 <!--
-* For Pod affinity and anti-affinity, an empty `topologyKey` field is not allowed in both `requiredDuringSchedulingIgnoredDuringExecution`
+- For Pod affinity and anti-affinity, an empty `topologyKey` field is not allowed in both `requiredDuringSchedulingIgnoredDuringExecution`
   and `preferredDuringSchedulingIgnoredDuringExecution`.
-* For `requiredDuringSchedulingIgnoredDuringExecution` Pod anti-affinity rules,
+- For `requiredDuringSchedulingIgnoredDuringExecution` Pod anti-affinity rules,
   the admission controller `LimitPodHardAntiAffinityTopology` limits
   `topologyKey` to `kubernetes.io/hostname`. You can modify or disable the
   admission controller if you want to allow custom topologies.
 -->
-* 对于 Pod 亲和性而言，在 `requiredDuringSchedulingIgnoredDuringExecution`
+- 对于 Pod 亲和性而言，在 `requiredDuringSchedulingIgnoredDuringExecution`
   和 `preferredDuringSchedulingIgnoredDuringExecution` 中，`topologyKey`
   不允许为空。
-* 对于 `requiredDuringSchedulingIgnoredDuringExecution` 要求的 Pod 反亲和性，
+- 对于 `requiredDuringSchedulingIgnoredDuringExecution` 要求的 Pod 反亲和性，
   准入控制器 `LimitPodHardAntiAffinityTopology` 要求 `topologyKey` 只能是
   `kubernetes.io/hostname`。如果你希望使用其他定制拓扑逻辑，
   你可以更改准入控制器或者禁用之。
@@ -758,10 +758,10 @@ where each web server is co-located with a cache, on three separate nodes.
 创建前面两个 Deployment 会产生如下的集群布局，每个 Web 服务器与一个缓存实例并置，
 并分别运行在三个独立的节点上。
 
-|       node-1         |       node-2        |       node-3       |
-|:--------------------:|:-------------------:|:------------------:|
-| *webserver-1*        |   *webserver-2*     |    *webserver-3*   |
-|  *cache-1*           |     *cache-2*       |     *cache-3*      |
+|    node-1     |    node-2     |    node-3     |
+|:-------------:|:-------------:|:-------------:|
+| *webserver-1* | *webserver-2* | *webserver-3* |
+|   *cache-1*   |   *cache-2*   |   *cache-3*   |
 
 <!--
 The overall effect is that each cache instance is likely to be accessed by a single client, that
@@ -872,18 +872,18 @@ to learn more about how these work.
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Read more about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/) .
-* Read the design docs for [node affinity](https://git.k8s.io/design-proposals-archive/scheduling/nodeaffinity.md)
+- Read more about [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/) .
+- Read the design docs for [node affinity](https://git.k8s.io/design-proposals-archive/scheduling/nodeaffinity.md)
   and for [inter-pod affinity/anti-affinity](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md).
-* Learn about how the [topology manager](/docs/tasks/administer-cluster/topology-manager/) takes part in node-level
+- Learn about how the [topology manager](/docs/tasks/administer-cluster/topology-manager/) takes part in node-level
   resource allocation decisions.
-* Learn how to use [nodeSelector](/docs/tasks/configure-pod-container/assign-pods-nodes/).
-* Learn how to use [affinity and anti-affinity](/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/).
+- Learn how to use [nodeSelector](/docs/tasks/configure-pod-container/assign-pods-nodes/).
+- Learn how to use [affinity and anti-affinity](/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/).
 -->
-* 进一步阅读[污点与容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)文档。
-* 阅读[节点亲和性](https://git.k8s.io/design-proposals-archive/scheduling/nodeaffinity.md)
+- 进一步阅读[污点与容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)文档。
+- 阅读[节点亲和性](https://git.k8s.io/design-proposals-archive/scheduling/nodeaffinity.md)
   和[Pod 间亲和性与反亲和性](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md)
   的设计文档。
-* 了解[拓扑管理器](/zh-cn/docs/tasks/administer-cluster/topology-manager/)如何参与节点层面资源分配决定。
-* 了解如何使用 [nodeSelector](/zh-cn/docs/tasks/configure-pod-container/assign-pods-nodes/)。
+- 了解[拓扑管理器](/zh-cn/docs/tasks/administer-cluster/topology-manager/)如何参与节点层面资源分配决定。
+- 了解如何使用 [nodeSelector](/zh-cn/docs/tasks/configure-pod-container/assign-pods-nodes/)。
 * 了解如何使用[亲和性和反亲和性](/zh-cn/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)。
