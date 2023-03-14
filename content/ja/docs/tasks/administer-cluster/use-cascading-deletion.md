@@ -90,7 +90,7 @@ kubectl delete deployment nginx-deployment --cascade=foreground
 
 ## バッググラウンドカスケード削除を使用する {#use-background-cascading-deletion}
 
-1. [サンプルのDeploymentを作成する](/ja/docs/tasks/run-application/run-stateless-application-deployment/#creating-and-exploring-an-nginx-deployment).
+1. [サンプルのDeploymentを作成する](/ja/docs/tasks/run-application/run-stateless-application-deployment/#creating-and-exploring-an-nginx-deployment)。
 1. クラスターが動作しているKubernetesのバージョンに応じて、`kubectl`またはKubernetes APIのいずれかを使用してDeploymentを削除します。{{<version-check>}}
 
 `kubectl`またはKubernetes APIを使用して、バックグラウンドカスケード削除を使用してオブジェクトを削除できます。
