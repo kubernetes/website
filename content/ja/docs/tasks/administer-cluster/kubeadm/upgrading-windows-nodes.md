@@ -88,3 +88,5 @@ Windowsノードをアップグレードする前にコントロールプレー�
     ```shell
     curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/kube-proxy.yml | sed 's/VERSION/{{< param "fullversion" >}}/g' | kubectl apply -f -
     ```
+
+
