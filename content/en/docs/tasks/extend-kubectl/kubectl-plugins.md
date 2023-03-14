@@ -127,7 +127,8 @@ kubectl foo config
 ```
 
 ```shell
-KUBECONFIG=/etc/kube/config kubectl foo config
+KUBECONFIG=/etc/kube/config
+kubectl foo config
 ```
 
 ```
