@@ -121,7 +121,7 @@ NAMESPACE     NAME                                     READY   STATUS      RESTA
 kube-system   coredns-85cb69466-klwq8                  1/1     Running     0          5m46s
 ```
 
-{{< notes >}}
+{{< note >}}
 - Before `kubectl` 1.24, most `kubectl` commands worked when using a socks proxy, except `kubectl exec`.
 - `kubectl` supports both `HTTPS_PROXY` and `https_proxy` environment variables. These are used by other 
   programs that support SOCKS, such as `curl`. Therefore in some cases it 
