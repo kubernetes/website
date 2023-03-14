@@ -371,6 +371,8 @@
 
 /image-registry-redirect  /blog/2023/03/10/image-registry-redirect/ 302
 /image-registry-redirect/ /blog/2022/02/10/image-registry-redirect/ 302
+/image-registry-change  /blog/2023/03/10/image-registry-redirect/ 302
+/image-registry-change/ /blog/2022/02/10/image-registry-redirect/ 302
 
 /docs/setup/release/notes/     /releases/notes/   302
 /docs/setup/release/                 /releases/   301
