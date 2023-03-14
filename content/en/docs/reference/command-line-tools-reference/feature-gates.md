@@ -203,6 +203,7 @@ For a reference to old feature gates that are removed, please refer to
 | `UserNamespacesStatelessPodsSupport` | `false` | Alpha | 1.25 | |
 | `ValidatingAdmissionPolicy`          | `false` | Alpha | 1.26 | |
 | `VolumeCapacityPriority` | `false` | Alpha | 1.21 | - |
+| `WatchList` | false | Alpha | 1.27 | |
 | `WinDSR` | `false` | Alpha | 1.14 | |
 | `WinOverlay` | `false` | Alpha | 1.14 | 1.19 |
 | `WinOverlay` | `true` | Beta | 1.20 | |
@@ -781,6 +782,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `VolumeCapacityPriority`: Enable support for prioritizing nodes in different
   topologies based on available PV capacity.
 - `WatchBookmark`: Enable support for watch bookmark events.
+- `WatchList` : Enable support for [streaming initial state of objects in watch requests](/docs/reference/using-api/api-concepts/#streaming-lists).
 - `WinDSR`: Allows kube-proxy to create DSR loadbalancers for Windows.
 - `WinOverlay`: Allows kube-proxy to run in overlay mode for Windows.
 - `WindowsHostProcessContainers`: Enables support for Windows HostProcess containers.
