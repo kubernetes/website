@@ -47,3 +47,10 @@ Now our {{<glossary_tooltip term_id="pod" text="pod">}} would be automatically d
 ```shell
 kubectl get pods -o wide
 ```
+This returns
+
+```
+NAME                              READY     STATUS    RESTARTS   AGE    IP      NODE
+<daemonset-name><some-hash-01>    1/1       Running   0          13s    .....   my-node
+<daemonset-name><some-hash-02>    1/1       Running   0          13s    .....   another-node
+```
