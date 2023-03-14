@@ -3,7 +3,6 @@ title: 删除 StatefulSet
 content_type: task
 weight: 60
 ---
-
 <!--
 reviewers:
 - bprashanth
@@ -26,18 +25,21 @@ This task shows you how to delete a {{< glossary_tooltip term_id="StatefulSet" >
 ## {{% heading "prerequisites" %}}
 
 <!--
-* This task assumes you have an application running on your cluster represented by a StatefulSet.
+- This task assumes you have an application running on your cluster represented by a StatefulSet.
 -->
-* 本任务假设在你的集群上已经运行了由 StatefulSet 创建的应用。
+- 本任务假设在你的集群上已经运行了由 StatefulSet 创建的应用。
 
 <!-- steps -->
 
-## 删除 StatefulSet   {#deleting-a-statefulset}
-
 <!--
+## Deleting a StatefulSet
+
 You can delete a StatefulSet in the same way you delete other resources in Kubernetes: use the `kubectl delete` command, and specify the StatefulSet either by file or by name.
 -->
-你可以像删除 Kubernetes 中的其他资源一样删除 StatefulSet：使用 `kubectl delete` 命令，并按文件或者名字指定 StatefulSet。
+## 删除 StatefulSet   {#deleting-a-statefulset}
+
+你可以像删除 Kubernetes 中的其他资源一样删除 StatefulSet：
+使用 `kubectl delete` 命令，并按文件或者名字指定 StatefulSet。
 
 ```shell
 kubectl delete -f <file.yaml>
@@ -81,13 +83,12 @@ kubectl delete -f <file.yaml> --cascade=orphan
 By passing `--cascade=orphan` to `kubectl delete`, the Pods managed by the StatefulSet are left behind even after the StatefulSet object itself is deleted. If the pods have a label `app.kubernetes.io/name=MyApp`, you can then delete them as follows:
 --->
 通过将 `--cascade=orphan` 传递给 `kubectl delete`，在删除 StatefulSet 对象之后，
-StatefulSet 管理的 Pod 会被保留下来。如果 Pod 具有标签 `app.kubernetes.io/name=MyApp`，则可以按照
-如下方式删除它们：
+StatefulSet 管理的 Pod 会被保留下来。如果 Pod 具有标签 `app.kubernetes.io/name=MyApp`，
+则可以按照如下方式删除它们：
 
 ```shell
 kubectl delete pods -l app.kubernetes.io/name=MyApp
 ```
-
 
 <!--
 ### Persistent Volumes
@@ -100,10 +101,10 @@ Deleting the Pods in a StatefulSet will not delete the associated volumes. This 
 在 Pod 已经终止后删除 PVC 可能会触发删除背后的 PV 持久卷，具体取决于存储类和回收策略。
 永远不要假定在 PVC 删除后仍然能够访问卷。
 
+{{< note >}}
 <!--
 Use caution when deleting a PVC, as it may lead to data loss.
 -->
-{{< note >}}
 删除 PVC 时要谨慎，因为这可能会导致数据丢失。
 {{< /note >}}
 
@@ -114,8 +115,8 @@ To delete everything in a StatefulSet, including the associated pods, you can ru
 -->
 ### 完全删除 StatefulSet  {#complete-deletion-of-a-statefulset}
 
-要删除 StatefulSet 中的所有内容，包括关联的 Pod，你可以运行
-一系列如下所示的命令：
+要删除 StatefulSet 中的所有内容，包括关联的 Pod，
+你可以运行如下所示的一系列命令：
 
 ```shell
 grace=$(kubectl get pods <stateful-set-pod> --template '{{.spec.terminationGracePeriodSeconds}}')
@@ -134,12 +135,11 @@ In the example above, the Pods have the label `app.kubernetes.io/name=MyApp`; su
 
 If you find that some pods in your StatefulSet are stuck in the 'Terminating' or 'Unknown' states for an extended period of time, you may need to manually intervene to forcefully delete the pods from the apiserver. This is a potentially dangerous task. Refer to [Force Delete StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/) for details.
 -->
-### 强制删除 StatefulSet 的 Pod
+### 强制删除 StatefulSet 的 Pod   {#force-deletion-of-statefulset-pods}
 
 如果你发现 StatefulSet 的某些 Pod 长时间处于 'Terminating' 或者 'Unknown' 状态，
-则可能需要手动干预以强制从 API 服务器中删除这些 Pod。
-这是一项有点危险的任务。详细信息请阅读
-[强制删除 StatefulSet 的 Pod](/zh-cn/docs/tasks/run-application/force-delete-stateful-set-pod/)。
+则可能需要手动干预以强制从 API 服务器中删除这些 Pod。这是一项有点危险的任务。
+详细信息请阅读[强制删除 StatefulSet 的 Pod](/zh-cn/docs/tasks/run-application/force-delete-stateful-set-pod/)。
 
 ## {{% heading "whatsnext" %}}
 
@@ -147,5 +147,3 @@ If you find that some pods in your StatefulSet are stuck in the 'Terminating' or
 Learn more about [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 -->
 进一步了解[强制删除 StatefulSet 的 Pod](/zh-cn/docs/tasks/run-application/force-delete-stateful-set-pod/)。
-
-
