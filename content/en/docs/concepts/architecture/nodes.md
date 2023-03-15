@@ -215,34 +215,20 @@ of the Node resource. For example, the following JSON structure describes a heal
 ]
 ```
 
-If the `status` of the Ready condition remains `Unknown` or `False` for longer
-than the `pod-eviction-timeout` (an argument passed to the
-{{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager"
->}}), then the [node controller](#node-controller) triggers
-{{< glossary_tooltip text="API-initiated eviction" term_id="api-eviction" >}}
-for all Pods assigned to that node. The default eviction timeout duration is
-**five minutes**.
-In some cases when the node is unreachable, the API server is unable to communicate
-with the kubelet on the node. The decision to delete the pods cannot be communicated to
-the kubelet until communication with the API server is re-established. In the meantime,
-the pods that are scheduled for deletion may continue to run on the partitioned node.
-
-The node controller does not force delete pods until it is confirmed that they have stopped
-running in the cluster. You can see the pods that might be running on an unreachable node as
-being in the `Terminating` or `Unknown` state. In cases where Kubernetes cannot deduce from the
-underlying infrastructure if a node has permanently left a cluster, the cluster administrator
-may need to delete the node object by hand. Deleting the node object from Kubernetes causes
-all the Pod objects running on the node to be deleted from the API server and frees up their
-names.
-
 When problems occur on nodes, the Kubernetes control plane automatically creates
 [taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) that match the conditions
-affecting the node.
-The scheduler takes the Node's taints into consideration when assigning a Pod to a Node.
-Pods can also have {{< glossary_tooltip text="tolerations" term_id="toleration" >}} that let
-them run on a Node even though it has a specific taint.
+affecting the node.  An example of this is when the `status` of the Ready condition
+remains `Unknown` or `False` for longer than the kube-controller-manager's `NodeMonitorGracePeriod`,
+which defaults to 40 seconds.  This will cause either an `node.kubernetes.io/unreachable` taint, for an `Unknown` status,
+or a `node.kubernetes.io/not-ready` taint, for a `False` status, to be added to the Node.
 
-See [Taint Nodes by Condition](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)
+These taints affect pending pods as the scheduler takes the Node's taints into consideration when
+assigning a pod to a Node. Existing pods scheduled to the node may be evicted due to the application
+of `NoExecute` taints. Pods may also have {{< glossary_tooltip text="tolerations" term_id="toleration" >}} that let
+them schedule to and continue running on a Node even though it has a specific taint.
+
+See [Taint Based Evictions](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-based-evictions) and
+[Taint Nodes by Condition](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)
 for more details.
 
 ### Capacity and Allocatable {#capacity}
