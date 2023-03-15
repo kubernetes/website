@@ -296,7 +296,7 @@ To access service account tokens (for example) the following path structures are
 Applications running inside the container can access volume mounts directly via the volumeMount's
 specified `mountPath` (just like Linux and non-HostProcess Windows containers).
 -->
-### containerd v1.7（及更高版本）   {#containerd-v1.7-and-greater}
+### containerd v1.7（及更高版本）   {#containerd-v1-7-and-greater}
 
 容器内运行的应用可以通过 volumeMount 指定的 `mountPath` 直接访问卷挂载
 （就像 Linux 和非 HostProcess Windows 容器一样）。
