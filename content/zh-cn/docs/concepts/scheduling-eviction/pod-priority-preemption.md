@@ -124,8 +124,8 @@ The `description` field is an arbitrary string. It is meant to tell users of the
 cluster when they should use this PriorityClass.
 -->
 PriorityClass 对象可以设置任何小于或等于 10 亿的 32 位整数值。
-这意味着 PriorityClass 对象的值范围是 从 -2147483648 到 1000000000（含）。
-较大的数字保留用于代表关键系统 Pod 的内置 PriorityClasses。
+这意味着 PriorityClass 对象的值范围是从 -2,147,483,648 到 1,000,000,000（含）。
+保留更大的数字，用于表示关键系统 Pod 的内置 PriorityClass。
 集群管理员应该为这类映射分别创建独立的 PriorityClass 对象。
 
 PriorityClass 还有两个可选字段：`globalDefault` 和 `description`。
