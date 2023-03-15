@@ -77,7 +77,8 @@ For a reference to old feature gates that are removed, please refer to
 | `CSIMigrationPortworx` | `false` | Alpha | 1.23 | 1.24 |
 | `CSIMigrationPortworx` | `false` | Beta | 1.25 | |
 | `CSIMigrationRBD` | `false` | Alpha | 1.23 | |
-| `CSINodeExpandSecret` | `false` | Alpha | 1.25 | |
+| `CSINodeExpandSecret` | `false` | Alpha | 1.25 | 1.26 |
+| `CSINodeExpandSecret` | `true` | Beta | 1.27 | |
 | `CSIVolumeHealth` | `false` | Alpha | 1.21 | |
 | `CrossNamespaceVolumeDataSource` | `false` | Alpha| 1.26 | |
 | `ContainerCheckpoint` | `false` | Alpha | 1.25 | |
