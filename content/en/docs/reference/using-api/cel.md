@@ -165,7 +165,7 @@ type checking even when the `namex` field is not defined for the resource kinds
 that `object` refers to, because `object` is dynamically typed.
 
 The `has()` macro in CEL may be used in CEL expressions to check if a field of a
-dynamically typed variable is accessable before attempting to access the field's
+dynamically typed variable is accessible before attempting to access the field's
 value. For example:
 
 ```cel
@@ -257,7 +257,7 @@ features are used to prevent CEL evaluation from consuming excessive API server
 resources.
 
 A key element of the resource constraint features is a _cost unit_ that CEL
-defines as a way of tracking CPU utilization. Cost units are independant of
+defines as a way of tracking CPU utilization. Cost units are independent of
 system load and hardware. Cost units are also deterministic; for any given CEL
 expression and input data, evaluation of the expression by the CEL interpreter
 will always result in the same cost.
