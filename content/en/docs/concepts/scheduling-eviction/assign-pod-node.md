@@ -221,7 +221,7 @@ unexpected to them. Use node labels that have a clear correlation to the
 scheduler profile name.
 
 {{< note >}}
-The DaemonSet controller, which [creates Pods for DaemonSets](/docs/concepts/workloads/controllers/daemonset/#scheduled-by-default-scheduler),
+The DaemonSet controller, which [creates Pods for DaemonSets](/docs/concepts/workloads/controllers/daemonset/#how-daemon-pods-are-scheduled),
 does not support scheduling profiles. When the DaemonSet controller creates
 Pods, the default Kubernetes scheduler places those Pods and honors any
 `nodeAffinity` rules in the DaemonSet controller.
