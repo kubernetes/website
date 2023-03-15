@@ -1,7 +1,7 @@
 ---
 title: 配置 Pod 以使用卷进行存储
 content_type: task
-weight: 50
+weight: 80
 ---
 <!--
 title: Configure a Pod to Use a Volume for Storage

@@ -2,6 +2,7 @@
 title: 从 PodSecurityPolicy 迁移到内置的 PodSecurity 准入控制器
 content_type: task
 min-kubernetes-server-version: v1.22
+weight: 260
 ---
 
 <!--
