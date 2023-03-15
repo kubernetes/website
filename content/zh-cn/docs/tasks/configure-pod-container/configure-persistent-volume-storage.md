@@ -419,8 +419,8 @@ You can now close the shell to your Node.
 <!--
 You can perform 2 volume mounts on your nginx container:
 
-`/usr/share/nginx/html` for the static website
-`/etc/nginx/nginx.conf` for the default config
+- `/usr/share/nginx/html` for the static website
+- `/etc/nginx/nginx.conf` for the default config
 -->
 你可以在 nginx 容器上执行两个卷挂载:
 
@@ -452,7 +452,6 @@ GID 不匹配或缺失将会导致无权访问错误。
 ```yaml
 apiVersion: v1
 kind: PersistentVolume
-apiVersion: v1
 metadata:
   name: pv1
   annotations:
