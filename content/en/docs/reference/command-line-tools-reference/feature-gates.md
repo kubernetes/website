@@ -183,7 +183,8 @@ For a reference to old feature gates that are removed, please refer to
 | `RetroactiveDefaultStorageClass` | `true` | Beta | 1.26 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
-| `SELinuxMountReadWriteOncePod` | `false` | Alpha | 1.25 | |
+| `SELinuxMountReadWriteOncePod` | `false` | Alpha | 1.25 | 1.26 |
+| `SELinuxMountReadWriteOncePod` | `true` | Beta | 1.27 | |
 | `ServiceNodePortStaticSubrange` | `false` | Alpha | 1.27 | |
 | `SizeMemoryBackedVolumes` | `false` | Alpha | 1.20 | 1.21 |
 | `SizeMemoryBackedVolumes` | `true` | Beta | 1.22 | |
