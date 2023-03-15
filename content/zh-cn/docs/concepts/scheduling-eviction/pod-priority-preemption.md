@@ -108,9 +108,10 @@ PriorityClass 对象的名称必须是有效的
 
 <!--  
 A PriorityClass object can have any 32-bit integer value smaller than or equal
-to 1 billion. Larger numbers are reserved for critical system Pods that should
-not normally be preempted or evicted. A cluster admin should create one
-PriorityClass object for each such mapping that they want.
+to 1 billion. This means that the range of values for a PriorityClass object is
+from -2147483648 to 1000000000 inclusive. Larger numbers are reserved for 
+built-in PriorityClasses that represent critical system Pods. A cluster
+admin should create one PriorityClass object for each such mapping that they want.
 
 PriorityClass also has two optional fields: `globalDefault` and `description`.
 The `globalDefault` field indicates that the value of this PriorityClass should
@@ -123,7 +124,8 @@ The `description` field is an arbitrary string. It is meant to tell users of the
 cluster when they should use this PriorityClass.
 -->
 PriorityClass 对象可以设置任何小于或等于 10 亿的 32 位整数值。
-较大的数字是为通常不应被抢占或驱逐的关键的系统 Pod 所保留的。
+这意味着 PriorityClass 对象的值范围是 从 -2147483648 到 1000000000（含）。
+较大的数字保留用于代表关键系统 Pod 的内置 PriorityClasses。
 集群管理员应该为这类映射分别创建独立的 PriorityClass 对象。
 
 PriorityClass 还有两个可选字段：`globalDefault` 和 `description`。
