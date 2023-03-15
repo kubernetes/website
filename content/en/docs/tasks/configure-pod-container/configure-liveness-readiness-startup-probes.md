@@ -14,6 +14,10 @@ where an application is running, but unable to make progress. Restarting a
 container in such a state can help to make the application more available
 despite bugs.
 
+A common pattern for liveness probes is to use the same low-cost HTTP endpoint
+as for readiness probes, but with a higher failureThreshold. This ensures that the pod
+is observed as not-ready for some period of time before it is hard killed.
+
 The kubelet uses readiness probes to know when a container is ready to start
 accepting traffic. A Pod is considered ready when all of its containers are ready.
 One use of this signal is to control which Pods are used as backends for Services.
@@ -29,9 +33,6 @@ getting killed by the kubelet before they are up and running.
 Liveness probes can be a powerful way to recover from application failures, but
 they should be used with caution. Liveness probes must be configured carefully
 to ensure that they truly indicate unrecoverable application failure, for example a deadlock.
-A common pattern for liveness probes is to use the same low-cost HTTP endpoint
-as for readiness probes, but with a higher failureThreshold. This ensures that the pod
-is observed as not-ready for some period of time before it is hard killed.
 {{< /caution >}}
 
 {{< note >}}
