@@ -1,20 +1,20 @@
 ---
 title: 创建 Windows HostProcess Pod
 content_type: task
-weight: 20
+weight: 50
 min-kubernetes-server-version: 1.23
 ---
 
 <!--
 title: Create a Windows HostProcess Pod
 content_type: task
-weight: 20
+weight: 50
 min-kubernetes-server-version: 1.23
 -->
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 <!--
 Windows HostProcess containers enable you to run containerized
@@ -103,23 +103,6 @@ kubelet 会直接与 containerd 通信，通过 CRI 将主机进程标志传递�
 参阅[如何安装 containerd](/zh-cn/docs/setup/production-environment/container-runtimes/#containerd)。
 
 <!--
-To *disable* HostProcess containers you need to pass the following feature gate flag to the
-**kubelet** and **kube-apiserver**:
--->
-要 *禁用* HostProcess 容器特性，你需要为 **kubelet** 和 **kube-apiserver**
-设置下面的特性门控标志：
-
-```powershell
---feature-gates=WindowsHostProcessContainers=false
-```
-
-<!--
-See [Features Gates](/docs/reference/command-line-tools-reference/feature-gates/#overview)
-documentation for more details.
--->
-进一步的细节可参阅[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#overview)文档。
-
-<!--
 ## Limitations
 
 These limitations are relevant for Kubernetes v{{< skew currentVersion >}}:
@@ -130,7 +113,8 @@ These limitations are relevant for Kubernetes v{{< skew currentVersion >}}:
 
 <!--
 - HostProcess containers require containerd 1.6 or higher
-  {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
+  {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}} and
+  containerd 1.7 is recommended.
 - HostProcess pods can only contain HostProcess containers. This is a current limitation
   of the Windows OS; non-privileged Windows containers cannot share a vNIC with the host IP namespace.
 - HostProcess containers run as a process on the host and do not have any degree of
@@ -138,7 +122,7 @@ These limitations are relevant for Kubernetes v{{< skew currentVersion >}}:
   filesystem or Hyper-V isolation are supported for HostProcess containers.
 -->
 - HostProcess 容器需要 containerd 1.6 或更高版本的
-  {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}。
+  {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}，推荐 containerd 1.7。
 - HostProcess Pods 只能包含 HostProcess 容器。这是在 Windows 操作系统上的约束；
   非特权的 Windows 容器不能与主机 IP 名字空间共享虚拟网卡（vNIC）。 
 - HostProcess 在主机上以一个进程的形式运行，除了通过 HostProcess
@@ -176,8 +160,7 @@ When running under the privileged policy, here are
 the configurations which need to be set to enable the creation of a HostProcess pod:
 -->
 启用 Windows HostProcess Pod 需要在 Pod 安全配置中设置合适的选项。
-在 [Pod
-安全标准](/zh-cn/docs/concepts/security/pod-security-standards)中所定义的策略中，
+在 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards)中所定义的策略中，
 HostProcess Pod 默认是不被 basline 和 restricted 策略支持的。因此建议
 HostProcess 运行在与 privileged 模式相看齐的策略下。
 
@@ -208,10 +191,8 @@ HostProcess 运行在与 privileged 模式相看齐的策略下。
     <tr>
       <td style="white-space: nowrap"><a href="/zh-cn/docs/concepts/security/pod-security-standards"><tt>hostNetwork</tt></a></td>
       <td>
-        <p><!--Will be in host network by default initially. Support
-        to set network to a different compartment may be desirable in
-        the future.-->
-        初始时将默认位于主机网络中。在未来可能会希望将网络设置到不同的隔离环境中。
+        <p><!--Pods container HostProcess containers must use the host's network namespace.-->
+        Pod 容器中的 HostProcess 容器必须使用主机网络命名空间。
         </p>
         <p><strong><!--Allowed Values-->可选值</strong></p>
         <ul>
@@ -230,6 +211,7 @@ HostProcess 运行在与 privileged 模式相看齐的策略下。
           <li><code>NT AUTHORITY\SYSTEM</code></li>
           <li><code>NT AUTHORITY\Local service</code></li>
           <li><code>NT AUTHORITY\NetworkService</code></li>
+          <li>Local usergroup names (<!--see below-->往下看)</li>
         </ul>
       </td>
     </tr>
@@ -276,30 +258,64 @@ spec:
 ## Volume mounts
 
 HostProcess containers support the ability to mount volumes within the container volume space.
-Applications running inside the container can access volume mounts directly via relative or
-absolute paths. An environment variable `$CONTAINER_SANDBOX_MOUNT_POINT` is set upon container
-creation and provides the absolute host path to the container volume. Relative paths are based
-upon the `.spec.containers.volumeMounts.mountPath` configuration.
+Volume mount behavior differs depending on the version of containerd runtime used by on the node.
 -->
 ## 卷挂载    {#volume-mounts}
 
 HostProcess 容器支持在容器卷空间中挂载卷的能力。
+卷挂载行为因节点上使用的 containerd 运行时版本而异。
+
+<!-- 
+### Containerd v1.6
+
+Applications running inside the container can access volume mounts directly via relative or
+absolute paths. An environment variable `$CONTAINER_SANDBOX_MOUNT_POINT` is set upon container
+creation and provides the absolute host path to the container volume. Relative paths are based
+upon the `.spec.containers.volumeMounts.mountPath` configuration.
+
+To access service account tokens (for example) the following path structures are supported within the container:
+
+- `.\var\run\secrets\kubernetes.io\serviceaccount\`
+- `$CONTAINER_SANDBOX_MOUNT_POINT\var\run\secrets\kubernetes.io\serviceaccount\`
+-->
+### Containerd v1.6    {#containerd-v1-6}
+
 在容器内运行的应用能够通过相对或者绝对路径直接访问卷挂载。
 环境变量 `$CONTAINER_SANDBOX_MOUNT_POINT` 在容器创建时被设置为指向容器卷的绝对主机路径。
 相对路径是基于 `.spec.containers.volumeMounts.mountPath` 配置来推导的。
 
-<!--
-### Example {#volume-mount-example}
+要访问服务帐户令牌（例如），容器内支持以下路径结构：
 
-To access service account tokens the following path structures are supported within the container:
+-`.\var\run\secrets\kubernetes.io\serviceaccount\`
+-`$CONTAINER_SANDBOX_MOUNT_POINT\var\run\secrets\kubernetes.io\serviceaccount\`
+
+<!-- 
+### Containerd v1.7 (and greater)
+
+Applications running inside the container can access volume mounts directly via the volumeMount's
+specified `mountPath` (just like Linux and non-HostProcess Windows containers).
+
+For backwards compatibility volumes can also be accessed via using the same relative paths configured
+by containerd v1.6.
+
+As an example, to access service account tokens within the container you would use one of the following paths:
+
+- `c:\var\run\secrets\kubernetes.io\serviceaccount`
+- `/var/run/secrets/kubernetes.io/serviceaccount/`
+- `$CONTAINER_SANDBOX_MOUNT_POINT\var\run\secrets\kubernetes.io\serviceaccount\`
 -->
-### 示例    {#volume-mount-example}
+### Containerd v1.7 (及更高版本)    {#containerd-v1-7-and-greater}
 
-容器内支持通过下面的路径结构来访问服务账好令牌：
+在容器内运行的应用程序可以通过 volumeMount 指定的 `mountPath` 直接访问卷挂载
+（就像 Linux 和非 HostProcess Windows 容器一样）。
 
-`.\var\run\secrets\kubernetes.io\serviceaccount\`
+为了向后兼容，卷也可以通过使用由 containerd v1.6 配置的相同相对路径来访问。
 
-`$CONTAINER_SANDBOX_MOUNT_POINT\var\run\secrets\kubernetes.io\serviceaccount\`
+例如，要访问容器内的服务帐户令牌，你可以使用以下路径之一：
+
+- `c:\var\run\secrets\kubernetes.io\serviceaccount`
+- `/var/run/secrets/kubernetes.io/serviceaccount/`
+- `$CONTAINER_SANDBOX_MOUNT_POINT\var\run\secrets\kubernetes.io\serviceaccount\`
 
 <!--
 ## Resource limits
@@ -322,11 +338,19 @@ HostProcess 容器启动引导的方式造成的。
 <!--
 ## Choosing a user account
 
-HostProcess containers support the ability to run as one of three supported Windows service accounts:
+### System accounts
+
+By default, HostProcess containers support the ability to run as one of three supported Windows service accounts:
+
+- **[LocalSystem](https://docs.microsoft.com/windows/win32/services/localsystem-account)**
+- **[LocalService](https://docs.microsoft.com/windows/win32/services/localservice-account)**
+- **[NetworkService](https://docs.microsoft.com/windows/win32/services/networkservice-account)**
 -->
 ## 选择用户账号  {#choosing-a-user-account}
 
-HostProcess 容器支持以三种被支持的 Windows 服务账号之一来运行：
+### 系统帐号  {#system-accounts}
+
+默认情况下，HostProcess 容器支持以三种被支持的 Windows 服务账号之一来运行：
 
 - **[LocalSystem](https://docs.microsoft.com/windows/win32/services/localsystem-account)**
 - **[LocalService](https://docs.microsoft.com/windows/win32/services/localservice-account)**
@@ -344,3 +368,97 @@ use the LocalService service account as it is the least privileged of the three 
 在三者之中最高，只有在绝对需要的时候才应该使用。只要可能，应该使用
 LocalService 服务账号，因为该账号在三者中特权最低。
 
+<!-- 
+### Local accounts {#local-accounts}
+
+If configured, HostProcess containers can also run as local user accounts which allows for node operators to give
+fine-grained access to workloads.
+-->
+### 本地账户 {#local-accounts}
+
+如果已配置，HostProcess 容器也可以作为本地用户帐户运行，这允许节点操作员为工作负载提供细粒度访问权限。
+
+<!--
+To run HostProcess containers as a local user; A local usergroup must first be created on the node
+and the name of that local usergroup must be specified in the `runAsUserName` field in the deployment.
+Prior to initializing the HostProcess container, a new **ephemeral** local user account to be created and joined to the specified usergroup, from which the container is run.
+This provides a number a benefits including eliminating the need to manage passwords for local user accounts.
+An initial HostProcess container running as a service account can be used to
+prepare the user groups for later HostProcess containers.
+-->
+要将 HostProcess 容器作为本地用户运行，必须首先在节点上创建一个本地用户组，并在部署中指定该本地用户组的名称，以
+`runAsUserName` 字段中使用。
+在初始化 HostProcess 容器之前，必须创建一个新的临时本地用户帐户并加入到指定的用户组中，从该用户帐户中运行容器。
+这提供了许多好处，包括消除了管理本地用户帐户密码的需要。
+可以使用初始的以服务帐户运行的 HostProcess 容器来准备用户组，以供后续的 HostProcess 容器使用。
+
+{{< note >}}
+<!-- 
+Running HostProcess containers as local user accounts requires containerd v1.7+
+-->
+以本地用户帐户运行 HostProcess 容器需要 containerd v1.7 或更高版本
+{{< /note >}}
+
+<!-- 
+Example:
+
+1. Create a local user group on the node (this can be done in another HostProcess container).
+-->
+示例：
+
+1. 在节点上创建一个本地用户组（这可以在另一个 HostProcess 容器中完成）。
+
+    ```cmd
+    net localgroup hpc-localgroup /add
+    ```
+<!--
+1. Grant access to desired resources on the node to the local usergroup.
+   This can be done with tools like [icacls](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/icacls).
+-->
+1. 将节点上所需资源的访问权限授予本地用户组。
+    这可以使用 [icacls](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/icacls) 等工具来完成。
+
+<!-- 
+3. Set `runAsUserName` to the name of the local usergroup for the pod or individual containers.
+-->
+1. 将 `runAsUserName` 设置为 Pod 或单个容器的本地用户组的名称。
+
+    ```yaml
+    securityContext:
+      windowsOptions:
+        hostProcess: true
+        runAsUserName: hpc-localgroup
+    ```
+<!--
+4. Schedule the pod!
+-->
+1. 调度 Pod！
+
+<!-- 
+## Base Image for HostProcess Containers
+
+HostProcess containers can be built from any of the existing [Windows Container base images](https://learn.microsoft.com/virtualization/windowscontainers/manage-containers/container-base-images).
+
+Additionally a new base mage has been created just for HostProcess containers!
+For more information please check out the [windows-host-process-containers-base-image github project](https://github.com/microsoft/windows-host-process-containers-base-image#overview).
+-->
+## HostProcess 容器的基础镜像  {#base-image-for-hostprocess-containers}
+
+HostProcess 容器可以从任何现有的 [Windows 容器基础镜像](https://learn.microsoft.com/virtualization/windowscontainers/manage-containers/container-base-images) 构建。
+
+此外，还专门为 HostProcess 容器创建了一个新的基础镜像！
+有关详细信息，请查看 [windows-host-process-containers-base-image github 项目](https://github.com/microsoft/windows-host-process-containers-base-image#overview)。
+
+<!-- 
+## Troubleshooting HostProcess containers
+
+- HostProcess containers fail to start with `failed to create user process token: failed to logon user: Access is denied.: unknown`
+
+  Ensure containerd is running as `LocalSystem` or `LocalService` service accounts. User accounts (even Administrator accounts) do not have permissions to create logon tokens for any of the supported [user accounts](#choosing-a-user-account).
+-->
+## HostProcess 容器故障排除  {#troubleshooting-hostprocess-containers}
+
+- HostProcess 容器无法以 `failed to create user process token: failed to logon user: Access is denied.: unknown` 启动
+
+  确保 containerd 以 `LocalSystem` 或 `LocalService` 服务帐户运行。
+  用户帐户（甚至管理员帐户）无权为任何受支持的[用户帐户](#choosing-a-user-account)创建登录令牌。
