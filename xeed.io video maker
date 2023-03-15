@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Text-to-Video Converter</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <h1>Text-to-Video Converter</h1>
+    <form>
+      <label for="text-input">Enter your text:</label><br>
+      <textarea id="text-input" name="text-input" rows="10" cols="50"></textarea><br>
+      <label for="voice-select">Select a voice:</label>
+      <select id="voice-select" name="voice-select">
+        <option value="en-US-Wavenet-A">English (US) - Female</option>
+        <option value="en-GB-Wavenet-B">English (UK) - Male</option>
+        <option value="es-ES-Standard-C">Spanish - Female</option>
+        <option value="fr-FR-Wavenet-A">French - Male</option>
+      </select><br>
+      <button type="submit">Generate Video</button>
+    </form>
+    <div id="video-container"></div>
+    <script>
+      // JavaScript code for generating the video from the entered text
+      // using a text-to-speech API and video processing API
+    </script>
+  </body>
+</html>
