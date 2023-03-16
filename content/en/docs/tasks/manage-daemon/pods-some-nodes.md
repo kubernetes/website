@@ -5,7 +5,7 @@ weight: 30
 ---
 <!-- overview -->
 
-This page shows how you can run {{<glossary_tooltip term_id="pod" text="Pods">}} on only some {{<glossary_tooltip term_id="node" text="Nodes">}} as part of a {{<glossary_tooltip term_id="daemonset" text="DaemonSet">}}
+This page demonstrates how can you run {{<glossary_tooltip term_id="pod" text="Pods">}} on only some {{<glossary_tooltip term_id="node" text="Nodes">}} as part of a {{<glossary_tooltip term_id="daemonset" text="DaemonSet">}}
 
 ## {{% heading "prerequisites" %}}
 
