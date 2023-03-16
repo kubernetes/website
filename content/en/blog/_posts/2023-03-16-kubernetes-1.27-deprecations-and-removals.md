@@ -11,7 +11,7 @@ As Kubernetes develops and matures, features may be deprecated, removed, or repl
 
 ## A note about k8s.gcr.io Redirect to registry.k8s.io
 
-To host its container images, the Kubernetes project uses a community-owned image registry called registry.k8s.io. **On March 20th, all traffic from the out-of-date [k8s.gcr.io](https://cloud.google.com/container-registry/) registry will be redirected to [registry.k8s.io](https://github.com/kubernetes/registry.k8s.io). On the 3rd of April 2023, the old registry k8s.gcr.io will be frozen, and no further images for Kubernetes and related subprojects will be pushed to the old registry**. The deprecated k8s.gcr.io registry will eventually be phased out.
+To host its container images, the Kubernetes project uses a community-owned image registry called registry.k8s.io. **On March 20th, all traffic from the out-of-date [k8s.gcr.io](https://cloud.google.com/container-registry/) registry will be redirected to [registry.k8s.io](https://github.com/kubernetes/registry.k8s.io). The deprecated k8s.gcr.io registry will eventually be phased out.
 
 ### What does this change mean?
 
