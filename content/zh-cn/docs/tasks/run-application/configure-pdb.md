@@ -28,19 +28,19 @@ nodes.
 {{< version-check >}}
 
 <!--
-* You are the owner of an application running on a Kubernetes cluster that requires
+- You are the owner of an application running on a Kubernetes cluster that requires
   high availability.
-* You should know how to deploy [Replicated Stateless Applications](/docs/tasks/run-application/run-stateless-application-deployment/)
+- You should know how to deploy [Replicated Stateless Applications](/docs/tasks/run-application/run-stateless-application-deployment/)
   and/or [Replicated Stateful Applications](/docs/tasks/run-application/run-replicated-stateful-application/).
-* You should have read about [Pod Disruptions](/docs/concepts/workloads/pods/disruptions/).
-* You should confirm with your cluster owner or service provider that they respect
+- You should have read about [Pod Disruptions](/docs/concepts/workloads/pods/disruptions/).
+- You should confirm with your cluster owner or service provider that they respect
   Pod Disruption Budgets.
 -->
-* 你是 Kubernetes 集群中某应用的所有者，该应用有高可用要求。
-* 你应了解如何部署[无状态应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)
+- 你是 Kubernetes 集群中某应用的所有者，该应用有高可用要求。
+- 你应了解如何部署[无状态应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)
   和/或[有状态应用](/zh-cn/docs/tasks/run-application/run-replicated-stateful-application/)。
-* 你应当已经阅读过关于 [Pod 干扰](/zh-cn/docs/concepts/workloads/pods/disruptions/) 的文档。
-* 用户应当与集群所有者或服务提供者确认其遵从 Pod 干扰预算（Pod Disruption Budgets）的规则。
+- 你应当已经阅读过关于 [Pod 干扰](/zh-cn/docs/concepts/workloads/pods/disruptions/) 的文档。
+- 用户应当与集群所有者或服务提供者确认其遵从 Pod 干扰预算（Pod Disruption Budgets）的规则。
 
 <!-- steps -->
 
@@ -52,11 +52,11 @@ nodes.
 1. Create a PDB definition as a YAML file.
 1. Create the PDB object from the YAML file.
 -->
-## 用 PodDisruptionBudget 来保护应用
+## 用 PodDisruptionBudget 来保护应用   {#protecting-app-with-pdb}
 
 1. 确定想要使用 PodDisruptionBudget (PDB) 来保护的应用。
 1. 考虑应用对干扰的反应。
-1. 以 YAML 文件形式定义 PDB 。
+1. 以 YAML 文件形式定义 PDB。
 1. 通过 YAML 文件创建 PDB 对象。
 
 <!-- discussion -->
@@ -67,7 +67,7 @@ nodes.
 The most common use case when you want to protect an application
 specified by one of the built-in Kubernetes controllers:
 -->
-## 确定要保护的应用
+## 确定要保护的应用   {#identify-app-to-protect}
 
 用户想要保护通过内置的 Kubernetes 控制器指定的应用，这是最常见的使用场景：
 
@@ -150,7 +150,7 @@ due to a voluntary disruption.
 
 Values for `minAvailable` or `maxUnavailable` can be expressed as integers or as a percentage.
 -->
-### 指定百分比时的舍入逻辑
+### 指定百分比时的舍入逻辑   {#rounding-logic-when-specifying-percentages}
 
 `minAvailable` 或 `maxUnavailable` 的值可以表示为整数或百分比。
 
@@ -158,52 +158,54 @@ Values for `minAvailable` or `maxUnavailable` can be expressed as integers or as
 - When you specify an integer, it represents a number of Pods. For instance, if you set `minAvailable` to 10, then 10
   Pods must always be available, even during a disruption.
 - When you specify a percentage by setting the value to a string representation of a percentage (eg. `"50%"`), it represents a percentage of
-  total Pods. For instance, if you set `maxUnavailable` to `"50%"`, then only 50% of the Pods can be unavailable during a
+  total Pods. For instance, if you set `minAvailable` to `"50%"`, then at least 50% of the Pods remain available during a
   disruption.
 -->
-- 指定整数值时，它表示 Pod 个数。例如，如果将 minAvailable 设置为 10，
-  那么即使在干扰期间，也必须始终有 10 个Pod可用。
-- 通过将值设置为百分比的字符串表示形式（例如 “50％”）来指定百分比时，它表示占总 Pod 数的百分比。
-  例如，如果将 "maxUnavailable" 设置为 “50％”，则干扰期间只允许 50％ 的 Pod 不可用。
+- 指定整数值时，它表示 Pod 个数。例如，如果将 `minAvailable` 设置为 10，
+  那么即使在干扰期间，也必须始终有 10 个 Pod 可用。
+- 通过将值设置为百分比的字符串表示形式（例如 `"50％"`）来指定百分比时，它表示占总 Pod 数的百分比。
+  例如，如果将 `minAvailable` 设置为 `"50％"`，则干扰期间至少 50％ 的 Pod 保持可用。
 
 <!--
 When you specify the value as a percentage, it may not map to an exact number of Pods. For example, if you have 7 Pods and
 you set `minAvailable` to `"50%"`, it's not immediately obvious whether that means 3 Pods or 4 Pods must be available.
-Kubernetes rounds up to the nearest integer, so in this case, 4 Pods must be available. You can examine the
+Kubernetes rounds up to the nearest integer, so in this case, 4 Pods must be available. When you specify the value 
+`maxUnavailable` as a percentage, Kubernetes rounds up the number of Pods that may be disrupted. Thereby a disruption 
+can exceed your defined `maxUnavailable` percentage. You can examine the
 [code](https://github.com/kubernetes/kubernetes/blob/23be9587a0f8677eb8091464098881df939c44a9/pkg/controller/disruption/disruption.go#L539)
 that controls this behavior.
 -->
 如果将值指定为百分比，则可能无法映射到确切数量的 Pod。例如，如果你有 7 个 Pod，
-并且你将 `minAvailable` 设置为 `"50％"`，具体是 3 个 Pod 或 4 个 Pod 必须可用
-并非显而易见。
+并且你将 `minAvailable` 设置为 `"50％"`，具体是 3 个 Pod 或 4 个 Pod 必须可用并非显而易见。
 Kubernetes 采用向上取整到最接近的整数的办法，因此在这种情况下，必须有 4 个 Pod。
-你可以检查控制此行为的
-[代码](https://github.com/kubernetes/kubernetes/blob/23be9587a0f8677eb8091464098881df939c44a9/pkg/controller/disruption/disruption.go#L539)。
+当你将 `maxUnavailable` 值指定为一个百分比时，Kubernetes 将可以干扰的 Pod 个数向上取整。
+因此干扰可以超过你定义的 `maxUnavailable` 百分比。
+你可以检查控制此行为的[代码](https://github.com/kubernetes/kubernetes/blob/23be9587a0f8677eb8091464098881df939c44a9/pkg/controller/disruption/disruption.go#L539)。
 
 <!--
 ## Specifying a PodDisruptionBudget
 
 A `PodDisruptionBudget` has three fields:
 -->
-## 指定 PodDisruptionBudget
+## 指定 PodDisruptionBudget   {#specifying-a-poddisruptionbudget}
 
 一个 `PodDisruptionBudget` 有 3 个字段：
 
 <!--
-* A label selector `.spec.selector` to specify the set of
-pods to which it applies. This field is required.
-* `.spec.minAvailable` which is a description of the number of pods from that
-set that must still be available after the eviction, even in the absence
-of the evicted pod. `minAvailable` can be either an absolute number or a percentage.
-* `.spec.maxUnavailable` (available in Kubernetes 1.7 and higher) which is a description
-of the number of pods from that set that can be unavailable after the eviction.
-It can be either an absolute number or a percentage.
+- A label selector `.spec.selector` to specify the set of
+  pods to which it applies. This field is required.
+- `.spec.minAvailable` which is a description of the number of pods from that
+  set that must still be available after the eviction, even in the absence
+  of the evicted pod. `minAvailable` can be either an absolute number or a percentage.
+- `.spec.maxUnavailable` (available in Kubernetes 1.7 and higher) which is a description
+  of the number of pods from that set that can be unavailable after the eviction.
+  It can be either an absolute number or a percentage.
 -->
-* 标签选择算符 `.spec.selector` 用于指定其所作用的 Pod 集合，该字段为必需字段。
-* `.spec.minAvailable` 表示驱逐后仍须保证可用的 Pod 数量。即使因此影响到 Pod 驱逐
+- 标签选择算符 `.spec.selector` 用于指定其所作用的 Pod 集合，该字段为必需字段。
+- `.spec.minAvailable` 表示驱逐后仍须保证可用的 Pod 数量。即使因此影响到 Pod 驱逐
   （即该条件在和 Pod 驱逐发生冲突时优先保证）。
   `minAvailable` 值可以是绝对值，也可以是百分比。
-* `.spec.maxUnavailable` （Kubernetes 1.7 及更高的版本中可用）表示驱逐后允许不可用的
+- `.spec.maxUnavailable` （Kubernetes 1.7 及更高的版本中可用）表示驱逐后允许不可用的
   Pod 的最大数量。其值可以是绝对值或是百分比。
 
 {{< note >}}
@@ -249,10 +251,14 @@ unhealthy replicas among the total number of desired replicas.
 示例 3：设置 `maxUnavailable` 值为 5 的情况下，驱逐时需保证所需副本中最多 5 个处于不可用状态。
 
 <!--
-Example 4: With a `maxUnavailable` of 30%, evictions are allowed as long as no more than 30%
-of the desired replicas are unhealthy.
+Example 4: With a `maxUnavailable` of 30%, evictions are allowed as long as the number of 
+unhealthy replicas does not exceed 30% of the total number of desired replica rounded up to 
+the nearest integer. If the total number of desired replicas is just one, that single replica
+is still allowed for disruption, leading to an effective unavailability of 100%.
 -->
-示例 4：设置 `maxUnavailable` 值为 30% 的情况下，驱逐时需保证所需副本中最多 30% 处于不可用状态。
+示例 4：设置 `maxUnavailable` 值为 30% 的情况下，只要不健康的副本数量不超过所需副本总数的 30%
+（取整到最接近的整数），就允许驱逐。如果所需副本的总数仅为一个，则仍允许该单个副本中断，
+从而导致不可用性实际达到 100%。
 
 <!--
 In typical usage, a single budget would be used for a collection of pods managed by
@@ -270,9 +276,9 @@ specified in the budget, thus bringing the number of available pods from the
 collection below the specified size. The budget can only protect against
 voluntary evictions, not all causes of unavailability.
 -->
-干扰预算并不能真正保证指定数量/百分比的 Pod 一直处于运行状态。例如： 当 Pod 集合的
-规模处于预算指定的最小值时，承载集合中某个 Pod 的节点发生了故障，这样就导致集合中可用 Pod 的
-数量低于预算指定值。预算只能够针对自发的驱逐提供保护，而不能针对所有 Pod 不可用的诱因。
+干扰预算并不能真正保证指定数量/百分比的 Pod 一直处于运行状态。例如：当 Pod
+集合的规模处于预算指定的最小值时，承载集合中某个 Pod 的节点发生了故障，这样就导致集合中可用
+Pod 的数量低于预算指定值。预算只能够针对自发的驱逐提供保护，而不能针对所有 Pod 不可用的诱因。
 {{< /note >}}
 
 <!--
@@ -292,12 +298,12 @@ semantics of `PodDisruptionBudget`.
 You can find examples of pod disruption budgets defined below. They match pods with the label
 `app: zookeeper`.
 -->
-用户可以在下面看到 pod 干扰预算定义的示例，它们与带有 `app: zookeeper` 标签的 pod 相匹配：
+用户可以在下面看到 Pod 干扰预算定义的示例，它们与带有 `app: zookeeper` 标签的 Pod 相匹配：
 
 <!--
 Example PDB Using minAvailable:
 -->
-使用 minAvailable 的PDB 示例：
+使用 minAvailable 的 PDB 示例：
 
 {{< codenew file="policy/zookeeper-pod-disruption-budget-minavailable.yaml" >}}
 
@@ -315,34 +321,27 @@ automatically responds to changes in the number of replicas of the corresponding
 -->
 例如，如果上述 `zk-pdb` 选择的是一个规格为 3 的 StatefulSet 对应的 Pod，
 那么上面两种规范的含义完全相同。
-推荐使用 `maxUnavailable` ，因为它自动响应控制器副本数量的变化。
+推荐使用 `maxUnavailable`，因为它自动响应控制器副本数量的变化。
 
 <!--
 ## Create the PDB object
 
 You can create or update the PDB object using kubectl.
-```shell
-kubectl apply -f mypdb.yaml
-```
 -->
-## 创建 PDB 对象
+## 创建 PDB 对象   {#create-pdb-object}
 
 你可以使用 kubectl 创建或更新 PDB 对象。
+
 ```shell
 kubectl apply -f mypdb.yaml
 ```
-
-<!--
-You cannot update PDB objects.  They must be deleted and re-created.
--->
-PDB 对象无法更新，必须删除后重新创建。
 
 <!--
 ## Check the status of the PDB
 
 Use kubectl to check that your PDB is created.
 -->
-## 检查 PDB 的状态
+## 检查 PDB 的状态   {#check-status-of-pdb}
 
 使用 kubectl 来确认 PDB 被创建。
 
@@ -531,5 +530,5 @@ so most users will want to avoid overlapping selectors. One reasonable use of ov
 PDBs is when pods are being transitioned from one PDB to another.
 -->
 你可以令选择算符选择一个内置控制器所控制 Pod 的子集或父集。
-驱逐 API 将不允许驱逐被多个 PDB 覆盖的任何 Pod，因此大多数用户都希望避免重叠的选择算符。重叠 PDB 的一种合理用途是当 Pod 从一个 PDB 过渡到另一个 PDB 时再使用。
-
+驱逐 API 将不允许驱逐被多个 PDB 覆盖的任何 Pod，因此大多数用户都希望避免重叠的选择算符。
+重叠 PDB 的一种合理用途是当 Pod 从一个 PDB 过渡到另一个 PDB 时再使用。
