@@ -1,12 +1,12 @@
 ---
 title: "工作负载"
-weight: 50
+weight: 55
 description: 理解 Pods，Kubernetes 中可部署的最小计算对象，以及辅助它运行它们的高层抽象对象。
 ---
 
 <!--
 title: "Workloads"
-weight: 50
+weight: 55
 description: >
   Understand Pods, the smallest deployable compute object in Kubernetes, and the higher-level abstractions that help you to run them.
 no_list: true
