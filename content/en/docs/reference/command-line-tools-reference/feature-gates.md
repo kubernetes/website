@@ -197,8 +197,6 @@ For a reference to old feature gates that are removed, please refer to
 | `TopologyAwareHints` | `false` | Alpha | 1.21 | 1.22 |
 | `TopologyAwareHints` | `false` | Beta | 1.23 | 1.23 |
 | `TopologyAwareHints` | `true` | Beta | 1.24 | |
-| `TopologyManager` | `false` | Alpha | 1.16 | 1.17 |
-| `TopologyManager` | `true` | Beta | 1.18 | |
 | `TopologyManagerPolicyAlphaOptions` | `false` | Alpha | 1.26 | |
 | `TopologyManagerPolicyBetaOptions` | `false` | Beta | 1.26 | |
 | `TopologyManagerPolicyOptions` | `false` | Alpha | 1.26 | |
@@ -317,6 +315,9 @@ For a reference to old feature gates that are removed, please refer to
 | `StatefulSetMinReadySeconds` | `false` | Alpha | 1.22 | 1.22 |
 | `StatefulSetMinReadySeconds` | `true` | Beta | 1.23 | 1.24 |
 | `StatefulSetMinReadySeconds` | `true` | GA | 1.25 | - |
+| `TopologyManager` | `false` | Alpha | 1.16 | 1.17 |
+| `TopologyManager` | `true` | Beta | 1.18 | 1.26 |
+| `TopologyManager` | `true` | GA | 1.27 | - |
 | `WatchBookmark` | `false` | Alpha | 1.15 | 1.15 |
 | `WatchBookmark` | `true` | Beta | 1.16 | 1.16 |
 | `WatchBookmark` | `true` | GA | 1.17 | - |
@@ -715,6 +716,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `TopologyManager`: Enable a mechanism to coordinate fine-grained hardware resource
   assignments for different components in Kubernetes. See
   [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/).
+  Topology Manager graduated to GA in 1.27 and is enabled by default. If you are using a version of
+  Kubernetes older than v1.27, switch to the documentation for that version of Kubernetes.
 - `TopologyManagerPolicyAlphaOptions`: Allow fine-tuning of topology manager policies,
   experimental, Alpha-quality options.
   This feature gate guards *a group* of topology manager options whose quality level is alpha.
