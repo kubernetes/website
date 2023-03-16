@@ -1,0 +1,283 @@
+# i18n strings for Hindi version of the site.
+# NOTE: Please keep the entries in alphabetical order when editing
+
+[caution]
+other = "સાવધાની:"
+
+[cleanup_heading]
+other = "સફાઈ કરવું"
+
+[community_events_calendar]
+other = "ઇવેન્ટ્સ કેલેન્ડર"
+
+[community_forum_name]
+other = "ફોરમ"
+
+[community_github_name]
+other = "GitHub"
+
+[community_slack_name]
+other = "Slack"
+
+[community_stack_overflow_name]
+other = "Stack Overflow"
+
+[community_twitter_name]
+other = "Twitter"
+
+[community_youtube_name]
+other = "YouTube"
+
+[deprecation_title]
+other = "તમે આ કુબરનેટ્સ સંસ્કરણ માટે દસ્તાવેજીકરણ જોઈ રહ્યા છો:"
+
+[deprecation_warning]
+other = "દસ્તાવેજીકરણ હવે સક્રિય રીતે જાળવવામાં આવતું નથી। તમે હાલમાં જે સંસ્કરણ જોઈ રહ્યાં છો તે એક સ્થિર સ્નેપશોટ છે। અદ્યતન દસ્તાવેજીકરણ માટે, જુઓ"
+
+[deprecation_file_warning]
+other = "જૂનું થઈગયેલ"
+
+[dockershim_message]
+other = """1.24 આવૃત્તિ થી Dockershim કુબરનેટ્સ પ્રોજેક્ટમાંથી દૂર કરવામાં આવ્યું છે। વધુ માહિતી માટે <a href="/dockershim">Dockershim દૂર કરવાના FAQ </a> વાંચો।"""
+
+[docs_label_browse]
+other = "દસ્તાવેજીકરણ બ્રાઉઝ કરો"
+
+[docs_label_contributors]
+other = "ફાળો આપનાર"
+
+[docs_label_i_am]
+other = "હું છું..."
+
+[docs_label_users]
+other = "વપરાશકર્તા"
+
+[docs_version_current]
+other = "(આ દસ્તાવેજીકરણ)"
+
+[docs_version_latest_heading]
+other = "નવીનતમ આવૃત્તિઓ"
+
+[docs_version_other_heading]
+other = "જૂની આવૃત્તિઓ"
+
+[end_of_life]
+other = "જીવનનો અંત:"
+
+[envvars_heading]
+other = "એન્વિરોન્મેન્ટ વેરિયેબલ"
+
+[error_404_were_you_looking_for]
+other = "તમે શોધી રહ્યા હતા:"
+
+[examples_heading]
+other = "ઉદાહરણ"
+
+[feature_state]
+other = "લક્ષણ સ્થિતિ:"
+
+[feedback_heading]
+other = "પ્રતિસાદ"
+
+[feedback_no]
+other = "ના"
+
+[feedback_question]
+other = "શું આ પેજ મદદરૂપ થયું?"
+
+[feedback_yes]
+other = "હા"
+
+[inline_list_separator]
+other = ","
+
+[input_placeholder_email_address]
+other = "ઈ-મેઈલ સરનામું"
+
+[javascript_required]
+other = "આ વિષય જોવા માટે જાવાસ્ક્રિપ્ટ [સક્રિય](https://www.enable-javascript.com/) હોવું જોઈએ।"
+
+[latest_release]
+other = "નવીનતમ પ્રકાશન:"
+
+[latest_version]
+other = "નવીનતમ સંસ્કરણ।"
+
+[layouts_blog_pager_prev]
+other = "<< પાછળ"
+
+[layouts_blog_pager_next]
+other = "આગળ >>"
+
+[layouts_case_studies_list_tell]
+other = "તમારી વાર્તા કહો"
+
+[layouts_docs_glossary_aka]
+other = "તરીકે પણ જાણીતી"
+
+[layouts_docs_glossary_description]
+other = "આ શબ્દાવલિનો હેતુ કુબરનેટીસ પરિભાષાની વ્યાપક, પ્રમાણિત સૂચિ બનાવવાનો છે.। કુબરનેટ્સ માટે વિશિષ્ટ તકનીકી શબ્દો અને ઉપયોગી સંદર્ભ પ્રદાન કરતા સામાન્ય શબ્દોનો સમાવેશ થાય છે।"
+
+[layouts_docs_glossary_deselect_all]
+other = "બધાને નાપસંદ કરો"
+
+[layouts_docs_glossary_click_details_after]
+other = "ચોક્કસ શબ્દ માટે લાંબા સમય સુધી સમજૂતી મેળવવા માટે નીચે આપેલા સંકેતો।"
+
+[layouts_docs_glossary_click_details_before]
+other = "ઉપર ક્લિક કરો"
+
+[layouts_docs_glossary_filter]
+other = "શબ્દોને તેમના ટૅગ્સ દ્વારા ફિલ્ટર કરો"
+
+[layouts_docs_glossary_select_all]
+other = "બધા પસંદ કરો"
+
+[layouts_docs_partials_feedback_improvement]
+other = "સુધારાઓ સૂચવો"
+
+[layouts_docs_partials_feedback_issue]
+other = "જો તમે ઇચ્છો તો GitHub રેપોમાં issue ખોલો"
+
+[layouts_docs_partials_feedback_or]
+other = "અથવા"
+
+[layouts_docs_partials_feedback_problem]
+other = "સમસ્યાનો અહેવાલ આપો"
+
+[layouts_docs_partials_feedback_thanks]
+other = "પ્રતિસાદ બદલ આભાર. જો તમારી પાસે કુબરનેટ્સનો ઉપયોગ કેવી રીતે કરવો તે વિશે કોઈ ચોક્કસ, જવાબ આપવા યોગ્ય પ્રશ્ન હોય, તો પૂછો"
+
+[layouts_docs_search_fetching]
+other = "પરિણામો લાવી રહ્યા છીએ.."
+
+[main_by]
+other = "દ્વારા"
+
+[main_cncf_project]
+other = """અમે એક <a href="https://cncf.io/">CNCF</a> ગ્રેજ્યુએશન પ્રોજેક્ટ</p>"""
+
+[main_community_explore]
+other = "સમુદાયનું અન્વેષણ કરો"
+
+[main_contribute]
+other = "ફાળો કરો"
+
+[main_copyright_notice]
+other = """The Linux Foundation &reg;। બધા હકો અમારી પાસે રાખેલા છે। The Linux Foundation ટ્રેડમાર્ક નોંધાયેલ છે અને ટ્રેડમાર્કનો ઉપયોગ કરે છે। Linux Foundation ટ્રેડમાર્ક્સની સૂચિ માટે, કૃપા કરીને અમારી મુલાકાત લો <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">ટ્રેડમાર્ક વપરાશ પૃષ્ઠ</a> જુઓ।"""
+
+[main_documentation_license]
+other = """કુબરનેટ્સ લેખક | <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> હેઠળ વિતરિત દસ્તાવેજો"""
+
+[main_edit_this_page]
+other = "આ પૃષ્ઠને સંપાદિત કરો"
+
+[main_github_create_an_issue]
+other = "issue બનાવો"
+
+[main_github_invite]
+other = "કોર કુબરનેટ્સ કોડ બેઝ પર હેકિંગ માટે આતુર છે?"
+
+[main_github_view_on]
+other = "GitHub પર જોવો"
+
+[main_kubernetes_features]
+other = "કુબરનેટ્સ ની લાક્ષણિકતાઓ"
+
+[main_kubeweekly_baseline]
+other = "નવીનતમ કુબરનેટ્સ સમાચાર મેળવવાની રાહ જોઈ રહ્યા છીએ? KubeWeekly માટે સાઇન અપ કરો।"
+
+[main_kubernetes_past_link]
+other = "અગાઉના ન્યૂઝલેટર્સ જુઓ"
+
+[main_kubeweekly_signup]
+other = "સબ્સ્ક્રાઇબ કરો"
+
+[main_page_history]
+other ="પૃષ્ઠ ઇતિહાસ"
+
+[main_page_last_modified_on]
+other = "પૃષ્ઠ છેલ્લે સંશોધિત કર્યું"
+
+[main_read_about]
+other = "વિશે વાંચો"
+
+[main_read_more]
+other = "વધુ વાંચો"
+
+[not_applicable]
+other = "ઉપલબ્ધ નથી"
+
+[note]
+other = "નૉૅધ:"
+
+[objectives_heading]
+other = "હેતુ"
+
+[options_heading]
+other = "વૈકલ્પિક"
+
+[outdated_blog__message]
+other = "આ લેખ એક વર્ષથી વધુ જૂનો છે। જૂના લેખોમાં જૂની સામગ્રી હોઈ શકે છે। તપાસો કે પૃષ્ઠ પરની માહિતી પ્રકાશન પછીથી ખોટી છે।"
+
+[post_create_issue]
+other = "issue બનાવો"
+
+[prerequisites_heading]
+other = "શરૂ કરતા પહેલા"
+
+[previous_patches]
+other = "છેલ્લો પેચ:"
+
+[release_date_after]
+other = ")"
+
+[release_date_before]
+other = "(પ્રકાશિત: "
+
+# See https://gohugo.io/functions/format/#gos-layout-string
+# For a suitable format
+[release_date_format]
+other = "2006-01-02"
+
+[seealso_heading]
+other = "આ પણ જુઓ"
+
+[subscribe_button]
+other = "સબ્સ્ક્રાઇબ કરો"
+
+[synopsis_heading]
+other = "ટૂંક માં"
+
+[thirdparty_message]
+other = """આ વિભાગ અન્ય બાજુના પ્રોજેક્ટ્સને લિંક કરે છે જે કુબરનેટ્સ દ્વારા જરૂરી કાર્યક્ષમતા પ્રદાન કરે છે। કુબરનેટ્સ પ્રોજેક્ટના લેખક આ પ્રોજેક્ટ્સ માટે જવાબદાર નથી। यह पृष्ठ <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF વેબસાઇટ માર્ગદર્શિકા</a> નીચે પ્રમાણે, મૂળાક્ષરો પ્રમાણે પ્રોજેક્ટ્સની યાદી આપે છે। આ સૂચિમાં નવો પ્રોજેક્ટ ઉમેરતા પહેલા <a href="/docs/contribute/style/content-guide/#third-party-content">વિષય માર્ગદર્શિકા</a> પૃષ્ઠ વાંચ્યા પછી જ ફેરફારો કરો।"""
+
+[thirdparty_message_edit_disclaimer]
+other="""अन्य पक्ष के विषयों की सलहा"""
+
+[thirdparty_message_single_item]
+other = """&#128711; આ આઇટમ તૃતીય પક્ષ પ્રોજેક્ટ અથવા ઉત્પાદન સાથે જોડાયેલ છે જે કુબરનેટ્સ નો ભાગ નથી। <a class="alert-more-info" href="#third-party-content-disclaimer">વધુ માહિતી માટે, વાંચો</a>"""
+
+[thirdparty_message_disclaimer]
+other = """<p>इस पृष्ठ की वस्तुओं अन्य पक्ष के उत्पादों या परियोजनाओं से जुड़ा है जो કુબરનેટ્સ દ્વારા જરૂરી કાર્યક્ષમતા પ્રદાન કરે છે। કુબરનેટ્સ પ્રોજેક્ટના લેખક આ તૃતીય પક્ષ ઉત્પાદનો અથવા પ્રોજેક્ટ્સ માટે જવાબદાર નથી। વધુ માહિતી માટે, વાંચો <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF વેબસાઇટ માર્ગદર્શિકા</a> પાનું વાંચો।"</p><p>કોઈપણ નવી વધારાની તૃતીય પક્ષ લિંક્સ ઉમેરતા પહેલા આ પૃષ્ઠ <a href="/docs/contribute/style/content-guide/#third-party-content">વિષય માર્ગદર્શિકા</a> પૃષ્ઠ વાંચ્યા પછી ફેરફાર પ્રસ્તાવ સબમિટ કરો।</p>"""
+
+[ui_search_placeholder]
+other = "શોધ"
+
+[version_check_mustbe]
+other = "તમારા કુબરનેટ્સ સર્વરનું સંસ્કરણ હોવું જોઈએ "
+
+[version_check_mustbeorlater]
+other = "તમારું કુબરનેટ્સ સર્વર આના પર અથવા ઉપર ના સંસ્કરણ પર હોવું આવશ્યક છે "
+
+[version_check_tocheck]
+other = "સંસ્કરણ તપાસવા માટે, ટાઇપ કરો "
+
+[version_menu]
+other = "સંસ્કરણ"
+
+[warning]
+other = "ચેતવણી:"
+
+[whatsnext_heading]
+other = "આગળ શું છે"
