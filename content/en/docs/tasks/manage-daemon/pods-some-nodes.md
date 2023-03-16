@@ -25,7 +25,7 @@ Adding the label `ssd=true` to the nodes which have ssd.
 kubectl label nodes example-node-1 example-node-2 ssd=true
 ```
 
-### Step 2: Creating the configuration file
+### Step 2: Create the manifest
 
 Let's create a {{<glossary_tooltip term_id="daemonset" text="DaemonSet">}} which will provision the daemon pods on the SSD labeled {{<glossary_tooltip term_id="node" text="nodes">}} only.
 
