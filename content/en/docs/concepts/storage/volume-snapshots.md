@@ -215,6 +215,8 @@ when the `VolumeSnapshotContent` is being created as a pre-provisioned snapshot,
 
 ## Converting the volume mode of a Snapshot {#convert-volume-mode}
 
+TODO: Doc update for move to beta
+
 If the `VolumeSnapshots` API installed on your cluster supports the `sourceVolumeMode`
 field, then the API has the capability to prevent unauthorized users from converting
 the mode of a volume.
