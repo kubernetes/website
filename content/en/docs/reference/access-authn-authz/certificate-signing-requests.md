@@ -459,6 +459,95 @@ status:
   certificate: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JS..."
 ```
 
+## ClusterTrustBundles (Alpha Feature) {#ctb}
+
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+
+{{< note >}}
+Gated by the `ClusterTrustBundles` feature gate.
+{{< /note >}}
+
+ClusterTrustBundles are a cluster-scoped object for distributing X.509 trust
+anchors (root certificates) to workloads within the cluster.  They're designed
+to work well with the existing signer concept.
+
+Future Kubernetes releases will build on them with integrations like the ability
+to project their contents into the pod filesystem.
+
+ClusterTrustBundles can be used in two modes: signer-linked and signer-unlinked.
+
+### Common properties and validation {#ctb-common}
+
+All ClusterTrustBundle objects have strong validation on the contents of their
+`trustBundle` field.  It must contain one or more X.509 certificates,
+DER-serialized, each wrapped in a PEM `CERTIFICATE` block.  The certificates
+must parse as valid X.509 certificates.
+
+Esoteric PEM features like inter-block data and intra-block headers are either
+rejected during object validation, or filtered by consumers of the object
+(primarily Kubelet).  Additionally, consumers will reorder the certificates in
+the bundle with their own arbitrary but stable ordering.
+
+ClusterTrustBundle objects should be considered world-readable within the
+cluster.  All serviceaccounts have a default RBAC grant to get, list, and watch
+all ClusterTrustBundle objects.
+
+### Signer-linked ClusterTrustBundles {#ctb-signer-linked}
+
+Signer-linked ClusterTrustBundles are associated with a signer name, like this:
+
+```yaml
+apiVersion: certificates.k8s.io/v1alpha1
+kind: ClusterTrustBundle
+metadata:
+  name: example.com:mysigner:foo
+spec:
+  signerName: example.com/mysigner
+  trustBundle: "<... PEM data ...>"
+```
+
+These ClusterTrustBundles are intended to be maintained by a signer-specific
+controller in the cluster, so they have several security features:
+
+* To create or update a signer-linked ClusterTrustBundle, you must have the
+  `attest` verb on the signer (verbs: `attest`, group: `certificates.k8s.io`,
+  resource: `signers`, resourceName: `<signerNameDomain>/<signerNamePath>` or
+  `<signerNameDomain>/*`).
+* Signer-linked ClusterTrustBundles must be named with a prefix derived from
+  their `spec.signerName` field.  Slashes (`/`) are replaced with colons (`:`),
+  and a final colon is appended.  This is followed by an arbitary name.  For
+  example, the signer `example.com/mysigner` becomes
+  `example.com:mysigner:<arbitrary-name>`.
+
+Signer-linked ClusterTrustBundles will be consumed in workloads by a combination
+of field selector on the signer name and a label selector.  If this query
+matches multiple ClusterTrustBundle objects, their contents will be merged,
+deduplicated, and sorted before being provided to the workload.
+
+### Signer-unlinked ClusterTrustBundles {#ctb-signer-unlinked}
+
+Signer-unlinked ClusterTrustBundles have an empty `spec.signerName` field, like this:
+
+```yaml
+apiVersion: certificates.k8s.io/v1alpha1
+kind: ClusterTrustBundle
+metadata:
+  name: foo
+spec:
+  signerName: ""
+  trustBundle: "<... PEM data ...>"
+```
+
+They are primarily intended for cluster configuration use cases.  Each
+signer-unlinked ClusterTrustBundle is an independent object, in contrast to the
+customary grouping behavior of signer-linked ClusterTrustBundles.
+
+Signer-unlinked ClusterTrustBundles have no `attest` verb requirement.  Instead,
+control access to them using the standard RBAC verbs.
+
+To distinguish them from signer-linked ClusterTrustBundles, the names of
+signer-unlinked ClusterTrustBundles must not contain a colon (`:`).
+
 ## {{% heading "whatsnext" %}}
 
 * Read [Manage TLS Certificates in a Cluster](/docs/tasks/tls/managing-tls-in-a-cluster/)
