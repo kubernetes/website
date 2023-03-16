@@ -187,9 +187,14 @@ following methods:
   by default; in other words, Kubernetes does not create these tokens.
 
 {{< note >}}
-For applications running outside your Kubernetes cluster, you can use ServiceAccount token
-that is stored in a Secret. This is not recommended. You are encouraged to use the
-TokenRequest API instead.
+For applications running outside your Kubernetes cluster, you might be considering
+creating a long-lived ServiceAccount token that is stored in a Secret. This allows authentication, but the Kubernetes project recommends you avoid this approach.
+Long-lived bearer tokens represent a security risk as, once disclosed, the token
+can be misused. Instead, consider using an alternative. For example, your external
+application can authenticate using a well-protected private key `and` a certificate,
+or using a custom mechanism such as an [authentication webhook](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) that you implement yourself.
+
+You can also use TokenRequest to obtain short-lived tokens for your external application.
 {{< /note >}}
 
 ## Authenticating service account credentials {#authenticating-credentials}
