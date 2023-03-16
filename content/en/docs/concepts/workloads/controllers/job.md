@@ -631,14 +631,7 @@ as soon as the Job was resumed.
 
 ### Mutable Scheduling Directives
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
-
-{{< note >}}
-In order to use this behavior, you must enable the `JobMutableNodeSchedulingDirectives`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/).
-It is enabled by default.
-{{< /note >}}
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
 In most cases a parallel job will want the pods to run with constraints, 
 like all in the same zone, or all either on GPU model x or y but not a mix of both.
@@ -653,7 +646,7 @@ pod-to-node assignment to kube-scheduler. This is allowed only for suspended Job
 been unsuspended before.
 
 The fields in a Job's pod template that can be updated are node affinity, node selector, 
-tolerations, labels and annotations.
+tolerations, labels, annotations and scheduling gates.
 
 ### Specifying your own Pod selector
 

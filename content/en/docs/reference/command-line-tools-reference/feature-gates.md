@@ -116,7 +116,6 @@ For a reference to old feature gates that are removed, please refer to
 | `InTreePluginPortworxUnregister` | `false` | Alpha | 1.23 | |
 | `InTreePluginRBDUnregister` | `false` | Alpha | 1.23 | |
 | `InTreePluginvSphereUnregister` | `false` | Alpha | 1.21 | |
-| `JobMutableNodeSchedulingDirectives` | `true` | Beta | 1.23 | |
 | `JobPodFailurePolicy` | `false` | Alpha | 1.25 | 1.25 |
 | `JobPodFailurePolicy` | `true` | Beta | 1.26 | |
 | `JobReadyPods` | `false` | Alpha | 1.23 | 1.23 |
@@ -281,6 +280,8 @@ For a reference to old feature gates that are removed, please refer to
 | `IdentifyPodOS` | `false` | Alpha | 1.23 | 1.23 |
 | `IdentifyPodOS` | `true` | Beta | 1.24 | 1.24 |
 | `IdentifyPodOS` | `true` | GA | 1.25 | - |
+| `JobMutableNodeSchedulingDirectives` | `true` | Beta | 1.23 | |
+| `JobMutableNodeSchedulingDirectives` | `true` | GA | 1.27 | |
 | `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | 1.22 |
 | `JobTrackingWithFinalizers` | `false` | Beta | 1.23 | 1.24 |
 | `JobTrackingWithFinalizers` | `true` | Beta | 1.25 | 1.25 |
