@@ -377,14 +377,12 @@ Here are some examples of device plugin implementations:
 * The [AMD GPU device plugin](https://github.com/RadeonOpenCompute/k8s-device-plugin)
 * The [Intel device plugins](https://github.com/intel/intel-device-plugins-for-kubernetes) for
   Intel GPU, FPGA, QAT, VPU, SGX, DSA, DLB and IAA devices
-* The [KubeVirt device plugins](https://github.com/kubevirt/kubernetes-device-plugins) for
-  hardware-assisted virtualization
 * The [NVIDIA GPU device plugin for Container-Optimized OS](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
-* The [RDMA device plugin](https://github.com/hustcat/k8s-rdma-device-plugin)
 * The [SocketCAN device plugin](https://github.com/collabora/k8s-socketcan)
-* The [Solarflare device plugin](https://github.com/vikaschoudhary16/sfc-device-plugin)
-* The [SR-IOV Network device plugin](https://github.com/intel/sriov-network-device-plugin)
+* The [SR-IOV Network device plugin](https://github.com/k8snetworkplumbingwg/sriov-network-device-plugin) for
+  SR-IOV virtual functions, PCI physical functions, Auxiliary network and RDMA device (Infiniband and RoCE).
 * The [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-device-plugin) for Xilinx FPGA devices
+* The [shared RDMA device plugin](https://github.com/Mellanox/k8s-rdma-shared-dev-plugin) for sharing RDMA devices (Infiniband and RoCE) between Pods.
 
 ## {{% heading "whatsnext" %}}
 
