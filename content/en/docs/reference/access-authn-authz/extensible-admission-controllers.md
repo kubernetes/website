@@ -728,7 +728,8 @@ Match conditions requires the [feature gate](/docs/reference/command-line-tools-
 `AdmissionWebhookMatchConditions` to be explicitly enabled before this feature can be used.
 {{< /note >}}
 
-Match conditions can be added to webhooks for additional fine-grained request filtering using
+Match conditions can be added to webhooks for fine-grained request filtering (in conjunction with
+match rules, objectSelectors and namespaceSelectors) using
 [CEL expressions](/docs/reference/using-api/cel/). All match conditions must evaluate to true for
 the webhook to be called.
 
@@ -773,7 +774,7 @@ For more information on CEL expressions, refer to the
 In the event of an error evaluating a match condition the webhook is never called. Whether to reject
 the request is determined as follows:
 
-1. If ANY match condition evaluated to `false` without an error, skip the webhook.
+1. If ANY match condition evaluated to `false` (regardless of other errors), skip the webhook.
 2. Otherwise:
     - If [`failurePolicy=Fail`](#failure-policy), reject the request (without calling the webhook).
     - If [`failurePolicy=Ignore`](#failure-policy), proceed with the request but skip the webhook.
