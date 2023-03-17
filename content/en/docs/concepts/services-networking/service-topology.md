@@ -16,8 +16,8 @@ weight: 150
 
 This feature, specifically the alpha `topologyKeys` API, is deprecated since
 Kubernetes v1.21.
-[Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints/),
-introduced in Kubernetes v1.21, provide similar functionality.
+[Topology Aware Routing](/docs/concepts/services-networking/topology-aware-routing/),
+introduced in Kubernetes v1.21, provides similar functionality.
 {{</ note >}}
 
 _Service Topology_ enables a service to route traffic based upon the Node
