@@ -373,16 +373,17 @@ kubectl delete -f <filename>
 
 ### Alternative: `kubectl apply -f <directory/> --prune`
 
-As an alternative to `kubectl delete`, you can use `kubectl apply` to identify objects to be deleted after their configuration files have been removed from the directory.
+As an alternative to `kubectl delete`, you can use `kubectl apply` to identify objects to be deleted after
+their manifests have been removed from a directory in the local filesystem.
 
-There are currently two pruning modes available in kubectl apply:
+In Kubernetes {{< skew currentVersion >}}, there are two pruning modes available in kubectl apply:
 - Allowlist-based pruning: This mode has existed since kubectl v1.5 but is still in alpha due to usability, correctness and performance issues with its design. The ApplySet-based mode is designed to replace it, and upon its graduation, allowlist-based pruning will be deprecated using beta timelines.
-- ApplySet-based pruning: An ApplySet is a server-side object (by default, a Secret) that kubectl can use to accurately and efficiently track set membership across `apply` operations. This mode was introduced in kubectl v1.27 as a replacement for allowlist-based pruning. It is under active development.
+- ApplySet-based pruning: An ApplySet is a server-side object (by default, a Secret) that kubectl can use to accurately and efficiently track set membership across `apply` operations. This mode was introduced in alpha in kubectl v1.27 as a replacement for allowlist-based pruning. Unlike allowlist-based pruning, it is under active development and is expected to ultimately become generally available.```
 
 {{< tabs name="kubectl_apply_prune" >}}
 {{% tab name="Allowlist" %}}
 
-{{</* feature-state for_k8s_version="v1.5" state="alpha" */>}}
+{{< feature-state for_k8s_version="v1.5" state="alpha" >}}
 
 {{< warning >}}
 Only use this if you know what you are doing. You must be careful when using this command, so that you do not delete objects unintentionally. For more information on the problems with this command, see the [Current Implementation](git.k8s.io/enhancements/keps/sig-cli/3659-kubectl-apply-prune#current-implementation) section of the ApplySet KEP.
@@ -401,7 +402,7 @@ it is deleted.
 
 
 ```shell
-kubectl apply -f <directory/> --prune -l <labels> --prune-allowlist=<gvks>
+kubectl apply -f <directory/> --prune -l <labels> --prune-allowlist=<gvk-list>
 ```
 
 {{< warning >}}
@@ -415,7 +416,7 @@ have the labels given (if any), and do not appear in the subdirectory.
 
 {{% tab name="ApplySet" %}}
 
-{{</* feature-state for_k8s_version="v1.27" state="alpha" */>}}
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
 
 {{< warning >}}
 `kubectl apply --prune --applyset` is in alpha, and backwards incompatible
