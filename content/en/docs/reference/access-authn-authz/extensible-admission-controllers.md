@@ -740,9 +740,9 @@ Here are a couple examples of match conditions:
 Match conditions have access to the following CEL variables:
 
 - `object` - The object from the incoming request. The value is null for DELETE requests. The object
-  version may be converted based on the [matchPolicy](#matching-requests-matchpolicy). Equivalent to `request.object`.
-- `oldObject` - The existing object. The value is null for CREATE requests. Equivalent to `request.oldObject`.
-- `request` - The request portion of the [AdmissionReview](#request)
+  version may be converted based on the [matchPolicy](#matching-requests-matchpolicy).
+- `oldObject` - The existing object. The value is null for CREATE requests.
+- `request` - The request portion of the [AdmissionReview](#request), excluding `object` and `oldObject`.
 - `authorizer` - A CEL Authorizer. May be used to perform authorization checks for the principal
   (authenticated user) of the request. See
   [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz) in the Kubernetes CEL library
