@@ -1,11 +1,11 @@
 ---
 reviewers:
 - robscott
-title: Topology Aware Hints
+title: Topology Aware Routing
 content_type: concept
 weight: 100
 description: >-
-  _Topology Aware Hints_ provides a mechanism to help keep network traffic within the zone
+  _Topology Aware Routing_ provides a mechanism to help keep network traffic within the zone
   where it originated. Preferring same-zone traffic between Pods in your cluster can help
   with reliability, performance (network latency and throughput), or cost.
 ---
@@ -15,45 +15,68 @@ description: >-
 
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
-_Topology Aware Hints_ enable topology aware routing by including suggestions
-for how clients should consume endpoints. This approach adds metadata to enable
-consumers of EndpointSlice (or Endpoints) objects, so that traffic to
-those network endpoints can be routed closer to where it originated.
+{{< note >}}
+Prior to Kubernetes 1.27, this feature was known as _Topology Aware Hints_.
+{{</ note >}}
 
-For example, you can route traffic within a locality to reduce
-costs, or to improve network performance.
+_Topology Aware Routing_ adjusts routing behavior to prefer keeping traffic in
+the zone it originated from. In some cases this can help reduce costs or improve
+network performance.
 
 <!-- body -->
 
 ## Motivation
 
 Kubernetes clusters are increasingly deployed in multi-zone environments.
-_Topology Aware Hints_ provides a mechanism to help keep traffic within the zone
-it originated from. This concept is commonly referred to as "Topology Aware
-Routing". When calculating the endpoints for a {{< glossary_tooltip term_id="Service" >}},
-the EndpointSlice controller considers the topology (region and zone) of each endpoint
-and populates the hints field to allocate it to a zone.
-Cluster components such as the {{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}}
-can then consume those hints, and use them to influence how the traffic is routed
-(favoring topologically closer endpoints).
+_Topology Aware Routing_ provides a mechanism to help keep traffic within the
+zone it originated from. When calculating the endpoints for a {{<
+glossary_tooltip term_id="Service" >}}, the EndpointSlice controller considers
+the topology (region and zone) of each endpoint and populates the hints field to
+allocate it to a zone. Cluster components such as {{< glossary_tooltip
+term_id="kube-proxy" text="kube-proxy" >}} can then consume those hints, and use
+them to influence how the traffic is routed (favoring topologically closer
+endpoints).
 
-## Using Topology Aware Hints
+## Enabling Topology Aware Routing
 
-You can activate Topology Aware Hints for a Service by setting the
-`service.kubernetes.io/topology-aware-hints` annotation to `auto`. This tells
-the EndpointSlice controller to set topology hints if it is deemed safe.
-Importantly, this does not guarantee that hints will always be set.
+{{< note >}}
+Prior to Kubernetes 1.27, this behavior was controlled using the
+`service.kubernetes.io/topology-aware-hints` annotation.
+{{</ note >}}
 
-## How it works {#implementation}
+You can enable Topology Aware Routing for a Service by setting the
+`service.kubernetes.io/topology-mode` annotation to `Auto`. When there are
+enough endpoints available in each zone, Topology Hints will be populated on
+EndpointSlices to allocate individual endpoints to specific zones, resulting in
+traffic being routed closer to where it originated from.
 
-The functionality enabling this feature is split into two components: The
-EndpointSlice controller and the kube-proxy. This section provides a high level overview
-of how each component implements this feature.
+## When it works best
+
+This feature works best when:
+
+### 1. Incoming traffic is evenly distributed
+
+If a large proportion of traffic is originating from a single zone, that traffic
+could overload the subset of endpoints that have been allocated to that zone.
+This feature is not recommended when incoming traffic is expected to originate
+from a single zone.
+
+### 2. The Service has 3 or more endpoints per zone {#three-or-more-endpoints-per-zone}
+In a three zone cluster, this means 9 or more endpoints. If there are fewer than
+3 endpoints per zone, there is a high (≈50%) probability that the EndpointSlice
+controller will not be able to allocate endpoints evenly and instead will fall
+back to the default cluster-wide routing approach.
+
+## How It Works
+
+The "Auto" heuristic attempts to proportionally allocate a number of endpoints
+to each zone. Note that this heuristic works best for Services that have a
+significant number of endpoints.
 
 ### EndpointSlice controller {#implementation-control-plane}
 
 The EndpointSlice controller is responsible for setting hints on EndpointSlices
-when this feature is enabled. The controller allocates a proportional amount of
+when this heuristic is enabled. The controller allocates a proportional amount of
 endpoints to each zone. This proportion is based on the
 [allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 CPU cores for nodes running in that zone. For example, if one zone had 2 CPU
@@ -145,6 +168,11 @@ zone.
   proportions of each zone. This could have unintended consequences if a large
   portion of nodes are unready.
 
+* The EndpointSlice controller ignores nodes with the
+  `node-role.kubernetes.io/control-plane` or `node-role.kubernetes.io/master`
+  label set. This could be problematic if workloads are also running on those
+  nodes.
+
 * The EndpointSlice controller does not take into account {{< glossary_tooltip
   text="tolerations" term_id="toleration" >}} when deploying or calculating the
   proportions of each zone. If the Pods backing a Service are limited to a
@@ -156,6 +184,17 @@ zone.
   text="Horizontal Pod Autoscaler" term_id="horizontal-pod-autoscaler" >}}
   either not picking up on this event, or newly added pods starting in a
   different zone.
+
+
+## Custom heuristics
+
+Kubernetes is deployed in many different ways, there is no single heuristic for
+allocating endpoints to zones will work for every use case. A key goal of this
+feature is to enable custom heuristics to be developed if the built in heuristic
+does not work for your use case. The first steps to enable custom heuristics
+were included in the 1.27 release. This is a limited implementation that may not
+yet cover some relevant and plausible situations.
+
 
 ## {{% heading "whatsnext" %}}
 
