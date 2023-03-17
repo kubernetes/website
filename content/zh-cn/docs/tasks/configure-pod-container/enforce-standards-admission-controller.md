@@ -1,6 +1,7 @@
 ---
 title: 通过配置内置准入控制器实施 Pod 安全标准
 content_type: task
+weight: 240
 ---
 <!--
 title: Enforce Pod Security Standards by Configuring the Built-in Admission Controller
@@ -8,6 +9,7 @@ reviewers:
 - tallclair
 - liggitt
 content_type: task
+weight: 240
 -->
 
 <!--
