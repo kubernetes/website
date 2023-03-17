@@ -378,7 +378,7 @@ their manifests have been removed from a directory in the local filesystem.
 
 In Kubernetes {{< skew currentVersion >}}, there are two pruning modes available in kubectl apply:
 - Allowlist-based pruning: This mode has existed since kubectl v1.5 but is still in alpha due to usability, correctness and performance issues with its design. The ApplySet-based mode is designed to replace it, and upon its graduation, allowlist-based pruning will be deprecated using beta timelines.
-- ApplySet-based pruning: An ApplySet is a server-side object (by default, a Secret) that kubectl can use to accurately and efficiently track set membership across `apply` operations. This mode was introduced in alpha in kubectl v1.27 as a replacement for allowlist-based pruning. Unlike allowlist-based pruning, it is under active development and is expected to ultimately become generally available.```
+- ApplySet-based pruning: An ApplySet is a server-side object (by default, a Secret) that kubectl can use to accurately and efficiently track set membership across `apply` operations. This mode was introduced in alpha in kubectl v1.27 as a replacement for allowlist-based pruning. Unlike allowlist-based pruning, it is under active development and is expected to ultimately become generally available.
 
 {{< tabs name="kubectl_apply_prune" >}}
 {{% tab name="Allowlist" %}}

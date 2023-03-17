@@ -96,7 +96,7 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 Example: `applyset.k8s.io/additional-namespaces: "namespace1,namespace2"`
 
-Used on: Objects being used as ApplySet parents. As of {{< skew currentVersion >}}, this may be Secrets, ConfigMaps, or custom resources if the Custom Resource Definition defining them has the `applyset.k8s.io/is-parent-type` label.
+Used on: Objects being used as ApplySet parents. As of Kubernetes version {{< skew currentVersion >}}, this may be Secrets, ConfigMaps, or custom resources if the Custom Resource Definition defining them has the `applyset.k8s.io/is-parent-type` label.
 
 Part of the [ApplySet specification](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cli/3659-kubectl-apply-prune#design-details-applyset-specification). This annotation is applied to the parent object used to track an ApplySet to extend the scope of the ApplySet beyond the parent object's own namespace (if any). The value is a comma-separated list of the names of namespaces other than the parent's namespace in which objects are found.
 
@@ -104,16 +104,16 @@ Part of the [ApplySet specification](https://github.com/kubernetes/enhancements/
 
 Example: `applyset.k8s.io/contains-group-resources: "certificates.cert-manager.io,configmaps,deployments.apps,secrets,services"`
 
-Used on: Objects being used as ApplySet parents. As of {{< skew currentVersion >}}, this may be Secrets, ConfigMaps, or custom resources if the Custom Resource Definition defining them has the `applyset.k8s.io/is-parent-type` label.
+Used on: Objects being used as ApplySet parents. As of Kubernetes version {{< skew currentVersion >}}, this may be Secrets, ConfigMaps, or custom resources if the Custom Resource Definition defining them has the `applyset.k8s.io/is-parent-type` label.
 
-Part of the [ApplySet specification](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cli/3659-kubectl-apply-prune#design-details-applyset-specification). This annotation is applied to the parent object used to track an ApplySet to optimize listing of ApplySet member objects. It is optional in the ApplySet specification, as tools can perform discovery or use a different optimization. However, as of {{< skew currentVersion >}}, it is required by kubectl. When present, the value of this annotation must be a comma separated list of the group-kinds, in the fully-qualified name format, i.e. `<resource>.<group>`.
+Part of the [ApplySet specification](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cli/3659-kubectl-apply-prune#design-details-applyset-specification). This annotation is applied to the parent object used to track an ApplySet to optimize listing of ApplySet member objects. It is optional in the ApplySet specification, as tools can perform discovery or use a different optimization. However, as of Kubernetes version {{< skew currentVersion >}}, it is required by kubectl. When present, the value of this annotation must be a comma separated list of the group-kinds, in the fully-qualified name format, i.e. `<resource>.<group>`.
 
 
 ### applyset.k8s.io/id
 
 Example: `applyset.k8s.io/id: "applyset-0eFHV8ySqp7XoShsGvyWFQD3s96yqwHmzc4e0HR1dsY-v1"`
 
-Used on: Objects being used as ApplySet parents. As of {{< skew currentVersion >}}, this may be Secrets, ConfigMaps, or custom resources if the Custom Resource Definition defining them has the `applyset.k8s.io/is-parent-type` label.
+Used on: Objects being used as ApplySet parents. As of Kubernetes version {{< skew currentVersion >}}, this may be Secrets, ConfigMaps, or custom resources if the Custom Resource Definition defining them has the `applyset.k8s.io/is-parent-type` label.
 
 Part of the [ApplySet specification](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cli/3659-kubectl-apply-prune#design-details-applyset-specification). This label is what makes an object an ApplySet parent object. Its value is the unique ID of the ApplySet, which is derived from the identity of the parent object itself. This ID MUST be the base64 encoding (using the URL safe encoding of RFC4648) of the hash of the group-kind-name-namespace of the object it is on, in the form: `<base64(sha256(<name>.<namespace>.<kind>.<group>))>`.
 
@@ -135,9 +135,9 @@ Part of the [ApplySet specification](https://github.com/kubernetes/enhancements/
 
 ### applyset.k8s.io/tooling
 
-Example: `applyset.k8s.io/tooling: "kubectl/v1.27.0"`
+Example: `applyset.k8s.io/tooling: "kubectl/v{{< skew currentVersion >}}"`
 
-Used on: Objects being used as ApplySet parents. As of {{< skew currentVersion >}}, this may be Secrets, ConfigMaps, or custom resources if the Custom Resource Definition defining them has the `applyset.k8s.io/is-parent-type` label.
+Used on: Objects being used as ApplySet parents. As of Kubernetes version {{< skew currentVersion >}}, this may be Secrets, ConfigMaps, or custom resources if the Custom Resource Definition defining them has the `applyset.k8s.io/is-parent-type` label.
 
 Part of the [ApplySet specification](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cli/3659-kubectl-apply-prune#design-details-applyset-specification). This label is applied to the parent object used to track an ApplySet to indicate which tooling manages that ApplySet. Tooling should refuse to mutate ApplySets belonging to other tools. The value must be in the format `<toolname>/<semver>`.
 
