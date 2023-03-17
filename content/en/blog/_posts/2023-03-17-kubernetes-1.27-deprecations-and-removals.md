@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes Removals and Major Changes In v1.27"
-date: 2023-03-17
+date: 2023-03-17T14:00:00+0000
 slug: upcoming-changes-in-kubernetes-v1-27
 ---
 
