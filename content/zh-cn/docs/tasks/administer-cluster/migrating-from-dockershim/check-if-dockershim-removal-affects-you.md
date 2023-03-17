@@ -14,7 +14,7 @@ weight: 50
 <!-- overview -->
 
 <!-- 
-The `dockershim` component of Kubernetes allows to use Docker as a Kubernetes's
+The `dockershim` component of Kubernetes allows the use of Docker as a Kubernetes's
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
 Kubernetes' built-in `dockershim` component was removed in release v1.24.
 -->
@@ -80,11 +80,11 @@ dependency on Docker:
 1. Third-party tools that perform above mentioned privileged operations. See
    [Migrating telemetry and security agents from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/migrating-telemetry-and-security-agents)
    for more information.
-1. Make sure there is no indirect dependencies on dockershim behavior.
+1. Make sure there are no indirect dependencies on dockershim behavior.
    This is an edge case and unlikely to affect your application. Some tooling may be configured
    to react to Docker-specific behaviors, for example, raise alert on specific metrics or search for
    a specific log message as part of troubleshooting instructions.
-   If you have such tooling configured, test the behavior on test
+   If you have such tooling configured, test the behavior on a test
    cluster before migration.
 -->
 4. 检查执行上述特权操作的第三方工具。
@@ -151,7 +151,7 @@ before to check on these containers is no longer available.
 <!-- 
 You cannot get container information using `docker ps` or `docker inspect`
 commands. As you cannot list containers, you cannot get logs, stop containers,
-or execute something inside container using `docker exec`.
+or execute something inside a container using `docker exec`.
 -->
 你不能再使用 `docker ps` 或 `docker inspect` 命令来获取容器信息。
 由于你不能列出容器，因此你不能获取日志、停止容器，甚至不能通过 `docker exec` 在容器中执行命令。
