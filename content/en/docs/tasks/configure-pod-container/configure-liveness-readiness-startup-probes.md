@@ -8,11 +8,11 @@ weight: 140
 
 This page shows how to configure liveness, readiness and startup probes for containers.
 
-The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) uses liveness probes to know when to
-restart a container. For example, liveness probes could catch a deadlock,
-where an application is running, but unable to make progress. Restarting a
-container in such a state can help to make the application more available
-despite bugs.
+The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) uses
+liveness probes to know when to restart a container. For example, liveness
+probes could catch a deadlock, where an application is running, but unable to
+make progress. Restarting a container in such a state can help to make the
+application more available despite bugs.
 
 The kubelet uses readiness probes to know when a container is ready to start
 accepting traffic. A Pod is considered ready when all of its containers are ready.
@@ -20,7 +20,7 @@ One use of this signal is to control which Pods are used as backends for Service
 When a Pod is not ready, it is removed from Service load balancers.
 
 The kubelet uses startup probes to know when a container application has started.
-If such a probe is configured, it disables liveness and readiness checks until
+If such a probe is configured, liveness and readiness probes do not start until
 it succeeds, making sure those probes don't interfere with the application startup.
 This can be used to adopt liveness checks on slow starting containers, avoiding them
 getting killed by the kubelet before they are up and running.
@@ -380,7 +380,8 @@ you can use to more precisely control the behavior of startup, liveness and read
 checks:
 
 * `initialDelaySeconds`: Number of seconds after the container has started
-before startup, liveness or readiness probes are initiated. Defaults to 0 seconds. Minimum value is 0.
+before startup, liveness or readiness probes are initiated. If a startup probe is defined, liveness and readiness probe delays do not begin until the startup probe has succeeded.
+Defaults to 0 seconds. Minimum value is 0.
 * `periodSeconds`: How often (in seconds) to perform the probe. Default to 10
 seconds. Minimum value is 1.
 * `timeoutSeconds`: Number of seconds after which the probe times out. Defaults
