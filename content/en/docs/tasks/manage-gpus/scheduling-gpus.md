@@ -88,5 +88,5 @@ If you're using AMD GPU devices, you can deploy
 Node Labeller is a {{< glossary_tooltip text="controller" term_id="controller" >}} that automatically
 labels your nodes with GPU device properties.
 
-Similar functionality for NVIDIA is provied by
+Similar functionality for NVIDIA is provided by
 [GPU feature discovery](https://github.com/NVIDIA/gpu-feature-discovery/blob/main/README.md).
