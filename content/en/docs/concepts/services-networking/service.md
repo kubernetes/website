@@ -661,12 +661,6 @@ status:
 Traffic from the external load balancer is directed at the backend Pods.
 The cloud provider decides how it is load balanced.
 
-Some cloud providers allow you to specify the `loadBalancerIP`. In those cases, the load-balancer is created
-with the user-specified `loadBalancerIP`. If the `loadBalancerIP` field is not specified,
-the loadBalancer is set up with an ephemeral IP address. If you specify a `loadBalancerIP`
-but your cloud provider does not support the feature, the `loadbalancerIP` field that you
-set is ignored.
-
 To implement a Service of `type: LoadBalancer`, Kubernetes typically starts off
 by making the changes that are equivalent to you requesting a Service of
 `type: NodePort`. The cloud-controller-manager component then configures the external load balancer to
@@ -679,16 +673,16 @@ cloud provider implementation supports this.
 
 {{< note >}}
 
-On **Azure**, if you want to use a user-specified public type `loadBalancerIP`, you first need
-to create a static type public IP address resource. This public IP address resource should
-be in the same resource group of the other automatically created resources of the cluster.
-For example, `MC_myResourceGroup_myAKSCluster_eastus`.
-
-Specify the assigned IP address as loadBalancerIP. Ensure that you have updated the
-`securityGroupName` in the cloud provider configuration file.
-For information about troubleshooting `CreatingLoadBalancerFailed` permission issues see,
-[Use a static IP address with the Azure Kubernetes Service (AKS) load balancer](https://docs.microsoft.com/en-us/azure/aks/static-ip)
-or [CreatingLoadBalancerFailed on AKS cluster with advanced networking](https://github.com/Azure/AKS/issues/357).
+The`.spec.loadBalancerIP` field for a Service was deprecated in Kubernetes v1.24.
+	
+This field was under-specified and its meaning varies across implementations. It also cannot support dual-stack networking. This field may be removed in a future API version.
+	
+If you're integrating with a provider that supports specifying the load balancer IP address(es)
+for a Service via a (provider specific) annotation, you should switch to doing that.
+	
+If you are writing code for a load balancer integration with Kubernetes, avoid using this field.
+You can integrate with [Gateway](https://gateway-api.sigs.k8s.io/) rather than Service, or you
+can define your own (provider specific) annotations on the Service that specify the equivalent detail.
 
 {{< /note >}}
 
