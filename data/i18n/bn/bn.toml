@@ -8,16 +8,16 @@
 #other = """<p>This page is automatically generated.</p><p>If you plan to report an issue with this page, mention that the page is auto-generated in your issue description. The fix may need to happen elsewhere in the Kubernetes project.</p>"""
 
 #[caution]
-#other = "Caution:"
+#other = "সতর্কতা:"
 
 #[cleanup_heading]
-#other = "Cleaning up"
+#other = "ক্লিনিং"
 
 #[community_events_calendar]
-#other = "Events Calendar"
+#other = "ঘটনার দিনপঞ্জিকা"
 
 #[community_forum_name]
-#other = "Forum"
+#other = "ফোরাম"
 
 #[community_github_name]
 #other = "GitHub"
@@ -60,284 +60,284 @@
 #other = "(last updated: %s)"
 
 #[deprecation_title]
-#other = "You are viewing documentation for Kubernetes version:"
+#other = "আপনি Kubernetes সংস্করণের জন্য ডকুমেন্টেশন দেখছেন:"
 
 #[deprecation_warning]
-#other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date documentation, see the "
+#other = " ডকুমেন্টেশন আর সক্রিয়ভাবে রক্ষণাবেক্ষণ করা হয় না। আপনি বর্তমানে যে সংস্করণটি দেখছেন সেটি একটি স্ট্যাটিক স্ন্যাপশট। আপ-টু-ডেট ডকুমেন্টেশনের জন্য, দেখুন "
 
 #[deprecation_file_warning]
-#other = "Deprecated"
+#other = "ডেপ্রিক্যাটেড"
 
 #[dockershim_message]
-#other = """Dockershim has been removed from the Kubernetes project as of release 1.24. Read the <a href="/dockershim">Dockershim Removal FAQ</a> for further details."""
+#other = """1.24 রিলিজ হিসাবে Dockershim কুবারনেটস প্রকল্প থেকে সরানো হয়েছে। বিস্তারি তথ্যের জন্য <a href="/dockershim">Dockershim Removal FAQ</a> পড়ুন। """
 
 #[docs_label_browse]
-#other = "Browse Docs"
+#other = "ডক্স ব্রাউজ করুন"
 
 #[docs_label_contributors]
-#other = "Contributors"
+#other = "অবদানকারীরা"
 
 #[docs_label_i_am]
-#other = "I AM..."
+#other = "আমি..."
 
 #[docs_label_users]
-#other = "Users"
+#other = "অবদানকারীরা"
 
 #[docs_version_current]
-#other = "(this documentation)"
+#other = "(এই ডকুমেন্টেশন)"
 
 #[docs_version_latest_heading]
-#other = "Latest version"
+#other = "সর্বশেষ সংস্করণ"
 
 #[docs_version_other_heading]
-#other = "Older versions"
+#other = "পুরানো সংস্করণ"
 
 #[end_of_life]
-#other = "End of Life:"
+#other = "জীবনের শেষ:"
 
 #[envvars_heading]
-#other = "Environment variables"
+#other = "ইন্বাইরন্মন্ট বেরীঅবল"
 
 #[error_404_were_you_looking_for]
-#other = "Were you looking for:"
+#other = "আপনি এই খুঁজছেন:"
 
 #[examples_heading]
-#other = "Examples"
+#other = "উদাহরণ"
 
 #[feature_state]
-#other = "FEATURE STATE:"
+#other = "ফীচর স্থিতি:"
 
 #[feedback_heading]
-#other = "Feedback"
+#other = "প্রতিক্রিয়া"
 
 #[feedback_no]
-#other = "No"
+#other = "না"
 
 #[feedback_question]
-#other = "Was this page helpful?"
+#other = "এই পেজটি কি সহায়ক ছিল?"
 
 #[feedback_yes]
-#other = "Yes"
+#other = "হ্যাঁ"
 
 #[final_patch_release]
-#other = "Final Patch Release"
+#other = "চূড়ান্ত প্যাচ রিলিজ"
 
 #[inline_list_separator]
 #other = ","
 
 #[input_placeholder_email_address]
-#other = "email address"
+#other = "ইমেল ঠিকানা"
 
 #[javascript_required]
-#other = "JavaScript must be [enabled](https://www.enable-javascript.com/) to view this content"
+#other = "এই বিষয়বস্তু দেখতে JavaScript [চালু](https://www.enable-javascript.com/) থাকতে হবে"
 
 #[latest_release]
-#other = "Latest Release:"
+#other = "সর্বশেষ রিলিজ:"
 
 #[latest_version]
-#other = "latest version."
+#other = "সর্বশেষ সংস্করণ"
 
 #[layouts_blog_pager_next]
-#other = "Next >>"
+#other = "পরবর্তী >>"
 
 #[layouts_blog_pager_prev]
-#other = "<< Prev"
+#other = "<< পূর্ববর্তী"
 
 #[layouts_case_studies_list_tell]
-#other = "Tell your story"
+#other = "আপনার স্টোরী বলুন"
 
 #[layouts_docs_glossary_aka]
-#other = "Also known as"
+#other = "এই নামেও পরিচিত"
 
 #[layout_docs_glossary_architecture_description]
-#other = "The inner components of Kubernetes."
+#other = "কুবারনেটসের অভ্যন্তরীণ উপাদান"
 
 #[layout_docs_glossary_architecture_name]
-#other = "Architecture"
+#other = "আর্কিটেকচার"
 
 #[layouts_docs_glossary_click_details_after]
-#other = "indicators below to get a longer explanation for any particular term."
+#other = "কোনো নির্দিষ্ট শব্দের জন্য একটি দীর্ঘ ব্যাখ্যা পেতে নীচের সূচকগুলি"
 
 #[layouts_docs_glossary_click_details_before]
-#other = "Click on the"
+#other = "ক্লিক করুন"
 
 #[layout_docs_glossary_community_description]
-#other = "Related to Kubernetes open-source development."
+#other = "Kubernetes ওপেন সোর্স ডেভেলপমেন্ট সম্পর্কিত"
 
 #[layout_docs_glossary_community_name]
-#other = "Community"
+#other = "কম্যূনটী"
 
 #[layout_docs_glossary_core-object_description]
-#other = "A resource type that Kubernetes supports by default."
+#other = "একটি রিসোর্স টাইপ যা কুবারনেটস ডিফল্টরূপে সমর্থন করে"
 
 #[layout_docs_glossary_core-object_name]
-#other = "Core Object"
+#other = "মূল বস্তু"
 
 #[layouts_docs_glossary_description]
-#other = "This glossary is intended to be a comprehensive, standardized list of Kubernetes terminology. It includes technical terms that are specific to Kubernetes, as well as more general terms that provide useful context."
+#other = "এই শব্দকোষটি Kubernetes পরিভাষার একটি বিস্তৃত, প্রমিত তালিকা হওয়ার উদ্দেশ্যে করা হয়েছে। এতে প্রযুক্তিগত শব্দ রয়েছে যা কুবারনেটসের জন্য নির্দিষ্ট, সেইসাথে আরও সাধারণ শব্দ যা দরকারী প্রসঙ্গ প্রদান করে।"
 
 #[layouts_docs_glossary_deselect_all]
-#other = "Deselect all"
+#other = "সব গুলো অনির্বাচিত কর"
 
 #[layout_docs_glossary_extension_description]
-#other = "Supported customizations of Kubernetes."
+#other = "Kubernetes এর সমর্থিত কাস্টমাইজেশন।"
 
 #[layout_docs_glossary_extension_name]
-#other = "Extension"
+#other = "ইক্স্টেন্শন"
 
 #[layouts_docs_glossary_filter]
-#other = "Filter terms according to their tags"
+#other = "তাদের ট্যাগ অনুযায়ী শর্তাবলী ফিল্টার"
 
 #[layout_docs_glossary_fundamental_description]
-#other = "Relevant for a first-time user of Kubernetes."
+#other = "Kubernetes-এর প্রথমবারের ব্যবহারকারীর জন্য প্রাসঙ্গিক"
 
 #[layout_docs_glossary_fundamental_name]
-#other = "Fundamental"
+#other = "মৌলিক"
 
 #[layout_docs_glossary_networking_description]
-#other = "How Kubernetes components talk to each other (and to programs outside the cluster)."
+#other = "কিভাবে Kubernetes উপাদান একে অপরের সাথে কথা বলে (এবং ক্লাস্টারের বাইরের প্রোগ্রামগুলিতে)।"
 
 #[layout_docs_glossary_networking_name]
-#other = "Networking"
+#other = "নেটওয়ার্কিং"
 
 #[layout_docs_glossary_operation_description]
-#other = "Starting and maintaining Kubernetes."
+#other = "Kubernetes শুরু করা এবং মেন্টনন্স রাখা"
 
 #[layout_docs_glossary_operation_name]
-#other = "Operation"
+#other = "অপারেশন"
 
 #[layout_docs_glossary_security_description]
-#other = "Keeping Kubernetes applications safe and secure."
+#other = "Kubernetes অ্যাপ্লিকেশন নিরাপদ এবং সুরক্ষিত রাখা"
 
 #[layout_docs_glossary_security_name]
-#other = "Security"
+#other = "নিরাপত্তা"
 
 #[layouts_docs_glossary_select_all]
-#other = "Select all"
+#other = "সব নির্বাচন করুন"
 
 #[layout_docs_glossary_storage_description]
-#other = "How Kubernetes applications handle persistent data."
+#other = "কুবারনেটস অ্যাপ্লিকেশনগুলি কীভাবে স্থায়ী ডেটা পরিচালনা করে"
 
 #[layout_docs_glossary_storage_name]
-#other = "Storage"
+#other = "স্টোরেজ"
 
 #[layout_docs_glossary_tool_description]
-#other = "Software that makes Kubernetes easier or better to use."
+#other = "সফ্টওয়্যার যা Kubernetes ব্যবহার করা সহজ বা ভাল করে তোলে"
 
 #[layout_docs_glossary_tool_name]
-#other = "Tool"
+#other = "টুল"
 
 #[layout_docs_glossary_user-type_description]
-#other = "Represents a common type of Kubernetes user."
+#other = "একটি সাধারণ Kubernetes ব্যবহারকারীর প্রতিনিধিত্ব করে"
 
 #[layout_docs_glossary_user-type_name]
-#other = "User Type"
+#other = "ব্যবহারকারীর ধরন"
 
 #[layout_docs_glossary_workload_description]
-#other = "Applications running on Kubernetes."
+#other = "Kubernetes এ চলমান অ্যাপ্লিকেশন"
 
 #[layout_docs_glossary_workload_name]
-#other = "Workload"
+#other = "বর্ক্লোড"
 
 #[layouts_docs_partials_feedback_improvement]
-#other = "suggest an improvement"
+#other = "উন্নতির পরামর্শ দিন"
 
 #[layouts_docs_partials_feedback_issue]
-#other = "Open an issue in the GitHub repo if you want to "
+#other = "আপনি চাইলে GitHub রেপোতে একটি ইশূ খুলুন "
 
 #[layouts_docs_partials_feedback_or]
-#other = "or"
+#other = "অথবা"
 
 #[layouts_docs_partials_feedback_problem]
-#other = "report a problem"
+#other = "একটি সমস্যা রিপোর্ট করুন"
 
 #[layouts_docs_partials_feedback_thanks]
-#other = "Thanks for the feedback. If you have a specific, answerable question about how to use Kubernetes, ask it on"
+#other = "সাহায্য করার জন্য ধন্যবাদ. কুবারনেটস কীভাবে ব্যবহার করবেন সে সম্পর্কে আপনার যদি একটি নির্দিষ্ট, উত্তরযোগ্য প্রশ্ন থাকে তবে এটি জিজ্ঞাসা করুন"
 
 #[layouts_docs_search_fetching]
-#other = "Fetching results..."
+#other = "ফলাফল আনা হচ্ছে..."
 
 #[main_by]
-#other = "by"
+#other = "দ্বারা"
 
 #[main_cncf_project]
-#other = """We are a <a href="https://cncf.io/">CNCF</a> graduated project</p>"""
+#other = """Āmarā ēkaṭi <a href="https://cncf.io/">CNCF</a> গ্রৈজূএটিড প্রকল্প</p>"""
 
 #[main_community_explore]
-#other = "Explore the community"
+#other = "কম্যূনটী অন্বেষণ করুন"
 
 #[main_contribute]
-#other = "Contribute"
+#other = "কন্ট্রিব্যূট করুন"
 
 #[main_copyright_notice]
-#other = """The Linux Foundation &reg;. All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+#other = """The Linux Foundation &reg;. সমস্ত অধিকার সংরক্ষিত। The Linux Foundation নিবন্ধিত ট্রেডমার্ক এবং ট্রেডমার্ক ব্যবহার করে। The Linux Foundation এর ট্রেডমার্কের তালিকার জন্য, অনুগ্রহ করে আমাদের <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a> দেখুন """
 
 #[main_documentation_license]
-#other = """The Kubernetes Authors | Documentation Distributed under <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+#other = """The Kubernetes Authors | ডকুমেন্টেশন  <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a> লাইসেন্সের অধীনে বিতরণ করা হয়েছে"""
 
 #[main_github_invite]
-#other = "Interested in hacking on the core Kubernetes code base?"
+#other = "মূল Kubernetes কোড বেস হ্যাকিং করতে আগ্রহী?"
 
 #[main_github_view_on]
-#other = "View On GitHub"
+#other = "GitHub-এ দেখুন"
 
 #[main_kubernetes_features]
-#other = "Kubernetes Features"
+#other = "Kubernetes ফীচর্জ়"
 
 #[main_kubeweekly_baseline]
-#other = "Interested in receiving the latest Kubernetes news? Sign up for KubeWeekly."
+#other = "সর্বশেষ Kubernetes খবর পেতে আগ্রহী? KubeWeekly এর জন্য সাইন আপ করুন"
 
 #[main_kubernetes_past_link]
-#other = "View past newsletters"
+#other = "অতীতের নিউজলেটার দেখুন"
 
 #[main_kubeweekly_signup]
-#other = "Subscribe"
+#other = "সাবস্ক্রাইব"
 
 #[main_page_history]
-#other ="Page History"
+#other ="পৃষ্ঠার ইতিহাস"
 
 #[main_page_last_modified_on]
-#other = "Page last modified on"
+#other = "পৃষ্ঠায় সর্বশেষ পরিবর্তন করা হয়েছে"
 
 #[main_read_about]
-#other = "Read about"
+#other = "সম্পর্কে পড়ুন"
 
 #[main_read_more]
-#other = "Read more"
+#other = "আরও পড়ুন"
 
 #[not_applicable]
 ## Localization teams: it's OK to use a longer text here
-#other = "n/a"
+#other = "প্রযোজ্য নয়"
 
 #[note]
-#other = "Note:"
+#other = "বিঃদ্রঃ:"
 
 #[objectives_heading]
-#other = "Objectives"
+#other = "উদ্দেশ্য"
 
 #[options_heading]
-#other = "Options"
+#other = "বিকল্প"
 
 #[outdated_blog__message]
-#other = "This article is more than one year old. Older articles may contain outdated content. Check that the information in the page has not become incorrect since its publication."
+#other = "এই নিবন্ধটি এক বছরেরও বেশি পুরনো। পুরানো নিবন্ধে পুরানো বিষয়বস্তু থাকতে পারে। পৃষ্ঠায় তথ্য প্রকাশের পর থেকে ভুল হয়ে গেছে তা পরীক্ষা করুন।"
 
 #[patch_release]
-#other = "Patch Release"
+#other = "প্যাচ রিলিজ"
 
 #[post_create_issue]
-#other = "Create an issue"
+#other = "একটি ইশূ তৈরি করুন"
 
 #[prerequisites_heading]
-#other = "Before you begin"
+#other = "শুরু করার আগে"
 
 #[previous_patches]
-#other = "Patch Releases:"
+#other = "প্যাচ রিলিজ:"
 
 #[release_date_after]
 #other = ")"
 
 #[release_date_before]
-#other = "(released: "
+#other = "(রিলীস হয়েছিল: "
 
 ## See https://gohugo.io/functions/format/#gos-layout-string
 ## Use a suitable format for your locale
@@ -345,22 +345,22 @@
 #other = "2006-01-02"
 
 #[release_cherry_pick_deadline]
-#other = "Cherry Pick Deadline"
+#other = "Cherry Pick সময়সীমা"
 
 #[release_end_of_life_date]
-#other = "End Of Life Date"
+#other = "End Of Life তারিখ"
 
 #[release_full_details_initial_text]
-#other = "Complete"
+#other = "সম্পূর্ণ"
 
 #[release_information_navbar]
-#other = "Release Information"
+#other = "রিলিজ তথ্য"
 
 #[release_minor_version]
-#other = "Minor Version"
+#other = "ক্ষুদ্র সংস্করণ"
 
 #[release_info_next_patch]
-#other = "Next patch release is **%s**."
+#other = "পরবর্তী প্যাচ রিলিজ হয় **%s**."
 
 ## Localization note: You can use Markdown here.
 ## The three placeholders (in order) are:
@@ -374,56 +374,56 @@
 #other = "**%s** enters maintenance mode on **%s** and End of Life is on **%s**."
 
 #[release_note]
-#other = "Note"
+#other = "বিঃদ্রঃ"
 
 #[release_schedule]
-#other = "Schedule"
+#other = "সময়সূচী"
 
 #[release_target_date]
-#other = "Target Date"
+#other = "লক্ষ্য তারিখ"
 
 #[release_changelog]
-#other = "Changelog"
+#other = "চেঞ্জলগ"
 
 #[seealso_heading]
-#other = "See Also"
+#other = "আরো দেখুন"
 
 #[subscribe_button]
-#other = "Subscribe"
+#other = "সাবস্ক্রাইব"
 
 #[synopsis_heading]
-#other = "Synopsis"
+#other = "সারমর্ম"
 
 #[thirdparty_message]
-#other = """This section links to third party projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for these projects, which are listed alphabetically. To add a project to this list, read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before submitting a change. <a href="#third-party-content-disclaimer">More information.</a>"""
+#other = """এই বিভাগটি তৃতীয় পক্ষের প্রকল্পগুলির সাথে লিঙ্ক করে যা Kubernetes দ্বারা প্রয়োজনীয় কার্যকারিতা প্রদান করে। Kubernetes প্রকল্প লেখক এই প্রকল্পগুলির জন্য দায়ী নয়, যা বর্ণানুক্রমিকভাবে তালিকাভুক্ত করা হয়েছে। এই তালিকায় একটি প্রকল্প যোগ করতে, একটি পরিবর্তন জমা দেওয়ার আগে <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> পড়ুন। <a href="#third-party-content-disclaimer">অধিক তথ্য</a>"""
 
 #[thirdparty_message_edit_disclaimer]
-#other="""Third party content advice"""
+#other="""তৃতীয় পক্ষের বিষয়বস্তু পরামর্শ"""
 
 
 #[thirdparty_message_single_item]
-#other = """&#128711; This item links to a third party project or product that is not part of Kubernetes itself. <a class="alert-more-info" href="#third-party-content-disclaimer">More information</a>"""
+#other = """&#128711; এই আইটেমটি একটি তৃতীয় পক্ষের প্রকল্প বা পণ্যের সাথে লিঙ্ক করে যা নিজে Kubernetes এর অংশ নয়। <a class="alert-more-info" href="#third-party-content-disclaimer">অধিক তথ্য</a>"""
 
 #[thirdparty_message_disclaimer]
-#other = """<p>Items on this page refer to third party products or projects that provide functionality required by Kubernetes. The Kubernetes project authors aren't responsible for those third-party products or projects. See the <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF website guidelines</a> for more details.</p><p>You should read the <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> before proposing a change that adds an extra third-party link.</p>"""
+#other = """<p>এই পৃষ্ঠার আইটেমগুলি তৃতীয় পক্ষের পণ্য বা প্রকল্পগুলিকে নির্দেশ করে যা কুবারনেটসের প্রয়োজনীয় কার্যকারিতা প্রদান করে। Kubernetes প্রকল্পের লেখকরা সেই তৃতীয় পক্ষের পণ্য বা প্রকল্পগুলির জন্য দায়ী নয়৷ আরো বিস্তারিত জানার জন্য <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF website guidelines</a> দেখুন। </p><p> একটি অতিরিক্ত তৃতীয় পক্ষের লিঙ্ক যোগ করে এমন একটি পরিবর্তন প্রস্তাব করার আগে আপনার <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> পড়া উচিত।</p>"""
 
 #[ui_search_placeholder]
-#other = "Search"
+#other = "অনুসন্ধান করুন"
 
 #[version_check_mustbe]
-#other = "Your Kubernetes server must be version "
+#other = "আপনার Kubernetes সার্ভার সংস্করণ হতে হবে "
 
 #[version_check_mustbeorlater]
-#other = "Your Kubernetes server must be at or later than version "
+#other = "আপনার Kubernetes সার্ভার সংস্করণের চেয়ে বা তার পরে হতে হবে "
 
 #[version_check_tocheck]
-#other = "To check the version, enter "
+#other = "সংস্করণ পরীক্ষা করতে, এন্টার করুন "
 
 #[version_menu]
-#other = "Versions"
+#other = "সংস্করণ"
 
 #[warning]
-#other = "Warning:"
+#other = "সতর্কতা:"
 
 #[whatsnext_heading]
-#other = "What's next"
+#other = "এর পরের কি"
