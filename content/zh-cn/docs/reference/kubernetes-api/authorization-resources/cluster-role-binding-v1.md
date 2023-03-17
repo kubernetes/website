@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ClusterRoleBinding 引用 ClusterRole，但不包含它。"
 title: "ClusterRoleBinding"
-weight: 6
+weight: 7
 auto_generated: false
 ---
 <!-- 
@@ -18,7 +18,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ClusterRoleBinding references a ClusterRole, but not contain it."
 title: "ClusterRoleBinding"
-weight: 6
+weight: 7
 auto_generated: true
 ---
 -->

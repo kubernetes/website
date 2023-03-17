@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "RoleBinding 引用一个角色，但不包含它。"
 title: "RoleBinding"
-weight: 8
+weight: 9
 auto_generated: false
 ---
 <!--
@@ -18,7 +18,7 @@ api_metadata:
 content_type: "api_reference"
 description: "RoleBinding references a role, but does not contain it."
 title: "RoleBinding"
-weight: 8
+weight: 9
 auto_generated: true
 ---
 -->
