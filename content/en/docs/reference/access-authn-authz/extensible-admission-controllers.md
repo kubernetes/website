@@ -719,7 +719,7 @@ webhooks:
 
 The `matchPolicy` for an admission webhooks defaults to `Equivalent`.
 
-### Matching requests: matchConditions
+### Matching requests: `matchConditions`
 
 {{< feature-state state="alpha" for_k8s_version="v1.27" >}}
 
@@ -735,26 +735,7 @@ the webhook to be called.
 
 Here are a couple examples of match conditions:
 
-```yaml
-apiVersion: admissionregistration.k8s.io/v1
-kind: ValidatingWebhookConfiguration
-webhooks:
-- name: my-webhook.example.com
-  matchPolicy: Equivalent
-  rules:
-  - operations: ['CREATE','UPDATE']
-    apiGroups: ['*']
-    apiVersions: ['*']
-    resources: ['*']
-  matchConditions:
-  - name: 'exclude-leases' # Each match condition must have a unique name
-    expression: '!(request.resource.group == "coordination.k8s.io" && resource.resource == "leases")' # Match non-lease resources.
-  - name: 'exclude-kubelet-requests'
-    expression: '!("system:nodes" in request.userInfo.groups)' # Match requests made by non-node users.
-  - name: 'breakglass'
-    # Skip requests by users with the 'breakglass' permission on my-webhook.
-    expression: 'authorizer.group('admissionregistration.k8s.io').resource('validatingwebhookconfigurations').name('my-webhook.example.com').check('breakglass').denied()'
-```
+{{< codenew file="access/admission-webhook-match-conditions.yaml" >}}
 
 Match conditions have access to the following CEL variables:
 
@@ -763,10 +744,11 @@ Match conditions have access to the following CEL variables:
 - `oldObject` - The existing object. The value is null for CREATE requests. Equivalent to `request.oldObject`.
 - `request` - The request portion of the [AdmissionReview](#request)
 - `authorizer` - A CEL Authorizer. May be used to perform authorization checks for the principal
-  (authenticated user) of the request. See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
-  for more details.
-- `authorizer.requestResource` - A CEL ResourceCheck constructed from the 'authorizer' and
-  configured with the request resource (group, resource, (subresource), namespace, name).
+  (authenticated user) of the request. See
+  [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz) in the Kubernetes CEL library
+  documentation for more details.
+- `authorizer.requestResource` - A shortcut for an authorization check configured with the request
+  resource (group, resource, (subresource), namespace, name).
 
 For more information on CEL expressions, refer to the
 [Common Expression Language in Kubernetes reference](/docs/reference/using-api/cel/).
@@ -774,10 +756,10 @@ For more information on CEL expressions, refer to the
 In the event of an error evaluating a match condition the webhook is never called. Whether to reject
 the request is determined as follows:
 
-1. If ANY match condition evaluated to `false` (regardless of other errors), skip the webhook.
+1. If **any** match condition evaluated to `false` (regardless of other errors), the API server skips the webhook.
 2. Otherwise:
-    - If [`failurePolicy=Fail`](#failure-policy), reject the request (without calling the webhook).
-    - If [`failurePolicy=Ignore`](#failure-policy), proceed with the request but skip the webhook.
+    - for [`failurePolicy: Fail`](#failure-policy), reject the request (without calling the webhook).
+    - for [`failurePolicy: Ignore`](#failure-policy), proceed with the request but skip the webhook.
 
 ### Contacting the webhook
 
