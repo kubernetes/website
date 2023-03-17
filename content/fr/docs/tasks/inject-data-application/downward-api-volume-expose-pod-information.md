@@ -195,7 +195,7 @@ Vous pouvez utiliser des commandes similaires pour afficher les fichiers
 
 ## Projection de champs sur des chemins spécifiques et droits d'accès
 
-Vous pouvez projecter des champs sur des chemins spécifiques,
+Vous pouvez projeter des champs sur des chemins spécifiques,
 et assigner des permissions pour chacun de ces chemins.
 Pour plus d'informations, regardez la documentation des 
 [Secrets](/docs/concepts/configuration/secret/).
