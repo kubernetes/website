@@ -69,10 +69,9 @@ The following feature gates for [volume expansion](https://github.com/kubernetes
 
 ### Removal of `--master-service-namespace` command line argument
 
-The kube-apiserver accepts a deprecated command line argument,  `--master-service-namespace`, that specified where to create the Service named `kubernetes`
+The kube-apiserver accepts a deprecated command line argument, `--master-service-namespace`, that specified where to create the Service named `kubernetes`
 to represent the API server.
-Kubernetes v1.27 will remove that argument, which has been deprecated since the v1.6
-release.
+Kubernetes v1.27 will remove that argument, which has been deprecated since the v1.26 release.
 
 ### Removal of the `ControllerManagerLeaderMigration` feature gate
 
@@ -84,7 +83,7 @@ The `ControllerManagerLeaderMigration` feature, GA since v1.24, is unconditional
 
 The kube-controller-manager command line argument `--enable-taint-manager` is deprecated, and will be removed in Kubernetes v1.27. The feature that it supports, [taint based eviction](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-based-evictions),
 is already enabled by default and will continue to be implicitly enabled when the flag is removed.
-    
+
 ### Removal of `--pod-eviction-timeout` command line argument
 	
 The deprecated command line argument `--pod-eviction-timeout` will be removed from the
@@ -103,15 +102,15 @@ The [CSI Ephemeral Volume](https://github.com/kubernetes/kubernetes/pull/111258)
 
 [Ephemeral containers](/docs/concepts/workloads/pods/ephemeral-containers/) graduated to GA in v1.25. These are containers with a temporary duration that executes within namespaces of an existing pod. Ephemeral containers are typically initiated by a user in order to observe the state of other pods and containers for troubleshooting and debugging purposes. For Kubernetes v1.27, API support for ephemeral containers is unconditionally enabled; the `EphemeralContainers` feature gate will be removed.
 
-### Removal of `LocalStorageCapacityIsolation`  feature gate
+### Removal of `LocalStorageCapacityIsolation` feature gate
 
-The [Local Ephemeral Storage Capacity Isolation](https://github.com/kubernetes/kubernetes/pull/111513) feature moved to GA in v1.25. The feature provides support for capacity isolation of local ephemeral storage between pods, such as `emptyDir` volumes, so that a pod can be hard limited in its consumption of shared resources. The kubelet will evicting Pods if consumption of local ephemeral storage exceeds the configured limit. The feature gate, `LocalStorageCapacityIsolation`, will be removed in the v.127 release.
+The [Local Ephemeral Storage Capacity Isolation](https://github.com/kubernetes/kubernetes/pull/111513) feature moved to GA in v1.25. The feature provides support for capacity isolation of local ephemeral storage between pods, such as `emptyDir` volumes, so that a pod can be hard limited in its consumption of shared resources. The kubelet will evicting Pods if consumption of local ephemeral storage exceeds the configured limit. The feature gate, `LocalStorageCapacityIsolation`, will be removed in the v1.27 release.
 
 ### Removal of `NetworkPolicyEndPort` feature gate
 
 The v1.25 release of Kubernetes promoted `endPort` in NetworkPolicy to GA. NetworkPolicy providers that support the `endPort` field that can be used to specify a range of ports to apply a NetworkPolicy. Previously, each NetworkPolicy could only target a single port. So the feature gate `NetworkPolicyEndPort` will be removed in this release.
 
-Please be aware that `endPort` field must be supported by the Network Policy provider. If your provider does not support endPort, and this field is specified in a Network Policy, the Network Policy will be created covering only the port field (single port)
+Please be aware that `endPort` field must be supported by the Network Policy provider. If your provider does not support `endPort`, and this field is specified in a Network Policy, the Network Policy will be created covering only the port field (single port).
 
 ### Removal of `StatefulSetMinReadySeconds` feature gate
 
