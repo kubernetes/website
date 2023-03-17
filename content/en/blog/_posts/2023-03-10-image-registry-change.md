@@ -111,7 +111,7 @@ kubectl community-images
 ```
 
 For alternate methods of install and example output, check out the repo:
-[kubernetes-sigs/community-images](https://github.com/kubernetes-sigs/community-image).
+[kubernetes-sigs/community-images](https://github.com/kubernetes-sigs/community-images).
 
 **Option 3**: If you do not have access to a cluster directly, or manage many clusters - the best
 way is to run a search over your manifests and charts for _"k8s.gcr.io"_.
