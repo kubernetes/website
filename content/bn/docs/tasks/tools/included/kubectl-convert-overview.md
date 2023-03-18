@@ -9,8 +9,6 @@ _build:
   publishResources: false
 ---
 
-A plugin for Kubernetes command-line tool `kubectl`, which allows you to convert manifests between different API 
-versions. This can be particularly helpful to migrate manifests to a non-deprecated api version with newer Kubernetes release.
 কুবারনেটিস কমান্ড-লাইন টুল `kubectl` এর জন্য একটি প্লাগইন, যা আপনাকে বিভিন্ন আপিআই সংস্করণ এর মধ্যে রূপান্তর করতে দেয়।
 এটি নতুন কুবারনেটিস রিলিজের সাথে একটি অ-বঞ্চিত আপিআই সংস্করণে স্থানান্তর করতে বিশেষভাবে সহায়ক হতে পারে।
 আরও তথ্যের জন্য, [অপ্রচলিত apis-এ মাইগ্রেট করুন](/docs/reference/using-api/deprecation-guide/#migrate-to-non-deprecated-apis)
