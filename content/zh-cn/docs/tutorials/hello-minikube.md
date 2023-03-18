@@ -69,7 +69,7 @@ This tutorial provides a container image that uses NGINX to echo back all the re
 <!--
 ## Create a minikube cluster
 
-1. Click **Launch Terminal**
+1. Click **Launch Terminal**.
 -->
 ## 创建 Minikube 集群  {#create-a-minikube-cluster}
 
@@ -166,9 +166,9 @@ Kubernetes [**Deployment**](/zh-cn/docs/concepts/workloads/controllers/deploymen
 Deployment 是管理 Pod 创建和扩展的推荐方法。
 
 <!--
-1. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then click open a new terminal.
+1. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then **Open New Terminal**.
 -->
-1. 仅 Katacoda 环境：在终端窗格的顶部，点击加号，然后点击 **Open a new terminal**。
+1. 仅 Katacoda 环境：在终端窗格的顶部，点击加号，然后点击 **Open New Terminal**。
 
 <!--
 1. Use the `kubectl create` command to create a Deployment that manages a Pod. The
