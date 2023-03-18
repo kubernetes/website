@@ -69,7 +69,7 @@
 #other = "ডেপ্রিক্যাটেড"
 
 #[dockershim_message]
-#other = """1.24 রিলিজ হিসাবে Dockershim কুবারনেটস প্রকল্প থেকে সরানো হয়েছে। বিস্তারি তথ্যের জন্য <a href="/dockershim">Dockershim Removal FAQ</a> পড়ুন। """
+#other = """1.24 রিলিজ হিসাবে Dockershim কুবারনেটিস প্রকল্প থেকে সরানো হয়েছে। বিস্তারি তথ্যের জন্য <a href="/dockershim">Dockershim Removal FAQ</a> পড়ুন। """
 
 #[docs_label_browse]
 #other = "ডক্স ব্রাউজ করুন"
@@ -395,7 +395,7 @@
 #other = "সারমর্ম"
 
 #[thirdparty_message]
-#other = """এই বিভাগটি তৃতীয় পক্ষের প্রকল্পগুলির সাথে লিঙ্ক করে যা Kubernetes দ্বারা প্রয়োজনীয় কার্যকারিতা প্রদান করে। Kubernetes প্রকল্প লেখক এই প্রকল্পগুলির জন্য দায়ী নয়, যা বর্ণানুক্রমিকভাবে তালিকাভুক্ত করা হয়েছে। এই তালিকায় একটি প্রকল্প যোগ করতে, একটি পরিবর্তন জমা দেওয়ার আগে <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> পড়ুন। <a href="#third-party-content-disclaimer">অধিক তথ্য</a>"""
+#other = """এই বিভাগটি তৃতীয় পক্ষের (third party) প্রকল্পগুলির সাথে লিঙ্ক করে যা Kubernetes দ্বারা প্রয়োজনীয় কার্যকারিতা প্রদান করে। Kubernetes প্রকল্প লেখক এই প্রকল্পগুলির জন্য দায়ী নয়, যা বর্ণানুক্রমিকভাবে তালিকাভুক্ত করা হয়েছে। এই তালিকায় একটি প্রকল্প যোগ করতে, একটি পরিবর্তন জমা দেওয়ার আগে <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> পড়ুন। <a href="#third-party-content-disclaimer">অধিক তথ্য</a>"""
 
 #[thirdparty_message_edit_disclaimer]
 #other="""তৃতীয় পক্ষের বিষয়বস্তু পরামর্শ"""
