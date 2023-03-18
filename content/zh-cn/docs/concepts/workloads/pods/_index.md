@@ -555,14 +555,14 @@ Pod 中的所有容器都可以在特权模式下运行，以使用原本无法�
 此模式同时适用于 Windows 和 Linux。
 
 <!--
-### Linux priviledged containers
+### Linux privileged containers
 
 In Linux, any container in a Pod can enable privileged mode using the `privileged` (Linux) flag
 on the [security context](/docs/tasks/configure-pod-container/security-context/) of the
 container spec. This is useful for containers that want to use operating system administrative
 capabilities such as manipulating the network stack or accessing hardware devices.
 -->
-### Linux 特权容器   {#linux-priviledged-containers}
+### Linux 特权容器   {#linux-privileged-containers}
 
 在 Linux 中，Pod 中的所有容器都可以使用容器规约中的
 [安全性上下文](/zh-cn/docs/tasks/configure-pod-container/security-context/)中的
@@ -570,9 +570,9 @@ capabilities such as manipulating the network stack or accessing hardware device
 这对于想要使用操作系统管理权能（Capabilities，如操纵网络堆栈和访问硬件设备）的容器很有用。
 
 <!--
-### Windows priviledged containers
+### Windows privileged containers
 -->
-### Windows 特权容器   {#windows-priviledged-containers}
+### Windows 特权容器   {#windows-privileged-containers}
 
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
