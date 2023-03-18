@@ -338,7 +338,7 @@ before the item, or just below the heading for the specific item.
 
 To generate a version string for inclusion in the documentation, you can choose from
 several version shortcodes. Each version shortcode displays a version string derived from
-the value of a version parameter found in the site configuration file, `config.toml`.
+the value of a version parameter found in the site configuration file, `hugo.toml`.
 The two most commonly used version parameters are `latest` and `version`.
 
 ### `{{</* param "version" */>}}`
