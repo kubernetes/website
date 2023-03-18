@@ -12,7 +12,10 @@ card:
 
 ## {{% heading "prerequisites" %}}
 
-You must use a kubectl version that is within one minor version difference of your cluster. For example, a v{{< skew currentVersion >}} client can communicate with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}, and v{{< skew currentVersionAddMinor 1 >}} control planes.
+You must use a kubectl version that is within one minor version difference of
+your cluster. For example, a v{{< skew currentVersion >}} client can communicate
+with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
+and v{{< skew currentVersionAddMinor 1 >}} control planes.
 Using the latest compatible version of kubectl helps avoid unforeseen issues.
 
 ## Install kubectl on Linux
@@ -32,9 +35,10 @@ The following methods exist for installing kubectl on Linux:
    ```
 
    {{< note >}}
-To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)` portion of the command with the specific version.
+   To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
+   portion of the command with the specific version.
 
-For example, to download version {{< param "fullversion" >}} on Linux, type:
+   For example, to download version {{< param "fullversion" >}} on Linux, type:
 
    ```bash
    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
@@ -79,7 +83,8 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
    ```
 
    {{< note >}}
-   If you do not have root access on the target system, you can still install kubectl to the `~/.local/bin` directory:
+   If you do not have root access on the target system, you can still install
+   kubectl to the `~/.local/bin` directory:
 
    ```bash
    chmod +x kubectl
@@ -95,11 +100,14 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
    ```bash
    kubectl version --client
    ```
+
    {{< note >}}
    The above command will generate a warning:
+
    ```
    WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
    ```
+
    You can ignore this warning. You are only checking the version of `kubectl` that you
    have installed.
    
@@ -122,7 +130,9 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
    sudo apt-get update
    sudo apt-get install -y ca-certificates curl
    ```
+
    If you use Debian 9 (stretch) or earlier you would also need to install `apt-transport-https`:
+
    ```shell
    sudo apt-get install -y apt-transport-https
    ```
@@ -145,6 +155,7 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
    sudo apt-get update
    sudo apt-get install -y kubectl
    ```
+
 {{< note >}}
 In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default.
 You can create this directory if you need to, making it world-readable but writeable only by admins.
@@ -172,7 +183,9 @@ sudo yum install -y kubectl
 
 {{< tabs name="other_kubectl_install" >}}
 {{% tab name="Snap" %}}
-If you are on Ubuntu or another Linux distribution that supports the [snap](https://snapcraft.io/docs/core/install) package manager, kubectl is available as a [snap](https://snapcraft.io/) application.
+If you are on Ubuntu or another Linux distribution that supports the
+[snap](https://snapcraft.io/docs/core/install) package manager, kubectl
+is available as a [snap](https://snapcraft.io/) application.
 
 ```shell
 snap install kubectl --classic
@@ -182,7 +195,8 @@ kubectl version --client
 {{% /tab %}}
 
 {{% tab name="Homebrew" %}}
-If you are on Linux and using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux) package manager, kubectl is available for [installation](https://docs.brew.sh/Homebrew-on-Linux#install).
+If you are on Linux and using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux)
+package manager, kubectl is available for [installation](https://docs.brew.sh/Homebrew-on-Linux#install).
 
 ```shell
 brew install kubectl
@@ -201,7 +215,8 @@ kubectl version --client
 
 ### Enable shell autocompletion
 
-kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell, which can save you a lot of typing.
+kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell,
+which can save you a lot of typing.
 
 Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 
