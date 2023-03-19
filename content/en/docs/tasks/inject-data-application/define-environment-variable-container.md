@@ -27,9 +27,13 @@ The `env` and `envFrom` fields have different effects.
 : allows you to set environment variables for a container, specifying a value directly for each variable that you name.
 
 `envFrom`
-: allows you to set environment variables for a container by referencing either a ConfigMap or a Secret. When you use `envFrom`, all the key-value pairs in the referenced ConfigMap or Secret are set as environment variables for the container. You can also specify a common prefix string.
+: allows you to set environment variables for a container by referencing either a ConfigMap or a Secret.
+ When you use `envFrom`, all the key-value pairs in the referenced ConfigMap or Secret
+ are set as environment variables for the container.
+ You can also specify a common prefix string.
 
-You can read more about [ConfigMap](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables) and [Secret](https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables)
+You can read more about [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables)
+and [Secret](/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables).
 
 This page explains how to use `env`.
 
