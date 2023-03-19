@@ -38,14 +38,14 @@ Um Ingress pode ser configurado para fornecer URLs acessíveis externamente aos 
 Um [controlador Ingress](/docs/concepts/services-networking/ingress-controllers) é responsável por atender o Ingress, geralmente com um balanceador de carga, embora também possa configurar seu roteador de borda ou frontends adicionais para ajudar a lidar com o tráfego.
 
 Um Ingress não expõe portas ou protocolos arbitrários. 
-Expor serviços à Internet que não sejam HTTP e HTTPS normalmente usa um serviço do tipo [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport) ou [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer).
+Normalmente se usa um serviço do tipo [Service.Type=NodePort](/docs/concepts/services-networking/service/#type-nodeport) ou [Service.Type=LoadBalancer](/docs/concepts/services-networking/service/#loadbalancer) para expor serviços à Internet que não sejam HTTP e HTTPS.
 
 ## Pré-requisitos
 
 Você deve ter um [controlador Ingress](/docs/concepts/services-networking/ingress-controllers) para satisfazer um Ingress. 
 Apenas a criação de um recurso Ingress não tem efeito.
 
-Você pode precisar implantar um controlador Ingress, como [ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/). 
+Você pode precisar instalar um controlador Ingress, como [ingress-nginx](https://kubernetes.github.io/ingress-nginx/deploy/). 
 Você pode escolher entre vários [controladores Ingress](/docs/concepts/services-networking/ingress-controllers).
 
 Idealmente, todos os controladores Ingress devem se encaixar na especificação de referência. 
@@ -57,13 +57,13 @@ Certifique-se de revisar a documentação do seu controlador Ingress para entend
 
 ## O recurso Ingress
 
-Um exemplo de recurso de entrada mínima:
+Um exemplo mínimo do recurso Ingress:
 
 {{< codenew file="service/networking/minimal-ingress.yaml" >}}
 
 Um Ingress precisa dos campos `apiVersion`, `kind`, `metadata` and `spec`. 
 O nome de um objeto Ingress deve ser um nome de [subdomínio DNS válido](/pt-br/docs/concepts/overview/working-with-objects/names#dns-subdomain-names). 
-Para obter informações gerais sobre como trabalhar com arquivos de configuração, consulte como [implantar aplicações](/docs/tasks/run-application/run-stateless-application-deployment/), como [configurar contêineres](/docs/tasks/configure-pod-container/configure-pod-configmap/) e como [gerenciar recursos](/docs/concepts/cluster-administration/manage-deployment/). 
+Para obter informações gerais sobre como trabalhar com arquivos de configuração, consulte como [instalar aplicações](/docs/tasks/run-application/run-stateless-application-deployment/), como [configurar contêineres](/docs/tasks/configure-pod-container/configure-pod-configmap/) e como [gerenciar recursos](/docs/concepts/cluster-administration/manage-deployment/). 
 O Ingress frequentemente usa anotações para configurar opções dependendo do controlador Ingress. Um exemplo deste uso é a [anotação rewrite-target](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md). 
 Diferentes [controladores Ingress](/docs/concepts/services-networking/ingress-controllers) suportam diferentes anotações. 
 Revise a documentação do seu controlador Ingress escolhido para saber quais anotações são suportadas.
@@ -85,7 +85,7 @@ Cada regra HTTP contém as seguintes informações:
 Se um host for fornecido (por exemplo, foo.bar.com), as regras se aplicam a esse host.
 * Uma lista de caminhos (por exemplo, `/testpath`), cada um com um backend associado definido com um `service.name` e um `service.port.name` ou `service.port.number`. 
 Tanto o host quanto o caminho devem corresponder ao conteúdo de uma solicitação recebida antes que o balanceador de carga direcione o tráfego para o serviço referenciado.
-* Um backend é uma combinação de nomes de serviço e porta, conforme descrito no [documento de serviço](/docs/concepts/services-networking/service/) ou um [backend de recursos personalizados](#resource-backend) por meio de um {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRD" >}}. 
+* Um backend é uma combinação de nomes de serviço e porta, conforme descrito na [documentação de Services](/docs/concepts/services-networking/service/) ou um [backend de recursos personalizados](#resource-backend) por meio de um {{< glossary_tooltip term_id="CustomResourceDefinition" text="CRD" >}}. 
 As solicitações HTTP e HTTPS para o Ingress que correspondem ao host e ao caminho da regra são enviadas para o backend listado.
 
 Um `defaultBackend` geralmente é configurado em um controlador Ingress para atender a quaisquer solicitações que não correspondam a um caminho na especificação.
@@ -134,7 +134,7 @@ Os caminhos que não incluem um `pathType` explícito falharão na validação.
 Existem três tipos de caminho suportados:
 
 * `ImplementationSpecific`: Com esse tipo de caminho, a correspondência depende da IngressClass. As implementações podem tratar isso como um `pathType` separado ou tratá-lo de forma idêntica aos tipos de caminho `Prefix` ou `Exact`.
-* `Exact`: Corresponde exatamente ao caminho da URL e com a sensibilidade de caracteres.
+* `Exact`: Corresponde exatamente ao caminho da URL e com _case-sensitive_.
 * `Prefix`: Corresponde com base em um prefixo de caminho de URL dividido por `/`. A correspondência faz distinção entre maiúsculas e minúsculas e é feita em um caminho, elemento por elemento. Um elemento de caminho refere-se à lista de labels no caminho dividido pelo separador `/`. Uma solicitação é uma correspondência para o caminho _p_ se cada _p_ for um prefixo elementar de _p_ do caminho da solicitação.
 
 {{< note >}} Se o último elemento do caminho for uma substring do último elemento no caminho da solicitação, não é uma correspondência (por exemplo: `/foo/bar` corresponde a `/foo/bar/baz`, mas não corresponde a `/foo/barbaz`). {{< /note >}}
@@ -143,24 +143,24 @@ Existem três tipos de caminho suportados:
 
 | Tipos   | Caminho(s)                         | Caminho(s) de solicitação               | Correspondências?                           |
 |---------|----------------------------------|-------------------------------|------------------------------------|
-| Prefixo | `/`                              | (todos os caminhos)           | Sim                                |
-| Exato   | `/foo`                           | `/foo`                        | Sim                                |
-| Exato   | `/foo`                           | `/bar`                        | Não                                |
-| Exato   | `/foo`                           | `/foo/`                       | Não                                |
-| Exato   | `/foo/`                          | `/foo`                        | Não                                |
-| Prefixo | `/foo`                           | `/foo`, `/foo/`               | Sim                                |
-| Prefixo | `/foo/`                          | `/foo`, `/foo/`               | Sim                                |
-| Prefixo | `/aaa/bb`                        | `/aaa/bbb`                    | Não                                |
-| Prefixo | `/aaa/bbb`                       | `/aaa/bbb`                    | Sim                                |
-| Prefixo | `/aaa/bbb/`                      | `/aaa/bbb`                    | Sim, ignora a barra final          |
-| Prefixo | `/aaa/bbb`                       | `/aaa/bbb/`                   | Sim, combina com a barra final     |
-| Prefixo | `/aaa/bbb`                       | `/aaa/bbb/ccc`                | Sim, corresponde ao subcaminho     |
-| Prefixo | `/aaa/bbb`                       | `/aaa/bbbxyz`                 | Não, não corresponde ao prefixo da string   |
-| Prefixo | `/`, `/aaa`                      | `/aaa/ccc`                    | Sim, corresponde ao prefixo `/aaa` |
-| Prefixo | `/`, `/aaa`, `/aaa/bbb`          | `/aaa/bbb`                    | Sim, corresponde ao prefixo `/aaa/bbb` |
-| Prefixo | `/`, `/aaa`, `/aaa/bbb`          | `/ccc`                        | Sim, corresponde ao prefixo `/`    |
-| Prefixo | `/aaa`                           | `/ccc`                        | Não, usa o backend padrão          |
-| Misto   | `/foo` (Prefixo), `/foo` (Exato) | `/foo`                        | Sim, prefere o exacto              |
+| Prefix | `/`                              | (todos os caminhos)           | Sim                                |
+| Exact   | `/foo`                           | `/foo`                        | Sim                                |
+| Exact   | `/foo`                           | `/bar`                        | Não                                |
+| Exact   | `/foo`                           | `/foo/`                       | Não                                |
+| Exact   | `/foo/`                          | `/foo`                        | Não                                |
+| Prefix | `/foo`                           | `/foo`, `/foo/`               | Sim                                |
+| Prefix | `/foo/`                          | `/foo`, `/foo/`               | Sim                                |
+| Prefix | `/aaa/bb`                        | `/aaa/bbb`                    | Não                                |
+| Prefix | `/aaa/bbb`                       | `/aaa/bbb`                    | Sim                                |
+| Prefix | `/aaa/bbb/`                      | `/aaa/bbb`                    | Sim, ignora a barra final          |
+| Prefix | `/aaa/bbb`                       | `/aaa/bbb/`                   | Sim, combina com a barra final     |
+| Prefix | `/aaa/bbb`                       | `/aaa/bbb/ccc`                | Sim, corresponde ao subcaminho     |
+| Prefix | `/aaa/bbb`                       | `/aaa/bbbxyz`                 | Não, não corresponde ao prefixo da string   |
+| Prefix | `/`, `/aaa`                      | `/aaa/ccc`                    | Sim, corresponde ao prefixo `/aaa` |
+| Prefix | `/`, `/aaa`, `/aaa/bbb`          | `/aaa/bbb`                    | Sim, corresponde ao prefixo `/aaa/bbb` |
+| Prefix | `/`, `/aaa`, `/aaa/bbb`          | `/ccc`                        | Sim, corresponde ao prefixo `/`    |
+| Prefix | `/aaa`                           | `/ccc`                        | Não, usa o backend padrão          |
+| Mixed   | `/foo` (Prefix), `/foo` (Exact) | `/foo`                        | Sim, prefere o `exact`              |
 
 #### Várias correspondências
 
@@ -192,11 +192,11 @@ Cada Ingress deve especificar uma classe, uma referência a um recurso IngressCl
 
 O campo `.spec.parameters` de uma classe Ingress permite que você faça referência a outro recurso que fornece a configuração relacionada a essa classe Ingress.
 
-O tipo específico de parâmetros a serem usados depende do controlador de entrada que você especificar no campo `.spec.controller` da classe Ingress.
+O tipo específico de parâmetros a serem usados depende do controlador Ingress que você especificar no campo `.spec.controller` da classe Ingress.
 
 ### Escopo da classe Ingress
 
-Dependendo do seu controlador de entrada, você pode ser capaz de usar parâmetros que você define em todo o cluster ou apenas para um namespace.
+Dependendo do seu controlador Ingress, os parâmetros definidos em todo o cluster ou apenas para um namespace poderão ser utilizados.
 
 {{< tabs name="tabs_ingressclass_parameter_scope" >}}
 {{% tab name="Cluster" %}}
@@ -281,7 +281,7 @@ Definir a anotação `ingressclass.kubernetes.io/is-default-class` como `true` e
 Se você tiver mais de uma classe Ingress marcada como padrão para o seu cluster, o controlador de admissão impede a criação de novos objetos Ingress que não tenham um `ingressClassName` especificado. 
 Você pode resolver isso garantindo que no máximo uma classe Ingress seja marcada como padrão no seu cluster.
 {{< /caution >}}
-Existem alguns controladores de entrada que funcionam sem a definição de uma `IngressClass` padrão. 
+Existem alguns controladores Ingress que funcionam sem a definição de uma `IngressClass` padrão. 
 Por exemplo, o controlador Ingress-NGINX pode ser configurado com uma [flag](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class) `--watch-ingress-without-class`. 
 No entanto, é [recomendável](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do) especificar a `IngressClass` padrão:
 
@@ -310,7 +310,7 @@ test-ingress   external-lb   *       203.0.113.123   80      59s
 Onde `203.0.113.123` é o IP alocado pelo controlador Ingress para satisfazer o Ingress.
 
 {{< note >}}
-Controladores de entrada e balanceadores de carga podem levar um ou dois minutos para alocar um endereço IP. 
+Controladores Ingress e balanceadores de carga podem levar um ou dois minutos para alocar um endereço IP. 
 Até aquele momento, você costuma ver o endereço listado como `<pending>`.
 {{< /note >}}
 
@@ -354,7 +354,7 @@ O controlador Ingress fornece um balanceador de carga específico de implementa�
 Quando tiver feito isso, você pode ver o endereço do balanceador de carga no campo `Address`.
 
 {{< note >}}
-Dependendo do [controlador de entrada](/docs/concepts/services-networking/ingress-controllers/) que você está usando, talvez seja necessário criar um [serviço](/docs/concepts/services-networking/service/) de backend http padrão.
+Dependendo do [controlador Ingress](/docs/concepts/services-networking/ingress-controllers/) que você está usando, talvez seja necessário criar um [serviço](/docs/concepts/services-networking/service/) de backend http padrão.
 {{< /note >}}
 
 ### Hospedagem virtual baseada em nome
