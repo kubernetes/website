@@ -129,7 +129,7 @@ Events:       <none>
 
 ### Tipos de caminho
 
-Cada caminho no Ingress é necessário para ter um tipo de caminho correspondente. 
+Cada caminho no Ingress deve ter um tipo de caminho correspondente. 
 Os caminhos que não incluem um `pathType` explícito falharão na validação. 
 Existem três tipos de caminho suportados:
 
