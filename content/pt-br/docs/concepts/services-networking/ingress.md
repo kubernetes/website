@@ -74,7 +74,7 @@ O recurso Ingress suporta apenas regras para direcionar o tráfego HTTP(S).
 
 Se o `ingressClassName` for omitido, uma [classe Ingress padrão](#default-ingress-class) deve ser definida.
 
-Existem alguns controladores de entrada, que funcionam sem a definição de uma `IngressClass` padrão. 
+Existem alguns controladores Ingress que funcionam sem a definição de uma `IngressClass` padrão. 
 Por exemplo, o controlador Ingress-NGINX pode ser configurado com uma [flag](https://kubernetes.github.io/ingress-nginx/#what-is-the-flag-watch-ingress-without-class) `--watch-ingress-without-class`. 
 No entanto, [recomenda-se](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do) especificar a `IngressClass` padrão, conforme mostrado [abaixo](#default-ingress-class).
 
