@@ -34,7 +34,7 @@ Aqui está um exemplo simples em que o Ingress envia todo o seu tráfego para um
 
 {{< figure src="/docs/images/ingress.svg" alt=" diagrama do Ingress" class="diagram-large" caption="Figura. Ingress" link="https://mermaid.live/edit#pako:eNqNkstuwyAQRX8F4U0r2VHqPlSRKqt0UamLqlnaWWAYJygYLB59KMm_Fxcix-qmGwbuXA7DwAEzzQETXKutof0Ovb4vaoUQkwKUu6pi3FwXM_QSHGBt0VFFt8DRU2OWSGrKUUMlVQwMmhVLEV1Vcm9-aUksiuXRaO_CEhkv4WjBfAgG1TrGaLa-iaUw6a0DcwGI-WgOsF7zm-pN881fvRx1UDzeiFq7ghb1kgqFWiElyTjnuXVG74FkbdumefEpuNuRu_4rZ1pqQ7L5fL6YQPaPNiFuywcG9_-ihNyUkm6YSONWkjVNM8WUIyaeOJLO3clTB_KhL8NQDmVe-OJjxgZM5FhFiiFTK5zjDkxHBQ9_4zB4a-x20EGNSZhyaKmXrg7f5hSsvufUwTMXThtMWiot5Jh6p9ffimHijIezaSVoeN0uiqcfMJvf7w" >}}
 
-Um Ingress pode ser configurado para fornecer URLs acessível externamente aos serviços, balanceamento de carga de tráfego, encerrar SSL/TLS e oferecer hospedagem virtual baseada em nome.
+Um Ingress pode ser configurado para fornecer URLs acessíveis externamente aos serviços, balanceamento de carga de tráfego, terminação SSL/TLS e oferecer hospedagem virtual baseada em nome.
 Um [controlador Ingress](/docs/concepts/services-networking/ingress-controllers) é responsável por atender o Ingress, geralmente com um balanceador de carga, embora também possa configurar seu roteador de borda ou frontends adicionais para ajudar a lidar com o tráfego.
 
 Um Ingress não expõe portas ou protocolos arbitrários. 
