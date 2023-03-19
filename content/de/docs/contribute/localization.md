@@ -81,9 +81,9 @@ Du kannst auch einen Slack-Kanal für deine Lokalisierung im `kubernetes/communi
 
 ### Ändere die Website-Konfiguration
 
-Die Kubernetes-Website  verwendet Hugo als Web-Framework. Die Hugo-Konfiguration der Website befindet sich in der Datei [`config.toml`](https://github.com/kubernetes/website/tree/master/config.toml). Um eine neue Lokalisierung zu unterstützen, musst du die Datei `config.toml` modifizieren.
+Die Kubernetes-Website  verwendet Hugo als Web-Framework. Die Hugo-Konfiguration der Website befindet sich in der Datei [`hugo.toml`](https://github.com/kubernetes/website/tree/master/hugo.toml). Um eine neue Lokalisierung zu unterstützen, musst du die Datei `hugo.toml` modifizieren.
 
-Dazu fügst du einen neuen Block für die neue Sprache unter den bereits existierenden `[languages]` Block in das `config.toml` ein, wie folgendes Beispiel zeigt:
+Dazu fügst du einen neuen Block für die neue Sprache unter den bereits existierenden `[languages]` Block in das `hugo.toml` ein, wie folgendes Beispiel zeigt:
 
 ```toml
 [languages.de]
