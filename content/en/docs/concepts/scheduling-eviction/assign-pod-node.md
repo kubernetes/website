@@ -283,6 +283,15 @@ To use inter-pod affinity, use the `affinity.podAffinity` field in the Pod spec.
 For inter-pod anti-affinity, use the `affinity.podAntiAffinity` field in the Pod
 spec.
 
+#### Scheduling a group of pods with inter-pod affinity to themselves
+
+If the current Pod being scheduled is the first in a series that have affinity to themselves,
+it is allowed to be scheduled if it passes all other affinity checks. This is determined by
+verifying that no other pod in the cluster matches the namespace and selector of this pod,
+that the pod matches its own terms, and the chosen node matches all requested topologies.
+This ensures that there will not be a deadlock even if all the pods have inter-pod affinity
+specified.
+
 #### Pod affinity example {#an-example-of-a-pod-that-uses-pod-affinity}
 
 Consider the following Pod spec:
