@@ -62,7 +62,7 @@ Um exemplo de recurso de entrada mínima:
 {{< codenew file="service/networking/minimal-ingress.yaml" >}}
 
 Um Ingress precisa dos campos `apiVersion`, `kind`, `metadata` and `spec`. 
-O nome de um objeto Ingress deve ser um nome de [subdomínio DNS válido](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names). 
+O nome de um objeto Ingress deve ser um nome de [subdomínio DNS válido](/pt-br/docs/concepts/overview/working-with-objects/names#dns-subdomain-names). 
 Para obter informações gerais sobre como trabalhar com arquivos de configuração, consulte como [implantar aplicações](/docs/tasks/run-application/run-stateless-application-deployment/), como [configurar contêineres](/docs/tasks/configure-pod-container/configure-pod-configmap/) e como [gerenciar recursos](/docs/concepts/cluster-administration/manage-deployment/). 
 O Ingress frequentemente usa anotações para configurar algumas opções dependendo do controlador Ingress, um exemplo do qual é a [anotação rewrite-target](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md). 
 Diferentes [controladores Ingress](/docs/concepts/services-networking/ingress-controllers) suportam diferentes anotações. 
