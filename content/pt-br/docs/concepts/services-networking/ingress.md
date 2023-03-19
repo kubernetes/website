@@ -66,7 +66,7 @@ O nome de um objeto Ingress deve ser um nome de [subdomínio DNS válido](/pt-br
 Para obter informações gerais sobre como trabalhar com arquivos de configuração, consulte como [implantar aplicações](/docs/tasks/run-application/run-stateless-application-deployment/), como [configurar contêineres](/docs/tasks/configure-pod-container/configure-pod-configmap/) e como [gerenciar recursos](/docs/concepts/cluster-administration/manage-deployment/). 
 O Ingress frequentemente usa anotações para configurar opções dependendo do controlador Ingress. Um exemplo deste uso é a [anotação rewrite-target](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md). 
 Diferentes [controladores Ingress](/docs/concepts/services-networking/ingress-controllers) suportam diferentes anotações. 
-Revise a documentação da sua escolha do controlador Ingress para saber quais anotações são suportadas.
+Revise a documentação do seu controlador Ingress escolhido para saber quais anotações são suportadas.
 
 A [especificação](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) Ingress tem todas as informações necessárias para configurar um balanceador de carga ou servidor proxy. 
 Mais importante ainda, ele contém uma lista de regras correspondentes a todas as solicitações recebidas. 
