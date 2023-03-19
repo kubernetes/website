@@ -237,7 +237,7 @@ Os parâmetros com escopo de namespace ajudam o operador de cluster a delegar o 
 Se você usou um parâmetro com escopo de cluster, então:
 
 - A equipe do operador do cluster precisa aprovar as alterações de uma equipe diferente toda vez que houver uma nova alteração de configuração sendo aplicada.
-- O operador de cluster deve definir controles de acesso específicos, como funções e ligações [RBAC](/docs/reference/access-authn-authz/rbac/), que permitem que a equipe do aplicativo faça alterações no recurso de parâmetros do escopo do cluster.
+- O operador de cluster deve definir controles de acesso específicos, como funções e vínculos [RBAC](/docs/reference/access-authn-authz/rbac/), que permitem que a equipe do aplicativo faça alterações no recurso de parâmetros do escopo do cluster.
 
 A própria API da classe Ingress é sempre com escopo de cluster.
 
