@@ -1,5 +1,5 @@
 ---
-title: Explore Termination Behavior for Pods And Their Endpoints
+title: Podとそのエンドポイントの終了動作を探る
 content_type: tutorial
 weight: 60
 ---
@@ -7,35 +7,25 @@ weight: 60
 
 <!-- overview -->
 
-Once you connected your Application with Service following steps
-like those outlined in [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/),
-you have a continuously running, replicated application, that is exposed on a network.
-This tutorial helps you look at the termination flow for Pods and to explore ways to implement
-graceful connection draining.
+[アプリケーションをサービスに接続する](/docs/tutorials/services/connect-applications-service/)で概略を示したステップに従ってアプリケーションをServiceに接続すると、ネットワーク上で公開され、継続的に実行されて、複製されたアプリケーションが得られます。
+このチュートリアルでは、Podを終了する流れを見て、graceful(上品)な接続ドレインを実装する手法を模索するための手助けをします。
 
 <!-- body -->
 
-## Termination process for Pods and their endpoints
+## Podの終了手続きとそのエンドポイント
 
-There are often cases when you need to terminate a Pod - be it for upgrade or scale down.
-In order to improve application availability, it may be important to implement
-a proper active connections draining. This tutorial explains the flow of
-Pod termination in connection with the corresponding endpoint state and removal.
+アップグレードやスケールダウンのために、Podを終了しなければならない場面はままあります。
+アプリケーションの可用性を高めるために、適切なアクティブ接続ドレインを実装することは重要でしょう。
 
-This tutorial explains the flow of Pod termination in connection with the
-corresponding endpoint state and removal by using
-a simple nginx web server to demonstrate the concept.
+このチュートリアルでは概念のデモンストレーションのために、シンプルなnginx Webサーバーを例として、関連付けられたエンドポイントステートに接続するPodの終了および削除の流れを説明します。
 
 <!-- body -->
 
-## Example flow with endpoint termination
+## エンドポイント終了の流れの例
 
-The following is the example of the flow described in the
-[Termination of Pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
-document.
+以下は、[Podの終了](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)ドキュメントに記載されている流れの例です。
 
-Let's say you have a Deployment containing of a single `nginx` replica
-(just for demonstration purposes) and a Service:
+1つの`nginx`レプリカを含むDeployment(純粋にデモンストレーション目的です)とServiceがあるとします:
 
 {{< codenew file="service/pod-with-graceful-termination.yaml" >}}
 
@@ -56,7 +46,7 @@ spec:
       labels:
         app: nginx
     spec:
-      terminationGracePeriodSeconds: 120 # extra long grace period
+      terminationGracePeriodSeconds: 120 # 追加の長いgraceful期間
       containers:
       - name: nginx
         image: nginx:latest
@@ -65,10 +55,10 @@ spec:
         lifecycle:
           preStop:
             exec:
-              # Real life termination may take any time up to terminationGracePeriodSeconds.
-              # In this example - just hang around for at least the duration of terminationGracePeriodSeconds,
-              # at 120 seconds container will be forcibly terminated.
-              # Note, all this time nginx will keep processing requests.
+              # 実際の活動終了はterminationGracePeriodSecondsまでかかる可能性がある。
+              # この例においては、少なくともterminationGracePeriodSecondsの間は待機し、
+              # 120秒経過すると、コンテナは強制終了される。
+              # この間ずっとnginxはリクエストを処理し続けていることに注意。
               command: [
                 "/bin/sh", "-c", "sleep 180"
               ]
@@ -88,26 +78,26 @@ spec:
       targetPort: 80
 ```
 
-Once the Pod and Service are running, you can get the name of any associated EndpointSlices:
+PodとServiceが実行中になったら、関連付けられたEndpointSlicesの名前を得られます:
 
 ```shell
 kubectl get endpointslice
 ```
 
-The output is similar to this:
+この出力は以下のようなものになります:
 
 ```none
 NAME                  ADDRESSTYPE   PORTS   ENDPOINTS                 AGE
 nginx-service-6tjbr   IPv4          80      10.12.1.199,10.12.1.201   22m
 ```
 
-You can see its status, and validate that there is one endpoint registered:
+状態からわかるように、1つのエンドポイントが登録されていることが確認できます:
 
 ```shell
 kubectl get endpointslices -o json -l kubernetes.io/service-name=nginx-service
 ```
 
-The output is similar to this:
+この出力は以下のようなものになります:
 
 ```none
 {
@@ -124,20 +114,19 @@ The output is similar to this:
                 "terminating": false
 ```
 
-Now let's terminate the Pod and validate that the Pod is being terminated
-respecting the graceful termination period configuration:
+では、Podを終了し、そのPodがgracefulな終了期間設定を守って終了されていることを確認してみましょう:
 
 ```shell
 kubectl delete pod nginx-deployment-7768647bf9-b4b9s
 ```
 
-All pods:
+全Podについて調べます:
 
 ```shell
 kubectl get pods
 ```
 
-The output is similar to this:
+この出力は以下のようなものになります:
 
 ```none
 NAME                                READY   STATUS        RESTARTS      AGE
@@ -145,16 +134,15 @@ nginx-deployment-7768647bf9-b4b9s   1/1     Terminating   0             4m1s
 nginx-deployment-7768647bf9-rkxlw   1/1     Running       0             8s
 ```
 
-You can see that the new pod got scheduled.
+新しいPodがスケジュールされたことを見てとれます。
 
-While the new endpoint is being created for the new Pod, the old endpoint is
-still around in the terminating state:
+新しいPodのために新しいエンドポイントが作成される間、古いエンドポイントは終了中の状態のまま残っています:
 
 ```shell
 kubectl get endpointslice -o json nginx-service-6tjbr
 ```
 
-The output is similar to this:
+この出力は以下のようなものになります:
 
 ```none
 {
@@ -198,24 +186,20 @@ The output is similar to this:
             "zone": "us-central1-c"
 ```
 
-This allows applications to communicate their state during termination
-and clients (such as load balancers) to implement a connections draining functionality.
-These clients may detect terminating endpoints and implement a special logic for them.
 
-In Kubernetes, endpoints that are terminating always have their `ready` status set as as `false`.
-This needs to happen for backward
-compatibility, so existing load balancers will not use it for regular traffic.
-If traffic draining on terminating pod is needed, the actual readiness can be
-checked as a condition `serving`.
+これを使うと、終了中のアプリケーションがその状態について、接続ドレイン機能の実装目的でクライアント(ロードバランサーなど)と通信する、ということが可能です。
+これらのクライアントではエンドポイントの終了を検出し、そのための特別なロジックを実装できます。
 
-When Pod is deleted, the old endpoint will also be deleted.
+Kubernetesでは、終了中のエンドポイントの`ready`状態は全て`false`にセットされます。
+これは後方互換性のために必要な措置で、既存のロードバランサーは通常のトラフィックにはそれを使用しません。
+Podの終了時にトラフィックのドレインが必要な場合、実際に準備できているかは`serving`状態として調べられます。
 
+Podが削除される時には、古いエンドポイントも削除されます。
 
 ## {{% heading "whatsnext" %}}
 
 
-* Learn how to [Connect Applications with Services](/docs/tutorials/services/connect-applications-service/)
-* Learn more about [Using a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/)
-* Learn more about [Connecting a Front End to a Back End Using a Service](/docs/tasks/access-application-cluster/connecting-frontend-backend/)
-* Learn more about [Creating an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)
-
+* [アプリケーションをサービスに接続する](/docs/tutorials/services/connect-applications-service/)方法を学びます。
+* [Serviceを利用したクラスター内のアプリケーションへのアクセス](/docs/tasks/access-application-cluster/service-access-application-cluster/)を学びます。
+* [Serviceを使用してフロントエンドをバックエンドに接続する](/docs/tasks/access-application-cluster/connecting-frontend-backend/)を学びます。
+* [外部ロードバランサーの作成](/docs/tasks/access-application-cluster/create-external-load-balancer/)を学びます。
