@@ -16,7 +16,7 @@ weight: 30
 
 ## Terminologia
 
-Para mais clareza, este guia define os seguintes termos:
+Para fins de clareza, este guia define os seguintes termos:
 
 * Nó: Uma máquina de trabalho no Kubernetes, parte de um cluster.
 * Cluster: Um conjunto de Nós que executam aplicações em contêiner gerenciado pelo Kubernetes. Para este exemplo, e nas implantações mais comuns do Kubernetes, os Nós no cluster não fazem parte da Internet pública.
