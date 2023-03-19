@@ -231,7 +231,7 @@ spec:
 Se você definir o campo `.spec.parameters` e definir `.spec.parameters.scope` como `Namespace`, a classe Ingress terá como referência um recurso com escopo de `namespace`. 
 Você também deve definir o campo namespace dentro de `.spec.parameters` para o namespace que contém os parâmetros que deseja usar.
 
-O `kind` (em combinação do `apiGroup`) dos parâmetros refere-se a uma API com namespace (por exemplo: `ConfigMap`), e o `name` dos parâmetros identifica um recurso específico no namespace que você especificou no `namespace`.
+O campo `kind` (em combinação com o campo `apiGroup`) dos parâmetros refere-se a uma API com namespace (por exemplo: `ConfigMap`), e o campo `name` dos parâmetros identifica um recurso específico no namespace que você especificou no campo `namespace`.
 
 Os parâmetros com escopo de namespace ajudam o operador de cluster a delegar o controle sobre a configuração (por exemplo: configurações do balanceador de carga, definição de gateway API) que é usada para uma carga de trabalho. 
 Se você usou um parâmetro com escopo de cluster, então:
