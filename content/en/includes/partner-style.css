@@ -65,6 +65,10 @@
 		border: 5px solid white;
 }
 
+.announcement-main > p{
+	color: rgb(256,256,256)
+}
+
 /*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
 
 @media only screen and (max-width: 480px) {
