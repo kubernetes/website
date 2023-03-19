@@ -102,7 +102,7 @@ Se nenhum dos hosts ou caminhos corresponder à solicitação HTTP nos objetos I
 ### Resource backends {#resource-backend}
 
 Um `Resource` backend é um ObjectRef para outro recurso Kubernetes dentro do mesmo namespace que o objeto Ingress. 
-Um `Resource` é uma configuração mutuamente exclusiva com o serviço, e pode falhar na validação se ambos forem especificados. 
+Um `Resource` é uma configuração mutuamente exclusiva com o serviço, e a validação irá falhar se ambos forem especificados. 
 Um uso comum para um `Resource` backend é inserir dados em um backend de armazenamento de objetos com ativos estáticos.
 
 {{< codenew file="service/networking/ingress-resource-backend.yaml" >}}
