@@ -14,7 +14,7 @@ spec:
       labels:
         app: nginx
     spec:
-      terminationGracePeriodSeconds: 120 # extra long grace period
+      terminationGracePeriodSeconds: 120 # 追加の長いgraceful期間
       containers:
       - name: nginx
         image: nginx:latest
@@ -23,10 +23,10 @@ spec:
         lifecycle:
           preStop:
             exec:
-              # Real life termination may take any time up to terminationGracePeriodSeconds.
-              # In this example - just hang around for at least the duration of terminationGracePeriodSeconds,
-              # at 120 seconds container will be forcibly terminated.
-              # Note, all this time nginx will keep processing requests.
+              # 実際の活動終了はterminationGracePeriodSecondsまでかかる可能性がある。
+              # この例においては、少なくともterminationGracePeriodSecondsの間は待機し、
+              # 120秒経過すると、コンテナは強制的に終了される。
+              # この間ずっとnginxはリクエストを処理し続けていることに注意。
               command: [
                 "/bin/sh", "-c", "sleep 180"
               ]
