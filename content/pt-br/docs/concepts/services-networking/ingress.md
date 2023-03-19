@@ -49,7 +49,7 @@ Você pode precisar implantar um controlador Ingress, como [ingress-nginx](https
 Você pode escolher entre vários [controladores Ingress](/docs/concepts/services-networking/ingress-controllers).
 
 Idealmente, todos os controladores Ingress devem se encaixar na especificação de referência. 
-Na realidade, os vários controladores de entrada operam de forma ligeiramente diferente.
+Na realidade, os vários controladores Ingress operam de forma ligeiramente diferente.
 
 {{< note >}}
 Certifique-se de revisar a documentação do seu controlador Ingress para entender as ressalvas de escolhê-lo.
