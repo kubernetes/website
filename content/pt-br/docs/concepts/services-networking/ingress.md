@@ -22,7 +22,7 @@ Para fins de clareza, este guia define os seguintes termos:
 * Cluster: Um conjunto de nós que executam aplicações em contêiner gerenciado pelo Kubernetes. Para este exemplo, e nas instalações mais comuns do Kubernetes, os nós no cluster não fazem parte da Internet pública.
 * Roteador de borda: Um roteador que impõe a política de firewall para o seu cluster. Isso pode ser um gateway gerenciado por um provedor de nuvem ou um  hardware físico.
 * Rede do cluster: Um conjunto de links, lógicos ou físicos, que facilitam a comunicação dentro de um cluster de acordo com o [modelo de rede](/docs/concepts/cluster-administration/networking/) do Kubernetes.
-* Serviço: Um {{< glossary_tooltip text="serviço" term_id="service" >}} Kubernetes que identifica um conjunto de Pods usando a {{< glossary_tooltip text="label" term_id="label" >}} selectors. Salvo indicação em contrário, assume-se que os Serviços tenham IPs virtuais apenas roteáveis dentro da rede de cluster.
+* Serviço: Um {{< glossary_tooltip text="serviço" term_id="service" >}} Kubernetes que identifica um conjunto de Pods usando seletores de {{< glossary_tooltip text="label" term_id="label" >}}. Salvo indicação em contrário, assume-se que os Serviços tenham IPs virtuais apenas roteáveis dentro da rede de cluster.
 
 
 ## O que é o Ingress?
