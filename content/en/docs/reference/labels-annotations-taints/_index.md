@@ -110,43 +110,46 @@ Example: `config.kubernetes.io/local-config: "true"`
 
 Used on: All objects
 
-This annotation is used to mark a resource as a local configuration file that should not be applied to the API server. It is part of the [Kubernetes Resource Model (KRM) Functions Specification](https://github.com/kubernetes-sigs/kustomize/blob/ce3e394a414387ce09679523902e981414b09a1a/cmd/config/docs/api-conventions/functions-spec.md) that is used by tools such as Kustomize and Kpt. For example, Kustomize removes objects with this annotation from its final build output.
+This annotation is used in manifests to mark an object as local configuration that should not be submitted to the Kubernetes API.
 
-A value of "true" for this annotation declares that the resource is only consumed by client-side tooling and should not be applied to the API server.
+A value of "true" for this annotation declares that the object is only consumed by client-side tooling and should not be submitted to the API server.
 
-A value of "false" can be used to declare that a resource should be applied to the API server even when it would otherwise be assumed to be local.
+A value of "false" can be used to declare that the object should be submitted to the API server even when it would otherwise be assumed to be local.
+
+This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification, which is used by Kustomize and similar third-party tools. For example, Kustomize removes objects with this annotation from its final build output.
+
 
 ### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
 
-Used on: All resources
+Used on: All objects
 
-This prefix is reserved for internal use by tools that act as orchestrators in accordance with the [Kubernetes Resource Model (KRM) Functions Specification](https://github.com/kubernetes-sigs/kustomize/blob/ce3e394a414387ce09679523902e981414b09a1a/cmd/config/docs/api-conventions/functions-spec.md). Annotations with this prefix are internal to the orchestration process and are not persisted to resource manifests on the filesystem. In other words, the orchestrator should set these annotations when reading files from the local filesystem and remove them when writing the output of functions back to the filesystem.
+This prefix is reserved for internal use by tools that act as orchestrators in accordance with the Kubernetes Resource Model (KRM) Functions Specification. Annotations with this prefix are internal to the orchestration process and are not persisted to the manifests on the filesystem. In other words, the orchestrator tool should set these annotations when reading files from the local filesystem and remove them when writing the output of functions back to the filesystem.
 
-A KRM function **must not** modify annotations with this prefix, unless otherwise specified for a given annotation. This enables orchestrators to add additional internal annotations, without requiring changes to existing functions.
+A KRM function **must not** modify annotations with this prefix, unless otherwise specified for a given annotation. This enables orchestrator tools to add additional internal annotations, without requiring changes to existing functions.
 
 ### internal.config.kubernetes.io/path
 
 Example: `internal.config.kubernetes.io/path: "relative/file/path.yaml"`
 
-Used on: All resources
+Used on: All objects
 
-Records the slash-delimited, OS-agnostic, relative file path to a manifest representing a resource. The path is relative to a fixed location on the filesystem, determined by the orchestrator tool.
+This annotation records the slash-delimited, OS-agnostic, relative path to the manifest file the object was loaded from. The path is relative to a fixed location on the filesystem, determined by the orchestrator tool.
 
-This annotation is part of the [Kubernetes Resource Model (KRM) Functions Specification](https://github.com/kubernetes-sigs/kustomize/blob/ce3e394a414387ce09679523902e981414b09a1a/cmd/config/docs/api-conventions/functions-spec.md) that is used by function orchestrator tools such as Kustomize and Kpt.
+This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification, which is used by Kustomize and similar third-party tools.
 
-A KRM Function **should not** modify this annotation on input resources unless it is modifying the referenced files. A KRM Function **may** include this annotation on resources it generates.
+A KRM Function **should not** modify this annotation on input objects unless it is modifying the referenced files. A KRM Function **may** include this annotation on objects it generates.
 
 ### internal.config.kubernetes.io/index
 
 Example: `internal.config.kubernetes.io/index: "2"`
 
-Used on: All resources
+Used on: All objects
 
-Records the index of a resource in file. In a multi-object YAML file, resources are separated by three dashes (---), and the index represents the position of the resource starting from zero. When this annotation is not specified, it implies a value of 0.
+This annotation records the zero-indexed position of the YAML document that contains the object within the manifest file the object was loaded from. Note that YAML documents are separated by three dashes (`---`) and can each contain one object. When this annotation is not specified, a value of 0 is implied.
 
-This annotation is part of the [Kubernetes Resource Model (KRM) Functions Specification](https://github.com/kubernetes-sigs/kustomize/blob/ce3e394a414387ce09679523902e981414b09a1a/cmd/config/docs/api-conventions/functions-spec.md) that is used by function orchestrator tools such as Kustomize and Kpt.
+This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification, which is used by Kustomize and similar third-party tools.
 
-A KRM Function **should not** modify this annotation on input resources unless it is modifying the referenced files. A KRM Function **may** include this annotation on resources it generates.
+A KRM Function **should not** modify this annotation on input objects unless it is modifying the referenced files. A KRM Function **may** include this annotation on objects it generates.
 
 ### kubernetes.io/arch
 
