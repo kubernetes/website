@@ -363,26 +363,27 @@ ServiceSpec 描述用户在服务上创建的属性。
 - **externalTrafficPolicy** (string)
 
   <!-- 
-  externalTrafficPolicy denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints. "Local" preserves the client source IP and avoids a second hop for LoadBalancer and Nodeport type services, but risks potentially imbalanced traffic spreading. "Cluster" obscures the client source IP and may cause a second hop to another node, but should have good overall load-spreading. 
+  externalTrafficPolicy describes how nodes distribute service traffic they receive on one of the Service's "externally-facing" addresses (NodePorts, ExternalIPs, and LoadBalancer IPs). If set to "Local", the proxy will configure the service in a way that assumes that external load balancers will take care of balancing the service traffic between nodes, and so each node will deliver traffic only to the node-local endpoints of the service, without masquerading the client source IP. (Traffic mistakenly sent to a node with no endpoints will be dropped.) The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features). Note that traffic sent to an External IP or LoadBalancer IP from within the cluster will always get "Cluster" semantics, but clients sending to a NodePort from within the cluster may need to take traffic policy into account when picking a node.
   -->
-  externalTrafficPolicy 表示此 Service 是否希望将外部流量路由到节点本地或集群范围的 Endpoint。
-  字段值 “Local” 保留客户端 IP 并可避免 LoadBalancer 和 Nodeport 类型 Service 的第二跳，但存在潜在流量传播不平衡的风险。
-  字段值 “Cluster” 则会掩盖客户端源 IP，可能会导致第二次跳转到另一个节点，但整体流量负载分布较好。
+  externalTrafficPolicy 描述了节点如何分发它们在 Service 的“外部访问”地址（NodePort、ExternalIP 和 LoadBalancer IP）接收到的服务流量。
+  如果设置为“Local”，代理将以一种假设外部负载均衡器将负责在节点之间服务流量负载均衡，因此每个节点将仅向服务的节点本地端点传递流量，而不会伪装客户端源 IP。
+ （将丢弃错误发送到没有端点的节点的流量。）
+  “Cluster”默认值使用负载均衡路由到所有端点的策略（可能会根据拓扑和其他特性进行修改）。
+  请注意，从集群内部发送到 External IP 或 LoadBalancer IP 的流量始终具有“Cluster”语义，但是从集群内部发送到 NodePort 的客户端需要在选择节点时考虑流量路由策略。
 
 - **internalTrafficPolicy** (string)
 
   <!-- 
-  InternalTrafficPolicy specifies if the cluster internal traffic should be routed to all endpoints or node-local endpoints only. "Cluster" routes internal traffic to a Service to all endpoints. "Local" routes traffic to node-local endpoints only, traffic is dropped if no node-local endpoints are ready. The default value is "Cluster". 
+  InternalTrafficPolicy describes how nodes distribute service traffic they receive on the ClusterIP. If set to "Local", the proxy will assume that pods only want to talk to endpoints of the service on the same node as the pod, dropping the traffic if there are no local endpoints. The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features).
   -->
-  internalTrafficPolicy 指定是将集群内部流量路由到所有端点还是仅路由到节点本地的端点。
-  字段值 “Cluster” 将 Service 的内部流量路由到所有端点。
-  字段值 ”Local” 意味着仅将流量路由到节点本地的端点；如果节点本地端点未准备好，则丢弃流量。
-  默认值为 “Cluster”。
+  InternalTrafficPolicy描述节点如何分发它们在ClusterIP上接收到的服务流量。
+  如果设置为"Local"，代理将假定pod只想与在同一节点上的服务端点通信，如果没有本地端点，它将丢弃流量。
+  "Cluster"默认将流量路由到所有端点（可能会根据拓扑和其他特性进行修改）。
 
 - **healthCheckNodePort** (int32)
 
   <!-- 
-  healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type). 
+  healthCheckNodePort specifies the healthcheck nodePort for the service. This only applies when type is set to LoadBalancer and externalTrafficPolicy is set to Local. If a value is specified, is in-range, and is not in use, it will be used.  If not specified, a value will be automatically allocated.  External systems (e.g. load-balancers) can use this port to determine if a given node holds endpoints for this service or not.  If this field is specified when creating a Service which does not need it, creation will fail. This field will be wiped when updating a Service to no longer need it (e.g. changing type). This field cannot be updated once set.
   -->
   healthCheckNodePort 指定 Service 的健康检查节点端口。
   仅适用于 type 为 LoadBalancer 且 externalTrafficPolicy 设置为 Local 的情况。
@@ -390,6 +391,7 @@ ServiceSpec 描述用户在服务上创建的属性。
   如果未设置此字段，则自动分配字段值。外部系统（例如负载平衡器）可以使用此端口来确定给定节点是否拥有此服务的端点。
   在创建不需要 healthCheckNodePort 的 Service 时指定了此字段，则 Service 创建会失败。
   要移除 healthCheckNodePort，需要更改 Service 的 type。
+  该字段一旦设置就无法更改。
 
 - **publishNotReadyAddresses** (boolean)
 
