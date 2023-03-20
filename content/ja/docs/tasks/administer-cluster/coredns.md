@@ -42,7 +42,7 @@ Kubernetesのバージョンごとに`kubeadm`がインストールする`CoreDN
 
 `CoreDNS`のみをアップグレードしたい場合や、独自のカスタムイメージを使用したい場合は、`CoreDNS`を手動でアップグレードすることができます。
 スムーズなアップグレードのために役立つ[ガイドラインとウォークスルー](https://github.com/coredns/deployment/blob/master/kubernetes/Upgrading_CoreDNS.md)が用意されています。
-クラスタをアップグレードする際には、既存の`CoreDNS`設定("Corefile")が保持されていることを確認してください。
+クラスターをアップグレードする際には、既存の`CoreDNS`設定("Corefile")が保持されていることを確認してください。
 
 `kubeadm`ツールを使用してクラスタをアップグレードしている場合、`kubeadm`は既存のCoreDNSの設定を自動的に保持する処理を行うことができます。
 
