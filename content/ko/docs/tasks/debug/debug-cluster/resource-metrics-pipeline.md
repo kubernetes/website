@@ -232,6 +232,8 @@ metrics-server는 각 노드로부터 메트릭을 수집하기 위해 [kubelet]
 * v0.6.0 이상: 메트릭 리소스 엔드포인트 `/metrics/resource`
 * 이전 버전: 요약 API 엔드포인트 `/stats/summary`
 
+## {{% heading "whatsnext" %}}
+
 metrics-server에 대한 더 많은 정보는 
 [metrics-server 저장소](https://github.com/kubernetes-sigs/metrics-server)를 확인한다.
 
@@ -243,26 +245,5 @@ metrics-server에 대한 더 많은 정보는
 * [metrics-server 릴리스](https://github.com/kubernetes-sigs/metrics-server/releases)
 * [Horizontal Pod Autoscaling](/ko/docs/tasks/run-application/horizontal-pod-autoscale/)
 
-### 요약 API(Summary API) 소스 {#summary-api-source}
-
-[Kubelet](/docs/reference/command-line-tools-reference/kubelet/)은 
-노드, 볼륨, 파드, 컨테이너 수준의 통계를 수집하며, 
-소비자(consumer)가 읽을 수 있도록 이 통계를 
-[요약 API](https://github.com/kubernetes/kubernetes/blob/7d309e0104fedb57280b261e5677d919cb2a0e2d/staging/src/k8s.io/kubelet/pkg/apis/stats/v1alpha1/types.go)에 기록한다.
-
-다음은 `minikube` 노드에 대한 요약 API 요청 예시이다.
-
-```shell
-kubectl get --raw "/api/v1/nodes/minikube/proxy/stats/summary"
-```
-
-다음은 `curl`을 이용하여 동일한 API 호출을 하는 명령어다.
-
-```shell
-curl http://localhost:8080/api/v1/nodes/minikube/proxy/stats/summary
-```
-
-{{< note >}}
-metrics-server 0.6.x 버전부터, 
-요약 API `/stats/summary` 엔드포인트가 `/metrics/resource` 엔드포인트로 대체될 것이다.
-{{< /note >}}
+kubelet이 어떻게 노드 메트릭을 제공하는지, 그리고 쿠버네티스 API를 통해 이러한 메트릭에 어떻게 접근하는지 알아보려면, 
+[노드 메트릭 데이터](/ko/docs/reference/instrumentation/node-metrics/) 문서를 참조한다.
