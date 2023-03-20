@@ -54,7 +54,7 @@ Kubernetesのバージョンごとに`kubeadm`がインストールする`CoreDN
 ## {{% heading "whatsnext" %}}
 
 
-[CoreDNS](https://coredns.io)は、`Corefile`を変更することで、`kube-dns`よりも多くのユースケースをサポートするように設定することができます。
+[CoreDNS](https://coredns.io)は、設定("Corefile")を変更することで、`kube-dns`よりも多くのユースケースをサポートする構成にすることができます。
 詳細はKubernetes CoreDNSプラグインの[ドキュメント](https://coredns.io/plugins/kubernetes/)を参照するか、[CoreDNSブログ](https://coredns.io/2017/05/08/custom-dns-entries-for-kubernetes/)を参照してください。
 
 
