@@ -3,7 +3,6 @@ title: 强制删除 StatefulSet 中的 Pod
 content_type: task
 weight: 70
 ---
-
 <!--
 reviewers:
 - bprashanth
@@ -16,23 +15,24 @@ weight: 70
 -->
 
 <!-- overview -->
+
 <!--
 This page shows how to delete Pods which are part of a
 {{< glossary_tooltip text="stateful set" term_id="StatefulSet" >}},
 and explains the considerations to keep in mind when doing so.
 -->
 本文介绍如何删除 {{< glossary_tooltip text="StatefulSet" term_id="StatefulSet" >}}
-管理的 Pod，并解释这样操作时需要记住的注意事项。
+管理的 Pod，并解释这样操作时需要记住的一些注意事项。
 
 ## {{% heading "prerequisites" %}}
 
 <!--
-* This is a fairly advanced task and has the potential to violate some of the properties
+- This is a fairly advanced task and has the potential to violate some of the properties
   inherent to StatefulSet.
-* Before proceeding, make yourself familiar with the considerations enumerated below.
+- Before proceeding, make yourself familiar with the considerations enumerated below.
 -->
-* 这是一项相当高级的任务，并且可能会违反 StatefulSet 固有的某些属性。
-* 继续任务之前，请熟悉下面列举的注意事项。
+- 这是一项相当高级的任务，并且可能会违反 StatefulSet 固有的某些属性。
+- 请先熟悉下面列举的注意事项再开始操作。
 
 <!-- steps -->
 
@@ -46,11 +46,11 @@ number of Pods from ordinal 0 through N-1 are alive and ready. StatefulSet ensur
 there is at most one Pod with a given identity running in a cluster. This is referred to as
 *at most one* semantics provided by a StatefulSet.
 -->
-## StatefulSet 注意事项
+## StatefulSet 注意事项   {#statefulset-considerations}
 
-在 StatefulSet 的正常操作中，**永远不**需要强制删除 StatefulSet 管理的 Pod。
+在正常操作 StatefulSet 时，**永远不**需要强制删除 StatefulSet 管理的 Pod。
 [StatefulSet 控制器](/zh-cn/docs/concepts/workloads/controllers/statefulset/)负责创建、
-扩缩和删除 StatefulSet 管理的 Pod。它尝试确保指定数量的从序数 0 到 N-1 的 Pod
+扩缩和删除 StatefulSet 管理的 Pod。此控制器尽力确保指定数量的从序数 0 到 N-1 的 Pod
 处于活跃状态并准备就绪。StatefulSet 确保在任何时候，集群中最多只有一个具有给定标识的 Pod。
 这就是所谓的由 StatefulSet 提供的**最多一个（At Most One）** Pod 的语义。
 
@@ -63,9 +63,9 @@ members with fixed identities. Having multiple members with the same identity ca
 and may lead to data loss (e.g. split brain scenario in quorum-based systems).
 -->
 应谨慎进行手动强制删除操作，因为它可能会违反 StatefulSet 固有的至多一个的语义。
-StatefulSets 可用于运行分布式和集群级的应用，这些应用需要稳定的网络标识和可靠的存储。
+StatefulSet 可用于运行分布式和集群级的应用，这些应用需要稳定的网络标识和可靠的存储。
 这些应用通常配置为具有固定标识固定数量的成员集合。
-具有相同身份的多个成员可能是灾难性的，并且可能导致数据丢失 (例如：票选系统中的脑裂场景)。
+具有相同身份的多个成员可能是灾难性的，并且可能导致数据丢失 (例如票选系统中的脑裂场景)。
 
 <!--
 ## Delete Pods
@@ -101,24 +101,23 @@ Pods may also enter these states when the user attempts graceful deletion of a P
 on an unreachable Node.
 The only ways in which a Pod in such a state can be removed from the apiserver are as follows:
 -->
-当某个节点不可达时，不会引发自动删除 Pod。
-在无法访问的节点上运行的 Pod 在
-[超时](/zh-cn/docs/concepts/architecture/nodes/#condition)
-后会进入 “Terminating” 或者 “Unknown” 状态。
+当某个节点不可达时，不会引发自动删除 Pod。在无法访问的节点上运行的 Pod
+在[超时](/zh-cn/docs/concepts/architecture/nodes/#condition)后会进入
+“Terminating” 或者 “Unknown” 状态。
 当用户尝试体面地删除无法访问的节点上的 Pod 时 Pod 也可能会进入这些状态。
 从 API 服务器上删除处于这些状态 Pod 的仅有可行方法如下：
 
 <!--
-* The Node object is deleted (either by you, or by the
+- The Node object is deleted (either by you, or by the
   [Node Controller](/docs/concepts/architecture/nodes/#node-controller)).
-* The kubelet on the unresponsive Node starts responding, kills the Pod and removes the entry
+- The kubelet on the unresponsive Node starts responding, kills the Pod and removes the entry
    from the apiserver.
-* Force deletion of the Pod by the user.
+- Force deletion of the Pod by the user.
 -->
-* 删除 Node 对象（要么你来删除, 要么[节点控制器](/zh-cn/docs/concepts/architecture/nodes/#node-controller)
+- 删除 Node 对象（要么你来删除, 要么[节点控制器](/zh-cn/docs/concepts/architecture/nodes/#node-controller)
   来删除）
-* 无响应节点上的 kubelet 开始响应，杀死 Pod 并从 API 服务器上移除 Pod 对象
-* 用户强制删除 pod
+- 无响应节点上的 kubelet 开始响应，杀死 Pod 并从 API 服务器上移除 Pod 对象
+- 用户强制删除 Pod
 
 <!--
 The recommended best practice is to use the first or second approach. If a Node is confirmed
@@ -155,8 +154,8 @@ will violate the at most one semantics that StatefulSet is designed to guarantee
 强制删除**不会**等待来自 kubelet 对 Pod 已终止的确认消息。
 无论强制删除是否成功杀死了 Pod，它都会立即从 API 服务器中释放该名字。
 这将让 StatefulSet 控制器创建一个具有相同标识的替身 Pod；因而可能导致正在运行 Pod 的重复，
-并且如果所述 Pod 仍然可以与 StatefulSet 的成员通信，则将违反 StatefulSet 所要保证的
-最多一个的语义。
+并且如果所述 Pod 仍然可以与 StatefulSet 的成员通信，则将违反 StatefulSet
+所要保证的最多一个的语义。
 
 <!--
 When you force delete a StatefulSet pod, you are asserting that the Pod in question will never
@@ -188,7 +187,7 @@ kubectl delete pods <pod> --grace-period=0
 If even after these commands the pod is stuck on `Unknown` state, use the following command to
 remove the pod from the cluster:
 -->
-如果在这些命令后 Pod 仍处于 `Unknown` 状态，请使用以下命令从集群中删除 Pod:
+如果在执行这些命令后 Pod 仍处于 `Unknown` 状态，请使用以下命令从集群中删除 Pod:
 
 ```shell
 kubectl patch pod <pod> -p '{"metadata":{"finalizers":null}}'

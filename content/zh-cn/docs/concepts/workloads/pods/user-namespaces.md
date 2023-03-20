@@ -16,7 +16,7 @@ min-kubernetes-server-version: v1.25
 {{< feature-state for_k8s_version="v1.25" state="alpha" >}}
 <!--
 This page explains how user namespaces are used in Kubernetes pods. A user
-namespace allows to isolate the user running inside the container from the one
+namespace isolates the user running inside the container from the one
 in the host.
 
 A process running as root in a container can run as a different (non-root) user
@@ -24,8 +24,8 @@ in the host; in other words, the process has full privileges for operations
 inside the user namespace, but is unprivileged for operations outside the
 namespace.
 -->
-本页解释了在 Kubernetes pods 中如何使用用户命名空间。
-用户命名空间允许将容器内运行的用户与主机内的用户隔离开来。
+本页解释了在 Kubernetes Pod 中如何使用用户命名空间。
+用户命名空间将容器内运行的用户与主机中的用户隔离开来。
 
 在容器中以 root 身份运行的进程可以在主机中以不同的（非 root）用户身份运行；
 换句话说，该进程在用户命名空间内的操作具有完全的权限，

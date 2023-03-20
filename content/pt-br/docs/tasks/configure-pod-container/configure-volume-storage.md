@@ -49,7 +49,7 @@ reinicie. Aqui está o arquivo de configuração para o pod:
     
     A saída se parece com isso:
 
-    ```shell
+    ```console
     NAME      READY     STATUS    RESTARTS   AGE
     redis     1/1       Running   0          13s
     ```
@@ -77,7 +77,7 @@ reinicie. Aqui está o arquivo de configuração para o pod:
 
     A saída é semelhante a esta:
 
-    ```shell
+    ```console
     USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
     redis        1  0.1  0.1  33308  3828 ?        Ssl  00:46   0:00 redis-server *:6379
     root        12  0.0  0.0  20228  3020 ?        Ss   00:47   0:00 /bin/bash
@@ -95,7 +95,7 @@ reinicie. Aqui está o arquivo de configuração para o pod:
 1. No seu terminal original, preste atenção nas mudanças no Pod do Redis. 
 Eventualmente, você vai ver algo assim:
 
-    ```shell
+    ```console
     NAME      READY     STATUS     RESTARTS   AGE
     redis     1/1       Running    0          13s
     redis     0/1       Completed  0         6m

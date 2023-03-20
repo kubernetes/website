@@ -1,6 +1,7 @@
 ---
 title: カスタムHugoショートコード
 content_type: concept
+weight: 120
 ---
 
 <!-- overview -->
