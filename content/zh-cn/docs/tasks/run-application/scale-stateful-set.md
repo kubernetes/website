@@ -19,7 +19,8 @@ weight: 50
 
 <!-- overview -->
 <!--
-This task shows how to scale a StatefulSet. Scaling a StatefulSet refers to increasing or decreasing the number of replicas.
+This task shows how to scale a StatefulSet. Scaling a StatefulSet refers to
+increasing or decreasing the number of replicas.
 -->
 本文介绍如何扩缩 StatefulSet。StatefulSet 的扩缩指的是增加或者减少副本个数。
 
@@ -29,7 +30,9 @@ This task shows how to scale a StatefulSet. Scaling a StatefulSet refers to incr
 - StatefulSets are only available in Kubernetes version 1.5 or later.
   To check your version of Kubernetes, run `kubectl version`.
 
-- Not all stateful applications scale nicely. If you are unsure about whether to scale your StatefulSets, see [StatefulSet concepts](/docs/concepts/workloads/controllers/statefulset/) or [StatefulSet tutorial](/docs/tutorials/stateful-application/basic-stateful-set/) for further information.
+- Not all stateful applications scale nicely. If you are unsure about whether
+  to scale your StatefulSets, see [StatefulSet concepts](/docs/concepts/workloads/controllers/statefulset/)
+  or [StatefulSet tutorial](/docs/tutorials/stateful-application/basic-stateful-set/) for further information.
 
 - You should perform scaling only when you are confident that your stateful application
   cluster is completely healthy.
@@ -82,7 +85,9 @@ kubectl scale statefulsets <statefulset 名称> --replicas=<新的副本数>
 <!--
 ### Make in-place updates on your StatefulSets
 
-Alternatively, you can do [in-place updates](/docs/concepts/cluster-administration/manage-deployment/#in-place-updates-of-resources) on your StatefulSets.
+Alternatively, you can do
+[in-place updates](/docs/concepts/cluster-administration/manage-deployment/#in-place-updates-of-resources)
+on your StatefulSets.
 
 If your StatefulSet was initially created with `kubectl apply`,
 update `.spec.replicas` of the StatefulSet manifests, and then do a `kubectl apply`:
@@ -137,10 +142,12 @@ kubectl patch statefulsets <statefulset 名称> -p '{"spec":{"replicas":<new-rep
 ### 缩容操作无法正常工作   {#scaling-down-does-not-work}
 
 <!--
-You cannot scale down a StatefulSet when any of the stateful Pods it manages is unhealthy. Scaling down only takes place
-after those stateful Pods become running and ready.
+You cannot scale down a StatefulSet when any of the stateful Pods it manages is
+unhealthy. Scaling down only takes place after those stateful Pods become running and ready.
 
-If spec.replicas > 1, Kubernetes cannot determine the reason for an unhealthy Pod. It might be the result of a permanent fault or of a transient fault. A transient fault can be caused by a restart required by upgrading or maintenance.
+If spec.replicas > 1, Kubernetes cannot determine the reason for an unhealthy Pod.
+It might be the result of a permanent fault or of a transient fault. A transient
+fault can be caused by a restart required by upgrading or maintenance.
 -->
 当 Stateful 所管理的任何 Pod 不健康时，你不能对该 StatefulSet 执行缩容操作。
 仅当 StatefulSet 的所有 Pod 都处于运行状态和 Ready 状况后才可缩容。

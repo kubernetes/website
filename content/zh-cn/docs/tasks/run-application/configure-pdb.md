@@ -84,7 +84,9 @@ selector goes into the PDBs `.spec.selector`.
 `.spec.selector` 字段中加入同样的选择算符。
 
 <!--
-From version 1.15 PDBs support custom controllers where the [scale subresource](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource) is enabled.
+From version 1.15 PDBs support custom controllers where the
+[scale subresource](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource)
+is enabled.
 -->
 从 1.15 版本开始，PDB 支持启用
 [Scale 子资源](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#scale-subresource)
@@ -122,7 +124,8 @@ due to a voluntary disruption.
 - Multiple-instance Stateful application such as Consul, ZooKeeper, or etcd:
   - Concern: Do not reduce number of instances below quorum, otherwise writes fail.
     - Possible Solution 1: set maxUnavailable to 1 (works with varying scale of application).
-    - Possible Solution 2: set minAvailable to quorum-size (e.g. 3 when scale is 5). (Allows more disruptions at once).
+    - Possible Solution 2: set minAvailable to quorum-size (e.g. 3 when scale is 5).
+      (Allows more disruptions at once).
 - Restartable Batch Job:
   - Concern: Job needs to complete in case of voluntary disruption.
     - Possible solution: Do not create a PDB. The Job controller will create a replacement pod.
@@ -155,11 +158,12 @@ Values for `minAvailable` or `maxUnavailable` can be expressed as integers or as
 `minAvailable` 或 `maxUnavailable` 的值可以表示为整数或百分比。
 
 <!--
-- When you specify an integer, it represents a number of Pods. For instance, if you set `minAvailable` to 10, then 10
-  Pods must always be available, even during a disruption.
-- When you specify a percentage by setting the value to a string representation of a percentage (eg. `"50%"`), it represents a percentage of
-  total Pods. For instance, if you set `minAvailable` to `"50%"`, then at least 50% of the Pods remain available during a
-  disruption.
+- When you specify an integer, it represents a number of Pods. For instance, if you set
+  `minAvailable` to 10, then 10 Pods must always be available, even during a disruption.
+- When you specify a percentage by setting the value to a string representation of a
+  percentage (eg. `"50%"`), it represents a percentage of total Pods. For instance, if
+  you set `minAvailable` to `"50%"`, then at least 50% of the Pods remain available
+  during a disruption.
 -->
 - 指定整数值时，它表示 Pod 个数。例如，如果将 `minAvailable` 设置为 10，
   那么即使在干扰期间，也必须始终有 10 个 Pod 可用。
@@ -167,11 +171,13 @@ Values for `minAvailable` or `maxUnavailable` can be expressed as integers or as
   例如，如果将 `minAvailable` 设置为 `"50％"`，则干扰期间至少 50％ 的 Pod 保持可用。
 
 <!--
-When you specify the value as a percentage, it may not map to an exact number of Pods. For example, if you have 7 Pods and
-you set `minAvailable` to `"50%"`, it's not immediately obvious whether that means 3 Pods or 4 Pods must be available.
-Kubernetes rounds up to the nearest integer, so in this case, 4 Pods must be available. When you specify the value 
-`maxUnavailable` as a percentage, Kubernetes rounds up the number of Pods that may be disrupted. Thereby a disruption 
-can exceed your defined `maxUnavailable` percentage. You can examine the
+When you specify the value as a percentage, it may not map to an exact number of Pods.
+For example, if you have 7 Pods and you set `minAvailable` to `"50%"`, it's not
+immediately obvious whether that means 3 Pods or 4 Pods must be available. Kubernetes
+rounds up to the nearest integer, so in this case, 4 Pods must be available. When you
+specify the value `maxUnavailable` as a percentage, Kubernetes rounds up the number of
+Pods that may be disrupted. Thereby a disruption can exceed your defined
+`maxUnavailable` percentage. You can examine the
 [code](https://github.com/kubernetes/kubernetes/blob/23be9587a0f8677eb8091464098881df939c44a9/pkg/controller/disruption/disruption.go#L539)
 that controls this behavior.
 -->
@@ -285,8 +291,8 @@ Pod 的数量低于预算指定值。预算只能够针对自发的驱逐提供�
 If you set `maxUnavailable` to 0% or 0, or you set `minAvailable` to 100% or the number of replicas,
 you are requiring zero voluntary evictions. When you set zero voluntary evictions for a workload
 object such as ReplicaSet, then you cannot successfully drain a Node running one of those Pods.
-If you try to drain a Node where an unevictable Pod is running, the drain never completes. This is permitted as per the
-semantics of `PodDisruptionBudget`.
+If you try to drain a Node where an unevictable Pod is running, the drain never completes.
+This is permitted as per the semantics of `PodDisruptionBudget`.
 -->
 如果你将 `maxUnavailable` 的值设置为 0%（或 0）或设置 `minAvailable` 值为 100%（或等于副本数）
 则会阻止所有的自愿驱逐。
@@ -409,7 +415,8 @@ status:
 <!--
 ### Healthiness of a Pod
 
-The current implementation considers healthy pods, as pods that have `.status.conditions` item with `type="Ready"` and `status="True"`.
+The current implementation considers healthy pods, as pods that have `.status.conditions`
+item with `type="Ready"` and `status="True"`.
 These pods are tracked via `.status.currentHealthy` field in the PDB status.
 -->
 ### Pod 的健康  {#healthiness-of-a-pod}
@@ -454,13 +461,16 @@ Policies:
 
 <!--
 `IfHealthyBudget`
-: Running pods (`.status.phase="Running"`), but not yet healthy can be evicted only if the guarded application is not
-disrupted (`.status.currentHealthy` is at least equal to `.status.desiredHealthy`).
+: Running pods (`.status.phase="Running"`), but not yet healthy can be evicted only
+  if the guarded application is not disrupted (`.status.currentHealthy` is at least
+  equal to `.status.desiredHealthy`).
 
-: This policy ensures that running pods of an already disrupted application have the best chance to become healthy.
-This has negative implications for draining nodes, which can be blocked by misbehaving applications that are guarded by a PDB.
-More specifically applications with pods in `CrashLoopBackOff` state (due to a bug or misconfiguration),
-or pods that are just failing to report the `Ready` condition.
+: This policy ensures that running pods of an already disrupted application have
+  the best chance to become healthy. This has negative implications for draining
+  nodes, which can be blocked by misbehaving applications that are guarded by a PDB.
+  More specifically applications with pods in `CrashLoopBackOff` state
+  (due to a bug or misconfiguration), or pods that are just failing to report the
+  `Ready` condition.
 -->
 `IfHealthyBudget`
 : 对于运行中但还不健康的 Pod（`.status.phase="Running"`），只有所守护的应用程序不受干扰
@@ -473,13 +483,14 @@ or pods that are just failing to report the `Ready` condition.
 
 <!--
 `AlwaysAllow`
-: Running pods (`.status.phase="Running"`), but not yet healthy are considered disrupted and can be evicted
-regardless of whether the criteria in a PDB is met.
+: Running pods (`.status.phase="Running"`), but not yet healthy are considered
+  disrupted and can be evicted regardless of whether the criteria in a PDB is met.
 
-: This means prospective running pods of a disrupted application might not get a chance to become healthy.
-By using this policy, cluster managers can easily evict misbehaving applications that are guarded by a PDB.
-More specifically applications with pods in `CrashLoopBackOff` state (due to a bug or misconfiguration),
-or pods that are just failing to report the `Ready` condition.
+: This means prospective running pods of a disrupted application might not get a
+  chance to become healthy. By using this policy, cluster managers can easily evict
+  misbehaving applications that are guarded by a PDB. More specifically applications
+  with pods in `CrashLoopBackOff` state (due to a bug or misconfiguration), or pods
+  that are just failing to report the `Ready` condition.
 -->
 `AlwaysAllow`
 : 运行中但还不健康的 Pod（`.status.phase="Running"`）将被视为已受干扰且可以被驱逐，
