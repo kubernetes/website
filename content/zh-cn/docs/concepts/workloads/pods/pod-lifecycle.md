@@ -922,7 +922,7 @@ An example flow:
    -->
    如果你的集群中没有启用 EndpointSliceTerminatingCondition 特性门控
    （该门控从 Kubernetes 1.22 开始默认开启，在 1.26 中锁定为默认），
-   那么一旦 Pod 的终止宽限期开始，Kubernetes 控制平面就会从任何相关 EndpointSlices 中移除 Pod。
+   那么一旦 Pod 的终止宽限期开始，Kubernetes 控制平面就会从所有的相关 EndpointSlices 中移除 Pod。
    上述行为是在 EndpointSliceTerminatingCondition 特性门控被启用时描述的。
    {{</note>}}
 
