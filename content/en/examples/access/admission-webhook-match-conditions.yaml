@@ -8,7 +8,7 @@ webhooks:
     apiGroups: ['*']
     apiVersions: ['*']
     resources: ['*']
-  failurePolicy: 'Fail'
+  failurePolicy: 'Fail' # Optional: defaults to Fail
   matchConditions:
   - name: 'exclude-leases' # Each match condition must have a unique name
     expression: '!(request.resource.group == "coordination.k8s.io" && resource.resource == "leases")' # Match non-lease resources.
