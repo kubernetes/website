@@ -269,13 +269,13 @@ When you deploy this Pod, the following happens:
 当你部署此 Pod 时，会发生以下情况：
 
 <!--
-* The `username` key from `mysecret` is available to the container at the path
+- The `username` key from `mysecret` is available to the container at the path
   `/etc/foo/my-group/my-username` instead of at `/etc/foo/username`.
-* The `password` key from that Secret object is not projected.
+- The `password` key from that Secret object is not projected.
 -->
-* 来自 `mysecret` 的键 `username` 可以在路径 `/etc/foo/my-group/my-username`
+- 来自 `mysecret` 的键 `username` 可以在路径 `/etc/foo/my-group/my-username`
   下供容器使用，而不是路径 `/etc/foo/username`。
-* 来自该 Secret 的键 `password` 没有映射到任何路径。
+- 来自该 Secret 的键 `password` 没有映射到任何路径。
 
 <!--
 If you list keys explicitly using `.spec.volumes[].secret.items`, consider the
@@ -285,15 +285,15 @@ following:
 如果你使用 `.spec.volumes[].secret.items` 明确地列出键，请考虑以下事项：
 
 <!--
-* Only keys specified in `items` are projected.
-* To consume all keys from the Secret, all of them must be listed in the
+- Only keys specified in `items` are projected.
+- To consume all keys from the Secret, all of them must be listed in the
   `items` field.
-* All listed keys must exist in the corresponding Secret. Otherwise, the volume
+- All listed keys must exist in the corresponding Secret. Otherwise, the volume
   is not created.
 -->
-* 只有在 `items` 字段中指定的键才会被映射。
-* 要使用 Secret 中全部的键，那么全部的键都必须列在 `items` 字段中。
-* 所有列出的键必须存在于相应的 Secret 中。否则，该卷不被创建。
+- 只有在 `items` 字段中指定的键才会被映射。
+- 要使用 Secret 中全部的键，那么全部的键都必须列在 `items` 字段中。
+- 所有列出的键必须存在于相应的 Secret 中。否则，该卷不被创建。
 
 <!--
 ### Set POSIX permissions for Secret keys
@@ -379,34 +379,34 @@ secrets change.
 ### 使用来自 Secret 中的数据定义容器变量   {#define-a-container-env-var-with-data-from-a-single-secret}
 
 <!--
-* Define an environment variable as a key-value pair in a Secret:
+- Define an environment variable as a key-value pair in a Secret:
 -->
-* 定义环境变量为 Secret 中的键值偶对：
+- 定义环境变量为 Secret 中的键值偶对：
 
   ```shell
   kubectl create secret generic backend-user --from-literal=backend-username='backend-admin'
   ```
 
 <!--
-*  Assign the `backend-username` value defined in the Secret to the `SECRET_USERNAME` environment variable in the Pod specification.
+- Assign the `backend-username` value defined in the Secret to the `SECRET_USERNAME` environment variable in the Pod specification.
 -->
-* 在 Pod 规约中，将 Secret 中定义的值 `backend-username` 赋给 `SECRET_USERNAME` 环境变量。
+- 在 Pod 规约中，将 Secret 中定义的值 `backend-username` 赋给 `SECRET_USERNAME` 环境变量。
 
   {{< codenew file="pods/inject/pod-single-secret-env-variable.yaml" >}}
 
 <!--
-*  Create the Pod:
+- Create the Pod:
 -->
-* 创建 Pod：
+- 创建 Pod：
 
   ```shell
   kubectl create -f https://k8s.io/examples/pods/inject/pod-single-secret-env-variable.yaml
   ```
 
 <!--
-*  In your shell, display the content of `SECRET_USERNAME` container environment variable
+- In your shell, display the content of `SECRET_USERNAME` container environment variable
 -->
-* 在 Shell 中，显示容器环境变量 `SECRET_USERNAME` 的内容：
+- 在 Shell 中，显示容器环境变量 `SECRET_USERNAME` 的内容：
 
   ```shell
   kubectl exec -i -t env-single-secret -- /bin/sh -c 'echo $SECRET_USERNAME'
@@ -426,9 +426,9 @@ secrets change.
 ### 使用来自多个 Secret 的数据定义环境变量   {#define-container-env-var-with-data-from-multi-secrets}
 
 <!--
-*  As with the previous example, create the Secrets first.
+- As with the previous example, create the Secrets first.
 -->
-* 和前面的例子一样，先创建 Secret：
+- 和前面的例子一样，先创建 Secret：
 
   ```shell
   kubectl create secret generic backend-user --from-literal=backend-username='backend-admin'
@@ -436,25 +436,25 @@ secrets change.
   ```
 
 <!--
-*  Define the environment variables in the Pod specification.
+- Define the environment variables in the Pod specification.
 -->
-* 在 Pod 规约中定义环境变量：
+- 在 Pod 规约中定义环境变量：
 
   {{< codenew file="pods/inject/pod-multiple-secret-env-variable.yaml" >}}
 
 <!--
-*  Create the Pod:
+- Create the Pod:
 -->
-* 创建 Pod：
+- 创建 Pod：
 
   ```shell
   kubectl create -f https://k8s.io/examples/pods/inject/pod-multiple-secret-env-variable.yaml
   ```
 
 <!--
-*  In your shell, display the container environment variables
+- In your shell, display the container environment variables
 -->
-* 在你的 Shell 中，显示容器环境变量的内容：
+- 在你的 Shell 中，显示容器环境变量的内容：
 
   ```shell
   kubectl exec -i -t envvars-multiple-secrets -- /bin/sh -c 'env | grep _USERNAME'
@@ -481,35 +481,35 @@ This functionality is available in Kubernetes v1.6 and later.
 {{< /note >}}
 
 <!--
-*  Create a Secret containing multiple key-value pairs
+- Create a Secret containing multiple key-value pairs
 -->
-* 创建包含多个键值偶对的 Secret：
+- 创建包含多个键值偶对的 Secret：
 
   ```shell
   kubectl create secret generic test-secret --from-literal=username='my-app' --from-literal=password='39528$vdg7Jb'
   ```
 
 <!--
-*  Use envFrom to define all of the Secret's data as container environment variables. The key from the Secret becomes the environment variable name in the Pod.
+- Use envFrom to define all of the Secret's data as container environment variables. The key from the Secret becomes the environment variable name in the Pod.
 -->
-* 使用 `envFrom` 来将 Secret 中的所有数据定义为环境变量。
+- 使用 `envFrom` 来将 Secret 中的所有数据定义为环境变量。
   Secret 中的键名成为容器中的环境变量名：
 
   {{< codenew file="pods/inject/pod-secret-envFrom.yaml" >}}
 
 <!--
-*  Create the Pod:
+- Create the Pod:
 -->
-* 创建 Pod：
+- 创建 Pod：
 
   ```shell
   kubectl create -f https://k8s.io/examples/pods/inject/pod-secret-envFrom.yaml
   ```
 
 <!--
-* In your shell, display `username` and `password` container environment variables
+- In your shell, display `username` and `password` container environment variables
 -->
-* 在 Shell 中，显示环境变量 `username` 和 `password` 的内容：
+- 在 Shell 中，显示环境变量 `username` 和 `password` 的内容：
 
   ```shell
   kubectl exec -i -t envfrom-secret -- /bin/sh -c 'echo "username: $username\npassword: $password\n"'
@@ -530,15 +530,15 @@ This functionality is available in Kubernetes v1.6 and later.
 -->
 ### 参考   {#references}
 
-* [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
-* [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)
-* [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
+- [Secret](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#secret-v1-core)
+- [Volume](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#volume-v1-core)
+- [Pod](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
 
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Learn more about [Secrets](/docs/concepts/configuration/secret/).
-* Learn about [Volumes](/docs/concepts/storage/volumes/).
+- Learn more about [Secrets](/docs/concepts/configuration/secret/).
+- Learn about [Volumes](/docs/concepts/storage/volumes/).
 -->
-* 进一步了解 [Secret](/zh-cn/docs/concepts/configuration/secret/)。
-* 了解[卷](/zh-cn/docs/concepts/storage/volumes/)。
+- 进一步了解 [Secret](/zh-cn/docs/concepts/configuration/secret/)。
+- 了解[卷](/zh-cn/docs/concepts/storage/volumes/)。
