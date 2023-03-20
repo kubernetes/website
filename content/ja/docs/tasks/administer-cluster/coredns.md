@@ -44,7 +44,7 @@ Kubernetesのバージョンごとに`kubeadm`がインストールする`CoreDN
 スムーズなアップグレードのために役立つ[ガイドラインとウォークスルー](https://github.com/coredns/deployment/blob/master/kubernetes/Upgrading_CoreDNS.md)が用意されています。
 クラスターをアップグレードする際には、既存の`CoreDNS`設定("Corefile")が保持されていることを確認してください。
 
-`kubeadm`ツールを使用してクラスタをアップグレードしている場合、`kubeadm`は既存のCoreDNSの設定を自動的に保持する処理を行うことができます。
+`kubeadm`ツールを使用してクラスターをアップグレードしている場合、`kubeadm`は既存のCoreDNSの設定を自動的に保持する処理を行うことができます。
 
 ## CoreDNSのチューニング {#tuning-coredns}
 
