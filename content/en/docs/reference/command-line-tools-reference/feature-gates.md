@@ -82,8 +82,6 @@ For a reference to old feature gates that are removed, please refer to
 | `ComponentSLIs` | `false` | Alpha | 1.26 | |
 | `ContainerCheckpoint` | `false` | Alpha | 1.25 | |
 | `ContextualLogging` | `false` | Alpha | 1.24 | |
-| `CronJobTimeZone` | `false` | Alpha | 1.24 | 1.24 |
-| `CronJobTimeZone` | `true` | Beta | 1.25 | |
 | `CrossNamespaceVolumeDataSource` | `false` | Alpha| 1.26 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
 | `CustomResourceValidationExpressions` | `false` | Alpha | 1.23 | 1.24 |
@@ -254,6 +252,9 @@ For a reference to old feature gates that are removed, please refer to
 | `CSIStorageCapacity` | `true` | Beta | 1.21 | 1.23 |
 | `CSIStorageCapacity` | `true` | GA | 1.24 | - |
 | `ConsistentHTTPGetHandlers` | `true` | GA | 1.25 | - |
+| `CronJobTimeZone` | `false` | Alpha | 1.24 | 1.24 |
+| `CronJobTimeZone` | `true` | Beta | 1.25 | 1.26 |
+| `CronJobTimeZone` | `true` | GA | 1.27 | - |
 | `DaemonSetUpdateSurge` | `false` | Alpha | 1.21 | 1.21 |
 | `DaemonSetUpdateSurge` | `true` | Beta | 1.22 | 1.24 |
 | `DaemonSetUpdateSurge` | `true` | GA | 1.25 | - |
