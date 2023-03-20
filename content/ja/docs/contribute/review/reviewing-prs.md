@@ -33,6 +33,8 @@ weight: 10
 
 一般に、コンテンツや文体に対するプルリクエストは、英語でレビューを行います。図1は、レビュープロセスについて手順の概要を示しています。 各ステップの詳細は次のとおりです。
 
+**(訳注:SIG Docs jaでは、日本語でも対応しています。日本語の翻訳に対するレビューは、日本語でも構いません。ただし、プルリクエストの作成者や他のコントリビューターが必ずしも日本語を理解できるとは限りませんので、注意して発言してください。)**
+
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
 
