@@ -108,7 +108,7 @@ If this annotation is not set then the cluster autoscaler follows its Pod-level 
 
 Example: `config.kubernetes.io/local-config: "true"`
 
-Used on: All resources
+Used on: All objects
 
 This annotation is used to mark a resource as a local configuration file that should not be applied to the API server. It is part of the [Kubernetes Resource Model (KRM) Functions Specification](https://github.com/kubernetes-sigs/kustomize/blob/ce3e394a414387ce09679523902e981414b09a1a/cmd/config/docs/api-conventions/functions-spec.md) that is used by tools such as Kustomize and Kpt. For example, Kustomize removes objects with this annotation from its final build output.
 
@@ -116,7 +116,7 @@ A value of "true" for this annotation declares that the resource is only consume
 
 A value of "false" can be used to declare that a resource should be applied to the API server even when it would otherwise be assumed to be local.
 
-### internal.config.kubernetes.io/* (reserved prefix)
+### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
 
 Used on: All resources
 
@@ -130,7 +130,7 @@ Example: `internal.config.kubernetes.io/path: "relative/file/path.yaml"`
 
 Used on: All resources
 
-Records the slash-delimited, OS-agnostic, relative file path to a resource. The path is relative to a fixed location on the filesystem, determined by the orchestrator.
+Records the slash-delimited, OS-agnostic, relative file path to a manifest representing a resource. The path is relative to a fixed location on the filesystem, determined by the orchestrator tool.
 
 This annotation is part of the [Kubernetes Resource Model (KRM) Functions Specification](https://github.com/kubernetes-sigs/kustomize/blob/ce3e394a414387ce09679523902e981414b09a1a/cmd/config/docs/api-conventions/functions-spec.md) that is used by function orchestrator tools such as Kustomize and Kpt.
 
