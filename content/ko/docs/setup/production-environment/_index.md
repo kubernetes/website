@@ -117,7 +117,7 @@ no_list: true
   또는 추가 보안 및 가용성을 위해 별도의 시스템에서 실행될 수 있다. 
   etcd는 클러스터 구성 데이터를 저장하므로 
   필요한 경우 해당 데이터베이스를 복구할 수 있도록 etcd 데이터베이스를 정기적으로 백업해야 한다.
-  [etcd FAQ](https://etcd.io/docs/v3.4/faq/)에서 etcd 구성 및 사용 상세를 확인한다.
+  [etcd FAQ](https://etcd.io/docs/v3.5/faq/)에서 etcd 구성 및 사용 상세를 확인한다.
   [쿠버네티스를 위한 etcd 클러스터 운영하기](/docs/tasks/administer-cluster/configure-upgrade-etcd/)와 
   [kubeadm을 이용하여 고가용성 etcd 생성하기](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)에서 
   상세 사항을 확인한다.
