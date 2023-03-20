@@ -33,7 +33,7 @@ AMD 和 NVIDIA GPU（图形处理单元），目前处于**稳定**状态。
 <!--
 ## Using device plugins
 
-Kubernetes implements device-plugin to let Pods access specialized hardware features such as GPUs.
+Kubernetes implements device plugins to let Pods access specialized hardware features such as GPUs.
 -->
 ## 使用设备插件  {#using-device-plugins}
 
@@ -140,7 +140,8 @@ If you're using AMD GPU devices, you can deploy
 Node Labeller is a {{< glossary_tooltip text="controller" term_id="controller" >}} that automatically
 labels your nodes with GPU device properties.
 
-At the moment, that controller can add labels for:
+Similar functionality for NVIDIA is provided by
+[GPU feature discovery](https://github.com/NVIDIA/gpu-feature-discovery/blob/main/README.md).
 -->
 如果你在使用 AMD GPU，你可以部署
 [Node Labeller](https://github.com/RadeonOpenCompute/k8s-device-plugin/tree/master/cmd/k8s-node-labeller)，
