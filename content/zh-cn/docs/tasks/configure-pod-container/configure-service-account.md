@@ -731,7 +731,7 @@ The OpenID Provider Configuration is sometimes referred to as the _discovery doc
 The Kubernetes API server publishes the related
 JSON Web Key Set (JWKS), also via HTTP, at `/openid/v1/jwks`.
 -->
-当此特性被启用时，Kubernetes API 服务器会通过 HTTP 发表一个 OpenID 提供者配置文档。
+当此特性被启用时，Kubernetes API 服务器会通过 HTTP 发布一个 OpenID 提供者配置文档。
 该配置文档发布在 `/.well-known/openid-configuration` 路径。
 这里的 OpenID 提供者配置（OpenID Provider Configuration）有时候也被称作
 “发现文档（Discovery Document）”。
