@@ -205,6 +205,12 @@ The v1.25 release of Kubernetes also stabilised surge support for DaemonSet pods
 implemented in order to minimize DaemonSet downtime during rollouts.
 The `DaemonSetUpdateSurge` feature gate will be removed in Kubernetes v1.27.
 
+### Removal of `--container-runtime` command line argument
+
+The kubelet accepts a deprecated command line argument, `--container-runtime`, and the only
+valid value would be `remote` after dockershim code is removed. Kubernetes v1.27 will remove
+that argument, which has been deprecated since the v1.24 release.
+
 ## Looking ahead
 
 The official list of
