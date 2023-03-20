@@ -724,7 +724,7 @@ The `matchPolicy` for an admission webhooks defaults to `Equivalent`.
 {{< feature-state state="alpha" for_k8s_version="v1.27" >}}
 
 {{< note >}}
-Match conditions requires the [featuregate](/docs/reference/command-line-tools-reference/feature-gates/)
+Use of matchConditions requires the [featuregate](/docs/reference/command-line-tools-reference/feature-gates/)
 `AdmissionWebhookMatchConditions` to be explicitly enabled on the kube-apiserver before this feature can be used.
 {{< /note >}}
 
@@ -733,7 +733,7 @@ match rules, objectSelectors and namespaceSelectors) using
 [CEL expressions](/docs/reference/using-api/cel/). All match conditions must evaluate to true for
 the webhook to be called.
 
-Here are a couple examples of match conditions:
+Here is an example with a few match conditions:
 
 {{< codenew file="access/admission-webhook-match-conditions.yaml" >}}
 
