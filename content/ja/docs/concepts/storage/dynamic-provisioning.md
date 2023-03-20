@@ -2,7 +2,7 @@
 reviewers:
 title: ボリュームの動的プロビジョニング(Dynamic Volume Provisioning)
 content_type: concept
-weight: 40
+weight: 50
 ---
 
 <!-- overview -->
