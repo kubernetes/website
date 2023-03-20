@@ -855,7 +855,7 @@ Il est couramment utilisé par les serveurs API complémentaires pour l'authenti
 </tbody>
 </table>
 
-### Roles for built-in controllers {#controller-roles}
+### Rôles des contrôleurs intégrés {#controller-roles}
 
 The Kubernetes {{< glossary_tooltip term_id="kube-controller-manager" text="controller manager" >}} runs
 {{< glossary_tooltip term_id="controller" text="controllers" >}} that are built in to the Kubernetes
