@@ -1,7 +1,7 @@
 ---
 title: 为 Pod 配置服务账号
 content_type: task
-weight: 90
+weight: 120
 ---
 <!--
 reviewers:
@@ -10,7 +10,7 @@ reviewers:
 - thockin
 title: Configure Service Accounts for Pods
 content_type: task
-weight: 90
+weight: 120
 -->
 
 <!-- overview -->
@@ -134,7 +134,7 @@ automountServiceAccountToken: false
 ...
 ```
 <!--
-You can also opt out of automounting API credentials for a particular pod:
+You can also opt out of automounting API credentials for a particular Pod:
 -->
 你也可以选择不给特定 Pod 自动挂载 API 凭据：
 
@@ -223,7 +223,7 @@ The output is similar to this:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  creationTimestamp: 2015-06-16T00:12:59Z
+  creationTimestamp: 2019-06-16T00:12:34Z
   name: build-robot
   namespace: default
   resourceVersion: "272500"
@@ -235,7 +235,7 @@ You can use authorization plugins to
 [set permissions on service accounts](/docs/reference/access-authn-authz/rbac/#service-account-permissions).
 
 To use a non-default service account, set the `spec.serviceAccountName`
-field of a pod to the name of the service account you wish to use.
+field of a Pod to the name of the ServiceAccount you wish to use.
 -->
 你可以使用鉴权插件来[设置服务账号的访问许可](/zh-cn/docs/reference/access-authn-authz/rbac/#service-account-permissions)。
 
@@ -251,11 +251,11 @@ of a Pod that already exists.
 
 {{< note >}}
 <!--
-The `spec.serviceAccount` field is a deprecated alias for `spec.serviceAccountName`.
+The `.spec.serviceAccount` field is a deprecated alias for `.spec.serviceAccountName`.
 If you want to remove the fields from a workload resource, set both fields to empty explicitly
 on the [pod template](/docs/concepts/workloads/pods#pod-templates).
 -->
-`spec.serviceAccount` 字段是 `spec.serviceAccountName` 的已弃用别名。
+`.spec.serviceAccount` 字段是 `.spec.serviceAccountName` 的已弃用别名。
 如果要从工作负载资源中删除这些字段，请在
 [Pod 模板](/zh-cn/docs/concepts/workloads/pods#pod-templates)上将这两个字段显式设置为空。
 {{< /note >}}
@@ -487,6 +487,11 @@ kubectl edit serviceaccount/default
 ```
 
 <!--
+The output of the `sa.yaml` file is similar to this:
+-->
+`sa.yaml` 文件的输出类似于：
+
+<!--
 Your selected text editor will open with a configuration looking something like this:
 -->
 你所选择的文本编辑器会被打开，展示如下所示的配置：
@@ -551,7 +556,7 @@ myregistrykey
 ```
 
 <!--
-## Service Account Token Volume Projection
+## ServiceAccount token volume projection
 -->
 ## 服务账号令牌卷投射   {#service-account-token-volume-projection}
 
@@ -619,6 +624,7 @@ command line arguments to `kube-apiserver`:
   Kubernetes API 服务器当做合法的令牌。如果你指定了 `--service-account-issuer`
   参数，但沒有設置 `--api-audiences`，则控制面认为此参数的默认值为一个只有一个元素的列表，
   且该元素为令牌发放者的 URL。
+
 {{< /note >}}
 
 <!--
@@ -718,14 +724,14 @@ registered or accessible.
 {{< /note >}}
 
 <!--
-When enabled, the Kubernetes API server provides an OpenID Provider
+When enabled, the Kubernetes API server publishes an OpenID Provider
 Configuration document via HTTP. The configuration document is published at
 `/.well-known/openid-configuration`.
 The OpenID Provider Configuration is sometimes referred to as the _discovery document_.
 The Kubernetes API server publishes the related
 JSON Web Key Set (JWKS), also via HTTP, at `/openid/v1/jwks`.
 -->
-当此特性被启用时，Kubernetes API 服务器会通过 HTTP 提供一个 OpenID 提供者配置文档。
+当此特性被启用时，Kubernetes API 服务器会通过 HTTP 发布一个 OpenID 提供者配置文档。
 该配置文档发布在 `/.well-known/openid-configuration` 路径。
 这里的 OpenID 提供者配置（OpenID Provider Configuration）有时候也被称作
 “发现文档（Discovery Document）”。
@@ -755,7 +761,7 @@ bind the role to `system:authenticated` or `system:unauthenticated` depending on
 security requirements and which external systems they intend to federate with.
 -->
 使用 {{< glossary_tooltip text="RBAC" term_id="rbac">}} 的集群都包含一个的默认
-RBAC ClusterRole, 名为 `system:service-account-issuer-discovery`。 
+RBAC ClusterRole, 名为 `system:service-account-issuer-discovery`。
 默认的 RBAC ClusterRoleBinding 将此角色分配给 `system:serviceaccounts` 组，
 所有 ServiceAccount 隐式属于该组。这使得集群上运行的 Pod
 能够通过它们所挂载的服务账号令牌访问服务账号发现文档。
@@ -819,4 +825,3 @@ See also:
 - 关于 OIDC 发现的相关背景信息，阅读[服务账号签署密钥检索 KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-auth/1393-oidc-discovery)
   这一 Kubernetes 增强提案
 - 阅读 [OIDC 发现规范](https://openid.net/specs/openid-connect-discovery-1_0.html)
-

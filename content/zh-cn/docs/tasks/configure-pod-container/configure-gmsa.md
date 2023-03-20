@@ -1,12 +1,12 @@
 ---
 title: 为 Windows Pod 和容器配置 GMSA
 content_type: task
-weight: 20
+weight: 30
 ---
 <!--
 title: Configure GMSA for Windows Pods and containers
 content_type: task
-weight: 20
+weight: 30
 -->
 <!-- overview -->
 
@@ -55,6 +55,7 @@ Next, install the CRD with `kubectl apply -f gmsa-crd.yaml`
 
 <!--
 ### Install webhooks to validate GMSA users
+
 Two webhooks need to be configured on the Kubernetes cluster to populate and validate GMSA credential spec references at the Pod or container level:
 
 1. A mutating webhook that expands references to GMSAs (by name from a Pod specification) into the full credential spec in JSON form within the Pod spec.
@@ -79,7 +80,7 @@ Installing the above webhooks and associated objects require the steps below:
 
 1. Install a secret with the certificate from above.
 
-1. Create a deployment for the core webhook logic. 
+1. Create a deployment for the core webhook logic.
 
 1. Create the validating and mutating webhook configurations referring to the deployment. 
 -->
@@ -94,7 +95,7 @@ Installing the above webhooks and associated objects require the steps below:
 1. 创建引用该 Deployment 的 Validating Webhook 和 Mutating Webhook 配置
 
 <!--
-A [script](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/deploy-gmsa-webhook.sh) can be used to deploy and configure the GMSA webhooks and associated objects mentioned above. The script can be run with a `-dry-run=server` option to allow you to review the changes that would be made to your cluster.
+A [script](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/deploy-gmsa-webhook.sh) can be used to deploy and configure the GMSA webhooks and associated objects mentioned above. The script can be run with a ```--dry-run=server``` option to allow you to review the changes that would be made to your cluster.
 
 The [YAML template](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-webhook.yml.tpl) used by the script may also be used to deploy the webhooks and associated objects manually (with appropriate substitutions for the parameters)
 -->
@@ -142,7 +143,7 @@ Following are the steps for generating a GMSA credential spec YAML manually in J
 
 1. Create a credential spec in JSON format using `New-CredentialSpec`. To create a GMSA credential spec named WebApp1, invoke `New-CredentialSpec -Name WebApp1 -AccountName WebApp1 -Domain $(Get-ADDomain -Current LocalComputer)`
 
-1. Use `Get-CredentialSpec` to show the path of the JSON file. 
+1. Use `Get-CredentialSpec` to show the path of the JSON file.
 
 1. Convert the credspec file from JSON to YAML format and apply the necessary header fields `apiVersion`, `kind`, `metadata` and `credspec` to make it a GMSACredentialSpec custom resource that can be configured in Kubernetes. 
 -->
@@ -258,6 +259,7 @@ rules:
 
 <!--
 ## Assign role to service accounts to use specific GMSA credspecs
+
 A service account (that Pods will be configured with) needs to be bound to the cluster role create above. This authorizes the service account to use the desired GMSA credential spec resource. The following shows the default service account being bound to a cluster role `webapp1-role` to use `gmsa-WebApp1` credential spec resource created above.
 -->
 ## 将角色指派给要使用特定 GMSA 凭据规约的服务账号
@@ -285,6 +287,7 @@ roleRef:
 
 <!--
 ## Configure GMSA credential spec reference in Pod spec
+
 The Pod spec field `securityContext.windowsOptions.gmsaCredentialSpecName` is used to specify references to desired GMSA credential spec custom resources in Pod specs. This configures all containers in the Pod spec to use the specified GMSA. A sample Pod spec with the annotation populated to refer to `gmsa-WebApp1`:
 -->
 ## 在 Pod 规约中配置 GMSA 凭据规约引用
@@ -380,7 +383,11 @@ As Pod specs with GMSA fields populated (as described above) are applied in a cl
 1. 容器运行时为每个 Windows 容器配置所指定的 GMSA 凭据规约，这样容器就可以以
    活动目录中该 GMSA 所代表的身份来执行操作，使用该身份来访问域中的服务。
 
-## 使用主机名或 FQDN 对网络共享进行身份验证 
+<!--
+## Authenticating to network shares using hostname or FQDN
+-->
+## 使用主机名或 FQDN 对网络共享进行身份验证
+
 <!--
 If you are experiencing issues connecting to SMB shares from Pods using hostname or FQDN, but are able to access the shares via their IPv4 address then make sure the following registry key is set on the Windows nodes.
 -->
@@ -512,4 +519,3 @@ If you add the `lifecycle` section show above to your Pod spec, the Pod will exe
 如果你向你的 Pod 规约中添加如上所示的 `lifecycle` 节，则 Pod 会自动执行所
 列举的命令来重启 `netlogon` 服务，直到 `nltest.exe /query`
 命令返回时没有错误信息。
-
