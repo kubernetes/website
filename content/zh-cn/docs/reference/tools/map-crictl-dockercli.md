@@ -1,11 +1,13 @@
 ---
 title: 从 Docker 命令行映射到 crictl
 content_type: reference
+weight: 10
 ---
 
 <!--
 title: Mapping from dockercli to crictl
 content_type: reference
+weight: 10
 -->
 
 {{% thirdparty-content %}}
@@ -64,7 +66,8 @@ command output is being parsed programmatically.
 ### 获得调试信息   {#retrieve-debugging-information}
 
 {{< table caption="docker 命令行与 crictl 的映射 - 获得调试信息" >}}
-<!--docker CLI | crictl | Description | Unsupported Features
+<!--
+docker cli | crictl | Description | Unsupported Features
 -- | -- | -- | --
 `attach` | `attach` | Attach to a running container | `--detach-keys`, `--sig-proxy`
 `exec` | `exec` | Run a command in a running container | `--privileged`, `--user`, `--detach-keys`

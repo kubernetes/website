@@ -89,13 +89,6 @@ NAT for multihomed SCTP associations requires special logic in the corresponding
 
 针对多宿主 SCTP 关联的 NAT 需要在对应的内核模块具有特殊的逻辑。
 
-{{< note >}}
-<!--
-The kube-proxy does not support the management of SCTP associations when it is in userspace mode.
--->
-当 kube-proxy 处于 userspace 模式时不支持管理 SCTP 关联。
-{{< /note >}}
-
 ### `TCP` {#protocol-tcp}
 
 <!--
