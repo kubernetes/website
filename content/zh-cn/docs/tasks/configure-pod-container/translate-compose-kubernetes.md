@@ -1,14 +1,14 @@
 ---
 title: 将 Docker Compose 文件转换为 Kubernetes 资源
 content_type: task
-weight: 200
+weight: 230
 ---
 <!--
 reviewers:
 - cdrage
 title: Translate a Docker Compose File to Kubernetes Resources
 content_type: task
-weight: 200
+weight: 230
 -->
 
 <!-- overview -->
