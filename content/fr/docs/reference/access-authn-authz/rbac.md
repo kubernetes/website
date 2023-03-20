@@ -793,7 +793,7 @@ Le rôle <tt>system:node</tt> n'existe que pour la compatibilité avec les clust
 </tbody>
 </table>
 
-### Other component roles
+### Autres rôles des composants
 
 <table>
 <colgroup><col style="width: 25%;" /><col style="width: 25%;" /><col /></colgroup>
@@ -807,50 +807,50 @@ Le rôle <tt>system:node</tt> n'existe que pour la compatibilité avec les clust
 <tbody>
 <tr>
 <td><b>system:auth-delegator</b></td>
-<td>None</td>
-<td>Allows delegated authentication and authorization checks.
-This is commonly used by add-on API servers for unified authentication and authorization.</td>
+<td>Aucun</td>
+<td>Permet de déléguer les contrôles d'authentification et d'autorisation.
+Il est couramment utilisé par les serveurs API complémentaires pour l'authentification et l'autorisation unifiées.</td>
 </tr>
 <tr>
 <td><b>system:heapster</b></td>
-<td>None</td>
-<td>Role for the <a href="https://github.com/kubernetes/heapster">Heapster</a> component (deprecated).</td>
+<td>Aucun</td>
+<td>Rôle du composant <a href="https://github.com/kubernetes/heapster">Heapster</a> Heapster (déprécié).</td>
 </tr>
 <tr>
 <td><b>system:kube-aggregator</b></td>
-<td>None</td>
+<td>Aucun</td>
 <td>Role for the <a href="https://github.com/kubernetes/kube-aggregator">kube-aggregator</a> component.</td>
 </tr>
 <tr>
 <td><b>system:kube-dns</b></td>
-<td><b>kube-dns</b> service account in the <b>kube-system</b> namespace</td>
-<td>Role for the <a href="/docs/concepts/services-networking/dns-pod-service/">kube-dns</a> component.</td>
+<td><b>kube-dns</b> compte de service <b>kube-dns</b> dans le namespace du <b>kube-system</b></td>
+<td>Rôle du composant <a href="/docs/concepts/services-networking/dns-pod-service/">kube-dns</a> .</td>
 </tr>
 <tr>
 <td><b>system:kubelet-api-admin</b></td>
-<td>None</td>
-<td>Allows full access to the kubelet API.</td>
+<td>Aucun</td>
+<td>Permet un accès complet à l'API kubelet.</td>
 </tr>
 <tr>
 <td><b>system:node-bootstrapper</b></td>
-<td>None</td>
-<td>Allows access to the resources required to perform
+<td>Aucun</td>
+<td>Permet d'accéder aux ressources nécessaires pour effectuer un
 <a href="/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/">kubelet TLS bootstrapping</a>.</td>
 </tr>
 <tr>
 <td><b>system:node-problem-detector</b></td>
-<td>None</td>
-<td>Role for the <a href="https://github.com/kubernetes/node-problem-detector">node-problem-detector</a> component.</td>
+<td>Aucun</td>
+<td>Rôle du component <a href="https://github.com/kubernetes/node-problem-detector">node-problem-detector</a> .</td>
 </tr>
 <tr>
 <td><b>system:persistent-volume-provisioner</b></td>
-<td>None</td>
-<td>Allows access to the resources required by most <a href="/docs/concepts/storage/persistent-volumes/#dynamic">dynamic volume provisioners</a>.</td>
+<td>Aucun</td>
+<td>Permet d'accéder aux ressources requises par la plupart des <a href="/docs/concepts/storage/persistent-volumes/#dynamic">fournisseurs de volumes dynamiques</a> .</td>
 </tr>
 <tr>
 <td><b>system:monitoring</b></td>
-<td><b>system:monitoring</b> group</td>
-<td>Allows read access to control-plane monitoring endpoints (i.e. {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}} liveness and readiness endpoints (<tt>/healthz</tt>, <tt>/livez</tt>, <tt>/readyz</tt>), the individual health-check endpoints (<tt>/healthz/*</tt>, <tt>/livez/*</tt>, <tt>/readyz/*</tt>),  and <tt>/metrics</tt>). Note that individual health check endpoints and the metric endpoint may expose sensitive information.</td>
+<td>groupe <b>system:monitoring</b></td>
+<td>Autorise l'accès en lecture aux endpoints de monitoring du control-plane (c'est-à-dire les endpoints {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}} liveness and readiness (<tt>/healthz</tt>, <tt>/livez</tt>, <tt>/readyz</tt>), les endpoints de contrôle de l'état individuel (<tt>/healthz/*</tt>, <tt>/livez/*</tt>, <tt>/readyz/*</tt>), et <tt>/metrics</tt>). Il convient de noter que les endpoints des contrôles de l'état individuel et les endpoints des mesures peuvent exposer des informations sensibles. </td>
 </tr>
 </tbody>
 </table>
