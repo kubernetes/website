@@ -592,7 +592,7 @@ PodSpec 是对 Pod 的描述。
 
     NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
     
-    If this value is nil, the behavior is equivalent to the Honor policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+    If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
   -->
 
   - **topologySpreadConstraints.nodeAffinityPolicy** (string)
@@ -603,14 +603,14 @@ PodSpec 是对 Pod 的描述。
     - Ignore：nodeAffinity/nodeSelector 被忽略。所有节点均包括到计算中。
 
     如果此值为 nil，此行为等同于 Honor 策略。
-    这是通过 NodeInclusionPolicyInPodTopologySpread 特性标志启用的 Alpha 级别特性。
+    这是通过 NodeInclusionPolicyInPodTopologySpread 特性标志启用的 beta 级别特性。
 
   <!--
   - **topologySpreadConstraints.nodeTaintsPolicy** (string)
 
     NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
     
-    If this value is nil, the behavior is equivalent to the Ignore policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+    If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
   -->
   - **topologySpreadConstraints.nodeTaintsPolicy** (string)
 
@@ -619,7 +619,7 @@ PodSpec 是对 Pod 的描述。
     - Ignore：节点污点被忽略。包括所有节点。
     
     如果此值为 nil，此行为等同于 Ignore 策略。
-    这是通过 NodeInclusionPolicyInPodTopologySpread 特性标志启用的 Alpha 级别特性。
+    这是通过 NodeInclusionPolicyInPodTopologySpread 特性标志启用的 beta 级别特性。
 
 <!--
 - **overhead** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
@@ -990,13 +990,16 @@ PodSpec 是对 Pod 的描述。
   <!--
   - **securityContext.supplementalGroups** ([]int64)
 
-    A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Note that this field cannot be set when spec.os.name is windows.
+    A list of groups applied to the first process run in each container, in addition to the container's primary GID, the fsGroup (if specified), and group memberships defined in the container image for the uid of the container process. If unspecified, no additional groups are added to any container. Note that group memberships defined in the container image for the uid of the container process are still effective, even if they are not included in this list. Note that this field cannot be set when spec.os.name is windows.
   -->
 
   - **securityContext.supplementalGroups** ([]int64)
 
     在容器的主 GID 之外，应用于每个容器中运行的第一个进程的组列表。
-    如果未设置此字段，则不会向任何容器添加额外的组。
+    fsGroup（如果指定的话）以及容器镜像中为容器进程的uid定义的组成员资格。
+    如果没有指定，则不会向任何容器添加额外的组。
+    请注意，在容器映像中为容器进程的 uid定义的组成员资格仍然有效，
+    即使它们没有被包括在这个列表中。
     注意，`spec.os.name` 为 "windows" 时不能设置此字段。
 
   <!--
@@ -1251,6 +1254,90 @@ PodSpec 是对 Pod 的描述。
   当设置为 false 时，会为该 Pod 创建一个新的用户名字空间。
   设置为 false 对于缓解容器逃逸漏洞非常有用，可防止允许实际在主机上没有 root 特权的用户以 root 运行他们的容器。
   此字段是 Alpha 级别的字段，只有启用 UserNamespacesSupport 特性的服务器才能使用此字段。
+  
+<!-- 
+- **resourceClaims** ([]PodResourceClaim)
+  *Patch strategies: retainKeys, merge on key `name`*
+
+  *Map: unique values on key name will be kept during a merge*
+
+  ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
+
+  This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+
+  This field is immutable.
+
+  <a name="PodResourceClaim"></a>
+  *PodResourceClaim references exactly one ResourceClaim through a ClaimSource. It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.*
+
+  - **resourceClaims.name** (string), required
+
+    Name uniquely identifies this resource claim inside the pod. This must be a DNS_LABEL.
+
+  - **resourceClaims.source** (ClaimSource)
+
+    Source describes where to find the ResourceClaim.
+
+    <a name="ClaimSource"></a>
+    *ClaimSource describes a reference to a ResourceClaim.
+
+    Exactly one of these fields should be set.  Consumers of this type must treat an empty object as if it has an unknown value.*
+
+    - **resourceClaims.source.resourceClaimName** (string)
+
+      ResourceClaimName is the name of a ResourceClaim object in the same namespace as this pod.
+
+    - **resourceClaims.source.resourceClaimTemplateName** (string)
+
+      ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.
+
+      The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The name of the ResourceClaim will be \<pod name>-\<resource name>, where \<resource name> is the PodResourceClaim.Name. Pod validation will reject the pod if the concatenated name is not valid for a ResourceClaim (e.g. too long).
+
+      An existing ResourceClaim with that name that is not owned by the pod will not be used for the pod to avoid using an unrelated resource by mistake. Scheduling and pod startup are then blocked until the unrelated ResourceClaim is removed.
+
+      This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+-->
+- **资源声明 resourceClaims** ([]PodResourceClaim)
+
+  *补丁策略：保留键（retainKeys），按键名合并*
+
+  *映射：在合并过程中，键名上的唯一值将被保留。*
+
+  ResourceClaims定义了在允许Pod启动之前必须分配和保留哪些ResourceClaims。
+  这些资源将被提供给那些按名称消费它们的容器。
+
+  这是一个alpha字段，需要启用DynamicResourceAllocation功能门。
+
+  这个字段是不可改变的。
+
+  *PodResourceClaim通过ClaimSource精确引用一个ResourceClaim。它为其添加了一个名称，以唯一地识别Pod内的ResourceClaim。需要访问ResourceClaim的容器用这个名字引用它。*
+
+
+  - **resourceClaims.name** (string), required
+
+  在Pod内唯一标识该资源要求的名称。这必须是一个DNS_LABEL。
+
+  - **resourceClaims.source** (ClaimSource)
+
+    源描述了在哪里可以找到 ResourceClaim。
+
+  *ClaimSource描述了对一个ResourceClaim的引用。*
+
+    应该设置这些字段中的一个。此类型的消费者必须将空对象视为具有未知值。*
+
+    - **resourceClaims.source.resourceClaimName** (string)
+
+    ResourceClaimName是与该pod相同名称空间中的ResourceClaim对象的名称。
+
+    - **resourceClaims.source.resourceClaimTemplateName**（字符串）
+
+    ResourceClaimTemplateName是与此pod相同名称空间中的一个ResourceClaimTemplate对象的名称。
+
+    该模板将被用于创建一个新的ResourceClaim，它将被绑定到这个pod。当这个pod被删除时，ResourceClaim也将被删除。ResourceClaim的名字将是<pod name>-<resource name>，其中<resource name>是PodResourceClaim.Name。如果串联的名称对ResourceClaim无效（例如太长），Pod验证将拒绝该Pod。
+
+不属于该pod的现有ResourceClaim名称将不会被用于pod，以避免错误地使用不相关的资源。然后调度和pod启动被阻止，直到不相关的ResourceClaim被删除。
+
+这个字段是不可改变的，在创建ResourceClaim后，控制平面将不会对相应的ResourceClaim进行改变。
 
 <!--
 ### Deprecated
