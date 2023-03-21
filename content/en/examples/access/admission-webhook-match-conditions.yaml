@@ -18,7 +18,8 @@ webhooks:
     expression: '!("system:nodes" in request.userInfo.groups)' # Match requests made by non-node users.
   - name: 'rbac' # Skip RBAC requests, which are handled by the second webhook.
     expression: 'request.resource.group != "rbac.authorization.k8s.io"'
-# This exmaple illustrates the use of the 'authorizer'. The authorization check is more expensive
+
+# This example illustrates the use of the 'authorizer'. The authorization check is more expensive
 # than a simple expression, so in this example it is scoped to only RBAC requests by using a second
 # webhook. Both webhooks can be served by the same endpoint.
 - name: rbac.my-webhook.example.com

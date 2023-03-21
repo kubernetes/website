@@ -724,14 +724,15 @@ The `matchPolicy` for an admission webhooks defaults to `Equivalent`.
 {{< feature-state state="alpha" for_k8s_version="v1.27" >}}
 
 {{< note >}}
-Use of matchConditions requires the [featuregate](/docs/reference/command-line-tools-reference/feature-gates/)
+Use of `matchConditions` requires the [featuregate](/docs/reference/command-line-tools-reference/feature-gates/)
 `AdmissionWebhookMatchConditions` to be explicitly enabled on the kube-apiserver before this feature can be used.
 {{< /note >}}
 
-Match conditions can be added to webhooks for fine-grained request filtering (in conjunction with
-match rules, objectSelectors and namespaceSelectors) using
-[CEL expressions](/docs/reference/using-api/cel/). All match conditions must evaluate to true for
-the webhook to be called.
+You can define _match conditions_for webhooks if you need fine-grained request filtering. These
+conditions are useful if you find that match rules, `objectSelectors` and `namespaceSelectors` still
+doesn't provide the filtering you want over when to call out over HTTP. Match conditions are
+[CEL expressions](/docs/reference/using-api/cel/). All match conditions must evaluate to true for the
+webhook to be called.
 
 Here is an example illustrating a few different uses for match conditions:
 
