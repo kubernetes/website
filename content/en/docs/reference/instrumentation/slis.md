@@ -15,7 +15,7 @@ By default, Kubernetes {{< skew currentVersion >}} publishes Service Level Indic
 for each Kubernetes component binary. This metric endpoint is exposed on the serving 
 HTTPS port of each component, at the path `/metrics/slis`. The 
 `ComponentSLIs` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-defaults to `enabled` for each Kubernetes component as of v1.27.
+defaults to enabled for each Kubernetes component as of v1.27.
 
 <!-- body -->
 
