@@ -952,7 +952,7 @@ The previous version for which you want to show hidden metrics. Only the previou
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!-- If true, avoid headers when opening log files (no effect when -logtostderr=true) -->
-如果为 true，则在打开日志文件时避免使用头部 （当 -logtostderr=true 时无效）
+如果为 true，则在打开日志文件时避免使用头部 （当<code>--logtostderr=true</code>时无效）。
 </p></td>
 </tr>
 
