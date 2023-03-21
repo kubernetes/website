@@ -10,7 +10,11 @@ webhooks:
     resources: ['*']
   failurePolicy: 'Ignore' # Fail-open (optional)
   sideEffects: None
-  clientConfig: {} # Omitted for this example
+  clientConfig: &sharedClientConfig
+    service:
+      namespace: my-namespace
+      name: my-webhook
+    caBundle: '<omitted>'
   matchConditions:
   - name: 'exclude-leases' # Each match condition must have a unique name
     expression: '!(request.resource.group == "coordination.k8s.io" && request.resource.resource == "leases")' # Match non-lease resources.
@@ -31,7 +35,7 @@ webhooks:
     resources: ['*']
   failurePolicy: 'Fail' # Fail-closed (the default)
   sideEffects: None
-  clientConfig: {} # Omitted for this example
+  clientConfig: *sharedClientConfig
   matchConditions:
   - name: 'breakglass'
     # Skip requests made by users authorized to 'breakglass' on this webhook.
