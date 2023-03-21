@@ -13,6 +13,12 @@ To avoid CNI plugin-related errors, verify that you are using or upgrading to a
 container runtime that has been tested to work correctly with your version of
 Kubernetes.
 
+{{<note>}} 
+
+From Kubernetes 1.24,the kubelet always uses CNI mode for networking since the legacy `--network-plugin`
+command line parameter has been removed from the binary. For more information, refer to [Troubleshooting Clusters](https://kubernetes.io/docs/tasks/debug/debug-cluster/) page.
+
+{{</note>}}
 ## About the "Incompatible CNI versions" and "Failed to destroy network for sandbox" errors
 
 Service issues exist for pod CNI network setup and tear down in containerd

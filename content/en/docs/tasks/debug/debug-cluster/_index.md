@@ -315,7 +315,8 @@ This is an incomplete list of things that could go wrong, and how to adjust your
   - Mitigates: Kubelet software fault
 
  {{<note>}} 
-Starting 1.24, since management of the CNI is no longer in scope for kubelet, the `--network-plugin` command line parameter has been removed from the binary and will throw the following error, if used:
+From Kubernetes 1.24,the kubelet always uses CNI mode for networking. The legacy `--network-plugin`
+command line parameter has been removed from the binary. If you try to specify `--network-plugin`, you see:
 
 `Error: failed to parse kubelet flag: unknown flag: --network-plugin`
 
