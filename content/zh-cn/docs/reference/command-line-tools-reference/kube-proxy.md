@@ -951,8 +951,8 @@ The previous version for which you want to show hidden metrics. Only the previou
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!-- If true, avoid headers when opening log files -->
-如果为 true，则在打开日志文件时避免使用头部
+<!-- If true, avoid headers when opening log files (no effect when -logtostderr=true) -->
+如果为 true，则在打开日志文件时避免使用头部 （当 -logtostderr=true 时无效）
 </p></td>
 </tr>
 
@@ -961,24 +961,11 @@ The previous version for which you want to show hidden metrics. Only the previou
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!-- logs at or above this threshold go to stderr -->
-设置严重程度达到或超过此阈值的日志输出到标准错误输出。
+<!-- logs at or above this threshold go to stderr (no effect when -logtostderr=true or -alsologtostderr=false) -->
+设置严重程度达到或超过此阈值的日志输出到标准错误输出（当 -logtostderr=true 或 -alsologtostderr=false 时无效）。
 </p></td>
 </tr>
 
-<tr>
-<td colspan="2">--udp-timeout duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：250ms</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
-<!--
-How long an idle UDP connection will be kept open (e.g. '250ms', '2s').  Must be greater than 0. Only applicable for proxy-mode=userspace
--->
-空闲 UDP 连接将保持打开的时长（例如 '250ms'，'2s'）。必须大于 0。
-仅适用于 proxy-mode=userspace。
-</p>
-</td>
-</tr>
 
 <tr>
 <td colspan="2">-v, --v int</td>
