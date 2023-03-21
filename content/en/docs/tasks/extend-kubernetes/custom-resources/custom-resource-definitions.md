@@ -765,7 +765,7 @@ For example:
         required:
           - minReplicas
           - replicas
-          - maxReplicas 
+          - maxReplicas
 ```
 
 will reject a request to create this custom resource:
@@ -788,7 +788,7 @@ The CronTab "my-new-cron-object" is invalid:
 * spec: Invalid value: map[string]interface {}{"maxReplicas":10, "minReplicas":0, "replicas":20}: replicas should be smaller than or equal to maxReplicas.
 ```
 
-`x-kubernetes-validations` could have multiple rules. 
+`x-kubernetes-validations` could have multiple rules.
 The `rule` under `x-kubernetes-validations` represents the expression which will be evaluated by CEL.
 The `message` represents the message displayed when validation fails. If message is unset, the
 above response would be:
@@ -798,22 +798,22 @@ The CronTab "my-new-cron-object" is invalid:
 * spec: Invalid value: map[string]interface {}{"maxReplicas":10, "minReplicas":0, "replicas":20}: failed rule: self.replicas <= self.maxReplicas
 ```
 
-Validation rules are compiled when CRDs are created/updated. 
-The request of CRDs create/update will fail if compilation of validation rules fail. 
+Validation rules are compiled when CRDs are created/updated.
+The request of CRDs create/update will fail if compilation of validation rules fail.
 Compilation process includes type checking as well.
 
 The compilation failure:
 
 - `no_matching_overload`: this function has no overload for the types of the arguments.
- 
+
   For example, a rule like `self == true` against a field of integer type will get error:
 
   ```none
   Invalid value: apiextensions.ValidationRule{Rule:"self == true", Message:""}: compilation failed: ERROR: \<input>:1:6: found no matching overload for '_==_' applied to '(int, bool)'
   ```
-  
+
 - `no_such_field`: does not contain the desired field.
-  
+
   For example, a rule like `self.nonExistingField > 0` against a non-existing field will return
   the following error:
 
@@ -822,7 +822,7 @@ The compilation failure:
   ```
 
 - `invalid argument`: invalid argument to macros.
- 
+
   For example, a rule like `has(self)` will return error:
 
   ```none
@@ -961,7 +961,7 @@ Examples:
 The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from
 the root of the object and from any `x-kubernetes-embedded-resource` annotated objects. No other
 metadata properties are accessible.
-	
+
 Unknown data preserved in custom resources via `x-kubernetes-preserve-unknown-fields` is not
 accessible in CEL expressions. This includes:
 
@@ -1007,7 +1007,7 @@ the list type:
 - `map`: `X + Y` performs a merge where the array positions of all keys in `X` are preserved but
   the values are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements
   in `Y` with non-intersecting keys are appended, retaining their partial order.
- 
+
 
 Here is the declarations type mapping between OpenAPIv3 and CEL type:
 
@@ -1131,8 +1131,8 @@ estimated to be prohibitively expensive to execute, the API server rejects the c
 or update operation, and returns an error message.
 A similar system is used at runtime that observes the actions the interpreter takes. If the interpreter executes
 too many instructions, execution of the rule will be halted, and an error will result.
-Each CustomResourceDefinition is also allowed a certain amount of resources to finish executing all of 
-its validation rules. If the sum total of its rules are estimated at creation time to go over that limit, 
+Each CustomResourceDefinition is also allowed a certain amount of resources to finish executing all of
+its validation rules. If the sum total of its rules are estimated at creation time to go over that limit,
 then a validation error will also occur.
 
 You are unlikely to encounter issues with the resource budget for validation if you only
@@ -1145,7 +1145,7 @@ Another example would be if `foo` were an array, and you specified a validation 
 The cost system always assumes the worst-case scenario if a limit on the length of `foo` is not
 given, and this will happen for anything that can be iterated over (lists, maps, etc.).
 
-Because of this, it is considered best practice to put a limit via `maxItems`, `maxProperties`, and 
+Because of this, it is considered best practice to put a limit via `maxItems`, `maxProperties`, and
 `maxLength` for anything that will be processed in a validation rule in order to prevent validation
 errors during cost estimation. For example, given this schema with one rule:
 
@@ -1164,8 +1164,8 @@ openAPIV3Schema:
 then the API server rejects this rule on validation budget grounds with error:
 
 ```
-spec.validation.openAPIV3Schema.properties[spec].properties[foo].x-kubernetes-validations[0].rule: Forbidden: 
-CEL rule exceeded budget by more than 100x (try simplifying the rule, or adding maxItems, maxProperties, and 
+spec.validation.openAPIV3Schema.properties[spec].properties[foo].x-kubernetes-validations[0].rule: Forbidden:
+CEL rule exceeded budget by more than 100x (try simplifying the rule, or adding maxItems, maxProperties, and
 maxLength where arrays, maps, and strings are used)
 ```
 
@@ -1208,7 +1208,7 @@ openAPIV3Schema:
         maxLength: 10
 ```
 
-If a list inside of a list has a validation rule that uses `self.all`, that is significantly more expensive 
+If a list inside of a list has a validation rule that uses `self.all`, that is significantly more expensive
 than a non-nested list with the same rule. A rule that would have been allowed on a non-nested list might need
 lower limits set on both nested lists in order to be allowed. For example, even without having limits set,
 the following rule is allowed:
@@ -1799,4 +1799,3 @@ crontabs/my-new-cron-object   3s
 
 * Serve [multiple versions](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definition-versioning/) of a
   CustomResourceDefinition.
-
