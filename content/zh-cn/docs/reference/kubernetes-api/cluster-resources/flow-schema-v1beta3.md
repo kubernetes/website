@@ -1,28 +1,29 @@
 ---
 api_metadata:
-  apiVersion: "flowcontrol.apiserver.k8s.io/v1beta2"
-  import: "k8s.io/api/flowcontrol/v1beta2"
+  apiVersion: "flowcontrol.apiserver.k8s.io/v1beta3"
+  import: "k8s.io/api/flowcontrol/v1beta3"
   kind: "FlowSchema"
 content_type: "api_reference"
 description: "FlowSchema 定义一组流的模式。"
-title: "FlowSchema v1beta2"
+title: "FlowSchema v1beta3"
 weight: 7
+auto_generated: true
 ---
 <!--
 api_metadata:
-  apiVersion: "flowcontrol.apiserver.k8s.io/v1beta2"
-  import: "k8s.io/api/flowcontrol/v1beta2"
+  apiVersion: "flowcontrol.apiserver.k8s.io/v1beta3"
+  import: "k8s.io/api/flowcontrol/v1beta3"
   kind: "FlowSchema"
 content_type: "api_reference"
 description: "FlowSchema defines the schema of a group of flows."
-title: "FlowSchema v1beta2"
+title: "FlowSchema v1beta3"
 weight: 7
 auto_generated: true
 -->
 
-`apiVersion: flowcontrol.apiserver.k8s.io/v1beta2`
+`apiVersion: flowcontrol.apiserver.k8s.io/v1beta3`
 
-`import "k8s.io/api/flowcontrol/v1beta2"`
+`import "k8s.io/api/flowcontrol/v1beta3"`
 
 ## FlowSchema {#FlowSchema}
 
@@ -34,7 +35,7 @@ FlowSchema 定义一组流的模式。请注意，一个流由属性类似的一
 
 <hr>
 
-- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta2
+- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta3
 
 - **kind**: FlowSchema
 
@@ -43,7 +44,7 @@ FlowSchema 定义一组流的模式。请注意，一个流由属性类似的一
 
   `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchemaSpec" >}}">FlowSchemaSpec</a>)
+- **spec** (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchemaSpec" >}}">FlowSchemaSpec</a>)
 
   `spec` is the specification of the desired behavior of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 -->
@@ -52,17 +53,17 @@ FlowSchema 定义一组流的模式。请注意，一个流由属性类似的一
   `metadata` 是标准的对象元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchemaSpec" >}}">FlowSchemaSpec</a>)
+- **spec** (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchemaSpec" >}}">FlowSchemaSpec</a>)
 
   `spec` 是 FlowSchema 预期行为的规约。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 <!--
-- **status** (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchemaStatus" >}}">FlowSchemaStatus</a>)
+- **status** (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchemaStatus" >}}">FlowSchemaStatus</a>)
 
   `status` is the current status of a FlowSchema. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 -->
-- **status** (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchemaStatus" >}}">FlowSchemaStatus</a>)
+- **status** (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchemaStatus" >}}">FlowSchemaStatus</a>)
 
   `status` 是 FlowSchema 的当前状态。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
@@ -451,6 +452,8 @@ FlowSchemaStatus 表示 FlowSchema 的当前状态。
 <!--
 - **conditions** ([]FlowSchemaCondition)
 
+  *Patch strategy: merge on key `type`*
+
   *Map: unique values on key type will be kept during a merge*
   
   `conditions` is a list of the current states of FlowSchema.
@@ -459,6 +462,8 @@ FlowSchemaStatus 表示 FlowSchema 的当前状态。
   *FlowSchemaCondition describes conditions for a FlowSchema.*
 -->
 - **conditions** ([]FlowSchemaCondition)
+
+  **补丁策略：根据键 type 合并**
 
   **Map：合并期间保留根据键 type 保留其唯一值**
   
@@ -529,7 +534,7 @@ FlowSchemaList 是 FlowSchema 对象的列表。
 
 <hr>
 
-- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta2
+- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta3
 
 - **kind**: FlowSchemaList
 
@@ -538,7 +543,7 @@ FlowSchemaList 是 FlowSchema 对象的列表。
 
   `metadata` is the standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>), required
+- **items** ([]<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>), required
 
   `items` is a list of FlowSchemas.
 -->
@@ -547,7 +552,7 @@ FlowSchemaList 是 FlowSchema 对象的列表。
   `metadata` 是标准的列表元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>)，必需
+- **items** ([]<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>)，必需
 
   `items` 是 FlowSchemas 的列表。
 
@@ -565,7 +570,7 @@ FlowSchemaList 是 FlowSchema 对象的列表。
 
 #### HTTP 请求
 
-GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
+GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
 
 <!--
 #### Parameters
@@ -588,7 +593,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): OK
+200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
 
 401: Unauthorized
 
@@ -600,7 +605,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
 
 #### HTTP 请求
 
-GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}/status
+GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}/status
 
 <!--
 #### Parameters
@@ -623,7 +628,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}/status
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): OK
+200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
 
 401: Unauthorized
 
@@ -635,7 +640,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}/status
 
 #### HTTP 请求
 
-GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas
+GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas
 
 <!--
 #### Parameters
@@ -697,7 +702,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchemaList" >}}">FlowSchemaList</a>): OK
+200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchemaList" >}}">FlowSchemaList</a>): OK
 
 401: Unauthorized
 
@@ -709,11 +714,11 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas
 
 #### HTTP 请求
 
-POST /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas
+POST /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas
 
 <!--
 #### Parameters
-- **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>, required
 - **dryRun** (*in query*): string
 - **fieldManager** (*in query*): string
 - **fieldValidation** (*in query*): string
@@ -721,7 +726,7 @@ POST /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas
 -->
 #### 参数
 
-- **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>，必需
+- **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -744,11 +749,11 @@ POST /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): OK
+200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): Created
+201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): Created
 
-202 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): Accepted
+202 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): Accepted
 
 401: Unauthorized
 
@@ -760,13 +765,13 @@ POST /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas
 
 #### HTTP 请求
 
-PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
+PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
 
 <!--
 #### Parameters
 - **name** (*in path*): string, required
   name of the FlowSchema
-- **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>, required
 - **dryRun** (*in query*): string
 - **fieldManager** (*in query*): string
 - **fieldValidation** (*in query*): string
@@ -778,7 +783,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
 
   FlowSchema 的名称
 
-- **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>，必需
+- **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -801,9 +806,9 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): OK
+200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): Created
+201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): Created
 
 401: Unauthorized
 
@@ -815,13 +820,13 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
 
 #### HTTP 请求
 
-PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}/status
+PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}/status
 
 <!--
 #### Parameters
 - **name** (*in path*): string, required
   name of the FlowSchema
-- **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>, required
 - **dryRun** (*in query*): string
 - **fieldManager** (*in query*): string
 - **fieldValidation** (*in query*): string
@@ -833,7 +838,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}/status
 
   FlowSchema 的名称
 
-- **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>，必需
+- **body**: <a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>，必需
 
 - **dryRun** (**查询参数**): string
 
@@ -856,9 +861,9 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}/status
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): OK
+200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): Created
+201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): Created
 
 401: Unauthorized
 
@@ -870,7 +875,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}/status
 
 #### HTTP 请求
 
-PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
+PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
 
 <!--
 #### Parameters
@@ -916,9 +921,9 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): OK
+200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): Created
+201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): Created
 
 401: Unauthorized
 
@@ -930,7 +935,7 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
 
 #### HTTP 请求
 
-PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}/status
+PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}/status
 
 <!--
 #### Parameters
@@ -976,9 +981,9 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}/status
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): OK
+200 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta2#FlowSchema" >}}">FlowSchema</a>): Created
+201 (<a href="{{< ref "../cluster-resources/flow-schema-v1beta3#FlowSchema" >}}">FlowSchema</a>): Created
 
 401: Unauthorized
 
@@ -990,7 +995,7 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}/status
 
 #### HTTP 请求
 
-DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
+DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas/{name}
 
 <!--
 #### Parameters
@@ -1045,7 +1050,7 @@ DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas/{name}
 
 #### HTTP 请求
 
-DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta2/flowschemas
+DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/flowschemas
 
 <!--
 #### Parameters
