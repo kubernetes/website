@@ -1035,6 +1035,32 @@ xref: [CEL types](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#
 [OpenAPI types](https://swagger.io/specification/#data-types),
 [Kubernetes Structural Schemas](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema).
 
+#### The messageExpression field
+
+As an alternative to the `message` field that is used to report rule validation failures, there is the
+`messageExpression` field, which is a CEL expression that evaluates to a string. All the same variables
+that are available to the rule are available when writing `messageExpression`, so this makes it easy
+to insert more descriptive information into the validation failure message. For example:
+
+```yaml
+x-kubernetes-validations:
+- rule: "self.x <= self.maxLimit"
+  messageExpression: '"x exceeded max limit of " + string(self.maxLimit)'
+```
+
+`messageExpression` must evaluate to a string, and this is checked at write time. Note that it is possible
+to set `message` and `messageExpression` on the same rule, and if both are present, `messageExpression`
+will be used. However, if `messageExpression` fails at runtime, the string defined in `message` will be
+used instead, and the `messageExpression` error will be logged. This fallback will also occur if
+the CEL expression defined in `messageExpression` generates an empty string, a string with only spaces,
+or a string containing line breaks.
+
+If one of the above conditions are met and no `message` has been set, then the default validation failure
+message will be used instead.
+
+`messageExpression` is a CEL expression, so the restrictions listed in [Resource use by validation functions](#resource-use-by-validation-functions) apply. If the resource system halts during 
+`messageExpression` execution, then no further validation rules will be executed.
+
 #### Validation functions {#available-validation-functions}
 
 Functions available include:
