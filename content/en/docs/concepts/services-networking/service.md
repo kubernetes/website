@@ -670,6 +670,11 @@ You can configure a load balanced Service to
 [omit](#load-balancer-nodeport-allocation) assigning a node port, provided that the
 cloud provider implementation supports this.
 
+Some cloud providers allow you to specify the `loadBalancerIP`. In those cases, the load-balancer is created
+with the user-specified `loadBalancerIP`. If the `loadBalancerIP` field is not specified,
+the loadBalancer is set up with an ephemeral IP address. If you specify a `loadBalancerIP`
+but your cloud provider does not support the feature, the `loadbalancerIP` field that you
+set is ignored.
 
 {{< note >}}
 
