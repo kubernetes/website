@@ -166,4 +166,6 @@ volume types are allowed:
  * downwardAPI
  * emptyDir
 
+## {{% heading "whatsnext" %}}
 
+* Take a look at [Use a User Namespace With a Pod](/docs/tasks/configure-pod-container/user-namespaces/)
