@@ -111,7 +111,7 @@ The above provides a simple example of using ValidatingAdmissionPolicy without a
 #### Validation actions
 
 Each `ValidatingAdmissionPolicyBinding` must specify one or more
-`validationActions` to declare how `validations` of policy are enforced.
+`validationActions` to declare how `validations` of a policy are enforced.
 
 The supported `validationActions` are:
 
