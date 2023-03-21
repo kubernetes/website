@@ -43,11 +43,13 @@ this is true when user namespaces are used.
 * You need to be able to exec into pods
 * Feature gate `UserNamespacesStatelessPodsSupport` need to be enabled.
 
-In addition, support is needed in the
-{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
-to use this feature with Kubernetes stateless pods:
+The cluster that you're using **must** include at least one node that meets the
+[requirements](/docs/concepts/workloads/pods/user-namespaces/#before-you-begin)
+for using user namespaces with Pods.
 
-* CRI-O: v1.25 has support for user namespaces.
+If you have a mixture of nodes and only some of the nodes provide user namespace support for
+Pods, you also need to ensure that the user namespace Pods are
+[scheduled](/docs/concepts/scheduling-eviction/assign-pod-node/) to suitable nodes.
 
 Please note that **if your container runtime doesn't support user namespaces, the
 new `pod.spec` field will be silently ignored and the pod will be created without
