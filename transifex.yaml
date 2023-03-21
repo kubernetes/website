@@ -1,0 +1,7 @@
+git:
+filters:
+- filter_type: dynamic
+  file_format: PO
+  source_language: en
+  source_files_expression: content/en/<dir>/<file>.md
+  translation_files_expression: content/<lang>/<dir>/<file>.md
