@@ -229,7 +229,12 @@ drain 커멘드는 `pod-b` 를 축출하는데 성공했다.
 
 ## 파드 중단 조건 {#pod-disruption-conditions}
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+
+{{< note >}}
+만약 쿠버네티스 {{< skew currentVersion >}} 보다 낮은 버전을 사용하고 있다면,
+해당 버전의 문서를 참조하자.
+{{< /note >}}
 
 {{< note >}}
 클러스터에서 이 동작을 사용하려면 `PodDisruptionConditions`
@@ -253,6 +258,9 @@ drain 커멘드는 `pod-b` 를 축출하는데 성공했다.
 
 `DeletionByPodGC`
 : 더 이상 존재하지 않는 노드에 바인딩된 파드는 [파드의 가비지 콜렉션](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)에 의해 삭제될 예정이다.
+
+`TerminationByKubelet`
+: {{<glossary_tooltip term_id="node-pressure-eviction" text="노드 압박-축출">}} 또는 [그레이스풀 노드 셧다운](/ko/docs/concepts/architecture/nodes/#graceful-node-shutdown)으로 인해 kubelet이 파드를 종료시켰다.
 
 {{< note >}}
 파드 중단은 중단될 수 있다. 컨트롤 플레인은 동일한 파드의 중단을 
