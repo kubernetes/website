@@ -15,27 +15,26 @@ of a running pod without restarting the pod or its containers. A Kubernetes node
 allocates resources for a pod based on its **requests**, and limits the pod's
 resource usage based on the **limits** specified in the pod's containers.
 
-Container's resource **requests** and **limits** are now **mutable** for CPU
-and memory resources. They now represent **desired** CPU and memory values.
-
-Besides the aforementioned change, a new field named `allocatedResources` was
-added to `containerStatuses` in the Pod's status. This field reflects the
-resources allocated to the pod's containers.
-
-In addition, a new field called `resources` was added to the Container's status.
-This field reflects the actual resource requests and limits that are configured
-on the running containers as reported by the container runtime.
-
-Lastly, a new field named `resize` was added to the Pod's status to show the
-status of the last requested resize. A value of `Proposed` is an acknowledgement
-of the requested resize and indicates that request was validated and recorded. A
-value of `InProgress` indicates that the node has accepted the resize request
-and is in the process of applying the resize request to the pod's containers.
-A value of `Deferred` means that the requested resize cannot be granted at this
-time, and the node will keep retrying. The resize may be granted when other pods
-leave and free up node resources. A value of `Infeasible` is a signal that the
-node cannot accommodate the requested resize. This can happen if the requested
-resize exceeds the maximum resources the node can ever allocate for a pod.
+The following changes enable in-place resize of container resources:
+- Container's resource **requests** and **limits** are now **mutable** for CPU
+and memory resources.
+- A new field named `allocatedResources` has been added to `containerStatuses`
+in the Pod's status to reflect the resources allocated to the pod's containers.
+- A new field named `resources` has been added to the Container's status. This
+field reflects the actual resource requests and limits that are configured on
+the running containers as reported by the container runtime.
+- A new field named `resize` has been added to the Pod's status to show the
+status of the last requested pending resize. It can have the following values:
+  - `Proposed`: This value indicates an acknowledgement of the requested resize
+and that the request was validated and recorded.
+  - `InProgress`: This value indicates that the node has accepted the resize
+request and is in the process of applying it to the pod's containers.
+  - `Deferred`: This value means that the requested resize cannot be granted at
+this time, and the node will keep retrying. The resize may be granted when other
+pods leave and free up node resources.
+  - `Infeasible`: is a signal that the node cannot accommodate the requested
+resize. This can happen if the requested resize exceeds the maximum resources
+the node can ever allocate for a pod.
 
 
 ## {{% heading "prerequisites" %}}
