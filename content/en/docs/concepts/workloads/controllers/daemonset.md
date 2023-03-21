@@ -115,7 +115,7 @@ the existing Pods based on the
 [priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority)
 of the new Pod.
 
-The user can specify a different scheduler for the Pods of the DamonSet, by
+The user can specify a different scheduler for the Pods of the DaemonSet, by
 setting the `.spec.template.spec.schedulerName` field of the DaemonSet.
 
 The original node affinity specified at the
