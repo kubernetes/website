@@ -116,9 +116,9 @@ Each `ValidatingAdmissionPolicyBinding` must specify one or more
 The supported `validationActions` are:
 
 - `Deny`: Validation failure results in a denied request.
-- `Warn` Validation failure is reported to the request client
+- `Warn`: Validation failure is reported to the request client
   as a [warning](/blog/2020/09/03/warnings/).
-- `Audit` Validation failure is included in the audit event for the API request.
+- `Audit`: Validation failure is included in the Audit event for the API request.
 
 For example, to both warn clients about a validation failure and to audit the
 validation failures, use:
@@ -131,9 +131,9 @@ validationActions: [Warn, Audit]
 needlessly duplicates the validation failure both in the
 API response body and the HTTP warning headers.
 
-A `validation` that evaluate to false it is always enforced according to these
-actions. Failures defined by the `FailurePolicy` of the policy are enforced
-according to these actions only if the `FailurePolicy` is set to `Fail`,
+A `validation` that evaluate to false is always enforced according to these
+actions. Failures defined by the `failurePolicy` of the policy are enforced
+according to these actions only if the `failurePolicy` is set to `Fail`,
 otherwise the failures are ignored.
 
 See [Audit Annotations: validation falures](/docs/reference/labels-annotations-taints/audit-annotations.md#validation.policy.admission.k8s.io/validation_failure)
@@ -440,7 +440,7 @@ When an API request is validated with this admission policy, the resulting audit
 
 {{< codenew file="access/audit-event-with-audit-annotation.yaml" >}}
 
-In this example the annotation will only be included if the `spec.replicas` of the deployment is more than
+In this example the annotation will only be included if the `spec.replicas` of the Deployment is more than
 50, otherwise the CEL expression evalutes to null and the annotation will not be included.
 
 Note that audit annotation keys are prefixed by the name of the `ValidatingAdmissionWebhook` and a `/`. If
