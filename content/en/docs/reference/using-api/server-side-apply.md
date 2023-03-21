@@ -313,8 +313,7 @@ read-modify-write and/or patch are the following:
 * the applied object must contain all the fields that the controller cares about.
 * there is no way to remove fields that haven't been applied by the controller
   before (controller can still send a PATCH/UPDATE for these use-cases).
-* the object doesn't have to be read beforehand, `resourceVersion` doesn't have
-  to be specified.
+* the object doesn't have to be read beforehand, `resourceVersion` must not be specified.
 
 It is strongly recommended for controllers to always "force" conflicts, since they
 might not be able to resolve or act on these conflicts.
