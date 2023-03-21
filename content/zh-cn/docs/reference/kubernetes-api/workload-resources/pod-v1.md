@@ -7175,3 +7175,4 @@ DELETE /api/v1/namespaces/{namespace}/pods
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized
+
