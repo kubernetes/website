@@ -169,6 +169,7 @@ is the first provider, the first key is used for encryption.
 `aesgcm` | 带有随机数的 AES-GCM | 必须每 200k 写入一次 | 最快 | 16、24 或者 32字节 | 建议不要使用，除非实施了自动密钥循环方案。
 `aescbc` | 填充 [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) 的 AES-CBC | 弱 | 快 | 32 字节 | 由于 CBC 容易受到密文填塞攻击（Padding Oracle Attack），不推荐使用。
 `kms` | 使用信封加密方案：数据使用带有 [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) 填充的 AES-CBC（v1.25 之前），从 v1.25 开始使用 AES-GCM 通过数据加密密钥（DEK）加密，DEK 根据 Key Management Service（KMS）中的配置通过密钥加密密钥（Key Encryption Keys，KEK）加密 | 最强 | 快 | 32 字节 | 建议使用第三方工具进行密钥管理。为每个加密生成新的 DEK，并由用户控制 KEK 轮换来简化密钥轮换。[配置 KMS 提供程序](/zh-cn/docs/tasks/administer-cluster/kms-provider/)
+{{< /table >}}
 
 每个 provider 都支持多个密钥 - 在解密时会按顺序使用密钥，如果是第一个 provider，则第一个密钥用于加密。
 
