@@ -17,6 +17,6 @@ Serviceが対象とするPodの集合は、(通常){{< glossary_tooltip text="�
 Podを追加または削除するとセレクターにマッチしているPodの集合は変更されます。
 Serviceは、ネットワークトラフィックが現在そのワークロードを処理するPodの集合に向かうことを保証します。
 
-Kubernetesサービスは、IPネットワーキング（IPv4、IPv6、またはその両方）を使用するか、ドメインネームシステム（DNS）でExternal Nameを参照します。
+Kubernetes Serviceは、IPネットワーキング(IPv4、IPv6、またはその両方)を使用するか、ドメインネームシステム(DNS)でExternal Nameを参照します。
 
-Serviceの抽象化により、IngressやGatewayなどの他のメカニズムが可能になります。
+Serviceの抽象化により、IngressやGatewayなどの他のメカニズムを実現することができます。
