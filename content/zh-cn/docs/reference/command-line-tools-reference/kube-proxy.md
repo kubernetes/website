@@ -962,7 +962,8 @@ The previous version for which you want to show hidden metrics. Only the previou
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!-- logs at or above this threshold go to stderr (no effect when -logtostderr=true or -alsologtostderr=false) -->
-设置严重程度达到或超过此阈值的日志输出到标准错误输出（当 -logtostderr=true 或 -alsologtostderr=false 时无效）。
+设置严重程度达到或超过此阈值的日志输出到标准错误输出（当<code>--logtostderr=true</code>或
+<code>--alsologtostderr=false</code>时无效）。
 </p></td>
 </tr>
 
