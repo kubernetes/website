@@ -160,7 +160,7 @@ pods will be assigned ordinals from 0 up through N-1.
 
 ### Start ordinal
 
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 `.spec.ordinals` is an optional field that allows you to configure the integer
 ordinals assigned to each Pod. It defaults to nil. You must enable the
