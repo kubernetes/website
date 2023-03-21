@@ -17,4 +17,4 @@ webhooks:
   - name: 'breakglass'
     # Skip requests made by users authorized to 'breakglass' on this webhook.
     # The 'breakglass' API verb does not need to exist outside this check.
-    expression: '!authorizer.group('admissionregistration.k8s.io').resource('validatingwebhookconfigurations').name('my-webhook.example.com').check('breakglass').allowed()'
+    expression: '!authorizer.group("admissionregistration.k8s.io").resource("validatingwebhookconfigurations").name("my-webhook.example.com").check("breakglass").allowed()'
