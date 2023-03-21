@@ -1,13 +1,13 @@
 ---
 title: 노드-압박 축출
 content_type: concept
-weight: 60
+weight: 100
 ---
 
 {{<glossary_definition term_id="node-pressure-eviction" length="short">}}</br>
 
 {{<glossary_tooltip term_id="kubelet" text="kubelet">}}은 
-클러스터 노드의 CPU, 메모리, 디스크 공간, 파일시스템 inode와 같은 자원을 모니터링한다.
+클러스터 노드의 메모리, 디스크 공간, 파일시스템 inode와 같은 자원을 모니터링한다.
 이러한 자원 중 하나 이상이 특정 소모 수준에 도달하면, 
 kubelet은 하나 이상의 파드를 능동적으로 중단시켜 
 자원을 회수하고 고갈 상황을 방지할 수 있다.
@@ -153,6 +153,12 @@ kubelet은 다음과 같은 하드 축출 임계값을 기본적으로 설정하
 * `nodefs.available<10%`
 * `imagefs.available<15%`
 * `nodefs.inodesFree<5%` (리눅스 노드)
+
+이러한 하드 축출 임계값의 기본값은 
+매개변수가 변경되지 않은 경우에만 설정된다. 어떤 매개변수의 값을 변경한 경우,
+다른 매개변수의 값은 기본값으로 상속되지 않고
+0으로 설정된다. 사용자 지정 값을 제공하려면,
+모든 임계값을 각각 제공해야 한다.
 
 ### 축출 모니터링 시간 간격
 
