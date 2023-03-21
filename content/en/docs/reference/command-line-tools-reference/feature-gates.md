@@ -147,6 +147,7 @@ For a reference to old feature gates that are removed, please refer to
 | `MixedProtocolLBService` | `false` | Alpha | 1.20 | 1.23 |
 | `MixedProtocolLBService` | `true` | Beta | 1.24 | |
 | `MultiCIDRRangeAllocator` | `false` | Alpha | 1.25 | |
+| `MultiCIDRServiceAllocator` | `false` | Alpha | 1.27 | |
 | `NetworkPolicyStatus` | `false` | Alpha | 1.24 |  |
 | `NodeInclusionPolicyInPodTopologySpread` | `false` | Alpha | 1.25 | |
 | `NodeOutOfServiceVolumeDetach` | `false` | Alpha | 1.24 | 1.25 |
@@ -666,6 +667,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `MixedProtocolLBService`: Enable using different protocols in the same `LoadBalancer` type
   Service instance.
 - `MultiCIDRRangeAllocator`: Enables the MultiCIDR range allocator.
+- `MultiCIDRServiceAllocator`: Enables a new IPAddress object kind, and a new Service ClusterIP allocator.
+  The new allocator removes previous Service CIDR block size limitations for IPv4, and limits IPv6 size to a /64.
 - `NetworkPolicyEndPort`: Enable use of the field `endPort` in NetworkPolicy objects,
   allowing the selection of a port range instead of a single port.
 - `NetworkPolicyStatus`: Enable the `status` subresource for NetworkPolicy objects.

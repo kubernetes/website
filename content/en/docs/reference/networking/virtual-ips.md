@@ -267,6 +267,12 @@ When clients connect to the VIP, their traffic is automatically transported to a
 appropriate endpoint. The environment variables and DNS for Services are actually
 populated in terms of the Service's virtual IP address (and port).
 
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+If you enable the `MultiCIDRServiceAllocator`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
+the `ClusterIP` address associated to each `Service` will have a referenced
+`IPAddress` object.
+
 ### Avoiding collisions
 
 One of the primary philosophies of Kubernetes is that you should not be
