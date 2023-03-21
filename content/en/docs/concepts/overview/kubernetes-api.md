@@ -82,17 +82,13 @@ packages that define the API objects.
 
 ### OpenAPI V3
 
-{{< feature-state state="beta"  for_k8s_version="v1.24" >}}
+{{< feature-state state="stable"  for_k8s_version="v1.27" >}}
 
-Kubernetes {{< param "version" >}} offers beta support for publishing its APIs as OpenAPI v3; this is a
-beta feature that is enabled by default.
-You can disable the beta feature by turning off the
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) named `OpenAPIV3`
-for the kube-apiserver component.
+Kubernetes {{< param "version" >}} offers stable support for publishing its APIs as OpenAPI v3.
 
 A discovery endpoint `/openapi/v3` is provided to see a list of all
-group/versions available. This endpoint only returns JSON. These group/versions
-are provided in the following format:
+group/versions available. This endpoint only returns JSON. These
+group/versions are provided in the following format:
 
 ```yaml
 {
@@ -152,6 +148,8 @@ Refer to the table below for accepted request headers.
      </tr>
   </tbody>
 </table>
+
+A golang implementation to fetch the OpenAPI V3 is provided in the package `k8s.io/client-go/openapi3`.
 
 ## Persistence
 
