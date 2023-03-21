@@ -162,7 +162,7 @@ Kubernetes stores the serialized state of objects by writing them into
 
 A list of all group versions supported by a cluster is published at
 the `/api` and `/apis` endpoints. Each group version also advertises
-the list of resources supported via `/apis/<group>/<version` (for
+the list of resources supported via `/apis/<group>/<version>` (for
 example: `/apis/rbac.authorization.k8s.io/v1alpha1`). These endpoints
 are used by kubectl to fetch the list of resources supported by a
 cluster.
@@ -177,7 +177,8 @@ all resources supported by a cluster through two endpoints (`/api` and
 endpoint drastically reduces the number of requests sent to fetch the
 discovery for the average Kubernetes cluster. This may be accessed by
 requesting the respective endpoints with an Accept header indicating
-the aggregated discovery resource: `Accept:
+the aggregated discovery resource:
+`Accept:
 application/json;v=v2beta1;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList`.
 
 The endpoint also supports ETag and protobuf encoding.
