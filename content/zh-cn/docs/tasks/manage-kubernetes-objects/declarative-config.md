@@ -763,8 +763,8 @@ kind: Deployment
 metadata:
   annotations:
     # ...
-    # 注解中包含更新后的 image，nginx 1.16.1,
-    # 但不包含更新后的 replicas
+    # 注解中包含更新后的镜像 nginx 1.16.1,
+    # 但是其中并不包含更改后的 replicas 值 2
     kubectl.kubernetes.io/last-applied-configuration: |
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
