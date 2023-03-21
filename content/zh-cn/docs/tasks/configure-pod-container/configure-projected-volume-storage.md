@@ -1,7 +1,7 @@
 ---
 title: 配置 Pod 使用投射卷作存储
 content_type: task
-weight: 70
+weight: 100
 ---
 
 <!--
@@ -10,7 +10,7 @@ reviewers:
 - pmorie
 title: Configure a Pod to Use a Projected Volume for Storage
 content_type: task
-weight: 70
+weight: 100
 -->
 
 <!-- overview -->
@@ -39,9 +39,7 @@ and `serviceAccountToken` volumes can be projected.
 <!--
 ## Configure a projected volume for a pod
 
-In this exercise, you create username and password {{< glossary_tooltip text="Secrets" term_id="secret" >}} from local files. 
-You then create a Pod that runs one container, using a [`projected`](/docs/concepts/storage/volumes/#projected) Volume
-to mount the Secrets into the same shared directory.
+In this exercise, you create username and password {{< glossary_tooltip text="Secrets" term_id="secret" >}} from local files. You then create a Pod that runs one container, using a [`projected`](/docs/concepts/storage/volumes/#projected) Volume to mount the Secrets into the same shared directory.
 
 Here is the configuration file for the Pod:
 -->
@@ -121,7 +119,7 @@ Delete the Pod and the Secrets:
 kubectl delete pod test-projected-volume
 kubectl delete secret user pass
 ```
-   
+
 ## {{% heading "whatsnext" %}}
 
 <!--
