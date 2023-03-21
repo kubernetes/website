@@ -24,7 +24,7 @@ Add-ons 扩展了 Kubernetes 的功能。
 
 * [ACI](https://www.github.com/noironetworks/aci-containers) provides integrated container networking and network security with Cisco ACI.
 * [Antrea](https://antrea.io/) operates at Layer 3/4 to provide networking and security services for Kubernetes, leveraging Open vSwitch as the networking data plane. Antrea is a [CNCF project at the Sandbox level](https://www.cncf.io/projects/antrea/).
-* [Calico](https://docs.projectcalico.org/latest/introduction/) is a networking and network policy provider. Calico supports a flexible set of networking options so you can choose the most efficient option for your situation, including non-overlay and overlay networks, with or without BGP. Calico uses the same engine to enforce network policy for hosts, pods, and (if using Istio & Envoy) applications at the service mesh layer.
+* [Calico](https://www.tigera.io/project-calico/) is a networking and network policy provider. Calico supports a flexible set of networking options so you can choose the most efficient option for your situation, including non-overlay and overlay networks, with or without BGP. Calico uses the same engine to enforce network policy for hosts, pods, and (if using Istio & Envoy) applications at the service mesh layer.
 * [Canal](https://projectcalico.docs.tigera.io/getting-started/kubernetes/flannel/flannel) unites Flannel and Calico, providing networking and network policy.
 * [Cilium](https://github.com/cilium/cilium) is a networking, observability, and security solution with an eBPF-based data plane. Cilium provides a simple flat Layer 3 network with the ability to span multiple clusters in either a native routing or overlay/encapsulation mode, and can enforce network policies on L3-L7 using an identity-based security model that is decoupled from network addressing. Cilium can act as a replacement for kube-proxy; it also offers additional, opt-in observability and security features. Cilium is a [CNCF project at the Incubation level](https://www.cncf.io/projects/cilium/).
 -->
@@ -34,7 +34,7 @@ Add-ons 扩展了 Kubernetes 的功能。
 * [Antrea](https://antrea.io/) 在第 3/4 层执行操作，为 Kubernetes
   提供网络连接和安全服务。Antrea 利用 Open vSwitch 作为网络的数据面。
   Antrea 是一个[沙箱级的 CNCF 项目](https://www.cncf.io/projects/antrea/)。
-* [Calico](https://docs.projectcalico.org/latest/introduction/) 是一个联网和网络策略供应商。
+* [Calico](https://www.tigera.io/project-calico/) 是一个联网和网络策略供应商。
   Calico 支持一套灵活的网络选项，因此你可以根据自己的情况选择最有效的选项，包括非覆盖和覆盖网络，带或不带 BGP。
   Calico 使用相同的引擎为主机、Pod 和（如果使用 Istio 和 Envoy）应用程序在服务网格层执行网络策略。
 * [Canal](https://projectcalico.docs.tigera.io/getting-started/kubernetes/flannel/flannel) 结合 Flannel 和 Calico，提供联网和网络策略。

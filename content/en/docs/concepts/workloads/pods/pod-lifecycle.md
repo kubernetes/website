@@ -296,7 +296,7 @@ Each probe must define exactly one of these four mechanisms:
   The target should implement
   [gRPC health checks](https://grpc.io/grpc/core/md_doc_health-checking.html).
   The diagnostic is considered successful if the `status`
-  of the response is `SERVING`.  
+  of the response is `SERVING`.
   gRPC probes are an alpha feature and are only available if you
   enable the `GRPCContainerProbe`
   [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
@@ -465,14 +465,32 @@ An example flow:
       The containers in the Pod receive the TERM signal at different times and in an arbitrary
       order. If the order of shutdowns matters, consider using a `preStop` hook to synchronize.
       {{< /note >}}
-1. At the same time as the kubelet is starting graceful shutdown, the control plane removes that
-   shutting-down Pod from EndpointSlice (and Endpoints) objects where these represent
+1. At the same time as the kubelet is starting graceful shutdown of the Pod, the control plane evaluates whether to remove that shutting-down Pod from EndpointSlice (and Endpoints) objects, where those objects represent
    a {{< glossary_tooltip term_id="service" text="Service" >}} with a configured
    {{< glossary_tooltip text="selector" term_id="selector" >}}.
    {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}} and other workload resources
    no longer treat the shutting-down Pod as a valid, in-service replica. Pods that shut down slowly
-   cannot continue to serve traffic as load balancers (like the service proxy) remove the Pod from
-   the list of endpoints as soon as the termination grace period _begins_.
+   should not continue to serve regular traffic and should start terminating and finish processing open connections.
+   Some applications need to go beyond finishing open connections and need more graceful termination -
+   for example: session draining and completion. Any endpoints that represent the terminating pods
+   are not immediately removed from EndpointSlices,
+   and a status indicating [terminating state](/docs/concepts/services-networking/endpoint-slices/#conditions)
+   is exposed from the EndpointSlice API (and the legacy Endpoints API). Terminating
+   endpoints always have their `ready` status
+   as `false` (for backward compatibility with versions before 1.26),
+   so load balancers will not use it for regular traffic.
+   If traffic draining on terminating pod is needed, the actual readiness can be checked as a condition `serving`.
+   You can find more details on how to implement connections draining
+   in the tutorial [Pods And Endpoints Termination Flow](/docs/tutorials/services/pods-and-endpoint-termination-flow/)
+
+{{<note>}}
+If you don't have the `EndpointSliceTerminatingCondition` feature gate enabled
+in your cluster (the gate is on by default from Kubernetes 1.22, and locked to default in 1.26), then the Kubernetes control
+plane removes a Pod from any relevant EndpointSlices as soon as the Pod's
+termination grace period _begins_. The behavior above is described when the
+feature gate `EndpointSliceTerminatingCondition` is enabled.
+{{</note>}}
+
 1. When the grace period expires, the kubelet triggers forcible shutdown. The container runtime sends
    `SIGKILL` to any processes still running in any container in the Pod.
    The kubelet also cleans up a hidden `pause` container if that container runtime uses one.
