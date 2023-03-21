@@ -733,7 +733,7 @@ match rules, objectSelectors and namespaceSelectors) using
 [CEL expressions](/docs/reference/using-api/cel/). All match conditions must evaluate to true for
 the webhook to be called.
 
-Here is an example with a few match conditions:
+Here is an example illustrating a few different uses for match conditions:
 
 {{< codenew file="access/admission-webhook-match-conditions.yaml" >}}
 
