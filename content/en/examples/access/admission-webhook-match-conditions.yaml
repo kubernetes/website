@@ -11,7 +11,7 @@ webhooks:
   failurePolicy: 'Fail' # Optional: defaults to Fail
   matchConditions:
   - name: 'exclude-leases' # Each match condition must have a unique name
-    expression: '!(request.resource.group == "coordination.k8s.io" && resource.resource == "leases")' # Match non-lease resources.
+    expression: '!(request.resource.group == "coordination.k8s.io" && request.resource.resource == "leases")' # Match non-lease resources.
   - name: 'exclude-kubelet-requests'
     expression: '!("system:nodes" in request.userInfo.groups)' # Match requests made by non-node users.
   - name: 'breakglass'
