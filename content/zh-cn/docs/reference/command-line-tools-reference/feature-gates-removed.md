@@ -795,7 +795,7 @@ In the following table:
   See [setting kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/)
   for more details.
 -->
-- `IngressClassNamespacedParams`：允许在 `IngressClass` 资源中使用命名空间范围的参数引用。
+- `IngressClassNamespacedParams`：允许在 `IngressClass` 资源中使用名字空间范围的参数引用。
   此功能为 `IngressClass.spec.parameters` 添加了两个字段 - `scope` 和 `namespace`。
 
 - `Initializers`：允许使用 Intializers 准入插件来异步协调对象创建操作。
@@ -846,7 +846,7 @@ In the following table:
 -->
 - `NamespaceDefaultLabelName`：配置 API 服务器以在所有名字空间上设置一个不可变的
   {{< glossary_tooltip text="标签" term_id="label" >}} `kubernetes.io/metadata.name`，
-  也包括名字空间。
+  取值为名字空间的名称。
 
 - `NodeDisruptionExclusion`：启用节点标签 `node.kubernetes.io/exclude-disruption`，
   以防止在可用区发生故障期间驱逐节点。
@@ -890,8 +890,8 @@ In the following table:
 - `PodOverhead`：启用 [PodOverhead](/zh-cn/docs/concepts/scheduling-eviction/pod-overhead/)
   特性以计算 Pod 开销。
 
-- `PodPriority`：启用根据[优先级](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)
-  的 Pod 调度和抢占。
+- `PodPriority`：启用根据[优先级](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)的
+  Pod 调度和抢占。
 
 - `PodReadinessGates`：启用 `podReadinessGate` 字段的设置以扩展 Pod 准备状态评估。
   有关更多详细信息，请参见
@@ -917,10 +917,10 @@ In the following table:
 - `ResourceQuotaScopeSelectors`: Enable resource quota scope selectors.
 -->
 - `PodShareProcessNamespace`：在 Pod 中启用 `shareProcessNamespace` 的设置，
-  以便在 Pod 中运行的容器之间共享同一进程名字空间。更多详细信息，请参见
-  [在 Pod 中的容器间共享同一进程名字空间](/zh-cn/docs/tasks/configure-pod-container/share-process-namespace/)。
+  以便在 Pod 中运行的容器之间共享同一进程名字空间。更多详细信息，
+  请参见[在 Pod 中的容器间共享同一进程名字空间](/zh-cn/docs/tasks/configure-pod-container/share-process-namespace/)。
 
-- `PreferNominatedNode`: 这个标志告诉调度器在循环遍历集群中的所有其他节点之前，
+- `PreferNominatedNode`：这个标志告诉调度器在循环遍历集群中的所有其他节点之前，
   是否首先检查指定的节点。
 
 - `RequestManagement`：允许在每个 API 服务器上通过优先级和公平性管理请求并发性。
@@ -996,7 +996,7 @@ In the following table:
 
 - `ServiceLBNodePortControl`: Enables the `allocateLoadBalancerNodePorts` field on Services.
 -->
-- `SelectorIndex`: 允许使用 API 服务器的 watch 缓存中基于标签和字段的索引来加速 list 操作。
+- `SelectorIndex`：允许使用 API 服务器的 watch 缓存中基于标签和字段的索引来加速 list 操作。
 
 - `ServiceAccountIssuerDiscovery`：在 API 服务器中为服务账号颁发者启用 OIDC 发现端点
   （颁发者和 JWKS URL）。详情参见
@@ -1004,7 +1004,7 @@ In the following table:
 
 - `ServiceAppProtocol`：为 Service 和 Endpoints 启用 `appProtocol` 字段。
 
-- `ServiceLoadBalancerClass`: 为服务启用 `loadBalancerClass` 字段。
+- `ServiceLoadBalancerClass`：为服务启用 `loadBalancerClass` 字段。
   有关更多信息，请参见[指定负载均衡器实现类](/zh-cn/docs/concepts/services-networking/service/#load-balancer-class)。
 
 - `ServiceLoadBalancerFinalizer`：为服务负载均衡启用终结器（finalizers）保护。
