@@ -1,6 +1,7 @@
 ---
 title: 使用名字空间标签来实施 Pod 安全性标准
 content_type: task
+weight: 250
 ---
 <!--
 title: Enforce Pod Security Standards with Namespace Labels
@@ -8,6 +9,7 @@ reviewers:
 - tallclair
 - liggitt
 content_type: task
+weight: 250
 -->
 
 <!--

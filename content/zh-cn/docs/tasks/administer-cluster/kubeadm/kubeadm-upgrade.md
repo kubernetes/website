@@ -1,14 +1,14 @@
 ---
 title: 升级 kubeadm 集群
 content_type: task
-weight: 20
+weight: 40
 ---
 <!--
 reviewers:
 - sig-cluster-lifecycle
 title: Upgrading kubeadm clusters
 content_type: task
-weight: 20
+weight: 40
 -->
 
 <!-- overview -->
@@ -476,7 +476,7 @@ without compromising the minimum required capacity for running your workloads.
   ```
 
   {{% /tab %}}
-  {{% tab name="CentOS, RHEL or Fedora" %}}
+  {{% tab name="CentOS、RHEL 或 Fedora" %}}
 
   ```shell
   # 将 {{< skew currentVersion >}}.x-0 x 替换为最新的补丁版本

@@ -1,7 +1,7 @@
 ---
 title: ストレージ容量
 content_type: concept
-weight: 45
+weight: 80
 ---
 
 <!-- overview -->
