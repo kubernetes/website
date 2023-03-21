@@ -266,13 +266,13 @@ Você pode passar a opção `--config` para os comandos acima através de um
 [arquivo de configuração do kubeadm](#config-file) para controlar os campos
 `kubernetesVersion` e `imageRepository`.
 
-Todas as imagens padrão hospedadas em `k8s.gcr.io` que o kubeadm requer suportam
+Todas as imagens padrão hospedadas em `registry.k8s.io` que o kubeadm requer suportam
 múltiplas arquiteturas.
 
 ### Utilizando imagens personalizadas {#custom-images}
 
 Por padrão, o kubeadm baixa imagens hospedadas no repositório de contêineres
-`k8s.gcr.io`. Se a versão requisitada do Kubernetes é um rótulo de integração
+`registry.k8s.io`. Se a versão requisitada do Kubernetes é um rótulo de integração
 contínua (por exemplo, `ci/latest`), o repositório de contêineres
 `gcr.io/k8s-staging-ci-images` é utilizado.
 
@@ -283,22 +283,22 @@ são:
 * Fornecer um valor para o campo `kubernetesVersion` que afeta a versão das
   imagens.
 * Fornecer um repositório de contêineres alternativo através do campo
-  `imageRepository` para ser utilizado no lugar de `k8s.gcr.io`.
+  `imageRepository` para ser utilizado no lugar de `registry.k8s.io`.
 * Fornecer um valor específico para os campos `imageRepository` e `imageTag`,
   correspondendo ao repositório de contêineres e tag a ser utilizada, para as imagens
   dos componentes etcd ou CoreDNS.
 
-Caminhos de imagens do repositório de contêineres padrão `k8s.gcr.io` podem diferir
+Caminhos de imagens do repositório de contêineres padrão `registry.k8s.io` podem diferir
 dos utilizados em repositórios de contêineres personalizados através do campo
 `imageRepository` devido a razões de retrocompatibilidade. Por exemplo, uma
-imagem pode ter um subcaminho em `k8s.gcr.io/subcaminho/imagem`, mas quando
+imagem pode ter um subcaminho em `registry.k8s.io/subcaminho/imagem`, mas quando
 utilizado um repositório de contêineres personalizado, o valor padrão será
 `meu.repositoriopersonalizado.io/imagem`.
 
 Para garantir que você terá as imagens no seu repositório personalizado em
 caminhos que o kubeadm consiga consumir, você deve:
 
-* Baixar as imagens dos caminhos padrão `k8s.gcr.io` utilizando o comando
+* Baixar as imagens dos caminhos padrão `registry.k8s.io` utilizando o comando
   `kubeadm config images {list|pull}`.
 * Subir as imagens para os caminhos listados no resultado do comando
   `kubeadm config images list --config=config.yaml`, onde `config.yaml` contém

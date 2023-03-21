@@ -1,7 +1,7 @@
 ---
 title: システムログ
 content_type: concept
-weight: 60
+weight: 80
 ---
 
 <!-- overview -->
