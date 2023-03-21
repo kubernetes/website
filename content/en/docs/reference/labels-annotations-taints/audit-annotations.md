@@ -126,5 +126,5 @@ name of the `ValidatingAdmissionPolicy`, the name of the
 the CEL expressions that failed, respectively.
 
 The `validationActions` shows what actions were taken for this validation failure.
-See [Validating Admission Policy](/docs/reference/access-authn-authz/validating-admission-policy.md)
+See [Validating Admission Policy](/docs/reference/access-authn-authz/validating-admission-policy/)
 for more details about `validationActions`.

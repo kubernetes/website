@@ -118,7 +118,7 @@ The supported `validationActions` are:
 - `Deny`: Validation failure results in a denied request.
 - `Warn`: Validation failure is reported to the request client
   as a [warning](/blog/2020/09/03/warnings/).
-- `Audit`: Validation failure is included in the Audit event for the API request.
+- `Audit`: Validation failure is included in the audit event for the API request.
 
 For example, to both warn clients about a validation failure and to audit the
 validation failures, use:
@@ -131,12 +131,12 @@ validationActions: [Warn, Audit]
 needlessly duplicates the validation failure both in the
 API response body and the HTTP warning headers.
 
-A `validation` that evaluate to false is always enforced according to these
-actions. Failures defined by the `failurePolicy` of the policy are enforced
-according to these actions only if the `failurePolicy` is set to `Fail`,
+A `validation` that evaluates to false is always enforced according to these
+actions. Failures defined by the `failurePolicy` are enforced
+according to these actions only if the `failurePolicy` is set to `Fail` (or unset),
 otherwise the failures are ignored.
 
-See [Audit Annotations: validation falures](/docs/reference/labels-annotations-taints/audit-annotations.md#validation.policy.admission.k8s.io/validation_failure)
+See [Audit Annotations: validation falures](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation_failure)
 for more details about the validation failure audit annotation.
 
 #### Parameter resources
