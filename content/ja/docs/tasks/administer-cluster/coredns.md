@@ -2,6 +2,7 @@
 title: サービスディスカバリーにCoreDNSを使用する
 min-kubernetes-server-version: v1.9
 content_type: task
+weight: 380
 ---
 
 <!-- overview -->
