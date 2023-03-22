@@ -7,6 +7,8 @@ content_type: task
 reviewers:
 - lachie83
 - khenidak
+- bridgetkromhout
+min-kubernetes-server-version: v1.23
 title: Validate IPv4/IPv6 dual-stack
 content_type: task
 -->
@@ -62,7 +64,7 @@ kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .
 
 ```
 10.244.1.0/24
-a00:100::/24
+2001:db8::/64
 ```
 
 <!--
@@ -82,8 +84,8 @@ kubectl get nodes k8s-linuxpool1-34450317-0 -o go-template --template='{{range .
 
 ```
 Hostname: k8s-linuxpool1-34450317-0
-InternalIP: 10.240.0.5
-InternalIP: 2001:1234:5678:9abc::5
+InternalIP: 10.0.0.5
+InternalIP: 2001:db8:10::5
 ```
 
 <!--
@@ -102,7 +104,7 @@ kubectl get pods pod01 -o go-template --template='{{range .status.podIPs}}{{prin
 
 ```
 10.244.1.4
-a00:100::4
+2001:db8::4
 ```
 
 <!--
@@ -130,7 +132,7 @@ kubectl exec -it pod01 -- set | grep MY_POD_IPS
 ```
 
 ```
-MY_POD_IPS=10.244.1.4,a00:100::4
+MY_POD_IPS=10.244.1.4,2001:db8::4
 ```
 
 <!--
@@ -153,7 +155,7 @@ fe00::0    ip6-mcastprefix
 fe00::1    ip6-allnodes
 fe00::2    ip6-allrouters
 10.244.1.4    pod01
-a00:100::4    pod01
+2001:db8::4    pod01
 ```
 
 <!--
@@ -213,7 +215,7 @@ status:
 <!--
 Create the following Service that explicitly defines `IPv6` as the first array element in `.spec.ipFamilies`. Kubernetes will assign a cluster IP for the Service from the IPv6 range configured `service-cluster-ip-range` and set the `.spec.ipFamilyPolicy` to `SingleStack`.
 -->
-创建以下显示定义 `.spec.ipFamilies` 数组中的第一个元素为 IPv6 的 Service。
+创建以下显式定义 `.spec.ipFamilies` 数组中的第一个元素为 IPv6 的 Service。
 Kubernetes 将 `service-cluster-ip-range` 配置的 IPv6 地址范围给 Service 分配集群 IP，
 并将 `.spec.ipFamilyPolicy` 设置为 `SingleStack`。
 
@@ -243,9 +245,9 @@ metadata:
     app.kubernetes.io/name: MyApp
   name: my-service
 spec:
-  clusterIP: fd00::5118
+  clusterIP: 2001:db8:fd00::5118
   clusterIPs:
-  - fd00::5118
+  - 2001:db8:fd00::5118
   ipFamilies:
   - IPv6
   ipFamilyPolicy: SingleStack
@@ -305,7 +307,7 @@ Type:              ClusterIP
 IP Family Policy:  PreferDualStack
 IP Families:       IPv4,IPv6
 IP:                10.0.216.242
-IPs:               10.0.216.242,fd00::af55
+IPs:               10.0.216.242,2001:db8:fd00::af55
 Port:              <unset>  80/TCP
 TargetPort:        9376/TCP
 Endpoints:         <none>
@@ -316,7 +318,7 @@ Events:            <none>
 <!--
 ### Create a dual-stack load balanced Service
 
-If the cloud provider supports the provisioning of IPv6 enabled external load balancers, create the following Service with `PreferDualStack` in `.spec.ipFamilyPolicy`. `IPv6` as the first element of the `.spec.ipFamilies` array and the `type` field set to `LoadBalancer`.
+If the cloud provider supports the provisioning of IPv6 enabled external load balancers, create the following Service with `PreferDualStack` in `.spec.ipFamilyPolicy`, `IPv6` as the first element of the `.spec.ipFamilies` array and the `type` field set to `LoadBalancer`.
 -->
 ### 创建双协议栈负载均衡服务
 
@@ -336,13 +338,12 @@ kubectl get svc -l app.kubernetes.io/name=MyApp
 ```
 
 <!--
-Validate that the Service receives a `CLUSTER-IP` address from the IPv6 address block along with an `EXTERNAL-IP`. You may then validate access to the service via the IP and port. 
+Validate that the Service receives a `CLUSTER-IP` address from the IPv6 address block along with an `EXTERNAL-IP`. You may then validate access to the service via the IP and port.
 -->
 验证服务是否从 IPv6 地址块中接收到 `CLUSTER-IP` 地址以及 `EXTERNAL-IP`。
 然后，你可以通过 IP 和端口验证对服务的访问。
 
 ```shell
-NAME         TYPE           CLUSTER-IP   EXTERNAL-IP        PORT(S)        AGE
-my-service   LoadBalancer   fd00::7ebc   2603:1030:805::5   80:30790/TCP   35s
+NAME         TYPE           CLUSTER-IP            EXTERNAL-IP        PORT(S)        AGE
+my-service   LoadBalancer   2001:db8:fd00::7ebc   2603:1030:805::5   80:30790/TCP   35s
 ```
-

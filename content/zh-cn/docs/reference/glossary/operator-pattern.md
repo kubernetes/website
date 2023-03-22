@@ -28,7 +28,7 @@ The [operator pattern](/docs/concepts/extend-kubernetes/operator/) is a system
 design that links a {{< glossary_tooltip term_id="controller" >}} to one or more custom
 resources.
 -->
-[operator 模式](/zh-cn/docs/concepts/extend-kubernetes/operator/) 是一种系统设计, 
+[operator 模式](/zh-cn/docs/concepts/extend-kubernetes/operator/) 是一种系统设计， 
 将 {{< glossary_tooltip term_id="controller" >}} 关联到一个或多个自定义资源。
 <!--more-->
 

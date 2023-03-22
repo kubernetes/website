@@ -27,7 +27,7 @@ This page provides an overview of best practices when it comes to enforcing
 -->
 ## 使用内置的 Pod 安全性准入控制器
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 <!--
 The [Pod Security Admission Controller](/docs/reference/access-authn-authz/admission-controllers/#podsecurity)
@@ -54,11 +54,11 @@ each of them. Unlabeled namespaces should only indicate that they've yet to be e
 
 <!--
 In the scenario that all workloads in all namespaces have the same security requirements,
-we provide an [example](/docs/concepts/security/pod-security-admission/#applying-to-all-namespaces)
+we provide an [example](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/#applying-to-all-namespaces)
 that illustrates how the PodSecurity labels can be applied in bulk.
 -->
 针对所有名字空间中的所有负载都具有相同的安全性需求的场景，
-我们提供了一个[示例](/zh-cn/docs/concepts/security/pod-security-admission/#applying-to-all-namespaces)
+我们提供了一个[示例](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/#applying-to-all-namespaces)
 用来展示如何批量应用 Pod 安全性标签。
 
 <!--

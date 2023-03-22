@@ -21,7 +21,7 @@ weight: 60
 Kubernetes {{< glossary_tooltip text="RBAC" term_id="rbac" >}} is a key security control 
 to ensure that cluster users and workloads have only the access to resources required to 
 execute their roles. It is important to ensure that, when designing permissions for cluster
-users, the cluster administrator understands the areas where privilge escalation could occur, 
+users, the cluster administrator understands the areas where privilge escalation could occur,
 to reduce the risk of excessive access leading to security incidents.
 
 The good practices laid out here should be read in conjunction with the general
@@ -60,7 +60,7 @@ some general rules that can be applied are :
    ClusterRoleBindings to give users rights only within a specific namespace.
  - Avoid providing wildcard permissions when possible, especially to all resources.
    As Kubernetes is an extensible system, providing wildcard access gives rights
-   not just to all object types that currently exist in the cluster, but also to all future object types
+   not just to all object types that currently exist in the cluster, but also to all object types
    which are created in the future.
  - Administrators should not use `cluster-admin` accounts except where specifically needed. 
    Providing a low privileged account with
@@ -82,9 +82,9 @@ some general rules that can be applied are :
   可以避免意外修改集群资源。
 - 避免将用户添加到 `system:masters` 组。任何属于此组成员的用户都会绕过所有 RBAC 权限检查，
   始终具有不受限制的超级用户访问权限，并且不能通过删除 `RoleBinding` 或 `ClusterRoleBinding`
-  来取消其权限。顺便说一句，如果集群是使用 Webhook 鉴权，此组的成员身份也会绕过该 
+  来取消其权限。顺便说一句，如果集群使用 Webhook 鉴权，此组的成员身份也会绕过该
   Webhook（来自属于该组成员的用户的请求永远不会发送到 Webhook）。
- 
+
 <!--
 ### Minimize distribution of privileged tokens
 -->
@@ -106,12 +106,13 @@ In cases where a workload requires powerful permissions, consider the following 
 -->
 理想情况下，不应为 Pod 分配具有强大权限（例如，在[特权提级的风险](#privilege-escalation-risks)中列出的任一权限）的服务帐户。
 如果工作负载需要比较大的权限，请考虑以下做法：
+
 - 限制运行此类 Pod 的节点数量。确保你运行的任何 DaemonSet 都是必需的，
   并且以最小权限运行，以限制容器逃逸的影响范围。
 - 避免将此类 Pod 与不可信任或公开的 Pod 在一起运行。
   考虑使用[污点和容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)、
   [节点亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity)或
-  [Pod 反亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)确保 
+  [Pod 反亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#inter-pod-affinity-and-anti-affinity)确保
   Pod 不会与不可信或不太受信任的 Pod 一起运行。
   特别注意可信度不高的 Pod 不符合 **Restricted** Pod 安全标准的情况。
 
@@ -152,8 +153,9 @@ possible privilege escalations.
 If an attacker is able to create a user account with the same name as a deleted user,
 they can automatically inherit all the rights of the deleted user, especially the
 rights assigned to that user.
- --> 
+ -->
 ### 定期检查  {#periodic-review}
+
 定期检查 Kubernetes RBAC 设置是否有冗余条目和提权可能性是至关重要的。
 如果攻击者能够创建与已删除用户同名的用户账号，
 他们可以自动继承被删除用户的所有权限，尤其是分配给该用户的权限。
@@ -187,22 +189,27 @@ includes the contents of all Secrets.
 
 大家都很清楚，若允许对 Secrets 执行 `get` 访问，用户就获得了访问 Secret 内容的能力。
 同样需要注意的是：`list` 和 `watch` 访问也会授权用户获取 Secret 的内容。
-例如，当返回 List 响应时（例如，通过 
+例如，当返回 List 响应时（例如，通过
 `kubectl get secrets -A -o yaml`），响应包含所有 Secret 的内容。
 
 <!--
 ### Workload creation
 
-Users who are able to create workloads (either Pods, or
-[workload resources](/docs/concepts/workloads/controllers/) that manage Pods) will
-be able to gain access to the underlying node unless restrictions based on the Kubernetes
-[Pod Security Standards](/docs/concepts/security/pod-security-standards/) are in place.
+Permission to create workloads (either Pods, or
+[workload resources](/docs/concepts/workloads/controllers/) that manage Pods) in a namespace
+implicitly grants access to many other resources in that namespace, such as Secrets, ConfigMaps, and
+PersistentVolumes that can be mounted in Pods. Additionally, since Pods can run as any
+[ServiceAccount](/docs/reference/access-authn-authz/service-accounts-admin/), granting permission
+to create workloads also implicitly grants the API access levels of any service account in that
+namespace.
 -->
 ### 工作负载的创建 {#workload-creation}
 
-能够创建工作负载的用户（Pod 或管理 Pod 的[工作负载资源](/zh-cn/docs/concepts/workloads/controllers/)） 
-能够访问下层的节点，除非基于 Kubernetes 的
-[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)做限制。
+在一个命名空间中创建工作负载（Pod 或管理 Pod 的[工作负载资源](/zh-cn/docs/concepts/workloads/controllers/)）
+的权限隐式地授予了对该命名空间中许多其他资源的访问权限，例如可以挂载在
+Pod 中的 Secret、ConfigMap 和 PersistentVolume。
+此外，由于 Pod 可以被任何[服务账号](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/)运行，
+因此授予创建工作负载的权限也会隐式地授予该命名空间中任何服务账号的 API 访问级别。
 
 <!--
 Users who can run privileged Pods can use that access to gain node access and potentially to
@@ -218,37 +225,54 @@ or other (third party) mechanisms to implement that enforcement.
 或 **Restricted** Pod 安全标准。
 你可以使用 [Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)或其他（第三方）机制来强制实施这些限制。
 
-<!--
-You can also use the deprecated [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) mechanism
-to restrict users' abilities to create privileged Pods (N.B. PodSecurityPolicy is scheduled for removal
-in version 1.25).
+<!-- 
+For these reasons, namespaces should be used to separate resources requiring different levels of
+trust or tenancy. It is still considered best practice to follow [least privilege](#least-privilege)
+principles and assign the minimum set of permissions, but boundaries within a namespace should be
+considered weak.
 -->
-你还可以使用已弃用的 [PodSecurityPolicy](/zh-cn/docs/concepts/security/pod-security-policy/)
-机制以限制用户创建特权 Pod 的能力 （特别注意：PodSecurityPolicy 已计划在版本 1.25 中删除）。
-
-<!--
-Creating a workload in a namespace also grants indirect access to Secrets in that namespace. 
-Creating a pod in kube-system or a similarly privileged namespace can grant a user access to 
-Secrets they would not have through RBAC directly.
--->
-在命名空间中创建工作负载还会授予对该命名空间中 Secret 的间接访问权限。
-在 kube-system 或类似特权的命名空间中创建 Pod 
-可以授予用户不需要通过 RBAC 即可获取 Secret 访问权限。
+出于这些原因，命名空间应该用于隔离不同的信任级别或不同租户所需的资源。
+遵循[最小特权](#least-privilege)原则并分配最小权限集仍被认为是最佳实践，
+但命名空间内的边界概念应视为比较弱。
 
 <!--
 ### Persistent volume creation
 
-As noted in the [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/#volumes-and-file-systems)
-documentation, access to create PersistentVolumes can allow for escalation of access to the underlying host.
-Where access to persistent storage is required trusted administrators should create
-PersistentVolumes, and constrained users should use PersistentVolumeClaims to access that storage.
+If someone - or some application - is allowed to create arbitrary PersistentVolumes, that access
+includes the creation of `hostPath` volumes, which then means that a Pod would get access
+to the underlying host filesystem(s) on the associated node. Granting that ability is a security risk.
 -->
 ### 持久卷的创建 {#persistent-volume-creation}
 
-如 [PodSecurityPolicy](/zh-cn/docs/concepts/security/pod-security-policy/#volumes-and-file-systems) 
-文档中所述，创建 PersistentVolumes 的权限可以提权访问底层主机。
-如果需要访问 PersistentVolume，受信任的管理员应该创建 `PersistentVolume`，
-受约束的用户应该使用 `PersistentVolumeClaim` 访问该存储。
+如果允许某人或某个应用创建任意的 PersistentVolume，则这种访问权限包括创建 `hostPath` 卷，
+这意味着 Pod 将可以访问对应节点上的下层主机文件系统。授予该能力会带来安全风险。
+
+<!--
+There are many ways a container with unrestricted access to the host filesystem can escalate privileges, including 
+reading data from other containers, and abusing the credentials of system services, such as Kubelet.
+
+You should only allow access to create PersistentVolume objects for:
+-->
+不受限制地访问主机文件系统的容器可以通过多种方式提升特权，包括从其他容器读取数据以及滥用系统服务（例如 Kubelet）的凭据。
+
+你应该只允许以下实体具有创建 PersistentVolume 对象的访问权限：
+
+<!--
+- users (cluster operators) that need this access for their work, and who you trust,
+- the Kubernetes control plane components which creates PersistentVolumes based on PersistentVolumeClaims
+  that are configured for automatic provisioning.
+  This is usually setup by the Kubernetes provider or by the operator when installing a CSI driver.
+-->
+- 需要此访问权限才能工作的用户（集群操作员）以及你信任的人，
+- Kubernetes 控制平面组件，这些组件基于已配置为自动制备的 PersistentVolumeClaim 创建 PersistentVolume。
+  这通常由 Kubernetes 提供商或操作员在安装 CSI 驱动程序时进行设置。
+
+<!--
+Where access to persistent storage is required trusted administrators should create 
+PersistentVolumes, and constrained users should use PersistentVolumeClaims to access that storage.
+-->
+在需要访问持久存储的地方，受信任的管理员应创建 PersistentVolume，而受约束的用户应使用
+PersistentVolumeClaim 来访问该存储。
 
 <!--
 ### Access to `proxy` subresource of Nodes
@@ -272,6 +296,7 @@ The exception to this is the `escalate` verb. As noted in the [RBAC documentatio
 users with this right can effectively escalate their privileges.
 -->
 ### esclate 动词 {#escalate-verb}
+
 通常，RBAC 系统会阻止用户创建比他所拥有的更多权限的 `ClusterRole`。
 而 `escalate` 动词是个例外。如
 [RBAC 文档](/zh-cn/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update)
@@ -326,7 +351,7 @@ tokens for existing service accounts.
 -->
 ### 令牌请求 {#token-request}
 
-拥有 `serviceaccounts/token` 的 `create` 权限的用户可以创建 
+拥有 `serviceaccounts/token` 的 `create` 权限的用户可以创建
 TokenRequest 来发布现有服务帐户的令牌。
 
 <!--
@@ -336,7 +361,7 @@ Users with control over `validatingwebhookconfigurations` or `mutatingwebhookcon
 can control webhooks that can read any object admitted to the cluster, and in the case of 
 mutating webhooks, also mutate admitted objects.
 -->
-###  控制准入 Webhook {#control-admission-webhooks}
+### 控制准入 Webhook {#control-admission-webhooks}
 
 可以控制 `validatingwebhookconfigurations` 或 `mutatingwebhookconfigurations`
 的用户可以控制能读取任何允许进入集群的对象的 webhook，
@@ -359,6 +384,7 @@ to limit the quantity of objects which can be created.
 ## Kubernetes RBAC - 拒绝服务攻击的风险 {#denial-of-service-risks}
 
 ### 对象创建拒绝服务 {#object-creation-dos}
+
 有权在集群中创建对象的用户根据创建对象的大小和数量可能会创建足够大的对象，
 产生拒绝服务状况，如 [Kubernetes 使用的 etcd 容易受到 OOM 攻击](https://github.com/kubernetes/kubernetes/issues/107325)中的讨论。
 允许太不受信任或者不受信任的用户对系统进行有限的访问在多租户集群中是特别重要的。
@@ -370,4 +396,5 @@ to limit the quantity of objects which can be created.
 <!--
 * To learn more about RBAC, see the [RBAC documentation](/docs/reference/access-authn-authz/rbac/).
 -->
+
 * 了解有关 RBAC 的更多信息，请参阅 [RBAC 文档](/zh-cn/docs/reference/access-authn-authz/rbac/)。

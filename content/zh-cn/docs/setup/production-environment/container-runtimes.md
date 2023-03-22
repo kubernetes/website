@@ -55,19 +55,17 @@ part of Kubernetes (this removal was
 [announced](/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)
 as part of the v1.20 release).
 -->
-v1.24 之前的 Kubernetes 版本包括与 Docker Engine 的直接集成，使用名为 **dockershim** 的组件。 
+v1.24 之前的 Kubernetes 版本直接集成了 Docker Engine 的一个组件，名为 **dockershim**。
 这种特殊的直接整合不再是 Kubernetes 的一部分
 （这次删除被作为 v1.20 发行版本的一部分[宣布](/zh-cn/blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)）。
 
 <!--
 You can read
-[Check whether Dockershim deprecation affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
-to understand how this removal might
-affect you. To learn about migrating from using dockershim, see
+[Check whether Dockershim removal affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)
+to understand how this removal might affect you. To learn about migrating from using dockershim, see
 [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/).
 -->
-你可以阅读[检查 Dockershim 弃用是否会影响你](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/) 
-以了解此删除可能会如何影响你。 
+你可以阅读[检查 Dockershim 移除是否会影响你](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)以了解此删除可能会如何影响你。
 要了解如何使用 dockershim 进行迁移，
 请参阅[从 dockershim 迁移](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/)。
 
@@ -75,7 +73,7 @@ affect you. To learn about migrating from using dockershim, see
 If you are running a version of Kubernetes other than v{{< skew currentVersion >}},
 check the documentation for that version.
 -->
-如果你正在运行 v{{< skew currentVersion >}} 以外的 Kubernetes 版本，检查该版本的文档。
+如果你正在运行 v{{< skew currentVersion >}} 以外的 Kubernetes 版本，查看对应版本的文档。
 {{< /note >}}
 
 <!-- body -->
@@ -95,26 +93,16 @@ For more information, see [Network Plugin Requirements](/docs/concepts/extend-ku
 
 如果你确定不需要某个特定设置，则可以跳过它。
 
-有关更多信息，请参阅[网络插件要求](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) 
-或特定容器运行时的文档。
+有关更多信息，请参阅[网络插件要求](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements)或特定容器运行时的文档。
 
 <!-- 
 ### Forwarding IPv4 and letting iptables see bridged traffic
 
-Verify that the `br_netfilter` module is loaded by running `lsmod | grep br_netfilter`. 
-
-To load it explicitly, run `sudo modprobe br_netfilter`.
-
-In order for a Linux node's iptables to correctly view bridged traffic, verify that `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config. For example: 
+Execute the below mentioned instructions:
 -->
 ### 转发 IPv4 并让 iptables 看到桥接流量
 
-通过运行 `lsmod | grep br_netfilter` 来验证 `br_netfilter` 模块是否已加载。
-
-若要显式加载此模块，请运行 `sudo modprobe br_netfilter`。
-
-为了让 Linux 节点的 iptables 能够正确查看桥接流量，请确认 `sysctl` 配置中的
-`net.bridge.bridge-nf-call-iptables` 设置为 1。例如：
+执行下述指令：
 
 ```bash
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
@@ -137,51 +125,143 @@ sudo sysctl --system
 ```
 
 <!--
+Verify that the `br_netfilter`, `overlay` modules are loaded by running below instructions:
+-->
+通过运行以下指令确认 `br_netfilter` 和 `overlay` 模块被加载：
+
+```bash
+lsmod | grep br_netfilter
+lsmod | grep overlay
+```
+
+<!--
+Verify that the `net.bridge.bridge-nf-call-iptables`, `net.bridge.bridge-nf-call-ip6tables`, `net.ipv4.ip_forward` system variables are set to 1 in your `sysctl` config by running below instruction:
+-->
+通过运行以下指令确认 `net.bridge.bridge-nf-call-iptables`、`net.bridge.bridge-nf-call-ip6tables`
+和 `net.ipv4.ip_forward` 系统变量在你的 `sysctl` 配置中被设置为 1：
+
+```bash
+sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
+```
+
+<!--
 ## Cgroup drivers
 
 On Linux, {{< glossary_tooltip text="control groups" term_id="cgroup" >}}
 are used to constrain resources that are allocated to processes.
 -->
-## Cgroup 驱动程序  {#cgroup-drivers}
+## cgroup 驱动  {#cgroup-drivers}
 
-在 Linux 上，{{<glossary_tooltip text="控制组（CGroup）" term_id="cgroup" >}}
-用于限制分配给进程的资源。
+在 Linux 上，{{<glossary_tooltip text="控制组（CGroup）" term_id="cgroup" >}}用于限制分配给进程的资源。
 
 <!--
+Both {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} and the
+underlying container runtime need to interface with control groups to enforce
+[resource management for pods and containers](/docs/concepts/configuration/manage-resources-containers/) and set
+resources such as cpu/memory requests and limits. To interface with control
+groups, the kubelet and the container runtime need to use a *cgroup driver*.
+It's critical that the kubelet and the container runtime uses the same cgroup
+driver and are configured the same.
+-->
+{{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 和底层容器运行时都需要对接控制组来强制执行
+[为 Pod 和容器管理资源](/zh-cn/docs/concepts/configuration/manage-resources-containers/)
+并为诸如 CPU、内存这类资源设置请求和限制。若要对接控制组，kubelet 和容器运行时需要使用一个 **cgroup 驱动**。
+关键的一点是 kubelet 和容器运行时需使用相同的 cgroup 驱动并且采用相同的配置。
+
+<!--
+There are two cgroup drivers available:
+
+* [`cgroupfs`](#cgroupfs-cgroup-driver)
+* [`systemd`](#systemd-cgroup-driver)
+-->
+可用的 cgroup 驱动有两个：
+
+* [`cgroupfs`](#cgroupfs-cgroup-driver)
+* [`systemd`](#systemd-cgroup-driver)
+
+<!--
+### cgroupfs driver {#cgroupfs-cgroup-driver}
+
+The `cgroupfs` driver is the default cgroup driver in the kubelet. When the `cgroupfs`
+driver is used, the kubelet and the container runtime directly interface with
+the cgroup filesystem to configure cgroups.
+
+The `cgroupfs` driver is **not** recommended when
+[systemd](https://www.freedesktop.org/wiki/Software/systemd/) is the
+init system because systemd expects a single cgroup manager on
+the system. Additionally, if you use [cgroup v2](/docs/concepts/architecture/cgroups)
+, use the `systemd` cgroup driver instead of
+`cgroupfs`.
+-->
+### cgroupfs 驱动 {#cgroupfs-cgroup-driver}
+
+`cgroupfs` 驱动是 kubelet 中默认的 cgroup 驱动。当使用 `cgroupfs` 驱动时，
+kubelet 和容器运行时将直接对接 cgroup 文件系统来配置 cgroup。
+
+当 [systemd](https://www.freedesktop.org/wiki/Software/systemd/) 是初始化系统时，
+**不** 推荐使用 `cgroupfs` 驱动，因为 systemd 期望系统上只有一个 cgroup 管理器。
+此外，如果你使用 [cgroup v2](/zh-cn/docs/concepts/architecture/cgroups)，
+则应用 `systemd` cgroup 驱动取代 `cgroupfs`。
+
+<!--
+### systemd cgroup driver {#systemd-cgroup-driver}
+
 When [systemd](https://www.freedesktop.org/wiki/Software/systemd/) is chosen as the init
 system for a Linux distribution, the init process generates and consumes a root control group
 (`cgroup`) and acts as a cgroup manager.
-Systemd has a tight integration with cgroups and allocates a cgroup per systemd unit. It's possible
-to configure your container runtime and the kubelet to use `cgroupfs`. Using `cgroupfs` alongside
-systemd means that there will be two different cgroup managers.
+
+systemd has a tight integration with cgroups and allocates a cgroup per systemd
+unit. As a result, if you use `systemd` as the init system with the `cgroupfs`
+driver, the system gets two different cgroup managers.
 -->
+### systemd cgroup 驱动 {#systemd-cgroup-driver}
+
 当某个 Linux 系统发行版使用 [systemd](https://www.freedesktop.org/wiki/Software/systemd/)
 作为其初始化系统时，初始化进程会生成并使用一个 root 控制组（`cgroup`），并充当 cgroup 管理器。
-Systemd 与 cgroup 集成紧密，并将为每个 systemd 单元分配一个 cgroup。
-你也可以配置容器运行时和 kubelet 使用 `cgroupfs`。
-连同 systemd 一起使用 `cgroupfs` 意味着将有两个不同的 cgroup 管理器。
+
+systemd 与 cgroup 集成紧密，并将为每个 systemd 单元分配一个 cgroup。
+因此，如果你 `systemd` 用作初始化系统，同时使用 `cgroupfs` 驱动，则系统中会存在两个不同的 cgroup 管理器。
 
 <!--
-A single cgroup manager simplifies the view of what resources are being allocated
-and will by default have a more consistent view of the available and in-use resources.
-When there are two cgroup managers on a system, you end up with two views of those resources.
-In the field, people have reported cases where nodes that are configured to use `cgroupfs`
-for the kubelet and Docker, but `systemd` for the rest of the processes, become unstable under
-resource pressure.
+Two cgroup managers result in two views of the available and in-use resources in
+the system. In some cases, nodes that are configured to use `cgroupfs` for the
+kubelet and container runtime, but use `systemd` for the rest of the processes become
+unstable under resource pressure.
+
+The approach to mitigate this instability is to use `systemd` as the cgroup driver for
+the kubelet and the container runtime when systemd is the selected init system.
 -->
-单个 cgroup 管理器将简化分配资源的视图，并且默认情况下将对可用资源和使用
-中的资源具有更一致的视图。
-当有两个管理器共存于一个系统中时，最终将对这些资源产生两种视图。
-在此领域人们已经报告过一些案例，某些节点配置让 kubelet 和 docker 使用
-`cgroupfs`，而节点上运行的其余进程则使用 systemd; 这类节点在资源压力下
-会变得不稳定。
+同时存在两个 cgroup 管理器将造成系统中针对可用的资源和使用中的资源出现两个视图。某些情况下，
+将 kubelet 和容器运行时配置为使用 `cgroupfs`、但为剩余的进程使用 `systemd`
+的那些节点将在资源压力增大时变得不稳定。
+
+当 systemd 是选定的初始化系统时，缓解这个不稳定问题的方法是针对 kubelet 和容器运行时将
+`systemd` 用作 cgroup 驱动。
+<!--
+To set `systemd` as the cgroup driver, edit the
+[`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/)
+option of `cgroupDriver` and set it to `systemd`. For example:
+-->
+要将 `systemd` 设置为 cgroup 驱动，需编辑 [`KubeletConfiguration`](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)
+的 `cgroupDriver` 选项，并将其设置为 `systemd`。例如：
+
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+...
+cgroupDriver: systemd
+```
 
 <!--
-Changing the settings such that your container runtime and kubelet use `systemd` as the cgroup driver
-stabilized the system. To configure this for Docker, set `native.cgroupdriver=systemd`.
+If you configure `systemd` as the cgroup driver for the kubelet, you must also
+configure `systemd` as the cgroup driver for the container runtime. Refer to
+the documentation for your container runtime for instructions. For example:
 -->
-更改设置，令容器运行时和 kubelet 使用 `systemd` 作为 cgroup 驱动，以此使系统更为稳定。
-对于 Docker，要设置 `native.cgroupdriver=systemd` 选项。
+如果你将 `systemd` 配置为 kubelet 的 cgroup 驱动，你也必须将 `systemd` 配置为容器运行时的 cgroup 驱动。
+参阅容器运行时文档，了解指示说明。例如：
+
+*  [containerd](#containerd-systemd)
+*  [CRI-O](#cri-o)
 
 {{< caution >}}
 <!--
@@ -194,87 +274,13 @@ If you have automation that makes it feasible, replace the node with another usi
 configuration, or reinstall it using automation.
 -->
 注意：更改已加入集群的节点的 cgroup 驱动是一项敏感的操作。
-如果 kubelet 已经使用某 cgroup 驱动的语义创建了 pod，更改运行时以使用
-别的 cgroup 驱动，当为现有 Pods 重新创建 PodSandbox 时会产生错误。
+如果 kubelet 已经使用某 cgroup 驱动的语义创建了 Pod，更改运行时以使用别的
+cgroup 驱动，当为现有 Pod 重新创建 PodSandbox 时会产生错误。
 重启 kubelet 也可能无法解决此类问题。
 
 如果你有切实可行的自动化方案，使用其他已更新配置的节点来替换该节点，
 或者使用自动化方案来重新安装。
 {{< /caution >}}
-
-<!--
-### Cgroup version 2 {#cgroup-v2}
-
-Cgroup v2 is the next version of the cgroup Linux API.  Differently than cgroup v1, there is a single
-hierarchy instead of a different one for each controller.
--->
-### Cgroup v2 {#cgroup-v2}
-
-Cgroup v2 是 cgroup Linux API 的下一个版本。与 cgroup v1 不同的是，
-Cgroup v2 只有一个层次结构，而不是每个控制器有一个不同的层次结构。
-
-<!--
-The new version offers several improvements over cgroup v1, some of these improvements are:
-
-- cleaner and easier to use API
-- safe sub-tree delegation to containers
-- newer features like Pressure Stall Information
--->
-新版本对 cgroup v1 进行了多项改进，其中一些改进是：
-
-- 更简洁、更易于使用的 API
-- 可将安全子树委派给容器
-- 更新的功能，如压力失速信息（Pressure Stall Information）
-
-<!--
-Even if the kernel supports a hybrid configuration where some controllers are managed by cgroup v1
-and some others by cgroup v2, Kubernetes supports only the same cgroup version to manage all the
-controllers.
-
-If systemd doesn't use cgroup v2 by default, you can configure the system to use it by adding
-`systemd.unified_cgroup_hierarchy=1` to the kernel command line.
--->
-尽管内核支持混合配置，即其中一些控制器由 cgroup v1 管理，另一些由 cgroup v2 管理，
-Kubernetes 仅支持使用同一 cgroup 版本来管理所有控制器。
-
-如果 systemd 默认不使用 cgroup v2，你可以通过在内核命令行中添加 
-`systemd.unified_cgroup_hierarchy=1` 来配置系统去使用它。
-
-<!-- 
-```shell
-# This example is for a Linux OS that uses the DNF package manager
-# Your system might use a different method for setting the command line
-# that the Linux kernel uses.
-sudo dnf install -y grubby && \
-  sudo grubby \
-  --update-kernel=ALL \
-  --args="systemd.unified_cgroup_hierarchy=1"
-``` 
--->
-
-```shell
-# 此示例适用于使用 DNF 包管理器的 Linux 操作系统
-# 你的系统可能使用不同的方法来设置 Linux 内核使用的命令行。
-sudo dnf install -y grubby && \
-  sudo grubby \
-  --update-kernel=ALL \
-  --args="systemd.unified_cgroup_hierarchy=1"
-```
-
-<!--
-If you change the command line for the kernel, you must reboot the node before your
-change takes effect.
-
-There should not be any noticeable difference in the user experience when switching to cgroup v2, unless
-users are accessing the cgroup file system directly, either on the node or from within the containers.
-
-In order to use it, cgroup v2 must be supported by the CRI runtime as well.
--->
-如果更改内核的命令行，则必须重新启动节点才能使更改生效。
-
-切换到 cgroup v2 时，用户体验不应有任何明显差异，
-除非用户直接在节点上或在容器内访问 cgroup 文件系统。
-为了使用它，CRI 运行时也必须支持 cgroup v2。
 
 <!-- 
 ### Migrating to the `systemd` driver in kubeadm managed clusters
@@ -282,10 +288,10 @@ In order to use it, cgroup v2 must be supported by the CRI runtime as well.
 If you wish to migrate to the `systemd` cgroup driver in existing kubeadm managed clusters,
 follow [configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
 -->
-### 将 kubeadm 托管的集群迁移到 `systemd` 驱动
+### 将 kubeadm 管理的集群迁移到 `systemd` 驱动
 
-如果你希望将现有的由 kubeadm 管理的集群迁移到 `systemd` cgroup 驱动程序，
-请按照[配置 cgroup 驱动程序](/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)操作。
+如果你希望将现有的由 kubeadm 管理的集群迁移到 `systemd` cgroup 驱动，
+请按照[配置 cgroup 驱动](/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)操作。
 
 <!--
 ## CRI version support {#cri-versions}
@@ -298,10 +304,10 @@ using the (deprecated) v1alpha2 API instead.
 -->
 ## CRI 版本支持 {#cri-versions}
 
-你的容器运行时必须至少支持容器运行时接口的 v1alpha2。
+你的容器运行时必须至少支持 v1alpha2 版本的容器运行时接口。
 
-Kubernetes {{< skew currentVersion >}} 默认使用 v1 的 CRI API。如果容器运行时不支持 v1 API，
-则 kubelet 会回退到使用（已弃用的）v1alpha2 API。
+Kubernetes {{< skew currentVersion >}} 默认使用 v1 版本的 CRI API。如果容器运行时不支持 v1 版本的 API，
+则 kubelet 会回退到使用（已弃用的）v1alpha2 版本的 API。
 
 <!-- 
 ## Container runtimes
@@ -322,7 +328,7 @@ Use the following commands to install Containerd on your system:
 使用以下命令在系统上安装 Containerd：
 
 <!-- 
-Follow the instructions for [getting started with containerd](https://github.com/containerd/containerd/blob/main/docs getting-started.md). Return to this step once you've created a valid configuration file, `config.toml`. 
+Follow the instructions for [getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md). Return to this step once you've created a valid configuration file, `config.toml`. 
  -->
 
 按照[开始使用 containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md) 的说明进行操作。 
@@ -330,11 +336,15 @@ Follow the instructions for [getting started with containerd](https://github.com
 
 {{< tabs name="找到 config.toml 文件" >}}
 {{% tab name="Linux" %}}
-<!-- You can find this file under the path `/etc/containerd/config.toml`. -->
+<!--
+You can find this file under the path `/etc/containerd/config.toml`.
+-->
 你可以在路径 `/etc/containerd/config.toml` 下找到此文件。
 {{% /tab %}}
 {{% tab name="Windows" %}}
-<!-- You can find this file under the path `C:\Program Files\containerd\config.toml`. -->
+<!--
+You can find this file under the path `C:\Program Files\containerd\config.toml`.
+-->
 你可以在路径 `C:\Program Files\containerd\config.toml` 下找到此文件。
 {{% /tab %}}
 {{< /tabs >}}
@@ -351,9 +361,9 @@ On Windows the default CRI endpoint is `npipe://./pipe/containerd-containerd`.
 
 To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`, set
 -->
-#### 配置 `systemd` cgroup 驱动程序 {#containerd-systemd}
+#### 配置 `systemd` cgroup 驱动 {#containerd-systemd}
 
-结合 `runc` 使用 `systemd` cgroup 驱动，在 `/etc/containerd/config.toml` 中设置 
+结合 `runc` 使用 `systemd` cgroup 驱动，在 `/etc/containerd/config.toml` 中设置：
 
 ```
 [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
@@ -361,6 +371,11 @@ To use the `systemd` cgroup driver in `/etc/containerd/config.toml` with `runc`,
   [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
     SystemdCgroup = true
 ```
+
+<!--
+The `systemd` cgroup driver is recommended if you use [cgroup v2](/docs/concepts/architecture/cgroups).
+-->
+如果你使用 [cgroup v2](/zh-cn/docs/concepts/architecture/cgroups)，则推荐 `systemd` cgroup 驱动。
 
 {{< note >}}
 <!--
@@ -377,6 +392,20 @@ CRI 集成插件。
 你需要启用 CRI 支持才能在 Kubernetes 集群中使用 containerd。
 要确保 `cri` 没有出现在 `/etc/containerd/config.toml` 文件中 `disabled_plugins`
 列表内。如果你更改了这个文件，也请记得要重启 `containerd`。
+
+<!--
+If you experience container crash loops after the initial cluster installation or after
+installing a CNI, the containerd configuration provided with the package might contain
+incompatible configuration parameters. Consider resetting the containerd configuration
+with `containerd config default > /etc/containerd/config.toml` as specified in
+[getting-started.md](https://github.com/containerd/containerd/blob/main/docs/getting-started.md#advanced-topics)
+and then set the configuration parameters specified above accordingly.
+-->
+如果你在初次安装集群后或安装 CNI 后遇到容器崩溃循环，则随软件包提供的 containerd
+配置可能包含不兼容的配置参数。考虑按照
+[getting-started.md](https://github.com/containerd/containerd/blob/main/docs/getting-started.md#advanced-topics)
+中指定的 `containerd config default > /etc/containerd/config.toml` 重置 containerd
+配置，然后相应地设置上述配置参数。
 {{< /note >}}
 
 <!--
@@ -408,7 +437,7 @@ sandbox image by setting the following config:
 
 ```toml
 [plugins."io.containerd.grpc.v1.cri"]
-  sandbox_image = "k8s.gcr.io/pause:3.2"
+  sandbox_image = "registry.k8s.io/pause:3.2"
 ```
 
 <!--
@@ -435,10 +464,10 @@ for you. To switch to the `cgroupfs` cgroup driver, either edit
 `/etc/crio/crio.conf` or place a drop-in configuration in
 `/etc/crio/crio.conf.d/02-cgroup-manager.conf`, for example: 
 -->
-#### cgroup 驱动程序   {#cgroup-driver}
+#### cgroup 驱动   {#cgroup-driver}
 
-CRI-O 默认使用 systemd cgroup 驱动程序，这对你来说可能工作得很好。
-要切换到 `cgroupfs` cgroup 驱动程序，请编辑 `/etc/crio/crio.conf` 或在
+CRI-O 默认使用 systemd cgroup 驱动，这对你来说可能工作得很好。
+要切换到 `cgroupfs` cgroup 驱动，请编辑 `/etc/crio/crio.conf` 或在
 `/etc/crio/crio.conf.d/02-cgroup-manager.conf` 中放置一个插入式配置，例如：
 
 ```toml
@@ -453,7 +482,7 @@ You should also note the changed `conmon_cgroup`, which has to be set to the val
 cgroup driver configuration of the kubelet (usually done via kubeadm) and CRI-O
 in sync.
 -->
-你还应该注意到 `conmon_cgroup` 被更改，当使用 CRI-O 和 `cgroupfs` 时，必须将其设置为值 `pod`。
+你还应该注意当使用 CRI-O 时，并且 CRI-O 的 cgroup 设置为 `cgroupfs` 时，必须将 `conmon_cgroup` 设置为值 `pod`。
 通常需要保持 kubelet 的 cgroup 驱动配置（通常通过 kubeadm 完成）和 CRI-O 同步。
 
 <!-- 
@@ -494,11 +523,11 @@ Docker Engine with Kubernetes.
 -->
 以下操作假设你使用 [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd) 适配器来将
 Docker Engine 与 Kubernetes 集成。
-{{< /note >}} 
+{{< /note >}}
 
 <!--
 1. On each of your nodes, install Docker for your Linux distribution as per
-   [Install Docker Engine](https://docs.docker.com/engine/install/#server). 
+  [Install Docker Engine](https://docs.docker.com/engine/install/#server).
 -->
 1. 在你的每个节点上，遵循[安装 Docker Engine](https://docs.docker.com/engine/install/#server)
    指南为你的 Linux 发行版安装 Docker。
@@ -525,7 +554,7 @@ You can use Mirantis Container Runtime with Kubernetes using the open source
 -->
 ### Mirantis 容器运行时 {#mcr}
 
-[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR) 
+[Mirantis Container Runtime](https://docs.mirantis.com/mcr/20.10/overview.html) (MCR)
 是一种商用容器运行时，以前称为 Docker 企业版。
 你可以使用 MCR 中包含的开源 [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd)
 组件将 Mirantis Container Runtime 与 Kubernetes 一起使用。
@@ -538,7 +567,8 @@ visit [MCR Deployment Guide](https://docs.mirantis.com/mcr/20.10/install.html).
 请访问 [MCR 部署指南](https://docs.mirantis.com/mcr/20.10/install.html)。
 
 <!-- 
-Check the systemd unit named `cri-docker.socket` to find out the path to the CRI socket.
+Check the systemd unit named `cri-docker.socket` to find out the path to the CRI
+socket.
 -->
 检查名为 `cri-docker.socket` 的 systemd 单元以找出 CRI 套接字的路径。
 
@@ -551,8 +581,7 @@ The command line argument to use is `--pod-infra-container-image`.
 -->
 #### 重载沙箱（pause）镜像   {#override-pause-image-cri-dockerd-mcr}
 
-`cri-dockerd` 适配器能够接受一个命令行参数是，设置用哪个容器镜像作为 Pod
-的基础设施容器（“pause 镜像”）。
+`cri-dockerd` 适配器能够接受指定用作 Pod 的基础容器的容器镜像（“pause 镜像”）作为命令行参数。
 要使用的命令行参数是 `--pod-infra-container-image`。
 
 ## {{% heading "whatsnext" %}}

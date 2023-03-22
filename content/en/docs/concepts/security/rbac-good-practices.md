@@ -12,7 +12,7 @@ weight: 60
 Kubernetes {{< glossary_tooltip text="RBAC" term_id="rbac" >}} is a key security control 
 to ensure that cluster users and workloads have only the access to resources required to 
 execute their roles. It is important to ensure that, when designing permissions for cluster
-users, the cluster administrator understands the areas where privilge escalation could occur, 
+users, the cluster administrator understands the areas where privilege escalation could occur, 
 to reduce the risk of excessive access leading to security incidents.
 
 The good practices laid out here should be read in conjunction with the general
@@ -32,7 +32,7 @@ some general rules that can be applied are :
    ClusterRoleBindings to give users rights only within a specific namespace.
  - Avoid providing wildcard permissions when possible, especially to all resources.
    As Kubernetes is an extensible system, providing wildcard access gives rights
-   not just to all object types that currently exist in the cluster, but also to all future object types
+   not just to all object types that currently exist in the cluster, but also to all object types
    which are created in the future.
  - Administrators should not use `cluster-admin` accounts except where specifically needed. 
    Providing a low privileged account with
@@ -99,10 +99,13 @@ includes the contents of all Secrets.
 
 ### Workload creation
 
-Users who are able to create workloads (either Pods, or
-[workload resources](/docs/concepts/workloads/controllers/) that manage Pods) will
-be able to gain access to the underlying node unless restrictions based on the Kubernetes
-[Pod Security Standards](/docs/concepts/security/pod-security-standards/) are in place.
+Permission to create workloads (either Pods, or
+[workload resources](/docs/concepts/workloads/controllers/) that manage Pods) in a namespace
+implicitly grants access to many other resources in that namespace, such as Secrets, ConfigMaps, and
+PersistentVolumes that can be mounted in Pods. Additionally, since Pods can run as any
+[ServiceAccount](/docs/reference/access-authn-authz/service-accounts-admin/), granting permission
+to create workloads also implicitly grants the API access levels of any service account in that
+namespace.
 
 Users who can run privileged Pods can use that access to gain node access and potentially to
 further elevate their privileges. Where you do not fully trust a user or other principal
@@ -111,18 +114,27 @@ with the ability to create suitably secure and isolated Pods, you should enforce
 You can use [Pod Security admission](/docs/concepts/security/pod-security-admission/)
 or other (third party) mechanisms to implement that enforcement.
 
-You can also use the deprecated [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) mechanism
-to restrict users' abilities to create privileged Pods (N.B. PodSecurityPolicy is scheduled for removal
-in version 1.25).
-
-Creating a workload in a namespace also grants indirect access to Secrets in that namespace. 
-Creating a pod in kube-system or a similarly privileged namespace can grant a user access to 
-Secrets they would not have through RBAC directly.
+For these reasons, namespaces should be used to separate resources requiring different levels of
+trust or tenancy. It is still considered best practice to follow [least privilege](#least-privilege)
+principles and assign the minimum set of permissions, but boundaries within a namespace should be
+considered weak.
 
 ### Persistent volume creation
 
-As noted in the [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/#volumes-and-file-systems)
-documentation, access to create PersistentVolumes can allow for escalation of access to the underlying host.
+If someone - or some application - is allowed to create arbitrary PersistentVolumes, that access
+includes the creation of `hostPath` volumes, which then means that a Pod would get access
+to the underlying host filesystem(s) on the associated node. Granting that ability is a security risk.
+
+There are many ways a container with unrestricted access to the host filesystem can escalate privileges, including 
+reading data from other containers, and abusing the credentials of system services, such as Kubelet.
+
+You should only allow access to create PersistentVolume objects for:
+
+- users (cluster operators) that need this access for their work, and who you trust,
+- the Kubernetes control plane components which creates PersistentVolumes based on PersistentVolumeClaims
+  that are configured for automatic provisioning.
+  This is usually setup by the Kubernetes provider or by the operator when installing a CSI driver.
+
 Where access to persistent storage is required trusted administrators should create 
 PersistentVolumes, and constrained users should use PersistentVolumeClaims to access that storage.
 
@@ -186,4 +198,3 @@ to limit the quantity of objects which can be created.
 ## {{% heading "whatsnext" %}}
 
 * To learn more about RBAC, see the [RBAC documentation](/docs/reference/access-authn-authz/rbac/).
-

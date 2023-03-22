@@ -50,7 +50,7 @@ Contoh:
 ```json
 {
   "name": "k8s-pod-network",
-  "cniVersion": "0.3.0",
+  "cniVersion": "0.4.0",
   "plugins": [
     {
       "type": "calico",
@@ -70,7 +70,8 @@ Contoh:
     },
     {
       "type": "portmap",
-      "capabilities": {"portMappings": true}
+      "capabilities": {"portMappings": true},
+      "externalSetMarkChain": "KUBE-MARK-MASQ"
     }
   ]
 }
@@ -85,7 +86,7 @@ Jika kamu ingin mengaktifkan pembentukan lalu-lintas, kamu harus menambahkan _pl
 ```json
 {
   "name": "k8s-pod-network",
-  "cniVersion": "0.3.0",
+  "cniVersion": "0.4.0",
   "plugins": [
     {
       "type": "calico",

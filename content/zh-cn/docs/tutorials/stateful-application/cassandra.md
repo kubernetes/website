@@ -39,7 +39,7 @@ of the Cassandra cluster (called a _ring_). When those Pods run in your Kubernet
 the Kubernetes control plane schedules those Pods onto Kubernetes
 {{< glossary_tooltip text="Nodes" term_id="node" >}}.
 -->
-Cassandra 和 Kubernetes 都使用术语**节点（node）**来表示集群的成员。
+Cassandra 和 Kubernetes 都使用术语**节点**来表示集群的成员。
 在本教程中，属于 StatefulSet 的 Pod 是 Cassandra 节点，并且是 Cassandra 集群的成员（称为 **ring**）。
 当这些 Pod 在你的 Kubernetes 集群中运行时，Kubernetes 控制平面会将这些 Pod 调度到 Kubernetes 的
 {{< glossary_tooltip text="节点" term_id="node" >}}上。
@@ -91,6 +91,7 @@ To complete this tutorial, you should already have a basic familiarity with
 [Minikube](https://minikube.sigs.k8s.io/docs/) defaults to 2048MB of memory and 2 CPU.
 Running Minikube with the default resource configuration results in insufficient resource
 errors during this tutorial. To avoid these errors, start Minikube with the following settings:
+{{< /caution >}}
 -->
 ### 额外的 Minikube 设置说明
 
@@ -188,7 +189,7 @@ Create the Cassandra StatefulSet from the `cassandra-statefulset.yaml` file:
 使用 `cassandra-statefulset.yaml` 文件创建 Cassandra StatefulSet：
 
 ```shell
-# 如果你能未经修改地 apply cassandra-statefulset.yaml，请使用此命令
+# 如果你能未经修改地应用 cassandra-statefulset.yaml，请使用此命令
 kubectl apply -f https://k8s.io/examples/application/cassandra/cassandra-statefulset.yaml
 ```
 
@@ -199,7 +200,7 @@ that manifest, from the folder you saved the modified version into:
 -->
 如果你为了适合你的集群需要修改 `cassandra-statefulset.yaml`，
 下载 https://k8s.io/examples/application/cassandra/cassandra-statefulset.yaml，
-然后 apply 修改后的清单。
+然后应用修改后的清单。
 
 ```shell
 # 如果使用本地的 cassandra-statefulset.yaml ，请使用此命令

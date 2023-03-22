@@ -617,7 +617,7 @@ metadata:
 spec:
   containers:
     - name: test-container
-      image: k8s.gcr.io/busybox
+      image: registry.k8s.io/busybox
       command: [ "/bin/sh", "-c", "env" ]
       envFrom:
       - secretRef:
@@ -855,7 +855,7 @@ spec:
       secretName: dotfile-secret
   containers:
   - name: dotfile-test-container
-    image: k8s.gcr.io/busybox
+    image: registry.k8s.io/busybox
     command:
     - ls
     - "-l"
@@ -927,7 +927,12 @@ convenção e estruture o tipo de Secret para conter o seu domínio antes do nom
 separado por uma barra (`/`).
 Por exemplo: `cloud-hosting.example.net/cloud-api-credentials`.
 
-### Secrets tipo `Opaque`
+Para melhor desempenho em uma requisição `get` repetitiva, clientes podem criar
+objetos que referenciam o Secret e então utilizar a requisição `watch` neste
+novo objeto, requisitando o Secret novamente quando a referência mudar.
+Além disso, uma [API de "observação em lotes"](https://git.k8s.io/design-proposals-archive/api-machinery/bulk_watch.md)
+para permitir a clientes observar recursos individuais também foi proposta e
+provavelmente estará disponível em versões futuras do Kubernetes.
 
 `Opaque` é o tipo predefinido de Secret quando o campo `type` é omitido em um
 arquivo de configuração de Secret. Quando um Secret é criado usando o comando
@@ -1251,7 +1256,7 @@ Um Secret do tipo token de autoinicialização possui as seguintes chaves no cam
   do token. Requerido.
 - `description`: Uma string contendo uma descrição do propósito para o qual este
   token é utilizado. Opcional.
-- `expiration`: Um horário absoluto UTC no formato RFC3339 especificando quando
+- `expiration`: Um horário absoluto UTC no formato [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) especificando quando
   o token deve expirar. Opcional.
 - `usage-bootstrap-<usage>`: Um conjunto de flags booleanas indicando outros
   usos para este token de autoinicialização.

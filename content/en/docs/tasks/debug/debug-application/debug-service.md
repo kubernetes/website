@@ -43,7 +43,7 @@ probably debugging your own Service you can substitute your own details, or you
 can follow along and get a second data point.
 
 ```shell
-kubectl create deployment hostnames --image=k8s.gcr.io/serve_hostname
+kubectl create deployment hostnames --image=registry.k8s.io/serve_hostname
 ```
 ```none
 deployment.apps/hostnames created
@@ -81,7 +81,7 @@ spec:
     spec:
       containers:
       - name: hostnames
-        image: k8s.gcr.io/serve_hostname
+        image: registry.k8s.io/serve_hostname
 ```
 
 The label "app" is automatically set by `kubectl create deployment` to the name of the
@@ -527,7 +527,6 @@ should see something like:
 ```none
 I1027 22:14:53.995134    5063 server.go:200] Running in resource-only container "/kube-proxy"
 I1027 22:14:53.998163    5063 server.go:247] Using iptables Proxier.
-I1027 22:14:53.999055    5063 server.go:255] Tearing down userspace rules. Errors here are acceptable.
 I1027 22:14:54.038140    5063 proxier.go:352] Setting endpoints for "kube-system/kube-dns:dns-tcp" to [10.244.1.3:53]
 I1027 22:14:54.038164    5063 proxier.go:352] Setting endpoints for "kube-system/kube-dns:dns" to [10.244.1.3:53]
 I1027 22:14:54.038209    5063 proxier.go:352] Setting endpoints for "default/kubernetes:https" to [10.240.0.2:443]
@@ -549,8 +548,7 @@ and then retry.
 
 Kube-proxy can run in one of a few modes.  In the log listed above, the
 line `Using iptables Proxier` indicates that kube-proxy is running in
-"iptables" mode.  The most common other mode is "ipvs".  The older "userspace"
-mode has largely been replaced by these.
+"iptables" mode.  The most common other mode is "ipvs".
 
 #### Iptables mode
 
@@ -602,24 +600,6 @@ endpoint, it will create corresponding real servers. In this example, service
 hostnames(`10.0.1.175:80`) has 3 endpoints(`10.244.0.5:9376`,
 `10.244.0.6:9376`, `10.244.0.7:9376`).
 
-#### Userspace mode
-
-In rare cases, you may be using "userspace" mode.  From your Node:
-
-```shell
-iptables-save | grep hostnames
-```
-```none
--A KUBE-PORTALS-CONTAINER -d 10.0.1.175/32 -p tcp -m comment --comment "default/hostnames:default" -m tcp --dport 80 -j REDIRECT --to-ports 48577
--A KUBE-PORTALS-HOST -d 10.0.1.175/32 -p tcp -m comment --comment "default/hostnames:default" -m tcp --dport 80 -j DNAT --to-destination 10.240.115.247:48577
-```
-
-There should be 2 rules for each port of your Service (only one in this
-example) - a "KUBE-PORTALS-CONTAINER" and a "KUBE-PORTALS-HOST".
-
-Almost nobody should be using the "userspace" mode any more, so you won't spend
-more time on it here.
-
 ### Is kube-proxy proxying?
 
 Assuming you do see one the above cases, try again to access your Service by
@@ -630,20 +610,6 @@ curl 10.0.1.175:80
 ```
 ```none
 hostnames-632524106-bbpiw
-```
-
-If this fails and you are using the userspace proxy, you can try accessing the
-proxy directly.  If you are using the iptables proxy, skip this section.
-
-Look back at the `iptables-save` output above, and extract the
-port number that `kube-proxy` is using for your Service.  In the above
-examples it is "48577".  Now connect to that:
-
-```shell
-curl localhost:48577
-```
-```none
-hostnames-632524106-tlaok
 ```
 
 If this still fails, look at the `kube-proxy` logs for specific lines like:

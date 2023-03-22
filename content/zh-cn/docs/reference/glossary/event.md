@@ -10,7 +10,6 @@ tags:
 - core-object
 - fundamental
 ---
-
 <!--
 title: Event
 id: event
@@ -53,4 +52,3 @@ Event record (API group `audit.k8s.io`).
 -->
 在 Kubernetes 中，[审计](/zh-cn/docs/tasks/debug/debug-cluster/audit/)
 机制会生成一种不同类别的 Event 记录（API 组为 `audit.k8s.io`）。
-

@@ -31,11 +31,13 @@ auto_generated: true
 StatefulSet represents a set of pods with consistent identities. Identities are defined as:
  - Network: A single stable DNS and hostname.
  - Storage: As many VolumeClaims as requested.
+  
 The StatefulSet guarantees that a given network identity will always map to the same storage identity. 
 -->
 StatefulSet 表示一组具有一致身份的 Pod。身份定义为：
  - 网络：一个稳定的 DNS 和主机名。
- - 存储：根据要求提供尽可能多的 VolumeClaims。
+ - 存储：根据要求提供尽可能多的 VolumeClaim。
+
 StatefulSet 保证给定的网络身份将始终映射到相同的存储身份。
 <hr>
 
@@ -81,7 +83,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
 - **serviceName** (string), 必需
 
   serviceName 是管理此 StatefulSet 服务的名称。
-  该服务必须在 StatefulSet 之前即已存在，并负责该集合的网络标识。 
+  该服务必须在 StatefulSet 之前即已存在，并负责该集合的网络标识。
   Pod 会获得符合以下模式的 DNS/主机名： pod-specific-string.serviceName.default.svc.cluster.local。
   其中 “pod-specific-string” 由 StatefulSet 控制器管理。
 
@@ -93,18 +95,20 @@ StatefulSetSpec 是 StatefulSet 的规约。
 - **selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>), 必需
 
   selector 是对 Pod 的标签查询，查询结果应该匹配副本个数。
-  此选择算符必须与 Pod 模板中的 labels 匹配。
+  此选择算符必须与 Pod 模板中的 label 匹配。
   更多信息： https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#label-selectors
 
 <!-- 
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), required
 
-  template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet.  
+  template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format \<statefulsetname>-\<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".  
 -->
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), 必需
 
-  template 是用来描述 Pod 的对象，检测到副本不足时将创建所描述的 Pod。 
+  template 是用来描述 Pod 的对象，检测到副本不足时将创建所描述的 Pod。
   经由 StatefulSet 创建的每个 Pod 都将满足这个模板，但与 StatefulSet 的其余 Pod 相比，每个 Pod 具有唯一的标识。
+  每个 Pod 将以 \<statefulsetname>-\<podindex> 格式命名。
+  例如，名为 "web" 且索引号为 "3" 的 StatefulSet 中的 Pod 将被命名为 "web-3"。
 
 <!-- 
 - **replicas** (int32)
@@ -135,6 +139,11 @@ StatefulSetSpec 是 StatefulSet 的规约。
   **StatefulSetUpdateStrategy 表示 StatefulSet 控制器将用于执行更新的策略。其中包括为指定策略执行更新所需的额外参数。**
 
   - **updateStrategy.type** (string)
+
+  <!--
+  Type indicates the type of the StatefulSetUpdateStrategy. Default is RollingUpdate.
+  -->
+  type 表示 StatefulSetUpdateStrategy 的类型，默认为 RollingUpdate。
 
   - **updateStrategy.rollingUpdate** (RollingUpdateStatefulSetStrategy)
 
@@ -218,12 +227,11 @@ StatefulSetSpec 是 StatefulSet 的规约。
 - **minReadySeconds** (int32)
 
   <!-- 
-  Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready) This is an alpha field and requires enabling StatefulSetMinReadySeconds feature gate. 
+  Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to be considered available. Defaults to 0 (pod will be considered available as soon as it is ready)
   -->
 
   新创建的 Pod 应准备就绪（其任何容器都未崩溃）的最小秒数，以使其被视为可用。
   默认为 0（Pod 准备就绪后将被视为可用）。
-  这是一个 Alpha 字段，需要启用 StatefulSetMinReadySeconds 特性门控。
 
 - **persistentVolumeClaimRetentionPolicy** (StatefulSetPersistentVolumeClaimRetentionPolicy)
 
@@ -261,6 +269,35 @@ StatefulSetSpec 是 StatefulSet 的规约。
 
     whenScaled 指定当 StatefulSet 缩容时，基于 StatefulSet volumeClaimTemplates 创建的 PVC 会发生什么。
     默认策略 `Retain` 使 PVC 不受缩容影响。 `Delete` 策略会导致超出副本个数的所有的多余 Pod 所关联的 PVC 被删除。
+
+- **ordinals** (StatefulSetOrdinals)
+
+  <!--
+  ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+  -->
+  ordinals 控制 StatefulSet 中副本索引的编号。
+  默认序数行为是将索引 "0" 设置给第一个副本，对于每个额外请求的副本，该索引加一。
+  使用 ordinals 字段需要启用 Alpha 级别的 StatefulSetStartOrdinal 特性门控。
+
+  <!--
+  <a name="StatefulSetOrdinals"></a>
+  *StatefulSetOrdinals describes the policy used for replica ordinal assignment in this StatefulSet.*
+  -->
+  <a name="StatefulSetOrdinals"></a>
+  **StatefulSetOrdinals 描述此 StatefulSet 中用于副本序数赋值的策略。**
+
+  - **ordinals.start** (int32)
+
+    <!--
+    start is the number representing the first replica's index. It may be used to number replicas from an alternate index (eg: 1-indexed) over the default 0-indexed names, or to orchestrate progressive movement of replicas from one StatefulSet to another. If set, replica indices will be in the range:
+      [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas).
+    If unset, defaults to 0. Replica indices will be in the range:
+      [0, .spec.replicas).
+    -->
+    start 是代表第一个副本索引的数字。它可用于从替代索引（例如：从 1 开始索引）而非默认的从 0 索引来为副本设置编号，
+    还可用于编排从一个 StatefulSet 到另一个 StatefulSet 的渐进式副本迁移动作。如果设置了此值，副本索引范围为
+    [.spec.ordinals.start, .spec.ordinals.start + .spec.replicas)。如果不设置，则默认为 0。
+    副本索引范围为 [0, .spec.replicas)。
 
 ## StatefulSetStatus {#StatefulSetStatus}
 
@@ -304,10 +341,9 @@ StatefulSetStatus 表示 StatefulSet 的当前状态。
 - **availableReplicas** (int32)
 
   <!-- 
-  Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset. This is a beta field and enabled/disabled by StatefulSetMinReadySeconds feature gate. 
+  Total number of available pods (ready for at least minReadySeconds) targeted by this statefulset.
   -->
   此 StatefulSet 所对应的可用 Pod 总数（就绪时长至少为 minReadySeconds）。
-  这是一个 Beta 字段，由 StatefulSetMinReadySeconds 特性门控启用/禁用。
 
 - **collisionCount** (int32)
 

@@ -1,5 +1,12 @@
 ---
 title: ReplicaSet
+feature:
+  title: 自我修复
+  anchor: ReplicationController 如何工作
+  description: >
+    重新启动失败的容器，在节点死亡时替换并重新调度容器，
+    杀死不响应用户定义的健康检查的容器，
+    并且在它们准备好服务之前不会将它们公布给客户端。
 content_type: concept
 weight: 20
 ---
@@ -9,6 +16,13 @@ reviewers:
 - bprashanth
 - madhusudancs
 title: ReplicaSet
+feature:
+  title: Self-healing
+  anchor: How a ReplicaSet works
+  description: >
+    Restarts containers that fail, replaces and reschedules containers when nodes die,
+    kills containers that don't respond to your user-defined health check,
+    and doesn't advertise them to clients until they are ready to serve.
 content_type: concept
 weight: 20
 -->
@@ -239,6 +253,8 @@ Take the previous frontend ReplicaSet example, and the Pods specified in the fol
 ReplicaSet 的选择算符相匹配的标签。原因在于 ReplicaSet 并不仅限于拥有在其模板中设置的
 Pod，它还可以像前面小节中所描述的那样获得其他 Pod。
 
+以前面的 frontend ReplicaSet 为例，并在以下清单中指定这些 Pod：
+
 {{< codenew file="pods/pod-rs.yaml" >}}
 
 <!--
@@ -341,8 +357,12 @@ In this manner, a ReplicaSet can own a non-homogenous set of Pods
 As with all other Kubernetes API objects, a ReplicaSet needs the `apiVersion`, `kind`, and `metadata` fields.
 For ReplicaSets, the `kind` is always a ReplicaSet.
 
-The name of a ReplicaSet object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+When the control plane creates new Pods for a ReplicaSet, the `.metadata.name` of the
+ReplicaSet is part of the basis for naming those Pods.  The name of a ReplicaSet must be a valid
+[DNS subdomain](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
+value, but this can produce unexpected results for the Pod hostnames.  For best compatibility,
+the name should follow the more restrictive rules for a
+[DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
 A ReplicaSet also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 -->
@@ -351,8 +371,11 @@ A ReplicaSet also needs a [`.spec` section](https://git.k8s.io/community/contrib
 与所有其他 Kubernetes API 对象一样，ReplicaSet 也需要 `apiVersion`、`kind`、和 `metadata` 字段。
 对于 ReplicaSet 而言，其 `kind` 始终是 ReplicaSet。
 
-ReplicaSet 对象的名称必须是合法的
-[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+当控制平面为 ReplicaSet 创建新的 Pod 时，ReplicaSet
+的 `.metadata.name` 是命名这些 Pod 的部分基础。ReplicaSet 的名称必须是一个合法的
+[DNS 子域](/zh-cn/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names)值，
+但这可能对 Pod 的主机名产生意外的结果。为获得最佳兼容性，名称应遵循更严格的
+[DNS 标签](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-label-names)规则。
 
 ReplicaSet 也需要
 [`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
@@ -523,7 +546,7 @@ assuming that the number of replicas is not also changed).
 A ReplicaSet can be easily scaled up or down by simply updating the `.spec.replicas` field. The ReplicaSet controller
 ensures that a desired number of Pods with a matching label selector are available and operational.
 -->
-### 扩缩 RepliaSet    {#scaling-a-replicaset}
+### 扩缩 ReplicaSet    {#scaling-a-replicaset}
 
 通过更新 `.spec.replicas` 字段，ReplicaSet 可以被轻松地进行扩缩。ReplicaSet
 控制器能确保匹配标签选择器的数量的 Pod 是可用的和可操作的。
@@ -551,6 +574,9 @@ prioritize scaling down pods based on the following general algorithm:
    （当 `LogarithmicScaleDown` 这一[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
    被启用时，创建时间是按整数幂级来分组的）。
 
+<!--
+If all of the above match, then selection is random.
+-->
 如果以上比较结果都相同，则随机选择。
 
 <!--
@@ -588,9 +614,9 @@ This feature is beta and enabled by default. You can disable it using the
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 `PodDeletionCost` in both kube-apiserver and kube-controller-manager.
 -->
-此功能特性处于 Beta 阶段，默认被禁用。你可以通过为 kube-apiserver 和
+此功能特性处于 Beta 阶段，默认被启用。你可以通过为 kube-apiserver 和
 kube-controller-manager 设置[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-`PodDeletionCost` 来启用此功能。
+`PodDeletionCost` 来禁用此功能。
 
 {{< note >}}
 <!--
@@ -665,7 +691,7 @@ kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
 
 [`Deployment`](/docs/concepts/workloads/controllers/deployment/) is an object which can own ReplicaSets and update
 them and their Pods via declarative, server-side rolling updates.
-While ReplicaSets can be used independently, today they're  mainly used by Deployments as a mechanism to orchestrate Pod
+While ReplicaSets can be used independently, today they're mainly used by Deployments as a mechanism to orchestrate Pod
 creation, deletion and updates. When you use Deployments you don't have to worry about managing the ReplicaSets that
 they create. Deployments own and manage their ReplicaSets.
 As such, it is recommended to use Deployments when you want ReplicaSets.

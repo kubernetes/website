@@ -1,6 +1,7 @@
 ---
 title: 安装扩展（Addons）
 content_type: concept
+weight: 120
 ---
 
 <!-- overview -->
@@ -10,11 +11,11 @@ content_type: concept
 <!--
 Add-ons extend the functionality of Kubernetes.
 
-This page lists some of the available add-ons and links to their respective installation instructions.
+This page lists some of the available add-ons and links to their respective installation instructions. The list does not try to be exhaustive.
 -->
 Add-ons 扩展了 Kubernetes 的功能。
 
-本文列举了一些可用的 add-ons 以及到它们各自安装说明的链接。
+本文列举了一些可用的 add-ons 以及到它们各自安装说明的链接。该列表并不试图详尽无遗。
 
 <!-- body -->
 
@@ -22,29 +23,35 @@ Add-ons 扩展了 Kubernetes 的功能。
 ## Networking and Network Policy
 
 * [ACI](https://www.github.com/noironetworks/aci-containers) provides integrated container networking and network security with Cisco ACI.
-* [Antrea](https://antrea.io/) operates at Layer 3/4 to provide networking and security services for Kubernetes, leveraging Open vSwitch as the networking data plane.
-* [Calico](https://docs.projectcalico.org/latest/introduction/) is a networking and network policy provider. Calico supports a flexible set of networking options so you can choose the most efficient option for your situation, including non-overlay and overlay networks, with or without BGP. Calico uses the same engine to enforce network policy for hosts, pods, and (if using Istio & Envoy) applications at the service mesh layer.
+* [Antrea](https://antrea.io/) operates at Layer 3/4 to provide networking and security services for Kubernetes, leveraging Open vSwitch as the networking data plane. Antrea is a [CNCF project at the Sandbox level](https://www.cncf.io/projects/antrea/).
+* [Calico](https://www.tigera.io/project-calico/) is a networking and network policy provider. Calico supports a flexible set of networking options so you can choose the most efficient option for your situation, including non-overlay and overlay networks, with or without BGP. Calico uses the same engine to enforce network policy for hosts, pods, and (if using Istio & Envoy) applications at the service mesh layer.
 * [Canal](https://projectcalico.docs.tigera.io/getting-started/kubernetes/flannel/flannel) unites Flannel and Calico, providing networking and network policy.
-* [Cilium](https://github.com/cilium/cilium) is a L3 network and network policy plugin that can enforce HTTP/API/L7 policies transparently. Both routing and overlay/encapsulation mode are supported, and it can work on top of other CNI plugins.
+* [Cilium](https://github.com/cilium/cilium) is a networking, observability, and security solution with an eBPF-based data plane. Cilium provides a simple flat Layer 3 network with the ability to span multiple clusters in either a native routing or overlay/encapsulation mode, and can enforce network policies on L3-L7 using an identity-based security model that is decoupled from network addressing. Cilium can act as a replacement for kube-proxy; it also offers additional, opt-in observability and security features. Cilium is a [CNCF project at the Incubation level](https://www.cncf.io/projects/cilium/).
 -->
 ## 联网和网络策略
 
 * [ACI](https://www.github.com/noironetworks/aci-containers) 通过 Cisco ACI 提供集成的容器网络和安全网络。
 * [Antrea](https://antrea.io/) 在第 3/4 层执行操作，为 Kubernetes
   提供网络连接和安全服务。Antrea 利用 Open vSwitch 作为网络的数据面。
-* [Calico](https://docs.projectcalico.org/latest/introduction/) 是一个联网和网络策略供应商。
+  Antrea 是一个[沙箱级的 CNCF 项目](https://www.cncf.io/projects/antrea/)。
+* [Calico](https://www.tigera.io/project-calico/) 是一个联网和网络策略供应商。
   Calico 支持一套灵活的网络选项，因此你可以根据自己的情况选择最有效的选项，包括非覆盖和覆盖网络，带或不带 BGP。
   Calico 使用相同的引擎为主机、Pod 和（如果使用 Istio 和 Envoy）应用程序在服务网格层执行网络策略。
 * [Canal](https://projectcalico.docs.tigera.io/getting-started/kubernetes/flannel/flannel) 结合 Flannel 和 Calico，提供联网和网络策略。
-* [Cilium](https://github.com/cilium/cilium) 是一个 L3 网络和网络策略插件，能够透明的实施 HTTP/API/L7 策略。
-  同时支持路由（routing）和覆盖/封装（overlay/encapsulation）模式，并且它可以在其他 CNI 插件之上工作。
+* [Cilium](https://github.com/cilium/cilium) 是一种网络、可观察性和安全解决方案，具有基于 eBPF 的数据平面。
+  Cilium 提供了简单的 3 层扁平网络，
+  能够以原生路由（routing）和覆盖/封装（overlay/encapsulation）模式跨越多个集群，
+  并且可以使用与网络寻址分离的基于身份的安全模型在 L3 至 L7 上实施网络策略。
+  Cilium 可以作为 kube-proxy 的替代品；它还提供额外的、可选的可观察性和安全功能。
+  Cilium 是一个[孵化级别的 CNCF 项目](https://www.cncf.io/projects/cilium/)。
 <!--
-* [CNI-Genie](https://github.com/cni-genie/CNI-Genie) enables Kubernetes to seamlessly connect to a choice of CNI plugins, such as Calico, Canal, Flannel, or Weave.
+* [CNI-Genie](https://github.com/cni-genie/CNI-Genie) enables Kubernetes to seamlessly connect to a choice of CNI plugins, such as Calico, Canal, Flannel, or Weave. CNI-Genie is a [CNCF project at the Sandbox level](https://www.cncf.io/projects/cni-genie/).
 * [Contiv](https://contivpp.io/) provides configurable networking (native L3 using BGP, overlay using vxlan, classic L2, and Cisco-SDN/ACI) for various use cases and a rich policy framework. Contiv project is fully [open sourced](https://github.com/contiv). The [installer](https://github.com/contiv/install) provides both kubeadm and non-kubeadm based installation options.
 * [Contrail](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/), based on [Tungsten Fabric](https://tungsten.io), is an open source, multi-cloud network virtualization and policy management platform. Contrail and Tungsten Fabric are integrated with orchestration systems such as Kubernetes, OpenShift, OpenStack and Mesos, and provide isolation modes for virtual machines, containers/pods and bare metal workloads.
 -->
 * [CNI-Genie](https://github.com/cni-genie/CNI-Genie) 使 Kubernetes 无缝连接到
   Calico、Canal、Flannel 或 Weave 等其中一种 CNI 插件。
+  CNI-Genie 是一个[沙箱级的 CNCF 项目](https://www.cncf.io/projects/cni-genie/)。
 * [Contiv](https://contivpp.io/) 为各种用例和丰富的策略框架提供可配置的网络
   （带 BGP 的原生 L3、带 vxlan 的覆盖、标准 L2 和 Cisco-SDN/ACI）。
   Contiv 项目完全[开源](https://github.com/contiv)。
@@ -66,16 +73,14 @@ Add-ons 扩展了 Kubernetes 的功能。
   而且包含了在 Kubernetes 中基于 SRIOV、DPDK、OVS-DPDK 和 VPP 的工作负载。
 <!--
 * [OVN-Kubernetes](https://github.com/ovn-org/ovn-kubernetes/) is a networking provider for Kubernetes based on [OVN (Open Virtual Network)](https://github.com/ovn-org/ovn/), a virtual networking implementation that came out of the Open vSwitch (OVS) project. OVN-Kubernetes provides an overlay based networking implementation for Kubernetes, including an OVS based implementation of load balancing and network policy.
-* [OVN4NFV-K8S-Plugin](https://github.com/opnfv/ovn4nfv-k8s-plugin) is OVN based CNI controller plugin to provide cloud native based Service function chaining(SFC), Multiple OVN overlay networking, dynamic subnet creation, dynamic creation of virtual networks, VLAN Provider network, Direct provider network and pluggable with other Multi-network plugins, ideal for edge based cloud native workloads in Multi-cluster networking.
+* [Nodus](https://github.com/akraino-edge-stack/icn-nodus) is an OVN based CNI controller plugin to provide cloud native based Service function chaining(SFC).
 -->
 * [OVN-Kubernetes](https://github.com/ovn-org/ovn-kubernetes/) 是一个 Kubernetes 网络驱动，
   基于 [OVN（Open Virtual Network）](https://github.com/ovn-org/ovn/)实现，是从 Open vSwitch (OVS)
   项目衍生出来的虚拟网络实现。OVN-Kubernetes 为 Kubernetes 提供基于覆盖网络的网络实现，
   包括一个基于 OVS 实现的负载均衡器和网络策略。
-* [OVN4NFV-K8S-Plugin](https://github.com/opnfv/ovn4nfv-k8s-plugin) 是一个基于 OVN 的 CNI 控制器插件，
-  提供基于云原生的服务功能链条（Service Function Chaining，SFC）、多种 OVN 覆盖网络、动态子网创建、
-  动态虚拟网络创建、VLAN 驱动网络、直接驱动网络，并且可以驳接其他的多网络插件，
-  适用于基于边缘的、多集群联网的云原生工作负载。
+* [Nodus](https://github.com/akraino-edge-stack/icn-nodus) 是一个基于 OVN 的 CNI 控制器插件，
+  提供基于云原生的服务功能链 (SFC)。
 <!--
 * [NSX-T](https://docs.vmware.com/en/VMware-NSX-T-Data-Center/index.html) Container Plug-in (NCP) provides integration between VMware NSX-T and container orchestrators such as Kubernetes, as well as integration between NSX-T and container-based CaaS/PaaS platforms such as Pivotal Container Service (PKS) and OpenShift.
 * [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst) is an SDN platform that provides policy-based networking between Kubernetes Pods and non-Kubernetes environments with visibility and security monitoring.

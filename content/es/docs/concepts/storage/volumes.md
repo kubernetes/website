@@ -72,7 +72,7 @@ metadata:
   name: test-ebs
 spec:
   containers:
-    - image: k8s.gcr.io/test-webserver
+    - image: registry.k8s.io/test-webserver
       name: test-container
       volumeMounts:
         - mountPath: /test-ebs
@@ -160,7 +160,7 @@ metadata:
   name: test-cinder
 spec:
   containers:
-    - image: k8s.gcr.io/test-webserver
+    - image: registry.k8s.io/test-webserver
       name: test-cinder-container
       volumeMounts:
         - mountPath: /test-cinder
@@ -271,7 +271,7 @@ metadata:
   name: test-pd
 spec:
   containers:
-    - image: k8s.gcr.io/test-webserver
+    - image: registry.k8s.io/test-webserver
       name: test-container
       volumeMounts:
         - mountPath: /cache
@@ -349,7 +349,7 @@ metadata:
   name: test-pd
 spec:
   containers:
-    - image: k8s.gcr.io/test-webserver
+    - image: registry.k8s.io/test-webserver
       name: test-container
       volumeMounts:
         - mountPath: /test-pd
@@ -370,7 +370,7 @@ Para usar esta función, el volumen debe ser provisto como un PersistentVolumen;
 
 #### Aprovisionamiento manual de un PD PersistentVolume Regional
 
-El aprovisionamiento dinámico es posible usando un [StorageClass para el DP GCE](/docs/concepts/storage/storage-classes/#gce).
+El aprovisionamiento dinámico es posible usando un [StorageClass para el DP GCE](/docs/concepts/storage/storage-classes/#gce-pd).
 Antes de crear un PersistentVolume, debes crear el disco persistente:
 
 ```shell
@@ -496,7 +496,7 @@ metadata:
   name: test-pd
 spec:
   containers:
-    - image: k8s.gcr.io/test-webserver
+    - image: registry.k8s.io/test-webserver
       name: test-container
       volumeMounts:
         - mountPath: /test-pd
@@ -526,7 +526,7 @@ metadata:
 spec:
   containers:
     - name: test-webserver
-      image: k8s.gcr.io/test-webserver:latest
+      image: registry.k8s.io/test-webserver:latest
       volumeMounts:
         - mountPath: /var/local/aaa
           name: mydir
@@ -657,7 +657,7 @@ metadata:
   name: test-portworx-volume-pod
 spec:
   containers:
-    - image: k8s.gcr.io/test-webserver
+    - image: registry.k8s.io/test-webserver
       name: test-container
       volumeMounts:
         - mountPath: /mnt
@@ -847,7 +847,7 @@ metadata:
   name: pod-0
 spec:
   containers:
-    - image: k8s.gcr.io/test-webserver
+    - image: registry.k8s.io/test-webserver
       name: pod-0
       volumeMounts:
         - mountPath: /test-pd
@@ -976,7 +976,7 @@ metadata:
   name: test-vmdk
 spec:
   containers:
-    - image: k8s.gcr.io/test-webserver
+    - image: registry.k8s.io/test-webserver
       name: test-container
       volumeMounts:
         - mountPath: /test-vmdk
@@ -1139,9 +1139,9 @@ Una vez que se despliega un controlador de volumen CSI compatible, los usuarios 
 Un volumen `csi` puede ser usado en un Pod en tres maneras distintas:
 
 - a través de una referencia a [PersistentVolumeClaim](#persistentvolumeclaim)
-- con un [volumen general efímero](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volume)
+- con un [volumen general efímero](/docs/concepts/storage/ephemeral-volumes/#generic-ephemeral-volumes)
   (característica alpha)
-- con un [volumen efímero CSI](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume) si el controlador permite esta (característica beta)
+- con un [volumen efímero CSI](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes) si el controlador permite esta (característica beta)
 
 Los siguientes campos están disponibles para que los administradores de almacenamiento configuren el volumen persistente CSI
 
@@ -1168,7 +1168,7 @@ You can set up your [PersistentVolume/PersistentVolumeClaim with raw block volum
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
 Puedes configurar directamente volúmenes CSI dentro de la especificación del Pod.
-Los volúmenes especificados de esta manera son efímeros y no se persisten entre reinicios del Pod. Mira [Volúmenes efímeros](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volume) para más información.
+Los volúmenes especificados de esta manera son efímeros y no se persisten entre reinicios del Pod. Mira [Volúmenes efímeros](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes) para más información.
 
 Para más información de cómo desarrollador un controlador CSI, mira la [documentación kubernetes-csi](https://kubernetes-csi.github.io/docs/)
 

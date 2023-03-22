@@ -23,7 +23,7 @@ Kubespray is a composition of [Ansible](https://docs.ansible.com/) playbooks, [i
 
 Kubespray provides:
 -->
-Kubespray 是一个由 [Ansible](https://docs.ansible.com/) playbooks、
+Kubespray 是由若干 [Ansible](https://docs.ansible.com/) Playbook、
 [清单（inventory）](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/ansible.md#inventory)、
 制备工具和通用 OS/Kubernetes 集群配置管理任务的领域知识组成的。
 
@@ -36,31 +36,33 @@ Kubespray 提供：
   - Flatcar Container Linux by Kinvolk
   - Debian Bullseye, Buster, Jessie, Stretch
   - Ubuntu 16.04, 18.04, 20.04, 22.04
-  - CentOS/RHEL 7, 8
-  - Fedora 34, 35
+  - CentOS/RHEL 7, 8, 9
+  - Fedora 35, 36
   - Fedora CoreOS
   - openSUSE Leap 15.x/Tumbleweed
-  - Oracle Linux 7, 8
-  - Alma Linux 8
-  - Rocky Linux 8
-  - Amazon Linux 2 
+  - Oracle Linux 7, 8, 9
+  - Alma Linux 8, 9
+  - Rocky Linux 8, 9
+  - Kylin Linux Advanced Server V10
+  - Amazon Linux 2
 * Continuous integration tests.
 -->
-* 高可用性集群
-* 可组合属性（例如可选择网络插件）
-* 支持大多数流行的 Linux 发行版
-   * Kinvolk 的 Flatcar Container Linux
-   * Debian Bullseye、Buster、Jessie、Stretch
-   * Ubuntu 16.04、18.04、20.04, 22.04
-   * CentOS/RHEL 7、8
-   * Fedora 34、35
-   * Fedora CoreOS
-   * openSUSE Leap 15.x/Tumbleweed
-   * Oracle Linux 7、8
-   * Alma Linux 8
-   * Rocky Linux 8
-   * Amazon Linux 2
-* 持续集成测试
+- 高可用性集群
+- 可组合属性（例如可选择网络插件）
+- 支持大多数流行的 Linux 发行版
+  - Flatcar Container Linux
+  - Debian Bullseye、Buster、Jessie、Stretch
+  - Ubuntu 16.04、18.04、20.04、22.04
+  - CentOS/RHEL 7、8、9
+  - Fedora 35、36
+  - Fedora CoreOS
+  - openSUSE Leap 15.x/Tumbleweed
+  - Oracle Linux 7、8、9
+  - Alma Linux 8、9
+  - Rocky Linux 8、9
+  - Kylin Linux Advanced Server V10
+  - Amazon Linux 2
+- 持续集成测试
 
 <!--
 To choose a tool which best fits your use case, read [this comparison](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md) to
@@ -68,8 +70,8 @@ To choose a tool which best fits your use case, read [this comparison](https://g
 -->
 要选择最适合你的用例的工具，请阅读
 [kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/) 和
-[kops](/zh-cn/docs/setup/production-environment/tools/kops/) 之间的
-[这份比较](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md)。
+[kops](/zh-cn/docs/setup/production-environment/tools/kops/)
+之间的[这份比较](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/comparisons.md)。
 
 <!-- body -->
 
@@ -78,7 +80,7 @@ To choose a tool which best fits your use case, read [this comparison](https://g
 
 ### (1/5) Meet the underlay requirements
 -->
-## 创建集群
+## 创建集群   {#creating-a-cluster}
 
 ### （1/5）满足下层设施要求
 
@@ -169,9 +171,10 @@ Kubespray 能够自定义部署的许多方面：
 <!--
 Kubespray customizations can be made to a [variable file](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html). If you are getting started with Kubespray, consider using the Kubespray defaults to deploy your cluster and explore Kubernetes.
 -->
-可以修改[变量文件](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)
-以进行 Kubespray 定制。
+可以修改[变量文件](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html)以进行
+Kubespray 定制。
 如果你刚刚开始使用 Kubespray，请考虑使用 Kubespray 默认设置来部署你的集群并探索 Kubernetes。
+
 <!--
 ### (4/5) Deploy a Cluster
 
@@ -190,11 +193,12 @@ Cluster deployment using [ansible-playbook](https://github.com/kubernetes-sigs/k
 ansible-playbook -i your/inventory/inventory.ini cluster.yml -b -v \
   --private-key=~/.ssh/private_key
 ```
+
 <!--
 Large deployments (100+ nodes) may require [specific adjustments](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/large-deployments.md) for best results.
 -->
-大型部署（超过 100 个节点）可能需要
-[特定的调整](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/large-deployments.md)，
+大型部署（超过 100 个节点）
+可能需要[特定的调整](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/large-deployments.md)，
 以获得最佳效果。
 
 <!--
@@ -207,53 +211,56 @@ Kubespray provides a way to verify inter-pod connectivity and DNS resolve with [
 Kubespray 提供了一种使用
 [Netchecker](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/netcheck.md)
 验证 Pod 间连接和 DNS 解析的方法。
-Netchecker 确保 netchecker-agents Pods 可以解析 DNS 请求，
+Netchecker 确保 netchecker-agents Pod 可以解析 DNS 请求，
 并在默认命名空间内对每个请求执行 ping 操作。
 这些 Pod 模仿其他工作负载类似的行为，并用作集群运行状况指示器。
+
 <!--
 ## Cluster operations
 
 Kubespray provides additional playbooks to manage your cluster: _scale_ and _upgrade_.
 -->
-## 集群操作
+## 集群操作   {#cluster-operations}
 
-Kubespray 提供了其他 Playbooks 来管理集群： **scale** 和 **upgrade**。
+Kubespray 提供了其他 Playbook 来管理集群： **scale** 和 **upgrade**。
+
 <!--
 ### Scale your cluster
 
 You can add worker nodes from your cluster by running the scale playbook. For more information, see "[Adding nodes](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#adding-nodes)".
 You can remove worker nodes from your cluster by running the remove-node playbook. For more information, see "[Remove nodes](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#remove-nodes)".
 -->
-### 扩展集群
+### 扩展集群   {#scale-your-cluster}
 
 你可以通过运行 scale playbook 向集群中添加工作节点。有关更多信息，
 请参见 “[添加节点](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#adding-nodes)”。
 你可以通过运行 remove-node playbook 来从集群中删除工作节点。有关更多信息，
 请参见 “[删除节点](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/getting-started.md#remove-nodes)”。
+
 <!--
 ### Upgrade your cluster
 
 You can upgrade your cluster by running the upgrade-cluster playbook. For more information, see "[Upgrades](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/upgrades.md)".
 -->
-### 升级集群
+### 升级集群   {#upgrade-your-cluster}
 
 你可以通过运行 upgrade-cluster Playbook 来升级集群。有关更多信息，请参见
 “[升级](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/upgrades.md)”。
+
 <!--
 ## Cleanup
 
 You can reset your nodes and wipe out all components installed with Kubespray via the [reset playbook](https://github.com/kubernetes-sigs/kubespray/blob/master/reset.yml).
-
-{{< caution >}}
-When running the reset playbook, be sure not to accidentally target your production cluster!
-{{< /caution >}}
 -->
-## 清理
+## 清理   {#cleanup}
 
 你可以通过 [reset playbook](https://github.com/kubernetes-sigs/kubespray/blob/master/reset.yml)
 重置节点并清除所有与 Kubespray 一起安装的组件。
 
 {{< caution >}}
+<!--
+When running the reset playbook, be sure not to accidentally target your production cluster!
+-->
 运行 reset playbook 时，请确保不要意外地将生产集群作为目标！
 {{< /caution >}}
 
@@ -263,20 +270,18 @@ When running the reset playbook, be sure not to accidentally target your product
 * Slack Channel: [#kubespray](https://kubernetes.slack.com/messages/kubespray/) (You can get your invite [here](https://slack.k8s.io/)).
 * [GitHub Issues](https://github.com/kubernetes-sigs/kubespray/issues).
 -->
-## 反馈
+## 反馈   {#feedback}
 
 * Slack 频道：[#kubespray](https://kubernetes.slack.com/messages/kubespray/)
   （你可以在[此处](https://slack.k8s.io/)获得邀请）。
 * [GitHub 问题](https://github.com/kubernetes-sigs/kubespray/issues)。
 
-<!--
 ## {{% heading "whatsnext" %}}
 
+<!--
 * Check out planned work on Kubespray's [roadmap](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/roadmap.md).
 * Learn more about [Kubespray](https://github.com/kubernetes-sigs/kubespray).
 -->
-## {{% heading "whatsnext" %}}
-
 * 查看有关 Kubespray 的
   [路线图](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/roadmap.md)的计划工作。
 * 查阅有关 [Kubespray](https://github.com/kubernetes-sigs/kubespray) 的更多信息。

@@ -12,11 +12,11 @@ content_type: concept
 
 <!-- body -->
 
-## 一般规定
+## 一般规定   {#general}
 
 本节列举一些译文中常见问题和约定。
 
-### 英文原文的保留
+### 英文原文的保留   {#commented-en-text}
 
 为便于译文审查和变更追踪，所有中文本地化 Markdown 文件中都应使用 HTML 注释
 `<!--` 和 `-->` 将英文原文逐段注释起来，后跟对应中文译文。例如：
@@ -38,7 +38,7 @@ This is English text ...
 
 无论英文原文或者中文译文中，都不要保留过多的、不必要的空白行。
 
-#### 段落划分
+#### 段落划分   {#paras}
 
 请避免大段大段地注释和翻译。一般而言，每段翻译可对应两三个自然段。
 段落过长会导致译文很难评阅。但也不必每个段落都单独翻译。例如：
@@ -77,7 +77,7 @@ First paragraph, not very long.
 第一段落，不太长。
 ```
 
-#### 编号列表的处理
+#### 编号列表的处理   {#list}
 
 编号列表需要编号的连续性，处理不好的话可能导致输出结果错误。
 由于有些列表可能很长，一次性等将整个列表注释掉再翻译也不现实。
@@ -124,7 +124,7 @@ First paragraph, not very long.
 4. 列表终于结束
 ```
 
-#### Frontmatter 的处理
+#### Frontmatter 的处理   {#frontmatter}
 
 页面中的 Frontmatter 指的是文件头的两个 `---` 中间的部分。
 对这一部分，解析器有特殊处理，因此不能将英文部分放在前面，中文跟在后面。
@@ -152,8 +152,7 @@ weight: 30
 - `title`、`description` 的内容要翻译，其他字段一般不必（甚至不可）翻译。
 - `reviewers` 部分要删除，不然中文译文会转给英文作者来审阅。
 
-
-#### 短代码（shortcode）处理
+#### 短代码（shortcode）处理   {#shortcode}
 
 通过 HTML 注释的短代码仍会被运行，因此需要额外小心。建议处理方式：
 
@@ -171,9 +170,30 @@ English text
 保持注释掉的英文与译文都在短代码内更便于维护。
 {{< /note >}}
 
-### 译与不译
+### 博客译者署名    {#blog-translators-signature}
 
-#### 资源名称或字段不译
+翻译一篇博客需要花费大量的时间和精力，添加署名是对译者工作的认可，
+也有利于激励贡献者同步英文博客，提升博客质量。
+如要添加译者署名，可在作者下面一行添加译者相关内容。例如：
+
+```
+<!--
+**Author**: Alice (Google)
+-->
+**作者** ：Alice (Google)
+
+**译者** ：李明 (百度)  
+```
+
+{{< note >}}
+译者也可以放弃署名，这取决于个人偏好，不是强制性的。
+译者所属公司由译者本人决定是否填写。 
+多人翻译同一篇博客默认按照译者的贡献大小进行署名，贡献越大的署名越靠前。
+{{< /note >}}
+
+### 译与不译   {#keep-or-translate}
+
+#### 资源名称或字段不译   {#resource-name-or-fields}
 
 根据英文原文写作风格约定【也在持续修订改进】，对 Kubernetes 中的 API
 资源均按其规范中所给的大小写形式书写，例如：英文中会使用 Deployment 而不是
@@ -187,13 +207,12 @@ deployment 来表示名为 "Deployment" 的 API 资源类型和对象实例。
 这时在本地化版本中一定不能译为“秘密”，以免与原文的语义不符。
 {{< /note >}}
 
-#### 代码中的注释
+#### 代码中的注释   {#code-comments}
 
 一般而言，代码中的注释需要翻译，包括存放在 `content/zh-cn/examples/`
 目录下的清单文件中的注释。
 
-
-#### 出站链接
+#### 出站链接   {#external-links}
 
 如果超级链接的目标是 Kubernetes 网站之外的纯英文网页，链接中的内容**可以**不翻译。
 例如：
@@ -209,7 +228,7 @@ Please check [installation caveats](https://acme.com/docs/v1/caveats) ...
 注意，这里的 `installation` 与 `参阅` 之间留白，因为解析后属于中英文混排的情况。
 {{< /note >}}
 
-### 标点符号
+### 标点符号   {#punctuations}
 
 1. 译文中标点符号要使用全角字符，除非以下两种情况：
 
@@ -218,7 +237,7 @@ Please check [installation caveats](https://acme.com/docs/v1/caveats) ...
 
 1. 英文排比句式中采用的逗号，在译文中要使用顿号代替，以便符合中文书写习惯。
 
-## 更新译文
+## 更新译文   {#update}
 
 由于整个文档站点会随着 Kubernetes 项目的开发进展而演化，英文版本的网站内容会不断更新。
 鉴于中文站点的基本翻译工作在 1.19 版本已完成，
@@ -238,9 +257,9 @@ Please check [installation caveats](https://acme.com/docs/v1/caveats) ...
 ./scripts/lsync.sh content/zh-cn/docs/foo/bar.md
 ```
 
-## 关于链接
+## 关于链接   {#about-links}
 
-### 链接锚点
+### 链接锚点   {#anchors}
 
 英文 Markdown 中的各级标题会自动生成锚点，以便从其他页面中链接。
 在译为中文后，相应的链接必然会失效。为防止这类问题，
@@ -255,8 +274,7 @@ Please check [installation caveats](https://acme.com/docs/v1/caveats) ...
 
 此类问题对于概念部分的页面最为突出，需要格外注意。
 
-
-### 中文链接目标
+### 中文链接目标   {#link-to-zh-pages}
 
 由于大部分页面已经完成中文本地化，这意味着很多链接可以使用中文版本作为目标。
 例如：
@@ -281,7 +299,7 @@ Website 的仓库中 `scripts/linkchecker.py` 是一个工具，可用来检查�
 ```
 {{< /note >}}
 
-## 排版格式
+## 排版格式   {#layout-format}
 
 以下为译文 Markdown 排版格式要求：
 
@@ -309,12 +327,11 @@ Website 的仓库中 `scripts/linkchecker.py` 是一个工具，可用来检查�
 甚至将超级链接中的半角井号（`#`）转换为全角，导致链接失效。
 {{< /warning >}}
 
-
-## 特殊词汇
+## 特殊词汇   {#special-words}
 
 英文中 "you" 翻译成 "你"，不必翻译为 "您" 以表现尊敬或谦卑。
 
-### 术语拼写
+### 术语拼写   {#terms-spelling}
 
 按中文译文习惯，尽量不要在中文译文中使用首字母小写的拼写。例如：
 
@@ -337,7 +354,7 @@ Website 的仓库中 `scripts/linkchecker.py` 是一个工具，可用来检查�
 镜像策略（Image Policy）用来控制集群可拉取的镜像仓库（Image Registry）源。
 ```
 
-### 术语对照
+### 术语对照   {#glossary}
 
 本节列举常见术语的统一译法。除极个别情况，对于专业术语应使用本节所列举的译法：
 
@@ -349,6 +366,11 @@ Website 的仓库中 `scripts/linkchecker.py` 是一个工具，可用来检查�
 - annotation，注解
 - anti-affinity，反亲和性
 - attach，挂接
+- authenticate，身份验证
+- authorize，授权或鉴权
+  - 将权限授予某主体时，译为“授权”
+  - 根据某些参数/条件来确定具有哪些权限时，译为“鉴权”
+- authorizer，鉴权器
 - autoscale，自动扩缩容
 - bearer token，持有者令牌
 - capabilities

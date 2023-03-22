@@ -22,8 +22,8 @@ The Pod Security Standards define three different _policies_ to broadly cover th
 spectrum. These policies are _cumulative_ and range from highly-permissive to highly-restrictive.
 This guide outlines the requirements of each policy.
 -->
-Pod 安全性标准定义了三种不同的 **策略（Policy）**，以广泛覆盖安全应用场景。
-这些策略是 **叠加式的（Cumulative）**，安全级别从高度宽松至高度受限。
+Pod 安全性标准定义了三种不同的**策略（Policy）**，以广泛覆盖安全应用场景。
+这些策略是**叠加式的（Cumulative）**，安全级别从高度宽松至高度受限。
 本指南概述了每个策略的要求。
 
 <!--
@@ -84,7 +84,7 @@ containers_. If any of the listed containers fails to meet the requirements, the
 fail validation.
 -->
 在下述表格中，通配符（`*`）意味着一个列表中的所有元素。
-例如 `spec.containers[*].securityContext` 表示 _所定义的所有容器_ 的安全性上下文对象。
+例如 `spec.containers[*].securityContext` 表示**所定义的所有容器**的安全性上下文对象。
 如果所列出的任一容器不能满足要求，整个 Pod 将无法通过校验。
 {{< /note >}}
 
@@ -196,7 +196,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap"><!--Host Ports-->宿主端口</td>
 			<td>
-				<p><!--HostPorts should be disallowed, or at minimum restricted to a known list.-->应该禁止使用宿主端口，或者至少限制只能使用某确定列表中的端口。</p>
+				<p><!--HostPorts should be disallowed entirely (recommended) or restricted to a known list.-->应该完全禁止使用宿主端口（推荐）或者至少限制只能使用某确定列表中的端口。</p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
 					<li><code>spec.containers[*].ports[*].hostPort</code></li>
@@ -206,7 +206,7 @@ fail validation.
 				<p><strong><!--Allowed Values-->准许的取值</strong></p>
 				<ul>
 					<li><!--Undefined/nil-->未定义、nil</li>
-					<li><!--Known list-->已知列表</li>
+					<li><!--Known list (not supported by the built-in <a href="/docs/concepts/security/pod-security-admission/">Pod Security Admission controller</a>)-->已知列表（不支持内置的 <a href="/docs/concepts/security/pod-security-admission/">Pod 安全性准入控制器</a> ）</li>
 					<li><code>0</code></li>
 				</ul>
 			</td>
@@ -380,7 +380,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap"><!--Privilege Escalation (v1.8+)-->特权提升（v1.8+）</td>
 			<td>
-				<p><!--Privilege escalation (such as via set-user-ID or set-group-ID file mode) should not be allowed.-->禁止（通过 SetUID 或 SetGID 文件模式）获得特权提升。</p>
+				<p><!--Privilege escalation (such as via set-user-ID or set-group-ID file mode) should not be allowed. <em><a href="#policies-specific-to-linux">This is Linux only policy</a> in v1.25+ <code>(spec.os.name != windows)</code></em>-->禁止（通过 SetUID 或 SetGID 文件模式）获得特权提升。<em><a href="#policies-specific-to-linux">这是 v1.25+ 中仅针对 Linux 的策略</a> <code>(spec.os.name != windows)</code></em></p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
 					<li><code>spec.containers[*].securityContext.allowPrivilegeEscalation</code></li>
@@ -435,7 +435,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">Seccomp (v1.19+)</td>
 			<td>
-  				<p><!--Seccomp profile must be explicitly set to one of the allowed values. Both the <code>Unconfined</code> profile and the <em>absence</em> of a profile are prohibited.-->Seccomp Profile 必须被显式设置成一个允许的值。禁止使用 <code>Unconfined</code> Profile 或者指定 <em>不存在的</em> Profile。</p>
+  				<p><!--Seccomp profile must be explicitly set to one of the allowed values. Both the <code>Unconfined</code> profile and the <em>absence</em> of a profile are prohibited. <em><a href="#policies-specific-to-linux">This is Linux only policy</a> in v1.25+ <code>(spec.os.name != windows)</code></em>-->Seccomp Profile 必须被显式设置成一个允许的值。禁止使用 <code>Unconfined</code> Profile 或者指定 <em>不存在的</em> Profile。<em><a href="#policies-specific-to-linux">这是 v1.25+ 中仅针对 Linux 的策略</a> <code>(spec.os.name != windows)</code></em></p>
   				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
 					<li><code>spec.securityContext.seccompProfile.type</code></li>
@@ -468,10 +468,10 @@ fail validation.
 				<p>
 					<!--
 					Containers must drop <code>ALL</code> capabilities, and are only permitted to add back
-					the <code>NET_BIND_SERVICE</code> capability.
+					the <code>NET_BIND_SERVICE</code> capability. <em><a href="#policies-specific-to-linux">This is Linux only policy</a> in v1.25+ <code>(.spec.os.name != "windows")</code></em>
           -->
           容器必须弃用 <code>ALL</code> 权能，并且只允许添加
-          <code>NET_BIND_SERVICE</code> 权能。
+          <code>NET_BIND_SERVICE</code> 权能。<em><a href="#policies-specific-to-linux">这是 v1.25+ 中仅针对 Linux 的策略</a> <code>(.spec.os.name != "windows")</code></em>
 				</p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
@@ -527,15 +527,6 @@ of individual policies are not defined here.
 - {{< example file="security/podsecurity-restricted.yaml" >}}Restricted 名字空间{{< /example >}}
 
 <!--
-[**PodSecurityPolicy**](/docs/concepts/security/pod-security-policy/) (Deprecated)
--->
-[**PodSecurityPolicy**](/zh-cn/docs/concepts/security/pod-security-policy/) （已弃用）
-
-- {{< example file="policy/privileged-psp.yaml" >}}Privileged{{< /example >}}
-- {{< example file="policy/baseline-psp.yaml" >}}Baseline{{< /example >}}
-- {{< example file="policy/restricted-psp.yaml" >}}Restricted{{< /example >}}
-
-<!--
 ### Alternatives
 -->
 ### 替代方案   {#alternatives}
@@ -550,6 +541,57 @@ Other alternatives for enforcing policies are being developed in the Kubernetes 
 - [Kubewarden](https://github.com/kubewarden)
 - [Kyverno](https://kyverno.io/policies/pod-security/)
 - [OPA Gatekeeper](https://github.com/open-policy-agent/gatekeeper)
+
+<!--
+## Pod OS field
+
+Kubernetes lets you use nodes that run either Linux or Windows. You can mix both kinds of
+node in one cluster.
+Windows in Kubernetes has some limitations and differentiators from Linux-based
+workloads. Specifically, many of the Pod `securityContext` fields
+[have no effect on Windows](/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext).
+-->
+## Pod OS 字段   {#pod-os-field}
+
+Kubernetes 允许你使用运行 Linux 或 Windows 的节点。你可以在一个集群中混用两种类型的节点。
+Kubernetes 中的 Windows 与基于 Linux 的工作负载相比有一些限制和差异。
+具体而言，许多 Pod `securityContext`
+字段[在 Windows 上不起作用](/zh-cn/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext)。
+
+
+{{< note >}}
+<!--
+Kubelets prior to v1.24 don't enforce the pod OS field, and if a cluster has nodes on versions earlier than v1.24 the restricted policies should be pinned to a version prior to v1.25.
+-->
+v1.24 之前的 Kubelet 不强制处理 Pod OS 字段，如果集群中有些节点运行早于 v1.24 的版本，
+则应将限制性的策略锁定到 v1.25 之前的版本。
+{{< /note >}}
+
+<!--
+### Restricted Pod Security Standard changes
+Another important change, made in Kubernetes v1.25 is that the  _restricted_ Pod security
+has been updated to use the `pod.spec.os.name` field. Based on the OS name, certain policies that are specific
+to a particular OS can be relaxed for the other OS.
+-->
+### 限制性的 Pod Security Standard 变更   {#restricted-pod-security-standard-changes}
+
+Kubernetes v1.25 中的另一个重要变化是**限制性的（Restricted）** Pod 安全性已更新，
+能够处理 `pod.spec.os.name` 字段。根据 OS 名称，专用于特定 OS 的某些策略对其他 OS 可以放宽限制。
+
+<!--
+#### OS-specific policy controls
+
+Restrictions on the following controls are only required if `.spec.os.name` is not `windows`:
+- Privilege Escalation
+- Seccomp
+- Linux Capabilities
+-->
+#### OS 特定的策略控制
+
+仅当 `.spec.os.name` 不是 `windows` 时，才需要对以下控制进行限制：
+- 特权提升
+- Seccomp
+- Linux 权能
 
 <!--
 ## FAQ
@@ -600,43 +642,6 @@ built-in [Pod Security Admission Controller](/docs/concepts/security/pod-securit
 在 2020 年 7 月，
 [Pod 安全性策略](/zh-cn/docs/concepts/security/pod-security-policy/)已被废弃，
 取而代之的是内置的 [Pod 安全性准入控制器](/zh-cn/docs/concepts/security/pod-security-admission/)。
-
-<!--
-### What profiles should I apply to my Windows Pods?
-
-Windows in Kubernetes has some limitations and differentiators from standard Linux-based
-workloads. Specifically, many of the Pod SecurityContext fields
-[have no effect on Windows](/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext).
-As such, no standardized Pod Security profiles currently exist.
--->
-### 我应该为我的 Windows Pod 实施哪种框架？
-
-Kubernetes 中的 Windows 负载与标准的基于 Linux 的负载相比有一些局限性和区别。
-尤其是 Pod SecurityContext
-字段[对 Windows 不起作用](/zh-cn/docs/concepts/windows/intro/#compatibility-v1-pod-spec-containers-securitycontext)。
-因此，目前没有对应的标准 Pod 安全性框架。
-
-<!--
-If you apply the restricted profile for a Windows pod, this **may** have an impact on the pod
-at runtime. The restricted profile requires enforcing Linux-specific restrictions (such as seccomp
-profile, and disallowing privilege escalation). If the kubelet and / or its container runtime ignore
-these Linux-specific values, then the Windows pod should still work normally within the restricted
-profile. However, the lack of enforcement means that there is no additional restriction, for Pods
-that use Windows containers, compared to the baseline profile.
--->
-如果你为一个 Windows Pod 应用了 Restricted 策略，**可能会** 对该 Pod 的运行时产生影响。
-Restricted 策略需要强制执行 Linux 特有的限制（如 seccomp Profile，并且禁止特权提升）。
-如果 kubelet 和/或其容器运行时忽略了 Linux 特有的值，那么应该不影响 Windows Pod 正常工作。
-然而，对于使用 Windows 容器的 Pod 来说，缺乏强制执行意味着相比于 Restricted 策略，没有任何额外的限制。
-
-<!--
-The use of the HostProcess flag to create a HostProcess pod should only be done in alignment with the privileged policy.
-Creation of a Windows HostProcess pod is blocked under the baseline and restricted policies,
-so any HostProcess pod should be considered privileged.
--->
-你应该只在 Privileged 策略下使用 HostProcess 标志来创建 HostProcess Pod。
-在 Baseline 和 Restricted 策略下，创建 Windows HostProcess Pod 是被禁止的，
-因此任何 HostProcess Pod 都应该被认为是有特权的。
 
 <!--
 ### What about sandboxed Pods?

@@ -94,7 +94,7 @@ requirements exist when the target milestone is a prior release (see
 如果需要更新，自动化和发布团队将与你联系，但无响应可能会导致你的工作从里程碑中删除。
 当目标里程碑是先前版本时，还存在其他要求（请参阅 [Cherry Pick 流程][cherry-picks]了解更多信息）。
 
-## TL;DR
+## TL;DR {#tldr}
 
 <!-- 
 If you want your PR to get merged, it needs the following required labels and
@@ -103,7 +103,7 @@ milestones, represented here by the Prow /commands it would take to add them:
 如果你希望你的 PR 被合并，它需要以下必备的标签和里程碑，它们由 Prow /commands 所添加表示：
 
 <!-- 
-### Normal Dev (Weeks 1-8)
+### Normal Dev (Weeks 1-11)
 -->
 ### 正常开发（第 1-11 周）  {#normal-dev-weeks-1-11}
 
@@ -197,7 +197,7 @@ The general labeling process should be consistent across artifact types.
   The period of ~4 weeks before the final release date, during which only
   critical bug fixes are merged into the release.
 
-- *[Pruning](https://git.k8s.io/sig-release/releases/release*phases.md#pruning)*:
+- *[Pruning](https://git.k8s.io/sig-release/releases/release_phases.md#pruning)*:
   The process of removing an Enhancement from a release milestone if it is not
   fully implemented or is otherwise considered not stable.
 -->
@@ -210,7 +210,7 @@ The general labeling process should be consistent across artifact types.
 - **[代码冻结][code-freeze]**：
   最终发布日期前约 4 周的时间，在此期间，仅将关键错误修复合并到发布中。
 
-- **[修剪](https://git.k8s.io/sig-release/releases/release*phases.md#pruning)**：
+- **[修剪](https://git.k8s.io/sig-release/releases/release_phases.md#pruning)**：
   如果特性增强未完全实现或被认为不稳定，则在此过程中从发布里程碑中删除它。
 
 <!-- 

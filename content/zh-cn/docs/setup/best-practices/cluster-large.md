@@ -1,6 +1,6 @@
 ---
 title: 大规模集群的注意事项
-weight: 20
+weight: 10
 ---
 
 <!-- 
@@ -8,32 +8,32 @@ reviewers:
 - davidopp
 - lavalamp
 title: Considerations for large clusters
-weight: 20
+weight: 10
 -->
 
 <!--
 A cluster is a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (physical
 or virtual machines) running Kubernetes agents, managed by the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}.
-Kubernetes {{< param "version" >}} supports clusters with up to 5000 nodes. More specifically,
+Kubernetes {{< param "version" >}} supports clusters with up to 5,000 nodes. More specifically,
 Kubernetes is designed to accommodate configurations that meet *all* of the following criteria:
 -->
 集群是运行 Kubernetes 代理的、
 由{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}管理的一组
 {{< glossary_tooltip text="节点" term_id="node" >}}（物理机或虚拟机）。
-Kubernetes {{< param "version" >}} 支持的最大节点数为 5000。
-更具体地说，Kubernetes旨在适应满足以下*所有*标准的配置：
+Kubernetes {{< param "version" >}} 单个集群支持的最大节点数为 5,000。
+更具体地说，Kubernetes 旨在适应满足以下**所有**标准的配置：
 
 <!--
 * No more than 110 pods per node
-* No more than 5000 nodes
-* No more than 150000 total pods
-* No more than 300000 total containers
+* No more than 5,000 nodes
+* No more than 150,000 total pods
+* No more than 300,000 total containers
 -->
 * 每个节点的 Pod 数量不超过 110
-* 节点数不超过 5000
-* Pod 总数不超过 150000
-* 容器总数不超过 300000
+* 节点数不超过 5,000
+* Pod 总数不超过 150,000
+* 容器总数不超过 300,000
 
 <!-- 
 You can scale your cluster by adding or removing nodes. The way you do this depends
@@ -55,21 +55,22 @@ consider:
     * Number of load balancers
     * Network subnets
     * Log streams
-* Gating the cluster scaling actions to brings up new nodes in batches, with a pause
+* Gating the cluster scaling actions to bring up new nodes in batches, with a pause
   between batches, because some cloud providers rate limit the creation of new instances.
 -->
 ## 云供应商资源配额 {#quota-issues}
 
 为避免遇到云供应商配额问题，在创建具有大规模节点的集群时，请考虑以下事项：
+
 * 请求增加云资源的配额，例如：
-    * 计算实例
-    * CPUs
-    * 存储卷
-    * 使用中的 IP 地址
-    * 数据包过滤规则集
-    * 负载均衡数量
-    * 网络子网
-    * 日志流
+  * 计算实例
+  * CPU
+  * 存储卷
+  * 使用中的 IP 地址
+  * 数据包过滤规则集
+  * 负载均衡数量
+  * 网络子网
+  * 日志流
 * 由于某些云供应商限制了创建新实例的速度，因此通过分批启动新节点来控制集群扩展操作，并在各批之间有一个暂停。
 
 <!--  
@@ -82,7 +83,7 @@ Typically you would run one or two control plane instances per failure zone,
 scaling those instances vertically first and then scaling horizontally after reaching
 the point of falling returns to (vertical) scale.
 -->
-## 控制面组件
+## 控制面组件   {#control-plane-components}
 
 对于大型集群，你需要一个具有足够计算能力和其他资源的控制平面。
 
@@ -101,19 +102,19 @@ endpoint failure zone _A_ goes offline, that means that all the control-plane tr
 nodes in zone _A_ is now being sent between zones. Running multiple control plane hosts in
 each zone makes that outcome less likely.
 -->
-你应该在每个故障区域至少应运行一个实例，以提供容错能力。 
-Kubernetes 节点不会自动将流量引向相同故障区域中的控制平面端点。 
+你应该在每个故障区域至少应运行一个实例，以提供容错能力。
+Kubernetes 节点不会自动将流量引向相同故障区域中的控制平面端点。
 但是，你的云供应商可能有自己的机制来执行此操作。
 
-例如，使用托管的负载均衡器时，你可以配置负载均衡器发送源自故障区域 _A_ 中的 kubelet 和 Pod 的流量，
-并将该流量仅定向到也位于区域 _A_ 中的控制平面主机。 
-如果单个控制平面主机或端点故障区域 _A_ 脱机，则意味着区域 _A_ 中的节点的所有控制平面流量现在都在区域之间发送。
+例如，使用托管的负载均衡器时，你可以配置负载均衡器发送源自故障区域 **A** 中的 kubelet 和 Pod 的流量，
+并将该流量仅定向到也位于区域 **A** 中的控制平面主机。
+如果单个控制平面主机或端点故障区域 **A** 脱机，则意味着区域 **A** 中的节点的所有控制平面流量现在都在区域之间发送。
 在每个区域中运行多个控制平面主机能降低出现这种结果的可能性。
 
 <!--
 ### etcd storage
 -->
-### etcd 存储
+### etcd 存储   {#etcd-storage}
 
 <!--
 To improve performance of large clusters, you can store Event objects in a separate
@@ -137,8 +138,8 @@ See [Operating etcd clusters for Kubernetes](/docs/tasks/administer-cluster/conf
 [Set up a High Availability etcd cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
 for details on configuring and managing etcd for a large cluster.
 -->
-有关为大型集群配置和管理 etcd 的详细信息，请参阅
-[为 Kubernetes 运行 etcd 集群](/zh-cn/docs/tasks/administer-cluster/configure-upgrade-etcd/)
+有关为大型集群配置和管理 etcd 的详细信息，
+请参阅[为 Kubernetes 运行 etcd 集群](/zh-cn/docs/tasks/administer-cluster/configure-upgrade-etcd/)
 和使用 [kubeadm 创建一个高可用 etcd 集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)。
 
 <!--
@@ -152,14 +153,14 @@ help to minimize the impact of memory leaks and other ways that pods and contain
 impact on other components. These resource limits apply to
 {{< glossary_tooltip text="addon" term_id="addons" >}} resources just as they apply to application workloads.
 
-  For example, you can set CPU and memory limits for a logging component:
+For example, you can set CPU and memory limits for a logging component:
 -->
 Kubernetes [资源限制](/zh-cn/docs/concepts/configuration/manage-resources-containers/)
 有助于最大程度地减少内存泄漏的影响以及 Pod 和容器可能对其他组件的其他方式的影响。
 这些资源限制适用于{{< glossary_tooltip text="插件" term_id="addons" >}}资源，
 就像它们适用于应用程序工作负载一样。
 
-例如，你可以对日志组件设置 CPU 和内存限制
+例如，你可以对日志组件设置 CPU 和内存限制：
 
 ```yaml
   ...
@@ -208,39 +209,35 @@ many nodes, consider the following:
   对于这些附加组件，请在扩大集群时加大资源请求和资源限制。
 * 许多水平扩展插件 —— 你可以通过运行更多的 Pod 来增加容量——但是在大规模集群下，
   可能还需要稍微提高 CPU 或内存限制。
-  VerticalPodAutoscaler 可以在 _recommender_ 模式下运行，
+  VerticalPodAutoscaler 可以在 **recommender** 模式下运行，
   以提供有关请求和限制的建议数字。
 * 一些插件在每个节点上运行一个副本，并由 DaemonSet 控制：
   例如，节点级日志聚合器。与水平扩展插件的情况类似，
   你可能还需要稍微提高 CPU 或内存限制。
 
-<!-- 
 ## {{% heading "whatsnext" %}}
 
-`VerticalPodAutoscaler` is a custom resource that you can deploy into your cluster
+<!-- 
+* `VerticalPodAutoscaler` is a custom resource that you can deploy into your cluster
 to help you manage resource requests and limits for pods.  
-Visit [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme)
-to learn more about `VerticalPodAutoscaler` and how you can use it to scale cluster
+Learn more about [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) 
+and how you can use it to scale cluster
 components, including cluster-critical addons.
 
-The [cluster autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
+* The [cluster autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
 integrates with a number of cloud providers to help you run the right number of
 nodes for the level of resource demand in your cluster.
 -->
-## {{% heading "whatsnext" %}}
+* `VerticalPodAutoscaler` 是一种自定义资源，你可以将其部署到集群中，帮助你管理 Pod 的资源请求和资源限制。
+  了解有关 [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme)
+  的更多信息，了解如何用它扩展集群组件（包括对集群至关重要的插件）的信息。
 
-`VerticalPodAutoscaler` 是一种自定义资源，你可以将其部署到集群中，帮助你管理资源请求和 Pod 的限制。
-访问 [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme)
-以了解有关 `VerticalPodAutoscaler` 的更多信息，
-以及如何使用它来扩展集群组件（包括对集群至关重要的插件）的信息。
-
-[集群自动扩缩器](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
-与许多云供应商集成在一起，帮助你在你的集群中，按照资源需求级别运行正确数量的节点。
+* [集群自动扩缩器](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
+  与许多云供应商集成在一起，帮助你在你的集群中，按照资源需求级别运行正确数量的节点。
 
 <!-- 
-The [addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)
+* The [addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)
 helps you in resizing the addons automatically as your cluster's scale changes.
 -->
-
-[addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)
-可帮助你在集群规模变化时自动调整插件的大小。
+* [addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)
+  可帮助你在集群规模变化时自动调整插件的大小。
