@@ -23,7 +23,7 @@ weight: 60
 
 ## エンドポイント終了の流れの例
 
-以下は、[Podの終了](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)ドキュメントに記載されている流れの例です。
+以下は、[Podの終了](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)ドキュメントに記載されている流れの例です。
 
 1つの`nginx`レプリカを含むDeployment(純粋にデモンストレーション目的です)とServiceがあるとします:
 
