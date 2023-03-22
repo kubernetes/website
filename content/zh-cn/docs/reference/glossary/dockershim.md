@@ -10,7 +10,6 @@ aka:
 tags:
 - fundamental
 ---
-
 <!--
 title: Dockershim
 id: dockershim
@@ -28,13 +27,13 @@ tags:
 The dockershim is a component of Kubernetes version 1.23 and earlier. It allows the kubelet
 to communicate with {{< glossary_tooltip text="Docker Engine" term_id="docker" >}}.
 -->
-
 dockershim 是 Kubernetes v1.23 及之前版本中的一个组件。
-Kubernetes 系统组件通过它与 {{< glossary_tooltip text="Docker Engine" term_id="docker" >}} 通信。
+Kubernetes 系统组件通过它与 {{< glossary_tooltip text="Docker Engine" term_id="docker" >}}通信。
 
 <!--more-->
+
 <!--
 Starting with version 1.24, dockershim has been removed from Kubernetes. For more information, see [Dockershim FAQ](/dockershim).
 -->
-从 Kubernetes v1.24 开始，dockershim 已从 Kubernetes 中移除.
+从 Kubernetes v1.24 开始，dockershim 已从 Kubernetes 中移除。
 想了解更多信息，可参考[移除 Dockershim 的常见问题](/zh-cn/dockershim)。

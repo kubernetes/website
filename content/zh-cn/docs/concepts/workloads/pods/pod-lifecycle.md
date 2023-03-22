@@ -23,13 +23,13 @@ kind of faults. Within a Pod, Kubernetes tracks different container
 healthy again.
 -->
 本页面讲述 Pod 的生命周期。
-Pod 遵循一个预定义的生命周期，起始于 `Pending` [阶段](#pod-phase)，如果至少
-其中有一个主要容器正常启动，则进入 `Running`，之后取决于 Pod 中是否有容器以
-失败状态结束而进入 `Succeeded` 或者 `Failed` 阶段。
+Pod 遵循预定义的生命周期，起始于 `Pending` [阶段](#pod-phase)，
+如果至少其中有一个主要容器正常启动，则进入 `Running`，之后取决于 Pod
+中是否有容器以失败状态结束而进入 `Succeeded` 或者 `Failed` 阶段。
 
 在 Pod 运行期间，`kubelet` 能够重启容器以处理一些失效场景。
-在 Pod 内部，Kubernetes 跟踪不同容器的[状态](#container-states)
-并确定使 Pod 重新变得健康所需要采取的动作。
+在 Pod 内部，Kubernetes 跟踪不同容器的[状态](#container-states)并确定使
+Pod 重新变得健康所需要采取的动作。
 
 <!--
 In the Kubernetes API, Pods have both a specification and an actual status. The
@@ -43,11 +43,11 @@ or is [terminated](#pod-termination).
 -->
 在 Kubernetes API 中，Pod 包含规约部分和实际状态部分。
 Pod 对象的状态包含了一组 [Pod 状况（Conditions）](#pod-conditions)。
-如果应用需要的话，你也可以向其中注入[自定义的就绪性信息](#pod-readiness-gate)。
+如果应用需要的话，你也可以向其中注入[自定义的就绪态信息](#pod-readiness-gate)。
 
 Pod 在其生命周期中只会被[调度](/zh-cn/docs/concepts/scheduling-eviction/)一次。
-一旦 Pod 被调度（分派）到某个节点，Pod 会一直在该节点运行，直到 Pod 停止或者
-被[终止](#pod-termination)。
+一旦 Pod 被调度（分派）到某个节点，Pod 会一直在该节点运行，直到 Pod
+停止或者被[终止](#pod-termination)。
 
 <!-- body -->
 
@@ -58,7 +58,7 @@ Like individual application containers, Pods are considered to be relatively
 ephemeral (rather than durable) entities. Pods are created, assigned a unique
 ID ([UID](/docs/concepts/overview/working-with-objects/names/#uids)), and scheduled
 to nodes where they remain until termination (according to restart policy) or
-deletion.  
+deletion.
 If a {{< glossary_tooltip term_id="node" >}} dies, the Pods scheduled to that node
 are [scheduled for deletion](#pod-garbage-collection) after a timeout period.
 -->
@@ -69,8 +69,8 @@ Pod 会被创建、赋予一个唯一的
 ID（[UID](/zh-cn/docs/concepts/overview/working-with-objects/names/#uids)），
 并被调度到节点，并在终止（根据重启策略）或删除之前一直运行在该节点。
 
-如果一个{{< glossary_tooltip text="节点" term_id="node" >}}死掉了，调度到该节点
-的 Pod 也被计划在给定超时期限结束后[删除](#pod-garbage-collection)。
+如果一个{{< glossary_tooltip text="节点" term_id="node" >}}死掉了，调度到该节点的
+Pod 也被计划在给定超时期限结束后[删除](#pod-garbage-collection)。
 
 <!--
 Pods do not, by themselves, self-heal. If a Pod is scheduled to a
@@ -80,11 +80,11 @@ higher-level abstraction, called a
 {{< glossary_tooltip term_id="controller" text="controller" >}}, that handles the work of
 managing the relatively disposable Pod instances.
 -->
-Pod 自身不具有自愈能力。如果 Pod 被调度到某{{< glossary_tooltip text="节点" term_id="node" >}}
-而该节点之后失效，Pod 会被删除；类似地，Pod 无法在因节点资源
-耗尽或者节点维护而被驱逐期间继续存活。Kubernetes 使用一种高级抽象
-来管理这些相对而言可随时丢弃的 Pod 实例，称作
-{{< glossary_tooltip term_id="controller" text="控制器" >}}。
+Pod 自身不具有自愈能力。如果 Pod
+被调度到某{{< glossary_tooltip text="节点" term_id="node" >}}而该节点之后失效，
+Pod 会被删除；类似地，Pod 无法在因节点资源耗尽或者节点维护而被驱逐期间继续存活。
+Kubernetes 使用一种高级抽象来管理这些相对而言可随时丢弃的 Pod 实例，
+称作{{< glossary_tooltip term_id="controller" text="控制器" >}}。
 
 <!--
 A given Pod (as defined by a UID) is never "rescheduled" to a different node; instead,
@@ -109,6 +109,10 @@ created anew.
 
 {{< figure src="/images/docs/pod.svg" title="Pod 结构图例" class="diagram-medium" >}}
 
+<!--
+*A multi-container Pod that contains a file puller and a
+web server that uses a persistent volume for shared storage between the containers.*
+-->
 *一个包含多个容器的 Pod 中包含一个用来拉取文件的程序和一个 Web 服务器，
 均使用持久卷作为容器间共享的存储。*
 
@@ -159,6 +163,19 @@ Value | Description
 `Failed`（失败） | Pod 中的所有容器都已终止，并且至少有一个容器是因为失败终止。也就是说，容器以非 0 状态退出或者被系统终止。
 `Unknown`（未知） | 因为某些原因无法取得 Pod 的状态。这种情况通常是因为与 Pod 所在主机通信失败。
 
+{{< note >}}
+<!--
+When a Pod is being deleted, it is shown as `Terminating` by some kubectl commands.
+This `Terminating` status is not one of the Pod phases.
+A Pod is granted a term to terminate gracefully, which defaults to 30 seconds.
+You can use the flag `--force` to [terminate a Pod by force](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced).
+-->
+当一个 Pod 被删除时，执行一些 kubectl 命令会展示这个 Pod 的状态为 `Terminating`（终止）。
+这个 `Terminating` 状态并不是 Pod 阶段之一。
+Pod 被赋予一个可以体面终止的期限，默认为 30 秒。
+你可以使用 `--force` 参数来[强制终止 Pod](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)。
+{{< /note >}}
+
 <!--
 If a node dies or is disconnected from the rest of the cluster, Kubernetes
 applies a policy for setting the `phase` of all Pods on the lost node to Failed.
@@ -186,10 +203,9 @@ Kubernetes 会跟踪 Pod 中每个容器的状态，就像它跟踪 Pod 总体�
 来在容器生命周期中的特定时间点触发事件。
 
 一旦{{< glossary_tooltip text="调度器" term_id="kube-scheduler" >}}将 Pod
-分派给某个节点，`kubelet` 就通过
-{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}
-开始为 Pod 创建容器。
-容器的状态有三种：`Waiting`（等待）、`Running`（运行中）和
+分派给某个节点，`kubelet`
+就通过{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}开始为
+Pod 创建容器。容器的状态有三种：`Waiting`（等待）、`Running`（运行中）和
 `Terminated`（已终止）。
 
 <!--
@@ -218,8 +234,8 @@ a Reason field to summarize why the container is in that state.
 ### `Waiting` （等待）  {#container-state-waiting}
 
 如果容器并不处在 `Running` 或 `Terminated` 状态之一，它就处在 `Waiting` 状态。
-处于 `Waiting` 状态的容器仍在运行它完成启动所需要的操作：例如，从某个容器镜像
-仓库拉取容器镜像，或者向容器应用 {{< glossary_tooltip text="Secret" term_id="secret" >}}
+处于 `Waiting` 状态的容器仍在运行它完成启动所需要的操作：例如，
+从某个容器镜像仓库拉取容器镜像，或者向容器应用 {{< glossary_tooltip text="Secret" term_id="secret" >}}
 数据等等。
 当你使用 `kubectl` 来查询包含 `Waiting` 状态的容器的 Pod 时，你也会看到一个
 Reason 字段，其中给出了容器处于等待状态的原因。
@@ -236,8 +252,8 @@ about when the container entered the `Running` state.
 
 `Running` 状态表明容器正在执行状态并且没有问题发生。
 如果配置了 `postStart` 回调，那么该回调已经执行且已完成。
-如果你使用 `kubectl` 来查询包含 `Running` 状态的容器的 Pod 时，你也会看到
-关于容器进入 `Running` 状态的信息。
+如果你使用 `kubectl` 来查询包含 `Running` 状态的容器的 Pod 时，
+你也会看到关于容器进入 `Running` 状态的信息。
 
 <!--
 ### `Terminated` {#container-state-terminated}
@@ -253,8 +269,8 @@ the `Terminated` state.
 ### `Terminated`（已终止）   {#container-state-terminated}
 
 处于 `Terminated` 状态的容器已经开始执行并且或者正常结束或者因为某些原因失败。
-如果你使用 `kubectl` 来查询包含 `Terminated` 状态的容器的 Pod 时，你会看到
-容器进入此状态的原因、退出代码以及容器执行期间的起止时间。
+如果你使用 `kubectl` 来查询包含 `Terminated` 状态的容器的 Pod 时，
+你会看到容器进入此状态的原因、退出代码以及容器执行期间的起止时间。
 
 如果容器配置了 `preStop` 回调，则该回调会在容器进入 `Terminated`
 状态之前执行。
@@ -269,8 +285,7 @@ The `restartPolicy` applies to all containers in the Pod. `restartPolicy` only
 refers to restarts of the containers by the kubelet on the same node. After containers
 in a Pod exit, the kubelet restarts them with an exponential back-off delay (10s, 20s,
 40s, …), that is capped at five minutes. Once a container has executed for 10 minutes
-without any problems, the kubelet resets the restart backoff timer for
-that container.
+without any problems, the kubelet resets the restart backoff timer for that container.
 -->
 ## 容器重启策略 {#restart-policy}
 
@@ -278,26 +293,29 @@ Pod 的 `spec` 中包含一个 `restartPolicy` 字段，其可能取值包括
 Always、OnFailure 和 Never。默认值是 Always。
 
 `restartPolicy` 适用于 Pod 中的所有容器。`restartPolicy` 仅针对同一节点上
-`kubelet` 的容器重启动作。当 Pod 中的容器退出时，`kubelet` 会按指数回退
-方式计算重启的延迟（10s、20s、40s、...），其最长延迟为 5 分钟。
-一旦某容器执行了 10 分钟并且没有出现问题，`kubelet` 对该容器的重启回退计时器执行
-重置操作。
+`kubelet` 的容器重启动作。当 Pod 中的容器退出时，`kubelet`
+会按指数回退方式计算重启的延迟（10s、20s、40s、...），其最长延迟为 5 分钟。
+一旦某容器执行了 10 分钟并且没有出现问题，`kubelet` 对该容器的重启回退计时器执行重置操作。
 
 <!--
 ## Pod conditions
 
 A Pod has a PodStatus, which has an array of
 [PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core)
-through which the Pod has or has not passed:
+through which the Pod has or has not passed. Kubelet manages the following
+PodConditions:
 -->
 ## Pod 状况  {#pod-conditions}
 
 Pod 有一个 PodStatus 对象，其中包含一个
 [PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core)
 数组。Pod 可能通过也可能未通过其中的一些状况测试。
+Kubelet 管理以下 PodCondition：
 
 <!--
 * `PodScheduled`: the Pod has been scheduled to a node.
+* `PodHasNetwork`: (alpha feature; must be [enabled explicitly](#pod-has-network)) the
+  Pod sandbox has been successfully created and networking configured.
 * `ContainersReady`: all containers in the Pod are ready.
 * `Initialized`: all [init containers](/docs/concepts/workloads/pods/init-containers/)
   have completed successfully.
@@ -305,13 +323,14 @@ Pod 有一个 PodStatus 对象，其中包含一个
   balancing pools of all matching Services.
 -->
 * `PodScheduled`：Pod 已经被调度到某节点；
+* `PodHasNetwork`：Pod 沙箱被成功创建并且配置了网络（Alpha 特性，必须被[显式启用](#pod-has-network)）；
 * `ContainersReady`：Pod 中所有容器都已就绪；
-* `Initialized`：所有的 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)
-  都已成功完成；
+* `Initialized`：所有的 [Init 容器](/zh-cn/docs/concepts/workloads/pods/init-containers/)都已成功完成；
 * `Ready`：Pod 可以为请求提供服务，并且应该被添加到对应服务的负载均衡池中。
 
 <!--
 Field name           | Description
+:--------------------|:-----------
 `type`               | Name of this Pod condition.
 `status`             | Indicates whether that condition is applicable, with possible values "`True`", "`False`", or "`Unknown`".
 `lastProbeTime`      | Timestamp of when the Pod condition was last probed.
@@ -322,7 +341,7 @@ Field name           | Description
 字段名称             | 描述
 :--------------------|:-----------
 `type`               | Pod 状况的名称
-`status`             | 表明该状况是否适用，可能的取值有 "`True`", "`False`" 或 "`Unknown`"
+`status`             | 表明该状况是否适用，可能的取值有 "`True`"、"`False`" 或 "`Unknown`"
 `lastProbeTime`      | 上次探测 Pod 状况时的时间戳
 `lastTransitionTime` | Pod 上次从一种状态转换到另一种状态时的时间戳
 `reason`             | 机器可读的、驼峰编码（UpperCamelCase）的文字，表述上次状况变化的原因
@@ -339,7 +358,7 @@ specify a list of additional conditions that the kubelet evaluates for Pod readi
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
-你的应用可以向 PodStatus 中注入额外的反馈或者信号：_Pod Readiness（Pod 就绪态）_。
+你的应用可以向 PodStatus 中注入额外的反馈或者信号：**Pod Readiness（Pod 就绪态）**。
 要使用这一特性，可以设置 Pod 规约中的 `readinessGates` 列表，为 kubelet
 提供一组额外的状况供其评估 Pod 就绪态时使用。
 
@@ -352,8 +371,8 @@ is defaulted to "`False`".
 Here is an example:
 -->
 就绪态门控基于 Pod 的 `status.conditions` 字段的当前值来做决定。
-如果 Kubernetes 无法在 `status.conditions` 字段中找到某状况，则该状况的
-状态值默认为 "`False`"。
+如果 Kubernetes 无法在 `status.conditions` 字段中找到某状况，
+则该状况的状态值默认为 "`False`"。
 
 这里是一个例子：
 
@@ -400,9 +419,9 @@ write code that sets custom Pod conditions for Pod readiness.
 命令 `kubectl patch` 不支持修改对象的状态。
 如果需要设置 Pod 的 `status.conditions`，应用或者
 {{< glossary_tooltip term_id="operator-pattern" text="Operators">}}
-需要使用 `PATCH` 操作。
-你可以使用 [Kubernetes 客户端库](/zh-cn/docs/reference/using-api/client-libraries/)
-之一来编写代码，针对 Pod 就绪态设置定制的 Pod 状况。
+需要使用 `PATCH` 操作。你可以使用
+[Kubernetes 客户端库](/zh-cn/docs/reference/using-api/client-libraries/)之一来编写代码，
+针对 Pod 就绪态设置定制的 Pod 状况。
 
 <!--
 For a Pod that uses custom conditions, that Pod is evaluated to be ready **only**
@@ -421,6 +440,85 @@ When a Pod's containers are Ready but at least one custom condition is missing o
 
 当 Pod 的容器都已就绪，但至少一个定制状况没有取值或者取值为 `False`，
 `kubelet` 将 Pod 的[状况](#pod-conditions)设置为 `ContainersReady`。
+
+<!--
+### Pod network readiness {#pod-has-network}
+-->
+### Pod 网络就绪 {#pod-has-network}
+
+{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+
+<!--
+After a Pod gets scheduled on a node, it needs to be admitted by the Kubelet and
+have any volumes mounted. Once these phases are complete, the Kubelet works with
+a container runtime (using {{< glossary_tooltip term_id="cri" >}}) to set up a
+runtime sandbox and configure networking for the Pod. If the
+`PodHasNetworkCondition` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
+Kubelet reports whether a pod has reached this initialization milestone through
+the `PodHasNetwork` condition in the `status.conditions` field of a Pod.
+-->
+在 Pod 被调度到某节点后，它需要被 Kubelet 接受并且挂载所需的卷。
+一旦这些阶段完成，Kubelet 将与容器运行时（使用{{< glossary_tooltip term_id="cri" >}}）
+一起为 Pod 生成运行时沙箱并配置网络。
+如果启用了 `PodHasNetworkCondition` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+kubelet 会通过 Pod 的 `status.conditions` 字段中的 `PodHasNetwork` 状况来报告
+Pod 是否达到了初始化里程碑。
+
+<!--
+The `PodHasNetwork` condition is set to `False` by the Kubelet when it detects a
+Pod does not have a runtime sandbox with networking configured. This occurs in
+the following scenarios:
+-->
+当 kubelet 检测到 Pod 不具备配置了网络的运行时沙箱时，`PodHasNetwork` 状况将被设置为 `False`。
+以下场景中将会发生这种状况：
+<!--
+* Early in the lifecycle of the Pod, when the kubelet has not yet begun to set up a sandbox for the Pod using the container runtime.
+* Later in the lifecycle of the Pod, when the Pod sandbox has been destroyed due
+  to either:
+  * the node rebooting, without the Pod getting evicted
+  * for container runtimes that use virtual machines for isolation, the Pod
+    sandbox virtual machine rebooting, which then requires creating a new sandbox and fresh container network configuration.
+-->
+* 在 Pod 生命周期的早期阶段，kubelet 还没有开始使用容器运行时为 Pod 设置沙箱时。
+* 在 Pod 生命周期的末期阶段，Pod 的沙箱由于以下原因被销毁时：
+  * 节点重启时 Pod 没有被驱逐
+  * 对于使用虚拟机进行隔离的容器运行时，Pod 沙箱虚拟机重启时，需要创建一个新的沙箱和全新的容器网络配置。
+
+<!--
+The `PodHasNetwork` condition is set to `True` by the kubelet after the
+successful completion of sandbox creation and network configuration for the Pod
+by the runtime plugin. The kubelet can start pulling container images and create
+containers after `PodHasNetwork` condition has been set to `True`.
+-->
+在运行时插件成功完成 Pod 的沙箱创建和网络配置后，
+kubelet 会将 `PodHasNetwork` 状况设置为 `True`。
+当 `PodHasNetwork` 状况设置为 `True` 后，
+Kubelet 可以开始拉取容器镜像和创建容器。
+
+<!--
+For a Pod with init containers, the kubelet sets the `Initialized` condition to
+`True` after the init containers have successfully completed (which happens
+after successful sandbox creation and network configuration by the runtime
+plugin). For a Pod without init containers, the kubelet sets the `Initialized`
+condition to `True` before sandbox creation and network configuration starts.
+-->
+对于带有 Init 容器的 Pod，kubelet 会在 Init 容器成功完成后将 `Initialized` 状况设置为 `True`
+（这发生在运行时成功创建沙箱和配置网络之后），
+对于没有 Init 容器的 Pod，kubelet 会在创建沙箱和网络配置开始之前将
+`Initialized` 状况设置为 `True`。
+
+<!--
+### Pod scheduling readiness {#pod-scheduling-readiness-gate}
+-->
+### Pod 调度就绪态   {#pod-scheduling-readiness-gate}
+
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+<!--
+See [Pod Scheduling Readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/) for more information.
+-->
+有关详细信息，请参阅 [Pod 调度就绪态](/zh-cn/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)。
 
 <!--
 ## Container probes
@@ -481,9 +579,9 @@ Each probe must define exactly one of these four mechanisms:
 `grpc`
 : 使用 [gRPC](https://grpc.io/) 执行一个远程过程调用。
   目标应该实现
-  [gRPC健康检查](https://grpc.io/grpc/core/md_doc_health-checking.html)。
+  [gRPC 健康检查](https://grpc.io/grpc/core/md_doc_health-checking.html)。
   如果响应的状态是 "SERVING"，则认为诊断成功。
-  gRPC 探针是一个 alpha 特性，只有在你启用了
+  gRPC 探针是一个 Alpha 特性，只有在你启用了
   "GRPCContainerProbe" [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时才能使用。
 
 `httpGet`
@@ -510,6 +608,7 @@ Each probe has one of three results:
 
 -->
 ### 探测结果    {#probe-outcome}
+
 每次探测都将获得以下三种结果之一：
 
 `Success`（成功）
@@ -523,10 +622,12 @@ Each probe has one of three results:
 
 <!--
 ### Types of probe
+
 The kubelet can optionally perform and react to three kinds of probes on running
 containers:
 -->
 ### 探测类型    {#types-of-probe}
+
 针对运行中的容器，`kubelet` 可以选择是否执行以下三种探针，以及如何针对探测结果作出反应：
 
 <!--
@@ -564,16 +665,16 @@ containers:
 
 `startupProbe`
 : 指示容器中的应用是否已经启动。如果提供了启动探针，则所有其他探针都会被
-  禁用，直到此探针成功为止。如果启动探测失败，`kubelet` 将杀死容器，而容器依其
-  [重启策略](#restart-policy)进行重启。
+  禁用，直到此探针成功为止。如果启动探测失败，`kubelet` 将杀死容器，
+  而容器依其[重启策略](#restart-policy)进行重启。
   如果容器没有提供启动探测，则默认状态为 `Success`。
 
 <!--
 For more information about how to set up a liveness, readiness, or startup probe,
 see [Configure Liveness, Readiness and Startup Probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).
 -->
-如欲了解如何设置存活态、就绪态和启动探针的进一步细节，可以参阅
-[配置存活态、就绪态和启动探针](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)。
+如欲了解如何设置存活态、就绪态和启动探针的进一步细节，
+可以参阅[配置存活态、就绪态和启动探针](/zh-cn/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/)。
 
 <!--
 #### When should you use a liveness probe?
@@ -591,7 +692,7 @@ with the Pod's `restartPolicy`.
 If you'd like your container to be killed and restarted if a probe fails, then
 specify a liveness probe, and specify a `restartPolicy` of Always or OnFailure.
 -->
-如果容器中的进程能够在遇到问题或不健康的情况下自行崩溃，则不一定需要存活态探针;
+如果容器中的进程能够在遇到问题或不健康的情况下自行崩溃，则不一定需要存活态探针；
 `kubelet` 将根据 Pod 的 `restartPolicy` 自动执行修复操作。
 
 如果你希望容器在探测失败时被杀死并重新启动，那么请指定一个存活态探针，
@@ -620,8 +721,8 @@ If you want your container to be able to take itself down for maintenance, you
 can specify a readiness probe that checks an endpoint specific to readiness that
 is different from the liveness probe.
 -->
-如果你希望容器能够自行进入维护状态，也可以指定一个就绪态探针，检查某个特定于
-就绪态的因此不同于存活态探测的端点。
+如果你希望容器能够自行进入维护状态，也可以指定一个就绪态探针，
+检查某个特定于就绪态的因此不同于存活态探测的端点。
 
 <!--
 If your app has a strict dependency on back-end services, you can implement both
@@ -640,8 +741,8 @@ processing its startup data, you might prefer a readiness probe.
 当应用程序本身是健康的，存活态探针检测通过后，就绪态探针会额外检查每个所需的后端服务是否可用。
 这可以帮助你避免将流量导向只能返回错误信息的 Pod。
 
-如果你的容器需要在启动期间加载大型数据、配置文件或执行迁移，你可以使用
-[启动探针](#when-should-you-use-a-startup-probe)。
+如果你的容器需要在启动期间加载大型数据、配置文件或执行迁移，
+你可以使用[启动探针](#when-should-you-use-a-startup-probe)。
 然而，如果你想区分已经失败的应用和仍在处理其启动数据的应用，你可能更倾向于使用就绪探针。
 
 {{< note >}}
@@ -662,7 +763,7 @@ to stop.
 -->
 #### 何时该使用启动探针？   {#when-should-you-use-a-startup-probe}
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+{{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 <!--
 Startup probes are useful for Pods that have containers that take a long time to
@@ -682,7 +783,7 @@ startup probe that checks the same endpoint as the liveness probe. The default f
 allow the container to start, without changing the default values of the liveness
 probe. This helps to protect against deadlocks.
 -->
-如果你的容器启动时间通常超出  `initialDelaySeconds + failureThreshold × periodSeconds`
+如果你的容器启动时间通常超出 `initialDelaySeconds + failureThreshold × periodSeconds`
 总值，你应该设置一个启动探测，对存活态探针所使用的同一端点执行检查。
 `periodSeconds` 的默认值是 10 秒。你应该将其 `failureThreshold` 设置得足够高，
 以便容器有充足的时间完成启动，并且避免更改存活态探针所使用的默认值。
@@ -697,20 +798,19 @@ than being abruptly stopped with a `KILL` signal and having no chance to clean u
 -->
 ## Pod 的终止    {#pod-termination}
 
-由于 Pod 所代表的是在集群中节点上运行的进程，当不再需要这些进程时允许其体面地
-终止是很重要的。一般不应武断地使用 `KILL` 信号终止它们，导致这些进程没有机会
-完成清理操作。
+由于 Pod 所代表的是在集群中节点上运行的进程，当不再需要这些进程时允许其体面地终止是很重要的。
+一般不应武断地使用 `KILL` 信号终止它们，导致这些进程没有机会完成清理操作。
 
 <!--
 The design aim is for you to be able to request deletion and know when processes
 terminate, but also be able to ensure that deletes eventually complete.
 When you request deletion of a Pod, the cluster records and tracks the intended grace period
 before the Pod is allowed to be forcefully killed. With that forceful shutdown tracking in
-place, the {< glossary_tooltip text="kubelet" term_id="kubelet" >}} attempts graceful
+place, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} attempts graceful
 shutdown.
 -->
-设计的目标是令你能够请求删除进程，并且知道进程何时被终止，同时也能够确保删除
-操作终将完成。当你请求删除某个 Pod 时，集群会记录并跟踪 Pod 的体面终止周期，
+设计的目标是令你能够请求删除进程，并且知道进程何时被终止，同时也能够确保删除操作终将完成。
+当你请求删除某个 Pod 时，集群会记录并跟踪 Pod 的体面终止周期，
 而不是直接强制地杀死 Pod。在存在强制关闭设施的前提下，
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 会尝试体面地终止
 Pod。
@@ -719,7 +819,7 @@ Pod。
 Typically, the container runtime sends a TERM signal to the main process in each
 container. Many container runtimes respect the `STOPSIGNAL` value defined in the container
 image and send this instead of TERM.
-Once the grace period has expired, the KILL signal is sent to any remainig
+Once the grace period has expired, the KILL signal is sent to any remaining
 processes, and the Pod is then deleted from the
 {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}. If the kubelet or the
 container runtime's management service is restarted while waiting for processes to terminate, the
@@ -728,8 +828,8 @@ cluster retries from the start including the full original grace period.
 通常情况下，容器运行时会发送一个 TERM 信号到每个容器中的主进程。
 很多容器运行时都能够注意到容器镜像中 `STOPSIGNAL` 的值，并发送该信号而不是 TERM。
 一旦超出了体面终止限期，容器运行时会向所有剩余进程发送 KILL 信号，之后
-Pod 就会被从 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}
-上移除。如果 `kubelet` 或者容器运行时的管理服务在等待进程终止期间被重启，
+Pod 就会被从 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}上移除。
+如果 `kubelet` 或者容器运行时的管理服务在等待进程终止期间被重启，
 集群会从头开始重试，赋予 Pod 完整的体面终止限期。
 
 <!--
@@ -762,33 +862,41 @@ An example flow:
       runs that hook inside of the container. If the `preStop` hook is still running after the
       grace period expires, the kubelet requests a small, one-off grace period extension of 2
       seconds.
-      If the `preStop` hook needs longer to complete than the default grace period allows,
-      you must modify `terminationGracePeriodSeconds` to suit this.
-   1. The kubelet triggers the container runtime to send a TERM signal to process 1 inside each
-      container.
-      The containers in the Pod receive the TERM signal at different times and in an arbitrary
-      order. If the order of shutdowns matters, consider using a `preStop` hook to synchronize.
    -->
+
    1. 如果 Pod 中的容器之一定义了 `preStop`
       [回调](/zh-cn/docs/concepts/containers/container-lifecycle-hooks)，
-      `kubelet` 开始在容器内运行该回调逻辑。如果超出体面终止限期时，`preStop` 回调逻辑
-      仍在运行，`kubelet` 会请求给予该 Pod 的宽限期一次性增加 2 秒钟。
+      `kubelet` 开始在容器内运行该回调逻辑。如果超出体面终止限期时，
+      `preStop` 回调逻辑仍在运行，`kubelet` 会请求给予该 Pod 的宽限期一次性增加 2 秒钟。
 
       {{< note >}}
+      <!--
+      If the `preStop` hook needs longer to complete than the default grace period allows,
+      you must modify `terminationGracePeriodSeconds` to suit this.
+      -->
       如果 `preStop` 回调所需要的时间长于默认的体面终止限期，你必须修改
       `terminationGracePeriodSeconds` 属性值来使其正常工作。
       {{< /note >}}
 
-   1. `kubelet` 接下来触发容器运行时发送 TERM 信号给每个容器中的进程 1。
+   <!--
+   1. The kubelet triggers the container runtime to send a TERM signal to process 1 inside each
+      container.
+   -->
+
+   2. `kubelet` 接下来触发容器运行时发送 TERM 信号给每个容器中的进程 1。
 
       {{< note >}}
+      <!--
+      The containers in the Pod receive the TERM signal at different times and in an arbitrary
+      order. If the order of shutdowns matters, consider using a `preStop` hook to synchronize.
+      -->
       Pod 中的容器会在不同时刻收到 TERM 信号，接收顺序也是不确定的。
       如果关闭的顺序很重要，可以考虑使用 `preStop` 回调逻辑来协调。
       {{< /note >}}
 
 <!--
 1. At the same time as the kubelet is starting graceful shutdown, the control plane removes that
-   shutting-down Pod from Endpoints (and, if enabled, EndpointSlice) objects where these represent
+   shutting-down Pod from EndpointSlice (and Endpoints) objects where these represent
    a {{< glossary_tooltip term_id="service" text="Service" >}} with a configured
    {{< glossary_tooltip text="selector" term_id="selector" >}}.
    {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}} and other workload resources
@@ -796,14 +904,28 @@ An example flow:
    cannot continue to serve traffic as load balancers (like the service proxy) remove the Pod from
    the list of endpoints as soon as the termination grace period _begins_.
 -->
-3. 与此同时，`kubelet` 启动体面关闭逻辑，控制面会将 Pod 从对应的端点列表（以及端点切片列表，
-   如果启用了的话）中移除，过滤条件是 Pod 被对应的
-   {{< glossary_tooltip term_id="service" text="服务" >}}以某
+3. 在 `kubelet` 启动体面关闭逻辑的同时，控制面会将关闭的 Pod 从对应的
+   EndpointSlice（和 Endpoints）对象中移除，过滤条件是 Pod
+   被对应的{{< glossary_tooltip term_id="service" text="服务" >}}以某
    {{< glossary_tooltip text="选择算符" term_id="selector" >}}选定。
-   {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}}和其他工作负载资源
-   不再将关闭进程中的 Pod 视为合法的、能够提供服务的副本。关闭动作很慢的 Pod
-   也无法继续处理请求数据，因为负载均衡器（例如服务代理）已经在终止宽限期开始的时候
-   将其从端点列表中移除。
+   {{< glossary_tooltip text="ReplicaSet" term_id="replica-set" >}}
+   和其他工作负载资源不再将关闭进程中的 Pod 视为合法的、能够提供服务的副本。
+   关闭动作很慢的 Pod 也无法继续处理请求数据，
+   因为负载均衡器（例如服务代理）已经在终止宽限期开始的时候将其从端点列表中移除。
+   {{<note>}}
+   <!--
+   If you don't have the `EndpointSliceTerminatingCondition` feature gate enabled
+   in your cluster (the gate is on by default from Kubernetes 1.22, and locked to default in 1.26), then the    Kubernetes control
+   plane removes a Pod from any relevant EndpointSlices as soon as the Pod's
+   termination grace period _begins_. The behavior above is described when the
+   feature gate `EndpointSliceTerminatingCondition` is enabled.
+   -->
+   如果你的集群中没有启用 EndpointSliceTerminatingCondition 特性门控
+   （该门控从 Kubernetes 1.22 开始默认开启，在 1.26 中锁定为默认），
+   那么一旦 Pod 的终止宽限期开始，Kubernetes 控制平面就会从所有的相关 EndpointSlices 中移除 Pod。
+   上述行为是在 EndpointSliceTerminatingCondition 特性门控被启用时描述的。
+   {{</note>}}
+
 
 <!--
 1. When the grace period expires, the kubelet triggers forcible shutdown. The container runtime sends
@@ -813,30 +935,32 @@ An example flow:
    to 0 (immediate deletion).
 1. The API server deletes the Pod's API object, which is then no longer visible from any client.
 -->
-4. 超出终止宽限期限时，`kubelet` 会触发强制关闭过程。容器运行时会向 Pod 中所有容器内
-   仍在运行的进程发送 `SIGKILL` 信号。
+1. 超出终止宽限期限时，`kubelet` 会触发强制关闭过程。容器运行时会向 Pod
+   中所有容器内仍在运行的进程发送 `SIGKILL` 信号。
    `kubelet` 也会清理隐藏的 `pause` 容器，如果容器运行时使用了这种容器的话。
 
-5. `kubelet` 触发强制从 API 服务器上删除 Pod 对象的逻辑，并将体面终止限期设置为 0
+1. `kubelet` 触发强制从 API 服务器上删除 Pod 对象的逻辑，并将体面终止限期设置为 0
    （这意味着马上删除）。
 
-6. API 服务器删除 Pod 的 API 对象，从任何客户端都无法再看到该对象。
+1. API 服务器删除 Pod 的 API 对象，从任何客户端都无法再看到该对象。
 
 <!--
 ### Forced Pod termination {#pod-termination-forced}
-
-Forced deletions can be potentially disruptive for some workloads and their Pods.
-
-By default, all deletes are graceful within 30 seconds. The `kubectl delete` command supports
-the `-grace-period=<seconds>` option which allows you to override the default and specify your
-own value.
 -->
 ### 强制终止 Pod     {#pod-termination-forced}
 
 {{< caution >}}
+<!--
+Forced deletions can be potentially disruptive for some workloads and their Pods.
+-->
 对于某些工作负载及其 Pod 而言，强制删除很可能会带来某种破坏。
 {{< /caution >}}
 
+<!--
+By default, all deletes are graceful within 30 seconds. The `kubectl delete` command supports
+the `--grace-period=<seconds>` option which allows you to override the default and specify your
+own value.
+-->
 默认情况下，所有的删除操作都会附有 30 秒钟的宽限期限。
 `kubectl delete` 命令支持 `--grace-period=<seconds>` 选项，允许你重载默认值，
 设定自己希望的期限值。
@@ -849,12 +973,11 @@ begin immediate cleanup.
 将宽限期限强制设置为 `0` 意味着立即从 API 服务器删除 Pod。
 如果 Pod 仍然运行于某节点上，强制删除操作会触发 `kubelet` 立即执行清理操作。
 
+{{< note >}}
 <!--
 You must specify an additional flag `--force` along with `--grace-period=0` in order to perform force deletions.
 -->
-{{< note >}}
-你必须在设置 `--grace-period=0` 的同时额外设置 `--force`
-参数才能发起强制删除请求。
+你必须在设置 `--grace-period=0` 的同时额外设置 `--force` 参数才能发起强制删除请求。
 {{< /note >}}
 
 <!--
@@ -863,42 +986,72 @@ from the kubelet that the Pod has been terminated on the node it was running on.
 removes the Pod in the API immediately so a new Pod can be created with the same
 name. On the node, Pods that are set to terminate immediately will still be given
 a small grace period before being force killed.
-
-If you need to force-delete Pods that are part of a StatefulSet, refer to the task
-documentation for
-[deleting Pods from a StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).
 -->
 执行强制删除操作时，API 服务器不再等待来自 `kubelet` 的、关于 Pod
 已经在原来运行的节点上终止执行的确认消息。
 API 服务器直接删除 Pod 对象，这样新的与之同名的 Pod 即可以被创建。
 在节点侧，被设置为立即终止的 Pod 仍然会在被强行杀死之前获得一点点的宽限时间。
 
-如果你需要强制删除 StatefulSet 的 Pod，请参阅
-[从 StatefulSet 中删除 Pod](/zh-cn/docs/tasks/run-application/force-delete-stateful-set-pod/)
-的任务文档。
+{{< caution >}}
+<!--
+Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+-->
+马上删除时不等待确认正在运行的资源已被终止。这些资源可能会无限期地继续在集群上运行。
+{{< /caution >}}
 
 <!--
-### Garbage collection of failed Pods {#pod-garbage-collection}
+If you need to force-delete Pods that are part of a StatefulSet, refer to the task
+documentation for
+[deleting Pods from a StatefulSet](/docs/tasks/run-application/force-delete-stateful-set-pod/).
+-->
+如果你需要强制删除 StatefulSet 的 Pod，
+请参阅[从 StatefulSet 中删除 Pod](/zh-cn/docs/tasks/run-application/force-delete-stateful-set-pod/) 的任务文档。
+
+<!--
+### Garbage collection of Pods {#pod-garbage-collection}
 
 For failed Pods, the API objects remain in the cluster's API until a human or
 {{< glossary_tooltip term_id="controller" text="controller" >}} process
 explicitly removes them.
 
-The control plane cleans up terminated Pods (with a phase of `Succeeded` or
+The Pod garbage collector (PodGC), which is a controller in the control plane, cleans up terminated Pods (with a phase of `Succeeded` or
 `Failed`), when the number of Pods exceeds the configured threshold
 (determined by `terminated-pod-gc-threshold` in the kube-controller-manager).
 This avoids a resource leak as Pods are created and terminated over time.
 -->
-### 失效 Pod 的垃圾收集    {#pod-garbage-collection}
+### Pod 的垃圾收集    {#pod-garbage-collection}
 
-对于已失败的 Pod 而言，对应的 API 对象仍然会保留在集群的 API 服务器上，直到
-用户或者{{< glossary_tooltip term_id="controller" text="控制器" >}}进程显式地
-将其删除。
+对于已失败的 Pod 而言，对应的 API 对象仍然会保留在集群的 API 服务器上，
+直到用户或者{{< glossary_tooltip term_id="controller" text="控制器" >}}进程显式地将其删除。
 
-控制面组件会在 Pod 个数超出所配置的阈值
-（根据 `kube-controller-manager` 的 `terminated-pod-gc-threshold` 设置）时
-删除已终止的 Pod（阶段值为 `Succeeded` 或 `Failed`）。
+Pod 的垃圾收集器（PodGC）是控制平面的控制器，它会在 Pod 个数超出所配置的阈值
+（根据 `kube-controller-manager` 的 `terminated-pod-gc-threshold` 设置）时删除已终止的
+Pod（阶段值为 `Succeeded` 或 `Failed`）。
 这一行为会避免随着时间演进不断创建和终止 Pod 而引起的资源泄露问题。
+
+<!--
+Additionally, PodGC cleans up any Pods which satisfy any of the following conditions:
+1. are orphan pods - bound to a node which no longer exists,
+2. are unscheduled terminating pods,
+3. are terminating pods, bound to a non-ready node tainted with [`node.kubernetes.io/out-of-service`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service), when the `NodeOutOfServiceVolumeDetach` feature gate is enabled.
+
+When the `PodDisruptionConditions` feature gate is enabled, along with
+cleaning up the pods, PodGC will also mark them as failed if they are in a non-terminal
+phase. Also, PodGC adds a pod disruption condition when cleaning up an orphan
+pod (see also:
+[Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)).
+-->
+此外，PodGC 会清理满足以下任一条件的所有 Pod：
+1. 孤儿 Pod - 绑定到不再存在的节点，
+2. 计划外终止的 Pod
+3. 终止过程中的 Pod，当启用 `NodeOutOfServiceVolumeDetach` 特性门控时，
+   绑定到有 [`node.kubernetes.io/out-of-service`](/zh-cn/docs/reference/labels-annotations-taints/#node-kubernetes-io-out-of-service)
+   污点的未就绪节点。
+
+若启用 `PodDisruptionConditions` 特性门控，在清理 Pod 的同时，
+如果它们处于非终止状态阶段，PodGC 也会将它们标记为失败。
+此外，PodGC 在清理孤儿 Pod 时会添加 Pod 干扰状况（另请参阅：
+[Pod 干扰状况](/zh-cn/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)）。
 
 ## {{% heading "whatsnext" %}}
 
@@ -920,4 +1073,3 @@ This avoids a resource leak as Pods are created and terminated over time.
 * 进一步了解[容器生命周期回调](/zh-cn/docs/concepts/containers/container-lifecycle-hooks/)。
 * 关于 API 中定义的有关 Pod 和容器状态的详细规范信息，
   可参阅 API 参考文档中 Pod 的 [`.status`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodStatus) 字段。
-

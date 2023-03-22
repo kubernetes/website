@@ -2,17 +2,102 @@
 title: 잘 알려진 레이블, 어노테이션, 테인트(Taint)
 content_type: concept
 weight: 20
+
 ---
 
 <!-- overview -->
 
-쿠버네티스는 모든 레이블과 어노테이션을 `kubernetes.io` 네임스페이스 아래에 정의해 놓았다.
+쿠버네티스는 모든 레이블과 어노테이션을 `kubernetes.io`와 `k8s.io` 네임스페이스 아래에 정의해 놓았다.
 
 이 문서는 각 값에 대한 레퍼런스를 제공하며, 값을 할당하기 위한 협력 포인트도 제공한다.
 
-
-
 <!-- body -->
+
+## API 오브젝트에서 사용되는 레이블, 어노테이션, 테인트
+
+### app.kubernetes.io/component
+
+예시: `app.kubernetes.io/component: "database"`
+
+적용 대상: 모든 오브젝트
+
+아키텍처 내의 컴포넌트.
+
+[추천하는 레이블](/ko/docs/concepts/overview/working-with-objects/common-labels/#labels)을 확인한다.
+
+### app.kubernetes.io/created-by (사용 중단됨)
+
+예시: `app.kubernetes.io/created-by: "controller-manager"`
+
+적용 대상: 모든 오브젝트
+
+리소스를 생성한 컨트롤러/사용자.
+
+{{< note >}}
+v1.9부터 이 레이블은 더 이상 사용되지 않는다.
+{{< /note >}}
+
+### app.kubernetes.io/instance
+
+예시: `app.kubernetes.io/instance: "mysql-abcxzy"`
+
+적용 대상: 모든 오브젝트
+
+애플리케이션 인스턴스를 식별하기 위한 고유한 이름.
+
+[추천하는 레이블](/ko/docs/concepts/overview/working-with-objects/common-labels/#labels)을 확인한다.
+
+### app.kubernetes.io/managed-by
+
+예시: `app.kubernetes.io/managed-by: "helm"`
+
+적용 대상: 모든 오브젝트
+
+애플리케이션의 작업을 관리하기 위해 사용되는 도구.
+
+[추천하는 레이블](/ko/docs/concepts/overview/working-with-objects/common-labels/#labels)을 확인한다.
+
+### app.kubernetes.io/name
+
+예시: `app.kubernetes.io/name: "mysql"`
+
+적용 대상: 모든 오브젝트
+
+애플리케이션의 이름.
+
+[추천하는 레이블](/ko/docs/concepts/overview/working-with-objects/common-labels/#labels)을 확인한다.
+
+### app.kubernetes.io/part-of
+
+예시: `app.kubernetes.io/part-of: "wordpress"`
+
+적용 대상: 모든 오브젝트
+
+해당 애플리케이션이 속한 상위 레벨의 애플리케이션 이름.
+
+[추천하는 레이블](/ko/docs/concepts/overview/working-with-objects/common-labels/#labels)을 확인한다.
+
+### app.kubernetes.io/version
+
+예시: `app.kubernetes.io/version: "5.7.21"`
+
+적용 대상: 모든 오브젝트
+
+애플리케이션의 현재 버전(시맨틱 버전, 리비전 해시, 기타 등등).
+
+[추천하는 레이블](/ko/docs/concepts/overview/working-with-objects/common-labels/#labels)을 확인한다.
+
+### cluster-autoscaler.kubernetes.io/safe-to-evict
+
+예시: `cluster-autoscaler.kubernetes.io/safe-to-evict: "true"`
+
+적용 대상: 파드
+
+이 어노테이션이 `"true"`로 설정된 경우, 파드 축출을 막는 다른 규칙이 있는 경우에도
+클러스터 오토스케일러가 파드를 축출할 수 있다.
+클러스터 오토스케일러는 명시적으로 이 어노테이션이 `"false"`로 설정된 파드를 절대 축출하지 않는다.
+따라서, 계속해서 실행을 유지하고자 하는 중요한 파드에 설정할 수 있다.
+이 어노테이션이 설정되지 않은 경우, 클러스터 오토스케일러는 파드 수준(Pod-level) 동작을 따른다.
 
 ## kubernetes.io/arch
 
@@ -36,11 +121,11 @@ Go에 의해 정의된 `runtime.GOOS` 값을 kubelet이 읽어서 이 레이블�
 
 적용 대상: 네임스페이스
 
-({{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}의 일부인) 
-쿠버네티스 API 서버가 이 레이블을 모든 네임스페이스에 설정한다. 
+({{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}의 일부인)
+쿠버네티스 API 서버가 이 레이블을 모든 네임스페이스에 설정한다.
 레이블의 값은 네임스페이스의 이름으로 적용된다. 이 레이블의 값을 변경할 수는 없다.
 
-레이블 {{< glossary_tooltip text="셀렉터" term_id="selector" >}}를 이용하여 특정 네임스페이스를 지정하고 싶다면 
+레이블 {{< glossary_tooltip text="셀렉터" term_id="selector" >}}를 이용하여 특정 네임스페이스를 지정하고 싶다면
 이 레이블이 유용할 수 있다.
 
 ## beta.kubernetes.io/arch (사용 중단됨)
@@ -72,14 +157,85 @@ kubelet이 호스트네임을 읽어서 이 레이블의 값으로 채운다. `k
 
 어떤 오브젝트를 변경할 수도 있는 `kubectl` 명령에 `--record` 플래그를 사용하면 이 레이블이 추가된다.
 
+### kubernetes.io/description {#description}
+
+예시: `kubernetes.io/description: "Description of K8s object."`
+
+적용 대상: 모든 오브젝트
+
+이 어노테이션은 주어진 오브젝트의 특정 상태를 표현하는데 사용한다.
+
+### kubernetes.io/enforce-mountable-secrets {#enforce-mountable-secrets}
+
+예시: `kubernetes.io/enforce-mountable-secrets: "true"`
+
+적용 대상: 서비스어카운트(ServiceAccount)
+
+이 어노테이션의 값은 **true**로 설정되어야만 작동한다. 이 어노테이션은, 해당 서비스어카운트로 동작중인 파드가 그 서비스어카운트의 `secrets` 항목에 명시된 Secret API 오브젝트만을 참조한다는 뜻이다.
+
 ## controller.kubernetes.io/pod-deletion-cost {#pod-deletion-cost}
 
 예시: `controller.kubernetes.io/pod-deletion-cost=10`
 
+적용 대상: 파드
+
+이 어노테이션은 레플리카셋(ReplicaSet) 다운스케일 순서를 조정할 수 있는 요소인 [파드 삭제 비용](/ko/docs/concepts/workloads/controllers/replicaset/#파드-삭제-비용)을
+설정하기 위해 사용한다. 명시된 값은 `int32` 타입으로 파싱된다.
+
+### cluster-autoscaler.kubernetes.io/enable-ds-eviction
+
+예시: `cluster-autoscaler.kubernetes.io/enable-ds-eviction: "true"`
+
 적용 대상: Pod
 
-이 어노테이션은 레플리카셋(ReplicaSet) 다운스케일 순서를 조정할 수 있는 요소인 [파드 삭제 비용](/ko/docs/concepts/workloads/controllers/replicaset/#파드-삭제-비용)을 
-설정하기 위해 사용한다. 명시된 값은 `int32` 타입으로 파싱된다.
+이 어노테이션은 클러스터 오토스케일러가 데몬셋 파드를 축출할 것인지 여부를 제어한다.
+이 어노테이션은 데몬셋 매니페스트 내 데몬셋 파드에 명시되어야 한다.
+이 어노테이션이 `"true"`로 설정된 경우, 파드 축출을 막는 다른 규칙이 있는 경우에도
+클러스터 오토스케일러가 파드를 축출할 수 있다. 클러스터 오토스케일러가 데몬셋 파드를 축출하는 것을 허용하지 않기 위해서는,
+중요한 데몬셋 파드에 이 어노테이션을 `"false"`로 설정한다.
+이 어노테이션이 설정되지 않은 경우, 클러스터 오토스케일러는 전체 동작을 따른다. 즉, 해당 구성에 따라서 데몬셋을 축출한다.
+
+{{< note >}}
+이 어노테이션은 데몬셋 파드에만 적용된다.
+{{< /note >}}
+
+### kubernetes.io/ingress-bandwidth
+
+{{< note >}}
+인그레스 트래픽 조절 어노테이션은 실험적인 기능이다.
+만약 트래픽 조절 기능을 활성화시키고 싶다면, CNI 설정 파일(기본적으로 `/etc/cni/net.d`)에 `bandwidth` 플러그인을 추가해야 하며,
+실행파일이 CNI의 실행파일 경로(기본적으로 `/opt/cni/bin`) 아래에 포함되어있는지도 확인하자.
+{{< /note >}}
+
+Example: `kubernetes.io/ingress-bandwidth: 10M`
+
+적용 대상: 파드
+
+파드에 QoS(quality-of-service)를 적용함으로써 가용한 대역폭을 효과적으로 제한할 수 있다.
+인그레스 트래픽(파드로 향하는)은 효과적으로 데이터를 처리하기 위해 대기 중인 패킷을 큐로 관리한다.
+파드의 대역폭을 제한하기 위해서는, 오브젝트를 정의하는 JSON 파일을 작성하고
+`kubernetes.io/ingress-bandwidth` 어노테이션을 통해 데이터 트래픽의 속도를 명시한다. 인그레스 속도를 명시할 때 사용되는 단위는
+초당 비트([수량](/docs/reference/kubernetes-api/common-definitions/quantity/))이다.
+예를 들어, `10M`은 초당 10 메가비트를 의미한다.
+
+### kubernetes.io/egress-bandwidth
+
+{{< note >}}
+이그레스 트래픽 조절 어노테이션은 실험적인 기능이다.
+만약 트래픽 조절 기능을 활성화시키고 싶다면, CNI 설정 파일(기본적으로 `/etc/cni/net.d`)에 `bandwidth` 플러그인을 추가해야 하며,
+실행파일이 CNI의 실행파일 경로(기본적으로 `/opt/cni/bin`) 아래에 포함되어있는지도 확인하자.
+{{< /note >}}
+
+예시: `kubernetes.io/egress-bandwidth: 10M`
+
+적용 대상: 파드
+
+이그레스 트래픽(파드로부터의)은 설정된 속도를 초과하는 패킷을 삭제하는 정책에 의해 처리되며,
+파드에 거는 제한은 다른 파드의 대역폭에 영향을 주지 않는다.
+파드의 대역폭을 제한하기 위해서는, 오브젝트를 정의하는 JSON 파일을 작성하고
+`kubernetes.io/egress-bandwidth` 어노테이션을 통해 데이터 트래픽의 속도를 명시한다. 이그레스 속도를 명시할 때 사용되는 단위는
+초당 비트([수량](/docs/reference/kubernetes-api/common-definitions/quantity/))이다.
+예를 들어, `10M`은 초당 10 메가비트를 의미한다.
 
 ## beta.kubernetes.io/instance-type (사용 중단됨)
 
@@ -91,9 +247,9 @@ kubelet이 호스트네임을 읽어서 이 레이블의 값으로 채운다. `k
 
 적용 대상: 노드
 
-`클라우드 제공자`에 의해 정의된 인스턴스 타입의 값을 kubelet이 읽어서 이 레이블의 값으로 채운다. 
-`클라우드 제공자`를 사용하는 경우에만 이 레이블이 설정된다. 
-특정 워크로드를 특정 인스턴스 타입에 할당하고 싶다면 이 레이블이 유용할 수 있다. 
+`클라우드 제공자`에 의해 정의된 인스턴스 타입의 값을 kubelet이 읽어서 이 레이블의 값으로 채운다.
+`클라우드 제공자`를 사용하는 경우에만 이 레이블이 설정된다.
+특정 워크로드를 특정 인스턴스 타입에 할당하고 싶다면 이 레이블이 유용할 수 있다.
 하지만 일반적으로는 자원 기반 스케줄링을 수행하는 쿠버네티스 스케줄러를 이용하게 된다. 인스턴스 타입 보다는 특성을 기준으로 스케줄링을 고려해야 한다(예: `g2.2xlarge` 를 요구하기보다는, GPU가 필요하다고 요구한다).
 
 ## failure-domain.beta.kubernetes.io/region (사용 중단됨) {#failure-domainbetakubernetesioregion}
@@ -114,10 +270,10 @@ kubelet이 호스트네임을 읽어서 이 레이블의 값으로 채운다. `k
 
 `statefulset.kubernetes.io/pod-name=mystatefulset-7`
 
-스테이트풀셋(StatefulSet) 컨트롤러가 파드를 위한 스테이트풀셋을 생성하면, 컨트롤 플레인이 파드에 이 레이블을 설정한다. 
+스테이트풀셋(StatefulSet) 컨트롤러가 파드를 위한 스테이트풀셋을 생성하면, 컨트롤 플레인이 파드에 이 레이블을 설정한다.
 생성되는 파드의 이름을 이 레이블의 값으로 설정한다.
 
-스테이트풀셋 문서의 [파드 이름 레이블](/ko/docs/concepts/workloads/controllers/statefulset/#파드-이름-레이블)에서 
+스테이트풀셋 문서의 [파드 이름 레이블](/ko/docs/concepts/workloads/controllers/statefulset/#파드-이름-레이블)에서
 상세 사항을 확인한다.
 
 ## topology.kubernetes.io/region {#topologykubernetesioregion}
@@ -156,20 +312,30 @@ _SelectorSpreadPriority_ 는 최선 노력(best effort) 배치 방법이다. 클
 
 스케줄러도 (_VolumeZonePredicate_ 표시자를 이용하여) '파드가 요청하는 볼륨'이 위치하는 영역과 같은 영역에 파드를 배치한다. 여러 영역에서 볼륨에 접근할 수는 없다.
 
-`PersistentVolumeLabel`이 퍼시스턴트볼륨의 자동 레이블링을 지원하지 않는다면, 레이블을 수동으로 추가하거나 `PersistentVolumeLabel`이 동작하도록 변경할 수 있다. 
+`PersistentVolumeLabel`이 퍼시스턴트볼륨의 자동 레이블링을 지원하지 않는다면, 레이블을 수동으로 추가하거나 `PersistentVolumeLabel`이 동작하도록 변경할 수 있다.
 `PersistentVolumeLabel`이 설정되어 있으면, 스케줄러는 파드가 다른 영역에 있는 볼륨에 마운트하는 것을 막는다. 만약 사용 중인 인프라에 이러한 제약이 없다면, 볼륨에 영역 레이블을 추가할 필요가 전혀 없다.
 
 ## volume.beta.kubernetes.io/storage-provisioner (사용 중단됨)
 
 예시: `volume.beta.kubernetes.io/storage-provisioner: k8s.io/minikube-hostpath`
 
-적용 대상: PersistentVolumeClaim
+적용 대상: 퍼시스턴트볼륨클레임(PersistentVolumeClaim)
+
+이 어노테이션은 사용 중단되었다.
+
+### volume.beta.kubernetes.io/mount-options (deprecated) {#mount-options}
+
+예시 : `volume.beta.kubernetes.io/mount-options: "ro,soft"`
+
+적용 대상: 퍼시스턴트볼륨
+
+쿠버네티스 관리자는, 노드에 퍼시스턴트볼륨이 마운트될 경우 추가적인 [마운트 옵션](/ko/docs/concepts/storage/persistent-volumes/#mount-options)을 명세할 수 있다.
 
 이 어노테이션은 사용 중단되었다.
 
 ## volume.kubernetes.io/storage-provisioner
 
-적용 대상: PersistentVolumeClaim
+적용 대상: 퍼시스턴트볼륨클레임
 
 이 어노테이션은 동적 프로비저닝이 요구되는 PVC에 추가될 예정이다.
 
@@ -198,6 +364,24 @@ kubelet이 Microsoft 윈도우에서 실행되고 있다면, 사용 중인 Windo
 적용 대상: 서비스
 
 쿠버네티스가 여러 서비스를 구분하기 위해 이 레이블을 사용한다. 현재는 `ELB`(Elastic Load Balancer) 를 위해서만 사용되고 있다.
+
+### kubernetes.io/service-account.name
+
+예시: `kubernetes.io/service-account.name: "sa-name"`
+
+Used on: 시크릿(Secret)
+
+이 어노테이션에는 토큰(`kubernetes.io/service-account-token` 타입의 시크릿에 저장되는)이 나타내는
+서비스어카운트의 {{< glossary_tooltip term_id="name" text="이름">}}을 기록한다.
+
+### kubernetes.io/service-account.uid
+
+예시: `kubernetes.io/service-account.uid: da68f9c6-9d26-11e7-b84e-002dc52800da`
+
+적용 대상: 시크릿
+
+이 어노테이션에는 토큰(`kubernetes.io/service-account-token` 타입의 시크릿에 저장되는)이 나타내는
+서비스어카운트의 {{< glossary_tooltip term_id="uid" text="고유 ID">}}를 기록한다.
 
 ## endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
@@ -256,8 +440,8 @@ v1.18부터, `spec.ingressClassName`으로 대체되었다.
 
 적용 대상: 스토리지클래스(StorageClass)
 
-하나의 스토리지클래스(StorageClass) 리소스에 이 어노테이션이 `"true"`로 설정된 경우, 
-클래스가 명시되지 않은 새로운 퍼시스턴트볼륨클레임(PersistentVolumeClaim) 리소스는 해당 기본 클래스로 할당될 것이다.
+하나의 스토리지클래스(StorageClass) 리소스에 이 어노테이션이 `"true"`로 설정된 경우,
+클래스가 명시되지 않은 새로운 퍼시스턴트볼륨클레임 리소스는 해당 기본 클래스로 할당될 것이다.
 
 ## alpha.kubernetes.io/provided-node-ip
 
@@ -267,7 +451,7 @@ v1.18부터, `spec.ingressClassName`으로 대체되었다.
 
 kubelet이 노드에 할당된 IPv4 주소를 명시하기 위해 이 어노테이션을 사용할 수 있다.
 
-kubelet이 "외부" 클라우드 제공자에 의해 실행되었다면, 명령줄 플래그(`--node-ip`)를 통해 설정된 IP 주소를 명시하기 위해 kubelet이 이 어노테이션을 노드에 설정한다. cloud-controller-manager는 클라우드 제공자에게 이 IP 주소가 유효한지를 검증한다.
+kubelet이 `--cloud-provider` 플래그를 사용하여 어떤 값을 갖게 되었다면 (외부 또는 레거시 트리 내(in-tree) 클라우드 공급자 모두 포함), kubelet은 이 어노테이션을 노드에 설정하여 명령줄 플래그(`--node-ip`)를 통해 설정된 IP 주소를 명시한다. cloud-controller-manager는 클라우드 제공자에게 이 IP 주소가 유효한지를 검증한다.
 
 ## batch.kubernetes.io/job-completion-index
 
@@ -275,7 +459,7 @@ kubelet이 "외부" 클라우드 제공자에 의해 실행되었다면, 명령�
 
 적용 대상: 파드
 
-kube-controller-manager의 잡(Job) 컨트롤러는 
+kube-controller-manager의 잡(Job) 컨트롤러는
 `Indexed` [완료 모드](/ko/docs/concepts/workloads/controllers/job/#완료-모드)로 생성된 파드에 이 어노테이션을 추가한다.
 
 ## kubectl.kubernetes.io/default-container
@@ -298,7 +482,7 @@ v1.22 이상의 쿠버네티스 클러스터에서, 한 엔드포인트(Endpoint
 
 적용 대상: 잡
 
-잡에 어노테이션이 있으면 컨트롤 플레인은 [finalizers를 사용하여 잡 상태 추적](/ko/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers) 
+잡에 어노테이션이 있으면 컨트롤 플레인은 [finalizers를 사용하여 잡 상태 추적](/ko/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers)
 중임을 나타낸다.
 어노테이션을 수동으로 추가하거나 제거하지 **않는다**.
 
@@ -354,6 +538,21 @@ kubelet은 노드의 `imagefs.available`, `imagefs.inodesFree`, `nodefs.availabl
 
 kubelet은 '`/proc/sys/kernel/pid_max`의 크기의 D-값'과 노드에서 쿠버네티스가 사용 중인 PID를 확인하여, `pid.available` 지표라고 불리는 '사용 가능한 PID 수'를 가져온다. 그 뒤, 관측한 지표를 kubelet에 설정된 문턱값(threshold)과 비교하여 노드 컨디션과 테인트의 추가/삭제 여부를 결정한다.
 
+### node.kubernetes.io/out-of-service
+
+예시: `node.kubernetes.io/out-of-service:NoExecute`
+
+사용자는 노드에 테인트를 수동으로 추가함으로써 서비스 중이 아니라고 표시할 수 있다. 만약 `NodeOutOfServiceVolumeDetach`
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 `kube-controller-manager`에 활성화되어 있으며
+노드가 이 테인트로 인해 서비스 중이 아니라고 표시되어있을 경우, 노드에서 실행되던 매칭되는 톨러레이션이 없는 파드들은 강제로 삭제됨과 동시에 볼륨이 분리된다. 이는 서비스 중이 아닌 노드의 파드들이 다른 노드에서 빠르게 복구될 수 있도록 해준다.
+
+{{< caution >}}
+이 테인트를 언제 어떻게 사용할지에 대한 자세한 사항은
+[논 그레이스풀 노드 셧다운](/ko/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)
+를 참조한다.
+{{< /caution >}}
+
+
 ## node.cloudprovider.kubernetes.io/uninitialized
 
 예시: `node.cloudprovider.kubernetes.io/uninitialized:NoSchedule`
@@ -372,9 +571,9 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 
 적용 대상: 네임스페이스
 
-값은 **반드시** [파드 보안 표준](/docs/concepts/security/pod-security-standards) 레벨과 상응하는 
+값은 **반드시** [파드 보안 표준](/ko/docs/concepts/security/pod-security-standards/) 레벨과 상응하는
 `privileged`, `baseline`, 또는 `restricted` 중 하나여야 한다.
-특히 `enforce` 레이블은 표시된 수준에 정의된 요구 사항을 충족하지 않는 
+특히 `enforce` 레이블은 표시된 수준에 정의된 요구 사항을 충족하지 않는
 레이블 네임스페이스에 모든 파드의 생성을 금지한다.
 
 더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
@@ -387,7 +586,7 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 적용 대상: 네임스페이스
 
 값은 **반드시** `latest`이거나 `v<MAJOR>.<MINOR>` 형식의 유효한 쿠버네티스 버전이어야 한다.
-설정된 파드의 유효성을 검사할 때 적용할 [파드 보안 표준](/docs/concepts/security/pod-security-standards) 
+설정된 파드의 유효성을 검사할 때 적용할 [파드 보안 표준](/ko/docs/concepts/security/pod-security-standards/)
 정책의 버전이 결정된다.
 
 더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
@@ -399,9 +598,9 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 
 적용 대상: 네임스페이스
 
-값은 **반드시** [파드 보안 표준](/docs/concepts/security/pod-security-standards) 레벨과 상응하는 
+값은 **반드시** [파드 보안 표준](/ko/docs/concepts/security/pod-security-standards/) 레벨과 상응하는
 `privileged`, `baseline`, 또는 `restricted` 중 하나여야 한다.
-특히 `audit` 레이블은 표시된 수준에 정의된 요구 사항을 충족하지 않는 레이블 네임스페이스에 파드를 생성하는 것을 
+특히 `audit` 레이블은 표시된 수준에 정의된 요구 사항을 충족하지 않는 레이블 네임스페이스에 파드를 생성하는 것을
 방지하지 않지만, 해당 파드에 audit 어노테이션을 추가한다.
 
 더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
@@ -414,7 +613,7 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 적용 대상: 네임스페이스
 
 값은 **반드시** `latest`이거나 `v<MAJOR>.<MINOR>` 형식의 유효한 쿠버네티스 버전이어야 한다.
-설정된 파드의 유효성을 검사할 때 적용할 [파드 보안 표준](/docs/concepts/security/pod-security-standards) 
+설정된 파드의 유효성을 검사할 때 적용할 [파드 보안 표준](/ko/docs/concepts/security/pod-security-standards/)
 정책의 버전이 결정된다.
 
 더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
@@ -426,11 +625,11 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 
 적용 대상: 네임스페이스
 
-값은 **반드시** [파드 보안 표준](/docs/concepts/security/pod-security-standards) 레벨과 상응하는 
+값은 **반드시** [파드 보안 표준](/ko/docs/concepts/security/pod-security-standards/) 레벨과 상응하는
 `privileged`, `baseline`, 또는 `restricted` 중 하나여야 한다.
-특히 `warn` 레이블은 해당 레이블이 달린 네임스페이스에, 표시된 레벨에 명시된 요구 사항을 충족하지 않는 파드를 생성하는 것을 
+특히 `warn` 레이블은 해당 레이블이 달린 네임스페이스에, 표시된 레벨에 명시된 요구 사항을 충족하지 않는 파드를 생성하는 것을
 방지하지는 않지만, 그러한 파드가 생성되면 사용자에게 경고를 반환한다.
-디플로이먼트, 잡, 스테이트풀셋 등과 같은 파드 템플릿을 포함하는 
+디플로이먼트, 잡, 스테이트풀셋 등과 같은 파드 템플릿을 포함하는
 객체를 만들거나 업데이트할 때에도 경고가 표시된다.
 
 더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
@@ -443,25 +642,120 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 적용 대상: 네임스페이스
 
 값은 **반드시** `latest`이거나 `v<MAJOR>.<MINOR>` 형식의 유효한 쿠버네티스 버전이어야 한다.
-설정된 파드의 유효성을 검사할 때 적용할 [파드 보안 표준](/docs/concepts/security/pod-security-standards) 
-정책의 버전이 결정된다. 디플로이먼트, 잡, 스테이트풀셋 등과 같은 파드 템플릿을 포함하는 
+설정된 파드의 유효성을 검사할 때 적용할 [파드 보안 표준](/ko/docs/concepts/security/pod-security-standards/)
+정책의 버전이 결정된다. 디플로이먼트, 잡, 스테이트풀셋 등과 같은 파드 템플릿을 포함하는
 객체를 만들거나 업데이트할 때에도 경고가 표시된다.
 
 더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
 참고한다.
 
+### kubernetes.io/psp (사용 중단됨) {#kubernetes-io-psp}
+
+예시: `kubernetes.io/psp: restricted`
+
+적용 대상: 파드
+
+이 어노테이션은 파드시큐리티폴리시(PodSecurityPolicy)[PodSecurityPolicies](/ko/docs/concepts/security/pod-security-policy/)를 사용하는 경우에만 관련이 있다.
+쿠버네티스 v{{< skew currentVersion >}}은 파드시큐리티폴리시 API를 지원하지 않는다.
+
+파드시큐리티폴리시 어드미션 컨트롤러가 파드를 승인했을 때,
+어드미션 컨트롤러는 파드가 이 어노테이션을 갖도록 수정했다.
+이 어노테이션 값은 유효성 검사에서 사용된 파드시큐리티폴리시의 이름이었다.
+
 ## seccomp.security.alpha.kubernetes.io/pod (사용 중단됨) {#seccomp-security-alpha-kubernetes-io-pod}
 
-이 어노테이션은 쿠버네티스 v1.19부터 사용 중단되었으며 v1.25에서는 작동하지 않을 것이다. 
-파드의 보안 설정을 지정하려면, 파드 스펙에 `securityContext` 필드를 추가한다. 
-파드의 `.spec` 내의 [`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) 필드는 파드 수준 보안 속성을 정의한다. 
-[파드의 보안 컨텍스트를 설정](/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod)하면, 
+이 어노테이션은 쿠버네티스 v1.19부터 사용 중단되었으며 향후 릴리스에서는 작동하지 않을 것이다.
+대신 해당 파드 또는 컨테이너의 `securityContext.seccompProfile` 필드를 사용한다.
+파드의 보안 설정을 지정하려면, 파드 스펙에 `securityContext` 필드를 추가한다.
+파드의 `.spec` 내의 [`securityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) 필드는 파드 수준 보안 속성을 정의한다.
+[파드의 보안 컨텍스트를 설정](/docs/tasks/configure-pod-container/security-context/#set-the-security-context-for-a-pod)하면,
 해당 설정이 파드 내의 모든 컨테이너에 적용된다.
 
 ## container.seccomp.security.alpha.kubernetes.io/[이름] {#container-seccomp-security-alpha-kubernetes-io}
 
-이 어노테이션은 쿠버네티스 v1.19부터 사용 중단되었으며 v1.25에서는 작동하지 않을 것이다. 
-[seccomp를 이용하여 컨테이너의 syscall 제한하기](/docs/tutorials/security/seccomp/) 튜토리얼에서 
-seccomp 프로파일을 파드 또는 파드 내 컨테이너에 적용하는 단계를 확인한다. 
-튜토리얼에서는 쿠버네티스에 seccomp를 설정하기 위해 사용할 수 있는 방법을 소개하며, 
+이 어노테이션은 쿠버네티스 v1.19부터 사용 중단되었으며 향후 릴리스에서는 작동하지 않을 것이다.
+대신 해당 파드 또는 컨테이너의 `securityContext.seccompProfile` 필드를 사용한다.
+[seccomp를 이용하여 컨테이너의 syscall 제한하기](/docs/tutorials/security/seccomp/) 튜토리얼에서
+seccomp 프로파일을 파드 또는 파드 내 컨테이너에 적용하는 단계를 확인한다.
+튜토리얼에서는 쿠버네티스에 seccomp를 설정하기 위해 사용할 수 있는 방법을 소개하며,
 이는 파드의 `.spec` 내에 `securityContext` 를 설정함으로써 가능하다.
+
+### snapshot.storage.kubernetes.io/allowVolumeModeChange
+
+예시: `snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"`
+
+적용 대상: VolumeSnapshotContent
+
+값은 `true` 혹은 `false`만을 받는다.
+{{< glossary_tooltip text="퍼시스턴트볼륨클레임" term_id="persistent-volume-claim" >}}이
+볼륨스냅샷(VolumeSnapshot)으로부터 생성될 경우,
+사용자가 소스 볼륨의 모드를 수정할 수 있는지 여부를 결정한다.
+
+자세한 사항은 [스냅샷의 볼륨 모드 변환하기](/ko/docs/concepts/storage/volume-snapshots/#convert-volume-mode)와
+[쿠버네티스 CSI 개발자용 문서](https://kubernetes-csi.github.io/docs/)를 참조한다.
+
+## Audit을 위한 어노테이션들
+
+<!-- sorted by annotation -->
+- [`authorization.k8s.io/decision`](/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-decision)
+- [`authorization.k8s.io/reason`](/docs/reference/labels-annotations-taints/audit-annotations/#authorization-k8s-io-reason)
+- [`insecure-sha1.invalid-cert.kubernetes.io/$hostname`](/docs/reference/labels-annotations-taints/audit-annotations/#insecure-sha1-invalid-cert-kubernetes-io-hostname)
+- [`missing-san.invalid-cert.kubernetes.io/$hostname`](/docs/reference/labels-annotations-taints/audit-annotations/#missing-san-invalid-cert-kubernetes-io-hostname)
+- [`pod-security.kubernetes.io/audit-violations`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-audit-violations)
+- [`pod-security.kubernetes.io/enforce-policy`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-enforce-policy)
+- [`pod-security.kubernetes.io/exempt`](/docs/reference/labels-annotations-taints/audit-annotations/#pod-security-kubernetes-io-exempt)
+
+자세한 사항은 [Audit 어노테이션](/docs/reference/labels-annotations-taints/audit-annotations/) 페이지를 참고한다.
+
+## kubeadm
+
+### kubeadm.alpha.kubernetes.io/cri-socket
+
+예시: `kubeadm.alpha.kubernetes.io/cri-socket: unix:///run/containerd/container.sock`
+
+적용 대상: 노드
+
+kubeadm `init`/`join`시 주어지는 CRI 소켓 정보를 유지하기 위해 사용하는 어노테이션.
+kubeadm은 노드 오브젝트를 이 정보를 주석 처리한다. 이상적으로는 KubeletConfiguration의 항목이어야 하기 때문에,
+어노테이션은 "alpha" 상태로 남아있다.
+
+### kubeadm.kubernetes.io/etcd.advertise-client-urls
+
+예시: `kubeadm.kubernetes.io/etcd.advertise-client-urls: https://172.17.0.18:2379`
+
+적용 대상: 파드
+
+etcd 클라이언트들이 접근할 수 있는 URL 목록을 추적하기 위해, 로컬에서 관리되는 etcd 파드에 배치되는 어노테이션.
+주로 etcd 클러스터의 헬스 체크에 사용한다.
+
+### kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint
+
+예시: `kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: https//172.17.0.18:6443`
+
+적용 대상: 파드
+
+외부로 노출시킬 API 서버의 엔드포인트를 추적하기 위해,
+로컬에서 관리되는 kube-apiserver 파드에 배치되는 어노테이션.
+
+### kubeadm.kubernetes.io/component-config.hash
+
+예시: `kubeadm.kubernetes.io/component-config.hash: 2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae`
+
+적용 대상: 컨피그맵(ConfigMap)
+
+컴포넌트 설정을 관리하는 컨피그맵에 배치되는 어노테이션.
+사용자가 특정 컴포넌트에 대해서 kubeadm 기본값과 다른 설정값을 적용했는지 판단하기 위한 해시(SHA-256)를 가지고 있다.
+
+### node-role.kubernetes.io/control-plane
+
+적용 대상: 노드
+
+kubeadm이 관리하는 컨트롤 플레인 노드에 적용되는 레이블.
+
+### node-role.kubernetes.io/control-plane
+
+예시: `node-role.kubernetes.io/control-plane:NoSchedule`
+
+적용 대상: 노드
+
+중요한 워크로드만 스케줄링할 수 있도록 컨트롤 플레인 노드에 적용시키는 테인트.

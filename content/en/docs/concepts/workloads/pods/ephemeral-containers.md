@@ -9,7 +9,7 @@ weight: 80
 
 <!-- overview -->
 
-{{< feature-state state="beta" for_k8s_version="v1.23" >}}
+{{< feature-state state="stable" for_k8s_version="v1.25" >}}
 
 This page provides an overview of ephemeral containers: a special type of container
 that runs temporarily in an existing {{< glossary_tooltip term_id="pod" >}} to
@@ -51,6 +51,10 @@ possible to add an ephemeral container using `kubectl edit`.
 
 Like regular containers, you may not change or remove an ephemeral container
 after you have added it to a Pod.
+
+{{< note >}}
+Ephemeral containers are not supported by [static pods](/docs/tasks/configure-pod-container/static-pod/).
+{{< /note >}}
 
 ## Uses for ephemeral containers
 

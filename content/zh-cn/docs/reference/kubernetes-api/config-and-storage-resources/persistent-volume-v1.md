@@ -24,6 +24,7 @@ weight: 5
 `import "k8s.io/api/core/v1"`
 
 ## PersistentVolume {#PersistentVolume}
+
 <!--
 PersistentVolume (PV) is a storage resource provisioned by an administrator. It is analogous to a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
 -->
@@ -46,6 +47,7 @@ https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes
 - **status** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-v1#PersistentVolumeStatus" >}}">PersistentVolumeStatus</a>)
   status represents the current information/status for the persistent volume. Populated by the system. Read-only. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#persistent-volumes
 -->
+
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
   标准的对象元数据。更多信息：
@@ -93,6 +95,7 @@ PersistentVolumeSpec 是持久卷的规约。
 - **mountOptions** ([]string)
   mountOptions is the list of mount options, e.g. ["ro", "soft"]. Not validated - mount will simply fail if one is invalid. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#mount-options
 -->
+
 - **claimRef** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
 
   claimRef 是 PersistentVolume 和 PersistentVolumeClaim 之间双向绑定的一部分。
@@ -112,6 +115,7 @@ PersistentVolumeSpec 是持久卷的规约。
   <a name="VolumeNodeAffinity"></a>
   *VolumeNodeAffinity defines constraints that limit what nodes this volume can be accessed from.*
 -->
+
 - **nodeAffinity** (VolumeNodeAffinity)
 
   nodeAffinity 定义可以从哪些节点访问此卷的约束限制。此字段会影响调度使用此卷的 Pod。
@@ -119,7 +123,7 @@ PersistentVolumeSpec 是持久卷的规约。
   <a name="VolumeNodeAffinity"></a> 
   **VolumeNodeAffinity 定义可以从哪些节点访问此卷的约束限制。**
 
-<!--
+  <!--
   - **nodeAffinity.required** (NodeSelector)
     required specifies hard node constraints that must be met.
 
@@ -136,7 +140,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
       - **nodeAffinity.required.nodeSelectorTerms.matchFields** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
         A list of node selector requirements by node's fields.
--->  
+  -->
+
   - **nodeAffinity.required** (NodeSelector)
 
     required 指定必须满足的硬性节点约束。
@@ -166,6 +171,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
   persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
 -->
+
 - **persistentVolumeReclaimPolicy** (string)
 
   persistentVolumeReclaimPolicy 定义当从持久卷声明释放持久卷时会发生什么。
@@ -181,6 +187,7 @@ PersistentVolumeSpec 是持久卷的规约。
 - **volumeMode** (string)
   volumeMode defines if a volume is intended to be used with a formatted filesystem or to remain in raw block state. Value of Filesystem is implied when not included in spec.
 -->
+
 - **storageClassName** (string)
 
   storageClassName 是这个持久卷所属于的 StorageClass 的名称。
@@ -205,6 +212,7 @@ PersistentVolumeSpec 是持久卷的规约。
   - **hostPath.type** (string)
     type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
 -->
+
 - **hostPath** (HostPathVolumeSource)
 
   hostPath 表示主机上的目录，由开发或测试人员进行制备。hostPath 仅对单节点开发和测试有用！
@@ -237,6 +245,7 @@ PersistentVolumeSpec 是持久卷的规约。
   - **local.fsType** (string)
     fsType is the filesystem type to mount. It applies only when the Path is a block device. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". The default value is to auto-select a filesystem if unspecified.
 -->
+
 - **local** (LocalVolumeSource)
 
   local 表示具有节点亲和性的直连式存储。
@@ -275,7 +284,7 @@ PersistentVolumeSpec 是持久卷的规约。
   该磁盘还必须与 kubelet 位于相同的 AWS 区域中。AWS EBS 磁盘只能以读/写一次进行挂载。
   AWS EBS 卷支持所有权管理和 SELinux 重新打标签。**
 
-<!--
+  <!--
   - **awsElasticBlockStore.volumeID** (string), required
     volumeID is unique ID of the persistent disk resource in AWS (Amazon EBS volume). More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
 
@@ -287,7 +296,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **awsElasticBlockStore.readOnly** (boolean)
     readOnly value true will force the readOnly setting in VolumeMounts. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
--->  
+  -->
+
   - **awsElasticBlockStore.volumeID** (string)，必需
 
     volumeID 是 AWS（Amazon EBS 卷）中持久磁盘资源的唯一 ID。更多信息：
@@ -317,6 +327,7 @@ PersistentVolumeSpec 是持久卷的规约。
   <a name="AzureDiskVolumeSource"></a>
   *AzureDisk represents an Azure Data Disk mount on the host and bind mount to the pod.*
 -->
+
 - **azureDisk** (AzureDiskVolumeSource)
 
   azureDisk 表示主机上挂载的 Azure Data Disk 并绑定挂载到 Pod 上。
@@ -324,7 +335,7 @@ PersistentVolumeSpec 是持久卷的规约。
   <a name="AzureDiskVolumeSource"></a>
   **azureDisk 表示主机上挂载的 Azure Data Disk 并绑定挂载到 Pod 上。**
 
-<!--
+  <!--
   - **azureDisk.diskName** (string), required
     diskName is the Name of the data disk in the blob storage
 
@@ -342,7 +353,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **azureDisk.readOnly** (boolean)
     readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
--->  
+  -->
+
   - **azureDisk.diskName** (string)，必需
 
     diskName 是 Blob 存储中数据盘的名称。
@@ -390,6 +402,7 @@ PersistentVolumeSpec 是持久卷的规约。
   - **azureFile.secretNamespace** (string)
     secretNamespace is the namespace of the secret that contains Azure Storage Account Name and Key default is the same as the Pod
 -->
+
 - **azureFile** (AzureFilePersistentVolumeSource)
 
   azureDisk 表示主机上挂载的 Azure File Service 并绑定挂载到 Pod 上。
@@ -420,14 +433,15 @@ PersistentVolumeSpec 是持久卷的规约。
   <a name="CephFSPersistentVolumeSource"></a>
   *Represents a Ceph Filesystem mount that lasts the lifetime of a pod Cephfs volumes do not support ownership management or SELinux relabeling.*
 -->
+
 - **cephfs** (CephFSPersistentVolumeSource)
 
   cephfs 表示在主机上挂载的 Ceph FS，该文件系统挂载与 Pod 的生命周期相同。
   
-  <a name="CephFSPersistentVolumeSource"></a> 
+  <a name="CephFSPersistentVolumeSource"></a>
   **表示在 Pod 的生命周期内持续的 Ceph Filesystem 挂载。cephfs 卷不支持所有权管理或 SELinux 重新打标签。**
 
-<!--
+  <!--
   - **cephfs.monitors** ([]string), required
     monitors is Required: Monitors is a collection of Ceph monitors More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
@@ -439,7 +453,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **cephfs.secretFile** (string)
     secretFile is Optional: SecretFile is the path to key ring for User, default is /etc/ceph/user.secret More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
--->  
+  -->
+
   - **cephfs.monitors** ([]string)，必需
 
     monitors 是必需的。monitors 是 Ceph 监测的集合。更多信息：
@@ -459,7 +474,7 @@ PersistentVolumeSpec 是持久卷的规约。
     secretFile 是可选的。secretFile 是 user 对应的密钥环的路径，默认为 /etc/ceph/user.secret。
     更多信息： https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
-<!--
+  <!--
   - **cephfs.secretRef** (SecretReference)
     secretRef is Optional: SecretRef is reference to the authentication secret for User, default is empty. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
 
@@ -474,7 +489,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **cephfs.user** (string)
     user is Optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
--->  
+  -->
+
   - **cephfs.secretRef** (SecretReference)
 
     secretRef 是可选的。secretRef 是针对用户到身份认证 Secret 的引用，默认为空。更多信息：
@@ -503,6 +519,7 @@ PersistentVolumeSpec 是持久卷的规约。
   <a name="CinderPersistentVolumeSource"></a>
   *Represents a cinder volume resource in Openstack. A Cinder volume must exist before mounting to a container. The volume must also be in the same region as the kubelet. Cinder volumes support ownership management and SELinux relabeling.*
 -->
+
 - **cinder** (CinderPersistentVolumeSource)
 
   cinder 表示 kubelet 主机上挂接和挂载的 Cinder 卷。更多信息：
@@ -512,7 +529,7 @@ PersistentVolumeSpec 是持久卷的规约。
   **表示 OpenStack 中的一个 Cinder 卷资源。挂载到一个容器之前 Cinder 卷必须已经存在。
   该卷还必须与 kubelet 位于相同的地区中。cinder 卷支持所有权管理和 SELinux 重新打标签。**
 
-<!--
+  <!--
   - **cinder.volumeID** (string), required
     volumeID used to identify the volume in cinder. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
 
@@ -521,7 +538,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **cinder.readOnly** (boolean)
     readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/mysql-cinder-pd/README.md
--->  
+  -->
+
   - **cinder.volumeID** (string)，必需
 
     volumeID 用于标识 Cinder 中的卷。更多信息：
@@ -539,7 +557,7 @@ PersistentVolumeSpec 是持久卷的规约。
     此处 readOnly 将在 VolumeMounts 中强制设置 readOnly。更多信息：
     https://examples.k8s.io/mysql-cinder-pd/README.md
 
-<!--
+  <!--
   - **cinder.secretRef** (SecretReference)
     secretRef is Optional: points to a secret object containing parameters used to connect to OpenStack.
 
@@ -551,7 +569,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
     - **cinder.secretRef.namespace** (string)
       namespace defines the space within which the secret name must be unique.
--->  
+  -->
+
   - **cinder.secretRef** (SecretReference)
 
     secretRef 是可选的。指向 Secret 对象，内含的参数用于连接到 OpenStack。
@@ -580,6 +599,7 @@ PersistentVolumeSpec 是持久卷的规约。
   - **csi.volumeHandle** (string), required
     volumeHandle is the unique volume name returned by the CSI volume plugin’s CreateVolume to refer to the volume on all subsequent calls. Required.
 -->
+
 - **csi** (CSIPersistentVolumeSource)
 
   csi 表示由一个外部 CSI 驱动处理的存储（Beta 特性）。
@@ -595,9 +615,9 @@ PersistentVolumeSpec 是持久卷的规约。
 
     volumeHandle 是 CSI 卷插件的 CreateVolume 所返回的唯一卷名称，用于在所有后续调用中引用此卷。必需。
 
-<!--
+  <!--
   - **csi.controllerExpandSecretRef** (SecretReference)
-    controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an alpha field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+    controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 
     <a name="SecretReference"></a>
     *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
@@ -607,12 +627,13 @@ PersistentVolumeSpec 是持久卷的规约。
 
     - **csi.controllerExpandSecretRef.namespace** (string)
       namespace defines the space within which the secret name must be unique.
--->  
+  -->
+ 
   - **csi.controllerExpandSecretRef** (SecretReference)
 
     controllerExpandSecretRef 是对包含敏感信息的 Secret 对象的引用，
     该 Secret 会被传递到 CSI 驱动以完成 CSI ControllerExpandVolume 调用。
-    这是一个 Alpha 字段，需要启用 ExpandCSIVolumes 特性门控。
+    这是一个 Beta 字段，需要启用 ExpandCSIVolumes 特性门控。
     此字段是可选的，且如果不需要 Secret，则此字段可以为空。
     如果 Secret 对象包含多个 Secret，则所有 Secret 被传递。
     
@@ -627,7 +648,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
       namespace 指定一个名字空间，Secret 名称在该名字空间中必须唯一。
 
-<!--
+  <!--
   - **csi.controllerPublishSecretRef** (SecretReference)
     controllerPublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerPublishVolume and ControllerUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 
@@ -639,7 +660,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
     - **csi.controllerPublishSecretRef.namespace** (string)
       namespace defines the space within which the secret name must be unique.
--->  
+  -->
+
   - **csi.controllerPublishSecretRef** (SecretReference)
 
     controllerPublishSecretRef 是对包含敏感信息的 Secret 对象的引用，
@@ -658,44 +680,85 @@ PersistentVolumeSpec 是持久卷的规约。
 
       namespace 指定一个名字空间，Secret 名称在该名字空间中必须唯一。
 
-<!--
+  <!--
   - **csi.fsType** (string)
+
     fsType to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs".
 
-  - **csi.nodePublishSecretRef** (SecretReference)
-    nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+  - **csi.nodeExpandSecretRef** (SecretReference)
+
+    nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an beta field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 
     <a name="SecretReference"></a>
     *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
 
-    - **csi.nodePublishSecretRef.name** (string)
+    - **csi.nodeExpandSecretRef.name** (string)
+
       name is unique within a namespace to reference a secret resource.
 
-    - **csi.nodePublishSecretRef.namespace** (string)
+    - **csi.nodeExpandSecretRef.namespace** (string)
+
       namespace defines the space within which the secret name must be unique.
--->  
+  -->
+
   - **csi.fsType** (string)
 
     要挂载的 fsType。必须是主机操作系统所支持的文件系统类型之一。例如 “ext4”、“xfs”、“ntfs”。
   
-  - **csi.nodePublishSecretRef** (SecretReference)
+  - **csi.nodeExpandSecretRef** (SecretReference)
 
-    nodePublishSecretRef 是对包含敏感信息的 Secret 对象的引用，
-    从而传递到 CSI 驱动以完成 CSI NodePublishVolume 和 NodeUnpublishVolume 调用。
+    nodeExpandSecretRef 是对包含敏感信息的 Secret 对象的引用，
+    从而传递到 CSI 驱动以完成 CSI NodeExpandVolume 和 NodeUnpublishVolume 调用。
+    这是一个 Beta 字段，需要启用 CSINodeExpandSecret 特性门控。
     此字段是可选的，且如果不需要 Secret，则此字段可以为空。
     如果 Secret 对象包含多个 Secret，则所有 Secret 被传递。
     
     <a name="SecretReference"></a> 
     **SecretReference 表示对某 Secret 的引用，其中包含足够的信息来访问任何名字空间中的 Secret。**
     
-    - **csi.nodePublishSecretRef.name** (string)
+    - **csi.nodeExpandSecretRef.name** (string)
 
       name 在名字空间内是唯一的，以引用一个 Secret 资源。
     
-    - **csi.nodePublishSecretRef.namespace** (string)
+    - **csi.nodeExpandSecretRef.namespace** (string)
 
       namespace 指定一个名字空间，Secret 名称在该名字空间中必须唯一。
-<!--
+
+  <!--
+  - **csi.nodePublishSecretRef** (SecretReference)
+
+    nodePublishSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodePublishVolume and NodeUnpublishVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+
+    <a name="SecretReference"></a>
+    *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
+
+    - **csi.nodePublishSecretRef.name** (string)
+
+      name is unique within a namespace to reference a secret resource.
+
+    - **csi.nodePublishSecretRef.namespace** (string)
+
+      namespace defines the space within which the secret name must be unique.
+  -->
+
+  - **csi.nodePublishSecretRef** (SecretReference)
+
+      nodePublishSecretRef 是对包含敏感信息的 Secret 对象的引用，
+      以传递到 CSI 驱动以完成 CSI NodePublishVolume 和 NodeUnpublishVolume 调用。
+      此字段是可选的，且如果不需要 Secret，则此字段可以为空。
+      如果 Secret 对象包含多个 Secret，则所有 Secret 被传递。
+
+    **SecretReference 表示对某 Secret 的引用，其中包含足够的信息来访问任何名字空间中的 Secret。**
+
+    - **csi.nodePublishSecretRef.name** (string)
+
+      name 在名字空间内是唯一的，以引用一个 Secret 资源。
+
+    - **csi.nodePublishSecretRef.namespace** (string)
+
+      namespace 定义了 Secret 名称必须唯一的空间。
+
+  <!--
   - **csi.nodeStageSecretRef** (SecretReference)
     nodeStageSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeStageVolume and NodeStageVolume and NodeUnstageVolume calls. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 
@@ -707,7 +770,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
     - **csi.nodeStageSecretRef.namespace** (string)
       namespace defines the space within which the secret name must be unique.
--->  
+  -->
+
   - **csi.nodeStageSecretRef** (SecretReference)
 
     nodeStageSecretRef 是对包含敏感信息的 Secret 对象的引用，
@@ -726,13 +790,14 @@ PersistentVolumeSpec 是持久卷的规约。
 
       namespace 指定一个名字空间，Secret 名称在该名字空间中必须唯一。
 
-<!--
+  <!--
   - **csi.readOnly** (boolean)
     readOnly value to pass to ControllerPublishVolumeRequest. Defaults to false (read/write).
 
   - **csi.volumeAttributes** (map[string]string)
     volumeAttributes of the volume to publish.
--->  
+  -->
+
   - **csi.readOnly** (boolean)
 
     传递到 ControllerPublishVolumeRequest 的 readOnly 值。默认为 false（读/写）。
@@ -748,6 +813,7 @@ PersistentVolumeSpec 是持久卷的规约。
   <a name="FCVolumeSource"></a>
   *Represents a Fibre Channel volume. Fibre Channel volumes can only be mounted as read/write once. Fibre Channel volumes support ownership management and SELinux relabeling.*
 -->
+
 - **fc** (FCVolumeSource)
 
   fc 表示挂接到 kubelet 的主机并随后暴露给 Pod 的一个光纤通道（FC）资源。
@@ -755,7 +821,7 @@ PersistentVolumeSpec 是持久卷的规约。
   <a name="FCVolumeSource"></a> 
   **表示光纤通道卷。光纤通道卷只能以读/写一次进行挂载。光纤通道卷支持所有权管理和 SELinux 重新打标签。**
 
-<!--
+  <!--
   - **fc.fsType** (string)
     fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 
@@ -770,7 +836,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **fc.wwids** ([]string)
     wwids Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
--->  
+  -->
+
   - **fc.fsType** (string)
 
     fsType 是要挂载的文件系统类型。必须是主机操作系统所支持的文件系统类型之一。
@@ -801,6 +868,7 @@ PersistentVolumeSpec 是持久卷的规约。
   <a name="FlexPersistentVolumeSource"></a>
   *FlexPersistentVolumeSource represents a generic persistent volume resource that is provisioned/attached using an exec based plugin.*
 -->
+
 - **flexVolume** (FlexPersistentVolumeSource)
 
   flexVolume 表示使用基于 exec 的插件制备/挂接的通用卷资源。
@@ -808,7 +876,7 @@ PersistentVolumeSpec 是持久卷的规约。
   <a name="FlexPersistentVolumeSource"></a>
   **FlexPersistentVolumeSource 表示使用基于 exec 的插件制备/挂接的通用持久卷资源。**
 
-<!--
+  <!--
   - **flexVolume.driver** (string), required
     driver is the name of the driver to use for this volume.
 
@@ -820,7 +888,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **flexVolume.readOnly** (boolean)
     readOnly is Optional: defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
--->  
+  -->
+
   - **flexVolume.driver** (string)，必需
 
     driver 是此卷所使用的驱动的名称。
@@ -839,7 +908,7 @@ PersistentVolumeSpec 是持久卷的规约。
     readOnly 是可选的。默认为 false（读/写）。
     此处 readOnly 将在 VolumeMounts 中强制设置 readOnly。
 
-<!--
+  <!--
   - **flexVolume.secretRef** (SecretReference)
     secretRef is Optional: SecretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
 
@@ -851,7 +920,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
     - **flexVolume.secretRef.namespace** (string)
       namespace defines the space within which the secret name must be unique.
--->  
+  -->
+
   - **flexVolume.secretRef** (SecretReference)
 
     secretRef 是可选的。secretRef 是对包含敏感信息的 Secret 对象的引用，从而传递到插件脚本。
@@ -881,6 +951,7 @@ PersistentVolumeSpec 是持久卷的规约。
   - **flocker.datasetUUID** (string)
     datasetUUID is the UUID of the dataset. This is unique identifier of a Flocker dataset
 -->
+
 - **flocker** (FlockerVolumeSource)
 
   flocker 表示挂接到 kubelet 的主机并暴露给 Pod 供其使用的 Flocker 卷。
@@ -907,6 +978,7 @@ PersistentVolumeSpec 是持久卷的规约。
   
   A GCE PD must exist before mounting to a container. The disk must also be in the same GCE project and zone as the kubelet. A GCE PD can only be mounted as read/write once or read-only many times. GCE PDs support ownership management and SELinux relabeling.*
 -->
+
 - **gcePersistentDisk** (GCEPersistentDiskVolumeSource)
 
   gcePersistentDisk 表示挂接到 kubelet 的主机随后暴露给 Pod 的一个 GCE Disk 资源。
@@ -918,7 +990,7 @@ PersistentVolumeSpec 是持久卷的规约。
   该磁盘还必须与 kubelet 位于相同的 GCE 项目和区域中。GCE PD 只能挂载为读/写一次或只读多次。
   GCE PD 支持所有权管理和 SELinux 重新打标签。**
 
-<!--
+  <!--
   - **gcePersistentDisk.pdName** (string), required
     pdName is unique name of the PD resource in GCE. Used to identify the disk in GCE. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 
@@ -930,7 +1002,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **gcePersistentDisk.readOnly** (boolean)
     readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
--->  
+  -->
+
   - **gcePersistentDisk.pdName** (string)，必需
 
     pdName 是 GCE 中 PD 资源的唯一名称。用于标识 GCE 中的磁盘。更多信息：
@@ -954,69 +1027,21 @@ PersistentVolumeSpec 是持久卷的规约。
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#gcepersistentdisk
 
 <!--
-- **glusterfs** (GlusterfsPersistentVolumeSource)
-  glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
-
-  <a name="GlusterfsPersistentVolumeSource"></a>
-  *Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.*
--->
-- **glusterfs** (GlusterfsPersistentVolumeSource)
-
-  glusterfs 表示挂接到主机并暴露给 Pod 的 Glusterfs 卷。由管理员进行制备。更多信息：
-  https://examples.k8s.io/volumes/glusterfs/README.md
-  
-  <a name="GlusterfsPersistentVolumeSource"></a> 
-  **表示与 Pod 生命周期相同的 Glusterfs 挂载。Glusterfs 卷不支持所有权管理或 SELinux 重新打标签。**
-
-<!--
-  - **glusterfs.endpoints** (string), required
-    endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-
-  - **glusterfs.path** (string), required
-    path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-
-  - **glusterfs.endpointsNamespace** (string)
-    endpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-
-  - **glusterfs.readOnly** (boolean)
-    readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
--->  
-  - **glusterfs.endpoints** (string)，必需
-
-    endpoints 是详细说明 Glusterfs 拓扑的端点名称。更多信息：
-    https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-  
-  - **glusterfs.path** (string)，必需
-
-    path 是 Glusterfs 卷路径。更多信息：
-    https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-  
-  - **glusterfs.endpointsNamespace** (string)
-
-    endpointsNamespace 是包含 Glusterfs 端点的名字空间。
-    如果此字段为空，则 EndpointNamespace 默认为与绑定的 PVC 相同的名字空间。
-    更多信息： https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-  
-  - **glusterfs.readOnly** (boolean)
-
-    此处 readOnly 将强制使用只读权限挂载 Glusterfs 卷。默认为 false。更多信息：
-    https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-
-<!--
 - **iscsi** (ISCSIPersistentVolumeSource)
   iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. Provisioned by an admin.
 
   <a name="ISCSIPersistentVolumeSource"></a>
   *ISCSIPersistentVolumeSource represents an ISCSI disk. ISCSI volumes can only be mounted as read/write once. ISCSI volumes support ownership management and SELinux relabeling.*
 -->
+
 - **iscsi** (ISCSIPersistentVolumeSource)
 
   iscsi 表示挂接到 kubelet 的主机随后暴露给 Pod 的一个 ISCSI Disk 资源。由管理员进行制备。
   
-  <a name="ISCSIPersistentVolumeSource"></a> 
+  <a name="ISCSIPersistentVolumeSource"></a>
   **ISCSIPersistentVolumeSource 表示一个 ISCSI 磁盘。ISCSI 卷只能以读/写一次进行挂载。ISCSI 卷支持所有权管理和 SELinux 重新打标签。**
 
-<!--
+  <!--
   - **iscsi.iqn** (string), required
     iqn is Target iSCSI Qualified Name.
 
@@ -1025,7 +1050,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **iscsi.targetPortal** (string), required
     targetPortal is iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
--->  
+  -->
+
   - **iscsi.iqn** (string)，必需
 
     iqn 是目标 iSCSI 限定名称（Target iSCSI Qualified Name）。
@@ -1039,7 +1065,7 @@ PersistentVolumeSpec 是持久卷的规约。
     targetPortal 是 iSCSI 目标门户（iSCSI Target Portal）。
     如果不是默认端口（通常是 TCP 端口 860 和 3260），则 Portal 为 IP 或 ip_addr:port。
 
-<!--
+  <!--
   - **iscsi.chapAuthDiscovery** (boolean)
     chapAuthDiscovery defines whether support iSCSI Discovery CHAP authentication
 
@@ -1048,7 +1074,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **iscsi.fsType** (string)
     fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#iscsi
--->  
+  -->
+
   - **iscsi.chapAuthDiscovery** (boolean)
 
     chapAuthDiscovery 定义是否支持 iSCSI Discovery CHAP 身份认证。
@@ -1063,7 +1090,7 @@ PersistentVolumeSpec 是持久卷的规约。
     例如：“ext4”、“xfs”、“ntfs”。如果未指定，则隐式推断为 “ext4”。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#iscsi
 
-<!--
+  <!--
   - **iscsi.initiatorName** (string)
     initiatorName is the custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface \<target portal>:\<volume name> will be created for the connection.
 
@@ -1075,7 +1102,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **iscsi.readOnly** (boolean)
     readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false.
--->  
+  -->
+
   - **iscsi.initiatorName** (string)
 
     initiatorName 是自定义的 iSCSI 发起程序名称（iSCSI Initiator Name）。
@@ -1094,7 +1122,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
     此处 readOnly 将在 VolumeMounts 中强制设置 readOnly。默认为 false。
 
-<!--
+  <!--
   - **iscsi.secretRef** (SecretReference)
     secretRef is the CHAP Secret for iSCSI target and initiator authentication
 
@@ -1106,7 +1134,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
     - **iscsi.secretRef.namespace** (string)
       namespace defines the space within which the secret name must be unique.
--->  
+  -->
+
   - **iscsi.secretRef** (SecretReference)
 
     secretRef 是 iSCSI 目标和发起程序身份认证所用的 CHAP Secret。
@@ -1138,6 +1167,7 @@ PersistentVolumeSpec 是持久卷的规约。
   - **nfs.readOnly** (boolean)
     readOnly here will force the NFS export to be mounted with read-only permissions. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
 -->
+
 - **nfs** (NFSVolumeSource)
 
   nfs 表示主机上挂载的 NFS。由管理员进行制备。更多信息：
@@ -1174,6 +1204,7 @@ PersistentVolumeSpec 是持久卷的规约。
   - **photonPersistentDisk.fsType** (string)
     fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified.
 -->
+
 - **photonPersistentDisk** (PhotonPersistentDiskVolumeSource)
 
   photonPersistentDisk 表示 kubelet 主机上挂接和挂载的 PhotonController 持久磁盘。
@@ -1206,6 +1237,7 @@ PersistentVolumeSpec 是持久卷的规约。
   - **portworxVolume.readOnly** (boolean)
     readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 -->
+
 - **portworxVolume** (PortworxVolumeSource)
 
   portworxVolume 表示 kubelet 主机上挂接和挂载的 portworx 卷。
@@ -1239,6 +1271,7 @@ PersistentVolumeSpec 是持久卷的规约。
   - **quobyte.volume** (string), required
     volume is a string that references an already created Quobyte volume by name.
 -->
+
 - **quobyte** (QuobyteVolumeSource)
 
   quobyte 表示在共享 Pod 生命周期的主机上挂载的 Quobyte。
@@ -1255,7 +1288,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
     volume 是一个字符串，通过名称引用已创建的 Quobyte 卷。
 
-<!--
+  <!--
   - **quobyte.group** (string)
     group to map volume access to Default is no group
 
@@ -1267,7 +1300,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **quobyte.user** (string)
     user to map volume access to Defaults to serivceaccount user
--->  
+  -->
+
   - **quobyte.group** (string)
 
     group 是将卷访问映射到的组。默认为无组。
@@ -1297,6 +1331,7 @@ PersistentVolumeSpec 是持久卷的规约。
   - **rbd.monitors** ([]string), required
     monitors is a collection of Ceph monitors. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 -->
+
 - **rbd** (RBDPersistentVolumeSource)
 
   rbd 表示主机上挂载的 Rados 块设备，其生命周期与 Pod 生命周期相同。更多信息：
@@ -1315,7 +1350,7 @@ PersistentVolumeSpec 是持久卷的规约。
     monitors 是 Ceph 监测的集合。更多信息：
     https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
-<!--
+  <!--
   - **rbd.fsType** (string)
     fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
 
@@ -1327,7 +1362,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **rbd.readOnly** (boolean)
     readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
--->  
+  -->
+
   - **rbd.fsType** (string)
 
     fsType 是你要挂载的卷的文件系统类型。提示：确保主机操作系统支持此文件系统类型。
@@ -1349,7 +1385,7 @@ PersistentVolumeSpec 是持久卷的规约。
     此处 readOnly 将在 VolumeMounts 中强制设置 readOnly。默认为 false。更多信息：
     https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
-<!--
+  <!--
   - **rbd.secretRef** (SecretReference)
     secretRef is name of the authentication secret for RBDUser. If provided overrides keyring. Default is nil. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 
@@ -1364,7 +1400,8 @@ PersistentVolumeSpec 是持久卷的规约。
   
   - **rbd.user** (string)
     user is the rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
--->  
+  -->
+
   - **rbd.secretRef** (SecretReference)
 
     secretRef 是针对 RBDUser 的身份认证 Secret 的名称。如果提供，则重载 keyring。默认为 nil。
@@ -1396,6 +1433,7 @@ PersistentVolumeSpec 是持久卷的规约。
   - **scaleIO.gateway** (string), required
     gateway is the host address of the ScaleIO API Gateway.
 -->
+
 - **scaleIO** (ScaleIOPersistentVolumeSource)
 
   scaleIO 表示 Kubernetes 节点上挂接和挂载的 ScaleIO 持久卷。
@@ -1407,7 +1445,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
     gateway 是 ScaleIO API 网关的主机地址。
 
-<!--
+  <!--
   - **scaleIO.secretRef** (SecretReference), required
     secretRef references to the secret for ScaleIO user and other sensitive information. If this is not provided, Login operation will fail.
 
@@ -1419,7 +1457,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
     - **scaleIO.secretRef.namespace** (string)
       namespace defines the space within which the secret name must be unique.
--->  
+  -->
+
   - **scaleIO.secretRef** (SecretReference)，必需
 
     secretRef 引用包含 ScaleIO 用户和其他敏感信息的 Secret。如果未提供此项，则 Login 操作将失败。
@@ -1435,7 +1474,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
       namespace 指定一个名字空间，Secret 名称在该名字空间中必须唯一。
 
-<!--
+  <!--
   - **scaleIO.system** (string), required
     system is the name of the storage system as configured in ScaleIO.
 
@@ -1447,7 +1486,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **scaleIO.readOnly** (boolean)
     readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
--->  
+  -->
+
   - **scaleIO.system** (string)，必需
 
     system 是 ScaleIO 中所配置的存储系统的名称。
@@ -1465,7 +1505,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
     readOnly 默认为 false（读/写）。此处 readOnly 将在 VolumeMounts 中强制设置 readOnly。
 
-<!--
+  <!--
   - **scaleIO.sslEnabled** (boolean)
     sslEnabled is the flag to enable/disable SSL communication with Gateway, default false
 
@@ -1477,7 +1517,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **scaleIO.volumeName** (string)
     volumeName is the name of a volume already created in the ScaleIO system that is associated with this volume source.
--->  
+  -->
+
   - **scaleIO.sslEnabled** (boolean)
 
     sslEnabled 是启用/禁用与网关（Gateway）进行 SSL 通信的标志，默认为 false。
@@ -1508,6 +1549,7 @@ PersistentVolumeSpec 是持久卷的规约。
   - **storageos.readOnly** (boolean)
     readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
 -->
+
 - **storageos** (StorageOSPersistentVolumeSource)
 
   storageOS 表示一个 StorageOS 卷，该卷被挂接到 kubelet 的主机并挂载到 Pod 中。更多信息：
@@ -1525,7 +1567,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
     readOnly 默认为 false（读/写）。此处 readOnly 将在 VolumeMounts 中强制设置 readOnly。
 
-<!--
+  <!--
   - **storageos.secretRef** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
     secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
 
@@ -1534,7 +1576,8 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **storageos.volumeNamespace** (string)
     volumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
--->  
+  -->
+
   - **storageos.secretRef** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
 
     secretRef 指定用于获取 StorageOS API 凭据的 Secret。如果未指定，则将尝试使用默认值。
@@ -1570,6 +1613,7 @@ PersistentVolumeSpec 是持久卷的规约。
   - **vsphereVolume.storagePolicyName** (string)
     storagePolicyName is the storage Policy Based Management (SPBM) profile name.
 -->
+
 - **vsphereVolume** (VsphereVirtualDiskVolumeSource)
 
   vsphereVolume 表示 kubelet 主机上挂接和挂载的 vSphere 卷。
@@ -1612,6 +1656,7 @@ PersistentVolumeStatus 是持久卷的当前状态。
 - **reason** (string)
   reason is a brief CamelCase string that describes any failure and is meant for machine parsing and tidy display in the CLI.
 -->
+
 - **message** (string)
 
   message 是一条人类可读的消息，指明有关卷为何处于此状态的详细信息。
@@ -1634,6 +1679,7 @@ PersistentVolumeList 是 PersistentVolume 各项的列表。
 <hr>
 
 - **apiVersion**: v1
+
 - **kind**: PersistentVolumeList
 
 <!--
@@ -1643,6 +1689,7 @@ PersistentVolumeList 是 PersistentVolume 各项的列表。
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/persistent-volume-v1#PersistentVolume" >}}">PersistentVolume</a>), required
   items is a list of persistent volumes. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes
 -->
+
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
   标准的列表元数据。更多信息：

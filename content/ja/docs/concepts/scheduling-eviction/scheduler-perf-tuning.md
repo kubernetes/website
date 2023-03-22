@@ -1,7 +1,7 @@
 ---
 title: スケジューラーのパフォーマンスチューニング
 content_type: concept
-weight: 80
+weight: 70
 ---
 
 <!-- overview -->
