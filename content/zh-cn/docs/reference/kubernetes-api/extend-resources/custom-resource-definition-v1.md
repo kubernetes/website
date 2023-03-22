@@ -150,7 +150,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
 - **scope** (string)，必需
   
-  scope 表示自定义资源是群集作用域还是命名空间作用域。允许的值为 `Cluster` 和 `Namespaced`。
+  scope 表示自定义资源是集群作用域还是命名空间作用域。允许的值为 `Cluster` 和 `Namespaced`。
 
 <!--
 - **versions** ([]CustomResourceDefinitionVersion), required
@@ -161,7 +161,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 - **versions** ([]CustomResourceDefinitionVersion)，必需
 
   versions 是自定义资源的所有 API 版本的列表。版本名称用于计算服务版本在 API 发现中列出的顺序。
-  如果版本字符串是与 Kubernetes 的版本号形式类似，则它将排序在非 Kubernetes 形式版本字符串之前。
+  如果版本字符串与 Kubernetes 的版本号形式类似，则它将被排序在非 Kubernetes 形式版本字符串之前。
   Kubernetes 的版本号字符串按字典顺序排列。Kubernetes 版本号以 “v” 字符开头，
   后面是一个数字（主版本），然后是可选字符串 “alpha” 或 “beta” 和另一个数字（次要版本）。
   它们首先按 GA > beta > alpha 排序（其中 GA 是没有 beta 或 alpha 等后缀的版本），然后比较主要版本，
@@ -200,7 +200,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
   - **versions.storage** (boolean)，必需
 
-    storage 表示在将自定义资源持久保存到存储时应使用此版本。有且仅有一个版本的 storage=true。
+    storage 表示在将自定义资源持久保存到存储时，应使用此版本。有且仅有一个版本的 storage=true。
 
   - **versions.additionalPrinterColumns** ([]CustomResourceColumnDefinition)
 
@@ -388,8 +388,8 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
       status 表示自定义资源应该为 `/status` 子资源服务。当启用时：
 
-      1. 对自定义资源主端点的请求会忽略对对象的 `status` 节的改变；
-      2. 对自定义资源 `/status` 子资源的请求忽略对对象的 `status` 节以外的任何变化。
+      1. 对自定义资源主端点的请求会忽略对对象 `status` 节的改变；
+      2. 对自定义资源 `/status` 子资源的请求忽略对对象 `status` 节以外的任何变化。
 
       <a name="CustomResourceSubresourceStatus"></a>
       <!--
@@ -1103,7 +1103,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 
   - **conditions.type** (string)，必需
 
-    type 是状况的类型。类型包括：Established、NamesAccepted 和 Terminating。
+    type 是条件的类型。类型包括：Established、NamesAccepted 和 Terminating。
 
   - **conditions.lastTransitionTime** (Time)
 
