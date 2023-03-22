@@ -18,6 +18,6 @@ APIを起点とした退避は、[Eviction API](/docs/reference/generated/kubern
 
 APIを起点とした退避は[`PodDisruptionBudgets`](/docs/tasks/run-application/configure-pdb/)と[`terminationGracePeriodSeconds`](/ja/docs/concepts/workloads/pods/pod-lifecycle#pod-termination)の設定を優先します。
 
-APIを起点とした退避は、[Node不足による退避](/docs/concepts/scheduling-eviction/eviction/#kubelet-eviction)とは異なります。
+APIを起点とした退避は、[Node不足による退避](/docs/concepts/scheduling-eviction/node-pressure-eviction/)とは異なります。
 
 * 詳しくは[APIを起点とした退避](/ja/docs/concepts/scheduling-eviction/api-eviction/)をご覧ください。

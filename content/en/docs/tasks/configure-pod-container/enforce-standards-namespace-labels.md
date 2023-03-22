@@ -4,7 +4,7 @@ reviewers:
 - tallclair
 - liggitt
 content_type: task
-min-kubernetes-server-version: v1.22
+weight: 250
 ---
 
 Namespaces can be labeled to enforce the [Pod Security Standards](/docs/concepts/security/pod-security-standards). The three policies
@@ -15,9 +15,11 @@ text="admission controller" term_id="admission-controller" >}}.
 
 ## {{% heading "prerequisites" %}}
 
-{{% version-check %}}
+Pod Security Admission was available by default in Kubernetes v1.23, as
+a beta. From version 1.25 onwards, Pod Security Admission is generally
+available.
 
-- Ensure the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) is enabled.
+{{% version-check %}}
 
 ## Requiring the `baseline` Pod Security Standard with namespace labels
 

@@ -2,16 +2,18 @@
 title: Understanding Kubernetes Objects
 content_type: concept
 weight: 10
-card: 
+card:
   name: concepts
   weight: 40
 ---
 
 <!-- overview -->
+
 This page explains how Kubernetes objects are represented in the Kubernetes API, and how you can
 express them in `.yaml` format.
 
 <!-- body -->
+
 ## Understanding Kubernetes objects {#kubernetes-objects}
 
 *Kubernetes objects* are persistent entities in the Kubernetes system. Kubernetes uses these
@@ -32,7 +34,7 @@ interface, for example, the CLI makes the necessary Kubernetes API calls for you
 the Kubernetes API directly in your own programs using one of the
 [Client Libraries](/docs/reference/using-api/client-libraries/).
 
-### Object Spec and Status
+### Object spec and status
 
 Almost every Kubernetes object includes two nested object fields that govern
 the object's configuration: the object *`spec`* and the object *`status`*.
@@ -86,7 +88,7 @@ The output is similar to this:
 deployment.apps/nginx-deployment created
 ```
 
-### Required Fields
+### Required fields
 
 In the `.yaml` file for the Kubernetes object you want to create, you'll need to set values for the following fields:
 
@@ -115,7 +117,10 @@ detail the structure of that `.status` field, and its content for each different
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about the most important basic Kubernetes objects, such as [Pod](/docs/concepts/workloads/pods/).
-* Learn about [controllers](/docs/concepts/architecture/controller/) in Kubernetes.
-* [Using the Kubernetes API](/docs/reference/using-api/) explains some more API concepts.
+Learn more about the following:
 
+* [Pods](/docs/concepts/workloads/pods/) which are the most important basic Kubernetes objects.
+* [Deployment](/docs/concepts/workloads/controllers/deployment/) objects.
+* [Controllers](/docs/concepts/architecture/controller/) in Kubernetes.
+* [Kubernetes API overview](/docs/reference/using-api/) which explains some more API concepts.
+* [kubectl](/docs/reference/kubectl/) and [kubectl commands](/docs/reference/generated/kubectl/kubectl-commands).

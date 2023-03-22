@@ -1,12 +1,12 @@
 ---
 title: 撰写新主题
 content_type: task
-weight: 20
+weight: 70
 ---
 <!--
 title: Writing a new topic
 content_type: task
-weight: 20
+weight: 70
 -->
 
 <!-- overview -->
@@ -19,7 +19,7 @@ This page shows how to create a new topic for the Kubernetes docs.
 
 <!--
 Create a fork of the Kubernetes documentation repository as described in
-[Start contributing](/docs/contribute/start/).
+[Open a PR](/docs/contribute/new-content/open-a-pr/).
 -->
 如[发起 PR](/zh-cn/docs/contribute/new-content/open-a-pr/)中所述，创建 Kubernetes 文档库的派生副本。
 
@@ -52,12 +52,22 @@ Tutorial | A tutorial page shows how to accomplish a goal that ties together sev
 {{< /table >}}
 
 <!--
+### Creating a new page
 Use a [content type](/docs/contribute/style/page-content-types/) for each new page
-that you write. Using page type helps ensure
-consistency among topics of a given type.
+that you write. The docs site provides templates or
+[Hugo archetypes](https://gohugo.io/content-management/archetypes/) to create
+new content pages. To create a new type of page, run `hugo new` with the path to the file
+you want to create. For example:
 -->
+### 创建一个新页面{#creating-a-new-page}
+
 为每个新页面选择其[内容类型](/zh-cn/docs/contribute/style/page-content-types/)。
-使用页面类型有助于确保给定类型的各主题之间保持一致。
+文档站提供了模板或 [Hugo Archetypes](https://gohugo.io/content-management/archetypes/) 来创建新的内容页面。
+要创建新类型的页面，请使用要创建的文件的路径，运行 `hugo new` 命令。例如：
+
+```
+hugo new docs/concepts/my-first-concept.md
+```
 
 <!--
 ## Choosing a title and filename
@@ -65,7 +75,7 @@ consistency among topics of a given type.
 Choose a title that has the keywords you want search engines to find.
 Create a filename that uses the words in your title separated by hyphens.
 For example, the topic with title
-[Using an HTTP Proxy to Access the Kubernetes API](/docs/tasks/access-kubernetes-api/http-proxy-access-api/)
+[Using an HTTP Proxy to Access the Kubernetes API](/docs/tasks/extend-kubernetes/http-proxy-access-api/)
 has filename `http-proxy-access-api.md`. You don't need to put
 "kubernetes" in the filename, because "kubernetes" is already in the
 URL for the topic, for example:
@@ -179,8 +189,8 @@ following cases (not an exhaustive list):
   [FlexVolume](/docs/concepts/storage/volumes#flexvolume) implementation.
 - The code is an incomplete example because its purpose is to highlight a
   portion of a larger file. For example, when describing ways to
-  customize the [PodSecurityPolicy](/docs/tasks/administer-cluster/sysctl-cluster/#podsecuritypolicy)
-  for some reasons, you can provide a short snippet directly in your topic file.
+  customize a [RoleBinding](/docs/reference/access-authn-authz/rbac/#role-binding-examples),
+  you can provide a short snippet directly in your topic file.
 - The code is not meant for users to try out due to other reasons. For example,
   when describing how a new attribute should be added to a resource using the
   `kubectl edit` command, you can provide a short example that includes only
@@ -191,8 +201,8 @@ following cases (not an exhaustive list):
 - 代码不够通用，用户无法验证。例如，你可以嵌入 YAML 文件来创建一个依赖于特定
   [FlexVolume](/zh-cn/docs/concepts/storage/volumes#flexvolume) 实现的 Pod。
 - 该代码是一个不完整的示例，因为其目的是突出展现某个大文件中的部分内容。
-  例如，在描述出于某些原因定制
-  [PodSecurityPolicy](/zh-cn/docs/tasks/administer-cluster/sysctl-cluster/#podsecuritypolicy)
+  例如，在描述
+  [RoleBinding](/zh-cn/docs/reference/access-authn-authz/rbac/#role-binding-examples)
   的方法时，你可以在主题文件中直接提供一个短的代码段。
 - 由于某些其他原因，该代码不适合用户验证。
   例如，当使用 `kubectl edit` 命令描述如何将新属性添加到资源时，
@@ -282,7 +292,7 @@ submitted to ensure all examples pass the tests.
 
 <!--
 For an example of a topic that uses this technique, see
-[Running a Single-Instance Stateful Application](/docs/tutorials/stateful-application/run-stateful-application/).
+[Running a Single-Instance Stateful Application](/docs/tasks/run-application/run-single-instance-stateful-application/).
 -->
 有关使用此技术的主题的示例，请参见
 [运行单实例有状态的应用](/zh-cn/docs/tasks/run-application/run-single-instance-stateful-application/)。

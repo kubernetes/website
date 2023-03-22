@@ -14,68 +14,87 @@ description: Creating Secret objects using kustomization.yaml file.
 <!-- overview -->
 
 <!--  
-Since Kubernetes v1.14, `kubectl` supports
-[managing objects using Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/).
-Kustomize provides resource Generators to create Secrets and ConfigMaps. The
-Kustomize generators should be specified in a `kustomization.yaml` file inside
-a directory. After generating the Secret, you can create the Secret on the API
-server with `kubectl apply`.
+`kubectl` supports using the [Kustomize object management tool](/docs/tasks/manage-kubernetes-objects/kustomization/) to manage Secrets
+and ConfigMaps. You create a *resource generator* using Kustomize, which
+generates a Secret that you can apply to the API server using `kubectl`.
 -->
-从 kubernetes v1.14 开始，`kubectl` 支持[使用 Kustomize 管理对象](/zh-cn/docs/tasks/manage-kubernetes-objects/kustomization/)。
-Kustomize 提供了资源生成器（Generators）来创建 Secret 和 ConfigMap。
-Kustomize 生成器应该在某个目录的 `kustomization.yaml` 文件中指定。
-生成 Secret 后，你可以使用 `kubectl apply` 在 API 服务器上创建该 Secret。
+`kubectl` 支持使用 [Kustomize 对象管理工具](/zh-cn/docs/tasks/manage-kubernetes-objects/kustomization/)来管理
+Secret 和 ConfigMap。你可以使用 Kustomize 创建**资源生成器（Resource Generator）**，
+该生成器会生成一个 Secret，让你能够通过 `kubectl` 应用到 API 服务器。
+
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
 
 <!-- steps -->
 
-<!-- ## Create the Kustomization file -->
-## 创建 Kustomization 文件    {#create-the-kustomization-file}
+<!--
+## Create a Secret
 
-<!--  
 You can generate a Secret by defining a `secretGenerator` in a
-`kustomization.yaml` file that references other existing files.
-For example, the following kustomization file references the
-`./username.txt` and the `./password.txt` files:
+`kustomization.yaml` file that references other existing files, `.env` files, or
+literal values. For example, the following instructions create a Kustomization
+file for the username `admin` and the password `1f2d1e2e67df`.
+
+### Create the Kustomization file
 -->
-你可以在 `kustomization.yaml` 中定义 `secreteGenerator`，并在定义中引用其他现成的文件，生成 Secret。
-例如：下面的 kustomization 文件 引用了 `./username.txt` 和 `./password.txt` 文件：
+## 创建 Secret    {#create-a-secret}
 
-```yaml
+你可以在 `kustomization.yaml` 文件中定义 `secreteGenerator` 字段，
+并在定义中引用其它本地文件、`.env` 文件或文字值生成 Secret。
+例如：下面的指令为用户名 `admin` 和密码 `1f2d1e2e67df` 创建 Kustomization 文件。
+
+### 创建 Kustomization 文件   {#create-the-kustomization-file}
+
+{{< tabs name="Secret data" >}}
+{{< tab name="文字" codelang="yaml" >}}
 secretGenerator:
-- name: db-user-pass
-  files:
-  - username.txt
-  - password.txt
-```
-
-<!--  
-You can also define the `secretGenerator` in the `kustomization.yaml`
-file by providing some literals.
-For example, the following `kustomization.yaml` file contains two literals
-for `username` and `password` respectively:
--->
-你也可以在 `kustomization.yaml` 文件中指定一些字面量定义 `secretGenerator`。
-例如：下面的 `kustomization.yaml` 文件中包含了 `username` 和 `password` 两个字面量：
-
-```yaml
-secretGenerator:
-- name: db-user-pass
+- name: database-creds
   literals:
   - username=admin
   - password=1f2d1e2e67df
-```
+{{< /tab >}}
+{{% tab name="文件" %}}
 
+<!--
+1.  Store the credentials in files with the values encoded in base64:
+-->
+1. 用 base64 编码的值存储凭据到文件中：
+
+   ```shell
+   echo -n 'admin' > ./username.txt
+   echo -n '1f2d1e2e67df' > ./password.txt
+   ```
+    
+   <!--
+   The `-n` flag ensures that there's no newline character at the end of your
+   files.
+   -->
+
+   `-n` 标志确保文件结尾处没有换行符。
+
+<!--
+1.  Create the `kustomization.yaml` file:
+-->
+2. 创建 `kustomization.yaml` 文件：
+
+   ```yaml
+   secretGenerator:
+   - name: database-creds
+     files:
+     - username.txt
+     - password.txt
+   ```
+
+{{% /tab %}}}
+{{% tab name=".env 文件" %}}
 <!-- 
-You can also define the `secretGenerator` in the `kustomization.yaml`
-file by providing `.env` files.
-For example, the following `kustomization.yaml` file pulls in data from
-`.env.secret` file:
+You can also define the secretGenerator in the `kustomization.yaml` file by
+providing `.env` files. For example, the following `kustomization.yaml` file
+pulls in data from an `.env.secret` file:
 -->
 你也可以使用 `.env` 文件在 `kustomization.yaml` 中定义 `secretGenerator`。
-例如：下面的 `kustomization.yaml` 文件从 `.env.secret` 文件获取数据。
+例如下面的 `kustomization.yaml` 文件从 `.env.secret` 文件获取数据：
 
 ```yaml
 secretGenerator:
@@ -83,110 +102,105 @@ secretGenerator:
   envs:
   - .env.secret
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 <!--
-Note that in all cases, you don't need to base64 encode the values.
+In all cases, you don't need to base64 encode the values. The name of the YAML
+file **must** be `kustomization.yaml` or `kustomization.yml`.
 -->
-注意，上面两种情况，你都不需要使用 base64 编码。
+在所有情况下，你都不需要对取值作 base64 编码。
+YAML 文件的名称**必须**是 `kustomization.yaml` 或 `kustomization.yml`。
 
-<!-- ## Create the Secret -->
-## 创建 Secret    {#create-the-secret}
+<!--
+### Apply the kustomization file
 
-<!-- Apply the directory containing the `kustomization.yaml` to create the Secret. -->
-使用 `kubectl apply` 命令应用包含 `kustomization.yaml` 文件的目录创建 Secret。
+To create the Secret, apply the directory that contains the kustomization file:
+-->
+### 应用 kustomization 文件   {#apply-the-kustomization-file}
+
+若要创建 Secret，应用包含 kustomization 文件的目录。
 
 ```shell
-kubectl apply -k .
+kubectl apply -k <目录路径>
 ```
 
-<!-- The output is similar to: -->
+<!--
+The output is similar to:
+-->
 输出类似于：
 
 ```
-secret/db-user-pass-96mffmfh4k created
+secret/database-creds-5hdh7hhgfk created
 ```
 
-<!-- 
-Note that when a Secret is generated, the Secret name is created by hashing
+<!--
+When a Secret is generated, the Secret name is created by hashing
 the Secret data and appending the hash value to the name. This ensures that
-a new Secret is generated each time the data is modified. 
+a new Secret is generated each time the data is modified.
+
+To verify that the Secret was created and to decode the Secret data, refer to
+[Managing Secrets using kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#verify-the-secret).
 -->
-请注意，生成 Secret 时，Secret 的名称最终是由 `name` 字段和数据的哈希值拼接而成。
+生成 Secret 时，Secret 的名称最终是由 `name` 字段和数据的哈希值拼接而成。
 这将保证每次修改数据时生成一个新的 Secret。
 
-<!-- ## Check the Secret created -->
-## 检查创建的 Secret    {#check-the-secret-created}
+要验证 Secret 是否已创建并解码 Secret 数据，
+请参阅[使用 kubectl 管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kubectl/#verify-the-secret)。
 
-<!-- You can check that the secret was created: -->
-你可以检查刚才创建的 Secret：
+<!--
+## Edit a Secret {#edit-secret}
 
-```shell
-kubectl get secrets
-```
-
-<!-- The output is similar to: -->
-输出类似于：
-
-```
-NAME                             TYPE                                  DATA      AGE
-db-user-pass-96mffmfh4k          Opaque                                2         51s
-```
-
-<!-- You can view a description of the secret: -->
-你可以看到 Secret 的描述：
-
-```shell
-kubectl describe secrets/db-user-pass-96mffmfh4k
-```
-
-<!-- The output is similar to: -->
-输出类似于：
-
-```
-Name:            db-user-pass-96mffmfh4k
-Namespace:       default
-Labels:          <none>
-Annotations:     <none>
-
-Type:            Opaque
-
-Data
-====
-password.txt:    12 bytes
-username.txt:    5 bytes
-```
-
-<!-- 
-The commands `kubectl get` and `kubectl describe` avoid showing the contents of a `Secret` by
-default. This is to protect the `Secret` from being exposed accidentally to an onlooker,
-or from being stored in a terminal log.
-To check the actual content of the encoded data, please refer to
-[decoding secret](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret). 
+1.  In your `kustomization.yaml` file, modify the data, such as the `password`.
+1.  Apply the directory that contains the kustomization file:
 -->
-`kubectl get` 和 `kubectl describe` 命令默认不显示 `Secret` 的内容。
-这是为了防止 `Secret` 被意外暴露给旁观者或存储在终端日志中。
-检查编码后的实际内容，请参考[解码 secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kubectl/#decoding-secret)。 
+## 编辑 Secret {#edit-secret}
+
+1. 在 `kustomization.yaml` 文件中，修改诸如 `password` 等数据。
+1. 应用包含 kustomization 文件的目录：
+
+   ```shell
+   kubectl apply -k <目录路径>
+   ```
+
+   <!--
+   The output is similar to:
+   -->
+
+   输出类似于：
+
+   ```
+   secret/db-user-pass-6f24b56cc8 created
+   ```
+
+<!--
+The edited Secret is created as a new `Secret` object, instead of updating the
+existing `Secret` object. You might need to update references to the Secret in
+your Pods.
 -->
+编辑过的 Secret 被创建为一个新的 `Secret` 对象，而不是更新现有的 `Secret` 对象。
+你可能需要在 Pod 中更新对该 Secret 的引用。
 
+<!--
+## Clean up
 
-<!-- ## Clean Up -->
-## 清理    {#clean-up}
+To delete a Secret, use `kubectl`:
+-->
+## 清理   {#clean-up}
 
-<!-- To delete the Secret you have created: -->
-删除你创建的 Secret：
+要删除 Secret，请使用 `kubectl`：
 
 ```shell
-kubectl delete secret db-user-pass-96mffmfh4k
+kubectl delete secret db-user-pass
 ```
 
-<!-- Optional section; add links to information related to this topic. -->
 ## {{% heading "whatsnext" %}}
 
 <!-- 
 - Read more about the [Secret concept](/docs/concepts/configuration/secret/)
-- Learn how to [manage Secrets with the `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- Learn how to [manage Secrets using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/) 
+- Learn how to [manage Secrets using kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- Learn how to [manage Secrets using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
 -->
 - 进一步阅读 [Secret 概念](/zh-cn/docs/concepts/configuration/secret/)
-- 了解如何[使用 `kubectl` 命令管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- 了解如何[使用 kubectl 管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 - 了解如何[使用配置文件管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-config-file/)

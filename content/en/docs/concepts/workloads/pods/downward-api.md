@@ -1,6 +1,7 @@
 ---
 title: Downward API
 content_type: concept
+weight: 170
 description: >
   There are two ways to expose Pod and container fields to a running container:
   environment variables, and as files that are populated by a special volume type.
@@ -22,7 +23,7 @@ inject the Pod's name into the well-known environment variable.
 
 In Kubernetes, there are two ways to expose Pod and container fields to a running container:
 
-* as [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/#the-downward-api)
+* as [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 * as [files in a `downwardAPI` volume](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
 
 Together, these two ways of exposing Pod and container fields are called the
@@ -62,6 +63,9 @@ via either mechanism are:
 `metadata.labels['<KEY>']`
 : the text value of the pod's {{< glossary_tooltip text="label" term_id="label" >}} named `<KEY>` (for example, `metadata.labels['mylabel']`)
 
+The following information is available through environment variables
+**but not as a downwardAPI volume fieldRef**:
+
 `spec.serviceAccountName`
 : the name of the pod's {{< glossary_tooltip text="service account" term_id="service-account" >}}
 
@@ -74,8 +78,8 @@ via either mechanism are:
 `status.podIP`
 : the pod's primary IP address (usually, its IPv4 address)
 
-In addition, the following information is available through
-a `downwardAPI` volume `fieldRef`, but **not as environment variables**:
+The following information is available through a `downwardAPI` volume 
+`fieldRef`, **but not as environment variables**:
 
 `metadata.labels`
 : all of the pod's labels, formatted as `label-key="escaped-label-value"` with one label per line
@@ -127,5 +131,5 @@ calculation.
 You can read about [`downwardAPI` volumes](/docs/concepts/storage/volumes/#downwardapi).
 
 You can try using the downward API to expose container- or Pod-level information:
-* as [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/#the-downward-api)
+* as [environment variables](/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 * as [files in `downwardAPI` volume](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)

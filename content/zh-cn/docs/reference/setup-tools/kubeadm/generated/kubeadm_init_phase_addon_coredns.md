@@ -52,13 +52,13 @@ kubeadm 配置文件的路径。
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for various features. Options are:<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>UnversionedKubeletConfigMap=true|false (BETA - default=true)
+A set of key=value pairs that describe feature gates for various features. Options are:<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>UnversionedKubeletConfigMap=true|false (default=true)
 -->
 <p>
-一组用来描述各种功能特性的键值（key=value）对。选项是：
+一组用来描述各种特性门控的键值（key=value）对。选项是：
 <br/>PublicKeysECDSA=true|false (ALPHA - 默认值=false)
 <br/>RootlessControlPlane=true|false (ALPHA - 默认值=false)
-<br/>UnversionedKubeletConfigMap=true|false (BETA - 默认值=true)
+<br/>UnversionedKubeletConfigMap=true|false (默认值=true)
 </p>
 </td>
 </tr>
@@ -78,9 +78,9 @@ coredns 操作的帮助命令
 <tr>
 <td colspan="2">
 <!--
---image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "k8s.gcr.io"
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "registry.k8s.io"
 -->
---image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："k8s.gcr.io"
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："registry.k8s.io"
 </td>
 </tr>
 <tr>
@@ -129,6 +129,20 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 </p>
 </td>
 </tr>
+
+<tr>
+<td colspan="2">--print-manifest</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
+<!--
+Print the addon manifests to STDOUT instead of installing them
+-->
+向 STDOUT 输出插件清单，而不是安装这些插件
+</p></td>
+</tr>
+
+
 
 <tr>
 <td colspan="2">

@@ -2,6 +2,7 @@
 title: 迁移多副本的控制面以使用云控制器管理器
 linkTitle: 迁移多副本的控制面以使用云控制器管理器
 content_type: task
+weight: 250
 ---
 
 <!--
@@ -11,6 +12,7 @@ reviewers:
 title: "Migrate Replicated Control Plane To Use Cloud Controller Manager"
 linkTitle: "Migrate Replicated Control Plane To Use Cloud Controller Manager"
 content_type: task
+weight: 250
 -->
 
 <!-- overview -->
@@ -22,7 +24,7 @@ content_type: task
 <!--
 ## Background
 
-As part of the [cloud provider extraction effort](https://kubernetes.io/blog/2019/04/17/the-future-of-cloud-providers-in-kubernetes/),
+As part of the [cloud provider extraction effort](/blog/2019/04/17/the-future-of-cloud-providers-in-kubernetes/),
 all cloud specific controllers must be moved out of the `kube-controller-manager`. 
 All existing clusters that run cloud controllers in the `kube-controller-manager` must migrate to instead run the controllers in a cloud provider specific `cloud-controller-manager`.
 
@@ -32,7 +34,7 @@ For a single-node control plane, or if unavailability of controller managers can
 -->
 ## 背景
 
-作为[云驱动提取工作](https://kubernetes.io/blog/2019/04/17/the-future-of-cloud-providers-in-kubernetes/)
+作为[云驱动提取工作](/blog/2019/04/17/the-future-of-cloud-providers-in-kubernetes/)
 的一部分，所有特定于云的控制器都必须移出 `kube-controller-manager`。
 所有在 `kube-controller-manager` 中运行云控制器的现有集群必须迁移到特定于云厂商的
 `cloud-controller-manager` 中运行这些控制器。

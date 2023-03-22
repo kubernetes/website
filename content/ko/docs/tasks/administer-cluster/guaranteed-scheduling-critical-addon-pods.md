@@ -1,8 +1,8 @@
 ---
-
-
-
-
+# reviewers:
+# - davidopp
+# - filipg
+# - piosz
 title: 중요한 애드온 파드 스케줄링 보장하기
 content_type: concept
 ---

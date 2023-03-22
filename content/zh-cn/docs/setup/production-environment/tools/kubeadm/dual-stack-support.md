@@ -1,14 +1,14 @@
 ---
 title: 使用 kubeadm 支持双协议栈
 content_type: task
-weight: 110
+weight: 100
 min-kubernetes-server-version: 1.21
 ---
 
 <!--
 title: Dual-stack support with kubeadm
 content_type: task
-weight: 110
+weight: 100
 min-kubernetes-server-version: 1.21
 -->
 
@@ -54,6 +54,8 @@ Services that you are planning to run.
 私有地址范围。对于 IPv6，集群操作人员通常会基于分配给该操作人员的地址范围，
 从 `2000::/3` 中选择一个全局的单播地址块。你不需要将集群的 IP 地址范围路由
 到公众互联网。
+
+所分配的 IP 地址数量应该与你计划运行的 Pod 和 Service 的数量相适应。
 
 {{< note >}}
 <!--

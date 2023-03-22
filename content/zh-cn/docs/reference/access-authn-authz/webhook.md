@@ -1,7 +1,7 @@
 ---
 title: Webhook 模式
 content_type: concept
-weight: 95
+weight: 100
 ---
 <!--
 reviewers:
@@ -11,17 +11,20 @@ reviewers:
 - liggitt
 title: Webhook Mode
 content_type: concept
-weight: 95
+weight: 100
 -->
 
 <!-- overview -->
+
 <!--
 A WebHook is an HTTP callback: an HTTP POST that occurs when something happens; a simple event-notification via HTTP POST. A web application implementing WebHooks will POST a message to a URL when certain things happen.
 -->
-WebHook 是一种 HTTP 回调：某些条件下触发的 HTTP POST 请求；通过 HTTP POST 发送的简单事件通知。一个基于 web 应用实现的 WebHook 会在特定事件发生时把消息发送给特定的 URL。
+WebHook 是一种 HTTP 回调：某些条件下触发的 HTTP POST 请求；通过 HTTP POST
+发送的简单事件通知。一个基于 web 应用实现的 WebHook 会在特定事件发生时把消息发送给特定的 URL。
 
 
 <!-- body -->
+
 <!--
 When specified, mode `Webhook` causes Kubernetes to query an outside REST
 service when determining user privileges.
@@ -37,14 +40,16 @@ service when determining user privileges.
 Mode `Webhook` requires a file for HTTP configuration, specify by the
 `--authorization-webhook-config-file=SOME_FILENAME` flag.
 -->
-`Webhook` 模式需要一个 HTTP 配置文件，通过 `--authorization-webhook-config-file=SOME_FILENAME` 的参数声明。
+`Webhook` 模式需要一个 HTTP 配置文件，通过
+`--authorization-webhook-config-file=SOME_FILENAME` 的参数声明。
 
 <!--
 The configuration file uses the [kubeconfig](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)
 file format. Within the file "users" refers to the API Server webhook and
 "clusters" refers to the remote service.
 -->
-配置文件的格式使用 [kubeconfig](/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)。
+配置文件的格式使用
+[kubeconfig](/zh-cn/docs/tasks/access-application-cluster/configure-access-multiple-clusters/)。
 在该文件中，“users” 代表着 API 服务器的 webhook，而 “cluster” 代表着远程服务。
 
 <!--
@@ -135,7 +140,8 @@ compatibility promises for beta objects and check the "apiVersion" field of the
 request to ensure correct deserialization. Additionally, the API Server must
 enable the `authorization.k8s.io/v1beta1` API extensions group (`--runtime-config=authorization.k8s.io/v1beta1=true`).
 -->
-需要注意的是 webhook API 对象与其他 Kubernetes API 对象一样都同样都遵从[版本兼容规则](/zh/docs/concepts/overview/kubernetes-api/)。
+需要注意的是 webhook API 对象与其他 Kubernetes API
+对象一样都同样都遵从[版本兼容规则](/zh-cn/docs/concepts/overview/kubernetes-api/)。
 实施人员应该了解 beta 对象的更宽松的兼容性承诺，同时确认请求的 "apiVersion" 字段能被正确地反序列化。
 此外，API 服务器还必须启用 `authorization.k8s.io/v1beta1` API 扩展组 (`--runtime-config=authorization.k8s.io/v1beta1=true`)。
 
@@ -267,5 +273,6 @@ to the REST api.
 For further documentation refer to the authorization.v1beta1 API objects and
 [webhook.go](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go).
 -->
-更多信息可以参考 authorization.v1beta1 API 对象和 [webhook.go](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go)。
+更多信息可以参考 authorization.v1beta1 API 对象和
+[webhook.go](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/apiserver/plugin/pkg/authorizer/webhook/webhook.go)。
 

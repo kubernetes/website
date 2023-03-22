@@ -40,14 +40,18 @@ following diagram:
 ## 传输安全 {#transport-security}
 
 <!--
-In a typical Kubernetes cluster, the API serves on port 443, protected by TLS.
+By default, the Kubernetes API server listens on port 6443 on the first non-localhost network interface, protected by TLS. In a typical production Kubernetes cluster, the API serves on port 443. The port can be changed with the `--secure-port`, and the listening IP address with the `--bind-address` flag.
+
 The API server presents a certificate. This certificate may be signed using
 a private certificate authority (CA), or based on a public key infrastructure linked
-to a generally recognized CA.
+to a generally recognized CA. The certificate and corresponding private key can be set by using the `--tls-cert-file` and `--tls-private-key-file` flags.
 -->
-在典型的 Kubernetes 集群中，API 服务器在 443 端口上提供服务，受 TLS 保护。
-API 服务器出示证书。
-该证书可以使用私有证书颁发机构（CA）签名，也可以基于链接到公认的 CA 的公钥基础架构签名。
+默认情况下，Kubernetes API 服务器在第一个非 localhost 网络接口的 6443 端口上进行监听，
+受 TLS 保护。在一个典型的 Kubernetes 生产集群中，API 使用 443 端口。
+该端口可以通过 `--secure-port` 进行变更，监听 IP 地址可以通过 `--bind-address` 标志进行变更。
+
+API 服务器出示证书。该证书可以使用私有证书颁发机构（CA）签名，也可以基于链接到公认的 CA 的公钥基础架构签名。
+该证书和相应的私钥可以通过使用 `--tls-cert-file` 和 `--tls-private-key-file` 标志进行设置。
 
 <!--
 If your cluster uses a private certificate authority, you need a copy of that CA
@@ -243,63 +247,7 @@ For more information, see [Auditing](/docs/tasks/debug/debug-cluster/audit/).
 Kubernetes 审计提供了一套与安全相关的、按时间顺序排列的记录，其中记录了集群中的操作序列。
 集群对用户、使用 Kubernetes API 的应用程序以及控制平面本身产生的活动进行审计。
 
-更多信息请参考 [审计](/zh-cn/docs/tasks/debug/debug-cluster/audit/).
-
-<!-- ## API server ports and IPs -->
-## API 服务器端口和 IP {#api-server-ports-and-ips}
-
-<!--
-The previous discussion applies to requests sent to the secure port of the API server
-(the typical case).  The API server can actually serve on 2 ports:
-
-By default, the Kubernetes API server serves HTTP on 2 ports:
--->
-前面的讨论适用于发送到 API 服务器的安全端口的请求（典型情况）。 API 服务器实际上可以在 2 个端口上提供服务：
-
-默认情况下，Kubernetes API 服务器在 2 个端口上提供 HTTP 服务：
-
-<!--
-  1. `localhost` port:
-
-      - is intended for testing and bootstrap, and for other components of the master node
-        (scheduler, controller-manager) to talk to the API
-      - no TLS
-      - default is port 8080
-      - default IP is localhost, change with `--insecure-bind-address` flag.
-      - request **bypasses** authentication and authorization modules.
-      - request handled by admission control module(s).
-      - protected by need to have host access
-
-  2. “Secure port”:
-
-      - use whenever possible
-      - uses TLS.  Set cert with `--tls-cert-file` and key with `--tls-private-key-file` flag.
-      - default is port 6443, change with `--secure-port` flag.
-      - default IP is first non-localhost network interface, change with `--bind-address` flag.
-      - request handled by authentication and authorization modules.
-      - request handled by admission control module(s).
-      - authentication and authorization modules run.
- -->
-  1. `localhost` 端口:
-
-      - 用于测试和引导，以及主控节点上的其他组件（调度器，控制器管理器）与 API 通信
-      - 没有 TLS
-      - 默认为端口 8080
-      - 默认 IP 为 localhost，使用 `--insecure-bind-address` 进行更改
-      - 请求 **绕过** 身份认证和鉴权模块
-      - 由准入控制模块处理的请求
-      - 受需要访问主机的保护
-
-  2. “安全端口”：
-
-      - 尽可能使用
-      - 使用 TLS。 用 `--tls-cert-file` 设置证书，用 `--tls-private-key-file` 设置密钥
-      - 默认端口 6443，使用 `--secure-port` 更改
-      - 默认 IP 是第一个非本地网络接口，使用 `--bind-address` 更改
-      - 请求须经身份认证和鉴权组件处理
-      - 请求须经准入控制模块处理
-      - 身份认证和鉴权模块运行
-
+更多信息请参考[审计](/zh-cn/docs/tasks/debug/debug-cluster/audit/)。
 
 ## {{% heading "whatsnext" %}}
 
@@ -348,4 +296,4 @@ You can learn about:
 你可以了解
 - Pod 如何使用
   [Secrets](/zh-cn/docs/concepts/configuration/secret/#service-accounts-automatically-create-and-attach-secrets-with-api-credentials)
-  获取 API 凭证.
+  获取 API 凭证。

@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/coordination/v1"
   kind: "Lease"
 content_type: "api_reference"
-description: "Lease defines a lease concept."
+description: "Lease 定义了租约的概念。"
 title: "Lease"
 weight: 5
 ---

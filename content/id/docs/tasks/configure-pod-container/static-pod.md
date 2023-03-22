@@ -229,11 +229,11 @@ Pod sesuai dengan penambahan/pengurangan berkas pada direktori tersebut.
 # Ini mengasumsikan kamu menggunakan konfigurasi Pod statis pada _filesystem_
 # Jalankan perintah ini pada Node tempat kubelet berjalan
 #
-mv /etc/kubelet.d/static-web.yaml /tmp
+mv /etc/kubernetes/manifests/static-web.yaml /tmp
 sleep 20
 crictl ps
 # Kamu mendapatkan bahwa tidak ada Container nginx yang berjalan
-mv /tmp/static-web.yaml  /etc/kubelet.d/
+mv /tmp/static-web.yaml  /etc/kubernetes/manifests/
 sleep 20
 crictl ps
 ```
