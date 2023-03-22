@@ -107,10 +107,10 @@ for resources such as CPU and memory.
 : A container's memory request
 
 `resource: limits.hugepages-*`
-: A container's hugepages limit (provided that the `DownwardAPIHugePages` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled)
+: A container's hugepages limit
 
 `resource: requests.hugepages-*`
-: A container's hugepages request (provided that the `DownwardAPIHugePages` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled)
+: A container's hugepages request
 
 `resource: limits.ephemeral-storage`
 : A container's ephemeral-storage limit
