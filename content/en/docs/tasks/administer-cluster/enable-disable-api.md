@@ -1,6 +1,7 @@
 ---
 title: Enable Or Disable A Kubernetes API
 content_type: task
+weight: 200
 ---
 
 <!-- overview -->
@@ -20,7 +21,7 @@ The `runtime-config` command line argument also supports 2 special keys:
 - `api/legacy`, representing only legacy APIs. Legacy APIs are any APIs that have been
    explicitly [deprecated](/docs/reference/using-api/deprecation-policy/).
 
-For example, to turning off all API versions except v1, pass `--runtime-config=api/all=false,api/v1=true`
+For example, to turn off all API versions except v1, pass `--runtime-config=api/all=false,api/v1=true`
 to the `kube-apiserver`.
 
 ## {{% heading "whatsnext" %}}

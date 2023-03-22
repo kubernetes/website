@@ -1,7 +1,7 @@
 ---
 title: Kubernetes 对象管理
 content_type: concept
-weight: 15
+weight: 20
 ---
 
 <!-- overview -->
@@ -13,7 +13,7 @@ details of managing objects by Kubectl.
 -->
 `kubectl` 命令行工具支持多种不同的方式来创建和管理 Kubernetes 对象。
 本文档概述了不同的方法。
-阅读 [Kubectl book](https://kubectl.docs.kubernetes.io) 来了解 kubectl
+阅读 [Kubectl book](https://kubectl.docs.kubernetes.io/zh/) 来了解 kubectl
 管理对象的详细信息。
 
 <!-- body -->
@@ -87,12 +87,12 @@ kubectl create deployment nginx --image nginx
 <!--
 Advantages compared to object configuration:
 
-- Commands are simple, easy to learn and easy to remember.
+- Commands are expressed as a single action word.
 - Commands require only a single step to make changes to the cluster.
 -->
 与对象配置相比的优点：
 
-- 命令简单，易学且易于记忆。
+- 命令用单个动词表示。
 - 命令仅需一步即可对集群进行更改。
 
 <!--

@@ -1,13 +1,16 @@
 ---
 title: 在 Kubernetes 集群中使用 NodeLocal DNSCache
 content_type: task
+weight: 390
 ---
 <!--
 reviewers:
 - bowei
 - zihongz
-title: Using NodeLocal DNSCache in Kubernetes clusters
+- sftim
+title: Using NodeLocal DNSCache in Kubernetes Clusters
 content_type: task
+weight: 390
 -->
 
 <!-- overview -->
@@ -28,7 +31,7 @@ This page provides an overview of NodeLocal DNSCache feature in Kubernetes.
 <!--
 ## Introduction
 -->
-## 引言
+## 引言   {#introduction}
 
 <!--
 NodeLocal DNSCache improves Cluster DNS performance by running a DNS caching agent
@@ -43,13 +46,13 @@ hostnames ("`cluster.local`" suffix by default).
 NodeLocal DNSCache 通过在集群节点上作为 DaemonSet 运行 DNS 缓存代理来提高集群 DNS 性能。
 在当今的体系结构中，运行在 'ClusterFirst' DNS 模式下的 Pod 可以连接到 kube-dns `serviceIP` 进行 DNS 查询。
 通过 kube-proxy 添加的 iptables 规则将其转换为 kube-dns/CoreDNS 端点。
-借助这种新架构，Pods 将可以访问在同一节点上运行的 DNS 缓存代理，从而避免 iptables DNAT 规则和连接跟踪。
+借助这种新架构，Pod 将可以访问在同一节点上运行的 DNS 缓存代理，从而避免 iptables DNAT 规则和连接跟踪。
 本地缓存代理将查询 kube-dns 服务以获取集群主机名的缓存缺失（默认为 "`cluster.local`" 后缀）。
 
 <!--
 ## Motivation
 -->
-## 动机
+## 动机   {#motivation}
 
 <!--
 * With the current DNS architecture, it is possible that Pods with the highest DNS QPS
@@ -66,17 +69,17 @@ NodeLocal DNSCache 通过在集群节点上作为 DaemonSet 运行 DNS 缓存代
   and avoid UDP DNS entries filling up conntrack table.
 -->
 * 跳过 iptables DNAT 和连接跟踪将有助于减少
-  [conntrack 竞争](https://github.com/kubernetes/kubernetes/issues/56903)
-  并避免 UDP DNS 条目填满 conntrack 表。
+  [conntrack 竞争](https://github.com/kubernetes/kubernetes/issues/56903)并避免
+  UDP DNS 条目填满 conntrack 表。
 
 <!--
-* Connections from local caching agent to kube-dns service can be upgraded to TCP.
+* Connections from the local caching agent to kube-dns service can be upgraded to TCP.
   TCP conntrack entries will be removed on connection close in contrast with
   UDP entries that have to timeout
   ([default](https://www.kernel.org/doc/Documentation/networking/nf_conntrack-sysctl.txt)
   `nf_conntrack_udp_timeout` is 30 seconds)
 -->
-* 从本地缓存代理到 kube-dns 服务的连接可以升级为 TCP 。
+* 从本地缓存代理到 kube-dns 服务的连接可以升级为 TCP。
   TCP conntrack 条目将在连接关闭时被删除，相反 UDP 条目必须超时
   （[默认](https://www.kernel.org/doc/Documentation/networking/nf_conntrack-sysctl.txt)
   `nf_conntrack_udp_timeout` 是 30 秒）。
@@ -96,14 +99,14 @@ NodeLocal DNSCache 通过在集群节点上作为 DaemonSet 运行 DNS 缓存代
 * 在节点级别对 DNS 请求的度量和可见性。
 
 <!--
-* Negative caching can be re-enabled, thereby reducing number of queries to kube-dns service.
+* Negative caching can be re-enabled, thereby reducing the number of queries for the kube-dns service.
 -->
 * 可以重新启用负缓存，从而减少对 kube-dns 服务的查询数量。
 
 <!--
 ## Architecture Diagram
 -->
-## 架构图
+## 架构图   {#architecture-diagram}
 
 <!--
 This is the path followed by DNS Queries after NodeLocal DNSCache is enabled:
@@ -118,18 +121,16 @@ This is the path followed by DNS Queries after NodeLocal DNSCache is enabled:
 <!--
 ## Configuration
 -->
-## 配置
+## 配置   {#configuration}
 
-<!--
 {{< note >}}
+<!--
 The local listen IP address for NodeLocal DNSCache can be any address that
 can be guaranteed to not collide with any existing IP in your cluster.
-It's recommended to use an address with a local scope, per example,
+It's recommended to use an address with a local scope, for example,
 from the 'link-local' range '169.254.0.0/16' for IPv4 or from the
 'Unique Local Address' range in IPv6 'fd00::/8'.
-{{< /note >}}
 -->
-{{< note >}} 
 NodeLocal DNSCache 的本地侦听 IP 地址可以是任何地址，只要该地址不和你的集群里现有的 IP 地址发生冲突。
 推荐使用本地范围内的地址，例如，IPv4 链路本地区段 '169.254.0.0/16' 内的地址，
 或者 IPv6 唯一本地地址区段 'fd00::/8' 内的地址。
@@ -145,19 +146,19 @@ This feature can be enabled using the following steps:
   [`nodelocaldns.yaml`](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml)
   and save it as `nodelocaldns.yaml.`
 -->
-* 根据示例 [`nodelocaldns.yaml`](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml) 
+* 根据示例 [`nodelocaldns.yaml`](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml)
   准备一个清单，把它保存为 `nodelocaldns.yaml`。
 
 <!--
-* If using IPv6, the CoreDNS configuration file need to enclose all the IPv6 addresses
+* If using IPv6, the CoreDNS configuration file needs to enclose all the IPv6 addresses
   into square brackets if used in 'IP:Port' format.
-  If you are using the sample manifest from the previous point, this will require to modify
+  If you are using the sample manifest from the previous point, this will require you to modify
   [the configuration line L70](https://github.com/kubernetes/kubernetes/blob/b2ecd1b3a3192fbbe2b9e348e095326f51dc43dd/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml#L70)
   like this: "`health [__PILLAR__LOCAL__DNS__]:8080`"
 -->
 * 如果使用 IPv6，在使用 'IP:Port' 格式的时候需要把 CoreDNS 配置文件里的所有 IPv6 地址用方括号包起来。
-  如果你使用上述的示例清单，需要把
-  [配置行 L70](https://github.com/kubernetes/kubernetes/blob/b2ecd1b3a3192fbbe2b9e348e095326f51dc43dd/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml#L70) 
+  如果你使用上述的示例清单，
+  需要把[配置行 L70](https://github.com/kubernetes/kubernetes/blob/b2ecd1b3a3192fbbe2b9e348e095326f51dc43dd/cluster/addons/dns/nodelocaldns/nodelocaldns.yaml#L70)
   修改为： "`health [__PILLAR__LOCAL__DNS__]:8080`"。
 
 <!--
@@ -193,7 +194,7 @@ This feature can be enabled using the following steps:
     `__PILLAR__CLUSTER__DNS__` and `__PILLAR__UPSTREAM__SERVERS__` will be populated by
     the `node-local-dns` pods.
     In this mode, the `node-local-dns` pods listen on both the kube-dns service IP
-    as well as `<node-local-address>`, so pods can lookup DNS records using either IP address.
+    as well as `<node-local-address>`, so pods can look up DNS records using either IP address.
 -->
   * 如果 kube-proxy 运行在 IPTABLES 模式：
 
@@ -201,9 +202,9 @@ This feature can be enabled using the following steps:
     sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/__PILLAR__DNS__SERVER__/$kubedns/g" nodelocaldns.yaml
     ```
 
-    node-local-dns Pods 会设置 `__PILLAR__CLUSTER__DNS__` 和 `__PILLAR__UPSTREAM__SERVERS__`。
-    在此模式下, node-local-dns Pods 会同时侦听 kube-dns 服务的 IP 地址和
-    `<node-local-address>` 的地址，以便 Pods 可以使用其中任何一个 IP 地址来查询 DNS 记录。
+    node-local-dns Pod 会设置 `__PILLAR__CLUSTER__DNS__` 和 `__PILLAR__UPSTREAM__SERVERS__`。
+    在此模式下, node-local-dns Pod 会同时侦听 kube-dns 服务的 IP 地址和
+    `<node-local-address>` 的地址，以便 Pod 可以使用其中任何一个 IP 地址来查询 DNS 记录。
 
 <!--
   * If kube-proxy is running in IPVS mode:
@@ -223,10 +224,9 @@ This feature can be enabled using the following steps:
     sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/,__PILLAR__DNS__SERVER__//g; s/__PILLAR__CLUSTER__DNS__/$kubedns/g" nodelocaldns.yaml
     ```
 
-    在此模式下，node-local-dns Pods 只会侦听 `<node-local-address>` 的地址。
-    node-local-dns 接口不能绑定 kube-dns 的集群 IP 地址，因为 IPVS 负载均衡
-    使用的接口已经占用了该地址。
-    node-local-dns Pods 会设置 `__PILLAR__UPSTREAM__SERVERS__`。
+    在此模式下，node-local-dns Pod 只会侦听 `<node-local-address>` 的地址。
+    node-local-dns 接口不能绑定 kube-dns 的集群 IP 地址，因为 IPVS 负载均衡使用的接口已经占用了该地址。
+    node-local-dns Pod 会设置 `__PILLAR__UPSTREAM__SERVERS__`。
 
 <!--
 * Run `kubectl create -f nodelocaldns.yaml`
@@ -253,7 +253,7 @@ be available on a per-node basis.
 You can disable this feature by removing the DaemonSet, using `kubectl delete -f <manifest>`.
 You should also revert any changes you made to the kubelet configuration.
 -->
-启用后，`node-local-dns` Pods 将在每个集群节点上的 `kube-system` 名字空间中运行。
+启用后，`node-local-dns` Pod 将在每个集群节点上的 `kube-system` 名字空间中运行。
 此 Pod 在缓存模式下运行 [CoreDNS](https://github.com/coredns/coredns)，
 因此每个节点都可以使用不同插件公开的所有 CoreDNS 指标。
 
@@ -263,7 +263,7 @@ You should also revert any changes you made to the kubelet configuration.
 <!--
 ## StubDomains and Upstream server Configuration
 -->
-## StubDomains 和上游服务器配置
+## StubDomains 和上游服务器配置   {#stubdomains-and-upstream-server-configuration}
 
 <!--
 StubDomains and upstream servers specified in the `kube-dns` ConfigMap in the `kube-system` namespace
@@ -274,9 +274,8 @@ in the Corefile format. Some cloud providers might not allow modifying `node-loc
 In those cases, the `kube-dns` ConfigMap can be updated.
 -->
 `node-local-dns` Pod 能够自动读取 `kube-system` 名字空间中 `kube-dns` ConfigMap
-中保存的 StubDomains 和上游服务器信息。ConfigMap 中的内容需要遵从
-[此示例](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/#example-1)
-中所给的格式。
+中保存的 StubDomains 和上游服务器信息。ConfigMap
+中的内容需要遵从[此示例](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/#example-1)中所给的格式。
 `node-local-dns` ConfigMap 也可被直接修改，使用 Corefile 格式设置 stubDomain 配置。
 某些云厂商可能不允许直接修改 `node-local-dns` ConfigMap 的内容。
 在这种情况下，可以更新 `kube-dns` ConfigMap。
@@ -284,17 +283,16 @@ In those cases, the `kube-dns` ConfigMap can be updated.
 <!--
 ## Setting memory limits
 -->
-## 设置内存限制
+## 设置内存限制   {#setting-memory-limits}
 
 <!--
 The `node-local-dns` Pods use memory for storing cache entries and processing queries.
-Since they do not watch Kubernetes objects, the cluster size or the number of Services/Endpoints
-do not directly affect memory usage. Memory usage is influenced by the DNS query pattern.
+Since they do not watch Kubernetes objects, the cluster size or the number of Services / EndpointSlices do not directly affect memory usage. Memory usage is influenced by the DNS query pattern.
 From [CoreDNS docs](https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md),
 > The default cache size is 10000 entries, which uses about 30 MB when completely filled.
 -->
 `node-local-dns` Pod 使用内存来保存缓存项并处理查询。
-由于它们并不监视 Kubernetes 对象变化，集群规模或者 Service/Endpoints
+由于它们并不监视 Kubernetes 对象变化，集群规模或者 Service/EndpointSlices
 的数量都不会直接影响内存用量。内存用量会受到 DNS 查询模式的影响。
 根据 [CoreDNS 文档](https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md),
 

@@ -23,7 +23,7 @@ Es gibt mehrere verschiedene Proxies, die die bei der Verwendung von Kubernetes 
     - lokalisiert den API Server
     - fügt Authentifizierungs-Header hinzu
 
-1.  Der [API Server Proxy](/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services):
+1.  Der [API Server Proxy](/docs/tasks/access-application-cluster/access-cluster-services/#discovering-builtin-services):
 
     - ist eine Bastion, die in den API Server eingebaut ist
     - verbindet einen Benutzer außerhalb des Clusters mit Cluster IPs, die sonst möglicherweise nicht erreichbar wären

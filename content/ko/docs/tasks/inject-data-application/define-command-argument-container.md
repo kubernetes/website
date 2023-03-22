@@ -46,33 +46,33 @@ weight: 10
 
 1. YAML 구성 파일을 활용해 파드를 생성한다.
 
-    ```shell
-    kubectl apply -f https://k8s.io/examples/pods/commands.yaml
-    ```
+   ```shell
+   kubectl apply -f https://k8s.io/examples/pods/commands.yaml
+   ```
 
 1. 실행 중인 파드들의 목록을 조회한다.
 
-    ```shell
-    kubectl get pods
-    ```
+   ```shell
+   kubectl get pods
+   ```
 
-    출력은 command-demo라는 파드 안에서 실행된 컨테이너가 완료되었다고 표시할
-    것이다.
+   command-demo라는 파드 안에서 실행된 컨테이너가 완료되었다고 출력될
+   것이다.
 
 1. 컨테이너 안에서 실행된 커맨드의 출력을 보기 위해, 파드의 로그를
 확인한다.
 
-    ```shell
-    kubectl logs command-demo
-    ```
+   ```shell
+   kubectl logs command-demo
+   ```
 
-    출력은 HOSTNAME과 KUBERNETES_PORT 환경 변수들의 값들을 표시할
-    것이다.
+   HOSTNAME과 KUBERNETES_PORT 환경 변수들의 값들이 출력될
+   것이다.
 
-    ```
-    command-demo
-    tcp://10.3.240.1:443
-    ```
+   ```
+   command-demo
+   tcp://10.3.240.1:443
+   ```
 
 ## 인자를 정의하기 위해 환경 변수를 사용하기
 

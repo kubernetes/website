@@ -90,8 +90,12 @@ kubectl get pod multi-container-pod -o go-template='{{range .status.containerSta
 쿠버네티스는 지정된 파일의 내용을 사용하여 컨테이너의 성공 및 실패에 대한 상태 메시지를 채운다.
 
 종료 메시지는 assertion failure 메세지처럼 간결한 최종 상태로 생성된다.
-kubelet은 4096 바이트보다 긴 메시지를 자른다. 모든 컨테이너의 총 메시지 길이는
-12KiB로 제한된다. 기본 종료 메시지 경로는 `/dev/termination-log`이다.
+kubelet은 4096 바이트보다 긴 메시지를 자른다. 
+
+모든 컨테이너의 총 메시지 길이는 12KiB로 제한되며, 각 컨테이너에 균등하게 분할된다. 
+예를 들어, 12개의 컨테이너(`initContainers` 또는 `containers`)가 있는 경우 각 컨테이너에는 1024 바이트의 사용 가능한 종료 메시지 공간이 있다.
+
+기본 종료 메시지 경로는 `/dev/termination-log`이다.
 파드가 시작된 후에는 종료 메시지 경로를 설정할 수 없다.
 
 다음의 예제에서 컨테이너는, 쿠버네티스가 조회할 수 있도록
