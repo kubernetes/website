@@ -155,7 +155,7 @@ namespace/example created
 
 ## 정리하기
 
-`kind delete cluster -name psa-ns-level` 명령을 실행하여 생성했던 클러스터를 삭제한다.
+`kind delete cluster --name psa-ns-level` 명령을 실행하여 생성했던 클러스터를 삭제한다.
 
 ## {{% heading "whatsnext" %}}
 
