@@ -323,12 +323,12 @@ For example, `int` in the word “sprint” would not be escaped.
 
 Examples on escaping:
 
-|property name    | rule with escaped property name     |
-| ----------------| -----------------------             |
-| namespace       | `self.__namespace__ > 0`            |
-| x-prop          | `self.x__dash__prop > 0`            |
-| redact__d       | `self.redact__underscores__d > 0`   |
-| string          | `self.startsWith('kube')`           |
+|property name    | rule with escaped property name   |
+| ----------------|-----------------------------------|
+| namespace       | `object.__namespace__ > 0`        |
+| x-prop          | `object.x__dash__prop > 0`          |
+| redact__d       | `object.redact__underscores__d > 0` |
+| string          | `object.startsWith('kube')`         |
 	
 Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1].
 Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
@@ -365,3 +365,24 @@ HTTP response code, are used in the HTTP response to the client.
 The currently supported reasons are: `Unauthorized`, `Forbidden`, `Invalid`, `RequestEntityTooLarge`.
 If not set, `StatusReasonInvalid` is used in the response to the client.
 
+### Matching requests: `matchConditions`
+
+You can define _match conditions_ for a `ValidatingAdmissionPolicy` if you need fine-grained request filtering. These
+conditions are useful if you find that match rules, `objectSelectors` and `namespaceSelectors` still
+doesn't provide the filtering you want. Match conditions are
+[CEL expressions](/docs/reference/using-api/cel/). All match conditions must evaluate to true for the
+resource to be evaluated.
+
+Here is an example illustrating a few different uses for match conditions:
+
+{{< codenew file="access/validating-admission-policy-match-conditions.yaml" >}}
+
+Match conditions have access to the same CEL variables as validation expressions.
+
+In the event of an error evaluating a match condition the policy is not evaluated. Whether to reject
+the request is determined as follows:
+
+1. If **any** match condition evaluated to `false` (regardless of other errors), the API server skips the policy.
+2. Otherwise:
+  - for [`failurePolicy: Fail`](#failure-policy), reject the request (without evaluating the policy).
+  - for [`failurePolicy: Ignore`](#failure-policy), proceed with the request but skip the policy.
