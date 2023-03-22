@@ -447,3 +447,121 @@ Note that audit annotation keys are prefixed by the name of the `ValidatingAdmis
 another admission controller, such as an admission webhook, uses the exact same audit annotation key, the 
 value of the first admission controller to include the audit annotation will be included in the audit
 event and all other values will be ignored.
+
+### Message expression
+
+To return a more friendly message when the policy rejects a request, we can use a CEL expression
+to composite a message with `spec.validations[i].messageExpression`. Similar to the validation expression,
+a message expression has access to `object`, `oldObject`, `request`, and `params`. Unlike validations,
+message expression must evaluate to a string.
+
+For example, to better inform the user of the reason of denial when the policy refers to a parameter,
+we can have the following validation:
+
+{{< codenew file="access/deployment-replicas-policy.yaml" >}}
+
+After creating a params object that limits the replicas to 3 and setting up the binding,
+when we try to create a deployment with 5 replicas, we will receive the following message.
+
+```
+$ kubectl create deploy --image=nginx nginx --replicas=5
+error: failed to create deployment: deployments.apps "nginx" is forbidden: ValidatingAdmissionPolicy 'deploy-replica-policy.example.com' with binding 'demo-binding-test.example.com' denied request: object.spec.replicas must be no greater than 3
+```
+
+This is more informative than a static message of "too many replicas".
+
+The message expression takes precedence over the static message defined in `spec.validations[i].message` if both are defined.
+However, if the message expression fails to evaluate, the static message will be used instead.
+Additionally, if the message expression evaluates to a multi-line string,
+the evaluation result will be discarded and the static message will be used if present.
+Note that static message is validated against multi-line strings.
+
+### Type checking
+
+When a policy definition is created or updated, the validation process parses the expressions it contains
+and reports any syntax errors, rejecting the definition if any errors are found. 
+Afterward, the referred variables are checked for type errors, including missing fields and type confusion,
+against the matched types of `spec.matchConstraints`.
+The result of type checking can be retrieved from `status.typeChecking`.
+The presence of `status.typeChecking` indicates the completion of type checking,
+and an empty `status.typeChecking` means that no errors were detected.
+
+For example, given the following policy definition:
+
+```yaml
+apiVersion: admissionregistration.k8s.io/v1alpha1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "deploy-replica-policy.example.com"
+spec:
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["apps"]
+      apiVersions: ["v1"]
+      operations:  ["CREATE", "UPDATE"]
+      resources:   ["deployments"]
+  validations:
+  - expression: "object.replicas > 1" # should be "object.spec.replicas > 1"
+    message: "must be replicated"
+    reason: Invalid
+```
+
+The status will yield the following information:
+
+```yaml
+status:
+  typeChecking:
+    expressionWarnings:
+    - fieldRef: spec.validations[0].expression
+      warning: |-
+        apps/v1, Kind=Deployment: ERROR: <input>:1:7: undefined field 'replicas'
+         | object.replicas > 1
+         | ......^
+```
+
+If multiple resources are matched in `spec.matchConstraints`, all of matched resources will be checked against.
+For example, the following policy definition 
+
+```yaml
+apiVersion: admissionregistration.k8s.io/v1alpha1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "replica-policy.example.com"
+spec:
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["apps"]
+      apiVersions: ["v1"]
+      operations:  ["CREATE", "UPDATE"]
+      resources:   ["deployments","replicasets"]
+  validations:
+  - expression: "object.replicas > 1" # should be "object.spec.replicas > 1"
+    message: "must be replicated"
+    reason: Invalid
+```
+
+will have multiple types and type checking result of each type in the warning message.
+
+```yaml
+status:
+  typeChecking:
+    expressionWarnings:
+    - fieldRef: spec.validations[0].expression
+      warning: |-
+        apps/v1, Kind=Deployment: ERROR: <input>:1:7: undefined field 'replicas'
+         | object.replicas > 1
+         | ......^
+        apps/v1, Kind=ReplicaSet: ERROR: <input>:1:7: undefined field 'replicas'
+         | object.replicas > 1
+         | ......^
+```
+
+Type Checking has the following limitation:
+
+- No wildcard matching. If `spec.matchConstraints.resourceRules` contains `"*"` in any of `apiGroups`, `apiVersions` or `resources`,
+  the types that `"*"` matches will not be checked.
+- The number of matched types is limited to 10. This is to prevent a policy that manually specifying too many types.
+  to consume excessive computing resources. In the order of ascending group, version, and then resource, 11th combination and beyond are ignored.
+- Type Checking does not affect the policy behavior in any way. Even if the type checking detects errors, the policy will continue
+  to evaluate. If errors do occur during evaluate, the failure policy will decide its outcome.
+- Type Checking does not apply to CRDs, including matched CRD types and reference of paramKind. The support for CRDs will come in future release.
