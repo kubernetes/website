@@ -54,7 +54,7 @@ die Entwicklern und Anwendern zur Verfügung stehen. Benutzer können ihre eigen
 ihren [eigenen APIs](/docs/concepts/api-extension/custom-resources/) schreiben, die von einem
 universellen [Kommandozeilen-Tool](/docs/user-guide/kubectl-overview/) angesprochen werden können.
 
-Dieses [Design](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) hat es einer Reihe anderer Systeme ermöglicht, auf Kubernetes aufzubauen.
+Dieses [Design](https://git.k8s.io/design-proposals-archive/architecture/architecture.md) hat es einer Reihe anderer Systeme ermöglicht, auf Kubernetes aufzubauen.
 
 ## Was Kubernetes nicht ist
 

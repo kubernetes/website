@@ -1,5 +1,9 @@
 ---
 title: 쿠버네티스 시스템 컴포넌트에 대한 메트릭
+# reviewers:
+# - brancz
+# - logicalhan
+# - RainbowMango
 content_type: concept
 weight: 60
 ---

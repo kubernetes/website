@@ -27,7 +27,7 @@ CPU의 최솟값과 최댓값을 지정한다.
 
 클러스터에 네임스페이스를 생성할 수 있는 권한이 있어야 한다.
 
-태스크 예제를 실행하려면 클러스터에 적어도 1.0 CPU 이상이 사용 가능해야 한다.
+클러스터의 각 노드는 파드 실행을 위해 적어도 1.0 CPU 이상이 사용 가능해야 한다.
 쿠버네티스에서 “1 CPU”가 무엇을 의미하는지 알아보려면 
 [CPU의 의미](/ko/docs/concepts/configuration/manage-resources-containers/#cpu의-의미)를 참조한다.
 
@@ -45,7 +45,7 @@ kubectl create namespace constraints-cpu-example
 
 ## 리밋레인지와 파드 생성
 
-다음은 리밋레인지에 대한 예시 매니페스트이다.
+다음은 {{< glossary_tooltip text="리밋레인지" term_id="limitrange" >}} 예제 매니페스트이다.
 
 {{< codenew file="admin/resource/cpu-constraints.yaml" >}}
 
@@ -95,7 +95,7 @@ limits:
 {{< /note >}}
 
 다음은 컨테이너가 하나인 파드의 매니페스트이다. 컨테이너 매니페스트는
-500 millicpu의 CPU 요청량 및 800 millicpu의 CPU 상한을 지정하고 있다. 이는 리밋레인지에
+500 millicpu의 CPU 요청량 및 800 millicpu의 CPU 상한을 지정하고 있다. 이는 이 네임스페이스의 리밋레인지에
 의해 부과된 CPU의 최소와 최대 제약 조건을 충족시킨다.
 
 {{< codenew file="admin/resource/cpu-constraints-pod.yaml" >}}
@@ -214,7 +214,10 @@ resources:
 [CPU 요청량과 상한의 기본값](/ko/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)을 
 적용했다.
 
-이 시점에서, 파드는 실행 중일 수도 있고 아닐 수도 있다. 이 태스크의 전제 조건은 클러스터에 1 CPU 이상 사용 가능해야 한다는 것이다. 각 노드에 1 CPU만 있는 경우, 노드에 할당할 수 있는 CPU가 800 millicpu의 요청량을 수용하기에 충분하지 않을 수 있다. 2 CPU인 노드를 사용하는 경우에는, CPU가 800 millicpu 요청량을 수용하기에 충분할 것이다.
+이 시점에서, 파드는 실행 중일 수도 있고 아닐 수도 있다. 이 태스크의 전제 조건은 
+노드에 1 CPU 이상 사용 가능해야 한다는 것이다. 각 노드에 1 CPU만 있는 경우, 
+노드에 할당할 수 있는 CPU가 800 millicpu의 요청량을 수용하기에 충분하지 않을 수 있다. 
+2 CPU인 노드를 사용하는 경우에는, CPU가 800 millicpu 요청량을 수용하기에 충분할 것이다.
 
 파드를 삭제한다.
 

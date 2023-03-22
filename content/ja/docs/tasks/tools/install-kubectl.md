@@ -9,7 +9,7 @@ card:
 ---
 
 <!-- overview -->
-Kubernetesのコマンドラインツールである[kubectl](/ja/docs/reference/kubectl/overview/)を使用して、Kubernetesクラスターに対してコマンドを実行することができます。kubectlによってアプリケーションのデプロイや、クラスターのリソース管理、検査およびログの表示を行うことができます。kubectlの操作に関する完全なリストは、[kubectlの概要](/ja/docs/reference/kubectl/overview/)を参照してください。
+Kubernetesのコマンドラインツールである[kubectl](/ja/docs/reference/kubectl/kubectl)を使用して、Kubernetesクラスターに対してコマンドを実行することができます。kubectlによってアプリケーションのデプロイや、クラスターのリソース管理、検査およびログの表示を行うことができます。kubectlの操作に関する完全なリストは、[kubectlリファレンスドキュメント](/ja/docs/reference/kubectl/)を参照してください。
 
 
 ## {{% heading "prerequisites" %}}
@@ -72,7 +72,7 @@ baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
 enabled=1
 gpgcheck=1
 repo_gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 yum install -y kubectl
 {{< /tab >}}

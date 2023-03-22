@@ -18,16 +18,15 @@ This guide walks you through the steps to configure and deploy Windows container
 ## Objectives
 
 * Configure an example deployment to run Windows containers on the Windows node
-* Highlight Windows specific funcationality in Kubernetes
+* Highlight Windows specific functionality in Kubernetes
 
 ## Before you begin
 
-* Create a Kubernetes cluster that includes a
-control plane and a [worker node running Windows Server](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
+* Create a Kubernetes cluster that includes a control plane and a worker node running Windows Server
 * It is important to note that creating and deploying services and workloads on Kubernetes
-behaves in much the same way for Linux and Windows containers.
-[Kubectl commands](/docs/reference/kubectl/) to interface with the cluster are identical.
-The example in the section below is provided to jumpstart your experience with Windows containers.
+  behaves in much the same way for Linux and Windows containers.
+  [Kubectl commands](/docs/reference/kubectl/) to interface with the cluster are identical.
+  The example in the section below is provided to jumpstart your experience with Windows containers.
 
 ## Getting Started: Deploying a Windows container
 
@@ -105,12 +104,12 @@ port 80 of the container directly to the Service.
     * Node-to-pod communication across the network, `curl` port 80 of your pod IPs from the Linux control plane node
       to check for a web server response
     * Pod-to-pod communication, ping between pods (and across hosts, if you have more than one Windows node)
-      using docker exec or kubectl exec
+      using `docker exec` or `kubectl exec`
     * Service-to-pod communication, `curl` the virtual service IP (seen under `kubectl get services`)
       from the Linux control plane node and from individual pods
     * Service discovery, `curl` the service name with the Kubernetes [default DNS suffix](/docs/concepts/services-networking/dns-pod-service/#services)
     * Inbound connectivity, `curl` the NodePort from the Linux control plane node or machines outside of the cluster
-    * Outbound connectivity, `curl` external IPs from inside the pod using kubectl exec
+    * Outbound connectivity, `curl` external IPs from inside the pod using `kubectl exec`
 
 {{< note >}}
 Windows container hosts are not able to access the IP of services scheduled on them due to current platform limitations of the Windows networking stack.
@@ -158,14 +157,13 @@ schedule Linux and Windows workloads to their respective OS-specific nodes.
 The recommended approach is outlined below,
 with one of its main goals being that this approach should not break compatibility for existing Linux workloads.
 
-If the `IdentifyPodOS` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
-enabled, you can (and should) set `.spec.os.name` for a Pod to indicate the operating system
+Starting from 1.25, you can (and should) set `.spec.os.name` for each Pod, to indicate the operating system
 that the containers in that Pod are designed for. For Pods that run Linux containers, set
 `.spec.os.name` to `linux`. For Pods that run Windows containers, set `.spec.os.name`
-to Windows.
+to `windows`.
 
 {{< note >}}
-Starting from 1.24, the `IdentifyPodOS` feature is in Beta stage and defaults to be enabled.
+Starting from 1.25, the `IdentifyPodOS` feature is in GA stage and defaults to be enabled.
 {{< /note >}}
 
 The scheduler does not use the value of `.spec.os.name` when assigning Pods to nodes. You should

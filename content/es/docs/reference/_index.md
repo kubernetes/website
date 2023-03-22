@@ -59,6 +59,6 @@ En estos momento, las librerías con soporte oficial son:
 
 Un archivo de los documentos de diseño para la funcionalidad de Kubernetes.
 
-Puedes empezar por [Arquitectura de Kubernetes](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) y [Vista general del diseño de Kubernetes](https://git.k8s.io/community/contributors/design-proposals).
+Puedes empezar por [Arquitectura de Kubernetes](https://git.k8s.io/design-proposals-archive/architecture/architecture.md) y [Vista general del diseño de Kubernetes](https://git.k8s.io/community/contributors/design-proposals).
 
 

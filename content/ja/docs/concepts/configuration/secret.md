@@ -277,7 +277,7 @@ kubectl create secret tls my-tls-secret \
 
 Bootstrap token Secretは、Secretの`type`を`bootstrap.kubernetes.io/token`に明示的に指定することで作成できます。このタイプのSecretは、ノードのブートストラッププロセス中に使用されるトークン用に設計されています。よく知られているConfigMapに署名するために使用されるトークンを格納します。
 
-Bootstrap toke Secretは通常、`kube-system`namespaceで作成され`bootstrap-token-<token-id>`の形式で名前が付けられます。ここで`<token-id>`はトークンIDの6文字の文字列です。
+Bootstrap token Secretは通常、`kube-system`namespaceで作成され`bootstrap-token-<token-id>`の形式で名前が付けられます。ここで`<token-id>`はトークンIDの6文字の文字列です。
 
 Kubernetesマニフェストとして、Bootstrap token Secretは次のようになります。
 
@@ -303,7 +303,7 @@ Bootstrap type Secretには、`data`で指定された次のキーがありま�
 - `token_id`：トークン識別子としてのランダムな6文字の文字列。必須。
 - `token-secret`：実際のtoken secretとしてのランダムな16文字の文字列。必須。
 - `description`：トークンの使用目的を説明する人間が読める文字列。オプション。
-- `expiration`：トークンの有効期限を指定するRFC3339を使用した絶対UTC時間。オプション。
+- `expiration`：トークンの有効期限を指定する[RFC3339](https://datatracker.ietf.org/doc/html/rfc3339)を使用した絶対UTC時間。オプション。
 - `usage-bootstrap-<usage>`：Bootstrap tokenの追加の使用法を示すブールフラグ。
 - `auth-extra-groups`：`system：bootstrappers`グループに加えて認証されるグループ名のコンマ区切りのリスト。
 
@@ -582,7 +582,7 @@ cat /etc/foo/password
 ボリュームとして使用されているSecretが更新されると、やがて割り当てられたキーも同様に更新されます。
 kubeletは定期的な同期のたびにマウントされたSecretが新しいかどうかを確認します。
 しかしながら、kubeletはSecretの現在の値の取得にローカルキャッシュを使用します。
-このキャッシュは[KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)内の`ConfigMapAndSecretChangeDetectionStrategy`フィールドによって設定可能です。
+このキャッシュは[KubeletConfiguration struct](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/kubelet/config/v1beta1/types.go)内の`ConfigMapAndSecretChangeDetectionStrategy`フィールドによって設定可能です。
 Secretはwatch（デフォルト）、TTLベース、単に全てのリクエストをAPIサーバーへリダイレクトすることのいずれかによって伝搬します。
 結果として、Secretが更新された時点からPodに新しいキーが反映されるまでの遅延時間の合計は、kubeletの同期間隔 + キャッシュの伝搬遅延となります。
 キャッシュの遅延は、キャッシュの種別により、それぞれwatchの伝搬遅延、キャッシュのTTL、0になります。
@@ -779,7 +779,7 @@ metadata:
 spec:
   containers:
     - name: test-container
-      image: k8s.gcr.io/busybox
+      image: registry.k8s.io/busybox
       command: [ "/bin/sh", "-c", "env" ]
       envFrom:
       - secretRef:
@@ -838,7 +838,7 @@ spec:
 /etc/secret-volume/ssh-privatekey
 ```
 
-コンテナーはSecretのデータをSSH接続を確立するために使用することができます。
+コンテナはSecretのデータをSSH接続を確立するために使用することができます。
 
 ### ユースケース: 本番、テスト用の認証情報を持つPod
 
@@ -994,7 +994,7 @@ spec:
       secretName: dotfile-secret
   containers:
   - name: dotfile-test-container
-    image: k8s.gcr.io/busybox
+    image: registry.k8s.io/busybox
     command:
     - ls
     - "-l"

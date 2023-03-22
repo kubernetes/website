@@ -16,7 +16,7 @@ min-kubernetes-server-version: 1.16
 
 ## Introduction
 
-Server Side Apply helps users and controllers manage their resources through
+Server-Side Apply helps users and controllers manage their resources through
 declarative configurations. Clients can create and modify their
 [objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/)
 declaratively by sending their fully specified intent.
@@ -36,32 +36,32 @@ operation might undo another collaborator's changes. Conflicts can be forced,
 in which case the value will be overridden, and the ownership will be
 transferred.
 
-If you remove a field from a configuration and apply the configuration, server
-side apply checks if there are any other field managers that also own the
-field.  If the field is not owned by any other field managers, it is either
-deleted from the live object or reset to its default value, if it has one. The
-same rule applies to associative list or map items.
+If you remove a field from a configuration and apply the configuration,
+Server-Side Apply checks if there are any other field managers that also
+own the field. If the field is not owned by any other field managers, it
+is either deleted from the live object or reset to its default value, if
+it has one. The same rule applies to associative list or map items.
 
-Server side apply is meant both as a replacement for the original `kubectl
+Server-Side Apply is meant both as a replacement for the original `kubectl
 apply` and as a simpler mechanism for controllers to enact their changes.
 
-If you have Server Side Apply enabled, the control plane tracks managed fields
+If you have Server-Side Apply enabled, the control plane tracks managed fields
 for all newly created objects.
 
 ## Field Management
 
-Compared to the `last-applied` annotation managed by `kubectl`, Server Side
+Compared to the `last-applied` annotation managed by `kubectl`, Server-Side
 Apply uses a more declarative approach, which tracks a user's field management,
 rather than a user's last applied state. This means that as a side effect of
-using Server Side Apply, information about which field manager manages each
+using Server-Side Apply, information about which field manager manages each
 field in an object also becomes available.
 
-For a user to manage a field, in the Server Side Apply sense, means that the
+For a user to manage a field, in the Server-Side Apply sense, means that the
 user relies on and expects the value of the field not to change. The user who
 last made an assertion about the value of a field will be recorded as the
 current field manager. This can be done either by changing the value with
 `POST`, `PUT`, or non-apply `PATCH`, or by including the field in a config sent
-to the Server Side Apply endpoint. When using Server-Side Apply, trying to
+to the Server-Side Apply endpoint. When using Server-Side Apply, trying to
 change a field which is managed by someone else will result in a rejected
 request (if not forced, see [Conflicts](#conflicts)).
 
@@ -73,7 +73,7 @@ of a field by removing it from their configuration.
 Field management is stored in a`managedFields` field that is part of an object's
 [`metadata`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#objectmeta-v1-meta).
 
-A simple example of an object created by Server Side Apply could look like this:
+A simple example of an object created by Server-Side Apply could look like this:
 
 ```yaml
 apiVersion: v1
@@ -208,12 +208,12 @@ would have failed due to conflicting ownership.
 
 ## Merge strategy
 
-The merging strategy, implemented with Server Side Apply, provides a generally
-more stable object lifecycle. Server Side Apply tries to merge fields based on
+The merging strategy, implemented with Server-Side Apply, provides a generally
+more stable object lifecycle. Server-Side Apply tries to merge fields based on
 the actor who manages them instead of overruling based on values. This way
 multiple actors can update the same object without causing unexpected interference.
 
-When a user sends a "fully-specified intent" object to the Server Side Apply
+When a user sends a "fully-specified intent" object to the Server-Side Apply
 endpoint, the server merges it with the live object favoring the value in the
 applied config if it is specified in both places. If the set of items present in
 the applied config is not a superset of the items applied by the same user last
@@ -295,7 +295,7 @@ manager can then modify or delete those fields without conflict.
 
 ## Custom Resources
 
-By default, Server Side Apply treats custom resources as unstructured data. All
+By default, Server-Side Apply treats custom resources as unstructured data. All
 keys are treated the same as struct fields, and all lists are considered atomic.
 
 If the Custom Resource Definition defines a
@@ -322,7 +322,7 @@ might not be able to resolve or act on these conflicts.
 ## Transferring Ownership
 
 In addition to the concurrency controls provided by [conflict resolution](#conflicts),
-Server Side Apply provides ways to perform coordinated
+Server-Side Apply provides ways to perform coordinated
 field ownership transfers from users to controllers.
 
 This is best explained by example. Let's look at how to safely transfer
@@ -334,7 +334,7 @@ Say a user has defined deployment with `replicas` set to the desired value:
 
 {{< codenew file="application/ssa/nginx-deployment.yaml" >}}
 
-And the user has created the deployment using server side apply like so:
+And the user has created the deployment using Server-Side Apply like so:
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/ssa/nginx-deployment.yaml --server-side
@@ -366,12 +366,26 @@ There are two solutions:
 
 First, the user defines a new configuration containing only the `replicas` field:
 
-{{< codenew file="application/ssa/nginx-deployment-replicas-only.yaml" >}}
+```yaml
+# Save this file as 'nginx-deployment-replicas-only.yaml'.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 3
+```
+
+{{< note >}}
+The YAML file for SSA in this case only contains the fields you want to change.
+You are not supposed to provide a fully compliant Deployment manifest if you only
+want to modify the `spec.replicas` field using SSA.
+{{< /note >}}
 
 The user applies that configuration using the field manager name `handover-to-hpa`:
 
 ```shell
-kubectl apply -f https://k8s.io/examples/application/ssa/nginx-deployment-replicas-only.yaml \
+kubectl apply -f nginx-deployment-replicas-only.yaml \
   --server-side --field-manager=handover-to-hpa \
   --validate=false
 ```
@@ -398,8 +412,8 @@ complete the transfer to the other user.
 
 ## Comparison with Client Side Apply
 
-A consequence of the conflict detection and resolution implemented by Server
-Side Apply is that an applier always has up to date field values in their local
+A consequence of the conflict detection and resolution implemented by Server-Side
+Apply is that an applier always has up to date field values in their local
 state. If they don't, they get a conflict the next time they apply. Any of the
 three options to resolve conflicts results in the applied configuration being an
 up to date subset of the object on the server's fields.
@@ -411,7 +425,7 @@ applier has no way of knowing whether their next apply will overwrite other
 users' changes.
 
 Another difference is that an applier using Client Side Apply is unable to
-change the API version they are using, but Server Side Apply supports this use
+change the API version they are using, but Server-Side Apply supports this use
 case.
 
 ## Upgrading from client-side apply to server-side apply
@@ -465,11 +479,17 @@ kubectl apply --server-side --field-manager=my-manager [--dry-run=server]
 
 ## API Endpoint
 
-With the Server Side Apply feature enabled, the `PATCH` endpoint accepts the
-additional `application/apply-patch+yaml` content type. Users of Server Side
+With the Server-Side Apply feature enabled, the `PATCH` endpoint accepts the
+additional `application/apply-patch+yaml` content type. Users of Server-Side
 Apply can send partially specified objects as YAML to this endpoint.  When
 applying a configuration, one should always include all the fields that they
 have an opinion about.
+
+### RBAC and permissions
+
+Since Server-Side Apply is a type of `PATCH`, a role will require the
+`PATCH` permission to edit resources, but will also need the `CREATE`
+verb permission in order to create resources with Server-Side Apply.
 
 ## Clearing ManagedFields
 
@@ -502,10 +522,3 @@ In cases where the reset operation is combined with changes to other fields
 than the managedFields, this will result in the managedFields being reset
 first and the other changes being processed afterwards. As a result the
 applier takes ownership of any fields updated in the same request.
-
-{{< caution >}}
-Server Side Apply does not correctly track ownership on
-sub-resources that don't receive the resource object type. If you are
-using Server Side Apply with such a sub-resource, the changed fields
-won't be tracked.
-{{< /caution >}}

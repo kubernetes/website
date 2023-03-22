@@ -29,8 +29,8 @@ docs, follow the [style guide](/docs/contribute/style/style-guide).
 [Kubernetes Slack](https://slack.k8s.io/) 的 `#sig-docs` 频道提问！
 你可以在 https://slack.k8s.io 注册到 Kubernetes Slack。
 
-关于为 Kubernetes 文档创建新内容的更多信息，可参考
-[样式指南](/zh-cn/docs/contribute/style/style-guide)。
+关于为 Kubernetes 文档创建新内容的更多信息，
+可参考[样式指南](/zh-cn/docs/contribute/style/style-guide)。
 
 <!-- body -->
 
@@ -84,20 +84,18 @@ Docs can link to third-party open source software (OSS) outside the Kubernetes p
 ### 第三方内容 {#third-party-content}
 
 Kubernetes 文档包含 Kubernetes 项目下的多个项目的应用示例。
-这里的 Kubernetes 项目指的是 [kubernetes](https://github.com/kubernetes) 和
-[kubernetes-sigs](https://github.com/kubernetes-sigs) GitHub 组织
-下的项目。
+这里的 Kubernetes 项目指的是 [Kubernetes](https://github.com/kubernetes) 和
+[Kubernetes SIGs](https://github.com/kubernetes-sigs) GitHub 组织下的那些项目。
 
 链接到 Kubernetes 项目中活跃的内容是一直允许的。
 
-Kubernetes 需要某些第三方内容才能正常工作。例如
-容器运行时（containerd、CRI-O、Docker），
-[联网策略](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
-（CNI 插件），[Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers/)
+Kubernetes 需要某些第三方内容才能正常工作。例如容器运行时（containerd、CRI-O、Docker）、
+[联网策略](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)（CNI 插件）、
+[Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers/)
 以及[日志](/zh-cn/docs/concepts/cluster-administration/logging/)等。
 
-只有对应的第三方开源软件（OSS）是运行 Kubernetes 所必需的，才可以在文档中包含
-指向这些 Kubernetes 项目之外的软件的链接。
+只有对应的第三方开源软件（OSS）是运行 Kubernetes 所必需的，
+才可以在文档中包含指向这些 Kubernetes 项目之外的软件的链接。
 
 <!--
 ### Dual sourced content
@@ -107,23 +105,20 @@ dual-sourced content.
 
 Dual-sourced content requires double the effort (or more!) to maintain
 and grows stale more quickly.
-
-{{< note >}}
-
-If you're a maintainer for a Kubernetes project and need help hosting your own docs,
-ask for help in [#sig-docs on Kubernetes Slack](https://kubernetes.slack.com/messages/C1J0BPD2M/).
-{{< /note >}}
 -->
 ### 双重来源的内容  {#dual-sourced-content}
 
-只要有可能，Kubernetes 文档应该指向标准典型的信息源而不是直接托管多重来源的内容。
+只要有可能，Kubernetes 文档就应该指向标准典型的信息源而不是直接托管双重来源的内容。
 
 双重来源的内容需要双倍（甚至更多）的投入才能维护，而且通常很快就会变得停滞不前。
 
 {{< note >}}
-如果你是一个 Kubernetes 项目的维护者，需要帮忙托管你的文档，
-请在 Kubernetes 的 [#sig-docs 频道](https://kubernetes.slack.com/messages/C1J0BPD2M/)
-提出请求。
+<!--
+If you're a maintainer for a Kubernetes project and need help hosting your own docs,
+ask for help in [#sig-docs on Kubernetes Slack](https://kubernetes.slack.com/messages/C1J0BPD2M/).
+-->
+如果你是一个 Kubernetes 项目的维护者，需要帮忙托管你自己的文档，
+请在 Kubernetes 的 [#sig-docs 频道](https://kubernetes.slack.com/messages/C1J0BPD2M/)提出请求。
 {{< /note >}}
 
 <!--
@@ -138,4 +133,7 @@ If you have questions about allowed content, join the [Kubernetes Slack](https:/
 
 ## {{% heading "whatsnext" %}}
 
+<!--
+* Read the [Style guide](/docs/contribute/style/style-guide).
+-->
 * 阅读[样式指南](/zh-cn/docs/contribute/style/style-guide)。

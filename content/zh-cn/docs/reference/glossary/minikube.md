@@ -44,4 +44,4 @@ You can use Minikube to
 
 Minikube 在用户计算机上的一个虚拟机内运行单节点 Kubernetes 集群。
 你可以使用 Minikube 
-[在学习环境中尝试 Kubernetes](/zh-cn/docs/setup/learning-environment/).
+[在学习环境中尝试 Kubernetes](/zh-cn/docs/setup/learning-environment/)。
