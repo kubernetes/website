@@ -2,11 +2,13 @@
 title: 使用源 IP
 content_type: tutorial
 min-kubernetes-server-version: v1.5
+weight: 10
 ---
 <!--  
 title: Using Source IP
 content_type: tutorial
 min-kubernetes-server-version: v1.5
+weight: 40
 -->
 
 <!-- overview -->
@@ -85,7 +87,7 @@ IP of requests it receives through an HTTP header. You can create it as follows:
 你可以按如下方式创建它：
 
 ```shell
-kubectl create deployment source-ip-app --image=k8s.gcr.io/echoserver:1.4
+kubectl create deployment source-ip-app --image=registry.k8s.io/echoserver:1.4
 ```
 <!-- 
 The output is:
@@ -116,11 +118,11 @@ deployment.apps/source-ip-app created
 <!-- 
 Packets sent to ClusterIP from within the cluster are never source NAT'd if
 you're running kube-proxy in
-[iptables mode](/docs/concepts/services-networking/service/#proxy-mode-iptables),
+[iptables mode](/docs/reference/networking/virtual-ips/#proxy-mode-iptables),
 (the default). You can query the kube-proxy mode by fetching
 `http://localhost:10249/proxyMode` on the node where kube-proxy is running.
 -->
-如果你在 [iptables 模式](/zh-cn/docs/concepts/services-networking/service/#proxy-mode-iptables)（默认）下运行
+如果你在 [iptables 模式](/zh-cn/docs/reference/networking/virtual-ips/#proxy-mode-iptables)（默认）下运行
 kube-proxy，则从集群内发送到 ClusterIP 的数据包永远不会进行源 NAT。
 你可以通过在运行 kube-proxy 的节点上获取 `http://localhost:10249/proxyMode` 来查询 kube-proxy 模式。
 
@@ -132,7 +134,7 @@ The output is similar to this:
 -->
 输出类似于：
 ```
-NAME                   STATUS     ROLES    AGE     VERSION
+NAME                           STATUS     ROLES    AGE     VERSION
 kubernetes-node-6jst   Ready      <none>   2h      v1.13.0
 kubernetes-node-cx31   Ready      <none>   2h      v1.13.0
 kubernetes-node-jj1t   Ready      <none>   2h      v1.13.0
@@ -172,7 +174,7 @@ service/clusterip exposed
 kubectl get svc clusterip
 ```
 <!--
-The output is similar to this:
+The output is similar to:
 -->
 输出类似于：
 ```
@@ -236,7 +238,7 @@ command=GET
 <!-- 
 The `client_address` is always the client pod's IP address, whether the client pod and server pod are in the same node or in different nodes.
 -->
-`client_address` 始终是客户端 Pod 的 IP 地址，不管客户端 Pod 和服务器 Pod 位于同一节点还是不同节点。
+不管客户端 Pod 和服务器 Pod 位于同一节点还是不同节点，`client_address` 始终是客户端 Pod 的 IP 地址。
 
 <!-- 
 ## Source IP for Services with `Type=NodePort`
@@ -252,7 +254,6 @@ are source NAT'd by default. You can test this by creating a `NodePort` Service:
 ```shell
 kubectl expose deployment source-ip-app --name=nodeport --port=80 --target-port=8080 --type=NodePort
 ```
-
 <!-- 
 The output is: 
 -->
@@ -384,12 +385,11 @@ Visually:
 
 * 客户端将数据包发送到没有任何端点的 `node2:nodePort`
 * 数据包被丢弃
-* 客户端发送数据包到 `node1:nodePort`，它**确实**有端点
+* 客户端发送数据包到**必有**端点的 `node1:nodePort`
 * node1 使用正确的源 IP 地址将数据包路由到端点
 
 用图表示：
 {{< figure src="/zh-cn/docs/images/tutor-service-nodePort-fig02.svg" alt="图 2：源 IP NodePort" class="diagram-large" caption="如图。源 IP（Type=NodePort）保存客户端源 IP 地址" link="" >}}
-
 
 <!-- 
 ## Source IP for Services with `Type=LoadBalancer`
@@ -402,7 +402,7 @@ at a node without an endpoint, the system proxies it to a node *with* an
 endpoint, replacing the source IP on the packet with the IP of the node (as
 described in the previous section).
 -->
-## `Type=LoadBalancer` 类型 Service 的 Source IP  {#source-ip-for-services-with-type-loadbalancer}
+## `Type=LoadBalancer` 类型 Service 的源 IP  {#source-ip-for-services-with-type-loadbalancer}
 
 默认情况下，发送到 [`Type=LoadBalancer`](/zh-cn/docs/concepts/services-networking/service/#loadbalancer)
 的 Service 的数据包经过源 NAT处理，因为所有处于 `Ready` 状态的可调度 Kubernetes
@@ -429,7 +429,7 @@ service/loadbalancer exposed
 Print out the IP addresses of the Service:
 -->
 打印 Service 的 IP 地址：
-```shell
+```console
 kubectl get svc loadbalancer
 ```
 <!--
@@ -444,7 +444,7 @@ loadbalancer   LoadBalancer   10.0.65.118   203.0.113.140     80/TCP    5m
 <!-- 
 Next, send a request to this Service's external-ip:
 -->
-接下来，发送请求到 Service 的 的外部IP（External-IP）：
+接下来，发送请求到 Service 的 的外部 IP（External-IP）：
 ```shell
 curl 203.0.113.140
 ```
@@ -510,7 +510,7 @@ serving the health check at `/healthz`. You can test this:
 路径上提供健康检查的节点的端口。你可以这样测试：
 
 ```shell
-kubectl get pod -o wide -l run=source-ip-app
+kubectl get pod -o wide -l app=source-ip-app
 ```
 <!-- 
 The output is similar to this:
@@ -611,8 +611,8 @@ the `service.spec.healthCheckNodePort` field on the Service.
 -->
 第一类负载均衡器必须使用负载均衡器和后端之间商定的协议来传达真实的客户端 IP，
 例如 HTTP [转发](https://tools.ietf.org/html/rfc7239#section-5.2)或
-[X-FORWARDED-FOR](https://en.wikipedia.org/wiki/X-Forwarded-For)
-表头，或[代理协议](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)。
+[X-FORWARDED-FOR](https://zh.wikipedia.org/wiki/X-Forwarded-For)
+标头，或[代理协议](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)。
 第二类负载均衡器可以通过创建指向存储在 Service 上的 `service.spec.healthCheckNodePort`
 字段中的端口的 HTTP 健康检查来利用上述功能。
 
@@ -623,8 +623,8 @@ Delete the Services:
 -->
 删除 Service：
 
-```console
-$ kubectl delete svc -l app=source-ip-app
+```shell
+kubectl delete svc -l app=source-ip-app
 ```
 
 <!--
@@ -632,15 +632,15 @@ Delete the Deployment, ReplicaSet and Pod:
 -->
 删除 Deployment、ReplicaSet 和 Pod：
 
-```console
-$ kubectl delete deployment source-ip-app
+```shell
+kubectl delete deployment source-ip-app
 ```
 
 ## {{% heading "whatsnext" %}}
 
 <!-- 
-* Learn more about [connecting applications via services](/docs/concepts/services-networking/connect-applications-service/)
+* Learn more about [connecting applications via services](/docs/tutorials/services/connect-applications-service/)
 * Read how to [Create an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)
 -->
-* 详细了解[通过 Service 连接应用程序](/zh-cn/docs/concepts/services-networking/connect-applications-service/)
+* 详细了解[通过 Service 连接应用程序](/zh-cn/docs/tutorials/services/connect-applications-service/)
 * 阅读如何[创建外部负载均衡器](/zh-cn/docs/tasks/access-application-cluster/create-external-load-balancer/)

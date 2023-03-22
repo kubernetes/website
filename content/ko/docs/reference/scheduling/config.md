@@ -4,7 +4,7 @@ content_type: concept
 weight: 20
 ---
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 구성 파일을 작성하고 해당 경로를 커맨드 라인 인수로 전달하여
 `kube-scheduler` 의 동작을 사용자 정의할 수 있다.
@@ -18,8 +18,8 @@ weight: 20
 각 단계는 익스텐션 포인트(extension point)를 통해 노출된다. 플러그인은 이러한
 익스텐션 포인트 중 하나 이상을 구현하여 스케줄링 동작을 제공한다.
 
-KubeSchedulerConfiguration ([v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
-또는 [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/)) 
+KubeSchedulerConfiguration ([v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+또는 [v1](/docs/reference/config-api/kube-scheduler-config.v1/))
 구조에 맞게 파일을 작성하고,
 `kube-scheduler --config <filename>`을 실행하여
 스케줄링 프로파일을 지정할 수 있다.
@@ -27,12 +27,18 @@ KubeSchedulerConfiguration ([v1beta2](/docs/reference/config-api/kube-scheduler-
 최소 구성은 다음과 같다.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta2
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 clientConnection:
   kubeconfig: /etc/srv/kubernetes/kube-scheduler/kubeconfig
 ```
 
+  {{< note >}}
+  KubeSchedulerConfiguration [v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)는
+  v1.25부터 사용 중단되었고 v1.26부터 제거된다. KubeSchedulerConfiguration을
+  [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/) 또는 [v1](/docs/reference/config-api/kube-scheduler-config.v1/)로 전환한 뒤에
+  쿠버네티스를 v1.25로 업그레이드하도록 한다.
+  {{< /note >}}
 ## 프로파일
 
 스케줄링 프로파일을 사용하면 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}에서
@@ -60,7 +66,7 @@ clientConnection:
    구성된 순서대로 호출된다. 노드가 모든 필터를 통과하지 않으면 파드는 unschedulable로
    표시된다.
 1. `postFilter`: 이 플러그인은 파드의 실행 가능한 노드를 찾을 수 없을 때,
-   구성된 순서대로 호출된다. `postFilter` 플러그인이 파드 _schedulable_ 을 표시하는 경우, 
+   구성된 순서대로 호출된다. `postFilter` 플러그인이 파드 _schedulable_ 을 표시하는 경우,
    나머지 플러그인은 호출 되지 않는다.
 1. `preScore`: 이것은 사전 스코어링 작업을 수행하는 데 사용할 수 있는
    정보성 익스텐션 포인트이다.
@@ -78,14 +84,14 @@ clientConnection:
    플러그인은 적어도 하나 이상 필요하다.
 1. `postBind`: 파드가 바인드된 후 호출되는
    정보성 익스텐션 포인트이다.
-1. `multiPoint`: 이 필드는 플러그인들의 모든 적용 가능한 익스텐션 포인트에 대해 
+1. `multiPoint`: 이 필드는 플러그인들의 모든 적용 가능한 익스텐션 포인트에 대해
    플러그인들을 동시에 활성화하거나 비활성화할 수 있게 하는 환경 설정 전용 필드이다.
 
 각 익스텐션 포인트에 대해 특정 [기본 플러그인](#스케줄링-플러그인)을 비활성화하거나
 자체 플러그인을 활성화할 수 있다. 예를 들면, 다음과 같다.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta2
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
   - plugins:
@@ -122,7 +128,7 @@ profiles:
   [노드 어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#노드-어피니티)를
   구현한다.
   익스텐션 포인트: `filter`, `score`.
-- `PodTopologySpread`: [파드 토폴로지 분배](/ko/docs/concepts/workloads/pods/pod-topology-spread-constraints/)를
+- `PodTopologySpread`: [파드 토폴로지 분배 제약 조건](/ko/docs/concepts/scheduling-eviction/topology-spread-constraints/)을
   구현한다.
   익스텐션 포인트: `preFilter`, `filter`, `preScore`, `score`.
 - `NodeUnschedulable`: `.spec.unschedulable` 이 true로 설정된 노드를
@@ -172,11 +178,6 @@ profiles:
 기본으로 활성화되지 않는 다음의 플러그인을
 컴포넌트 구성 API를 통해 활성화할 수도 있다.
 
-- `SelectorSpread`: {{< glossary_tooltip text="Services" term_id="service" >}},
-  {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}}와
-  {{< glossary_tooltip text="StatefulSets" term_id="statefulset" >}}에 속하는 파드의 경우, 
-  노드간에 퍼지는 것을 선호한다.
-  익스텐션 포인트: `preScore`, `score`.
 - `CinderLimits`: 노드에 대해 [OpenStack Cinder](https://docs.openstack.org/cinder/)
   볼륨 제한이 충족될 수 있는지 확인한다.
   익스텐션 포인트: `filter`.
@@ -192,7 +193,7 @@ profiles:
 실행된다.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta2
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
   - schedulerName: default-scheduler
@@ -231,17 +232,17 @@ profiles:
 
 ### 다수의 익스텐션 포인트에 플러그인 적용하기 {#multipoint}
 
-`kubescheduler.config.k8s.io/v1beta3` 부터, 
-다수의 익스텐션 포인트에 대해 플러그인을 쉽게 활성화하거나 
-비활성화할 수 있게 하는 프로파일 환경 설정 `multiPoint` 가 추가되었다. 
+`kubescheduler.config.k8s.io/v1beta3` 부터,
+다수의 익스텐션 포인트에 대해 플러그인을 쉽게 활성화하거나
+비활성화할 수 있게 하는 프로파일 환경 설정 `multiPoint` 가 추가되었다.
 이를 사용하여 사용자와 관리자가 커스텀 프로파일을 사용할 때 환경 설정을 간소화할 수 있다.
 
-`preScore`, `score`, `preFilter`, `filter` 익스텐션 포인트가 있는 `MyPlugin` 이라는 플러그인이 있다고 가정하자. 
-모든 사용 가능한 익스텐션 포인트에 대해 `MyPlugin` 을 활성화하려면, 
+`preScore`, `score`, `preFilter`, `filter` 익스텐션 포인트가 있는 `MyPlugin` 이라는 플러그인이 있다고 가정하자.
+모든 사용 가능한 익스텐션 포인트에 대해 `MyPlugin` 을 활성화하려면,
 다음과 같은 프로파일 환경 설정을 사용한다.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
   - schedulerName: multipoint-scheduler
@@ -251,11 +252,11 @@ profiles:
         - name: MyPlugin
 ```
 
-위의 예시는 아래와 같이 모든 익스텐션 포인트에 대해 `MyPlugin` 을 수동으로 활성화하는 것과 
+위의 예시는 아래와 같이 모든 익스텐션 포인트에 대해 `MyPlugin` 을 수동으로 활성화하는 것과
 동일한 효과를 갖는다.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
   - schedulerName: non-multipoint-scheduler
@@ -274,17 +275,17 @@ profiles:
         - name: MyPlugin
 ```
 
-여기서 `multiPoint` 를 사용했을 때의 이점은, 
-추후 `MyPlugin` 이 다른 익스텐션 포인트에 대한 구현을 추가했을 때, 
+여기서 `multiPoint` 를 사용했을 때의 이점은,
+추후 `MyPlugin` 이 다른 익스텐션 포인트에 대한 구현을 추가했을 때,
 새로운 익스텐션에 대해서도 `multiPoint` 환경 설정이 자동으로 활성화될 것이라는 점이다.
 
-`disabled` 필드를 사용하여, `MultiPoint` 확장으로부터 특정 익스텐션 포인트를 제외할 수 있다. 
-기본 플러그인을 비활성화하거나, 기본이 아닌(non-default) 플러그인을 비활성화하거나, 
-와일드카드(`'*'`)를 사용하여 모든 플러그인을 비활성화할 수 있다. 
+`disabled` 필드를 사용하여, `MultiPoint` 확장으로부터 특정 익스텐션 포인트를 제외할 수 있다.
+기본 플러그인을 비활성화하거나, 기본이 아닌(non-default) 플러그인을 비활성화하거나,
+와일드카드(`'*'`)를 사용하여 모든 플러그인을 비활성화할 수 있다.
 다음은 `Score` 와 `PreScore` 에 대해 비활성화하는 예시이다.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
   - schedulerName: non-multipoint-scheduler
@@ -300,14 +301,15 @@ profiles:
         - name: '*'
 ```
 
-`v1beta3` 에서, `MultiPoint` 필드를 통해 내부적으로 모든 [기본 플러그인](#scheduling-plugins)이 활성화된다. 
-그러나, 개별 익스텐션 포인트에 대해 기본값(예: 순서, Score 가중치)을 유연하게 재설정하는 것도 여전히 가능하다. 
-예를 들어, 2개의 Score 플러그인 `DefaultScore1` 과 `DefaultScore2` 가 있고 
-각각의 가중치가 `1` 이라고 하자. 
+`kubescheduler.config.k8s.io/v1beta3` 부터, `MultiPoint` 필드를 통해
+내부적으로 모든 [기본 플러그인](#scheduling-plugins)이 활성화된다.
+그러나, 개별 익스텐션 포인트에 대해 기본값(예: 순서, Score 가중치)을 유연하게 재설정하는 것도 여전히 가능하다.
+예를 들어, 2개의 Score 플러그인 `DefaultScore1` 과 `DefaultScore2` 가 있고
+각각의 가중치가 `1` 이라고 하자.
 이 때, 다음과 같이 가중치를 다르게 설정하여 순서를 바꿀 수 있다.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
   - schedulerName: multipoint-scheduler
@@ -318,10 +320,10 @@ profiles:
           weight: 5
 ```
 
-이 예제에서, 이 플러그인들을 `MultiPoint` 에 명시할 필요는 없는데, 
-이는 이 플러그인들이 기본 플러그인이기 때문이다. 
-그리고 `Score` 에는 `DefaultScore2` 플러그인만 명시되었다. 
-이는 익스텐션 포인트를 명시하여 설정된 플러그인은 언제나 `MultiPoint` 플러그인보다 우선순위가 높기 때문이다. 
+이 예제에서, 이 플러그인들을 `MultiPoint` 에 명시할 필요는 없는데,
+이는 이 플러그인들이 기본 플러그인이기 때문이다.
+그리고 `Score` 에는 `DefaultScore2` 플러그인만 명시되었다.
+이는 익스텐션 포인트를 명시하여 설정된 플러그인은 언제나 `MultiPoint` 플러그인보다 우선순위가 높기 때문이다.
 결론적으로, 위의 예시에서는 두 플러그인을 모두 명시하지 않고도 두 플러그인의 순서를 조정하였다.
 
 `MultiPoint` 플러그인을 설정할 때, 일반적인 우선 순위는 다음과 같다.
@@ -342,7 +344,7 @@ profiles:
 이들 플러그인에 대한 유효한 예시 환경 설정은 다음과 같다.
 
 ```yaml
-apiVersion: kubescheduler.config.k8s.io/v1beta3
+apiVersion: kubescheduler.config.k8s.io/v1
 kind: KubeSchedulerConfiguration
 profiles:
   - schedulerName: multipoint-scheduler
@@ -363,8 +365,8 @@ profiles:
         - name: 'DefaultPlugin2'
 ```
 
-명시한 익스텐션 포인트 내에 `MultiPoint` 플러그인을 재정의해도 에러가 발생하지 않음에 유의한다. 
-명시한 익스텐션 포인트의 우선 순위가 더 높으므로, 
+명시한 익스텐션 포인트 내에 `MultiPoint` 플러그인을 재정의해도 에러가 발생하지 않음에 유의한다.
+명시한 익스텐션 포인트의 우선 순위가 더 높으므로,
 이 재정의는 무시되고 로그에만 기록된다.
 
 대부분의 환경 설정을 한 곳에서 관리하는 것 말고도, 이 예시는 다음과 같은 내용을 포함한다.
@@ -380,14 +382,14 @@ kind: KubeSchedulerConfiguration
 profiles:
   - schedulerName: multipoint-scheduler
     plugins:
-    
+
       # 기본 QueueSort 플러그인을 비활성화한다
       queueSort:
         enabled:
         - name: 'CustomQueueSort'
         disabled:
         - name: 'DefaultQueueSort'
-        
+
       # 커스텀 Filter 플러그인을 활성화한다
       filter:
         enabled:
@@ -396,7 +398,7 @@ profiles:
         - name: 'DefaultPlugin2'
         disabled:
         - name: 'DefaultPlugin1'
-        
+
       # 커스텀 score 플러그인을 활성화하고 순서를 조정한다
       score:
         enabled:
@@ -406,19 +408,19 @@ profiles:
           weight: 3
 ```
 
-다소 복잡한 예시를 통해, 익스텐션 포인트를 설정함에 있어서 `MultiPoint` 환경 설정의 유연성과 
+다소 복잡한 예시를 통해, 익스텐션 포인트를 설정함에 있어서 `MultiPoint` 환경 설정의 유연성과
 기존 방법과의 끊김없는 통합을 확인할 수 있다.
 
 ## 스케줄러 설정 전환
 
 {{< tabs name="tab_with_md" >}}
 {{% tab name="v1beta1 → v1beta2" %}}
-* 설정 버전 v1beta2 에서는, `NodeResourcesFit` 플러그인을 위한 새로운 스코어링 확장을 
+* 설정 버전 v1beta2 에서는, `NodeResourcesFit` 플러그인을 위한 새로운 스코어링 확장을
   이용할 수 있다.
-  새 확장은 `NodeResourcesLeastAllocated`, `NodeResourcesMostAllocated`, 
+  새 확장은 `NodeResourcesLeastAllocated`, `NodeResourcesMostAllocated`,
   `RequestedToCapacityRatio` 플러그인의 기능을 통합하여 제공한다.
-  예를 들어, 이전에 `NodeResourcesMostAllocated` 플러그인을 사용했다면, 
-  대신 `NodeResourcesFit`(기본적으로 활성화되어 있음)을 사용하면서 
+  예를 들어, 이전에 `NodeResourcesMostAllocated` 플러그인을 사용했다면,
+  대신 `NodeResourcesFit`(기본적으로 활성화되어 있음)을 사용하면서
   다음과 같이 `scoreStrategy`를 포함하는 `pluginConfig`를 추가할 수 있다.
   ```yaml
   apiVersion: kubescheduler.config.k8s.io/v1beta2
@@ -451,6 +453,11 @@ profiles:
   * `NodeAffinity`: 1 에서 2 로
   * `TaintToleration`: 1 에서 3 으로
 {{% /tab %}}
+
+{{% tab name="v1beta3 → v1" %}}
+* 스케줄러 플러그인 `SelectorSpread`는 제거되었다. 대신, 비슷한 효과를 얻기 위해
+`PodTopologySpread` 플러그인(기본적으로 활성화되어 있음)을 사용한다.
+{{% /tab %}}
 {{< /tabs >}}
 
 ## {{% heading "whatsnext" %}}
@@ -459,3 +466,4 @@ profiles:
 * [스케줄링](/ko/docs/concepts/scheduling-eviction/kube-scheduler/)에 대해 알아보기
 * [kube-scheduler 설정 (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) 레퍼런스 읽어보기
 * [kube-scheduler 설정 (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) 레퍼런스 읽어보기
+* [kube-scheduler 설정 (v1)](/docs/reference/config-api/kube-scheduler-config.v1/) 레퍼런스 읽어보기

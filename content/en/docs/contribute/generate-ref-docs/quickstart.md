@@ -1,7 +1,9 @@
 ---
-title: Quickstart
+title: Reference Documentation Quickstart
+linkTitle: Quickstart
 content_type: task
-weight: 40
+weight: 10
+hide_summary: true
 ---
 
 <!-- overview -->

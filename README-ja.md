@@ -16,7 +16,7 @@ Hugo(Extended version)を使用してWebサイトをローカルで実行する�
 このリポジトリを使用するには、以下をローカルにインストールする必要があります。
 
 - [npm](https://www.npmjs.com/)
-- [Go](https://golang.org/)
+- [Go](https://go.dev/)
 - [Hugo(Extended version)](https://gohugo.io/)
 - [Docker](https://www.docker.com/)などのコンテナランタイム
 

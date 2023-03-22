@@ -1,7 +1,7 @@
 ---
 title: Content organization
 content_type: concept
-weight: 40
+weight: 90
 ---
 
 
@@ -33,6 +33,7 @@ weight: 10
 
 {{% note %}}
 For page weights, it can be smart not to use 1, 2, 3 ..., but some other interval, say 10, 20, 30... This allows you to insert pages where you want later.
+Additionally, each weight within the same directory (section) should not be overlapped with the other weights. This makes sure that content is always organized correctly, especially in localized content. 
 {{% /note %}}
 
 

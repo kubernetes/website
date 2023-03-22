@@ -1,10 +1,10 @@
 ---
 title: 클러스터에서 TLS 인증서 관리
 content_type: task
-
-
-
-
+# reviewers:
+# - mikedanese
+# - beacham
+# - liggit
 ---
 
 <!-- overview -->
@@ -355,10 +355,11 @@ CSR이 다음 두 가지 요구 사항을 충족하는지 확인하는 것이다
 [인증서 서명 요청](/docs/reference/access-authn-authz/certificate-signing-requests/) 레퍼런스 페이지를 
 참조한다.
 
-## 서명을 제공하도록 클러스터 구성하기 {#a-note-to-cluster-administrators}
+## 서명을 제공하도록 클러스터 구성하기
 
 이 페이지에서는 서명자가 인증서 API를 제공하도록 설정되었다고 가정한다. 쿠버네티스 
 컨트롤러 관리자는 서명자의 기본 구현을 제공한다. 이를 
 활성화하려면 인증 기관(CA)의 키 쌍에 대한 경로와 함께 `--cluster-signing-cert-file` 와 
 `--cluster-signing-key-file` 매개 변수를 
 컨트롤러 관리자에 전달한다.
+

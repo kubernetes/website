@@ -1,6 +1,7 @@
 ---
 title: Kubernetes APIへのアクセスコントロール
 content_type: concept
+weight: 50
 ---
 
 <!-- overview -->
@@ -116,7 +117,7 @@ Kubernetesは、ABACモード、RBACモード、Webhookモードなど、複数�
 Kubernetesの監査は、クラスター内の一連のアクションを文書化した、セキュリティに関連する時系列の記録を提供します。
 クラスターは、ユーザー、Kubernetes APIを使用するアプリケーション、およびコントロールプレーン自身によって生成されるアクティビティを監査します。
 
-詳しくは[監査](/ja/docs/tasks/debug-application-cluster/audit/)をご覧ください。
+詳しくは[監査](/ja/docs/tasks/debug/debug-cluster/audit/)をご覧ください。
 
 ## APIサーバーのIPとポート {#api-server-ports-and-ips}
 
@@ -167,4 +168,3 @@ APIサーバーは、実際には2つのポートでサービスを提供する�
 
 以下についても知ることができます。
 - PodがAPIクレデンシャルを取得するために[Secrets](/ja/docs/concepts/configuration/secret/#service-accounts-automatically-create-and-attach-secrets-with-api-credentials)を使用する方法について。
-

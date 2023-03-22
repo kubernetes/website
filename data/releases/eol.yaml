@@ -1,0 +1,84 @@
+branches:
+  - release: "1.23"
+    finalPatchRelease: "1.23.17"
+    endOfLifeDate: 2023-02-28
+  - release: "1.22"
+    finalPatchRelease: "1.22.17"
+    endOfLifeDate: 2022-12-08
+    note: >-
+      1.22.17 was released in December 2022 (after the EOL date) to backport registry changes and fix two critical issues.
+  - release: "1.22"
+    finalPatchRelease: "1.22.16"
+    endOfLifeDate: 2022-11-09
+    note: >-
+      1.22.16 was released in November 2022 (after the EOL date) to fix CVE-2022-3162 and CVE-2022-3294.
+  - release: "1.22"
+    finalPatchRelease: "1.22.15"
+    endOfLifeDate: 2022-10-28
+  - release: "1.21"
+    finalPatchRelease: "1.21.14"
+    endOfLifeDate: 2022-06-28
+  - release: "1.20"
+    finalPatchRelease: "1.20.15"
+    endOfLifeDate: 2022-02-28
+  - release: "1.19"
+    finalPatchRelease: "1.19.16"
+    endOfLifeDate: 2021-10-28
+  - release: "1.18"
+    finalPatchRelease: "1.18.20"
+    endOfLifeDate: 2021-06-18
+    note: >-
+      Created to solve regression introduced in 1.18.19
+  - release: "1.18"
+    finalPatchRelease: "1.18.19"
+    endOfLifeDate: 2021-05-12
+    note: >-
+      [Regression](https://groups.google.com/g/kubernetes-dev/c/KuF8s2zueFs)
+  - release: "1.17"
+    finalPatchRelease: "1.17.17"
+    endOfLifeDate: 2021-01-13
+  - release: "1.16"
+    finalPatchRelease: "1.16.15"
+    endOfLifeDate: 2020-09-02
+  - release: "1.15"
+    finalPatchRelease: "1.15.12"
+    endOfLifeDate: 2020-05-06
+  - release: "1.14"
+    finalPatchRelease: "1.14.10"
+    endOfLifeDate: 2019-12-11
+  - release: "1.13"
+    finalPatchRelease: "1.13.12"
+    endOfLifeDate: 2019-10-15
+  - release: "1.12"
+    finalPatchRelease: "1.12.10"
+    endOfLifeDate: 2019-07-08
+  - release: "1.11"
+    finalPatchRelease: "1.11.10"
+    endOfLifeDate: 2019-05-01
+  - release: "1.10"
+    finalPatchRelease: "1.10.13"
+    endOfLifeDate: 2019-02-13
+  - release: "1.9"
+    finalPatchRelease: "1.9.11"
+    endOfLifeDate: 2018-09-29
+  - release: "1.8"
+    finalPatchRelease: "1.8.15"
+    endOfLifeDate: 2018-07-12
+  - release: "1.7"
+    finalPatchRelease: "1.7.16"
+    endOfLifeDate: 2018-04-04
+  - release: "1.6"
+    finalPatchRelease: "1.6.13"
+    endOfLifeDate: 2017-11-23
+  - release: "1.5"
+    finalPatchRelease: "1.5.8"
+    endOfLifeDate: 2017-10-01
+  - release: "1.4"
+    finalPatchRelease: "1.4.12"
+    endOfLifeDate: 2017-04-21
+  - release: "1.3"
+    finalPatchRelease: "1.3.10"
+    endOfLifeDate: 2016-11-01
+  - release: "1.2"
+    finalPatchRelease: "1.2.7"
+    endOfLifeDate: 2016-10-23
