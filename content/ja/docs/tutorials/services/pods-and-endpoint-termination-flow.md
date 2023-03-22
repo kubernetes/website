@@ -199,7 +199,7 @@ Podが削除される時には、古いエンドポイントも削除されま�
 ## {{% heading "whatsnext" %}}
 
 
-* [アプリケーションをサービスに接続する](/docs/tutorials/services/connect-applications-service/)方法を学びます。
+* [アプリケーションをServiceに接続する](/docs/tutorials/services/connect-applications-service/)方法を学びます。
 * [Serviceを利用したクラスター内のアプリケーションへのアクセス](/docs/tasks/access-application-cluster/service-access-application-cluster/)を学びます。
 * [Serviceを使用してフロントエンドをバックエンドに接続する](/docs/tasks/access-application-cluster/connecting-frontend-backend/)を学びます。
 * [外部ロードバランサーの作成](/docs/tasks/access-application-cluster/create-external-load-balancer/)を学びます。
