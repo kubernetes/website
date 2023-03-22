@@ -381,21 +381,21 @@ kubectl get crd volumesnapshotcontent -o yaml
 <!--
 If you want to allow users to create a `PersistentVolumeClaim` from an existing
 `VolumeSnapshot`, but with a different volume mode than the source, the annotation
-`snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"`needs to be added to
+`snapshot.storage.kubernetes.io/allow-volume-mode-change: "true"`needs to be added to
 the `VolumeSnapshotContent` that corresponds to the `VolumeSnapshot`.
 -->
 如果你希望允许用户从现有的 `VolumeSnapshot` 创建 `PersistentVolumeClaim`，
 但是使用与源卷不同的卷模式，则需要添加注解
-`snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"`
+`snapshot.storage.kubernetes.io/allow-volume-mode-change: "true"`
 到对应 `VolumeSnapshot` 的 `VolumeSnapshotContent` 中。
 
 <!--
-For pre-provisioned snapshots, `Spec.SourceVolumeMode` needs to be populated
+For pre-provisioned snapshots, `spec.sourceVolumeMode` needs to be populated
 by the cluster administrator.
 
 An example `VolumeSnapshotContent` resource with this feature enabled would look like:
 -->
-对于预制备的快照，`Spec.SourceVolumeMode` 需要由集群管理员填充。
+对于预制备的快照，`spec.sourceVolumeMode` 需要由集群管理员填充。
 
 启用此特性的 `VolumeSnapshotContent` 资源示例如下所示：
 
@@ -405,7 +405,7 @@ kind: VolumeSnapshotContent
 metadata:
   name: new-snapshot-content-test
   annotations:
-    - snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"
+    - snapshot.storage.kubernetes.io/allow-volume-mode-change: "true"
 spec:
   deletionPolicy: Delete
   driver: hostpath.csi.k8s.io

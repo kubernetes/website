@@ -1,7 +1,7 @@
 ---
 title: 拓扑感知提示
 content_type: concept
-weight: 70
+weight: 100
 description: >-
   **拓扑感知提示（Topology Aware Hints）** 提供了一种机制来帮助将网络流量保持在其请求方所在的区域内。
   在集群中的 Pod 之间优先选用相同区域的流量有助于提高可靠性、增强性能（网络延迟和吞吐量）或降低成本。
@@ -11,7 +11,7 @@ reviewers:
 - robscott
 title: Topology Aware Hints
 content_type: concept
-weight: 70
+weight: 100
 description: >-
   _Topology Aware Hints_ provides a mechanism to help keep network traffic within the zone
   where it originated. Preferring same-zone traffic between Pods in your cluster can help
@@ -218,11 +218,11 @@ Kubernetes 控制平面和每个节点上的 kube-proxy，在使用拓扑感知�
 <!-- 
 5. **A zone is not represented in hints:** If the kube-proxy is unable to find
    at least one endpoint with a hint targeting the zone it is running in, it falls
-   to using endpoints from all zones. This is most likely to happen as you add
+   back to using endpoints from all zones. This is most likely to happen as you add
    a new zone into your existing cluster.
 -->
 5. **不在提示中的区域：** 如果 kube-proxy 不能根据一个指示在它所在的区域中发现一个端点，
-   它回撤为使用所有节点的端点。当你的集群新增一个新的区域时，这种情况发生概率很高。
+   它将回退到使用来自所有区域的端点。当你的集群新增一个新的区域时，这种情况发生概率很高。
 
 <!-- 
 ## Constraints
@@ -282,6 +282,6 @@ Kubernetes 控制平面和每个节点上的 kube-proxy，在使用拓扑感知�
 ## {{% heading "whatsnext" %}}
 
 <!-- 
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial
 -->
-* 参阅[通过服务连通应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)
+* 参阅[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)教程

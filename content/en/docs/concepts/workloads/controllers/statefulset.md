@@ -121,7 +121,7 @@ In the above example:
   PersistentVolume Provisioner.
 
 The name of a StatefulSet object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+[DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
 ### Pod Selector
 

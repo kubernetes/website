@@ -1,12 +1,14 @@
 ---
 content_type: concept
 title: 资源监控工具
+weight: 15
 ---
 <!--
 reviewers:
 - mikedanese
 content_type: concept
 title: Tools for Monitoring Resources
+weight: 15
 -->
 
 <!-- overview -->
@@ -24,9 +26,8 @@ where bottlenecks can be removed to improve overall performance.
 -->
 要扩展应用程序并提供可靠的服务，你需要了解应用程序在部署时的行为。
 你可以通过检测容器检查 Kubernetes 集群中的应用程序性能，
-[Pod](/zh-cn/docs/concepts/workloads/pods), 
-[服务](/zh-cn/docs/concepts/services-networking/service/)
-和整个集群的特征。
+[Pod](/zh-cn/docs/concepts/workloads/pods)、
+[服务](/zh-cn/docs/concepts/services-networking/service/)和整个集群的特征。
 Kubernetes 在每个级别上提供有关应用程序资源使用情况的详细信息。
 此信息使你可以评估应用程序的性能，以及在何处可以消除瓶颈以提高整体性能。
 
@@ -37,9 +38,8 @@ In Kubernetes, application monitoring does not depend on a single monitoring sol
 On new clusters, you can use [resource metrics](#resource-metrics-pipeline) or
 [full metrics](#full-metrics-pipeline) pipelines to collect monitoring statistics.
 -->
-在 Kubernetes 中，应用程序监控不依赖单个监控解决方案。
-在新集群上，你可以使用[资源度量](#resource-metrics-pipeline)或
-[完整度量](#full-metrics-pipeline)管道来收集监视统计信息。
+在 Kubernetes 中，应用程序监控不依赖单个监控解决方案。在新集群上，
+你可以使用[资源度量](#resource-metrics-pipeline)或[完整度量](#full-metrics-pipeline)管道来收集监视统计信息。
 
 <!--
 ## Resource metrics pipeline
@@ -98,7 +98,7 @@ respond to these metrics by  automatically scaling or adapting the cluster
 based on its current state, using mechanisms such as the Horizontal Pod
 Autoscaler. The monitoring pipeline fetches metrics from the kubelet and
 then exposes them to Kubernetes via an adapter by implementing either the
-`custom.metrics.k8s.io` or `external.metrics.k8s.io` API. 
+`custom.metrics.k8s.io` or `external.metrics.k8s.io` API.
 -->
 ## 完整度量管道  {#full-metrics-pipeline}
 
@@ -109,17 +109,28 @@ Kubernetes 还可以根据集群的当前状态，使用 Pod 水平自动扩缩�
 方法是实现 `custom.metrics.k8s.io` 或 `external.metrics.k8s.io` API。
 
 <!--
-[Prometheus](https://prometheus.io), a CNCF project, can natively monitor Kubernetes, nodes, and Prometheus itself.
-Full metrics pipeline projects that are not part of the CNCF are outside the scope of Kubernetes documentation.  
--->
-[Prometheus](https://prometheus.io) 是一个 CNCF 项目，可以原生监控 Kubernetes、
-节点和 Prometheus 本身。
-完整度量管道项目不属于 CNCF 的一部分，不在 Kubernetes 文档的范围之内。
+Integration of a full metrics pipeline into your Kubernetes implementation is outside
+the scope of Kubernetes documentation because of the very wide scope of possible
+solutions.
 
-<!--
+The choice of monitoring platform depends heavily on your needs, budget, and technical resources.
+Kubernetes does not recommend any specific metrics pipeline; [many options](https://landscape.cncf.io/card-mode?category=monitoring&project=graduated,incubating,member,no&grouping=category&sort=stars) are available.
+Your monitoring system should be capable of handling the [OpenMetrics](https://openmetrics.io/) metrics
+transmission standard, and needs to chosen to best fit in to your overall design and deployment of
+your infrastructure platform. 
+-->
+将完整的指标管道集成到 Kubernetes 实现中超出了 Kubernetes
+文档的范围，因为可能的解决方案具有非常广泛的范围。
+
+监控平台的选择在很大程度上取决于你的需求、预算和技术资源。
+Kubernetes 不推荐任何特定的指标管道；
+可使用[许多选项](https://landscape.cncf.io/card-mode?category=monitoring&project=graduated,incubating,member,no&grouping=category&sort=stars)。
+你的监控系统应能够处理 [OpenMetrics](https://openmetrics.io/) 指标传输标准，
+并且需要选择最适合基础设施平台的整体设计和部署。
+
 ## {{% heading "whatsnext" %}}
 
-
+<!--
 Learn about additional debugging tools, including:
 
 * [Logging](/docs/concepts/cluster-administration/logging/)
@@ -129,8 +140,6 @@ Learn about additional debugging tools, including:
 * [Connecting to containers via port forwarding](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 * [Inspect Kubernetes node with crictl](/docs/tasks/debug/debug-cluster/crictl/)
 -->
-## {{% heading "接下来" %}}
-
 了解其他调试工具，包括：
 
 * [日志记录](/zh-cn/docs/concepts/cluster-administration/logging/)

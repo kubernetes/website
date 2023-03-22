@@ -5,6 +5,7 @@ reviewers:
 - liggitt
 content_type: task
 min-kubernetes-server-version: v1.22
+weight: 260
 ---
 
 <!-- overview -->
@@ -18,7 +19,7 @@ admission controller. This can be done effectively using a combination of dry-ru
 {{% version-check %}}
 
 If you are currently running a version of Kubernetes other than
-{{ skew currentVersion }}, you may want to switch to viewing this
+{{< skew currentVersion >}}, you may want to switch to viewing this
 page in the documentation for the version of Kubernetes that you
 are actually running.
 

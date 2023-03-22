@@ -137,11 +137,11 @@ If the prefix is omitted, the annotation Key is presumed to be private to the us
 <!--
 The `kubernetes.io/` and `k8s.io/` prefixes are reserved for Kubernetes core components.
 
-For example, here's the configuration file for a Pod that has the annotation `imageregistry: https://hub.docker.com/` :
+For example, here's a manifest for a Pod that has the annotation `imageregistry: https://hub.docker.com/` :
 -->
 `kubernetes.io/` 和 `k8s.io/` 前缀是为 Kubernetes 核心组件保留的。
 
-例如，下面是一个 Pod 的配置文件，其注解中包含 `imageregistry: https://hub.docker.com/`：
+例如，下面是一个 Pod 的清单，其注解中包含 `imageregistry: https://hub.docker.com/`：
 
 ```yaml
 apiVersion: v1
@@ -153,7 +153,7 @@ metadata:
 spec:
   containers:
   - name: nginx
-    image: nginx:1.7.9
+    image: nginx:1.14.2
     ports:
     - containerPort: 80
 ```
@@ -161,7 +161,6 @@ spec:
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Learn more about [Labels and Selectors](/docs/concepts/overview/working-with-objects/labels/).
+Learn more about [Labels and Selectors](/docs/concepts/overview/working-with-objects/labels/).
 -->
-* 进一步了解[标签和选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)。
-
+进一步了解[标签和选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)。

@@ -1,9 +1,12 @@
 branches:
+  - release: "1.23"
+    finalPatchRelease: "1.23.17"
+    endOfLifeDate: 2023-02-28
   - release: "1.22"
     finalPatchRelease: "1.22.17"
     endOfLifeDate: 2022-12-08
     note: >-
-      1.22.17 will be released in December 2022 (after the EOL date) to backport registry changes and fix two critical issues.
+      1.22.17 was released in December 2022 (after the EOL date) to backport registry changes and fix two critical issues.
   - release: "1.22"
     finalPatchRelease: "1.22.16"
     endOfLifeDate: 2022-11-09

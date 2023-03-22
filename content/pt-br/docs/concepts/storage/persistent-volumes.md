@@ -148,7 +148,7 @@ spec:
       path: /any/path/it/will/be/replaced
   containers:
   - name: pv-recycler
-    image: "k8s.gcr.io/busybox"
+    image: "registry.k8s.io/busybox"
     command: ["/bin/sh", "-c", "test -e /scrub && rm -rf /scrub/..?* /scrub/.[!.]* /scrub/*  && test -z \"$(ls -A /scrub)\" || exit 1"]
     volumeMounts:
     - name: vol
@@ -196,7 +196,7 @@ Isso é útil se você deseja utilizar PersistentVolumes que possuem suas `claim
 
 ### Expandindo Requisições de Volumes Persistentes
 
-{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 Agora, o suporte à expansão de PersistentVolumeClaims (PVCs) já é habilitado por padrão. Você pode expandir os tipos de volumes abaixo:
 

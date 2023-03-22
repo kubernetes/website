@@ -307,7 +307,7 @@ roleRef:
 ```
 
 The `csrapproving` controller that ships as part of
-[kube-controller-manager](/docs/admin/kube-controller-manager/) and is enabled
+[kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) and is enabled
 by default. The controller uses the
 [`SubjectAccessReview` API](/docs/reference/access-authn-authz/authorization/#checking-api-access) to
 determine if a given user is authorized to request a CSR, then approves based on
@@ -404,23 +404,25 @@ However, you _can_ enable its server certificate, at least partially, via certif
 
 ### Certificate Rotation
 
-Kubernetes v1.8 and higher kubelet implements __beta__ features for enabling
-rotation of its client and/or serving certificates.  These can be enabled through
-the respective `RotateKubeletClientCertificate` and
-`RotateKubeletServerCertificate` feature flags on the kubelet and are enabled by
-default.
+Kubernetes v1.8 and higher kubelet implements features for enabling
+rotation of its client and/or serving certificates. Note, rotation of serving
+certificate is a __beta__ feature and requires the `RotateKubeletServerCertificate`
+feature flag on the kubelet (enabled by default).
 
-`RotateKubeletClientCertificate` causes the kubelet to rotate its client
-certificates by creating new CSRs as its existing credentials expire. To enable
-this feature pass the following flag to the kubelet:
+You can configure the kubelet to rotate its client certificates by creating new CSRs
+as its existing credentials expire. To enable this feature, use the `rotateCertificates`
+field of [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/)
+or pass the following command line argument to the kubelet (deprecated):
 
 ```
 --rotate-certificates
 ```
 
-`RotateKubeletServerCertificate` causes the kubelet **both** to request a serving
+Enabling `RotateKubeletServerCertificate` causes the kubelet **both** to request a serving
 certificate after bootstrapping its client credentials **and** to rotate that
-certificate. To enable this feature pass the following flag to the kubelet:
+certificate. To enable this behavior, use the field `serverTLSBootstrap`  of 
+the [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/)
+or pass the following command line argument to the kubelet (deprecated):
 
 ```
 --rotate-server-certificates

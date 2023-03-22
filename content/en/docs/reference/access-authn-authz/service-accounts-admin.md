@@ -184,7 +184,7 @@ it does the following when a Pod is created:
      `/var/run/secrets/kubernetes.io/serviceaccount`.
      For Linux containers, that volume is mounted at `/var/run/secrets/kubernetes.io/serviceaccount`;
      on Windows nodes, the mount is at the equivalent path.
-1. If the spec of the incoming Pod does already contain any `imagePullSecrets`, then the
+1. If the spec of the incoming Pod doesn't already contain any `imagePullSecrets`, then the
    admission controller adds `imagePullSecrets`, copying them from the `ServiceAccount`.
 
 ### TokenRequest API

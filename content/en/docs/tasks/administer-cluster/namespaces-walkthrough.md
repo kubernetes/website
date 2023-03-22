@@ -4,6 +4,7 @@ reviewers:
 - janetkuo
 title: Namespaces Walkthrough
 content_type: task
+weight: 260
 ---
 
 <!-- overview -->
@@ -160,7 +161,7 @@ kubectl config set-context prod --namespace=production \
   --user=lithe-cocoa-92103_kubernetes
 ```
 
-By default, the above commands adds two contexts that are saved into file
+By default, the above commands add two contexts that are saved into file
 `.kube/config`. You can now view the contexts and alternate against the two
 new request contexts depending on which namespace you wish to work against.
 

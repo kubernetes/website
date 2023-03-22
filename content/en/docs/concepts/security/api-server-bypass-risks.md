@@ -8,11 +8,12 @@ weight: 90
 
 <!-- overview -->
 
-The Kubernetes API server is the main point of entry to a cluster for external parties 
-(users and services) interacting with it. 
+The Kubernetes API server is the main point of entry to a cluster for external parties
+(users and services) interacting with it.
 
 As part of this role, the API server has several key built-in security controls, such as
-audit logging and {{< glossary_tooltip text="admission controllers" term_id="admission-controller" >}}. However, there are ways to modify the configuration
+audit logging and {{< glossary_tooltip text="admission controllers" term_id="admission-controller" >}}.
+However, there are ways to modify the configuration
 or content of the cluster that bypass these controls.
 
 This page describes the ways in which the security controls built into the
@@ -47,13 +48,13 @@ API server. However, the Pod still runs on the node. For more information, refer
 ### Mitigations {#static-pods-mitigations}
 
 - Only [enable the kubelet static Pod manifest functionality](/docs/tasks/configure-pod-container/static-pod/#static-pod-creation)
-   if required by the node.
+  if required by the node.
 - If a node uses the static Pod functionality, restrict filesystem access to the static Pod manifest directory
-   or URL to users who need the access.
+  or URL to users who need the access.
 - Restrict access to kubelet configuration parameters and files to prevent an attacker setting
-   a static Pod path or URL.
+  a static Pod path or URL.
 - Regularly audit and centrally report all access to directories or web storage locations that host
-   static Pod manifests and kubelet configuration files.
+  static Pod manifests and kubelet configuration files.
 
 ## The kubelet API {#kubelet-api}
 
@@ -65,13 +66,14 @@ every container running on the node.
 
 When Kubernetes cluster users have RBAC access to `Node` object sub-resources, that access
 serves as authorization to interact with the kubelet API. The exact access depends on
-which sub-resource access has been granted, as detailed in [kubelet authorization](https://kubernetes.io/docs/reference/access-authn-authz/kubelet-authn-authz/#kubelet-authorization).
+which sub-resource access has been granted, as detailed in
+[kubelet authorization](/docs/reference/access-authn-authz/kubelet-authn-authz/#kubelet-authorization).
 
 Direct access to the kubelet API is not subject to admission control and is not logged
 by Kubernetes audit logging. An attacker with direct access to this API may be able to
 bypass controls that detect or prevent certain actions.
 
-The kubelet API can be configured to authenticate requests in a number of ways. 
+The kubelet API can be configured to authenticate requests in a number of ways.
 By default, the kubelet configuration allows anonymous access. Most Kubernetes providers
 change the default to use webhook and certificate authentication. This lets the control plane
 ensure that the caller is authorized to access the `nodes` API resource or sub-resources.
@@ -80,11 +82,12 @@ The default anonymous access doesn't make this assertion with the control plane.
 ### Mitigations
 
 - Restrict access to sub-resources of the `nodes` API object using mechanisms such as
-   [RBAC](/docs/reference/access-authn-authz/rbac/). Only grant this access when required,
-   such as by monitoring services.
+  [RBAC](/docs/reference/access-authn-authz/rbac/). Only grant this access when required,
+  such as by monitoring services.
 - Restrict access to the kubelet port. Only allow specified and trusted IP address
-   ranges to access the port.
-- [Ensure that kubelet authentication is set to webhook or certificate mode](/docs/reference/access-authn-authz/kubelet-authn-authz/#kubelet-authentication). 
+  ranges to access the port.
+- Ensure that [kubelet authentication](/docs/reference/access-authn-authz/kubelet-authn-authz/#kubelet-authentication).
+  is set to webhook or certificate mode.
 - Ensure that the unauthenticated "read-only" Kubelet port is not enabled on the cluster.
 
 ## The etcd API
@@ -105,7 +108,7 @@ cluster admin rights by accessing cluster secrets or modifying access rules. Eve
 elevating their Kubernetes RBAC privileges, an attacker who can modify etcd can retrieve any API object
 or create new workloads inside the cluster.
 
-Many Kubernetes providers configure 
+Many Kubernetes providers configure
 etcd to use mutual TLS (both client and server verify each other's certificate for authentication).
 There is no widely accepted implementation of authorization for the etcd API, although
 the feature exists. Since there is no authorization model, any certificate
@@ -121,10 +124,9 @@ that are only used for health checking can also grant full read and write access
 - Consider restricting access to the etcd port at a network level, to only allow access
   from specified and trusted IP address ranges.
 
-
 ## Container runtime socket {#runtime-socket}
 
-On each node in a Kubernetes cluster, access to interact with containers is controlled 
+On each node in a Kubernetes cluster, access to interact with containers is controlled
 by the container runtime (or runtimes, if you have configured more than one). Typically,
 the container runtime exposes a Unix socket that the kubelet can access. An attacker with
 access to this socket can launch new containers or interact with running containers.
@@ -136,12 +138,12 @@ control plane components.
 
 ### Mitigations {#runtime-socket-mitigations}
 
-- Ensure that you tightly control filesystem access to container runtime sockets. 
-   When possible, restrict this access to the `root` user.
+- Ensure that you tightly control filesystem access to container runtime sockets.
+  When possible, restrict this access to the `root` user.
 - Isolate the kubelet from other components running on the node, using
-   mechanisms such as Linux kernel namespaces.
+  mechanisms such as Linux kernel namespaces.
 - Ensure that you restrict or forbid the use of [`hostPath` mounts](/docs/concepts/storage/volumes/#hostpath)
-   that include the container runtime socket, either directly or by mounting a parent
-   directory. Also `hostPath` mounts must be set as read-only to mitigate risks
-   of attackers bypassing directory restrictions.
+  that include the container runtime socket, either directly or by mounting a parent
+  directory. Also `hostPath` mounts must be set as read-only to mitigate risks
+  of attackers bypassing directory restrictions.
 - Restrict user access to nodes, and especially restrict superuser access to nodes.

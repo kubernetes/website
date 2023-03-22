@@ -2,7 +2,7 @@
 reviewers:
 title: ServiceとPodに対するDNS
 content_type: concept
-weight: 20
+weight: 80
 ---
 <!-- overview -->
 このページではKubernetesによるDNSサポートについて概観します。
