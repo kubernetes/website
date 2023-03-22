@@ -18,5 +18,5 @@ spec:
     - name: 'rbac' # Skip RBAC requests.
       expression: 'request.resource.group != "rbac.authorization.k8s.io"'
   validations:
-    - expression: "object.metadata.name.startWith('demo')"
+    - expression: "!object.metadata.name.contains('demo') || object.metadata.namespace == 'demo'"
 
