@@ -52,7 +52,7 @@ Creating machine...
 Starting local Kubernetes cluster...
 ```
 ```shell
-kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
+kubectl create deployment hello-minikube --image=registry.k8s.io/echoserver:1.10
 ```
 ```
 deployment.apps/hello-minikube created
@@ -424,7 +424,7 @@ export no_proxy=$no_proxy,$(minikube ip)
 
 Minikube verwendet [libmachine](https://github.com/docker/machine/tree/master/libmachine) zur Bereitstellung von VMs, und [kubeadm](https://github.com/kubernetes/kubeadm) um einen Kubernetes-Cluster in Betrieb zu nehmen.
 
-Weitere Informationen zu Minikube finden Sie im [Vorschlag](https://git.k8s.io/community/contributors/design-proposals/cluster-lifecycle/local-cluster-ux.md).
+Weitere Informationen zu Minikube finden Sie im [Vorschlag](https://git.k8s.io/design-proposals-archive/cluster-lifecycle/local-cluster-ux.md).
 
 ## Zusätzliche Links
 

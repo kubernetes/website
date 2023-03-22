@@ -1,14 +1,14 @@
 ---
 title: Garbage Collection
 content_type: concept
-weight: 50
+weight: 70
 ---
 
 <!-- overview -->
 {{<glossary_definition term_id="garbage-collection" length="short">}} This
 allows the clean up of resources like the following:
 
-  * [Failed pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
+  * [Terminated pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
   * [Completed Jobs](/docs/concepts/workloads/controllers/ttlafterfinished/)
   * [Objects without owner references](#owners-dependents)
   * [Unused containers and container images](#containers-images)
@@ -144,7 +144,7 @@ which you can define:
 
   * `MinAge`: the minimum age at which the kubelet can garbage collect a
     container. Disable by setting to `0`.
-  * `MaxPerPodContainer`: the maximum number of dead containers each Pod pair
+  * `MaxPerPodContainer`: the maximum number of dead containers each Pod 
     can have. Disable by setting to less than `0`.
   * `MaxContainers`: the maximum number of dead containers the cluster can have.
     Disable by setting to less than `0`. 

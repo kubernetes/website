@@ -30,7 +30,7 @@ when using kubeadm to set up a kubernetes cluster.
   document assumes these default ports. However, they are configurable through
   the kubeadm config file.
 * Each host must [have docker, kubelet, and kubeadm installed](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/).
-* Each host should have access to the Kubernetes container image registry (`k8s.gcr.io`) or list/pull the required etcd image using `kubeadm config images list/pull`. This guide will setup etcd instances as [static pods](/docs/tasks/configure-pod-container/static-pod/) managed by a kubelet.
+* Each host should have access to the Kubernetes container image registry (`registry.k8s.io`) or list/pull the required etcd image using `kubeadm config images list/pull`. This guide will setup etcd instances as [static pods](/docs/tasks/configure-pod-container/static-pod/) managed by a kubelet.
 * Some infrastructure to copy files between hosts. For example `ssh` and `scp`
   can satisfy this requirement.
 
@@ -46,7 +46,7 @@ The general approach is to generate all certs on one node and only distribute
 the *necessary* files to the other nodes.
 
 {{< note >}}
-kubeadm contains all the necessary crytographic machinery to generate
+kubeadm contains all the necessary cryptographic machinery to generate
 the certificates described below; no other cryptographic tooling is required for
 this example.
 {{< /note >}}
@@ -251,7 +251,7 @@ this example.
     ```sh
     docker run --rm -it \
     --net host \
-    -v /etc/kubernetes:/etc/kubernetes k8s.gcr.io/etcd:${ETCD_TAG} etcdctl \
+    -v /etc/kubernetes:/etc/kubernetes registry.k8s.io/etcd:${ETCD_TAG} etcdctl \
     --cert /etc/kubernetes/pki/etcd/peer.crt \
     --key /etc/kubernetes/pki/etcd/peer.key \
     --cacert /etc/kubernetes/pki/etcd/ca.crt \

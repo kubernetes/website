@@ -192,7 +192,7 @@ spec:
       path: /any/path/it/will/be/replaced
   containers:
   - name: pv-recycler
-    image: "k8s.gcr.io/busybox"
+    image: "registry.k8s.io/busybox"
     command: ["/bin/sh", "-c", "test -e /scrub && rm -rf /scrub/..?* /scrub/.[!.]* /scrub/*  && test -z \"$(ls -A /scrub)\" || exit 1"]
     volumeMounts:
     - name: vol
@@ -203,7 +203,7 @@ Cependant, le chemin particulier spécifié dans la partie `volumes` du template
 
 ### Redimensionnement des PVC
 
-{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 La prise en charge du redimensionnement des PersistentVolumeClaims (PVCs) est désormais activée par défaut.
 Vous pouvez redimensionner les types de volumes suivants:
@@ -242,7 +242,7 @@ Au lieu de cela, un volume existant est redimensionné.
 
 #### Redimensionnement de volume CSI
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 La prise en charge du redimensionnement des volumes CSI est activée par défaut, mais elle nécessite également un pilote CSI spécifique pour prendre en charge le redimensionnement des volumes.
 Reportez-vous à la documentation du pilote CSI spécifique pour plus d'informations.

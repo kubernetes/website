@@ -10,9 +10,7 @@ aka:
 tags:
 - community
 ---
-
 <!--
----
 title: Upstream (disambiguation)
 id: upstream
 date: 2018-04-12
@@ -23,7 +21,6 @@ short_description: >
 aka: 
 tags:
 - community
----
 -->
 
 <!--
@@ -38,5 +35,8 @@ tags:
 * In **GitHub** or **git**: The convention is to refer to a source repo as *upstream*, whereas the forked repo is considered *downstream*.
 -->
 
-* 在 **Kubernetes社区**：对话中通常使用 *upstream* 来表示核心 Kubernetes 代码库，也就是更广泛的 kubernetes 生态系统、其他代码或第三方工具所依赖的仓库。 例如，[社区成员](#term-member)可能会建议将某个功能特性贡献到 upstream，使其位于核心代码库中，而不是维护于插件或第三方工具中。
-* 在 **GitHub** 或 **git** 中：约定是将源仓库称为 *upstream*，而派生的仓库则被视为 *downstream*。
+* 在 **Kubernetes 社区**：对话中通常使用 *upstream* 来表示核心 Kubernetes
+  代码库，也就是更广泛的 Kubernetes 生态系统、其他代码或第三方工具所依赖的仓库。
+  例如，[社区成员](#term-member)可能会建议将某个功能特性贡献到 upstream，
+  使其位于核心代码库中，而不是维护于插件或第三方工具中。
+* 在 **GitHub** 或 **git** 中：惯例是将源仓库称为 *upstream*，而派生的仓库则被视为 *downstream*。

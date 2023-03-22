@@ -233,7 +233,7 @@ redirect 기능은 deprecated되고 제거 되었다. 대신 (아래의) 프록�
     - apiserver를 위치지정한다
     - 인증 header들을 추가한다
 
-1.  [apiserver proxy](#빌트인-서비스-검색):
+1.  [apiserver proxy](/ko/docs/tasks/access-application-cluster/access-cluster-services/#빌트인-서비스-검색):
 
     - apiserver 내의 빌트인 bastion이다
     - 다른 방식으로는 연결할 수 없는 클러스터 외부의 사용자를 클러스터 IP로 연결한다

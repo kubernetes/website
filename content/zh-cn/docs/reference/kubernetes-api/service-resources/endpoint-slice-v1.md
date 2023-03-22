@@ -27,9 +27,9 @@ EndpointSlice 是实现某 Service 的端点的子集。一个 Service 可以有
 
 <hr>
 
-- **apiVersion**: discovery.k8s.io/v1
+- **apiVersion**：discovery.k8s.io/v1
 
-- **kind**: EndpointSlice
+- **kind**：EndpointSlice
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
@@ -119,24 +119,22 @@ EndpointSlice 是实现某 Service 的端点的子集。一个 Service 可以有
     - **endpoints.conditions.serving** (boolean)
       
       <!--
-      erving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+      Serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition.
       -->
       
       serving 和 ready 非常相似。唯一的不同在于,
       即便某端点的状态为 Terminating 也可以设置 serving。
       对于处在终止过程中的就绪端点，此状况应被设置为 “true”。
       如果设置为 nil，则消费者应该以 ready 值为准。
-      可以在 EndpointSliceTerminatingCondition 特性开关中启用此字段。
 
     - **endpoints.conditions.terminating** (boolean)
       
       <!--
-      terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+      terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating.
       -->
       
       terminating 说明当前端点正在终止过程中。nil 值表示状态未知。
       消费者应将这种未知状态视为端点并不处于终止过程中。
-      可以通过 EndpointSliceTerminatingCondition 特性门控启用此字段。
 
   - **endpoints.deprecatedTopology** (map[string]string)
     
@@ -209,11 +207,10 @@ EndpointSlice 是实现某 Service 的端点的子集。一个 Service 可以有
   - **endpoints.nodeName** (string)
 
     <!--
-    nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node. This field can be enabled with the EndpointSliceNodeName feature gate.
+    nodeName represents the name of the Node hosting this endpoint. This can be used to determine endpoints local to a Node.
     -->
     
     nodeName 是托管此端点的 Node 的名称，使用 nodeName 可以决定 Node 本地有哪些端点。
-    可以通过 EndpointSliceNodeName 特性门控启用此字段。
 
   - **endpoints.targetRef** (<a href="{{< ref "../common-definitions/object-reference#ObjectReference" >}}">ObjectReference</a>)
 
@@ -289,7 +286,8 @@ EndpointSlice 是实现某 Service 的端点的子集。一个 Service 可以有
   - **ports.appProtocol** (string)
 
     <!--
-    The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.-->
+    The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
+    -->
     
     此端口的应用层协议。此字段遵循标准的 Kubernetes Label 句法。
     不带前缀的名称是 IANA 标准服务的保留名称（参见 RFC-6335 和 https://www.iana.org/assignments/service-names）。
@@ -304,9 +302,9 @@ EndpointSliceList 是 EndpointSlice 的列表。
 
 <hr>
 
-- **apiVersion**: discovery.k8s.io/v1
+- **apiVersion**：discovery.k8s.io/v1
 
-- **kind**: EndpointSliceList
+- **kind**：EndpointSliceList
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
@@ -334,18 +332,22 @@ EndpointSliceList 是 EndpointSlice 的列表。
 -->
 ### `get` 读取指定的 EndpointSlice
 
-<!--#### HTTP Request-->
+<!--
+#### HTTP Request
+-->
 #### HTTP 请求
 
 GET /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
 
-<!--#### Parameters-->
+<!--
+#### Parameters
+-->
 #### 参数
 
 <!--
 - **name** (*in path*): string, required
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**)：string, 必需
 
   <!--
   name of the EndpointSlice
@@ -355,23 +357,25 @@ GET /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**)：string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 <!--
 - **pretty** (*in query*): string
 -->
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-<!--#### Response-->
+<!--
+#### Response
+-->
 #### 响应
 
-200 (<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSlice" >}}">EndpointSlice</a>): OK
+200 (<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSlice" >}}">EndpointSlice</a>)：OK
 
-401: Unauthorized
+401：Unauthorized
 
 <!--
 ### `list` list or watch objects of kind EndpointSlice
@@ -385,69 +389,71 @@ GET /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
 
 GET /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices
 
-<!--#### Parameters-->
+<!--
+#### Parameters
+-->
 #### 参数
 
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**)：string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 <!--
 - **allowWatchBookmarks** (*in query*): boolean
 -->
-- **allowWatchBookmarks** (**查询参数**): boolean
+- **allowWatchBookmarks** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 <!--
 - **continue** (*in query*): string
 -->
-- **continue** (**查询参数**): string
+- **continue** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 <!--
 - **fieldSelector** (*in query*): string
 -->
-- **fieldSelector** (**查询参数**): string
+- **fieldSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 <!--
 - **labelSelector** (*in query*): string
 -->
-- **labelSelector** (**查询参数**): string
+- **labelSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 <!--
 - **limit** (*in query*): integer
 -->
-- **limit** (**查询参数**): integer
+- **limit** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 <!--
 - **pretty** (*in query*): string
 -->
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
 - **resourceVersion** (*in query*): string
 -->
-- **resourceVersion** (**查询参数**): string
+- **resourceVersion** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 <!--
 - **resourceVersionMatch** (*in query*): string
 -->
-- **resourceVersionMatch** (**查询参数**): string
+- **resourceVersionMatch** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
@@ -455,254 +461,277 @@ GET /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices
 <!--
 - **timeoutSeconds** (*in query*): integer
 -->
-- **timeoutSeconds** (*查询参数*): integer
+- **timeoutSeconds** (*查询参数*)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 <!--
 - **watch** (*in query*): boolean
 -->
-- **watch** (**查询参数**): boolean
+- **watch** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
-<!--#### Response-->
+<!--
+#### Response
+-->
 #### 响应
 
 200 (<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSliceList" >}}">EndpointSliceList</a>): OK
 
-401: Unauthorized
+401：Unauthorized
 
 <!--
 ### `list` list or watch objects of kind EndpointSlice
 -->
 ### `list` 列举或监测 EndpointSlice 类别的对象
 
-<!--#### HTTP Request-->
+<!--
+#### HTTP Request
+-->
 #### HTTP 请求
 
 GET /apis/discovery.k8s.io/v1/endpointslices
 
-<!--#### Parameters-->
+<!--
+#### Parameters
+-->
 #### 参数
 
 <!--
 - **allowWatchBookmarks** (*in query*): boolean
 -->
-- **allowWatchBookmarks** (**查询参数**): boolean
+- **allowWatchBookmarks** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
 <!--
 - **continue** (*in query*): string
 -->
-- **continue** (**查询参数**): string
+- **continue** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 <!--
 - **fieldSelector** (*in query*): string
 -->
-- **fieldSelector** (**查询参数**): string
+- **fieldSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 <!--
 - **labelSelector** (*in query*): string
 -->
-- **labelSelector** (**查询参数**): string
+- **labelSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 <!--
 - **limit** (*in query*): integer
 -->
-- **limit** (**查询参数**): integer
+- **limit** (**查询参数**)：integer
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 <!--
 - **pretty** (*in query*): string
 -->
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
 - **resourceVersion** (*in query*): string
 -->
-- **resourceVersion** (**查询参数**): string
+- **resourceVersion** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 <!--
 - **resourceVersionMatch** (*in query*): string
 -->
-- **resourceVersionMatch** (*查询参数*): string
+- **resourceVersionMatch** (*查询参数*)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
 -->
-- **timeoutSeconds** (**查询参数**): integer
+- **timeoutSeconds** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
 <!--
 - **watch** (*in query*): boolean
 -->
-- **watch** (**查询参数**): boolean
+- **watch** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
-<!--#### Response-->
+<!--
+#### Response
+-->
 #### 响应
 
-200 (<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSliceList" >}}">EndpointSliceList</a>): OK
+200 (<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSliceList" >}}">EndpointSliceList</a>)：OK
 
-401: Unauthorized
+401：Unauthorized
 
 <!--
 ### `create` create an EndpointSlice
 -->
 ### `create` 创建 EndpointSlice
 
-<!--#### HTTP Request-->
+<!--
+#### HTTP Request
+-->
 #### HTTP 请求
 
 POST /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices
 
-<!--#### Parameters-->
+<!--
+#### Parameters
+-->
 #### 参数
 
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**)：string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSlice" >}}">EndpointSlice</a>, <!--required-->必需
+- **body**：<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSlice" >}}">EndpointSlice</a>, <!--required-->必需
 
 <!--
 - **dryRun** (*in query*): string
 -->
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 <!--
 - **fieldManager** (*in query*): string
 -->
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 <!--
 - **fieldValidation** (*in query*): string
 -->
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 <!--
 - **pretty** (*in query*): string
 -->
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-<!--#### Response-->
+<!--
+#### Response
+-->
 #### 响应
 
-200 (<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSlice" >}}">EndpointSlice</a>): OK
+200 (<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSlice" >}}">EndpointSlice</a>)：OK
 
-201 (<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSlice" >}}">EndpointSlice</a>): Created
+201 (<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSlice" >}}">EndpointSlice</a>)：Created
 
-202 (<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSlice" >}}">EndpointSlice</a>): Accepted
+202 (<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSlice" >}}">EndpointSlice</a>)：Accepted
 
-401: Unauthorized
+401：Unauthorized
 
 <!--
 ### `update` replace the specified EndpointSlice
 -->
 ### `update` 替换指定的 EndpointSlice
 
-<!--#### HTTP Request-->
+<!--
+#### HTTP Request
+-->
 #### HTTP 请求
 
 PUT /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
 
-<!--#### Parameters-->
+<!--
+#### Parameters
+-->
 #### 参数
 
 <!--
 - **name** (*in path*): string, required
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**)：string, 必需
 
   <!--
   name of the EndpointSlice
   -->
   EndpointSlice 的名称
 
-
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**)：string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSlice" >}}">EndpointSlice</a>,<!-- required-->必需
+- **body**：<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSlice" >}}">EndpointSlice</a>，<!-- required-->必需
 
 <!--
 - **dryRun** (*in query*): string
 -->
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 <!--
 - **fieldManager** (*in query*): string
 -->
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 <!--
 - **fieldValidation** (*in query*): string
 -->
-- **fieldValidation** (**查询参数**): string-
+- **fieldValidation** (**查询参数**)：string-
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 <!--
 - **pretty** (*in query*): string
 -->
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-<!--#### Response-->
+<!--
+#### Response
+-->
 #### 响应
 
-200 (<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSlice" >}}">EndpointSlice</a>): OK
+200 (<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSlice" >}}">EndpointSlice</a>)：OK
 
-201 (<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSlice" >}}">EndpointSlice</a>): Created
+201 (<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSlice" >}}">EndpointSlice</a>)：Created
 
-401: Unauthorized
+401：Unauthorized
 
 <!--
 ### `patch` partially update the specified EndpointSlice
 -->
 ### `patch` 部分更新指定的 EndpointSlice
 
-<!--#### HTTP Request-->
+<!--
+#### HTTP Request
+-->
 #### HTTP 请求
 
 PATCH /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
 
-<!--#### Parameters-->
+<!--
+#### Parameters
+-->
 #### 参数
 
 <!--
@@ -716,73 +745,79 @@ PATCH /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**)：string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, <!--required-->必需
+- **body**：<a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, <!--required-->必需
 
 <!--
 - **dryRun** (*in query*): string
 -->
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 <!--
 - **fieldManager** (*in query*): string
 -->
-- **fieldManager** (**查询参数**): string
+- **fieldManager** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
 
 <!--
 - **fieldValidation** (*in query*): string
 -->
-- **fieldValidation** (**查询参数**): string
+- **fieldValidation** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
 <!--
 - **force** (*in query*): boolean
 -->
-- **force** (**查询参数**): boolean
+- **force** (**查询参数**)：boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
 <!--
 - **pretty** (*in query*): string
 -->
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-<!--#### Response-->
+<!--
+#### Response
+-->
 #### 响应
 
-200 (<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSlice" >}}">EndpointSlice</a>): OK
+200 (<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSlice" >}}">EndpointSlice</a>)：OK
 
-201 (<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSlice" >}}">EndpointSlice</a>): Created
+201 (<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSlice" >}}">EndpointSlice</a>)：Created
 
-401: Unauthorized
+401：Unauthorized
 
 <!--
 ### `delete` delete an EndpointSlice
 -->
 ### `delete` 删除 EndpointSlice
 
-<!--#### HTTP Request-->
+<!--
+#### HTTP Request
+-->
 #### HTTP 请求
 
 DELETE /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
 
-<!--#### Parameters-->
+<!--
+#### Parameters
+-->
 #### 参数
 
 <!--
 - **name** (*in path*): string, required
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**)：string, 必需
 
   <!--
   name of the EndpointSlice
@@ -792,151 +827,160 @@ DELETE /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices/{name}
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**)：string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+- **body**：<a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
 <!--
 - **dryRun** (*in query*): string
 -->
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 <!--
 - **gracePeriodSeconds** (*in query*): integer
 -->
-- **gracePeriodSeconds** (**查询参数**): integer
+- **gracePeriodSeconds** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 <!--
 - **pretty** (*in query*): string
 -->
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
 - **propagationPolicy** (*in query*): string
 -->
-- **propagationPolicy** (**查询参数**): string
+- **propagationPolicy** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
-<!--#### Response-->
+<!--
+#### Response
+-->
 #### 响应
 
-200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
+200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>)：OK
 
-202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
+202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>)：Accepted
 
-401: Unauthorized
+401：Unauthorized
 
 <!--
 ### `deletecollection` delete collection of EndpointSlice
 -->
 ### `deletecollection` 删除 EndpointSlice 的集合
 
-<!--#### HTTP Request-->
+<!--
+#### HTTP Request
+-->
 #### HTTP 请求
 
 DELETE /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices
 
-<!--#### Parameters-->
+<!--
+#### Parameters
+-->
 #### 参数
 
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**)：string, 必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-- **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+- **body**：<a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
 <!--
 - **continue** (*in query*): string
 -->
-- **continue** (**查询参数**): string
+- **continue** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
 <!--
 - **dryRun** (*in query*): string
 -->
-- **dryRun** (**查询参数**): string
+- **dryRun** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
 
 <!--
 - **fieldSelector** (*in query*): string
 -->
-- **fieldSelector** (**查询参数**): string
+- **fieldSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
 <!--
 - **gracePeriodSeconds** (*in query*): integer
 -->
-- **gracePeriodSeconds** (**查询参数**): integer
+- **gracePeriodSeconds** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
 
 <!--
 - **labelSelector** (*in query*): string
 -->
-- **labelSelector** (**查询参数**): string
+- **labelSelector** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
 <!--
 - **limit** (*in query*): integer
 -->
-- **limit** (**查询参数**): integer
+- **limit** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
 <!--
 - **pretty** (*in query*): string
 -->
-- **pretty** (**查询参数**): string
+- **pretty** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
 <!--
 - **propagationPolicy** (*in query*): string
 -->
-- **propagationPolicy** (**查询参数**): string
+- **propagationPolicy** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
 <!--
-- **resourceVersion** (*in query*): string
+- **resourceVersion** (*in query*)：string
 -->
-- **resourceVersion** (**查询参数**): string
+- **resourceVersion** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
 <!--
 - **resourceVersionMatch** (*in query*): string
 -->
-- **resourceVersionMatch** (**查询参数**): string
+- **resourceVersionMatch** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
 -->
-- **timeoutSeconds** (**查询参数**): integer
+- **timeoutSeconds** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-<!--#### Response-->
+<!--
+#### Response
+-->
 #### 响应
 
-200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
+200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>)：OK
 
-401: Unauthorized
+401：Unauthorized
+

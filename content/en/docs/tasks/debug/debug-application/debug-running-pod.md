@@ -127,7 +127,7 @@ Restart Count tells you how many times the container has been restarted; this in
 
 Currently the only Condition associated with a Pod is the binary Ready condition, which indicates that the pod is able to service requests and should be added to the load balancing pools of all matching services.
 
-Lastly, you see a log of recent events related to your Pod. The system compresses multiple identical events by indicating the first and last time it was seen and the number of times it was seen. "From" indicates the component that is logging the event, "SubobjectPath" tells you which object (e.g. container within the pod) is being referred to, and "Reason" and "Message" tell you what happened.
+Lastly, you see a log of recent events related to your Pod. "From" indicates the component that is logging the event. "Reason" and "Message" tell you what happened.
 
 
 ## Example: debugging Pending Pods
@@ -378,7 +378,7 @@ For more details, see [Get a Shell to a Running Container](
 
 ## Debugging with an ephemeral debug container {#ephemeral-container}
 
-{{< feature-state state="beta" for_k8s_version="v1.23" >}}
+{{< feature-state state="stable" for_k8s_version="v1.25" >}}
 
 {{< glossary_tooltip text="Ephemeral containers" term_id="ephemeral-container" >}}
 are useful for interactive troubleshooting when `kubectl exec` is insufficient
@@ -392,7 +392,7 @@ You can use the `kubectl debug` command to add ephemeral containers to a
 running Pod. First, create a pod for the example:
 
 ```shell
-kubectl run ephemeral-demo --image=k8s.gcr.io/pause:3.1 --restart=Never
+kubectl run ephemeral-demo --image=registry.k8s.io/pause:3.1 --restart=Never
 ```
 
 The examples in this section use the `pause` container image because it does not
@@ -611,8 +611,8 @@ kubectl delete pod myapp myapp-debug
 ## Debugging via a shell on the node {#node-shell-session}
 
 If none of these approaches work, you can find the Node on which the Pod is
-running and create a privileged Pod running in the host namespaces. To create
-an interactive shell on a node using `kubectl debug`, run:
+running and create a Pod running on the Node. To create
+an interactive shell on a Node using `kubectl debug`, run:
 
 ```shell
 kubectl debug node/mynode -it --image=ubuntu
@@ -628,8 +628,11 @@ When creating a debugging session on a node, keep in mind that:
 
 * `kubectl debug` automatically generates the name of the new Pod based on
   the name of the Node.
-* The container runs in the host IPC, Network, and PID namespaces.
 * The root filesystem of the Node will be mounted at `/host`.
+* The container runs in the host IPC, Network, and PID namespaces, although
+  the pod isn't privileged, so reading some process information may fail,
+  and `chroot /host` will fail.
+* If you need a privileged pod, create it manually.
 
 Don't forget to clean up the debugging Pod when you're finished with it:
 
