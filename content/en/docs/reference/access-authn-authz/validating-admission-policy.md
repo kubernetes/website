@@ -323,12 +323,12 @@ For example, `int` in the word “sprint” would not be escaped.
 
 Examples on escaping:
 
-|property name    | rule with escaped property name     |
-| ----------------| -----------------------             |
-| namespace       | `self.__namespace__ > 0`            |
-| x-prop          | `self.x__dash__prop > 0`            |
-| redact__d       | `self.redact__underscores__d > 0`   |
-| string          | `self.startsWith('kube')`           |
+|property name    | rule with escaped property name   |
+| ----------------|-----------------------------------|
+| namespace       | `object.__namespace__ > 0`        |
+| x-prop          | `object.x__dash__prop > 0`          |
+| redact__d       | `object.redact__underscores__d > 0` |
+| string          | `object.startsWith('kube')`         |
 	
 Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1].
 Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
