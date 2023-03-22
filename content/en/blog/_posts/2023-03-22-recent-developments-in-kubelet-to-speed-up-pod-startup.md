@@ -76,6 +76,25 @@ recommended that we use Evented PLEG instead.
 
 Further details can be found in the KEP <https://kep.k8s.io/3386>.
 
+## Raise your pod resource limit if needed
+
+During start-up, some pods may consume a considerable amount of CPU or memory. If the CPU limit is
+low, this can significantly slow down the pod start-up process. To improve the memory management,
+Kubernetes v1.22 introduced a feature gate called MemoryQoS to kubelet. This feature enables
+kubelet to set memory QoS at container, pod, and QoS levels for better protection and guaranteed
+quality of memory when running with cgroups v2. Although it has benefits, it is possible that
+enabling this feature gate may affect the start-up speed of the pod if the pod startup consumes
+a large amount of memory.
+
+Kubelet configuration now includes `memoryThrottlingFactor`. This factor is multiplied by
+the memory limit or node allocatable memory to set the cgroupv2 memory.high value for enforcing
+MemoryQoS. Decreasing this factor sets a lower high limit for container cgroups, increasing reclaim
+pressure. Increasing this factor will put less reclaim pressure. The default value is 0.8 initially
+and will change to 0.9 in Kubernetes v1.27. This parameter adjustment can reduce the potential
+impact of this feature on pod startup speed.
+
+Further details can be found in the KEP <https://kep.k8s.io/2570>.
+
 ## What's more?
 
 In Kubernetes v1.26, a new histogram metric `pod_start_sli_duration_seconds` was added for Pod
