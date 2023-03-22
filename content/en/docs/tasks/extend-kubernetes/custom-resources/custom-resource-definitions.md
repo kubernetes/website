@@ -1055,7 +1055,7 @@ in the example first.
 
 `messageExpression` must evaluate to a string, and this is checked while the CRD is being written. Note that it is possible
 to set `message` and `messageExpression` on the same rule, and if both are present, `messageExpression`
-will be used. However, if `messageExpression` fails while being evaluated, the string defined in `message` 
+will be used. However, if `messageExpression` evaluates to an error, the string defined in `message` 
 will be used instead, and the `messageExpression` error will be logged. This fallback will also occur if
 the CEL expression defined in `messageExpression` generates an empty string, or a string containing line 
 breaks.
