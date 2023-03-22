@@ -3,7 +3,7 @@ reviewers:
 - chenopis
 title: The Kubernetes API
 content_type: concept
-weight: 30
+weight: 40
 description: >
   The Kubernetes API lets you query and manipulate the state of objects in Kubernetes.
   The core of Kubernetes' control plane is the API server and the HTTP API that it exposes. Users, the different parts of your cluster, and external components all communicate with one another through the API server.
@@ -93,19 +93,22 @@ for the kube-apiserver component.
 A discovery endpoint `/openapi/v3` is provided to see a list of all
 group/versions available. This endpoint only returns JSON. These group/versions
 are provided in the following format:
-```json
+
+```yaml
 {
     "paths": {
-        ...
+        ...,
         "api/v1": {
             "serverRelativeURL": "/openapi/v3/api/v1?hash=CC0E9BFD992D8C59AEC98A1E2336F899E8318D3CF4C68944C3DEC640AF5AB52D864AC50DAA8D145B3494F75FA3CFF939FCBDDA431DAD3CA79738B297795818CF"
         },
         "apis/admissionregistration.k8s.io/v1": {
             "serverRelativeURL": "/openapi/v3/apis/admissionregistration.k8s.io/v1?hash=E19CC93A116982CE5422FC42B590A8AFAD92CDE9AE4D59B5CAAD568F083AD07946E6CB5817531680BCE6E215C16973CD39003B0425F3477CFD854E89A9DB6597"
         },
-        ...
+        ....
+    }
 }
 ```
+<!-- for editors: intentionally use yaml instead of json here, to prevent syntax highlight error. -->
 
 The relative URLs are pointing to immutable OpenAPI descriptions, in
 order to improve client-side caching. The proper HTTP caching headers
@@ -178,8 +181,9 @@ through multiple API versions.
 
 For example, suppose there are two API versions, `v1` and `v1beta1`, for the same
 resource. If you originally created an object using the `v1beta1` version of its
-API, you can later read, update, or delete that object
-using either the `v1beta1` or the `v1` API version.
+API, you can later read, update, or delete that object using either the `v1beta1`
+or the `v1` API version, until the `v1beta1` version is deprecated and removed.
+At that point you can continue accessing and modifying the object using the `v1` API.
 
 ### API changes
 
@@ -194,14 +198,19 @@ Elimination of resources or fields requires following the
 
 Kubernetes makes a strong commitment to maintain compatibility for official Kubernetes APIs
 once they reach general availability (GA), typically at API version `v1`. Additionally,
-Kubernetes keeps compatibility even for _beta_ API versions wherever feasible:
-if you adopt a beta API you can continue to interact with your cluster using that API,
-even after the feature goes stable.
+Kubernetes maintains compatibility with data persisted via _beta_ API versions of official Kubernetes APIs,
+and ensures that data can be converted and accessed via GA API versions when the feature goes stable.
+
+If you adopt a beta API version, you will need to transition to a subsequent beta or stable API version
+once the API graduates. The best time to do this is while the beta API is in its deprecation period,
+since objects are simultaneously accessible via both API versions. Once the beta API completes its
+deprecation period and is no longer served, the replacement API version must be used.
 
 {{< note >}}
 Although Kubernetes also aims to maintain compatibility for _alpha_ APIs versions, in some
 circumstances this is not possible. If you use any alpha API versions, check the release notes
-for Kubernetes when upgrading your cluster, in case the API did change.
+for Kubernetes when upgrading your cluster, in case the API did change in incompatible
+ways that require deleting all existing alpha objects prior to upgrade.
 {{< /note >}}
 
 Refer to [API versions reference](/docs/reference/using-api/#api-versioning)

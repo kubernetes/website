@@ -1,6 +1,7 @@
 ---
 title: 更改 PersistentVolume 的回收策略
 content_type: task
+weight: 100
 ---
 
 <!-- overview -->
@@ -150,6 +151,6 @@ PersistentVolumes 可以有多种回收策略，包括 "Retain"、"Recycle" 和 
 -->
 * {{< api-reference page="config-and-storage-resources/persistent-volume-v1" >}}
   * 注意 PersistentVolume 的 `.spec.persistentVolumeReclaimPolicy`
-    [字段](/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec)。
+    [字段](/zh-cn/docs/reference/kubernetes-api/config-and-storage-resources/persistent-volume-v1/#PersistentVolumeSpec)。
 * {{< api-reference page="config-and-storage-resources/persistent-volume-claim-v1" >}}
 

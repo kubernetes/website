@@ -11,7 +11,7 @@ weight: 90
 
 <!-- overview -->
 
-Der Horizontal Pod Autoscaler skaliert automatisch die Anzahl der Pods eines Replication Controller, Deployment oder Replikat Set basierend auf der beobachteten CPU-Auslastung (oder, mit Unterstützung von [benutzerdefinierter Metriken](https://git.k8s.io/community/contributors/design-proposals/instrumentation/custom-metrics-api.md), von der Anwendung bereitgestellten Metriken). Beachte, dass die horizontale Pod Autoskalierung nicht für Objekte gilt, die nicht skaliert werden können, z. B. DaemonSets.
+Der Horizontal Pod Autoscaler skaliert automatisch die Anzahl der Pods eines Replication Controller, Deployment oder Replikat Set basierend auf der beobachteten CPU-Auslastung (oder, mit Unterstützung von [benutzerdefinierter Metriken](https://git.k8s.io/design-proposals-archive/instrumentation/custom-metrics-api.md), von der Anwendung bereitgestellten Metriken). Beachte, dass die horizontale Pod Autoskalierung nicht für Objekte gilt, die nicht skaliert werden können, z. B. DaemonSets.
 
 Der Horizontal Pod Autoscaler ist als Kubernetes API-Ressource und einem Controller implementiert.
 Die Ressource bestimmt das Verhalten des Controllers.
@@ -46,7 +46,7 @@ Das Verwenden von Metriken aus Heapster ist seit der Kubernetes Version 1.11 ver
 
 Siehe [Unterstützung der Metrik APIs](#unterstützung-der-metrik-apis) für weitere Details.
 
-Der Autoscaler greift über die Scale Sub-Ressource auf die entsprechenden skalierbaren Controller (z.B. Replication Controller, Deployments und Replika Sets) zu. Scale ist eine Schnittstelle, mit der Sie die Anzahl der Replikate dynamisch einstellen und jeden ihrer aktuellen Zustände untersuchen können. Weitere Details zu der Scale Sub-Ressource findest du [hier](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#scale-subresource).
+Der Autoscaler greift über die Scale Sub-Ressource auf die entsprechenden skalierbaren Controller (z.B. Replication Controller, Deployments und Replika Sets) zu. Scale ist eine Schnittstelle, mit der Sie die Anzahl der Replikate dynamisch einstellen und jeden ihrer aktuellen Zustände untersuchen können. Weitere Details zu der Scale Sub-Ressource findest du [hier](https://git.k8s.io/design-proposals-archive/autoscaling/horizontal-pod-autoscaler.md#scale-subresource).
 
 ### Details zum Algorithmus
 
@@ -90,7 +90,7 @@ Die aktuelle stabile Version, die nur die Unterstützung für die automatische S
 
 Die Beta-Version, welche die Skalierung des Speichers und benutzerdefinierte Metriken unterstützt, befindet sich unter `autoscaling/v2beta2`. Die in `autoscaling/v2beta2` neu eingeführten Felder bleiben bei der Arbeit mit `autoscaling/v1` als Anmerkungen erhalten.
 
-Weitere Details über das API Objekt kann unter dem [HorizontalPodAutoscaler Objekt](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object) gefunden werden.
+Weitere Details über das API Objekt kann unter dem [HorizontalPodAutoscaler Objekt](https://git.k8s.io/design-proposals-archive/autoscaling/horizontal-pod-autoscaler.md#horizontalpodautoscaler-object) gefunden werden.
 
 ## Unterstützung des Horizontal Pod Autoscaler in kubectl
 
@@ -166,7 +166,7 @@ Standardmäßig ruft der HorizontalPodAutoscaler Controller Metriken aus einer R
 ## {{% heading "whatsnext" %}}
 
 
-* Design Dokument [Horizontal Pod Autoscaling](https://git.k8s.io/community/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md).
+* Design Dokument [Horizontal Pod Autoscaling](https://git.k8s.io/design-proposals-archive/autoscaling/horizontal-pod-autoscaler.md).
 * kubectl autoscale Befehl: [kubectl autoscale](/docs/reference/generated/kubectl/kubectl-commands/#autoscale).
 * Verwenden des [Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale-walkthrough/).
 

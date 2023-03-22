@@ -1,6 +1,5 @@
 ---
 title: コンテンツの改善を提案する
-slug: suggest-improvements
 content_type: concept
 weight: 10
 card:

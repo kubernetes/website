@@ -2,6 +2,7 @@
 title: API Priority and Fairness
 content_type: concept
 min-kubernetes-server-version: v1.18
+weight: 110
 ---
 
 <!-- overview -->
@@ -31,10 +32,13 @@ use informers and react to failures of API requests with exponential
 back-off, and other clients that also work this way.
 
 {{< caution >}}
-Requests classified as "long-running" — primarily watches — are not
-subject to the API Priority and Fairness filter. This is also true for
-the `--max-requests-inflight` flag without the API Priority and
-Fairness feature enabled.
+Some requests classified as "long-running"&mdash;such as remote
+command execution or log tailing&mdash;are not subject to the API
+Priority and Fairness filter. This is also true for the
+`--max-requests-inflight` flag without the API Priority and Fairness
+feature enabled. API Priority and Fairness _does_ apply to **watch**
+requests. When API Priority and Fairness is disabled, **watch** requests
+are not subject to the `--max-requests-inflight` limit.
 {{< /caution >}}
 
 <!-- body -->
@@ -48,20 +52,20 @@ for a general explanation of feature gates and how to enable and
 disable them.  The name of the feature gate for APF is
 "APIPriorityAndFairness".  This feature also involves an {{<
 glossary_tooltip term_id="api-group" text="API Group" >}} with: (a) a
-`v1alpha1` version, disabled by default, and (b) `v1beta1` and
-`v1beta2` versions, enabled by default.  You can disable the feature
-gate and API group beta versions by adding the following
-command-line flags to your `kube-apiserver` invocation:
+`v1alpha1` version and a `v1beta1` version, disabled by default, and
+(b) `v1beta2` and `v1beta3` versions, enabled by default.  You can
+disable the feature gate and API group beta versions by adding the
+following command-line flags to your `kube-apiserver` invocation:
 
 ```shell
 kube-apiserver \
 --feature-gates=APIPriorityAndFairness=false \
---runtime-config=flowcontrol.apiserver.k8s.io/v1beta1=false,flowcontrol.apiserver.k8s.io/v1beta2=false \
+--runtime-config=flowcontrol.apiserver.k8s.io/v1beta2=false,flowcontrol.apiserver.k8s.io/v1beta3=false \
  # …and other flags as usual
 ```
 
-Alternatively, you can enable the v1alpha1 version of the API group
-with `--runtime-config=flowcontrol.apiserver.k8s.io/v1alpha1=true`.
+Alternatively, you can enable the v1alpha1 and v1beta1 versions of the API group
+with `--runtime-config=flowcontrol.apiserver.k8s.io/v1alpha1=true,flowcontrol.apiserver.k8s.io/v1beta1=true`.
 
 The command-line flag `--enable-priority-and-fairness=false` will disable the
 API Priority and Fairness feature, even if other flags have enabled it.
@@ -85,13 +89,58 @@ Without APF enabled, overall concurrency in the API server is limited by the
 defined by these flags are summed and then the sum is divided up among a
 configurable set of _priority levels_. Each incoming request is assigned to a
 single priority level, and each priority level will only dispatch as many
-concurrent requests as its configuration allows.
+concurrent requests as its particular limit allows.
 
 The default configuration, for example, includes separate priority levels for
 leader-election requests, requests from built-in controllers, and requests from
 Pods. This means that an ill-behaved Pod that floods the API server with
 requests cannot prevent leader election or actions by the built-in controllers
 from succeeding.
+
+The concurrency limits of the priority levels are periodically
+adjusted, allowing under-utilized priority levels to temporarily lend
+concurrency to heavily-utilized levels.  These limits are based on
+nominal limits and bounds on how much concurrency a priority level may
+lend and how much it may borrow, all derived from the configuration
+objects mentioned below.
+
+### Seats Occupied by a Request
+
+The above description of concurrency management is the baseline story.
+In it, requests have different durations but are counted equally at
+any given moment when comparing against a priority level's concurrency
+limit. In the baseline story, each request occupies one unit of
+concurrency. The word "seat" is used to mean one unit of concurrency,
+inspired by the way each passenger on a train or aircraft takes up one
+of the fixed supply of seats.
+
+But some requests take up more than one seat.  Some of these are **list**
+requests that the server estimates will return a large number of
+objects.  These have been found to put an exceptionally heavy burden
+on the server, among requests that take a similar amount of time to
+run.  For this reason, the server estimates the number of objects that
+will be returned and considers the request to take a number of seats
+that is proportional to that estimated number.
+
+### Execution time tweaks for watch requests
+
+API Priority and Fairness manages **watch** requests, but this involves a
+couple more excursions from the baseline behavior.  The first concerns
+how long a **watch**  request is considered to occupy its seat.  Depending
+on request parameters, the response to a **watch**  request may or may not
+begin with **create**  notifications for all the relevant pre-existing
+objects.  API Priority and Fairness considers a **watch**  request to be
+done with its seat once that initial burst of notifications, if any,
+is over.
+
+The normal notifications are sent in a concurrent burst to all
+relevant **watch**  response streams whenever the server is notified of an
+object create/update/delete.  To account for this work, API Priority
+and Fairness considers every write request to spend some additional
+time occupying seats after the actual writing is done.  The server
+estimates the number of notifications to be sent and adjusts the write
+request's number of seats and seat occupancy time to include this
+extra work.
 
 ### Queuing
 
@@ -131,7 +180,7 @@ server.
 
 The flow control API involves two kinds of resources.
 [PriorityLevelConfigurations](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#prioritylevelconfiguration-v1beta2-flowcontrol-apiserver-k8s-io)
-define the available isolation classes, the share of the available concurrency
+define the available priority levels, the share of the available concurrency
 budget that each can handle, and allow for fine-tuning queuing behavior.
 [FlowSchemas](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#flowschema-v1beta2-flowcontrol-apiserver-k8s-io)
 are used to classify individual inbound requests, matching each to a
@@ -141,19 +190,42 @@ semantics.
 
 ### PriorityLevelConfiguration
 
-A PriorityLevelConfiguration represents a single isolation class. Each
+A PriorityLevelConfiguration represents a single priority level. Each
 PriorityLevelConfiguration has an independent limit on the number of outstanding
 requests, and limitations on the number of queued requests.
 
-Concurrency limits for PriorityLevelConfigurations are not specified in absolute
-number of requests, but rather in "concurrency shares." The total concurrency
-limit for the API Server is distributed among the existing
-PriorityLevelConfigurations in proportion with these shares. This allows a
-cluster administrator to scale up or down the total amount of traffic to a
-server by restarting `kube-apiserver` with a different value for
-`--max-requests-inflight` (or `--max-mutating-requests-inflight`), and all
-PriorityLevelConfigurations will see their maximum allowed concurrency go up (or
-down) by the same fraction.
+The nominal oncurrency limit for a PriorityLevelConfiguration is not
+specified in an absolute number of seats, but rather in "nominal
+concurrency shares." The total concurrency limit for the API Server is
+distributed among the existing PriorityLevelConfigurations in
+proportion to these shares, to give each level its nominal limit in
+terms of seats. This allows a cluster administrator to scale up or
+down the total amount of traffic to a server by restarting
+`kube-apiserver` with a different value for `--max-requests-inflight`
+(or `--max-mutating-requests-inflight`), and all
+PriorityLevelConfigurations will see their maximum allowed concurrency
+go up (or down) by the same fraction.
+
+{{< caution >}}
+In the versions before `v1beta3` the relevant
+PriorityLevelConfiguration field is named "assured concurrency shares"
+rather than "nominal concurrency shares".  Also, in Kubernetes release
+1.25 and earlier there were no periodic adjustments: the
+nominal/assured limits were always applied without adjustment.
+{{< /caution >}}
+
+The bounds on how much concurrency a priority level may lend and how
+much it may borrow are expressed in the PriorityLevelConfiguration as
+percentages of the level's nominal limit.  These are resolved to
+absolute numbers of seats by multiplying with the nominal limit /
+100.0 and rounding.  The dynamically adjusted concurrency limit of a
+priority level is constrained to lie between (a) a lower bound of its
+nominal limit minus its lendable seats and (b) an upper bound of its
+nominal limit plus the seats it may borrow.  At each adjustment the
+dynamic limits are derived by each priority level reclaiming any lent
+seats for which demand recently appeared and then jointly fairly
+responding to the recent seat demand on the priority levels, within
+the bounds just described.
 
 {{< caution >}}
 With the Priority and Fairness feature enabled, the total concurrency limit for
@@ -466,26 +538,15 @@ poorly-behaved workloads that may be harming system health.
   last window's high water mark of number of requests actively being
   served.
 
-* `apiserver_flowcontrol_read_vs_write_request_count_samples` is a
-  histogram vector of observations of the then-current number of
-  requests, broken down by the labels `phase` (which takes on the
-  values `waiting` and `executing`) and `request_kind` (which takes on
-  the values `mutating` and `readOnly`).  The observations are made
-  periodically at a high rate.  Each observed value is a ratio,
-  between 0 and 1, of a number of requests divided by the
-  corresponding limit on the number of requests (queue length limit
-  for waiting and concurrency limit for executing).
-
-* `apiserver_flowcontrol_read_vs_write_request_count_watermarks` is a
-  histogram vector of high or low water marks of the number of
-  requests (divided by the corresponding limit to get a ratio in the
-  range 0 to 1) broken down by the labels `phase` (which takes on the
-  values `waiting` and `executing`) and `request_kind` (which takes on
-  the values `mutating` and `readOnly`); the label `mark` takes on
-  values `high` and `low`.  The water marks are accumulated over
-  windows bounded by the times when an observation was added to
-  `apiserver_flowcontrol_read_vs_write_request_count_samples`.  These
-  water marks show the range of values that occurred between samples.
+* `apiserver_flowcontrol_read_vs_write_current_requests` is a
+  histogram vector of observations, made at the end of every
+  nanosecond, of the number of requests broken down by the labels
+  `phase` (which takes on the values `waiting` and `executing`) and
+  `request_kind` (which takes on the values `mutating` and
+  `readOnly`).  Each observed value is a ratio, between 0 and 1, of a
+  number of requests divided by the corresponding limit on the number
+  of requests (queue volume limit for waiting and concurrency limit
+  for executing).
 
 * `apiserver_flowcontrol_current_inqueue_requests` is a gauge vector
   holding the instantaneous number of queued (not executing) requests,
@@ -500,52 +561,27 @@ poorly-behaved workloads that may be harming system health.
   holding the instantaneous number of occupied seats, broken down by
   the labels `priority_level` and `flow_schema`.
 
-* `apiserver_flowcontrol_priority_level_request_count_samples` is a
-  histogram vector of observations of the then-current number of
-  requests broken down by the labels `phase` (which takes on the
-  values `waiting` and `executing`) and `priority_level`.  Each
-  histogram gets observations taken periodically, up through the last
-  activity of the relevant sort.  The observations are made at a high
-  rate.  Each observed value is a ratio, between 0 and 1, of a number
-  of requests divided by the corresponding limit on the number of
-  requests (queue length limit for waiting and concurrency limit for
-  executing).
+* `apiserver_flowcontrol_priority_level_request_utilization` is a
+  histogram vector of observations, made at the end of each
+  nanosecond, of the number of requests broken down by the labels
+  `phase` (which takes on the values `waiting` and `executing`) and
+  `priority_level`.  Each observed value is a ratio, between 0 and 1,
+  of a number of requests divided by the corresponding limit on the
+  number of requests (queue volume limit for waiting and concurrency
+  limit for executing).
 
-* `apiserver_flowcontrol_priority_level_request_count_watermarks` is a
-  histogram vector of high or low water marks of the number of
-  requests (divided by the corresponding limit to get a ratio in the
-  range 0 to 1) broken down by the labels `phase` (which takes on the
-  values `waiting` and `executing`) and `priority_level`; the label
-  `mark` takes on values `high` and `low`.  The water marks are
-  accumulated over windows bounded by the times when an observation
-  was added to
-  `apiserver_flowcontrol_priority_level_request_count_samples`.  These
-  water marks show the range of values that occurred between samples.
-
-* `apiserver_flowcontrol_priority_level_seat_count_samples` is a
-  histogram vector of observations of the utilization of a priority
-  level's concurrency limit, broken down by `priority_level`.  This
-  utilization is the fraction (number of seats occupied) /
-  (concurrency limit).  This metric considers all stages of execution
-  (both normal and the extra delay at the end of a write to cover for
-  the corresponding notification work) of all requests except WATCHes;
-  for those it considers only the initial stage that delivers
-  notifications of pre-existing objects.  Each histogram in the vector
-  is also labeled with `phase: executing` (there is no seat limit for
-  the waiting phase).  Each histogram gets observations taken
-  periodically, up through the last activity of the relevant sort.
-  The observations
-  are made at a high rate.  
-
-* `apiserver_flowcontrol_priority_level_seat_count_watermarks` is a
-  histogram vector of high or low water marks of the utilization of a
-  priority level's concurrency limit, broken down by `priority_level`
-  and `mark` (which takes on values `high` and `low`).  Each histogram
-  in the vector is also labeled with `phase: executing` (there is no
-  seat limit for the waiting phase).  The water marks are accumulated
-  over windows bounded by the times when an observation was added to
-  `apiserver_flowcontrol_priority_level_seat_count_samples`.  These
-  water marks show the range of values that occurred between samples.
+* `apiserver_flowcontrol_priority_level_seat_utilization` is a
+  histogram vector of observations, made at the end of each
+  nanosecond, of the utilization of a priority level's concurrency
+  limit, broken down by `priority_level`.  This utilization is the
+  fraction (number of seats occupied) / (concurrency limit).  This
+  metric considers all stages of execution (both normal and the extra
+  delay at the end of a write to cover for the corresponding
+  notification work) of all requests except WATCHes; for those it
+  considers only the initial stage that delivers notifications of
+  pre-existing objects.  Each histogram in the vector is also labeled
+  with `phase: executing` (there is no seat limit for the waiting
+  phase).
 
 * `apiserver_flowcontrol_request_queue_length_after_enqueue` is a
   histogram vector of queue lengths for the queues, broken down by
@@ -564,10 +600,59 @@ poorly-behaved workloads that may be harming system health.
   to increase that PriorityLevelConfiguration's concurrency shares.
   {{< /note >}}
 
-* `apiserver_flowcontrol_request_concurrency_limit` is a gauge vector
-  holding the computed concurrency limit (based on the API server's
-  total concurrency limit and PriorityLevelConfigurations' concurrency
-  shares), broken down by the label `priority_level`.
+* `apiserver_flowcontrol_request_concurrency_limit` is the same as
+  `apiserver_flowcontrol_nominal_limit_seats`.  Before the
+  introduction of concurrency borrowing between priority levels, this
+  was always equal to `apiserver_flowcontrol_current_limit_seats`
+  (which did not exist as a distinct metric).
+
+* `apiserver_flowcontrol_nominal_limit_seats` is a gauge vector
+  holding each priority level's nominal concurrency limit, computed
+  from the API server's total concurrency limit and the priority
+  level's configured nominal concurrency shares.
+
+* `apiserver_flowcontrol_lower_limit_seats` is a gauge vector holding
+  the lower bound on each priority level's dynamic concurrency limit.
+
+* `apiserver_flowcontrol_upper_limit_seats` is a gauge vector holding
+  the upper bound on each priority level's dynamic concurrency limit.
+
+* `apiserver_flowcontrol_demand_seats` is a histogram vector counting
+  observations, at the end of every nanosecond, of each priority
+  level's ratio of (seat demand) / (nominal concurrency limit).  A
+  priority level's seat demand is the sum, over both queued requests
+  and those in the initial phase of execution, of the maximum of the
+  number of seats occupied in the request's initial and final
+  execution phases.
+
+* `apiserver_flowcontrol_demand_seats_high_watermark` is a gauge vector
+  holding, for each priority level, the maximum seat demand seen
+  during the last concurrency borrowing adjustment period.
+
+* `apiserver_flowcontrol_demand_seats_average` is a gauge vector
+  holding, for each priority level, the time-weighted average seat
+  demand seen during the last concurrency borrowing adjustment period.
+
+* `apiserver_flowcontrol_demand_seats_stdev` is a gauge vector
+  holding, for each priority level, the time-weighted population
+  standard deviation of seat demand seen during the last concurrency
+  borrowing adjustment period.
+
+* `apiserver_flowcontrol_demand_seats_smoothed` is a gauge vector
+  holding, for each priority level, the smoothed enveloped seat demand
+  determined at the last concurrency adjustment.
+
+* `apiserver_flowcontrol_target_seats` is a gauge vector holding, for
+  each priority level, the concurrency target going into the borrowing
+  allocation problem.
+
+* `apiserver_flowcontrol_seat_fair_frac` is a gauge holding the fair
+  allocation fraction determined in the last borrowing adjustment.
+
+* `apiserver_flowcontrol_current_limit_seats` is a gauge vector
+  holding, for each priority level, the dynamic concurrency limit
+  derived in the last adjustment.
+
 
 * `apiserver_flowcontrol_request_wait_duration_seconds` is a histogram
   vector of how long requests spent queued, broken down by the labels
@@ -620,14 +705,15 @@ serves the following additional paths at its HTTP[S] ports.
   The output is similar to this:
 
   ```none
-  PriorityLevelName, ActiveQueues, IsIdle, IsQuiescing, WaitingRequests, ExecutingRequests,
-  workload-low,      0,            true,   false,       0,               0,
-  global-default,    0,            true,   false,       0,               0,
-  exempt,            <none>,       <none>, <none>,      <none>,          <none>,
-  catch-all,         0,            true,   false,       0,               0,
-  system,            0,            true,   false,       0,               0,
-  leader-election,   0,            true,   false,       0,               0,
-  workload-high,     0,            true,   false,       0,               0,
+  PriorityLevelName, ActiveQueues, IsIdle, IsQuiescing, WaitingRequests, ExecutingRequests, DispatchedRequests, RejectedRequests, TimedoutRequests, CancelledRequests
+  catch-all,         0,            true,   false,       0,               0,                 1,                  0,                0,                0
+  exempt,            <none>,       <none>, <none>,      <none>,          <none>,            <none>,             <none>,           <none>,           <none>
+  global-default,    0,            true,   false,       0,               0,                 46,                 0,                0,                0
+  leader-election,   0,            true,   false,       0,               0,                 4,                  0,                0,                0
+  node-high,         0,            true,   false,       0,               0,                 34,                 0,                0,                0
+  system,            0,            true,   false,       0,               0,                 48,                 0,                0,                0
+  workload-high,     0,            true,   false,       0,               0,                 500,                0,                0,                0
+  workload-low,      0,            true,   false,       0,               0,                 0,                  0,                0,                0
   ```
 
 - `/debug/api_priority_and_fairness/dump_queues` - a listing of all the
@@ -680,7 +766,34 @@ serves the following additional paths at its HTTP[S] ports.
   system,            system-nodes,   12,         0,                   system:node:127.0.0.1, 2020-07-23T15:31:03.583823404Z, system:node:127.0.0.1, create, /api/v1/namespaces/scaletest/configmaps,
   system,            system-nodes,   12,         1,                   system:node:127.0.0.1, 2020-07-23T15:31:03.594555947Z, system:node:127.0.0.1, create, /api/v1/namespaces/scaletest/configmaps,
   ```
-  
+
+### Debug logging
+
+At `-v=3` or more verbose the server outputs an httplog line for every
+request, and it includes the following attributes.
+
+- `apf_fs`: the name of the flow schema to which the request was classified.
+- `apf_pl`: the name of the priority level for that flow schema.
+- `apf_iseats`: the number of seats determined for the initial
+  (normal) stage of execution of the request.
+- `apf_fseats`: the number of seats determined for the final stage of
+  execution (accounting for the associated WATCH notifications) of the
+  request.
+- `apf_additionalLatency`: the duration of the final stage of
+  execution of the request.
+
+At higher levels of verbosity there will be log lines exposing details
+of how APF handled the request, primarily for debug purposes.
+
+### Response headers
+
+APF adds the following two headers to each HTTP response message.
+
+- `X-Kubernetes-PF-FlowSchema-UID` holds the UID of the FlowSchema
+  object to which the corresponding request was classified.
+- `X-Kubernetes-PF-PriorityLevel-UID` holds the UID of the
+  PriorityLevelConfiguration object associated with that FlowSchema.
+
 ## {{% heading "whatsnext" %}}
 
 

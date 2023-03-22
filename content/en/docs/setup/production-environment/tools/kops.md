@@ -1,5 +1,5 @@
 ---
-title: Installing Kubernetes with kops
+title: Installing Kubernetes with kOps
 content_type: task
 weight: 20
 ---
@@ -7,29 +7,24 @@ weight: 20
 <!-- overview -->
 
 This quickstart shows you how to easily install a Kubernetes cluster on AWS.
-It uses a tool called [`kops`](https://github.com/kubernetes/kops).
+It uses a tool called [`kOps`](https://github.com/kubernetes/kops).
 
-kops is an automated provisioning system:
+`kOps` is an automated provisioning system:
 
 * Fully automated installation
 * Uses DNS to identify clusters
 * Self-healing: everything runs in Auto-Scaling Groups
-* Multiple OS support (Debian, Ubuntu 16.04 supported, CentOS & RHEL, Amazon Linux and CoreOS) - see the [images.md](https://github.com/kubernetes/kops/blob/master/docs/operations/images.md)
+* Multiple OS support (Amazon Linux, Debian, Flatcar, RHEL, Rocky and Ubuntu) - see the [images.md](https://github.com/kubernetes/kops/blob/master/docs/operations/images.md)
 * High-Availability support - see the [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/operations/high_availability.md)
 * Can directly provision, or generate terraform manifests - see the [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)
 
-
-
 ## {{% heading "prerequisites" %}}
-
 
 * You must have [kubectl](/docs/tasks/tools/) installed.
 
 * You must [install](https://github.com/kubernetes/kops#installing) `kops` on a 64-bit (AMD64 and Intel 64) device architecture.
 
 * You must have an [AWS account](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html), generate [IAM keys](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) and [configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration) them. The IAM user will need [adequate permissions](https://github.com/kubernetes/kops/blob/master/docs/getting_started/aws.md#setup-iam-user).
-
-
 
 <!-- steps -->
 
@@ -121,7 +116,6 @@ brew update && brew install kops
 {{% /tab %}}
 {{< /tabs >}}
 
-
 ### (2/5) Create a route53 domain for your cluster
 
 kops uses DNS for discovery, both inside the cluster and outside, so that you can reach the kubernetes API server
@@ -178,7 +172,6 @@ the S3 bucket name.
 * You can `export KOPS_STATE_STORE=s3://clusters.dev.example.com` and then kops will use this location by default.
    We suggest putting this in your bash profile or similar.
 
-
 ### (4/5) Build your cluster configuration
 
 Run `kops create cluster` to create your cluster configuration:
@@ -201,10 +194,9 @@ set of instances, which will be registered as kubernetes nodes.  On AWS this is 
 You can have several instance groups, for example if you wanted nodes that are a mix of spot and on-demand instances, or
 GPU and non-GPU instances.
 
-
 ### (5/5) Create the cluster in AWS
 
-Run "kops update cluster" to create your cluster in AWS:
+Run `kops update cluster` to create your cluster in AWS:
 
 `kops update cluster useast1.dev.example.com --yes`
 
@@ -226,13 +218,9 @@ See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to expl
 
 * To delete your cluster: `kops delete cluster useast1.dev.example.com --yes`
 
-
-
 ## {{% heading "whatsnext" %}}
 
-
 * Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/).
-* Learn more about `kops` [advanced usage](https://kops.sigs.k8s.io/) for tutorials, best practices and advanced configuration options.
-* Follow `kops` community discussions on Slack: [community discussions](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors)
-* Contribute to `kops` by addressing or raising an issue [GitHub Issues](https://github.com/kubernetes/kops/issues)
-
+* Learn more about `kOps` [advanced usage](https://kops.sigs.k8s.io/) for tutorials, best practices and advanced configuration options.
+* Follow `kOps` community discussions on Slack: [community discussions](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors).
+* Contribute to `kOps` by addressing or raising an issue [GitHub Issues](https://github.com/kubernetes/kops/issues).

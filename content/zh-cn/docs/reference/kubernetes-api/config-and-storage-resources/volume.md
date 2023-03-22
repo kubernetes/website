@@ -48,6 +48,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   *PersistentVolumeClaimVolumeSource references the user's PVC in the same namespace. This volume finds the bound PV and mounts that volume for the pod. A PersistentVolumeClaimVolumeSource is, essentially, a wrapper around another type of volume that is owned by someone else (the system).*
 -->
 ### 暴露的持久卷 {#exposed-persistent-volumes}
+
 - **persistentVolumeClaim** (PersistentVolumeClaimVolumeSource)
   
   persistentVolumeClaimVolumeSource 表示对同一名字空间中 PersistentVolumeClaim 的引用。更多信息：
@@ -65,6 +66,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **persistentVolumeClaim.readOnly** (boolean)
     readOnly Will force the ReadOnly setting in VolumeMounts. Default false.
   -->
+
   - **persistentVolumeClaim.claimName** (string)，必需
     
     claimName 是与使用此卷的 Pod 位于同一名字空间中的 PersistentVolumeClaim 的名称。更多信息：
@@ -84,6 +86,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   The contents of the target ConfigMap's Data field will be presented in a volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. ConfigMap volumes support ownership management and SELinux relabeling.*
 -->
 ### 投射 {#projections}
+
 - **configMap** (ConfigMapVolumeSource)
   
   configMap 表示应填充此卷的 configMap。
@@ -108,13 +111,15 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **configMap.optional** (boolean)
     
     optional 指定是否所引用的 ConfigMap 或其键必须已经被定义。
+
   <!--
   - **configMap.defaultMode** (int32)
     defaultMode is optional: mode bits used to set permissions on created files by default. Must be an octal value between 0000 and 0777 or a decimal value between 0 and 511. YAML accepts both octal and decimal values, JSON requires decimal values for mode bits. Defaults to 0644. Directories within the path are not affected by this setting. This might be in conflict with other options that affect the file mode, like fsGroup, and the result can be other mode bits set.
 
   - **configMap.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
     items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
-  -->  
+  -->
+
   - **configMap.defaultMode** (int32)
     
     defaultMode 是可选的：默认情况下，模式位用于为已创建的文件设置权限。
@@ -129,6 +134,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
     如果指定 items，则所列出的键将被投射到指定的路径中，且不会显示未列出的键。
     如果指定的键不在 ConfigMap 中，则卷设置将出错，除非对应的键被标记为可选。
     路径必须是相对路径，不能包含 “..” 路径，也不能以 “..” 开头。
+
 <!--
 - **secret** (SecretVolumeSource)
   secret represents a secret that should populate this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret
@@ -142,7 +148,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   secret 表示用来填充此卷的 Secret。更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#secret
   
-  <a name="SecretVolumeSource"></a> 
+  <a name="SecretVolumeSource"></a>
   **将 Secret 适配到一个卷中。
   目标 Secret 的 data 字段的内容将以文件的形式呈现在一个卷中，使用 data 字段中的键名作为文件名。
   Secret 卷支持所有权管理和 SELinux 重新打标签。**
@@ -154,6 +160,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **secret.optional** (boolean)
     optional field specify whether the Secret or its keys must be defined
   -->
+
   - **secret.secretName** (string)
     
     secretName 是要使用的、位于 Pod 的名字空间中的 Secret 名称。更多信息：
@@ -169,7 +176,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **secret.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
     items If unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
-  -->  
+  -->
+
   - **secret.defaultMode** (int32)
     
     defaultMode 是可选的：默认情况下，模式位用于为已创建的文件设置权限。
@@ -197,7 +205,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   
   downwardAPI 表示有关 Pod 的 Downward API，用来填充此卷。
   
-  <a name="DownwardAPIVolumeSource"></a> 
+  <a name="DownwardAPIVolumeSource"></a>
   **DownwardAPIVolumeSource 表示包含 Downward API 信息的一个卷。Downward API 卷支持所有权管理和 SELinux 重新打标签。**
   
   <!--
@@ -207,6 +215,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **downwardAPI.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#DownwardAPIVolumeFile" >}}">DownwardAPIVolumeFile</a>)
     Items is a list of downward API volume file
   -->
+
   - **downwardAPI.defaultMode** (int32)
     
     可选：默认情况下，模式位用于已创建的文件。
@@ -244,8 +253,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
     路径内的目录不受此设置的影响。
     这可能与影响文件模式的其他选项（如 fsGroup）有冲突，且结果可以是其他模式位也被设置。
 
- <!--
- - **projected.sources** ([]VolumeProjection)
+  <!--
+  - **projected.sources** ([]VolumeProjection)
     sources is the list of volume projections
 
     <a name="VolumeProjection"></a>
@@ -257,7 +266,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
       <a name="ConfigMapProjection"></a>
       *Adapts a ConfigMap into a projected volume.
       The contents of the target ConfigMap's Data field will be presented in a projected volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. Note that this is identical to a configmap volume source without the default mode.*
- -->  
+  -->
+
   - **projected.sources** ([]VolumeProjection)
     
     sources 是卷投射的列表。
@@ -281,7 +291,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
       - **projected.sources.configMap.optional** (boolean)
         optional specify whether the ConfigMap or its keys must be defined
-      -->      
+      -->
+
       - **projected.sources.configMap.name** (string)
         
         被引用资源的名称。更多信息：
@@ -295,6 +306,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
       - **projected.sources.configMap.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
         items if unspecified, each key-value pair in the Data field of the referenced ConfigMap will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the ConfigMap, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
       -->
+
       - **projected.sources.configMap.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
         
         如果未指定 items，则所引用的 ConfigMap 的 data 字段中的每个键值对将作为一个文件被投射到卷中，
@@ -312,7 +324,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
       - **projected.sources.downwardAPI.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#DownwardAPIVolumeFile" >}}">DownwardAPIVolumeFile</a>)
         Items is a list of DownwardAPIVolume file
-    -->    
+    -->
+
     - **projected.sources.downwardAPI** (DownwardAPIProjection)
       
       与要投射的 downward API 数据有关的 downward API 信息。
@@ -335,7 +348,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
       - **projected.sources.secret.name** (string)
         Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-      -->    
+      -->
+
     - **projected.sources.secret** (SecretProjection)
       
       与要投射的 Secret 数据有关的 Secret 信息。
@@ -357,6 +371,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
       - **projected.sources.secret.items** ([]<a href="{{< ref "../config-and-storage-resources/volume#KeyToPath" >}}">KeyToPath</a>)
         items if unspecified, each key-value pair in the Data field of the referenced Secret will be projected into the volume as a file whose name is the key and content is the value. If specified, the listed keys will be projected into the specified paths, and unlisted keys will not be present. If a key is specified which is not present in the Secret, the volume setup will error unless it is marked optional. Paths must be relative and may not contain the '..' path or start with '..'.
       -->
+
       - **projected.sources.secret.optional** (boolean)
         
         optional 字段指定是否 Secret 或其键必须已经定义。
@@ -368,6 +383,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
         如果指定 items，则所列出的键将被投射到指定的路径中，且不会显示未列出的键。
         如果指定的键不在 Secret 中，则卷设置将出错，除非对应的键被标记为可选。
         路径必须是相对路径，不能包含 “..” 路径，也不能以 “..” 开头。
+
     <!--
     - **projected.sources.serviceAccountToken** (ServiceAccountTokenProjection)
       serviceAccountToken is information about the serviceAccountToken data to project
@@ -377,7 +393,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
       - **projected.sources.serviceAccountToken.path** (string), required
         path is the path relative to the mount point of the file to project the token into.
-    -->    
+    -->
+
     - **projected.sources.serviceAccountToken** (ServiceAccountTokenProjection)
       
       serviceAccountToken 是与要投射的服务账号令牌数据有关的信息。
@@ -397,6 +414,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
       - **projected.sources.serviceAccountToken.expirationSeconds** (int64)
         expirationSeconds is the requested duration of validity of the service account token. As the token approaches expiration, the kubelet volume plugin will proactively rotate the service account token. The kubelet will start trying to rotate the token if the token is older than 80 percent of its time to live or if the token is older than 24 hours.Defaults to 1 hour and must be at least 10 minutes.
       -->
+
       - **projected.sources.serviceAccountToken.audience** (string)
         
         audience 是令牌的目标受众。
@@ -422,6 +440,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
     medium represents what type of storage medium should back this directory. The default is "" which means to use the node's default medium. Must be an empty string (default) or Memory. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 -->
 ### 本地/临时目录 {#local-temporary-directory}
+
 - **emptyDir** (EmptyDirVolumeSource)
   
   emptyDir 表示与 Pod 生命周期相同的临时目录。更多信息：
@@ -440,6 +459,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **emptyDir.sizeLimit** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
     sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
   -->
+
   - **emptyDir.sizeLimit** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
     
     sizeLimit 是这个 EmptyDir 卷所需的本地存储总量。这个大小限制也适用于内存介质。
@@ -470,6 +490,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **hostPath.type** (string)
     type for HostPath Volume Defaults to "" More info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
   -->
+
   - **hostPath.path** (string)，必需
     
     目录在主机上的路径。如果该路径是一个符号链接，则它将沿着链接指向真实路径。更多信息：
@@ -491,6 +512,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   An AWS EBS disk must exist before mounting to a container. The disk must also be in the same AWS zone as the kubelet. An AWS EBS disk can only be mounted as read/write once. AWS EBS volumes support ownership management and SELinux relabeling.*
 -->
 ### 持久卷 {#persistent-volumes}
+
 - **awsElasticBlockStore** (AWSElasticBlockStoreVolumeSource)
   
   awsElasticBlockStore 表示挂接到 kubelet 的主机随后暴露给 Pod 的一个 AWS Disk 资源。更多信息：
@@ -507,7 +529,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **awsElasticBlockStore.fsType** (string)
     fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
-  -->  
+  -->
+
   - **awsElasticBlockStore.volumeID** (string)，必需
     
     volumeID 是 AWS（Amazon EBS 卷）中持久磁盘资源的唯一 ID。更多信息：
@@ -526,6 +549,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **awsElasticBlockStore.readOnly** (boolean)
     readOnly value true will force the readOnly setting in VolumeMounts. More info: https://kubernetes.io/docs/concepts/storage/volumes#awselasticblockstore
   -->
+
   - **awsElasticBlockStore.partition** (int32)
     
     partition 是你要挂载的卷中的分区。如果省略，则默认为按卷名称进行挂载。例如：对于卷 /dev/sda1，
@@ -560,6 +584,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **azureDisk.cachingMode** (string)
     cachingMode is the Host Caching mode: None, Read Only, Read Write.
   -->
+
   - **azureDisk.diskName** (string)，必需
     
     diskName 是 Blob 存储中数据盘的名称。
@@ -581,7 +606,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **azureDisk.readOnly** (boolean)
     readOnly Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
-  -->  
+  -->
+
   - **azureDisk.fsType** (string)
     
     fsType 是要挂载的文件系统类型。必须是主机操作系统所支持的文件系统类型之一。
@@ -625,6 +651,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **azureFile.readOnly** (boolean)
     readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
   -->
+
   - **azureFile.secretName** (string)，必需
     
     secretName 是包含 Azure 存储账号名称和主键的 Secret 的名称。
@@ -666,6 +693,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **cephfs.readOnly** (boolean)
     readOnly is Optional: Defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts. More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
   -->
+
   - **cephfs.path** (string)
     
     path 是可选的。用作挂载的根，而不是挂载完整的 Ceph 树，默认为 “/”。
@@ -685,7 +713,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **cephfs.user** (string)
     user is optional: User is the rados user name, default is admin More info: https://examples.k8s.io/volumes/cephfs/README.md#how-to-use-it
-  -->  
+  -->
+
   - **cephfs.secretFile** (string)
     
     secretFile 是可选的。secretFile 是 User 对应的密钥环的路径，默认为 /etc/ceph/user.secret。更多信息：
@@ -734,7 +763,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **cinder.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
     secretRef is optional: points to a secret object containing parameters used to connect to OpenStack.
-  -->  
+  -->
+
   - **cinder.fsType** (string)
     
     fsType 是要挂载的文件系统类型。必须是主机操作系统所支持的文件系统类型之一。例如：“ext4”、“xfs”、“ntfs”。
@@ -788,7 +818,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **csi.volumeAttributes** (map[string]string)
     volumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
-  -->  
+  -->
+
   - **csi.nodePublishSecretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
     
     nodePublishSecretRef 是对包含敏感信息的 Secret 对象的引用，
@@ -805,7 +836,112 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
     volumeAttributes 存储传递给 CSI 驱动且特定于驱动的属性。查阅你的驱动文档，了解支持的值。
 
 <!--
+- **ephemeral** (EphemeralVolumeSource)
+
+  ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
+-->
+- **ephemeral** (EphemeralVolumeSource)
+
+  ephemeral 表示由一个集群存储驱动处理的卷。此卷的生命周期与定义该卷的 Pod 相关联。
+  Pod 启动前创建此卷，Pod 移除时删除此卷。
+
+  <!--
+  Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity
+     tracking are needed,
+  c) the storage driver is specified through a storage class, and d) the storage driver supports dynamic volume provisioning through
+     a PersistentVolumeClaim (see EphemeralVolumeSource for more
+     information on the connection between this volume type
+     and PersistentVolumeClaim).
+  -->
+
+  使用此字段的情形包括：
+  a) 仅在 Pod 运行时才需要此卷，
+  b) 需要从快照恢复或容量跟踪等正常卷的功能特性，
+  c) 通过存储类指定存储驱动，以及
+  d) 存储驱动支持通过 PersistentVolumeClaim 进行动态卷制备
+  （有关此卷类型和 PersistentVolumeClaim 之间连接的更多信息，请参考 EphemeralVolumeSource）。
+
+  <!--
+  Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
+  
+  Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
+  
+  A pod can use both types of ephemeral volumes and persistent volumes at the same time.
+  -->
+
+  对于持续时间超过单个 Pod 生命周期的卷，使用 PersistentVolumeClaim 或某种特定于供应商的 API。
+  
+  如果打算以这种方式使用 CSI 驱动，则将 CSI 用于轻量级本地临时卷。更多的相关信息，请参考驱动文档。
+  
+  一个 Pod 可以同时使用临时卷和持久卷这两种类别的卷。
+
+  <!--
+  <a name="EphemeralVolumeSource"></a>
+  *Represents an ephemeral volume that is handled by a normal storage driver.*
+
+  - **ephemeral.volumeClaimTemplate** (PersistentVolumeClaimTemplate)
+
+    Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `\<pod name>-\<volume name>` where `\<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
+  -->
+
+  <a name="EphemeralVolumeSource"></a>
+  **表示由一个正常存储驱动处理的临时卷。**
+
+  - **ephemeral.volumeClaimTemplate** (PersistentVolumeClaimTemplate)
+
+    将用于创建独立的 PVC 以制备卷。
+    嵌入了 EphemeralVolumeSource 的 Pod 将是 PVC 的所有者，即 PVC 将与 Pod 一起删除。
+    PVC 的名称将是 `<pod 名称>-<卷名称>`，其中 `<卷名称>` 是来自 `PodSpec.Volumes` 数组条目的名称。
+    如果串联的名称对于 PVC 无效（例如太长），则 Pod 验证将拒绝该 Pod。
+
+    <!--
+    An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
+    
+    This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
+    -->
+
+    如果具有此名称的现有 PVC 不属于此 Pod，则这一 PVC 将 **不会** 被用于此 Pod，以避免错误地使用不相关的卷。
+    如果出现这种情况，Pod 的启动操作会被阻塞直到不相关的 PVC 被移除。
+    如果 Pod 准备使用这样一个预先创建的 PVC，那么一旦此 Pod 出现，就必须更新 PVC，
+    将其属主引用指向该 Pod。通常没有必要这样做，但这对手动重构损坏的集群时可能很有用。
+    
+    此字段是只读的，PVC 被创建后 Kubernetes 不会对其进行任何更改。
+
+    <!--
+    Required, must not be nil.
+
+    <a name="PersistentVolumeClaimTemplate"></a>
+    *PersistentVolumeClaimTemplate is used to produce PersistentVolumeClaim objects as part of an EphemeralVolumeSource.*
+    -->
+
+    必需，不能为 nil。
+
+    <a name="PersistentVolumeClaimTemplate"></a>
+    **PersistentVolumeClaimTemplate 用于作为 EphemeralVolumeSource 的一部分生成 PersistentVolumeClaim 对象。**
+
+    <!--
+    - **ephemeral.volumeClaimTemplate.spec** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimSpec" >}}">PersistentVolumeClaimSpec</a>), required
+
+      The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
+
+    - **ephemeral.volumeClaimTemplate.metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+
+      May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
+    -->
+
+    - **ephemeral.volumeClaimTemplate.spec** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimSpec" >}}">PersistentVolumeClaimSpec</a>)，必需
+
+      PersistentVolumeClaim 的规约。整个规约的内容将被原封不动地复制到从此模板创建的 PVC 中。
+      与 PersistentVolumeClaim 相同的字段在此处也有效。
+
+    - **ephemeral.volumeClaimTemplate.metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+
+      可能包含一些标签和注解，在创建 PVC 时，这些数据会被复制到 PVC 中。
+      在验证期间，其他字段都不允许设置，即便设置也会在验证阶段被拒绝。
+
+<!--
 - **fc** (FCVolumeSource)
+
   fc represents a Fibre Channel resource that is attached to a kubelet's host machine and then exposed to the pod.
 
   <a name="FCVolumeSource"></a>
@@ -826,6 +962,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **fc.lun** (int32)
     lun is Optional: FC target lun number
   -->
+
   - **fc.fsType** (string)
     
     fsType 是要挂载的文件系统类型。必须是主机操作系统所支持的文件系统类型之一。
@@ -844,7 +981,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **fc.wwids** ([]string)
     wwids Optional: FC volume world wide identifiers (wwids) Either wwids or combination of targetWWNs and lun must be set, but not both simultaneously.
-  -->  
+  -->
+
   - **fc.readOnly** (boolean)
     
     readOnly 是可选的。默认为 false（读/写）。此处的 readOnly 将强制设置卷挂载中的 readOnly 属性。
@@ -896,7 +1034,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **flexVolume.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
     secretRef is Optional: secretRef is reference to the secret object containing sensitive information to pass to the plugin scripts. This may be empty if no secret object is specified. If the secret object contains more than one secret, all secrets are passed to the plugin scripts.
-  -->  
+  -->
+
   - **flexVolume.options** (map[string]string)
     
     options 是可选的。此字段包含额外的命令选项（如果有）。
@@ -964,7 +1103,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   
   - **gcePersistentDisk.fsType** (string)
     fsType is filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
-  -->  
+  -->
+
   - **gcePersistentDisk.pdName** (string)，必需
     
     pdName 是 GCE 中 PD 资源的唯一名称。用于标识 GCE 中的磁盘。更多信息：
@@ -983,6 +1123,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **gcePersistentDisk.readOnly** (boolean)
     readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
   -->
+
   - **gcePersistentDisk.partition** (int32)
     
     partition 是你要挂载的卷中的分区。如果省略，则默认为按卷名称进行挂载。
@@ -993,46 +1134,6 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
     
     此处的 readOnly 将强制设置卷挂载中的 readOnly 属性。默认为 false。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#gcepersistentdisk
-
-<!--
-- **glusterfs** (GlusterfsVolumeSource)
-  glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
-
-  <a name="GlusterfsVolumeSource"></a>
-  *Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.*
--->
-- **glusterfs** (GlusterfsVolumeSource)
-  
-  glusterfs 表示在与 Pod 共享生命周期的主机上挂载的 Glusterfs。更多信息：
-  https://examples.k8s.io/volumes/glusterfs/README.md
-  
-  <a name="GlusterfsVolumeSource"></a> 
-  **表示在 Pod 的生命周期内持续的 Glusterfs 挂载。glusterfs 卷不支持所有权管理或 SELinux 重新打标签。**
-  
-  <!--
-  - **glusterfs.endpoints** (string), required
-    endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-
-  - **glusterfs.path** (string), required
-    path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-
-  - **glusterfs.readOnly** (boolean)
-    readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-  -->
-  - **glusterfs.endpoints** (string)，必需
-    
-    endpoints 是详细说明 Glusterfs 拓扑的端点名称。更多信息：
-    https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-  
-  - **glusterfs.path** (string)，必需
-    
-    path 是 Glusterfs 卷路径。更多信息：
-    https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-  
-  - **glusterfs.readOnly** (boolean)
-    
-    此处 readOnly 将强制使用只读权限挂载 Glusterfs 卷。默认为 false。更多信息：
-    https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 
 <!--
 - **iscsi** (ISCSIVolumeSource)
@@ -1059,6 +1160,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **iscsi.targetPortal** (string), required
     targetPortal is iSCSI Target Portal. The Portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
   -->
+
   - **iscsi.iqn** (string)，必需
     
     iqn 是目标 iSCSI 限定名称。
@@ -1078,7 +1180,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **iscsi.chapAuthSession** (boolean)
     chapAuthSession defines whether support iSCSI Session CHAP authentication
-  -->  
+  -->
+
   - **iscsi.chapAuthDiscovery** (boolean)
     
     chapAuthDiscovery 定义是否支持 iSCSI Discovery CHAP 身份认证。
@@ -1094,6 +1197,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **iscsi.initiatorName** (string)
     initiatorName is the custom iSCSI Initiator Name. If initiatorName is specified with iscsiInterface simultaneously, new iSCSI interface \<target portal>:\<volume name> will be created for the connection.
   -->
+
   - **iscsi.fsType** (string)
     
     fsType 是你要挂载的卷的文件系统类型。提示：确保主机操作系统支持此文件系统类型。
@@ -1111,7 +1215,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **iscsi.portals** ([]string)
     portals is the iSCSI Target Portal List. The portal is either an IP or ip_addr:port if the port is other than default (typically TCP ports 860 and 3260).
-  -->  
+  -->
+
   - **iscsi.iscsiInterface** (string)
     
     iscsiInterface 是使用 iSCSI 传输的接口名称。默认为 “default”（tcp）。
@@ -1128,6 +1233,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **iscsi.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
     secretRef is the CHAP Secret for iSCSI target and initiator authentication
   -->
+
   - **iscsi.readOnly** (boolean)
     
     此处的 readOnly 将强制设置卷挂载中的 readOnly 属性。默认为 false。
@@ -1166,6 +1272,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **nfs.readOnly** (boolean)
     readOnly here will force the NFS export to be mounted with read-only permissions. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#nfs
   -->
+
   - **nfs.server** (string)，必需
     
     server 是 NFS 服务器的主机名或 IP 地址。更多信息：
@@ -1233,6 +1340,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **portworxVolume.readOnly** (boolean)
     readOnly defaults to false (read/write). ReadOnly here will force the ReadOnly setting in VolumeMounts.
   -->
+
   - **portworxVolume.fsType** (string)
     
     fSType 表示要挂载的文件系统类型。必须是主机操作系统支持的文件系统类型。例如 “ext4”、“xfs”。
@@ -1266,6 +1374,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **quobyte.group** (string)
     group to map volume access to Default is no group
   -->
+
   - **quobyte.registry** (string)，必需
     
     registry 表示将一个或多个 Quobyte Registry 服务指定为 host:port 对的字符串形式
@@ -1288,7 +1397,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **quobyte.user** (string)
     user to map volume access to Defaults to serivceaccount user
-  -->  
+  -->
+
   - **quobyte.readOnly** (boolean)
     
     此处 readOnly 将强制使用只读权限挂载 Quobyte 卷。默认为 false。
@@ -1311,6 +1421,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **rbd.image** (string), required
     image is the rados image name. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
 -->
+
 - **rbd** (RBDVolumeSource)
   
   rbd 表示在共享 Pod 生命周期的主机上挂载的 Rados Block Device。更多信息：
@@ -1331,6 +1442,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **rbd.fsType** (string)
     fsType is the filesystem type of the volume that you want to mount. Tip: Ensure that the filesystem type is supported by the host operating system. Examples: "ext4", "xfs", "ntfs". Implicitly inferred to be "ext4" if unspecified. More info: https://kubernetes.io/docs/concepts/storage/volumes#rbd
   -->
+
   - **rbd.monitors** ([]string)，必需
     
     monitors 是 Ceph 监测的集合。更多信息：
@@ -1351,7 +1463,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **rbd.readOnly** (boolean)
     readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
-  -->  
+  -->
+
   - **rbd.keyring** (string)
     
     keyring 是 RBDUser 密钥环的路径。默认为 /etc/ceph/keyring。更多信息：
@@ -1374,6 +1487,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **rbd.user** (string)
     user is the rados user name. Default is admin. More info: https://examples.k8s.io/volumes/rbd/README.md#how-to-use-it
   -->
+
   - **rbd.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
     
     secretRef 是 RBDUser 的身份认证 Secret 的名称。如果提供，则重载 keyring。默认为 nil。更多信息：
@@ -1415,6 +1529,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **scaleIO.fsType** (string)
     fsType is the filesystem type to mount. Must be a filesystem type supported by the host operating system. Ex. "ext4", "xfs", "ntfs". Default is "xfs".
   -->
+
   - **scaleIO.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)，必需
     
     secretRef 引用到 ScaleIO 用户的 Secret 和其他敏感信息。如果未提供此项，则 Login 操作将失败。
@@ -1436,7 +1551,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **scaleIO.sslEnabled** (boolean)
     sslEnabled Flag enable/disable SSL communication with Gateway, default false
-  -->  
+  -->
+
   - **scaleIO.protectionDomain** (string)
     
     protectionDomain 是 ScaleIO 保护域（ScaleIO Protection Domain）的名称，用于已配置的存储。
@@ -1459,6 +1575,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **scaleIO.volumeName** (string)
     volumeName is the name of a volume already created in the ScaleIO system that is associated with this volume source.
   -->
+
   - **scaleIO.storageMode** (string)
     
     storageMode 指示卷所用的存储应是 ThickProvisioned 或 ThinProvisioned。默认为 ThinProvisioned。
@@ -1500,6 +1617,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **storageos.secretRef** (<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
     secretRef specifies the secret to use for obtaining the StorageOS API credentials.  If not specified, default values will be attempted.
   -->
+
   - **storageos.readOnly** (boolean)
     
     readOnly 默认为 false（读/写）。此处的 readOnly 将强制设置卷挂载中的 readOnly 属性。
@@ -1514,7 +1632,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **storageos.volumeNamespace** (string)
     volumeNamespace specifies the scope of the volume within StorageOS.  If no namespace is specified then the Pod's namespace will be used.  This allows the Kubernetes name scoping to be mirrored within StorageOS for tighter integration. Set VolumeName to any name to override the default behaviour. Set to "default" if you are not using namespaces within StorageOS. Namespaces that do not pre-exist within StorageOS will be created.
-  -->  
+  -->
+
   - **storageos.volumeName** (string)
     
     volumeName 是 StorageOS 卷的人类可读名称。这些卷名称在一个名字空间内是唯一的。
@@ -1557,6 +1676,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   - **vsphereVolume.storagePolicyName** (string)
     storagePolicyName is the storage Policy Based Management (SPBM) profile name.
   -->
+
   - **vsphereVolume.fsType** (string)
     
     fsType 是要挂载的文件系统类型。必须是主机操作系统所支持的文件系统类型之一。
@@ -1571,101 +1691,6 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
     storagePolicyName 是基于存储策略的管理（SPBM）配置文件名称。
 
 <!--
-### Alpha level
-- **ephemeral** (EphemeralVolumeSource)
-  ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
-  
-  Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity
-     tracking are needed,
-  c) the storage driver is specified through a storage class, and d) the storage driver supports dynamic volume provisioning through
-     a PersistentVolumeClaim (see EphemeralVolumeSource for more
-     information on the connection between this volume type
-     and PersistentVolumeClaim).
--->
-### Alpha 级别 {#alpha-level}
-- **ephemeral** (EphemeralVolumeSource)
-  
-  ephemeral 表示由一个集群存储驱动处理的卷。此卷的生命周期与定义其的 Pod 相关联。
-  Pod 启动前创建此卷，Pod 移除时删除此卷。
-  
-  使用此字段的情形包括：
-  a) 仅在 pod 运行时才需要此卷，
-  b) 需要从快照恢复或容量跟踪等正常卷的功能特性，
-  c) 通过存储类指定存储驱动，以及
-  d) 存储驱动支持通过 PersistentVolumeClaim 进行动态卷制备（有关此卷类型和 PersistentVolumeClaim 之间连接的更多信息，请参考 EphemeralVolumeSource）。
-
-<!--
-  Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
-  
-  Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
-  
-  A pod can use both types of ephemeral volumes and persistent volumes at the same time.
-
-  <a name="EphemeralVolumeSource"></a>
-  *Represents an ephemeral volume that is handled by a normal storage driver.*
--->  
-  对于持续时间超过单个 Pod 生命周期的卷，使用 PersistentVolumeClaim 或某种特定于供应商的 API。
-  
-  如果打算以这种方式使用 CSI 驱动，则将 CSI 用于轻量级本地临时卷。更多的相关信息，请参考驱动文档。
-  
-  一个 Pod 可以同时使用临时卷和持久卷这两种类别的卷。
-  
-  <a name="EphemeralVolumeSource"></a>
-  **表示由一个正常存储驱动处理的临时卷。**
-
-  <!--
-  - **ephemeral.volumeClaimTemplate** (PersistentVolumeClaimTemplate)
-
-    Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `\<pod name>-\<volume name>` where `\<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
-    
-    An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
-  -->  
-  - **ephemeral.volumeClaimTemplate** (PersistentVolumeClaimTemplate)
-    
-    将用于创建独立的 PVC 以制备卷。
-    嵌入了 EphemeralVolumeSource 的 Pod 将是 PVC 的所有者，即 PVC 将与 Pod 一起删除。
-    PVC 的名称将是 `<pod 名称>-<卷名称>`，其中 `<卷名称>` 是来自 `PodSpec.Volumes` 数组条目的名称。
-    如果串联的名称对于 PVC 无效（例如太长），则 Pod 验证将拒绝该 Pod。
-    
-    如果具有此名称的 PVC 不属于 Pod，则这个 PVC 将不会用于此 Pod，以避免错误地使用不相关的卷。
-    如果出现这种情况，Pod 的启动操作会被阻塞直到不相关的 PVC 被移除。
-    如果 Pod 准备使用这样一个预先创建的 PVC ，那么一旦此 Pod 出现，就必须更新 PVC，
-    将其属主引用指向该 Pod。通常没有必要这样做，但这对手动重构损坏的集群时可能很有用。
-
-    <!--
-    This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
-    
-    Required, must not be nil.
-
-    <a name="PersistentVolumeClaimTemplate"></a>
-    *PersistentVolumeClaimTemplate is used to produce PersistentVolumeClaim objects as part of an EphemeralVolumeSource.*
-    -->    
-    此字段是只读的，PVC 被创建后 Kubernetes 不会对其进行任何更改。
-    
-    必需，不能为 nil。
-    
-    <a name="PersistentVolumeClaimTemplate"></a> 
-    **PersistentVolumeClaimTemplate 用于作为 EphemeralVolumeSource 的一部分生成 PersistentVolumeClaim 对象。**
-    
-    <!--
-    - **ephemeral.volumeClaimTemplate.spec** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimSpec" >}}">PersistentVolumeClaimSpec</a>), required
-
-      The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
-
-    - **ephemeral.volumeClaimTemplate.metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
-
-      May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
-    -->
-    - **ephemeral.volumeClaimTemplate.spec** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimSpec" >}}">PersistentVolumeClaimSpec</a>)，必需
-      
-      PersistentVolumeClaim 的规约。整个规约的内容将被原封不动地复制到从此模板创建的 PVC 中。
-      与 PersistentVolumeClaim 相同的字段在此处也有效。
-    
-    - **ephemeral.volumeClaimTemplate.metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
-      
-      可能包含一些标签和注解，在创建 PVC 时，这些数据会被复制到 PVC 中。在验证期间，其他字段都不允许设置进而被拒绝。
-
-<!--
 ### Deprecated
 - **gitRepo** (GitRepoVolumeSource)
   gitRepo represents a git repository at a particular revision. DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.
@@ -1676,6 +1701,7 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
   DEPRECATED: GitRepo is deprecated. To provision a container with a git repo, mount an EmptyDir into an InitContainer that clones the repo using git, then mount the EmptyDir into the Pod's container.*
 -->
 ### 已弃用 {#deprecated}
+
 - **gitRepo** (GitRepoVolumeSource)
   
   gitRepo 表示特定修订版本的 git 仓库。（注意：GitRepo 已被弃用。）如果与为某容器提速 Git 仓库，
@@ -1695,7 +1721,8 @@ Volume 表示 Pod 中一个有名字的卷，可以由 Pod 中的任意容器进
 
   - **gitRepo.revision** (string)
     revision is the commit hash for the specified revision.
-  -->  
+  -->
+
   - **gitRepo.repository** (string)，必需
     
     repository 是仓库的 URL。

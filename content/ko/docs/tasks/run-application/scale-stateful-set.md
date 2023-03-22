@@ -1,12 +1,12 @@
 ---
-
-
-
-
-
-
-
-
+# reviewers:
+# - bprashanth
+# - enisoc
+# - erictune
+# - foxish
+# - janetkuo
+# - kow3ns
+# - smarterclayton
 title: 스테이트풀셋(StatefulSet) 확장하기
 content_type: task
 weight: 50
