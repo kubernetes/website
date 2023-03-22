@@ -365,20 +365,23 @@ ServiceSpec 描述用户在服务上创建的属性。
   <!-- 
   externalTrafficPolicy describes how nodes distribute service traffic they receive on one of the Service's "externally-facing" addresses (NodePorts, ExternalIPs, and LoadBalancer IPs). If set to "Local", the proxy will configure the service in a way that assumes that external load balancers will take care of balancing the service traffic between nodes, and so each node will deliver traffic only to the node-local endpoints of the service, without masquerading the client source IP. (Traffic mistakenly sent to a node with no endpoints will be dropped.) The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features). Note that traffic sent to an External IP or LoadBalancer IP from within the cluster will always get "Cluster" semantics, but clients sending to a NodePort from within the cluster may need to take traffic policy into account when picking a node.
   -->
-  externalTrafficPolicy 描述了节点如何分发它们在 Service 的“外部访问”地址（NodePort、ExternalIP 和 LoadBalancer IP）接收到的服务流量。
-  如果设置为“Local”，代理将以一种假设外部负载均衡器将负责在节点之间服务流量负载均衡，因此每个节点将仅向服务的节点本地端点传递流量，而不会伪装客户端源 IP。
+  externalTrafficPolicy 描述了节点如何分发它们在 Service 的“外部访问”地址
+  （NodePort、ExternalIP 和 LoadBalancer IP）接收到的服务流量。
+  如果设置为 “Local”，代理将以一种假设外部负载均衡器将负责在节点之间服务流量负载均衡，
+  因此每个节点将仅向服务的节点本地端点传递流量，而不会伪装客户端源 IP。
  （将丢弃错误发送到没有端点的节点的流量。）
-  “Cluster”默认值使用负载均衡路由到所有端点的策略（可能会根据拓扑和其他特性进行修改）。
-  请注意，从集群内部发送到 External IP 或 LoadBalancer IP 的流量始终具有“Cluster”语义，但是从集群内部发送到 NodePort 的客户端需要在选择节点时考虑流量路由策略。
+  “Cluster” 默认值使用负载均衡路由到所有端点的策略（可能会根据拓扑和其他特性进行修改）。
+  请注意，从集群内部发送到 External IP 或 LoadBalancer IP 的流量始终具有 “Cluster” 语义，
+  但是从集群内部发送到 NodePort 的客户端需要在选择节点时考虑流量路由策略。
 
 - **internalTrafficPolicy** (string)
 
   <!-- 
   InternalTrafficPolicy describes how nodes distribute service traffic they receive on the ClusterIP. If set to "Local", the proxy will assume that pods only want to talk to endpoints of the service on the same node as the pod, dropping the traffic if there are no local endpoints. The default value, "Cluster", uses the standard behavior of routing to all endpoints evenly (possibly modified by topology and other features).
   -->
-  InternalTrafficPolicy描述节点如何分发它们在ClusterIP上接收到的服务流量。
-  如果设置为"Local"，代理将假定pod只想与在同一节点上的服务端点通信，如果没有本地端点，它将丢弃流量。
-  "Cluster"默认将流量路由到所有端点（可能会根据拓扑和其他特性进行修改）。
+  InternalTrafficPolicy 描述节点如何分发它们在 ClusterIP 上接收到的服务流量。
+  如果设置为 “Local”，代理将假定 Pod 只想与在同一节点上的服务端点通信，如果没有本地端点，它将丢弃流量。
+  “Cluster” 默认将流量路由到所有端点（可能会根据拓扑和其他特性进行修改）。
 
 - **healthCheckNodePort** (int32)
 
