@@ -12,7 +12,7 @@ type: docs
 쿠버네티스 버전은 **x.y.z** 의 형태로 표현되는데,
 **x** 는 메이저(major) 버전, **y** 는 마이너(minor), **z** 는 패치(patch) 버전을 의미하며, 이는 [시맨틱 버전](https://semver.org/)의 용어를 따른 것이다.
 
-저 자세한 정보는 [버전 차이(skew) 정책](/releases/version-skew-policy/) 문서에서 확인하길 바란다.
+자세한 정보는 [버전 차이(skew) 정책](/releases/version-skew-policy/) 문서에서 확인하길 바란다.
 
 <!-- body -->
 

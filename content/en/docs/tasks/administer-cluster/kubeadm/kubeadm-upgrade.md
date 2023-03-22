@@ -3,7 +3,7 @@ reviewers:
 - sig-cluster-lifecycle
 title: Upgrading kubeadm clusters
 content_type: task
-weight: 20
+weight: 40
 ---
 
 <!-- overview -->
@@ -208,8 +208,8 @@ Also calling `kubeadm upgrade plan` and upgrading the CNI provider plugin is no 
 - Bring the node back online by marking it schedulable:
 
   ```shell
-  # replace <node-to-drain> with the name of your node
-  kubectl uncordon <node-to-drain>
+  # replace <node-to-uncordon> with the name of your node
+  kubectl uncordon <node-to-uncordon>
   ```
 
 ## Upgrade worker nodes
@@ -266,6 +266,7 @@ without compromising the minimum required capacity for running your workloads.
   apt-mark unhold kubelet kubectl && \
   apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
   apt-mark hold kubelet kubectl
+  ```
   {{% /tab %}}
   {{% tab name="CentOS, RHEL or Fedora" %}}
   ```shell
@@ -288,8 +289,8 @@ without compromising the minimum required capacity for running your workloads.
 - Bring the node back online by marking it schedulable:
 
   ```shell
-  # replace <node-to-drain> with the name of your node
-  kubectl uncordon <node-to-drain>
+  # replace <node-to-uncordon> with the name of your node
+  kubectl uncordon <node-to-uncordon>
   ```
 
 ## Verify the status of the cluster

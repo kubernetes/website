@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - verb
+# - yujuhong
 title: 임시(Ephemeral) 컨테이너
 content_type: concept
 weight: 80
@@ -9,7 +9,7 @@ weight: 80
 
 <!-- overview -->
 
-{{< feature-state state="beta" for_k8s_version="v1.23" >}}
+{{< feature-state state="stable" for_k8s_version="v1.25" >}}
 
 이 페이지는 임시 컨테이너에 대한 개요를 제공한다. 
 이 특별한 유형의 컨테이너는 트러블슈팅과 같은 사용자가 시작한 작업을 완료하기 위해 

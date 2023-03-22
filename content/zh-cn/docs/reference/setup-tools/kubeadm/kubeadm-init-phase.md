@@ -46,7 +46,7 @@ Using this command you can execute preflight checks on a control-plane node.
 <!--
 This phase will write the kubelet configuration file and environment file and then start the kubelet.
 -->
-此阶段将检查 kubelet 配置文件和环境文件，然后启动 kubelet。
+此阶段将写入 kubelet 配置文件和环境文件，然后启动 kubelet。
 
 {{< tabs name="tab-kubelet-start" >}}
 {{< tab name="kubelet-start" include="generated/kubeadm_init_phase_kubelet-start.md" />}}
@@ -88,7 +88,6 @@ You can create all required kubeconfig files by calling the `all` subcommand or 
 -->
 可以通过调用 `all` 子命令来创建所有必需的 kubeconfig 文件，或者分别调用它们。
 
-
 {{< tabs name="tab-kubeconfig" >}}
 {{< tab name="kubeconfig" include="generated/kubeadm_init_phase_kubeconfig.md" />}}
 {{< tab name="all" include="generated/kubeadm_init_phase_kubeconfig_all.md" />}}
@@ -116,7 +115,6 @@ Using this phase you can create all required static Pod files for the control pl
 {{< tab name="scheduler" include="generated/kubeadm_init_phase_control-plane_scheduler.md" />}}
 {{< /tabs >}}
 
-
 <!--
 ## kubeadm init phase etcd {#cmd-phase-etcd}
 -->
@@ -125,13 +123,12 @@ Using this phase you can create all required static Pod files for the control pl
 <!--
 Use the following phase to create a local etcd instance based on a static Pod file.
 -->
-根据静态 Pod 文件，使用以下阶段创建本地 etcd 实例。
+根据静态 Pod 文件，使用以下阶段创建一个本地 etcd 实例。
 
 {{< tabs name="tab-etcd" >}}
 {{< tab name="etcd" include="generated/kubeadm_init_phase_etcd.md" />}}
 {{< tab name="local" include="generated/kubeadm_init_phase_etcd_local.md" />}}
 {{< /tabs >}}
-
 
 <!--
 ## kubeadm init phase upload-config {#cmd-phase-upload-config}
@@ -142,7 +139,7 @@ Use the following phase to create a local etcd instance based on a static Pod fi
 You can use this command to upload the kubeadm configuration to your cluster.
 Alternatively, you can use [kubeadm config](/docs/reference/setup-tools/kubeadm/kubeadm-config/).
 -->
-可以使用此命令将 kubeadm 配置文件上传到集群。或者使用
+可以使用此命令将 kubeadm 配置上传到集群。或者使用
 [kubeadm config](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-config/)。
 
 {{< tabs name="upload-config" >}}
@@ -151,7 +148,6 @@ Alternatively, you can use [kubeadm config](/docs/reference/setup-tools/kubeadm/
 {{< tab name="kubeadm" include="generated/kubeadm_init_phase_upload-config_kubeadm.md" />}}
 {{< tab name="kubelet" include="generated/kubeadm_init_phase_upload-config_kubelet.md" />}}
 {{< /tabs >}}
-
 
 <!--
 ## kubeadm init phase upload-certs {#cmd-phase-upload-certs}
@@ -168,7 +164,6 @@ By default the certs and encryption key expire after two hours.
 {{< tab name="upload-certs" include="generated/kubeadm_init_phase_upload-certs.md" />}}
 {{< /tabs >}}
 
-
 <!--
 ## kubeadm init phase mark-control-plane {#cmd-phase-mark-control-plane}
 -->
@@ -183,7 +178,6 @@ Use the following phase to label and taint the node as a control plane node.
 {{< tabs name="tab-mark-control-plane" >}}
 {{< tab name="mark-control-plane" include="generated/kubeadm_init_phase_mark-control-plane.md" />}}
 {{< /tabs >}}
-
 
 <!--
 ## kubeadm init phase bootstrap-token {#cmd-phase-bootstrap-token}

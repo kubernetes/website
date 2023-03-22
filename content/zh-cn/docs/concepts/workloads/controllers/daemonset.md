@@ -1,13 +1,19 @@
 ---
 title: DaemonSet
 content_type: concept
-weight: 50
+weight: 40
 ---
 
 <!--
+reviewers:
+- enisoc
+- erictune
+- foxish
+- janetkuo
+- kow3ns
 title: DaemonSet
 content_type: concept
-weight: 50
+weight: 40
 --->
 
 <!-- overview -->
@@ -17,7 +23,7 @@ A _DaemonSet_ ensures that all (or some) Nodes run a copy of a Pod.  As nodes ar
 cluster, Pods are added to them.  As nodes are removed from the cluster, those Pods are garbage
 collected.  Deleting a DaemonSet will clean up the Pods it created.
 --->
-_DaemonSet_ 确保全部（或者某些）节点上运行一个 Pod 的副本。
+**DaemonSet** 确保全部（或者某些）节点上运行一个 Pod 的副本。
 当有节点加入集群时， 也会为他们新增一个 Pod 。
 当有节点从集群移除时，这些 Pod 也会被回收。删除 DaemonSet 将会删除它创建的所有 Pod。
 
@@ -89,17 +95,14 @@ section.
 -->
 ### 必需字段   {#required-fields}
 
-和所有其他 Kubernetes 配置一样，DaemonSet 需要 `apiVersion`、`kind` 和 `metadata` 字段。
-有关配置文件的基本信息，参见
-[部署应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)、
-[配置容器](/zh-cn/docs/tasks/)和
-[使用 kubectl 进行对象管理](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)
-文档。
+与所有其他 Kubernetes 配置一样，DaemonSet 也需要 `apiVersion`、`kind` 和 `metadata` 字段。
+有关使用这些配置文件的通用信息，
+参见[运行无状态应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)和[使用 kubectl 管理对象](/zh-cn/docs/concepts/overview/working-with-objects/object-management/)。
 
 DaemonSet 对象的名称必须是一个合法的
 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
 
-DaemonSet 也需要一个 [`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) 配置段。
+DaemonSet 也需要 [`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) 节区。
 
 <!--
 ### Pod Template
@@ -134,7 +137,7 @@ A Pod Template in a DaemonSet must have a [`RestartPolicy`](/docs/concepts/workl
 ### Pod Selector
 
 The `.spec.selector` field is a pod selector.  It works the same as the `.spec.selector` of
-a [Job](/docs/concepts/jobs/run-to-completion-finite-workloads/).
+a [Job](/docs/concepts/workloads/controllers/job/).
 
 You must specify a pod selector that matches the labels of the
 `.spec.template`.
@@ -165,7 +168,7 @@ The `.spec.selector` is an object consisting of two fields:
 * `matchLabels` - 与 [ReplicationController](/zh-cn/docs/concepts/workloads/controllers/replicationcontroller/)
   的 `.spec.selector` 的作用相同。
 * `matchExpressions` - 允许构建更加复杂的选择器，可以通过指定 key、value
-  列表以及将 key 和 value 列表关联起来的 operator。
+  列表以及将 key 和 value 列表关联起来的 Operator。
 
 <!--
 When the two are specified the result is ANDed.
@@ -180,7 +183,7 @@ Config with these two not matching will be rejected by the API.
 如果配置中这两个字段不匹配，则会被 API 拒绝。
 
 <!--
-### Running Pods on Only Some Nodes
+### Running Pods on select Nodes
 
 If you specify a `.spec.template.spec.nodeSelector`, then the DaemonSet controller will
 create Pods on nodes which match that [node selector](/docs/concepts/scheduling-eviction/assign-pod-node/).
@@ -189,48 +192,52 @@ then DaemonSet controller will create Pods on nodes which match that
 [node affinity](/docs/concepts/scheduling-eviction/assign-pod-node/).
 If you do not specify either, then the DaemonSet controller will create Pods on all nodes.
 -->
-### 仅在某些节点上运行 Pod   {#running-pods-on-only-some-nodes}
+### 在选定的节点上运行 Pod   {#running-pods-on-select-nodes}
 
 如果指定了 `.spec.template.spec.nodeSelector`，DaemonSet 控制器将在能够与
-[Node 选择算符](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/) 匹配的节点上创建 Pod。
-类似这种情况，可以指定 `.spec.template.spec.affinity`，之后 DaemonSet 控制器
-将在能够与[节点亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)
-匹配的节点上创建 Pod。
+[Node 选择算符](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)匹配的节点上创建 Pod。
+类似这种情况，可以指定 `.spec.template.spec.affinity`，之后 DaemonSet
+控制器将在能够与[节点亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)匹配的节点上创建 Pod。
 如果根本就没有指定，则 DaemonSet Controller 将在所有节点上创建 Pod。
 
 <!--
-## How Daemon Pods are Scheduled
-
-### Scheduled by default scheduler
+## How Daemon Pods are scheduled
 -->
 ## Daemon Pods 是如何被调度的   {#how-daemon-pods-are-scheduled}
 
-### 通过默认调度器调度   {#scheduled-by-default-scheduler}
-
-{{< feature-state for_k8s_version="1.17" state="stable" >}}
-
 <!--
-A DaemonSet ensures that all eligible nodes run a copy of a Pod. Normally, the
-node that a Pod runs on is selected by the Kubernetes scheduler. However,
-DaemonSet pods are created and scheduled by the DaemonSet controller instead.
-That introduces the following issues:
-
-* Inconsistent Pod behavior: Normal Pods waiting to be scheduled are created
-  and in `Pending` state, but DaemonSet pods are not created in `Pending`
-  state. This is confusing to the user.
-* [Pod preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
-  is handled by default scheduler. When preemption is enabled, the DaemonSet controller
-  will make scheduling decisions without considering pod priority and preemption.
+A DaemonSet ensures that all eligible nodes run a copy of a Pod. The DaemonSet
+controller creates a Pod for each eligible node and adds the
+`spec.affinity.nodeAffinity` field of the Pod to match the target host. After
+the Pod is created, the default scheduler typically takes over and then binds
+the Pod to the target host by setting the `.spec.nodeName` field.  If the new
+Pod cannot fit on the node, the default scheduler may preempt (evict) some of
+the existing Pods based on the
+[priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority)
+of the new Pod.
 -->
 DaemonSet 确保所有符合条件的节点都运行该 Pod 的一个副本。
-通常，运行 Pod 的节点由 Kubernetes 调度器选择。
-不过，DaemonSet Pods 由 DaemonSet 控制器创建和调度。这就带来了以下问题：
+DaemonSet 控制器为每个符合条件的节点创建一个 Pod，并添加 Pod 的 `spec.affinity.nodeAffinity`
+字段以匹配目标主机。Pod 被创建之后，默认的调度程序通常通过设置 `.spec.nodeName` 字段来接管 Pod 并将
+Pod 绑定到目标主机。如果新的 Pod 无法放在节点上，则默认的调度程序可能会根据新 Pod
+的[优先级](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#pod-priority)抢占
+（驱逐）某些现存的 Pod。
 
-* Pod 行为的不一致性：正常 Pod 在被创建后等待调度时处于 `Pending` 状态，
-  DaemonSet Pods 创建后不会处于 `Pending` 状态下。这使用户感到困惑。
-* [Pod 抢占](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)
-  由默认调度器处理。启用抢占后，DaemonSet 控制器将在不考虑 Pod 优先级和抢占
-  的情况下制定调度决策。
+<!--
+The user can specify a different scheduler for the Pods of the DamonSet, by
+setting the `.spec.template.spec.schedulerName` field of the DaemonSet.
+
+The original node affinity specified at the
+`.spec.template.spec.affinity.nodeAffinity` field (if specified) is taken into
+consideration by the DaemonSet controller when evaluating the eligible nodes,
+but is replaced on the created Pod with the node affinity that matches the name
+of the eligible node.
+-->
+用户通过设置 DaemonSet 的 `.spec.template.spec.schedulerName` 字段，可以为 DamonSet
+的 Pod 指定不同的调度程序。
+
+当评估符合条件的节点时，原本在 `.spec.template.spec.affinity.nodeAffinity` 字段上指定的节点亲和性将由
+DaemonSet 控制器进行考量，但在创建的 Pod 上会被替换为与符合条件的节点名称匹配的节点亲和性。
 
 <!--
 `ScheduleDaemonSetPods` allows you to schedule DaemonSets using the default
@@ -242,8 +249,8 @@ taken into account before selecting the target host). The DaemonSet controller o
 performs these operations when creating or modifying DaemonSet pods, and no
 changes are made to the `spec.template` of the DaemonSet.
 -->
-`ScheduleDaemonSetPods` 允许你使用默认调度器而不是 DaemonSet 控制器来调度 DaemonSets，
-方法是将 `NodeAffinity` 条件而不是 `.spec.nodeName` 条件添加到 DaemonSet Pods。
+`ScheduleDaemonSetPods` 允许你使用默认调度器而不是 DaemonSet 控制器来调度这些 DaemonSet，
+方法是将 `NodeAffinity` 条件而不是 `.spec.nodeName` 条件添加到这些 DaemonSet Pod。
 默认调度器接下来将 Pod 绑定到目标主机。
 如果 DaemonSet Pod 的节点亲和性配置已存在，则被替换
 （原始的节点亲和性配置在选择目标主机之前被考虑）。
@@ -262,38 +269,75 @@ nodeAffinity:
 ```
 
 <!--
-In addition, `node.kubernetes.io/unschedulable:NoSchedule` toleration is added
-automatically to DaemonSet Pods. The default scheduler ignores
-`unschedulable` Nodes when scheduling DaemonSet Pods.
--->
-此外，系统会自动添加 `node.kubernetes.io/unschedulable：NoSchedule` 容忍度到
-DaemonSet Pods。在调度 DaemonSet Pod 时，默认调度器会忽略 `unschedulable` 节点。
+### Taints and tolerations
 
-<!--
-### Taints and Tolerations
-
-Although Daemon Pods respect
-[taints and tolerations](/docs/concepts/configuration/taint-and-toleration),
-the following tolerations are added to DaemonSet Pods automatically according to
-the related features.
+The DaemonSet controller automatically adds a set of {{< glossary_tooltip
+text="tolerations" term_id="toleration" >}} to DaemonSet Pods:
 -->
 ### 污点和容忍度   {#taint-and-toleration}
 
-尽管 Daemon Pods 遵循[污点和容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration)
-规则，根据相关特性，控制器会自动将以下容忍度添加到 DaemonSet Pod：
+DaemonSet 控制器会自动将一组容忍度添加到 DaemonSet Pod：
 
-| 容忍度键名                               | 效果       | 版本    | 描述                                                         |
-| ---------------------------------------- | ---------- | ------- | ------------------------------------------------------------ |
-| `node.kubernetes.io/not-ready`           | NoExecute  | 1.13+   | 当出现类似网络断开的情况导致节点问题时，DaemonSet Pod 不会被逐出。 |
-| `node.kubernetes.io/unreachable`         | NoExecute  | 1.13+   | 当出现类似于网络断开的情况导致节点问题时，DaemonSet Pod 不会被逐出。 |
-| `node.kubernetes.io/disk-pressure`       | NoSchedule | 1.8+    | DaemonSet Pod 被默认调度器调度时能够容忍磁盘压力属性。 |
-| `node.kubernetes.io/memory-pressure`     | NoSchedule | 1.8+    | DaemonSet Pod 被默认调度器调度时能够容忍内存压力属性。 |
-| `node.kubernetes.io/unschedulable`       | NoSchedule | 1.12+   | DaemonSet Pod 能够容忍默认调度器所设置的 `unschedulable` 属性.  |
-| `node.kubernetes.io/network-unavailable` | NoSchedule | 1.12+   | DaemonSet 在使用宿主网络时，能够容忍默认调度器所设置的 `network-unavailable` 属性。 |
+<!--
+Tolerations for DaemonSet pods
+-->
+{{< table caption="DaemonSet Pod 适用的容忍度" >}}
+
+<!--
+| Toleration key                                                                                                        | Effect       | Details                                                                                                                                       |
+| --------------------------------------------------------------------------------------------------------------------- | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`node.kubernetes.io/not-ready`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-not-ready)             | `NoExecute`  | DaemonSet Pods can be scheduled onto nodes that are not healthy or ready to accept Pods. Any DaemonSet Pods running on such nodes will not be evicted. |
+| [`node.kubernetes.io/unreachable`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-unreachable)         | `NoExecute`  | DaemonSet Pods can be scheduled onto nodes that are unreachable from the node controller. Any DaemonSet Pods running on such nodes will not be evicted. |
+| [`node.kubernetes.io/disk-pressure`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-disk-pressure)     | `NoSchedule` | DaemonSet Pods can be scheduled onto nodes with disk pressure issues.                                                                         |
+| [`node.kubernetes.io/memory-pressure`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-memory-pressure) | `NoSchedule` | DaemonSet Pods can be scheduled onto nodes with memory pressure issues.                                                                        |
+| [`node.kubernetes.io/pid-pressure`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-pid-pressure) | `NoSchedule` | DaemonSet Pods can be scheduled onto nodes with process pressure issues.                                                                        |
+| [`node.kubernetes.io/unschedulable`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-unschedulable)   | `NoSchedule` | DaemonSet Pods can be scheduled onto nodes that are unschedulable.                                                                            |
+| [`node.kubernetes.io/network-unavailable`](/docs/reference/labels-annotations-taints/#node-kubernetes-io-network-unavailable) | `NoSchedule` | **Only added for DaemonSet Pods that request host networking**, i.e., Pods having `spec.hostNetwork: true`. Such DaemonSet Pods can be scheduled onto nodes with unavailable network.|
+-->
+| 容忍度键名                                                | 效果       | 描述                    |
+| -------------------------------------------------------- | ---------- | ----------------------- |
+| [`node.kubernetes.io/not-ready`](/zh-cn/docs/reference/labels-annotations-taints/#node-kubernetes-io-not-ready) | `NoExecute`  | DaemonSet Pod 可以被调度到不健康或还不准备接受 Pod 的节点上。在这些节点上运行的所有 DaemonSet Pod 将不会被驱逐。 |
+| [`node.kubernetes.io/unreachable`](/zh-cn/docs/reference/labels-annotations-taints/#node-kubernetes-io-unreachable)  | `NoExecute`  | DaemonSet Pod 可以被调度到从节点控制器不可达的节点上。在这些节点上运行的所有 DaemonSet Pod 将不会被驱逐。 |
+| [`node.kubernetes.io/disk-pressure`](/zh-cn/docs/reference/labels-annotations-taints/#node-kubernetes-io-disk-pressure) | `NoSchedule` | DaemonSet Pod 可以被调度到具有磁盘压力问题的节点上。   |
+| [`node.kubernetes.io/memory-pressure`](/zh-cn/docs/reference/labels-annotations-taints/#node-kubernetes-io-memory-pressure) | `NoSchedule` | DaemonSet Pod 可以被调度到具有内存压力问题的节点上。 |
+| [`node.kubernetes.io/pid-pressure`](/zh-cn/docs/reference/labels-annotations-taints/#node-kubernetes-io-pid-pressure) | `NoSchedule` | DaemonSet Pod 可以被调度到具有进程压力问题的节点上。 |
+| [`node.kubernetes.io/unschedulable`](/zh-cn/docs/reference/labels-annotations-taints/#node-kubernetes-io-unschedulable) | `NoSchedule` | DaemonSet Pod 可以被调度到不可调度的节点上。 |
+| [`node.kubernetes.io/network-unavailable`](/zh-cn/docs/reference/labels-annotations-taints/#node-kubernetes-io-network-unavailable) | `NoSchedule` | **仅针对请求主机联网的 DaemonSet Pod 添加此容忍度**，即 Pod 具有 `spec.hostNetwork: true`。这些 DaemonSet Pod 可以被调度到网络不可用的节点上。|
+
+{{< /table >}}
+
+<!--
+You can add your own tolerations to the Pods of a Daemonset as well, by
+defining these in the Pod template of the DaemonSet.
+
+Because the DaemonSet controller sets the
+`node.kubernetes.io/unschedulable:NoSchedule` toleration automatically,
+Kubernetes can run DaemonSet Pods on nodes that are marked as _unschedulable_.
+-->
+你也可以在 DaemonSet 的 Pod 模板中定义自己的容忍度并将其添加到 DaemonSet Pod。
+
+因为 DaemonSet 控制器自动设置 `node.kubernetes.io/unschedulable:NoSchedule` 容忍度，
+所以 Kubernetes 可以在标记为**不可调度**的节点上运行 DaemonSet Pod。
+
+<!--
+If you use a DaemonSet to provide an important node-level function, such as
+[cluster networking](/docs/concepts/cluster-administration/networking/), it is
+helpful that Kubernetes places DaemonSet Pods on nodes before they are ready.
+For example, without that special toleration, you could end up in a deadlock
+situation where the node is not marked as ready because the network plugin is
+not running there, and at the same time the network plugin is not running on
+that node because the node is not yet ready.
+-->
+如果你使用 DaemonSet 提供重要的节点级别功能，
+例如[集群联网](/zh-cn/docs/concepts/cluster-administration/networking/)，
+Kubernetes 在节点就绪之前将 DaemonSet Pod 放到节点上会很有帮助。
+例如，如果没有这种特殊的容忍度，因为网络插件未在节点上运行，所以你可能会在未标记为就绪的节点上陷入死锁状态，
+同时因为该节点还未就绪，所以网络插件不会在该节点上运行。
 
 <!--
 ## Communicating with Daemon Pods
 -->
+## 与 Daemon Pod 通信   {#communicating-with-daemon-pods}
 
 <!--
 Some possible patterns for communicating with Pods in a DaemonSet are:
@@ -309,8 +353,6 @@ Some possible patterns for communicating with Pods in a DaemonSet are:
 - **Service**: Create a service with the same Pod selector, and use the service to reach a
   daemon on a random node. (No way to reach specific node.)
 -->
-## 与 Daemon Pods 通信   {#communicating-with-daemon-pods}
-
 与 DaemonSet 中的 Pod 进行通信的几种可能模式如下：
 
 - **推送（Push）**：配置 DaemonSet 中的 Pod，将更新发送到另一个服务，例如统计数据库。
@@ -319,12 +361,10 @@ Some possible patterns for communicating with Pods in a DaemonSet are:
 - **NodeIP 和已知端口**：DaemonSet 中的 Pod 可以使用 `hostPort`，从而可以通过节点 IP
   访问到 Pod。客户端能通过某种方法获取节点 IP 列表，并且基于此也可以获取到相应的端口。
 
-- **DNS**：创建具有相同 Pod 选择算符的
-  [无头服务](/zh-cn/docs/concepts/services-networking/service/#headless-services)，
+- **DNS**：创建具有相同 Pod 选择算符的[无头服务](/zh-cn/docs/concepts/services-networking/service/#headless-services)，
   通过使用 `endpoints` 资源或从 DNS 中检索到多个 A 记录来发现 DaemonSet。
 
-- **Service**：创建具有相同 Pod 选择算符的服务，并使用该服务随机访问到某个节点上的
-  守护进程（没有办法访问到特定节点）。
+- **Service**：创建具有相同 Pod 选择算符的服务，并使用该服务随机访问到某个节点上的守护进程（没有办法访问到特定节点）。
 
 <!--
 ## Updating a DaemonSet
@@ -362,7 +402,7 @@ You can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/)
 <!--
 ## Alternatives to DaemonSet
 
-### Init Scripts
+### Init scripts
 -->
 ## DaemonSet 的替代方案   {#alternatives-to-daemon-set}
 
@@ -376,8 +416,7 @@ running such processes via a DaemonSet:
 - Ability to monitor and manage logs for daemons in the same way as applications.
 - Same config language and tools (e.g. Pod templates, `kubectl`) for daemons and applications.
 - Running daemons in containers with resource limits increases isolation between daemons from app
-  containers.  However, this can also be accomplished by running the daemons in a container but not in a Pod
-  (e.g. start directly via Docker).
+  containers.  However, this can also be accomplished by running the daemons in a container but not in a Pod.
 -->
 直接在节点上启动守护进程（例如使用 `init`、`upstartd` 或 `systemd`）的做法当然是可行的。
 不过，基于 DaemonSet 来运行这些进程有如下一些好处：
@@ -388,7 +427,6 @@ running such processes via a DaemonSet:
 
 - 在资源受限的容器中运行守护进程能够增加守护进程和应用容器的隔离性。
   然而，这一点也可以通过在容器中运行守护进程但却不在 Pod 中运行之来实现。
-  例如，直接基于 Docker 启动。
 
 <!--
 ### Bare Pods
@@ -436,12 +474,12 @@ all or certain hosts, if the DaemonSet provides node-level functionality that al
 
 For example, [network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) often include a component that runs as a DaemonSet. The DaemonSet component makes sure that the node where it's running has working cluster networking.
 -->
-### Deployments
+### Deployment
 
-DaemonSet 与 [Deployments](/zh-cn/docs/concepts/workloads/controllers/deployment/) 非常类似，
+DaemonSet 与 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/) 非常类似，
 它们都能创建 Pod，并且 Pod 中的进程都不希望被终止（例如，Web 服务器、存储服务器）。
 
-建议为无状态的服务使用 Deployments，比如前端服务。
+建议为无状态的服务使用 Deployment，比如前端服务。
 对这些服务而言，对副本的数量进行扩缩容、平滑升级，比精确控制 Pod 运行在某个主机上要重要得多。
 当需要 Pod 副本总是运行在全部或特定主机上，并且当该 DaemonSet 提供了节点级别的功能（允许其他 Pod 在该特定节点上正确运行）时，
 应该使用 DaemonSet。
@@ -465,7 +503,7 @@ DaemonSet 与 [Deployments](/zh-cn/docs/concepts/workloads/controllers/deploymen
   Read the {{< api-reference page="workload-resources/daemon-set-v1" >}}
   object definition to understand the API for daemon sets.
 -->
-* 了解 [Pods](/zh-cn/docs/concepts/workloads/pods)。
+* 了解 [Pod](/zh-cn/docs/concepts/workloads/pods)。
   * 了解[静态 Pod](#static-pods)，这对运行 Kubernetes {{< glossary_tooltip text="控制面" term_id="control-plane" >}}组件有帮助。
 * 了解如何使用 DaemonSet
   * [对 DaemonSet 执行滚动更新](/zh-cn/docs/tasks/manage-daemon/update-daemon-set/)
@@ -475,4 +513,3 @@ DaemonSet 与 [Deployments](/zh-cn/docs/concepts/workloads/controllers/deploymen
   [扩展（Addons）](/zh-cn/docs/concepts/cluster-administration/addons/)，它们常以 DaemonSet 运行。
 * `DaemonSet` 是 Kubernetes REST API 中的顶级资源。阅读 {{< api-reference page="workload-resources/daemon-set-v1" >}}
    对象定义理解关于该资源的 API。
-

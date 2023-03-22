@@ -7,6 +7,10 @@ description: Creating Secret objects using kubectl command line.
 
 <!-- overview -->
 
+This page shows you how to create, edit, manage, and delete Kubernetes
+{{<glossary_tooltip text="Secrets" term_id="secret">}} using the `kubectl`
+command-line tool.
+
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
@@ -15,64 +19,66 @@ description: Creating Secret objects using kubectl command line.
 
 ## Create a Secret
 
-A `Secret` can contain user credentials required by pods to access a database.
-For example, a database connection string consists of a username and password.
-You can store the username in a file `./username.txt` and the password in a
-file `./password.txt` on your local machine.
+A `Secret` object stores sensitive data such as credentials
+used by Pods to access services. For example, you might need a Secret to store
+the username and password needed to access a database.
 
-```shell
-echo -n 'admin' > ./username.txt
-echo -n '1f2d1e2e67df' > ./password.txt
-```
-In these commands, the `-n` flag ensures that the generated files do not have
-an extra newline character at the end of the text. This is important because
-when `kubectl` reads a file and encodes the content into a base64 string, the
-extra newline character gets encoded too.
+You can create the Secret by passing the raw data in the command, or by storing
+the credentials in files that you pass in the command. The following commands
+create a Secret that stores the username `admin` and the password `S!B\*d$zDsb=`.
 
-The `kubectl create secret` command packages these files into a Secret and creates
-the object on the API server.
+### Use raw data
+
+Run the following command:
 
 ```shell
 kubectl create secret generic db-user-pass \
-  --from-file=./username.txt \
-  --from-file=./password.txt
+    --from-literal=username=admin \
+    --from-literal=password='S!B\*d$zDsb='
 ```
+You must use single quotes `''` to escape special characters such as `$`, `\`,
+`*`, `=`, and `!` in your strings. If you don't, your shell will interpret these
+characters.
 
-The output is similar to:
+### Use source files
+
+1. Store the credentials in files:
+
+   ```shell
+   echo -n 'admin' > ./username.txt
+   echo -n 'S!B\*d$zDsb=' > ./password.txt
+   ```
+
+   The `-n` flag ensures that the generated files do not have an extra newline
+   character at the end of the text. This is important because when `kubectl`
+   reads a file and encodes the content into a base64 string, the extra
+   newline character gets encoded too. You do not need to escape special
+   characters in strings that you include in a file.
+
+1. Pass the file paths in the `kubectl` command:
+
+   ```shell
+   kubectl create secret generic db-user-pass \
+       --from-file=./username.txt \
+       --from-file=./password.txt
+   ```
+
+   The default key name is the file name. You can optionally set the key name
+   using `--from-file=[key=]source`. For example:
+
+   ```shell
+   kubectl create secret generic db-user-pass \
+       --from-file=username=./username.txt \
+       --from-file=password=./password.txt
+   ```
+
+With either method, the output is similar to:
 
 ```
 secret/db-user-pass created
 ```
 
-The default key name is the filename. You can optionally set the key name using
-`--from-file=[key=]source`. For example:
-
-```shell
-kubectl create secret generic db-user-pass \
-  --from-file=username=./username.txt \
-  --from-file=password=./password.txt
-```
-
-You do not need to escape special characters in password strings that you 
-include in a file.
-
-You can also provide Secret data using the `--from-literal=<key>=<value>` tag.
-This tag can be specified more than once to provide multiple key-value pairs.
-Note that special characters such as `$`, `\`, `*`, `=`, and `!` will be
-interpreted by your [shell](https://en.wikipedia.org/wiki/Shell_(computing))
-and require escaping.
-
-In most shells, the easiest way to escape the password is to surround it with
-single quotes (`'`). For example, if your password is `S!B\*d$zDsb=`,
-run the following command:
-
-```shell
-kubectl create secret generic db-user-pass \
-  --from-literal=username=devuser \
-  --from-literal=password='S!B\*d$zDsb='
-```
-
-## Verify the Secret
+### Verify the Secret {#verify-the-secret}
 
 Check that the Secret was created:
 
@@ -83,14 +89,14 @@ kubectl get secrets
 The output is similar to:
 
 ```
-NAME                  TYPE                                  DATA      AGE
-db-user-pass          Opaque                                2         51s
+NAME              TYPE       DATA      AGE
+db-user-pass      Opaque     2         51s
 ```
 
-You can view a description of the `Secret`:
+View the details of the Secret:
 
 ```shell
-kubectl describe secrets/db-user-pass
+kubectl describe secret db-user-pass
 ```
 
 The output is similar to:
@@ -113,59 +119,86 @@ The commands `kubectl get` and `kubectl describe` avoid showing the contents
 of a `Secret` by default. This is to protect the `Secret` from being exposed
 accidentally, or from being stored in a terminal log.
 
-## Decoding the Secret  {#decoding-secret}
+### Decode the Secret  {#decoding-secret}
 
-To view the contents of the Secret you created, run the following command:
+1. View the contents of the Secret you created:
+
+   ```shell
+   kubectl get secret db-user-pass -o jsonpath='{.data}'
+   ```
+
+   The output is similar to:
+
+   ```json
+   { "password": "UyFCXCpkJHpEc2I9", "username": "YWRtaW4=" }
+   ```
+
+1. Decode the `password` data:
+
+   ```shell
+   echo 'UyFCXCpkJHpEc2I9' | base64 --decode
+   ```
+
+   The output is similar to:
+
+   ```
+   S!B\*d$zDsb=
+   ```
+
+   {{< caution >}}
+   This is an example for documentation purposes. In practice,
+   this method could cause the command with the encoded data to be stored in
+   your shell history. Anyone with access to your computer could find the
+   command and decode the secret. A better approach is to combine the view and
+   decode commands.
+   {{< /caution >}}
+
+   ```shell
+   kubectl get secret db-user-pass -o jsonpath='{.data.password}' | base64 --decode
+   ```
+
+## Edit a Secret {#edit-secret}
+
+You can edit an existing `Secret` object unless it is
+[immutable](/docs/concepts/configuration/secret/#secret-immutable). To edit a
+Secret, run the following command:
 
 ```shell
-kubectl get secret db-user-pass -o jsonpath='{.data}'
+kubectl edit secrets <secret-name>
 ```
 
-The output is similar to:
+This opens your default editor and allows you to update the base64 encoded
+Secret values in the `data` field, such as in the following example:
 
-```json
-{"password":"MWYyZDFlMmU2N2Rm","username":"YWRtaW4="}
+```yaml
+# Please edit the object below. Lines beginning with a '#' will be ignored,
+# and an empty file will abort the edit. If an error occurs while saving this file, it will be
+# reopened with the relevant failures.
+#
+apiVersion: v1
+data:
+  password: UyFCXCpkJHpEc2I9
+  username: YWRtaW4=
+kind: Secret
+metadata:
+  creationTimestamp: "2022-06-28T17:44:13Z"
+  name: db-user-pass
+  namespace: default
+  resourceVersion: "12708504"
+  uid: 91becd59-78fa-4c85-823f-6d44436242ac
+type: Opaque
 ```
 
-Now you can decode the `password` data:
+## Clean up
 
-```shell
-# This is an example for documentation purposes.
-# If you did things this way, the data 'MWYyZDFlMmU2N2Rm' could be stored in
-# your shell history.
-# Someone with access to you computer could find that remembered command
-# and base-64 decode the secret, perhaps without your knowledge.
-# It's usually better to combine the steps, as shown later in the page.
-echo 'MWYyZDFlMmU2N2Rm' | base64 --decode
-```
-
-The output is similar to:
-
-```
-1f2d1e2e67df
-```
-
-In order to avoid storing a secret encoded value in your shell history, you can
-run the following command:
-
-```shell
-kubectl get secret db-user-pass -o jsonpath='{.data.password}' | base64 --decode
-```
-
-The output shall be similar as above.
-
-## Clean Up
-
-Delete the Secret you created:
+To delete a Secret, run the following command:
 
 ```shell
 kubectl delete secret db-user-pass
 ```
 
-<!-- discussion -->
-
 ## {{% heading "whatsnext" %}}
 
 - Read more about the [Secret concept](/docs/concepts/configuration/secret/)
-- Learn how to [manage Secrets using config files](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- Learn how to [manage Secrets using config file](/docs/tasks/configmap-secret/managing-secret-using-config-file/)
 - Learn how to [manage Secrets using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)

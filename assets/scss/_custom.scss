@@ -163,7 +163,7 @@ body.td-404 main .error-details {
     margin-top: 3.5rem !important;
   }
 
-  @media only screen and (min-width: 1075px) {
+  @media only screen and (min-width: 1170px) {
     margin-top: 1rem !important;
   }
 }
@@ -844,6 +844,11 @@ dl {
   }
 }
 
+.release-highlighted-date {
+  font-weight: bold;
+}
+
+
 .no-js .mermaid {
   display: none;
 }
@@ -852,4 +857,38 @@ div.alert > em.javascript-required {
   display: inline-block;
   min-height: 1.5em;
   margin: calc(max(4em, ( 8vh + 4em ) / 2)) 0 0.25em 0;
+}
+
+// Consistent spacing for yaml code
+.language-yaml > span {
+  height: 1.6em;
+}
+
+.content__box
+{
+    margin: 0 0 20px;
+    padding: 20px;
+}
+.content__box_lined
+{
+    box-shadow: inset 0 0 0 1px #326de6;
+}
+.content__box_fill
+{
+    color: #fff;
+    background: #326de6;
+}
+
+// Adjust Bing search result page
+#bing-results-container {
+    padding: 1em;
+}
+#bing-pagination-container {
+    padding: 1em;
+    margin-bottom: 1em;
+
+    a.bing-page-anchor {
+        padding: 0.5em;
+        margin: 0.25em;
+    }
 }

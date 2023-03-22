@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - johnbelamaric
+# - imroc
 title: 토폴로지 키를 사용하여 토폴로지-인지 트래픽 라우팅
 content_type: concept
 weight: 10

@@ -31,7 +31,7 @@ tags:
  {{< glossary_tooltip term_id="service">}} concept.
  -->
 [kube-proxy](/zh-cn/docs/reference/command-line-tools-reference/kube-proxy/)
-是集群中每个{{< glossary_tooltip text="节点（node）" term_id="node" >}}所上运行的网络代理，
+是集群中每个{{< glossary_tooltip text="节点（node）" term_id="node" >}}上所运行的网络代理，
 实现 Kubernetes {{< glossary_tooltip term_id="service">}} 概念的一部分。
 
 <!--more-->

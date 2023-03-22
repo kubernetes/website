@@ -15,7 +15,7 @@ weight: 30
 
 ## 동기 부여
 
-오퍼레이터 패턴은 서비스 또는 서비스 셋을 관리하는 운영자의
+_오퍼레이터 패턴_은 서비스 또는 서비스 셋을 관리하는 운영자의
 주요 목표를 포착하는 것을 목표로 한다. 특정 애플리케이션 및
 서비스를 돌보는 운영자는 시스템의 작동 방식, 배포 방법 및 문제가 있는 경우
 대처 방법에 대해 깊이 알고 있다.
@@ -111,7 +111,9 @@ kubectl edit SampleDB/example-database # 일부 설정을 수동으로 변경하
 {{% thirdparty-content %}}
 
 * [Charmed Operator Framework](https://juju.is/)
+* [Java Operator SDK](https://github.com/java-operator-sdk/java-operator-sdk)
 * [Kopf](https://github.com/nolar/kopf) (Kubernetes Operator Pythonic Framework)
+* [kube-rs](https://kube.rs/) (Rust)
 * [kubebuilder](https://book.kubebuilder.io/) 사용하기
 * [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (.NET 오퍼레이터 SDK)
 * [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)

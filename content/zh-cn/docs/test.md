@@ -110,9 +110,7 @@ Markdown doesn't have strict rules about how to process lists. When we moved
 from Jekyll to Hugo, we broke some lists. To fix them, keep the following in
 mind:
 
-- Make sure you indent sub-list items **4 spaces** rather than the 2 that you
-  may be used to. Counter-intuitively, you need to indent block-level content
-  within a list item an extra 4 spaces too.
+- Make sure you indent sub-list items **2 spaces**. 
 
 - To end a list and start another, you need a HTML comment block on a new line
   between the lists, flush with the left-hand border. The first list won't end
@@ -121,8 +119,7 @@ mind:
 Markdown 在如何处理列表方面没有严格的规则。在我们从 Jekyll 迁移到 Hugo 时，
 我们遇到了一些问题。为了处理这些问题，请注意以下几点：
 
-- 确保你将子列表的条目缩进**四个空格**而不是你可能熟悉的两个空格。
-  有一点是不那么直观的，你需要将列表中的块级别内容多缩进四个空格。
+- 确保你将子列表的条目缩进**两个空格**
 
 - 要结束一个列表并开始一个新的列表，你需要在两个列表之间添加加一个 HTML 注释块，
   并将其置于独立的一行，左边顶边对齐。否则前一个列表不会结束，无论你在它与
@@ -134,9 +131,8 @@ Markdown 在如何处理列表方面没有严格的规则。在我们从 Jekyll 
 - This is a list item
 * This is another list item in the same list
 - You can mix `-` and `*`
-    - To make a sub-item, indent two tabstops (4 spaces). **This is different
-      from Jekyll and Kramdown.**
-        - This is a sub-sub-item. Indent two more tabstops (4 more spaces).
+  - To make a sub-item, indent two spaces.
+    - This is a sub-sub-item. Indent two more spaces.
     - Another sub-item.
 -->
 ### 项目符号列表
@@ -144,8 +140,7 @@ Markdown 在如何处理列表方面没有严格的规则。在我们从 Jekyll 
 - 此为列表条目
 * 此为另一列表条目，位于同一列表中
 - 你可以将 `-` 和 `*` 混合使用
-  - 要开始子列表，缩进两个 TAB （四个空格）。**Jekyll 和 Markdown
-    在这点上有所不同**。
+  - 要开始子列表，缩进两个空格。
     - 这是另一个子子条目。进一步多缩进两个空格。
   - 另一个子条目
 

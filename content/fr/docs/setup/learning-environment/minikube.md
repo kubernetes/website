@@ -56,7 +56,7 @@ Suivez les étapes ci-dessous pour commencer et explorer Minikube.
     Créons un déploiement Kubernetes en utilisant une image existante nommée `echoserver`, qui est un serveur HTTP, et exposez-la sur le port 8080 à l’aide de `--port`.
 
     ```shell
-    kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
+    kubectl create deployment hello-minikube --image=registry.k8s.io/echoserver:1.10
     ```
 
     Le résultat est similaire à ceci:

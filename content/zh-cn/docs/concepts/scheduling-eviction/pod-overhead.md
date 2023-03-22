@@ -44,12 +44,12 @@ time according to the overhead associated with the Pod's
 相关联的开销在[准入](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)时设置的。
 
 <!--
-When Pod Overhead is enabled, the overhead is considered in addition to the sum of container
-resource requests when scheduling a Pod. Similarly,the kubelet will include the Pod overhead when sizing
-the Pod cgroup, and when carrying out Pod eviction ranking.
+A pod's overhead is considered in addition to the sum of container resource requests when
+scheduling a Pod. Similarly, the kubelet will include the Pod overhead when sizing the Pod cgroup,
+and when carrying out Pod eviction ranking.
 -->
 
-如果启用了 Pod Overhead，在调度 Pod 时，除了考虑容器资源请求的总和外，还要考虑 Pod 开销。
+在调度 Pod 时，除了考虑容器资源请求的总和外，还要考虑 Pod 开销。
 类似地，kubelet 将在确定 Pod cgroups 的大小和执行 Pod 驱逐排序时也会考虑 Pod 开销。
 
 <!--
@@ -135,9 +135,10 @@ RuntimeClass 中定义的 `overhead`。如果 PodSpec 中已定义该字段，�
 在这个例子中，由于只指定了 RuntimeClass 名称，所以准入控制器更新了 Pod，使之包含 `overhead`。
 
 <!--
-After the RuntimeClass admission controller, you can check the updated PodSpec:
+After the RuntimeClass admission controller has made modifications, you can check the updated
+Pod overhead value:
 -->
-在 RuntimeClass 准入控制器进行修改后，你可以查看更新后的 PodSpec：
+在 RuntimeClass 准入控制器进行修改后，你可以查看更新后的 Pod 开销值：
 ```bash
 kubectl get pod test-pod -o jsonpath='{.spec.overhead}'
 ```
@@ -154,7 +155,7 @@ map[cpu:250m memory:120Mi]
 If a [ResourceQuota](/docs/concepts/policy/resource-quotas/) is defined, the sum of container requests as well as the
 `overhead` field are counted.
  -->
-如果定义了 [ResourceQuata](/zh-cn/docs/concepts/policy/resource-quotas/), 
+如果定义了 [ResourceQuota](/zh-cn/docs/concepts/policy/resource-quotas/), 
 则容器请求的总量以及 `overhead` 字段都将计算在内。
 
 <!--

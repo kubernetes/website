@@ -2,6 +2,7 @@
 reviewers:
 - liggitt
 title: Kubelet authentication/authorization
+weight: 110
 ---
 
 
