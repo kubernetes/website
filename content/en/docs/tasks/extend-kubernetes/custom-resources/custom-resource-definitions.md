@@ -1049,6 +1049,10 @@ x-kubernetes-validations:
   messageExpression: '"x exceeded max limit of " + string(self.maxLimit)'
 ```
 
+Keep in mind that CEL is strict about using `+` to build strings; it only works on two strings. If
+you have a non-string data type that should be part of `messageExpression`, cast it to a string like
+in the example first.
+
 `messageExpression` must evaluate to a string, and this is checked while the CRD is being written. Note that it is possible
 to set `message` and `messageExpression` on the same rule, and if both are present, `messageExpression`
 will be used. However, if `messageExpression` fails while being evaluated, the string defined in `message` 
