@@ -1,13 +1,13 @@
 ---
 title: 垃圾收集
 content_type: concept
-weight: 50
+weight: 70
 ---
 
 <!--
 title: Garbage Collection
 content_type: concept
-weight: 50
+weight: 70
 -->
 
 <!-- overview -->
@@ -37,7 +37,7 @@ allows the clean up of resources like the following:
 * [不再存在属主引用的对象](#owners-dependents)
 * [未使用的容器和容器镜像](#containers-images)
 * [动态制备的、StorageClass 回收策略为 Delete 的 PV 卷](/zh-cn/docs/concepts/storage/persistent-volumes/#delete)
-* [阻滞或者过期的 CertificateSigningRequest (CSRs)](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#request-signing-process)
+* [阻滞或者过期的 CertificateSigningRequest (CSR)](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#request-signing-process)
 * 在以下情形中删除了的{{<glossary_tooltip text="节点" term_id="node">}}对象：
   * 当集群使用[云控制器管理器](/zh-cn/docs/concepts/architecture/cloud-controller/)运行于云端时；
   * 当集群使用类似于云控制器管理器的插件运行在本地环境中时。
@@ -70,8 +70,8 @@ an owner reference. Owner references help different parts of Kubernetes avoid
 interfering with objects they don’t control.
 -->
 属主关系与某些资源所使用的[标签和选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)不同。
-例如，考虑一个创建 `EndpointSlice` 对象的 {{<glossary_tooltip text="Service" term_id="service">}}对象。
-Service 对象使用**标签**来允许控制面确定哪些 `EndpointSlice` 对象被该Service 使用。
+例如，考虑一个创建 `EndpointSlice` 对象的 {{<glossary_tooltip text="Service" term_id="service">}}。
+Service 使用**标签**来允许控制面确定哪些 `EndpointSlice` 对象被该 Service 使用。
 除了标签，每个被 Service 托管的 `EndpointSlice` 对象还有一个属主引用属性。
 属主引用可以帮助 Kubernetes 中的不同组件避免干预并非由它们控制的对象。
 
@@ -160,8 +160,8 @@ owner object:
 * The object remains visible through the Kubernetes API until the deletion
   process is complete.
 -->
-* Kubernetes API 服务器将对象的 `metadata.deletionTimestamp`
-  字段设置为对象被标记为要删除的时间点。
+* Kubernetes API 服务器将某对象的 `metadata.deletionTimestamp`
+  字段设置为该对象被标记为要删除的时间点。
 * Kubernetes API 服务器也会将 `metadata.finalizers` 字段设置为 `foregroundDeletion`。
 * 在删除过程完成之前，通过 Kubernetes API 仍然可以看到该对象。
 
@@ -241,7 +241,7 @@ resource type.
 -->
 要配置对未使用容器和镜像的垃圾收集选项，可以使用一个
 [配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)，基于
-[`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration) 
+[`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 资源类型来调整与垃圾收集相关的 kubelet 行为。
 
 <!--
@@ -255,7 +255,7 @@ decisions:
 -->
 ### 容器镜像生命周期     {#container-image-lifecycle}
 
-Kubernetes 通过其镜像管理器（Image Manager）来管理所有镜像的生命周期，
+Kubernetes 通过其**镜像管理器（Image Manager）** 来管理所有镜像的生命周期，
 该管理器是 kubelet 的一部分，工作时与
 {{< glossary_tooltip text="cadvisor" term_id="cadvisor" >}} 协同。
 kubelet 在作出垃圾收集决定时会考虑如下磁盘用量约束：
@@ -286,7 +286,7 @@ kubelet 会基于如下变量对所有未使用的容器执行垃圾收集操作
 <!--
 * `MinAge`: the minimum age at which the kubelet can garbage collect a
   container. Disable by setting to `0`.
-* `MaxPerPodContainer`: the maximum number of dead containers each Pod pair
+* `MaxPerPodContainer`: the maximum number of dead containers each Pod
   can have. Disable by setting to less than `0`.
 * `MaxContainers`: the maximum number of dead containers the cluster can have.
   Disable by setting to less than `0`. 
@@ -335,7 +335,7 @@ configure garbage collection:
 
   * [Configuring cascading deletion of Kubernetes objects](/docs/tasks/administer-cluster/use-cascading-deletion/)
   * [Configuring cleanup of finished Jobs](/docs/concepts/workloads/controllers/ttlafterfinished/)
---> 
+-->
 ## 配置垃圾收集     {#configuring-gc}
 
 你可以通过配置特定于管理资源的控制器来调整资源的垃圾收集行为。
@@ -355,5 +355,5 @@ configure garbage collection:
 -->
 * 进一步了解 [Kubernetes 对象的属主关系](/zh-cn/docs/concepts/overview/working-with-objects/owners-dependents/)。
 * 进一步了解 Kubernetes [finalizers](/zh-cn/docs/concepts/overview/working-with-objects/finalizers/)。
-* 进一步了解 [TTL 控制器](/zh-cn/docs/concepts/workloads/controllers/ttlafterfinished/) (beta)，
+* 进一步了解 [TTL 控制器](/zh-cn/docs/concepts/workloads/controllers/ttlafterfinished/) (Beta)，
   该控制器负责清理已完成的 Job。

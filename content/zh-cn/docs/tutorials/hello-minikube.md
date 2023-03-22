@@ -43,7 +43,7 @@ You can also follow this tutorial if you've installed minikube locally.
 See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
 -->
 如果你已在本地安装 Minikube，也可以按照本教程操作。
-安装指南参阅 [minikube start](https://minikube.sigs.k8s.io/docs/start/) 。
+安装指南参阅 [minikube start](https://minikube.sigs.k8s.io/docs/start/)。
 {{< /note >}}
 
 ## {{% heading "objectives" %}}
@@ -62,14 +62,14 @@ See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation 
 <!--
 This tutorial provides a container image that uses NGINX to echo back all the requests.
 -->
-本教程提供了容器镜像，使用 NGINX 来对所有请求做出回应：
+本教程提供了容器镜像，使用 NGINX 来对所有请求做出回应。
 
 <!-- lessoncontent -->
 
 <!--
 ## Create a minikube cluster
 
-1. Click **Launch Terminal**
+1. Click **Launch Terminal**.
 -->
 ## 创建 Minikube 集群  {#create-a-minikube-cluster}
 
@@ -157,7 +157,6 @@ tutorial has only one Container. A Kubernetes
 Pod and restarts the Pod's Container if it terminates. Deployments are the
 recommended way to manage the creation and scaling of Pods.
 -->
-
 ## 创建 Deployment  {#create-a-deployment}
 
 Kubernetes [**Pod**](/zh-cn/docs/concepts/workloads/pods/)
@@ -167,21 +166,25 @@ Kubernetes [**Deployment**](/zh-cn/docs/concepts/workloads/controllers/deploymen
 Deployment 是管理 Pod 创建和扩展的推荐方法。
 
 <!--
+1. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then **Open New Terminal**.
+-->
+1. 仅 Katacoda 环境：在终端窗格的顶部，点击加号，然后点击 **Open New Terminal**。
+
+<!--
 1. Use the `kubectl create` command to create a Deployment that manages a Pod. The
 Pod runs a Container based on the provided Docker image.
 -->
-1. 使用 `kubectl create` 命令创建管理 Pod 的 Deployment。该 Pod 根据提供的 Docker
-   镜像运行 Container。
+2. 使用 `kubectl create` 命令创建管理 Pod 的 Deployment。该 Pod 根据提供的 Docker
+   镜像运行容器。
 
    ```shell
-   kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.4
+   kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080
    ```
 
 <!--
-2. View the Deployment:
+1. View the Deployment:
 -->
-
-2. 查看 Deployment：
+3. 查看 Deployment：
 
    ```shell
    kubectl get deployments
@@ -199,9 +202,9 @@ Pod runs a Container based on the provided Docker image.
    ```
 
 <!--
-3. View the Pod:
+1. View the Pod:
 -->
-3. 查看 Pod：
+4. 查看 Pod：
 
    ```shell
    kubectl get pods
@@ -219,18 +222,18 @@ Pod runs a Container based on the provided Docker image.
    ```
 
 <!--
-4. View cluster events:
+1. View cluster events:
 -->
-4. 查看集群事件：
+5. 查看集群事件：
 
    ```shell
    kubectl get events
    ```
 
 <!--
-5. View the `kubectl` configuration:
+1. View the `kubectl` configuration:
 -->
-5. 查看 `kubectl` 配置：
+6. 查看 `kubectl` 配置：
 
    ```shell
    kubectl config view
@@ -268,11 +271,11 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
    ```
 
    <!--
-    The `--type=LoadBalancer` flag indicates that you want to expose your Service
-    outside of the cluster.
+   The `--type=LoadBalancer` flag indicates that you want to expose your Service
+   outside of the cluster.
 
-    The application code inside the image `registry.k8s.io/echoserver` only listens on TCP port 8080. If you used
-    `kubectl expose` to expose a different port, clients could not connect to that other port.
+   The application code inside the image `registry.k8s.io/echoserver` only listens on TCP port 8080. If you used
+   `kubectl expose` to expose a different port, clients could not connect to that other port.
    -->
 
    这里的 `--type=LoadBalancer` 参数表明你希望将你的 Service 暴露到集群外部。
@@ -344,9 +347,9 @@ The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" 
 
 1. List the currently supported addons:
 -->
-## 启用插件
+## 启用插件   {#enable-addons}
 
-Minikube 有一组内置的 {{< glossary_tooltip text="插件" term_id="addons" >}}，
+Minikube 有一组内置的{{< glossary_tooltip text="插件" term_id="addons" >}}，
 可以在本地 Kubernetes 环境中启用、禁用和打开。
 
 1. 列出当前支持的插件：

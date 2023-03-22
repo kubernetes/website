@@ -26,7 +26,7 @@ weight: 10
 동적 등록을 통해 실행 중인 클러스터에서 커스텀 리소스가 나타나거나 사라질 수 있으며
 클러스터 관리자는 클러스터 자체와 독립적으로 커스텀 리소스를 업데이트 할 수 있다.
 커스텀 리소스가 설치되면 사용자는 *파드* 와 같은 빌트인 리소스와 마찬가지로
-[kubectl](/ko/docs/reference/kubectl/)을 사용하여 해당 오브젝트를 생성하고
+{{< glossary_tooltip text="kubectl" term_id="kubectl" >}}을 사용하여 해당 오브젝트를 생성하고
 접근할 수 있다.
 
 ## 커스텀 컨트롤러
@@ -99,7 +99,7 @@ _선언적(declarative) API_ 를 제공하게 된다.
 * 파일이 업데이트될 때 디플로이먼트 등을 통해 롤링 업데이트를 수행하려고 한다.
 
 {{< note >}}
-민감한 데이터에는 [시크릿](/ko/docs/concepts/configuration/secret/)을 사용하자. 이는 컨피그맵과 비슷하지만 더 안전한다.
+민감한 데이터에는 {{< glossary_tooltip text="시크릿" term_id="secret" >}}을 사용하자. 이는 컨피그맵과 비슷하지만 더 안전하다.
 {{< /note >}}
 
 다음 중 대부분이 적용되는 경우 커스텀 리소스(CRD 또는 애그리게이트 API(aggregated API))를 사용하자.

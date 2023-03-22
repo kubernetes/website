@@ -6,7 +6,7 @@ card:
   name: reference
   weight: 30
 ---
-<!-- ---
+<!--
 title: kubectl Cheat Sheet
 reviewers:
 - erictune
@@ -17,7 +17,6 @@ weight: 10 # highlight it
 card:
   name: reference
   weight: 30
----
 -->
 
 <!-- overview -->
@@ -35,14 +34,13 @@ This page contains a list of commonly used `kubectl` commands and flags.
 
 ### BASH
 -->
-
 ## Kubectl 自动补全   {#kubectl-autocomplete}
 
 ### BASH
 
 <!--
 ```bash
-source <(kubectl completion bash) # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
+source <(kubectl completion bash) # set up autocomplete in bash into the current shell, bash-completion package should be installed first.
 echo "source <(kubectl completion bash)" >> ~/.bashrc # add autocomplete permanently to your bash shell.
 ```
 
@@ -64,7 +62,7 @@ complete -o default -F __start_kubectl k
 
 <!--
 ```bash
-source <(kubectl completion zsh)  # setup autocomplete in zsh into the current shell
+source <(kubectl completion zsh)  # set up autocomplete in zsh into the current shell
 echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc # add autocomplete permanently to your zsh shell
 ```
 -->
@@ -74,12 +72,12 @@ echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc 
 ```
 
 <!--
-### A Note on --all-namespaces
+### A note on `--all-namespaces`
 -->
-### 关于 --all-namespaces 的一点说明    {#a-note-on-all-namespaces}
+### 关于 `--all-namespaces` 的一点说明    {#a-note-on-all-namespaces}
 
 <!--
-Appending `--all-namespaces` happens frequently enough where you should be aware of the  shorthand for `--all-namespaces`:
+Appending `--all-namespaces` happens frequently enough that you should be aware of the shorthand for `--all-namespaces`:
 -->
 我们经常用到 `--all-namespaces` 参数，你应该要知道它的简写：
 
@@ -180,6 +178,7 @@ alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 
 
 <!--
 ## Kubectl apply
+
 `apply` manages applications through files defining Kubernetes resources. It creates and updates resources in a cluster through running `kubectl apply`. This is the recommended way of managing Kubernetes applications on production. See [Kubectl Book](https://kubectl.docs.kubernetes.io).
 -->
 ## Kubectl apply
@@ -312,7 +311,7 @@ EOF
 ```
 
 <!--
-## Viewing, finding resources
+## Viewing and finding resources
 -->
 ## 查看和查找资源    {#viewing-finding-resources}
 
@@ -384,6 +383,9 @@ kubectl get pods --all-namespaces -o jsonpath='{range .items[*].status.initConta
 
 # List Events sorted by timestamp
 kubectl get events --sort-by=.metadata.creationTimestamp
+
+# List all warning events
+kubectl events --types=Warning
 
 # Compares the current state of the cluster against the state that the cluster would be in if the manifest was applied.
 kubectl diff -f ./my-manifest.yaml
@@ -470,6 +472,9 @@ kubectl get pods --all-namespaces -o jsonpath='{range .items[*].status.initConta
 # 列出事件（Events），按时间戳排序
 kubectl get events --sort-by=.metadata.creationTimestamp
 
+# 列出所有警告事件
+kubectl events --types=Warning
+
 # 比较当前的集群状态和假定某清单被应用之后的集群状态
 kubectl diff -f ./my-manifest.yaml
 
@@ -514,6 +519,7 @@ kubectl expose rc nginx --port=80 --target-port=8000
 kubectl get pod mypod -o yaml | sed 's/\(image: myimage\):.*$/\1:v4/' | kubectl replace -f -
 
 kubectl label pods my-pod new-label=awesome                      # Add a Label
+kubectl label pods my-pod new-label-                             # Remove a label
 kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq       # Add an annotation
 kubectl autoscale deployment foo --min=2 --max=10                # Auto scale a deployment "foo"
 ```
@@ -538,6 +544,7 @@ kubectl expose rc nginx --port=80 --target-port=8000
 kubectl get pod mypod -o yaml | sed 's/\(image: myimage\):.*$/\1:v4/' | kubectl replace -f -
 
 kubectl label pods my-pod new-label=awesome                      # 添加标签
+kubectl label pods my-pod new-label-                             # 移除标签
 kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq       # 添加注解
 kubectl autoscale deployment foo --min=2 --max=10                # 对 "foo" Deployment 自动伸缩容
 ```
@@ -564,7 +571,7 @@ kubectl patch deployment valid-deployment  --type json   -p='[{"op": "remove", "
 # Add a new element to a positional array
 kubectl patch sa default --type='json' -p='[{"op": "add", "path": "/secrets/1", "value": {"name": "whatever" } }]'
 
-# Update a deployment's replica count by patching it's scale subresource
+# Update a deployment's replica count by patching its scale subresource
 kubectl patch deployment nginx-deployment --subresource='scale' --type='merge' -p '{"spec":{"replicas":2}}'
 ```
 -->
@@ -636,6 +643,7 @@ kubectl scale --replicas=5 rc/foo rc/bar rc/baz                   # 伸缩多个
 <!--
 ```bash
 kubectl delete -f ./pod.json                                      # Delete a pod using the type and name specified in pod.json
+kubectl delete pod unwanted --now                                 # Delete a pod with no grace period
 kubectl delete pod,service baz foo                                # Delete pods and services with same names "baz" and "foo"
 kubectl delete pods,services -l name=myLabel                      # Delete pods and services with label name=myLabel
 kubectl -n my-ns delete pod,svc --all                             # Delete all pods and services in namespace my-ns,
@@ -645,6 +653,7 @@ kubectl get pods  -n mynamespace --no-headers=true | awk '/pattern1|pattern2/{pr
 -->
 ```bash
 kubectl delete -f ./pod.json                                              # 删除在 pod.json 中指定的类型和名称的 Pod
+kubectl delete pod unwanted --now                                         # 删除 Pod 且无宽限期限（无优雅时段）
 kubectl delete pod,service baz foo                                        # 删除名称为 "baz" 和 "foo" 的 Pod 和服务
 kubectl delete pods,services -l name=myLabel                              # 删除包含 name=myLabel 标签的 pods 和服务
 kubectl -n my-ns delete pod,svc --all                                     # 删除在 my-ns 名字空间中全部的 Pods 和服务
@@ -670,9 +679,8 @@ kubectl logs -f my-pod -c my-container              # stream pod container logs 
 kubectl logs -f -l name=myLabel --all-containers    # stream all pods logs with label name=myLabel (stdout)
 kubectl run -i --tty busybox --image=busybox:1.28 -- sh  # Run pod as interactive shell
 kubectl run nginx --image=nginx -n mynamespace      # Start a single instance of nginx pod in the namespace of mynamespace
-kubectl run nginx --image=nginx                     # Run pod nginx and write its spec into a file called pod.yaml
---dry-run=client -o yaml > pod.yaml
-
+kubectl run nginx --image=nginx --dry-run=client -o yaml > pod.yaml
+                                                    # Generate spec for running pod nginx and write it into a file called pod.yaml
 kubectl attach my-pod -i                            # Attach to Running Container
 kubectl port-forward my-pod 5000:6000               # Listen on port 5000 on the local machine and forward to port 6000 on my-pod
 kubectl exec my-pod -- ls /                         # Run command in existing pod (1 container case)
@@ -694,8 +702,8 @@ kubectl logs -f my-pod -c my-container              # 流式输出 Pod 容器的
 kubectl logs -f -l name=myLabel --all-containers    # 流式输出含 name=myLabel 标签的 Pod 的所有日志（标准输出）
 kubectl run -i --tty busybox --image=busybox:1.28 -- sh  # 以交互式 Shell 运行 Pod
 kubectl run nginx --image=nginx -n mynamespace      # 在 “mynamespace” 命名空间中运行单个 nginx Pod
-kubectl run nginx --image=nginx                     # 运行 nginx Pod 并将其规约写入到名为 pod.yaml 的文件
-  --dry-run=client -o yaml > pod.yaml
+kubectl run nginx --image=nginx --dry-run=client -o yaml > pod.yaml
+                                                    # 为运行 nginx Pod 生成规约并将其写入到名为 pod.yaml 的文件
 
 kubectl attach my-pod -i                            # 挂接到一个运行的容器中
 kubectl port-forward my-pod 5000:6000               # 在本地计算机上侦听端口 5000 并转发到 my-pod 上的端口 6000
@@ -707,7 +715,7 @@ kubectl top pod POD_NAME --sort-by=cpu              # 显示给定 Pod 的指标
 ```
 
 <!--
-## Copy files and directories to and from containers
+## Copying files and directories to and from containers
 -->
 ## 从容器中复制文件和目录   {#copy-files-and-directories-to-and-from-containers}
 
@@ -728,7 +736,7 @@ kubectl cp my-namespace/my-pod:/tmp/foo /tmp/bar       # 将 /tmp/foo 从远程 
 
 {{< note >}}
 <!--
-`kubectl cp` requires that the 'tar' binary is present in your container image. If 'tar' is not present,`kubectl cp` will fail.
+`kubectl cp` requires that the 'tar' binary is present in your container image. If 'tar' is not present, `kubectl cp` will fail.
 For advanced use cases, such as symlinks, wildcard expansion or file mode preservation consider using `kubectl exec`.
 -->
 `kubectl cp` 要求容器镜像中存在 “tar” 二进制文件。如果 “tar” 不存在，`kubectl cp` 将失败。
@@ -859,7 +867,7 @@ To output details to your terminal window in a specific format, add the `-o` (or
 
 要以特定格式将详细信息输出到终端窗口，将 `-o`（或者 `--output`）参数添加到支持的 `kubectl` 命令中。
 
-<!--O
+<!--
 Output format | Description
 --------------| -----------
 `-o=custom-columns=<spec>` | Print a table using a comma separated list of custom columns
@@ -897,8 +905,6 @@ kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="registry
 
 # All fields under metadata regardless of name
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'
-
-More examples in the kubectl [reference documentation](/docs/reference/kubectl/#custom-columns).
 ```
 -->
 使用 `-o=custom-columns` 的示例：

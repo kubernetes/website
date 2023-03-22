@@ -181,7 +181,7 @@ at least &quot;minFeasibleNodesToFind&quot; feasible nodes no matter what the va
 Example: if the cluster size is 500 nodes and the value of this flag is 30,
 then scheduler stops finding further feasible nodes once it finds 150 feasible ones.
 When the value is 0, default percentage (5%--50% based on the size of the cluster) of the
-nodes will be scored.
+nodes will be scored. It is overridden by profile level PercentageofNodesToScore.
    -->
    <p>
    <code>percentageOfNodesToScore</code> 字段为所有节点的百分比，一旦调度器找到所设置比例的、能够运行 Pod 的节点，
@@ -190,6 +190,7 @@ nodes will be scored.
    例如：当集群规模为 500 个节点，而此字段的取值为 30，
    则调度器在找到 150 个合适的节点后会停止继续寻找合适的节点。当此值为 0 时，
    调度器会使用默认节点数百分比（基于集群规模确定的值，在 5% 到 50% 之间）来执行打分操作。
+   它可被配置文件级别的 PercentageofNodesToScore 覆盖。
    </p>
 </td>
 </tr>
@@ -267,7 +268,7 @@ NodeAffinityArgs holds arguments to configure the NodeAffinity plugin.
 <tr><td><code>kind</code><br/>string</td><td><code>NodeAffinityArgs</code></td></tr>
   
 <tr><td><code>addedAffinity</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
 </td>
 <td>
    <!--
@@ -388,7 +389,7 @@ PodTopologySpreadArgs holds arguments used to configure the PodTopologySpread pl
 <tr><td><code>kind</code><br/>string</td><td><code>PodTopologySpreadArgs</code></td></tr>
 
 <tr><td><code>defaultConstraints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
 </td>
 <td>
    <!--
@@ -851,6 +852,29 @@ is scheduled with this profile.
    则该 Pod 会使用此方案来调度。</p>
 </td>
 </tr>
+<tr><td><code>percentageOfNodesToScore</code> <B><!--[Required]-->[必需]</B><br/>
+<code>int32</code>
+</td>
+<td>
+   <!--
+   PercentageOfNodesToScore is the percentage of all nodes that once found feasible
+for running a pod, the scheduler stops its search for more feasible nodes in
+the cluster. This helps improve scheduler's performance. Scheduler always tries to find
+at least &quot;minFeasibleNodesToFind&quot; feasible nodes no matter what the value of this flag is.
+Example: if the cluster size is 500 nodes and the value of this flag is 30,
+then scheduler stops finding further feasible nodes once it finds 150 feasible ones.
+When the value is 0, default percentage (5%--50% based on the size of the cluster) of the
+nodes will be scored. It will override global PercentageOfNodesToScore. If it is empty,
+global PercentageOfNodesToScore will be used.
+  -->
+   <p>percentageOfNodesToScore 是已发现可运行 Pod 的节点与所有节点的百分比，
+   调度器所发现的可行节点到达此阈值时，将停止在集群中继续搜索可行节点。
+这有助于提高调度器的性能。无论此标志的值是多少，调度器总是尝试至少找到 “minFeasibleNodesToFind” 个可行的节点。
+例如：如果集群大小为 500 个节点并且此标志的值为 30，则调度器在找到 150 个可行节点后将停止寻找更多可行的节点。
+当值为 0 时，默认百分比（根据集群大小为 5% - 50%）的节点将被评分。此设置值将覆盖全局的 PercentageOfNodesToScore 值。
+如果为空，将使用全局 PercentageOfNodesToScore。</p>
+</td>
+</tr>
 <tr><td><code>plugins</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#kubescheduler-config-k8s-io-v1-Plugins"><code>Plugins</code></a>
 </td>
@@ -1054,6 +1078,14 @@ be invoked before default plugins, default plugins must be disabled and re-enabl
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
 <tbody>
 
+<tr><td><code>preEnqueue</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="#kubescheduler-config-k8s-io-v1-PluginSet"><code>PluginSet</code></a>
+</td>
+<td>
+   <!--PreEnqueue is a list of plugins that should be invoked before adding pods to the scheduling queue.-->
+   <p>preEnqueue 是在将 Pod 添加到调度队列之前应调用的插件的列表。</p>
+</td>
+</tr>
 <tr><td><code>queueSort</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#kubescheduler-config-k8s-io-v1-PluginSet"><code>PluginSet</code></a>
 </td>

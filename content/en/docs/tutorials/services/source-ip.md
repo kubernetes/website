@@ -2,7 +2,7 @@
 title: Using Source IP
 content_type: tutorial
 min-kubernetes-server-version: v1.5
-weight: 10
+weight: 40
 ---
 
 <!-- overview -->
@@ -74,7 +74,7 @@ deployment.apps/source-ip-app created
 
 Packets sent to ClusterIP from within the cluster are never source NAT'd if
 you're running kube-proxy in
-[iptables mode](/docs/concepts/services-networking/service/#proxy-mode-iptables),
+[iptables mode](/docs/reference/networking/virtual-ips/#proxy-mode-iptables),
 (the default). You can query the kube-proxy mode by fetching
 `http://localhost:10249/proxyMode` on the node where kube-proxy is running.
 
@@ -416,5 +416,5 @@ kubectl delete deployment source-ip-app
 
 ## {{% heading "whatsnext" %}}
 
-* Learn more about [connecting applications via services](/docs/concepts/services-networking/connect-applications-service/)
+* Learn more about [connecting applications via services](/docs/tutorials/services/connect-applications-service/)
 * Read how to [Create an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)

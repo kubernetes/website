@@ -17,7 +17,6 @@ This page shows you how to
 [localize](https://blog.mozilla.org/l10n/2011/12/14/i18n-vs-l10n-whats-the-diff/)
 the docs for a different language.
 
-
 <!-- body -->
 
 ## Contribute to an existing localization
@@ -28,8 +27,10 @@ localization. There is also a general [SIG Docs Localizations Slack
 channel](https://kubernetes.slack.com/messages/sig-docs-localizations) where you
 can say hello.
 
-{{< note >}} For extra details on how to contribute to a specific localization,
-look for a localized version of this page. {{< /note >}}
+{{< note >}}
+For extra details on how to contribute to a specific localization,
+look for a localized version of this page.
+{{< /note >}}
 
 ### Find your two-letter language code
 
@@ -37,6 +38,10 @@ First, consult the [ISO 639-1
 standard](https://www.loc.gov/standards/iso639-2/php/code_list.php) to find your
 localization's two-letter language code. For example, the two-letter code for
 Korean is `ko`.
+
+Some languages use a lowercase version of the country code as defined by the
+ISO-3166 along with their language codes. For example, the Brazilian Portuguese
+language code is `pt-br`.
 
 ### Fork and clone the repo
 
@@ -86,6 +91,11 @@ You'll need to know the two-letter language code for your language. Consult the
 [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/php/code_list.php)
 to find your localization's two-letter language code. For example, the
 two-letter code for Korean is `ko`.
+
+If the language you are starting a localization for is spoken in various places
+with significant differences between the variants, it might make sense to
+combine the lowercased ISO-3166 country code with the language two-letter code.
+For example, Brazilian Portuguese is localized as `pt-br`.
 
 When you start a new localization, you must localize all the
 [minimum required content](#minimum-required-content) before
@@ -152,10 +162,10 @@ For an example of adding a label, see the PR for adding the
 
 The Kubernetes website uses Hugo as its web framework. The website's Hugo
 configuration resides in the
-[`config.toml`](https://github.com/kubernetes/website/tree/main/config.toml)
-file. You'll need to modify `config.toml` to support a new localization.
+[`hugo.toml`](https://github.com/kubernetes/website/tree/main/hugo.toml)
+file. You'll need to modify `hugo.toml` to support a new localization.
 
-Add a configuration block for the new language to `config.toml` under the
+Add a configuration block for the new language to `hugo.toml` under the
 existing `[languages]` block. The German block, for example, looks like:
 
 ```toml
@@ -360,16 +370,18 @@ release to target, referred to as the _target version_ below.
 To find source files for your target version:
 
 1. Navigate to the Kubernetes website repository at
-https://github.com/kubernetes/website. 2. Select a branch for your target
-version from the following table:
+   https://github.com/kubernetes/website.
 
-   Target version | Branch
-   -----|-----
-   Latest version | [`main`](https://github.com/kubernetes/website/tree/main)
-   Previous version | [`release-{{< skew prevMinorVersion >}}`](https://github.com/kubernetes/website/tree/release-{{< skew prevMinorVersion >}})
-   Next version | [`dev-{{< skew nextMinorVersion >}}`](https://github.com/kubernetes/website/tree/dev-{{< skew nextMinorVersion >}})
+2. Select a branch for your target version from the following table:
 
-The `main` branch holds content for the current release `{{< latest-version >}}`. The release team creates a `{{< release-branch >}}` branch before the next
+Target version | Branch
+-----|-----
+Latest version | [`main`](https://github.com/kubernetes/website/tree/main)
+Previous version | [`release-{{< skew prevMinorVersion >}}`](https://github.com/kubernetes/website/tree/release-{{< skew prevMinorVersion >}})
+Next version | [`dev-{{< skew nextMinorVersion >}}`](https://github.com/kubernetes/website/tree/dev-{{< skew nextMinorVersion >}})
+
+The `main` branch holds content for the current release `{{< latest-version >}}`.
+The release team creates a `{{< release-branch >}}` branch before the next
 release: v{{< skew nextMinorVersion >}}.
 
 ### Site strings in i18n
@@ -450,8 +462,8 @@ To collaborate on a localization branch:
 
    For example, an approver on a German localization team opens the localization
    branch `dev-1.12-de.1` directly against the `kubernetes/website` repository,
-
    based on the source branch for Kubernetes v1.12.
+
 2. Individual contributors open feature branches based on the localization
    branch.
 

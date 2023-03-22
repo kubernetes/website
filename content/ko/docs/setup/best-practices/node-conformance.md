@@ -40,7 +40,7 @@ weight: 30
 # $LOG_DIR는 테스트 출력 경로이다.
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
-  k8s.gcr.io/node-test:0.2
+  registry.k8s.io/node-test:0.2
 ```
 
 ## 다른 아키텍처에서 노드 적합성 테스트 실행
@@ -61,7 +61,7 @@ sudo docker run -it --rm --privileged --net=host \
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
   -e FOCUS=MirrorPod \ # MirrorPod 테스트만 실행
-  k8s.gcr.io/node-test:0.2
+  registry.k8s.io/node-test:0.2
 ```
 
 특정 테스트를 건너뛰기 위해서는, 환경 변수 `SKIP`에 건너뛰고자 하는 테스트를 정규식으로 지정한다.
@@ -70,7 +70,7 @@ sudo docker run -it --rm --privileged --net=host \
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
   -e SKIP=MirrorPod \ # MirrorPod 테스트만 건너뛰고 모든 적합성 테스트를 실행한다
-  k8s.gcr.io/node-test:0.2
+  registry.k8s.io/node-test:0.2
 ```
 
 노드 적합성 테스트는 [노드 e2e 테스트](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/e2e-node-tests.md)를 컨테이너화한 버전이다.

@@ -1,14 +1,14 @@
 ---
 title: 使用 kubeadm 支持双协议栈
 content_type: task
-weight: 110
+weight: 100
 min-kubernetes-server-version: 1.21
 ---
 
 <!--
 title: Dual-stack support with kubeadm
 content_type: task
-weight: 110
+weight: 100
 min-kubernetes-server-version: 1.21
 -->
 

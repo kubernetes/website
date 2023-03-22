@@ -74,7 +74,7 @@ LimitRange 的名称必须是合法的
   continue unchanged.
 - If two or more `LimitRange` objects exist in the namespace, it is not deterministic which default value will be applied.
 -->
-### 资源限制和请求的约束   {#constraints-on-resource-limits-and-requests}
+## 资源限制和请求的约束   {#constraints-on-resource-limits-and-requests}
 
 - 管理员在一个命名空间内创建一个 `LimitRange` 对象。
 - 用户在此命名空间内创建（或尝试创建） Pod 和 PersistentVolumeClaim 等对象。
@@ -91,7 +91,7 @@ LimitRange 的名称必须是合法的
 <!--
 ## LimitRange and admission checks for Pods
 
-A `LimitRange` does **not** check the consistency of the default values it applies. This means that a default value for the _limit_ that is set by `LimitRange` may be less than the _request_ value specified for the container in the spec that a client submits to the API server. If that happens, the final Pod will not be scheduleable.
+A `LimitRange` does **not** check the consistency of the default values it applies. This means that a default value for the _limit_ that is set by `LimitRange` may be less than the _request_ value specified for the container in the spec that a client submits to the API server. If that happens, the final Pod will not be schedulable.
 
 For example, you define a `LimitRange` with this manifest:
 -->

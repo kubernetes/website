@@ -1,23 +1,23 @@
 ---
 title: 手动生成证书
 content_type: task
-weight: 20
+weight: 30
 ---
 <!-- 
----
 title: Generate Certificates Manually
 content_type: task
-weight: 20
----
+weight: 30
 -->
 
 <!-- overview -->
 
 <!-- 
 When using client certificate authentication, you can generate certificates
-manually through `easyrsa`, `openssl` or `cfssl`.
+manually through [`easyrsa`](https://github.com/OpenVPN/easy-rsa), [`openssl`](https://github.com/openssl/openssl) or [`cfssl`](https://github.com/cloudflare/cfssl).
 -->
-在使用客户端证书认证的场景下，你可以通过 `easyrsa`、`openssl` 或 `cfssl` 等工具以手工方式生成证书。
+在使用客户端证书认证的场景下，你可以通过 [`easyrsa`](https://github.com/OpenVPN/easy-rsa)、
+[`openssl`](https://github.com/openssl/openssl) 或 [`cfssl`](https://github.com/cloudflare/cfssl)
+等工具以手工方式生成证书。
 
 <!-- body -->
 
@@ -34,7 +34,7 @@ manually through `easyrsa`, `openssl` or `cfssl`.
 1. 下载、解压、初始化打过补丁的 `easyrsa3`。
 
    ```shell
-   curl -LO https://storage.googleapis.com/kubernetes-release/easy-rsa/easy-rsa.tar.gz
+   curl -LO https://dl.k8s.io/easy-rsa/easy-rsa.tar.gz
    tar xzf easy-rsa.tar.gz
    cd easy-rsa-master/easyrsa3
    ./easyrsa init-pki

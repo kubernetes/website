@@ -207,7 +207,7 @@ type:
 ```
 
 <!-- 
-### Specifying both `data` and `stringData`
+### Specify both `data` and `stringData`
 
 If you specify a field in both `data` and `stringData`, the value from `stringData` is used.
 
@@ -256,6 +256,90 @@ type: Opaque
 `YWRtaW5pc3RyYXRvcg==` 解码成 `administrator`。
 
 <!--
+## Edit a Secret {#edit-secret}
+
+To edit the data in the Secret you created using a manifest, modify the `data`
+or `stringData` field in your manifest and apply the file to your
+cluster. You can edit an existing `Secret` object unless it is
+[immutable](/docs/concepts/configuration/secret/#secret-immutable).
+
+For example, if you want to change the password from the previous example to
+`birdsarentreal`, do the following:
+
+1. Encode the new password string:
+-->
+## 编辑 Secret {#edit-secret}
+
+要编辑使用清单创建的 Secret 中的数据，请修改清单中的 `data` 或 `stringData` 字段并将此清单文件应用到集群。
+你可以编辑现有的 `Secret` 对象，除非它是[不可变的](/zh-cn/docs/concepts/configuration/secret/#secret-immutable)。
+
+例如，如果你想将上一个示例中的密码更改为 `birdsarentreal`，请执行以下操作：
+
+1. 编码新密码字符串：
+
+   ```shell
+   echo -n 'birdsarentreal' | base64
+   ```
+
+   <!--
+   The output is similar to:
+   -->
+   输出类似于：
+
+   ```
+   YmlyZHNhcmVudHJlYWw=
+   ```
+
+<!--
+1. Update the `data` field with your new password string:
+-->
+2. 使用你的新密码字符串更新 `data` 字段：
+
+   ```yaml
+   apiVersion: v1
+   kind: Secret
+   metadata:
+     name: mysecret
+   type: Opaque
+   data:
+     username: YWRtaW4=
+     password: YmlyZHNhcmVudHJlYWw=
+   ```
+
+<!--
+1. Apply the manifest to your cluster:
+-->
+3. 将清单应用到你的集群：
+
+   ```shell
+   kubectl apply -f ./secret.yaml
+   ```
+
+   <!--
+   The output is similar to:
+   -->
+   输出类似于：
+
+   ```
+   secret/mysecret configured
+   ```
+
+<!--
+Kubernetes updates the existing `Secret` object. In detail, the `kubectl` tool
+notices that there is an existing `Secret` object with the same name. `kubectl`
+fetches the existing object, plans changes to it, and submits the changed
+`Secret` object to your cluster control plane.
+
+If you specified `kubectl apply --server-side` instead, `kubectl` uses
+[Server Side Apply](/docs/reference/using-api/server-side-apply/) instead.
+-->
+Kubernetes 更新现有的 `Secret` 对象。具体而言，`kubectl` 工具发现存在一个同名的现有 `Secret` 对象。
+`kubectl` 获取现有对象，计划对其进行更改，并将更改后的 `Secret` 对象提交到你的集群控制平面。
+
+如果你指定了 `kubectl apply --server-side`，则 `kubectl`
+使用[服务器端应用（Server-Side Apply）](/zh-cn/docs/reference/using-api/server-side-apply/)。
+
+<!--
 ## Clean Up
 -->
 ## 清理    {#clean-up}
@@ -273,10 +357,9 @@ kubectl delete secret mysecret
 
 <!-- 
 - Read more about the [Secret concept](/docs/concepts/configuration/secret/)
-- Learn how to [manage Secrets with the `kubectl` command](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- Learn how to [manage Secrets using kubectl](/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 - Learn how to [manage Secrets using kustomize](/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 -->
 - 进一步阅读 [Secret 概念](/zh-cn/docs/concepts/configuration/secret/)
-- 了解如何[使用 `kubectl` 命令管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- 了解如何[使用 `kubectl` 管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
 - 了解如何[使用 kustomize 管理 Secret](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
-

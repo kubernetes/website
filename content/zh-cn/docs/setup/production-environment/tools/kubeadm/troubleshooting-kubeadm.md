@@ -35,8 +35,8 @@ If your problem is not listed below, please follow the following steps:
   - 如果没有问题，请 [打开](https://github.com/kubernetes/kubeadm/issues/new) 并遵循问题模板。
 
 - 如果你对 kubeadm 的工作方式有疑问，可以在 [Slack](https://slack.k8s.io/) 上的 `#kubeadm` 频道提问，
-或者在 [StackOverflow](https://stackoverflow.com/questions/tagged/kubernetes) 上提问。
-请加入相关标签，例如 `#kubernetes` 和 `#kubeadm`，这样其他人可以帮助你。
+  或者在 [StackOverflow](https://stackoverflow.com/questions/tagged/kubernetes) 上提问。
+  请加入相关标签，例如 `#kubernetes` 和 `#kubeadm`，这样其他人可以帮助你。
 
 <!-- body -->
 
@@ -73,7 +73,6 @@ Apply the following RBAC manually using `kubectl apply -f ...`:
 
 或者，也可以使用 `kubectl apply -f ...` 手动应用以下 RBAC：
 
-
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -105,26 +104,22 @@ subjects:
 ## `ebtables` or some similar executable not found during installation
 
 If you see the following warnings while running `kubeadm init`
-
-```sh
-[preflight] WARNING: ebtables not found in system path
-[preflight] WARNING: ethtool not found in system path
-```
-
-Then you may be missing `ebtables`, `ethtool` or a similar executable on your node. You can install them with the following commands:
-
-- For Ubuntu/Debian users, run `apt install ebtables ethtool`.
-- For CentOS/Fedora users, run `yum install ebtables ethtool`.
 -->
 ## 在安装过程中没有找到 `ebtables` 或者其他类似的可执行文件
 
 如果在运行 `kubeadm init` 命令时，遇到以下的警告
 
-```sh
+```console
 [preflight] WARNING: ebtables not found in system path
 [preflight] WARNING: ethtool not found in system path
 ```
 
+<!--
+Then you may be missing `ebtables`, `ethtool` or a similar executable on your node. You can install them with the following commands:
+
+- For Ubuntu/Debian users, run `apt install ebtables ethtool`.
+- For CentOS/Fedora users, run `yum install ebtables ethtool`.
+-->
 那么或许在你的节点上缺失 `ebtables`、`ethtool` 或者类似的可执行文件。
 你可以使用以下命令安装它们：
 
@@ -135,16 +130,12 @@ Then you may be missing `ebtables`, `ethtool` or a similar executable on your no
 ## kubeadm blocks waiting for control plane during installation
 
 If you notice that `kubeadm init` hangs after printing out the following line:
-
-```sh
-[apiclient] Created API client, waiting for the control plane to become ready
-```
 -->
 ## 在安装过程中，kubeadm 一直等待控制平面就绪
 
 如果你注意到 `kubeadm init` 在打印以下行后挂起：
 
-```sh
+```console
 [apiclient] Created API client, waiting for the control plane to become ready
 ```
 
@@ -153,17 +144,18 @@ This may be caused by a number of problems. The most common are:
 
 - network connection problems. Check that your machine has full network connectivity before continuing.
 - the cgroup driver of the container runtime differs from that of the kubelet. To understand how to
-configure it properly see [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
+  configure it properly see [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/).
 - control plane containers are crashlooping or hanging. You can check this by running `docker ps`
-and investigating each container by running `docker logs`. For other container runtime see
-[Debugging Kubernetes nodes with crictl](/docs/tasks/debug/debug-cluster/crictl/).
+  and investigating each container by running `docker logs`. For other container runtime see
+  [Debugging Kubernetes nodes with crictl](/docs/tasks/debug/debug-cluster/crictl/).
 -->
 这可能是由许多问题引起的。最常见的是：
 
 - 网络连接问题。在继续之前，请检查你的计算机是否具有全部联通的网络连接。
 - 容器运行时的 cgroup 驱动不同于 kubelet 使用的 cgroup 驱动。要了解如何正确配置 cgroup 驱动，
   请参阅[配置 cgroup 驱动](/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)。
-- 控制平面上的 Docker 容器持续进入崩溃状态或（因其他原因）挂起。你可以运行 `docker ps` 命令来检查以及 `docker logs` 命令来检视每个容器的运行日志。
+- 控制平面上的 Docker 容器持续进入崩溃状态或（因其他原因）挂起。你可以运行 `docker ps` 命令来检查以及 `docker logs`
+  命令来检视每个容器的运行日志。
   对于其他容器运行时，请参阅[使用 crictl 对 Kubernetes 节点进行调试](/zh-cn/docs/tasks/debug/debug-cluster/crictl/)。
 
 <!--
@@ -171,6 +163,10 @@ and investigating each container by running `docker logs`. For other container r
 
 The following could happen if the container runtime halts and does not remove
 any Kubernetes-managed containers:
+-->
+## 当删除托管容器时 kubeadm 阻塞
+
+如果容器运行时停止并且未删除 Kubernetes 所管理的容器，可能发生以下情况：
 
 ```shell
 sudo kubeadm reset
@@ -184,26 +180,11 @@ sudo kubeadm reset
 (block)
 ```
 
+<!--
 A possible solution is to restart the container runtime and then re-run `kubeadm reset`.
 You can also use `crictl` to debug the state of the container runtime. See
 [Debugging Kubernetes nodes with crictl](/docs/tasks/debug/debug-cluster/crictl/).
 -->
-## 当删除托管容器时 kubeadm 阻塞
-
-如果容器运行时停止并且未删除 Kubernetes 所管理的容器，可能发生以下情况：
-
-```shell
-sudo kubeadm reset
-```
-
-```none
-[preflight] Running pre-flight checks
-[reset] Stopping the kubelet service
-[reset] Unmounting mounted directories in "/var/lib/kubelet"
-[reset] Removing kubernetes-managed containers
-(block)
-```
-
 一个可行的解决方案是重新启动 Docker 服务，然后重新运行 `kubeadm reset`：
 你也可以使用 `crictl` 来调试容器运行时的状态。
 参见[使用 CRICTL 调试 Kubernetes 节点](/zh-cn/docs/tasks/debug/debug-cluster/crictl/)。
@@ -246,9 +227,8 @@ before CoreDNS may be deployed fully. Hence the `Pending` state before the netwo
 -->
 ## `coredns` 停滞在 `Pending` 状态
 
-这一行为是 **预期之中** 的，因为系统就是这么设计的。
-kubeadm 的网络供应商是中立的，因此管理员应该选择
-[安装 Pod 的网络插件](/zh-cn/docs/concepts/cluster-administration/addons/)。
+这一行为是 **预期之中** 的，因为系统就是这么设计的。kubeadm 的网络供应商是中立的，
+因此管理员应该选择[安装 Pod 的网络插件](/zh-cn/docs/concepts/cluster-administration/addons/)。
 你必须完成 Pod 的网络配置，然后才能完全部署 CoreDNS。
 在网络被配置好之前，DNS 组件会一直处于 `Pending` 状态。
 
@@ -307,36 +287,6 @@ services](/docs/concepts/services-networking/service/#type-nodeport) or use `Hos
 ## TLS certificate errors
 
 The following error indicates a possible certificate mismatch.
-
-```none
-# kubectl get pods
-Unable to connect to the server: x509: certificate signed by unknown authority (possibly because of "crypto/rsa: verification error" while trying to verify candidate authority certificate "kubernetes")
-```
-
-- Verify that the `$HOME/.kube/config` file contains a valid certificate, and
-  regenerate a certificate if necessary. The certificates in a kubeconfig file
-  are base64 encoded. The `base64 --decode` command can be used to decode the certificate
-  and `openssl x509 -text -noout` can be used for viewing the certificate information.
-- Unset the `KUBECONFIG` environment variable using:
-
-  ```sh
-  unset KUBECONFIG
-  ```
-
-  Or set it to the default `KUBECONFIG` location:
-
-  ```sh
-  export KUBECONFIG=/etc/kubernetes/admin.conf
-  ```
-
-- Another workaround is to overwrite the existing `kubeconfig` for the "admin" user:
-
-  ```sh
-  mv  $HOME/.kube $HOME/.kube.bak
-  mkdir $HOME/.kube
-  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  sudo chown $(id -u):$(id -g) $HOME/.kube/config
-  ```
 -->
 ## TLS 证书错误
 
@@ -347,6 +297,13 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
 Unable to connect to the server: x509: certificate signed by unknown authority (possibly because of "crypto/rsa: verification error" while trying to verify candidate authority certificate "kubernetes")
 ```
 
+<!--
+- Verify that the `$HOME/.kube/config` file contains a valid certificate, and
+  regenerate a certificate if necessary. The certificates in a kubeconfig file
+  are base64 encoded. The `base64 --decode` command can be used to decode the certificate
+  and `openssl x509 -text -noout` can be used for viewing the certificate information.
+- Unset the `KUBECONFIG` environment variable using:
+-->
 - 验证 `$HOME/.kube/config` 文件是否包含有效证书，
   并在必要时重新生成证书。在 kubeconfig 文件中的证书是 base64 编码的。
   该 `base64 --decode` 命令可以用来解码证书，`openssl x509 -text -noout`
@@ -357,12 +314,18 @@ Unable to connect to the server: x509: certificate signed by unknown authority (
   unset KUBECONFIG
   ```
 
+  <!--
+  Or set it to the default `KUBECONFIG` location:
+  -->
   或者将其设置为默认的 `KUBECONFIG` 位置：
 
   ```shell
   export KUBECONFIG=/etc/kubernetes/admin.conf
   ```
 
+<!--
+- Another workaround is to overwrite the existing `kubeconfig` for the "admin" user:
+-->
 - 另一个方法是覆盖 `kubeconfig` 的现有用户 "管理员"：
 
   ```shell
@@ -381,17 +344,17 @@ in kube-apiserver logs. To fix the issue you must follow these steps:
 -->
 ## Kubelet 客户端证书轮换失败   {#kubelet-client-cert}
 
-默认情况下，kubeadm 使用 `/etc/kubernetes/kubelet.conf` 中指定的 `/var/lib/kubelet/pki/kubelet-client-current.pem` 符号链接
-来配置 kubelet 自动轮换客户端证书。如果此轮换过程失败，你可能会在 kube-apiserver 日志中看到诸如
+默认情况下，kubeadm 使用 `/etc/kubernetes/kubelet.conf` 中指定的 `/var/lib/kubelet/pki/kubelet-client-current.pem`
+符号链接来配置 kubelet 自动轮换客户端证书。如果此轮换过程失败，你可能会在 kube-apiserver 日志中看到诸如
 `x509: certificate has expired or is not yet valid` 之类的错误。要解决此问题，你必须执行以下步骤：
 <!--
 1. Backup and delete `/etc/kubernetes/kubelet.conf` and `/var/lib/kubelet/pki/kubelet-client*` from the failed node.
 1. From a working control plane node in the cluster that has `/etc/kubernetes/pki/ca.key` execute
-`kubeadm kubeconfig user --org system:nodes --client-name system:node:$NODE > kubelet.conf`.
-`$NODE` must be set to the name of the existing failed node in the cluster.
-Modify the resulted `kubelet.conf` manually to adjust the cluster name and server endpoint,
-or pass `kubeconfig user --config` (it accepts `InitConfiguration`). If your cluster does not have
-the `ca.key` you must sign the embedded certificates in the `kubelet.conf` externally.
+   `kubeadm kubeconfig user --org system:nodes --client-name system:node:$NODE > kubelet.conf`.
+   `$NODE` must be set to the name of the existing failed node in the cluster.
+   Modify the resulted `kubelet.conf` manually to adjust the cluster name and server endpoint,
+   or pass `kubeconfig user --config` (it accepts `InitConfiguration`). If your cluster does not have
+   the `ca.key` you must sign the embedded certificates in the `kubelet.conf` externally.
 -->
 1. 从故障节点备份和删除 `/etc/kubernetes/kubelet.conf` 和 `/var/lib/kubelet/pki/kubelet-client*`。
 2. 在集群中具有 `/etc/kubernetes/pki/ca.key` 的、正常工作的控制平面节点上
@@ -403,13 +366,13 @@ the `ca.key` you must sign the embedded certificates in the `kubelet.conf` exter
 <!--
 1. Copy this resulted `kubelet.conf` to `/etc/kubernetes/kubelet.conf` on the failed node.
 1. Restart the kubelet (`systemctl restart kubelet`) on the failed node and wait for
-`/var/lib/kubelet/pki/kubelet-client-current.pem` to be recreated.
+   `/var/lib/kubelet/pki/kubelet-client-current.pem` to be recreated.
 -->
 3. 将得到的 `kubelet.conf` 文件复制到故障节点上，作为 `/etc/kubernetes/kubelet.conf`。
 4. 在故障节点上重启 kubelet（`systemctl restart kubelet`），等待 `/var/lib/kubelet/pki/kubelet-client-current.pem` 重新创建。
 <!--
 1. Manually edit the `kubelet.conf` to point to the rotated kubelet client certificates, by replacing
-`client-certificate-data` and `client-key-data` with:
+   `client-certificate-data` and `client-key-data` with:
 -->
 5. 手动编辑 `kubelet.conf` 指向轮换的 kubelet 客户端证书，方法是将 `client-certificate-data` 和 `client-key-data` 替换为：
 
@@ -429,77 +392,52 @@ the `ca.key` you must sign the embedded certificates in the `kubelet.conf` exter
 ## Default NIC When using flannel as the pod network in Vagrant
 
 The following error might indicate that something was wrong in the pod network:
+-->
+## 在 Vagrant 中使用 flannel 作为 Pod 网络时的默认 NIC
 
-```sh
+以下错误可能表明 Pod 网络中出现问题：
+
+```console
 Error from server (NotFound): the server could not find the requested resource
 ```
 
+<!--
 - If you're using flannel as the pod network inside Vagrant, then you will have to specify the default interface name for flannel.
 
   Vagrant typically assigns two interfaces to all VMs. The first, for which all hosts are assigned the IP address `10.0.2.15`, is for external traffic that gets NATed.
 
   This may lead to problems with flannel, which defaults to the first interface on a host. This leads to all hosts thinking they have the same public IP address. To prevent this, pass the `--iface eth1` flag to flannel so that the second interface is chosen.
 -->
-
-## 在 Vagrant 中使用 flannel 作为 Pod 网络时的默认 NIC
-
-以下错误可能表明 Pod 网络中出现问题：
-
-```sh
-Error from server (NotFound): the server could not find the requested resource
-```
-
 - 如果你正在 Vagrant 中使用 flannel 作为 Pod 网络，则必须指定 flannel 的默认接口名称。
 
   Vagrant 通常为所有 VM 分配两个接口。第一个为所有主机分配了 IP 地址 `10.0.2.15`，用于获得 NATed 的外部流量。
 
-  这可能会导致 flannel 出现问题，它默认为主机上的第一个接口。这导致所有主机认为它们具有
-  相同的公共 IP 地址。为防止这种情况，传递 `--iface eth1` 标志给 flannel 以便选择第二个接口。
+  这可能会导致 flannel 出现问题，它默认为主机上的第一个接口。这导致所有主机认为它们具有相同的公共
+  IP 地址。为防止这种情况，传递 `--iface eth1` 标志给 flannel 以便选择第二个接口。
 
 <!--
 ## Non-public IP used for containers
 
 In some situations `kubectl logs` and `kubectl run` commands may return with the following errors in an otherwise functional cluster:
-
-```sh
-Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc65b868-glc5m/mysql: dial tcp 10.19.0.41:10250: getsockopt: no route to host
-```
-
-- This may be due to Kubernetes using an IP that can not communicate with other IPs on the seemingly same subnet, possibly by policy of the machine provider.
-- DigitalOcean assigns a public IP to `eth0` as well as a private one to be used internally as anchor for their floating IP feature, yet `kubelet` will pick the latter as the node's `InternalIP` instead of the public one.
-
-  Use `ip addr show` to check for this scenario instead of `ifconfig` because `ifconfig` will not display the offending alias IP address. Alternatively an API endpoint specific to DigitalOcean allows to query for the anchor IP from the droplet:
-
-  ```sh
-  curl http://169.254.169.254/metadata/v1/interfaces/public/0/anchor_ipv4/address
-  ```
-
-  The workaround is to tell `kubelet` which IP to use using `--node-ip`.
-  When using DigitalOcean, it can be the public one (assigned to `eth0`) or
-  the private one (assigned to `eth1`) should you want to use the optional
-  private network. The `kubeletExtraArgs` section of the kubeadm
-  [`NodeRegistrationOptions` structure](/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions)
-  can be used for this.
-
-  Then restart `kubelet`:
-
-  ```sh
-  systemctl daemon-reload
-  systemctl restart kubelet
-  ```
 -->
 ## 容器使用的非公共 IP
 
 在某些情况下 `kubectl logs` 和 `kubectl run` 命令或许会返回以下错误，即便除此之外集群一切功能正常：
 
-```sh
+```console
 Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc65b868-glc5m/mysql: dial tcp 10.19.0.41:10250: getsockopt: no route to host
 ```
 
+<!--
+- This may be due to Kubernetes using an IP that can not communicate with other IPs on the seemingly same subnet, possibly by policy of the machine provider.
+- DigitalOcean assigns a public IP to `eth0` as well as a private one to be used internally as anchor for their floating IP feature, yet `kubelet` will pick the latter as the node's `InternalIP` instead of the public one.
+
+  Use `ip addr show` to check for this scenario instead of `ifconfig` because `ifconfig` will not display the offending alias IP address. Alternatively an API endpoint specific to DigitalOcean allows to query for the anchor IP from the droplet:
+-->
 - 这或许是由于 Kubernetes 使用的 IP 无法与看似相同的子网上的其他 IP 进行通信的缘故，
-可能是由机器提供商的政策所导致的。
+  可能是由机器提供商的政策所导致的。
 - DigitalOcean 既分配一个共有 IP 给 `eth0`，也分配一个私有 IP 在内部用作其浮动 IP 功能的锚点，
-然而 `kubelet` 将选择后者作为节点的 `InternalIP` 而不是公共 IP。
+  然而 `kubelet` 将选择后者作为节点的 `InternalIP` 而不是公共 IP。
 
   使用 `ip addr show` 命令代替 `ifconfig` 命令去检查这种情况，因为 `ifconfig` 命令
   不会显示有问题的别名 IP 地址。或者指定的 DigitalOcean 的 API 端口允许从 droplet 中
@@ -509,6 +447,16 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
   curl http://169.254.169.254/metadata/v1/interfaces/public/0/anchor_ipv4/address
   ```
 
+  <!--
+  The workaround is to tell `kubelet` which IP to use using `--node-ip`.
+  When using DigitalOcean, it can be the public one (assigned to `eth0`) or
+  the private one (assigned to `eth1`) should you want to use the optional
+  private network. The `kubeletExtraArgs` section of the kubeadm
+  [`NodeRegistrationOptions` structure](/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions)
+  can be used for this.
+
+  Then restart `kubelet`:
+  -->
   解决方法是通知 `kubelet` 使用哪个 `--node-ip`。当使用 DigitalOcean 时，可以是公网IP（分配给 `eth0` 的），
   或者是私网IP（分配给 `eth1` 的）。私网 IP 是可选的。
   [kubadm `NodeRegistrationOptions` 结构](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions)
@@ -531,15 +479,6 @@ where the `coredns` pods are not starting. To solve that you can try one of the 
 
 - [Disable SELinux](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/sect-security-enhanced_linux-enabling_and_disabling_selinux-disabling_selinux).
 - Modify the `coredns` deployment to set `allowPrivilegeEscalation` to `true`:
-
-```bash
-kubectl -n kube-system get deployment coredns -o yaml | \
-  sed 's/allowPrivilegeEscalation: false/allowPrivilegeEscalation: true/g' | \
-  kubectl apply -f -
-```
-
-Another cause for CoreDNS to have `CrashLoopBackOff` is when a CoreDNS Pod deployed in Kubernetes detects a loop. [A number of workarounds](https://github.com/coredns/coredns/tree/master/plugin/loop#troubleshooting-loops-in-kubernetes-clusters)
-are available to avoid Kubernetes trying to restart the CoreDNS Pod every time CoreDNS detects the loop and exits.
 -->
 ## `coredns` Pod 有 `CrashLoopBackOff` 或者 `Error` 状态
 
@@ -558,15 +497,19 @@ kubectl -n kube-system get deployment coredns -o yaml | \
   kubectl apply -f -
 ```
 
-CoreDNS 处于 `CrashLoopBackOff` 时的另一个原因是当 Kubernetes 中部署的 CoreDNS Pod 检测
-到环路时。[有许多解决方法](https://github.com/coredns/coredns/tree/master/plugin/loop#troubleshooting-loops-in-kubernetes-clusters)
+<!--
+Another cause for CoreDNS to have `CrashLoopBackOff` is when a CoreDNS Pod deployed in Kubernetes detects a loop. [A number of workarounds](https://github.com/coredns/coredns/tree/master/plugin/loop#troubleshooting-loops-in-kubernetes-clusters)
+are available to avoid Kubernetes trying to restart the CoreDNS Pod every time CoreDNS detects the loop and exits.
+-->
+CoreDNS 处于 `CrashLoopBackOff` 时的另一个原因是当 Kubernetes 中部署的 CoreDNS Pod 检测到环路时。
+[有许多解决方法](https://github.com/coredns/coredns/tree/master/plugin/loop#troubleshooting-loops-in-kubernetes-clusters)
 可以避免在每次 CoreDNS 监测到循环并退出时，Kubernetes 尝试重启 CoreDNS Pod 的情况。
 
+{{< warning >}}
 <!--
 Disabling SELinux or setting `allowPrivilegeEscalation` to `true` can compromise
 the security of your cluster.
 -->
-{{< warning >}}
 禁用 SELinux 或设置 `allowPrivilegeEscalation` 为 `true` 可能会损害集群的安全性。
 {{< /warning >}}
 
@@ -574,26 +517,6 @@ the security of your cluster.
 ## etcd pods restart continually
 
 If you encounter the following error:
-
-```
-rpc error: code = 2 desc = oci runtime error: exec failed: container_linux.go:247: starting container process caused "process_linux.go:110: decoding init error from pipe caused \"read parent: connection reset by peer\""
-```
-
-this issue appears if you run CentOS 7 with Docker 1.13.1.84.
-This version of Docker can prevent the kubelet from executing into the etcd container.
-
-To work around the issue, choose one of these options:
-
-- Roll back to an earlier version of Docker, such as 1.13.1-75
-```
-yum downgrade docker-1.13.1-75.git8633870.el7.centos.x86_64 docker-client-1.13.1-75.git8633870.el7.centos.x86_64 docker-common-1.13.1-75.git8633870.el7.centos.x86_64
-```
-
-- Install one of the more recent recommended versions, such as 18.06:
-```bash
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-yum install docker-ce-18.06.1.ce-3.el7.x86_64
-```
 -->
 ## etcd Pod 持续重启
 
@@ -603,6 +526,14 @@ yum install docker-ce-18.06.1.ce-3.el7.x86_64
 rpc error: code = 2 desc = oci runtime error: exec failed: container_linux.go:247: starting container process caused "process_linux.go:110: decoding init error from pipe caused \"read parent: connection reset by peer\""
 ```
 
+<!--
+this issue appears if you run CentOS 7 with Docker 1.13.1.84.
+This version of Docker can prevent the kubelet from executing into the etcd container.
+
+To work around the issue, choose one of these options:
+
+- Roll back to an earlier version of Docker, such as 1.13.1-75
+-->
 如果你使用 Docker 1.13.1.84 运行 CentOS 7 就会出现这种问题。
 此版本的 Docker 会阻止 kubelet 在 etcd 容器中执行。
 
@@ -614,6 +545,9 @@ rpc error: code = 2 desc = oci runtime error: exec failed: container_linux.go:24
   yum downgrade docker-1.13.1-75.git8633870.el7.centos.x86_64 docker-client-1.13.1-75.git8633870.el7.centos.x86_64 docker-common-1.13.1-75.git8633870.el7.centos.x86_64
   ```
 
+<!--
+- Install one of the more recent recommended versions, such as 18.06:
+-->
 - 安装较新的推荐版本之一，例如 18.06:
 
   ```shell
@@ -622,9 +556,9 @@ rpc error: code = 2 desc = oci runtime error: exec failed: container_linux.go:24
   ```
 
 <!--
-## Not possible to pass a comma separated list of values to arguments inside a `-component-extra-args` flag
+## Not possible to pass a comma separated list of values to arguments inside a `--component-extra-args` flag
 
-`kubeadm init` flags such as `-component-extra-args` allow you to pass custom arguments to a control-plane
+`kubeadm init` flags such as `--component-extra-args` allow you to pass custom arguments to a control-plane
 component like the kube-apiserver. However, this mechanism is limited due to the underlying type used for parsing
 the values (`mapStringString`).
 
@@ -667,19 +601,6 @@ to pick up the node's IP address properly and has knock-on effects to the proxy 
 load balancers.
 
 The following error can be seen in kube-proxy Pods:
-```
-server.go:610] Failed to retrieve node IP: host IP unknown; known addresses: []
-proxier.go:340] invalid nodeIP, initializing kube-proxy with 127.0.0.1 as nodeIP
-```
-
-A known solution is to patch the kube-proxy DaemonSet to allow scheduling it on control-plane
-nodes regardless of their conditions, keeping it off of other nodes until their initial guarding
-conditions abate:
-```
-kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/control-plane" } ] } } } }'
-```
-
-The tracking issue for this problem is [here](https://github.com/kubernetes/kubeadm/issues/1027).
 -->
 ## 在节点被云控制管理器初始化之前，kube-proxy 就被调度了
 
@@ -693,6 +614,11 @@ server.go:610] Failed to retrieve node IP: host IP unknown; known addresses: []
 proxier.go:340] invalid nodeIP, initializing kube-proxy with 127.0.0.1 as nodeIP
 ```
 
+<!--
+A known solution is to patch the kube-proxy DaemonSet to allow scheduling it on control-plane
+nodes regardless of their conditions, keeping it off of other nodes until their initial guarding
+conditions abate:
+-->
 一种已知的解决方案是修补 kube-proxy DaemonSet，以允许在控制平面节点上调度它，
 而不管它们的条件如何，将其与其他节点保持隔离，直到它们的初始保护条件消除：
 
@@ -700,6 +626,9 @@ proxier.go:340] invalid nodeIP, initializing kube-proxy with 127.0.0.1 as nodeIP
 kubectl -n kube-system patch ds kube-proxy -p='{ "spec": { "template": { "spec": { "tolerations": [ { "key": "CriticalAddonsOnly", "operator": "Exists" }, { "effect": "NoSchedule", "key": "node-role.kubernetes.io/control-plane" } ] } } } }'
 ```
 
+<!--
+The tracking issue for this problem is [here](https://github.com/kubernetes/kubeadm/issues/1027).
+-->
 此问题的跟踪[在这里](https://github.com/kubernetes/kubeadm/issues/1027)。
 
 <!--
@@ -721,7 +650,6 @@ for the feature to work.
 `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`，
 而 FlexVolume 的目录 **必须是可写入的**，该功能特性才能正常工作。
 （**注意**：FlexVolume 在 Kubernetes v1.23 版本中已被弃用）
-
 
 <!--
 To workaround this issue you can configure the flex-volume directory using the kubeadm
@@ -795,7 +723,7 @@ This is a regression introduced in kubeadm 1.15. The issue is fixed in 1.20.
 -->
 ## `kubeadm reset` 会卸载 `/var/lib/kubelet`
 
-如果已经挂载了 `/var/lib/kubelet` 目录，执行 `kubeadm reset` 
+如果已经挂载了 `/var/lib/kubelet` 目录，执行 `kubeadm reset`
 操作的时候会将其卸载。
 
 要解决这一问题，可以在执行了 `kubeadm reset` 操作之后重新挂载

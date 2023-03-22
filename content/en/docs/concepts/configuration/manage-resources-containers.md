@@ -346,7 +346,8 @@ or 400 megabytes (`400M`).
 In the following example, the Pod has two containers. Each container has a request of
 2GiB of local ephemeral storage. Each container has a limit of 4GiB of local ephemeral
 storage. Therefore, the Pod has a request of 4GiB of local ephemeral storage, and
-a limit of 8GiB of local ephemeral storage.
+a limit of 8GiB of local ephemeral storage. 500Mi of that limit could be
+consumed by the `emptyDir` volume.
 
 ```yaml
 apiVersion: v1
@@ -377,7 +378,8 @@ spec:
       mountPath: "/tmp"
   volumes:
     - name: ephemeral
-      emptyDir: {}
+      emptyDir:
+        sizeLimit: 500Mi
 ```
 
 ### How Pods with ephemeral-storage requests are scheduled
@@ -805,4 +807,5 @@ memory limit (and possibly request) for that container.
   and its [resource requirements](/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)
 * Read about [project quotas](https://xfs.org/index.php/XFS_FAQ#Q:_Quota:_Do_quotas_work_on_XFS.3F) in XFS
 * Read more about the [kube-scheduler configuration reference (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+* Read more about [Quality of Service classes for Pods](/docs/concepts/workloads/pods/pod-qos/)
 

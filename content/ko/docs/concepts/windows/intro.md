@@ -88,13 +88,12 @@ API 및 kubectl의 관점에서, 윈도우 컨테이너는 리눅스 기반 컨�
   * OS 필드: 
 
     특정 파드가 윈도우 컨테이너를 사용하고 있다는 것을 나타내려면 `.spec.os.name` 필드를 `windows`로 설정해야 한다.
-    이 필드가 인식되도록 하기 위해서는 `IdentifyPodOS` 기능 게이트가 활성화되어야 한다.
 
     {{< note >}}
-    쿠버네티스 1.24부터, `IdentifyPodOS` 기능 게이트는 베타 단계이며 기본적으로 활성화되어 있다.
+    쿠버네티스 1.25부터, `IdentifyPodOS` 기능 게이트는 GA 단계이며 기본적으로 활성화되어 있다.
     {{< /note >}}
 
-    `IdentifyPodOS` 기능 게이트가 활성화되어 있고 `.spec.os.name` 필드를 `windows`로 설정했다면,
+    `.spec.os.name` 필드를 `windows`로 설정했다면,
     해당 파드의 `.spec` 내의 다음 필드는 설정하지 않아야 한다.
 
     * `spec.hostPID`
@@ -285,7 +284,7 @@ API 및 kubectl의 관점에서, 윈도우 컨테이너는 리눅스 기반 컨�
 
 쿠버네티스는 윈도우 지원을 포함하는 다중 아키텍처 이미지를 유지보수한다. 
 쿠버네티스 v{{< skew currentVersion >}}의 경우 
-권장 퍼즈 이미지는 `k8s.gcr.io/pause:3.6`이다. 
+권장 퍼즈 이미지는 `registry.k8s.io/pause:3.6`이다. 
 [소스 코드](https://github.com/kubernetes/kubernetes/tree/master/build/pause)는 GitHub에서 찾을 수 있다.
 
 Microsoft는 리눅스 및 윈도우 amd64를 지원하는 다중 아키텍처 이미지를 

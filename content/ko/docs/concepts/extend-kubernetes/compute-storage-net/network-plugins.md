@@ -32,7 +32,7 @@ CNI 스펙 [v1.0.0](https://github.com/containernetworking/cni/blob/spec-v1.0.0/
 쿠버네티스 1.24 이전까지는 `cni-bin-dir`과 `network-plugin` 커맨드 라인 파라미터를 사용해 kubelet이 CNI 플러그인을 관리하게 할 수도 있었다.
 이 커맨드 라인 파라미터들은 쿠버네티스 1.24에서 제거되었으며, CNI 관리는 더 이상 kubelet 범위에 포함되지 않는다.
 
-dockershim 제거 후 문제가 발생하는 경우 
+도커심 제거 후 문제가 발생하는 경우 
 [CNI 플러그인 관련 오류 문제 해결](/docs/tasks/administer-cluster/migrating-from-dockershim/troubleshooting-cni-plugin-related-errors/)을 참조하자.
 {{< /note >}}
 

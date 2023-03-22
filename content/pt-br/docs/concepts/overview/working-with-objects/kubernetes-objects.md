@@ -26,7 +26,7 @@ Para trabalhar com objetos do Kubernetes seja para criar, modificar ou deletar e
 
 Quase todos os objetos do Kubernetes incluem dois campos de objetos aninhados que governam a configuração do objeto: a *`especificação`* do objeto e o *`status`* do objeto. Para objetos que têm especificação, você tem que definir isso quando você cria o objeto, fornecendo uma descrição das características que você quer que o recurso tenha: o seu _estado desejado_.
 
-O `status` descreve o _estado atual_ do objeto, fornecido e atualizado pelo Kubernetes e seus componentes. A {{< glossary_tooltip text="camada de gerenciamento" term_id="control-plane" >}} do Kubernetes gerêncai continuamente e ativamente o real estado para corresponder ao estado desejado que você forneceu.
+O `status` descreve o _estado atual_ do objeto, fornecido e atualizado pelo Kubernetes e seus componentes. A {{< glossary_tooltip text="camada de gerenciamento" term_id="control-plane" >}} do Kubernetes gerência continuamente e ativamente o real estado para corresponder ao estado desejado que você forneceu.
 
 Por exemplo, no Kubernetes, o {{< glossary_tooltip text="Deployment" term_id="deployment" >}} é um objeto que pode representar uma aplicação executando no seu cluster. Quando você cria o Deployment, você pode alterar a `especificação`para definir que você quer três réplicas da aplicação em execução simultânea. O Kubernetes lê as especificações do Deployment e inicia três instâncias do seu aplicativo desejado, atualizando o status  para corresponder às suas especificações. Se uma dessas instâncias falhar (um status mudar), o Kubernetes responde as diferenças entre as especificações e o status fazendo uma correção-neste caso, iniciando uma instância de substituição.
 

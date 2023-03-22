@@ -14,6 +14,9 @@ CONTAINER_RUN     = "$(CONTAINER_ENGINE)" run --rm --interactive --tty --volume 
 CCRED=\033[0;31m
 CCEND=\033[0m
 
+# Docker buildx related settings for multi-arch images
+DOCKER_BUILDX ?= docker buildx
+
 .PHONY: all build build-preview help serve
 
 help: ## Show this help.
@@ -73,6 +76,23 @@ container-image: ## Build a container image for the preview of the website
 
 container-push: container-image ## Push container image for the preview of the website
 	$(CONTAINER_ENGINE) push $(CONTAINER_IMAGE)
+
+PLATFORMS ?= linux/arm64,linux/amd64
+docker-push: ## Build a multi-architecture image and push that into the registry
+	docker run --rm --privileged tonistiigi/binfmt:qemu-v6.2.0-26@sha256:5bf63a53ad6222538112b5ced0f1afb8509132773ea6dd3991a197464962854e --install all
+	docker version
+	$(DOCKER_BUILDX) version
+	$(DOCKER_BUILDX) inspect image-builder > /dev/null 2>&1 || $(DOCKER_BUILDX) create --name image-builder --use
+	# copy existing Dockerfile and insert --platform=${TARGETPLATFORM} into Dockerfile.cross, and preserve the original Dockerfile
+	sed -e 's/\(^FROM\)/FROM --platform=\$$\{TARGETPLATFORM\}/' Dockerfile > Dockerfile.cross
+	$(DOCKER_BUILDX) build \
+		--push \
+		--platform=$(PLATFORMS) \
+		--build-arg HUGO_VERSION=$(HUGO_VERSION) \
+		--tag $(CONTAINER_IMAGE) \
+		-f Dockerfile.cross .
+	$(DOCKER_BUILDX) stop image-builder
+	rm Dockerfile.cross
 
 container-build: module-check
 	$(CONTAINER_RUN) --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 $(CONTAINER_IMAGE) sh -c "npm ci && hugo --minify --environment development"

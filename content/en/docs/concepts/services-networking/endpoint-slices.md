@@ -3,7 +3,7 @@ reviewers:
 - freehan
 title: EndpointSlices
 content_type: concept
-weight: 45
+weight: 60
 description: >-
   The EndpointSlice API is the mechanism that Kubernetes uses to let your Service
   scale to handle large numbers of backends, and allows the cluster to update its
@@ -15,11 +15,9 @@ description: >-
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-_EndpointSlices_ provide a simple way to track network endpoints within a
-Kubernetes cluster. They offer a more scalable and extensible alternative to
-Endpoints.
-
-
+Kubernetes' _EndpointSlice_ API provides a way to track network endpoints
+within a Kubernetes cluster. EndpointSlices offer a more scalable and extensible
+alternative to [Endpoints](/docs/concepts/services-networking/service/#endpoints).
 
 <!-- body -->
 
@@ -98,15 +96,15 @@ Services will always have the `ready` condition set to `true`.
 
 #### Serving
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
-`serving` is identical to the `ready` condition, except it does not account for terminating states.
-Consumers of the EndpointSlice API should check this condition if they care about pod readiness while
+The `serving` condition is almost identical to the `ready` condition. The difference is that
+consumers of the EndpointSlice API should check the `serving` condition if they care about pod readiness while
 the pod is also terminating.
 
 {{< note >}}
 
-Although `serving` is almost identical to `ready`, it was added to prevent break the existing meaning
+Although `serving` is almost identical to `ready`, it was added to prevent breaking the existing meaning
 of `ready`. It may be unexpected for existing clients if `ready` could be `true` for terminating
 endpoints, since historically terminating endpoints were never included in the Endpoints or
 EndpointSlice API to begin with. For this reason, `ready` is _always_ `false` for terminating
@@ -235,11 +233,12 @@ different EndpointSlice objects can arrive at the Kubernetes client watch / cach
 at different times.
 
 {{< note >}}
-Clients of the EndpointSlice API must be able to handle the situation where
-a particular endpoint address appears in more than one slice.
+Clients of the EndpointSlice API must iterate through all the existing EndpointSlices
+associated to a Service and build a complete list of unique network endpoints. It is
+important to mention that endpoints may be duplicated in different EndpointSlices.
 
-You can find a reference implementation for how to perform this endpoint deduplication
-as part of the `EndpointSliceCache` code within `kube-proxy`.
+You can find a reference implementation for how to perform this endpoint aggregation
+and deduplication as part of the `EndpointSliceCache` code within `kube-proxy`.
 {{< /note >}}
 
 ## Comparison with Endpoints {#motivation}
@@ -273,4 +272,6 @@ networking and topology-aware routing.
 
 ## {{% heading "whatsnext" %}}
 
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial
+* Read the [API reference](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/) for the EndpointSlice API
+* Read the [API reference](/docs/reference/kubernetes-api/service-resources/endpoints-v1/) for the Endpoints API

@@ -3,7 +3,7 @@ reviewers:
 - robscott
 title: Topology Aware Hints
 content_type: concept
-weight: 70
+weight: 100
 description: >-
   _Topology Aware Hints_ provides a mechanism to help keep network traffic within the zone
   where it originated. Preferring same-zone traffic between Pods in your cluster can help
@@ -126,7 +126,7 @@ zone.
 
 5. **A zone is not represented in hints:** If the kube-proxy is unable to find
    at least one endpoint with a hint targeting the zone it is running in, it falls
-   to using endpoints from all zones. This is most likely to happen as you add
+   back to using endpoints from all zones. This is most likely to happen as you add
    a new zone into your existing cluster.
 
 ## Constraints
@@ -159,4 +159,4 @@ zone.
 
 ## {{% heading "whatsnext" %}}
 
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial

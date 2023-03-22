@@ -34,7 +34,7 @@ The following client libraries are officially maintained by
 | dotnet     | [github.com/kubernetes-client/csharp](https://github.com/kubernetes-client/csharp) | [browse](https://github.com/kubernetes-client/csharp/tree/master/examples/simple)
 | Go         | [github.com/kubernetes/client-go/](https://github.com/kubernetes/client-go/) | [browse](https://github.com/kubernetes/client-go/tree/master/examples)
 | Haskell    | [github.com/kubernetes-client/haskell](https://github.com/kubernetes-client/haskell) | [browse](https://github.com/kubernetes-client/haskell/tree/master/kubernetes-client/example)
-| Java       | [github.com/kubernetes-client/java](https://github.com/kubernetes-client/java/) | [browse](https://github.com/kubernetes-client/java#installation)
+| Java       | [github.com/kubernetes-client/java](https://github.com/kubernetes-client/java/) | [browse](https://github.com/kubernetes-client/java/tree/master/examples)
 | JavaScript | [github.com/kubernetes-client/javascript](https://github.com/kubernetes-client/javascript) | [browse](https://github.com/kubernetes-client/javascript/tree/master/examples)
 | Perl       | [github.com/kubernetes-client/perl/](https://github.com/kubernetes-client/perl/) | [browse](https://github.com/kubernetes-client/perl/tree/master/examples)
 | Python     | [github.com/kubernetes-client/python/](https://github.com/kubernetes-client/python/) | [browse](https://github.com/kubernetes-client/python/tree/master/examples)
@@ -77,7 +77,7 @@ their authors, not the Kubernetes team.
 | Ruby                 | [github.com/abonas/kubeclient](https://github.com/abonas/kubeclient) |
 | Ruby                 | [github.com/k8s-ruby/k8s-ruby](https://github.com/k8s-ruby/k8s-ruby) |
 | Ruby                 | [github.com/kontena/k8s-client](https://github.com/kontena/k8s-client) |
-| Rust                 | [github.com/clux/kube-rs](https://github.com/clux/kube-rs) |
+| Rust                 | [github.com/kube-rs/kube](https://github.com/kube-rs/kube) |
 | Rust                 | [github.com/ynqa/kubernetes-rust](https://github.com/ynqa/kubernetes-rust) |
 | Scala                | [github.com/hagay3/skuber](https://github.com/hagay3/skuber) |
 | Scala                | [github.com/hnaderi/scala-k8s](https://github.com/hnaderi/scala-k8s) |

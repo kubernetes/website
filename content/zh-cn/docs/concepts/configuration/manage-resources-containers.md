@@ -26,10 +26,10 @@ When you specify a {{< glossary_tooltip term_id="pod" >}}, you can optionally sp
 much of each resource a {{< glossary_tooltip text="container" term_id="container" >}} needs.
 The most common resources to specify are CPU and memory (RAM); there are others.
 
-When you specify the resource _request_ for Containers in a Pod, the
+When you specify the resource _request_ for containers in a Pod, the
 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} uses this
 information to decide which node to place the Pod on. When you specify a resource _limit_
-for a Container, the kubelet enforces those limits so that the running container is not
+for a container, the kubelet enforces those limits so that the running container is not
 allowed to use more of that resource than the limit you set. The kubelet also reserves
 at least the _request_ amount of that system resource specifically for that container
 to use.
@@ -273,6 +273,7 @@ MiB of memory, and a limit of 1 CPU and 256MiB of memory.
 你可以认为该 Pod 的资源请求为 0.5 CPU 和 128 MiB 内存，资源限制为 1 CPU 和 256MiB 内存。
 
 ```yaml
+---
 apiVersion: v1
 kind: Pod
 metadata:
@@ -382,7 +383,7 @@ limits you defined.
   而不是临时存储用量。
 
 <!--
-If a container exceeds its memory request, and the node that it runs on becomes short of
+If a container exceeds its memory request and the node that it runs on becomes short of
 memory overall, it is likely that the Pod the container belongs to will be
 {{< glossary_tooltip text="evicted" term_id="eviction" >}}.
 
@@ -401,7 +402,7 @@ see the [Troubleshooting](#troubleshooting) section.
 要确定某容器是否会由于资源限制而无法调度或被杀死，请参阅[疑难解答](#troubleshooting)节。
 
 <!--
-## Monitoring compute & memory resource usage
+### Monitoring compute & memory resource usage
 
 The kubelet reports the resource usage of a Pod as part of the Pod
 [`status`](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status).
@@ -411,7 +412,7 @@ are available in your cluster, then Pod resource usage can be retrieved either
 from the [Metrics API](/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-api)
 directly or from your monitoring tools.
 -->
-## 监控计算和内存资源用量  {#monitoring-compute-memory-resource-usage}
+### 监控计算和内存资源用量  {#monitoring-compute-memory-resource-usage}
 
 kubelet 会将 Pod 的资源使用情况作为 Pod
 [`status`](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)
@@ -431,12 +432,11 @@ locally-attached writeable devices or, sometimes, by RAM.
 Pods use ephemeral local storage for scratch space, caching, and for logs.
 The kubelet can provide scratch space to Pods using local ephemeral storage to
 mount [`emptyDir`](/docs/concepts/storage/volumes/#emptydir)
-{{< glossary_tooltip term_id="volume" text="volumes" >}} into containers.
+ {{< glossary_tooltip term_id="volume" text="volumes" >}} into containers.
 -->
 ## 本地临时存储   {#local-ephemeral-storage}
 
 <!-- feature gate LocalStorageCapacityIsolation -->
-
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 节点通常还可以具有本地的临时性存储，由本地挂接的可写入设备或者有时也用 RAM
@@ -633,12 +633,14 @@ or 400 megabytes (`400M`).
 In the following example, the Pod has two containers. Each container has a request of
 2GiB of local ephemeral storage. Each container has a limit of 4GiB of local ephemeral
 storage. Therefore, the Pod has a request of 4GiB of local ephemeral storage, and
-a limit of 8GiB of local ephemeral storage.
+a limit of 8GiB of local ephemeral storage. 500Mi of that limit could be
+consumed by the `emptyDir` volume.
 -->
 
 在下面的例子中，Pod 包含两个容器。每个容器请求 2 GiB 大小的本地临时性存储。
 每个容器都设置了 4 GiB 作为其本地临时性存储的限制。
 因此，整个 Pod 的本地临时性存储请求是 4 GiB，且其本地临时性存储的限制为 8 GiB。
+该限制值中有 500Mi 可供 `emptyDir` 卷使用。
 
 ```yaml
 apiVersion: v1
@@ -669,7 +671,8 @@ spec:
       mountPath: "/tmp"
   volumes:
     - name: ephemeral
-      emptyDir: {}
+      emptyDir:
+        sizeLimit: 500Mi
 ```
 
 <!--
@@ -1017,9 +1020,9 @@ cluster-level extended resource "example.com/foo" is handled by the scheduler
 extender.
 
 - The scheduler sends a Pod to the scheduler extender only if the Pod requests
-  "example.com/foo".
+     "example.com/foo".
 - The `ignoredByScheduler` field specifies that the scheduler does not check
-  the "example.com/foo" resource in its `PodFitsResources` predicate.
+     the "example.com/foo" resource in its `PodFitsResources` predicate.
 -->
 **示例：**
 
@@ -1235,7 +1238,7 @@ Allocated resources:
 In the preceding output, you can see that if a Pod requests more than 1.120 CPUs
 or more than 6.23Gi of memory, that Pod will not fit on the node.
 
-By looking at the "Pods" section, you can see which Pods are taking up space on
+By looking at the “Pods” section, you can see which Pods are taking up space on
 the node.
 -->
 在上面的输出中，你可以看到如果 Pod 请求超过 1.120 CPU 或者 6.23Gi 内存，节点将无法满足。
@@ -1347,7 +1350,7 @@ Events:
 
 <!--
 In the preceding example, the `Restart Count:  5` indicates that the `simmemleak`
-Container in the Pod was terminated and restarted five times (so far).
+container in the Pod was terminated and restarted five times (so far).
 The `OOMKilled` reason shows that the container tried to use more memory than its limit.
 -->
 在上面的例子中，`Restart Count: 5` 意味着 Pod 中的 `simmemleak`
@@ -1372,6 +1375,7 @@ memory limit (and possibly request) for that container.
   and its [resource requirements](/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)
 * Read about [project quotas](https://xfs.org/index.php/XFS_FAQ#Q:_Quota:_Do_quotas_work_on_XFS.3F) in XFS
 * Read more about the [kube-scheduler configuration reference (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+* Read more about [Quality of Service classes for Pods](/docs/concepts/workloads/pods/pod-qos/)
 -->
 * 获取[分配内存资源给容器和 Pod](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/) 的实践经验
 * 获取[分配 CPU 资源给容器和 Pod](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/) 的实践经验
@@ -1379,4 +1383,5 @@ memory limit (and possibly request) for that container.
   及其[资源请求](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)。
 * 阅读 XFS 中[配额](https://xfs.org/index.php/XFS_FAQ#Q:_Quota:_Do_quotas_work_on_XFS.3F)的文档
 * 进一步阅读 [kube-scheduler 配置参考 (v1beta3)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+* 进一步阅读 [Pod 的服务质量等级](/zh-cn/docs/concepts/workloads/pods/pod-qos/)
 

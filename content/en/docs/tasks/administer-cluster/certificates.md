@@ -1,13 +1,13 @@
 ---
 title: Generate Certificates Manually
 content_type: task
-weight: 20
+weight: 30
 ---
 
 <!-- overview -->
 
 When using client certificate authentication, you can generate certificates
-manually through `easyrsa`, `openssl` or `cfssl`.
+manually through [`easyrsa`](https://github.com/OpenVPN/easy-rsa), [`openssl`](https://github.com/openssl/openssl) or [`cfssl`](https://github.com/cloudflare/cfssl).
 
 <!-- body -->
 
@@ -18,7 +18,7 @@ manually through `easyrsa`, `openssl` or `cfssl`.
 1. Download, unpack, and initialize the patched version of `easyrsa3`.
 
    ```shell
-   curl -LO https://storage.googleapis.com/kubernetes-release/easy-rsa/easy-rsa.tar.gz
+   curl -LO https://dl.k8s.io/easy-rsa/easy-rsa.tar.gz
    tar xzf easy-rsa.tar.gz
    cd easy-rsa-master/easyrsa3
    ./easyrsa init-pki

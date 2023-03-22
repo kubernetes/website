@@ -1,3 +1,1 @@
 id: networking
-name: Networking
-description: How Kubernetes components talk to each other (and to programs outside the cluster).

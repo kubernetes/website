@@ -65,8 +65,8 @@ spec:
       whenUnsatisfiable: <string>
       labelSelector: <object>
       matchLabelKeys: <list> # optional; alpha since v1.25
-      nodeAffinityPolicy: [Honor|Ignore] # optional; alpha since v1.25
-      nodeTaintsPolicy: [Honor|Ignore] # optional; alpha since v1.25
+      nodeAffinityPolicy: [Honor|Ignore] # optional; beta since v1.26
+      nodeTaintsPolicy: [Honor|Ignore] # optional; beta since v1.26
   ### other Pod fields go here
 ```
 
@@ -97,8 +97,8 @@ your cluster. Those fields are:
   nodes match the node selector.
 
   {{< note >}}
-  The `minDomains` field is a beta field and enabled by default in 1.25. You can disable it by disabling the
-  `MinDomainsInPodToplogySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+  The `minDomains` field is a beta field and disabled by default in 1.25. You can enable it by enabling the
+  `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   {{< /note >}}
 
   - The value of `minDomains` must be greater than 0, when specified.
@@ -157,9 +157,8 @@ your cluster. Those fields are:
   If this value is null, the behavior is equivalent to the Honor policy.
 
   {{< note >}}
-  The `nodeAffinityPolicy` is an alpha-level field added in 1.25. You have to enable the
-  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  in order to use it.
+  The `nodeAffinityPolicy` is a beta-level field and enabled by default in 1.26. You can disable it by disabling the
+  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   {{< /note >}}
 
 - **nodeTaintsPolicy** indicates how we will treat node taints when calculating
@@ -171,9 +170,8 @@ your cluster. Those fields are:
   If this value is null, the behavior is equivalent to the Ignore policy.
 
   {{< note >}}
-  The `nodeTaintsPolicy` is an alpha-level field added in 1.25. You have to enable the
-  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  in order to use it.
+  The `nodeTaintsPolicy` is a beta-level field and enabled by default in 1.26. You can disable it by disabling the
+  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   {{< /note >}}
 
 When a Pod defines more than one `topologySpreadConstraint`, those constraints are

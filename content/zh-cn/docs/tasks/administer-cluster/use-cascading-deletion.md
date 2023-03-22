@@ -1,11 +1,13 @@
 ---
 title: 在集群中使用级联删除
 content_type: task
+weight: 360
 ---
 
 <!--
 title: Use Cascading Deletion in a Cluster
 content_type: task
+weight: 360
 -->
 
 <!--overview-->

@@ -541,25 +541,6 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
     readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
 
-- **glusterfs** (GlusterfsVolumeSource)
-
-  glusterfs represents a Glusterfs mount on the host that shares a pod's lifetime. More info: https://examples.k8s.io/volumes/glusterfs/README.md
-
-  <a name="GlusterfsVolumeSource"></a>
-  *Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.*
-
-  - **glusterfs.endpoints** (string), required
-
-    endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-
-  - **glusterfs.path** (string), required
-
-    path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-
-  - **glusterfs.readOnly** (boolean)
-
-    readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
-
 - **iscsi** (ISCSIVolumeSource)
 
   iscsi represents an ISCSI Disk resource that is attached to a kubelet's host machine and then exposed to the pod. More info: https://examples.k8s.io/volumes/iscsi/README.md

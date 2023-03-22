@@ -10,7 +10,7 @@ min-kubernetes-server-version: v1.25
 {{< feature-state for_k8s_version="v1.25" state="alpha" >}}
 
 This page explains how user namespaces are used in Kubernetes pods. A user
-namespace allows to isolate the user running inside the container from the one
+namespace isolates the user running inside the container from the one
 in the host.
 
 A process running as root in a container can run as a different (non-root) user
@@ -90,9 +90,9 @@ This means containers can run as root and be mapped to a non-root user on the
 host. Inside the container the process will think it is running as root (and
 therefore tools like `apt`, `yum`, etc. work fine), while in reality the process
 doesn't have privileges on the host. You can verify this, for example, if you
-check the user the container process is running `ps` from the host. The user
-`ps` shows is not the same as the user you see if you execute inside the
-container the command `id`.
+check which user the container process is running by executing `ps aux` from
+the host. The user `ps` shows is not the same as the user you see if you
+execute inside the container the command `id`.
 
 This abstraction limits what can happen, for example, if the container manages
 to escape to the host. Given that the container is running as a non-privileged
