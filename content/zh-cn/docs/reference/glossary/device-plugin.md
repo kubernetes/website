@@ -10,9 +10,7 @@ tags:
 - fundamental
 - extension
 ---
-
 <!-- 
----
 title: Device Plugin
 id: device-plugin
 date: 2019-02-02
@@ -23,8 +21,8 @@ aka:
 tags:
 - fundamental
 - extension
----
 -->
+
 <!-- 
  Device plugins run on worker
 {{< glossary_tooltip term_id="node" text="Nodes">}} and provide
@@ -32,7 +30,10 @@ tags:
 such as local hardware, that require vendor-specific initialization or setup
 steps.
 -->
-设备插件工作在节点主机上，给 {{< glossary_tooltip term_id="pod" text="Pods ">}} 提供访问资源的权限，比如特定厂商初始化或者安装的本地硬件。
+设备插件在工作{{<glossary_tooltip term_id="node" text="节点">}}上运行并为
+{{<glossary_tooltip term_id="pod" text="Pod">}} 提供访问资源的能力，
+例如：本地硬件这类资源需要特定于供应商的初始化或安装步骤。
+
 <!--more-->
 
 <!--
@@ -42,11 +43,15 @@ Pods can access hardware features that relate to the Node where that Pod is runn
 You can deploy a device plugin as a {{< glossary_tooltip term_id="daemonset" >}},
 or install the device plugin software directly on each target Node.
 -->
-设备插件将资源告知 {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} ，以便相关节点上运行的工作负载Pod可以访问硬件功能。
+设备插件向 {{<glossary_tooltip term_id="kubelet" text="kubelet" >}} 公布资源，以便工作负载
+Pod 访问 Pod 运行所在节点上的硬件功能特性。
+你可以将设备插件部署为 {{<glossary_tooltip term_id="daemonset" >}}，
+或者直接在每个目标节点上安装设备插件软件。
+
 <!-- 
 See
 	 
 [Device Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
 for more information.
 -->
-更多信息请查阅[设备插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/) 
+更多信息请查阅[设备插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)。

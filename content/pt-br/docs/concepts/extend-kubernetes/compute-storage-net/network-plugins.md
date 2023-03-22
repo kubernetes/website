@@ -72,7 +72,7 @@ Por exemplo:
 ```json
 {
   "name": "k8s-pod-network",
-  "cniVersion": "0.3.0",
+  "cniVersion": "0.4.0",
   "plugins": [
     {
       "type": "calico",
@@ -92,7 +92,8 @@ Por exemplo:
     },
     {
       "type": "portmap",
-      "capabilities": {"portMappings": true}
+      "capabilities": {"portMappings": true},
+      "externalSetMarkChain": "KUBE-MARK-MASQ"
     }
   ]
 }
@@ -113,7 +114,7 @@ exista no diretório de binários do CNI (padrão `/opt/cni/bin`).
 ```json
 {
   "name": "k8s-pod-network",
-  "cniVersion": "0.3.0",
+  "cniVersion": "0.4.0",
   "plugins": [
     {
       "type": "calico",

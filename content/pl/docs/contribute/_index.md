@@ -17,7 +17,14 @@ card:
 {{< note >}}
 Aby dowiedzieć się więcej ogólnych informacji o współpracy przy tworzeniu Kubernetesa, zajrzyj
 do [contributor documentation](https://www.kubernetes.dev/docs/).
+
+Warto także zapoznać się z 
+[informacjami](https://contribute.cncf.io/contributors/projects/#kubernetes)
+{{< glossary_tooltip text="CNCF" term_id="cncf" >}}
+na temat współpracy w ramach projektu Kubernetes.
 {{< /note >}}
+
+---
 
 Tym serwisem www opiekuje się [Kubernetes SIG Docs](/docs/contribute/#get-involved-with-sig-docs).
 
@@ -90,9 +97,9 @@ class A,B,C,D,E,F,G,H,M,Q,N,O,P,V grey
 class S,T,U spacewhite
 class first,second,third white
 {{</ mermaid >}}
-***Schemat - Jak zacząć współpracę***
+Schemat 1. - Jak rozpocząć współpracę
 
-To jest schemat postępowania dla osób, które chcą zacząć współtworzyć Kubernetesa. Przejdź część lub wszystkie kroki opisane w częściach `Zapisz się` i `Recenzuj`. Teraz już możesz tworzyć nowe PR, zgodnie z sugestiami w `Otwórz PR`. I jak zawsze, pytania mile widziane!
+Schemat 1 przeznaczony jest dla osób, które chcą zacząć współtworzyć Kubernetesa. Przejdź część lub wszystkie kroki opisane w częściach `Zapisz się` i `Recenzuj`. Teraz już możesz tworzyć nowe PR, zgodnie z sugestiami w `Otwórz PR`. I jak zawsze, pytania mile widziane!
 
 Do realizacji niektórych zadań potrzeba wyższego poziomu zaufania i odpowiednich uprawnień w organizacji Kubernetes.
 Zajrzyj do [Participating in SIG Docs](/docs/contribute/participate/) po więcej szczegółów dotyczących
@@ -100,7 +107,7 @@ ról i uprawnień.
 
 ## Pierwsze kroki
 
-Zapoznaj się z krokami opisanymi poniżej, aby się lepiej przygotować.
+Zapoznaj się z krokami opisanymi na schemacie 2, aby się lepiej przygotować.
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
@@ -110,7 +117,7 @@ flowchart LR
     subgraph second[Pierwszy wkład]
     direction TB
     S[ ] -.-
-    G[Obejrzyj PRy<br>innych uczestników K8s] -->
+    G[Obejrzyj PR-y<br>innych uczestników K8s] -->
     A[Przejrzyj listę zgłoszonych spraw<br>na K8s/website<br>po pomysł na nowy PR] --> B[Otwórz PR!!]
     end
     subgraph first[Sugerowane przygotowanie]
@@ -129,9 +136,9 @@ class A,B,D,E,F,G grey
 class S,T spacewhite
 class first,second white
 {{</ mermaid >}}
-***Schemat - Jak się przygotować***
+Schemat 2. - Jak się przygotować
 
-- Przeczytaj [Contribution overview](/docs/contribute/new-content/overview/),
+- Przeczytaj [Contribution overview](/docs/contribute/new-content/),
   aby dowiedzieć się o różnych sposobach współpracy.
 - Zajrzyj do [Contribute to kubernetes/website](https://github.com/kubernetes/website/contribute),
   aby znaleźć dobre zgłoszenie na początek.

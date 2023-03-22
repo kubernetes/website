@@ -9,7 +9,7 @@ weight: 95
 
 <!-- overview -->
 The tables below enumerate the configuration parameters on
-[PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) objects, whether the field mutates
+`PodSecurityPolicy` objects, whether the field mutates
 and/or validates pods, and how the configuration values map to the
 [Pod Security Standards](/docs/concepts/security/pod-security-standards/).
 

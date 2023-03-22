@@ -56,7 +56,7 @@ Pour les applications non natives, Kubernetes propose des moyens de placer un po
 Un service dans Kubernetes est un objet REST, semblable à un pod.
 Comme tous les objets REST, vous pouvez effectuer un `POST` d'une définition de service sur le serveur API pour créer une nouvelle instance.
 
-Par exemple, supposons que vous ayez un ensemble de pods qui écoutent chacun sur le port TCP 9376 et portent une étiquette `app=MyApp`:
+Par exemple, supposons que vous ayez un ensemble de pods qui écoutent chacun sur le port TCP 9376 et portent une étiquette `app.kubernetes.io/name=MyApp`:
 
 ```yaml
 apiVersion: v1
@@ -65,14 +65,14 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - protocol: TCP
       port: 80
       targetPort: 9376
 ```
 
-Cette spécification crée un nouvel objet Service nommé «my-service», qui cible le port TCP 9376 sur n'importe quel pod avec l'étiquette «app=MyApp».
+Cette spécification crée un nouvel objet Service nommé «my-service», qui cible le port TCP 9376 sur n'importe quel pod avec l'étiquette «app.kubernetes.io/name=MyApp».
 
 Kubernetes attribue à ce service une adresse IP (parfois appelé l'"IP cluster"), qui est utilisé par les proxies Service (voir [IP virtuelles et proxy de service](#virtual-ips-and-service-proxies)).
 
@@ -254,7 +254,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - name: http
       protocol: TCP
@@ -414,7 +414,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - protocol: TCP
       port: 80
@@ -518,7 +518,7 @@ metadata:
 ```yaml
 [...]
 metadata:
-  annotations:  
+  annotations:
     service.kubernetes.io/qcloud-loadbalancer-internal-subnetid: subnet-xxxxx
 [...]
 ```
@@ -740,13 +740,13 @@ Il existe d'autres annotations pour la gestion des équilibreurs de charge cloud
 
         # ID d'un load balancer existant
         service.kubernetes.io/tke-existed-lbid：lb-6swtxxxx
-        
+
         # Paramètres personnalisés pour le load balancer (LB), ne prend pas encore en charge la modification du type LB
         service.kubernetes.io/service.extensiveParameters: ""
-        
-        # Paramètres personnalisés pour le listener LB 
+
+        # Paramètres personnalisés pour le listener LB
         service.kubernetes.io/service.listenerParameters: ""
-        
+
         # Spécifie le type de Load balancer;
         # valeurs valides: classic (Classic Cloud Load Balancer) ou application (Application Cloud Load Balancer)
         service.kubernetes.io/loadbalance-type: xxxxx
@@ -817,7 +817,7 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: MyApp
+    app.kubernetes.io/name: MyApp
   ports:
     - name: http
       protocol: TCP
@@ -952,7 +952,7 @@ suivi des données du client.
 Kubernetes prend en charge SCTP en tant que valeur de «protocole» dans les définitions de Service, Endpoint, NetworkPolicy et Pod en tant que fonctionnalité alpha.
 Pour activer cette fonction, l'administrateur du cluster doit activer le flag `SCTPSupport` sur l'apiserver, par exemple, `--feature-gates=SCTPSupport=true,…`.
 
-When the feature gate is enabled, you can set the `protocol` field of a Service, Endpoint, NetworkPolicy or Pod to `SCTP`. 
+When the feature gate is enabled, you can set the `protocol` field of a Service, Endpoint, NetworkPolicy or Pod to `SCTP`.
 Kubernetes sets up the network accordingly for the SCTP associations, just like it does for TCP connections.
 
 #### Avertissements {#caveat-sctp-overview}

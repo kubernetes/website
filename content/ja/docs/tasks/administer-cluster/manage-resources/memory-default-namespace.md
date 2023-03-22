@@ -178,7 +178,7 @@ kubectl delete namespace default-mem-example
 
 * [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [Namespaceに対する最小および最大メモリー制約の構成](ja/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [Namespaceに対する最小および最大メモリー制約の構成](/ja/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
 * [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 
@@ -190,8 +190,8 @@ kubectl delete namespace default-mem-example
 
 ### アプリケーション開発者向け
 
-* [コンテナおよびPodへのメモリーリソースの割り当て](ja/docs/tasks/configure-pod-container/assign-memory-resource/)
+* [コンテナおよびPodへのメモリーリソースの割り当て](/ja/docs/tasks/configure-pod-container/assign-memory-resource/)
 
-* [コンテナおよびPodへのCPUリソースの割り当て](ja/docs/tasks/configure-pod-container/assign-cpu-resource/)
+* [コンテナおよびPodへのCPUリソースの割り当て](/ja/docs/tasks/configure-pod-container/assign-cpu-resource/)
 
-* [PodにQuality of Serviceを設定する](ja/docs/tasks/configure-pod-container/quality-service-pod/)
+* [PodにQuality of Serviceを設定する](/ja/docs/tasks/configure-pod-container/quality-service-pod/)

@@ -8,8 +8,8 @@ weight: 40
 
 {{< feature-state state="beta" for_k8s_version="v1.11" >}}
 
-클라우드 인프라스트럭쳐 기술을 통해 퍼블릭, 프라이빗 그리고 하이브리드 클라우드에서 쿠버네티스를 실행할 수 있다.
-쿠버네티스는 컴포넌트간의 긴밀한 결합 없이 자동화된 API 기반의 인프라스트럭쳐를
+클라우드 인프라스트럭처 기술을 통해 퍼블릭, 프라이빗 그리고 하이브리드 클라우드에서 쿠버네티스를 실행할 수 있다.
+쿠버네티스는 컴포넌트간의 긴밀한 결합 없이 자동화된 API 기반의 인프라스트럭처를
 신뢰한다.
 
 {{< glossary_definition term_id="cloud-controller-manager" length="all" prepend="클라우드 컨트롤러 매니저는">}}

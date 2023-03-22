@@ -2,9 +2,9 @@
 title: "모니터링, 로깅, 및 디버깅"
 description: 클러스터를 트러블슈팅할 수 있도록 모니터링과 로깅을 설정하거나, 컨테이너화된 애플리케이션을 디버깅한다.
 weight: 20
-
-
-
+# reviewers:
+# - brendandburns
+# - davidopp
 content_type: concept
 no_list: true
 ---

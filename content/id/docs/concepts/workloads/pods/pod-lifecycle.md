@@ -268,7 +268,7 @@ spec:
   containers:
   - args:
     - /server
-    image: k8s.gcr.io/liveness
+    image: registry.k8s.io/liveness
     livenessProbe:
       httpGet:
         # ketika "host" tidak ditentukan, "PodIP" akan digunakan

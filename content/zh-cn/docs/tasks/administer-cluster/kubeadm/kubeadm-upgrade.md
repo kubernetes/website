@@ -1,14 +1,14 @@
 ---
 title: 升级 kubeadm 集群
 content_type: task
-weight: 20
+weight: 40
 ---
 <!--
 reviewers:
 - sig-cluster-lifecycle
 title: Upgrading kubeadm clusters
 content_type: task
-weight: 20
+weight: 40
 -->
 
 <!-- overview -->
@@ -17,12 +17,12 @@ weight: 20
 This page explains how to upgrade a Kubernetes cluster created with kubeadm from version
 {{< skew currentVersionAddMinor -1 >}}.x to version {{< skew currentVersion >}}.x, and from version
 {{< skew currentVersion >}}.x to {{< skew currentVersion >}}.y (where `y > x`). Skipping MINOR versions
-when upgrading is unsupported. For more details, please visit [Version Skew Policy](https://kubernetes.io/releases/version-skew-policy/).
+when upgrading is unsupported. For more details, please visit [Version Skew Policy](/releases/version-skew-policy/).
 -->
 本页介绍如何将 `kubeadm` 创建的 Kubernetes 集群从 {{< skew currentVersionAddMinor -1 >}}.x 版本
 升级到 {{< skew currentVersion >}}.x 版本以及从 {{< skew currentVersion >}}.x
 升级到 {{< skew currentVersion >}}.y（其中 `y > x`）。略过次版本号的升级是
-不被支持的。更多详情请访问[版本倾斜政策](https://kubernetes.io/releases/version-skew-policy/)。
+不被支持的。更多详情请访问[版本偏差策略](/zh-cn/releases/version-skew-policy/)。
 
 <!--
 To see information about upgrading clusters created using older versions of kubeadm,
@@ -84,7 +84,7 @@ they could be running CoreDNS Pods or other critical workloads. For more informa
 - All containers are restarted after upgrade, because the container spec hash value is changed.
 -->
 - 下述说明了在升级过程中何时腾空每个节点。如果你正在对任何 kubelet 进行小版本升级，
-  你需要先腾空待升级的节点（或多个节点）。对于控制面节点，其上可能运行着 CoreDNS Pods
+  你需要先腾空待升级的节点（或多个节点）。对于控制面节点，其上可能运行着 CoreDNS Pod
   或者其它非常重要的负载。更多信息见[腾空节点](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)。
 - 升级后，因为容器规约的哈希值已更改，所有容器都会被重新启动。
 
@@ -98,9 +98,10 @@ with the purpose of reconfiguring the cluster is not recommended and can have un
 -->
 - 要验证 kubelet 服务在升级后是否成功重启，可以执行 `systemctl status kubelet`
   或 `journalctl -xeu kubelet` 查看服务日志。
-- 不建议使用 `kubeadm upgrade` 的 `--config` 参数和 [kubeadm 配置 API 类型](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3)
-  来重新配置集群，这样会产生意想不到的结果。请按照[重新配置 kubeadm 集群](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure)
-  中的步骤来进行。
+- 不建议使用 `kubeadm upgrade` 的 `--config` 参数和
+  [kubeadm 配置 API 类型](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3)来重新配置集群，
+  这样会产生意想不到的结果。
+  请按照[重新配置 kubeadm 集群](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure)中的步骤来进行。
 
 <!-- steps -->
 
@@ -220,8 +221,8 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
   a config file with replacement configs to `kubeadm upgrade apply` via the `--config` command line flag.
   Failing to do so will cause `kubeadm upgrade apply` to exit with an error and not perform an upgrade.
   -->
-  如果 `kubeadm upgrade plan` 给出任何需要手动升级的组件配置，用户必须
-  通过 `--config` 命令行标志向 `kubeadm upgrade apply` 命令提供替代的配置文件。
+  如果 `kubeadm upgrade plan` 给出任何需要手动升级的组件配置，
+  用户必须通过 `--config` 命令行标志向 `kubeadm upgrade apply` 命令提供替代的配置文件。
   如果不这样做，`kubeadm upgrade apply` 会出错并退出，不再执行升级操作。
   {{</ note >}}
 
@@ -307,7 +308,7 @@ Also calling `kubeadm upgrade plan` and upgrading the CNI provider plugin is no 
 <!--
 - Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
 -->
-- 通过将节点标记为不可调度并腾空节点为节点作升级准备：
+- 将节点标记为不可调度并驱逐所有负载，准备节点的维护：
 
   <!--
   ```shell
@@ -370,13 +371,13 @@ Also calling `kubeadm upgrade plan` and upgrading the CNI provider plugin is no 
 
   <!--
   ```shell
-  # replace <node-to-drain> with the name of your node
-  kubectl uncordon <node-to-drain>
+  # replace <node-to-uncordon> with the name of your node
+  kubectl uncordon <node-to-uncordon>
   ```
   -->
   ```shell
-  # 将 <node-to-drain> 替换为你的节点名称
-  kubectl uncordon <node-to-drain>
+  # 将 <node-to-uncordon> 替换为你的节点名称
+  kubectl uncordon <node-to-uncordon>
   ```
 
 <!--
@@ -448,6 +449,7 @@ without compromising the minimum required capacity for running your workloads.
   kubectl drain <node-to-drain> --ignore-daemonsets
   ```
   -->
+
   ```shell
   # 将 <node-to-drain> 替换为你正在腾空的节点的名称
   kubectl drain <node-to-drain> --ignore-daemonsets
@@ -474,7 +476,7 @@ without compromising the minimum required capacity for running your workloads.
   ```
 
   {{% /tab %}}
-  {{% tab name="CentOS, RHEL or Fedora" %}}
+  {{% tab name="CentOS、RHEL 或 Fedora" %}}
 
   ```shell
   # 将 {{< skew currentVersion >}}.x-0 x 替换为最新的补丁版本
@@ -503,17 +505,17 @@ without compromising the minimum required capacity for running your workloads.
 <!--
 - Bring the node back online by marking it schedulable:
 -->
-- 通过将节点标记为可调度，让节点重新上线:
+- 通过将节点标记为可调度，让节点重新上线：
 
   <!--
   ```shell
-  # replace <node-to-drain> with the name of your node
-  kubectl uncordon <node-to-drain>
+  # replace <node-to-uncordon> with the name of your node
+  kubectl uncordon <node-to-uncordon>
   ```
   -->
   ```shell
-  # 将 <node-to-drain> 替换为当前节点的名称
-  kubectl uncordon <node-to-drain>
+  # 将 <node-to-uncordon> 替换为当前节点的名称
+  kubectl uncordon <node-to-uncordon>
   ```
 
 <!--
@@ -581,8 +583,7 @@ and post-upgrade manifest file for a certain component, a backup file for it wil
 `kubeadm-backup-manifests` 包含当前控制面节点的静态 Pod 清单文件的备份版本。
 如果升级失败并且无法自动回滚，则此文件夹中的内容可以复制到
 `/etc/kubernetes/manifests` 目录实现手工恢复。
-如果由于某些原因，在升级前后某个组件的清单未发生变化，则 kubeadm 也不会为之
-生成备份版本。
+如果由于某些原因，在升级前后某个组件的清单未发生变化，则 kubeadm 也不会为之生成备份版本。
 
 <!--
 ## How it works

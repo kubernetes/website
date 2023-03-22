@@ -2,7 +2,7 @@
 title: Documentation Style Guide
 linktitle: Style guide
 content_type: concept
-weight: 10
+weight: 40
 ---
 
 <!-- overview -->
@@ -45,10 +45,6 @@ The English-language documentation uses U.S. English spelling and grammar.
 When you refer specifically to interacting with an API object, use [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case), also known as Pascal case. You may see different capitalization, such as "configMap", in the [API Reference](/docs/reference/kubernetes-api/). When writing general documentation, it's better to use upper camel case, calling it "ConfigMap" instead.
 
 When you are generally discussing an API object, use [sentence-style capitalization](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
-
-You may use the word "resource", "API", or "object" to clarify a Kubernetes resource type in a sentence.
-
-Don't split an API object name into separate words. For example, use PodTemplateList, not Pod Template List.
 
 The following examples focus on capitalization. For more information about formatting API object names, review the related guidance on [Code Style](#code-style-inline-code).
 
@@ -186,6 +182,36 @@ Set the value of `imagePullPolicy` to Always. | Set the value of `imagePullPolic
 Set the value of `image` to nginx:1.16. | Set the value of `image` to `nginx:1.16`.
 Set the value of the `replicas` field to 2. | Set the value of the `replicas` field to `2`.
 {{< /table >}}
+
+## Referring to Kubernetes API resources
+
+This section talks about how we reference API resources in the documentation.
+
+### Clarification about "resource"
+
+Kubernetes uses the word "resource" to refer to API resources, such as `pod`, `deployment`, and so on. We also use "resource" to talk about CPU and memory requests and limits. Always refer to API resources as "API resources" to avoid confusion with CPU and memory resources.
+
+### When to use Kubernetes API terminologies
+
+The different Kubernetes API terminologies are:
+
+- Resource type: the name used in the API URL (such as `pods`, `namespaces`)
+- Resource: a single instance of a resource type (such as `pod`, `secret`)
+- Object: a resource that serves as a "record of intent". An object is a desired state for a specific part of your cluster, which the Kubernetes control plane tries to maintain.
+
+Always use "resource" or "object" when referring to an API resource in docs. For example, use "a `Secret` object" over just "a `Secret`".
+
+### API resource names
+
+Always format API resource names using [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case), also known as PascalCase, and code formatting.
+
+For inline code in an HTML document, use the `<code>` tag. In a Markdown document, use the backtick (`` ` ``).
+
+Don't split an API object name into separate words. For example, use `PodTemplateList`, not Pod Template List.
+
+For more information about PascalCase and code formatting, please review the related guidance on [Use upper camel case for API objects](/docs/contribute/style/style-guide/#use-upper-camel-case-for-api-objects) and [Use code style for inline code, commands, and API objects](/docs/contribute/style/style-guide/#code-style-inline-code).
+
+For more information about Kubernetes API terminologies, please review the related guidance on [Kubernetes API terminology](/docs/reference/using-api/api-concepts/#standard-api-terminology).
 
 ## Code snippet formatting
 
@@ -423,7 +449,7 @@ Shortcodes inside include statements will break the build. You must insert them 
 
 Use a single newline to separate block-level content like headings, lists, images, code blocks, and others. The exception is second-level headings, where it should be two newlines. Second-level headings follow the first-level (or the title) without any preceding paragraphs or texts. A two line spacing helps visualize the overall structure of content in a code editor better.
 
-### Headings
+### Headings and titles {#headings}
 
 People accessing this documentation may use a screen reader or other assistive technology (AT). [Screen readers](https://en.wikipedia.org/wiki/Screen_reader) are linear output devices, they output items on a page one at a time. If there is a lot of content on a page, you can use headings to give the page an internal structure. A good page structure helps all readers to easily navigate the page or filter topics of interest.
 
@@ -433,7 +459,8 @@ Do | Don't
 Update the title in the front matter of the page or blog post. | Use first level heading, as Hugo automatically converts the title in the front matter of the page into a first-level heading.
 Use ordered headings to provide a meaningful high-level outline of your content. | Use headings level 4 through 6, unless it is absolutely necessary. If your content is that detailed, it may need to be broken into separate articles.
 Use pound or hash signs (`#`) for non-blog post content. | Use underlines (`---` or `===`) to designate first-level headings.
-Use sentence case for headings. For example, **Extend kubectl with plugins** | Use title case for headings. For example, **Extend Kubectl With Plugins**
+Use sentence case for headings in the page body. For example, **Extend kubectl with plugins** | Use title case for headings in the page body. For example, **Extend Kubectl With Plugins**
+Use title case for the page title in the front matter. For example, `title: Kubernetes API Server Bypass Risks` | Use sentence case for page titles in the front matter. For example, don't use `title: Kubernetes API server bypass risks`
 {{< /table >}}
 
 ### Paragraphs
@@ -604,4 +631,5 @@ These steps ... | These simple steps ...
 
 * Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
 * Learn about [using page templates](/docs/contribute/style/page-content-types/).
+* Learn about [custom hugo shortcodes](/docs/contribute/style/hugo-shortcodes/).
 * Learn about [creating a pull request](/docs/contribute/new-content/open-a-pr/).

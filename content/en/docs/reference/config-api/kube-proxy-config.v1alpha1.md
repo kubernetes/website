@@ -136,14 +136,6 @@ the range [-1000, 1000]</p>
 in order to proxy service traffic. If unspecified (0-0) then ports will be randomly chosen.</p>
 </td>
 </tr>
-<tr><td><code>udpIdleTimeout</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <p>udpIdleTimeout is how long an idle UDP connection will be kept open (e.g. '250ms', '2s').
-Must be greater than 0. Only applicable for proxyMode=userspace.</p>
-</td>
-</tr>
 <tr><td><code>conntrack</code> <B>[Required]</B><br/>
 <a href="#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConntrackConfiguration"><code>KubeProxyConntrackConfiguration</code></a>
 </td>
@@ -323,6 +315,14 @@ the pure iptables proxy mode. Values must be within the range [0, 31].</p>
 </td>
 <td>
    <p>masqueradeAll tells kube-proxy to SNAT everything if using the pure iptables proxy mode.</p>
+</td>
+</tr>
+<tr><td><code>localhostNodePorts</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>LocalhostNodePorts tells kube-proxy to allow service NodePorts to be accessed via
+localhost (iptables mode only)</p>
 </td>
 </tr>
 <tr><td><code>syncPeriod</code> <B>[Required]</B><br/>
@@ -511,16 +511,12 @@ Windows</p>
 
 
 <p>ProxyMode represents modes used by the Kubernetes proxy server.</p>
-<p>Currently, three modes of proxy are available in Linux platform: 'userspace' (older, going to be EOL), 'iptables'
-(newer, faster), 'ipvs'(newest, better in performance and scalability).</p>
-<p>Two modes of proxy are available in Windows platform: 'userspace'(older, stable) and 'kernelspace' (newer, faster).</p>
-<p>In Linux platform, if proxy mode is blank, use the best-available proxy (currently iptables, but may change in the
-future). If the iptables proxy is selected, regardless of how, but the system's kernel or iptables versions are
-insufficient, this always falls back to the userspace proxy. IPVS mode will be enabled when proxy mode is set to 'ipvs',
-and the fall back path is firstly iptables and then userspace.</p>
-<p>In Windows platform, if proxy mode is blank, use the best-available proxy (currently userspace, but may change in the
-future). If winkernel proxy is selected, regardless of how, but the Windows kernel can't support this mode of proxy,
-this always falls back to the userspace proxy.</p>
+<p>Currently, two modes of proxy are available on Linux platforms: 'iptables' and 'ipvs'.
+One mode of proxy is available on Windows platforms: 'kernelspace'.</p>
+<p>If the proxy mode is unspecified, the best-available proxy mode will be used (currently this
+is <code>iptables</code> on Linux and <code>kernelspace</code> on Windows). If the selected proxy mode cannot be
+used (due to lack of kernel support, missing userspace components, etc) then kube-proxy
+will exit with an error.</p>
 
 
 
@@ -534,6 +530,8 @@ this always falls back to the userspace proxy.</p>
 **Appears in:**
 
 - [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
 
@@ -595,6 +593,8 @@ client.</p>
 
 **Appears in:**
 
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
+
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
 
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
@@ -628,68 +628,6 @@ enableProfiling is true.</p>
 </tbody>
 </table>
 
-## `FormatOptions`     {#FormatOptions}
-    
-
-**Appears in:**
-
-- [LoggingConfiguration](#LoggingConfiguration)
-
-
-<p>FormatOptions contains options for the different logging formats.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>json</code> <B>[Required]</B><br/>
-<a href="#JSONOptions"><code>JSONOptions</code></a>
-</td>
-<td>
-   <p>[Experimental] JSON contains options for logging format &quot;json&quot;.</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `JSONOptions`     {#JSONOptions}
-    
-
-**Appears in:**
-
-- [FormatOptions](#FormatOptions)
-
-
-<p>JSONOptions contains options for logging format &quot;json&quot;.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>splitStream</code> <B>[Required]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <p>[Experimental] SplitStream redirects error messages to stderr while
-info messages go to stdout, with buffering. The default is to write
-both to stdout, without buffering.</p>
-</td>
-</tr>
-<tr><td><code>infoBufferSize</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#QuantityValue"><code>k8s.io/apimachinery/pkg/api/resource.QuantityValue</code></a>
-</td>
-<td>
-   <p>[Experimental] InfoBufferSize sets the size of the info stream when
-using split streams. The default is zero, which disables buffering.</p>
-</td>
-</tr>
-</tbody>
-</table>
-
 ## `LeaderElectionConfiguration`     {#LeaderElectionConfiguration}
     
 
@@ -698,6 +636,8 @@ using split streams. The default is zero, which disables buffering.</p>
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
 
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 
@@ -777,82 +717,3 @@ during leader election cycles.</p>
 </tr>
 </tbody>
 </table>
-
-## `LoggingConfiguration`     {#LoggingConfiguration}
-    
-
-**Appears in:**
-
-- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
-
-
-<p>LoggingConfiguration contains logging options
-Refer <a href="https://github.com/kubernetes/component-base/blob/master/logs/options.go">Logs Options</a> for more information.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>format</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>Format Flag specifies the structure of log messages.
-default value of format is <code>text</code></p>
-</td>
-</tr>
-<tr><td><code>flushFrequency</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/time#Duration"><code>time.Duration</code></a>
-</td>
-<td>
-   <p>Maximum number of nanoseconds (i.e. 1s = 1000000000) between log
-flushes.  Ignored if the selected logging backend writes log
-messages without buffering.</p>
-</td>
-</tr>
-<tr><td><code>verbosity</code> <B>[Required]</B><br/>
-<code>uint32</code>
-</td>
-<td>
-   <p>Verbosity is the threshold that determines which log messages are
-logged. Default is zero which logs only the most important
-messages. Higher values enable additional messages. Error messages
-are always logged.</p>
-</td>
-</tr>
-<tr><td><code>vmodule</code> <B>[Required]</B><br/>
-<a href="#VModuleConfiguration"><code>VModuleConfiguration</code></a>
-</td>
-<td>
-   <p>VModule overrides the verbosity threshold for individual files.
-Only supported for &quot;text&quot; log format.</p>
-</td>
-</tr>
-<tr><td><code>options</code> <B>[Required]</B><br/>
-<a href="#FormatOptions"><code>FormatOptions</code></a>
-</td>
-<td>
-   <p>[Experimental] Options holds additional parameters that are specific
-to the different logging formats. Only the options for the selected
-format get used, but all of them get validated.</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `VModuleConfiguration`     {#VModuleConfiguration}
-    
-(Alias of `[]k8s.io/component-base/config/v1alpha1.VModuleItem`)
-
-**Appears in:**
-
-- [LoggingConfiguration](#LoggingConfiguration)
-
-
-<p>VModuleConfiguration is a collection of individual file names or patterns
-and the corresponding verbosity threshold.</p>
-
-
-
