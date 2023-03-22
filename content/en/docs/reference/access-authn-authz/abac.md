@@ -12,7 +12,6 @@ weight: 80
 <!-- overview -->
 Attribute-based access control (ABAC) defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together.
 
-
 <!-- body -->
 ## Policy File Format
 
@@ -82,7 +81,7 @@ resource, and nonResourcePath properties set to `"*"`.
 
 ## Kubectl
 
-Kubectl uses the `/api` and `/apis` endpoints of api-server to discover
+Kubectl uses the `/api` and `/apis` endpoints of apiserver to discover
 served resource types, and validates objects sent to the API by create/update
 operations using schema information located at `/openapi/v2`.
 
@@ -131,7 +130,7 @@ up the verbosity:
 
 ## A quick note on service accounts
 
-Every service account has a corresponding ABAC username, and that service account's user name is generated according to the naming convention:
+Every service account has a corresponding ABAC username, and that service account's username is generated according to the naming convention:
 
 ```shell
 system:serviceaccount:<namespace>:<serviceaccountname>
@@ -150,7 +149,7 @@ privilege to the API using ABAC, you would add this line to your policy file:
 {"apiVersion":"abac.authorization.kubernetes.io/v1beta1","kind":"Policy","spec":{"user":"system:serviceaccount:kube-system:default","namespace":"*","resource":"*","apiGroup":"*"}}
 ```
 
-The apiserver will need to be restarted to pickup the new policy lines.
+The apiserver will need to be restarted to pick up the new policy lines.
 
 
 

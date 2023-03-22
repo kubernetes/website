@@ -115,7 +115,7 @@ manualmente tramite `easyrsa`, `openssl` o `cfssl`.
 
         openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key \
         -CAcreateserial -out server.crt -days 10000 \
-        -extensions v3_ext -extfile csr.conf
+        -extensions v3_ext -extfile csr.conf -sha256
 1. Visualizza il certificato:
 
         openssl x509  -noout -text -in ./server.crt

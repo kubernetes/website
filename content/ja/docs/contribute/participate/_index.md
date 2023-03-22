@@ -51,7 +51,7 @@ GitHubには、二つのSIG Docs
 カテゴリがあります:
 
 - `@sig-docs-{language}-owners`は承認者かつリードです。
-- `@sig-docs-{language}-reviewers` はレビュアーです。
+- `@sig-docs-{language}-reviews` はレビュアーです。
 
 それぞれをGitHubコメントの`@name`で参照して、そのグループの全員とコミュニケーションできます。
 

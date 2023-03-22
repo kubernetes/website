@@ -1,6 +1,7 @@
 ---
 title: Change the default StorageClass
 content_type: task
+weight: 90
 ---
 
 <!-- overview -->

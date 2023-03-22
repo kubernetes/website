@@ -113,7 +113,7 @@ metadata:
   name: test-ebs
 spec:
   containers:
-  - image: k8s.gcr.io/test-webserver
+  - image: registry.k8s.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /test-ebs
@@ -190,7 +190,7 @@ metadata:
   name: test-cinder
 spec:
   containers:
-  - image: k8s.gcr.io/test-webserver
+  - image: registry.k8s.io/test-webserver
     name: test-cinder-container
     volumeMounts:
     - mountPath: /test-cinder
@@ -294,7 +294,7 @@ metadata:
   name: test-pd
 spec:
   containers:
-  - image: k8s.gcr.io/test-webserver
+  - image: registry.k8s.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /cache
@@ -369,7 +369,7 @@ metadata:
   name: test-pd
 spec:
   containers:
-  - image: k8s.gcr.io/test-webserver
+  - image: registry.k8s.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /test-pd
@@ -390,7 +390,7 @@ Afin d'utiliser cette fonctionnalité, le volume doit être provisionné en tant
 
 #### Provisionnement manuel d'un disque persistant régional en tant que PersistentVolume
 
-Le provisionnement dynamique est possible en utilisant une [StorageClass pour un disque persistant GCE](/docs/concepts/storage/storage-classes/#gce).
+Le provisionnement dynamique est possible en utilisant une [StorageClass pour un disque persistant GCE](/docs/concepts/storage/storage-classes/#gce-pd).
 Avant de créer un PersistentVolume, vous devez créer le disque persistant :
 ```shell
 gcloud beta compute disks create --size=500GB my-data-disk
@@ -509,7 +509,7 @@ metadata:
   name: test-pd
 spec:
   containers:
-  - image: k8s.gcr.io/test-webserver
+  - image: registry.k8s.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /test-pd
@@ -759,7 +759,7 @@ metadata:
   name: test-portworx-volume-pod
 spec:
   containers:
-  - image: k8s.gcr.io/test-webserver
+  - image: registry.k8s.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /mnt
@@ -824,7 +824,7 @@ metadata:
   name: pod-0
 spec:
   containers:
-  - image: k8s.gcr.io/test-webserver
+  - image: registry.k8s.io/test-webserver
     name: pod-0
     volumeMounts:
     - mountPath: /test-pd
@@ -953,7 +953,7 @@ metadata:
   name: test-vmdk
 spec:
   containers:
-  - image: k8s.gcr.io/test-webserver
+  - image: registry.k8s.io/test-webserver
     name: test-container
     volumeMounts:
     - mountPath: /test-vmdk

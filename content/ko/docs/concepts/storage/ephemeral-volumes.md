@@ -1,10 +1,10 @@
 ---
-
-
-
-
-
-
+# reviewers:
+# - jsafrane
+# - saad-ali
+# - msau42
+# - xing-yang
+# - pohly
 title: 임시 볼륨
 content_type: concept
 weight: 30
@@ -74,10 +74,7 @@ kubelet에서 관리하는 디스크와 성능 특성이 다른 스토리지, �
 
 ### CSI 임시 볼륨 {#csi-ephemeral-volumes}
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
-
-이 기능을 사용하려면 `CSIInlineVolume` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다. 
-쿠버네티스 1.16부터는 기본적으로 활성화되어 있다.
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 {{< note >}}
 CSI 드라이버 중 일부만 CSI 임시 볼륨을 지원한다.
@@ -136,8 +133,11 @@ CSI 임시 볼륨은 사용자로 하여금 `volumeAttributes`를
 
 클러스터 관리자가 이처럼 파드 스펙 내장 임시 볼륨 사용이 가능한 CSI 드라이버를 제한하려면 
 다음을 수행할 수 있다.
-- CSIDriver 스펙의 `volumeLifecycleModes`에서 `Ephemeral`을 제거하여, 해당 드라이버가 내장 임시 볼륨으로 사용되는 것을 막는다.
-- [어드미션 웹훅](/docs/reference/access-authn-authz/extensible-admission-controllers/)을 사용하여 드라이버를 활용하는 방법을 제한한다.
+
+- CSIDriver 스펙의 `volumeLifecycleModes`에서 `Ephemeral`을 제거하여, 
+  해당 드라이버가 내장 임시 볼륨으로 사용되는 것을 막는다.
+- [어드미션 웹훅](/docs/reference/access-authn-authz/extensible-admission-controllers/)을 사용하여 
+  드라이버를 활용하는 방법을 제한한다.
 
 ### 일반 임시 볼륨 {#generic-ephemeral-volumes}
 
@@ -250,8 +250,9 @@ PVC 이름 규칙에 따라 서로 다른 파드 간 이름 충돌이 발생할 
 
 GenericEphemeralVolume 기능을 활성화하면 
 사용자가 파드를 생성할 수 있는 경우 PVC를 간접적으로 생성할 수 있도록 허용하며, 
-심지어 사용자가 PVC를 직접적으로 만들 수 있는 권한이 없는 경우에도 이를 허용한다. 클러스터 관리자는 이를 명심해야 한다. 
-이것이 보안 모델에 부합하지 않는다면, [어드미션 웹훅](/docs/reference/access-authn-authz/extensible-admission-controllers/)을 사용하여 
+심지어 사용자가 PVC를 직접적으로 만들 수 있는 권한이 없는 경우에도 이를 허용한다. 
+클러스터 관리자는 이를 명심해야 한다. 이것이 보안 모델에 부합하지 않는다면,
+[어드미션 웹훅](/docs/reference/access-authn-authz/extensible-admission-controllers/)을 사용하여 
 일반 임시 볼륨을 갖는 파드와 같은 오브젝트를 거부해야 한다.
 
 일반적인 [PVC의 네임스페이스 쿼터](/ko/docs/concepts/policy/resource-quotas/#스토리지-리소스-쿼터)는 여전히 적용되므로, 

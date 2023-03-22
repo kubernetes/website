@@ -132,7 +132,7 @@ ssh -D 1080 -q -N username@kubernetes-remote-server.example
 * `-D 1080`: 在本地端口 1080 上打开一个 SOCKS 代理。
 * `-q`: 静音模式。导致大多数警告和诊断消息被抑制。
 * `-N`: 不执行远程命令。仅用于转发端口。
-* `username@kubernetes-remote-server.example`: 运行 Kubernetes 集群的远程 SSH 服务器。
+* `username@kubernetes-remote-server.example`：运行 Kubernetes 集群的远程 SSH 服务器。
 
 <!--
 ## Client configuration
@@ -161,26 +161,27 @@ you configured. For this to work, the tool must support SOCKS5 proxying.
 
 {{< note >}}
 <!--
-In the URL https://localhost/api, `localhost` does not refer to your local client computer.
+In the URL https://localhost:6443/api, `localhost` does not refer to your local client computer.
 Instead, it refers to the endpoint on the remote server known as `localhost`.
 The `curl` tool sends the hostname from the HTTPS URL over SOCKS, and the remote server
 resolves that locally (to an address that belongs to its loopback interface).
 -->
-在 URL https://localhost/api 中，`localhost` 不是指你的本地客户端计算机。
-它指的是远程服务器上称为 “localhost” 的端点。
+在 URL https://localhost:6443/api 中，`localhost` 不是指你的本地客户端计算机。
+它指的是远程服务器上称为 `localhost` 的端点。
 `curl` 工具通过 SOCKS 从 HTTPS URL 发送主机名，远程服务器在本地解析（到属于其环回接口的地址）。
 {{< /note >}}
 
 ```shell
-curl -k -v https://localhost/api
+curl -k -v https://localhost:6443/api
 ```
 
 <!--
 To use the official Kubernetes client `kubectl` with a proxy, set the `proxy-url` element
 for the relevant `cluster` entry within  your `~/.kube/config` file. For example:
 -->
-要将官方 Kubernetes 客户端 `kubectl` 与代理一起使用，请在 `~/.kube/config` 文件中为相关的
-`cluster` 条目设置 `proxy-url` 元素。 例如：
+要将 Kubernetes 官方客户端 `kubectl` 与代理一起使用，
+请在 `~/.kube/config` 文件中为相关的
+`cluster` 条目设置 `proxy-url` 元素。例如：
 
 ```yaml
 apiVersion: v1
@@ -211,7 +212,7 @@ users:
 If the tunnel is operating and you use `kubectl` with a context that uses this cluster, you can interact with your cluster through that proxy. For example:
 -->
 如果隧道能够正常工作，并且你调用 `kubectl` 时使用此集群的上下文，
-则可以通过该代理与你的集群交互。 例如：
+则可以通过该代理与你的集群交互。例如：
 
 ```shell
 kubectl get pods
@@ -231,7 +232,7 @@ Type `unset https_proxy` in a terminal to stop forwarding http traffic through t
 -->
 ## 清理
 
-通过在运行它的终端上按 “CTRL+C” 来停止 SSH 端口转发进程。
+通过在运行它的终端上按 `CTRL+C` 来停止 SSH 端口转发进程。
 
 在终端中键入 `unset https_proxy` 以停止通过代理转发 http 流量。
 
@@ -242,5 +243,5 @@ Type `unset https_proxy` in a terminal to stop forwarding http traffic through t
 -->
 ## 进一步阅读
 
-* [OpenSSH远程登录客户端](https://man.openbsd.org/ssh)
+* [OpenSSH 远程登录客户端](https://man.openbsd.org/ssh)
 

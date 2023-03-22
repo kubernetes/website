@@ -4,7 +4,7 @@ id: taint
 date: 2019-01-11
 full_link: /zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/
 short_description: >
-  污点是一种一个核心对象，包含三个必需的属性：key、value 和 effect。
+  污点是一种核心对象，包含三个必需的属性：key、value 和 effect。
   污点会阻止在节点或节点组上调度 Pod。
 
 aka:
@@ -17,7 +17,7 @@ tags:
 title: Taint
 id: taint
 date: 2019-01-11
-full_link: /docs/concepts/configuration/taint-and-toleration/
+full_link: /docs/concepts/scheduling-eviction/taint-and-toleration/
 short_description: >
   A core object consisting of three required properties: key, value, and effect. Taints prevent the scheduling of pods on nodes or node groups.
 
@@ -25,14 +25,14 @@ aka:
 tags:
 - core-object
 - fundamental
- -->
+-->
 
 <!--
- A core object consisting of three required properties: key, value, and effect. Taints prevent the scheduling of {{< glossary_tooltip text="Pods" term_id="pod" >}} on {{< glossary_tooltip text="nodes" term_id="node" >}} or node groups.
+A core object consisting of three required properties: key, value, and effect. Taints prevent the scheduling of {{< glossary_tooltip text="Pods" term_id="pod" >}} on {{< glossary_tooltip text="nodes" term_id="node" >}} or node groups.
 -->
-污点是一种一个核心对象，包含三个必需的属性：key、value 和 effect。
-污点会阻止在{{< glossary_tooltip text="节点" term_id="node" >}}
-或节点组上调度 {{< glossary_tooltip text="Pods" term_id="pod" >}}。 
+污点是一种核心对象，包含三个必需的属性：key、value 和 effect。
+污点会阻止在{{< glossary_tooltip text="节点" term_id="node" >}}或节点组上调度
+{{< glossary_tooltip text="Pod" term_id="pod" >}}。
 
 <!--more-->
 

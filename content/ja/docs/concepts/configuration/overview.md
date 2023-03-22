@@ -62,7 +62,7 @@ weight: 10
 
 セレクターからリリース固有のラベルを省略することで、Serviceを複数のDeploymentにまたがるように作成できます。 [Deployment](/ja/docs/concepts/workloads/controllers/deployment/)により、ダウンタイムなしで実行中のサービスを簡単に更新できます。
 
-オブジェクトの望ましい状態はDeploymentによって記述され、その仕様への変更が _適用_ されると、Deploymentコントローラは制御された速度で実際の状態を望ましい状態に変更します。
+オブジェクトの望ましい状態はDeploymentによって記述され、その仕様への変更が _適用_ されると、Deploymentコントローラーは制御された速度で実際の状態を望ましい状態に変更します。
 
 - デバッグ用にラベルを操作できます。Kubernetesコントローラー（ReplicaSetなど）とServiceはセレクターラベルを使用してPodとマッチするため、Podから関連ラベルを削除すると、コントローラーによって考慮されたり、Serviceによってトラフィックを処理されたりすることがなくなります。既存のPodのラベルを削除すると、そのコントローラーはその代わりに新しいPodを作成します。これは、「隔離」環境で以前の「ライブ」Podをデバッグするのに便利な方法です。対話的にラベルを削除または追加するには、[`kubectl label`](/docs/reference/generated/kubectl/kubectl-commands#label)を使います。
 

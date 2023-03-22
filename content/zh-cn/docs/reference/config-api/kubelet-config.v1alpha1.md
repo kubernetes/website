@@ -2,7 +2,6 @@
 title: Kubelet 配置 (v1alpha1)
 content_type: tool-reference
 package: kubelet.config.k8s.io/v1alpha1
-auto_generated: true
 ---
 
 <!--
@@ -18,96 +17,6 @@ auto_generated: true
 ## 资源类型
 
 - [CredentialProviderConfig](#kubelet-config-k8s-io-v1alpha1-CredentialProviderConfig)
-
-## `FormatOptions`     {#FormatOptions}
-
-<!--
-**Appears in:**
--->
-**出现在：**
-
-<!--
-FormatOptions contains options for the different logging formats.
--->
-FormatOptions 包含为不同类型日志格式提供的选项。
-
-<table class="table">
-<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
-<tbody>
-
-<tr><td><code>json</code> <B>[必需]</B><br/>
-<a href="#JSONOptions"><code>JSONOptions</code></a>
-</td>
-<td>
-   <!--[Experimental] JSON contains options for logging format &quot;json&quot;.-->
-   [试验特性] <code>json</code> 中包含 &quot;json&quot; 日志格式的选项。
-</td>
-</tr>
-</tbody>
-</table>
-
-## `JSONOptions`     {#JSONOptions}
-
-<!--
-**Appears in:**
--->
-**出现在：**
-
-- [FormatOptions](#FormatOptions)
-
-<!--
-JSONOptions contains options for logging format &quot;json&quot;.
--->
-JSONOptions 包含用于 &quot;json&quot; 日志格式的选项。
-
-<table class="table">
-<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
-<tbody>
-
-<tr><td><code>splitStream</code> <B>[必需]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <!--[Experimental] SplitStream redirects error messages to stderr while
-info messages go to stdout, with buffering. The default is to write
-both to stdout, without buffering.-->
-  [试验特性] <code>splitStream</code> 将错误信息重定向到标准错误输出（stderr），
-将提示信息重定向到标准输出（stdout），并为二者提供缓存。默认配置是将两类信息都写出到标准输出，
-并且不提供缓存。
-</td>
-</tr>
-
-<tr><td><code>infoBufferSize</code> <B>[必需]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#QuantityValue"><code>k8s.io/apimachinery/pkg/api/resource.QuantityValue</code></a>
-</td>
-<td>
-   <!--[Experimental] InfoBufferSize sets the size of the info stream when
-using split streams. The default is zero, which disables buffering.-->
-  [试验特性] <code>infoBufferSize</code> 设置使用分离数据流时信息数据流的大小。
-默认值是 0，意味着禁止缓存。
-</td>
-</tr>
-</tbody>
-</table>
-
-## `VModuleConfiguration`     {#VModuleConfiguration}
-
-<!--
-(Alias of `[]k8s.io/component-base/config/v1alpha1.VModuleItem`)
--->
-（`[]k8s.io/component-base/config/v1alpha1.VModuleItem` 的别名）
-
-<!--
-**Appears in:**
--->
-**出现在：**
-
-<!--
-VModuleConfiguration is a collection of individual file names or patterns
-and the corresponding verbosity threshold.
--->
-VModuleConfiguration 是一个集合，其中包含一个个的文件名（或者文件名模式）
-及对应的详细程度阈值。
 
 ## `CredentialProviderConfig`     {#kubelet-config-k8s-io-v1alpha1-CredentialProviderConfig}
 
@@ -129,7 +38,7 @@ Kubelet 从磁盘上读取这些配置信息，并根据 CredentialProvider 类�
 <a href="#kubelet-config-k8s-io-v1alpha1-CredentialProvider"><code>[]CredentialProvider</code></a>
 </td>
 <td>
-   <!--
+<!--
 providers is a list of credential provider plugins that will be enabled by the kubelet.
 Multiple providers may match against a single image, in which case credentials
 from all providers will be returned to the kubelet. If multiple providers are called
@@ -174,7 +83,7 @@ provider executable as seen by the kubelet. The executable must be in the kubele
 bin directory (set by the --image-credential-provider-bin-dir flag).</td>
 -->
   <code>name</code> 是凭据提供者的名称（必需）。此名称必须与 kubelet
-  所看到的提供者可执行文件的名称匹配。可执行文件必须位于 kubelet 的 
+  所看到的提供者可执行文件的名称匹配。可执行文件必须位于 kubelet 的
   <code>bin</code> 目录（通过 <code>--image-credential-provider-bin-dir</code> 设置）下。
 </td>
 </tr>

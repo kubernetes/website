@@ -9,6 +9,8 @@ metadata:
       or Ingress implementations to expose backend IPs that would not otherwise
       be accessible, and can circumvent network policies or security controls
       intended to prevent/isolate access to those backends.
+      EndpointSlices were never included in the edit or admin roles, so there
+      is nothing to restore for the EndpointSlice API.
   labels:
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
   name: custom:aggregate-to-edit:endpoints # you can change this if you wish

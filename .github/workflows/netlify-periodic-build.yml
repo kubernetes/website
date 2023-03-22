@@ -4,6 +4,7 @@ on:
   schedule: # Build twice daily: shortly after midnight and noon (UTC)
             # Offset is to be nice to the build service
   - cron: '4 0,12 * * *'
+permissions: {} # none
 jobs:
   build:
     runs-on: ubuntu-latest

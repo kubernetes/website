@@ -95,6 +95,13 @@ Each key has to be 32 bytes long for AES-CBC and 16, 24 or 32 bytes for AES-GCM.
 <tbody>
     
   
+<tr><td><code>apiVersion</code><br/>
+<code>string</code>
+</td>
+<td>
+   <p>apiVersion of KeyManagementService</p>
+</td>
+</tr>
 <tr><td><code>name</code> <B>[Required]</B><br/>
 <code>string</code>
 </td>
