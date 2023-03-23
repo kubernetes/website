@@ -21,7 +21,7 @@ API or the `kube-*` components from the upstream code, see the following instruc
 - You need to have these tools installed:
 
   - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-  - [Golang](https://go.dev/doc/install) version 1.13+
+  - [Golang](https://go.dev/doc/install) version 1.20+
   - [Docker](https://docs.docker.com/engine/installation/)
   - [etcd](https://github.com/coreos/etcd/)
   - [make](https://www.gnu.org/software/make/)
@@ -48,24 +48,37 @@ creating a patch to fix it in the upstream project.
 
 ## Clone the Kubernetes repository
 
-If you don't already have the kubernetes/kubernetes repository, get it now:
+If you don't already have the kubernetes/kubernetes repository, get it now, and 
+if you already have a fork of `kubernetes` then make sure your `kubernetes` fork is up-to-date 
+with the `kubernetes/kubernetes` remote on GitHub (`master` branch),  and clone your `kubernetes` fork.
 
 ```shell
-mkdir $GOPATH/src
-cd $GOPATH/src
-go get github.com/kubernetes/kubernetes
+mkdir -p $GOPATH/src/k8s.io
+cd $GOPATH/src/k8s.io
+git clone git@github.com:<your_github_username>/kubernetes.git
 ```
 
 Determine the base directory of your clone of the
 [kubernetes/kubernetes](https://github.com/kubernetes/kubernetes) repository.
 For example, if you followed the preceding step to get the repository, your
-base directory is `$GOPATH/src/github.com/kubernetes/kubernetes`.
+base directory is `$GOPATH/src/k8s.io/kubernetes/`.
+
 The remaining steps refer to your base directory as `<k8s-base>`.
+
+Also, create a fork of `kubernetes-sigs/reference-docs` and if you already have a fork then 
+make sure your `reference-docs` fork is up-to-date with the `kubernetes-sigs/reference-docs` 
+remote on Github (`main` branch), and clone your `reference-docs` fork.
+
+```shell
+cd $GOPATH/src
+git clone git@github.com:<your_github_username>/reference-docs.git
+```
 
 Determine the base directory of your clone of the
 [kubernetes-sigs/reference-docs](https://github.com/kubernetes-sigs/reference-docs) repository.
 For example, if you followed the preceding step to get the repository, your
-base directory is `$GOPATH/src/github.com/kubernetes-sigs/reference-docs`.
+base directory is `$GOPATH/src/k8s.io/reference-docs`.
+
 The remaining steps refer to your base directory as `<rdocs-base>`.
 
 ## Edit the Kubernetes source code
