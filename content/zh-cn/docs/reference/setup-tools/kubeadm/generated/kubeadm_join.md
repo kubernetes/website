@@ -188,7 +188,7 @@ If not set the default network interface will be used.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-<p>Path to kubeadm config file.</p>
+<p>Path to a kubeadm configuration file.</p>
 -->
 <p>kubeadm 配置文件的路径。</p>
 </td>
