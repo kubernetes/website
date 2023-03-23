@@ -71,7 +71,7 @@ A Pod is given a QoS class of `Burstable` if:
 
 Pods in the `BestEffort` QoS class can use node resources that aren't specifically assigned
 to Pods in other QoS classes. For example, if you have a node with 16 CPU cores available to the
-kubelet, and you assign assign 4 CPU cores to a `Guaranteed` Pod, then a Pod in the `BestEffort`
+kubelet, and you assign 4 CPU cores to a `Guaranteed` Pod, then a Pod in the `BestEffort`
 QoS class can try to use any amount of the remaining 12 CPU cores.
 
 The kubelet prefers to evict `BestEffort` Pods if the node comes under resource pressure.

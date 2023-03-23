@@ -574,6 +574,9 @@ prioritize scaling down pods based on the following general algorithm:
    （当 `LogarithmicScaleDown` 这一[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
    被启用时，创建时间是按整数幂级来分组的）。
 
+<!--
+If all of the above match, then selection is random.
+-->
 如果以上比较结果都相同，则随机选择。
 
 <!--
@@ -688,7 +691,7 @@ kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
 
 [`Deployment`](/docs/concepts/workloads/controllers/deployment/) is an object which can own ReplicaSets and update
 them and their Pods via declarative, server-side rolling updates.
-While ReplicaSets can be used independently, today they're  mainly used by Deployments as a mechanism to orchestrate Pod
+While ReplicaSets can be used independently, today they're mainly used by Deployments as a mechanism to orchestrate Pod
 creation, deletion and updates. When you use Deployments you don't have to worry about managing the ReplicaSets that
 they create. Deployments own and manage their ReplicaSets.
 As such, it is recommended to use Deployments when you want ReplicaSets.
