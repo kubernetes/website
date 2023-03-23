@@ -20,6 +20,7 @@ You can also read node reference details from elsewhere in the
 Kubernetes documentation, including:
 
 * [Node Metrics Data](/docs/reference/instrumentation/node-metrics).
+* [CRI Pod & Container Metrics](/docs/reference/instrumentation/cri-pod-container-metrics).
 -->
 本部分包含以下有关节点的参考主题：
 
@@ -29,3 +30,4 @@ Kubernetes documentation, including:
 你还可以从 Kubernetes 文档的其他地方阅读节点的详细参考信息，包括：
 
 * [节点指标数据](/zh-cn/docs/reference/instrumentation/node-metrics)。
+* [CRI Pod & 容器指标](/docs/reference/instrumentation/cri-pod-container-metrics).
