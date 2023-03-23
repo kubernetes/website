@@ -93,7 +93,7 @@ metadata:
 spec:
   containers:
   - name: agnhost
-    image: k8s.gcr.io/e2e-test-images/agnhost:2.35
+    image: registry.k8s.io/e2e-test-images/agnhost:2.35
     command: ["/agnhost", "grpc-health-checking"]
     ports:
     - containerPort: 5000
