@@ -38,6 +38,10 @@ Let's say you have a Deployment containing of a single `nginx` replica
 
 {{< codenew file="service/pod-with-graceful-termination.yaml" >}}
 
+```shell
+kubectl apply -f https://k8s.io/examples/service/pod-with-graceful-termination.yaml
+```
+
 Once the Pod and Service are running, you can get the name of any associated EndpointSlices:
 
 ```shell
@@ -72,6 +76,19 @@ The output is similar to this:
                 "ready": true,
                 "serving": true,
                 "terminating": false
+```
+
+You can get the name of any associated Pods:
+
+```shell
+kubectl get pods
+```
+
+The output is similar to this:
+
+```none
+NAME                                READY   STATUS    RESTARTS   AGE
+nginx-deployment-7768647bf9-b4b9s   1/1     Running   0          3m2s
 ```
 
 Now let's terminate the Pod and validate that the Pod is being terminated
