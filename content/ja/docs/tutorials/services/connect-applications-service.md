@@ -1,9 +1,5 @@
 ---
-reviewers:
-- caesarxuchao
-- lavalamp
-- thockin
-title: Connecting Applications with Services
+title: アプリケーションをServiceに接続する
 content_type: tutorial
 weight: 20
 ---
@@ -11,29 +7,26 @@ weight: 20
 
 <!-- overview -->
 
-## The Kubernetes model for connecting containers
+## コンテナに接続するためのKubernetesモデル
 
-Now that you have a continuously running, replicated application you can expose it on a network.
+さて、継続的に実行され、複製されたアプリケーションができたので、これをネットワーク上に公開できます。
 
-Kubernetes assumes that pods can communicate with other pods, regardless of which host they land on.
-Kubernetes gives every pod its own cluster-private IP address, so you do not need to explicitly
-create links between pods or map container ports to host ports. This means that containers within
-a Pod can all reach each other's ports on localhost, and all pods in a cluster can see each other
-without NAT. The rest of this document elaborates on how you can run reliable services on such a
-networking model.
+Kubernetesは、ホストがどこに配置されているかにかかわらず、PodがほかのPodと通信できることを引き受けます。
+Kubernetesは各Podにそれぞれ固有のクラスタープライベートなIPアドレスを付与するので、Pod間のリンクや、コンテナのポートとホストのポートのマップを明示的に作成する必要はありません。
+これは、Pod内のコンテナは全てlocalhost上でお互いのポートに到達でき、クラスター内の全てのPodはNATなしに互いを見られるということを意味します。このドキュメントの残りの部分では、ネットワークモデルなどの上で信頼性のあるServiceを実行する方法について、詳しく述べていきます。
 
-This tutorial uses a simple nginx web server to demonstrate the concept.
+このチュートリアルでは概念のデモンストレーションのために、シンプルなnginx Webサーバーを例として使います。
 
 <!-- body -->
 
-## Exposing pods to the cluster
+## Podをクラスターへ公開
 
-We did this in a previous example, but let's do it once again and focus on the networking perspective.
-Create an nginx Pod, and note that it has a container port specification:
+これは前出の例でも行いましたが、もう一度やってみて、ネットワークからの観点に着目してみましょう。
+nginx Podを作成し、コンテナのポート指定も記載します:
 
 {{< codenew file="service/networking/run-my-nginx.yaml" >}}
 
-This makes it accessible from any node in your cluster. Check the nodes the Pod is running on:
+この設定で、あなたのクラスターにはどのノードからもアクセス可能になります。Podを実行中のノードを確認してみましょう:
 
 ```shell
 kubectl apply -f ./run-my-nginx.yaml
@@ -45,7 +38,7 @@ my-nginx-3800858182-jr4a2   1/1       Running   0          13s       10.244.3.4 
 my-nginx-3800858182-kna2y   1/1       Running   0          13s       10.244.2.5    kubernetes-minion-ljyd
 ```
 
-Check your pods' IPs:
+PodのIPアドレスを確認します:
 
 ```shell
 kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
@@ -54,34 +47,28 @@ kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
     [map[ip:10.244.2.5]]
 ```
 
-You should be able to ssh into any node in your cluster and use a tool such as `curl`
-to make queries against both IPs. Note that the containers are *not* using port 80 on
-the node, nor are there any special NAT rules to route traffic to the pod. This means
-you can run multiple nginx pods on the same node all using the same `containerPort`,
-and access them from any other pod or node in your cluster using the assigned IP
-address for the Service. If you want to arrange for a specific port on the host
-Node to be forwarded to backing Pods, you can - but the networking model should
-mean that you do not need to do so.
+あなたのクラスター内のどのノードにもsshで入ることができて、双方のIPアドレスに対して問い合わせるために`curl`のようなツールを使えるようにしておくのがよいでしょう。
+各コンテナはノード上でポート80を*使っておらず*、トラフィックをPodに流すための特別なNATルールもなんら存在しないことに注意してください。
+つまり、全て同じ`containerPort`を使った同じノード上で複数のnginx Podを実行でき、Serviceに割り当てられたIPアドレスを使って、クラスター内のほかのどのPodあるいはノードからもそれらにアクセスできます。
+裏側にあるPodにフォワードするためにホストNode上の特定のポートを充てたいというのであれば、それも可能です。とはいえ、ネットワークモデルではそのようなことをする必要がありません。
 
-You can read more about the
-[Kubernetes Networking Model](/docs/concepts/cluster-administration/networking/#the-kubernetes-network-model)
-if you're curious.
+興味があれば、さらなる詳細について
+[Kubernetesネットワークモデル](/ja/docs/concepts/cluster-administration/networking/#the-kubernetes-network-model)
+を読んでください。
 
-## Creating a Service
+## Serviceの作成
 
-So we have pods running nginx in a flat, cluster wide, address space. In theory,
-you could talk to these pods directly, but what happens when a node dies? The pods
-die with it, and the Deployment will create new ones, with different IPs. This is
-the problem a Service solves.
+さて、フラットでクラスターワイドなアドレス空間内でnginxを実行中のPodが得られました。
+理論的にはこれらのPodと直接対話することは可能ですが、ノードが死んでしまった時には何が起きるでしょうか?
+ノードと一緒にPodは死に、Deploymentが新しいPodを異なるIPアドレスで作成します。
+これがServiceが解決する問題です。
 
-A Kubernetes Service is an abstraction which defines a logical set of Pods running
-somewhere in your cluster, that all provide the same functionality. When created,
-each Service is assigned a unique IP address (also called clusterIP). This address
-is tied to the lifespan of the Service, and will not change while the Service is alive.
-Pods can be configured to talk to the Service, and know that communication to the
-Service will be automatically load-balanced out to some pod that is a member of the Service.
+KubernetesのServiceは、全て同じ機能を提供する、クラスター内で何かを実行するPodの論理的セットを定義した抽象物です。
+作成時に各Serviceは固有のIPアドレス(clusterIPとも呼ばれます)を割り当てられます。
+このアドレスはServiceのライフスパンと結び付けられており、serviceが生きている間は変わりません。
+PodはServiceと対話できるよう設定され、Serviceのメンバーである複数のPodへ自動的に負荷分散されたServiceへ通信する方法を知っています。
 
-You can create a Service for your 2 nginx replicas with `kubectl expose`:
+`kubectl expose`を使って、2つのnginxレプリカのためのServiceを作成できます:
 
 ```shell
 kubectl expose deployment/my-nginx
@@ -90,18 +77,13 @@ kubectl expose deployment/my-nginx
 service/my-nginx exposed
 ```
 
-This is equivalent to `kubectl apply -f` the following yaml:
+これは`kubectl apply -f`を以下のyamlに対して実行するのと同じです:
 
 {{< codenew file="service/networking/nginx-svc.yaml" >}}
 
-This specification will create a Service which targets TCP port 80 on any Pod
-with the `run: my-nginx` label, and expose it on an abstracted Service port
-(`targetPort`: is the port the container accepts traffic on, `port`: is the
-abstracted Service port, which can be any port other pods use to access the
-Service).
-View [Service](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)
-API object to see the list of supported fields in service definition.
-Check your Service:
+この指定は、`run: my-nginx`ラベルの付いた任意のPod上のTCPポート80を宛先とし、それを抽象化されたServiceポート(`targetPort`はコンテナがトラフィックを許可するポート、`port`は抽象化されたServiceポートで、ほかのPodがServiceにアクセスするのに使う任意のポートです)で公開するServiceを作成します。
+Service定義内でサポートされているフィールドのリストを見るには、[Service](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core) APIオブジェクトを参照してください。
+Serviceを確認してみましょう:
 
 ```shell
 kubectl get svc my-nginx
@@ -111,17 +93,13 @@ NAME       TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
 my-nginx   ClusterIP   10.0.162.149   <none>        80/TCP    21s
 ```
 
-As mentioned previously, a Service is backed by a group of Pods. These Pods are
-exposed through
-{{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlices">}}.
-The Service's selector will be evaluated continuously and the results will be POSTed
-to an EndpointSlice that is connected to the Service using a
-{{< glossary_tooltip text="labels" term_id="label" >}}.
-When a Pod dies, it is automatically removed from the EndpointSlices that contain it 
-as an endpoint. New Pods that match the Service's selector will automatically get added
-to an EndpointSlice for that Service.
-Check the endpoints, and note that the IPs are the same as the Pods created in
-the first step:
+前述したとおり、ServiceはPodのグループに支えられています。
+これらのPodは{{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlices">}}を通して公開されています。
+Serviceのセレクターは継続的に評価され、その結果はServiceに接続されているEndpointSliceに{{< glossary_tooltip text="labels" term_id="label" >}}を使って「投稿(POST)」されます。
+
+Podが死ぬと、エンドポイントとして含まれていたEndpointSliceからそのPodは自動的に削除されます。
+Serviceのセレクターにマッチする新しいPodが、Serviceのために自動的にEndpointSliceに追加されます。
+エンドポイントを確認し、IPアドレスが最初のステップで作成したPodと同じであることに注目してください:
 
 ```shell
 kubectl describe svc my-nginx
@@ -151,30 +129,21 @@ NAME             ADDRESSTYPE   PORTS   ENDPOINTS               AGE
 my-nginx-7vzhx   IPv4          80      10.244.2.5,10.244.3.4   21s
 ```
 
-You should now be able to curl the nginx Service on `<CLUSTER-IP>:<PORT>` from
-any node in your cluster. Note that the Service IP is completely virtual, it
-never hits the wire. If you're curious about how this works you can read more
-about the [service proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies).
+今や、あなたのクラスター内のどのノードからもnginx Serviceに`<CLUSTER-IP>:<PORT>`でcurlができるはずです。Service IPは完全に仮想であり、その配線に当たることはありません。どのように動作しているのか興味があれば、さらなる詳細について[サービスプロキシー](/ja/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)を読んでください。
 
-## Accessing the Service
+## Serviceへのアクセス
 
-Kubernetes supports 2 primary modes of finding a Service - environment variables
-and DNS. The former works out of the box while the latter requires the
-[CoreDNS cluster addon](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/coredns).
+KubernetesはServiceを探す2つの主要モードとして、環境変数とDNSをサポートしています。
+前者は箱庭の外でも動くのに対し、後者は[CoreDNSクラスターアドオン](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/coredns)が必要です。
 
 {{< note >}}
-If the service environment variables are not desired (because possible clashing
-with expected program ones, too many variables to process, only using DNS, etc)
-you can disable this mode by setting the `enableServiceLinks` flag to `false` on
-the [pod spec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
+もしServiceの環境変数が望ましくないなら(求めているプログラムと競合する可能性がある、処理する変数が多すぎる、DNSだけ使いたい、など)、[pod spec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)で`enableServiceLinks`のフラグを`false`にすることで、このモードを無効化できます。
 {{< /note >}}
 
+### 環境変数
 
-### Environment Variables
-
-When a Pod runs on a Node, the kubelet adds a set of environment variables for
-each active Service. This introduces an ordering problem. To see why, inspect
-the environment of your running nginx Pods (your Pod name will be different):
+PodをNode上で実行する時、kubeletはアクティブなServiceのそれぞれに環境変数のセットを追加します。
+これは順序問題を生みます。なぜそうなるかの理由を見るために、実行中のnginx Podの環境を調査してみましょう(Podの名前は環境によって異なります):
 
 ```shell
 kubectl exec my-nginx-3800858182-jr4a2 -- printenv | grep SERVICE
@@ -185,14 +154,12 @@ KUBERNETES_SERVICE_PORT=443
 KUBERNETES_SERVICE_PORT_HTTPS=443
 ```
 
-Note there's no mention of your Service. This is because you created the replicas
-before the Service. Another disadvantage of doing this is that the scheduler might
-put both Pods on the same machine, which will take your entire Service down if
-it dies. We can do this the right way by killing the 2 Pods and waiting for the
-Deployment to recreate them. This time around the Service exists *before* the
-replicas. This will give you scheduler-level Service spreading of your Pods
-(provided all your nodes have equal capacity), as well as the right environment
-variables:
+Serviceについて何も言及がないことに注意してください。
+これは、Serviceの前にレプリカを作成したからです。
+このようにすることでの不利益のもう1つは、スケジューラーが同一のマシンに両方のPodを置く可能性があることです(もしそのマシンが死ぬと全Serviceがダウンしてしまいます)。
+2つのPodを殺し、Deploymentがそれらを再作成するのを待つことで、これを正しいやり方にできます。
+今回は、レプリカの*前に*Serviceが存在します。
+これにより、正しい環境変数だけでなく、(等量のキャパシティを持つ全てのノードで提供される)Podに広がった、スケジューラーレベルのServiceが得られます:
 
 ```shell
 kubectl scale deployment my-nginx --replicas=0; kubectl scale deployment my-nginx --replicas=2;
@@ -205,7 +172,7 @@ my-nginx-3800858182-e9ihh   1/1       Running   0          5s      10.244.2.7   
 my-nginx-3800858182-j4rm4   1/1       Running   0          5s      10.244.3.8    kubernetes-minion-905m
 ```
 
-You may notice that the pods have different names, since they are killed and recreated.
+Podが、いったん殺されて再作成された後、異なる名前を持ったことに気付いたでしょうか。
 
 ```shell
 kubectl exec my-nginx-3800858182-e9ihh -- printenv | grep SERVICE
@@ -220,8 +187,8 @@ KUBERNETES_SERVICE_PORT_HTTPS=443
 
 ### DNS
 
-Kubernetes offers a DNS cluster addon Service that automatically assigns dns names
-to other Services. You can check if it's running on your cluster:
+Kubernetesは、DNS名をほかのServiceに自動的に割り当てる、DNSクラスターアドオンServiceを提供しています。
+クラスター上でそれを実行しているならば、確認できます:
 
 ```shell
 kubectl get services kube-dns --namespace=kube-system
@@ -231,14 +198,12 @@ NAME       TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)         AGE
 kube-dns   ClusterIP   10.0.0.10    <none>        53/UDP,53/TCP   8m
 ```
 
-The rest of this section will assume you have a Service with a long lived IP
-(my-nginx), and a DNS server that has assigned a name to that IP. Here we use
-the CoreDNS cluster addon (application name `kube-dns`), so you can talk to the
-Service from any pod in your cluster using standard methods (e.g. `gethostbyname()`).
-If CoreDNS isn't running, you can enable it referring to the
+本セクションの以降では、長寿命のIPアドレス(my-nginx)を持つServiceと、そのIPアドレスに名前を割り当てているDNSサーバーがあることを想定しています。
+ここではCoreDNSクラスターアドオン(アプリケーション名`kube-dns`)を使い、標準的な手法(例えば`gethostbyname()`)を使ってクラスター内の任意のPodからServiceと対話してみます。
+CoreDNSが動作していない時には、
 [CoreDNS README](https://github.com/coredns/deployment/tree/master/kubernetes)
-or [Installing CoreDNS](/docs/tasks/administer-cluster/coredns/#installing-coredns).
-Let's run another curl application to test this:
+や[CoreDNSのインストール](/ja/docs/tasks/administer-cluster/coredns/#installing-coredns)を参照して有効化してください。
+テストするために、別のcurlアプリケーションを実行してみましょう:
 
 ```shell
 kubectl run curl --image=radial/busyboxplus:curl -i --tty
@@ -248,7 +213,7 @@ Waiting for pod default/curl-131556218-9fnch to be running, status is Pending, p
 Hit enter for command prompt
 ```
 
-Then, hit enter and run `nslookup my-nginx`:
+次にenterを押し、`nslookup my-nginx`を実行します:
 
 ```shell
 [ root@curl-131556218-9fnch:/ ]$ nslookup my-nginx
@@ -259,20 +224,19 @@ Name:      my-nginx
 Address 1: 10.0.162.149
 ```
 
-## Securing the Service
+## Serviceのセキュア化
 
-Till now we have only accessed the nginx server from within the cluster. Before
-exposing the Service to the internet, you want to make sure the communication
-channel is secure. For this, you will need:
+これまではクラスター内からnginxサーバーだけにアクセスしてきました。
+Serviceをインターネットに公開する前に、コミュニケーションチャンネルがセキュアかどうかを確かめたいところです。
+そのためには次のようなものが必要です:
 
-* Self signed certificates for https (unless you already have an identity certificate)
-* An nginx server configured to use the certificates
-* A [secret](/docs/concepts/configuration/secret/) that makes the certificates accessible to pods
+* https用の自己署名証明書(まだ本人証明を用意していない場合)
+* 証明書を使うよう設定されたnginxサーバー
+* 証明書をPodからアクセスできるようにする[Secret](/ja/docs/concepts/configuration/secret/)
 
-You can acquire all these from the
-[nginx https example](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/).
-This requires having go and make tools installed. If you don't want to install those,
-then follow the manual steps later. In short:
+これら全ては[nginx https example](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/)から取得できます。
+go環境とmakeツールのインストールが必要です
+(もしこれらをインストールしたくないときには、後述の手動手順に従ってください)。簡潔には:
 
 ```shell
 make keys KEY=/tmp/nginx.key CERT=/tmp/nginx.crt
@@ -288,7 +252,7 @@ kubectl get secrets
 NAME                  TYPE                                  DATA      AGE
 nginxsecret           kubernetes.io/tls                     2         1m
 ```
-And also the configmap:
+configmapも同様:
 ```shell
 kubectl create configmap nginxconfigmap --from-file=default.conf
 ```
@@ -302,18 +266,18 @@ kubectl get configmaps
 NAME             DATA   AGE
 nginxconfigmap   1      114s
 ```
-Following are the manual steps to follow in case you run into problems running make (on windows for example):
+以下に示すのは、makeを実行したときに問題が発生する場合(例えばWindowsなど)の手動手順です:
 
 ```shell
-# Create a public private key pair
+# 公開鍵と秘密鍵のペアを作成する
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -out /d/tmp/nginx.crt -subj "/CN=my-nginx/O=my-nginx"
-# Convert the keys to base64 encoding
+# 鍵をbase64エンコーディングに変換する
 cat /d/tmp/nginx.crt | base64
 cat /d/tmp/nginx.key | base64
 ```
 
-Use the output from the previous commands to create a yaml file as follows.
-The base64 encoded value should all be on a single line.
+以下のようなyamlファイルを作成するために、前のコマンドからの出力を使います。
+base64エンコードされた値は、全て1行で記述する必要があります。
 
 ```yaml
 apiVersion: "v1"
@@ -326,7 +290,7 @@ data:
   tls.crt: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURIekNDQWdlZ0F3SUJBZ0lKQUp5M3lQK0pzMlpJTUEwR0NTcUdTSWIzRFFFQkJRVUFNQ1l4RVRBUEJnTlYKQkFNVENHNW5hVzU0YzNaak1SRXdEd1lEVlFRS0V3aHVaMmx1ZUhOMll6QWVGdzB4TnpFd01qWXdOekEzTVRKYQpGdzB4T0RFd01qWXdOekEzTVRKYU1DWXhFVEFQQmdOVkJBTVRDRzVuYVc1NGMzWmpNUkV3RHdZRFZRUUtFd2h1CloybHVlSE4yWXpDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBSjFxSU1SOVdWM0IKMlZIQlRMRmtobDRONXljMEJxYUhIQktMSnJMcy8vdzZhU3hRS29GbHlJSU94NGUrMlN5ajBFcndCLzlYTnBwbQppeW1CL3JkRldkOXg5UWhBQUxCZkVaTmNiV3NsTVFVcnhBZW50VWt1dk1vLzgvMHRpbGhjc3paenJEYVJ4NEo5Ci82UVRtVVI3a0ZTWUpOWTVQZkR3cGc3dlVvaDZmZ1Voam92VG42eHNVR0M2QURVODBpNXFlZWhNeVI1N2lmU2YKNHZpaXdIY3hnL3lZR1JBRS9mRTRqakxCdmdONjc2SU90S01rZXV3R0ljNDFhd05tNnNTSzRqYUNGeGpYSnZaZQp2by9kTlEybHhHWCtKT2l3SEhXbXNhdGp4WTRaNVk3R1ZoK0QrWnYvcW1mMFgvbVY0Rmo1NzV3ajFMWVBocWtsCmdhSXZYRyt4U1FVQ0F3RUFBYU5RTUU0d0hRWURWUjBPQkJZRUZPNG9OWkI3YXc1OUlsYkROMzhIYkduYnhFVjcKTUI4R0ExVWRJd1FZTUJhQUZPNG9OWkI3YXc1OUlsYkROMzhIYkduYnhFVjdNQXdHQTFVZEV3UUZNQU1CQWY4dwpEUVlKS29aSWh2Y05BUUVGQlFBRGdnRUJBRVhTMW9FU0lFaXdyMDhWcVA0K2NwTHI3TW5FMTducDBvMm14alFvCjRGb0RvRjdRZnZqeE04Tzd2TjB0clcxb2pGSW0vWDE4ZnZaL3k4ZzVaWG40Vm8zc3hKVmRBcStNZC9jTStzUGEKNmJjTkNUekZqeFpUV0UrKzE5NS9zb2dmOUZ3VDVDK3U2Q3B5N0M3MTZvUXRUakViV05VdEt4cXI0Nk1OZWNCMApwRFhWZmdWQTRadkR4NFo3S2RiZDY5eXM3OVFHYmg5ZW1PZ05NZFlsSUswSGt0ejF5WU4vbVpmK3FqTkJqbWZjCkNnMnlwbGQ0Wi8rUUNQZjl3SkoybFIrY2FnT0R4elBWcGxNSEcybzgvTHFDdnh6elZPUDUxeXdLZEtxaUMwSVEKQ0I5T2wwWW5scE9UNEh1b2hSUzBPOStlMm9KdFZsNUIyczRpbDlhZ3RTVXFxUlU9Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K"
   tls.key: "LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2UUlCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktjd2dnU2pBZ0VBQW9JQkFRQ2RhaURFZlZsZHdkbFIKd1V5eFpJWmVEZWNuTkFhbWh4d1NpeWF5N1AvOE9ta3NVQ3FCWmNpQ0RzZUh2dGtzbzlCSzhBZi9WemFhWm9zcApnZjYzUlZuZmNmVUlRQUN3WHhHVFhHMXJKVEVGSzhRSHA3VkpMcnpLUC9QOUxZcFlYTE0yYzZ3MmtjZUNmZitrCkU1bEVlNUJVbUNUV09UM3c4S1lPNzFLSWVuNEZJWTZMMDUrc2JGQmd1Z0ExUE5JdWFubm9UTWtlZTRuMG4rTDQKb3NCM01ZUDhtQmtRQlAzeE9JNHl3YjREZXUraURyU2pKSHJzQmlIT05Xc0RadXJFaXVJMmdoY1kxeWIyWHI2UAozVFVOcGNSbC9pVG9zQngxcHJHclk4V09HZVdPeGxZZmcvbWIvNnBuOUYvNWxlQlkrZStjSTlTMkQ0YXBKWUdpCkwxeHZzVWtGQWdNQkFBRUNnZ0VBZFhCK0xkbk8ySElOTGo5bWRsb25IUGlHWWVzZ294RGQwci9hQ1Zkank4dlEKTjIwL3FQWkUxek1yall6Ry9kVGhTMmMwc0QxaTBXSjdwR1lGb0xtdXlWTjltY0FXUTM5SjM0VHZaU2FFSWZWNgo5TE1jUHhNTmFsNjRLMFRVbUFQZytGam9QSFlhUUxLOERLOUtnNXNrSE5pOWNzMlY5ckd6VWlVZWtBL0RBUlBTClI3L2ZjUFBacDRuRWVBZmI3WTk1R1llb1p5V21SU3VKdlNyblBESGtUdW1vVlVWdkxMRHRzaG9reUxiTWVtN3oKMmJzVmpwSW1GTHJqbGtmQXlpNHg0WjJrV3YyMFRrdWtsZU1jaVlMbjk4QWxiRi9DSmRLM3QraTRoMTVlR2ZQegpoTnh3bk9QdlVTaDR2Q0o3c2Q5TmtEUGJvS2JneVVHOXBYamZhRGR2UVFLQmdRRFFLM01nUkhkQ1pKNVFqZWFKClFGdXF4cHdnNzhZTjQyL1NwenlUYmtGcVFoQWtyczJxWGx1MDZBRzhrZzIzQkswaHkzaE9zSGgxcXRVK3NHZVAKOWRERHBsUWV0ODZsY2FlR3hoc0V0L1R6cEdtNGFKSm5oNzVVaTVGZk9QTDhPTm1FZ3MxMVRhUldhNzZxelRyMgphRlpjQ2pWV1g0YnRSTHVwSkgrMjZnY0FhUUtCZ1FEQmxVSUUzTnNVOFBBZEYvL25sQVB5VWs1T3lDdWc3dmVyClUycXlrdXFzYnBkSi9hODViT1JhM05IVmpVM25uRGpHVHBWaE9JeXg5TEFrc2RwZEFjVmxvcG9HODhXYk9lMTAKMUdqbnkySmdDK3JVWUZiRGtpUGx1K09IYnRnOXFYcGJMSHBzUVpsMGhucDBYSFNYVm9CMUliQndnMGEyOFVadApCbFBtWmc2d1BRS0JnRHVIUVV2SDZHYTNDVUsxNFdmOFhIcFFnMU16M2VvWTBPQm5iSDRvZUZKZmcraEppSXlnCm9RN3hqWldVR3BIc3AyblRtcHErQWlSNzdyRVhsdlhtOElVU2FsbkNiRGlKY01Pc29RdFBZNS9NczJMRm5LQTQKaENmL0pWb2FtZm1nZEN0ZGtFMXNINE9MR2lJVHdEbTRpb0dWZGIwMllnbzFyb2htNUpLMUI3MkpBb0dBUW01UQpHNDhXOTVhL0w1eSt5dCsyZ3YvUHM2VnBvMjZlTzRNQ3lJazJVem9ZWE9IYnNkODJkaC8xT2sybGdHZlI2K3VuCnc1YytZUXRSTHlhQmd3MUtpbGhFZDBKTWU3cGpUSVpnQWJ0LzVPbnlDak9OVXN2aDJjS2lrQ1Z2dTZsZlBjNkQKckliT2ZIaHhxV0RZK2Q1TGN1YSt2NzJ0RkxhenJsSlBsRzlOZHhrQ2dZRUF5elIzT3UyMDNRVVV6bUlCRkwzZAp4Wm5XZ0JLSEo3TnNxcGFWb2RjL0d5aGVycjFDZzE2MmJaSjJDV2RsZkI0VEdtUjZZdmxTZEFOOFRwUWhFbUtKCnFBLzVzdHdxNWd0WGVLOVJmMWxXK29xNThRNTBxMmk1NVdUTThoSDZhTjlaMTltZ0FGdE5VdGNqQUx2dFYxdEYKWSs4WFJkSHJaRnBIWll2NWkwVW1VbGc9Ci0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0K"
 ```
-Now create the secrets using the file:
+では、このファイルを使ってSecretを作成します:
 
 ```shell
 kubectl apply -f nginxsecrets.yaml
@@ -337,25 +301,22 @@ NAME                  TYPE                                  DATA      AGE
 nginxsecret           kubernetes.io/tls                     2         1m
 ```
 
-Now modify your nginx replicas to start an https server using the certificate
-in the secret, and the Service, to expose both ports (80 and 443):
+Secretにある証明書を使ってhttpsサーバーを開始するために、nginxレプリカを変更します。また、Serviceは(80および443の)両方のポートを公開するようにします:
 
 {{< codenew file="service/networking/nginx-secure-app.yaml" >}}
 
-Noteworthy points about the nginx-secure-app manifest:
+nginx-secure-appマニフェストの注目すべきポイント:
 
-- It contains both Deployment and Service specification in the same file.
-- The [nginx server](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/default.conf)
-  serves HTTP traffic on port 80 and HTTPS traffic on 443, and nginx Service
-  exposes both ports.
-- Each container has access to the keys through a volume mounted at `/etc/nginx/ssl`.
-  This is set up *before* the nginx server is started.
+- DeploymentとServiceの指定の両方が同じファイルに含まれています。
+- [nginxサーバー](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/default.conf)は、ポート80でHTTPトラフィック、ポート443でHTTPSトラフィックをサービスし、nginx Serviceは両方のポートを公開します。
+- 各コンテナは、`/etc/nginx/ssl`にマウントされたボリューム経由で鍵にアクセスできます。
+  これはnginxサーバーが開始する*前*にセットアップされます。
 
 ```shell
 kubectl delete deployments,svc my-nginx; kubectl create -f ./nginx-secure-app.yaml
 ```
 
-At this point you can reach the nginx server from any node.
+この時点で、任意のノードからnginxサーバーに到達できます。
 
 ```shell
 kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
@@ -369,12 +330,10 @@ node $ curl -k https://10.244.3.5
 <h1>Welcome to nginx!</h1>
 ```
 
-Note how we supplied the `-k` parameter to curl in the last step, this is because
-we don't know anything about the pods running nginx at certificate generation time,
-so we have to tell curl to ignore the CName mismatch. By creating a Service we
-linked the CName used in the certificate with the actual DNS name used by pods
-during Service lookup. Let's test this from a pod (the same secret is being reused
-for simplicity, the pod only needs nginx.crt to access the Service):
+最後の手順でcurlに`-k`パラメーターを与えていることに注意してください。
+これは、証明書の生成時点ではnginxを実行中のPodについて何もわからないので、curlにCNameのミスマッチを無視するよう指示する必要があるからです。
+Serviceを作成することで、証明書で使われているCNameと、PodがServiceルックアップ時に使う実際のDNS名とがリンクされます。
+Podからこれをテストしてみましょう(単純化のため同じSecretが再利用されるので、ServiceにアクセスするのにPodが必要なのはnginx.crtだけです):
 
 {{< codenew file="service/networking/curlpod.yaml" >}}
 
@@ -393,13 +352,11 @@ kubectl exec curl-deployment-1515033274-1410r -- curl https://my-nginx --cacert 
 ...
 ```
 
-## Exposing the Service
+## Serviceの公開
 
-For some parts of your applications you may want to expose a Service onto an
-external IP address. Kubernetes supports two ways of doing this: NodePorts and
-LoadBalancers. The Service created in the last section already used `NodePort`,
-so your nginx HTTPS replica is ready to serve traffic on the internet if your
-node has a public IP.
+アプリケーションのいくつかの部分においては、Serviceを外部IPアドレスで公開したいと思うかもしれません。
+Kubernetesはこれに対して2つのやり方をサポートしています: NodePortsとLoadBalancersです。
+前のセクションで作成したServiceではすでに`NodePort`を使っていたので、ノードにパブリックIPアドレスがあれば、nginx HTTPSレプリカもトラフィックをインターネットでサービスする準備がすでに整っています。
 
 ```shell
 kubectl get svc my-nginx -o yaml | grep nodePort -C 5
@@ -436,8 +393,8 @@ $ curl https://<EXTERNAL-IP>:<NODE-PORT> -k
 <h1>Welcome to nginx!</h1>
 ```
 
-Let's now recreate the Service to use a cloud load balancer.
-Change the `Type` of `my-nginx` Service from `NodePort` to `LoadBalancer`:
+では、クラウドロードバランサーを使うために、Serviceを再作成してみましょう。
+`my-nginx`の`Type`を`NodePort`から`LoadBalancer`に変更してください:
 
 ```shell
 kubectl edit svc my-nginx
@@ -453,13 +410,12 @@ curl https://<EXTERNAL-IP> -k
 <title>Welcome to nginx!</title>
 ```
 
-The IP address in the `EXTERNAL-IP` column is the one that is available on the public internet.
-The `CLUSTER-IP` is only available inside your cluster/private cloud network.
+`EXTERNAL-IP`列のIPアドレスが、パブリックインターネットで利用可能なものになっています。
+`CLUSTER-IP`はクラスター/プライベートクラウドネットワーク内でのみ利用可能なものです。
 
-Note that on AWS, type `LoadBalancer` creates an ELB, which uses a (long)
-hostname, not an IP.  It's too long to fit in the standard `kubectl get svc`
-output, in fact, so you'll need to do `kubectl describe service my-nginx` to
-see it.  You'll see something like this:
+AWSにおいては、`LoadBalancer`タイプは、IPアドレスではなく(長い)ホスト名を使うELBを作成することに注意してください。
+これは標準の`kubectl get svc`の出力に合わせるには長すぎ、実際それを見るには`kubectl describe service my-nginx`を使う必要があります。
+これは以下のような見た目になります:
 
 ```shell
 kubectl describe service my-nginx
@@ -473,8 +429,6 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 ## {{% heading "whatsnext" %}}
 
 
-* Learn more about [Using a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/)
-* Learn more about [Connecting a Front End to a Back End Using a Service](/docs/tasks/access-application-cluster/connecting-frontend-backend/)
-* Learn more about [Creating an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)
-
-
+* [Serviceを利用したクラスター内のアプリケーションへのアクセス](/ja/docs/tasks/access-application-cluster/service-access-application-cluster/)を学びます。
+* [Serviceを使用してフロントエンドをバックエンドに接続する](/ja/docs/tasks/access-application-cluster/connecting-frontend-backend/)方法を学びます。
+* [Creating an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)を学びます。
