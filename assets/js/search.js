@@ -33,7 +33,6 @@ limitations under the License.
 
           var query = $(this).val();
           document.location = "{{ "search/" | absURL }}?q=" + query;
-
           return false;
         });
       });
