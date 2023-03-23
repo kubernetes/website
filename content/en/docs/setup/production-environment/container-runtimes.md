@@ -177,7 +177,8 @@ follow [configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/conf
 
 Your container runtime must support at least v1alpha2 of the container runtime interface.
 
-Kubernetes [starting v1.26](/blog/2022/11/18/upcoming-changes-in-kubernetes-1-26/#cri-api-removal) _only works_ with v1 of the CRI API. Earlier versions default
+Kubernetes [starting v1.26](/blog/2022/11/18/upcoming-changes-in-kubernetes-1-26/#cri-api-removal)
+_only works_ with v1 of the CRI API. Earlier versions default
 to v1 version, however if a container runtime does not support the v1 API, the kubelet falls back to
 using the (deprecated) v1alpha2 API instead.
 
@@ -256,9 +257,9 @@ sandbox image by setting the following config:
 You might need to restart `containerd` as well once you've updated the config file: `systemctl restart containerd`.
 
 Please note, that it is a best practice for kubelet to declare the matching `pod-infra-container-image`.
-If not configured, kubelet may attempt to Garbage Collect the `pause` image.
-There is ongoing work in [containerd to pin the pause image](https://github.com/containerd/containerd/issues/6352) and not require
-this setting on kubelet any longer.
+If not configured, kubelet may attempt to garbage collect the `pause` image.
+There is ongoing work in [containerd to pin the pause image](https://github.com/containerd/containerd/issues/6352)
+and not require this setting on kubelet any longer.
 
 ### CRI-O
 
