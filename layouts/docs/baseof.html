@@ -17,10 +17,10 @@
     <div class="container-fluid td-outer">
       <div class="td-main">
         <div class="row flex-md-nowrap">
-          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+          <div class="col- col- col- td-sidebar d-print-none">
             {{ partial "sidebar.html" . }}
           </div>
-          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+          <main class="col- col- col- pl-md-5" role="main">
             {{ if not .Site.Params.ui.breadcrumb_disable }}{{ partial "breadcrumb.html" . }}{{ end }}
             {{ block "deprecated" . }}
               {{ partial "deprecation-warning.html" . }}
