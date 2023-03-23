@@ -39,6 +39,7 @@ complete -o default -F __start_kubectl k
 source <(kubectl completion zsh)  # set up autocomplete in zsh into the current shell
 echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc # add autocomplete permanently to your zsh shell
 ```
+
 ### A note on `--all-namespaces`
 
 Appending `--all-namespaces` happens frequently enough that you should be aware of the shorthand for `--all-namespaces`:
@@ -88,6 +89,21 @@ kubectl config unset users.foo                       # delete user foo
 # short alias to set/show context/namespace (only works for bash and bash-compatible shells, current context to be set before using kn to set namespace) 
 alias kx='f() { [ "$1" ] && kubectl config use-context $1 || kubectl config current-context ; } ; f'
 alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 || kubectl config view --minify | grep namespace | cut -d" " -f6 ; } ; f'
+
+# the following aliases can be used to run common commands faster.
+alias kgp='kubectl get pod -owide'
+alias kgs='kubectl get service -owide'
+alias kgd='kubectl get deploy -owide'
+alias kd='kubectl describe'
+alias kg='kubectl get -owide'
+alias ka='kubectl apply -f'
+alias kex='kubectl exec -it'
+alias ke='kubectl edit'
+export dry='--dry-run=client -oyaml'
+export y='-oyaml'
+export w='-owide'
+export j='-ojson'
+export force='--force --grace-period=0'
 ```
 
 ## Kubectl apply
