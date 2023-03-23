@@ -49,7 +49,7 @@ deletionPolicyが`Delete`の場合、元となるストレージスナップシ�
 
 ## Parameters
 
-VolumeSnapshotClassは、そのクラスに属するVolumeSnapshotを指定するパラメータを持っています。
-`driver`に応じて様々なパラメータを使用できます。
+VolumeSnapshotClassは、そのクラスに属するVolumeSnapshotを指定するパラメーターを持っています。
+`driver`に応じて様々なパラメーターを使用できます。
 
 
