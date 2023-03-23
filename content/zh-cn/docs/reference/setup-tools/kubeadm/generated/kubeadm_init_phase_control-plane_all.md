@@ -175,13 +175,12 @@ Don't apply any changes; just output what would be done.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for various features. Options are:<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>UnversionedKubeletConfigMap=true|false (default=true)
+A set of key=value pairs that describe feature gates for various features. Options are:<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)
 -->
 <p>
 一组用来描述各种特性门控的键值（key=value）对。选项是：
 <br/>PublicKeysECDSA=true|false (ALPHA - 默认值=false)
 <br/>RootlessControlPlane=true|false (ALPHA - 默认值=false)
-<br/>UnversionedKubeletConfigMap=true|false (默认值=true)
 </p>
 </td>
 </tr>
