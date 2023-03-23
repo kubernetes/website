@@ -301,7 +301,7 @@ the control plane replaces the existing etcd allocator with a new one, using IPA
 objects instead of an internal global allocation map.  The ClusterIP address
 associated to each `Service` will have a referenced IPAddress object.
 
-The background allocator is also replaced by a new one to handle the new IPAddress
+The background controller is also replaced by a new one to handle the new IPAddress
 objects and the migration from the old allocator model.
 
 One of the main benefits of the new allocator is that it removes the size limitations
