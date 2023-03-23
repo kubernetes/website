@@ -19,6 +19,8 @@ This page shows how to enable and configure encryption of secret data at rest.
 
 * To encrypt a custom resource, your cluster must be running Kubernetes v1.26 or newer.
 
+* Use of wildcard for resource encryption is available from Kubernetes v1.27 or newer.
+
 
 <!-- steps -->
 
@@ -63,6 +65,24 @@ resources:
           keys:
             - name: key1
               secret: YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXoxMjM0NTY=
+  - resources:
+      - events
+    providers:
+      - identity: {} # do not encrypt events even though  *.* is specified below
+  - resources:
+      - '*.apps'
+    providers:
+      - aescbc:
+          keys:
+          - name: key2
+            secret: c2VjcmV0IGlzIHNlY3VyZSwgb3IgaXMgaXQ/Cg==
+  - resources:
+      - '*.*'
+    providers:
+      - aescbc:
+          keys:
+          - name: key3
+            secret: c2VjcmV0IGlzIHNlY3VyZSwgSSB0aGluaw==
 ```
 
 Each `resources` array item is a separate config and contains a complete configuration. The
@@ -83,6 +103,29 @@ The first provider in the list is used to encrypt resources written into the sto
 resources from storage, each provider that matches the stored data attempts in order to decrypt the
 data. If no provider can read the stored data due to a mismatch in format or secret key, an error
 is returned which prevents clients from accessing that resource.
+
+`EncryptionConfiguration` supports the use of wildcards to specify the resources that should be encrypted.
+Use '`*.<group>`' to encrypt all resources within a group (for eg '`*.apps`' in above example) or '`*.*`'
+to encrypt all resources. '`*.`' can be used to encrypt all resource in the core group. '`*.*`' will
+encrypt all resources, even custom resources that are added after API server start. 
+
+{{< note >}} Use of wildcards that overlap within the same resource list or across multiple entries are not allowed
+since part of the configuration would be ineffective. The `resources` list's processing order and precedence
+are determined by the order it's listed in the configuration. {{< /note >}}
+
+Opting out of encryption for specific resources while wildcard is enabled can be achieved by adding a new
+`resources` array item with the resource name, followed by the `providers` array item with the `identity` provider.
+For example, if '`*.*`' is enabled and you want to opt-out encryption for the `events` resource, add a new item
+to the `resources` array with `events` as the resource name, followed by the providers array item with `identity`.
+The new item should look like this:
+
+```yaml
+- resources:
+    - events
+  providers:
+    - identity: {}
+```
+Ensure that the new item is listed before the wildcard '`*.*`' item in the resources array to give it precedence.
 
 For more detailed information about the `EncryptionConfiguration` struct, please refer to the
 [encryption configuration API](/docs/reference/config-api/apiserver-encryption.v1/).
