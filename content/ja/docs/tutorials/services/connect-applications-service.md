@@ -355,7 +355,7 @@ kubectl exec curl-deployment-1515033274-1410r -- curl https://my-nginx --cacert 
 ## Serviceの公開
 
 アプリケーションのいくつかの部分においては、Serviceを外部IPアドレスで公開したいと思うかもしれません。
-Kubernetesはこれに対して2つのやり方をサポートしています: NodePortsとLoadBalancersです。
+Kubernetesはこれに対して2つのやり方をサポートしています: NodePortとLoadBalancerです。
 前のセクションで作成したServiceではすでに`NodePort`を使っていたので、ノードにパブリックIPアドレスがあれば、nginx HTTPSレプリカもトラフィックをインターネットでサービスする準備がすでに整っています。
 
 ```shell
