@@ -276,7 +276,7 @@ use this option only if you have more than one CRI installed or if you have non-
 <!-- 
 Don't apply any changes; just output what would be done. 
 -->
-不会应用任何改动，仅仅输出那些将变动的地方。
+不做任何更改；只输出将要执行的操作。
 </p></td>
 </tr>
 
