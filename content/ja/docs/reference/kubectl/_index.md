@@ -68,25 +68,25 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 ## クラスター内認証と名前空間のオーバーライド {#in-cluster-authentication-and-namespace-overrides}
 
-デフォルトでは、`kubectl`は最初にPod内で動作しているか、つまりクラスター内で動作しているかを判断します。まず、`KUBERNETES_SERVICE_HOST`と`KUBERNETES_SERVICE_PORT`の環境変数を確認し、サービスアカウントのトークンファイルが`/var/run/secrets/kubernetes.io/serviceaccount/token`に存在するかどうかを確認します。3つともクラスター内で見つかった場合、クラスター内認証とみなされます。
+デフォルトでは、`kubectl`は最初にPod内で動作しているか、つまりクラスター内で動作しているかどうかを判断します。まず、`KUBERNETES_SERVICE_HOST`と`KUBERNETES_SERVICE_PORT`の環境変数を確認し、サービスアカウントのトークンファイルが`/var/run/secrets/kubernetes.io/serviceaccount/token`に存在するかどうかを確認します。3つともクラスター内で見つかった場合、クラスター内認証とみなされます。
 
 後方互換性を保つため、クラスター内認証時に`POD_NAMESPACE`環境変数が設定されている場合には、サービスアカウントトークンのデフォルトの名前空間が上書きされます。名前空間のデフォルトに依存しているすべてのマニフェストやツールは、この影響を受けます。
 
 **`POD_NAMESPACE`環境変数**
 
-`POD_NAMESPACE`環境変数が設定されている場合、名前空間に属するリソースのCLI操作は、デフォルトで環境変数の値になります。これは、Podが名前空間に属するリソースであり、コマンドで名前空間が指定されていないためです。`kubectl api-resources`の出力を見て、リソースが名前空間に属するかどうかを判断してください。
+`POD_NAMESPACE`環境変数が設定されている場合、名前空間に属するリソースのCLI操作は、デフォルトで環境変数の値になります。例えば、変数に`seattle`が設定されている場合、`kubectl get pods`は、`seattle`名前空間のPodを返します。これは、Podが名前空間に属するリソースであり、コマンドで名前空間が指定されていないためです。`kubectl api-resources`の出力を見て、リソースが名前空間に属するかどうかを判断してください。
 
 明示的に`--namespace <value>`を使用すると、この動作は上書きされます。
 
 **kubectlによるServiceAccountトークンの処理方法**
 
-以下の条件がすべて成立した場合、kubectlはクラスターで実行されているとみなします。
+以下の条件がすべて成立した場合、
 * `/var/run/secrets/kubernetes.io/serviceaccount/token`にマウントされたKubernetesサービスアカウントのトークンファイルがある
 * `KUBERNETES_SERVICE_HOST`環境変数が設定されている
 * `KUBERNETES_SERVICE_PORT`環境変数が設定されている
 * kubectlコマンドラインで名前空間を明示的に指定しない
 
-kubectlツールは、そのServiceAccountの名前空間(これはPodの名前空間と同じです)を検索し、その名前空間に対して機能します。これは、クラスターの外の動作とは異なります。kubectlがクラスターの外で実行され、名前空間を指定しない場合、kubectlコマンドは、クライアント構成の現在のコンテキストに設定されている名前空間に対して動作します。kubectlのデフォルトの名前空間を変更するには、次のコマンドを使用できます。
+kubectlはクラスター内で実行されているとみなして、そのServiceAccountの名前空間(これはPodの名前空間と同じです)を検索し、その名前空間に対して機能します。これは、クラスターの外の動作とは異なります。kubectlがクラスターの外で実行され、名前空間を指定しない場合、kubectlコマンドは、クライアント構成の現在のコンテキストに設定されている名前空間に対して動作します。kubectlのデフォルトの名前空間を変更するには、次のコマンドを使用できます。
 
 ```shell
 kubectl config set-context --current --namespace=<namespace-name>
