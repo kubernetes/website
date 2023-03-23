@@ -304,6 +304,25 @@ associated to each `Service` will have a referenced IPAddress object.
 The background allocator is also replaced by a new one to handle the new IPAddress
 objects and the migration from the old allocator model.
 
+One of the main benefits of the new allocator is that it removes the size limitations
+for the `service-cluster-ip-range`, there is no limitations for IPv4 and for IPv6
+users can use masks equal or larger than /64 (previously it was /108).
+
+Users now will be able to inspect the IP addresses assigned to their Services, and
+new network APIs, like Gateway API, can use this new object to extend the Kubernetes
+networking capabilities overcoming the limitations of current Services API.
+
+```bash
+$ kubectl get services
+NAME         TYPE        CLUSTER-IP        EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   2001:db8:1:2::1   <none>        443/TCP   3d1h
+
+$ kubectl get ipaddresses
+NAME              PARENTREF
+2001:db8:1:2::1   services/default/kubernetes
+2001:db8:1:2::a   services/kube-system/kube-dns
+```
+
 #### IP address ranges for Service virtual IP addresses {#service-ip-static-sub-range}
 
 {{< feature-state for_k8s_version="v1.25" state="beta" >}}
