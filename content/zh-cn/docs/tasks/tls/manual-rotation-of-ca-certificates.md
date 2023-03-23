@@ -16,7 +16,7 @@ This page shows how to manually rotate the certificate authority (CA) certificat
 
 ## {{% heading "prerequisites" %}}
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}}
 
 <!--
 - For more information about authentication in Kubernetes, see
@@ -55,22 +55,22 @@ Configurations with a single API server will experience unavailability while the
 {{< /caution >}}
 
 <!--
-1. Distribute the new CA certificates and private keys
-   (for example: `ca.crt`, `ca.key`, `front-proxy-ca.crt`, and `front-proxy-ca.key`)
-   to all your control plane nodes in the Kubernetes certificates directory.
+1. Distribute the new CA certificates and private keys (for example: `ca.crt`, `ca.key`, `front-proxy-ca.crt`,
+   and `front-proxy-ca.key`) to all your control plane nodes in the Kubernetes certificates directory.
 -->
 1. 将新的 CA 证书和私钥（例如：`ca.crt`、`ca.key`、`front-proxy-ca.crt` 和
    `front-proxy-client.key`）分发到所有控制面节点，放在其 Kubernetes 证书目录下。
 
 <!--
 1. Update the `--root-ca-file` flag for the {{< glossary_tooltip term_id="kube-controller-manager" >}} to include
-   both old and new CA. Then restart the component.
+   both old and new CA, then restart the kube-controller-manager.
 
    Any {{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}} created after this point will get
    Secrets that include both old and new CAs.
 -->
 2. 更新 {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}
-   的 `--root-ca-file` 标志，使之同时包含老的和新的 CA，之后重启组件。
+   的 `--root-ca-file` 标志，使之同时包含老的和新的 CA，之后重启
+   kube-controller-manager。
 
    自此刻起，所创建的所有{{< glossary_tooltip text="ServiceAccount" term_id="service-account" >}}
    都会获得同时包含老的 CA 和新的 CA 的 Secret。
@@ -79,9 +79,9 @@ Configurations with a single API server will experience unavailability while the
    <!--
    The files specified by the kube-controller-manager flags `--client-ca-file` and `--cluster-signing-cert-file`
    cannot be CA bundles. If these flags and `--root-ca-file` point to the same `ca.crt` file which is now a
-   bundle (includes both old and new CA) you will face an error. To workaround this problem you can copy the new CA to a separate
-   file and make the flags `--client-ca-file` and `--cluster-signing-cert-file` point to the copy. Once `ca.crt` is no longer
-   a bundle you can restore the problem flags to point to `ca.crt` and delete the copy.
+   bundle (includes both old and new CA) you will face an error. To workaround this problem you can copy the new CA
+   to a separate file and make the flags `--client-ca-file` and `--cluster-signing-cert-file` point to the copy.
+   Once `ca.crt` is no longer a bundle you can restore the problem flags to point to `ca.crt` and delete the copy.
    -->
    kube-controller-manager 标志 `--client-ca-file` 和 `--cluster-signing-cert-file`
    所引用的文件不能是 CA 证书包。如果这些标志和 `--root-ca-file` 指向同一个 `ca.crt` 包文件
@@ -99,7 +99,7 @@ Configurations with a single API server will experience unavailability while the
    {{< /note >}}
 
 <!--
-1. Wait for the controller manager to update ca.crt in the service account Secrets to include both old and new CA certificates.
+1. Wait for the controller manager to update `ca.crt` in the service account Secrets to include both old and new CA certificates.
 
 If any Pods are started before new CA is used by API servers, the new Pods get this update and will trust both old and new CAs.
 -->
@@ -114,10 +114,10 @@ If any Pods are started before new CA is used by API servers, the new Pods get t
 
    * Make sure CoreDNS, kube-proxy and other Pods using in-cluster configurations are working as expected.
 
-1. Append the both old and new CA to the file against `-client-ca-file` and `-kubelet-certificate-authority`
+1. Append the both old and new CA to the file against `--client-ca-file` and `--kubelet-certificate-authority`
    flag in the `kube-apiserver` configuration.
 
-1. Append the both old and new CA to the file against `-client-ca-file` flag in the `kube-scheduler` configuration.
+1. Append the both old and new CA to the file against `--client-ca-file` flag in the `kube-scheduler` configuration.
 -->
 4. 重启所有使用集群内配置的 Pod（例如：kube-proxy、CoreDNS 等），以便这些 Pod
    能够使用与 ServiceAccount 相关联的 Secret 中的、已更新的证书机构数据。
@@ -161,17 +161,17 @@ If any Pods are started before new CA is used by API servers, the new Pods get t
    {{< /note >}}
 
 <!--
-1. Follow below steps in a rolling fashion.
+1. Follow the steps below in a rolling fashion.
 
    1. Restart any other
       [aggregated API servers](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) or
       webhook handlers to trust the new CA certificates.
 
    1. Restart the kubelet by update the file against `clientCAFile` in kubelet configuration and
-      `certificate-authority-data` in kubelet.conf to use both the old and new CA on all nodes.
+      `certificate-authority-data` in `kubelet.conf` to use both the old and new CA on all nodes.
 
-      If your kubelet is not using client certificate rotation update `client-certificate-data` and
-      `client-key-data` in kubelet.conf on all nodes along with the kubelet client certificate file
+      If your kubelet is not using client certificate rotation, update `client-certificate-data` and
+      `client-key-data` in `kubelet.conf` on all nodes along with the kubelet client certificate file
       usually found in `/var/lib/kubelet/pki`.
 -->
 9. 遵循下列步骤执行滚动更新
@@ -179,10 +179,10 @@ If any Pods are started before new CA is used by API servers, the new Pods get t
    1. 重新启动所有其他[被聚合的 API 服务器](/zh-cn/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/)
       或者 Webhook 处理程序，使之信任新的 CA 证书。
 
-   1. 在所有节点上更新 kubelet 配置中的 `clientCAFile` 所指文件以及 kubelet.conf 中的
+   2. 在所有节点上更新 kubelet 配置中的 `clientCAFile` 所指文件以及 `kubelet.conf` 中的
       `certificate-authority-data` 并重启 kubelet 以同时使用老的和新的 CA 证书。
 
-      如果你的 kubelet 并未使用客户端证书轮换，则在所有节点上更新 kubelet.conf 中
+      如果你的 kubelet 并未使用客户端证书轮换，则在所有节点上更新 `kubelet.conf` 中
       `client-certificate-data` 和 `client-key-data` 以及 kubelet
       客户端证书文件（通常位于 `/var/lib/kubelet/pki` 目录下）
 
@@ -274,7 +274,7 @@ If any Pods are started before new CA is used by API servers, the new Pods get t
 1. Verify the cluster functionality.
 
    1. Check the logs from control plane components, along with the kubelet and the kube-proxy.
-       Ensure those components are not reporting any TLS errors, see
+       Ensure those components are not reporting any TLS errors; see
        [looking at the logs](/docs/tasks/debug/debug-cluster/#looking-at-logs) for more details.
 
    1. Validate logs from any aggregated api servers and pods using in-cluster config.
@@ -291,7 +291,7 @@ If any Pods are started before new CA is used by API servers, the new Pods get t
 
    1. Update all service account tokens to include new CA certificate only.
 
-      * All pods using an in-cluster kubeconfig will eventually need to be restarted to pick up the new secret,
+      * All pods using an in-cluster kubeconfig will eventually need to be restarted to pick up the new Secret,
         so that no Pods are relying on the old cluster CA.
 
    1. Restart the control plane components by removing the old CA from the kubeconfig files and the files against `--client-ca-file`, `--root-ca-file` flags resp.

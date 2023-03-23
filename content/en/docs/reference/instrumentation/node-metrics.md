@@ -37,17 +37,11 @@ kubelet endpoint, and not `/stats/summary`.
 ## Summary metrics API source {#summary-api-source}
 
 By default, Kubernetes fetches node summary metrics data using an embedded
-[cAdvisor](https://github.com/google/cadvisor) that runs within the kubelet.
-
-## Summary API data via CRI {#pod-and-container-stats-from-cri}
-
-{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
-
-If you enable the `PodAndContainerStatsFromCRI`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) in your
-cluster, and you use a container runtime that supports statistics access via
+[cAdvisor](https://github.com/google/cadvisor) that runs within the kubelet. If you 
+enable the `PodAndContainerStatsFromCRI` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
+in your cluster, and you use a container runtime that supports statistics access via
 {{< glossary_tooltip term_id="cri" text="Container Runtime Interface">}} (CRI), then
-the kubelet fetches Pod- and container-level metric data using CRI, and not via cAdvisor.
+the kubelet [fetches Pod- and container-level metric data using CRI](/docs/reference/instrumentation/cri-pod-container-metrics), and not via cAdvisor.
 
 ## {{% heading "whatsnext" %}}
 

@@ -3,7 +3,7 @@ reviewers:
 - cdrage
 title: Translate a Docker Compose File to Kubernetes Resources
 content_type: task
-weight: 200
+weight: 230
 ---
 
 <!-- overview -->
@@ -129,34 +129,22 @@ you need is an existing `docker-compose.yml` file.
    The output is similar to:
 
    ```none
-   INFO Kubernetes file "frontend-service.yaml" created
-      INFO Kubernetes file "frontend-service.yaml" created
-   INFO Kubernetes file "frontend-service.yaml" created
-   INFO Kubernetes file "redis-master-service.yaml" created
-      INFO Kubernetes file "redis-master-service.yaml" created
-   INFO Kubernetes file "redis-master-service.yaml" created
-   INFO Kubernetes file "redis-slave-service.yaml" created
-      INFO Kubernetes file "redis-slave-service.yaml" created
-   INFO Kubernetes file "redis-slave-service.yaml" created
-   INFO Kubernetes file "frontend-deployment.yaml" created
-      INFO Kubernetes file "frontend-deployment.yaml" created
-   INFO Kubernetes file "frontend-deployment.yaml" created
-   INFO Kubernetes file "redis-master-deployment.yaml" created
-      INFO Kubernetes file "redis-master-deployment.yaml" created
-   INFO Kubernetes file "redis-master-deployment.yaml" created
-   INFO Kubernetes file "redis-slave-deployment.yaml" created
-      INFO Kubernetes file "redis-slave-deployment.yaml" created
+   INFO Kubernetes file "frontend-tcp-service.yaml" created 
+   INFO Kubernetes file "redis-master-service.yaml" created 
+   INFO Kubernetes file "redis-slave-service.yaml" created 
+   INFO Kubernetes file "frontend-deployment.yaml" created 
+   INFO Kubernetes file "redis-master-deployment.yaml" created 
    INFO Kubernetes file "redis-slave-deployment.yaml" created
    ```
 
    ```bash
-    kubectl apply -f frontend-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
+    kubectl apply -f frontend-tcp-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
    ```
 
    The output is similar to:
 
    ```none
-   service/frontend created
+   service/frontend-tcp created
    service/redis-master created
    service/redis-slave created
    deployment.apps/frontend created
@@ -181,24 +169,44 @@ you need is an existing `docker-compose.yml` file.
    ```
 
    ```none
-   Name:                   frontend
-   Namespace:              default
-   Labels:                 service=frontend
-   Selector:               service=frontend
-   Type:                   LoadBalancer
-   IP:                     10.0.0.183
-   LoadBalancer Ingress:   192.0.2.89
-   Port:                   80      80/TCP
-   NodePort:               80      31144/TCP
-   Endpoints:              172.17.0.4:80
-   Session Affinity:       None
-   No events.
+   Name:                     frontend-tcp
+   Namespace:                default
+   Labels:                   io.kompose.service=frontend-tcp
+   Annotations:              kompose.cmd: kompose convert
+                             kompose.service.type: LoadBalancer
+                             kompose.version: 1.26.0 (40646f47)
+   Selector:                 io.kompose.service=frontend
+   Type:                     LoadBalancer
+   IP Family Policy:         SingleStack
+   IP Families:              IPv4
+   IP:                       10.43.67.174
+   IPs:                      10.43.67.174
+   Port:                     80  80/TCP
+   TargetPort:               80/TCP
+   NodePort:                 80  31254/TCP
+   Endpoints:                10.42.0.25:80
+   Session Affinity:         None
+   External Traffic Policy:  Cluster
+   Events:
+     Type    Reason                Age   From                Message
+     ----    ------                ----  ----                -------
+     Normal  EnsuringLoadBalancer  62s   service-controller  Ensuring load balancer
+     Normal  AppliedDaemonSet      62s   service-controller  Applied LoadBalancer DaemonSet kube-system/svclb-frontend-tcp-9362d276
    ```
 
    If you're using a cloud provider, your IP will be listed next to `LoadBalancer Ingress`.
 
    ```sh
    curl http://192.0.2.89
+   ```
+   
+4. Clean-up.
+
+   After you are finished testing out the example application deployment, simply run the following command in your shell to delete the
+   resources used.
+   
+   ```sh
+   kubectl delete -f frontend-tcp-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
    ```
 
 <!-- discussion -->

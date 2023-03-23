@@ -76,6 +76,20 @@ the host's default interface will be used.
 </tr>
 
 <tr>
+<td colspan="2">--aggregator-reject-forwarding-redirect&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：true</td>
+</tr>
+<tr>
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Aggregator reject forwarding redirect response back to client.
+-->
+<p>聚合器拒绝将重定向响应转发回客户端。</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--allow-metric-labels stringToString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：[]</td>
 </tr>
 <tr>
@@ -833,15 +847,21 @@ Number of workers spawned for DeleteCollection call. These are used to speed up 
 <tr>
 <td colspan="2">--disable-admission-plugins strings</td>
 </tr>
-<tr>
 
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<tr>
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <!--
-<p>admission plugins that should be disabled although they are in the default enabled plugins list (NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, PodSecurity, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, MutatingAdmissionWebhook, ValidatingAdmissionWebhook, ResourceQuota). Comma-delimited list of admission plugins: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyServiceExternalIPs, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PersistentVolumeLabel, PodNodeSelector, PodSecurity, PodTolerationRestriction, Priority, ResourceQuota, RuntimeClass, SecurityContextDeny, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionWebhook. The order of plugins in this flag does not matter.</p>
+admission plugins that should be disabled although they are in the default enabled plugins list (NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, PodSecurity, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, MutatingAdmissionWebhook, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook, ResourceQuota).
+Comma-delimited list of admission plugins: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyServiceExternalIPs, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PersistentVolumeLabel, PodNodeSelector, PodSecurity, PodTolerationRestriction, Priority, ResourceQuota, RuntimeClass, SecurityContextDeny, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook.
+The order of plugins in this flag does not matter.
 -->
-<p>尽管位于默认启用的插件列表中（NamespaceLifecycle、LimitRanger、ServiceAccount、TaintNodesByCondition、PodSecurity、Priority、DefaultTolerationSeconds、DefaultStorageClass、StorageObjectInUseProtection、PersistentVolumeClaimResize、RuntimeClass、CertificateApproval、CertificateSigning、CertificateSubjectRestriction、DefaultIngressClass、MutatingAdmissionWebhook、ValidatingAdmissionWebhook、ResourceQuota）仍须被禁用的插件。
-<br/>取值为逗号分隔的准入插件列表：AlwaysAdmit、AlwaysDeny、AlwaysPullImages、CertificateApproval、CertificateSigning、CertificateSubjectRestriction、DefaultIngressClass、DefaultStorageClass、DefaultTolerationSeconds、DenyServiceExternalIPs、EventRateLimit、ExtendedResourceToleration、ImagePolicyWebhook、LimitPodHardAntiAffinityTopology、LimitRanger、MutatingAdmissionWebhook、NamespaceAutoProvision、NamespaceExists、NamespaceLifecycle、NodeRestriction、OwnerReferencesPermissionEnforcement、PersistentVolumeClaimResize、PersistentVolumeLabel、PodNodeSelector、PodSecurity、PodTolerationRestriction、Priority、ResourceQuota、RuntimeClass、SecurityContextDeny、ServiceAccount、StorageObjectInUseProtection、TaintNodesByCondition、ValidatingAdmissionWebhook。
-<br/>该标志中插件的顺序无关紧要。</p>
+<p>
+尽管位于默认启用的插件列表中，仍须被禁用的准入插件（NamespaceLifecycle、LimitRanger、ServiceAccount、TaintNodesByCondition、PodSecurity、Priority、DefaultTolerationSeconds、DefaultStorageClass、StorageObjectInUseProtection、PersistentVolumeClaimResize、RuntimeClass、CertificateApproval、CertificateSigning、CertificateSubjectRestriction、DefaultIngressClass、MutatingAdmissionWebhook、ValidatingAdmissionPolicy、ValidatingAdmissionWebhook、ResourceQuota）。
+取值为逗号分隔的准入插件列表：AlwaysAdmit、AlwaysDeny、AlwaysPullImages、CertificateApproval、CertificateSigning、CertificateSubjectRestriction、DefaultIngressClass、DefaultStorageClass、DefaultTolerationSeconds、DenyServiceExternalIPs、EventRateLimit、ExtendedResourceToleration、ImagePolicyWebhook、LimitPodHardAntiAffinityTopology、LimitRanger、MutatingAdmissionWebhook、NamespaceAutoProvision、NamespaceExists、NamespaceLifecycle、NodeRestriction、OwnerReferencesPermissionEnforcement、PersistentVolumeClaimResize、PersistentVolumeLabel、PodNodeSelector、PodSecurity、PodTolerationRestriction、Priority、ResourceQuota、RuntimeClass、SecurityContextDeny、ServiceAccount、StorageObjectInUseProtection、TaintNodesByCondition、ValidatingAdmissionPolicy、ValidatingAdmissionWebhook。
+该标志中插件的顺序无关紧要。
+</p>
 </td>
 </tr>
 
@@ -874,14 +894,18 @@ File with apiserver egress selector configuration.
 <tr>
 <td colspan="2">--enable-admission-plugins strings</td>
 </tr>
+
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <!--
-<p>admission plugins that should be enabled in addition to default enabled ones (NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, PodSecurity, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, MutatingAdmissionWebhook, ValidatingAdmissionWebhook, ResourceQuota). Comma-delimited list of admission plugins: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyServiceExternalIPs, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PersistentVolumeLabel, PodNodeSelector, PodSecurity, PodTolerationRestriction, Priority, ResourceQuota, RuntimeClass, SecurityContextDeny, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionWebhook. The order of plugins in this flag does not matter.</p>
+admission plugins that should be enabled in addition to default enabled ones (NamespaceLifecycle, LimitRanger, ServiceAccount, TaintNodesByCondition, PodSecurity, Priority, DefaultTolerationSeconds, DefaultStorageClass, StorageObjectInUseProtection, PersistentVolumeClaimResize, RuntimeClass, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, MutatingAdmissionWebhook, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook, ResourceQuota). Comma-delimited list of admission plugins: AlwaysAdmit, AlwaysDeny, AlwaysPullImages, CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, DenyServiceExternalIPs, EventRateLimit, ExtendedResourceToleration, ImagePolicyWebhook, LimitPodHardAntiAffinityTopology, LimitRanger, MutatingAdmissionWebhook, NamespaceAutoProvision, NamespaceExists, NamespaceLifecycle, NodeRestriction, OwnerReferencesPermissionEnforcement, PersistentVolumeClaimResize, PersistentVolumeLabel, PodNodeSelector, PodSecurity, PodTolerationRestriction, Priority, ResourceQuota, RuntimeClass, SecurityContextDeny, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook. The order of plugins in this flag does not matter.
 -->
-<p>除了默认启用的插件（NamespaceLifecycle、LimitRanger、ServiceAccount、TaintNodesByCondition、PodSecurity、Priority、DefaultTolerationSeconds、DefaultStorageClass、StorageObjectInUseProtection、PersistentVolumeClaimResize、RuntimeClass、CertificateApproval、CertificateSigning、CertificateSubjectRestriction、DefaultIngressClass、MutatingAdmissionWebhook、ValidatingAdmissionWebhook、ResourceQuota）之外要启用的插件
-</br>取值为逗号分隔的准入插件列表：AlwaysAdmit、AlwaysDeny、AlwaysPullImages、CertificateApproval、CertificateSigning、CertificateSubjectRestriction、DefaultIngressClass、DefaultStorageClass、DefaultTolerationSeconds、DenyServiceExternalIPs、EventRateLimit、ExtendedResourceToleration、ImagePolicyWebhook、LimitPodHardAntiAffinityTopology、LimitRanger、MutatingAdmissionWebhook、NamespaceAutoProvision、NamespaceExists、NamespaceLifecycle、NodeRestriction、OwnerReferencesPermissionEnforcement、PersistentVolumeClaimResize、PersistentVolumeLabel、PodNodeSelector、PodSecurity、PodTolerationRestriction、Priority、ResourceQuota、RuntimeClass、SecurityContextDeny、ServiceAccount、StorageObjectInUseProtection、TaintNodesByCondition、ValidatingAdmissionWebhook</p>
-<br/>该标志中插件的顺序无关紧要。
+<p>
+除了默认启用的插件（NamespaceLifecycle、LimitRanger、ServiceAccount、TaintNodesByCondition、PodSecurity、Priority、DefaultTolerationSeconds、DefaultStorageClass、StorageObjectInUseProtection、PersistentVolumeClaimResize、RuntimeClass、CertificateApproval、CertificateSigning、CertificateSubjectRestriction、DefaultIngressClass、MutatingAdmissionWebhook、ValidatingAdmissionPolicy、ValidatingAdmissionWebhook、ResourceQuota）之外要启用的准入插件。
+取值为逗号分隔的准入插件列表：AlwaysAdmit、AlwaysDeny、AlwaysPullImages、CertificateApproval、CertificateSigning、CertificateSubjectRestriction、DefaultIngressClass、DefaultStorageClass、DefaultTolerationSeconds、DenyServiceExternalIPs、EventRateLimit、ExtendedResourceToleration、ImagePolicyWebhook、LimitPodHardAntiAffinityTopology、LimitRanger、MutatingAdmissionWebhook、NamespaceAutoProvision、NamespaceExists、NamespaceLifecycle、NodeRestriction、OwnerReferencesPermissionEnforcement、PersistentVolumeClaimResize、PersistentVolumeLabel、PodNodeSelector、PodSecurity、PodTolerationRestriction、Priority、ResourceQuota、RuntimeClass、SecurityContextDeny、ServiceAccount、StorageObjectInUseProtection、TaintNodesByCondition、ValidatingAdmissionPolicy、ValidatingAdmissionWebhook。该标志中插件的顺序无关紧要。
+</p>
 </td>
 </tr>
 
@@ -948,6 +972,23 @@ and dispatches with priority and fairness
 The file containing configuration for encryption providers to be used for storing secrets in etcd
 -->
 包含加密提供程序配置信息的文件，用在 etcd 中所存储的 Secret 上。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--encryption-provider-config-automatic-reload</td>
+</tr>
+<tr>
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Determines if the file set by --encryption-provider-config should be automatically reloaded if the disk contents change. Setting this to true disables the ability to uniquely identify distinct KMS plugins via the API server healthz endpoints.
+-->
+<p>
+确定由 --encryption-provider-config 设置的文件是否应在磁盘内容更改时自动重新加载。
+将此标志设置为 true 将禁用通过 API 服务器 healthz 端点来唯一地标识不同 KMS 插件的能力。
+</p>
 </td>
 </tr>
 
@@ -1140,44 +1181,47 @@ comma-separated 'key=True|False' pairs
 -->
 逗号分隔的 'key=True|False' 键值对&gt;</td>
 </tr>
+
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:<br>
+A set of key=value pairs that describe feature gates for alpha/experimental features. Options are:<br/>
 APIListChunking=true|false (BETA - default=true)<br/>
 APIPriorityAndFairness=true|false (BETA - default=true)<br/>
 APIResponseCompression=true|false (BETA - default=true)<br/>
-APIServerIdentity=true|false (ALPHA - default=false)<br/>
+APISelfSubjectReview=true|false (ALPHA - default=false)<br/>
+APIServerIdentity=true|false (BETA - default=true)<br/>
 APIServerTracing=true|false (ALPHA - default=false)<br/>
+AggregatedDiscoveryEndpoint=true|false (ALPHA - default=false)<br/>
 AllAlpha=true|false (ALPHA - default=false)<br/>
 AllBeta=true|false (BETA - default=false)<br/>
 AnyVolumeDataSource=true|false (BETA - default=true)<br/>
 AppArmor=true|false (BETA - default=true)<br/>
-CPUManager=true|false (BETA - default=true)<br/>
 CPUManagerPolicyAlphaOptions=true|false (ALPHA - default=false)<br/>
 CPUManagerPolicyBetaOptions=true|false (BETA - default=true)<br/>
 CPUManagerPolicyOptions=true|false (BETA - default=true)<br/>
-CSIMigrationAzureFile=true|false (BETA - default=true)<br/>
 CSIMigrationPortworx=true|false (BETA - default=false)<br/>
 CSIMigrationRBD=true|false (ALPHA - default=false)<br/>
-CSIMigrationvSphere=true|false (BETA - default=true)<br/>
 CSINodeExpandSecret=true|false (ALPHA - default=false)<br/>
 CSIVolumeHealth=true|false (ALPHA - default=false)<br/>
+ComponentSLIs=true|false (ALPHA - default=false)<br/>
 ContainerCheckpoint=true|false (ALPHA - default=false)<br/>
 ContextualLogging=true|false (ALPHA - default=false)<br/>
 CronJobTimeZone=true|false (BETA - default=true)<br/>
+CrossNamespaceVolumeDataSource=true|false (ALPHA - default=false)<br/>
 CustomCPUCFSQuotaPeriod=true|false (ALPHA - default=false)<br/>
 CustomResourceValidationExpressions=true|false (BETA - default=true)<br/>
-DelegateFSGroupToCSIDriver=true|false (BETA - default=true)<br/>
-DevicePlugins=true|false (BETA - default=true)<br/>
 DisableCloudProviders=true|false (ALPHA - default=false)<br/>
 DisableKubeletCloudCredentialProviders=true|false (ALPHA - default=false)<br/>
 DownwardAPIHugePages=true|false (BETA - default=true)<br/>
-EndpointSliceTerminatingCondition=true|false (BETA - default=true)<br/>
-ExpandedDNSConfig=true|false (ALPHA - default=false)<br/>
+DynamicResourceAllocation=true|false (ALPHA - default=false)<br/>
+EventedPLEG=true|false (ALPHA - default=false)<br/>
+ExpandedDNSConfig=true|false (BETA - default=true)<br/>
 ExperimentalHostUserNamespaceDefaulting=true|false (BETA - default=false)<br/>
 GRPCContainerProbe=true|false (BETA - default=true)<br/>
-GracefulNodeShutdown=true|false (BETA - default=true)<br/>
+GracefulNodeShutdown=true|false (BETA - default=true)
 GracefulNodeShutdownBasedOnPodPriority=true|false (BETA - default=true)<br/>
 HPAContainerMetrics=true|false (ALPHA - default=false)<br/>
 HPAScaleToZero=true|false (ALPHA - default=false)<br/>
@@ -1192,17 +1236,15 @@ InTreePluginPortworxUnregister=true|false (ALPHA - default=false)<br/>
 InTreePluginRBDUnregister=true|false (ALPHA - default=false)<br/>
 InTreePluginvSphereUnregister=true|false (ALPHA - default=false)<br/>
 JobMutableNodeSchedulingDirectives=true|false (BETA - default=true)<br/>
-JobPodFailurePolicy=true|false (ALPHA - default=false)<br/>
+JobPodFailurePolicy=true|false (BETA - default=true)<br/>
 JobReadyPods=true|false (BETA - default=true)<br/>
-JobTrackingWithFinalizers=true|false (BETA - default=true)<br/>
 KMSv2=true|false (ALPHA - default=false)<br/>
-KubeletCredentialProviders=true|false (BETA - default=true)<br/>
 KubeletInUserNamespace=true|false (ALPHA - default=false)<br/>
 KubeletPodResources=true|false (BETA - default=true)<br/>
 KubeletPodResourcesGetAllocatable=true|false (BETA - default=true)<br/>
 KubeletTracing=true|false (ALPHA - default=false)<br/>
-LegacyServiceAccountTokenNoAutoGeneration=true|false (BETA - default=true)<br/>
-LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (BETA - default=true)<br/>
+LegacyServiceAccountTokenTracking=true|false (ALPHA - default=false)<br/>
+LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (ALPHA - default=false)<br/>
 LogarithmicScaleDown=true|false (BETA - default=true)<br/>
 LoggingAlphaOptions=true|false (ALPHA - default=false)<br/>
 LoggingBetaOptions=true|false (BETA - default=true)<br/>
@@ -1211,79 +1253,85 @@ MaxUnavailableStatefulSet=true|false (ALPHA - default=false)<br/>
 MemoryManager=true|false (BETA - default=true)<br/>
 MemoryQoS=true|false (ALPHA - default=false)<br/>
 MinDomainsInPodTopologySpread=true|false (BETA - default=false)<br/>
-MixedProtocolLBService=true|false (BETA - default=true)<br/>
+MinimizeIPTablesRestore=true|false (ALPHA - default=false)<br/>
 MultiCIDRRangeAllocator=true|false (ALPHA - default=false)<br/>
 NetworkPolicyStatus=true|false (ALPHA - default=false)<br/>
-NodeInclusionPolicyInPodTopologySpread=true|false (ALPHA - default=false)<br/>
-NodeOutOfServiceVolumeDetach=true|false (ALPHA - default=false)<br/>
+NodeInclusionPolicyInPodTopologySpread=true|false (BETA - default=true)<br/>
+NodeOutOfServiceVolumeDetach=true|false (BETA - default=true)<br/>
 NodeSwap=true|false (ALPHA - default=false)<br/>
 OpenAPIEnums=true|false (BETA - default=true)<br/>
 OpenAPIV3=true|false (BETA - default=true)<br/>
+PDBUnhealthyPodEvictionPolicy=true|false (ALPHA - default=false)<br/>
 PodAndContainerStatsFromCRI=true|false (ALPHA - default=false)<br/>
 PodDeletionCost=true|false (BETA - default=true)<br/>
-PodDisruptionConditions=true|false (ALPHA - default=false)<br/>
+PodDisruptionConditions=true|false (BETA - default=true)<br/>
 PodHasNetworkCondition=true|false (ALPHA - default=false)<br/>
+PodSchedulingReadiness=true|false (ALPHA - default=false)<br/>
 ProbeTerminationGracePeriod=true|false (BETA - default=true)<br/>
 ProcMountType=true|false (ALPHA - default=false)<br/>
-ProxyTerminatingEndpoints=true|false (ALPHA - default=false)<br/>
+ProxyTerminatingEndpoints=true|false (BETA - default=true)<br/>
 QOSReserved=true|false (ALPHA - default=false)<br/>
 ReadWriteOncePod=true|false (ALPHA - default=false)<br/>
 RecoverVolumeExpansionFailure=true|false (ALPHA - default=false)<br/>
 RemainingItemCount=true|false (BETA - default=true)<br/>
-RetroactiveDefaultStorageClass=true|false (ALPHA - default=false)<br/>
+RetroactiveDefaultStorageClass=true|false (BETA - default=true)<br/>
 RotateKubeletServerCertificate=true|false (BETA - default=true)<br/>
 SELinuxMountReadWriteOncePod=true|false (ALPHA - default=false)<br/>
 SeccompDefault=true|false (BETA - default=true)<br/>
 ServerSideFieldValidation=true|false (BETA - default=true)<br/>
-ServiceIPStaticSubrange=true|false (BETA - default=true)<br/>
-ServiceInternalTrafficPolicy=true|false (BETA - default=true)<br/>
 SizeMemoryBackedVolumes=true|false (BETA - default=true)<br/>
 StatefulSetAutoDeletePVC=true|false (ALPHA - default=false)<br/>
+StatefulSetStartOrdinal=true|false (ALPHA - default=false)<br/>
 StorageVersionAPI=true|false (ALPHA - default=false)<br/>
 StorageVersionHash=true|false (BETA - default=true)<br/>
 TopologyAwareHints=true|false (BETA - default=true)<br/>
 TopologyManager=true|false (BETA - default=true)<br/>
+TopologyManagerPolicyAlphaOptions=true|false (ALPHA - default=false)<br/>
+TopologyManagerPolicyBetaOptions=true|false (BETA - default=false)<br/>
+TopologyManagerPolicyOptions=true|false (ALPHA - default=false)<br/>
 UserNamespacesStatelessPodsSupport=true|false (ALPHA - default=false)<br/>
+ValidatingAdmissionPolicy=true|false (ALPHA - default=false)<br/>
 VolumeCapacityPriority=true|false (ALPHA - default=false)<br/>
 WinDSR=true|false (ALPHA - default=false)<br/>
 WinOverlay=true|false (BETA - default=true)<br/>
-WindowsHostProcessContainers=true|false (BETA - default=true)
+WindowsHostNetwork=true|false (ALPHA - default=true)
 -->
-<p>一组 key=value 对，用来描述测试性/试验性功能的特性门控。可选项有：<br/>
+<p>
+一组 key=value 对，用来描述测试性/试验性功能的特性门控。可选项有：<br/>
 APIListChunking=true|false (BETA - 默认值=true)<br/>
 APIPriorityAndFairness=true|false (BETA - 默认值=true)<br/>
 APIResponseCompression=true|false (BETA - 默认值=true)<br/>
-APIServerIdentity=true|false (ALPHA - 默认值=false)<br/>
+APISelfSubjectReview=true|false (ALPHA - 默认值=false)<br/>
+APIServerIdentity=true|false (BETA - 默认值=true)<br/>
 APIServerTracing=true|false (ALPHA - 默认值=false)<br/>
+AggregatedDiscoveryEndpoint=true|false (ALPHA - 默认值=false)<br/>
 AllAlpha=true|false (ALPHA - 默认值=false)<br/>
 AllBeta=true|false (BETA - 默认值=false)<br/>
 AnyVolumeDataSource=true|false (BETA - 默认值=true)<br/>
 AppArmor=true|false (BETA - 默认值=true)<br/>
-CPUManager=true|false (BETA - 默认值=true)<br/>
 CPUManagerPolicyAlphaOptions=true|false (ALPHA - 默认值=false)<br/>
 CPUManagerPolicyBetaOptions=true|false (BETA - 默认值=true)<br/>
 CPUManagerPolicyOptions=true|false (BETA - 默认值=true)<br/>
-CSIMigrationAzureFile=true|false (BETA - 默认值=true)<br/>
 CSIMigrationPortworx=true|false (BETA - 默认值=false)<br/>
 CSIMigrationRBD=true|false (ALPHA - 默认值=false)<br/>
-CSIMigrationvSphere=true|false (BETA - 默认值=true)<br/>
 CSINodeExpandSecret=true|false (ALPHA - 默认值=false)<br/>
 CSIVolumeHealth=true|false (ALPHA - 默认值=false)<br/>
+ComponentSLIs=true|false (ALPHA - 默认值=false)<br/>
 ContainerCheckpoint=true|false (ALPHA - 默认值=false)<br/>
 ContextualLogging=true|false (ALPHA - 默认值=false)<br/>
 CronJobTimeZone=true|false (BETA - 默认值=true)<br/>
+CrossNamespaceVolumeDataSource=true|false (ALPHA - 默认值=false)<br/>
 CustomCPUCFSQuotaPeriod=true|false (ALPHA - 默认值=false)<br/>
 CustomResourceValidationExpressions=true|false (BETA - 默认值=true)<br/>
-DelegateFSGroupToCSIDriver=true|false (BETA - 默认值=true)<br/>
-DevicePlugins=true|false (BETA - 默认值=true)<br/>
 DisableCloudProviders=true|false (ALPHA - 默认值=false)<br/>
 DisableKubeletCloudCredentialProviders=true|false (ALPHA - 默认值=false)<br/>
 DownwardAPIHugePages=true|false (BETA - 默认值=true)<br/>
-EndpointSliceTerminatingCondition=true|false (BETA - 默认值=true)<br/>
-ExpandedDNSConfig=true|false (ALPHA - 默认值=false)<br/>
-ExperimentalHostUserNamespace默认值ing=true|false (BETA - 默认值=false)<br/>
+DynamicResourceAllocation=true|false (ALPHA - 默认值=false)<br/>
+EventedPLEG=true|false (ALPHA - 默认值=false)<br/>
+ExpandedDNSConfig=true|false (BETA - 默认值=true)<br/>
+ExperimentalHostUserNamespaceDefaulting=true|false (BETA - 默认值=false)<br/>
 GRPCContainerProbe=true|false (BETA - 默认值=true)<br/>
-GracefulNodeShutdown=true|false (BETA - 默认值=true)<br/>
+GracefulNodeShutdown=true|false (BETA - 默认值=true)
 GracefulNodeShutdownBasedOnPodPriority=true|false (BETA - 默认值=true)<br/>
 HPAContainerMetrics=true|false (ALPHA - 默认值=false)<br/>
 HPAScaleToZero=true|false (ALPHA - 默认值=false)<br/>
@@ -1298,17 +1346,15 @@ InTreePluginPortworxUnregister=true|false (ALPHA - 默认值=false)<br/>
 InTreePluginRBDUnregister=true|false (ALPHA - 默认值=false)<br/>
 InTreePluginvSphereUnregister=true|false (ALPHA - 默认值=false)<br/>
 JobMutableNodeSchedulingDirectives=true|false (BETA - 默认值=true)<br/>
-JobPodFailurePolicy=true|false (ALPHA - 默认值=false)<br/>
+JobPodFailurePolicy=true|false (BETA - 默认值=true)<br/>
 JobReadyPods=true|false (BETA - 默认值=true)<br/>
-JobTrackingWithFinalizers=true|false (BETA - 默认值=true)<br/>
 KMSv2=true|false (ALPHA - 默认值=false)<br/>
-KubeletCredentialProviders=true|false (BETA - 默认值=true)<br/>
 KubeletInUserNamespace=true|false (ALPHA - 默认值=false)<br/>
 KubeletPodResources=true|false (BETA - 默认值=true)<br/>
 KubeletPodResourcesGetAllocatable=true|false (BETA - 默认值=true)<br/>
 KubeletTracing=true|false (ALPHA - 默认值=false)<br/>
-LegacyServiceAccountTokenNoAutoGeneration=true|false (BETA - 默认值=true)<br/>
-LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (BETA - 默认值=true)<br/>
+LegacyServiceAccountTokenTracking=true|false (ALPHA - 默认值=false)<br/>
+LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (ALPHA - 默认值=false)<br/>
 LogarithmicScaleDown=true|false (BETA - 默认值=true)<br/>
 LoggingAlphaOptions=true|false (ALPHA - 默认值=false)<br/>
 LoggingBetaOptions=true|false (BETA - 默认值=true)<br/>
@@ -1317,43 +1363,49 @@ MaxUnavailableStatefulSet=true|false (ALPHA - 默认值=false)<br/>
 MemoryManager=true|false (BETA - 默认值=true)<br/>
 MemoryQoS=true|false (ALPHA - 默认值=false)<br/>
 MinDomainsInPodTopologySpread=true|false (BETA - 默认值=false)<br/>
-MixedProtocolLBService=true|false (BETA - 默认值=true)<br/>
+MinimizeIPTablesRestore=true|false (ALPHA - 默认值=false)<br/>
 MultiCIDRRangeAllocator=true|false (ALPHA - 默认值=false)<br/>
 NetworkPolicyStatus=true|false (ALPHA - 默认值=false)<br/>
-NodeInclusionPolicyInPodTopologySpread=true|false (ALPHA - 默认值=false)<br/>
-NodeOutOfServiceVolumeDetach=true|false (ALPHA - 默认值=false)<br/>
+NodeInclusionPolicyInPodTopologySpread=true|false (BETA - 默认值=true)<br/>
+NodeOutOfServiceVolumeDetach=true|false (BETA - 默认值=true)<br/>
 NodeSwap=true|false (ALPHA - 默认值=false)<br/>
 OpenAPIEnums=true|false (BETA - 默认值=true)<br/>
 OpenAPIV3=true|false (BETA - 默认值=true)<br/>
+PDBUnhealthyPodEvictionPolicy=true|false (ALPHA - 默认值=false)<br/>
 PodAndContainerStatsFromCRI=true|false (ALPHA - 默认值=false)<br/>
 PodDeletionCost=true|false (BETA - 默认值=true)<br/>
-PodDisruptionConditions=true|false (ALPHA - 默认值=false)<br/>
+PodDisruptionConditions=true|false (BETA - 默认值=true)<br/>
 PodHasNetworkCondition=true|false (ALPHA - 默认值=false)<br/>
+PodSchedulingReadiness=true|false (ALPHA - 默认值=false)<br/>
 ProbeTerminationGracePeriod=true|false (BETA - 默认值=true)<br/>
 ProcMountType=true|false (ALPHA - 默认值=false)<br/>
-ProxyTerminatingEndpoints=true|false (ALPHA - 默认值=false)<br/>
+ProxyTerminatingEndpoints=true|false (BETA - 默认值=true)<br/>
 QOSReserved=true|false (ALPHA - 默认值=false)<br/>
 ReadWriteOncePod=true|false (ALPHA - 默认值=false)<br/>
 RecoverVolumeExpansionFailure=true|false (ALPHA - 默认值=false)<br/>
 RemainingItemCount=true|false (BETA - 默认值=true)<br/>
-Retroactive默认值StorageClass=true|false (ALPHA - 默认值=false)<br/>
+RetroactiveDefaultStorageClass=true|false (BETA - 默认值=true)<br/>
 RotateKubeletServerCertificate=true|false (BETA - 默认值=true)<br/>
 SELinuxMountReadWriteOncePod=true|false (ALPHA - 默认值=false)<br/>
-Seccomp默认值=true|false (BETA - 默认值=true)<br/>
+SeccompDefault=true|false (BETA - 默认值=true)<br/>
 ServerSideFieldValidation=true|false (BETA - 默认值=true)<br/>
-ServiceIPStaticSubrange=true|false (BETA - 默认值=true)<br/>
-ServiceInternalTrafficPolicy=true|false (BETA - 默认值=true)<br/>
 SizeMemoryBackedVolumes=true|false (BETA - 默认值=true)<br/>
 StatefulSetAutoDeletePVC=true|false (ALPHA - 默认值=false)<br/>
+StatefulSetStartOrdinal=true|false (ALPHA - 默认值=false)<br/>
 StorageVersionAPI=true|false (ALPHA - 默认值=false)<br/>
 StorageVersionHash=true|false (BETA - 默认值=true)<br/>
 TopologyAwareHints=true|false (BETA - 默认值=true)<br/>
 TopologyManager=true|false (BETA - 默认值=true)<br/>
+TopologyManagerPolicyAlphaOptions=true|false (ALPHA - 默认值=false)<br/>
+TopologyManagerPolicyBetaOptions=true|false (BETA - 默认值=false)<br/>
+TopologyManagerPolicyOptions=true|false (ALPHA - 默认值=false)<br/>
 UserNamespacesStatelessPodsSupport=true|false (ALPHA - 默认值=false)<br/>
+ValidatingAdmissionPolicy=true|false (ALPHA - 默认值=false)<br/>
 VolumeCapacityPriority=true|false (ALPHA - 默认值=false)<br/>
 WinDSR=true|false (ALPHA - 默认值=false)<br/>
 WinOverlay=true|false (BETA - 默认值=true)<br/>
-WindowsHostProcessContainers=true|false (BETA - 默认值=true)</p>
+WindowsHostNetwork=true|false (ALPHA - 默认值=true)
+</p>
 </td>
 </tr>
 
@@ -1404,32 +1456,6 @@ of streams in an HTTP/2 connection. Zero means to use golang's default.
 -->
 服务器为客户端提供的 HTTP/2 连接中最大流数的限制。
 零表示使用 GoLang 的默认值。
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--identity-lease-duration-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：3600</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-The duration of kube-apiserver lease in seconds, must be a positive number. (In use when the APIServerIdentity feature gate is enabled.)
--->
-kube-apiserver 租约时长（按秒计），必须是正数。
-（当 APIServerIdentity 特性门控被启用时使用此标志值）
-</td>
-</tr>
-
-<tr>
-<td colspan="2">--identity-lease-renew-interval-seconds int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值：10</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-The interval of kube-apiserver renewing its lease in seconds, must be a positive number. (In use when the APIServerIdentity feature gate is enabled.)
--->
-kube-apiserver 对其租约进行续期的时间间隔（按秒计），必须是正数。
-（当 APIServerIdentity 特性门控被启用时使用此标志值）
 </td>
 </tr>
 
@@ -1556,13 +1582,15 @@ Maximum number of seconds between log flushes
 <td colspan="2">--logging-format string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："text"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Sets the log format. Permitted formats: &quot;text&quot;.<br/>Non-default formats don't honor these flags: --add-dir-header, --alsologtostderr, --log-backtrace-at, --log-dir, --log-file, --log-file-max-size, --logtostderr, --one-output, --skip-headers, --skip-log-headers, --stderrthreshold, --vmodule.<br/>Non-default choices are currently alpha and subject to change without warning.
+Sets the log format. Permitted formats: &quot;text&quot;.
 -->
-设置日志格式。允许的格式：&quot;text&quot;。<br/>
-非默认格式不支持以下标志：<code>--add-dir-header</code>、<code>--alsologtostderr</code>、<code>--log-backtrace-at</code>、<code>--log-dir</code>、<code>--log-file</code>、<code>--log-file-max-size</code>、<code>--logtostderr</code>、<code>--one-output</code>、<code>-skip-headers</code>、<code>-skip-log-headers</code>、<code>--stderrthreshold</code>、<code>-vmodule</code>。<br/>
-当前非默认选择为 alpha，会随时更改而不会发出警告。
+<p>
+设置日志格式。允许的格式：&quot;text&quot;。
+</p>
 </td>
 </tr>
 
@@ -2202,13 +2230,16 @@ The storage backend for persistence. Options: 'etcd3' (default).
 <td colspan="2">--storage-media-type string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值："application/vnd.kubernetes.protobuf"</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The media type to use to store objects in storage. 
-Some resources or storage backends may only support a specific media type and will ignore this setting.
+The media type to use to store objects in storage. Some resources or storage backends may only support a specific media type and will ignore this setting. Supported media types: [application/json, application/yaml, application/vnd.kubernetes.protobuf]
 -->
-用于在存储中存储对象的媒体类型。
-某些资源或存储后端可能仅支持特定的媒体类型，并且将忽略此设置。
+<p>
+用于在存储中存储对象的媒体类型。某些资源或存储后端可能仅支持特定的媒体类型，并且将忽略此设置。
+支持的媒体类型：[application/json, application/yaml, application/vnd.kubernetes.protobuf]
+</p>
 </td>
 </tr>
 

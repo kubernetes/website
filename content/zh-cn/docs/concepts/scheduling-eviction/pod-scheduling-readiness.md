@@ -47,22 +47,7 @@ each schedulingGate can be removed in arbitrary order, but addition of a new sch
 该字段只能在创建 Pod 时初始化（由客户端创建，或在准入期间更改）。
 创建后，每个 schedulingGate 可以按任意顺序删除，但不允许添加新的调度门控。
 
-{{<mermaid>}}
-stateDiagram-v2
-    s1: 创建 Pod
-    s2: Pod 调度门控
-    s3: Pod 调度就绪
-    s4: Pod 运行
-    if: 调度门控为空？
-    [*] --> s1
-    s1 --> if
-    s2 --> if: 移除了调度门控
-    if --> s2: 否
-    if --> s3: 是  
-    s3 --> s4
-    s4 --> [*]
-{{< /mermaid >}}
-
+{{< figure src="/docs/images/podSchedulingGates.svg" alt="pod-scheduling-gates-diagram" caption="<!--Figure. Pod SchedulingGates-->数字。Pod SchedulingGates" class="diagram-large" link="https://mermaid.live/edit#pako:eNplkktTwyAUhf8KgzuHWpukaYszutGlK3caFxQuCVMCGSDVTKf_XfKyPlhxz4HDB9wT5lYAptgHFuBRsdKxenFMClMYFIdfUdRYgbiD6ItJTEbR8wpEq5UpUfnDTf-5cbPoJjcbXdcaE61RVJIiqJvQ_Y30D-OCt-t3tFjcR5wZayiVnIGmkv4NiEfX9jijKTmmRH5jf0sRugOP0HyHUc1m6KGMFP27cM28fwSJDluPpNKaXqVJzmFNfHD2APRKSjnNFx9KhIpmzSfhVls3eHdTRrwG8QnxKfEZUUNeYTDBNbiaKRF_5dSfX-BQQQ0FpnEqQLJWhwIX5hyXsjbYl85wTINrgeC2EZd_xFQy7b_VJ6GCdd-itkxALE84dE3fAqXyIUZya6Qqe711OspVCI2ny2Vv35QqVO3-htt66ZWomAvVcZcv8yTfsiSFfJOydZoKvl_ttjLJVlJsblcJw-czwQ0zr9ZeqGDgeR77b2jD8xdtjtDn" >}}
 <!--
 ## Usage example
 

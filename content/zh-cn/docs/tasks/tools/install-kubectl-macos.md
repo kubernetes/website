@@ -58,6 +58,7 @@ The following methods exist for installing kubectl on macOS:
 - [可选的 kubectl 配置和插件](#optional-kubectl-configurations-and-plugins)
   - [启用 shell 自动补全功能](#enable-shell-autocompletion)
   - [安装 `kubectl convert` 插件](#install-kubectl-convert-plugin)
+
 <!-- 
 ### Install kubectl binary with curl on macOS
 -->
@@ -186,6 +187,21 @@ The following methods exist for installing kubectl on macOS:
    ```bash
    kubectl version --client
    ```
+
+   {{< note >}}
+   <!--
+   The above command will generate a warning:
+   -->
+   上面的命令会产生一个警告：
+   ```
+   WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
+   ```
+   <!--
+   You can ignore this warning. You are only checking the version of `kubectl` that you
+   have installed.
+   -->
+   你可以忽略这个警告。你只检查你所安装的 `kubectl` 的版本。
+   {{< /note >}}
 
    <!--
    Or use this for detailed view of version:
@@ -420,7 +436,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 1. 安装插件后，清理安装文件：
 
    ```bash
-   rm kubectl kubectl.sha256
+   rm kubectl-convert kubectl-convert.sha256
    ```
 
 ## {{% heading "whatsnext" %}}

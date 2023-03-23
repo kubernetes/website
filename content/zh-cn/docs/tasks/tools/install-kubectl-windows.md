@@ -122,6 +122,20 @@ The following methods exist for installing kubectl on Windows:
    ```cmd
    kubectl version --client
    ```
+   {{< note >}}
+   <!--
+   The above command will generate a warning:
+   -->
+   上面的命令会产生一个警告：
+   ```
+   WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
+   ```
+   <!--
+   You can ignore this warning. You are only checking the version of `kubectl` that you
+   have installed.
+   -->
+   你可以忽略这个警告。你只检查你所安装的 `kubectl` 的版本。
+   {{< /note >}}
 
    <!--
    Or use this for detailed view of version:
@@ -130,6 +144,15 @@ The following methods exist for installing kubectl on Windows:
 
    ```cmd
    kubectl version --client --output=yaml
+   ```
+
+<!--
+1. After installing the plugin, clean up the installation files:
+-->
+5. 安装插件后，清理安装文件：
+
+   ```powershell
+   del kubectl.exe kubectl.exe.sha256
    ```
 
 {{< note >}}
@@ -324,6 +347,15 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    If you do not see an error, it means the plugin is successfully installed.
    -->
    如果你没有看到任何错误就代表插件安装成功了。
+
+<!--
+1. After installing the plugin, clean up the installation files:
+-->
+5. 安装插件后，清理安装文件：
+
+   ```powershell
+   del kubectl-convert.exe kubectl-convert.exe.sha256
+   ```
 
 ## {{% heading "whatsnext" %}}
 

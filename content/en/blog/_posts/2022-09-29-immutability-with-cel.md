@@ -438,7 +438,7 @@ kubectl apply -f crds/stable.example.com_appendonlylists.yaml
 customresourcedefinition.apiextensions.k8s.io/appendonlylists.stable.example.com created
 ```
 
-Creating an inital list with one element inside should succeed without problem:
+Creating an initial list with one element inside should succeed without problem:
 ```shell
 kubectl apply -f - <<EOF
 ---

@@ -1,12 +1,12 @@
 ---
 title: 手动生成证书
 content_type: task
-weight: 20
+weight: 30
 ---
 <!-- 
 title: Generate Certificates Manually
 content_type: task
-weight: 20
+weight: 30
 -->
 
 <!-- overview -->
@@ -34,7 +34,7 @@ manually through [`easyrsa`](https://github.com/OpenVPN/easy-rsa), [`openssl`](h
 1. 下载、解压、初始化打过补丁的 `easyrsa3`。
 
    ```shell
-   curl -LO https://storage.googleapis.com/kubernetes-release/easy-rsa/easy-rsa.tar.gz
+   curl -LO https://dl.k8s.io/easy-rsa/easy-rsa.tar.gz
    tar xzf easy-rsa.tar.gz
    cd easy-rsa-master/easyrsa3
    ./easyrsa init-pki
