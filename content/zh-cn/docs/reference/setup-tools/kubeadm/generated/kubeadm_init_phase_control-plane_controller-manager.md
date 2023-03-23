@@ -86,7 +86,7 @@ kubeadm init phase control-plane controller-manager [flags]
 <!-- 
 Don't apply any changes; just output what would be done. 
 -->
-不应用任何变更，仅输出将要执行的操作
+不做任何更改；只输出将要执行的操作。
 </p></td>
 </tr>
 
