@@ -267,24 +267,20 @@ When clients connect to the VIP, their traffic is automatically transported to a
 appropriate endpoint. The environment variables and DNS for Services are actually
 populated in terms of the Service's virtual IP address (and port).
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
-If you enable the `MultiCIDRServiceAllocator`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
-the `ClusterIP` address associated to each `Service` will have a referenced
-`IPAddress` object.
-
 ### Avoiding collisions
 
 One of the primary philosophies of Kubernetes is that you should not be
 exposed to situations that could cause your actions to fail through no fault
 of your own. For the design of the Service resource, this means not making
-you choose your own port number if that choice might collide with
+you choose your own IP address if that choice might collide with
 someone else's choice.  That is an isolation failure.
 
-In order to allow you to choose a port number for your Services, we must
+In order to allow you to choose an IP address for your Services, we must
 ensure that no two Services can collide. Kubernetes does that by allocating each
 Service its own IP address from within the `service-cluster-ip-range`
 CIDR range that is configured for the {{< glossary_tooltip term_id="kube-apiserver" text="API Server" >}}.
+
+#### IP address allocation tracking
 
 To ensure each Service receives a unique IP, an internal allocator atomically
 updates a global allocation map in {{< glossary_tooltip term_id="etcd" >}}
@@ -297,6 +293,16 @@ map (needed to support migrating from older versions of Kubernetes that used
 in-memory locking). Kubernetes also uses controllers to check for invalid
 assignments (e.g. due to administrator intervention) and for cleaning up allocated
 IP addresses that are no longer used by any Services.
+
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+If you enable the `MultiCIDRServiceAllocator`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
+the control plane replaces the existing etcd allocator with a new one, using IPAddress
+objects instead of an internal global allocation map.  The ClusterIP address
+associated to each `Service` will have a referenced IPAddress object.
+
+The background allocator is also replaced by a new one to handle the new IPAddress
+objects and the migration from the old allocator model.
 
 #### IP address ranges for Service virtual IP addresses {#service-ip-static-sub-range}
 

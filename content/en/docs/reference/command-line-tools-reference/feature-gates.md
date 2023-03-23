@@ -667,8 +667,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `MixedProtocolLBService`: Enable using different protocols in the same `LoadBalancer` type
   Service instance.
 - `MultiCIDRRangeAllocator`: Enables the MultiCIDR range allocator.
-- `MultiCIDRServiceAllocator`: Enables a new IPAddress object kind, and a new Service ClusterIP allocator.
-  The new allocator removes previous Service CIDR block size limitations for IPv4, and limits IPv6 size to a /64.
+- `MultiCIDRServiceAllocator`: Track IP address allocations for Service cluster IPs using IPAddress objects.
 - `NetworkPolicyEndPort`: Enable use of the field `endPort` in NetworkPolicy objects,
   allowing the selection of a port range instead of a single port.
 - `NetworkPolicyStatus`: Enable the `status` subresource for NetworkPolicy objects.
