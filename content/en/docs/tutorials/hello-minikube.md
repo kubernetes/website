@@ -13,8 +13,6 @@ card:
   weight: 10
 ---
 
-{{% katacoda-removal %}}
-
 <!-- overview -->
 
 This tutorial shows you how to run a sample app on Kubernetes using minikube.
