@@ -27,7 +27,7 @@ Pod 遵循预定义的生命周期，起始于 `Pending` [阶段](#pod-phase)，
 如果至少其中有一个主要容器正常启动，则进入 `Running`，之后取决于 Pod
 中是否有容器以失败状态结束而进入 `Succeeded` 或者 `Failed` 阶段。
 
-在 Pod 运行期间，`kubelet` 能够重启容器以处理一些失效场景。
+在 Pod 运行期间，`kubelet` 能够重启容器以处理一些故障场景。
 在 Pod 内部，Kubernetes 跟踪不同容器的[状态](#container-states)并确定使
 Pod 重新变得健康所需要采取的动作。
 
@@ -826,7 +826,7 @@ container runtime's management service is restarted while waiting for processes 
 cluster retries from the start including the full original grace period.
 -->
 通常情况下，容器运行时会发送一个 TERM 信号到每个容器中的主进程。
-很多容器运行时都能够注意到容器镜像中 `STOPSIGNAL` 的值，并发送该信号而不是 TERM。
+很多容器运行时都优先遵从容器镜像中配置的 `STOPSIGNAL` 值，并发送该信号而不是 TERM。
 一旦超出了体面终止限期，容器运行时会向所有剩余进程发送 KILL 信号，之后
 Pod 就会被从 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}上移除。
 如果 `kubelet` 或者容器运行时的管理服务在等待进程终止期间被重启，
@@ -939,8 +939,8 @@ An example flow:
    中所有容器内仍在运行的进程发送 `SIGKILL` 信号。
    `kubelet` 也会清理隐藏的 `pause` 容器，如果容器运行时使用了这种容器的话。
 
-1. `kubelet` 触发强制从 API 服务器上删除 Pod 对象的逻辑，并将体面终止限期设置为 0
-   （这意味着马上删除）。
+1. `kubelet` 通过将体面终止限期设置为 0
+   （这意味着马上删除），触发强制从 API 服务器上删除 Pod 对象的逻辑。
 
 1. API 服务器删除 Pod 的 API 对象，从任何客户端都无法再看到该对象。
 
