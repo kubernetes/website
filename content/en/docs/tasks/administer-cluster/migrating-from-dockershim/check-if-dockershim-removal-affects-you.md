@@ -123,11 +123,14 @@ You can mitigate this issue by using [cAdvisor](https://github.com/google/cadvis
 1. Find the latest [cAdvisor release](https://github.com/google/cadvisor/releases)
    with the name pattern `vX.Y.Z-containerd-cri` (for example, `v0.42.0-containerd-cri`).
 2. Follow the steps in [cAdvisor Kubernetes Daemonset](https://github.com/google/cadvisor/tree/master/deploy/kubernetes) to create the daemonset.
-3. Point the installed metrics collector to use the cAdvisor `/metrics` endpoint which provides the full set of [Prometheus container metrics](https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md).
+3. Point the installed metrics collector to use the cAdvisor `/metrics` endpoint
+   which provides the full set of
+   [Prometheus container metrics](https://github.com/google/cadvisor/blob/master/docs/storage/prometheus.md).
 
-Alternatives
+Alternatives:
+
 - Use alternative third party metrics collection solution.
-- Collect metrics from the Kubelet summary API with an endpoint of `/stats/summary`.
+- Collect metrics from the Kubelet summary API that is served at `/stats/summary`.
 
 ## {{% heading "whatsnext" %}}
 
