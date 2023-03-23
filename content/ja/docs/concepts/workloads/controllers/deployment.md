@@ -363,7 +363,7 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
     ```
 
     {{< note >}}
-    Deploymentコントローラーは、この悪い状態のロールアウトを自動的に停止し、新しいReplicaSetのスケールアップを止めます。これはユーザーが指定したローリングアップデートに関するパラメータ(特に`maxUnavailable`)に依存します。デフォルトではKubernetesがこの値を25%に設定します。
+    Deploymentコントローラーは、この悪い状態のロールアウトを自動的に停止し、新しいReplicaSetのスケールアップを止めます。これはユーザーが指定したローリングアップデートに関するパラメーター(特に`maxUnavailable`)に依存します。デフォルトではKubernetesがこの値を25%に設定します。
     {{< /note >}}
 
 * Deploymentの詳細情報を取得します。
@@ -803,7 +803,7 @@ echo $?
 * リソースリミットのレンジ
 * アプリケーションランタイムの設定の不備
 
-このような状況を検知する1つの方法として、Deploymentのリソース定義でデッドラインのパラメータを指定します([`.spec.progressDeadlineSeconds`](#progress-deadline-seconds))。`.spec.progressDeadlineSeconds`はDeploymentの更新が停止したことを示す前にDeploymentコントローラーが待つ秒数を示します。
+このような状況を検知する1つの方法として、Deploymentのリソース定義でデッドラインのパラメーターを指定します([`.spec.progressDeadlineSeconds`](#progress-deadline-seconds))。`.spec.progressDeadlineSeconds`はDeploymentの更新が停止したことを示す前にDeploymentコントローラーが待つ秒数を示します。
 
 以下の`kubectl`コマンドでリソース定義に`progressDeadlineSeconds`を設定します。これはDeploymentの更新が止まってから10分後に、コントローラーが失敗を通知させるためです。
 
@@ -899,7 +899,7 @@ Conditions:
   Progressing   True    NewReplicaSetAvailable
 ```
 
-`Status=True`の`Type=Available`は、Deploymentが最小可用性の状態であることを意味します。最小可用性は、Deploymentの更新戦略において指定されているパラメータにより決定されます。`Status=True`の`Type=Progressing`は、Deploymentのロールアウトの途中で、更新処理が進行中であるか、更新処理が完了し、必要な最小数のレプリカが利用可能であることを意味します(各TypeのReason項目を確認してください。このケースでは、`Reason=NewReplicaSetAvailable`はDeploymentの更新が完了したことを意味します)。
+`Status=True`の`Type=Available`は、Deploymentが最小可用性の状態であることを意味します。最小可用性は、Deploymentの更新戦略において指定されているパラメーターにより決定されます。`Status=True`の`Type=Progressing`は、Deploymentのロールアウトの途中で、更新処理が進行中であるか、更新処理が完了し、必要な最小数のレプリカが利用可能であることを意味します(各TypeのReason項目を確認してください。このケースでは、`Reason=NewReplicaSetAvailable`はDeploymentの更新が完了したことを意味します)。
 
 `kubectl rollout status`を実行してDeploymentが更新に失敗したかどうかを確認できます。`kubectl rollout status`はDeploymentが更新処理のデッドラインを超えたときに0以外の終了コードを返します。
 
