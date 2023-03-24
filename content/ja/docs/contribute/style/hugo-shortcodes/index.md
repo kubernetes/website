@@ -1,6 +1,7 @@
 ---
 title: カスタムHugoショートコード
 content_type: concept
+weight: 120
 ---
 
 <!-- overview -->
@@ -36,7 +37,7 @@ content_type: concept
 ### 機能の状態コード
 
 表示されるKubernetesのバージョンのデフォルトはそのページのデフォルトまたはサイトのデフォルトです。
-`for_k8s_version`パラメータを渡すことにより、機能の状態バージョンを変更することができます。
+`for_k8s_version`パラメーターを渡すことにより、機能の状態バージョンを変更することができます。
 例えば:
 
 ```

@@ -449,6 +449,63 @@ Renders to:
 {{< /tabs >}}
 
 <!--
+### Source code files
+You can use the `{{</* codenew */>}}` shortcode to embed the contents of file
+in a code block to allow users to download or copy its content to their clipboard.
+This shortcode is used when the contents of the sample file is generic and reusable, 
+and you want the users to try it out themselves.
+-->
+你可以使用 `{{</* codenew */>}}` 短代码将文件内容嵌入代码块中，
+以允许用户下载或复制其内容到他们的剪贴板。
+当示例文件的内容是通用的、可复用的，并且希望用户自己尝试使用示例文件时，
+可以使用此短代码。
+
+<!--
+This shortcode takes in two named parameters: `language` and `file`. 
+The mandatory parameter `file` is used to specify the path to the file
+being displayed. The optional parameter `language` is used to specify
+the programming language of the file. If the `language` parameter is not provided,
+the shortcode will attempt to guess the language based on the file extension.
+
+For example:
+-->
+这个短代码有两个命名参数：`language` 和 `file`，
+必选参数 `file` 用于指定要显示的文件的路径，
+可选参数 `language` 用于指定文件的编程语言。
+如果未提供 `language` 参数，短代码将尝试根据文件扩展名推测编程语言。
+
+```none
+{{</* codenew language="yaml" file="application/deployment-scale.yaml" */>}}
+```
+
+<!--
+The output is:
+-->
+输出是：
+
+{{< codenew language="yaml" file="application/deployment-scale.yaml" >}}
+
+<!--
+When adding a new sample file, such as a YAML file, create the file in one
+of the `<LANG>/examples/` subdirectories where `<LANG>` is the language for
+the page. In the markdown of your page, use the `codenew` shortcode:
+-->
+添加新的示例文件（例如 YAML 文件）时，在 `<LANG>/examples/`
+子目录之一中创建该文件，其中 `<LANG>` 是页面的语言。
+在你的页面的 markdown 文本中，使用 `codenew` 短代码：
+
+```none
+{{</* codenew file="<RELATIVE-PATH>/example-yaml>" */>}}
+```
+
+其中 `<RELATIVE-PATH>` 是要包含的示例文件的路径，相对于 `examples` 目录。
+以下短代码引用位于 `/content/en/examples/configmap/configmaps.yaml` 的 YAML 文件。
+
+```none
+{{</* codenew file="configmap/configmaps.yaml" */>}}
+```
+
+<!--
 ## Third party content marker
 -->
 ## 第三方内容标记  {#third-party-content-marker}
@@ -525,13 +582,13 @@ before the item, or just below the heading for the specific item.
 
 To generate a version string for inclusion in the documentation, you can choose from
 several version shortcodes. Each version shortcode displays a version string derived from
-the value of a version parameter found in the site configuration file, `config.toml`.
+the value of a version parameter found in the site configuration file, `hugo.toml`.
 The two most commonly used version parameters are `latest` and `version`.
 -->
 ## 版本号信息 {#version-strings}
 
 要在文档中生成版本号信息，可以从以下几种短代码中选择。每个短代码可以基于站点配置文件
-`config.toml` 中的版本参数生成一个版本号取值。最常用的参数为 `latest` 和 `version`。
+`hugo.toml` 中的版本参数生成一个版本号取值。最常用的参数为 `latest` 和 `version`。
 
 <!--
 ### `{{</* param "version" */>}}`

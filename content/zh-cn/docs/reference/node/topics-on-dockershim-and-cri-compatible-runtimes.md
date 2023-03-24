@@ -1,11 +1,13 @@
 ---
 title: 关于 dockershim 移除和使用兼容 CRI 运行时的文章
 content_type: reference
+weight: 20
 ---
 
 <!-- 
 title: Articles on dockershim Removal and on Using CRI-compatible Runtimes
 content_type: reference
+weight: 20
 -->
 
 <!-- overview -->

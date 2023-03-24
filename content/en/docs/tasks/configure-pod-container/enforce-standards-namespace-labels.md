@@ -4,6 +4,7 @@ reviewers:
 - tallclair
 - liggitt
 content_type: task
+weight: 250
 ---
 
 Namespaces can be labeled to enforce the [Pod Security Standards](/docs/concepts/security/pod-security-standards). The three policies

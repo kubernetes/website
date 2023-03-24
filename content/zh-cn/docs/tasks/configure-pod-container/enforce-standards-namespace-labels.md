@@ -1,7 +1,7 @@
 ---
 title: 使用名字空间标签来实施 Pod 安全性标准
 content_type: task
-min-kubernetes-server-version: v1.22
+weight: 250
 ---
 <!--
 title: Enforce Pod Security Standards with Namespace Labels
@@ -9,29 +9,34 @@ reviewers:
 - tallclair
 - liggitt
 content_type: task
-min-kubernetes-server-version: v1.22
+weight: 250
 -->
 
 <!--
-Namespaces can be labeled to enforce the [Pod Security Standards](/docs/concepts/security/pod-security-standards).The three policies
+Namespaces can be labeled to enforce the [Pod Security Standards](/docs/concepts/security/pod-security-standards). The three policies
 [privileged](/docs/concepts/security/pod-security-standards/#privileged), [baseline](/docs/concepts/security/pod-security-standards/#baseline)
 and [restricted](/docs/concepts/security/pod-security-standards/#restricted) broadly cover the security spectrum
-and are implemented by the [Pod Security](/docs/concepts/security/pod-security-admission/)
+and are implemented by the [Pod Security](/docs/concepts/security/pod-security-admission/) {{< glossary_tooltip
+text="admission controller" term_id="admission-controller" >}}.
 -->
+名字空间可以打上标签以强制执行 [Pod 安全性标准](/zh-cn/docs/concepts/security/pod-security-standards)。
 [特权（privileged）](/zh-cn/docs/concepts/security/pod-security-standards/#privileged)、
 [基线（baseline）](/zh-cn/docs/concepts/security/pod-security-standards/#baseline)和
-[受限（restricted）](/zh-cn/docs/concepts/security/pod-security-standards/#restricted) 
-这三种策略涵盖了广泛安全范围，并由 [Pod 安全](/zh-cn/docs/concepts/security/pod-security-admission/)
- {{< glossary_tooltip text="准入控制器" term_id="admission-controller" >}}实现。
+[受限（restricted）](/zh-cn/docs/concepts/security/pod-security-standards/#restricted)
+这三种策略涵盖了广泛安全范围，并由
+[Pod 安全](/zh-cn/docs/concepts/security/pod-security-admission/){{< glossary_tooltip text="准入控制器" term_id="admission-controller" >}}实现。
 
 ## {{% heading "prerequisites" %}}
 
-{{% version-check %}}
-
 <!--
-- Ensure the `PodSecurity` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) is enabled.
+Pod Security Admission was available by default in Kubernetes v1.23, as
+a beta. From version 1.25 onwards, Pod Security Admission is generally
+available.
 -->
-- 确保 `PodSecurity` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features)已被启用。
+Pod 安全性准入（Pod Security Admission）在 Kubernetes v1.23 中作为 Beta 特性默认可用。
+从 1.25 版本起，此特性进阶至正式发布（Generally Available）。
+
+{{% version-check %}}
 
 <!--
 ## Requiring the `baseline` Pod Security Standard with namespace labels
@@ -48,7 +53,7 @@ This manifest defines a Namespace `my-baseline-namespace` that:
 -->
 下面的清单定义了一个 `my-baseline-namespace` 名字空间，其中
 
-- *阻止*任何不满足 `baseline` 策略要求的 Pods；
+- **阻止**任何不满足 `baseline` 策略要求的 Pod；
 - 针对任何无法满足 `restricted` 策略要求的、已创建的 Pod 为用户生成警告信息，
   并添加审计注解；
 - 将 `baseline` 和 `restricted` 策略的版本锁定到 v{{< skew currentVersion >}}。
@@ -89,7 +94,7 @@ namespaces. The Pod Security Standard checks will still be run in _dry run_ mode
 information about how the new policy would treat existing pods, without actually updating a policy.
 -->
 在刚开始为名字空间评估安全性策略变更时，使用 `--dry-run` 标志是很有用的。
-Pod 安全性标准会在 _dry run（试运行）_
+Pod 安全性标准会在 **dry run（试运行）**
 模式下运行，在这种模式下会生成新策略如何处理现有 Pod 的信息，
 但不会真正更新策略。
 

@@ -126,7 +126,7 @@ zone.
 
 5. **A zone is not represented in hints:** If the kube-proxy is unable to find
    at least one endpoint with a hint targeting the zone it is running in, it falls
-   to using endpoints from all zones. This is most likely to happen as you add
+   back to using endpoints from all zones. This is most likely to happen as you add
    a new zone into your existing cluster.
 
 ## Constraints
