@@ -810,7 +810,7 @@ For example, XFS and ext4fs offer project quotas.
 项目配额（Project Quota）是一个操作系统层的功能特性，用来管理文件系统中的存储用量。
 在 Kubernetes 中，你可以启用项目配额以监视存储用量。
 你需要确保节点上为 `emptyDir` 提供存储的文件系统支持项目配额。
-例如，XFS 和 ext4fs  文件系统都支持项目配额。
+例如，XFS 和 ext4fs 文件系统都支持项目配额。
 
 {{< note >}}
 <!--
@@ -1038,7 +1038,7 @@ extender.
   "apiVersion": "v1",
   "extenders": [
     {
-      "urlPrefix":"<extender-endpoint>",
+      "urlPrefix": "<extender-endpoint>",
       "bindVerb": "bind",
       "managedResources": [
         {
@@ -1289,10 +1289,10 @@ resource, including a configured ResourceQuota.
 包括所配置的 ResourceQuota。
 
 <!--
-### My Container is terminated
+### My container is terminated
 
 Your container might get terminated because it is resource-starved. To check
-whether a Container is being killed because it is hitting a resource limit, call
+whether a container is being killed because it is hitting a resource limit, call
 `kubectl describe pod` on the Pod of interest:
 -->
 
@@ -1384,4 +1384,3 @@ memory limit (and possibly request) for that container.
 * 阅读 XFS 中[配额](https://xfs.org/index.php/XFS_FAQ#Q:_Quota:_Do_quotas_work_on_XFS.3F)的文档
 * 进一步阅读 [kube-scheduler 配置参考 (v1beta3)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)
 * 进一步阅读 [Pod 的服务质量等级](/zh-cn/docs/concepts/workloads/pods/pod-qos/)
-
