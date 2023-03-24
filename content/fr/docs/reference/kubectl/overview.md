@@ -176,7 +176,7 @@ Le tableau suivant inclut la liste de tous les types de ressources pris en charg
 ## Options de sortie
 
 Utilisez les sections suivantes pour savoir comment vous pouvez formater ou ordonner les sorties de certaines commandes.
-Pour savoir exactgement quelles commandes prennent en charge quelles options de sortie, voir la documentation de référence de [kubectl](/docs/user-guide/kubectl/).
+Pour savoir exactement quelles commandes prennent en charge quelles options de sortie, voir la documentation de référence de [kubectl](/docs/user-guide/kubectl/).
 
 ### Formater la sortie
 
