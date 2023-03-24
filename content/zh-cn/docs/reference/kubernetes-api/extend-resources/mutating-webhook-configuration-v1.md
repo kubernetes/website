@@ -374,9 +374,9 @@ MutatingWebhookConfiguration 描述准入 Webhook 的配置，该 Webhook 可接
   - **webhooks.rules** ([]RuleWithOperations)
 
     rules 描述了 Webhook 关心的资源/子资源上有哪些操作。Webhook 关心操作是否匹配**任何**rules。
-    但是，为了防止 ValidatingAdmissionWebhooks 和 ValidatingAdmissionWebhooks 将集群置于只能完全禁用插件才能恢复的状态，
-    ValidatingAdmissionWebhooks 和 ValidatingAdmissionWebhooks 永远不会在处理 ValidatingWebhookConfiguration
-    和 ValidatingWebhookConfiguration 对象的准入请求被调用。
+    但是，为了防止 ValidatingAdmissionWebhooks 和 MutatingAdmissionWebhooks 将集群置于只能完全禁用插件才能恢复的状态，
+    ValidatingAdmissionWebhooks 和 MutatingAdmissionWebhooks 永远不会在处理 ValidatingWebhookConfiguration
+    和 MutatingWebhookConfiguration 对象的准入请求时被调用。
 
     <a name="RuleWithOperations"></a>
     **RuleWithOperations 是操作和资源的元组。建议确保所有元组组合都是有效的。**

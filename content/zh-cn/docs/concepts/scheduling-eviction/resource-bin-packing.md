@@ -4,7 +4,6 @@ content_type: concept
 weight: 80
 ---
 <!--
----
 reviewers:
 - bsalamat
 - k82cn
@@ -12,13 +11,12 @@ reviewers:
 title: Resource Bin Packing
 content_type: concept
 weight: 80
----
 -->
 
 <!-- overview -->
 
 <!--
-In the [scheduling-plugin](/docs/reference/scheduling/config/#scheduling-plugins)  `NodeResourcesFit` of kube-scheduler, there are two
+In the [scheduling-plugin](/docs/reference/scheduling/config/#scheduling-plugins) `NodeResourcesFit` of kube-scheduler, there are two
 scoring strategies that support the bin packing of resources: `MostAllocated` and `RequestedToCapacityRatio`.
 -->
 在 kube-scheduler 的[调度插件](/zh-cn/docs/reference/scheduling/config/#scheduling-plugins)
@@ -85,7 +83,7 @@ the `NodeResourcesFit` score function can be controlled by the
 Within the `scoringStrategy` field, you can configure two parameters: `requestedToCapacityRatio` and
 `resources`. The `shape` in the `requestedToCapacityRatio`
 parameter allows the user to tune the function as least requested or most
-requested based on `utilization` and `score` values.  The `resources` parameter
+requested based on `utilization` and `score` values. The `resources` parameter
 consists of `name` of the resource to be considered during scoring and `weight`
 specify the weight of each resource.
 -->

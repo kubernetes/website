@@ -1,6 +1,7 @@
 ---
 title: アドオンのインストール
 content_type: concept
+weight: 120
 ---
 
 <!-- overview -->

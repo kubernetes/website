@@ -2,6 +2,7 @@
 title: 从 PodSecurityPolicy 迁移到内置的 PodSecurity 准入控制器
 content_type: task
 min-kubernetes-server-version: v1.22
+weight: 260
 ---
 
 <!--
@@ -356,6 +357,7 @@ For each updated PodSecurityPolicy:
    you can compare the pod with the PodTemplate in the controller resource. If any changes are
    identified, the original Pod or PodTemplate should be updated with the desired configuration.
    The fields to review are:
+   - `.metadata.annotations['container.apparmor.security.beta.kubernetes.io/*']` (replace * with each container name)
 -->
 2. 比较运行中的 Pod 与原来的 Pod 规约，确定 PodSecurityPolicy 是否更改过这些 Pod。
    对于通过[工作负载资源](/zh-cn/docs/concepts/workloads/controllers/)所创建的 Pod，

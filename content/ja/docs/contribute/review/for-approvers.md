@@ -61,13 +61,13 @@ Prowコマンド | Roleの制限 | 説明
 :------------|:------------------|:-----------
 `/lgtm` | Organizationメンバー | PRのレビューが完了し、変更に納得したことを知らせる。
 `/approve` | Approver | PRをマージすることを承認する。
-`/assign` | ReviewerまたはApprover | PRのレビューまたは承認するひとを割り当てる。
-`/close` | ReviewerまたはApprover | issueまたはPRをcloseする。
+`/assign` | 誰でも | PRのレビューまたは承認するひとを割り当てる。
+`/close` | Organizationメンバー | issueまたはPRをcloseする。
 `/hold` | 誰でも | `do-not-merge/hold`ラベルを追加して、自動的にマージできないPRであることを示す。
 `/hold cancel` | 誰でも | `do-not-merge/hold`ラベルを削除する。
 {{< /table >}}
 
-PRで利用できるすべてのコマンド一覧を確認するには、[Prowコマンドリファレンス](https://prow.k8s.io/command-help)を参照してください。
+PRで利用できるすべてのコマンドを確認するには、[Prowコマンドリファレンス](https://prow.k8s.io/command-help?repo=kubernetes%2Fwebsite)を参照してください。
 
 ## issueのトリアージとカテゴリー分類
 
@@ -141,7 +141,7 @@ SIG Docsでは、対処方法をドキュメントに書いても良いくらい
 
 ### Blogに関するissue
 
-[Kubernetes Blog](https://kubernetes.io/blog/)のエントリーは時間が経つと情報が古くなるものだと考えています。そのため、ブログのエントリーは1年以内のものだけをメンテナンスします。1年以上前のブログエントリーに関するissueは修正せずにcloseします。
+[Kubernetes Blog](/blog/)のエントリーは時間が経つと情報が古くなるものだと考えています。そのため、ブログのエントリーは1年以内のものだけをメンテナンスします。1年以上前のブログエントリーに関するissueは修正せずにcloseします。
 
 ### サポートリクエストまたはコードのバグレポート {#support-requests-or-code-bug-reports}
 
