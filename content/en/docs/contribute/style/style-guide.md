@@ -633,7 +633,7 @@ These steps ... | These simple steps ...
 
 ### EditorConfig
 The Kubernetes project maintains an EditorConfig file that sets common style preferences in text editors
-such as VS Code.  You can use this file if you want to improve how consistent your contributions are with
+such as VS Code. You can use this file if you want to ensure that your contributions are consistent with
 the rest of the project. To view the file, refer to
 [`.editorconfig`](https://github.com/kubernetes/website/blob/main/.editorconfig) in the repository root.
 ## {{% heading "whatsnext" %}}
