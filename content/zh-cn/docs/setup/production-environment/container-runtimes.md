@@ -301,12 +301,19 @@ Your container runtime must support at least v1alpha2 of the container runtime i
 Kubernetes {{< skew currentVersion >}}  defaults to using v1 of the CRI API.
 If a container runtime does not support the v1 API, the kubelet falls back to
 using the (deprecated) v1alpha2 API instead.
+
+Kubernetes [starting v1.26](/blog/2022/11/18/upcoming-changes-in-kubernetes-1-26/#cri-api-removal)
+_only works_ with v1 of the CRI API. Earlier versions default
+to v1 version, however if a container runtime does not support the v1 API, the kubelet falls back to
+using the (deprecated) v1alpha2 API instead.
 -->
 ## CRI 版本支持 {#cri-versions}
 
 你的容器运行时必须至少支持 v1alpha2 版本的容器运行时接口。
 
-Kubernetes {{< skew currentVersion >}} 默认使用 v1 版本的 CRI API。如果容器运行时不支持 v1 版本的 API，
+Kubernetes [从 1.26 版本开始](/blog/2022/11/18/upcoming-changes-in-kubernetes-1-26/#cri-api-removal)**仅适用于** 
+v1 版本的容器运行时（CRI）API。早期版本默认为 v1 版本，
+但是如果容器运行时不支持 v1 版本的 API，
 则 kubelet 会回退到使用（已弃用的）v1alpha2 版本的 API。
 
 <!-- 
@@ -444,6 +451,17 @@ sandbox image by setting the following config:
 You might need to restart `containerd` as well once you've updated the config file: `systemctl restart containerd`.
 -->
 一旦你更新了这个配置文件，可能就同样需要重启 `containerd`：`systemctl restart containerd`。
+
+<!--
+Please note, that it is a best practice for kubelet to declare the matching `pod-infra-container-image`.
+If not configured, kubelet may attempt to garbage collect the `pause` image.
+There is ongoing work in [containerd to pin the pause image](https://github.com/containerd/containerd/issues/6352)
+and not require this setting on kubelet any longer.
+-->
+请注意，声明匹配的 `pod-infra-container-image` 是 kubelet 的最佳实践。
+如果未配置，kubelet 可能会尝试对 `pause` 镜像进行垃圾回收。
+[containerd 固定 pause 镜像](https://github.com/containerd/containerd/issues/6352)的工作正在进行中，
+将不再需要在 kubelet 上进行此设置。
 
 ### CRI-O
 
