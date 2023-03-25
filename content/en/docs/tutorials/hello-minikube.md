@@ -98,9 +98,10 @@ Pod and restarts the Pod's Container if it terminates. Deployments are the
 recommended way to manage the creation and scaling of Pods.
 
 1. Use the `kubectl create` command to create a Deployment that manages a Pod. The
-Pod runs a Container based on the provided Docker image.
+   Pod runs a Container based on the provided Docker image.
 
     ```shell
+    # Run a test container image that includes a webserver
     kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080
     ```
 
@@ -162,7 +163,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
     The `--type=LoadBalancer` flag indicates that you want to expose your Service
     outside of the cluster.
     
-    The application code inside the image `registry.k8s.io/echoserver` only listens on TCP port 8080. If you used
+    The application code inside the test image only listens on TCP port 8080. If you used
     `kubectl expose` to expose a different port, clients could not connect to that other port.
 
 2. View the Service you created:
@@ -236,7 +237,7 @@ The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" 
     The 'metrics-server' addon is enabled
     ```
 
-3. View the Pod and Service you created:
+3. View the Pod and Service you created by installing that addon:
 
     ```shell
     kubectl get pod,svc -n kube-system
@@ -286,7 +287,7 @@ kubectl delete service hello-node
 kubectl delete deployment hello-node
 ```
 
-Stop the minikube cluster:
+Stop the Minikube cluster
 
 ```shell
 minikube stop
