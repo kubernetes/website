@@ -1,12 +1,12 @@
 ---
 title: 인증서
 content_type: task
-weight: 20
+weight: 30
 ---
 
 <!-- overview -->
 
-클라이언트 인증서로 인증을 사용하는 경우 `easyrsa`, `openssl` 또는 `cfssl`
+클라이언트 인증서로 인증을 사용하는 경우 [`easyrsa`](https://github.com/OpenVPN/easy-rsa), [`openssl`](https://github.com/openssl/openssl) 또는 [`cfssl`](https://github.com/cloudflare/cfssl)
 을 통해 인증서를 수동으로 생성할 수 있다.
 
 <!-- body -->
@@ -18,7 +18,7 @@ weight: 20
 1. `easyrsa3`의 패치 버전을 다운로드하여 압축을 풀고, 초기화한다.
 
    ```shell
-   curl -LO https://storage.googleapis.com/kubernetes-release/easy-rsa/easy-rsa.tar.gz
+   curl -LO https://dl.k8s.io/easy-rsa/easy-rsa.tar.gz
    tar xzf easy-rsa.tar.gz
    cd easy-rsa-master/easyrsa3
    ./easyrsa init-pki
@@ -140,7 +140,7 @@ weight: 20
    ```shell
    openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key \
        -CAcreateserial -out server.crt -days 10000 \
-       -extensions v3_ext -extfile csr.conf
+       -extensions v3_ext -extfile csr.conf -sha256
    ```
 
 1. 인증서 서명 요청을 확인한다.

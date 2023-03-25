@@ -38,19 +38,6 @@ tr -s '[[:space:]]' '\n' |\
 sort |\
 uniq -c
 ```
-
-이 커맨드는 결과값으로 나온 모든 아이템 중에 `image` 라고 명명된 필드를
-모두 출력한다.
-
-이와 다른 방법으로 파드 이미지 필드 값의 절대 경로를 사용할 수 있다.
-이것은 필드명이 반복될 때에도
-정확한 값을 출력하도록 보장한다.
-예) 결과값 중에 많은 필드들이 `name`으로 명명되었을 경우,
-
-```shell
-kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}"
-```
-
 이 jsonpath는 다음과 같이 해석할 수 있다.
 
 - `.items[*]`: 각 결과값에 대하여
