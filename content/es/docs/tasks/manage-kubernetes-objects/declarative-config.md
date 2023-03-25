@@ -324,7 +324,7 @@ kind: Deployment
 metadata:
   annotations:
     # ...
-    # La anotación contiene la imagen acutalizada a nginx 1.11.9,
+    # La anotación contiene la imagen acutalizada a nginx 1.16.1,
     # pero no contiene la actualización de las replicas a 2
     kubectl.kubernetes.io/last-applied-configuration: |
       {"apiVersion":"apps/v1","kind":"Deployment",
@@ -517,7 +517,7 @@ kind: Deployment
 metadata:
   annotations:
     # ...
-    # La anotación contiene la imágen actualizada a nginx 1.11.9,
+    # La anotación contiene la imágen actualizada a nginx 1.16.1,
     # pero no contiene la actualización a 2 replicas
     kubectl.kubernetes.io/last-applied-configuration: |
       {"apiVersion":"apps/v1","kind":"Deployment",
