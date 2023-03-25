@@ -139,6 +139,8 @@ for convenience, the `targetPort` is set to the same value as the `port`
 field.
 {{< /note >}}
 
+### Port definitions {#field-spec-ports}
+
 Port definitions in Pods have names, and you can reference these names in the
 `targetPort` attribute of a Service. For example, we can bind the `targetPort`
 of the Service to the Pod port in the following way:
@@ -184,8 +186,8 @@ The default protocol for Services is
 [TCP](/docs/reference/networking/service-protocols/#protocol-tcp); you can also
 use any other [supported protocol](/docs/reference/networking/service-protocols/).
 
-As many Services need to expose more than one port, Kubernetes supports multiple
-port definitions on a Service object.
+Because many Services need to expose more than one port, Kubernetes supports
+[multiple port definitions](#multi-port-services) for a single Service.
 Each port definition can have the same `protocol`, or a different one.
 
 ### Services without selectors
@@ -353,7 +355,7 @@ This field follows standard Kubernetes label syntax. Values should either be
 [IANA standard service names](https://www.iana.org/assignments/service-names) or
 domain prefixed names such as `mycompany.com/my-custom-protocol`.
 
-## Multi-Port Services
+### Multi-port Services
 
 For some Services, you need to expose more than one port.
 Kubernetes lets you configure multiple port definitions on a Service object.
