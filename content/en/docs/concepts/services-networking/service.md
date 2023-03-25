@@ -29,7 +29,7 @@ that Deployment can create and destroy Pods dynamically. From one moment to the 
 you don't know how many of those Pods are working and healthy; you might not even know
 what those healthy Pods are named.
 Kubernetes {{< glossary_tooltip term_id="pod" text="Pods" >}} are created and destroyed
-to match the desired state of your cluster. Pods are emphemeral resources (you should not
+to match the desired state of your cluster. Pods are ephemeral resources (you should not
 expect that an individual Pod is reliable and durable).
 
 Each Pod gets its own IP address (Kubernetes expects network plugins to ensure this).
