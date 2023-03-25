@@ -134,18 +134,18 @@ other = "email address"
 other = "JavaScript must be [enabled](https://www.enable-javascript.com/) to view this content"
 
 [katacoda_message]
-other = """Shutdown of interactive tutorials.
-<p>The interactive tutorials on this website are being shut down. The
-Kubernetes
+other = """<h4>Shutdown of interactive tutorials</h4>
+<p>The interactive tutorials on this website are being shut down. The Kubernetes
 project hopes to reinstate a similar interactive learning option in the long
-term future.</p>
+term.</p>
 <p>The shutdown follows O'Reilly Media's 2019 <a
 href="https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/">acquisition</a>
 of Katacoda.</p>
 <p>Kubernetes is grateful to O'Reilly and Katacoda for many years of helping
 people take their first steps in learning Kubernetes.</p>
-<p>The tutorials will cease to function after the 31<sup>st</sup> of March
-2023.</p>"""
+<p>The tutorials will cease to function after the <b>31<sup>st</sup> of March,
+2023</b>. For more information, see "<a href="/blog/2023/02/14/kubernetes-katacoda-tutorials-stop-from-2023-03-31/">Free Katacoda Kubernetes Tutorials Are Shutting
+Down</a>."</p>"""
 
 [latest_release]
 other = "Latest Release:"
