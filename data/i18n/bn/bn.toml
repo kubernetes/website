@@ -34,10 +34,10 @@ other = "Twitter"
 [community_youtube_name]
 other = "YouTube"
 
- Avoid using conjunction_1.
- Must match the context in layouts/shortcodes/release-data.html
- Appears on https://kubernetes.io/releases/
- For example the "and" in "Complete 1.25 Schedule and Changelog"
+## Avoid using conjunction_1.
+## Must match the context in layouts/shortcodes/release-data.html
+## Appears on https://kubernetes.io/releases/
+## For example the "and" in "Complete 1.25 Schedule and Changelog"
 [conjunction_1]
 other = "and"
 
@@ -306,7 +306,7 @@ other = "সম্পর্কে পড়ুন"
 other = "আরও পড়ুন"
 
 [not_applicable]
- Localization teams: it's OK to use a longer text here
+## Localization teams: it's OK to use a longer text here
 other = "প্রযোজ্য নয়"
 
 [note]
@@ -362,14 +362,14 @@ other = "ক্ষুদ্র সংস্করণ"
 [release_info_next_patch]
 other = "পরবর্তী প্যাচ রিলিজ হয় **%s**."
 
- Localization note: You can use Markdown here.
- The three placeholders (in order) are:
-   Kubernetes minor version
-   maintenance mode date
-   end of life date
-
- Keep this order. It is OK to use more than one sentence, and it's also OK to change the
- tense of the text so long as the meaning is clear.
+## Localization note: You can use Markdown here.
+## The three placeholders (in order) are:
+##   Kubernetes minor version
+##   maintenance mode date
+##   end of life date
+##
+## Keep this order. It is OK to use more than one sentence, and it's also OK to change the
+## tense of the text so long as the meaning is clear.
 [release_info_eol]
 other = "**%s** enters maintenance mode on **%s** and End of Life is on **%s**."
 
