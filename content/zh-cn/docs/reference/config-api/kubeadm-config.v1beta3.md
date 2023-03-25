@@ -259,7 +259,7 @@ components by adding customized setting or overriding kubeadm default settings.<
 <p>The KubeProxyConfiguration type should be used to change the configuration passed to kube-proxy instances
 deployed in the cluster. If this object is not provided or provided only partially, kubeadm applies defaults.</p>
 <p>See https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/ or
-https://godoc.org/k8s.io/kube-proxy/config/v1alpha1#KubeProxyConfiguration
+https://pkg.go.dev/k8s.io/kube-proxy/config/v1alpha1#KubeProxyConfiguration
 for kube-proxy official documentation.</p>
 -->
 <p>KubeProxyConfiguration 类型用来更改传递给在集群中部署的 kube-proxy 实例
@@ -267,7 +267,7 @@ for kube-proxy official documentation.</p>
 
 <p>关于 kube-proxy 的官方文档，可参阅
 https://kubernetes.io/zh/docs/reference/command-line-tools-reference/kube-proxy/
-或者 https://godoc.org/k8s.io/kube-proxy/config/v1alpha1#KubeProxyConfiguration。
+或者 https://pkg.go.dev/k8s.io/kube-proxy/config/v1alpha1#KubeProxyConfiguration。
 </p>
 
 <pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubelet.config.k8s.io/v1beta1<span style="color:#bbb">
@@ -279,7 +279,7 @@ https://kubernetes.io/zh/docs/reference/command-line-tools-reference/kube-proxy/
 <p>The KubeletConfiguration type should be used to change the configurations that will be passed to all kubelet instances
 deployed in the cluster. If this object is not provided or provided only partially, kubeadm applies defaults.</p>
 <p>See https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/ or
-https://godoc.org/k8s.io/kubelet/config/v1beta1#KubeletConfiguration
+https://pkg.go.dev/k8s.io/kubelet/config/v1beta1#KubeletConfiguration
 for kubelet official documentation.</p>
 <p>Here is a fully populated example of a single YAML file containing multiple
 configuration types to be used during a <code>kubeadm init</code> run.</p>
@@ -290,7 +290,7 @@ configuration types to be used during a <code>kubeadm init</code> run.</p>
 <p>关于 kubelet 的官方文档，可参阅
 https://kubernetes.io/zh/docs/reference/command-line-tools-reference/kubelet/
 或者
-https://godoc.org/k8s.io/kubelet/config/v1beta1#KubeletConfiguration。</p>
+https://pkg.go.dev/k8s.io/kubelet/config/v1beta1#KubeletConfiguration。</p>
 
 <p>下面是一个为执行 <code>kubeadm init</code> 而提供的、包含多个配置类型的单一 YAML 文件，
 其中填充了很多部分。</p>
@@ -298,34 +298,34 @@ https://godoc.org/k8s.io/kubelet/config/v1beta1#KubeletConfiguration。</p>
 <pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta3<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>InitConfiguration<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">bootstrapTokens</span>:<span style="color:#bbb">
-</span><span style="color:#bbb"></span>- <span style="color:#000;font-weight:bold">token</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;9a08jv.c0izixklcxtmnze7&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">description</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;kubeadm bootstrap token&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">ttl</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;24h&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span>- <span style="color:#000;font-weight:bold">token</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;783bde.3f89s0fje9f38fhf&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">description</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;another bootstrap token&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">usages</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>- authentication<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>- signing<span style="color:#bbb">
-</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">groups</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>- system:bootstrappers:kubeadm:default-node-token<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>- <span style="color:#000;font-weight:bold">token</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;9a08jv.c0izixklcxtmnze7&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">description</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;kubeadm bootstrap token&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">ttl</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;24h&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span>- <span style="color:#000;font-weight:bold">token</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;783bde.3f89s0fje9f38fhf&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">description</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;another bootstrap token&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">usages</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- authentication<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- signing<span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">groups</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- system:bootstrappers:kubeadm:default-node-token<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">nodeRegistration</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;ec2-10-100-0-1&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">criSocket</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/var/run/dockershim.sock&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">taints</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>- <span style="color:#000;font-weight:bold">key</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;kubeadmNode&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;someValue&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">effect</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;NoSchedule&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#000;font-weight:bold">key</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;kubeadmNode&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">value</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;someValue&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">effect</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;NoSchedule&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">kubeletExtraArgs</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">v</span>:<span style="color:#bbb"> </span><span style="color:#099">4</span><span style="color:#bbb">
-</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">ignorePreflightErrors</span>:<span style="color:#bbb">
-</span><span style="color:#bbb"></span>- IsPrivilegedUser<span style="color:#bbb">
-</span><span style="color:#bbb">   </span><span style="color:#000;font-weight:bold">imagePullPolicy</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;IfNotPresent&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">ignorePreflightErrors</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- IsPrivilegedUser<span style="color:#bbb">
+</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">imagePullPolicy</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;IfNotPresent&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">localAPIEndpoint</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">advertiseAddress</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;10.100.0.1&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">bindPort</span>:<span style="color:#bbb"> </span><span style="color:#099">6443</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">certificateKey</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;e6a2eb8581237ab72a4f494f30285ec12a9694d750b9785706a83bfcbbbd2204&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">skipPhases</span>:<span style="color:#bbb">
-</span><span style="color:#bbb"> </span>- addon/kube-proxy<span style="color:#bbb">
+</span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">skipPhases</span>:<span style="color:#bbb">
+</span><span style="color:#bbb">  </span>- addon/kube-proxy<span style="color:#bbb">
 </span><span style="color:#bbb"></span>---<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta3<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>ClusterConfiguration<span style="color:#bbb">
@@ -338,9 +338,9 @@ https://godoc.org/k8s.io/kubelet/config/v1beta1#KubeletConfiguration。</p>
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">listen-client-urls</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;http://10.100.0.1:2379&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">serverCertSANs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span>- <span style="color:#bbb"> </span><span style="color:#d14">&#34;ec2-10-100-0-1.compute-1.amazonaws.com&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- <span style="color:#bbb"> </span><span style="color:#d14">&#34;ec2-10-100-0-1.compute-1.amazonaws.com&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">peerCertSANs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span>- <span style="color:#d14">&#34;10.100.0.1&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span>- <span style="color:#d14">&#34;10.100.0.1&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#998;font-style:italic"># external:</span><span style="color:#bbb">
 </span><span style="color:#bbb">    </span><span style="color:#998;font-style:italic"># endpoints:</span><span style="color:#bbb">
 </span><span style="color:#bbb">    </span><span style="color:#998;font-style:italic"># - &#34;10.100.0.1:2379&#34;</span><span style="color:#bbb">
@@ -358,33 +358,33 @@ https://godoc.org/k8s.io/kubelet/config/v1beta1#KubeletConfiguration。</p>
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">authorization-mode</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;Node,RBAC&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraVolumes</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;some-volume&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">hostPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-path&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">mountPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-pod-path&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">readOnly</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">false</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">pathType</span>:<span style="color:#bbb"> </span>File<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;some-volume&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">hostPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-path&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">mountPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-pod-path&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">readOnly</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">false</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">pathType</span>:<span style="color:#bbb"> </span>File<span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">certSANs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>- <span style="color:#d14">&#34;10.100.1.1&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">  </span>- <span style="color:#d14">&#34;ec2-10-100-0-1.compute-1.amazonaws.com&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#d14">&#34;10.100.1.1&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#d14">&#34;ec2-10-100-0-1.compute-1.amazonaws.com&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">timeoutForControlPlane</span>:<span style="color:#bbb"> </span>4m0s<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">controllerManager</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">&#34;node-cidr-mask-size&#34;: </span><span style="color:#d14">&#34;20&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraVolumes</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;some-volume&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">hostPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-path&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">mountPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-pod-path&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">readOnly</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">false</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">pathType</span>:<span style="color:#bbb"> </span>File<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;some-volume&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">hostPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-path&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">mountPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-pod-path&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">readOnly</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">false</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">pathType</span>:<span style="color:#bbb"> </span>File<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">scheduler</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">address</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;10.100.0.1&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraVolumes</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">  </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;some-volume&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">hostPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-path&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">mountPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-pod-path&#34;</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">readOnly</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">false</span><span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">pathType</span>:<span style="color:#bbb"> </span>File<span style="color:#bbb">
+</span><span style="color:#bbb">    </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;some-volume&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">hostPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-path&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">mountPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-pod-path&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">readOnly</span>:<span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">false</span><span style="color:#bbb">
+</span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">pathType</span>:<span style="color:#bbb"> </span>File<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">certificatesDir</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/kubernetes/pki&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">imageRepository</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;registry.k8s.io&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">clusterName</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;example-cluster&#34;</span><span style="color:#bbb">
@@ -446,6 +446,127 @@ node only (e.g. the node ip).</p>
 - [ClusterConfiguration](#kubeadm-k8s-io-v1beta3-ClusterConfiguration)
 - [InitConfiguration](#kubeadm-k8s-io-v1beta3-InitConfiguration)
 - [JoinConfiguration](#kubeadm-k8s-io-v1beta3-JoinConfiguration)
+  
+## `BootstrapToken`     {#BootstrapToken}
+    
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [InitConfiguration](#kubeadm-k8s-io-v1beta3-InitConfiguration)
+
+<!--p>BootstrapToken describes one bootstrap token, stored as a Secret in the cluster</p-->
+<p>BootstrapToken 描述的是一个启动引导令牌，以 Secret 形式存储在集群中。</p>
+
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+  
+<tr><td><code>token</code> <B><!--[Required]-->[必需]</B><br/>
+<a href="#BootstrapTokenString"><code>BootstrapTokenString</code></a>
+</td>
+<td>
+   <!--p><code>token</code> is used for establishing bidirectional trust between nodes and control-planes.
+Used for joining nodes in the cluster.</p-->
+  <p><code>token</code> 用来在节点与控制面之间建立双向的信任关系。
+在向集群中添加节点时使用。</p>
+</td>
+</tr>
+<tr><td><code>description</code><br/>
+<code>string</code>
+</td>
+<td>
+   <!--p><code>description</code> sets a human-friendly message why this token exists and what it's used
+for, so other administrators can know its purpose.</p-->
+   <p><code>description</code> 设置一个对人友好的消息，说明为什么此令牌
+会存在以及其目标用途，这样其他管理员能够知道其目的。</p>
+</td>
+</tr>
+<tr><td><code>ttl</code><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <!--p><code>ttl</code> defines the time to live for this token. Defaults to <code>24h</code>.
+<code>expires</code> and <code>ttl</code> are mutually exclusive.</p-->
+   <p><code>ttl</code> 定义此令牌的声明周期。默认为 <code>24h</code>。
+<code>expires</code> 和 <code>ttl</code> 是互斥的。</p>
+</td>
+</tr>
+<tr><td><code>expires</code><br/>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#time-v1-meta"><code>meta/v1.Time</code></a>
+</td>
+<td>
+   <!--p><code>expires</code> specifies the timestamp when this token expires. Defaults to being set
+dynamically at runtime based on the <code>ttl</code>. <code>expires</code> and <code>ttl</code> are mutually exclusive.</p>-->
+   <p><code>expires</code> 设置此令牌过期的时间戳。默认为在运行时基于
+<code>ttl</code> 来决定。
+<code>expires</code> 和 <code>ttl</code> 是互斥的。</p>
+</td>
+</tr>
+<tr><td><code>usages</code><br/>
+<code>[]string</code>
+</td>
+<td>
+   <!--p><code>usages</code> describes the ways in which this token can be used. Can by default be used
+for establishing bidirectional trust, but that can be changed here.</p-->
+   <p><code>usages</code> 描述此令牌的可能使用方式。默认情况下，令牌可用于
+建立双向的信任关系；不过这里可以改变默认用途。</p>
+</td>
+</tr>
+<tr><td><code>groups</code><br/>
+<code>[]string</code>
+</td>
+<td>
+   <!--p><code>groups</code> specifies the extra groups that this token will authenticate as when/if
+used for authentication</p-->
+   <p><code>groups</code> 设定此令牌被用于身份认证时对应的附加用户组。</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `BootstrapTokenString`     {#BootstrapTokenString}
+    
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [BootstrapToken](#BootstrapToken)
+
+<!--p>BootstrapTokenString is a token of the format <code>abcdef.abcdef0123456789</code> that is used
+for both validation of the practically of the API server from a joining node's point
+of view and as an authentication method for the node in the bootstrap phase of
+&quot;kubeadm join&quot;. This token is and should be short-lived.</p-->
+<p>BootstrapTokenString 形式为 <code>abcdef.abcdef0123456789</code> 的一个令牌，
+用来从加入集群的节点角度验证 API 服务器的身份，或者 &quot;kubeadm join&quot;
+在节点启动引导是作为一种身份认证方法。
+此令牌的生命期是短暂的，并且应该如此。</p>
+<table class="table">
+<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
+<tbody>
+  
+<tr><td><code>-</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <!--span class="text-muted">No description provided.</span-->
+   <span class="text-muted">无描述</span>
+   
+</td>
+</tr>
+<tr><td><code>-</code> <B><!--[Required]-->[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <!--span class="text-muted">No description provided.</span-->
+   <span class="text-muted">无描述</span></td>
+</tr>
+</tbody>
+</table>
+  
+    
 
 ## `ClusterConfiguration`     {#kubeadm-k8s-io-v1beta3-ClusterConfiguration}
 
@@ -922,7 +1043,7 @@ APIServer 包含集群中 API 服务器部署所必需的设置。
 </td>
 </tr>
 <tr><td><code>timeoutForControlPlane</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
 <p>
@@ -990,14 +1111,14 @@ information will be fetched.
    <code>caCertHashes</code> specifies a set of public key pins to verify when token-based discovery
 is used. The root CA found during discovery must match one of these values.
 Specifying an empty set disables root CA pinning, which can be unsafe.
-Each hash is specified as &quot;&lt;type&gt;:&lt;value&gt;&quot;, where the only currently supported type is
+Each hash is specified as <code>&lt;type&gt;:&lt;value&gt;</code>, where the only currently supported type is
 &quot;sha256&quot;. This is a hex-encoded SHA-256 hash of the Subject Public Key Info (SPKI)
 object in DER-encoded ASN.1. These hashes can be calculated using, for example, OpenSSL.
    -->
    <code>caCertHashes</code> 设置一组在基于令牌来发现服务时要验证的公钥指纹。
 发现过程中获得的根 CA 必须与这里的数值之一匹配。
 设置为空集合意味着禁用根 CA 指纹，因而可能是不安全的。
-每个哈希值的形式为 "&lt;type&gt;:&lt;value&gt;"，当前唯一支持的 type 为
+每个哈希值的形式为 <code>&lt;type&gt;:&lt;value&gt;</code>，当前唯一支持的 type 为
 &quot;sha256&quot;。
 哈希值为主体公钥信息（Subject Public Key Info，SPKI）对象的 SHA-256
 哈希值（十六进制编码），形式为 DER 编码的 ASN.1。
@@ -1177,7 +1298,7 @@ does not contain any other authentication information
 </td>
 </tr>
 <tr><td><code>timeout</code><br/>
-<a href="https://godoc.org/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
 <td>
 <p>
@@ -1675,14 +1796,14 @@ i.e. <code>taints: []</code> in the YAML file. This field is solely used for Nod
    <!--p><code>kubeletExtraArgs</code> passes through extra arguments to the kubelet.
 The arguments here are passed to the kubelet command line via the environment file
 kubeadm writes at runtime for the kubelet to source.
-This overrides the generic base-level configuration in the 'kubelet-config-1.X' ConfigMap.
+This overrides the generic base-level configuration in the <code>kubelet-config</code> ConfigMap.
 Flags have higher priority when parsing. These values are local and specific to the node
 kubeadm is executing on. A key in this map is the flag name as it appears on the
 command line except without leading dash(es).</p-->
    <p><code>kubeletExtraArgs</code> 用来向 kubelet 传递额外参数。
 这里的参数会通过 kubeadm 在运行时写入的、由 kubelet 来读取的环境文件来
 传递给 kubelet 命令行。
-这里的设置会覆盖掉 'kubelet-config-1.X' ConfigMap 中包含的一般性的配置。
+这里的设置会覆盖掉 <code>kubelet-config</code> ConfigMap 中包含的一般性的配置。
 命令行标志在解析时优先级更高。
 这里的设置值仅作用于 kubeadm 运行所在的节点。
 映射中的每个键对应命令行中的一个标志参数，只是去掉了前置的连字符。</p>
@@ -1699,13 +1820,13 @@ the current node is registered.</p-->
 </td>
 </tr>
 <tr><td><code>imagePullPolicy</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
 </td>
 <td>
    <!--p><code>imagePullPolicy</code> specifies the policy for image pulling during kubeadm &quot;init&quot; and
 &quot;join&quot; operations.
 The value of this field must be one of &quot;Always&quot;, &quot;IfNotPresent&quot; or &quot;Never&quot;.
-If this field is unset kubeadm will default it to &quot;IfNotPresent&quot;, or pull the required
+If this field is not set, kubeadm will default it to &quot;IfNotPresent&quot;, or pull the required
 images if not present on the host.</p-->
    <p><code>imagePullPolicy</code> 设定 &quot;kubeadm init&quot; 和 &quot;kubeadm join&quot;
 操作期间的镜像拉取策略。此字段的取值可以是 &quot;Always&quot;、&quot;IfNotPresent&quot; 或
@@ -1760,124 +1881,3 @@ first alpha-numerically.</p-->
 </tr>
 </tbody>
 </table>
-  
-## `BootstrapToken`     {#BootstrapToken}
-    
-<!--
-**Appears in:**
--->
-**出现在：**
-
-- [InitConfiguration](#kubeadm-k8s-io-v1beta3-InitConfiguration)
-
-<!--p>BootstrapToken describes one bootstrap token, stored as a Secret in the cluster</p-->
-<p>BootstrapToken 描述的是一个启动引导令牌，以 Secret 形式存储在集群中。</p>
-
-<table class="table">
-<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
-<tbody>
-  
-<tr><td><code>token</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="#BootstrapTokenString"><code>BootstrapTokenString</code></a>
-</td>
-<td>
-   <!--p><code>token</code> is used for establishing bidirectional trust between nodes and control-planes.
-Used for joining nodes in the cluster.</p-->
-  <p><code>token</code> 用来在节点与控制面之间建立双向的信任关系。
-在向集群中添加节点时使用。</p>
-</td>
-</tr>
-<tr><td><code>description</code><br/>
-<code>string</code>
-</td>
-<td>
-   <!--p><code>description</code> sets a human-friendly message why this token exists and what it's used
-for, so other administrators can know its purpose.</p-->
-   <p><code>description</code> 设置一个对人友好的消息，说明为什么此令牌
-会存在以及其目标用途，这样其他管理员能够知道其目的。</p>
-</td>
-</tr>
-<tr><td><code>ttl</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <!--p><code>ttl</code> defines the time to live for this token. Defaults to <code>24h</code>.
-<code>expires</code> and <code>ttl</code> are mutually exclusive.</p-->
-   <p><code>ttl</code> 定义此令牌的声明周期。默认为 <code>24h</code>。
-<code>expires</code> 和 <code>ttl</code> 是互斥的。</p>
-</td>
-</tr>
-<tr><td><code>expires</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#time-v1-meta"><code>meta/v1.Time</code></a>
-</td>
-<td>
-   <!--p><code>expires</code> specifies the timestamp when this token expires. Defaults to being set
-dynamically at runtime based on the <code>ttl</code>. <code>expires</code> and <code>ttl</code> are mutually exclusive.</p>-->
-   <p><code>expires</code> 设置此令牌过期的时间戳。默认为在运行时基于
-<code>ttl</code> 来决定。
-<code>expires</code> 和 <code>ttl</code> 是互斥的。</p>
-</td>
-</tr>
-<tr><td><code>usages</code><br/>
-<code>[]string</code>
-</td>
-<td>
-   <!--p><code>usages</code> describes the ways in which this token can be used. Can by default be used
-for establishing bidirectional trust, but that can be changed here.</p-->
-   <p><code>usages</code> 描述此令牌的可能使用方式。默认情况下，令牌可用于
-建立双向的信任关系；不过这里可以改变默认用途。</p>
-</td>
-</tr>
-<tr><td><code>groups</code><br/>
-<code>[]string</code>
-</td>
-<td>
-   <!--p><code>groups</code> specifies the extra groups that this token will authenticate as when/if
-used for authentication</p-->
-   <p><code>groups</code> 设定此令牌被用于身份认证时对应的附加用户组。</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `BootstrapTokenString`     {#BootstrapTokenString}
-    
-<!--
-**Appears in:**
--->
-**出现在：**
-
-- [BootstrapToken](#BootstrapToken)
-
-<!--p>BootstrapTokenString is a token of the format <code>abcdef.abcdef0123456789</code> that is used
-for both validation of the practically of the API server from a joining node's point
-of view and as an authentication method for the node in the bootstrap phase of
-&quot;kubeadm join&quot;. This token is and should be short-lived.</p-->
-<p>BootstrapTokenString 形式为 <code>abcdef.abcdef0123456789</code> 的一个令牌，
-用来从加入集群的节点角度验证 API 服务器的身份，或者 &quot;kubeadm join&quot;
-在节点启动引导是作为一种身份认证方法。
-此令牌的生命期是短暂的，并且应该如此。</p>
-<table class="table">
-<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
-<tbody>
-  
-<tr><td><code>-</code> <B><!--[Required]-->[必需]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <!--span class="text-muted">No description provided.</span-->
-   <span class="text-muted">无描述</span>
-   
-</td>
-</tr>
-<tr><td><code>-</code> <B><!--[Required]-->[必需]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <!--span class="text-muted">No description provided.</span-->
-   <span class="text-muted">无描述</span>
-</td>
-</tr>
-</tbody>
-</table>
-
