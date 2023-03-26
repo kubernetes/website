@@ -1,5 +1,5 @@
 ---
-title: एक्सटेंशन (Extensions)
+title: एक्सटेंशनस (Extensions)
 id: Extensions
 date: 2019-02-01
 full_link: /docs/concepts/extend-kubernetes/#extensions
