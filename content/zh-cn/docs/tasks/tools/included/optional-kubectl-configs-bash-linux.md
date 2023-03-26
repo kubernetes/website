@@ -6,12 +6,15 @@ _build:
   list: never
   render: never
   publishResources: false
-
 ---
 <!-- 
 title: "bash auto-completion on Linux"
 description: "Some optional configuration for bash auto-completion on Linux."
 headless: true
+_build:
+  list: never
+  render: never
+  publishResources: false
 -->
 
 <!-- 
@@ -20,9 +23,13 @@ headless: true
 ### 简介 {#introduction}
 
 <!-- 
-The kubectl completion script for Bash can be generated with the command `kubectl completion bash`. Sourcing the completion script in your shell enables kubectl autocompletion.
+The kubectl completion script for Bash can be generated with the command `kubectl completion bash`.
+Sourcing the completion script in your shell enables kubectl autocompletion.
 
-However, the completion script depends on [**bash-completion**](https://github.com/scop/bash-completion), which means that you have to install this software first (you can test if you have bash-completion already installed by running `type _init_completion`).
+However, the completion script depends on
+[**bash-completion**](https://github.com/scop/bash-completion),
+which means that you have to install this software first
+(you can test if you have bash-completion already installed by running `type _init_completion`).
 -->
 kubectl 的 Bash 补全脚本可以用命令 `kubectl completion bash` 生成。
 在 Shell 中导入（Sourcing）补全脚本，将启用 kubectl 自动补全功能。
@@ -36,11 +43,16 @@ kubectl 的 Bash 补全脚本可以用命令 `kubectl completion bash` 生成。
 ### 安装 bash-completion {#install-bash-comletion}
 
 <!-- 
-bash-completion is provided by many package managers (see [here](https://github.com/scop/bash-completion#installation)). You can install it with `apt-get install bash-completion` or `yum install bash-completion`, etc.
+bash-completion is provided by many package managers
+(see [here](https://github.com/scop/bash-completion#installation)).
+You can install it with `apt-get install bash-completion` or `yum install bash-completion`, etc.
 
-The above commands create `/usr/share/bash-completion/bash_completion`, which is the main script of bash-completion. Depending on your package manager, you have to manually source this file in your `~/.bashrc` file.
+The above commands create `/usr/share/bash-completion/bash_completion`,
+which is the main script of bash-completion. Depending on your package manager,
+you have to manually source this file in your `~/.bashrc` file.
 
-To find out, reload your shell and run `type _init_completion`. If the command succeeds, you're already set, otherwise add the following to your `~/.bashrc` file:
+To find out, reload your shell and run `type _init_completion`.
+If the command succeeds, you're already set, otherwise add the following to your `~/.bashrc` file:
 -->
 很多包管理工具均支持 bash-completion（参见[这里](https://github.com/scop/bash-completion#installation)）。
 可以通过 `apt-get install bash-completion` 或 `yum install bash-completion` 等命令来安装它。
@@ -68,7 +80,8 @@ Reload your shell and verify that bash-completion is correctly installed by typi
 #### Bash
 
 <!-- 
-You now need to ensure that the kubectl completion script gets sourced in all your shell sessions. There are two ways in which you can do this:
+You now need to ensure that the kubectl completion script gets sourced in all
+your shell sessions. There are two ways in which you can do this:
 -->
 你现在需要确保一点：kubectl 补全脚本已经导入（sourced）到 Shell 会话中。
 可以通过以下两种方法进行设置：
@@ -79,6 +92,7 @@ echo 'source <(kubectl completion bash)' >>~/.bashrc
 {{< /tab >}}
 {{< tab name="系统全局" codelang="bash" >}}
 kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl > /dev/null
+sudo chmod a+r /etc/bash_completion.d/kubectl
 {{< /tab >}}
 {{< /tabs >}}
 
