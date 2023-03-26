@@ -16,7 +16,8 @@ In Kubernetes 1.27, this feature moves to beta and the corresponding feature gat
 The ContainerResource type metric allows us to configure the autoscaling based on resource usage of individual containers.
 
 In the following example, the HPA controller scales the target 
-so that the average utilization of the cpu in the application container of all the pods is 60%.
+so that the average utilization of the cpu in the application container of all the pods is around 60%.
+(See [here](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details) to know how the desired replica number is calculated exactly)
 
 ```yaml
 type: ContainerResource
@@ -49,23 +50,41 @@ But, this Resource type metric refers to the average utilization of the **Pods**
 In case a Pod has multiple containers, the utilization calculation would be:
 
 ```
-sum{the resource usages of each container} / sum{the resource request of each container}
+sum{the resource usage of each container} / sum{the resource request of each container}
 ```
 
-So, even if one container's resource utilization goes high, the Resource type metric may not suggest scaling up.
+The resource utiliaztion of each container may not have a direct correlation or may grow at different rates as the load changes. 
 
-If your Pod has multiple containers, you may want to use the ContainerResource type metric instead for the accurate autoscaling.
+For example:
+- A sidecar container is only providing an auxiliary service such as log shipping. If the application does not log very frequently or does not produce logs in its hotpath then the usage of the log shipper will not grow.
+- A sidecar container which provides authentication. Due to heavy caching the usage will only increase slightly when the load on the main container increases. In the current blended usage calculation approach this usually results in the the HPA not scaling up the deployment because the blended usage is still low.
+- A sidecar may be injected without resources set which prevents scaling based on utilization. In the current logic the HPA controller can only scale on absolute resource usage of the pod when the resource requests are not set.
+
+And, in such case, if only one container's resource utilization goes high, 
+the Resource type metric may not suggest scaling up.
+
+So, for the accurate autoscaling, you may want to use the ContainerResource type metric for such Pods instead.
 
 ## What's new for the beta?
 
 For Kubernetes v1.27, the ContainerResource type metric will be available by default as described at the beginning.
 (You can still disable it by the `HPAContainerMetrics` feature gate.)
 
-On the instrumentation side, the kube-controller-manager reports the following new metrics([ref1](https://github.com/kubernetes/kubernetes/pull/116326), [ref2](https://github.com/kubernetes/kubernetes/pull/116010)):
+Also, we've improve the observability of HPA controller by exposing some metrics from the kube-controller-manager:
 - `metric_computation_duration_seconds`: Number of metric computations. 
 - `metric_computation_total`: The time that the HPA controller takes to calculate one metric.
 - `reconciliations_total`: Number of reconciliation of HPA controller. 
 - `reconciliation_duration_seconds`: The time that the HPA controller takes to reconcile a HPA object once.
+
+These metrics have labels `action` (`scale_up`, `scale_down`, `none`) and `error` (`spec`, `internal`, `none`).
+And, in addition to them, the first two metrics have the `metric_type` label
+which corresponds to `HPA.spec.metrics[*].type`.
+
+All metrics are useful for general monitoring of HPA controller,
+you can get deeper insight like which part has a problem, where takes time, how many scaling tends to happen at which time on your cluster etc.
+
+Another minor stuff, we've changed the SuccessfulRescale event's messages 
+so that everyone can whether the events came from the resource metric or the container resource metric. ([ref](https://github.com/kubernetes/kubernetes/pull/116045))
 
 ## Getting involved 
 
