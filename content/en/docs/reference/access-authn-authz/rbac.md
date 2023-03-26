@@ -285,8 +285,8 @@ If you restrict `list` or `watch` by resourceName, clients must include a `metad
 For example, `kubectl get configmaps --field-selector=metadata.name=my-configmap`
 {{< /note >}}
 
-Rather than referring to individual `resources` and `verbs` you can use the wildcard `*` symbol to refer to all such objects.
-For `nonResourceURLs` you can use the wildcard `*` symbol as a suffix glob match and for `apiGroups` and `resourceNames` an empty set means that everything is allowed.
+Rather than referring to individual `resources` 、`apiGroups`and `verbs` you can use the wildcard `*` symbol to refer to all such objects.
+For `nonResourceURLs` you can use the wildcard `*` symbol as a suffix glob match and for `resourceNames` an empty set means that everything is allowed. `apiGroups` is accessible only to resources that do not have apiGroups if it is an empty set.
 Here is an example that allows access to perform any current and future action on all current and future resources (note, this is similar to the built-in `cluster-admin` role).
 
 ```yaml
