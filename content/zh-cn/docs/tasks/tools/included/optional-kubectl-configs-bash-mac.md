@@ -97,9 +97,9 @@ Homebrew 通常把它安装为 `/usr/local/bin/bash`。
 ### 安装 bash-completion {#install-bash-completion}
 
 {{< note >}}
-<!-- 
-As mentioned, these instructions assume you use Bash 4.1+, which means you will
-install bash-completion v2 (in contrast to Bash 3.2 and bash-completion v1,
+<!--
+As mentioned, these instructions assume you use Bash 4.1+,
+which means you will install bash-completion v2 (in contrast to Bash 3.2 and bash-completion v1,
 in which case kubectl completion won't work).
 -->
 如前所述，本说明假定你使用的 Bash 版本为 4.1+，这意味着你要安装 bash-completion v2

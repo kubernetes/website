@@ -127,6 +127,7 @@ The following methods exist for installing kubectl on Windows:
    ```cmd
    kubectl version --client
    ```
+
    {{< note >}}
    <!--
    The above command will generate a warning:
@@ -333,7 +334,8 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
      ```
 
    <!--
-   - Using PowerShell to automate the verification using the `-eq` operator to get a `True` or `False` result:
+   - Using PowerShell to automate the verification using the `-eq` operator to get
+     a `True` or `False` result:
    -->
 
    - 使用 PowerShell `-eq` 操作使验证自动化，获得 `True` 或者 `False` 的结果：
