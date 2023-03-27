@@ -327,19 +327,16 @@ v1 版本的容器运行时（CRI）API。早期版本默认为 v1 版本，
 
 <!--
 This section outlines the necessary steps to use containerd as CRI runtime.
-
-Use the following commands to install Containerd on your system:
 -->
 本节概述了使用 containerd 作为 CRI 运行时的必要步骤。
 
-使用以下命令在系统上安装 Containerd：
-
 <!-- 
 Follow the instructions for [getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md). Return to this step once you've created a valid configuration file, `config.toml`. 
- -->
 
-按照[开始使用 containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md) 的说明进行操作。 
-创建有效的配置文件 `config.toml` 后返回此步骤。
+To install containerd on your system, follow the instructions on [getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md).Return to this step once you've created a valid `config.toml` configuration file.
+-->
+要在系统上安装 containerd，请按照[开始使用 containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md)
+的说明进行操作。创建有效的 `config.toml` 配置文件后返回此步骤。
 
 {{< tabs name="找到 config.toml 文件" >}}
 {{% tab name="Linux" %}}
