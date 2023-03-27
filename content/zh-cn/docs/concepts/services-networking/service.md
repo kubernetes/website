@@ -48,7 +48,7 @@ that Deployment can create and destroy Pods dynamically. From one moment to the 
 you don't know how many of those Pods are working and healthy; you might not even know
 what those healthy Pods are named.
 Kubernetes {{< glossary_tooltip term_id="pod" text="Pods" >}} are created and destroyed
-to match the desired state of your cluster. Pods are emphemeral resources (you should not
+to match the desired state of your cluster. Pods are ephemeral resources (you should not
 expect that an individual Pod is reliable and durable).
 -->
 如果你使用 {{< glossary_tooltip term_id="deployment" >}} 来运行你的应用，
@@ -233,10 +233,14 @@ field.
 {{< /note >}}
 
 <!--
+### Port definitions {#field-spec-ports}
+
 Port definitions in Pods have names, and you can reference these names in the
 `targetPort` attribute of a Service. For example, we can bind the `targetPort`
 of the Service to the Pod port in the following way:
 -->
+### 端口定义 {#field-spec-ports}
+
 Pod 中的端口定义是有名字的，你可以在 Service 的 `targetPort` 属性中引用这些名称。
 例如，我们可以通过以下方式将 Service 的 `targetPort` 绑定到 Pod 端口：
 
@@ -286,14 +290,14 @@ The default protocol for Services is
 [TCP](/docs/reference/networking/service-protocols/#protocol-tcp); you can also
 use any other [supported protocol](/docs/reference/networking/service-protocols/).
 
-As many Services need to expose more than one port, Kubernetes supports multiple
-port definitions on a Service object.
+Because many Services need to expose more than one port, Kubernetes supports
++[multiple port definitions](#multi-port-services) for a single Service.
 Each port definition can have the same `protocol`, or a different one.
 -->
 服务的默认协议是 [TCP](/zh-cn/docs/reference/networking/service-protocols/#protocol-tcp)；
 你还可以使用任何其他[受支持的协议](/zh-cn/docs/reference/networking/service-protocols/)。
 
-由于许多服务需要公开多个端口，因此 Kubernetes 在服务对象上支持多个端口定义。
+由于许多服务需要公开多个端口，所以 Kubernetes 针对单个服务支持[多个端口定义](#multi-port-services)。
 每个端口定义可以具有相同的 `protocol`，也可以具有不同的协议。
 
 <!--
@@ -576,7 +580,7 @@ domain prefixed names such as `mycompany.com/my-custom-protocol`.
 或以域名为前缀的名称，如 `mycompany.com/my-custom-protocol`。
 
 <!--
-## Multi-Port Services
+### Multi-Port Services
 
 For some Services, you need to expose more than one port.
 Kubernetes lets you configure multiple port definitions on a Service object.
@@ -584,7 +588,7 @@ When using multiple ports for a Service, you must give all of your ports names
 so that these are unambiguous.
 For example:
 -->
-## 多端口 Service   {#multi-port-services}
+### 多端口 Service   {#multi-port-services}
 
 对于某些服务，你需要公开多个端口。
 Kubernetes 允许你在 Service 对象上配置多个端口定义。

@@ -49,7 +49,7 @@ DaemonSetオブジェクトの名前は、有効な
 
 `.spec.template`は`.spec`内での必須のフィールドの1つです。
 
-`.spec.template`は[Podテンプレート](/ja/docs/concepts/workloads/pods/#pod-template)となります。これはフィールドがネストされていて、`apiVersion`や`kind`をもたないことを除いては、{{< glossary_tooltip text="Pod" term_id="pod" >}}のテンプレートと同じスキーマとなります。
+`.spec.template`は[Podテンプレート](/ja/docs/concepts/workloads/pods/#pod-templates)となります。これはフィールドがネストされていて、`apiVersion`や`kind`をもたないことを除いては、{{< glossary_tooltip text="Pod" term_id="pod" >}}のテンプレートと同じスキーマとなります。
 
 Podに対する必須のフィールドに加えて、DaemonSet内のPodテンプレートは適切なラベルを指定しなくてはなりません([Podセレクター](#pod-selector)の項目を参照ください)。
 
