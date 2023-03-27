@@ -177,8 +177,9 @@ follow [configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/conf
 
 Your container runtime must support at least v1alpha2 of the container runtime interface.
 
-Kubernetes {{< skew currentVersion >}}  defaults to using v1 of the CRI API.
-If a container runtime does not support the v1 API, the kubelet falls back to
+Kubernetes [starting v1.26](/blog/2022/11/18/upcoming-changes-in-kubernetes-1-26/#cri-api-removal)
+_only works_ with v1 of the CRI API. Earlier versions default
+to v1 version, however if a container runtime does not support the v1 API, the kubelet falls back to
 using the (deprecated) v1alpha2 API instead.
 
 ## Container runtimes
@@ -189,9 +190,7 @@ using the (deprecated) v1alpha2 API instead.
 
 This section outlines the necessary steps to use containerd as CRI runtime.
 
-Use the following commands to install Containerd on your system:
-
-Follow the instructions for [getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md). Return to this step once you've created a valid configuration file, `config.toml`. 
+To install containerd on your system, follow the instructions on [getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md).Return to this step once you've created a valid `config.toml` configuration file. 
 
 {{< tabs name="Finding your config.toml file" >}}
 {{% tab name="Linux" %}}
@@ -254,6 +253,11 @@ sandbox image by setting the following config:
 ```
 
 You might need to restart `containerd` as well once you've updated the config file: `systemctl restart containerd`.
+
+Please note, that it is a best practice for kubelet to declare the matching `pod-infra-container-image`.
+If not configured, kubelet may attempt to garbage collect the `pause` image.
+There is ongoing work in [containerd to pin the pause image](https://github.com/containerd/containerd/issues/6352)
+and not require this setting on kubelet any longer.
 
 ### CRI-O
 

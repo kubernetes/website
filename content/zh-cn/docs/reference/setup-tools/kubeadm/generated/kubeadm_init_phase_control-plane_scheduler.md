@@ -77,7 +77,7 @@ kubeadm init phase control-plane scheduler [flags]
 <!--
 <p>Don't apply any changes; just output what would be done.</p>
 -->
-<p>不应用任何变更；仅仅输出将会变更的内容</p>
+<p>不做任何更改；只输出将要执行的操作。</p>
 </td>
 </tr>
 

@@ -1,10 +1,12 @@
 ---
 title: JSONPath 支持
 content_type: concept
+weight: 40
 ---
 <!--
 title: JSONPath Support
 content_type: concept
+weight: 40
 -->
 
 <!-- overview -->
@@ -95,7 +97,7 @@ Function            | Description               | Example                       
 `.` or `[]`         | child operator            | `{.kind}`, `{['kind']}` or `{['name\.type']}`                   | `List`
 `..`                | recursive descent         | `{..name}`                                                      | `127.0.0.1 127.0.0.2 myself e2e`
 `*`                 | wildcard. Get all objects | `{.items[*].metadata.name}`                                     | `[127.0.0.1 127.0.0.2]`
-`[start:end :step]` | subscript operator        | `{.users[0].name}`                                              | `myself`
+`[start:end:step]`  | subscript operator        | `{.users[0].name}`                                              | `myself`
 `[,]`               | union operator            | `{.items[*]['metadata.name', 'status.capacity']}`               | `127.0.0.1 127.0.0.2 map[cpu:4] map[cpu:8]`
 `?()`               | filter                    | `{.users[?(@.name=="e2e")].user.password}`                      | `secret`
 `range`, `end`      | iterate list              | `{range .items[*]}[{.metadata.name}, {.status.capacity}] {end}` | `[127.0.0.1, map[cpu:4]] [127.0.0.2, map[cpu:8]]`
@@ -108,7 +110,7 @@ Function            | Description               | Example                       
 `.` or `[]`         | 子运算符            | `{.kind}`, `{['kind']}` or `{['name\.type']}`                    | `List`
 `..`                | 递归下降         | `{..name}`                                                      | `127.0.0.1 127.0.0.2 myself e2e`
 `*`                 | 通配符。获取所有对象 | `{.items[*].metadata.name}`                                     | `[127.0.0.1 127.0.0.2]`
-`[start:end :step]` | 下标运算符        | `{.users[0].name}`                                              | `myself`
+`[start:end:step]`  | 下标运算符        | `{.users[0].name}`                                              | `myself`
 `[,]`               | 并集运算符            | `{.items[*]['metadata.name', 'status.capacity']}`               | `127.0.0.1 127.0.0.2 map[cpu:4] map[cpu:8]`
 `?()`               | 过滤                    | `{.users[?(@.name=="e2e")].user.password}`                      | `secret`
 `range`, `end`      | 迭代列表              | `{range .items[*]}[{.metadata.name}, {.status.capacity}] {end}` | `[127.0.0.1, map[cpu:4]] [127.0.0.2, map[cpu:8]]`

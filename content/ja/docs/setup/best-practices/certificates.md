@@ -1,7 +1,7 @@
 ---
 title: PKI証明書とその要件
 content_type: concept
-weight: 40
+weight: 50
 ---
 
 <!-- overview -->

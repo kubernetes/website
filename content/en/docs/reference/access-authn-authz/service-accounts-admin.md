@@ -141,6 +141,11 @@ to obtain short-lived API access tokens is recommended instead.
 
 ## Control plane details
 
+### ServiceAccount controller
+
+A ServiceAccount controller manages the ServiceAccounts inside namespaces, and
+ensures a ServiceAccount named "default" exists in every active namespace.
+
 ### Token controller
 
 The service account token controller runs as part of `kube-controller-manager`.
@@ -365,34 +370,6 @@ If you created a namespace `examplens` to experiment with, you can remove it:
 ```shell
 kubectl delete namespace examplens
 ```
-
-## Control plane details
-
-### ServiceAccount controller
-
-A ServiceAccount controller manages the ServiceAccounts inside namespaces, and
-ensures a ServiceAccount named "default" exists in every active namespace.
-
-### Token controller
-
-The service account token controller runs as part of `kube-controller-manager`.
-This controller acts asynchronously. It:
-
-- watches for ServiceAccount creation and creates a corresponding
-  ServiceAccount token Secret to allow API access.
-- watches for ServiceAccount deletion and deletes all corresponding ServiceAccount
-  token Secrets.
-- watches for ServiceAccount token Secret addition, and ensures the referenced
-  ServiceAccount exists, and adds a token to the Secret if needed.
-- watches for Secret deletion and removes a reference from the corresponding
-  ServiceAccount if needed.
-
-You must pass a service account private key file to the token controller in
-the `kube-controller-manager` using the `--service-account-private-key-file`
-flag. The private key is used to sign generated service account tokens.
-Similarly, you must pass the corresponding public key to the `kube-apiserver`
-using the `--service-account-key-file` flag. The public key will be used to
-verify the tokens during authentication.
 
 ## {{% heading "whatsnext" %}}
 
