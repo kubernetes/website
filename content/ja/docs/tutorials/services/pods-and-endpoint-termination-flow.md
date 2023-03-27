@@ -46,7 +46,7 @@ spec:
       labels:
         app: nginx
     spec:
-      terminationGracePeriodSeconds: 120 # 追加の長いgraceful期間
+      terminationGracePeriodSeconds: 120 # 非常に長い猶予期間
       containers:
       - name: nginx
         image: nginx:latest
