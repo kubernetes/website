@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes Validating Admission Policies: A Practical Example"
-date: 2023-03-23T00:00:00+0000
+date: 2023-04-05T00:00:00+0000
 slug: kubescape-validating-admission-policy-library
 ---
 
@@ -13,13 +13,13 @@ In addition to countless custom, internal implementations, many open source proj
 
 While admission controllers for policy have seen adoption, there are blockers for their widespread use. Webhook infrastructure must be maintained as a production service, with all that entails. The failure case of an admission control webhook must either be closed, reducing the availability of the cluster; or open, negating the use of the feature for policy enforcement. The network hop and evaluation time makes admission control a notable component of latency when dealing with, for example, pods being spun up to respond to a network request in a "serverless" environment.
 
-## Validating Admission Policies and the Common Expression Language
+## Validating admission policies and the Common Expression Language
 
 Version 1.26 of Kubernetes introduced, in Alpha, a compromise solution. [Validating admission policies](https://kubernetes.io/blog/2022/12/20/validating-admission-policies-alpha/) are a declarative, in-process alternative to admission webhooks. They use the [Common Expression Language (CEL)](https://github.com/google/cel-spec) to declare validation rules.
 
 CEL was developed by Google for security and policy use cases, based on learnings from the Firebase real-time database. Its design allows it to be safely embedded into applications and executed in microseconds, with limited compute and memory impact. [Validation rules for CRDs](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules) introduced CEL to the Kubernetes ecosystem in v1.23, and at the time it was noted that the language would suit a more generic implementation of validation by admission control.
 
-## Giving CEL a Roll - A Practical Example
+## Giving CEL a roll - a practical example
 
 [Kubescape](https://github.com/kubescape/kubescape) is a CNCF project which has become one of the most popular ways for users to improve the security posture of a Kubernetes cluster and validate its compliance. [Its controls](https://github.com/kubescape/regolibrary) — groups of tests against API objects — are built in [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/), the policy language of Open Policy Agent.
 
@@ -27,7 +27,7 @@ Rego has a reputation for complexity, based largely on the fact that it is a dec
 
 A common feature request for the project is to be able to implement policies based on Kubescape’s findings and output. For example, after scanning pods for [known paths to cloud credential files](https://hub.armosec.io/docs/c-0020), users would like the ability to enforce policy that these pods should not be admitted at all. The Kubescape team thought this would be the perfect opportunity to try and port our existing controls to CEL and apply them as admission policies.
 
-### Show Me the Policy
+### Show me the policy
 
 It did not take us long to convert many of our controls and build [a library of validating admission policies.](https://github.com/kubescape/cel-admission-library) Let’s look at one as an example.
 
