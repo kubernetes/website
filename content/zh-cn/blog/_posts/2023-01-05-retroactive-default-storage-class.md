@@ -19,8 +19,10 @@ slug: retroactive-default-storage-class
 **译者：** Michael Yao (DaoCloud)
 
 <!--
-The v1.25 release of Kubernetes introduced an alpha feature to change how a default StorageClass was assigned to a PersistentVolumeClaim (PVC).
-With the feature enabled, you no longer need to create a default StorageClass first and PVC second to assign the class. Additionally, any PVCs without a StorageClass assigned can be updated later.
+The v1.25 release of Kubernetes introduced an alpha feature to change how a default
+StorageClass was assigned to a PersistentVolumeClaim (PVC). With the feature enabled,
+you no longer need to create a default StorageClass first and PVC second to assign the
+class. Additionally, any PVCs without a StorageClass assigned can be updated later.
 This feature was graduated to beta in Kubernetes 1.26.
 -->
 Kubernetes v1.25 引入了一个 Alpha 特性来更改默认 StorageClass 被分配到 PersistentVolumeClaim (PVC) 的方式。
@@ -28,7 +30,8 @@ Kubernetes v1.25 引入了一个 Alpha 特性来更改默认 StorageClass 被分
 此外，任何未分配 StorageClass 的 PVC 都可以在后续被更新。此特性在 Kubernetes 1.26 中已进阶至 Beta。
 
 <!--
-You can read [retroactive default StorageClass assignment](/docs/concepts/storage/persistent-volumes/#retroactive-default-storageclass-assignment) in the Kubernetes documentation for more details about how to use that,
+You can read [retroactive default StorageClass assignment](/docs/concepts/storage/persistent-volumes/#retroactive-default-storageclass-assignment)
+in the Kubernetes documentation for more details about how to use that,
 or you can read on to learn about why the Kubernetes project is making this change.
 -->
 有关如何使用的更多细节，请参阅 Kubernetes
@@ -38,7 +41,9 @@ or you can read on to learn about why the Kubernetes project is making this chan
 <!--
 ## Why did StorageClass assignment need improvements
 
-Users might already be familiar with a similar feature that assigns default StorageClasses to **new** PVCs at the time of creation. This is currently handled by the [admission controller](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass).
+Users might already be familiar with a similar feature that assigns default StorageClasses
+to **new** PVCs at the time of creation. This is currently handled by the
+[admission controller](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass).
 -->
 ## 为什么 StorageClass 赋值需要改进  {#why-did-sc-assignment-need-improvements}
 
@@ -46,10 +51,10 @@ Users might already be familiar with a similar feature that assigns default Stor
 这个目前由[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)处理。
 
 <!--
-But what if there wasn't a default StorageClass defined at the time of PVC creation? 
-Users would end up with a PVC that would never be assigned a class. 
-As a result, no storage would be provisioned, and the PVC would be somewhat "stuck" at this point. 
-Generally, two main scenarios could result in "stuck" PVCs and cause problems later down the road. 
+But what if there wasn't a default StorageClass defined at the time of PVC creation?
+Users would end up with a PVC that would never be assigned a class.
+As a result, no storage would be provisioned, and the PVC would be somewhat "stuck" at this point.
+Generally, two main scenarios could result in "stuck" PVCs and cause problems later down the road.
 Let's take a closer look at each of them.
 -->
 但是，如果在创建 PVC 时没有定义默认 StorageClass 会怎样？
@@ -66,9 +71,11 @@ With the alpha feature enabled, there were two options admins had when they want
 启用这个 Alpha 特性后，管理员想要更改默认 StorageClass 时会有两个选项：
 
 <!--
-1. Creating a new StorageClass as default before removing the old one associated with the PVC. 
-This would result in having two defaults for a short period.
-At this point, if a user were to create a PersistentVolumeClaim with storageClassName set to <code>null</code> (implying default StorageClass), the newest default StorageClass would be chosen and assigned to this PVC.
+1. Creating a new StorageClass as default before removing the old one associated with the PVC.
+   This would result in having two defaults for a short period.
+   At this point, if a user were to create a PersistentVolumeClaim with storageClassName set to
+   <code>null</code> (implying default StorageClass), the newest default StorageClass would be
+   chosen and assigned to this PVC.
 -->
 1. 在移除与 PVC 关联的旧 StorageClass 之前，创建一个新的 StorageClass 作为默认值。
    这将导致在短时间内出现两个默认值。此时，如果用户要创建一个 PersistentVolumeClaim，
@@ -77,9 +84,11 @@ At this point, if a user were to create a PersistentVolumeClaim with storageClas
 
 <!--
 2. Removing the old default first and creating a new default StorageClass.
-This would result in having no default for a short time.
-Subsequently, if a user were to create a PersistentVolumeClaim with storageClassName set to <code>null</code> (implying default StorageClass), the PVC would be in <code>Pending</code> state forever.
-The user would have to fix this by deleting the PVC and recreating it once the default StorageClass was available.
+   This would result in having no default for a short time.
+   Subsequently, if a user were to create a PersistentVolumeClaim with storageClassName
+   set to <code>null</code> (implying default StorageClass), the PVC would be in
+   <code>Pending</code> state forever. The user would have to fix this by deleting
+   the PVC and recreating it once the default StorageClass was available.
 -->
 2. 先移除旧的默认值再创建一个新的默认 StorageClass。这将导致短时间内没有默认值。
    接下来如果用户创建一个 PersistentVolumeClaim，并将 storageClassName 设置为 <code>null</code>
@@ -89,8 +98,10 @@ The user would have to fix this by deleting the PVC and recreating it once the d
 <!--
 ### Resource ordering during cluster installation
 
-If a cluster installation tool needed to create resources that required storage, for example, an image registry, it was difficult to get the ordering right. 
-This is because any Pods that required storage would rely on the presence of a default StorageClass and would fail to be created if it wasn't defined.
+If a cluster installation tool needed to create resources that required storage,
+for example, an image registry, it was difficult to get the ordering right.
+This is because any Pods that required storage would rely on the presence of
+a default StorageClass and would fail to be created if it wasn't defined.
 -->
 ### 集群安装期间的资源顺序  {#resource-ordering-during-cluster-installation}
 
@@ -101,8 +112,10 @@ This is because any Pods that required storage would rely on the presence of a d
 <!--
 ## What changed
 
-We've changed the PersistentVolume (PV) controller to assign a default StorageClass to any unbound PersistentVolumeClaim that has the storageClassName set to <code>null</code>.
-We've also modified the PersistentVolumeClaim admission within the API server to allow the change of values from an unset value to an actual StorageClass name.
+We've changed the PersistentVolume (PV) controller to assign a default StorageClass
+to any unbound PersistentVolumeClaim that has the storageClassName set to <code>null</code>.
+We've also modified the PersistentVolumeClaim admission within the API server to allow
+the change of values from an unset value to an actual StorageClass name.
 -->
 ## 发生了什么变化  {#what-changed}
 
@@ -113,7 +126,10 @@ storageClassName 设置为 `null` 且未被绑定的所有 PersistentVolumeClaim
 <!--
 ### Null `storageClassName` versus `storageClassName: ""` - does it matter? { #null-vs-empty-string }
 
-Before this feature was introduced, those values were equal in terms of behavior. Any PersistentVolumeClaim with the storageClassName set to <code>null</code> or <code>""</code> would bind to an existing PersistentVolume resource with storageClassName also set to <code>null</code> or <code>""</code>.
+Before this feature was introduced, those values were equal in terms of behavior.
+Any PersistentVolumeClaim with the storageClassName set to <code>null</code> or <code>""</code>
+would bind to an existing PersistentVolume resource with storageClassName also set to
+<code>null</code> or <code>""</code>.
 -->
 ### Null `storageClassName` 与 `storageClassName: ""` - 有什么影响？ {#null-vs-empty-string}
 
@@ -123,7 +139,10 @@ Before this feature was introduced, those values were equal in terms of behavior
 
 <!--
 With this new feature enabled we wanted to maintain this behavior but also be able to update the StorageClass name.
-With these constraints in mind, the feature changes the semantics of <code>null</code>. If a default StorageClass is present, <code>null</code> would translate to "Give me a default" and <code>""</code> would mean "Give me PersistentVolume that also has <code>""</code> StorageClass name." In the absence of a StorageClass, the behavior would remain unchanged.
+With these constraints in mind, the feature changes the semantics of <code>null</code>.
+If a default StorageClass is present, <code>null</code> would translate to "Give me a default" and
+<code>""</code> would mean "Give me PersistentVolume that also has <code>""</code> StorageClass name."
+In the absence of a StorageClass, the behavior would remain unchanged.
 -->
 启用此新特性时，我们希望保持此行为，但也希望能够更新 StorageClass 名称。
 考虑到这些限制，此特性更改了 `null` 的语义。
@@ -132,7 +151,8 @@ With these constraints in mind, the feature changes the semantics of <code>null<
 所以行为将保持不变。
 
 <!--
-Summarizing the above, we've changed the semantics of <code>null</code> so that its behavior depends on the presence or absence of a definition of default StorageClass.
+Summarizing the above, we've changed the semantics of <code>null</code> so that
+its behavior depends on the presence or absence of a definition of default StorageClass.
 
 The tables below show all these cases to better describe when PVC binds and when its StorageClass gets updated.
 -->
@@ -179,7 +199,9 @@ The tables below show all these cases to better describe when PVC binds and when
 <!--
 ## How to use it
 
-If you want to test the feature whilst it's alpha, you need to enable the relevant feature gate in the kube-controller-manager and the kube-apiserver. Use the `--feature-gates` command line argument:
+If you want to test the feature whilst it's alpha, you need to enable the relevant
+feature gate in the kube-controller-manager and the kube-apiserver.
+Use the `--feature-gates` command line argument:
 -->
 ## 如何使用  {#how-to-use-it}
 
@@ -218,7 +240,9 @@ If you would like to see the feature in action and verify it works fine in your 
    ```
 
 <!--
-2. Create the PersistentVolumeClaim when there is no default StorageClass. The PVC won't provision or bind (unless there is an existing, suitable PV already present) and will remain in <code>Pending</code> state.
+2. Create the PersistentVolumeClaim when there is no default StorageClass.
+   The PVC won't provision or bind (unless there is an existing, suitable PV already present)
+   and will remain in <code>Pending</code> state.
 -->
 2. 在没有默认 StorageClass 时创建 PersistentVolumeClaim。
    PVC 不会制备或绑定（除非当前已存在一个合适的 PV），PVC 将保持在 `Pending` 状态。
@@ -226,7 +250,7 @@ If you would like to see the feature in action and verify it works fine in your 
    ```
    $ kc get pvc
    NAME      STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   AGE
-   pvc-1     Pending   
+   pvc-1     Pending
    ```
 
 <!--
@@ -253,7 +277,10 @@ If you would like to see the feature in action and verify it works fine in your 
 <!--
 ### New metrics
 
-To help you see that the feature is working as expected we also introduced a new <code>retroactive_storageclass_total</code> metric to show how many times that the PV controller attempted to update PersistentVolumeClaim, and <code>retroactive_storageclass_errors_total</code> to show how many of those attempts failed.
+To help you see that the feature is working as expected we also introduced a new
+<code>retroactive_storageclass_total</code> metric to show how many times that the
+PV controller attempted to update PersistentVolumeClaim, and
+<code>retroactive_storageclass_errors_total</code> to show how many of those attempts failed.
 -->
 ### 新指标  {#new-metrics}
 
@@ -264,7 +291,8 @@ To help you see that the feature is working as expected we also introduced a new
 <!--
 ## Getting involved
 
-We always welcome new contributors so if you would like to get involved you can join our [Kubernetes Storage Special-Interest-Group](https://github.com/kubernetes/community/tree/master/sig-storage) (SIG).
+We always welcome new contributors so if you would like to get involved you can
+join our [Kubernetes Storage Special-Interest-Group](https://github.com/kubernetes/community/tree/master/sig-storage) (SIG).
 
 If you would like to share feedback, you can do so on our [public Slack channel](https://app.slack.com/client/T09NY5SBT/C09QZFCE5).
 

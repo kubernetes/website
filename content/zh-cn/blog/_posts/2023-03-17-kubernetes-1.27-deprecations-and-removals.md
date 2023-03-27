@@ -403,6 +403,20 @@ Kubernetes v1.25 版本还稳定了对 DaemonSet Pod 的浪涌支持，
 `DaemonSetUpdateSurge` 特性门控将在 Kubernetes v1.27 中被移除。
 
 <!--
+### Removal of `--container-runtime` command line argument
+-->
+### 移除 `--container-runtime` 命令行参数
+
+<!--
+The kubelet accepts a deprecated command line argument, `--container-runtime`, and the only
+valid value would be `remote` after dockershim code is removed. Kubernetes v1.27 will remove
+that argument, which has been deprecated since the v1.24 release.
+-->
+kubelet 接受一个已弃用的命令行参数 `--container-runtime`，
+并且在移除 dockershim 代码后，唯一有效的值将是 `remote`。
+Kubernetes v1.27 将移除该参数，该参数自 v1.24 版本以来已被弃用。
+
+<!--
 ## Looking ahead
 
 The official list of
