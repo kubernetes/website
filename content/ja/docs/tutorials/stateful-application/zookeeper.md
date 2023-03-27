@@ -21,9 +21,8 @@ weight: 40
 - [Podアンチアフィニティ](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 - [kubectl CLI](/docs/reference/kubectl/kubectl/)
 
-少なくとも4つのノードのクラスターが必要で、各ノードは少なくとも2つのCPUと4GiBのメモリが必須です。このチュートリアルでは、
-クラスターのノードをcordonおよびdrainします。
-**つまり、クラスターはそのノードの全てのPodを終了して退去させて、ノードが一時的にスケジュールできなくなるということです。**
+少なくとも4つのノードのクラスターが必要で、各ノードは少なくとも2つのCPUと4GiBのメモリが必須です。このチュートリアルでは、クラスターのノードをcordonおよびdrainします。
+**つまり、クラスターがそのノードの全てのPodを終了して退去させて、ノードを一時的にスケジュールできなくなる、ということです。**
 このチュートリアル専用のクラスターを使うか、起こした破壊がほかのテナントに干渉しない確証を得ることをお勧めします。
 
 このチュートリアルでは、クラスターがPersistentVolumeの動的なプロビジョニングが行われるように設定されていることを前提としています。
@@ -48,30 +47,31 @@ ZooKeeperでは、データの読み書き、および更新の監視ができ�
 データへの全ての操作はアトミックかつ逐次的に首尾一貫しています。
 ZooKeeperは、アンサンブル内の全てのサーバー間でステートマシンを複製するために[Zab](https://pdfs.semanticscholar.org/b02c/6b00bd5dbdbd951fddb00b906c82fa80f0b3.pdf)合意プロトコルを使ってこれを保証します。
 
-The ensemble uses the Zab protocol to elect a leader, and the ensemble cannot write data until that election is complete. Once complete, the ensemble uses Zab to ensure that it replicates all writes to a quorum before it acknowledges and makes them visible to clients. Without respect to weighted quorums, a quorum is a majority component of the ensemble containing the current leader. For instance, if the ensemble has three servers, a component that contains the leader and one other server constitutes a quorum. If the ensemble can not achieve a quorum, the ensemble cannot write data.
+アンサンブルはリーダーを選出するのにZabプロトコルを使い、選出が完了するまでデータを書き出しません。
+完了すると、アンサンブルは複製するのにZabを使い、書き込みが承認されてクライアントに可視化されるより前に、全ての書き込みをクォーラムに複製することを保証します。
+重み付けされたクォーラムでなければ、クォーラムは現在のリーダーを含むアンサンブルの多数側のコンポーネントです。
+例えばアンサンブルが3つのサーバーを持つ時、リーダーとそれ以外のもう1つのサーバーを含むコンポーネントが、クォーラムを構成します。
+アンサンブルがクォーラムに達しない場合、アンサンブルはデータを書き出せません。
 
-ZooKeeper servers keep their entire state machine in memory, and write every mutation to a durable WAL (Write Ahead Log) on storage media. When a server crashes, it can recover its previous state by replaying the WAL. To prevent the WAL from growing without bound, ZooKeeper servers will periodically snapshot them in memory state to storage media. These snapshots can be loaded directly into memory, and all WAL entries that preceded the snapshot may be discarded.
+ZooKeeperサーバー群はそれらの全てのステートマシンをメモリに保持し、それぞれの変化をストレージメディア上の永続的なWAL(Write Ahead Log)に書き出します。
+サーバーがクラッシュした時には、WALをリプレーすることで以前のステートに回復できます。
+WALを際限のない増加から防ぐために、ZooKeeperサーバーは、メモリステートにあるものをストレージメディアに定期的にスナップショットします。
+これらのスナップショットはメモリに直接読み込むことができ、スナップショットより前の全てのWALエントリは破棄され得ます。
 
-## Creating a ZooKeeper ensemble
+## ZooKeeperアンサンブルの作成
 
-The manifest below contains a
-[Headless Service](/docs/concepts/services-networking/service/#headless-services),
-a [Service](/docs/concepts/services-networking/service/),
-a [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budgets),
-and a [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
+以下のマニフェストは[Headless Service](/ja/docs/concepts/services-networking/service/#headless-services)、[Service](/ja/docs/concepts/services-networking/service/)、[PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budgets)、[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)を含んでいます。
 
 {{< codenew file="application/zookeeper/zookeeper.yaml" >}}
 
-Open a terminal, and use the
-[`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) command to create the
-manifest.
+ターミナルを開き、マニフェストを作成するために
+[`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply)コマンドを使います。
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/zookeeper/zookeeper.yaml
 ```
 
-This creates the `zk-hs` Headless Service, the `zk-cs` Service,
-the `zk-pdb` PodDisruptionBudget, and the `zk` StatefulSet.
+これは`zk-hs` Headless Service、`zk-cs` Service、`zk-pdb` PodDisruptionBudget、 `zk` StatefulSetを作成します。
 
 ```
 service/zk-hs created
@@ -80,14 +80,13 @@ poddisruptionbudget.policy/zk-pdb created
 statefulset.apps/zk created
 ```
 
-Use [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) to watch the
-StatefulSet controller create the StatefulSet's Pods.
+StatefulSetのPodを作成するStatefulSetコントローラーを監視するため、[`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get)を使います。
 
 ```shell
 kubectl get pods -w -l app=zk
 ```
 
-Once the `zk-2` Pod is Running and Ready, use `CTRL-C` to terminate kubectl.
+`zk-2` PodがRunningおよびReadyになったら、`CTRL-C`でkubectlを終了してください。
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -108,22 +107,22 @@ zk-2      0/1       Running   0         19s
 zk-2      1/1       Running   0         40s
 ```
 
-The StatefulSet controller creates three Pods, and each Pod has a container with
-a [ZooKeeper](https://archive.apache.org/dist/zookeeper/stable/) server.
+StatefulSetコントローラーが3つのPodを作成し、各Podは[ZooKeeper](https://archive.apache.org/dist/zookeeper/stable/)サーバー付きのコンテナを持ちます。
 
-### Facilitating leader election
+### リーダーの選出のファシリテート
 
-Because there is no terminating algorithm for electing a leader in an anonymous network, Zab requires explicit membership configuration to perform leader election. Each server in the ensemble needs to have a unique identifier, all servers need to know the global set of identifiers, and each identifier needs to be associated with a network address.
+匿名のネットワークにおいてリーダー選出を終了するアルゴリズムがないので、Zabはリーダー選出を行うための明示的なメンバーシップ設定を要します。
+アンサンブルの各サーバーはユニーク識別子を持つ必要があり、全てのサーバーは識別子のグローバルセットを知っている必要があり、各識別子はネットワークアドレスと関連付けられている必要があります。
 
-Use [`kubectl exec`](/docs/reference/generated/kubectl/kubectl-commands/#exec) to get the hostnames
-of the Pods in the `zk` StatefulSet.
+`zk` StatefulSetのPodのホスト名を取得するために[`kubectl exec`](/docs/reference/generated/kubectl/kubectl-commands/#exec)を使います。
 
 ```shell
 for i in 0 1 2; do kubectl exec zk-$i -- hostname; done
 ```
 
-The StatefulSet controller provides each Pod with a unique hostname based on its ordinal index. The hostnames take the form of `<statefulset name>-<ordinal index>`. Because the `replicas` field of the `zk` StatefulSet is set to `3`, the Set's controller creates three Pods with their hostnames set to `zk-0`, `zk-1`, and
-`zk-2`.
+StatefulSetコントローラーは各Podに、その順序インデックスに基づくユニークなホスト名を提供します。
+ホスト名は`<statefulset名>-<順序インデックス>`という形をとります。
+`zk` StatefulSetの`replicas`フィールドが`3`にセットされているので、このセットのコントローラーは、ホスト名にそれぞれ`zk-0`、`zk-1`、`zk-2`が付いた3つのPodを作成します。
 
 ```
 zk-0
@@ -131,15 +130,15 @@ zk-1
 zk-2
 ```
 
-The servers in a ZooKeeper ensemble use natural numbers as unique identifiers, and store each server's identifier in a file called `myid` in the server's data directory.
+ZooKeeperアンサンブルのサーバーは、ユニーク識別子として自然数を使い、それぞれのサーバーの識別子をサーバーのデータディレクトリ内の`myid`というファイルに格納します。
 
-To examine the contents of the `myid` file for each server use the following command.
+各サーバーの`myid`ファイルの内容を調べるには、以下のコマンドを使います。
 
 ```shell
 for i in 0 1 2; do echo "myid zk-$i";kubectl exec zk-$i -- cat /var/lib/zookeeper/data/myid; done
 ```
 
-Because the identifiers are natural numbers and the ordinal indices are non-negative integers, you can generate an identifier by adding 1 to the ordinal.
+識別子が自然数で順序インデックスは正の整数なので、順序に1を加算することで識別子を生成できます。
 
 ```
 myid zk-0
@@ -150,14 +149,13 @@ myid zk-2
 3
 ```
 
-To get the Fully Qualified Domain Name (FQDN) of each Pod in the `zk` StatefulSet use the following command.
+`zk` StatefulSet内の各Podの完全修飾ドメイン名(FQDN)を取得するには、以下のコマンドを使います。
 
 ```shell
 for i in 0 1 2; do kubectl exec zk-$i -- hostname -f; done
 ```
 
-The `zk-hs` Service creates a domain for all of the Pods,
-`zk-hs.default.svc.cluster.local`.
+`zk-hs` Serviceは、全Podのためのドメイン`zk-hs.default.svc.cluster.local`を作成します。
 
 ```
 zk-0.zk-hs.default.svc.cluster.local
@@ -165,18 +163,18 @@ zk-1.zk-hs.default.svc.cluster.local
 zk-2.zk-hs.default.svc.cluster.local
 ```
 
-The A records in [Kubernetes DNS](/docs/concepts/services-networking/dns-pod-service/) resolve the FQDNs to the Pods' IP addresses. If Kubernetes reschedules the Pods, it will update the A records with the Pods' new IP addresses, but the A records names will not change.
+[Kubernetes DNS](/ja/docs/concepts/services-networking/dns-pod-service/)のAレコードは、FQDNをPodのIPアドレスに解決します。
+KubernetesがPodを再スケジュールした場合、AレコードはPodの新しいIPアドレスに更新されますが、Aレコードの名前は変更されません。
 
-ZooKeeper stores its application configuration in a file named `zoo.cfg`. Use `kubectl exec` to view the contents of the `zoo.cfg` file in the `zk-0` Pod.
+ZooKeeperはそのアプリケーション設定を`zoo.cfg`という名前のファイルに格納します。
+`zk-0` Pod内の`zoo.cfg`ファイルの内容を見るには、`kubectl exec`を使います。
 
 ```shell
 kubectl exec zk-0 -- cat /opt/zookeeper/conf/zoo.cfg
 ```
 
-In the `server.1`, `server.2`, and `server.3` properties at the bottom of
-the file, the `1`, `2`, and `3` correspond to the identifiers in the
-ZooKeeper servers' `myid` files. They are set to the FQDNs for the Pods in
-the `zk` StatefulSet.
+ファイル末尾にある`server.1`、`server.2`、`server.3`のプロパティの、`1`、`2`、`3`はZooKeeperサーバーの`myid`ファイル内の識別子に対応します。
+これらは`zk` StatefulSet内のPodのFQDNにセットされます。
 
 ```
 clientPort=2181
@@ -195,9 +193,12 @@ server.2=zk-1.zk-hs.default.svc.cluster.local:2888:3888
 server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 ```
 
-### Achieving consensus
+### 合意形成
 
-Consensus protocols require that the identifiers of each participant be unique. No two participants in the Zab protocol should claim the same unique identifier. This is necessary to allow the processes in the system to agree on which processes have committed which data. If two Pods are launched with the same ordinal, two ZooKeeper servers would both identify themselves as the same server.
+合意(consensus)プロトコルは、各参加者の識別子がユニークであることを要件としています。
+Zabプロトコル内で同じユニーク識別子を主張する2つの参加者はないものとします。
+これは、システム内のプロセスが、どのプロセスがどのデータをコミットしたかを同意できるようにするために必須です。
+2つのPodが同じ順序値で起動されたなら、2つのZooKeeperサーバーはどちらもそれら自身を同じサーバーとして認識してしまうでしょう。
 
 ```shell
 kubectl get pods -w -l app=zk
