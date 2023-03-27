@@ -201,6 +201,7 @@ The following methods exist for installing kubectl on macOS:
    ```
    WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
    ```
+   
    <!--
    You can ignore this warning. You are only checking the version of `kubectl` that you
    have installed.
