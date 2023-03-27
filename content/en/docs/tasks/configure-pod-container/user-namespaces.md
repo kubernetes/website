@@ -50,8 +50,8 @@ to use this feature with Kubernetes stateless pods:
 * CRI-O: v1.25 has support for user namespaces.
 
 Please note that **if your container runtime doesn't support user namespaces, the
-new `pod.spec` field will be silently ignored and the pod will be created without
-user namespaces.**
+`hostUsers` field in the pod spec will be silently ignored and the pod will be
+created without user namespaces.**
 
 <!-- steps -->
 
