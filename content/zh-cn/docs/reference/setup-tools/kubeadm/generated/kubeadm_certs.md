@@ -13,6 +13,10 @@ Commands related to handling kubernetes certificates
 -->
 处理 Kubernetes 证书相关的命令
 
+```
+kubeadm certs [flags]
+```
+
 <!--
 ### Options
 -->

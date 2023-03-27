@@ -1,6 +1,6 @@
 ---
 title: Kubernetes API
-weight: 30
+weight: 50
 ---
 
 <!-- overview -->
