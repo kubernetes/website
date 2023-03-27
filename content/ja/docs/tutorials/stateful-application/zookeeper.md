@@ -1,66 +1,52 @@
 ---
-reviewers:
-- bprashanth
-- enisoc
-- erictune
-- foxish
-- janetkuo
-- kow3ns
-- smarterclayton
-title: Running ZooKeeper, A Distributed System Coordinator
+title: 分散システムコーディネーターZooKeeperの実行
 content_type: tutorial
 weight: 40
 ---
 
 <!-- overview -->
-This tutorial demonstrates running [Apache Zookeeper](https://zookeeper.apache.org) on
-Kubernetes using [StatefulSets](/docs/concepts/workloads/controllers/statefulset/),
-[PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget),
-and [PodAntiAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
+このチュートリアルでは、[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)、[PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget)、[Podアンチアフィニティ](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)を使って、Kubernetes上での[Apache Zookeeper](https://zookeeper.apache.org)の実行をデモンストレーションします。
 
 ## {{% heading "prerequisites" %}}
 
-Before starting this tutorial, you should be familiar with the following
-Kubernetes concepts:
+このチュートリアルを始める前に、以下のKubernetesの概念について理解しておく必要があります。
 
-- [Pods](/docs/concepts/workloads/pods/)
-- [Cluster DNS](/docs/concepts/services-networking/dns-pod-service/)
-- [Headless Services](/docs/concepts/services-networking/service/#headless-services)
-- [PersistentVolumes](/docs/concepts/storage/volumes/)
+- [Pod](/ja/docs/concepts/workloads/pods/)
+- [クラスターDNS](/ja/docs/concepts/services-networking/dns-pod-service/)
+- [Headless Service](/ja/docs/concepts/services-networking/service/#headless-service)
+- [PersistentVolume](/ja/docs/concepts/storage/volumes/)
 - [PersistentVolume Provisioning](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/)
-- [StatefulSets](/docs/concepts/workloads/controllers/statefulset/)
+- [StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)
 - [PodDisruptionBudgets](/docs/concepts/workloads/pods/disruptions/#pod-disruption-budget)
-- [PodAntiAffinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
+- [Podアンチアフィニティ](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 - [kubectl CLI](/docs/reference/kubectl/kubectl/)
 
-You must have a cluster with at least four nodes, and each node requires at least 2 CPUs and 4 GiB of memory. In this tutorial you will cordon and drain the cluster's nodes. **This means that the cluster will terminate and evict all Pods on its nodes, and the nodes will temporarily become unschedulable.** You should use a dedicated cluster for this tutorial, or you should ensure that the disruption you cause will not interfere with other tenants.
+少なくとも4つのノードのクラスターが必要で、各ノードは少なくとも2つのCPUと4GiBのメモリが必須です。このチュートリアルでは、
+クラスターのノードをcordonおよびdrainします。
+**つまり、クラスターはそのノードの全てのPodを終了して退去させて、ノードが一時的にスケジュールできなくなるということです。**
+このチュートリアル専用のクラスターを使うか、起こした破壊がほかのテナントに干渉しない確証を得ることをお勧めします。
 
-This tutorial assumes that you have configured your cluster to dynamically provision
-PersistentVolumes. If your cluster is not configured to do so, you
-will have to manually provision three 20 GiB volumes before starting this
-tutorial.
+このチュートリアルでは、クラスターがPersistentVolumeの動的なプロビジョニングが行われるように設定されていることを前提としています。
+クラスターがそのように設定されていない場合、チュートリアルを始める前に20GiBのボリュームを3つ手動でプロビジョニングする必要があります。
 
 ## {{% heading "objectives" %}}
 
-After this tutorial, you will know the following.
+このチュートリアルを終えると、以下の知識を得られます。
 
-- How to deploy a ZooKeeper ensemble using StatefulSet.
-- How to consistently configure the ensemble.
-- How to spread the deployment of ZooKeeper servers in the ensemble.
-- How to use PodDisruptionBudgets to ensure service availability during planned maintenance.
+- StatefulSetを使ってZooKeeperアンサンブルをデプロイする方法。
+- アンサンブルを首尾一貫して設定する方法。
+- ZooKeeperサーバーのデプロイをアンサンブルに広げる方法。
+- 計画されたメンテナンス中もサービスが利用可能であることを保証するためにPodDisruptionBudgetsを使う方法。
 
 <!-- lessoncontent -->
 
 ### ZooKeeper
 
-[Apache ZooKeeper](https://zookeeper.apache.org/doc/current/) is a
-distributed, open-source coordination service for distributed applications.
-ZooKeeper allows you to read, write, and observe updates to data. Data are
-organized in a file system like hierarchy and replicated to all ZooKeeper
-servers in the ensemble (a set of ZooKeeper servers). All operations on data
-are atomic and sequentially consistent. ZooKeeper ensures this by using the
-[Zab](https://pdfs.semanticscholar.org/b02c/6b00bd5dbdbd951fddb00b906c82fa80f0b3.pdf)
-consensus protocol to replicate a state machine across all servers in the ensemble.
+[Apache ZooKeeper](https://zookeeper.apache.org/doc/current/)は、分散アプリケーションのための、分散型オープンソースコーディネーションサービスです。
+ZooKeeperでは、データの読み書き、および更新の監視ができます。
+データは階層化されてファイルシステム内に編成され、アンサンブル(ZooKeeperサーバーのセット)内の全てのZooKeeperサーバーに複製されます。
+データへの全ての操作はアトミックかつ逐次的に首尾一貫しています。
+ZooKeeperは、アンサンブル内の全てのサーバー間でステートマシンを複製するために[Zab](https://pdfs.semanticscholar.org/b02c/6b00bd5dbdbd951fddb00b906c82fa80f0b3.pdf)合意プロトコルを使ってこれを保証します。
 
 The ensemble uses the Zab protocol to elect a leader, and the ensemble cannot write data until that election is complete. Once complete, the ensemble uses Zab to ensure that it replicates all writes to a quorum before it acknowledges and makes them visible to clients. Without respect to weighted quorums, a quorum is a majority component of the ensemble containing the current leader. For instance, if the ensemble has three servers, a component that contains the leader and one other server constitutes a quorum. If the ensemble can not achieve a quorum, the ensemble cannot write data.
 
