@@ -42,7 +42,7 @@ echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc 
 
 ### FISH
 
-Require kubectl version 1.23 or more.
+Require kubectl version 1.23 or above.
 
 ```bash
 echo 'kubectl completion fish | source' >> ~/.config/fish/config.fish  # add autocomplete permanently to your fish shell 
