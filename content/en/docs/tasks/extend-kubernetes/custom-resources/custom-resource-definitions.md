@@ -1350,7 +1350,10 @@ default.
 
 CustomResourceDefinition [OpenAPI v3 validation schemas](#validation) which are
 [structural](#specifying-a-structural-schema) and [enable pruning](#field-pruning) are published
-as [OpenAPI v3](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions) and OpenAPI v2 from Kubernetes API server. It is recommended to use the OpenAPI v3 document as it is a lossless representation of the CustomResourceDefinition OpenAPI v3 validation schema while OpenAPI v2 represents a lossy conversion.
+as [OpenAPI v3](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions) and
+OpenAPI v2 from Kubernetes API server. It is recommended to use the OpenAPI v3 document
+as it is a lossless representation of the CustomResourceDefinition OpenAPI v3 validation schema
+while OpenAPI v2 represents a lossy conversion.
 
 The [kubectl](/docs/reference/kubectl/) command-line tool consumes the published schema to perform
 client-side validation (`kubectl create` and `kubectl apply`), schema explanation (`kubectl explain`)
@@ -1358,7 +1361,8 @@ on custom resources. The published schema can be consumed for other purposes as 
 
 #### Compatibility with OpenAPI V2
 
-For compatibility with OpenAPI V2, the OpenAPI v3 validation schema performs a lossy conversion to the OpenAPI v2 schema. The schema show up in `definitions` and `paths` fields in the
+For compatibility with OpenAPI V2, the OpenAPI v3 validation schema performs a lossy conversion
+to the OpenAPI v2 schema. The schema show up in `definitions` and `paths` fields in the
 [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions).
 
 The following modifications are applied during the conversion to keep backwards compatibility with

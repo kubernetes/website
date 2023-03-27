@@ -84,7 +84,7 @@ packages that define the API objects.
 
 {{< feature-state state="stable"  for_k8s_version="v1.27" >}}
 
-Kubernetes {{< param "version" >}} offers stable support for publishing its APIs as OpenAPI v3.
+Kubernetes supports publishing a description of its APIs as OpenAPI v3.
 
 A discovery endpoint `/openapi/v3` is provided to see a list of all
 group/versions available. This endpoint only returns JSON. These
@@ -149,7 +149,7 @@ Refer to the table below for accepted request headers.
   </tbody>
 </table>
 
-A golang implementation to fetch the OpenAPI V3 is provided in the package `k8s.io/client-go/openapi3`.
+A Golang implementation to fetch the OpenAPI V3 is provided in the package `k8s.io/client-go/openapi3`.
 
 ## Persistence
 
