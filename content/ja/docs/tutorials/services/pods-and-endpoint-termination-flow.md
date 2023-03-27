@@ -78,7 +78,7 @@ spec:
       targetPort: 80
 ```
 
-PodとServiceが実行中になったら、関連付けられたEndpointSlicesの名前を得られます:
+PodとServiceが実行中になったら、関連付けられたEndpointSliceの名前を得られます:
 
 ```shell
 kubectl get endpointslice
