@@ -222,4 +222,26 @@ https://github.com/kubernetes/kubernetes/issues.
 If this is a documentation issue, please re-open this issue.
 ```
 
+### Squashing
 
+As an approver, when you review pull requests (PRs), there are various cases where you might do the following:
+- Advise the contributor to squash their commits.
+- Squash the commits for the contributor.
+- Advise the contributor not to squash yet.
+- Prevent squashing.
+
+**Advising contributors to squash**: A new contributor might not know that they should squash commits in their pull requests (PRs). If this is the case, advise them to do so, provide links to useful information, and offer to arrange help if they need it. Some useful links:
+- [Opening pull requests and squashing your commits](/docs/contribute/new-content/open-a-pr#squashing-commits) for documentation contributors.
+- [GitHub Workflow](https://www.k8s.dev/docs/guide/github-workflow/), including diagrams, for developers.
+
+**Squashing commits for contributors**: If a contributor might have difficulty squashing commits or there is time pressure to merge a PR, you can perform the squash for them:
+- The kubernetes/website repo is [configured to allow squashing for pull request merges](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/configuring-commit-squashing-for-pull-requests). Simply select the *Squash commits* button.
+- In the PR, if the contributor enables maintainers to manage the PR, you can squash their commits and update their fork with the result. Before you squash, advise them to save and push their latest changes to the PR. After you squash, advise them to pull the squashed commit to their local clone.
+- You can get GitHub to squash the commits by using a label so that Tide / GitHub performs the squash or by clicking the *Squash commits* button when you merge the PR.
+
+**Advise contributors to avoid squashing**
+- If one commit does something broken or unwise, and the last commit reverts this error, don't squash the commits. Even though the "Files changed" tab in the PR on GitHub and the Netlify preview will both look OK, merging this PR might create rebase or merge conflicts for other folks.
+Intervene as you see fit to avoid that risk to other contributors.
+
+**Never squash**
+- If you're launching a localization or releasing the docs for a new version, you are merging in a branch that's not from a user's fork, _never squash the commits_. Not squashing is essential because you must maintain the commit history for those files.
