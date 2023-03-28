@@ -1324,39 +1324,6 @@ spec:
 ```
 
 <!--
-### Mounted ConfigMaps are updated automatically
-
-When a mounted ConfigMap is updated, the projected content is eventually updated too.
-This applies in the case where an optionally referenced ConfigMap comes into existence after
-a pod has started.
--->
-### 挂载的 ConfigMap 将被自动更新   {#mounted-configmaps-are-updated-automatically}
-
-当某个已被挂载的 ConfigMap 被更新，所投射的内容最终也会被更新。
-对于 Pod 已经启动之后所引用的、可选的 ConfigMap 才出现的情形，
-这一动态更新现象也是适用的。
-
-<!--
-The kubelet checks whether the mounted ConfigMap is fresh on every periodic sync. However, it
-uses its local TTL-based cache for getting the current value of the ConfigMap. As a result,
-the total delay from the moment when the ConfigMap is updated to the moment when new keys
-are projected to the pod can be as long as kubelet sync period (1 minute by default) + TTL of
-ConfigMaps cache (1 minute by default) in kubelet.
--->
-kubelet 在每次周期性同步时都会检查已挂载的 ConfigMap 是否是最新的。
-但是，它使用其本地的基于 TTL 的缓存来获取 ConfigMap 的当前值。
-因此，从更新 ConfigMap 到将新键映射到 Pod 的总延迟可能等于 kubelet 同步周期
-（默认 1 分钟） + ConfigMap 在 kubelet 中缓存的 TTL（默认 1 分钟）。
-
-{{< note >}}
-<!--
-A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes/#using-subpath) volume will not receive ConfigMap updates.
--->
-使用 ConfigMap 作为 [subPath](/zh-cn/docs/concepts/storage/volumes/#using-subpath)
-的数据卷将不会收到 ConfigMap 更新。
-{{< /note >}}
-
-<!--
 ## Restrictions
 -->
 ### 限制   {#restrictions}
