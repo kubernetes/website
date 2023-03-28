@@ -1,12 +1,14 @@
 ---
 title: kubectl 的用法约定
 content_type: concept
+weight: 60
 ---
 <!--
 title: kubectl Usage Conventions
 reviewers:
 - janetkuo
 content_type: concept
+weight: 60
 -->
 
 <!-- overview -->

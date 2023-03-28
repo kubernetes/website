@@ -94,7 +94,7 @@ Create a new control plane instance on this node
 Don't apply any changes; just output what would be done.
 -->
 <p>
-不做任何更改；只输出将要执行的操作。。
+不做任何更改；只输出将要执行的操作。
 </p>
 </td>
 </tr>
