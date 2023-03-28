@@ -162,7 +162,7 @@ If you misspelled `command` as `commnd` then will give an error like this:
 例如，运行 `kubectl apply --validate -f mypod.yaml`。
 如果 `command`  被误拼成 `commnd`，你将会看到下面的错误信息：
 
-```
+```shell
 I0805 10:43:25.129850   46757 schema.go:126] unknown field: commnd
 I0805 10:43:25.129973   46757 schema.go:129] this may be a false alarm, see https://github.com/kubernetes/kubernetes/issues/6842
 pods/mypod
@@ -279,17 +279,17 @@ Verify that the pod's `containerPort` matches up with the Service's `targetPort`
 <!--
 #### Network traffic is not forwarded
 
-Please see [debugging service](/docs/tasks/debug/debug-applications/debug-service/) for more information.
+Please see [debugging service](/docs/tasks/debug/debug-application/debug-service/) for more information.
 -->
 #### 网络流量未被转发  {#network-traffic-is-not-forwarded}
 
-请参阅[调试 Service](/zh-cn/docs/tasks/debug/debug-applications/debug-service/) 了解更多信息。
+请参阅[调试 Service](/zh-cn/docs/tasks/debug/debug-application/debug-service/) 了解更多信息。
 
 ## {{% heading "whatsnext" %}}
 
 <!--
 If none of the above solves your problem, follow the instructions in
-[Debugging Service document](/docs/tasks/debug/debug-applications/debug-service/)
+[Debugging Service document](/docs/tasks/debug/debug-application/debug-service/)
 to make sure that your `Service` is running, has `Endpoints`, and your `Pods` are
 actually serving; you have DNS working, iptables rules installed, and kube-proxy
 does not seem to be misbehaving.
@@ -297,7 +297,7 @@ does not seem to be misbehaving.
 You may also visit [troubleshooting document](/docs/tasks/debug/) for more information.
 -->
 如果上述方法都不能解决你的问题，
-请按照[调试 Service 文档](/zh-cn/docs/tasks/debug/debug-applications/debug-service/)中的介绍，
+请按照[调试 Service 文档](/zh-cn/docs/tasks/debug/debug-application/debug-service/)中的介绍，
 确保你的 `Service` 处于 Running 态，有 `Endpoints` 被创建，`Pod` 真的在提供服务；
 DNS 服务已配置并正常工作，iptables 规则也以安装并且 `kube-proxy` 也没有异常行为。
 
