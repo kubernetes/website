@@ -22,7 +22,10 @@ card:
 ## {{% heading "prerequisites" %}}
 
 <!--
-You must use a kubectl version that is within one minor version difference of your cluster. For example, a v{{< skew currentVersion >}} client can communicate with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}, and v{{< skew currentVersionAddMinor 1 >}} control planes.
+You must use a kubectl version that is within one minor version difference of your cluster.
+For example, a v{{< skew currentVersion >}} client can communicate
+with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
+and v{{< skew currentVersionAddMinor 1 >}} control planes.
 Using the latest compatible version of kubectl helps avoid unforeseen issues.
 -->
 kubectl 版本和集群版本之间的差异必须在一个小版本号内。
@@ -65,7 +68,8 @@ The following methods exist for installing kubectl on Linux:
 
    {{< note >}}
    <!--
-   To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)` portion of the command with the specific version.
+   To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
+   portion of the command with the specific version.
 
    For example, to download version {{< param "fullversion" >}} on Linux, type:
    -->
@@ -138,7 +142,8 @@ The following methods exist for installing kubectl on Linux:
 
    {{< note >}}
    <!--
-   If you do not have root access on the target system, you can still install kubectl to the `~/.local/bin` directory:
+   If you do not have root access on the target system, you can still install
+   kubectl to the `~/.local/bin` directory:
    -->
    即使你没有目标系统的 root 权限，仍然可以将 kubectl 安装到目录 `~/.local/bin` 中：
 
@@ -200,7 +205,9 @@ Or use this for detailed view of version:
    <!--
    If you use Debian 9 (stretch) or earlier you would also need to install `apt-transport-https`:
    -->
+   
    如果你使用 Debian 9（stretch）或更早版本，则你还需要安装 `apt-transport-https`：
+
    ```shell
    sudo apt-get install -y apt-transport-https
    ```
@@ -271,7 +278,9 @@ sudo yum install -y kubectl
 {{< tabs name="other_kubectl_install" >}}
 {{% tab name="Snap" %}}
 <!-- 
-If you are on Ubuntu or another Linux distribution that supports the [snap](https://snapcraft.io/docs/core/install) package manager, kubectl is available as a [snap](https://snapcraft.io/) application.
+If you are on Ubuntu or another Linux distribution that supports the
+[snap](https://snapcraft.io/docs/core/install) package manager, kubectl
+is available as a [snap](https://snapcraft.io/) application.
 -->
 如果你使用的 Ubuntu 或其他 Linux 发行版，内建支持
 [snap](https://snapcraft.io/docs/core/install) 包管理工具，
@@ -286,7 +295,8 @@ kubectl version --client
 
 {{% tab name="Homebrew" %}}
 <!-- 
-If you are on Linux and using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux) package manager, kubectl is available for [installation](https://docs.brew.sh/Homebrew-on-Linux#install).
+If you are on Linux and using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux)
+package manager, kubectl is available for [installation](https://docs.brew.sh/Homebrew-on-Linux#install).
 -->
 如果你使用 Linux 系统，并且装了 [Homebrew](https://docs.brew.sh/Homebrew-on-Linux)
 包管理工具，
@@ -318,7 +328,8 @@ kubectl version --client
 ### 启用 shell 自动补全功能 {#enable-shell-autocompletion}
 
 <!--
-kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell, which can save you a lot of typing.
+kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell,
+which can save you a lot of typing.
 
 Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 -->

@@ -69,7 +69,7 @@ DaemonSet内のPodテンプレートでは、[`RestartPolicy`](/ja/docs/concepts
 
 上記の2つが指定された場合は、2つの条件をANDでどちらも満たすものを結果として返します。
 
-もし`spec.selector`が指定されたとき、`.spec.template.metadata.labels`とマッチしなければなりません。この2つの値がマッチしない設定をした場合、APIによってリジェクトされます。
+`spec.selector`は`.spec.template.metadata.labels`とマッチしなければなりません。この2つの値がマッチしない設定をした場合、APIによってリジェクトされます。
 
 ### 選択したNode上でPodを稼働させる {#running-pods-on-select-nodes}
 
