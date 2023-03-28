@@ -282,9 +282,6 @@ For a reference to old feature gates that are removed, please refer to
 | `EphemeralContainers` | `true` | Beta | 1.23 | 1.24 |
 | `EphemeralContainers` | `true` | GA | 1.25 | - |
 | `ExecProbeTimeout` | `true` | GA | 1.20 | - |
-| `IdentifyPodOS` | `false` | Alpha | 1.23 | 1.23 |
-| `IdentifyPodOS` | `true` | Beta | 1.24 | 1.24 |
-| `IdentifyPodOS` | `true` | GA | 1.25 | - |
 | `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | 1.22 |
 | `JobTrackingWithFinalizers` | `false` | Beta | 1.23 | 1.24 |
 | `JobTrackingWithFinalizers` | `true` | Beta | 1.25 | 1.25 |
@@ -543,10 +540,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `HPAScaleToZero`: Enables setting `minReplicas` to 0 for `HorizontalPodAutoscaler`
   resources when using custom or external metrics.
 - `IPTablesOwnershipCleanup`: This causes kubelet to no longer create legacy iptables rules.
-- `IdentifyPodOS`: Allows the Pod OS field to be specified. This helps in identifying
-  the OS of the pod authoritatively during the API server admission time.
-  In Kubernetes {{< skew currentVersion >}}, the allowed values for the `pod.spec.os.name`
-  are `windows` and `linux`.
 - `InTreePluginAWSUnregister`: Stops registering the aws-ebs in-tree plugin in kubelet
   and volume controllers.
 - `InTreePluginAzureDiskUnregister`: Stops registering the azuredisk in-tree plugin in kubelet
