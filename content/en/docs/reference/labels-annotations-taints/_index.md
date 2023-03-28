@@ -228,7 +228,12 @@ Example: `kubernetes.io/os: "linux"`
 
 Used on: Node, Pod
 
-The Kubelet populates this with `runtime.GOOS` as defined by Go. This can be handy if you are mixing operating systems in your cluster (for example: mixing Linux and Windows nodes).
+For nodes, the kubelet populates this with `runtime.GOOS` as defined by Go. This can be handy if you are
+mixing operating systems in your cluster (for example: mixing Linux and Windows nodes).
+
+You can also set this label on a Pod. Kubernetes allows you to set any value for this label;
+if you use this label, you should nevertheless set it to the Go `runtime.GOOS` string for the operating
+system that this Pod actually works with.
 
 When the `kubernetes.io/os` label value for a Pod does not match the label value on a Node,
 the kubelet on the node will not admit the Pod. However, this is not taken into account by
