@@ -33,7 +33,7 @@ weight: 40
 このチュートリアルを終えると、以下の知識を得られます。
 
 - StatefulSetを使ってZooKeeperアンサンブルをデプロイする方法。
-- アンサンブルを首尾一貫して設定する方法。
+- アンサンブルを一貫して設定する方法。
 - ZooKeeperサーバーのデプロイをアンサンブルに広げる方法。
 - 計画されたメンテナンス中もサービスが利用可能であることを保証するためにPodDisruptionBudgetsを使う方法。
 
@@ -44,7 +44,7 @@ weight: 40
 [Apache ZooKeeper](https://zookeeper.apache.org/doc/current/)は、分散アプリケーションのための、分散型オープンソースコーディネーションサービスです。
 ZooKeeperでは、データの読み書き、および更新の監視ができます。
 データは階層化されてファイルシステム内に編成され、アンサンブル(ZooKeeperサーバーのセット)内の全てのZooKeeperサーバーに複製されます。
-データへの全ての操作はアトミックかつ逐次的に首尾一貫しています。
+データへの全ての操作はアトミックかつ逐次的に一貫性を持ちます。
 ZooKeeperは、アンサンブル内の全てのサーバー間でステートマシンを複製するために[Zab](https://pdfs.semanticscholar.org/b02c/6b00bd5dbdbd951fddb00b906c82fa80f0b3.pdf)合意プロトコルを使ってこれを保証します。
 
 アンサンブルはリーダーを選出するのにZabプロトコルを使い、選出が完了するまでデータを書き出しません。
@@ -223,10 +223,7 @@ zk-2      0/1       Running   0         19s
 zk-2      1/1       Running   0         40s
 ```
 
-The A records for each Pod are entered when the Pod becomes Ready. Therefore,
-the FQDNs of the ZooKeeper servers will resolve to a single endpoint, and that
-endpoint will be the unique ZooKeeper server claiming the identity configured
-in its `myid` file.
+各PodのAレコードは、PodがReadyになった時に記入されます。そのため、ZooKeeperサーバー群のFQDNはある1つのエンドポイント、すなわち`myid`ファイルで設定された識別子を主張するユニークなZooKeeperサーバーに解決されます。
 
 ```
 zk-0.zk-hs.default.svc.cluster.local
@@ -234,8 +231,7 @@ zk-1.zk-hs.default.svc.cluster.local
 zk-2.zk-hs.default.svc.cluster.local
 ```
 
-This ensures that the `servers` properties in the ZooKeepers' `zoo.cfg` files
-represents a correctly configured ensemble.
+これは、ZooKeeperの`zzo.cfg`ファイル内の`servers`プロパティが正しく設定されたアンサンブルを表していることを保証します。
 
 ```
 server.1=zk-0.zk-hs.default.svc.cluster.local:2888:3888
@@ -243,14 +239,14 @@ server.2=zk-1.zk-hs.default.svc.cluster.local:2888:3888
 server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 ```
 
-When the servers use the Zab protocol to attempt to commit a value, they will either achieve consensus and commit the value (if leader election has succeeded and at least two of the Pods are Running and Ready), or they will fail to do so (if either of the conditions are not met). No state will arise where one server acknowledges a write on behalf of another.
+サーバーが値のコミットを試みるためにZabプロトコルを使う時、(リーダー選出が成功していて、少なくともPodのうちの2つがRunningおよびReadyならば)それぞれのサーバーは双方の合意をとって値をコミット、あるいは、(もし双方の状態が合わなければ)それを行うことに失敗します。
+あるサーバーが別のサーバーを代行して書き込みを承認する状態は発生しません。
 
-### Sanity testing the ensemble
+### アンサンブルの健全性テスト
 
-The most basic sanity test is to write data to one ZooKeeper server and
-to read the data from another.
+最も基本的な健全性テストは、データを1つのZooKeeperサーバーに書き込み、そのデータを別のサーバーで読み取ることです。
 
-The command below executes the `zkCli.sh` script to write `world` to the path `/hello` on the `zk-0` Pod in the ensemble.
+以下のコマンドは、`world`をアンサンブル内の`zk-0` Podのパス`/hello`に書き込むのに、`zkCli.sh`スクリプトを実行します。
 
 ```shell
 kubectl exec zk-0 -- zkCli.sh create /hello world
@@ -263,14 +259,13 @@ WatchedEvent state:SyncConnected type:None path:null
 Created /hello
 ```
 
-To get the data from the `zk-1` Pod use the following command.
+`zk-1` Podからデータを取得するには、以下のコマンドを使います。
 
 ```shell
 kubectl exec zk-1 -- zkCli.sh get /hello
 ```
 
-The data that you created on `zk-0` is available on all the servers in the
-ensemble.
+`zk-0`に作成したデータは、アンサンブル内の全てのサーバーで利用できます。
 
 ```
 WATCHER::
@@ -290,16 +285,13 @@ dataLength = 5
 numChildren = 0
 ```
 
-### Providing durable storage
+### 永続的なストレージの提供
 
-As mentioned in the [ZooKeeper Basics](#zookeeper) section,
-ZooKeeper commits all entries to a durable WAL, and periodically writes snapshots
-in memory state, to storage media. Using WALs to provide durability is a common
-technique for applications that use consensus protocols to achieve a replicated
-state machine.
+[ZooKeeperの概要](#zookeeper)のセクションで言及したように、
+ZooKeeperは全てのエントリを永続的なWALにコミットし、定期的にメモリ状態のスナップショットをストレージメディアに書き出します。
+永続性を提供するためにWALを使用するのは、複製されたステートマシンを立てるために合意プロトコルを使うアプリケーションでよくあるテクニックです。
 
-Use the [`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#delete) command to delete the
-`zk` StatefulSet.
+`zk` StatefulSetを削除するために、[`kubectl delete`](/docs/reference/generated/kubectl/kubectl-commands/#delete)コマンドを使います。
 
 ```shell
 kubectl delete statefulset zk
@@ -309,13 +301,13 @@ kubectl delete statefulset zk
 statefulset.apps "zk" deleted
 ```
 
-Watch the termination of the Pods in the StatefulSet.
+StatefulSet内のPodの終了を観察します。
 
 ```shell
 kubectl get pods -w -l app=zk
 ```
 
-When `zk-0` if fully terminated, use `CTRL-C` to terminate kubectl.
+`zk-0`が完全に終了したら、`CTRL-C`でkubectlを終了します。
 
 ```
 zk-2      1/1       Terminating   0         9m
@@ -332,21 +324,21 @@ zk-0      0/1       Terminating   0         11m
 zk-0      0/1       Terminating   0         11m
 ```
 
-Reapply the manifest in `zookeeper.yaml`.
+`zookeeper.yaml`のマニフェストを再適用します。
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/zookeeper/zookeeper.yaml
 ```
 
-This creates the `zk` StatefulSet object, but the other API objects in the manifest are not modified because they already exist.
+これは`zk` StatefulSetオブジェクトを作成しますが、マニフェストのその他のAPIオブジェクトはすでに存在しているので変更されません。
 
-Watch the StatefulSet controller recreate the StatefulSet's Pods.
+StatefulSetコントローラーがStatefulSetのPodを再作成するのを見てみます。
 
 ```shell
 kubectl get pods -w -l app=zk
 ```
 
-Once the `zk-2` Pod is Running and Ready, use `CTRL-C` to terminate kubectl.
+`zk-2` PodがRunningおよびReadyになったら、`CTRL-C`でkubectlを終了します。
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -367,14 +359,13 @@ zk-2      0/1       Running   0         19s
 zk-2      1/1       Running   0         40s
 ```
 
-Use the command below to get the value you entered during the [sanity test](#sanity-testing-the-ensemble),
-from the `zk-2` Pod.
+ [健全性テスト](#アンサンブルの健全性テスト)で入力した値を`zk-2` Podから取得するには、以下のコマンドを使います。
 
 ```shell
 kubectl exec zk-2 zkCli.sh get /hello
 ```
 
-Even though you terminated and recreated all of the Pods in the `zk` StatefulSet, the ensemble still serves the original value.
+`zk` StatefulSet内の全てのPodを終了して再作成したにもかかわらず、アンサンブルは元の値をなおも供給します。
 
 ```
 WATCHER::
@@ -394,7 +385,7 @@ dataLength = 5
 numChildren = 0
 ```
 
-The `volumeClaimTemplates` field of the `zk` StatefulSet's `spec` specifies a PersistentVolume provisioned for each Pod.
+`zk` StatefulSetの`spec`の`volumeClaimTemplates`フィールドは、各PodにプロビジョニングされるPersistentVolumeを指定します。
 
 ```yaml
 volumeClaimTemplates:
@@ -409,16 +400,15 @@ volumeClaimTemplates:
           storage: 20Gi
 ```
 
-The `StatefulSet` controller generates a `PersistentVolumeClaim` for each Pod in
-the `StatefulSet`.
+`StatefulSet`コントローラーは、`StatefulSet`内の各Podのために`PersistentVolumeClaim`を生成します。
 
-Use the following command to get the `StatefulSet`'s `PersistentVolumeClaims`.
+`StatefulSet`の`PersistentVolumeClaims`を取得するために、以下のコマンドを使います。
 
 ```shell
 kubectl get pvc -l app=zk
 ```
 
-When the `StatefulSet` recreated its Pods, it remounts the Pods' PersistentVolumes.
+`StatefulSet`がそのPodを再作成した時、`StatefulSet`はPodのPersistentVolumeを再マウントします。
 
 ```
 NAME           STATUS    VOLUME                                     CAPACITY   ACCESSMODES   AGE
@@ -427,7 +417,7 @@ datadir-zk-1   Bound     pvc-bedd27d2-bcb1-11e6-994f-42010a800002   20Gi       R
 datadir-zk-2   Bound     pvc-bee0817e-bcb1-11e6-994f-42010a800002   20Gi       RWO           1h
 ```
 
-The `volumeMounts` section of the `StatefulSet`'s container `template` mounts the PersistentVolumes in the ZooKeeper servers' data directories.
+`StatefulSet`のコンテナ`template`の`volumeMounts`セクションは、ZooKeeperサーバーのデータディレクトリにあるPersistentVolumeをマウントします。
 
 ```yaml
 volumeMounts:
@@ -435,22 +425,16 @@ volumeMounts:
   mountPath: /var/lib/zookeeper
 ```
 
-When a Pod in the `zk` `StatefulSet` is (re)scheduled, it will always have the
-same `PersistentVolume` mounted to the ZooKeeper server's data directory.
-Even when the Pods are rescheduled, all the writes made to the ZooKeeper
-servers' WALs, and all their snapshots, remain durable.
+`zk` `StatefulSet`内のPodが(再)スケジュールされると、ZooKeeperサーバーのデータディレクトリにマウントされた同じ`PersistentVolume`を常に得ます。
+Podが再スケジュールされたとしても、全ての書き込みはZooKeeperサーバーのWALおよび全スナップショットに行われ、永続性は残ります。
 
-## Ensuring consistent configuration
+## 一貫性のある設定の保証
 
-As noted in the [Facilitating Leader Election](#facilitating-leader-election) and
-[Achieving Consensus](#achieving-consensus) sections, the servers in a
-ZooKeeper ensemble require consistent configuration to elect a leader
-and form a quorum. They also require consistent configuration of the Zab protocol
-in order for the protocol to work correctly over a network. In our example we
-achieve consistent configuration by embedding the configuration directly into
-the manifest.
+[リーダーの選出のファシリテート](#リーダーの選出のファシリテート)および[合意形成](#合意形成)のセクションで記したように、ZooKeeperのアンサンブル内のサーバー群は、リーダーを選出しクォーラムを形成するための一貫性のある設定を必要とします。
+また、プロトコルがネットワーク越しで正しく動作するために、Zabプロトコルの一貫性のある設定も必要です。
+この例では、設定を直接マニフェストに埋め込むことで一貫性のある設定を達成します。
 
-Get the `zk` StatefulSet.
+`zk` StatefulSetを取得しましょう。
 
 ```shell
 kubectl get sts zk -o yaml
@@ -482,22 +466,21 @@ command:
 …
 ```
 
-The command used to start the ZooKeeper servers passed the configuration as command line parameter. You can also use environment variables to pass configuration to the ensemble.
+このcommandでは、ZooKeeperサーバーを開始するためにコマンドラインパラメータで設定を渡しています。
+設定をアンサンブルへ渡すのには環境変数を使うこともできます。
 
-### Configuring logging
+### ログの設定
 
-One of the files generated by the `zkGenConfig.sh` script controls ZooKeeper's logging.
-ZooKeeper uses [Log4j](https://logging.apache.org/log4j/2.x/), and, by default,
-it uses a time and size based rolling file appender for its logging configuration.
+`zkGenConfig.sh`スクリプトで生成されたファイルの1つは、ZooKeeperのログを制御します。
+ZooKeeperは[Log4j](https://logging.apache.org/log4j/2.x/)を使い、デフォルトではログの設定に基づいて、ログ設定に時間およびサイズベースでのローリングファイルアペンダー(ログのローテーション)を使用します。
 
-Use the command below to get the logging configuration from one of Pods in the `zk` `StatefulSet`.
+`zk` `StatefulSet`内のPodの1つからログ設定を取得するには、以下のコマンドを使います。
 
 ```shell
 kubectl exec zk-0 cat /usr/etc/zookeeper/log4j.properties
 ```
 
-The logging configuration below will cause the ZooKeeper process to write all
-of its logs to the standard output file stream.
+以下のログ設定は、ZooKeeperにログの全てを標準出力ファイルストリームに書き出す処理をさせます。
 
 ```
 zookeeper.root.logger=CONSOLE
@@ -509,18 +492,17 @@ log4j.appender.CONSOLE.layout=org.apache.log4j.PatternLayout
 log4j.appender.CONSOLE.layout.ConversionPattern=%d{ISO8601} [myid:%X{myid}] - %-5p [%t:%C{1}@%L] - %m%n
 ```
 
-This is the simplest possible way to safely log inside the container.
-Because the applications write logs to standard out, Kubernetes will handle log rotation for you.
-Kubernetes also implements a sane retention policy that ensures application logs written to
-standard out and standard error do not exhaust local storage media.
+これはログコンテナ内のログを安全にとるための、最もシンプルと思われる方法です。
+アプリケーションがログを標準出力に書き出すので、Kubernetesがログのローテーションを処理してくれます。
+Kubernetesは、標準出力と標準エラー出力に書き出されるアプリケーションのログがローカルストレージメディアを使い尽くさないことを保証する、健全維持ポリシーも実装しています。
 
-Use [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands/#logs) to retrieve the last 20 log lines from one of the Pods.
+Podの1つから末尾20行を取得するために、[`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands/#logs)を使ってみます。
 
 ```shell
 kubectl logs zk-0 --tail 20
 ```
 
-You can view application logs written to standard out or standard error using `kubectl logs` and from the Kubernetes Dashboard.
+`kubectl logs`を利用するか、Kubernetes Dashboardから、標準出力または標準エラーに書き出されたアプリケーションログを参照できます。
 
 ```
 2016-12-06 19:34:16,236 [myid:1] - INFO  [NIOServerCxn.Factory:0.0.0.0/0.0.0.0:2181:NIOServerCnxn@827] - Processing ruok command from /127.0.0.1:52740
