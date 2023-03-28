@@ -169,6 +169,9 @@ In the following table:
 | `IPv6DualStack` | `false` | Alpha | 1.15 | 1.20 |
 | `IPv6DualStack` | `true` | Beta | 1.21 | 1.22 |
 | `IPv6DualStack` | `true` | GA | 1.23 | 1.24 |
+| `IdentifyPodOS` | `false` | Alpha | 1.23 | 1.23 |
+| `IdentifyPodOS` | `true` | Beta | 1.24 | 1.24 |
+| `IdentifyPodOS` | `true` | GA | 1.25 | 1.27 |
 | `ImmutableEphemeralVolumes` | `false` | Alpha | 1.18 | 1.18 |
 | `ImmutableEphemeralVolumes` | `true` | Beta | 1.19 | 1.20 |
 | `ImmutableEphemeralVolumes` | `true` | GA | 1.21 | 1.24 |
@@ -574,6 +577,11 @@ In the following table:
 
 - `IPv6DualStack`: Enable [dual stack](/docs/concepts/services-networking/dual-stack/)
   support for IPv6.
+
+- `IdentifyPodOS`: Allows the Pod OS field to be specified. This helps in identifying
+  the OS of the pod authoritatively during the API server admission time.
+  In Kubernetes {{< skew currentVersion >}}, the allowed values for the `pod.spec.os.name`
+  are `windows` and `linux`.
 
 - `ImmutableEphemeralVolumes`: Allows for marking individual Secrets and ConfigMaps as
   immutable for better safety and performance.
