@@ -498,7 +498,9 @@ PodSpec 是对 Pod 的描述。
   <!--
   - **topologySpreadConstraints.whenUnsatisfiable** (string), required
 
-    WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint. - DoNotSchedule (default) tells the scheduler not to schedule it. - ScheduleAnyway tells the scheduler to schedule the pod in any location,
+    WhenUnsatisfiable indicates how to deal with a pod if it doesn't satisfy the spread constraint.
+    - DoNotSchedule (default) tells the scheduler not to schedule it.
+    - ScheduleAnyway tells the scheduler to schedule the pod in any location,
       but giving higher precedence to topologies that would help reduce the
       skew.
     A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
@@ -592,7 +594,7 @@ PodSpec 是对 Pod 的描述。
 
     NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
     
-    If this value is nil, the behavior is equivalent to the Honor policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+    If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
   -->
 
   - **topologySpreadConstraints.nodeAffinityPolicy** (string)
@@ -603,14 +605,14 @@ PodSpec 是对 Pod 的描述。
     - Ignore：nodeAffinity/nodeSelector 被忽略。所有节点均包括到计算中。
 
     如果此值为 nil，此行为等同于 Honor 策略。
-    这是通过 NodeInclusionPolicyInPodTopologySpread 特性标志启用的 Alpha 级别特性。
+    这是通过 NodeInclusionPolicyInPodTopologySpread 特性标志默认启用的 Beta 级别特性。
 
   <!--
   - **topologySpreadConstraints.nodeTaintsPolicy** (string)
 
     NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
     
-    If this value is nil, the behavior is equivalent to the Ignore policy. This is a alpha-level feature enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+    If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
   -->
   - **topologySpreadConstraints.nodeTaintsPolicy** (string)
 
@@ -619,7 +621,7 @@ PodSpec 是对 Pod 的描述。
     - Ignore：节点污点被忽略。包括所有节点。
     
     如果此值为 nil，此行为等同于 Ignore 策略。
-    这是通过 NodeInclusionPolicyInPodTopologySpread 特性标志启用的 Alpha 级别特性。
+    这是通过 NodeInclusionPolicyInPodTopologySpread 特性标志默认启用的 Beta 级别特性。
 
 <!--
 - **overhead** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
@@ -786,7 +788,7 @@ PodSpec 是对 Pod 的描述。
 
   <a name="PodDNSConfig"></a>
   <!--
-  PodDNSConfig defines the DNS parameters of a pod in addition to those generated from DNSPolicy.
+  *PodDNSConfig defines the DNS parameters of a pod in addition to those generated from DNSPolicy.*
   -->
   **PodDNSConfig 定义 Pod 的 DNS 参数，这些参数独立于基于 dnsPolicy 生成的参数。**
 
@@ -940,13 +942,13 @@ PodSpec 是对 Pod 的描述。
   可选：默认为空。每个字段的默认值见类型描述。
 
   <!--
-  PodSecurityContext holds pod-level security attributes and common container settings. Some fields are also present in container.securityContext.  Field values of container.securityContext take precedence over field values of PodSecurityContext.
+  *PodSecurityContext holds pod-level security attributes and common container settings. Some fields are also present in container.securityContext.  Field values of container.securityContext take precedence over field values of PodSecurityContext.*
   -->
 
   <a name="PodSecurityContext"></a>
-  PodSecurityContext 包含 Pod 级别的安全属性和常用容器设置。
-  一些字段也存在于 `container.securityContext` 中。`container.securityContext`
-  中的字段值优先于 PodSecurityContext 的字段值。
+  **PodSecurityContext 包含 Pod 级别的安全属性和常用容器设置。**
+  **一些字段也存在于 `container.securityContext` 中。`container.securityContext`**
+  **中的字段值优先于 PodSecurityContext 的字段值。**
 
   <!--
   - **securityContext.runAsUser** (int64)
@@ -990,14 +992,19 @@ PodSpec 是对 Pod 的描述。
   <!--
   - **securityContext.supplementalGroups** ([]int64)
 
-    A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Note that this field cannot be set when spec.os.name is windows.
+    A list of groups applied to the first process run in each container, in addition to the container's primary GID, the fsGroup (if specified), and group memberships defined in the container image for the uid of the container process. If unspecified, no additional groups are added to any container. Note that group memberships defined in the container image for the uid of the container process are still effective, even if they are not included in this list. Note that this field cannot be set when spec.os.name is windows.
   -->
 
   - **securityContext.supplementalGroups** ([]int64)
+  
+    此字段包含将应用到每个容器中运行的第一个进程的组列表。
+    容器进程的组成员身份取决于容器的主 GID、fsGroup（如果指定了的话）
+    和在容器镜像中为容器进程的 uid 定义的组成员身份，以及这里所给的列表。
 
-    在容器的主 GID 之外，应用于每个容器中运行的第一个进程的组列表。
-    如果未设置此字段，则不会向任何容器添加额外的组。
-    注意，`spec.os.name` 为 "windows" 时不能设置此字段。
+    如果未指定，则不会向任何容器添加其他组。
+    注意，在容器镜像中为容器进程的 uid 定义的组成员身份仍然有效，
+    即使它们未包含在此列表中也是如此。
+    注意，当 `spec.os.name` 为 `windows` 时，不能设置此字段。
 
   <!--
   - **securityContext.fsGroup** (int64)
@@ -1045,7 +1052,7 @@ PodSpec 是对 Pod 的描述。
     此 Pod 中的容器使用的 seccomp 选项。注意，`spec.os.name` 为 "windows" 时不能设置此字段。
 
     <!--
-    SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.
+    *SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.*
     -->
 
     **SeccompProfile 定义 Pod 或容器的 seccomp 配置文件设置。只能设置一个配置文件源。**
@@ -1092,7 +1099,7 @@ PodSpec 是对 Pod 的描述。
     注意，`spec.os.name` 为 "windows" 时不能设置该字段。
 
     <!--
-    SELinuxOptions are the labels to be applied to the container
+    *SELinuxOptions are the labels to be applied to the container*
     -->
 
     <a name="SELinuxOptions"></a>
@@ -1144,7 +1151,7 @@ PodSpec 是对 Pod 的描述。
     注意，`spec.os.name` 为 "windows" 时不能设置此字段。
 
     <!--
-    Sysctl defines a kernel parameter to be set
+    *Sysctl defines a kernel parameter to be set*
     -->
 
     <a name="Sysctl"></a>
@@ -1182,7 +1189,7 @@ PodSpec 是对 Pod 的描述。
     注意，`spec.os.name` 为 "linux" 时不能设置该字段。
 
     <!--
-    WindowsSecurityContextOptions contain Windows-specific options and credentials.
+    *WindowsSecurityContextOptions contain Windows-specific options and credentials.*
     -->
 
     <a name="WindowsSecurityContextOptions"></a>
@@ -1253,6 +1260,147 @@ PodSpec 是对 Pod 的描述。
   此字段是 Alpha 级别的字段，只有启用 UserNamespacesSupport 特性的服务器才能使用此字段。
 
 <!--
+- **resourceClaims** ([]PodResourceClaim)
+
+  *Patch strategies: retainKeys, merge on key `name`*
+  
+  *Map: unique values on key name will be kept during a merge*
+-->
+- **resourceClaims** ([]PodResourceClaim)
+
+  **补丁策略：retainKeys，基于键 `name` 合并**
+
+  **映射：键 `name` 的唯一值将在合并过程中保留**
+
+<!--
+  ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
+  
+  This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+  
+  This field is immutable.
+-->
+  resourceClaims 定义了在允许 Pod 启动之前必须分配和保留哪些 ResourceClaims。
+  这些资源将可供那些按名称使用它们的容器使用。
+
+  这是一个 Alpha 特性的字段，需要启用 DynamicResourceAllocation 特性门控来开启此功能。
+
+  此字段不可变更。
+
+  <a name="PodResourceClaim"></a>
+  <!--
+  *PodResourceClaim references exactly one ResourceClaim through a ClaimSource. It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.*
+  -->
+  **PodResourceClaim 通过 ClaimSource 引用一个 ResourceClaim。
+  它为 ClaimSource 添加一个名称，作为 Pod 内 ResourceClaim 的唯一标识。
+  需要访问 ResourceClaim 的容器可使用此名称引用它。**
+
+  <!--
+  - **resourceClaims.name** (string), required
+
+    Name uniquely identifies this resource claim inside the pod. This must be a DNS_LABEL.
+
+  - **resourceClaims.source** (ClaimSource)
+
+    Source describes where to find the ResourceClaim.
+  -->
+  - **resourceClaims.name** (string), 必需
+
+    在 Pod 中，`name` 是此资源声明的唯一标识。此字段值必须是 DNS_LABEL。
+
+  - **resourceClaims.source** (ClaimSource)
+
+    `source` 描述了在哪里可以找到 `resourceClaim`。
+
+    <a name="ClaimSource"></a>
+    <!--
+    *ClaimSource describes a reference to a ResourceClaim.
+    
+    Exactly one of these fields should be set.  Consumers of this type must treat an empty object as if it has an unknown value.*
+    -->
+    
+    **ClaimSource 描述对 ResourceClaim 的引用。**
+
+    **应该设置且仅设置如下字段之一。此类型的消费者必须将空对象视为具有未知值。**
+
+    <!--
+    - **resourceClaims.source.resourceClaimName** (string)
+
+      ResourceClaimName is the name of a ResourceClaim object in the same namespace as this pod.
+
+    - **resourceClaims.source.resourceClaimTemplateName** (string)
+
+      ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.
+    -->
+    
+    - **resourceClaims.source.resourceClaimName** (string)
+
+      resourceClaimName 是与此 Pod 位于同一命名空间中的 ResourceClaim 对象的名称。
+
+    - **resourceClaims.source.resourceClaimTemplateName** (string)
+
+      resourceClaimTemplateName 是与此 Pod 位于同一命名空间中的 `ResourceClaimTemplate` 对象的名称。
+
+      <!--
+      The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The name of the ResourceClaim will be \<pod name>-\<resource name>, where \<resource name> is the PodResourceClaim.Name. Pod validation will reject the pod if the concatenated name is not valid for a ResourceClaim (e.g. too long).
+      -->
+    
+      该模板将用于创建一个新的 ResourceClaim，新的 ResourceClaim 将被绑定到此 Pod。
+      删除此 Pod 时，ResourceClaim 也将被删除。ResourceClaim 
+      的名称将为 \<Pod 名称>-\<资源名称>，其中 \<资源名称>
+      是 PodResourceClaim.name。如果串接起来的名称对于 ResourceClaim
+      无效（例如太长），Pod 的验证机制将拒绝该 Pod。
+
+      <!--
+      An existing ResourceClaim with that name that is not owned by the pod will not be used for the pod to avoid using an unrelated resource by mistake. Scheduling and pod startup are then blocked until the unrelated ResourceClaim is removed.
+      -->
+      不属于此 Pod 但与此名称重名的现有 ResourceClaim 不会被用于此 Pod，
+      以避免错误地使用不相关的资源。Pod 的调度和启动动作会因此而被阻塞，
+      直到不相关的 ResourceClaim 被删除。
+
+      <!--
+      This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+      -->
+      此字段是不可变更的，创建 ResourceClaim 后控制平面不会对相应的 ResourceClaim 进行任何更改。
+<!--
+- **schedulingGates** ([]PodSchedulingGate)
+
+  *Patch strategy: merge on key `name`*
+  
+  *Map: unique values on key name will be kept during a merge*
+-->
+- **schedulingGates** ([]PodSchedulingGate)
+
+  **补丁策略：基于 `name` 键合并**
+
+  **映射：键 `name` 的唯一值将在合并过程中保留**
+   
+  <!--
+  SchedulingGates is an opaque list of values that if specified will block scheduling the pod. More info:  https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness.
+  
+  This is an alpha-level feature enabled by PodSchedulingReadiness feature gate.
+  -->
+  
+  schedulingGates 是一个不透明的值列表，如果指定，将阻止调度 Pod。
+  更多信息，请参阅：https://git.k8s.io/enhancements/keps/sig-scheduling/3521-pod-scheduling-readiness。
+
+  此特性为 Alpha 级别，需要通过 PodSchedulingReadiness 特性门控启用。
+
+  <a name="PodSchedulingGate"></a>
+  <!--
+  *PodSchedulingGate is associated to a Pod to guard its scheduling.*
+
+  - **schedulingGates.name** (string), required
+
+    Name of the scheduling gate. Each scheduling gate must have a unique name field.
+  -->
+  PodSchedulingGate 与 Pod 相关联以保护其调度。
+
+  - **schedulingGates.name** (string)，必需
+  
+    调度门控的名称，每个调度门控的 `name` 字段取值必须唯一。
+
+
+<!--
 ### Deprecated
 
 - **serviceAccount** (string)
@@ -1270,6 +1418,8 @@ PodSpec 是对 Pod 的描述。
 ## Container {#Container}
 
 A single application container that you want to run within a pod.
+
+<hr>
 
 - **name** (string), required
 
@@ -1847,6 +1997,46 @@ A single application container that you want to run within a pod.
   ResourceRequirements 描述计算资源需求。
 
   <!--
+  - **resources.claims** ([]ResourceClaim)
+
+    *Set: unique values will be kept during a merge*
+    
+    Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+  -->
+  
+  - **resources.claims** ([]ResourceClaim)
+
+    **set：合并期间将保留唯一值**
+
+    claims 列出此容器使用的资源名称，资源名称在 `spec.resourceClaims` 中定义。
+
+    <!--
+    This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+    
+    This field is immutable.
+    -->
+    
+    这是一个 Alpha 特性字段，需要启用 DynamicResourceAllocation 功能门控开启此特性。
+
+    此字段不可变更。
+
+    <a name="ResourceClaim"></a>
+    <!--
+    *ResourceClaim references one entry in PodSpec.ResourceClaims.*
+
+    - **resources.claims.name** (string), required
+
+      Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.
+    -->
+    
+      **ResourceClaim 引用 `PodSpec.resourceClaims` 中的一项。**
+
+    - **resources.claims.name** (string)，必需
+      
+      `name` 必须与使用该字段 Pod 的 `pod.spec.resourceClaims`
+      中的一个条目的名称相匹配。它使该资源在容器内可用。
+
+  <!--
   - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
     Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
@@ -1873,7 +2063,7 @@ A single application container that you want to run within a pod.
 ### 生命周期
 
 <!--
-- **lifecycle**  (Lifecycle)
+- **lifecycle** (Lifecycle)
 
   Actions that the management system should take in response to container lifecycle events. Cannot be updated.
 
@@ -2295,6 +2485,14 @@ A single application container that you want to run within a pod.
   如果 stdinOnce 设置为 true，则 stdin 在容器启动时打开，在第一个客户端连接到 stdin 之前为空，
   然后保持打开并接受数据，直到客户端断开连接，此时 stdin 关闭并保持关闭直到容器重新启动。
   如果此标志为 false，则从 stdin 读取的容器进程将永远不会收到 EOF。默认为 false。
+
+<!--
+- **tty** (boolean)
+
+  Whether this container should allocate a TTY for itself, also requires 'stdin' to be true. Default is false.
+-->
+- **tty** （boolean）
+  这个容器是否应该为自己分配一个 TTY，同时需要设置 `stdin` 为真。默认为 false。
 
 ## EphemeralContainer {#EphemeralContainer}
 
@@ -3166,7 +3364,7 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
       中设置，则在 SecurityContext 中指定的值优先。
 
 <!--
-### 不允许
+### Not allowed
 -->
 ### 不允许
 
@@ -3255,6 +3453,45 @@ EphemeralContainer 是一个临时容器，你可以将其添加到现有 Pod �
   临时容器不允许使用资源。临时容器使用已分配给 Pod 的空闲资源。
 
   **ResourceRequirements 描述计算资源的需求。**
+
+  <!--
+  - **resources.claims** ([]ResourceClaim)
+
+    *Set: unique values will be kept during a merge*
+    
+    Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+  -->
+  
+  - **resources.claims** ([]ResourceClaim)
+
+    **set：合并期间将保留唯一值**
+
+    claims 列出了此容器使用的资源名称，资源名称在 `spec.resourceClaims` 中定义。
+
+    <!--
+    This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+    
+    This field is immutable.
+    -->
+    
+    这是一个 Alpha 特性字段，需要启用 DynamicResourceAllocation 功能门控开启此特性。
+
+    此字段不可变更。
+
+    <a name="ResourceClaim"></a>
+    <!--
+    *ResourceClaim references one entry in PodSpec.ResourceClaims.*
+
+    - **resources.claims.name** (string), required
+
+      Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.
+    -->
+    **ResourceClaim 引用 `PodSpec.ResourceClaims` 中的一项。**
+
+    - **resources.claims.name** (string)，必需
+      
+      `name` 必须与使用该字段 Pod 的 `pod.spec.resourceClaims`
+      中的一个条目的名称相匹配。它使该资源在容器内可用。
 
   <!--
   - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
@@ -3508,6 +3745,9 @@ LifecycleHandler 定义了应在生命周期挂钩中执行的特定操作。
     名称必须是 IANA_SVC_NAME。
 
     <a name="IntOrString"></a>
+    <!--
+    *IntOrString is a type that can hold an int32 or a string.  When used in JSON or YAML marshalling and unmarshalling, it produces or consumes the inner type.  This allows you to have, for example, a JSON field that can accept a name or number.*
+    -->
     **IntOrString 是一种可以保存 int32 或字符串值的类型。在 JSON 或 YAML 编组和解组中使用时，
     会生成或使用内部类型。例如，这允许你拥有一个可以接受名称或数字的 JSON 字段。**
 
@@ -3830,7 +4070,7 @@ Pod 亲和性是一组 Pod 间亲和性调度规则。
 ## PodAntiAffinity {#PodAntiAffinity}
 
 <!--
-Pod affinity is a group of inter pod affinity scheduling rules.
+Pod anti affinity is a group of inter pod anti affinity scheduling rules.
 -->
 Pod 反亲和性是一组 Pod 间反亲和性调度规则。
 
@@ -3839,7 +4079,8 @@ Pod 反亲和性是一组 Pod 间反亲和性调度规则。
 <!--
 - **preferredDuringSchedulingIgnoredDuringExecution** ([]WeightedPodAffinityTerm)
 
-  The scheduler will prefer to schedule pods to nodes that satisfy the affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
+  The scheduler will prefer to schedule pods to nodes that satisfy the anti-affinity expressions specified by this field, but it may choose a node that violates one or more of the expressions. The node that is most preferred is the one with the greatest sum of weights, i.e. for each node that meets all of the scheduling requirements (resource request, requiredDuringScheduling anti-affinity expressions, etc.), compute a sum by iterating through the elements of this field and adding "weight" to the sum if the node has pods which matches the corresponding podAffinityTerm; the node(s) with the highest sum are the most preferred.
+
 
   <a name="WeightedPodAffinityTerm"></a>
   *The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)*
@@ -3935,7 +4176,7 @@ Pod 反亲和性是一组 Pod 间反亲和性调度规则。
 <!--
 - **requiredDuringSchedulingIgnoredDuringExecution** ([]PodAffinityTerm)
 
-  If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
+  If the anti-affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the anti-affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to a pod label update), the system may or may not try to eventually evict the pod from its node. When there are multiple elements, the lists of nodes corresponding to each podAffinityTerm are intersected, i.e. all terms must be satisfied.
 
   <a name="PodAffinityTerm"></a>
   *Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running*
@@ -4350,7 +4591,10 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
   - `Failed`：Pod 中的所有容器都已终止，并且至少有一个容器因故障而终止。
     容器要么以非零状态退出，要么被系统终止。
   - `Unknown`：由于某种原因无法获取 Pod 的状态，通常是由于与 Pod 的主机通信时出错。
-  
+
+  <!--
+  More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
+  -->
   更多信息：
   https://kubernetes.io/zh-cn/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
 
@@ -5088,12 +5332,20 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
         time 包所提供的许多工厂方法都有包装器。
 
       <!--
-      - **containerStatuses.state.terminated.finishat** （Time）
+      - **containerStatuses.state.terminated.finishedAt** (Time)
+
+        Time at which the container last terminated
+
+        <a name="Time"></a>
+        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+      -->
+
+      - **containerStatuses.state.terminated.finishedAt** （Time）
 
         容器上次终止的时间。
 
-        Time 是 `time.Time` 的包装器，支持正确编组为 YAML 和 JSON。
-        time 包所提供的许多工厂方法都有包装器。
+        **Time 是 `time.Time` 的包装器，支持正确编组为 YAML 和 JSON。
+        time 包所提供的许多工厂方法都有包装器。**
 
       <!--
       - **containerStatuses.state.terminated.message** (string)
@@ -5414,7 +5666,7 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 
     <a name="ContainerState"></a>
     *ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.*
--->
+  -->
   - **ephemeralContainerStatuses.state** （ContainerState）
 
     有关容器当前状况的详细信息。
@@ -5584,7 +5836,7 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 
     <a name="ContainerState"></a>
     *ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.*
--->
+  -->
   - **ephemeralContainerStatuses.lastState** （ContainerState）
 
     有关容器的上次终止状况的详细信息。
@@ -5657,7 +5909,7 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
         容器上次终止时的退出状态码。
 
       <!--
-      - **ephemeralContainerStatuses.state.terminated.startedAt** (Time)
+      - **ephemeralContainerStatuses.lastState.terminated.startedAt** (Time)
 
         Time at which previous execution of the container started
 
@@ -5673,7 +5925,7 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
         time 包所提供的许多工厂方法都有包装器。
 
       <!--
-      - **ephemeralContainerStatuses.state.terminated.finishedAt** (Time)
+      - **ephemeralContainerStatuses.lastState.terminated.finishedAt** (Time)
 
         Time at which the container last terminated
 
@@ -5689,15 +5941,15 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
         time 包所提供的许多工厂方法都有包装器。
 
       <!--
-      - **ephemeralContainerStatuses.state.terminated.message** (string)
+      - **ephemeralContainerStatuses.lastState.terminated.message** (string)
 
         Message regarding the last termination of the container
 
-      - **ephemeralContainerStatuses.state.terminated.reason** (string)
+      - **ephemeralContainerStatuses.lastState.terminated.reason** (string)
 
         (brief) reason from the last termination of the container
 
-      - **ephemeralContainerStatuses.state.terminated.signal** (int32)
+      - **ephemeralContainerStatuses.lastState.terminated.signal** (int32)
 
         Signal from the last termination of the container
       -->
@@ -5715,7 +5967,7 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
         容器上次终止的信号。
 
     <!--
-    - **ephemeralContainerStatuses.state.waiting** (ContainerStateWaiting)
+    - **ephemeralContainerStatuses.lastState.waiting** (ContainerStateWaiting)
 
       Details about a waiting container
 
@@ -5730,11 +5982,11 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
       **ContainerStateWaiting 是容器的等待状态。**
 
       <!--
-      - **ephemeralContainerStatuses.state.waiting.message** (string)
+      - **ephemeralContainerStatuses.lastState.waiting.message** (string)
 
         Message regarding why the container is not yet running.
 
-      - **ephemeralContainerStatuses.state.waiting.reason** (string)
+      - **ephemeralContainerStatuses.lastState.waiting.reason** (string)
 
         (brief) reason the container is not yet running.
       -->
@@ -5780,7 +6032,7 @@ PodStatus 表示有关 Pod 状态的信息。状态内容可能会滞后于系�
 ## PodList {#PodList}
 
 <!--
-PodList 是 Pod 的列表。
+PodList is a list of Pods.
 -->
 PodList 是 Pod 的列表。
 
@@ -5829,7 +6081,7 @@ PodList 是 Pod 的列表。
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 <!--
-## 操作 {#Operations}
+## Operations {#Operations}
 -->
 ## 操作 {#Operations}
 

@@ -207,8 +207,14 @@ in future versions of the Linux kernel.
 - `kernel.msg*`,
 - `kernel.sem`,
 - `fs.mqueue.*`,
+<!--
+- The parameters under `net.*` that can be set in container networking
+  namespace. However, there are exceptions (e.g., before Linux 5.12.2,
+  `net.netfilter.nf_conntrack_max` and `net.netfilter.nf_conntrack_expect_max`
+  can be set in container networking namespace but they are unnamespaced).
+-->
 - `net.*`（内核中可以在容器命名空间里被更改的网络配置项相关参数）。然而也有一些特例
-  （例如，`net.netfilter.nf_conntrack_max` 和 `net.netfilter.nf_conntrack_expect_max`
+  （例如，在 Linux 5.12.2 前，`net.netfilter.nf_conntrack_max` 和 `net.netfilter.nf_conntrack_expect_max`
   可以在容器命名空间里被更改，但它们是非命名空间的）。
 
 <!--

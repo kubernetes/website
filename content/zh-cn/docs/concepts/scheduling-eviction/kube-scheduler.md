@@ -51,7 +51,7 @@ page will help you learn about scheduling.
 ## kube-scheduler
 
 <!--
-[kube-scheduler](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/)
+[kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/)
 is the default scheduler for Kubernetes and runs as part of the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}.
 kube-scheduler is designed so that, if you want and need to, you can
@@ -104,15 +104,15 @@ locality, inter-workload interference, and so on.
 亲和以及反亲和要求、数据局部性、负载间的干扰等等。
 
 <!--
-## Scheduling with kube-scheduler {#kube-scheduler-implementation}
+### Node selection in kube-scheduler {#kube-scheduler-implementation}
 -->
-## kube-scheduler 调度流程 {#kube-scheduler-implementation}
+### kube-scheduler 中的节点选择 {#kube-scheduler-implementation}
 
 <!--
 kube-scheduler selects a node for the pod in a 2-step operation:
 
 1. Filtering
-2. Scoring
+1. Scoring
 -->
 kube-scheduler 给一个 Pod 做调度选择时包含两个步骤：
 

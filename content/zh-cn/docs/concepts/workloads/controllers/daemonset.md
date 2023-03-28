@@ -224,7 +224,7 @@ Pod 绑定到目标主机。如果新的 Pod 无法放在节点上，则默认�
 （驱逐）某些现存的 Pod。
 
 <!--
-The user can specify a different scheduler for the Pods of the DamonSet, by
+The user can specify a different scheduler for the Pods of the DaemonSet, by
 setting the `.spec.template.spec.schedulerName` field of the DaemonSet.
 
 The original node affinity specified at the
@@ -307,7 +307,7 @@ Tolerations for DaemonSet pods
 {{< /table >}}
 
 <!--
-You can add your own tolerations to the Pods of a Daemonset as well, by
+You can add your own tolerations to the Pods of a DaemonSet as well, by
 defining these in the Pod template of the DaemonSet.
 
 Because the DaemonSet controller sets the
