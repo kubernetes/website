@@ -9,7 +9,7 @@ weight: 90
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 System component traces record the latency of and relationships between operations in the cluster.
 
@@ -59,14 +59,12 @@ as the kube-apiserver is often a public endpoint.
 
 #### Enabling tracing in the kube-apiserver
 
-To enable tracing, enable the `APIServerTracing`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the kube-apiserver. Also, provide the kube-apiserver with a tracing configuration file
+To enable tracing, provide the kube-apiserver with a tracing configuration file
 with `--tracing-config-file=<path-to-config>`. This is an example config that records
 spans for 1 in 10000 requests, and uses the default OpenTelemetry endpoint:
 
 ```yaml
-apiVersion: apiserver.config.k8s.io/v1alpha1
+apiVersion: apiserver.config.k8s.io/v1beta1
 kind: TracingConfiguration
 # default value
 #endpoint: localhost:4317
@@ -74,7 +72,7 @@ samplingRatePerMillion: 100
 ```
 
 For more information about the `TracingConfiguration` struct, see
-[API server config API (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/#apiserver-k8s-io-v1alpha1-TracingConfiguration).
+[API server config API (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/#apiserver-k8s-io-v1beta1-TracingConfiguration).
 
 ### kubelet traces
 
