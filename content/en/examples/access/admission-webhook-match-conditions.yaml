@@ -10,7 +10,7 @@ webhooks:
     resources: ['*']
   failurePolicy: 'Ignore' # Fail-open (optional)
   sideEffects: None
-  clientConfig: &sharedClientConfig
+  clientConfig:
     service:
       namespace: my-namespace
       name: my-webhook
@@ -35,7 +35,11 @@ webhooks:
     resources: ['*']
   failurePolicy: 'Fail' # Fail-closed (the default)
   sideEffects: None
-  clientConfig: *sharedClientConfig
+  clientConfig:
+    service:
+      namespace: my-namespace
+      name: my-webhook
+    caBundle: '<omitted>'
   matchConditions:
   - name: 'breakglass'
     # Skip requests made by users authorized to 'breakglass' on this webhook.
