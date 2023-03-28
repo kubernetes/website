@@ -207,3 +207,11 @@ and without losing the state of the containers in that Pod.
 You can reach SIG Node by several means:
 - Slack: [#sig-node](https://kubernetes.slack.com/messages/sig-node)
 - [Mailing list](https://groups.google.com/forum/#!forum/kubernetes-sig-node)
+
+## Further reading
+
+Please see the follow-up article [Forensic container
+analysis][forensic-container-analysis] for details on how a container checkpoint
+can be analyzed.
+
+[forensic-container-analysis]: /blog/2023/03/10/forensic-container-analysis/

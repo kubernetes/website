@@ -435,11 +435,11 @@ work between Windows and Linux:
 The following list documents differences between how Pod specifications work between Windows and Linux:
 
 * `hostIPC` and `hostpid` - host namespace sharing is not possible on Windows
-* `hostNetwork` - [see below](/docs/concepts/windows/intro#compatibility-v1-pod-spec-containers-hostnetwork)
+* `hostNetwork` - [see below](#compatibility-v1-pod-spec-containers-hostnetwork)
 * `dnsPolicy` - setting the Pod `dnsPolicy` to `ClusterFirstWithHostNet` is
    not supported on Windows because host networking is not provided. Pods always
    run with a container network.
-* `podSecurityContext` [see below](/docs/concepts/windows/intro#compatibility-v1-pod-spec-containers-securitycontext)
+* `podSecurityContext` [see below](#compatibility-v1-pod-spec-containers-securitycontext)
 * `shareProcessNamespace` - this is a beta feature, and depends on Linux namespaces
   which are not implemented on Windows. Windows cannot share process namespaces or
   the container's root filesystem. Only the network can be shared.

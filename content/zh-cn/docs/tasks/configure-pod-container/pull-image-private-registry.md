@@ -1,13 +1,13 @@
 ---
 title: 从私有仓库拉取镜像
 content_type: task
-weight: 100
+weight: 130
 ---
 
 <!--
 title: Pull an Image from a Private Registry
 content_type: task
-weight: 100
+weight: 130
 -->
 
 <!-- overview -->

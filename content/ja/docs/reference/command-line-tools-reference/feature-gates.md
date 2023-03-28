@@ -49,6 +49,7 @@ content_type: concept
 | `AnyVolumeDataSource` | `false` | Alpha | 1.18 | 1.23 |
 | `AnyVolumeDataSource` | `true` | Beta | 1.24 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
+| `CheckpointContainer` | `false` | Alpha | 1.25 | |
 | `CPUManagerPolicyAlphaOptions` | `false` | Alpha | 1.23 | |
 | `CPUManagerPolicyBetaOptions` | `true` | Beta | 1.23 | |
 | `CPUManagerPolicyOptions` | `false` | Alpha | 1.22 | 1.22 |
@@ -346,7 +347,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 各フィーチャーゲートは特定の機能を有効/無効にするように設計されています。
 
 - `Accelerators`: DockerでのNvidia GPUのサポートを有効にします。
-- `AdvancedAuditing`: [高度な監査機能](/docs/tasks/debug-application-cluster/audit/#advanced-audit)を有効にします。
+- `AdvancedAuditing`: [高度な監査機能](/ja/docs/tasks/debug/debug-cluster/audit/#advanced-audit)を有効にします。
 - `AffinityInAnnotations`(*非推奨*): [Podのアフィニティまたはアンチアフィニティ](/ja/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)を有効にします。
 - `AnyVolumeDataSource`: {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}の`DataSource`としてカスタムリソースの使用を有効にします。
 - `AllowExtTrafficLocalEndpoints`: サービスが外部へのリクエストをノードのローカルエンドポイントにルーティングできるようにします。
@@ -354,6 +355,7 @@ GAになってからさらなる変更を加えることは現実的ではない
 `APIPriorityAndFairness`: 各サーバーで優先順位付けと公平性を備えた要求の並行性を管理できるようにします(`RequestManagement`から名前が変更されました)。
 - `APIResponseCompression`:`LIST`や`GET`リクエストのAPIレスポンスを圧縮します。
 - `AppArmor`: Dockerを使用する場合にLinuxノードでAppArmorによる強制アクセスコントロールを有効にします。詳細は[AppArmorチュートリアル](/ja/docs/tutorials/clusters/apparmor/)で確認できます。
+- `ContainerCheckpoint`: kubeletチェックポイントAPIを有効にします。詳細は[KubeletチェックポイントAPI](/ja/docs/reference/node/kubelet-checkpoint-api/)で確認できます。
 - `AttachVolumeLimit`: ボリュームプラグインを有効にすることでノードにアタッチできるボリューム数の制限を設定できます。
 - `BalanceAttachedNodeVolumes`: スケジューリング中にバランスのとれたリソース割り当てを考慮するノードのボリュームカウントを含めます。判断を行う際に、CPU、メモリー使用率、およびボリュームカウントが近いノードがスケジューラーによって優先されます。
 - `BlockVolume`: PodでRawブロックデバイスの定義と使用を有効にします。詳細は[Rawブロックボリュームのサポート](/docs/concepts/storage/persistent-volumes/#raw-block-volume-support)で確認できます。
@@ -387,7 +389,6 @@ GAになってからさらなる変更を加えることは現実的ではない
 - `CustomResourceWebhookConversion`: [CustomResourceDefinition](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)から作成されたリソースのWebhookベースの変換を有効にします。
 - `DevicePlugins`: [device-plugins](/docs/concepts/cluster-administration/device-plugins/)によるノードでのリソースプロビジョニングを有効にします。
 - `DryRun`: サーバーサイドでの[dry run](/docs/reference/using-api/api-concepts/#dry-run)リクエストを有効にします。
-- `DynamicAuditing`: [動的監査](/docs/tasks/debug-application-cluster/audit/#dynamic-backend)を有効にします。
 - `DynamicKubeletConfig`: kubeletの動的構成を有効にします。[kubeletの再設定](/docs/tasks/administer-cluster/reconfigure-kubelet/)を参照してください。
 - `DynamicProvisioningScheduling`: デフォルトのスケジューラーを拡張してボリュームトポロジーを認識しPVプロビジョニングを処理します。この機能は、v1.12の`VolumeScheduling`機能に完全に置き換えられました。
 - `DynamicVolumeProvisioning`(*非推奨*): Podへの永続ボリュームの[動的プロビジョニング](/ja/docs/concepts/storage/dynamic-provisioning/)を有効にします。

@@ -1,5 +1,5 @@
 ---
 title: コマンドラインツールのリファレンス
-weight: 60
+weight: 120
 toc-hide: true
 ---

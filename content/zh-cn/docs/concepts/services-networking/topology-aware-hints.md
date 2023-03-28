@@ -218,11 +218,11 @@ Kubernetes 控制平面和每个节点上的 kube-proxy，在使用拓扑感知�
 <!-- 
 5. **A zone is not represented in hints:** If the kube-proxy is unable to find
    at least one endpoint with a hint targeting the zone it is running in, it falls
-   to using endpoints from all zones. This is most likely to happen as you add
+   back to using endpoints from all zones. This is most likely to happen as you add
    a new zone into your existing cluster.
 -->
 5. **不在提示中的区域：** 如果 kube-proxy 不能根据一个指示在它所在的区域中发现一个端点，
-   它回撤为使用所有节点的端点。当你的集群新增一个新的区域时，这种情况发生概率很高。
+   它将回退到使用来自所有区域的端点。当你的集群新增一个新的区域时，这种情况发生概率很高。
 
 <!-- 
 ## Constraints

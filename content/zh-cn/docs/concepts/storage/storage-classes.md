@@ -100,25 +100,25 @@ for provisioning PVs. This field must be specified.
 该字段必须指定。
 
 <!--
-| Volume Plugin        | Internal Provisioner| Config Example                       |
+| Volume Plugin        | Internal Provisioner |            Config Example             |
 -->
 
-| 卷插件               | 内置制备器 |               配置例子                |
-| :------------------- | :--------: | :-----------------------------------: |
-| AWSElasticBlockStore |  &#x2713;  |          [AWS EBS](#aws-ebs)          |
-| AzureFile            |  &#x2713;  |       [Azure File](#azure-文件)       |
-| AzureDisk            |  &#x2713;  |       [Azure Disk](#azure-磁盘)       |
-| CephFS               |     -      |                   -                   |
-| Cinder               |  &#x2713;  | [OpenStack Cinder](#openstack-cinder) |
-| FC                   |     -      |                   -                   |
-| FlexVolume           |     -      |                   -                   |
-| GCEPersistentDisk    |  &#x2713;  |           [GCE PD](#gce-pd)           |
-| iSCSI                |     -      |                   -                   |
-| NFS                  |     -      |              [NFS](#nfs)              |
-| RBD                  |  &#x2713;  |         [Ceph RBD](#ceph-rbd)         |
-| VsphereVolume        |  &#x2713;  |          [vSphere](#vsphere)          |
-| PortworxVolume       |  &#x2713;  |    [Portworx Volume](#portworx-卷)    |
-| Local                |     -      |            [Local](#本地)             |
+| 卷插件                | 内置制备器             |               配置示例                 |
+| :------------------- | :------------------: | :-----------------------------------: |
+| AWSElasticBlockStore |       &#x2713;       |          [AWS EBS](#aws-ebs)          |
+| AzureFile            |       &#x2713;       |       [Azure File](#azure-file)       |
+| AzureDisk            |       &#x2713;       |       [Azure Disk](#azure-disk)       |
+| CephFS               |          -           |                   -                   |
+| Cinder               |       &#x2713;       | [OpenStack Cinder](#openstack-cinder) |
+| FC                   |          -           |                   -                   |
+| FlexVolume           |          -           |                   -                   |
+| GCEPersistentDisk    |       &#x2713;       |           [GCE PD](#gce-pd)           |
+| iSCSI                |          -           |                   -                   |
+| NFS                  |          -           |              [NFS](#nfs)              |
+| RBD                  |       &#x2713;       |         [Ceph RBD](#ceph-rbd)         |
+| VsphereVolume        |       &#x2713;       |          [vSphere](#vsphere)          |
+| PortworxVolume       |       &#x2713;       |  [Portworx Volume](#portworx-volume)  |
+| Local                |          -           |            [Local](#local)            |
 
 <!--
 You are not restricted to specifying the "internal" provisioners
@@ -563,6 +563,7 @@ parameters:
 <!--
 Kubernetes doesn't include an internal NFS provisioner. You need to use an external provisioner to create a StorageClass for NFS.
 Here are some examples:
+
 * [NFS Ganesha server and external provisioner](https://github.com/kubernetes-sigs/nfs-ganesha-server-and-external-provisioner)
 * [NFS subdir external provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)
 -->

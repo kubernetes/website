@@ -1,14 +1,14 @@
 ---
 title: 监控、日志和调试
 description: 设置监控和日志记录以对集群进行故障排除或调试容器化应用程序。
-weight: 20
+weight: 40
 content_type: concept
 no_list: true
 ---
 <!-- 
 title: "Monitoring, Logging, and Debugging"
 description: Set up monitoring and logging to troubleshoot a cluster, or debug a containerized application.
-weight: 20
+weight: 40
 reviewers:
 - brendandburns
 - davidopp

@@ -46,7 +46,7 @@ weight: 50
 
     出力は次のようになります:
 
-    ```shell
+    ```console
     NAME      READY     STATUS    RESTARTS   AGE
     redis     1/1       Running   0          13s
     ```
@@ -74,7 +74,7 @@ weight: 50
 
     出力はこのようになります:
 
-    ```shell
+    ```console
     USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
     redis        1  0.1  0.1  33308  3828 ?        Ssl  00:46   0:00 redis-server *:6379
     root        12  0.0  0.0  20228  3020 ?        Ss   00:47   0:00 /bin/bash
@@ -91,7 +91,7 @@ weight: 50
 
 1. 元の端末で、Redis Podへの変更を監視します。最終的には、このようなものが表示されます:
 
-    ```shell
+    ```console
     NAME      READY     STATUS     RESTARTS   AGE
     redis     1/1       Running    0          13s
     redis     0/1       Completed  0         6m

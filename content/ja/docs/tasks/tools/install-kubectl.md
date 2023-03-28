@@ -9,7 +9,7 @@ card:
 ---
 
 <!-- overview -->
-Kubernetesのコマンドラインツールである[kubectl](/ja/docs/reference/kubectl/overview/)を使用して、Kubernetesクラスターに対してコマンドを実行することができます。kubectlによってアプリケーションのデプロイや、クラスターのリソース管理、検査およびログの表示を行うことができます。kubectlの操作に関する完全なリストは、[kubectlの概要](/ja/docs/reference/kubectl/overview/)を参照してください。
+Kubernetesのコマンドラインツールである[kubectl](/ja/docs/reference/kubectl/kubectl)を使用して、Kubernetesクラスターに対してコマンドを実行することができます。kubectlによってアプリケーションのデプロイや、クラスターのリソース管理、検査およびログの表示を行うことができます。kubectlの操作に関する完全なリストは、[kubectlリファレンスドキュメント](/ja/docs/reference/kubectl/)を参照してください。
 
 
 ## {{% heading "prerequisites" %}}

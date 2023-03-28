@@ -1,12 +1,12 @@
 ---
 title: 将节点上的容器运行时从 Docker Engine 改为 containerd
-weight: 8
+weight: 10
 content_type: task 
 ---
 
 <!--
 title: "Changing the Container Runtime on a Node from Docker Engine to containerd"
-weight: 8
+weight: 10
 content_type: task 
 -->
 

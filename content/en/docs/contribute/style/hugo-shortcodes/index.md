@@ -271,6 +271,33 @@ Renders to:
 {{< tab name="JSON File" include="podtemplate.json" />}}
 {{< /tabs >}}
 
+### Source code files
+
+You can use the `{{</* codenew */>}}` shortcode to embed the contents of file in a code block to allow users to download or copy its content to their clipboard. This shortcode is used when the contents of the sample file is generic and reusable, and you want the users to try it out themselves.
+
+This shortcode takes in two named parameters: `language` and `file`. The mandatory parameter `file` is used to specify the path to the file being displayed. The optional parameter `language` is used to specify the programming language of the file. If the `language` parameter is not provided, the shortcode will attempt to guess the language based on the file extension.
+
+For example:
+
+```none
+{{</* codenew language="yaml" file="application/deployment-scale.yaml" */>}}
+```
+
+The output is:
+
+{{< codenew language="yaml" file="application/deployment-scale.yaml" >}}
+
+When adding a new sample file, such as a YAML file, create the file in one of the `<LANG>/examples/` subdirectories where `<LANG>` is the language for the page. In the markdown of your page, use the `codenew` shortcode:
+
+```none
+{{</* codenew file="<RELATIVE-PATH>/example-yaml>" */>}}
+```
+where `<RELATIVE-PATH>` is the path to the sample file to include, relative to the `examples` directory. The following shortcode references a YAML file located at `/content/en/examples/configmap/configmaps.yaml`.
+
+```none
+{{</* codenew file="configmap/configmaps.yaml" */>}}
+```
+
 ## Third party content marker
 
 Running Kubernetes requires third-party software. For example: you
@@ -311,7 +338,7 @@ before the item, or just below the heading for the specific item.
 
 To generate a version string for inclusion in the documentation, you can choose from
 several version shortcodes. Each version shortcode displays a version string derived from
-the value of a version parameter found in the site configuration file, `config.toml`.
+the value of a version parameter found in the site configuration file, `hugo.toml`.
 The two most commonly used version parameters are `latest` and `version`.
 
 ### `{{</* param "version" */>}}`

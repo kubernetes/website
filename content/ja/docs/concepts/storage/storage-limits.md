@@ -1,6 +1,7 @@
 ---
 title: ノード固有のボリューム制限
 content_type: concept
+weight: 90
 ---
 
 <!-- overview -->

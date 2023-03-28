@@ -1,12 +1,12 @@
 ---
 title: 配置存活、就绪和启动探针
 content_type: task
-weight: 110
+weight: 140
 ---
 <!--
 title: Configure Liveness, Readiness and Startup Probes
 content_type: task
-weight: 110
+weight: 140
 -->
 
 <!-- overview -->

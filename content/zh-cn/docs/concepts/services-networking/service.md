@@ -26,7 +26,10 @@ weight: 10
 
 <!-- overview -->
 
+<!--
 {{< glossary_definition term_id="service" length="short" >}}
+-->
+{{< glossary_definition term_id="service" length="short" prepend="Kubernetes 中 Service 是" >}}
 
 <!--
 A key aim of Services in Kubernetes is that you don't need to modify your existing
@@ -45,7 +48,7 @@ that Deployment can create and destroy Pods dynamically. From one moment to the 
 you don't know how many of those Pods are working and healthy; you might not even know
 what those healthy Pods are named.
 Kubernetes {{< glossary_tooltip term_id="pod" text="Pods" >}} are created and destroyed
-to match the desired state of your cluster. Pods are emphemeral resources (you should not
+to match the desired state of your cluster. Pods are ephemeral resources (you should not
 expect that an individual Pod is reliable and durable).
 -->
 如果你使用 {{< glossary_tooltip term_id="deployment" >}} 来运行你的应用，
@@ -230,10 +233,14 @@ field.
 {{< /note >}}
 
 <!--
+### Port definitions {#field-spec-ports}
+
 Port definitions in Pods have names, and you can reference these names in the
 `targetPort` attribute of a Service. For example, we can bind the `targetPort`
 of the Service to the Pod port in the following way:
 -->
+### 端口定义 {#field-spec-ports}
+
 Pod 中的端口定义是有名字的，你可以在 Service 的 `targetPort` 属性中引用这些名称。
 例如，我们可以通过以下方式将 Service 的 `targetPort` 绑定到 Pod 端口：
 
@@ -283,14 +290,14 @@ The default protocol for Services is
 [TCP](/docs/reference/networking/service-protocols/#protocol-tcp); you can also
 use any other [supported protocol](/docs/reference/networking/service-protocols/).
 
-As many Services need to expose more than one port, Kubernetes supports multiple
-port definitions on a Service object.
+Because many Services need to expose more than one port, Kubernetes supports
++[multiple port definitions](#multi-port-services) for a single Service.
 Each port definition can have the same `protocol`, or a different one.
 -->
 服务的默认协议是 [TCP](/zh-cn/docs/reference/networking/service-protocols/#protocol-tcp)；
 你还可以使用任何其他[受支持的协议](/zh-cn/docs/reference/networking/service-protocols/)。
 
-由于许多服务需要公开多个端口，因此 Kubernetes 在服务对象上支持多个端口定义。
+由于许多服务需要公开多个端口，所以 Kubernetes 针对单个服务支持[多个端口定义](#multi-port-services)。
 每个端口定义可以具有相同的 `protocol`，也可以具有不同的协议。
 
 <!--
@@ -573,7 +580,7 @@ domain prefixed names such as `mycompany.com/my-custom-protocol`.
 或以域名为前缀的名称，如 `mycompany.com/my-custom-protocol`。
 
 <!--
-## Multi-Port Services
+### Multi-Port Services
 
 For some Services, you need to expose more than one port.
 Kubernetes lets you configure multiple port definitions on a Service object.
@@ -581,7 +588,7 @@ When using multiple ports for a Service, you must give all of your ports names
 so that these are unambiguous.
 For example:
 -->
-## 多端口 Service   {#multi-port-services}
+### 多端口 Service   {#multi-port-services}
 
 对于某些服务，你需要公开多个端口。
 Kubernetes 允许你在 Service 对象上配置多个端口定义。
@@ -1091,14 +1098,14 @@ by making the changes that are equivalent to you requesting a Service of
 `type: NodePort`. The cloud-controller-manager component then configures the external load balancer to
 forward traffic to that assigned node port.
 
-_As an alpha feature_, you can configure a load balanced Service to
+You can configure a load balanced Service to
 [omit](#load-balancer-nodeport-allocation) assigning a node port, provided that the
 cloud provider implementation supports this.
 -->
 要实现 `type: LoadBalancer` 的服务，Kubernetes 通常首先进行与请求 `type: NodePort` 服务等效的更改。
 cloud-controller-manager 组件然后配置外部负载均衡器以将流量转发到已分配的节点端口。
 
-**作为 Alpha 特性**，你可以将负载均衡服务配置为[忽略](#load-balancer-nodeport-allocation)分配节点端口，
+你可以将负载均衡服务配置为[忽略](#load-balancer-nodeport-allocation)分配节点端口，
 前提是云提供商实现支持这点。
 
 {{< note >}}
@@ -1810,7 +1817,7 @@ will be routed to one of the Service endpoints. `externalIPs` are not managed by
 of the cluster administrator.
 
 In the Service spec, `externalIPs` can be specified along with any of the `ServiceTypes`.
-In the example below, "`my-service`" can be accessed by clients on "`80.11.12.10:80`" (`externalIP:port`)
+In the example below, "`my-service`" can be accessed by clients on "198.51.100.32:80`" (`externalIP:port`)
 -->
 ### 外部 IP  {#external-ips}
 
@@ -1820,7 +1827,7 @@ In the example below, "`my-service`" can be accessed by clients on "`80.11.12.10
 `externalIPs` 不会被 Kubernetes 管理，它属于集群管理员的职责范畴。
 
 根据 Service 的规定，`externalIPs` 可以同任意的 `ServiceType` 来一起指定。
-在上面的例子中，`my-service` 可以在 "`80.11.12.10:80`" (`externalIP:port`) 上被客户端访问。
+在上面的例子中，`my-service` 可以在 "`198.51.100.32:80`" (`externalIP:port`) 上被客户端访问。
 
 ```yaml
 apiVersion: v1

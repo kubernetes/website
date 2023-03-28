@@ -83,7 +83,7 @@ Um [*Pod*](/docs/concepts/workloads/pods/) Kubernetes consiste em um ou mais con
 1. Usando o comando `kubectl create` para criar um Deployment que gerencia um Pod. O Pod executa um contêiner baseado na imagem docker disponibilizada.
 
     ```shell
-    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
+    kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.4
     ```
 
 2. Visualizando o Deployment:
@@ -140,7 +140,7 @@ Por padrão, um Pod só é acessível utilizando o seu endereço IP interno no c
 
     O parâmetro `--type=LoadBalancer` indica que você deseja expor o seu serviço fora do cluster Kubernetes.
     
-    A aplicação dentro da imagem `k8s.gcr.io/echoserver` "escuta" apenas na porta TCP 8080. Se você usou
+    A aplicação dentro da imagem `registry.k8s.io/echoserver` "escuta" apenas na porta TCP 8080. Se você usou
      `kubectl expose` para expor uma porta diferente, os clientes não conseguirão se conectar a essa outra porta.
 
 2. Visualizando o serviço que você acabou de criar:
