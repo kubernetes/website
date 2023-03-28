@@ -22,4 +22,20 @@
 <!-- scripts for prism -->
 <script src='/js/prism.js'></script>
 {{ end }}
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"></script>  
+<script>
+  Split(['#LeftNav', '#MainContent'], {
+    expandToMin: true,
+    sizes: [20, 80],
+    minSize: 100,
+    gutterSize: 4,
+    elementStyle: function (dimension, size, gutterSize) {
+      return { 'flex-basis': 'calc(' + size + '% - ' + gutterSize + 'px)' }
+    },
+    gutterStyle: function (dimension, gutterSize) {
+      return { 'flex-basis':  gutterSize + 'px' }
+    }
+  });
+</script>
 {{ partial "hooks/body-end.html" . }}

@@ -15,12 +15,12 @@
       {{ end }}
     </header>
     <div class="container-fluid td-outer">
-      <div class="td-main">
+      <div class="td-main vert">
         <div class="row flex-md-nowrap">
-          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+          <div class="td-sidebar d-print-none" id="LeftNav">
             {{ partial "sidebar.html" . }}
           </div>
-          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+          <main class="pl-4" role="main" id="MainContent">
             {{ if not .Site.Params.ui.breadcrumb_disable }}{{ partial "breadcrumb.html" . }}{{ end }}
             {{ block "deprecated" . }}
               {{ partial "deprecation-warning.html" . }}
@@ -45,7 +45,7 @@
               {{ partial "disqus-comment.html" . }}
             {{ end }}
           </main>
-          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+          <div class="d-none d-xl-block td-toc d-print-none">
             {{ partial "toc.html" . }}
           </div>
         </div>

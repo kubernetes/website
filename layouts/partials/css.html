@@ -34,3 +34,18 @@
     <link rel="stylesheet" href="{{ $url }}"><!-- custom css added -->
   {{- end }}
 {{- end }}
+
+<style>
+.gutter {
+  z-index: 20;
+  position:relative;
+  background-color: gray;
+  cursor: col-resize;
+  box-shadow: 2px 1px rgba(40,40,40,0.3);
+}
+
+.gutter-vertical {
+  cursor: row-resize;
+  box-shadow: 1px 2px rgba(40,40,40,0.3);
+}
+</style>
