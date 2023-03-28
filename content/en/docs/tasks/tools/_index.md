@@ -23,9 +23,7 @@ Find your preferred operating system below.
 
 ## kind
 
-[`kind`](https://kind.sigs.k8s.io/) lets you run Kubernetes on
-your local computer. This tool requires that you have
-[Docker](https://docs.docker.com/get-docker/) installed and configured.
+[`kind`](https://kind.sigs.k8s.io/) short for Kubernetes in Docker, and as the name suggests, it creates a Kubernetes cluster using Docker to host the nodes. This tool requires that you have [Docker](https://docs.docker.com/get-docker/) installed and configured.
 
 The kind [Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start/) page
 shows you what you need to do to get up and running with kind.
