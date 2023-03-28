@@ -30,7 +30,8 @@ ConfigMap 是 Kubernetes 的一种机制，可让你将配置数据注入到应�
 <!--
 The ConfigMap concept allow you to decouple configuration artifacts from image content to
 keep containerized applications portable. For example, you can download and run the same
-{{< glossary_tooltip text="container image" term_id="image" >}} to spin up containers for the purposes of local development, system test, or running a live end-user workload.
+{{< glossary_tooltip text="container image" term_id="image" >}} to spin up containers for
+the purposes of local development, system test, or running a live end-user workload.
 -->
 ConfigMap 概念允许你将配置清单与镜像内容分离，以保持容器化的应用程序的可移植性。
 例如，你可以下载并运行相同的{{< glossary_tooltip text="容器镜像" term_id="image" >}}来启动容器，
@@ -133,8 +134,10 @@ symlinks, devices, pipes, and more).
 
 {{< note >}}
 <!--
-Each filename being used for ConfigMap creation must consist of only acceptable characters, which are: letters (`A` to `Z` and `a` to z`), digits (`0` to `9`), '-', '_', or '.'.
-If you use `kubectl create configmap` with a directory where any of the file names contains an unacceptable character, the `kubectl` command may fail.
+Each filename being used for ConfigMap creation must consist of only acceptable characters,
+which are: letters (`A` to `Z` and `a` to z`), digits (`0` to `9`), '-', '_', or '.'.
+If you use `kubectl create configmap` with a directory where any of the file names contains
+an unacceptable character, the `kubectl` command may fail.
 -->
 用于创建 ConfigMap 的每个文件名必须由可接受的字符组成，即：字母（`A` 到 `Z` 和
 `a` 到 `z`）、数字（`0` 到 `9`）、'-'、'_'或'.'。
@@ -784,7 +787,8 @@ section, and learn how to use these objects with Pods.
    ```
 
 <!--
-2. Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY` environment variable in the Pod specification.
+2. Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY`
+   environment variable in the Pod specification.
 -->
 2. 将 ConfigMap 中定义的 `special.how` 赋值给 Pod 规约中的 `SPECIAL_LEVEL_KEY` 环境变量。
 
@@ -961,7 +965,7 @@ kubectl delete pod dapi-test-pod --now
 ## Add ConfigMap data to a Volume
 
 As explained in [Create ConfigMaps from files](#create-configmaps-from-files), when you create
-a ConfigMap using ``--from-file``, the filename becomes a key stored in the `data` section of
+a ConfigMap using `--from-file`, the filename becomes a key stored in the `data` section of
 the ConfigMap. The file contents become the key's value.
 -->
 ## 将 ConfigMap 数据添加到一个卷中    {#add-configmap-data-to-a-volume}
@@ -1024,7 +1028,9 @@ SPECIAL_TYPE
 
 <!--
 Text data is exposed as files using the UTF-8 character encoding. To use some other
-character encoding, use `binaryData` (see [ConfigMap object](/docs/concepts/configuration/configmap/#configmap-object) for more details).
+character encoding, use `binaryData`
+(see [ConfigMap object](/docs/concepts/configuration/configmap/#configmap-object) for more details).
+
 -->
 文本数据会展现为 UTF-8 字符编码的文件。如果使用其他字符编码，
 可以使用 `binaryData`（详情参阅 [ConfigMap 对象](/zh-cn/docs/concepts/configuration/configmap/#configmap-object)）。
@@ -1114,7 +1120,7 @@ guide explains the syntax.
 <!--
 ### Optional references
 
-A ConfigMap reference may be marked _optional_.  If the ConfigMap is non-existent, the mounted
+A ConfigMap reference may be marked _optional_. If the ConfigMap is non-existent, the mounted
 volume will be empty. If the ConfigMap exists, but the referenced key is non-existent, the path
 will be absent beneath the mount point. See [Optional ConfigMaps](#optional-configmaps) for more
 details.
@@ -1154,7 +1160,8 @@ Kubelet 在每次定期同步时都会检查所挂载的 ConfigMap 是否是最�
 
 {{< note >}}
 <!--
-A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes/#using-subpath) volume will not receive ConfigMap updates.
+A container using a ConfigMap as a [subPath](/docs/concepts/storage/volumes/#using-subpath)
+volume will not receive ConfigMap updates.
 -->
 使用 ConfigMap 作为 [subPath](/zh-cn/docs/concepts/storage/volumes/#using-subpath)
 卷的容器将不会收到 ConfigMap 更新。
