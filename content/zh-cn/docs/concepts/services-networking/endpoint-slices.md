@@ -1,7 +1,7 @@
 ---
 title: EndpointSlice
 content_type: concept
-weight: 45
+weight: 60
 description: >-
   EndpointSlice API 是 Kubernetes 用于扩缩 Service
   以处理大量后端的机制，还允许集群高效更新其健康后端的列表。
@@ -12,7 +12,7 @@ reviewers:
 - freehan
 title: EndpointSlices
 content_type: concept
-weight: 45
+weight: 60
 description: >-
   The EndpointSlice API is the mechanism that Kubernetes uses to let your Service
   scale to handle large numbers of backends, and allows the cluster to update its
@@ -161,18 +161,18 @@ Services will always have the `ready` condition set to `true`.
 <!--
 #### Serving
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
-`serving` is identical to the `ready` condition, except it does not account for terminating states.
-Consumers of the EndpointSlice API should check this condition if they care about pod readiness while
+The `serving` condition is almost identical to the `ready` condition. The difference is that
+consumers of the EndpointSlice API should check the `serving` condition if they care about pod readiness while
 the pod is also terminating.
 -->
 #### Serving（服务中）
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
-`serving` 状况与 `ready` 状况相同，不同之处在于它不考虑终止状态。
-如果 EndpointSlice API 的使用者关心 Pod 终止时的就绪情况，就应检查此状况。
+`serving` 状况几乎与 `ready` 状况相同，不同之处在于它不考虑终止状态。
+如果 EndpointSlice API 的使用者关心 Pod 终止时的就绪情况，就应检查 `serving` 状况。
 
 {{< note >}}
 <!--
@@ -191,7 +191,7 @@ for terminating pods independent of the existing semantics for `ready`.
 的现有语义来跟踪处于终止中的 Pod 的就绪情况。
 {{< /note >}}
 
-<!-- 
+<!--
 #### Terminating
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
@@ -470,7 +470,6 @@ less noticeable; even then, some use cases of Kubernetes weren't well served.
 对象可能变得非常巨大。对于保持稳定的服务（长时间使用同一组端点），影响不太明显；
 即便如此，Kubernetes 的一些使用场景也没有得到很好的服务。
 
-
 <!--
 When a Service had a lot of backend endpoints and the workload was either
  scaling frequently, or rolling out new changes frequently, each update to
@@ -507,5 +506,3 @@ EndpointSlices 还支持围绕双栈网络和拓扑感知路由等新功能的�
 * 遵循[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)教程
 * 阅读 EndpointSlice API 的 [API 参考](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/)
 * 阅读 Endpoints API 的 [API 参考](/zh-cn/docs/reference/kubernetes-api/service-resources/endpoints-v1/)
-
-

@@ -12,7 +12,7 @@ weight: 10
 
 <!-- overview -->
 
-{{< glossary_definition term_id="service" length="short" >}}
+{{< glossary_definition term_id="service" length="short" prepend="KubernetesにおけるServiceとは、" >}}
 
 Kubernetesでは、なじみのないサービスディスカバリーのメカニズムを使用するためにユーザーがアプリケーションの修正をする必要はありません。
 KubernetesはPodにそれぞれのIPアドレス割り振りや、Podのセットに対する単一のDNS名を提供したり、それらのPodのセットに対する負荷分散が可能です。

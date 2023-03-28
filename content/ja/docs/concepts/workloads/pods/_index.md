@@ -98,7 +98,7 @@ Kubernetes v{{< skew currentVersion >}}では、このフィールドに設定�
 * {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}
 * {{< glossary_tooltip text="DaemonSet" term_id="daemonset" >}}
 
-### Podテンプレート {#pod-template}
+### Podテンプレート {#pod-templates}
 
 {{< glossary_tooltip text="workload" term_id="workload" >}}リソース向けのコントローラーは、Podを*Podテンプレート*を元に作成し、あなたの代わりにPodを管理してくれます。
 
