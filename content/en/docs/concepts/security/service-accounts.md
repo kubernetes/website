@@ -171,12 +171,12 @@ following methods:
   If you have a legacy application that is not aware of Kubernetes, you
   could use a sidecar container within the same pod to fetch these tokens
   and make them available to the application workload.
-* [Token Volume Projection](/docs/tasks/configure-pod-container/configure-service-account/#service-account-token-volume-projection)
+* [Token Volume Projection](/docs/tasks/configure-pod-container/configure-service-account/#serviceaccount-token-volume-projection)
   (also recommended): In Kubernetes v1.20 and later, use the Pod specification to
   tell the kubelet to add the service account token to the Pod as a
   *projected volume*. Projected tokens expire automatically, and the kubelet
   rotates the token before it expires.
-* [Service Account Token Secrets](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-a-service-account-api-token)
+* [Service Account Token Secrets](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount)
   (not recommended): You can mount service account tokens as Kubernetes
   Secrets in Pods. These tokens don't expire and don't rotate.
   This method is not recommended, especially at scale, because of the risks associated
