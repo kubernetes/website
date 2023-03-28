@@ -434,7 +434,7 @@ for an annotation with key `apf.kubernetes.io/autoupdate-spec`.  If
 there is such an annotation and its value is `true` then the
 kube-apiservers control the object.  If there is such an annotation
 and its value is `false` then the users control the object.  If
-neither of those condtions holds then the `metadata.generation` of the
+neither of those conditions holds then the `metadata.generation` of the
 object is consulted.  If that is 1 then the kube-apiservers control
 the object.  Otherwise the users control the object.  These rules were
 introduced in release 1.22 and their consideration of
