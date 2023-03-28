@@ -65,7 +65,8 @@ For a reference to old feature gates that are removed, please refer to
 | `APISelfSubjectReview` | `false` | Alpha | 1.26 | |
 | `APIServerIdentity` | `false` | Alpha | 1.20 | 1.25 |
 | `APIServerIdentity` | `true` | Beta | 1.26 | |
-| `APIServerTracing` | `false` | Alpha | 1.22 | |
+| `APIServerTracing` | `false` | Alpha | 1.22 | 1.26 |
+| `APIServerTracing` | `true` | Beta | 1.27 | |
 | `AggregatedDiscoveryEndpoint` | `false` | Alpha | 1.26 | |
 | `AnyVolumeDataSource` | `false` | Alpha | 1.18 | 1.23 |
 | `AnyVolumeDataSource` | `true` | Beta | 1.24 | |
