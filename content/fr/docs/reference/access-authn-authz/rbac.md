@@ -23,12 +23,12 @@ utilisateurs individuels au sein de votre organisation.
 
 
 <!-- body -->
-L'autorisation RBAC utilise le `rbac.authorization.k8s.io`
-{{< glossary_tooltip text="API group" term_id="api-group" >}} pour prendre les 
+L'autorisation RBAC utilise le {{< glossary_tooltip text="groupe d'API" term_id="api-group" >}} 
+`rbac.authorization.k8s.io` pour prendre les 
 décisions d'autorisation, ce qui vous permet de configurer 
 dynamiquement les politiques via l'API Kubernetes.
 
-Pour activer RBAC, démarrez le {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
+Pour activer RBAC, démarrez l'{{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}
 avec l'indicateur `--authorization-mode` défini sur une liste séparée par des virgules qui inclut `RBAC` ;
 par exemple :
 ```shell
@@ -44,15 +44,15 @@ ou les modifier, en utilisant des outils tels que `kubectl`, comme tout autre ob
 
 {{< caution >}}
 Ces objets, de par leur conception, imposent des restrictions d'accès. Si vous apportez des modifications
-à un cluster au fur et à mesure de votre apprentissage, consultez
+à un cluster au fur et à mesure de votre apprentissage, consultez la
 [prévention de l'escalade des privilèges et amorçage](#privilege-escalation-prevention-and-bootstrapping)
 pour comprendre comment ces restrictions peuvent vous empêcher d'effectuer certaines modifications.
 {{< /caution >}}
 
-### Role and ClusterRole
+### Role et ClusterRole
 
 Un _Role_ ou _ClusterRole_ RBAC contient des règles qui représentent un ensemble de permissions.
-Les permissions sont purement additives (il n'y a pas de "deny" règles).
+Les permissions sont purement additives (il n'y a pas de règles de "refus").
 
 Un rôle définit toujours les autorisations dans un {{< glossary_tooltip text="namespace" term_id="namespace" >}} particulier;
 lorsque vous créez un Role, vous devez spécifier le namespace auquel il appartient.
@@ -69,7 +69,7 @@ Les ClusterRoles ont plusieurs usages. Vous pouvez utiliser une ClusterRole pour
 
 Si vous souhaitez définir un rôle au sein d'un namespace, utilisez un Role; si vous souhaitez
 définir un rôle à l'échelle du cluster, utilisez un ClusterRole.
-#### Role example
+#### Exemple de Role
 
 Voici un exemple de rôle dans le namespace "default" qui peut être utilisé pour accorder un accès en lecture aux
 {{< glossary_tooltip text="pods" term_id="pod" >}}:
@@ -86,22 +86,22 @@ rules:
   verbs: ["get", "watch", "list"]
 ```
 
-#### ClusterRole example
+#### Exemple de ClusterRole
 
-Une ClusterRole peut être utilisée pour accorder les mêmes permissions qu'un rôle.
+Un ClusterRole peut être utilisé pour accorder les mêmes permissions qu'un Role.
 Étant donné que les ClusterRoles sont à l'échelle des clusters, vous pouvez également 
-les utiliser pour accorder l'accès à :
+les utiliser pour accorder l'accès à:
 
 * des ressources à l'échelle du cluster (comme {{< glossary_tooltip text="nodes" term_id="node" >}})
 * des endpoints non liés aux ressources (comme `/healthz`)
 * des ressources à namespaces (comme les pods), dans tous les namespaces.
 
-  Par exemple : vous pouvez utiliser un ClusterRole pour autoriser un utilisateur particulier à exécuter
+  Par exemple: vous pouvez utiliser un ClusterRole pour autoriser un utilisateur particulier à exécuter
   `kubectl get pods --all-namespaces`
 
 Voici un exemple de ClusterRole qui peut être utilisé pour accorder un accès en lecture à
 {{< glossary_tooltip text="secrets" term_id="secret" >}} dans un namespace particulier,
-ou dans tous les namespaces (selon la façon dont il est [lié](#rolebinding-and-clusterrolebinding)) :
+ou dans tous les namespaces (selon la façon dont il est [lié](#rolebinding-and-clusterrolebinding)):
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -233,13 +233,13 @@ Dans l'API Kubernetes, la plupart des ressources sont représentées et accessib
 comme `pods` pour un Pod. RBAC fait référence aux ressources en utilisant exactement 
 le même nom que celui qui apparaît dans l'URL du endpoint de l'API concerné.
 Certaines API Kubernetes impliquent une
-_subresource_, comme les logs d'un Pod. Une requête pour les logs d'un Pod ressemble à ceci :
+_sous-ressource_, comme les logs d'un Pod. Une requête pour les logs d'un Pod ressemble à ceci :
 
 ```http
 GET /api/v1/namespaces/{namespace}/pods/{name}/log
 ```
 
-Dans ce cas, `pods` est le namespaced ressource pour les ressources Pods,
+Dans ce cas, `pods` est la ressource à namespace pour les ressources Pods,
 et `log` est une sous-ressource de `pods`. Pour représenter cela dans un rôle RBAC,
 utilisez une barre oblique (`/`) pour délimiter la ressource et la sous-ressource.
 Pour permettre à un sujet de lire `pods` et d'accéder également à la sous-ressource `log` pour chacun de ces Pods, vous écrivez :
@@ -258,7 +258,7 @@ rules:
 
 Vous pouvez également faire référence à des ressources par leur nom pour certaines demandes par le biais de la liste `resourceNames`.
 Lorsque cela est spécifié, les demandes peuvent être limitées à des instances individuelles d'une ressource.
-Voici un exemple qui limite son sujet seulement à `get` ou `update` une
+Voici un exemple qui limite son sujet à seulement `get` ou `update` une
 {{< glossary_tooltip term_id="ConfigMap" >}} nommée `my-configmap`:
 
 ```yaml
@@ -456,7 +456,7 @@ rules:
 ```
 
 Autoriser la lecture des ressources `"nodes"`dans le groupe central (parce 
-qu'un Node est à l'échelle-du-cluster, il doit être dans un ClusterRole
+qu'un Nœud est à l'échelle-du-cluster, il doit être dans un ClusterRole
 lié à un ClusterRoleBinding pour être effectif) :
 
 ```yaml
@@ -470,7 +470,7 @@ rules:
 ```
 
 Autorise les requêtes GET et POST vers l'endpoint non ressource `/healthz` et
-tous les subpaths (doit être dans un ClusterRole lié à un ClusterRoleBinding
+tous les sous-chemins (doit être dans un ClusterRole lié à un ClusterRoleBinding
 pour être effectif) :
 
 ```yaml
@@ -611,7 +611,6 @@ et met à jour les liaisons de rôles de cluster par défaut avec tous les sujet
 Cela permet au cluster de réparer les modifications accidentelles, et aide à maintenir les rôles et les liaisons de rôles
 à jour lorsque les autorisations et les sujets changent dans les nouvelles versions de Kubernetes.
 
-Be aware that missing default permissions and subjects can result in non-functional clusters.
 Pour ne pas participer à cette reconciliation, définissez l'annotation `rbac.authorization.kubernetes.io/autoupdate`
 sur un rôle ou un rolebinding de cluster par défaut sur `false`.
 Sachez que les autorisations et les sujets par défaut manquants peuvent entraîner des clusters non fonctionnels.
@@ -649,17 +648,17 @@ ne modifiez pas manuellement le rôle ou désactivez l'auto-reconciliation.
 <tbody>
 <tr>
 <td><b>system:basic-user</b></td>
-<td><b>system:authenticated</b> group</td>
+<td>Groupe <b>system:authenticated</b></td>
 <td>Permet à un utilisateur d'accéder en lecture seule aux informations de base le concernant. Avant la v1.14, ce rôle était également lié à <tt>system:unauthenticated</tt> par défaut.</td>
 </tr>
 <tr>
 <td><b>system:discovery</b></td>
-<td><b>system:authenticated</b> group</td>
+<td>Groupe <b>system:authenticated</b></td>
 <td>Permet un accès en lecture seule aux points de terminaison de découverte d'API nécessaires pour découvrir et négocier un niveau d'API. Avant la v1.14, ce rôle était également lié à l'option <tt>system:unauthenticated</tt> par défaut.</td>
 </tr>
 <tr>
 <td><b>system:public-info-viewer</b></td>
-<td><b>system:authenticated</b> and <b>system:unauthenticated</b> groups</td>
+<td>Groupes <b>system:authenticated</b> et <b>system:unauthenticated</b></td>
 <td>Permet un accès en lecture seule à des informations non sensibles sur le cluster. Introduit dans Kubernetes v1.14.</td>
 </tr>
 </tbody>
@@ -696,7 +695,7 @@ metadata:
 <tbody>
 <tr>
 <td><b>cluster-admin</b></td>
-<td><b>system:masters</b> groupe</td>
+<td>Groupe <b>system:masters</b></td>
 <td>Permet au super-utilisateur d'effectuer n'importe quelle action sur n'importe quelle ressource.
 Lorsqu'il est utilisé dans un <b>ClusterRoleBinding</b>, il donne un contrôle total sur chaque ressource dans le cluster et dans tous les namespaces.
 Lorsqu'il est utilisé dans un <b>RoleBinding</b>, il donne un contrôle total sur chaque ressource dans le namespace du role binding, y compris le namespace lui-même.</td>
@@ -756,12 +755,12 @@ dans le namespace (une forme d'escalade des privilèges).</td>
 <tbody>
 <tr>
 <td><b>system:kube-scheduler</b></td>
-<td>utilisateur <b>system:kube-scheduler</b></td>
+<td>Utilisateur <b>system:kube-scheduler</b></td>
 <td>Permet l'accès aux ressources requises par le composant {{< glossary_tooltip term_id="kube-scheduler" text="scheduler" >}}.</td>
 </tr>
 <tr>
 <td><b>system:volume-scheduler</b></td>
-<td><b>system:kube-scheduler</b> user</td>
+<td>Utilisateur <b>system:kube-scheduler</b></td>
 <td>Permet l'accès aux ressources de volume requises par le composant kube-scheduler.</td>
 </tr>
 <tr>
@@ -782,7 +781,7 @@ Le rôle <tt>system:node</tt> n'existe que pour la compatibilité avec les clust
 </tr>
 <tr>
 <td><b>system:node-proxier</b></td>
-<td><b>system:kube-proxy</b> user</td>
+<td>Utilisateur <b>system:kube-proxy</b></td>
 <td>Permet l'accès aux ressources requises par le composant {{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}}.</td>
 </tr>
 </tbody>
@@ -844,7 +843,7 @@ Il est couramment utilisé par les serveurs API complémentaires pour l'authenti
 </tr>
 <tr>
 <td><b>system:monitoring</b></td>
-<td>groupe <b>system:monitoring</b></td>
+<td>Groupe <b>system:monitoring</b></td>
 <td>Autorise l'accès en lecture aux endpoints de monitoring du control-plane (c'est-à-dire les endpoints {{< glossary_tooltip term_id="kube-apiserver" text="kube-apiserver" >}} liveness and readiness (<tt>/healthz</tt>, <tt>/livez</tt>, <tt>/readyz</tt>), les endpoints de contrôle de l'état individuel (<tt>/healthz/*</tt>, <tt>/livez/*</tt>, <tt>/readyz/*</tt>), et <tt>/metrics</tt>). Il convient de noter que les endpoints des contrôles de l'état individuel et les endpoints des mesures peuvent exposer des informations sensibles. </td>
 </tr>
 </tbody>
@@ -1161,10 +1160,10 @@ Dans l'ordre, de la plus sûre à la moins sûre, les approches sont les suivant
     Pour permettre à ces modules complémentaires de fonctionner avec un accès de super-utilisateur, accordez les permissions cluster-admin
     au compte de service "default" dans le namespace `kube-system`.
 
-    {{< attention >}}
+    {{< caution >}}
     Activer cela signifie que le namespace `kube-system `contient des Secrets
     qui accordent un accès de super-utilisateur à l'API de votre cluster.
-    {{< /attention >}}
+    {{< /caution >}}
 
     ```shell
     kubectl create clusterrolebinding add-on-cluster-admin \
@@ -1202,11 +1201,11 @@ Dans l'ordre, de la plus sûre à la moins sûre, les approches sont les suivant
 
    Si vous ne vous souciez pas du tout des autorisations de partitionnement, vous pouvez accorder un accès de super-utilisateur à tous les comptes de service.
 
-    {{< attention >}}
+    {{< caution >}}
     Cela permet à n'importe quelle application d'avoir un accès complet à votre cluster, et accorde
     également à n'importe quel utilisateur ayant un accès en lecture à Secrets (ou la possibilité de créer n'importe quel pod)
     un accès complet à votre cluster.
-    {{< /attention >}}
+    {{< /caution >}}
 
     ```shell
     kubectl create clusterrolebinding serviceaccounts-cluster-admin \
@@ -1270,7 +1269,7 @@ fonctionnent sans message de refus RBAC dans les journaux du serveur, vous pouve
 
 Vous pouvez répliquer une stratégie ABAC permissive à l'aide de liaisons de rôles RBAC.
 
-{{< attention >}}
+{{< caution >}}
 La politique suivante permet à **TOUS** les comptes de service d'agir en tant qu'administrateurs de cluster.
 Toute application s'exécutant dans un conteneur reçoit automatiquement
 les informations d'identification du compte de service et peut effectuer n'importe quelle action sur l'API, y compris l'affichage des secrets et la modification des autorisations.
@@ -1283,7 +1282,7 @@ kubectl create clusterrolebinding permissive-binding \
   --user=kubelet \
   --group=system:serviceaccounts
 ```
-{{< /attention >}}
+{{< /caution >}}
 
 Après la transition vers l'utilisation de RBAC, vous devez ajuster les contrôles
 d'accès pour votre cluster afin de vous assurer qu'ils répondent à vos besoins en matière de sécurité de l'information.
