@@ -9,7 +9,7 @@ title: Persistent Volumes
 feature:
   title: Storage orchestration
   description: >
-    Automatically mount the storage system of your choice, whether from local storage, a public cloud provider such as <a href="https://aws.amazon.com/products/storage/">AWS</a> or <a href="https://cloud.google.com/storage/">GCP</a>, or a network storage system such as NFS, iSCSI, Ceph, Cinder.
+    Automatically mount the storage system of your choice, whether from local storage, a public cloud provider such as <a href="https://aws.amazon.com/products/storage/" target="_blank">AWS</a> or <a href="https://cloud.google.com/storage/" target="_blank">GCP</a>, or a network storage system such as NFS, iSCSI, Ceph, Cinder.
 content_type: concept
 weight: 20
 ---

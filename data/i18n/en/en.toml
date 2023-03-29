@@ -263,7 +263,7 @@ other = "Fetching results..."
 other = "by"
 
 [main_cncf_project]
-other = """We are a <a href="https://cncf.io/">CNCF</a> graduated project</p>"""
+other = """We are a <a href="https://cncf.io/" target="_blank">CNCF</a> graduated project</p>"""
 
 [main_community_explore]
 other = "Explore the community"

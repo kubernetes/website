@@ -155,7 +155,7 @@ other = "परिणाम लाए जा रहे हैं.."
 other = "द्वारा"
 
 [main_cncf_project]
-other = """हम एक <a href="https://cncf.io/">CNCF</a> स्नातक परियोजना हैं</p>"""
+other = """हम एक <a href="https://cncf.io/" target="_blank">CNCF</a> स्नातक परियोजना हैं</p>"""
 
 [main_community_explore]
 other = "समुदाय का अन्वेषण करें"
