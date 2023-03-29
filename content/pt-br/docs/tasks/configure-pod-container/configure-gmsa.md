@@ -27,11 +27,11 @@ precisa estar configurada para comunicar-se com seu cluster.
 O cluster deve possuir nós de carga de trabalho Windows. 
 Esta seção cobre o conjunto inicial de passos requeridos para cada cluster:
 
-### Instale o `GMSACredentialSpec CRD`
+### Instale o CRD GMSACredentialSpec
 
-Uma [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/)(CRD) para uma especificação de recursos de credencial GMSA precisa ser configurada no cluster, para definir o tipo de recurso do cliente `GMSACredentialSpec`. Faça o download do [YAML](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-crd.yml) GMSA CRD
+Uma [CustomResourceDefinition](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/) (CRD) para a especificação de recursos de credencial GMSA precisa ser configurada no cluster, para definir o tipo de recurso do cliente `GMSACredentialSpec`. Faça o download do [YAML](https://github.com/kubernetes-sigs/windows-gmsa/blob/master/admission-webhook/deploy/gmsa-crd.yml) do CRD de GMSA 
 e salve como gmsa-crd.yaml.
-A seguir, instale o CRD com `kubectl apply -f gmsa-crd.yaml`
+A seguir, instale o CRD com `kubectl apply -f gmsa-crd.yaml`.
 
 ### Instale webhooks para validar usuários GMSA
 
@@ -39,8 +39,8 @@ Dois webhooks precisam ser configurados no cluster Kubernetes para popular e val
 as referências de especificação de credenciais GMSA no nível do Pod ou contêiner:
 
 1. Um webhook de mutação que expanda as referências para as GMSAs,
-(por nome de uma especificação de Pod) dentro de toda a especificação de credencial, 
-no formato JSON dentro da especificação do Pod.
+(por nome a partir de uma especificação de Pod) em uma especificação de credencial completa 
+em formato JSON dentro da especificação do Pod.
 
 1. Um webhook de validação garante que todas as referências para GMSAs estão 
 autorizadas a serem usadas pela conta de serviço do Pod.
@@ -50,7 +50,7 @@ A instalação dos webhooks acima e dos objetos associados requer as etapas abai
 1. Crie um par de chaves de certificado (que será usado para permitir que o 
 contêiner do webhook se comunique com o cluster)
 
-1. Instale um `Secret` com o certificado acima.
+1. Instale um Secret com o certificado acima.
 
 1. Crie um Deployment para a lógica principal do webhook.
 
@@ -71,24 +71,24 @@ associados manualmente (com as substituições apropriadas para os parâmetros).
 ## Configurar GMSAs e nós Windows em Active Directory
 
 Antes que os Pods no Kubernetes possam ser configurados para usar GMSAs, as GMSAs apropriadas precisam ser provisionadas no Active Directory como descrito na 
-[documentação do Windows GMSA](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#BKMK_Step1). 
+[documentação de GMSA do Windows](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#BKMK_Step1). 
 Nós de carga de trabalho Windows (que são parte do cluster Kubernetes) precisam ser configurados no 
 Active Directory para acessar as credenciais secretas associadas com a GMSA apropriada, 
-como descrito na [documentação Windows GMSA](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#to-add-member-hosts-using-the-set-adserviceaccount-cmdlet).
+como descrito na [documentação de GMSA do Windows](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#to-add-member-hosts-using-the-set-adserviceaccount-cmdlet).
 
 ## Crie recursos de especificação de GMSA
 
-Com o `GMSACredentialSpec CRD` instalado (como descrito anteriormente), 
+Com o CRD GMSACredentialSpec instalado (como descrito anteriormente), 
 recursos customizados contendo recursos de especificação de credenciais GMSA podem 
-ser configurados. A especificação de credencial GMSA não contém segredos nem dados 
+ser configurados. A especificação de credencial GMSA não contém dados secretos nem 
 sensíveis. É informação que o agente de execução de contêiner pode usar para descrever a apropriada 
 GMSA de um contêiner para o Windows. Especificações de credenciais GMSA podem 
 ser geradas em formato YAML com o utilitário [PowerShell script](https://github.com/kubernetes-sigs/windows-gmsa/tree/master/scripts/GenerateCredentialSpecResource.ps1).
 
 A seguir são os passos para gerar a especificação de credencial GMSA YAML 
-manualmente, em formato JSON e então convertê-la:
+manualmente, em formato JSON e então convertê-la para YAML:
 
-1. Importar a `CredentialSpec` [módulo](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/windows-server-container-tools/ServiceAccounts/CredentialSpec.psm1): 
+1. Importar o [módulo `CredentialSpec`](https://github.com/MicrosoftDocs/Virtualization-Documentation/blob/live/windows-server-container-tools/ServiceAccounts/CredentialSpec.psm1): 
 `ipmo CredentialSpec.psm1`
 
 1. Crie a especificação da credencial em formato JSON usando `New-CredentialSpec`. 
@@ -98,8 +98,8 @@ execute `New-CredentialSpec -Name WebApp1 -AccountName WebApp1 -Domain $(Get-ADD
 1. Use `Get-CredentialSpec` para mostrar o caminho do arquivo JSON.
 
 1. Converta o arquivo `credspec` de JSON para o formato YAML e aplique os campos 
-de cabeçalho necessários `apiVersion`, `kind`, `metadata` e `credspec` para fazer 
-o recurso customizado `GMSACredentialSpec` que pode ser configurado no Kubernetes.
+de cabeçalho necessários `apiVersion`, `kind`, `metadata` e `credspec` para transformá-lo em 
+uma instância do recurso customizado GMSACredentialSpec que pode ser configurado no Kubernetes.
 
 A configuração YAML a seguir descreve as especificações de credencial GMSA nomeada 
 `gmsa-WebApp1`:
@@ -120,7 +120,7 @@ credspec:
   - ActiveDirectory
   DomainJoinConfig:
     DnsName: contoso.com        #Nome de domínio DNS
-    DnsTreeName: contoso.com    #Nome de domínio DNS Root
+    DnsTreeName: contoso.com    #Nome de domínio DNS raiz
     Guid: 244818ae-87ac-4fcd-92ec-e79e5252348a  #GUID
     MachineAccountName: WebApp1 #Nome de usuário da conta GMSA
     NetBiosName: CONTOSO        #Nome de domínio NETBIOS
@@ -131,18 +131,17 @@ O recurso de especificação de credencial acima deve ser salvo como
 `gmsa-Webapp1-credspec.yaml` e aplicado no cluster usando: 
 `kubectl apply -f gmsa-Webapp1-credspec.yml`
 
-## Configure a `cluster role` para habilitar RBAC nas especificações 
-de credenciais GMSA específicas
+## Configure um ClusterRole para habilitar RBAC nas especificações de credenciais GMSA específicas
 
-Uma `cluster role` precisa ser definida para cada recurso de especificação 
-de credencial GMSA. Isto autoriza a `usar` um recurso GMSA específico, 
-por um sujeito que tipicamente é um serviço de conta. O exemplo a seguir mostra 
-uma `cluster role` que autoriza o uso da especificação da credencial `gmsa-WebApp1` 
+Uma ClusterRole precisa ser definido para cada recurso de especificação 
+de credencial GMSA. Isto autoriza o verbo `use` em um recurso GMSA específico
+por um sujeito, geralmente uma conta de serviço. O exemplo a seguir mostra 
+um ClusterRole que autoriza o uso de credencial `gmsa-WebApp1` 
 acima. Salve o arquivo como gmsa-webapp1-role.yaml e aplique 
 usando `kubectl apply -f gmsa-webapp1-role.yaml`
 
 ```yaml
-#Criando a Role para ler o credspec
+#Criando um Role para ler o credspec
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -154,12 +153,12 @@ rules:
   resourceNames: ["gmsa-WebApp1"]
 ```
 
-## Atribua o papel as contas serviço para usar a especificação de credencial GMSA especifíca
+## Atribua o Role às contas de serviço para usar especificações de credencial GMSA específicas
 
 Uma conta de serviço (com a qual os Pods virão configurados), precisa ser vinculada 
-ao `cluster role` criado acima. Isto autoriza a conta de serviço a usar a apropriada 
-especificação de recurso de credencial GMSA. A seguir mostra a conta de serviço padrão vinculada a `cluster role` `webapp1-role`, para usar a especificação 
-de recurso da credencial `gmsa-WebApp1` criada acima.
+ao ClusterRole criado acima. Isto autoriza a conta de serviço a usar a especificação apropriada 
+de recurso de credencial GMSA. O trecho a seguir mostra a conta de serviço padrão vinculada ao ClusterRole `webapp1-role`, para usar a especificação 
+de recurso de credencial `gmsa-WebApp1` criada acima.
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -214,9 +213,8 @@ spec:
         kubernetes.io/os: windows
 ```
 
-Contêineres individuais em uma especificação de Pod, podem também especificar 
-a apropriada especificação de credencial GMSA, usando um campo por contêiner 
-`securityContext.windowsOptions.gmsaCredentialSpecName`. Por exemplo:
+Contêineres individuais em uma especificação de Pod podem também especificar 
+a especificação de credencial GMSA apropriada, usando o campo `securityContext.windowsOptions.gmsaCredentialSpecName` por contêiner. Por exemplo:
 
 ```yaml
 apiVersion: apps/v1
@@ -263,7 +261,7 @@ do GMSA no Active Directory, e tenha acesso aos serviços no domínio usando ess
 ## Autenticando para compartilhamentos de rede usando `hostname` ou FQDN
 
 Se você estiver enfrentando problemas ao se conectar aos compartilhamentos SMB 
-de pods usando o hostname ou o FQDN, mas conseguindo acessar os compartilhamentos 
+de Pods usando o hostname ou o FQDN, mas conseguindo acessar os compartilhamentos 
 por meio de seu endereço IPv4, verifique se a chave do registro a seguir 
 está definida nos nós Windows.
 
@@ -271,8 +269,8 @@ está definida nos nós Windows.
 reg add "HKLM\SYSTEM\CurrentControlSet\Services\hns\State" /v EnableCompartmentNamespace /t REG_DWORD /d 1
 ```
 
-Os pods em execução precisarão ser recriados para pegar as mudanças de comportamento.
-Mais informações sobre como essa chave de registro é usada pode ser encontrada [aqui](https://github.com/microsoft/hcsshim/blob/885f896c5a8548ca36c88c4b87fd2208c8d16543/internal/uvm/create.go#L74-L83)
+Os Pods em execução precisarão ser recriados para pegar as mudanças de comportamento.
+Mais informações sobre como essa chave de registro é usada podem ser encontradas [aqui](https://github.com/microsoft/hcsshim/blob/885f896c5a8548ca36c88c4b87fd2208c8d16543/internal/uvm/create.go#L74-L83)
 
 ## Solução de problemas
 
@@ -280,10 +278,10 @@ Se você estiver tendo dificuldades para fazer com que o GMSA funcione em seu am
 existem algumas etapas de solução de problemas que você pode tentar.
 
 Primeiro, verifique se a especificação de credencial foi passada para o Pod. Para fazer isso, 
-você precisará `executar` em um de seus Pods e verificar 
+você precisará rodar `kubectl exec` em um de seus Pods e verificar 
 a saída do comando `nltest.exe /parentdomain`.  
 
-No exemplo abaixo, o pod não recebeu a especificação de credencial corretamente:
+No exemplo abaixo, o Pod não recebeu a especificação de credencial corretamente:
 
 ```PowerShell
 kubectl exec -it iis-auth-7776966999-n5nzr powershell.exe
@@ -295,8 +293,8 @@ kubectl exec -it iis-auth-7776966999-n5nzr powershell.exe
 Getting parent domain failed: Status = 1722 0x6ba RPC_S_SERVER_UNAVAILABLE
 ```
 
-Se o seu pod obteve a especificação de credencial corretamente, em seguida, 
-verifique a comunicação com o domínio. Primeiro, de dentro do seu pod, 
+Se o seu Pod obteve a especificação de credencial corretamente, o próximo passo é 
+verificar a comunicação com o domínio. Primeiro, de dentro do seu Pod, 
 execute rapidamente um `nslookup` para encontrar a raiz do seu domínio.
 
 Isso vai nos dizer 3 coisas:
