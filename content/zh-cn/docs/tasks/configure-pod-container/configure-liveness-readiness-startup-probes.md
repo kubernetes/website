@@ -27,6 +27,15 @@ despite bugs.
 重启这种状态下的容器有助于提高应用的可用性，即使其中存在缺陷。
 
 <!--
+A common pattern for liveness probes is to use the same low-cost HTTP endpoint
+s for readiness probes, but with a higher failureThreshold. This ensures that the pod
+is observed as not-ready for some period of time before it is hard killed.
+-->
+
+存活探针的常见模式是为就绪探针使用相同的低成本 HTTP 端点，但具有更高的 failureThreshold。
+这样可以确保在硬性终止 Pod 之前，将观察到 Pod 在一段时间内处于非就绪状态。
+
+<!--
 The kubelet uses readiness probes to know when a container is ready to start
 accepting traffic. A Pod is considered ready when all of its containers are ready.
 One use of this signal is to control which Pods are used as backends for Services.
@@ -47,6 +56,28 @@ kubelet 使用启动探针来了解应用容器何时启动。
 如果配置了这类探针，你就可以控制容器在启动成功后再进行存活性和就绪态检查，
 确保这些存活、就绪探针不会影响应用的启动。
 启动探针可以用于对慢启动容器进行存活性检测，避免它们在启动运行之前就被杀掉。
+
+{{< caution >}}
+<!--
+Liveness probes can be a powerful way to recover from application failures, but
+they should be used with caution. Liveness probes must be configured carefully
+to ensure that they truly indicate unrecoverable application failure, for example a deadlock.
+-->
+存活探针是一种从应用故障中恢复的强劲方式，但应谨慎使用。
+你必须仔细配置存活探针，确保它能真正标示出不可恢复的应用故障，例如死锁。
+{{< /caution >}}
+
+{{< note >}}
+<!--
+Incorrect implementation of liveness probes can lead to cascading failures. This results in
+restarting of container under high load; failed client requests as your application became less
+scalable; and increased workload on remaining pods due to some failed pods.
+Understand the difference between readiness and liveness probes and when to apply them for your app.
+-->
+错误的存活探针可能会导致级联故障。
+这会导致在高负载下容器重启；例如由于应用程序无法扩展，导致客户端请求失败；以及由于某些 Pod 失败而导致剩余 Pod 的工作负载增加。
+了解就绪探针和存活探针之间的区别，以及何时为应用程序配置使用它们非常重要。
+{{< /note >}}
 
 ## {{% heading "prerequisites" %}}
 
