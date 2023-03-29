@@ -27,8 +27,10 @@ hard requirement). _Taints_ are the opposite -- they allow a node to repel a set
 **污点（Taint）** 则相反——它使节点能够排斥一类特定的 Pod。
 
 <!--
-
-_Tolerations_ are applied to pods. Tolerations allow the scheduler to schedule pods with matching taints. Tolerations allow scheduling but don't guarantee scheduling: the scheduler also [evaluates other parameters](/docs/concepts/scheduling-eviction/pod-priority-preemption/) as part of its function.
+_Tolerations_ are applied to pods. Tolerations allow the scheduler to schedule pods with matching
+taints. Tolerations allow scheduling but don't guarantee scheduling: the scheduler also
+[evaluates other parameters](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+as part of its function.
 
 Taints and tolerations work together to ensure that pods are not scheduled
 onto inappropriate nodes. One or more taints are applied to a node; this
@@ -482,7 +484,7 @@ decisions. This ensures that node conditions don't directly affect scheduling.
 For example, if the `DiskPressure` node condition is active, the control plane
 adds the `node.kubernetes.io/disk-pressure` taint and does not schedule new pods
 onto the affected node. If the `MemoryPressure` node condition is active, the
-control plane adds the `node.kubernetes.io/memory-pressure` taint. 
+control plane adds the `node.kubernetes.io/memory-pressure` taint.
 -->
 调度器在进行调度时检查污点，而不是检查节点状况。这确保节点状况不会直接影响调度。
 例如，如果 `DiskPressure` 节点状况处于活跃状态，则控制平面添加
@@ -492,12 +494,12 @@ control plane adds the `node.kubernetes.io/memory-pressure` taint.
 
 <!--
 You can ignore node conditions for newly created pods by adding the corresponding
-Pod tolerations. The control plane also adds the `node.kubernetes.io/memory-pressure` 
-toleration on pods that have a {{< glossary_tooltip text="QoS class" term_id="qos-class" >}} 
-other than `BestEffort`. This is because Kubernetes treats pods in the `Guaranteed` 
+Pod tolerations. The control plane also adds the `node.kubernetes.io/memory-pressure`
+toleration on pods that have a {{< glossary_tooltip text="QoS class" term_id="qos-class" >}}
+other than `BestEffort`. This is because Kubernetes treats pods in the `Guaranteed`
 or `Burstable` QoS classes (even pods with no memory request set) as if they are
 able to cope with memory pressure, while new `BestEffort` pods are not scheduled
-onto the affected node. 
+onto the affected node.
 -->
 对于新创建的 Pod，可以通过添加相应的 Pod 容忍度来忽略节点状况。
 控制平面还在具有除 `BestEffort` 之外的

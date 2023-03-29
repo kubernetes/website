@@ -13,10 +13,12 @@ weight: 50
 <!-- overview -->
 <!--
 Every {{< glossary_tooltip term_id="node" text="node" >}} in a Kubernetes
-cluster runs a [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)
+{{< glossary_tooltip term_id="cluster" text="cluster" >}} runs a
+[kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)
 (unless you have deployed your own alternative component in place of `kube-proxy`).
 -->
-Kubernetes 集群中的每个{{< glossary_tooltip term_id="node" text="节点" >}}会运行一个
+Kubernetes {{< glossary_tooltip text="集群" term_id="cluster" >}}中的每个
+{{< glossary_tooltip text="节点" term_id="node" >}}会运行一个
 [kube-proxy](/zh-cn/docs/reference/command-line-tools-reference/kube-proxy/)
 （除非你已经部署了自己的替换组件来替代 `kube-proxy`）。
 
@@ -77,15 +79,18 @@ to use as-is.
 
 <!--
 <a id="example"></a>
-Some of the details in this reference refer to an example: the backend Pods for a stateless
-image-processing workload, running with three replicas. Those replicas are
+Some of the details in this reference refer to an example: the backend
+{{< glossary_tooltip term_id="pod" text="Pods" >}} for a stateless
+image-processing workloads, running with
+three replicas. Those replicas are
 fungible&mdash;frontends do not care which backend they use.  While the actual Pods that
 compose the backend set may change, the frontend clients should not need to be aware of that,
 nor should they need to keep track of the set of backends themselves.
 -->
 <a id="example"></a>
 本文中的一些细节会引用这样一个例子：
-运行了 3 个 Pod 副本的无状态图像处理后端工作负载。
+运行了 3 个 {{< glossary_tooltip text="Pod" term_id="pod" >}}
+副本的无状态图像处理后端工作负载。
 这些副本是可互换的；前端不需要关心它们调用了哪个后端副本。
 即使组成这一组后端程序的 Pod 实际上可能会发生变化，
 前端客户端不应该也没必要知道，而且也不需要跟踪这一组后端的状态。
@@ -107,8 +112,6 @@ Note that the kube-proxy starts up in different modes, which are determined by i
 - The ConfigMap parameters for the kube-proxy cannot all be validated and verified on startup.
   For example, if your operating system doesn't allow you to run iptables commands,
   the standard kernel kube-proxy implementation will not work.
-  Likewise, if you have an operating system which doesn't support `netsh`,
-  it will not run in Windows userspace mode.
 -->
 注意，kube-proxy 会根据不同配置以不同的模式启动。
 
@@ -116,7 +119,6 @@ Note that the kube-proxy starts up in different modes, which are determined by i
 - kube-proxy 的 ConfigMap 不支持配置的实时重新加载。
 - kube-proxy 不能在启动时验证和检查所有的 ConfigMap 参数。
   例如，如果你的操作系统不允许你运行 iptables 命令，标准的 kube-proxy 内核实现将无法工作。
-  同样，如果你的操作系统不支持 `netsh`，它也无法在 Windows 用户空间模式下运行。
 
 <!--
 ### `iptables` proxy mode {#proxy-mode-iptables}
@@ -124,14 +126,18 @@ Note that the kube-proxy starts up in different modes, which are determined by i
 ### `iptables` 代理模式 {#proxy-mode-iptables}
 
 <!--
-In this mode, kube-proxy watches the Kubernetes control plane for the addition and
-removal of Service and EndpointSlice objects. For each Service, it installs
+In this mode, kube-proxy watches the Kubernetes
+{{< glossary_tooltip term_id="control-plane" text="control plane" >}} for the addition and
+removal of Service and EndpointSlice {{< glossary_tooltip term_id="object" text="objects." >}}
+For each Service, it installs
 iptables rules, which capture traffic to the Service's `clusterIP` and `port`,
 and redirect that traffic to one of the Service's
 backend sets. For each endpoint, it installs iptables rules which
 select a backend Pod.
 -->
-在这种模式下，kube-proxy 监视 Kubernetes 控制平面，获知对 Service 和 EndpointSlice 对象的添加和删除操作。
+在这种模式下，kube-proxy 监视 Kubernetes
+{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}，获知对 Service 和 EndpointSlice
+{{< glossary_tooltip text="对象" term_id="object" >}}的添加和删除操作。
 对于每个 Service，kube-proxy 会添加 iptables 规则，这些规则捕获流向 Service 的 `clusterIP` 和 `port` 的流量，
 并将这些流量重定向到 Service 后端集合中的其中之一。
 对于每个端点，它会添加指向一个特定后端 Pod 的 iptables 规则。
@@ -238,7 +244,7 @@ iptables 模式的 kube-proxy 在更新内核中的规则时可能要用较长�
 [`iptables` 节](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPTablesConfiguration)中的选项来调整
 kube-proxy 的同步行为：
 
-```none
+```yaml
 ...
 iptables:
   minSyncPeriod: 1s
@@ -255,11 +261,13 @@ attempts to resynchronize iptables rules with the kernel. If it is
 every time any Service or Endpoint changes. This works fine in very
 small clusters, but it results in a lot of redundant work when lots of
 things change in a small time period. For example, if you have a
-Service backed by a Deployment with 100 pods, and you delete the
+Service backed by a {{< glossary_tooltip term_id="deployment" text="Deployment" >}}
+with 100 pods, and you delete the
 Deployment, then with `minSyncPeriod: 0s`, kube-proxy would end up
 removing the Service's Endpoints from the iptables rules one by one,
 for a total of 100 updates. With a larger `minSyncPeriod`, multiple
-Pod deletion events would get aggregated together, so kube-proxy might
+Pod deletion events would get aggregated
+together, so kube-proxy might
 instead end up making, say, 5 updates, each removing 20 endpoints,
 which will be much more efficient in terms of CPU, and result in the
 full set of changes being synchronized faster.
@@ -267,7 +275,8 @@ full set of changes being synchronized faster.
 `minSyncPeriod` 参数设置尝试同步 iptables 规则与内核之间的最短时长。
 如果是 `0s`，那么每次有任一 Service 或 Endpoint 发生变更时，kube-proxy 都会立即同步这些规则。
 这种方式在较小的集群中可以工作得很好，但如果在很短的时间内很多东西发生变更时，它会导致大量冗余工作。
-例如，如果你有一个由 Deployment 支持的 Service，共有 100 个 Pod，你删除了这个 Deployment，
+例如，如果你有一个由 {{< glossary_tooltip text="Deployment" term_id="deployment" >}}
+支持的 Service，共有 100 个 Pod，你删除了这个 Deployment，
 且设置了 `minSyncPeriod: 0s`，kube-proxy 最终会从 iptables 规则中逐个删除 Service 的 Endpoint，
 总共更新 100 次。使用较大的 `minSyncPeriod` 值时，多个 Pod 删除事件将被聚合在一起，
 因此 kube-proxy 最终可能会进行例如 5 次更新，每次移除 20 个端点，
@@ -343,7 +352,8 @@ kube-proxy with `--feature-gates=MinimizeIPTablesRestore=true,…`.
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
 <!--
-If you enable that feature gate and you were previously overriding
+If you enable that feature gate and
+you were previously overriding
 `minSyncPeriod`, you should try removing that override and letting
 kube-proxy use the default value (`1s`) or at least a smaller value
 than you were using before.
@@ -523,11 +533,11 @@ Kubernetes 的主要哲学之一是，
 In order to allow you to choose a port number for your Services, we must
 ensure that no two Services can collide. Kubernetes does that by allocating each
 Service its own IP address from within the `service-cluster-ip-range`
-CIDR range that is configured for the API server.
+CIDR range that is configured for the {{< glossary_tooltip term_id="kube-apiserver" text="API Server" >}}.
 -->
 为了允许你为 Service 选择端口号，我们必须确保没有任何两个 Service 会发生冲突。
-Kubernetes 通过从为 API 服务器配置的 `service-cluster-ip-range`
-CIDR 范围内为每个 Service 分配自己的 IP 地址来实现这一点。
+Kubernetes 通过从为 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}
+配置的 `service-cluster-ip-range` CIDR 范围内为每个 Service 分配自己的 IP 地址来实现这一点。
 
 <!--
 To ensure each Service receives a unique IP, an internal allocator atomically
@@ -677,7 +687,8 @@ N to 0 replicas of that deployment. In some cases, external load balancers can s
 a node with 0 replicas in between health check probes. Routing traffic to terminating endpoints
 ensures that Node's that are scaling down Pods can gracefully receive and drain traffic to
 those terminating Pods. By the time the Pod completes termination, the external load balancer
-should have seen the node's health check failing and fully removed the node from the backend pool.
+should have seen the node's health check failing and fully removed the node from the backend
+pool.
 -->
 这种对处于终止过程中的端点的转发行为使得 `NodePort` 和 `LoadBalancer` Service
 能有条不紊地腾空设置了 `externalTrafficPolicy: Local` 时的连接。
