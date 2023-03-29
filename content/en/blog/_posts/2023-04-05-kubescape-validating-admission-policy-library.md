@@ -68,12 +68,16 @@ spec:
 Match constraints are provided for three possible API groups: the `core/v1` group for Pods, the `apps/v1` workload controllers, and the `batch/v1` job controllers. 
 
 {{< note >}}
-Be aware that these `resourceRules` would not match `apps/v1beta1` or `extensions/v1beta1` groups and versions, for example, and that if you specify versions they will need to be updated when new versions of the API are released.
+`matchConstraints` will convert the API object to the matched version for you. If, for example, an API request was for `apps/v1beta1` and you match `apps/v1` in matchConstraints, the API request will be converted from `apps/v1beta1` to `apps/v1` and then validated. This has the useful property of making validation rules secure against the introduction of new versions of APIs, which would otherwise allow API requests to sneak past the validation rule by using the newly introduced version.
 {{< /note >}}
 
 The `validations` include the CEL rules for the objects. There are three different expressions, catering for the fact that a Pod `spec` can be at the root of the object (a [naked pod](https://kubernetes.io/docs/concepts/configuration/overview/#naked-pods-vs-replicasets-deployments-and-jobs)), under `template` (a workload controller or a Job), or under `jobTemplate` (a CronJob).
 
 In the event that any `spec` does not have `readOnlyRootFilesystem` set to true, the object will not be admitted.
+
+{{< note >}}
+In our initial release, we have grouped the three expressions into the same policy object. This means they can be enabled and disabled atomically, and thus there is no chance that a user will accidentally leave a compliance gap by enabling policy for one API group and not the others. Breaking them into separate policies would allow us access to improvements targeted for the 1.27 release, including type checking. We are talking to SIG API Machinery about how to best solve this, as the APIs are developed.
+{{< /note >}}
 
 ### Using the CEL library in your cluster
 
