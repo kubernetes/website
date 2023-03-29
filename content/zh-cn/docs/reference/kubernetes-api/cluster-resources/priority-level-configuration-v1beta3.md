@@ -1,28 +1,28 @@
 ---
 api_metadata:
-  apiVersion: "flowcontrol.apiserver.k8s.io/v1beta2"
-  import: "k8s.io/api/flowcontrol/v1beta2"
+  apiVersion: "flowcontrol.apiserver.k8s.io/v1beta3"
+  import: "k8s.io/api/flowcontrol/v1beta3"
   kind: "PriorityLevelConfiguration"
 content_type: "api_reference"
 description: "PriorityLevelConfiguration 表示一个优先级的配置。"
-title: "PriorityLevelConfiguration v1beta2"
+title: "PriorityLevelConfiguration v1beta3"
 weight: 8
 ---
 <!--
 api_metadata:
-  apiVersion: "flowcontrol.apiserver.k8s.io/v1beta2"
-  import: "k8s.io/api/flowcontrol/v1beta2"
+  apiVersion: "flowcontrol.apiserver.k8s.io/v1beta3"
+  import: "k8s.io/api/flowcontrol/v1beta3"
   kind: "PriorityLevelConfiguration"
 content_type: "api_reference"
 description: "PriorityLevelConfiguration represents the configuration of a priority level."
-title: "PriorityLevelConfiguration v1beta2"
+title: "PriorityLevelConfiguration v1beta3"
 weight: 8
 auto_generated: true
 -->
 
-`apiVersion: flowcontrol.apiserver.k8s.io/v1beta2`
+`apiVersion: flowcontrol.apiserver.k8s.io/v1beta3`
 
-`import "k8s.io/api/flowcontrol/v1beta2"`
+`import "k8s.io/api/flowcontrol/v1beta3"`
 
 ## PriorityLevelConfiguration {#PriorityLevelConfiguration}
 
@@ -33,7 +33,7 @@ PriorityLevelConfiguration 表示一个优先级的配置。
 
 <hr>
 
-- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta2
+- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta3
 
 - **kind**: PriorityLevelConfiguration
 
@@ -42,7 +42,7 @@ PriorityLevelConfiguration 表示一个优先级的配置。
 
   `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfigurationSpec" >}}">PriorityLevelConfigurationSpec</a>)
+- **spec** (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfigurationSpec" >}}">PriorityLevelConfigurationSpec</a>)
 
   `spec` is the specification of the desired behavior of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 -->
@@ -51,17 +51,17 @@ PriorityLevelConfiguration 表示一个优先级的配置。
   `metadata` 是标准的对象元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **spec** (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfigurationSpec" >}}">PriorityLevelConfigurationSpec</a>)
+- **spec** (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfigurationSpec" >}}">PriorityLevelConfigurationSpec</a>)
   
   `spec` 是 “request-priority” 预期行为的规约。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 <!--
-- **status** (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfigurationStatus" >}}">PriorityLevelConfigurationStatus</a>)
+- **status** (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfigurationStatus" >}}">PriorityLevelConfigurationStatus</a>)
 
   `status` is the current status of a "request-priority". More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 -->
-- **status** (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfigurationStatus" >}}">PriorityLevelConfigurationStatus</a>)
+- **status** (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfigurationStatus" >}}">PriorityLevelConfigurationStatus</a>)
   
   `status` 是 “请求优先级” 的当前状况。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
@@ -108,25 +108,40 @@ PriorityLevelConfigurationSpec 指定一个优先级的配置。
   * 应如何处理超出此限制的请求？
   
   <!--
-  - **limited.assuredConcurrencyShares** (int32)
+  - **limited.borrowingLimitPercent** (int32)
 
-    `assuredConcurrencyShares` (ACS) configures the execution limit, which is a limit on the number of requests of this priority level that may be exeucting at a given time.  ACS must be a positive number. The server's concurrency limit (SCL) is divided among the concurrency-controlled priority levels in proportion to their assured concurrency shares. This produces the assured concurrency value (ACV) --- the number of requests that may be executing at a time --- for each such priority level:
+    `borrowingLimitPercent`, if present, configures a limit on how many seats this priority level can borrow from other priority levels. The limit is known as this level's BorrowingConcurrencyLimit (BorrowingCL) and is a limit on the total number of seats that this level may borrow at any one time. This field holds the ratio of that limit to the level's nominal concurrency limit. When this field is non-nil, it must hold a non-negative integer and the limit is calculated as follows.
+    
+    BorrowingCL(i) = round( NominalCL(i) * borrowingLimitPercent(i)/100.0 )
+    
+    The value of this field can be more than 100, implying that this priority level can borrow a number of seats that is greater than its own nominal concurrency limit (NominalCL). When this field is left `nil`, the limit is effectively infinite.
   -->
   
-  - **limited.assuredConcurrencyShares** (int32)
-    
-    `assuredConcurrencyShares` (ACS) 配置执行限制，这是在给定时间可以执行的、此优先级的请求数量的限制。
-    ACS 必须是一个正数。服务器的并发限制（SCL）数量按其保证的并发份额划分到并发能力受限的各个优先级中。
-    这一计算会为所有这种优先级分别生成其确定的并发值（ACV），即一次可以执行的请求数量：
-    
-    ```
-    ACV(l) = ceil( SCL * ACS(l) / ( sum[priority levels k] ACS(k) ) )
-    ```
-    <!--
-    bigger numbers of ACS mean more reserved concurrent requests (at the expense of every other PL). This field has a default value of 30.
-    -->
+  - **limited.borrowingLimitPercent** (int32)
+   
+    `borrowingLimitPercent` 配置如果存在，则可用来限制此优先级级别可以从其他优先级级别中租借多少资源。
+    该限制被称为该级别的 BorrowingConcurrencyLimit（BorrowingCL），它限制了该级别可以同时租借的资源总数。
+    该字段保存了该限制与该级别标称并发限制之比。当此字段非空时，必须为正整数，并按以下方式计算限制值：
 
-    较大的 ACS 值意味着（以影响所有其他优先级为代价）保留更多的并发请求。此字段的默认值为 30。
+    BorrowingCL(i) = round(NominalCL(i) * borrowingLimitPercent(i) / 100.0)
+
+    该字段值可以大于100，表示该优先级可以大于自己标称并发限制（NominalCL）。当此字段为 `nil` 时，表示无限制。
+  
+  <!--
+  - **limited.lendablePercent** (int32)
+
+    `lendablePercent` prescribes the fraction of the level's NominalCL that can be borrowed by other priority levels. The value of this field must be between 0 and 100, inclusive, and it defaults to 0. The number of seats that other levels can borrow from this level, known as this level's LendableConcurrencyLimit (LendableCL), is defined as follows.
+    
+    LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
+  -->
+  
+  - **limited.lendablePercent** (int32)
+
+    `lendablePercent` 规定了 NominalCL 可被其他优先级级别租借资源数百分比。
+    此字段的值必须在 0 到 100 之间，包括 0 和 100，默认为 0。
+    其他级别可以从该级别借用的资源数被称为此级别的 LendableConcurrencyLimit（LendableCL），定义如下。
+
+    LendableCL(i) = round( NominalCL(i) * lendablePercent(i)/100.0 )
   
   <!--
   - **limited.limitResponse** (LimitResponse)
@@ -208,6 +223,27 @@ PriorityLevelConfigurationSpec 指定一个优先级的配置。
         `queues` 是这个优先级的队列数。此队列在每个 API 服务器上独立存在。此值必须是正数。
         将其设置为 1 相当于禁止了混洗分片操作，进而使得对相关流模式的区分方法不再有意义。
         此字段的默认值为 64。
+
+  <!--
+  - **limited.nominalConcurrencyShares** (int32)
+
+    `nominalConcurrencyShares` (NCS) contributes to the computation of the NominalConcurrencyLimit (NominalCL) of this level. This is the number of execution seats available at this priority level. This is used both for requests dispatched from this priority level as well as requests dispatched from other priority levels borrowing seats from this level. The server's concurrency limit (ServerCL) is divided among the Limited priority levels in proportion to their NCS values:
+    
+    NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[limited priority level k] NCS(k)
+    
+    Bigger numbers mean a larger nominal concurrency limit, at the expense of every other Limited priority level. This field has a default value of 30.
+  -->
+
+  - **limited.nominalConcurrencyShares** (int32)
+
+    `nominalConcurrencyShares`（NCS）用于计算该优先级级别的标称并发限制（NominalCL）。
+     NCS 表示可以在此优先级级别同时运行的席位数量上限，包括来自本优先级级别的请求，
+     以及从此优先级级别租借席位的其他级别的请求。
+     服务器的并发度限制（ServerCL）根据 NCS 值按比例分别给各 Limited 优先级级别：
+
+     NominalCL(i)  = ceil( ServerCL * NCS(i) / sum_ncs ) sum_ncs = sum[limited priority level k] NCS(k)
+
+     较大的数字意味着更大的标称并发限制（NominalCL），但是这将牺牲其他 Limited 优先级级别的资源。该字段的默认值为 30。
 
 ## PriorityLevelConfigurationStatus {#PriorityLevelConfigurationStatus}
 
@@ -299,7 +335,7 @@ PriorityLevelConfigurationList 是 PriorityLevelConfiguration 对象的列表。
 
 <hr>
 
-- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta2
+- **apiVersion**: flowcontrol.apiserver.k8s.io/v1beta3
 
 - **kind**: PriorityLevelConfigurationList
 
@@ -308,7 +344,7 @@ PriorityLevelConfigurationList 是 PriorityLevelConfiguration 对象的列表。
 
   `metadata` is the standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>), required
+- **items** ([]<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>), required
 
   `items` is a list of request-priorities.
 -->
@@ -317,7 +353,7 @@ PriorityLevelConfigurationList 是 PriorityLevelConfiguration 对象的列表。
   `metadata` 是标准的对象元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>)，必需
+- **items** ([]<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>)，必需
   
   `items` 是请求优先级设置的列表。
 
@@ -335,7 +371,7 @@ PriorityLevelConfigurationList 是 PriorityLevelConfiguration 对象的列表。
 
 #### HTTP 请求
 
-GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name}
+GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}
 
 <!--
 #### Parameters
@@ -358,7 +394,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
 401: Unauthorized
 
@@ -370,7 +406,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name
 
 #### HTTP 请求
 
-GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name}/status
+GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}/status
 
 <!--
 #### Parameters
@@ -393,7 +429,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
 401: Unauthorized
 
@@ -405,7 +441,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name
 
 #### HTTP 请求
 
-GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations
+GET /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations
 
 <!--
 #### Parameters
@@ -467,7 +503,7 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfigurationList" >}}">PriorityLevelConfigurationList</a>): OK
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfigurationList" >}}">PriorityLevelConfigurationList</a>): OK
 
 401: Unauthorized
 
@@ -479,11 +515,11 @@ GET /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations
 
 #### HTTP 请求
 
-POST /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations
+POST /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations
 
 <!--
 #### Parameters
-- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
 - **dryRun** (*in query*): string
 - **fieldManager** (*in query*): string
 - **fieldValidation** (*in query*): string
@@ -491,7 +527,7 @@ POST /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations
 -->
 #### 参数
 
-- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>，必需
+- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>，必需
 
 - **dryRun** (**查询参数**): string
   
@@ -514,11 +550,11 @@ POST /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
 
-202 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Accepted
+202 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Accepted
 
 401: Unauthorized
 
@@ -530,13 +566,13 @@ POST /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations
 
 #### HTTP 请求
 
-PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name}
+PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}
 
 <!--
 #### Parameters
 - **name** (*in path*): string, required
   name of the PriorityLevelConfiguration
-- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
 - **dryRun** (*in query*): string
 - **fieldManager** (*in query*): string
 - **fieldValidation** (*in query*): string
@@ -548,7 +584,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name
   
   PriorityLevelConfiguration 的名称
 
-- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>，必需
+- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>，必需
 
 - **dryRun** (**查询参数**): string
   
@@ -571,9 +607,9 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
 
 401: Unauthorized
 
@@ -585,13 +621,13 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name
 
 #### HTTP 请求
 
-PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name}/status
+PUT /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}/status
 
 <!--
 #### Parameters
 - **name** (*in path*): string, required
   name of the PriorityLevelConfiguration
-- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
+- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>, required
 - **dryRun** (*in query*): string
 - **fieldManager** (*in query*): string
 - **fieldValidation** (*in query*): string
@@ -603,7 +639,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name
   
   PriorityLevelConfiguration 的名称
 
-- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>，必需
+- **body**: <a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>，必需
 
 - **dryRun** (**查询参数**): string
   
@@ -626,9 +662,9 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
 
 401: Unauthorized
 
@@ -640,7 +676,7 @@ PUT /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name
 
 #### HTTP 请求
 
-PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name}
+PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}
 
 <!--
 #### Parameters
@@ -686,9 +722,9 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{na
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
 
 401: Unauthorized
 
@@ -700,7 +736,7 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{na
 
 #### HTTP 请求
 
-PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name}/status
+PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}/status
 
 <!--
 #### Parameters
@@ -746,9 +782,9 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{na
 -->
 #### 响应
 
-200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
+200 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): OK
 
-201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta2#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
+201 (<a href="{{< ref "../cluster-resources/priority-level-configuration-v1beta3#PriorityLevelConfiguration" >}}">PriorityLevelConfiguration</a>): Created
 
 401: Unauthorized
 
@@ -760,7 +796,7 @@ PATCH /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{na
 
 #### HTTP 请求
 
-DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{name}
+DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations/{name}
 
 <!--
 #### Parameters
@@ -815,7 +851,7 @@ DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations/{n
 
 #### HTTP 请求
 
-DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta2/prioritylevelconfigurations
+DELETE /apis/flowcontrol.apiserver.k8s.io/v1beta3/prioritylevelconfigurations
 
 <!--
 #### Parameters

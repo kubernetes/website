@@ -97,7 +97,7 @@ resources:
 
 <!--
 Each `resources` array item is a separate config and contains a complete configuration. The
-`resources.resources` field is an array of Kubernetes resource names (`resource` or `resource.group`
+`resources.resources` field is an array of Kubernetes resource names (`resource` or `resource.group`）
 that should be encrypted like Secrets, ConfigMaps, or other resources. 
 
 If custom resources are added to `EncryptionConfiguration` and the cluster version is 1.26 or newer, 
@@ -150,6 +150,7 @@ read that resource will fail until it is deleted or a valid decryption key is pr
 ### Providers
 
 <!--
+{{< table caption="Providers for Kubernetes encryption at rest" >}}
 Name | Encryption | Strength | Speed | Key Length | Other Considerations
 -----|------------|----------|-------|------------|---------------------
 `identity` | None | N/A | N/A | N/A | Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written.
@@ -157,6 +158,7 @@ Name | Encryption | Strength | Speed | Key Length | Other Considerations
 `aesgcm` | AES-GCM with random nonce | Must be rotated every 200k writes | Fastest | 16, 24, or 32-byte | Is not recommended for use except when an automated key rotation scheme is implemented.
 `aescbc` | AES-CBC with [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) padding | Weak | Fast | 32-byte | Not recommended due to CBC's vulnerability to padding oracle attacks.
 `kms` | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-CBC with [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) padding (prior to v1.25), using AES-GCM starting from v1.25, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Fast | 32-bytes |  The recommended choice for using a third party tool for key management. Simplifies key rotation, with a new DEK generated for each encryption, and KEK rotation controlled by the user. [Configure the KMS provider](/docs/tasks/administer-cluster/kms-provider/)
++{{< /table >}}
 
 Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
 is the first provider, the first key is used for encryption.

@@ -32,7 +32,7 @@
     height: 0 ;
 }
 
-.gridPage p {
+.gridPage p:not(.announcement-main > p) {
     color: rgb(26,26,26);
     margin-left: 0 !important;
     padding-left: 0 !important;
