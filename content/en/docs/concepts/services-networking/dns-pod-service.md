@@ -232,10 +232,10 @@ following Pod-specific DNS policies. These policies are specified in the
   stub-domain and upstream DNS servers configured.
   See [related discussion](/docs/tasks/administer-cluster/dns-custom-nameservers)
   for details on how DNS queries are handled in those cases.
-- "`ClusterFirstWithHostNet`": For Pods running with hostNetwork, you should
-  explicitly set its DNS policy to "`ClusterFirstWithHostNet`". Otherwise, Pods
-  running with hostNetwork and `"ClusterFirst"` will fallback to the behavior
-  of the `"Default"` policy.
+- "`ClusterFirstWithHostNet`": For Pods running with hostNetwork, effectively
+  uses "`ClusterFirst`" policy if kubelet was configured with a Cluster DNS option.
+  Otherwise if kubelet Cluster DNS was not configured, falls back to "`Default`"
+  (see above).
   - Note: This is not supported on Windows. See [below](#dns-windows) for details
 - "`None`": It allows a Pod to ignore DNS settings from the Kubernetes
   environment. All DNS settings are supposed to be provided using the
