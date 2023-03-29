@@ -76,7 +76,7 @@ The `validations` include the CEL rules for the objects. There are three differe
 In the event that any `spec` does not have `readOnlyRootFilesystem` set to true, the object will not be admitted.
 
 {{< note >}}
-In our initial release, we have grouped the three expressions into the same policy object. This means they can be enabled and disabled atomically, and thus there is no chance that a user will accidentally leave a compliance gap by enabling policy for one API group and not the others. Breaking them into separate policies would allow us access to improvements targeted for the 1.27 release, including type checking. We are talking to SIG API Machinery about how to best solve this, as the APIs are developed.
+In our initial release, we have grouped the three expressions into the same policy object. This means they can be enabled and disabled atomically, and thus there is no chance that a user will accidentally leave a compliance gap by enabling policy for one API group and not the others. Breaking them into separate policies would allow us access to improvements targeted for the 1.27 release, including type checking. We are talking to SIG API Machinery about how to best address this before the APIs reach `v1`.
 {{< /note >}}
 
 ### Using the CEL library in your cluster
