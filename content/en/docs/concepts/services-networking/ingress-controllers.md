@@ -61,6 +61,8 @@ Kubernetes as a project supports and maintains [AWS](https://github.com/kubernet
 * [Voyager](https://appscode.com/products/voyager) is an ingress controller for
   [HAProxy](https://www.haproxy.org/#desc).
 * [Wallarm Ingress Controller](https://www.wallarm.com/solutions/waf-for-kubernetes) is an Ingress Controller that provides WAAP (WAF) and API Security capabilities.
+* [Fortinet FortiADC](https://docs.fortinet.com/document/fortiadc/7.0.0/fortiadc-ingress-controller-1-0/518751/prerequisite-knowledge) supports an ingress controller to configure FortiADC as a reverse proxy (L4-L7 Load balancing) along with security features.![image](https://user-images.githubusercontent.com/101046255/228473991-daf711c0-f86b-4180-aee2-64a553c5d17e.png)
+
 
 ## Using multiple Ingress controllers
 
