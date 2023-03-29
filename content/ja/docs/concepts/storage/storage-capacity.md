@@ -53,7 +53,7 @@ Kubernetesは古い容量の情報をもとにノードを選択する場合が�
 
 ## ストレージ容量の追跡を有効にする {#enabling-storage-capacity-tracking}
 
-ストレージ容量の追跡は*アルファ機能*であり、`CSIStorageCapacity`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)と`storage.k8s.io/v1alpha1` {{< glossary_tooltip text="API group" term_id="api-group" >}}を有効にした場合にのみ、有効化されます。詳細については、`--feature-gates`および`--runtime-config` [kube-apiserverパラメータ](/docs/reference/command-line-tools-reference/kube-apiserver/)を参照してください。
+ストレージ容量の追跡は*アルファ機能*であり、`CSIStorageCapacity`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)と`storage.k8s.io/v1alpha1` {{< glossary_tooltip text="API group" term_id="api-group" >}}を有効にした場合にのみ、有効化されます。詳細については、`--feature-gates`および`--runtime-config` [kube-apiserverパラメーター](/docs/reference/command-line-tools-reference/kube-apiserver/)を参照してください。
 
 Kubernetesクラスターがこの機能をサポートしているか簡単に確認するには、以下のコマンドを実行して、CSIStorageCapacityオブジェクトを一覧表示します。
 
