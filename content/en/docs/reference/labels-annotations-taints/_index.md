@@ -730,6 +730,18 @@ Used on: Namespace
 
 This annotation requires the [PodTolerationRestriction](/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction) admission controller to be enabled. This annotation key allows assigning tolerations to a namespace and any new pods created in this namespace would get these tolerations added.
 
+### scheduler.alpha.kubernetes.io/tolerationsWhitelist {#schedulerkubernetestolerations-whitelist}
+
+Example: `scheduler.alpha.kubernetes.io/tolerationsWhitelist: '[{"operator": "Exists", "effect": "NoSchedule", "key": "dedicated-node"}]'`
+
+Used on: Namespace
+
+This annotation is only useful when the (alpha)
+[PodTolerationRestriction](/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
+admission controller is enabled. The annotation value is a JSON document that defines a list of allowed tolerations
+for the namespace it annotates. When you create a Pod or modify its tolerations, the API server checks the tolerations
+to see if they are mentioned in the allow list. The pod is admitted only if the check succeeds.
+
 ### scheduler.alpha.kubernetes.io/preferAvoidPods (deprecated) {#scheduleralphakubernetesio-preferavoidpods}
 
 Used on: Nodes
