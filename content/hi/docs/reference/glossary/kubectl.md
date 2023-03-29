@@ -11,9 +11,9 @@ aka:
 tags:
 - tool
 - fundamental 
-
 ---
 कुबेरनेट्स API का उपयोग करके कुबेरनेट्स क्लस्टर के {{< glossary_tooltip text="कण्ट्रोल प्लेन" term_id="control-plane">}} के साथ संचार करने के लिए कमांड लाइन उपकरण।
+
 
 <!--more-->
 
