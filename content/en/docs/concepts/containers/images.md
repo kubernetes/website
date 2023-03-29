@@ -44,6 +44,28 @@ There are additional rules about where you can place the separator
 characters (`_`, `-`, and `.`) inside an image tag.  
 If you don't specify a tag, Kubernetes assumes you mean the tag `latest`.
 
+## Image digest
+
+An image [digest](https://docs.docker.com/engine/reference/commandline/pull/#pull-an-image-by-digest-immutable-identifier) is a 
+unique identifier for a specific version of a container image. 
+It is calculated using a hash function that takes account of the contents of all the layers in the image.
+
+The image digest is a fixed identifier that can't be changed, even if the image is updated. 
+
+An image digest is a long string of characters, typically in 
+the form of a [SHA-256](https://github.com/opencontainers/image-spec/blob/main/descriptor.md#sha-256) 
+hash, this uniquely identifies a specific version of a container image.
+
+Using digest can provide a more secure and reliable way of referencing 
+container images because image digest is based on the contents of the image, 
+it provides a way to ensure that the image has not been tampered or modified with.
+
+When referencing an image in a pod, you can use either an image tag or an image digest. 
+However, using an image digest can be more reliable that image tag since it ensures that 
+the exact version of the image is used every time the pad is created or updated.
+
+For more information refer [Using container image digests](https://cloud.google.com/kubernetes-engine/docs/archive/using-container-images).
+
 ## Updating images
 
 When you first create a {{< glossary_tooltip text="Deployment" term_id="deployment" >}},
