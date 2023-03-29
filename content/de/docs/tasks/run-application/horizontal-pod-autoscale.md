@@ -154,7 +154,7 @@ Standardmäßig ruft der HorizontalPodAutoscaler Controller Metriken aus einer R
   Es kann als Cluster-Addon gestartet werden.
 
   * Für benutzerdefinierte Metriken ist dies die API `custom.metrics.k8s.io`. Diese wird vom "Adapter" API Servern bereitgestellt, welches von Anbietern von Metrik Lösungen beliefert wird.
-    Überprüfe dies mit deiner Metrik Pipeline oder der [Liste bekannter Lösungen](https://github.com/kubernetes/metrics/blob/master/IMPLEMENTATIONS.md#custom-metrics-api).
+    Überprüfe dies mit deiner Metrik Pipeline.
      Falls du deinen eigenen schreiben möchtest hilft dir folgender [boilerplate](https://github.com/kubernetes-incubator/custom-metrics-apiserver) um zu starten.
 
   * Für externe Metriken ist dies die `external.metrics.k8s.io` API. Es kann sein, dass dies durch den benutzerdefinierten Metrik Adapter bereitgestellt wird.

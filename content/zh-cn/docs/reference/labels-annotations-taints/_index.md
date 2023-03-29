@@ -208,6 +208,105 @@ If this annotation is not set then the cluster autoscaler follows its Pod-level 
 集群自动扩缩器从不驱逐将此注解显式设置为 `"false"` 的 Pod；你可以针对要保持运行的重要 Pod 设置此注解。
 如果未设置此注解，则集群自动扩缩器将遵循其 Pod 级别的行为。
 
+<!--
+### config.kubernetes.io/local-config
+
+Example: `config.kubernetes.io/local-config: "true"`
+
+Used on: All objects
+
+This annotation is used in manifests to mark an object as local configuration that should not be submitted to the Kubernetes API.
+A value of "true" for this annotation declares that the object is only consumed by client-side tooling and should not be submitted to the API server.
+A value of "false" can be used to declare that the object should be submitted to the API server even when it would otherwise be assumed to be local.
+This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification, which is used by Kustomize and similar third-party tools. For example, Kustomize removes objects with this annotation from its final build output.
+-->
+
+### config.kubernetes.io/local-config {#config-kubernetes-io-local-config}
+
+例子：`config.kubernetes.io/local-config: "true"`
+
+用于：所有对象
+
+该注解用于清单中的对象，表示某对象是本地配置，不应提交到 Kubernetes API。
+对于这个注解，当值为 "true" 时，表示该对象仅被客户端工具使用，不应提交到 API 服务器。
+当值为 "false"，可以用来声明该对象应提交到 API 服务器，即使它是本地对象。
+
+该注解是 Kubernetes 资源模型 (KRM) 函数规范的一部分，被 Kustomize 和其他类似的第三方工具使用。
+例如，Kustomize 会从其最终构建输出中删除带有此注解的对象。
+
+<!--
+### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
+
+Used on: All objects
+
+This prefix is reserved for internal use by tools that act as orchestrators in accordance with the Kubernetes Resource Model (KRM) Functions Specification. Annotations with this prefix are internal to the orchestration process and are not persisted to the manifests on the filesystem. In other words, the orchestrator tool should set these annotations when reading files from the local filesystem and remove them when writing the output of functions back to the filesystem.
+A KRM function **must not** modify annotations with this prefix, unless otherwise specified for a given annotation. This enables orchestrator tools to add additional internal annotations, without requiring changes to existing functions.
+-->
+
+### internal.config.kubernetes.io/* (保留的前缀) {#internal.config.kubernetes.io-reserved-wildcard}
+
+用于：所有对象
+
+该前缀被保留，供遵从 Kubernetes 资源模型 (KRM) 函数规范的编排工具内部使用。
+带有该前缀的注解仅在编排过程中使用，不会持久化到文件系统。
+换句话说，编排工具应从本地文件系统读取文件时设置这些注解，并在将函数输出写回文件系统时删除它们。
+
+除非特定注解另有说明，KRM 函数不得修改带有此前缀的注解。
+这使得编排工具可以添加额外的内部注解，而不需要更改现有函数。
+
+<!--
+### internal.config.kubernetes.io/path
+
+Example: `internal.config.kubernetes.io/path: "relative/file/path.yaml"`
+
+Used on: All objects
+
+This annotation records the slash-delimited, OS-agnostic, relative path to the manifest file the object was loaded from. The path is relative to a fixed location on the filesystem, determined by the orchestrator tool.
+This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification, which is used by Kustomize and similar third-party tools.
+A KRM Function **should not** modify this annotation on input objects unless it is modifying the referenced files. A KRM Function **may** include this annotation on objects it generates.
+-->
+
+### internal.config.kubernetes.io/path {#internal-config-kubernetes-io-path}
+
+例子：`internal.config.kubernetes.io/path: "relative/file/path.yaml"`
+
+用于：所有对象
+
+此注解记录了加载对象清单文件的（斜线分隔、与操作系统无关）相对路径。
+该路径相对于文件系统上由编排工具确定的固定位置。
+
+该注解是 Kubernetes 资源模型 (KRM) 函数规范的一部分，被 Kustomize 和其他类似的第三方工具使用。
+
+KRM 函数**不应**在输入对象上修改此注解，除非它正在修改引用的文件。
+KRM 函数**可以**在它所生成的对象上包含这个注解。
+
+<!--
+### internal.config.kubernetes.io/index
+
+Example: `internal.config.kubernetes.io/index: "2"`
+
+Used on: All objects
+
+This annotation records the zero-indexed position of the YAML document that contains the object within the manifest file the object was loaded from. Note that YAML documents are separated by three dashes (`---`) and can each contain one object. When this annotation is not specified, a value of 0 is implied.
+This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification, which is used by Kustomize and similar third-party tools.
+A KRM Function **should not** modify this annotation on input objects unless it is modifying the referenced files. A KRM Function **may** include this annotation on objects it generates.
+-->
+
+### internal.config.kubernetes.io/index {#internal-config-kubernetes-io-index}
+
+例子：`internal.config.kubernetes.io/index: "2"`
+
+用于：所有对象
+
+该注解记录了包含对象的 YAML 文档在加载对象的清单文件中的零索引位置。
+请注意，YAML 文档由三个破折号 (---) 分隔，每个文档可以包含一个对象。
+如果未指定此注解，则该值为 0。
+
+该注解是 Kubernetes 资源模型 (KRM) 函数规范的一部分，被 Kustomize 和其他类似的第三方工具使用。
+
+KRM 函数**不应**在输入对象上修改此注解，除非它正在修改引用的文件。
+KRM 函数**可以**在它所生成的对象上包含这个注解。
+
 <!-- 
 ### kubernetes.io/arch
 
