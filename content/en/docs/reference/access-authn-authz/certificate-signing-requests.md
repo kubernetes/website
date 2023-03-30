@@ -205,8 +205,10 @@ by the Kubernetes cluster, and then present that certificate to the Kubernetes A
 ### Create private key
 
 The following scripts show how to generate PKI private key and CSR. It is
-important to set CN and O attribute of the CSR. CN is the name of the user and
-O is the group that this user will belong to. You can refer to
+important to set the CN of the CSR. CN is the name of the user. O should be set
+as the already defined group that this user will belong to,  if such a group exists.
+O might be blank if the user will be later granted a role with a RoleBinding or
+ClusterRoleBinding. You can refer to
 [RBAC](/docs/reference/access-authn-authz/rbac/) for standard groups.
 
 ```shell
