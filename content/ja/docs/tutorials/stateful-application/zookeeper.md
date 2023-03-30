@@ -109,7 +109,7 @@ zk-2      1/1       Running   0         40s
 
 StatefulSetコントローラーが3つのPodを作成し、各Podは[ZooKeeper](https://archive.apache.org/dist/zookeeper/stable/)サーバー付きのコンテナを持ちます。
 
-### リーダーの選出のファシリテート
+### リーダーの選出のファシリテート {#facilitating-leader-election}
 
 匿名のネットワークにおいてリーダー選出を終了するアルゴリズムがないので、Zabはリーダー選出を行うための明示的なメンバーシップ設定を要します。
 アンサンブルの各サーバーはユニーク識別子を持つ必要があり、全てのサーバーは識別子のグローバルセットを知っている必要があり、各識別子はネットワークアドレスと関連付けられている必要があります。
@@ -193,7 +193,7 @@ server.2=zk-1.zk-hs.default.svc.cluster.local:2888:3888
 server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 ```
 
-### 合意形成
+### 合意形成 {#achieving-consensus}
 
 合意(consensus)プロトコルは、各参加者の識別子がユニークであることを要件としています。
 Zabプロトコル内で同じユニーク識別子を主張する2つの参加者はないものとします。
@@ -242,7 +242,7 @@ server.3=zk-2.zk-hs.default.svc.cluster.local:2888:3888
 サーバーが値のコミットを試みるためにZabプロトコルを使う時、(リーダー選出が成功していて、少なくともPodのうちの2つがRunningおよびReadyならば)それぞれのサーバーは双方の合意をとって値をコミット、あるいは、(もし双方の状態が合わなければ)それを行うことに失敗します。
 あるサーバーが別のサーバーを代行して書き込みを承認する状態は発生しません。
 
-### アンサンブルの健全性テスト
+### アンサンブルの健全性テスト {#sanity-testing-the-ensemble}
 
 最も基本的な健全性テストは、データを1つのZooKeeperサーバーに書き込み、そのデータを別のサーバーで読み取ることです。
 
@@ -359,7 +359,7 @@ zk-2      0/1       Running   0         19s
 zk-2      1/1       Running   0         40s
 ```
 
- [健全性テスト](#アンサンブルの健全性テスト)で入力した値を`zk-2` Podから取得するには、以下のコマンドを使います。
+ [健全性テスト](#sanity-testing-the-ensemble)で入力した値を`zk-2` Podから取得するには、以下のコマンドを使います。
 
 ```shell
 kubectl exec zk-2 zkCli.sh get /hello
@@ -430,7 +430,7 @@ Podが再スケジュールされたとしても、全ての書き込みはZooKe
 
 ## 一貫性のある設定の保証
 
-[リーダーの選出のファシリテート](#リーダーの選出のファシリテート)および[合意形成](#合意形成)のセクションで記したように、ZooKeeperのアンサンブル内のサーバー群は、リーダーを選出しクォーラムを形成するための一貫性のある設定を必要とします。
+[リーダーの選出のファシリテート](#facilitating-leader-election)および[合意形成](#achieving-consensus)のセクションで記したように、ZooKeeperのアンサンブル内のサーバー群は、リーダーを選出しクォーラムを形成するための一貫性のある設定を必要とします。
 また、プロトコルがネットワーク越しで正しく動作するために、Zabプロトコルの一貫性のある設定も必要です。
 この例では、設定を直接マニフェストに埋め込むことで一貫性のある設定を達成します。
 
@@ -527,19 +527,16 @@ kubectl logs zk-0 --tail 20
 2016-12-06 19:34:46,230 [myid:1] - INFO  [Thread-1142:NIOServerCnxn@1008] - Closed socket connection for client /127.0.0.1:52768 (no session established for client)
 ```
 
-Kubernetes integrates with many logging solutions. You can choose a logging solution
-that best fits your cluster and applications. For cluster-level logging and aggregation,
-consider deploying a [sidecar container](/docs/concepts/cluster-administration/logging#sidecar-container-with-logging-agent) to rotate and ship your logs.
+Kubernetesは多くのログソリューションを統合しています。
+クラスターおよびアプリケーションに最も適合するログソリューションを選べます。
+クラスターレベルのロギングとアグリゲーションとして、ログをローテートおよび輸送するための[サイドカーコンテナ](/ja/docs/concepts/cluster-administration/logging#sidecar-container-with-logging-agent)をデプロイすることを検討してください。
 
-### Configuring a non-privileged user
+### 非特権ユーザーの設定
 
-The best practices to allow an application to run as a privileged
-user inside of a container are a matter of debate. If your organization requires
-that applications run as a non-privileged user you can use a
-[SecurityContext](/docs/tasks/configure-pod-container/security-context/) to control the user that
-the entry point runs as.
+コンテナ内で特権ユーザーとしての実行をアプリケーションに許可するベストプラクティスは、議論の的です。
+アプリケーションが非特権ユーザーとして動作することを組織が必須としているなら、エントリポイントがそのユーザーとして実行できるユーザーを制御する[セキュリティコンテキスト](/ja/docs/tasks/configure-pod-container/security-context/)を利用できます。
 
-The `zk` `StatefulSet`'s Pod `template` contains a `SecurityContext`.
+`zk` `StatefulSet`のPod `template`は、`SecurityContext`を含んでいます。
 
 ```yaml
 securityContext:
@@ -547,17 +544,15 @@ securityContext:
   fsGroup: 1000
 ```
 
-In the Pods' containers, UID 1000 corresponds to the zookeeper user and GID 1000
-corresponds to the zookeeper group.
+Podのコンテナ内で、UID 1000はzookeeperユーザーに、GID 1000はzookeeperグループにそれぞれ相当します。
 
-Get the ZooKeeper process information from the `zk-0` Pod.
+`zk-0` PodからのZooKeeperプロセス情報を取得してみましょう。
 
 ```shell
 kubectl exec zk-0 -- ps -elf
 ```
 
-As the `runAsUser` field of the `securityContext` object is set to 1000,
-instead of running as root, the ZooKeeper process runs as the zookeeper user.
+`securityContext`オブジェクトの`runAsUser`フィールドは1000にセットされているとおり、ZooKeeperプロセスは、rootとして実行される代わりにzookeeperユーザーとして実行されています。
 
 ```
 F S UID        PID  PPID  C PRI  NI ADDR SZ WCHAN  STIME TTY          TIME CMD
@@ -565,35 +560,32 @@ F S UID        PID  PPID  C PRI  NI ADDR SZ WCHAN  STIME TTY          TIME CMD
 0 S zookeep+    27     1  0  80   0 - 1155556 -    20:46 ?        00:00:19 /usr/lib/jvm/java-8-openjdk-amd64/bin/java -Dzookeeper.log.dir=/var/log/zookeeper -Dzookeeper.root.logger=INFO,CONSOLE -cp /usr/bin/../build/classes:/usr/bin/../build/lib/*.jar:/usr/bin/../share/zookeeper/zookeeper-3.4.9.jar:/usr/bin/../share/zookeeper/slf4j-log4j12-1.6.1.jar:/usr/bin/../share/zookeeper/slf4j-api-1.6.1.jar:/usr/bin/../share/zookeeper/netty-3.10.5.Final.jar:/usr/bin/../share/zookeeper/log4j-1.2.16.jar:/usr/bin/../share/zookeeper/jline-0.9.94.jar:/usr/bin/../src/java/lib/*.jar:/usr/bin/../etc/zookeeper: -Xmx2G -Xms2G -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.local.only=false org.apache.zookeeper.server.quorum.QuorumPeerMain /usr/bin/../etc/zookeeper/zoo.cfg
 ```
 
-By default, when the Pod's PersistentVolumes is mounted to the ZooKeeper server's data directory, it is only accessible by the root user. This configuration prevents the ZooKeeper process from writing to its WAL and storing its snapshots.
+デフォルトでは、PodのPersistentVolumeがZooKeeperサーバーのデータディレクトリにマウントされている時、rootユーザーのみがそこにアクセス可能です。
+この設定はZooKeeperのプロセスがそのWALに書き込んだりスナップショットに格納したりするのを妨げることになります。
 
-Use the command below to get the file permissions of the ZooKeeper data directory on the `zk-0` Pod.
+`zk-0` PodのZooKeeperデータディレクトリのファイルパーミッションを取得するには、以下のコマンドを使います。
 
 ```shell
 kubectl exec -ti zk-0 -- ls -ld /var/lib/zookeeper/data
 ```
 
-Because the `fsGroup` field of the `securityContext` object is set to 1000, the ownership of the Pods' PersistentVolumes is set to the zookeeper group, and the ZooKeeper process is able to read and write its data.
+`securityContext`オブジェクトの`fsGroup`フィールドが1000にセットされているので、PodのPersistentVolumeの所有権はzookeeperグループにセットされ、ZooKeeperのプロセスはそのデータを読み書きできます。
 
 ```
 drwxr-sr-x 3 zookeeper zookeeper 4096 Dec  5 20:45 /var/lib/zookeeper/data
 ```
 
-## Managing the ZooKeeper process
+## ZooKeeperプロセスの管理
 
-The [ZooKeeper documentation](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_supervision)
-mentions that "You will want to have a supervisory process that
-manages each of your ZooKeeper server processes (JVM)." Utilizing a watchdog
-(supervisory process) to restart failed processes in a distributed system is a
-common pattern. When deploying an application in Kubernetes, rather than using
-an external utility as a supervisory process, you should use Kubernetes as the
-watchdog for your application.
+[ZooKeeperドキュメント](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_supervision)では、「You will want to have a supervisory process that manages each of your ZooKeeper server processes (JVM).(各ZooKeeperサーバープロセス(JVM)を管理する監督プロセスを持ちたくなります)」と述べています。
+分散型システム内で失敗したプロセスを再起動するのにwatchdog(監督プロセス)を使うのは、典型的なパターンです。
+アプリケーションをKubernetesにデプロイする時には、監督プロセスのような外部ユーティリティを使うよりもむしろ、アプリケーションのwatchdogとしてKubernetesを使うべきです。
 
-### Updating the ensemble
+### アンサンブルのアップデート
 
-The `zk` `StatefulSet` is configured to use the `RollingUpdate` update strategy.
+`zk` `StatefulSet`は`RollingUpdate`アップデート戦略を使うように設定されています。
+サーバーに割り当てられる`cpus`の数を更新するのに、`kubectl patch`を利用できます。
 
-You can use `kubectl patch` to update the number of `cpus` allocated to the servers.
 
 ```shell
 kubectl patch sts zk --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/resources/requests/cpu", "value":"0.3"}]'
@@ -603,7 +595,7 @@ kubectl patch sts zk --type='json' -p='[{"op": "replace", "path": "/spec/templat
 statefulset.apps/zk patched
 ```
 
-Use `kubectl rollout status` to watch the status of the update.
+更新の状況を見るには、`kubectl rollout status`を使います。
 
 ```shell
 kubectl rollout status sts/zk
@@ -622,15 +614,16 @@ Waiting for 1 pods to be ready...
 statefulset rolling update complete 3 pods at revision zk-5db4499664...
 ```
 
-This terminates the Pods, one at a time, in reverse ordinal order, and recreates them with the new configuration. This ensures that quorum is maintained during a rolling update.
+これはPod群を終了し、1つずつ逆の順番でそれらを新しい設定で再作成します。
+これはクォーラムがローリングアップデート中に維持されることを保証します。
 
-Use the `kubectl rollout history` command to view a history or previous configurations.
+履歴や過去の設定を見るには、`kubectl rollout history`コマンドを使います。
 
 ```shell
 kubectl rollout history sts/zk
 ```
 
-The output is similar to this:
+出力は次のようになります:
 
 ```
 statefulsets "zk"
@@ -639,34 +632,31 @@ REVISION
 2
 ```
 
-Use the `kubectl rollout undo` command to roll back the modification.
+変更をロールバックするには、`kubectl rollout undo`コマンドを使います。
 
 ```shell
 kubectl rollout undo sts/zk
 ```
 
-The output is similar to this:
+出力は次のようになります:
 
 ```
 statefulset.apps/zk rolled back
 ```
 
-### Handling process failure
+### プロセスの失敗の取り扱い
 
-[Restart Policies](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) control how
-Kubernetes handles process failures for the entry point of the container in a Pod.
-For Pods in a `StatefulSet`, the only appropriate `RestartPolicy` is Always, and this
-is the default value. For stateful applications you should **never** override
-the default policy.
+[再起動ポリシー](/ja/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)は、Pod内のコンテナのエントリポイントへのプロセスの失敗をKubernetesがどのように取り扱うかを制御します。
+`StatefulSet`内のPodにおいて唯一妥当な`RestartPolicy`はAlwaysで、これはデフォルト値です。
+ステートフルなアプリケーションでは、このデフォルトポリシーの上書きは**絶対にすべきではありません**。
 
-Use the following command to examine the process tree for the ZooKeeper server running in the `zk-0` Pod.
+`zk-0` Pod内で実行されているZooKeeperサーバーのプロセスツリーを調査するには、以下のコマンドを使います。
 
 ```shell
 kubectl exec zk-0 -- ps -ef
 ```
 
-The command used as the container's entry point has PID 1, and
-the ZooKeeper process, a child of the entry point, has PID 27.
+コンテナのエントリポイントとして使われるコマンドはPID 1、エントリポイントの子であるZooKeeperプロセスはPID 27となっています。
 
 ```
 UID        PID  PPID  C STIME TTY          TIME CMD
@@ -674,19 +664,21 @@ zookeep+     1     0  0 15:03 ?        00:00:00 sh -c zkGenConfig.sh && zkServer
 zookeep+    27     1  0 15:03 ?        00:00:03 /usr/lib/jvm/java-8-openjdk-amd64/bin/java -Dzookeeper.log.dir=/var/log/zookeeper -Dzookeeper.root.logger=INFO,CONSOLE -cp /usr/bin/../build/classes:/usr/bin/../build/lib/*.jar:/usr/bin/../share/zookeeper/zookeeper-3.4.9.jar:/usr/bin/../share/zookeeper/slf4j-log4j12-1.6.1.jar:/usr/bin/../share/zookeeper/slf4j-api-1.6.1.jar:/usr/bin/../share/zookeeper/netty-3.10.5.Final.jar:/usr/bin/../share/zookeeper/log4j-1.2.16.jar:/usr/bin/../share/zookeeper/jline-0.9.94.jar:/usr/bin/../src/java/lib/*.jar:/usr/bin/../etc/zookeeper: -Xmx2G -Xms2G -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.local.only=false org.apache.zookeeper.server.quorum.QuorumPeerMain /usr/bin/../etc/zookeeper/zoo.cfg
 ```
 
-In another terminal watch the Pods in the `zk` `StatefulSet` with the following command.
+別のターミナルで、以下のコマンドを使って`zk` `StatefulSet`内のPodを見てみます。
 
 ```shell
 kubectl get pod -w -l app=zk
 ```
 
-In another terminal, terminate the ZooKeeper process in Pod `zk-0` with the following command.
+
+別のターミナルで、以下のコマンドを使ってPod `zk-0`内のZooKeeperプロセスを終了します。
 
 ```shell
 kubectl exec zk-0 -- pkill java
 ```
 
-The termination of the ZooKeeper process caused its parent process to terminate. Because the `RestartPolicy` of the container is Always, it restarted the parent process.
+ZooKeeperプロセスの終了は、その親プロセスの終了を引き起こします。
+コンテナの`RestartPolicy`はAlwaysなので、親プロセスが再起動(restart)されます。
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -699,20 +691,16 @@ zk-0      0/1       Running   1         29m
 zk-0      1/1       Running   1         29m
 ```
 
-If your application uses a script (such as `zkServer.sh`) to launch the process
-that implements the application's business logic, the script must terminate with the
-child process. This ensures that Kubernetes will restart the application's
-container when the process implementing the application's business logic fails.
+アプリケーションが、そのビジネスロジックを実装するプロセスを立ち上げるのにスクリプト(`zkServer.sh`など)を使っている場合、スクリプトは子プロセスとともに終了する必要があります。
+これは、Kubernetesがアプリケーションのコンテナを、そのビジネスロジックを実装しているプロセスが失敗した時に再起動することを保証します。
 
-### Testing for liveness
+### 生存性テスト
 
-Configuring your application to restart failed processes is not enough to
-keep a distributed system healthy. There are scenarios where
-a system's processes can be both alive and unresponsive, or otherwise
-unhealthy. You should use liveness probes to notify Kubernetes
-that your application's processes are unhealthy and it should restart them.
+失敗したプロセスを再起動するための設定をアプリケーションに施すのは、分散型システムの健全さを保つのに十分ではありません。
+システムのプロセスが生きていることもあれば無反応なこともあり、あるいはそうでなく不健全というシナリオがあります。
+アプリケーションのプロセスが不健全で再起動すべきであることをKubernetesに通知するために、生存プローブを使うのがよいでしょう。
 
-The Pod `template` for the `zk` `StatefulSet` specifies a liveness probe.
+`zk` `StatefulSet` のPod `template`で生存プローブを指定します。
 
 ```yaml
   livenessProbe:
@@ -725,8 +713,7 @@ The Pod `template` for the `zk` `StatefulSet` specifies a liveness probe.
     timeoutSeconds: 5
 ```
 
-The probe calls a bash script that uses the ZooKeeper `ruok` four letter
-word to test the server's health.
+プローブはサーバーの健全さをテストするのに、ZooKeeper `ruok` 4文字ワードを使うbashスクリプトを呼び出します。
 
 ```
 OK=$(echo ruok | nc 127.0.0.1 $1)
@@ -737,21 +724,19 @@ else
 fi
 ```
 
-In one terminal window, use the following command to watch the Pods in the `zk` StatefulSet.
+ターミナルウィンドウで、`zk` StatefulSet内のPodを見るのに以下のコマンドを使います。
 
 ```shell
 kubectl get pod -w -l app=zk
 ```
 
-In another window, using the following command to delete the `zookeeper-ready` script from the file system of Pod `zk-0`.
+別のウィンドウで、Pod `zk-0`のファイルシステムから`zookeeper-ready`スクリプトを削除するために以下のコマンドを使います。
 
 ```shell
 kubectl exec zk-0 -- rm /opt/zookeeper/bin/zookeeper-ready
 ```
 
-When the liveness probe for the ZooKeeper process fails, Kubernetes will
-automatically restart the process for you, ensuring that unhealthy processes in
-the ensemble are restarted.
+ZooKeeperプロセスの失敗のために生存プローブを使う時、アンサンブル内の不健全なプロセスが再起動されることを保証するために、Kubernetesは自動的にプロセスを再起動します。
 
 ```shell
 kubectl get pod -w -l app=zk
@@ -768,19 +753,18 @@ zk-0      0/1       Running   1         1h
 zk-0      1/1       Running   1         1h
 ```
 
-### Testing for readiness
+### 準備性テスト
 
-Readiness is not the same as liveness. If a process is alive, it is scheduled
-and healthy. If a process is ready, it is able to process input. Liveness is
-a necessary, but not sufficient, condition for readiness. There are cases,
-particularly during initialization and termination, when a process can be
-alive but not ready.
+準備性は生存性と同じではありません。
+プロセスが生きているのであれば、スケジュールされ健全です。
+プロセスの準備ができたら、入力を処理できます。
+生存性はなくてはならないものですが、準備性の状態には十分ではありません。
+プロセスは生きてはいるが準備はできていない時、特に初期化および終了の間がそのケースに相当します。
 
-If you specify a readiness probe, Kubernetes will ensure that your application's
-processes will not receive network traffic until their readiness checks pass.
+準備性プローブを指定するとKubernetesは、準備性チェックに合格するまで、アプリケーションのプロセスがネットワークトラフィックを受け取らないことを保証します。
 
-For a ZooKeeper server, liveness implies readiness.  Therefore, the readiness
-probe from the `zookeeper.yaml` manifest is identical to the liveness probe.
+ZooKeeperサーバーにとって、健全性は準備性を意味します。
+そのため、`zookeeper.yaml`マニフィエストからの準備性プローブは、生存プローブと同一です。
 
 ```yaml
   readinessProbe:
@@ -793,11 +777,15 @@ probe from the `zookeeper.yaml` manifest is identical to the liveness probe.
     timeoutSeconds: 5
 ```
 
-Even though the liveness and readiness probes are identical, it is important
-to specify both. This ensures that only healthy servers in the ZooKeeper
-ensemble receive network traffic.
+健全性プローブと準備性プローブが同一だとしても、両方を指定することが重要です。
+これは、ZooKeeperアンサンブル内の健全なサーバーだけがネットワークトラフィックを受け取ることを保証します。
 
-## Tolerating Node failure
+## ノードの失敗の許容
+
+ZooKeeperはデータの変更を正しくコミットするのにサーバーのクォーラムを必要とします。
+3つのサーバーのアンサンブルにおいては、書き込みの成功のために2つのサーバーは健全でなければなりません。
+クォーラムベースのシステムにおいて、可用性を保証するために、メンバーは障害ドメインにデプロイされます。
+
 
 ZooKeeper needs a quorum of servers to successfully commit mutations
 to data. For a three server ensemble, two servers must be healthy for
