@@ -1,6 +1,7 @@
 ---
 title: Pod障害の原因を特定する
 content_type: task
+weight: 30
 ---
 
 <!-- overview -->
