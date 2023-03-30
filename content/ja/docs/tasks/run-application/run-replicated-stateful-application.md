@@ -79,10 +79,10 @@ kubectl apply -f https://k8s.io/examples/application/mysql/mysql-services.yaml
 
 ヘッドレスサービスは、StatefulSetコントローラーが
 StatefulSetの一部であるPodごとに作成するDNSエントリーのベースエントリーを提供します。
-この例ではヘッドレスサービスの名前は`mysql`なので、同じKubernetesクラスタの
+この例ではヘッドレスサービスの名前は`mysql`なので、同じKubernetesクラスターの
 同じ名前空間内の他のPodは、`<pod-name>.mysql`を名前解決することでPodにアクセスできます。
 
-`mysql-read`と呼ばれるクライアントサービスは、独自のクラスタIPを持つ通常のServiceであり、
+`mysql-read`と呼ばれるクライアントサービスは、独自のクラスターIPを持つ通常のServiceであり、
 Ready状態のすべてのMySQL Podに接続を分散します。
 Serviceのエンドポイントには、MySQLマスターとすべてのスレーブが含まれる可能性があります。
 
@@ -313,7 +313,7 @@ StatefulSetコントローラーは`mysql-2` Podがもう存在しないこと�
 
 ### ノードをdrainする
 
-Kubernetesクラスタに複数のノードがある場合は、
+Kubernetesクラスターに複数のノードがある場合は、
 [drain](/docs/reference/generated/kubectl/kubectl-commands/#drain)を発行して
 ノードのダウンタイム(例えばノードのアップグレード時など)をシミュレートできます。
 
@@ -335,7 +335,7 @@ mysql-2   2/2       Running   0          15m       10.244.5.27   kubernetes-mini
 `<node-name>`は前のステップで確認したノードの名前に置き換えてください。
 
 この操作はノード上の他のアプリケーションに影響を与える可能性があるため、
-**テストクラスタでのみこの操作を実行**するのが最善です。
+**テストクラスターでのみこの操作を実行**するのが最善です。
 
 ```shell
 kubectl drain <node-name> --force --delete-local-data --ignore-daemonsets
