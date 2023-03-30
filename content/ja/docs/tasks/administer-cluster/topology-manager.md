@@ -2,6 +2,7 @@
 title: ノードのトポロジー管理ポリシーを制御する
 content_type: task
 min-kubernetes-server-version: v1.18
+weight: 150
 ---
 
 <!-- overview -->
