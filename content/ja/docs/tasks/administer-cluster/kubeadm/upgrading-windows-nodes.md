@@ -2,7 +2,7 @@
 title: Windowsノードのアップグレード
 min-kubernetes-server-version: 1.17
 content_type: task
-weight: 40
+weight: 50
 ---
 
 <!-- overview -->
