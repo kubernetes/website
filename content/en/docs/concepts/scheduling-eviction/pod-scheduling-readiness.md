@@ -100,7 +100,7 @@ The rules for updating a Pod's scheduling directives are as follows:
 
 2. For `spec.affinity.nodeAffinity`, if nil, then setting anything is allowed.
 
-3. For `.requiredDuringSchedulingIgnoredDuringExecution.NodeSelectorTerms`, the terms are ORed while `nodeSelectorTerms[]`.matchExpressions list and `nodeSelectorTerms[].fieldExpressions` are ANDed. If `NodeSelectorTerms` was empty, it will be allowed to be set. If not empty, then only additions of `NodeSelectorRequirements` to `matchExpressions` or `fieldExpressions` are allowed, and no changes to existing `matchExpressions` and `fieldExpressions` will be allowed.
+3. If `NodeSelectorTerms` was empty, it will be allowed to be set. If not empty, then only additions of `NodeSelectorRequirements` to `matchExpressions` or `fieldExpressions` are allowed, and no changes to existing `matchExpressions` and `fieldExpressions` will be allowed. This is because the terms in `.requiredDuringSchedulingIgnoredDuringExecution.NodeSelectorTerms`, are ORed while the expressions in `nodeSelectorTerms[].matchExpressions` and `nodeSelectorTerms[].fieldExpressions` are ANDed. 
 
 4. For `.preferredDuringSchedulingIgnoredDuringExecution`, all updates are allowed. This is because preferred terms are not authoritative, and so policy controllers don't validate those terms.
 
