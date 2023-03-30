@@ -248,6 +248,6 @@ pie showData
 ## {{% heading "whatsnext" %}}
 
 * 阅读[服务外部流量策略](/zh-cn/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)
-* 阅读[应用程序与服务连接](/zh-cn/docs/concepts/services-networking/connect-applications-service/)
+* 阅读[应用程序与服务连接](/zh-cn/docs/tutorials/services/connect-applications-service/)
 * 阅读[服务](/zh-cn/docs/concepts/services-networking/service/)
 
