@@ -64,8 +64,6 @@ When referencing an image in a pod, you can use either an image tag or an image 
 However, using an image digest can be more reliable that image tag since it ensures that 
 the exact version of the image is used every time the pad is created or updated.
 
-For more information refer [Using container image digests](https://cloud.google.com/kubernetes-engine/docs/archive/using-container-images).
-
 ## Updating images
 
 When you first create a {{< glossary_tooltip text="Deployment" term_id="deployment" >}},
