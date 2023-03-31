@@ -10,9 +10,9 @@ aka:
 tags:
 - architecture
 ---
-Control plane component that watches 
-for newly created {{< glossary_tooltip term_id="pod" text="Pods" >}} 
-that have not yet been assigned to any {{< glossary_tooltip term_id="node" text="node">}}
+A control plane component that watches 
+for new unassigned {{< glossary_tooltip term_id="pod" text="Pods" >}} 
+and chooses a {{< glossary_tooltip term_id="node" text="node">}} for them.
 
 <!--more-->
 
