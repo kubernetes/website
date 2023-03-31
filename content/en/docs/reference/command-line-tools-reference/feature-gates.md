@@ -68,7 +68,8 @@ For a reference to old feature gates that are removed, please refer to
 | `APIServerIdentity` | `true` | Beta | 1.26 | |
 | `APIServerTracing` | `false` | Alpha | 1.22 | 1.26 |
 | `APIServerTracing` | `true` | Beta | 1.27 | |
-| `AggregatedDiscoveryEndpoint` | `false` | Alpha | 1.26 | |
+| `AggregatedDiscoveryEndpoint` | `false` | Alpha | 1.26 | 1.26 |
+| `AggregatedDiscoveryEndpoint` | `true` | Beta | 1.27 | |
 | `AnyVolumeDataSource` | `false` | Alpha | 1.18 | 1.23 |
 | `AnyVolumeDataSource` | `true` | Beta | 1.24 | |
 | `AppArmor` | `true` | Beta | 1.4 | |

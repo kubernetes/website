@@ -158,6 +158,30 @@ Refer to the table below for accepted request headers.
 Kubernetes stores the serialized state of objects by writing them into
 {{< glossary_tooltip term_id="etcd" >}}.
 
+## API Discovery
+
+A list of all group versions supported by a cluster is published at
+the `/api` and `/apis` endpoints. Each group version also advertises
+the list of resources supported via `/apis/<group>/<version>` (for
+example: `/apis/rbac.authorization.k8s.io/v1alpha1`). These endpoints
+are used by kubectl to fetch the list of resources supported by a
+cluster.
+
+### Aggregated Discovery
+
+{{< feature-state state="beta"  for_k8s_version="v1.27" >}}
+
+Kubernetes offers beta support for aggregated discovery, publishing
+all resources supported by a cluster through two endpoints (`/api` and
+`/apis`) compared to one for every group version. Requesting this
+endpoint drastically reduces the number of requests sent to fetch the
+discovery for the average Kubernetes cluster. This may be accessed by
+requesting the respective endpoints with an Accept header indicating
+the aggregated discovery resource:
+`Accept: application/json;v=v2beta1;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList`.
+
+The endpoint also supports ETag and protobuf encoding.
+
 ## API groups and versioning
 
 To make it easier to eliminate fields or restructure resource representations,
