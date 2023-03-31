@@ -22,11 +22,11 @@ weight: 40
 - [kubectl CLI](/docs/reference/kubectl/kubectl/)
 
 少なくとも4つのノードのクラスターが必要で、各ノードは少なくとも2つのCPUと4GiBのメモリが必須です。このチュートリアルでは、クラスターのノードをcordonおよびdrainします。
-**つまり、クラスターがそのノードの全てのPodを終了して退去させて、ノードを一時的にスケジュールできなくなる、ということです。**
+**つまり、クラスターがそのノードの全てのPodを終了して退去させ、ノードが一時的にスケジュールできなくなる、ということです。**
 このチュートリアル専用のクラスターを使うか、起こした破壊がほかのテナントに干渉しない確証を得ることをお勧めします。
 
 このチュートリアルでは、クラスターがPersistentVolumeの動的なプロビジョニングが行われるように設定されていることを前提としています。
-クラスターがそのように設定されていない場合、チュートリアルを始める前に20GiBのボリュームを3つ手動でプロビジョニングする必要があります。
+クラスターがそのように設定されていない場合、チュートリアルを始める前に20GiBのボリュームを3つ、手動でプロビジョニングする必要があります。
 
 ## {{% heading "objectives" %}}
 
@@ -49,7 +49,7 @@ ZooKeeperは、アンサンブル内の全てのサーバー間でステート�
 
 アンサンブルはリーダーを選出するのにZabプロトコルを使い、選出が完了するまでデータを書き出しません。
 完了すると、アンサンブルは複製するのにZabを使い、書き込みが承認されてクライアントに可視化されるより前に、全ての書き込みをクォーラムに複製することを保証します。
-重み付けされたクォーラムでなければ、クォーラムは現在のリーダーを含むアンサンブルの多数側のコンポーネントです。
+重み付けされたクォーラムでなければ、クォーラムは現在のリーダーを含むアンサンブルの多数を占めるコンポーネントです。
 例えばアンサンブルが3つのサーバーを持つ時、リーダーとそれ以外のもう1つのサーバーを含むコンポーネントが、クォーラムを構成します。
 アンサンブルがクォーラムに達しない場合、アンサンブルはデータを書き出せません。
 
@@ -111,7 +111,7 @@ StatefulSetコントローラーが3つのPodを作成し、各Podは[ZooKeeper]
 
 ### リーダーの選出のファシリテート {#facilitating-leader-election}
 
-匿名のネットワークにおいてリーダー選出を終了するアルゴリズムがないので、Zabはリーダー選出を行うための明示的なメンバーシップ設定を要します。
+匿名のネットワークにおいてリーダー選出を終了するアルゴリズムがないので、Zabはリーダー選出のための明示的なメンバーシップ設定を要します。
 アンサンブルの各サーバーはユニーク識別子を持つ必要があり、全てのサーバーは識別子のグローバルセットを知っている必要があり、各識別子はネットワークアドレスと関連付けられている必要があります。
 
 `zk` StatefulSetのPodのホスト名を取得するために[`kubectl exec`](/docs/reference/generated/kubectl/kubectl-commands/#exec)を使います。
@@ -493,7 +493,7 @@ log4j.appender.CONSOLE.layout.ConversionPattern=%d{ISO8601} [myid:%X{myid}] - %-
 ```
 
 これはログコンテナ内のログを安全にとるための、最もシンプルと思われる方法です。
-アプリケーションがログを標準出力に書き出すので、Kubernetesがログのローテーションを処理してくれます。
+アプリケーションはログを標準出力に書き出し、Kubernetesがログのローテーションを処理してくれます。
 Kubernetesは、標準出力と標準エラー出力に書き出されるアプリケーションのログがローカルストレージメディアを使い尽くさないことを保証する、健全維持ポリシーも実装しています。
 
 Podの1つから末尾20行を取得するために、[`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands/#logs)を使ってみます。
@@ -534,7 +534,7 @@ Kubernetesは多くのログソリューションを統合しています。
 ### 非特権ユーザーの設定
 
 コンテナ内で特権ユーザーとしての実行をアプリケーションに許可するベストプラクティスは、議論の的です。
-アプリケーションが非特権ユーザーとして動作することを組織が必須としているなら、エントリポイントがそのユーザーとして実行できるユーザーを制御する[セキュリティコンテキスト](/ja/docs/tasks/configure-pod-container/security-context/)を利用できます。
+アプリケーションが非特権ユーザーとして動作することを組織で必須としているなら、エントリポイントがそのユーザーとして実行できるユーザーを制御する[セキュリティコンテキスト](/ja/docs/tasks/configure-pod-container/security-context/)を利用できます。
 
 `zk` `StatefulSet`のPod `template`は、`SecurityContext`を含んでいます。
 
@@ -552,7 +552,7 @@ Podのコンテナ内で、UID 1000はzookeeperユーザーに、GID 1000はzook
 kubectl exec zk-0 -- ps -elf
 ```
 
-`securityContext`オブジェクトの`runAsUser`フィールドは1000にセットされているとおり、ZooKeeperプロセスは、rootとして実行される代わりにzookeeperユーザーとして実行されています。
+`securityContext`オブジェクトの`runAsUser`フィールドが1000にセットされているとおり、ZooKeeperプロセスは、rootとして実行される代わりにzookeeperユーザーとして実行されています。
 
 ```
 F S UID        PID  PPID  C PRI  NI ADDR SZ WCHAN  STIME TTY          TIME CMD
@@ -569,7 +569,7 @@ F S UID        PID  PPID  C PRI  NI ADDR SZ WCHAN  STIME TTY          TIME CMD
 kubectl exec -ti zk-0 -- ls -ld /var/lib/zookeeper/data
 ```
 
-`securityContext`オブジェクトの`fsGroup`フィールドが1000にセットされているので、PodのPersistentVolumeの所有権はzookeeperグループにセットされ、ZooKeeperのプロセスはそのデータを読み書きできます。
+`securityContext`オブジェクトの`fsGroup`フィールドが1000にセットされているので、PodのPersistentVolumeの所有権はzookeeperグループにセットされ、ZooKeeperのプロセスがそのデータを読み書きできるようになります。
 
 ```
 drwxr-sr-x 3 zookeeper zookeeper 4096 Dec  5 20:45 /var/lib/zookeeper/data
@@ -578,7 +578,7 @@ drwxr-sr-x 3 zookeeper zookeeper 4096 Dec  5 20:45 /var/lib/zookeeper/data
 ## ZooKeeperプロセスの管理
 
 [ZooKeeperドキュメント](https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_supervision)では、「You will want to have a supervisory process that manages each of your ZooKeeper server processes (JVM).(各ZooKeeperサーバープロセス(JVM)を管理する監督プロセスを持ちたくなります)」と述べています。
-分散型システム内で失敗したプロセスを再起動するのにwatchdog(監督プロセス)を使うのは、典型的なパターンです。
+分散型システム内で失敗したプロセスを再起動するのにwatchdog(監督プロセス)を使うのは、典型的パターンです。
 アプリケーションをKubernetesにデプロイする時には、監督プロセスのような外部ユーティリティを使うよりもむしろ、アプリケーションのwatchdogとしてKubernetesを使うべきです。
 
 ### アンサンブルのアップデート
@@ -614,7 +614,7 @@ Waiting for 1 pods to be ready...
 statefulset rolling update complete 3 pods at revision zk-5db4499664...
 ```
 
-これはPod群を終了し、1つずつ逆の順番でそれらを新しい設定で再作成します。
+これはPod群を終了し、逆の順番で1つずつそれらを新しい設定で再作成します。
 これはクォーラムがローリングアップデート中に維持されることを保証します。
 
 履歴や過去の設定を見るには、`kubectl rollout history`コマンドを使います。
@@ -697,10 +697,10 @@ zk-0      1/1       Running   1         29m
 ### 生存性テスト
 
 失敗したプロセスを再起動するための設定をアプリケーションに施すのは、分散型システムの健全さを保つのに十分ではありません。
-システムのプロセスが生きていることもあれば無反応なこともあり、あるいはそうでなく不健全というシナリオがあります。
-アプリケーションのプロセスが不健全で再起動すべきであることをKubernetesに通知するために、生存プローブを使うのがよいでしょう。
+システムのプロセスが生きていることもあれば無反応なこともあり、あるいはそうでなく不健全という状況もあります。
+アプリケーションのプロセスが不健全で再起動すべきであることをKubernetesに通知するには、生存プローブを使うのがよいでしょう。
 
-`zk` `StatefulSet` のPod `template`で生存プローブを指定します。
+`zk` `StatefulSet`のPod `template`で生存プローブを指定します。
 
 ```yaml
   livenessProbe:
@@ -713,7 +713,7 @@ zk-0      1/1       Running   1         29m
     timeoutSeconds: 5
 ```
 
-プローブはサーバーの健全さをテストするのに、ZooKeeper `ruok` 4文字ワードを使うbashスクリプトを呼び出します。
+プローブはサーバーの健全さをテストするのに、ZooKeeperの`ruok` 4文字コマンドを使うbashスクリプトを呼び出します。
 
 ```
 OK=$(echo ruok | nc 127.0.0.1 $1)
@@ -764,7 +764,7 @@ zk-0      1/1       Running   1         1h
 準備性プローブを指定するとKubernetesは、準備性チェックに合格するまで、アプリケーションのプロセスがネットワークトラフィックを受け取らないことを保証します。
 
 ZooKeeperサーバーにとって、健全性は準備性を意味します。
-そのため、`zookeeper.yaml`マニフィエストからの準備性プローブは、生存プローブと同一です。
+そのため、`zookeeper.yaml`マニフェストからの準備性プローブは、生存プローブと同一です。
 
 ```yaml
   readinessProbe:
@@ -785,32 +785,22 @@ ZooKeeperサーバーにとって、健全性は準備性を意味します。
 ZooKeeperはデータの変更を正しくコミットするのにサーバーのクォーラムを必要とします。
 3つのサーバーのアンサンブルにおいては、書き込みの成功のために2つのサーバーは健全でなければなりません。
 クォーラムベースのシステムにおいて、可用性を保証するために、メンバーは障害ドメインにデプロイされます。
+個々のマシンを失ってしまうので、故障を避けるためのベストプラクティスは、同じマシン上でアプリケーションの複数のインスタンスがコロケート(同じ場所に配置)されないようにすることです。
 
+デフォルトでKubernetesは、同じノードの`StatefulSet`にPodをコロケートします。
+3つのサーバーアンサンブルを作成していたとして、2つのサーバーが同じノードにあり、そのノードが障害を起こした場合、ZooKeeperサービスのクライアントは、少なくともPodの1つが再スケジュールされるまで障害に見舞われることになります。
 
-ZooKeeper needs a quorum of servers to successfully commit mutations
-to data. For a three server ensemble, two servers must be healthy for
-writes to succeed. In quorum based systems, members are deployed across failure
-domains to ensure availability. To avoid an outage, due to the loss of an
-individual machine, best practices preclude co-locating multiple instances of the
-application on the same machine.
+クリティカルシステムのプロセスがノードの失敗イベントで再スケジュールできるよう、追加のキャパシティを常にプロビジョンしておくべきです。
+そうしておけば、障害は単にKubernetesのスケジューラーがZooKeeperのサーバーの1つを再スケジュールするまでの辛抱です。
+ただし、ダウンタイムなしでノードの障害への耐性をサービスに持たせたいなら、`podAntiAffinity`をセットすべきです。
 
-By default, Kubernetes may co-locate Pods in a `StatefulSet` on the same node.
-For the three server ensemble you created, if two servers are on the same node, and that node fails,
-the clients of your ZooKeeper service will experience an outage until at least one of the Pods can be rescheduled.
-
-You should always provision additional capacity to allow the processes of critical
-systems to be rescheduled in the event of node failures. If you do so, then the
-outage will only last until the Kubernetes scheduler reschedules one of the ZooKeeper
-servers. However, if you want your service to tolerate node failures with no downtime,
-you should set `podAntiAffinity`.
-
-Use the command below to get the nodes for Pods in the `zk` `StatefulSet`.
+`zk` `StatefulSet`内のPodのノードを取得するには、以下のコマンドを使います。
 
 ```shell
 for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo ""; done
 ```
 
-All of the Pods in the `zk` `StatefulSet` are deployed on different nodes.
+`zk` `StatefulSet`内の全てのPodは、別々のノードにデプロイされます。
 
 ```
 kubernetes-node-cxpk
@@ -818,7 +808,7 @@ kubernetes-node-a5aq
 kubernetes-node-2g2d
 ```
 
-This is because the Pods in the `zk` `StatefulSet` have a `PodAntiAffinity` specified.
+これは`zk` `StatefulSet`内のPodに`PodAntiAffinity`の指定があるからです。
 
 ```yaml
 affinity:
@@ -833,61 +823,56 @@ affinity:
         topologyKey: "kubernetes.io/hostname"
 ```
 
-The `requiredDuringSchedulingIgnoredDuringExecution` field tells the
-Kubernetes Scheduler that it should never co-locate two Pods which have `app` label
-as `zk` in the domain defined by the `topologyKey`. The `topologyKey`
-`kubernetes.io/hostname` indicates that the domain is an individual node. Using
-different rules, labels, and selectors, you can extend this technique to spread
-your ensemble across physical, network, and power failure domains.
+`requiredDuringSchedulingIgnoredDuringExecution`フィールドは、`topologyKey`で定義されたドメイン内で`app`ラベルの値が`zk`の2つのPodが絶対にコロケートすべきでないことを、Kubernetes Schedulerに指示します。
+`topologyKey`の`kubernetes.io/hostname`は、ドメインが固有ノードであることを示しています。
+異なるルール、ラベル、セレクターを使って、物理・ネットワーク・電源といった障害ドメイン全体に広がるアンサンブルにこのテクニックを広げることができます。
 
-## Surviving maintenance
+## メンテナンスの存続
 
-In this section you will cordon and drain nodes. If you are using this tutorial
-on a shared cluster, be sure that this will not adversely affect other tenants.
+このセクションでは、ノードをcordon(スケジュール不可化)およびdorain(解放)します。もし共有クラスターでこのチュートリアルを試しているのであれば、これがほかのテナントに有害な影響を及ぼさないことを確認してください。
 
-The previous section showed you how to spread your Pods across nodes to survive
-unplanned node failures, but you also need to plan for temporary node failures
-that occur due to planned maintenance.
+前のセクションでは、計画外のノード障害に備えてどのようにPodをノード全体に広げるかを示しましたが、計画されたメンテナンスのため引き起こされる一時的なノード障害に対して計画する必要もあります。
 
-Use this command to get the nodes in your cluster.
+クラスター内のノードを取得するために、以下のコマンドを使います。
 
 ```shell
 kubectl get nodes
 ```
 
-This tutorial assumes a cluster with at least four nodes. If the cluster has more than four, use [`kubectl cordon`](/docs/reference/generated/kubectl/kubectl-commands/#cordon) to cordon all but four nodes. Constraining to four nodes will ensure Kubernetes encounters affinity and PodDisruptionBudget constraints when scheduling zookeeper Pods in the following maintenance simulation.
+このチュートリアルでは、4つのノードのあるクラスターを仮定しています。
+クラスターが4つよりも多くある場合には、4つのノード以外全てをcordonするために[`kubectl cordon`](/docs/reference/generated/kubectl/kubectl-commands/#cordon)を使ってください。
+ノードを4つに制約することで、以下のメンテナンスシミュレーションにおいてzookeeper Podをスケジュールした時に、KubernetesがアフィニティとPodDisruptionBudget制約に遭遇することを保証します。
 
 ```shell
-kubectl cordon <node-name>
+kubectl cordon <ノード名>
 ```
 
-Use this command to get the `zk-pdb` `PodDisruptionBudget`.
+`zk-pdb`の`PodDisruptionBudget`を取得するために、以下のコマンドを使います。
 
 ```shell
 kubectl get pdb zk-pdb
 ```
 
-The `max-unavailable` field indicates to Kubernetes that at most one Pod from
-`zk` `StatefulSet` can be unavailable at any time.
+`max-unavailable`フィールドは、`zk` `StatefulSet`の最大で1つのPodがいつでも利用できなくなる可能性があるということを、Kubernetesに指示します。
 
 ```
 NAME      MIN-AVAILABLE   MAX-UNAVAILABLE   ALLOWED-DISRUPTIONS   AGE
 zk-pdb    N/A             1                 1
 ```
 
-In one terminal, use this command to watch the Pods in the `zk` `StatefulSet`.
+1つ目のターミナルで、`zk` `StatefulSet`内のPodを見るのに以下のコマンドを使います。
 
 ```shell
 kubectl get pods -w -l app=zk
 ```
 
-In another terminal, use this command to get the nodes that the Pods are currently scheduled on.
+次に別のターミナルで、Podが現在スケジュールされているノードを取得するために、以下のコマンドを使います。
 
 ```shell
 for i in 0 1 2; do kubectl get pod zk-$i --template {{.spec.nodeName}}; echo ""; done
 ```
 
-The output is similar to this:
+出力は次のようになります:
 
 ```
 kubernetes-node-pb41
@@ -895,14 +880,14 @@ kubernetes-node-ixsl
 kubernetes-node-i4c4
 ```
 
-Use [`kubectl drain`](/docs/reference/generated/kubectl/kubectl-commands/#drain) to cordon and
-drain the node on which the `zk-0` Pod is scheduled.
+`zk-0` Podがスケジュールされているノードをcordonおよびdrainするには、[`kubectl drain`](/docs/reference/generated/kubectl/kubectl-commands/#drain)を使います。
+
 
 ```shell
 kubectl drain $(kubectl get pod zk-0 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 
-The output is similar to this:
+出力は次のようになります:
 
 ```
 node "kubernetes-node-pb41" cordoned
@@ -912,8 +897,7 @@ pod "zk-0" deleted
 node "kubernetes-node-pb41" drained
 ```
 
-As there are four nodes in your cluster, `kubectl drain`, succeeds and the
-`zk-0` is rescheduled to another node.
+クラスターに4つのノードがあるので、`kubectl drain`は成功し、`zk-0`が別のノードに再スケジュールされます。
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -932,14 +916,13 @@ zk-0      0/1       Running   0         51s
 zk-0      1/1       Running   0         1m
 ```
 
-Keep watching the `StatefulSet`'s Pods in the first terminal and drain the node on which
-`zk-1` is scheduled.
+最初のターミナルで`StatefulSet`のPodを見守り、`zk-1`がスケジュールされたノードをdrainします。
 
 ```shell
 kubectl drain $(kubectl get pod zk-1 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 
-The output is similar to this:
+出力は次のようになります:
 
 ```
 "kubernetes-node-ixsl" cordoned
@@ -948,15 +931,13 @@ pod "zk-1" deleted
 node "kubernetes-node-ixsl" drained
 ```
 
-
-The `zk-1` Pod cannot be scheduled because the `zk` `StatefulSet` contains a `PodAntiAffinity` rule preventing
-co-location of the Pods, and as only two nodes are schedulable, the Pod will remain in a Pending state.
+`zk` `StatefulSet`がPodのコロケーションを抑止する`PodAntiAffinity`ルールを含んでいるので、`zk-1` Podはスケジュールされず、またスケジュール可能なのは2つのノードだけなので、PodはPendingの状態のままになっています。
 
 ```shell
 kubectl get pods -w -l app=zk
 ```
 
-The output is similar to this:
+出力は次のようになります:
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -981,14 +962,13 @@ zk-1      0/1       Pending   0         0s
 zk-1      0/1       Pending   0         0s
 ```
 
-Continue to watch the Pods of the StatefulSet, and drain the node on which
-`zk-2` is scheduled.
+StatefulSetのPodを見続け、`zk-2`がスケジュールされているノードをdrainします。
 
 ```shell
 kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 
-The output is similar to this:
+出力は次のようになります:
 
 ```
 node "kubernetes-node-i4c4" cordoned
@@ -999,17 +979,17 @@ There are pending pods when an error occurred: Cannot evict pod as it would viol
 pod/zk-2
 ```
 
-Use `CTRL-C` to terminate kubectl.
+kubectlを終了するために`CTRL-C`を押します。
 
-You cannot drain the third node because evicting `zk-2` would violate `zk-budget`. However, the node will remain cordoned.
+`zk-2`を退去させると`zk-budget`違反になってしまうので、3つ目のノードはdrainできません。ただし、ノードはcordonされたままとなります。
 
-Use `zkCli.sh` to retrieve the value you entered during the sanity test from `zk-0`.
+健全性テスト中に入力した値を`zk-0`から取得するには、`zkCli.sh`を使います。
 
 ```shell
 kubectl exec zk-0 zkCli.sh get /hello
 ```
 
-The service is still available because its `PodDisruptionBudget` is respected.
+`PodDisruptionBudget`が遵守されているので、サービスはまだ利用可能です。
 
 ```
 WatchedEvent state:SyncConnected type:None path:null
@@ -1027,25 +1007,25 @@ dataLength = 5
 numChildren = 0
 ```
 
-Use [`kubectl uncordon`](/docs/reference/generated/kubectl/kubectl-commands/#uncordon) to uncordon the first node.
+最初のノードをuncordon(スケジュール可能化)するには、[`kubectl uncordon`](/docs/reference/generated/kubectl/kubectl-commands/#uncordon)を使います。
 
 ```shell
 kubectl uncordon kubernetes-node-pb41
 ```
 
-The output is similar to this:
+出力は次のようになります:
 
 ```
 node "kubernetes-node-pb41" uncordoned
 ```
 
-`zk-1` is rescheduled on this node. Wait until `zk-1` is Running and Ready.
+`zk-1`はこのノードで再スケジュールされます。`zk-1`がRunningおよびReadyになるまで待ちます。
 
 ```shell
 kubectl get pods -w -l app=zk
 ```
 
-The output is similar to this:
+出力は次のようになります:
 
 ```
 NAME      READY     STATUS    RESTARTS   AGE
@@ -1074,13 +1054,13 @@ zk-1      0/1       Running   0         13m
 zk-1      1/1       Running   0         13m
 ```
 
-Attempt to drain the node on which `zk-2` is scheduled.
+試しに`zk-2`がスケジュールされているノードをdrainしてみます。
 
 ```shell
 kubectl drain $(kubectl get pod zk-2 --template {{.spec.nodeName}}) --ignore-daemonsets --force --delete-emptydir-data
 ```
 
-The output is similar to this:
+出力は次のようになります:
 
 ```
 node "kubernetes-node-i4c4" already cordoned
@@ -1090,28 +1070,26 @@ pod "zk-2" deleted
 node "kubernetes-node-i4c4" drained
 ```
 
-This time `kubectl drain` succeeds.
+今度は`kubectl drain`は成功しました。
 
-Uncordon the second node to allow `zk-2` to be rescheduled.
+`zk-2`の再スケジュールができるように、2つ目のノードをuncordonします。
 
 ```shell
 kubectl uncordon kubernetes-node-ixsl
 ```
 
-The output is similar to this:
+出力は次のようになります:
 
 ```
 node "kubernetes-node-ixsl" uncordoned
 ```
 
-You can use `kubectl drain` in conjunction with `PodDisruptionBudgets` to ensure that your services remain available during maintenance.
-If drain is used to cordon nodes and evict pods prior to taking the node offline for maintenance,
-services that express a disruption budget will have that budget respected.
-You should always allocate additional capacity for critical services so that their Pods can be immediately rescheduled.
+サービスがメンテナンス中も利用可能なままであることを保証するために、`PodDisruptionBudgets`とあわせて`kubectl drain`を利用できます。
+メンテナンスでノードがオフラインになる前にノードをcordonして、Podを退去させるのにdrainが使われている場合、Disruption Budget(停止状態の予算)を表すサービスは遵守すべきバジェットを持ちます。
+クリティカルサービスでは、Podをすぐに再スケジュールできるよう、追加のキャパティを常に割り当てておくべきです。
 
 ## {{% heading "cleanup" %}}
 
-- Use `kubectl uncordon` to uncordon all the nodes in your cluster.
-- You must delete the persistent storage media for the PersistentVolumes used in this tutorial.
-  Follow the necessary steps, based on your environment, storage configuration,
-  and provisioning method, to ensure that all storage is reclaimed.
+- クラスターの全てのノードをuncordonするために、`kubectl uncordon`を実行してください。
+- このチュートリアルで使ったPersistentVolumeの永続的なストレージメディアを削除する必要があります。
+  全てのストレージが回収されたことを確実とするために、お使いの環境、ストレージ設定、プロビジョニング方法に基いて必要な手順に従ってください。
