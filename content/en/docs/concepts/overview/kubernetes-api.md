@@ -178,8 +178,7 @@ endpoint drastically reduces the number of requests sent to fetch the
 discovery for the average Kubernetes cluster. This may be accessed by
 requesting the respective endpoints with an Accept header indicating
 the aggregated discovery resource:
-`Accept:
-application/json;v=v2beta1;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList`.
+`Accept: application/json;v=v2beta1;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList`.
 
 The endpoint also supports ETag and protobuf encoding.
 
