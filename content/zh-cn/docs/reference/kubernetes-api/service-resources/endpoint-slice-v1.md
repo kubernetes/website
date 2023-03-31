@@ -119,24 +119,22 @@ EndpointSlice 是实现某 Service 的端点的子集。一个 Service 可以有
     - **endpoints.conditions.serving** (boolean)
       
       <!--
-      Serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+      Serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition.
       -->
       
       serving 和 ready 非常相似。唯一的不同在于,
       即便某端点的状态为 Terminating 也可以设置 serving。
       对于处在终止过程中的就绪端点，此状况应被设置为 “true”。
       如果设置为 nil，则消费者应该以 ready 值为准。
-      可以在 EndpointSliceTerminatingCondition 特性开关中启用此字段。
 
     - **endpoints.conditions.terminating** (boolean)
       
       <!--
-      terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+      terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating.
       -->
       
       terminating 说明当前端点正在终止过程中。nil 值表示状态未知。
       消费者应将这种未知状态视为端点并不处于终止过程中。
-      可以通过 EndpointSliceTerminatingCondition 特性门控启用此字段。
 
   - **endpoints.deprecatedTopology** (map[string]string)
     

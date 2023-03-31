@@ -151,6 +151,7 @@ operator to use or manage a cluster.
 * [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/),
   [kube-scheduler configuration (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) and
   [kube-scheduler configuration (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
+* [kube-controller-manager configuration (v1alpha1)](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
 * [kube-proxy configuration (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 * [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
 * [Client authentication API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/) and 
@@ -179,6 +180,7 @@ operator to use or manage a cluster.
 * [kube-scheduler 配置 (v1beta2)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta2/)、
   [kube-scheduler 配置 (v1beta3)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/) 和
   [kube-scheduler 配置 (v1)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)
+* [kube-controller-manager 配置 (v1alpha1)](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
 * [kube-proxy 配置 (v1alpha1)](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 * [`audit.k8s.io/v1` API](/zh-cn/docs/reference/config-api/apiserver-audit.v1/)
 * [客户端身份认证 API (v1beta1)](/zh-cn/docs/reference/config-api/client-authentication.v1beta1/) 和

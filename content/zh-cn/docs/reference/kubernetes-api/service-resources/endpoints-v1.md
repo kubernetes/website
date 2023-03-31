@@ -205,7 +205,7 @@ Endpoints 是实现实际服务的端点的集合。举例:
     -->
 
     <a name="EndpointPort"></a>
-    **EndpointAddress 是描述单个 IP 地址的元组。**
+    **EndpointPort 是描述单个端口的元组。**
 
     <!--    
     - **subsets.ports.port** (int32), required

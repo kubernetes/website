@@ -101,7 +101,7 @@ Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this
 Don't apply any changes; just output what would be done.
 -->
 <p>
-不要应用任何变更；只是输出将要执行的操作。
+不做任何更改；只输出将要执行的操作。
 </p>
 </td>
 </tr>
