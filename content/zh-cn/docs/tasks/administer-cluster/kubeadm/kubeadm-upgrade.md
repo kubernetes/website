@@ -393,130 +393,15 @@ without compromising the minimum required capacity for running your workloads.
 以不影响运行工作负载所需的最小容量。
 
 <!--
-### Upgrade kubeadm
+The following pages show how to  Upgrade Linux and Windows worker nodes:
+
+  * [Upgrade Linux nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes/)
+  * [Upgrade Windows nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes/)
 -->
-### 升级 kubeadm   {#upgrade-kubeadm}
+以下内容演示如何升级 Linux 和 Windows 工作节点：
 
-<!--
-- Upgrade kubeadm:
--->
-- 升级 kubeadm：
-
-  {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
-  {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
-  ```shell
-  # 将 {{< skew currentVersion >}}.x-00 中的 x 替换为最新的补丁版本号
-  apt-mark unhold kubeadm && \
-  apt-get update && apt-get install -y kubeadm={{< skew currentVersion >}}.x-00 && \
-  apt-mark hold kubeadm
-  ```
-  {{% /tab %}}
-  {{% tab name="CentOS、RHEL 或 Fedora" %}}
-  ```shell
-  # 用最新的补丁版本替换 {{< skew currentVersion >}}.x-00 中的 x
-  yum install -y kubeadm-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
-  ```
-  {{% /tab %}}
-  {{< /tabs >}}
-
-<!--
-### Call "kubeadm upgrade"
--->
-### 执行 "kubeadm upgrade"   {#call-kubeadm-upgrade-1}
-
-<!--
-- For worker nodes this upgrades the local kubelet configuration:
--->
-- 对于工作节点，下面的命令会升级本地的 kubelet 配置：
-
-  ```shell
-  sudo kubeadm upgrade node
-  ```
-
-<!--
-### Drain the node
--->
-### 腾空节点   {#drain-the-node-1}
-
-<!--
-- Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
--->
-- 将节点标记为不可调度并驱逐所有负载，准备节点的维护：
-
-  <!--
-  ```shell
-  # replace <node-to-drain> with the name of your node you are draining
-  kubectl drain <node-to-drain> --ignore-daemonsets
-  ```
-  -->
-
-  ```shell
-  # 将 <node-to-drain> 替换为你正在腾空的节点的名称
-  kubectl drain <node-to-drain> --ignore-daemonsets
-  ```
-
-<!--
-### Upgrade kubelet and kubectl
--->
-### 升级 kubelet 和 kubectl   {#upgrade-kubelet-and-kubectl-1}
-
-<!--
-- Upgrade the kubelet and kubectl:
--->
-- 升级 kubelet 和 kubectl：
-
-  {{< tabs name="k8s_kubelet_and_kubectl" >}}
-  {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
-
-  ```shell
-  # 将 {{< skew currentVersion >}}.x-00 中的 x 替换为最新的补丁版本
-  apt-mark unhold kubelet kubectl && \
-  apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
-  apt-mark hold kubelet kubectl
-  ```
-
-  {{% /tab %}}
-  {{% tab name="CentOS、RHEL 或 Fedora" %}}
-
-  ```shell
-  # 将 {{< skew currentVersion >}}.x-0 x 替换为最新的补丁版本
-  yum install -y kubelet-{{< skew currentVersion >}}.x-0 kubectl-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
-  ```
-
-  {{% /tab %}}
-  {{< /tabs >}}
-  <br />
-
-<!--
-- Restart the kubelet:
--->
-- 重启 kubelet：
-
-  ```shell
-  sudo systemctl daemon-reload
-  sudo systemctl restart kubelet
-  ```
-
-<!--
-### Uncordon the node
--->
-### 取消对节点的保护   {#uncordon-the-node-1}
-
-<!--
-- Bring the node back online by marking it schedulable:
--->
-- 通过将节点标记为可调度，让节点重新上线：
-
-  <!--
-  ```shell
-  # replace <node-to-uncordon> with the name of your node
-  kubectl uncordon <node-to-uncordon>
-  ```
-  -->
-  ```shell
-  # 将 <node-to-uncordon> 替换为当前节点的名称
-  kubectl uncordon <node-to-uncordon>
-  ```
+* [升级 Linux 节点](/zh-cn/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes/)
+* [升级 Windows 节点](/zh-cn/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes/)
 
 <!--
 ## Verify the status of the cluster
