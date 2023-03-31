@@ -83,6 +83,7 @@ For a reference to old feature gates that are removed, please refer to
 | `CSINodeExpandSecret` | `false` | Alpha | 1.25 | 1.26 |
 | `CSINodeExpandSecret` | `true` | Beta | 1.27 | |
 | `CSIVolumeHealth` | `false` | Alpha | 1.21 | |
+| `CloudDualStackNodeIPs` | false | Alpha | 1.27 | |
 | `ComponentSLIs` | `false` | Alpha | 1.26 | |
 | `ContainerCheckpoint` | `false` | Alpha | 1.25 | |
 | `ContextualLogging` | `false` | Alpha | 1.24 | |
@@ -398,6 +399,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
   {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}.
 - `AppArmor`: Enable use of AppArmor mandatory access control for Pods running on Linux nodes.
   See [AppArmor Tutorial](/docs/tutorials/security/apparmor/) for more details.
+- `CloudDualStackNodeIPs`: Enables dual-stack `kubelet --node-ip` with external cloud providers.
+  See [Configure IPv4/IPv6 dual-stack](/docs/concepts/services-networking/dual-stack/#configure-ipv4-ipv6-dual-stack)
+  for more details.
 - `ContainerCheckpoint`: Enables the kubelet `checkpoint` API.
   See [Kubelet Checkpoint API](/docs/reference/node/kubelet-checkpoint-api/) for more details.
 - `CPUManager`: Enable container level CPU affinity support, see
