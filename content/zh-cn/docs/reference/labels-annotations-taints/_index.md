@@ -330,17 +330,39 @@ Kubelet 使用 Go 定义的 `runtime.GOARCH` 填充它。如果你混合使用 A
 
 Example: `kubernetes.io/os: "linux"`
 
-Used on: Node
+Used on: Node, Pod
 
-The Kubelet populates this with `runtime.GOOS` as defined by Go. This can be handy if you are mixing operating systems in your cluster (for example: mixing Linux and Windows nodes).
+For nodes, the kubelet populates this with `runtime.GOOS` as defined by Go. This can be handy if you are
+mixing operating systems in your cluster (for example: mixing Linux and Windows nodes).
+
+You can also set this label on a Pod. Kubernetes allows you to set any value for this label;
+if you use this label, you should nevertheless set it to the Go `runtime.GOOS` string for the operating
+system that this Pod actually works with.
+
+When the `kubernetes.io/os` label value for a Pod does not match the label value on a Node,
+the kubelet on the node will not admit the Pod. However, this is not taken into account by
+the kube-scheduler. Alternatively, the kubelet refuses to run a Pod where you have specified a Pod OS, if
+this isn't the same as the operating system for the node where that kubelet is running. Just
+look for [Pods OS](/docs/concepts/workloads/pods/#pod-os) for more details.
 -->
+
 ### kubernetes.io/os {#kubernetes-io-os}
 
 例子：`kubernetes.io/os: "linux"`
 
-用于：Node
+用于：Node，Pod
 
-Kubelet 使用 Go 定义的 `runtime.GOOS` 填充它。如果你在集群中混合使用操作系统（例如：混合 Linux 和 Windows 节点），这会很方便。
+对于节点，kubelet 会根据 Go 定义的 `runtime.GOOS` 填充这个值。
+你可以很方便地在集群中混合使用操作系统（例如：混合使用 Linux 和 Windows 节点）。
+
+你还可以在 Pod 上设置这个标签。
+Kubernetes 允许你为此标签设置任何值；如果你使用此标签，
+你应该将其设置为与该 Pod 实际使用的操作系统相对应的 Go `runtime.GOOS` 字符串。
+
+当 Pod 的 kubernetes.io/os 标签值与节点上的标签值不匹配时，节点上的 kubelet 不会运行该 Pod。
+但是，kube-scheduler 并未考虑这一点。
+另外，如果你为 Pod 指定的操作系统与运行该 kubelet 的节点操作系统不相同，那么 kubelet 会拒绝运行该 Pod。
+请查看 [Pod 操作系统](/zh-cn/docs/concepts/workloads/pods/#pod-os) 了解更多详情。
 
 <!--
 ### kubernetes.io/metadata.name
