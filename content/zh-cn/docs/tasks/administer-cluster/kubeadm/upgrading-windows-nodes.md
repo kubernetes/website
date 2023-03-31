@@ -2,13 +2,13 @@
 title: 升级 Windows 节点
 min-kubernetes-server-version: 1.17
 content_type: task
-weight: 50
+weight: 110
 ---
 <!--
 title: Upgrading Windows nodes
 min-kubernetes-server-version: 1.17
 content_type: task
-weight: 50
+weight: 110
 -->
 
 <!-- overview -->
@@ -177,3 +177,10 @@ bring the node back online by marking it schedulable:
    kubectl uncordon <要腾空的节点>
    ```
 
+## {{% heading "whatsnext" %}}
+
+<!--
+* See how to [Upgrade Linux nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes/).
+-->
+
+* 查看如何[升级 Linux 节点](/zh-cn/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes/)。
