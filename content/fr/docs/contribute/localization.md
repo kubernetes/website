@@ -67,10 +67,10 @@ These instructions use the [ISO 639-1](https://www.loc.gov/standards/iso639-2/ph
 ### Modifier la configuration du site
 
 Le site web de Kubernetes utilise Hugo comme son web framework.
-La configuration Hugo du site Web se trouve dans le fichier [`config.toml`](https://github.com/kubernetes/website/tree/master/config.toml).
-Pour prendre en charge une nouvelle localisation, vous devrez modifier `config.toml`.
+La configuration Hugo du site Web se trouve dans le fichier [`hugo.toml`](https://github.com/kubernetes/website/tree/master/hugo.toml).
+Pour prendre en charge une nouvelle localisation, vous devrez modifier `hugo.toml`.
 
-Ajoutez un bloc de configuration pour la nouvelle langue dans `config.toml`, sous le bloc `[languages]` existant.
+Ajoutez un bloc de configuration pour la nouvelle langue dans `hugo.toml`, sous le bloc `[languages]` existant.
 Le bloc allemand, par exemple, ressemble à :
 
 ```toml

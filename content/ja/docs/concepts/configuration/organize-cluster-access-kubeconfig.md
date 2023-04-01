@@ -35,7 +35,7 @@ kubeconfigファイルを使用すると、クラスター、ユーザー、名�
 
 ## Context
 
-kubeconfigファイルの*context*要素は、アクセスパラメーターを使いやすい名前でグループ化するために使われます。各contextは3つのパラメータ、cluster、namespace、userを持ちます。デフォルトでは、`kubectl`コマンドラインツールはクラスターとの通信に*current context*のパラメーターを使用します。
+kubeconfigファイルの*context*要素は、アクセスパラメーターを使いやすい名前でグループ化するために使われます。各contextは3つのパラメーター、cluster、namespace、userを持ちます。デフォルトでは、`kubectl`コマンドラインツールはクラスターとの通信に*current context*のパラメーターを使用します。
 
 current contextを選択するには、以下のコマンドを使用します。
 

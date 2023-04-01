@@ -2,7 +2,7 @@
 title: 为 Pod 配置用户名字空间
 reviewers:
 content_type: task
-weight: 160
+weight: 210
 min-kubernetes-server-version: v1.25
 ---
 
@@ -10,7 +10,7 @@ min-kubernetes-server-version: v1.25
 title: Use a User Namespace With a Pod
 reviewers:
 content_type: task
-weight: 160
+weight: 210
 min-kubernetes-server-version: v1.25
 -->
 

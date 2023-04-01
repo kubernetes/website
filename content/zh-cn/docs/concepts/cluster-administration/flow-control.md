@@ -918,11 +918,14 @@ poorly-behaved workloads that may be harming system health.
     queue excess requests, or
   * `time-out`, indicating that the request was still in the queue
     when its queuing time limit expired.
+  * `cancelled`, indicating that the request is not purge locked
+     and has been ejected from the queue.
   -->
   * `queue-full`，表明已经有太多请求排队，
   * `concurrency-limit`，表示将 PriorityLevelConfiguration 配置为
     `Reject` 而不是 `Queue`，或者
   * `time-out`，表示在其排队时间超期的请求仍在队列中。
+  * `cancelled`，表示该请求未被清除锁定，已从队列中移除。
 
 <!--
 * `apiserver_flowcontrol_dispatched_requests_total` is a counter
