@@ -274,7 +274,7 @@ pod usage is still within acceptable limits.
 
 ### Container resource metrics
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 The HorizontalPodAutoscaler API also supports a container metric source where the HPA can track the
 resource usage of individual containers across a set of Pods, in order to scale the target resource.
