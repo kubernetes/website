@@ -376,9 +376,9 @@ Por exemplo, o Ingress a seguir roteia o tráfego solicitado para `first.bar.com
 ### TLS
 
 Você pode proteger um Ingress especificando um {{< glossary_tooltip term_id="secret" >}} que contém uma chave privada e um certificado TLS. 
-O recurso Ingress suporta apenas uma única porta TLS, 443, e assume a terminação TLS no ponto de entrada (o tráfego para o Serviço e seus Pods está em texto claro). 
+O recurso Ingress suporta apenas uma única porta TLS, 443, e assume a terminação TLS no ponto de entrada (o tráfego para o Serviço e seus Pods não está criptografado o que é inseguro). 
 Se a seção de configuração TLS em um Ingress especificar hosts diferentes, eles serão multiplexados na mesma porta de acordo com o nome do host especificado através da extensão SNI TLS (desde que o controlador Ingress suporte SNI). 
-O TLS secret deve conter chaves chamadas `tls.crt` e `tls.key` que contêm o certificado e a chave privada a ser usada para TLS. 
+O objeto Secret do tipo TLS deve conter chaves chamadas `tls.crt` e `tls.key` que contêm o certificado e a chave privada a ser usada para TLS. 
 
 Por exemplo:
 
@@ -395,7 +395,7 @@ type: kubernetes.io/tls
 ```
 
 Fazer referência a esse segredo em um Ingress diz ao controlador Ingress para proteger o canal do cliente para o balanceador de carga usando TLS. 
-Você precisa ter certeza de que o TLS secret que você criou é originário de um certificado que contém um Nome Comum (Common
+Você precisa ter certeza de que o objeto Secret do tipo TLS que você criou é originário de um certificado que contém um Nome Comum (Common
 Name, CN), também conhecido como Nome de Domínio Totalmente Qualificado (Fully Qualified Domain Name, FQDN), tal como `https-example.foo.com`.
 
 {{< note >}}
@@ -510,7 +510,7 @@ Você pode alcançar o mesmo resultado invocando `kubectl replace -f` em um arqu
 
 ## Falha nas zonas de disponibilidade
 
-Técnicas para distribuir o tráfego entre domínios de falha diferem e entre os provedores de nuvem. 
+Técnicas para distribuir o tráfego entre domínios de falha diferem entre os provedores de nuvem. 
 Verifique a documentação do [controlador Ingress](/docs/concepts/services-networking/ingress-controllers) para obter detalhes relevantes.
 
 ## Alternativas {#alternatives}
