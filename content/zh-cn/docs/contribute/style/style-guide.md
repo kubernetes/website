@@ -823,51 +823,6 @@ Beware.
 {{< /warning >}}
 
 <!--
-### Katacoda Embedded Live Environment
-
-This button lets users run Minikube in their browser using the [Katacoda Terminal](https://www.katacoda.com/embed/panel).
-It lowers the barrier of entry by allowing users to use Minikube with one click instead of going through the complete
-Minikube and Kubectl installation process locally.
-
-The Embedded Live Environment is configured to run `minikube start` and lets users complete tutorials in the same window
-as the documentation.
-
-{{< caution >}}
-The session is limited to 15 minutes.
-{{< /caution >}}
-
-For example:
-
-```
-{{</* kat-button */>}}
-```
-
-The output is:
-
-{{< kat-button >}}
--->
-### Katacoda 嵌套现场环境   {#katacoda-embedded-live-environment}
-
-此按钮允许用户使用 [Katacoda 终端](https://www.katacoda.com/embed/panel)
-在其浏览器中运行 Minikube。该环境降低了用户对 Minikube 的入门难度，
-只需要一次鼠标点击即可完成，而不需要完全经历 Minikube 和 kubectl 的安装过程。
-
-嵌套现场环境配置为运行 `minikube start`，允许用户在文档所在的窗口完成教程。
-
-{{< caution >}}
-会话限制为 15 分钟。
-{{< /caution >}}
-
-例如：
-
-```
-{{</* kat-button */>}}
-```
-
-其输出为：
-
-{{< kat-button >}}
-<!--
 ## Common Shortcode Issues
 
 ### Ordered Lists
