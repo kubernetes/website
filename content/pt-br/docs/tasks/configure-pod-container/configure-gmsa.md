@@ -8,7 +8,7 @@ weight: 20
 
 {{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
-Esta página mostra como configurar [Contas de serviço gerenciadas em grupo](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/group-managed-service-accounts-overview) (GMSA) 
+Esta página mostra como configurar [Contas de serviço gerenciadas em grupo](https://docs.microsoft.com/pt-br/windows-server/security/group-managed-service-accounts/group-managed-service-accounts-overview) (GMSA) 
 para Pods e contêineres que vão executar em nós Windows. Contas de serviço gerenciadas em grupo 
 são um tipo específico de conta do Active Directory que provê gerenciamento automático 
 de senhas, gerenciamento simplificado de *service principal name* (SPN), e a habilidade 
@@ -71,10 +71,10 @@ associados manualmente (com as substituições apropriadas para os parâmetros).
 ## Configurar GMSAs e nós Windows em Active Directory
 
 Antes que os Pods no Kubernetes possam ser configurados para usar GMSAs, as GMSAs apropriadas precisam ser provisionadas no Active Directory como descrito na 
-[documentação de GMSA do Windows](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#BKMK_Step1). 
+[documentação de GMSA do Windows](https://docs.microsoft.com/pt-br/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#BKMK_Step1). 
 Nós de carga de trabalho Windows (que são parte do cluster Kubernetes) precisam ser configurados no 
 Active Directory para acessar as credenciais secretas associadas com a GMSA apropriada, 
-como descrito na [documentação de GMSA do Windows](https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#to-add-member-hosts-using-the-set-adserviceaccount-cmdlet).
+como descrito na [documentação de GMSA do Windows](https://docs.microsoft.com/pt-br/windows-server/security/group-managed-service-accounts/getting-started-with-group-managed-service-accounts#to-add-member-hosts-using-the-set-adserviceaccount-cmdlet).
 
 ## Crie recursos de especificação de GMSA
 
@@ -133,7 +133,7 @@ O recurso de especificação de credencial acima deve ser salvo como
 
 ## Configure um ClusterRole para habilitar RBAC nas especificações de credenciais GMSA específicas
 
-Uma ClusterRole precisa ser definido para cada recurso de especificação 
+Uma ClusterRole precisa ser definida para cada recurso de especificação 
 de credencial GMSA. Isto autoriza o verbo `use` em um recurso GMSA específico
 por um sujeito, geralmente uma conta de serviço. O exemplo a seguir mostra 
 um ClusterRole que autoriza o uso de credencial `gmsa-WebApp1` 
@@ -178,11 +178,10 @@ roleRef:
 
 ## Configure a especificação de recurso de credencial GMSA em uma especificação de Pod
 
-O campo de especificação do Pod `securityContext.windowsOptions.gmsaCredentialSpecName`,  
-é usado para especificar referências para recursos customizados, em especificações 
+O campo `securityContext.windowsOptions.gmsaCredentialSpecName` do Pod, é usado de referência para recursos customizados, em especificações 
 de certificado GMSA apropriadas em especificações do Pod. 
-Isto configura todos contêineres na especificação do Pod para usar a especificação GMSA. 
-Uma amostra da especificação do Pod com anotação populada para referir-se a `gmsa-WebApp1`:
+Isto configura todos contêineres do Pod para usar GMSA. 
+Uma amostra da anotação populada para referir-se a `gmsa-WebApp1`:
 
 ```yaml
 apiVersion: apps/v1
@@ -213,8 +212,8 @@ spec:
         kubernetes.io/os: windows
 ```
 
-Contêineres individuais em uma especificação de Pod podem também especificar 
-a especificação de credencial GMSA apropriada, usando o campo `securityContext.windowsOptions.gmsaCredentialSpecName` por contêiner. Por exemplo:
+Contêineres individuais em uma especificação de Pod podem também indicar 
+a credencial GMSA apropriada, usando o campo `securityContext.windowsOptions.gmsaCredentialSpecName` por contêiner. Por exemplo:
 
 ```yaml
 apiVersion: apps/v1
@@ -350,4 +349,4 @@ precisará examinar sua especificação de credencial novamente e confirmar que 
 
 Se você adicionar a seção `lifecycle`, mostrada acima à sua especificação de Pod, 
 o Pod irá executar os comandos listados para reiniciar o serviço `netlogon` 
-até que o comando `nltest.exe /query` saia sem erro.
+até que o comando `nltest.exe /query` execute sem erro.
