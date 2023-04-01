@@ -110,7 +110,9 @@ previously match. More concretely, the rules for updating a Pod's scheduling dir
    while the expressions in `nodeSelectorTerms[].matchExpressions` and 
    `nodeSelectorTerms[].fieldExpressions` are ANDed. 
 
-4. For `.preferredDuringSchedulingIgnoredDuringExecution`, all updates are allowed. This is because preferred terms are not authoritative, and so policy controllers don't validate those terms.
+4. For `.preferredDuringSchedulingIgnoredDuringExecution`, all updates are allowed.
+   This is because preferred terms are not authoritative, and so policy controllers
+   don't validate those terms.
 
 
 ## {{% heading "whatsnext" %}}
