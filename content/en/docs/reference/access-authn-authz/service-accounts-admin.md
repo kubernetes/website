@@ -67,7 +67,7 @@ for a number of reasons:
 {{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
 By default, the Kubernetes control plane (specifically, the
-[ServiceAccount admission controller](#serviceaccount-admission-controller))
+[ServiceAccount admission controller](#serviceaccount-admission-controller)) 
 adds a [projected volume](/docs/concepts/storage/projected-volumes/) to Pods,
 and this volume includes a token for Kubernetes API access.
 
