@@ -119,7 +119,7 @@ The following methods exist for installing kubectl on Linux:
    -->
    验证失败时，`sha256` 将以非零值退出，并打印如下输出：
 
-   ```bash
+   ```console
    kubectl: FAILED
    sha256sum: WARNING: 1 computed checksum did NOT match
    ```

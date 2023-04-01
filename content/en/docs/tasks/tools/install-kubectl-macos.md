@@ -89,7 +89,7 @@ The following methods exist for installing kubectl on macOS:
 
    If the check fails, `shasum` exits with nonzero status and prints output similar to:
 
-   ```bash
+   ```console
    kubectl: FAILED
    shasum: WARNING: 1 computed checksum did NOT match
    ```
