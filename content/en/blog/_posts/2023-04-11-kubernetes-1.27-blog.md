@@ -28,7 +28,7 @@ Special thinks to [Britnee Laverack](https://www.instagram.com/artsyfie/) for cr
 
 # What's New (Major Themes)
 
-### Freeze `k8s.gcr.io` image registry
+## Freeze `k8s.gcr.io` image registry
 
 Replacing the old image registry, [k8s.gcr.io](https://cloud.google.com/container-registry/) with [registry.k8s.io](https://github.com/kubernetes/registry.k8s.io) which has been generally available for several months. The Kubernetes project created and runs the `registry.k8s.io` image registry, which is fully controlled by the community.
 This mean that all subsequent image releases would not be available on the old registry. Freezing  the `k8s.gcr.io` image registry by not pushing any new digests or tags after this release.
@@ -155,12 +155,9 @@ This release saw several removals:
 * [Removal of `IdentifyPodOS` feature gate](https://github.com/kubernetes/kubernetes/pull/111229)
 * [Removal of `DaemonSetUpdateSurge` feature gate](https://github.com/kubernetes/kubernetes/pull/111194)
 
-
-
 ## Release notes
 
 The complete details of the Kubernetes v1.27 release are available in our [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.27.md).
-
 
 ## Availability
 
