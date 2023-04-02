@@ -61,7 +61,7 @@ Por exemplo, para fazer download da versão {{< param "fullversion" >}} no Linux
 
    Se a verificação falhar, o `sha256` exibirá o status diferente de zero e a saída será semelhante a:
 
-   ```console
+   ```bash
    kubectl: FAILED
    sha256sum: WARNING: 1 computed checksum did NOT match
    ```

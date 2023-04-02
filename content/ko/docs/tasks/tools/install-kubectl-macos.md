@@ -74,13 +74,13 @@ card:
 
    검증이 성공한다면, 출력은 다음과 같다.
 
-   ```console
+   ```bash
    kubectl: OK
    ```
 
    검증이 실패한다면, `shasum`이 0이 아닌 상태로 종료되며 다음과 유사한 결과를 출력한다.
 
-   ```console
+   ```bash
    kubectl: FAILED
    shasum: WARNING: 1 computed checksum did NOT match
    ```

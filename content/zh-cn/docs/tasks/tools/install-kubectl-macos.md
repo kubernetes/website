@@ -145,7 +145,7 @@ The following methods exist for installing kubectl on macOS:
    -->
    验证失败时，`shasum` 将以非零值退出，并打印如下输出：
 
-   ```console
+   ```bash
    kubectl: FAILED
    shasum: WARNING: 1 computed checksum did NOT match
    ```
