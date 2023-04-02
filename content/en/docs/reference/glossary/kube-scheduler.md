@@ -17,9 +17,13 @@ and chooses a {{< glossary_tooltip term_id="node" text="node">}} for them.
 <!--more-->
 
 Factors taken into account for scheduling decisions include:
-individual and collective resource requirements, hardware/software/policy
-constraints, affinity and anti-affinity specifications, data locality,
-inter-workload interference, and deadlines.
+
+- individual and collective resource requirements
+- hardware/software/policy constraints
+- affinity and anti-affinity specifications
+- data locality
+- inter-workload interference
+- deadlines
 
 Individual and collective resource requirements: The CPU and memory requirements 
 of each pod when scheduling it onto a node is only considered. It is also considers
