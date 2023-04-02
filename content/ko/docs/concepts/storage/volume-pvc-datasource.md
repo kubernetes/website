@@ -6,7 +6,7 @@
 # - msau42
 title: CSI 볼륨 복제하기
 content_type: concept
-weight: 60
+weight: 70
 ---
 
 <!-- overview -->

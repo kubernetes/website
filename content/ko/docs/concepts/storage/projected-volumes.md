@@ -46,7 +46,6 @@ weight: 21 # just after persistent volumes
   `mode`를 명시적으로 지정할 수 있다.
 
 ## 서비스어카운트토큰 프로젝티드 볼륨 {#serviceaccounttoken}
-`TokenRequestProjection` 기능이 활성화 된 경우
 파드의 지정된 경로에 [서비스어카운트토큰](/docs/reference/access-authn-authz/authentication/#service-account-tokens)을
 주입할 수 있다. 
 
@@ -81,6 +80,23 @@ weight: 21 # just after persistent volumes
 [`보안 컨텍스트`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)에
 `RunAsUser`가 설정된 리눅스 파드에서는
 프로젝티드파일이 컨테이너 사용자 소유권을 포함한 올바른 소유권 집합을 가진다.
+
+파드의 모든 컨테이너의
+[`PodSecurityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)나
+컨테이너
+[`SecurityContext`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context-1)의 `runAsUser` 설정이 동일하다면,
+kubelet은 `serviceAccountToken` 볼륨의 내용이 해당 사용자의 소유이며,
+토큰 파일의 권한 모드는 `0600`로 설정됨을 보장한다.
+
+{{< note >}}
+생성된 후 파드에 추가되는 {{< glossary_tooltip text="임시 컨테이너" term_id="ephemeral-container" >}}는
+파드 생성 시 설정된 볼륨 권한을
+변경하지 *않는다*.
+
+파드 내 그 외의 모든 컨테이너의 `runAsUser`가 동일하여
+파드의 `serviceAccountToken` 볼륨 권한이 `0600`으로 설정되어 있다면, 임시
+컨테이너는 토큰을 읽을 수 있도록 동일한 `runAsUser`를 사용해야 한다.
+{{< /note >}}
 
 ### 윈도우
 
