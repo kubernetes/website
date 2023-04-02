@@ -7,7 +7,7 @@ slug: hpa-container-resource-metric
 
 **Author: [Kensei Nakada](https://github.com/sanposhiho) (Mercari)**
 
-Kubernetes 1.20 introduced [the ContainerResource type metric](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#container-resource-metrics) in HPA.
+Kubernetes 1.20 introduced [the ContainerResource type metric](/docs/tasks/run-application/horizontal-pod-autoscale/#container-resource-metrics) in HPA.
 
 In Kubernetes 1.27, this feature moves to beta and the corresponding feature gate (`HPAContainerMetrics`) gets enabled by default. 
 
@@ -17,7 +17,8 @@ The ContainerResource type metric allows us to configure the autoscaling based o
 
 In the following example, the HPA controller scales the target 
 so that the average utilization of the cpu in the application container of all the pods is around 60%.
-(See [here](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details) to know how the desired replica number is calculated exactly)
+(See [the algorithm details](/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details)
+to know how the desired replica number is calculated exactly)
 
 ```yaml
 type: ContainerResource
@@ -31,7 +32,7 @@ containerResource:
 
 ## The difference from the Resource type metric
 
-HPA already has [the Resource type metric](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-resource-metrics). 
+HPA already has [the Resource type metric](/docs/tasks/run-application/horizontal-pod-autoscale/#support-for-resource-metrics). 
 
 We can define the target resource utilization like the following,
 and then HPA will scale up/down the replicas based on the current utilization.
@@ -70,9 +71,9 @@ So, for the accurate autoscaling, you may want to use the ContainerResource type
 For Kubernetes v1.27, the ContainerResource type metric will be available by default as described at the beginning.
 (You can still disable it by the `HPAContainerMetrics` feature gate.)
 
-Also, we've improve the observability of HPA controller by exposing some metrics from the kube-controller-manager:
-- `metric_computation_duration_seconds`: Number of metric computations. 
-- `metric_computation_total`: The time that the HPA controller takes to calculate one metric.
+Also, we've improved the observability of HPA controller by exposing some metrics from the kube-controller-manager:
+- `metric_computation_total`: Number of metric computations. 
+- `metric_computation_duration_seconds`: The time that the HPA controller takes to calculate one metric.
 - `reconciliations_total`: Number of reconciliation of HPA controller. 
 - `reconciliation_duration_seconds`: The time that the HPA controller takes to reconcile a HPA object once.
 
@@ -93,5 +94,5 @@ Please join us and share your feedback. We look forward to hearing from you!
 
 ## How can I learn more?
 
-- [The official document of the ContainerResource type metric](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#container-resource-metrics)
+- [The official document of the ContainerResource type metric](/docs/tasks/run-application/horizontal-pod-autoscale/#container-resource-metrics)
 - [KEP-1610: Container Resource based Autoscaling](https://github.com/kubernetes/enhancements/tree/master/keps/sig-autoscaling/1610-container-resource-autoscaling)
