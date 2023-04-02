@@ -128,6 +128,7 @@ que pode atuar como um [cliente da API do Kubernetes](/docs/reference/using-api/
 * Use ferramentes existentes para escrever os seus Operadores:
   * usando [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
   * usando [kubebuilder](https://book.kubebuilder.io/)
+  * usando [Mast](https://docs.ansi.services/mast/user_guide/operator/)
   * usando [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html) juntamente com WebHooks que
     implementa você mesmo
   * usando o [Operator Framework](https://operatorframework.io/)
