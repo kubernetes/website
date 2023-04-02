@@ -28,7 +28,7 @@ the Linux man-pages project.
 
 {{< note >}}
 Sysctl is a Linux-sepcific command-line tool used to configure various kernal parameters
-and it is not available on non-Linux operating systems
+and it is not available on non-Linux operating systems.
 {{< /note >}}
 
 {{< include "task-tutorial-prereqs.md" >}}
