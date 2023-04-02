@@ -89,11 +89,7 @@ The following methods exist for installing kubectl on Windows:
    kubectl version --client --output=yaml
    ```
 
-1. After installing the plugin, clean up the installation files:
 
-   ```powershell
-   del kubectl.exe kubectl.exe.sha256
-   ```
 
 {{< note >}}
 [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes)
