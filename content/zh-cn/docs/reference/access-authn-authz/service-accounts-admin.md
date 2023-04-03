@@ -117,13 +117,13 @@ Kubernetes 区分用户账号和服务账号的概念，主要基于以下原因
 
 <!--
 By default, the Kubernetes control plane (specifically, the
-[ServiceAccount admission controller](#service-account-admission-controller))
+[ServiceAccount admission controller](#serviceaccount-admission-controller))
 adds a [projected volume](/docs/concepts/storage/projected-volumes/) to Pods,
 and this volume includes a token for Kubernetes API access.
 
 Here's an example of how that looks for a launched Pod:
 -->
-默认情况下，Kubernetes 控制平面（特别是 [ServiceAccount 准入控制器](#service-account-admission-controller)）
+默认情况下，Kubernetes 控制平面（特别是 [ServiceAccount 准入控制器](#serviceaccount-admission-controller)）
 添加一个[投射卷](/zh-cn/docs/concepts/storage/projected-volumes/)到 Pod，
 此卷包括了访问 Kubernetes API 的令牌。
 
