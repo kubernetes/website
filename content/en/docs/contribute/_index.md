@@ -29,12 +29,12 @@ about contributing to Kubernetes.
 
 This website is maintained by [Kubernetes SIG Docs](/docs/contribute/#get-involved-with-sig-docs).
 
-Kubernetes documentation contributors:
+Kubernetes documentation contributors can:
 
 - Improve existing content
 - Create new content
-- Translate the documentation
-- Manage and publish the documentation parts of the Kubernetes release cycle
+- Translate the docs
+- Manage and publish the docs parts of the Kubernetes release cycle
 
 
 
@@ -42,22 +42,22 @@ Kubernetes documentation contributors:
 
 ## Getting started
 
-Anyone can open an issue about documentation, or contribute a change with a
+Anyone can open an issue about docs, or contribute a change with a
 pull request (PR) to the
 [`kubernetes/website` GitHub repository](https://github.com/kubernetes/website).
-You need to be comfortable with
-[git](https://git-scm.com/) and
-[GitHub](https://lab.github.com/)
-to work effectively in the Kubernetes community.
+
+Firstly, you need:
+
+- Be familiar with [git](https://git-scm.com/).
+- Have account in [GitHub](https://github.com/).
 
 To get involved with documentation:
 
-1. Sign the CNCF [Contributor License Agreement](https://github.com/kubernetes/community/blob/master/CLA.md).
-2. Familiarize yourself with the [documentation repository](https://github.com/kubernetes/website)
-   and the website's [static site generator](https://gohugo.io).
-3. Make sure you understand the basic processes for
-   [opening a pull request](/docs/contribute/new-content/open-a-pr/) and
-   [reviewing changes](/docs/contribute/review/reviewing-prs/).
+1. Sign the [CNCF Contributor License Agreement](https://github.com/kubernetes/community/blob/master/CLA.md).
+1. Familiarize yourself with the [kubernetes/website repo](https://github.com/kubernetes/website).
+1. Understand the basics of:
+    * [opening a pull request](/docs/contribute/new-content/open-a-pr/).
+    * [reviewing changes](/docs/contribute/review/reviewing-prs/).
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
@@ -112,7 +112,7 @@ roles and permissions.
 
 ## Your first contribution
 
-You can prepare for your first contribution by reviewing several steps beforehand. Figure 2 outlines the steps and the details follow. 
+You can prepare for your first contribution by reviewing several steps beforehand. Figure 2 outlines the steps and the details follow.
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
@@ -131,10 +131,10 @@ flowchart LR
        D[Read contribution overview] -->E[Read K8s content<br>and style guides]
        E --> F[Learn about Hugo page<br>content types<br>and shortcodes]
     end
-    
+
 
     first ----> second
-     
+
 
 classDef grey fill:#dddddd,stroke:#ffffff,stroke-width:px,color:#000000, font-size:15px;
 classDef white fill:#ffffff,stroke:#000,stroke-width:px,color:#000,font-weight:bold
@@ -145,27 +145,26 @@ class first,second white
 {{</ mermaid >}}
 Figure 2. Preparation for your first contribution.
 
-- Read the [Contribution overview](/docs/contribute/new-content/) to
+1. Read the [Contribution overview](/docs/contribute/new-content/) to
   learn about the different ways you can contribute.
-- Check [`kubernetes/website` issues list](https://github.com/kubernetes/website/issues/)
-  for issues that make good entry points.
-- [Open a pull request using GitHub](/docs/contribute/new-content/open-a-pr/#changes-using-github)
-  to existing documentation and learn more about filing issues in GitHub.
-- [Review pull requests](/docs/contribute/review/reviewing-prs/) from other
-  Kubernetes community members for accuracy and language.
-- Read the Kubernetes [content](/docs/contribute/style/content-guide/) and
+1. Read the Kubernetes [content](/docs/contribute/style/content-guide/) and
   [style guides](/docs/contribute/style/style-guide/) so you can leave informed comments.
-- Learn about [page content types](/docs/contribute/style/page-content-types/)
+1. Learn about [page content types](/docs/contribute/style/page-content-types/)
   and [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/).
+1. [Review pull requests](/docs/contribute/review/reviewing-prs/) from other
+  Kubernetes community members for accuracy and language.
+1. Check [`kubernetes/website` issues list](https://github.com/kubernetes/website/issues/)
+  for issues that make good entry points.
+1. [Open a pull request using GitHub](/docs/contribute/new-content/open-a-pr/#changes-using-github)
+  to existing documentation and learn more about filing issues in GitHub.
 
 ## Next steps
 
-- Learn to [work from a local clone](/docs/contribute/new-content/open-a-pr/#fork-the-repo)
+- Learn [how to work from a local clone](/docs/contribute/new-content/open-a-pr/#fork-the-repo)
   of the repository.
 - Document [features in a release](/docs/contribute/new-content/new-features/).
 - Participate in [SIG Docs](/docs/contribute/participate/), and become a
   [member or reviewer](/docs/contribute/participate/roles-and-responsibilities/).
-                       
 - Start or help with a [localization](/docs/contribute/localization/).
 
 ## Get involved with SIG Docs
