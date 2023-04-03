@@ -16,20 +16,17 @@ no_list: true
 
 ## প্রোডাকশন বিবেচনা
 
-সাধারণত, একটি প্রোডাকশন কুবারনেটিস ক্লাস্টার পরিবেশে ব্যক্তিগত শিক্ষা, উন্নয়ন, বা পরীক্ষার পরিবেশ কুবারনেটিস এর চেয়ে বেশি প্রয়োজনীয়তা থাকে।  
+সাধারণত, একটি প্রোডাকশন কুবারনেটিস ক্লাস্টার পরিবেশে ব্যক্তিগত শিক্ষা, উন্নয়ন, বা পরীক্ষার পরিবেশ কুবারনেটিস এর চেয়ে বেশি প্রয়োজনীয়তা থাকে।
 একটি প্রোডাকশন পরিবেশের অনেক ব্যবহারকারীর নিরাপদ অ্যাক্সেস, সামঞ্জস্যপূর্ণ প্রাপ্যতা এবং পরিবর্তিত চাহিদাগুলির সাথে খাপ খাইয়ে নেওয়ার জন্য সংস্থানগুলির প্রয়োজন হতে পারে।
 
-As you decide where you want your production Kubernetes environment to live
-(on premises or in a cloud) and the amount of management you want to take
-on or hand to others, consider how your requirements for a Kubernetes cluster
-are influenced by the following issues:
+আপনি যখন সিদ্ধান্ত নিচ্ছেন যে আপনি আপনার উৎপাদন কুবারনেটস পরিবেশ কোথায় রাখতে চান (প্রাঙ্গনে বা ক্লাউডে) এবং আপনি যে পরিমাণ ব্যবস্থাপনা নিতে চান বা অন্যদের হাতে দিতে চান, বিবেচনা করুন কিভাবে একটি কুবারনেটিস ক্লাস্টারের জন্য আপনার প্রয়োজনীয়তা নিম্নলিখিত সমস্যাগুলির দ্বারা প্রভাবিত হয়:
 
-- *Availability*: A single-machine Kubernetes [learning environment](/docs/setup/#learning-environment)
-has a single point of failure. Creating a highly available cluster means considering:
-  - Separating the control plane from the worker nodes.
-  - Replicating the control plane components on multiple nodes.
-  - Load balancing traffic to the cluster’s {{< glossary_tooltip term_id="kube-apiserver" text="API server" >}}.
-  - Having enough worker nodes available, or able to quickly become available, as changing workloads warrant it.
+- *প্রাপ্যতা*: একটি একক-মেশিন কুবারনেটিস [লার্নিং এনভায়রনমেন্ট](/docs/setup/#learning-environment)
+ব্যর্থতার একক পয়েন্ট আছে। একটি অত্যন্ত উপলব্ধ ক্লাস্টার তৈরি করার অর্থ বিবেচনা করা:
+  - কর্মী নোড থেকে নিয়ন্ত্রণ সমতল পৃথক করা।
+  - একাধিক নোডগুলিতে নিয়ন্ত্রণ সমতল উপাদানগুলির প্রতিলিপি করা।
+  - ক্লাস্টারের {{< glossary_tooltip term_id="kube-apiserver" text="API সার্ভার" >}}-এ ব্যালেন্সিং ট্রাফিক লোড করুন৷
+  - পর্যাপ্ত কর্মী নোড উপলব্ধ থাকা, বা দ্রুত উপলব্ধ হতে সক্ষম, কারণ পরিবর্তিত কাজের চাপ এটি নিশ্চিত করে।
 
 - *Scale*: If you expect your production Kubernetes environment to receive a stable amount of
 demand, you might be able to set up for the capacity you need and be done. However,
