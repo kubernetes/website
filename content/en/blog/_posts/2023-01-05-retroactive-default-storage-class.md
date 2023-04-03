@@ -60,7 +60,7 @@ to any unbound PersistentVolumeClaim that has the storageClassName set to <code>
 We've also modified the PersistentVolumeClaim admission within the API server to allow
 the change of values from an unset value to an actual StorageClass name.
 
-### Null `storageClassName` versus `storageClassName: ""` - does it matter? { #null-vs-empty-string }
+### Null `storageClassName` versus `storageClassName: ""`
 
 Before this feature was introduced, those values were equal in terms of behavior.
 Any PersistentVolumeClaim with the storageClassName set to <code>null</code> or <code>""</code>
