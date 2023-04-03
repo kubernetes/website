@@ -131,7 +131,7 @@ Any PersistentVolumeClaim with the storageClassName set to <code>null</code> or 
 would bind to an existing PersistentVolume resource with storageClassName also set to
 <code>null</code> or <code>""</code>.
 -->
-### Null `storageClassName` 与 `storageClassName: ""` - 有什么影响？ {#null-vs-empty-string}
+### Null `storageClassName` 与 `storageClassName: ""`
 
 此特性被引入之前，这两种赋值就其行为而言是相同的。storageClassName 设置为 `null` 或 `""`
 的所有 PersistentVolumeClaim 都会被绑定到 storageClassName 也设置为 `null` 或
