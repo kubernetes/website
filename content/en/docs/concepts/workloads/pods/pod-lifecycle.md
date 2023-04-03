@@ -296,10 +296,8 @@ Each probe must define exactly one of these four mechanisms:
   The target should implement
   [gRPC health checks](https://grpc.io/grpc/core/md_doc_health-checking.html).
   The diagnostic is considered successful if the `status`
-  of the response is `SERVING`.
-  gRPC probes are an alpha feature and are only available if you
-  enable the `GRPCContainerProbe`
-  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+  of the response is `SERVING`. The gRPC probes `GRPCContainerProbe` 
+  are enabled by default since release 1.24.
 
 `httpGet`
 : Performs an HTTP `GET` request against the Pod's IP
