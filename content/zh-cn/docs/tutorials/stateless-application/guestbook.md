@@ -117,7 +117,7 @@ The manifest file, included below, specifies a Deployment controller that runs a
    -->
    响应应该与此类似：
 
-   ```shell
+   ```
    NAME                           READY   STATUS    RESTARTS   AGE
    redis-leader-fb76b4755-xjr2n   1/1     Running   0          13s
    ```

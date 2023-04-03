@@ -249,7 +249,7 @@ kubectl apply -f cassandra-statefulset.yaml
    -->
    响应应该与此类似：
 
-   ```
+   ```none
    NAME          READY     STATUS              RESTARTS   AGE
    cassandra-0   1/1       Running             0          1m
    cassandra-1   0/1       ContainerCreating   0          8s

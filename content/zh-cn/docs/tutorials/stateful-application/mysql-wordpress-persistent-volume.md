@@ -218,7 +218,7 @@ the name of the MySQL Service defined above, and WordPress will access the datab
 -->
 3. 将上述内容追加到 `kustomization.yaml` 文件。
 
-      ```
+      ```shell
       cat <<EOF >>./kustomization.yaml
       resources:
         - mysql-deployment.yaml
