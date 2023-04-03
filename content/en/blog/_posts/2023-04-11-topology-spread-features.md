@@ -93,7 +93,38 @@ this feature to beta and it was enabled by default since.
 
 ## KEP-3243: Respect PodTopologySpread after rolling upgrades
 
-TODO(denkensk): write it
+Pod Topology Spread uses the fields `topologyKey` or `labelSelector` to identify the group of pods over which
+spreading will be calculated. But it applies to all pods in a Deployment irrespective of their owning
+ReplicaSet. As a result, when a new revision is rolled out, spreading will apply across pods from both the
+old and new ReplicaSets, and so by the time the new ReplicaSet is completely rolled out and the old one is
+rolled back, the actual spreading we are left with may not match expectations because the deleted pods from
+the older ReplicaSet will cause skewed distribution for the remaining pods.
+
+In order to solve this problem and to make more accurate decisions in scheduling, we added a new named
+`matchLabelKeys` to `topologySpreadConstraints`. `matchLabelKeys` is a list of pod label keys to select
+the pods over which spreading will be calculated. The keys are used to lookup values from the pod labels,
+those key-value labels are ANDed with `labelSelector` to select the group of existing pods over
+which spreading will be calculated for the incoming pod.
+
+With `matchLabelKeys`, you don't need to update the `pod.spec` between different revisions.
+The controller/operator just needs to set different values to the same label key for different revisions.
+The scheduler will assume the values automatically based on `matchLabelKeys`.
+For example, if you are configuring a Deployment, you can use the label keyed with
+[pod-template-hash](https://kubernetes.io//docs/concepts/workloads/controllers/deployment/#pod-template-hash-label),
+which is added automatically by the Deployment controller, to distinguish between different
+revisions in a single Deployment.
+
+```yaml
+topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: kubernetes.io/hostname
+      whenUnsatisfiable: DoNotSchedule
+      labelSelector:
+        matchLabels:
+          app: foo
+      matchLabelKeys:
+        - pod-template-hash
+```
 
 ## Getting involved
 
