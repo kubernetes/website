@@ -1,8 +1,8 @@
 ---
 layout: blog
-title: "TBD" // TODO: have a cool title.
+title: "Kubernetes 1.27: More fine-grained pod topology spread policies reached beta"
 date: 2023-04-11
-slug: topology-spread-new-features
+slug: fine-grained-pod-topology-spread-features-beta
 evergreen: true
 ---
 
