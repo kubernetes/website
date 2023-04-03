@@ -92,6 +92,7 @@ metadata:
   name: "demo-binding-test.example.com"
 spec:
   policyName: "demo-policy.example.com"
+  validationActions: [Deny]
   matchResources:
     namespaceSelector:
       matchLabels:
@@ -106,6 +107,37 @@ ValidatingAdmissionPolicy 'demo-policy.example.com' with binding 'demo-binding-t
 ```
 
 The above provides a simple example of using ValidatingAdmissionPolicy without a parameter configured.
+
+#### Validation actions
+
+Each `ValidatingAdmissionPolicyBinding` must specify one or more
+`validationActions` to declare how `validations` of a policy are enforced.
+
+The supported `validationActions` are:
+
+- `Deny`: Validation failure results in a denied request.
+- `Warn`: Validation failure is reported to the request client
+  as a [warning](/blog/2020/09/03/warnings/).
+- `Audit`: Validation failure is included in the audit event for the API request.
+
+For example, to both warn clients about a validation failure and to audit the
+validation failures, use:
+
+```yaml
+validationActions: [Warn, Audit]
+```
+
+`Deny` and `Warn` may not be used together since this combination
+needlessly duplicates the validation failure both in the
+API response body and the HTTP warning headers.
+
+A `validation` that evaluates to false is always enforced according to these
+actions. Failures defined by the `failurePolicy` are enforced
+according to these actions only if the `failurePolicy` is set to `Fail` (or unset),
+otherwise the failures are ignored.
+
+See [Audit Annotations: validation falures](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation_failure)
+for more details about the validation failure audit annotation.
 
 #### Parameter resources
 
@@ -159,6 +191,7 @@ metadata:
   name: "replicalimit-binding-test.example.com"
 spec:
   policyName: "replicalimit-policy.example.com"
+  validationActions: [Deny]
   paramRef:
     name: "replica-limit-test.example.com"
   matchResources:
@@ -188,6 +221,7 @@ metadata:
   name: "replicalimit-binding-nontest"
 spec:
   policyName: "replicalimit-policy.example.com"
+  validationActions: [Deny]
   paramRef:
     name: "replica-limit-clusterwide.example.com"
   matchResources:
@@ -219,6 +253,7 @@ metadata:
   name: "replicalimit-binding-global"
 spec:
   policyName: "replicalimit-policy.example.com"
+  validationActions: [Deny]
   params: "replica-limit-clusterwide.example.com"
   matchResources:
     namespaceSelector:
@@ -299,6 +334,12 @@ variables as well as some other useful variables:
 - 'request' - Attributes of the [admission request](/docs/reference/config-api/apiserver-admission.v1/#admission-k8s-io-v1-AdmissionRequest).
 - 'params' - Parameter resource referred to by the policy binding being evaluated. The value is
   null if `ParamKind` is unset.
+- `authorizer` - A CEL Authorizer. May be used to perform authorization checks for the principal
+  (authenticated user) of the request. See
+  [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz) in the Kubernetes CEL library
+  documentation for more details.
+- `authorizer.requestResource` - A shortcut for an authorization check configured with the request
+  resource (group, resource, (subresource), namespace, name).
 	
 The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from
 the root of the object. No other metadata properties are accessible.
@@ -386,3 +427,23 @@ the request is determined as follows:
 2. Otherwise:
   - for [`failurePolicy: Fail`](#failure-policy), reject the request (without evaluating the policy).
   - for [`failurePolicy: Ignore`](#failure-policy), proceed with the request but skip the policy.
+
+### Audit annotations
+
+`auditAnnotations` may be used to include audit annotations in the audit event of the API request.
+
+For example, here is an admission policy with an audit annotation:
+
+{{< codenew file="access/validating-admission-policy-audit-annotation.yaml" >}}
+
+When an API request is validated with this admission policy, the resulting audit event will look like:
+
+{{< codenew file="access/audit-event-with-audit-annotation.yaml" >}}
+
+In this example the annotation will only be included if the `spec.replicas` of the Deployment is more than
+50, otherwise the CEL expression evalutes to null and the annotation will not be included.
+
+Note that audit annotation keys are prefixed by the name of the `ValidatingAdmissionWebhook` and a `/`. If
+another admission controller, such as an admission webhook, uses the exact same audit annotation key, the 
+value of the first admission controller to include the audit annotation will be included in the audit
+event and all other values will be ignored.
