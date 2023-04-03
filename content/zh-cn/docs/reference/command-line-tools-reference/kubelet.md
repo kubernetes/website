@@ -1980,7 +1980,7 @@ Timeout of all runtime requests except long running request - <code>pull</code>,
 </tr>
 
 <tr>
-<td colspan="2">--seccomp-default string</td>
+<td colspan="2">--seccomp-default&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>false</code>-->默认值：<code>false</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
