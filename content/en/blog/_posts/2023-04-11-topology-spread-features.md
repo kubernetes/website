@@ -47,7 +47,7 @@ but other 2 Pods from this replicaset will be unschedulable until more Nodes joi
 The cluster autoscaler provisions new Nodes based on these unschedulable Pods,
 and as a result, the replicas are finally spread over 5 Nodes.
 
-## Take taints/tolerations into consideration when calculating PodTopologySpread skew
+## KEP-3094: Take taints/tolerations into consideration when calculating PodTopologySpread skew
 
 Before this, when we deploy a pod with `podTopologySpread` configured, we'll take all
 affinity nodes(satisfied with pod nodeAffinity and nodeSelector) into consideration
