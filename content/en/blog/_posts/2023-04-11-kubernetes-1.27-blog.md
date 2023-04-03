@@ -55,26 +55,48 @@ If enabled, the kubelet will use the `RuntimeDefault` seccomp profile by default
 
 You can find more detailed information about a possible upgrade and downgrade strategy in the related Kubernetes Enhancement Proposal (KEP): [Enable seccomp by default](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2413-seccomp-by-default).
 
+## Mutable scheduling directives for Jobs graduates to GA
+
+This was introduced in v1.22 and started as a beta level, now it's stable. In most cases a parallel job will want the pods to run with constraints, like all in the same zone, or all either on GPU model x or y but not a mix of both. The `suspend` field is the first step towards achieving those semantics. `suspend` allows a custom queue controller to decide when a job should start. However, once a job is unsuspended, a custom queue controller has no influence on where the pods of a job will actually land.
+
+This feature allows updating a Job's scheduling directives before it starts, which gives custom queue controllers
+the ability to influence pod placement while at the same time offloading actual pod-to-node assignment to
+kube-scheduler. This is allowed only for suspended Jobs that have never been unsuspended before.
+The fields in a Job's pod template that can be updated are node affinity, node selector, tolerations, labels
+and annotations and [scheduling gates](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/).
+Find more details in the KEP:
+[Allow updating scheduling directives of jobs](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/2926-job-mutable-scheduling-directives).
+
+## DownwardAPIHugePages graduates to stable 
+
+In Kubernetes v1.20, support for `requests.hugepages-<pagesize>` and `limits.hugepages-<pagesize>` was added
+to the [downward API](/docs/concepts/workloads/pods/downward-api/) to be consistent with other resources like cpu, memory, and ephemeral storage.
+This feature graduates to stable in this release. You can find more details in the KEP:
+[Downward API HugePages](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2053-downward-api-hugepages).
+
 ## Pod Scheduling Readiness goes to beta 
 
-Pods were considered ready for scheduling once created. Kubernetes scheduler does its due diligence to find nodes to place all pending Pods. However, in a real-world case, some Pods may stay in a "miss-essential-resources" state for a long period. These Pods actually churn the scheduler (and downstream integrators like Cluster AutoScaler) in an unnecessary manner.
+Pods were considered ready for scheduling once created. Kubernetes scheduler does its due diligence to find nodes to place all pending Pods. However, in a real-world case, some Pods may stay in a _missing-essential-resources_ state for a long period. These Pods actually churn the scheduler (and downstream integrators like Cluster Autoscaler) in an unnecessary manner.
 
 By specifying/removing a Pod's `.spec.schedulingGates`, you can control when a Pod is ready to be considered for scheduling.
 
 The `schedulingGates` field contains a list of strings, and each string literal is perceived as a criteria that Pod should be satisfied before considered schedulable. This field can be initialized only when a Pod is created (either by the client, or mutated during admission). After creation, each schedulingGate can be removed in an arbitrary order, but addition of a new scheduling gate is disallowed.
 
-## Node Service Log Viewer
+## Node log access via Kubernetes API
 
 This feature helps cluster administrators debug issues with services running on nodes by allowing them to query service logs. To use the feature, ensure that the `NodeLogQuery` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled for that node, and that the kubelet configuration options `enableSystemLogHandler` and `enableSystemLogQuery` are both set to true. 
-On Linux, we assume that service logs are available via journald. On Windows, we assume that service logs are available in the application log provider. Logs are also available in the `/var/log/` and `C:\var\log` directories on Linux and Windows, respectively.
+On Linux, we assume that service logs are available via journald. On Windows, we assume that service logs are available in the application log provider. You can also fetch logs from the `/var/log/` and `C:\var\log` directories on Linux and Windows, respectively.
 
 A cluster administrator can try out this alpha feature on all their nodes, or on just a subset.
 
-## ReadWriteOncePod PersistentVolume Access Mode goes to beta 
+## ReadWriteOncePod PersistentVolume access mode goes to beta 
 
 ReadWriteOncePod is a new access mode for [PersistentVolumes](/docs/concepts/storage/persistent-volumes/#persistent-volumes) (PVs) and [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) (PVCs) introduced in Kubernetes v1.22. This access mode enables you to restrict volume access to a single pod in the cluster, ensuring that only one pod can write to the volume at a time. This can be particularly useful for stateful workloads that require single-writer access to storage.
 
-The ReadWriteOncePod beta adds support for [scheduler preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/) of pods using ReadWriteOncePod PVCs. Scheduler preemption allows higher-priority pods to preempt lower-priority pods, so that they can start running on the same node. With this release, pods using ReadWriteOncePod PVCs can also be preempted if a higher-priority pod requires the same PVC. For more context [see here](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/2485-read-write-once-pod-pv-access-mode).
+The ReadWriteOncePod beta adds support for [scheduler preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+of pods that use ReadWriteOncePod PVCs.
+Scheduler preemption allows higher-priority pods to preempt lower-priority pods, for example when a pod (A) with a ReadWriteOncePod PVC is scheduled, and if another pod (B) is found using the same PVC and pod (A) has higher priority, the scheduler will return an "Unschedulable" status and attempt to preempt pod (B).
+For more context, see the KEP: [ReadWriteOncePod PersistentVolume AccessMode](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/2485-read-write-once-pod-pv-access-mode).
 
 
 ## Respect PodTopologySpread after rolling upgrades
@@ -84,28 +106,30 @@ The ReadWriteOncePod beta adds support for [scheduler preemption](/docs/concepts
 With `matchLabelKeys`, users don't need to update the `pod.spec` between different revisions. The controller/operator just needs to set different values to the same `label` key for different revisions. The scheduler will assume the values automatically based on `matchLabelKeys`. For example, if users use Deployment, they can use the label keyed with `pod-template-hash`, which is added automatically by the Deployment controller, to distinguish between different revisions in a single Deployment.
 
 
-## Speed up SELinux volume relabeling using mounts
+## Faster SELinux volume relabeling using mounts
 
 In this release, how SELinux labels are applied to volumes used by Pods is graduating to beta. This feature speeds up container startup by mounting volumes with the correct SELinux label instead of changing each file on the volumes recursively. Linux kernel with SELinux support allows the first mount of a volume to set SELinux label on the whole volume using `-o context=` mount option. This way, all files will have assigned the given label in a constant time, without recursively walking through the whole volumes.
 
-`context` mount option cannot be applied to bind-mounts or re-mounts of already mounted volumes. Since it's a CSI driver that does the first mount of a volume, it must be the CSI driver who actually applies this mount option. We added a new field `SELinuxMount` to CSI Driver object, so CSI drivers can announce if they support `-o context` mount option.
+The `context` mount option cannot be applied to bind mounts or re-mounts of already mounted volumes.
+For CSI storage, a CSI driver does the first mount of a volume, and so it must be the CSI driver that actually
+applies this mount option. We added a new field `SELinuxMount` to CSIDriver objects, so that drivers can
+announce whether they support the `-o context` mount option.
 
-If Kubernetes knows SELinux label of a Pod **and** CSI driver responsible for a pod's volume announces `SELinuxMount: true` **and** the volume has Access Mode `ReadWriteOncePod`, then it will ask the CSI driver to mount the volume with mount option `context=` **and** it will tell the container runtime not to relabel content of the volume - all files already have the right label. Get more information on the KEP: [Speed up SELinux volume relabeling using mounts](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/1710-selinux-relabeling)
+If Kubernetes knows the SELinux label of a Pod **and** the  CSI driver responsible for a pod's volume
+announces `SELinuxMount: true` **and** the volume has Access Mode `ReadWriteOncePod`, then it
+will ask the CSI driver to mount the volume with mount option `context=` **and** it will tell the container
+runtime not to relabel content of the volume (because all files already have the right label).
+Get more information on this from the KEP: [Speed up SELinux volume relabeling using mounts](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/1710-selinux-relabeling).
 
 ## Robust VolumeManager reconstruction goes to beta
 
-This is a VolumeManager refactoring that allows kubelet to populate additional information about how existing volumes are mounted during the kubelet startup. In general, this makes volume cleanup more robust. 
-By adding `NewVolumeManagerReconstruction` feature gate and enabling it by default to enable improved discovery of mounted volumes during kubelet startup.
+This is a volume manager refactoring that allows the kubelet to populate additional information about how
+existing volumes are mounted during the kubelet startup. In general, this makes volume cleanup more robust. 
+By adding `NewVolumeManagerReconstruction` feature gate and enabling it by default will enhance the discovery of mounted volumes during kubelet startup.
 
 Before Kubernetes v1.25, the kubelet used different default behavior for discovering mounted volumes during the kubelet startup. If you disable this feature gate (it's enabled by default), you select the legacy discovery behavior.
 
 In Kubernetes v1.25 and v1.26, this behavior toggle was part of the `SELinuxMountReadWriteOncePod` feature gate.
-
-## `JobMutableNodeSchedulingDirectives` graduates to GA
-
-This was introduced in v1.22 and started as a beta level, now it's stable. In most cases a parallel job will want the pods to run with constraints, like all in the same zone, or all either on GPU model x or y but not a mix of both. The `suspend` field is the first step towards achieving those semantics. `suspend` allows a custom queue controller to decide when a job should start. However, once a job is unsuspended, a custom queue controller has no influence on where the pods of a job will actually land.
-
-This feature allows updating a Job's scheduling directives before it starts, which gives custom queue controllers the ability to influence pod placement while at the same time offloading actual pod-to-node assignment to kube-scheduler. This is allowed only for suspended Jobs that have never been unsuspended before. The fields in a Job's pod template that can be updated are node affinity, node selector, tolerations, labels and annotations and [scheduling gates](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/). Find more details in KEP: [Allow updating scheduling directives of jobs](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/2926-job-mutable-scheduling-directives)
 
 ## Mutable Pod Scheduling Directives goes to beta
 
@@ -113,30 +137,22 @@ This allows mutating a pod that is blocked on a scheduling readiness gate with a
 
 This opens the door for a new pattern of adding scheduling features to Kubernetes.  Specifically, building lightweight schedulers that implement features not supported by kube-scheduler, while relying on the existing kube-scheduler to support all upstream features and handle the pod-to-node binding. This pattern should be the preferred one if the custom feature doesn't require implementing a schedule plugin, which entails re-building and maintaining a custom kube-scheduler binary.
 
-## DownwardAPIHugePages graduates to stable 
+## Feature graduations and deprecations in Kubernetes v1.27
+### Graduations to stable
 
-In kubernetes v1.20, support for `requests.hugepages-<pagesize>` and `limits.hugepages-<pagesize>` was added to the downward API to be consistent with other resources like cpu, memory, and ephemeral storage. This feature graduates to stable in this release. You can find more details in the KEP: [Downward API HugePages](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2053-downward-api-hugepages).
+This release includes a total of 9 enhancements promoted to Stable:
 
-# Other Updates
-## Graduations to stable
-
-This release includes a total of thirteen enhancements promoted to Stable:
-
-* [Mutable scheduling directives for suspended Jobs](https://github.com/kubernetes/enhancements/issues/2926)
-* [Add downward API support for hugepages](https://github.com/kubernetes/enhancements/issues/2053)
-* [Kubelet option to enable seccomp by default](https://github.com/kubernetes/enhancements/issues/2413)
 * [Default container annotation that to be used by kubectl](https://github.com/kubernetes/enhancements/issues/2227)
 * [TimeZone support in CronJob](https://github.com/kubernetes/enhancements/issues/3140)
 * [Expose metrics about resource requests and limits that represent the pod model](https://github.com/kubernetes/enhancements/issues/1748)
 * [Server Side Unknown Field Validation](https://github.com/kubernetes/enhancements/issues/2885)
 * [Node Topology Manager](https://github.com/kubernetes/enhancements/issues/693)
-* [Freeze k8s.gcr.io image registry](https://github.com/kubernetes/enhancements/issues/3720)
 * [Add gRPC probe to Pod.Spec.Container.{Liveness,Readiness,Startup} Probe](https://github.com/kubernetes/enhancements/issues/2727)
 * [Add configurable grace period to probes](https://github.com/kubernetes/enhancements/issues/2238)
 * [OpenAPI v3](https://github.com/kubernetes/enhancements/issues/2896)
-* [Stay on supported go versions](https://github.com/kubernetes/enhancements/issues/3744)
+* [Stay on supported Go versions](https://github.com/kubernetes/enhancements/issues/3744)
 
-## Deprecations and removals
+### Deprecations and removals
 
 This release saw several removals:
 
@@ -180,7 +196,7 @@ The [CNCF K8s DevStats](https://k8s.devstats.cncf.io/d/12/dashboards?orgId=1&ref
 
 In the v1.27 release cycle, which [ran for 14 weeks](https://github.com/kubernetes/sig-release/tree/master/releases/release-1.27) (January 9 to April 11), we saw contributions from [1020 companies](https://k8s.devstats.cncf.io/d/9/companies-table?orgId=1&var-period_name=v1.26.0%20-%20now&var-metric=contributions) and [1603 individuals](https://k8s.devstats.cncf.io/d/66/developer-activity-counts-by-companies?orgId=1&var-period_name=v1.26.0%20-%20now&var-metric=contributions&var-repogroup_name=Kubernetes&var-repo_name=kubernetes%2Fkubernetes&var-country_name=All&var-companies=All).
 
-## Upcoming Release Webinar
+## Upcoming release webinar
 
 Join members of the Kubernetes v1.27 release team on <date> to learn about the major features of this release, as well as deprecations and removals to help plan for upgrades. For more information and registration, visit the [event page](#) on the CNCF Online Programs site.
 
