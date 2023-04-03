@@ -1,13 +1,15 @@
 ---
 reviewers:
-title: 終了したリソースのためのTTLコントローラー(TTL Controller for Finished Resources)
+title: 終了したジョブの自動クリーンアップ(Automatic Cleanup for Finished Jobs)
 content_type: concept
 weight: 70
+description: >-
+  実行が終了した古いジョブを除去するための有効期間の仕組みです。
 ---
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.12" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
 TTLコントローラーは実行を終えたリソースオブジェクトのライフタイムを制御するためのTTL (time to live) メカニズムを提供します。  
 TTLコントローラーは現在{{< glossary_tooltip text="Job" term_id="job" >}}のみ扱っていて、将来的にPodやカスタムリソースなど、他のリソースの実行終了を扱えるように拡張される予定です。
