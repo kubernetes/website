@@ -719,6 +719,49 @@ webhooks:
 
 The `matchPolicy` for an admission webhooks defaults to `Equivalent`.
 
+### Matching requests: `matchConditions`
+
+{{< feature-state state="alpha" for_k8s_version="v1.27" >}}
+
+{{< note >}}
+Use of `matchConditions` requires the [featuregate](/docs/reference/command-line-tools-reference/feature-gates/)
+`AdmissionWebhookMatchConditions` to be explicitly enabled on the kube-apiserver before this feature can be used.
+{{< /note >}}
+
+You can define _match conditions_for webhooks if you need fine-grained request filtering. These
+conditions are useful if you find that match rules, `objectSelectors` and `namespaceSelectors` still
+doesn't provide the filtering you want over when to call out over HTTP. Match conditions are
+[CEL expressions](/docs/reference/using-api/cel/). All match conditions must evaluate to true for the
+webhook to be called.
+
+Here is an example illustrating a few different uses for match conditions:
+
+{{< codenew file="access/admission-webhook-match-conditions.yaml" >}}
+
+Match conditions have access to the following CEL variables:
+
+- `object` - The object from the incoming request. The value is null for DELETE requests. The object
+  version may be converted based on the [matchPolicy](#matching-requests-matchpolicy).
+- `oldObject` - The existing object. The value is null for CREATE requests.
+- `request` - The request portion of the [AdmissionReview](#request), excluding `object` and `oldObject`.
+- `authorizer` - A CEL Authorizer. May be used to perform authorization checks for the principal
+  (authenticated user) of the request. See
+  [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz) in the Kubernetes CEL library
+  documentation for more details.
+- `authorizer.requestResource` - A shortcut for an authorization check configured with the request
+  resource (group, resource, (subresource), namespace, name).
+
+For more information on CEL expressions, refer to the
+[Common Expression Language in Kubernetes reference](/docs/reference/using-api/cel/).
+
+In the event of an error evaluating a match condition the webhook is never called. Whether to reject
+the request is determined as follows:
+
+1. If **any** match condition evaluated to `false` (regardless of other errors), the API server skips the webhook.
+2. Otherwise:
+    - for [`failurePolicy: Fail`](#failure-policy), reject the request (without calling the webhook).
+    - for [`failurePolicy: Ignore`](#failure-policy), proceed with the request but skip the webhook.
+
 ### Contacting the webhook
 
 Once the API server has determined a request should be sent to a webhook,
@@ -1175,4 +1218,3 @@ cause the control plane components to stop functioning or introduce unknown beha
 If your admission webhooks don't intend to modify the behavior of the Kubernetes control
 plane, exclude the `kube-system` namespace from being intercepted using a
 [`namespaceSelector`](#matching-requests-namespaceselector).
-

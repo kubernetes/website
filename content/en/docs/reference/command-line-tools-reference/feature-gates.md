@@ -56,6 +56,7 @@ For a reference to old feature gates that are removed, please refer to
 
 | Feature | Default | Stage | Since | Until |
 |---------|---------|-------|-------|-------|
+| `AdmissionWebhookMatchConditions` | Alpha | `false` | 1.27 | |
 | `APIListChunking` | `false` | Alpha | 1.8 | 1.8 |
 | `APIListChunking` | `true` | Beta | 1.9 | |
 | `APIPriorityAndFairness` | `false` | Alpha | 1.18 | 1.19 |
@@ -398,6 +399,7 @@ A *General Availability* (GA) feature is also referred to as a *stable* feature.
 
 Each feature gate is designed for enabling/disabling a specific feature:
 
+- `AdmissionWebhookMatchConditions`: Enable [match conditions](/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchconditions) on mutating & validating admission webhooks.
 - `APIListChunking`: Enable the API clients to retrieve (`LIST` or `GET`)
   resources from API server in chunks.
 - `APIPriorityAndFairness`: Enable managing request concurrency with
