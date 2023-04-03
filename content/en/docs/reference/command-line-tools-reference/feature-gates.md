@@ -96,7 +96,8 @@ For a reference to old feature gates that are removed, please refer to
 | `DisableCloudProviders` | `false` | Alpha | 1.22 | |
 | `DisableKubeletCloudCredentialProviders` | `false` | Alpha | 1.23 | |
 | `DynamicResourceAllocation` | `false` | Alpha | 1.26 | |
-| `EventedPLEG` | `false` | Alpha | 1.26 | - |
+| `EventedPLEG` | `false` | Alpha | 1.26 | 1.26 |
+| `EventedPLEG` | `false` | Beta | 1.27 | - |
 | `ExpandedDNSConfig` | `false` | Alpha | 1.22 | 1.25 |
 | `ExpandedDNSConfig` | `true` | Beta | 1.26 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
