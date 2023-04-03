@@ -9,7 +9,7 @@ slug: kubernetes-v1-27-release
 
 Announcing the release of Kubernetes v1.27, the first release of 2023!
 
-This release consist of sixty enhancements. Eighteen of those enhancements are entering Alpha, Tweentynine are graduating to Beta, and Thirteen are graduating to Stable.
+This release consist of 60 enhancements. 18 of those enhancements are entering Alpha, 29 are graduating to Beta, and 13 are graduating to Stable.
 
 ## Release theme and logo
 
@@ -22,16 +22,16 @@ The theme for Kubernetes v1.27 is *Chill Vibes*.
 
 It's a little silly, but there were some important shifts in this release that helped inspire the theme. Throughout a typical Kubernetes release cycle, there are several deadlines that features need to meet to remain included. If a feature misses any of these deadlines, there is an exception process they can go through. Handling these exceptions is a very normal part of the release. But v1.27 is the first release that anyone can remember where we didn't receive a single exception request after the enhancements freeze. Even as the release progressed, things remained much calmer than any of us are used to.
 
-There's a specific reason we were able to enjoy a more calm release this time around, and that's all the work that folks put in beind the scenes to improve how we manage the release. That's what this theme celebrates, people putting in the work to make things better for the community.
+There's a specific reason we were able to enjoy a more calm release this time around, and that's all the work that folks put in behind the scenes to improve how we manage the release. That's what this theme celebrates, people putting in the work to make things better for the community.
 
-Special thinks to [Britnee Laverack](https://www.instagram.com/artsyfie/) for creating the logo. Britnee also design the logo for [Kubernetes 1.24: Stargazer](https://kubernetes.io/blog/2022/05/03/kubernetes-1-24-release-announcement/#release-theme-and-logo).
+Special thanks to [Britnee Laverack](https://www.instagram.com/artsyfie/) for creating the logo. Britnee also designed the logo for [Kubernetes 1.24: Stargazer](https://kubernetes.io/blog/2022/05/03/kubernetes-1-24-release-announcement/#release-theme-and-logo).
 
 # What's New (Major Themes)
 
 ## Freeze `k8s.gcr.io` image registry
 
 Replacing the old image registry, [k8s.gcr.io](https://cloud.google.com/container-registry/) with [registry.k8s.io](https://github.com/kubernetes/registry.k8s.io) which has been generally available for several months. The Kubernetes project created and runs the `registry.k8s.io` image registry, which is fully controlled by the community.
-This mean that all subsequent image releases would not be available on the old registry. Freezing  the `k8s.gcr.io` image registry by not pushing any new digests or tags after this release.
+This means that the old registry `k8s.gcr.io` will be frozen and no further images for Kubernetes and related subprojects will be pushed to the old registry. 
 
 What does this change mean for contributors:
 
@@ -41,7 +41,7 @@ What does this change mean for end users:
 
 * This Kubernetes release will not be published to the old registry.
 
-* Patch releases for v1.24, v1.25, and v1.26 will no longer be published to the old registry from April. 
+* Patch releases for v1.24, v1.25, and v1.26 will no longer be published to the old registry after April. 
 
 * Starting in v1.25, the default image registry has been set to `registry.k8s.io`. This value is overridable in kubeadm and kubelet but setting it to `k8s.gcr.io` will fail for new releases after April as they won’t be present in the old registry.
 
@@ -65,9 +65,10 @@ The `schedulingGates` field contains a list of strings, and each string literal 
 
 ## Node Service Log Viewer
 
-This feature helps cluster administrators debug issues with services running on nodes by allowing them to query service logs. To use the feature, ensure that the `NodeLogQuery` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled for that node, and that the kubelet configuration options `enableSystemLogHandler` and `enableSystemLogQuery` are both set to true. On Linux we assume that service logs are available either via journald. On Windows we assume that service logs are available in the application log provider. On both operating systems, logs are also available by reading files within `/var/log/`.
+This feature helps cluster administrators debug issues with services running on nodes by allowing them to query service logs. To use the feature, ensure that the `NodeLogQuery` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled for that node, and that the kubelet configuration options `enableSystemLogHandler` and `enableSystemLogQuery` are both set to true. 
+On Linux, we assume that service logs are available via journald. On Windows, we assume that service logs are available in the application log provider. Logs are also available in the `/var/log/` and `C:\var\log` directories on Linux and Windows, respectively.
 
-A node level administrator can try out this alpha feature on all their nodes, or on just a subset. Provided you're authorized to do so.
+A cluster administrator can try out this alpha feature on all their nodes, or on just a subset.
 
 ## ReadWriteOncePod PersistentVolume Access Mode goes to beta 
 
@@ -102,22 +103,21 @@ In Kubernetes v1.25 and v1.26, this behavior toggle was part of the `SELinuxMoun
 
 ## `JobMutableNodeSchedulingDirectives` graduates to GA
 
-This was introduced in v1.22 and started as a beta level, now it's stable. In most cases a parallel job will want the pods to run with constraints, like all in the same zone, or all either on GPU model x or y but not a mix of both. The suspend field is the first step towards achieving those semantics. Suspend allows a custom queue controller to decide when a job should start. However, once a job is unsuspended, a custom queue controller has no influence on where the pods of a job will actually land.
+This was introduced in v1.22 and started as a beta level, now it's stable. In most cases a parallel job will want the pods to run with constraints, like all in the same zone, or all either on GPU model x or y but not a mix of both. The `suspend` field is the first step towards achieving those semantics. `suspend` allows a custom queue controller to decide when a job should start. However, once a job is unsuspended, a custom queue controller has no influence on where the pods of a job will actually land.
 
 This feature allows updating a Job's scheduling directives before it starts, which gives custom queue controllers the ability to influence pod placement while at the same time offloading actual pod-to-node assignment to kube-scheduler. This is allowed only for suspended Jobs that have never been unsuspended before. The fields in a Job's pod template that can be updated are node affinity, node selector, tolerations, labels and annotations and [scheduling gates](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/). Find more details in KEP: [Allow updating scheduling directives of jobs](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/2926-job-mutable-scheduling-directives)
 
 ## Mutable Pod Scheduling Directives goes to beta
 
-This allows a pod to make pod scheduling directives (nodeSelector, affinity) mutable as long as the pod is gated.  It gives the ability to mutate a pods scheduling directives before it is allowed to be scheduled, and gives an external resource controller the ability to influence pod placement while at the same time offload actual pod-to-node assignment to kube-scheduler.
+This allows mutating a pod that is blocked on a scheduling readiness gate with a more constrained node affinity/selector. It gives the ability to mutate a pods scheduling directives before it is allowed to be scheduled, and gives an external resource controller the ability to influence pod placement while at the same time offload actual pod-to-node assignment to kube-scheduler.
 
 This opens the door for a new pattern of adding scheduling features to Kubernetes.  Specifically, building lightweight schedulers that implement features not supported by kube-scheduler, while relying on the existing kube-scheduler to support all upstream features and handle the pod-to-node binding. This pattern should be the preferred one if the custom feature doesn't require implementing a schedule plugin, which entails re-building and maintaining a custom kube-scheduler binary.
 
 ## DownwardAPIHugePages graduates to stable 
 
-Support for `requests.hugepages-<pagesize>` and `limits.hugepages-<pagesize>` is being added to the downward API to be consistent with other resources like cpu, memory, and ephemeral storage. You can find more details in the KEP: [Downward API HugePages](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2053-downward-api-hugepages).
+In kubernetes v1.20, support for `requests.hugepages-<pagesize>` and `limits.hugepages-<pagesize>` was added to the downward API to be consistent with other resources like cpu, memory, and ephemeral storage. This feature graduates to stable in this release. You can find more details in the KEP: [Downward API HugePages](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2053-downward-api-hugepages).
 
 # Other Updates
-
 ## Graduations to stable
 
 This release includes a total of thirteen enhancements promoted to Stable:
