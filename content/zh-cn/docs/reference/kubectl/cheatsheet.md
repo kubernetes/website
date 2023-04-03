@@ -216,7 +216,7 @@ kubectl create cronjob hello --image=busybox:1.28   --schedule="*/1 * * * *" -- 
 kubectl explain pods                           # get the documentation for pod manifests
 
 # Create multiple YAML objects from stdin
-cat <<EOF | kubectl apply -f -
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
@@ -243,7 +243,7 @@ spec:
 EOF
 
 # Create a secret with several keys
-cat <<EOF | kubectl apply -f -
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Secret
 metadata:
@@ -271,7 +271,7 @@ kubectl create cronjob hello --image=busybox:1.28   --schedule="*/1 * * * *" -- 
 kubectl explain pods                          # 获取 pod 清单的文档说明
 
 # 从标准输入创建多个 YAML 对象
-cat <<EOF | kubectl apply -f -
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
@@ -298,7 +298,7 @@ spec:
 EOF
 
 # 创建有多个 key 的 Secret
-cat <<EOF | kubectl apply -f -
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Secret
 metadata:
