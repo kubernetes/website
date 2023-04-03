@@ -183,7 +183,7 @@ For a reference to old feature gates that are removed, please refer to
 | `ServerSideFieldValidation` | `true` | Beta | 1.25 | |
 | `SizeMemoryBackedVolumes` | `false` | Alpha | 1.20 | 1.21 |
 | `SizeMemoryBackedVolumes` | `true` | Beta | 1.22 | |
-| `StatefulSetAutoDeletePVC` | `false` | Alpha | 1.22 | |
+| `StatefulSetAutoDeletePVC` | `false` | Beta | 1.28 | |
 | `StatefulSetStartOrdinal` | `false` | Alpha | 1.26 | |
 | `StorageVersionAPI` | `false` | Alpha | 1.20 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
