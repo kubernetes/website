@@ -459,7 +459,7 @@ Flatcar Container Linux 发行版会将 `/usr/` 目录挂载为一个只读文�
 The kubelet is now restarting every few seconds, as it waits in a crashloop for
 kubeadm to tell it what to do.
 -->
-kubelet 现在每隔几秒就会重启，因为它陷入了一个等待 kubeadm 指令的死循环。
+当陷入崩溃循环时，kubelet 每隔几秒就会重启，以等待 kubeadm 告诉它接下来做什么。
 
 <!--
 ## Configuring a cgroup driver
