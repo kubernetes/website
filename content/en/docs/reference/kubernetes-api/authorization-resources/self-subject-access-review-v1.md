@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/authorization/v1"
   kind: "SelfSubjectAccessReview"
 content_type: "api_reference"
-description: "SelfSubjectAccessReview checks whether or the current user can perform an action."
+description: "SelfSubjectAccessReview checks whether or not the current user can perform an action."
 title: "SelfSubjectAccessReview"
 weight: 2
 auto_generated: true
@@ -28,7 +28,7 @@ guide. You can file document formatting bugs against the
 
 ## SelfSubjectAccessReview {#SelfSubjectAccessReview}
 
-SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
+SelfSubjectAccessReview checks whether or not the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
 
 <hr>
 
