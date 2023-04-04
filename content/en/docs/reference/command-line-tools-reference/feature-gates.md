@@ -162,7 +162,8 @@ For a reference to old feature gates that are removed, please refer to
 | `NodeSwap` | `false` | Alpha | 1.22 | |
 | `OpenAPIEnums` | `false` | Alpha | 1.23 | 1.23 |
 | `OpenAPIEnums` | `true` | Beta | 1.24 | |
-| `PDBUnhealthyPodEvictionPolicy` | `false` | Alpha | 1.26 | |
+| `PDBUnhealthyPodEvictionPolicy` | `false` | Alpha | 1.26 | 1.26 |
+| `PDBUnhealthyPodEvictionPolicy` | `true` | Beta | 1.27 | |
 | `PodAndContainerStatsFromCRI` | `false` | Alpha | 1.23 | |
 | `PodDeletionCost` | `false` | Alpha | 1.21 | 1.21 |
 | `PodDeletionCost` | `true` | Beta | 1.22 | |
