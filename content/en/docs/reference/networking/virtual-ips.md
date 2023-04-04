@@ -297,7 +297,7 @@ IP addresses that are no longer used by any Services.
 {{< feature-state for_k8s_version="v1.27" state="alpha" >}}
 If you enable the `MultiCIDRServiceAllocator`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
-[networking.k8s.io/v1alpha1 API group](https://kubernetes.io/docs/tasks/administer-cluster/enable-disable-api/),
+[`networking.k8s.io/v1alpha1` API group](/docs/tasks/administer-cluster/enable-disable-api/),
 the control plane replaces the existing etcd allocator with a new one, using IPAddress
 objects instead of an internal global allocation map.  The ClusterIP address
 associated to each `Service` will have a referenced IPAddress object.
