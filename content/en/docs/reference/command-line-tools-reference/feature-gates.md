@@ -151,6 +151,7 @@ For a reference to old feature gates that are removed, please refer to
 | `MinDomainsInPodTopologySpread` | `false` | Beta | 1.25 | |
 | `MinimizeIPTablesRestore` | `false` | Alpha | 1.26 | - |
 | `MultiCIDRRangeAllocator` | `false` | Alpha | 1.25 | |
+| `MultiCIDRServiceAllocator` | `false` | Alpha | 1.27 | |
 | `NetworkPolicyStatus` | `false` | Alpha | 1.24 |  |
 | `NewVolumeManagerReconstruction` | `true` | Beta | 1.27 |  |
 | `NodeInclusionPolicyInPodTopologySpread` | `false` | Alpha | 1.25 | 1.25 |
@@ -653,6 +654,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `MixedProtocolLBService`: Enable using different protocols in the same `LoadBalancer` type
   Service instance.
 - `MultiCIDRRangeAllocator`: Enables the MultiCIDR range allocator.
+- `MultiCIDRServiceAllocator`: Track IP address allocations for Service cluster IPs using IPAddress objects.
 - `NetworkPolicyEndPort`: Enable use of the field `endPort` in NetworkPolicy objects,
   allowing the selection of a port range instead of a single port.
 - `NetworkPolicyStatus`: Enable the `status` subresource for NetworkPolicy objects.
