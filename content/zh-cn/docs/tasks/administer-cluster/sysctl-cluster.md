@@ -44,6 +44,15 @@ the Linux man-pages project.
 
 ## {{% heading "prerequisites" %}}
 
+{{< note >}}
+<!--
+`sysctl` is a Linux-specific command-line tool used to configure various kernel parameters
+and it is not available on non-Linux operating systems.
+-->
+
+`sysctl` 是一个只能在 Linux 上使用的特定命令行工具，用于配置各种内核参数。
+{{< /note >}}
+
 {{< include "task-tutorial-prereqs.md" >}}
 
 <!--
