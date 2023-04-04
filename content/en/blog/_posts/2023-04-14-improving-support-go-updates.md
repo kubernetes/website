@@ -7,7 +7,7 @@ slug: improving-support-go-updates
 
 **Author**: [Jordan Liggitt](https://github.com/liggitt) (Google)
 
-### The Problem
+### The problem
 
 Since v1.19 (released in 2020), the Kubernetes project provides 12-14 months of patch releases for each minor version.
 This enables users to qualify and adopt Kubernetes versions in an annual upgrade cycle and receive security fixes for a year.
@@ -43,7 +43,7 @@ users would have to upgrade away from older Kubernetes minor versions before the
 If a user was not prepared to do that upgrade, it could result in vulnerable Kubernetes clusters.
 Even if a user could accommodate the unexpected upgrade, the uncertainty made Kubernetes' annual support less reliable for planning.
 
-### The Solution
+### The solution
 
 We're happy to announce that the gap between supported Kubernetes versions and supported Go versions has been resolved as of January 2023.
 
