@@ -32,7 +32,7 @@ Kubernetes, vinculando controladores a um ou mais recursos personalizados.
 Os operadores são clientes da API do Kubernetes que atuam como controladores para
 um [*Custom Resource*](/docs/concepts/api-extension/custom-resources/)
 
-## Exemplo de um Operador {#exemplo}
+## Exemplo de um operador
 
 Algumas das coisas que você pode automatizar usando um operador incluem:
 
@@ -91,7 +91,7 @@ kubectl edit SampleDB/example-database # alterar manualmente algumas configuraç
 &hellip;e é isso! O Operador cuidará de aplicar
 as alterações, bem como manter o serviço existente em bom estado.
 
-## Escrevendo o seu próprio operador {#escrevendo-operador}
+## Escrevendo o seu próprio operador
 
 Se não houver um opeardor no ecosistema que implemente
 o comportamento Desejado, você pode programar o seu próprio.
@@ -114,7 +114,7 @@ A seguir estão algumas bibliotecas e ferramentas que você pode usar para escre
 * [Operator Framework](https://operatorframework.io)
 * [shell-operator](https://github.com/flant/shell-operator)
 
-## {{% heading "whatsnext" %}}
+## O que vem a seguir
 
 
 * Leia o {{< glossary_tooltip text="CNCF" term_id="cncf" >}}
