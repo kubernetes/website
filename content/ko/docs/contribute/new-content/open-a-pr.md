@@ -37,7 +37,7 @@ git 워크플로에 익숙하지 않은 경우, 풀 리퀘스트를
 
 {{< mermaid >}}
 flowchart LR
-A([fa:fa-user 신규<br>기여자]) --- id1[(K8s/Website<br>GitHub)]
+A([fa:fa-user 신규<br>기여자]) --- id1[(kubernetes/website<br>GitHub)]
 subgraph tasks[GitHub 상에서 변경하기]
 direction TB
     0[ ] -.-
@@ -133,7 +133,7 @@ git UI 애플리케이션을 사용할 수도 있다.
 
 {{< mermaid >}}
 flowchart LR
-1[K8s/website<br>저장소 포크하기] --> 2[로컬 클론 생성<br>및 upstream 설정]
+1[kubernetes/website<br>저장소 포크하기] --> 2[로컬 클론 생성<br>및 upstream 설정]
 subgraph changes[당신의 변경사항]
 direction TB
 S[ ] -.-
@@ -360,7 +360,7 @@ website의 컨테이너 이미지를 만들거나 Hugo를 로컬에서 실행할
 
 ### 포크에서 kubernetes/website로 풀 리퀘스트 열기 {#open-a-pr}
 
-아래 그림은 당신의 포크에서 K8s/website 저장소로 PR을 여는 단계를 보여 준다. 상세 사항은 아래에 등장한다.
+아래 그림은 당신의 포크에서 kubernetes/website 저장소로 PR을 여는 단계를 보여 준다. 상세 사항은 아래에 등장한다.
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
@@ -369,7 +369,7 @@ website의 컨테이너 이미지를 만들거나 Hugo를 로컬에서 실행할
 flowchart LR
 subgraph first[ ]
 direction TB
-1[1. K8s/website 저장소로 이동] --> 2[2. 'New Pull Request' 클릭]
+1[1. kubernetes/website 저장소로 이동] --> 2[2. 'New Pull Request' 클릭]
 2 --> 3[3. 'Compare across forks' 클릭]
 3 --> 4[4. 'head repository' 드롭다운 메뉴에서<br>당신의 포크 선택]
 end
@@ -388,7 +388,7 @@ class 1,2,3,4,5,6,7,8 grey
 class first,second white
 {{</ mermaid >}}
 
-그림 - 당신의 포크에서 K8s/website 저장소로 PR을 여는 단계
+그림 - 당신의 포크에서 kubernetes/website 저장소로 PR을 여는 단계
 
 1. 웹 브라우저에서 [`kubernetes/website`](https://github.com/kubernetes/website/) 리포지터리로 이동한다.
 2. **New Pull Request** 를 선택한다.

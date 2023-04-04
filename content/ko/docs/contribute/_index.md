@@ -76,7 +76,7 @@ end
 subgraph second[리뷰]
 direction TB
    T[ ] -.-
-   D[K8s/website<br>저장소 살펴보기] --- E[Hugo 정적 사이트<br>생성기 확인하기]
+   D[kubernetes/website<br>저장소 살펴보기] --- E[Hugo 정적 사이트<br>생성기 확인하기]
    E --- F[기본 GitHub 명령어<br>이해하기]
    F --- G[열려 있는 PR을 리뷰하기]
 end
@@ -123,7 +123,7 @@ flowchart LR
     direction TB
     S[ ] -.-
     G[다른 K8s 멤버의 PR 리뷰하기] -->
-    A[K8s/website 이슈 리스트에서<br>good first issue 확인하기] --> B[PR을 여세요!!]
+    A[kubernetes/website 이슈 리스트에서<br>good first issue 확인하기] --> B[PR을 여세요!!]
     end
     subgraph first[추천 준비 사항]
     direction TB
