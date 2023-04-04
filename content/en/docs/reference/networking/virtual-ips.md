@@ -310,8 +310,9 @@ for the `service-cluster-ip-range`, there is no limitations for IPv4 and for IPv
 users can use masks equal or larger than /64 (previously it was /108).
 
 Users now will be able to inspect the IP addresses assigned to their Services, and
-new network APIs, like Gateway API, can use this new object to extend the Kubernetes
-networking capabilities overcoming the limitations of current Services API.
+Kubernetes extensions such as the [Gateway](https://gateway-api.sigs.k8s.io/) API, can use this new
+IPAddress object kind to enhance the Kubernetes networking capabilities, going beyond the limitations of
+the built-in Service API.
 
 ```shell
 kubectl get services
