@@ -312,12 +312,17 @@ Users now will be able to inspect the IP addresses assigned to their Services, a
 new network APIs, like Gateway API, can use this new object to extend the Kubernetes
 networking capabilities overcoming the limitations of current Services API.
 
-```bash
-$ kubectl get services
+```shell
+kubectl get services
+```
+```
 NAME         TYPE        CLUSTER-IP        EXTERNAL-IP   PORT(S)   AGE
 kubernetes   ClusterIP   2001:db8:1:2::1   <none>        443/TCP   3d1h
-
-$ kubectl get ipaddresses
+```
+```shell
+kubectl get ipaddresses
+```
+```
 NAME              PARENTREF
 2001:db8:1:2::1   services/default/kubernetes
 2001:db8:1:2::a   services/kube-system/kube-dns
