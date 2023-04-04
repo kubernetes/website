@@ -190,7 +190,8 @@ For a reference to old feature gates that are removed, please refer to
 | `ServiceNodePortStaticSubrange` | `false` | Alpha | 1.27 | |
 | `SizeMemoryBackedVolumes` | `false` | Alpha | 1.20 | 1.21 |
 | `SizeMemoryBackedVolumes` | `true` | Beta | 1.22 | |
-| `StatefulSetAutoDeletePVC` | `false` | Alpha | 1.22 | |
+| `StatefulSetAutoDeletePVC` | `false` | Alpha | 1.22 | 1.26 |
+| `StatefulSetAutoDeletePVC` | `false` | Beta | 1.27 | |
 | `StatefulSetStartOrdinal` | `false` | Alpha | 1.26 | 1.26 |
 | `StatefulSetStartOrdinal` | `true` | Beta | 1.27 | |
 | `StorageVersionAPI` | `false` | Alpha | 1.20 | |
