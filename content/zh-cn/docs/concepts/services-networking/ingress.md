@@ -138,7 +138,7 @@ The name of an Ingress object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 For general information about working with config files, see [deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/), [configuring containers](/docs/tasks/configure-pod-container/configure-pod-configmap/), [managing resources](/docs/concepts/cluster-administration/manage-deployment/).
  Ingress frequently uses annotations to configure some options depending on the Ingress controller, an example of which
- is the [rewrite-target annotation](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md).
+ is the [rewrite-target annotation](https://github.com/kubernetes/ingress-nginx/blob/main/docs/examples/rewrite/README.md).
 Different [Ingress controllers](/docs/concepts/services-networking/ingress-controllers) support different annotations. Review the documentation for
  your choice of Ingress controller to learn which annotations are supported.
 -->
@@ -148,7 +148,7 @@ Ingress 对象的命名必须是合法的 [DNS 子域名名称](/zh-cn/docs/conc
 [配置容器](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)、
 [管理资源](/zh-cn/docs/concepts/cluster-administration/manage-deployment/)。
 Ingress 经常使用注解（annotations）来配置一些选项，具体取决于 Ingress
-控制器，例如[重写目标注解](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md)。
+控制器，例如[重写目标注解](https://github.com/kubernetes/ingress-nginx/blob/main/docs/examples/rewrite/README.md)。
 不同的 [Ingress 控制器](/zh-cn/docs/concepts/services-networking/ingress-controllers)支持不同的注解。
 查看你所选的 Ingress 控制器的文档，以了解其支持哪些注解。
 

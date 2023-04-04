@@ -57,7 +57,8 @@ respond to these metrics by  automatically scaling or adapting the cluster
 based on its current state, using mechanisms such as the Horizontal Pod
 Autoscaler. The monitoring pipeline fetches metrics from the kubelet and
 then exposes them to Kubernetes via an adapter by implementing either the
-`custom.metrics.k8s.io` or `external.metrics.k8s.io` API. 
+`custom.metrics.k8s.io` or `external.metrics.k8s.io` API.
+
 
 Kubernetes is designed to work with [OpenMetrics](https://openmetrics.io/), 
 which is one of the
@@ -72,6 +73,17 @@ of any projects to work on, as it is totally up to the users to find the
 project that suits them the best. If someone is to make a full metrics pipeline,
 they need to design and deploy their own infrastructure platform, of which
 Kubernetes is only one part.
+
+Integration of a full metrics pipeline into your Kubernetes implementation is outside
+the scope of Kubernetes documentation because of the very wide scope of possible
+solutions.
+
+The choice of monitoring platform depends heavily on your needs, budget, and technical resources.
+Kubernetes does not recommend any specific metrics pipeline; [many options](https://landscape.cncf.io/card-mode?category=monitoring&project=graduated,incubating,member,no&grouping=category&sort=stars) are available.
+Your monitoring system should be capable of handling the [OpenMetrics](https://openmetrics.io/) metrics
+transmission standard, and needs to chosen to best fit in to your overall design and deployment of
+your infrastructure platform.
+
 
 ## {{% heading "whatsnext" %}}
 

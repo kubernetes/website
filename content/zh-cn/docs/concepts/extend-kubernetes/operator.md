@@ -61,7 +61,7 @@ controllers for a [Custom Resource](/docs/concepts/extend-kubernetes/api-extensi
 ## Kubernetes 上的 Operator {#operators-in-kubernetes}
 
 Kubernetes 为自动化而生。无需任何修改，你即可以从 Kubernetes 核心中获得许多内置的自动化功能。
-你可以使用 Kubernetes 自动化部署和运行工作负载， **甚至** 可以自动化 Kubernetes 自身。
+你可以使用 Kubernetes 自动化部署和运行工作负载，**甚至** 可以自动化 Kubernetes 自身。
 
 Kubernetes 的 {{< glossary_tooltip text="Operator 模式" term_id="operator-pattern" >}}概念允许你在不修改
 Kubernetes 自身代码的情况下，
@@ -90,8 +90,8 @@ Some of the things that you can use an operator to automate include:
 
 * 按需部署应用
 * 获取/还原应用状态的备份
-* 处理应用代码的升级以及相关改动。例如，数据库 schema 或额外的配置设置
-* 发布一个 service，要求不支持 Kubernetes API 的应用也能发现它
+* 处理应用代码的升级以及相关改动。例如数据库 Schema 或额外的配置设置
+* 发布一个 Service，要求不支持 Kubernetes API 的应用也能发现它
 * 模拟整个或部分集群中的故障以测试其稳定性
 * 在没有内部成员选举程序的情况下，为分布式应用选择首领角色
 
@@ -219,8 +219,9 @@ operator.
 * [kubebuilder](https://book.kubebuilder.io/)
 * [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (.NET operator SDK)
 * [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
-* [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html) along with WebHooks that 
-you implement yourself
+* [Mast](https://docs.ansi.services/mast/user_guide/operator/)
+* [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html) along with WebHooks that
+  you implement yourself
 * [Operator Framework](https://operatorframework.io)
 * [shell-operator](https://github.com/flant/shell-operator)
 -->
@@ -232,7 +233,8 @@ you implement yourself
 * [kubebuilder](https://book.kubebuilder.io/)
 * [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (.NET operator SDK)
 * [KUDO](https://kudo.dev/)（Kubernetes 通用声明式 Operator）
-* [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html)，可与 Webhooks 结合使用，以实现自己的功能。
+* [Mast](https://docs.ansi.services/mast/user_guide/operator/)
+* [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html)，可与 Webhook 结合使用，以实现自己的功能。
 * [Operator Framework](https://operatorframework.io)
 * [shell-operator](https://github.com/flant/shell-operator)
 

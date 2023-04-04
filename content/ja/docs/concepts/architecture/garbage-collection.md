@@ -1,11 +1,11 @@
 ---
 title: ガベージコレクション
 content_type: concept
-weight: 50
+weight: 70
 ---
 
 <!-- overview -->
-ガベージコレクションは、Kubernetesがクラスターリソースをクリーンアップするために使用するさまざまなメカニズムの総称です。これにより、次のようなリソースのクリーンアップが可能になります:
+{{<glossary_definition term_id="garbage-collection" length="short">}}これにより、次のようなリソースのクリーンアップが可能になります:
 
   * [終了したPod](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
   * [完了したJob](/ja/docs/concepts/workloads/controllers/ttlafterfinished/)
@@ -70,19 +70,19 @@ Kubernetesは、ReplicaSetを削除したときに残されたPodなど、owner 
 この時点で、オブジェクトはKubernetesAPIに表示されなくなります。
 
 フォアグラウンドカスケード削除中に、オーナーの削除をブロックする依存関係は、`ownerReference.blockOwnerDeletion=true`フィールドを持つ依存関係のみです。
-詳細については、[フォアグラウンドカスケード削除の使用](/docs/tasks/administer-cluster/use-cascading-deletion/#use-foreground-cascading-deletion)を参照してください。
+詳細については、[フォアグラウンドカスケード削除の使用](/ja/docs/tasks/administer-cluster/use-cascading-deletion/#use-foreground-cascading-deletion)を参照してください。
 
 ### バックグラウンドカスケード削除 {#background-deletion}
 
 バックグラウンドカスケード削除では、Kubernetes APIサーバーがオーナーオブジェクトをすぐに削除し、コントローラーがバックグラウンドで依存オブジェクトをクリーンアップします。
 デフォルトでは、フォアグラウンド削除を手動で使用するか、依存オブジェクトを孤立させることを選択しない限り、Kubernetesはバックグラウンドカスケード削除を使用します。
 
-詳細については、[バックグラウンドカスケード削除の使用](/docs/tasks/administer-cluster/use-cascading-deletion/#use-background-cascading-deletion)を参照してください。
+詳細については、[バックグラウンドカスケード削除の使用](/ja/docs/tasks/administer-cluster/use-cascading-deletion/#use-background-cascading-deletion)を参照してください。
 
 ### 孤立した依存関係
 
 Kubernetesがオーナーオブジェクトを削除すると、残された依存関係は*orphan*オブジェクトと呼ばれます。
-デフォルトでは、Kubernetesは依存関係オブジェクトを削除します。この動作をオーバーライドする方法については、[オーナーオブジェクトと孤立した依存関係の削除](/docs/tasks/administer-cluster/use-cascading-deletion/#set-orphan-deletion-policy)を参照してください。
+デフォルトでは、Kubernetesは依存関係オブジェクトを削除します。この動作をオーバーライドする方法については、[オーナーオブジェクトの削除と従属オブジェクトの孤立](/ja/docs/tasks/administer-cluster/use-cascading-deletion/#set-orphan-deletion-policy)を参照してください。
 
 ## 未使用のコンテナとイメージのガベージコレクション {#containers-images}
 
@@ -124,7 +124,7 @@ kubeletは、次の変数に基づいて未使用のコンテナをガベージ�
 
 これらのリソースを管理するコントローラーに固有のオプションを設定することにより、リソースのガベージコレクションを調整できます。次のページは、ガベージコレクションを設定する方法を示しています。
 
-  * [Kubernetesオブジェクトのカスケード削除の設定](/docs/tasks/administer-cluster/use-cascading-deletion/)
+  * [Kubernetesオブジェクトのカスケード削除の設定](/ja/docs/tasks/administer-cluster/use-cascading-deletion/)
   * [完了したジョブのクリーンアップの設定](/ja/docs/concepts/workloads/controllers/ttlafterfinished/)
   
 <!-- * [Configuring unused container and image garbage collection](/docs/tasks/administer-cluster/reconfigure-kubelet/) -->

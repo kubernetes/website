@@ -1,7 +1,7 @@
 ---
 title: Assign Extended Resources to a Container
 content_type: task
-weight: 40
+weight: 70
 ---
 
 <!-- overview -->

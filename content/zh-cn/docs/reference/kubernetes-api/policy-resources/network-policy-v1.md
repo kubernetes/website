@@ -136,7 +136,7 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
       IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
 
       <a name="IPBlock"></a>
-      *IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.*
+      *IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.*
     -->  
 
     - **ingress.from.ipBlock** (IPBlock)
@@ -144,28 +144,28 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
       IPBlock 针对特定的 IP CIDR 范围设置策略。如果设置了此字段，则不可以设置其他字段。
 
       <a name="IPBlock"></a>
-      IPBlock 定义一个特定的 CIDR 范围（例如 `192.168.1.1/24`、`2001:db9::/64`），
+      IPBlock 定义一个特定的 CIDR 范围（例如 `192.168.1.0/24`、`2001:db8::/64`），
       来自这个 IP 范围的流量来源将会被允许访问与 NetworkPolicySpec 的 podSelector 匹配的 Pod 集合。
       except 字段则设置应排除在此规则之外的 CIDR 范围。
 
       <!--
       - **ingress.from.ipBlock.cidr** (string), required
 
-        CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
+        CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
 
       - **ingress.from.ipBlock.except** ([]string)
 
-        Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
+        Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
       -->
       
       - **ingress.from.ipBlock.cidr** (string)，必需
 
-        CIDR 是指定 IP 组块的字符串，例如 `"192.168.1.1/24"` 或 `"2001:db9::/64"`。
+        CIDR 是指定 IP 组块的字符串，例如 `"192.168.1.0/24"` 或 `"2001:db8::/64"`。
 
       - **ingress.from.ipBlock.except** ([]string)
 
         except 是一个由 CIDR 范围组成的列表，其中指定的 CIDR 都应排除在此 IP 区块范围之外。
-        例如 `"192.168.1.1/24"` 或 `"2001:db9::/64"`。
+        例如 `"192.168.1.0/24"` 或 `"2001:db8::/64"`。
         如果 except 字段的值超出 ipBlock.cidr 的范围则被视为无效策略。
 
     <!--
@@ -302,7 +302,7 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
       IPBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
 
       <a name="IPBlock"></a>
-      *IPBlock describes a particular CIDR (Ex. "192.168.1.1/24","2001:db9::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.*
+      *IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.*
     -->
 
     - **egress.to.ipBlock** (IPBlock)
@@ -310,27 +310,27 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
       ipBlock 针对特定的 IP 区块定义策略。如果设置了此字段，则其他不可以设置其他字段。
 
       <a name="IPBlock"></a>
-      **IPBlock 描述一个特定的 CIDR 范围（例如 `192.168.1.1/24`、`2001:db9::/64`），
+      **IPBlock 描述一个特定的 CIDR 范围（例如 `192.168.1.0/24`、`2001:db8::/64`），
       与 NetworkPolicySpec 的 podSelector 匹配的 Pod 将被允许连接到这个 IP 范围，作为其出口流量目的地。
       except 字段则设置了不被此规则影响的 CIDR 范围。**
 
       <!--
       - **egress.to.ipBlock.cidr** (string), required
 
-        CIDR is a string representing the IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64"
+        CIDR is a string representing the IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64"
 
       - **egress.to.ipBlock.except** ([]string)
 
-        Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.1/24" or "2001:db9::/64" Except values will be rejected if they are outside the CIDR range
+        Except is a slice of CIDRs that should not be included within an IP Block Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the CIDR range
       -->
 
       - **egress.to.ipBlock.cidr** (string)，必需
 
-        CIDR 是用来表达 IP 组块的字符串，例如 `"192.168.1.1/24"` 或 `"2001:db9::/64"`。
+        CIDR 是用来表达 IP 组块的字符串，例如 `"192.168.1.0/24"` 或 `"2001:db8::/64"`。
 
       - **egress.to.ipBlock.except** ([]string)
 
-        except 定义不应包含在 ipBlock 内的 CIDR 范围列表。例如 `"192.168.1.1/24"` 或 `"2001:db9::/64"`。
+        except 定义不应包含在 ipBlock 内的 CIDR 范围列表。例如 `"192.168.1.0/24"` 或 `"2001:db8::/64"`。
         如果 except 的值超出 ipBlock.cidr 的范围则被拒绝。
 
     <!--

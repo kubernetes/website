@@ -2,7 +2,7 @@
 reviewers:
 title: クラウドネイティブセキュリティの概要
 content_type: concept
-weight: 10
+weight: 1
 ---
 
 <!-- overview -->

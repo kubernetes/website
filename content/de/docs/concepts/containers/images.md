@@ -277,7 +277,7 @@ Pods können nur eigene Image Pull Secret in ihrem eigenen Namespace referenzier
 
 #### Referenzierung eines imagePullSecrets bei einem Pod
 
-Nun können Sie Pods erstellen, die dieses Secret referenzieren, indem Sie einen Aschnitt `imagePullSecrets` zu ihrer Pod - Definition hinzufügen.
+Nun können Sie Pods erstellen, die dieses Secret referenzieren, indem Sie einen Abschnitt `imagePullSecrets` zu ihrer Pod - Definition hinzufügen.
 
 ```shell
 cat <<EOF > pod.yaml

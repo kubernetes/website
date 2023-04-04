@@ -366,12 +366,26 @@ There are two solutions:
 
 First, the user defines a new configuration containing only the `replicas` field:
 
-{{< codenew file="application/ssa/nginx-deployment-replicas-only.yaml" >}}
+```yaml
+# Save this file as 'nginx-deployment-replicas-only.yaml'.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 3
+```
+
+{{< note >}}
+The YAML file for SSA in this case only contains the fields you want to change.
+You are not supposed to provide a fully compliant Deployment manifest if you only
+want to modify the `spec.replicas` field using SSA.
+{{< /note >}}
 
 The user applies that configuration using the field manager name `handover-to-hpa`:
 
 ```shell
-kubectl apply -f https://k8s.io/examples/application/ssa/nginx-deployment-replicas-only.yaml \
+kubectl apply -f nginx-deployment-replicas-only.yaml \
   --server-side --field-manager=handover-to-hpa \
   --validate=false
 ```

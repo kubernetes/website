@@ -306,7 +306,7 @@ When the Pod above is created, the container `test` gets the following contents
 in its `/etc/resolv.conf` file:
 
 ```
-nameserver 1.2.3.4
+nameserver 192.0.2.1
 search ns1.svc.cluster-domain.example my.dns.search.suffix
 options ndots:2 edns0
 ```

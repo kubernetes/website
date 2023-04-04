@@ -126,6 +126,12 @@ via either mechanism are:
 : Pod 的{{< glossary_tooltip text="标签" term_id="label" >}} `<KEY>` 的值（例如：`metadata.labels['mylabel']`）
 
 <!--
+The following information is available through environment variables
+**but not as a downwardAPI volume fieldRef**:
+-->
+以下信息可以通过环境变量获得，但**不能作为 `downwardAPI` 卷 `fieldRef`** 获得：
+
+<!--
 `spec.serviceAccountName`
 : the name of the pod's {{< glossary_tooltip text="service account" term_id="service-account" >}}
 -->
@@ -154,10 +160,10 @@ via either mechanism are:
 : Pod 的主 IP 地址（通常是其 IPv4 地址）
 
 <!--
-In addition, the following information is available through
-a `downwardAPI` volume `fieldRef`, but **not as environment variables**:
+The following information is available through a `downwardAPI` volume 
+`fieldRef`, **but not as environment variables**:
 -->
-此外，以下信息可以通过 `downwardAPI` 卷 `fieldRef` 获得，但**不能作为环境变量**获得：
+以下信息可以通过 `downwardAPI` 卷 `fieldRef` 获得，但**不能作为环境变量**获得：
 
 <!--
 `metadata.labels`

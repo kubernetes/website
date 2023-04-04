@@ -73,7 +73,7 @@ Here is the configuration file for the application Deployment:
    和一个关联的 {{< glossary_tooltip term_id="replica-set" text="ReplicaSet" >}} 对象。
    这个 ReplicaSet 有两个 {{< glossary_tooltip text="Pod" term_id="pod" >}}，
    每个 Pod 都运行着 Hello World 应用。
-  
+
 <!--
 1. Display information about the Deployment:
 -->
@@ -117,7 +117,7 @@ Here is the configuration file for the application Deployment:
    -->
    输出类似于：
 
-   ```
+   ```none
    Name:                   example-service
    Namespace:              default
    Labels:                 run=load-balancer-example
@@ -154,11 +154,12 @@ Here is the configuration file for the application Deployment:
 
    输出类似于：
 
-   ```
+   ```none
    NAME                           READY   STATUS    ...  IP           NODE
    hello-world-2895499144-bsbk5   1/1     Running   ...  10.200.1.4   worker1
    hello-world-2895499144-m1pwt   1/1     Running   ...  10.200.2.5   worker2
    ```
+
 <!--
 1. Get the public IP address of one of your nodes that is running
    a Hello World pod. How you get this address depends on how you set
@@ -198,7 +199,7 @@ Here is the configuration file for the application Deployment:
    这里的 `<public-node-ip>` 是你节点的公共 IP 地址，`<node-port>` 是你服务的 NodePort 值。
    对于请求成功的响应是一个 hello 消息：
 
-   ```shell
+   ```none
    Hello Kubernetes!
    ```
 
@@ -243,4 +244,3 @@ Follow the
 tutorial.
 -->
 跟随教程[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)。
-

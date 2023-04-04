@@ -794,7 +794,7 @@ These are some requirements and semantics of the API:
   are evaluated in order. Once a rule matches a Pod failure, the remaining rules
   are ignored. When no rule matches the Pod failure, the default
   handling applies.
-- you may want to restrict a rule to a specific container by specifing its name
+- you may want to restrict a rule to a specific container by specifying its name
   in`spec.podFailurePolicy.rules[*].containerName`. When not specified the rule
   applies to all containers. When specified, it should match one the container
   or `initContainer` names in the Pod template.

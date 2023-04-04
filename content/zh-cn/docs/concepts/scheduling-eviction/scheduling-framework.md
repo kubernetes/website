@@ -16,7 +16,7 @@ weight: 60
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="1.19" state="stable" >}}
+{{< feature-state for_k8s_version="v1.19" state="stable" >}}
 
 <!--
 The scheduling framework is a pluggable architecture for the Kubernetes scheduler.
@@ -31,6 +31,8 @@ framework.
 这些 API 允许大多数调度功能以插件的形式实现，同时使调度“核心”保持简单且可维护。
 请参考[调度框架的设计提案](https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/624-scheduling-framework/README.md)
 获取框架设计的更多技术信息。
+
+[kep]: https://github.com/kubernetes/enhancements/blob/master/keps/sig-scheduling/624-scheduling-framework/README.md
 
 <!-- body -->
 
@@ -110,11 +112,11 @@ stateful tasks.
 
 <!--
 These plugins are used to sort Pods in the scheduling queue. A queue sort plugin
-essentially provides a `less(Pod1, Pod2)` function. Only one queue sort
+essentially provides a `Less(Pod1, Pod2)` function. Only one queue sort
 plugin may be enabled at a time.
 -->
 这些插件用于对调度队列中的 Pod 进行排序。
-队列排序插件本质上提供 `less(Pod1, Pod2)` 函数。
+队列排序插件本质上提供 `Less(Pod1, Pod2)` 函数。
 一次只能启动一个队列插件。
 
 <!--
@@ -215,7 +217,7 @@ many blinking lights they have.
 
 ```go
 func ScoreNode(_ *v1.pod, n *v1.Node) (int, error) {
-   return getBlinkingLightCount(n)
+    return getBlinkingLightCount(n)
 }
 ```
 
@@ -229,13 +231,13 @@ extension point.
 
 ```go
 func NormalizeScores(scores map[string]int) {
-   highest := 0
-   for _, score := range scores {
-      highest = max(highest, score)
-   }
-   for node, score := range scores {
-      scores[node] = score*NodeScoreMax/highest
-   }
+    highest := 0
+    for _, score := range scores {
+        highest = max(highest, score)
+    }
+    for node, score := range scores {
+        scores[node] = score*NodeScoreMax/highest
+    }
 }
 ```
 
@@ -245,31 +247,62 @@ aborted.
 -->
 如果任何 NormalizeScore 插件返回错误，则调度阶段将终止。
 
+{{< note >}}
 <!--
 Plugins wishing to perform "pre-reserve" work should use the
 NormalizeScore extension point.
 -->
-{{< note >}}
 希望执行“预保留”工作的插件应该使用 NormalizeScore 扩展点。
 {{< /note >}}
 
-<!--
-### Reserve
--->
-### Reserve
+### Reserve {#reserve}
 
 <!--
-This is an informational extension point. Plugins which maintain runtime state
-(aka "stateful plugins") should use this extension point to be notified by the
-scheduler when resources on a node are being reserved for a given Pod. This
-happens before the scheduler actually binds the Pod to the Node, and it exists
-to prevent race conditions while the scheduler waits for the bind to succeed.
+A plugin that implements the Reserve extension has two methods, namely `Reserve`
+and `Unreserve`, that back two informational scheduling phases called Reserve
+and Unreserve, respectively. Plugins which maintain runtime state (aka "stateful
+plugins") should use these phases to be notified by the scheduler when resources
+on a node are being reserved and unreserved for a given Pod.
 -->
-Reserve 是一个信息性的扩展点。
-管理运行时状态的插件（也成为“有状态插件”）应该使用此扩展点，以便
-调度器在节点给指定 Pod 预留了资源时能够通知该插件。
-这是在调度器真正将 Pod 绑定到节点之前发生的，并且它存在是为了防止
-在调度器等待绑定成功时发生竞争情况。
+实现了 Reserve 扩展的插件，拥有两个方法，即 `Reserve` 和 `Unreserve`，
+他们分别支持两个名为 Reserve 和 Unreserve 的信息处理性质的调度阶段。
+维护运行时状态的插件（又称 "有状态插件"）应该使用这两个阶段，
+以便在节点上的资源被保留和未保留给特定的 Pod 时得到调度器的通知。
+
+<!--
+The Reserve phase happens before the scheduler actually binds a Pod to its
+designated node. It exists to prevent race conditions while the scheduler waits
+for the bind to succeed. The `Reserve` method of each Reserve plugin may succeed
+or fail; if one `Reserve` method call fails, subsequent plugins are not executed
+and the Reserve phase is considered to have failed. If the `Reserve` method of
+all plugins succeed, the Reserve phase is considered to be successful and the
+rest of the scheduling cycle and the binding cycle are executed.
+-->
+Reserve 阶段发生在调度器实际将一个 Pod 绑定到其指定节点之前。
+它的存在是为了防止在调度器等待绑定成功时发生竞争情况。
+每个 Reserve 插件的 `Reserve` 方法可能成功，也可能失败；
+如果一个 `Reserve` 方法调用失败，后面的插件就不会被执行，Reserve 阶段被认为失败。
+如果所有插件的 `Reserve` 方法都成功了，Reserve 阶段就被认为是成功的，
+剩下的调度周期和绑定周期就会被执行。
+
+<!--
+The Unreserve phase is triggered if the Reserve phase or a later phase fails.
+When this happens, the `Unreserve` method of **all** Reserve plugins will be
+executed in the reverse order of `Reserve` method calls. This phase exists to
+clean up the state associated with the reserved Pod.
+-->
+如果 Reserve 阶段或后续阶段失败了，则触发 Unreserve 阶段。
+发生这种情况时，**所有** Reserve 插件的 `Unreserve` 方法将按照
+`Reserve` 方法调用的相反顺序执行。
+这个阶段的存在是为了清理与保留的 Pod 相关的状态。
+
+{{< caution >}}
+<!--
+The implementation of the `Unreserve` method in Reserve plugins must be
+idempotent and may not fail.
+-->
+Reserve 插件中 `Unreserve` 方法的实现必须是幂等的，并且不能失败。
+{{< /caution >}}
 
 <!--
 This is the last step in a scheduling cycle. Once a Pod is in the reserved
@@ -303,34 +336,33 @@ _Permit_ 插件在每个 Pod 调度周期的最后调用，用于防止或延迟
 <!--
 1.  **deny** \
     If any Permit plugin denies a Pod, it is returned to the scheduling queue.
-    This will trigger [Unreserve](#unreserve) plugins.
+    This will trigger the Unreserve phase in [Reserve plugins](#reserve).
 -->
 1.  **拒绝** \
     如果任何 Permit 插件拒绝 Pod，则该 Pod 将被返回到调度队列。
-    这将触发[Unreserve](#unreserve) 插件。
+    这将触发 [Reserve 插件](#reserve)中的 Unreserve 阶段。
 
 <!--
 1.  **wait** (with a timeout) \
     If a Permit plugin returns "wait", then the Pod is kept in an internal "waiting"
     Pods list, and the binding cycle of this Pod starts but directly blocks until it
-    gets [approved](#frameworkhandle). If a timeout occurs, **wait** becomes **deny**
-    and the Pod is returned to the scheduling queue, triggering [Unreserve](#unreserve)
-    plugins.
+    gets approved. If a timeout occurs, **wait** becomes **deny**
+    and the Pod is returned to the scheduling queue, triggering the
+    Unreserve phase in [Reserve plugins](#reserve).
 -->
 1.  **等待**（带有超时） \
     如果一个 Permit 插件返回 “等待” 结果，则 Pod 将保持在一个内部的 “等待中”
-    的 Pod 列表，同时该 Pod 的绑定周期启动时即直接阻塞直到得到
-    [批准](#frameworkhandle)。如果超时发生，**等待** 变成 **拒绝**，并且 Pod
-    将返回调度队列，从而触发 [Unreserve](#unreserve) 插件。
+    的 Pod 列表，同时该 Pod 的绑定周期启动时即直接阻塞直到得到批准。
+    如果超时发生，**等待** 变成 **拒绝**，并且 Pod
+    将返回调度队列，从而触发 [Reserve 插件](#reserve)中的 Unreserve 阶段。
 
-
+{{< note >}}
 <!--
 While any plugin can access the list of "waiting" Pods and approve them
 (see [`FrameworkHandle`](https://git.k8s.io/enhancements/keps/sig-scheduling/624-scheduling-framework#frameworkhandle)), we expect only the permit
 plugins to approve binding of reserved Pods that are in "waiting" state. Once a Pod
 is approved, it is sent to the [PreBind](#pre-bind) phase.
  -->
-{{< note >}}
 尽管任何插件可以访问 “等待中” 状态的 Pod 列表并批准它们
 (查看 [`FrameworkHandle`](https://git.k8s.io/enhancements/keps/sig-scheduling/624-scheduling-framework#frameworkhandle))。
 我们期望只有允许插件可以批准处于 “等待中” 状态的预留 Pod 的绑定。
@@ -338,7 +370,7 @@ is approved, it is sent to the [PreBind](#pre-bind) phase.
 {{< /note >}}
 
 <!--
-### Pre-bind {#pre-bind}
+### PreBind {#pre-bind}
 -->
 ### PreBind  {#pre-bind}
 
@@ -352,10 +384,10 @@ target node before allowing the Pod to run there.
 将其挂载到目标节点上。
 
 <!--
-If any PreBind plugin returns an error, the Pod is [rejected](#unreserve) and
+If any PreBind plugin returns an error, the Pod is [rejected](#reserve) and
 returned to the scheduling queue.
 -->
-如果任何 PreBind 插件返回错误，则 Pod 将被 [拒绝](#unreserve) 并且
+如果任何 PreBind 插件返回错误，则 Pod 将被 [拒绝](#reserve) 并且
 退回到调度队列中。
 
 <!--
@@ -422,26 +454,26 @@ interfaces have the following form.
 
 ```go
 type Plugin interface {
-   Name() string
+    Name() string
 }
 
 type QueueSortPlugin interface {
-   Plugin
-   Less(*v1.pod, *v1.pod) bool
+    Plugin
+    Less(*v1.pod, *v1.pod) bool
 }
 
 type PreFilterPlugin interface {
-   Plugin
-   PreFilter(context.Context, *framework.CycleState, *v1.pod) error
+    Plugin
+    PreFilter(context.Context, *framework.CycleState, *v1.pod) error
 }
 
 // ...
 ```
 
 <!--
-# Plugin Configuration
+## Plugin configuration
 -->
-# 插件配置
+## 插件配置
 
 <!--
 You can enable or disable plugins in the scheduler configuration. If you are using
@@ -471,5 +503,3 @@ Learn more at [multiple profiles](/docs/reference/scheduling/config/#multiple-pr
 如果你正在使用 Kubernetes v1.18 或更高版本，你可以将一组插件设置为
 一个调度器配置文件，然后定义不同的配置文件来满足各类工作负载。
 了解更多关于[多配置文件](/zh-cn/docs/reference/scheduling/config/#multiple-profiles)。
-
-

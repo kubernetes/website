@@ -1,10 +1,10 @@
 ---
 title: "审计注解"
-weight: 1
+weight: 10
 ---
 <!--
 title: "Audit Annotations"
-weight: 1
+weight: 10
 -->
 
 <!-- overview -->
@@ -136,7 +136,7 @@ See [Auditing](/docs/tasks/debug/debug-cluster/audit/) for more information.
 
 有关详细信息，请参阅[审计](/zh-cn/docs/tasks/debug/debug-cluster/audit/)。
 
-## missing-san.invalid-cert.kubernetes.io/$hostname {##missing-san-invalid-cert-kubernetes-io-hostname}
+## missing-san.invalid-cert.kubernetes.io/$hostname {#missing-san-invalid-cert-kubernetes-io-hostname}
 
 <!--
 Example: `missing-san.invalid-cert.kubernetes.io/example-svc.example-namespace.svc: "relies on a legacy Common Name field instead of the SAN extension for subject validation"`

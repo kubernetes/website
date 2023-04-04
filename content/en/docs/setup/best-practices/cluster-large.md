@@ -9,13 +9,13 @@ weight: 10
 A cluster is a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (physical
 or virtual machines) running Kubernetes agents, managed by the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}.
-Kubernetes {{< param "version" >}} supports clusters with up to 5000 nodes. More specifically,
+Kubernetes {{< param "version" >}} supports clusters with up to 5,000 nodes. More specifically,
 Kubernetes is designed to accommodate configurations that meet *all* of the following criteria:
 
 * No more than 110 pods per node
-* No more than 5000 nodes
-* No more than 150000 total pods
-* No more than 300000 total containers
+* No more than 5,000 nodes
+* No more than 150,000 total pods
+* No more than 300,000 total containers
 
 You can scale your cluster by adding or removing nodes. The way you do this depends
 on how your cluster is deployed.

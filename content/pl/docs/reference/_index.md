@@ -36,7 +36,7 @@ biblioteki to:
 
 ## Polecenia tekstowe *(CLI)*
 
-* [kubectl](/docs/reference/kubectl/overview/) - Główne narzędzie tekstowe (linii poleceń) do zarządzania klastrem Kubernetes.
+* [kubectl](/docs/reference/kubectl/) - Główne narzędzie tekstowe (linii poleceń) do zarządzania klastrem Kubernetes.
   * [JSONPath](/docs/reference/kubectl/jsonpath/) - Podręcznik składni [wyrażeń JSONPath](https://goessner.net/articles/JsonPath/) dla kubectl.
 * [kubeadm](/docs/reference/setup-tools/kubeadm/) - Narzędzie tekstowe do łatwego budowania klastra Kubernetes spełniającego niezbędne wymogi bezpieczeństwa.
 
@@ -65,16 +65,22 @@ Kubernetesa lub innych narzędzi. Choć większość tych API nie jest udostępn
 serwer API w trybie RESTful, są one niezbędne dla użytkowników i administratorów
 w korzystaniu i zarządzaniu klastrem.
 
+* [kube-apiserver configuration (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/)
 * [kube-apiserver configuration (v1)](/docs/reference/config-api/apiserver-config.v1/)
-* [kubelet configuration (v1alpha1)](/docs/reference/config-api/kubelet-config.v1alpha1/) i
+* [kube-apiserver encryption (v1)](/docs/reference/config-api/apiserver-encryption.v1/)
+* [kube-apiserver event rate limit (v1alpha1)](/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
+* [kubelet configuration (v1alpha1)](/docs/reference/config-api/kubelet-config.v1alpha1/) oraz
   [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
-* [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) i
+* [kubelet credential providers (v1alpha1)](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/)
+* [kubelet credential providers (v1beta1)](/docs/reference/config-api/kubelet-credentialprovider.v1beta1/)
+* [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/) oraz
   [kube-scheduler configuration (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
 * [kube-proxy configuration (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 * [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
-* [Client authentication API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/) i
+* [Client authentication API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/) oraz
   [Client authentication API (v1)](/docs/reference/config-api/client-authentication.v1/)
 * [WebhookAdmission configuration (v1)](/docs/reference/config-api/apiserver-webhookadmission.v1/)
+* [ImagePolicy API (v1alpha1)](/docs/reference/config-api/imagepolicy.v1alpha1/)
 
 ## API konfiguracji dla kubeadm
 
@@ -84,5 +90,5 @@ w korzystaniu i zarządzaniu klastrem.
 ## Dokumentacja projektowa
 
 Archiwum dokumentacji projektowej różnych funkcjonalności Kubernetes. Warto zacząć od
-[Kubernetes Architecture](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md) oraz
-[Kubernetes Design Overview](https://git.k8s.io/community/contributors/design-proposals).
+[Kubernetes Architecture](https://git.k8s.io/design-proposals-archive/architecture/architecture.md) oraz
+[Kubernetes Design Overview](https://git.k8s.io/design-proposals-archive).

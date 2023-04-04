@@ -104,6 +104,53 @@ The cluster autoscaler never evicts Pods that have this annotation explicitly se
 `"false"`; you could set that on an important Pod that you want to keep running.
 If this annotation is not set then the cluster autoscaler follows its Pod-level behavior.
 
+### config.kubernetes.io/local-config
+
+Example: `config.kubernetes.io/local-config: "true"`
+
+Used on: All objects
+
+This annotation is used in manifests to mark an object as local configuration that should not be submitted to the Kubernetes API.
+
+A value of "true" for this annotation declares that the object is only consumed by client-side tooling and should not be submitted to the API server.
+
+A value of "false" can be used to declare that the object should be submitted to the API server even when it would otherwise be assumed to be local.
+
+This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification, which is used by Kustomize and similar third-party tools. For example, Kustomize removes objects with this annotation from its final build output.
+
+
+### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
+
+Used on: All objects
+
+This prefix is reserved for internal use by tools that act as orchestrators in accordance with the Kubernetes Resource Model (KRM) Functions Specification. Annotations with this prefix are internal to the orchestration process and are not persisted to the manifests on the filesystem. In other words, the orchestrator tool should set these annotations when reading files from the local filesystem and remove them when writing the output of functions back to the filesystem.
+
+A KRM function **must not** modify annotations with this prefix, unless otherwise specified for a given annotation. This enables orchestrator tools to add additional internal annotations, without requiring changes to existing functions.
+
+### internal.config.kubernetes.io/path
+
+Example: `internal.config.kubernetes.io/path: "relative/file/path.yaml"`
+
+Used on: All objects
+
+This annotation records the slash-delimited, OS-agnostic, relative path to the manifest file the object was loaded from. The path is relative to a fixed location on the filesystem, determined by the orchestrator tool.
+
+This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification, which is used by Kustomize and similar third-party tools.
+
+A KRM Function **should not** modify this annotation on input objects unless it is modifying the referenced files. A KRM Function **may** include this annotation on objects it generates.
+
+### internal.config.kubernetes.io/index
+
+Example: `internal.config.kubernetes.io/index: "2"`
+
+Used on: All objects
+
+This annotation records the zero-indexed position of the YAML document that contains the object within the manifest file the object was loaded from. Note that YAML documents are separated by three dashes (`---`) and can each contain one object. When this annotation is not specified, a value of 0 is implied.
+
+This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification, which is used by Kustomize and similar third-party tools.
+
+A KRM Function **should not** modify this annotation on input objects unless it is modifying the referenced files. A KRM Function **may** include this annotation on objects it generates.
+
 ### kubernetes.io/arch
 
 Example: `kubernetes.io/arch: "amd64"`
@@ -116,9 +163,20 @@ The Kubelet populates this with `runtime.GOARCH` as defined by Go. This can be h
 
 Example: `kubernetes.io/os: "linux"`
 
-Used on: Node
+Used on: Node, Pod
 
-The Kubelet populates this with `runtime.GOOS` as defined by Go. This can be handy if you are mixing operating systems in your cluster (for example: mixing Linux and Windows nodes).
+For nodes, the kubelet populates this with `runtime.GOOS` as defined by Go. This can be handy if you are
+mixing operating systems in your cluster (for example: mixing Linux and Windows nodes).
+
+You can also set this label on a Pod. Kubernetes allows you to set any value for this label;
+if you use this label, you should nevertheless set it to the Go `runtime.GOOS` string for the operating
+system that this Pod actually works with.
+
+When the `kubernetes.io/os` label value for a Pod does not match the label value on a Node,
+the kubelet on the node will not admit the Pod. However, this is not taken into account by
+the kube-scheduler. Alternatively, the kubelet refuses to run a Pod where you have specified a Pod OS, if
+this isn't the same as the operating system for the node where that kubelet is running. Just
+look for [Pods OS](/docs/concepts/workloads/pods/#pod-os) for more details.
 
 ### kubernetes.io/metadata.name
 
@@ -168,8 +226,19 @@ Automanaged APIService objects are deleted by kube-apiserver when it has no buil
 {{< /note >}}
 
 There are two possible values:
+
 - `onstart`: The APIService should be reconciled when an API server starts up, but not otherwise.
 - `true`: The API server should reconcile this APIService continuously.
+
+### service.alpha.kubernetes.io/tolerate-unready-endpoints (deprecated)
+
+Used on: StatefulSet
+
+This annotation on a Service denotes if the Endpoints controller should go ahead and create Endpoints for unready Pods.
+Endpoints of these Services retain their DNS records and continue receiving
+traffic for the Service from the moment the kubelet starts all containers in the pod
+and marks it _Running_, til the kubelet stops all containers and deletes the pod from
+the API server.
 
 ### kubernetes.io/hostname {#kubernetesiohostname}
 
@@ -180,7 +249,6 @@ Used on: Node
 The Kubelet populates this label with the hostname. Note that the hostname can be changed from the "actual" hostname by passing the `--hostname-override` flag to the `kubelet`.
 
 This label is also used as part of the topology hierarchy.  See [topology.kubernetes.io/zone](#topologykubernetesiozone) for more information.
-
 
 ### kubernetes.io/change-cause {#change-cause}
 
@@ -310,6 +378,50 @@ See [topology.kubernetes.io/zone](#topologykubernetesiozone).
 
 {{< note >}} Starting in v1.17, this label is deprecated in favor of [topology.kubernetes.io/zone](#topologykubernetesiozone). {{< /note >}}
 
+### pv.kubernetes.io/bind-completed {#pv-kubernetesiobind-completed}
+
+Example: `pv.kubernetes.io/bind-completed: "yes"`
+
+Used on: PersistentVolumeClaim
+
+When this annotation is set on a PersistentVolumeClaim (PVC), that indicates that the lifecycle
+of the PVC has passed through initial binding setup. When present, that information changes
+how the control plane interprets the state of PVC objects.
+The value of this annotation does not matter to Kubernetes.
+
+### pv.kubernetes.io/bound-by-controller {#pv-kubernetesioboundby-controller}
+
+Example: `pv.kubernetes.io/bound-by-controller: "yes"`
+
+Used on: PersistentVolume, PersistentVolumeClaim
+
+If this annotation is set on a PersistentVolume or PersistentVolumeClaim, it indicates that a storage binding
+(PersistentVolume → PersistentVolumeClaim, or PersistentVolumeClaim → PersistentVolume) was installed
+by the {{< glossary_tooltip text="controller" term_id="controller" >}}.
+If the annotation isn't set, and there is a storage binding in place, the absence of that annotation means that
+the binding was done manually. The value of this annotation does not matter.
+
+### pv.kubernetes.io/provisioned-by {#pv-kubernetesiodynamically-provisioned}
+
+Example: `pv.kubernetes.io/provisioned-by: "kubernetes.io/rbd"`
+
+Used on: PersistentVolume
+
+This annotation is added to a PersistentVolume(PV) that has been dynamically provisioned by Kubernetes.
+Its value is the name of volume plugin that created the volume. It serves both user (to show where a PV
+comes from) and Kubernetes (to recognize dynamically provisioned PVs in its decisions).
+
+### pv.kubernetes.io/migrated-to {#pv-kubernetesio-migratedto}
+
+Example: `pv.kubernetes.io/migrated-to: pd.csi.storage.gke.io`
+
+Used on: PersistentVolume, PersistentVolumeClaim
+
+It is added to a PersistentVolume(PV) and PersistentVolumeClaim(PVC) that is supposed to be
+dynamically provisioned/deleted by its corresponding CSI driver through the `CSIMigration` feature gate.
+When this annotation is set, the Kubernetes components will "stand-down" and the `external-provisioner`
+will act on the objects.
+
 ### statefulset.kubernetes.io/pod-name {#statefulsetkubernetesiopod-name}
 
 Example:
@@ -355,6 +467,7 @@ A zone represents a logical failure domain.  It is common for Kubernetes cluster
 A region represents a larger domain, made up of one or more zones.  It is uncommon for Kubernetes clusters to span multiple regions,  While the exact definition of a zone or region is left to infrastructure implementations, common properties of a region include higher network latency between them than within them, non-zero cost for network traffic between them, and failure independence from other zones or regions.  For example, nodes within a region might share power infrastructure (e.g. a UPS or generator), but nodes in different regions typically would not.
 
 Kubernetes makes a few assumptions about the structure of zones and regions:
+
 1) regions and zones are hierarchical: zones are strict subsets of regions and no zone can be in 2 regions
 2) zone names are unique across regions; for example region "africa-east-1" might be comprised of zones "africa-east-1a" and "africa-east-1b"
 
@@ -377,6 +490,17 @@ Used on: PersistentVolumeClaim
 
 This annotation has been deprecated.
 
+### volume.beta.kubernetes.io/storage-class (deprecated)
+
+Example: `volume.beta.kubernetes.io/storage-class: "example-class"`
+
+Used on: PersistentVolume, PersistentVolumeClaim
+
+This annotation can be used for PersistentVolume(PV) or PersistentVolumeClaim(PVC) to specify the name of [StorageClass](/docs/concepts/storage/storage-classes/). When both `storageClassName` attribute and `volume.beta.kubernetes.io/storage-class` annotation are specified, the annotation `volume.beta.kubernetes.io/storage-class` takes precedence over the `storageClassName` attribute.
+
+This annotation has been deprecated. Instead, set the [`storageClassName` field](/docs/concepts/storage/persistent-volumes/#class)
+for the PersistentVolumeClaim or PersistentVolume.
+
 ### volume.beta.kubernetes.io/mount-options (deprecated) {#mount-options}
 
 Example : `volume.beta.kubernetes.io/mount-options: "ro,soft"`
@@ -392,6 +516,12 @@ This annotation has been deprecated.
 Used on: PersistentVolumeClaim
 
 This annotation will be added to dynamic provisioning required PVC.
+
+### volume.kubernetes.io/selected-node
+
+Used on: PersistentVolumeClaim
+
+This annotation is added to a PVC that is triggered by a scheduler to be dynamically provisioned. Its value is the name of the selected node.
 
 ### volumes.kubernetes.io/controller-managed-attach-detach
 
@@ -467,7 +597,6 @@ a request where the client authenticated using the service account token.
 
 If a legacy token was last used before the cluster gained the feature (added in Kubernetes v1.26), then
 the label isn't set.
-
 
 ### endpointslice.kubernetes.io/managed-by {#endpointslicekubernetesiomanaged-by}
 
@@ -554,6 +683,17 @@ Example: `kubectl.kubernetes.io/default-container: "front-end-app"`
 
 The value of the annotation is the container name that is default for this Pod. For example, `kubectl logs` or `kubectl exec` without `-c` or `--container` flag will use this default container.
 
+### kubectl.kubernetes.io/default-logs-container (deprecated)
+
+Example: `kubectl.kubernetes.io/default-logs-container: "front-end-app"`
+
+The value of the annotation is the container name that is the default logging container for this Pod. For example, `kubectl logs` without `-c` or `--container` flag will use this default container.
+
+{{< note >}}
+This annotation is deprecated. You should use the [`kubectl.kubernetes.io/default-container`](#kubectl-kubernetes-io-default-container) annotation instead.
+Kubernetes versions 1.25 and newer ignore this annotation.
+{{< /note >}}
+
 ### endpoints.kubernetes.io/over-capacity
 
 Example: `endpoints.kubernetes.io/over-capacity:truncated`
@@ -574,7 +714,7 @@ The presence of this annotation on a Job indicates that the control plane is
 [tracking the Job status using finalizers](/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers).
 The control plane uses this annotation to safely transition to tracking Jobs
 using finalizers, while the feature is in development.
-You should **not** manually add or remove this annotation. 
+You should **not** manually add or remove this annotation.
 
 {{< note >}}
 Starting from Kubernetes 1.26, this annotation is deprecated.
@@ -655,7 +795,6 @@ Refer to
 [Non-graceful node shutdown](/docs/concepts/architecture/nodes/#non-graceful-node-shutdown)
 for further details about when and how to use this taint.
 {{< /caution >}}
-
 
 ### node.cloudprovider.kubernetes.io/uninitialized
 
@@ -753,6 +892,17 @@ or updating objects that contain Pod templates, such as Deployments, Jobs, State
 See [Enforcing Pod Security at the Namespace Level](/docs/concepts/security/pod-security-admission)
 for more information.
 
+### rbac.authorization.kubernetes.io/autoupdate
+
+Example: `rbac.authorization.kubernetes.io/autoupdate: "false"`
+
+Used on: ClusterRole, ClusterRoleBinding, Role, RoleBinding
+
+When this annotation is set to `"true"` on default RBAC objects created by the kube-apiserver, they are automatically updated at server start to add missing permissions and subjects (extra permissions and subjects are left in place). To prevent autoupdating a particular role or rolebinding, set this annotation to `"false"`.
+If you create your own RBAC objects and set this annotation to `"false"`, `kubectl auth reconcile`
+(which allows reconciling arbitrary RBAC objects in a {{< glossary_tooltip text="manifest" term_id="manifest" >}}) respects this annotation and does not automatically add missing permissions and
+subjects.
+
 ### kubernetes.io/psp (deprecated) {#kubernetes-io-psp}
 
 Example: `kubernetes.io/psp: restricted`
@@ -784,9 +934,9 @@ you through the steps you follow to apply a seccomp profile to a Pod or to one o
 its containers. That tutorial covers the supported mechanism for configuring seccomp in Kubernetes,
 based on setting `securityContext` within the Pod's `.spec`.
 
-### snapshot.storage.kubernetes.io/allowVolumeModeChange
+### snapshot.storage.kubernetes.io/allow-volume-mode-change
 
-Example: `snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"`
+Example: `snapshot.storage.kubernetes.io/allow-volume-mode-change: "true"`
 
 Used on: VolumeSnapshotContent
 

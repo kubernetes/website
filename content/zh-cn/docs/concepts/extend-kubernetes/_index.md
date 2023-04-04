@@ -542,7 +542,7 @@ allow Kubernetes to work with different networking topologies and technologies.
 你的 Kubernetes 集群需要一个**网络插件**才能拥有一个正常工作的 Pod 网络，
 才能支持 Kubernetes 网络模型的其他方面。
 
-[网络插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/可以让
+[网络插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)可以让
 Kubernetes 使用不同的网络拓扑和技术。
 
 <!--

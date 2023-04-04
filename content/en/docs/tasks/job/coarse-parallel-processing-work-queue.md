@@ -21,7 +21,7 @@ Here is an overview of the steps in this example:
 1. **Create a queue, and fill it with messages.**  Each message represents one task to be done.  In
    this example, a message is an integer that we will do a lengthy computation on.
 1. **Start a Job that works on tasks from the queue**.  The Job starts several pods.  Each pod takes
-   one task from the message queue, processes it, and repeats until the end of the queue is reached.
+   one task from the message queue, processes it, and exits.
 
 ## {{% heading "prerequisites" %}}
 

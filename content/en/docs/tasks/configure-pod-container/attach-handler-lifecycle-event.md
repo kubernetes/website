@@ -1,7 +1,6 @@
 ---
 title: Attach Handlers to Container Lifecycle Events
-content_type: task
-weight: 140
+weight: 180
 ---
 
 <!-- overview -->

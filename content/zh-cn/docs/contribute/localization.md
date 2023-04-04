@@ -64,11 +64,9 @@ standard](https://www.loc.gov/standards/iso639-2/php/code_list.php) to find your
 localization's two-letter language code. For example, the two-letter code for
 Korean is `ko`.
 
-### Fork and clone the repo
-
-First, [create your own
-fork](/docs/contribute/new-content/open-a-pr/#fork-the-repo) of the
-[kubernetes/website](https://github.com/kubernetes/website) repository.
+Some languages use a lowercase version of the country code as defined by the
+ISO-3166 along with their language codes. For example, the Brazilian Portuguese
+language code is `pt-br`.
 -->
 ### 找到两个字母的语言代码 {#find-your-two-letter-language-code}
 
@@ -76,6 +74,17 @@ fork](/docs/contribute/new-content/open-a-pr/#fork-the-repo) of the
 [ISO 639-1 标准](https://www.loc.gov/standards/iso639-2/php/code_list.php)。
 例如，韩语的两个字母代码是 `ko`。
 
+一些语言使用 ISO-3166 定义的国家代码的小写版本及其语言代码。
+例如，巴西葡萄牙语代码是 `pt-br`。
+
+
+<!--
+### Fork and clone the repo
+
+First, [create your own
+fork](/docs/contribute/new-content/open-a-pr/#fork-the-repo) of the
+[kubernetes/website](https://github.com/kubernetes/website) repository.
+-->
 ### 派生（fork）并且克隆仓库 {#fork-and-clone-the-repo}
 
 首先，为 [kubernetes/website](https://github.com/kubernetes/website) 仓库
@@ -124,7 +133,7 @@ changes to the upstream (English) content.
 
 请将 PR 限制为单个语言版本，因为多语言的 PR 内容修改可能难以审查。
 
-按照[内容改进建议](/zh-cn/docs/contribute/suggest-improvements/)提出对该本地化的更改。
+按照[内容改进建议](/zh-cn/docs/contribute/suggesting-improvements/)提出对该本地化的更改。
 该过程与提议更改上游（英文）内容非常相似。
 
 <!--
@@ -155,6 +164,20 @@ You'll need to know the two-letter language code for your language. Consult the
 to find your localization's two-letter language code. For example, the
 two-letter code for Korean is `ko`.
 
+If the language you are starting a localization for is spoken in various places
+with significant differences between the variants, it might make sense to
+combine the lowercased ISO-3166 country code with the language two-letter code.
+For example, Brazilian Portuguese is localized as `pt-br`.
+-->
+你需要知道你的语言的两个字母的语言代码。
+请查阅 [ISO 639-1 标准](https://www.loc.gov/standards/iso639-2/php/code_list.php)
+以查找你的本地化的两字母语言代码。例如，韩语的两字母代码是 `ko`。
+
+如果你开始本地化的语言在不同地方使用，并且变体之间存在显着差异，
+则将小写的 ISO-3166 国家/地区代码与语言双字母代码结合起来可能是有意义的。
+例如，巴西葡萄牙语被本地化为 `pt-br`。
+
+<!--
 When you start a new localization, you must localize all the
 [minimum required content](#minimum-required-content) before
 the Kubernetes project can publish your changes to the live
@@ -163,10 +186,6 @@ website.
 SIG Docs can help you work on a separate branch so that you
 can incrementally work towards that goal.
 -->
-你需要知道你的语言的两个字母的语言代码。
-请查阅 [ISO 639-1 标准](https://www.loc.gov/standards/iso639-2/php/code_list.php)
-以查找你的本地化的两字母语言代码。例如，韩语的两字母代码是`ko`。
-
 当你开始新的本地化时，你必须先本地化所有[最少要求的内容](#minimum-required-content)，
 Kubernetes 项目才能将你的更改发布到当前网站。
 
@@ -279,19 +298,19 @@ For an example of adding a label, see the PR for adding the
 
 The Kubernetes website uses Hugo as its web framework. The website's Hugo
 configuration resides in the
-[`config.toml`](https://github.com/kubernetes/website/tree/main/config.toml)
-file. You'll need to modify `config.toml` to support a new localization.
+[`hugo.toml`](https://github.com/kubernetes/website/tree/main/hugo.toml)
+file. You'll need to modify `hugo.toml` to support a new localization.
 
-Add a configuration block for the new language to `config.toml` under the
+Add a configuration block for the new language to `hugo.toml` under the
 existing `[languages]` block. The German block, for example, looks like:
 -->
 ### 修改站点配置 {#configure-the-workflow}
 
 Kubernetes 网站使用 Hugo 作为其 Web 框架。网站的 Hugo 配置位于
-[`config.toml`](https://github.com/kubernetes/website/tree/main/config.toml)文件中。
-为了支持新的本地化，你需要修改 `config.toml`。
+[`hugo.toml`](https://github.com/kubernetes/website/tree/main/hugo.toml)文件中。
+为了支持新的本地化，你需要修改 `hugo.toml`。
 
-在现有的 `[languages]` 下，将新语言的配置添加到 `config.toml` 中。
+在现有的 `[languages]` 下，将新语言的配置添加到 `hugo.toml` 中。
 例如，下面是德语的配置示例：
 
 ```toml
@@ -633,11 +652,11 @@ To find source files for your target version:
 1. Navigate to the Kubernetes website repository at https://github.com/kubernetes/website.
 2. Select a branch for your target version from the following table:
 
-   Target version | Branch
-   -----|-----
-   Latest version | [`main`](https://github.com/kubernetes/website/tree/main)
-   Previous version | [`release-{{< skew prevMinorVersion >}}`](https://github.com/kubernetes/website/tree/release-{{< skew prevMinorVersion >}})
-   Next version | [`dev-{{< skew nextMinorVersion >}}`](https://github.com/kubernetes/website/tree/dev-{{< skew nextMinorVersion >}})
+Target version | Branch
+-----|-----
+Latest version | [`main`](https://github.com/kubernetes/website/tree/main)
+Previous version | [`release-{{< skew prevMinorVersion >}}`](https://github.com/kubernetes/website/tree/release-{{< skew prevMinorVersion >}})
+Next version | [`dev-{{< skew nextMinorVersion >}}`](https://github.com/kubernetes/website/tree/dev-{{< skew nextMinorVersion >}})
 
 The `main` branch holds content for the current release `{{< latest-version >}}`. 
 The release team creates a `{{< release-branch >}}` branch before the next
@@ -653,11 +672,11 @@ release: v{{< skew nextMinorVersion >}}.
 1. 导航到 Kubernetes website 仓库，网址为 https://github.com/kubernetes/website。
 2. 从下面的表格中选择你的目标版本分支：
 
-   目标版本 | 分支
-   -----|-----
-   最新版本 | [`main`](https://github.com/kubernetes/website/tree/main)
-   上一个版本 | [`release-{{< skew prevMinorVersion >}}`](https://github.com/kubernetes/website/tree/release-{{< skew prevMinorVersion >}})
-   下一个版本 | [`dev-{{< skew nextMinorVersion >}}`](https://github.com/kubernetes/website/tree/dev-{{< skew nextMinorVersion >}})
+目标版本 | 分支
+-----|-----
+最新版本 | [`main`](https://github.com/kubernetes/website/tree/main)
+上一个版本 | [`release-{{< skew prevMinorVersion >}}`](https://github.com/kubernetes/website/tree/release-{{< skew prevMinorVersion >}})
+下一个版本 | [`dev-{{< skew nextMinorVersion >}}`](https://github.com/kubernetes/website/tree/dev-{{< skew nextMinorVersion >}})
 
 `main` 分支中保存的是当前发行版本 `{{< latest-version >}}` 的内容。
 发行团队会在下一个发行版本 v{{< skew nextMinorVersion >}} 出现之前创建

@@ -130,7 +130,7 @@ metadata:
 spec:
   containers:
     - name: cuda-test
-      image: "k8s.gcr.io/cuda-vector-add:v0.1"
+      image: "registry.k8s.io/cuda-vector-add:v0.1"
       resources:
         limits:
           nvidia.com/gpu: 1
@@ -167,7 +167,7 @@ partition
 
 ### LISTとWATCHによるフィルタリング
 
-LISTとWATCHオペレーションは、単一のクエリパラメータを使うことによって返されるオブジェクトのセットをフィルターするためのラベルセレクターを指定できます。  
+LISTとWATCHオペレーションは、単一のクエリパラメーターを使うことによって返されるオブジェクトのセットをフィルターするためのラベルセレクターを指定できます。  
 *集合ベース* と*等価ベース* のどちらの要件も許可されています(ここでは、URLクエリストリング内で出現します)。  
 
   * *等価ベース* での要件: `?labelSelector=environment%3Dproduction,tier%3Dfrontend`

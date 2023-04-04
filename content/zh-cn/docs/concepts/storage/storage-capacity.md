@@ -1,7 +1,7 @@
 ---
 title: 存储容量
 content_type: concept
-weight: 70
+weight: 80
 ---
 <!--
 reviewers:
@@ -12,7 +12,7 @@ reviewers:
 - pohly
 title: Storage Capacity
 content_type: concept
-weight: 70
+weight: 80
 -->
 
 <!-- overview -->

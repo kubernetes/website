@@ -46,7 +46,7 @@ spec:
   containers:
     - name: cuda-vector-add
       # https://github.com/kubernetes/kubernetes/blob/v1.7.11/test/images/nvidia-cuda/Dockerfile
-      image: "k8s.gcr.io/cuda-vector-add:v0.1"
+      image: "registry.k8s.io/cuda-vector-add:v0.1"
       resources:
         limits:
           nvidia.com/gpu: 1 # 1 GPUをリクエストしています
@@ -173,7 +173,7 @@ spec:
   containers:
     - name: cuda-vector-add
       # https://github.com/kubernetes/kubernetes/blob/v1.7.11/test/images/nvidia-cuda/Dockerfile
-      image: "k8s.gcr.io/cuda-vector-add:v0.1"
+      image: "registry.k8s.io/cuda-vector-add:v0.1"
       resources:
         limits:
           nvidia.com/gpu: 1

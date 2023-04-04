@@ -13,11 +13,13 @@ auto_generated: true
 -->
 <!--
 <h2>Overview</h2>
+<p>Package v1beta2 has been DEPRECATED by v1beta3.</p>
 <p>Package v1beta2 defines the v1beta2 version of the kubeadm configuration file format.
 This version improves on the v1beta1 format by fixing some minor issues and adding a few new fields.</p>
 <p>A list of changes since v1beta1:</p>
 -->
 <h2>概述</h2>
+<p>包 v1beta2 已被 v1beta3 所弃用。</p>
 
 <p>包 v1beta2 定义 kubeadm 配置文件格式的 v1beta2 版本。
 此版本改进了 v1beta1 的格式，修复了一些小问题并添加了一些新的字段。</p>
@@ -43,7 +45,7 @@ This version improves on the v1beta1 format by fixing some minor issues and addi
 <p>参阅 Kubernetes 1.15 的变更记录以了解详细信息。</p>
 
 <!--
-<p>Migration from old kubeadm config versions</p>
+<h1>Migration from old kubeadm config versions</h1>
 <p>Please convert your v1beta1 configuration files to v1beta2 using the &quot;kubeadm config migrate&quot; command of kubeadm v1.15.x
 (conversion from older releases of kubeadm config files requires older release of kubeadm as well e.g.</p>
 <ul>
@@ -51,7 +53,7 @@ This version improves on the v1beta1 format by fixing some minor issues and addi
 <li>kubeadm v1.13 or v1.14 should be used to translate v1alpha3 to v1beta1)</li>
 </ul>
 -->
-<p>从老的 kubeadm 配置版本迁移：</p>
+<h1>从老的 kubeadm 配置版本迁移：</h1>
 <p>请使用 kubeadm v1.15.x 的 &quot;kubeadm config migrate&quot; 命令将 v1beta1
 版本的配置文件转换为 v1beta2。
 （从更老版本的 kubeadm 配置文件迁移需要使用更老版本的 kubeadm。例如：</p>
@@ -169,7 +171,7 @@ use it to customize the node name, the CRI socket to use or any other settings t
 node only (e.g. the node ip).</p>
 </li>
 <li>
-<p><code>apiServer</code>, that represents the endpoint of the instance of the API server to be deployed on this node;
+<p><code>localAPIEndpoint</code>, that represents the endpoint of the instance of the API server to be deployed on this node;
 use it e.g. to customize the API server advertise address.</p>
 </li>
 </ul>
@@ -181,20 +183,20 @@ use it e.g. to customize the API server advertise address.</p>
 <li><code>nodeRegistration</code>：其中包含与向集群注册新节点相关的字段；
 使用这个类型来定制节点名称、要使用的 CRI 套接字或者其他仅对当前节点起作用的设置
 （例如节点 IP 地址）。</li>
-<li><code>apiServer</code>：代表的是要部署到此节点上的 API 服务器示例的端点；
+<li><code>localAPIEndpoint</code>：代表的是要部署到此节点上的 API 服务器示例的端点；
 使用这个类型可以完成定制 API 服务器公告地址这类操作。</li>
 </ul>
 
 <pre style="background-color:#fff"><span style="color:#000;font-weight:bold">apiVersion</span>:<span style="color:#bbb"> </span>kubeadm.k8s.io/v1beta2<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">kind</span>:<span style="color:#bbb"> </span>ClusterConfiguration<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">networking</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span>...<span style="color:#bbb">
+</span><span style="color:#bbb"> </span>...<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">etcd</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span>...<span style="color:#bbb">
+</span><span style="color:#bbb"> </span>...<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">apiServer</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span>...<span style="color:#bbb">
-</span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraVolumes</span>:<span style="color:#bbb">
+</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
+</span><span style="color:#bbb"> </span>...<span style="color:#bbb">
+</span><span style="color:#bbb"> </span><span style="color:#000;font-weight:bold">extraVolumes</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">    </span>...<span style="color:#bbb">
 </span><span style="color:#bbb"></span>...<span style="color:#bbb">
 </span></pre>
@@ -395,12 +397,12 @@ are the discovery method used for accessing the cluster info and all the setting
 to the node where kubeadm is executed, including:</p>
 <ul>
 <li>
-<p><code>NodeRegistration</code>, that holds fields that relate to registering the new node to the cluster;
+<p><code>nodeRegistration</code>, that holds fields that relate to registering the new node to the cluster;
 use it to customize the node name, the CRI socket to use or any other settings that should apply to this
 node only (e.g. the node IP).</p>
 </li>
 <li>
-<p><code>APIEndpoint</code>, that represents the endpoint of the instance of the API server to be eventually deployed on this node.</p>
+<p><code>apiEndpoint</code>, that represents the endpoint of the instance of the API server to be eventually deployed on this node.</p>
 </li>
 </ul>
 -->
@@ -426,8 +428,8 @@ node only (e.g. the node IP).</p>
 - [InitConfiguration](#kubeadm-k8s-io-v1beta2-InitConfiguration)
 - [JoinConfiguration](#kubeadm-k8s-io-v1beta2-JoinConfiguration)
 
-## `ClusterConfiguration`     {#kubeadm-k8s-io-v1beta2-ClusterConfiguration}
-    
+## `ClusterConfiguration` {#kubeadm-k8s-io-v1beta2-ClusterConfiguration}
+
 <!--
 <p>ClusterConfiguration contains cluster-wide configuration for a kubeadm cluster</p>
 -->
@@ -617,8 +619,8 @@ when this set to true, and at some point it may become ignored.</p>
 </tbody>
 </table>
 
-## `ClusterStatus`     {#kubeadm-k8s-io-v1beta2-ClusterStatus}
-    
+## `ClusterStatus` {#kubeadm-k8s-io-v1beta2-ClusterStatus}
+
 <!--
 <p>ClusterStatus contains the cluster status. The ClusterStatus will be stored in
 the kubeadm-config ConfigMap in the cluster, and then updated by kubeadm when
@@ -650,8 +652,8 @@ The key of the map is the IP of the host's default interface.</p>
 </tbody>
 </table>
 
-## `InitConfiguration`     {#kubeadm-k8s-io-v1beta2-InitConfiguration}
-    
+## `InitConfiguration` {#kubeadm-k8s-io-v1beta2-InitConfiguration}
+
 <!--
 <p>InitConfiguration contains a list of elements that is specific &quot;kubeadm init&quot;-only runtime
 information.</p>
@@ -790,8 +792,8 @@ on the joining node. If nil, no additional control plane instance will be deploy
 </tbody>
 </table>
 
-## `APIEndpoint`     {#kubeadm-k8s-io-v1beta2-APIEndpoint}
-    
+## `APIEndpoint` {#kubeadm-k8s-io-v1beta2-APIEndpoint}
+
 <!--
 **Appears in:**
 -->
@@ -838,8 +840,8 @@ Defaults to 6443.</p>
 </tbody>
 </table>
 
-## `APIServer`     {#kubeadm-k8s-io-v1beta2-APIServer}
-    
+## `APIServer` {#kubeadm-k8s-io-v1beta2-APIServer}
+
 <!--
 **Appears in:**
 -->
@@ -907,7 +909,6 @@ to appear.</p>
 
 - [InitConfiguration](#kubeadm-k8s-io-v1beta2-InitConfiguration)
 
-
 <!--p>BootstrapToken describes one bootstrap token, stored as a Secret in the cluster</p-->
 <p>BootstrapToken 描述的是一个启动引导令牌，以 Secret 形式存储在集群中。</p>
 
@@ -946,7 +947,7 @@ for, so other administrators can know its purpose.</p-->
 </td>
 </tr>
 <tr><td><code>expires</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <!--p><code>expires</code> specifies the timestamp when this token expires. Defaults to being set
@@ -1102,8 +1103,8 @@ of view and as an authentication method for the node in the bootstrap phase of
 </tbody>
 </table>
 
-## `ControlPlaneComponent`     {#kubeadm-k8s-io-v1beta2-ControlPlaneComponent}
-    
+## `ControlPlaneComponent` {#kubeadm-k8s-io-v1beta2-ControlPlaneComponent}
+
 <!--
 **Appears in:**
 -->
@@ -1154,15 +1155,14 @@ without leading dash(es).
 </tbody>
 </table>
 
-## `DNS`     {#kubeadm-k8s-io-v1beta2-DNS}
-    
+## `DNS` {#kubeadm-k8s-io-v1beta2-DNS}
+
 <!--
 **Appears in:**
 -->
 **出现在：**
 
 - [ClusterConfiguration](#kubeadm-k8s-io-v1beta2-ClusterConfiguration)
-
 
 <p>
 <!--
@@ -1204,7 +1204,7 @@ DNS 结构定义要在集群中使用的 DNS 插件。
 
 ## `DNSAddOnType`     {#kubeadm-k8s-io-v1beta2-DNSAddOnType}
 
-<!--    
+<!--
 (Alias of `string`)
 
 **Appears in:**
@@ -1220,8 +1220,8 @@ DNS 结构定义要在集群中使用的 DNS 插件。
 -->
 <p>DNSAddOnType 定义的是用来辨识 DNS 插件类型的字符串。</p>
 
-## `Discovery`     {#kubeadm-k8s-io-v1beta2-Discovery}
-    
+## `Discovery` {#kubeadm-k8s-io-v1beta2-Discovery}
+
 <!--
 **Appears in:**
 -->
@@ -1303,8 +1303,8 @@ contain any other authentication information.
 </tbody>
 </table>
 
-## `Etcd`     {#kubeadm-k8s-io-v1beta2-Etcd}
-    
+## `Etcd` {#kubeadm-k8s-io-v1beta2-Etcd}
+
 <!--
 **Appears in:**
 -->
@@ -1354,8 +1354,8 @@ Etcd 包含用来描述 etcd 配置的元素。
 </tbody>
 </table>
 
-## `ExternalEtcd`     {#kubeadm-k8s-io-v1beta2-ExternalEtcd}
-    
+## `ExternalEtcd` {#kubeadm-k8s-io-v1beta2-ExternalEtcd}
+
 <!--
 **Appears in:**
 -->
@@ -1381,9 +1381,9 @@ kubeadm 不清楚证书文件的存放位置，因此必须单独提供证书信
 </td>
 <td>
    <!--
-   <p><code>endpoints</code> of etcd members.</p>
+   <p><code>endpoints</code> of etcd members. Required for external etcd.</p>
    -->
-   <p><code>endpoints</code> 包含一组 etcd 成员的列表。</p>
+   <p><code>endpoints</code> 包含一组 etcd 成员的列表。外部 etcd 需要。</p>
 </td>
 </tr>
 <tr><td><code>caFile</code> <B><!--[Required]-->[必需]</B><br/>
@@ -1426,8 +1426,8 @@ Required if using a TLS connection.</p>
 </tbody>
 </table>
 
-## `FileDiscovery`     {#kubeadm-k8s-io-v1beta2-FileDiscovery}
-    
+## `FileDiscovery` {#kubeadm-k8s-io-v1beta2-FileDiscovery}
+
 <!--
 **Appears in:**
 -->
@@ -1461,8 +1461,8 @@ file from which to load cluster information.</p>
 </tbody>
 </table>
 
-## `HostPathMount`     {#kubeadm-k8s-io-v1beta2-HostPathMount}
-    
+## `HostPathMount` {#kubeadm-k8s-io-v1beta2-HostPathMount}
+
 <!--
 **Appears in:**
 -->
@@ -1511,7 +1511,7 @@ file from which to load cluster information.</p>
 </td>
 </tr>
 <tr><td><code>pathType</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
 </td>
 <td>
    <!--p><code>pathType</code> is the type of the HostPath.</p-->
@@ -1521,8 +1521,8 @@ file from which to load cluster information.</p>
 </tbody>
 </table>
 
-## `ImageMeta`     {#kubeadm-k8s-io-v1beta2-ImageMeta}
-    
+## `ImageMeta` {#kubeadm-k8s-io-v1beta2-ImageMeta}
+
 <!--
 **Appears in:**
 -->
@@ -1609,8 +1609,8 @@ Secret 中的证书的秘钥。对应的加密秘钥在 InitConfiguration 结构
 </tbody>
 </table>
 
-## `LocalEtcd`     {#kubeadm-k8s-io-v1beta2-LocalEtcd}
-    
+## `LocalEtcd` {#kubeadm-k8s-io-v1beta2-LocalEtcd}
+
 <!--
 **Appears in:**
 -->
@@ -1693,8 +1693,8 @@ signing certificate.</p>
 </tbody>
 </table>
 
-## `Networking`     {#kubeadm-k8s-io-v1beta2-Networking}
-    
+## `Networking` {#kubeadm-k8s-io-v1beta2-Networking}
+
 <!--
 **Appears in:**
 -->
@@ -1742,8 +1742,8 @@ signing certificate.</p>
 </tbody>
 </table>
 
-## `NodeRegistrationOptions`     {#kubeadm-k8s-io-v1beta2-NodeRegistrationOptions}
-    
+## `NodeRegistrationOptions` {#kubeadm-k8s-io-v1beta2-NodeRegistrationOptions}
+
 <!--
 **Appears in:**
 -->
@@ -1793,7 +1793,7 @@ be annotated to the Node API object, for later re-use.</p>
 </td>
 </tr>
 <tr><td><code>taints</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
 <!--
@@ -1843,4 +1843,3 @@ the current node is registered.</p>
 </tr>
 </tbody>
 </table>
-  

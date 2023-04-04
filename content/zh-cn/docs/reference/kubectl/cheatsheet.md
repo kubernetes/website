@@ -72,12 +72,12 @@ echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc 
 ```
 
 <!--
-### A Note on `--all-namespaces`
+### A note on `--all-namespaces`
 -->
 ### 关于 `--all-namespaces` 的一点说明    {#a-note-on-all-namespaces}
 
 <!--
-Appending `--all-namespaces` happens frequently enough where you should be aware of the shorthand for `--all-namespaces`:
+Appending `--all-namespaces` happens frequently enough that you should be aware of the shorthand for `--all-namespaces`:
 -->
 我们经常用到 `--all-namespaces` 参数，你应该要知道它的简写：
 
@@ -178,6 +178,7 @@ alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 
 
 <!--
 ## Kubectl apply
+
 `apply` manages applications through files defining Kubernetes resources. It creates and updates resources in a cluster through running `kubectl apply`. This is the recommended way of managing Kubernetes applications on production. See [Kubectl Book](https://kubectl.docs.kubernetes.io).
 -->
 ## Kubectl apply
@@ -215,7 +216,7 @@ kubectl create cronjob hello --image=busybox:1.28   --schedule="*/1 * * * *" -- 
 kubectl explain pods                           # get the documentation for pod manifests
 
 # Create multiple YAML objects from stdin
-cat <<EOF | kubectl apply -f -
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
@@ -242,7 +243,7 @@ spec:
 EOF
 
 # Create a secret with several keys
-cat <<EOF | kubectl apply -f -
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Secret
 metadata:
@@ -270,7 +271,7 @@ kubectl create cronjob hello --image=busybox:1.28   --schedule="*/1 * * * *" -- 
 kubectl explain pods                          # 获取 pod 清单的文档说明
 
 # 从标准输入创建多个 YAML 对象
-cat <<EOF | kubectl apply -f -
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
@@ -297,7 +298,7 @@ spec:
 EOF
 
 # 创建有多个 key 的 Secret
-cat <<EOF | kubectl apply -f -
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Secret
 metadata:

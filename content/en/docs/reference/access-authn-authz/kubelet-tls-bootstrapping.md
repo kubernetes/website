@@ -307,7 +307,7 @@ roleRef:
 ```
 
 The `csrapproving` controller that ships as part of
-[kube-controller-manager](/docs/admin/kube-controller-manager/) and is enabled
+[kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) and is enabled
 by default. The controller uses the
 [`SubjectAccessReview` API](/docs/reference/access-authn-authz/authorization/#checking-api-access) to
 determine if a given user is authorized to request a CSR, then approves based on

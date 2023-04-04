@@ -15,13 +15,13 @@ This page shows how to run an application using a Kubernetes Deployment object.
 ## {{% heading "objectives" %}}
 
 <!--
-* Create an nginx deployment.
-* Use kubectl to list information about the deployment.
-* Update the deployment.
+- Create an nginx deployment.
+- Use kubectl to list information about the deployment.
+- Update the deployment.
 -->
-* 创建一个 nginx Deployment。
-* 使用 kubectl 列举该 Deployment 的相关信息。
-* 更新该 Deployment。
+- 创建一个 nginx Deployment。
+- 使用 kubectl 列举该 Deployment 的相关信息。
+- 更新该 Deployment。
 
 ## {{% heading "prerequisites" %}}
 
@@ -81,8 +81,8 @@ Docker 镜像的 Deployment：
    Pod Template:
      Labels:       app=nginx
      Containers:
-      nginx:
-       Image:              nginx:1.7.9
+       nginx:
+       Image:              nginx:1.14.2
        Port:               80/TCP
        Environment:        <none>
        Mounts:             <none>
@@ -161,6 +161,7 @@ Deployment 镜像更新为 nginx 1.16.1。
    ```shell
    kubectl get pods -l app=nginx
    ```
+
 <!--
 ## Scaling the application by increasing the replica count
 
@@ -237,6 +238,6 @@ added to Kubernetes, replicated applications were configured using a
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
+- Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
 -->
-* 进一步了解 [Deployment 对象](/zh-cn/docs/concepts/workloads/controllers/deployment/)。
+- 进一步了解 [Deployment 对象](/zh-cn/docs/concepts/workloads/controllers/deployment/)。

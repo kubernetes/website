@@ -5,6 +5,7 @@ reviewers:
 title: Reconfigure a Node's Kubelet in a Live Cluster
 content_type: task
 min-kubernetes-server-version: v1.11
+weight: 280
 ---
 
 <!-- overview -->

@@ -1,12 +1,12 @@
 ---
 title: 为容器的生命周期事件设置处理函数
 content_type: task
-weight: 140
+weight: 180
 ---
 <!--
 title: Attach Handlers to Container Lifecycle Events
 content_type: task
-weight: 140
+weight: 180
 -->
 
 <!-- overview -->
@@ -15,7 +15,7 @@ weight: 140
 This page shows how to attach handlers to Container lifecycle events. Kubernetes supports
 the postStart and preStop events. Kubernetes sends the postStart event immediately
 after a Container is started, and it sends the preStop event immediately before the
-Container is terminated.A Container may specify one handler per event.
+Container is terminated. A Container may specify one handler per event.
 -->
 这个页面将演示如何为容器的生命周期事件挂接处理函数。Kubernetes 支持 postStart 和 preStop 事件。
 当一个容器启动后，Kubernetes 将立即发送 postStart 事件；在容器被终结之前，

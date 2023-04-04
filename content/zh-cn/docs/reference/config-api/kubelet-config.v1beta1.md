@@ -844,6 +844,21 @@ Default: &quot;container&quot;</p>
 </td>
 </tr>
 
+<tr><td><code>topologyManagerPolicyOptions</code><br/>
+<code>map[string]string</code>
+</td>
+<td>
+   <!--
+   <p>TopologyManagerPolicyOptions is a set of key=value which allows to set extra options
+to fine tune the behaviour of the topology manager policies.
+Requires  both the &quot;TopologyManager&quot; and &quot;TopologyManagerPolicyOptions&quot; feature gates to be enabled.
+Default: nil</p>
+   -->
+   <p>TopologyManagerPolicyOptions 是一组 key=value 键值映射，容许设置额外的选项来微调拓扑管理器策略的行为。需要同时启用 &quot;TopologyManager&quot; 和 &quot;TopologyManagerPolicyOptions&quot; 特性门控。
+默认值：nil</p>
+</td>
+</tr>
+
 <tr><td><code>qosReserved</code><br/>
 <code>map[string]string</code>
 </td>
@@ -994,13 +1009,13 @@ Default: true
 </td>
 <td>
    <!--cpuCFSQuotaPeriod is the CPU CFS quota period value, `cpu.cfs_period_us`.
-The value must be between 1 us and 1 second, inclusive.
+The value must be between 1 ms and 1 second, inclusive.
 Requires the CustomCPUCFSQuotaPeriod feature gate to be enabled.
 Default: &quot;100ms&quot;
    -->
    <p><code>cpuCFSQuotaPeriod</code>设置 CPU CFS 配额周期值，<code>cpu.cfs_period_us</code>。
-此值需要介于 1 微秒和 1 秒之间，包含 1 微秒和 1 秒。
-此功能要求启用<code>CustomCPUCFSQuotaPeriod</code>特性门控被启用。</p>
+此值需要介于 1 毫秒和 1 秒之间，包含 1 毫秒和 1 秒。
+此功能要求启用 <code>CustomCPUCFSQuotaPeriod</code> 特性门控被启用。</p>
    <p>默认值：&quot;100ms&quot;</p>
 </td>
 </tr>
@@ -1794,19 +1809,19 @@ Default: false
 when setting the cgroupv2 memory.high value to enforce MemoryQoS.
 Decreasing this factor will set lower high limit for container cgroups and put heavier reclaim pressure
 while increasing will put less reclaim pressure.
-See http://kep.k8s.io/2570 for more details.
+See https://kep.k8s.io/2570 for more details.
 Default: 0.8
    -->
    <p>当设置 cgroupv2 <code>memory.high</code>以实施<code>MemoryQoS</code>特性时，
 <code>memoryThrottlingFactor</code>用来作为内存限制或节点可分配内存的系数。</p>
    <p>减小此系数会为容器控制组设置较低的 high 限制值，从而增大回收压力；反之，
-增大此系数会降低回收压力。更多细节参见 http://kep.k8s.io/2570。</p>
+增大此系数会降低回收压力。更多细节参见 https://kep.k8s.io/2570。</p>
    <p>默认值：0.8</p>
 </td>
 </tr>
 
 <tr><td><code>registerWithTaints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <!--registerWithTaints are an array of taints to add to a node object when
@@ -1837,9 +1852,9 @@ Default: true
 </td>
 <td>
    <!-- Tracing specifies the versioned configuration for OpenTelemetry tracing clients.
-See http://kep.k8s.io/2832 for more details. -->
+See https://kep.k8s.io/2832 for more details. -->
    <p>tracing 为 OpenTelemetry 追踪客户端设置版本化的配置信息。
-参阅 http://kep.k8s.io/2832 了解更多细节。</p>
+参阅 https://kep.k8s.io/2832 了解更多细节。</p>
 </td>
 </tr>
 <tr><td><code>localStorageCapacityIsolation</code><br/>
@@ -1885,7 +1900,7 @@ SerializedNodeConfigSource 允许对 `v1.NodeConfigSource` 执行序列化操作
 <tr><td><code>kind</code><br/>string</td><td><code>SerializedNodeConfigSource</code></td></tr>
 
 <tr><td><code>source</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
 </td>
 <td>
    <!--source is the source that we are serializing.
@@ -2350,7 +2365,7 @@ MemoryReservation 为每个 NUMA 节点设置不同类型的内存预留。
 </tr>
 
 <tr><td><code>limits</code> <B>[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
 </td>
 <td>
    <!--span class="text-muted">No description provided.</span-->

@@ -1,6 +1,7 @@
 ---
 title: 更改 PersistentVolume 的回收策略
 content_type: task
+weight: 100
 ---
 
 <!-- overview -->

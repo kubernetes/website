@@ -1,7 +1,7 @@
 ---
 title: Configure Liveness, Readiness and Startup Probes
 content_type: task
-weight: 110
+weight: 140
 ---
 
 <!-- overview -->
@@ -14,6 +14,10 @@ where an application is running, but unable to make progress. Restarting a
 container in such a state can help to make the application more available
 despite bugs.
 
+A common pattern for liveness probes is to use the same low-cost HTTP endpoint
+as for readiness probes, but with a higher failureThreshold. This ensures that the pod
+is observed as not-ready for some period of time before it is hard killed.
+
 The kubelet uses readiness probes to know when a container is ready to start
 accepting traffic. A Pod is considered ready when all of its containers are ready.
 One use of this signal is to control which Pods are used as backends for Services.
@@ -25,7 +29,18 @@ it succeeds, making sure those probes don't interfere with the application start
 This can be used to adopt liveness checks on slow starting containers, avoiding them
 getting killed by the kubelet before they are up and running.
 
+{{< caution >}}
+Liveness probes can be a powerful way to recover from application failures, but
+they should be used with caution. Liveness probes must be configured carefully
+to ensure that they truly indicate unrecoverable application failure, for example a deadlock.
+{{< /caution >}}
 
+{{< note >}}
+Incorrect implementation of liveness probes can lead to cascading failures. This results in
+restarting of container under high load; failed client requests as your application became less
+scalable; and increased workload on remaining pods due to some failed pods.
+Understand the difference between readiness and liveness probes and when to apply them for your app.
+{{< /note >}}
 
 ## {{% heading "prerequisites" %}}
 
@@ -388,9 +403,24 @@ to 1 second. Minimum value is 1.
 * `successThreshold`: Minimum consecutive successes for the probe to be
 considered successful after having failed. Defaults to 1. Must be 1 for liveness
 and startup Probes. Minimum value is 1.
-* `failureThreshold`: When a probe fails, Kubernetes will
-try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the container. In case of readiness probe the Pod will be marked Unready.
-Defaults to 3. Minimum value is 1.
+* `failureThreshold`: After a probe fails `failureThreshold` times in a row, Kubernetes
+  considers that the overall check has failed: the container is _not_ ready / healthy /
+  live.
+  For the case of a startup or liveness probe, if at least `failureThreshold` probes have
+  failed, Kubernetes treats the container as unhealthy and triggers a restart for that
+  specific container. The kubelet takes the setting of `terminationGracePeriodSeconds`
+  for that container into account.
+  For a failed readiness probe, the kubelet continues running the container that failed
+  checks, and also continues to run more probes; because the check failed, the kubelet
+  sets the `Ready` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)
+  on the Pod to `false`.
+* `terminationGracePeriodSeconds`: configure a grace period for the kubelet to wait
+  between triggering a shut down of the failed container, and then forcing the
+  container runtime to stop that container.
+  The default is to inherit the Pod-level value for `terminationGracePeriodSeconds`
+  (30 seconds if not specified), and the minimum value is 1.
+  See [probe-level `terminationGracePeriodSeconds`](#probe-level-terminationgraceperiodseconds)
+  for more detail.
 
 {{< note >}}
 Before Kubernetes 1.20, the field `timeoutSeconds` was not respected for exec probes:

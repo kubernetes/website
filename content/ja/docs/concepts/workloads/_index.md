@@ -1,6 +1,6 @@
 ---
 title: "ワークロード"
-weight: 50
+weight: 55
 description: >
   Kubernetesにおけるデプロイ可能な最小のオブジェクトであるPodと、高レベルな抽象化がPodの実行を助けることを理解します。
 no_list: true

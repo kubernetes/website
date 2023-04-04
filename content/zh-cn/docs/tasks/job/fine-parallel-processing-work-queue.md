@@ -31,10 +31,10 @@ Here is an overview of the steps in this example:
 
 <!--
 1. **Start a storage service to hold the work queue.**  In this example, we use Redis to store
-  our work items.  In the previous example, we used RabbitMQ.  In this example, we use Redis and
-  a custom work-queue client library because AMQP does not provide a good way for clients to
-  detect when a finite-length work queue is empty.  In practice you would set up a store such
-  as Redis once and reuse it for the work queues of many jobs, and other things.
+   our work items.  In the previous example, we used RabbitMQ.  In this example, we use Redis and
+   a custom work-queue client library because AMQP does not provide a good way for clients to
+   detect when a finite-length work queue is empty.  In practice you would set up a store such
+   as Redis once and reuse it for the work queues of many jobs, and other things.
 -->
 
 1. **启动存储服务用于保存工作队列。** 在这个例子中，我们使用 Redis 来存储工作项。
@@ -52,7 +52,7 @@ Here is an overview of the steps in this example:
 
 <!--
 1. **Start a Job that works on tasks from the queue**.  The Job starts several pods.  Each pod takes
-  one task from the message queue, processes it, and repeats until the end of the queue is reached.
+   one task from the message queue, processes it, and repeats until the end of the queue is reached.
 -->
 3. **启动一个 Job 对队列中的任务进行处理**。这个 Job 启动了若干个 Pod。
    每个 Pod 从消息队列中取出一个工作任务，处理它，然后重复，直到到达队列的尾部。
@@ -60,6 +60,8 @@ Here is an overview of the steps in this example:
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}
+
+<!-- steps -->
 
 <!--
 Be familiar with the basic,
@@ -329,14 +331,19 @@ Events:
   33s          33s         1        {job-controller }                Normal      SuccessfulCreate  Created pod: job-wq-2-lglf8
 ```
 
-运行以下命令查看日志：
+<!--
+You can wait for the Job to succeed, with a timeout:
+-->
+你可以等待 Job 成功，等待时长有超时限制：
+
+```shell
+# 状况名称的检查不区分大小写
+kubectl wait --for=condition=complete --timeout=300s job/job-wq-2
+```
 
 ```shell
 kubectl logs pods/job-wq-2-7r7b2
 ```
-
-日志类似于：
-
 ```
 Worker with sessionID: bbd72d0a-9e5c-4dd6-abf6-416cc267991f
 Initial queue state: empty=False

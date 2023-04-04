@@ -39,6 +39,10 @@ standard](https://www.loc.gov/standards/iso639-2/php/code_list.php) to find your
 localization's two-letter language code. For example, the two-letter code for
 Korean is `ko`.
 
+Some languages use a lowercase version of the country code as defined by the
+ISO-3166 along with their language codes. For example, the Brazilian Portuguese
+language code is `pt-br`.
+
 ### Fork and clone the repo
 
 First, [create your own
@@ -87,6 +91,11 @@ You'll need to know the two-letter language code for your language. Consult the
 [ISO 639-1 standard](https://www.loc.gov/standards/iso639-2/php/code_list.php)
 to find your localization's two-letter language code. For example, the
 two-letter code for Korean is `ko`.
+
+If the language you are starting a localization for is spoken in various places
+with significant differences between the variants, it might make sense to
+combine the lowercased ISO-3166 country code with the language two-letter code.
+For example, Brazilian Portuguese is localized as `pt-br`.
 
 When you start a new localization, you must localize all the
 [minimum required content](#minimum-required-content) before
@@ -153,10 +162,10 @@ For an example of adding a label, see the PR for adding the
 
 The Kubernetes website uses Hugo as its web framework. The website's Hugo
 configuration resides in the
-[`config.toml`](https://github.com/kubernetes/website/tree/main/config.toml)
-file. You'll need to modify `config.toml` to support a new localization.
+[`hugo.toml`](https://github.com/kubernetes/website/tree/main/hugo.toml)
+file. You'll need to modify `hugo.toml` to support a new localization.
 
-Add a configuration block for the new language to `config.toml` under the
+Add a configuration block for the new language to `hugo.toml` under the
 existing `[languages]` block. The German block, for example, looks like:
 
 ```toml

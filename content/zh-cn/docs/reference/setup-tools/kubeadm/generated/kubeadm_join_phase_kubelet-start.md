@@ -50,7 +50,7 @@ kubeadm join phase kubelet-start [api-server-endpoint] [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to kubeadm config file.
+Path to a kubeadm configuration file.
 -->
 kubeadm 配置文件的路径。
 </td>
@@ -122,6 +122,20 @@ For token-based discovery, allow joining without --discovery-token-ca-cert-hash 
 -->
 <p>
 对于基于令牌的发现，允许在未关联 --discovery-token-ca-cert-hash 参数的情况下添加节点。
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--dry-run</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Don't apply any changes; just output what would be done.
+-->
+<p>
+不做任何更改；只输出将要执行的操作。
 </p>
 </td>
 </tr>

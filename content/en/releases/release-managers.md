@@ -87,6 +87,7 @@ GitHub Access Controls: [@kubernetes/release-managers](https://github.com/orgs/k
 GitHub Mentions: [@kubernetes/release-engineering](https://github.com/orgs/kubernetes/teams/release-engineering)
 
 - Adolfo García Veytia ([@puerco](https://github.com/puerco))
+- Cici Huang ([@cici37](https://github.com/cici37))
 - Carlos Panato ([@cpanato](https://github.com/cpanato))
 - Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
 - Marko Mudrinić ([@xmudrii](https://github.com/xmudrii))
@@ -134,7 +135,6 @@ referred to as Release Manager shadows. They are responsible for:
 GitHub Mentions: @kubernetes/release-engineering
 
 - Arnaud Meukam ([@ameukam](https://github.com/ameukam))
-- Cici Huang ([@cici37](https://github.com/cici37))
 - Jim Angel ([@jimangel](https://github.com/jimangel))
 - Joseph Sandoval ([@jrsapi](https://github.com/jrsapi))
 - Xander Grzywinski([@salaxander](https://github.com/salaxander))

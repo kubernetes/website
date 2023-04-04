@@ -11,7 +11,7 @@ min-kubernetes-server-version: v1.25
 weight: 60
 -->
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
 
 <!-- overview -->
 
@@ -48,19 +48,6 @@ You should already be familiar with the basic use of [Job](/docs/concepts/worklo
 你应该已熟悉了 [Job](/zh-cn/docs/concepts/workloads/controllers/job/) 的基本用法。
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-<!-- steps -->
-
-{{< note >}}
-<!--
-As the features are in Alpha, prepare the Kubernetes cluster with the two
-[feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled: `JobPodFailurePolicy` and `PodDisruptionConditions`.
--->
-因为这些特性还处于 Alpha 阶段，所以在准备 Kubernetes
-集群时要启用两个[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)：
-`JobPodFailurePolicy` 和 `PodDisruptionConditions`。
-{{< /note >}}
 
 <!--
 ## Using Pod failure policy to avoid unnecessary Pod retries

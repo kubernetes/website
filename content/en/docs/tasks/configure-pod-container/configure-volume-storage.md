@@ -1,7 +1,7 @@
 ---
 title: Configure a Pod to Use a Volume for Storage
 content_type: task
-weight: 50
+weight: 80
 ---
 
 <!-- overview -->

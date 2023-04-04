@@ -1,4 +1,7 @@
 branches:
+  - release: "1.23"
+    finalPatchRelease: "1.23.17"
+    endOfLifeDate: 2023-02-28
   - release: "1.22"
     finalPatchRelease: "1.22.17"
     endOfLifeDate: 2022-12-08

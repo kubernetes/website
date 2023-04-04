@@ -3,6 +3,7 @@ title: Using sysctls in a Kubernetes Cluster
 reviewers:
 - sttts
 content_type: task
+weight: 400
 ---
 
 <!-- overview -->
@@ -25,6 +26,10 @@ the Linux man-pages project.
 {{< /note >}}
 ## {{% heading "prerequisites" %}}
 
+{{< note >}}
+`sysctl` is a Linux-specific command-line tool used to configure various kernel parameters
+and it is not available on non-Linux operating systems.
+{{< /note >}}
 
 {{< include "task-tutorial-prereqs.md" >}}
 
@@ -52,9 +57,9 @@ To get a list of all parameters, you can run
 sudo sysctl -a
 ```
 
-## Enabling Unsafe Sysctls
+## Safe and Unsafe Sysctls
 
-Sysctls are grouped into _safe_ and _unsafe_ sysctls. In addition to proper
+Kubernetes classes sysctls as either _safe_ or _unsafe_. In addition to proper
 namespacing, a _safe_ sysctl must be properly _isolated_ between pods on the
 same node. This means that setting a _safe_ sysctl for one pod
 
@@ -78,6 +83,8 @@ The example `net.ipv4.tcp_syncookies` is not namespaced on Linux kernel version 
 
 This list will be extended in future Kubernetes versions when the kubelet
 supports better isolation mechanisms.
+
+### Enabling Unsafe Sysctls
 
 All _safe_ sysctls are enabled by default.
 
@@ -117,7 +124,7 @@ in future versions of the Linux kernel.
 - `kernel.sem`,
 - `fs.mqueue.*`,
 - The parameters under `net.*` that can be set in container networking
-  namespace. However, there are exceptions (e.g.,
+  namespace. However, there are exceptions (e.g., before Linux 5.12.2,
   `net.netfilter.nf_conntrack_max` and `net.netfilter.nf_conntrack_expect_max`
   can be set in container networking namespace but they are unnamespaced).
 

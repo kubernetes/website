@@ -1,20 +1,21 @@
 ---
 title: 使用 KMS 驱动进行数据加密
 content_type: task
+weight: 370
 ---
 <!--
 reviewers:
 - smarterclayton
+- enj
 title: Using a KMS provider for data encryption
 content_type: task
+weight: 370
 -->
 <!-- overview -->
-<!--
-This page shows how to configure a Key Management Service (KMS) provider and plugin to enable secret data encryption. 
-Currently there are two KMS API versions. KMS v1 will continue to work while v2 develops in maturity. 
-If you are not sure which KMS API version to pick, choose v1. 
--->
 
+<!--
+This page shows how to configure a Key Management Service (KMS) provider and plugin to enable secret data encryption. Currently there are two KMS API versions. KMS v1 will continue to work while v2 develops in maturity. If you are not sure which KMS API version to pick, choose v1. 
+-->
 本页展示了如何配置密钥管理服务（Key Management Service，KMS）驱动和插件以启用 Secret 数据加密。
 目前有两个 KMS API 版本。KMS v1 将继续工作，而 KMS v2 将开发得逐渐成熟。
 如果你不确定要选用哪个 KMS API 版本，可选择 v1。
@@ -82,7 +83,7 @@ as the Kubernetes control plane, is responsible for all communication with the r
 KMS 加密驱动使用封套加密模型来加密 etcd 中的数据。
 数据使用数据加密密钥（DEK）加密；每次加密都生成一个新的 DEK。
 这些 DEK 经一个密钥加密密钥（KEK）加密后在一个远端的 KMS 中存储和管理。
-KMS 驱动使用 gRPC 与一个特定的 KMS 插件通信。这个 KMS 插件作为一个 gRPC 
+KMS 驱动使用 gRPC 与一个特定的 KMS 插件通信。这个 KMS 插件作为一个 gRPC
 服务器被部署在 Kubernetes 控制平面的相同主机上，负责与远端 KMS 的通信。
 
 <!--
@@ -319,18 +320,27 @@ To encrypt the data:
 为了加密数据：
 
 <!--
-1. Create a new `EncryptionConfiguration` file using the appropriate properties for the `kms` provider to encrypt resources like Secrets and ConfigMaps.
+1. Create a new `EncryptionConfiguration` file using the appropriate properties for the `kms` provider
+to encrypt resources like Secrets and ConfigMaps. If you want to encrypt an extension API that is
+defined in a CustomResourceDefinition, your cluster must be running Kubernetes v1.26 or newer.
 
 1. Set the `--encryption-provider-config` flag on the kube-apiserver to point to the location of the configuration file.
-
-1. Restart your API server.
 -->
 1. 使用适合于 `kms` 驱动的属性创建一个新的 `EncryptionConfiguration` 文件，以加密
    Secret 和 ConfigMap 等资源。
+   如果要加密使用 CustomResourceDefinition 定义的扩展 API，你的集群必须运行 Kubernetes v1.26 或更高版本。
 
 2. 设置 kube-apiserver 的 `--encryption-provider-config` 参数指向配置文件的位置。
 
-3. 重启你的 API 服务器。
+<!--
+1. `--encryption-provider-config-automatic-reload` boolean argument determines if the file set by `--encryption-provider-config` should be automatically reloaded if the disk contents change. This enables key rotation without API server restarts.
+
+1. Restart your API server.
+-->
+3. `--encryption-provider-config-automatic-reload` 布尔参数决定了磁盘内容发生变化时是否应自动重新加载
+   通过 `--encryption-provider-config` 设置的文件。这样可以在不重启 API 服务器的情况下进行密钥轮换。
+
+4. 重启你的 API 服务器。
 
 ### KMS v1 {#encrypting-your-data-with-the-kms-provider-kms-v1}
 
@@ -340,6 +350,8 @@ To encrypt the data:
    resources:
      - resources:
          - secrets
+         - configmaps
+         - pandas.awesome.bears.example
        providers:
          - kms:
              name: myKmsPluginFoo
@@ -361,6 +373,8 @@ To encrypt the data:
    resources:
      - resources:
          - secrets
+         - configmaps
+         - pandas.awesome.bears.example
        providers:
          - kms:
              apiVersion: v2
@@ -374,6 +388,46 @@ To encrypt the data:
              cachesize: 100
              timeout: 3s
    ```
+
+<!--
+Setting `--encryption-provider-config-automatic-reload` to `true` collapses all health checks to a single health check endpoint. Individual health checks are only available when KMS v1 providers are in use and the encryption config is not auto-reloaded.
+
+Following table summarizes the health check endpoints for each KMS version:
+-->
+`--encryption-provider-config-automatic-reload` 设置为 `true` 会将所有健康检查集中到同一个健康检查端点。
+只有 KMS v1 驱动正使用且加密配置未被自动重新加载时，才能进行独立的健康检查。
+
+下表总结了每个 KMS 版本的健康检查端点：
+
+<!--
+| KMS configurations        | Without Automatic Reload           | With Automatic Reload  |
+| ------------------------- |------------------------------------| -----------------------|
+| KMS v1 only               | Individual Healthchecks            | Single Healthcheck     |
+| KMS v2 only               | Single Healthcheck                 | Single Healthcheck     |
+| Both KMS v1 and v2        | Individual Healthchecks            | Single Healthcheck     |
+| No KMS                    | None                               | Single Healthcheck     |
+-->
+| KMS 配置     | 没有自动重新加载           | 有自动重新加载       |
+| ------------ | ----------------------- | ------------------ |
+| 仅 KMS v1    | Individual Healthchecks | Single Healthcheck |
+| 仅 KMS v2    | Single Healthcheck      | Single Healthcheck |
+| KMS v1 和 v2 | Individual Healthchecks | Single Healthcheck |
+| 没有 KMS     | 无                      | Single Healthcheck |
+
+<!--
+`Single Healthcheck` means that the only health check endpoint is `/healthz/kms-providers`.
+
+`Individual Healthchecks` means that each KMS plugin has an associated health check endpoint based on its location in the encryption config: `/healthz/kms-provider-0`, `/healthz/kms-provider-1` etc.
+
+These healthcheck endpoint paths are hard coded and generated/controlled by the server. The indices for individual healthchecks corresponds to the order in which the KMS encryption config is processed.
+-->
+`Single Healthcheck` 意味着唯一的健康检查端点是 `/healthz/kms-providers`。
+
+`Individual Healthchecks` 意味着每个 KMS 插件都有一个对应的健康检查端点，
+并且这一端点基于插件在加密配置中的位置确定，例如 `/healthz/kms-provider-0`、`/healthz/kms-provider-1` 等。
+
+这些健康检查端点路径是由服务器硬编码、生成并控制的。
+`Individual Healthchecks` 的索引序号对应于 KMS 加密配置被处理的顺序。
 
 <!--
 Until the steps defined in [Ensuring all secrets are encrypted](#ensuring-all-secrets-are-encrypted) are performed,
@@ -395,13 +449,14 @@ For details about the `EncryptionConfiguration` format, please check the
 ## Verifying that the data is encrypted
 
 Data is encrypted when written to etcd. After restarting your `kube-apiserver`, 
-any newly created or updated secret should be encrypted when stored. To verify,
-you can use the `etcdctl` command line program to retrieve the contents of your secret.
+any newly created or updated Secret or other resource types configured in `EncryptionConfiguration` should be encrypted when stored. To verify,
+you can use the `etcdctl` command line program to retrieve the contents of your secret data.
 -->
 ## 验证数据已经加密    {#verifying-that-the-data-is-encrypted}
 
-写入 etcd 时数据被加密。重启 `kube-apiserver` 后，任何新建或更新的 Secret 在存储时应该已被加密。
-要验证这点，你可以用 `etcdctl` 命令行程序获取 Secret 内容。 
+写入 etcd 时数据被加密。重启 `kube-apiserver` 后，所有新建或更新的 Secret 或在
+`EncryptionConfiguration` 中配置的其他资源类型在存储时应该已被加密。
+要验证这点，你可以用 `etcdctl` 命令行程序获取私密数据的内容。
 
 <!--
 1. Create a new secret called `secret1` in the `default` namespace:
@@ -442,7 +497,10 @@ which indicates that the `kms` provider has encrypted the resulting data.
    kubectl describe secret secret1 -n default
    ```
 
-   结果应该是 `mykey: mydata`。 
+   <!--
+   The Secret should contain `mykey: mydata`
+   -->
+   Secret 应包含 `mykey: mydata`。
 
 <!--
 ## Ensuring all secrets are encrypted

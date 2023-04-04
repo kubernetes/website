@@ -1,6 +1,7 @@
 ---
 title: クラスターのセキュリティ
 content_type: task
+weight: 320
 ---
 
 <!-- overview -->
@@ -154,7 +155,7 @@ API用のetcdバックエンドへの書き込みアクセスは、クラスタ�
 
 ### 監査ログの有効
 
-[audit logger](/docs/tasks/debug/debug-cluster/audit/)はベータ版の機能で、APIによって行われたアクションを記録し、侵害があった場合に後から分析できるようにするものです。
+[audit logger](/ja/docs/tasks/debug/debug-cluster/audit/)はベータ版の機能で、APIによって行われたアクションを記録し、侵害があった場合に後から分析できるようにするものです。
 
 監査ログを有効にして、ログファイルを安全なサーバーにアーカイブすることをお勧めします。
 

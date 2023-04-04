@@ -2,6 +2,10 @@
 title: "verify kubectl install"
 description: "How to verify kubectl."
 headless: true
+_build:
+  list: never
+  render: never
+  publishResources: false
 ---
 
 In order for kubectl to find and access a Kubernetes cluster, it needs a

@@ -5,6 +5,7 @@ reviewers:
 - jpbetz
 title: Operating etcd clusters for Kubernetes
 content_type: task
+weight: 270
 ---
 
 <!-- overview -->

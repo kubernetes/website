@@ -38,16 +38,15 @@ This guide walks you through the steps to configure and deploy Windows container
 <!-- 
 ## Before you begin
 
-* Create a Kubernetes cluster that includes a
-control plane and a [worker node running Windows Server](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
+* Create a Kubernetes cluster that includes a control plane and a worker node running Windows Server
 * It is important to note that creating and deploying services and workloads on Kubernetes
-behaves in much the same way for Linux and Windows containers.
-[Kubectl commands](/docs/reference/kubectl/) to interface with the cluster are identical.
-The example in the section below is provided to jumpstart your experience with Windows containers.
+  behaves in much the same way for Linux and Windows containers.
+  [Kubectl commands](/docs/reference/kubectl/) to interface with the cluster are identical.
+  The example in the section below is provided to jumpstart your experience with Windows containers.
 -->
 ## 在你开始之前  {#before-you-begin}
 
-* 创建一个 Kubernetes 集群，其中包含一个控制平面和一个[运行 Windows Server 的工作节点](/zh-cn/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
+* 创建一个 Kubernetes 集群，其中包含一个控制平面和一个运行 Windows Server 的工作节点。
 * 务必请注意，在 Kubernetes 上创建和部署服务和工作负载的行为方式与 Linux 和 Windows 容器的行为方式大致相同。
   与集群交互的 [kubectl 命令](/zh-cn/docs/reference/kubectl/)是一致的。
   下一小节的示例旨在帮助你快速开始使用 Windows 容器。
@@ -164,7 +163,7 @@ port 80 of the container directly to the Service.
      命令进入容器，并在 Pod 之间（以及跨主机，如果你有多个 Windows 节点）相互进行 ping 操作。
    * Service 到 Pod 的通信，在 Linux 控制平面所在的节点以及独立的 Pod 中执行 `curl`
      命令来访问虚拟的服务 IP（在 `kubectl get services` 命令下查看）。
-   * 服务发现，执行 `curl` 命令来访问带有 Kubernetes 
+   * 服务发现，执行 `curl` 命令来访问带有 Kubernetes
      [默认 DNS 后缀](/zh-cn/docs/concepts/services-networking/dns-pod-service/#services)的服务名称。
    * 入站连接，在 Linux 控制平面所在的节点上或集群外的机器上执行 `curl` 命令来访问 NodePort 服务。
    * 出站连接，使用 `kubectl exec`，从 Pod 内部执行 `curl` 访问外部 IP。
@@ -242,7 +241,8 @@ Windows 容器工作负载可以配置为使用组托管服务帐户（Group Man
 组托管服务帐户是一种特定类型的活动目录（Active Directory）帐户，可提供自动密码管理、
 简化的服务主体名称（Service Principal Name，SPN）管理，以及将管理委派给多个服务器上的其他管理员的能力。
 配置了 GMSA 的容器可以携带使用 GMSA 配置的身份访问外部活动目录域资源。
-在[此处](/zh-cn/docs/tasks/configure-pod-container/configure-gmsa/)了解有关为 Windows 容器配置和使用 GMSA 的更多信息。
+在[此处](/zh-cn/docs/tasks/configure-pod-container/configure-gmsa/)了解有关为 Windows
+容器配置和使用 GMSA 的更多信息。
 
 <!-- 
 ## Taints and Tolerations

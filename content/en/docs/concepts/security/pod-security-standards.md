@@ -152,7 +152,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">Host Ports</td>
 			<td>
-				<p>HostPorts should be disallowed, or at minimum restricted to a known list.</p>
+				<p>HostPorts should be disallowed entirely (recommended) or restricted to a known list</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.containers[*].ports[*].hostPort</code></li>
@@ -162,7 +162,7 @@ fail validation.
 				<p><strong>Allowed Values</strong></p>
 				<ul>
 					<li>Undefined/nil</li>
-					<li>Known list</li>
+					<li>Known list (not supported by the built-in <a href="/docs/concepts/security/pod-security-admission/">Pod Security Admission controller</a>)</li>
 					<li><code>0</code></li>
 				</ul>
 			</td>

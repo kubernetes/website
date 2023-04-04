@@ -60,6 +60,7 @@ Sysctl berikut ini didukung dalam kelompok _safe_:
 
 {{< note >}}
 Contoh `net.ipv4.tcp_syncookies` bukan merupakan Namespace pada kernel Linux versi 4.4 atau lebih rendah.
+{{< /note >}}
 
 Daftar ini akan terus dikembangkan dalam versi Kubernetes berikutnya ketika kubelet
 mendukung mekanisme isolasi yang lebih baik.

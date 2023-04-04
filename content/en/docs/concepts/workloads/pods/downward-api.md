@@ -63,6 +63,9 @@ via either mechanism are:
 `metadata.labels['<KEY>']`
 : the text value of the pod's {{< glossary_tooltip text="label" term_id="label" >}} named `<KEY>` (for example, `metadata.labels['mylabel']`)
 
+The following information is available through environment variables
+**but not as a downwardAPI volume fieldRef**:
+
 `spec.serviceAccountName`
 : the name of the pod's {{< glossary_tooltip text="service account" term_id="service-account" >}}
 
@@ -75,8 +78,8 @@ via either mechanism are:
 `status.podIP`
 : the pod's primary IP address (usually, its IPv4 address)
 
-In addition, the following information is available through
-a `downwardAPI` volume `fieldRef`, but **not as environment variables**:
+The following information is available through a `downwardAPI` volume 
+`fieldRef`, **but not as environment variables**:
 
 `metadata.labels`
 : all of the pod's labels, formatted as `label-key="escaped-label-value"` with one label per line

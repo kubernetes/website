@@ -591,7 +591,7 @@ is not considered to match.
 Use the object selector only if the webhook is opt-in, because end users may skip
 the admission webhook by setting the labels.
 
-This example shows a mutating webhook that would match a `CREATE` of any resource with the label `foo: bar`:
+This example shows a mutating webhook that would match a `CREATE` of any resource (but not subresources) with the label `foo: bar`:
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1

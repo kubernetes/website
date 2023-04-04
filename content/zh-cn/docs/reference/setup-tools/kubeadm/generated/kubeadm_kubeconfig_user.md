@@ -3,7 +3,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -95,7 +95,7 @@ user 操作的帮助命令
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The orgnizations of the client certificate. It will be used as the O if client certificates are created
+The organizations of the client certificate. It will be used as the O if client certificates are created
 -->
 客户端证书的组织。如果创建客户端证书，此值将用作其 O 字段值。
 </td>

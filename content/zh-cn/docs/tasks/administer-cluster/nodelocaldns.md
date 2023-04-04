@@ -1,13 +1,16 @@
 ---
 title: 在 Kubernetes 集群中使用 NodeLocal DNSCache
 content_type: task
+weight: 390
 ---
 <!--
 reviewers:
 - bowei
 - zihongz
+- sftim
 title: Using NodeLocal DNSCache in Kubernetes Clusters
 content_type: task
+weight: 390
 -->
 
 <!-- overview -->
@@ -185,7 +188,7 @@ This feature can be enabled using the following steps:
   * If kube-proxy is running in IPTABLES mode:
 
     ``` bash
-    sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/,__PILLAR__DNS__SERVER__//g; s/__PILLAR__CLUSTER__DNS__/$kubedns/g" nodelocaldns.yaml
+    sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/__PILLAR__DNS__SERVER__/$kubedns/g" nodelocaldns.yaml
     ```
 
     `__PILLAR__CLUSTER__DNS__` and `__PILLAR__UPSTREAM__SERVERS__` will be populated by
@@ -207,7 +210,7 @@ This feature can be enabled using the following steps:
   * If kube-proxy is running in IPVS mode:
 
     ``` bash
-    sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/__PILLAR__DNS__SERVER__//g; s/__PILLAR__CLUSTER__DNS__/$kubedns/g" nodelocaldns.yaml
+    sed -i "s/__PILLAR__LOCAL__DNS__/$localdns/g; s/__PILLAR__DNS__DOMAIN__/$domain/g; s/,__PILLAR__DNS__SERVER__//g; s/__PILLAR__CLUSTER__DNS__/$kubedns/g" nodelocaldns.yaml
     ```
 
     In this mode, the `node-local-dns` pods listen only on `<node-local-address>`.
@@ -284,13 +287,12 @@ In those cases, the `kube-dns` ConfigMap can be updated.
 
 <!--
 The `node-local-dns` Pods use memory for storing cache entries and processing queries.
-Since they do not watch Kubernetes objects, the cluster size or the number of Services/Endpoints
-do not directly affect memory usage. Memory usage is influenced by the DNS query pattern.
+Since they do not watch Kubernetes objects, the cluster size or the number of Services / EndpointSlices do not directly affect memory usage. Memory usage is influenced by the DNS query pattern.
 From [CoreDNS docs](https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md),
 > The default cache size is 10000 entries, which uses about 30 MB when completely filled.
 -->
 `node-local-dns` Pod 使用内存来保存缓存项并处理查询。
-由于它们并不监视 Kubernetes 对象变化，集群规模或者 Service/Endpoints
+由于它们并不监视 Kubernetes 对象变化，集群规模或者 Service/EndpointSlices
 的数量都不会直接影响内存用量。内存用量会受到 DNS 查询模式的影响。
 根据 [CoreDNS 文档](https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md),
 

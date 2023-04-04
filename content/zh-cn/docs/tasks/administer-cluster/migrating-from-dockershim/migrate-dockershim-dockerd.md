@@ -1,12 +1,12 @@
 ---
 title: 将 Docker Engine 节点从 dockershim 迁移到 cri-dockerd
-weight: 9
+weight: 20
 content_type: task 
 ---
 
 <!--
 title: "Migrate Docker Engine nodes from dockershim to cri-dockerd"
-weight: 9
+weight: 20
 content_type: task 
 -->
 

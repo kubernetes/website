@@ -31,8 +31,8 @@ For example, you can only have one Pod named `myapp-1234` within the same [names
 <!--
 For non-unique user-provided attributes, Kubernetes provides [labels](/docs/concepts/overview/working-with-objects/labels/) and [annotations](/docs/concepts/overview/working-with-objects/annotations/).
 -->
-对于用户提供的非唯一性的属性，Kubernetes 提供了
-[标签（Labels）](/zh-cn/docs/concepts/overview/working-with-objects/labels/)和
+对于用户提供的非唯一性的属性，Kubernetes
+提供了[标签（Label）](/zh-cn/docs/concepts/overview/working-with-objects/labels/)和
 [注解（Annotation）](/zh-cn/docs/concepts/overview/working-with-objects/annotations/)机制。
 
 <!-- body -->
@@ -43,6 +43,16 @@ For non-unique user-provided attributes, Kubernetes provides [labels](/docs/conc
 ## 名称  {#names}
 
 {{< glossary_definition term_id="name" length="all" >}}
+
+<!--
+**Names must be unique across all [API versions](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning)
+of the same resource. API resources are distinguished by their API group, resource type, namespace
+(for namespaced resources), and name. In other words, API version is irrelevant in this context.**
+-->
+**名称在同一资源的所有
+[API 版本](/zh-cn/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning)中必须是唯一的。
+这些 API 资源通过各自的 API 组、资源类型、名字空间（对于划分名字空间的资源）和名称来区分。
+换言之，API 版本在此上下文中是不相关的。**
 
 {{< note >}}
 <!--
@@ -70,7 +80,6 @@ This means the name must:
 - start with an alphanumeric character
 - end with an alphanumeric character
 -->
-
 ### DNS 子域名  {#dns-subdomain-names}
 
 很多资源类型需要可以用作 DNS 子域名的名称。

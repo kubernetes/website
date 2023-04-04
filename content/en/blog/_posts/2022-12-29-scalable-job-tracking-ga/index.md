@@ -90,7 +90,7 @@ This dependency made the tracking of Job status unreliable, because Pods can be
 deleted from the API for a number of reasons, including:
 - The garbage collector removing orphan Pods when a Node goes down.
 - The garbage collector removing terminated Pods when they reach a threshold.
-- The Kubernetes scheduler preempting a Pod to accomodate higher priority Pods.
+- The Kubernetes scheduler preempting a Pod to accommodate higher priority Pods.
 - The taint manager evicting a Pod that doesn't tolerate a `NoExecute` taint.
 - External controllers, not included as part of Kubernetes, or humans deleting
   Pods.

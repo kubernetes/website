@@ -319,7 +319,7 @@ Saat beban aplikasi naik maupun turun, mudah untuk mengubah kapasitas dengan `ku
 kubectl scale deployment/my-nginx --replicas=1
 ```
 ```shell
-deployment.extensions/my-nginx scaled
+deployment.apps/my-nginx scaled
 ```
 
 Sekarang kamu hanya memiliki satu _pod_ yang dikelola oleh deployment.

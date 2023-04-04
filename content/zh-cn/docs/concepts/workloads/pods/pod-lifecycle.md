@@ -109,6 +109,10 @@ created anew.
 
 {{< figure src="/images/docs/pod.svg" title="Pod 结构图例" class="diagram-medium" >}}
 
+<!--
+*A multi-container Pod that contains a file puller and a
+web server that uses a persistent volume for shared storage between the containers.*
+-->
 *一个包含多个容器的 Pod 中包含一个用来拉取文件的程序和一个 Web 服务器，
 均使用持久卷作为容器间共享的存储。*
 
@@ -281,8 +285,7 @@ The `restartPolicy` applies to all containers in the Pod. `restartPolicy` only
 refers to restarts of the containers by the kubelet on the same node. After containers
 in a Pod exit, the kubelet restarts them with an exponential back-off delay (10s, 20s,
 40s, …), that is capped at five minutes. Once a container has executed for 10 minutes
-without any problems, the kubelet resets the restart backoff timer for
-that container.
+without any problems, the kubelet resets the restart backoff timer for that container.
 -->
 ## 容器重启策略 {#restart-policy}
 
@@ -438,21 +441,21 @@ When a Pod's containers are Ready but at least one custom condition is missing o
 当 Pod 的容器都已就绪，但至少一个定制状况没有取值或者取值为 `False`，
 `kubelet` 将 Pod 的[状况](#pod-conditions)设置为 `ContainersReady`。
 
-<!-- 
-### Pod network readiness {#pod-has-network} 
+<!--
+### Pod network readiness {#pod-has-network}
 -->
 ### Pod 网络就绪 {#pod-has-network}
 
 {{< feature-state for_k8s_version="v1.25" state="alpha" >}}
 
-<!-- 
+<!--
 After a Pod gets scheduled on a node, it needs to be admitted by the Kubelet and
 have any volumes mounted. Once these phases are complete, the Kubelet works with
 a container runtime (using {{< glossary_tooltip term_id="cri" >}}) to set up a
 runtime sandbox and configure networking for the Pod. If the
 `PodHasNetworkCondition` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
 Kubelet reports whether a pod has reached this initialization milestone through
-the `PodHasNetwork` condition in the `status.conditions` field of a Pod. 
+the `PodHasNetwork` condition in the `status.conditions` field of a Pod.
 -->
 在 Pod 被调度到某节点后，它需要被 Kubelet 接受并且挂载所需的卷。
 一旦这些阶段完成，Kubelet 将与容器运行时（使用{{< glossary_tooltip term_id="cri" >}}）
@@ -461,48 +464,61 @@ the `PodHasNetwork` condition in the `status.conditions` field of a Pod.
 kubelet 会通过 Pod 的 `status.conditions` 字段中的 `PodHasNetwork` 状况来报告
 Pod 是否达到了初始化里程碑。
 
-<!-- 
+<!--
 The `PodHasNetwork` condition is set to `False` by the Kubelet when it detects a
 Pod does not have a runtime sandbox with networking configured. This occurs in
-the following scenarios: 
+the following scenarios:
 -->
 当 kubelet 检测到 Pod 不具备配置了网络的运行时沙箱时，`PodHasNetwork` 状况将被设置为 `False`。
 以下场景中将会发生这种状况：
-<!-- 
+<!--
 * Early in the lifecycle of the Pod, when the kubelet has not yet begun to set up a sandbox for the Pod using the container runtime.
 * Later in the lifecycle of the Pod, when the Pod sandbox has been destroyed due
   to either:
   * the node rebooting, without the Pod getting evicted
   * for container runtimes that use virtual machines for isolation, the Pod
-    sandbox virtual machine rebooting, which then requires creating a new sandbox and fresh container network configuration. 
+    sandbox virtual machine rebooting, which then requires creating a new sandbox and fresh container network configuration.
 -->
 * 在 Pod 生命周期的早期阶段，kubelet 还没有开始使用容器运行时为 Pod 设置沙箱时。
 * 在 Pod 生命周期的末期阶段，Pod 的沙箱由于以下原因被销毁时：
   * 节点重启时 Pod 没有被驱逐
   * 对于使用虚拟机进行隔离的容器运行时，Pod 沙箱虚拟机重启时，需要创建一个新的沙箱和全新的容器网络配置。
 
-<!-- 
-The `PodHasNetwork` condition is set to `True` by the Kubelet after the
+<!--
+The `PodHasNetwork` condition is set to `True` by the kubelet after the
 successful completion of sandbox creation and network configuration for the Pod
 by the runtime plugin. The kubelet can start pulling container images and create
-containers after `PodHasNetwork` condition has been set to `True`. 
+containers after `PodHasNetwork` condition has been set to `True`.
 -->
 在运行时插件成功完成 Pod 的沙箱创建和网络配置后，
 kubelet 会将 `PodHasNetwork` 状况设置为 `True`。
 当 `PodHasNetwork` 状况设置为 `True` 后，
 Kubelet 可以开始拉取容器镜像和创建容器。
 
-<!-- 
-For a Pod with init containers, the Kubelet sets the `Initialized` condition to
+<!--
+For a Pod with init containers, the kubelet sets the `Initialized` condition to
 `True` after the init containers have successfully completed (which happens
 after successful sandbox creation and network configuration by the runtime
-plugin). For a Pod without init containers, the Kubelet sets the `Initialized`
-condition to `True` before sandbox creation and network configuration starts. 
+plugin). For a Pod without init containers, the kubelet sets the `Initialized`
+condition to `True` before sandbox creation and network configuration starts.
 -->
 对于带有 Init 容器的 Pod，kubelet 会在 Init 容器成功完成后将 `Initialized` 状况设置为 `True`
 （这发生在运行时成功创建沙箱和配置网络之后），
 对于没有 Init 容器的 Pod，kubelet 会在创建沙箱和网络配置开始之前将
 `Initialized` 状况设置为 `True`。
+
+<!--
+### Pod scheduling readiness {#pod-scheduling-readiness-gate}
+-->
+### Pod 调度就绪态   {#pod-scheduling-readiness-gate}
+
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+<!--
+See [Pod Scheduling Readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/) for more information.
+-->
+有关详细信息，请参阅 [Pod 调度就绪态](/zh-cn/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)。
 
 <!--
 ## Container probes
@@ -563,7 +579,7 @@ Each probe must define exactly one of these four mechanisms:
 `grpc`
 : 使用 [gRPC](https://grpc.io/) 执行一个远程过程调用。
   目标应该实现
-  [gRPC健康检查](https://grpc.io/grpc/core/md_doc_health-checking.html)。
+  [gRPC 健康检查](https://grpc.io/grpc/core/md_doc_health-checking.html)。
   如果响应的状态是 "SERVING"，则认为诊断成功。
   gRPC 探针是一个 Alpha 特性，只有在你启用了
   "GRPCContainerProbe" [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时才能使用。
@@ -606,6 +622,7 @@ Each probe has one of three results:
 
 <!--
 ### Types of probe
+
 The kubelet can optionally perform and react to three kinds of probes on running
 containers:
 -->
@@ -766,7 +783,7 @@ startup probe that checks the same endpoint as the liveness probe. The default f
 allow the container to start, without changing the default values of the liveness
 probe. This helps to protect against deadlocks.
 -->
-如果你的容器启动时间通常超出  `initialDelaySeconds + failureThreshold × periodSeconds`
+如果你的容器启动时间通常超出 `initialDelaySeconds + failureThreshold × periodSeconds`
 总值，你应该设置一个启动探测，对存活态探针所使用的同一端点执行检查。
 `periodSeconds` 的默认值是 10 秒。你应该将其 `failureThreshold` 设置得足够高，
 以便容器有充足的时间完成启动，并且避免更改存活态探针所使用的默认值。
@@ -860,7 +877,7 @@ An example flow:
       如果 `preStop` 回调所需要的时间长于默认的体面终止限期，你必须修改
       `terminationGracePeriodSeconds` 属性值来使其正常工作。
       {{< /note >}}
-   
+
    <!--
    1. The kubelet triggers the container runtime to send a TERM signal to process 1 inside each
       container.
@@ -895,6 +912,20 @@ An example flow:
    和其他工作负载资源不再将关闭进程中的 Pod 视为合法的、能够提供服务的副本。
    关闭动作很慢的 Pod 也无法继续处理请求数据，
    因为负载均衡器（例如服务代理）已经在终止宽限期开始的时候将其从端点列表中移除。
+   {{<note>}}
+   <!--
+   If you don't have the `EndpointSliceTerminatingCondition` feature gate enabled
+   in your cluster (the gate is on by default from Kubernetes 1.22, and locked to default in 1.26), then the    Kubernetes control
+   plane removes a Pod from any relevant EndpointSlices as soon as the Pod's
+   termination grace period _begins_. The behavior above is described when the
+   feature gate `EndpointSliceTerminatingCondition` is enabled.
+   -->
+   如果你的集群中没有启用 EndpointSliceTerminatingCondition 特性门控
+   （该门控从 Kubernetes 1.22 开始默认开启，在 1.26 中锁定为默认），
+   那么一旦 Pod 的终止宽限期开始，Kubernetes 控制平面就会从所有的相关 EndpointSlices 中移除 Pod。
+   上述行为是在 EndpointSliceTerminatingCondition 特性门控被启用时描述的。
+   {{</note>}}
+
 
 <!--
 1. When the grace period expires, the kubelet triggers forcible shutdown. The container runtime sends
@@ -904,14 +935,14 @@ An example flow:
    to 0 (immediate deletion).
 1. The API server deletes the Pod's API object, which is then no longer visible from any client.
 -->
-4. 超出终止宽限期限时，`kubelet` 会触发强制关闭过程。容器运行时会向 Pod
+1. 超出终止宽限期限时，`kubelet` 会触发强制关闭过程。容器运行时会向 Pod
    中所有容器内仍在运行的进程发送 `SIGKILL` 信号。
    `kubelet` 也会清理隐藏的 `pause` 容器，如果容器运行时使用了这种容器的话。
 
-5. `kubelet` 触发强制从 API 服务器上删除 Pod 对象的逻辑，并将体面终止限期设置为 0
+1. `kubelet` 触发强制从 API 服务器上删除 Pod 对象的逻辑，并将体面终止限期设置为 0
    （这意味着马上删除）。
 
-6. API 服务器删除 Pod 的 API 对象，从任何客户端都无法再看到该对象。
+1. API 服务器删除 Pod 的 API 对象，从任何客户端都无法再看到该对象。
 
 <!--
 ### Forced Pod termination {#pod-termination-forced}

@@ -85,11 +85,10 @@ NodeSpec 描述了创建节点时使用的属性。
 - **configSource** (NodeConfigSource)
 
   <!-- 
-  Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed from Kubelets as of 1.24 and will be fully removed in 1.26. 
+  Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed.
   -->
 
-  已弃用：以前用于为 DynamicKubeletConfig 功能指定节点配置的来源。
-  自 1.24 的版本起，此功能已从 Kubelets 中移除，并将在 1.26 的版本中完全移除。
+  已弃用：以前用于为 DynamicKubeletConfig 功能指定节点配置的来源。此功能已删除。
 
   <a name="NodeConfigSource"></a>
   <!-- 
@@ -283,7 +282,7 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   *Patch strategy: merge on key `type`*
   
-  List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See http://pr.k8s.io/79391 for an example. 
+  List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example.
   -->
 
   **补丁策略：根据 `type` 键执行合并操作**
@@ -293,7 +292,7 @@ NodeStatus 是有关节点当前状态的信息。
   
   注意：该字段声明为可合并，但合并键不够唯一，合并时可能导致数据损坏。
   调用者应改为使用完全替换性质的补丁操作。
-  有关示例，请参见 http://pr.k8s.io/79391。
+  有关示例，请参见 https://pr.k8s.io/79391。
 
   <a name="NodeAddress"></a>
   <!--

@@ -4,6 +4,7 @@ reviewers:
 - enj
 title: Using a KMS provider for data encryption
 content_type: task
+weight: 370
 ---
 <!-- overview -->
 This page shows how to configure a Key Management Service (KMS) provider and plugin to enable secret data encryption. Currently there are two KMS API versions. KMS v1 will continue to work while v2 develops in maturity. If you are not sure which KMS API version to pick, choose v1. 

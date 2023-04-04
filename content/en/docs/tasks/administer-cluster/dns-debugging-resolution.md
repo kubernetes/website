@@ -5,6 +5,7 @@ reviewers:
 title:  Debugging DNS Resolution
 content_type: task
 min-kubernetes-server-version: v1.6
+weight: 170
 ---
 
 <!-- overview -->

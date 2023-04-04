@@ -1,8 +1,13 @@
 ---
 title: 配置存活、就绪和启动探针
 content_type: task
-weight: 110
+weight: 140
 ---
+<!--
+title: Configure Liveness, Readiness and Startup Probes
+content_type: task
+weight: 140
+-->
 
 <!-- overview -->
 <!--
@@ -20,6 +25,15 @@ despite bugs.
 使用存活探针来确定什么时候要重启容器。
 例如，存活探针可以探测到应用死锁（应用程序在运行，但是无法继续执行后面的步骤）情况。
 重启这种状态下的容器有助于提高应用的可用性，即使其中存在缺陷。
+
+<!--
+A common pattern for liveness probes is to use the same low-cost HTTP endpoint
+s for readiness probes, but with a higher failureThreshold. This ensures that the pod
+is observed as not-ready for some period of time before it is hard killed.
+-->
+
+存活探针的常见模式是为就绪探针使用相同的低成本 HTTP 端点，但具有更高的 failureThreshold。
+这样可以确保在硬性终止 Pod 之前，将观察到 Pod 在一段时间内处于非就绪状态。
 
 <!--
 The kubelet uses readiness probes to know when a container is ready to start
@@ -42,6 +56,28 @@ kubelet 使用启动探针来了解应用容器何时启动。
 如果配置了这类探针，你就可以控制容器在启动成功后再进行存活性和就绪态检查，
 确保这些存活、就绪探针不会影响应用的启动。
 启动探针可以用于对慢启动容器进行存活性检测，避免它们在启动运行之前就被杀掉。
+
+{{< caution >}}
+<!--
+Liveness probes can be a powerful way to recover from application failures, but
+they should be used with caution. Liveness probes must be configured carefully
+to ensure that they truly indicate unrecoverable application failure, for example a deadlock.
+-->
+存活探针是一种从应用故障中恢复的强劲方式，但应谨慎使用。
+你必须仔细配置存活探针，确保它能真正标示出不可恢复的应用故障，例如死锁。
+{{< /caution >}}
+
+{{< note >}}
+<!--
+Incorrect implementation of liveness probes can lead to cascading failures. This results in
+restarting of container under high load; failed client requests as your application became less
+scalable; and increased workload on remaining pods due to some failed pods.
+Understand the difference between readiness and liveness probes and when to apply them for your app.
+-->
+错误的存活探针可能会导致级联故障。
+这会导致在高负载下容器重启；例如由于应用程序无法扩展，导致客户端请求失败；以及由于某些 Pod 失败而导致剩余 Pod 的工作负载增加。
+了解就绪探针和存活探针之间的区别，以及何时为应用程序配置使用它们非常重要。
+{{< /note >}}
 
 ## {{% heading "prerequisites" %}}
 
@@ -608,9 +644,6 @@ to 1 second. Minimum value is 1.
 * `successThreshold`: Minimum consecutive successes for the probe to be
 considered successful after having failed. Defaults to 1. Must be 1 for liveness
 and startup Probes. Minimum value is 1.
-* `failureThreshold`: When a probe fails, Kubernetes will
-try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the container. In case of readiness probe the Pod will be marked Unready.
-Defaults to 3. Minimum value is 1.
 -->
 * `initialDelaySeconds`：容器启动后要等待多少秒后才启动启动、存活和就绪探针，
   默认是 0 秒，最小值是 0。
@@ -618,9 +651,40 @@ Defaults to 3. Minimum value is 1.
 * `timeoutSeconds`：探测的超时后等待多少秒。默认值是 1 秒。最小值是 1。
 * `successThreshold`：探针在失败后，被视为成功的最小连续成功数。默认值是 1。
   存活和启动探测的这个值必须是 1。最小值是 1。
-* `failureThreshold`：当探测失败时，Kubernetes 的重试次数。
-  对存活探测而言，放弃就意味着重新启动容器。
-  对就绪探测而言，放弃意味着 Pod 会被打上未就绪的标签。默认值是 3。最小值是 1。
+<!--
+* `failureThreshold`: After a probe fails `failureThreshold` times in a row, Kubernetes
+  considers that the overall check has failed: the container is _not_ ready / healthy /
+  live.
+  For the case of a startup or liveness probe, if at least `failureThreshold` probes have
+  failed, Kubernetes treats the container as unhealthy and triggers a restart for that
+  specific container. The kubelet takes the setting of `terminationGracePeriodSeconds`
+  for that container into account.
+  For a failed readiness probe, the kubelet continues running the container that failed
+  checks, and also continues to run more probes; because the check failed, the kubelet
+  sets the `Ready` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)
+  on the Pod to `false`.
+-->
+* `failureThreshold`：探针连续失败了 `failureThreshold` 次之后，
+  Kubernetes 认为总体上检查已失败：容器状态未就绪、不健康、不活跃。
+  对于启动探针或存活探针而言，如果至少有 `failureThreshold` 个探针已失败，
+  Kubernetes 会将容器视为不健康并为这个特定的容器触发重启操作。
+  kubelet 会考虑该容器的 `terminationGracePeriodSeconds` 设置。
+  对于失败的就绪探针，kubelet 继续运行检查失败的容器，并继续运行更多探针；
+  因为检查失败，kubelet 将 Pod 的 `Ready`
+  [状况](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)设置为 `false`。
+<!--
+* `terminationGracePeriodSeconds`: configure a grace period for the kubelet to wait
+  between triggering a shut down of the failed container, and then forcing the
+  container runtime to stop that container.
+  The default is to inherit the Pod-level value for `terminationGracePeriodSeconds`
+  (30 seconds if not specified), and the minimum value is 1.
+  See [probe-level `terminationGracePeriodSeconds`](#probe-level-terminationgraceperiodseconds)
+  for more detail.
+-->
+* `terminationGracePeriodSeconds`：为 kubelet
+  配置从为失败的容器触发终止操作到强制容器运行时停止该容器之前等待的宽限时长。
+  默认值是继承 Pod 级别的 `terminationGracePeriodSeconds` 值（如果不设置则为 30 秒），最小值为 1。
+  更多细节请参见[探针级别 `terminationGracePeriodSeconds`](#probe-level-terminationgraceperiodseconds)。
 
 {{< note >}}
 <!--

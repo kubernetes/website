@@ -131,4 +131,7 @@ current policy level:
 - [Enforcing Pod Security Standards](/docs/setup/best-practices/enforcing-pod-security-standards)
 - [Enforce Pod Security Standards by Configuring the Built-in Admission Controller](/docs/tasks/configure-pod-container/enforce-standards-admission-controller)
 - [Enforce Pod Security Standards with Namespace Labels](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels)
-- [Migrate from PodSecurityPolicy to the Built-In PodSecurity Admission Controller](/docs/tasks/configure-pod-container/migrate-from-psp)
+
+If you are running an older version of Kubernetes and want to upgrade
+to a version of Kubernetes that does not include PodSecurityPolicies,
+read [migrate from PodSecurityPolicy to the Built-In PodSecurity Admission Controller](/docs/tasks/configure-pod-container/migrate-from-psp).

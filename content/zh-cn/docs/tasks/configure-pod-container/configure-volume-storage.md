@@ -1,7 +1,7 @@
 ---
 title: 配置 Pod 以使用卷进行存储
 content_type: task
-weight: 50
+weight: 80
 ---
 <!--
 title: Configure a Pod to Use a Volume for Storage
@@ -49,7 +49,7 @@ restarts. Here is the configuration file for the Pod:
 {{< codenew file="pods/storage/redis.yaml" >}}
 
 <!--
-1.Create the Pod:
+1. Create the Pod:
 -->
 1. 创建 Pod:
 
@@ -88,7 +88,7 @@ restarts. Here is the configuration file for the Pod:
    ```
 
 <!--
-1.In your shell, go to `/data/redis`, and then create a file:
+1. In your shell, go to `/data/redis`, and then create a file:
 -->
 4. 在你的 Shell 中，切换到 `/data/redis` 目录下，然后创建一个文件：
 

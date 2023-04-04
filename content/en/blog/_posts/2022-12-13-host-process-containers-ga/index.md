@@ -54,7 +54,7 @@ closed and the storage will be unmounted.
 
 HostProcess and Linux privileged containers enable similar scenarios but differ
 greatly in their implementation (hence the naming difference). HostProcess containers
-have their own [PodSecurityContext](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.25/#windowssecuritycontextoptions-v1-core) fields.
+have their own [PodSecurityContext](/docs/reference/generated/kubernetes-api/v1.25/#windowssecuritycontextoptions-v1-core) fields.
 Those used to configure Linux privileged containers **do not** apply. Enabling privileged access to a Windows host is a
 fundamentally different process than with Linux so the configuration and
 capabilities of each differ significantly. Below is a diagram detailing the
@@ -110,7 +110,7 @@ Please note that within a Pod, you can't mix HostProcess containers with normal 
 
 - Work through [Create a Windows HostProcess Pod](/docs/tasks/configure-pod-container/create-hostprocess-pod/)
 
-- Read about Kubernetes [Pod Security Standards](/docs/concepts/security/pod-security-standards/) and [Pod Security Admission](docs/concepts/security/pod-security-admission/)
+- Read about Kubernetes [Pod Security Standards](/docs/concepts/security/pod-security-standards/) and [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
 
 - Read the enhancement proposal [Windows Privileged Containers and Host Networking Mode](https://github.com/kubernetes/enhancements/tree/master/keps/sig-windows/1981-windows-privileged-container-support) (KEP-1981)
 

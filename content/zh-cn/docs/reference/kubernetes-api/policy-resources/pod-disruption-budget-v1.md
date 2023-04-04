@@ -122,6 +122,41 @@ PodDisruptionBudgetSpec 是对 PodDisruptionBudget 的描述。
   标签查询，用来选择其驱逐由干扰预算来管理的 Pod 集合。
   选择算符为 null 时将不会匹配任何 Pod，而空 ({}) 选择算符将选中名字空间内的所有 Pod。
 
+- **unhealthyPodEvictionPolicy** (string)
+
+  <!--
+  UnhealthyPodEvictionPolicy defines the criteria for when unhealthy pods should be considered for eviction. Current implementation considers healthy pods, as pods that have status.conditions item with type="Ready",status="True".
+
+  Valid policies are IfHealthyBudget and AlwaysAllow. If no policy is specified, the default behavior will be used, which corresponds to the IfHealthyBudget policy.
+  -->
+  unhealthyPodEvictionPolicy 定义不健康的 Pod 应被考虑驱逐时的标准。
+  当前的实现将健康的 Pod 视为具有 status.conditions 项且 type="Ready"、status="True" 的 Pod。
+
+  有效的策略是 IfHealthyBudget 和 AlwaysAllow。
+  如果没有策略被指定，则使用与 IfHealthyBudget 策略对应的默认行为。
+
+  <!--
+  IfHealthyBudget policy means that running pods (status.phase="Running"), but not yet healthy can be evicted only if the guarded application is not disrupted (status.currentHealthy is at least equal to status.desiredHealthy). Healthy pods will be subject to the PDB for eviction.
+  
+  AlwaysAllow policy means that all running pods (status.phase="Running"), but not yet healthy are considered disrupted and can be evicted regardless of whether the criteria in a PDB is met. This means perspective running pods of a disrupted application might not get a chance to become healthy. Healthy pods will be subject to the PDB for eviction.
+  -->
+  IfHealthyBudget 策略意味着正在运行（status.phase="Running"）但还不健康的 Pod
+  只有在被守护的应用未受干扰（status.currentHealthy 至少等于 status.desiredHealthy）
+  时才能被驱逐。健康的 Pod 将受到 PDB 的驱逐。
+
+  AlwaysAllow 策略意味着无论是否满足 PDB 中的条件，所有正在运行（status.phase="Running"）但还不健康的
+  Pod 都被视为受干扰且可以被驱逐。这意味着受干扰应用的透视运行 Pod 可能没有机会变得健康。
+  健康的 Pod 将受到 PDB 的驱逐。
+  
+  <!--
+  Additional policies may be added in the future. Clients making eviction decisions should disallow eviction of unhealthy pods if they encounter an unrecognized policy in this field.
+  
+  This field is alpha-level. The eviction API uses this field when the feature gate PDBUnhealthyPodEvictionPolicy is enabled (disabled by default).
+  -->
+  将来可能会添加其他策略。如果客户端在该字段遇到未识别的策略，则做出驱逐决定的客户端应禁止驱逐不健康的 Pod。
+
+  该字段是 Alpha 级别的。当特性门控 PDBUnhealthyPodEvictionPolicy 被启用（默认禁用）时，驱逐 API 使用此字段。
+
 ## PodDisruptionBudgetStatus {#PodDisruptionBudgetStatus}
 
 <!-- 

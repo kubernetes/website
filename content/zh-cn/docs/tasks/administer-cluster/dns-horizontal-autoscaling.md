@@ -1,18 +1,20 @@
 ---
 title: 自动扩缩集群 DNS 服务
 content_type: task
+weight: 80
 ---
 <!--
 title: Autoscale the DNS Service in a Cluster
 content_type: task
+weight: 80
 -->
 
 <!-- overview -->
 <!--
-This page shows how to enable and configure autoscaling of the DNS service in a
-Kubernetes cluster.
+This page shows how to enable and configure autoscaling of the DNS service in
+your Kubernetes cluster.
 -->
-本页展示了如何在集群中启用和配置 DNS 服务的自动扩缩功能。
+本页展示了如何在你的 Kubernetes 集群中启用和配置 DNS 服务的自动扩缩功能。
 
 ## {{% heading "prerequisites" %}}
 
@@ -21,78 +23,66 @@ Kubernetes cluster.
 <!--
 * This guide assumes your nodes use the AMD64 or Intel 64 CPU architecture
 
-* Make sure the [DNS feature](/docs/concepts/services-networking/dns-pod-service/) itself is enabled.
-
-* Kubernetes version 1.4.0 or later is recommended.
+* Make sure [Kubernetes DNS](/docs/concepts/services-networking/dns-pod-service/) is enabled.
 -->
 * 本指南假设你的节点使用 AMD64 或 Intel 64 CPU 架构
 
-* 确保已启用 [DNS 功能](/zh-cn/docs/concepts/services-networking/dns-pod-service/)本身。
+* 确保 [Kubernetes DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/) 已启用。
 
-* 建议使用 Kubernetes 1.4.0 或更高版本。
 
 <!-- steps -->
 
 <!--
-## Determining whether DNS horizontal autoscaling is already enabled
+## Determine whether DNS horizontal autoscaling is already enabled {#determining-whether-dns-horizontal-autoscaling-is-already-enabled}
 
 List the {{< glossary_tooltip text="Deployments" term_id="deployment" >}}
-in your cluster in the kube-system namespace:
+in your cluster in the kube-system {{< glossary_tooltip text="namespace" term_id="namespace" >}}:
+-->
+## 确定是否 DNS 水平自动扩缩特性已经启用 {#determining-whether-dns-horizontal-autoscaling-is-already-enabled}
+
+在 kube-system {{< glossary_tooltip text="命名空间" term_id="namespace" >}}中列出集群中的
+{{< glossary_tooltip text="Deployment" term_id="deployment" >}}：
 
 ```shell
 kubectl get deployment --namespace=kube-system
 ```
 
+<!--
 The output is similar to this:
+-->
+输出类似如下这样：
 
-    NAME                  DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-    ...
-    dns-autoscaler        1         1         1            1           ...
-    ...
+```
+NAME                      READY   UP-TO-DATE   AVAILABLE   AGE
+...
+dns-autoscaler            1/1     1            1           ...
+...
+```
 
+<!--
 If you see "dns-autoscaler" in the output, DNS horizontal autoscaling is
 already enabled, and you can skip to
 [Tuning autoscaling parameters](#tuning-autoscaling-parameters).
 -->
-## 确定是否 DNS 水平自动扩缩特性已经启用 {#determining-whether-dns-horizontal-autoscaling-is-already-enabled}
-
-在 kube-system 命名空间中列出集群中的 {{< glossary_tooltip text="Deployments" term_id="deployment" >}} ：
-
-```shell
-kubectl get deployment --namespace=kube-system
-```
-
-输出类似如下这样：
-
-```
-NAME                  DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-...
-dns-autoscaler        1         1         1            1           ...
-...
-```
-
-如果在输出中看到 “dns-autoscaler”，说明 DNS 水平自动扩缩已经启用，可以跳到
-[调优自动扩缩参数](#tuning-autoscaling-parameters)。
+如果在输出中看到 “dns-autoscaler”，说明 DNS 水平自动扩缩已经启用，
+可以跳到[调优 DNS 自动扩缩参数](#tuning-autoscaling-parameters)。
 
 <!--
-## Getting the name of your DNS Deployment {#find-scaling-target}
+## Get the name of your DNS Deployment {#find-scaling-target}
 
-List the Deployments in your cluster in the kube-system namespace:
-
-```shell
-kubectl get deployment --namespace=kube-system
-```
-
-The output is similar to this:
+List the DNS deployments in your cluster in the kube-system namespace:
 -->
 ## 获取 DNS Deployment 的名称 {#find-scaling-target}
 
-列出集群内 kube-system 名字空间中的 DNS Deployment：
+列出集群内 kube-system 命名空间中的 DNS Deployment：
 
 ```shell
 kubectl get deployment -l k8s-app=kube-dns --namespace=kube-system
 ```
 
+<!--
+The output is similar to this:
+-->
 输出类似如下这样：
 
 ```
@@ -117,7 +107,7 @@ and look for a deployment named `coredns` or `kube-dns`.
 并在输出中寻找名称为 `coredns` 或 `kube-dns` 的 Deployment。
 
 <!--
-Your scale target is:
+Your scale target is
 -->
 你的扩缩目标为：
 
@@ -127,7 +117,7 @@ Deployment/<your-deployment-name>
 
 <!--
 where `<your-deployment-name>` is the name of your DNS Deployment. For example, if
-your DNS Deployment name is coredns, your scale target is Deployment/coredns.
+the name of your Deployment for DNS is coredns, your scale target is Deployment/coredns.
 -->
 其中 `<your-deployment-name>` 是 DNS Deployment 的名称。
 例如，如果你的 DNS Deployment 名称是 `coredns`，则你的扩展目标是 Deployment/coredns。
@@ -143,16 +133,16 @@ CoreDNS 是 Kubernetes 的默认 DNS 服务。CoreDNS 设置标签 `k8s-app=kube
 {{< /note >}}
 
 <!--
-## Enabling DNS horizontal autoscaling      {#enablng-dns-horizontal-autoscaling}
+## Enable DNS horizontal autoscaling {#enablng-dns-horizontal-autoscaling}
 
-In this section, you create a Deployment. The Pods in the Deployment run a
+In this section, you create a new Deployment. The Pods in the Deployment run a
 container based on the `cluster-proportional-autoscaler-amd64` image.
 
 Create a file named `dns-horizontal-autoscaler.yaml` with this content:
 -->
 ## 启用 DNS 水平自动扩缩   {#enablng-dns-horizontal-autoscaling}
 
-在本节，我们创建一个 Deployment。Deployment 中的 Pod 运行一个基于
+在本节，我们创建一个新的 Deployment。Deployment 中的 Pod 运行一个基于
 `cluster-proportional-autoscaler-amd64` 镜像的容器。
 
 创建文件 `dns-horizontal-autoscaler.yaml`，内容如下所示：
@@ -188,11 +178,11 @@ DNS horizontal autoscaling is now enabled.
 DNS 水平自动扩缩在已经启用了。
 
 <!--
-## Tuning autoscaling parameters  {#tuning-autoscaling-parameters}
+## Tune DNS autoscaling parameters {#tuning-autoscaling-parameters}
 
 Verify that the dns-autoscaler {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} exists:
 -->
-## 调优自动扩缩参数   {#tuning-autoscaling-parameters}
+## 调优 DNS 自动扩缩参数   {#tuning-autoscaling-parameters}
 
 验证 dns-autoscaler {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} 是否存在：
 
@@ -232,7 +222,7 @@ linear: '{"coresPerReplica":256,"min":1,"nodesPerReplica":16}'
 
 <!--
 Modify the fields according to your needs. The "min" field indicates the
-minimal number of DNS backends. The actual number of backends number is
+minimal number of DNS backends. The actual number of backends is
 calculated using this equation:
 -->
 
@@ -240,12 +230,12 @@ calculated using this equation:
 实际后端的数量通过使用如下公式来计算：
 
 ```
-replicas = max( ceil( cores * 1/coresPerReplica ) , ceil( nodes * 1/nodesPerReplica ) )
+replicas = max( ceil( cores × 1/coresPerReplica ) , ceil( nodes × 1/nodesPerReplica ) )
 ```
 
 <!--
 Note that the values of both `coresPerReplica` and `nodesPerReplica` are
-integers.
+floats.
 
 The idea is that when a cluster is using nodes that have many cores,
 `coresPerReplica` dominates. When a cluster is using nodes that have fewer
@@ -254,7 +244,7 @@ cores, `nodesPerReplica` dominates.
 There are other supported scaling patterns. For details, see
 [cluster-proportional-autoscaler](https://github.com/kubernetes-sigs/cluster-proportional-autoscaler).
 -->
-注意 `coresPerReplica` 和 `nodesPerReplica` 的值都是整数。
+注意 `coresPerReplica` 和 `nodesPerReplica` 的值都是浮点数。
 
 背后的思想是，当一个集群使用具有很多核心的节点时，由 `coresPerReplica` 来控制。
 当一个集群使用具有较少核心的节点时，由 `nodesPerReplica` 来控制。
@@ -285,7 +275,9 @@ This option works for all situations. Enter this command:
 kubectl scale deployment --replicas=0 dns-autoscaler --namespace=kube-system
 ```
 
-<!-- The output is: -->
+<!--
+The output is:
+-->
 输出如下所示：
 
 ```
@@ -327,7 +319,9 @@ no one will re-create it:
 kubectl delete deployment dns-autoscaler --namespace=kube-system
 ```
 
-<!-- The output is:-->
+<!--
+The output is:
+-->
 输出内容如下所示：
 
 ```
@@ -341,6 +335,7 @@ This option works if dns-autoscaler is under control of the (deprecated)
 [Addon Manager](https://git.k8s.io/kubernetes/cluster/addons/README.md),
 and you have write access to the master node.
 -->
+
 ### 选项 3：从主控节点删除 dns-autoscaler 清单文件
 
 如果 dns-autoscaler 在[插件管理器](https://git.k8s.io/kubernetes/cluster/addons/README.md)

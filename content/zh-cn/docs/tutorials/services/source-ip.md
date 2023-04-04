@@ -118,11 +118,11 @@ deployment.apps/source-ip-app created
 <!-- 
 Packets sent to ClusterIP from within the cluster are never source NAT'd if
 you're running kube-proxy in
-[iptables mode](/docs/concepts/services-networking/service/#proxy-mode-iptables),
+[iptables mode](/docs/reference/networking/virtual-ips/#proxy-mode-iptables),
 (the default). You can query the kube-proxy mode by fetching
 `http://localhost:10249/proxyMode` on the node where kube-proxy is running.
 -->
-如果你在 [iptables 模式](/zh-cn/docs/concepts/services-networking/service/#proxy-mode-iptables)（默认）下运行
+如果你在 [iptables 模式](/zh-cn/docs/reference/networking/virtual-ips/#proxy-mode-iptables)（默认）下运行
 kube-proxy，则从集群内发送到 ClusterIP 的数据包永远不会进行源 NAT。
 你可以通过在运行 kube-proxy 的节点上获取 `http://localhost:10249/proxyMode` 来查询 kube-proxy 模式。
 

@@ -1,6 +1,6 @@
 ---
 title: "Managing Secrets"
-weight: 28
+weight: 60
 description: Managing confidential settings data using Secrets.
 ---
 

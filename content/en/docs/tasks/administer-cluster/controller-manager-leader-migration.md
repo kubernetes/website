@@ -5,6 +5,7 @@ reviewers:
 title: "Migrate Replicated Control Plane To Use Cloud Controller Manager"
 linkTitle: "Migrate Replicated Control Plane To Use Cloud Controller Manager"
 content_type: task
+weight: 250
 ---
 
 <!-- overview -->

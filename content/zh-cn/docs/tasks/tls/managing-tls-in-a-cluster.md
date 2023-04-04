@@ -177,12 +177,12 @@ is still to be created.
 <!--
 ## Create a CertificateSigningRequest object to send to the Kubernetes API
 
-Generate a CSR yaml blob and send it to the apiserver by running the following
-command:
+Generate a CSR manifest (in YAML), and send it to the API server. You can do that by
+running the following command:
 -->
 ## 创建证书签名请求（CSR）对象发送到 Kubernetes API
 
-使用以下命令创建 CSR YAML 文件，并发送到 API 服务器：
+你可以使用以下命令创建 CSR 清单（YAML 格式），并发送到 API 服务器：
 
 ```shell
 cat <<EOF | kubectl apply -f -
@@ -338,7 +338,7 @@ EOF
 ```
 
 <!-- 
-This produces a certificate authority key file (`ca-key.pem`) and certificate (`ca.pem`). 
+This produces a certificate authority key file (`ca-key.pem`) and certificate (`ca.pem`).
 -->
 这会产生一个证书颁发机构密钥文件（`ca-key.pem`）和证书（`ca.pem`）。
 
@@ -361,14 +361,18 @@ kubectl get csr my-svc.my-namespace -o jsonpath='{.spec.request}' | \
   cfssljson -bare ca-signed-server
 ```
 
-<!-- You should see output similar to: -->
+<!--
+You should see the output similar to:
+-->
 你应该看到类似于以下的输出：
 
 ```
 2022/02/01 11:52:26 [INFO] signed certificate with serial number 576048928624926584381415936700914530534472870337
 ```
 
-<!-- This produces a signed serving certificate file, `ca-signed-server.pem`. -->
+<!--
+This produces a signed serving certificate file, `ca-signed-server.pem`.
+-->
 这会生成一个签名的服务证书文件，`ca-signed-server.pem`。
 
 <!-- 
@@ -437,7 +441,7 @@ kubectl get csr my-svc.my-namespace -o jsonpath='{.status.certificate}' \
 Now you can populate `server.crt` and `server-key.pem` in a
 {{< glossary_tooltip text="Secret" term_id="secret" >}}
 that you could later mount into a Pod (for example, to use with a webserver
-that serves HTTPS). 
+that serves HTTPS).
 -->
 现在你可以将 `server.crt` 和 `server-key.pem` 填充到
 {{<glossary_tooltip text="Secret" term_id="secret" >}} 中，
@@ -535,7 +539,7 @@ reference page.
 <!--
 ## Configuring your cluster to provide signing
 
-This page assumes that a signer is setup to serve the certificates API. The
+This page assumes that a signer is set up to serve the certificates API. The
 Kubernetes controller manager provides a default implementation of a signer. To
 enable it, pass the `--cluster-signing-cert-file` and
 `--cluster-signing-key-file` parameters to the controller manager with paths to

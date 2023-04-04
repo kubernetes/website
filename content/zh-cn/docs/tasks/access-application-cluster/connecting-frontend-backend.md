@@ -148,7 +148,7 @@ First, explore the Service configuration file:
 {{< codenew file="service/access/backend-service.yaml" >}}
 
 <!--
-In the configuration file, you can see that the Service named `hello` routes
+In the configuration file, you can see that the Service, named `hello` routes
 traffic to Pods that have the labels `app: hello` and `tier: backend`.
 -->
 配置文件中，你可以看到名为 `hello` 的 Service 将流量路由到包含 `app: hello`
@@ -182,8 +182,8 @@ given to the backend Service. The DNS name is `hello`, which is the value
 of the `name` field in the `examples/service/access/backend-service.yaml` 
 configuration file.
 
-The Pods in the frontend Deployment run an nginx image that is configured
-to proxy requests to the hello backend Service. Here is the nginx configuration file:
+The Pods in the frontend Deployment run a nginx image that is configured
+to proxy requests to the `hello` backend Service. Here is the nginx configuration file:
 -->
 ### 创建前端应用
 
@@ -195,7 +195,7 @@ to proxy requests to the hello backend Service. Here is the nginx configuration 
 文件中 `name` 字段的取值。
 
 前端 Deployment 中的 Pods 运行一个 nginx 镜像，这个已经配置好的镜像会将请求转发
-给后端的 hello Service。下面是  nginx 的配置文件：
+给后端的 `hello` Service。下面是  nginx 的配置文件：
 
 {{< codenew file="service/access/frontend-nginx.conf" >}}
 
@@ -235,6 +235,7 @@ deployment.apps/frontend created
 service/frontend created
 ```
 
+{{< note >}}
 <!--
 The nginx configuration is baked into the
 [container image](/examples/service/access/Dockerfile). A better way to do this would
@@ -242,7 +243,6 @@ be to use a
 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/),
 so that you can change the configuration more easily.
 -->
-{{< note >}}
 这个 nginx 配置文件是被打包在
 [容器镜像](/examples/service/access/Dockerfile) 里的。
 更好的方法是使用
@@ -261,7 +261,7 @@ command to find the external IP:
 一旦你创建了 LoadBalancer 类型的 Service，你可以使用这条命令查看外部 IP：
 
 ```shell
-kubectl get service frontend
+kubectl get service frontend --watch
 ```
 
 <!--
@@ -271,8 +271,8 @@ changes. Initially, the external IP is listed as `<pending>`:
 外部 IP 字段的生成可能需要一些时间。如果是这种情况，外部 IP 会显示为 `<pending>`。
 
 ```
-NAME       CLUSTER-IP      EXTERNAL-IP   PORT(S)  AGE
-frontend   10.51.252.116   <pending>     80/TCP   10s
+NAME       TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)  AGE
+frontend   LoadBalancer   10.51.252.116   <pending>     80/TCP   10s
 ```
 
 <!--
@@ -282,8 +282,8 @@ to include the new IP under the `EXTERNAL-IP` heading:
 当外部 IP 地址被分配可用时，配置会更新，在 `EXTERNAL-IP` 头部下显示新的 IP：
 
 ```
-NAME       CLUSTER-IP      EXTERNAL-IP        PORT(S)  AGE
-frontend   10.51.252.116   XXX.XXX.XXX.XXX    80/TCP   1m
+NAME       TYPE           CLUSTER-IP      EXTERNAL-IP        PORT(S)  AGE
+frontend   LoadBalancer   10.51.252.116   XXX.XXX.XXX.XXX    80/TCP   1m
 ```
 
 <!--
@@ -336,6 +336,7 @@ To delete the Deployments, the ReplicaSets and the Pods that are running the bac
 ```shell
 kubectl delete deployment frontend backend
 ```
+
 ## {{% heading "whatsnext" %}}
 
 <!--
@@ -346,4 +347,3 @@ kubectl delete deployment frontend backend
 * 进一步了解 [Service](/zh-cn/docs/concepts/services-networking/service/)
 * 进一步了解 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)
 * 进一步了解 [Service 和 Pods 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)
-

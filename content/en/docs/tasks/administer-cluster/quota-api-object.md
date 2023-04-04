@@ -1,6 +1,7 @@
 ---
 title: Configure Quotas for API Objects
 content_type: task
+weight: 130
 ---
 
 

@@ -26,30 +26,24 @@ on general patterns for running stateful applications in Kubernetes.
 
 ## {{% heading "prerequisites" %}}
 
-
-* {{< include "task-tutorial-prereqs.md" >}}
-* {{< include "default-storage-class-prereqs.md" >}}
-* This tutorial assumes you are familiar with
+- {{< include "task-tutorial-prereqs.md" >}}
+- {{< include "default-storage-class-prereqs.md" >}}
+- This tutorial assumes you are familiar with
   [PersistentVolumes](/docs/concepts/storage/persistent-volumes/)
   and [StatefulSets](/docs/concepts/workloads/controllers/statefulset/),
   as well as other core concepts like [Pods](/docs/concepts/workloads/pods/),
   [Services](/docs/concepts/services-networking/service/), and
   [ConfigMaps](/docs/tasks/configure-pod-container/configure-pod-configmap/).
-* Some familiarity with MySQL helps, but this tutorial aims to present
+- Some familiarity with MySQL helps, but this tutorial aims to present
   general patterns that should be useful for other systems.
-* You are using the default namespace or another namespace that does not contain any conflicting objects.
-
-
+- You are using the default namespace or another namespace that does not contain any conflicting objects.
 
 ## {{% heading "objectives" %}}
 
-
-* Deploy a replicated MySQL topology with a StatefulSet.
-* Send MySQL client traffic.
-* Observe resistance to downtime.
-* Scale the StatefulSet up and down.
-
-
+- Deploy a replicated MySQL topology with a StatefulSet.
+- Send MySQL client traffic.
+- Observe resistance to downtime.
+- Scale the StatefulSet up and down.
 
 <!-- lessoncontent -->
 
@@ -377,7 +371,7 @@ no new Pods may schedule there, and then evicts any existing Pods.
 Replace `<node-name>` with the name of the Node you found in the last step.
 
 {{< caution >}}
-Draining a Node can impact other workloads and applications 
+Draining a Node can impact other workloads and applications
 running on the same node. Only perform the following step in a test
 cluster.
 {{< /caution >}}
@@ -492,10 +486,7 @@ kubectl delete pvc data-mysql-3
 kubectl delete pvc data-mysql-4
 ```
 
-
-
 ## {{% heading "cleanup" %}}
-
 
 1. Cancel the `SELECT @@server_id` loop by pressing **Ctrl+C** in its terminal,
    or running the following from another terminal:
@@ -536,17 +527,11 @@ kubectl delete pvc data-mysql-4
    Some dynamic provisioners (such as those for EBS and PD) also release the
    underlying resources upon deleting the PersistentVolumes.
 
-
-
 ## {{% heading "whatsnext" %}}
 
-* Learn more about [scaling a StatefulSet](/docs/tasks/run-application/scale-stateful-set/).
-* Learn more about [debugging a StatefulSet](/docs/tasks/debug/debug-application/debug-statefulset/).
-* Learn more about [deleting a StatefulSet](/docs/tasks/run-application/delete-stateful-set/).
-* Learn more about [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
-* Look in the [Helm Charts repository](https://artifacthub.io/)
+- Learn more about [scaling a StatefulSet](/docs/tasks/run-application/scale-stateful-set/).
+- Learn more about [debugging a StatefulSet](/docs/tasks/debug/debug-application/debug-statefulset/).
+- Learn more about [deleting a StatefulSet](/docs/tasks/run-application/delete-stateful-set/).
+- Learn more about [force deleting StatefulSet Pods](/docs/tasks/run-application/force-delete-stateful-set-pod/).
+- Look in the [Helm Charts repository](https://artifacthub.io/)
   for other stateful application examples.
-
-
-
-

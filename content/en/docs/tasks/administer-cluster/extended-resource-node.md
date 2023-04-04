@@ -1,8 +1,8 @@
 ---
 title: Advertise Extended Resources for a Node
 content_type: task
+weight: 70
 ---
-
 
 <!-- overview -->
 
@@ -10,16 +10,9 @@ This page shows how to specify extended resources for a Node.
 Extended resources allow cluster administrators to advertise node-level
 resources that would otherwise be unknown to Kubernetes.
 
-
-
-
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-
-
-
 
 <!-- steps -->
 
@@ -38,7 +31,7 @@ the Kubernetes API server. For example, suppose one of your Nodes has four dongl
 attached. Here's an example of a PATCH request that advertises four dongle resources
 for your Node.
 
-```shell
+```
 PATCH /api/v1/nodes/<your-node-name>/status HTTP/1.1
 Accept: application/json
 Content-Type: application/json-patch+json
@@ -68,9 +61,9 @@ Replace `<your-node-name>` with the name of your Node:
 
 ```shell
 curl --header "Content-Type: application/json-patch+json" \
---request PATCH \
---data '[{"op": "add", "path": "/status/capacity/example.com~1dongle", "value": "4"}]' \
-http://localhost:8001/api/v1/nodes/<your-node-name>/status
+  --request PATCH \
+  --data '[{"op": "add", "path": "/status/capacity/example.com~1dongle", "value": "4"}]' \
+  http://localhost:8001/api/v1/nodes/<your-node-name>/status
 ```
 
 {{< note >}}
@@ -99,9 +92,9 @@ Once again, the output shows the dongle resource:
 
 ```yaml
 Capacity:
- cpu:  2
- memory:  2049008Ki
- example.com/dongle:  4
+  cpu: 2
+  memory: 2049008Ki
+  example.com/dongle: 4
 ```
 
 Now, application developers can create Pods that request a certain
@@ -177,9 +170,9 @@ Replace `<your-node-name>` with the name of your Node:
 
 ```shell
 curl --header "Content-Type: application/json-patch+json" \
---request PATCH \
---data '[{"op": "remove", "path": "/status/capacity/example.com~1dongle"}]' \
-http://localhost:8001/api/v1/nodes/<your-node-name>/status
+  --request PATCH \
+  --data '[{"op": "remove", "path": "/status/capacity/example.com~1dongle"}]' \
+  http://localhost:8001/api/v1/nodes/<your-node-name>/status
 ```
 
 Verify that the dongle advertisement has been removed:
@@ -190,20 +183,13 @@ kubectl describe node <your-node-name> | grep dongle
 
 (you should not see any output)
 
-
-
-
 ## {{% heading "whatsnext" %}}
-
 
 ### For application developers
 
-* [Assign Extended Resources to a Container](/docs/tasks/configure-pod-container/extended-resource/)
+- [Assign Extended Resources to a Container](/docs/tasks/configure-pod-container/extended-resource/)
 
 ### For cluster administrators
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
-
-
-
+- [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+- [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)

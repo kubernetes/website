@@ -3,26 +3,24 @@ title: API 发起的驱逐
 content_type: concept
 weight: 110
 ---
-<!-- 
----
+<!--
 title: API-initiated Eviction
 content_type: concept
 weight: 110
----
 -->
 {{< glossary_definition term_id="api-eviction" length="short" >}} </br>
 
-<!-- 
+<!--
 You can request eviction by calling the Eviction API directly, or programmatically
 using a client of the {{<glossary_tooltip term_id="kube-apiserver" text="API server">}}, like the `kubectl drain` command. This
 creates an `Eviction` object, which causes the API server to terminate the Pod.
 
 API-initiated evictions respect your configured [`PodDisruptionBudgets`](/docs/tasks/run-application/configure-pdb/)
-and [`terminationGracePeriodSeconds`](/docs/concepts/workloads/pods/pod-lifecycle#pod-termination). 
+and [`terminationGracePeriodSeconds`](/docs/concepts/workloads/pods/pod-lifecycle#pod-termination).
 
 Using the API to create an Eviction object for a Pod is like performing a
 policy-controlled [`DELETE` operation](/docs/reference/kubernetes-api/workload-resources/pod-v1/#delete-delete-a-pod)
-on the Pod. 
+on the Pod.
 -->
 你可以通过直接调用 Eviction API 发起驱逐，也可以通过编程的方式使用
 {{<glossary_tooltip term_id="kube-apiserver" text="API 服务器">}}的客户端来发起驱逐，
@@ -53,8 +51,10 @@ POST the attempted operation, similar to the following example:
 {{< tabs name="Eviction_example" >}}
 {{% tab name="policy/v1" %}}
 {{< note >}}
-<!-- `policy/v1` Eviction is available in v1.22+. Use `policy/v1beta1` with prior releases. -->
-`policy/v1`  版本的 Eviction 在 v1.22 以及更高的版本中可用，之前的发行版本使用 `policy/v1beta1` 版本。
+<!--
+`policy/v1` Eviction is available in v1.22+. Use `policy/v1beta1` with prior releases.
+-->
+`policy/v1` 版本的 Eviction 在 v1.22 以及更高的版本中可用，之前的发行版本使用 `policy/v1beta1` 版本。
 {{< /note >}}
 
 ```json
@@ -70,7 +70,9 @@ POST the attempted operation, similar to the following example:
 {{% /tab %}}
 {{% tab name="policy/v1beta1" %}}
 {{< note >}}
-<!-- Deprecated in v1.22 in favor of `policy/v1` -->
+<!--
+Deprecated in v1.22 in favor of `policy/v1`
+-->
 在 v1.22 版本废弃以支持 `policy/v1`
 {{< /note >}}
 
@@ -87,7 +89,7 @@ POST the attempted operation, similar to the following example:
 {{% /tab %}}
 {{< /tabs >}}
 
-<!-- 
+<!--
 Alternatively, you can attempt an eviction operation by accessing the API using
 `curl` or `wget`, similar to the following example:
 -->
@@ -97,7 +99,7 @@ Alternatively, you can attempt an eviction operation by accessing the API using
 curl -v -H 'Content-type: application/json' https://your-cluster-api-endpoint.example/api/v1/namespaces/default/pods/quux/eviction -d @eviction.json
 ```
 
-<!-- 
+<!--
 ## How API-initiated eviction works
 
 When you request an eviction using the API, the API server performs admission
@@ -108,13 +110,13 @@ checks and responds in one of the following ways:
 
 当你使用 API 来请求驱逐时，API 服务器将执行准入检查，并通过以下方式之一做出响应：
 
-<!-- 
+<!--
 * `200 OK`: the eviction is allowed, the `Eviction` subresource is created, and
   the Pod is deleted, similar to sending a `DELETE` request to the Pod URL.
 * `429 Too Many Requests`: the eviction is not currently allowed because of the
   configured {{<glossary_tooltip term_id="pod-disruption-budget" text="PodDisruptionBudget">}}.
   You may be able to attempt the eviction again later. You might also see this
-  response because of API rate limiting. 
+  response because of API rate limiting.
 * `500 Internal Server Error`: the eviction is not allowed because there is a
   misconfiguration, like if multiple PodDisruptionBudgets reference the same Pod.
 -->
@@ -128,7 +130,7 @@ checks and responds in one of the following ways:
 <!--
 If the Pod you want to evict isn't part of a workload that has a
 PodDisruptionBudget, the API server always returns `200 OK` and allows the
-eviction. 
+eviction.
 
 If the API server allows the eviction, the Pod is deleted as follows:
 -->
@@ -158,18 +160,18 @@ API 服务器总是返回 `200 OK` 并且允许驱逐。
 1. 本地运行状态的 Pod 所处的节点上的 {{<glossary_tooltip term_id="kubelet" text="kubelet">}}
    注意到 `Pod` 资源被标记为终止，并开始优雅停止本地 Pod。
 1. 当 kubelet 停止 Pod 时，控制面从 {{<glossary_tooltip term_id="endpoint" text="Endpoint">}}
-   和 {{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlice">}} 
+   和 {{<glossary_tooltip term_id="endpoint-slice" text="EndpointSlice">}}
    对象中移除该 Pod。因此，控制器不再将此 Pod 视为有用对象。
 1. Pod 的宽限期到期后，kubelet 强制终止本地 Pod。
 1. kubelet 告诉 API 服务器删除 `Pod` 资源。
 1. API 服务器删除 `Pod` 资源。
 
-<!-- 
+<!--
 ## Troubleshooting stuck evictions
 
 In some cases, your applications may enter a broken state, where the Eviction
-API will only return `429` or `500` responses until you intervene. This can 
-happen if, for example, a ReplicaSet creates pods for your application but new 
+API will only return `429` or `500` responses until you intervene. This can
+happen if, for example, a ReplicaSet creates pods for your application but new
 pods do not enter a `Ready` state. You may also notice this behavior in cases
 where the last evicted Pod had a long termination grace period.
 -->
@@ -181,8 +183,8 @@ where the last evicted Pod had a long termination grace period.
 但新的 Pod 没有进入 `Ready` 状态，就会发生这种情况。
 在最后一个被驱逐的 Pod 有很长的终止宽限期的情况下，你可能也会注意到这种行为。
 
-<!-- 
-If you notice stuck evictions, try one of the following solutions: 
+<!--
+If you notice stuck evictions, try one of the following solutions:
 
 * Abort or pause the automated operation causing the issue. Investigate the stuck
   application before you restart the operation.
@@ -196,7 +198,7 @@ If you notice stuck evictions, try one of the following solutions:
 
 ## {{% heading "whatsnext" %}}
 
-<!-- 
+<!--
 * Learn how to protect your applications with a [Pod Disruption Budget](/docs/tasks/run-application/configure-pdb/).
 * Learn about [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
 * Learn about [Pod Priority and Preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/).

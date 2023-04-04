@@ -41,7 +41,7 @@ echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc 
 ```
 ### A note on `--all-namespaces`
 
-Appending `--all-namespaces` happens frequently enough where you should be aware of the shorthand for `--all-namespaces`:
+Appending `--all-namespaces` happens frequently enough that you should be aware of the shorthand for `--all-namespaces`:
 
 ```kubectl -A```
 
@@ -115,7 +115,7 @@ kubectl create cronjob hello --image=busybox:1.28   --schedule="*/1 * * * *" -- 
 kubectl explain pods                           # get the documentation for pod manifests
 
 # Create multiple YAML objects from stdin
-cat <<EOF | kubectl apply -f -
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
@@ -142,7 +142,7 @@ spec:
 EOF
 
 # Create a secret with several keys
-cat <<EOF | kubectl apply -f -
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Secret
 metadata:

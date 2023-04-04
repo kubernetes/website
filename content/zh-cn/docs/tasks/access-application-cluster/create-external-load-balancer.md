@@ -160,10 +160,10 @@ The load balancer's IP address is listed next to `LoadBalancer Ingress`.
 -->
 负载均衡器的 IP 地址列在 `LoadBalancer Ingress` 旁边。
 
+{{< note >}}
 <!--
 If you are running your service on Minikube, you can find the assigned IP address and port with:
 -->
-{{< note >}}
 如果你在 Minikube 上运行服务，你可以通过以下命令找到分配的 IP 地址和端口：
 
 ```bash
@@ -264,7 +264,7 @@ Internal pod to pod traffic should behave similar to ClusterIP services, with eq
 内部 Pod 到 Pod 的流量应该与 ClusterIP 服务类似，所有 Pod 的概率相同。
 
 <!--
-## Garbage Collecting Load Balancers
+## Garbage collecting load balancers
 -->
 ## 回收负载均衡器   {#garbage-collecting-load-balancers}
 
