@@ -156,6 +156,7 @@ For a reference to old feature gates that are removed, please refer to
 | `NewVolumeManagerReconstruction` | `true` | Beta | 1.27 |  |
 | `NodeInclusionPolicyInPodTopologySpread` | `false` | Alpha | 1.25 | 1.25 |
 | `NodeInclusionPolicyInPodTopologySpread` | `true` | Beta | 1.26 | |
+| `NodeLogQuery` | `false` | Alpha | 1.27 | |
 | `NodeOutOfServiceVolumeDetach` | `false` | Alpha | 1.24 | 1.25 |
 | `NodeOutOfServiceVolumeDetach` | `true` | Beta | 1.26 | |
 | `NodeSwap` | `false` | Alpha | 1.22 | |
