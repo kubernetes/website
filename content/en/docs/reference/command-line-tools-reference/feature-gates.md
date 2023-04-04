@@ -96,6 +96,7 @@ For a reference to old feature gates that are removed, please refer to
 | `DisableCloudProviders` | `false` | Alpha | 1.22 | |
 | `DisableKubeletCloudCredentialProviders` | `false` | Alpha | 1.23 | |
 | `DynamicResourceAllocation` | `false` | Alpha | 1.26 | |
+| `ElasticIndexedJob` | `true` | Beta` | 1.27 | |
 | `EventedPLEG` | `false` | Alpha | 1.26 | 1.26 |
 | `EventedPLEG` | `false` | Beta | 1.27 | - |
 | `ExpandedDNSConfig` | `false` | Alpha | 1.22 | 1.25 |
@@ -517,8 +518,12 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information).
 - `DryRun`: Enable server-side [dry run](/docs/reference/using-api/api-concepts/#dry-run) requests
   so that validation, merging, and mutation can be tested without committing.
-- `DynamicResourceAllocation": Enables support for resources with custom parameters and a lifecycle
+- `DynamicResourceAllocation`: Enables support for resources with custom parameters and a lifecycle
   that is independent of a Pod.
+- `ElasticIndexedJob`: Enables Indexed Jobs to be scaled up or down by mutating both
+  `spec.completions` and `spec.parallelism` together such that `spec.completions == spec.parallelism`.
+  See docs on [elastic Indexed Jobs](docs/concepts/workloads/controllers/job#elastic-indexed-jobs)
+  for more details.
 - `EndpointSliceTerminatingCondition`: Enables EndpointSlice `terminating` and `serving`
    condition fields.
 - `EfficientWatchResumption`: Allows for storage-originated bookmark (progress
