@@ -92,7 +92,7 @@ spec:
 
 * [コンテナ](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)の`terminationMessagePath`フィールド参照
 * [ログ取得](/docs/concepts/cluster-administration/logging/)について
-* [Goテンプレート](https://golang.org/pkg/text/template/)について
+* [Goテンプレート](https://pkg.go.dev/text/template)について
 
 
 
