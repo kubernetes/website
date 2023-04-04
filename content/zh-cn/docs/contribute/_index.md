@@ -123,7 +123,7 @@ end
 subgraph second[评审]
 direction TB
    T[ ] -.-
-   D[仔细查看<br>K8s/website<br>仓库] --- E[下载安装 Hugo<br>静态站点<br>生成器]
+   D[仔细查看<br>kubernetes/website<br>仓库] --- E[下载安装 Hugo<br>静态站点<br>生成器]
    E --- F[了解基本的<br>GitHub 命令]
    F --- G[评审待处理的 PR<br>并遵从变更审查<br>流程]
 end
@@ -190,7 +190,7 @@ flowchart LR
     direction TB
     S[ ] -.-
     G[查阅其他 K8s<br>成员发起的 PR] -->
-    A[检索 K8s/website<br>问题列表是否有<br>good first 一类的 PR] --> B[发起一个 PR!!]
+    A[检索 kubernetes/website<br>问题列表是否有<br>good first 一类的 PR] --> B[发起一个 PR!!]
     end
     subgraph first[建议的准备工作]
     direction TB
