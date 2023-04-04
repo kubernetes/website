@@ -47,7 +47,7 @@ Kubernetes 作为一个项目，目前支持和维护
 <!--
 ## Additional controllers
 -->
-## 其他控制器
+## 其他控制器  {#additional-controllers}
 
 {{% thirdparty-content %}}
 
@@ -70,6 +70,7 @@ Kubernetes 作为一个项目，目前支持和维护
   提供第 4 到第 7 层的负载均衡。
 <!--
 * [BFE Ingress Controller](https://github.com/bfenetworks/ingress-bfe) is a [BFE](https://www.bfe-networks.net)-based ingress controller.
+* [Cilium Ingress Controller](https://docs.cilium.io/en/stable/network/servicemesh/ingress/) is an ingress controller powered by [Cilium](https://cilium.io/).
 * The [Citrix ingress controller](https://github.com/citrix/citrix-k8s-ingress-controller#readme) works with
   Citrix Application Delivery Controller.
 * [Contour](https://projectcontour.io/) is an [Envoy](https://www.envoyproxy.io/) based ingress controller.
@@ -78,6 +79,8 @@ Kubernetes 作为一个项目，目前支持和维护
 -->
 * [BFE Ingress 控制器](https://github.com/bfenetworks/ingress-bfe)是一个基于
   [BFE](https://www.bfe-networks.net) 的 Ingress 控制器。
+* [Cilium Ingress 控制器](https://docs.cilium.io/en/stable/network/servicemesh/ingress/)是一个由
+  [Cilium](https://cilium.io/) 出品支持的 Ingress 控制器。
 * [Citrix Ingress 控制器](https://github.com/citrix/citrix-k8s-ingress-controller#readme)
   可以用来与 Citrix Application Delivery Controller 一起使用。
 * [Contour](https://projectcontour.io/) 是一个基于 [Envoy](https://www.envoyproxy.io/)
@@ -151,7 +154,7 @@ Kubernetes 作为一个项目，目前支持和维护
 <!--
 ## Using multiple Ingress controllers
 -->
-## 使用多个 Ingress 控制器
+## 使用多个 Ingress 控制器  {#using-multiple-ingress-controllers}
 
 <!--
 You may deploy any number of ingress controllers using [ingress class](/docs/concepts/services-networking/ingress/#ingress-class)

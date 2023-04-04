@@ -29,22 +29,24 @@ mitigate some future vulnerabilities too.
 <!-- body -->
 ## {{% heading "prerequisites" %}}
 
-{{% thirdparty-content single="true" %}}
-<!-- if adding another runtime in the future, omit the single setting -->
+{{% thirdparty-content %}}
 
+<!-- When merging this with the dev-1.27 branch conflicts will arise. The text
+as it is in the dev-1.27 branch should be used. -->
 This is a Linux only feature. In addition, support is needed in the 
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
 to use this feature with Kubernetes stateless pods:
 
-* CRI-O: v1.25 has support for user namespaces.
+* CRI-O: version 1.25 (and later) supports user namespaces for containers.
 
-* containerd: support is planned for the 1.7 release. See containerd
-  issue [#7063][containerd-userns-issue] for more details.
+* containerd: version 1.7 supports user namespaces for containers, compatible
+  with Kubernetes v1.25 and v1.26, but not with later releases. If you are
+  running a different version of Kubernetes, check the documentation for that
+  Kubernetes release.
 
 Support for this in [cri-dockerd is not planned][CRI-dockerd-issue] yet.
 
 [CRI-dockerd-issue]: https://github.com/Mirantis/cri-dockerd/issues/74
-[containerd-userns-issue]: https://github.com/containerd/containerd/issues/7063
 
 ## Introduction
 
