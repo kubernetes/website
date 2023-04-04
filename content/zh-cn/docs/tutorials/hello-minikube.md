@@ -34,7 +34,7 @@ This tutorial shows you how to run a sample app on Kubernetes using minikube.
 The tutorial provides a container image that uses NGINX to echo back all the requests.
 -->
 本教程向你展示如何使用 Minikube 在 Kubernetes 上运行一个应用示例。
-教程提供了容器镜像，使用 NGINX 来对所有请求做出回应。
+本教程提供了容器镜像，使用 NGINX 来对所有请求做出回应。
 
 ## {{% heading "objectives" %}}
 
@@ -52,15 +52,16 @@ The tutorial provides a container image that uses NGINX to echo back all the req
 <!--
 This tutorial assumes that you have already set up `minikube`.
 See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
+-->
+本教程假设你已经设置了 `minikube`。
+安装指南参阅 [minikube start](https://minikube.sigs.k8s.io/docs/start/)。
 
+<!--
 You also need to install `kubectl`.
 See [Install tools](/docs/tasks/tools/#kubectl) for installation instructions.
 -->
-本教程假设你已经安装了 `minikube`。
-有关安装说明，请参阅 [minikube start](https://minikube.sigs.k8s.io/docs/start/)。
-
 你还需要安装 `kubectl`。
-有关安装说明，请参阅[安装工具](/zh-cn/docs/tasks/tools/#kubectl)。
+安装指南参阅 [Install tools](/zh-cn/docs/tasks/tools/#kubectl)。
 
 <!-- lessoncontent -->
 
@@ -75,21 +76,23 @@ minikube start
 
 <!--
 ## Open the Dashboard
+-->
+## 打开仪表板（Dashboard）
 
+<!--
 Open the Kubernetes dashboard. You can do this two different ways:
 -->
-## 打开仪表板  {#open-the-dashboard}
-
-打开 Kubernetes 仪表板。你可以通过两种不同的方式执行此操作：
+打开 Kubernetes 仪表板（Dashboard）。你可以用两种不同的方式做到这一点：
 
 {{< tabs name="dashboard" >}}
-{{% tab name="启动浏览器" %}}
+{{% tab name="启动一个浏览器" %}}
 <!--
 Open a **new** terminal, and run:
 -->
-打开一个**新的**终端，然后运行：
+打开一个**新**终端，然后运行：
+
 ```shell
-# 启动一个新的终端，并保持此命令运行。
+# 启动一个新终端，并保持运行。
 minikube dashboard
 ```
 
@@ -98,6 +101,7 @@ Now, switch back to the terminal where you ran `minikube start`.
 -->
 现在，切换回运行 `minikube start` 的终端。
 
+{{< note >}}
 <!--
 The `dashboard` command enables the dashboard add-on and opens the proxy in the default web browser.
 You can create Kubernetes resources on the dashboard such as Deployment and Service.
@@ -111,7 +115,6 @@ To stop the proxy, run `Ctrl+C` to exit the process.
 After the command exits, the dashboard remains running in the Kubernetes cluster.
 You can run the `dashboard` command again to create another proxy to access the dashboard.
 -->
-{{< note >}}
 `dashboard` 命令启用仪表板插件，并在默认的 Web 浏览器中打开代理。
 你可以在仪表板上创建 Kubernetes 资源，例如 Deployment 和 Service。
 
@@ -127,20 +130,22 @@ You can run the `dashboard` command again to create another proxy to access the 
 {{< /note >}}
 
 {{% /tab %}}
-{{% tab name="URL 复制粘贴" %}}
+{{% tab name="复制粘贴 URL" %}}
 
 <!--
 If you don't want minikube to open a web browser for you, run the dashboard command with the
 `--url` flag. `minikube` outputs a URL that you can open in the browser you prefer.
-
-Open a **new** terminal, and run:
 -->
-如果你不想 Minikube 为你打开 Web 浏览器，可以使用 `--url` 标志运行仪表板命令。
+如果你不想 minikube 为你打开网站浏览器，请使用 `--url` 标志运行仪表板命令。
 `minikube` 会输出一个 URL，你可以在你喜欢的浏览器中打开该 URL。
 
-打开一个**新的**终端，然后运行：
+<!--
+Open a **new** terminal, and run:
+-->
+打开一个**新**终端，然后运行：
+
 ```shell
-# 启动一个新的终端，并保持此命令运行。
+# 启动一个新终端，并保持运行。
 minikube dashboard --url
 ```
 
@@ -178,7 +183,7 @@ Deployment 是管理 Pod 创建和扩展的推荐方法。
    镜像运行容器。
 
    ```shell
-   # 运行包含 Web 服务器的测试容器镜像
+   # 运行一个包括网站服务器的测试容器镜像
    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080
    ```
 
@@ -284,7 +289,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
    如果你用 `kubectl expose` 暴露了其它的端口，客户端将不能访问其它端口。
 
 <!--
-2. View the Service you created:
+1. View the Service you created:
 -->
 2. 查看你创建的 Service：
 
@@ -315,7 +320,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
    在 Minikube 上，`LoadBalancer` 使得服务可以通过命令 `minikube service` 访问。
 
 <!--
-3. Run the following command:
+1. Run the following command:
 -->
 3. 运行下面的命令：
 
@@ -393,7 +398,7 @@ Minikube 有一组内置的{{< glossary_tooltip text="插件" term_id="addons" >
 <!--
 3. View the Pod and Service you created by installing that addon:
 -->
-3. 查看通过安装该插件所创建的 Pod 和 Service：
+3. 查看你通过安装该插件而创建出来的 Pod 和 Service：
 
    ```shell
    kubectl get pod,svc -n kube-system
@@ -474,14 +479,14 @@ Optionally, delete the Minikube VM:
 可选地，删除 Minikube 虚拟机（VM）：
 
 ```shell
-# 可选的
+# 可选操作
 minikube delete
 ```
 
 <!--
 If you want to use minikube again to learn more about Kubernetes, you don't need to delete it.
 -->
-如果你还想使用 Minikube 进一步学习 Kubernetes，那就不需要删除 Minikube。
+如果你想再次使用 minikube 来进一步了解 Kubernetes，你不需要删除它。
 
 ## {{% heading "whatsnext" %}}
 
@@ -493,4 +498,3 @@ If you want to use minikube again to learn more about Kubernetes, you don't need
 * 进一步了解 [Deployment 对象](/zh-cn/docs/concepts/workloads/controllers/deployment/)。
 * 进一步了解[部署应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)。
 * 进一步了解 [Service 对象](/zh-cn/docs/concepts/services-networking/service/)。
-
