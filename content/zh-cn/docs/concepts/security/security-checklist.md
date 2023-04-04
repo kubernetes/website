@@ -378,6 +378,40 @@ SELinux 仅在 Linux 节点上可用，在[一些 Linux 发行版](https://en.wi
 {{< /note >}}
 
 <!--
+## Logs and auditing
+
+- [ ] Audit logs, if enabled, are protected from general access.
+- [ ] The `/logs` API is disabled (you are running kube-apiserver with
+  `--enable-logs-handler=false`).
+
+  Kubernetes includes a `/logs` API endpoint, enabled by default,
+  that lets users request the contents of the API server's `/var/log` directory over HTTP. Accessing
+  that endpoint requires authentication.
+
+Allowing broad access to Kubernetes logs can make security information
+available to a potential attacker.
+
+As a good practice, set up a separate means to collect and aggregate
+control plane logs, and do not use the `/logs` API endpoint.
+Alternatively, if you run your control plane with the `/logs` API endpoint
+and limit the content of `/var/log` (within the host or container where the API server is running) to
+Kubernetes API server logs only.
+-->
+
+## 日志和审计 {#logs-and-auditing}
+
+- [ ] 如果启用了审计日志，一般将受到访问的保护。
+- [ ] `/logs` API 已被禁用（你可以使用 `--enable-logs-handler=false` 运行 kube-apiserver）。
+
+  Kubernetes 默认启用了一个 `/logs` API端点，该端点允许用户通过 HTTP 请求 API 服务器的 `/var/log` 目录的内容。
+  访问该端点需要身份验证。
+
+允许广泛访问 Kubernetes 日志可能会将安全信息泄露给潜在的攻击者。
+
+作为一种良好实践，建立一个单独的方法来收集和汇总控制平面日志，不要使用 `/logs` API端点。
+或者，如果你使用 `/logs` API 端点运行控制平面，并限制 `/var/log` 的内容（在运行 API 服务器的主机或容器内）仅为 Kubernetes API 服务器日志。
+
+<!--
 ## Pod placement
 
 - [ ] Pod placement is done in accordance with the tiers of sensitivity of the
