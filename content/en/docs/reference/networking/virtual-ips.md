@@ -300,7 +300,7 @@ If you enable the `MultiCIDRServiceAllocator`
 [`networking.k8s.io/v1alpha1` API group](/docs/tasks/administer-cluster/enable-disable-api/),
 the control plane replaces the existing etcd allocator with a new one, using IPAddress
 objects instead of an internal global allocation map.  The ClusterIP address
-associated to each `Service` will have a referenced IPAddress object.
+associated to each Service will have a referenced IPAddress object.
 
 The background controller is also replaced by a new one to handle the new IPAddress
 objects and the migration from the old allocator model.
