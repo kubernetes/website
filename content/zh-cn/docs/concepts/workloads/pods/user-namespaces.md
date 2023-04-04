@@ -48,18 +48,21 @@ mitigate some future vulnerabilities too.
 <!-- body -->
 ## {{% heading "prerequisites" %}}
 
-{{% thirdparty-content single="true" %}}
-<!-- if adding another runtime in the future, omit the single setting -->
+{{% thirdparty-content %}}
 
+<!-- When merging this with the dev-1.27 branch conflicts will arise. The text
+as it is in the dev-1.27 branch should be used. -->
 <!--
-This is a Linux only feature. In addition, support is needed in the 
+This is a Linux only feature. In addition, support is needed in the
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
 to use this feature with Kubernetes stateless pods:
 
-* CRI-O: v1.25 has support for user namespaces.
+* CRI-O: version 1.25 (and later) supports user namespaces for containers.
 
-* containerd: support is planned for the 1.7 release. See containerd
-  issue [#7063][containerd-userns-issue] for more details.
+* containerd: version 1.7 supports user namespaces for containers, compatible
+  with Kubernetes v1.25 and v1.26, but not with later releases. If you are
+  running a different version of Kubernetes, check the documentation for that
+  Kubernetes release.
 
 Support for this in [cri-dockerd is not planned][CRI-dockerd-issue] yet.
 -->
@@ -67,16 +70,17 @@ Support for this in [cri-dockerd is not planned][CRI-dockerd-issue] yet.
 这是一个只对 Linux 有效的功能特性。此外，需要在{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}提供支持，
 才能在 Kubernetes 无状态 Pod 中使用这一功能：
 
-* CRI-O：v1.25 版已经支持用户命名空间。
-* containerd：计划在 1.7 版本中支持。更多细节请参见 containerd 问题 [#7063][containerd-userns-issue]。
+* CRI-O：1.25（及更高）版本支持配置容器的用户命名空间。
+* containerd：1.7 版本支持配置容器的用户命名空间，兼容 Kubernetes v1.25 和 v1.26，但不兼容更高版本。
+  如果你运行的是不同版本的 Kubernetes，请查看该 Kubernetes 版本的文档。
 
 目前 [cri-dockerd 没有计划][CRI-dockerd-issue]支持此功能。
 
 [CRI-dockerd-issue]: https://github.com/Mirantis/cri-dockerd/issues/74
 [containerd-userns-issue]: https://github.com/containerd/containerd/issues/7063
 
-<!-- 
-## Introduction 
+<!--
+## Introduction
 -->
 ## 介绍 {#introduction}
 
@@ -126,8 +130,8 @@ if user namespaces is activated.
 大多数需要以 root 身份运行但不访问其他主机命名空间或资源的应用程序，
 在用户命名空间被启用时，应该可以继续正常运行，不需要做任何改变。
 
-<!-- 
-## Understanding user namespaces for stateless pods 
+<!--
+## Understanding user namespaces for stateless pods
 -->
 ## 了解无状态 Pod 的用户命名空间 {#understanding-user-namespaces-for-stateless-pods}
 
@@ -190,8 +194,8 @@ of it.
 授予一个 Pod 的权能也被限制在 Pod 的用户命名空间内，
 并且在这一命名空间之外大多无效，有些甚至完全无效。这里有两个例子：
 
- - `CAP_SYS_MODULE` 若被授予一个使用用户命名空间的 Pod 则没有任何效果，这个 Pod 不能加载内核模块。
- - `CAP_SYS_ADMIN` 只限于 Pod 所在的用户命名空间，在该命名空间之外无效。
+- `CAP_SYS_MODULE` 若被授予一个使用用户命名空间的 Pod 则没有任何效果，这个 Pod 不能加载内核模块。
+- `CAP_SYS_ADMIN` 只限于 Pod 所在的用户命名空间，在该命名空间之外无效。
 
 <!--
 Without using a user namespace a container running as root, in the case of a
@@ -235,14 +239,15 @@ kubelet 会把高于这个范围的 UID/GID 分配给 Pod。
 请注意，这个建议对减轻 [CVE-2021-25741][CVE-2021-25741] 等 CVE 的影响很重要；
 在这些 CVE 中，Pod 有可能读取主机中的任意文件。
 如果 Pod 和主机的 UID/GID 不重叠，Pod 能够做的事情就会受到限制：
-Pod的 UID/GID 不会与主机的文件所有者/组相匹配。
+Pod 的 UID/GID 不会与主机的文件所有者/组相匹配。
 
 [CVE-2021-25741]: https://github.com/kubernetes/kubernetes/issues/104980
 
-<!-- 
-# Limitations 
+<!--
+## Limitations
 -->
 ## 限制 {#limitations}
+
 <!--
 When using a user namespace for the pod, it is disallowed to use other host
 namespaces. In particular, if you set `hostUsers: false` then you are not
@@ -255,9 +260,9 @@ allowed to set any of:
 当 Pod 使用用户命名空间时，不允许 Pod 使用其他主机命名空间。
 特别是，如果你设置了 `hostUsers: false`，那么你就不可以设置如下属性：
 
- * `hostNetwork: true`
- * `hostIPC: true`
- * `hostPID: true`
+* `hostNetwork: true`
+* `hostIPC: true`
+* `hostPID: true`
 
 <!--
 The pod is allowed to use no volumes at all or, if using volumes, only these
@@ -269,15 +274,16 @@ volume types are allowed:
  * downwardAPI
  * emptyDir
 -->
+
 Pod 完全不使用卷是被允许的；如果使用卷，只允许使用以下卷类型：
 
- * configmap
- * secret
- * projected
- * downwardAPI
- * emptyDir
+* configmap
+* secret
+* projected
+* downwardAPI
+* emptyDir
 
-<!-- 
+<!--
 To guarantee that the pod can read the files of such volumes, volumes are
 created as if you specified `.spec.securityContext.fsGroup` as `0` for the Pod.
 If it is specified to a different value, this other value will of course be
@@ -287,7 +293,7 @@ As a by-product of this, folders and files for these volumes will have
 permissions for the group, even if `defaultMode` or `mode` to specific items of
 the volumes were specified without permissions to groups. For example, it is not
 possible to mount these volumes in a way that its files have permissions only
-for the owner. 
+for the owner.
 -->
 为了保证 Pod 可以读取这些卷中的文件，卷的创建操作就像你为 Pod 指定了 `.spec.securityContext.fsGroup` 为 `0` 一样。
 如果该属性被设定为不同值，那么这个不同值当然也会被使用。
