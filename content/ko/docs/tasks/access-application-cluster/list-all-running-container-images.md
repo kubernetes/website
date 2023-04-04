@@ -94,7 +94,7 @@ kubectl get pods --namespace kube-system -o jsonpath="{.items[*].spec.containers
 
 ## jsonpath 대신 Go 템플릿을 사용하여 컨테이너 이미지 목록 보기
 
-jsonpath의 대안으로 Kubectl은 [Go 템플릿](https://golang.org/pkg/text/template/)을 지원한다.
+jsonpath의 대안으로 Kubectl은 [Go 템플릿](https://pkg.go.dev/text/template)을 지원한다.
 다음과 같이 결과값의 서식을 지정할 수 있다.
 
 ```shell
@@ -106,4 +106,4 @@ kubectl get pods --all-namespaces -o go-template --template="{{range .items}}{{r
 ### 참조
 
 * [Jsonpath](/ko/docs/reference/kubectl/jsonpath/) 참조
-* [Go 템플릿](https://golang.org/pkg/text/template/) 참조
+* [Go 템플릿](https://pkg.go.dev/text/template) 참조
