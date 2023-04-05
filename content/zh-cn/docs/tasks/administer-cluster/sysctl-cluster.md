@@ -44,6 +44,15 @@ the Linux man-pages project.
 
 ## {{% heading "prerequisites" %}}
 
+{{< note >}}
+<!--
+`sysctl` is a Linux-specific command-line tool used to configure various kernel parameters
+and it is not available on non-Linux operating systems.
+-->
+`sysctl` 是一个 Linux 特有的命令行工具，用于配置各种内核参数，
+它在非 Linux 操作系统上无法使用。
+{{< /note >}}
+
 {{< include "task-tutorial-prereqs.md" >}}
 
 <!--
@@ -119,17 +128,17 @@ The following sysctls are supported in the _safe_ set:
 至今为止，大多数 **有命名空间的** sysctl 参数不一定被认为是 **安全** 的。
 以下几种 sysctl 参数是 **安全的**：
 
-- `kernel.shm_rmid_forced`
-- `net.ipv4.ip_local_port_range`
-- `net.ipv4.tcp_syncookies`
-- `net.ipv4.ping_group_range`（从 Kubernetes 1.18 开始）
+- `kernel.shm_rmid_forced`,
+- `net.ipv4.ip_local_port_range`,
+- `net.ipv4.tcp_syncookies`,
+- `net.ipv4.ping_group_range`（从 Kubernetes 1.18 开始）,
 - `net.ipv4.ip_unprivileged_port_start`（从 Kubernetes 1.22 开始）。
 
 {{< note >}}
 <!--
 The example `net.ipv4.tcp_syncookies` is not namespaced on Linux kernel version 4.4 or lower.
 -->
-示例中的 `net.ipv4.tcp_syncookies` 在Linux 内核 4.4 或更低的版本中是无命名空间的。
+示例中的 `net.ipv4.tcp_syncookies` 在 Linux 内核 4.4 或更低的版本中是无命名空间的。
 {{< /note >}}
 
 <!--
@@ -236,7 +245,7 @@ securityContext 应用于同一个 Pod 中的所有容器。
 <!--
 This example uses the pod securityContext to set a safe sysctl
 `kernel.shm_rmid_forced` and two unsafe sysctls `net.core.somaxconn` and
-`kernel.msgmax` There is no distinction between _safe_ and _unsafe_ sysctls in
+`kernel.msgmax`. There is no distinction between _safe_ and _unsafe_ sysctls in
 the specification.
 -->
 此示例中，使用 Pod SecurityContext 来对一个安全的 sysctl 参数

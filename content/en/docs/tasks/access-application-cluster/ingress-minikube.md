@@ -17,17 +17,16 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
 
 ## {{% heading "prerequisites" %}}
 
+This tutorial assumes that you are using `minikube` to run a local Kubernetes cluster.
+Visit [Install tools](/docs/tasks/tools/#minikube) to learn how to install `minikube`.
+
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 If you are using an older Kubernetes version, switch to the documentation for that version.
 
-### Create a Minikube cluster
+### Create a minikube cluster
 
-Using Katacoda
-: {{< kat-button >}}
+If you haven't already set up a cluster locally, run `minikube start` to create a cluster.
 
-Locally
-: If you already [installed Minikube](/docs/tasks/tools/#minikube)
-  locally, run `minikube start` to create a cluster.
 
 <!-- steps -->
 
@@ -40,10 +39,6 @@ Locally
    ```
 
 1. Verify that the NGINX Ingress controller is running
-
-
-   {{< tabs name="tab_with_md" >}}
-   {{% tab name="minikube v1.19 or later" %}}
 
    ```shell
    kubectl get pods -n ingress-nginx
@@ -61,35 +56,6 @@ Locally
    ingress-nginx-admission-patch-rqp78         0/1     Completed   1          11m
    ingress-nginx-controller-59b45fb494-26npt   1/1     Running     0          11m
    ```
-   {{% /tab %}}
-
-   {{% tab name="minikube v1.18.1 or earlier" %}}
-
-   ```shell
-   kubectl get pods -n kube-system
-   ```
-
-   {{< note >}}
-   It can take up to a minute before you see these pods running OK.
-   {{< /note >}}
-
-   The output is similar to:
-
-   ```none
-   NAME                                        READY     STATUS    RESTARTS   AGE
-   default-http-backend-59868b7dd6-xb8tq       1/1       Running   0          1m
-   kube-addon-manager-minikube                 1/1       Running   0          3m
-   kube-dns-6dcb57bcc8-n4xd4                   3/3       Running   0          2m
-   kubernetes-dashboard-5498ccf677-b8p5h       1/1       Running   0          2m
-   nginx-ingress-controller-5984b97644-rnkrg   1/1       Running   0          1m
-   storage-provisioner                         1/1       Running   0          2m
-   ```
-
-   Make sure that you see a Pod with a name that starts with `nginx-ingress-controller-`.
-
-   {{% /tab %}}
-
-   {{< /tabs >}}
 
 ## Deploy a hello, world app
 
@@ -142,12 +108,6 @@ Locally
    http://172.17.0.15:31637
    ```
 
-   {{< note >}}
-   Katacoda environment only: at the top of the terminal panel, click the plus sign,
-   and then click **Select port to view on Host 1**. Enter the NodePort value,
-   in this case `31637`, and then click **Display Port**.
-   {{< /note >}}
-
    The output is similar to:
 
    ```none
@@ -197,25 +157,11 @@ The following manifest defines an Ingress that sends traffic to your Service via
    example-ingress   <none>   hello-world.info   172.17.0.15    80      38s
    ```
 
-1. Add the following line to the bottom of the `/etc/hosts` file on
-   your computer (you will need administrator access):
-
-    ```none
-    172.17.0.15 hello-world.info
-    ```
-
-   {{< note >}}
-   If you are running Minikube locally, use `minikube ip` to get the external IP.
-   The IP address displayed within the ingress list will be the internal IP.
-   {{< /note >}}
-
-   After you make this change, your web browser sends requests for
-   `hello-world.info` URLs to Minikube.
 
 1. Verify that the Ingress controller is directing traffic:
 
    ```shell
-   curl hello-world.info
+   curl --resolve "hello-world.info:80:$( minikube ip )" -i http://hello-world.info
    ```
 
    You should see:
@@ -226,9 +172,27 @@ The following manifest defines an Ingress that sends traffic to your Service via
    Hostname: web-55b8c6998d-8k564
    ```
 
-   {{< note >}}
-   If you are running Minikube locally, you can visit `hello-world.info` from your browser.
-   {{< /note >}}
+   You can also visit `hello-world.info` from your browser.
+
+   * **Optionally**
+     Look up the external IP address as reported by minikube:
+     ```shell
+     minikube ip
+     ```
+
+     Add line similar to the following one to the bottom of the `/etc/hosts` file on
+     your computer (you will need administrator access):
+
+     ```none
+     172.17.0.15 hello-world.info
+     ```
+
+     {{< note >}}
+     Change the IP address to match the output from `minikube ip`.
+     {{< /note >}}
+
+     After you make this change, your web browser sends requests for
+     `hello-world.info` URLs to Minikube.
 
 ## Create a second Deployment
 
@@ -288,7 +252,7 @@ The following manifest defines an Ingress that sends traffic to your Service via
 1. Access the 1st version of the Hello World app.
 
    ```shell
-   curl hello-world.info
+   curl --resolve "hello-world.info:80:$( minikube ip )" -i http://hello-world.info
    ```
 
    The output is similar to:
@@ -302,7 +266,7 @@ The following manifest defines an Ingress that sends traffic to your Service via
 1. Access the 2nd version of the Hello World app.
 
    ```shell
-   curl hello-world.info/v2
+   curl --resolve "hello-world.info:80:$( minikube ip )" -i http://hello-world.info/v2
    ```
 
    The output is similar to:
@@ -314,7 +278,7 @@ The following manifest defines an Ingress that sends traffic to your Service via
    ```
 
    {{< note >}}
-   If you are running Minikube locally, you can visit `hello-world.info` and
+   If you did the optional step to update `/etc/hosts`, you can also visit `hello-world.info` and
    `hello-world.info/v2` from your browser.
    {{< /note >}}
 
