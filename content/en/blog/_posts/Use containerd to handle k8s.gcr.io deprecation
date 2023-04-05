@@ -5,7 +5,6 @@ date: 2023-04-07
 slug: handle-registry-deprecation-with-containerd
 ---
 
-# Use containerd to handle k8s.gcr.io deprecation
 
 The Kubernetes community is getting ready for yet another major change. Until fall of 2022, `k8s.gcr.io` container registry hosted many Kubernetes community-managed containers images like Cluster Autoscaler, metrics-server, cluster-proportional-autoscaler. The “gcr.io” is Google Cloud Registry. In order to be vendor neutral, the community is moving away from using Google Cloud Registry to host container images.
 
