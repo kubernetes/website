@@ -15,7 +15,7 @@ to a new registry with a different implementation.
 
 As a result, starting March 20th this year, traffic from the old `k8s.gcr.io` registry is being redirected to `registry.k8s.io`. The deprecated `k8s.gcr.io` registry will remain functioning for some time but may one day be shut down entirely.
 
-![Image.jpeg](https://res.craft.do/user/full/9d54cc03-adfe-f72f-3389-565eb7356d1d/doc/13FE78CC-1DDD-47D9-B875-EE3FB15F916E/FC421666-8104-4CD9-8C7F-8E4F4BCE2B83_2/6olkWYEK1kl10toAonqYL40P1ZSQIUY2N6iHRwId78kz/Image.jpeg)
+{{< figure src="2023-04-07handle-registry-change-with-containerd/00-registry-deprecation-announcement.png" alt="K8s.gcr.io registry deprecation notice" class="diagram-large" caption="K8s.gcr.io registry deprecation notice" >}}
 
 ## What’s the impact?
 
@@ -31,7 +31,7 @@ Cluster owners and development teams have to ensure they are not using any image
 
 You need to change your manifests to use the `registry.k8s.io` container registry instead of `k8s.gcr.io`.
 
-![Image.png](https://res.craft.do/user/full/9d54cc03-adfe-f72f-3389-565eb7356d1d/doc/13FE78CC-1DDD-47D9-B875-EE3FB15F916E/EB0981CC-3DC8-49EE-A6F5-A857A69CC949_2/D0F0mQ2JMAl55JNCuS66lUylRznVZywEMdojiRqkc0sz/Image.png)
+{{< figure src="2023-04-07handle-registry-change-with-containerd/01-registry-change.png" alt="Changing image registry from k8s.gcr.io to registry.k8s.io" class="diagram-large" caption="Changing image registry from k8s.gcr.io to registry.k8s.io" >}}
 
 You can find out which Pods use the old registry using `kubectl`:
 
@@ -44,7 +44,7 @@ uniq -c | grep -i gcr.io
 
 Here are the Pods in my test cluster that use the old registry:
 
-![Image.jpeg](https://res.craft.do/user/full/9d54cc03-adfe-f72f-3389-565eb7356d1d/doc/13FE78CC-1DDD-47D9-B875-EE3FB15F916E/ED8BD697-7BD9-4D58-83FC-833C66606E97_2/dcAQoH7ADPaoupccwi3WFMxt1PkS5ME4zXHHyxjAmdMz/Image.jpeg)
+{{< figure src="2023-04-07handle-registry-change-with-containerd/02-images-from-gcr.png" alt="Containers using k8s.gcr.io registry" class="diagram-large" caption="Containers using k8s.gcr.io hosted images" >}}
 
 These are the at-risk Pods. I’ll have to update the container registry used in the Pods.
 
@@ -135,29 +135,29 @@ systemctl restart containerd kubelet
 
 Let’s validate that images are indeed getting pulled from the new registry. I added an entry to my `/etc/hosts` file to break `k8s.gcr.io`:
 
-![Image.png](https://res.craft.do/user/full/9d54cc03-adfe-f72f-3389-565eb7356d1d/doc/13FE78CC-1DDD-47D9-B875-EE3FB15F916E/8AEBA792-CA42-4C8B-9C8D-E34AC55A9847_2/7A4cAKtUBNGVqmUysXRwpW0WGy3cNGz14xxujKlsmc8z/Image.png)
+{{< figure src="2023-04-07handle-registry-change-with-containerd/03-hosts-file-change.png" alt="Break k8s," class="diagram-large" caption="Containers using k8s.gcr.io registry" >}}
 
 Containerd can no longer pull an image from `k8s.gcr.io`:
 
-![Image.jpeg](https://res.craft.do/user/full/9d54cc03-adfe-f72f-3389-565eb7356d1d/doc/13FE78CC-1DDD-47D9-B875-EE3FB15F916E/D382C5B0-437D-44E3-BAA2-E32032FF7E29_2/zmbCw5wl0LyV1TNJdiEQxCnSqKBS3s4IDZWYljKaLvkz/Image.jpeg)
+{{< figure src="2023-04-07handle-registry-change-with-containerd/04-registry-broken.png" alt="Conatinerd cannot pull images from k8s.gcr.io" class="diagram-large" caption="Connections k8s.gcr.io blocked at node level" >}}
 
 I can tell `ctr` to use the mirror by specifying the `—hosts-dir` parameter:
 
 ```bash
-ctr images pull --hosts-dir "/etc/containerd/certs.d" k8s.gcr.io/pause:latest
+ctr images pull --hosts-dir "/etc/containerd/certs.d" k8s.gcr.io/kube-proxy:v1.24.0
 ```
 
 This time the operation succeeds.
 
-![Image.jpeg](https://res.craft.do/user/full/9d54cc03-adfe-f72f-3389-565eb7356d1d/doc/13FE78CC-1DDD-47D9-B875-EE3FB15F916E/94C5856D-E54D-414D-86E6-5B7C70A7989B_2/2bTbUm39iI52DAfS4D9GgH1T1LW5pBbWxTHNIjgS2v4z/Image.jpeg)
+{{< figure src="2023-04-07handle-registry-change-with-containerd/05-registry-succeeds.png" alt="Conatinerd can pull images from the mirror" class="diagram-large" caption="Containerd can pull images from the mirror" >}}
 
-Any Pods I create now onwards will use the new registry even though the manifests reference old registry. Here’s a test using a pause container.
+Any Pods I create now onwards will use the new registry even though the manifests reference old registry. Here’s a test using a pause container that uses an image from `k8s.gcr.io`.
 
 ```bash
 kubectl create deployment pause --image k8s.gcr.io/pause
 ```
 
-![Image.jpeg](https://res.craft.do/user/full/9d54cc03-adfe-f72f-3389-565eb7356d1d/doc/13FE78CC-1DDD-47D9-B875-EE3FB15F916E/88014DF3-E73E-4A60-B881-64C31B8210B6_2/lnuzXKg7G4RwURvQUxrZwRFuBDljKWpX6m01nVydnxoz/Image.jpeg)
+{{< figure src="2023-04-07handle-registry-change-with-containerd/06-cotainer works.png" alt="Kubernetes can create Pods by pulling images from mirror" class="diagram-large" caption="Kubernetes can create Pods by pulling images from mirror" >}}
 
 Perfect! Kubernetes could create Pods even though I blocked `k8s.gcr.io` on the node.
 
