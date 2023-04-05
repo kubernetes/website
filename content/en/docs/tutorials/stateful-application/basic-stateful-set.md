@@ -254,8 +254,8 @@ web-0
 web-1
 ```
 then, run:
-```
-kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm /bin/sh
+```shell
+kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm
 ```
 which starts a new shell.  
 In that new shell, run:

@@ -75,16 +75,23 @@ this is true when user namespaces are used.
 * 特性 `UserNamespacesStatelessPodsSupport` 需要被启用。
 
 <!--
-In addition, support is needed in the
-{{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
-to use this feature with Kubernetes stateless pods:
+The cluster that you're using **must** include at least one node that meets the
+[requirements](/docs/concepts/workloads/pods/user-namespaces/#before-you-begin)
+for using user namespaces with Pods.
 -->
-此外, 需要{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}提供相应的支持，
-才能将此特性与 Kubernetes 无状态 Pod 一起使用：
+你所使用的集群**必须**包括至少一个符合
+[要求](/zh-cn/docs/concepts/workloads/pods/user-namespaces/#before-you-begin)
+的节点，以便为 Pod 配置用户名字空间。
 
 <!--
-* CRI-O: v1.25 has support for user namespaces.
+If you have a mixture of nodes and only some of the nodes provide user namespace support for
+Pods, you also need to ensure that the user namespace Pods are
+[scheduled](/docs/concepts/scheduling-eviction/assign-pod-node/) to suitable nodes.
 -->
+如果你有混合节点，并且只有部分节点支持为 Pod 配置用户名字空间，
+你还需要确保配置了用户名字空间的 Pod
+被[调度](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)到合适的节点。
+
 * CRI-O: v1.25 支持用户名字空间。
 
 <!--
