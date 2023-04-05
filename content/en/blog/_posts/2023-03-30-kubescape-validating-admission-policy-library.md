@@ -12,7 +12,7 @@ features depending on the ability to approve or change an API object as it is su
 server. It is also useful for an administrator to be able to define business logic, or policies,
 regarding what objects can be admitted into a cluster. To better support that use case, [Kubernetes
 introduced external admission control in
-v1.7](https://kubernetes.io/blog/2017/06/kubernetes-1-7-security-hardening-stateful-application-extensibility-updates/).
+v1.7](/blog/2017/06/kubernetes-1-7-security-hardening-stateful-application-extensibility-updates/).
 
 In addition to countless custom, internal implementations, many open source projects and commercial
 solutions implement admission controllers with user-specified policy, including
@@ -36,7 +36,7 @@ Language](https://github.com/google/cel-spec) (CEL) to declare validation rules.
 CEL was developed by Google for security and policy use cases, based on learnings from the Firebase
 real-time database. Its design allows it to be safely embedded into applications and executed in
 microseconds, with limited compute and memory impact. [Validation rules for
-CRDs](https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules)
+CRDs](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules)
 introduced CEL to the Kubernetes ecosystem in v1.23, and at the time it was noted that the language
 would suit a more generic implementation of validation by admission control.
 
@@ -115,7 +115,7 @@ version. {{< /note >}}
 
 The `validations` include the CEL rules for the objects. There are three different expressions,
 catering for the fact that a Pod `spec` can be at the root of the object (a [naked
-pod](https://kubernetes.io/docs/concepts/configuration/overview/#naked-pods-vs-replicasets-deployments-and-jobs)),
+pod](/docs/concepts/configuration/overview/#naked-pods-vs-replicasets-deployments-and-jobs)),
 under `template` (a workload controller or a Job), or under `jobTemplate` (a CronJob).
 
 In the event that any `spec` does not have `readOnlyRootFilesystem` set to true, the object will not

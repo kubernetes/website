@@ -133,7 +133,7 @@ changes to the upstream (English) content.
 
 请将 PR 限制为单个语言版本，因为多语言的 PR 内容修改可能难以审查。
 
-按照[内容改进建议](/zh-cn/docs/contribute/suggest-improvements/)提出对该本地化的更改。
+按照[内容改进建议](/zh-cn/docs/contribute/suggesting-improvements/)提出对该本地化的更改。
 该过程与提议更改上游（英文）内容非常相似。
 
 <!--
