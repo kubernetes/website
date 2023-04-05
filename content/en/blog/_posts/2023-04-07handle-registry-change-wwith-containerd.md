@@ -135,7 +135,7 @@ systemctl restart containerd kubelet
 
 Let’s validate that images are indeed getting pulled from the new registry. I added an entry to my `/etc/hosts` file to break `k8s.gcr.io`:
 
-{{< figure src="2023-04-07handle-registry-change-with-containerd/03-hosts-file-change.png" alt="Break k8s," class="diagram-large" caption="Containers using k8s.gcr.io registry" >}}
+{{< figure src="2023-04-07handle-registry-change-with-containerd/03-hosts-file-change.png" alt="Break k8s.gcr.io" class="diagram-large" caption="Stop traffic to k8s.gcr.io in the node" >}}
 
 Containerd can no longer pull an image from `k8s.gcr.io`:
 
