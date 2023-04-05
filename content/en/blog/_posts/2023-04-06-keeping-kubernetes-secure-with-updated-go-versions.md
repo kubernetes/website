@@ -1,8 +1,8 @@
 ---
 layout: blog
-title: "Improving Support: Go Updates"
-date: 2023-04-14
-slug: improving-support-go-updates
+title: "Keeping Kubernetes Secure with Updated Go Versions"
+date: 2023-04-06
+slug: keeping-kubernetes-secure-with-updated-go-versions
 ---
 
 **Author**: [Jordan Liggitt](https://github.com/liggitt) (Google)
