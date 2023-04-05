@@ -1,8 +1,8 @@
 ---
 layout: blog
 title: "Use containerd to handle k8s.gcr.io deprecation"
-date: 
-slug: handle-registry-deprecation-w-containerd
+date: 2023-04-07
+slug: handle-registry-deprecation-with-containerd
 ---
 
 # Use containerd to handle k8s.gcr.io deprecation
