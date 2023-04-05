@@ -130,6 +130,8 @@ considered a stopgap till your manifests have been updated. You can
 find a (third party) Mutating Webhook and Kyverno policy in
 [k8s-gcr-quickfix](https://github.com/abstractinfrastructure/k8s-gcr-quickfix).
 
+**Option 6**: You can also use container runtime to redirect requests for `k8s.gcr.io` to `registry.k8s.io`. [Containerd](https://github.com/containerd/containerd/blob/main/docs/cri/registry.md), CRIO, and Docker support registry mirrors. Here's a post that explains how to  [configure containerd to implement redirection at worker node level](https://blog.realvarez.com/use-containerd-to-handle-k8s-gcr-io-deprecation/). 
+
 ## Why did Kubernetes change to a different image registry?
 
 k8s.gcr.io is hosted on a custom [Google Container Registry
