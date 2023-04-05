@@ -11,11 +11,11 @@ evergreen: true
 In Kubernetes v1.19, [Pod Topology Spread Constraints](https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/) went to GA.
 It is the feature to control how Pods are spread to each failure-domain (regions, zones, nodes etc).
 
-As time passes, we've got further feedbacks from users,
-and we're actively working on improving the Topology Spread via three KEPs from v1.25.
-All of these features have reached beta in Kubernetes v1.27 and been enabled by default.
+As time passed, we received feedback from users,
+and, as a result, we're actively working on improving the Topology Spread feature via three KEPs.
+All of these features have reached beta in Kubernetes v1.27 and are enabled by default.
 
-This blog post is going to introduce each feature and the usecase/issue behind them.
+This blog post introduces each feature and the use case behind each of them.
 
 ## KEP-3022: min domains in Pod Topology Spread
 
@@ -27,8 +27,8 @@ Some users want to force spreading Pods over a minimum number of domains, and if
 Then, we introduced the `minDomains` parameter in the Pod Topology Spread. 
 Via `minDomains` parameter, you can define the minimum number of domains. 
 
-For example, there are 3 Nodes with the enough capacity, 
-and newly created replicaset has the following `topologySpreadConstraints` in template.
+For example, assume there are 3 Nodes with the enough capacity, 
+and a newly created replicaset has the following `topologySpreadConstraints` in template.
 
 ```yaml
 topologySpreadConstraints:
@@ -41,7 +41,7 @@ topologySpreadConstraints:
         foo: bar
 ```
 
-This case, 3 Pods will be scheduled to those 3 Nodes,
+In this case, 3 Pods will be scheduled to those 3 Nodes,
 but other 2 Pods from this replicaset will be unschedulable until more Nodes join the cluster.
 
 The cluster autoscaler provisions new Nodes based on these unschedulable Pods,
