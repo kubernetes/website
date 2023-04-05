@@ -959,7 +959,7 @@ WindowsHostNetwork=true|false (ALPHA - default=true)<br/>
 </tr>
 
 <tr>
-<td colspan="2">--seccomp-default string</td>
+<td colspan="2">--seccomp-default&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>false</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">&lt;Warning: Beta feature&gt; Enable the use of <code>RuntimeDefault</code> as the default seccomp profile for all workloads. The <code>SeccompDefault</code> feature gate must be enabled to allow this flag.</td>
