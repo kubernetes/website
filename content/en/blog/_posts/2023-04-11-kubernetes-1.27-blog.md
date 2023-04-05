@@ -31,17 +31,17 @@ Special thanks to [Britnee Laverack](https://www.instagram.com/artsyfie/) for cr
 ## Freeze `k8s.gcr.io` image registry
 
 Replacing the old image registry, [k8s.gcr.io](https://cloud.google.com/container-registry/) with [registry.k8s.io](https://github.com/kubernetes/registry.k8s.io) which has been generally available for several months. The Kubernetes project created and runs the `registry.k8s.io` image registry, which is fully controlled by the community.
-This means that the old registry `k8s.gcr.io` will be frozen and no further images for Kubernetes and related subprojects will be pushed to the old registry. 
+This means that the old registry `k8s.gcr.io` will be frozen and no further images for Kubernetes and related sub-projects will be published to the old registry. 
 
-What does this change mean for contributors:
+What does this change mean for contributors?
 
-* If you are a maintainer of a subproject, you will need to update your manifests and Helm charts to use the new registry.
+* If you are a maintainer of a sub-project, you will need to update your manifests and Helm charts to use the new registry. For more information, checkout this [project](https://github.com/kubernetes-sigs/community-images).
 
-What does this change mean for end users:
+What does this change mean for end users?
 
-* This Kubernetes release will not be published to the old registry.
+* Kubernetes `v1.27` release will not be published to the `k8s.gcr.io` registry.
 
-* Patch releases for v1.24, v1.25, and v1.26 will no longer be published to the old registry after April. 
+* Patch releases for `v1.24`, `v1.25`, and `v1.26` will no longer be published to the old registry after April. 
 
 * Starting in v1.25, the default image registry has been set to `registry.k8s.io`. This value is overridable in kubeadm and kubelet but setting it to `k8s.gcr.io` will fail for new releases after April as they won’t be present in the old registry.
 
@@ -53,7 +53,7 @@ What does this change mean for end users:
 To use seccomp profile defaulting, you must run the kubelet with the `--seccomp-default` [command line flag](/docs/reference/command-line-tools-reference/kubelet) enabled for each node where you want to use it. 
 If enabled, the kubelet will use the `RuntimeDefault` seccomp profile by default, which is defined by the container runtime, instead of using the `Unconfined` (seccomp disabled) mode. The default profiles aim to provide a strong set of security defaults while preserving the functionality of the workload. It is possible that the default profiles differ between container runtimes and their release versions.
 
-You can find more detailed information about a possible upgrade and downgrade strategy in the related Kubernetes Enhancement Proposal (KEP): [Enable seccomp by default](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2413-seccomp-by-default).
+You can find detailed information about a possible upgrade and downgrade strategy in the related Kubernetes Enhancement Proposal (KEP): [Enable seccomp by default](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2413-seccomp-by-default).
 
 ## Mutable scheduling directives for Jobs graduates to GA
 
@@ -63,7 +63,7 @@ This feature allows updating a Job's scheduling directives before it starts, whi
 the ability to influence pod placement while at the same time offloading actual pod-to-node assignment to
 kube-scheduler. This is allowed only for suspended Jobs that have never been unsuspended before.
 The fields in a Job's pod template that can be updated are node affinity, node selector, tolerations, labels
-and annotations and [scheduling gates](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/).
+,annotations, and [scheduling gates](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/).
 Find more details in the KEP:
 [Allow updating scheduling directives of jobs](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/2926-job-mutable-scheduling-directives).
 
@@ -76,32 +76,32 @@ This feature graduates to stable in this release. You can find more details in t
 
 ## Pod Scheduling Readiness goes to beta 
 
-Pods were considered ready for scheduling once created. Kubernetes scheduler does its due diligence to find nodes to place all pending Pods. However, in a real-world case, some Pods may stay in a _missing-essential-resources_ state for a long period. These Pods actually churn the scheduler (and downstream integrators like Cluster Autoscaler) in an unnecessary manner.
+Upon creation, Pods are ready for scheduling. Kubernetes scheduler does its due diligence to find nodes to place all pending Pods. However, in a real-world case, some Pods may stay in a _missing-essential-resources_ state for a long period. These Pods actually churn the scheduler (and downstream integrators like Cluster Autoscaler) in an unnecessary manner.
 
 By specifying/removing a Pod's `.spec.schedulingGates`, you can control when a Pod is ready to be considered for scheduling.
 
-The `schedulingGates` field contains a list of strings, and each string literal is perceived as a criteria that Pod should be satisfied before considered schedulable. This field can be initialized only when a Pod is created (either by the client, or mutated during admission). After creation, each schedulingGate can be removed in an arbitrary order, but addition of a new scheduling gate is disallowed.
+The `schedulingGates` field contains a list of strings, and each string literal is perceived as a criteria that must be satisfied before a Pod is considered schedulable. This field can be initialized only when a Pod is created (either by the client, or mutated during admission). After creation, each schedulingGate can be removed in an arbitrary order, but addition of a new scheduling gate is disallowed.
 
 ## Node log access via Kubernetes API
 
-This feature helps cluster administrators debug issues with services running on nodes by allowing them to query service logs. To use the feature, ensure that the `NodeLogQuery` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled for that node, and that the kubelet configuration options `enableSystemLogHandler` and `enableSystemLogQuery` are both set to true. 
+This feature helps cluster administrators debug issues with services running on nodes by allowing them to query service logs. To use this feature, ensure that the `NodeLogQuery` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled on that node, and that the kubelet configuration options `enableSystemLogHandler` and `enableSystemLogQuery` are both set to true. 
 On Linux, we assume that service logs are available via journald. On Windows, we assume that service logs are available in the application log provider. You can also fetch logs from the `/var/log/` and `C:\var\log` directories on Linux and Windows, respectively.
 
-A cluster administrator can try out this alpha feature on all their nodes, or on just a subset.
+A cluster administrator can try out this alpha feature across all nodes of their cluster, or on a subset of them.
 
 ## ReadWriteOncePod PersistentVolume access mode goes to beta 
 
-ReadWriteOncePod is a new access mode for [PersistentVolumes](/docs/concepts/storage/persistent-volumes/#persistent-volumes) (PVs) and [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) (PVCs) introduced in Kubernetes v1.22. This access mode enables you to restrict volume access to a single pod in the cluster, ensuring that only one pod can write to the volume at a time. This can be particularly useful for stateful workloads that require single-writer access to storage.
+Kuberentes `v1.22` introduced a new access mode `ReadWriteOncePod` for [PersistentVolumes](/docs/concepts/storage/persistent-volumes/#persistent-volumes) (PVs) and [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) (PVCs). This access mode enables you to restrict volume access to a single pod in the cluster, ensuring that only one pod can write to the volume at a time. This can be particularly useful for stateful workloads that require single-writer access to storage.
 
 The ReadWriteOncePod beta adds support for [scheduler preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 of pods that use ReadWriteOncePod PVCs.
-Scheduler preemption allows higher-priority pods to preempt lower-priority pods, for example when a pod (A) with a ReadWriteOncePod PVC is scheduled, and if another pod (B) is found using the same PVC and pod (A) has higher priority, the scheduler will return an "Unschedulable" status and attempt to preempt pod (B).
+Scheduler preemption allows higher-priority pods to preempt lower-priority pods. For example when a pod (A) with a `ReadWriteOncePod` PVC is scheduled, if another pod (B) is found using the same PVC and pod (A) has higher priority, the scheduler will return an `Unschedulable` status and attempt to preempt pod (B).
 For more context, see the KEP: [ReadWriteOncePod PersistentVolume AccessMode](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/2485-read-write-once-pod-pv-access-mode).
 
 
 ## Respect PodTopologySpread after rolling upgrades
 
-`matchLabelKeys` is a list of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the pod labels, those key-value labels are ANDed with `labelSelector` to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the pod labels will be ignored. A null or empty list means only match against the `labelSelector`.
+`matchLabelKeys` is a list of pod label keys used to select the pods over which spreading will be calculated. The keys are used to lookup values from the pod labels. Those key-value labels are ANDed with `labelSelector` to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the pod labels will be ignored. A null or empty list means only match against the `labelSelector`.
 
 With `matchLabelKeys`, users don't need to update the `pod.spec` between different revisions. The controller/operator just needs to set different values to the same `label` key for different revisions. The scheduler will assume the values automatically based on `matchLabelKeys`. For example, if users use Deployment, they can use the label keyed with `pod-template-hash`, which is added automatically by the Deployment controller, to distinguish between different revisions in a single Deployment.
 
@@ -125,7 +125,7 @@ Get more information on this from the KEP: [Speed up SELinux volume relabeling u
 
 This is a volume manager refactoring that allows the kubelet to populate additional information about how
 existing volumes are mounted during the kubelet startup. In general, this makes volume cleanup more robust. 
-By adding `NewVolumeManagerReconstruction` feature gate and enabling it by default will enhance the discovery of mounted volumes during kubelet startup.
+If you enable the `NewVolumeManagerReconstruction` feature gate on a node, you'll get enhanced discovery of mounted volumes during kubelet startup.
 
 Before Kubernetes v1.25, the kubelet used different default behavior for discovering mounted volumes during the kubelet startup. If you disable this feature gate (it's enabled by default), you select the legacy discovery behavior.
 
@@ -133,7 +133,7 @@ In Kubernetes v1.25 and v1.26, this behavior toggle was part of the `SELinuxMoun
 
 ## Mutable Pod Scheduling Directives goes to beta
 
-This allows mutating a pod that is blocked on a scheduling readiness gate with a more constrained node affinity/selector. It gives the ability to mutate a pods scheduling directives before it is allowed to be scheduled, and gives an external resource controller the ability to influence pod placement while at the same time offload actual pod-to-node assignment to kube-scheduler.
+This allows mutating a pod that is blocked on a scheduling readiness gate with a more constrained node affinity/selector. It gives the ability to mutate a pods scheduling directives before it is allowed to be scheduled and gives an external resource controller the ability to influence pod placement while at the same time offload actual pod-to-node assignment to kube-scheduler.
 
 This opens the door for a new pattern of adding scheduling features to Kubernetes.  Specifically, building lightweight schedulers that implement features not supported by kube-scheduler, while relying on the existing kube-scheduler to support all upstream features and handle the pod-to-node binding. This pattern should be the preferred one if the custom feature doesn't require implementing a schedule plugin, which entails re-building and maintaining a custom kube-scheduler binary.
 
@@ -181,7 +181,7 @@ Kubernetes v1.27 is available for download on [GitHub](https://github.com/kubern
  
 ## Release team
 
-Kubernetes is only possible with the support, commitment, and hard work of its community. Each release team is made up of dedicated community volunteers who work together to build the many pieces that make up the Kubernetes releases you rely on. This requires the specialized skills of people from all corners of our community, from the code itself to its documentation and project management.
+Kubernetes is only possible with the support, commitment, and hard work of its community. Each release team is made up of dedicated community volunteers who work together to build the many pieces that make up the Kubernetes releases you rely on. This requires people with specialised skills from all corners of our community, from the code itself to its documentation and project management.
 
 Special thanks to our Release Lead Xander Grzywinski for guiding us through a smooth and successful release cycle and to all members of the release team for supporting one another and working so hard to produce the v1.27 release for the community.
 
