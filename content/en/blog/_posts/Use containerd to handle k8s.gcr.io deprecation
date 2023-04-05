@@ -6,9 +6,14 @@ slug: handle-registry-deprecation-with-containerd
 ---
 
 
-The Kubernetes community is getting ready for yet another major change. Until fall of 2022, `k8s.gcr.io` container registry hosted many Kubernetes community-managed containers images like Cluster Autoscaler, metrics-server, cluster-proportional-autoscaler. The “gcr.io” is Google Cloud Registry. In order to be vendor neutral, the community is moving away from using Google Cloud Registry to host container images.
+The Kubernetes community recently made the last step in another major change. Until fall of 2022, `k8s.gcr.io`
+container registry was the official place to find many Kubernetes community-managed containers images;
+for example, kube-proxy, the cluster autoscaler, the metrics server, or the cluster-proportional autoscaler.
+The GCR in “gcr.io” is Google Cloud Registry. The Kubernetes project
+[switched](/blog/2022/11/28/registry-k8s-io-faster-cheaper-ga/) in November 2022
+to a new registry with a different implementation.
 
-As a result, Starting March 20th, traffic from the old `k8s.gcr.io` registry is being redirected to `registry.k8s.io`. The older `k8s.gcr.io` will remain functioning for sometime but it is eventually getting deprecated.
+As a result, starting March 20th this year, traffic from the old `k8s.gcr.io` registry is being redirected to `registry.k8s.io`. The deprecated `k8s.gcr.io` registry will remain functioning for some time but may one day be shut down entirely.
 
 ![Image.jpeg](https://res.craft.do/user/full/9d54cc03-adfe-f72f-3389-565eb7356d1d/doc/13FE78CC-1DDD-47D9-B875-EE3FB15F916E/FC421666-8104-4CD9-8C7F-8E4F4BCE2B83_2/6olkWYEK1kl10toAonqYL40P1ZSQIUY2N6iHRwId78kz/Image.jpeg)
 
@@ -24,7 +29,7 @@ Once the old registry goes away, **Kubernetes will not be able to create new Pod
 
 Cluster owners and development teams have to ensure they are not using any images stored in the old registry. The change is fairly simple. It's pretty simple, really.
 
-You need to change your manifests to use `registry.k8s.io` container registry.
+You need to change your manifests to use the `registry.k8s.io` container registry instead of `k8s.gcr.io`.
 
 ![Image.png](https://res.craft.do/user/full/9d54cc03-adfe-f72f-3389-565eb7356d1d/doc/13FE78CC-1DDD-47D9-B875-EE3FB15F916E/EB0981CC-3DC8-49EE-A6F5-A857A69CC949_2/D0F0mQ2JMAl55JNCuS66lUylRznVZywEMdojiRqkc0sz/Image.png)
 
@@ -47,17 +52,24 @@ When hunting for references to old registry, be sure to include containers that 
 
 ## What if I don’t control the workloads?
 
-One of my colleagues raised an intriguing question. Is there’s a way to handle this change at a cluster level? He had a valid concern. Many large enterprises might not be able to implement this change in time before the community sunsets `k8s.gcr.io`.
+One of my colleagues raised an intriguing question. Is there’s a way to handle this change at a cluster level?
+He had a valid concern. Many large enterprises might not be able to implement this change in time before
+the Kubernetes project fully sunsets `k8s.gcr.io`.
 
-I work with many customers that manage large Kubernetes clusters, but have little control over the workloads that get deployed into the cluster. Some of these clusters are shared by hundreds of development teams. The burden is on Central Platform Engineering teams to dissipate this information to individual dev teams (who are busy writing code and not checking Kubernetes news!).
+I work with many customers that manage large Kubernetes clusters, but have little control over
+the workloads that get deployed into the cluster. Some of these clusters are shared by hundreds
+of development teams. The burden is on central platform engineering teams to dissipate this
+information to individual development teams (who are busy writing code and not checking Kubernetes news!).
 
-So, what can these teams do to make sure when the old registry finally croaks, they don’t get paged for in the middle of the night for `ErrImagePull` and `ImagePullBackOff`errors?
+So, what can these organizations' SRE, platform or infrastructure teams do to make sure when the old registry
+finally croaks, they don’t get paged for in the middle of the night for `ErrImagePull` and `ImagePullBackOff`
+errors?
 
 Turns out you can use containerd to handle this redirection at node level. Let’s find out how.
 
 ## Using mirrors in containerd
 
-Ever since Dockerhub started rate limiting image pulls, many have opted to store images in local registries. Mirrors save network bandwidth, reduce image pull time, and don’t rate-limit.
+Ever since Docker Hub started rate limiting image pulls, many have opted to store images in local registries. Mirrors save network bandwidth, reduce image pull time, and don’t rate-limit.
 
 You can configure `registry.k8s.io` as a mirror to `k8s.gcr.io` in containerd. This configuration will **automatically pull images from `registry.k8s.io`** whenever a Pod uses an image stored in `k8s.gcr.io`.
 
@@ -117,6 +129,7 @@ Image pull requests for `k8s.gcr.io` will now be sent to `registry.k8s.io`.
 Restart containerd and kubelet for the change to take effect.
 
 ```bash
+# This assumes that you use Linux nodes and use systemd for init
 systemctl restart containerd kubelet
 ```
 
@@ -124,7 +137,7 @@ Let’s validate that images are indeed getting pulled from the new registry. I 
 
 ![Image.png](https://res.craft.do/user/full/9d54cc03-adfe-f72f-3389-565eb7356d1d/doc/13FE78CC-1DDD-47D9-B875-EE3FB15F916E/8AEBA792-CA42-4C8B-9C8D-E34AC55A9847_2/7A4cAKtUBNGVqmUysXRwpW0WGy3cNGz14xxujKlsmc8z/Image.png)
 
-Conatinerd can no longer pull an image from `k8s.gcr.io`
+Containerd can no longer pull an image from `k8s.gcr.io`:
 
 ![Image.jpeg](https://res.craft.do/user/full/9d54cc03-adfe-f72f-3389-565eb7356d1d/doc/13FE78CC-1DDD-47D9-B875-EE3FB15F916E/D382C5B0-437D-44E3-BAA2-E32032FF7E29_2/zmbCw5wl0LyV1TNJdiEQxCnSqKBS3s4IDZWYljKaLvkz/Image.jpeg)
 
@@ -154,21 +167,25 @@ In my little demo, I changed a single node in the cluster. What about the rest o
 
 There are three ways you can use to implement this change on every node in your cluster:
 
-1. The easiest way is to use a daemonset to change to containerd config.toml and add hosts.toml file. IBM cloud has shared [this](https://raw.githubusercontent.com/IBM-Cloud/kube-samples/master/containerd-registry-daemonset-example) on Github
-2. You can use [EC2 user data](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html) or [AWS Systems Manager](https://aws.amazon.com/systems-manager/) to make this change when a node gets created
-3. You can [create your own AM](https://docs.aws.amazon.com/eks/latest/userguide/eks-ami-build-scripts.html)I
+1. Probably the easiest way is to use a DaemonSet to change to containerd `config.toml` and add a `hosts.toml` file. IBM Cloud has shared an [example](https://raw.githubusercontent.com/IBM-Cloud/kube-samples/master/containerd-registry-daemonset-example) on GitHub.
+1. In the cloud, you can use your provider's server management tooling to make this change automatically when
+   a node gets created.
+1. You can create (_bake_) your own server or virtual machine image that includes these customizations, 
+   and then launch nodes based on that image.
 
 ## What if I use Docker as runtime?
 
 Starting Kubernetes version `1.24`, containerd is the only runtime available in Amazon EKS AMIs. If you have an edge case that requires using Docker, there's still hope.
 
-Docker also has support for registry mirrors. [Here’s](https://docs.docker.com/registry/recipes/mirror/#configure-the-docker-daemon) the documentation page you need.
+Docker also has support for registry mirrors. [Registry as a pull through cache](https://docs.docker.com/registry/recipes/mirror/#configure-the-docker-daemon) has the details you need.
 
 ## Don’t rely on stop gaps
 
-While the solution included in this post works, I recommend only using as a safety measure. The main reason is that you’ll need to customize the Amazon EKS AMI or create your own AMI to use it.
+While the solution included in this post works, I recommend only using as a safety measure. The main reason is that you’ll need to customize the node image on your Kubernetes cluster, or your configuration management tool,
+to set up this extra detail.
 
-You’ll have less operational overhead if you can simply use EKS AMIs as is. The best way to handle this registry deprecation is to update manifests.
+You’ll have less operational overhead with fewer node-level customisations. The best way to handle
+this registry deprecation is to update manifests (and Helm charts, etc).
 
 Oh, and by the way, you can also use mirrors to enforce pull through cache.
 
