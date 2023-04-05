@@ -112,7 +112,7 @@ capabilities = ["pull", "resolve"]
 EOF
 ```
 
-Image pull requests to `k8s.gcr.io` will now be sent to `registry.k8s.io`.
+Image pull requests for `k8s.gcr.io` will now be sent to `registry.k8s.io`.
 
 Restart containerd and kubelet for the change to take effect.
 
