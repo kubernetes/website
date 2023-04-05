@@ -68,7 +68,8 @@ On your worker node, append these lines in the containerd config file at `/etc/c
    config_path = "/etc/containerd/certs.d"
 ```
 
-The final file on an Amazon EKS cluster looks like this:
+Here's an example that I tried out on an Amazon EKS cluster, which is also using
+Elastic Container Registry (ECR) as a mirror.
 
 ```yaml
 version = 2
