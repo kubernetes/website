@@ -57,9 +57,16 @@ sum{the resource usage of each container} / sum{the resource request of each con
 The resource utiliaztion of each container may not have a direct correlation or may grow at different rates as the load changes. 
 
 For example:
-- A sidecar container is only providing an auxiliary service such as log shipping. If the application does not log very frequently or does not produce logs in its hotpath then the usage of the log shipper will not grow.
-- A sidecar container which provides authentication. Due to heavy caching the usage will only increase slightly when the load on the main container increases. In the current blended usage calculation approach this usually results in the the HPA not scaling up the deployment because the blended usage is still low.
-- A sidecar may be injected without resources set which prevents scaling based on utilization. In the current logic the HPA controller can only scale on absolute resource usage of the pod when the resource requests are not set.
+- A sidecar container is only providing an auxiliary service such as log shipping.
+  If the application does not log very frequently or does not produce logs in its hotpath
+  then the usage of the log shipper will not grow.
+- A sidecar container which provides authentication. Due to heavy caching
+  the usage will only increase slightly when the load on the main container increases.
+  In the current blended usage calculation approach this usually results in
+  the HPA not scaling up the deployment because the blended usage is still low.
+- A sidecar may be injected without resources set which prevents scaling
+  based on utilization. In the current logic the HPA controller can only scale
+  on absolute resource usage of the pod when the resource requests are not set.
 
 And, in such case, if only one container's resource utilization goes high, 
 the Resource type metric may not suggest scaling up.
@@ -85,7 +92,8 @@ All metrics are useful for general monitoring of HPA controller,
 you can get deeper insight like which part has a problem, where takes time, how many scaling tends to happen at which time on your cluster etc.
 
 Another minor stuff, we've changed the SuccessfulRescale event's messages 
-so that everyone can whether the events came from the resource metric or the container resource metric. ([ref](https://github.com/kubernetes/kubernetes/pull/116045))
+so that everyone can check whether the events came from the resource metric or
+the container resource metric (See [the related PR](https://github.com/kubernetes/kubernetes/pull/116045)).
 
 ## Getting involved 
 
