@@ -198,7 +198,7 @@ In the v1.27 release cycle, which [ran for 14 weeks](https://github.com/kubernet
 
 ## Upcoming release webinar
 
-Join members of the Kubernetes v1.27 release team on <date> to learn about the major features of this release, as well as deprecations and removals to help plan for upgrades. For more information and registration, visit the [event page](#) on the CNCF Online Programs site.
+Join members of the Kubernetes v1.27 release team on Friday, April 14, 2023, at 10 a.m. PDT to learn about the major features of this release, as well as deprecations and removals to help plan for upgrades. For more information and registration, visit the [event page](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-v127-release/) on the CNCF Online Programs site.
 
 ## Get Involved
 
