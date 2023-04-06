@@ -56,7 +56,7 @@ Dashboard 同时展示了 Kubernetes 集群中的资源状态信息和所有报�
 
 The Dashboard UI is not deployed by default. To deploy it, run the following command:
 -->
-## 部署 Dashboard UI
+## 部署 Dashboard UI   {#deploying-the-dashboard-ui}
 默认情况下不会部署 Dashboard。可以通过以下命令部署：
 
 ```
@@ -71,7 +71,7 @@ Currently, Dashboard only supports logging in with a Bearer Token.
 To create a token for this demo, you can follow our guide on
 [creating a sample user](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md).
 -->
-## 访问 Dashboard 用户界面
+## 访问 Dashboard 用户界面   {#accessing-the-dashboard-ui}
 
 为了保护你的集群数据，默认情况下，Dashboard 会使用最少的 RBAC 配置进行部署。
 当前，Dashboard 仅支持使用 Bearer 令牌登录。
@@ -92,7 +92,7 @@ The sample user created in the tutorial will have administrative privileges and 
 You can enable access to the Dashboard using the `kubectl` command-line tool,
 by running the following command:
 -->
-### 命令行代理
+### 命令行代理   {#command-line-proxy}
 
 你可以使用 `kubectl` 命令行工具来启用 Dashboard 访问，命令如下：
 
@@ -121,7 +121,7 @@ Kubeconfig 身份验证方法**不**支持外部身份提供程序或基于 x509
 <!--
 ## Welcome view
 -->
-## 欢迎界面
+## 欢迎界面   {#welcome-view}
 
 <!--
 When you access Dashboard on an empty cluster, you'll see the welcome page.
@@ -145,7 +145,7 @@ In addition, you can view which system applications are running by default in th
 Dashboard lets you create and deploy a containerized application as a Deployment and optional Service with a simple wizard.
 You can either manually specify application details, or upload a YAML or JSON _manifest_ file containing application configuration.
 -->
-## 部署容器化应用
+## 部署容器化应用   {#deploying-containerized-applications}
 
 通过一个简单的部署向导，你可以使用 Dashboard 将容器化应用作为一个 Deployment 和可选的
 Service 进行创建和部署。你可以手工指定应用的详细配置，或者上传一个包含应用配置的 YAML
@@ -161,7 +161,7 @@ Click the **CREATE** button in the upper right corner of any page to begin.
 
 The deploy wizard expects that you provide the following information:
 -->
-### 指定应用的详细配置
+### 指定应用的详细配置   {#specifying-application-details}
 
 部署向导需要你提供以下信息：
 
@@ -380,7 +380,7 @@ Kubernetes supports declarative configuration.
 In this style, all configuration is stored in manifests (YAML or JSON configuration files).
 The manifests use Kubernetes [API](/docs/concepts/overview/kubernetes-api/) resource schemas.
 -->
-### 上传 YAML 或者 JSON 文件
+### 上传 YAML 或者 JSON 文件   {#uploading-a-yaml-or-json-file}
 
 Kubernetes 支持声明式配置。所有的配置都存储在清单文件
 （YAML 或者 JSON 配置文件）中。这些
@@ -398,7 +398,7 @@ Dashboard 上传文件。
 
 Following sections describe views of the Kubernetes Dashboard UI; what they provide and how can they be used.
 -->
-## 使用 Dashboard
+## 使用 Dashboard   {#using-dashboard}
 
 以下各节描述了 Kubernetes Dashboard UI 视图；包括它们提供的内容，以及怎么使用它们。
 
@@ -409,7 +409,7 @@ When there are Kubernetes objects defined in the cluster, Dashboard shows them i
 By default only objects from the _default_ namespace are shown and
 this can be changed using the namespace selector located in the navigation menu.
 -->
-### 导航
+### 导航   {#navigation}
 
 当在集群中定义 Kubernetes 对象时，Dashboard 会在初始视图中显示它们。
 默认情况下只会显示 _默认_ 名字空间中的对象，可以通过更改导航栏菜单中的名字空间筛选器进行改变。
@@ -427,7 +427,7 @@ Node list view contains CPU and memory usage metrics aggregated across all Nodes
 The details view shows the metrics for a Node, its specification, status,
 allocated resources, events and pods running on the node.
 -->
-#### 管理概述
+#### 管理概述   {#admin-overview}
 
 集群和名字空间管理的视图，Dashboard 会列出节点、名字空间和持久卷，并且有它们的详细视图。
 节点列表视图包含从所有节点聚合的 CPU 和内存使用的度量值。
@@ -442,7 +442,7 @@ Each workload kind can be viewed separately.
 The lists summarize actionable information about the workloads,
 such as the number of ready pods for a ReplicaSet or current memory usage for a Pod.
  -->
-#### 负载
+#### 负载   {#workloads}
 
 显示选中的名字空间中所有运行的应用。
 视图按照负载类型（例如：Deployment、ReplicaSet、StatefulSet）罗列应用，并且每种负载都可以单独查看。
@@ -465,7 +465,7 @@ discovering them within a cluster.
 For that reason, Service and Ingress views show Pods targeted by them,
 internal endpoints for cluster connections and external endpoints for external users.
 -->
-#### 服务
+#### 服务   {#services}
 
 展示允许暴露给外网服务和允许集群内部发现的 Kubernetes 资源。
 因此，Service 和 Ingress 视图展示他们关联的 Pod、给集群连接使用的内部端点和给外部用户使用的外部端点。
@@ -475,7 +475,7 @@ internal endpoints for cluster connections and external endpoints for external u
 
 Storage view shows PersistentVolumeClaim resources which are used by applications for storing data.
 -->
-#### 存储
+#### 存储   {#storage}
 
 存储视图展示持久卷申领（PVC）资源，这些资源被应用程序用来存储数据。
 
@@ -496,7 +496,7 @@ The view allows for editing and managing config objects and displays secrets hid
 Pod lists and detail pages link to a logs viewer that is built into Dashboard.
 The viewer allows for drilling down logs from containers belonging to a single Pod.
 -->
-#### 日志查看器
+#### 日志查看器   {#logs-viewer}
 
 Pod 列表和详细信息页面可以链接到 Dashboard 内置的日志查看器。
 查看器可以深入查看属于同一个 Pod 的不同容器的日志。
