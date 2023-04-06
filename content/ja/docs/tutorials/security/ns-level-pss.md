@@ -1,40 +1,35 @@
 ---
-title: Apply Pod Security Standards at the Namespace Level
-content_type: tutorial
+title: 名前空間レベルでのPodセキュリティの標準の適用
+content_type: チュートリアル
 weight: 20
 ---
 
 {{% alert title="Note" %}}
-This tutorial applies only for new clusters.
+このチュートリアルは、新しいクラスターにのみ適用されます。
 {{% /alert %}}
 
-Pod Security admission (PSA) is enabled by default in v1.23 and later, as it
-[graduated to beta](/blog/2021/12/09/pod-security-admission-beta/). Pod Security Admission
-is an admission controller that applies 
-[Pod Security Standards](/docs/concepts/security/pod-security-standards/) 
-when pods are created. In this tutorial, you will enforce the `baseline` Pod Security Standard,
-one namespace at a time.
+Podセキュリティアドミッション(PSA)は、[ベータへ進み](/blog/2021/12/09/pod-security-admission-beta/)、v1.23以降でデフォルトで有効になっています。
+Podセキュリティアドミッションは、Podが作成される際に、[Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards/)の適用の認可を制御するものです。
+このチュートリアルでは、一度に1つの名前空間で`baseline` Podセキュリティ標準を強制します。
 
-You can also apply Pod Security Standards to multiple namespaces at once at the cluster
-level. For instructions, refer to
-[Apply Pod Security Standards at the cluster level](/docs/tutorials/security/cluster-level-pss/).
+Podセキュリティ標準を複数の名前空間に一度にクラスターレベルで適用することもできます。やり方については[クラスターレベルでのPodセキュリティの標準の適用](/docs/tutorials/security/cluster-level-pss/)を参照してください。
 
 ## {{% heading "prerequisites" %}}
 
-Install the following on your workstation:
+ワークステーションに以下をインストールしてください:
 
 - [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
-- [kubectl](/docs/tasks/tools/)
+- [kubectl](/ja/docs/tasks/tools/)
 
-## Create cluster
+## クラスターの作成
 
-1. Create a `KinD` cluster as follows:
+1. 以下のように`KinD`クラスターを作成します。
 
    ```shell
    kind create cluster --name psa-ns-level
    ```
 
-   The output is similar to this:
+   出力は次のようになります:
 
    ```
    Creating cluster "psa-ns-level" ...
@@ -52,12 +47,12 @@ Install the following on your workstation:
    Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/quick-start/
    ```
 
-1. Set the kubectl context to the new cluster:
+1. kubectl contextを新しいクラスターにセットします:
 
    ```shell
    kubectl cluster-info --context kind-psa-ns-level
    ```
-   The output is similar to this:
+   出力は次のようになります:
 
    ```
    Kubernetes control plane is running at https://127.0.0.1:50996
@@ -66,26 +61,24 @@ Install the following on your workstation:
    To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
    ```
 
-## Create a namespace
+## 名前空間の作成
 
-Create a new namespace called `example`:
+`example`と呼ぶ新しい名前空間を作成します:
 
 ```shell
 kubectl create ns example
 ```
 
-The output is similar to this:
+出力は次のようになります:
 
 ```
 namespace/example created
 ```
 
-## Enable Pod Security Standards checking for that namespace
+## 名前空間へのPodセキュリティ標準チェックの有効化
 
-1. Enable Pod Security Standards on this namespace using labels supported by
-   built-in Pod Security Admission. In this step you will configure a check to
-   warn on Pods that don't meet the latest version of the _baseline_ pod
-   security standard.
+1. ビルトインのPod Security Admissionでサポートされているラベルを使って、この名前空間のPodセキュリティ標準を有効にします。
+   このステップでは、_baseline_ Podセキュリティ標準の最新バージョンに合わないPodについて警告するチェックを設定します。
 
    ```shell
    kubectl label --overwrite ns example \
@@ -93,10 +86,8 @@ namespace/example created
       pod-security.kubernetes.io/warn-version=latest
    ```
 
-2. You can configure multiple pod security standard checks on any namespace, using labels.
-   The following command will `enforce` the `baseline` Pod Security Standard, but
-   `warn` and `audit` for `restricted` Pod Security Standards as per the latest
-   version (default value)
+2. ラベルを使って、任意の名前空間に対して複数のPodセキュリティ標準チェックを設定できます。
+   以下のコマンドは、`baseline` Podセキュリティ標準を`enforce`(強制)としますが、`restricted` Podセキュリティ標準には最新バージョンに準じて`warn`(警告)および`audit`(監査)とします(デフォルト値)。
 
    ```shell
    kubectl label --overwrite ns example \
@@ -108,38 +99,37 @@ namespace/example created
      pod-security.kubernetes.io/audit-version=latest
    ```
 
-## Verify the Pod Security Standard enforcement
+## Podセキュリティ標準の強制の実証
 
-1. Create a baseline Pod in the `example` namespace:
+1. `example`名前空間内に`baseline` Podを作成します:
 
    ```shell
    kubectl apply -n example -f https://k8s.io/examples/security/example-baseline-pod.yaml
    ```
-   The Pod does start OK; the output includes a warning. For example:
+   Podは正常に起動しますが、出力には警告が含まれています。例えば:
 
    ```
    Warning: would violate PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "nginx" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
    pod/nginx created
    ```
 
-1. Create a baseline Pod in the `default` namespace:
+1. `default`名前空間内に`baseline` Podを作成します:
 
    ```shell
    kubectl apply -n default -f https://k8s.io/examples/security/example-baseline-pod.yaml
    ```
-   Output is similar to this:
+   出力は次のようになります:
 
    ```
    pod/nginx created
    ```
 
-The Pod Security Standards enforcement and warning settings were applied only
-to the `example` namespace. You could create the same Pod in the `default`
-namespace with no warnings.
+`example`名前空間にだけ、Podセキュリティ標準のenforceと警告の設定が適用されました。
+`default`名前空間内では、警告なしに同じPodを作成できました。
 
-## Clean up
+## 後片付け
 
-Now delete the cluster which you created above by running the following command:
+では、上記で作成したクラスターを、以下のコマンドを実行して削除します:
 
 ```shell
 kind delete cluster --name psa-ns-level
@@ -147,16 +137,13 @@ kind delete cluster --name psa-ns-level
 
 ## {{% heading "whatsnext" %}}
 
-- Run a
-  [shell script](/examples/security/kind-with-namespace-level-baseline-pod-security.sh)
-  to perform all the preceding steps all at once.
+- 前出の一連の手順を一度に全て行うために[シェルスクリプト](/examples/security/kind-with-namespace-level-baseline-pod-security.sh)を実行します。
 
-  1. Create KinD cluster
-  2. Create new namespace
-  3. Apply `baseline` Pod Security Standard in `enforce` mode while applying
-     `restricted` Pod Security Standard also in `warn` and `audit` mode.
-  4. Create a new pod with the following pod security standards applied
+  1. KinDクラスターを作成します。
+  2. 新しい名前空間を作成します。
+  3. `enforce`モードでは`baseline` Podセキュリティ標準を適用し、`warn`および`audit`モードでは`restricted` Podセキュリティ標準を適用します。
+  4. これらのPodセキュリティ標準を適用した新しいPodを作成します。
 
-- [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
-- [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
-- [Apply Pod Security Standards at the cluster level](/docs/tutorials/security/cluster-level-pss/)
+- [Podのセキュリティアドミッション](/ja/docs/concepts/security/pod-security-admission/)
+- [Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards/)
+- [クラスターレベルでのPodセキュリティの標準の適用](/ja/docs/tutorials/security/cluster-level-pss/)
