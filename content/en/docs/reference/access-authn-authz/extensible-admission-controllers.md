@@ -116,7 +116,7 @@ webhooks:
 
 {{< note >}}
 You must replace the `<CA_BUNDLE>` in the above example by a valid CA bundle
-which is a PEM-encoded CA bundle for validating the webhook's server certificate.
+which is a PEM-encoded (field value is Base64 encoded) CA bundle for validating the webhook's server certificate.
 {{< /note >}}
 
 The `scope` field specifies if only cluster-scoped resources ("Cluster") or namespace-scoped
