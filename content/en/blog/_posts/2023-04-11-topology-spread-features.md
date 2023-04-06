@@ -19,15 +19,15 @@ This blog post introduces each feature and the use case behind each of them.
 
 ## KEP-3022: min domains in Pod Topology Spread
 
-Pod Topology Spread has the `maxSkew` parameter to define the degree to which Pods may be unevenly distributed. 
+Pod Topology Spread has the `maxSkew` parameter to define the degree to which Pods may be unevenly distributed.
 
-But, there wasn't a way to control the number of domains over which we should spread. 
+But, there wasn't a way to control the number of domains over which we should spread.
 Some users want to force spreading Pods over a minimum number of domains, and if there aren't enough already present, make the cluster-autoscaler provision them.
 
-Then, we introduced the `minDomains` parameter in the Pod Topology Spread. 
-Via `minDomains` parameter, you can define the minimum number of domains. 
+Then, we introduced the `minDomains` parameter in the Pod Topology Spread.
+Via `minDomains` parameter, you can define the minimum number of domains.
 
-For example, assume there are 3 Nodes with the enough capacity, 
+For example, assume there are 3 Nodes with the enough capacity,
 and a newly created replicaset has the following `topologySpreadConstraints` in template.
 
 ```yaml
@@ -35,7 +35,7 @@ topologySpreadConstraints:
 - maxSkew: 1
   minDomains: 5 # requires 5 Nodes at least.
   whenUnsatisfiable: DoNotSchedule # minDomains is valid only when DoNotSchedule is used.
-  topologyKey: kubernetes.io/hostname 
+  topologyKey: kubernetes.io/hostname
   labelSelector:
     matchLabels:
         foo: bar
@@ -49,15 +49,16 @@ and as a result, the replicas are finally spread over 5 Nodes.
 
 ## KEP-3094: Take taints/tolerations into consideration when calculating PodTopologySpread skew
 
-Before this, when we deploy a pod with `podTopologySpread` configured, we'll take all
-affinity nodes(satisfied with pod nodeAffinity and nodeSelector) into consideration
-in filtering and scoring, but a node with pod untolerated taint may also be a candidate
-because we didn't take care of node taints, which will lead to the pod pending.
+Before this enhancement, when you deploy a pod with `podTopologySpread` configured, kube-scheduler would
+take all inclined nodes(satisfied with pod nodeAffinity and nodeSelector) into consideration
+in filtering and scoring, but would not care about whether the node taints are tolerated by the incoming pod or not.
+This may lead to a node with untolerated taint best fit the pod in podTopologySpread plugin, and as a result,
+the pod will stuck in pending for it violates the nodeTaint plugin.
 
-To avoid this and make a more fine-gained decision in scheduling, we introduced two new fields in
-`TopologySpreadConstraint` to define node inclusion policies including nodeAffinity and nodeTaint.
+ To allow more fine-gained decisions about which Nodes to account for when calculating spreading skew, we introduced
+ two new fields in `TopologySpreadConstraint` to define node inclusion policies including nodeAffinity and nodeTaint.
 
-It mostly looks like:
+A manifest that applies these policies looks like the following:
 
 ```yaml
 apiVersion: v1
@@ -75,17 +76,17 @@ spec:
 ```
 
 **nodeAffinityPolicy** indicates how we'll treat Pod's nodeAffinity/nodeSelector in pod topology spreading.
-If `Honor`, we'll filter out nodes not matching nodeAffinity/nodeSelector in calculation.
-If `Ignore`, these nodes will be included instead.
+If `Honor`, kube-scheduler will filter out nodes not matching nodeAffinity/nodeSelector in the calculation of spreading skew.
+If `Ignore`, all nodes will be included, regardless of whether they match the Pod's nodeAffinity/nodeSelector or not.
 
-For backwards-compatibility, nodeAffinityPolicy is default to `Honor`.
+For backwards-compatibility, nodeAffinityPolicy defaults to `Honor`.
 
 **nodeTaintsPolicy** indicates how we'll treat node taints in pod topology spreading.
-If `Honor`, only tainted nodes for which the incoming pod has a toleration, will be included in calculation.
-If `Ignore`, we'll not consider the node taints at all in calculation, so a node with pod untolerated taint
-will also be included.
+If `Honor`, only tainted nodes for which the incoming pod has a toleration, will be included in the calculation of spreading skew.
+If `Ignore`, kube-scheduler will not consider the node taints at all in the calculation of spreading skew, so a node with
+pod untolerated taint will also be included.
 
-For backwards-compatibility, nodeTaintsPolicy is default to the `Ignore`.
+For backwards-compatibility, nodeTaintsPolicy defaults to the `Ignore`.
 
 The feature was introduced in v1.25 as alpha level. By default, it was disabled, so if you want to use this feature in v1.25,
 you have to enable the feature gate `NodeInclusionPolicyInPodTopologySpread` actively. In the following v1.26, we graduated
