@@ -64,7 +64,7 @@ ComponentConfigの詳細については、[このセクション](#configure-kub
 
 ### `kubeadm init`実行時の流れ
 
-`kubeadm init`を実行した場合、kubeletの設定は`/var/lib/kubelet/config.yaml`に格納され、クラスターのConfigMapにもアップロードされます。ConfigMapは`kubelet-config-1.X`という名前で、`X`は初期化するKubernetesのマイナーバージョンを表します。またこの設定ファイルは、クラスタ内の全てのkubeletのために、クラスター全体設定の基準と共に`/etc/kubernetes/kubelet.conf`にも書き込まれます。この設定ファイルは、kubeletがAPIサーバと通信するためのクライアント証明書を指し示します。これは、[各kubeletにクラスターレベルの設定を配布](#propagating-cluster-level-configuration-to-each-kubelet)することの必要性を示しています。
+`kubeadm init`を実行した場合、kubeletの設定は`/var/lib/kubelet/config.yaml`に格納され、クラスターのConfigMapにもアップロードされます。ConfigMapは`kubelet-config-1.X`という名前で、`X`は初期化するKubernetesのマイナーバージョンを表します。またこの設定ファイルは、クラスター内の全てのkubeletのために、クラスター全体設定の基準と共に`/etc/kubernetes/kubelet.conf`にも書き込まれます。この設定ファイルは、kubeletがAPIサーバと通信するためのクライアント証明書を指し示します。これは、[各kubeletにクラスターレベルの設定を配布](#propagating-cluster-level-configuration-to-each-kubelet)することの必要性を示しています。
 
 二つ目のパターンである、[インスタンス固有の設定内容を適用](#providing-instance-specific-configuration-details)するために、kubeadmは環境ファイルを`/var/lib/kubelet/kubeadm-flags.env`へ書き出します。このファイルは以下のように、kubelet起動時に渡されるフラグのリストを含んでいます。
 
