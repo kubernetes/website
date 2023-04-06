@@ -48,7 +48,7 @@ What does this change mean for end users?
 * If you want to increase the reliability of your cluster and remove dependency on the community-owned registry or you are running Kubernetes in networks where external traffic is restricted, you should consider hosting local image registry mirrors. Some cloud vendors may offer hosted solutions for this.
 
 
-## SeccompDefault graduates to stable
+## `SeccompDefault` graduates to stable
 
 To use seccomp profile defaulting, you must run the kubelet with the `--seccomp-default` [command line flag](/docs/reference/command-line-tools-reference/kubelet) enabled for each node where you want to use it. 
 If enabled, the kubelet will use the `RuntimeDefault` seccomp profile by default, which is defined by the container runtime, instead of using the `Unconfined` (seccomp disabled) mode. The default profiles aim to provide a strong set of security defaults while preserving the functionality of the workload. It is possible that the default profiles differ between container runtimes and their release versions.
