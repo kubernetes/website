@@ -15,7 +15,7 @@ to a new registry with a different implementation.
 
 As a result, starting March 20th this year, traffic from the old `k8s.gcr.io` registry is being redirected to `registry.k8s.io`. The deprecated `k8s.gcr.io` registry will remain functioning for some time but may one day be shut down entirely.
 
-{{< figure src="2023-04-07handle-registry-change-with-containerd/00-registry-deprecation-announcement.png" alt="K8s.gcr.io registry deprecation notice" class="diagram-large" caption="K8s.gcr.io registry deprecation notice" >}}
+{{< figure src="2023-04-07handle-registry-change-with-containerd/00-registry-deprecation-announcement.png" alt="Legacy k8s.gcr.io container image registry is being redirected to registry.k8s.io" class="diagram-large" caption="k8s.gcr.io registry redirection notice" >}}
 
 ## What’s the impact?
 
