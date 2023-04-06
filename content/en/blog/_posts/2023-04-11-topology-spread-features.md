@@ -9,7 +9,7 @@ evergreen: true
 **Authors:** [Alex Wang](https://github.com/denkensk)(Shopee), [Kante Yin](https://github.com/kerthcet)(DaoCloud), [Kensei Nakada](https://github.com/sanposhiho)(Mercari)
 
 In Kubernetes v1.19, [Pod Topology Spread Constraints](https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/) went to GA.
-It is the feature to control how Pods are spread to each failure-domain (regions, zones, nodes etc).
+It is the feature to control how Pods are spread in the cluster topology or failure domains (regions, zones, nodes etc).
 
 As time passed, we received feedback from users,
 and, as a result, we're actively working on improving the Topology Spread feature via three KEPs.
@@ -50,10 +50,10 @@ and as a result, the replicas are finally spread over 5 Nodes.
 ## KEP-3094: Take taints/tolerations into consideration when calculating PodTopologySpread skew
 
 Before this enhancement, when you deploy a pod with `podTopologySpread` configured, kube-scheduler would
-take all inclined nodes(satisfied with pod nodeAffinity and nodeSelector) into consideration
+take the Nodes that satisfy the Pod's nodeAffinity and nodeSelector into consideration
 in filtering and scoring, but would not care about whether the node taints are tolerated by the incoming pod or not.
-This may lead to a node with untolerated taint best fit the pod in podTopologySpread plugin, and as a result,
-the pod will stuck in pending for it violates the nodeTaint plugin.
+This may lead to a node with untolerated taint as the only candidate for spreading, and as a result,
+the pod will stuck in Pending if it doesn't tolerate the taint.
 
  To allow more fine-gained decisions about which Nodes to account for when calculating spreading skew, we introduced
  two new fields in `TopologySpreadConstraint` to define node inclusion policies including nodeAffinity and nodeTaint.
@@ -106,14 +106,14 @@ skewed distribution for the remaining pods. To avoid this problem, in the past u
 revision label to Deployment and update it manually at each rolling upgrade (both the label on the
 podTemplate and the `labelSelector` in the `topologySpreadConstraints`).
 
-To solve this problem once and for all, and to make more accurate decisions in scheduling, we added a new named
+To solve this problem with a simpler API, we added a new field named
 `matchLabelKeys` to `topologySpreadConstraints`. `matchLabelKeys` is a list of pod label keys to select
 the pods over which spreading will be calculated. The keys are used to lookup values from the labels of
 the Pod being scheduled, those key-value labels are ANDed with `labelSelector` to select the group of
 existing pods over which spreading will be calculated for the incoming pod.
 
 With `matchLabelKeys`, you don't need to update the `pod.spec` between different revisions.
-The controller/operator just needs to set different values to the same label key for different revisions.
+The controller or operator managing rollouts just needs to set different values to the same label key for different revisions.
 The scheduler will assume the values automatically based on `matchLabelKeys`.
 For example, if you are configuring a Deployment, you can use the label keyed with
 [pod-template-hash](https://kubernetes.io//docs/concepts/workloads/controllers/deployment/#pod-template-hash-label),
