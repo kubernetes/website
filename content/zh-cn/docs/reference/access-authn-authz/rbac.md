@@ -570,7 +570,7 @@ This is similar to the built-in `cluster-admin` role.
 使用通配符 `*` 可以批量引用所有的 `resources`、`apiGroups` 和 `verbs` 对象，无需逐一引用。
 对于 `nonResourceURLs`，可以将通配符 `*` 作为后缀实现全局通配，
 对于 `resourceNames`，空集表示没有任何限制。 
-下面是一个示例，允许访问对`example.com`API组中的所有当前和未来资源执行任何动作
+下面是一个示例，允许对 `example.com` API 组中的所有当前和未来资源执行所有动作
 （注意，这类似于内置的 `cluster-admin`）。
 
 ```yaml
