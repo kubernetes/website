@@ -431,19 +431,19 @@ There are two reasons for this restriction:
 
 <!--
 1. Making `roleRef` immutable allows granting someone `update` permission on an existing binding
-object, so that they can manage the list of subjects, without being able to change
-the role that is granted to those subjects.
+   object, so that they can manage the list of subjects, without being able to change
+   the role that is granted to those subjects.
 -->
 1. 将 `roleRef` 设置为不可以改变，这使得可以为用户授予对现有绑定对象的 `update` 权限，
    这样可以让他们管理主体列表，同时不能更改被授予这些主体的角色。
 
 <!--
 1. A binding to a different role is a fundamentally different binding.
-Requiring a binding to be deleted/recreated in order to change the `roleRef`
-ensures the full list of subjects in the binding is intended to be granted
-the new role (as opposed to enabling or accidentally modifying only the roleRef
-without verifying all of the existing subjects should be given the new role's
-permissions).
+   Requiring a binding to be deleted/recreated in order to change the `roleRef`
+   ensures the full list of subjects in the binding is intended to be granted
+   the new role (as opposed to enabling or accidentally modifying only the roleRef
+   without verifying all of the existing subjects should be given the new role's
+   permissions).
 -->
 2. 针对不同角色的绑定是完全不一样的绑定。要求通过删除/重建绑定来更改 `roleRef`，
    这样可以确保要赋予绑定的所有主体会被授予新的角色（而不是在允许或者不小心修改了
@@ -559,17 +559,19 @@ For example, `kubectl get configmaps --field-selector=metadata.name=my-configmap
 {{< /note >}}
 
 <!--
-Rather than referring to individual `resources` and `verbs`
-you can use the wildcard `*` symbol to refer to all such objects.
-For `nonResourceURLs` you can use the wildcard `*` symbol as a suffix glob match and
-for `apiGroups` and `resourceNames` an empty set means that everything is allowed.
+Rather than referring to individual `resources`、`apiGroups`, and `verbs`,
+you can use the wildcard `*` symbol to refer to all such objects. 
+For `nonResourceURLs`, you can use the wildcard `*` as a suffix glob match.
+For `resourceNames`, an empty set means that everything is allowed.
 Here is an example that allows access to perform any current and future action on
-all current and future resources (note, this is similar to the built-in `cluster-admin` role).
+all current and future resources in the `example.com` API group.
+This is similar to the built-in `cluster-admin` role.
 -->
-使用通配符 `*` 可以批量引用所有的 `resources` 和 `verbs` 对象，无需逐一引用。
-对于 `nonResourceURLs`，可以将通配符 `*` 作为后缀实现全局通配，
-对于 `apiGroups` 和 `resourceNames`，空集表示没有任何限制。
-下面的示例允许对所有当前和未来资源执行所有动作（注意，这类似于内置的 `cluster-admin`）。
+你可愈使用通配符 `*` 可以批量引用所有的 `resources`、`apiGroups` 和 `verbs` 对象， 无需逐一引用。
+对于 `nonResourceURLs`，你可以将通配符 `*` 作为后缀实现全局通配，
+对于 `resourceNames`，空集表示没有任何限制。
+下面的示例对 `example.com` API 组中所有当前和未来资源执行所有动作。
+这类似于内置的 `cluster-admin`。
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -585,14 +587,13 @@ rules:
 
 {{< caution >}}
 <!--
-Using wildcards in resource and verb entries could result in 
-overly permissive access being granted to sensitive resources.
+Using wildcards in resource and verb entries could result in overly permissive access being granted
+to sensitive resources.
 For instance, if a new resource type is added, or a new subresource is added,
-or a new custom verb is checked, the wildcard entry automatically grants access,
-which may be undesirable.
+or a new custom verb is checked, the wildcard entry automatically grants access, which may be undesirable.
 The [principle of least privilege](/docs/concepts/security/rbac-good-practices/#least-privilege)
-should be employed, using specific resources and verbs to ensure
-only the permissions required for the workload to function correctly are applied.
+should be employed, using specific resources and verbs to ensure only the permissions required for the
+workload to function correctly are applied.
 -->
 在 resources 和 verbs 条目中使用通配符会为敏感资源授予过多的访问权限。
 例如，如果添加了新的资源类型、新的子资源或新的自定义动词，
@@ -953,7 +954,7 @@ Subjects can be groups, users or
 
 Kubernetes represents usernames as strings.
 These can be: plain names, such as "alice"; email-style names, like "bob@example.com";
-or numeric user IDs represented as a string.  It is up to you as a cluster administrator
+or numeric user IDs represented as a string. It is up to you as a cluster administrator
 to configure the [authentication modules](/docs/reference/access-authn-authz/authentication/)
 so that authentication produces usernames in the format you want.
 -->
@@ -1168,7 +1169,10 @@ Auto-reconciliation is enabled by default if the RBAC authorizer is active.
 <!--
 ### API discovery roles {#discovery-roles}
 
-Default role bindings authorize unauthenticated and authenticated users to read API information that is deemed safe to be publicly accessible (including CustomResourceDefinitions). To disable anonymous unauthenticated access, add `--anonymous-auth=false` to the API server configuration.
+Default role bindings authorize unauthenticated and authenticated users to read API information
+that is deemed safe to be publicly accessible (including CustomResourceDefinitions).
+To disable anonymous unauthenticated access, add `--anonymous-auth=false` to
+the API server configuration.
 
 To view the configuration of these roles via `kubectl` run:
 -->
@@ -1717,8 +1721,9 @@ RBAC API 会阻止用户通过编辑角色或者角色绑定来提升权限。
 You can only create/update a role if at least one of the following things is true:
 
 1. You already have all the permissions contained in the role, at the same scope as the object being modified
-(cluster-wide for a ClusterRole, within the same namespace or cluster-wide for a Role).
-2. You are granted explicit permission to perform the `escalate` verb on the `roles` or `clusterroles` resource in the `rbac.authorization.k8s.io` API group.
+   (cluster-wide for a ClusterRole, within the same namespace or cluster-wide for a Role).
+2. You are granted explicit permission to perform the `escalate` verb on the `roles` or
+   `clusterroles` resource in the `rbac.authorization.k8s.io` API group.
 -->
 ### 对角色创建或更新的限制 {#restrictions-on-role-creation-or-update}
 
@@ -1735,8 +1740,11 @@ containing that permission. To allow a user to create/update roles:
 
 1. Grant them a role that allows them to create/update Role or ClusterRole objects, as desired.
 2. Grant them permission to include specific permissions in the roles they create/update:
-    * implicitly, by giving them those permissions (if they attempt to create or modify a Role or ClusterRole with permissions they themselves have not been granted, the API request will be forbidden)
-    * or explicitly allow specifying any permission in a `Role` or `ClusterRole` by giving them permission to perform the `escalate` verb on `roles` or `clusterroles` resources in the `rbac.authorization.k8s.io` API group
+    * implicitly, by giving them those permissions (if they attempt to create or modify a Role or
+     ClusterRole with permissions they themselves have not been granted, the API request will be forbidden)
+    * or explicitly allow specifying any permission in a `Role` or `ClusterRole` by giving them
+     permission to perform the `escalate` verb on `roles` or `clusterroles` resources in the
+     `rbac.authorization.k8s.io` API group
 -->
 例如，如果 `user-1` 没有列举集群范围所有 Secret 的权限，他将不能创建包含该权限的 ClusterRole。
 若要允许用户创建/更新角色：
