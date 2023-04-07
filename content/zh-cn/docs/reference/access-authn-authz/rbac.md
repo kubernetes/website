@@ -560,7 +560,7 @@ For example, `kubectl get configmaps --field-selector=metadata.name=my-configmap
 
 <!--
 Rather than referring to individual `resources`、`apiGroups`, and `verbs`,
-you can use the wildcard `*` symbol to refer to all such objects. 
+you can use the wildcard `*` symbol to refer to all such objects.
 For `nonResourceURLs`, you can use the wildcard `*` as a suffix glob match.
 For `resourceNames`, an empty set means that everything is allowed.
 Here is an example that allows access to perform any current and future action on
@@ -1740,9 +1740,9 @@ containing that permission. To allow a user to create/update roles:
 
 1. Grant them a role that allows them to create/update Role or ClusterRole objects, as desired.
 2. Grant them permission to include specific permissions in the roles they create/update:
-    * implicitly, by giving them those permissions (if they attempt to create or modify a Role or
+   * implicitly, by giving them those permissions (if they attempt to create or modify a Role or
      ClusterRole with permissions they themselves have not been granted, the API request will be forbidden)
-    * or explicitly allow specifying any permission in a `Role` or `ClusterRole` by giving them
+   * or explicitly allow specifying any permission in a `Role` or `ClusterRole` by giving them
      permission to perform the `escalate` verb on `roles` or `clusterroles` resources in the
      `rbac.authorization.k8s.io` API group
 -->
