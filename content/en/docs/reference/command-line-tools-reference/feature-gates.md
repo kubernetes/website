@@ -716,8 +716,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `TopologyManager`: Enable a mechanism to coordinate fine-grained hardware resource
   assignments for different components in Kubernetes. See
   [Control Topology Management Policies on a node](/docs/tasks/administer-cluster/topology-manager/).
-  Topology Manager graduated to GA in 1.27 and is enabled by default. If you are using a version of
-  Kubernetes older than v1.27, switch to the documentation for that version of Kubernetes.
 - `TopologyManagerPolicyAlphaOptions`: Allow fine-tuning of topology manager policies,
   experimental, Alpha-quality options.
   This feature gate guards *a group* of topology manager options whose quality level is alpha.
