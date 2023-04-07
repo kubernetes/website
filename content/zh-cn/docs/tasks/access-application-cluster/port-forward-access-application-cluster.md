@@ -36,7 +36,7 @@ for database debugging.
 
 1. Create a Deployment that runs MongoDB:
 -->
-## 创建 MongoDB Deployment 和服务
+## 创建 MongoDB Deployment 和服务   {#creating-mongodb-deployment-and-service}
 
 1. 创建一个运行 MongoDB 的 Deployment：
 
@@ -183,7 +183,7 @@ for database debugging.
 
 1. `kubectl port-forward` allows using resource name, such as a pod name, to select a matching pod to port forward to.
 -->
-## 转发一个本地端口到 Pod 端口
+## 转发一个本地端口到 Pod 端口   {#forward-a-local-port-to-a-port-on-the-pod}
 
 1. `kubectl port-forward` 允许使用资源名称
    （例如 Pod 名称）来选择匹配的 Pod 来进行端口转发。
@@ -237,7 +237,7 @@ for database debugging.
    ```
    Forwarding from 127.0.0.1:28015 -> 27017
    Forwarding from [::1]:28015 -> 27017
-    ```
+   ```
 
    {{< note >}}
    <!--
@@ -257,7 +257,7 @@ for database debugging.
    ```
 
 <!--
-3.  At the MongoDB command line prompt, enter the `ping` command:
+3. At the MongoDB command line prompt, enter the `ping` command:
 -->
 3. 在 MongoDB 命令行提示符下，输入 `ping` 命令：
 
