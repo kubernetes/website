@@ -37,7 +37,7 @@ with the `ssd` label set to `"true"`.
 
 ### Step 3: Create the {{<glossary_tooltip term_id="daemonset" text="DaemonSet">}}
 
-Create the daemonset from the manifest by using `kubectl create` or `kubectl apply`
+Create the DaemonSet from the manifest by using `kubectl create` or `kubectl apply`
 
 Let's label another node as `ssd=true`.
 
