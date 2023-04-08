@@ -929,8 +929,8 @@ to a role that grants that permission. To allow a user to create/update role bin
 
 1. Grant them a role that allows them to create/update RoleBinding or ClusterRoleBinding objects, as desired.
 2. Grant them permissions needed to bind a particular role:
-    * implicitly, by giving them the permissions contained in the role.
-    * explicitly, by giving them permission to perform the `bind` verb on the particular Role (or ClusterRole).
+   * implicitly, by giving them the permissions contained in the role.
+   * explicitly, by giving them permission to perform the `bind` verb on the particular Role (or ClusterRole).
 
 For example, this ClusterRole and RoleBinding would allow `user-1` to grant other users the `admin`, `edit`, and `view` roles in the namespace `user-1-namespace`:
 
@@ -1105,7 +1105,7 @@ Examples:
 
 * Test applying a manifest file of RBAC objects, displaying changes that would be made:
 
-  ```
+  ```shell
   kubectl auth reconcile -f my-rbac-rules.yaml --dry-run=client
   ```
 
@@ -1260,7 +1260,7 @@ Here are two approaches for managing this transition:
 Run both the RBAC and ABAC authorizers, and specify a policy file that contains
 the [legacy ABAC policy](/docs/reference/access-authn-authz/abac/#policy-file-format):
 
-```
+```shell
 --authorization-mode=...,RBAC,ABAC --authorization-policy-file=mypolicy.json
 ```
 
