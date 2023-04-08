@@ -301,6 +301,18 @@ digital signature at deploy time [via admission control](/docs/tasks/administer-
 - [ ] Container images are regularly scanned during creation and in deployment, and
   known vulnerable software is patched.
 
+Image security refers to the measures taken to ensure that the images used to create and deploy containerized applications are free from vulnerabilities, malware, or other security threats.
+
+Some common practices for image security include:
+
+- Regularly scanning container images for vulnerabilities and addressing any issues that are identified.
+- Verifying the authenticity and integrity of container images by using cryptographic signatures.
+- Implementing access controls to ensure that only authorized users have permission to build, modify, or deploy container images.
+- Ensuring that all dependencies used by container images are also secure and up-to-date.
+- Restricting the use of container images to trusted sources and avoiding the use of untrusted images or repositories.
+
+By implementing these measures and maintaining a robust security posture, organizations can help to minimize the risk of security incidents and data breaches that may result from using insecure images.
+
 Container image should contain the bare minimum to run the program they
 package. Preferably, only the program and its dependencies, building the image
 from the minimal possible base. In particular, image used in production should not
