@@ -80,6 +80,10 @@ Pod:
    DEMO_FAREWELL=Such a sweet sorrow
    ```
 
+Learn more on how to use `envFrom` on this [page](https://kubernetes.io/docs/tasks/
+configure-pod-container/configure-pod-configmap/
+#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables)
+
 {{< note >}}
 The environment variables set using the `env` or `envFrom` field
 override any environment variables specified in the container image.
