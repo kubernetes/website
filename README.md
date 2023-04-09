@@ -30,12 +30,14 @@ cd website
 The Kubernetes website uses the [Docsy Hugo theme](https://github.com/google/docsy#readme). Even if you plan to run the website in a container, we strongly recommend pulling in the submodule and other development dependencies by running the following:
 
 ### Windows
+
 ```powershell
 # fetch submodule dependencies
 git submodule update --init --recursive --depth 1
 ```
 
 ### Linux / other Unix
+
 ```bash
 # fetch submodule dependencies
 make module-init
@@ -178,9 +180,9 @@ For more information about contributing to the Kubernetes documentation, see:
 
 If you need help at any point when contributing, the [New Contributor Ambassadors](https://kubernetes.io/docs/contribute/advanced/#serve-as-a-new-contributor-ambassador) are a good point of contact. These are SIG Docs approvers whose responsibilities include mentoring new contributors and helping them through their first few pull requests. The best place to contact the New Contributors Ambassadors would be on the [Kubernetes Slack](https://slack.k8s.io/). Current New Contributors Ambassadors for SIG Docs:
 
-| Name                       | Slack                      | GitHub                     |                   
-| -------------------------- | -------------------------- | -------------------------- |
-| Arsh Sharma                | @arsh                      | @RinkiyaKeDad              |
+| Name        | Slack | GitHub        |
+| ----------- | ----- | ------------- |
+| Arsh Sharma | @arsh | @RinkiyaKeDad |
 
 ## Localization `README.md`'s
 
@@ -200,4 +202,4 @@ Participation in the Kubernetes community is governed by the [CNCF Code of Condu
 
 ## Thank you
 
-Kubernetes thrives on community participation, and we appreciate your contributions to our website and our documentation!
+Kubernetes thrives on community participation, and we appreciate your contributions to our website and our documentation.
