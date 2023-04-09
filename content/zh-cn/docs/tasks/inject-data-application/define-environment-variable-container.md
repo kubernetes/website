@@ -37,6 +37,41 @@ that run in the Pod. To set environment variables, include the `env` or
 创建 Pod 时，可以为其下的容器设置环境变量。通过配置文件的 `env` 或者 `envFrom` 字段来设置环境变量。
 
 <!--
+The `env` and `envFrom` fields have different effects.
+
+`env`
+: allows you to set environment variables for a container, specifying a value directly for each variable that you name.
+-->
+`env` 和 `envFrom` 字段具有不同的效果。
+
+`env`
+：可以为容器设置环境变量，直接为你所给的每个变量指定一个值。
+
+<!--
+`envFrom`
+: allows you to set environment variables for a container by referencing either a ConfigMap or a Secret.
+ When you use `envFrom`, all the key-value pairs in the referenced ConfigMap or Secret
+ are set as environment variables for the container.
+ You can also specify a common prefix string.
+-->
+`envFrom`
+：你可以通过引用 ConfigMap 或 Secret 来设置容器的环境变量。
+使用 `envFrom` 时，引用的 ConfigMap 或 Secret 中的所有键值对都被设置为容器的环境变量。
+你也可以指定一个通用的前缀字符串。
+
+<!--
+You can read more about [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables)
+and [Secret](/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables).
+
+This page explains how to use `env`.
+-->
+你可以阅读有关 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables)
+和 [Secret](/zh-cn/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables)
+的更多信息。
+
+本页介绍如何使用 `env`。
+
+<!--
 In this exercise, you create a Pod that runs one container. The configuration
 file for the Pod defines an environment variable with name `DEMO_GREETING` and
 value `"Hello from the environment"`. Here is the configuration manifest for the
