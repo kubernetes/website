@@ -4,7 +4,7 @@ id: cluster
 date: 2019-06-15
 full_link: 
 short_description: >
-   A set of worker machines, called nodes, that run containerized applications. Every cluster has at least one worker node.
+   A set of worker machines, called nodes, that run containerized applications. Every cluster has at least one node.
 
 aka: 
 tags:
@@ -12,10 +12,10 @@ tags:
 - operation
 ---
 A set of worker machines, called {{< glossary_tooltip text="nodes" term_id="node" >}},
-that run containerized applications. Every cluster has at least one worker node.
+that run containerized applications. Every cluster has at least one node.
 
 <!--more-->
-The worker node(s) host the {{< glossary_tooltip text="Pods" term_id="pod" >}} that are
+The node(s) host the {{< glossary_tooltip text="Pods" term_id="pod" >}} that are
 the components of the application workload. The
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}} manages the worker
 nodes and the Pods in the cluster. In production environments, the control plane usually
