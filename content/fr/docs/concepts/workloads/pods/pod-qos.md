@@ -53,7 +53,7 @@ Containers in a Pod can request other resources (not CPU or memory) and still be
 
 Certains comportements sont indépendants de la classe QoS attribuée par Kubernetes. Par exemple:
 
-- Tout conteneur dépassant une limite de ressources sera tué et redémarré par le kubelet sansaffectant d’autres conteneurs dans ce pod.
+- Tout conteneur dépassant une limite de ressources sera tué et redémarré par Kubelet sans affecter les autres conteneurs dans ce pod.
 - Si un conteneur dépasse sa demande de ressources et que le nœud sur lequel il s’exécute fait facepression des ressources, le Pod dans lequel il se trouve devient un candidat pour [expulsion](/docs/concepts/scheduling-eviction/node-pressure-eviction/).Si cela se produit, tous les conteneurs du pod seront résiliés. Kubernetes peut créer unPod de remplacement, généralement sur un nœud différent.
 - La demande de ressource d’un Pod est égale à la somme des demandes de ressources deses conteneurs de composants et la limite de ressources d’un pod est égale à la somme deles limites de ressources de ses conteneurs composants.
 - Le planificateur kube ne tient pas compte de la classe QoS lors de la sélection des Pods à[préempter](/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption).La préemption peut se produire lorsqu’un cluster ne dispose pas de suffisamment de ressources pour exécuter tous les Podsvous avez défini.
