@@ -27,7 +27,7 @@ Pour qu’un Pod reçoive une classe QoS « Garantie » :
 
 ### Burstable
 
-Les pods qui sont « Burstables » ont des garanties de ressources de limite inférieure basées sur la demande, maisn’exigent pas de limite spécifique. Si aucune limite n’est spécifiée, elle est définie par défaut surlimite équivalente à la capacité du nœud, ce qui permet aux pods d’augmenter de manière flexibleleurs ressources si des ressources sont disponibles. En cas d’expulsion du Pod en raison de NodePression sur les ressources, ces Pods ne sont expulsés qu’après que tous les Pods 'BestEffort' ont été expulsés.Étant donné qu’un pod « Burstable » peut inclure un conteneur qui n’a pas de limites de ressources ou de demandes, un podc’est-à-dire que 'Burstable' peut essayer d’utiliser n’importe quelle quantité de ressources de nœud.
+Les pods qui sont « Burstables » ont des garanties de ressources de limite inférieure basées sur la demande, mais n’exigent pas de limite spécifique. Si aucune limite n’est spécifiée, elle est définie par défaut sur une limite équivalente à la capacité du nœud, ce qui permet aux pods d’augmenter de manière flexible leurs ressources si des ressources sont disponibles. En cas d’expulsion du Pod en raison d'un évènement `NodePressure` sur les ressources, ces Pods ne sont expulsés qu’après que tous les Pods 'BestEffort' ont été expulsés. Étant donné qu’un pod « Burstable » peut inclure un conteneur qui n’a pas de limites de ressources ou de demandes, un pod c’est-à-dire que 'Burstable' peut essayer d’utiliser n’importe quelle quantité de ressources de nœud.
 
 #### Critères
 
