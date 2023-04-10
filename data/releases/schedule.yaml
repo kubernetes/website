@@ -6,7 +6,7 @@ schedules:
   next:
     release: 1.27.1
     cherryPickDeadline: 2023-05-10
-    targetDate: 2023-04-12
+    targetDate: 2023-05-17
   previousPatches:
     - release: 1.27.0
       cherryPickDeadline: ""
