@@ -9,7 +9,8 @@ Cette page présente les classes de qualité de service (QoS) dans Kubernetes et
 ## Cours sur la qualité de service
 
 Kubernetes classe les Pods que vous exécutez et affecte chaque Pod dans une classe de qualité de service (QoS). Kubernetes utilise cette classification pour influencer les différents pools sont manipulées. Kubernetes effectue cette classification en fonction de la [demandes de ressources](/docs/concepts/configuration/manage-resources-containers/) du {{< glossary_tooltip text="Containers » term_id="container » >}} dans ce Pod, avec le lien entre ces demandes et les limites de ressources. C’est ce qu’on appelle {{< glossary_tooltip text="Quality of Service » term_id="qos-class » >}}(QoS) class. Kubernetes attribue à chaque Pod une classe QoS en fonction des demandes de ressources et les limites de ses conteneurs constitutifs. Les classes QoS sont utilisées par Kubernetes pour décider quels Pods expulser d’un nœud; [Pression du nœud](/docs/concepts/scheduling-eviction/node-pressure-eviction/). Les classes QoS sont `Guaranteed`, `Burstable` et `BestEffort`. Lorsqu’un nœud est à court de ressources, Kubernetes supprimera d’abord les pods `BestEffort` exécutés sur ce nœud, suivis de `Burstable` et enfin des Pods `Guaranteed`.
-. Lorsque cette expulsion est due à la pression des ressources, seuls les Pods dépassentLes demandes de ressources sont candidates à l’expulsion.
+
+Lorsque qu'une expulsion est due à la pression des ressources, seuls les Pods sont dépassés. Les demandes de ressources sont candidates à l’expulsion.
 
 ### Garanti
 
