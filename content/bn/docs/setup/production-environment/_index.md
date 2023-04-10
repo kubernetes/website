@@ -28,12 +28,7 @@ no_list: true
   - ক্লাস্টারের {{< glossary_tooltip term_id="kube-apiserver" text="API সার্ভার" >}}-এ ব্যালেন্সিং ট্রাফিক লোড করুন৷
   - পর্যাপ্ত কর্মী নোড উপলব্ধ থাকা, বা দ্রুত উপলব্ধ হতে সক্ষম, কারণ পরিবর্তিত কাজের চাপ এটি নিশ্চিত করে।
 
-- *Scale*: If you expect your production Kubernetes environment to receive a stable amount of
-demand, you might be able to set up for the capacity you need and be done. However,
-if you expect demand to grow over time or change dramatically based on things like
-season or special events, you need to plan how to scale to relieve increased
-pressure from more requests to the control plane and worker nodes or scale down to reduce unused
-resources.
+- *স্কেল*: আপনি যদি আশা করেন আপনার প্রোডাকশন কুবারনেটিস পরিবেশ একটি স্থিতিশীল পরিমাণে চাহিদা পাবে, তাহলে আপনি আপনার প্রয়োজনীয় ক্ষমতার জন্য সেট আপ করতে সক্ষম হবেন এবং সম্পন্ন হবে। কিন্তু, আপনি যদি সময়ের সাথে সাথে চাহিদা বাড়তে বা ঋতু বা বিশেষ ইভেন্টের মতো বিষয়গুলির উপর ভিত্তি করে নাটকীয়ভাবে পরিবর্তনের আশা করেন, তাহলে আপনাকে পরিকল্পনা করতে হবে কীভাবে বৃদ্ধির উপশম করতে হবে কন্ট্রোল প্লেন এবং কর্মী নোডগুলিতে আরও অনুরোধ থেকে চাপ বা অব্যবহৃত সংস্থানগুলি কমাতে স্কেল ডাউন। 
 
 - *Security and access management*: You have full admin privileges on your own
 Kubernetes learning cluster. But shared clusters with important workloads, and
