@@ -44,7 +44,7 @@ weight: 10
 
   *これは順序付けの必要性を意味します* - `Pod`がアクセスしたい`Service`は`Pod`自身の前に作らなければならず、そうしないと環境変数は注入されません。DNSにはこの制限はありません。
 
-- （強くお勧めしますが）[クラスターアドオン](/ja/docs/concepts/cluster-administration/addons/)の1つの選択肢はDNSサーバーです。DNSサーバーは、新しい`Service`についてKubernetes APIを監視し、それぞれに対して一連のDNSレコードを作成します。クラスタ全体でDNSが有効になっている場合は、すべての`Pod`が自動的に`Services`の名前解決を行えるはずです。
+- （強くお勧めしますが）[クラスターアドオン](/ja/docs/concepts/cluster-administration/addons/)の1つの選択肢はDNSサーバーです。DNSサーバーは、新しい`Service`についてKubernetes APIを監視し、それぞれに対して一連のDNSレコードを作成します。クラスター全体でDNSが有効になっている場合は、すべての`Pod`が自動的に`Services`の名前解決を行えるはずです。
 
 - どうしても必要な場合以外は、Podに`hostPort`を指定しないでください。Podを`hostPort`にバインドすると、Podがスケジュールできる場所の数を制限します、それぞれの<`hostIP`、 `hostPort`、`protocol`>の組み合わせはユニークでなければならないからです。`hostIP`と`protocol`を明示的に指定しないと、Kubernetesはデフォルトの`hostIP`として`0.0.0.0`を、デフォルトの `protocol`として`TCP`を使います。
 
