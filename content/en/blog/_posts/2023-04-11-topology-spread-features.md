@@ -8,7 +8,7 @@ evergreen: true
 
 **Authors:** [Alex Wang](https://github.com/denkensk)(Shopee), [Kante Yin](https://github.com/kerthcet)(DaoCloud), [Kensei Nakada](https://github.com/sanposhiho)(Mercari)
 
-In Kubernetes v1.19, [Pod Topology Spread Constraints](https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/) went to GA.
+In Kubernetes v1.19, [Pod Topology Spread Constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/) went to GA.
 It is the feature to control how Pods are spread in the cluster topology or failure domains (regions, zones, nodes etc).
 
 As time passed, we received feedback from users,
@@ -116,7 +116,7 @@ With `matchLabelKeys`, you don't need to update the `pod.spec` between different
 The controller or operator managing rollouts just needs to set different values to the same label key for different revisions.
 The scheduler will assume the values automatically based on `matchLabelKeys`.
 For example, if you are configuring a Deployment, you can use the label keyed with
-[pod-template-hash](https://kubernetes.io//docs/concepts/workloads/controllers/deployment/#pod-template-hash-label),
+[pod-template-hash](/docs/concepts/workloads/controllers/deployment/#pod-template-hash-label),
 which is added automatically by the Deployment controller, to distinguish between different
 revisions in a single Deployment.
 
@@ -140,7 +140,7 @@ Please join us and share your feedback. We look forward to hearing from you!
 
 ## How can I learn more?
 
-- [Pod Topology Spread Constraints | Kubernetes](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#container-resource-metrics)
+- [Pod Topology Spread Constraints | Kubernetes](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 - [KEP-3022: min domains in Pod Topology Spread](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/3022-min-domains-in-pod-topology-spread)
 - [KEP-3094: Take taints/tolerations into consideration when calculating PodTopologySpread skew](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/3094-pod-topology-spread-considering-taints)
 - [KEP-3243: Respect PodTopologySpread after rolling upgrades](https://github.com/kubernetes/enhancements/tree/master/keps/sig-scheduling/3243-respect-pod-topology-spread-after-rolling-upgrades)
