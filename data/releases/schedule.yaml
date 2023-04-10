@@ -5,7 +5,7 @@ schedules:
   endOfLifeDate: 2024-06-28
   next:
     release: 1.27.1
-    cherryPickDeadline: 2023-04-07
+    cherryPickDeadline: 2023-05-10
     targetDate: 2023-04-12
   previousPatches:
     - release: 1.27.0
