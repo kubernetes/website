@@ -21,7 +21,7 @@ Les pods garantis ont les limites de ressources les plus strictes et sont les mo
 Pour qu’un Pod reçoive une classe QoS « Garantie » :
 
 - Chaque conteneur dans le Pod doit avoir une limite de mémoire et une demande de mémoire.
-- Pour chaque conteneur du pod, la limite de mémoire doit être égale à la demande de mémoire.
+- Pour chaque conteneur du Pod, la limite de mémoire doit être égale à la demande de mémoire.
 - Chaque conteneur du Pod doit avoir une limite de CPU et une demande CPU.
 - Pour chaque conteneur du pod, la limite de CPU doit être égale à la requête CPU.
 
