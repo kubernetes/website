@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: envfrom-configmap
+data:
+  DEMO_GREETING: "Hello from the environment"
+  DEMO_FAREWELL: "Such a sweet sorrow"

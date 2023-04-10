@@ -35,7 +35,7 @@ The `env` and `envFrom` fields have different effects.
 You can read more about [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables)
 and [Secret](/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables).
 
-This page explains how to use `env`.
+### Setting container environment variables with `env` 
 
 In this exercise, you create a Pod that runs one container. The configuration
 file for the Pod defines an environment variable with name `DEMO_GREETING` and
@@ -80,9 +80,48 @@ Pod:
    DEMO_FAREWELL=Such a sweet sorrow
    ```
 
-Learn more on how to use `envFrom` on this [page](https://kubernetes.io/docs/tasks/
-configure-pod-container/configure-pod-configmap/
-#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables)
+### Setting container environment variables with `envFrom`
+
+In this exercise, you create a Pod that runs one container.
+But first we need to reference it to a ConfigMap 
+
+{{< codenew file="pods/inject/configmap-envFrom.yaml" >}}
+
+Now as the kind: ConfigMap is created we need to 
+reference it to a pod. 
+
+{{< codenew file="pods/inject/envFrom.yaml" >}}
+
+You can also use Secret instead of ConfigMap for the configuration
+
+```
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret
+type: Opaque
+data:
+  DB_HOST: bXlkb2Joc3RhcnQ= # Base64-encoded value for mydbhost
+  DB_PORT: NTQzMiA= # Base64-encoded value for 5432
+  DB_NAME: bXlkYm5hbWU= # Base64-encoded value for mydbname
+
+```
+
+Now as the Kind: Secret is created we need to reference it to a pod.
+
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mycontainer
+    image: myimage
+    envFrom:
+    - secretRef:
+        name: mysecret
+```
 
 {{< note >}}
 The environment variables set using the `env` or `envFrom` field
