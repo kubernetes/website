@@ -8,7 +8,7 @@ weight: 240
 
 Este exemplo demonstra como limitar a quantidade de armazenamento consumido em um namespace.
 
-Os seguintes recursos são usados na demonstração: [`ResourceQuota`](/docs/concepts/policy/resource-quotas/), [`LimitRange`](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/), e [`PersistentVolumeClaim`](/docs/concepts/storage/persistent-volumes/).
+Os seguintes recursos são usados na demonstração: [`ResourceQuota`](/pt-br/docs/concepts/policy/resource-quotas/), [`LimitRange`](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/), e [`PersistentVolumeClaim`](/pt-br/docs/concepts/storage/persistent-volumes/).
 
 ## {{% heading "prerequisites" %}}
 
@@ -51,7 +51,7 @@ As requisições de armazenamento mínimas são usadas quando o provedor de arma
 
 Os administradores podem limitar o número de PVCs em um *namespace*, bem como a capacidade cumulativa desses PVCs. Novos PVCs que excedam qualquer um desses valores máximos serão rejeitados.
 
-Neste exemplo, um sexto PVC no namespace seria rejeitado porque excede a contagem máxima de 5. Alternativamente, uma cota máxima de 5Gi, combinada com o limite máximo de 2Gi acima, não pode ter 3 PVCs, cada um com 2Gi. Isso seria um total de 6Gi solicitados para um namespace limitado a 5Gi.
+Neste exemplo, o sexto PVC no namespace seria rejeitado porque excede a contagem máxima de 5. Alternativamente, uma cota máxima de 5Gi, combinada com o limite máximo de 2Gi acima, não pode ter 3 PVCs, cada um com 2Gi. Isso seria um total de 6Gi solicitados para um namespace limitado a 5Gi.
 
 ```yaml
 apiVersion: v1
