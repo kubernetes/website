@@ -14,7 +14,7 @@ weight: 20
 
 <!--
 This page shows how to define environment variables for a container
-in a Kubernetes Pod. 
+in a Kubernetes Pod.
 -->
 本页将展示如何为 Kubernetes Pod 下的容器设置环境变量。
 
@@ -27,7 +27,7 @@ in a Kubernetes Pod.
 <!--
 ## Define an environment variable for a container
 -->
-## 为容器设置一个环境变量   {#define-an-env-variable-for-a-container}
+## 为容器设置一个环境变量 {#define-an-env-variable-for-a-container}
 
 <!--
 When you create a Pod, you can set environment variables for the containers
@@ -35,6 +35,22 @@ that run in the Pod. To set environment variables, include the `env` or
 `envFrom` field in the configuration file.
 -->
 创建 Pod 时，可以为其下的容器设置环境变量。通过配置文件的 `env` 或者 `envFrom` 字段来设置环境变量。
+
+The `env` and `envFrom` fields have different effects.
+
+`env`
+: allows you to set environment variables for a container, specifying a value directly for each variable that you name.
+
+`envFrom`
+: allows you to set environment variables for a container by referencing either a ConfigMap or a Secret.
+When you use `envFrom`, all the key-value pairs in the referenced ConfigMap or Secret
+are set as environment variables for the container.
+You can also specify a common prefix string.
+
+You can read more about [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/#configure-all-key-value-pairs-in-a-configmap-as-container-environment-variables)
+and [Secret](/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables).
+
+This page explains how to use `env`.
 
 <!--
 In this exercise, you create a Pod that runs one container. The configuration
@@ -52,53 +68,56 @@ Pod:
 -->
 1. 基于配置清单创建一个 Pod：
 
-    ```shell
-    kubectl apply -f https://k8s.io/examples/pods/inject/envars.yaml
-    ```
+   ```shell
+   kubectl apply -f https://k8s.io/examples/pods/inject/envars.yaml
+   ```
 
 <!--
 1. List the running Pods:
 -->
+
 2. 获取正在运行的 Pod 信息：
 
-    ```shell
-    kubectl get pods -l purpose=demonstrate-envars
-    ```
+   ```shell
+   kubectl get pods -l purpose=demonstrate-envars
+   ```
 
-    <!--
-    The output is similar to this:
-    -->
-    查询结果应为：
+   <!--
+   The output is similar to：
+   -->
+   查询结果应为：
 
-    ```
-    NAME            READY     STATUS    RESTARTS   AGE
-    envar-demo      1/1       Running   0          9s
-    ```
+   ```
+   NAME            READY     STATUS    RESTARTS   AGE
+   envar-demo      1/1       Running   0          9s
+   ```
 
 <!--
 1. List the Pod's container environment variables:
 -->
+
 3. 列出 Pod 容器的环境变量：
 
-    ```shell
-    kubectl exec envar-demo -- printenv
-    ```
-    
-    <!--
-    The output is similar to this:
-    -->
-    打印结果应为：
+   ```shell
+   kubectl exec envar-demo -- printenv
+   ```
 
-    ```
-    NODE_VERSION=4.4.2
-    EXAMPLE_SERVICE_PORT_8080_TCP_ADDR=10.3.245.237
-    HOSTNAME=envar-demo
-    ...
-    DEMO_GREETING=Hello from the environment
-    DEMO_FAREWELL=Such a sweet sorrow
-    ```
+   <!--
+   The output is similar to this:
+   -->
+   打印结果应为：
+
+   ```
+   NODE_VERSION=4.4.2
+   EXAMPLE_SERVICE_PORT_8080_TCP_ADDR=10.3.245.237
+   HOSTNAME=envar-demo
+   ...
+   DEMO_GREETING=Hello from the environment
+   DEMO_FAREWELL=Such a sweet sorrow
+   ```
 
 {{< note >}}
+
 <!--
 The environment variables set using the `env` or `envFrom` field
 override any environment variables specified in the container image.
@@ -129,7 +148,7 @@ Honorable`, and `Kubernetes`, respectively. Those environment variables
 are then used in the CLI arguments passed to the `env-print-demo`
 container.
 -->
-## 在配置中使用环境变量   {#using-env-var-inside-of-your-config}
+## 在配置中使用环境变量 {#using-env-var-inside-of-your-config}
 
 你在 Pod 的配置中定义的环境变量可以在配置的其他地方使用，
 例如可用在为 Pod 的容器设置的命令和参数中。
@@ -171,4 +190,3 @@ Upon creation, the command `echo Warm greetings to The Most Honorable Kubernetes
 * 进一步了解[环境变量](/zh-cn/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 * 进一步了解[通过环境变量来使用 Secret](/zh-cn/docs/concepts/configuration/secret/#using-secrets-as-environment-variables)
 * 关于 [EnvVarSource](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvarsource-v1-core) 资源的信息。
-
