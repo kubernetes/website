@@ -45,7 +45,7 @@ of Containers for each.
   - Use `sort` to sort the results
   - Use `uniq` to aggregate image counts
 -->
-## 列出所有命名空间下的所有容器镜像
+## 列出所有命名空间下的所有容器镜像   {#list-all-container-images-in-all-namespaces}
 
 - 使用 `kubectl get pods --all-namespaces` 获取所有命名空间下的所有 Pod
 - 使用 `-o jsonpath={.items[*].spec.containers[*].image}` 来格式化输出，以仅包含容器镜像名称。
@@ -95,7 +95,7 @@ Pod is returned instead of a list of items.
 The formatting can be controlled further by using the `range` operation to
 iterate over elements individually.
 -->
-## 按 Pod 列出容器镜像
+## 按 Pod 列出容器镜像   {#list-container-images-by-pod}
 
 可以使用 `range` 操作进一步控制格式化，以单独操作每个元素。
 
@@ -110,7 +110,7 @@ sort
 To target only Pods matching a specific label, use the -l flag.  The
 following matches only Pods with labels matching `app=nginx`.
 -->
-## 列出以标签过滤后的 Pod 的所有容器镜像
+## 列出以标签过滤后的 Pod 的所有容器镜像   {#list-container-images-filtering-by-pod-label}
 
 要获取匹配特定标签的 Pod，请使用 -l 参数。以下匹配仅与标签 `app=nginx` 相符的 Pod。
 
@@ -124,7 +124,7 @@ kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].ima
 To target only pods in a specific namespace, use the namespace flag. The
 following matches only Pods in the `kube-system` namespace.
 -->
-## 列出以命名空间过滤后的 Pod 的所有容器镜像
+## 列出以命名空间过滤后的 Pod 的所有容器镜像   {#list-container-images-filtering-by-pod-namespace}
 
 要获取匹配特定命名空间的 Pod，请使用 namespace 参数。以下仅匹配 `kube-system` 命名空间下的 Pod。
 
@@ -135,12 +135,12 @@ kubectl get pods --namespace kube-system -o jsonpath="{.items[*].spec.containers
 <!--
 ## List Container images using a go-template instead of jsonpath
 
-As an alternative to jsonpath, Kubectl supports using [go-templates](https://golang.org/pkg/text/template/)
+As an alternative to jsonpath, Kubectl supports using [go-templates](https://pkg.go.dev/text/template)
 for formatting the output:
 -->
-## 使用 go-template 代替 jsonpath 来获取容器镜像
+## 使用 go-template 代替 jsonpath 来获取容器镜像   {#list-container-images-using-a-go-template-instead-of-jsonpath}
 
-作为 jsonpath 的替代，Kubectl 支持使用 [go-templates](https://golang.org/pkg/text/template/) 来格式化输出：
+作为 jsonpath 的替代，Kubectl 支持使用 [go-templates](https://pkg.go.dev/text/template) 来格式化输出：
 
 ```shell
 kubectl get pods --all-namespaces -o go-template --template="{{range .items}}{{range .spec.containers}}{{.image}} {{end}}{{end}}"
@@ -152,10 +152,10 @@ kubectl get pods --all-namespaces -o go-template --template="{{range .items}}{{r
 ### Reference
 
 * [Jsonpath](/docs/reference/kubectl/jsonpath/) reference guide
-* [Go template](https://golang.org/pkg/text/template/) reference guide
+* [Go template](https://pkg.go.dev/text/template) reference guide
 -->
-### 参考
+### 参考   {#reference}
 
 * [Jsonpath](/zh-cn/docs/reference/kubectl/jsonpath/) 参考指南
-* [Go template](https://golang.org/pkg/text/template/) 参考指南
+* [Go template](https://pkg.go.dev/text/template) 参考指南
 

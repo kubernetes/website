@@ -289,7 +289,7 @@ PodのステータスはPendingとなり、`Pod Cannot enforce AppArmor: profile
 
 ### PodSecurityPolicyを使用したプロファイルの制限
 
-PodSecurityPolicy extensionが有効になっている場合、クラスタ全体でAppArmorn制限が適用されます。PodSecurityPolicyを有効にするには、`apiserver`上で次のフラグを設定する必要があります。
+PodSecurityPolicy extensionが有効になっている場合、クラスター全体でAppArmorn制限が適用されます。PodSecurityPolicyを有効にするには、`apiserver`上で次のフラグを設定する必要があります。
 
 ```
 --enable-admission-plugins=PodSecurityPolicy[,others...]
@@ -306,7 +306,7 @@ defaultProfileNameオプションには、何も指定されなかった場合�
 
 ### AppArmorの無効化
 
-クラスタ上でAppArmorを利用可能にしたくない場合、次のコマンドラインフラグで無効化できます。
+クラスター上でAppArmorを利用可能にしたくない場合、次のコマンドラインフラグで無効化できます。
 
 ```
 --feature-gates=AppArmor=false
@@ -316,7 +316,7 @@ defaultProfileNameオプションには、何も指定されなかった場合�
 
 ### AppArmorを使用するKubernetes v1.4にアップグレードする
 
-クラスタをv1.4にアップグレードするために、AppArmorに関する操作は必要ありません。ただし、既存のPodがAppArmorのアノテーションを持っている場合、検証(またはPodSecurityPolicy admission)は行われません。もしpermissiveなプロファイルがノードに読み込まれていた場合、悪意のあるユーザーがPodの権限を上述のdocker-defaultより昇格させるために、permissiveなプロファイルを再適用する恐れがあります。これが問題となる場合、`apparmor.security.beta.kubernetes.io`のアノテーションを含むすべてのPodのクラスターをクリーンアップすることを推奨します。
+クラスターをv1.4にアップグレードするために、AppArmorに関する操作は必要ありません。ただし、既存のPodがAppArmorのアノテーションを持っている場合、検証(またはPodSecurityPolicy admission)は行われません。もしpermissiveなプロファイルがノードに読み込まれていた場合、悪意のあるユーザーがPodの権限を上述のdocker-defaultより昇格させるために、permissiveなプロファイルを再適用する恐れがあります。これが問題となる場合、`apparmor.security.beta.kubernetes.io`のアノテーションを含むすべてのPodのクラスターをクリーンアップすることを推奨します。
 
 ### 一般利用可能(General Availability)への更新パス {#upgrade-path-to-general-availability}
 
