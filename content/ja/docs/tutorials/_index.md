@@ -51,7 +51,7 @@ content_type: concept
 
 ## セキュリティ
 
-* [Apply Pod Security Standards at Cluster level](/docs/tutorials/security/cluster-level-pss/)
+* [クラスターレベルのPod Securityの標準の適用](/docs/tutorials/security/cluster-level-pss/)
 * [NamespaceレベルのPod Securityの標準の適用](/docs/tutorials/security/ns-level-pss/)
 * [AppArmor](/docs/tutorials/security/apparmor/)
 * [seccomp](/docs/tutorials/security/seccomp/)
