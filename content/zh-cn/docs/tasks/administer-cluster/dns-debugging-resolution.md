@@ -4,14 +4,21 @@ content_type: task
 min-kubernetes-server-version: v1.6
 weight: 170
 ---
+<!--
+reviewers:
+- bowei
+- zihongz
+title:  Debugging DNS Resolution
+content_type: task
+min-kubernetes-server-version: v1.6
+weight: 170
+-->
 
 <!-- overview -->
 <!--
 This page provides hints on diagnosing DNS problems.
 -->
 这篇文章提供了一些关于 DNS 问题诊断的方法。
-
-<!-- steps -->
 
 ## {{% heading "prerequisites" %}}
 
@@ -28,6 +35,8 @@ kube-dns.
 
 {{< version-check >}}
 
+<!-- steps -->
+
 <!--
 ### Create a simple Pod to use as a test environment
 
@@ -40,17 +49,8 @@ services depends on the namespace of the pod. For more information, review
 {{< /note >}}
 
 Use that manifest to create a Pod:
-
-```shell
-kubectl create -f https://k8s.io/examples/admin/dns/busybox.yaml
-pod/busybox created
-
-kubectl get pods busybox
-NAME      READY     STATUS    RESTARTS   AGE
-busybox   1/1       Running   0          <some-time>
-```
 -->
-### 创建一个简单的 Pod 作为测试环境
+### 创建一个简单的 Pod 作为测试环境   {#create-a-simple-pod-to-use-as-a-test-environment}
 
 {{< codenew file="admin/dns/dnsutils.yaml" >}}
 
@@ -117,7 +117,7 @@ Take a look inside the resolv.conf file.
 (See [Customizing DNS Service](/docs/tasks/administer-cluster/dns-custom-nameservers) and
 [Known issues](#known-issues) below for more information)
 -->
-### 先检查本地的 DNS 配置
+### 先检查本地的 DNS 配置   {#check-the-local-dns-configuration-first}
 
 查看 resolv.conf 文件的内容
 （阅读[定制 DNS 服务](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/) 和
@@ -405,7 +405,7 @@ term_id="endpoint" >}} related resources to properly resolve service names.
 
 Sample error message:
 -->
-### CoreDNS 是否有足够的权限？
+### CoreDNS 是否有足够的权限？   {#does-coredns-have-sufficient-permissions}
 
 CoreDNS 必须能够列出 {{< glossary_tooltip text="service" term_id="service" >}} 和
 {{< glossary_tooltip text="endpoint" term_id="endpoint" >}} 相关的资源来正确解析服务名称。
@@ -476,7 +476,7 @@ the namespace of the service.
 
 This query is limited to the pod's namespace:
 -->
-### 你的服务在正确的名字空间中吗？
+### 你的服务在正确的名字空间中吗？   {#are-you-in-the-right-namespace-for-the-service}
 
 未指定名字空间的 DNS 查询仅作用于 Pod 所在的名字空间。
 
