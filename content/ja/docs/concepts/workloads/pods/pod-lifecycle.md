@@ -55,7 +55,7 @@ Podの各フェーズの値と意味は厳重に守られています。ここ�
 Podの削除中に、kubectlコマンドには`Terminating`が出力されることがあります。この`Terminating`ステータスは、Podのフェーズではありません。Podには、正常に終了するための期間を与えられており、デフォルトは30秒です。`--force`フラグを使用して、[Podを強制的に削除する](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)ことができます。
 {{< /note >}}
 
-Nodeが停止するか、クラスタの残りの部分から切断された場合、Kubernetesは失われたNode上のすべてのPodの`Phase`をFailedに設定するためのポリシーを適用します。
+Nodeが停止するか、クラスターの残りの部分から切断された場合、Kubernetesは失われたNode上のすべてのPodの`Phase`をFailedに設定するためのポリシーを適用します。
 
 ## コンテナのステータス {#container-states}
 
@@ -310,7 +310,7 @@ Podは、クラスター内のNodeで実行中のプロセスを表すため、�
 
 {{< caution >}}
 即時削除では、実行中のリソースの終了を待ちません。
-リソースはクラスタ上で無期限に実行し続ける可能性があります。
+リソースはクラスター上で無期限に実行し続ける可能性があります。
 {{< /caution >}}
 
 StatefulSetのPodについては、[StatefulSetからPodを削除するためのタスクのドキュメント](/ja/docs/tasks/run-application/force-delete-stateful-set-pod/)を参照してください。
