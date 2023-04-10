@@ -38,7 +38,7 @@ Un Pod reçoit une classe QoS de « Burstable » si :
 
 ### Meilleur effort
 
-Les pods de la classe QoS « BestEfforts » peuvent utiliser des ressources de nœud qui ne sont pas spécifiquement affectéesaux Pods d’autres classes QoS. Par exemple, si vous avez un nœud avec 16 cœurs de processeur disponibles pour lekubelet, et vous attribuez 4 cœurs CPU à un Pod 'Guaranteed', puis un Pod dans le 'BestEffort'La classe QoS peut essayer d’utiliser n’importe quelle quantité des 12 cœurs de processeur restants.Le kubelet préfère expulser les pods 'BestEffort' si le nœud est soumis à une pression sur les ressources.
+Les pods de la classe QoS « BestEfforts » peuvent utiliser des ressources de nœud qui ne sont pas spécifiquement affectées aux Pods d’autres classes QoS. Par exemple, si vous avez un nœud avec 16 cœurs de processeur disponibles pour Kubelet, et vous attribuez 4 cœurs CPU à un Pod « Guaranteed », puis un Pod dans « BestEffort ». La classe QoS peut essayer d’utiliser n’importe quelle quantité des 12 cœurs de processeur restants. Kubelet préfère expulser les pods « BestEffort » si le nœud est soumis à une pression sur les ressources.
 
 #### Critères
 
