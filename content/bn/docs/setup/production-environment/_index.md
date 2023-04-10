@@ -28,18 +28,14 @@ no_list: true
   - ক্লাস্টারের {{< glossary_tooltip term_id="kube-apiserver" text="API সার্ভার" >}}-এ ব্যালেন্সিং ট্রাফিক লোড করুন৷
   - পর্যাপ্ত কর্মী নোড উপলব্ধ থাকা, বা দ্রুত উপলব্ধ হতে সক্ষম, কারণ পরিবর্তিত কাজের চাপ এটি নিশ্চিত করে।
 
-- *স্কেল*: আপনি যদি আশা করেন আপনার প্রোডাকশন কুবারনেটিস পরিবেশ একটি স্থিতিশীল পরিমাণে চাহিদা পাবে, তাহলে আপনি আপনার প্রয়োজনীয় ক্ষমতার জন্য সেট আপ করতে সক্ষম হবেন এবং সম্পন্ন হবে। কিন্তু, আপনি যদি সময়ের সাথে সাথে চাহিদা বাড়তে বা ঋতু বা বিশেষ ইভেন্টের মতো বিষয়গুলির উপর ভিত্তি করে নাটকীয়ভাবে পরিবর্তনের আশা করেন, তাহলে আপনাকে পরিকল্পনা করতে হবে কীভাবে বৃদ্ধির উপশম করতে হবে কন্ট্রোল প্লেন এবং কর্মী নোডগুলিতে আরও অনুরোধ থেকে চাপ বা অব্যবহৃত সংস্থানগুলি কমাতে স্কেল ডাউন। 
+- *স্কেল*: আপনি যদি আশা করেন আপনার প্রোডাকশন কুবারনেটিস পরিবেশ একটি স্থিতিশীল পরিমাণে চাহিদা পাবে, তাহলে আপনি আপনার প্রয়োজনীয় ক্ষমতার জন্য সেট আপ করতে সক্ষম হবেন এবং সম্পন্ন হবে। কিন্তু, আপনি যদি সময়ের সাথে সাথে চাহিদা বাড়তে বা সিজন বা বিশেষ ইভেন্টের মতো বিষয়গুলির উপর ভিত্তি করে নাটকীয়ভাবে পরিবর্তনের আশা করেন, তাহলে আপনাকে পরিকল্পনা করতে হবে কীভাবে বৃদ্ধির উপশম করতে হবে কন্ট্রোল প্লেন এবং কর্মী নোডগুলিতে আরও অনুরোধ থেকে চাপ বা অব্যবহৃত সংস্থানগুলি কমাতে স্কেল ডাউন।
 
-- *Security and access management*: You have full admin privileges on your own
-Kubernetes learning cluster. But shared clusters with important workloads, and
-more than one or two users, require a more refined approach to who and what can
-access cluster resources. You can use role-based access control
-([RBAC](/docs/reference/access-authn-authz/rbac/)) and other
-security mechanisms to make sure that users and workloads can get access to the
-resources they need, while keeping workloads, and the cluster itself, secure.
-You can set limits on the resources that users and workloads can access
-by managing [policies](/docs/concepts/policy/) and
-[container resources](/docs/concepts/configuration/manage-resources-containers/).
+- *নিরাপত্তা এবং অ্যাক্সেস ম্যানেজমেন্ট*: আপনার নিজস্ব কুবারনেটিস লার্নিং ক্লাস্টারে আপনার সম্পূর্ণ অ্যাডমিন সুবিধা রয়েছে। কিন্তু গুরুত্বপূর্ণ কাজের চাপ সহ ভাগ করা ক্লাস্টার, এবং এক বা দুইজনের বেশি ব্যবহারকারীর জন্য কে এবং কি ক্লাস্টার সংস্থান অ্যাক্সেস করতে পারে, তার জন্য আরও পরিমার্জিত পদ্ধতির প্রয়োজন। আপনি ভূমিকা-ভিত্তিক অ্যাক্সেস কন্ট্রোল ([RBAC](/docs/reference/access-authn-authz/rbac/)) এবং অন্যান্য নিরাপত্তা ব্যবস্থা ব্যবহার করতে পারেন যাতে ব্যবহারকারী এবং কাজের চাপ তাদের প্রয়োজনীয় সংস্থানগুলিতে অ্যাক্সেস পেতে পারে, পাশাপাশি কাজের চাপ, এবং ক্লাস্টার নিরাপদ থাকে। 
+আপনি [নীতি](/docs/concepts/policy/) এবং পরিচালনার মাধ্যমে ব্যবহারকারী এবং কাজের চাপ অ্যাক্সেস করতে পারে এমন সংস্থানগুলির সীমা নির্ধারণ করতে পারেন এবং
+[কনটেইনার সম্পদ](/docs/concepts/configuration/manage-resources-containers/)।
+
+নিজের হাতে একটি কুবারনেটস উৎপাদন পরিবেশ তৈরি করার আগে, এই কাজটির কিছু বা সমস্ত কাজ [টার্নকি ক্লাউড সলিউশন](/docs/setup/production-environment/turnkey-solutions/) প্রদানকারী বা অন্যান্য [কুবারনেটিস পার্টনার](https://kubernetes.io/partners/) এর কাছে হস্তান্তর করার কথা বিবেচনা করুন।
+বিকল্পগুলোর মধ্যে রয়েছেঃ
 
 Before building a Kubernetes production environment on your own, consider
 handing off some or all of this job to 
