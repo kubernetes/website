@@ -139,7 +139,7 @@ time_format_default = "January 02, 2006 at 3:04 PM PST"
 description = "Production-Grade Container Orchestration"
 showedit = true
 
-latest = "v1.26"
+latest = "v1.27"
 
 fullversion = "v1.24.12"
 version = "v1.24"
