@@ -37,12 +37,6 @@ no_list: true
 নিজের হাতে একটি কুবারনেটস উৎপাদন পরিবেশ তৈরি করার আগে, এই কাজটির কিছু বা সমস্ত কাজ [টার্নকি ক্লাউড সলিউশন](/docs/setup/production-environment/turnkey-solutions/) প্রদানকারী বা অন্যান্য [কুবারনেটিস পার্টনার](https://kubernetes.io/partners/) এর কাছে হস্তান্তর করার কথা বিবেচনা করুন।
 বিকল্পগুলোর মধ্যে রয়েছেঃ
 
-Before building a Kubernetes production environment on your own, consider
-handing off some or all of this job to 
-[Turnkey Cloud Solutions](/docs/setup/production-environment/turnkey-solutions/) 
-providers or other [Kubernetes Partners](https://kubernetes.io/partners/).
-Options include:
-
 - *Serverless*: Just run workloads on third-party equipment without managing
 a cluster at all. You will be charged for things like CPU usage, memory, and
 disk requests.
