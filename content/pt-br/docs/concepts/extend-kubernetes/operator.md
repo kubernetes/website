@@ -52,7 +52,7 @@ Como seria um operador com mais detalhes? Aqui está um exemplo:
 ## Implantando operadores
 
 A maneira mais comum de implantar um operador é adicionar a definição personalizada de recurso (*Custom Resource Definition*) e o Controlador associado ao seu cluster.
-O Controlador normalmente é executado fora do {{< glossary_tooltip text="plano de controle" term_id="control-plane" >}}, assim como você executaria qualquer aplicação containerizada.
+O Controlador normalmente é executado fora da {{< glossary_tooltip text="camada de gerenciamento" term_id="control-plane" >}}, assim como você executaria qualquer aplicação que rode em contêineres.
 Por exemplo, você pode executar o controlador no seu cluster como um *Deployment*.
 
 ## Usando um operador
