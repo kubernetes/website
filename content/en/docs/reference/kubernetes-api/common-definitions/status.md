@@ -86,7 +86,7 @@ Status is a return value for calls that don't return other objects.
 
   - **details.uid** (string)
 
-    UID of the resource. (when there is a single resource which can be described). More info: http://kubernetes.io/docs/user-guide/identifiers#uids
+    UID of the resource. (when there is a single resource which can be described). More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
 
 - **kind** (string)
 
