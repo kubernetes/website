@@ -54,7 +54,7 @@ scheduled.  In most cases, `hostPort` is unnecessary, try using a Service object
 
 #### My pod stays waiting
 
-If a Pod is stuck in the `Waiting` state, then it has been scheduled to a worker node, but it can't run on that machine.
+If a Pod is stuck in the `Waiting` state, then it has been scheduled to a node, but it can't run on that machine.
 Again, the information from `kubectl describe ...` should be informative.  The most common cause of `Waiting` pods is a failure to pull the image.  There are three things to check:
 
 * Make sure that you have the name of the image correct.

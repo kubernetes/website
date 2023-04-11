@@ -29,16 +29,16 @@ are influenced by the following issues:
 
 - *Availability*: A single-machine Kubernetes [learning environment](/docs/setup/#learning-environment)
   has a single point of failure. Creating a highly available cluster means considering:
-  - Separating the control plane from the worker nodes.
+  - Separating the control plane from the nodes.
   - Replicating the control plane components on multiple nodes.
   - Load balancing traffic to the cluster’s {{< glossary_tooltip term_id="kube-apiserver" text="API server" >}}.
-  - Having enough worker nodes available, or able to quickly become available, as changing workloads warrant it.
+  - Having enough nodes available, or able to quickly become available, as changing workloads warrant it.
 
 - *Scale*: If you expect your production Kubernetes environment to receive a stable amount of
   demand, you might be able to set up for the capacity you need and be done. However,
   if you expect demand to grow over time or change dramatically based on things like
   season or special events, you need to plan how to scale to relieve increased
-  pressure from more requests to the control plane and worker nodes or scale down to reduce unused
+  pressure from more requests to the control plane and nodes or scale down to reduce unused
   resources.
 
 - *Security and access management*: You have full admin privileges on your own
@@ -63,7 +63,7 @@ Options include:
   disk requests.
 - *Managed control plane*: Let the provider manage the scale and availability
   of the cluster's control plane, as well as handle patches and upgrades.
-- *Managed worker nodes*: Configure pools of nodes to meet your needs,
+- *Managed nodes*: Configure pools of nodes to meet your needs,
   then the provider makes sure those nodes are available and ready to implement
   upgrades when needed.
 - *Integration*: There are providers that integrate Kubernetes with other
@@ -72,21 +72,21 @@ Options include:
 
 Whether you build a production Kubernetes cluster yourself or work with
 partners, review the following sections to evaluate your needs as they relate
-to your cluster’s *control plane*, *worker nodes*, *user access*, and
+to your cluster’s *control plane*, *nodes*, *user access*, and
 *workload resources*.
 
 ## Production cluster setup
 
 In a production-quality Kubernetes cluster, the control plane manages the
 cluster from services that can be spread across multiple computers
-in different ways. Each worker node, however, represents a single entity that
+in different ways. Each node, however, represents a single entity that
 is configured to run Kubernetes pods.
 
 ### Production control plane
 
-The simplest Kubernetes cluster has the entire control plane and worker node
+The simplest Kubernetes cluster has the entire control plane and node
 services running on the same machine. You can grow that environment by adding
-worker nodes, as reflected in the diagram illustrated in
+nodes, as reflected in the diagram illustrated in
 [Kubernetes Components](/docs/concepts/overview/components/).
 If the cluster is meant to be available for a short period of time, or can be
 discarded if something goes seriously wrong, this might meet your needs.
@@ -157,12 +157,12 @@ and [Operating etcd clusters for Kubernetes](/docs/tasks/administer-cluster/conf
 See [Backing up an etcd cluster](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster)
 for information on making an etcd backup plan.
 
-### Production worker nodes
+### Production nodes
 
 Production-quality workloads need to be resilient and anything they rely
 on needs to be resilient (such as CoreDNS). Whether you manage your own
 control plane or have a cloud provider do it for you, you still need to
-consider how you want to manage your worker nodes (also referred to
+consider how you want to manage your nodes (also referred to
 simply as *nodes*).  
 
 - *Configure nodes*: Nodes can be physical or virtual machines. If you want to

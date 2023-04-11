@@ -338,7 +338,7 @@ A known workaround is to use the kubeadm [configuration file](/docs/reference/co
 
 ## kube-proxy scheduled before node is initialized by cloud-controller-manager
 
-In cloud provider scenarios, kube-proxy can end up being scheduled on new worker nodes before
+In cloud provider scenarios, kube-proxy can end up being scheduled on new nodes before
 the cloud-controller-manager has initialized the node addresses. This causes kube-proxy to fail
 to pick up the node's IP address properly and has knock-on effects to the proxy function managing
 load balancers.

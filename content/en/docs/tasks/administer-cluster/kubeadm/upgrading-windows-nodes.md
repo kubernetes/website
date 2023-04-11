@@ -20,7 +20,7 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
 <!-- steps -->
 
-## Upgrading worker nodes
+## Upgrading nodes
 
 ### Upgrade kubeadm
 

@@ -55,7 +55,7 @@ kubelet-finalize             Updates settings relevant to the kubelet after TLS 
 addon                        Install required addons for passing conformance tests
   /coredns                     Install the CoreDNS addon to a Kubernetes cluster
   /kube-proxy                  Install the kube-proxy addon to a Kubernetes cluster
-show-join-command            Show the join command for control-plane and worker node
+show-join-command            Show the join command for control-plane and node
 ```
 
 

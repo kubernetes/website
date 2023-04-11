@@ -25,7 +25,7 @@ The upgrade workflow at high level is the following:
 
 1. Upgrade a primary control plane node.
 1. Upgrade additional control plane nodes.
-1. Upgrade worker nodes.
+1. Upgrade nodes.
 
 ## {{% heading "prerequisites" %}}
 
@@ -212,12 +212,12 @@ Also calling `kubeadm upgrade plan` and upgrading the CNI provider plugin is no 
   kubectl uncordon <node-to-uncordon>
   ```
 
-## Upgrade worker nodes
+## Upgrade nodes
 
-The upgrade procedure on worker nodes should be executed one node at a time or few nodes at a time,
+The upgrade procedure on nodes should be executed one node at a time or few nodes at a time,
 without compromising the minimum required capacity for running your workloads.
 
-The following pages show how to  Upgrade Linux and Windows worker nodes:
+The following pages show how to  Upgrade Linux and Windows nodes:
 
   * [Upgrade Linux nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes/)
   * [Upgrade Windows nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes/)
@@ -276,7 +276,7 @@ and post-upgrade manifest file for a certain component, a backup file for it wil
 - Upgrades the static Pod manifests for the control plane components.
 - Upgrades the kubelet configuration for this node.
 
-`kubeadm upgrade node` does the following on worker nodes:
+`kubeadm upgrade node` does the following on nodes:
 
 - Fetches the kubeadm `ClusterConfiguration` from the cluster.
 - Upgrades the kubelet configuration for this node.

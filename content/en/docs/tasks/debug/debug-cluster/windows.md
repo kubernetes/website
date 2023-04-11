@@ -156,7 +156,7 @@ content_type: concept
    This indicates that Flannel didn't launch correctly. You can either try
    to restart `flanneld.exe` or you can copy the files over manually from
    `/run/flannel/subnet.env` on the Kubernetes master to `C:\run\flannel\subnet.env`
-   on the Windows worker node and modify the `FLANNEL_SUBNET` row to a different
+   on the Windows node and modify the `FLANNEL_SUBNET` row to a different
    number. For example, if node subnet 10.244.4.1/24 is desired:
 
    ```env

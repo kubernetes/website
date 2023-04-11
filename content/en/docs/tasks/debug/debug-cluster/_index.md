@@ -234,7 +234,7 @@ of the relevant log files.  On systemd-based systems, you may need to use `journ
   {{<glossary_tooltip text="controllers" term_id="controller">}}, with the notable exception of scheduling
   (the kube-scheduler handles scheduling).
 
-### Worker Nodes
+### Nodes
 
 * `/var/log/kubelet.log` - logs from the kubelet, responsible for running containers on the node
 * `/var/log/kube-proxy.log` - logs from `kube-proxy`, which is responsible for directing traffic to Service endpoints

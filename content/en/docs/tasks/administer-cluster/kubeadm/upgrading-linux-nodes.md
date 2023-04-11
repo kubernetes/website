@@ -6,18 +6,18 @@ weight: 100
 
 <!-- overview -->
 
-This page explains how to upgrade a Linux Worker Nodes created with kubeadm.
+This page explains how to upgrade a Linux Nodes created with kubeadm.
 
 ## {{% heading "prerequisites" %}}
  
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 * Familiarize yourself with [the process for upgrading the rest of your kubeadm
 cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade). You will want to
-upgrade the control plane nodes before upgrading your Linux Worker nodes.
+upgrade the control plane nodes before upgrading your Linux nodes.
 
 <!-- steps -->
 
-## Upgrading worker nodes
+## Upgrading Nodes
 
 ### Upgrade kubeadm
 
@@ -42,7 +42,7 @@ upgrade the control plane nodes before upgrading your Linux Worker nodes.
 
 ### Call "kubeadm upgrade"
 
-- For worker nodes this upgrades the local kubelet configuration:
+- For nodes this upgrades the local kubelet configuration:
 
   ```shell
   sudo kubeadm upgrade node

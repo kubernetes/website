@@ -84,7 +84,7 @@ or use a tool such as the [Cluster API](https://cluster-api.sigs.k8s.io/) to
 manage nodes on your behalf.
 
 Using tools such as the Cluster API you can define sets of machines to run as
-worker nodes for your cluster across multiple failure domains, and rules to
+nodes for your cluster across multiple failure domains, and rules to
 automatically heal the cluster in case of whole-zone service disruption.
 
 ## Manual zone assignment for Pods

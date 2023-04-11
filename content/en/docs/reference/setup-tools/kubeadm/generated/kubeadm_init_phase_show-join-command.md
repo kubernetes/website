@@ -10,12 +10,12 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Show the join command for control-plane and worker node
+Show the join command for control-plane and node
 
 ### Synopsis
 
 
-Show the join command for control-plane and worker node
+Show the join command for control-plane and node
 
 ```
 kubeadm init phase show-join-command [flags]

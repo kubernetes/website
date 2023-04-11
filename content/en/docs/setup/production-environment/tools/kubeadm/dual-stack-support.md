@@ -84,7 +84,7 @@ The `--apiserver-advertise-address` flag does not support dual-stack.
 Before joining a node, make sure that the node has IPv6 routable network interface and allows IPv6 forwarding.
 
 Here is an example kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/)
-`kubeadm-config.yaml` for joining a worker node to the cluster.
+`kubeadm-config.yaml` for joining a node to the cluster.
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3

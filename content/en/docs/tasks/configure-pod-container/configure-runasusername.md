@@ -15,7 +15,7 @@ This page shows how to use the `runAsUserName` setting for Pods and containers t
 ## {{% heading "prerequisites" %}}
 
 
-You need to have a Kubernetes cluster and the kubectl command-line tool must be configured to communicate with your cluster. The cluster is expected to have Windows worker nodes where pods with containers running Windows workloads will get scheduled.
+You need to have a Kubernetes cluster and the kubectl command-line tool must be configured to communicate with your cluster. The cluster is expected to have Windows nodes where pods with containers running Windows workloads will get scheduled.
 
 
 

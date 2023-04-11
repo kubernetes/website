@@ -195,11 +195,11 @@ option. Your cluster requirements may need a different configuration.
    Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
    As a safeguard, uploaded-certs will be deleted in two hours; If necessary, you can use kubeadm init phase upload-certs to reload certs afterward.
 
-   Then you can join any number of worker nodes by running the following on each as root:
+   Then you can join any number of nodes by running the following on each as root:
        kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866
    ```
 
-   - Copy this output to a text file. You will need it later to join control plane and worker nodes to
+   - Copy this output to a text file. You will need it later to join control plane and nodes to
      the cluster.
    - When `--upload-certs` is used with `kubeadm init`, the certificates of the primary control plane
      are encrypted and uploaded in the `kubeadm-certs` Secret.
@@ -344,7 +344,7 @@ The steps are the same as for the stacked etcd setup:
 
 ### Install workers
 
-Worker nodes can be joined to the cluster with the command you stored previously
+Nodes can be joined to the cluster with the command you stored previously
 as the output from the `kubeadm init` command:
 
 ```sh
