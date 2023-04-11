@@ -11,10 +11,10 @@ weight: 60
 This page explains two different approaches to setting up a highly available Kubernetes
 cluster using kubeadm:
 
-- With stacked control planes. This approach requires less infrastructure. The etcd members
-  and control planes are co-located.
+- With stacked control plane nodes. This approach requires less infrastructure. The etcd members
+  and control plane nodes are co-located.
 - With an external etcd cluster. This approach requires more infrastructure. The
-  control planes and etcd members are separated.
+  control plane nodes and etcd members are separated.
 
 Before proceeding, you should carefully consider which approach best meets the needs of your applications
 and environment. [Options for Highly Available topology](/docs/setup/production-environment/tools/kubeadm/ha-topology/) outlines the advantages and disadvantages of each.
@@ -45,7 +45,7 @@ control plane:
 You need:
 
 - Three or more machines that meet [kubeadm's minimum requirements](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) for
-  the control-planes. Having an odd number of control planes can help
+  the control-plane nodes. Having an odd number of control plane nodes can help
   with leader selection in the case of machine or zone failure.
   - including a {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}, already set up and working
 - Three or more machines that meet [kubeadm's minimum
@@ -69,7 +69,7 @@ _See [Stacked etcd topology](/docs/setup/production-environment/tools/kubeadm/ha
 You need:
 
 - Three or more machines that meet [kubeadm's minimum requirements](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#before-you-begin) for
-  the control-planes. Having an odd number of control planes can help
+  the control-plane nodes. Having an odd number of control plane nodes can help
   with leader selection in the case of machine or zone failure.
   - including a {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}, already set up and working
 - Three or more machines that meet [kubeadm's minimum
@@ -104,7 +104,7 @@ If you want to deploy a highly-available cluster where the hosts do not have acc
 
 To manage Kubernetes once your cluster is set up, you should
 [install kubectl](/docs/tasks/tools/#kubectl) on your PC. It is also useful
-to install the `kubectl` tool on each control plane, as this can be
+to install the `kubectl` tool on each control plane node, as this can be
 helpful for troubleshooting.
 
 <!-- steps -->
@@ -120,15 +120,15 @@ option. Your cluster requirements may need a different configuration.
 
 1. Create a kube-apiserver load balancer with a name that resolves to DNS.
 
-   - In a cloud environment you should place your control planes behind a TCP
+   - In a cloud environment you should place your control plane nodes behind a TCP
      forwarding load balancer. This load balancer distributes traffic to all
-     healthy control planes in its target list. The health check for
+     healthy control plane nodes in its target list. The health check for
      an apiserver is a TCP check on the port the kube-apiserver listens on
      (default value `:6443`).
 
    - It is not recommended to use an IP address directly in a cloud environment.
 
-   - The load balancer must be able to communicate with all control planes
+   - The load balancer must be able to communicate with all control plane nodes
      on the apiserver port. It must also allow incoming traffic on its
      listening port.
 
@@ -138,7 +138,7 @@ option. Your cluster requirements may need a different configuration.
    - Read the [Options for Software Load Balancing](https://git.k8s.io/kubeadm/docs/ha-considerations.md#options-for-software-load-balancing)
      guide for more details.
 
-1. Add the first control plane to the load balancer, and test the
+1. Add the first control plane node to the load balancer, and test the
    connection:
 
    ```shell
@@ -147,14 +147,14 @@ option. Your cluster requirements may need a different configuration.
 
    A connection refused error is expected because the API server is not yet
    running. A timeout, however, means the load balancer cannot communicate
-   with the control plane. If a timeout occurs, reconfigure the load
-   balancer to communicate with the control plane.
+   with the control plane node. If a timeout occurs, reconfigure the load
+   balancer to communicate with the control plane node.
 
-1. Add the remaining control planes to the load balancer target group.
+1. Add the remaining control plane nodes to the load balancer target group.
 
 ## Stacked control plane and etcd nodes
 
-### Steps for the first control plane
+### Steps for the first control plane node
 
 1. Initialize the control plane:
 
@@ -168,7 +168,7 @@ option. Your cluster requirements may need a different configuration.
 
    - The `--upload-certs` flag is used to upload the certificates that should be shared
      across all the control-plane instances to the cluster. If instead, you prefer to copy certs across
-     control-planes manually or using automation tools, please remove this flag and refer to [Manual
+     control-plane nodes manually or using automation tools, please remove this flag and refer to [Manual
      certificate distribution](#manual-certs) section below.
 
    {{< note >}}
@@ -189,7 +189,7 @@ option. Your cluster requirements may need a different configuration.
 
    ```sh
    ...
-   You can now join any number of control-plane by running the following command on each as a root:
+   You can now join any number of control-plane node by running the following command on each as a root:
        kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
 
    Please note that the certificate-key gives access to cluster sensitive data, keep it secret!
@@ -242,9 +242,9 @@ option. Your cluster requirements may need a different configuration.
    kubectl get pod -n kube-system -w
    ```
 
-### Steps for the rest of the control planes
+### Steps for the rest of the control plane nodes
 
-For each additional control plane you should:
+For each additional control plane node you should:
 
 1. Execute the join command that was previously given to you by the `kubeadm init` output on the first node.
    It should look something like this:
@@ -257,7 +257,7 @@ For each additional control plane you should:
    - The `--certificate-key ...` will cause the control plane certificates to be downloaded
      from the `kubeadm-certs` Secret in the cluster and be decrypted using the given key.
 
-You can join multiple control-planes in parallel.
+You can join multiple control-plane nodes in parallel.
 
 ## External etcd nodes
 
@@ -271,7 +271,7 @@ in the kubeadm config file.
 
 1. Set up SSH as described [here](#manual-certs).
 
-1. Copy the following files from any etcd node in the cluster to the first control plane:
+1. Copy the following files from any etcd node in the cluster to the first control plane node:
 
    ```sh
    export CONTROL_PLANE="ubuntu@10.0.0.7"
@@ -280,9 +280,9 @@ in the kubeadm config file.
    scp /etc/kubernetes/pki/apiserver-etcd-client.key "${CONTROL_PLANE}":
    ```
 
-   - Replace the value of `CONTROL_PLANE` with the `user@host` of the first control-plane.
+   - Replace the value of `CONTROL_PLANE` with the `user@host` of the first control-plane node.
 
-### Set up the first control plane
+### Set up the first control plane node
 
 1. Create a file called `kubeadm-config.yaml` with the following contents:
 
@@ -331,13 +331,13 @@ The following steps are similar to the stacked etcd setup:
    If you don't do this, you will not be able to launch your cluster properly.
    {{< /note >}}
 
-### Steps for the rest of the control planes
+### Steps for the rest of the control plane nodes
 
 The steps are the same as for the stacked etcd setup:
 
-- Make sure the first control plane is fully initialized.
-- Join each control plane with the join command you saved to a text file. It's recommended
-  to join the control planes one at a time.
+- Make sure the first control plane node is fully initialized.
+- Join each control plane node with the join command you saved to a text file. It's recommended
+  to join the control plane nodes one at a time.
 - Don't forget that the decryption key from `--certificate-key` expires after two hours, by default.
 
 ## Common tasks after bootstrapping control plane
@@ -354,8 +354,8 @@ sudo kubeadm join 192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery
 ## Manual certificate distribution {#manual-certs}
 
 If you choose to not use `kubeadm init` with the `--upload-certs` flag this means that
-you are going to have to manually copy the certificates from the primary control plane to the
-joining control planes.
+you are going to have to manually copy the certificates from the primary control plane node to the
+joining control plane nodes.
 
 There are many ways to do this. The following example uses `ssh` and `scp`:
 
@@ -392,11 +392,11 @@ SSH is required if you want to control all nodes from a single machine.
      ```
 
 1. After configuring SSH on all the nodes you should run the following script on the first
-   control plane after running `kubeadm init`. This script will copy the certificates from
-   the first control plane to the other control planes:
+   control plane node after running `kubeadm init`. This script will copy the certificates from
+   the first control plane node to the other control plane nodes:
 
    In the following example, replace `CONTROL_PLANE_IPS` with the IP addresses of the
-   other control planes.
+   other control plane nodes.
    ```sh
    USER=ubuntu # customizable
    CONTROL_PLANE_IPS="10.0.0.7 10.0.0.8"
@@ -419,7 +419,7 @@ SSH is required if you want to control all nodes from a single machine.
    the creation of additional nodes could fail due to a lack of required SANs.
    {{< /caution >}}
 
-1. Then on each joining control plane you have to run the following script before running `kubeadm join`.
+1. Then on each joining control plane node you have to run the following script before running `kubeadm join`.
    This script will move the previously copied certificates from the home directory to `/etc/kubernetes/pki`:
 
    ```sh

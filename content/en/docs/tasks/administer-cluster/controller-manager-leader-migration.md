@@ -28,11 +28,11 @@ This guide walks you through the manual process of upgrading the control plane f
 
 It is assumed that the control plane is running Kubernetes version N and to be upgraded to version N + 1. Although it is possible to migrate within the same version, ideally the migration should be performed as part of an upgrade so that changes of configuration can be aligned to each release. The exact versions of N and N + 1 depend on each cloud provider. For example, if a cloud provider builds a `cloud-controller-manager` to work with Kubernetes 1.24, then N can be 1.23 and N + 1 can be 1.24.
 
-The control planes should run `kube-controller-manager` with Leader Election enabled, which is the default. As of version N, an in-tree cloud provider must be set with `--cloud-provider` flag and `cloud-controller-manager` should not yet be deployed.
+The control plane nodes should run `kube-controller-manager` with Leader Election enabled, which is the default. As of version N, an in-tree cloud provider must be set with `--cloud-provider` flag and `cloud-controller-manager` should not yet be deployed.
 
 The out-of-tree cloud provider must have built a `cloud-controller-manager` with Leader Migration implementation. If the cloud provider imports `k8s.io/cloud-provider` and `k8s.io/controller-manager` of version v0.21.0 or later, Leader Migration will be available. However, for version before v0.22.0, Leader Migration is alpha and requires feature gate `ControllerManagerLeaderMigration` to be enabled in `cloud-controller-manager`.
 
-This guide assumes that kubelet of each control plane starts `kube-controller-manager` and `cloud-controller-manager` as static pods defined by their manifests. If the components run in a different setting, please adjust the steps accordingly.
+This guide assumes that kubelet of each control plane node starts `kube-controller-manager` and `cloud-controller-manager` as static pods defined by their manifests. If the components run in a different setting, please adjust the steps accordingly.
 
 For authorization, this guide assumes that the cluster uses RBAC. If another authorization mode grants permissions to `kube-controller-manager` and `cloud-controller-manager` components, please grant the needed access in a way that matches the mode.
 
@@ -86,7 +86,7 @@ controllerLeaders:
     component: *
 ```
 
-On each control plane, save the content to `/etc/leadermigration.conf`, and update the manifest of `kube-controller-manager` so that the file is mounted inside the container at the same location. Also, update the same manifest to add the following arguments:
+On each control plane node, save the content to `/etc/leadermigration.conf`, and update the manifest of `kube-controller-manager` so that the file is mounted inside the container at the same location. Also, update the same manifest to add the following arguments:
 
 - `--enable-leader-migration` to enable Leader Migration on the controller manager
 - `--leader-migration-config=/etc/leadermigration.conf` to set configuration file
@@ -110,9 +110,9 @@ controllerLeaders:
     component: cloud-controller-manager
 ```
 
-When creating control planes of version N + 1, the content should be deployed to `/etc/leadermigration.conf`. The manifest of `cloud-controller-manager` should be updated to mount the configuration file in the same manner as `kube-controller-manager` of version N. Similarly, add `--enable-leader-migration` and `--leader-migration-config=/etc/leadermigration.conf` to the arguments of `cloud-controller-manager`.
+When creating control plane nodes of version N + 1, the content should be deployed to `/etc/leadermigration.conf`. The manifest of `cloud-controller-manager` should be updated to mount the configuration file in the same manner as `kube-controller-manager` of version N. Similarly, add `--enable-leader-migration` and `--leader-migration-config=/etc/leadermigration.conf` to the arguments of `cloud-controller-manager`.
 
-Create a new control plane of version N + 1 with the updated `cloud-controller-manager` manifest, and with the `--cloud-provider` flag set to `external` for `kube-controller-manager`. `kube-controller-manager` of version N + 1 MUST NOT have Leader Migration enabled because, with an external cloud provider, it does not run the migrated controllers anymore, and thus it is not involved in the migration.
+Create a new control plane node of version N + 1 with the updated `cloud-controller-manager` manifest, and with the `--cloud-provider` flag set to `external` for `kube-controller-manager`. `kube-controller-manager` of version N + 1 MUST NOT have Leader Migration enabled because, with an external cloud provider, it does not run the migrated controllers anymore, and thus it is not involved in the migration.
 
 Please refer to [Cloud Controller Manager Administration](/docs/tasks/administer-cluster/running-cloud-controller/) for more detail on how to deploy `cloud-controller-manager`.
 
@@ -120,7 +120,7 @@ Please refer to [Cloud Controller Manager Administration](/docs/tasks/administer
 
 The control plane now contains nodes of both version N and N + 1. The nodes of version N run `kube-controller-manager` only, and these of version N + 1 run both `kube-controller-manager` and `cloud-controller-manager`. The migrated controllers, as specified in the configuration, are running under either `kube-controller-manager` of version N or `cloud-controller-manager` of version N + 1 depending on which controller manager holds the migration lease. No controller will ever be running under both controller managers at any time.
 
-In a rolling manner, create a new control plane of version N + 1 and bring down one of version N + 1 until the control plane contains only nodes of version N + 1.
+In a rolling manner, create a new control plane node of version N + 1 and bring down one of version N + 1 until the control plane contains only nodes of version N + 1.
 If a rollback from version N + 1 to N is required, add nodes of version N with Leader Migration enabled for `kube-controller-manager` back to the control plane, replacing one of version N + 1 each time until there are only nodes of version N.
 
 ### (Optional) Disable Leader Migration {#disable-leader-migration}

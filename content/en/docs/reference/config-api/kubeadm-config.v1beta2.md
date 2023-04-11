@@ -441,14 +441,14 @@ This information IS NOT uploaded to the kubeadm cluster ConfigMap, partly becaus
 <a href="#kubeadm-k8s-io-v1beta2-NodeRegistrationOptions"><code>NodeRegistrationOptions</code></a>
 </td>
 <td>
-   <p><code>nodeRegistration</code> holds fields that relate to registering the new control-plane to the cluster.</p>
+   <p><code>nodeRegistration</code> holds fields that relate to registering the new control-plane node to the cluster.</p>
 </td>
 </tr>
 <tr><td><code>localAPIEndpoint</code> <B>[Required]</B><br/>
 <a href="#kubeadm-k8s-io-v1beta2-APIEndpoint"><code>APIEndpoint</code></a>
 </td>
 <td>
-   <p><code>localAPIEndpoint</code> represents the endpoint of the API server instance that's deployed on this control plane.
+   <p><code>localAPIEndpoint</code> represents the endpoint of the API server instance that's deployed on this control plane node.
 In HA setups, this differs from <code>ClusterConfiguration.controlPlaneEndpoint</code> in the sense that ControlPlaneEndpoint
 is the global endpoint for the cluster, which then load-balances the requests to each individual API server. This
 configuration object lets you customize what IP/DNS name and port the local API server advertises it's accessible
@@ -487,7 +487,7 @@ a secret in the cluster during the <code>uploadcerts init</code> phase.</p>
 </td>
 <td>
    <p><code>nodeRegistration</code> holds fields that relate to registering the new
-control-plane to the cluster</p>
+control-plane node to the cluster</p>
 </td>
 </tr>
 <tr><td><code>caCertPath</code> <B>[Required]</B><br/>
@@ -1129,7 +1129,7 @@ to be deployed on this node.</p>
 </td>
 <td>
    <p><code>certificateKey</code> is the key that is used for decryption of certificates after
-they are downloaded from the secret upon joining a new control plane.
+they are downloaded from the secret upon joining a new control plane node.
 The corresponding encryption key is in the InitConfiguration.</p>
 </td>
 </tr>
@@ -1280,7 +1280,7 @@ be annotated to the Node API object, for later re-use.</p>
 <td>
    <p><code>taints</code> specifies the taints the Node API object should be registered with.
 If this field is unset, i.e. nil, in the <code>kubeadm init</code> process it will be defaulted with
-a control-plane taint for control-planes. If you don't want to taint your control-plane
+a control-plane taint for control-plane nodes. If you don't want to taint your control-plane
 node, set this field to an empty list, i.e. <code>taints: []</code>, in the YAML file. This field is
 solely used for Node registration.</p>
 </td>

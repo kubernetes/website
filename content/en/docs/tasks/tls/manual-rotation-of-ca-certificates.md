@@ -32,7 +32,7 @@ Configurations with a single API server will experience unavailability while the
 {{< /caution >}}
 
 1. Distribute the new CA certificates and private keys (for example: `ca.crt`, `ca.key`, `front-proxy-ca.crt`,
-   and `front-proxy-ca.key`) to all your control planes in the Kubernetes certificates directory.
+   and `front-proxy-ca.key`) to all your control plane nodes in the Kubernetes certificates directory.
 
 1. Update the `--root-ca-file` flag for the {{< glossary_tooltip term_id="kube-controller-manager" >}} to include
    both old and new CA, then restart the kube-controller-manager.

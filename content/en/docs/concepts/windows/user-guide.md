@@ -100,15 +100,15 @@ port 80 of the container directly to the Service.
 
 1. Check that the deployment succeeded. To verify:
 
-    * Two pods listed from the Linux control plane, use `kubectl get pods`
-    * Node-to-pod communication across the network, `curl` port 80 of your pod IPs from the Linux control plane
+    * Two pods listed from the Linux control plane node, use `kubectl get pods`
+    * Node-to-pod communication across the network, `curl` port 80 of your pod IPs from the Linux control plane node
       to check for a web server response
     * Pod-to-pod communication, ping between pods (and across hosts, if you have more than one Windows node)
       using `docker exec` or `kubectl exec`
     * Service-to-pod communication, `curl` the virtual service IP (seen under `kubectl get services`)
-      from the Linux control plane and from individual pods
+      from the Linux control plane node and from individual pods
     * Service discovery, `curl` the service name with the Kubernetes [default DNS suffix](/docs/concepts/services-networking/dns-pod-service/#services)
-    * Inbound connectivity, `curl` the NodePort from the Linux control plane or machines outside of the cluster
+    * Inbound connectivity, `curl` the NodePort from the Linux control plane node or machines outside of the cluster
     * Outbound connectivity, `curl` external IPs from inside the pod using `kubectl exec`
 
 {{< note >}}

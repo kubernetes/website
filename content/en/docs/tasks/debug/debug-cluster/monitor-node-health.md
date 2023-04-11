@@ -61,7 +61,7 @@ to overwrite the default configuration, you can leverage the Addon pod to
 further automate the deployment.
 
 Create `node-problem-detector.yaml`, and save the configuration in the Addon pod's
-directory `/etc/kubernetes/addons/node-problem-detector` on a control plane.
+directory `/etc/kubernetes/addons/node-problem-detector` on a control plane node.
 
 ## Overwrite the configuration
 

@@ -401,7 +401,7 @@ determine the actual/current cluster state and make new decisions based on that 
 Please note that:
 
 1. Before saving the ClusterConfiguration, sensitive information like the token is stripped from the configuration
-1. Upload of control plane configuration can be invoked individually with the command
+1. Upload of control plane node configuration can be invoked individually with the command
    [`kubeadm init phase upload-config`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-upload-config).
 
 ### Mark the node as control-plane

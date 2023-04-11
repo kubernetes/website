@@ -16,7 +16,7 @@ or upgrades for such nodes. The long-term plan is to empower the tool
 aspects.
 {{< /note >}}
 
-By default, kubeadm runs a local etcd instance on each control plane.
+By default, kubeadm runs a local etcd instance on each control plane node.
 It is also possible to treat the etcd cluster as external and provision
 etcd instances on separate hosts. The differences between the two approaches are covered in the
 [Options for Highly Available topology](/docs/setup/production-environment/tools/kubeadm/ha-topology) page.

@@ -23,8 +23,8 @@ please refer to following pages instead:
 
 The upgrade workflow at high level is the following:
 
-1. Upgrade a primary control plane.
-1. Upgrade additional control planes.
+1. Upgrade a primary control plane node.
+1. Upgrade additional control plane nodes.
 1. Upgrade nodes.
 
 ## {{% heading "prerequisites" %}}
@@ -39,7 +39,7 @@ The upgrade workflow at high level is the following:
 
 - The instructions below outline when to drain each node during the upgrade process.
 If you are performing a **minor** version upgrade for any kubelet, you **must**
-first drain the node (or nodes) that you are upgrading. In the case of control planes,
+first drain the node (or nodes) that you are upgrading. In the case of control plane nodes,
 they could be running CoreDNS Pods or other critical workloads. For more information see
 [Draining nodes](/docs/tasks/administer-cluster/safely-drain-node/).
 - All containers are restarted after upgrade, because the container spec hash value is changed.
@@ -70,14 +70,14 @@ Find the latest patch release for Kubernetes {{< skew currentVersion >}} using t
 {{% /tab %}}
 {{< /tabs >}}
 
-## Upgrading control planes
+## Upgrading control plane nodes
 
-The upgrade procedure on control planes should be executed one node at a time.
-Pick a control plane that you wish to upgrade first. It must have the `/etc/kubernetes/admin.conf` file.
+The upgrade procedure on control plane nodes should be executed one node at a time.
+Pick a control plane node that you wish to upgrade first. It must have the `/etc/kubernetes/admin.conf` file.
 
 ### Call "kubeadm upgrade"
 
-**For the first control plane**
+**For the first control plane node**
 
 - Upgrade kubeadm:
 
@@ -147,11 +147,11 @@ Pick a control plane that you wish to upgrade first. It must have the `/etc/kube
   Check the [addons](/docs/concepts/cluster-administration/addons/) page to
   find your CNI provider and see whether additional upgrade steps are required.
 
-  This step is not required on additional control planes if the CNI provider runs as a DaemonSet.
+  This step is not required on additional control plane nodes if the CNI provider runs as a DaemonSet.
 
-**For the other control planes**
+**For the other control plane nodes**
 
-Same as the first control plane but use:
+Same as the first control plane node but use:
 
 ```shell
 sudo kubeadm upgrade node
@@ -245,11 +245,11 @@ During upgrade kubeadm writes the following backup folders under `/etc/kubernete
 - `kubeadm-backup-etcd-<date>-<time>`
 - `kubeadm-backup-manifests-<date>-<time>`
 
-`kubeadm-backup-etcd` contains a backup of the local etcd member data for this control plane.
+`kubeadm-backup-etcd` contains a backup of the local etcd member data for this control plane Node.
 In case of an etcd upgrade failure and if the automatic rollback does not work, the contents of this folder
 can be manually restored in `/var/lib/etcd`. In case external etcd is used this backup folder will be empty.
 
-`kubeadm-backup-manifests` contains a backup of the static Pod manifest files for this control plane.
+`kubeadm-backup-manifests` contains a backup of the static Pod manifest files for this control plane Node.
 In case of a upgrade failure and if the automatic rollback does not work, the contents of this folder can be
 manually restored in `/etc/kubernetes/manifests`. If for some reason there is no difference between a pre-upgrade
 and post-upgrade manifest file for a certain component, a backup file for it will not be written.
@@ -269,7 +269,7 @@ and post-upgrade manifest file for a certain component, a backup file for it wil
 - Applies the new `CoreDNS` and `kube-proxy` manifests and makes sure that all necessary RBAC rules are created.
 - Creates new certificate and key files of the API server and backs up old files if they're about to expire in 180 days.
 
-`kubeadm upgrade node` does the following on additional control planes:
+`kubeadm upgrade node` does the following on additional control plane nodes:
 
 - Fetches the kubeadm `ClusterConfiguration` from the cluster.
 - Optionally backups the kube-apiserver certificate.

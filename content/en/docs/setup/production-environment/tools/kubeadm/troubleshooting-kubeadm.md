@@ -30,7 +30,7 @@ However this causes an issue where `kubeadm join` from v1.18 cannot join a clust
 
 To workaround the issue you have two options:
 
-Execute `kubeadm init phase bootstrap-token` on a control-plane using kubeadm v1.18.
+Execute `kubeadm init phase bootstrap-token` on a control-plane node using kubeadm v1.18.
 Note that this enables the rest of the bootstrap-token permissions as well.
 
 or
@@ -203,7 +203,7 @@ If this rotation process fails you might see errors such as `x509: certificate h
 in kube-apiserver logs. To fix the issue you must follow these steps:
 
 1. Backup and delete `/etc/kubernetes/kubelet.conf` and `/var/lib/kubelet/pki/kubelet-client*` from the failed node.
-1. From a working control plane in the cluster that has `/etc/kubernetes/pki/ca.key` execute
+1. From a working control plane node in the cluster that has `/etc/kubernetes/pki/ca.key` execute
    `kubeadm kubeconfig user --org system:nodes --client-name system:node:$NODE > kubelet.conf`.
    `$NODE` must be set to the name of the existing failed node in the cluster.
    Modify the resulted `kubelet.conf` manually to adjust the cluster name and server endpoint,
@@ -370,7 +370,7 @@ for the feature to work.
 To workaround this issue you can configure the flex-volume directory using the kubeadm
 [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/).
 
-On the primary control-plane (created using `kubeadm init`) pass the following
+On the primary control-plane Node (created using `kubeadm init`) pass the following
 file using `--config`:
 
 ```yaml

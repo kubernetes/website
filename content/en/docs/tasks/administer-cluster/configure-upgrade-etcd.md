@@ -254,7 +254,7 @@ For more information on cluster reconfiguration, see
 
 All Kubernetes objects are stored on etcd. Periodically backing up the etcd
 cluster data is important to recover Kubernetes clusters under disaster
-scenarios, such as losing all control planes. The snapshot file contains
+scenarios, such as losing all control plane nodes. The snapshot file contains
 all the Kubernetes states and critical information. In order to keep the
 sensitive Kubernetes data safe, encrypt the snapshot files.
 
