@@ -1251,7 +1251,7 @@ The following in-tree plugins support persistent storage on Windows nodes:
 
 FlexVolume is an out-of-tree plugin interface that uses an exec-based model to interface
 with storage drivers. The FlexVolume driver binaries must be installed in a pre-defined
-volume plugin path on each node and in some cases the control plane nodes as well.
+volume plugin path on each node and in some cases the control planes as well.
 
 Pods interact with FlexVolume drivers through the `flexVolume` in-tree volume plugin.
 For more details, see the FlexVolume [README](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md#readme) document.

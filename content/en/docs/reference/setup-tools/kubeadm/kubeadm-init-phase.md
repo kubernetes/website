@@ -13,7 +13,7 @@ and behind the scene both use the same code.
 
 ## kubeadm init phase preflight {#cmd-phase-preflight}
 
-Using this command you can execute preflight checks on a control-plane node.
+Using this command you can execute preflight checks on a control-plane.
 
 {{< tabs name="tab-preflight" >}}
 {{< tab name="preflight" include="generated/kubeadm_init_phase_preflight.md" />}}
@@ -105,7 +105,7 @@ By default the certs and encryption key expire after two hours.
 
 ## kubeadm init phase mark-control-plane {#cmd-phase-mark-control-plane}
 
-Use the following phase to label and taint the node as a control plane node.
+Use the following phase to label and taint the node as a control plane.
 
 {{< tabs name="tab-mark-control-plane" >}}
 {{< tab name="mark-control-plane" include="generated/kubeadm_init_phase_mark-control-plane.md" />}}
@@ -148,7 +148,7 @@ For more details on each field in the `v1beta3` configuration you can navigate t
 
 ## {{% heading "whatsnext" %}}
 
-* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
+* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane.
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to connect a node to the cluster
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 * [kubeadm alpha](/docs/reference/setup-tools/kubeadm/kubeadm-alpha/) to try experimental functionality

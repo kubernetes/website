@@ -45,7 +45,7 @@ kubeadm init --pod-network-cidr=10.244.0.0/16,2001:db8:42:0::/56 --service-cidr=
 
 To make things clearer, here is an example kubeadm
 [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/)
-`kubeadm-config.yaml` for the primary dual-stack control plane node.
+`kubeadm-config.yaml` for the primary dual-stack control plane.
 
 ```yaml
 ---
@@ -67,7 +67,7 @@ nodeRegistration:
 
 `advertiseAddress` in InitConfiguration specifies the IP address that the API Server will advertise it is listening on. The value of `advertiseAddress` equals the `--apiserver-advertise-address` flag of `kubeadm init`
 
-Run kubeadm to initiate the dual-stack control plane node:
+Run kubeadm to initiate the dual-stack control plane:
 
 ```shell
 kubeadm init --config=kubeadm-config.yaml
@@ -102,7 +102,7 @@ nodeRegistration:
 ```
 
 Also, here is an example kubeadm [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/)
-`kubeadm-config.yaml` for joining another control plane node to the cluster.
+`kubeadm-config.yaml` for joining another control plane to the cluster.
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3
@@ -139,7 +139,7 @@ You can deploy a single-stack cluster that has the dual-stack networking feature
 
 To make things more clear, here is an example kubeadm
 [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/)
-`kubeadm-config.yaml` for the single-stack control plane node.
+`kubeadm-config.yaml` for the single-stack control plane.
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3

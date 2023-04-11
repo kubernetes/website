@@ -77,12 +77,12 @@ components such as kube-apiserver, kube-scheduler, kube-controller-manager, Core
 Changes to the configuration must be reflected on node components manually.
 {{< /note >}}
 
-#### Reflecting `ClusterConfiguration` changes on control plane nodes
+#### Reflecting `ClusterConfiguration` changes on control planes
 
 kubeadm manages the control plane components as static Pod manifests located in
 the directory `/etc/kubernetes/manifests`.
 Any changes to the `ClusterConfiguration` under the `apiServer`, `controllerManager`, `scheduler` or `etcd`
-keys must be reflected in the associated files in the manifests directory on a control plane node.
+keys must be reflected in the associated files in the manifests directory on a control plane.
 
 Such changes may include:
 - `extraArgs` - requires updating the list of flags passed to a component container
@@ -256,7 +256,7 @@ The main source of control plane configuration is the `ClusterConfiguration`
 object stored in the cluster. To extend the static Pod manifests configuration,
 [patches](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/#patches) can be used.
 
-These patch files must remain as files on the control plane nodes to ensure that
+These patch files must remain as files on the control planes to ensure that
 they can be used by the `kubeadm upgrade ... --patches <directory>`.
 
 If reconfiguration is done to the `ClusterConfiguration` and static Pod manifests on disk,

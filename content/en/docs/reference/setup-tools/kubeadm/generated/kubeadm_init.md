@@ -230,7 +230,7 @@ kubeadm init [flags]
 <td colspan="2">--token string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The token to use for establishing bidirectional trust between nodes and control-plane nodes. The format is [a-z0-9]{6}.[a-z0-9]{16} - e.g. abcdef.0123456789abcdef</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>The token to use for establishing bidirectional trust between nodes and control-planes. The format is [a-z0-9]{6}.[a-z0-9]{16} - e.g. abcdef.0123456789abcdef</p></td>
 </tr>
 
 <tr>

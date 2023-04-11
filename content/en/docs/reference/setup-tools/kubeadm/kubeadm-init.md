@@ -9,7 +9,7 @@ weight: 20
 
 <!-- overview -->
 
-This command initializes a Kubernetes control-plane node.
+This command initializes a Kubernetes control-plane.
 
 <!-- body -->
 
@@ -17,7 +17,7 @@ This command initializes a Kubernetes control-plane node.
 
 ### Init workflow {#init-workflow}
 
-`kubeadm init` bootstraps a Kubernetes control-plane node by executing the
+`kubeadm init` bootstraps a Kubernetes control-plane by executing the
 following steps:
 
 1. Runs a series of pre-flight checks to validate the system state
@@ -44,7 +44,7 @@ following steps:
 
    Once control plane Pods are up and running, the `kubeadm init` sequence can continue.
 
-1. Apply labels and taints to the control-plane node so that no additional workloads will
+1. Apply labels and taints to the control-plane so that no additional workloads will
    run there.
 
 1. Generates the token that additional nodes can use to register
@@ -76,7 +76,7 @@ following steps:
 
 ### Using init phases with kubeadm {#init-phases}
 
-Kubeadm allows you to create a control-plane node in phases using the `kubeadm init phase` command.
+Kubeadm allows you to create a control-plane in phases using the `kubeadm init phase` command.
 
 To view the ordered list of phases and sub-phases you can call `kubeadm init --help`. The list
 will be located at the top of the help screen and each phase will have a description next to it.
@@ -110,7 +110,7 @@ sudo kubeadm init --skip-phases=control-plane,etcd --config=configfile.yaml
 What this example would do is write the manifest files for the control plane and etcd in
 `/etc/kubernetes/manifests` based on the configuration in `configfile.yaml`. This allows you to
 modify the files and then skip these phases using `--skip-phases`. By calling the last command you
-will create a control plane node with the custom manifest files.
+will create a control plane with the custom manifest files.
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
@@ -261,7 +261,7 @@ By adding the flag `--upload-certs` to `kubeadm init` you can temporary upload
 the control-plane certificates to a Secret in the cluster. Please note that this Secret
 will expire automatically after 2 hours. The certificates are encrypted using
 a 32byte key that can be specified using `--certificate-key`. The same key can be used
-to download the certificates when additional control-plane nodes are joining, by passing
+to download the certificates when additional control-planes are joining, by passing
 `--control-plane` and `--certificate-key` to `kubeadm join`.
 
 The following phase command can be used to re-upload the certificates after expiration:
@@ -318,7 +318,7 @@ Be aware that overriding the hostname can
 Rather than copying the token you obtained from `kubeadm init` to each node, as
 in the [basic kubeadm tutorial](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/),
 you can parallelize the token distribution for easier automation. To implement this automation,
-you must know the IP address that the control-plane node will have after it is started, or use a
+you must know the IP address that the control-plane will have after it is started, or use a
 DNS name or an address of a load balancer.
 
 1. Generate a token. This token must have the form  `<6 character string>.<16
@@ -331,7 +331,7 @@ DNS name or an address of a load balancer.
     kubeadm token generate
    ```
 
-1. Start both the control-plane node and the nodes concurrently with this token.
+1. Start both the control-plane and the nodes concurrently with this token.
    As they come up they should find each other and form the cluster.  The same
    `--token` argument can be used on both `kubeadm init` and `kubeadm join`.
 
@@ -342,7 +342,7 @@ DNS name or an address of a load balancer.
    kubeadm certs certificate-key
    ```
 
-Once the cluster is up, you can grab the admin credentials from the control-plane node
+Once the cluster is up, you can grab the admin credentials from the control-plane
 at `/etc/kubernetes/admin.conf` and use that to talk to the cluster.
 
 Note that this style of bootstrap has some relaxed security guarantees because

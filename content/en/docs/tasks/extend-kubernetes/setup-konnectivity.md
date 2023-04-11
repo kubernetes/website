@@ -68,7 +68,7 @@ Next, you need to deploy the Konnectivity server and agents.
 [kubernetes-sigs/apiserver-network-proxy](https://github.com/kubernetes-sigs/apiserver-network-proxy)
 is a reference implementation.
 
-Deploy the Konnectivity server on your control plane node. The provided
+Deploy the Konnectivity server on your control plane. The provided
 `konnectivity-server.yaml` manifest assumes
 that the Kubernetes components are deployed as a {{< glossary_tooltip text="static Pod"
 term_id="static-pod" >}} in your cluster. If not, you can deploy the Konnectivity

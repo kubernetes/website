@@ -37,7 +37,7 @@ To follow this guide, you need:
 - One or more machines running a deb/rpm-compatible Linux OS; for example: Ubuntu or CentOS.
 - 2 GiB or more of RAM per machine--any less leaves little room for your
    apps.
-- At least 2 CPUs on the machine that you use as a control-plane node.
+- At least 2 CPUs on the machine that you use as a control-plane.
 - Full network connectivity among all machines in the cluster. You can use either a
   public or a private network.
 
@@ -99,9 +99,9 @@ Kubeadm allows you to use a custom image repository for the required images.
 See [Using custom images](/docs/reference/setup-tools/kubeadm/kubeadm-init#custom-images)
 for more details.
 
-### Initializing your control-plane node
+### Initializing your control-plane
 
-The control-plane node is the machine where the control plane components run, including
+The control-plane is the machine where the control plane components run, including
 {{< glossary_tooltip term_id="etcd" >}} (the cluster database) and the
 {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}
 (which the {{< glossary_tooltip text="kubectl" term_id="kubectl" >}} command line tool
@@ -109,7 +109,7 @@ communicates with).
 
 1. (Recommended) If you have plans to upgrade this single control-plane `kubeadm` cluster
 to high availability you should specify the `--control-plane-endpoint` to set the shared endpoint
-for all control-plane nodes. Such an endpoint can be either a DNS name or an IP address of a load-balancer.
+for all control-planes. Such an endpoint can be either a DNS name or an IP address of a load-balancer.
 1. Choose a Pod network add-on, and verify whether it requires any arguments to
 be passed to `kubeadm init`. Depending on which
 third-party provider you choose, you might need to set the `--pod-network-cidr` to
@@ -119,12 +119,12 @@ known endpoints. To use different container runtime or if there are more than on
 on the provisioned node, specify the `--cri-socket` argument to `kubeadm`. See
 [Installing a runtime](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#installing-runtime).
 1. (Optional) Unless otherwise specified, `kubeadm` uses the network interface associated
-with the default gateway to set the advertise address for this particular control-plane node's API server.
+with the default gateway to set the advertise address for this particular control-plane's API server.
 To use a different network interface, specify the `--apiserver-advertise-address=<ip-address>` argument
 to `kubeadm init`. To deploy an IPv6 Kubernetes cluster using IPv6 addressing, you
 must specify an IPv6 address, for example `--apiserver-advertise-address=2001:db8::101`
 
-To initialize the control-plane node run:
+To initialize the control-plane run:
 
 ```bash
 kubeadm init <args>
@@ -133,8 +133,8 @@ kubeadm init <args>
 ### Considerations about apiserver-advertise-address and ControlPlaneEndpoint
 
 While `--apiserver-advertise-address` can be used to set the advertise address for this particular
-control-plane node's API server, `--control-plane-endpoint` can be used to set the shared endpoint
-for all control-plane nodes.
+control-plane's API server, `--control-plane-endpoint` can be used to set the shared endpoint
+for all control-planes.
 
 `--control-plane-endpoint` allows both IP addresses and DNS names that can map to IP addresses.
 Please contact your network administrator to evaluate possible solutions with respect to such mapping.
@@ -222,7 +222,7 @@ them a kubeconfig file using the `kubeadm kubeconfig user` command. For more det
 Make a record of the `kubeadm join` command that `kubeadm init` outputs. You
 need this command to [join nodes to your cluster](#join-nodes).
 
-The token is used for mutual authentication between the control-plane node and the joining
+The token is used for mutual authentication between the control-plane and the joining
 nodes. The token included here is secret. Keep it safe, because anyone with this
 token can add authenticated nodes to your cluster. These tokens can be listed,
 created, and deleted with the `kubeadm token` command. See the
@@ -273,7 +273,7 @@ See a list of add-ons that implement the
 [Kubernetes networking model](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model).
 
 You can install a Pod network add-on with the following command on the
-control-plane node or a node that has the kubeconfig credentials:
+control-plane or a node that has the kubeconfig credentials:
 
 ```bash
 kubectl apply -f <add-on.yaml>
@@ -298,10 +298,10 @@ The `node-role.kubernetes.io/control-plane` label is such a restricted label and
 a privileged client after a node has been created. To do that manually you can do the same by using `kubectl label`
 and ensure it is using a privileged kubeconfig such as the kubeadm managed `/etc/kubernetes/admin.conf`.
 
-### Control plane node isolation
+### Control plane isolation
 
-By default, your cluster will not schedule Pods on the control plane nodes for security
-reasons. If you want to be able to schedule Pods on the control plane nodes,
+By default, your cluster will not schedule Pods on the control planes for security
+reasons. If you want to be able to schedule Pods on the control planes,
 for example for a single machine Kubernetes cluster, run:
 
 ```bash
@@ -316,7 +316,7 @@ node "test-01" untainted
 ```
 
 This will remove the `node-role.kubernetes.io/control-plane:NoSchedule` taint
-from any nodes that have it, including the control plane nodes, meaning that the
+from any nodes that have it, including the control planes, meaning that the
 scheduler will then be able to schedule Pods everywhere.
 
 ### Joining your nodes {#join-nodes}
@@ -333,7 +333,7 @@ The nodes are where your workloads (containers and Pods, etc) run. To add new no
   kubeadm join --token <token> <control-plane-host>:<control-plane-port> --discovery-token-ca-cert-hash sha256:<hash>
   ```
 
-If you do not have the token, you can get it by running the following command on the control-plane node:
+If you do not have the token, you can get it by running the following command on the control-plane:
 
 ```bash
 kubeadm token list
@@ -350,7 +350,7 @@ TOKEN                    TTL  EXPIRES              USAGES           DESCRIPTION 
 ```
 
 By default, tokens expire after 24 hours. If you are joining a node to the cluster after the current token has expired,
-you can create a new token by running the following command on the control-plane node:
+you can create a new token by running the following command on the control-plane:
 
 ```bash
 kubeadm token create
@@ -363,7 +363,7 @@ The output is similar to this:
 ```
 
 If you don't have the value of `--discovery-token-ca-cert-hash`, you can get it by running the
-following command chain on the control-plane node:
+following command chain on the control-plane:
 
 ```bash
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | \
@@ -396,18 +396,18 @@ Run 'kubectl get nodes' on control-plane to see this machine join.
 ```
 
 A few seconds later, you should notice this node in the output from `kubectl get
-nodes` when run on the control-plane node.
+nodes` when run on the control-plane.
 
 {{< note >}}
 As the cluster nodes are usually initialized sequentially, the CoreDNS Pods are likely to all run
-on the first control-plane node. To provide higher availability, please rebalance the CoreDNS Pods
+on the first control-plane. To provide higher availability, please rebalance the CoreDNS Pods
 with `kubectl -n kube-system rollout restart deployment coredns` after at least one new node is joined.
 {{< /note >}}
 
-### (Optional) Controlling your cluster from machines other than the control-plane node
+### (Optional) Controlling your cluster from machines other than the control-plane
 
 In order to get a kubectl on some other computer (e.g. laptop) to talk to your
-cluster, you need to copy the administrator kubeconfig file from your control-plane node
+cluster, you need to copy the administrator kubeconfig file from your control-plane
 to your workstation like this:
 
 ```bash
@@ -454,7 +454,7 @@ and make sure that the node is empty, then deconfigure the node.
 
 ### Remove the node
 
-Talking to the control-plane node with the appropriate credentials, run:
+Talking to the control-plane with the appropriate credentials, run:
 
 ```bash
 kubectl drain <node name> --delete-emptydir-data --force --ignore-daemonsets
@@ -584,16 +584,16 @@ the [Version Skew Policy](/releases/version-skew-policy/).
 
 ### Cluster resilience {#resilience}
 
-The cluster created here has a single control-plane node, with a single etcd database
-running on it. This means that if the control-plane node fails, your cluster may lose
+The cluster created here has a single control-plane, with a single etcd database
+running on it. This means that if the control-plane fails, your cluster may lose
 data and may need to be recreated from scratch.
 
 Workarounds:
 
 * Regularly [back up etcd](https://etcd.io/docs/v3.5/op-guide/recovery/). The
-  etcd data directory configured by kubeadm is at `/var/lib/etcd` on the control-plane node.
+  etcd data directory configured by kubeadm is at `/var/lib/etcd` on the control-plane.
 
-* Use multiple control-plane nodes. You can read
+* Use multiple control-planes. You can read
   [Options for Highly Available topology](/docs/setup/production-environment/tools/kubeadm/ha-topology/) to pick a cluster
   topology that provides [high-availability](/docs/setup/production-environment/tools/kubeadm/high-availability/).
 

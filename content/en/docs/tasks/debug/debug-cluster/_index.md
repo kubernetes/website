@@ -226,7 +226,7 @@ status:
 For now, digging deeper into the cluster requires logging into the relevant machines.  Here are the locations
 of the relevant log files.  On systemd-based systems, you may need to use `journalctl` instead of examining log files.
 
-### Control Plane nodes
+### Control Planes
 
 * `/var/log/kube-apiserver.log` - API Server, responsible for serving the API
 * `/var/log/kube-scheduler.log` - Scheduler, responsible for making scheduling decisions
@@ -296,7 +296,7 @@ This is an incomplete list of things that could go wrong, and how to adjust your
   - Mitigates: Apiserver backing storage lost
 
 - Action: Use [high-availability](/docs/setup/production-environment/tools/kubeadm/high-availability/) configuration
-  - Mitigates: Control plane node shutdown or control plane components (scheduler, API server, controller-manager) crashing
+  - Mitigates: Control plane shutdown or control plane components (scheduler, API server, controller-manager) crashing
     - Will tolerate one or more simultaneous node or component failures
   - Mitigates: API server backing storage (i.e., etcd's data directory) lost
     - Assumes HA (highly-available) etcd configuration

@@ -16,7 +16,7 @@ This page explains how to upgrade a Windows node created with kubeadm.
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 * Familiarize yourself with [the process for upgrading the rest of your kubeadm
 cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade). You will want to
-upgrade the control plane nodes before upgrading your Windows nodes.
+upgrade the control planes before upgrading your Windows nodes.
 
 <!-- steps -->
 

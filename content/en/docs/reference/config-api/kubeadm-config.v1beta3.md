@@ -516,8 +516,7 @@ This information IS NOT uploaded to the kubeadm cluster configmap, partly becaus
 <a href="#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions"><code>NodeRegistrationOptions</code></a>
 </td>
 <td>
-   <p><code>nodeRegistration</code> holds fields that relate to registering the new control-plane node
-to the cluster.</p>
+   <p><code>nodeRegistration</code> holds fields that relate to registering the new control-plane to the cluster.</p>
 </td>
 </tr>
 <tr><td><code>localAPIEndpoint</code><br/>
@@ -525,7 +524,7 @@ to the cluster.</p>
 </td>
 <td>
    <p><code>localAPIEndpoint</code> represents the endpoint of the API server instance that's deployed on this
-control plane node. In HA setups, this differs from <code>ClusterConfiguration.controlPlaneEndpoint</code>
+control plane. In HA setups, this differs from <code>ClusterConfiguration.controlPlaneEndpoint</code>
 in the sense that <code>controlPlaneEndpoint</code> is the global endpoint for the cluster, which then
 load-balances the requests to each individual API server.
 This configuration object lets you customize what IP/DNS name and port the local API server
@@ -581,7 +580,7 @@ The flag &quot;--skip-phases&quot; takes precedence over this field.</p>
 </td>
 <td>
    <p><code>nodeRegistration</code> holds fields that relate to registering the new
-control-plane node to the cluster.</p>
+control-plane to the cluster.</p>
 </td>
 </tr>
 <tr><td><code>caCertPath</code><br/>
@@ -1114,7 +1113,7 @@ deployed on this node.</p>
 </td>
 <td>
    <p><code>certificateKey</code> is the key that is used for decryption of certificates after
-they are downloaded from the secret upon joining a new control plane node.
+they are downloaded from the secret upon joining a new control plane.
 The corresponding encryption key is in the InitConfiguration.</p>
 </td>
 </tr>
@@ -1263,8 +1262,8 @@ This information will be annotated to the Node API object, for later re-use</p>
 </td>
 <td>
    <p><code>taints</code> specifies the taints the Node API object should be registered with.
-If this field is unset, i.e. nil, it will be defaulted with a control-plane taint for control-plane nodes.
-If you don't want to taint your control-plane node, set this field to an empty list,
+If this field is unset, i.e. nil, it will be defaulted with a control-plane taint for control-planes.
+If you don't want to taint your control-plane, set this field to an empty list,
 i.e. <code>taints: []</code> in the YAML file. This field is solely used for Node registration.</p>
 </td>
 </tr>

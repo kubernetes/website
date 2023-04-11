@@ -27,7 +27,7 @@ kubeadm: easily bootstrap a secure Kubernetes cluster
 
 Example usage:
 
-    Create a two-machine cluster with one control-plane node
+    Create a two-machine cluster with one control-plane 
     (which controls the cluster), and one node
     (where your workloads, like Pods and Deployments run).
 

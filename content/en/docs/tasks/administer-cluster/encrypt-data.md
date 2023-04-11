@@ -30,7 +30,7 @@ The configuration is provided as an API named
 [`EncryptionConfiguration`](/docs/reference/config-api/apiserver-encryption.v1/). `--encryption-provider-config-automatic-reload` boolean argument determines if the file set by `--encryption-provider-config` should be automatically reloaded if the disk contents change. This enables key rotation without API server restarts. An example configuration is provided below.
 
 {{< caution >}}
-**IMPORTANT:** For high-availability configurations (with two or more control plane nodes), the
+**IMPORTANT:** For high-availability configurations (with two or more control planes), the
 encryption configuration file must be the same! Otherwise, the `kube-apiserver` component cannot
 decrypt data stored in the etcd.
 {{< /caution >}}
@@ -161,7 +161,7 @@ To create a new Secret, perform the following steps:
 
    You will need to mount the new encryption config file to the `kube-apiserver` static pod. Here is an example on how to do that:
 
-   1. Save the new encryption config file to `/etc/kubernetes/enc/enc.yaml` on the control-plane node.
+   1. Save the new encryption config file to `/etc/kubernetes/enc/enc.yaml` on the control-plane.
    1. Edit the manifest for the `kube-apiserver` static pod: `/etc/kubernetes/manifests/kube-apiserver.yaml` similarly to this:
 
    ```yaml
@@ -201,7 +201,7 @@ To create a new Secret, perform the following steps:
 
 {{< caution >}}
 Your config file contains keys that can decrypt the contents in etcd, so you must properly restrict
-permissions on your control-plane nodes so only the user who runs the `kube-apiserver` can read it.
+permissions on your control-planes so only the user who runs the `kube-apiserver` can read it.
 {{< /caution >}}
 
 ## Verifying that data is encrypted
