@@ -22,7 +22,7 @@ used by Kubernetes components.
 Although etcd ports are included in control plane section, you can also host your own
 etcd cluster externally or on custom ports. 
 
-## node(s) {#node}
+## Node(s) {#node}
 
 | Protocol | Direction | Port Range  | Purpose               | Used By                 |
 |----------|-----------|-------------|-----------------------|-------------------------|
