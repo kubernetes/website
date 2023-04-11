@@ -4,7 +4,7 @@ content_type: concept
 poids: 85
 ---
 
-Cette page présente les classes de qualité de service (QoS) dans Kubernetes et explique comment Kubernetes affecte une classe QoS à chaque Pods en fonction des contraintes de ressources que vous spécifiez pour les conteneurs dans ce Pod. Kubernetes s’appuie sur cette classification pour prendre des décisions sur les Pods à supprimer lorsqu’il n’y a pas assez de ressources disponibles sur un nœud.
+Cette page présente les classes de Quality of Service (QoS, "Qualité de service") dans Kubernetes et explique comment Kubernetes affecte une classe à chaque Pods en fonction des contraintes de ressources que vous spécifiez pour les conteneurs dans ce Pod. Kubernetes s’appuie sur cette classification pour prendre des décisions sur les Pods à supprimer lorsqu’il n’y a pas assez de ressources disponibles sur un nœud.
 
 ## Cours sur la qualité de service
 
