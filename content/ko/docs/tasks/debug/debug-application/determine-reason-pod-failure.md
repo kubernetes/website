@@ -129,4 +129,4 @@ spec:
 * [컨테이너](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
   에 있는 `terminationMessagePath` 에 대해 읽어보기.
 * [로그 검색](/ko/docs/concepts/cluster-administration/logging/)에 대해 배워보기.
-* [Go 템플릿](https://golang.org/pkg/text/template/)에 대해 배워보기.
+* [Go 템플릿](https://pkg.go.dev/text/template)에 대해 배워보기.
