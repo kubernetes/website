@@ -46,7 +46,7 @@ network details into the pod or container.
 
 Windows supports five different networking drivers/modes: L2bridge, L2tunnel,
 Overlay (Beta), Transparent, and NAT. In a heterogeneous cluster with Windows and Linux
-worker nodes, you need to select a networking solution that is compatible on both
+nodes, you need to select a networking solution that is compatible on both
 Windows and Linux. The following table lists the out-of-tree plugins are supported on Windows,
 with recommendations on when to use each CNI:
 

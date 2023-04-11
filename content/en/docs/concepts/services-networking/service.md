@@ -1025,16 +1025,16 @@ There are other annotations to manage Classic Elastic Load Balancers that are de
         # security groups previously assigned to the ELB and also overrides the creation
         # of a uniquely generated security group for this ELB.
         # The first security group ID on this list is used as a source to permit incoming traffic to
-        # target worker nodes (service traffic and health checks).
+        # target nodes (service traffic and health checks).
         # If multiple ELBs are configured with the same security group ID, only a single permit line
-        # will be added to the worker node security groups, that means if you delete any
+        # will be added to the node security groups, that means if you delete any
         # of those ELBs it will remove the single permit line and block access for all ELBs that shared the same security group ID.
         # This can cause a cross-service outage if not used properly
         service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f"
 
         # A list of additional security groups to be added to the created ELB, this leaves the uniquely
         # generated security group in place, this ensures that every ELB
-        # has a unique security group ID and a matching permit line to allow traffic to the target worker nodes
+        # has a unique security group ID and a matching permit line to allow traffic to the target nodes
         # (service traffic and health checks).
         # Security groups defined here can be shared between services.
         service.beta.kubernetes.io/aws-load-balancer-extra-security-groups: "sg-53fae93f,sg-42efd82e"

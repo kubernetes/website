@@ -10,7 +10,7 @@ following releases.
 ## kubeadm upgrade node phase {#cmd-node-phase}
 
 Using this phase you can choose to execute the separate steps of the upgrade of
-secondary control-plane or worker nodes. Please note that `kubeadm upgrade apply` still has to
+secondary control-plane or nodes. Please note that `kubeadm upgrade apply` still has to
 be called on a primary control-plane node.
 
 {{< tabs name="tab-phase" >}}

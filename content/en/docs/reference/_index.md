@@ -64,7 +64,7 @@ client libraries:
   * [Scheduler Profiles](/docs/reference/scheduling/config#profiles)
 
 * List of [ports and protocols](/docs/reference/networking/ports-and-protocols/) that
-  should be open on control plane and worker nodes
+  should be open on control plane and nodes
 
 ## Config APIs
 

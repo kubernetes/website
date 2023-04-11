@@ -59,7 +59,7 @@ API server. However, the Pod still runs on the node. For more information, refer
 ## The kubelet API {#kubelet-api}
 
 The kubelet provides an HTTP API that is typically exposed on TCP port 10250 on cluster
-worker nodes. The API might also be exposed on control plane nodes depending on the Kubernetes
+nodes. The API might also be exposed on control plane nodes depending on the Kubernetes
 distribution in use. Direct access to the API allows for disclosure of information about
 the pods running on a node, the logs from those pods, and execution of commands in
 every container running on the node.
@@ -133,7 +133,7 @@ access to this socket can launch new containers or interact with running contain
 
 At the cluster level, the impact of this access depends on whether the containers that
 run on the compromised node have access to Secrets or other confidential
-data that an attacker could use to escalate privileges to other worker nodes or to
+data that an attacker could use to escalate privileges to other nodes or to
 control plane components.
 
 ### Mitigations {#runtime-socket-mitigations}

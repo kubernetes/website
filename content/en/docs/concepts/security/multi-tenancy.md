@@ -86,7 +86,7 @@ methods comes with its own set of tradeoffs that impact the isolation level, imp
 effort, operational complexity, and cost of service.
 
 A Kubernetes cluster consists of a control plane which runs Kubernetes software, and a data plane
-consisting of worker nodes where tenant workloads are executed as pods. Tenant isolation can be
+consisting of nodes where tenant workloads are executed as pods. Tenant isolation can be
 applied in both the control plane and the data plane based on organizational requirements.
 
 The level of isolation offered is sometimes described using terms like “hard” multi-tenancy, which
@@ -264,7 +264,7 @@ to ensure that a PersistentVolume cannot be reused across different namespaces.
 
 {{% thirdparty-content %}}
 
-Kubernetes pods are composed of one or more containers that execute on worker nodes.
+Kubernetes pods are composed of one or more containers that execute on nodes.
 Containers utilize OS-level virtualization and hence offer a weaker isolation boundary than
 virtual machines that utilize hardware-based virtualization.
 
@@ -481,11 +481,11 @@ Policy engines provide features to validate and generate tenant configurations:
 Another form of control-plane isolation is to use Kubernetes extensions to provide each tenant a
 virtual control-plane that enables segmentation of cluster-wide API resources.
 [Data plane isolation](#data-plane-isolation) techniques can be used with this model to securely
-manage worker nodes across tenants.
+manage nodes across tenants.
 
 The virtual control plane based multi-tenancy model extends namespace-based multi-tenancy by
 providing each tenant with dedicated control plane components, and hence complete control over
-cluster-wide resources and add-on services. Worker nodes are shared across all tenants, and are
+cluster-wide resources and add-on services. nodes are shared across all tenants, and are
 managed by a Kubernetes cluster that is normally inaccessible to tenants.
 This cluster is often referred to as a _super-cluster_ (or sometimes as a _host-cluster_).
 Since a tenant’s control-plane is not directly associated with underlying compute resources it is

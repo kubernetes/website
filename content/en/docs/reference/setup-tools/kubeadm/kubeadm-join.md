@@ -7,15 +7,15 @@ content_type: concept
 weight: 30
 ---
 <!-- overview -->
-This command initializes a Kubernetes worker node and joins it to the cluster.
+This command initializes a Kubernetes node and joins it to the cluster.
 
 <!-- body -->
 {{< include "generated/kubeadm_join.md" >}}
 
 ### The join workflow {#join-workflow}
 
-`kubeadm join` bootstraps a Kubernetes worker node or a control-plane node and adds it to the cluster.
-This action consists of the following steps for worker nodes:
+`kubeadm join` bootstraps a Kubernetes node or a control-plane node and adds it to the cluster.
+This action consists of the following steps for nodes:
 
 1. kubeadm downloads necessary cluster information from the API server.
    By default, it uses the bootstrap token and the CA key hash to verify the
@@ -89,7 +89,7 @@ openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outfor
 
 **Example `kubeadm join` commands:**
 
-For worker nodes:
+For nodes:
 
 ```shell
 kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert-hash sha256:1234..cdef 1.2.3.4:6443
@@ -107,7 +107,7 @@ if the `kubeadm init` command was called with `--upload-certs`.
 **Advantages:**
 
 - Allows bootstrapping nodes to securely discover a root of trust for the
-  control-plane node even if other worker nodes or the network are compromised.
+  control-plane node even if other nodes or the network are compromised.
 
 - Convenient to execute manually since all of the information required fits
   into a single `kubeadm join` command.
@@ -138,7 +138,7 @@ kubeadm join --token abcdef.1234567890abcdef --discovery-token-unsafe-skip-ca-ve
 - Still protects against many network-level attacks.
 
 - The token can be generated ahead of time and shared with the control-plane node and
-  worker nodes, which can then bootstrap in parallel without coordination. This
+  nodes, which can then bootstrap in parallel without coordination. This
   allows it to be used in many provisioning scenarios.
 
 **Disadvantages:**
@@ -166,7 +166,7 @@ In case the discovery file does not contain credentials, the TLS discovery token
 **Advantages:**
 
 - Allows bootstrapping nodes to securely discover a root of trust for the
-  control-plane node even if the network or other worker nodes are compromised.
+  control-plane node even if the network or other nodes are compromised.
 
 **Disadvantages:**
 

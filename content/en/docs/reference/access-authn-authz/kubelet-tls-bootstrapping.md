@@ -11,11 +11,11 @@ weight: 120
 
 <!-- overview -->
 
-In a Kubernetes cluster, the components on the worker nodes - kubelet and kube-proxy - need to communicate with Kubernetes control plane components, specifically kube-apiserver.
+In a Kubernetes cluster, the components on the nodes - kubelet and kube-proxy - need to communicate with Kubernetes control plane components, specifically kube-apiserver.
 In order to ensure that communication is kept private, not interfered with, and ensure that each component of the cluster is talking to another trusted component, we strongly
 recommend using client TLS certificates on nodes.
 
-The normal process of bootstrapping these components, especially worker nodes that need certificates so they can communicate safely with kube-apiserver,
+The normal process of bootstrapping these components, especially nodes that need certificates so they can communicate safely with kube-apiserver,
 can be a challenging process as it is often outside of the scope of Kubernetes and requires significant additional work.
 This in turn, can make it challenging to initialize or scale a cluster.
 
@@ -29,7 +29,7 @@ kubelets, and how it works.
 
 ## Initialization Process
 
-When a worker node starts up, the kubelet does the following:
+When a node starts up, the kubelet does the following:
 
 1. Look for its `kubeconfig` file
 2. Retrieve the URL of the API server and credentials, normally a TLS key and signed certificate from the `kubeconfig` file
@@ -145,7 +145,7 @@ particular bootstrap group's access when you are done provisioning the nodes.
 #### Bootstrap tokens
 
 Bootstrap tokens are described in detail [here](/docs/reference/access-authn-authz/bootstrap-tokens/). These are tokens that are stored as secrets in the Kubernetes cluster,
-and then issued to the individual kubelet. You can use a single token for an entire cluster, or issue one per worker node.
+and then issued to the individual kubelet. You can use a single token for an entire cluster, or issue one per node.
 
 The process is two-fold:
 

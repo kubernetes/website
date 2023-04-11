@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "Node"
 content_type: "api_reference"
-description: "Node is a worker node in Kubernetes."
+description: "Node is a node in Kubernetes."
 title: "Node"
 weight: 1
 auto_generated: true
@@ -28,7 +28,7 @@ guide. You can file document formatting bugs against the
 
 ## Node {#Node}
 
-Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd).
+Node is a node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd).
 
 <hr>
 

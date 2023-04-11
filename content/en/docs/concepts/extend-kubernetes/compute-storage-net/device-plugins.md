@@ -282,7 +282,7 @@ below:
 
 {{< feature-state state="beta" for_k8s_version="v1.23" >}}
 
-GetAllocatableResources provides information on resources initially available on the worker node.
+GetAllocatableResources provides information on resources initially available on the node.
 It provides more information than kubelet exports to APIServer.
 
 {{< note >}}

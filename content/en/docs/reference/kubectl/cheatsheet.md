@@ -190,7 +190,7 @@ kubectl get configmap myconfig \
 # Retrieve a base64 encoded value with dashes instead of underscores.
 kubectl get secret my-secret --template='{{index .data "key-name-with-dashes"}}'
 
-# Get all worker nodes (use a selector to exclude results that have a label
+# Get all nodes (use a selector to exclude results that have a label
 # named 'node-role.kubernetes.io/control-plane')
 kubectl get node --selector='!node-role.kubernetes.io/control-plane'
 

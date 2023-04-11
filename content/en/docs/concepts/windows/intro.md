@@ -33,7 +33,7 @@ scheduling Linux-based containers.
 In order to run Windows containers, your Kubernetes cluster must include
 multiple operating systems.
 While you can only run the {{< glossary_tooltip text="control plane" term_id="control-plane" >}} on Linux,
-you can deploy worker nodes running either Windows or Linux.
+you can deploy nodes running either Windows or Linux.
 
 Windows {{< glossary_tooltip text="nodes" term_id="node" >}} are
 [supported](#windows-os-version-support) provided that the operating system is

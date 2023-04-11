@@ -29,4 +29,4 @@ such a token and also to create and manage new ones.
 
 ## {{% heading "whatsnext" %}}
 
-* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes worker node and join it to the cluster
+* [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to bootstrap a Kubernetes node and join it to the cluster
