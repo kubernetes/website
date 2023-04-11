@@ -18,7 +18,7 @@ Les pods garantis ont les limites de ressources les plus strictes et sont les mo
 
 #### Critères
 
-Pour qu’un Pod reçoive une classe QoS « Garantie » :
+Pour qu’un Pod reçoive une classe QoS `Garantie` :
 
 - Chaque conteneur dans le Pod doit avoir une limite de mémoire et une demande de mémoire.
 - Pour chaque conteneur du Pod, la limite de mémoire doit être égale à la demande de mémoire.
@@ -27,27 +27,22 @@ Pour qu’un Pod reçoive une classe QoS « Garantie » :
 
 ### Burstable
 
-Les pods qui sont « Burstables » ont des garanties de ressources de limite inférieure basées sur la demande, mais n’exigent pas de limite spécifique. Si aucune limite n’est spécifiée, elle est définie par défaut sur une limite équivalente à la capacité du nœud, ce qui permet aux pods d’augmenter de manière flexible leurs ressources si des ressources sont disponibles. En cas d’expulsion du Pod en raison d'un évènement `NodePressure` sur les ressources, ces Pods ne sont expulsés qu’après que tous les Pods 'BestEffort' ont été expulsés. Étant donné qu’un pod « Burstable » peut inclure un conteneur qui n’a pas de limites de ressources ou de demandes, un pod c’est-à-dire que 'Burstable' peut essayer d’utiliser n’importe quelle quantité de ressources de nœud.
+Les pods qui sont `Burstables` ont des garanties de ressources de limite inférieure basées sur la demande, mais n’exigent pas de limite spécifique. Si aucune limite n’est spécifiée, elle est définie par défaut sur une limite équivalente à la capacité du nœud, ce qui permet aux pods d’augmenter de manière flexible leurs ressources si des ressources sont disponibles. En cas d’expulsion du Pod en raison d'un évènement `NodePressure` sur les ressources, ces Pods ne sont expulsés qu’après que tous les Pods `BestEffort` ont été expulsés. Étant donné qu’un pod « Burstable » peut inclure un conteneur qui n’a pas de limites de ressources ou de demandes, un pod c’est-à-dire que `Burstable` peut essayer d’utiliser n’importe quelle quantité de ressources de nœud.
 
 #### Critères
 
-Un Pod reçoit une classe QoS de « Burstable » si :
+Un Pod reçoit une classe QoS de `Burstable` si :
 
-- Le Pod ne répond pas aux critères de la classe QoS 'Garantie'.
+- Le Pod ne répond pas aux critères de la classe QoS `Garantie`.
 - Au moins un conteneur dans le Pod a une demande ou une limite de mémoire ou de CPU.
 
 ### Meilleur effort
 
-Les pods de la classe QoS « BestEfforts » peuvent utiliser des ressources de nœud qui ne sont pas spécifiquement affectées aux Pods d’autres classes QoS. Par exemple, si vous avez un nœud avec 16 cœurs de processeur disponibles pour Kubelet, et vous attribuez 4 cœurs CPU à un Pod « Guaranteed », puis un Pod dans « BestEffort ». La classe QoS peut essayer d’utiliser n’importe quelle quantité des 12 cœurs de processeur restants. Kubelet préfère expulser les pods « BestEffort » si le nœud est soumis à une pression sur les ressources.
+Les pods de la classe QoS `BestEfforts` peuvent utiliser des ressources de nœud qui ne sont pas spécifiquement affectées aux Pods d’autres classes QoS. Par exemple, si vous avez un nœud avec 16 cœurs de processeur disponibles pour Kubelet, et vous attribuez 4 cœurs CPU à un Pod `Garanti`, puis un Pod dans `BestEffort`. La classe QoS peut essayer d’utiliser n’importe quelle quantité des 12 cœurs de processeur restants. Kubelet préfère expulser les pods `BestEffort` si le nœud est soumis à une pression sur les ressources.
 
 #### Critères
 
-A Pod has a QoS class of `BestEffort` if it doesn't meet the criteria for either `Guaranteed`
-or `Burstable`. In other words, a Pod is `BestEffort` only if none of the Containers in the Pod have a
-memory limit or a memory request, and none of the Containers in the Pod have a
-CPU limit or a CPU request.
-Containers in a Pod can request other resources (not CPU or memory) and still be classified as
-`BestEffort`.
+Un Pod a une classe QoS de `BestEffort` s’il ne répond pas aux critères de `Garanti`ou `Burstable`. En d’autres termes, un Pod n’est `BestEffort` que si aucun des conteneurs du Pod n’a delimite de mémoire ou une demande de mémoire, et aucun des conteneurs du module n’a deLimite de CPU ou une requête CPU.Les conteneurs d’un Pod peuvent demander d’autres ressources (pas de CPU ou de mémoire) et être toujours classés comme `BestEffort`.
 
 ## Certains comportements sont indépendants de la classe QoS {#class-independent-behavior}
 
