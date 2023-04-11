@@ -171,6 +171,16 @@ This release saw several removals:
 * [Removal of `IdentifyPodOS` feature gate](https://github.com/kubernetes/kubernetes/pull/111229)
 * [Removal of `DaemonSetUpdateSurge` feature gate](https://github.com/kubernetes/kubernetes/pull/111194)
 
+## The known issue
+
+### The PreEnqueue extension point doesn't work for Pods going to activeQ through backoffQ
+
+In v1.26.0, we've found the bug that the PreEnqueue extension point in the scheduler, 
+which it doesn't work for Pods going to activeQ through backoffQ. 
+It doesn't affect any of the vanilla Kubernetes scheduler's behavior, but may break custom PreEnqueue plugins.
+
+The cause PR is [reverted](https://github.com/kubernetes/kubernetes/pull/117194) by v1.26.1.
+
 ## Release notes
 
 The complete details of the Kubernetes v1.27 release are available in our [release notes](https://github.com/kubernetes/kubernetes/blob/master/CHANGELOG/CHANGELOG-1.27.md).
