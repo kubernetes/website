@@ -192,7 +192,7 @@ kubectl get pods -l 'environment in (production),tier in (frontend)'
 kubectl get pods -l 'environment in (production, qa)'
 ```
 
-もしくは、_exists_ オペレーターを介して、否定マッチングによる制限もできます。  
+もしくは、_notin_ オペレーターを介して、否定マッチングによる制限もできます。  
 
 ```shell
 kubectl get pods -l 'environment,environment notin (frontend)'
