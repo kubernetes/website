@@ -1,12 +1,12 @@
 ---
 api_metadata:
-  apiVersion: "resource.k8s.io/v1alpha1"
-  import: "k8s.io/api/resource/v1alpha1"
-  kind: "ResourceClass"
+  apiVersion: "networking.k8s.io/v1alpha1"
+  import: "k8s.io/api/networking/v1alpha1"
+  kind: "IPAddress"
 content_type: "api_reference"
-description: "ResourceClass is used by administrators to influence how resources are allocated."
-title: "ResourceClass v1alpha1"
-weight: 17
+description: "IPAddress represents a single IP of a single IP Family."
+title: "IPAddress v1alpha1"
+weight: 5
 auto_generated: true
 ---
 
@@ -21,105 +21,91 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: resource.k8s.io/v1alpha1`
+`apiVersion: networking.k8s.io/v1alpha1`
 
-`import "k8s.io/api/resource/v1alpha1"`
+`import "k8s.io/api/networking/v1alpha1"`
 
 
-## ResourceClass {#ResourceClass}
+## IPAddress {#IPAddress}
 
-ResourceClass is used by administrators to influence how resources are allocated.
-
-This is an alpha type and requires enabling the DynamicResourceAllocation feature gate.
+IPAddress represents a single IP of a single IP Family. The object is designed to be used by APIs that operate on IP addresses. The object is used by the Service core API for allocation of IP addresses. An IP address can be represented in different formats, to guarantee the uniqueness of the IP, the name of the object is the IP address in canonical format, four decimal digits separated by dots suppressing leading zeros for IPv4 and the representation defined by RFC 5952 for IPv6. Valid: 192.168.1.5 or 2001:db8::1 or 2001:db8:aaaa:bbbb:cccc:dddd:eeee:1 Invalid: 10.01.2.3 or 2001:db8:0:0:0::1
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1alpha1
+- **apiVersion**: networking.k8s.io/v1alpha1
 
 
-- **kind**: ResourceClass
+- **kind**: IPAddress
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  Standard object metadata
+  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **driverName** (string), required
+- **spec** (<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddressSpec" >}}">IPAddressSpec</a>)
 
-  DriverName defines the name of the dynamic resource driver that is used for allocation of a ResourceClaim that uses this class.
-  
-  Resource drivers have a unique name in forward domain order (acme.example.com).
-
-- **parametersRef** (ResourceClassParametersReference)
-
-  ParametersRef references an arbitrary separate object that may hold parameters that will be used by the driver when allocating a resource that uses this class. A dynamic resource driver can distinguish between parameters stored here and and those stored in ResourceClaimSpec.
-
-  <a name="ResourceClassParametersReference"></a>
-  *ResourceClassParametersReference contains enough information to let you locate the parameters for a ResourceClass.*
-
-  - **parametersRef.kind** (string), required
-
-    Kind is the type of resource being referenced. This is the same value as in the parameter object's metadata.
-
-  - **parametersRef.name** (string), required
-
-    Name is the name of resource being referenced.
-
-  - **parametersRef.apiGroup** (string)
-
-    APIGroup is the group for the resource being referenced. It is empty for the core API. This matches the group in the APIVersion that is used when creating the resources.
-
-  - **parametersRef.namespace** (string)
-
-    Namespace that contains the referenced resource. Must be empty for cluster-scoped resources and non-empty for namespaced resources.
-
-- **suitableNodes** (NodeSelector)
-
-  Only nodes matching the selector will be considered by the scheduler when trying to find a Node that fits a Pod when that Pod uses a ResourceClaim that has not been allocated yet.
-  
-  Setting this field is optional. If null, all nodes are candidates.
-
-  <a name="NodeSelector"></a>
-  *A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.*
-
-  - **suitableNodes.nodeSelectorTerms** ([]NodeSelectorTerm), required
-
-    Required. A list of node selector terms. The terms are ORed.
-
-    <a name="NodeSelectorTerm"></a>
-    *A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.*
-
-    - **suitableNodes.nodeSelectorTerms.matchExpressions** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
-
-      A list of node selector requirements by node's labels.
-
-    - **suitableNodes.nodeSelectorTerms.matchFields** ([]<a href="{{< ref "../common-definitions/node-selector-requirement#NodeSelectorRequirement" >}}">NodeSelectorRequirement</a>)
-
-      A list of node selector requirements by node's fields.
+  spec is the desired state of the IPAddress. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 
 
 
 
-## ResourceClassList {#ResourceClassList}
+## IPAddressSpec {#IPAddressSpec}
 
-ResourceClassList is a collection of classes.
+IPAddressSpec describe the attributes in an IP Address.
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1alpha1
+- **parentRef** (ParentReference)
+
+  ParentRef references the resource that an IPAddress is attached to. An IPAddress must reference a parent object.
+
+  <a name="ParentReference"></a>
+  *ParentReference describes a reference to a parent object.*
+
+  - **parentRef.group** (string)
+
+    Group is the group of the object being referenced.
+
+  - **parentRef.name** (string)
+
+    Name is the name of the object being referenced.
+
+  - **parentRef.namespace** (string)
+
+    Namespace is the namespace of the object being referenced.
+
+  - **parentRef.resource** (string)
+
+    Resource is the resource of the object being referenced.
+
+  - **parentRef.uid** (string)
+
+    UID is the uid of the object being referenced.
 
 
-- **kind**: ResourceClassList
+
+
+
+## IPAddressList {#IPAddressList}
+
+IPAddressList contains a list of IPAddress.
+
+<hr>
+
+- **apiVersion**: networking.k8s.io/v1alpha1
+
+
+- **kind**: IPAddressList
 
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  Standard list metadata
+  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **items** ([]<a href="{{< ref "../workload-resources/resource-class-v1alpha1#ResourceClass" >}}">ResourceClass</a>), required
+- **items** ([]<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>), required
 
-  Items is the list of resource classes.
+  items is the list of IPAddresses.
 
 
 
@@ -136,18 +122,18 @@ ResourceClassList is a collection of classes.
 
 
 
-### `get` read the specified ResourceClass
+### `get` read the specified IPAddress
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1alpha1/resourceclasses/{name}
+GET /apis/networking.k8s.io/v1alpha1/ipaddresses/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ResourceClass
+  name of the IPAddress
 
 
 - **pretty** (*in query*): string
@@ -159,16 +145,16 @@ GET /apis/resource.k8s.io/v1alpha1/resourceclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-class-v1alpha1#ResourceClass" >}}">ResourceClass</a>): OK
+200 (<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>): OK
 
 401: Unauthorized
 
 
-### `list` list or watch objects of kind ResourceClass
+### `list` list or watch objects of kind IPAddress
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1alpha1/resourceclasses
+GET /apis/networking.k8s.io/v1alpha1/ipaddresses
 
 #### Parameters
 
@@ -213,6 +199,11 @@ GET /apis/resource.k8s.io/v1alpha1/resourceclasses
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -227,21 +218,21 @@ GET /apis/resource.k8s.io/v1alpha1/resourceclasses
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-class-v1alpha1#ResourceClassList" >}}">ResourceClassList</a>): OK
+200 (<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddressList" >}}">IPAddressList</a>): OK
 
 401: Unauthorized
 
 
-### `create` create a ResourceClass
+### `create` create an IPAddress
 
 #### HTTP Request
 
-POST /apis/resource.k8s.io/v1alpha1/resourceclasses
+POST /apis/networking.k8s.io/v1alpha1/ipaddresses
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../workload-resources/resource-class-v1alpha1#ResourceClass" >}}">ResourceClass</a>, required
+- **body**: <a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>, required
 
   
 
@@ -270,30 +261,30 @@ POST /apis/resource.k8s.io/v1alpha1/resourceclasses
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-class-v1alpha1#ResourceClass" >}}">ResourceClass</a>): OK
+200 (<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-class-v1alpha1#ResourceClass" >}}">ResourceClass</a>): Created
+201 (<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>): Created
 
-202 (<a href="{{< ref "../workload-resources/resource-class-v1alpha1#ResourceClass" >}}">ResourceClass</a>): Accepted
+202 (<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>): Accepted
 
 401: Unauthorized
 
 
-### `update` replace the specified ResourceClass
+### `update` replace the specified IPAddress
 
 #### HTTP Request
 
-PUT /apis/resource.k8s.io/v1alpha1/resourceclasses/{name}
+PUT /apis/networking.k8s.io/v1alpha1/ipaddresses/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ResourceClass
+  name of the IPAddress
 
 
-- **body**: <a href="{{< ref "../workload-resources/resource-class-v1alpha1#ResourceClass" >}}">ResourceClass</a>, required
+- **body**: <a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>, required
 
   
 
@@ -322,25 +313,25 @@ PUT /apis/resource.k8s.io/v1alpha1/resourceclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-class-v1alpha1#ResourceClass" >}}">ResourceClass</a>): OK
+200 (<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-class-v1alpha1#ResourceClass" >}}">ResourceClass</a>): Created
+201 (<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>): Created
 
 401: Unauthorized
 
 
-### `patch` partially update the specified ResourceClass
+### `patch` partially update the specified IPAddress
 
 #### HTTP Request
 
-PATCH /apis/resource.k8s.io/v1alpha1/resourceclasses/{name}
+PATCH /apis/networking.k8s.io/v1alpha1/ipaddresses/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ResourceClass
+  name of the IPAddress
 
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
@@ -377,25 +368,25 @@ PATCH /apis/resource.k8s.io/v1alpha1/resourceclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-class-v1alpha1#ResourceClass" >}}">ResourceClass</a>): OK
+200 (<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-class-v1alpha1#ResourceClass" >}}">ResourceClass</a>): Created
+201 (<a href="{{< ref "../policy-resources/ip-address-v1alpha1#IPAddress" >}}">IPAddress</a>): Created
 
 401: Unauthorized
 
 
-### `delete` delete a ResourceClass
+### `delete` delete an IPAddress
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1alpha1/resourceclasses/{name}
+DELETE /apis/networking.k8s.io/v1alpha1/ipaddresses/{name}
 
 #### Parameters
 
 
 - **name** (*in path*): string, required
 
-  name of the ResourceClass
+  name of the IPAddress
 
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
@@ -427,18 +418,18 @@ DELETE /apis/resource.k8s.io/v1alpha1/resourceclasses/{name}
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-class-v1alpha1#ResourceClass" >}}">ResourceClass</a>): OK
+200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
-202 (<a href="{{< ref "../workload-resources/resource-class-v1alpha1#ResourceClass" >}}">ResourceClass</a>): Accepted
+202 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): Accepted
 
 401: Unauthorized
 
 
-### `deletecollection` delete collection of ResourceClass
+### `deletecollection` delete collection of IPAddress
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1alpha1/resourceclasses
+DELETE /apis/networking.k8s.io/v1alpha1/ipaddresses
 
 #### Parameters
 
@@ -496,6 +487,11 @@ DELETE /apis/resource.k8s.io/v1alpha1/resourceclasses
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer

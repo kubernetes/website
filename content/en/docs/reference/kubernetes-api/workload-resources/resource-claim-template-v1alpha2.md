@@ -1,11 +1,11 @@
 ---
 api_metadata:
-  apiVersion: "resource.k8s.io/v1alpha1"
-  import: "k8s.io/api/resource/v1alpha1"
+  apiVersion: "resource.k8s.io/v1alpha2"
+  import: "k8s.io/api/resource/v1alpha2"
   kind: "ResourceClaimTemplate"
 content_type: "api_reference"
 description: "ResourceClaimTemplate is used to produce ResourceClaim objects."
-title: "ResourceClaimTemplate v1alpha1"
+title: "ResourceClaimTemplate v1alpha2"
 weight: 16
 auto_generated: true
 ---
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: resource.k8s.io/v1alpha1`
+`apiVersion: resource.k8s.io/v1alpha2`
 
-`import "k8s.io/api/resource/v1alpha1"`
+`import "k8s.io/api/resource/v1alpha2"`
 
 
 ## ResourceClaimTemplate {#ResourceClaimTemplate}
@@ -32,7 +32,7 @@ ResourceClaimTemplate is used to produce ResourceClaim objects.
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1alpha1
+- **apiVersion**: resource.k8s.io/v1alpha2
 
 
 - **kind**: ResourceClaimTemplate
@@ -42,7 +42,7 @@ ResourceClaimTemplate is used to produce ResourceClaim objects.
 
   Standard object metadata
 
-- **spec** (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha1#ResourceClaimTemplateSpec" >}}">ResourceClaimTemplateSpec</a>), required
+- **spec** (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha2#ResourceClaimTemplateSpec" >}}">ResourceClaimTemplateSpec</a>), required
 
   Describes the ResourceClaim that is to be generated.
   
@@ -58,7 +58,7 @@ ResourceClaimTemplateSpec contains the metadata and fields for a ResourceClaim.
 
 <hr>
 
-- **spec** (<a href="{{< ref "../workload-resources/resource-claim-v1alpha1#ResourceClaimSpec" >}}">ResourceClaimSpec</a>), required
+- **spec** (<a href="{{< ref "../workload-resources/resource-claim-v1alpha2#ResourceClaimSpec" >}}">ResourceClaimSpec</a>), required
 
   Spec for the ResourceClaim. The entire content is copied unchanged into the ResourceClaim that gets created from this template. The same fields as in a ResourceClaim are also valid here.
 
@@ -76,7 +76,7 @@ ResourceClaimTemplateList is a collection of claim templates.
 
 <hr>
 
-- **apiVersion**: resource.k8s.io/v1alpha1
+- **apiVersion**: resource.k8s.io/v1alpha2
 
 
 - **kind**: ResourceClaimTemplateList
@@ -86,7 +86,7 @@ ResourceClaimTemplateList is a collection of claim templates.
 
   Standard list metadata
 
-- **items** ([]<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>), required
+- **items** ([]<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>), required
 
   Items is the list of resource claim templates.
 
@@ -109,7 +109,7 @@ ResourceClaimTemplateList is a collection of claim templates.
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1alpha1/namespaces/{namespace}/resourceclaimtemplates/{name}
+GET /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaimtemplates/{name}
 
 #### Parameters
 
@@ -133,7 +133,7 @@ GET /apis/resource.k8s.io/v1alpha1/namespaces/{namespace}/resourceclaimtemplates
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
 401: Unauthorized
 
@@ -142,7 +142,7 @@ GET /apis/resource.k8s.io/v1alpha1/namespaces/{namespace}/resourceclaimtemplates
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1alpha1/namespaces/{namespace}/resourceclaimtemplates
+GET /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaimtemplates
 
 #### Parameters
 
@@ -192,6 +192,11 @@ GET /apis/resource.k8s.io/v1alpha1/namespaces/{namespace}/resourceclaimtemplates
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -206,7 +211,7 @@ GET /apis/resource.k8s.io/v1alpha1/namespaces/{namespace}/resourceclaimtemplates
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha1#ResourceClaimTemplateList" >}}">ResourceClaimTemplateList</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha2#ResourceClaimTemplateList" >}}">ResourceClaimTemplateList</a>): OK
 
 401: Unauthorized
 
@@ -215,7 +220,7 @@ GET /apis/resource.k8s.io/v1alpha1/namespaces/{namespace}/resourceclaimtemplates
 
 #### HTTP Request
 
-GET /apis/resource.k8s.io/v1alpha1/resourceclaimtemplates
+GET /apis/resource.k8s.io/v1alpha2/resourceclaimtemplates
 
 #### Parameters
 
@@ -260,6 +265,11 @@ GET /apis/resource.k8s.io/v1alpha1/resourceclaimtemplates
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -274,7 +284,7 @@ GET /apis/resource.k8s.io/v1alpha1/resourceclaimtemplates
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha1#ResourceClaimTemplateList" >}}">ResourceClaimTemplateList</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha2#ResourceClaimTemplateList" >}}">ResourceClaimTemplateList</a>): OK
 
 401: Unauthorized
 
@@ -283,7 +293,7 @@ GET /apis/resource.k8s.io/v1alpha1/resourceclaimtemplates
 
 #### HTTP Request
 
-POST /apis/resource.k8s.io/v1alpha1/namespaces/{namespace}/resourceclaimtemplates
+POST /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaimtemplates
 
 #### Parameters
 
@@ -293,7 +303,7 @@ POST /apis/resource.k8s.io/v1alpha1/namespaces/{namespace}/resourceclaimtemplate
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workload-resources/resource-claim-template-v1alpha1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>, required
+- **body**: <a href="{{< ref "../workload-resources/resource-claim-template-v1alpha2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>, required
 
   
 
@@ -322,11 +332,11 @@ POST /apis/resource.k8s.io/v1alpha1/namespaces/{namespace}/resourceclaimtemplate
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
 
-202 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Accepted
 
 401: Unauthorized
 
@@ -335,7 +345,7 @@ POST /apis/resource.k8s.io/v1alpha1/namespaces/{namespace}/resourceclaimtemplate
 
 #### HTTP Request
 
-PUT /apis/resource.k8s.io/v1alpha1/namespaces/{namespace}/resourceclaimtemplates/{name}
+PUT /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaimtemplates/{name}
 
 #### Parameters
 
@@ -350,7 +360,7 @@ PUT /apis/resource.k8s.io/v1alpha1/namespaces/{namespace}/resourceclaimtemplates
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
 
-- **body**: <a href="{{< ref "../workload-resources/resource-claim-template-v1alpha1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>, required
+- **body**: <a href="{{< ref "../workload-resources/resource-claim-template-v1alpha2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>, required
 
   
 
@@ -379,9 +389,9 @@ PUT /apis/resource.k8s.io/v1alpha1/namespaces/{namespace}/resourceclaimtemplates
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
 
 401: Unauthorized
 
@@ -390,7 +400,7 @@ PUT /apis/resource.k8s.io/v1alpha1/namespaces/{namespace}/resourceclaimtemplates
 
 #### HTTP Request
 
-PATCH /apis/resource.k8s.io/v1alpha1/namespaces/{namespace}/resourceclaimtemplates/{name}
+PATCH /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaimtemplates/{name}
 
 #### Parameters
 
@@ -439,9 +449,9 @@ PATCH /apis/resource.k8s.io/v1alpha1/namespaces/{namespace}/resourceclaimtemplat
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
-201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
+201 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Created
 
 401: Unauthorized
 
@@ -450,7 +460,7 @@ PATCH /apis/resource.k8s.io/v1alpha1/namespaces/{namespace}/resourceclaimtemplat
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1alpha1/namespaces/{namespace}/resourceclaimtemplates/{name}
+DELETE /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaimtemplates/{name}
 
 #### Parameters
 
@@ -494,9 +504,9 @@ DELETE /apis/resource.k8s.io/v1alpha1/namespaces/{namespace}/resourceclaimtempla
 #### Response
 
 
-200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
+200 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): OK
 
-202 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha1#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Accepted
+202 (<a href="{{< ref "../workload-resources/resource-claim-template-v1alpha2#ResourceClaimTemplate" >}}">ResourceClaimTemplate</a>): Accepted
 
 401: Unauthorized
 
@@ -505,7 +515,7 @@ DELETE /apis/resource.k8s.io/v1alpha1/namespaces/{namespace}/resourceclaimtempla
 
 #### HTTP Request
 
-DELETE /apis/resource.k8s.io/v1alpha1/namespaces/{namespace}/resourceclaimtemplates
+DELETE /apis/resource.k8s.io/v1alpha2/namespaces/{namespace}/resourceclaimtemplates
 
 #### Parameters
 
@@ -568,6 +578,11 @@ DELETE /apis/resource.k8s.io/v1alpha1/namespaces/{namespace}/resourceclaimtempla
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer

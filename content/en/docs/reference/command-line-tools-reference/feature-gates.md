@@ -56,17 +56,21 @@ For a reference to old feature gates that are removed, please refer to
 
 | Feature | Default | Stage | Since | Until |
 |---------|---------|-------|-------|-------|
+| `AdmissionWebhookMatchConditions` | Alpha | `false` | 1.27 | |
 | `APIListChunking` | `false` | Alpha | 1.8 | 1.8 |
 | `APIListChunking` | `true` | Beta | 1.9 | |
 | `APIPriorityAndFairness` | `false` | Alpha | 1.18 | 1.19 |
 | `APIPriorityAndFairness` | `true` | Beta | 1.20 | |
 | `APIResponseCompression` | `false` | Alpha | 1.7 | 1.15 |
 | `APIResponseCompression` | `true` | Beta | 1.16 | |
-| `APISelfSubjectReview` | `false` | Alpha | 1.26 | |
+| `APISelfSubjectReview` | `false` | Alpha | 1.26 | 1.26 |
+| `APISelfSubjectReview` | `true` | Beta | 1.27 | |
 | `APIServerIdentity` | `false` | Alpha | 1.20 | 1.25 |
 | `APIServerIdentity` | `true` | Beta | 1.26 | |
-| `APIServerTracing` | `false` | Alpha | 1.22 | |
-| `AggregatedDiscoveryEndpoint` | `false` | Alpha | 1.26 | |
+| `APIServerTracing` | `false` | Alpha | 1.22 | 1.26 |
+| `APIServerTracing` | `true` | Beta | 1.27 | |
+| `AggregatedDiscoveryEndpoint` | `false` | Alpha | 1.26 | 1.26 |
+| `AggregatedDiscoveryEndpoint` | `true` | Beta | 1.27 | |
 | `AnyVolumeDataSource` | `false` | Alpha | 1.18 | 1.23 |
 | `AnyVolumeDataSource` | `true` | Beta | 1.24 | |
 | `AppArmor` | `true` | Beta | 1.4 | |
@@ -77,34 +81,33 @@ For a reference to old feature gates that are removed, please refer to
 | `CSIMigrationPortworx` | `false` | Alpha | 1.23 | 1.24 |
 | `CSIMigrationPortworx` | `false` | Beta | 1.25 | |
 | `CSIMigrationRBD` | `false` | Alpha | 1.23 | |
-| `CSINodeExpandSecret` | `false` | Alpha | 1.25 | |
+| `CSINodeExpandSecret` | `false` | Alpha | 1.25 | 1.26 |
+| `CSINodeExpandSecret` | `true` | Beta | 1.27 | |
 | `CSIVolumeHealth` | `false` | Alpha | 1.21 | |
-| `ComponentSLIs` | `false` | Alpha | 1.26 | |
+| `CloudDualStackNodeIPs` | false | Alpha | 1.27 | |
+| `ComponentSLIs` | `false` | Alpha | 1.26 | 1.26 |
+| `ComponentSLIs` | `true` | Beta | 1.27 | |
 | `ContainerCheckpoint` | `false` | Alpha | 1.25 | |
 | `ContextualLogging` | `false` | Alpha | 1.24 | |
-| `CronJobTimeZone` | `false` | Alpha | 1.24 | 1.24 |
-| `CronJobTimeZone` | `true` | Beta | 1.25 | |
 | `CrossNamespaceVolumeDataSource` | `false` | Alpha| 1.26 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
 | `CustomResourceValidationExpressions` | `false` | Alpha | 1.23 | 1.24 |
 | `CustomResourceValidationExpressions` | `true` | Beta | 1.25 | |
 | `DisableCloudProviders` | `false` | Alpha | 1.22 | |
 | `DisableKubeletCloudCredentialProviders` | `false` | Alpha | 1.23 | |
-| `DownwardAPIHugePages` | `false` | Alpha | 1.20 | 1.20 |
-| `DownwardAPIHugePages` | `false` | Beta | 1.21 | 1.21 |
-| `DownwardAPIHugePages` | `true` | Beta | 1.22 | |
 | `DynamicResourceAllocation` | `false` | Alpha | 1.26 | |
-| `EventedPLEG` | `false` | Alpha | 1.26 | - |
+| `ElasticIndexedJob` | `true` | Beta` | 1.27 | |
+| `EventedPLEG` | `false` | Alpha | 1.26 | 1.26 |
+| `EventedPLEG` | `false` | Beta | 1.27 | - |
 | `ExpandedDNSConfig` | `false` | Alpha | 1.22 | 1.25 |
 | `ExpandedDNSConfig` | `true` | Beta | 1.26 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
-| `GRPCContainerProbe` | `false` | Alpha | 1.23 | 1.23 |
-| `GRPCContainerProbe` | `true` | Beta | 1.24 | |
 | `GracefulNodeShutdown` | `false` | Alpha | 1.20 | 1.20 |
 | `GracefulNodeShutdown` | `true` | Beta | 1.21 | |
 | `GracefulNodeShutdownBasedOnPodPriority` | `false` | Alpha | 1.23 | 1.23 |
 | `GracefulNodeShutdownBasedOnPodPriority` | `true` | Beta | 1.24 | |
-| `HPAContainerMetrics` | `false` | Alpha | 1.20 | |
+| `HPAContainerMetrics` | `false` | Alpha | 1.20 | 1.26 |
+| `HPAContainerMetrics` | `true` | Beta | 1.27 | |
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
 | `HonorPVReclaimPolicy` | `false` | Alpha | 1.23 |  |
 | `IPTablesOwnershipCleanup` | `false` | Alpha | 1.25 | |
@@ -116,7 +119,6 @@ For a reference to old feature gates that are removed, please refer to
 | `InTreePluginPortworxUnregister` | `false` | Alpha | 1.23 | |
 | `InTreePluginRBDUnregister` | `false` | Alpha | 1.23 | |
 | `InTreePluginvSphereUnregister` | `false` | Alpha | 1.21 | |
-| `JobMutableNodeSchedulingDirectives` | `true` | Beta | 1.23 | |
 | `JobPodFailurePolicy` | `false` | Alpha | 1.25 | 1.25 |
 | `JobPodFailurePolicy` | `true` | Beta | 1.26 | |
 | `JobReadyPods` | `false` | Alpha | 1.23 | 1.23 |
@@ -125,42 +127,54 @@ For a reference to old feature gates that are removed, please refer to
 | `KubeletInUserNamespace` | `false` | Alpha | 1.22 | |
 | `KubeletPodResources` | `false` | Alpha | 1.13 | 1.14 |
 | `KubeletPodResources` | `true` | Beta | 1.15 | |
+| `KubeletPodResourcesGet` | `false` | Alpha | 1.27 | |
 | `KubeletPodResourcesGetAllocatable` | `false` | Alpha | 1.21 | 1.22 |
 | `KubeletPodResourcesGetAllocatable` | `true` | Beta | 1.23 | |
-| `KubeletTracing` | `false` | Alpha | 1.25 | |
-| `LegacyServiceAccountTokenTracking` | `false` | Alpha | 1.25 | |
+| `KubeletPodResourcesDynamicResources` | `false` | Alpha | 1.27 | |
+| `KubeletTracing` | `false` | Alpha | 1.25 | 1.26 |
+| `KubeletTracing` | `true` | Beta | 1.27 | |
+| `LegacyServiceAccountTokenTracking` | `false` | Alpha | 1.26 | 1.26 |
+| `LegacyServiceAccountTokenTracking` | `true` | Beta | 1.27 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | - |
 | `LogarithmicScaleDown` | `false` | Alpha | 1.21 | 1.21 |
 | `LogarithmicScaleDown` | `true` | Beta | 1.22 | |
 | `LoggingAlphaOptions` | `false` | Alpha | 1.24 | - |
 | `LoggingBetaOptions` | `true` | Beta | 1.24 | - |
-| `MatchLabelKeysInPodTopologySpread` | `false` | Alpha | 1.25 | |
+| `MatchLabelKeysInPodTopologySpread` | `false` | Alpha | 1.25 | 1.26 |
+| `MatchLabelKeysInPodTopologySpread` | `true` | Beta | 1.27 | - |
 | `MaxUnavailableStatefulSet` | `false` | Alpha | 1.24 | |
 | `MemoryManager` | `false` | Alpha | 1.21 | 1.21 |
 | `MemoryManager` | `true` | Beta | 1.22 | |
 | `MemoryQoS` | `false` | Alpha | 1.22 | |
 | `MinDomainsInPodTopologySpread` | `false` | Alpha | 1.24 | 1.24 |
+| `MinDomainsInPodTopologySpread` | `false` | Beta | 1.25 | 1.26 |
+| `MinDomainsInPodTopologySpread` | `true` | Beta | 1.27 | |
+| `MixedProtocolLBService` | `false` | Alpha | 1.20 | 1.23 |
+| `MixedProtocolLBService` | `true` | Beta | 1.24 | |
 | `MinDomainsInPodTopologySpread` | `false` | Beta | 1.25 | |
 | `MinimizeIPTablesRestore` | `false` | Alpha | 1.26 | - |
 | `MultiCIDRRangeAllocator` | `false` | Alpha | 1.25 | |
+| `MultiCIDRServiceAllocator` | `false` | Alpha | 1.27 | |
 | `NetworkPolicyStatus` | `false` | Alpha | 1.24 |  |
+| `NewVolumeManagerReconstruction` | `true` | Beta | 1.27 |  |
 | `NodeInclusionPolicyInPodTopologySpread` | `false` | Alpha | 1.25 | 1.25 |
 | `NodeInclusionPolicyInPodTopologySpread` | `true` | Beta | 1.26 | |
+| `NodeLogQuery` | `false` | Alpha | 1.27 | |
 | `NodeOutOfServiceVolumeDetach` | `false` | Alpha | 1.24 | 1.25 |
 | `NodeOutOfServiceVolumeDetach` | `true` | Beta | 1.26 | |
 | `NodeSwap` | `false` | Alpha | 1.22 | |
 | `OpenAPIEnums` | `false` | Alpha | 1.23 | 1.23 |
 | `OpenAPIEnums` | `true` | Beta | 1.24 | |
-| `OpenAPIV3` | `false` | Alpha | 1.23 | 1.23 |
-| `OpenAPIV3` | `true` | Beta | 1.24 | |
-| `PDBUnhealthyPodEvictionPolicy` | `false` | Alpha | 1.26 | |
+| `PDBUnhealthyPodEvictionPolicy` | `false` | Alpha | 1.26 | 1.26 |
+| `PDBUnhealthyPodEvictionPolicy` | `true` | Beta | 1.27 | |
 | `PodAndContainerStatsFromCRI` | `false` | Alpha | 1.23 | |
 | `PodDeletionCost` | `false` | Alpha | 1.21 | 1.21 |
 | `PodDeletionCost` | `true` | Beta | 1.22 | |
 | `PodDisruptionConditions` | `false` | Alpha | 1.25 | 1.25 |
 | `PodDisruptionConditions` | `true` | Beta | 1.26 | |
 | `PodHasNetworkCondition` | `false` | Alpha | 1.25 | |
-| `PodSchedulingReadiness` | `false` | Alpha | 1.26 | |
+| `PodSchedulingReadiness` | `false` | Alpha | 1.26 | 1.26 |
+| `PodSchedulingReadiness` | `true` | Beta | 1.27 | |
 | `ProbeTerminationGracePeriod` | `false` | Alpha | 1.21 | 1.21 |
 | `ProbeTerminationGracePeriod` | `false` | Beta | 1.22 | 1.24 |
 | `ProbeTerminationGracePeriod` | `true` | Beta | 1.25 | |
@@ -168,7 +182,8 @@ For a reference to old feature gates that are removed, please refer to
 | `ProxyTerminatingEndpoints` | `false` | Alpha | 1.22 | 1.25 |
 | `ProxyTerminatingEndpoints` | `true` | Beta | 1.26 | |
 | `QOSReserved` | `false` | Alpha | 1.11 | |
-| `ReadWriteOncePod` | `false` | Alpha | 1.22 | |
+| `ReadWriteOncePod` | `false` | Alpha | 1.22 | 1.26 |
+| `ReadWriteOncePod` | `true` | Beta | 1.27 | |
 | `RecoverVolumeExpansionFailure` | `false` | Alpha | 1.23 | |
 | `RemainingItemCount` | `false` | Alpha | 1.15 | 1.15 |
 | `RemainingItemCount` | `true` | Beta | 1.16 | |
@@ -176,29 +191,28 @@ For a reference to old feature gates that are removed, please refer to
 | `RetroactiveDefaultStorageClass` | `true` | Beta | 1.26 | |
 | `RotateKubeletServerCertificate` | `false` | Alpha | 1.7 | 1.11 |
 | `RotateKubeletServerCertificate` | `true` | Beta | 1.12 | |
-| `SELinuxMountReadWriteOncePod` | `false` | Alpha | 1.25 | |
-| `SeccompDefault` | `false` | Alpha | 1.22 | 1.24 |
-| `SeccompDefault` | `true` | Beta | 1.25 | |
-| `ServerSideFieldValidation` | `false` | Alpha | 1.23 | 1.24 |
-| `ServerSideFieldValidation` | `true` | Beta | 1.25 | |
+| `SELinuxMountReadWriteOncePod` | `false` | Alpha | 1.25 | 1.26 |
+| `SELinuxMountReadWriteOncePod` | `true` | Beta | 1.27 | |
+| `ServiceNodePortStaticSubrange` | `false` | Alpha | 1.27 | |
 | `SizeMemoryBackedVolumes` | `false` | Alpha | 1.20 | 1.21 |
 | `SizeMemoryBackedVolumes` | `true` | Beta | 1.22 | |
-| `StatefulSetAutoDeletePVC` | `false` | Alpha | 1.22 | |
-| `StatefulSetStartOrdinal` | `false` | Alpha | 1.26 | |
+| `StatefulSetAutoDeletePVC` | `false` | Alpha | 1.22 | 1.26 |
+| `StatefulSetAutoDeletePVC` | `false` | Beta | 1.27 | |
+| `StatefulSetStartOrdinal` | `false` | Alpha | 1.26 | 1.26 |
+| `StatefulSetStartOrdinal` | `true` | Beta | 1.27 | |
 | `StorageVersionAPI` | `false` | Alpha | 1.20 | |
 | `StorageVersionHash` | `false` | Alpha | 1.14 | 1.14 |
 | `StorageVersionHash` | `true` | Beta | 1.15 | |
 | `TopologyAwareHints` | `false` | Alpha | 1.21 | 1.22 |
 | `TopologyAwareHints` | `false` | Beta | 1.23 | 1.23 |
 | `TopologyAwareHints` | `true` | Beta | 1.24 | |
-| `TopologyManager` | `false` | Alpha | 1.16 | 1.17 |
-| `TopologyManager` | `true` | Beta | 1.18 | |
 | `TopologyManagerPolicyAlphaOptions` | `false` | Alpha | 1.26 | |
 | `TopologyManagerPolicyBetaOptions` | `false` | Beta | 1.26 | |
 | `TopologyManagerPolicyOptions` | `false` | Alpha | 1.26 | |
 | `UserNamespacesStatelessPodsSupport` | `false` | Alpha | 1.25 | |
 | `ValidatingAdmissionPolicy` | `false` | Alpha | 1.26 | |
 | `VolumeCapacityPriority` | `false` | Alpha | 1.21 | - |
+| `WatchList` | false | Alpha | 1.27 | |
 | `WinDSR` | `false` | Alpha | 1.14 | |
 | `WinOverlay` | `false` | Alpha | 1.14 | 1.19 |
 | `WinOverlay` | `true` | Beta | 1.20 | |
@@ -247,9 +261,9 @@ For a reference to old feature gates that are removed, please refer to
 | `CSIStorageCapacity` | `true` | Beta | 1.21 | 1.23 |
 | `CSIStorageCapacity` | `true` | GA | 1.24 | - |
 | `ConsistentHTTPGetHandlers` | `true` | GA | 1.25 | - |
-| `ControllerManagerLeaderMigration` | `false` | Alpha | 1.21 | 1.21 |
-| `ControllerManagerLeaderMigration` | `true` | Beta | 1.22 | 1.23 |
-| `ControllerManagerLeaderMigration` | `true` | GA | 1.24 | - |
+| `CronJobTimeZone` | `false` | Alpha | 1.24 | 1.24 |
+| `CronJobTimeZone` | `true` | Beta | 1.25 | 1.26 |
+| `CronJobTimeZone` | `true` | GA | 1.27 | - |
 | `DaemonSetUpdateSurge` | `false` | Alpha | 1.21 | 1.21 |
 | `DaemonSetUpdateSurge` | `true` | Beta | 1.22 | 1.24 |
 | `DaemonSetUpdateSurge` | `true` | GA | 1.25 | - |
@@ -262,6 +276,10 @@ For a reference to old feature gates that are removed, please refer to
 | `DisableAcceleratorUsageMetrics` | `false` | Alpha | 1.19 | 1.19 |
 | `DisableAcceleratorUsageMetrics` | `true` | Beta | 1.20 | 1.24 |
 | `DisableAcceleratorUsageMetrics` | `true` | GA | 1.25 |- |
+| `DownwardAPIHugePages` | `false` | Alpha | 1.20 | 1.20 |
+| `DownwardAPIHugePages` | `false` | Beta | 1.21 | 1.21 |
+| `DownwardAPIHugePages` | `true` | Beta | 1.22 | 1.26 |
+| `DownwardAPIHugePages` | `true` | GA | 1.27 | - |
 | `DryRun` | `false` | Alpha | 1.12 | 1.12 |
 | `DryRun` | `true` | Beta | 1.13 | 1.18 |
 | `DryRun` | `true` | GA | 1.19 | - |
@@ -275,15 +293,11 @@ For a reference to old feature gates that are removed, please refer to
 | `EphemeralContainers` | `true` | Beta | 1.23 | 1.24 |
 | `EphemeralContainers` | `true` | GA | 1.25 | - |
 | `ExecProbeTimeout` | `true` | GA | 1.20 | - |
-| `ExpandCSIVolumes` | `false` | Alpha | 1.14 | 1.15 |
-| `ExpandCSIVolumes` | `true` | Beta | 1.16 | 1.23 |
-| `ExpandCSIVolumes` | `true` | GA | 1.24 | - |
-| `ExpandInUsePersistentVolumes` | `false` | Alpha | 1.11 | 1.14 |
-| `ExpandInUsePersistentVolumes` | `true` | Beta | 1.15 | 1.23 |
-| `ExpandInUsePersistentVolumes` | `true` | GA | 1.24 | - |
-| `ExpandPersistentVolumes` | `false` | Alpha | 1.8 | 1.10 |
-| `ExpandPersistentVolumes` | `true` | Beta | 1.11 | 1.23 |
-| `ExpandPersistentVolumes` | `true` | GA | 1.24 |- |
+| `JobMutableNodeSchedulingDirectives` | `true` | Beta | 1.23 | 1.26 |
+| `JobMutableNodeSchedulingDirectives` | `true` | GA | 1.27 | |
+| `GRPCContainerProbe` | `false` | Alpha | 1.23 | 1.23 |
+| `GRPCContainerProbe` | `true` | Beta | 1.24 | 1.26 |
+| `GRPCContainerProbe` | `true` | GA | 1.27 | |
 | `IdentifyPodOS` | `false` | Alpha | 1.23 | 1.23 |
 | `IdentifyPodOS` | `true` | Beta | 1.24 | 1.24 |
 | `IdentifyPodOS` | `true` | GA | 1.25 | - |
@@ -311,9 +325,18 @@ For a reference to old feature gates that are removed, please refer to
 | `RemoveSelfLink` | `false` | Alpha | 1.16 | 1.19 |
 | `RemoveSelfLink` | `true` | Beta | 1.20 | 1.23 |
 | `RemoveSelfLink` | `true` | GA | 1.24 | - |
+| `SeccompDefault` | `false` | Alpha | 1.22 | 1.24 |
+| `SeccompDefault` | `true` | Beta | 1.25 | 1.26 |
+| `SeccompDefault` | `true` | GA | 1.27 | - |
 | `ServerSideApply` | `false` | Alpha | 1.14 | 1.15 |
 | `ServerSideApply` | `true` | Beta | 1.16 | 1.21 |
 | `ServerSideApply` | `true` | GA | 1.22 | - |
+| `ServerSideFieldValidation` | `false` | Alpha | 1.23 | 1.24 |
+| `ServerSideFieldValidation` | `true` | Beta | 1.25 | 1.26 |
+| `ServerSideFieldValidation` | `true` | GA | 1.27 | - |
+| `OpenAPIV3` | `false` | Alpha | 1.23 | 1.23 |
+| `OpenAPIV3` | `true` | Beta | 1.24 | 1.26 |
+| `OpenAPIV3` | `true` | GA | 1.27 | - |
 | `ServiceIPStaticSubrange` | `false` | Alpha | 1.24 | 1.24 |
 | `ServiceIPStaticSubrange` | `true` | Beta | 1.25 | 1.25 |
 | `ServiceIPStaticSubrange` | `true` | GA | 1.26 | - |
@@ -323,6 +346,9 @@ For a reference to old feature gates that are removed, please refer to
 | `StatefulSetMinReadySeconds` | `false` | Alpha | 1.22 | 1.22 |
 | `StatefulSetMinReadySeconds` | `true` | Beta | 1.23 | 1.24 |
 | `StatefulSetMinReadySeconds` | `true` | GA | 1.25 | - |
+| `TopologyManager` | `false` | Alpha | 1.16 | 1.17 |
+| `TopologyManager` | `true` | Beta | 1.18 | 1.26 |
+| `TopologyManager` | `true` | GA | 1.27 | - |
 | `WatchBookmark` | `false` | Alpha | 1.15 | 1.15 |
 | `WatchBookmark` | `true` | Beta | 1.16 | 1.16 |
 | `WatchBookmark` | `true` | GA | 1.17 | - |
@@ -374,6 +400,7 @@ A *General Availability* (GA) feature is also referred to as a *stable* feature.
 
 Each feature gate is designed for enabling/disabling a specific feature:
 
+- `AdmissionWebhookMatchConditions`: Enable [match conditions](/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchconditions) on mutating & validating admission webhooks.
 - `APIListChunking`: Enable the API clients to retrieve (`LIST` or `GET`)
   resources from API server in chunks.
 - `APIPriorityAndFairness`: Enable managing request concurrency with
@@ -393,14 +420,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
   {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}.
 - `AppArmor`: Enable use of AppArmor mandatory access control for Pods running on Linux nodes.
   See [AppArmor Tutorial](/docs/tutorials/security/apparmor/) for more details.
+- `CloudDualStackNodeIPs`: Enables dual-stack `kubelet --node-ip` with external cloud providers.
+  See [Configure IPv4/IPv6 dual-stack](/docs/concepts/services-networking/dual-stack/#configure-ipv4-ipv6-dual-stack)
+  for more details.
 - `ContainerCheckpoint`: Enables the kubelet `checkpoint` API.
   See [Kubelet Checkpoint API](/docs/reference/node/kubelet-checkpoint-api/) for more details.
-- `ControllerManagerLeaderMigration`: Enables Leader Migration for
-  [kube-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#initial-leader-migration-configuration) and
-  [cloud-controller-manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/#deploy-cloud-controller-manager)
-  which allows a cluster operator to live migrate
-  controllers from the kube-controller-manager into an external controller-manager
-  (e.g. the cloud-controller-manager) in an HA cluster without downtime.
 - `CPUManager`: Enable container level CPU affinity support, see
   [CPU Management Policies](/docs/tasks/administer-cluster/cpu-management-policies/).
 - `CPUManagerPolicyAlphaOptions`: This allows fine-tuning of CPUManager policies,
@@ -472,8 +496,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
   handlers with probers.
 - `ContextualLogging`: When you enable this feature gate, Kubernetes components that support
    contextual logging add extra detail to log output.
-- `ControllerManagerLeaderMigration`: Enables leader migration for
-  `kube-controller-manager` and `cloud-controller-manager`.
 - `CronJobTimeZone`: Allow the use of the `timeZone` optional field in [CronJobs](/docs/concepts/workloads/controllers/cron-jobs/)
 - `CrossNamespaceVolumeDataSource`: Enable the usage of cross namespace volume data source
    to allow you to specify a source namespace in the `dataSourceRef` field of a
@@ -502,8 +524,12 @@ Each feature gate is designed for enabling/disabling a specific feature:
   [downward API](/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information).
 - `DryRun`: Enable server-side [dry run](/docs/reference/using-api/api-concepts/#dry-run) requests
   so that validation, merging, and mutation can be tested without committing.
-- `DynamicResourceAllocation": Enables support for resources with custom parameters and a lifecycle
+- `DynamicResourceAllocation`: Enables support for resources with custom parameters and a lifecycle
   that is independent of a Pod.
+- `ElasticIndexedJob`: Enables Indexed Jobs to be scaled up or down by mutating both
+  `spec.completions` and `spec.parallelism` together such that `spec.completions == spec.parallelism`.
+  See docs on [elastic Indexed Jobs](docs/concepts/workloads/controllers/job#elastic-indexed-jobs)
+  for more details.
 - `EndpointSliceTerminatingCondition`: Enables EndpointSlice `terminating` and `serving`
    condition fields.
 - `EfficientWatchResumption`: Allows for storage-originated bookmark (progress
@@ -523,15 +549,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
   This feature gate exists in case any of your existing workloads depend on a
   now-corrected fault where Kubernetes ignored exec probe timeouts. See
   [readiness probes](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#configure-probes).
-- `ExpandCSIVolumes`: Enable the expanding of CSI volumes.
 - `ExpandedDNSConfig`: Enable kubelet and kube-apiserver to allow more DNS
   search paths and longer list of DNS search paths. This feature requires container
   runtime support(Containerd: v1.5.6 or higher, CRI-O: v1.22 or higher). See
   [Expanded DNS Configuration](/docs/concepts/services-networking/dns-pod-service/#expanded-dns-configuration).
-- `ExpandInUsePersistentVolumes`: Enable expanding in-use PVCs. See
-  [Resizing an in-use PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#resizing-an-in-use-persistentvolumeclaim).
-- `ExpandPersistentVolumes`: Enable the expanding of persistent volumes. See
-  [Expanding Persistent Volumes Claims](/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims).
 - `ExperimentalHostUserNamespaceDefaulting`: Enabling the defaulting user
   namespace to host. This is for containers that are using other host namespaces,
   host mounts, or containers that are privileged or using specific non-namespaced
@@ -555,10 +576,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `HPAScaleToZero`: Enables setting `minReplicas` to 0 for `HorizontalPodAutoscaler`
   resources when using custom or external metrics.
 - `IPTablesOwnershipCleanup`: This causes kubelet to no longer create legacy iptables rules.
-- `IdentifyPodOS`: Allows the Pod OS field to be specified. This helps in identifying
-  the OS of the pod authoritatively during the API server admission time.
-  In Kubernetes {{< skew currentVersion >}}, the allowed values for the `pod.spec.os.name`
-  are `windows` and `linux`.
 - `InTreePluginAWSUnregister`: Stops registering the aws-ebs in-tree plugin in kubelet
   and volume controllers.
 - `InTreePluginAzureDiskUnregister`: Stops registering the azuredisk in-tree plugin in kubelet
@@ -597,9 +614,14 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `KubeletPodResources`: Enable the kubelet's pod resources gRPC endpoint. See
   [Support Device Monitoring](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/606-compute-device-assignment/README.md)
   for more details.
+- `KubeletPodResourcesGet`: Enable the `Get` gRPC endpoint on kubelet's for Pod resources.
+  This API augments the [resource allocation reporting](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources).
 - `KubeletPodResourcesGetAllocatable`: Enable the kubelet's pod resources
   `GetAllocatableResources` functionality. This API augments the
   [resource allocation reporting](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)
+- `KubeletPodResourcesDynamiceResources`: Extend the kubelet's pod resources gRPC endpoint to
+  to include resources allocated in `ResourceClaims` via `DynamicResourceAllocation` API.
+  See [resource allocation reporting](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources) for more details.
   with informations about the allocatable resources, enabling clients to properly
   track the free compute resources on a node.
 - `KubeletTracing`: Add support for distributed tracing in the kubelet.
@@ -642,9 +664,23 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `MixedProtocolLBService`: Enable using different protocols in the same `LoadBalancer` type
   Service instance.
 - `MultiCIDRRangeAllocator`: Enables the MultiCIDR range allocator.
+- `MultiCIDRServiceAllocator`: Track IP address allocations for Service cluster IPs using IPAddress objects.
 - `NetworkPolicyEndPort`: Enable use of the field `endPort` in NetworkPolicy objects,
   allowing the selection of a port range instead of a single port.
 - `NetworkPolicyStatus`: Enable the `status` subresource for NetworkPolicy objects.
+- `NewVolumeManagerReconstruction`: Enable improved discovery of mounted volumes during kubelet
+  startup.
+  <!-- remove next 2 paragraphs when feature graduates to GA -->
+  Before Kubernetes v1.25, the kubelet used different default behavior for discovering mounted
+  volumes during the kubelet startup. If you disable this feature gate (it's enabled by default), you select
+  the legacy discovery behavior.
+
+  In Kubernetes v1.25 and v1.26, this behavior toggle was part of the `SELinuxMountReadWriteOncePod`
+  feature gate.
+- `NewVolumeManagerReconstruction`: Enables improved discovery of mounted volumes during kubelet
+  startup. Since this code has been significantly refactored, we allow to opt-out in case kubelet
+  gets stuck at the startup or is not unmounting volumes from terminated Pods. Note that this
+  refactoring was behind `SELinuxMountReadWriteOncePod` alpha feature gate in Kubernetes 1.25.
 - `NodeInclusionPolicyInPodTopologySpread`: Enable using `nodeAffinityPolicy` and `nodeTaintsPolicy` in
   [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
   when calculating pod topology spread skew.
@@ -748,6 +784,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `VolumeCapacityPriority`: Enable support for prioritizing nodes in different
   topologies based on available PV capacity.
 - `WatchBookmark`: Enable support for watch bookmark events.
+- `WatchList` : Enable support for [streaming initial state of objects in watch requests](/docs/reference/using-api/api-concepts/#streaming-lists).
 - `WinDSR`: Allows kube-proxy to create DSR loadbalancers for Windows.
 - `WinOverlay`: Allows kube-proxy to run in overlay mode for Windows.
 - `WindowsHostNetwork`: Enables support for joining Windows containers to a hosts' network namespace.
