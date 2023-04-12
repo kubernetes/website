@@ -162,10 +162,6 @@ that the containers in that Pod are designed for. For Pods that run Linux contai
 `.spec.os.name` to `linux`. For Pods that run Windows containers, set `.spec.os.name`
 to `windows`.
 
-{{< note >}}
-Starting from 1.25, the `IdentifyPodOS` feature is in GA stage and defaults to be enabled.
-{{< /note >}}
-
 The scheduler does not use the value of `.spec.os.name` when assigning Pods to nodes. You should
 use normal Kubernetes mechanisms for
 [assigning pods to nodes](/docs/concepts/scheduling-eviction/assign-pod-node/)

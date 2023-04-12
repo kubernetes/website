@@ -89,10 +89,6 @@ section refers to several key workload abstractions and how they map to Windows.
 
     The `.spec.os.name` field should be set to `windows` to indicate that the current Pod uses Windows containers.
 
-    {{< note >}}
-    Starting from 1.25, the `IdentifyPodOS` feature gate is in GA stage and defaults to be enabled.
-    {{< /note >}}
-
     If you set the `.spec.os.name` field to `windows`,
     you must not set the following fields in the `.spec` of that Pod:
 
