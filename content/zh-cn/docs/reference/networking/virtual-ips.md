@@ -252,6 +252,44 @@ iptables:
 ...
 ```
 
+<!--
+##### Performance optimization for `iptables` mode {#minimize-iptables-restore}
+-->
+##### 对 `iptables` 模式的性能优化 {#minimize-iptables-restore}
+
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+
+<!--
+In Kubernetes {{< skew currentVersion >}} the kube-proxy defaults to a minimal approach
+to `iptables-restore` operations, only making updates where Services or EndpointSlices have
+actually changed. This is a performance optimization.
+The original implementation updated all the rules for all Services on every sync; this
+sometimes led to performance issues (update lag) in large clusters.
+-->
+在 Kubernetes {{< skew currentVersion >}} 中，kube-proxy 默认采用最小方式进行 `iptables-restore` 操作，
+仅在 Service 或 EndpointSlice 实际发生变化的地方进行更新。这是一个性能优化。
+最初的实现在每次同步时都会更新所有服务的所有规则；这有时会导致大型集群出现性能问题（更新延迟）。
+
+<!--
+If you are not running kube-proxy from Kubernetes {{< skew currentVersion >}}, check
+the behavior and associated advice for the version that you are actually running.
+-->
+如果你运行的不是 Kubernetes {{< skew currentVersion >}} 版本的 kube-proxy，
+请检查你实际运行的版本的行为和相关建议。
+
+<!--
+If you were previously overriding `minSyncPeriod`, you should try
+removing that override and letting kube-proxy use the default value
+(`1s`) or at least a smaller value than you were using before upgrading.
+You can select the legacy behavior by disabling the `MinimizeIPTablesRestore`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+(you should not need to).
+-->
+如果你之前覆盖了 `minSyncPeriod`，你应该尝试删除该覆盖并让 kube-proxy 使用默认值（`1s`）或至少比升级前使用的值小。
+你可以通过禁用 `MinimizeIPTablesRestore`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来选择执行旧的行为
+（你应该不需要）。
+
 ##### `minSyncPeriod`
 
 <!--
@@ -264,7 +302,7 @@ things change in a small time period. For example, if you have a
 Service backed by a {{< glossary_tooltip term_id="deployment" text="Deployment" >}}
 with 100 pods, and you delete the
 Deployment, then with `minSyncPeriod: 0s`, kube-proxy would end up
-removing the Service's Endpoints from the iptables rules one by one,
+removing the Service's endpoints from the iptables rules one by one,
 for a total of 100 updates. With a larger `minSyncPeriod`, multiple
 Pod deletion events would get aggregated
 together, so kube-proxy might
@@ -287,21 +325,20 @@ The larger the value of `minSyncPeriod`, the more work that can be
 aggregated, but the downside is that each individual change may end up
 waiting up to the full `minSyncPeriod` before being processed, meaning
 that the iptables rules spend more time being out-of-sync with the
-current apiserver state.
+current API server state.
 -->
 `minSyncPeriod` 的值越大，可以聚合的工作越多，
 但缺点是每个独立的变更可能最终要等待整个 `minSyncPeriod` 周期后才能被处理，
-这意味着 iptables 规则要用更多时间才能与当前的 apiserver 状态同步。
+这意味着 iptables 规则要用更多时间才能与当前的 API 服务器状态同步。
 
 <!--
-The default value of `1s` is a good compromise for small and medium
-clusters. In large clusters, it may be necessary to set it to a larger
-value. (Especially, if kube-proxy's
-`sync_proxy_rules_duration_seconds` metric indicates an average
-time much larger than 1 second, then bumping up `minSyncPeriod` may
-make updates more efficient.)
+The default value of `1s` should work well in most clusters, but in very
+large clusters it may be necessary to set it to a larger value.
+Especially, if kube-proxy's `sync_proxy_rules_duration_seconds` metric
+indicates an average time much larger than 1 second, then bumping up
+`minSyncPeriod` may make updates more efficient.
 -->
-默认值 `1s` 对于中小型集群是一个很好的折衷方案。
+默认值 `1s` 适用于大多数集群，
 在大型集群中，可能需要将其设置为更大的值。
 （特别是，如果 kube-proxy 的 `sync_proxy_rules_duration_seconds` 指标表明平均时间远大于 1 秒，
 那么提高 `minSyncPeriod` 可能会使更新更有效率。）
@@ -311,13 +348,13 @@ make updates more efficient.)
 <!--
 The `syncPeriod` parameter controls a handful of synchronization
 operations that are not directly related to changes in individual
-Services and Endpoints. In particular, it controls how quickly
+Services and EndpointSlices. In particular, it controls how quickly
 kube-proxy notices if an external component has interfered with
 kube-proxy's iptables rules. In large clusters, kube-proxy also only
 performs certain cleanup operations once every `syncPeriod` to avoid
 unnecessary work.
 -->
-`syncPeriod` 参数控制与单次 Service 和 Endpoint 的变更没有直接关系的少数同步操作。
+`syncPeriod` 参数控制与单次 Service 和 EndpointSlice 的变更没有直接关系的少数同步操作。
 特别是，它控制 kube-proxy 在外部组件已干涉 kube-proxy 的 iptables 规则时通知的速度。
 在大型集群中，kube-proxy 也仅在每隔 `syncPeriod` 时长执行某些清理操作，以避免不必要的工作。
 
@@ -330,47 +367,6 @@ and is likely to hurt functionality more than it improves performance.
 在大多数情况下，提高 `syncPeriod` 预计不会对性能产生太大影响，
 但在过去，有时将其设置为非常大的值（例如 `1h`）很有用。
 现在不再推荐这种做法，因为它对功能的破坏可能会超过对性能的改进。
-
-<!--
-##### Experimental performance improvements {#minimize-iptables-restore}
--->
-##### 实验性的性能改进 {#minimize-iptables-restore}
-
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
-
-<!--
-In Kubernetes 1.26, some new performance improvements were made to the
-iptables proxy mode, but they are not enabled by default (and should
-probably not be enabled in production clusters yet). To try them out,
-enable the `MinimizeIPTablesRestore` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) for
-kube-proxy with `--feature-gates=MinimizeIPTablesRestore=true,…`.
--->
-在 Kubernetes 1.26 中，社区对 iptables 代理模式进行了一些新的性能改进，
-但默认未启用（并且可能还不应该在生产集群中启用）。要试用它们，
-请使用 `--feature-gates=MinimizeIPTablesRestore=true,…` 为 kube-proxy 启用 `MinimizeIPTablesRestore`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-
-<!--
-If you enable that feature gate and
-you were previously overriding
-`minSyncPeriod`, you should try removing that override and letting
-kube-proxy use the default value (`1s`) or at least a smaller value
-than you were using before.
--->
-如果你启用该特性门控并且之前覆盖了 `minSyncPeriod`，
-你应该尝试移除该覆盖并让 kube-proxy 使用默认值 (`1s`) 或至少使用比之前更小的值。
-
-<!--
-If you notice kube-proxy's
-`sync_proxy_rules_iptables_restore_failures_total` or
-`sync_proxy_rules_iptables_partial_restore_failures_total` metrics
-increasing after enabling this feature, that likely indicates you are
-encountering bugs in the feature and you should file a bug report.
--->
-如果你注意到 kube-proxy 的 `sync_proxy_rules_iptables_restore_failures_total` 或
-`sync_proxy_rules_iptables_partial_restore_failures_total` 指标在启用此特性后升高，
-这可能表明你发现了该特性的错误，你应该提交错误报告。
 
 <!--
 ### IPVS proxy mode {#proxy-mode-ipvs}
@@ -521,31 +517,35 @@ populated in terms of the Service's virtual IP address (and port).
 One of the primary philosophies of Kubernetes is that you should not be
 exposed to situations that could cause your actions to fail through no fault
 of your own. For the design of the Service resource, this means not making
-you choose your own port number if that choice might collide with
+you choose your own IP address if that choice might collide with
 someone else's choice.  That is an isolation failure.
 -->
 Kubernetes 的主要哲学之一是，
 你不应需要在完全不是你的问题的情况下面对可能导致你的操作失败的情形。
 对于 Service 资源的设计，也就是如果你选择的端口号可能与其他人的选择冲突，
-就不应该让你自己选择端口号。这是一种失败隔离。
+就不应该让你自己选择 IP 地址。这是一种失败隔离。
 
 <!--
-In order to allow you to choose a port number for your Services, we must
+In order to allow you to choose an IP address for your Services, we must
 ensure that no two Services can collide. Kubernetes does that by allocating each
 Service its own IP address from within the `service-cluster-ip-range`
 CIDR range that is configured for the {{< glossary_tooltip term_id="kube-apiserver" text="API Server" >}}.
 -->
-为了允许你为 Service 选择端口号，我们必须确保没有任何两个 Service 会发生冲突。
+为了允许你为 Service 选择 IP 地址，我们必须确保没有任何两个 Service 会发生冲突。
 Kubernetes 通过从为 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}
 配置的 `service-cluster-ip-range` CIDR 范围内为每个 Service 分配自己的 IP 地址来实现这一点。
 
 <!--
+#### IP address allocation tracking
+
 To ensure each Service receives a unique IP, an internal allocator atomically
 updates a global allocation map in {{< glossary_tooltip term_id="etcd" >}}
 prior to creating each Service. The map object must exist in the registry for
 Services to get IP address assignments, otherwise creations will
 fail with a message indicating an IP address could not be allocated.
 -->
+#### IP 地址分配追踪
+
 为了确保每个 Service 都获得唯一的 IP，内部分配器在创建每个 Service
 之前更新 {{< glossary_tooltip term_id="etcd" >}} 中的全局分配映射，这种更新操作具有原子性。
 映射对象必须存在于数据库中，这样 Service 才能获得 IP 地址分配，
@@ -561,6 +561,61 @@ IP addresses that are no longer used by any Services.
 在控制平面中，后台控制器负责创建该映射（从使用内存锁定的旧版本的 Kubernetes 迁移时需要这一映射）。
 Kubernetes 还使用控制器来检查无效的分配（例如，因管理员干预而导致无效分配）
 以及清理已分配但没有 Service 使用的 IP 地址。
+
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+<!--
+If you enable the `MultiCIDRServiceAllocator`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
+[`networking.k8s.io/v1alpha1` API group](/docs/tasks/administer-cluster/enable-disable-api/),
+the control plane replaces the existing etcd allocator with a new one, using IPAddress
+objects instead of an internal global allocation map.  The ClusterIP address
+associated to each Service will have a referenced IPAddress object.
+-->
+如果你启用 `MultiCIDRServiceAllocator` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gate/)
+和 [`networking.k8s.io/v1alpha1` API 组](/zh-cn/docs/tasks/administer-cluster/enable-disable-api/)，
+控制平面将用一个新的分配器替换现有的 etcd 分配器，使用 IPAddress 对象而不是内部的全局分配映射。
+与每个 Service 关联的 ClusterIP 地址将有一个对应的 IPAddress 对象。
+
+<!--
+The background controller is also replaced by a new one to handle the new IPAddress
+objects and the migration from the old allocator model.
+-->
+后台控制器也被一个新的控制器取代，来处理新的 IPAddress 对象和从旧的分配器模型的迁移。
+
+<!--
+One of the main benefits of the new allocator is that it removes the size limitations
+for the `service-cluster-ip-range`, there is no limitations for IPv4 and for IPv6
+users can use masks equal or larger than /64 (previously it was /108).
+-->
+新分配器的主要好处之一是它取消了对 `service-cluster-ip-range` 的大小限制，对 IPv4 没有大小限制，
+对于 IPv6 用户可以使用等于或大于 /64 的掩码（以前是 /108）。
+
+<!--
+Users now will be able to inspect the IP addresses assigned to their Services, and
+Kubernetes extensions such as the [Gateway](https://gateway-api.sigs.k8s.io/) API, can use this new
+IPAddress object kind to enhance the Kubernetes networking capabilities, going beyond the limitations of
+the built-in Service API.
+-->
+用户现在能够检查分配给他们的 Service 的 IP 地址，Kubernetes 扩展，
+如 [Gateway](https://gateway-api.sigs.k8s.io/) API
+可以使用这个新的 IPAddress 对象类别来增强 Kubernetes 的网络能力，解除内置 Service API 的限制。
+
+```shell
+kubectl get services
+```
+```
+NAME         TYPE        CLUSTER-IP        EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   2001:db8:1:2::1   <none>        443/TCP   3d1h
+```
+
+```shell
+kubectl get ipaddresses
+```
+```
+NAME              PARENTREF
+2001:db8:1:2::1   services/default/kubernetes
+2001:db8:1:2::a   services/kube-system/kube-dns
+```
 
 <!--
 #### IP address ranges for Service virtual IP addresses {#service-ip-static-sub-range}
