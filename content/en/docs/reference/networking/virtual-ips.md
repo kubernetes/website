@@ -280,6 +280,25 @@ ensure that no two Services can collide. Kubernetes does that by allocating each
 Service its own IP address from within the `service-cluster-ip-range`
 CIDR range that is configured for the {{< glossary_tooltip term_id="kube-apiserver" text="API Server" >}}.
 
+#### Static Subrange NodePort (!!update later!!)
+
+A static subrange is a subset of the default NodePort range that is 
+reserved for a specific service. You can define a static subrange by 
+specifying a range of port numbers within the default range that are 
+reserved for your service. For example, you might reserve ports 31000-31009 for your service.
+
+To define a static subrange, you can set the nodePort field in your service's 
+YAML configuration to a specific port number within the NodePort range, 
+followed by a hyphen and the upper bound of the reserved range. 
+Kubernetes will then ensure that the specified range of ports is reserved 
+for your service, and will not assign those ports to any other services.
+
+Using a static subrange can help ensure that your service always has access 
+to a specific set of ports, which can be useful for applications that rely 
+on fixed port numbers for communication. However, it's important to note that 
+the static subrange must be a subset of the default NodePort range, 
+and must not overlap with any other static assignment subranges used by other services in the cluster.
+
 #### IP address allocation tracking
 
 To ensure each Service receives a unique IP, an internal allocator atomically
