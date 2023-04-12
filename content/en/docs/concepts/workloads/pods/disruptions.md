@@ -136,6 +136,11 @@ against the disruption budget, but workload resources (such as Deployment and St
 are not limited by PDBs when doing rolling upgrades. Instead, the handling of failures
 during application updates is configured in the spec for the specific workload resource.
 
+It is recommended to set `AlwaysAllow` [Unhealthy Pod Eviction Policy](/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy)
+to your PodDisruptionBudgets to support eviction of misbehaving applications during a node drain.
+The default behavior is to wait for the application pods to become [healthy](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)
+before the drain can proceed.
+
 When a pod is evicted using the eviction API, it is gracefully
 [terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination), honoring the
 `terminationGracePeriodSeconds` setting in its [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
@@ -232,11 +237,6 @@ can happen, according to:
 {{< feature-state for_k8s_version="v1.26" state="beta" >}}
 
 {{< note >}}
-If you are using an older version of Kubernetes than {{< skew currentVersion >}}
-please refer to the corresponding version of the documentation.
-{{< /note >}}
-
-{{< note >}}
 In order to use this behavior, you must have the `PodDisruptionConditions`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 enabled in your cluster.
@@ -247,7 +247,7 @@ that the Pod is about to be deleted due to a {{<glossary_tooltip term_id="disrup
 The `reason` field of the condition additionally
 indicates one of the following reasons for the Pod termination:
 
-`PreemptionByKubeScheduler`
+`PreemptionByScheduler`
 : Pod is due to be {{<glossary_tooltip term_id="preemption" text="preempted">}} by a scheduler in order to accommodate a new Pod with a higher priority. For more information, see [Pod priority preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
 
 `DeletionByTaintManager`

@@ -1,7 +1,7 @@
 ---
 title: コンテナライフサイクルイベントへのハンドラー紐付け
 content_type: task
-weight: 140
+weight: 180
 ---
 
 <!-- overview -->

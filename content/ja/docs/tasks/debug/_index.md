@@ -1,7 +1,7 @@
 ---
 title: "監視、ログ、デバッグ"
 description: クラスターのトラブルシューティングや、コンテナ化したアプリケーションのデバッグのために、監視とログをセットアップします。
-weight: 20
+weight: 40
 content_type: concept
 no_list: true
 ---
