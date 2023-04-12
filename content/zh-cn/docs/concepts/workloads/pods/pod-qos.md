@@ -79,7 +79,7 @@ CPU 管理策略来使用独占的 CPU。
 
 For a Pod to be given a QoS class of `Guaranteed`:
 -->
-#### 判据
+#### 判据   {#criteria}
 
 Pod 被赋予 `Guaranteed` QoS 类的几个判据：
 
@@ -119,7 +119,7 @@ A Pod is given a QoS class of `Burstable` if:
 * The Pod does not meet the criteria for QoS class `Guaranteed`.
 * At least one Container in the Pod has a memory or CPU request or limit.
 -->
-#### 判据
+#### 判据   {#criteria-1}
 
 Pod 被赋予 `Burstable` QoS 类的几个判据：
 
@@ -152,12 +152,42 @@ CPU limit or a CPU request.
 Containers in a Pod can request other resources (not CPU or memory) and still be classified as
 `BestEffort`.
 -->
-#### 判据
+#### 判据   {#criteria-2}
 
 如果 Pod 不满足 `Guaranteed` 或 `Burstable` 的判据，则它的 QoS 类为 `BestEffort`。
 换言之，只有当 Pod 中的所有容器没有内存 limit 或内存 request，也没有 CPU limit 或
 CPU request 时，Pod 才是 `BestEffort`。Pod 中的容器可以请求（除 CPU 或内存之外的）
 其他资源并且仍然被归类为 `BestEffort`。
+
+<!--
+## Memory QoS with cgroup v2
+-->
+## 使用 cgroup v2 的内存 QoS   {#memory-qos-with-cgroup-v2}
+
+{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+
+<!--
+Memory QoS uses the memory controller of cgroup v2 to guarantee memory resources in Kubernetes.
+Memory requests and limits of containers in pod are used to set specific interfaces `memory.min`
+and `memory.high` provided by the memory controller. When `memory.min` is set to memory requests,
+memory resources are reserved and never reclaimed by the kernel; this is how Memory QoS ensures
+memory availability for Kubernetes pods. And if memory limits are set in the container,
+this means that the system needs to limit container memory usage; Memory QoS uses `memory.high`
+to throttle workload approaching its memory limit, ensuring that the system is not overwhelmed
+by instantaneous memory allocation.
+-->
+内存 QoS 使用 cgroup v2 的内存控制器来保证 Kubernetes 中的内存资源。
+Pod 中容器的内存请求和限制用于设置由内存控制器所提供的特定接口 `memory.min` 和 `memory.high`。
+当 `memory.min` 被设置为内存请求时，内存资源被保留并且永远不会被内核回收；
+这就是内存 QoS 确保 Kubernetes Pod 的内存可用性的方式。而如果容器中设置了内存限制，
+这意味着系统需要限制容器内存的使用；内存 QoS 使用 `memory.high` 来限制接近其内存限制的工作负载，
+确保系统不会因瞬时内存分配而不堪重负。
+
+<!--
+Memory QoS relies on QoS class to determine which settings to apply; however, these are different
+mechanisms that both provide controls over quality of service.
+-->
+内存 QoS 依赖于 QoS 类来确定应用哪些设置；它们的机制不同，但都提供对服务质量的控制。
 
 <!--
 ## Some behavior is independent of QoS class {#class-independent-behavior}
@@ -199,7 +229,7 @@ Certain behavior is independent of the QoS class assigned by Kubernetes. For exa
 * Learn about [resource management for Pods and Containers](/docs/concepts/configuration/manage-resources-containers/).
 * Learn about [Node-pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
 * Learn about [Pod priority and preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
-* Learn about [Pod disruptions](/docs/concepts/workload/pods/disruptions/).
+* Learn about [Pod disruptions](/docs/concepts/workloads/pods/disruptions/).
 * Learn how to [assign memory resources to containers and pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
 * Learn how to [assign CPU resources to containers and pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
 * Learn how to [configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/).
