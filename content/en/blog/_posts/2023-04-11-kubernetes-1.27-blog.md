@@ -91,7 +91,7 @@ A cluster administrator can try out this alpha feature across all nodes of their
 
 ## ReadWriteOncePod PersistentVolume access mode goes to beta 
 
-Kuberentes `v1.22` introduced a new access mode `ReadWriteOncePod` for [PersistentVolumes](/docs/concepts/storage/persistent-volumes/#persistent-volumes) (PVs) and [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) (PVCs). This access mode enables you to restrict volume access to a single pod in the cluster, ensuring that only one pod can write to the volume at a time. This can be particularly useful for stateful workloads that require single-writer access to storage.
+Kubernetes `v1.22` introduced a new access mode `ReadWriteOncePod` for [PersistentVolumes](/docs/concepts/storage/persistent-volumes/#persistent-volumes) (PVs) and [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) (PVCs). This access mode enables you to restrict volume access to a single pod in the cluster, ensuring that only one pod can write to the volume at a time. This can be particularly useful for stateful workloads that require single-writer access to storage.
 
 The ReadWriteOncePod beta adds support for [scheduler preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 of pods that use ReadWriteOncePod PVCs.
