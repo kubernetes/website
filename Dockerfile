@@ -4,9 +4,7 @@
 # change is that the Hugo version is now an overridable argument rather than a fixed
 # environment variable.
 
-FROM golang:1.18-alpine
-
-LABEL maintainer="Luc Perkins <lperkins@linuxfoundation.org>"
+FROM golang:1.18-alpine AS builder
 
 RUN apk add --no-cache \
     curl \
@@ -18,13 +16,15 @@ RUN apk add --no-cache \
 
 ARG HUGO_VERSION
 
-RUN mkdir $HOME/src && \
-    cd $HOME/src && \
+RUN mkdir /src && \
+    cd /src && \
     curl -L https://github.com/gohugoio/hugo/archive/refs/tags/v${HUGO_VERSION}.tar.gz | tar -xz && \
-    cd "hugo-${HUGO_VERSION}" && \
+    cd hugo-${HUGO_VERSION} && \
     go install --tags extended
 
-FROM golang:1.18-alpine
+FROM alpine:3.14
+
+LABEL maintainer="Luc Perkins <lperkins@linuxfoundation.org>"
 
 RUN apk add --no-cache \
     runuser \
@@ -40,7 +40,7 @@ RUN mkdir -p /var/hugo && \
     chown -R hugo: /var/hugo && \
     runuser -u hugo -- git config --global --add safe.directory /src
 
-COPY --from=0 /go/bin/hugo /usr/local/bin/hugo
+COPY --from=builder /go/bin/hugo /usr/local/bin/hugo
 
 WORKDIR /src
 
