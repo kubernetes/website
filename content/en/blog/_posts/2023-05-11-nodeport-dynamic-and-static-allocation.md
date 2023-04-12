@@ -71,7 +71,7 @@ other Service; if so, creation of the `minio` Service will fail due to a node po
 ## How can you avoid NodePort Service port conflicts? 
 Kubernetes 1.24 introduced changes for `type: ClusterIP` Services, dividing the CIDR range for cluster
 IP addresses into two blocks that use different allocation policies to [reduce the risk of conflicts](/docs/reference/networking/virtual-ips/#avoiding-collisions).
-In Kubernetes 1.27, as an alpha feature, you can adopt a similar policy for `type: NodePort` Servies.
+In Kubernetes 1.27, as an alpha feature, you can adopt a similar policy for `type: NodePort` Services.
 You can enable a new [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 `ServiceNodePortStaticSubrange`. Turning this on allows you to use a different port allocation strategy
 for `type: NodePort` Services, and reduce the risk of collision.
