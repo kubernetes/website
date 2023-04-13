@@ -218,19 +218,17 @@ for resources such as CPU and memory.
 
 <!--
 `resource: limits.hugepages-*`
-: A container's hugepages limit (provided that the `DownwardAPIHugePages` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled)
+: A container's hugepages limit
 -->
 `resource: limits.hugepages-*`
-: 容器的巨页限制值（前提是启用了 `DownwardAPIHugePages`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)）
+: 容器的巨页限制值
 
 <!--
 `resource: requests.hugepages-*`
-: A container's hugepages request (provided that the `DownwardAPIHugePages` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled)
+: A container's hugepages request
 -->
 `resource: requests.hugepages-*`
-: 容器的巨页请求值（前提是启用了 `DownwardAPIHugePages`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)）
+: 容器的巨页请求值
 
 <!--
 `resource: limits.ephemeral-storage`
