@@ -59,8 +59,17 @@ stateful tasks.
 These plugins are called prior to adding Pods to the internal active queue, where Pods are marked as
 ready for scheduling.
 
-Only when all PreEnqueue plugins return `Success`, the Pod can enter the aforementioned scheduling
-cycle. Otherwise, it's moved and parked in the internal unschedulable Pods pool.
+Only when all PreEnqueue plugins return `Success`, the Pod is allowed to enter the active queue.
+Otherwise, it's placed in the internal unschedulable Pods list.
+
+{{< note >}}
+
+More details about how internal scheduler queues work, please check this
+[document](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-scheduling/scheduler_queues.md).
+
+{{< /note >}}
+
+> Check more details
 
 ### QueueSort {#queue-sort}
 
