@@ -54,6 +54,14 @@ stateful tasks.
 
 {{< figure src="/images/docs/scheduling-framework-extensions.png" title="scheduling framework extension points" class="diagram-large">}}
 
+### PreEnqueue {#pre-enqueue}
+
+These plugins are called prior to adding Pods to the internal active queue, where Pods are marked as
+ready for scheduling.
+
+Only when all PreEnqueue plugins return `Success`, the Pod can enter the aforementioned scheduling
+cycle. Otherwise, it's moved and parked in the internal unschedulable Pods pool.
+
 ### QueueSort {#queue-sort}
 
 These plugins are used to sort Pods in the scheduling queue. A queue sort plugin
