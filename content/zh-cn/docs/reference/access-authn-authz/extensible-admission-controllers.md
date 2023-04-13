@@ -1060,6 +1060,151 @@ The `matchPolicy` for an admission webhooks defaults to `Equivalent`.
 准入 Webhook 所用的 `matchPolicy` 默认为 `Equivalent`。
 
 <!--
+### Matching requests: `matchConditions`
+-->
+### 匹配请求：`matchConditions`  {#matching-requests-matchConditions}
+
+{{< feature-state state="alpha" for_k8s_version="v1.27" >}}
+
+{{< note >}}
+<!--
+Use of `matchConditions` requires the [featuregate](/docs/reference/command-line-tools-reference/feature-gates/)
+`AdmissionWebhookMatchConditions` to be explicitly enabled on the kube-apiserver before this feature can be used.
+-->
+使用 `matchConditions` 需要先在 kube-apiserver
+上明确启用[功能门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+`AdmissionWebhookMatchConditions`，然后才能使用此功能。
+{{< /note >}}
+
+<!--
+You can define _match conditions_for webhooks if you need fine-grained request filtering. These
+conditions are useful if you find that match rules, `objectSelectors` and `namespaceSelectors` still
+doesn't provide the filtering you want over when to call out over HTTP. Match conditions are
+[CEL expressions](/docs/reference/using-api/cel/). All match conditions must evaluate to true for the
+webhook to be called.
+-->
+如果你需要细粒度地过滤请求，你可以为 Webhook 定义**匹配条件**。
+如果你发现匹配规则、`objectSelectors` 和 `namespaceSelectors` 仍然不能提供你想要的何时进行 HTTP
+调用的过滤条件，那么添加这些条件会很有用。
+匹配条件是 [CEL 表达式](/docs/reference/using-api/cel/)。
+所有匹配条件都必须为 true 才能调用 Webhook。
+
+<!--
+Here is an example illustrating a few different uses for match conditions:
+-->
+以下是一个例子，说明了匹配条件的几种不同用法：
+
+```yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+webhooks:
+  - name: my-webhook.example.com
+    matchPolicy: Equivalent
+    rules:
+      - operations: ['CREATE','UPDATE']
+        apiGroups: ['*']
+        apiVersions: ['*']
+        resources: ['*']
+    failurePolicy: 'Ignore' # 失败时继续处理请求但跳过 Webhook (可选值)
+    sideEffects: None
+    clientConfig:
+      service:
+        namespace: my-namespace
+        name: my-webhook
+      caBundle: '<omitted>'
+    matchConditions:
+      - name: 'exclude-leases' # 每个匹配条件必须有唯一的名称
+        expression: '!(request.resource.group == "coordination.k8s.io" && request.resource.resource == "leases")' # 匹配非租约资源
+      - name: 'exclude-kubelet-requests'
+        expression: '!("system:nodes" in request.userInfo.groups)' # 匹配非节点用户发出的请求
+      - name: 'rbac' # 跳过 RBAC 请求，该请求将由第二个 Webhook 处理
+        expression: 'request.resource.group != "rbac.authorization.k8s.io"'
+
+  # 这个示例演示了如何使用 “authorizer”。
+  # 授权检查比简单的表达式更复杂，因此在这个示例中，使用第二个 Webhook 来针对 RBAC 请求进行处理。
+  # 两个 Webhook 都可以由同一个端点提供服务。
+  - name: rbac.my-webhook.example.com
+    matchPolicy: Equivalent
+    rules:
+      - operations: ['CREATE','UPDATE']
+        apiGroups: ['rbac.authorization.k8s.io']
+        apiVersions: ['*']
+        resources: ['*']
+    failurePolicy: 'Fail' # 失败时拒绝请求 (默认值)
+    sideEffects: None
+    clientConfig:
+      service:
+        namespace: my-namespace
+        name: my-webhook
+      caBundle: '<omitted>'
+    matchConditions:
+      - name: 'breakglass'
+        # 跳过由授权给 “breakglass” 的用户在这个 Webhook 上发起的请求。
+        # “breakglass” API 不需要在这个检查之外存在。
+        expression: '!authorizer.group("admissionregistration.k8s.io").resource("validatingwebhookconfigurations").name("my-webhook.example.com").check("breakglass").allowed()'
+```
+
+<!-- 
+Match conditions have access to the following CEL variables:
+-->
+匹配条件可以访问以下 CEL 变量：
+
+<!--
+- `object` - The object from the incoming request. The value is null for DELETE requests. The object
+  version may be converted based on the [matchPolicy](#matching-requests-matchpolicy).
+-->
+- `object` - 来自传入请求的对象。对于 DELETE 请求，该值为 null。
+  该对象版本可能根据 [matchPolicy](#matching-requests-matchpolicy) 进行转换。
+<!--
+- `oldObject` - The existing object. The value is null for CREATE requests.
+-->
+- `oldObject` - 现有对象。对于 CREATE 请求，该值为 null。
+<!--
+- `request` - The request portion of the [AdmissionReview](#request), excluding `object` and `oldObject`.
+-->
+- `request` - [AdmissionReview](#request) 的请求部分，不包括 object 和 oldObject。
+<!--
+- `authorizer` - A CEL Authorizer. May be used to perform authorization checks for the principal
+  (authenticated user) of the request. See
+  [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz) in the Kubernetes CEL library
+  documentation for more details.
+-->
+- `authorizer` - 一个 CEL 鉴权组件。可用于对请求的主体（经过身份认证的用户）执行鉴权检查。
+  更多详细信息，请参阅 Kubernetes CEL 库文档中的
+  [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)。
+<!--
+- `authorizer.requestResource` - A shortcut for an authorization check configured with the request
+  resource (group, resource, (subresource), namespace, name).
+-->
+- `authorizer.requestResource` - 对配置的请求资源（组、资源、（子资源）、名字空间、名称）进行授权检查的快捷方式。
+
+<!--
+For more information on CEL expressions, refer to the
+[Common Expression Language in Kubernetes reference](/docs/reference/using-api/cel/).
+-->
+了解有关 CEL 表达式的更多信息，请参阅
+[Kubernetes 参考文档中的通用表达式语言](/zh-cn/docs/reference/using-api/cel/)。
+
+<!--
+In the event of an error evaluating a match condition the webhook is never called. Whether to reject
+the request is determined as follows:
+-->
+如果在对匹配条件求值时出现错误，则不会调用 Webhook。根据以下方式确定是否拒绝请求：
+
+<!--
+1. If **any** match condition evaluated to `false` (regardless of other errors), the API server skips the webhook.
+-->
+1. 如果**任何一个**匹配条件求值结果为 `false`（不管其他错误），API 服务器将跳过 Webhook。
+<!--
+1. Otherwise:
+    - for [`failurePolicy: Fail`](#failure-policy), reject the request (without calling the webhook).
+    - for [`failurePolicy: Ignore`](#failure-policy), proceed with the request but skip the webhook.
+-->
+1. 否则：
+   - 对于 [`failurePolicy: Fail`](#failure-policy)，拒绝请求（不调用 Webhook）。
+   - 对于 [`failurePolicy: Ignore`](#failure-policy)，继续处理请求但跳过 Webhook。
+
+<!--
 ### Contacting the webhook
 -->
 ### 调用 Webhook {#contacting-the-webhook}
