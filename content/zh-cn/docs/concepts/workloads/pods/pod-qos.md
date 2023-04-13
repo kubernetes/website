@@ -69,7 +69,7 @@ use of exclusive CPUs using the
 [`static`](/docs/tasks/administer-cluster/cpu-management-policies/#static-policy) CPU management policy.
 -->
 `Guaranteed` Pod 具有最严格的资源限制，并且最不可能面临驱逐。
-在这些 Pod 超过其自身的限制或者从 Node 上没有可以抢占的低优先级 Pod 之前，
+在这些 Pod 超过其自身的限制或者没有可以从 Node 抢占的低优先级 Pod 之前，
 这些 Pod 保证不会被杀死。这些 Pod 不可以获得超出其指定 limit 的资源。这些 Pod 也可以使用
 [`static`](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies/#static-policy)
 CPU 管理策略来使用独占的 CPU。
@@ -124,7 +124,7 @@ A Pod is given a QoS class of `Burstable` if:
 Pod 被赋予 `Burstable` QoS 类的几个判据：
 
 * Pod 不满足针对 QoS 类 `Guaranteed` 的判据。
-* Pod 中至少一个容器有内存或 CPU request 或 limit。
+* Pod 中至少一个容器有内存或 CPU 的 request 或 limit。
 
 ### BestEffort
 
@@ -219,7 +219,7 @@ Certain behavior is independent of the QoS class assigned by Kubernetes. For exa
   Preemption can occur when a cluster does not have enough resources to run all the Pods
   you defined.
 -->
-* Pod 的资源 request 等于其成员容器的资源 request 之和，Pod 的资源 limit 等于其组成容器的资源 limit 之和。
+* Pod 的资源 request 等于其成员容器的资源 request 之和，Pod 的资源 limit 等于其成员容器的资源 limit 之和。
 * kube-scheduler 在选择要[抢占](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/#preemption)的
   Pod 时不考虑 QoS 类。当集群没有足够的资源来运行你所定义的所有 Pod 时，就会发生抢占。
 
