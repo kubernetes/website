@@ -24,6 +24,9 @@ kubeadm kubeconfig user [flags]
 ### Examples
 
 ```
+  # Output a kubeconfig file for an additional user named foo
+  kubeadm kubeconfig user --client-name=foo
+  
   # Output a kubeconfig file for an additional user named foo using a kubeadm config file bar
   kubeadm kubeconfig user --client-name=foo --config=bar
 ```
