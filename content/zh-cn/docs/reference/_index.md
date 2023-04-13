@@ -193,12 +193,10 @@ operator to use or manage a cluster.
 <!--
 ## Config API for kubeadm
 
-* [v1beta2](/docs/reference/config-api/kubeadm-config.v1beta2/)
 * [v1beta3](/docs/reference/config-api/kubeadm-config.v1beta3/)
 -->
 ## kubeadm 的配置 API   {#config-api-for-kubeadm}
 
-* [v1beta2](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta2/)
 * [v1beta3](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)
 
 <!--
