@@ -5,7 +5,7 @@ date: 2023-04-17
 slug: fine-grained-pod-topology-spread-features-beta
 ---
 
-**Authors:** [Alex Wang](https://github.com/denkensk)(Shopee), [Kante Yin](https://github.com/kerthcet)(DaoCloud), [Kensei Nakada](https://github.com/sanposhiho)(Mercari)
+**Authors:** [Alex Wang](https://github.com/denkensk) (Shopee), [Kante Yin](https://github.com/kerthcet) (DaoCloud), [Kensei Nakada](https://github.com/sanposhiho) (Mercari)
 
 In Kubernetes v1.19, [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 went to general availability (GA).
