@@ -158,11 +158,6 @@ For self-registration, the kubelet is started with the following options:
   {{< glossary_tooltip text="taints" term_id="taint" >}} (comma separated `<key>=<value>:<effect>`).
 
   No-op if `register-node` is false.
-- `--node-ip` - IP address of the node.
-- `--node-labels` - {{< glossary_tooltip text="Labels" term_id="label" >}} to add when registering the node
-  in the cluster (see label restrictions enforced by the
-  [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)).
-- `--node-status-update-frequency` - Specifies how often kubelet posts its node status to the API server.
 -->
 - `--kubeconfig` - 用于向 API 服务器执行身份认证所用的凭据的路径。
 - `--cloud-provider` - 与某{{< glossary_tooltip text="云驱动" term_id="cloud-provider" >}}
@@ -170,7 +165,29 @@ For self-registration, the kubelet is started with the following options:
 - `--register-node` - 自动向 API 服务注册。
 - `--register-with-taints` - 使用所给的{{< glossary_tooltip text="污点" term_id="taint" >}}列表
   （逗号分隔的 `<key>=<value>:<effect>`）注册节点。当 `register-node` 为 false 时无效。
-- `--node-ip` - 节点 IP 地址。
+<!--
+- `--node-ip` - Optional comma-separated list of the IP addresses for the node.
+  You can only specify a single address for each address family.
+  For example, in a single-stack IPv4 cluster, you set this value to be the IPv4 address that the
+  kubelet should use for the node.
+  See [configure IPv4/IPv6 dual stack](/docs/concepts/services-networking/dual-stack/#configure-ipv4-ipv6-dual-stack)
+  for details of running a dual-stack cluster.
+
+  If you don't provide this argument, the kubelet uses the node's default IPv4 address, if any;
+  if the node has no IPv4 addresses then the kubelet uses the node's default IPv6 address.
+-->
+- `--node-ip` - 可选的以英文逗号隔开的节点 IP 地址列表。你只能为每个地址簇指定一个地址。
+  例如在单协议栈 IPv4 集群中，需要将此值设置为 kubelet 应使用的节点 IPv4 地址。
+  参阅[配置 IPv4/IPv6 双协议栈](/zh-cn/docs/concepts/services-networking/dual-stack/#configure-ipv4-ipv6-dual-stack)了解运行双协议栈集群的详情。
+
+  如果你未提供这个参数，kubelet 将使用节点默认的 IPv4 地址（如果有）；
+  如果节点没有 IPv4 地址，则 kubelet 使用节点的默认 IPv6 地址。
+<!--
+- `--node-labels` - {{< glossary_tooltip text="Labels" term_id="label" >}} to add when registering the node
+  in the cluster (see label restrictions enforced by the
+  [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)).
+- `--node-status-update-frequency` - Specifies how often kubelet posts its node status to the API server.
+-->
 - `--node-labels` - 在集群中注册节点时要添加的{{< glossary_tooltip text="标签" term_id="label" >}}。
   （参见 [NodeRestriction 准入控制插件](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#noderestriction)所实施的标签限制）。
 - `--node-status-update-frequency` - 指定 kubelet 向 API 服务器发送其节点状态的频率。
@@ -390,65 +407,38 @@ of the Node resource. For example, the following JSON structure describes a heal
 ```
 
 <!--
-If the `status` of the Ready condition remains `Unknown` or `False` for longer
-than the `pod-eviction-timeout` (an argument passed to the
-{{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager"
->}}), then the [node controller](#node-controller) triggers
-{{< glossary_tooltip text="API-initiated eviction" term_id="api-eviction" >}}
-for all Pods assigned to that node. The default eviction timeout duration is
-**five minutes**.
--->
-如果 Ready 状况的 `status` 处于 `Unknown` 或者 `False` 状态的时间超过了
-`pod-eviction-timeout` 值（一个传递给
-{{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}
-的参数），[节点控制器](#node-controller)会对节点上的所有 Pod 触发
-{{< glossary_tooltip text="API 发起的驱逐" term_id="api-eviction" >}}。
-默认的逐出超时时长为 **5 分钟**。
-
-<!--
-In some cases when the node is unreachable, the API server is unable to communicate
-with the kubelet on the node. The decision to delete the pods cannot be communicated to
-the kubelet until communication with the API server is re-established. In the meantime,
-the pods that are scheduled for deletion may continue to run on the partitioned node.
--->
-某些情况下，当节点不可达时，API 服务器不能和其上的 kubelet 通信。
-删除 Pod 的决定不能传达给 kubelet，直到它重新建立和 API 服务器的连接为止。
-与此同时，被计划删除的 Pod 可能会继续在游离的节点上运行。
-
-<!--
-The node controller does not force delete pods until it is confirmed that they have stopped
-running in the cluster. You can see the pods that might be running on an unreachable node as
-being in the `Terminating` or `Unknown` state. In cases where Kubernetes cannot deduce from the
-underlying infrastructure if a node has permanently left a cluster, the cluster administrator
-may need to delete the node object by hand. Deleting the node object from Kubernetes causes
-all the Pod objects running on the node to be deleted from the API server and frees up their
-names.
--->
-节点控制器在确认 Pod 在集群中已经停止运行前，不会强制删除它们。
-你可以看到可能在这些无法访问的节点上运行的 Pod 处于 `Terminating` 或者 `Unknown` 状态。
-如果 Kubernetes 不能基于下层基础设施推断出某节点是否已经永久离开了集群，
-集群管理员可能需要手动删除该节点对象。
-从 Kubernetes 删除节点对象将导致 API 服务器删除节点上所有运行的 Pod 对象并释放它们的名字。
-
-<!--
 When problems occur on nodes, the Kubernetes control plane automatically creates
 [taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) that match the conditions
-affecting the node.
-The scheduler takes the Node's taints into consideration when assigning a Pod to a Node.
-Pods can also have {{< glossary_tooltip text="tolerations" term_id="toleration" >}} that let
-them run on a Node even though it has a specific taint.
+affecting the node.  An example of this is when the `status` of the Ready condition
+remains `Unknown` or `False` for longer than the kube-controller-manager's `NodeMonitorGracePeriod`,
+which defaults to 40 seconds.  This will cause either an `node.kubernetes.io/unreachable` taint, for an `Unknown` status,
+or a `node.kubernetes.io/not-ready` taint, for a `False` status, to be added to the Node.
 -->
 当节点上出现问题时，Kubernetes 控制面会自动创建与影响节点的状况对应的
 [污点](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)。
-调度器在将 Pod 指派到某 Node 时会考虑 Node 上的污点设置。
-Pod 也可以设置{{< glossary_tooltip text="容忍度" term_id="toleration" >}}，
-以便能够在设置了特定污点的 Node 上运行。
+例如当 Ready 状况的 `status` 保持 `Unknown` 或 `False` 的时间长于
+kube-controller-manager 的 `NodeMonitorGracePeriod`（默认为 40 秒）时，
+会造成 `Unknown` 状态下为节点添加 `node.kubernetes.io/unreachable` 污点或在
+`False` 状态下为节点添加 `node.kubernetes.io/not-ready` 污点。
 
 <!--
-See [Taint Nodes by Condition](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)
+These taints affect pending pods as the scheduler takes the Node's taints into consideration when
+assigning a pod to a Node. Existing pods scheduled to the node may be evicted due to the application
+of `NoExecute` taints. Pods may also have {{< glossary_tooltip text="tolerations" term_id="toleration" >}} that let
+them schedule to and continue running on a Node even though it has a specific taint.
+-->
+这些污点会影响悬决的 Pod，因为调度器在将 Pod 分配到 Node 时会考虑 Node 的污点。
+已调度到节点的当前 Pod 可能会由于施加的 `NoExecute` 污点被驱逐。
+Pod 还可以设置{{< glossary_tooltip text="容忍度" term_id="toleration" >}}，
+使得这些 Pod 仍然能够调度到且继续运行在设置了特定污点的 Node 上。
+
+<!--
+See [Taint Based Evictions](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-based-evictions) and
+[Taint Nodes by Condition](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)
 for more details.
 -->
-进一步的细节可参阅[根据状况为节点设置污点](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)。
+进一步的细节可参阅[基于污点的驱逐](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-based-evictions)
+和[根据状况为节点设置污点](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)。
 
 <!--
 ### Capacity and Allocatable {#capacity}
