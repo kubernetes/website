@@ -85,16 +85,16 @@ Pod:
 In this exercise, you create a Pod that runs one container.
 But first we need to reference it to a ConfigMap 
 
-{{< codenew file="pods/inject/configmap-envFrom.yaml" >}}
+{{< codenew file="pods/inject/configmap-envfrom.yaml" >}}
 
 Now as the kind: ConfigMap is created we need to 
 reference it to a pod. 
 
-{{< codenew file="pods/inject/envFrom.yaml" >}}
+{{< codenew file="pods/inject/envfrom.yaml" >}}
 
 You can also use Secret instead of ConfigMap for the configuration
 
-```
+```ymal
 apiVersion: v1
 kind: Secret
 metadata:
@@ -109,7 +109,7 @@ data:
 
 If you created that Secret, you could reference it in a bare Pod:
 
-```
+```ymal
 apiVersion: v1
 kind: Pod
 metadata:
