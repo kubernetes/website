@@ -11,7 +11,7 @@ slug: kubernetes-1-27-efficient-selinux-relabeling-beta
 
 On Linux with Security-Enhanced Linux (SELinux) enabled, it's traditionally
 the container runtime that applies SELinux labels to a Pod and all its volumes.
-Kubernetes only provides the SELinux label from Pod's Security Context fields
+Kubernetes only passes the SELinux label from a Pod's `securityContext` fields
 to the container runtime.
 
 The container runtime then recursively changes SELinux label on all files that
