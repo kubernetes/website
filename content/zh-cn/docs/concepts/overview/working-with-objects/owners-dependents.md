@@ -17,7 +17,6 @@ In Kubernetes, some {{< glossary_tooltip text="objects" term_id="Object" >}} are
 These owned objects are *dependents* of their owner. 
 -->
 
-在 Kubernetes 中，一些{{< glossary_tooltip text="对象" term_id="Object" >}}是其他对象的“属主（Owner）”。
 这些被拥有的对象是其属主的“附属（Dependent）”。
 
 <!--
@@ -31,7 +30,6 @@ interfering with objects they don’t control.
 -->
 属主关系不同于一些资源使用的[标签和选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)机制。
 例如，有一个创建 `EndpointSlice` 对象的 Service，
-该 Service 使用{{<glossary_tooltip text="标签" term_id="label">}}来让控制平面确定，哪些 `EndpointSlice` 对象属于该 Service。
 除开标签，每个代表 Service 所管理的 `EndpointSlice` 都有一个属主引用。
 属主引用避免 Kubernetes 的不同部分干扰到不受它们控制的对象。
 
