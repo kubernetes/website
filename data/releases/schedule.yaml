@@ -1,3 +1,6 @@
+---
+# This file helps to populate the /releases page, and is also parsed to find out the
+# latest patch version for a minor release.
 schedules:
 - release: 1.27
   releaseDate: 2024-04-11

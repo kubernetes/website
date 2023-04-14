@@ -21,19 +21,19 @@ For Kubernetes {{< param "version" >}}, the following
 container images are signed using [cosign](https://github.com/sigstore/cosign)
 signatures:
 
-| Container Image                                                     | Supported Architectures                                                                  |
-| ------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| registry.k8s.io/kube-apiserver:{{< param "fullversion" >}}          | amd64, arm, arm64, ppc64le, s390x |
-| registry.k8s.io/kube-controller-manager:{{< param "fullversion" >}} | amd64, arm, arm64, ppc64le, s390x |
-| registry.k8s.io/kube-proxy:{{< param "fullversion" >}}              | amd64, arm, arm64, ppc64le, s390x |
-| registry.k8s.io/kube-scheduler:{{< param "fullversion" >}}          | amd64, arm, arm64, ppc64le, s390x |
-| registry.k8s.io/conformance:{{< param "fullversion" >}}             | amd64, arm, arm64, ppc64le, s390x |
+| Container Image                                                           | Supported Architectures                                                                  |
+| ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| registry.k8s.io/kube-apiserver:v{{< skew currentPatchVersion >}}          | amd64, arm, arm64, ppc64le, s390x |
+| registry.k8s.io/kube-controller-manager:v{{< skew currentPatchVersion >}} | amd64, arm, arm64, ppc64le, s390x |
+| registry.k8s.io/kube-proxy:v{{< skew currentPatchVersion >}}              | amd64, arm, arm64, ppc64le, s390x |
+| registry.k8s.io/kube-scheduler:v{{< skew currentPatchVersion >}}          | amd64, arm, arm64, ppc64le, s390x |
+| registry.k8s.io/conformance:v{{< skew currentPatchVersion >}}             | amd64, arm, arm64, ppc64le, s390x |
 
 All container images are available for multiple architectures, whereas the
 container runtime should choose the correct one based on the underlying
 platform. It is also possible to pull a dedicated architecture by suffixing the
 container image name, for example
-`registry.k8s.io/kube-apiserver-arm64:{{< param "fullversion" >}}`. All
+`registry.k8s.io/kube-apiserver-arm64:v{{< skew currentPatchVersion >}}`. All
 those derivations are signed in the same way as the multi-architecture manifest lists.
 
 The Kubernetes project publishes a list of signed Kubernetes container images
