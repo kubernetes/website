@@ -368,7 +368,6 @@ Running a cluster with `kubelet` instances that are persistently two minor versi
 <!-- 
 ### kube-proxy
 
-* `kube-proxy` must be the same minor version as `kubelet` on the node.
 * `kube-proxy` must not be newer than `kube-apiserver`.
 * `kube-proxy` must be at most two minor versions older than `kube-apiserver.`
 
@@ -381,7 +380,6 @@ If `kube-proxy` version is **{{< skew currentVersionAddMinor -2 >}}**:
 -->
 ### kube-proxy  {#kube-proxy}
 
-* `kube-proxy` 和节点上的 `kubelet` 必须是相同的次要版本。
 * `kube-proxy` 版本不能比 `kube-apiserver` 版本新。
 * `kube-proxy` 最多只能比 `kube-apiserver` 落后两个次要版本。
 
