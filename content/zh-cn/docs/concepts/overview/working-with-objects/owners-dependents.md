@@ -17,8 +17,7 @@ In Kubernetes, some {{< glossary_tooltip text="objects" term_id="Object" >}} are
 These owned objects are *dependents* of their owner. 
 -->
 
-在 Kubernetes 中，一些{{< glossary_tooltip text="objects" term_id="Object" >}}是其他对象的“属主（Owner）”。
-例如，一个{{<glossary_tooltip text="ReplicaSet" term_id="replica-set">}}是一组{{<glossary_tooltip text="Pods" term_id="pod">}}的属主。
+在 Kubernetes 中，一些{{< glossary_tooltip text="对象" term_id="Object" >}}是其他对象的“属主（Owner）”。
 这些被拥有的对象是其属主的“附属（Dependent）”。
 
 <!--
@@ -51,7 +50,6 @@ automatically manage the relationships.
 ## 对象规约中的属主引用   {#owner-references-in-object-specifications}
 
 附属对象有一个 `metadata.ownerReferences` 字段，用于引用其属主对象。
-一个有效的属主引用，包含与附属对象同在一个{{<glossary_tooltip text="命名空间" term_id="namespace">}下的对象名称和一个 {{<glossary_tooltip text="UID" term_id="uid">}}。
 Kubernetes 自动为一些对象的附属资源设置属主引用的值，
 这些对象包含 ReplicaSet、DaemonSet、Deployment、Job、CronJob、ReplicationController 等。
 你也可以通过改变这个字段的值，来手动配置这些关系。
