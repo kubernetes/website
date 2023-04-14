@@ -1080,6 +1080,22 @@ The cloud provider decides how it is load balanced.
 来自外部负载均衡器的流量将直接重定向到后端 Pod 上，不过实际它们是如何工作的，这要依赖于云提供商。
 
 <!--
+To implement a Service of `type: LoadBalancer`, Kubernetes typically starts off
+by making the changes that are equivalent to you requesting a Service of
+`type: NodePort`. The cloud-controller-manager component then configures the external load balancer to
+forward traffic to that assigned node port.
+
+You can configure a load balanced Service to
+[omit](#load-balancer-nodeport-allocation) assigning a node port, provided that the
+cloud provider implementation supports this.
+-->
+要实现 `type: LoadBalancer` 的服务，Kubernetes 通常首先进行与请求 `type: NodePort` 服务等效的更改。
+cloud-controller-manager 组件随后配置外部负载均衡器以将流量转发到已分配的节点端口。
+
+你可以将负载均衡服务配置为[忽略](#load-balancer-nodeport-allocation)分配节点端口，
+前提是云提供商实现支持这点。
+
+<!--
 Some cloud providers allow you to specify the `loadBalancerIP`. In those cases, the load-balancer is created
 with the user-specified `loadBalancerIP`. If the `loadBalancerIP` field is not specified,
 the loadBalancer is set up with an ephemeral IP address. If you specify a `loadBalancerIP`
@@ -1092,50 +1108,41 @@ set is ignored.
 如果设置了 `loadBalancerIP`，但云提供商并不支持这种特性，那么设置的
 `loadBalancerIP` 值将会被忽略掉。
 
-<!--
-To implement a Service of `type: LoadBalancer`, Kubernetes typically starts off
-by making the changes that are equivalent to you requesting a Service of
-`type: NodePort`. The cloud-controller-manager component then configures the external load balancer to
-forward traffic to that assigned node port.
-
-You can configure a load balanced Service to
-[omit](#load-balancer-nodeport-allocation) assigning a node port, provided that the
-cloud provider implementation supports this.
--->
-要实现 `type: LoadBalancer` 的服务，Kubernetes 通常首先进行与请求 `type: NodePort` 服务等效的更改。
-cloud-controller-manager 组件然后配置外部负载均衡器以将流量转发到已分配的节点端口。
-
-你可以将负载均衡服务配置为[忽略](#load-balancer-nodeport-allocation)分配节点端口，
-前提是云提供商实现支持这点。
-
 {{< note >}}
 <!--
-On **Azure**, if you want to use a user-specified public type `loadBalancerIP`, you first need
-to create a static type public IP address resource. This public IP address resource should
-be in the same resource group of the other automatically created resources of the cluster.
-For example, `MC_myResourceGroup_myAKSCluster_eastus`.
+The`.spec.loadBalancerIP` field for a Service was deprecated in Kubernetes v1.24.
 
-Specify the assigned IP address as loadBalancerIP. Ensure that you have updated the
-`securityGroupName` in the cloud provider configuration file.
-For information about troubleshooting `CreatingLoadBalancerFailed` permission issues see,
-[Use a static IP address with the Azure Kubernetes Service (AKS) load balancer](https://docs.microsoft.com/en-us/azure/aks/static-ip)
-or [CreatingLoadBalancerFailed on AKS cluster with advanced networking](https://github.com/Azure/AKS/issues/357).
+This field was under-specified and its meaning varies across implementations. It also cannot support dual-stack networking. This field may be removed in a future API version.
 -->
-在 **Azure** 上，如果要使用用户指定的公共类型 `loadBalancerIP`，
-则首先需要创建静态类型的公共 IP 地址资源。
-此公共 IP 地址资源应与集群中其他自动创建的资源位于同一资源组中。
-例如，`MC_myResourceGroup_myAKSCluster_eastus`。
+针对 Service 的 `.spec.loadBalancerIP` 字段已在 Kubernetes v1.24 中被弃用。
 
-将分配的 IP 地址设置为 loadBalancerIP。确保你已更新云提供程序配置文件中的 securityGroupName。
-有关对 `CreatingLoadBalancerFailed` 权限问题进行故障排除的信息，
-请参阅[与 Azure Kubernetes 服务（AKS）负载均衡器一起使用静态 IP 地址](https://docs.microsoft.com/zh-cn/azure/aks/static-ip)
-或[在 AKS 集群上使用高级联网时出现 CreatingLoadBalancerFailed](https://github.com/Azure/AKS/issues/357)。
+此字段的定义模糊，其含义因实现而异。它也不支持双协议栈联网。
+此字段可能会在未来的 API 版本中被移除。
+
+<!--
+If you're integrating with a provider that supports specifying the load balancer IP address(es)
+for a Service via a (provider specific) annotation, you should switch to doing that.
+
+If you are writing code for a load balancer integration with Kubernetes, avoid using this field.
+You can integrate with [Gateway](https://gateway-api.sigs.k8s.io/) rather than Service, or you
+can define your own (provider specific) annotations on the Service that specify the equivalent detail.
+-->
+如果你正在集成某云平台，该平台通过（特定于提供商的）注解为 Service 指定负载均衡器 IP 地址，
+你应该切换到这样做。
+
+如果你正在为集成到 Kubernetes 的负载均衡器编写代码，请避免使用此字段。
+你可以与 [Gateway](https://gateway-api.sigs.k8s.io/) 而不是 Service 集成，
+或者你可以在 Service 上定义自己的（特定于提供商的）注解，以指定等效的细节。
 {{< /note >}}
+
 <!--
 #### Load balancers with mixed protocol types
+-->
+#### 混合协议类型的负载均衡器
 
 {{< feature-state for_k8s_version="v1.24" state="beta" >}}
 
+<!--
 By default, for LoadBalancer type of Services, when there is more than one port defined, all
 ports must have the same protocol, and the protocol must be one which is supported
 by the cloud provider.
@@ -1143,15 +1150,12 @@ by the cloud provider.
 The feature gate `MixedProtocolLBService` (enabled by default for the kube-apiserver as of v1.24) allows the use of
 different protocols for LoadBalancer type of Services, when there is more than one port defined.
 -->
-#### 混合协议类型的负载均衡器
-
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
-
 默认情况下，对于 LoadBalancer 类型的服务，当定义了多个端口时，
 所有端口必须具有相同的协议，并且该协议必须是受云提供商支持的协议。
 
-当服务中定义了多个端口时，特性门控 `MixedProtocolLBService`（在 kube-apiserver 1.24 版本默认为启用）允许
-LoadBalancer 类型的服务使用不同的协议。
+当服务中定义了多个端口时，特性门控 `MixedProtocolLBService`
+（在 kube-apiserver 1.24 版本默认为启用）
+允许 LoadBalancer 类型的服务使用不同的协议。
 
 {{< note >}}
 <!--
@@ -1308,7 +1312,7 @@ metadata:
 ```
 
 {{% /tab %}}
-{{% tab name="Baidu Cloud" %}}
+{{% tab name="<!--Baidu Cloud-->百度云" %}}
 
 ```yaml
 [...]
@@ -1320,7 +1324,7 @@ metadata:
 ```
 
 {{% /tab %}}
-{{% tab name="Tencent Cloud" %}}
+{{% tab name="<!--Tencent Cloud-->腾讯云" %}}
 
 ```yaml
 [...]
@@ -1331,7 +1335,7 @@ metadata:
 ```
 
 {{% /tab %}}
-{{% tab name="Alibaba Cloud" %}}
+{{% tab name="<!--Alibaba Cloud-->阿里云" %}}
 
 ```yaml
 [...]
@@ -1449,7 +1453,7 @@ You can then specify any one of those policies using the
 annotation; for example:
 -->
 然后，你可以使用 "`service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy`"
-注解; 例如：
+注解；例如：
 
 ```yaml
     metadata:
@@ -1483,6 +1487,7 @@ Since version 1.3.0, the use of this annotation applies to all ports proxied by 
 and cannot be configured otherwise.
 -->
 从 1.3.0 版开始，此注解的使用适用于 ELB 代理的所有端口，并且不能进行其他配置。
+
 <!--
 #### ELB Access Logs on AWS
 
@@ -1517,6 +1522,24 @@ specifies the logical hierarchy you created for your Amazon S3 bucket.
 注解 `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix`
 指定为 Amazon S3 存储桶创建的逻辑层次结构。
 
+<!--
+```yaml
+    metadata:
+      name: my-service
+      annotations:
+        # Specifies whether access logs are enabled for the load balancer
+        service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: "true"
+
+        # The interval for publishing the access logs. You can specify an interval of either 5 or 60 (minutes).
+        service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval: "60"
+
+        # The name of the Amazon S3 bucket where the access logs are stored
+        service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name: "my-bucket"
+
+        # The logical hierarchy you created for your Amazon S3 bucket, for example `my-bucket-prefix/prod`
+        service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix: "my-bucket-prefix/prod"
+```
+-->
 ```yaml
     metadata:
       name: my-service
@@ -1565,6 +1588,63 @@ There are other annotations to manage Classic Elastic Load Balancers that are de
 
 还有其他一些注解，用于管理经典弹性负载均衡器，如下所述。
 
+<!--
+```yaml
+    metadata:
+      name: my-service
+      annotations:
+        # The time, in seconds, that the connection is allowed to be idle (no data has been sent
+        # over the connection) before it is closed by the load balancer
+        service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "60"
+
+        # Specifies whether cross-zone load balancing is enabled for the load balancer
+        service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+
+        # A comma-separated list of key-value pairs which will be recorded as
+        # additional tags in the ELB.
+        service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: "environment=prod,owner=devops"
+
+        # The number of successive successful health checks required for a backend to
+        # be considered healthy for traffic. Defaults to 2, must be between 2 and 10
+        service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold: ""
+
+        # The number of unsuccessful health checks required for a backend to be
+        # considered unhealthy for traffic. Defaults to 6, must be between 2 and 10
+        service.beta.kubernetes.io/aws-load-balancer-healthcheck-unhealthy-threshold: "3"
+
+        # The approximate interval, in seconds, between health checks of an
+        # individual instance. Defaults to 10, must be between 5 and 300
+        service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval: "20"
+
+        # The amount of time, in seconds, during which no response means a failed
+        # health check. This value must be less than the service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval
+        # value. Defaults to 5, must be between 2 and 60
+        service.beta.kubernetes.io/aws-load-balancer-healthcheck-timeout: "5"
+
+        # A list of existing security groups to be configured on the ELB created. Unlike the annotation
+        # service.beta.kubernetes.io/aws-load-balancer-extra-security-groups, this replaces all other
+        # security groups previously assigned to the ELB and also overrides the creation
+        # of a uniquely generated security group for this ELB.
+        # The first security group ID on this list is used as a source to permit incoming traffic to
+        # target worker nodes (service traffic and health checks).
+        # If multiple ELBs are configured with the same security group ID, only a single permit line
+        # will be added to the worker node security groups, that means if you delete any
+        # of those ELBs it will remove the single permit line and block access for all ELBs that shared the same security group ID.
+        # This can cause a cross-service outage if not used properly
+        service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f"
+
+        # A list of additional security groups to be added to the created ELB, this leaves the uniquely
+        # generated security group in place, this ensures that every ELB
+        # has a unique security group ID and a matching permit line to allow traffic to the target worker nodes
+        # (service traffic and health checks).
+        # Security groups defined here can be shared between services.
+        service.beta.kubernetes.io/aws-load-balancer-extra-security-groups: "sg-53fae93f,sg-42efd82e"
+
+        # A comma separated list of key-value pairs which are used
+        # to select the target nodes for the load balancer
+        service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "ingress-gw,gw-name=public-api"
+```
+-->
 ```yaml
     metadata:
       name: my-service
@@ -1691,7 +1771,14 @@ groups are modified with the following IP rules:
 
 为了使客户端流量能够到达 NLB 后面的实例，使用以下 IP 规则修改了节点安全组：
 
+<!--
 | Rule | Protocol | Port(s) | IpRange(s) | IpRange Description |
+|------|----------|---------|------------|---------------------|
+| Health Check | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy = Local`) | Subnet CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
+| Client Traffic | TCP | NodePort(s) | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
+| MTU Discovery | ICMP | 3,4 | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
+-->
+| 规则 | 协议 | 端口 | IpRange(s) | IpRange 描述 |
 |------|----------|---------|------------|---------------------|
 | Health Check | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy = Local`) | Subnet CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
 | Client Traffic | TCP | NodePort(s) | `.spec.loadBalancerSourceRanges` (默认值为 `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
@@ -1864,7 +1951,6 @@ to learn more.
 
 Service is a top-level resource in the Kubernetes REST API. You can find more details
 about the [Service API object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core).
-
 -->
 ## API 对象   {#api-object}
 
