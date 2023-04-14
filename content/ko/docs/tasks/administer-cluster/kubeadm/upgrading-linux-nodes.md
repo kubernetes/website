@@ -21,12 +21,12 @@ weight: 100
 
 ### kubeadm 업그레이드
 
- kubeadm 업그레이드.
+ kubeadm을 업그레이드한다.
 
   {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
   {{% tab name="Ubuntu, Debian or HypriotOS" %}}
   ```shell
-  # replace x in {{< skew currentVersion >}}.x-00 with the latest patch version
+  # {{< skew currentVersion >}}.x-00 에서 x 에 최신 버전을 넣는다.
   apt-mark unhold kubeadm && \
   apt-get update && apt-get install -y kubeadm={{< skew currentVersion >}}.x-00 && \
   apt-mark hold kubeadm
@@ -34,7 +34,7 @@ weight: 100
   {{% /tab %}}
   {{% tab name="CentOS, RHEL or Fedora" %}}
   ```shell
-  # replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
+  # {{< skew currentVersion >}}.x-00 에서 x 에 최신 버전을 넣는다.
   yum install -y kubeadm-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
   ```
   {{% /tab %}}
@@ -53,7 +53,7 @@ weight: 100
 - 노드를 스케줄 불가능한 것으로 표시하고 워크로드를 축출하여 유지 보수할 노드를 준비한다.
 
   ```shell
-  # replace <node-to-drain> with the name of your node you are draining
+  # <node-to-drain> 에 드레인하려는 노드의 이름을 넣는다.
   kubectl drain <node-to-drain> --ignore-daemonsets
   ```
 
@@ -64,7 +64,7 @@ weight: 100
   {{< tabs name="k8s_kubelet_and_kubectl" >}}
   {{% tab name="Ubuntu, Debian or HypriotOS" %}}
   ```shell
-  # replace x in {{< skew currentVersion >}}.x-00 with the latest patch version
+  # {{< skew currentVersion >}}.x-00 에서 x 에 최신 버전을 넣는다.
   apt-mark unhold kubelet kubectl && \
   apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
   apt-mark hold kubelet kubectl
@@ -72,14 +72,14 @@ weight: 100
   {{% /tab %}}
   {{% tab name="CentOS, RHEL or Fedora" %}}
   ```shell
-  # replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
+  # {{< skew currentVersion >}}.x-00 에서 x 에 최신 버전을 넣는다.
   yum install -y kubelet-{{< skew currentVersion >}}.x-0 kubectl-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
   ```
   {{% /tab %}}
   {{< /tabs >}}
   <br />
 
-- kubelet 재시작
+- kubelet을 재시작한다.
 
   ```shell
   sudo systemctl daemon-reload
@@ -91,10 +91,10 @@ weight: 100
 - 스케줄 가능으로 표시하여 노드를 다시 온라인으로 가져온다.
 
   ```shell
-  # replace <node-to-uncordon> with the name of your node
+  # <node-to-uncordon> 에 노드의 이름을 넣는다.
   kubectl uncordon <node-to-uncordon>
   ```
 
  ## {{% heading "whatsnext" %}}
 
-* [윈도우 노드 업그레이드](/ko/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes/)하는 방법.
+* [윈도우 노드 업그레이드](/ko/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes/)하는 방법을 알아본다.
