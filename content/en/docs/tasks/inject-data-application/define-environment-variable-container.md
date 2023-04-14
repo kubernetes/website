@@ -107,7 +107,7 @@ data:
 
 ```
 
-Now as the Kind: Secret is created we need to reference it to a pod.
+If you created that Secret, you could reference it in a bare Pod:
 
 ```
 apiVersion: v1
@@ -123,16 +123,14 @@ spec:
         name: mysecret
 ```
 
-{{< note >}}
-The environment variables set using the `env` or `envFrom` field
-override any environment variables specified in the container image.
-{{< /note >}}
+## Interactions between environment variables
 
-{{< note >}}
+The environment variables you set using the `env` or `envFrom` field
+override any environment variables specified in the container image.
+
 Environment variables may reference each other, however ordering is important.
 Variables making use of others defined in the same context must come later in
 the list. Similarly, avoid circular references.
-{{< /note >}}
 
 ## Using environment variables inside of your config
 
