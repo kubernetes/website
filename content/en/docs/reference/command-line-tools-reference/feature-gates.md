@@ -528,7 +528,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   that is independent of a Pod.
 - `ElasticIndexedJob`: Enables Indexed Jobs to be scaled up or down by mutating both
   `spec.completions` and `spec.parallelism` together such that `spec.completions == spec.parallelism`.
-  See docs on [elastic Indexed Jobs](docs/concepts/workloads/controllers/job#elastic-indexed-jobs)
+  See docs on [elastic Indexed Jobs](/docs/concepts/workloads/controllers/job#elastic-indexed-jobs)
   for more details.
 - `EndpointSliceTerminatingCondition`: Enables EndpointSlice `terminating` and `serving`
    condition fields.
