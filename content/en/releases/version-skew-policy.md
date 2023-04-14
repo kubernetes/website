@@ -170,7 +170,6 @@ Running a cluster with `kubelet` instances that are persistently two minor versi
 
 ### kube-proxy
 
-* `kube-proxy` must be the same minor version as `kubelet` on the node.
 * `kube-proxy` must not be newer than `kube-apiserver`.
 * `kube-proxy` must be at most two minor versions older than `kube-apiserver.`
 

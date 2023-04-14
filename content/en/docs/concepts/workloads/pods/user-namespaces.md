@@ -31,18 +31,32 @@ mitigate some future vulnerabilities too.
 
 {{% thirdparty-content %}}
 
+This is a Linux-only feature and support is needed in Linux for idmap mounts on
+the filesystems used. This means:
+
+* On the node, the filesystem you use for `/var/lib/kubelet/pods/`, or the
+  custom directory you configure for this, needs idmap mount support.
+* All the filesystems used in the pod's volumes must support idmap mounts.
+
+In practice this means you need at least Linux 6.3, as tmpfs started supporting
+idmap mounts in that version. This is usually needed as several Kubernetes
+features use tmpfs (the service account token that is mounted by default uses a
+tmpfs, Secrets use a tmpfs, etc.)
+
+Some popular filesystems that support idmap mounts in Linux 6.3 are: btrfs,
+ext4, xfs, fat, tmpfs, overlayfs.
+
 <!-- When merging this with the dev-1.27 branch conflicts will arise. The text
 as it is in the dev-1.27 branch should be used. -->
-This is a Linux only feature. In addition, support is needed in the 
+In addition, support is needed in the 
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
 to use this feature with Kubernetes stateless pods:
 
 * CRI-O: version 1.25 (and later) supports user namespaces for containers.
 
-* containerd: version 1.7 supports user namespaces for containers, compatible
-  with Kubernetes v1.25 and v1.26, but not with later releases. If you are
-  running a different version of Kubernetes, check the documentation for that
-  Kubernetes release.
+Please note that containerd v1.7 supports user namespaces for containers,
+compatible with Kubernetes {{< skew currentVersion >}}. It should not be used
+with Kubernetes 1.27 (and later).
 
 Support for this in [cri-dockerd is not planned][CRI-dockerd-issue] yet.
 
@@ -154,13 +168,6 @@ volume types are allowed:
  * downwardAPI
  * emptyDir
 
-To guarantee that the pod can read the files of such volumes, volumes are
-created as if you specified `.spec.securityContext.fsGroup` as `0` for the Pod.
-If it is specified to a different value, this other value will of course be
-honored instead.
+## {{% heading "whatsnext" %}}
 
-As a by-product of this, folders and files for these volumes will have
-permissions for the group, even if `defaultMode` or `mode` to specific items of
-the volumes were specified without permissions to groups. For example, it is not
-possible to mount these volumes in a way that its files have permissions only
-for the owner.
+* Take a look at [Use a User Namespace With a Pod](/docs/tasks/configure-pod-container/user-namespaces/)
