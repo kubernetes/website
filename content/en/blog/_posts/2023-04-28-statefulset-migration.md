@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes 1.26: StatefulSet Start Ordinal Simplifies Migration"
-date: 2023-04-19
+date: 2023-04-28
 slug: statefulset-start-ordinal
 ---
 
