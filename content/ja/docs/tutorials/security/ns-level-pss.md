@@ -12,7 +12,7 @@ Podセキュリティアドミッション(PSA)は、[ベータへ進み](/blog/
 Podセキュリティアドミッションは、Podが作成される際に、[Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards/)の適用の認可を制御するものです。
 このチュートリアルでは、一度に1つの名前空間で`baseline` Podセキュリティ標準を強制します。
 
-Podセキュリティ標準を複数の名前空間に一度にクラスターレベルで適用することもできます。やり方については[クラスターレベルでのPodセキュリティの標準の適用](/docs/tutorials/security/cluster-level-pss/)を参照してください。
+Podセキュリティの標準を複数の名前空間に一度にクラスターレベルで適用することもできます。やり方については[クラスターレベルでのPodセキュリティの標準の適用](/docs/tutorials/security/cluster-level-pss/)を参照してください。
 
 ## {{% heading "prerequisites" %}}
 
@@ -75,10 +75,10 @@ kubectl create ns example
 namespace/example created
 ```
 
-## 名前空間へのPodセキュリティ標準チェックの有効化
+## 名前空間へのPodセキュリティの標準チェックの有効化
 
-1. ビルトインのPod Security Admissionでサポートされているラベルを使って、この名前空間のPodセキュリティ標準を有効にします。
-   このステップでは、_baseline_ Podセキュリティ標準の最新バージョンに合わないPodについて警告するチェックを設定します。
+1. ビルトインのPod Security Admissionでサポートされているラベルを使って、この名前空間のPodセキュリティの標準を有効にします。
+   このステップでは、_baseline_ Podセキュリティの標準の最新バージョンに合わないPodについて警告するチェックを設定します。
 
    ```shell
    kubectl label --overwrite ns example \
@@ -86,8 +86,8 @@ namespace/example created
       pod-security.kubernetes.io/warn-version=latest
    ```
 
-2. ラベルを使って、任意の名前空間に対して複数のPodセキュリティ標準チェックを設定できます。
-   以下のコマンドは、`baseline` Podセキュリティ標準を`enforce`(強制)としますが、`restricted` Podセキュリティ標準には最新バージョンに準じて`warn`(警告)および`audit`(監査)とします(デフォルト値)。
+2. ラベルを使って、任意の名前空間に対して複数のPodセキュリティの標準チェックを設定できます。
+   以下のコマンドは、`baseline` Podセキュリティの標準を`enforce`(強制)としますが、`restricted` Podセキュリティの標準には最新バージョンに準じて`warn`(警告)および`audit`(監査)とします(デフォルト値)。
 
    ```shell
    kubectl label --overwrite ns example \
@@ -99,7 +99,7 @@ namespace/example created
      pod-security.kubernetes.io/audit-version=latest
    ```
 
-## Podセキュリティ標準の強制の実証
+## Podセキュリティの標準の強制の実証
 
 1. `example`名前空間内に`baseline` Podを作成します:
 
@@ -124,7 +124,7 @@ namespace/example created
    pod/nginx created
    ```
 
-`example`名前空間にだけ、Podセキュリティ標準のenforceと警告の設定が適用されました。
+`example`名前空間にだけ、Podセキュリティの標準のenforceと警告の設定が適用されました。
 `default`名前空間内では、警告なしに同じPodを作成できました。
 
 ## 後片付け
@@ -141,8 +141,8 @@ kind delete cluster --name psa-ns-level
 
   1. KinDクラスターを作成します。
   2. 新しい名前空間を作成します。
-  3. `enforce`モードでは`baseline` Podセキュリティ標準を適用し、`warn`および`audit`モードでは`restricted` Podセキュリティ標準を適用します。
-  4. これらのPodセキュリティ標準を適用した新しいPodを作成します。
+  3. `enforce`モードでは`baseline` Podセキュリティの標準を適用し、`warn`および`audit`モードでは`restricted` Podセキュリティの標準を適用します。
+  4. これらのPodセキュリティの標準を適用した新しいPodを作成します。
 
 - [Podのセキュリティアドミッション](/ja/docs/concepts/security/pod-security-admission/)
 - [Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards/)
