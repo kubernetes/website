@@ -1,19 +1,19 @@
 ---
-title: Upgrading Linux nodes
+title: Linux 노드 업그레이드
 content_type: task
 weight: 100
 ---
 
 <!-- overview -->
 
-This page explains how to upgrade a Linux Worker Nodes created with kubeadm.
+- 이 페이지에서는 kubeadm으로 생성된 Linux 작업자 노드를 업그레이드하는 방법을 설명합니다.
 
 ## {{% heading "prerequisites" %}}
  
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
-* Familiarize yourself with [the process for upgrading the rest of your kubeadm
-cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade). You will want to
-upgrade the control plane nodes before upgrading your Linux Worker nodes.
+* 에 익숙해지세요 [나머지 kubeadm을 업그레이드하는 프로세스
+무리](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade). 당신은 원할 것입니다
+Linux 작업자 노드를 업그레이드하기 전에 컨트롤 플레인 노드를 업그레이드하십시오.
 
 <!-- steps -->
 
@@ -21,7 +21,7 @@ upgrade the control plane nodes before upgrading your Linux Worker nodes.
 
 ### Upgrade kubeadm
 
- Upgrade kubeadm:
+- kubeadm 업그레이드:
 
   {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
   {{% tab name="Ubuntu, Debian or HypriotOS" %}}
@@ -42,7 +42,7 @@ upgrade the control plane nodes before upgrading your Linux Worker nodes.
 
 ### Call "kubeadm upgrade"
 
-- For worker nodes this upgrades the local kubelet configuration:
+- 작업자 노드의 경우 로컬 kubelet 구성을 업그레이드합니다.:
 
   ```shell
   sudo kubeadm upgrade node
@@ -50,7 +50,7 @@ upgrade the control plane nodes before upgrading your Linux Worker nodes.
 
 ### Drain the node
 
-- Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
+- 예약 불가로 표시하고 워크로드를 제거하여 유지 관리를 위해 노드를 준비합니다.:
 
   ```shell
   # replace <node-to-drain> with the name of your node you are draining
@@ -59,7 +59,7 @@ upgrade the control plane nodes before upgrading your Linux Worker nodes.
 
 ### Upgrade kubelet and kubectl
 
-- Upgrade the kubelet and kubectl:
+- kubelet 및 kubectl 업그레이드:
 
   {{< tabs name="k8s_kubelet_and_kubectl" >}}
   {{% tab name="Ubuntu, Debian or HypriotOS" %}}
@@ -79,7 +79,7 @@ upgrade the control plane nodes before upgrading your Linux Worker nodes.
   {{< /tabs >}}
   <br />
 
-- Restart the kubelet:
+- kubelet 재시작:
 
   ```shell
   sudo systemctl daemon-reload
@@ -88,7 +88,7 @@ upgrade the control plane nodes before upgrading your Linux Worker nodes.
 
 ### Uncordon the node
 
-- Bring the node back online by marking it schedulable:
+- 예약 가능으로 표시하여 노드를 다시 온라인 상태로 전환:
 
   ```shell
   # replace <node-to-uncordon> with the name of your node
@@ -97,4 +97,4 @@ upgrade the control plane nodes before upgrading your Linux Worker nodes.
 
  ## {{% heading "whatsnext" %}}
 
-* See how to [Upgrade Windows nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes/).
+* 방법 보기 [Windows 노드 업그레이드](/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes/).
