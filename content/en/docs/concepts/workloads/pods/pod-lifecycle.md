@@ -156,6 +156,42 @@ in a Pod exit, the kubelet restarts them with an exponential back-off delay (10s
 40s, …), that is capped at five minutes. Once a container has executed for 10 minutes
 without any problems, the kubelet resets the restart backoff timer for that container.
 
+### Back-Off delay {#back-off-delay}
+
+Back-off delay determines how long Kubernetes should wait before attempting 
+to restart a failed container in a pod. When a container crashes and enters 
+the "CrashLoopBackOff" state, Kubernetes uses a back-off delay to determine 
+how long to wait before attempting to restart the container again.
+
+The back-off delay has two primary behaviors:
+
+- Exponential increase: The back-off delay starts with an initial delay time, 
+which is usually a few seconds. If the container fails again, Kubernetes increases 
+the delay time exponentially, meaning that each subsequent delay is longer than the 
+previous one. The exponential increase gives the container more time to recover 
+before Kubernetes attempts to restart it again.
+
+- Maximum delay time: The back-off delay has a configurable maximum value that 
+sets an upper limit on the delay time. Once the delay time reaches this maximum 
+value, Kubernetes stops increasing the delay time and waits for the maximum 
+time before attempting to restart the container again.
+
+The reasons to use back-off delay are:
+
+- Avoiding excessive load: Restarting a container immediately after it fails 
+can put excessive load on the underlying infrastructure and other components 
+in the system. The back-off delay ensures that the container has sufficient 
+time to recover before being restarted, reducing the load on the system.
+
+- Preventing cascading failures: If a container repeatedly fails, immediately 
+restarting it can cause cascading failures that can disrupt the entire application. 
+The back-off delay prevents this by giving the container time to recover 
+before attempting to restart it again.
+
+- Helping with troubleshooting: By providing a delay between restarts, 
+the back-off delay can help with troubleshooting failed containers by allowing 
+more time for logging and monitoring to capture useful information about the failure.
+
 ## Pod conditions
 
 A Pod has a PodStatus, which has an array of
