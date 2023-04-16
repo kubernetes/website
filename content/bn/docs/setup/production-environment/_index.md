@@ -101,116 +101,74 @@ etcd কনফিগার এবং ব্যবহার সম্পর্ক
    - জেনেরিক কম্পিউটার সিস্টেমগুলি করবে কিনা বা আপনার কাছে এমন কাজের চাপ আছে যেগুলির জন্য জিপিউ প্রসেসর, উইন্ডোজ নোড, বা ভিএম বিচ্ছিন্নতা প্রয়োজন। 
 - *ভ্যালিডেট নোড*: কিভাবে একটি নোড একটি কুবারনেটিস ক্লাস্টারে যোগদানের প্রয়োজনীয়তা পূরণ করে তা নিশ্চিত করার জন্য তথ্যের জন্য [ভ্যালিড নোড সেটআপ](/docs/setup/best-practices/node-conformance/) দেখুন।
 - *ক্লাস্টারে নোড যোগ করুন*: আপনি যদি নিজের ক্লাস্টার পরিচালনা করেন তাহলে আপনি আপনার নিজস্ব মেশিন সেট আপ করে নোড যোগ করতে পারেন এবং হয় সেগুলিকে ম্যানুয়ালি যোগ করে অথবা ক্লাস্টারের এপিসার্ভারে নিজেদের নিবন্ধন করতে পারেন। এই উপায়ে নোড যোগ করার জন্য Kubernetes কিভাবে সেট আপ করতে হয় সে সম্পর্কে তথ্যের জন্য [নোডসমুহ](/docs/concepts/architecture/nodes/) বিভাগটি দেখুন।
-- *Add Windows nodes to the cluster*: Kubernetes offers support for Windows
-worker nodes, allowing you to run workloads implemented in Windows containers. See
-[Windows in Kubernetes](/docs/setup/production-environment/windows/) for details.
-- *Scale nodes*: Have a plan for expanding the capacity your cluster will
-eventually need. See [Considerations for large clusters](/docs/setup/best-practices/cluster-large/)
-to help determine how many nodes you need, based on the number of pods and
-containers you need to run. If you are managing nodes yourself, this can mean
-purchasing and installing your own physical equipment.
-- *Autoscale nodes*: Most cloud providers support
-[Cluster Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
-to replace unhealthy nodes or grow and shrink the number of nodes as demand requires. See the
-[Frequently Asked Questions](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md)
-for how the autoscaler works and
-[Deployment](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#deployment)
-for how it is implemented by different cloud providers. For on-premises, there
-are some virtualization platforms that can be scripted to spin up new nodes
-based on demand.
-- *Set up node health checks*: For important workloads, you want to make sure
-that the nodes and pods running on those nodes are healthy. Using the
-[Node Problem Detector](/docs/tasks/debug-application-cluster/monitor-node-health/)
-daemon, you can ensure your nodes are healthy.
+- *ক্লাস্টারে উইন্ডোজ নোড যোগ করুন*: কুবারনেটস উইন্ডোজ ওয়ার্কার নোডের জন্য সমর্থন অফার করে, যা আপনাকে উইন্ডোজ কন্টেইনারে বাস্তবায়িত ওয়ার্কলোড চালানোর অনুমতি দেয়। বিস্তারিত জানার জন্য [কুবারনেটিস-এ উইন্ডোজ](/docs/setup/production-environment/windows/) দেখুন।
+- *স্কেল নোড*: শেষ পর্যন্ত আপনার ক্লাস্টারের প্রয়োজন হবে এমন ক্ষমতা বাড়ানোর জন্য একটি পরিকল্পনা করুন। দেখুন [বড় ক্লাস্টারগুলির জন্য বিবেচনা](/docs/setup/best-practices/cluster-large/)
+আপনার কতগুলি নোড দরকার তা নির্ধারণ করতে সাহায্য করার জন্য, আপনার চালানোর জন্য পড এবং পাত্রের সংখ্যার উপর ভিত্তি করে। আপনি যদি নিজে নোড পরিচালনা করেন, তাহলে এর অর্থ হতে পারে আপনার নিজের শারীরিক সরঞ্জাম কেনা এবং ইনস্টল করা।
+- *অটোস্কেল নোড*: বেশিরভাগ ক্লাউড প্রদানকারী সমর্থন করে
+[ক্লাস্টার অটোস্কেলার](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme) অস্বাস্থ্যকর নোডগুলি প্রতিস্থাপন করতে বা চাহিদা অনুযায়ী নোডের সংখ্যা বৃদ্ধি এবং সঙ্কুচিত করতে। দেখুন অটোস্ক্যালার কিভাবে কাজ করে এবং [ডিপ্লয়মেন্ট](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#deployment) কীভাবে এটি বিভিন্ন ক্লাউড প্রদানকারী দ্বারা প্রয়োগ করা হয়। অন-প্রিমিসেসের জন্য, কিছু ভার্চুয়ালাইজেশন প্ল্যাটফর্ম রয়েছে যা চাহিদার ভিত্তিতে নতুন নোডগুলিকে স্পিন করার জন্য স্ক্রিপ্ট করা যেতে পারে।
+- *নোড স্বাস্থ্য পরীক্ষা সেট আপ করুন*: গুরুত্বপূর্ণ কাজের চাপের জন্য, আপনি নিশ্চিত করতে চান যে সেই নোডগুলিতে চলমান নোড এবং পডগুলি স্বাস্থ্যকর। [নোড প্রবলেম ডিটেক্টর](/docs/tasks/debug-application-cluster/monitor-node-health/) ডেমন ব্যবহার করে, আপনি নিশ্চিত করতে পারেন আপনার নোডগুলি সুস্থ।
 
-## Production user management
+## উৎপাদন ব্যবহারকারী ব্যবস্থাপনা
 
-In production, you may be moving from a model where you or a small group of
-people are accessing the cluster to where there may potentially be dozens or
-hundreds of people. In a learning environment or platform prototype, you might have a single
-administrative account for everything you do. In production, you will want
-more accounts with different levels of access to different namespaces.
+উৎপাদনে, আপনি হয়ত এমন একটি মডেল থেকে সরে যাচ্ছেন যেখানে আপনি বা একটি ছোট গোষ্ঠী ক্লাস্টারে প্রবেশ করছেন যেখানে সম্ভাব্য কয়েক ডজন বা শত শত লোক থাকতে পারে। একটি শেখার পরিবেশে বা প্ল্যাটফর্ম প্রোটোটাইপে, আপনার একটি একক থাকতে পারে আপনি যা করেন তার জন্য প্রশাসনিক অ্যাকাউন্ট। উৎপাদনে, আপনি বিভিন্ন নামস্থানে বিভিন্ন স্তরের অ্যাক্সেস সহ আরও অ্যাকাউন্ট চাইবেন।
 
-Taking on a production-quality cluster means deciding how you
-want to selectively allow access by other users. In particular, you need to
-select strategies for validating the identities of those who try to access your
-cluster (authentication) and deciding if they have permissions to do what they
-are asking (authorization):
+একটি উৎপাদন-গুণমানের ক্লাস্টার নেওয়ার অর্থ হল আপনি কীভাবে বেছে বেছে অন্য ব্যবহারকারীদের অ্যাক্সেসের অনুমতি দিতে চান তা নির্ধারণ করা। বিশেষ করে, যারা আপনার ক্লাস্টার (প্রমাণিকরণ) অ্যাক্সেস করার চেষ্টা করে তাদের পরিচয় যাচাই করার জন্য এবং তারা যা জিজ্ঞাসা করছে (অনুমোদন) করার অনুমতি আছে কিনা তা নির্ধারণ করার জন্য আপনাকে কৌশল নির্বাচন করতে হবেঃ
 
-- *Authentication*: The apiserver can authenticate users using client
-certificates, bearer tokens, an authenticating proxy, or HTTP basic auth.
-You can choose which authentication methods you want to use.
-Using plugins, the apiserver can leverage your organization’s existing
-authentication methods, such as LDAP or Kerberos. See
-[Authentication](/docs/reference/access-authn-authz/authentication/)
-for a description of these different methods of authenticating Kubernetes users.
-- *Authorization*: When you set out to authorize your regular users, you will probably choose between RBAC and ABAC authorization. See [Authorization Overview](/docs/reference/access-authn-authz/authorization/) to review different modes for authorizing user accounts (as well as service account access to your cluster):
-  - *Role-based access control* ([RBAC](/docs/reference/access-authn-authz/rbac/)): Lets you assign access to your cluster by allowing specific sets of permissions to authenticated users. Permissions can be assigned for a specific namespace (Role) or across the entire cluster (ClusterRole). Then using RoleBindings and ClusterRoleBindings, those permissions can be attached to particular users.
-  - *Attribute-based access control* ([ABAC](/docs/reference/access-authn-authz/abac/)): Lets you create policies based on resource attributes in the cluster and will allow or deny access based on those attributes. Each line of a policy file identifies versioning properties (apiVersion and kind) and a map of spec properties to match the subject (user or group), resource property, non-resource property (/version or /apis), and readonly. See [Examples](/docs/reference/access-authn-authz/abac/#examples) for details.
+- *প্রমাণিকরণ*: apiserver ক্লায়েন্ট ব্যবহার করে ব্যবহারকারীদের প্রমাণীকরণ করতে পারে
+শংসাপত্র, বহনকারী টোকেন, একটি প্রমাণীকরণ প্রক্সি, বা HTTP মৌলিক প্রমাণীকরণ।
+আপনি কোন প্রমাণীকরণ পদ্ধতি ব্যবহার করতে চান তা চয়ন করতে পারেন।
+প্লাগইন ব্যবহার করে, apiserver আপনার প্রতিষ্ঠানের বিদ্যমান সুবিধা নিতে পারে
+প্রমাণীকরণ পদ্ধতি, যেমন LDAP বা Kerberos। দেখা
+[প্রমাণকরণ](/docs/reference/access-authn-authz/authentication/)
+কুবারনেটিস ব্যবহারকারীদের প্রমাণীকরণের এই বিভিন্ন পদ্ধতির বর্ণনার জন্য।
+- *অনুমোদন*: আপনি যখন আপনার নিয়মিত ব্যবহারকারীদের অনুমোদন করার জন্য প্রস্তুত হন, আপনি সম্ভবত RBAC এবং ABAC অনুমোদনের মধ্যে বেছে নেবেন। ব্যবহারকারীর অ্যাকাউন্ট অনুমোদনের জন্য বিভিন্ন মোড পর্যালোচনা করতে [প্রমাণকরণ ওভারভিউ](/docs/reference/access-authn-authz/authorization/) দেখুন (সেইসাথে আপনার ক্লাস্টারে পরিষেবা অ্যাকাউন্ট অ্যাক্সেস):
+  - *ভুমিকা-ভিত্তিক অ্যাক্সেস কন্ট্রোল* ([RBAC](/docs/reference/access-authn-authz/rbac/)): প্রমাণীকৃত ব্যবহারকারীদের নির্দিষ্ট সেটের অনুমতি প্রদান করে আপনাকে আপনার ক্লাস্টারে অ্যাক্সেস বরাদ্দ করতে দেয়। একটি নির্দিষ্ট নামস্থান (ভূমিকা) বা সমগ্র ক্লাস্টার জুড়ে (ClusterRole) অনুমতিগুলি বরাদ্দ করা যেতে পারে। তারপর RoleBindings এবং ClusterRoleBindings ব্যবহার করে, সেই অনুমতিগুলি নির্দিষ্ট ব্যবহারকারীদের সাথে সংযুক্ত করা যেতে পারে।
+  - *অ্যাট্রিবিউট-ভিত্তিক অ্যাক্সেস কন্ট্রোল* ([ABAC](/docs/reference/access-authn-authz/abac/)): আপনাকে ক্লাস্টারে রিসোর্স অ্যাট্রিবিউটের উপর ভিত্তি করে নীতি তৈরি করতে দেয় এবং সেই অ্যাট্রিবিউটগুলির উপর ভিত্তি করে অ্যাক্সেসের অনুমতি দেয় বা অস্বীকার করে। একটি নীতি ফাইলের প্রতিটি লাইন সংস্করণ বৈশিষ্ট্য (apiVersion এবং প্রকার) এবং বিষয় (ব্যবহারকারী বা গোষ্ঠী), সংস্থান সম্পত্তি, অ-সম্পদ সম্পত্তি (/সংস্করণ বা /এপিস) এবং শুধুমাত্র পঠনযোগ্য বৈশিষ্ট্যের সাথে মেলে বিশেষ বৈশিষ্ট্যগুলির একটি মানচিত্র সনাক্ত করে। বিস্তারিত জানার জন্য [উদাহরণ](/docs/reference/access-authn-authz/abac/#examples) দেখুন।
 
-As someone setting up authentication and authorization on your production Kubernetes cluster, here are some things to consider:
+যেহেতু কেউ আপনার প্রোডাকশন কুবারনেটস ক্লাস্টারে প্রমাণীকরণ এবং অনুমোদন সেট আপ করছে, এখানে কিছু বিষয় বিবেচনা করার আছেঃ 
 
-- *Set the authorization mode*: When the Kubernetes API server
+- *অনুমোদন মোড সেট করুন*: যখন Kubernetes API সার্ভার
 ([kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/))
-starts, the supported authentication modes must be set using the *--authorization-mode*
-flag. For example, that flag in the *kube-adminserver.yaml* file (in */etc/kubernetes/manifests*)
-could be set to Node,RBAC. This would allow Node and RBAC authorization for authenticated requests.
-- *Create user certificates and role bindings (RBAC)*: If you are using RBAC
-authorization, users can create a CertificateSigningRequest (CSR) that can be
-signed by the cluster CA. Then you can bind Roles and ClusterRoles to each user.
-See [Certificate Signing Requests](/docs/reference/access-authn-authz/certificate-signing-requests/)
-for details.
-- *Create policies that combine attributes (ABAC)*: If you are using ABAC
-authorization, you can assign combinations of attributes to form policies to
-authorize selected users or groups to access particular resources (such as a
-pod), namespace, or apiGroup. For more information, see
-[Examples](/docs/reference/access-authn-authz/abac/#examples).
-- *Consider Admission Controllers*: Additional forms of authorization for
-requests that can come in through the API server include
-[Webhook Token Authentication](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication).
-Webhooks and other special authorization types need to be enabled by adding
-[Admission Controllers](/docs/reference/access-authn-authz/admission-controllers/)
-to the API server.
+শুরু হয়, সমর্থিত প্রমাণীকরণ মোডগুলি অবশ্যই *--অথরাইজেশন-মোড* ব্যবহার করে সেট করতে হবে
+পতাকা উদাহরণস্বরূপ, *kube-adminserver.yaml* ফাইলে সেই পতাকা (*/etc/kubernetes/manifests*-এ)
+Node, RBAC এ সেট করা যেতে পারে। এটি প্রমাণীকৃত অনুরোধের জন্য নোড এবং RBAC অনুমোদনের অনুমতি দেবে।
+- *ব্যবহারকারী সার্টিফিকেট এবং রোল বাইন্ডিং (RBAC)* তৈরি করুন: আপনি যদি RBAC অনুমোদন ব্যবহার করেন, ব্যবহারকারীরা একটি CertificateSigningRequest (CSR) তৈরি করতে পারেন যা ক্লাস্টার CA দ্বারা স্বাক্ষরিত হতে পারে। তারপর আপনি প্রতিটি ব্যবহারকারীর ভূমিকা এবং ক্লাস্টার রোল বাঁধাই করতে পারেন।
+[শংসাপত্র স্বাক্ষরের অনুরোধ](/docs/reference/access-authn-authz/certificate-signing-requests/) দেখুন
+বিস্তারিত জানার জন্য.
+- *অ্যাট্রিবিউটগুলিকে একত্রিত করে এমন নীতিগুলি তৈরি করুন (ABAC)*: আপনি যদি ABAC অনুমোদন ব্যবহার করেন তবে আপনি নির্দিষ্ট সংস্থানগুলি (যেমন একটি পড), নামস্থান, বা apiGroup অ্যাক্সেস করার জন্য নির্বাচিত ব্যবহারকারী বা গোষ্ঠীগুলিকে অনুমোদন করার জন্য নীতিগুলি গঠনের জন্য বৈশিষ্ট্যগুলির সংমিশ্রণ বরাদ্দ করতে পারেন৷ আরও তথ্যের জন্য, [উদাহরণ](/docs/reference/access-authn-authz/abac/#examples) দেখুন।
+- *ভর্তি নিয়ন্ত্রকদের বিবেচনা করুন*: API সার্ভারের মাধ্যমে আসতে পারে এমন অনুরোধের জন্য অনুমোদনের অতিরিক্ত ফর্ম অন্তর্ভুক্ত
+[ওয়েবহুক টোকেন প্রমাণীকরণ](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)।
+API সার্ভারে [ভর্তি কন্ট্রোলার](/docs/reference/access-authn-authz/admission-controllers/) যোগ করে ওয়েবহুক এবং অন্যান্য বিশেষ অনুমোদনের ধরন সক্ষম করতে হবে।
 
-## Set limits on workload resources
+## কাজের চাপের সম্পদের সীমা নির্ধারণ করুন
 
-Demands from production workloads can cause pressure both inside and outside
-of the Kubernetes control plane. Consider these items when setting up for the
-needs of your cluster's workloads:
+প্রোডাকশন ওয়ার্কলোডের চাহিদা কুবারনেটস কন্ট্রোল প্লেনের ভিতরে এবং বাইরে উভয় ক্ষেত্রেই চাপ সৃষ্টি করতে পারে। আপনার ক্লাস্টারের কাজের চাপের প্রয়োজনের জন্য সেট আপ করার সময় এই আইটেমগুলি বিবেচনা করুনঃ 
 
-- *Set namespace limits*: Set per-namespace quotas on things like memory and CPU. See
-[Manage Memory, CPU, and API Resources](/docs/tasks/administer-cluster/manage-resources/)
-for details. You can also set
-[Hierarchical Namespaces](/blog/2020/08/14/introducing-hierarchical-namespaces/)
-for inheriting limits.
-- *Prepare for DNS demand*: If you expect workloads to massively scale up,
-your DNS service must be ready to scale up as well. See
-[Autoscale the DNS service in a Cluster](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
-- *Create additional service accounts*: User accounts determine what users can
-do on a cluster, while a service account defines pod access within a particular
-namespace. By default, a pod takes on the default service account from its namespace.
-See [Managing Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/)
-for information on creating a new service account. For example, you might want to:
-  - Add secrets that a pod could use to pull images from a particular container registry. See [Configure Service Accounts for Pods](/docs/tasks/configure-pod-container/configure-service-account/) for an example.
-  - Assign RBAC permissions to a service account. See [ServiceAccount permissions](/docs/reference/access-authn-authz/rbac/#service-account-permissions) for details.
+- *নেমস্পেস সীমা সেট করুন*: মেমরি এবং সিপিইউ এর মত জিনিসগুলিতে প্রতি-নেমস্পেস কোটা সেট করুন। দেখা
+[মেমরি, সিপিইউ এবং এপিআই সংস্থানগুলি পরিচালনা করুন](/docs/tasks/administer-cluster/manage-resources/)
+বিস্তারিত জানার জন্য. আপনিও সেট করতে পারেন
+[হায়ারার্কিক্যাল নামস্থান](/blog/2020/08/14/introducing-hierarchical-namespaces/)
+উত্তরাধিকার সীমার জন্য।
+- *ডিএনএস চাহিদার জন্য প্রস্তুত করুন*: আপনি যদি আশা করেন যে কাজের চাপ ব্যাপকভাবে বৃদ্ধি পাবে, আপনার ডিএনএস পরিষেবাটিও স্কেল বাড়াতে প্রস্তুত থাকতে হবে। দেখা
+[একটি ক্লাস্টারে DNS পরিষেবাটি অটোস্কেল করুন](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)।
+- *অতিরিক্ত পরিষেবা অ্যাকাউন্ট তৈরি করুন*: ব্যবহারকারীর অ্যাকাউন্টগুলি নির্ধারণ করে যে ব্যবহারকারীরা একটি ক্লাস্টারে কী করতে পারে, যখন একটি পরিষেবা অ্যাকাউন্ট একটি নির্দিষ্ট নামস্থানের মধ্যে পড অ্যাক্সেসকে সংজ্ঞায়িত করে। ডিফল্টরূপে, একটি পড তার নামস্থান থেকে ডিফল্ট পরিষেবা অ্যাকাউন্টে নেয়।
+দেখুন [পরিষেবা অ্যাকাউন্ট পরিচালনা](/docs/reference/access-authn-authz/service-accounts-admin/)
+একটি নতুন পরিষেবা অ্যাকাউন্ট তৈরির তথ্যের জন্য। উদাহরণস্বরূপ, আপনি চাইতে পারেন:
+   - গোপনীয়তা যোগ করুন যা একটি পড একটি নির্দিষ্ট ধারক রেজিস্ট্রি থেকে ছবি তুলতে ব্যবহার করতে পারে। উদাহরণের জন্য [পডের জন্য পরিষেবা অ্যাকাউন্ট কনফিগার করুন](/docs/tasks/configure-pod-container/configure-service-account/) দেখুন।
+   - একটি পরিষেবা অ্যাকাউন্টে RBAC অনুমতি বরাদ্দ করুন। বিস্তারিত জানার জন্য [ServiceAccount permissions](/docs/reference/access-authn-authz/rbac/#service-account-permissions) দেখুন।
 
 ## {{% heading "whatsnext" %}}
 
-- Decide if you want to build your own production Kubernetes or obtain one from
-available [Turnkey Cloud Solutions](/docs/setup/production-environment/turnkey-solutions/)
-or [Kubernetes Partners](https://kubernetes.io/partners/).
-- If you choose to build your own cluster, plan how you want to
-handle [certificates](/docs/setup/best-practices/certificates/)
-and set up high availability for features such as
-[etcd](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
-and the
-[API server](/docs/setup/production-environment/tools/kubeadm/ha-topology/).
-- Choose from [kubeadm](/docs/setup/production-environment/tools/kubeadm/), [kops](/docs/setup/production-environment/tools/kops/) or [Kubespray](/docs/setup/production-environment/tools/kubespray/)
-deployment methods.
-- Configure user management by determining your
-[Authentication](/docs/reference/access-authn-authz/authentication/) and
-[Authorization](/docs/reference/access-authn-authz/authorization/) methods.
-- Prepare for application workloads by setting up
-[resource limits](/docs/tasks/administer-cluster/manage-resources/),
-[DNS autoscaling](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
-and [service accounts](/docs/reference/access-authn-authz/service-accounts-admin/).
+- আপনি নিজের প্রোডাকশন কুবারনেটস তৈরি করতে চান বা উপলব্ধ [টার্নকি ক্লাউড সলিউশনস](/docs/setup/production-environment/turnkey-solutions/) থেকে একটি পেতে চান কিনা তা স্থির করুন অথবা [কুবারনেটিস পার্টনার](https://kubernetes.io/partners/)।
+- আপনি যদি নিজের ক্লাস্টার তৈরি করতে চান, তাহলে পরিকল্পনা করুন কিভাবে আপনি [শংসাপত্র] (/docs/setup/best-practices/certificates/) পরিচালনা করতে চান
+এবং যেমন বৈশিষ্ট্য জন্য উচ্চ প্রাপ্যতা সেট আপ
+[etcd](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/) এবং [API সার্ভার](/docs/setup/production-environment/tools/kubeadm/ha- টপোলজি/)।
+- [kubeadm](/docs/setup/production-environment/tools/kubeadm/), [kops](/docs/setup/production-environment/tools/kops/) অথবা [Kubespray](/docs/setup/) থেকে বেছে নিন উত্পাদন-পরিবেশ/সরঞ্জাম/কুবেস্প্রে/)
+স্থাপনা পদ্ধতি।
+- আপনার নির্ধারণ করে ব্যবহারকারী ব্যবস্থাপনা কনফিগার করুন
+[প্রমাণকরণ](/docs/reference/access-authn-authz/authentication/) এবং
+[অনুমোদন](/docs/reference/access-authn-authz/authorization/) পদ্ধতি।
+- সেট আপ করে অ্যাপ্লিকেশন ওয়ার্কলোডের জন্য প্রস্তুত করুন
+[সম্পদ সীমা](/docs/tasks/administer-cluster/manage-resources/),
+[DNS অটোস্কেলিং](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)
+এবং [পরিষেবা অ্যাকাউন্ট](/docs/reference/access-authn-authz/service-accounts-admin/)।
