@@ -20,7 +20,10 @@ This page shows you how to set up a simple Ingress which routes requests to Serv
 This tutorial assumes that you are using `minikube` to run a local Kubernetes cluster.
 Visit [Install tools](/docs/tasks/tools/#minikube) to learn how to install `minikube`.
 
-{{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+{{< include "task-tutorial-prereqs.md" >}} 
+if you are using `minikube` under windows or using Docker, you should enable CNI for the cluster.
+
+{{< version-check >}}
 If you are using an older Kubernetes version, switch to the documentation for that version.
 
 ### Create a minikube cluster
