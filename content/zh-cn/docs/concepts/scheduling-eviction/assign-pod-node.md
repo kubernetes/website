@@ -419,7 +419,7 @@ Pods, the default Kubernetes scheduler places those Pods and honors any
 DaemonSet 控制器[为 DaemonSet 创建 Pod](/zh-cn/docs/concepts/workloads/controllers/daemonset/#how-daemon-pods-are-scheduled)，
 但该控制器不理会调度方案。
 DaemonSet 控制器创建 Pod 时，默认的 Kubernetes 调度器负责放置 Pod，
-并遵从 DaemonSet 控制器中奢侈的 `nodeAffinity` 规则。
+并遵从 DaemonSet 控制器中设置的 `nodeAffinity` 规则。
 {{< /note >}}
 
 <!--
