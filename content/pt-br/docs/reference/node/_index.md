@@ -14,3 +14,4 @@ Você também pode ler os detalhes de referência do nó em outros lugares na
 documentação do Kubernetes, incluindo:
 
 * [Dados de métricas do Nó](/docs/reference/instrumentation/node-metrics).
+* [Métricas de Contêiner & Pod CRI](docs/reference/instrumentation/cri-pod-container-metrics).
