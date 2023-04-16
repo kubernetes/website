@@ -4,9 +4,8 @@ metadata:
   name: "deploy-replica-policy.example.com"
 spec:
   paramKind:
-    group: rules.example.com
+    apiVersion: rules.example.com/v1
     kind: ReplicaLimit
-    version: v1
   matchConstraints:
     resourceRules:
     - apiGroups:   ["apps"]
