@@ -117,7 +117,9 @@ Wait another 30 seconds, and verify that the container has been restarted:
 kubectl get pod liveness-exec
 ```
 
-The output shows that `RESTARTS` has been incremented. Note that the `RESTARTS` counter increments as soon as a failed container comes back to the running state:
+The output shows that `RESTARTS` has been incremented. Note that the `RESTARTS`
+counter increments as soon as a failed container comes back to the running
+state:
 
 ```
 NAME            READY     STATUS    RESTARTS   AGE
@@ -258,17 +260,22 @@ After 15 seconds, view Pod events to verify that the liveness check has not fail
 kubectl describe pod etcd-with-grpc
 ```
 
-Before Kubernetes 1.23, gRPC health probes were often implemented using [grpc-health-probe](https://github.com/grpc-ecosystem/grpc-health-probe/),
-as described in the blog post [Health checking gRPC servers on Kubernetes](/blog/2018/10/01/health-checking-grpc-servers-on-kubernetes/).
-The built-in gRPC probes behavior is similar to one implemented by grpc-health-probe.
-When migrating from grpc-health-probe to built-in probes, remember the following differences:
+Before Kubernetes 1.23, gRPC health probes were often implemented using
+[grpc-health-probe](https://github.com/grpc-ecosystem/grpc-health-probe/), as
+described in the blog post [Health checking gRPC servers on
+Kubernetes](/blog/2018/10/01/health-checking-grpc-servers-on-kubernetes/). The
+built-in gRPC probes behavior is similar to one implemented by
+grpc-health-probe. When migrating from grpc-health-probe to built-in probes,
+remember the following differences:
 
-- Built-in probes run against the pod IP address, unlike grpc-health-probe that often runs against `127.0.0.1`.
-  Be sure to configure your gRPC endpoint to listen on the Pod's IP address.
+- Built-in probes run against the pod IP address, unlike grpc-health-probe that
+  often runs against `127.0.0.1`. Be sure to configure your gRPC endpoint to
+  listen on the Pod's IP address.
 - Built-in probes do not support any authentication parameters (like `-tls`).
 - There are no error codes for built-in probes. All errors are considered as probe failures.
-- If `ExecProbeTimeout` feature gate is set to `false`, grpc-health-probe does **not** respect the `timeoutSeconds` setting (which defaults to 1s),
-  while built-in probe would fail on timeout.
+- If `ExecProbeTimeout` feature gate is set to `false`, grpc-health-probe does
+  **not** respect the `timeoutSeconds` setting (which defaults to 1s), while
+  built-in probe would fail on timeout.
 
 ## Use a named port
 
@@ -346,7 +353,9 @@ Readiness probes runs on the container during its whole lifecycle.
 {{< /note >}}
 
 {{< caution >}}
-Liveness probes *do not* wait for readiness probes to succeed. If you want to wait before executing a liveness probe you should use initialDelaySeconds or a startupProbe.
+Liveness probes *do not* wait for readiness probes to succeed. If you want to
+wait before executing a liveness probe you should use initialDelaySeconds or a
+startupProbe.
 {{< /caution >}}
 
 Readiness probes are configured similarly to liveness probes. The only difference
@@ -380,15 +389,16 @@ you can use to more precisely control the behavior of startup, liveness and read
 checks:
 
 * `initialDelaySeconds`: Number of seconds after the container has started
-before startup, liveness or readiness probes are initiated. If a startup probe is defined, liveness and readiness probe delays do not begin until the startup probe has succeeded.
-Defaults to 0 seconds. Minimum value is 0.
+  before startup, liveness or readiness probes are initiated. If a startup
+  probe is defined, liveness and readiness probe delays do not begin until the
+  startup probe has succeeded. Defaults to 0 seconds. Minimum value is 0.
 * `periodSeconds`: How often (in seconds) to perform the probe. Default to 10
-seconds. Minimum value is 1.
+   seconds. Minimum value is 1.
 * `timeoutSeconds`: Number of seconds after which the probe times out. Defaults
-to 1 second. Minimum value is 1.
+  to 1 second. Minimum value is 1.
 * `successThreshold`: Minimum consecutive successes for the probe to be
-considered successful after having failed. Defaults to 1. Must be 1 for liveness
-and startup Probes. Minimum value is 1.
+  considered successful after having failed. Defaults to 1. Must be 1 for liveness
+  and startup Probes. Minimum value is 1.
 * `failureThreshold`: After a probe fails `failureThreshold` times in a row, Kubernetes
   considers that the overall check has failed: the container is _not_ ready / healthy /
   live.
@@ -415,12 +425,13 @@ until a result was returned.
 
 This defect was corrected in Kubernetes v1.20. You may have been relying on the previous behavior,
 even without realizing it, as the default timeout is 1 second.
-As a cluster administrator, you can disable the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `ExecProbeTimeout` (set it to `false`)
-on each kubelet to restore the  behavior from older versions, then remove that override
-once all the exec probes in the cluster have a `timeoutSeconds` value set.
-If you have pods that are impacted from the default 1 second timeout,
-you should update their probe timeout so that you're ready for the
-eventual removal of that feature gate.
+As a cluster administrator, you can disable the
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+`ExecProbeTimeout` (set it to `false`) on each kubelet to restore the behavior
+from older versions, then remove that override once all the exec probes in the
+cluster have a `timeoutSeconds` value set. If you have pods that are impacted
+from the default 1 second timeout, you should update their probe timeout so
+that you're ready for the eventual removal of that feature gate.
 
 With the fix of the defect, for exec probes, on Kubernetes `1.20+` with the `dockershim` container runtime,
 the process inside the container may keep running even after probe returned failure because of the timeout.
