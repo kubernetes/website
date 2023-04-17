@@ -31,7 +31,7 @@ Os operadores são clientes da API do Kubernetes que atuam como controladores pa
 Algumas das coisas que você pode automatizar usando um operador incluem:
 
 * implantação sob demanda de uma aplicação
-* fazer e restarurar backups do estado dessa aplicação
+* fazer e restaurar backups do estado dessa aplicação
 * lidar com atualizações do código da aplicação junto com mudanças relacionadas, como esquemas de banco de dados ou configurações adicionais
 * publicar um *Service* para aplicações que não suportam a APIs do Kubernetes paraa que eles possam descobrí-los
 * simular falhas em todo ou parte do seu cluster para testar resiliência
