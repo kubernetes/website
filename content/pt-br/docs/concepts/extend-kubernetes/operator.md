@@ -102,6 +102,6 @@ A seguir estão algumas bibliotecas e ferramentas que você pode usar para escre
 * [Publique](https://operatorhub.io/) seu operador para outras pessoas usarem
 * Leia o [artigo original do CoreOS](https://web.archive.org/web/20170129131616/https://coreos.com/blog/introducing-operators.html)
   que introduziu o padrão de operador (esta é uma versão arquivada do artigo original)
-* Leia um [Artigo](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps)
+* Leia um [artigo](https://cloud.google.com/blog/products/containers-kubernetes/best-practices-for-building-kubernetes-operators-and-stateful-apps)
   do Google Cloud sobre as melhores práticas para construir operadores
 
