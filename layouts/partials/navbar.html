@@ -24,7 +24,24 @@
 				{{ partial "navbar-lang-selector.html" . }}
 			</li>
 			{{ end }}
+			{{ if .IsHome }}
+			<li class="nav-item" >
+				<a href="#" class="nav-link site-searchbar-activate"aria-label="Search" title="Search">
+					<i class="fa fa-search fa-lg"></i>
+				</a>
+			</li>
+			{{ end }}
 		</ul>
 	</div>
+	{{ if .IsHome }}
+	<div class="site-searchbar">
+		{{ partial "search-input.html" . }}
+		<button type="button" class="search-close" aria-label="Close" title="Close">
+			<i class="fa fa-times-circle" aria-hidden="true"></i>
+		</button>
+	</div>
+
+	<div class="site-searchbar-sm"><a href="#" class="nav-link site-searchbar-activate" id="site-searchbar-navlink" aria-label="Search" title="Search"><i class="fa fa-search fa-lg"></i></a></div>
+	{{ end }}
 	<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
 </nav>
