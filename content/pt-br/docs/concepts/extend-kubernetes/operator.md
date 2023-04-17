@@ -88,7 +88,7 @@ A seguir estão algumas bibliotecas e ferramentas que você pode usar para escre
 * [KubeOps](https://buehler.github.io/dotnet-operator-sdk/) (.NET operator SDK)
 * [KUDO](https://kudo.dev/) (Kubernetes Universal Declarative Operator)
 * [Mast](https://docs.ansi.services/mast/user_guide/operator/)
-* [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html) juntamente com *WebHooks* que você mesmo implementa
+* [Metacontroller](https://metacontroller.github.io/metacontroller/intro.html) em conjunto com webhooks que você mesmo implementa
 * [Operator Framework](https://operatorframework.io)
 * [shell-operator](https://github.com/flant/shell-operator)
 
