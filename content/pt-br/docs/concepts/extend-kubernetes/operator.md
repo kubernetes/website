@@ -24,7 +24,7 @@ As pessoas que executam cargas de trabalho no Kubernetes muitas vezes gostam de 
 O Kubernetes é projetado para automação. Por padrão, você tem bastante automação integrada ao núcleo do Kubernetes. Você pode usar o Kubernetes para automatizar a implantação e execução de cargas de trabalho, e pode automatizar como o Kubernetes faz isso.
 
 O conceito de {{< glossary_tooltip text="padrão operador" term_id="operator-pattern" >}} do Kubernetes permite a extensão do comportamento sem modificar o código do próprio Kubernetes, vinculando {{< glossary_tooltip text="controladores" term_id="controller" >}} a um ou mais recursos personalizados.
-Os operadores são clientes da API do Kubernetes que atuam como controladores para um [*Custom Resource*](/docs/concepts/api-extension/custom-resources/)
+Os operadores são clientes da API do Kubernetes que atuam como controladores para um [*recurso personalizado*](/docs/concepts/api-extension/custom-resources/).
 
 ## Exemplo de um operador
 
