@@ -339,9 +339,9 @@ Used on: ServiceAccount
 
 The value for this annotation must be **true** to take effect. This annotation indicates that pods running as this service account may only reference Secret API objects specified in the service account's `secrets` field.
 
-### node.kubernetes.io/exclude-from-external-load-balancer
+### node.kubernetes.io/exclude-from-external-load-balancers
 
-Example: `node.kubernetes.io/exclude-from-external-load-balancer`
+Example: `node.kubernetes.io/exclude-from-external-load-balancers`
 
 Used on: Node
 
