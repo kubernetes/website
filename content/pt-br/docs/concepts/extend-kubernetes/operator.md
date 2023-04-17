@@ -15,7 +15,7 @@ Operadores são extensões de software para o Kubernetes que fazem uso de [*recu
 
 ## Motivação
 
-O padrão operador tem como objetivo capturar o principal objetivo de um operador humano que está gerenciando um serviço ou conjunto de serviços. Operadores humanos que cuidam de aplicativos e serviços específicos possuem um conhecimento profundo de como o sistema deve se comportar, como implantá-lo e como reagir se houver problemas.
+O *padrão operador* tem como objetivo capturar o principal objetivo de um operador humano que está gerenciando um serviço ou conjunto de serviços. Operadores humanos que cuidam de aplicativos e serviços específicos possuem um conhecimento profundo de como o sistema deve se comportar, como implantá-lo e como reagir se houver problemas.
 
 As pessoas que executam cargas de trabalho no Kubernetes muitas vezes gostam de usar automação para cuidar de tarefas repetitivas. O padrão do operador captura como você pode escrever código para automatizar uma tarefa além do que o próprio Kubernetes fornece.
 
