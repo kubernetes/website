@@ -76,8 +76,6 @@ Você também pode implementar um operador (ou seja, um Controlador) usando qual
 
 A seguir estão algumas bibliotecas e ferramentas que você pode usar para escrever seu próprio operador nativo de nuvem.
 
-> **_NOTE:_**  Esta seção contém links para projetos de terceiros que fornecem funcionalidades requeridas pelo Kubernetes. Os autores do projeto Kubernetes não são responsáveis por esses projetos, que estão listados em ordem alfabética. Para adicionar um projeto a esta lista, leia o [guia de conteúdo](/docs/contribute/style/content-guide/#third-party-content) antes de enviar uma alteração. [Mais informações](/docs/concepts/extend-kubernetes/operator/#third-party-content-disclaimer).
-
 {{% thirdparty-content %}}
 
 * [Charmed Operator Framework](https://juju.is/)
@@ -92,11 +90,10 @@ A seguir estão algumas bibliotecas e ferramentas que você pode usar para escre
 * [Operator Framework](https://operatorframework.io)
 * [shell-operator](https://github.com/flant/shell-operator)
 
-## O que vem a seguir
+## {{% heading "whatsnext" %}} 
 
 
-* Leia o {{< glossary_tooltip text="CNCF" term_id="cncf" >}}
-  [Operator White Paper](https://github.com/cncf/tag-app-delivery/blob/eece8f7307f2970f46f100f51932db106db46968/operator-wg/whitepaper/Operator-WhitePaper_v1-0.md).
+* Leia o [whitepaper sobre operadores](https://github.com/cncf/tag-app-delivery/blob/eece8f7307f2970f46f100f51932db106db46968/operator-wg/whitepaper/Operator-WhitePaper_v1-0.md) da CNCF {{< glossary_tooltip text="CNCF" term_id="cncf" >}}
 * Saiba mais sobre [Custom Resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/)
 * Encontre operadores prontos em [OperatorHub.io](https://operatorhub.io/) para atender ao seu caso de uso
 * [Publique](https://operatorhub.io/) seu operador para outras pessoas usarem
