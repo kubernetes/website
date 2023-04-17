@@ -53,9 +53,12 @@
       position: fixed;
       top: 1%;
       left: 0;
+      display: flex;
+      align-items: center;
     }
   
     .site-searchbar input {
+      flex: 1;
       width: 70vw;
       padding: 10px;
       border-radius: 10px;
@@ -65,7 +68,7 @@
     .search-close {
       position: absolute;
       top: 20%;
-      right: 2%;
+      right: 1%;
       font-size: 1.4em;
       color: #f20000;
       border: none;
