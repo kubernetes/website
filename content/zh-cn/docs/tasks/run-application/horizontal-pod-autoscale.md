@@ -493,7 +493,7 @@ pod usage is still within acceptable limits.
 -->
 ### 容器资源指标   {#container-resource-metrics}
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 <!--
 The HorizontalPodAutoscaler API also supports a container metric source where the HPA can track the
