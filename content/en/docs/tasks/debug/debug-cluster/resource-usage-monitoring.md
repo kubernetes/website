@@ -68,11 +68,14 @@ in almost 100% backwards-compatible ways.
 
 If you glance over at the
 [CNCF Landscape](https://landscape.cncf.io/card-mode?category=monitoring&project=graduated,incubating,member,no&grouping=category&sort=stars), 
-you can observe that the Kubernetes project doesn't provide a recommendation 
-of any projects to work on, as it is totally up to the users to find the 
-project that suits them the best. If someone is to make a full metrics pipeline,
-they need to design and deploy their own infrastructure platform, of which
-Kubernetes is only one part.
+you can see a number of monitoring projects that can work with Kubernetes by _scraping_
+metric data and using that to help you observe your cluster. It is up to you to select the tool
+or tools that suit your needs. The CNCF landscape for observability and analytics includes a
+mix of open-source software, paid-for software-as-a-service, and other commercial products.
+
+When you design and implement a full metrics pipeline you can make that monitoring data
+available back to Kubernetes. For example, a HorizontalPodAutoscaler can use the processed
+metrics to work out how many Pods to run for a component of your workload.
 
 Integration of a full metrics pipeline into your Kubernetes implementation is outside
 the scope of Kubernetes documentation because of the very wide scope of possible
