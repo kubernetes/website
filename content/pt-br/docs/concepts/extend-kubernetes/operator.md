@@ -33,7 +33,7 @@ Algumas das coisas que você pode automatizar usando um operador incluem:
 * implantação sob demanda de uma aplicação
 * fazer e restaurar backups do estado dessa aplicação
 * lidar com atualizações do código da aplicação junto com mudanças relacionadas, como esquemas de banco de dados ou configurações adicionais
-* publicar um *Service* para aplicações que não suportam a APIs do Kubernetes paraa que eles possam descobrí-los
+* publicar um Service para que aplicações que não suportam as APIs do Kubernetes possam descobrí-los
 * simular falhas em todo ou parte do seu cluster para testar resiliência
 * escolher um lider para uma aplicação distribuída sem um processo de eleição interna de membros
 
