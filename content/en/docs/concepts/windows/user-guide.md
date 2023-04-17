@@ -20,6 +20,30 @@ This guide walks you through the steps to configure and deploy Windows container
 * Configure an example deployment to run Windows containers on the Windows node
 * Highlight Windows specific functionality in Kubernetes
 
+## Overview of Kubernetes Architecture
+
+Kubernetes is an **open-source platform** that automates container _deployment_, _scaling_, and _management_. It is designed to simplify the process of managing containerized applications and can be used to manage both simple and complex containerized applications at scale. Understanding the architecture of Kubernetes is crucial when working with the platform.
+
+The **architecture** of Kubernetes is composed of two main components: the control plane and worker nodes. The control plane manages the Kubernetes API, etcd, and various controllers, while the worker nodes run containers.
+
+### Control Plane:
+The control plane is responsible for managing the state of the cluster and consists of several components, including:
+- **API Server:** The Kubernetes API server provides access to the control plane and worker nodes, allowing users to manage and deploy workloads to the cluster.
+- **etcd:** etcd is a distributed key-value store that stores the configuration data of the cluster.
+- **kube-controller-manager:** The kube-controller-manager is responsible for managing various controllers that regulate the state of the cluster.
+- **kube-scheduler:** The kube-scheduler is responsible for scheduling workloads to run on worker nodes.
+- **cloud-controller-manager:** The cloud-controller-manager is responsible for managing the cloud-specific integrations of the cluster.
+
+### Worker Nodes:
+Worker nodes run containers and include several components that interact with the control plane to manage the containers running on the node. These components include:
+- **kubelet:** The kubelet is responsible for communicating with the control plane and managing the containers running on the node.
+- **kube-proxy:** The kube-proxy is responsible for managing the networking between containers running on the node.
+- **Container Runtime:** The container runtime is responsible for running the containers on the node.
+
+When creating a Kubernetes cluster, it's essential to choose the right set of components and resources that meet your requirements. You can customize the cluster by selecting the appropriate network and storage plugins, authentication and authorization mechanisms, and other configurations that match your needs.
+
+In the section below, you will find an example that demonstrates how to create a Kubernetes cluster that includes a control plane and a worker node running Windows Server. This example assumes that you have already set up a Windows Server environment and have installed the necessary prerequisites to run Kubernetes.
+
 ## Before you begin
 
 * Create a Kubernetes cluster that includes a control plane and a worker node running Windows Server
