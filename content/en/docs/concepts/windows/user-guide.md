@@ -326,3 +326,28 @@ spec:
 ```
 
 [RuntimeClass]: /docs/concepts/containers/runtime-class/
+
+
+## Troubleshooting Common Issues
+
+When deploying Windows containers in Kubernetes, users may face several issues. Here are some common ones and how to address them:
+
+- <ins>**Node selector errors:**</ins> 
+Ensure that the nodeSelector field in the deployment spec matches the label applied to the Windows worker node correctly. Double-check the spelling of the label and make sure that it matches the key-value pair specified in the nodeSelector field.
+
+- <ins>**Networking issues:**</ins> 
+Due to current platform limitations of the Windows networking stack, Windows container hosts cannot access the IP of services scheduled on them. Only Windows pods can access service IPs. To verify network connectivity, try pinging between pods and nodes, and from outside the cluster. Curl the virtual service IP from the Linux control plane node and from individual pods to ensure that service-to-pod communication is working. Also, check that the kube-proxy service is running on each node, and that Windows firewall rules are set up correctly to allow communication between pods and services.
+
+- <ins>**Image pull errors:**</ins> 
+Verify that the image repository is accessible from the worker node, and that the image name and tag are spelled correctly in the deployment spec.
+
+- <ins>**Resource allocation errors:**</ins> 
+Windows containers may have different resource requirements than Linux containers, so make sure that the resource limits and requests in the deployment spec are appropriate for the application running in the container.
+
+- <ins>**Permission errors:**</ins> 
+Check that the service account associated with the pod has the necessary permissions to access any required resources or APIs.
+
+- <ins>**Logging issues:**</ins> 
+Collecting logs from Windows containers and workloads inside Windows containers can be challenging. Ensure that the logging driver is configured correctly, and that the logs are being forwarded to the correct destination for analysis. Consider using a logging solution specifically designed for Windows containers, such as Fluentd or Event Viewer.
+
+Note: It's important to keep in mind that troubleshooting common issues is just the first step in successfully deploying Windows containers in Kubernetes. Continuously monitoring the containers and the Kubernetes environment can help detect and prevent issues before they occur, ensuring smooth operation and better performance.
