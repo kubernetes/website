@@ -328,8 +328,14 @@ Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
 
 Name:      web-0.nginx
 Address 1: 10.244.1.6
+```
 
+```shell
+# 在 dns-test 容器 Shell 中运行以下命令
 nslookup web-1.nginx
+```
+输出类似于：
+```
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
 
