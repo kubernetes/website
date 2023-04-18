@@ -24,7 +24,8 @@ RUN mkdir /src && \
 
 FROM alpine:3.14
 
-LABEL maintainer="Luc Perkins <lperkins@linuxfoundation.org>"
+LABEL maintainer="linuxfoundation.org"
+
 
 RUN apk add --no-cache \
     runuser \
