@@ -44,10 +44,10 @@ Como seria um operador com mais detalhes? Aqui está um exemplo:
 3. Uma imagem de contêiner do código do operador.
 4. Código do controlador que consulta a camada de gerenciamento para descobrir quais recursos SampleDB estão configurados.
 5. O núcleo do Operador é o código que informa ao servidor da API como fazer com que a realidade corresponda aos recursos configurados.
-   * Se você adicionar um novo *SampleDB*, o operador configura *PersistentVolumeClaims* para fornecer armazenamento durável da base de dados, um *StatefulSet* para executar o *SampleDB* e um *Job* para lidar com a configuração inicial.
-   * Se você excluir um *SampleDB*, o operador faz um *snapshot* e em seguida, garante que o *StatefulSet* e os *Volumes* também sejam removidos.
-6. O operador também gerencia backups regulares da base de dados. Para cada recurso *SampleDB*, o operador determina quando criar um *Pod* que pode se conectar ao banco de dados e fazer backups. Esses *Pods* dependeriam de um *ConfigMap* e/ou um *Secret* que tenha detalhes da conexão e credenciais do banco de dados.
-7. Considerando que o Operador tem como objetivo fornecer automação robusta para o recurso que gerencia, haveria código de suporte adicional. Para este exemplo, o código verifica se o banco de dados está a executando uma versão antiga e, se estiver, cria objetos *Job* que fazem a atualização para você.
+   * Se você adicionar um novo SampleDB, o operador configura PersistentVolumeClaims para fornecer armazenamento durável da base de dados, um StatefulSet para executar o SampleDB e um Job para lidar com a configuração inicial.
+   * Se você excluir um SampleDB, o operador cria um instantâneo e em seguida, garante que o StatefulSet e os Volumes também sejam removidos.
+6. O operador também gerencia backups regulares da base de dados. Para cada recurso SampleDB, o operador determina quando criar um Pod que pode se conectar ao banco de dados e fazer backups. Esses Pods dependeriam de um ConfigMap e/ou um Secret que tenha detalhes da conexão e credenciais do banco de dados.
+7. Considerando que o Operador tem como objetivo fornecer automação robusta para o recurso que gerencia, haveria código de suporte adicional. Para este exemplo, o código verifica se o banco de dados está a executando uma versão antiga e, se estiver, cria objetos Job que fazem a atualização para você.
 
 ## Implantando operadores
 
