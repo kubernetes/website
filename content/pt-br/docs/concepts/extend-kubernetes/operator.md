@@ -43,7 +43,7 @@ Como seria um operador com mais detalhes? Aqui está um exemplo:
 2. Um Deployment que garante que um Pod esteja em execução contendo a parte do controlador do operador.
 3. Uma imagem de contêiner do código do operador.
 4. Código do controlador que consulta a camada de gerenciamento para descobrir quais recursos SampleDB estão configurados.
-5. O núcleo do Operador é o código que informa ao servidor da API (*API server*) como fazer com que a realidade corresponda aos recursos configurados.
+5. O núcleo do Operador é o código que informa ao servidor da API como fazer com que a realidade corresponda aos recursos configurados.
    * Se você adicionar um novo *SampleDB*, o operador configura *PersistentVolumeClaims* para fornecer armazenamento durável da base de dados, um *StatefulSet* para executar o *SampleDB* e um *Job* para lidar com a configuração inicial.
    * Se você excluir um *SampleDB*, o operador faz um *snapshot* e em seguida, garante que o *StatefulSet* e os *Volumes* também sejam removidos.
 6. O operador também gerencia backups regulares da base de dados. Para cada recurso *SampleDB*, o operador determina quando criar um *Pod* que pode se conectar ao banco de dados e fazer backups. Esses *Pods* dependeriam de um *ConfigMap* e/ou um *Secret* que tenha detalhes da conexão e credenciais do banco de dados.
