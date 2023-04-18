@@ -51,7 +51,7 @@ to run a new daemon pod on that node.
 ```shell
 kubectl get pods -o wide
 ```
-This returns
+The output is similar to:
 
 ```
 NAME                              READY     STATUS    RESTARTS   AGE    IP      NODE
