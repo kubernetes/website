@@ -13,7 +13,7 @@ This page demonstrates how can you run {{<glossary_tooltip term_id="pod" text="P
 
 ## Running Pods on only some Nodes
 
-Consider a scenario where we want to run a {{<glossary_tooltip term_id="daemonset" text="DaemonSet">}}, but you only need to run those daemon pods
+Imagine that you want to run a {{<glossary_tooltip term_id="daemonset" text="DaemonSet">}}, but you only need to run those daemon pods
 on nodes that have local solid state (SSD) storage. For example, the Pod might provide cache service to the
 node, and the cache is only useful when low-latency local storage is available.
 
