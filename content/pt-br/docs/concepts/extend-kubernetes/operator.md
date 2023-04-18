@@ -70,7 +70,7 @@ kubectl edit SampleDB/example-database # alterar manualmente algumas configuraç
 
 ## Escrevendo o seu próprio operador
 
-Se não houver um opeardor no ecosistema que implemente o comportamento Desejado, você pode programar o seu próprio.
+Se não houver um operador no ecossistema que implemente o comportamento desejado, você pode programar o seu próprio.
 
 Você também pode implementar um operador (ou seja, um Controlador) usando qualquer linguagem/agente de execução que possa atuar como um [cliente para a API do Kubernetes](/docs/reference/using-api/client-libraries/).
 
