@@ -41,7 +41,7 @@ Como seria um operador com mais detalhes? Aqui está um exemplo:
 
 1. Um recurso personalizado (*custom resource*) chamado SampleDB, que você pode configurar dentro do *cluster*.
 2. Um Deployment que garante que um Pod esteja em execução contendo a parte do controlador do operador.
-3. Uma imagem do contêiner do código do operador.
+3. Uma imagem de contêiner do código do operador.
 4. Código do controlador que consulta a camada de gerenciamento para descobrir quais recursos *SampleDB* estão configurados.
 5. O núcleo do Operador é o código que informa ao servidor da API (*API server*) como fazer com que a realidade corresponda aos recursos configurados.
    * Se você adicionar um novo *SampleDB*, o operador configura *PersistentVolumeClaims* para fornecer armazenamento durável da base de dados, um *StatefulSet* para executar o *SampleDB* e um *Job* para lidar com a configuração inicial.
