@@ -58,7 +58,7 @@ Por exemplo, você pode executar o controlador no seu cluster como um *Deploymen
 ## Usando um operador
 
 Depois de implantar um operador, você o usaria adicionando, modificando ou excluindo o tipo de recurso que o operador usa. Seguindo o exemplo acima,
-você configuraria um *Deployment* para o próprio operador, e depois:
+você configuraria um Deployment para o próprio operador, e depois:
 
 ```shell
 kubectl get SampleDB                   # encontrar banco de dados configurados
