@@ -96,10 +96,10 @@ Pods, you also need to ensure that the user namespace Pods are
 
 <!--
 Please note that **if your container runtime doesn't support user namespaces, the
-new `pod.spec` field will be silently ignored and the pod will be created without
-user namespaces.**
+`hostUsers` field in the pod spec will be silently ignored and the pod will be
+created without user namespaces.**
 -->
-请注意 **如果你的容器运行时环境不支持用户名字空间，字段 `pod.spec` 将被忽略，
+请注意 **如果你的容器运行时环境不支持用户名字空间，那么 Pod 规约中的 `hostUsers` 字段将被静默忽略，
 并且系统会在没有用户名字空间的环境中创建 Pod。**
 
 <!-- steps -->
