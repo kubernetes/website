@@ -35,7 +35,7 @@ with the `ssd` label set to `"true"`.
 
 {{<codenew file="controllers/daemonset-label-selector.yaml">}}
 
-### Step 3: Create the {{<glossary_tooltip term_id="daemonset" text="DaemonSet">}}
+### Step 3: Create the DaemonSet
 
 Create the DaemonSet from the manifest by using `kubectl create` or `kubectl apply`
 
