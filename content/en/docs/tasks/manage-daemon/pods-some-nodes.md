@@ -19,7 +19,7 @@ node, and the cache is only useful when low-latency local storage is available.
 
 ### Step 1: Add labels to your nodes
 
-Adding the label `ssd=true` to the nodes which have ssd.
+Add the label `ssd=true` to the nodes which have SSDs.
 
 ```shell
 kubectl label nodes example-node-1 example-node-2 ssd=true
