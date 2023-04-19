@@ -56,7 +56,7 @@ For a reference to old feature gates that are removed, please refer to
 
 | Feature | Default | Stage | Since | Until |
 |---------|---------|-------|-------|-------|
-| `AdmissionWebhookMatchConditions` | Alpha | `false` | 1.27 | |
+| `AdmissionWebhookMatchConditions` | `false` | Alpha | 1.27 | |
 | `APIListChunking` | `false` | Alpha | 1.8 | 1.8 |
 | `APIListChunking` | `true` | Beta | 1.9 | |
 | `APIPriorityAndFairness` | `false` | Alpha | 1.18 | 1.19 |
