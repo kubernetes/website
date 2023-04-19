@@ -92,6 +92,18 @@ Common forms of values include:
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 
+### kubectl.kubernetes.io/restartedAt
+
+Example: `kubectl.kubernetes.io/restartedAt: '2023-03-05T15:30:00Z`
+
+Used on: Pod
+
+In this example, the annotation indicates that the Pod was most recently restarted at 3:30 PM UTC on March 31st, 2023.
+
+The `"kubectl.kubernetes.io/restartedAt"` annotation is used by Kubernetes to keep track of the timestamp of the most recent container restart for a particular pod. This information can be useful for debugging and monitoring purposes.
+
+The `"kubectl.kubernetes.io/restartedAt"` annotation is automatically added to the spec template by kubectl when the workload is restarted. It records the time of the most recent workload restart as a Unix timestamp.
+
 ### applyset.kubernetes.io/additional-namespaces (alpha) {#applyset-kubernetes-io-additional-namespaces}
 
 Example: `applyset.kubernetes.io/additional-namespaces: "namespace1,namespace2"`
