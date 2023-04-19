@@ -17,8 +17,6 @@ weight: 250
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.24" state="stable"  >}}
-
 {{< glossary_definition term_id="cloud-controller-manager" length="all">}}
 
 <!--
