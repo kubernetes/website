@@ -48,7 +48,7 @@ accounts in the API server.
 
 {{< table caption="Comparison between service accounts and users" >}}
 
-| Description | ServiceAccount | User or group |
+|  | ServiceAccount | User or group |
 | --- | --- | --- |
 | Location | Kubernetes API (ServiceAccount object) | External |
 | Access control | Kubernetes RBAC or other [authorization mechanisms](/docs/reference/access-authn-authz/authorization/#authorization-modules) | Kubernetes RBAC or other identity and access management mechanisms |
