@@ -12,10 +12,12 @@ weight: 10
 <!-- overview -->
 
 On-disk files in a container are ephemeral, which presents some problems for
-non-trivial applications when running in containers. One problem
-is the loss of files when a container crashes. The kubelet restarts the container
-but with a clean state. A second problem occurs when sharing files
-between containers running together in a `Pod`.
+non-trivial applications when running in containers. First problem occurs when 
+a container crashes, all of the files that were created or modified during the 
+lifetime of the container are lost. The kubelet restarts the container but with 
+a clean state. A second problem occurs when multiple containers are running in 
+a `Pod` and need to share files, it can be challenging to ensure that the shared 
+files are accessible and consistent across all of the containers.
 The Kubernetes {{< glossary_tooltip text="volume" term_id="volume" >}} abstraction
 solves both of these problems.
 Familiarity with [Pods](/docs/concepts/workloads/pods/) is suggested.
