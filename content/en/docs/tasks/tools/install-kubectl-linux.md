@@ -30,9 +30,14 @@ The following methods exist for installing kubectl on Linux:
 
 1. Download the latest release with the command:
 
-   ```bash
+   {{< tabs name="download_binary_linux" >}}
+   {{< tab name="x86-64" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-   ```
+   {{< /tab >}}
+   {{< tab name="ARM64" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl"
+   {{< /tab >}}
+   {{< /tabs >}}
 
    {{< note >}}
    To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
@@ -49,9 +54,14 @@ The following methods exist for installing kubectl on Linux:
 
    Download the kubectl checksum file:
 
-   ```bash
+   {{< tabs name="download_checksum_linux" >}}
+   {{< tab name="x86-64" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
-   ```
+   {{< /tab >}}
+   {{< tab name="ARM64" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl.sha256"
+   {{< /tab >}}
+   {{< /tabs >}}
 
    Validate the kubectl binary against the checksum file:
 
@@ -110,13 +120,13 @@ The following methods exist for installing kubectl on Linux:
 
    You can ignore this warning. You are only checking the version of `kubectl` that you
    have installed.
-   
+
    {{< /note >}}
-   
+
    Or use this for detailed view of version:
 
    ```cmd
-   kubectl version --client --output=yaml    
+   kubectl version --client --output=yaml
    ```
 
 ### Install using native package management
@@ -232,17 +242,27 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 
 1. Download the latest release with the command:
 
-   ```bash
+   {{< tabs name="download_convert_binary_linux" >}}
+   {{< tab name="x86-64" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert"
-   ```
+   {{< /tab >}}
+   {{< tab name="ARM64" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl-convert"
+   {{< /tab >}}
+   {{< /tabs >}}
 
 1. Validate the binary (optional)
 
    Download the kubectl-convert checksum file:
 
-   ```bash
+   {{< tabs name="download_convert_checksum_linux" >}}
+   {{< tab name="x86-64" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
-   ```
+   {{< /tab >}}
+   {{< tab name="ARM64" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl-convert.sha256"
+   {{< /tab >}}
+   {{< /tabs >}}
 
    Validate the kubectl-convert binary against the checksum file:
 
