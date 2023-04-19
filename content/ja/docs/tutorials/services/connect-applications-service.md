@@ -65,7 +65,7 @@ kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
 
 KubernetesのServiceは、全て同じ機能を提供する、クラスター内で何かを実行するPodの論理的セットを定義した抽象物です。
 作成時に各Serviceは固有のIPアドレス(clusterIPとも呼ばれます)を割り当てられます。
-このアドレスはServiceのライフスパンと結び付けられており、serviceが生きている間は変わりません。
+このアドレスはServiceのライフスパンと結び付けられており、Serviceが生きている間は変わりません。
 PodはServiceと対話できるよう設定され、Serviceのメンバーである複数のPodへ自動的に負荷分散されたServiceへ通信する方法を知っています。
 
 `kubectl expose`を使って、2つのnginxレプリカのためのServiceを作成できます:
