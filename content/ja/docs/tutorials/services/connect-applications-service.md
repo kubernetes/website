@@ -133,7 +133,7 @@ my-nginx-7vzhx   IPv4          80      10.244.2.5,10.244.3.4   21s
 
 ## Serviceへのアクセス
 
-KubernetesはServiceを探す2つの主要モードとして、環境変数とDNSをサポートしています。
+KubernetesはServiceを探す2つの主要なモードとして、環境変数とDNSをサポートしています。
 前者は箱庭の外でも動くのに対し、後者は[CoreDNSクラスターアドオン](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/coredns)が必要です。
 
 {{< note >}}
