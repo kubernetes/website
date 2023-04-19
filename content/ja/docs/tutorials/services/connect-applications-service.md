@@ -50,7 +50,7 @@ kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
 あなたのクラスター内のどのノードにもsshで入ることができて、双方のIPアドレスに対して問い合わせるために`curl`のようなツールを使えるようにしておくのがよいでしょう。
 各コンテナはノード上でポート80を*使っておらず*、トラフィックをPodに流すための特別なNATルールもなんら存在しないことに注意してください。
 つまり、全て同じ`containerPort`を使った同じノード上で複数のnginx Podを実行でき、Serviceに割り当てられたIPアドレスを使って、クラスター内のほかのどのPodあるいはノードからもそれらにアクセスできます。
-裏側にあるPodにフォワードするためにホストNode上の特定のポートを充てたいというのであれば、それも可能です。とはいえ、ネットワークモデルではそのようなことをする必要がありません。
+背後にあるPodにフォワードするためにホストNode上の特定のポートを充てたいというのであれば、それも可能です。とはいえ、ネットワークモデルではそのようなことをする必要がありません。
 
 興味があれば、さらなる詳細について
 [Kubernetesネットワークモデル](/ja/docs/concepts/cluster-administration/networking/#the-kubernetes-network-model)
