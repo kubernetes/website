@@ -59,7 +59,7 @@ kubectl get pods -l run=my-nginx -o custom-columns=POD_IP:.status.podIPs
 ## Serviceの作成
 
 さて、フラットなクラスター全体のアドレス空間内でnginxを実行中のPodが得られました。
-理論的にはこれらのPodと直接対話することは可能ですが、ノードが死んでしまった時には何が起きるでしょうか?
+理論的にはこれらのPodと直接対話することは可能ですが、ノードが死んでしまった時には何が起きるでしょうか？
 ノードと一緒にPodは死に、Deploymentが新しいPodを異なるIPアドレスで作成します。
 これがServiceが解決する問題です。
 
