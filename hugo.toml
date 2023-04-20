@@ -140,7 +140,7 @@ showedit = true
 
 latest = "v1.27"
 
-fullversion = "v1.27.0"
+fullversion = "v1.27.1"
 version = "v1.27"
 githubbranch = "main"
 docsbranch = "main"
@@ -181,9 +181,9 @@ js = [
 ]
 
 [[params.versions]]
-fullversion = "v1.27.0"
+fullversion = "v1.27.1"
 version = "v1.27"
-githubbranch = "v1.27.0"
+githubbranch = "v1.27.1"
 docsbranch = "main"
 url = "https://kubernetes.io"
 

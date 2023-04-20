@@ -90,7 +90,12 @@ The following methods exist for installing kubectl on Linux:
    chmod +x kubectl
    mkdir -p ~/.local/bin
    mv ./kubectl ~/.local/bin/kubectl
+   
    # and then append (or prepend) ~/.local/bin to $PATH
+   export PATH="~/.local/bin:$PATH"
+   source ~/.bashrc
+   echo $PATH
+
    ```
 
    {{< /note >}}
