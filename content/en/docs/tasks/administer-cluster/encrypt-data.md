@@ -154,7 +154,8 @@ The following table describes each available provider:
   <th>Key length</th>
   </tr>
 </thead>
-<tbody>
+<tbody id="encryption-providers-identity">
+  <!-- list identity first, even when the remaining rows are sorted alphabetically -->
   <tr>
   <th rowspan="2" scope="row"><tt>identity</tt></th>
   <td><strong>None</strong></td>
@@ -166,6 +167,8 @@ The following table describes each available provider:
   <td colspan="4">Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written. Existing encrypted resources are <strong>not</strong> automatically overwritten with the plaintext data.
    The <tt>identity</tt> provider is the default if you do not specify otherwise.</td>
   </tr>
+</tbody>
+<tbody id="encryption-providers-that-encrypt">
   <tr>
   <th rowspan="2" scope="row"><tt>aescbc</tt></th>
   <td>AES-CBC with <a href="https://datatracker.ietf.org/doc/html/rfc2315">PKCS#7</a> padding</td>
@@ -185,16 +188,6 @@ The following table describes each available provider:
   </tr>
   <tr>
   <td colspan="4">Not recommended for use except when an automated key rotation scheme is implemented. Key material accessible from control plane host.</td>
-  </tr>
-  <tr>
-  <th rowspan="2" scope="row"><tt>secretbox</tt></th>
-  <td>XSalsa20 and Poly1305</td>
-  <td>Strong</td>
-  <td>Faster</td>
-  <td>32-byte</td>
-  </tr>
-  <tr>
-  <td colspan="4">Uses relatively new encryption technologies that may not be considered acceptable in environments that require high levels of review. Key material accessible from control plane host.</td>
   </tr>
   <tr>
   <th rowspan="2" scope="row"><tt>kms</tt> v1</th>
@@ -233,6 +226,16 @@ The following table describes each available provider:
     <br />
     Read how to <a href="/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v2">configure the KMS V2 provider</a>.
     </td>
+  </tr>
+  <tr>
+  <th rowspan="2" scope="row"><tt>secretbox</tt></th>
+  <td>XSalsa20 and Poly1305</td>
+  <td>Strong</td>
+  <td>Faster</td>
+  <td>32-byte</td>
+  </tr>
+  <tr>
+  <td colspan="4">Uses relatively new encryption technologies that may not be considered acceptable in environments that require high levels of review. Key material accessible from control plane host.</td>
   </tr>
 </tbody>
 </table>
