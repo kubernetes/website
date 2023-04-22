@@ -20,9 +20,9 @@ Para fins de clareza, este guia define os seguintes termos:
 
 * Nó: Uma máquina de trabalho no Kubernetes, parte de um cluster.
 * Cluster: Um conjunto de nós que executam aplicações em contêiner gerenciado pelo Kubernetes. Para este exemplo, e nas instalações mais comuns do Kubernetes, os nós no cluster não fazem parte da Internet pública.
-* Roteador de borda: Um roteador que impõe a política de firewall para o seu cluster. Isso pode ser um gateway gerenciado por um provedor de nuvem ou um  hardware físico.
+* Roteador de borda: Um roteador que impõe a política de firewall para o seu cluster. Isso pode ser um gateway gerenciado por um provedor de nuvem ou um hardware físico.
 * Rede do cluster: Um conjunto de links, lógicos ou físicos, que facilitam a comunicação dentro de um cluster de acordo com o [modelo de rede](/pt-br/docs/concepts/cluster-administration/networking/) do Kubernetes.
-* Serviço: Um {{< glossary_tooltip text="serviço" term_id="service" >}} Kubernetes que identifica um conjunto de Pods usando seletores de {{< glossary_tooltip text="label" term_id="label" >}}. Salvo indicação em contrário, assume-se que os Serviços tenham IPs virtuais apenas roteáveis dentro da rede de cluster.
+* Serviço: Um objeto {{< glossary_tooltip text="serviço" term_id="service" >}} do Kubernetes que identifica um conjunto de Pods usando seletores de {{< glossary_tooltip text="label" term_id="label" >}}. Salvo indicação em contrário, assume-se que os Serviços tenham IPs virtuais apenas roteáveis dentro da rede de cluster.
 
 
 ## O que é o Ingress?
@@ -61,7 +61,7 @@ Um exemplo mínimo do recurso Ingress:
 
 {{< codenew file="service/networking/minimal-ingress.yaml" >}}
 
-Um Ingress precisa dos campos `apiVersion`, `kind`, `metadata` and `spec`. 
+Um Ingress precisa dos campos `apiVersion`, `kind`, `metadata` e `spec`. 
 O nome de um objeto Ingress deve ser um nome de [subdomínio DNS válido](/pt-br/docs/concepts/overview/working-with-objects/names#dns-subdomain-names). 
 Para obter informações gerais sobre como trabalhar com arquivos de configuração, consulte como [instalar aplicações](/docs/tasks/run-application/run-stateless-application-deployment/), como [configurar contêineres](/docs/tasks/configure-pod-container/configure-pod-configmap/) e como [gerenciar recursos](/docs/concepts/cluster-administration/manage-deployment/). 
 O Ingress frequentemente usa anotações para configurar opções dependendo do controlador Ingress. Um exemplo deste uso é a [anotação rewrite-target](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md). 
@@ -127,14 +127,14 @@ Annotations:  <none>
 Events:       <none>
 ```
 
-### Tipos de caminho
+### Tipos de path HTTP
 
 Cada caminho no Ingress deve ter um tipo de caminho correspondente. 
 Os caminhos que não incluem um `pathType` explícito falharão na validação. 
 Existem três tipos de caminho suportados:
 
 * `ImplementationSpecific`: Com esse tipo de caminho, a correspondência depende da IngressClass. As implementações podem tratar isso como um `pathType` separado ou tratá-lo de forma idêntica aos tipos de caminho `Prefix` ou `Exact`.
-* `Exact`: Corresponde exatamente ao caminho da URL e com _case-sensitive_.
+* `Exact`: Corresponde exatamente ao caminho da URL podendo ser _case-sensitive_.
 * `Prefix`: Corresponde com base em um prefixo de caminho de URL dividido por `/`. A correspondência faz distinção entre maiúsculas e minúsculas e é feita em um caminho, elemento por elemento. Um elemento de caminho refere-se à lista de labels no caminho dividido pelo separador `/`. Uma solicitação é uma correspondência para o caminho _p_ se cada _p_ for um prefixo elementar de _p_ do caminho da solicitação.
 
 {{< note >}} Se o último elemento do caminho for uma substring do último elemento no caminho da solicitação, não é uma correspondência (por exemplo: `/foo/bar` corresponde a `/foo/bar/baz`, mas não corresponde a `/foo/barbaz`). {{< /note >}}
@@ -185,7 +185,7 @@ As correspondências curinga exigem que o cabeçalho do `host` HTTP seja igual a
 
 ## Classe Ingress
 
-As entradas podem ser implementadas por diferentes controladores, muitas vezes com diferentes configurações. 
+Os Ingress podem ser implementadas por diferentes controladores, muitas vezes com diferentes configurações. 
 Cada Ingress deve especificar uma classe, uma referência a um recurso IngressClass que contém uma configuração adicional, incluindo o nome do controlador que deve implementar a classe.
 
 {{< codenew file="service/networking/external-lb.yaml" >}}
@@ -239,7 +239,7 @@ Se você usou um parâmetro com escopo de cluster, então:
 - A equipe do operador do cluster precisa aprovar as alterações de uma equipe diferente toda vez que houver uma nova alteração de configuração sendo aplicada.
 - O operador de cluster deve definir controles de acesso específicos, como funções e vínculos [RBAC](/docs/reference/access-authn-authz/rbac/), que permitem que a equipe do aplicativo faça alterações no recurso de parâmetros do escopo do cluster.
 
-A própria API da classe Ingress é sempre com escopo de cluster.
+A própria API do IngressClass é sempre com escopo de cluster.
 
 Aqui está um exemplo de uma classe Ingress que se refere a parâmetros com namespace:
 ```yaml
@@ -289,7 +289,7 @@ No entanto, é [recomendável](https://kubernetes.github.io/ingress-nginx/#i-hav
 
 ## Tipos de Ingress
 
-### Ingress backed por um único serviço {#single-service-ingress}
+### Ingress fornecidos por um único serviço {#single-service-ingress}
 
 No Kubernetes existem conceitos que permitem expor um único serviço (veja [alternativas](#alternatives)). 
 Você também pode fazer isso com um Ingress especificando um *backend padrão* sem regras.
@@ -321,7 +321,6 @@ Um Ingress permite que você mantenha o número de balanceadores de carga no mí
 Por exemplo, uma configuração como:
 
 {{< figure src="/docs/images/ingressFanOut.svg" alt="ingress-fanout-diagram" class="diagram-large" caption="Figura. Ingress Fan Out" link="https://mermaid.live/edit#pako:eNqNUslOwzAQ_RXLvYCUhMQpUFzUUzkgcUBwbHpw4klr4diR7bCo8O8k2FFbFomLPZq3jP00O1xpDpjijWHtFt09zAuFUCUFKHey8vf6NE7QrdoYsDZumGIb4Oi6NAskNeOoZJKpCgxK4oXwrFVgRyi7nCVXWZKRPMlysv5yD6Q4Xryf1Vq_WzDPooJs9egLNDbolKTpT03JzKgh3zWEztJZ0Niu9L-qZGcdmAMfj4cxvWmreba613z9C0B-AMQD-V_AdA-A4j5QZu0SatRKJhSqhZR0wjmPrDP6CeikrutQxy-Cuy2dtq9RpaU2dJKm6fzI5Glmg0VOLio4_5dLjx27hFSC015KJ2VZHtuQvY2fuHcaE43G0MaCREOow_FV5cMxHZ5-oPX75UM5avuXhXuOI9yAaZjg_aLuBl6B3RYaKDDtSw4166QrcKE-emrXcubghgunDaY1kxYizDqnH99UhakzHYykpWD9hjS--fEJoIELqQ" >}}
-
 
 exigiria um Ingress como:
 
@@ -375,7 +374,7 @@ Por exemplo, o Ingress a seguir roteia o tráfego solicitado para `first.bar.com
 
 ### TLS
 
-Você pode proteger um Ingress especificando um {{< glossary_tooltip term_id="secret" >}} que contém uma chave privada e um certificado TLS. 
+Você pode configurar o uso de TLS no Ingress especificando um {{< glossary_tooltip term_id="secret" >}} que contém uma chave privada e um certificado TLS. 
 O recurso Ingress suporta apenas uma única porta TLS, 443, e assume a terminação TLS no ponto de entrada (o tráfego para o Serviço e seus Pods não está criptografado o que é inseguro). 
 Se a seção de configuração TLS em um Ingress especificar hosts diferentes, eles serão multiplexados na mesma porta de acordo com o nome do host especificado através da extensão SNI TLS (desde que o controlador Ingress suporte SNI). 
 O objeto Secret do tipo TLS deve conter chaves chamadas `tls.crt` e `tls.key` que contêm o certificado e a chave privada a ser usada para TLS. 
