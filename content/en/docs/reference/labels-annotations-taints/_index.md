@@ -102,7 +102,7 @@ In this example, the annotation indicates that the Pod was most recently restart
 
 The `"kubectl.kubernetes.io/restartedAt"` annotation is used by Kubernetes to keep track of the timestamp of the most recent container restart for a particular pod. This information can be useful for debugging and monitoring purposes.
 
-The `"kubectl.kubernetes.io/restartedAt"` annotation is automatically added to the spec template by kubectl when the workload is restarted. It records the time of the most recent workload restart as a Unix timestamp.
+This annotation is automatically added to the spec template by kubectl when the workload is restarted. It records the time of the most recent workload restart as a Unix timestamp.
 
 ### applyset.kubernetes.io/additional-namespaces (alpha) {#applyset-kubernetes-io-additional-namespaces}
 
