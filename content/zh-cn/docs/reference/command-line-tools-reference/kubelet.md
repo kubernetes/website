@@ -756,7 +756,7 @@ CPUManagerPolicyBetaOptions=true|false (BETA - default=true)<br/>
 CPUManagerPolicyOptions=true|false (BETA - default=true)<br/>
 CSIMigrationPortworx=true|false (BETA - default=false)<br/>
 CSIMigrationRBD=true|false (ALPHA - default=false)<br/>
-CSINodeExpandSecret=true|false (ALPHA - default=false)<br/>
+CSINodeExpandSecret=true|false (BETA - default=true)<br/>
 CSIVolumeHealth=true|false (ALPHA - default=false)<br/>
 ComponentSLIs=true|false (ALPHA - default=false)<br/>
 ContainerCheckpoint=true|false (ALPHA - default=false)<br/>
@@ -863,7 +863,7 @@ CPUManagerPolicyAlphaOptions=true|false (ALPHA - 默认值为 false)<br/>
 CPUManagerPolicyBetaOptions=true|false (BETA - 默认值为 true)<br/>
 CPUManagerPolicyOptions=true|false (BETA - 默认值为 true)<br/>
 CSIMigrationRBD=true|false (ALPHA - 默认值为 false)<br/>
-CSINodeExpandSecret=true|false (ALPHA - 默认值为 false)<br/>
+CSINodeExpandSecret=true|false (BETA - 默认值为 true)<br/>
 CSIVolumeHealth=true|false (ALPHA - 默认值为 false)<br/>
 ComponentSLIs=true|false (ALPHA - 默认值为 false)<br/>
 ContainerCheckpoint=true|false (ALPHA - 默认值为 false)<br/>
