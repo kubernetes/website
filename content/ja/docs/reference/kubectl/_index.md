@@ -134,7 +134,7 @@ kubectl config set-context --current --namespace=<namespace-name>
 `proxy`        | `kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix] [flags]` | Kubernetes APIサーバーへのプロキシーを実行します。
 `replace`        | `kubectl replace -f FILENAME` | ファイルや標準出力から、リソースを置き換えます。
 `rollout`    | `kubectl rollout SUBCOMMAND [options]` | リソースのロールアウトを管理します。有効なリソースには、Deployment、DaemonSetとStatefulSetが含まれます。
-`run`        | <code>kubectl run NAME --image=image [--env="key=value"] [--port=port] [--dry-run=server&#124;client&#124;none] [--overrides=inline-json] [flags]</code> | 指定したイメージを、クラスタ上で実行します。
+`run`        | <code>kubectl run NAME --image=image [--env="key=value"] [--port=port] [--dry-run=server&#124;client&#124;none] [--overrides=inline-json] [flags]</code> | 指定したイメージを、クラスター上で実行します。
 `scale`        | <code>kubectl scale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) --replicas=COUNT [--resource-version=version] [--current-replicas=count] [flags]</code> | 指定したReplicationControllerのサイズを更新します。
 `set`    | `kubectl set SUBCOMMAND [options]` | アプリケーションリソースを設定します。
 `taint`    | `kubectl taint NODE NAME KEY_1=VAL_1:TAINT_EFFECT_1 ... KEY_N=VAL_N:TAINT_EFFECT_N [options]` | 1つ以上のNodeのtaintを更新します。
@@ -415,7 +415,7 @@ kubectl logs <pod-name>
 kubectl logs -f <pod-name>
 ```
 
-`kubectl diff` - 提案されたクラスタに対する更新の差分を表示します。
+`kubectl diff` - 提案されたクラスターに対する更新の差分を表示します。
 
 ```shell
 # pod.jsonに含まれるリソースの差分を表示します。

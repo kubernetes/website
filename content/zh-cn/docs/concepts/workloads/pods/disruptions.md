@@ -130,15 +130,15 @@ deleting deployments or pods bypasses Pod Disruption Budgets.
 
 Here are some ways to mitigate involuntary disruptions:
 -->
-## 处理干扰
+## 处理干扰   {#dealing-with-disruptions}
 
 以下是减轻非自愿干扰的一些方法：
 
 <!--
 - Ensure your pod [requests the resources](/docs/tasks/configure-pod-container/assign-memory-resource) it needs.
 - Replicate your application if you need higher availability.  (Learn about running replicated
-[stateless](/docs/tasks/run-application/run-stateless-application-deployment/)
-and [stateful](/docs/tasks/run-application/run-replicated-stateful-application/) applications.)
+  [stateless](/docs/tasks/run-application/run-stateless-application-deployment/)
+  and [stateful](/docs/tasks/run-application/run-replicated-stateful-application/) applications.)
 - For even higher availability when running replicated applications,
   spread applications across racks (using
   [anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity))
@@ -265,6 +265,18 @@ during application updates is configured in the spec for the specific workload r
 但是工作负载资源（如 Deployment 和 StatefulSet）
 在进行滚动升级时不受 PDB 的限制。
 应用更新期间的故障处理方式是在对应的工作负载资源的 `spec` 中配置的。
+
+<!--
+It is recommended to set `AlwaysAllow` [Unhealthy Pod Eviction Policy](/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy)
+to your PodDisruptionBudgets to support eviction of misbehaving applications during a node drain.
+The default behavior is to wait for the application pods to become [healthy](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)
+before the drain can proceed.
+-->
+建议在你的 PodDisruptionBudget 中将
+[不健康 Pod 驱逐策略](/zh-cn/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy)
+设置为 `AlwaysAllow` 以支持在节点腾空期间驱逐行为不当的应用程序。
+默认行为是等待应用程序 Pod 变得
+[健康](/zh-cn/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)，然后才能继续执行腾空。
 
 <!--
 When a pod is evicted using the eviction API, it is gracefully
@@ -435,14 +447,6 @@ can happen, according to:
 {{< feature-state for_k8s_version="v1.26" state="beta" >}}
 
 {{< note >}}
-<!--
-If you are using an older version of Kubernetes than {{< skew currentVersion >}}
-please refer to the corresponding version of the documentation.
--->
-如果你正使用的 Kubernetes 版本早于 {{< skew currentVersion >}}，请参阅对应版本的文档。
-{{< /note >}}
-
-{{< note >}}
 <!-- 
 In order to use this behavior, you must have the `PodDisruptionConditions`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
@@ -464,10 +468,10 @@ indicates one of the following reasons for the Pod termination:
 状况中的 `reason` 字段进一步给出 Pod 终止的原因，如下：
 
 <!--
-`PreemptionByKubeScheduler`
+`PreemptionByScheduler`
 : Pod is due to be {{<glossary_tooltip term_id="preemption" text="preempted">}} by a scheduler in order to accommodate a new Pod with a higher priority. For more information, see [Pod priority preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
 -->
-`PreemptionByKubeScheduler`
+`PreemptionByScheduler`
 : Pod 将被调度器{{<glossary_tooltip term_id="preemption" text="抢占">}}，
 目的是接受优先级更高的新 Pod。
 要了解更多的相关信息，请参阅 [Pod 优先级和抢占](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)。
@@ -543,7 +547,7 @@ and Application Owner as separate roles with limited knowledge
 of each other.   This separation of responsibilities
 may make sense in these scenarios:
 -->
-## 分离集群所有者和应用所有者角色
+## 分离集群所有者和应用所有者角色   {#separating-cluster-owner-and-application-owner-roles}
 
 通常，将集群管理者和应用所有者视为彼此了解有限的独立角色是很有用的。这种责任分离在下面这些场景下是有意义的：
 
@@ -573,7 +577,7 @@ you may not need to use Pod Disruption Budgets.
 If you are a Cluster Administrator, and you need to perform a disruptive action on all
 the nodes in your cluster, such as a node or system software upgrade, here are some options:
 -->
-## 如何在集群上执行干扰性操作
+## 如何在集群上执行干扰性操作   {#how-to-perform-disruptive-actions-on-your-cluster}
 
 如果你是集群管理员，并且需要对集群中的所有节点执行干扰操作，例如节点或系统软件升级，则可以使用以下选项
 

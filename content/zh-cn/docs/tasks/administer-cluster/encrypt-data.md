@@ -28,10 +28,14 @@ This page shows how to enable and configure encryption of secret data at rest.
 * etcd v3.0 or later is required
 
 * To encrypt a custom resource, your cluster must be running Kubernetes v1.26 or newer.
+
+* Use of wildcard for resource encryption is available from Kubernetes v1.27 or newer.
 -->
 * 需要 etcd v3.0 或者更高版本
 
 * 要加密自定义资源，你的集群必须运行 Kubernetes v1.26 或更高版本。
+
+* 在 Kubernetes v1.27 或更高版本中可以使用通配符配置资源加密。
 
 <!-- steps -->
 
@@ -67,6 +71,9 @@ decrypt data stored in the etcd.
 -->
 ## 理解静态数据加密    {#understanding-the-encryption-at-rest-configuration}
 
+<!--
+do not encrypt events even though  *.* is specified below
+-->
 ```yaml
 apiVersion: apiserver.config.k8s.io/v1
 kind: EncryptionConfiguration
@@ -93,6 +100,24 @@ resources:
           keys:
             - name: key1
               secret: YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXoxMjM0NTY=
+  - resources:
+      - events
+    providers:
+      - identity: {} # 即使如下指定 *.* 也不会加密 events
+  - resources:
+      - '*.apps'
+    providers:
+      - aescbc:
+          keys:
+          - name: key2
+            secret: c2VjcmV0IGlzIHNlY3VyZSwgb3IgaXMgaXQ/Cg==
+  - resources:
+      - '*.*'
+    providers:
+      - aescbc:
+          keys:
+          - name: key3
+            secret: c2VjcmV0IGlzIHNlY3VyZSwgSSB0aGluaw==
 ```
 
 <!--
@@ -126,16 +151,63 @@ The first provider in the list is used to encrypt resources written into the sto
 resources from storage, each provider that matches the stored data attempts in order to decrypt the
 data. If no provider can read the stored data due to a mismatch in format or secret key, an error
 is returned which prevents clients from accessing that resource.
-
-For more detailed information about the `EncryptionConfiguration` struct, please refer to the
-[encryption configuration API](/docs/reference/config-api/apiserver-encryption.v1/).
 -->
 每个条目只能指定一个 provider 类型（可以是 `identity` 或 `aescbc`，但不能在同一个项目中同时指定二者）。
 列表中的第一个 provider 用于加密写入存储的资源。
 当从存储器读取资源时，与存储的数据匹配的所有 provider 将按顺序尝试解密数据。
 如果由于格式或密钥不匹配而导致没有 provider 能够读取存储的数据，则会返回一个错误，以防止客户端访问该资源。
 
-有关 `EncryptionConfiguration` 结构体的更多详细信息，请参阅[加密配置 API](/zh-cn/docs/reference/config-api/apiserver-encryption.v1/)。
+<!--
+`EncryptionConfiguration` supports the use of wildcards to specify the resources that should be encrypted.
+Use '`*.<group>`' to encrypt all resources within a group (for eg '`*.apps`' in above example) or '`*.*`'
+to encrypt all resources. '`*.`' can be used to encrypt all resource in the core group. '`*.*`' will
+encrypt all resources, even custom resources that are added after API server start.
+-->
+`EncryptionConfiguration` 支持使用通配符指定应加密的资源。
+使用 “`*.<group>`” 加密 group 内的所有资源（例如以上例子中的 “`*.apps`”）或使用
+“`*.*`” 加密所有资源。“`*.`” 可用于加密核心组中的所有资源。“`*.*`”
+将加密所有资源，甚至包括 API 服务器启动之后添加的自定义资源。
+
+{{< note >}}
+<!--
+Use of wildcards that overlap within the same resource list or across multiple entries are not allowed
+since part of the configuration would be ineffective. The `resources` list's processing order and precedence
+are determined by the order it's listed in the configuration.
+-->
+不允许在同一资源列表或跨多个条目中使用相互重疊的通配符，因为这样一来配置的一部分将无法生效。
+`resources` 列表的处理顺序和优先级由配置中列出的顺序决定。
+{{< /note >}}
+
+<!--
+Opting out of encryption for specific resources while wildcard is enabled can be achieved by adding a new
+`resources` array item with the resource name, followed by the `providers` array item with the `identity` provider.
+For example, if '`*.*`' is enabled and you want to opt-out encryption for the `events` resource, add a new item
+to the `resources` array with `events` as the resource name, followed by the providers array item with `identity`.
+The new item should look like this:
+-->
+如果启用了通配符，但想要针对特定资源退出加密，则可以通过添加带有资源名称的新 `resources` 数组项，
+后跟附带 `identity` 提供商的 `providers` 数组项。例如，如果启用了 “`*.*`”，
+但想要排除对 `events` 资源的加密，则应向 `resources` 数组添加一个新项（以 `events` 为资源名称），
+后跟包含 `identity` 的 providers 数组。新项应如下所示：
+
+```yaml
+- resources:
+    - events
+  providers:
+    - identity: {}
+```
+
+<!--
+Ensure that the new item is listed before the wildcard '`*.*`' item in the resources array to give it precedence.
+-->
+确保新项列在资源数组中的通配符 “`*.*`” 项之前，使新项优先。
+
+<!--
+For more detailed information about the `EncryptionConfiguration` struct, please refer to the
+[encryption configuration API](/docs/reference/config-api/apiserver-encryption.v1/).
+-->
+有关 `EncryptionConfiguration` 结构体的更多详细信息，
+请参阅[加密配置 API](/zh-cn/docs/reference/config-api/apiserver-encryption.v1/)。
 
 {{< caution >}}
 <!--
@@ -157,11 +229,9 @@ Name | Encryption | Strength | Speed | Key Length | Other Considerations
 `secretbox` | XSalsa20 and Poly1305 | Strong | Faster | 32-byte | A newer standard and may not be considered acceptable in environments that require high levels of review.
 `aesgcm` | AES-GCM with random nonce | Must be rotated every 200k writes | Fastest | 16, 24, or 32-byte | Is not recommended for use except when an automated key rotation scheme is implemented.
 `aescbc` | AES-CBC with [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) padding | Weak | Fast | 32-byte | Not recommended due to CBC's vulnerability to padding oracle attacks.
-`kms` | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-CBC with [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) padding (prior to v1.25), using AES-GCM starting from v1.25, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Fast | 32-bytes |  The recommended choice for using a third party tool for key management. Simplifies key rotation, with a new DEK generated for each encryption, and KEK rotation controlled by the user. [Configure the KMS provider](/docs/tasks/administer-cluster/kms-provider/)
-+{{< /table >}}
-
-Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
-is the first provider, the first key is used for encryption.
+`kms v1` | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-CBC with [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) padding (prior to v1.25), using AES-GCM starting from v1.25, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Slow (_compared to `kms v2`_) | 32-bytes |  Simplifies key rotation, with a new DEK generated for each encryption, and KEK rotation controlled by the user. [Configure the KMS V1 provider](/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v1).
+`kms v2` | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-GCM, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Fast | 32-bytes |  The recommended choice for using a third party tool for key management. Available in beta from `v1.27`. A new DEK is generated at startup and reused for encryption. The DEK is rotated when the KEK is rotated. [Configure the KMS V2 provider](/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v2).
+{{< /table >}}
 -->
 {{< table caption="Kubernetes 静态数据加密的 Provider" >}}
 名称 | 加密类型   | 强度     | 速度  | 密钥长度   | 其它事项
@@ -170,9 +240,13 @@ is the first provider, the first key is used for encryption.
 `secretbox` | XSalsa20 和 Poly1305 | 强 | 更快 | 32 字节 | 较新的标准，在需要高度评审的环境中可能不被接受。
 `aesgcm` | 带有随机数的 AES-GCM | 必须每 200k 写入一次 | 最快 | 16、24 或者 32字节 | 建议不要使用，除非实施了自动密钥循环方案。
 `aescbc` | 填充 [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) 的 AES-CBC | 弱 | 快 | 32 字节 | 由于 CBC 容易受到密文填塞攻击（Padding Oracle Attack），不推荐使用。
-`kms` | 使用信封加密方案：数据使用带有 [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) 填充的 AES-CBC（v1.25 之前），从 v1.25 开始使用 AES-GCM 通过数据加密密钥（DEK）加密，DEK 根据 Key Management Service（KMS）中的配置通过密钥加密密钥（Key Encryption Keys，KEK）加密 | 最强 | 快 | 32 字节 | 建议使用第三方工具进行密钥管理。为每个加密生成新的 DEK，并由用户控制 KEK 轮换来简化密钥轮换。[配置 KMS 提供程序](/zh-cn/docs/tasks/administer-cluster/kms-provider/)
+`kms v1` | 使用信封加密方案：数据使用带有 [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) 填充的 AES-CBC（v1.25 之前），从 v1.25 开始使用 AES-GCM 通过数据加密密钥（DEK）加密，DEK 根据 Key Management Service（KMS）中的配置通过密钥加密密钥（Key Encryption Keys，KEK）加密 | 最强 | 快 | 32 字节 | 建议使用第三方工具进行密钥管理。为每个加密生成新的 DEK，并由用户控制 KEK 轮换来简化密钥轮换。从 `v1.27` 开始，该功能处于 Beta 阶段。系统在启动时生成一个新的 DEK 并重复使用它进行加密。当 KEK 被轮转时，DEK 也会被轮转。[配置 KMS V2 provider](/zh-cn/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v2)。
 {{< /table >}}
 
+<!--
+Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
+is the first provider, the first key is used for encryption.
+-->
 每个 provider 都支持多个密钥 - 在解密时会按顺序使用密钥，如果是第一个 provider，则第一个密钥用于加密。
 
 {{< caution >}}
@@ -267,6 +341,9 @@ To create a new Secret, perform the following steps:
    2. 编辑 `kube-apiserver` 静态 Pod 的清单：`/etc/kubernetes/manifests/kube-apiserver.yaml`，
       代码范例如下：
 
+   <!--
+   add this line
+   -->
    ```yaml
    apiVersion: v1
    kind: Pod
@@ -339,7 +416,7 @@ program to retrieve the contents of your secret data.
 <!--
 1. Using the `etcdctl` command line, read that Secret out of etcd:
 -->
-2. 使用 etcdctl 命令行，从 etcd 中读取 Secret：
+2. 使用 `etcdctl` 命令行，从 etcd 中读取 Secret：
 
    ```
    ETCDCTL_API=3 etcdctl get /registry/secrets/default/secret1 [...] | hexdump -C
@@ -458,7 +535,7 @@ When running a single `kube-apiserver` instance, step 2 may be skipped.
 在不发生停机的情况下更改 Secret 需要多步操作，特别是在有多个 `kube-apiserver`
 进程正在运行的高可用环境中。
 
-1. 生成一个新密钥并将其添加为所有服务器上当前提供程序的第二个密钥条目
+1. 生成一个新密钥并将其添加为所有服务器上当前 provider 的第二个密钥条目
 1. 重新启动所有 `kube-apiserver` 进程以确保每台服务器都可以使用新密钥进行解密
 1. 将新密钥设置为 `keys` 数组中的第一个条目，以便在配置中使用其进行加密
 1. 重新启动所有 `kube-apiserver` 进程以确保每个服务器现在都使用新密钥进行加密
