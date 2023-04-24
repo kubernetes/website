@@ -27,10 +27,11 @@ auto_generated: true
 ## SelfSubjectReview {#SelfSubjectReview}
 
 <!--
-SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.
+SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated. If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
 -->
 SelfSubjectReview 包含 kube-apiserver 所拥有的与发出此请求的用户有关的用户信息。
 使用伪装时，用户将收到被伪装用户的用户信息。
+如果使用了伪装或请求头认证，任何额外的键将忽略其大小写并以小写形式返回。
 
 <hr>
 
