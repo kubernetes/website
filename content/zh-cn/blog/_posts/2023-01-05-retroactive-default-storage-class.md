@@ -1,12 +1,12 @@
 ---
 layout: blog
-title: "Kubernetes 1.26：可追溯的默认 StorageClass"
+title: "Kubernetes v1.26：可追溯的默认 StorageClass"
 date: 2023-01-05
 slug: retroactive-default-storage-class
 ---
 <!--
 layout: blog
-title: "Kubernetes 1.26: Retroactive Default StorageClass"
+title: "Kubernetes v1.26: Retroactive Default StorageClass"
 date: 2023-01-05
 slug: retroactive-default-storage-class
 -->
@@ -23,11 +23,11 @@ The v1.25 release of Kubernetes introduced an alpha feature to change how a defa
 StorageClass was assigned to a PersistentVolumeClaim (PVC). With the feature enabled,
 you no longer need to create a default StorageClass first and PVC second to assign the
 class. Additionally, any PVCs without a StorageClass assigned can be updated later.
-This feature was graduated to beta in Kubernetes 1.26.
+This feature was graduated to beta in Kubernetes v1.26.
 -->
 Kubernetes v1.25 引入了一个 Alpha 特性来更改默认 StorageClass 被分配到 PersistentVolumeClaim (PVC) 的方式。
 启用此特性后，你不再需要先创建默认 StorageClass，再创建 PVC 来分配类。
-此外，任何未分配 StorageClass 的 PVC 都可以在后续被更新。此特性在 Kubernetes 1.26 中已进阶至 Beta。
+此外，任何未分配 StorageClass 的 PVC 都可以在后续被更新。此特性在 Kubernetes v1.26 中已进阶至 Beta。
 
 <!--
 You can read [retroactive default StorageClass assignment](/docs/concepts/storage/persistent-volumes/#retroactive-default-storageclass-assignment)
@@ -247,8 +247,15 @@ If you would like to see the feature in action and verify it works fine in your 
 2. 在没有默认 StorageClass 时创建 PersistentVolumeClaim。
    PVC 不会制备或绑定（除非当前已存在一个合适的 PV），PVC 将保持在 `Pending` 状态。
 
+   ```shell
+   kubectl get pvc
    ```
-   $ kc get pvc
+   <!--
+   The output is similar to this:
+   -->
+
+   输出类似于： 
+   ```console
    NAME      STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   AGE
    pvc-1     Pending
    ```
@@ -258,8 +265,16 @@ If you would like to see the feature in action and verify it works fine in your 
 -->
 3. 将某个 StorageClass 配置为默认值。
 
+   ```shell
+   kubectl patch sc -p '{"metadata":{"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
    ```
-   $ kc patch sc -p '{"metadata":{"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+
+   <!--
+   The output is similar to this:
+   -->
+
+   输出类似于：
+   ```console
    storageclass.storage.k8s.io/my-storageclass patched
    ```
 
@@ -268,8 +283,16 @@ If you would like to see the feature in action and verify it works fine in your 
 -->
 4. 确认 PersistentVolumeClaims 现在已被正确制备，并且已使用新的默认 StorageClass 进行了可追溯的更新。
 
+   ```shell
+   kubectl get pvc
    ```
-   $ kc get pvc
+
+   <!--
+   The output is similar to this:
+   -->
+
+   输出类似于：
+   ```console
    NAME      STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS      AGE
    pvc-1     Bound    pvc-06a964ca-f997-4780-8627-b5c3bf5a87d8   1Gi        RWO            my-storageclass   87m
    ```

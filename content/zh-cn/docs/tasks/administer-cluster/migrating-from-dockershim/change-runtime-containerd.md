@@ -172,7 +172,6 @@ Users using kubeadm should be aware that the `kubeadm` tool stores the CRI socke
 an annotation in the Node object for that host. To change it you can execute the following command
 on a machine that has the kubeadm `/etc/kubernetes/admin.conf` file.
 -->
-`kubeadm` 工具将每个主机的 CRI 套接字保存在该主机对应的 Node 对象的注解中。
 使用 `kubeadm` 的用户应该知道，`kubeadm` 工具将每个主机的 CRI 套接字保存在该主机对应的
 Node 对象的注解中。
 要更改这一注解信息，你可以在一台包含 kubeadm `/etc/kubernetes/admin.conf` 文件的机器上执行以下命令：

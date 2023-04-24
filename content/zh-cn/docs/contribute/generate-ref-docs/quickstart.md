@@ -155,7 +155,7 @@ repository, you can submit them in a [pull request](/docs/contribute/start/)
 to `<web-base>`.
 -->
 当所生成的文件已经被放到 `<web-base>` 目录下，你就可以将其提交到你的派生副本中，
-并基于所作提交发起[拉取请求（PR）](/docs/contribute/start/)到 k/website 仓库。
+并基于所作提交发起[拉取请求（PR）](/docs/contribute/start/)到 kubernetes/website 仓库。
 
 <!--
 ## Configuration file format

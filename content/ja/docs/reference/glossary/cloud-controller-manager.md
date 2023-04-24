@@ -11,7 +11,7 @@ tags:
 - architecture
 - operation
 ---
- クラウド特有の制御ロジックを組み込むKubernetesの{{< glossary_tooltip text="control plane" term_id="control-plane" >}}コンポーネントです。クラウドコントロールマネージャーは、クラスターをクラウドプロバイダーAPIをリンクし、クラスタのみで相互作用するコンポーネントからクラウドプラットフォームで相互作用するコンポーネントを分離します。
+ クラウド特有の制御ロジックを組み込むKubernetesの{{< glossary_tooltip text="control plane" term_id="control-plane" >}}コンポーネントです。クラウドコントロールマネージャーは、クラスターをクラウドプロバイダーAPIをリンクし、クラスターのみで相互作用するコンポーネントからクラウドプラットフォームで相互作用するコンポーネントを分離します。
 
 <!--more-->
 
