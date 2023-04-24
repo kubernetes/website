@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Server Side Field Validation and OpenAPI V3 move to GA"
+title: "Kubernetes 1.27: Server Side Field Validation and OpenAPI V3 move to GA"
 date: 2023-04-24
 slug: openapi-v3-field-validation-ga
 ---
