@@ -63,7 +63,7 @@ no_list: true
 쿠버네티스 슬랙에 참여하게 된다면, 다양한 주제의 흥미와 관련된 여러 채널들에 대해
 살펴본다. 가령, 쿠버네티스를 처음 접하는 사람이라면 
 [`#kubernetes-novice`](https://kubernetes.slack.com/messages/kubernetes-novice) 채널에 가입할 수 있다. 혹은, 만약 당신이 개발자라면
-[`#kubernetes-dev`](https://kubernetes.slack.com/messages/kubernetes-dev) 채널에 가입할 수 있다.
+[`#kubernetes-contributors`](https://kubernetes.slack.com/messages/kubernetes-contributors) 채널에 가입할 수 있다.
 
 또한 각 국가 및 사용 언어별 채널들이 여럿 존재한다. 사용하는 언어로 도움을 받거나 정보를
 얻기 위해서는 다음의 채널에 참가한다.
