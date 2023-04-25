@@ -158,10 +158,10 @@ guide. You can file document formatting bugs against the
 
     <!--
     UID of the resource. (when there is a single resource which can be described). 
-    More info: http://kubernetes.io/docs/user-guide/identifiers#uids 
+    More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names#uids
     -->
     资源的 UID（当有单个可以描述的资源时）。
-    更多信息： http://kubernetes.io/docs/user-guide/identifiers#uids
+    更多信息： https://kubernetes.io/zh-cn/docs/concepts/overview/working-with-objects/names#uids
 
 - **kind** (string)
 
