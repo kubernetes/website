@@ -61,17 +61,6 @@ via CRI. Você pode usar a versão mais recente do containerd (v1.6+) para execu
 contêineres HostProcess.
 [Como instalar o containerd.](/docs/setup/production-environment/container-runtimes/#containerd)
 
-Para *desabilitar* contêineres HostProcess você precisa passar a seguinte flag 
-de `feature gate` para o **kubelet** e **kube-apiserver**:
-
-```powershell
---feature-gates=WindowsHostProcessContainers=false
-```
-
-Veja a documentação [Feature gates](/docs/reference/command-line-tools-reference/feature-gates/#overview)
-para mais detalhes.
-
-
 
 ## Limitações
 
