@@ -154,13 +154,13 @@ Slack 需要注册；你可以[请求一份邀请](https://slack.kubernetes.io)�
 Once you are registered, browse the growing list of channels for various subjects of
 interest. For example, people new to Kubernetes may also want to join the
 [`#kubernetes-novice`](https://kubernetes.slack.com/messages/kubernetes-novice) channel. As another example, developers should join the
-[`#kubernetes-dev`](https://kubernetes.slack.com/messages/kubernetes-dev) channel.
+[`#kubernetes-contributors`](https://kubernetes.slack.com/messages/kubernetes-contributors) channel.
 -->
 一旦你完成了注册，就可以浏览各种感兴趣主题的频道列表（一直在增长）。
 例如，Kubernetes 新人可能还想加入
 [`#kubernetes-novice`](https://kubernetes.slack.com/messages/kubernetes-novice)
 频道。又比如，开发人员应该加入
-[`#kubernetes-dev`](https://kubernetes.slack.com/messages/kubernetes-dev)
+[`#kubernetes-contributors`](https://kubernetes.slack.com/messages/kubernetes-contributors)
 频道。
 
 <!--
