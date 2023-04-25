@@ -10,9 +10,8 @@ min-kubernetes-server-version: 1.23
 {{< feature-state for_k8s_version="v1.23" state="beta" >}}
 
 Os contêineres de HostProcess do Windows permitem que você execute
-cargas de trabalho em um host Windows contêinerizado. Esses contêineres operam como
-processos normais, mas têm acesso à rede host do namespace,
-armazenamento e dispositivos, quando recebem os privilégios de usuário apropriados.
+cargas de trabalho contêinerizadas em um host Windows. Esses contêineres operam como
+processos normais, mas têm acesso ao namespace, armazenamento e dispositivos da rede host quando recebem os privilégios de usuário apropriados.
 Os contêineres HostProcess podem ser usados para implantar plugins de rede,
 configurações de armazenamento, plugins de dispositivos, kube-proxy, e outros
 componentes para nós do Windows, sem a necessidade de *proxies* dedicados ou
@@ -21,11 +20,10 @@ a instalação direta dos serviços de host.
 Tarefas administrativas, como a instalação de correções de segurança, 
 coleta de logs de eventos, e mais podem ser realizadas sem a necessidade 
 de que operadores de cluster façam login em cada nó. 
-Contêineres `HostProcess` podem ser executados como qualquer usuário 
+Contêineres do tipo HostProcess podem ser executados como qualquer usuário 
 que esteja disponível no host ou esteja no domínio da máquina host, 
-permitindo aos administradores restringirem o acesso aos recursos, 
-por meio de permissões de usuário. Enquanto nenhum sistema de arquivos 
-ou isolamento de processos são suportados, um novo volume é criado no host 
+permitindo aos administradores restringirem o acesso aos recursos por meio de permissões de usuário. Embora isolamento de sistemas de arquivos 
+e de processos não sejam suportados, um novo volume é criado no host 
 ao iniciar o contêiner para fornecer um espaço de trabalho limpo e consolidado. 
 Contêineres `HostProcess` também podem ser construídos sobre as imagens base 
 do Windows existente, e não herdam os mesmos
@@ -142,7 +140,7 @@ ser definidas para permitir a criação de um Pod HostProcess:
       </td>
     </tr>
     <tr>
-      <td style="white-space: nowrap"><a href="/docs/tasks/configure-pod-container/configure-runasusername/"><tt>securityContext.windowsOptions.runAsUsername</tt></a></td>
+      <td style="white-space: nowrap"><a href="/pt-br/docs/tasks/configure-pod-container/configure-runasusername/"><tt>securityContext.windowsOptions.runAsUsername</tt></a></td>
       <td>
         <p>Especificação de qual usuário o contêiner HostProcess deve ser executado conforme necessário para a especificação de pod.</p>
         <p><strong>Valores Permitidos</strong></p>
@@ -156,7 +154,7 @@ ser definidas para permitir a criação de um Pod HostProcess:
     <tr>
       <td style="white-space: nowrap"><a href="/docs/concepts/security/pod-security-standards"><tt>runAsNonRoot</tt></a></td>
       <td>
-        <p>Devido aos contêineres HostProcess terem acesso privilegiado ao host, o <tt>runAsNonRoot</tt> campo não pode ser definido como `true`.</p>
+        <p>Devido aos contêineres HostProcess terem acesso privilegiado ao host, o campo <tt>runAsNonRoot</tt> não pode ser definido como <tt>true</tt>.</p>
         <p><strong>Valores Permitidos</strong></p>
         <ul>
           <li>Undefined/Nil</li>
@@ -217,7 +215,7 @@ orquestrador ou agente de execução sendo usado. A única diferença está no c
 de recursos de disco usados para rastreamento de recursos, devido à diferença em 
 como contêineres HostProcess são inicializados.
 
-## Escolha uma conta de usuário
+## Escolhendo uma conta de usuário
 
 Contêineres HostProcess tem a capacidade de executar como uma das três contas 
 de serviço do Windows suportadas:
@@ -229,9 +227,9 @@ de serviço do Windows suportadas:
 Você deve selecionar uma conta de serviço do Windows apropriada para cada 
 contêiner HostProcess, com o objetivo de limitar o grau de privilégios, 
 a fim de evitar danos acidentais (ou até maliciosos) ao host. O serviço de conta 
-`LocalSystem` tem o mais alto nível de privilégio dos três, e deve ser usado apenas 
+LocalSystem tem o mais alto nível de privilégio dos três, e deve ser usado apenas 
 se absolutamente necessário. Sempre que possível, 
-use a conta do serviço `LocalService`, pois é o menos privilegiado das três opções.
+use a conta do serviço LocalService, pois é o menos privilegiado das três opções.
 
 ## Solução de problemas de contêineres de HostProcess
 
@@ -239,5 +237,5 @@ use a conta do serviço `LocalService`, pois é o menos privilegiado das três o
 
   Verifique se o contêiner está executando como a conta de serviço 
   `LocalSystem` ou `LocalService`. Contas de usuário (mesmo contas de administrador) 
-  não tem permissões para criar tokens de logon para qualquer uma das [contas de usuários](#choosing-a-user-account) suportadas.
+  não tem permissões para criar tokens de logon para qualquer uma das [contas de usuários](#escolhendo-uma-conta-de-usuário) suportadas.
   
