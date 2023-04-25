@@ -25,7 +25,7 @@ que esteja disponível no host ou esteja no domínio da máquina host,
 permitindo aos administradores restringirem o acesso aos recursos por meio de permissões de usuário. Embora isolamento de sistemas de arquivos 
 e de processos não sejam suportados, um novo volume é criado no host 
 ao iniciar o contêiner para fornecer um espaço de trabalho limpo e consolidado. 
-Contêineres `HostProcess` também podem ser construídos sobre as imagens base 
+Contêineres HostProcess também podem ser construídos sobre as imagens base 
 do Windows existente, e não herdam os mesmos
 [requisitos de compatibilidade](https://docs.microsoft.com/virtualization/windowscontainers/deploy-containers/version-compatibility)
 como contêineres do `Windows Server`, o que significa que a versão das 
@@ -41,7 +41,7 @@ também suportam [montagem de volume](#volume-mounts) dentro do volume do contê
 Contêineres HostProcess tem acesso às interfaces de rede e endereços IP do host.
 - Você precisa acessar recursos no host como o sistema de arquivos, 
 os logs de eventos, etc.
-- Instalação de drivers de dispositivo específicos ou serviços Windows.
+- Instalação de drivers de dispositivo ou serviços do Windows específicos.
 - Consolidação de tarefas administrativas e políticas de segurança. 
 Isso reduz o grau de privilégios necessários para os nós do Windows.
 
@@ -55,9 +55,9 @@ Se você não está executando o Kubernetes v{{< skew currentVersion >}},
 verifique a documentação para essa versão do Kubernetes.
 
 No Kubernetes {{< skew currentVersion >}}, O recurso de contêiner do HostProcess 
-é ativado por padrão. 
+encontra-se habilitado por padrão. 
 O kubelet irá comunicar-se com o contêiner diretamente passando a flag HostProcess 
-via `CRI`. Você pode usar a versão mais recente do containerd (v1.6+) para executar 
+via CRI. Você pode usar a versão mais recente do containerd (v1.6+) para executar 
 contêineres HostProcess.
 [Como instalar o containerd.](/docs/setup/production-environment/container-runtimes/#containerd)
 
@@ -77,30 +77,28 @@ para mais detalhes.
 
 Essas limitações são relevantes para o Kubernetes v{{< skew currentVersion >}}:
 
-- Contêineres HostProcess requerem o agente de execução de contêiner containerd 1.6 ou mais recente
-  {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
+- Contêineres HostProcess requerem o {{< glossary_tooltip text="agente de execução de contêiner" term_id="container-runtime" >}} containerd 1.6 ou mais recente.
 - Pods HostProcess só podem conter contêineres HostProcess. Esta é uma limitação atual
-  do sistema operacional Windows; Contêineres do Windows sem privilégios não podem 
+  do sistema operacional Windows; contêineres do Windows sem privilégios não podem 
   compartilhar um vNIC com o IP do host no namespace.
 - Contêineres HostProcess executam como um processo do host e não tem nenhum grau de
   isolamento, além das restrições de recursos impostas à conta de usuário do HostProcess. 
-  Nem o sistema de arquivos nem o isolamento Hyper-V são suportados para contêineres 
-  HostProcess.
-- `Volume mounts` são suportados e são montados dentro do volume do contêiner. Veja
+  Isolamento do sistema de arquivos e do Hyper-V não são suportados em contêineres HostProcess.
+- Volume mounts são suportados e são montados dentro do volume do contêiner. Veja
   [Volume Mounts](#volume-mounts)
 - Um conjunto limitado de contas de usuário do host está disponível para os contêineres 
   HostProcess por padrão.
-  Veja [Escolhendo uma conta de usuário](#choosing-a-user-account).
+  Veja [Escolhendo uma conta de usuário](#escolha-uma-conta-de-usuário).
 - Limites de recursos (disco, memória, número de cpus) são suportados da mesma maneira 
   que os processos no host.
-- Ambos `montagens de pipe nomeado` e `soquetes de domínio Unix` **não** são suportados e devem
+- Montagens de pipe nomeado e soquetes de domínio Unix **não** são suportados e devem
   ser acessados através de seu caminho no host (ex. \\\\.\\pipe\\\*)
 
-## Pod HostProcess requisitos de configuração
+## Requisitos de configuração para Pods HostProcess
 
 Habilitar um Pod do Windows HostProcess requer a definição das configurações corretas 
 de segurança na configuração do Pod. Entre as políticas definidas no 
-[padrões de segurança de Pod](/docs/concepts/security/pod-security-standards)
+[padrões de segurança de Pod](/docs/concepts/security/pod-security-standards),
 Pods HostProcess não são permitidos nas políticas `baseline` e `restricted`. 
 É, portanto, recomendado que estes pods HostProcess executem em alinhamento 
 com o perfil `privileged`.
@@ -120,8 +118,8 @@ ser definidas para permitir a criação de um Pod HostProcess:
     <tr>
       <td style="white-space: nowrap"><a href="/docs/concepts/security/pod-security-standards"><tt>securityContext.windowsOptions.hostProcess</tt></a></td>
       <td>
-        <p>Os pods do Windows oferecem a capacidade de excutar pods <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">
-        contêineres HostProcess </a> que permite acesso privilegiado ao nó do Windows. </p>
+        <p>Os pods do Windows oferecem a capacidade de excutar <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">
+        contêineres HostProcess </a>, o que permite acesso privilegiado ao nó do Windows. </p>
         <p><strong>Valores Permitidos</strong></p>
         <ul>
           <li><code>true</code></li>
