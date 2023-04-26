@@ -25,7 +25,7 @@ Um kubectl auf macOS zu installieren, gibt es die folgenden Möglichkeiten:
 - [Kubectl Konfiguration verifizieren](#kubectl-konfiguration-verifizieren)
 - [Optionale kubectl Konfigurationen und Plugins](#optionale-kubectl-konfigurationen-und-plugins)
   - [Shell Autovervollständigung einbinden](#shell-autovervollständigung-einbinden)
-  - [`kubectl convert` Plugin intallieren](#kubectl-convert-plugin-intallieren)
+  - [`kubectl convert` Plugin installieren](#kubectl-convert-plugin-installieren)
 - [{{% heading "whatsnext" %}}](#-heading-whatsnext-)
 
 ### Kubectl Binary mit curl auf macOS installieren
@@ -60,7 +60,7 @@ Um kubectl auf macOS zu installieren, gibt es die folgenden Möglichkeiten:
 
 2. Binary validieren (optional)
 
-   Downloaden die die kubectl Checksum-Datei:
+   Downloaden Sie die kubectl Checksum-Datei:
 
    {{< tabs name="download_checksum_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
@@ -91,7 +91,7 @@ Um kubectl auf macOS zu installieren, gibt es die folgenden Möglichkeiten:
    ```
 
    {{< note >}}
-   Laden sie von der Binary und Checksum-Datei immer die selben Versionen herunter.
+   Laden Sie von der Binary und Checksum-Datei immer die selben Versionen herunter.
    {{< /note >}}
 
 3. Kubectl Binary ausführbar machen.
@@ -124,17 +124,17 @@ Um kubectl auf macOS zu installieren, gibt es die folgenden Möglichkeiten:
    WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
    ```
 
-   Sie können diese Warnung ignorieren. Sie prüfen lediglich die `kubectl` Version welche sie installiert haben.
+   Sie können diese Warnung ignorieren. Sie prüfen lediglich die `kubectl` Version, welche Sie installiert haben.
    
    {{< /note >}}
    
-   Oder benutzten sie diesen Befehl für einer detailliertere Ansicht:
+   Oder benutzten Sie diesen Befehl für eine detailliertere Ansicht:
 
    ```cmd
    kubectl version --client --output=yaml
    ```
 
-6. Nach Installation des Plugins, die installations Dateien aufräumen:
+6. Nach Installation des Plugins, die Installationsdateien aufräumen:
 
    ```bash
    rm kubectl kubectl.sha256
@@ -188,10 +188,9 @@ Wenn Sie macOS und  [Macports](https://macports.org/) als Paketmanager benutzen,
 
 ### Shell Autovervollständigung einbinden
 
-kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell
-which can save you a lot of typing.
+kubectl stellt Autovervollständigungen für Bash, Zsh, Fish und Powershell zur Verfügung, mit welchem Sie Kommandozeilen Befehle beschleunigen können.
 
-Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
+Untenstehend ist beschrieben, wie die Autovervollständigungen für Bash, Fish und Zsh eingebunden werden.
 
 {{< tabs name="kubectl_autocompletion" >}}
 {{< tab name="Bash" include="included/optional-kubectl-configs-bash-mac.md" />}}
@@ -199,11 +198,11 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
-### `kubectl convert` Plugin intallieren
+### `kubectl convert` Plugin installieren
 
 {{< include "included/kubectl-convert-overview.md" >}}
 
-1. Download the latest release with the command:
+1. Neueste Version des Kommandozeilen Befehls herunterladen:
 
    {{< tabs name="download_convert_binary_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
@@ -214,9 +213,9 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    {{< /tab >}}
    {{< /tabs >}}
 
-1. Validate the binary (optional)
+2. Binär-Datei validieren (optional)
 
-   Download the kubectl-convert checksum file:
+   Downloaden Sie die kubectl-convert Checksum-Datei:
 
    {{< tabs name="download_convert_checksum_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
@@ -227,19 +226,19 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    {{< /tab >}}
    {{< /tabs >}}
 
-   Validate the kubectl-convert binary against the checksum file:
+   Validieren Sie die kubectl-convert Binary mit der Checksum-Datei:
 
    ```bash
    echo "$(cat kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
    ```
 
-   If valid, the output is:
+   Wenn Valide, dann sieht die Ausgabe wie folgt aus:
 
    ```console
    kubectl-convert: OK
    ```
 
-   If the check fails, `shasum` exits with nonzero status and prints output similar to:
+   Falls die Validierung fehlschlägt, beendet sich `shasum` mit einem "nonzero"-Status und gibt einen Fehler aus, welcher so aussehen könnte:
 
    ```bash
    kubectl-convert: FAILED
@@ -247,16 +246,16 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    ```
 
    {{< note >}}
-   Download the same version of the binary and checksum.
+      Laden Sie von der Binary und Checksum-Datei immer die selben Versionen herunter.
    {{< /note >}}
 
-1. Make kubectl-convert binary executable
+3. Kubectl-convert Binary ausführbar machen
 
    ```bash
    chmod +x ./kubectl-convert
    ```
 
-1. Move the kubectl-convert binary to a file location on your system `PATH`.
+4. Kubectl-convert Binary zu einem Ordner in ihrem `PATH` verschieben.
 
    ```bash
    sudo mv ./kubectl-convert /usr/local/bin/kubectl-convert
@@ -264,18 +263,18 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    ```
 
    {{< note >}}
-   Make sure `/usr/local/bin` is in your PATH environment variable.
+    Stellen Sie sicher, dass `/usr/local/bin` in Ihrer PATH Umgebungsvariable gesetzt ist.
    {{< /note >}}
 
-1. Verify plugin is successfully installed
+5. Verifizieren, dass das Pluign erfolgreich installiert wurde:
 
    ```shell
    kubectl convert --help
    ```
 
-   If you do not see an error, it means the plugin is successfully installed.
+   Wenn kein Fehler ausgegeben wird, ist das Plugin erfolgreich installiert worden.
 
-1. After installing the plugin, clean up the installation files:
+6. Nach Installation des Plugins, die Installationsdateien aufräumen:
 
    ```bash
    rm kubectl-convert kubectl-convert.sha256
