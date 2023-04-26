@@ -38,7 +38,7 @@ weight: 270
   clusters. Therefore, run etcd clusters on dedicated machines or isolated
   environments for [guaranteed resource requirements](https://etcd.io/docs/current/op-guide/hardware/).
 
-* The minimum recommended version of etcd to run in production is `3.2.10+`.
+* The minimum recommended etcd versions to run in production are `3.4.22+` and `3.5.6+`.
 
 ## Resource requirements
 
