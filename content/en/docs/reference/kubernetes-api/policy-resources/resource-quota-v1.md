@@ -81,14 +81,10 @@ ResourceQuotaSpec defines the desired hard limits to enforce for Quota.
     - **scopeSelector.matchExpressions.operator** (string), required
 
       Represents a scope's relationship to a set of values. Valid operators are In, NotIn, Exists, DoesNotExist.
-      
-      
 
     - **scopeSelector.matchExpressions.scopeName** (string), required
 
       The name of the scope that the selector applies to.
-      
-      
 
     - **scopeSelector.matchExpressions.values** ([]string)
 
@@ -275,6 +271,11 @@ GET /api/v1/namespaces/{namespace}/resourcequotas
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -341,6 +342,11 @@ GET /api/v1/resourcequotas
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -766,6 +772,11 @@ DELETE /api/v1/namespaces/{namespace}/resourcequotas
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer

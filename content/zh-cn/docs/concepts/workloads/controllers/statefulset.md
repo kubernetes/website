@@ -258,7 +258,7 @@ pods will be assigned ordinals from 0 up through N-1.
 -->
 ### 起始序号   {#start-ordinal}
 
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 <!--
 `.spec.ordinals` is an optional field that allows you to configure the integer
@@ -648,7 +648,7 @@ StatefulSet 才会开始使用被还原的模板来重新创建 Pod。
 -->
 ## PersistentVolumeClaim 保留  {#persistentvolumeclaim-retention}
 
-{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 <!--
 The optional `.spec.persistentVolumeClaimRetentionPolicy` field controls if
