@@ -1,6 +1,6 @@
 ---
-title: "What's next?"
-description: "What's next after installing kubectl."
+title: "Wie geht es weiter?"
+description: "Wie geht es nach der Installation von Kubectl weiter."
 headless: true
 _build:
   list: never
@@ -9,8 +9,8 @@ _build:
 ---
 
 * [Minikube installieren](https://minikube.sigs.k8s.io/docs/start/)
-* See the [Setup Guides](/docs/setup/) for more about creating clusters.
-* [Learn how to launch and expose your application.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
-* If you need access to a cluster you didn't create, see the
-  [Sharing Cluster Access document](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
-* Read the [kubectl reference docs](/docs/reference/kubectl/kubectl/)
+* [Installations Guides](/docs/setup/) ansehen um mehr über die Clustererstellung zu erfahren.
+* [Lernen wir man Applikationen startet und erreichbar macht.](/docs/tasks/access-application-cluster/service-access-application-cluster/)
+* Falls sie Zugriff auf ein Cluster benötigen, welches sie nicht selber erstellt haben könnte 
+  [Clusterzugang teilen](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/) interessant sein.
+* Lesen sie die [kubectl Referenzdokumentation](/docs/reference/kubectl/kubectl/)
