@@ -167,9 +167,7 @@ to only allow a restricted set of syscalls since 2016 from
 [Docker Engine 1.10](https://www.docker.com/blog/docker-engine-1-10-security/),
 but Kubernetes is still not confining workloads by default. The default seccomp
 profile can be found [in containerd](https://github.com/containerd/containerd/blob/main/contrib/seccomp/seccomp_default.go)
-as well. Fortunately, [Seccomp Default](/blog/2021/08/25/seccomp-default/), a
-new alpha feature to use a default seccomp profile for all workloads can now be
-enabled and tested.
+as well. Fortunately, [Seccomp Default](/docs/tutorials/security/seccomp/) is now generally available (GA) in Kubernetes 1.27, and it can be enabled and tested to use a default seccomp profile for all workloads.
 
 {{< note >}}
 Seccomp is only available on Linux nodes.
