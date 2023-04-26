@@ -56,6 +56,11 @@ configure a [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/).
 If availability is important for any applications that run or could run on the node(s)
 that you are draining, [configure a PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/)
 first and then continue following this guide.
+
+It is recommended to set `AlwaysAllow` [Unhealthy Pod Eviction Policy](/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy)
+to your PodDisruptionBudgets to support eviction of misbehaving applications during a node drain.
+The default behavior is to wait for the application pods to become [healthy](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)
+before the drain can proceed.
 -->
 ## （可选）配置干扰预算 {#configure-poddisruptionbudget}
 
@@ -63,6 +68,12 @@ first and then continue following this guide.
 [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/)。
 如果可用性对于正在清空的该节点上运行或可能在该节点上运行的任何应用程序很重要，
 首先 [配置一个 PodDisruptionBudgets](/zh-cn/docs/tasks/run-application/configure-pdb/) 并继续遵循本指南。
+
+建议为你的 PodDisruptionBudgets 设置 `AlwaysAllow` 
+[不健康 Pod 驱逐策略](/zh-cn/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)，
+以在节点清空期间支持驱逐异常的应用程序。 
+默认行为是等待应用程序的 Pod 变为 [健康](/zh-cn/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)后，
+才能进行清空操作。
 
 <!-- 
 ## Use `kubectl drain` to remove a node from service
