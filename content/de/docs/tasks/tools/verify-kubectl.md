@@ -1,6 +1,6 @@
 ---
-title: "verify kubectl install"
-description: "How to verify kubectl."
+title: "kubectl installation verifizieren"
+description: "Wie die kubectl Installation verifiziert wird."
 headless: true
 _build:
   list: never
@@ -8,30 +8,30 @@ _build:
   publishResources: false
 ---
 
-In order for kubectl to find and access a Kubernetes cluster, it needs a
-[kubeconfig file](/docs/concepts/configuration/organize-cluster-access-kubeconfig/),
-which is created automatically when you create a cluster using
+Um mithilfe von Kubectl ein Cluster zu finden und darauf zuzugreifen benötigt es eine
+[kubeconfig Datei](/docs/concepts/configuration/organize-cluster-access-kubeconfig/),
+welche automatisch angelegt wird, wenn sie ein Cluster erstellen mit Hilfe der
 [kube-up.sh](https://github.com/kubernetes/kubernetes/blob/master/cluster/kube-up.sh)
-or successfully deploy a Minikube cluster.
-By default, kubectl configuration is located at `~/.kube/config`.
+oder erfolgreich ein Cluster mit Minicube erstellt haben.
+Standardmäßig liegt die kubectl Konfigurationsdatei unter folgendem Pfad `~/.kube/config`.
 
-Check that kubectl is properly configured by getting the cluster state:
+Überprüfen ob kubectl korrekt konfiguriert ist indem sie den Cluster-Status abfragen:
 
 ```shell
 kubectl cluster-info
 ```
 
-If you see a URL response, kubectl is correctly configured to access your cluster.
+Wenn Sie als Antwort eine URL sehen ist kubectl korrekt konfiguriert und kann auf das Cluster zugreifen.
 
-If you see a message similar to the following, kubectl is not configured correctly or is not able to connect to a Kubernetes cluster.
+Falls sie eine Nachricht ähnlich wie die Folgende sehen, ist kubectl nicht korrekt konfiguriert oder nicht in der Lage das Cluster zu erreichen.
 
 ```
 The connection to the server <server-name:port> was refused - did you specify the right host or port?
 ```
 
-For example, if you are intending to run a Kubernetes cluster on your laptop (locally), you will need a tool like Minikube to be installed first and then re-run the commands stated above.
+Wenn Sie zum Beispiel versuchen ein Kubernetes Cluster lokal auf ihrem Laptop zu starten, muss ein Tool wie zum Beispiel Minikube zuerst installiert werden. Danach können sie die oben erwähnten Befehle erneut ausführen.
 
-If kubectl cluster-info returns the url response but you can't access your cluster, to check whether it is configured properly, use:
+Falls kubectl cluster-info eine URL zurück gibt aber nicht auf das Cluster zugreifen kann, prüfen sie ob kubectl korrekt konfiguriert wurde:
 
 ```shell
 kubectl cluster-info dump
