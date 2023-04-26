@@ -10,13 +10,13 @@ _build:
 
 Das kubectl Autovervollständigungsskript für Zsh kann mit folgendem Befehl `kubectl completion zsh` generiert werden.Mit dem Befehl `kubectl completion zsh | source` aktivieren Sie die Autovervollständigung in ihrer aktuellen Sitzung.
 
-Um die Autovervollständigung in allen Sitzungen einzurichten, tragen sie den folgenden Befehl in Ihre `~/.zshrc` Datei ein:
+Um die Autovervollständigung in allen Sitzungen einzurichten, tragen Sie den folgenden Befehl in Ihre `~/.zshrc` Datei ein:
 
 ```zsh
 source <(kubectl completion zsh)
 ```
 
-Wenn sie ein Alias für kubectl eingerichtet haben, funktioniert die kubectl Autovervollständung automatisch.
+Wenn Sie ein Alias für kubectl eingerichtet haben, funktioniert die kubectl Autovervollständung automatisch.
 
 Nach dem Neuladen Ihrer Shell, sollte die kubectl Autovervollständigung funktionieren.
 

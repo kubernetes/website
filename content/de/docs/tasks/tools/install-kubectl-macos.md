@@ -201,7 +201,7 @@ Untenstehend ist beschrieben, wie die Autovervollständigungen für Fish und Zsh
 
 {{< include "included/kubectl-convert-overview.md" >}}
 
-1. Neueste Version des Kommandozeilen Befehls herunterladen:
+1. Neueste Version des Kommandozeilenbefehls herunterladen:
 
    {{< tabs name="download_convert_binary_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
