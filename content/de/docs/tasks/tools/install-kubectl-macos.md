@@ -10,7 +10,7 @@ card:
 
 ## {{% heading "prerequisites" %}}
 
-Sie müssen eine kubectl-Version verwenden, welche nicht mehr als eine Minor-Version Unterschied zu ihrem Cluster aufweist. Zum Beispiel: eine Client-Version v{{< skew currentVersion >}} kann mit folgenden versionen kommunizieren v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}, und v{{< skew currentVersionAddMinor 1 >}}.
+Sie müssen eine kubectl-Version verwenden, welche nicht mehr als eine Minor-Version Unterschied zu ihrem Cluster aufweist. Zum Beispiel: eine Client-Version v{{< skew currentVersion >}} kann mit folgenden Versionen kommunizieren v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}, und v{{< skew currentVersionAddMinor 1 >}}.
 Die Verwendung der neuesten kompatiblen Version von kubectl hilft, unvorhergesehene Probleme zu vermeiden.
 
 ## Kubectl auf macOS installieren
@@ -21,11 +21,11 @@ Um kubectl auf macOS zu installieren, gibt es die folgenden Möglichkeiten:
 - [Kubectl auf macOS installieren](#kubectl-auf-macos-installieren)
   - [Kubectl Binary mit curl auf macOS installieren](#kubectl-binary-mit-curl-auf-macos-installieren)
   - [Mit Homebrew auf macOS installieren](#mit-homebrew-auf-macos-installieren)
-  - [Install with Macports on macOS](#install-with-macports-on-macos)
+  - [Mit Macports auf macOS installieren](#mit-macports-auf-macos-installieren)
 - [Kubectl Konfiguration verifizieren](#kubectl-konfiguration-verifizieren)
 - [Optionale kubectl Konfigurationen und Plugins](#optionale-kubectl-konfigurationen-und-plugins)
   - [Shell Autovervollständigung einbinden](#shell-autovervollständigung-einbinden)
-  - [`kubectl convert` Plugin installieren](#kubectl-convert-plugin-installieren)
+  - [`kubectl-convert` Plugin installieren](#kubectl-convert-plugin-installieren)
 - [{{% heading "whatsnext" %}}](#-heading-whatsnext-)
 
 ### Kubectl Binary mit curl auf macOS installieren
@@ -42,7 +42,7 @@ Um kubectl auf macOS zu installieren, gibt es die folgenden Möglichkeiten:
    {{< /tabs >}}
 
    {{< note >}}
-   Um eine spezifische Version herunterzuladen, ersetzen sie `$(curl -L -s https://dl.k8s.io/release/stable.txt)` mit der spezifischen Version
+   Um eine spezifische Version herunterzuladen, ersetzen Sie `$(curl -L -s https://dl.k8s.io/release/stable.txt)` mit der spezifischen Version
 
    Um zum Beispiel Version {{< param "fullversion" >}} auf Intel macOS herunterzuladen:
 
@@ -100,7 +100,7 @@ Um kubectl auf macOS zu installieren, gibt es die folgenden Möglichkeiten:
    chmod +x ./kubectl
    ```
 
-4. Kubectl Binary zu einem Ordner in ihrem `PATH` verschieben.
+4. Kubectl Binary zu einem Ordner in Ihrem `PATH` verschieben.
 
    ```bash
    sudo mv ./kubectl /usr/local/bin/kubectl
@@ -108,7 +108,7 @@ Um kubectl auf macOS zu installieren, gibt es die folgenden Möglichkeiten:
    ```
 
    {{< note >}}
-   Stellen Sie sicher, dass `/usr/local/bin` in ihrer PATH Umgebungsvariable gesetzt ist.
+   Stellen Sie sicher, dass `/usr/local/bin` in Ihrer PATH Umgebungsvariable gesetzt ist.
    {{< /note >}}
 
 5. Prüfen ob die installierte Version die aktuellste Version ist:
@@ -163,7 +163,7 @@ können Sie kubectl über diesen installieren.
    kubectl version --client
    ```
 
-### Install with Macports on macOS
+### Mit Macports auf macOS installieren
 
 Wenn Sie macOS und  [Macports](https://macports.org/) als Paketmanager benutzen, können Sie kubectl über diesen installieren.
 
@@ -190,15 +190,14 @@ Wenn Sie macOS und  [Macports](https://macports.org/) als Paketmanager benutzen,
 
 kubectl stellt Autovervollständigungen für Bash, Zsh, Fish und Powershell zur Verfügung, mit welchem Sie Kommandozeilen Befehle beschleunigen können.
 
-Untenstehend ist beschrieben, wie die Autovervollständigungen für Bash, Fish und Zsh eingebunden werden.
+Untenstehend ist beschrieben, wie die Autovervollständigungen für Fish und Zsh eingebunden werden.
 
 {{< tabs name="kubectl_autocompletion" >}}
-{{< tab name="Bash" include="included/optional-kubectl-configs-bash-mac.md" />}}
 {{< tab name="Fish" include="included/optional-kubectl-configs-fish.md" />}}
 {{< tab name="Zsh" include="included/optional-kubectl-configs-zsh.md" />}}
 {{< /tabs >}}
 
-### `kubectl convert` Plugin installieren
+### `kubectl-convert` Plugin installieren
 
 {{< include "included/kubectl-convert-overview.md" >}}
 
