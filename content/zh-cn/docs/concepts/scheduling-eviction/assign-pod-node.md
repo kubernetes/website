@@ -508,12 +508,17 @@ For example, you could use
 co-locate Pods of two services in the same cloud provider zone because they
 communicate with each other a lot. Similarly, you could use
 `preferredDuringSchedulingIgnoredDuringExecution` anti-affinity to spread Pods
-from a service across multiple cloud provider zones. However, it is important to note that for preferredDuringSchedulingIgnoredDuringExecution affinity, while the scheduler will make every effort to follow this rule, it may violate it as necessary to ensure that Pods are placed on appropriate nodes within the cluster.
+from a service across multiple cloud provider zones. 
+However, it is important to note that for `preferredDuringSchedulingIgnoredDuringExecution` anti-affinity, 
+while the scheduler will make every effort to follow this rule, 
+it may violate it as necessary to ensure that Pods are placed on appropriate nodes within the cluster.
 -->
 例如，你可以使用 `requiredDuringSchedulingIgnoredDuringExecution` 亲和性来告诉调度器，
 将两个服务的 Pod 放到同一个云提供商可用区内，因为它们彼此之间通信非常频繁。
 类似地，你可以使用 `preferredDuringSchedulingIgnoredDuringExecution`
-反亲和性来将同一服务的多个 Pod 分布到多个云提供商可用区中。但是需要注意的是`preferredDuringSchedulingIgnoredDuringExecution`亲和性，调度器会尽力遵循这个规则，但在必要时可能会违反它，以确保Pod能够在集群中合适的节点上运行。
+反亲和性来将同一服务的多个 Pod 分布到多个云提供商可用区中。
+但是需要注意的是 `preferredDuringSchedulingIgnoredDuringExecution` 反亲和性，
+调度器会尽力遵循这个规则，但在必要时可能会违反它，以确保Pod能够在集群中合适的节点上运行。
 
 <!--
 To use inter-pod affinity, use the `affinity.podAffinity` field in the Pod spec.
