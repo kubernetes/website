@@ -129,6 +129,23 @@ One of the following members in the source of the group snapshot must be set.
 * `volumeGroupSnapshotContentName` - specifies the name of a pre-existing
   VolumeGroupSnapshotContent object representing an existing volume group snapshot.
 
+In the following example, there are two PVCs.
+
+```yaml
+NAME        STATUS    VOLUME                                     CAPACITY   ACCESSMODES   AGE
+pvc-0       Bound     pvc-a42d7ea2-e3df-11ed-b5ea-0242ac120002   1Gi        RWO           48s
+pvc-1       Bound     pvc-a42d81b8-e3df-11ed-b5ea-0242ac120002   1Gi        RWO           48s
+```
+
+Label the PVCs.
+```yaml
+% kubectl label pvc pvc-0 group=myGroup
+persistentvolumeclaim/pvc-0 labeled
+
+% kubectl label pvc pvc-1 group=myGroup
+persistentvolumeclaim/pvc-1 labeled
+```
+
 For dynamic provisioning, a selector must be set so that the snapshot controller can
 find PVCs with the matching labels to be snapshotted together.
 
@@ -149,46 +166,12 @@ spec:
 In the VolumeGroupSnapshot spec, a user can specify the VolumeGroupSnapshotClass which
 has the information about which CSI driver should be used for creating the group snapshot.
 
-### Importing an existing group snapshot with Kubernetes
-
-You can always import an existing group snapshot to Kubernetes by manually creating
-a VolumeGroupSnapshotContent object to represent the existing group snapshot.
-Because VolumeGroupSnapshotContent is a non-namespace API object, only a system admin
-may have the permission to create it. Once a VolumeGroupSnapshotContent object is
-created, the user can create a VolumeGroupSnapshot object pointing to the
-VolumeGroupSnapshotContent object.
+Two individual volume snapshots will be created as part of the volume group snapshot creation.
 
 ```yaml
-apiVersion: groupsnapshot.storage.k8s.io/v1alpha1
-kind: VolumeGroupSnapshotContent
-metadata:
-  name: pre-existing-group-snap-content1
-spec:
-  driver: com.example.csi-driver
-  deletionPolicy: Delete
-  source:
-     volumeGroupSnapshotHandle: group-snap-id
-  volumeGroupSnapshotRef:
-    kind: VolumeGroupSnapshot
-    name: pre-existing-group-snap1
-    namespace: demo-namespace
+snapshot-62abb5db7204ac6e4c1198629fec533f2a5d9d60ea1a25f594de0bf8866c7947-2023-04-26-2:20:4
+snapshot-2026811eb9f0787466171fe189c805a22cdb61a326235cd067dc3a1ac0104900-2023-04-26-2:20:4
 ```
-
-A VolumeGroupSnapshot object should be created to allow a user to use the group snapshot:
-
-```yaml
-apiVersion: groupsnapshot.storage.k8s.io/v1alpha1
-kind: VolumeGroupSnapshot
-metadata:
-  name: pre-existing-group-snap1
-  namespace: demo-namespace
-spec:
-  snapshotContentName: pre-existing-group-snap-content1
-```
-
-Once these objects are created, the snapshot controller will bind them together,
-and set the field `status.ready` to `"True"` to indicate the group snapshot is ready
-to use.
 
 ### How to use group snapshot for restore in Kubernetes
 
@@ -197,6 +180,25 @@ a VolumeSnapshot object that is part of a VolumeGroupSnapshot. This will trigger
 provisioning of a new volume that is pre-populated with data from the specified
 snapshot. The user should repeat this until all volumes are created from all the
 snapshots that are part of a group snapshot.
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc0-restore
+  namespace: demo-namespace
+spec:
+  storageClassName: csi-hostpath-sc
+  dataSource:
+    name: snapshot-62abb5db7204ac6e4c1198629fec533f2a5d9d60ea1a25f594de0bf8866c7947-2023-04-26-2:20:4
+    kind: VolumeSnapshot
+    apiGroup: snapshot.storage.k8s.io
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+```
 
 ## As a storage vendor, how do I add support for group snapshots to my CSI driver?
 
