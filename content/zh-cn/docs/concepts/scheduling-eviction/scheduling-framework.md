@@ -106,6 +106,28 @@ stateful tasks.
 {{< figure src="/images/docs/scheduling-framework-extensions.png" title="调度框架扩展点" class="diagram-large">}}
 
 <!--
+### PreEnqueue {#pre-enqueue}
+-->
+### PreEnqueue {#pre-enqueue}
+
+<!--
+These plugins are called prior to adding Pods to the internal active queue, where Pods are marked as
+ready for scheduling.
+
+Only when all PreEnqueue plugins return `Success`, the Pod is allowed to enter the active queue.
+Otherwise, it's placed in the internal unschedulable Pods list, and doesn't get an `Unschedulable` condition.
+
+For more details about how internal scheduler queues work, read
+[Scheduling queue in kube-scheduler](https://github.com/kubernetes/community/blob/f03b6d5692bd979f07dd472e7b6836b2dad0fd9b/contributors/devel/sig-scheduling/scheduler_queues.md).
+-->
+这些插件在将 Pod 被添加到内部活动队列之前被调用，在此队列中 Pod 被标记为准备好进行调度。
+
+只有当所有 PreEnqueue 插件返回 `Success` 时，Pod 才允许进入活动队列。
+否则，它将被放置在内部无法调度的 Pod 列表中，并且不会获得 `Unschedulable` 状态。
+
+要了解有关内部调度器队列如何工作的更多详细信息，请阅读 [kube-scheduler 调度队列](https://github.com/kubernetes/community/blob/f03b6d5692bd979f07dd472e7b6836b2dad0fd9b/contributors/devel/sig-scheduling/scheduler_queues.md)。
+
+<!--
 ### QueueSort {#queue-sort}
 -->
 ### 队列排序 {#queue-sort}

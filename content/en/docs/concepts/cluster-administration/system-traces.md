@@ -9,7 +9,7 @@ weight: 90
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 System component traces record the latency of and relationships between operations in the cluster.
 
@@ -59,14 +59,12 @@ as the kube-apiserver is often a public endpoint.
 
 #### Enabling tracing in the kube-apiserver
 
-To enable tracing, enable the `APIServerTracing`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the kube-apiserver. Also, provide the kube-apiserver with a tracing configuration file
+To enable tracing, provide the kube-apiserver with a tracing configuration file
 with `--tracing-config-file=<path-to-config>`. This is an example config that records
 spans for 1 in 10000 requests, and uses the default OpenTelemetry endpoint:
 
 ```yaml
-apiVersion: apiserver.config.k8s.io/v1alpha1
+apiVersion: apiserver.config.k8s.io/v1beta1
 kind: TracingConfiguration
 # default value
 #endpoint: localhost:4317
@@ -74,11 +72,11 @@ samplingRatePerMillion: 100
 ```
 
 For more information about the `TracingConfiguration` struct, see
-[API server config API (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/#apiserver-k8s-io-v1alpha1-TracingConfiguration).
+[API server config API (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/#apiserver-k8s-io-v1beta1-TracingConfiguration).
 
 ### kubelet traces
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 The kubelet CRI interface and authenticated http servers are instrumented to generate
 trace spans. As with the apiserver, the endpoint and sampling rate are configurable.
@@ -88,10 +86,7 @@ Enabled without a configured endpoint, the default OpenTelemetry Collector recei
 
 #### Enabling tracing in the kubelet
 
-To enable tracing, enable the `KubeletTracing`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the kubelet. Also, provide the kubelet with a
-[tracing configuration](https://github.com/kubernetes/component-base/blob/release-1.25/tracing/api/v1/types.go).
+To enable tracing, apply the [tracing configuration](https://github.com/kubernetes/component-base/blob/release-1.27/tracing/api/v1/types.go).
 This is an example snippet of a kubelet config that records spans for 1 in 10000 requests, and uses the default OpenTelemetry endpoint:
 
 ```yaml
@@ -104,6 +99,21 @@ tracing:
   #endpoint: localhost:4317
   samplingRatePerMillion: 100
 ```
+
+If the `samplingRatePerMillion` is set to one million (`1000000`), then every
+span will be sent to the exporter.
+
+The kubelet in Kubernetes v{{< skew currentVersion >}} collects spans from
+the garbage collection, pod synchronization routine as well as every gRPC
+method. Connected container runtimes like CRI-O and containerd can link the
+traces to their exported spans to provide additional context of information.
+
+Please note that exporting spans always comes with a small performance overhead
+on the networking and CPU side, depending on the overall configuration of the
+system. If there is any issue like that in a cluster which is running with
+tracing enabled, then mitigate the problem by either reducing the
+`samplingRatePerMillion` or disabling tracing completely by removing the
+configuration.
 
 ## Stability
 

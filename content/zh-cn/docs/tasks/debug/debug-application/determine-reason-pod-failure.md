@@ -203,11 +203,11 @@ is empty and the container exited with an error. The log output is limited to
 * See the `terminationMessagePath` field in
   [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core).
 * Learn about [retrieving logs](/docs/concepts/cluster-administration/logging/).
-* Learn about [Go templates](https://golang.org/pkg/text/template/).
+* Learn about [Go templates](https://pkg.go.dev/text/template).
 -->
 
 * 参考 [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
   资源的 `terminationMessagePath` 字段。
 * 了解[检索日志](/zh-cn/docs/concepts/cluster-administration/logging/)。
-* 了解 [Go 模板](https://golang.org/pkg/text/template/)。
+* 了解 [Go 模板](https://pkg.go.dev/text/template)。
 

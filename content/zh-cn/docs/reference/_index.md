@@ -85,7 +85,7 @@ client libraries:
 * [kubectl](/zh-cn/docs/reference/kubectl/) —— 主要的 CLI 工具，用于运行命令和管理 Kubernetes 集群。
   * [JSONPath](/zh-cn/docs/reference/kubectl/jsonpath/) —— 通过 kubectl 使用
     [JSONPath 表达式](https://goessner.net/articles/JsonPath/)的语法指南。
-* [kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/) - 此 CLI 工具可轻松配置安全的 Kubernetes 集群。
+* [kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/) —— 此 CLI 工具可轻松配置安全的 Kubernetes 集群。
 
 <!--
 ## Components
@@ -139,6 +139,7 @@ operator to use or manage a cluster.
 * [kubeconfig (v1)](/docs/reference/config-api/kubeconfig.v1/)
 * [kube-apiserver admission (v1)](/docs/reference/config-api/apiserver-admission.v1/)
 * [kube-apiserver configuration (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/) and
+  [kube-apiserver configuration (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/) and
   [kube-apiserver configuration (v1)](/docs/reference/config-api/apiserver-config.v1/)
 * [kube-apiserver encryption (v1)](/docs/reference/config-api/apiserver-encryption.v1/)
 * [kube-apiserver event rate limit (v1alpha1)](/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
@@ -168,6 +169,7 @@ operator to use or manage a cluster.
 * [kubeconfig (v1)](/zh-cn/docs/reference/config-api/kubeconfig.v1/)
 * [kube-apiserver 准入 (v1)](/zh-cn/docs/reference/config-api/apiserver-admission.v1/)
 * [kube-apiserver 配置 (v1alpha1)](/zh-cn/docs/reference/config-api/apiserver-config.v1alpha1/) 和
+  [kube-apiserver 配置 (v1beta1)](/zh-cn/docs/reference/config-api/apiserver-config.v1beta1/) 和
   [kube-apiserver 配置 (v1)](/zh-cn/docs/reference/config-api/apiserver-config.v1/)
 * [kube-apiserver 加密 (v1)](/zh-cn/docs/reference/config-api/apiserver-encryption.v1/)
 * [kube-apiserver 事件速率限制 (v1alpha1)](/zh-cn/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
@@ -191,12 +193,10 @@ operator to use or manage a cluster.
 <!--
 ## Config API for kubeadm
 
-* [v1beta2](/docs/reference/config-api/kubeadm-config.v1beta2/)
 * [v1beta3](/docs/reference/config-api/kubeadm-config.v1beta3/)
 -->
 ## kubeadm 的配置 API   {#config-api-for-kubeadm}
 
-* [v1beta2](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta2/)
 * [v1beta3](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)
 
 <!--
@@ -209,6 +209,6 @@ An archive of the design docs for Kubernetes functionality. Good starting points
 ## 设计文档   {#design-docs}
 
 Kubernetes 功能的设计文档归档，不妨考虑从
-[Kubernetes 架构](https://git.k8s.io/design-proposals-archive/architecture/architecture.md) 和
+[Kubernetes 架构](https://git.k8s.io/design-proposals-archive/architecture/architecture.md)和
 [Kubernetes 设计概述](https://git.k8s.io/design-proposals-archive)开始阅读。
 
