@@ -10,7 +10,7 @@ card:
 
 ## {{% heading "prerequisites" %}}
 
-Sie müssen eine kubectl-Version verwenden, welche nicht mehr als eine Minor-Version Unterschied zu ihrem Cluster aufweist. Zum Beispiel: eine Client-Version v{{< skew currentVersion >}} kann mit folgenden Versionen kommunizieren v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}, und v{{< skew currentVersionAddMinor 1 >}}.
+Um kubectl zu verwenden darf die kubectl-Version nicht mehr als eine Minor-Version Unterschied zu dem Cluster aufweisen. Zum Beispiel: eine Client-Version v{{< skew currentVersion >}} kann mit folgenden Versionen kommunizieren v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}, und v{{< skew currentVersionAddMinor 1 >}}.
 Die Verwendung der neuesten kompatiblen Version von kubectl hilft, unvorhergesehene Probleme zu vermeiden.
 
 ## Kubectl auf Linux installieren
@@ -37,7 +37,7 @@ Um kubectl auf Linux zu installieren, gibt es die folgenden Möglichkeiten:
    ```
 
    {{< note >}}
-   Um eine spezifische Version herunterzuladen, ersetzen Sie `$(curl -L -s https://dl.k8s.io/release/stable.txt)` mit der spezifischen Version.
+   Um eine spezifische Version herunterzuladen, ersetze `$(curl -L -s https://dl.k8s.io/release/stable.txt)` mit der spezifischen Version.
 
    Um zum Beispiel Version {{< param "fullversion" >}} auf Linux herunterzuladen:
 
@@ -48,13 +48,13 @@ Um kubectl auf Linux zu installieren, gibt es die folgenden Möglichkeiten:
 
 2. Binary validieren (optional)
 
-   Downloaden Sie die kubectl Checksum-Datei:
+   Download der kubectl Checksum-Datei:
 
    ```bash
    curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
    ```
 
-   Validieren Sie die Kubectl Binary mit der Checksum-Datei:
+   Kubectl Binary mit der Checksum-Datei validieren:
 
    ```bash
    echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
@@ -74,7 +74,7 @@ Um kubectl auf Linux zu installieren, gibt es die folgenden Möglichkeiten:
    ```
 
    {{< note >}}
-   Laden Sie von der Binary und Checksum-Datei immer die selben Versionen herunter.
+   Lade von der kubectl Binary und Checksum-Datei immer die selben Versionen herunter.
    {{< /note >}}
 
 3. kubectl installieren
@@ -84,7 +84,7 @@ Um kubectl auf Linux zu installieren, gibt es die folgenden Möglichkeiten:
    ```
 
    {{< note >}}
-   Wenn Sie keinen root Zugriff auf das Zielsystem haben, können Sie dennoch kubectl in das Verzeichnis `~/.local/bin` installieren:
+   Wenn kein root Zugriff auf das Zielsystem möglich ist, kann kubectl in das Verzeichnis `~/.local/bin` installiert werden:
 
    ```bash
    chmod +x kubectl
@@ -108,11 +108,11 @@ Um kubectl auf Linux zu installieren, gibt es die folgenden Möglichkeiten:
    WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
    ```
 
-   Sie können diese Warnung ignorieren. Sie prüfen lediglich die `kubectl` Version, welche Sie installiert haben.
+   Diese Warnung kann ignoriert werden. Prüfe lediglich die `kubectl` Version, eelche installiert wurde.
    
    {{< /note >}}
    
-   Oder benutzten Sie diesen Befehl für eine detailliertere Ansicht:
+   Oder benutzte diesen Befehl für eine detailliertere Ansicht:
 
    ```cmd
    kubectl version --client --output=yaml    
@@ -130,7 +130,7 @@ Um kubectl auf Linux zu installieren, gibt es die folgenden Möglichkeiten:
    sudo apt-get install -y ca-certificates curl
    ```
 
-   Falls Sie Debian 9 (stretch) oder älter nutzen, müssen Sie zusätzlich das Paket `apt-transport-https` installieren:
+   Falls Debian 9 (stretch) oder älter genutzt wird, müssen zusätzlich das Paket `apt-transport-https` installiert werden:
 
    ```shell
    sudo apt-get install -y apt-transport-https
@@ -156,8 +156,8 @@ Um kubectl auf Linux zu installieren, gibt es die folgenden Möglichkeiten:
    ```
 
 {{< note >}}
-In releases älter als Debian 12 und Ubuntu 22.04, existiert `/etc/apt/keyrings` nicht per default.
-Falls sie es benötigen können sie es anlegen und von jedermann lesbar machen, aber nur schreibar durch Admins.
+In Releases älter als Debian 12 und Ubuntu 22.04, existiert `/etc/apt/keyrings` nicht per default.
+Falls es benötigt wird, kann es angelegt werden. Hierzu sollte es danach von jedermann lesbar, aber nur von Admins schreibar gemacht werden.
 {{< /note >}}
 
 {{% /tab %}}
@@ -182,7 +182,7 @@ sudo yum install -y kubectl
 
 {{< tabs name="other_kubectl_install" >}}
 {{% tab name="Snap" %}}
-Falls sie Ubuntu oder andere Linux Distributionen verwenden, welche den [snap](https://snapcraft.io/docs/core/install) Paketmanager unterstützen, können Sie kubectl als [snap](https://snapcraft.io/) Anwendung installieren.
+Falls Ubuntu oder andere Linux Distributionen verwendet wird, und diese den [snap](https://snapcraft.io/docs/core/install) Paketmanager unterstützen, kann kubectl als [snap](https://snapcraft.io/) Anwendung installiert werden.
 
 ```shell
 snap install kubectl --classic
@@ -192,8 +192,8 @@ kubectl version --client
 {{% /tab %}}
 
 {{% tab name="Homebrew" %}}
-Falls sie in Linux den [Homebrew](https://docs.brew.sh/Homebrew-on-Linux)
-Paketmanager nutzen, können sie kubectl über diesen [installieren](https://docs.brew.sh/Homebrew-on-Linux#install).
+Falls in Linux [Homebrew](https://docs.brew.sh/Homebrew-on-Linux) als
+Paketmanager genutzt wird, kann kubectl über diesen [installiert](https://docs.brew.sh/Homebrew-on-Linux#install) werden.
 
 ```shell
 brew install kubectl
@@ -212,7 +212,7 @@ kubectl version --client
 
 ### Shell Autovervollständigung einbinden
 
-kubectl stellt Autovervollständigungen für Bash, Zsh, Fish und Powershell zur Verfügung, mit welchem Sie Kommandozeilen Befehle beschleunigen können.
+kubectl stellt Autovervollständigungen für Bash, Zsh, Fish und Powershell zur Verfügung, mit welchem sich Kommandozeilen Befehle beschleunigen lassen.
 
 Untenstehend ist beschrieben, wie die Autovervollständigungen für Fish und Zsh eingebunden werden.
 
@@ -233,13 +233,13 @@ Untenstehend ist beschrieben, wie die Autovervollständigungen für Fish und Zsh
 
 2. Binär-Datei validieren (optional)
 
-   Downloaden Sie die kubectl-convert Checksum-Datei:
+   Download der kubectl-convert Checksum-Datei:
 
    ```bash
    curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
    ```
 
-   Validieren Sie die kubectl-convert Binary mit der Checksum-Datei:
+   Kubectl-convert Binary mit der Checksum-Datei validieren:
 
    ```bash
    echo "$(cat kubectl-convert.sha256) kubectl-convert" | sha256sum --check
@@ -259,7 +259,7 @@ Untenstehend ist beschrieben, wie die Autovervollständigungen für Fish und Zsh
    ```
 
    {{< note >}}
-   Laden Sie von der Binary und Checksum-Datei immer die selben Versionen herunter.
+   Lade von der kubectl Binary und Checksum-Datei immer die selben Versionen herunter.
    {{< /note >}}
 
 3. kubectl-convert installieren
@@ -274,9 +274,9 @@ Untenstehend ist beschrieben, wie die Autovervollständigungen für Fish und Zsh
    kubectl convert --help
    ```
 
-   If you do not see an error, it means the plugin is successfully installed.
+  Wenn kein Fehler ausgegeben wird, ist das Plugin erfolgreich installiert worden.
 
-5. Nach Installation des Plugins, die Installationsdateien aufräumen:
+1. Nach Installation des Plugins, die Installationsdateien aufräumen:
 
    ```bash
    rm kubectl-convert kubectl-convert.sha256
