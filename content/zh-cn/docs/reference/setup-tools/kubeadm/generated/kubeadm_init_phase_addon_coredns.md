@@ -47,18 +47,31 @@ kubeadm 配置文件的路径。
 </tr>
 
 <tr>
+<td colspan="2">--dry-run</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Don't apply any changes; just output what would be done.
+-->
+<p>
+不做任何更改；只输出将要执行的操作。
+</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--feature-gates string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for various features. Options are:<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>UnversionedKubeletConfigMap=true|false (default=true)
+A set of key=value pairs that describe feature gates for various features. Options are:<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)
 -->
 <p>
 一组用来描述各种特性门控的键值（key=value）对。选项是：
 <br/>PublicKeysECDSA=true|false (ALPHA - 默认值=false)
 <br/>RootlessControlPlane=true|false (ALPHA - 默认值=false)
-<br/>UnversionedKubeletConfigMap=true|false (默认值=true)
 </p>
 </td>
 </tr>

@@ -39,6 +39,7 @@ Role 是一个按命名空间划分的 PolicyRule 逻辑分组，可以被 RoleB
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
+  标准的对象元数据。
 <!--
 Standard object's metadata.
 
@@ -53,8 +54,16 @@ Standard object's metadata.
 
   - **rules.resources** ([]string)
     Resources is a list of resources this rule applies to. '*' represents all resources.
+
+  - **rules.verbs** ([]string), required
+    Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
+
+  - **rules.resourceNames** ([]string)
+    ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
+
+  - **rules.nonResourceURLs** ([]string)
+    NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
 -->  
-  标准的对象元数据。
 
 - **rules** ([]PolicyRule)
   
@@ -74,16 +83,6 @@ Standard object's metadata.
     resources 是此规则所适用的资源的列表。
     “*” 表示所有资源。
 
-<!--
-  - **rules.verbs** ([]string), required
-    Verbs is a list of Verbs that apply to ALL the ResourceKinds contained in this rule. '*' represents all verbs.
-
-  - **rules.resourceNames** ([]string)
-    ResourceNames is an optional white list of names that the rule applies to.  An empty set means that everything is allowed.
-
-  - **rules.nonResourceURLs** ([]string)
-    NonResourceURLs is a set of partial urls that a user should have access to.  *s are allowed, but only as the full, final step in the path Since non-resource URLs are not namespaced, this field is only applicable for ClusterRoles referenced from a ClusterRoleBinding. Rules can either apply to API resources (such as "pods" or "secrets") or non-resource URL paths (such as "/api"),  but not both.
--->  
   - **rules.verbs** ([]string)，必需
     
     verbs 是适用于此规则中所包含的所有 ResourceKinds 的动作。

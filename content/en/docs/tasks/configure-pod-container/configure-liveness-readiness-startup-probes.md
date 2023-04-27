@@ -14,6 +14,10 @@ where an application is running, but unable to make progress. Restarting a
 container in such a state can help to make the application more available
 despite bugs.
 
+A common pattern for liveness probes is to use the same low-cost HTTP endpoint
+as for readiness probes, but with a higher failureThreshold. This ensures that the pod
+is observed as not-ready for some period of time before it is hard killed.
+
 The kubelet uses readiness probes to know when a container is ready to start
 accepting traffic. A Pod is considered ready when all of its containers are ready.
 One use of this signal is to control which Pods are used as backends for Services.
@@ -25,7 +29,18 @@ it succeeds, making sure those probes don't interfere with the application start
 This can be used to adopt liveness checks on slow starting containers, avoiding them
 getting killed by the kubelet before they are up and running.
 
+{{< caution >}}
+Liveness probes can be a powerful way to recover from application failures, but
+they should be used with caution. Liveness probes must be configured carefully
+to ensure that they truly indicate unrecoverable application failure, for example a deadlock.
+{{< /caution >}}
 
+{{< note >}}
+Incorrect implementation of liveness probes can lead to cascading failures. This results in
+restarting of container under high load; failed client requests as your application became less
+scalable; and increased workload on remaining pods due to some failed pods.
+Understand the difference between readiness and liveness probes and when to apply them for your app.
+{{< /note >}}
 
 ## {{% heading "prerequisites" %}}
 
@@ -225,21 +240,27 @@ kubectl describe pod goproxy
 
 {{< feature-state for_k8s_version="v1.24" state="beta" >}}
 
-If your application implements [gRPC Health Checking Protocol](https://github.com/grpc/grpc/blob/master/doc/health-checking.md),
-kubelet can be configured to use it for application liveness checks.
-You must enable the `GRPCContainerProbe`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-in order to configure checks that rely on gRPC.
+If your application implements the [gRPC Health Checking Protocol](https://github.com/grpc/grpc/blob/master/doc/health-checking.md),
+this example shows how to configure Kubernetes to use it for application liveness checks.
+Similarly you can configure readiness and startup probes.
 
 Here is an example manifest:
 
 {{< codenew file="pods/probe/grpc-liveness.yaml" >}}
 
-To use a gRPC probe, `port` must be configured. If the health endpoint is configured
-on a non-default service, you must also specify the `service`.
+To use a gRPC probe, `port` must be configured. If you want to distinguish probes of different types
+and probes for different features you can use the `service` field.
+You can set `service` to the value `liveness` and make your gRPC Health Checking endpoint
+respond to this request differently then when you set `service` set to `readiness`.
+This lets you use the same endpoint for different kinds of container health check
+(rather than needing to listen on two different ports).
+If you want to specify your own custom service name and also specify a probe type,
+the Kubernetes project recommends that you use a name that concatenates
+those. For example: `myservice-liveness` (using `-` as a separator).
 
 {{< note >}}
-Unlike HTTP and TCP probes, named ports cannot be used and custom host cannot be configured.
+Unlike HTTP or TCP probes, you cannot specify the healthcheck port by name, and you
+cannot configure a custom hostname.
 {{< /note >}}
 
 Configuration problems (for example: incorrect port and service, unimplemented health checking protocol)
@@ -496,7 +517,7 @@ to resolve it.
 
 ### Probe-level `terminationGracePeriodSeconds`
 
-{{< feature-state for_k8s_version="v1.25" state="beta" >}}
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
 Prior to release 1.21, the pod-level `terminationGracePeriodSeconds` was used
 for terminating a container that failed its liveness or startup probe. This

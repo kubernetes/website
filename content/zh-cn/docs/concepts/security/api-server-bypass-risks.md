@@ -26,10 +26,10 @@ As part of this role, the API server has several key built-in security controls,
 audit logging and {{< glossary_tooltip text="admission controllers" term_id="admission-controller" >}}.
 However, there are ways to modify the configuration
 or content of the cluster that bypass these controls.
- -->
-作为此角色的一部分，API 服务器有几个关键的内置安全控制，
+-->
+API 服务器作为交互的主要入口，还提供了几种关键的内置安全控制，
 例如审计日志和{{< glossary_tooltip text="准入控制器" term_id="admission-controller" >}}。
-但是，有一些方法可以绕过这些安全控制从而修改集群的配置或内容。
+但有一些方式可以绕过这些安全控制从而修改集群的配置或内容。
 
 <!--
 This page describes the ways in which the security controls built into the

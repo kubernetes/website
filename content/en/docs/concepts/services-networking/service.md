@@ -29,7 +29,7 @@ that Deployment can create and destroy Pods dynamically. From one moment to the 
 you don't know how many of those Pods are working and healthy; you might not even know
 what those healthy Pods are named.
 Kubernetes {{< glossary_tooltip term_id="pod" text="Pods" >}} are created and destroyed
-to match the desired state of your cluster. Pods are emphemeral resources (you should not
+to match the desired state of your cluster. Pods are ephemeral resources (you should not
 expect that an individual Pod is reliable and durable).
 
 Each Pod gets its own IP address (Kubernetes expects network plugins to ensure this).
@@ -139,6 +139,8 @@ for convenience, the `targetPort` is set to the same value as the `port`
 field.
 {{< /note >}}
 
+### Port definitions {#field-spec-ports}
+
 Port definitions in Pods have names, and you can reference these names in the
 `targetPort` attribute of a Service. For example, we can bind the `targetPort`
 of the Service to the Pod port in the following way:
@@ -184,8 +186,8 @@ The default protocol for Services is
 [TCP](/docs/reference/networking/service-protocols/#protocol-tcp); you can also
 use any other [supported protocol](/docs/reference/networking/service-protocols/).
 
-As many Services need to expose more than one port, Kubernetes supports multiple
-port definitions on a Service object.
+Because many Services need to expose more than one port, Kubernetes supports
+[multiple port definitions](#multi-port-services) for a single Service.
 Each port definition can have the same `protocol`, or a different one.
 
 ### Services without selectors
@@ -353,7 +355,7 @@ This field follows standard Kubernetes label syntax. Values should either be
 [IANA standard service names](https://www.iana.org/assignments/service-names) or
 domain prefixed names such as `mycompany.com/my-custom-protocol`.
 
-## Multi-Port Services
+### Multi-port Services
 
 For some Services, you need to expose more than one port.
 Kubernetes lets you configure multiple port definitions on a Service object.
@@ -586,6 +588,20 @@ spec:
       nodePort: 30007
 ```
 
+#### Reserve Nodeport Ranges to avoid collisions when port assigning 
+
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+
+The policy for assigning ports to NodePort services applies to both the auto-assignment and
+the manual assignment scenarios. When a user wants to create a NodePort service that
+uses a specific port, the target port may conflict with another port that has already been assigned.
+In this case, you can enable the feature gate `ServiceNodePortStaticSubrange`, which allows you
+to use a different port allocation strategy for NodePort Services. The port range for NodePort services
+is divided into two bands. Dynamic port assignment uses the upper band by default, and it may use
+the lower band once the upper band has been exhausted. Users can then allocate from the lower band
+with a lower risk of port collision.
+
+
 #### Custom IP address configuration for `type: NodePort` Services {#service-nodeport-custom-listen-address}
 
 You can set up nodes in your cluster to use a particular IP address for serving node port
@@ -645,12 +661,6 @@ status:
 Traffic from the external load balancer is directed at the backend Pods.
 The cloud provider decides how it is load balanced.
 
-Some cloud providers allow you to specify the `loadBalancerIP`. In those cases, the load-balancer is created
-with the user-specified `loadBalancerIP`. If the `loadBalancerIP` field is not specified,
-the loadBalancer is set up with an ephemeral IP address. If you specify a `loadBalancerIP`
-but your cloud provider does not support the feature, the `loadbalancerIP` field that you
-set is ignored.
-
 To implement a Service of `type: LoadBalancer`, Kubernetes typically starts off
 by making the changes that are equivalent to you requesting a Service of
 `type: NodePort`. The cloud-controller-manager component then configures the external load balancer to
@@ -660,19 +670,24 @@ You can configure a load balanced Service to
 [omit](#load-balancer-nodeport-allocation) assigning a node port, provided that the
 cloud provider implementation supports this.
 
+Some cloud providers allow you to specify the `loadBalancerIP`. In those cases, the load-balancer is created
+with the user-specified `loadBalancerIP`. If the `loadBalancerIP` field is not specified,
+the loadBalancer is set up with an ephemeral IP address. If you specify a `loadBalancerIP`
+but your cloud provider does not support the feature, the `loadbalancerIP` field that you
+set is ignored.
 
 {{< note >}}
 
-On **Azure**, if you want to use a user-specified public type `loadBalancerIP`, you first need
-to create a static type public IP address resource. This public IP address resource should
-be in the same resource group of the other automatically created resources of the cluster.
-For example, `MC_myResourceGroup_myAKSCluster_eastus`.
-
-Specify the assigned IP address as loadBalancerIP. Ensure that you have updated the
-`securityGroupName` in the cloud provider configuration file.
-For information about troubleshooting `CreatingLoadBalancerFailed` permission issues see,
-[Use a static IP address with the Azure Kubernetes Service (AKS) load balancer](https://docs.microsoft.com/en-us/azure/aks/static-ip)
-or [CreatingLoadBalancerFailed on AKS cluster with advanced networking](https://github.com/Azure/AKS/issues/357).
+The`.spec.loadBalancerIP` field for a Service was deprecated in Kubernetes v1.24.
+	
+This field was under-specified and its meaning varies across implementations. It also cannot support dual-stack networking. This field may be removed in a future API version.
+	
+If you're integrating with a provider that supports specifying the load balancer IP address(es)
+for a Service via a (provider specific) annotation, you should switch to doing that.
+	
+If you are writing code for a load balancer integration with Kubernetes, avoid using this field.
+You can integrate with [Gateway](https://gateway-api.sigs.k8s.io/) rather than Service, or you
+can define your own (provider specific) annotations on the Service that specify the equivalent detail.
 
 {{< /note >}}
 

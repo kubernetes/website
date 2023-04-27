@@ -44,7 +44,7 @@ IngressClass represents the class of the Ingress, referenced by the Ingress Spec
 
 - **spec** (<a href="{{< ref "../service-resources/ingress-class-v1#IngressClassSpec" >}}">IngressClassSpec</a>)
 
-  Spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
+  spec is the desired state of the IngressClass. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
 
 
 
@@ -58,34 +58,34 @@ IngressClassSpec provides information about the class of an Ingress.
 
 - **controller** (string)
 
-  Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
+  controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
 
 - **parameters** (IngressClassParametersReference)
 
-  Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+  parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
 
   <a name="IngressClassParametersReference"></a>
   *IngressClassParametersReference identifies an API object. This can be used to specify a cluster or namespace-scoped resource.*
 
   - **parameters.kind** (string), required
 
-    Kind is the type of resource being referenced.
+    kind is the type of resource being referenced.
 
   - **parameters.name** (string), required
 
-    Name is the name of resource being referenced.
+    name is the name of resource being referenced.
 
   - **parameters.apiGroup** (string)
 
-    APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+    apiGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
 
   - **parameters.namespace** (string)
 
-    Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+    namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
 
   - **parameters.scope** (string)
 
-    Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
+    scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
 
 
 
@@ -109,7 +109,7 @@ IngressClassList is a collection of IngressClasses.
 
 - **items** ([]<a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>), required
 
-  Items is the list of IngressClasses.
+  items is the list of IngressClasses.
 
 
 
@@ -201,6 +201,11 @@ GET /apis/networking.k8s.io/v1/ingressclasses
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -486,6 +491,11 @@ DELETE /apis/networking.k8s.io/v1/ingressclasses
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer

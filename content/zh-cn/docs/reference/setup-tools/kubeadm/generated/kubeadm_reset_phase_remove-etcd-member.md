@@ -46,7 +46,7 @@ kubeadm reset phase remove-etcd-member [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>
 <!-- Don't apply any changes; just output what would be done. -->
-不应用任何更改；仅输出要完成的内容。
+不做任何更改；只输出将要执行的操作。
 </p></td>
 </tr>
 

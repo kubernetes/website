@@ -26,6 +26,10 @@ the Linux man-pages project.
 {{< /note >}}
 ## {{% heading "prerequisites" %}}
 
+{{< note >}}
+`sysctl` is a Linux-specific command-line tool used to configure various kernel parameters
+and it is not available on non-Linux operating systems.
+{{< /note >}}
 
 {{< include "task-tutorial-prereqs.md" >}}
 
@@ -120,7 +124,7 @@ in future versions of the Linux kernel.
 - `kernel.sem`,
 - `fs.mqueue.*`,
 - The parameters under `net.*` that can be set in container networking
-  namespace. However, there are exceptions (e.g.,
+  namespace. However, there are exceptions (e.g., before Linux 5.12.2,
   `net.netfilter.nf_conntrack_max` and `net.netfilter.nf_conntrack_expect_max`
   can be set in container networking namespace but they are unnamespaced).
 
