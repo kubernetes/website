@@ -11,13 +11,12 @@ Esta página mostra como configurar um Pod para usar um
 para armazenamento.
 Aqui está o resumo do processo:
 
-1. Você, como administrador do cluster, faz a criação de um Volume Persistente através 
-do armazenamento físico. Você não associa o volume a nenhum Pod.
+1. Você, como administrador do cluster, faz a criação de um Volume Persistente suportado por armazenamento físico. Você não associa o volume a nenhum Pod.
 
 1. Você, agora assumindo o papel de desenvolvedor/usuário do cluster, faz a criação 
-de um `PersistentVolumeClaim` que é automaticamente ligado ao Volume Persistente adequado.
+de um PersistentVolumeClaim que é automaticamente vinculado ao Volume Persistente adequado.
 
-1. Você cria um Pod que usa o `PersistentVolumeClaim` acima para armazenamento.
+1. Você cria um Pod que usa o PersistentVolumeClaim acima para armazenamento.
 
 
 
@@ -30,20 +29,19 @@ ainda não tem um cluster de um único nó, você pode criar um usando o
 [Minikube](https://minikube.sigs.k8s.io/docs/).
 
 * Familiarize-se com o material em
-[Volumes persistentes](/docs/concepts/storage/persistent-volumes/).
+[Volumes persistentes](/pt-br/docs/concepts/storage/persistent-volumes/).
 
 <!-- steps -->
 
-## Criando um arquivo index.html no seu Nó
-
-Abra um shell no único Nó do seu cluster. A maneira de abrir um shell vai depender de como 
+## Criando um arquivo index.html no seu nó
+Abra um shell no único nó do seu cluster. A maneira de abrir um shell vai depender de como 
 você inicializou seu cluster. Por exemplo, se você estiver usando o Minikube, 
-você pode abrir um shell para o seu Nó digitando `minikube ssh`.
+você pode abrir um shell para o seu nó digitando `minikube ssh`.
 
-No seu shell desse Nó, crie um diretótio `/mnt/data`:
+No seu shell desse nó, crie um diretótio `/mnt/data`:
 
 ```shell
-# Assumindo que o seu Nó use "sudo" para executar comandos 
+# Assumindo que o seu nó use "sudo" para executar comandos 
 # como superusuário
 sudo mkdir /mnt/data
 ```
@@ -52,14 +50,14 @@ sudo mkdir /mnt/data
 No diretório `/mnt/data`, crie o arquivo `index.html`:
 
 ```shell
-# Novamente assumindo que seu Nó use "sudo" para executar comandos
+# Novamente assumindo que seu nó use "sudo" para executar comandos
 # como superusuário
 sudo sh -c "echo 'Hello from Kubernetes storage' > /mnt/data/index.html"
 ```
 
 {{< note >}}
-Se o seu Nó usa uma ferramenta para acesso como superusuário que não `sudo`, você pode
-geralmente fazer isso funcionar substituíndo `sudo` pelo nome da outra ferramenta.
+Se o seu nó usa uma ferramenta para acesso como superusuário que não `sudo`, você pode
+geralmente fazer isso funcionar substituindo `sudo` pelo nome da outra ferramenta.
 {{< /note >}}
 
 Teste se o arquivo `index.html` existe:
@@ -73,31 +71,29 @@ A saída deve ser:
 Hello from Kubernetes storage
 ```
 
-Você agora pode fechar o shell do seu Nó.
+Você agora pode fechar o shell do seu nó.
 
 ## Crie um Volume Persistente
 
 Neste exercício, você cria um Volume Persistente *hostPath*. O Kubernetes suporta
-`hostPath` para desenvolvimento e teste em um cluster com apenas um Nó. Um Volume Persistente 
-`hostPath` usa um arquivo ou diretório no Nó, para emular um armazenamento conectado pela rede.
+`hostPath` para desenvolvimento e teste em um cluster com apenas um nó. Um Volume Persistente 
+`hostPath` usa um arquivo ou diretório no nó, para emular um armazenamento conectado pela rede.
 
 Em um cluster de produção, você não usaria `hostPath`. Em vez disso um administrador 
 de cluster provisionaria um recurso de rede, como um disco persistente do 
 `Google Compute Engine`, um NFS compartilhado, ou um volume do 
-`Amazon Elastic Block Store`. Administradores podem também usar [classes de armazenamento]
-(/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageclass-v1-storage)
-para incializar [provisionamento dinâmico]
-(https://kubernetes.io/blog/2016/10/dynamic-provisioning-and-storage-in-kubernetes).
+`Amazon Elastic Block Store`. Administradores podem também usar [classes de armazenamento](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageclass-v1-storage)
+para incializar [provisionamento dinâmico](https://kubernetes.io/blog/2016/10/dynamic-provisioning-and-storage-in-kubernetes).
 
 Aqui está o arquivo de configuração para o Volume Persistente `hostPath`:
 
 {{< codenew file="pods/storage/pv-volume.yaml" >}}
 
-O arquivo de configuração especifica que o volume está em `/mnt/data` do Nó do cluster. 
+O arquivo de configuração especifica que o volume está no diretório `/mnt/data` do nó do cluster. 
 A configuração também especifica um tamanho de 10 gibibytes e um modo de acesso 
 `ReadWriteOnce`, o que significa que o volume pode ser montado como leitura-escrita 
-pelo único Nó. Define o [nome da classe de armazenamento](/docs/concepts/storage/persistent-volumes/#class)
-`manual` para o Volume Persistente, que será usado para ligar requisições 
+pelo único nó. Define o [nome da classe de armazenamento](/pt-br/docs/concepts/storage/persistent-volumes/#classe)
+`manual` para o Volume Persistente, que será usado para vincular requisições 
 `PersistentVolumeClaim` à esse Volume Persistente.
 
 Crie o Volume Persistente:
@@ -123,7 +119,7 @@ significa que ainda não foi vinculado a um `PersistentVolumeClaim`.
 O próximo passo é criar um `PersistemtVolumeClaim`. Pods usam `PersistemtVolumeClaims` 
 para requisitar armazenamento físico. Neste exercício, você vai criar 
 um `PersistemtVolumeClaim` que requisita um volume com pelo menos três 
-gibibytes, com acesso de leitura-escrita para pelo menos um Nó.
+gibibytes, com acesso de leitura-escrita para pelo menos um nó.
 
 Aqui está o arquivo de configuração para o`PersistemtVolumeClaim`:
 
@@ -222,7 +218,7 @@ kubectl delete pv task-pv-volume
 
 Se você ainda não tem um shell aberto no nó em seu cluster,
 Abra um novo shell da mesma maneira que você fez antes.
-No shell do seu Nó, remova o arquivo e o diretório que você criou:
+No shell do seu nó, remova o arquivo e o diretório que você criou:
 
 ```shell
 # Pressupondo que seu nó usa "sudo" para executar comandos
@@ -231,7 +227,7 @@ sudo rm /mnt/data/index.html
 sudo rmdir /mnt/data
 ```
 
-Você pode agora fechar o shell do seu Nó.
+Você pode agora fechar o shell do seu nó.
 
 ## Montando o mesmo Volume Persistente em dois lugares
 
