@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "HPA ContainerResource type metric moves to beta"
-date: 2023-04-11
+date: 2023-05-02
 slug: hpa-container-resource-metric
 ---
 
