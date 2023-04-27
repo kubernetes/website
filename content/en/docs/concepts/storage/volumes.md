@@ -21,7 +21,7 @@ need to share files. It can be challenging to setup
 and access a shared filesystem across all of the containers.
 The Kubernetes {{< glossary_tooltip text="volume" term_id="volume" >}} abstraction
 solves both of these problems.
-Familiarity with [Pods](/docs/concepts/workloads/pods/) is suggested..
+Familiarity with [Pods](/docs/concepts/workloads/pods/) is suggested.
 
 <!-- body -->
 
