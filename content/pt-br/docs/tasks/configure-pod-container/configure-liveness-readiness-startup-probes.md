@@ -426,7 +426,7 @@ Eventualmente, parte desta seção pode ser movida para um tópico conceitual.
   (30 segundos se não especificado), e o valor mínimo é 1.
   Veja [_probe-level_ `terminationGracePeriodSeconds`](#probe-level-terminationgraceperiodseconds) para mais detalhes.
  
- {< note >}}
+ {{< note >}}
 Nas versões anteriores ao Kubernetes 1.20, o campo `timeoutSeconds` 
 não era respeitado por verificações de execução:
 verificações continuavam executando indefinidamente, até além do prazo final configurado,
