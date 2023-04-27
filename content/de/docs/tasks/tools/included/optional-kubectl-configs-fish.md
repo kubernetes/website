@@ -1,6 +1,6 @@
 ---
 title: "fish Autovervollständigung"
-description: "Optionale Konfiguration im die fish shell Autovervollständigung einzurichten."
+description: "Optionale Konfiguration um die fish shell Autovervollständigung einzurichten."
 headless: true
 _build:
   list: never
@@ -12,13 +12,12 @@ _build:
 Autovervollständigung für Fish benötigt kubectl 1.23 oder neuer.
 {{< /note >}}
 
-Das kubectl Autovervollständigungsskript für Fish kann mit folgendem Befehl `kubectl completion fish` generiert werden. 
-The kubectl completion script for Fish can be generated with the command `kubectl completion fish`. Mit dem Befehl `kubectl completion fish | source` aktivieren Sie die Autovervollständigung in ihrer aktuellen Sitzung.
+Das kubectl Autovervollständigungsskript für Fish kann mit folgendem Befehl `kubectl completion fish` generiert werden. Mit dem Befehl `kubectl completion fish | source` wird die Autovervollständigung in der aktuellen Sitzung aktiviert.
 
-Um die Autovervollständigung in allen Sitzungen einzurichten, tragen sie den folgenden Befehl in Ihre `~/.config/fish/config.fish` Datei ein.
+Um die Autovervollständigung in allen Sitzungen einzurichten, muss folgender Befehl in die `~/.config/fish/config.fish` Datei eingetragen werden:
 
 ```shell
 kubectl completion fish | source
 ```
 
-Nach dem Neuladen Ihrer Shell, sollte die kubectl Autovervollständigung funktionieren.
+Nach dem Neuladen der Shell, sollte die kubectl Autovervollständigung funktionieren.

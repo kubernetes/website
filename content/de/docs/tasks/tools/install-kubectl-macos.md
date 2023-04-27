@@ -10,7 +10,7 @@ card:
 
 ## {{% heading "prerequisites" %}}
 
-Sie müssen eine kubectl-Version verwenden, welche nicht mehr als eine Minor-Version Unterschied zu ihrem Cluster aufweist. Zum Beispiel: eine Client-Version v{{< skew currentVersion >}} kann mit folgenden Versionen kommunizieren v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}, und v{{< skew currentVersionAddMinor 1 >}}.
+Um kubectl zu verwenden darf die kubectl-Version nicht mehr als eine Minor-Version Unterschied zu deinem Cluster aufweisen. Zum Beispiel: eine Client-Version v{{< skew currentVersion >}} kann mit folgenden Versionen kommunizieren v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}, und v{{< skew currentVersionAddMinor 1 >}}.
 Die Verwendung der neuesten kompatiblen Version von kubectl hilft, unvorhergesehene Probleme zu vermeiden.
 
 ## Kubectl auf macOS installieren
@@ -42,7 +42,7 @@ Um kubectl auf macOS zu installieren, gibt es die folgenden Möglichkeiten:
    {{< /tabs >}}
 
    {{< note >}}
-   Um eine spezifische Version herunterzuladen, ersetzen Sie `$(curl -L -s https://dl.k8s.io/release/stable.txt)` mit der spezifischen Version
+   Um eine spezifische Version herunterzuladen, ersetze `$(curl -L -s https://dl.k8s.io/release/stable.txt)` mit der spezifischen Version
 
    Um zum Beispiel Version {{< param "fullversion" >}} auf Intel macOS herunterzuladen:
 
@@ -60,7 +60,7 @@ Um kubectl auf macOS zu installieren, gibt es die folgenden Möglichkeiten:
 
 2. Binary validieren (optional)
 
-   Downloaden Sie die kubectl Checksum-Datei:
+   Download der kubectl Checksum-Datei:
 
    {{< tabs name="download_checksum_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
@@ -71,7 +71,7 @@ Um kubectl auf macOS zu installieren, gibt es die folgenden Möglichkeiten:
    {{< /tab >}}
    {{< /tabs >}}
   
-   Validieren Sie die Kubectl Binary mit der Checksum-Datei:
+   Kubectl Binary mit der Checksum-Datei validieren:
 
    ```bash
    echo "$(cat kubectl.sha256)  kubectl" | shasum -a 256 --check
@@ -91,7 +91,7 @@ Um kubectl auf macOS zu installieren, gibt es die folgenden Möglichkeiten:
    ```
 
    {{< note >}}
-   Laden Sie von der Binary und Checksum-Datei immer die selben Versionen herunter.
+   Lade von der kubectl Binary und Checksum-Datei immer die selben Versionen herunter.
    {{< /note >}}
 
 3. Kubectl Binary ausführbar machen.
@@ -108,7 +108,7 @@ Um kubectl auf macOS zu installieren, gibt es die folgenden Möglichkeiten:
    ```
 
    {{< note >}}
-   Stellen Sie sicher, dass `/usr/local/bin` in Ihrer PATH Umgebungsvariable gesetzt ist.
+   Stelle sicher, dass `/usr/local/bin` in deiner PATH Umgebungsvariable gesetzt ist.
    {{< /note >}}
 
 5. Prüfen ob die installierte Version die aktuellste Version ist:
@@ -124,11 +124,11 @@ Um kubectl auf macOS zu installieren, gibt es die folgenden Möglichkeiten:
    WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
    ```
 
-   Sie können diese Warnung ignorieren. Sie prüfen lediglich die `kubectl` Version, welche Sie installiert haben.
+   Diese Warnung kann ignoriert werden. Prüfe lediglich die `kubectl` Version, welche installiert wurde.
    
    {{< /note >}}
    
-   Oder benutzten Sie diesen Befehl für eine detailliertere Ansicht:
+   Oder benutzte diesen Befehl für eine detailliertere Ansicht:
 
    ```cmd
    kubectl version --client --output=yaml
@@ -142,10 +142,10 @@ Um kubectl auf macOS zu installieren, gibt es die folgenden Möglichkeiten:
 
 ### Mit Homebrew auf macOS installieren
 
-Wenn Sie macOS und [Homebrew](https://brew.sh/) als Paketmanager benutzen,
-können Sie kubectl über diesen installieren.
+Wenn macOS und [Homebrew](https://brew.sh/) als Paketmanager benutzt wird,
+kann kubectl über diesen installiert werden.
 
-1. Führen Sie den Installationsbefehl aus:
+1. Führe den Installationsbefehl aus:
 
    ```bash
    brew install kubectl
@@ -165,16 +165,16 @@ können Sie kubectl über diesen installieren.
 
 ### Mit Macports auf macOS installieren
 
-Wenn Sie macOS und  [Macports](https://macports.org/) als Paketmanager benutzen, können Sie kubectl über diesen installieren.
+Wenn macOS und  [Macports](https://macports.org/) als Paketmanager benutzt wird, kann kubectl über diesen installiert werden.
 
-1. Führen Sie den Installationsbefehl aus:
+1. Führe den Installationsbefehl aus:
 
    ```bash
    sudo port selfupdate
    sudo port install kubectl
    ```
 
-1. Prüfen ob die installierte Version die aktuellste Version ist:
+2. Prüfen ob die installierte Version die aktuellste Version ist:
 
    ```bash
    kubectl version --client
@@ -188,7 +188,7 @@ Wenn Sie macOS und  [Macports](https://macports.org/) als Paketmanager benutzen,
 
 ### Shell Autovervollständigung einbinden
 
-kubectl stellt Autovervollständigungen für Bash, Zsh, Fish und Powershell zur Verfügung, mit welchem Sie Kommandozeilen Befehle beschleunigen können.
+kubectl stellt Autovervollständigungen für Bash, Zsh, Fish und Powershell zur Verfügung, mit welchem Kommandozeilenbefehle beschleunigt werden können.
 
 Untenstehend ist beschrieben, wie die Autovervollständigungen für Fish und Zsh eingebunden werden.
 
@@ -214,7 +214,7 @@ Untenstehend ist beschrieben, wie die Autovervollständigungen für Fish und Zsh
 
 2. Binär-Datei validieren (optional)
 
-   Downloaden Sie die kubectl-convert Checksum-Datei:
+   Download der kubectl-convert Checksum-Datei:
 
    {{< tabs name="download_convert_checksum_macos" >}}
    {{< tab name="Intel" codelang="bash" >}}
@@ -225,7 +225,7 @@ Untenstehend ist beschrieben, wie die Autovervollständigungen für Fish und Zsh
    {{< /tab >}}
    {{< /tabs >}}
 
-   Validieren Sie die kubectl-convert Binary mit der Checksum-Datei:
+   Validierung der kubectl-convert Binary mit der Checksum-Datei:
 
    ```bash
    echo "$(cat kubectl-convert.sha256)  kubectl-convert" | shasum -a 256 --check
@@ -245,7 +245,7 @@ Untenstehend ist beschrieben, wie die Autovervollständigungen für Fish und Zsh
    ```
 
    {{< note >}}
-      Laden Sie von der Binary und Checksum-Datei immer die selben Versionen herunter.
+      Lade von der kubectl Binary und Checksum-Datei immer die selben Versionen herunter.
    {{< /note >}}
 
 3. Kubectl-convert Binary ausführbar machen
@@ -254,7 +254,7 @@ Untenstehend ist beschrieben, wie die Autovervollständigungen für Fish und Zsh
    chmod +x ./kubectl-convert
    ```
 
-4. Kubectl-convert Binary zu einem Ordner in ihrem `PATH` verschieben.
+4. Kubectl-convert Binary zu einem Ordner in `PATH` Umgebungsvariable verschieben.
 
    ```bash
    sudo mv ./kubectl-convert /usr/local/bin/kubectl-convert
@@ -262,7 +262,7 @@ Untenstehend ist beschrieben, wie die Autovervollständigungen für Fish und Zsh
    ```
 
    {{< note >}}
-    Stellen Sie sicher, dass `/usr/local/bin` in Ihrer PATH Umgebungsvariable gesetzt ist.
+    Stelle sicher, dass `/usr/local/bin` in der PATH Umgebungsvariable gesetzt ist.
    {{< /note >}}
 
 5. Verifizieren, dass das Pluign erfolgreich installiert wurde:
