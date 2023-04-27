@@ -8,19 +8,19 @@ _build:
   publishResources: false
 ---
 
-Das kubectl Autovervollständigungsskript für Zsh kann mit folgendem Befehl `kubectl completion zsh` generiert werden.Mit dem Befehl `kubectl completion zsh | source` aktivieren Sie die Autovervollständigung in ihrer aktuellen Sitzung.
+Das kubectl Autovervollständigungsskript für Zsh kann mit folgendem Befehl `kubectl completion zsh` generiert werden. Mit dem Befehl `kubectl completion zsh | source` wird die Autovervollständigung in der aktuellen Sitzung aktiviert.
 
-Um die Autovervollständigung in allen Sitzungen einzurichten, tragen Sie den folgenden Befehl in Ihre `~/.zshrc` Datei ein:
+Um die Autovervollständigung in allen Sitzungen einzurichten, muss folgender Befehl in die `~/.zshrc` Datei eingetragen werden:
 
 ```zsh
 source <(kubectl completion zsh)
 ```
 
-Wenn Sie ein Alias für kubectl eingerichtet haben, funktioniert die kubectl Autovervollständung automatisch.
+Falls ein Alias für kubectl eingerichtet wurde, funktioniert die kubectl Autovervollständung automatisch.
 
-Nach dem Neuladen Ihrer Shell, sollte die kubectl Autovervollständigung funktionieren.
+Nach dem Neuladen der Shell, sollte die kubectl Autovervollständigung funktionieren.
 
-Sollte ein Fehler auftreten wie dieser: `2: command not found: compdef`, fügen Sie bitte folgendes am Anfang Ihrer `~/.zshrc` Datei ein:
+Sollte ein Fehler auftreten wie dieser: `2: command not found: compdef`, muss bitte folgendes am Anfang der `~/.zshrc` Datei eingefügt werden:
 
 ```zsh
 autoload -Uz compinit
