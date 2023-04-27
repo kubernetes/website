@@ -1,6 +1,7 @@
 ---
 title: 권장 레이블
 content_type: concept
+weight: 100
 ---
 
 <!-- overview -->

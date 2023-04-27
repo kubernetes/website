@@ -1,7 +1,7 @@
 ---
 title: 쿠버네티스 오브젝트 관리
 content_type: concept
-weight: 15
+weight: 20
 ---
 
 <!-- overview -->
