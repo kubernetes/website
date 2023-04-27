@@ -7,12 +7,11 @@ full_link: /docs/concepts/workloads/pods/pod-lifecycle/#container-probes
 short_description: >
   A diagnostic performed periodically by the kubelet on a container.
 
-aka:
 tags:
-
+- tool
 ---
 A probe is a diagnostic performed periodically by the kubelet on a container
-running in a Pod.
+running in a pod to define container state and health and informing container lifecycle.
 
 <!--more-->
  
