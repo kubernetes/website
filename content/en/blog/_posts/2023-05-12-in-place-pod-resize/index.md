@@ -110,7 +110,7 @@ Once the local cluster is up and running, Kubernetes users can schedule pods
 with resources, and resize the pods via kubectl. An example of how to use this
 feature is illustrated in the following demo video.
 
-[![](in-place-pod-resize-demo.png)](https://youtu.be/1m2FOuB6Bh0)
+{{< youtube id="1m2FOuB6Bh0" title="In-place resize of pod CPU and memory resources">}}
 
 
 ## Example Use Cases
@@ -141,7 +141,7 @@ application has finished initializing.
 
 ## Known Issues
 
-This feature enters v1.27 at [alpha stage](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/#feature-stages).
+This feature enters v1.27 at [alpha stage](/docs/reference/command-line-tools-reference/feature-gates/#feature-stages).
 Below are a few known issues users may encounter:
 - containerd versions below v1.6.9 do not have the CRI support needed for full
   end-to-end operation of this feature. Attempts to resize pods will appear
