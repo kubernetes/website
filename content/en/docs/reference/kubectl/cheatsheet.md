@@ -271,6 +271,7 @@ kubectl get pod mypod -o yaml | sed 's/\(image: myimage\):.*$/\1:v4/' | kubectl 
 kubectl label pods my-pod new-label=awesome                      # Add a Label
 kubectl label pods my-pod new-label-                             # Remove a label
 kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq       # Add an annotation
+kubectl annotate pods my-pod icon-                               # Remove annotation
 kubectl autoscale deployment foo --min=2 --max=10                # Auto scale a deployment "foo"
 ```
 
