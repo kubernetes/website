@@ -1,12 +1,12 @@
 ---
 layout: blog
-title: "Kubernetes 1.27: Single Pod Access Mode for PersistentVolumes Graduates to Beta"
+title: "Kubernetes 1.27：持久卷的单个 Pod 访问模式升级到 Beta"
 date: 2023-04-20
 slug: read-write-once-pod-access-mode-beta
 ---
 <!--
 layout: blog
-title: "Kubernetes 1.27：持久卷的单个Pod访问模式升级为Beta版"
+title: "Kubernetes 1.27: Single Pod Access Mode for PersistentVolumes Graduates to Beta"
 date: 2023-04-20
 slug: read-write-once-pod-access-mode-beta
 -->
