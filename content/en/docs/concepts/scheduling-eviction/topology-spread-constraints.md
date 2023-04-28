@@ -254,7 +254,7 @@ confusing and troubleshooting is less straightforward.
 You need a mechanism to ensure that all the nodes in a topology domain (such as a
 cloud provider region) are labelled consistently.
 To avoid you needing to manually label nodes, most clusters automatically
-populate well-known labels such as `topology.kubernetes.io/hostname`. Check whether
+populate well-known labels such as `kubernetes.io/hostname`. Check whether
 your cluster supports this.
 
 ## Topology spread constraint examples
