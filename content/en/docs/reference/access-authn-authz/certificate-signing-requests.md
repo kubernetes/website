@@ -405,6 +405,14 @@ If you use your own authorization mechanism and you have enabled
 ClusterTrustBundles in your cluster, you should set up an equivalent rule to
 make these objects public within the cluster, so that they work as intended.
 
+If you do not have permission to list cluster trust bundles by default in your
+cluster, you can impersonate a service account you have access to in order to
+see available ClusterTrustBundles:
+
+```bash
+kubectl get clustertrustbundles --as='system:serviceaccount:mynamespace:default'
+```
+
 ### Signer-linked ClusterTrustBundles {#ctb-signer-linked}
 
 Signer-linked ClusterTrustBundles are associated with a _signer name_, like this:
