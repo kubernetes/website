@@ -165,9 +165,15 @@ For historical context, please note that Docker has been using
 [a default seccomp profile](https://docs.docker.com/engine/security/seccomp/)
 to only allow a restricted set of syscalls since 2016 from
 [Docker Engine 1.10](https://www.docker.com/blog/docker-engine-1-10-security/),
-but Kubernetes is still not confining workloads by default. The default seccomp
-profile can be found [in containerd](https://github.com/containerd/containerd/blob/main/contrib/seccomp/seccomp_default.go)
-as well. Fortunately, [Seccomp Default](/docs/tutorials/security/seccomp/) is now generally available (GA) in Kubernetes 1.27, and it can be enabled and tested to use a default seccomp profile for all workloads.
+but Kubernetes 1.27 defaults to not confining workloads with seccomp. This means that if a workload does not explicitly 
+specify a seccomp profile, it will run with no restrictions imposed by seccomp.
+Similarly, the containerd container runtime used by Kubernetes, does have a [mechanism](https://github.com/containerd/containerd/blob/54732fa9fb921b98f4fc5d96025307cc807f04d9/contrib/seccomp/seccomp_default.go) 
+for defaulting to a seccomp profile. However, this mechanism is not enabled by default.
+To use a default seccomp profile in Kubernetes, you can enable [Seccomp profile defaulting]
+(/docs/tutorials/security/seccomp/#enable-the-use-of-runtimedefault-as-the-default-seccomp-profile-for-all-workloads)
+and define a seccomp profile to use. This will cause Kubernetes to apply the default profile to 
+any workload that does not specify a seccomp profile.It's important to note that this defaulting mechanism
+must be explicitly enabled in Kubernetes,and the default seccomp profile must be defined before it can be used.
 
 {{< note >}}
 Seccomp is only available on Linux nodes.
