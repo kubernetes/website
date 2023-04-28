@@ -1,7 +1,7 @@
 ---
 title: 파이널라이저
 content_type: concept
-weight: 60
+weight: 80
 ---
 
 <!-- overview -->
