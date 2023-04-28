@@ -59,7 +59,7 @@ kubeadm config images pull [flags]
 </tr>
 
 <tr>
-<td colspan="2">--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "k8s.gcr.io"</td>
+<td colspan="2">--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Padrão: "registry.k8s.io"</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Escolha um registro de contêineres para baixar imagens da camada de gerenciamento</p></td>

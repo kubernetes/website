@@ -172,6 +172,7 @@ GET /api/v1/componentstatuses
 - **pretty** (*in query*): string
 - **resourceVersion** (*in query*): string
 - **resourceVersionMatch** (*in query*): string
+- **sendInitialEvents** (*in query*): boolean
 - **timeoutSeconds** (*in query*): integer
 - **watch** (*in query*): boolean
 -->
@@ -207,6 +208,10 @@ GET /api/v1/componentstatuses
 - **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
