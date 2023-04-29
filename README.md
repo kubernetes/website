@@ -185,7 +185,8 @@ If you need help at any point when contributing, the [New Contributor Ambassador
 ## Localization `README.md`'s
 
 | Language                   | Language                   |
-| -------------------------- | -------------------------- |
+|----------------------------| -------------------------- |
+| [Bengali](README-zh.md)    |      |
 | [Chinese](README-zh.md)    | [Korean](README-ko.md)     |
 | [French](README-fr.md)     | [Polish](README-pl.md)     |
 | [German](README-de.md)     | [Portuguese](README-pt.md) |
