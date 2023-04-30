@@ -180,7 +180,5 @@ Agar sizga hissa qo‘shayotganda istalgan vaqtda yordam kerak bo‘lsa, [New Co
 
 # Odob-axloq qoidalari
 Kubernetes hamjamiyatida ishtirok etish [CNCF axloq kodeksi](https://github.com/cncf/foundation/blob/master/code-of-conduct-languages/ru.md) bilan tartibga solinadi.
-
-
 # Rahmat!
 Kubernetes hamjamiyat ishtirok etishida muvaffaqiyat qozonadi va biz sizning veb-saytimizga va hujjatlarimizga qo'shgan hissalaringizni qadrlaymiz!
