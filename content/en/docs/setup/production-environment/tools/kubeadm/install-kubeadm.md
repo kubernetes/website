@@ -181,10 +181,10 @@ You can create this directory if you need to, making it world-readable but write
 {{% /tab %}}
 {{% tab name="Red Hat-based distributions" %}}
 ```bash
-cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+cat << 'EOF' | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-$basearch
 enabled=1
 gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
@@ -208,17 +208,14 @@ sudo systemctl enable --now kubelet
 
   - You can leave SELinux enabled if you know how to configure it but it may require settings that are not supported by kubeadm.
 
-  - If the `baseurl` fails because your Red Hat-based distribution cannot interpret `basearch`, replace `\$basearch` with your computer's architecture.
-  Type `uname -m` to see that value.
-  For example, the `baseurl` URL for `x86_64` could be: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`.
-
 {{% /tab %}}
 {{% tab name="Without a package manager" %}}
 Install CNI plugins (required for most pod network):
 
 ```bash
-CNI_PLUGINS_VERSION="v1.1.1"
-ARCH="amd64"
+CNI_PLUGINS_VERSION="v1.2.0"
+[ "$(uname -m)" = 'aarch64' ] && ARCH="arm64"
+[ "$(uname -m)" = 'x86_64'  ] && ARCH="amd64"
 DEST="/opt/cni/bin"
 sudo mkdir -p "$DEST"
 curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_PLUGINS_VERSION}/cni-plugins-linux-${ARCH}-${CNI_PLUGINS_VERSION}.tgz" | sudo tar -C "$DEST" -xz
@@ -239,8 +236,9 @@ sudo mkdir -p "$DOWNLOAD_DIR"
 Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI))
 
 ```bash
-CRICTL_VERSION="v1.25.0"
-ARCH="amd64"
+CRICTL_VERSION="v1.27.0"
+[ "$(uname -m)" = 'aarch64' ] && ARCH="arm64"
+[ "$(uname -m)" = 'x86_64'  ] && ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
 
@@ -248,7 +246,8 @@ Install `kubeadm`, `kubelet`, `kubectl` and add a `kubelet` systemd service:
 
 ```bash
 RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
-ARCH="amd64"
+[ "$(uname -m)" = 'aarch64' ] && ARCH="arm64"
+[ "$(uname -m)" = 'x86_64'  ] && ARCH="amd64"
 cd $DOWNLOAD_DIR
 sudo curl -L --remote-name-all https://dl.k8s.io/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet}
 sudo chmod +x {kubeadm,kubelet}
