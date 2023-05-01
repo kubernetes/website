@@ -197,7 +197,7 @@ spec:
     # This is the pod template
     metadata:
       labels:             
-        id: awesome-label 
+        pod-env: dev-pod1 
     spec:
       containers:
       - name: hello
