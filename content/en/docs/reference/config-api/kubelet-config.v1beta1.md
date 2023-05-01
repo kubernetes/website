@@ -214,13 +214,15 @@ Default: false</p>
 <a href="#kubelet-config-k8s-io-v1beta1-KubeletAuthentication"><code>KubeletAuthentication</code></a>
 </td>
 <td>
-   <p>authentication specifies how requests to the Kubelet's server are authenticated.
-Defaults:
+   <p>authentication specifies how requests to the Kubelet's server are authenticated.</p>
+   <p>Defaults:</p>
+<p><code><pre>
 anonymous:
-enabled: false
+  enabled: false
 webhook:
-enabled: true
-cacheTTL: &quot;2m&quot;</p>
+  enabled: true
+cacheTTL: &quot;2m&quot;
+</pre></code></p>
 </td>
 </tr>
 <tr><td><code>authorization</code><br/>
@@ -483,7 +485,7 @@ Default: &quot;cgroupfs&quot;</p>
 <td>
    <p>cpuManagerPolicy is the name of the policy to use.
 Requires the CPUManager feature gate to be enabled.
-Default: &quot;None&quot;</p>
+Default: &quot;none&quot;</p>
 </td>
 </tr>
 <tr><td><code>cpuManagerPolicyOptions</code><br/>
@@ -501,7 +503,6 @@ Default: nil</p>
 </td>
 <td>
    <p>cpuManagerReconcilePeriod is the reconciliation period for the CPU Manager.
-Requires the CPUManager feature gate to be enabled.
 Default: &quot;10s&quot;</p>
 </td>
 </tr>
@@ -997,9 +998,9 @@ Default: [&quot;pods&quot;]</p>
 <code>[]string</code>
 </td>
 <td>
-   <p>A comma separated whitelist of unsafe sysctls or sysctl patterns (ending in <code>*</code>).
-Unsafe sysctl groups are <code>kernel.shm*</code>, <code>kernel.msg*</code>, <code>kernel.sem</code>, <code>fs.mqueue.*</code>,
-and <code>net.*</code>. For example: &quot;<code>kernel.msg*,net.ipv4.route.min_pmtu</code>&quot;
+   <p>A comma separated whitelist of unsafe sysctls or sysctl patterns (ending in <code>&#42;</code>).
+Unsafe sysctl groups are <code>kernel.shm&#42;</code>, <code>kernel.msg&#42;</code>, <code>kernel.sem</code>, <code>fs.mqueue.&#42;</code>,
+and <code>net.&#42;</code>. For example: &quot;<code>kernel.msg&#42;,net.ipv4.route.min_pmtu</code>&quot;
 Default: []</p>
 </td>
 </tr>
@@ -1302,9 +1303,9 @@ to provide credentials. Images are expected to contain the registry domain
 and URL path.</p>
 <p>Each entry in matchImages is a pattern which can optionally contain a port and a path.
 Globs can be used in the domain, but not in the port or the path. Globs are supported
-as subdomains like '<em>.k8s.io' or 'k8s.</em>.io', and top-level-domains such as 'k8s.<em>'.
-Matching partial subdomains like 'app</em>.k8s.io' is also supported. Each glob can only match
-a single subdomain segment, so *.io does not match *.k8s.io.</p>
+as subdomains like '&#42;.k8s.io' or 'k8s.&#42;.io', and top-level-domains such as 'k8s.&#42;'.
+Matching partial subdomains like 'app&#42;.k8s.io' is also supported. Each glob can only match
+a single subdomain segment, so &#42;.io does not match &#42;.k8s.io.</p>
 <p>A match exists between an image and a matchImage when all of the below are true:</p>
 <ul>
 <li>Both contain the same number of domain parts and each part matches.</li>
@@ -1314,9 +1315,9 @@ a single subdomain segment, so *.io does not match *.k8s.io.</p>
 <p>Example values of matchImages:</p>
 <ul>
 <li>123456789.dkr.ecr.us-east-1.amazonaws.com</li>
-<li>*.azurecr.io</li>
+<li>&#42;.azurecr.io</li>
 <li>gcr.io</li>
-<li><em>.</em>.registry.io</li>
+<li>&#42;.registry.io</li>
 <li>registry.io:8080/path</li>
 </ul>
 </td>
