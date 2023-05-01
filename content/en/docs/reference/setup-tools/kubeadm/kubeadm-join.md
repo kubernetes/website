@@ -180,13 +180,14 @@ To allow `kubeadm join` to use predefined kubelet credentials and skip client TL
 and CSR approval for a new node:
 1. From a working control plane node in the cluster that has `/etc/kubernetes/pki/ca.key`
 execute `kubeadm kubeconfig user --org system:nodes --client-name system:node:$NODE > kubelet.conf`.
-2. `$NODE` must be set to the name of the new node. Modify the resulted `kubelet.conf` manually
-to adjust the cluster name and server endpoint, or pass `kubeconfig user --config` (it accepts `InitConfiguration`).
-If your cluster does not have the `ca.key`then you must sign the embedded certificates in the
+  `$NODE` must be set to the name of the new node.
+2. Modify the resulted `kubelet.conf` manually to adjust the cluster name and the
+server endpoint, or pass `kubeconfig user --config` (it accepts `InitConfiguration`).
+If your cluster does not have the `ca.key`file, you must sign the embedded certificates in the
 `kubelet.conf` externally.
 1. Copy the resulting `kubelet.conf` to `/etc/kubernetes/kubelet.conf` on the new node.
 2. Execute `kubeadm join` with the flag
-`--ignore-preflight-errors=FileAvailable--etc-kubernetes-kubelet.conf` on the new node.
+   `--ignore-preflight-errors=FileAvailable--etc-kubernetes-kubelet.conf` on the new node.
 {{< /note >}}
 
 ### Securing your installation even more {#securing-more}
