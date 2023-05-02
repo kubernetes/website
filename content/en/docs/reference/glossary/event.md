@@ -4,13 +4,13 @@ id: event
 date: 2022-01-16
 full_link: /docs/reference/kubernetes-api/cluster-resources/event-v1/
 short_description: >
-   A report of an event somewhere in the cluster. It generally denotes some state change in the system.
+   Refers to an object that describes a notable occurrence or change of state in the system. 
 aka: 
 tags:
 - core-object
 - fundamental
 ---
-Each Event is a report of an event somewhere in the {{< glossary_tooltip text="cluster" term_id="cluster" >}}. 
+An Event refers to an object that describes a notable occurrence in the system. 
 It generally denotes some state change in the system.
 
 <!--more-->
