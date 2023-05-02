@@ -162,10 +162,7 @@ In-place minor version `kubelet` upgrades are not supported.
 {{</ note >}}
 
 {{< warning >}}
-Running a cluster with `kubelet` instances that are persistently two minor versions behind `kube-apiserver` is not recommended:
-
-* they must be upgraded within one minor version of `kube-apiserver` before the control plane can be upgraded
-* it increases the likelihood of running `kubelet` versions older than the three maintained minor releases
+Running a cluster with `kubelet` instances that are persistently two minor versions behind `kube-apiserver` means they must be upgraded before the control plane can be upgraded.
 {{</ warning >}}
 
 ### kube-proxy
