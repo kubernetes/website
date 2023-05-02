@@ -18,7 +18,6 @@ This page contains a list of commonly used `kubectl` commands and flags.
 {{< note >}}
 These instructions are for Kubernetes v{{< skew currentVersion >}}. To check the version, use the `kubectl version` command.
 {{< /note >}}
-
 <!-- body -->
 
 ## Kubectl autocomplete
