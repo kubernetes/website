@@ -167,6 +167,14 @@ resources:
     memory: 128Mi
 ```
 
+{{< note >}}
+
+`리밋레인지`는 적용되는 기본 값의 일관성을 검사하지 않는다. 이는 `리밋레인지`에 의해 설정된 _상한_의 기본값이 클라이언트가 API 서버에 제출하는 사양의 컨테이너에 대해 지정된 _요청량_ 값보다 작을 수 있음을 의미한다. 이 경우, 최종 파드는 스케줄링할 수 없다.
+자세한 내용은 [리밋 레인지 개요](/docs/concepts/policy/limit-range/#constraints-on-resource-limits-and-requests)를 참조한다.
+
+{{< /note >}}
+
+
 ## 기본 메모리 상한 및 요청량에 대한 동기
 
 네임스페이스에 {{< glossary_tooltip text="리소스 쿼터" term_id="resource-quota" >}}가 
