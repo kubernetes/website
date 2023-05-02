@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes 1.27: HorizontalPodAutoscaler ContainerResource type metric moves to beta"
-date: 2023-05-02
+date: 2023-05-02T12:00:00+0800
 slug: hpa-container-resource-metric
 ---
 
