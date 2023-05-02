@@ -177,5 +177,4 @@ Example:
 
 If `kube-proxy` version is **{{< skew currentVersionAddMinor -2 >}}**:
 
-* `kubelet` version must be at the same minor version as **{{< skew currentVersionAddMinor -2 >}}**.
 * `kube-apiserver` version must be between **{{< skew currentVersionAddMinor -2 >}}** and **{{< skew currentVersion >}}**, inclusive.
