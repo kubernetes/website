@@ -64,6 +64,7 @@ Example:
 ### kube-proxy
 
 `kube-proxy` must not be newer than `kube-apiserver`, and may be up to two minor versions older.
+`kube-proxy` may be up to two minor versions older or newer than the `kubelet` instance it runs alongside.
 
 Example:
 
