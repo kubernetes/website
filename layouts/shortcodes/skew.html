@@ -77,6 +77,25 @@
     {{- $currentVersionAddMinor -}}
 {{- end -}}
 
+<!-- output patch version for current release -->
+{{- if eq $version "currentPatchVersion" -}}
+    {{- $seenPatchVersionInfoCount := 0 }}
+    {{- range $releaseInfo := .Site.Data.releases.schedule.schedules -}}
+        {{- if eq $currentVersion ( printf "%.2f" $releaseInfo.release ) -}}
+            {{- range $patchReleaseInfo := $releaseInfo.previousPatches -}}
+                {{- if eq $seenPatchVersionInfoCount 0 -}}
+                  {{- $patchReleaseInfo.release -}}
+                {{- end -}}
+                {{- $seenPatchVersionInfoCount = add $seenPatchVersionInfoCount 1 -}}
+            {{- end -}}
+        {{- end -}}
+    {{- end -}}
+    {{- if eq $seenPatchVersionInfoCount 0 -}}
+        <!-- fallback patch version to .0 -->
+        {{- printf "%.2f.0" $currentVersion -}}
+    {{- end -}}
+{{- end -}}
+
 <!--
 example shortcode use:
 - skew nextMinorVersion
