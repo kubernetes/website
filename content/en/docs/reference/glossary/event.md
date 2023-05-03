@@ -4,7 +4,7 @@ id: event
 date: 2022-01-16
 full_link: /docs/reference/kubernetes-api/cluster-resources/event-v1/
 short_description: >
-   Refers to an object that describes a notable occurrence or change of state in the system. 
+   Refers to an object that describes a notable occurrence or change of state in the system.
 aka: 
 tags:
 - core-object
