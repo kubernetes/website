@@ -362,7 +362,7 @@ This field follows standard Kubernetes label syntax. Valid values are either:
 
 | Protocol | Description |
 |----------|-------------|
-| `kubernetes.io/h2c` | HTTP/2 over cleartext as described in [RFC 7540](https://www.rfc-editor.org/rfc/rfc7540). |
+| `kubernetes.io/h2c` | HTTP/2 over cleartext as described in [RFC 7540](https://www.rfc-editor.org/rfc/rfc7540) |
 
 
 
