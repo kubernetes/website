@@ -559,7 +559,7 @@ For example, `kubectl get configmaps --field-selector=metadata.name=my-configmap
 {{< /note >}}
 
 <!--
-Rather than referring to individual `resources`、`apiGroups`, and `verbs`,
+Rather than referring to individual `resources`, `apiGroups`, and `verbs`,
 you can use the wildcard `*` symbol to refer to all such objects. 
 For `nonResourceURLs`, you can use the wildcard `*` as a suffix glob match.
 For `resourceNames`, an empty set means that everything is allowed.
@@ -1596,7 +1596,7 @@ Allows full access to the kubelet API.
 <td>
 <!--
 Allows access to the resources required to perform
-<a href="/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/">Kubelet TLS bootstrapping</a>.
+<a href="/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/">kubelet TLS bootstrapping</a>.
 -->
 允许访问执行
 <a href="/zh-cn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/">kubelet TLS 启动引导</a>
