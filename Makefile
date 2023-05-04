@@ -34,9 +34,11 @@ module-init: ## Initialize required submodules.
 all: build ## Build site with production settings and put deliverables in ./public
 
 build: module-check ## Build site with non-production settings and put deliverables in ./public
+	hugo --version
 	hugo --cleanDestinationDir --minify --environment development
 
 build-preview: module-check ## Build site with drafts and future posts enabled
+	hugo --version
 	hugo --cleanDestinationDir --buildDrafts --buildFuture --environment preview
 
 deploy-preview: ## Deploy preview site via netlify
