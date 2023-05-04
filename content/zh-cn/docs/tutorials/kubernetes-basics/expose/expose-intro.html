@@ -53,7 +53,7 @@ weight: 10
 				<li><i>ExternalName</i> - 通过返回带有该名称的 CNAME 记录，使用任意名称(由 spec 中的<code>externalName</code>指定)公开 Service。不使用代理。这种类型需要<code>kube-dns</code>的v1.7或更高版本。</li>
 			</ul>
 <!--        <p>More information about the different types of Services can be found in the <a href="/docs/tutorials/services/source-ip/">Using Source IP</a> tutorial. Also see <a href="/docs/concepts/services-networking/connect-applications-service">Connecting Applications with Services</a>.</p>-->
-        <p>更多关于不同 Service 类型的信息可以在<a href="/zh-cn/docs/tutorials/services/source-ip/">使用源 IP </a> 教程。 也请参阅 <a href="/zh-cn/docs/concepts/services-networking/connect-applications-service">连接应用程序和 Service </a>。</p>
+        <p>更多关于不同 Service 类型的信息可以在<a href="/zh-cn/docs/tutorials/services/source-ip/">使用源 IP </a> 教程。 也请参阅 <a href="/zh-cn/docs/tutorials/services/connect-applications-service/">连接应用程序和 Service </a>。</p>
 <!--        <p>Additionally, note that there are some use cases with Services that involve not defining <code>selector</code> in the spec. A Service created without <code>selector</code> will also not create the corresponding Endpoints object. This allows users to manually map a Service to specific endpoints. Another possibility why there may be no selector is you are strictly using <code>type: ExternalName</code>.</p>-->
         <p>另外，需要注意的是有一些 Service 的用例没有在 spec 中定义<code>selector</code>。 一个没有<code>selector</code>创建的 Service 也不会创建相应的端点对象。这允许用户手动将服务映射到特定的端点。没有 selector 的另一种可能是你严格使用<code>type: ExternalName</code>来标记。</p>
 			</div>
