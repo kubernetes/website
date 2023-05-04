@@ -125,7 +125,11 @@ saving container logs to a central log store with search/browsing interface.
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about [Nodes](/docs/concepts/architecture/nodes/)
-* Learn about [Controllers](/docs/concepts/architecture/controller/)
-* Learn about [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/)
-* Read etcd's official [documentation](https://etcd.io/docs/)
+Learn more about the following:
+   * [Nodes](/docs/concepts/architecture/nodes/) and [their communication](/docs/concepts/architecture/control-plane-node-communication/) with the control plane.
+   * Kubernetes [controllers](/docs/concepts/architecture/controller/).
+   * [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/) which is the default scheduler for Kubernetes.
+   * Etcd's official [documentation](https://etcd.io/docs/).
+   * Several [container runtimes](/docs/setup/production-environment/container-runtimes/) in Kubernetes.
+   * Integrating with cloud providers using [cloud-controller-manager](/docs/concepts/architecture/cloud-controller/).
+   * [kubectl](/docs/reference/generated/kubectl/kubectl-commands) commands.
