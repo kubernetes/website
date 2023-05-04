@@ -214,8 +214,8 @@ Install CNI plugins (required for most pod network):
 
 ```bash
 CNI_PLUGINS_VERSION="v1.2.0"
+ARCH="amd64"
 [ "$(uname -m)" = 'aarch64' ] && ARCH="arm64"
-[ "$(uname -m)" = 'x86_64'  ] && ARCH="amd64"
 DEST="/opt/cni/bin"
 sudo mkdir -p "$DEST"
 curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_PLUGINS_VERSION}/cni-plugins-linux-${ARCH}-${CNI_PLUGINS_VERSION}.tgz" | sudo tar -C "$DEST" -xz
@@ -237,8 +237,8 @@ Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI)
 
 ```bash
 CRICTL_VERSION="v1.27.0"
+ARCH="amd64"
 [ "$(uname -m)" = 'aarch64' ] && ARCH="arm64"
-[ "$(uname -m)" = 'x86_64'  ] && ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
 
