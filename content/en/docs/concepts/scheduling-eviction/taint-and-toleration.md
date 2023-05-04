@@ -129,8 +129,8 @@ toleration matching the third taint. But it will be able to continue running if 
 already running on the node when the taint is added, because the third taint is the only
 one of the three that is not tolerated by the pod.
 
-Normally, if a taint with effect `NoExecute` is added to a node, then any pods that do
-not tolerate the taint will be evicted immediately, and pods that do tolerate the
+Normally, if a taint with effect `NoExecute` is added to a node, then any pods that 
+do not tolerate the taint will be _deleted_ immediately, and pods that do tolerate the
 taint will never be evicted. However, a toleration with `NoExecute` effect can specify
 an optional `tolerationSeconds` field that dictates how long the pod will stay bound
 to the node after the taint is added. For example,
