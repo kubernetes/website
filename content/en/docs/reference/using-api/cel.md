@@ -55,7 +55,7 @@ Example CEL expressions:
 | `has(self.expired) && self.created + self.ttl < self.expired`                      | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration       |
 | `self.health.startsWith('ok')`                                                     | Validate a 'health' string field has the prefix 'ok'                              |
 | `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                               | Validate that the 'foo' property of a listMap item with a key 'x' is less than 10 |
-| `type(self) == string ? self == '99%' : self == 42`                                | Validate an int-or-string field for both the the int and string cases             |
+| `type(self) == string ? self == '99%' : self == 42`                                | Validate an int-or-string field for both the int and string cases             |
 | `self.metadata.name == 'singleton'`                                                | Validate that an object's name matches a specific value (making it a singleton)   |
 | `self.set1.all(e, !(e in self.set2))`                                              | Validate that two listSets are disjoint                                           |
 | `self.names.size() == self.details.size() && self.names.all(n, n in self.details)` | Validate the 'details' map is keyed by the items in the 'names' listSet           |
