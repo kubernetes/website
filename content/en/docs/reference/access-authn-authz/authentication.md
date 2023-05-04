@@ -1352,8 +1352,10 @@ By default, all authenticated users can create `SelfSubjectReview` objects when 
 You can only make `SelfSubjectReview` requests if:
 * the `APISelfSubjectReview`
   [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  is enabled for your cluster (enabled by default after reaching Beta and will be removed in Kubernetes v1.30)
-* the API server for your cluster has the `authentication.k8s.io/v1alpha1`, `authentication.k8s.io/v1beta1`, or `authentication.k8s.io/v1`
+  is enabled for your cluster (not needed for Kubernetes {{< skew currentVersion >}}, but older
+  Kubernetes versions might not offer this feature gate, or might default it to be off)
+* (if you are running a version of Kubernetes older than v1.28) the API server for your
+  cluster has the `authentication.k8s.io/v1alpha1` or `authentication.k8s.io/v1beta1`
   {{< glossary_tooltip term_id="api-group" text="API group" >}}
   enabled.
 {{< /note >}}
