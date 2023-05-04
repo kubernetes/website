@@ -8,7 +8,7 @@ weight: 370
 ---
 <!-- overview -->
 This page shows how to configure a Key Management Service (KMS) provider and plugin to enable secret data encryption.
-Currently there are two KMS API versions. New integrations that only need to support Kubernetes v1.27+ 
+Currently there are two KMS API versions. New integrations that only need to support Kubernetes v1.27+
 should use KMS v2 as it offers significantly better performance characteristics than v1
 (note the `Caution` sections below for specific cases when KMS v2 must not be used.)
 
@@ -62,15 +62,15 @@ as the Kubernetes control plane, is responsible for all communication with the r
 {{< caution >}}
 If you are running virtual machine (VM) based nodes that leverage VM state store with this feature, you must not use KMS v2.
 
-With KMS v2, the API server uses AES-GCM with a 12 byte nonce (8 byte atomic counter and 4 bytes random data) for encryption. 
+With KMS v2, the API server uses AES-GCM with a 12 byte nonce (8 byte atomic counter and 4 bytes random data) for encryption.
 The following issues could occur if the VM is saved and restored:
-1. The counter value may be lost or corrupted if the VM is saved in an inconsistent state or restored improperly. 
-   This can lead to a situation where the same counter value is used twice, resulting in the same nonce being used 
+1. The counter value may be lost or corrupted if the VM is saved in an inconsistent state or restored improperly.
+   This can lead to a situation where the same counter value is used twice, resulting in the same nonce being used
    for two different messages.
-2. If the VM is restored to a previous state, the counter value may be set back to its previous value, 
+2. If the VM is restored to a previous state, the counter value may be set back to its previous value,
 resulting in the same nonce being used again.
 
-Although both of these cases are partially mitigated by the 4 byte random nonce, this can compromise 
+Although both of these cases are partially mitigated by the 4 byte random nonce, this can compromise
 the security of the encryption.
 {{< /caution >}}
 
@@ -171,6 +171,35 @@ Then use the functions and data structures in the stub file to develop the serve
   and every 10 seconds when the plugin is not healthy.  Plugins must take care to optimize this call as it will be
   under constant load.
 
+<!-- source
+```mermaid
+%%{init:{"theme":"neutral", "sequence": {"mirrorActors":true},
+    "themeVariables": {
+        "actorBkg":"royalblue",
+        "actorTextColor":"white"
+}}}%%
+
+sequenceDiagram
+    participant kube_api_server
+    participant kms_plugin
+    participant external_kms
+    alt Generate DEK at startup
+        Note over kube_api_server,external_kms: Refer to Generate Data Encryption Key (DEK) diagram for details
+    end
+    loop every minute (or every 10s if error or unhealthy)
+        kube_api_server->>kms_plugin: status request
+        kms_plugin->>external_kms: validate remote KEK
+        external_kms->>kms_plugin: KEK status
+        kms_plugin->>kube_api_server: return status response <br/> {"healthz": "ok", key_id: "<remote KEK ID>", "version": "v2beta1"}
+        alt KEK rotation detected (key_id changed), rotate DEK
+            Note over kube_api_server,external_kms: Refer to Generate Data Encryption Key (DEK) diagram for details
+        end
+    end
+```
+-->
+
+{{< figure src="/images/docs/kmsv2-beta-status.svg" alt="Sequence diagram for KMSv2 beta Status" class="diagram-medium" >}}
+
 * Encryption
 
   The `EncryptRequest` procedure call provides the plaintext and a UID for logging purposes.  The response must include
@@ -184,6 +213,52 @@ Then use the functions and data structures in the stub file to develop the serve
   The API server does not perform the `EncryptRequest` procedure call at a high rate.  Plugin implementations should
   still aim to keep each request's latency at under 100 milliseconds.
 
+<!-- source
+```mermaid
+%%{init:{"theme":"neutral", "sequence": {"mirrorActors":true},
+    "themeVariables": {
+        "actorBkg":"royalblue",
+        "actorTextColor":"white"
+}}}%%
+
+sequenceDiagram
+    participant user
+    participant kube_api_server
+    participant kms_plugin
+    participant external_kms
+    alt Generate DEK at startup
+        Note over kube_api_server,external_kms: Refer to Generate Data Encryption Key (DEK) diagram for details
+    end
+    user->>kube_api_server: create/update resource that's to be encrypted
+    kube_api_server->>kube_api_server: encrypt resource with DEK
+    kube_api_server->>etcd: store encrypted object
+```
+-->
+
+{{< figure src="/images/docs/kmsv2-beta-encryption.svg" alt="Sequence diagram for KMSv2 beta Encrypt" class="diagram-medium" >}}
+
+<!-- source
+```mermaid
+%%{init:{"theme":"neutral", "sequence": {"mirrorActors":true},
+    "themeVariables": {
+        "actorBkg":"royalblue",
+        "actorTextColor":"white"
+}}}%%
+
+sequenceDiagram
+    participant kube_api_server
+    participant kms_plugin
+    participant external_kms
+        kube_api_server->>kube_api_server: generate DEK
+        kube_api_server->>kms_plugin: encrypt request
+        kms_plugin->>external_kms: encrypt DEK with remote KEK
+        external_kms->>kms_plugin: encrypted DEK
+        kms_plugin->>kube_api_server: return encrypt response <br/> {"ciphertext": "<encrypted DEK>", key_id: "<remote KEK ID>", "annotations": {}}
+```
+-->
+
+{{< figure src="/images/docs/kmsv2-beta-generate-dek.svg" alt="Sequence diagram for KMSv2 beta Generate DEK" class="diagram-medium" >}}
+
 * Decryption
 
   The `DecryptRequest` procedure call provides the `(ciphertext, key_id, annotations)` from `EncryptRequest` and a UID
@@ -194,6 +269,37 @@ Then use the functions and data structures in the stub file to develop the serve
   The API server may perform thousands of `DecryptRequest` procedure calls on startup to fill its watch cache.  Thus
   plugin implementations must perform these calls as quickly as possible, and should aim to keep each request's latency
   at under 10 milliseconds.
+
+<!-- source
+```mermaid
+%%{init:{"theme":"neutral", "sequence": {"mirrorActors":true},
+    "themeVariables": {
+        "actorBkg":"royalblue",
+        "actorTextColor":"white"
+}}}%%
+
+sequenceDiagram
+    participant user
+    participant kube_api_server
+    participant kms_plugin
+    participant external_kms
+    participant etcd
+    user->>kube_api_server: get/list resource that's encrypted
+    kube_api_server->>etcd: get encrypted resource
+    etcd->>kube_api_server: encrypted resource
+    alt Encrypted DEK not in cache
+        kube_api_server->>kms_plugin: decrypt request
+        kms_plugin->>external_kms: decrypt DEK with remote KEK
+        external_kms->>kms_plugin: decrypted DEK
+        kms_plugin->>kube_api_server: return decrypted DEK
+        kube_api_server->>kube_api_server: cache decrypted DEK
+    end
+    kube_api_server->>kube_api_server: decrypt resource with DEK
+    kube_api_server->>user: return decrypted resource
+```
+-->
+
+{{< figure src="/images/docs/kmsv2-beta-decryption.svg" alt="Sequence diagram for KMSv2 beta Decrypt" class="diagram-medium" >}}
 
 * Understanding `key_id` and Key Rotation
 
@@ -222,20 +328,20 @@ Then use the functions and data structures in the stub file to develop the serve
   desired buffer to allow config changes to be processed - a minimum `M` of five minutes is recommend).  Note that no
   API server restart is required to perform KEK rotation.
 
-  {{< caution >}}  
+  {{< caution >}}
   Because you don't control the number of writes performed with the DEK, we recommend rotating the KEK at least every 90 days.
   {{< /caution >}}
 
 * protocol: UNIX domain socket (`unix`)
 
-  The plugin is implemented as a gRPC server that listens at UNIX domain socket. 
-  The plugin deployment should create a file on the file system to run the gRPC unix domain socket connection. 
-  The API server (gRPC client) is configured with the KMS provider (gRPC server) unix 
-  domain socket endpoint in order to communicate with it. 
-  An abstract Linux socket may be used by starting the endpoint with `/@`, i.e. `unix:///@foo`. 
-  Care must be taken when using this type of socket as they do not have concept of ACL 
-  (unlike traditional file based sockets). 
-  However, they are subject to Linux networking namespace, so will only be accessible to 
+  The plugin is implemented as a gRPC server that listens at UNIX domain socket.
+  The plugin deployment should create a file on the file system to run the gRPC unix domain socket connection.
+  The API server (gRPC client) is configured with the KMS provider (gRPC server) unix
+  domain socket endpoint in order to communicate with it.
+  An abstract Linux socket may be used by starting the endpoint with `/@`, i.e. `unix:///@foo`.
+  Care must be taken when using this type of socket as they do not have concept of ACL
+  (unlike traditional file based sockets).
+  However, they are subject to Linux networking namespace, so will only be accessible to
   containers within the same pod unless host networking is used.
 
 ### Integrating a KMS plugin with the remote KMS
