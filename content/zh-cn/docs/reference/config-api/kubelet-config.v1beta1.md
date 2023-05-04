@@ -387,11 +387,11 @@ Default: 10
 <td>
    <!--eventRecordQPS is the maximum event creations per second. If 0, there
 is no limit enforced. The value cannot be a negative number.
-Default: 5
+Default: 50
    -->
    <p><code>eventRecordQPS</code>设置每秒钟可创建的事件个数上限。如果此值为 0，
 则表示没有限制。此值不能设置为负数。</p>
-  <p>默认值：5</p>
+  <p>默认值：50</p>
 </td>
 </tr>
 
@@ -404,12 +404,12 @@ eventBurst is the maximum size of a burst of event creations, temporarily
 allows event creations to burst to this number, while still not exceeding
 eventRecordQPS. This field canot be a negative number and it is only used
 when eventRecordQPS &gt; 0.
-Default: 10
+Default: 100
    -->
    <p><code>eventBurst</code>是突发性事件创建的上限值，允许事件创建临时上升到所指定数量，
 不过仍然不超过<code>eventRecordQPS</code>所设置的约束。此值必须是非负值，
 且只有<code>eventRecordQPS</code> &gt; 0 时才会使用此设置。</p>
-  <p>默认值：10</p>
+  <p>默认值：100</p>
 </td>
 </tr>
 
@@ -434,10 +434,10 @@ Default: true
 </td>
 <td>
    <!--
-enableContentionProfiling enables lock contention profiling, if enableDebuggingHandlers is true.
+<p>enableContentionProfiling enables block profiling, if enableDebuggingHandlers is true
 Default: false
    -->
-   <p><code>enableContentionProfiling</code>用于启用锁竞争性能分析，
+   <p><code>enableContentionProfiling</code>用于启用阻塞性能分析，
 仅用于<code>enableDebuggingHandlers</code>为<code>true</code>的场合。</p>
   <p>默认值：false</code>
 </td>
@@ -804,8 +804,7 @@ resources;</li>
 <li><code>single-numa-node</code>: kubelet only allows pods with a single NUMA alignment
 of CPU and device resources.</li>
 </ul>
-<p>Policies other than &quot;none&quot; require the TopologyManager feature gate to be enabled.
-Default: &quot;none&quot;</p>
+<p>Default: &quot;none&quot;</p>
   -->
    <p><code>topologyManagerPolicy</code>是要使用的拓扑管理器策略名称。合法值包括：</p> 
    <ul>
@@ -814,7 +813,6 @@ Default: &quot;none&quot;</p>
     <li><code>none</code>：kubelet 不了解 Pod CPU 和设备资源 NUMA 对齐需求。</li>
     <li><code>single-numa-node</code>：kubelet 仅允许在 CPU 和设备资源上对齐到同一 NUMA 节点的 Pod。</li>
    </ul>
-   <p>如果策略不是 &quot;none&quot;，则要求启用<code>TopologyManager</code>特性门控。</p>
    <p>默认值：&quot;none&quot;</p>
 </td>
 </tr>
@@ -830,8 +828,7 @@ that topology manager requests and hint providers generate. Valid values include
 <li><code>container</code>: topology policy is applied on a per-container basis.</li>
 <li><code>pod</code>: topology policy is applied on a per-pod basis.</li>
 </ul>
-<p>&quot;pod&quot; scope requires the TopologyManager feature gate to be enabled.
-Default: &quot;container&quot;</p>
+<p>Default: &quot;container&quot;</p>
    -->
    <p><code>topologyManagerScope</code>代表的是拓扑提示生成的范围，
 拓扑提示信息由提示提供者生成，提供给拓扑管理器。合法值包括：</p>
@@ -839,7 +836,6 @@ Default: &quot;container&quot;</p>
     <li><code>container</code>：拓扑策略是按每个容器来实施的。</li>
     <li><code>pod</code>：拓扑策略是按每个 Pod 来实施的。</li>
    </ul>
-   <p>&quot;pod&quot; 范围要求启用<code>TopologyManager</code>特性门控。</p>
    <p>默认值：&quot;container&quot;</p>
 </td>
 </tr>
@@ -1066,10 +1062,10 @@ Default: &quot;application/vnd.kubernetes.protobuf&quot;
 </td>
 <td>
    <!--kubeAPIQPS is the QPS to use while talking with kubernetes apiserver.
-Default: 5
+Default: 50
    -->
    <p><code>kubeAPIQPS</code>设置与 Kubernetes API 服务器通信时要使用的 QPS（每秒查询数）。</p>
-   <p>默认值：5</p>
+   <p>默认值：50</p>
 </td>
 </tr>
 
@@ -1079,11 +1075,11 @@ Default: 5
 <td>
    <!--kubeAPIBurst is the burst to allow while talking with kubernetes API server.
 This field cannot be a negative number.
-Default: 10
+Default: 100
    -->
    <p><code>kubeAPIBurst</code>设置与 Kubernetes API 服务器通信时突发的流量级别。
 此字段取值不可以是负数。</p>
-   <p>默认值：10</p>
+   <p>默认值：100</p>
 </td>
 </tr>
 
@@ -1092,8 +1088,8 @@ Default: 10
 </td>
 <td>
    <!--serializeImagePulls when enabled, tells the Kubelet to pull images one
-at a time. We recommend &lowast;not&lowast; changing the default value on nodes that
-run docker daemon with version  < 1.9 or an Aufs storage backend.
+at a time. We recommend <em>not</em> changing the default value on nodes that
+run docker daemon with version  &lt; 1.9 or an Aufs storage backend.
 Issue #10959 has more details.
 Default: true
    -->
@@ -1104,6 +1100,21 @@ Default: true
 </td>
 </tr>
 
+<tr><td><code>maxParallelImagePulls</code><br/>
+<code>int32</code>
+</td>
+<td>
+   <!--MaxParallelImagePulls sets the maximum number of image pulls in parallel.
+This field cannot be set if SerializeImagePulls is true.
+Setting it to nil means no limit.
+Default: nil
+   -->
+   <p>maxParallelImagePulls 设置并行拉取镜像的最大数量。
+如果 serializeImagePulls 为 true，则无法设置此字段。
+把它设置为 nil 意味着没有限制。</p>
+   <p>默认值：true</p>
+</td>
+</tr>
 <tr><td><code>evictionHard</code><br/>
 <code>map[string]string</code>
 </td>
@@ -1482,13 +1493,13 @@ Default: &quot;&quot;
 <td>
    <!--systemReservedCgroup helps the kubelet identify absolute name of top level CGroup used
 to enforce <code>systemReserved</code> compute resource reservation for OS system daemons.
-Refer to <a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+Refer to <a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">Node Allocatable</a>
 doc for more information.
 Default: &quot;&quot;
    -->
    <p><code>systemReservedCgroup</code>帮助 kubelet 识别用来为 OS 系统级守护进程实施
 <code>systemReserved</code>计算资源预留时使用的顶级控制组（CGroup）。
-参考 <a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+参考 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">Node Allocatable</a>
 以了解详细信息。</p>
    <p>默认值：&quot;&quot;</p>
 </td>
@@ -1501,13 +1512,13 @@ Default: &quot;&quot;
 <td>
    <!--kubeReservedCgroup helps the kubelet identify absolute name of top level CGroup used
 to enforce <code>KubeReserved</code> compute resource reservation for Kubernetes node system daemons.
-Refer to <a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+Refer to <a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">Node Allocatable</a>
 doc for more information.
 Default: &quot;&quot;
    -->
    <p><code>kubeReservedCgroup</code> 帮助 kubelet 识别用来为 Kubernetes 节点系统级守护进程实施
 <code>kubeReserved</code>计算资源预留时使用的顶级控制组（CGroup）。
-参阅 <a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">Node Allocatable</a>
 了解进一步的信息。</p>
    <p>默认值：&quot;&quot;</p>
 </td>
@@ -1524,7 +1535,7 @@ If <code>none</code> is specified, no other options may be specified.
 When <code>system-reserved</code> is in the list, systemReservedCgroup must be specified.
 When <code>kube-reserved</code> is in the list, kubeReservedCgroup must be specified.
 This field is supported only when <code>cgroupsPerQOS</code> is set to true.
-Refer to <a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+Refer to <a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">Node Allocatable</a>
 for more information.
 Default: [&quot;pods&quot;]
    -->
@@ -1535,7 +1546,7 @@ Default: [&quot;pods&quot;]
    <p>如果列表中包含<code>system-reserved</code>，则必须设置<code>systemReservedCgroup</code>。</p>
    <p>如果列表中包含<code>kube-reserved</code>，则必须设置<code>kubeReservedCgroup</code>。</p>
    <p>这个字段只有在<code>cgroupsPerQOS</code>被设置为<code>true</code>才被支持。</p>
-   <p>参阅<a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+   <p>参阅<a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">Node Allocatable</a>
 了解进一步的信息。</p>
    <p>默认值：[&quot;pods&quot;]</p>
 </td>
@@ -1631,6 +1642,18 @@ Default: true
 </td>
 </tr>
 
+<tr><td><code>enableSystemLogQuery</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <!--enableSystemLogQuery enables the node log query feature on the /logs endpoint.
+EnableSystemLogHandler has to be enabled in addition for this feature to work.
+   -->
+   <p>enableSystemLogQuery 启用在 /logs 端点上的节点日志查询功能。
+此外，还必须启用 enableSystemLogHandler 才能使此功能起作用。</p>
+   <p>默认值：false</p>
+</td>
+</tr>
 <tr><td><code>shutdownGracePeriod</code><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
@@ -1821,7 +1844,7 @@ Default: 0.8
 </tr>
 
 <tr><td><code>registerWithTaints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <!--registerWithTaints are an array of taints to add to a node object when
@@ -1878,6 +1901,32 @@ Default: true -->
 默认值：true</p>
 </td>
 </tr>
+<tr><td><code>containerRuntimeEndpoint</code> <B>[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <!--ContainerRuntimeEndpoint is the endpoint of container runtime.
+Unix Domain Sockets are supported on Linux, while npipe and tcp endpoints are supported on Windows.
+Examples:'unix:///path/to/runtime.sock', 'npipe:////./pipe/runtime'-->
+   <p>containerRuntimeEndpoint 是容器运行时的端点。
+Linux 支持 UNIX 域套接字，而 Windows 支持命名管道和 TCP 端点。
+示例：'unix://path/to/runtime.sock', 'npipe:////./pipe/runtime'。</p>
+</td>
+</tr>
+<tr><td><code>imageServiceEndpoint</code><br/>
+<code>string</code>
+</td>
+<td>
+   <!--ImageServiceEndpoint is the endpoint of container image service.
+Unix Domain Socket are supported on Linux, while npipe and tcp endpoints are supported on Windows.
+Examples:'unix:///path/to/runtime.sock', 'npipe:////./pipe/runtime'.
+If not specified, the value in containerRuntimeEndpoint is used.-->
+   <p>imageServiceEndpoint 是容器镜像服务的端点。
+Linux 支持 UNIX 域套接字，而 Windows 支持命名管道和 TCP 端点。
+示例：'unix:///path/to/runtime.sock'、'npipe:////./pipe/runtime'。
+如果未指定，则使用 containerRuntimeEndpoint 中的值。</p>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -1900,7 +1949,7 @@ SerializedNodeConfigSource 允许对 `v1.NodeConfigSource` 执行序列化操作
 <tr><td><code>kind</code><br/>string</td><td><code>SerializedNodeConfigSource</code></td></tr>
 
 <tr><td><code>source</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
 </td>
 <td>
    <!--source is the source that we are serializing.
@@ -2365,7 +2414,7 @@ MemoryReservation 为每个 NUMA 节点设置不同类型的内存预留。
 </tr>
 
 <tr><td><code>limits</code> <B>[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
 </td>
 <td>
    <!--span class="text-muted">No description provided.</span-->
