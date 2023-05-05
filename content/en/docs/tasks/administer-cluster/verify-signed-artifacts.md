@@ -31,7 +31,7 @@ For additional information please read the Cosign 2.0 [blog post](https://blog.s
 The Kubernetes release process signs all binary artifacts (tarballs, SPDX files, standalone binaries) by using cosign's [Keyless signing](https://docs.sigstore.dev/cosign/keyless/). To verify a particular binary, retrieve it together with its signature and certificate files:
 
 ```bash
-URL=https://dl.k8s.io/release/v{{< skew currentVersion >}}.0/bin/linux/amd64
+URL=https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64
 BINARY=kubectl
 
 FILES=(
