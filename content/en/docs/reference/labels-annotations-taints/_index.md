@@ -102,7 +102,7 @@ This annotation indicates the time when a Kubernetes resource was last restarted
 
 In the above example, the annotation indicates that the Pod was recently restarted at 3:30 PM UTC on March 31, 2023.
 
-The `"kubectl.kubernetes.io/restartedAt"` annotation is used by Kubernetes to keep track of the timestamp of the most recent container restart for a particular pod. This information can be useful for debugging and monitoring purposes.
+The `"kubectl.kubernetes.io/restartedAt"` annotation is used by Kubernetes to keep track of the timestamp of the most recent container restart for a particular pod. This information can be useful for troubleshooting and auditing purposes, allowing administrators to track when a resource was last restarted and correlate it with other events or changes in the cluster.
 
 ### applyset.kubernetes.io/additional-namespaces (alpha) {#applyset-kubernetes-io-additional-namespaces}
 
