@@ -143,7 +143,7 @@ method creates a new `Secret` object with the edited data.
 
 Depending on how you created the Secret, as well as how the Secret is used in
 your Pods, updates to existing `Secret` objects are propagated automatically to
-Pods that use the data. For more information, refer to [Mounted Secrets are updated automatically](#mounted-secrets-are-updated-automatically).
+Pods that use the data. For more information, refer to [Using Secrets as files from a Pod](#using-secrets-as-files-from-a-pod) section.
 
 ### Using a Secret
 
