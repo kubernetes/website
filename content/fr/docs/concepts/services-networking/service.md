@@ -808,7 +808,7 @@ Le trafic qui pénètre dans le cluster avec l'IP externe (en tant qu'IP de dest
 Les `externalIPs` ne sont pas gérées par Kubernetes et relèvent de la responsabilité de l'administrateur du cluster.
 
 Dans la spécification de service, «externalIPs» peut être spécifié avec n'importe lequel des «ServiceTypes».
-Dans l'exemple ci-dessous, "`my-service`" peut être consulté par les clients sur "`80.11.12.10:80`" (`externalIP:port`)
+Dans l'exemple ci-dessous, "`my-service`" peut être consulté par les clients sur "`198.51.100.32:80`" (`externalIP:port`)
 
 ```yaml
 apiVersion: v1
