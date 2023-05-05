@@ -21,20 +21,18 @@ You will need to have the following tools installed:
 - `curl` (often provided by your operating system)
 
 {{< note >}}
-`COSIGN_EXPERIMENTAL=1` is no longer required to have identity-based ("keyless") signing and transparency.
+Previous versions of Cosign (before 2.0) require you to use `COSIGN_EXPERIMENTAL=1` before the `cosign` command to enable identity-based ("keyless") signing.
 
 For additional information please read the Cosign 2.0 [blog post](https://blog.sigstore.dev/cosign-2-0-released/).
 {{< /note >}}
 
 ## Verifying binary signatures
 
-The Kubernetes release process signs all binary artifacts (tarballs, SPDX files,
-standalone binaries) by using cosign's [Keyless signing](https://docs.sigstore.dev/cosign/keyless/). To verify a particular
-binary, retrieve it together with its signature and certificate files:
+The Kubernetes release process signs all binary artifacts (tarballs, SPDX files, standalone binaries) by using cosign's [Keyless signing](https://docs.sigstore.dev/cosign/keyless/). To verify a particular binary, retrieve it together with its signature and certificate files:
 
 ```bash
 URL=https://dl.k8s.io/release/v{{< skew currentVersion >}}.0/bin/linux/amd64
-BINARY=kube-apiserver
+BINARY=kubectl
 
 FILES=(
     "$BINARY"
@@ -50,26 +48,38 @@ done
 Then verify the blob using `cosign verify-blob`:
 
 ```shell
-cosign verify-blob "$BINARY" --signature "$BINARY".sig --certificate "$BINARY".cert --certificate-identity krel-staging@k8s-releng-prod.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com
+cosign verify-blob "$BINARY" --signature "$BINARY".sig --certificate "$BINARY".cert --certificate-identity "$IDENTITY" --certificate-oidc-issuer "$OIDC_ISSUER"
 ```
 
-A succesfull verification will output `Verified OK`.
+A succesfull verification will display:
 
-{{< note >}}
-Verification now requires identity flags, `--certificate-identity` and `--certificate-oidc-issuer`.
-
-For additional information please read the Cosign 2.0 [blog post](https://blog.sigstore.dev/cosign-2-0-released/).
-{{< /note >}}
+```shell
+Verified OK
+```
 
 ## Verifying image signatures
 
-For a complete list of images that are signed please refer
-to [Releases](/releases/download/).
+For a complete list of images that are signed please refer to [Releases](/releases/download/).
 
 Pick one image from this list and verify its signature using `cosign verify`:
 
 ```shell
-cosign verify registry.k8s.io/kube-apiserver-amd64:v{{< skew currentVersion >}}.0 --certificate-identity krel-trust@k8s-releng-prod.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com
+cosign verify registry.k8s.io/kube-apiserver-amd64:v{{< skew currentVersion >}}.0 --certificate-identity "$IDENTITY" --certificate-oidc-issuer "$OIDC_ISSUER"
+```
+
+### Verifying images for all control plane components
+
+To verify all signed control plane images, please run this command:
+
+```shell
+arch="amd64"
+version=$(curl -Ls https://dl.k8s.io/release/stable.txt)
+curl -Ls "https://sbom.k8s.io/${version}/source" | grep 'PackageName: k8s.io/' | awk '{print $2}' > images.txt
+input=images.txt
+while IFS= read -r image
+do
+  cosign verify "registry.${image}-${arch}:${version}" --certificate-identity "$IDENTITY" --certificate-oidc-issuer "$OIDC_ISSUER" | jq .
+done < "$input"
 ```
 
 Once you have verified an image, you can replace `<image-name>:<tag>` with `<image-name>@<digest>` in your Pod manifests as per this example:
