@@ -98,7 +98,7 @@ Example: `kubectl.kubernetes.io/restartedAt: '2023-03-05T15:30:00Z`
 
 Used on: Pod
 
-This annotation is automatically added to the spec template by kubectl when the workload is restarted. It records the time of the most recent workload restart as a Unix timestamp.
+This annotation indicates the time when a Kubernetes resource was last restarted using the kubectl command-line tool. It records the time of the most recent workload restart as a Unix timestamp.
 
 In the above example, the annotation indicates that the Pod was most recently restarted at 3:30 PM UTC on March 31, 2023.
 
