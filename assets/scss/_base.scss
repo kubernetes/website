@@ -102,6 +102,16 @@ main {
   }
 }
 
+::selection {
+  background: #326ce5;
+  color: white;
+}
+
+::-moz-selection {
+  background: #326ce5;
+  color: white;
+}
+
 // HEADER
 
 #hamburger {
