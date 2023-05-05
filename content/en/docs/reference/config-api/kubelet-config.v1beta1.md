@@ -262,7 +262,7 @@ Default: 10</p>
 <td>
    <p>eventRecordQPS is the maximum event creations per second. If 0, there
 is no limit enforced. The value cannot be a negative number.
-Default: 5</p>
+Default: 50</p>
 </td>
 </tr>
 <tr><td><code>eventBurst</code><br/>
@@ -273,7 +273,7 @@ Default: 5</p>
 allows event creations to burst to this number, while still not exceeding
 eventRecordQPS. This field canot be a negative number and it is only used
 when eventRecordQPS &gt; 0.
-Default: 10</p>
+Default: 100</p>
 </td>
 </tr>
 <tr><td><code>enableDebuggingHandlers</code><br/>
@@ -290,7 +290,7 @@ Default: true</p>
 <code>bool</code>
 </td>
 <td>
-   <p>enableContentionProfiling enables lock contention profiling, if enableDebuggingHandlers is true.
+   <p>enableContentionProfiling enables block profiling, if enableDebuggingHandlers is true.
 Default: false</p>
 </td>
 </tr>
@@ -529,8 +529,7 @@ resources;</li>
 <li><code>single-numa-node</code>: kubelet only allows pods with a single NUMA alignment
 of CPU and device resources.</li>
 </ul>
-<p>Policies other than &quot;none&quot; require the TopologyManager feature gate to be enabled.
-Default: &quot;none&quot;</p>
+<p>Default: &quot;none&quot;</p>
 </td>
 </tr>
 <tr><td><code>topologyManagerScope</code><br/>
@@ -543,8 +542,7 @@ that topology manager requests and hint providers generate. Valid values include
 <li><code>container</code>: topology policy is applied on a per-container basis.</li>
 <li><code>pod</code>: topology policy is applied on a per-pod basis.</li>
 </ul>
-<p>&quot;pod&quot; scope requires the TopologyManager feature gate to be enabled.
-Default: &quot;container&quot;</p>
+<p>Default: &quot;container&quot;</p>
 </td>
 </tr>
 <tr><td><code>topologyManagerPolicyOptions</code><br/>
@@ -692,7 +690,7 @@ Default: &quot;application/vnd.kubernetes.protobuf&quot;</p>
 </td>
 <td>
    <p>kubeAPIQPS is the QPS to use while talking with kubernetes apiserver.
-Default: 5</p>
+Default: 50</p>
 </td>
 </tr>
 <tr><td><code>kubeAPIBurst</code><br/>
@@ -701,7 +699,7 @@ Default: 5</p>
 <td>
    <p>kubeAPIBurst is the burst to allow while talking with kubernetes API server.
 This field cannot be a negative number.
-Default: 10</p>
+Default: 100</p>
 </td>
 </tr>
 <tr><td><code>serializeImagePulls</code><br/>
@@ -713,6 +711,16 @@ at a time. We recommend <em>not</em> changing the default value on nodes that
 run docker daemon with version  &lt; 1.9 or an Aufs storage backend.
 Issue #10959 has more details.
 Default: true</p>
+</td>
+</tr>
+<tr><td><code>maxParallelImagePulls</code><br/>
+<code>int32</code>
+</td>
+<td>
+   <p>MaxParallelImagePulls sets the maximum number of image pulls in parallel.
+This field cannot be set if SerializeImagePulls is true.
+Setting it to nil means no limit.
+Default: nil</p>
 </td>
 </tr>
 <tr><td><code>evictionHard</code><br/>
@@ -953,7 +961,7 @@ Default: &quot;&quot;</p>
 <td>
    <p>systemReservedCgroup helps the kubelet identify absolute name of top level CGroup used
 to enforce <code>systemReserved</code> compute resource reservation for OS system daemons.
-Refer to <a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+Refer to <a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">Node Allocatable</a>
 doc for more information.
 Default: &quot;&quot;</p>
 </td>
@@ -964,7 +972,7 @@ Default: &quot;&quot;</p>
 <td>
    <p>kubeReservedCgroup helps the kubelet identify absolute name of top level CGroup used
 to enforce <code>KubeReserved</code> compute resource reservation for Kubernetes node system daemons.
-Refer to <a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+Refer to <a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">Node Allocatable</a>
 doc for more information.
 Default: &quot;&quot;</p>
 </td>
@@ -980,7 +988,7 @@ If <code>none</code> is specified, no other options may be specified.
 When <code>system-reserved</code> is in the list, systemReservedCgroup must be specified.
 When <code>kube-reserved</code> is in the list, kubeReservedCgroup must be specified.
 This field is supported only when <code>cgroupsPerQOS</code> is set to true.
-Refer to <a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+Refer to <a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">Node Allocatable</a>
 for more information.
 Default: [&quot;pods&quot;]</p>
 </td>
@@ -1040,6 +1048,15 @@ Format: text</p>
 <td>
    <p>enableSystemLogHandler enables system logs via web interface host:port/logs/
 Default: true</p>
+</td>
+</tr>
+<tr><td><code>enableSystemLogQuery</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>enableSystemLogQuery enables the node log query feature on the /logs endpoint.
+EnableSystemLogHandler has to be enabled in addition for this feature to work.
+Default: false</p>
 </td>
 </tr>
 <tr><td><code>shutdownGracePeriod</code><br/>
@@ -1143,7 +1160,6 @@ Default: true</p>
 </td>
 <td>
    <p>SeccompDefault enables the use of <code>RuntimeDefault</code> as the default seccomp profile for all workloads.
-This requires the corresponding SeccompDefault feature gate to be enabled as well.
 Default: false</p>
 </td>
 </tr>
@@ -1156,11 +1172,11 @@ when setting the cgroupv2 memory.high value to enforce MemoryQoS.
 Decreasing this factor will set lower high limit for container cgroups and put heavier reclaim pressure
 while increasing will put less reclaim pressure.
 See https://kep.k8s.io/2570 for more details.
-Default: 0.8</p>
+Default: 0.9</p>
 </td>
 </tr>
 <tr><td><code>registerWithTaints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <p>registerWithTaints are an array of taints to add to a node object when
@@ -1182,7 +1198,8 @@ Default: true</p>
 </td>
 <td>
    <p>Tracing specifies the versioned configuration for OpenTelemetry tracing clients.
-See https://kep.k8s.io/2832 for more details.</p>
+See https://kep.k8s.io/2832 for more details.
+Default: nil</p>
 </td>
 </tr>
 <tr><td><code>localStorageCapacityIsolation</code><br/>
@@ -1197,6 +1214,25 @@ This feature depends on the capability of detecting correct root file system dis
 such as kind rootless, if this capability cannot be supported, the feature LocalStorageCapacityIsolation should be
 disabled. Once disabled, user should not set request/limit for container's ephemeral storage, or sizeLimit for emptyDir.
 Default: true</p>
+</td>
+</tr>
+<tr><td><code>containerRuntimeEndpoint</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>ContainerRuntimeEndpoint is the endpoint of container runtime.
+Unix Domain Sockets are supported on Linux, while npipe and tcp endpoints are supported on Windows.
+Examples:'unix:///path/to/runtime.sock', 'npipe:////./pipe/runtime'</p>
+</td>
+</tr>
+<tr><td><code>imageServiceEndpoint</code><br/>
+<code>string</code>
+</td>
+<td>
+   <p>ImageServiceEndpoint is the endpoint of container image service.
+Unix Domain Socket are supported on Linux, while npipe and tcp endpoints are supported on Windows.
+Examples:'unix:///path/to/runtime.sock', 'npipe:////./pipe/runtime'.
+If not specified, the value in containerRuntimeEndpoint is used.</p>
 </td>
 </tr>
 </tbody>
@@ -1220,7 +1256,7 @@ It exists in the kubeletconfig API group because it is classified as a versioned
     
   
 <tr><td><code>source</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
 </td>
 <td>
    <p>source is the source that we are serializing.</p>
@@ -1581,7 +1617,7 @@ and groups corresponding to the Organization in the client certificate.</p>
    <span class="text-muted">No description provided.</span></td>
 </tr>
 <tr><td><code>limits</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
 </td>
 <td>
    <span class="text-muted">No description provided.</span></td>

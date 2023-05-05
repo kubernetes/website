@@ -353,7 +353,8 @@ AppArmor 配置文件是通过注解的方式，以容器为粒度强制执行�
 AppArmor is only available on Linux nodes, and enabled in
 [some Linux distributions](https://gitlab.com/apparmor/apparmor/-/wikis/home#distributions-and-ports).
 -->
-AppArmor 仅在 Linux 节点上可用，在[一些 Linux 发行版](https://gitlab.com/apparmor/apparmor/-/wikis/home#distributions-and-ports)中已启用。
+AppArmor 仅在 Linux 节点上可用，
+在[一些 Linux 发行版](https://gitlab.com/apparmor/apparmor/-/wikis/home#distributions-and-ports)中已启用。
 {{< /note >}}
 
 #### SELinux
@@ -374,8 +375,46 @@ SELinux 标签可以[通过 `securityContext` 节](/zh-cn/docs/tasks/configure-p
 SELinux is only available on Linux nodes, and enabled in
 [some Linux distributions](https://en.wikipedia.org/wiki/Security-Enhanced_Linux#Implementations).
 -->
-SELinux 仅在 Linux 节点上可用，在[一些 Linux 发行版](https://en.wikipedia.org/wiki/Security-Enhanced_Linux#Implementations)中已启用。
+SELinux 仅在 Linux 节点上可用，
+在[一些 Linux 发行版](https://en.wikipedia.org/wiki/Security-Enhanced_Linux#Implementations)中已启用。
 {{< /note >}}
+
+<!--
+## Logs and auditing
+
+- [ ] Audit logs, if enabled, are protected from general access.
+- [ ] The `/logs` API is disabled (you are running kube-apiserver with
+  `--enable-logs-handler=false`).
+-->
+## 日志和审计   {#logs-and-auditing}
+
+- [ ] 审计日志（如果启用）将受到保护以防止常规访问。
+- [ ] `/logs` API 被禁用（你所运行的 kube-apiserver 设置了 `--enable-logs-handler=false`）。
+
+  <!--
+  Kubernetes includes a `/logs` API endpoint, enabled by default,
+  that lets users request the contents of the API server's `/var/log` directory over HTTP. Accessing
+  that endpoint requires authentication.
+  -->
+  Kubernetes 包含一个 `/logs` API 端点，默认启用。
+  这个端点允许用户通过 HTTP 来请求 API 服务器的 `/var/log` 目录的内容。
+  访问此端点需要身份验证。
+
+<!--
+Allowing broad access to Kubernetes logs can make security information
+available to a potential attacker.
+
+As a good practice, set up a separate means to collect and aggregate
+control plane logs, and do not use the `/logs` API endpoint.
+Alternatively, if you run your control plane with the `/logs` API endpoint
+and limit the content of `/var/log` (within the host or container where the API server is running) to
+Kubernetes API server logs only.
+-->
+允许大范围访问 Kubernetes 日志可能会令安全信息被潜在的攻击者利用。
+
+一个好的做法是设置一个单独的方式来收集和聚合控制平面日志，
+并且不要使用 `/logs` API 端点。另一个使用场景是你运行控制平面时启用了 `/logs` API 端点并
+（在运行 API 服务器的主机或容器内）将 `/var/log` 的内容限制为仅保存 Kubernetes API 服务器日志。
 
 <!--
 ## Pod placement
@@ -414,8 +453,8 @@ admission controller.
 -->
 [节点选择器（Node Selector）](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)
 : 作为 Pod 规约的一部分来设置的键值对，指定 Pod 可部署到哪些节点。
-通过 [PodNodeSelector](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#podnodeselector)
-准入控制器可以在名字空间和集群级别强制实施节点选择。
+  通过 [PodNodeSelector](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#podnodeselector)
+  准入控制器可以在名字空间和集群级别强制实施节点选择。
 
 <!--
 [PodTolerationRestriction](/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
@@ -427,8 +466,8 @@ tolerations.
 -->
 [PodTolerationRestriction](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
 : [容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)准入控制器，
-允许管理员设置在名字空间内允许使用的容忍度。
-名字空间中的 Pod 只能使用名字空间对象的注解键上所指定的容忍度，这些键提供默认和允许的容忍度集合。
+  允许管理员设置在名字空间内允许使用的容忍度。
+  名字空间中的 Pod 只能使用名字空间对象的注解键上所指定的容忍度，这些键提供默认和允许的容忍度集合。
 
 <!--
 [RuntimeClass](/docs/concepts/containers/runtime-class/)
@@ -439,7 +478,7 @@ overhead.
 -->
 [RuntimeClass](/zh-cn/docs/concepts/containers/runtime-class/)
 : RuntimeClass 是一个用于选择容器运行时配置的特性，容器运行时配置用于运行 Pod 中的容器，
-并以性能开销为代价提供或多或少的主机隔离能力。
+  并以性能开销为代价提供或多或少的主机隔离能力。
 
 ## Secrets {#secrets}
 
@@ -482,7 +521,7 @@ permission mechanism on files.
 需要 Secret 的 Pod 应该通过卷自动挂载这些信息，
 最好使用 [`emptyDir.medium` 选项](/zh-cn/docs/concepts/storage/volumes/#emptydir)存储在内存中。
 该机制还可以用于从第三方存储中注入 Secret 作为卷，如 [Secret Store CSI 驱动](https://secrets-store-csi-driver.sigs.k8s.io/)。
-与通过 RBAC 来允许 Pod 服务帐户访问 Secret 相比，应该优先使用上述机制。这种机制允许将 Secret 作为环境变量或文件添加到 Pod 中。
+与通过 RBAC 来允许 Pod 服务账号访问 Secret 相比，应该优先使用上述机制。这种机制允许将 Secret 作为环境变量或文件添加到 Pod 中。
 请注意，与带访问权限控制的文件相比，由于日志的崩溃转储，以及 Linux 的环境变量的非机密性，环境变量方法可能更容易发生泄漏。
 
 <!--
@@ -493,13 +532,11 @@ or specifically for a pod. For Kubernetes v1.22 and above, use
 [Bound Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)
 for time-bound service account credentials.
 -->
-不应该将服务账号令牌挂载到不需要它们的 Pod 中。
-这可以通过在服务帐号内将
+不应该将服务账号令牌挂载到不需要它们的 Pod 中。这可以通过在服务账号内将
 [`automountServiceAccountToken`](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#use-the-default-service-account-to-access-the-api-server)
-设置为 `false` 来完成整个名字空间范围的配置，
-或者也可以单独在 Pod 层面定制。
+设置为 `false` 来完成整个名字空间范围的配置，或者也可以单独在 Pod 层面定制。
 对于 Kubernetes v1.22 及更高版本，
-请使用[绑定服务账号](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)作为有时间限制的服务帐号凭证。
+请使用[绑定服务账号](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)作为有时间限制的服务账号凭证。
 
 <!--
 ## Images
@@ -696,7 +733,8 @@ availability state and recommended to improve your security posture:
 -->
 [`DenyServiceExternalIPs`](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#denyserviceexternalips)
 : 拒绝使用 `Service.spec.externalIPs` 字段，已有的 Service 不受影响，新增或者变更时不允许使用。
-这是 [CVE-2020-8554：中间人使用 LoadBalancer 或 ExternalIP](https://github.com/kubernetes/kubernetes/issues/97076) 的缓解措施。
+  这是 [CVE-2020-8554：中间人使用 LoadBalancer 或 ExternalIP](https://github.com/kubernetes/kubernetes/issues/97076)
+  的缓解措施。
 
 <!--
 [`NodeRestriction`](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
@@ -708,8 +746,8 @@ placement to the controlled node.
 -->
 [`NodeRestriction`](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
 : 将 kubelet 的权限限制为只能修改其拥有的 Pod API 资源或代表其自身的节点 API 资源。
-此插件还可以防止 kubelet 使用 `node-restriction.kubernetes.io/` 注解，
-攻击者可以使用该注解来访问 kubelet 的凭证，从而影响所控制的节点上的 Pod 布局。
+  此插件还可以防止 kubelet 使用 `node-restriction.kubernetes.io/` 注解，
+  攻击者可以使用该注解来访问 kubelet 的凭证，从而影响所控制的节点上的 Pod 布局。
 
 <!--
 The third group includes plugins that are not enabled by default but could be

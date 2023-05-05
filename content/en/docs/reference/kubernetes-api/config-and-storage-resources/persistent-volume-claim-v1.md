@@ -77,13 +77,13 @@ PersistentVolumeClaimSpec describes the common attributes of storage devices and
 
   - **resources.claims** ([]ResourceClaim)
 
-    *Set: unique values will be kept during a merge*
+    *Map: unique values on key name will be kept during a merge*
     
     Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
     
     This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
     
-    This field is immutable.
+    This field is immutable. It can only be set for containers.
 
     <a name="ResourceClaim"></a>
     *ResourceClaim references one entry in PodSpec.ResourceClaims.*
@@ -98,7 +98,7 @@ PersistentVolumeClaimSpec describes the common attributes of storage devices and
 
   - **resources.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+    Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 
 - **volumeName** (string)
 
@@ -178,7 +178,7 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
   conditions is the current Condition of persistent volume claim. If underlying persistent volume is being resized then the Condition will be set to 'ResizeStarted'.
 
   <a name="PersistentVolumeClaimCondition"></a>
-  *PersistentVolumeClaimCondition contails details about state of pvc*
+  *PersistentVolumeClaimCondition contains details about state of pvc*
 
   - **conditions.status** (string), required
 
@@ -211,8 +211,6 @@ PersistentVolumeClaimStatus is the current status of a persistent volume claim.
 - **phase** (string)
 
   phase represents the current phase of PersistentVolumeClaim.
-  
-  
 
 - **resizeStatus** (string)
 
@@ -377,6 +375,11 @@ GET /api/v1/namespaces/{namespace}/persistentvolumeclaims
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -443,6 +446,11 @@ GET /api/v1/persistentvolumeclaims
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -868,6 +876,11 @@ DELETE /api/v1/namespaces/{namespace}/persistentvolumeclaims
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer

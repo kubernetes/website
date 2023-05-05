@@ -231,6 +231,53 @@ Similar to the container logs, you should rotate system component logs in the `/
 In Kubernetes clusters created by the `kube-up.sh` script, log rotation is configured by the `logrotate` tool.
 The `logrotate` tool rotates logs daily, or once the log size is greater than 100MB.
 
+## Log query
+
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+
+To help with debugging issues on nodes, Kubernetes v1.27 introduced a feature that allows viewing logs of services
+running on the node. To use the feature, ensure that the `NodeLogQuery`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled for that node, and that the
+kubelet configuration options `enableSystemLogHandler` and `enableSystemLogQuery` are both set to true. On Linux
+we assume that service logs are available via journald. On Windows we assume that service logs are available
+in the application log provider. On both operating systems, logs are also available by reading files within
+`/var/log/`.
+
+Provided you are authorized to interact with node objects, you can try out this alpha feature on all your nodes or
+just a subset. Here is an example to retrieve the kubelet service logs from a node:
+```shell
+# Fetch kubelet logs from a node named node-1.example
+kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet"
+```
+
+You can also fetch files, provided that the files are in a directory that the kubelet allows for log
+fetches. For example, you can fetch a log from `/var/log` on a Linux node:
+```shell
+kubectl get --raw "/api/v1/nodes/<insert-node-name-here>/proxy/logs/?query=/<insert-log-file-name-here>"
+```
+
+The kubelet uses heuristics to retrieve logs. This helps if you are not aware whether a given system service is
+writing logs to the operating system's native logger like journald or to a log file in `/var/log/`. The heuristics
+first checks the native logger and if that is not available attempts to retrieve the first logs from
+`/var/log/<servicename>` or `/var/log/<servicename>.log` or `/var/log/<servicename>/<servicename>.log`.
+
+The complete list of options that can be used are:
+
+Option | Description
+------ | -----------
+`boot` | boot show messages from a specific system boot
+`pattern` | pattern filters log entries by the provided PERL-compatible regular expression
+`query` | query specifies services(s) or files from which to return logs (required)
+`sinceTime` | an [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) timestamp from which to show logs (inclusive)
+`untilTime` | an [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) timestamp until which to show logs (inclusive)
+`tailLines` | specify how many lines from the end of the log to retrieve; the default is to fetch the whole log
+
+Example of a more complex query:
+```shell
+# Fetch kubelet logs from a node named node-1.example that have the word "error"
+kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet&pattern=error"
+```
+
 ## {{% heading "whatsnext" %}}
 
 * Read about the [Kubernetes Logging Architecture](/docs/concepts/cluster-administration/logging/)
