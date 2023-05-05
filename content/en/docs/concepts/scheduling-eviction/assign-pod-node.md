@@ -500,20 +500,25 @@ to learn more about how these work.
 
 ## Operators
 
-The following are all the logical operators that you can use with the `operator` field for `nodeAffinity` and `podAffinity` mentioned above.
+The following are all the logical operators that you can use in the `operator` field for `nodeAffinity` and `podAffinity` mentioned above.
 
 |    Operator    |    Behaviour    |
 | :------------: | :-------------: |
-| In | The label value is contained in the supplied set of strings |
-|   NotIn   | The label value is not contained in the supplied set of strings |
-| Exists | A label with this key exists on the object |
-| DoesNotExist | No such label with this key exists on the object |
-| Gt | The supplied value will be parsed as an integer, and that integer is less than or equal to the integer that results from parsing the value of a label named by this selector | 
-| Lt | The supplied value will be parsed as an integer, and that integer is greater than or equal to the integer that results from parsing the value of a label named by this selector | 
+| `In` | The label value is present in the supplied set of strings |
+|   `NotIn`   | The label value is not contained in the supplied set of strings |
+| `Exists` | A label with this key exists on the object |
+| `DoesNotExist` | No label with this key exists on the object |
+
+The following operators can only be used with `nodeAffinity`.
+
+|    Operator    |    Behaviour    |
+| :------------: | :-------------: |
+| `Gt` | The supplied value will be parsed as an integer, and that integer is less than or equal to the integer that results from parsing the value of a label named by this selector | 
+| `Lt` | The supplied value will be parsed as an integer, and that integer is greater than or equal to the integer that results from parsing the value of a label named by this selector | 
 
 
 {{<note>}}
-`Gt` and `Lt` operators will not work with non integer values. If the given value doesn't parse as an integer, the pod will fail to get scheduled. Also, `Gt` and `Lt` are not available for `podAffinity` as of now. 
+`Gt` and `Lt` operators will not work with non integer values. If the given value doesn't parse as an integer, the pod will fail to get scheduled. Also, `Gt` and `Lt` are not available for `podAffinity`.
 {{</note>}}
 
 ## {{% heading "whatsnext" %}}
