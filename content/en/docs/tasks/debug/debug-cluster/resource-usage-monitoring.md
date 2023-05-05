@@ -16,7 +16,7 @@ application performance in a Kubernetes cluster by examining the containers,
 the characteristics of the overall cluster. Kubernetes provides detailed
 information about an application's resource usage at each of these levels.
 This information allows you to evaluate your application's performance and
-where bottlenecks can be removed to improve overall performance.
+where bottlenecks can be removed to improve overall performance. 
 
 <!-- body -->
 
