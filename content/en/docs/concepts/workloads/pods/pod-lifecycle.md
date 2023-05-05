@@ -244,6 +244,10 @@ When a Pod's containers are Ready but at least one custom condition is missing o
 
 {{< feature-state for_k8s_version="v1.25" state="alpha" >}}
 
+{{< note >}}
+This condition was renamed from PodHasNetwork to PodReadyToStartContainers.
+{{< /note >}}
+
 After a Pod gets scheduled on a node, it needs to be admitted by the Kubelet and
 have any volumes mounted. Once these phases are complete, the Kubelet works with
 a container runtime (using {{< glossary_tooltip term_id="cri" >}}) to set up a
