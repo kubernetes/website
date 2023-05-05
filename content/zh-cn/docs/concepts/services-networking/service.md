@@ -1312,7 +1312,8 @@ metadata:
 ```
 
 {{% /tab %}}
-{{% tab name="<!--Baidu Cloud-->百度云" %}}
+<!--Baidu Cloud-->
+{{% tab name="百度云" %}}
 
 ```yaml
 [...]
@@ -1324,7 +1325,8 @@ metadata:
 ```
 
 {{% /tab %}}
-{{% tab name="<!--Tencent Cloud-->腾讯云" %}}
+<!--Tencent Cloud-->
+{{% tab name="腾讯云" %}}
 
 ```yaml
 [...]
@@ -1335,7 +1337,8 @@ metadata:
 ```
 
 {{% /tab %}}
-{{% tab name="<!--Alibaba Cloud-->阿里云" %}}
+<!--Alibaba Cloud-->
+{{% tab name="阿里云" %}}
 
 ```yaml
 [...]
