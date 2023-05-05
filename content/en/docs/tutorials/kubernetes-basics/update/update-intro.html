@@ -146,7 +146,7 @@ description: |-
                <p>Create an environment variable called <tt>NODE_PORT</tt> that has the value of the Node port assigned:</p>
                <p><code><b>export NODE_PORT="$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')"</b></code><br />
                   <code><b>echo "NODE_PORT=$NODE_PORT"</b></code></p>
-               <p>Next, do a <code>curl</code> to the the exposed IP and port:</p>
+               <p>Next, do a <code>curl</code> to the exposed IP and port:</p>
                <p><code><b>curl http://"$(minikube ip):$NODE_PORT"</b></code></p>
                <p>Every time you run the <code>curl</code> command, you will hit a different Pod. Notice that all Pods are now running the latest version (v2).</p>
                <p>You can also confirm the update by running the <code>rollout status</code> subcommand:</p>
