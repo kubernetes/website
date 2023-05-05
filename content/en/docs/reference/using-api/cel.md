@@ -144,6 +144,44 @@ Examples:
 See the [Kubernetes URL library](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#URLs)
 godoc for more information.
 
+### Kubernetes authorizer library
+
+For CEL expressions in the API where a variable of type `Authorizer` is available,
+the authorizer may be used to perform authorization checks for the principal
+(authenticated user) of the request.
+
+API resource checks are performed as follows:
+
+1. Specify the group and resource to check: `Authorizer.group(string).resource(string) ResourceCheck`
+2. Optionally call any combination of the following to further narrow the authorization check:
+  - `ResourceCheck.subresource(string) ResourceCheck`
+  - `ResourceCheck.namespace(string) ResourceCheck`
+  - `ResourceCheck.name(string) ResourceCheck` 
+3. Call `ResourceCheck.check(verb string) Decision` to perform the authorization check.
+4. Call `allowed() bool` or `reason() string` to inspect the result of the authorization check.
+
+Non-resource authorization performed are used as follows:
+
+1. specify only a path: `Authorizer.path(string) PathCheck`
+2. Call `PathCheck.check(httpVerb string) Decision` to perform the authorization check.
+3. Call `allowed() bool` or `reason() string` to inspect the result of the authorization check.
+
+To perform an authorization check for a service account:
+
+- `Authorizer.serviceAccount(namespace string, name string) Authorizer`
+
+{{< table caption="Examples of CEL expressions using URL library functions" >}}
+| CEL Expression                                                                                               | Purpose                                        |
+|--------------------------------------------------------------------------------------------------------------|------------------------------------------------|
+| `authorizer.group('').resource('pods').namespace('default').check('create').allowed()`                       | Returns true if the principal (user or service account) is allowed create pods in the 'default' namespace. |
+| `authorizer.path('/healthz').check('get').allowed()`                                                         | Checks if the principal (user or service account) is authorized to make HTTP GET requests to the /healthz API path. |
+| `authorizer.serviceAccount('default', 'myserviceaccount').resource('deployments').check('delete').allowed()` | Checks if the service account is authorized to delete deployments. |
+{{< /table >}}
+
+See the [Kubernetes Authz library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)
+godoc for more information.
+
+
 ## Type checking
 
 CEL is a [gradually typed language](https://github.com/google/cel-spec/blob/master/doc/langdef.md#gradual-type-checking).
