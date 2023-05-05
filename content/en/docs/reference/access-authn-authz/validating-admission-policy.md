@@ -438,7 +438,20 @@ For example, here is an admission policy with an audit annotation:
 
 When an API request is validated with this admission policy, the resulting audit event will look like:
 
-{{< codenew file="access/audit-event-with-audit-annotation.yaml" >}}
+```
+# the audit event recorded
+{
+    "kind": "Event",
+    "apiVersion": "audit.k8s.io/v1",
+    "annotations": {
+        "demo-policy.example.com/high-replica-count": "Deployment spec.replicas set to 128"
+        # other annotations
+        ...
+    }
+    # other fields
+    ...
+}
+```
 
 In this example the annotation will only be included if the `spec.replicas` of the Deployment is more than
 50, otherwise the CEL expression evalutes to null and the annotation will not be included.

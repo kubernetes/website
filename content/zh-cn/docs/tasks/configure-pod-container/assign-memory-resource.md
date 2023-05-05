@@ -98,8 +98,8 @@ for the Pod:
 -->
 ## 指定内存请求和限制    {#specify-a-memory-request-and-a-memory-limit}
 
-要为容器指定内存请求，请在容器资源清单中包含 `resources：requests` 字段。
-同理，要指定内存限制，请包含 `resources：limits`。
+要为容器指定内存请求，请在容器资源清单中包含 `resources: requests` 字段。
+同理，要指定内存限制，请包含 `resources: limits`。
 
 在本练习中，你将创建一个拥有一个容器的 Pod。
 容器将会请求 100 MiB 内存，并且内存会被限制在 200 MiB 以内。
@@ -544,6 +544,8 @@ kubectl delete namespace mem-example
 * [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
+
+* [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/)
 -->
 ### 集群管理员扩展阅读    {#for-cluster-administrators}
 
@@ -554,4 +556,5 @@ kubectl delete namespace mem-example
 * [为命名空间配置内存和 CPU 配额](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 * [配置命名空间下 Pod 总数](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 * [配置 API 对象配额](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)
+* [调整分配给容器的 CPU 和内存资源的大小](/docs/tasks/configure-pod-container/resize-container-resources/)
 
