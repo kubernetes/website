@@ -69,11 +69,11 @@ The Kubernetes project publishes a list of signed Kubernetes container images
 in [SPDX 2.2](https://spdx.dev/specifications/) format.
 You can fetch that list using:
 -->
-Kubernetes 项目以 [SPDX 2.3](https://spdx.dev/specifications/) 格式发布已签名的 Kubernetes 容器镜像列表。
+Kubernetes 项目以 [SPDX 2.2](https://spdx.dev/specifications/) 格式发布已签名的 Kubernetes 容器镜像列表。
 你可以使用以下方法获取该列表：
 
 ```shell
-curl -Ls "https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/stable.txt)/release" | grep "SPDXID: SPDXRef-Package-registry.k8s.io" |  grep -v sha256 | cut -d- -f3- | sed 's/-/\//' | sed 's/-v1/:v1/'
+curl -Ls "https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/latest.txt)/release"  | awk '/Package: registry.k8s.io\// {print $3}'
 ```
 
 <!--
