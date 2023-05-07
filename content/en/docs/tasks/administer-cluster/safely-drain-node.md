@@ -60,6 +60,11 @@ and respecting the PodDisruptionBudget you have defined). It is then safe to
 bring down the node by powering down its physical machine or, if running on a
 cloud platform, deleting its virtual machine.
 
+{{< note >}}
+[nodeName](/docs/concepts/scheduling-eviction/assign-pod-node/#nodename) bypasses the scheduler, 
+thus evicted Pods will still run on a drained node.
+{{< /note >}}
+
 First, identify the name of the node you wish to drain. You can list all of the nodes in your cluster with
 
 ```shell
