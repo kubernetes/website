@@ -432,7 +432,6 @@ Expected output:
 PolicyRule:
   Resources                        Non-Resource URLs  Resource Names  Verbs
   ---------                        -----------------  --------------  -----
-  nodes                            []                 []              [get]
   endpoints                        []                 []              [list watch]
   namespaces                       []                 []              [list watch]
   pods                             []                 []              [list watch]

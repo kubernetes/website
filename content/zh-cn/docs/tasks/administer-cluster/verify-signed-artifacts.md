@@ -49,7 +49,7 @@ Kubernetes 发布过程使用 cosign 的无密钥签名对所有二进制工件�
 要验证一个特定的二进制文件，获取组件时要包含其签名和证书：
 
 ```bash
-URL=https://dl.k8s.io/release/v{{< skew currentVersion >}}.0/bin/linux/amd64
+URL=https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64
 BINARY=kubectl
 
 FILES=(
@@ -102,7 +102,7 @@ the `cosign verify` command:
 从这个列表中选择一个镜像，并使用 `cosign verify` 命令来验证它的签名：
 
 ```shell
-COSIGN_EXPERIMENTAL=1 cosign verify registry.k8s.io/kube-apiserver-amd64:v1.24.0
+COSIGN_EXPERIMENTAL=1 cosign verify registry.k8s.io/kube-apiserver-amd64:v{{< skew currentPatchVersion >}}
 ```
 
 {{< note >}}
@@ -125,7 +125,7 @@ To verify all signed control plane images, please run this command:
 验证所有已签名的控制平面组件镜像，请运行以下命令：
 
 ```shell
-curl -Ls https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/latest.txt)/release | grep 'PackageName: registry.k8s.io/' | awk '{print $2}' > images.txt
+curl -Ls "https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/stable.txt)/release" | grep "SPDXID: SPDXRef-Package-registry.k8s.io" |  grep -v sha256 | cut -d- -f3- | sed 's/-/\//' | sed 's/-v1/:v1/' > images.txt
 input=images.txt
 while IFS= read -r image
 do
