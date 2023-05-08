@@ -352,7 +352,7 @@ each Service port. This is used as a hint for implementations to offer richer be
 The value of this field is mirrored by the corresponding
 Endpoints and EndpointSlice objects.
 
-This field follows standard Kubernetes label syntax. Valid values are either:
+This field follows standard Kubernetes label syntax. Valid values are one of:
 
 * [IANA standard service names](https://www.iana.org/assignments/service-names).
 
