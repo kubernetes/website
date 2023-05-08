@@ -255,9 +255,6 @@ For a reference to old feature gates that are removed, please refer to
 | `CronJobTimeZone` | `false` | Alpha | 1.24 | 1.24 |
 | `CronJobTimeZone` | `true` | Beta | 1.25 | 1.26 |
 | `CronJobTimeZone` | `true` | GA | 1.27 | - |
-| `DelegateFSGroupToCSIDriver` | `false` | Alpha | 1.22 | 1.22 |
-| `DelegateFSGroupToCSIDriver` | `true` | Beta | 1.23 | 1.25 |
-| `DelegateFSGroupToCSIDriver` | `true` | GA | 1.26 |-|
 | `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | Beta | 1.10 | 1.25 |
 | `DevicePlugins` | `true` | GA | 1.26 | - |
@@ -465,9 +462,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CustomResourceValidationExpressions`: Enable expression language validation in CRD
   which will validate customer resource based on validation rules written in
   the `x-kubernetes-validations` extension.
-- `DelegateFSGroupToCSIDriver`: If supported by the CSI driver, delegates the
-  role of applying `fsGroup` from a Pod's `securityContext` to the driver by
-  passing `fsGroup` through the NodeStageVolume and NodePublishVolume CSI calls.
 - `DevicePlugins`: Enable the [device-plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
   based resource provisioning on nodes.
 - `DisableAcceleratorUsageMetrics`:
