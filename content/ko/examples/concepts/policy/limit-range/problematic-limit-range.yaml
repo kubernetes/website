@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: cpu-resource-constraint
+spec:
+  limits:
+  - default: # 이 섹션에서는 기본 한도를 정의한다
+      cpu: 500m
+    defaultRequest: # 이 섹션에서는 기본 요청을 정의한다
+      cpu: 500m
+    max: # max와 min은 제한 범위를 정의한다
+      cpu: "1"
+    min:
+      cpu: 100m
