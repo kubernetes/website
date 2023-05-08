@@ -224,7 +224,7 @@ id of exclusively allocated CPUs, device id as it was reported by device plugins
 the NUMA node where these devices are allocated. Also, for NUMA-based machines, it contains the
 information about memory and hugepages reserved for a container.
 
-Starting from Kubernetes v1.27, the `List` enpoint can provide information on resources
+Starting from Kubernetes v1.27, the `List` endpoint can provide information on resources
 of running pods allocated in `ResourceClaims` by the `DynamicResourceAllocation` API. To enable
 this feature `kubelet` must be started with the following flags:
 
