@@ -6,7 +6,7 @@ weight: 40
 ---
 
 <!-- overview -->
-Esta página fornece orientações de estilo para escrita para a documentação do
+Esta página fornece orientações de estilo para escrita da documentação do
 Kubernetes. Estas são orientações, não regras. Utilize seu melhor julgamento
 e sinta-se livre para propor alterações neste documento através de um pull request.
 
@@ -43,17 +43,17 @@ A forma para localização de documentação em uma língua diferente está desc
 
 Quando você se referir especificamente a interações com um objeto da API, utilize
 [_UpperCamelCase_](https://pt.wikipedia.org/wiki/CamelCase), também conhecido como
-_Pascal case_. Você poderá encontrar maiusculização diferente, como por exemplo
-"configMap", na [referência da API](/docs/reference/kubernetes-api/). Ao escrever
-documentação geral, prefira a utilização de _upper camel case_, chamando o objeto
-de "ConfigMap".
+_Pascal case_. Você poderá encontrar formatação de maiúsculas e minúsculas
+diferente, como por exemplo "configMap", na [referência da API](/docs/reference/kubernetes-api/).
+Ao escrever documentação geral, prefira a utilização de _upper camel case_,
+chamando o objeto de "ConfigMap".
 
 Quando você estiver discutindo um objeto da API, utilize a
-[maiusculização no estilo de sentença](https://learn.microsoft.com/pt-br/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
+[formatação de maiúsculas e minúsculas no estilo de sentença](https://learn.microsoft.com/pt-br/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
 
-Os exemplos a seguir focam no estilo de maiusculização. Para mais informações
-sobre como formatar nomes de objetos da API, revise a orientação relacionada
-no [manual de estilo de código](#code-style-inline-code).
+Os exemplos a seguir focam no estilo de formatação de maiúsculas e minúsculas.
+Para mais informações sobre como formatar nomes de objetos da API, revise a
+orientação relacionada no [manual de estilo de código](#code-style-inline-code).
 
 {{< table caption = "Faça e não faça - Utilizando _Pascal case_ para objetos da API" >}}
 Faça                                                                              | Não faça
@@ -520,8 +520,8 @@ Faça | Não faça
 Atualize o título no _front matter_ da página ou postagem de blog. | Utilize cabeçalho de primeiro nível, pois o Hugo automaticamente converte o título do _front matter_ para um cabeçalho de primeiro nível.
 Utilize cabeçalhos ordenados para fornecer um resumo de alto nível do seu conteúdo. | Utilize cabeçalhos de nível 4 a 6, a menos que seja absolutamente necessário. Se o seu conteúdo é detalhado a este nível, pode ser que ele precise ser dividido em artigos separados.
 Utilize o sinal numérico ou cerquilha (`#`) para conteúdo que não seja postagem de blog. | Utilize traços ou sinais de igual (`---` ou `===`) para designar cabeçalhos de primeiro nível.
-Utilize maiusculização de sentença para cabeçalhos no corpo da página. Por exemplo, **Estenda o kubectl com plugins** | Utilize maiusculização de título para cabeçalhos no corpo da página. Por exemplo, **Estenda o Kubectl com Plugins**
-Utilize maiusculização de título para o título da página no _front matter_. Por exemplo, `title: Riscos do Contorno do Servidor da API do Kubernetes` | Utilize maiusculização de sentença para títulos de página no _front matter_. Por exemplo, não utilize `title: Riscos do contorno do servidor da API do Kubernetes`
+Utilize formatação de maiúsculas e minúsculas de sentença para cabeçalhos no corpo da página. Por exemplo, **Estenda o kubectl com plugins** | Utilize formatação de maiúsculas e minúsculas de título para cabeçalhos no corpo da página. Por exemplo, **Estenda o Kubectl com Plugins**
+Utilize formatação de maiúsculas e minúsculas de título para o título da página no _front matter_. Por exemplo, `title: Riscos do Contorno do Servidor da API do Kubernetes` | Utilize formatação de maiúsculas e minúsculas de sentença para títulos de página no _front matter_. Por exemplo, não utilize `title: Riscos do contorno do servidor da API do Kubernetes`
 {{< /table >}}
 
 ### Parágrafos
