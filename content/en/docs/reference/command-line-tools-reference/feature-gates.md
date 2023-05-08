@@ -172,7 +172,7 @@ For a reference to old feature gates that are removed, please refer to
 | `PodDeletionCost` | `true` | Beta | 1.22 | |
 | `PodDisruptionConditions` | `false` | Alpha | 1.25 | 1.25 |
 | `PodDisruptionConditions` | `true` | Beta | 1.26 | |
-| `PodReadyToStartContainersCondition` | `false` | Alpha | 1.25 | |
+| `PodReadyToStartContainersCondition` | `false` | Alpha | 1.28 | |
 | `PodSchedulingReadiness` | `false` | Alpha | 1.26 | 1.26 |
 | `PodSchedulingReadiness` | `true` | Beta | 1.27 | |
 | `ProbeTerminationGracePeriod` | `false` | Alpha | 1.21 | 1.21 |
