@@ -5,7 +5,7 @@ date: 2023-05-09
 slug: introducing-kubectl-applyset-pruning
 ---
 
-**Authors:** Katrina Verey (Independent) and Justin Santa Barbara (Google)
+**Authors:** Katrina Verey (independent) and Justin Santa Barbara (Google)
 
 Declarative configuration management with the `kubectl apply` command is the gold standard approach
 to creating or modifying Kubernetes resources. However, one challenge it presents is the deletion
