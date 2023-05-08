@@ -167,7 +167,7 @@ Kubernetes provides built-in signers that each have a well-known `signerName`:
       is not distributed by any other means.
    1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name starts with "`system:node:`".
    1. Permitted x509 extensions - honors key usage extensions, forbids subjectAltName extensions and drops other extensions.
-   1. Permitted key usages - exactly `["key encipherment", "digital signature", "client auth"]`.
+   1. Permitted key usages - `["key encipherment", "digital signature", "client auth"]` or `["digital signature", "client auth"]`.
    1. Expiration/certificate lifetime - for the kube-controller-manager implementation of this signer, set to the minimum
       of the `--cluster-signing-duration` option or, if specified, the `spec.expirationSeconds` field of the CSR object.
    1. CA bit allowed/disallowed - not allowed.
@@ -180,7 +180,7 @@ Kubernetes provides built-in signers that each have a well-known `signerName`:
    1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name starts with "`system:node:`".
    1. Permitted x509 extensions - honors key usage and DNSName/IPAddress subjectAltName extensions, forbids EmailAddress and
       URI subjectAltName extensions, drops other extensions. At least one DNS or IP subjectAltName must be present.
-   1. Permitted key usages - exactly `["key encipherment", "digital signature", "server auth"]`.
+   1. Permitted key usages - `["key encipherment", "digital signature", "client auth"]` or `["digital signature", "client auth"]`.
    1. Expiration/certificate lifetime - for the kube-controller-manager implementation of this signer, set to the minimum
       of the `--cluster-signing-duration` option or, if specified, the `spec.expirationSeconds` field of the CSR object.
    1. CA bit allowed/disallowed - not allowed.

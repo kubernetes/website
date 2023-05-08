@@ -57,7 +57,13 @@ The following methods exist for installing kubectl on Windows:
 <!--
 1. Download the [latest release {{< param "fullversion" >}}](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
 -->
-1. 下载[最新发行版 {{< param "fullversion" >}}](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe)。
+<!--
+1. Download the latest {{< skew currentVersion >}} patch release:
+   [kubectl {{< skew currentPatchVersion >}}](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe).
+-->
+
+1. 下载最新补丁版 {{< skew currentVersion >}}：
+   [kubectl {{< skew currentPatchVersion >}}](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe)。
 
    <!--
    Or if you have `curl` installed, use this command:
@@ -65,7 +71,7 @@ The following methods exist for installing kubectl on Windows:
    如果你已安装了 `curl`，也可以使用此命令：
 
    ```powershell
-   curl.exe -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe"
+   curl.exe -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe"
    ```
 
    {{< note >}}
@@ -86,7 +92,7 @@ The following methods exist for installing kubectl on Windows:
    下载 `kubectl` 校验和文件：
 
    ```powershell
-   curl.exe -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256"
+   curl.exe -LO "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
    ```
 
    <!--
@@ -152,15 +158,6 @@ The following methods exist for installing kubectl on Windows:
 
    ```cmd
    kubectl version --client --output=yaml
-   ```
-
-<!--
-1. After installing the plugin, clean up the installation files:
--->
-5. 安装插件后，清理安装文件：
-
-   ```powershell
-   del kubectl.exe kubectl.exe.sha256
    ```
 
 {{< note >}}
@@ -301,7 +298,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 1. 用以下命令下载最新发行版：
 
    ```powershell
-   curl.exe -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe"
+   curl.exe -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl-convert.exe"
    ```
 
 <!--
@@ -315,7 +312,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    下载 `kubectl-convert` 校验和文件：
 
    ```powershell
-   curl.exe -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
+   curl.exe -LO "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe.sha256"
    ```
 
    <!--
