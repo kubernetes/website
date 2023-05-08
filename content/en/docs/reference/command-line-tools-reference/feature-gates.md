@@ -147,8 +147,6 @@ For a reference to old feature gates that are removed, please refer to
 | `MinDomainsInPodTopologySpread` | `false` | Alpha | 1.24 | 1.24 |
 | `MinDomainsInPodTopologySpread` | `false` | Beta | 1.25 | 1.26 |
 | `MinDomainsInPodTopologySpread` | `true` | Beta | 1.27 | |
-| `MinimizeIPTablesRestore` | `false` | Alpha | 1.26 | 1.26 |
-| `MinimizeIPTablesRestore` | `true` | Beta | 1.27 | |
 | `MultiCIDRRangeAllocator` | `false` | Alpha | 1.25 | |
 | `MultiCIDRServiceAllocator` | `false` | Alpha | 1.27 | |
 | `NetworkPolicyStatus` | `false` | Alpha | 1.24 |  |
@@ -295,6 +293,9 @@ For a reference to old feature gates that are removed, please refer to
 | `LegacyServiceAccountTokenTracking` | `false` | Alpha | 1.26 | 1.26 |
 | `LegacyServiceAccountTokenTracking` | `true` | Beta | 1.27 | 1.27 |
 | `LegacyServiceAccountTokenTracking` | `true` | GA | 1.28 | - |
+| `MinimizeIPTablesRestore` | `false` | Alpha | 1.26 | 1.26 |
+| `MinimizeIPTablesRestore` | `true` | Beta | 1.27 | 1.27 |
+| `MinimizeIPTablesRestore` | `true` | GA | 1.28 | - |
 | `MixedProtocolLBService` | `false` | Alpha | 1.20 | 1.23 |
 | `MixedProtocolLBService` | `true` | Beta | 1.24 | 1.25 |
 | `MixedProtocolLBService` | `true` | GA | 1.26 | - |
