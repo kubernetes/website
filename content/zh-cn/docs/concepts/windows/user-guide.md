@@ -266,13 +266,6 @@ to `windows`.
 对于运行 Linux 容器的 Pod，将 `.spec.os.name` 设置为 `linux`。
 对于运行 Windows 容器的 Pod，将 `.spec.os.name` 设置为 `windows`。
 
-{{< note >}}
-<!-- 
-Starting from 1.25, the `IdentifyPodOS` feature is in GA stage and defaults to be enabled.
--->
-从 1.25 开始，`IdentifyPodOS` 特性处于 GA 阶段，默认启用。
-{{< /note >}}
-
 <!-- 
 The scheduler does not use the value of `.spec.os.name` when assigning Pods to nodes. You should
 use normal Kubernetes mechanisms for
