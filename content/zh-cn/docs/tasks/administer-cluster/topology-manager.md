@@ -21,7 +21,7 @@ weight: 150
 
 <!-- overview -->
 
-{{< feature-state state="beta" for_k8s_version="v1.18" >}}
+{{< feature-state state="beta" for_k8s_version="v1.27" >}}
 
 <!--
 An increasing number of systems leverage a combination of CPUs and hardware accelerators to
@@ -101,19 +101,6 @@ resource allocation decisions.
 所选建议将被存储为拓扑管理器的一部分。
 取决于所配置的策略，所选建议可用来决定节点接受或拒绝 Pod。
 之后，建议会被存储在拓扑管理器中，供 **建议提供者** 在作资源分配决策时使用。
-
-<!--
-### Enable the Topology Manager feature
-
-Support for the Topology Manager requires `TopologyManager`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
-It is enabled by default starting with Kubernetes 1.18.
--->
-### 启用拓扑管理器功能特性 {#enable-the-topology-manager-feature}
-
-为了使用拓扑管理器，需要先启用 `TopologyManager`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-从 Kubernetes 1.18 版本开始，这一特性默认是启用的。
 
 <!--
 ## Topology Manager Scopes and Policies

@@ -376,6 +376,98 @@ the API server will send any `BOOKMARK` event even when requested.
 但你不应假设书签会在任何特定时间间隔返回，即使要求时，客户端也不能假设 API 服务器会发送任何 `BOOKMARK` 事件。
 
 <!--
+## Streaming lists
+-->
+## 流式列表  {#streaming-lists}
+
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+
+<!--
+On large clusters, retrieving the collection of some resource types may result in
+a significant increase of resource usage (primarily RAM) on the control plane.
+In order to alleviate its impact and simplify the user experience of the **list** + **watch**
+pattern, Kubernetes v1.27 introduces as an alpha feature the support
+for requesting the initial state (previously requested via the **list** request) as part of
+the **watch** request.
+-->
+在大型集群检索某些资源类型的集合可能会导致控制平面的资源使用量（主要是 RAM）显著增加。
+为了减轻其影响并简化 **list** + **watch** 模式的用户体验，
+Kubernetes 1.27 版本引入了一个 alpha 功能，支持在 **watch** 请求中请求初始状态
+（之前在 **list** 请求中请求）。
+
+<!--
+Provided that the `WatchList` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled, this can be achieved by specifying `sendInitialEvents=true` as query string parameter
+in a **watch** request. If set, the API server starts the watch stream with synthetic init
+events (of type `ADDED`) to build the whole state of all existing objects followed by a
+[`BOOKMARK` event](/docs/reference/using-api/api-concepts/#watch-bookmarks)
+(if requested via `allowWatchBookmarks=true` option). The bookmark event includes the resource version
+to which is synced. After sending the bookmark event, the API server continues as for any other **watch**
+request.
+-->
+如果启用了 `WatchList` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+可以通过在 **watch** 请求中指定 `sendInitialEvents=true` 作为查询字符串参数来实现这一功能。
+如果指定了这个参数，API 服务器将使用合成的初始事件（类型为 `ADDED`）来启动监视流，
+以构建所有现有对象的完整状态；如果请求还带有 `allowWatchBookmarks=true` 选项，
+则继续发送 [`BOOKMARK` 事件](/zh-cn/docs/reference/using-api/api-concepts/#watch-bookmarks)。
+BOOKMARK 事件包括已被同步的资源版本。
+发送 BOOKMARK 事件后，API 服务器会像处理所有其他 **watch** 请求一样继续执行。
+
+<!--
+When you set `sendInitialEvents=true` in the query string, Kubernetes also requires that you set
+`resourceVersionMatch` to `NotOlderThan` value.
+If you provided `resourceVersion` in the query string without providing a value or don't provide
+it at all, this is interpreted as a request for _consistent read_;
+the bookmark event is sent when the state is synced at least to the moment of a consistent read
+from when the request started to be processed. If you specify `resourceVersion` (in the query string),
+the bookmark event is sent when the state is synced at least to the provided resource version.
+-->
+当你在查询字符串中设置 `sendInitialEvents=true` 时，
+Kubernetes 还要求你将 `resourceVersionMatch` 的值设置为 `NotOlderThan`。
+如果你在查询字符串中提供 `resourceVersion` 而没有提供值或者根本没有提供这个参数，
+这一请求将被视为 **一致性读（Consistent Read）** 请求；
+当状态至少被同步到开始处理一致性读操作时，才会发送 BOOKMARK 事件。
+如果你（在查询字符串中）指定了 `resourceVersion`，则只要需要等状态同步到所给资源版本时，
+BOOKMARK 事件才会被发送。
+
+<!--
+### Example {#example-streaming-lists}
+-->
+### 示例  {#example-streaming-lists}
+
+<!--
+An example: you want to watch a collection of Pods. For that collection, the current resource version
+is 10245 and there are two pods: `foo` and `bar`. Then sending the following request (explicitly requesting
+_consistent read_ by setting empty resource version using `resourceVersion=`) could result
+in the following sequence of events:
+-->
+举个例子：你想监视一组 Pod。对于该集合，当前资源版本为 10245，并且有两个 Pod：`foo` 和 `bar`。
+接下来你发送了以下请求（通过使用 `resourceVersion=` 设置空的资源版本来明确请求 **一致性读**），
+这样做的结果是可能收到如下事件序列：
+```console
+GET /api/v1/namespaces/test/pods?watch=1&sendInitialEvents=true&allowWatchBookmarks=true&resourceVersion=&resourceVersionMatch=NotOlderThan
+---
+200 OK
+Transfer-Encoding: chunked
+Content-Type: application/json
+
+{
+  "type": "ADDED",
+  "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "8467", "name": "foo"}, ...}
+}
+{
+  "type": "ADDED",
+  "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "5726", "name": "bar"}, ...}
+}
+{
+  "type": "BOOKMARK",
+  "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "10245"} }
+}
+...
+<followed by regular watch stream starting from resourceVersion="10245">
+```
+
+<!--
 ## Retrieving large results sets in chunks
 -->
 ## 分块检视大体量结果  {#retrieving-large-results-sets-in-chunks}
@@ -1105,49 +1197,20 @@ These situations are:
 2. 字段在对象中重复出现。
 
 <!--
-### Setting the field validation level
+### Validation for unrecognized or duplicate fields (#setting-the-field-validation-level)
 -->
-### 设置字段校验层级   {#setting-the-field-validation-level}
+### 检查无法识别或重复的字段  {#setting-the-field-validation-level}
 
-  {{< feature-state for_k8s_version="v1.25" state="beta" >}}
+  {{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
 <!--
-Provided that the `ServerSideFieldValidation` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled (disabled
-by default in 1.23 and 1.24, enabled by default starting in 1.25), you can take
-advantage of server side field validation to catch these unrecognized fields.
+From 1.25 onward, unrecognized or duplicate fields in an object are detected via
+validation on the server when you use HTTP verbs that can submit data (`POST`, `PUT`, and `PATCH`). Possible levels of
+validation are `Ignore`, `Warn` (default), and `Strict`.
 -->
-如果启用了 `ServerSideFieldValidation` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-（在 1.23 和 1.24 中默认处于禁用状态，从 1.25 开始默认启用），
-你可以用服务端的字段校验来抓取这些未能识别的字段。
-
-<!--
-When you use HTTP verbs that can submit data (`POST`, `PUT`, and `PATCH`), field
-validation gives you the option to choose how you would like to be notified of
-these fields that are being dropped by the API server. Possible levels of
-validation are `Ignore`, `Warn`, and `Strict`.
--->
-使用可以提交数据的 HTTP 动词（`POST`、`PUT`、`PATCH`）时，可以在字段校验中设置
-API 服务器丢弃字段时的通知设置。通知层级可能包括 `Ignore`、`Warn` 和 `Strict`。
-
-{{< note >}}
-<!--
-If you submit a request that specifies an unrecognized field, and that is also invalid for
-a different reason (for example, the request provides a string value where the API expects
-an integer), then the API server responds with a 400 Bad Request error response.
-You always receive an error response in this case, no matter what field validation level you requested.
--->
-如果你所提交的请求中指定了无法识别的字段，并且该请求由于其他某种原因无法生效
-（例如：请求提供的是字符值，而 API 需要整数），那么 API 服务器会返回 400 Bad Request（400 请求无效）错误响应码。
-
-在这种情况下，无论请求哪个层级的字段校验，都总会收到错误响应。
-{{< /note >}}
-
-<!--
-Field validation is set by the `fieldValidation` query parameter. The three
-values that you can provide for this parameter are:
--->
-字段校验需要通过 `fieldValidation` 查询参数进行设置。此参数接受三种值：
-
+从 1.25 开始，当使用可以提交数据的 HTTP 动词（`POST`、`PUT` 和 `PATCH`）时，
+将通过服务器上的校验检测到对象中无法识别或重复的字段。
+校验的级别可以是 `Ignore`、`Warn`（默认值） 和 `Strict` 之一。
 <!--
 : The API server succeeds in handling the request as it would without the erroneous fields
 being set, dropping all unknown and duplicate fields and giving no indication it
@@ -1179,6 +1242,29 @@ detected.
 来自 API 服务器的响应消息列出了 API 检测到的所有未知字段或重复字段。
 
 <!--
+The field validation level is set by the `fieldValidation` query parameter.
+-->
+字段校验级别可通过查询参数 `fieldValidation` 来设置。
+
+{{< note >}}
+<!--
+If you submit a request that specifies an unrecognized field, and that is also invalid for
+a different reason (for example, the request provides a string value where the API expects
+an integer for a known field), then the API server responds with a 400 Bad Request error, but will
+not provide any information on unknown or duplicate fields (only which fatal
+error it encountered first).
+
+You always receive an error response in this case, no matter what field validation level you requested.
+-->
+如果你提交的请求中设置了一个无法被识别的字段，并且该请求存在因其他原因引起的不合法
+（例如，请求为某已知字段提供了一个字符串值，而 API 期望该字段为整数），
+那么 API 服务器会以 400 Bad Request 错误作出响应，但不会提供有关未知或重复字段的任何信息
+（仅提供它首先遇到的致命错误）。
+
+在这种情况下，不管你设置哪种字段校验级别，你总会收到出错响应。
+{{< /note >}}
+
+<!--
 Tools that submit requests to the server (such as `kubectl`), might set their own
 defaults that are different from the `Warn` validation level that the API server uses
 by default.
@@ -1187,26 +1273,31 @@ by default.
 校验层级不同。
 
 <!--
-The `kubectl` tool uses the `--validate` flag to set the level of field validation.
-Historically `--validate` was used to toggle client-side validation on or off as
-a boolean flag. Since Kubernetes 1.25, kubectl uses
-server-side field validation when sending requests to a server with this feature
-enabled. Validation will fall back to client-side only when it cannot connect
-to an API server with field validation enabled.
+The `kubectl` tool uses the `--validate` flag to set the level of field
+validation. It accepts the values `ignore`, `warn`, and `strict` while
+also accepting the values `true` (equivalent to `strict`) and `false`
+(equivalent to `ignore`). The default validation setting for kubectl is
+`--validate=true`, which means strict server-side field validation.
+
+When kubectl cannot connect to an API server with field validation (API servers
+prior to Kubernetes 1.27), it will fall back to using client-side validation.
+Client-side validation will be removed entirely in a future version of kubectl.
 -->
 `kubectl` 工具使用 `--validate` 标志设置字段校验层级。
-之前 `--validate` 被作为布尔值开启或关闭客户段的校验功能。
-从 Kubernetes 1.25 开始，kubectl 向启用字段校验的服务器发送请求时使用服务端字段校验。
-只有无法连接启用了字段校验的 API 服务器时，才会恢复使用客户端的字段校验。
+该字段可取的值包括 `ignore`、`warn` 和 `strict`，同时还接受值 `true`（相当于 `strict`）和
+`false`（相当于 `ignore`）。
+kubectl 默认的校验设置是 `--validate=true` ，这意味着执行严格的服务端字段校验。
+
+当 kubectl 无法连接到启用字段校验的 API 服务器（Kubernetes 1.27 之前的 API 服务器）时，
+将回退到使用客户端的字段校验。
+客户端校验将在 kubectl 未来版本中被完全删除。
+{{< note >}}
 <!--
-It accepts the values `ignore`, `warn`,
-and `strict` while also accepting the values `true` (equivalent to `strict`) and `false`
-(equivalent to `ignore`). The default validation setting for kubectl is `--validate=true`,
-which means strict server-side field validation.
+Prior to Kubernetes 1.25  `kubectl --validate` was used to toggle client-side validation on or off as
+a boolean flag.
 -->
-`kubectl` 接受 `ignore`、`warn`、`strict` 值，同时也接受 `true`（等效于 `strict`）
-和 `false`（等效于 `ignore`）。kubectl 的字段校验默认配置为 `--validate=true`，
-即服务端的 `strict` 级字段校验。
+在 Kubernetes 1.25 之前，`kubectl --validate` 是用来开启或关闭客户端校验的布尔标志的命令。
+{{< /note >}}
 
 <!--
 ## Dry-run
@@ -1312,7 +1403,10 @@ generated fields may differ.
 <!--
 ### Generated values
 
-Some values of an object are typically generated before the object is persisted. It is important not to rely upon the values of these fields set by a dry-run request, since these values will likely be different in dry-run mode from when the real request is made. Some of these fields are:
+Some values of an object are typically generated before the object is persisted. It
+is important not to rely upon the values of these fields set by a dry-run request,
+since these values will likely be different in dry-run mode from when the real
+request is made. Some of these fields are:
 
 * `name`: if `generateName` is set, `name` will have a unique random name
 * `creationTimestamp` / `deletionTimestamp`: records the time of creation/deletion
@@ -1682,7 +1776,7 @@ For watch, the semantics of resource version are:
 {{< /table >}}
 
 <!--
-The meaning of the **watch** semantics are:
+The meaning of those **watch** semantics are:
 
 Get State and Start at Any
 : {{< caution >}} Watches initialized this way may return arbitrarily stale
