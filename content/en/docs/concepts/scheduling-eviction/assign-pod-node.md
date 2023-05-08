@@ -502,7 +502,7 @@ to learn more about how these work.
 
 The following are all the logical operators that you can use in the `operator` field for `nodeAffinity` and `podAffinity` mentioned above.
 
-|    Operator    |    Behaviour    |
+|    Operator    |    Behavior     |
 | :------------: | :-------------: |
 | `In` | The label value is present in the supplied set of strings |
 |   `NotIn`   | The label value is not contained in the supplied set of strings |
@@ -518,7 +518,9 @@ The following operators can only be used with `nodeAffinity`.
 
 
 {{<note>}}
-`Gt` and `Lt` operators will not work with non integer values. If the given value doesn't parse as an integer, the pod will fail to get scheduled. Also, `Gt` and `Lt` are not available for `podAffinity`.
+`Gt` and `Lt` operators will not work with non-integer values. If the given value 
+doesn't parse as an integer, the pod will fail to get scheduled. Also, `Gt` and `Lt` 
+are not available for `podAffinity`.
 {{</note>}}
 
 ## {{% heading "whatsnext" %}}
