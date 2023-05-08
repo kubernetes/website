@@ -279,7 +279,7 @@ method creates a new `Secret` object with the edited data.
 
 Depending on how you created the Secret, as well as how the Secret is used in
 your Pods, updates to existing `Secret` objects are propagated automatically to
-Pods that use the data. For more information, refer to [Mounted Secrets are updated automatically](#mounted-secrets-are-updated-automatically).
+Pods that use the data. For more information, refer to [Using Secrets as files from a Pod](#using-secrets-as-files-from-a-pod) section.
 -->
 你也可以使用
 [Kustomize 工具](/zh-cn/docs/tasks/configmap-secret/managing-secret-using-kustomize/#edit-secret)编辑数据。
@@ -287,7 +287,7 @@ Pods that use the data. For more information, refer to [Mounted Secrets are upda
 
 根据你创建 Secret 的方式以及该 Secret 在 Pod 中被使用的方式，对已有 `Secret`
 对象的更新将自动扩散到使用此数据的 Pod。有关更多信息，
-请参阅[自动更新挂载的 Secret](#mounted-secrets-are-updated-automatically)。
+请参阅[在 Pod 以文件形式使用 Secret](#using-secrets-as-files-from-a-pod)。
 
 <!--
 ### Using a Secret

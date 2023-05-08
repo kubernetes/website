@@ -457,7 +457,7 @@ If a node fails, the data in its ephemeral storage can be lost.
 Your applications cannot expect any performance SLAs (disk IOPS for example)
 from local ephemeral storage.
 
-As a beta feature, Kubernetes lets you track, reserve and limit the amount
+Kubernetes lets you track, reserve and limit the amount
 of ephemeral local storage a Pod can consume.
 -->
 
@@ -469,7 +469,7 @@ kubelet 也使用此类存储来保存[节点层面的容器日志](/zh-cn/docs/
 你的应用不能对本地临时性存储的性能 SLA（例如磁盘 IOPS）作任何假定。
 {{< /caution >}}
 
-作为一种 beta 阶段功能特性，Kubernetes 允许你跟踪、预留和限制 Pod
+Kubernetes 允许你跟踪、预留和限制 Pod
 可消耗的临时性本地存储数量。
 
 <!--
