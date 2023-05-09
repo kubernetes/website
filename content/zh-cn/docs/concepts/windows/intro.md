@@ -167,13 +167,6 @@ Kubernetes 关键组件在 Windows 上的工作方式与在 Linux 上相同。
 
     `.spec.os.name` 字段应设置为 `windows` 以表明当前 Pod 使用 Windows 容器。
 
-    {{< note >}}
-    <!--
-    Starting from 1.25, the `IdentifyPodOS` feature gate is in GA stage and defaults to be enabled.
-    -->
-    从 1.25 开始，`IdentifyPodOS` 特性门控进入 GA 阶段，默认启用。
-    {{< /note >}}
-
     <!--
     If you set the `.spec.os.name` field to `windows`,
     you must not set the following fields in the `.spec` of that Pod:
