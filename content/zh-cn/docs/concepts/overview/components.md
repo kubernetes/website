@@ -236,12 +236,20 @@ saving container logs to a central log store with search/browsing interface.
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Learn about [Nodes](/docs/concepts/architecture/nodes/)
-* Learn about [Controllers](/docs/concepts/architecture/controller/)
-* Learn about [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/)
-* Read etcd's official [documentation](https://etcd.io/docs/)
+Learn more about the following:
+   * [Nodes](/docs/concepts/architecture/nodes/) and [their communication](/docs/concepts/architecture/control-plane-node-communication/) with the control plane.
+   * Kubernetes [controllers](/docs/concepts/architecture/controller/).
+   * [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/) which is the default scheduler for Kubernetes.
+   * Etcd's official [documentation](https://etcd.io/docs/).
+   * Several [container runtimes](/docs/setup/production-environment/container-runtimes/) in Kubernetes.
+   * Integrating with cloud providers using [cloud-controller-manager](/docs/concepts/architecture/cloud-controller/).
+   * [kubectl](/docs/reference/generated/kubectl/kubectl-commands) commands.
 -->
-* 进一步了解[节点](/zh-cn/docs/concepts/architecture/nodes/)
-* 进一步了解[控制器](/zh-cn/docs/concepts/architecture/controller/)
-* 进一步了解 [kube-scheduler](/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/)
-* 阅读 etcd 官方[文档](https://etcd.io/docs/)
+进一步了解以下内容：
+   * [节点](/zh-cn/docs/concepts/architecture/nodes/)及其与[控制平面](/zh-cn/docs/concepts/architecture/control-plane-node-communication/)的通信。
+   * Kubernetes 中的[控制器](/zh-cn/docs/concepts/architecture/controller/)。
+   * Kubernetes 的默认调度程序 [kube-scheduler](/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/)。
+   * etcd 的官方[文档](https://etcd.io/docs/)。
+   * Kubernetes 中的几个[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)。
+   * 使用 [cloud-controller-manager](/zh-cn/docs/concepts/architecture/cloud-controller/) 与云提供商进行集成。
+   * [kubectl](/docs/reference/generated/kubectl/kubectl-commands) 命令。
