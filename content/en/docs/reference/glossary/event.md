@@ -4,14 +4,13 @@ id: event
 date: 2022-01-16
 full_link: /docs/reference/kubernetes-api/cluster-resources/event-v1/
 short_description: >
-   Refers to an object that describes a notable occurrence or change of state in the system.
+   Events are Kubernetes objects that describe some state change in the system.
 aka: 
 tags:
 - core-object
 - fundamental
 ---
-An Event refers to an object that describes a notable occurrence in the system. 
-It generally denotes some state change in the system.
+Event is a Kubernetes object that describes state change/notable occurrences in the system.
 
 <!--more-->
 Events have a limited retention time and triggers and messages may evolve with time. 
