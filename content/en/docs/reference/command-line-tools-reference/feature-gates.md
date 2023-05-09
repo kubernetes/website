@@ -195,7 +195,8 @@ For a reference to old feature gates that are removed, please refer to
 | `SELinuxMountReadWriteOncePod` | `false` | Alpha | 1.25 | 1.26 |
 | `SELinuxMountReadWriteOncePod` | `true` | Beta | 1.27 | |
 | `SecurityContextDeny` | `false` | Alpha | 1.27 | |
-| `ServiceNodePortStaticSubrange` | `false` | Alpha | 1.27 | |
+| `ServiceNodePortStaticSubrange` | `false` | Alpha | 1.27 | 1.27 |
+| `ServiceNodePortStaticSubrange` | `true` | Beta | 1.28 | |
 | `SizeMemoryBackedVolumes` | `false` | Alpha | 1.20 | 1.21 |
 | `SizeMemoryBackedVolumes` | `true` | Beta | 1.22 | |
 | `StableLoadBalancerNodeGet` | `true` | Beta | 1.27 | |
