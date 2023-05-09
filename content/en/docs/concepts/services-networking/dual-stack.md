@@ -33,39 +33,39 @@ IPv4/IPv6 dual-stack networking is enabled by default for your Kubernetes cluste
 
 IPv4/IPv6 dual-stack on your Kubernetes cluster provides the following features:
 
-* Dual-stack Pod networking (a single IPv4 and IPv6 address assignment per Pod)
-* IPv4 and IPv6 enabled Services
-* Pod off-cluster egress routing (eg. the Internet) via both IPv4 and IPv6 interfaces
+- Dual-stack Pod networking (a single IPv4 and IPv6 address assignment per Pod)
+- IPv4 and IPv6 enabled Services
+- Pod off-cluster egress routing (eg. the Internet) via both IPv4 and IPv6 interfaces
 
 ## Prerequisites
 
 The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack Kubernetes clusters:
 
-* Kubernetes 1.20 or later
+- Kubernetes 1.20 or later
 
   For information about using dual-stack services with earlier
   Kubernetes versions, refer to the documentation for that version
   of Kubernetes.
 
-* Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide
+- Provider support for dual-stack networking (Cloud provider or otherwise must be able to provide
   Kubernetes nodes with routable IPv4/IPv6 network interfaces)
-* A [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) that
+- A [network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) that
   supports dual-stack networking.
 
 ## Configure IPv4/IPv6 dual-stack
 
 To configure IPv4/IPv6 dual-stack, set dual-stack cluster network assignments:
 
-* kube-apiserver:
-  * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
-* kube-controller-manager:
-  * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
-  * `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
-  * `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` defaults to /24 for IPv4 and /64 for IPv6
-* kube-proxy:
-  * `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
-* kubelet:
-  * when there is no `--cloud-provider` the administrator can pass a comma-separated pair of IP
+- kube-apiserver:
+  - `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
+- kube-controller-manager:
+  - `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
+  - `--service-cluster-ip-range=<IPv4 CIDR>,<IPv6 CIDR>`
+  - `--node-cidr-mask-size-ipv4|--node-cidr-mask-size-ipv6` defaults to /24 for IPv4 and /64 for IPv6
+- kube-proxy:
+  - `--cluster-cidr=<IPv4 CIDR>,<IPv6 CIDR>`
+- kubelet:
+  - when there is no `--cloud-provider` the administrator can pass a comma-separated pair of IP
     addresses via `--node-ip` to manually configure dual-stack `.status.addresses` for that Node.
     If a Pod runs on that node in HostNetwork mode, the Pod reports these IP addresses in its
     `.status.podIPs` field.
@@ -96,12 +96,12 @@ range (configured via the `--service-cluster-ip-range` flag to the kube-apiserve
 When you define a Service you can optionally configure it as dual stack. To specify the behavior you want, you
 set the `.spec.ipFamilyPolicy` field to one of the following values:
 
-* `SingleStack`: Single-stack service. The control plane allocates a cluster IP for the Service,
+- `SingleStack`: Single-stack service. The control plane allocates a cluster IP for the Service,
   using the first configured service cluster IP range.
-* `PreferDualStack`:
-  * Allocates IPv4 and IPv6 cluster IPs for the Service.
-* `RequireDualStack`: Allocates Service `.spec.ClusterIPs` from both IPv4 and IPv6 address ranges.
-  * Selects the `.spec.ClusterIP` from the list of `.spec.ClusterIPs` based on the address family
+- `PreferDualStack`:
+  - Allocates IPv4 and IPv6 cluster IPs for the Service.
+- `RequireDualStack`: Allocates Service `.spec.ClusterIPs` from both IPv4 and IPv6 address ranges.
+  - Selects the `.spec.ClusterIP` from the list of `.spec.ClusterIPs` based on the address family
     of the first element in the `.spec.ipFamilies` array.
 
 If you would like to define which IP family to use for single stack or define the order of IP
@@ -109,7 +109,7 @@ families for dual-stack, you can choose the address families by setting an optio
 `.spec.ipFamilies`, on the Service.
 
 {{< note >}}
-The `.spec.ipFamilies` field is immutable because the `.spec.ClusterIP` cannot be reallocated on a
+The `.spec.ipFamilies` field is mutable because the `.spec.ClusterIP` cannot be reallocated on a
 Service that already exists. If you want to change `.spec.ipFamilies`, delete and recreate the
 Service.
 {{< /note >}}
@@ -145,11 +145,11 @@ These examples demonstrate the behavior of various dual-stack Service configurat
    IP addresses; `.spec.ClusterIP` is a secondary field with its value calculated from
    `.spec.ClusterIPs`.
 
-   * For the `.spec.ClusterIP` field, the control plane records the IP address that is from the
+   - For the `.spec.ClusterIP` field, the control plane records the IP address that is from the
      same address family as the first service cluster IP range.
-   * On a single-stack cluster, the `.spec.ClusterIPs` and `.spec.ClusterIP` fields both only list
+   - On a single-stack cluster, the `.spec.ClusterIPs` and `.spec.ClusterIP` fields both only list
      one address.
-   * On a cluster with dual-stack enabled, specifying `RequireDualStack` in `.spec.ipFamilyPolicy`
+   - On a cluster with dual-stack enabled, specifying `RequireDualStack` in `.spec.ipFamilyPolicy`
      behaves the same as `PreferDualStack`.
 
    {{< codenew file="service/networking/dual-stack-preferred-svc.yaml" >}}
@@ -190,14 +190,14 @@ dual-stack.)
    spec:
      clusterIP: 10.0.197.123
      clusterIPs:
-     - 10.0.197.123
+       - 10.0.197.123
      ipFamilies:
-     - IPv4
+       - IPv4
      ipFamilyPolicy: SingleStack
      ports:
-     - port: 80
-       protocol: TCP
-       targetPort: 80
+       - port: 80
+         protocol: TCP
+         targetPort: 80
      selector:
        app.kubernetes.io/name: MyApp
      type: ClusterIP
@@ -230,14 +230,14 @@ dual-stack.)
    spec:
      clusterIP: None
      clusterIPs:
-     - None
+       - None
      ipFamilies:
-     - IPv4
+       - IPv4
      ipFamilyPolicy: SingleStack
      ports:
-     - port: 80
-       protocol: TCP
-       targetPort: 80
+       - port: 80
+         protocol: TCP
+         targetPort: 80
      selector:
        app.kubernetes.io/name: MyApp
    ```
@@ -283,8 +283,8 @@ and without `.spec.ipFamilyPolicy` explicitly set, the `.spec.ipFamilyPolicy` fi
 
 To provision a dual-stack load balancer for your Service:
 
-* Set the `.spec.type` field to `LoadBalancer`
-* Set `.spec.ipFamilyPolicy` field to `PreferDualStack` or `RequireDualStack`
+- Set the `.spec.type` field to `LoadBalancer`
+- Set `.spec.ipFamilyPolicy` field to `PreferDualStack` or `RequireDualStack`
 
 {{< note >}}
 To use a dual-stack `LoadBalancer` type Service, your cloud provider must support IPv4 and IPv6
@@ -320,6 +320,5 @@ You can read more about the different network modes for Windows within the
 
 ## {{% heading "whatsnext" %}}
 
-* [Validate IPv4/IPv6 dual-stack](/docs/tasks/network/validate-dual-stack) networking
-* [Enable dual-stack networking using kubeadm](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)
-
+- [Validate IPv4/IPv6 dual-stack](/docs/tasks/network/validate-dual-stack) networking
+- [Enable dual-stack networking using kubeadm](/docs/setup/production-environment/tools/kubeadm/dual-stack-support/)
