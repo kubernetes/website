@@ -410,7 +410,7 @@ CPU ID、设备插件所报告的设备 ID 以及这些设备分配所处的 NUM
 此外，对于基于 NUMA 的机器，它还会包含为容器保留的内存和大页的信息。
 
 <!--
-Starting from Kubernetes v1.27, the `List` enpoint can provide information on resources
+Starting from Kubernetes v1.27, the `List` endpoint can provide information on resources
 of running pods allocated in `ResourceClaims` by the `DynamicResourceAllocation` API. To enable
 this feature `kubelet` must be started with the following flags:
 -->
