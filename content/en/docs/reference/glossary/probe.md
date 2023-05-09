@@ -11,7 +11,7 @@ tags:
 - tool
 ---
 A check that the kubelet periodically performs against a container that is 
-running in a pod to define container state and health and informing container lifecycle.
+running in a pod, that will define container's state and health and informing container's lifecycle.
 
 <!--more-->
  
