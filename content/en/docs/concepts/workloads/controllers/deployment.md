@@ -38,6 +38,10 @@ The following are typical use cases for Deployments:
 
 ## Creating a Deployment
 
+Before creating a Deployment define an 
+[environment variable](/docs/tasks/inject-data-application/define-environment-variable-container/#define-an-environment-variable-for-a-container)
+for a container. 
+
 The following is an example of a Deployment. It creates a ReplicaSet to bring up three `nginx` Pods:
 
 {{< codenew file="controllers/nginx-deployment.yaml" >}}
@@ -132,9 +136,9 @@ Follow the steps given below to create the above Deployment:
    The output is similar to:
    ```
    NAME                                READY     STATUS    RESTARTS   AGE       LABELS
-   nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-   nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-   nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+   nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
+   nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
+   nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
    ```
    The created ReplicaSet ensures that there are three `nginx` Pods.
 

@@ -891,7 +891,7 @@ When creating a debugging session on a node, keep in mind that:
 * The root filesystem of the Node will be mounted at `/host`.
 * The container runs in the host IPC, Network, and PID namespaces, although
   the pod isn't privileged, so reading some process information may fail,
-  and `chroot /host` will fail.
+  and `chroot /host` may fail.
 * If you need a privileged pod, create it manually.
 
 Don't forget to clean up the debugging Pod when you're finished with it:
@@ -900,7 +900,7 @@ Don't forget to clean up the debugging Pod when you're finished with it:
 * `kubectl debug` 基于节点的名字自动生成新的 Pod 的名字。
 * 节点的根文件系统会被挂载在 `/host`。
 * 新的调试容器运行在主机 IPC 名字空间、主机网络名字空间以及主机 PID 名字空间内，
-  Pod 没有特权，因此读取某些进程信息可能会失败，并且 `chroot /host` 也会失败。
+  Pod 没有特权，因此读取某些进程信息可能会失败，并且 `chroot /host` 也可能会失败。
 * 如果你需要一个特权 Pod，需要手动创建。
 
 当你完成节点调试时，不要忘记清理调试 Pod：

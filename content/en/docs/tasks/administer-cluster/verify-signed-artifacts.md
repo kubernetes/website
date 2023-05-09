@@ -27,7 +27,7 @@ standalone binaries) by using cosign's keyless signing. To verify a particular
 binary, retrieve it together with its signature and certificate:
 
 ```bash
-URL=https://dl.k8s.io/release/v{{< skew currentVersion >}}.0/bin/linux/amd64
+URL=https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64
 BINARY=kubectl
 
 FILES=(
@@ -64,7 +64,7 @@ Let's pick one image from this list and verify its signature using
 the `cosign verify` command:
 
 ```shell
-COSIGN_EXPERIMENTAL=1 cosign verify registry.k8s.io/kube-apiserver-amd64:v{{< skew currentVersion >}}.0
+COSIGN_EXPERIMENTAL=1 cosign verify registry.k8s.io/kube-apiserver-amd64:v{{< skew currentPatchVersion >}}
 ```
 
 {{< note >}}
@@ -78,7 +78,7 @@ in `KEYLESS` mode. To learn more about keyless signing, please refer to
 To verify all signed control plane images, please run this command:
 
 ```shell
-curl -Ls https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/latest.txt)/release | grep 'PackageName: registry.k8s.io/' | awk '{print $2}' > images.txt
+curl -Ls "https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/stable.txt)/release" | grep "SPDXID: SPDXRef-Package-registry.k8s.io" |  grep -v sha256 | cut -d- -f3- | sed 's/-/\//' | sed 's/-v1/:v1/' > images.txt
 input=images.txt
 while IFS= read -r image
 do

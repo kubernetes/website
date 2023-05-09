@@ -169,8 +169,8 @@ has the information about which CSI driver should be used for creating the group
 Two individual volume snapshots will be created as part of the volume group snapshot creation.
 
 ```yaml
-snapshot-62abb5db7204ac6e4c1198629fec533f2a5d9d60ea1a25f594de0bf8866c7947-2023-04-26-2:20:4
-snapshot-2026811eb9f0787466171fe189c805a22cdb61a326235cd067dc3a1ac0104900-2023-04-26-2:20:4
+snapshot-62abb5db7204ac6e4c1198629fec533f2a5d9d60ea1a25f594de0bf8866c7947-2023-04-26-2.20.4
+snapshot-2026811eb9f0787466171fe189c805a22cdb61a326235cd067dc3a1ac0104900-2023-04-26-2.20.4
 ```
 
 ### How to use group snapshot for restore in Kubernetes
@@ -190,7 +190,7 @@ metadata:
 spec:
   storageClassName: csi-hostpath-sc
   dataSource:
-    name: snapshot-62abb5db7204ac6e4c1198629fec533f2a5d9d60ea1a25f594de0bf8866c7947-2023-04-26-2:20:4
+    name: snapshot-62abb5db7204ac6e4c1198629fec533f2a5d9d60ea1a25f594de0bf8866c7947-2023-04-26-2.20.4
     kind: VolumeSnapshot
     apiGroup: snapshot.storage.k8s.io
   accessModes:
