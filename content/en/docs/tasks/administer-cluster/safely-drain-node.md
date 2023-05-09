@@ -61,8 +61,13 @@ bring down the node by powering down its physical machine or, if running on a
 cloud platform, deleting its virtual machine.
 
 {{< note >}}
-[nodeName](/docs/concepts/scheduling-eviction/assign-pod-node/#nodename) bypasses the scheduler, 
-thus evicted Pods will still run on a drained node.
+If any new Pods tolerate the `node.kubernetes.io/unschedulable` taint, then those Pods
+might be scheduled to the node you have drained. Avoid tolerating that taint other than
+for DaemonSets.
+
+If you or another API user directly set the [`nodeName`](/docs/concepts/scheduling-eviction/assign-pod-node/#nodename)
+field for a Pod (bypassing the scheduler), then the Pod is bound to the specified node
+and will run there, even though you have drained that node and marked it unschedulable.
 {{< /note >}}
 
 First, identify the name of the node you wish to drain. You can list all of the nodes in your cluster with
