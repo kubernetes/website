@@ -22,12 +22,12 @@ Windows पर kubectl संस्थापित करने के लिए
 
 ### Windows पर curl के माध्यम से kubectl बाइनरी इंस्टॉल करें
 
-1. [latest release {{< param "fullversion" >}}](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe) डाउनलोड करें।
+1. [latest release {{< skew currentPatchVersion >}}](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe) डाउनलोड करें।
 
    या यदि आपके पास `curl` है, तो इस कमांड का उपयोग करें:
 
    ```powershell
-   curl -LO https://dl.k8s.io/release/{{% param "fullversion" %}}/bin/windows/amd64/kubectl.exe
+   curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe
    ```
 
    {{< note >}}
@@ -39,7 +39,7 @@ Windows पर kubectl संस्थापित करने के लिए
    kubectl चेकसम फाइल डाउनलोड करें:
 
    ```powershell
-   curl -LO https://dl.k8s.io/{{% param "fullversion" %}}/bin/windows/amd64/kubectl.exe.sha256
+   curl -LO https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe.sha256
    ```
 
    चेकसम फ़ाइल से kubectl बाइनरी को मान्य करें:
@@ -143,7 +143,7 @@ kubectl Bash और Zsh के लिए ऑटोकम्प्लेशन �
 1. इस कमांड से नवीनतम रिलीज डाउनलोड करें:
 
    ```powershell
-   curl -LO https://dl.k8s.io/release/{{% param "fullversion" %}}/bin/windows/amd64/kubectl-convert.exe
+   curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl-convert.exe
    ```
 
 1. बाइनरी को मान्य करें (वैकल्पिक)
@@ -151,7 +151,7 @@ kubectl Bash और Zsh के लिए ऑटोकम्प्लेशन �
    kubectl-convert चेकसम फ़ाइल डाउनलोड करें:
 
    ```powershell
-   curl -LO https://dl.k8s.io/{{% param "fullversion" %}}/bin/windows/amd64/kubectl-convert.exe.sha256
+   curl -LO https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl-convert.exe.sha256
    ```
 
    चेकसम फ़ाइल से kubectl-convert बाइनरी को मान्य करें:
