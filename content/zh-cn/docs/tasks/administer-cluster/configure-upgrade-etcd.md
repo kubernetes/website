@@ -702,3 +702,26 @@ Before you start an upgrade, please back up your etcd cluster first.
 在开始升级之前，请先备份你的 etcd 集群。
 {{< /note >}}
 
+<!--
+## Maintaining etcd clusters
+
+Fore more details on etcd maintenance, please refer to the [etcd maintenance](https://etcd.io/docs/latest/op-guide/maintenance/) documentation.
+-->
+## 维护 etcd 集群    {#maintaining-etcd-clusters}
+
+有关 etcd 维护的更多详细信息，请参阅 [etcd 维护](https://etcd.io/docs/latest/op-guide/maintenance/)文档。
+
+{{% thirdparty-content single="true" %}}
+
+{{< note >}}
+<!--
+Defragmentation is an expensive operation, so it should be executed as infrequent
+as possible. On the other hand, it's also necessary to make sure any etcd member
+will not run out of the storage quota. The Kubernetes project recommends that when
+you perform defragmentation, you use a tool such as [etcd-defrag](https://github.com/ahrtr/etcd-defrag).
+-->
+碎片整理是一种昂贵的操作，因此应尽可能少地执行此操作。
+另一方面，也有必要确保任何 etcd 成员都不会用尽存储配额。
+Kubernetes 项目建议在执行碎片整理时，
+使用诸如 [etcd-defrag](https://github.com/ahrtr/etcd-defrag) 之类的工具。
+{{< /note >}}
