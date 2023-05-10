@@ -180,7 +180,9 @@ Follow the steps given below to update your Deployment:
    ```shell
    kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
    ```
-   where `deployment/nginx-deployment` indicates the deployment, `nginx` indicates the container the update will take place and `nginx:1.16.1` indicates the image and its version.
+   where `deployment/nginx-deployment` indicates the Deployment,
+   `nginx` indicates the Container the update will take place and
+   `nginx:1.16.1` indicates the new image and its tag.
 
 
    The output is similar to:
