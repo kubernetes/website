@@ -638,7 +638,8 @@ In the following table:
 
 - `PodDisruptionBudget`: Enable the [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) feature.
 
-- `PodHasNetwork`: Enable the kubelet to mark the [PodHasNetwork](/docs/concepts/workloads/pods/pod-lifecycle/#pod-has-network) condition on pods.  This was renamed to `PodReadyToStartContainersCondition` in 1.28.
+- `PodHasNetwork`: Enable the kubelet to mark the [PodHasNetwork](/docs/concepts/workloads/pods/pod-lifecycle/#pod-has-network)
+  condition on pods. This was renamed to `PodReadyToStartContainersCondition` in 1.28.
 - `PodOverhead`: Enable the [PodOverhead](/docs/concepts/scheduling-eviction/pod-overhead/)
   feature to account for pod overheads.
 
