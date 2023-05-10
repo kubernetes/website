@@ -121,9 +121,9 @@ card:
 
 एक [क्लस्टर-स्तरीय लॉगिंग](/docs/concepts/cluster-administration/logging/) तंत्रखोज/ब्राउज़िंग इंटरफ़ेस के साथ एक केंद्रीय लॉग स्टोर में कंटेनर लॉग को संग्रहीत करने के लिए जिम्मेदार है।
 
-## {{% heading "whatsnext" %}}
+## निम्नलिखित के बारे में और जानें
 
-[नोड्स](docs/concepts/architecture/nodes/) के बारे में जानें
-[नियंत्रकों](docs/concepts/architecture/controller/) के बारे में जानें
-[kube-scheduler](docs/concepts/scheduling-eviction/kube-scheduler/) के बारे में जानें
-[etcd](https://etcd.io/docs/) का आधिकारिक दस्तावेज पढ़ें
+[नोड्स](docs/concepts/architecture/nodes/) 
+[नियंत्रकों](docs/concepts/architecture/controller/) 
+[kube-scheduler](docs/concepts/scheduling-eviction/kube-scheduler/) 
+[etcd](https://etcd.io/docs/) 
