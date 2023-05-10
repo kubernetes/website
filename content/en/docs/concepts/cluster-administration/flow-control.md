@@ -107,19 +107,18 @@ objects mentioned below.
 ### Seats Occupied by a Request
 
 The above description of concurrency management is the baseline story.
-In it, requests have different durations but are counted equally at
-any given moment when comparing against a priority level's concurrency
-limit. In the baseline story, each request occupies one unit of
-concurrency. The word "seat" is used to mean one unit of concurrency,
-inspired by the way each passenger on a train or aircraft takes up one
-of the fixed supply of seats.
+Requests have different durations but are counted equally at any given
+moment when comparing against a priority level's concurrency limit. In
+the baseline story, each request occupies one unit of concurrency. The
+word "seat" is used to mean one unit of concurrency, inspired by the
+way each passenger on a train or aircraft takes up one of the fixed
+supply of seats.
 
 But some requests take up more than one seat.  Some of these are **list**
 requests that the server estimates will return a large number of
 objects.  These have been found to put an exceptionally heavy burden
-on the server, among requests that take a similar amount of time to
-run.  For this reason, the server estimates the number of objects that
-will be returned and considers the request to take a number of seats
+on the server.  For this reason, the server estimates the number of objects
+that will be returned and considers the request to take a number of seats
 that is proportional to that estimated number.
 
 ### Execution time tweaks for watch requests
@@ -294,10 +293,9 @@ HandSize | Queues | 1 elephant | 4 elephants | 16 elephants
 ### FlowSchema
 
 A FlowSchema matches some inbound requests and assigns them to a
-priority level. Every inbound request is tested against every
-FlowSchema in turn, starting with those with numerically lowest ---
-which we take to be the logically highest --- `matchingPrecedence` and
-working onward.  The first match wins.
+priority level. Every inbound request is tested against FlowSchemas,
+starting with those with the numerically lowest `matchingPrecedence` and
+working upward. The first match wins.
 
 {{< caution >}}
 Only the first matching FlowSchema for a given request matters. If multiple
@@ -311,7 +309,7 @@ ensure that no two FlowSchemas have the same `matchingPrecedence`.
 A FlowSchema matches a given request if at least one of its `rules`
 matches. A rule matches if at least one of its `subjects` *and* at least
 one of its `resourceRules` or `nonResourceRules` (depending on whether the
-incoming request is for a resource or non-resource URL) matches the request.
+incoming request is for a resource or non-resource URL) match the request.
 
 For the `name` field in subjects, and the `verbs`, `apiGroups`, `resources`,
 `namespaces`, and `nonResourceURLs` fields of resource and non-resource rules,
@@ -319,12 +317,11 @@ the wildcard `*` may be specified to match all values for the given field,
 effectively removing it from consideration.
 
 A FlowSchema's `distinguisherMethod.type` determines how requests matching that
-schema will be separated into flows. It may be
-either `ByUser`, in which case one requesting user will not be able to starve
-other users of capacity, or `ByNamespace`, in which case requests for resources
-in one namespace will not be able to starve requests for resources in other
-namespaces of capacity, or it may be blank (or `distinguisherMethod` may be
-omitted entirely), in which case all requests matched by this FlowSchema will be
+schema will be separated into flows. It may be `ByUser`, in which one requesting
+user will not be able to starve other users of capacity; `ByNamespace`, in which
+requests for resources in one namespace will not be able to starve requests for
+resources in other namespaces of capacity; or blank (or `distinguisherMethod` may be
+omitted entirely), in which all requests matched by this FlowSchema will be
 considered part of a single flow. The correct choice for a given FlowSchema
 depends on the resource and your particular environment.
 
@@ -434,7 +431,7 @@ for an annotation with key `apf.kubernetes.io/autoupdate-spec`.  If
 there is such an annotation and its value is `true` then the
 kube-apiservers control the object.  If there is such an annotation
 and its value is `false` then the users control the object.  If
-neither of those condtions holds then the `metadata.generation` of the
+neither of those conditions holds then the `metadata.generation` of the
 object is consulted.  If that is 1 then the kube-apiservers control
 the object.  Otherwise the users control the object.  These rules were
 introduced in release 1.22 and their consideration of
@@ -513,13 +510,13 @@ poorly-behaved workloads that may be harming system health.
   broken down by the labels `flow_schema` (indicating the one that
   matched the request), `priority_level` (indicating the one to which
   the request was assigned), and `reason`.  The `reason` label will be
-  have one of the following values:
+  one of the following values:
 
   * `queue-full`, indicating that too many requests were already
-    queued,
+    queued.
   * `concurrency-limit`, indicating that the
     PriorityLevelConfiguration is configured to reject rather than
-    queue excess requests, or
+    queue excess requests.
   * `time-out`, indicating that the request was still in the queue
     when its queuing time limit expired.
   * `cancelled`, indicating that the request is not purge locked
@@ -527,9 +524,7 @@ poorly-behaved workloads that may be harming system health.
 
 * `apiserver_flowcontrol_dispatched_requests_total` is a counter
   vector (cumulative since server start) of requests that began
-  executing, broken down by the labels `flow_schema` (indicating the
-  one that matched the request) and `priority_level` (indicating the
-  one to which the request was assigned).
+  executing, broken down by `flow_schema` and `priority_level`.
 
 * `apiserver_current_inqueue_requests` is a gauge vector of recent
   high water marks of the number of queued requests, grouped by a
@@ -545,23 +540,22 @@ poorly-behaved workloads that may be harming system health.
   nanosecond, of the number of requests broken down by the labels
   `phase` (which takes on the values `waiting` and `executing`) and
   `request_kind` (which takes on the values `mutating` and
-  `readOnly`).  Each observed value is a ratio, between 0 and 1, of a
-  number of requests divided by the corresponding limit on the number
-  of requests (queue volume limit for waiting and concurrency limit
-  for executing).
+  `readOnly`).  Each observed value is a ratio, between 0 and 1, of
+  the number of requests divided by the corresponding limit on the
+  number of requests (queue volume limit for waiting and concurrency
+  limit for executing).
 
 * `apiserver_flowcontrol_current_inqueue_requests` is a gauge vector
   holding the instantaneous number of queued (not executing) requests,
-  broken down by the labels `priority_level` and `flow_schema`.
+  broken down by `priority_level` and `flow_schema`.
 
 * `apiserver_flowcontrol_current_executing_requests` is a gauge vector
   holding the instantaneous number of executing (not waiting in a
-  queue) requests, broken down by the labels `priority_level` and
-  `flow_schema`.
+  queue) requests, broken down by `priority_level` and `flow_schema`.
 
 * `apiserver_flowcontrol_request_concurrency_in_use` is a gauge vector
   holding the instantaneous number of occupied seats, broken down by
-  the labels `priority_level` and `flow_schema`.
+  `priority_level` and `flow_schema`.
 
 * `apiserver_flowcontrol_priority_level_request_utilization` is a
   histogram vector of observations, made at the end of each
@@ -587,11 +581,10 @@ poorly-behaved workloads that may be harming system health.
 
 * `apiserver_flowcontrol_request_queue_length_after_enqueue` is a
   histogram vector of queue lengths for the queues, broken down by
-  the labels `priority_level` and `flow_schema`, as sampled by the
-  enqueued requests.  Each request that gets queued contributes one
-  sample to its histogram, reporting the length of the queue immediately
-  after the request was added.  Note that this produces different
-  statistics than an unbiased survey would.
+  `priority_level` and `flow_schema`, as sampled by the enqueued requests.
+  Each request that gets queued contributes one sample to its histogram,
+  reporting the length of the queue immediately after the request was added.
+  Note that this produces different statistics than an unbiased survey would.
 
   {{< note >}}
   An outlier value in a histogram here means it is likely that a single flow
@@ -655,13 +648,10 @@ poorly-behaved workloads that may be harming system health.
   holding, for each priority level, the dynamic concurrency limit
   derived in the last adjustment.
 
-
 * `apiserver_flowcontrol_request_wait_duration_seconds` is a histogram
   vector of how long requests spent queued, broken down by the labels
-  `flow_schema` (indicating which one matched the request),
-  `priority_level` (indicating the one to which the request was
-  assigned), and `execute` (indicating whether the request started
-  executing).
+  `flow_schema`, `priority_level`, and `execute`. The `execute` label
+  indicates whether the request has started executing.
 
   {{< note >}}
   Since each FlowSchema always assigns requests to a single
@@ -672,9 +662,7 @@ poorly-behaved workloads that may be harming system health.
 
 * `apiserver_flowcontrol_request_execution_seconds` is a histogram
   vector of how long requests took to actually execute, broken down by
-  the labels `flow_schema` (indicating which one matched the request)
-  and `priority_level` (indicating the one to which the request was
-  assigned).
+  `flow_schema` and `priority_level`.
 
 * `apiserver_flowcontrol_watch_count_samples` is a histogram vector of
   the number of active WATCH requests relevant to a given write,
@@ -686,16 +674,14 @@ poorly-behaved workloads that may be harming system health.
   and `priority_level`.
 
 * `apiserver_flowcontrol_request_dispatch_no_accommodation_total` is a
-  counter vec of the number of events that in principle could have led
+  counter vector of the number of events that in principle could have led
   to a request being dispatched but did not, due to lack of available
-  concurrency, broken down by `flow_schema` and `priority_level`.  The
-  relevant sorts of events are arrival of a request and completion of
-  a request.
+  concurrency, broken down by `flow_schema` and `priority_level`.
 
 ### Debug endpoints
 
 When you enable the API Priority and Fairness feature, the `kube-apiserver`
-serves the following additional paths at its HTTP[S] ports.
+serves the following additional paths at its HTTP(S) ports.
 
 - `/debug/api_priority_and_fairness/dump_priority_levels` - a listing of
   all the priority levels and the current state of each.  You can fetch like this:
@@ -785,7 +771,7 @@ request, and it includes the following attributes.
   execution of the request.
 
 At higher levels of verbosity there will be log lines exposing details
-of how APF handled the request, primarily for debug purposes.
+of how APF handled the request, primarily for debugging purposes.
 
 ### Response headers
 
