@@ -93,7 +93,7 @@ E gerar um relatório com:
 kubectl community-images
 ```
 
-Para métodos alternativos de instalação ou exemplos de saída, veja o repositório [kubernetes-sigs/community-images](https://github.com/kubernetes-sigs/community-image).
+Para métodos alternativos de instalação ou exemplos de saída, veja o repositório [kubernetes-sigs/community-images](https://github.com/kubernetes-sigs/community-images).
 
 **Opção 3**: Se você não tem acesso diretamente ao cluster, ou gerencia muitos clusters - o melhor
 caminho é executar uma busca sobre seus manifestos e charts por _"k8s.gcr.io"_.
