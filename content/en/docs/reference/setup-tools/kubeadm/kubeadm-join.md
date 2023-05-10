@@ -184,7 +184,7 @@ and CSR approval for a new node:
   `$NODE` must be set to the name of the new node.
 2. Modify the resulted `kubelet.conf` manually to adjust the cluster name and the server endpoint, or pass `kubeconfig user --config` (it accepts `InitConfiguration`).
 
-  If your cluster does not have the `ca.key`file, you must sign the embedded certificates in 
+  If your cluster does not have the `ca.key` file, you must sign the embedded certificates in 
   the `kubelet.conf` externally.
 1. Copy the resulting `kubelet.conf` to `/etc/kubernetes/kubelet.conf` on the new node.
 2. Execute `kubeadm join` with the flag
