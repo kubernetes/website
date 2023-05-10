@@ -7,12 +7,11 @@ short_description: >
   A command line tool for communicating with a Kubernetes cluster.
 
 aka:
-- kubectl
 tags:
 - tool
 - fundamental
 ---
-Command line tool for communicating with a Kubernetes cluster's
+Kubectl (or kubectl) is a command line tool for communicating with a Kubernetes cluster's
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}},
 using the Kubernetes API.
 
