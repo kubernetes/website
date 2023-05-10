@@ -1,10 +1,9 @@
 ---
-title: Encrypting Secret Data at Rest
+title: Encrypting Confidential Data at Rest
 reviewers:
 - smarterclayton
 - enj
 content_type: task
-min-kubernetes-server-version: 1.13
 weight: 210
 ---
 
@@ -13,13 +12,19 @@ This page shows how to enable and configure encryption of secret data at rest.
 
 ## {{% heading "prerequisites" %}}
 
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+* {{< include "task-tutorial-prereqs.md" >}}
 
-* etcd v3.0 or later is required
+* This task assumes that you are running the Kubernetes API server as a
+  {{< glossary_tooltip text="static pod" term_id="static-pod" >}} on each control
+  plane node.
+
+* Your cluster's control plane **must** use etcd v3.x (major version 3, any minor version).
 
 * To encrypt a custom resource, your cluster must be running Kubernetes v1.26 or newer.
 
-* Use of wildcard for resource encryption is available from Kubernetes v1.27 or newer.
+* To use a wildcard to match resources, your cluster must be running Kubernetes v1.27 or newer.
+
+{{< version-check >}}
 
 
 <!-- steps -->
