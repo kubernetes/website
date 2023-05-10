@@ -181,7 +181,6 @@ To perform an authorization check for a service account:
 See the [Kubernetes Authz library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)
 godoc for more information.
 
-
 ## Type checking
 
 CEL is a [gradually typed language](https://github.com/google/cel-spec/blob/master/doc/langdef.md#gradual-type-checking).
