@@ -28,10 +28,10 @@ card:
 1. Загрузите последнюю версию с помощью команды:
 
     ```
-    curl -LO https://dl.k8s.io/release/`curl -s https://dl.k8s.io/release/stable.txt`/bin/linux/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/`curl -LS https://dl.k8s.io/release/stable.txt`/bin/linux/amd64/kubectl
     ```
 
-    Чтобы загрузить определенную версию, вставьте в фрагмент команды `$(curl -s https://dl.k8s.io/release/stable.txt)` нужную версию.
+    Чтобы загрузить определенную версию, вставьте в фрагмент команды `$(curl -LS https://dl.k8s.io/release/stable.txt)` нужную версию.
 
     Например, команда загрузки версии {{< param "fullversion" >}} для Linux будет выглядеть следующим образом:
 
@@ -108,10 +108,10 @@ kubectl version
 1. Загрузите последнюю версию:
 
     ```
-    curl -LO "https://dl.k8s.io/release/$(curl -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
+    curl -LO "https://dl.k8s.io/release/$(curl -LS https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
     ```
 
-    Чтобы загрузить определенную версию, вставьте в фрагмент команды `$(curl -s https://dl.k8s.io/release/stable.txt)` нужную версию.
+    Чтобы загрузить определенную версию, вставьте в фрагмент команды `$(curl -LS https://dl.k8s.io/release/stable.txt)` нужную версию.
 
     Например, команда загрузки версии {{< param "fullversion" >}} для macOS будет выглядеть следующим образом:
 
