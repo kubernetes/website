@@ -26,10 +26,10 @@ kubectlのバージョンは、クラスターのマイナーバージョンと�
 1. 次のコマンドにより、最新リリースをダウンロードしてください:
 
     ```
-    curl -LO "https://dl.k8s.io/release/$(curl -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+    curl -LO "https://dl.k8s.io/release/$(curl -LS https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
     ```
 
-    特定のバージョンをダウンロードする場合、コマンドの`$(curl -s https://dl.k8s.io/release/stable.txt)`の部分を特定のバージョンに書き換えてください。
+    特定のバージョンをダウンロードする場合、コマンドの`$(curl -LS https://dl.k8s.io/release/stable.txt)`の部分を特定のバージョンに書き換えてください。
 
     たとえば、Linuxへ{{< param "fullversion" >}}のバージョンをダウンロードするには、次のコマンドを入力します:
 
@@ -108,10 +108,10 @@ kubectl version --client
 1. 最新リリースをダウンロードしてください:
 
    ```bash
-   curl -LO "https://dl.k8s.io/release/$(curl -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
+   curl -LO "https://dl.k8s.io/release/$(curl -LS https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
    ```
 
-   特定のバージョンをダウンロードする場合、コマンドの`$(curl -s https://dl.k8s.io/release/stable.txt)`の部分を特定のバージョンに書き換えてください。
+   特定のバージョンをダウンロードする場合、コマンドの`$(curl -LS https://dl.k8s.io/release/stable.txt)`の部分を特定のバージョンに書き換えてください。
 
    たとえば、macOSへ{{< param "fullversion" >}}のバージョンをダウンロードするには、次のコマンドを入力します:
 
