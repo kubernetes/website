@@ -11,10 +11,6 @@ weight: 420
 
 ## {{% heading "prerequisites" %}}
 
-These instructions are for Kubernetes v{{< skew currentVersion >}}. If you want
-to check the integrity of components for a different version of Kubernetes,
-check the documentation for that Kubernetes release.
-
 You will need to have the following tools installed:
 
 - `cosign` ([install guide](https://docs.sigstore.dev/cosign/installation/))
@@ -45,14 +41,17 @@ done
 Then verify the blob by using `cosign verify-blob`:
 
 ```shell
-cosign verify-blob "$BINARY" --signature "$BINARY".sig --certificate "$BINARY".cert --certificate-identity krel-staging@k8s-releng-prod.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com
+cosign verify-blob "$BINARY" \
+  --signature "$BINARY".sig \
+  --certificate "$BINARY".cert \
+  --certificate-identity krel-staging@k8s-releng-prod.iam.gserviceaccount.com \
+  --certificate-oidc-issuer https://accounts.google.com
 ```
 
 {{< note >}}
 Cosign 2.0 requires the `--certificate-identity` and `--certificate-oidc-issuer` options.
 
-To learn more about keyless signing, please refer to [Keyless
-Signatures](https://docs.sigstore.dev/cosign/keyless).
+To learn more about keyless signing, please refer to [Keyless Signatures](https://docs.sigstore.dev/cosign/keyless).
 
 Previous versions of Cosign required that you set `COSIGN_EXPERIMENTAL=1`.
 
@@ -68,26 +67,38 @@ Pick one image from this list and verify its signature using
 the `cosign verify` command:
 
 ```shell
-cosign verify registry.k8s.io/kube-apiserver-amd64:v{{< skew currentPatchVersion >}} --certificate-identity krel-trust@k8s-releng-prod.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com | jq .
+cosign verify registry.k8s.io/kube-apiserver-amd64:v{{< skew currentPatchVersion >}} \
+  --certificate-identity krel-trust@k8s-releng-prod.iam.gserviceaccount.com \
+  --certificate-oidc-issuer https://accounts.google.com \
+  | jq .
 ```
 
 ### Verifying images for all control plane components
 
-To verify all signed control plane images for the latest stable version (v{{< skew currentPatchVersion >}}), please run the following commands:
+To verify all signed control plane images for the latest stable version
+(v{{< skew currentPatchVersion >}}), please run the following commands:
 
 ```shell
-curl -Ls "https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/stable.txt)/release" | grep "SPDXID: SPDXRef-Package-registry.k8s.io" |  grep -v sha256 | cut -d- -f3- | sed 's/-/\//' | sed 's/-v1/:v1/' | sort > images.txt
+curl -Ls "https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/stable.txt)/release" \
+  | grep "SPDXID: SPDXRef-Package-registry.k8s.io" \
+  | grep -v sha256 | cut -d- -f3- | sed 's/-/\//' | sed 's/-v1/:v1/' \
+  | sort > images.txt
 input=images.txt
 while IFS= read -r image
 do
-  cosign verify "$image" --certificate-identity krel-trust@k8s-releng-prod.iam.gserviceaccount.com --certificate-oidc-issuer https://accounts.google.com | jq .
+  cosign verify "$image" \
+    --certificate-identity krel-trust@k8s-releng-prod.iam.gserviceaccount.com \
+    --certificate-oidc-issuer https://accounts.google.com \
+    | jq .
 done < "$input"
 ```
 
 Once you have verified an image, you can specify the image by its digest in your Pod
 manifests as per this example:
 
-`registry-url/image-name@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`
+```console
+registry-url/image-name@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2
+```
 
 For more information, please refer
 to the [Image Pull Policy](/docs/concepts/containers/images/#image-pull-policy)
