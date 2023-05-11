@@ -96,8 +96,8 @@ Esta limitação é rastreada na [issue #55087](https://github.com/kubernetes/ku
 ## {{% heading "whatsnext" %}}
 
 
-* Aprenda mais sobre [Hooks de ciclo de vida do contêiner](/docs/concepts/containers/container-lifecycle-hooks/).
-* Aprenda mais sobre o [ciclo de vida do Pod](/pt-br/docs/concepts/workloads/pods/pod-lifecycle/).
+* Aprenda mais sobre [Hooks de ciclo de vida do contêiner](/pt-br/docs/concepts/containers/container-lifecycle-hooks/).
+* Aprenda mais sobre o [ciclo de vida do Pod](/docs/concepts/workloads/pods/pod-lifecycle/).
 
 
 ### Referência
