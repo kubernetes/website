@@ -22,20 +22,29 @@ This page shows how to enable and configure encryption of secret data at rest.
 
 ## {{% heading "prerequisites" %}}
 
-* {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
+* {{< include "task-tutorial-prereqs.md" >}}
 
 <!--
-* etcd v3.0 or later is required
+* This task assumes that you are running the Kubernetes API server as a
+  {{< glossary_tooltip text="static pod" term_id="static-pod" >}} on each control
+  plane node.
 
+* Your cluster's control plane **must** use etcd v3.x (major version 3, any minor version).
+-->
+* 此任务假设你将 Kubernetes API 服务器组件以{{< glossary_tooltip text="静态 Pod" term_id="static-pod" >}}
+  方式运行在每个控制平面节点上。
+
+* 集群的控制平面**必须**使用 etcd v3.x（主版本 3，任何次要版本）。
+<!--
 * To encrypt a custom resource, your cluster must be running Kubernetes v1.26 or newer.
 
-* Use of wildcard for resource encryption is available from Kubernetes v1.27 or newer.
+* To use a wildcard to match resources, your cluster must be running Kubernetes v1.27 or newer.
 -->
-* 需要 etcd v3.0 或者更高版本
-
 * 要加密自定义资源，你的集群必须运行 Kubernetes v1.26 或更高版本。
 
-* 在 Kubernetes v1.27 或更高版本中可以使用通配符配置资源加密。
+* 在 Kubernetes v1.27 或更高版本中可以使用通配符匹配资源。
+
+{{< version-check >}}
 
 <!-- steps -->
 
@@ -122,7 +131,7 @@ resources:
 
 <!--
 Each `resources` array item is a separate config and contains a complete configuration. The
-`resources.resources` field is an array of Kubernetes resource names (`resource` or `resource.group`）
+`resources.resources` field is an array of Kubernetes resource names (`resource` or `resource.group`)
 that should be encrypted like Secrets, ConfigMaps, or other resources. 
 
 If custom resources are added to `EncryptionConfiguration` and the cluster version is 1.26 or newer, 
@@ -222,26 +231,157 @@ read that resource will fail until it is deleted or a valid decryption key is pr
 ### Providers
 
 <!--
-{{< table caption="Providers for Kubernetes encryption at rest" >}}
-Name | Encryption | Strength | Speed | Key Length | Other Considerations
------|------------|----------|-------|------------|---------------------
-`identity` | None | N/A | N/A | N/A | Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written.
-`secretbox` | XSalsa20 and Poly1305 | Strong | Faster | 32-byte | A newer standard and may not be considered acceptable in environments that require high levels of review.
-`aesgcm` | AES-GCM with random nonce | Must be rotated every 200k writes | Fastest | 16, 24, or 32-byte | Is not recommended for use except when an automated key rotation scheme is implemented.
-`aescbc` | AES-CBC with [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) padding | Weak | Fast | 32-byte | Not recommended due to CBC's vulnerability to padding oracle attacks.
-`kms v1` | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-CBC with [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) padding (prior to v1.25), using AES-GCM starting from v1.25, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Slow (_compared to `kms v2`_) | 32-bytes |  Simplifies key rotation, with a new DEK generated for each encryption, and KEK rotation controlled by the user. [Configure the KMS V1 provider](/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v1).
-`kms v2` | Uses envelope encryption scheme: Data is encrypted by data encryption keys (DEKs) using AES-GCM, DEKs are encrypted by key encryption keys (KEKs) according to configuration in Key Management Service (KMS) | Strongest | Fast | 32-bytes |  The recommended choice for using a third party tool for key management. Available in beta from `v1.27`. A new DEK is generated at startup and reused for encryption. The DEK is rotated when the KEK is rotated. [Configure the KMS V2 provider](/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v2).
-{{< /table >}}
+The following table describes each available provider:
 -->
-{{< table caption="Kubernetes 静态数据加密的 Provider" >}}
-名称 | 加密类型   | 强度     | 速度  | 密钥长度   | 其它事项
------|------------|----------|-------|------------|---------------------
-`identity` | 无 | N/A | N/A | N/A | 不加密写入的资源。当设置为第一个 provider 时，资源将在新值写入时被解密。
-`secretbox` | XSalsa20 和 Poly1305 | 强 | 更快 | 32 字节 | 较新的标准，在需要高度评审的环境中可能不被接受。
-`aesgcm` | 带有随机数的 AES-GCM | 必须每 200k 写入一次 | 最快 | 16、24 或者 32字节 | 建议不要使用，除非实施了自动密钥循环方案。
-`aescbc` | 填充 [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) 的 AES-CBC | 弱 | 快 | 32 字节 | 由于 CBC 容易受到密文填塞攻击（Padding Oracle Attack），不推荐使用。
-`kms v1` | 使用信封加密方案：数据使用带有 [PKCS#7](https://datatracker.ietf.org/doc/html/rfc2315) 填充的 AES-CBC（v1.25 之前），从 v1.25 开始使用 AES-GCM 通过数据加密密钥（DEK）加密，DEK 根据 Key Management Service（KMS）中的配置通过密钥加密密钥（Key Encryption Keys，KEK）加密 | 最强 | 快 | 32 字节 | 建议使用第三方工具进行密钥管理。为每个加密生成新的 DEK，并由用户控制 KEK 轮换来简化密钥轮换。从 `v1.27` 开始，该功能处于 Beta 阶段。系统在启动时生成一个新的 DEK 并重复使用它进行加密。当 KEK 被轮转时，DEK 也会被轮转。[配置 KMS V2 provider](/zh-cn/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v2)。
-{{< /table >}}
+下表描述了每个可用的 Provider：
+
+<table class="complex-layout">
+<caption style="display: none;">
+<!-- Providers for Kubernetes encryption at rest -->
+Kubernetes 静态数据加密的 Provider
+</caption>
+<thead>
+  <tr>
+  <th><!-- Name -->名称</th>
+  <th><!-- Encryption -->加密类型</th>
+  <th><!-- Strength -->强度</th>
+  <th><!-- Speed -->速度</th>
+  <th><!-- Key length -->密钥长度</th>
+  </tr>
+</thead>
+<tbody id="encryption-providers-identity">
+  <!-- list identity first, even when the remaining rows are sorted alphabetically -->
+  <tr>
+  <th rowspan="2" scope="row"><tt>identity</tt></th>
+  <td><strong><!-- None -->无</strong></td>
+  <td>N/A</td>
+  <td>N/A</td>
+  <td>N/A</td>
+  </tr>
+  <tr>
+  <td colspan="4">
+  <!-- Resources written as-is without encryption. When set as the first provider, the resource will be decrypted as new values are written. Existing encrypted resources are <strong>not</strong> automatically overwritten with the plaintext data.
+   The <tt>identity</tt> provider is the default if you do not specify otherwise. -->
+  不加密写入的资源。当设置为第一个 provider 时，已加密的资源将在新值写入时被解密。
+  </td>
+  </tr>
+</tbody>
+<tbody id="encryption-providers-that-encrypt">
+  <tr>
+  <th rowspan="2" scope="row"><tt>aescbc</tt></th>
+  <td>
+  <!-- AES-CBC with <a href="https://datatracker.ietf.org/doc/html/rfc2315">PKCS#7</a> padding -->
+  带有 <a href="https://datatracker.ietf.org/doc/html/rfc2315">PKCS#7</a> 填充的 AES-CBC
+  </td>
+  <td><!-- Weak -->弱</td>
+  <td><!-- Fast -->快</td>
+  <td><!-- 32-byte -->32 字节</td>
+  </tr>
+  <tr>
+  <td colspan="4">
+  <!-- Not recommended due to CBC's vulnerability to padding oracle attacks. Key material accessible from control plane host. -->
+  由于 CBC 容易受到密文填塞攻击（Padding Oracle Attack），不推荐使用。密钥材料可从控制面主机访问。
+  </td>
+  </tr>
+  <tr>
+  <th rowspan="2" scope="row"><tt>aesgcm</tt></th>
+  <td>
+  <!-- AES-GCM with random nonce -->
+  带有随机数的 AES-GCM
+  </td>
+  <td>
+  <!-- Must be rotated every 200,000 writes -->
+  每写入 200k 次后必须轮换
+  </td>
+  <td><!-- Fastest -->最快</td>
+  <td><!-- 16, 24, or 32-byte -->16、24 或者 32 字节</td>
+  </tr>
+  <tr>
+  <td colspan="4">
+  <!-- Not recommended for use except when an automated key rotation scheme is implemented. Key material accessible from control plane host. -->
+  不建议使用，除非实施了自动密钥轮换方案。密钥材料可从控制面主机访问。
+  </td>
+  </tr>
+  <tr>
+  <th rowspan="2" scope="row"><tt>kms</tt> v1</th>
+  <td>
+  <!-- Uses envelope encryption scheme with DEK per resource. -->
+  针对每个资源使用不同的 DEK 来完成信封加密。
+  </td>
+  <td><!-- Strongest -->最强</td>
+  <td><!-- Slow (<em>compared to <tt>kms</tt> version 2</em>) -->慢（<em>与 <tt>kms</tt> V2 相比</em>）</td>
+  <td><!-- 32-bytes -->32 字节</td>
+  </tr>
+  <tr>
+  <td colspan="4">
+    <!--
+    Data is encrypted by data encryption keys (DEKs) using AES-GCM;
+    DEKs are encrypted by key encryption keys (KEKs) according to
+    configuration in Key Management Service (KMS).
+    Simple key rotation, with a new DEK generated for each encryption, and
+    KEK rotation controlled by the user.
+    -->
+    通过数据加密密钥（DEK）使用 AES-GCM 加密数据；
+    DEK 根据 Key Management Service（KMS）中的配置通过密钥加密密钥（Key Encryption Keys，KEK）加密。
+    密钥轮换方式简单，每次加密都会生成一个新的 DEK，KEK 的轮换由用户控制。
+    <br />
+    <!--
+    Read how to <a href="/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v1">configure the KMS V1 provider</a>.
+    -->
+    阅读如何<a href="/zh-cn/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v1">配置 KMS V1 Provider</a>
+    </td>
+  </tr>
+  <tr>
+  <th rowspan="2" scope="row"><tt>kms</tt> v2 <em>(beta)</em></th>
+  <td>
+  <!-- Uses envelope encryption scheme with DEK per API server. -->
+  针对每个 API 服务器使用不同的 DEK 来完成信封加密。
+  </td>
+  <td><!-- Strongest -->最强</td>
+  <td><!-- Fast -->快</td>
+  <td><!-- 32-bytes -->32 字节</td>
+  </tr>
+  <tr>
+  <td colspan="4">
+    <!--
+    Data is encrypted by data encryption keys (DEKs) using AES-GCM; DEKs
+    are encrypted by key encryption keys (KEKs) according to configuration
+    in Key Management Service (KMS).
+    A new DEK is generated at API server startup, and is then reused for
+    encryption. The DEK is rotated whenever the KEK is rotated.
+    A good choice if using a third party tool for key management.
+    Available in beta from Kubernetes v1.27.
+    -->
+    通过数据加密密钥（DEK）使用 AES-GCM 加密数据；
+    DEK 根据 Key Management Service（KMS）中的配置通过密钥加密密钥（Key Encryption Keys，KEK）加密。
+    API 服务器启动时会生成一个新的 DEK，并重复使用它进行加密。
+    每当轮换 KEK 时，DEK 也会轮换。
+    如果使用第三方工具进行密钥管理，会是一个不错的选择。
+    从 `v1.27` 开始，该功能处于 Beta 阶段。
+    <br />
+    <!--
+    Read how to <a href="/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v2">configure the KMS V2 provider</a>.
+    -->
+    阅读如何<a href="/zh-cn/docs/tasks/administer-cluster/kms-provider#configuring-the-kms-provider-kms-v2">配置 KMS V2 Provider</a>。
+    </td>
+  </tr>
+  <tr>
+  <th rowspan="2" scope="row"><tt>secretbox</tt></th>
+  <td><!-- XSalsa20 and Poly1305 -->XSalsa20 和 Poly1305</td>
+  <td><!-- Strong -->强</td>
+  <td><!-- Faster -->更快</td>
+  <td><!-- 32-byte -->32 字节</td>
+  </tr>
+  <tr>
+  <td colspan="4">
+  <!--
+  Uses relatively new encryption technologies that may not be considered acceptable in environments that require high levels of review. Key material accessible from control plane host.
+  -->
+  使用相对较新的加密技术，在需要高度评审的环境中可能不被接受。密钥材料可从控制面主机访问。
+  </td>
+  </tr>
+</tbody>
+</table>
 
 <!--
 Each provider supports multiple keys - the keys are tried in order for decryption, and if the provider
