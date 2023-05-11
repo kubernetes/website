@@ -348,12 +348,23 @@ The same API limit means that you cannot manually update an Endpoints to have mo
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
 
 The `appProtocol` field provides a way to specify an application protocol for
-each Service port. The value of this field is mirrored by the corresponding
+each Service port. This is used as a hint for implementations to offer richer behavior for protocols that they understand.
+The value of this field is mirrored by the corresponding
 Endpoints and EndpointSlice objects.
 
-This field follows standard Kubernetes label syntax. Values should either be
-[IANA standard service names](https://www.iana.org/assignments/service-names) or
-domain prefixed names such as `mycompany.com/my-custom-protocol`.
+This field follows standard Kubernetes label syntax. Valid values are one of:
+
+* [IANA standard service names](https://www.iana.org/assignments/service-names).
+
+* Implementation-defined prefixed names such as `mycompany.com/my-custom-protocol`.
+
+* Kubernetes-defined prefixed names:
+
+| Protocol | Description |
+|----------|-------------|
+| `kubernetes.io/h2c` | HTTP/2 over cleartext as described in [RFC 7540](https://www.rfc-editor.org/rfc/rfc7540) |
+
+
 
 ### Multi-port Services
 
