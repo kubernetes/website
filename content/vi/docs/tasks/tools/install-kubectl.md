@@ -28,10 +28,10 @@ Bạn cần phải sử dụng phiên bản kubectl sai lệch không quá một
 1. Tải về phiên bản mới nhất với câu lệnh:
 
     ```
-    curl -LO https://dl.k8s.io/release/`curl -s https://dl.k8s.io/release/stable.txt`/bin/linux/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/`curl -LS https://dl.k8s.io/release/stable.txt`/bin/linux/amd64/kubectl
     ```
 
-    Để tải về phiên bản cụ thể, hãy thay thế phần `$(curl -s https://dl.k8s.io/release/stable.txt)` trong câu lệnh với một phiên bản cụ thể.
+    Để tải về phiên bản cụ thể, hãy thay thế phần `$(curl -LS https://dl.k8s.io/release/stable.txt)` trong câu lệnh với một phiên bản cụ thể.
 
     Ví dụ như, để tải về phiên bản {{< param "fullversion" >}} trên Linux, hãy nhập như sau:
     
@@ -103,10 +103,10 @@ Nếu bạn đang sử dụng Ubuntu hoặc distro Linux khác hỗ trợ trình
 1. Tải về phiên bản mới nhất:
 
     ```		 
-    curl -LO "https://dl.k8s.io/release/$(curl -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
+    curl -LO "https://dl.k8s.io/release/$(curl -LS https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
     ```
 
-    Để tải về phiên bản cụ thể, hãy thay thế phần `$(curl -s https://dl.k8s.io/release/stable.txt)` trong câu lệnh với phiên bản cụ thể. 
+    Để tải về phiên bản cụ thể, hãy thay thế phần `$(curl -LS https://dl.k8s.io/release/stable.txt)` trong câu lệnh với phiên bản cụ thể. 
 
     Ví dụ, để tải về phiên bản {{< param "fullversion" >}} trên macOS, gõ:
 		  
