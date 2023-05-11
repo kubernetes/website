@@ -192,10 +192,10 @@ Sie können kubectl als Teil des Google Cloud SDK installieren.
 1. Laden Sie die neueste Version herunter:
 
     ```		
-    curl -LO https://dl.k8s.io/release/$(curl -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/$(curl -LS https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl
     ```
 
-    Um eine bestimmte Version herunterzuladen, ersetzen Sie den Befehlsteil `$(curl -s https://dl.k8s.io/release/stable.txt)` mit der jeweiligen Version.
+    Um eine bestimmte Version herunterzuladen, ersetzen Sie den Befehlsteil `$(curl -LS https://dl.k8s.io/release/stable.txt)` mit der jeweiligen Version.
 
     Um beispielsweise die Version {{< param "fullversion" >}} auf macOS herunterzuladen, verwenden Sie den folgenden Befehl:
 		
@@ -220,10 +220,10 @@ Sie können kubectl als Teil des Google Cloud SDK installieren.
 1. Laden Sie die neueste Version mit dem Befehl herunter:
 
     ```
-    curl -LO https://dl.k8s.io/release/$(curl -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/$(curl -LS https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl
     ```
 
-    Um eine bestimmte Version herunterzuladen, ersetzen Sie den Befehlsteil `$(curl -s https://dl.k8s.io/release/stable.txt)` mit der jeweiligen Version.
+    Um eine bestimmte Version herunterzuladen, ersetzen Sie den Befehlsteil `$(curl -LS https://dl.k8s.io/release/stable.txt)` mit der jeweiligen Version.
 
     Um beispielsweise die Version {{< param "fullversion" >}} auf Linux herunterzuladen, verwenden Sie den folgenden Befehl:
 
