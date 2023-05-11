@@ -296,6 +296,11 @@ Each probe must define exactly one of these four mechanisms:
 `exec`
 : Executes a specified command inside the container. The diagnostic
   is considered successful if the command exits with a status code of 0.
+ 
+
+{{< note >}}
+  exec probe's overhead in case of the higher pod densities and lower periodic probe intervals.
+{{< /note >}}
 
 `grpc`
 : Performs a remote procedure call using [gRPC](https://grpc.io/).
