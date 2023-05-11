@@ -26,10 +26,10 @@ Kamu harus menggunakan kubectl dengan perbedaan maksimal satu versi minor dengan
 1. Unduh versi terbarunya dengan perintah:
 
     ```
-    curl -LO https://dl.k8s.io/release/`curl -s https://dl.k8s.io/release/stable.txt`/bin/linux/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/`curl -LS https://dl.k8s.io/release/stable.txt`/bin/linux/amd64/kubectl
     ```
 
-    Untuk mengunduh versi spesifik, ganti bagian `curl -s https://dl.k8s.io/release/stable.txt` dengan versi yang diinginkan.
+    Untuk mengunduh versi spesifik, ganti bagian `curl -LS https://dl.k8s.io/release/stable.txt` dengan versi yang diinginkan.
 
     Misalnya, untuk mengunduh versi {{< param "fullversion" >}} di Linux, ketik:
     
@@ -106,10 +106,10 @@ kubectl version --client
 1. Unduh versi terbarunya dengan perintah:
 
     ```		 
-    curl -LO "https://dl.k8s.io/release/$(curl -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
+    curl -LO "https://dl.k8s.io/release/$(curl -LS https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
     ```
 
-    Untuk mengunduh versi spesifik, ganti bagian `curl -s https://dl.k8s.io/release/stable.txt` dengan versi yang diinginkan.
+    Untuk mengunduh versi spesifik, ganti bagian `curl -LS https://dl.k8s.io/release/stable.txt` dengan versi yang diinginkan.
 
     Misalnya, untuk mengunduh versi {{< param "fullversion" >}} pada macOS, ketik:
 		  
