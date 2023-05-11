@@ -133,7 +133,7 @@ symlinks, devices, pipes, and more).
 
 {{< note >}}
 <!--
-Each filename being used for ConfigMap creation must consist of only acceptable characters, which are: letters (`A` to `Z` and `a` to z`), digits (`0` to `9`), '-', '_', or '.'.
+Each filename being used for ConfigMap creation must consist of only acceptable characters, which are: letters (`A` to `Z` and `a` to `z`), digits (`0` to `9`), '-', '_', or '.'.
 If you use `kubectl create configmap` with a directory where any of the file names contains an unacceptable character, the `kubectl` command may fail.
 -->
 用于创建 ConfigMap 的每个文件名必须由可接受的字符组成，即：字母（`A` 到 `Z` 和
