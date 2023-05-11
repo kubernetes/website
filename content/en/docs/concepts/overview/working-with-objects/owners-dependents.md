@@ -6,17 +6,18 @@ weight: 90
 
 <!-- overview -->
 
-In Kubernetes, some {{< glossary_tooltip text="objects" term_id="Object" >}} are *owners* of other objects. For example, a
-{{<glossary_tooltip text="ReplicaSet" term_id="replica-set">}} is the owner of a set of {{<glossary_tooltip text="Pods" term_id="pod">}}. These owned objects are *dependents*
-of their owner. 
+In Kubernetes, some {{< glossary_tooltip text="objects" term_id="object" >}} are
+*owners* of other objects. For example, a
+{{<glossary_tooltip text="ReplicaSet" term_id="replica-set">}} is the owner
+of a set of Pods. These owned objects are *dependents* of their owner.
 
 Ownership is different from the [labels and selectors](/docs/concepts/overview/working-with-objects/labels/)
-mechanism that some resources also use. For example, consider a Service that 
+mechanism that some resources also use. For example, consider a Service that
 creates `EndpointSlice` objects. The Service uses {{<glossary_tooltip text="labels" term_id="label">}} to allow the control plane to
 determine which `EndpointSlice` objects are used for that Service. In addition
 to the labels, each `EndpointSlice` that is managed on behalf of a Service has
 an owner reference. Owner references help different parts of Kubernetes avoid
-interfering with objects they don’t control. 
+interfering with objects they don’t control.
 
 ## Owner references in object specifications
 
