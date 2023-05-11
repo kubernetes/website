@@ -424,7 +424,7 @@ node shutdown has been detected, so that even Pods with a
 {{< glossary_tooltip text="toleration" term_id="toleration" >}} for
 `node.kubernetes.io/not-ready:NoSchedule` do not start there.
 
-At the same time when kubelet is setting that condition on its node via the API, the kubelet also begins
+At the same time when kubelet is setting that condition on its Node via the API, the kubelet also begins
 terminating any Pods that are running locally.
 
 During a graceful shutdown, kubelet terminates pods in two phases:
