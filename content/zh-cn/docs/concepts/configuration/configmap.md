@@ -320,7 +320,7 @@ ConfigMap，你只需要设置一个 `spec.volumes` 块。
 When a ConfigMap currently consumed in a volume is updated, projected keys are eventually updated as well.
 The kubelet checks whether the mounted ConfigMap is fresh on every periodic sync.
 However, the kubelet uses its local cache for getting the current value of the ConfigMap.
-The type of the cache is configurable using the `ConfigMapAndSecretChangeDetectionStrategy` field in
+The type of the cache is configurable using the `configMapAndSecretChangeDetectionStrategy` field in
 the [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1beta1/).
 -->
 #### 被挂载的 ConfigMap 内容会被自动更新
@@ -330,7 +330,7 @@ kubelet 组件会在每次周期性同步时检查所挂载的 ConfigMap 是否�
 不过，kubelet 使用的是其本地的高速缓存来获得 ConfigMap 的当前值。
 高速缓存的类型可以通过
 [KubeletConfiguration 结构](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/).
-的 `ConfigMapAndSecretChangeDetectionStrategy` 字段来配置。
+的 `configMapAndSecretChangeDetectionStrategy` 字段来配置。
 
 <!--
 A ConfigMap can be either propagated by watch (default), ttl-based, or by redirecting
