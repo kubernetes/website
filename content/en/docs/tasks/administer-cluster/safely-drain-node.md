@@ -6,7 +6,6 @@ reviewers:
 - kow3ns
 title: Safely Drain a Node
 content_type: task
-min-kubernetes-server-version: 1.5
 weight: 310
 ---
 
@@ -16,8 +15,7 @@ optionally respecting the PodDisruptionBudget you have defined.
 
 ## {{% heading "prerequisites" %}}
 
-{{% version-check %}}
-This task also assumes that you have met the following prerequisites:
+This task assumes that you have met the following prerequisites:
   1. You do not require your applications to be highly available during the
      node drain, or
   1. You have read about the [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) concept,
