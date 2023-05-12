@@ -82,8 +82,8 @@ as well as validating that the root CA public key matches the provided hash and
 that the API server certificate is valid under the root CA.
 
 The CA key hash has the format `sha256:<hex_encoded_hash>`.
-By default, the hash value is returned in the `kubeadm join` command printed
-at the end of `kubeadm init` or in the output of `kubeadm token create --print-join-command`.
+By default, the hash value is printed at the end of the `kubeadm init` command or
+in the output from the `kubeadm token create --print-join-command` command.
 It is in a standard format (see [RFC7469](https://tools.ietf.org/html/rfc7469#section-2.4))
 and can also be calculated by 3rd party tools or provisioning systems.
 For example, using the OpenSSL CLI:
