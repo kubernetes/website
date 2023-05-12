@@ -123,7 +123,7 @@ detail the structure of that `.status` field, and its content for each different
 ### Server Side Field Validation
 
 Starting with Kubernetes v1.25, the API server offers server side
-[field validation](https://github.com/kubernetes/website/blob/main/content/en/docs/reference/using-api/api-concepts.md#field-validation)
+[field validation](/docs/reference/using-api/api-concepts/#field-validation)
 that detects unrecognized or duplicate fields in an object. It provides all the functionality of `kubectl --validate` on the server side.
 
 The `kubectl` tool uses the `--validate` flag to set the level of field validation. It accepts the values `ignore`, `warn`, and `strict` while also
