@@ -117,6 +117,9 @@ In the following table:
 | `DefaultPodTopologySpread` | `false` | Alpha | 1.19 | 1.19 |
 | `DefaultPodTopologySpread` | `true` | Beta | 1.20 | 1.23 |
 | `DefaultPodTopologySpread` | `true` | GA | 1.24 | 1.25 |
+| `DelegateFSGroupToCSIDriver` | `false` | Alpha | 1.22 | 1.22 |
+| `DelegateFSGroupToCSIDriver` | `true` | Beta | 1.23 | 1.25 |
+| `DelegateFSGroupToCSIDriver` | `true` | GA | 1.26 | 1.27 |
 | `DynamicAuditing` | `false` | Alpha | 1.13 | 1.18 |
 | `DynamicAuditing` | - | Deprecated | 1.19 | 1.19 |
 | `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
@@ -510,6 +513,10 @@ In the following table:
 
 - `DefaultPodTopologySpread`: Enables the use of `PodTopologySpread` scheduling plugin to do
   [default spreading](/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints).
+
+- `DelegateFSGroupToCSIDriver`: If supported by the CSI driver, delegates the
+  role of applying `fsGroup` from a Pod's `securityContext` to the driver by
+  passing `fsGroup` through the NodeStageVolume and NodePublishVolume CSI calls.
 
 - `DynamicAuditing`: Used to enable dynamic auditing before v1.19.
 
