@@ -33,7 +33,7 @@ Podセキュリティの標準を複数の名前空間に一度にクラスタ�
 
    ```
    Creating cluster "psa-ns-level" ...
-    ✓ Ensuring node image (kindest/node:v{{< skew currentVersion >}}.0) 🖼 
+    ✓ Ensuring node image (kindest/node:v{{< skew currentPatchVersion >}}) 🖼 
     ✓ Preparing nodes 📦  
     ✓ Writing configuration 📜 
     ✓ Starting control-plane 🕹️ 
