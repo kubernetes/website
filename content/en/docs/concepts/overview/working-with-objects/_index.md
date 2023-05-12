@@ -120,6 +120,22 @@ satisfy the StatefulSet specification.
 Different kinds of object can also have different `.status`; again, the API reference pages
 detail the structure of that `.status` field, and its content for each different type of object.
 
+### Server Side Field Validation
+
+Starting with Kubernetes v1.25, the API server offers server side
+[field validation](https://github.com/kubernetes/website/blob/main/content/en/docs/reference/using-api/api-concepts.md#field-validation)
+that detects unrecognized or duplicate fields in an object. It provides all the functionality of `kubectl --validate` on the server side.
+
+The `kubectl` tool uses the `--validate` flag to set the level of field validation. It accepts the values `ignore`, `warn`, and `strict` while also
+accepting the values `true` (equivalent to `strict`) and `false` (equivalent to `ignore`). The default validation setting for kubectl is `--validate=true`,
+which means strict server-side field validation.
+
+- Strict: Strict field validation, errors on validation failure
+- Warn: Field validation is performed, but errors are exposed as warnings rather than failing the request
+- Ignore: No server side field validation is performed
+
+When `kubectl` cannot connect to an API server with field validation (API servers prior to Kubernetes 1.27), it will fall back to using client-side validation. Client-side validation will be removed entirely in a future version of `kubectl`.
+
 ## {{% heading "whatsnext" %}}
 
 If you're new to Kubernetes, read more about the following:
