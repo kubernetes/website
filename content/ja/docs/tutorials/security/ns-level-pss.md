@@ -47,7 +47,7 @@ Podセキュリティの標準を複数の名前空間に一度にクラスタ�
    Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/quick-start/
    ```
 
-1. kubectl contextを新しいクラスターにセットします:
+1. kubectl のコンテキストを新しいクラスターにセットします:
 
    ```shell
    kubectl cluster-info --context kind-psa-ns-level
