@@ -21,7 +21,7 @@ downward API.
 As Services are the primary mode of communication between containerized applications managed by Kubernetes, 
 it is helpful to be able to discover them at runtime. 
 
-Read more about accessing Services [here](https://kubernetes.io/docs/tutorials/services/connect-applications-service/#accessing-the-service).
+Read more about accessing Services [here](/docs/tutorials/services/connect-applications-service/#accessing-the-service).
 
 ## {{% heading "prerequisites" %}}
 
