@@ -12,9 +12,6 @@ A ferramenta de linha de comando do Kubernetes, [kubectl](/docs/reference/kubect
 Você pode usar o kubectl para instalar aplicações, inspecionar e gerenciar recursos de cluster e visualizar os logs. 
 Para obter mais informações, incluindo uma lista completa de operações kubectl, consulte a [documentação de referência `kubectl`](/docs/reference/kubectl/).
 
-kubectl is installable on a variety of Linux platforms, macOS and Windows. 
-Find your preferred operating system below.
-
 Kubectl é instalável em uma variedade de plataformas tais como Linux, macOS e Windows. 
 Encontre seu sistema operacional preferido abaixo.
 
