@@ -322,12 +322,14 @@ The empty string represents the core API group.</p>
 </td>
 <td>
    <p>Resources is a list of resources this rule applies to.</p>
-<p>For example:
-'pods' matches pods.
-'pods/log' matches the log subresource of pods.
-'<em>' matches all resources and their subresources.
-'pods/</em>' matches all subresources of pods.
-'*/scale' matches all scale subresources.</p>
+<p>For example:</p>
+<ul>
+<li><code>pods</code> matches pods.</li>
+<li><code>pods/log</code> matches the log subresource of pods.</li>
+<li><code>&ast;<code> matches all resources and their subresources.</li>
+<li><code>pods/&ast;</code> matches all subresources of pods.</li>
+<li><code>&ast;/scale</code> matches all scale subresources.</li>
+</ul>
 <p>If wildcard is present, the validation rule will ensure resources do not
 overlap with each other.</p>
 <p>An empty list implies all resources and subresources in this API groups apply.</p>
@@ -501,10 +503,12 @@ An empty list implies every namespace.</p>
 </td>
 <td>
    <p>NonResourceURLs is a set of URL paths that should be audited.
-<em>s are allowed, but only as the full, final step in the path.
-Examples:
-&quot;/metrics&quot; - Log requests for apiserver metrics
-&quot;/healthz</em>&quot; - Log all health checks</p>
+<code>&ast;<code>s are allowed, but only as the full, final step in the path.
+Examples:</p>
+<ul>
+<li>&quot;/metrics&quot; - Log requests for apiserver metrics</li>
+<li>&quot;/healthz&ast;&quot; - Log all health checks</li>
+</ul>
 </td>
 </tr>
 <tr><td><code>omitStages</code><br/>
