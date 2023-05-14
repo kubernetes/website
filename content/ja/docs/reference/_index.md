@@ -20,7 +20,7 @@ no_list: true
 * [Kubernetes APIリファレンス](/docs/reference/using-api/)
 * [Kubernetes {{< param "version" >}}の単一ページのAPIリファレンス](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 * [Kubernetes APIの使用](/ja/docs/reference/using-api/) - KubernetesのAPIの概要です。
-* [API access control](/docs/reference/access-authn-authz/) - KubernetesがAPIアクセスをどのように制御するかの詳細です。
+* [API アクセスコントロール](/docs/reference/access-authn-authz/) - KubernetesがAPIアクセスをどのように制御するかの詳細です。
 * [よく知られたラベル、アノテーション、テイント](/docs/reference/labels-annotations-taints/)
 
 ## 公式にサポートされているクライアントライブラリー
