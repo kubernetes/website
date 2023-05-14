@@ -13,7 +13,8 @@ This page serves as a reference for the audit annotations of the kubernetes.io
 namespace. These annotations apply to `Event` object from API group
 `audit.k8s.io`.
 -->
-该页面作为 kubernetes.io 名字空间的审计注解的参考。这些注解适用于 API 组 `audit.k8s.io` 中的 `Event` 对象。
+该页面作为 kubernetes.io 名字空间的审计注解的参考。这些注解适用于 API 组
+`audit.k8s.io` 中的 `Event` 对象。
 
 {{< note >}}
 <!--
@@ -69,7 +70,7 @@ for more information.
 
 例子：`pod-security.kubernetes.io/enforce-policy: restricted:latest`
 
-值**必须**是对应于 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards) 级别的
+值**必须**是对应于 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards)级别的
 `privileged:<版本>`、`baseline:<版本>`、`restricted:<版本>`，
 关联的版本**必须**是 `latest` 或格式为 `v<MAJOR>.<MINOR>` 的有效 Kubernetes 版本。
 此注解通知有关在 PodSecurity 准入期间允许或拒绝 Pod 的执行级别。
@@ -97,7 +98,8 @@ for more information.
 PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container
 "example" must set securityContext.allowPrivilegeEscalation=false), ...`
 
-注解值给出审计策略违规的详细说明，它包含所违反的 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)级别以及
+注解值给出审计策略违规的详细说明，它包含所违反的
+[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)级别以及
 PodSecurity 执行中违反的特定策略及对应字段。
 
 有关详细信息，请参阅 [Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)。
@@ -203,3 +205,53 @@ There's more information about this in the Go documentation:
 -->
 Go 文档中有更多关于此的信息：
 [拒绝 SHA-1 证书](https://go.dev/doc/go1.18#sha1)。
+
+## validation.policy.admission.k8s.io/validation_failure
+
+<!--
+Example: `validation.policy.admission.k8s.io/validation_failure: '[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]'`
+-->
+例子：`validation.policy.admission.k8s.io/validation_failure:
+'[{"message": "Invalid value", {"policy": "policy.example.com",
+{"binding": "policybinding.example.com", {"expressionIndex": "1",
+{"validationActions": ["Audit"]}]'`
+
+<!--
+Used by Kubernetes version v1.27 and later.
+
+This annotation indicates that a admission policy validation evaluted to false
+for an API request, or that the validation resulted in an error while the policy
+was configured with `failurePolicy: Fail`.
+-->
+由 Kubernetes v1.27 及更高版本使用。
+
+此注解表示 API 请求的准入策略验证评估为 false，
+或者当策略配置为 `failurePolicy: Fail` 时验证报错。
+
+<!--
+The value of the annotation is a JSON object. The `message` in the JSON
+provides the message about the validation failure.
+-->
+注解的值是一个 JSON 对象。JSON 中的 `message`
+字段提供了有关验证失败的信息。
+
+<!--
+The `policy`, `binding` and `expressionIndex` in the JSON identifies the
+name of the `ValidatingAdmissionPolicy`, the name of the
+`ValidatingAdmissionPolicyBinding` and the index in the policy `validations` of
+the CEL expressions that failed, respectively.
+-->
+JSON 中的 `policy`、`binding` 和 `expressionIndex`
+分别标识了 `ValidatingAdmissionPolicy` 的名称、
+`ValidatingAdmissionPolicyBinding` 的名称以及失败的
+CEL 表达式在策略 `validations` 中的索引。
+
+<!--
+The `validationActions` shows what actions were taken for this validation failure.
+See [Validating Admission Policy](/docs/reference/access-authn-authz/validating-admission-policy/)
+for more details about `validationActions`.
+-->
+`validationActions` 显示针对此验证失败采取的操作。
+有关 `validationActions` 的更多详细信息，
+请参阅[验证准入策略](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)。
+
