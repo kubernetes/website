@@ -81,7 +81,7 @@ first and re-added after the update.
 ### Self-registration of Nodes
 
 When the kubelet flag `--register-node` is true (the default), the kubelet will attempt to
-register itself with the API server.  This is the preferred pattern, used by most distros.
+register itself with the API server. This is the preferred pattern, used by most distros.
 
 For self-registration, the kubelet is started with the following options:
 
@@ -122,7 +122,7 @@ Pods already scheduled on the Node may misbehave or cause issues if the Node
 configuration will be changed on kubelet restart. For example, already running
 Pod may be tainted against the new labels assigned to the Node, while other
 Pods, that are incompatible with that Pod will be scheduled based on this new
-label.  Node re-registration ensures all Pods will be drained and properly
+label. Node re-registration ensures all Pods will be drained and properly
 re-scheduled.
 {{< /note >}}
 
@@ -225,9 +225,9 @@ of the Node resource. For example, the following JSON structure describes a heal
 
 When problems occur on nodes, the Kubernetes control plane automatically creates
 [taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) that match the conditions
-affecting the node.  An example of this is when the `status` of the Ready condition
+affecting the node. An example of this is when the `status` of the Ready condition
 remains `Unknown` or `False` for longer than the kube-controller-manager's `NodeMonitorGracePeriod`,
-which defaults to 40 seconds.  This will cause either an `node.kubernetes.io/unreachable` taint, for an `Unknown` status,
+which defaults to 40 seconds. This will cause either an `node.kubernetes.io/unreachable` taint, for an `Unknown` status,
 or a `node.kubernetes.io/not-ready` taint, for a `False` status, to be added to the Node.
 
 These taints affect pending pods as the scheduler takes the Node's taints into consideration when
@@ -321,7 +321,7 @@ This period can be configured using the `--node-monitor-period` flag on the
 
 ### Rate limits on eviction
 
- In most cases, the node controller limits the eviction rate to
+In most cases, the node controller limits the eviction rate to
 `--node-eviction-rate` (default 0.1) per second, meaning it won't evict pods
 from more than 1 node per 10 seconds.
 
@@ -345,7 +345,7 @@ then the eviction mechanism does not take per-zone unavailability into account.
 A key reason for spreading your nodes across availability zones is so that the
 workload can be shifted to healthy zones when one entire zone goes down.
 Therefore, if all nodes in a zone are unhealthy, then the node controller evicts at
-the normal rate of `--node-eviction-rate`.  The corner case is when all zones are
+the normal rate of `--node-eviction-rate`. The corner case is when all zones are
 completely unhealthy (none of the nodes in the cluster are healthy). In such a
 case, the node controller assumes that there is some problem with connectivity
 between the control plane and the nodes, and doesn't perform any evictions.
@@ -550,36 +550,36 @@ are emitted under the kubelet subsystem to monitor node shutdowns.
 
 {{< feature-state state="beta" for_k8s_version="v1.26" >}}
 
-A node shutdown action may not be detected by kubelet's Node Shutdown Manager, 
-either because the command does not trigger the inhibitor locks mechanism used by 
-kubelet or because of a user error, i.e., the ShutdownGracePeriod and 
-ShutdownGracePeriodCriticalPods are not configured properly. Please refer to above 
+A node shutdown action may not be detected by kubelet's Node Shutdown Manager,
+either because the command does not trigger the inhibitor locks mechanism used by
+kubelet or because of a user error, i.e., the ShutdownGracePeriod and
+ShutdownGracePeriodCriticalPods are not configured properly. Please refer to above
 section [Graceful Node Shutdown](#graceful-node-shutdown) for more details.
 
-When a node is shutdown but not detected by kubelet's Node Shutdown Manager, the pods 
-that are part of a {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} will be stuck in terminating status on 
-the shutdown node and cannot move to a new running node. This is because kubelet on 
-the shutdown node is not available to delete the pods so the StatefulSet cannot 
-create a new pod with the same name. If there are volumes used by the pods, the 
-VolumeAttachments will not be deleted from the original shutdown node so the volumes 
-used by these pods cannot be attached to a new running node. As a result, the 
-application running on the StatefulSet cannot function properly. If the original 
-shutdown node comes up, the pods will be deleted by kubelet and new pods will be 
+When a node is shutdown but not detected by kubelet's Node Shutdown Manager, the pods
+that are part of a {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} will be stuck in terminating status on
+the shutdown node and cannot move to a new running node. This is because kubelet on
+the shutdown node is not available to delete the pods so the StatefulSet cannot
+create a new pod with the same name. If there are volumes used by the pods, the
+VolumeAttachments will not be deleted from the original shutdown node so the volumes
+used by these pods cannot be attached to a new running node. As a result, the
+application running on the StatefulSet cannot function properly. If the original
+shutdown node comes up, the pods will be deleted by kubelet and new pods will be
 created on a different running node. If the original shutdown node does not come up,  
 these pods will be stuck in terminating status on the shutdown node forever.
 
-To mitigate the above situation, a  user can manually add the taint `node.kubernetes.io/out-of-service` with either `NoExecute`
-or `NoSchedule` effect to a Node marking it out-of-service. 
+To mitigate the above situation, a user can manually add the taint `node.kubernetes.io/out-of-service` with either `NoExecute`
+or `NoSchedule` effect to a Node marking it out-of-service.
 If the `NodeOutOfServiceVolumeDetach`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 is enabled on {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}, and a Node is marked out-of-service with this taint, the
 pods on the node will be forcefully deleted if there are no matching tolerations on it and volume
 detach operations for the pods terminating on the node will happen immediately. This allows the
-Pods on the out-of-service node to recover quickly on a different node. 
+Pods on the out-of-service node to recover quickly on a different node.
 
 During a non-graceful shutdown, Pods are terminated in the two phases:
 
 1. Force delete the Pods that do not have matching `out-of-service` tolerations.
-2. Immediately perform detach volume operation for such pods. 
+2. Immediately perform detach volume operation for such pods.
 
 {{< note >}}
 - Before adding the taint `node.kubernetes.io/out-of-service` , it should be verified
@@ -641,10 +641,9 @@ see [KEP-2400](https://github.com/kubernetes/enhancements/issues/2400) and its
 ## {{% heading "whatsnext" %}}
 
 Learn more about the following:
-   * [Components](/docs/concepts/overview/components/#node-components) that make up a node.
-   * [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
-   * [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node) section of the architecture design document.
-   * [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
-   * [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).
-   * [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/).
-
+* [Components](/docs/concepts/overview/components/#node-components) that make up a node.
+* [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
+* [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node) section of the architecture design document.
+* [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
+* [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).
+* [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/).
