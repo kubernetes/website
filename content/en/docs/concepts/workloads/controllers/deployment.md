@@ -1241,3 +1241,4 @@ it is created.
   object definition to understand the API for deployments.
 * Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how
   you can use it to manage application availability during disruptions.
+
