@@ -650,7 +650,7 @@ PersistentVolumeSpec 是持久卷的规约。
   <!--
   - **csi.controllerExpandSecretRef** (SecretReference)
 
-    controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+    controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 
     <a name="SecretReference"></a>
     *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
@@ -668,7 +668,6 @@ PersistentVolumeSpec 是持久卷的规约。
 
     controllerExpandSecretRef 是对包含敏感信息的 Secret 对象的引用，
     该 Secret 会被传递到 CSI 驱动以完成 CSI ControllerExpandVolume 调用。
-    这是一个 Beta 字段，需要启用 ExpandCSIVolumes 特性门控。
     此字段是可选的，且如果不需要 Secret，则此字段可以为空。
     如果 Secret 对象包含多个 Secret，则所有 Secret 被传递。
 
@@ -723,7 +722,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **csi.nodeExpandSecretRef** (SecretReference)
 
-    nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an beta field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+    nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 
     <a name="SecretReference"></a>
     *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
@@ -745,7 +744,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
     nodeExpandSecretRef 是对包含敏感信息的 Secret 对象的引用，
     从而传递到 CSI 驱动以完成 CSI NodeExpandVolume 和 NodeUnpublishVolume 调用。
-    这是一个 Beta 字段，需要启用 CSINodeExpandSecret 特性门控。
+    这是一个 Beta 字段，通过 CSINodeExpandSecret 特性门控默认启用。
     此字段是可选的，且如果不需要 Secret，则此字段可以为空。
     如果 Secret 对象包含多个 Secret，则所有 Secret 被传递。
 
@@ -1034,6 +1033,7 @@ PersistentVolumeSpec 是持久卷的规约。
   https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#gcepersistentdisk
 
   <a name="GCEPersistentDiskVolumeSource"></a>
+
   **表示 Google 计算引擎中的 Persistent Disk 资源。挂载到一个容器之前 GCE PD 必须存在。
   该磁盘还必须与 kubelet 位于相同的 GCE 项目和区域中。GCE PD 只能挂载为读/写一次或只读多次。
   GCE PD 支持所有权管理和 SELinux 重新打标签。**
@@ -1050,7 +1050,7 @@ PersistentVolumeSpec 是持久卷的规约。
 
   - **gcePersistentDisk.readOnly** (boolean)
     readOnly here will force the ReadOnly setting in VolumeMounts. Defaults to false. More info: https://kubernetes.io/docs/concepts/storage/volumes#gcepersistentdisk
--->
+  -->
 
   - **gcePersistentDisk.pdName** (string)，必需
 
@@ -1073,6 +1073,63 @@ PersistentVolumeSpec 是持久卷的规约。
 
     此处 readOnly 将在 VolumeMounts 中强制设置 readOnly。默认为 false。更多信息：
     https://kubernetes.io/zh-cn/docs/concepts/storage/volumes#gcepersistentdisk
+
+<!--
+- **glusterfs** (GlusterfsPersistentVolumeSource)
+
+  glusterfs represents a Glusterfs volume that is attached to a host and exposed to the pod. Provisioned by an admin. More info: https://examples.k8s.io/volumes/glusterfs/README.md
+-->
+
+- **glusterfs** （GlusterfsPersistentVolumeSource）
+
+  glusterfs 表示关联到主机并暴露给 Pod 的 Glusterfs 卷。由管理员配置。
+  更多信息：https://examples.k8s.io/volumes/glusterfs/README.md
+
+  <a name="GlusterfsPersistentVolumeSource"></a>
+  <!--
+  *Represents a Glusterfs mount that lasts the lifetime of a pod. Glusterfs volumes do not support ownership management or SELinux relabeling.*
+  -->
+  **表示在 Pod 生命周期内一直存在的 Glusterfs 挂载卷。Glusterfs 卷不支持属主管理或 SELinux 重标记。**
+
+  <!--
+  - **glusterfs.endpoints** (string), required
+
+    endpoints is the endpoint name that details Glusterfs topology. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+
+  - **glusterfs.path** (string), required
+
+    path is the Glusterfs volume path. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+
+  - **glusterfs.endpointsNamespace** (string)
+
+    endpointsNamespace is the namespace that contains Glusterfs endpoint. If this field is empty, the EndpointNamespace defaults to the same namespace as the bound PVC. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+
+  - **glusterfs.readOnly** (boolean)
+
+    readOnly here will force the Glusterfs volume to be mounted with read-only permissions. Defaults to false. More info: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+  -->
+
+  - **glusterfs.endpoints** (string)，必需
+
+    endpoints 是详细给出 Glusterfs 拓扑结构的端点的名称。
+    更多信息: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+
+  - **glusterfs.path** (string)，必需
+
+    path 是 Glusterfs 卷的路径。
+    更多信息: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+
+  - **glusterfs.endpointsNamespace** (string)
+
+    endpointsNamespace 是 Glusterfs 端点所在的命名空间。
+    如果 endpointNamespace 为空，则默认值与所绑定的 PVC 的命名空间相同。
+    更多信息: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
+
+  - **glusterfs.readOnly** (boolean)
+
+    此处的 readOnly 将强制以只读权限挂载 Glusterfs 卷。
+    默认为 false。
+    更多信息: https://examples.k8s.io/volumes/glusterfs/README.md#create-a-pod
 
 <!--
 - **iscsi** (ISCSIPersistentVolumeSource)
@@ -1886,6 +1943,10 @@ GET /api/v1/persistentvolumes
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 - **timeoutSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -2278,6 +2339,10 @@ DELETE /api/v1/persistentvolumes
 - **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
