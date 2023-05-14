@@ -72,8 +72,9 @@ IngressClassSpec 提供有关 Ingress 类的信息。
 - **controller** (string)
 
   <!--
-  Controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
+  controller refers to the name of the controller that should handle this class. This allows for different "flavors" that are controlled by the same controller. For example, you may have different Parameters for the same implementing controller. This should be specified as a domain-prefixed path no more than 250 characters in length, e.g. "acme.io/ingress-controller". This field is immutable.
   -->
+  
   controller 是指应该处理此类的控制器名称。
   这允许由同一控制器控制不同“口味”。例如，对于同一个实现的控制器你可能有不同的参数。
   此字段应该指定为长度不超过 250 个字符的域前缀路径，例如 “acme.io/ingress-controller”。
@@ -82,8 +83,9 @@ IngressClassSpec 提供有关 Ingress 类的信息。
 - **parameters** (IngressClassParametersReference)
 
   <!--
-  Parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
+  parameters is a link to a custom resource containing additional configuration for the controller. This is optional if the controller does not require extra parameters.
   -->
+  
   parameters 是指向控制器中包含额外配置的自定义资源的链接。
   如果控制器不需要额外的属性，这是可选的。
 
@@ -96,7 +98,7 @@ IngressClassSpec 提供有关 Ingress 类的信息。
   <!--
   - **parameters.kind** (string), required
 
-    Kind is the type of resource being referenced.
+    kind is the type of resource being referenced.
   -->
 
   - **parameters.kind** (string)，必需
@@ -106,7 +108,7 @@ IngressClassSpec 提供有关 Ingress 类的信息。
   <!--
   - **parameters.name** (string), required
 
-    Name is the name of resource being referenced.
+    name is the name of resource being referenced.
   -->
 
   - **parameters.name** (string)，必需
@@ -115,7 +117,7 @@ IngressClassSpec 提供有关 Ingress 类的信息。
 
   - **parameters.apiGroup** (string)
     <!--
-    APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
+    apiGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.
     -->
 
     apiGroup 是被引用资源的组。
@@ -124,7 +126,7 @@ IngressClassSpec 提供有关 Ingress 类的信息。
 
   - **parameters.namespace** (string)
     <!--
-    Namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
+    namespace is the namespace of the resource being referenced. This field is required when scope is set to "Namespace" and must be unset when scope is set to "Cluster".
     -->
 
     namespace 是被引用资源的命名空间。
@@ -133,7 +135,7 @@ IngressClassSpec 提供有关 Ingress 类的信息。
 
   - **parameters.scope** (string)
     <!--
-    Scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
+    scope represents if this refers to a cluster or namespace scoped resource. This may be set to "Cluster" (default) or "Namespace".
     -->
 
     scope 表示是否引用集群或者命名空间范围的资源。
@@ -162,7 +164,7 @@ IngressClassList 是 IngressClasses 的集合。
 <!--
 - **items** ([]<a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>), required
 
-  Items is the list of IngressClasses.
+  items is the list of IngressClasses.
 -->
 - **items** ([]<a href="{{< ref "../service-resources/ingress-class-v1#IngressClass" >}}">IngressClass</a>)，必需
 
@@ -286,6 +288,15 @@ GET /apis/networking.k8s.io/v1/ingressclasses
 - **resourceVersionMatch** （**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+<!--
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+-->
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
@@ -670,6 +681,15 @@ DELETE /apis/networking.k8s.io/v1/ingressclasses
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 <!--
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+-->
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+<!--
 - **timeoutSeconds** (*in query*): integer
 -->
 - **timeoutSeconds** （**查询参数**）：integer
@@ -684,4 +704,3 @@ DELETE /apis/networking.k8s.io/v1/ingressclasses
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized
-
