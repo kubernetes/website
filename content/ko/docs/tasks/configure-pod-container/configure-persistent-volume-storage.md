@@ -88,7 +88,7 @@ Google Compute Engine 영구 디스크, NFS 공유 또는 Amazone Elastic
 Block Store 볼륨과 같은 네트워크 자원을 프로비저닝한다. 클러스터 관리자는 
 [스토리지클래스(StorageClasses)](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageclass-v1-storage-k8s-io)를 
 사용하여 
-[동적 프로비저닝](/docs/concepts/storage/dynamic-provisioning/)을 설정할 수도 있다. 
+[동적 프로비저닝](/ko/docs/concepts/storage/dynamic-provisioning/)을 설정할 수도 있다. 
 
 hostPath 퍼시스턴트볼륨의 설정 파일은 아래와 같다.
 
