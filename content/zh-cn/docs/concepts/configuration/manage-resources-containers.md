@@ -405,7 +405,7 @@ see the [Troubleshooting](#troubleshooting) section.
 ### Monitoring compute & memory resource usage
 
 The kubelet reports the resource usage of a Pod as part of the Pod
-[`status`](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status).
+[`status`](/docs/concepts/overview/working-with-objects/#object-spec-and-status).
 
 If optional [tools for monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 are available in your cluster, then Pod resource usage can be retrieved either
@@ -415,7 +415,7 @@ directly or from your monitoring tools.
 ### 监控计算和内存资源用量  {#monitoring-compute-memory-resource-usage}
 
 kubelet 会将 Pod 的资源使用情况作为 Pod
-[`status`](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)
+[`status`](/zh-cn/docs/concepts/overview/working-with-objects/#object-spec-and-status).
 的一部分来报告的。
 
 如果为集群配置了可选的[监控工具](/zh-cn/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)，

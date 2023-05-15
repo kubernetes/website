@@ -137,11 +137,11 @@ Here are some of your options:
 下面是一些选项：
 
 <!--
-- if your cloud-native component needs to authenticate to another application that you
+- If your cloud-native component needs to authenticate to another application that you
   know is running within the same Kubernetes cluster, you can use a
   [ServiceAccount](/docs/reference/access-authn-authz/authentication/#service-account-tokens)
   and its tokens to identify your client.
-- there are third-party tools that you can run, either within or outside your cluster,
+- There are third-party tools that you can run, either within or outside your cluster,
   that provide secrets management. For example, a service that Pods access over HTTPS,
   that reveals a secret if the client correctly authenticates (for example, with a ServiceAccount
   token).
@@ -153,10 +153,10 @@ Here are some of your options:
   例如，这一工具可能是 Pod 通过 HTTPS 访问的一个服务，该服务在客户端能够正确地通过身份认证
   （例如，通过 ServiceAccount 令牌）时，提供机密数据内容。
 <!--
-- for authentication, you can implement a custom signer for X.509 certificates, and use
+- For authentication, you can implement a custom signer for X.509 certificates, and use
   [CertificateSigningRequests](/docs/reference/access-authn-authz/certificate-signing-requests/)
   to let that custom signer issue certificates to Pods that need them.
-- you can use a [device plugin](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
+- You can use a [device plugin](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
   to expose node-local encryption hardware to a specific Pod. For example, you can schedule
   trusted Pods onto nodes that provide a Trusted Platform Module, configured out-of-band.
 -->
