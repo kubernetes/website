@@ -180,7 +180,7 @@ In case the discovery file does not contain credentials, the TLS discovery token
   you must keep it secret and transfer it over a secure channel. This might be possible with your
   cloud provider or provisioning tool.
 
-#### Use of Custom kubelet credentials with the kubeadm join
+#### Use of custom kubelet credentials with `kubeadm join`
 
 To allow `kubeadm join` to use predefined kubelet credentials and skip client TLS bootstrap 
 and CSR approval for a new node:
@@ -189,7 +189,7 @@ and CSR approval for a new node:
    execute `kubeadm kubeconfig user --org system:nodes --client-name system:node:$NODE > kubelet.conf`.
    `$NODE` must be set to the name of the new node.
 2. Modify the resulted `kubelet.conf` manually to adjust the cluster name and the server endpoint,
-   or pass `kubeconfig user --config` (it accepts `InitConfiguration`).
+   or pass `kubeadm kubeconfig user --config` (it accepts `InitConfiguration`).
 
 If your cluster does not have the `ca.key` file, you must sign the embedded certificates in 
 the `kubelet.conf` externally.
