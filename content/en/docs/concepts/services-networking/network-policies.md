@@ -326,11 +326,10 @@ spec:
   egress:
   - to:
     - namespaceSelector:
-        matchLabels:
-          namespace: frontend
-    - namespaceSelector:
-        matchLabels:
-          namespace: backend
+        matchExpressions:
+        - key: namespace
+          operator: In
+          values: ["frontend", "backend"]
 ```
 
 {{< note >}}
