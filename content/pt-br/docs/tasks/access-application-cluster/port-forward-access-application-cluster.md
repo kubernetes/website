@@ -16,15 +16,15 @@ Esta página mostra como usar o `kubectl port-forward` para se conectar a um ser
 
 <!-- steps -->
 
-## Criando a implantação (*deployment*) e o serviço (service) do MongoDB
+## Criando a implantação e o serviço do MongoDB
 
-1. Crie uma Implantação (*Deployment*) que execute o MongoDB:
+1. Crie uma Implantação que execute o MongoDB:
 
    ```shell
    kubectl apply -f https://k8s.io/examples/application/mongodb/mongo-deployment.yaml
    ```
 
-   A saída de um comando bem-sucedido verifica que a implantação (*deployment*) foi criada:
+   A saída de um comando bem-sucedido verifica que a implantação foi criada:
 
    ```
    deployment.apps/mongo criado
@@ -43,20 +43,20 @@ Esta página mostra como usar o `kubectl port-forward` para se conectar a um ser
    mongo-75f59d57f4-4nd6q   1/1     Em execução   0          2m4s
    ```
 
-   Visualize o status da implantação (*deployment*):
+   Visualize o status da implantação:
 
    ```shell
    kubectl get deployment
    ```
 
-   A saída exibe que a implantação (deployment) foi criada:
+   A saída exibe que a implantação foi criada:
 
    ```
    NAME    READY   UP-TO-DATE   AVAILABLE   AGE
    mongo   1/1     1            1           2m21s
    ```
 
-   A implantação (*deployment*) gerencia automaticamente um conjunto de réplicas (*ReplicaSet*).
+   A implantação gerencia automaticamente um conjunto de réplicas.
    Visualize o status do conjunto de réplicas usando:
 
    ```shell
@@ -70,13 +70,13 @@ Esta página mostra como usar o `kubectl port-forward` para se conectar a um ser
    mongo-75f59d57f4   1         1         1       3m12s
    ```
 
-2. Crie um serviço (*Service*) para expor o MongoDB na rede:
+2. Crie um serviço para expor o MongoDB na rede:
 
    ```shell
    kubectl apply -f https://k8s.io/examples/application/mongodb/mongo-service.yaml
    ```
 
-   A saída (output) de um comando bem-sucedido verifica que o serviço foi criado:
+   A saída de um comando bem-sucedido verifica que o serviço foi criado:
 
    ```
    service/mongo criado
@@ -175,7 +175,7 @@ Esta página mostra como usar o `kubectl port-forward` para se conectar a um ser
 
 ### Opcionalmente, deixe kubectl escolher a porta local {#let-kubectl-choose-local-port}
 
-Se você não precisa de uma porta local específica, pode permitir que o `kubectl` escolha e aloque a porta local e, assim, se livrar da necessidade de gerenciar conflitos de porta local, com a sintaxe ligeiramente mais simples:
+Se você não precisa de uma porta local específica, pode permitir que o `kubectl` escolha e reserve a porta local e, assim, evitar ter que gerenciar conflitos de porta local, com a sintaxe ligeiramente mais simples:
 
 ```shell
 kubectl port-forward deployment/mongo :27017
