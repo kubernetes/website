@@ -21,9 +21,9 @@ O cluster-admin está operando um cluster em nome de uma população de usuário
 
 O admin gostaria de limitar:
 
-1. O número de *persistent volume claims* em um *namespace*
+1. O número de *persistent volume claims* em um namespace
 2. A quantidade de armazenamento que cada *claim* pode solicitar
-3. A quantidade total de armazenamento que o *namespace* pode ter.
+3. A quantidade total de armazenamento que o namespace pode ter.
 
 ## LimitRange para limitar solicitações de armazenamento
 
