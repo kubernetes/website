@@ -141,8 +141,10 @@ which means strict server-side field validation.
 `Ignore`
 : No server side field validation is performed
 
-When `kubectl` cannot connect to an API server with field validation (API servers prior to Kubernetes 1.27),
-it will fall back to using client-side validation.
+When `kubectl` cannot connect to an API server that supports field validation it will fall back
+to using client-side validation. Kubernetes 1.27 and later versions always offer field validation;
+older Kubernetes releases might not. If your cluster is older than v1.27, check the documentation
+for your version of Kubernetes.
 
 ## {{% heading "whatsnext" %}}
 
