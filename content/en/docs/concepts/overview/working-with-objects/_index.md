@@ -129,8 +129,7 @@ of `kubectl --validate` on the server side.
 
 The `kubectl` tool uses the `--validate` flag to set the level of field validation. It accepts the
 values `ignore`, `warn`, and `strict` while also accepting the values `true` (equivalent to `strict`)
-and `false` (equivalent to `ignore`). The default validation setting for kubectl is `--validate=true`,
-which means strict server-side field validation.
+and `false` (equivalent to `ignore`). The default validation setting for `kubectl` is `--validate=true`.
 
 `Strict`
 : Strict field validation, errors on validation failure
