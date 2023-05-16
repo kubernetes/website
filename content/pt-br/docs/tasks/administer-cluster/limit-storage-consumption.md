@@ -27,7 +27,7 @@ O admin gostaria de limitar:
 
 ## LimitRange para limitar solicitações de armazenamento
 
-Adicionar um `LimitRange` a um *namespace* impõe tamanhos mínimos e máximos para solicitações de armazenamento. O armazenamento é solicitado através do `PersistentVolumeClaim`. O controlador de admissão que impõe os limites rejeitará qualquer PVC que esteja acima ou abaixo dos valores definidos pelo administrador.
+Adicionar um LimitRange a um namespace impõe tamanhos mínimos e máximos para solicitações de armazenamento. O armazenamento é solicitado através do PersistentVolumeClaim. O controlador de admissão que impõe os limites rejeitará qualquer PVC que esteja acima ou abaixo dos valores definidos pelo administrador.
 
 Neste exemplo, um PVC que solicita 10Gi de armazenamento seria rejeitado porque excede o limite máximo de 2Gi.
 
