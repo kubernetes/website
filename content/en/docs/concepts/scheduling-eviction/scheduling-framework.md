@@ -52,7 +52,18 @@ equivalent to "Predicate" and "Scoring" is equivalent to "Priority function".
 One plugin may register at multiple extension points to perform more complex or
 stateful tasks.
 
-{{< figure src="/images/docs/scheduling-framework-extensions.png" title="scheduling framework extension points" class="diagram-large">}}
+{{< figure src="/images/docs/scheduling-framework-extensions.png" title="Scheduling framework extension points" class="diagram-large">}}
+
+### PreEnqueue {#pre-enqueue}
+
+These plugins are called prior to adding Pods to the internal active queue, where Pods are marked as
+ready for scheduling.
+
+Only when all PreEnqueue plugins return `Success`, the Pod is allowed to enter the active queue.
+Otherwise, it's placed in the internal unschedulable Pods list, and doesn't get an `Unschedulable` condition.
+
+For more details about how internal scheduler queues work, read
+[Scheduling queue in kube-scheduler](https://github.com/kubernetes/community/blob/f03b6d5692bd979f07dd472e7b6836b2dad0fd9b/contributors/devel/sig-scheduling/scheduler_queues.md).
 
 ### QueueSort {#queue-sort}
 
