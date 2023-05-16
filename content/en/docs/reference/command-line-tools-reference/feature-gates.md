@@ -62,8 +62,6 @@ For a reference to old feature gates that are removed, please refer to
 | `APIPriorityAndFairness` | `true` | Beta | 1.20 | |
 | `APIResponseCompression` | `false` | Alpha | 1.7 | 1.15 |
 | `APIResponseCompression` | `true` | Beta | 1.16 | |
-| `APISelfSubjectReview` | `false` | Alpha | 1.26 | 1.26 |
-| `APISelfSubjectReview` | `true` | Beta | 1.27 | |
 | `APIServerIdentity` | `false` | Alpha | 1.20 | 1.25 |
 | `APIServerIdentity` | `true` | Beta | 1.26 | |
 | `APIServerTracing` | `false` | Alpha | 1.22 | 1.26 |
@@ -233,6 +231,9 @@ For a reference to old feature gates that are removed, please refer to
 | `AdvancedAuditing` | `false` | Alpha | 1.7 | 1.7 |
 | `AdvancedAuditing` | `true` | Beta | 1.8 | 1.11 |
 | `AdvancedAuditing` | `true` | GA | 1.12 | - |
+| `APISelfSubjectReview` | `false` | Alpha | 1.26 | 1.26 |
+| `APISelfSubjectReview` | `true` | Beta | 1.27 | 1.27 |
+| `APISelfSubjectReview` | `true` | GA | 1.28 | - |
 | `CPUManager` | `false` | Alpha | 1.8 | 1.9 |
 | `CPUManager` | `true` | Beta | 1.10 | 1.25 |
 | `CPUManager` | `true` | GA | 1.26 | - |
@@ -255,6 +256,9 @@ For a reference to old feature gates that are removed, please refer to
 | `CronJobTimeZone` | `false` | Alpha | 1.24 | 1.24 |
 | `CronJobTimeZone` | `true` | Beta | 1.25 | 1.26 |
 | `CronJobTimeZone` | `true` | GA | 1.27 | - |
+| `DaemonSetUpdateSurge` | `false` | Alpha | 1.21 | 1.21 |
+| `DaemonSetUpdateSurge` | `true` | Beta | 1.22 | 1.24 |
+| `DaemonSetUpdateSurge` | `true` | GA | 1.25 | - |
 | `DelegateFSGroupToCSIDriver` | `false` | Alpha | 1.22 | 1.22 |
 | `DelegateFSGroupToCSIDriver` | `true` | Beta | 1.23 | 1.25 |
 | `DelegateFSGroupToCSIDriver` | `true` | GA | 1.26 |-|
@@ -465,6 +469,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CustomResourceValidationExpressions`: Enable expression language validation in CRD
   which will validate customer resource based on validation rules written in
   the `x-kubernetes-validations` extension.
+- `DaemonSetUpdateSurge`: Enables the DaemonSet workloads to maintain
+  availability during update per node.
+  See [Perform a Rolling Update on a DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/).
 - `DelegateFSGroupToCSIDriver`: If supported by the CSI driver, delegates the
   role of applying `fsGroup` from a Pod's `securityContext` to the driver by
   passing `fsGroup` through the NodeStageVolume and NodePublishVolume CSI calls.
