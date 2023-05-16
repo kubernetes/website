@@ -226,7 +226,7 @@ see the [Troubleshooting](#troubleshooting) section.
 ### Monitoring compute & memory resource usage
 
 The kubelet reports the resource usage of a Pod as part of the Pod
-[`status`](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status).
+[`status`](/docs/concepts/overview/working-with-objects/#object-spec-and-status).
 
 If optional [tools for monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 are available in your cluster, then Pod resource usage can be retrieved either

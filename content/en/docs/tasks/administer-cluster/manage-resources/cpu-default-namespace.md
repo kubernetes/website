@@ -109,7 +109,7 @@ Create the Pod:
 kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-2.yaml --namespace=default-cpu-example
 ```
 
-View the [specification](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)
+View the [specification](/docs/concepts/overview/working-with-objects/#object-spec-and-status)
 of the Pod that you created:
 
 ```
@@ -140,8 +140,7 @@ Create the Pod:
 kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-3.yaml --namespace=default-cpu-example
 ```
 
-View the [specification](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)
-of the Pod that you created:
+View the specification of the Pod that you created:
 
 ```
 kubectl get pod default-cpu-demo-3 --output=yaml --namespace=default-cpu-example

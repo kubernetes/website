@@ -201,7 +201,7 @@ For a reference to old feature gates that are removed, please refer to
 | `SizeMemoryBackedVolumes` | `false` | Alpha | 1.20 | 1.21 |
 | `SizeMemoryBackedVolumes` | `true` | Beta | 1.22 | |
 | `StableLoadBalancerNodeGet` | `true` | Beta | 1.27 | |
-| `StatefulSetAutoDeletePVC` | `false` | Alpha | 1.22 | 1.26 |
+| `StatefulSetAutoDeletePVC` | `false` | Alpha | 1.23 | 1.26 |
 | `StatefulSetAutoDeletePVC` | `false` | Beta | 1.27 | |
 | `StatefulSetStartOrdinal` | `false` | Alpha | 1.26 | 1.26 |
 | `StatefulSetStartOrdinal` | `true` | Beta | 1.27 | |
@@ -617,8 +617,10 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `MultiCIDRRangeAllocator`: Enables the MultiCIDR range allocator.
 - `MultiCIDRServiceAllocator`: Track IP address allocations for Service cluster IPs using IPAddress objects.
 - `NetworkPolicyStatus`: Enable the `status` subresource for NetworkPolicy objects.
-- `NewVolumeManagerReconstruction`: Enable improved discovery of mounted volumes during kubelet
-  startup.
+- `NewVolumeManagerReconstruction`: Enables improved discovery of mounted volumes during kubelet
+  startup. Since this code has been significantly refactored, we allow to opt-out in case kubelet
+  gets stuck at the startup or is not unmounting volumes from terminated Pods. Note that this
+  refactoring was behind `SELinuxMountReadWriteOncePod` alpha feature gate in Kubernetes 1.25.
   <!-- remove next 2 paragraphs when feature graduates to GA -->
   Before Kubernetes v1.25, the kubelet used different default behavior for discovering mounted
   volumes during the kubelet startup. If you disable this feature gate (it's enabled by default), you select
@@ -626,10 +628,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 
   In Kubernetes v1.25 and v1.26, this behavior toggle was part of the `SELinuxMountReadWriteOncePod`
   feature gate.
-- `NewVolumeManagerReconstruction`: Enables improved discovery of mounted volumes during kubelet
-  startup. Since this code has been significantly refactored, we allow to opt-out in case kubelet
-  gets stuck at the startup or is not unmounting volumes from terminated Pods. Note that this
-  refactoring was behind `SELinuxMountReadWriteOncePod` alpha feature gate in Kubernetes 1.25.
 - `NodeInclusionPolicyInPodTopologySpread`: Enable using `nodeAffinityPolicy` and `nodeTaintsPolicy` in
   [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
   when calculating pod topology spread skew.
