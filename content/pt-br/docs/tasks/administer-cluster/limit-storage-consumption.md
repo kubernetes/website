@@ -17,9 +17,9 @@ Os seguintes recursos são usados na demonstração: [ResourceQuota](/pt-br/docs
 <!-- steps -->
 ## Cenário: Limitando o consumo de armazenamento.
 
-O cluster-admin está operando um cluster em nome de uma população de usuários e o admin quer controlar quanto armazenamento um único namespace pode consumir para controlar custos.
+O administrador do cluster está operando um cluster em nome de uma população de usuários e o administrador quer controlar quanto armazenamento um único namespace pode consumir para controlar custos.
 
-O admin gostaria de limitar:
+O administrador gostaria de limitar:
 
 1. O número de *persistent volume claims* em um namespace
 2. A quantidade de armazenamento que cada *claim* pode solicitar
