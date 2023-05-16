@@ -86,13 +86,13 @@ The following methods exist for installing kubectl on macOS:
    To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
    portion of the command with the specific version.
 
-   For example, to download version {{< param "fullversion" >}} on Intel macOS, type:
+   For example, to download version {{< skew currentPatchVersion >}} on Intel macOS, type:
    -->
    如果需要下载某个指定的版本，用该指定版本号替换掉命令的这个部分：`$(curl -L -s https://dl.k8s.io/release/stable.txt)`。
-   例如：要为 Intel macOS 系统下载 {{< param "fullversion" >}} 版本，则输入：
+   例如：要为 Intel macOS 系统下载 {{< skew currentPatchVersion >}} 版本，则输入：
 
    ```bash
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl"
+   curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/amd64/kubectl"
    ```
 
    <!--
@@ -101,7 +101,7 @@ The following methods exist for installing kubectl on macOS:
    对于 Apple Silicon 版本的 macOS，输入：
 
    ```bash
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/arm64/kubectl"
+   curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/arm64/kubectl"
    ```
    {{< /note >}}
 
@@ -131,6 +131,7 @@ The following methods exist for installing kubectl on macOS:
    ```bash
    echo "$(cat kubectl.sha256)  kubectl" | shasum -a 256 --check
    ```
+
    <!-- 
    If valid, the output is:
    -->

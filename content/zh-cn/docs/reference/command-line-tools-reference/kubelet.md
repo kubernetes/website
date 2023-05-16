@@ -67,10 +67,9 @@ kubelet [flags]
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The IP address for the Kubelet to serve on (set to <code>0.0.0.0</code> for all IPv4 interfaces and <code>::</code> for all IPv6 interfaces)  (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
+The IP address for the Kubelet to serve on (set to <code>0.0.0.0</code> or <code>::</code> for listening in all interfaces and IP families)  (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
-kubelet 用来提供服务的 IP 地址（设置为<code>0.0.0.0</code> 表示使用所有 IPv4 接口，
-设置为 <code>::</code> 表示使用所有 IPv6 接口）。
+kubelet 用来提供服务的 IP 地址（设置为 <code>0.0.0.0</code> 或 <code>::</code> 表示监听所有接口和 IP 协议族）。
 （已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
 </td>
@@ -134,16 +133,15 @@ The duration to cache responses from the webhook token authenticator. (default 2
 </tr>
 
 <tr>
-<td colspan="2">--authorization-mode string</td>
+<td colspan="2">--authorization-mode string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值: <code>AlwaysAllow</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Authorization mode for Kubelet server. Valid options are <code>AlwaysAllow</code> or <code>Webhook</code>. <code>Webhook</code> mode uses the <code>SubjectAccessReview</code> API to determine authorization. (default "AlwaysAllow" when <code>--config</code> flag is not provided; "Webhook" when <code>--config</code> flag presents.) (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
+Authorization mode for Kubelet server. Valid options are AlwaysAllow or Webhook. Webhook mode uses the SubjectAccessReview API to determine authorization. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
-kubelet 服务器的鉴权模式。可选值包括：<code>AlwaysAllow</code>、<code>Webhook</code>。<code>Webhook</code> 模式使用 <code>SubjectAccessReview</code> API 鉴权。
-当 <code>--config</code> 参数未被设置时，默认值为 <code>AlwaysAllow</code>，当使用了
-<code>--config</code> 时，默认值为 <code>Webhook</code>。
+kubelet 服务器的鉴权模式。可选值包括：AlwaysAllow、Webhook。
+Webhook 模式使用 SubjectAccessReview API 鉴权。
 （已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
 </td>
@@ -184,7 +182,7 @@ The duration to cache 'unauthorized' responses from the webhook authorizer. (DEP
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to the file container Azure container registry configuration information.
+Path to the file containing Azure container registry configuration information.
 -->
 包含 Azure 容器镜像库配置信息的文件的路径。
 </td>
@@ -284,7 +282,7 @@ If set, any request presenting a client certificate signed by one of the authori
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The path to the cloud provider configuration file. Empty string for no configuration file. (DEPRECATED: will be removed in  1.24 or later, in favor of removing cloud providers code from Kubelet.)
+The path to the cloud provider configuration file. Empty string for no configuration file. (DEPRECATED: will be removed in 1.24 or later, in favor of removing cloud providers code from kubelet.)
 -->
 云驱动配置文件的路径。空字符串表示没有配置文件。
 已弃用：将在 1.24 或更高版本中移除，以便于从 kubelet 中去除云驱动代码。
@@ -359,9 +357,9 @@ kubelet 将从此标志所指的文件中加载其初始配置。此路径可以
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Set the maximum number of container log files that can be present for a container. The number must be &ge; 2. This flag can only be used with <code>--container-runtime=remote</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
+&lt;Warning: Beta feature&gt; Set the maximum number of container log files that can be present for a container. The number must be &gt;= 2. This flag can only be used with <code>--container-runtime=remote</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
-设置容器的日志文件个数上限。此值必须不小于 2。
+警告：Beta 版功能；设置容器的日志文件个数上限。此值必须大于等于 2。
 此标志只能与 <code>--container-runtime=remote</code> 标志一起使用。
 （已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
@@ -374,9 +372,9 @@ Set the maximum number of container log files that can be present for a containe
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Set the maximum size (e.g. 10Mi) of container log file before it is rotated. This flag can only be used with <code>--container-runtime=remote</code>.  (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
+&lt;Warning: Beta feature&gt; Set the maximum size (e.g. <code>10Mi</code>) of container log file before it is rotated. This flag can only be used with <code>--container-runtime=remote</code>.  (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
-设置容器日志文件在轮换生成新文件时之前的最大值（例如，<code>10Mi</code>）。
+警告：Beta 版功能；设置容器日志文件在轮换生成新文件时之前的最大值（例如，<code>10Mi</code>）。
 此标志只能与 <code>--container-runtime=remote</code> 标志一起使用。
 （已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
@@ -462,7 +460,7 @@ Sets CPU CFS quota period value, <code>cpu.cfs_period_us</code>, defaults to Lin
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-CPU Manager policy to use. Possible values: 'none', 'static'. Default: 'none' (default "none") (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
+CPU Manager policy to use. Possible values: <code>none</code>, <code>static</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
 要使用的 CPU 管理器策略。可选值包括：<code>none</code> 和 <code>static</code>。
 （已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
@@ -547,7 +545,7 @@ Enable the Kubelet's server. (DEPRECATED: This parameter should be set via the c
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A comma separated list of levels of node allocatable enforcement to be enforced by kubelet. Acceptable options are <code>none</code>, <code>pods</code>, <code>system-reserved</code>, and <code>kube-reserved</code>. If the latter two options are specified, <code>--system-reserved-cgroup</code> and <code>--kube-reserved-cgroup</code> must also be set, respectively. If <code>none</code> is specified, no additional options should be set. See https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/ for more details. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
+A comma separated list of levels of node allocatable enforcement to be enforced by kubelet. Acceptable options are <code>none</code>, <code>pods</code>, <code>system-reserved</code>, and <code>kube-reserved</code>. If the latter two options are specified, <code>--system-reserved-cgroup</code> and <code>--kube-reserved-cgroup</code> must also be set, respectively. If <code>none</code> is specified, no additional options should be set. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/">here</a> for more details. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
 用逗号分隔的列表，包含由 kubelet 强制执行的节点可分配资源级别。
 可选配置为：<code>none</code>、<code>pods</code>、<code>system-reserved</code> 和 <code>kube-reserved</code>。
@@ -566,10 +564,10 @@ A comma separated list of levels of node allocatable enforcement to be enforced 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Maximum size of a bursty event records, temporarily allows event records to burst to this number, while still not exceeding <code>--event-qps</code>. Only used if <code>--event-qps</code> &gt; 0. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
+Maximum size of a bursty event records, temporarily allows event records to burst to this number, while still not exceeding <code>--event-qps</code>. The number must be &gt;= 0. If 0 will use default burst (10). (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
 事件记录的个数的突发峰值上限，在遵从 <code>--event-qps</code> 阈值约束的前提下
-临时允许事件记录达到此数目。仅在 <code>--event-qps</code> 大于 0 时使用。
+临时允许事件记录达到此数目。该数字必须大于等于 0。如果为 0，则使用默认突发值（10）。
 （已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
 </td>
@@ -581,9 +579,9 @@ Maximum size of a bursty event records, temporarily allows event records to burs
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-If &gt; <code>0</code>, limit event creations per second to this value. If <code>0</code>, unlimited. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
+QPS to limit event creations. The number must be &gt;= 0. If 0 will use default QPS (5). (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
-设置大于 0 的值表示限制每秒可生成的事件数量。设置为 0 表示不限制。
+QPS 用于限制事件创建的速率。该数字必须大于等于 0。如果为 0，则使用默认 QPS 值（5）。
 （已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
 </td>
@@ -734,7 +732,7 @@ Makes the Kubelet fail to start if swap is enabled on the node. (DEPRECATED: Thi
 </tr>
 
 <tr>
-<td colspan="2">--feature-gates mapStringBool</td>
+<td colspan="2">--feature-gates &lt;一个由 “key=true/false” 组成的对偶&gt;</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
@@ -756,7 +754,7 @@ CPUManagerPolicyBetaOptions=true|false (BETA - default=true)<br/>
 CPUManagerPolicyOptions=true|false (BETA - default=true)<br/>
 CSIMigrationPortworx=true|false (BETA - default=false)<br/>
 CSIMigrationRBD=true|false (ALPHA - default=false)<br/>
-CSINodeExpandSecret=true|false (ALPHA - default=false)<br/>
+CSINodeExpandSecret=true|false (BETA - default=true)<br/>
 CSIVolumeHealth=true|false (ALPHA - default=false)<br/>
 ComponentSLIs=true|false (ALPHA - default=false)<br/>
 ContainerCheckpoint=true|false (ALPHA - default=false)<br/>
@@ -812,6 +810,7 @@ NodeInclusionPolicyInPodTopologySpread=true|false (BETA - default=true)<br/>
 NodeOutOfServiceVolumeDetach=true|false (BETA - default=true)<br/>
 NodeSwap=true|false (ALPHA - default=false)<br/>
 OpenAPIEnums=true|false (BETA - default=true)<br/>
+OpenAPIV3=true|false (BETA - default=true)<br/>
 PDBUnhealthyPodEvictionPolicy=true|false (ALPHA - default=false)<br/>
 PodAndContainerStatsFromCRI=true|false (ALPHA - default=false)<br/>
 PodDeletionCost=true|false (BETA - default=true)<br/>
@@ -845,6 +844,7 @@ ValidatingAdmissionPolicy=true|false (ALPHA - default=false)<br/>
 VolumeCapacityPriority=true|false (ALPHA - default=false)<br/>
 WinDSR=true|false (ALPHA - default=false)<br/>
 WinOverlay=true|false (BETA - default=true)<br/>
+WindowsHostNetwork=true|false (ALPHA - default=true)<br/>
 (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 -->
 用于 alpha 实验性特性的特性开关组，每个开关以 key=value 形式表示。当前可用开关包括：</br>
@@ -863,7 +863,7 @@ CPUManagerPolicyAlphaOptions=true|false (ALPHA - 默认值为 false)<br/>
 CPUManagerPolicyBetaOptions=true|false (BETA - 默认值为 true)<br/>
 CPUManagerPolicyOptions=true|false (BETA - 默认值为 true)<br/>
 CSIMigrationRBD=true|false (ALPHA - 默认值为 false)<br/>
-CSINodeExpandSecret=true|false (ALPHA - 默认值为 false)<br/>
+CSINodeExpandSecret=true|false (BETA - 默认值为 false)<br/>
 CSIVolumeHealth=true|false (ALPHA - 默认值为 false)<br/>
 ComponentSLIs=true|false (ALPHA - 默认值为 false)<br/>
 ContainerCheckpoint=true|false (ALPHA - 默认值为 false)<br/>
@@ -974,21 +974,6 @@ Duration between checking config files for new data. (DEPRECATED: This parameter
 </tr>
 
 <tr>
-<td colspan="2">--topology-manager-policy-options string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">
-<!--
-A set of key=value Topology Manager policy options to use, to fine tune their behaviour. If not supplied, keep the default behaviour. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
--->
-一组 key=value Topology Manager 策略选项，用于微调它们的行为。
-如果未提供，则保持默认行为。（已弃用：此参数应通过 Kubelet 的 <code>--config</code>
-标志指定的配置文件设置。请参阅
-<a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
-</td>
-</tr>
-
-<tr>
 <td colspan="2">--hairpin-mode string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>promiscuous-bridge</code>-->默认值：<code>promiscuous-bridge</code></td>
 </tr>
 <tr>
@@ -1010,10 +995,9 @@ How should the kubelet setup hairpin NAT. This allows endpoints of a Service to 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-The IP address for the healthz server to serve on (set to <code>0.0.0.0</code> for all IPv4 interfaces and <code>::</code> for all IPv6 interfaces). (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
+The IP address for the healthz server to serve on (set to <code>0.0.0.0</code> or <code>::</code> for listening in all interfaces and IP families). (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
-用于运行 healthz 服务器的 IP 地址（设置为 <code>0.0.0.0</code> 表示使用所有 IPv4 接口，
-设置为 <code>::</code> 表示使用所有 IPv6 接口。
+healthz 服务器提供服务所使用的 IP 地址（设置为 <code>0.0.0.0</code> 或 <code>::</code> 表示监听所有接口和 IP 协议族。
 （已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
 </td>
@@ -1203,9 +1187,10 @@ If enabled, the kubelet will integrate with the kernel memcg notification to det
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Burst to use while talking with kubernetes apiserver. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
+Burst to use while talking with kubernetes API server. The number must be >= 0. If 0 will use default burst (10). (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
-每秒发送到 apiserver 的突发请求数量上限。
+每秒发送到 API 服务器 的突发请求数量上限。
+该数字必须大于或等于 0。如果为 0，则使用默认的突发值（10）。
 （已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
 </td>
@@ -1345,10 +1330,11 @@ Maximum number of seconds between log flushes
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[Alpha] In JSON format with split output streams, the info messages can be buffered for a while to increase performance. The default value of zero bytes disables buffering. The size can be specified as number of bytes (512), multiples of 1000 (1K), multiples of 1024 (2Ki), or powers of those (3M, 4G, 5Mi, 6Gi). (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
+[Alpha] In JSON format with split output streams, the info messages can be buffered for a while to increase performance. The default value of zero bytes disables buffering. The size can be specified as number of bytes (512), multiples of 1000 (1K), multiples of 1024 (2Ki), or powers of those (3M, 4G, 5Mi, 6Gi). Enable the <code>LoggingAlphaOptions</code> feature gate to use this. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
 [Alpha 特性]在具有拆分输出流的 JSON 格式中，可以将信息消息缓冲一段时间以提高性能。
 零字节的默认值禁用缓冲。大小可以指定为字节数（512）、1000 的倍数（1K）、1024 的倍数（2Ki） 或这些（3M、4G、5Mi、6Gi）的幂。
+启用 <code>LoggingAlphaOptions</code> 特性门控来使用此功能。
 （已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
 </td>
@@ -1360,9 +1346,10 @@ Maximum number of seconds between log flushes
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-[Alpha] In JSON format, write error messages to stderr and info messages to stdout. The default is to write a single stream to stdout. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
+[Alpha] In JSON format, write error messages to stderr and info messages to stdout. The default is to write a single stream to stdout. Enable the <code>LoggingAlphaOptions</code> feature gate to use this. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
 [Alpha 特性]以 JSON 格式，将错误消息写入 stderr，将 info 消息写入 stdout。
+启用 <code>LoggingAlphaOptions</code> 特性门控来使用此功能。
 默认是将单个流写入标准输出。
 （已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
@@ -1926,7 +1913,7 @@ Auto rotate the kubelet client certificates by requesting new certificates from 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-&lt;Warning: Beta feature&gt; ng certificates by requesting new certificates from the <code>kube-apiserver</code> when the certificate expiration approaches. Requires the <code>RotateKubeletServerCertificate</code> feature gate to be enabled, and approval of the submitted <code>CertificateSigningRequest</code> objects. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
+&lt;Warning: Beta feature&gt; Auto-request and rotate the kubelet serving certificates by requesting new certificates from the <code>kube-apiserver</code> when the certificate expiration approaches. Requires the <code>RotateKubeletServerCertificate</code> feature gate to be enabled, and approval of the submitted <code>CertificateSigningRequest</code> objects. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
 &lt;警告：Beta 特性&gt; 当 kubelet 的服务证书即将过期时自动从 kube-apiserver 请求新的证书进行轮换。
 要求启用 <code>RotateKubeletServerCertificate</code> 特性门控，以及对提交的
@@ -2155,13 +2142,30 @@ File containing x509 private key matching <code>--tls-cert-file</code>. (DEPRECA
 </td>
 </tr>
 
+
 <tr>
-<td colspan="2">--topology-manager-policy string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default: <code>none</code>-->默认值：<code>none</code></td>
+<td colspan="2">--topology-manager-policy string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--Default:-->默认值: <code>'none'</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
 Topology Manager policy to use. Possible values: <code>'none'</code>, <code>'best-effort'</code>, <code>'restricted'</code>, <code>'single-numa-node'</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
+-->
+要使用的拓扑管理器策略，用于微调它们的行为。
+可能的取值有：<code>'none'</code>、<code>'best-effort'</code>、<code>'restricted'</code>、<code>'single-numa-node'</code>。
+（已弃用：此参数应通过 Kubelet 的 <code>--config</code>
+标志指定的配置文件设置。请参阅
+<a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--topology-manager-policy-options string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+A set of key=value Topology Manager policy options to use, to fine tune their behaviour. If not supplied, keep the default behaviour. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
 设置拓扑管理策略（Topology Manager policy）。可选值包括：<code>none</code>、
 <code>best-effort</code>、<code>restricted</code> 和 <code>single-numa-node</code>。
@@ -2176,7 +2180,7 @@ Topology Manager policy to use. Possible values: <code>'none'</code>, <code>'bes
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Scope to which topology hints applied. Topology Manager collects hints from Hint Providers and applies them to defined scope to ensure the pod admission. Possible values: <code>'container'</code>, <code>'pod'</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
+Scope to which topology hints are applied. Topology Manager collects hints from Hint Providers and applies them to the defined scope to ensure the pod admission. Possible values: <code>'container'</code>, <code>'pod'</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
 拓扑提示信息使用范围。拓扑管理器从提示提供者（Hints Providers）处收集提示信息，
 并将其应用到所定义的范围以确保 Pod 准入。
@@ -2252,4 +2256,3 @@ Specifies interval for kubelet to calculate and cache the volume disk usage for 
 </tr>
 </tbody>
 </table>
-

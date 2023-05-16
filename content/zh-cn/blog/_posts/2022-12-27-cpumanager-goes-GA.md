@@ -88,11 +88,11 @@ compatible behavior when disabled, and to document how to interact with each oth
 <!--
 This enabled the Kubernetes project to graduate to GA the CPU Manager core component and core CPU allocation algorithms to GA,
 while also enabling a new age of experimentation in this area.
-In Kubernetes v1.26, the CPU Manager supports [three different policy options](/docs/tasks/administer-cluster/cpu-management-policies.md#static-policy-options):
+In Kubernetes v1.26, the CPU Manager supports [three different policy options](/docs/tasks/administer-cluster/cpu-management-policies#static-policy-options):
 -->
 这使得 Kubernetes 项目能够将 CPU 管理器核心组件和核心 CPU 分配算法进阶至 GA，同时也开启了该领域新的实验时代。
 在 Kubernetes v1.26 中，CPU
-管理器支持[三个不同的策略选项](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies.md#static-policy-options)：
+管理器支持[三个不同的策略选项](/zh-cn/docs/tasks/administer-cluster/cpu-management-policies#static-policy-options)：
 
 <!--
 `full-pcpus-only`
