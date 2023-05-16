@@ -68,4 +68,4 @@ spec:
 
 ## Resumo
 
-Um `LimitRange` pode colocar um limite na quantidade de armazenamento solicitado enquanto um `ResourceQuota` pode efetivamente limitar o armazenamento consumido por um *namespace* através do número de *claims* e da capacidade de armazenamento cumulativa. Isso permite que um administrador do cluster planeje o orçamento de armazenamento do seu cluster sem risco de qualquer projeto exceder sua cota.
+Um LimitRange pode colocar um limite na quantidade de armazenamento solicitado enquanto um ResourceQuota pode efetivamente limitar o armazenamento consumido por um namespace através do número de *claims* e da capacidade de armazenamento cumulativa. Isso permite que um administrador do cluster planeje o custo de armazenamento do seu cluster sem risco de qualquer projeto exceder sua cota.
