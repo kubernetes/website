@@ -49,7 +49,7 @@ As requisições de armazenamento mínimas são usadas quando o provedor de arma
 
 ## StorageQuota para limitar a quantidade de PVC e a capacidade de armazenamento cumulativa
 
-Os administradores podem limitar o número de PVCs em um *namespace*, bem como a capacidade cumulativa desses PVCs. Novos PVCs que excedam qualquer um desses valores máximos serão rejeitados.
+Os administradores podem limitar o número de PVCs em um namespace, bem como a capacidade cumulativa desses PVCs. Novos PVCs que excedam qualquer um desses valores máximos serão rejeitados.
 
 Neste exemplo, o sexto PVC no namespace seria rejeitado porque excede a contagem máxima de 5. Alternativamente, uma cota máxima de 5Gi, combinada com o limite máximo de 2Gi acima, não pode ter 3 PVCs, cada um com 2Gi. Isso seria um total de 6Gi solicitados para um namespace limitado a 5Gi.
 
