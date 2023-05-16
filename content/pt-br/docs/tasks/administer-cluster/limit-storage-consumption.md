@@ -8,7 +8,7 @@ weight: 240
 
 Este exemplo demonstra como limitar a quantidade de armazenamento consumido em um namespace.
 
-Os seguintes recursos são usados na demonstração: [`ResourceQuota`](/pt-br/docs/concepts/policy/resource-quotas/), [`LimitRange`](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/), e [`PersistentVolumeClaim`](/pt-br/docs/concepts/storage/persistent-volumes/).
+Os seguintes recursos são usados na demonstração: [ResourceQuota](/pt-br/docs/concepts/policy/resource-quotas/), [LimitRange](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/), e [PersistentVolumeClaim](/pt-br/docs/concepts/storage/persistent-volumes/).
 
 ## {{% heading "prerequisites" %}}
 
