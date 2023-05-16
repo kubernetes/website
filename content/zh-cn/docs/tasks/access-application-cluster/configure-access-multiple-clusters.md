@@ -575,13 +575,13 @@ It can be even more challenging if you are managing more than one cluster at the
 如果你同时管理多个集群，这可能会更具挑战性。
 
 <!--
-There is a `kubectl` alpha subcommand command to check subject attributes, such as username,
-for your selected Kubernetes client context: `kubectl alpha auth whoami`.
+There is a `kubectl` subcommand to check subject attributes, such as username, for your selected Kubernetes 
+client context: `kubectl auth whoami`.
 
 Read [API access to authentication information for a client](/docs/reference/access-authn-authz/authentication/#self-subject-review)
 to learn about this in more detail.
 -->
-对于你所选择的 Kubernetes 客户端上下文，有一个 `kubectl` Alpha 子命令可以检查用户名等主体属性：
+对于你所选择的 Kubernetes 客户端上下文，有一个 `kubectl` 子命令可以检查用户名等主体属性：
 `kubectl alpha auth whoami`。
 
 更多细节请参阅[通过 API 访问客户端的身份验证信息](/zh-cn/docs/reference/access-authn-authz/authentication/#self-subject-review)。

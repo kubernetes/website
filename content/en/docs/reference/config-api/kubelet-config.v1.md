@@ -81,9 +81,9 @@ to provide credentials. Images are expected to contain the registry domain
 and URL path.</p>
 <p>Each entry in matchImages is a pattern which can optionally contain a port and a path.
 Globs can be used in the domain, but not in the port or the path. Globs are supported
-as subdomains like '<em>.k8s.io' or 'k8s.</em>.io', and top-level-domains such as 'k8s.<em>'.
-Matching partial subdomains like 'app</em>.k8s.io' is also supported. Each glob can only match
-a single subdomain segment, so *.io does not match *.k8s.io.</p>
+as subdomains like <code>&ast;.k8s.io</code> or <code>k8s.&ast;.io</code>, and top-level-domains such as <code>k8s.&ast;</code>.
+Matching partial subdomains like <code>app&ast;.k8s.io<code> is also supported. Each glob can only match
+a single subdomain segment, so <code>&ast;.io</code> does not match <code>&ast;.k8s.io</code>.</p>
 <p>A match exists between an image and a matchImage when all of the below are true:</p>
 <ul>
 <li>Both contain the same number of domain parts and each part matches.</li>
@@ -93,9 +93,9 @@ a single subdomain segment, so *.io does not match *.k8s.io.</p>
 <p>Example values of matchImages:</p>
 <ul>
 <li>123456789.dkr.ecr.us-east-1.amazonaws.com</li>
-<li>*.azurecr.io</li>
+<li>&ast;.azurecr.io</li>
 <li>gcr.io</li>
-<li><em>.</em>.registry.io</li>
+<li>&ast;.&ast;.registry.io</li>
 <li>registry.io:8080/path</li>
 </ul>
 </td>
@@ -170,210 +170,3 @@ credential plugin.</p>
 </tbody>
 </table>
   
-  
-    
-
-## `FormatOptions`     {#FormatOptions}
-    
-
-**Appears in:**
-
-- [LoggingConfiguration](#LoggingConfiguration)
-
-
-<p>FormatOptions contains options for the different logging formats.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>json</code> <B>[Required]</B><br/>
-<a href="#JSONOptions"><code>JSONOptions</code></a>
-</td>
-<td>
-   <p>[Alpha] JSON contains options for logging format &quot;json&quot;.
-Only available when the LoggingAlphaOptions feature gate is enabled.</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `JSONOptions`     {#JSONOptions}
-    
-
-**Appears in:**
-
-- [FormatOptions](#FormatOptions)
-
-
-<p>JSONOptions contains options for logging format &quot;json&quot;.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>splitStream</code> <B>[Required]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <p>[Alpha] SplitStream redirects error messages to stderr while
-info messages go to stdout, with buffering. The default is to write
-both to stdout, without buffering. Only available when
-the LoggingAlphaOptions feature gate is enabled.</p>
-</td>
-</tr>
-<tr><td><code>infoBufferSize</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#QuantityValue"><code>k8s.io/apimachinery/pkg/api/resource.QuantityValue</code></a>
-</td>
-<td>
-   <p>[Alpha] InfoBufferSize sets the size of the info stream when
-using split streams. The default is zero, which disables buffering.
-Only available when the LoggingAlphaOptions feature gate is enabled.</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `LogFormatFactory`     {#LogFormatFactory}
-    
-
-
-<p>LogFormatFactory provides support for a certain additional,
-non-default log format.</p>
-
-
-
-
-## `LoggingConfiguration`     {#LoggingConfiguration}
-    
-
-**Appears in:**
-
-- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
-
-
-<p>LoggingConfiguration contains logging options.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>format</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>Format Flag specifies the structure of log messages.
-default value of format is <code>text</code></p>
-</td>
-</tr>
-<tr><td><code>flushFrequency</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/time#Duration"><code>time.Duration</code></a>
-</td>
-<td>
-   <p>Maximum number of nanoseconds (i.e. 1s = 1000000000) between log
-flushes. Ignored if the selected logging backend writes log
-messages without buffering.</p>
-</td>
-</tr>
-<tr><td><code>verbosity</code> <B>[Required]</B><br/>
-<a href="#VerbosityLevel"><code>VerbosityLevel</code></a>
-</td>
-<td>
-   <p>Verbosity is the threshold that determines which log messages are
-logged. Default is zero which logs only the most important
-messages. Higher values enable additional messages. Error messages
-are always logged.</p>
-</td>
-</tr>
-<tr><td><code>vmodule</code> <B>[Required]</B><br/>
-<a href="#VModuleConfiguration"><code>VModuleConfiguration</code></a>
-</td>
-<td>
-   <p>VModule overrides the verbosity threshold for individual files.
-Only supported for &quot;text&quot; log format.</p>
-</td>
-</tr>
-<tr><td><code>options</code> <B>[Required]</B><br/>
-<a href="#FormatOptions"><code>FormatOptions</code></a>
-</td>
-<td>
-   <p>[Alpha] Options holds additional parameters that are specific
-to the different logging formats. Only the options for the selected
-format get used, but all of them get validated.
-Only available when the LoggingAlphaOptions feature gate is enabled.</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `TracingConfiguration`     {#TracingConfiguration}
-    
-
-**Appears in:**
-
-- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
-
-
-<p>TracingConfiguration provides versioned configuration for OpenTelemetry tracing clients.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>endpoint</code><br/>
-<code>string</code>
-</td>
-<td>
-   <p>Endpoint of the collector this component will report traces to.
-The connection is insecure, and does not currently support TLS.
-Recommended is unset, and endpoint is the otlp grpc default, localhost:4317.</p>
-</td>
-</tr>
-<tr><td><code>samplingRatePerMillion</code><br/>
-<code>int32</code>
-</td>
-<td>
-   <p>SamplingRatePerMillion is the number of samples to collect per million spans.
-Recommended is unset. If unset, sampler respects its parent span's sampling
-rate, but otherwise never samples.</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `VModuleConfiguration`     {#VModuleConfiguration}
-    
-(Alias of `[]k8s.io/component-base/logs/api/v1.VModuleItem`)
-
-**Appears in:**
-
-- [LoggingConfiguration](#LoggingConfiguration)
-
-
-<p>VModuleConfiguration is a collection of individual file names or patterns
-and the corresponding verbosity threshold.</p>
-
-
-
-
-## `VerbosityLevel`     {#VerbosityLevel}
-    
-(Alias of `uint32`)
-
-**Appears in:**
-
-- [LoggingConfiguration](#LoggingConfiguration)
-
-
-
-<p>VerbosityLevel represents a klog or logr verbosity threshold.</p>
-
-

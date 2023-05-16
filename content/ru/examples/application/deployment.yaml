@@ -1,4 +1,4 @@
-apiVersion: apps/v1 # до версии 1.9.0 нужно использовать apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-deployment
@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: nginx
-  replicas: 2 # запускает 2 пода, созданных по шаблону
+  replicas: 2 # tells deployment to run 2 pods matching the template
   template:
     metadata:
       labels:

@@ -40,6 +40,7 @@ echo 'source <(kubectl completion bash)' >>~/.bashrc
 {{< /tab >}}
 {{< tab name="System" codelang="bash" >}}
 kubectl completion bash | sudo tee /etc/bash_completion.d/kubectl > /dev/null
+sudo chmod a+r /etc/bash_completion.d/kubectl
 {{< /tab >}}
 {{< /tabs >}}
 
