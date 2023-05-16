@@ -14,7 +14,7 @@ weight: 90
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 <!-- 
 System component traces record the latency of and relationships between operations in the cluster.
@@ -57,10 +57,25 @@ the following receiver configuration will collect spans and log them to standard
 -->
 默认情况下，Kubernetes 组件使用 gRPC 的 OTLP 导出器来导出追踪信息，将信息写到
 [IANA OpenTelemetry 端口](https://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xhtml?search=opentelemetry)。
-举例来说，如果收集器以 Kubernetes 组件的边车模式运行，以下接收器配置会收集 span 信息，并将它们写入到标准输出。
+举例来说，如果收集器以 Kubernetes 组件的边车模式运行，
+以下接收器配置会收集 span 信息，并将它们写入到标准输出。
 
 <!-- 
-# Replace this exporter with the exporter for your backend
+```yaml
+receivers:
+  otlp:
+    protocols:
+      grpc:
+exporters:
+  # Replace this exporter with the exporter for your backend
+  logging:
+    logLevel: debug
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [logging]
+```
 -->
 ```yaml
 receivers:
@@ -105,38 +120,43 @@ kube-apiserver 为传入的 HTTP 请求、传出到 webhook 和 etcd 的请求�
 #### 在 kube-apiserver 中启用追踪 {#enabling-tracing-in-the-kube-apiserver}
 
 <!-- 
-To enable tracing, enable the `APIServerTracing`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the kube-apiserver. Also, provide the kube-apiserver with a tracing configuration file
+To enable tracing, provide the kube-apiserver with a tracing configuration file
 with `--tracing-config-file=<path-to-config>`. This is an example config that records
 spans for 1 in 10000 requests, and uses the default OpenTelemetry endpoint:
--->
-要启用追踪特性，需要启用 kube-apiserver 上的  `APIServerTracing`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-然后，使用 `--tracing-config-file=<<配置文件路径>` 为 kube-apiserver 提供追踪配置文件。
-下面是一个示例配置，它为万分之一的请求记录 spans，并使用了默认的 OpenTelemetry 端口。
 
 ```yaml
-apiVersion: apiserver.config.k8s.io/v1alpha1
+apiVersion: apiserver.config.k8s.io/v1beta1
 kind: TracingConfiguration
 # default value
+#endpoint: localhost:4317
+samplingRatePerMillion: 100
+```
+-->
+要启用追踪特性，需要使用 `--tracing-config-file=<<配置文件路径>` 为
+kube-apiserver 提供追踪配置文件。下面是一个示例配置，它为万分之一的请求记录
+span，并使用了默认的 OpenTelemetry 端点。
+
+```yaml
+apiVersion: apiserver.config.k8s.io/v1beta1
+kind: TracingConfiguration
+# 默认值
 #endpoint: localhost:4317
 samplingRatePerMillion: 100
 ```
 
 <!-- 
 For more information about the `TracingConfiguration` struct, see
-[API server config API (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/#apiserver-k8s-io-v1alpha1-TracingConfiguration).
+[API server config API (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/#apiserver-k8s-io-v1beta1-TracingConfiguration).
 -->
 有关 TracingConfiguration 结构体的更多信息，请参阅
-[API 服务器配置 API (v1alpha1)](/zh-cn/docs/reference/config-api/apiserver-config.v1alpha1/#apiserver-k8s-io-v1alpha1-TracingConfiguration)。
+[API 服务器配置 API (v1beta1)](/zh-cn/docs/reference/config-api/apiserver-config.v1beta1/#apiserver-k8s-io-v1beta1-TracingConfiguration)。
 
 <!--
 ### kubelet traces
 -->
-### kubelet 追踪 {#kubelet-traces}
+### kubelet 追踪   {#kubelet-traces}
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 <!--
 The kubelet CRI interface and authenticated http servers are instrumented to generate
@@ -149,23 +169,31 @@ kubelet CRI 接口和实施身份验证的 HTTP 服务器被插桩以生成追�
 与 API 服务器一样，端点和采样率是可配置的。
 追踪上下文传播也是可以配置的。始终优先采用父 span 的采样决策。
 用户所提供的追踪配置采样率将被应用到不带父级的 span。
-如果在没有配置端点的情况下启用，将使用默认的 OpenTelemetry Collector 接收器地址 “localhost:4317”。
+如果在没有配置端点的情况下启用，将使用默认的 OpenTelemetry Collector
+接收器地址 “localhost:4317”。
 
 <!--
 #### Enabling tracing in the kubelet
 
-To enable tracing, enable the `KubeletTracing`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the kubelet. Also, provide the kubelet with a
-[tracing configuration](https://github.com/kubernetes/component-base/blob/release-1.25/tracing/api/v1/types.go).
+To enable tracing, apply the [tracing configuration](https://github.com/kubernetes/component-base/blob/release-1.27/tracing/api/v1/types.go).
 This is an example snippet of a kubelet config that records spans for 1 in 10000 requests, and uses the default OpenTelemetry endpoint:
+
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+featureGates:
+  KubeletTracing: true
+tracing:
+  # default value
+  #endpoint: localhost:4317
+  samplingRatePerMillion: 100
+```
 -->
 #### 在 kubelet 中启用追踪 {#enabling-tracing-in-the-kubelet}
 
-要启用 span，需在 kubelet 上启用 `KubeletTracing`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-另外，为 kubelet 提供[追踪配置](https://github.com/kubernetes/component-base/blob/release-1.25/tracing/api/v1/types.go)。
-以下是 kubelet 配置的示例代码片段，每 10000 个请求中记录一个请求的 span，并使用默认的 OpenTelemetry 端点：
+要启用追踪，需应用[追踪配置](https://github.com/kubernetes/component-base/blob/release-1.27/tracing/api/v1/types.go)。
+以下是 kubelet 配置的示例代码片段，每 10000 个请求中记录一个请求的
+span，并使用默认的 OpenTelemetry 端点：
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1beta1
@@ -177,6 +205,34 @@ tracing:
   #endpoint: localhost:4317
   samplingRatePerMillion: 100
 ```
+
+<!--
+If the `samplingRatePerMillion` is set to one million (`1000000`), then every
+span will be sent to the exporter.
+-->
+如果 `samplingRatePerMillion` 被设置为一百万 (`1000000`)，则所有 span 都将被发送到导出器。
+
+<!--
+The kubelet in Kubernetes v{{< skew currentVersion >}} collects spans from
+the garbage collection, pod synchronization routine as well as every gRPC
+method. Connected container runtimes like CRI-O and containerd can link the
+traces to their exported spans to provide additional context of information.
+-->
+Kubernetes v{{< skew currentVersion >}} 中的 kubelet 从垃圾回收、Pod
+同步例程以及每个 gRPC 方法中收集 span。CRI-O 和 containerd
+这类关联的容器运行时可以将链路链接到其导出的 span，以提供更多上下文信息。
+
+<!--
+Please note that exporting spans always comes with a small performance overhead
+on the networking and CPU side, depending on the overall configuration of the
+system. If there is any issue like that in a cluster which is running with
+tracing enabled, then mitigate the problem by either reducing the
+`samplingRatePerMillion` or disabling tracing completely by removing the
+configuration.
+-->
+请注意导出 span 始终会对网络和 CPU 产生少量性能开销，具体取决于系统的总体配置。
+如果在启用追踪的集群中出现类似性能问题，可以通过降低 `samplingRatePerMillion`
+或通过移除此配置来彻底禁用追踪来缓解问题。
 
 <!-- 
 ## Stability
@@ -198,4 +254,4 @@ there are no guarantees of backwards compatibility for tracing instrumentation.
 <!-- 
 * Read about [Getting Started with the OpenTelemetry Collector](https://opentelemetry.io/docs/collector/getting-started/)
 -->
-* 阅读[Getting Started with the OpenTelemetry Collector](https://opentelemetry.io/docs/collector/getting-started/)
+* 阅读 [Getting Started with the OpenTelemetry Collector](https://opentelemetry.io/docs/collector/getting-started/)

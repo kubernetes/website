@@ -61,6 +61,25 @@ Example:
 * `kube-apiserver` instances are at **{{< skew currentVersion >}}** and **{{< skew currentVersionAddMinor -1 >}}**
 * `kubelet` is supported at **{{< skew currentVersionAddMinor -1 >}}**, and **{{< skew currentVersionAddMinor -2 >}}** (**{{< skew currentVersion >}}** is not supported because that would be newer than the `kube-apiserver` instance at version **{{< skew currentVersionAddMinor -1 >}}**)
 
+### kube-proxy
+
+`kube-proxy` must not be newer than `kube-apiserver`, and may be up to two minor versions older.
+`kube-proxy` may be up to two minor versions older or newer than the `kubelet` instance it runs alongside.
+
+Example:
+
+* `kube-apiserver` is at **{{< skew currentVersion >}}**
+* `kube-proxy` is supported at **{{< skew currentVersion >}}**, **{{< skew currentVersionAddMinor -1 >}}**, and **{{< skew currentVersionAddMinor -2 >}}**
+
+{{< note >}}
+If version skew exists between `kube-apiserver` instances in an HA cluster, this narrows the allowed `kube-proxy` versions.
+{{</ note >}}
+
+Example:
+
+* `kube-apiserver` instances are at **{{< skew currentVersion >}}** and **{{< skew currentVersionAddMinor -1 >}}**
+* `kube-proxy` is supported at **{{< skew currentVersionAddMinor -1 >}}**, and **{{< skew currentVersionAddMinor -2 >}}** (**{{< skew currentVersion >}}** is not supported because that would be newer than the `kube-apiserver` instance at version **{{< skew currentVersionAddMinor -1 >}}**)
+
 ### kube-controller-manager, kube-scheduler, and cloud-controller-manager
 
 `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` must not be newer than the `kube-apiserver` instances they communicate with. They are expected to match the `kube-apiserver` minor version, but may be up to one minor version older (to allow live upgrades).
@@ -162,21 +181,17 @@ In-place minor version `kubelet` upgrades are not supported.
 {{</ note >}}
 
 {{< warning >}}
-Running a cluster with `kubelet` instances that are persistently two minor versions behind `kube-apiserver` is not recommended:
-
-* they must be upgraded within one minor version of `kube-apiserver` before the control plane can be upgraded
-* it increases the likelihood of running `kubelet` versions older than the three maintained minor releases
+Running a cluster with `kubelet` instances that are persistently two minor versions behind `kube-apiserver` means they must be upgraded before the control plane can be upgraded.
 {{</ warning >}}
 
 ### kube-proxy
 
-* `kube-proxy` must be the same minor version as `kubelet` on the node.
-* `kube-proxy` must not be newer than `kube-apiserver`.
-* `kube-proxy` must be at most two minor versions older than `kube-apiserver.`
+Pre-requisites:
 
-Example:
+* The `kube-apiserver` instances `kube-proxy` communicates with are at **{{< skew currentVersion >}}**
 
-If `kube-proxy` version is **{{< skew currentVersionAddMinor -2 >}}**:
+Optionally upgrade `kube-proxy` instances to **{{< skew currentVersion >}}** (or they can be left at **{{< skew currentVersionAddMinor -1 >}}** or **{{< skew currentVersionAddMinor -2 >}}**)
 
-* `kubelet` version must be at the same minor version as **{{< skew currentVersionAddMinor -2 >}}**.
-* `kube-apiserver` version must be between **{{< skew currentVersionAddMinor -2 >}}** and **{{< skew currentVersion >}}**, inclusive.
+{{< warning >}}
+Running a cluster with `kube-proxy` instances that are persistently two minor versions behind `kube-apiserver` means they must be upgraded before the control plane can be upgraded.
+{{</ warning >}}

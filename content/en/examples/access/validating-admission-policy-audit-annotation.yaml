@@ -12,4 +12,5 @@ spec:
       resources:   ["deployments"]
   validations:
     - key: "high-replica-count"
-      valueExpression: "object.spec.replicas > 50 ? 'Deployment spec.replicas set to ' + string(object.spec.replicas) : null"
+      expression: "object.spec.replicas > 50"
+      messageExpression: "'Deployment spec.replicas set to ' + string(object.spec.replicas)"

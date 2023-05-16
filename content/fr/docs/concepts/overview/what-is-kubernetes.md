@@ -103,7 +103,7 @@ Résumé des bénéfices des conteneurs :
 - **Création et déploiement agile d'applications** :
   Augmente la simplicité et l'efficacité de la création d'images par rapport à l'utilisation d'images de VM.
 - **Développement, intégration et déploiement Continus**:
-  Fournit un processus pour constuire et déployer fréquemment et de façon fiable avec la capacité de faire des rollbacks rapides et simples (grâce à l'immuabilité de l'image).
+  Fournit un processus pour construire et déployer fréquemment et de façon fiable avec la capacité de faire des rollbacks rapides et simples (grâce à l'immuabilité de l'image).
 - **Séparation des besoins entre Dev et Ops**:
   Création d'images applicatives au moment du build plutôt qu'au déploiement, tout en séparant l'application de l'infrastructure.
 - **Observabilité**

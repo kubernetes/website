@@ -1,6 +1,6 @@
 ---
 title: 扩展 Kubernetes
-weight: 110
+weight: 999  # 这一节应放在最后
 description: 改变你的 Kubernetes 集群的行为的若干方法。
 feature:
   title: 为扩展性设计
@@ -11,7 +11,7 @@ no_list: true
 ---
 <!--
 title: Extending Kubernetes
-weight: 110
+weight: 999 # this section should come last
 description: Different ways to change the behavior of your Kubernetes cluster.
 reviewers:
 - erictune

@@ -42,7 +42,7 @@ FOO_SERVICE_PORT=<a porta em que o serviço está executando>
 ```
 
 Serviços possuem endereço IP dedicado e são disponibilizados para o contêiner via DNS,
-se possuírem [DNS addon](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/) habilitado.
+se possuírem [DNS addon](https://releases.k8s.io/v{{< skew currentPatchVersion >}}/cluster/addons/dns/) habilitado.
 
 
 
