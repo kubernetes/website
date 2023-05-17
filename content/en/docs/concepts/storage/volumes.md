@@ -295,13 +295,17 @@ Note that this path is derived from the volume's `mountPath` and the `path`
 keyed with `log_level`.
 
 {{< note >}}
+
 * You must create a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)
   before you can use it.
 
+* A ConfigMap is always mounted as `readOnly`.
+
 * A container using a ConfigMap as a [`subPath`](#using-subpath) volume mount will not
   receive ConfigMap updates.
-
+  
 * Text data is exposed as files using the UTF-8 character encoding. For other character encodings, use `binaryData`.
+
 {{< /note >}}
 
 ### downwardAPI {#downwardapi}
@@ -930,12 +934,14 @@ backed by tmpfs (a RAM-backed filesystem) so they are never written to
 non-volatile storage.
 
 {{< note >}}
-You must create a Secret in the Kubernetes API before you can use it.
-{{< /note >}}
 
-{{< note >}}
-A container using a Secret as a [`subPath`](#using-subpath) volume mount will not
+* You must create a Secret in the Kubernetes API before you can use it.
+
+* A Secret is always mounted as `readOnly`.
+
+* A container using a Secret as a [`subPath`](#using-subpath) volume mount will not
 receive Secret updates.
+
 {{< /note >}}
 
 For more details, see [Configuring Secrets](/docs/concepts/configuration/secret/).
@@ -1143,9 +1149,8 @@ persistent volume:
   The value is passed as `volume_id` on all calls to the CSI volume driver when
   referencing the volume.
 * `readOnly`: An optional boolean value indicating whether the volume is to be
-  "ControllerPublished" (attached) as read only. Default is false. This value is
-  passed to the CSI driver via the `readonly` field in the
-  `ControllerPublishVolumeRequest`.
+  "ControllerPublished" (attached) as read only. Default is false. This value is passed
+  to the CSI driver via the `readonly` field in the `ControllerPublishVolumeRequest`.
 * `fsType`: If the PV's `VolumeMode` is `Filesystem` then this field may be used
   to specify the filesystem that should be used to mount the volume. If the
   volume has not been formatted and formatting is supported, this value will be
