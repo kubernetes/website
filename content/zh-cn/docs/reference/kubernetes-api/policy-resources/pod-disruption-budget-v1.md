@@ -196,6 +196,16 @@ PodDisruptionBudgetStatus 表示有关此 PodDisruptionBudget 状态的信息。
 
   当前允许的 Pod 干扰计数。
 
+<!--
+- **expectedPods** (int32), required
+
+  total number of pods counted by this disruption budget
+-->
+
+- **expectedPods** (int32), 必需
+
+  此干扰预算计入的 Pod 总数
+
 - **conditions** ([]Condition)
 
   <!--
@@ -532,7 +542,8 @@ GET /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 
-<!-- - **fieldSelector** (*in query*): string
+<!--
+- **fieldSelector** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 -->
@@ -584,6 +595,10 @@ GET /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets
 - **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
@@ -699,6 +714,10 @@ GET /apis/policy/v1/poddisruptionbudgets
 - **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
@@ -1363,6 +1382,10 @@ DELETE /apis/policy/v1/namespaces/{namespace}/poddisruptionbudgets
 - **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
