@@ -1236,8 +1236,6 @@ it is created.
 
 * Learn about [Pods](/docs/concepts/workloads/pods).
 * [Run a Stateless Application Using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
-* `Deployment` is a top-level resource in the Kubernetes REST API.
-  Read the {{< api-reference page="workload-resources/deployment-v1" >}}
-  object definition to understand the API for deployments.
+* `Deployment` is a top-level resource in the Kubernetes REST API. Read the {{< api-reference page="workload-resources/deployment-v1" >}} object definition to understand the API for deployments.
 * Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how you can use it to manage application availability during disruptions.
 * Use kubectl to [Create a Deployment](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/).
