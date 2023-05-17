@@ -775,25 +775,50 @@ to locate use of deprecated APIs.
 * 更新自定义的集成组件和控制器，调用未被弃用的 API
 * 更改 YAML 文件引用未被弃用的 API
 
-<!--
-You can use the `kubectl-convert` command (`kubectl convert` prior to v1.20)
-to automatically convert an existing object:
--->
-你可以用 `kubectl-convert` 命令（在 v1.20 之前是 `kubectl convert`）
-来自动转换现有对象：
+  <!--
+  You can use the `kubectl-convert` command (`kubectl convert` prior to v1.20)
+  to automatically convert an existing object:
+  -->
+  您可以使用 `kubectl convert` 命令自动转换现有对象:
 
-`kubectl-convert -f <file> --output-version <group>/<version>`.
+  `kubectl convert -f <file> --output-version <group>/<version>`.
 
-<!--
-For example, to convert an older Deployment to `apps/v1`, you can run:
--->
-例如，要将较老的 Deployment 版本转换为 `apps/v1` 版本，你可以运行
+  <!--
+  For example, to convert an older Deployment to `apps/v1`, you can run:
+  -->
+  例如，要将旧 Deployment 转换为 `apps/v1`, 您可以运行：
 
-`kubectl-convert -f ./my-deployment.yaml --output-version apps/v1`
+  `kubectl convert -f ./my-deployment.yaml --output-version apps/v1`
 
-<!--
-Note that this may use non-ideal default values. To learn more about a specific
-resource, check the Kubernetes [API reference](/docs/reference/kubernetes-api/).
--->
-需要注意的是这种操作使用的默认值可能并不理想。
-要进一步了解某个特定资源，可查阅 Kubernetes [API 参考](/zh-cn/docs/reference/kubernetes-api/)。
+  <!--
+  This conversion may use non-ideal default values. To learn more about a specific
+  resource, check the Kubernetes [API reference](/docs/reference/kubernetes-api/).
+  -->
+  此转换可能会使用非理想的默认值。 要了解更多关于特定的
+  资源，检查 Kubernetes [API 参考](/docs/reference/kubernetes-api/)。
+
+  {{< note >}}
+  <!--
+  The `kubectl convert` tool is not installed by default, although
+  in fact it once was part of `kubectl` itself. For more details, you can read the
+  [deprecation and removal issue](https://github.com/kubernetes/kubectl/issues/725)
+  for the built-in subcommand.
+  -->
+  默认情况下不安装 `kubectl convert` 工具，尽管
+  事实上，它曾经是 `kubectl` 本身的一部分。 有关更多详细信息，您可以阅读
+  [弃用和移除问题](https://github.com/kubernetes/kubectl/issues/725)
+  对于内置子命令。
+  
+  <!--
+  To learn how to set up `kubectl convert` on your computer, visit the page that is right for your 
+  operating system:
+  [Linux](/docs/tasks/tools/install-kubectl-linux/#install-kubectl-convert-plugin),
+  [macOS](/docs/tasks/tools/install-kubectl-macos/#install-kubectl-convert-plugin), or
+  [Windows](/docs/tasks/tools/install-kubectl-windows/#install-kubectl-convert-plugin).
+  -->
+  要了解如何在您的计算机上设置 `kubectl convert`，请访问适合您的页面
+  操作系统:
+  [Linux](/docs/tasks/tools/install-kubectl-linux/#install-kubectl-convert-plugin),
+  [macOS](/docs/tasks/tools/install-kubectl-macos/#install-kubectl-convert-plugin), or
+  [Windows](/docs/tasks/tools/install-kubectl-windows/#install-kubectl-convert-plugin).
+  {{< /note >}}
