@@ -157,13 +157,15 @@ For more information on version skews, see:
 2. Download the Google Cloud public signing key:
 
    ```shell
-   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
    ```
 
 3. Add the Kubernetes `apt` repository:
 
    ```shell
-   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+   deb https://apt.kubernetes.io/ kubernetes-xenial main
+   EOF
    ```
 
 4. Update `apt` package index, install kubelet, kubeadm and kubectl, and pin their version:
