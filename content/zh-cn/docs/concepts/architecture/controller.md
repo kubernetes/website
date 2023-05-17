@@ -37,7 +37,7 @@ closer to the desired state, by turning equipment on or off.
 ## Controller pattern
 
 A controller tracks at least one Kubernetes resource type.
-These [objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects)
+These {{< glossary_tooltip text="objects" term_id="object" >}}
 have a spec field that represents the desired state. The
 controller(s) for that resource are responsible for making the current
 state come closer to that desired state.
@@ -56,7 +56,7 @@ detail.
 ## 控制器模式 {#controller-pattern}
 
 一个控制器至少追踪一种类型的 Kubernetes 资源。这些
-[对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects)
+{{< glossary_tooltip text="对象" term_id="object" >}}
 有一个代表期望状态的 `spec` 字段。
 该资源的控制器负责确保其当前状态接近期望状态。
 
@@ -287,14 +287,14 @@ Kubernetes 允许你运行一个稳定的控制平面，这样即使某些内置
 ## {{% heading "whatsnext" %}}
 <!--
 * Read about the [Kubernetes control plane](/docs/concepts/overview/components/#control-plane-components)
-* Discover some of the basic [Kubernetes objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+* Discover some of the basic [Kubernetes objects](/docs/concepts/overview/working-with-objects/)
 * Learn more about the [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
 * If you want to write your own controller, see
   [Extension Patterns](/docs/concepts/extend-kubernetes/#extension-patterns)
   in Extending Kubernetes.
 -->
 * 阅读 [Kubernetes 控制平面组件](/zh-cn/docs/concepts/overview/components/#control-plane-components)
-* 了解 [Kubernetes 对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+* 了解 [Kubernetes 对象](/zh-cn/docs/concepts/overview/working-with-objects/)
   的一些基本知识
 * 进一步学习 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/)
 * 如果你想编写自己的控制器，请看 Kubernetes 的
