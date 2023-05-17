@@ -321,19 +321,19 @@ To create a new Secret, perform the following steps:
      - command:
        - kube-apiserver
        ...
-       - --encryption-provider-config=/etc/kubernetes/enc/enc.yaml  # <-- add this line
+       - --encryption-provider-config=/etc/kubernetes/enc/enc.yaml  # add this line
        volumeMounts:
        ...
-       - name: enc                           # <-- add this line
-         mountPath: /etc/kubernetes/enc      # <-- add this line
-         readonly: true                      # <-- add this line
+       - name: enc                           # add this line
+         mountPath: /etc/kubernetes/enc      # add this line
+         readonly: true                      # add this line
        ...
      volumes:
      ...
-     - name: enc                             # <-- add this line
-       hostPath:                             # <-- add this line
-         path: /etc/kubernetes/enc           # <-- add this line
-         type: DirectoryOrCreate             # <-- add this line
+     - name: enc                             # add this line
+       hostPath:                             # add this line
+         path: /etc/kubernetes/enc           # add this line
+         type: DirectoryOrCreate             # add this line
      ...
    ```
 
