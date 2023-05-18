@@ -20,8 +20,9 @@ You should be familiar with the Kubernetes
 
 The [Container runtimes](/docs/setup/production-environment/container-runtimes) page
 explains that the `systemd` driver is recommended for kubeadm based setups instead
-of the kubelet's [default `cgroupfs` driver](/docs/reference/config-api/kubelet-config.v1beta1),
-because kubeadm manages the kubelet as a systemd service.
+of the kubelet's [default](/docs/reference/config-api/kubelet-config.v1beta1) `cgroupfs` driver,
+because kubeadm manages the kubelet as a
+[systemd service](/docs/setup/production-environment/tools/kubeadm/kubelet-integration).
 
 The page also provides details on how to set up a number of different container runtimes with the
 `systemd` driver by default.
@@ -34,7 +35,7 @@ driver of the kubelet.
 
 {{< note >}}
 In v1.22 and later, if the user does not set the `cgroupDriver` field under `KubeletConfiguration`,
-`kubeadm` defaults it to `systemd`.
+kubeadm defaults it to `systemd`.
 {{< /note >}}
 
 A minimal example of configuring the field explicitly:
