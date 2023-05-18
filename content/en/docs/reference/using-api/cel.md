@@ -153,7 +153,8 @@ the authorizer may be used to perform authorization checks for the principal
 API resource checks are performed as follows:
 
 1. Specify the group and resource to check: `Authorizer.group(string).resource(string) ResourceCheck`
-2. Optionally call any combination of the following to further narrow the authorization check:
+2. Optionally call any combination of the following builder functions to further narrow the authorization check.
+   Note that these functions return the receiver type and can be chained:
   - `ResourceCheck.subresource(string) ResourceCheck`
   - `ResourceCheck.namespace(string) ResourceCheck`
   - `ResourceCheck.name(string) ResourceCheck` 
