@@ -105,7 +105,7 @@ resulting profile. Those are used by the OCI runtime (like [runc][runc] or
 [crun][crun]) in order to be able to run a container. This means that `spoc`
 can be used to record seccomp profiles which then can be containerized directly.
 This behavior can be disabled in `spoc` by using the `--no-base-syscalls`/`-n`
-or customized via the `--base-syscalls`/`-b` command line flags This can be
+or customized via the `--base-syscalls`/`-b` command line flags. This can be
 helpful in cases where different OCI runtimes other than crun and runc are used,
 or if I just want to record the seccomp profile for the application and stack
 it with another [base profile][base].
@@ -154,7 +154,7 @@ together with the Security Profiles Operator for managing it within Kubernetes.
 52.628827 Wrote seccomp profile to: /tmp/profile.json
 ```
 
-```
+```console
 > jq . /tmp/profile.json
 ```
 
@@ -216,7 +216,7 @@ example, I could remove the allowed `uname` syscall:
 
 And then try to run it again with the new profile `/tmp/no-uname-profile.json`:
 
-```
+```console
 > sudo ./spoc run -p /tmp/no-uname-profile.json ./main
 10:39:12.707798 Reading file /tmp/no-uname-profile.json
 10:39:12.707892 Setting up seccomp
@@ -250,7 +250,7 @@ to `SCMP_ACT_LOG` like this:
 Then the log enricher will give us a hint that the `uname` syscall got blocked
 when using `spoc run`:
 
-```
+```console
 > sudo ./spoc run -p /tmp/no-uname-profile-log.json ./main
 10:48:07.470126 Reading file /tmp/no-uname-profile-log.json
 10:48:07.470234 Setting up seccomp
