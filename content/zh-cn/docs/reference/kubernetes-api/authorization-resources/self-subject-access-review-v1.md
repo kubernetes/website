@@ -119,13 +119,13 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
     
     name 是 "get" 正在请求或 "delete" 已删除的资源的名称。
     ""（空字符串）表示所有资源。
-<!--
-  - **resourceAttributes.namespace** (string)
-    Namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces "" (empty) is defaulted for LocalSubjectAccessReviews "" (empty) is empty for cluster-scoped resources "" (empty) means "all" for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview
+    <!--
+      - **resourceAttributes.namespace** (string)
+        Namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces "" (empty) is defaulted for LocalSubjectAccessReviews "" (empty) is empty for cluster-scoped resources "" (empty) means "all" for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview
 
-  - **resourceAttributes.resource** (string)
-    Resource is one of the existing resource types.  "*" means all.
--->  
+      - **resourceAttributes.resource** (string)
+        Resource is one of the existing resource types.  "*" means all.
+    -->  
   - **resourceAttributes.namespace** (string)
     
     namespace 是正在请求的操作的命名空间。
@@ -138,16 +138,16 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
     
     resource 是现有的资源类别之一。
     "*" 表示所有资源类别。
-<!--
-  - **resourceAttributes.subresource** (string)
-    Subresource is one of the existing resource types.  "" means none.
+    <!--
+      - **resourceAttributes.subresource** (string)
+        Subresource is one of the existing resource types.  "" means none.
 
-  - **resourceAttributes.verb** (string)
-    Verb is a kubernetes resource API verb, like: get, list, watch, create, update, delete, proxy.  "*" means all.
+      - **resourceAttributes.verb** (string)
+        Verb is a kubernetes resource API verb, like: get, list, watch, create, update, delete, proxy.  "*" means all.
 
-  - **resourceAttributes.version** (string)
-    Version is the API Version of the Resource.  "*" means all.
--->  
+      - **resourceAttributes.version** (string)
+        Version is the API Version of the Resource.  "*" means all.
+    -->  
   - **resourceAttributes.subresource** (string)
     
     subresource 是现有的资源类型之一。

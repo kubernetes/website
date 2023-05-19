@@ -68,7 +68,7 @@ More detials can be found in the KEP <https://kep.k8s.io/1040> and the pull requ
 ## Event triggered updates to container status
 
 `Evented PLEG` (PLEG is short for "Pod Lifecycle Event Generator") is set to be in beta for v1.27,
-Kubernetes offers two ways for the kubelet to detect Pod lifecycle events, such as a the last
+Kubernetes offers two ways for the kubelet to detect Pod lifecycle events, such as the last
 process in a container shutting down.
 In Kubernetes v1.27, the _event based_ mechanism has graduated to beta but remains
 disabled by default. If you do explicitly switch to event-based lifecycle change detection,
@@ -92,7 +92,7 @@ enabling this feature gate may affect the start-up speed of the pod if the pod s
 a large amount of memory.
 
 Kubelet configuration now includes `memoryThrottlingFactor`. This factor is multiplied by
-the memory limit or node allocatable memory to set the cgroupv2 memory.high value for enforcing
+the memory limit or node allocatable memory to set the cgroupv2 `memory.high` value for enforcing
 MemoryQoS. Decreasing this factor sets a lower high limit for container cgroups, increasing reclaim
 pressure. Increasing this factor will put less reclaim pressure. The default value is 0.8 initially
 and will change to 0.9 in Kubernetes v1.27. This parameter adjustment can reduce the potential
@@ -113,7 +113,7 @@ container startup by mounting volumes with the correct SELinux label instead of 
 on the volumes recursively. Further details can be found in the KEP <https://kep.k8s.io/1710>.
 
 To identify the cause of slow pod startup, analyzing metrics and logs can be helpful. Other
-factorsthat may impact pod startup include container runtime, disk speed, CPU and memory
+factors that may impact pod startup include container runtime, disk speed, CPU and memory
 resources on the node.
 
 SIG Node is responsible for ensuring fast Pod startup times, while addressing issues in large
