@@ -133,16 +133,16 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
     
     name 是 "get" 正在请求或 "delete" 已删除的资源。
     ""（空字符串）表示所有资源。
-<!--
-  - **resourceAttributes.namespace** (string)
-    Namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces "" (empty) is defaulted for LocalSubjectAccessReviews "" (empty) is empty for cluster-scoped resources "" (empty) means "all" for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview
+    <!--
+      - **resourceAttributes.namespace** (string)
+        Namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces "" (empty) is defaulted for LocalSubjectAccessReviews "" (empty) is empty for cluster-scoped resources "" (empty) means "all" for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview
 
-  - **resourceAttributes.resource** (string)
-    Resource is one of the existing resource types.  "*" means all.
+      - **resourceAttributes.resource** (string)
+        Resource is one of the existing resource types.  "*" means all.
 
-  - **resourceAttributes.subresource** (string)
-    Subresource is one of the existing resource types.  "" means none.
--->  
+      - **resourceAttributes.subresource** (string)
+        Subresource is one of the existing resource types.  "" means none.
+    -->  
   - **resourceAttributes.namespace** (string)
     
     namespace 是正在请求的操作的命名空间。
@@ -161,19 +161,19 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
     
     subresource 是现有的资源类别之一。
     "" 表示无子资源。
-<!--
-  - **resourceAttributes.verb** (string)
-    Verb is a kubernetes resource API verb, like: get, list, watch, create, update, delete, proxy.  "*" means all.
+    <!--
+      - **resourceAttributes.verb** (string)
+        Verb is a kubernetes resource API verb, like: get, list, watch, create, update, delete, proxy.  "*" means all.
 
-  - **resourceAttributes.version** (string)
-    Version is the API Version of the Resource.  "*" means all.
+      - **resourceAttributes.version** (string)
+        Version is the API Version of the Resource.  "*" means all.
 
-- **uid** (string)
-  UID information about the requesting user.
+    - **uid** (string)
+      UID information about the requesting user.
 
-- **user** (string)
-  User is the user you're testing for. If you specify "User" but not "Groups", then is it interpreted as "What if User were not a member of any groups
--->  
+    - **user** (string)
+      User is the user you're testing for. If you specify "User" but not "Groups", then is it interpreted as "What if User were not a member of any groups
+    -->  
   - **resourceAttributes.verb** (string)
     
     verb 是 kubernetes 资源的 API 动作，例如 get、list、watch、create、update、delete、proxy。
