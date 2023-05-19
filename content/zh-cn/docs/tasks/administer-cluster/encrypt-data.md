@@ -54,16 +54,13 @@ This page shows how to enable and configure encryption of secret data at rest.
 The `kube-apiserver` process accepts an argument `--encryption-provider-config`
 that controls how API data is encrypted in etcd.
 The configuration is provided as an API named
-[`EncryptionConfiguration`](/docs/reference/config-api/apiserver-encryption.v1/). `--encryption-provider-config-automatic-reload` boolean argument determines if the file set by `--encryption-provider-config` should be automatically reloaded if the disk contents change. This enables key rotation without API server restarts. An example configuration is provided below.
+[`EncryptionConfiguration`](/docs/reference/config-api/apiserver-encryption.v1/). An example configuration is provided below.
 -->
 ## 配置并确定是否已启用静态数据加密   {#configuration-and-determing-wheter-encryption-at-rest-is-already-enabled}
 
 `kube-apiserver` 的参数 `--encryption-provider-config` 控制 API 数据在 etcd 中的加密方式。
-该配置作为一个名为 [`EncryptionConfiguration`](/zh-cn/docs/reference/config-api/apiserver-encryption.v1/) 的 API 提供。
-`--encryption-provider-config-automatic-reload` 布尔参数决定了磁盘内容发生变化时是否应自动重新加载
-`--encryption-provider-config` 设置的文件。这样可以在不重启 API 服务器的情况下进行密钥轮换。
-
-下面提供了一个示例配置。
+该配置作为一个名为 [`EncryptionConfiguration`](/zh-cn/docs/reference/config-api/apiserver-encryption.v1/)
+的 API 提供。下面提供了一个示例配置。
 
 {{< caution >}}
 <!--
@@ -501,19 +498,19 @@ To create a new Secret, perform the following steps:
      - command:
        - kube-apiserver
        ...
-       - --encryption-provider-config=/etc/kubernetes/enc/enc.yaml  # <-- 增加这一行
+       - --encryption-provider-config=/etc/kubernetes/enc/enc.yaml  # 增加这一行
        volumeMounts:
        ...
-       - name: enc                           # <-- 增加这一行
-         mountPath: /etc/kubernetes/enc      # <-- 增加这一行
-         readonly: true                      # <-- 增加这一行
+       - name: enc                           # 增加这一行
+         mountPath: /etc/kubernetes/enc      # 增加这一行
+         readonly: true                      # 增加这一行
        ...
      volumes:
      ...
-     - name: enc                             # <-- 增加这一行
-       hostPath:                             # <-- 增加这一行
-         path: /etc/kubernetes/enc           # <-- 增加这一行
-         type: DirectoryOrCreate             # <-- 增加这一行
+     - name: enc                             # 增加这一行
+       hostPath:                             # 增加这一行
+         path: /etc/kubernetes/enc           # 增加这一行
+         type: DirectoryOrCreate             # 增加这一行
      ...
    ```
 
@@ -718,6 +715,33 @@ Then run the following command to force decrypt all Secrets:
 ```shell
 kubectl get secrets --all-namespaces -o json | kubectl replace -f -
 ```
+
+<!--
+## Configure automatic reloading
+-->
+## 配置自动重新加载   {#configure-automatic-reloading}
+
+<!--
+You can configure automatic reloading of encryption provider configuration.
+That setting determines whether the
+{{< glossary_tooltip text="API server" term_id="kube-apiserver" >}} should
+load the file you specify for `--encryption-provider-config` only once at
+startup, or automatically whenever you change that file. Enabling this option
+allows you to change the keys for encryption at rest without restarting the
+API server.
+-->
+你可以配置加密提供程序配置的自动重新加载。
+该设置决定了 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}
+是仅在启动时加载一次为 `--encryption-provider-config` 指定的文件，
+还是在每次你更改该文件时都自动加载。
+启用此选项可允许你在不重启 API 服务器的情况下更改静态加密所需的密钥。
+
+<!--
+To allow automatic reloading, configure the API server to run with:
+`--encryption-provider-config-automatic-reload=true`
+-->
+要允许自动重新加载，
+可使用 `--encryption-provider-config-automatic-reload=true` 运行 API 服务器。
 
 ## {{% heading "whatsnext" %}}
 
