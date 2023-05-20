@@ -268,6 +268,24 @@ The annotation `kubernetes.io/limit-ranger` records that resource defaults were 
 and they were applied successfully.
 For more details, read about [LimitRanges](/docs/concepts/policy/limit-range).
 
+### addonmanager.kubernetes.io/mode
+
+Example: `addonmanager.kubernetes.io/mode: "Reconcile"`
+
+Used on: All objects
+
+To specify how an add-on should be managed, you can use the `addonmanager.kubernetes.io/mode` label.
+This label can have one of three values: `Reconcile`, `EnsureExists`, or `Ignore`.
+
+- `Reconcile`: Addon resources will be periodically reconciled with the expected state. If there are any differences,
+the add-on manager will recreate, reconfigure or delete the resources as needed. This is the default mode if no label is specified.
+- `EnsureExists`: Addon resources will be checked for existence only but will not be modified after creation.
+The add-on manager will create or re-create the resources when there is no instance of the resource with that name.
+- `Ignore`: Addon resources will be ignored. This mode is useful for add-ons that are not compatible with
+the add-on manager or that are managed by another controller.
+
+For more details, see [Addon-manager](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md)
+
 ### beta.kubernetes.io/arch (deprecated)
 
 This label has been deprecated. Please use `kubernetes.io/arch` instead.
