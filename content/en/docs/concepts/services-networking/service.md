@@ -434,7 +434,10 @@ The available `type` values and their behaviors are:
   DNS server to return a `CNAME` record with that external hostname value.
   No proxying of any kind is set up.
 
-The type field in the Service API, including ClusterIP, NodePort, LoadBalancer, and ExternalName, exhibits interrelated behaviors, but it's not strictly hierarchical. For example, a LoadBalancer service often utilizes a NodePort service, which itself typically employs a ClusterIP service. However, this isn't a hard-and-fast rule; the API allows for flexibility. For instance, it's possible to implement a LoadBalancer service without the use of a NodePort. Similarly, an ExternalName service, which maps the Service to an external reference via a CNAME record, operates independently from the rest. This underlines that the perceived hierarchy is more reflective of conventional use rather than a firm API requirement, thus allowing different implementations based on the specifics of the cloud provider.
+Kubernetes Service API utilizes a nested structure in its type field -
+`type: NodePort` expands upon `type: ClusterIP` capabilities, by default maintaining a `type: ClusterIP`.
+This inherent nested functionality, despite the cloud provider, gives a wider range of
+control in service exposure.
 
 
 
