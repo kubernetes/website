@@ -10,7 +10,7 @@ weight: 40
 
 <!-- overview -->
 
-Este documento describe el concepto de StorageClass (Clases de Almacenamiento) en Kubernetes. Necesita estar familiarizado con
+Este documento describe el concepto de una StorageClass (Clases de Almacenamiento) en Kubernetes. Necesita estar familiarizado con
 [volumes](/docs/concepts/storage/volumes/) y
 [persistent volumes](/docs/concepts/storage/persistent-volumes).
 
@@ -34,7 +34,7 @@ solicitar una clase en particular. Los administradores establecen el nombre y ot
 de una clase al crear objetos StorageClass por primera vez, y los objetos no pueden
 actualizarse una vez creados.
 
-Los administradores pueden especificar un StorageClass predeterminada solo para los PVC que no
+Los administradores pueden especificar una StorageClass predeterminada solo para los PVC que no
 solicite cualquier clase en particular a la que vincularse: vea la
 [sección PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 para detalles.
@@ -548,7 +548,7 @@ provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
 ```
 
-Actualmente, los volúmenes locales no admiten el aprovisionamiento dinámico; sin embargo, aún se debe crear un StorageClass para retrasar el enlace del volumen hasta la programación del Pod. Esto se especifica mediante el modo de enlace de volumen `WaitForFirstConsumer`.
+Actualmente, los volúmenes locales no admiten el aprovisionamiento dinámico; sin embargo, aún se debe crear una StorageClass para retrasar el enlace del volumen hasta la programación del Pod. Esto se especifica mediante el modo de enlace de volumen `WaitForFirstConsumer`.
 
 Retrasar el enlace de volumen permite que el programador considere todos los datos de un Pod.
 restricciones de programación al elegir un PersistentVolume apropiado para un PersistentVolumeClaim.
