@@ -100,12 +100,13 @@ Output format. One of: text|json|yaml|go-template|go-template-file|template|temp
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for various features. Options are:<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)
+A set of key=value pairs that describe feature gates for various features. Options are:<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)
 -->
 <p>
 一组键值对（key=value），用于描述各种特征。选项是：
 <br/>PublicKeysECDSA=true|false (ALPHA - 默认=false)
 <br/>RootlessControlPlane=true|false (ALPHA - 默认=false)
+<br/>PublicKeysECDSA=true|false (ALPHA - 默认=false)
 </p>
 </td>
 </tr>
