@@ -3,7 +3,7 @@ reviewers:
   - edithturn
   - raelga
   - electrocucaracha
-title: Clases de Almacenamiento
+title: StorageClass (Clases de Almacenamiento)
 content_type: concept
 weight: 40
 ---
