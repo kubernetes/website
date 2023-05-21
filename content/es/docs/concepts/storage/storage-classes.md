@@ -35,7 +35,7 @@ de una clase al crear objetos StorageClass por primera vez, y los objetos no pue
 actualizarse una vez creados.
 
 Los administradores pueden especificar un StorageClass predeterminada solo para los PVC que no
-solicite cualquier clase en particular a la que vincularse: vea el
+solicite cualquier clase en particular a la que vincularse: vea la
 [sección PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)
 para detalles.
 
