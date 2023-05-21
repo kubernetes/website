@@ -10,7 +10,7 @@ weight: 40
 
 <!-- overview -->
 
-Este documento describe el concepto de StorageClass en Kubernetes. Necesita estar familiarizado con
+Este documento describe el concepto de StorageClass (Clases de Almacenamiento) en Kubernetes. Necesita estar familiarizado con
 [volumes](/docs/concepts/storage/volumes/) y
 [persistent volumes](/docs/concepts/storage/persistent-volumes).
 
