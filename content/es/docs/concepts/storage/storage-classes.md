@@ -18,7 +18,7 @@ Este documento describe el concepto de StorageClass (Clases de Almacenamiento) e
 
 ## Introducción
 
-StorageClass proporciona una forma para que los administradores describan las "clases" de
+Una StorageClass proporciona una forma para que los administradores describan las "clases" de
 almacenamiento que ofrecen. Diferentes clases pueden corresponder a niveles de calidad de servicio,
 o a políticas de copia de seguridad, o a políticas arbitrarias determinadas por los administradores del clúster
 de Kubernetes. Kubernetes en sí no tiene opiniones sobre lo que representan las clases. Este concepto a veces se denomina "profiles" en otros sistemas de almacenamiento.
