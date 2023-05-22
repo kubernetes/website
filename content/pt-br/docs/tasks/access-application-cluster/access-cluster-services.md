@@ -93,7 +93,7 @@ Os formatos suportados para o segmento `<nome_do_serviço>` da URL são:
   https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_cluster/health?pretty=true
   ```
 
-  As informações de saúde são semelhantes a estas:
+  As informações de integridade são semelhantes a estas:
   
   ```json
     {
