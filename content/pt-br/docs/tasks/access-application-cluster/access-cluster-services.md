@@ -118,7 +118,7 @@ Os formatos suportados para o segmento `<nome_do_serviço>` da URL são:
 
 #### Usando navegadores da web para acessar serviços em execução no cluster
 
-Você pode ser capaz de colocar um URL de proxy de apiserver na barra de endereço de um navegador. No entanto:
+Você pode conseguir de colocar um URL de proxy do servidor da API na barra de endereço de um navegador. No entanto:
 
-  - Os navegadores da web geralmente não podem passar tokens, portanto, você pode precisar usar autenticação básica (senha). Apiserver pode ser configurado para aceitar autenticação básica, mas o seu cluster pode não estar configurado para aceitar autenticação básica.
-  - Alguns aplicativos da web podem não funcionar, principalmente aqueles com javascript do lado do cliente que constroem URLs de uma maneira que não está ciente do prefixo do caminho do proxy.
+  - Os navegadores da web geralmente não podem passar tokens, portanto, você pode precisar usar autenticação básica (senha). O servidor da API pode ser configurado para aceitar autenticação básica, mas o seu cluster pode não estar configurado para aceitar autenticação básica.
+  - Alguns aplicativos da web podem não funcionar, principalmente aqueles com javascript do lado do cliente que constroem URLs com um mecanismo que não está ciente do prefixo do caminho do proxy.
