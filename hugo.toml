@@ -305,211 +305,214 @@ no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY
 [languages]
 [languages.en]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
 languageName = "English"
 # Weight used for sorting.
 weight = 1
 languagedirection = "ltr"
 
+[languages.en.params]
+description = "Production-Grade Container Orchestration"
+
 [languages.zh-cn]
 title = "Kubernetes"
-description = "生产级别的容器编排系统"
 languageName = "中文 (Chinese)"
-languageNameLatinScript = "Chinese"
 weight = 2
 contentDir = "content/zh-cn"
 languagedirection = "ltr"
 
 [languages.zh-cn.params]
+description = "生产级别的容器编排系统"
 time_format_blog = "2006.01.02"
 language_alternatives = ["en"]
+languageNameLatinScript = "Chinese"
 
 [languages.ko]
 title = "Kubernetes"
-description = "운영 수준의 컨테이너 오케스트레이션"
 languageName = "한국어 (Korean)"
-languageNameLatinScript = "Korean"
 weight = 3
 contentDir = "content/ko"
 languagedirection = "ltr"
 
 [languages.ko.params]
+description = "운영 수준의 컨테이너 오케스트레이션"
 time_format_blog = "2006.01.02"
 language_alternatives = ["en"]
+languageNameLatinScript = "Korean"
 
 [languages.ja]
 title = "Kubernetes"
-description = "プロダクショングレードのコンテナ管理基盤"
 languageName = "日本語 (Japanese)"
-languageNameLatinScript = "Japanese"
 weight = 4
 contentDir = "content/ja"
 languagedirection = "ltr"
 
 [languages.ja.params]
+description = "プロダクショングレードのコンテナ管理基盤"
 time_format_blog = "2006.01.02"
 language_alternatives = ["en"]
+languageNameLatinScript = "Japanese"
 
 [languages.fr]
 title = "Kubernetes"
-description = "Solution professionnelle d’orchestration de conteneurs"
 languageName = "Français (French)"
-languageNameLatinScript = "Français"
 weight = 5
 contentDir = "content/fr"
 languagedirection = "ltr"
 
 [languages.fr.params]
+description = "Solution professionnelle d’orchestration de conteneurs"
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
+languageNameLatinScript = "Français"
 
 [languages.it]
 title = "Kubernetes"
-description = "Orchestrazione di Container in produzione"
 languageName = "Italiano (Italian)"
-languageNameLatinScript = "Italiano"
 weight = 6
 contentDir = "content/it"
 languagedirection = "ltr"
 
 [languages.it.params]
+description = "Orchestrazione di Container in produzione"
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
+languageNameLatinScript = "Italiano"
 
 [languages.no]
 title = "Kubernetes"
-description = "Production-Grade Container Orchestration"
 languageName = "Norsk (Norwegian)"
-languageNameLatinScript = "Norsk"
 weight = 7
 contentDir = "content/no"
 languagedirection = "ltr"
 
 [languages.no.params]
+description = "Production-Grade Container Orchestration"
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
+languageNameLatinScript = "Norsk"
 
 [languages.de]
 title = "Kubernetes"
-description = "Produktionsreife Container-Orchestrierung"
 languageName = "Deutsch (German)"
-languageNameLatinScript = "Deutsch"
 weight = 8
 contentDir = "content/de"
 languagedirection = "ltr"
 
 [languages.de.params]
+description = "Produktionsreife Container-Orchestrierung"
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
+languageNameLatinScript = "Deutsch"
 
 [languages.es]
 title = "Kubernetes"
-description = "Orquestación de contenedores para producción"
 languageName = "Español (Spanish)"
-languageNameLatinScript = "Español"
 weight = 9
 contentDir = "content/es"
 languagedirection = "ltr"
 
 [languages.es.params]
+description = "Orquestación de contenedores para producción"
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
+languageNameLatinScript = "Español"
 
 [languages.pt-br]
 title = "Kubernetes"
-description = "Orquestração de contêineres em nível de produção"
 languageName = "Português (Portuguese)"
-languageNameLatinScript = "Português"
 weight = 10
-
 contentDir = "content/pt-br"
 languagedirection = "ltr"
 
 [languages.pt-br.params]
+description = "Orquestração de contêineres em nível de produção"
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
+languageNameLatinScript = "Português"
 
 [languages.id]
 title = "Kubernetes"
-description = "Orkestrasi Kontainer dengan Skala Produksi"
 languageName ="Bahasa Indonesia"
-languageNameLatinScript = "Bahasa Indonesia"
 weight = 11
 contentDir = "content/id"
 languagedirection = "ltr"
 
 [languages.id.params]
+description = "Orkestrasi Kontainer dengan Skala Produksi"
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
+languageNameLatinScript = "Bahasa Indonesia"
 
 [languages.hi]
 title = "Kubernetes"
-description = "प्रोडक्शन-ग्रेड कंटेनर ऑर्केस्ट्रेशन"
-languageName = "हिन्दी (Hindi)"  
-languageNameLatinScript = "Hindi"
+languageName = "हिन्दी (Hindi)"
 weight = 12
 contentDir = "content/hi"
 languagedirection = "ltr"
 
 [languages.hi.params]
+description = "प्रोडक्शन-ग्रेड कंटेनर ऑर्केस्ट्रेशन"
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
+languageNameLatinScript = "Hindi"
 
 [languages.vi]
 title = "Kubernetes"
-description = "Giải pháp điều phối container trong môi trường production"
 languageName = "Tiếng Việt (Vietnamese)"
-languageNameLatinScript = "Tiếng Việt"
 contentDir = "content/vi"
 weight = 13
 languagedirection = "ltr"
 
+[languages.vi.params]
+description = "Giải pháp điều phối container trong môi trường production"
+languageNameLatinScript = "Tiếng Việt"
+
 [languages.ru]
 title = "Kubernetes"
-description = "Первоклассная оркестрация контейнеров"
 languageName = "Русский (Russian)"
-languageNameLatinScript = "Russian"
 weight = 14
 contentDir = "content/ru"
 languagedirection = "ltr"
 
 [languages.ru.params]
+description = "Первоклассная оркестрация контейнеров"
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
+languageNameLatinScript = "Russian"
 
 [languages.pl]
 title = "Kubernetes"
-description = "Produkcyjny system zarządzania kontenerami"
 languageName = "Polski (Polish)"
-languageNameLatinScript = "Polski"
 weight = 15
 contentDir = "content/pl"
 languagedirection = "ltr"
 
 [languages.pl.params]
+description = "Produkcyjny system zarządzania kontenerami"
 time_format_blog = "01.02.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
+languageNameLatinScript = "Polski"
 
 [languages.uk]
 title = "Kubernetes"
-description = "Довершена система оркестрації контейнерів"
 languageName = "Українська (Ukrainian)"
-languageNameLatinScript = "Ukrainian"
 weight = 16
 contentDir = "content/uk"
 languagedirection = "ltr"
 
 [languages.uk.params]
+description = "Довершена система оркестрації контейнерів"
 time_format_blog = "02.01.2006"
 # A list of language codes to look for untranslated content, ordered from left to right.
 language_alternatives = ["en"]
+languageNameLatinScript = "Ukrainian"
