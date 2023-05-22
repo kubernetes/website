@@ -16,7 +16,7 @@ Esta página mostra como se conectar aos serviços em execução no cluster Kube
 ## Acessando serviços em execução no cluster
 
 No Kubernetes, [nós](/pt-br/docs/concepts/architecture/nodes/), [Pods](/docs/concepts/workloads/pods/) e [serviços](/docs/concepts/services-networking/service/) têm todos seus próprios IPs. Em muitos casos, os IPs dos nós, dos Pods e alguns dos IPs de serviço em um cluster não serão
-roteáveis, portanto, não estarão acessíveis a partir de uma máquina fora do cluster, como seu computador de mesa.
+roteáveis, portanto, não estarão acessíveis a partir de uma máquina fora do cluster, como seu computador.
 
 ### Maneiras de se conectar
 
