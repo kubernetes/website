@@ -81,7 +81,7 @@ Os formatos suportados para o segmento `<nome_do_serviço>` da URL são:
 
 ##### Exemplos
 
-* Para acessar o ponto de extremidade de serviço Elasticsearch `_search?q=user:kimchy`, você usaria:
+* Para acessar o _endpoint_ de serviço Elasticsearch `_search?q=user:kimchy`, você usaria:
 
   ```
   http://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_search?q=user:kimchy
