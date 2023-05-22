@@ -35,7 +35,7 @@ Você tem várias opções para se conectar a nós, pods e serviços de fora do 
     - Descrito [aqui](#manually-constructing-apiserver-proxy-urls).
   - Acesse a partir de um nó ou Pod no cluster.
     - Execute um Pod e, em seguida, conecte-se a um shell nele usando [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec). Conecte-se a outros nós, Pods e serviços a partir desse shell.
-    - Alguns clusters podem permitir que você faça ssh para um nó no cluster. De lá, você pode ser capaz de acessar os serviços do cluster. Este é um método não padrão e funcionará em alguns clusters, mas não em outros. Navegadores e outras ferramentas podem ou não estar instalados. O DNS do cluster pode não funcionar.
+    - Alguns clusters podem permitir que você faça ssh para um nó no cluster. De lá, você pode conseguir acessar os serviços do cluster. Este é um método não padrão e funcionará em alguns clusters, mas não em outros. Navegadores e outras ferramentas podem ou não estar instalados. O DNS do cluster pode não funcionar.
 
 ### Descobrindo serviços integrados
 
