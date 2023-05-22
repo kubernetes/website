@@ -87,7 +87,7 @@ Os formatos suportados para o segmento `<nome_do_serviço>` da URL são:
   http://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_search?q=user:kimchy
   ```
   
-* Para acessar as informações de saúde do cluster Elasticsearch `_cluster/health?pretty=true`, você usaria:
+* Para acessar as informações de integridade do cluster Elasticsearch `_cluster/health?pretty=true`, você usaria:
 
   ```
   https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_cluster/health?pretty=true
