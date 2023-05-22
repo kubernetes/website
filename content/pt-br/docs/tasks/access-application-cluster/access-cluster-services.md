@@ -7,7 +7,7 @@ weight: 140
 <!-- overview -->
 Esta página mostra como se conectar aos serviços em execução no cluster Kubernetes.
 
-{{% heading "prerequisites" %}}
+## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
