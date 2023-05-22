@@ -27,7 +27,7 @@ Você tem várias opções para se conectar a nós, pods e serviços de fora do 
 [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands/#expose).
     - Dependendo do ambiente do cluster, isso pode expor o serviço apenas para a rede corporativa, ou pode expô-lo para a Internet. Pense se o serviço que está sendo exposto é seguro. Ele faz sua própria autenticação?
     - Coloque Pods atrás de serviços. Para acessar um Pod específico de um conjunto de réplicas, como para depurar, coloque um rótulo exclusivo no Pod e crie um novo serviço que selecione este rótulo.
-    - Na maioria dos casos, não deve ser necessário para o desenvolvedor de aplicativos acessar diretamente nós através de seus IPs de nó.
+    - Na maioria dos casos, não deve ser necessário para o desenvolvedor de aplicativos acessar diretamente nós através de seus endereços IP.
   - Acesse serviços, nós ou Pods usando o Verbo Proxy.
     - Faz autenticação e autorização do servidor de API antes de acessar o serviço remoto. Use isto se os serviços não forem seguros o suficiente para expor à Internet, ou para obter acesso a portas no IP do nó, ou para depuração.
     - Proxies podem causar problemas para algumas aplicações web.
