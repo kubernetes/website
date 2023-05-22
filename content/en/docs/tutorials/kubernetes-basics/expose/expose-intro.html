@@ -113,6 +113,10 @@ description: |-
 				<code><b>echo "NODE_PORT=$NODE_PORT"</b></code></p>
 				<p>Now we can test that the app is exposed outside of the cluster using <code>curl</code>, the IP address of the Node and the externally exposed port:</p>
 				<p><code><b>curl http://"$(minikube ip):$NODE_PORT"</b></code></p>
+        <p>Note that since Docker Desktop does not support ports, we need to use minikube tunnel if Docker is the container runtime. This is a <a href="https://github.com/kubernetes/minikube/issues/11193">known issue</a>.</p>
+        <p>In a seperate terminal window, execute:</p>
+        <p><code><b>minikube service kubernetes-bootcamp --url</b></code></p>
+        <p>and use the output url to access the app.</p>
 				<p>And we get a response from the server. The Service is exposed.</p>
 			</div>
 		</div>
