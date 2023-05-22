@@ -161,8 +161,8 @@ For more information on version skews, see:
    ```
    Note: If the command fails use below command  
    ```shell
-  sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://dl.k8s.io/apt/doc/apt-key.gpg
-  ```
+   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://dl.k8s.io/apt/doc/apt-key.gpg
+   ```
 
 3. Add the Kubernetes `apt` repository:
 
