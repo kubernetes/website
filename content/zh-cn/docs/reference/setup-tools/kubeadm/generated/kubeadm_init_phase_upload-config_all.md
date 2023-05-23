@@ -62,6 +62,21 @@ kubeadm 配置文件的路径。
 </tr>
 
 <tr>
+<td colspan="2">--cri-socket string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.
+-->
+要连接的 CRI 套接字的路径。如果该值为空，kubeadm 将尝试自动检测；
+仅当你安装了多个 CRI 或使用非标准的 CRI 套接字时才应使用此选项。
+</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
