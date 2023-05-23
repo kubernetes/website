@@ -56,28 +56,28 @@ grafana is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/m
 heapster is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
 ```
 
-Isso mostra a URL proxy-verbo para acessar cada serviço. Por exemplo, este cluster tem o registro em nível de cluster habilitado (usando o Elasticsearch), que pode ser acessado em `https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/` se as credenciais adequadas forem passadas ou através de um proxy kubectl, por exemplo: `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`.
+Isso mostra a URL referente ao verbo proxy para acessar cada serviço. Por exemplo, este cluster tem _logs_ a nível de cluster habilitados (usando o Elasticsearch), que pode ser acessado em `https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/` se as credenciais adequadas forem passadas ou através do comando kubectl proxy, como por exemplo: `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`.
 
 {{< note >}}
-Consulte [Acessando clusters usando a API Kubernetes](/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-cluster-api) para obter informações sobre como passar credenciais ou usar o proxy kubectl.
+Consulte [Acessando clusters usando a API do Kubernetes](/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-cluster-api) para obter informações sobre como passar credenciais ou usar o comando kubectl proxy.
 {{< /note >}}
 
-### Construindo manualmente URLs de proxy do apiserver
+### Construindo manualmente URLs de proxy do servidor da API {#manually-constructing-apiserver-proxy-urls}
 
-Como mencionado acima, você usa o comando `kubectl cluster-info` para recuperar a URL do proxy do serviço. Para criar URLs de proxy que incluem pontos de extremidade, sufixos e parâmetros de serviço, você adiciona à URL do proxy do serviço:
-"`http://`*`endereço_do_mestre_do_kubernetes`*`/api/v1/namespaces/`*`nome_do_namespace`*`/services/`[https:]nome_do_serviço[:nome_da_porta]`*`/proxy`"
+Como mencionado acima, você usa o comando `kubectl cluster-info` para recuperar a URL do proxy do serviço. Para criar URLs de proxy que incluem _endpoints_, sufixos e parâmetros de serviço, você adiciona à URL do proxy do serviço:
+`http://`*`endereço_do_mestre_do_kubernetes`*`/api/v1/namespaces/`*`nome_do_namespace`*`/services/`*`[https:]nome_do_serviço[:nome_da_porta]`*`/proxy`
 
 Se você não especificou um nome para a porta, não é necessário especificar *nome_da_porta* na URL. Você também pode usar o número da porta no lugar do *nome_da_porta* para portas nomeadas e não nomeadas.
 
-Por padrão, o servidor API usa proxy para o seu serviço usando HTTP. Para usar HTTPS, adicione o prefixo `https:` ao nome do serviço:
+Por padrão, o servidor da API usa um proxy para o seu serviço através de HTTP. Para usar HTTPS, adicione o prefixo `https:` ao nome do serviço:
 `http://<endereço_do_mestre_do_kubernetes>/api/v1/namespaces/<nome_do_namespace>/services/<nome_do_serviço>/proxy`
 
 Os formatos suportados para o segmento `<nome_do_serviço>` da URL são:
 
-* `<nome_do_serviço>` - faz proxy para a porta padrão ou não nomeada usando http
-* `<nome_do_serviço>:<nome_da_porta>` - faz proxy para a porta nomeada ou número da porta especificado usando http
-* `https:<nome_do_serviço>:` - faz proxy para a porta padrão ou não nomeada usando https (observe o dois-pontos no final)
-* `https:<nome_do_serviço>:<nome_da_porta>` - faz proxy para a porta nomeada ou número da porta especificado usando https
+* `<nome_do_serviço>` - usa um proxy para a porta padrão ou não nomeada usando http
+* `<nome_do_serviço>:<nome_da_porta>` - usa um proxy para a porta nomeada ou número da porta especificado usando http
+* `https:<nome_do_serviço>:` - usa um proxy para a porta padrão ou não nomeada usando https (observe o dois-pontos no final)
+* `https:<nome_do_serviço>:<nome_da_porta>` - usa um proxy para a porta nomeada ou número da porta especificado usando https
 
 ##### Exemplos
 
