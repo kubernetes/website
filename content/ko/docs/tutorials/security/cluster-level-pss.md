@@ -187,7 +187,7 @@ weight: 10
     plugins:
     - name: PodSecurity
       configuration:
-        apiVersion: pod-security.admission.config.k8s.io/v1beta1
+        apiVersion: pod-security.admission.config.k8s.io/v1
         kind: PodSecurityConfiguration
         defaults:
           enforce: "baseline"
@@ -202,6 +202,13 @@ weight: 10
           namespaces: [kube-system]
     EOF
     ```
+
+    {{< note >}}
+    `pod-security.admission.config.k8s.io/v1` 설정은 쿠버네티스 v1.25 이상을 필요로 한다.
+    쿠버네티스 v1.23 과 v1.24의 경우, [v1beta1](https://v1-24.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)을 사용한다.
+    쿠버네티스 v1.22의 경우, [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)을 사용한다.
+    {{< /note >}}
+
 
 1. API 서버가 클러스터 생성 과정에서 이 파일을 처리할 수 있도록 구성한다.
 
