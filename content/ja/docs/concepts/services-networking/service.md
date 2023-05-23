@@ -830,7 +830,7 @@ HTTPやHTTPSなどの一般的なプロトコルでExternalNameを使用する�
 `externalIPs`はKubernetesによって管理されず、それを管理する責任はクラスターの管理者にあります。
 
 Serviceのspecにおいて、`externalIPs`は他のどの`ServiceTypes`と併用して設定できます。
-下記の例では、"`my-service`"は"`80.11.12.10:80`" (`externalIP:port`)のクライアントからアクセス可能です。
+下記の例では、"`my-service`"は"`198.51.100.32:80`" (`externalIP:port`)のクライアントからアクセス可能です。
 
 ```yaml
 apiVersion: v1
