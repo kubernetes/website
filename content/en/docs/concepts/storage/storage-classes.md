@@ -98,7 +98,8 @@ vendors provide their own external provisioner.
 ### Reclaim Policy
 
 PersistentVolumes that are dynamically created by a StorageClass will have the
-reclaim policy specified in the `reclaimPolicy` field of the class, which can be
+[reclaim policy](/docs/concepts/storage/persistent-volumes/#Reclaiming)
+specified in the `reclaimPolicy` field of the class, which can be
 either `Delete` or `Retain`. If no `reclaimPolicy` is specified when a
 StorageClass object is created, it will default to `Delete`.
 
