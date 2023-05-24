@@ -590,7 +590,7 @@ VolumeAttachments will not be deleted from the original shutdown node so the vol
 used by these pods cannot be attached to a new running node. As a result, the
 application running on the StatefulSet cannot function properly. If the original
 shutdown node comes up, the pods will be deleted by kubelet and new pods will be
-created on a different running node. If the original shutdown node does not come up,  
+created on a different running node. If the original shutdown node does not come up,
 these pods will be stuck in terminating status on the shutdown node forever.
 
 To mitigate the above situation, a user can manually add the taint `node.kubernetes.io/out-of-service` with either `NoExecute`
