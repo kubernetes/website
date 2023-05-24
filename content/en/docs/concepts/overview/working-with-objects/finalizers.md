@@ -26,7 +26,7 @@ and does the following:
 
   * Modifies the object to add a `metadata.deletionTimestamp` field with the
     time you started the deletion.
-  * Prevents the object from being removed until its `metadata.finalizers` field is empty.
+  * Prevents the object from being removed until its `metadata.finalizers` field is removed as `finalizers` can not be added or changed.
   * Returns a `202` status code (HTTP "Accepted")
 
 The controller managing that finalizer notices the update to the object setting the
@@ -44,6 +44,13 @@ try to delete the `PersistentVolume`, it enters a `Terminating` status, but the
 controller can't delete it because the finalizer exists. When the Pod stops
 using the `PersistentVolume`, Kubernetes clears the `pv-protection` finalizer,
 and the controller deletes the volume.
+
+{{<note>}}
+* When you `DELETE` an object, Kubernetes makes that object almost read-only with exception that the 
+`metadata.deletionTimestamp` field gets set and the `finalizers` can be removed. Thus `deletionTimestamp` is immutable.
+
+* After the deletion is requested, you can not resurrect this object. The only way is to delete it and make a new similar object.
+{{</note>}}
 
 ## Owner references, labels, and finalizers {#owners-labels-finalizers}
 
