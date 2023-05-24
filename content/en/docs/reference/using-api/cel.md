@@ -164,8 +164,8 @@ API resource checks are performed as follows:
 Non-resource authorization performed are used as follows:
 
 1. specify only a path: `Authorizer.path(string) PathCheck`
-2. Call `PathCheck.check(httpVerb string) Decision` to perform the authorization check.
-3. Call `allowed() bool` or `reason() string` to inspect the result of the authorization check.
+1. Call `PathCheck.check(httpVerb string) Decision` to perform the authorization check.
+1. Call `allowed() bool` or `reason() string` to inspect the result of the authorization check.
 
 To perform an authorization check for a service account:
 
