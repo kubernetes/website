@@ -30,7 +30,7 @@ Vous devez utiliser une version de kubectl qui différe seulement d'une version 
 1. Téléchargez la dernière release avec la commande :
 
     ```
-    curl -LO https://dl.k8s.io/release/$(curl -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/$(curl -Ls https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl
     ```
 
     Pour télécharger une version spécifique, remplacez `$(curl -s https://dl.k8s.io/release/stable.txt)` avec la version spécifique.
