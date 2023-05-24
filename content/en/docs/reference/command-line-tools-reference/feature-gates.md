@@ -161,8 +161,6 @@ For a reference to old feature gates that are removed, please refer to
 | `NodeInclusionPolicyInPodTopologySpread` | `false` | Alpha | 1.25 | 1.25 |
 | `NodeInclusionPolicyInPodTopologySpread` | `true` | Beta | 1.26 | |
 | `NodeLogQuery` | `false` | Alpha | 1.27 | |
-| `NodeOutOfServiceVolumeDetach` | `false` | Alpha | 1.24 | 1.25 |
-| `NodeOutOfServiceVolumeDetach` | `true` | Beta | 1.26 | |
 | `NodeSwap` | `false` | Alpha | 1.22 | |
 | `OpenAPIEnums` | `false` | Alpha | 1.23 | 1.23 |
 | `OpenAPIEnums` | `true` | Beta | 1.24 | |
@@ -293,6 +291,9 @@ For a reference to old feature gates that are removed, please refer to
 | `MixedProtocolLBService` | `false` | Alpha | 1.20 | 1.23 |
 | `MixedProtocolLBService` | `true` | Beta | 1.24 | 1.25 |
 | `MixedProtocolLBService` | `true` | GA | 1.26 | - |
+| `NodeOutOfServiceVolumeDetach` | `false` | Alpha | 1.24 | 1.25 |
+| `NodeOutOfServiceVolumeDetach` | `true` | Beta | 1.26 | 1.27 |
+| `NodeOutOfServiceVolumeDetach` | `true` | GA | 1.28 | - |
 | `OpenAPIV3` | `false` | Alpha | 1.23 | 1.23 |
 | `OpenAPIV3` | `true` | Beta | 1.24 | 1.26 |
 | `OpenAPIV3` | `true` | GA | 1.27 | - |
