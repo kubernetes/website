@@ -888,7 +888,7 @@ for more details.
 
 #### RBD CSI migration {#rbd-csi-migration}
 
-{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.28" state="deprecated" >}}
 
 The `CSIMigration` feature for `RBD`, when enabled, redirects all plugin
 operations from the existing in-tree plugin to the `rbd.csi.ceph.com` {{<
