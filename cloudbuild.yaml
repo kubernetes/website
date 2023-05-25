@@ -1,24 +1,28 @@
 # See https://cloud.google.com/cloud-build/docs/build-config
 
 # this must be specified in seconds. If omitted, defaults to 600s (10 mins)
-timeout: 1200s
+timeout: 9000s
 # this prevents errors if you don't use both _GIT_TAG and _PULL_BASE_REF,
 # or any new substitutions added in the future.
 options:
   substitution_option: ALLOW_LOOSE
+  machineType: 'E2_HIGHCPU_8'
 steps:
     # It's fine to bump the tag to a recent version, as needed
-  - name: "gcr.io/k8s-staging-test-infra/gcb-docker-gcloud:v20210917-12df099d55"
+  - name: "gcr.io/k8s-staging-test-infra/gcb-docker-gcloud:v20220830-45cbff55bc"
     entrypoint: 'bash'
     env:
       - DOCKER_CLI_EXPERIMENTAL=enabled
+      - DOCKER_BUILDKIT=1
+      - DOCKER_BUILDX=/root/.docker/cli-plugins/docker-buildx
       - TAG=$_GIT_TAG
       - BASE_REF=$_PULL_BASE_REF
     args:
       - -c
       - |
         gcloud auth configure-docker \
-        && make container-push
+        && apk add sed \
+        && make docker-push
 substitutions:
   # _GIT_TAG will be filled with a git-based tag for the image, of the form vYYYYMMDD-hash, and
   # can be used as a substitution

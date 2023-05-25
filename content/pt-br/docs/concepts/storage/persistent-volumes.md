@@ -148,7 +148,7 @@ spec:
       path: /any/path/it/will/be/replaced
   containers:
   - name: pv-recycler
-    image: "k8s.gcr.io/busybox"
+    image: "registry.k8s.io/busybox"
     command: ["/bin/sh", "-c", "test -e /scrub && rm -rf /scrub/..?* /scrub/.[!.]* /scrub/*  && test -z \"$(ls -A /scrub)\" || exit 1"]
     volumeMounts:
     - name: vol
@@ -196,7 +196,7 @@ Isso é útil se você deseja utilizar PersistentVolumes que possuem suas `claim
 
 ### Expandindo Requisições de Volumes Persistentes
 
-{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 Agora, o suporte à expansão de PersistentVolumeClaims (PVCs) já é habilitado por padrão. Você pode expandir os tipos de volumes abaixo:
 
@@ -231,7 +231,7 @@ Para solicitar um volume maior para uma PVC, edite a PVC e especifique um tamanh
 
 #### Expansão de volume CSI 
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 O suporte à expansão de volumes CSI é habilitada por padrão, porém é necessário um driver CSI específico para suportar a expansão do volume. Verifique a documentação do driver CSI específico para mais informações.
 
@@ -723,7 +723,7 @@ Se você está criando templates ou exemplos que rodam numa grande quantidade de
 
 * Saiba mais sobre [Criando um PersistentVolume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume).
 * Saiba mais sobre [Criando um PersistentVolumeClaim](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim).
-* Leia a [documentação sobre planejamento de Armazenamento Persistente](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md).
+* Leia a [documentação sobre planejamento de Armazenamento Persistente](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md).
 
 ### Referência
 

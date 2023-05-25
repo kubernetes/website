@@ -1,7 +1,7 @@
 ---
 title: 使用拓扑键实现拓扑感知的流量路由
 content_type: concept
-weight: 10
+weight: 150
 ---
 <!--
 reviewers:
@@ -9,7 +9,7 @@ reviewers:
 - imroc
 title: Topology-aware traffic routing with topology keys
 content_type: concept
-weight: 10
+weight: 150
 -->
 
 <!-- overview -->
@@ -20,12 +20,12 @@ weight: 10
 <!--
 This feature, specifically the alpha `topologyKeys` API, is deprecated since
 Kubernetes v1.21.
-[Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints/),
+[Topology Aware Routing](/docs/concepts/services-networking/topology-aware-routing/),
 introduced in Kubernetes v1.21, provide similar functionality.
 -->
 此功能特性，尤其是 Alpha 阶段的 `topologyKeys` API，在 Kubernetes v1.21
 版本中已被废弃。Kubernetes v1.21 版本中引入的
-[拓扑感知的提示](/zh-cn/docs/concepts/services-networking/topology-aware-hints/),
+[拓扑感知路由](/zh-cn/docs/concepts/services-networking/topology-aware-routing/),
 提供类似的功能。
 {{</ note >}}
 
@@ -52,14 +52,12 @@ to endpoints within the same zone.
 By setting `topologyKeys` on a Service, you're able to define a policy for routing
 traffic based upon the Node labels for the originating and destination Nodes.
 -->
-## 拓扑感知的流量路由 
+## 拓扑感知的流量路由   {#topology-aware-traffic-routing}
 
-默认情况下，发往 `ClusterIP` 或者 `NodePort` 服务的流量可能会被路由到
-服务的任一后端的地址。Kubernetes 1.7 允许将“外部”流量路由到接收到流量的
-节点上的 Pod。对于 `ClusterIP` 服务，无法完成同节点优先的路由，你也无法
-配置集群优选路由到同一可用区中的端点。
-通过在 Service 上配置 `topologyKeys`，你可以基于来源节点和目标节点的
-标签来定义流量路由策略。
+默认情况下，发往 `ClusterIP` 或者 `NodePort` 服务的流量可能会被路由到服务的任一后端的地址。
+Kubernetes 1.7 允许将“外部”流量路由到接收到流量的节点上的 Pod。对于 `ClusterIP`
+服务，无法完成同节点优先的路由，你也无法配置集群优选路由到同一可用区中的端点。
+通过在 Service 上配置 `topologyKeys`，你可以基于来源节点和目标节点的标签来定义流量路由策略。
 
 <!--
 The label matching between the source and destination lets you, as a cluster
@@ -76,8 +74,8 @@ same top-of-rack switch for the lowest latency.
 来定义节点集合。你可以基于符合自身需求的任何度量值来定义标签。
 例如，在公有云上，你可能更偏向于把流量控制在同一区内，因为区间流量是有费用成本的，
 而区内流量则没有。
-其它常见需求还包括把流量路由到由 `DaemonSet` 管理的本地 Pod 上，或者
-把将流量转发到连接在同一机架交换机的节点上，以获得低延时。
+其它常见需求还包括把流量路由到由 `DaemonSet` 管理的本地 Pod
+上，或者把将流量转发到连接在同一机架交换机的节点上，以获得低延时。
 
 <!--
 ## Using Service Topology
@@ -183,7 +181,7 @@ traffic as follows.
 
 The following are common examples of using the Service Topology feature.
 -->
-## 示例
+## 示例   {#examples}
 
 以下是使用服务拓扑功能的常见示例。
 
@@ -192,7 +190,7 @@ The following are common examples of using the Service Topology feature.
 
 A Service that only routes to node local endpoints. If no endpoints exist on the node, traffic is dropped:
 -->
-### 仅节点本地端点
+### 仅节点本地端点   {#only-node-local-endpoints}
 
 仅路由到节点本地端点的一种服务。如果节点上不存在端点，流量则被丢弃：
 
@@ -217,7 +215,7 @@ spec:
 
 A Service that prefers node local Endpoints but falls back to cluster wide endpoints if node local endpoints do not exist:
 -->
-### 首选节点本地端点
+### 首选节点本地端点   {#prefer-node-local-endpoints}
 
 首选节点本地端点，如果节点本地端点不存在，则回退到集群范围端点的一种服务：
 
@@ -243,7 +241,7 @@ spec:
 
 A Service that prefers zonal then regional endpoints. If no endpoints exist in either, traffic is dropped.
 -->
-### 仅地域或区域端点
+### 仅地域或区域端点   {#only-zonal-or-regional-endpoints}
 
 首选地域端点而不是区域端点的一种服务。 如果以上两种范围内均不存在端点，
 流量则被丢弃。
@@ -270,10 +268,9 @@ spec:
 
 A Service that prefers node local, zonal, then regional endpoints but falls back to cluster wide endpoints.
 -->
-### 优先选择节点本地端点、地域端点，然后是区域端点
+### 优先选择节点本地端点、地域端点，然后是区域端点   {#prefer-node-local-zonal-then-regional-endpoints}
 
-优先选择节点本地端点，地域端点，然后是区域端点，最后才是集群范围端点的
-一种服务。
+优先选择节点本地端点，地域端点，然后是区域端点，最后才是集群范围端点的一种服务。
 
 ```yaml
 apiVersion: v1
@@ -294,12 +291,11 @@ spec:
     - "*"
 ```
 
-
 ## {{% heading "whatsnext" %}}
 <!--
-* Read about [enabling Service Topology](/docs/tasks/administer-cluster/enabling-service-topology)
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* Read about [Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints/)
+* Read [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)
 -->
-* 阅读关于[启用服务拓扑](/zh-cn/docs/tasks/administer-cluster/enabling-service-topology/)
-* 阅读[用服务连接应用程序](/zh-cn/docs/concepts/services-networking/connect-applications-service/)
+* 阅读关于[拓扑感知提示](/zh-cn/docs/concepts/services-networking/topology-aware-hints/)
+* 阅读[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)
 

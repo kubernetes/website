@@ -1,27 +1,35 @@
 ---
 layout: blog
 title: "认识我们的贡献者 - 亚太地区（印度地区）"
-date: 2022-01-10T12:00:00+0000
+date: 2022-01-10
 slug: meet-our-contributors-india-ep-01
-canonicalUrl: https://kubernetes.dev/blog/2022/01/10/meet-our-contributors-india-ep-01/
+canonicalUrl: https://www.kubernetes.dev/blog/2022/01/10/meet-our-contributors-india-ep-01/
 ---
 <!--
 layout: blog
 title: "Meet Our Contributors - APAC (India region)"
-date: 2022-01-10T12:00:00+0000
+date: 2022-01-10
 slug: meet-our-contributors-india-ep-01
-canonicalUrl: https://kubernetes.dev/blog/2022/01/10/meet-our-contributors-india-ep-01/
+canonicalUrl: https://www.kubernetes.dev/blog/2022/01/10/meet-our-contributors-india-ep-01/
 -->
 
 <!--
 **Authors & Interviewers:** [Anubhav Vardhan](https://github.com/anubha-v-ardhan), [Atharva Shinde](https://github.com/Atharva-Shinde), [Avinesh Tripathi](https://github.com/AvineshTripathi), [Debabrata Panigrahi](https://github.com/Debanitrkl), [Kunal Verma](https://github.com/verma-kunal), [Pranshu Srivastava](https://github.com/PranshuSrivastava), [Pritish Samal](https://github.com/CIPHERTron), [Purneswar Prasad](https://github.com/PurneswarPrasad), [Vedant Kakde](https://github.com/vedant-kakde)
 -->
-**作者和采访者：** [Anubhav Vardhan](https://github.com/anubha-v-ardhan) ， [Atharva Shinde](https://github.com/Atharva-Shinde) ， [Avinesh Tripathi](https://github.com/AvineshTripathi) ， [Debabrata Panigrahi](https://github.com/Debanitrkl) ， [Kunal Verma](https://github.com/verma-kunal) ， [Pranshu Srivastava](https://github.com/PranshuSrivastava) ， [Pritish Samal](https://github.com/CIPHERTron) ， [Purneswar Prasad](https://github.com/PurneswarPrasad) ， [Vedant Kakde](https://github.com/vedant-kakde)
+**作者和采访者：** [Anubhav Vardhan](https://github.com/anubha-v-ardhan)、
+[Atharva Shinde](https://github.com/Atharva-Shinde)、
+[Avinesh Tripathi](https://github.com/AvineshTripathi)、
+[Debabrata Panigrahi](https://github.com/Debanitrkl)、
+[Kunal Verma](https://github.com/verma-kunal)、
+[Pranshu Srivastava](https://github.com/PranshuSrivastava)、
+[Pritish Samal](https://github.com/CIPHERTron)、
+[Purneswar Prasad](https://github.com/PurneswarPrasad)、
+[Vedant Kakde](https://github.com/vedant-kakde)
 
 <!--
 **Editor:** [Priyanka Saggu](https://psaggu.com)
 -->
-**编辑：** [Priyanka Saggu](https://psaggu.com) 
+**编辑：** [Priyanka Saggu](https://psaggu.com)
 
 ---
 
@@ -39,10 +47,10 @@ Welcome to the first episode of the APAC edition of the "Meet Our Contributors" 
 <!--
 In this post, we'll introduce you to five amazing folks from the India region who have been actively contributing to the upstream Kubernetes projects in a variety of ways, as well as being the leaders or maintainers of numerous community initiatives.
 -->
-在这篇文章中，我们将向您介绍来自印度地区的五位优秀贡献者，他们一直在以各种方式积极地为上游 Kubernetes 项目做贡献，同时也是众多社区倡议的领导者和维护者。
+在这篇文章中，我们将向你介绍来自印度地区的五位优秀贡献者，他们一直在以各种方式积极地为上游 Kubernetes 项目做贡献，同时也是众多社区倡议的领导者和维护者。
 
 <!--
-💫 *Let's get started, so without further ado…* 
+💫 *Let's get started, so without further ado…*
 -->
 💫 *闲话少说，我们开始吧。*
 
@@ -70,7 +78,9 @@ To the newcomers, Arsh helps plan their early contributions sustainably.
 > actually handle. This can often lead to burnout in later stages. It's much more sustainable
 > to work on things iteratively._
 -->
-> _我鼓励大家以可持续的方式为社区做贡献。我的意思是，一个人很容易在早期的时候非常有热情，并且承担了很多超出个人实际能力的事情。这通常会导致后期的倦怠。迭代地处理事情会让大家对社区的贡献变得可持续。_
+> 我鼓励大家以可持续的方式为社区做贡献。
+> 我的意思是，一个人很容易在早期的时候非常有热情，并且承担了很多超出个人实际能力的事情。
+> 这通常会导致后期的倦怠。迭代地处理事情会让大家对社区的贡献变得可持续。
 
 ## [Kunal Kushwaha](https://github.com/kunal-kushwaha)
 
@@ -80,7 +90,7 @@ Kunal Kushwaha is a core member of the Kubernetes marketing council. He is also 
 Kunal Kushwaha 是 Kubernetes 营销委员会的核心成员。他同时也是 [CNCF 学生计划](https://community.cncf.io/cloud-native-students/) 的创始人之一。他还在 1.22 版本周期中担任通信经理一职。
 
 <!--
-At the end of his first year, Kunal began contributing to the [fabric8io kubernetes-client](https://github.com/fabric8io/kubernetes-client) project. He was then selected to work on the same project as part of Google Summer of Code. Kunal mentored people on the same project, first through Google Summer of Code then through Google Code-in. 
+At the end of his first year, Kunal began contributing to the [fabric8io kubernetes-client](https://github.com/fabric8io/kubernetes-client) project. He was then selected to work on the same project as part of Google Summer of Code. Kunal mentored people on the same project, first through Google Summer of Code then through Google Code-in.
 -->
 在他的第一年结束时，Kunal 开始为 [fabric8io kubernetes-client](https://github.com/fabric8io/kubernetes-client) 项目做贡献。然后，他被推选从事同一项目，此项目是 Google Summer of Code 的一部分。Kunal 在 Google Summer of Code、Google Code-in 等项目中指导过很多人。
 
@@ -99,7 +109,11 @@ As an open-source enthusiast, he believes that diverse participation in the comm
 > because being a beginner is a skill and you can bring new perspectives to the
 > organisation._
 -->
-> _我相信，如果你发现自己在一个了解不多的项目当中，那是件好事，因为现在你可以一边贡献一边学习，社区也会帮助你。它帮助我获得了很多技能，认识了来自世界各地的人，也帮助了他们。你可以在这个过程中学习，自己不一定必须是专家。请重视非代码贡献，因为作为初学者这是一项技能，你可以为组织带来新的视角。_
+> 我相信，如果你发现自己在一个了解不多的项目当中，那是件好事，
+> 因为现在你可以一边贡献一边学习，社区也会帮助你。
+> 它帮助我获得了很多技能，认识了来自世界各地的人，也帮助了他们。
+> 你可以在这个过程中学习，自己不一定必须是专家。
+> 请重视非代码贡献，因为作为初学者这是一项技能，你可以为组织带来新的视角。
 
 ## [Madhav Jivarajani](https://github.com/MadhavJivrajani)
 
@@ -112,12 +126,19 @@ Madhav Jivarajani 在 VMware 上游 Kubernetes 稳定性团队工作。他于 20
 <!--
 Among several significant contributions are his recent efforts toward the Archival of [design proposals](https://github.com/kubernetes/community/issues/6055), refactoring the ["groups" codebase](https://github.com/kubernetes/k8s.io/pull/2713) under k8s-infra repository to make it mockable and testable, and improving the functionality of the [GitHub k8s bot](https://github.com/kubernetes/test-infra/issues/23129).
 -->
-在这几个重要项目中，他最近致力于 [设计方案](https://github.com/kubernetes/community/issues/6055) 的存档工作，重构 k8s-infra 存储库下的 ["组"代码库](https://github.com/kubernetes/k8s.io/pull/2713) ，使其具有可模拟性和可测试性，以及改进 [GitHub k8s 机器人](https://github.com/kubernetes/test-infra/issues/23129) 的功能。
+在这几个重要项目中，他最近致力于[设计方案](https://github.com/kubernetes/community/issues/6055)的存档工作，
+重构 k8s-infra 存储库下的 ["组"代码库](https://github.com/kubernetes/k8s.io/pull/2713)，
+使其具有可模拟性和可测试性，以及改进 [GitHub k8s 机器人](https://github.com/kubernetes/test-infra/issues/23129)的功能。
 
 <!--
 In addition to his technical efforts, Madhav oversees many projects aimed at assisting new contributors. He organises bi-weekly "KEP reading club" sessions to help newcomers understand the process of adding new features, deprecating old ones, and making other key changes to the upstream project. He has also worked on developing [Katacoda scenarios](https://github.com/kubernetes-sigs/contributor-katacoda) to assist new contributors to become acquainted with the process of contributing to k/k. In addition to his current efforts to meet with community members every week, he has organised several [new contributors workshops (NCW)](https://www.youtube.com/watch?v=FgsXbHBRYIc).
 -->
-除了在技术方面的贡献，Madhav 还监督许多旨在帮助新贡献者的项目。他每两周组织一次的“KEP 阅读俱乐部”会议，帮助新人了解添加新功能、摒弃旧功能以及对上游项目进行其他关键更改的过程。他还致力于开发 [Katacoda 场景](https://github.com/kubernetes-sigs/contributor-katacoda) ，以帮助新的贡献者在为 k/k 做贡献的过程更加熟练。目前除了每周与社区成员会面外，他还组织了几个 [新贡献者讲习班（NCW）](https://www.youtube.com/watch?v=FgsXbHBRYIc) 。
+除了在技术方面的贡献，Madhav 还监督许多旨在帮助新贡献者的项目。
+他每两周组织一次的 “KEP 阅读俱乐部” 会议，帮助新人了解添加新功能、
+摒弃旧功能以及对上游项目进行其他关键更改的过程。他还致力于开发
+[Katacoda 场景](https://github.com/kubernetes-sigs/contributor-katacoda)，
+以帮助新的贡献者在为 k/k 做贡献的过程更加熟练。目前除了每周与社区成员会面外，
+他还组织了几个[新贡献者讲习班（NCW）](https://www.youtube.com/watch?v=FgsXbHBRYIc)。
 
 <!--
 > _I initially did not know much about Kubernetes. I joined because the community was
@@ -127,7 +148,11 @@ In addition to his technical efforts, Madhav oversees many projects aimed at ass
 > as a result I continued to dig deeper into Kubernetes and the design of it.
 > I am a systems nut & thus Kubernetes was an absolute goldmine for me._
 -->
-> _一开始我对 Kubernetes 了解并不多。我加入社区是因为社区超级友好。但让我留下来的不仅仅是人，还有项目本身。我在社区中不会感到不知所措，这是因为我能够在感兴趣的和正在讨论的主题中获得尽可能多的背景和知识。因此，我将继续深入探讨 Kubernetes 及其设计。我是一个系统迷，kubernetes 对我来说绝对是一个金矿。_
+> 一开始我对 Kubernetes 了解并不多。我加入社区是因为社区超级友好。
+> 但让我留下来的不仅仅是人，还有项目本身。我在社区中不会感到不知所措，
+> 这是因为我能够在感兴趣的和正在讨论的主题中获得尽可能多的背景和知识。
+> 因此，我将继续深入探讨 Kubernetes 及其设计。
+> 我是一个系统迷，kubernetes 对我来说绝对是一个金矿。
 
 
 ## [Rajas Kakodkar](https://github.com/rajaskakodkar)
@@ -152,7 +177,8 @@ One of the first challenges he ran across was that he was in a different time zo
 > cutting edge tech but more importantly because I get to work with
 > awesome people and help in solving real world problems._
 -->
-> _我喜欢为 kubernetes 做出贡献，不仅因为我可以从事尖端技术工作，更重要的是，我可以和优秀的人一起工作，并帮助解决现实问题。_
+> 我喜欢为 kubernetes 做出贡献，不仅因为我可以从事尖端技术工作，
+> 更重要的是，我可以和优秀的人一起工作，并帮助解决现实问题。
 
 ## [Rajula Vineet Reddy](https://github.com/rajula96reddy)
 
@@ -180,18 +206,19 @@ Rajas 说，参与项目会议和跟踪各种项目角色对于了解社区至�
 > _The first step to_ “come forward and start” _is hard. But it's all gonna be
 > smooth after that. Just take that jump._
 -->
-> _我发现社区非常有帮助，而且总是“你得到的回报和你贡献的一样多”。你参与得越多，你就越会了解、学习和贡献新东西。_
-> _“挺身而出”的第一步是艰难的。但在那之后一切都会顺利的。勇敢地参与进来吧。_
+> 我发现社区非常有帮助，而且总是“你得到的回报和你贡献的一样多”。
+> 你参与得越多，你就越会了解、学习和贡献新东西。
+>
+> “挺身而出”的第一步是艰难的。但在那之后一切都会顺利的。勇敢地参与进来吧。
+
 ---
 
 <!--
 If you have any recommendations/suggestions for who we should interview next, please let us know in #sig-contribex. We're thrilled to have other folks assisting us in reaching out to even more wonderful individuals of the community. Your suggestions would be much appreciated.
 -->
-如果您对我们下一步应该采访谁有任何意见/建议，请在 #sig-contribex 中告知我们。我们很高兴有其他人帮助我们接触社区中更优秀的人。我们将不胜感激。
-
+如果你对我们下一步应该采访谁有任何意见/建议，请在 #sig-contribex 中告知我们。我们很高兴有其他人帮助我们接触社区中更优秀的人。我们将不胜感激。
 
 <!--
 We'll see you all in the next one. Everyone, till then, have a happy contributing! 👋
 -->
 我们下期见。最后，祝大家都能快乐地为社区做贡献！👋
-

@@ -24,6 +24,7 @@ weight: 4
 `import "k8s.io/api/authorization/v1"`
 
 ## SubjectAccessReview {#SubjectAccessReview}
+
 <!--
 SubjectAccessReview checks whether or not a user or group can perform an action.
 -->
@@ -36,16 +37,18 @@ SubjectAccessReview 检查用户或组是否可以执行某操作。
 - **kind**: SubjectAccessReview
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
-<!--
+  <!--
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  -->
+  标准的列表元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+
+<!--
 - **spec** (<a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReviewSpec" >}}">SubjectAccessReviewSpec</a>), required
   Spec holds information about the request being evaluated
 - **status** (<a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReviewStatus" >}}">SubjectAccessReviewStatus</a>)
   Status is filled in by the server and indicates whether the request is allowed or not
 -->  
-  标准的列表元数据。
-  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
-
 - **spec** (<a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReviewSpec" >}}">SubjectAccessReviewSpec</a>)，必需
   
   spec 包含有关正在评估的请求的信息。
@@ -55,6 +58,7 @@ SubjectAccessReview 检查用户或组是否可以执行某操作。
   status 由服务器填写，表示请求是否被允许。
 
 ## SubjectAccessReviewSpec {#SubjectAccessReviewSpec}
+
 <!--
 SubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
 -->
@@ -77,6 +81,7 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
 - **groups** ([]string)
   
   groups 是你正在测试的组。
+
 <!--
 - **nonResourceAttributes** (NonResourceAttributes)
   NonResourceAttributes describes information for a non-resource access request
@@ -104,6 +109,7 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
   - **nonResourceAttributes.verb** (string)
     
     verb 是标准的 HTTP 动作。
+
 <!--
 - **resourceAttributes** (ResourceAttributes)
   ResourceAuthorizationAttributes describes information for a resource access request
@@ -133,7 +139,8 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
     
     name 是 "get" 正在请求或 "delete" 已删除的资源。
     ""（空字符串）表示所有资源。
-<!--
+
+  <!--
   - **resourceAttributes.namespace** (string)
     Namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces "" (empty) is defaulted for LocalSubjectAccessReviews "" (empty) is empty for cluster-scoped resources "" (empty) means "all" for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview
 
@@ -142,7 +149,8 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
 
   - **resourceAttributes.subresource** (string)
     Subresource is one of the existing resource types.  "" means none.
--->  
+  -->  
+
   - **resourceAttributes.namespace** (string)
     
     namespace 是正在请求的操作的命名空间。
@@ -161,19 +169,15 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
     
     subresource 是现有的资源类别之一。
     "" 表示无子资源。
-<!--
+
+  <!--
   - **resourceAttributes.verb** (string)
     Verb is a kubernetes resource API verb, like: get, list, watch, create, update, delete, proxy.  "*" means all.
 
   - **resourceAttributes.version** (string)
     Version is the API Version of the Resource.  "*" means all.
+  -->
 
-- **uid** (string)
-  UID information about the requesting user.
-
-- **user** (string)
-  User is the user you're testing for. If you specify "User" but not "Groups", then is it interpreted as "What if User were not a member of any groups
--->  
   - **resourceAttributes.verb** (string)
     
     verb 是 kubernetes 资源的 API 动作，例如 get、list、watch、create、update、delete、proxy。
@@ -183,6 +187,14 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
     
     version 是资源的 API 版本。
     "*" 表示所有版本。
+
+<!--
+- **uid** (string)
+  UID information about the requesting user.
+
+- **user** (string)
+  User is the user you're testing for. If you specify "User" but not "Groups", then is it interpreted as "What if User were not a member of any groups
+-->  
 
 - **uid** (string)
   
@@ -217,6 +229,7 @@ SubjectAccessReviewStatus
   如果拒绝该操作，则为 true，否则为 false。
   如果 allowed 和 denied 均为 false，则 Authorizer 对是否鉴权操作没有意见。
   如果 allowed 为 true，则 denied 不能为 true。
+
 <!--
 - **evaluationError** (string)
   EvaluationError is an indication that some error occurred during the authorization check. It is entirely possible to get an error and be able to continue determine authorization status in spite of it. For instance, RBAC can be missing a role, but enough roles are still present and bound to reason about the request.
@@ -234,6 +247,7 @@ SubjectAccessReviewStatus
   
   reason 是可选的。
   它表示为什么允许或拒绝请求。
+
 <!--
 ## Operations {#Operations}
 
@@ -252,6 +266,7 @@ SubjectAccessReviewStatus
 #### HTTP 请求
 
 POST /apis/authorization.k8s.io/v1/subjectaccessreviews
+
 <!--
 #### Parameters
 - **body**: <a href="{{< ref "../authorization-resources/subject-access-review-v1#SubjectAccessReview" >}}">SubjectAccessReview</a>, required

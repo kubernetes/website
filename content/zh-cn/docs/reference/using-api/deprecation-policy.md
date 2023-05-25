@@ -29,9 +29,9 @@ a deprecation policy for aspects of the system that are slated to be removed.
 -->
 Kubernetes 是一个组件众多、贡献者人数众多的大系统。
 就像很多类似的软件，所提供的功能特性集合会随着时间推移而自然发生变化，
-而且有时候某个功能特性可能需要被去除。被去除的可能是一个 API、一个参数标志或者
-甚至某整个功能特性。为了避免影响到现有用户，Kubernetes 对于其中渐次移除
-的各个方面规定了一种弃用策略并遵从此策略。
+而且有时候某个功能特性可能需要被去除。被去除的可能是一个 API、
+一个参数标志或者甚至某整个功能特性。为了避免影响到现有用户，
+Kubernetes 对于其中渐次移除的各个方面规定了一种弃用策略并遵从此策略。
 
 <!--
 ## Deprecating parts of the API
@@ -44,11 +44,11 @@ into 3 main tracks, each of which has different policies for deprecation:
 -->
 ## 弃用 API 的一部分  {#deprecating-parts-of-the-api}
 
-由于 Kubernetes 是一个 API 驱动的系统，API 会随着时间推移而演化，以反映
-人们对问题空间的认识的变化。Kubernetes API 实际上是一个 API 集合，其中每个
-成员称作“API 组（API Group）”，并且每个 API 组都是独立管理版本的。
-[API 版本](/zh-cn/docs/reference/using-api/#api-versioning)会有
-三类，每类有不同的废弃策略：
+由于 Kubernetes 是一个 API 驱动的系统，API 会随着时间推移而演化，
+以反映人们对问题空间的认识的变化。Kubernetes API 实际上是一个 API 集合，
+其中每个成员称作“API 组（API Group）”，并且每个 API 组都是独立管理版本的。
+[API 版本](/zh-cn/docs/reference/using-api/#api-versioning)会有三类，
+每类有不同的废弃策略：
 
 <!--
 | Example  | Track                            |
@@ -70,8 +70,7 @@ number of versions of each.
 The following rules govern the deprecation of elements of the API.  This
 includes:
 -->
-给定的 Kubernetes 发布版本中可以支持任意数量的 API 组，且每组可以包含
-任意个数的版本。
+给定的 Kubernetes 发布版本中可以支持任意数量的 API 组，且每组可以包含任意个数的版本。
 
 下面的规则负责指导 API 元素的弃用，具体元素包括：
 
@@ -100,8 +99,7 @@ Once an API element has been added to an API group at a particular version, it
 can not be removed from that version or have its behavior significantly
 changed, regardless of track.
 -->
-以下是跨正式发布版本时要实施的规则，不适用于对 master 或发布分支上
-不同提交之间的变化。
+以下是跨正式发布版本时要实施的规则，不适用于对 master 或发布分支上不同提交之间的变化。
 
 **规则 #1：只能在增加 API 组版本号时删除 API 元素。**
 
@@ -115,8 +113,7 @@ legacy API groups into more domain-specific API groups.
 -->
 {{< note >}}
 由于历史原因，Kubernetes 中存在两个“单体式（Monolithic）”API 组 -
-“core”（无组名）和“extensions”。这两个遗留 API 组中的资源会被逐渐迁移到
-更为特定领域的 API 组中。
+“core”（无组名）和“extensions”。这两个遗留 API 组中的资源会被逐渐迁移到更为特定领域的 API 组中。
 {{< /note >}}
 
 <!--
@@ -124,8 +121,8 @@ legacy API groups into more domain-specific API groups.
 release without information loss, with the exception of whole REST resources
 that do not exist in some versions.**
 -->
-**规则 #2：在给定的发布版本中，API 对象必须能够在不同的 API 版本之间来回
-转换且不造成信息丢失，除非整个 REST 资源在某些版本中完全不存在。**
+**规则 #2：在给定的发布版本中，API 对象必须能够在不同的 API
+版本之间来回转换且不造成信息丢失，除非整个 REST 资源在某些版本中完全不存在。**
 
 <!--
 For example, an object can be written as v1 and then read back as v2 and
@@ -135,11 +132,10 @@ knows how to convert between them in both directions.  Additionally, any new
 field added in v2 must be able to round-trip to v1 and back, which means v1
 might have to add an equivalent field or represent it as an annotation.
 -->
-例如，一个对象可被用 v1 来写入之后用 v2 来读出并转换为 v1，所得到的 v1 必须
-与原来的 v1 对象完全相同。v2 中的表现形式可能与 v1 不同，但系统知道如何
-在两个版本之间执行双向转换。
-此外，v2 中添加的所有新字段都必须能够转换为 v1 再转换回来。这意味着 v1 必须
-添加一个新的等效字段或者将其表现为一个注解。
+例如，一个对象可被用 v1 来写入之后用 v2 来读出并转换为 v1，所得到的 v1 必须与原来的
+v1 对象完全相同。v2 中的表现形式可能与 v1 不同，但系统知道如何在两个版本之间执行双向转换。
+此外，v2 中添加的所有新字段都必须能够转换为 v1 再转换回来。这意味着 v1
+必须添加一个新的等效字段或者将其表现为一个注解。
 
 <!--
 **Rule #3: An API version in a given track may not be deprecated in favor of a less stable API version.**
@@ -150,26 +146,30 @@ might have to add an equivalent field or represent it as an annotation.
 -->
 **规则 #3：给定类别的 API 版本不可被弃用以支持稳定性更差的 API 版本。**
 
-  * 一个正式发布的（GA）API 版本可替换 beta 或 alpha API 版本。
-  * Beta API 版本可以替换早期的 beta 和 alpha API 版本，但 **不可以** 替换正式的 API 版本。
-  * Alpha API 版本可以替换早期的 alpha API 版本，但 **不可以** 替换正式的或 beta API 版本。
+  * 一个正式发布的（GA）API 版本可替换 Beta 或 Alpha API 版本。
+  * Beta API 版本可以替换早期的 Beta 和 Alpha API 版本，但 **不可以** 替换正式的 API 版本。
+  * Alpha API 版本可以替换早期的 Alpha API 版本，但 **不可以** 替换 Beta 或正式的 API 版本。
 
 <!--
-**Rule #4a: minimum API lifetime is determined by the API stability level**
+**Rule #4a: API lifetime is determined by the API stability level**
 
-   * **GA API versions may be marked as deprecated, but must not be removed within a major version of Kubernetes**
-   * **Beta API versions must be supported for 9 months or 3 releases (whichever is longer) after deprecation**
-   * **Alpha API versions may be removed in any release without prior deprecation notice**
+  * GA API versions may be marked as deprecated, but must not be removed within a major version of Kubernetes
+  * Beta API versions are deprecated no more than 9 months or 3 minor releases after introduction (whichever is longer),
+    and are no longer served 9 months or 3 minor releases after deprecation (whichever is longer)
+  * Alpha API versions may be removed in any release without prior deprecation notice
 
-This ensures beta API support covers the [maximum supported version skew of 2 releases](/releases/version-skew-policy/).
+This ensures beta API support covers the [maximum supported version skew of 2 releases](/releases/version-skew-policy/),
+and that APIs don't stagnate on unstable beta versions, accumulating production usage that will be disrupted when support for the beta API ends.
 -->
-**规则 #4a：最短 API 生命周期由 API 稳定性级别决定**
+**规则 #4a：API 生命周期由 API 稳定性级别决定**
 
-   * **GA API 版本可以被标记为已弃用，但不得在 Kubernetes 的主要版本中删除**
-   * **Beta API 版本必须支持 9 个月或弃用后的 3 个版本（以较长者为准）**
-   * **Alpha API 版本可能会在任何版本中被删除，不另行通知**
+   * GA API 版本可以被标记为已弃用，但不得在 Kubernetes 的主要版本中删除
+   * Beta API 版本在引入后不超过 9 个月或 3 个次要版本（以较长者为准）将被弃用，
+     并且在弃用后 9 个月或 3 个次要版本（以较长者为准）不再提供服务
+   * Alpha API 版本可能会在任何版本中被删除，不另行通知
 
-这确保了 beta API 支持涵盖了[最多 2 个版本的支持版本偏差](/zh-cn/releases/version-skew-policy/)。
+这确保了 Beta API 支持涵盖了[最多 2 个版本的支持版本偏差](/zh-cn/releases/version-skew-policy/)，
+并且这些 API 不会在不稳定的 Beta 版本上停滞不前，积累的生产使用数据将在对 Beta API 的支持结束时中断。
 
 {{< note >}}
 <!--
@@ -198,8 +198,8 @@ group may not advance until after a release has been made that supports both the
 new version and the previous version**
 -->
 **规则 #4b：标记为“preferred（优选的）” API 版本和给定 API 组的
-“storage version（存储版本）”在既支持老版本也支持新版本的 Kubernetes 发布
-版本出来以前不可以提升其版本号。**
+“storage version（存储版本）”在既支持老版本也支持新版本的 Kubernetes
+发布版本出来以前不可以提升其版本号。**
 
 <!--
 Users must be able to upgrade to a new release of Kubernetes and then roll back
@@ -213,13 +213,13 @@ version X, which introduces a new API group.  A new Kubernetes release is made
 every approximately 4 months (3 per year).  The following table describes which
 API versions are supported in a series of subsequent releases.
 -->
-用户必须能够升级到 Kubernetes 新的发行版本，之后再回滚到前一个发行版本，且
-整个过程中无需针对新的 API 版本做任何转换，也不允许出现功能损坏的情况，
+用户必须能够升级到 Kubernetes 新的发行版本，之后再回滚到前一个发行版本，
+且整个过程中无需针对新的 API 版本做任何转换，也不允许出现功能损坏的情况，
 除非用户显式地使用了仅在较新版本中才存在的功能特性。
 就对象的存储表示而言，这一点尤其是不言自明的。
 
-以上所有规则最好通过例子来说明。假定现有 Kubernetes 发行版本为 X，其中引入了
-新的 API 组。大约每隔 4 个月会有一个新的 Kubernetes 版本被发布（每年 3 个版本）。
+以上所有规则最好通过例子来说明。假定现有 Kubernetes 发行版本为 X，其中引入了新的 API 组。
+大约每隔 4 个月会有一个新的 Kubernetes 版本被发布（每年 3 个版本）。
 下面的表格描述了在一系列后续的发布版本中哪些 API 版本是受支持的。
 
 <table>
@@ -421,12 +421,10 @@ behavior get removed.
 -->
 ### REST 资源（也即 API 对象）  {#rest-resources-aka-api-objects}
 
-考虑一个假想的名为 Widget 的 REST 资源，在上述时间线中位于 API v1，
-而现在打算将其弃用。
-我们会在文档和
-[声明](https://groups.google.com/forum/#!forum/kubernetes-announce)
-中与 X+1 版本的发布同步记述此弃用决定。
-Wdiget 资源仍会在 API 版本 v1（已弃用）中存在，但不会出现在 v2alpha1 中。
+考虑一个假想的名为 Widget 的 REST 资源，在上述时间线中位于 API v1，而现在打算将其弃用。
+我们会在文档和[公告](https://groups.google.com/forum/#!forum/kubernetes-announce)中与
+X+1 版本的发布同步记述此弃用决定。
+Widget 资源仍会在 API 版本 v1（已弃用）中存在，但不会出现在 v2alpha1 中。
 Widget 资源会 X+8 发布版本之前（含 X+8）一直存在并可用。
 只有在发布版本 X+9 中，API v1 寿终正寝时，Widget
 才彻底消失，相应的资源行为也被移除。
@@ -449,16 +447,13 @@ Starting in Kubernetes v1.19, making an API request to a deprecated REST API end
 从 Kubernetes v1.19 开始，当 API 请求被发送到一个已弃用的 REST API 末端时：
 
 1. API 响应中会包含一个 `Warning` 头部字段（如 [RFC7234 5.5 节](https://tools.ietf.org/html/rfc7234#section-5.5)所定义）；
-2. 该请求会导致对应的 
-   [审计事件](/zh-cn/docs/tasks/debug/debug-cluster/audit/)
-   中会增加一个注解 `"k8s.io/deprecated":"true"`。
-3. `kube-apiserver` 进程的 `apiserver_requested_deprecated_apis` 度量值会被
-   设置为 `1`。
+2. 该请求会导致对应的[审计事件](/zh-cn/docs/tasks/debug/debug-cluster/audit/)中会增加一个注解
+   `"k8s.io/deprecated":"true"`。
+3. `kube-apiserver` 进程的 `apiserver_requested_deprecated_apis` 度量值会被设置为 `1`。
    该度量值还附带 `group`、`version`、`resource` 和 `subresource` 标签
    （可供添加到度量值 `apiserver_request_total` 上），
    和一个 `removed_release` 标签，标明该 API 将消失的 Kubernetes 发布版本。
-   下面的 Prometheus 查询会返回对 v1.22 中将移除的、已弃用的 API
-   的请求的信息：
+   下面的 Prometheus 查询会返回对 v1.22 中将移除的、已弃用的 API 的请求的信息：
    
    ```promql
    apiserver_requested_deprecated_apis{removed_release="1.22"} * on(group,version,resource,subresource) group_right() apiserver_request_total
@@ -476,13 +471,11 @@ eventually removed, the deprecated field can be removed from v2.
 -->
 ### REST 资源的字段    {#fields-of-rest-resources}
 
-就像整个 REST 资源一样，在 API v1 中曾经存在的各个字段在 API v1 被移除
-之前必须一直存在且起作用。
+就像整个 REST 资源一样，在 API v1 中曾经存在的各个字段在 API v1 被移除之前必须一直存在且起作用。
 与整个资源上的规定不同，v2 API 可以选择为字段提供不同的表示方式，
 只要对应的资源对象可在不同版本之间来回转换即可。
-例如，v1 版本中一个名为 "magnitude" 的已弃用字段可能在 API v2 中被命名
-为 "deprecatedMagnitude"。当 v1 最终被移除时，废弃的字段也可以从 v2
-中移除。
+例如，v1 版本中一个名为 "magnitude" 的已弃用字段可能在 API v2 中被命名为 "deprecatedMagnitude"。
+当 v1 最终被移除时，废弃的字段也可以从 v2 中移除。
 
 <!--
 ### Enumerated or constant values
@@ -492,8 +485,8 @@ supported in API v1 must exist and function until API v1 is removed.
 -->
 ### 枚举值或常数值 {#enumerated-or-constant-values}
 
-就像前文讲述的 REST 资源及其中的单个字段一样，API v1 中所支持的常数值
-必须在 API v1 被移除之前一直存在且起作用。
+就像前文讲述的 REST 资源及其中的单个字段一样，API v1 中所支持的常数值必须在
+API v1 被移除之前一直存在且起作用。
 
 <!--
 ### Component config structures
@@ -540,7 +533,7 @@ not versioned in the same way as the REST API, the rules for deprecation are as
 follows:
 -->
 命令行元素相当于系统的 API 的一部分，不过因为它们并没有采用 REST API
-一样的方式来管理版本，其弃用规则规定如下： 
+一样的方式来管理版本，其弃用规则规定如下：
 
 <!--
 **Rule #5a: CLI elements of user-facing components (e.g. kubectl) must function
@@ -550,8 +543,7 @@ after their announced deprecation for no less than:**
    * **Beta: 3 months or 1 release (whichever is longer)**
    * **Alpha: 0 releases**
 -->
-**规则 #5a：面向用户的命令行元素（例如，kubectl）必须在其宣布被弃用其
-在以下时长内仍能使用：**
+**规则 #5a：面向用户的命令行元素（例如，kubectl）必须在其宣布被弃用其在以下时长内仍能使用：**
 
    * **GA：12 个月或者 2 个发布版本（取其较长者）**
    * **Beta：3 个月或者 1 个发布版本（取其较长者）**
@@ -565,8 +557,7 @@ after their announced deprecation for no less than:**
    * **Beta: 3 months or 1 release (whichever is longer)**
    * **Alpha: 0 releases**
 -->
-**规则 #5b：面向管理员的命令行元素（例如，kubelet）必须在其被宣布弃用
-之后以下时长内保持可用：**
+**规则 #5b：面向管理员的命令行元素（例如，kubelet）必须在其被宣布弃用之后以下时长内保持可用：**
 
    * **GA：6 个月或 1 个发行版本（取其较长者）**
    * **Beta: 3 个月或 1 个发行版本（取其较长者）**
@@ -576,8 +567,7 @@ after their announced deprecation for no less than:**
 **Rule #6: Deprecated CLI elements must emit warnings (optionally disable)
 when used.**
 -->
-**规则 #6：被弃用的 CLI 元素在被用到时必须能够产生警告，而警告的
-产生是可以被禁止的。**
+**规则 #6：被弃用的 CLI 元素在被用到时必须能够产生警告，而警告的产生是可以被禁止的。**
 
 <!--
 ## Deprecating a feature or behavior
@@ -588,9 +578,8 @@ rules for deprecation are as follows:
 -->
 ## 弃用某功能特性或行为  {#deprecating-a-feature-or-behavior}
 
-在一些较偶然的情形下，某 Kubernetes 发行版本需要弃用系统的某项功能
-特性或者行为，而对应的功能特性或行为并不受 API 或 CLI 控制。在这种情况下，
-其弃用规则如下：
+在一些较偶然的情形下，某 Kubernetes 发行版本需要弃用系统的某项功能特性或者行为，
+而对应的功能特性或行为并不受 API 或 CLI 控制。在这种情况下，其弃用规则如下：
 
 <!--
 **Rule #7: Deprecated behaviors must function for no less than 1 year after their
@@ -617,7 +606,7 @@ Feature gates are intended to cover the development life cycle of a feature - th
 are not intended to be long-term APIs. As such, they are expected to be deprecated
 and removed after a feature becomes GA or is dropped.
 -->
-上述规则的一个例外是 _特性门控（Feature Gates）_。特性门控是一些键值偶对，
+上述规则的一个例外是 **特性门控（Feature Gate）**。特性门控是一些键值偶对，
 允许用户启用或禁用一些试验性的功能特性。
 
 特性门控意在覆盖功能特性的整个开发周期，它们无意成为长期的 API。
@@ -656,8 +645,7 @@ to avoid unsupported scenarios that might otherwise run silently.
 功能特性在正式发布之前的生命周期内任何时间点都可被移除。
 当未正式发布的功能特性被移除时，它们对应的特性门控也被弃用。
 
-当尝试禁用一个不再起作用的特性门控时，该调用会失败，这样可以避免
-毫无迹象地执行一些不受支持的场景。
+当尝试禁用一个不再起作用的特性门控时，该调用会失败，这样可以避免毫无迹象地执行一些不受支持的场景。
 
 <!--
 In some cases, removing pre-GA features requires considerable time. Feature gates can remain
@@ -668,13 +656,11 @@ When removing a feature gate for a GA feature also requires considerable time, c
 feature gates may remain operational if the feature gate has no effect on the feature,
 and if the feature gate causes no errors.
 -->
-在某些场合，移除一个即将正式发布的功能特性需要很长时间。特性门控
-可以保持其功能，直到对应的功能特性被彻底去除，直到那时特性门控
-自身才可被弃用。
+在某些场合，移除一个即将正式发布的功能特性需要很长时间。
+特性门控可以保持其功能，直到对应的功能特性被彻底去除，直到那时特性门控自身才可被弃用。
 
-由于移除一个已经正式发布的功能特性对应的特性门控也需要一定时间，对特性
-门控的调用可能一直被允许，前提是特性门控对功能本身无影响且特性门控不会
-引发任何错误。
+由于移除一个已经正式发布的功能特性对应的特性门控也需要一定时间，对特性门控的调用可能一直被允许，
+前提是特性门控对功能本身无影响且特性门控不会引发任何错误。
 
 <!--
 Features intended to be disabled by users should include a mechanism for disabling the
@@ -695,8 +681,8 @@ transitions a lifecycle stage as follows. Feature gates must function for no les
    * **Beta feature to EOL: 3 months or 1 release (whichever is longer)**
    * **Alpha feature to EOL: 0 releases**
 -->
-**规则 #8：特性门控所对应的功能特性经历下面所列的成熟性阶段转换时，特性门控
-必须被弃用。特性门控弃用时必须在以下时长内保持其功能可用：**
+**规则 #8：特性门控所对应的功能特性经历下面所列的成熟性阶段转换时，特性门控必须被弃用。
+特性门控弃用时必须在以下时长内保持其功能可用：**
 
    * **Beta 特性转为 GA：6 个月或者 2 个发布版本（取其较长者）**
    * **Beta 特性转为丢弃：3 个月或者 1 个发布版本（取其较长者）**
@@ -707,8 +693,8 @@ transitions a lifecycle stage as follows. Feature gates must function for no les
 is deprecated it must be documented in both in the release notes and the corresponding CLI help.
 Both warnings and documentation must indicate whether a feature gate is non-operational.**
 -->
-**规则 #9：已弃用的特色门控再被使用时必须给出警告回应。当特性门控被
-弃用时，必须在发布说明和对应的 CLI 帮助信息中通过文档宣布。
+**规则 #9：已弃用的特色门控再被使用时必须给出警告回应。当特性门控被弃用时，
+必须在发布说明和对应的 CLI 帮助信息中通过文档宣布。
 警告信息和文档都要标明是否某特性门控不再起作用。**
 
 <!--
@@ -721,7 +707,7 @@ to determine SLOs, these tend to have greater import. Other metrics are more
 experimental in nature or are used primarily in the Kubernetes development
 process.
 
-Accordingly, metrics fall under two stability classes (`ALPHA` and `STABLE`);
+Accordingly, metrics fall under three stability classes (`ALPHA`, `BETA` `STABLE`);
 this impacts removal of a metric during a Kubernetes release. These classes
 are determined by the perceived importance of the metric. The rules for
 deprecating and removing a metric are as follows:
@@ -732,7 +718,7 @@ Kubernetes 控制平面的每个组件都公开度量值（通常是 `/metrics` 
 并不是所有的度量值都是同样重要的：一些度量值通常用作 SLIs 或被使用来确定 SLOs，这些往往比较重要。
 其他度量值在本质上带有实验性，或者主要用于 Kubernetes 开发过程。
 
-因此，度量值分为两个稳定性类别（`ALPHA` 和 `STABLE`）;
+因此，度量值分为三个稳定性类别（`ALPHA`、`BETA`、`STABLE`）;
 此分类会影响在 Kubernetes 发布版本中移除某度量值。
 所对应的分类取决于对该度量值重要性的预期。
 弃用和移除度量值的规则如下：
@@ -741,21 +727,25 @@ Kubernetes 控制平面的每个组件都公开度量值（通常是 `/metrics` 
 **Rule #9a: Metrics, for the corresponding stability class, must function for no less than:**
 
    * **STABLE: 4 releases or 12 months (whichever is longer)**
+   * **BETA: 2 releases or 8 months (whichever is longer)**
    * **ALPHA: 0 releases**
 
 **Rule #9b: Metrics, after their _announced deprecation_, must function for no less than:**
 
    * **STABLE: 3 releases or 9 months (whichever is longer)**
+   * **BETA: 1 releases or 4 months (whichever is longer)**
    * **ALPHA: 0 releases**
 -->
 **规则 #9a: 对于相应的稳定性类别，度量值起作用的周期必须不小于：**
 
 * **STABLE: 4 个发布版本或者 12 个月 (取其较长者)**
+* **BETA: 2 个发布版本或者 8 个月 (取其较长者)**
 * **ALPHA: 0 个发布版本**
 
 **规则 #9b: 在度量值被宣布启用之后，它起作用的周期必须不小于：**
 
 * **STABLE: 3 个发布版本或者 9 个月 (取其较长者)**
+* **BETA: 1 个发布版本或者 4 个月 (取其较长者)**
 * **ALPHA: 0 个发布版本**
 
 <!--
@@ -779,8 +769,8 @@ escape hatch to properly migrate off of a deprecated metric, if they were not
 able to react to the earlier deprecation warnings. Hidden metrics should be
 deleted after one release.
 -->
-在随后的版本中（当度量值 `deprecatedVersion` 等于_当前 Kubernetes 版本 - 3_），
-被弃用的度量值将变成 _隐藏（Hidden）_ metric 度量值。
+在随后的版本中（当度量值 `deprecatedVersion` 等于 **当前 Kubernetes 版本 - 3**），
+被弃用的度量值将变成 **隐藏（Hidden）** metric 度量值。
 与被弃用的度量值不同，隐藏的度量值将不再被自动注册到 metrics 端点（因此被隐藏）。
 但是，它们可以通过可执行文件的命令行标志显式启用
 （`--show-hidden-metrics-for-version=`）。
@@ -801,10 +791,9 @@ relevant release notes.
 -->
 ## 例外   {#exceptions}
 
-没有策略可以覆盖所有情况。此策略文档是一个随时被更新的文档，会随着时间
-推移演化。在实践中，会有一些情况无法很好地匹配到这里的弃用策略，或者
-这里的策略变成了很严重的羁绊。这类情形要与 SIG 和项目牵头人讨论，
-寻求对应场景的最佳解决方案。请一直铭记，Kubernetes 承诺要成为一个
-稳定的系统，至少会尽力做到不会影响到其用户。此弃用策略的任何例外情况
-都会在所有相关的发布说明中公布。
+没有策略可以覆盖所有情况。此策略文档是一个随时被更新的文档，会随着时间推移演化。
+在实践中，会有一些情况无法很好地匹配到这里的弃用策略，
+或者这里的策略变成了很严重的羁绊。这类情形要与 SIG 和项目领导讨论，
+寻求对应场景的最佳解决方案。请一直铭记，Kubernetes 承诺要成为一个稳定的系统，
+至少会尽力做到不会影响到其用户。此弃用策略的任何例外情况都会在所有相关的发布说明中公布。
 

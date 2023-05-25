@@ -2,9 +2,7 @@
 title: 客户端身份认证（Client Authentication）(v1beta1)
 content_type: tool-reference
 package: client.authentication.k8s.io/v1beta1
-auto_generated: true
 ---
-
 <!-- 
 title: Client Authentication (v1beta1)
 content_type: tool-reference
@@ -12,23 +10,14 @@ package: client.authentication.k8s.io/v1beta1
 auto_generated: true
 -->
 
-
 <!--
 ## Resource Types 
 -->
 ## 资源类型   {#resource-types}
 
-
 - [ExecCredential](#client-authentication-k8s-io-v1beta1-ExecCredential)
-  
-    
-
 
 ## `ExecCredential`     {#client-authentication-k8s-io-v1beta1-ExecCredential}
-    
-
-
-
 
 <!--
 ExecCredential is used by exec-based plugins to communicate credentials to
@@ -42,10 +31,8 @@ ExecCredential 由基于 exec 的插件使用，与 HTTP 传输组件沟通凭�
     
 <tr><td><code>apiVersion</code><br/>string</td><td><code>client.authentication.k8s.io/v1beta1</code></td></tr>
 <tr><td><code>kind</code><br/>string</td><td><code>ExecCredential</code></td></tr>
-    
 
-  
-  
+
 <tr><td><code>spec</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#client-authentication-k8s-io-v1beta1-ExecCredentialSpec"><code>ExecCredentialSpec</code></a>
 </td>
@@ -166,8 +153,22 @@ If empty, system roots should be used.
    此字段用来设置向集群发送所有请求时要使用的代理服务器。
 </td>
 </tr>
-    
-  
+
+<tr><td><code>disable-compression</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <!--
+   DisableCompression allows client to opt-out of response compression for all requests to the server. This is useful
+   to speed up requests (specifically lists) when client-server network bandwidth is ample, by saving time on
+   compression (server-side) and decompression (client-side): https://github.com/kubernetes/kubernetes/issues/112296.
+   -->
+   <p>disable-compression 允许客户端针对到服务器的所有请求选择取消响应压缩。
+   当客户端服务器网络带宽充足时，这有助于通过节省压缩（服务器端）和解压缩（客户端）时间来加快请求（特别是列表）的速度：
+   https://github.com/kubernetes/kubernetes/issues/112296。</p>
+</td>
+</tr>
+
 <tr><td><code>config</code><br/>
 <a href="https://godoc.org/k8s.io/apimachinery/pkg/runtime/#RawExtension"><code>k8s.io/apimachinery/pkg/runtime.RawExtension</code></a>
 </td>
@@ -289,15 +290,15 @@ exec 插件本身至少应通过文件访问许可来实施保护。</p>
 
   
 <tr><td><code>expirationTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/#time-v1-meta"><code>meta/v1.Time</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#time-v1-meta"><code>meta/v1.Time</code></a>
 </td>
 <td>
    <!-- ExpirationTimestamp indicates a time when the provided credentials expire. -->
    给出所提供的凭据到期的时间。
 </td>
 </tr>
-    
-  
+
+
 <tr><td><code>token</code> <B><!--[Required]-->[必需]</B><br/>
 <code>string</code>
 </td>

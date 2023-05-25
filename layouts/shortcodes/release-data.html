@@ -33,10 +33,10 @@
 </div>
 
 {{- end -}}
-<!-- not yet localized, mark as English -->
-<p lang="en">
-Complete {{ $dataVersion }} <a href="/releases/patch-releases/#{{ replace $dataVersion `.` `-` }}">Schedule</a>
-and <a href="https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-{{ $dataVersion }}.md">Changelog</a>
+<p>
+{{ T "release_full_details_initial_text" }} {{ $dataVersion }}
+<a href="/releases/patch-releases/#{{ replace $dataVersion `.` `-` }}">{{ T "release_schedule" }}</a> {{ T "conjunction_1" }}
+<a hreflang="en" href="https://git.k8s.io/kubernetes/CHANGELOG/CHANGELOG-{{ $dataVersion }}.md">{{ T "release_changelog" }}</a>
 </p>
 
 </div>

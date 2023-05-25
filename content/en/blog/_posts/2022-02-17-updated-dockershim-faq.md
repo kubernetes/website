@@ -5,6 +5,7 @@ linkTitle: "Dockershim Removal FAQ"
 date: 2022-02-17
 slug: dockershim-faq
 aliases: [ '/dockershim' ]
+evergreen: true
 ---
 
 **This supersedes the original

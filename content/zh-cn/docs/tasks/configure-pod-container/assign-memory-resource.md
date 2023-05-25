@@ -17,7 +17,7 @@ This page shows how to assign a memory *request* and a memory *limit* to a
 Container. A Container is guaranteed to have as much memory as it requests,
 but is not allowed to use more memory than its limit.
 -->
-此页面展示如何将内存 *请求* （request）和内存 *限制* （limit）分配给一个容器。
+此页面展示如何将内存**请求**（request）和内存**限制**（limit）分配给一个容器。
 我们保障容器拥有它请求数量的内存，但不允许使用超过限制数量的内存。
 
 ## {{% heading "prerequisites" %}}
@@ -98,8 +98,8 @@ for the Pod:
 -->
 ## 指定内存请求和限制    {#specify-a-memory-request-and-a-memory-limit}
 
-要为容器指定内存请求，请在容器资源清单中包含 `resources：requests` 字段。
-同理，要指定内存限制，请包含 `resources：limits`。
+要为容器指定内存请求，请在容器资源清单中包含 `resources: requests` 字段。
+同理，要指定内存限制，请包含 `resources: limits`。
 
 在本练习中，你将创建一个拥有一个容器的 Pod。
 容器将会请求 100 MiB 内存，并且内存会被限制在 200 MiB 以内。
@@ -544,6 +544,8 @@ kubectl delete namespace mem-example
 * [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
+
+* [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/)
 -->
 ### 集群管理员扩展阅读    {#for-cluster-administrators}
 
@@ -554,4 +556,5 @@ kubectl delete namespace mem-example
 * [为命名空间配置内存和 CPU 配额](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 * [配置命名空间下 Pod 总数](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 * [配置 API 对象配额](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)
+* [调整分配给容器的 CPU 和内存资源的大小](/docs/tasks/configure-pod-container/resize-container-resources/)
 

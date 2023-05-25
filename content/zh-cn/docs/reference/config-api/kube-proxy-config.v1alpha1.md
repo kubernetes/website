@@ -2,7 +2,6 @@
 title: kube-proxy 配置 (v1alpha1)
 content_type: tool-reference
 package: kubeproxy.config.k8s.io/v1alpha1
-auto_generated: true
 ---
 
 <!--
@@ -65,7 +64,7 @@ for all interfaces)
    healthzBindAddress is the IP address and port for the health check server to serve on,
 defaulting to 0.0.0.0:10256
    -->
-   <p><code>healthzBindAddress</code> 字段是健康状态检查服务器提供服务时所使用的的 IP 地址和端口，
+   <p><code>healthzBindAddress</code> 字段是健康状态检查服务器提供服务时所使用的 IP 地址和端口，
    默认设置为 '0.0.0.0:10256'。</p>
 </td>
 </tr>
@@ -77,7 +76,7 @@ defaulting to 0.0.0.0:10256
    metricsBindAddress is the IP address and port for the metrics server to serve on,
 defaulting to 127.0.0.1:10249 (set to 0.0.0.0 for all interfaces)
    -->
-   <p><code>metricsBindAddress</code> 字段是度量值服务器提供服务时所使用的的 IP 地址和端口，
+   <p><code>metricsBindAddress</code> 字段是指标服务器提供服务时所使用的 IP 地址和端口，
    默认设置为 '127.0.0.1:10249'（设置为 0.0.0.0 意味着在所有接口上提供服务）。</p>
 </td>
 </tr>
@@ -101,7 +100,7 @@ defaulting to 127.0.0.1:10249 (set to 0.0.0.0 for all interfaces)
 Profiling handlers will be handled by metrics server.
    -->
    <p><code>enableProfiling</code> 字段通过 '/debug/pprof' 处理程序在 Web 界面上启用性能分析。
-   性能分析处理程序将由度量值服务器执行。</p>
+   性能分析处理程序将由指标服务器执行。</p>
 </td>
 </tr>
 <tr><td><code>clusterCIDR</code> <B><!--[Required]-->[必需]</B><br/>
@@ -113,7 +112,7 @@ Profiling handlers will be handled by metrics server.
 bridge traffic coming from outside of the cluster. If not provided,
 no off-cluster bridging will be performed.
    -->
-   <p><code>clusterCIDR</code> 字段是集群中 Pods 所使用的 CIDR 范围。
+   <p><code>clusterCIDR</code> 字段是集群中 Pod 所使用的 CIDR 范围。
    这一地址范围用于对来自集群外的请求流量进行桥接。
    如果未设置，则 kube-proxy 不会对非集群内部的流量做桥接。</p>
 </td>
@@ -192,19 +191,7 @@ the range [-1000, 1000]
 in order to proxy service traffic. If unspecified (0-0) then ports will be randomly chosen.
    -->
    <p><code>portRange</code> 字段是主机端口的范围，形式为 ‘beginPort-endPort’（包含边界），
-   用来设置代理服务所使用的端口。如果未指定（即‘0-0’），则代理服务会随机选择端口号。</p>
-</td>
-</tr>
-<tr><td><code>udpIdleTimeout</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <!--
-   udpIdleTimeout is how long an idle UDP connection will be kept open (e.g. '250ms', '2s').
-Must be greater than 0. Only applicable for proxyMode=userspace.
-   -->
-   <p><code>udpIdleTimeout</code> 字段用来设置 UDP 链接保持活跃的时长（例如，'250ms'、'2s'）。
-   此值必须大于 0。此字段仅适用于 mode 值为 'userspace' 的场合。</p>
+   用来设置代理服务所使用的端口。如果未指定（即 ‘0-0’），则代理服务会随机选择端口号。</p>
 </td>
 </tr>
 <tr><td><code>conntrack</code> <B><!--[Required]-->[必需]</B><br/>
@@ -244,8 +231,8 @@ An empty string slice is meant to select all network interfaces.
    <p><code>nodePortAddresses</code> 字段是 kube-proxy 进程的
    <code>--nodeport-addresses</code> 命令行参数设置。
    此值必须是合法的 IP 段。所给的 IP 段会作为参数来选择 NodePort 类型服务所使用的接口。
-   如果有人希望将本地主机（Localhost）上的服务暴露给本地访问，同时暴露在某些其他网络接口上
-   以实现某种目标，可以使用 IP 段的列表。
+   如果有人希望将本地主机（Localhost）上的服务暴露给本地访问，
+   同时暴露在某些其他网络接口上以实现某种目标，可以使用 IP 段的列表。
    如果此值被设置为 &quot;127.0.0.0/8&quot;，则 kube-proxy 将仅为 NodePort
    服务选择本地回路（loopback）接口。
    如果此值被设置为非零的 IP 段，则 kube-proxy 会对 IP 作过滤，仅使用适用于当前节点的 IP 地址。
@@ -270,7 +257,7 @@ An empty string slice is meant to select all network interfaces.
    ShowHiddenMetricsForVersion is the version for which you want to show hidden metrics.
    -->
    <p><code>showHiddenMetricsForVersion</code> 字段给出的是一个 Kubernetes 版本号字符串，
-   用来设置你希望显示隐藏度量值的版本。</p>
+   用来设置你希望显示隐藏指标的版本。</p>
 </td>
 </tr>
 <tr><td><code>detectLocalMode</code> <B><!--[Required]-->[必需]</B><br/>
@@ -457,6 +444,15 @@ the pure iptables proxy mode. Values must be within the range [0, 31].
    -->
    <p><code>masqueradeAll</code> 字段用来通知 kube-proxy
    在使用纯 iptables 代理模式时对所有流量执行 SNAT 操作。</p>
+</td>
+</tr>
+<tr><td><code>localhostNodePorts</code> <B><!--[Required]-->[必需]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <!--LocalhostNodePorts tells kube-proxy to allow service NodePorts to be accessed via
+localhost (iptables mode only)-->
+   <p>localhostNodePorts 告知 kube-proxy 允许通过 localhost 访问服务 NodePorts（仅 iptables 模式）</p>
 </td>
 </tr>
 <tr><td><code>syncPeriod</code> <B><!--[Required]-->[必需]</B><br/>
@@ -712,40 +708,22 @@ LocalMode 代表的是对节点上本地流量进行检测的模式。
 <!--
 ProxyMode represents modes used by the Kubernetes proxy server.
 
-Currently, three modes of proxy are available in Linux platform: 'userspace' (older, going to be EOL), 'iptables'
-(newer, faster), 'ipvs'(newest, better in performance and scalability).
-
-Two modes of proxy are available in Windows platform: 'userspace'(older, stable) and 'kernelspace' (newer, faster).
+Currently, two modes of proxy are available on Linux platforms: 'iptables' and 'ipvs'.
+One mode of proxy is available on Windows platforms: 'kernelspace'.
 -->
-ProxyMode 表示的是 Kubernetes 代理服务器所使用的模式。
+<p>ProxyMode 表示的是 Kubernetes 代理服务器所使用的模式。</p>
 
-目前 Linux 平台上有三种可用的代理模式：'userspace'（相对较老，即将被淘汰）、
-'iptables'（相对较新，速度较快）、'ipvs'（最新，在性能和可扩缩性上表现好）。
-
-在 Windows 平台上有两种可用的代理模式：'userspace'（相对较老，但稳定）和
-'kernelspace'（相对较新，速度更快）。
+<p>目前 Linux 平台上有两种可用的代理模式：'iptables' 和 'ipvs'。
+在 Windows 平台上可用的一种代理模式是：'kernelspace'。</p>
 
 <!--
-In Linux platform, if proxy mode is blank, use the best-available proxy (currently iptables, but may change in the
-future). If the iptables proxy is selected, regardless of how, but the system's kernel or iptables versions are
-insufficient, this always falls back to the userspace proxy. IPVS mode will be enabled when proxy mode is set to 'ipvs',
-and the fall back path is firstly iptables and then userspace.
+If the proxy mode is unspecified, the best-available proxy mode will be used (currently this
+is <code>iptables</code> on Linux and <code>kernelspace</code> on Windows). If the selected proxy mode cannot be
+used (due to lack of kernel support, missing userspace components, etc) then kube-proxy
+will exit with an error.
 -->
-在 Linux 平台上，如果代理的 mode 为空，则使用可用的最佳代理（目前是 iptables，
-将来可能会发生变化）。如果选择的是 iptables 代理（无论原因如何），但系统的内核
-或者 iptables 的版本不够高，kube-proxy 也会回退为 userspace 代理服务器所使用的模式。
-当代理的 mode 设置为 'ipvs' 时会启用 IPVS 模式，对应的回退路径是先尝试 iptables，
-最后回退到 userspace。
-
-<!--
-In Windows platform, if proxy mode is blank, use the best-available proxy (currently userspace, but may change in the
-future). If winkernel proxy is selected, regardless of how, but the Windows kernel can't support this mode of proxy,
-this always falls back to the userspace proxy.
--->
-在 Windows 平台上，如果代理 mode 为空，则使用可用的最佳代理（目前是 userspace，
-不过将来可能会发生变化）。如果所选择的是 winkernel 代理（无论原因如何），
-但 Windows 内核不支持此代理模式，则 kube-proxy 会回退到 userspace 代理。
-
+<p>如果代理模式未被指定，将使用最佳可用的代理模式（目前在 Linux 上是 <code>iptables</code>，在 Windows 上是 <code>kernelspace</code>）。
+如果不能使用选定的代理模式（由于缺少内核支持、缺少用户空间组件等），则 kube-proxy 将出错并退出。</p>
 
 ## `ClientConnectionConfiguration`     {#ClientConnectionConfiguration}
     
@@ -755,6 +733,8 @@ this always falls back to the userspace proxy.
 **出现在：**
 
 - [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
 
@@ -834,6 +814,8 @@ default value of 'application/json'. This field will control all connections to 
 -->
 **出现在：**
 
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
+
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
 
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
@@ -875,82 +857,6 @@ enableProfiling is true.
 </tbody>
 </table>
 
-## `FormatOptions`     {#FormatOptions}
-    
-<!--
-**Appears in:**
--->
-
-<!--
-FormatOptions contains options for the different logging formats.
--->
-FormatOptions 包含不同日志记录格式的配置选项。
-
-
-<table class="table">
-<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>json</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="#JSONOptions"><code>JSONOptions</code></a>
-</td>
-<td>
-   <!--
-   [Experimental] JSON contains options for logging format "json".
-   -->
-   <p>[实验特性] <code>json</code> 字段包含 &quot;JSON&quot; 日志格式的配置选项。</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `JSONOptions`     {#JSONOptions}
-    
-<!--
-**Appears in:**
--->
-**出现在：**
-
-- [FormatOptions](#FormatOptions)
-
-<!--
-JSONOptions contains options for logging format "json".
--->
-JSONOptions 包含 &quot;json&quot; 日志格式的配置选项。
-
-<table class="table">
-<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>splitStream</code> <B><!--[Required]-->[必需]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <!--
-   [Experimental] SplitStream redirects error messages to stderr while
-info messages go to stdout, with buffering. The default is to write
-both to stdout, without buffering.
-   -->
-   <p>[实验特性] <code>splitStream</code> 字段将信息类型的信息输出到标准输出，错误信息重定向到标准
-   错误输出，并提供缓存。默认行为是将二者都输出到标准输出且不提供缓存。</p>
-</td>
-</tr>
-<tr><td><code>infoBufferSize</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#QuantityValue"><code>k8s.io/apimachinery/pkg/api/resource.QuantityValue</code></a>
-</td>
-<td>
-   <!--
-   [Experimental] InfoBufferSize sets the size of the info stream when
-using split streams. The default is zero, which disables buffering.
-   -->
-   <p>[实验特性] <code>infoBufferSize</code> 字段设置在使用分离数据流时 info 数据流的缓冲区大小。
-   默认值为 0，意味着不提供缓存。</p>
-</td>
-</tr>
-</tbody>
-</table>
 
 ## `LeaderElectionConfiguration`     {#LeaderElectionConfiguration}
 
@@ -962,6 +868,8 @@ using split streams. The default is zero, which disables buffering.
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
 
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 
@@ -1076,109 +984,3 @@ during leader election cycles.
 </tr>
 </tbody>
 </table>
-
-## `LoggingConfiguration`     {#LoggingConfiguration}
-
-<!--
-**Appears in:**
--->
-**出现在：**
-
-- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
-
-<!--
-LoggingConfiguration contains logging options
-Refer <a href="https://github.com/kubernetes/component-base/blob/master/logs/options.go">Logs Options</a> for more information.
--->
-LoggingConfiguration 包含日志选项。
-参考 [Logs Options](https://github.com/kubernetes/component-base/blob/master/logs/options.go) 以了解更多信息。
-
-<table class="table">
-<thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
-<tbody>
-
-<tr><td><code>format</code> <B><!--[Required]-->[必需]</B><br/>
-<code>string</code>
-</td>
-<td>
-<!--
-Format Flag specifies the structure of log messages.
-default value of format is <code>text</code>
--->
-   <p><code>format</code> 字段设置日志消息的结构。默认的格式取值为 <code>text</code>。</p>
-</td>
-</tr>
-<tr><td><code>flushFrequency</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://pkg.go.dev/time#Duration"><code>time.Duration</code></a>
-</td>
-<td>
-<!--
-Maximum number of nanoseconds (i.e. 1s = 1000000000) between log
-flushes.  Ignored if the selected logging backend writes log
-messages without buffering.
--->
-   <p>对日志进行清洗的最大间隔纳秒数（例如，1s = 1000000000）。
-   如果所选的日志后端在写入日志消息时不提供缓存，则此配置会被忽略。</p>
-</td>
-</tr>
-<tr><td><code>verbosity</code> <B><!--[Required]-->[必需]</B><br/>
-<code>uint32</code>
-</td>
-<td>
-<!--
-Verbosity is the threshold that determines which log messages are
-logged. Default is zero which logs only the most important
-messages. Higher values enable additional messages. Error messages
-are always logged.
--->
-   <p><code>verbosity</code> 字段用来确定日志消息记录的详细程度阈值。
-   默认值为 0，意味着仅记录最重要的消息。
-   数值越大，额外的消息越多。错误消息总是被记录下来。</p>
-</td>
-</tr>
-<tr><td><code>vmodule</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="#VModuleConfiguration"><code>VModuleConfiguration</code></a>
-</td>
-<td>
-<!--
-VModule overrides the verbosity threshold for individual files.
-Only supported for &quot;text&quot; log format.
--->
-   <p><code>vmodule</code> 字段会在单个文件层面重载 verbosity 阈值的设置。
-   这一选项仅支持 &quot;text&quot; 日志格式。</p>
-</td>
-</tr>
-<tr><td><code>options</code> <B>[Required]</B><br/>
-<a href="#FormatOptions"><code>FormatOptions</code></a>
-</td>
-<td>
-<!--
-[Experimental] Options holds additional parameters that are specific
-to the different logging formats. Only the options for the selected
-format get used, but all of them get validated.
--->
-   <p>[实验特性] <code>options</code> 字段中包含特定于不同日志格式的配置参数。
-   只有针对所选格式的选项会被使用，但是合法性检查时会查看所有选项配置。</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `VModuleConfiguration`     {#VModuleConfiguration}
-   
-<!-- 
-(Alias of `[]k8s.io/component-base/config/v1alpha1.VModuleItem`)
-
-**Appears in:**
--->
-（`[]k8s.io/component-base/config/v1alpha1.VModuleItem` 的别名）
-
-**出现在：**
-
-- [LoggingConfiguration](#LoggingConfiguration)
-
-<!--
-VModuleConfiguration is a collection of individual file names or patterns
-and the corresponding verbosity threshold.
--->
-VModuleConfiguration 是一组文件名或文件名模式，及其对应的日志详尽程度阈值配置。

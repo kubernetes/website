@@ -3,7 +3,7 @@ title: Migrating telemetry and security agents from dockershim
 content_type: task 
 reviewers:
 - SergeyKanzhelev
-weight: 70
+weight: 60
 ---
 
 <!-- overview -->

@@ -20,7 +20,7 @@ secara manual melalui `easyrsa`, `openssl` atau `cfssl`.
 
 1. Unduh, buka paket, dan inisialisasi versi tambal easyrsa3.
 
-        curl -LO https://storage.googleapis.com/kubernetes-release/easy-rsa/easy-rsa.tar.gz
+        curl -LO https://dl.k8s.io/easy-rsa/easy-rsa.tar.gz
         tar xzf easy-rsa.tar.gz
         cd easy-rsa-master/easyrsa3
         ./easyrsa init-pki
@@ -113,7 +113,7 @@ secara manual melalui `easyrsa`, `openssl` atau `cfssl`.
 
         openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key \
         -CAcreateserial -out server.crt -days 10000 \
-        -extensions v3_ext -extfile csr.conf
+        -extensions v3_ext -extfile csr.conf -sha256
 1. Lihat sertifikat:
 
         openssl x509  -noout -text -in ./server.crt

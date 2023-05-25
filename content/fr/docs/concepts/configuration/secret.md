@@ -13,7 +13,7 @@ weight: 50
 
 Les objets `secret` de Kubernetes vous permettent de stocker et de gérer des informations sensibles, telles que les mots de passe, les jetons OAuth et les clés ssh.
 Mettre ces informations dans un `secret` est plus sûr et plus flexible que de le mettre en dur dans la définition d'un {{< glossary_tooltip term_id="pod" >}} ou dans une {{< glossary_tooltip text="container image" term_id="image" >}}.
-Voir [Document de conception des secrets](https://git.k8s.io/community/contributors/design-proposals/auth/secrets.md) pour plus d'informations.
+Voir [Document de conception des secrets](https://github.com/kubernetes/design-proposals-archive/blob/main/auth/secrets.md) pour plus d'informations.
 
 
 
@@ -563,7 +563,7 @@ Le programme dans un conteneur est responsable de la lecture des secrets des fic
 Lorsqu'un secret déjà consommé dans un volume est mis à jour, les clés projetées sont finalement mises à jour également.
 Kubelet vérifie si le secret monté est récent à chaque synchronisation périodique.
 Cependant, il utilise son cache local pour obtenir la valeur actuelle du Secret.
-Le type de cache est configurable à l'aide de le champ `ConfigMapAndSecretChangeDetectionStrategy` dans la structure [KubeletConfiguration](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go).
+Le type de cache est configurable à l'aide de le champ `ConfigMapAndSecretChangeDetectionStrategy` dans la structure [KubeletConfiguration](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/kubelet/config/v1beta1/types.go).
 Il peut être soit propagé via watch (par défaut), basé sur ttl, ou simplement redirigé toutes les requêtes vers directement kube-apiserver.
 Par conséquent, le délai total entre le moment où le secret est mis à jour et le moment où de nouvelles clés sont projetées sur le pod peut être aussi long que la période de synchronisation du kubelet + le délai de propagation du cache, où le délai de propagation du cache dépend du type de cache choisi (cela équivaut au delai de propagation du watch, ttl du cache, ou bien zéro).
 
@@ -889,7 +889,7 @@ spec:
       secretName: dotfile-secret
   containers:
   - name: dotfile-test-container
-    image: k8s.gcr.io/busybox
+    image: registry.k8s.io/busybox
     command:
     - ls
     - "-l"

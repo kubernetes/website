@@ -5,7 +5,7 @@ feature:
   description: >
     IPv4およびIPv6のアドレスをPodとServiceに割り当てる
 content_type: concept
-weight: 70
+weight: 90
 ---
 
 <!-- overview -->

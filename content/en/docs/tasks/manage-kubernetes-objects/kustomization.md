@@ -86,20 +86,12 @@ metadata:
   name: example-configmap-1-8mbdf7882g
 ```
 
-To generate a ConfigMap from an env file, add an entry to the `envs` list in `configMapGenerator`. This can also be used to set values from local environment variables by omitting the `=` and the value.
-
-{{< note >}}
-It's recommended to use the local environment variable population functionality sparingly - an overlay with a patch is often more maintainable. Setting values from the environment may be useful when they cannot easily be predicted, such as a git SHA.
-{{< /note >}}
-
-Here is an example of generating a ConfigMap with a data item from a `.env` file:
+To generate a ConfigMap from an env file, add an entry to the `envs` list in `configMapGenerator`. Here is an example of generating a ConfigMap with a data item from a `.env` file:
 
 ```shell
 # Create a .env file
-# BAZ will be populated from the local environment variable $BAZ
 cat <<EOF >.env
 FOO=Bar
-BAZ
 EOF
 
 cat <<EOF >./kustomization.yaml
@@ -113,7 +105,7 @@ EOF
 The generated ConfigMap can be examined with the following command:
 
 ```shell
-BAZ=Qux kubectl kustomize ./
+kubectl kustomize ./
 ```
 
 The generated ConfigMap is:
@@ -121,15 +113,14 @@ The generated ConfigMap is:
 ```yaml
 apiVersion: v1
 data:
-  BAZ: Qux
   FOO: Bar
 kind: ConfigMap
 metadata:
-  name: example-configmap-1-892ghb99c8
+  name: example-configmap-1-42cfbf598f
 ```
 
 {{< note >}}
-Each variable in the `.env` file becomes a separate key in the ConfigMap that you generate. This is different from the previous example which embeds a file named `.properties` (and all its entries) as the value for a single key.
+Each variable in the `.env` file becomes a separate key in the ConfigMap that you generate. This is different from the previous example which embeds a file named `application.properties` (and all its entries) as the value for a single key.
 {{< /note >}}
 
 ConfigMaps can also be generated from literal key-value pairs. To generate a ConfigMap from a literal key-value pair, add an entry to the `literals` list in configMapGenerator. Here is an example of generating a ConfigMap with a data item from a key-value pair:
@@ -902,14 +893,14 @@ in different overlays. Here are two overlays using the same base.
 ```shell
 mkdir dev
 cat <<EOF > dev/kustomization.yaml
-bases:
+resources:
 - ../base
 namePrefix: dev-
 EOF
 
 mkdir prod
 cat <<EOF > prod/kustomization.yaml
-bases:
+resources:
 - ../base
 namePrefix: prod-
 EOF
@@ -1020,4 +1011,3 @@ deployment.apps "dev-my-nginx" deleted
 * [Kubectl Book](https://kubectl.docs.kubernetes.io)
 * [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-

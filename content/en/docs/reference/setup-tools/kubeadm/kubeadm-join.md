@@ -81,7 +81,12 @@ the cluster configuration (including root CA) and validates it using the token
 as well as validating that the root CA public key matches the provided hash and
 that the API server certificate is valid under the root CA.
 
-The CA key hash has the format `sha256:<hex_encoded_hash>`. By default, the hash value is returned in the `kubeadm join` command printed at the end of `kubeadm init` or in the output of `kubeadm token create --print-join-command`. It is in a standard format (see [RFC7469](https://tools.ietf.org/html/rfc7469#section-2.4)) and can also be calculated by 3rd party tools or provisioning systems. For example, using the OpenSSL CLI:
+The CA key hash has the format `sha256:<hex_encoded_hash>`.
+By default, the hash value is printed at the end of the `kubeadm init` command or
+in the output from the `kubeadm token create --print-join-command` command.
+It is in a standard format (see [RFC7469](https://tools.ietf.org/html/rfc7469#section-2.4))
+and can also be calculated by 3rd party tools or provisioning systems.
+For example, using the OpenSSL CLI:
 
 ```shell
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'
@@ -175,6 +180,24 @@ In case the discovery file does not contain credentials, the TLS discovery token
   you must keep it secret and transfer it over a secure channel. This might be possible with your
   cloud provider or provisioning tool.
 
+#### Use of custom kubelet credentials with `kubeadm join`
+
+To allow `kubeadm join` to use predefined kubelet credentials and skip client TLS bootstrap 
+and CSR approval for a new node:
+
+1. From a working control plane node in the cluster that has `/etc/kubernetes/pki/ca.key`
+   execute `kubeadm kubeconfig user --org system:nodes --client-name system:node:$NODE > kubelet.conf`.
+   `$NODE` must be set to the name of the new node.
+2. Modify the resulted `kubelet.conf` manually to adjust the cluster name and the server endpoint,
+   or run `kubeadm kubeconfig user --config` (it accepts `InitConfiguration`).
+
+If your cluster does not have the `ca.key` file, you must sign the embedded certificates in 
+the `kubelet.conf` externally.
+
+1. Copy the resulting `kubelet.conf` to `/etc/kubernetes/kubelet.conf` on the new node.
+2. Execute `kubeadm join` with the flag
+   `--ignore-preflight-errors=FileAvailable--etc-kubernetes-kubelet.conf` on the new node.
+
 ### Securing your installation even more {#securing-more}
 
 The defaults for kubeadm may not work for everyone. This section documents how to tighten up a kubeadm installation
@@ -192,41 +215,48 @@ kubectl delete clusterrolebinding kubeadm:node-autoapprove-bootstrap
 
 After that, `kubeadm join` will block until the admin has manually approved the CSR in flight:
 
-```shell
-kubectl get csr
-```
+1. Using `kubectl get csr`, you can see that the original CSR is in the Pending state.
 
-The output is similar to this:
+   ```shell
+   kubectl get csr
+   ```
 
-```
-NAME                                                   AGE       REQUESTOR                 CONDITION
-node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   18s       system:bootstrap:878f07   Pending
-```
+   The output is similar to this:
 
-```shell
-kubectl certificate approve node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ
-```
+   ```
+   NAME                                                   AGE       REQUESTOR                 CONDITION
+   node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   18s       system:bootstrap:878f07   Pending
+   ```
 
-The output is similar to this:
+2. `kubectl certificate approve` allows the admin to approve CSR.This action tells a certificate signing
+   controller to issue a certificate to the requestor with the attributes requested in the CSR.
 
-```
-certificatesigningrequest "node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ" approved
-```
+   ```shell
+   kubectl certificate approve node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ
+   ```
 
-```shell
-kubectl get csr
-```
+   The output is similar to this:
 
-The output is similar to this:
+   ```
+   certificatesigningrequest "node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ" approved
+   ```
 
-```
-NAME                                                   AGE       REQUESTOR                 CONDITION
-node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   1m        system:bootstrap:878f07   Approved,Issued
-```
+3. This would change the CRS resource to Active state.
+
+   ```shell
+   kubectl get csr
+   ```
+
+   The output is similar to this:
+
+   ```
+   NAME                                                   AGE       REQUESTOR                 CONDITION
+   node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   1m        system:bootstrap:878f07   Approved,Issued
+   ```
 
 This forces the workflow that `kubeadm join` will only succeed if `kubectl certificate approve` has been run.
 
-#### Turning off public access to the cluster-info ConfigMap
+#### Turning off public access to the `cluster-info` ConfigMap
 
 In order to achieve the joining flow using the token as the only piece of validation information, a
  ConfigMap with some data needed for validation of the control-plane node's identity is exposed publicly by
@@ -237,12 +267,12 @@ it off regardless. Doing so will disable the ability to use the `--discovery-tok
 * Fetch the `cluster-info` file from the API Server:
 
 ```shell
-kubectl -n kube-public get cm cluster-info -o yaml | grep "kubeconfig:" -A11 | grep "apiVersion" -A10 | sed "s/    //" | tee cluster-info.yaml
+kubectl -n kube-public get cm cluster-info -o jsonpath='{.data.kubeconfig}' | tee cluster-info.yaml
 ```
 
 The output is similar to this:
 
-```
+```yaml
 apiVersion: v1
 kind: Config
 clusters:
@@ -279,16 +309,16 @@ contain a `JoinConfiguration` structure. Mixing `--config` with others flags may
 allowed in some cases.
 
 The default configuration can be printed out using the
-[kubeadm config print](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
+[kubeadm config print](/docs/reference/setup-tools/kubeadm/kubeadm-config/#cmd-config-print) command.
 
 If your configuration is not using the latest version it is **recommended** that you migrate using
-the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/) command.
+the [kubeadm config migrate](/docs/reference/setup-tools/kubeadm/kubeadm-config/#cmd-config-migrate) command.
 
 For more information on the fields and usage of the configuration you can navigate to our
 [API reference](/docs/reference/config-api/kubeadm-config.v1beta3/).
 
 ## {{% heading "whatsnext" %}}
 
-* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node
-* [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) to manage tokens for `kubeadm join`
-* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
+* [kubeadm init](/docs/reference/setup-tools/kubeadm/kubeadm-init/) to bootstrap a Kubernetes control-plane node.
+* [kubeadm token](/docs/reference/setup-tools/kubeadm/kubeadm-token/) to manage tokens for `kubeadm join`.
+* [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`.

@@ -20,11 +20,14 @@ full_link: /docs/concepts/workloads/pods/downward-api/
 tags:
 - architecture
 -->
+
 <!--
 Kubernetes' mechanism to expose Pod and container field values to code running in a container.
 -->
 Kubernetes 将 Pod 和容器字段值暴露给容器中运行的代码的机制。
+
 <!--more-->
+
 <!--
 It is sometimes useful for a container to have information about itself, without
 needing to make changes to the container code that directly couple it to Kubernetes.

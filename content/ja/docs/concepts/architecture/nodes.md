@@ -23,7 +23,7 @@ Kubernetesはコンテナを _Node_ 上で実行されるPodに配置するこ�
 1. ノード上のkubeletが、コントロールプレーンに自己登録する。
 2. あなた、もしくは他のユーザーが手動でNodeオブジェクトを追加する。
 
-Nodeオブジェクトの作成、もしくはノード上のkubeketによる自己登録の後、コントロールプレーンはNodeオブジェクトが有効かチェックします。例えば、下記のjsonマニフェストでノードを作成してみましょう:
+Nodeオブジェクトの作成、もしくはノード上のkubeletによる自己登録の後、コントロールプレーンはNodeオブジェクトが有効かチェックします。例えば、下記のjsonマニフェストでノードを作成してみましょう:
 
 ```json
 {
@@ -92,7 +92,7 @@ kubectl cordon $ノード名
 これは、再起動の準備中にアプリケーションからアプリケーションが削除されている場合でも、DaemonSetがマシンに属していることを前提としているためです。
 {{< /note >}}
 
-## ノードのステータス
+## ノードのステータス {#node-status}
 
 ノードのステータスは以下の情報を含みます:
 
@@ -176,7 +176,7 @@ CapacityとAllocatableについて深く知りたい場合は、ノード上で�
 この情報はノードからkubeletを通じて取得され、Kubernetes APIに公開されます。
 
 
-## ハートビート
+## ハートビート {#heartbeats}
 ハートビートは、Kubernetesノードから送信され、ノードが利用可能か判断するのに役立ちます。
 以下の２つのハートビートがあります：
 * Nodeの`.status`の更新
@@ -191,7 +191,7 @@ kubeletが`NodeStatus`とLeaseオブジェクトの作成および更新を担�
 
 
 
-## ノードコントローラー
+## ノードコントローラー {#node-controller}
 
 ノード{{< glossary_tooltip text="コントローラー" term_id="controller" >}}は、ノードのさまざまな側面を管理するKubernetesのコントロールプレーンコンポーネントです。
 
@@ -206,7 +206,7 @@ kubeletが`NodeStatus`とLeaseオブジェクトの作成および更新を担�
 ノードコントローラーは、`--node-monitor-period`に設定された秒数ごとに各ノードの状態をチェックします。
 
 
-#### 信頼性
+#### 信頼性 {#rate-limits-on-eviction}
 
 ほとんどの場合、排除の速度は1秒あたり`--node-eviction-rate`に設定された数値（デフォルトは秒間0.1）です。つまり、10秒間に1つ以上のPodをノードから追い出すことはありません。
 
@@ -217,18 +217,13 @@ kubeletが`NodeStatus`とLeaseオブジェクトの作成および更新を担�
 
 ノードを複数のアベイラビリティゾーンに分散させる主な理由は、1つのゾーン全体が停止したときにワークロードを正常なゾーンに移動できることです。
 したがって、ゾーン内のすべてのノードが異常である場合、ノードコントローラーは通常のレート `--node-eviction-rate`で退役します。
-コーナーケースは、すべてのゾーンが完全にUnhealthyである（すなわち、クラスタ内にHealthyなノードがない）場合です。
+コーナーケースは、すべてのゾーンが完全にUnhealthyである（すなわち、クラスター内にHealthyなノードがない）場合です。
 このような場合、ノードコントローラーはマスター接続に問題があると見なし、接続が回復するまですべての退役を停止します。
 
 ノードコントローラーは、Podがtaintを許容しない場合、 `NoExecute`のtaintを持つノード上で実行されているPodを排除する責務もあります。
 さらに、ノードコントローラーはノードに到達できない、または準備ができていないなどのノードの問題に対応する{{< glossary_tooltip text="taint" term_id="taint" >}}を追加する責務があります。これはスケジューラーが、問題のあるノードにPodを配置しない事を意味しています。
 
-{{< caution >}}
-`kubectl cordon`はノードに'unschedulable'としてマークします。それはロードバランサーのターゲットリストからノードを削除するという
-サービスコントローラーの副次的な効果をもたらします。これにより、ロードバランサトラフィックの流入をcordonされたノードから効率的に除去する事ができます。
-{{< /caution >}}
-
-### ノードのキャパシティ
+### ノードのキャパシティ {#node-capacity}
 
 Nodeオブジェクトはノードのリソースキャパシティ（CPUの数とメモリの量）を監視します。
 [自己登録](#self-registration-of-nodes)したノードは、Nodeオブジェクトを作成するときにキャパシティを報告します。
@@ -241,7 +236,7 @@ Kubernetes{{< glossary_tooltip text="スケジューラー" term_id="kube-schedu
 Pod以外のプロセス用にリソースを明示的に予約したい場合は、[Systemデーモン用にリソースを予約](/docs/tasks/administer-cluster/reserve-compute-resources/#system-reserved)を参照してください。
 {{< /note >}}
 
-## ノードのトポロジー
+## ノードのトポロジー {#node-topology}
 
 {{< feature-state state="alpha" for_k8s_version="v1.16" >}}
 `TopologyManager`の[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にすると、
@@ -294,6 +289,26 @@ Message:        Node is shutting, evicting pods
 
 {{< /note >}}
 
+##  ノードの非正常終了 {#non-graceful-node-shutdown}
+
+{{< feature-state state="beta" for_k8s_version="v1.26" >}}
+
+コマンドがkubeletのinhibitor locksメカニズムをトリガーしない場合や、ShutdownGracePeriodやShutdownGracePeriodCriticalPodsが適切に設定されていないといったユーザーによるミス等が原因で、ノードがシャットダウンしたことをkubeletのNode Shutdownマネージャーが検知できないことがあります。詳細は上記セクション[ノードの正常終了](#graceful-node-shutdown)を参照ください。
+
+ノードのシャットダウンがkubeletのNode Shutdownマネージャーに検知されない場合、StatefulSetを構成するPodはシャットダウン状態のノード上でterminating状態のままになってしまい、他の実行中のノードに移動することができなくなってしまいます。これは、ノードがシャットダウンしているため、その上のkubeletがPodを削除できず、それにより、StatefulSetが新しいPodを同じ名前で作成できなくなってしまうためです。Podがボリュームを使用している場合、VolumeAttachmentsはシャットダウン状態のノードによって削除されないため、Podが使用しているボリュームは他の実行中のノードにアタッチすることができなくなってしまいます。その結果として、StatefulSet上で実行中のアプリケーションは適切に機能しなくなってしまいます。シャットダウンしていたノードが復旧した場合、そのノード上のPodはkubeletに削除され、他の実行中のノード上に作成されます。また、シャットダウン状態のノードが復旧できなかった場合は、そのノード上のPodは永久にterminating状態のままとなります。
+
+上記の状況を脱却するには、ユーザーが手動で`NoExecute`または`NoSchedule` effectを設定して`node.kubernetes.io/out-of-service` taintをノードに付与することで、故障中の状態に設定することができます。`kube-controller-manager` において `NodeOutOfServiceVolumeDetach`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効になっており、かつノードがtaintによって故障中としてマークされている場合は、ノードに一致するtolerationがないPodは強制的に削除され、ノード上のterminating状態のPodに対するボリュームデタッチ操作が直ちに実行されます。これにより、故障中のノード上のPodを異なるノード上にすばやく復旧させることが可能になります。
+
+non-graceful shutdownの間に、Podは以下の2段階で終了します:
+
+1. 一致する`out-of-service` tolerationを持たないPodを強制的に削除する。
+2. 上記のPodに対して即座にボリュームデタッチ操作を行う。
+
+{{< note >}}
+- `node.kubernetes.io/out-of-service` taintを付与する前に、ノードがシャットダウンしているか電源がオフになっていることを確認してください(再起動中ではないこと)。
+- Podの別ノードへの移動後、シャットダウンしていたノードが回復した場合は、ユーザーが手動で付与したout-of-service taintをユーザー自ら手動で削除する必要があります。
+{{< /note >}}
+
 ## スワップメモリの管理 {#swap-memory}
 
 {{< feature-state state="alpha" for_k8s_version="v1.22" >}}
@@ -334,5 +349,5 @@ Kubernetesのワークロードでは、メモリとスワップを組み合わ�
 
 * [ノードコンポーネント](/ja/docs/concepts/overview/components/#node-components)について学習する。
 * [Node APIオブジェクト](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core)について読む。
-* アーキテクチャ設計文書の[Node](https://git.k8s.io/community/contributors/design-proposals/architecture/architecture.md#the-kubernetes-node)という章を読む。
+* アーキテクチャ設計文書の[Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)という章を読む。
 * [TaintとToleration](/ja/docs/concepts/scheduling-eviction/taint-and-toleration/)について読む。

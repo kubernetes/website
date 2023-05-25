@@ -16,10 +16,12 @@ slug: grpc-probes-now-in-beta
 -->
 **作者**：Sergey Kanzhelev (Google)
 
+**译者**：Xiaoyang Zhang（Huawei）
+
 <!--
 With Kubernetes 1.24 the gRPC probes functionality entered beta and is available by default.
 Now you can configure startup, liveness, and readiness probes for your gRPC app
-without exposing any HTTP endpoint, nor do you need an executable. Kubernetes can natively connect to your your workload via gRPC and query its status.
+without exposing any HTTP endpoint, nor do you need an executable. Kubernetes can natively connect to your workload via gRPC and query its status.
 -->
 在 Kubernetes 1.24 中，gRPC 探针（probe）功能进入了 beta 阶段，默认情况下可用。
 现在，你可以为 gRPC 应用程序配置启动、活跃和就绪探测，而无需公开任何 HTTP 端点，
@@ -63,7 +65,7 @@ the first release at [Sep 19, 2018](https://github.com/grpc-ecosystem/grpc-healt
 <!--
 This approach for gRPC apps health checking is very popular. There are [3,626 Dockerfiles](https://github.com/search?l=Dockerfile&q=grpc_health_probe&type=code)
 with the `grpc_health_probe` and [6,621 yaml](https://github.com/search?l=YAML&q=grpc_health_probe&type=Code) files that are discovered with the
-basic search on GitHub (at the moment of writing). This is good indication of the tool popularity
+basic search on GitHub (at the moment of writing). This is a good indication of the tool popularity
 and the need to support this natively.
 -->
 这种 gRPC 应用健康检查的方法非常受欢迎。使用 GitHub 上的基本搜索，发现了带有 `grpc_health_probe`
@@ -203,7 +205,7 @@ exposes ports `5000` and `8080`, and configures gRPC readiness probe:
 -->
 下面是一个 Pod 定义示例。它启用 `grpc-health-checking` 模块，暴露 5000 和 8080 端口，并配置 gRPC 就绪探针：
 
-``` yaml
+```yaml
 ---
 apiVersion: v1
 kind: Pod
@@ -211,22 +213,23 @@ metadata:
   name: test-grpc
 spec:
   containers:
-  - name: agnhost
-    image: k8s.gcr.io/e2e-test-images/agnhost:2.35
-    command: ["/agnhost", "grpc-health-checking"]
-    ports:
-    - containerPort: 5000
-    - containerPort: 8080
-    readinessProbe:
-      grpc:
-        port: 5000
+    - name: agnhost
+      # 镜像自发布以来已更改（以前使用的仓库为 "k8s.gcr.io"）
+      image: registry.k8s.io/e2e-test-images/agnhost:2.35
+      command: ["/agnhost", "grpc-health-checking"]
+      ports:
+        - containerPort: 5000
+        - containerPort: 8080
+      readinessProbe:
+        grpc:
+          port: 5000
 ```
 
 <!--
-If the file called `test.yaml`, you can create the pod and check it's status.
+In the manifest file called `test.yaml`, you can create the pod and check its status.
 The pod will be in ready state as indicated by the snippet of the output.
 -->
-如果文件名为 `test.yaml`，你可以用以下命令创建 Pod，并检查它的状态。如输出片段所示，Pod 将处于就绪状态。
+如果清单文件名为 `test.yaml`，你可以用以下命令创建 Pod，并检查它的状态。如输出片段所示，Pod 将处于就绪状态。
 
 ```shell
 kubectl apply -f test.yaml
@@ -298,7 +301,7 @@ Once it is switched back, in about one second the Pod will get back to ready sta
 -->
 一旦切换回来，Pod 将在大约一秒钟后恢复到就绪状态：
 
-``` bsh
+```bash
 curl http://localhost:8080/make-serving
 kubectl describe test-grpc
 ```

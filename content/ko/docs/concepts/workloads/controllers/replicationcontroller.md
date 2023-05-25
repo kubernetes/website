@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - bprashanth
+# - janetkuo
 title: 레플리케이션 컨트롤러
 feature:
   title: 자가 치유

@@ -1,5 +1,5 @@
 ---
-title: 贡献者许可协议（CLA）
+title: 贡献者许可协议（CLA；Contributor License Agreement）
 id: cla
 date: 2018-04-12
 full_link: https://github.com/kubernetes/community/blob/master/CLA.md
@@ -10,9 +10,7 @@ aka:
 tags:
 - community
 ---
-
 <!--
----
 title: CLA (Contributor License Agreement)
 id: cla
 date: 2018-04-12
@@ -23,7 +21,6 @@ short_description: >
 aka: 
 tags:
 - community
----
 -->
 
 <!--
@@ -36,6 +33,4 @@ tags:
 <!--
 CLAs help resolve legal disputes involving contributed material and intellectual property (IP).
 -->
-
-CLA 对解决贡献者在开源社区所贡献的资料和智力资产（IP）导致的法律纠纷很有帮助。
-
+CLA 对解决贡献者在开源社区所贡献的资料和知识产权（IP）导致的法律纠纷很有帮助。

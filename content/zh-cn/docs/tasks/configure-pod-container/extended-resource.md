@@ -1,13 +1,13 @@
 ---
 title: 为容器分派扩展资源 
 content_type: task
-weight: 40
+weight: 70
 ---
 
 <!--
 title: Assign Extended Resources to a Container
 content_type: task
-weight: 40
+weight: 70
 -->
 
 <!-- overview -->
@@ -166,7 +166,7 @@ It has a status of Pending:
 -->
 输出结果表明 Pod 虽然被创建了，但没有被调度到节点上正常运行。Pod 的状态为 Pending：
 
-```
+```yaml
 NAME                       READY     STATUS    RESTARTS   AGE
 extended-resource-demo-2   0/1       Pending   0          6m
 ```

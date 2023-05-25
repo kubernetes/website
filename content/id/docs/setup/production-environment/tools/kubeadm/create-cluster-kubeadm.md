@@ -614,7 +614,7 @@ data dan mungkin harus dibuat kembali dari awal.
 
 Solusi:
 
-* Lakukan [back up etcd](https://coreos.com/etcd/docs/latest/admin_guide.html) secara reguler. Direktori data
+* Lakukan [back up etcd](https://etcd.io/docs/v3.5/op-guide/recovery/) secara reguler. Direktori data
   etcd yang dikonfigurasi oleh kubeadm berada di `/var/lib/etcd` pada Node _control-plane_.
 
 * Gunakan banyak Node _control-plane_. Kamu dapat membaca

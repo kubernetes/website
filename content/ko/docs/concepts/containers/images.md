@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - erictune
+# - thockin
 title: 이미지
 content_type: concept
 weight: 10
@@ -24,8 +24,8 @@ weight: 10
 ## 이미지 이름
 
 컨테이너 이미지는 일반적으로 `pause`, `example/mycontainer` 또는 `kube-apiserver` 와 같은 이름을 부여한다.
-이미지는 또한 레지스트리 호스트 이름을 포함할 수 있다. 예를 들면, `fictional.registry.example/imagename`
-과 같다. 그리고 포트 번호도 포함할 수 있다. 예를 들면, `fictional.registry.example:10443/imagename` 과 같다.
+이미지는 또한 레지스트리 호스트 이름을 포함할 수 있다. 예를 들어 `fictional.registry.example/imagename`
+와 같다. 그리고 `fictional.registry.example:10443/imagename` 와 같이 포트 번호도 포함할 수 있다.
 
 레지스트리 호스트 이름을 지정하지 않으면, 쿠버네티스는 도커 퍼블릭 레지스트리를 의미한다고 가정한다.
 
@@ -275,6 +275,8 @@ kubelet은 크리덴셜을 순차적으로 사용하여 풀을 시도한다.
 {{< /note >}}
 
 쿠버네티스는 파드에 컨테이너 이미지 레지스트리 키를 명시하는 것을 지원한다.
+`imagePullSecrets`은 모두 파드와 동일한 네임스페이스에 있어야 한다.
+참조되는 시크릿의 타입은 `kubernetes.io/dockercfg` 이거나 `kubernetes.io/dockerconfigjson` 이어야 한다.
 
 #### 도커 구성으로 시크릿 생성
 

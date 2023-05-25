@@ -10,7 +10,7 @@ spec:
   dnsPolicy: "None"
   dnsConfig:
     nameservers:
-      - 1.2.3.4
+      - 192.0.2.1 # this is an example
     searches:
       - ns1.svc.cluster-domain.example
       - my.dns.search.suffix

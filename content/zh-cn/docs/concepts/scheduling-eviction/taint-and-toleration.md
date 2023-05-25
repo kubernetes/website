@@ -1,8 +1,17 @@
 ---
 title: 污点和容忍度
 content_type: concept
-weight: 40
+weight: 50
 ---
+<!--
+reviewers:
+- davidopp
+- kevin-wangzefeng
+- bsalamat
+title: Taints and Tolerations
+content_type: concept
+weight: 50
+-->
 
 <!-- overview -->
 <!--
@@ -18,14 +27,16 @@ hard requirement). _Taints_ are the opposite -- they allow a node to repel a set
 **污点（Taint）** 则相反——它使节点能够排斥一类特定的 Pod。
 
 <!--
-
-_Tolerations_ are applied to pods. Tolerations allow the scheduler to schedule pods with matching taints. Tolerations allow scheduling but don't guarantee scheduling: the scheduler also [evaluates other parameters](https://kubernetes.io/docs/concepts/scheduling-eviction/pod-priority-preemption/) as part of its function.
+_Tolerations_ are applied to pods. Tolerations allow the scheduler to schedule pods with matching
+taints. Tolerations allow scheduling but don't guarantee scheduling: the scheduler also
+[evaluates other parameters](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+as part of its function.
 
 Taints and tolerations work together to ensure that pods are not scheduled
 onto inappropriate nodes. One or more taints are applied to a node; this
 marks that the node should not accept any pods that do not tolerate the taints.
 -->
-**容忍度（Toleration）** 是应用于 Pod 上的。容忍度允许调度器调度带有对应污点的节点。
+**容忍度（Toleration）** 是应用于 Pod 上的。容忍度允许调度器调度带有对应污点的 Pod。
 容忍度允许调度但并不保证调度：作为其功能的一部分，
 调度器也会[评估其他参数](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)。
 
@@ -43,7 +54,8 @@ For example,
 -->
 ## 概念  {#concepts}
 
-你可以使用命令 [kubectl taint](/docs/reference/generated/kubectl/kubectl-commands#taint) 给节点增加一个污点。比如，
+你可以使用命令 [kubectl taint](/docs/reference/generated/kubectl/kubectl-commands#taint)
+给节点增加一个污点。比如：
 
 ```shell
 kubectl taint nodes node1 key1=value1:NoSchedule
@@ -71,7 +83,7 @@ to schedule onto `node1`:
 -->
 你可以在 Pod 规约中为 Pod 设置容忍度。
 下面两个容忍度均与上面例子中使用 `kubectl taint` 命令创建的污点相匹配，
-因此如果一个 Pod 拥有其中的任何一个容忍度，都能够被调度到 `node1` ：
+因此如果一个 Pod 拥有其中的任何一个容忍度，都能够被调度到 `node1`：
 
 ```yaml
 tolerations:
@@ -89,7 +101,7 @@ tolerations:
 ```
 
 <!--
-Here’s an example of a pod that uses tolerations:
+Here's an example of a pod that uses tolerations:
 -->
 这里是一个使用了容忍度的 Pod：
 
@@ -104,12 +116,12 @@ The default value for `operator` is `Equal`.
 A toleration "matches" a taint if the keys are the same and the effects are the same, and:
 
 * the `operator` is `Exists` (in which case no `value` should be specified), or
-* the `operator` is `Equal` and the `value`s are equal
+* the `operator` is `Equal` and the `value`s are equal.
 -->
 一个容忍度和一个污点相“匹配”是指它们有一样的键名和效果，并且：
 
-* 如果 `operator` 是 `Exists` （此时容忍度不能指定 `value`），或者
-* 如果 `operator` 是 `Equal` ，则它们的 `value` 应该相等
+* 如果 `operator` 是 `Exists`（此时容忍度不能指定 `value`），或者
+* 如果 `operator` 是 `Equal`，则它们的 `value` 应该相等。
 
 {{< note >}}
 <!--
@@ -130,7 +142,7 @@ An empty `effect` matches all effects with key `key1`.
 
 <!--
 The above example used `effect` of `NoSchedule`. Alternatively, you can use `effect` of `PreferNoSchedule`.
-This is a "preference" or "soft" version of `NoSchedule` - the system will *try* to avoid placing a
+This is a "preference" or "soft" version of `NoSchedule` -- the system will *try* to avoid placing a
 pod that does not tolerate the taint on the node, but it is not required. The third kind of `effect` is
 `NoExecute`, described later.
 -->
@@ -147,7 +159,7 @@ remaining un-ignored taints have the indicated effects on the pod. In particular
 你可以给一个节点添加多个污点，也可以给一个 Pod 添加多个容忍度设置。
 Kubernetes 处理多个污点和容忍度的过程就像一个过滤器：从一个节点的所有污点开始遍历，
 过滤掉那些 Pod 中存在与之相匹配的容忍度的污点。余下未被过滤的污点的 effect 值决定了
-Pod 是否会被分配到该节点，特别是以下情况：
+Pod 是否会被分配到该节点。需要注意以下情况：
 
 <!--
 * if there is at least one un-ignored taint with effect `NoSchedule` then Kubernetes will not schedule
@@ -161,7 +173,7 @@ scheduled onto the node (if it is not yet running on the node).
 * 如果未被忽略的污点中存在至少一个 effect 值为 `NoSchedule` 的污点，
   则 Kubernetes 不会将 Pod 调度到该节点。
 * 如果未被忽略的污点中不存在 effect 值为 `NoSchedule` 的污点，
-  但是存在 effect 值为 `PreferNoSchedule` 的污点，
+  但是存在至少一个 effect 值为 `PreferNoSchedule` 的污点，
   则 Kubernetes 会 **尝试** 不将 Pod 调度到该节点。
 * 如果未被忽略的污点中存在至少一个 effect 值为 `NoExecute` 的污点，
   则 Kubernetes 不会将 Pod 调度到该节点（如果 Pod 还未在节点上运行），
@@ -170,7 +182,7 @@ scheduled onto the node (if it is not yet running on the node).
 <!--
 For example, imagine you taint a node like this
 -->
-例如，假设你给一个节点添加了如下污点
+例如，假设你给一个节点添加了如下污点：
 
 ```shell
 kubectl taint nodes node1 key1=value1:NoSchedule
@@ -181,7 +193,7 @@ kubectl taint nodes node1 key2=value2:NoSchedule
 <!--
 And a pod has two tolerations:
 -->
-假定有一个 Pod，它有两个容忍度：
+假定某个 Pod 有两个容忍度：
 
 ```yaml
 tolerations:
@@ -207,7 +219,7 @@ one of the three that is not tolerated by the pod.
 
 <!--
 Normally, if a taint with effect `NoExecute` is added to a node, then any pods that do
-not tolerate the taint will be evicted immediately, and any pods that do tolerate the
+not tolerate the taint will be evicted immediately, and pods that do tolerate the
 taint will never be evicted. However, a toleration with `NoExecute` effect can specify
 an optional `tolerationSeconds` field that dictates how long the pod will stay bound
 to the node after the taint is added. For example,
@@ -260,14 +272,14 @@ to the taint to the same set of nodes (e.g. `dedicated=groupName`), and the admi
 controller should additionally add a node affinity to require that the pods can only schedule
 onto nodes labeled with `dedicated=groupName`.
 -->
-* **专用节点**：如果你想将某些节点专门分配给特定的一组用户使用，你可以给这些节点添加一个污点（即，
+* **专用节点**：如果想将某些节点专门分配给特定的一组用户使用，你可以给这些节点添加一个污点（即，
   `kubectl taint nodes nodename dedicated=groupName:NoSchedule`），
   然后给这组用户的 Pod 添加一个相对应的容忍度
   （通过编写一个自定义的[准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)，
   很容易就能做到）。
   拥有上述容忍度的 Pod 就能够被调度到上述专用节点，同时也能够被调度到集群中的其它节点。
   如果你希望这些 Pod 只能被调度到上述专用节点，
-  那么你还需要给这些专用节点另外添加一个和上述污点类似的 label （例如：`dedicated=groupName`），
+  那么你还需要给这些专用节点另外添加一个和上述污点类似的 label（例如：`dedicated=groupName`），
   同时还要在上述准入控制器中给 Pod 增加节点亲和性要求，要求上述 Pod 只能被调度到添加了
   `dedicated=groupName` 标签的节点上。
 
@@ -282,7 +294,7 @@ toleration to pods that use the special hardware. As in the dedicated nodes use 
 it is probably easiest to apply the tolerations using a custom
 [admission controller](/docs/reference/access-authn-authz/admission-controllers/).
 For example, it is recommended to use [Extended
-Resources](/docs/concepts/configuration/manage-compute-resources-container/#extended-resources)
+Resources](/docs/concepts/configuration/manage-resources-containers/#extended-resources)
 to represent the special hardware, taint your special hardware nodes with the
 extended resource name and run the
 [ExtendedResourceToleration](/docs/reference/access-authn-authz/admission-controllers/#extendedresourcetoleration)
@@ -298,7 +310,7 @@ manually add tolerations to your pods.
   我们希望不需要这类硬件的 Pod 不要被调度到这些特殊节点，以便为后继需要这类硬件的 Pod 保留资源。
   要达到这个目的，可以先给配备了特殊硬件的节点添加污点
   （例如 `kubectl taint nodes nodename special=true:NoSchedule` 或
-  `kubectl taint nodes nodename special=true:PreferNoSchedule`)，
+  `kubectl taint nodes nodename special=true:PreferNoSchedule`），
   然后给使用了这类特殊硬件的 Pod 添加一个相匹配的容忍度。
   和专用节点的例子类似，添加这个容忍度的最简单的方法是使用自定义
   [准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/)。
@@ -321,12 +333,12 @@ when there are node problems, which is described in the next section.
 <!--
 ## Taint based Evictions
 -->
-## 基于污点的驱逐  {#taint-based-evictions}
+## 基于污点的驱逐   {#taint-based-evictions}
 
 {{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
 <!--
-The `NoExecute` taint effect, which affects pods that are already
+The `NoExecute` taint effect, mentioned above, affects pods that are already
 running on the node as follows
 
  * pods that do not tolerate the taint are evicted immediately
@@ -335,17 +347,17 @@ running on the node as follows
  * pods that tolerate the taint with a specified `tolerationSeconds` remain
    bound for the specified amount of time
 -->
-前文提到过污点的效果值 `NoExecute` 会影响已经在节点上运行的 Pod，如下
+前文提到过污点的效果值 `NoExecute` 会影响已经在节点上运行的如下 Pod：
 
-* 如果 Pod 不能忍受这类污点，Pod 会马上被驱逐
+* 如果 Pod 不能忍受这类污点，Pod 会马上被驱逐。
 * 如果 Pod 能够忍受这类污点，但是在容忍度定义中没有指定 `tolerationSeconds`，
   则 Pod 还会一直在这个节点上运行。
 * 如果 Pod 能够忍受这类污点，而且指定了 `tolerationSeconds`，
   则 Pod 还能在这个节点上继续运行这个指定的时间长度。
 
 <!--
-The node controller automatically taints a node when certain conditions are
-true. The following taints are built in:
+The node controller automatically taints a Node when certain conditions
+are true. The following taints are built in:
 
  * `node.kubernetes.io/not-ready`: Node is not ready. This corresponds to
    the NodeCondition `Ready` being "`False`".
@@ -372,8 +384,8 @@ true. The following taints are built in:
 * `node.kubernetes.io/network-unavailable`：节点网络不可用。
 * `node.kubernetes.io/unschedulable`: 节点不可调度。
 * `node.cloudprovider.kubernetes.io/uninitialized`：如果 kubelet 启动时指定了一个“外部”云平台驱动，
-   它将给当前节点添加一个污点将其标志为不可用。在 cloud-controller-manager
-   的一个控制器初始化这个节点后，kubelet 将删除这个污点。
+  它将给当前节点添加一个污点将其标志为不可用。在 cloud-controller-manager
+  的一个控制器初始化这个节点后，kubelet 将删除这个污点。
 
 <!--
 In case a node is to be evicted, the node controller or the kubelet adds relevant taints
@@ -383,9 +395,19 @@ controller can remove the relevant taint(s).
 在节点被驱逐时，节点控制器或者 kubelet 会添加带有 `NoExecute` 效果的相关污点。
 如果异常状态恢复正常，kubelet 或节点控制器能够移除相关的污点。
 
+<!--
+In some cases when the node is unreachable, the API server is unable to communicate
+with the kubelet on the node. The decision to delete the pods cannot be communicated to
+the kubelet until communication with the API server is re-established. In the meantime,
+the pods that are scheduled for deletion may continue to run on the partitioned node.
+-->
+在某些情况下，当节点不可达时，API 服务器无法与节点上的 kubelet 进行通信。
+在与 API 服务器的通信被重新建立之前，删除 Pod 的决定无法传递到 kubelet。
+同时，被调度进行删除的那些 Pod 可能会继续运行在分区后的节点上。
+
 {{< note >}}
 <!--
-The control plane limits the rate of adding new taints to nodes. This rate limiting
+The control plane limits the rate of adding node new taints to nodes. This rate limiting
 manages the number of evictions that are triggered when many nodes become unreachable at
 once (for example: if there is a network disruption).
 -->
@@ -457,7 +479,8 @@ This ensures that DaemonSet pods are never evicted due to these problems.
 ## Taint Nodes by Condition
 
 The control plane, using the node {{<glossary_tooltip text="controller" term_id="controller">}},
-automatically creates taints with a `NoSchedule` effect for [node conditions](/docs/concepts/scheduling-eviction/node-pressure-eviction/#node-conditions).
+automatically creates taints with a `NoSchedule` effect for
+[node conditions](/docs/concepts/scheduling-eviction/node-pressure-eviction/#node-conditions).
 -->
 ## 基于节点状态添加污点  {#taint-nodes-by-condition}
 
@@ -471,7 +494,7 @@ decisions. This ensures that node conditions don't directly affect scheduling.
 For example, if the `DiskPressure` node condition is active, the control plane
 adds the `node.kubernetes.io/disk-pressure` taint and does not schedule new pods
 onto the affected node. If the `MemoryPressure` node condition is active, the
-control plane adds the `node.kubernetes.io/memory-pressure` taint. 
+control plane adds the `node.kubernetes.io/memory-pressure` taint.
 -->
 调度器在进行调度时检查污点，而不是检查节点状况。这确保节点状况不会直接影响调度。
 例如，如果 `DiskPressure` 节点状况处于活跃状态，则控制平面添加
@@ -481,12 +504,12 @@ control plane adds the `node.kubernetes.io/memory-pressure` taint.
 
 <!--
 You can ignore node conditions for newly created pods by adding the corresponding
-Pod tolerations. The control plane also adds the `node.kubernetes.io/memory-pressure` 
-toleration on pods that have a {{< glossary_tooltip text="QoS class" term_id="qos-class" >}} 
-other than `BestEffort`. This is because Kubernetes treats pods in the `Guaranteed` 
+Pod tolerations. The control plane also adds the `node.kubernetes.io/memory-pressure`
+toleration on pods that have a {{< glossary_tooltip text="QoS class" term_id="qos-class" >}}
+other than `BestEffort`. This is because Kubernetes treats pods in the `Guaranteed`
 or `Burstable` QoS classes (even pods with no memory request set) as if they are
 able to cope with memory pressure, while new `BestEffort` pods are not scheduled
-onto the affected node. 
+onto the affected node.
 -->
 对于新创建的 Pod，可以通过添加相应的 Pod 容忍度来忽略节点状况。
 控制平面还在具有除 `BestEffort` 之外的
@@ -496,9 +519,8 @@ onto the affected node.
 视为能够应对内存压力，而新创建的 `BestEffort` Pod 不会被调度到受影响的节点上。
 
 <!--
-The DaemonSet controller automatically adds the
-following `NoSchedule` tolerations to all daemons, to prevent DaemonSets from
-breaking.
+The DaemonSet controller automatically adds the following `NoSchedule`
+tolerations to all daemons, to prevent DaemonSets from breaking.
 
   * `node.kubernetes.io/memory-pressure`
   * `node.kubernetes.io/disk-pressure`
@@ -506,8 +528,7 @@ breaking.
   * `node.kubernetes.io/unschedulable` (1.10 or later)
   * `node.kubernetes.io/network-unavailable` (*host network only*)
 -->
-
-DaemonSet 控制器自动为所有守护进程添加如下 `NoSchedule` 容忍度以防 DaemonSet 崩溃：
+DaemonSet 控制器自动为所有守护进程添加如下 `NoSchedule` 容忍度，以防 DaemonSet 崩溃：
 
 * `node.kubernetes.io/memory-pressure`
 * `node.kubernetes.io/disk-pressure`
@@ -519,15 +540,15 @@ DaemonSet 控制器自动为所有守护进程添加如下 `NoSchedule` 容忍�
 Adding these tolerations ensures backward compatibility. You can also add
 arbitrary tolerations to DaemonSets.
 -->
-
 添加上述容忍度确保了向后兼容，你也可以选择自由向 DaemonSet 添加容忍度。
 
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Read about [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/) and how you can configure it
+* Read about [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
+  and how you can configure it
 * Read about [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 -->
-* 阅读[节点压力驱逐](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)，
+* 阅读[节点压力驱逐](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)，
   以及如何配置其行为
 * 阅读 [Pod 优先级](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)

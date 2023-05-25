@@ -11,7 +11,8 @@ aliases:
 
 <!-- overview -->
 
-This document catalogs the communication paths between the API server and the Kubernetes cluster.
+This document catalogs the communication paths between the {{< glossary_tooltip term_id="kube-apiserver" text="API server" >}}
+and the Kubernetes {{< glossary_tooltip text="cluster" term_id="cluster" length="all" >}}.
 The intent is to allow users to customize their installation to harden the network configuration
 such that the cluster can be run on an untrusted network (or on fully public IPs on a cloud
 provider).
@@ -30,28 +31,28 @@ enabled, especially if [anonymous requests](/docs/reference/access-authn-authz/a
 or [service account tokens](/docs/reference/access-authn-authz/authentication/#service-account-tokens)
 are allowed.
 
-Nodes should be provisioned with the public root certificate for the cluster such that they can
+Nodes should be provisioned with the public root {{< glossary_tooltip text="certificate" term_id="certificate" >}} for the cluster such that they can
 connect securely to the API server along with valid client credentials. A good approach is that the
 client credentials provided to the kubelet are in the form of a client certificate. See
 [kubelet TLS bootstrapping](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
 for automated provisioning of kubelet client certificates.
 
-Pods that wish to connect to the API server can do so securely by leveraging a service account so
+{{< glossary_tooltip text="Pods" term_id="pod" >}} that wish to connect to the API server can do so securely by leveraging a service account so
 that Kubernetes will automatically inject the public root certificate and a valid bearer token
 into the pod when it is instantiated.
 The `kubernetes` service (in `default` namespace) is configured with a virtual IP address that is
-redirected (via `kube-proxy`) to the HTTPS endpoint on the API server.
+redirected (via `{{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}`) to the HTTPS endpoint on the API server.
 
 The control plane components also communicate with the API server over the secure port.
 
-As a result, the default operating mode for connections from the nodes and pods running on the
+As a result, the default operating mode for connections from the nodes and pod running on the
 nodes to the control plane is secured by default and can run over untrusted and/or public
 networks.
 
 ## Control plane to node
 
 There are two primary communication paths from the control plane (the API server) to the nodes.
-The first is from the API server to the kubelet process which runs on each node in the cluster.
+The first is from the API server to the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} process which runs on each node in the cluster.
 The second is from the API server to any node, pod, or service through the API server's _proxy_
 functionality.
 
@@ -89,7 +90,7 @@ connections **are not currently safe** to run over untrusted or public networks.
 
 ### SSH tunnels
 
-Kubernetes supports SSH tunnels to protect the control plane to nodes communication paths. In this
+Kubernetes supports [SSH tunnels](https://www.ssh.com/academy/ssh/tunneling) to protect the control plane to nodes communication paths. In this
 configuration, the API server initiates an SSH tunnel to each node in the cluster (connecting to
 the SSH server listening on port 22) and passes all traffic destined for a kubelet, node, pod, or
 service through the tunnel.
@@ -117,3 +118,12 @@ connections.
 Follow the [Konnectivity service task](/docs/tasks/extend-kubernetes/setup-konnectivity/) to set
 up the Konnectivity service in your cluster.
 
+## {{% heading "whatsnext" %}}
+
+* Read about the [Kubernetes control plane components](/docs/concepts/overview/components/#control-plane-components)
+* Learn more about [Hubs and Spoke model](https://book.kubebuilder.io/multiversion-tutorial/conversion-concepts.html#hubs-spokes-and-other-wheel-metaphors)
+* Learn how to [Secure a Cluster](/docs/tasks/administer-cluster/securing-a-cluster/) 
+* Learn more about the [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
+* [Set up Konnectivity service](/docs/tasks/extend-kubernetes/setup-konnectivity/)
+* [Use Port Forwarding to Access Applications in a Cluster](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+* Learn how to [Fetch logs for Pods](/docs/tasks/debug/debug-application/debug-running-pod/#examine-pod-logs), [use kubectl port-forward](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/#forward-a-local-port-to-a-port-on-the-pod)

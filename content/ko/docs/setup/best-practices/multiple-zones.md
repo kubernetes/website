@@ -1,4 +1,8 @@
 ---
+# reviewers:
+# - jlowdermilk
+# - justinsb
+# - quinton-hoole
 title: 여러 영역에서 실행
 weight: 20
 content_type: concept
@@ -58,7 +62,7 @@ content_type: concept
 [영역 정보](/ko/docs/reference/labels-annotations-taints/#topologykubernetesiozone)가 포함될 수 있다.
 
 클러스터가 여러 영역 또는 지역에 걸쳐있는 경우,
-[파드 토폴로지 분배 제약 조건](/ko/docs/concepts/workloads/pods/pod-topology-spread-constraints/)과
+[파드 토폴로지 분배 제약 조건](/ko/docs/concepts/scheduling-eviction/topology-spread-constraints/)과
 함께 노드 레이블을 사용하여
 파드가 장애 도메인(지역, 영역, 특정 노드) 간 클러스터에
 분산되는 방식을 제어할 수 있다.

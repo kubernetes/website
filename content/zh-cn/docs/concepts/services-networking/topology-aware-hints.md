@@ -1,16 +1,21 @@
 ---
 title: 拓扑感知提示
 content_type: concept
-weight: 45
+weight: 100
+description: >-
+  **拓扑感知提示（Topology Aware Hints）** 提供了一种机制来帮助将网络流量保持在其请求方所在的区域内。
+  在集群中的 Pod 之间优先选用相同区域的流量有助于提高可靠性、增强性能（网络延迟和吞吐量）或降低成本。
 ---
-<!-- 
----
+<!--
 reviewers:
 - robscott
 title: Topology Aware Hints
 content_type: concept
-weight: 45
----
+weight: 100
+description: >-
+  _Topology Aware Hints_ provides a mechanism to help keep network traffic within the zone
+  where it originated. Preferring same-zone traffic between Pods in your cluster can help
+  with reliability, performance (network latency and throughput), or cost.
 -->
 
 <!-- overview -->
@@ -20,29 +25,17 @@ weight: 45
 <!-- 
 _Topology Aware Hints_ enable topology aware routing by including suggestions
 for how clients should consume endpoints. This approach adds metadata to enable
-consumers of EndpointSlice and / or Endpoints objects, so that traffic to
+consumers of EndpointSlice (or Endpoints) objects, so that traffic to
 those network endpoints can be routed closer to where it originated.
 
 For example, you can route traffic within a locality to reduce
 costs, or to improve network performance.
 -->
-_拓扑感知提示_ 包含客户怎么使用服务端点的建议，从而实现了拓扑感知的路由功能。
-这种方法添加了元数据，以启用 EndpointSlice 和/或 Endpoints 对象的调用者，
+**拓扑感知提示**包含客户怎么使用服务端点的建议，从而实现了拓扑感知的路由功能。
+这种方法添加了元数据，以启用 EndpointSlice（或 Endpoints）对象的调用者，
 这样，访问这些网络端点的请求流量就可以在它的发起点附近就近路由。
 
 例如，你可以在一个地域内路由流量，以降低通信成本，或提高网络性能。
-
-<!-- 
-The "topology-aware hints" feature is at Beta stage and it is **NOT** enabled
-by default. To try out this feature, you have to enable the `TopologyAwareHints`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
--->
-
-{{< note >}}
-“拓扑感知提示”特性处于 Beta 阶段，并且默认情况下**未**启用。 
-要试用此特性，你必须启用 `TopologyAwareHints`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-{{< /note >}}
 
 <!-- body -->
 
@@ -59,11 +52,11 @@ Routing". When calculating the endpoints for a {{< glossary_tooltip term_id="Ser
 the EndpointSlice controller considers the topology (region and zone) of each endpoint
 and populates the hints field to allocate it to a zone.
 Cluster components such as the {{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}}
-can then consume those hints, and use them to influence how the traffic to is routed
+can then consume those hints, and use them to influence how the traffic is routed
 (favoring topologically closer endpoints).
 -->
 Kubernetes 集群越来越多的部署到多区域环境中。
-_拓扑感知提示_ 提供了一种把流量限制在它的发起区域之内的机制。
+**拓扑感知提示**提供了一种把流量限制在它的发起区域之内的机制。
 这个概念一般被称之为 “拓扑感知路由”。
 在计算 {{< glossary_tooltip term_id="Service" >}} 的端点时，
 EndpointSlice 控制器会评估每一个端点的拓扑（地域和区域），填充提示字段，并将其分配到某个区域。
@@ -111,7 +104,7 @@ when this feature is enabled. The controller allocates a proportional amount of
 endpoints to each zone. This proportion is based on the
 [allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 CPU cores for nodes running in that zone. For example, if one zone had 2 CPU
-cores and another zone only had 1 CPU core, the controller would allocated twice
+cores and another zone only had 1 CPU core, the controller would allocate twice
 as many endpoints to the zone with 2 CPU cores.
 -->
 此特性开启后，EndpointSlice 控制器负责在 EndpointSlice 上设置提示信息。
@@ -198,7 +191,7 @@ Kubernetes 控制平面和每个节点上的 kube-proxy，在使用拓扑感知�
 -->
 2. **不可能实现均衡分配：** 在一些场合中，不可能实现端点在区域中的平衡分配。
    例如，假设 zone-a 比 zone-b 大两倍，但只有 2 个端点，
-   那分配到 zone-a 的端点可能收到比 zone-b多两倍的流量。
+   那分配到 zone-a 的端点可能收到比 zone-b 多两倍的流量。
    如果控制器不能确定此“期望的过载”值低于每一个区域可接受的阈值，控制器将不指派提示信息。
    重要的是，这不是基于实时反馈。所以对于单独的端点仍有可能超载。
 
@@ -225,11 +218,11 @@ Kubernetes 控制平面和每个节点上的 kube-proxy，在使用拓扑感知�
 <!-- 
 5. **A zone is not represented in hints:** If the kube-proxy is unable to find
    at least one endpoint with a hint targeting the zone it is running in, it falls
-   to using endpoints from all zones. This is most likely to happen as you add
+   back to using endpoints from all zones. This is most likely to happen as you add
    a new zone into your existing cluster.
 -->
 5. **不在提示中的区域：** 如果 kube-proxy 不能根据一个指示在它所在的区域中发现一个端点，
-   它回撤为使用所有节点的端点。当你的集群新增一个新的区域时，这种情况发生概率很高。
+   它将回退到使用来自所有区域的端点。当你的集群新增一个新的区域时，这种情况发生概率很高。
 
 <!-- 
 ## Constraints
@@ -265,7 +258,7 @@ Kubernetes 控制平面和每个节点上的 kube-proxy，在使用拓扑感知�
 
 <!-- 
 * The EndpointSlice controller does not take into account {{< glossary_tooltip
-  text="tolerations" term_id="toleration" >}} when deploying calculating the
+  text="tolerations" term_id="toleration" >}} when deploying or calculating the
   proportions of each zone. If the Pods backing a Service are limited to a
   subset of Nodes in the cluster, this will not be taken into account.
 -->
@@ -289,7 +282,6 @@ Kubernetes 控制平面和每个节点上的 kube-proxy，在使用拓扑感知�
 ## {{% heading "whatsnext" %}}
 
 <!-- 
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial
 -->
-
-* 参阅[通过服务连通应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)
+* 参阅[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)教程

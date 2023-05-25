@@ -1,19 +1,20 @@
 ---
 title: Kubernetes 对象管理
 content_type: concept
-weight: 15
+weight: 20
 ---
 
 <!-- overview -->
 <!--
 The `kubectl` command-line tool supports several different ways to create and manage
-Kubernetes objects. This document provides an overview of the different
+Kubernetes {{< glossary_tooltip text="objects" term_id="object" >}}. This document provides an overview of the different
 approaches. Read the [Kubectl book](https://kubectl.docs.kubernetes.io) for
 details of managing objects by Kubectl.
 -->
-`kubectl` 命令行工具支持多种不同的方式来创建和管理 Kubernetes 对象。
+`kubectl` 命令行工具支持多种不同的方式来创建和管理 Kubernetes
+{{< glossary_tooltip text="对象" term_id="object" >}}。
 本文档概述了不同的方法。
-阅读 [Kubectl book](https://kubectl.docs.kubernetes.io) 来了解 kubectl
+阅读 [Kubectl book](https://kubectl.docs.kubernetes.io/zh/) 来了解 kubectl
 管理对象的详细信息。
 
 <!-- body -->
@@ -87,12 +88,12 @@ kubectl create deployment nginx --image nginx
 <!--
 Advantages compared to object configuration:
 
-- Commands are simple, easy to learn and easy to remember.
+- Commands are expressed as a single action word.
 - Commands require only a single step to make changes to the cluster.
 -->
 与对象配置相比的优点：
 
-- 命令简单，易学且易于记忆。
+- 命令用单个动词表示。
 - 命令仅需一步即可对集群进行更改。
 
 <!--
@@ -318,18 +319,18 @@ Disadvantages compared to imperative object configuration:
 
 <!--
 - [Managing Kubernetes Objects Using Imperative Commands](/docs/tasks/manage-kubernetes-objects/imperative-command/)
-- [Managing Kubernetes Objects Using Object Configuration (Imperative)](/docs/tasks/manage-kubernetes-objects/imperative-config/)
-- [Managing Kubernetes Objects Using Object Configuration (Declarative)](/docs/tasks/manage-kubernetes-objects/declarative-config/)
-- [Managing Kubernetes Objects Using Kustomize (Declarative)](/docs/tasks/manage-kubernetes-objects/kustomization/)
+- [Imperative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/imperative-config/)
+- [Declarative Management of Kubernetes Objects Using Configuration Files](/docs/tasks/manage-kubernetes-objects/declarative-config/)
+- [Declarative Management of Kubernetes Objects Using Kustomize](/docs/tasks/manage-kubernetes-objects/kustomization/)
 - [Kubectl Command Reference](/docs/reference/generated/kubectl/kubectl-commands/)
 - [Kubectl Book](https://kubectl.docs.kubernetes.io)
 - [Kubernetes API Reference](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 -->
 - [使用指令式命令管理 Kubernetes 对象](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-command/)
-- [使用对象配置管理 Kubernetes 对象（指令式）](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config/)
-- [使用对象配置管理 Kubernetes 对象（声明式）](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)
-- [使用 Kustomize（声明式）管理 Kubernetes 对象](/zh-cn/docs/tasks/manage-kubernetes-objects/kustomization/)
+- [使用配置文件对 Kubernetes 对象进行命令式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/imperative-config/)
+- [使用配置文件对 Kubernetes 对象进行声明式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/declarative-config/)
+- [使用 Kustomize 对 Kubernetes 对象进行声明式管理](/zh-cn/docs/tasks/manage-kubernetes-objects/kustomization/)
 - [Kubectl 命令参考](/docs/reference/generated/kubectl/kubectl-commands/)
-- [Kubectl Book](https://kubectl.docs.kubernetes.io)
+- [Kubectl Book](https://kubectl.docs.kubernetes.io/zh/)
 - [Kubernetes API 参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
 

@@ -198,7 +198,7 @@ GUINEVERE SAENGER: I would want Jorge to be really on top of making sure that ev
 
 Greater communication of timelines and just giving people more time and space to be able to get in their changes, or at least, seemingly give them more time and space by sending early warnings, is going to be helpful. Of course, he's going to have a slightly longer release, too, than I did. This might be related to a unique Q4 challenge. Overall, I would encourage him to take more breaks, to rely more on his release shadows, and split out the work in a fashion that allows everyone to have a turn and everyone to have a break as well.
 
-**ADAM GLICK: What would your advice be to someone who is hearing your experience and is inspired to get involved with the Kubernetes release or contributer process?**
+**ADAM GLICK: What would your advice be to someone who is hearing your experience and is inspired to get involved with the Kubernetes release or contributor process?**
 
 GUINEVERE SAENGER: Those are two separate questions. So let me tackle the Kubernetes release question first. Kubernetes [SIG Release](https://github.com/kubernetes/sig-release/#readme) has, in my opinion, a really excellent onboarding program for new members. We have what is called the [Release Team Shadow Program](https://github.com/kubernetes/sig-release/blob/master/release-team/shadows.md). We also have the Release Engineering Shadow Program, or the Release Management Shadow Program. Those are two separate subprojects within SIG Release. And each subproject has a team of roles, and each role can have two to four shadows that are basically people who are part of that role team, and they are learning that role as they are doing it.
 

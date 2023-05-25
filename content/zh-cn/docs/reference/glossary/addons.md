@@ -11,7 +11,6 @@ tags:
 - tool
 ---
 <!--
----
 title: Add-ons
 id: addons
 date: 2019-12-15
@@ -22,15 +21,12 @@ short_description: >
 aka:
 tags:
 - tool
----
 -->
-
 
 <!--
   Resources that extend the functionality of Kubernetes.
 -->
   扩展 Kubernetes 功能的资源。
-
 
 <!--more-->
 

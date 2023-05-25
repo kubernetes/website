@@ -6,7 +6,7 @@ kind: AdmissionConfiguration
 plugins:
 - name: PodSecurity
   configuration:
-    apiVersion: pod-security.admission.config.k8s.io/v1beta1
+    apiVersion: pod-security.admission.config.k8s.io/v1
     kind: PodSecurityConfiguration
     defaults:
       enforce: "baseline"
@@ -51,11 +51,12 @@ nodes:
     # default None
     propagation: None
 EOF
-kind create cluster --name psa-with-cluster-pss --image kindest/node:v1.23.0 --config /tmp/pss/cluster-config.yaml
+kind create cluster --name psa-with-cluster-pss --config /tmp/pss/cluster-config.yaml
 kubectl cluster-info --context kind-psa-with-cluster-pss
+
 # Wait for 15 seconds (arbitrary) ServiceAccount Admission Controller to be available
 sleep 15
-cat <<EOF > /tmp/pss/nginx-pod.yaml
+cat <<EOF |
 apiVersion: v1
 kind: Pod
 metadata:
@@ -67,4 +68,17 @@ spec:
       ports:
         - containerPort: 80
 EOF
-kubectl apply -f /tmp/pss/nginx-pod.yaml
+kubectl apply -f -
+
+# Await input
+sleep 1
+( bash -c 'true' 2>/dev/null && bash -c 'read -p "Press any key to continue... " -n1 -s' ) || \
+    ( printf "Press Enter to continue... " && read ) 1>&2
+
+# Clean up
+printf "\n\nCleaning up:\n" 1>&2
+set -e
+kubectl delete pod --all -n example --now
+kubectl delete ns example
+kind delete cluster --name psa-with-cluster-pss
+rm -f /tmp/pss/cluster-config.yaml

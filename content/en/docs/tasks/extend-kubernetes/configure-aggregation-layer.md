@@ -44,7 +44,7 @@ The rest of this section describes these steps in detail.
 
 The flow can be seen in the following diagram.
 
-![aggregation auth flows](/images/docs/aggregation-api-auth-flow.png).
+![aggregation auth flows](/images/docs/aggregation-api-auth-flow.png)
 
 The source for the above swimlanes can be found in the source of this document.
 
@@ -276,6 +276,6 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
-* [Setup an extension api-server](/docs/tasks/extend-kubernetes/setup-extension-api-server/) to work with the aggregation layer.
+* [Set up an extension api-server](/docs/tasks/extend-kubernetes/setup-extension-api-server/) to work with the aggregation layer.
 * For a high level overview, see [Extending the Kubernetes API with the aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/).
 * Learn how to [Extend the Kubernetes API Using Custom Resource Definitions](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/).

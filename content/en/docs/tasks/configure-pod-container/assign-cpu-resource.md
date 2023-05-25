@@ -105,7 +105,7 @@ resources:
     cpu: 500m
 ```
 
-Use `kubectl top` to fetch the metrics for the pod:
+Use `kubectl top` to fetch the metrics for the Pod:
 
 ```shell
 kubectl top pod cpu-demo --namespace=cpu-example
@@ -275,4 +275,4 @@ kubectl delete namespace cpu-example
 
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 
-
+* [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/)

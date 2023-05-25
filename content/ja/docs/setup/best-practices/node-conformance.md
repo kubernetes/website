@@ -6,13 +6,7 @@ weight: 30
 
 ## ノード適合テスト
 
-*ノード適合テスト* は、システムの検証とノードに対する機能テストを提供するコンテナ型のテストフレームワークです。このテストは、ノードがKubernetesの最小要件を満たしているかどうかを検証するもので、テストに合格したノードはKubernetesクラスタに参加する資格があることになります。
-
-## 制約
-
-Kubernetesのバージョン1.5ではノード適合テストには以下の制約があります:
-
-* ノード適合テストはコンテナのランタイムとしてDockerのみをサポートします。
+*ノード適合テスト* は、システムの検証とノードに対する機能テストを提供するコンテナ型のテストフレームワークです。このテストは、ノードがKubernetesの最小要件を満たしているかどうかを検証するもので、テストに合格したノードはKubernetesクラスターに参加する資格があることになります。
 
 ## ノードの前提条件
 
@@ -25,10 +19,11 @@ Kubernetesのバージョン1.5ではノード適合テストには以下の制�
 
 ノード適合テストを実行するには、以下の手順に従います:
 
-1. Kubeletをlocalhostに指定します(`--api-servers="http://localhost:8080"`)、
-このテストフレームワークはKubeletのテストにローカルマスターを起動するため、Kubeletをローカルホストに設定します(`--api-servers="http://localhost:8080"`)。他にも配慮するべきKubeletフラグがいくつかあります:
-  * `--pod-cidr`: `kubenet`を利用している場合は、Kubeletに任意のCIDR(例: `--pod-cidr=10.180.0.0/24`)を指定する必要があります。
-  * `--cloud-provider`: `--cloud-provider=gce`を指定している場合は、テストを実行する前にこのフラグを取り除いてください。
+1. kubeletの`--kubeconfig`オプションの値を調べます。例:`--kubeconfig=/var/lib/kubelet/config.yaml`。
+   このテストフレームワークはKubeletのテスト用にローカルコントロールプレーンを起動するため、APIサーバーのURLとして`http://localhost:8080`を使用します。
+   他にも使用できるkubeletコマンドラインパラメーターがいくつかあります:
+
+   * `--cloud-provider`: `--cloud-provider=gce`を指定している場合は、テストを実行する前にこのフラグを取り除いてください。
 
 2. 以下のコマンドでノード適合テストを実行します:
 
@@ -37,7 +32,7 @@ Kubernetesのバージョン1.5ではノード適合テストには以下の制�
 # $LOG_DIRはテスト出力のパスです。
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
-  k8s.gcr.io/node-test:0.2
+  registry.k8s.io/node-test:0.2
 ```
 
 ## 他アーキテクチャ向けのノード適合テストの実行
@@ -58,7 +53,7 @@ Kubernetesは他のアーキテクチャ用のノード適合テストのdocker�
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
   -e FOCUS=MirrorPod \ # MirrorPodテストのみを実行します
-  k8s.gcr.io/node-test:0.2
+  registry.k8s.io/node-test:0.2
 ```
 
 特定のテストをスキップするには、環境変数`SKIP`をスキップしたいテストの正規表現で上書きします。
@@ -67,7 +62,7 @@ sudo docker run -it --rm --privileged --net=host \
 sudo docker run -it --rm --privileged --net=host \
   -v /:/rootfs:ro -v $CONFIG_DIR:$CONFIG_DIR -v $LOG_DIR:/var/result \
   -e SKIP=MirrorPod \ # MirrorPodテスト以外のすべてのノード適合テストを実行します
-  k8s.gcr.io/node-test:0.2
+  registry.k8s.io/node-test:0.2
 ```
 
 ノード適合テストは、[node e2e test](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-node/e2e-node-tests.md)のコンテナ化されたバージョンです。

@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - erictune
 title: 파드
 content_type: concept
 weight: 10
@@ -137,6 +137,23 @@ term_id="deployment" >}} 또는 {{< glossary_tooltip text="잡(Job)" term_id="jo
 
 파드 오브젝트에 대한 매니페스트를 만들 때, 지정된 이름이 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)인지 확인한다.
+
+### 파드 OS
+
+{{< feature-state state="stable" for_k8s_version="v1.25" >}}
+
+파드를 실행할 때 OS를 표시하려면 `.spec.os.name` 필드를 `windows` 또는 
+`linux`로 설정해야 한다. 이 두 가지 운영체제는 현재 쿠버네티스에서 지원되는 
+유일한 운영체제이다. 앞으로 이 목록이 확장될 수 있다.
+
+쿠버네티스 v{{< skew currentVersion >}}에서, 이 필드에 대해 설정한 값은
+파드의 {{< glossary_tooltip text="스케줄링" term_id="kube-scheduler" >}}에 영향을 미치지 않는다.
+`.spec.os.name`을 설정하면 파드 검증 시 
+OS를 식별하는 데 도움이 된다. 
+kubelet은 
+자신이 실행되고 있는 노드의 운영체제와 
+동일하지 않은 파드 OS가 명시된 파드의 실행을 거부한다.
+[파드 시큐리티 스탠다드](/ko/docs/concepts/security/pod-security-standards/)도 이 필드를 사용하여 해당 운영체제와 관련이 없는 정책을 시행하지 않도록 한다.
 
 ### 파드와 컨트롤러
 
@@ -320,12 +337,12 @@ _프로브_는 컨테이너의 kubelet에 의해 주기적으로 실행되는 �
 * [파드의 라이프사이클](/ko/docs/concepts/workloads/pods/pod-lifecycle/)에 대해 알아본다.
 * [런타임클래스(RuntimeClass)](/ko/docs/concepts/containers/runtime-class/)와 이를 사용하여
   다양한 컨테이너 런타임 구성으로 다양한 파드를 설정하는 방법에 대해 알아본다.
-* [파드 토폴로지 분배 제약 조건](/ko/docs/concepts/workloads/pods/pod-topology-spread-constraints/)에 대해 읽어본다.
 * [PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/)과 이를 사용하여 서비스 중단 중에 애플리케이션 가용성을 관리하는 방법에 대해 읽어본다.
 * 파드는 쿠버네티스 REST API의 최상위 리소스이다.
   {{< api-reference page="workload-resources/pod-v1" >}}
   오브젝트 정의는 오브젝트를 상세히 설명한다.
 * [분산 시스템 툴킷: 컴포지트 컨테이너에 대한 패턴](/blog/2015/06/the-distributed-system-toolkit-patterns/)은 둘 이상의 컨테이너가 있는 파드의 일반적인 레이아웃을 설명한다.
+* [파드 토폴로지 분배 제약 조건](/ko/docs/concepts/scheduling-eviction/topology-spread-constraints/)에 대해 읽어본다.
 
 쿠버네티스가 다른 리소스({{< glossary_tooltip text="스테이트풀셋" term_id="statefulset" >}}이나 {{< glossary_tooltip text="디플로이먼트" term_id="deployment" >}}와 같은)에서 공통 파드 API를 래핑하는 이유에 대한 콘텍스트를 이해하기 위해서, 다음과 같은 선행 기술에 대해 읽어볼 수 있다.
 

@@ -41,10 +41,12 @@ CSIDriver 对象未划分命名空间。
 
 <!--
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+
   Standard object metadata. metadata.Name indicates the name of the CSI driver that this object refers to; it MUST be the same name returned by the CSI GetPluginName() call for that driver. The driver name must be 63 characters or less, beginning and ending with an alphanumeric character ([a-z0-9A-Z]) with dashes (-), dots (.), and alphanumerics between. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../config-and-storage-resources/csi-driver-v1#CSIDriverSpec" >}}">CSIDriverSpec</a>), required
-  Specification of the CSI Driver.
+
+  spec represents the specification of the CSI Driver.
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
   
@@ -58,7 +60,7 @@ CSIDriver 对象未划分命名空间。
 
 - **spec** (<a href="{{< ref "../config-and-storage-resources/csi-driver-v1#CSIDriverSpec" >}}">CSIDriverSpec</a>)，必需
   
-  CSI 驱动的规约。
+  spec 表示 CSI 驱动的规约。
 
 ## CSIDriverSpec {#CSIDriverSpec}
 
@@ -89,7 +91,8 @@ CSIDriverSpec 是 CSIDriver 的规约。
 
 <!--
 - **fsGroupPolicy** (string)
-  Defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
+
+  fsGroupPolicy defines if the underlying volume supports changing ownership and permission of the volume before being mounted. Refer to the specific FSGroupPolicy values for additional details.
   
   This field is immutable.
   
@@ -97,7 +100,7 @@ CSIDriverSpec 是 CSIDriver 的规约。
 -->
 - **fsGroupPolicy** (string)
   
-  定义底层卷是否支持在挂载之前更改卷的所有权和权限。
+  fsGroupPolicy 定义底层卷是否支持在挂载之前更改卷的所有权和权限。
   有关更多详细信息，请参考特定的 FSGroupPolicy 值。
   
   此字段不可变更。
@@ -107,28 +110,38 @@ CSIDriverSpec 是 CSIDriver 的规约。
 
 <!--
 - **podInfoOnMount** (boolean)
-  If set to true, podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations. If set to false, pod information will not be passed on mount. Default is false. The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext. The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid": string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" if the volume is an ephemeral inline volume defined by a CSIVolumeSource, otherwise "false"
-  
-  "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
-  
-  This field is immutable.
+
+  podInfoOnMount indicates this CSI volume driver requires additional pod information (like podName, podUID, etc.) during mount operations, if set to true. If set to false, pod information will not be passed on mount. Default is false.
 -->
 - **podInfoOnMount** (boolean)
+
+  如果 podInfoOnMount 设为 true，则表示在挂载操作期间这个 CSI 卷驱动需要更多的
+  Pod 信息（例如 podName 和 podUID 等）。
+  如果设为 false，则挂载时将不传递 Pod 信息。默认为 false。
   
-  如果设为 true，则 podInfoOnMount 表示在挂载操作期间这个 CSI 卷需要更多的 Pod 信息（例如 podName 和 podUID 等）。
-  如果设为 false，则挂载时将不传递 Pod 信息。
-  默认为 false。
+  <!--
+  The CSI driver specifies podInfoOnMount as part of driver deployment. If true, Kubelet will pass pod information as VolumeContext in the CSI NodePublishVolume() calls. The CSI driver is responsible for parsing and validating the information passed in as VolumeContext.
+  
+  The following VolumeConext will be passed if podInfoOnMount is set to true. This list might grow, but the prefix will be used. "csi.storage.k8s.io/pod.name": pod.Name "csi.storage.k8s.io/pod.namespace": pod.Namespace "csi.storage.k8s.io/pod.uid": string(pod.UID) "csi.storage.k8s.io/ephemeral": "true" if the volume is an ephemeral inline volume defined by a CSIVolumeSource, otherwise "false"
+  -->
   CSI 驱动将 podInfoOnMount 指定为驱动部署的一部分。
   如果为 true，Kubelet 将在 CSI NodePublishVolume() 调用中作为 VolumeContext 传递 Pod 信息。
   CSI 驱动负责解析和校验作为 VolumeContext 传递进来的信息。
+
   如果 podInfoOnMount 设为 true，将传递以下 VolumeConext。
   此列表可能变大，但将使用前缀。
+
   - "csi.storage.k8s.io/pod.name": pod.name
   - "csi.storage.k8s.io/pod.namespace": pod.namespace
   - "csi.storage.k8s.io/pod.uid": string(pod.UID)
   - "csi.storage.k8s.io/ephemeral":
     如果此卷是 CSIVolumeSource 定义的一个临时内联卷，则为 “true”，否则为 “false”
+
+  <!--
+  "csi.storage.k8s.io/ephemeral" is a new feature in Kubernetes 1.16. It is only required for drivers which support both the "Persistent" and "Ephemeral" VolumeLifecycleMode. Other drivers can leave pod info disabled and/or ignore this field. As Kubernetes 1.15 doesn't support this field, drivers can only support one mode when deployed on such a cluster and the deployment determines which mode that is, for example via a command line parameter of the driver.
   
+  This field is immutable.
+  -->
   “csi.storage.k8s.io/ephemeral” 是 Kubernetes 1.16 中一个新的功能特性。
   只有同时支持 “Persistent” 和 “Ephemeral” VolumeLifecycleMode 的驱动，此字段才是必需的。
   其他驱动可以保持禁用 Pod 信息或忽略此字段。
@@ -139,7 +152,8 @@ CSIDriverSpec 是 CSIDriver 的规约。
 
 <!--
 - **requiresRepublish** (boolean)
-  RequiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
+
+  requiresRepublish indicates the CSI driver wants `NodePublishVolume` being periodically called to reflect any possible change in the mounted volume. This field defaults to false.
   
   Note: After a successful initial NodePublishVolume call, subsequent calls to NodePublishVolume should only update the contents of the volume. New mount points will not be seen by a running container.
 -->
@@ -153,8 +167,36 @@ CSIDriverSpec 是 CSIDriver 的规约。
   新的挂载点将不会被运行的容器察觉。
 
 <!--
+- **seLinuxMount** (boolean)
+
+  seLinuxMount specifies if the CSI driver supports "-o context" mount option.
+  
+  When "true", the CSI driver must ensure that all volumes provided by this CSI driver can be mounted separately with different `-o context` options. This is typical for storage backends that provide volumes as filesystems on block devices or as independent shared volumes. Kubernetes will call NodeStage / NodePublish with "-o context=xyz" mount option when mounting a ReadWriteOncePod volume used in Pod that has explicitly set SELinux context. In the future, it may be expanded to other volume AccessModes. In any case, Kubernetes will ensure that the volume is mounted only with a single SELinux context.
+-->
+- **seLinuxMount** (boolean)
+
+  seLinuxMount 指定 CSI 驱动是否支持 "-o context" 挂载选项。
+
+  当值为 “true” 时，CSI 驱动必须确保该 CSI 驱动提供的所有卷可以分别用不同的 `-o context` 选项进行挂载。
+  这对于将卷作为块设备上的文件系统或作为独立共享卷提供的存储后端来说是典型的方法。
+  当 Kubernetes 挂载在 Pod 中使用的已显式设置 SELinux 上下文的 ReadWriteOncePod 卷时，
+  将使用 "-o context=xyz" 挂载选项调用 NodeStage / NodePublish。
+  未来可能会扩展到其他的卷访问模式（AccessModes）。在任何情况下，Kubernetes 都会确保该卷仅使用同一 SELinux 上下文进行挂载。
+
+  <!--
+  When "false", Kubernetes won't pass any special SELinux mount options to the driver. This is typical for volumes that represent subdirectories of a bigger shared filesystem.
+  
+  Default is "false".
+  -->
+  当值为 “false” 时，Kubernetes 不会将任何特殊的 SELinux 挂载选项传递给驱动。
+  这通常用于代表更大共享文件系统的子目录的卷。
+  
+  默认为 “false”。
+
+<!--
 - **storageCapacity** (boolean)
-  If set to true, storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information.
+
+  storageCapacity indicates that the CSI volume driver wants pod scheduling to consider the storage capacity that the driver deployment will report by creating CSIStorageCapacity objects with capacity information, if set to true.
   
   The check can be enabled immediately when deploying a driver. In that case, provisioning new volumes with late binding will pause until the driver deployment has published some suitable CSIStorageCapacity object.
   
@@ -178,13 +220,16 @@ CSIDriverSpec 是 CSIDriver 的规约。
 
 <!--
 - **tokenRequests** ([]TokenRequest)
+
   *Atomic: will be replaced during a merge*
   
-  TokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: "csi.storage.k8s.io/
-  
-  Note: Audience in each TokenRequest should be different and at most one token is empty string. To receive a new token after expiry, RequiresRepublish can be used to trigger NodePublishVolume periodically.
-  <a name="TokenRequest"></a>
-  *TokenRequest contains parameters of a service account token.*
+  tokenRequests indicates the CSI driver needs pods' service account tokens it is mounting volume for to do necessary authentication. Kubelet will pass the tokens in VolumeContext in the CSI NodePublishVolume calls. The CSI driver should parse and validate the following VolumeContext: "csi.storage.k8s.io/serviceAccount.tokens": {
+    "\<audience>": {
+      "token": \<token>,
+      "expirationTimestamp": \<expiration timestamp in RFC3339>,
+    },
+    ...
+  }
 -->
 - **tokenRequests** ([]TokenRequest)
   
@@ -204,21 +249,27 @@ CSIDriverSpec 是 CSIDriver 的规约。
   }
   ```
 
+  <!--
+  Note: Audience in each TokenRequest should be different and at most one token is empty string. To receive a new token after expiry, RequiresRepublish can be used to trigger NodePublishVolume periodically.
+
+  <a name="TokenRequest"></a>
+  *TokenRequest contains parameters of a service account token.*
+  -->
   注：每个 tokenRequest 中的受众应该不同，且最多有一个令牌是空字符串。
   要在令牌过期后接收一个新的令牌，requiresRepublish 可用于周期性地触发 NodePublishVolume。
   
   <a name="TokenRequest"></a>
   **tokenRequest 包含一个服务帐户令牌的参数。**
 
-<!--
+  <!--
   - **tokenRequests.audience** (string), required
 
-    Audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
+    audience is the intended audience of the token in "TokenRequestSpec". It will default to the audiences of kube apiserver.
 
   - **tokenRequests.expirationSeconds** (int64)
 
-    ExpirationSeconds is the duration of validity of the token in "TokenRequestSpec". It has the same default value of "ExpirationSeconds" in "TokenRequestSpec".
--->  
+    expirationSeconds is the duration of validity of the token in "TokenRequestSpec". It has the same default value of "ExpirationSeconds" in "TokenRequestSpec".
+  -->  
   - **tokenRequests.audience** (string)，必需
     
     audience 是 “TokenRequestSpec” 中令牌的目标受众。
@@ -234,9 +285,7 @@ CSIDriverSpec 是 CSIDriver 的规约。
 
   *Set: unique values will be kept during a merge*
   
-  volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is "Persistent", which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism. The other mode is "Ephemeral". In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume. For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future. This field is beta.
-  
-  This field is immutable.
+  volumeLifecycleModes defines what kind of volumes this CSI volume driver supports. The default if the list is empty is "Persistent", which is the usage defined by the CSI specification and implemented in Kubernetes via the usual PV/PVC mechanism.
 -->
 - **volumeLifecycleModes** ([]string)
   
@@ -245,15 +294,23 @@ CSIDriverSpec 是 CSIDriver 的规约。
   volumeLifecycleModes 定义这个 CSI 卷驱动支持哪种类别的卷。
   如果列表为空，则默认值为 “Persistent”，这是 CSI 规范定义的用法，
   并通过常用的 PV/PVC 机制在 Kubernetes 中实现。
+
+  <!--
+  The other mode is "Ephemeral". In this mode, volumes are defined inline inside the pod spec with CSIVolumeSource and their lifecycle is tied to the lifecycle of that pod. A driver has to be aware of this because it is only going to get a NodePublishVolume call for such a volume.
+  
+  For more information about implementing this mode, see https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html A driver can support one or more of these modes and more modes may be added in the future.
+  
+  This field is beta. This field is immutable.
+  -->
   另一种模式是 “Ephemeral”。
   在这种模式下，在 Pod 规约中用 CSIVolumeSource 以内联方式定义卷，其生命周期与该 Pod 的生命周期相关联。
   驱动必须感知到这一点，因为只有针对这种卷才会接收到 NodePublishVolume 调用。
+
   有关实现此模式的更多信息，请参阅
   https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html。
   驱动可以支持其中一种或多种模式，将来可能会添加更多模式。
-  此字段处于 beta 阶段。
   
-  此字段不可变更。
+  此字段处于 Beta 阶段。此字段不可变更。
 
 ## CSIDriverList {#CSIDriverList}
 
@@ -279,8 +336,7 @@ CSIDriverList 是 CSIDriver 对象的集合。
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
   
-  标准的列表元数据。
-  更多信息：
+  标准的列表元数据。更多信息：
   https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/csi-driver-v1#CSIDriver" >}}">CSIDriver</a>)，必需
@@ -319,7 +375,7 @@ GET /apis/storage.k8s.io/v1/csidrivers/{name}
 
 - **name** (**路径参数**): string，必需
   
-  CSIDriver 的名称
+  CSIDriver 的名称。
 
 - **pretty** (**查询参数**): string
   
@@ -347,16 +403,50 @@ GET /apis/storage.k8s.io/v1/csidrivers
 
 <!--
 #### Parameters
+
 - **allowWatchBookmarks** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
+
 - **continue** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+
 - **fieldSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
 - **labelSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+
 - **limit** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
 - **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
 - **resourceVersion** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
 - **resourceVersionMatch** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 - **timeoutSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+
 - **watch** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 -->
 #### 参数
 
@@ -391,6 +481,10 @@ GET /apis/storage.k8s.io/v1/csidrivers
 - **resourceVersionMatch** (**查询参数**): string
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
   
@@ -486,7 +580,7 @@ PUT /apis/storage.k8s.io/v1/csidrivers/{name}
 
 - **name** (**路径参数**): string，必需
   
-  CSIDriver 的名称
+  CSIDriver 的名称。
 
 - **body**: <a href="{{< ref "../config-and-storage-resources/csi-driver-v1#CSIDriver" >}}">CSIDriver</a>，必需
 
@@ -543,7 +637,7 @@ PATCH /apis/storage.k8s.io/v1/csidrivers/{name}
 
 - **name** (**路径参数**): string，必需
   
-  CSIDriver 的名称
+  CSIDriver 的名称。
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
@@ -603,7 +697,7 @@ DELETE /apis/storage.k8s.io/v1/csidrivers/{name}
 
 - **name** (**路径参数**): string，必需
   
-  CSIDriver 的名称
+  CSIDriver 的名称。
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
@@ -647,18 +741,56 @@ DELETE /apis/storage.k8s.io/v1/csidrivers
 
 <!--
 #### Parameters
+
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
+
 - **continue** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+
 - **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
 - **fieldSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
 - **gracePeriodSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
 - **labelSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+
 - **limit** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
 - **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
 - **propagationPolicy** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
+
 - **resourceVersion** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
 - **resourceVersionMatch** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 - **timeoutSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 -->
 #### 参数
 
@@ -703,6 +835,10 @@ DELETE /apis/storage.k8s.io/v1/csidrivers
 - **resourceVersionMatch** (**查询参数**): string
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
   

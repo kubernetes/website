@@ -16,7 +16,7 @@ New to Windows 10 and WSL2, or new to Docker and Kubernetes? Welcome to this blo
 
 For the last few years, Kubernetes became a de-facto standard platform for running containerized services and applications in distributed environments. While a wide variety of distributions and installers exist to deploy Kubernetes in the cloud environments (public, private or hybrid), or within the bare metal environments, there is still a need to deploy and run Kubernetes locally, for example, on the developer's workstation.
 
-Kubernetes has been originally designed to be deployed and used in the Linux environments. However, a good number of users (and not only application developers) use Windows OS as their daily driver. When Microsoft revealed WSL - [the Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/), the line between Windows and Linux environments became even less visible.
+Kubernetes has been originally designed to be deployed and used in the Linux environments. However, a good number of users (and not only application developers) use Windows OS as their daily driver. When Microsoft revealed WSL - [the Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/), the line between Windows and Linux environments became even less visible.
 
 
 Also, WSL brought an ability to run Kubernetes on Windows almost seamlessly!
@@ -31,7 +31,7 @@ Since we will explain how to install KinD, we won't go into too much detail arou
 However, here is the list of the prerequisites needed and their version/lane:
 
 - OS: Windows 10 version 2004, Build 19041
-- [WSL2 enabled](https://docs.microsoft.com/en-us/windows/wsl/wsl2-install)
+- [WSL2 enabled](https://learn.microsoft.com/en-us/windows/wsl/wsl2-install)
   - In order to install the distros as WSL2 by default, once WSL2 installed, run the command `wsl.exe --set-default-version 2` in Powershell
 - WSL2 distro installed from the Windows Store - the distro used is Ubuntu-18.04
 - [Docker Desktop for Windows](https://hub.docker.com/editions/community/docker-ce-desktop-windows), stable channel - the version used is 2.2.0.4
@@ -520,7 +520,7 @@ And the real strength of WSL2 integration, the port `8443` once open on WSL2 dis
 
 Working on the command line is always good and very insightful. However, when dealing with Kubernetes we might want, at some point, to have a visual overview.
 
-For that, Minikube embeded the [Kubernetes Dashboard](https://github.com/kubernetes/dashboard). Thanks to it, running and accessing the Dashboard is very simple:
+For that, Minikube embedded the [Kubernetes Dashboard](https://github.com/kubernetes/dashboard). Thanks to it, running and accessing the Dashboard is very simple:
 
 ```bash
 # Enable the Dashboard service

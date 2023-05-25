@@ -7,7 +7,7 @@ metadata:
 spec:
   containers:
   - name: goproxy
-    image: k8s.gcr.io/goproxy:0.1
+    image: registry.k8s.io/goproxy:0.1
     ports:
     - containerPort: 8080
     readinessProbe:

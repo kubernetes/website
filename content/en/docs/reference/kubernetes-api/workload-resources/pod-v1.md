@@ -77,6 +77,12 @@ PodSpec is a description of a pod.
   
   List of initialization containers belonging to the pod. Init containers are executed in order prior to containers being started. If any init container fails, the pod is considered to have failed and is handled according to its restartPolicy. The name for an init container or normal container must be unique among all containers. Init containers may not have Lifecycle actions, Readiness probes, Liveness probes, or Startup probes. The resourceRequirements of an init container are taken into account during scheduling by finding the highest request/limit for each resource type, and then using the max of of that value or the sum of the normal containers. Limits are applied to init containers in a similar fashion. Init containers cannot currently be added or removed. Cannot be updated. More info: https://kubernetes.io/docs/concepts/workloads/pods/init-containers/
 
+- **ephemeralContainers** ([]<a href="{{< ref "../workload-resources/pod-v1#EphemeralContainer" >}}">EphemeralContainer</a>)
+
+  *Patch strategy: merge on key `name`*
+  
+  List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource.
+
 - **imagePullSecrets** ([]<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
 
   *Patch strategy: merge on key `name`*
@@ -93,7 +99,7 @@ PodSpec is a description of a pod.
   
   If the OS field is set to linux, the following fields must be unset: -securityContext.windowsOptions
   
-  If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup This is a beta field and requires the IdentifyPodOS feature
+  If the OS field is set to windows, following fields must be unset: - spec.hostPID - spec.hostIPC - spec.hostUsers - spec.securityContext.seLinuxOptions - spec.securityContext.seccompProfile - spec.securityContext.fsGroup - spec.securityContext.fsGroupChangePolicy - spec.securityContext.sysctls - spec.shareProcessNamespace - spec.securityContext.runAsUser - spec.securityContext.runAsGroup - spec.securityContext.supplementalGroups - spec.containers[*].securityContext.seLinuxOptions - spec.containers[*].securityContext.seccompProfile - spec.containers[*].securityContext.capabilities - spec.containers[*].securityContext.readOnlyRootFilesystem - spec.containers[*].securityContext.privileged - spec.containers[*].securityContext.allowPrivilegeEscalation - spec.containers[*].securityContext.procMount - spec.containers[*].securityContext.runAsUser - spec.containers[*].securityContext.runAsGroup
 
   <a name="PodOS"></a>
   *PodOS defines the OS parameters of a pod.*
@@ -155,8 +161,6 @@ PodSpec is a description of a pod.
   - **tolerations.operator** (string)
 
     Operator represents a key's relationship to the value. Valid operators are Exists and Equal. Defaults to Equal. Exists is equivalent to wildcard for value, so that a pod can tolerate all taints of a particular category.
-    
-    
 
   - **tolerations.value** (string)
 
@@ -165,8 +169,6 @@ PodSpec is a description of a pod.
   - **tolerations.effect** (string)
 
     Effect indicates the taint effect to match. Empty means match all taint effects. When specified, allowed values are NoSchedule, PreferNoSchedule and NoExecute.
-    
-    
 
   - **tolerations.tolerationSeconds** (int64)
 
@@ -188,6 +190,10 @@ PodSpec is a description of a pod.
 
   The priority value. Various system components use this field to find the priority of the pod. When Priority Admission Controller is enabled, it prevents users from setting this field. The admission controller populates this field from PriorityClassName. The higher the value, the higher the priority.
 
+- **preemptionPolicy** (string)
+
+  PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+
 - **topologySpreadConstraints** ([]TopologySpreadConstraint)
 
   *Patch strategy: merge on key `topologyKey`*
@@ -205,7 +211,7 @@ PodSpec is a description of a pod.
 
   - **topologySpreadConstraints.topologyKey** (string), required
 
-    TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each \<key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes match the node selector. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
+    TopologyKey is the key of node labels. Nodes that have a label with this key and identical values are considered to be in the same topology. We consider each \<key, value> as a "bucket", and try to put balanced number of pods into each bucket. We define a domain as a particular instance of a topology. Also, we define an eligible domain as a domain whose nodes meet the requirements of nodeAffinityPolicy and nodeTaintsPolicy. e.g. If TopologyKey is "kubernetes.io/hostname", each Node is a domain of that topology. And, if TopologyKey is "topology.kubernetes.io/zone", each zone is a domain of that topology. It's a required field.
 
   - **topologySpreadConstraints.whenUnsatisfiable** (string), required
 
@@ -213,12 +219,18 @@ PodSpec is a description of a pod.
       but giving higher precedence to topologies that would help reduce the
       skew.
     A constraint is considered "Unsatisfiable" for an incoming pod if and only if every possible node assignment for that pod would violate "MaxSkew" on some topology. For example, in a 3-zone cluster, MaxSkew is set to 1, and pods with the same labelSelector spread as 3/1/1: | zone1 | zone2 | zone3 | | P P P |   P   |   P   | If WhenUnsatisfiable is set to DoNotSchedule, incoming pod can only be scheduled to zone2(zone3) to become 3/2/1(3/1/2) as ActualSkew(2-1) on zone2(zone3) satisfies MaxSkew(1). In other words, the cluster can still be imbalanced, but scheduler won't make it *more* imbalanced. It's a required field.
-    
-    
 
   - **topologySpreadConstraints.labelSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
     LabelSelector is used to find matching pods. Pods that match this label selector are counted to determine the number of pods in their corresponding topology domain.
+
+  - **topologySpreadConstraints.matchLabelKeys** ([]string)
+
+    *Atomic: will be replaced during a merge*
+    
+    MatchLabelKeys is a set of pod label keys to select the pods over which spreading will be calculated. The keys are used to lookup values from the incoming pod labels, those key-value labels are ANDed with labelSelector to select the group of existing pods over which spreading will be calculated for the incoming pod. The same key is forbidden to exist in both MatchLabelKeys and LabelSelector. MatchLabelKeys cannot be set when LabelSelector isn't set. Keys that don't exist in the incoming pod labels will be ignored. A null or empty list means only match against labelSelector.
+    
+    This is a beta field and requires the MatchLabelKeysInPodTopologySpread feature gate to be enabled (enabled by default).
 
   - **topologySpreadConstraints.minDomains** (int32)
 
@@ -226,16 +238,30 @@ PodSpec is a description of a pod.
     
     For example, in a 3-zone cluster, MaxSkew is set to 2, MinDomains is set to 5 and pods with the same labelSelector spread as 2/2/2: | zone1 | zone2 | zone3 | |  P P  |  P P  |  P P  | The number of domains is less than 5(MinDomains), so "global minimum" is treated as 0. In this situation, new pod with the same labelSelector cannot be scheduled, because computed skew will be 3(3 - 0) if new Pod is scheduled to any of the three zones, it will violate MaxSkew.
     
-    This is an alpha field and requires enabling MinDomainsInPodTopologySpread feature gate.
+    This is a beta field and requires the MinDomainsInPodTopologySpread feature gate to be enabled (enabled by default).
+
+  - **topologySpreadConstraints.nodeAffinityPolicy** (string)
+
+    NodeAffinityPolicy indicates how we will treat Pod's nodeAffinity/nodeSelector when calculating pod topology spread skew. Options are: - Honor: only nodes matching nodeAffinity/nodeSelector are included in the calculations. - Ignore: nodeAffinity/nodeSelector are ignored. All nodes are included in the calculations.
+    
+    If this value is nil, the behavior is equivalent to the Honor policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+
+  - **topologySpreadConstraints.nodeTaintsPolicy** (string)
+
+    NodeTaintsPolicy indicates how we will treat node taints when calculating pod topology spread skew. Options are: - Honor: nodes without taints, along with tainted nodes for which the incoming pod has a toleration, are included. - Ignore: node taints are ignored. All nodes are included.
+    
+    If this value is nil, the behavior is equivalent to the Ignore policy. This is a beta-level feature default enabled by the NodeInclusionPolicyInPodTopologySpread feature flag.
+
+- **overhead** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+
+  Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
 
 ### Lifecycle
 
 
 - **restartPolicy** (string)
 
-  Restart policy for all containers within the pod. One of Always, OnFailure, Never. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
-  
-  
+  Restart policy for all containers within the pod. One of Always, OnFailure, Never. In some contexts, only a subset of those values may be permitted. Default to Always. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy
 
 - **terminationGracePeriodSeconds** (int64)
 
@@ -320,8 +346,6 @@ PodSpec is a description of a pod.
 - **dnsPolicy** (string)
 
   Set DNS policy for the pod. Defaults to "ClusterFirst". Valid values are 'ClusterFirstWithHostNet', 'ClusterFirst', 'Default' or 'None'. DNS parameters given in DNSConfig will be merged with the policy selected with DNSPolicy. To have DNS options set along with hostNetwork, you have to specify DNS policy explicitly to 'ClusterFirstWithHostNet'.
-  
-  
 
 ### Hosts namespaces
 
@@ -377,7 +401,7 @@ PodSpec is a description of a pod.
 
   - **securityContext.supplementalGroups** ([]int64)
 
-    A list of groups applied to the first process run in each container, in addition to the container's primary GID.  If unspecified, no groups will be added to any container. Note that this field cannot be set when spec.os.name is windows.
+    A list of groups applied to the first process run in each container, in addition to the container's primary GID, the fsGroup (if specified), and group memberships defined in the container image for the uid of the container process. If unspecified, no additional groups are added to any container. Note that group memberships defined in the container image for the uid of the container process are still effective, even if they are not included in this list. Note that this field cannot be set when spec.os.name is windows.
 
   - **securityContext.fsGroup** (int64)
 
@@ -403,8 +427,6 @@ PodSpec is a description of a pod.
       type indicates which kind of seccomp profile will be applied. Valid options are:
       
       Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
-      
-      
 
     - **securityContext.seccompProfile.localhostProfile** (string)
 
@@ -471,22 +493,73 @@ PodSpec is a description of a pod.
 
       The UserName in Windows to run the entrypoint of the container process. Defaults to the user specified in image metadata if unspecified. May also be set in PodSecurityContext. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence.
 
-### Beta level
+### Alpha level
 
 
-- **ephemeralContainers** ([]<a href="{{< ref "../workload-resources/pod-v1#EphemeralContainer" >}}">EphemeralContainer</a>)
+- **hostUsers** (boolean)
+
+  Use the host's user namespace. Optional: Default to true. If set to true or not present, the pod will be run in the host user namespace, useful for when the pod needs a feature only available to the host user namespace, such as loading a kernel module with CAP_SYS_MODULE. When set to false, a new userns is created for the pod. Setting false is useful for mitigating container breakout vulnerabilities even allowing users to run their containers as root without actually having root privileges on the host. This field is alpha-level and is only honored by servers that enable the UserNamespacesSupport feature.
+
+- **resourceClaims** ([]PodResourceClaim)
+
+  *Patch strategies: retainKeys, merge on key `name`*
+  
+  *Map: unique values on key name will be kept during a merge*
+  
+  ResourceClaims defines which ResourceClaims must be allocated and reserved before the Pod is allowed to start. The resources will be made available to those containers which consume them by name.
+  
+  This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+  
+  This field is immutable.
+
+  <a name="PodResourceClaim"></a>
+  *PodResourceClaim references exactly one ResourceClaim through a ClaimSource. It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.*
+
+  - **resourceClaims.name** (string), required
+
+    Name uniquely identifies this resource claim inside the pod. This must be a DNS_LABEL.
+
+  - **resourceClaims.source** (ClaimSource)
+
+    Source describes where to find the ResourceClaim.
+
+    <a name="ClaimSource"></a>
+    *ClaimSource describes a reference to a ResourceClaim.
+    
+    Exactly one of these fields should be set.  Consumers of this type must treat an empty object as if it has an unknown value.*
+
+    - **resourceClaims.source.resourceClaimName** (string)
+
+      ResourceClaimName is the name of a ResourceClaim object in the same namespace as this pod.
+
+    - **resourceClaims.source.resourceClaimTemplateName** (string)
+
+      ResourceClaimTemplateName is the name of a ResourceClaimTemplate object in the same namespace as this pod.
+      
+      The template will be used to create a new ResourceClaim, which will be bound to this pod. When this pod is deleted, the ResourceClaim will also be deleted. The name of the ResourceClaim will be \<pod name>-\<resource name>, where \<resource name> is the PodResourceClaim.Name. Pod validation will reject the pod if the concatenated name is not valid for a ResourceClaim (e.g. too long).
+      
+      An existing ResourceClaim with that name that is not owned by the pod will not be used for the pod to avoid using an unrelated resource by mistake. Scheduling and pod startup are then blocked until the unrelated ResourceClaim is removed.
+      
+      This field is immutable and no changes will be made to the corresponding ResourceClaim by the control plane after creating the ResourceClaim.
+
+- **schedulingGates** ([]PodSchedulingGate)
 
   *Patch strategy: merge on key `name`*
   
-  List of ephemeral containers run in this pod. Ephemeral containers may be run in an existing pod to perform user-initiated actions such as debugging. This list cannot be specified when creating a pod, and it cannot be modified by updating the pod spec. In order to add an ephemeral container to an existing pod, use the pod's ephemeralcontainers subresource. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
+  *Map: unique values on key name will be kept during a merge*
+  
+  SchedulingGates is an opaque list of values that if specified will block scheduling the pod. If schedulingGates is not empty, the pod will stay in the SchedulingGated state and the scheduler will not attempt to schedule the pod.
+  
+  SchedulingGates can only be set at pod creation time, and be removed only afterwards.
+  
+  This is a beta feature enabled by the PodSchedulingReadiness feature gate.
 
-- **preemptionPolicy** (string)
+  <a name="PodSchedulingGate"></a>
+  *PodSchedulingGate is associated to a Pod to guard its scheduling.*
 
-  PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+  - **schedulingGates.name** (string), required
 
-- **overhead** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
-
-  Overhead represents the resource overhead associated with running a pod for a given RuntimeClass. This field will be autopopulated at admission time by the RuntimeClass admission controller. If the RuntimeClass admission controller is enabled, overhead must not be set in Pod create requests. The RuntimeClass admission controller will reject Pod create requests which have the overhead already set. If RuntimeClass is configured and selected in the PodSpec, Overhead will be set to the value defined in the corresponding RuntimeClass, otherwise it will remain unset and treated as zero. More info: https://git.k8s.io/enhancements/keps/sig-node/688-pod-overhead/README.md
+    Name of the scheduling gate. Each scheduling gate must have a unique name field.
 
 ### Deprecated
 
@@ -519,8 +592,6 @@ A single application container that you want to run within a pod.
 - **imagePullPolicy** (string)
 
   Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
-  
-  
 
 ### Entrypoint
 
@@ -546,7 +617,7 @@ A single application container that you want to run within a pod.
   
   *Map: unique values on keys `containerPort, protocol` will be kept during a merge*
   
-  List of ports to expose from the container. Exposing a port here gives the system additional information about the network connections a container uses, but is primarily informational. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Cannot be updated.
+  List of ports to expose from the container. Not specifying a port here DOES NOT prevent that port from being exposed. Any port which is listening on the default "0.0.0.0" address inside a container will be accessible from the network. Modifying this array with strategic merge patch may corrupt the data. For more information See https://github.com/kubernetes/kubernetes/issues/108255. Cannot be updated.
 
   <a name="ContainerPort"></a>
   *ContainerPort represents a network port in a single container.*
@@ -570,8 +641,6 @@ A single application container that you want to run within a pod.
   - **ports.protocol** (string)
 
     Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
-    
-    
 
 ### Environment variables
 
@@ -754,13 +823,47 @@ A single application container that you want to run within a pod.
   <a name="ResourceRequirements"></a>
   *ResourceRequirements describes the compute resource requirements.*
 
+  - **resources.claims** ([]ResourceClaim)
+
+    *Map: unique values on key name will be kept during a merge*
+    
+    Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+    
+    This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+    
+    This field is immutable. It can only be set for containers.
+
+    <a name="ResourceClaim"></a>
+    *ResourceClaim references one entry in PodSpec.ResourceClaims.*
+
+    - **resources.claims.name** (string), required
+
+      Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.
+
   - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
     Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 
   - **resources.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+    Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+
+- **resizePolicy** ([]ContainerResizePolicy)
+
+  *Atomic: will be replaced during a merge*
+  
+  Resources resize policy for the container.
+
+  <a name="ContainerResizePolicy"></a>
+  *ContainerResizePolicy represents resource resize policy for the container.*
+
+  - **resizePolicy.resourceName** (string), required
+
+    Name of the resource to which this resource resize policy applies. Supported values: cpu, memory.
+
+  - **resizePolicy.restartPolicy** (string), required
+
+    Restart policy to apply when specified resource is resized. If not specified, it defaults to NotRequired.
 
 ### Lifecycle
 
@@ -787,8 +890,6 @@ A single application container that you want to run within a pod.
 - **terminationMessagePolicy** (string)
 
   Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
-  
-  
 
 - **livenessProbe** (<a href="{{< ref "../workload-resources/pod-v1#Probe" >}}">Probe</a>)
 
@@ -867,8 +968,6 @@ A single application container that you want to run within a pod.
       type indicates which kind of seccomp profile will be applied. Valid options are:
       
       Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
-      
-      
 
     - **securityContext.seccompProfile.localhostProfile** (string)
 
@@ -943,8 +1042,6 @@ An EphemeralContainer is a temporary container that you may add to an existing P
 
 To add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod. Ephemeral containers may not be removed or restarted.
 
-This is a beta feature available on clusters that haven't disabled the EphemeralContainers feature gate.
-
 <hr>
 
 - **name** (string), required
@@ -969,8 +1066,6 @@ This is a beta feature available on clusters that haven't disabled the Ephemeral
 - **imagePullPolicy** (string)
 
   Image pull policy. One of Always, Never, IfNotPresent. Defaults to Always if :latest tag is specified, or IfNotPresent otherwise. Cannot be updated. More info: https://kubernetes.io/docs/concepts/containers/images#updating-images
-  
-  
 
 ### Entrypoint
 
@@ -1158,6 +1253,26 @@ This is a beta feature available on clusters that haven't disabled the Ephemeral
 
     name must match the name of a persistentVolumeClaim in the pod
 
+### Resources
+
+
+- **resizePolicy** ([]ContainerResizePolicy)
+
+  *Atomic: will be replaced during a merge*
+  
+  Resources resize policy for the container.
+
+  <a name="ContainerResizePolicy"></a>
+  *ContainerResizePolicy represents resource resize policy for the container.*
+
+  - **resizePolicy.resourceName** (string), required
+
+    Name of the resource to which this resource resize policy applies. Supported values: cpu, memory.
+
+  - **resizePolicy.restartPolicy** (string), required
+
+    Restart policy to apply when specified resource is resized. If not specified, it defaults to NotRequired.
+
 ### Lifecycle
 
 
@@ -1168,8 +1283,6 @@ This is a beta feature available on clusters that haven't disabled the Ephemeral
 - **terminationMessagePolicy** (string)
 
   Indicate how the termination message should be populated. File will use the contents of terminationMessagePath to populate the container status message on both success and failure. FallbackToLogsOnError will use the last chunk of container log output if the termination message file is empty and the container exited with an error. The log output is limited to 2048 bytes or 80 lines, whichever is smaller. Defaults to File. Cannot be updated.
-  
-  
 
 ### Debugging
 
@@ -1251,8 +1364,6 @@ This is a beta feature available on clusters that haven't disabled the Ephemeral
       type indicates which kind of seccomp profile will be applied. Valid options are:
       
       Localhost - a profile defined in a file on the node should be used. RuntimeDefault - the container runtime default profile should be used. Unconfined - no profile should be applied.
-      
-      
 
     - **securityContext.seccompProfile.localhostProfile** (string)
 
@@ -1337,8 +1448,6 @@ This is a beta feature available on clusters that haven't disabled the Ephemeral
   - **ports.protocol** (string)
 
     Protocol for port. Must be UDP, TCP, or SCTP. Defaults to "TCP".
-    
-    
 
 - **resources** (ResourceRequirements)
 
@@ -1347,13 +1456,30 @@ This is a beta feature available on clusters that haven't disabled the Ephemeral
   <a name="ResourceRequirements"></a>
   *ResourceRequirements describes the compute resource requirements.*
 
+  - **resources.claims** ([]ResourceClaim)
+
+    *Map: unique values on key name will be kept during a merge*
+    
+    Claims lists the names of resources, defined in spec.resourceClaims, that are used by this container.
+    
+    This is an alpha field and requires enabling the DynamicResourceAllocation feature gate.
+    
+    This field is immutable. It can only be set for containers.
+
+    <a name="ResourceClaim"></a>
+    *ResourceClaim references one entry in PodSpec.ResourceClaims.*
+
+    - **resources.claims.name** (string), required
+
+      Name must match the name of one entry in pod.spec.resourceClaims of the Pod where this field is used. It makes that resource available inside a container.
+
   - **resources.limits** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
     Limits describes the maximum amount of compute resources allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 
   - **resources.requests** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+    Requests describes the minimum amount of compute resources required. If Requests is omitted for a container, it defaults to Limits if that is explicitly specified, otherwise to an implementation-defined value. Requests cannot exceed Limits. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 
 - **lifecycle** (Lifecycle)
 
@@ -1441,8 +1567,6 @@ LifecycleHandler defines a specific action that should be taken in a lifecycle h
   - **httpGet.scheme** (string)
 
     Scheme to use for connecting to the host. Defaults to HTTP.
-    
-    
 
 - **tcpSocket** (TCPSocketAction)
 
@@ -1715,8 +1839,6 @@ Probe describes a health check to be performed against a container to determine 
   - **httpGet.scheme** (string)
 
     Scheme to use for connecting to the host. Defaults to HTTP.
-    
-    
 
 - **tcpSocket** (TCPSocketAction)
 
@@ -1762,7 +1884,7 @@ Probe describes a health check to be performed against a container to determine 
 
 - **grpc** (GRPCAction)
 
-  GRPC specifies an action involving a GRPC port. This is a beta field and requires enabling GRPCContainerProbe feature gate.
+  GRPC specifies an action involving a GRPC port.
 
   <a name="GRPCAction"></a>
   **
@@ -1809,8 +1931,6 @@ PodStatus represents information about the status of a pod. Status may trail the
   Pending: The pod has been accepted by the Kubernetes system, but one or more of the container images has not been created. This includes time before being scheduled as well as time spent downloading images over the network, which could take a while. Running: The pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting. Succeeded: All containers in the pod have terminated in success, and will not be restarted. Failed: All containers in the pod have terminated, and at least one container has terminated in failure. The container either exited with non-zero status or was terminated by the system. Unknown: For some reason the state of the pod could not be obtained, typically due to an error in communicating with the host of the pod.
   
   More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-phase
-  
-  
 
 - **message** (string)
 
@@ -1832,7 +1952,8 @@ PodStatus represents information about the status of a pod. Status may trail the
 
   <a name="PodIP"></a>
   *IP address information for entries in the (plural) PodIPs field. Each entry includes:
-     IP: An IP address allocated to the pod. Routable at least within the cluster.*
+  
+  	IP: An IP address allocated to the pod. Routable at least within the cluster.*
 
   - **podIPs.ip** (string)
 
@@ -1879,9 +2000,7 @@ PodStatus represents information about the status of a pod. Status may trail the
 
 - **qosClass** (string)
 
-  The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://git.k8s.io/design-proposals-archive/node/resource-qos.md
-  
-  
+  The Quality of Service (QOS) classification assigned to the pod based on resource requirements See PodQOSClass type for available QOS classes More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/#quality-of-service-classes
 
 - **initContainerStatuses** ([]ContainerStatus)
 
@@ -1890,188 +2009,6 @@ PodStatus represents information about the status of a pod. Status may trail the
   <a name="ContainerStatus"></a>
   *ContainerStatus contains details for the current status of this container.*
 
-  - **initContainerStatuses.name** (string), required
-
-    This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
-
-  - **initContainerStatuses.image** (string), required
-
-    The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
-
-  - **initContainerStatuses.imageID** (string), required
-
-    ImageID of the container's image.
-
-  - **initContainerStatuses.containerID** (string)
-
-    Container's ID in the format '\<type>://\<container_id>'.
-
-  - **initContainerStatuses.state** (ContainerState)
-
-    Details about the container's current condition.
-
-    <a name="ContainerState"></a>
-    *ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.*
-
-    - **initContainerStatuses.state.running** (ContainerStateRunning)
-
-      Details about a running container
-
-      <a name="ContainerStateRunning"></a>
-      *ContainerStateRunning is a running state of a container.*
-
-      - **initContainerStatuses.state.running.startedAt** (Time)
-
-        Time at which the container was last (re-)started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-    - **initContainerStatuses.state.terminated** (ContainerStateTerminated)
-
-      Details about a terminated container
-
-      <a name="ContainerStateTerminated"></a>
-      *ContainerStateTerminated is a terminated state of a container.*
-
-      - **initContainerStatuses.state.terminated.containerID** (string)
-
-        Container's ID in the format '\<type>://\<container_id>'
-
-      - **initContainerStatuses.state.terminated.exitCode** (int32), required
-
-        Exit status from the last termination of the container
-
-      - **initContainerStatuses.state.terminated.startedAt** (Time)
-
-        Time at which previous execution of the container started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-      - **initContainerStatuses.state.terminated.finishedAt** (Time)
-
-        Time at which the container last terminated
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-      - **initContainerStatuses.state.terminated.message** (string)
-
-        Message regarding the last termination of the container
-
-      - **initContainerStatuses.state.terminated.reason** (string)
-
-        (brief) reason from the last termination of the container
-
-      - **initContainerStatuses.state.terminated.signal** (int32)
-
-        Signal from the last termination of the container
-
-    - **initContainerStatuses.state.waiting** (ContainerStateWaiting)
-
-      Details about a waiting container
-
-      <a name="ContainerStateWaiting"></a>
-      *ContainerStateWaiting is a waiting state of a container.*
-
-      - **initContainerStatuses.state.waiting.message** (string)
-
-        Message regarding why the container is not yet running.
-
-      - **initContainerStatuses.state.waiting.reason** (string)
-
-        (brief) reason the container is not yet running.
-
-  - **initContainerStatuses.lastState** (ContainerState)
-
-    Details about the container's last termination condition.
-
-    <a name="ContainerState"></a>
-    *ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.*
-
-    - **initContainerStatuses.lastState.running** (ContainerStateRunning)
-
-      Details about a running container
-
-      <a name="ContainerStateRunning"></a>
-      *ContainerStateRunning is a running state of a container.*
-
-      - **initContainerStatuses.lastState.running.startedAt** (Time)
-
-        Time at which the container was last (re-)started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-    - **initContainerStatuses.lastState.terminated** (ContainerStateTerminated)
-
-      Details about a terminated container
-
-      <a name="ContainerStateTerminated"></a>
-      *ContainerStateTerminated is a terminated state of a container.*
-
-      - **initContainerStatuses.lastState.terminated.containerID** (string)
-
-        Container's ID in the format '\<type>://\<container_id>'
-
-      - **initContainerStatuses.lastState.terminated.exitCode** (int32), required
-
-        Exit status from the last termination of the container
-
-      - **initContainerStatuses.lastState.terminated.startedAt** (Time)
-
-        Time at which previous execution of the container started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-      - **initContainerStatuses.lastState.terminated.finishedAt** (Time)
-
-        Time at which the container last terminated
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-      - **initContainerStatuses.lastState.terminated.message** (string)
-
-        Message regarding the last termination of the container
-
-      - **initContainerStatuses.lastState.terminated.reason** (string)
-
-        (brief) reason from the last termination of the container
-
-      - **initContainerStatuses.lastState.terminated.signal** (int32)
-
-        Signal from the last termination of the container
-
-    - **initContainerStatuses.lastState.waiting** (ContainerStateWaiting)
-
-      Details about a waiting container
-
-      <a name="ContainerStateWaiting"></a>
-      *ContainerStateWaiting is a waiting state of a container.*
-
-      - **initContainerStatuses.lastState.waiting.message** (string)
-
-        Message regarding why the container is not yet running.
-
-      - **initContainerStatuses.lastState.waiting.reason** (string)
-
-        (brief) reason the container is not yet running.
-
-  - **initContainerStatuses.ready** (boolean), required
-
-    Specifies whether the container has passed its readiness probe.
-
-  - **initContainerStatuses.restartCount** (int32), required
-
-    The number of times the container has been restarted.
-
-  - **initContainerStatuses.started** (boolean)
-
-    Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
-
 - **containerStatuses** ([]ContainerStatus)
 
   The list has one entry per container in the manifest. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#pod-and-container-status
@@ -2079,376 +2016,16 @@ PodStatus represents information about the status of a pod. Status may trail the
   <a name="ContainerStatus"></a>
   *ContainerStatus contains details for the current status of this container.*
 
-  - **containerStatuses.name** (string), required
-
-    This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
-
-  - **containerStatuses.image** (string), required
-
-    The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
-
-  - **containerStatuses.imageID** (string), required
-
-    ImageID of the container's image.
-
-  - **containerStatuses.containerID** (string)
-
-    Container's ID in the format '\<type>://\<container_id>'.
-
-  - **containerStatuses.state** (ContainerState)
-
-    Details about the container's current condition.
-
-    <a name="ContainerState"></a>
-    *ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.*
-
-    - **containerStatuses.state.running** (ContainerStateRunning)
-
-      Details about a running container
-
-      <a name="ContainerStateRunning"></a>
-      *ContainerStateRunning is a running state of a container.*
-
-      - **containerStatuses.state.running.startedAt** (Time)
-
-        Time at which the container was last (re-)started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-    - **containerStatuses.state.terminated** (ContainerStateTerminated)
-
-      Details about a terminated container
-
-      <a name="ContainerStateTerminated"></a>
-      *ContainerStateTerminated is a terminated state of a container.*
-
-      - **containerStatuses.state.terminated.containerID** (string)
-
-        Container's ID in the format '\<type>://\<container_id>'
-
-      - **containerStatuses.state.terminated.exitCode** (int32), required
-
-        Exit status from the last termination of the container
-
-      - **containerStatuses.state.terminated.startedAt** (Time)
-
-        Time at which previous execution of the container started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-      - **containerStatuses.state.terminated.finishedAt** (Time)
-
-        Time at which the container last terminated
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-      - **containerStatuses.state.terminated.message** (string)
-
-        Message regarding the last termination of the container
-
-      - **containerStatuses.state.terminated.reason** (string)
-
-        (brief) reason from the last termination of the container
-
-      - **containerStatuses.state.terminated.signal** (int32)
-
-        Signal from the last termination of the container
-
-    - **containerStatuses.state.waiting** (ContainerStateWaiting)
-
-      Details about a waiting container
-
-      <a name="ContainerStateWaiting"></a>
-      *ContainerStateWaiting is a waiting state of a container.*
-
-      - **containerStatuses.state.waiting.message** (string)
-
-        Message regarding why the container is not yet running.
-
-      - **containerStatuses.state.waiting.reason** (string)
-
-        (brief) reason the container is not yet running.
-
-  - **containerStatuses.lastState** (ContainerState)
-
-    Details about the container's last termination condition.
-
-    <a name="ContainerState"></a>
-    *ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.*
-
-    - **containerStatuses.lastState.running** (ContainerStateRunning)
-
-      Details about a running container
-
-      <a name="ContainerStateRunning"></a>
-      *ContainerStateRunning is a running state of a container.*
-
-      - **containerStatuses.lastState.running.startedAt** (Time)
-
-        Time at which the container was last (re-)started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-    - **containerStatuses.lastState.terminated** (ContainerStateTerminated)
-
-      Details about a terminated container
-
-      <a name="ContainerStateTerminated"></a>
-      *ContainerStateTerminated is a terminated state of a container.*
-
-      - **containerStatuses.lastState.terminated.containerID** (string)
-
-        Container's ID in the format '\<type>://\<container_id>'
-
-      - **containerStatuses.lastState.terminated.exitCode** (int32), required
-
-        Exit status from the last termination of the container
-
-      - **containerStatuses.lastState.terminated.startedAt** (Time)
-
-        Time at which previous execution of the container started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-      - **containerStatuses.lastState.terminated.finishedAt** (Time)
-
-        Time at which the container last terminated
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-      - **containerStatuses.lastState.terminated.message** (string)
-
-        Message regarding the last termination of the container
-
-      - **containerStatuses.lastState.terminated.reason** (string)
-
-        (brief) reason from the last termination of the container
-
-      - **containerStatuses.lastState.terminated.signal** (int32)
-
-        Signal from the last termination of the container
-
-    - **containerStatuses.lastState.waiting** (ContainerStateWaiting)
-
-      Details about a waiting container
-
-      <a name="ContainerStateWaiting"></a>
-      *ContainerStateWaiting is a waiting state of a container.*
-
-      - **containerStatuses.lastState.waiting.message** (string)
-
-        Message regarding why the container is not yet running.
-
-      - **containerStatuses.lastState.waiting.reason** (string)
-
-        (brief) reason the container is not yet running.
-
-  - **containerStatuses.ready** (boolean), required
-
-    Specifies whether the container has passed its readiness probe.
-
-  - **containerStatuses.restartCount** (int32), required
-
-    The number of times the container has been restarted.
-
-  - **containerStatuses.started** (boolean)
-
-    Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
-
 - **ephemeralContainerStatuses** ([]ContainerStatus)
 
-  Status for any ephemeral containers that have run in this pod. This field is beta-level and available on clusters that haven't disabled the EphemeralContainers feature gate.
+  Status for any ephemeral containers that have run in this pod.
 
   <a name="ContainerStatus"></a>
   *ContainerStatus contains details for the current status of this container.*
 
-  - **ephemeralContainerStatuses.name** (string), required
+- **resize** (string)
 
-    This must be a DNS_LABEL. Each container in a pod must have a unique name. Cannot be updated.
-
-  - **ephemeralContainerStatuses.image** (string), required
-
-    The image the container is running. More info: https://kubernetes.io/docs/concepts/containers/images.
-
-  - **ephemeralContainerStatuses.imageID** (string), required
-
-    ImageID of the container's image.
-
-  - **ephemeralContainerStatuses.containerID** (string)
-
-    Container's ID in the format '\<type>://\<container_id>'.
-
-  - **ephemeralContainerStatuses.state** (ContainerState)
-
-    Details about the container's current condition.
-
-    <a name="ContainerState"></a>
-    *ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.*
-
-    - **ephemeralContainerStatuses.state.running** (ContainerStateRunning)
-
-      Details about a running container
-
-      <a name="ContainerStateRunning"></a>
-      *ContainerStateRunning is a running state of a container.*
-
-      - **ephemeralContainerStatuses.state.running.startedAt** (Time)
-
-        Time at which the container was last (re-)started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-    - **ephemeralContainerStatuses.state.terminated** (ContainerStateTerminated)
-
-      Details about a terminated container
-
-      <a name="ContainerStateTerminated"></a>
-      *ContainerStateTerminated is a terminated state of a container.*
-
-      - **ephemeralContainerStatuses.state.terminated.containerID** (string)
-
-        Container's ID in the format '\<type>://\<container_id>'
-
-      - **ephemeralContainerStatuses.state.terminated.exitCode** (int32), required
-
-        Exit status from the last termination of the container
-
-      - **ephemeralContainerStatuses.state.terminated.startedAt** (Time)
-
-        Time at which previous execution of the container started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-      - **ephemeralContainerStatuses.state.terminated.finishedAt** (Time)
-
-        Time at which the container last terminated
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-      - **ephemeralContainerStatuses.state.terminated.message** (string)
-
-        Message regarding the last termination of the container
-
-      - **ephemeralContainerStatuses.state.terminated.reason** (string)
-
-        (brief) reason from the last termination of the container
-
-      - **ephemeralContainerStatuses.state.terminated.signal** (int32)
-
-        Signal from the last termination of the container
-
-    - **ephemeralContainerStatuses.state.waiting** (ContainerStateWaiting)
-
-      Details about a waiting container
-
-      <a name="ContainerStateWaiting"></a>
-      *ContainerStateWaiting is a waiting state of a container.*
-
-      - **ephemeralContainerStatuses.state.waiting.message** (string)
-
-        Message regarding why the container is not yet running.
-
-      - **ephemeralContainerStatuses.state.waiting.reason** (string)
-
-        (brief) reason the container is not yet running.
-
-  - **ephemeralContainerStatuses.lastState** (ContainerState)
-
-    Details about the container's last termination condition.
-
-    <a name="ContainerState"></a>
-    *ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.*
-
-    - **ephemeralContainerStatuses.lastState.running** (ContainerStateRunning)
-
-      Details about a running container
-
-      <a name="ContainerStateRunning"></a>
-      *ContainerStateRunning is a running state of a container.*
-
-      - **ephemeralContainerStatuses.lastState.running.startedAt** (Time)
-
-        Time at which the container was last (re-)started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-    - **ephemeralContainerStatuses.lastState.terminated** (ContainerStateTerminated)
-
-      Details about a terminated container
-
-      <a name="ContainerStateTerminated"></a>
-      *ContainerStateTerminated is a terminated state of a container.*
-
-      - **ephemeralContainerStatuses.lastState.terminated.containerID** (string)
-
-        Container's ID in the format '\<type>://\<container_id>'
-
-      - **ephemeralContainerStatuses.lastState.terminated.exitCode** (int32), required
-
-        Exit status from the last termination of the container
-
-      - **ephemeralContainerStatuses.lastState.terminated.startedAt** (Time)
-
-        Time at which previous execution of the container started
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-      - **ephemeralContainerStatuses.lastState.terminated.finishedAt** (Time)
-
-        Time at which the container last terminated
-
-        <a name="Time"></a>
-        *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-      - **ephemeralContainerStatuses.lastState.terminated.message** (string)
-
-        Message regarding the last termination of the container
-
-      - **ephemeralContainerStatuses.lastState.terminated.reason** (string)
-
-        (brief) reason from the last termination of the container
-
-      - **ephemeralContainerStatuses.lastState.terminated.signal** (int32)
-
-        Signal from the last termination of the container
-
-    - **ephemeralContainerStatuses.lastState.waiting** (ContainerStateWaiting)
-
-      Details about a waiting container
-
-      <a name="ContainerStateWaiting"></a>
-      *ContainerStateWaiting is a waiting state of a container.*
-
-      - **ephemeralContainerStatuses.lastState.waiting.message** (string)
-
-        Message regarding why the container is not yet running.
-
-      - **ephemeralContainerStatuses.lastState.waiting.reason** (string)
-
-        (brief) reason the container is not yet running.
-
-  - **ephemeralContainerStatuses.ready** (boolean), required
-
-    Specifies whether the container has passed its readiness probe.
-
-  - **ephemeralContainerStatuses.restartCount** (int32), required
-
-    The number of times the container has been restarted.
-
-  - **ephemeralContainerStatuses.started** (boolean)
-
-    Specifies whether the container has passed its startup probe. Initialized as false, becomes true after startupProbe is considered successful. Resets to false when the container is restarted, or if kubelet loses state temporarily. Is always true when no startupProbe is defined.
+  Status of resources resize desired for pod's containers. It is empty if no resources resize is pending. Any changes to container resources will automatically set this to "Proposed"
 
 
 
@@ -2717,6 +2294,11 @@ GET /api/v1/namespaces/{namespace}/pods
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -2783,6 +2365,11 @@ GET /api/v1/pods
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -3323,6 +2910,11 @@ DELETE /api/v1/namespaces/{namespace}/pods
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer

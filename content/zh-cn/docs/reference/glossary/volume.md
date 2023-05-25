@@ -11,9 +11,7 @@ tags:
 - core-object
 - fundamental
 ---
-
 <!--
----
 title: Volume
 id: volume
 date: 2018-04-12
@@ -25,14 +23,14 @@ aka:
 tags:
 - core-object
 - fundamental
----																																					   
 -->
 
 
 <!--
  A directory containing data, accessible to the {{< glossary_tooltip text="containers" term_id="container" >}} in a {{< glossary_tooltip term_id="pod" >}}.
 -->
-包含可被 {{< glossary_tooltip text="Pod" term_id="pod" >}} 中{{< glossary_tooltip text="容器" term_id="container" >}}访问的数据的目录。
+包含可被 {{< glossary_tooltip text="Pod" term_id="pod" >}}
+中{{< glossary_tooltip text="容器" term_id="container" >}}访问的数据的目录。
 
 		   
 
@@ -41,10 +39,11 @@ A Kubernetes volume lives as long as the Pod that encloses it. Consequently, a v
 -->
 
 每个 Kubernetes 卷在所处的 {{< glossary_tooltip text="Pod" term_id="pod" >}} 存在期间保持存在状态。
-因此，卷的生命期会超出 {{< glossary_tooltip text="Pod" term_id="pod" >}} 中运行的{{< glossary_tooltip text="容器" term_id="container" >}}，
+因此，卷的生命期会超出 {{< glossary_tooltip text="Pod" term_id="pod" >}}
+中运行的{{< glossary_tooltip text="容器" term_id="container" >}}，
 并且保证{{< glossary_tooltip text="容器" term_id="container" >}}重启之后仍保留数据。
 
 <!--
 See [storage](/docs/concepts/storage/) for more information.
 -->
-更多信息可参考[storage](/zh-cn/docs/concepts/storage/)
+更多信息可参考[存储](/zh-cn/docs/concepts/storage/)

@@ -28,7 +28,7 @@ This guide walks you through the steps to configure and deploy Windows container
 ## Objectives
 
 * Configure an example deployment to run Windows containers on the Windows node
-* Highlight Windows specific funcationality in Kubernetes
+* Highlight Windows specific functionality in Kubernetes
 -->
 ## 目标  {#objectives}
 
@@ -38,16 +38,15 @@ This guide walks you through the steps to configure and deploy Windows container
 <!-- 
 ## Before you begin
 
-* Create a Kubernetes cluster that includes a
-control plane and a [worker node running Windows Server](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
+* Create a Kubernetes cluster that includes a control plane and a worker node running Windows Server
 * It is important to note that creating and deploying services and workloads on Kubernetes
-behaves in much the same way for Linux and Windows containers.
-[Kubectl commands](/docs/reference/kubectl/) to interface with the cluster are identical.
-The example in the section below is provided to jumpstart your experience with Windows containers.
+  behaves in much the same way for Linux and Windows containers.
+  [Kubectl commands](/docs/reference/kubectl/) to interface with the cluster are identical.
+  The example in the section below is provided to jumpstart your experience with Windows containers.
 -->
 ## 在你开始之前  {#before-you-begin}
 
-* 创建一个 Kubernetes 集群，其中包含一个控制平面和一个[运行 Windows Server 的工作节点](/zh-cn/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes/)
+* 创建一个 Kubernetes 集群，其中包含一个控制平面和一个运行 Windows Server 的工作节点。
 * 务必请注意，在 Kubernetes 上创建和部署服务和工作负载的行为方式与 Linux 和 Windows 容器的行为方式大致相同。
   与集群交互的 [kubectl 命令](/zh-cn/docs/reference/kubectl/)是一致的。
   下一小节的示例旨在帮助你快速开始使用 Windows 容器。
@@ -148,26 +147,26 @@ port 80 of the container directly to the Service.
     * Node-to-pod communication across the network, `curl` port 80 of your pod IPs from the Linux control plane node
       to check for a web server response
     * Pod-to-pod communication, ping between pods (and across hosts, if you have more than one Windows node)
-      using docker exec or kubectl exec
+      using `docker exec` or `kubectl exec`
     * Service-to-pod communication, `curl` the virtual service IP (seen under `kubectl get services`)
       from the Linux control plane node and from individual pods
     * Service discovery, `curl` the service name with the Kubernetes [default DNS suffix](/docs/concepts/services-networking/dns-pod-service/#services)
     * Inbound connectivity, `curl` the NodePort from the Linux control plane node or machines outside of the cluster
-    * Outbound connectivity, `curl` external IPs from inside the pod using kubectl exec
+    * Outbound connectivity, `curl` external IPs from inside the pod using `kubectl exec`
 -->
 1. 检查部署是否成功。请验证：
 
-   * 使用 `kubectl get pods` 从 Linux 控制平面节点能够列出两个 Pod
-   * 跨网络的节点到 Pod 通信，从 Linux 控制平面节点上执行 `curl` 访问
-     Pod IP 的 80 端口以检查 Web 服务器响应
-   * Pod 间通信，使用 docker exec 或 kubectl exec
-     在 Pod 之间（以及跨主机，如果你有多个 Windows 节点）互 ping
-   * Service 到 Pod 的通信，在 Linux 控制平面节点以及独立的 Pod 中执行 `curl`
-     访问虚拟的服务 IP（在 `kubectl get services` 下查看）
-   * 服务发现，使用 Kubernetes [默认 DNS 后缀](/zh-cn/docs/concepts/services-networking/dns-pod-service/#services)的服务名称，
-     用 `curl` 访问服务名称
-   * 入站连接，在 Linux 控制平面节点或集群外的机器上执行 `curl` 来访问 NodePort 服务
-   * 出站连接，使用 kubectl exec，从 Pod 内部执行 `curl` 访问外部 IP
+   * 当执行 `kubectl get pods` 命令时，能够从 Linux 控制平面所在的节点上列出两个 Pod。
+   * 跨网络的节点到 Pod 通信，从 Linux 控制平面所在的节点上执行 `curl` 命令来访问
+     Pod IP 的 80 端口以检查 Web 服务器响应。
+   * Pod 间通信，使用 `docker exec` 或 `kubectl exec`
+     命令进入容器，并在 Pod 之间（以及跨主机，如果你有多个 Windows 节点）相互进行 ping 操作。
+   * Service 到 Pod 的通信，在 Linux 控制平面所在的节点以及独立的 Pod 中执行 `curl`
+     命令来访问虚拟的服务 IP（在 `kubectl get services` 命令下查看）。
+   * 服务发现，执行 `curl` 命令来访问带有 Kubernetes
+     [默认 DNS 后缀](/zh-cn/docs/concepts/services-networking/dns-pod-service/#services)的服务名称。
+   * 入站连接，在 Linux 控制平面所在的节点上或集群外的机器上执行 `curl` 命令来访问 NodePort 服务。
+   * 出站连接，使用 `kubectl exec`，从 Pod 内部执行 `curl` 访问外部 IP。
 
 {{< note >}}
 <!-- 
@@ -242,7 +241,8 @@ Windows 容器工作负载可以配置为使用组托管服务帐户（Group Man
 组托管服务帐户是一种特定类型的活动目录（Active Directory）帐户，可提供自动密码管理、
 简化的服务主体名称（Service Principal Name，SPN）管理，以及将管理委派给多个服务器上的其他管理员的能力。
 配置了 GMSA 的容器可以携带使用 GMSA 配置的身份访问外部活动目录域资源。
-在[此处](/zh-cn/docs/tasks/configure-pod-container/configure-gmsa/)了解有关为 Windows 容器配置和使用 GMSA 的更多信息。
+在[此处](/zh-cn/docs/tasks/configure-pod-container/configure-gmsa/)了解有关为 Windows
+容器配置和使用 GMSA 的更多信息。
 
 <!-- 
 ## Taints and Tolerations
@@ -252,28 +252,19 @@ schedule Linux and Windows workloads to their respective OS-specific nodes.
 The recommended approach is outlined below,
 with one of its main goals being that this approach should not break compatibility for existing Linux workloads.
 
-If the `IdentifyPodOS` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is
-enabled, you can (and should) set `.spec.os.name` for a Pod to indicate the operating system
+Starting from 1.25, you can (and should) set `.spec.os.name` for each Pod, to indicate the operating system
 that the containers in that Pod are designed for. For Pods that run Linux containers, set
 `.spec.os.name` to `linux`. For Pods that run Windows containers, set `.spec.os.name`
-to Windows.
+to `windows`.
 -->
 ## 污点和容忍度  {#taints-and-tolerations}
 
 用户需要使用某种污点（Taint）和节点选择器的组合，以便将 Linux 和 Windows 工作负载各自调度到特定操作系统的节点。
 下面概述了推荐的方法，其主要目标之一是该方法不应破坏现有 Linux 工作负载的兼容性。
 
-如果启用了 `IdentifyPodOS` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-你可以（并且应该）将 Pod 的 `.spec.os.name` 设置为该 Pod 中的容器设计所用于的操作系统。
+从 1.25 开始，你可以（并且应该）将每个 Pod 的 `.spec.os.name` 设置为 Pod 中的容器设计所用于的操作系统。
 对于运行 Linux 容器的 Pod，将 `.spec.os.name` 设置为 `linux`。
-对于运行 Windows 容器的 Pod，将 `.spec.os.name` 设置为 `Windows`。
-
-{{< note >}}
-<!-- 
-Starting from 1.24, the `IdentifyPodOS` feature is in Beta stage and defaults to be enabled.
--->
-从 1.24 开始，`IdentifyPodOS` 特性处于 Beta 阶段，默认启用。
-{{< /note >}}
+对于运行 Windows 容器的 Pod，将 `.spec.os.name` 设置为 `windows`。
 
 <!-- 
 The scheduler does not use the value of `.spec.os.name` when assigning Pods to nodes. You should
@@ -405,78 +396,80 @@ for the Windows OS, architecture, and version.
 
 1. 将此文件保存到 `runtimeClasses.yml`。它包括针对 Windows 操作系统、架构和版本的 `nodeSelector`。
 
-```yaml
-apiVersion: node.k8s.io/v1
-kind: RuntimeClass
-metadata:
-  name: windows-2019
-handler: 'docker'
-scheduling:
-  nodeSelector:
-    kubernetes.io/os: 'windows'
-    kubernetes.io/arch: 'amd64'
-    node.kubernetes.io/windows-build: '10.0.17763'
-  tolerations:
-  - effect: NoSchedule
-    key: os
-    operator: Equal
-    value: "windows"
-```
+   ```yaml
+   ---
+   apiVersion: node.k8s.io/v1
+   kind: RuntimeClass
+   metadata:
+     name: windows-2019
+   handler: example-container-runtime-handler
+   scheduling:
+     nodeSelector:
+       kubernetes.io/os: 'windows'
+       kubernetes.io/arch: 'amd64'
+       node.kubernetes.io/windows-build: '10.0.17763'
+     tolerations:
+     - effect: NoSchedule
+       key: os
+       operator: Equal
+       value: "windows"
+   ```
 
 <!-- 
 1. Run `kubectl create -f runtimeClasses.yml` using as a cluster administrator
 1. Add `runtimeClassName: windows-2019` as appropriate to Pod specs
 
-For example:
+   For example:
 -->
 1. 以集群管理员身份运行 `kubectl create -f runtimeClasses.yml`
 1. 根据情况，向 Pod 规约中添加 `runtimeClassName: windows-2019`
 
-例如：
+   例如：
 
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: iis-2019
-  labels:
-    app: iis-2019
-spec:
-  replicas: 1
-  template:
-    metadata:
-      name: iis-2019
-      labels:
-        app: iis-2019
-    spec:
-      runtimeClassName: windows-2019
-      containers:
-      - name: iis
-        image: mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
-        resources:
-          limits:
-            cpu: 1
-            memory: 800Mi
-          requests:
-            cpu: .1
-            memory: 300Mi
-        ports:
-          - containerPort: 80
- selector:
-    matchLabels:
-      app: iis-2019
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: iis
-spec:
-  type: LoadBalancer
-  ports:
-  - protocol: TCP
-    port: 80
-  selector:
-    app: iis-2019
-```
+   ```yaml
+   ---
+   apiVersion: apps/v1
+   kind: Deployment
+   metadata:
+     name: iis-2019
+     labels:
+       app: iis-2019
+   spec:
+     replicas: 1
+     template:
+       metadata:
+         name: iis-2019
+         labels:
+           app: iis-2019
+       spec:
+         runtimeClassName: windows-2019
+         containers:
+         - name: iis
+           image: mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
+           resources:
+             limits:
+               cpu: 1
+               memory: 800Mi
+             requests:
+               cpu: .1
+               memory: 300Mi
+           ports:
+             - containerPort: 80
+    selector:
+       matchLabels:
+         app: iis-2019
+   ---
+   apiVersion: v1
+   kind: Service
+   metadata:
+     name: iis
+   spec:
+     type: LoadBalancer
+     ports:
+     - protocol: TCP
+       port: 80
+     selector:
+       app: iis-2019
+   ```
 
-[RuntimeClass]: https://kubernetes.io/docs/concepts/containers/runtime-class/
+[RuntimeClass]: /zh-cn/docs/concepts/containers/runtime-class/

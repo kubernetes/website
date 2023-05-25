@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "RoleBinding references a role, but does not contain it."
 title: "RoleBinding"
-weight: 8
+weight: 9
 auto_generated: true
 ---
 
@@ -210,6 +210,11 @@ GET /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -276,6 +281,11 @@ GET /apis/rbac.authorization.k8s.io/v1/rolebindings
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -586,6 +596,11 @@ DELETE /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer

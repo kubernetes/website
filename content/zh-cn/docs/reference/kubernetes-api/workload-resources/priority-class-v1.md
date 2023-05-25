@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "PriorityClass 定义了从优先级类名到优先级数值的映射。"
 title: "PriorityClass"
-weight: 14
+weight: 13
 auto_generated: false
 ---
 
@@ -18,7 +18,7 @@ api_metadata:
 content_type: "api_reference"
 description: "PriorityClass defines mapping from a priority class name to the priority integer value."
 title: "PriorityClass"
-weight: 14
+weight: 13
 auto_generated: true
 -->
 
@@ -65,11 +65,11 @@ PriorityClass 定义了从优先级类名到优先级数值的映射。
 <!--
 - **value** (int32), required
 
-  The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+  value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
 -->
 - **value** （int32），必需
 
-  此优先级的值。这是 Pod 在其 Pod 规约中有此类名称时收到的实际优先级。
+  value 表示此优先级的整数值。这是 Pod 在其 Pod 规约中有此类名称时收到的实际优先级。
 
 <!--
 - **description** (string)
@@ -87,7 +87,7 @@ PriorityClass 定义了从优先级类名到优先级数值的映射。
 -->
 - **globalDefault** (boolean)
 
-  globalDefault 指定是否应将此 PriorityClass 视为没有任何优先级类的 pod 的默认优先级。
+  globalDefault 指定是否应将此 PriorityClass 视为没有任何优先级类的 Pod 的默认优先级。
   只有一个 PriorityClass 可以标记为 `globalDefault`。
   但是，如果存在多个 PriorityClasses 且其 `globalDefault` 字段设置为 true，
   则将使用此类全局默认 PriorityClasses 的最小值作为默认优先级。
@@ -95,7 +95,7 @@ PriorityClass 定义了从优先级类名到优先级数值的映射。
 <!--
 - **preemptionPolicy** (string)
 
-  PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+  preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
 -->  
 - **preemptionPolicy** (string)
 
@@ -295,6 +295,15 @@ GET /apis/scheduling.k8s.io/v1/priorityclasses
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 <!--
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+-->
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+<!--
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -430,7 +439,7 @@ PUT /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 
   name of the PriorityClass
 -->
-- **name** （*路径参数*）: string，必需
+- **name** （**路径参数**）: string，必需
 
   PriorityClass 名称
 
@@ -518,7 +527,7 @@ PATCH /apis/scheduling.k8s.io/v1/priorityclasses/{name}
 
   name of the PriorityClass
 -->
-- **name** （*路径参数*）: string，必须
+- **name** （**路径参数**）: string，必需
 
   PriorityClass 名称
 
@@ -613,7 +622,7 @@ Parameters
 
   name of the PriorityClass
 -->
-- **name** （*路径参数*）: string，必需
+- **name** （**路径参数**）: string，必需
 
   PriorityClass 名称。
 
@@ -786,6 +795,15 @@ DELETE /apis/scheduling.k8s.io/v1/priorityclasses
 - **resourceVersionMatch** （**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+<!--
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+-->
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer

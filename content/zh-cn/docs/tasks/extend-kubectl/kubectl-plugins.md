@@ -64,8 +64,8 @@ Krew [插件索引](https://krew.sigs.k8s.io/plugins/) 所维护的 kubectl 插�
 <!--
 ### Discovering plugins
 
-`kubectl` provides a command `kubectl plugin list` that searches your PATH for valid plugin executables.
-Executing this command causes a traversal of all files in your PATH. Any files that are executable, and begin with `kubectl-` will show up *in the order in which they are present in your PATH* in this command's output.
+`kubectl` provides a command `kubectl plugin list` that searches your `PATH` for valid plugin executables.
+Executing this command causes a traversal of all files in your `PATH`. Any files that are executable, and begin with `kubectl-` will show up *in the order in which they are present in your `PATH`* in this command's output.
 A warning will be included for any files beginning with `kubectl-` that are *not* executable.
 A warning will also be included for any valid plugin files that overlap each other's name.
 
@@ -75,8 +75,9 @@ plugins from a community-curated
 -->
 ### 发现插件
 
-`kubectl` 提供一个命令 `kubectl plugin list`，用于搜索路径查找有效的插件可执行文件。
-执行此命令将遍历路径中的所有文件。任何以 `kubectl-` 开头的可执行文件都将在这个命令的输出中以它们在路径中出现的顺序显示。
+`kubectl` 提供一个命令 `kubectl plugin list`，用于搜索 `PATH` 查找有效的插件可执行文件。
+执行此命令将遍历 `PATH` 中的所有文件。任何以 `kubectl-` 开头的可执行文件都将在这个命令的输出中**以它们在
+`PATH` 中出现的顺序**显示。
 任何以 `kubectl-` 开头的文件如果`不可执行`，都将包含一个警告。
 对于任何相同的有效插件文件，都将包含一个警告。
 
@@ -161,9 +162,9 @@ sudo chmod +x ./kubectl-foo
 ```
 
 <!--
-and place it anywhere in your PATH:
+and place it anywhere in your `PATH`:
 -->
-并将它放在你的 PATH 中的任何地方：
+并将它放在你的 `PATH` 中的任何地方：
 
 ```shell
 sudo mv ./kubectl-foo /usr/local/bin
@@ -218,7 +219,7 @@ KUBECONFIG=/etc/kube/config kubectl foo config
 ```
 
 <!--
-Additionally, the first argument that is passed to a plugin will always be the full path to the location where it was invoked (`$0` would equal `/usr/local/bin/kubectl-foo` in our example above).
+Additionally, the first argument that is passed to a plugin will always be the full path to the location where it was invoked (`$0` would equal `/usr/local/bin/kubectl-foo` in the example above).
 -->
 此外，传递给插件的第一个参数总是调用它的位置的绝对路径（在上面的例子中，`$0` 将等于 `/usr/local/bin/kubectl-foo`）。
 
@@ -239,12 +240,12 @@ For example, a plugin that wishes to be invoked whenever the command `kubectl fo
 #### 参数和标记处理
 
 <!--
-The plugin mechanism doest _not_ create any custom, plugin-specific values or environment variables to a plugin process.
+The plugin mechanism does _not_ create any custom, plugin-specific values or environment variables for a plugin process.
 
 An older kubectl plugin mechanism provided environment variables such as `KUBECTL_PLUGINS_CURRENT_NAMESPACE`; that no longer happens.
 -->
 {{< note >}}
-插件机制不会为插件进程创建任何定制的、特定于插件的值或环境变量。
+插件机制**不会**为插件进程创建任何定制的、特定于插件的值或环境变量。
 
 较老的插件机制会提供环境变量（例如 `KUBECTL_PLUGINS_CURRENT_NAMESPACE`）；这种机制已被废弃。
 {{< /note >}}
@@ -259,14 +260,11 @@ kubectl 插件必须解析并检查传递给它们的所有参数。
 参阅[使用命令行运行时包](#using-the-command-line-runtime-package)了解针对
 插件开发人员的 Go 库的细节。
 
-<!--
-Here are some additional cases where users invoke your plugin while providing additional flags and arguments. This builds upon the `kubectl-foo-bar-baz` plugin from the scenario above.
--->
 这里是一些用户调用你的插件的时候提供额外标志和参数的场景。
 这些场景时基于上述案例中的 `kubectl-foo-bar-baz` 插件的。
 
 <!--
-If you run `kubectl foo bar baz arg1 -flag=value arg2`, kubectl's plugin mechanism will first try to find the plugin with the longest possible name, which in this case
+If you run `kubectl foo bar baz arg1 --flag=value arg2`, kubectl's plugin mechanism will first try to find the plugin with the longest possible name, which in this case
 would be `kubectl-foo-bar-baz-arg1`. Upon not finding that plugin, kubectl then treats the last dash-separated value as an argument (`arg1` in this case), and attempts to find the next longest possible name, `kubectl-foo-bar-baz`.
 Upon having found a plugin with this name, kubectl then invokes that plugin, passing all args and flags after the plugin's name as arguments to the plugin process.
 -->
@@ -309,9 +307,9 @@ My first command-line argument was arg1
 ```
 
 <!--
-As you can see, our plugin was found based on the `kubectl` command specified by a user, and all extra arguments and flags were passed as-is to the plugin executable once it was found.
+As you can see, your plugin was found based on the `kubectl` command specified by a user, and all extra arguments and flags were passed as-is to the plugin executable once it was found.
 -->
-正如你所看到的，我们的插件是基于用户指定的 `kubectl` 命令找到的，
+正如你所看到的，你的插件是基于用户指定的 `kubectl` 命令找到的，
 所有额外的参数和标记都是按原样传递给插件可执行文件的。
 
 <!--
@@ -344,10 +342,10 @@ I am a plugin with a dash in my name
 ```
 
 <!--
-Note that the introduction of underscores to a plugin filename does not prevent us from having commands such as `kubectl foo_bar`.
+Note that the introduction of underscores to a plugin filename does not prevent you from having commands such as `kubectl foo_bar`.
 The command from the above example, can be invoked using either a dash (`-`) or an underscore (`_`):
 -->
-请注意，在插件文件名中引入下划线并不会阻止我们使用 `kubectl foo_bar` 之类的命令。
+请注意，在插件文件名中引入下划线并不会阻止你使用 `kubectl foo_bar` 之类的命令。
 可以使用破折号（`-`）或下划线（`_`）调用上面示例中的命令:
 
 ```shell
@@ -371,8 +369,8 @@ I am a plugin with a dash in my name
 <!--
 #### Name conflicts and overshadowing
 
-It is possible to have multiple plugins with the same filename in different locations throughout your PATH.
-For example, given a PATH with the following value: `PATH=/usr/local/bin/plugins:/usr/local/bin/moreplugins`, a copy of plugin `kubectl-foo` could exist in `/usr/local/bin/plugins` and `/usr/local/bin/moreplugins`,
+It is possible to have multiple plugins with the same filename in different locations throughout your `PATH`.
+For example, given a `PATH` with the following value: `PATH=/usr/local/bin/plugins:/usr/local/bin/moreplugins`, a copy of plugin `kubectl-foo` could exist in `/usr/local/bin/plugins` and `/usr/local/bin/moreplugins`,
 such that the output of the `kubectl plugin list` command is:
 -->
 #### 命名冲突和弊端
@@ -397,33 +395,34 @@ error: one plugin warning was found
 ```
 
 <!--
-In the above scenario, the warning under `/usr/local/bin/moreplugins/kubectl-foo` tells us that this plugin will never be executed. Instead, the executable that appears first in our PATH, `/usr/local/bin/plugins/kubectl-foo`, will always be found and executed first by the `kubectl` plugin mechanism.
+In the above scenario, the warning under `/usr/local/bin/moreplugins/kubectl-foo` tells you that this plugin will never be executed. Instead, the executable that appears first in your `PATH`, `/usr/local/bin/plugins/kubectl-foo`, will always be found and executed first by the `kubectl` plugin mechanism.
 -->
-在上面的场景中 `/usr/local/bin/moreplugins/kubectl-foo` 下的警告告诉我们这个插件永远不会被执行。
-相反，首先出现在我们路径中的可执行文件 `/usr/local/bin/plugins/kubectl-foo` 
+在上面的场景中 `/usr/local/bin/moreplugins/kubectl-foo` 下的警告告诉你这个插件永远不会被执行。
+相反，首先出现在你 `PATH` 中的可执行文件 `/usr/local/bin/plugins/kubectl-foo` 
 总是首先被 `kubectl` 插件机制找到并执行。
 
 <!--
-A way to resolve this issue is to ensure that the location of the plugin that you wish to use with `kubectl` always comes first in your PATH. For example, if we wanted to always use `/usr/local/bin/moreplugins/kubectl-foo` anytime that the `kubectl` command `kubectl foo` was invoked, we would simply change the value of our PATH to be `PATH=/usr/local/bin/moreplugins:/usr/local/bin/plugins`.
+A way to resolve this issue is to ensure that the location of the plugin that you wish to use with `kubectl` always comes first in your `PATH`. For example, if you want to always use `/usr/local/bin/moreplugins/kubectl-foo` anytime that the `kubectl` command `kubectl foo` was invoked, change the value of your `PATH` to be `/usr/local/bin/moreplugins:/usr/local/bin/plugins`.
 -->
-解决这个问题的一种方法是你确保你希望与 `kubectl` 一起使用的插件的位置总是在你的路径中首先出现。
-例如，如果我们总是想使用 `/usr/local/bin/moreplugins/kubectl foo`，
-那么在调用 `kubectl` 命令 `kubectl foo` 时，我们只需将路径的值更改为 `PATH=/usr/local/bin/moreplugins:/usr/local/bin/plugins`。
+解决这个问题的一种方法是你确保你希望与 `kubectl` 一起使用的插件的位置总是在你的 `PATH` 中首先出现。
+例如，如果你总是想使用 `/usr/local/bin/moreplugins/kubectl foo`，
+那么在调用 `kubectl` 命令 `kubectl foo` 时，你只需将路径的值更改为 `/usr/local/bin/moreplugins:/usr/local/bin/plugins`。
 
 <!--
 #### Invocation of the longest executable filename
 
-There is another kind of overshadowing that can occur with plugin filenames. Given two plugins present in a user's PATH `kubectl-foo-bar` and `kubectl-foo-bar-baz`, the `kubectl` plugin mechanism will always choose the longest possible plugin name for a given user command. Some examples below, clarify this further:
+There is another kind of overshadowing that can occur with plugin filenames. Given two plugins present in a user's `PATH`: `kubectl-foo-bar` and `kubectl-foo-bar-baz`, the `kubectl` plugin mechanism will always choose the longest possible plugin name for a given user command. Some examples below, clarify this further:
 -->
 #### 调用最长的可执行文件名
 
-对于插件文件名而言还有另一种弊端，给定用户路径中的两个插件 `kubectl-foo-bar` 和 `kubectl-foo-bar-baz`
+对于插件文件名而言还有另一种弊端，给定用户 `PATH` 中的两个插件 `kubectl-foo-bar` 和 `kubectl-foo-bar-baz`，
 `kubectl` 插件机制总是为给定的用户命令选择尽可能长的插件名称。下面的一些例子进一步的说明了这一点：
 
 ```bash
 # 对于给定的 kubectl 命令，最长可能文件名的插件是被优先选择的
 kubectl foo bar baz
 ```
+
 ```
 Plugin kubectl-foo-bar-baz is executed
 ```
@@ -431,6 +430,7 @@ Plugin kubectl-foo-bar-baz is executed
 ```bash
 kubectl foo bar
 ```
+
 ```
 Plugin kubectl-foo-bar is executed
 ```
@@ -438,6 +438,7 @@ Plugin kubectl-foo-bar is executed
 ```bash
 kubectl foo bar baz buz
 ```
+
 ```
 Plugin kubectl-foo-bar-baz is executed, with "buz" as its first argument
 ```
@@ -445,6 +446,7 @@ Plugin kubectl-foo-bar-baz is executed, with "buz" as its first argument
 ```bash
 kubectl foo bar buz
 ```
+
 ```
 Plugin kubectl-foo-bar is executed, with "buz" as its first argument
 ```
@@ -477,6 +479,7 @@ You can use the aforementioned `kubectl plugin list` command to ensure that your
 ```bash
 kubectl plugin list
 ```
+
 ```
 The following kubectl-compatible plugins are available:
   
@@ -554,7 +557,7 @@ on Linux, Chocolatey on Windows, and Homebrew on macOS. Any package
 manager will be suitable if it can place new executables placed somewhere
 in the user's `PATH`.
 As a plugin author, if you pick this option then you also have the burden
-of updating your kubectl plugin’s distribution package across multiple
+of updating your kubectl plugin's distribution package across multiple
 platforms for each release.
 -->
 ### 原生的与特定平台的包管理     {#distributing-native}
@@ -584,10 +587,13 @@ installs easier.
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Check the Sample CLI Plugin repository for [a detailed example](https://github.com/kubernetes/sample-cli-plugin) of a plugin written in Go.
-* In case of any questions, feel free to reach out to the [CLI SIG team](https://github.com/kubernetes/community/tree/master/sig-cli).
+* Check the Sample CLI Plugin repository for a
+  [detailed example](https://github.com/kubernetes/sample-cli-plugin) of a
+  plugin written in Go.
+  In case of any questions, feel free to reach out to the
+  [SIG CLI team](https://github.com/kubernetes/community/tree/master/sig-cli).
 * Read about [Krew](https://krew.dev/), a package manager for kubectl plugins.
 -->
 * 查看 CLI 插件库示例，查看用 Go 编写的插件的[详细示例](https://github.com/kubernetes/sample-cli-plugin)
-* 如有任何问题，请随时联系 [SIG CLI ](https://github.com/kubernetes/community/tree/master/sig-cli)
+* 如有任何问题，请随时联系 [SIG CLI 团队](https://github.com/kubernetes/community/tree/master/sig-cli)
 * 了解 [Krew](https://krew.dev/)，一个 kubectl 插件管理器。

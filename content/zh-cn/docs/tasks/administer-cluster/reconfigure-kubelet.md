@@ -2,6 +2,7 @@
 title: 在运行中的集群上重新配置节点的 kubelet
 content_type: task
 min-kubernetes-server-version: v1.11
+weight: 280
 ---
 
 <!--
@@ -10,6 +11,7 @@ reviewers:
 - dawnchen
 title: Reconfigure a Node's Kubelet in a Live Cluster
 content_type: task
+weight: 280
 -->
 
 <!-- overview -->

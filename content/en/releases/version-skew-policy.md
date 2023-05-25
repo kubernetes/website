@@ -23,7 +23,7 @@ Specific cluster deployment tools may place additional restrictions on version s
 Kubernetes versions are expressed as **x.y.z**, where **x** is the major version, **y** is the minor version, and **z** is the patch version, following [Semantic Versioning](https://semver.org/) terminology.
 For more information, see [Kubernetes Release Versioning](https://git.k8s.io/sig-release/release-engineering/versioning.md#kubernetes-release-versioning).
 
-The Kubernetes project maintains release branches for the most recent three minor releases ({{< skew currentVersion >}}, {{< skew currentVersionAddMinor -1 >}}, {{< skew currentVersionAddMinor -2 >}}).  Kubernetes 1.19 and newer receive approximately 1 year of patch support. Kubernetes 1.18 and older received approximately 9 months of patch support.
+The Kubernetes project maintains release branches for the most recent three minor releases ({{< skew latestVersion >}}, {{< skew prevMinorVersion >}}, {{< skew oldestMinorVersion >}}). Kubernetes 1.19 and newer receive [approximately 1 year of patch support](/releases/patch-releases/#support-period). Kubernetes 1.18 and older received approximately 9 months of patch support.
 
 Applicable fixes, including security fixes, may be backported to those three release branches, depending on severity and feasibility.
 Patch releases are cut from those branches at a [regular cadence](/releases/patch-releases/#cadence), plus additional urgent releases, when required.
@@ -60,6 +60,25 @@ Example:
 
 * `kube-apiserver` instances are at **{{< skew currentVersion >}}** and **{{< skew currentVersionAddMinor -1 >}}**
 * `kubelet` is supported at **{{< skew currentVersionAddMinor -1 >}}**, and **{{< skew currentVersionAddMinor -2 >}}** (**{{< skew currentVersion >}}** is not supported because that would be newer than the `kube-apiserver` instance at version **{{< skew currentVersionAddMinor -1 >}}**)
+
+### kube-proxy
+
+`kube-proxy` must not be newer than `kube-apiserver`, and may be up to two minor versions older.
+`kube-proxy` may be up to two minor versions older or newer than the `kubelet` instance it runs alongside.
+
+Example:
+
+* `kube-apiserver` is at **{{< skew currentVersion >}}**
+* `kube-proxy` is supported at **{{< skew currentVersion >}}**, **{{< skew currentVersionAddMinor -1 >}}**, and **{{< skew currentVersionAddMinor -2 >}}**
+
+{{< note >}}
+If version skew exists between `kube-apiserver` instances in an HA cluster, this narrows the allowed `kube-proxy` versions.
+{{</ note >}}
+
+Example:
+
+* `kube-apiserver` instances are at **{{< skew currentVersion >}}** and **{{< skew currentVersionAddMinor -1 >}}**
+* `kube-proxy` is supported at **{{< skew currentVersionAddMinor -1 >}}**, and **{{< skew currentVersionAddMinor -2 >}}** (**{{< skew currentVersion >}}** is not supported because that would be newer than the `kube-apiserver` instance at version **{{< skew currentVersionAddMinor -1 >}}**)
 
 ### kube-controller-manager, kube-scheduler, and cloud-controller-manager
 
@@ -103,6 +122,19 @@ Example:
 The supported version skew between components has implications on the order in which components must be upgraded.
 This section describes the order in which components must be upgraded to transition an existing cluster from version **{{< skew currentVersionAddMinor -1 >}}** to version **{{< skew currentVersion >}}**.
 
+Optionally, when preparing to upgrade, the Kubernetes project recommends that
+you do the following to benefit from as many regression and bug fixes as
+possible during your upgrade: 
+
+*  Ensure that components are on the most recent patch version of your current
+   minor version.
+*  Upgrade components to the most recent patch version of the target minor
+   version.
+
+For example, if you're running version {{<skew currentVersionAddMinor -1>}},
+ensure that you're on the most recent patch version. Then, upgrade to the most
+recent patch version of {{<skew currentVersion>}}.
+
 ### kube-apiserver
 
 Pre-requisites:
@@ -129,7 +161,11 @@ Pre-requisites:
 
 * The `kube-apiserver` instances these components communicate with are at **{{< skew currentVersion >}}** (in HA clusters in which these control plane components can communicate with any `kube-apiserver` instance in the cluster, all `kube-apiserver` instances must be upgraded before upgrading these components)
 
-Upgrade `kube-controller-manager`, `kube-scheduler`, and `cloud-controller-manager` to **{{< skew currentVersion >}}**
+Upgrade `kube-controller-manager`, `kube-scheduler`, and
+`cloud-controller-manager` to **{{< skew currentVersion >}}**. There is no
+required upgrade order between `kube-controller-manager`, `kube-scheduler`, and
+`cloud-controller-manager`. You can upgrade these components in any order, or
+even simultaneously.
 
 ### kubelet
 
@@ -145,21 +181,17 @@ In-place minor version `kubelet` upgrades are not supported.
 {{</ note >}}
 
 {{< warning >}}
-Running a cluster with `kubelet` instances that are persistently two minor versions behind `kube-apiserver` is not recommended:
-
-* they must be upgraded within one minor version of `kube-apiserver` before the control plane can be upgraded
-* it increases the likelihood of running `kubelet` versions older than the three maintained minor releases
+Running a cluster with `kubelet` instances that are persistently two minor versions behind `kube-apiserver` means they must be upgraded before the control plane can be upgraded.
 {{</ warning >}}
 
 ### kube-proxy
 
-* `kube-proxy` must be the same minor version as `kubelet` on the node.
-* `kube-proxy` must not be newer than `kube-apiserver`.
-* `kube-proxy` must be at most two minor versions older than `kube-apiserver.`
+Pre-requisites:
 
-Example:
+* The `kube-apiserver` instances `kube-proxy` communicates with are at **{{< skew currentVersion >}}**
 
-If `kube-proxy` version is **{{< skew currentVersionAddMinor -2 >}}**:
+Optionally upgrade `kube-proxy` instances to **{{< skew currentVersion >}}** (or they can be left at **{{< skew currentVersionAddMinor -1 >}}** or **{{< skew currentVersionAddMinor -2 >}}**)
 
-* `kubelet` version must be at the same minor version as **{{< skew currentVersionAddMinor -2 >}}**.
-* `kube-apiserver` version must be between **{{< skew currentVersionAddMinor -2 >}}** and **{{< skew currentVersion >}}**, inclusive.
+{{< warning >}}
+Running a cluster with `kube-proxy` instances that are persistently two minor versions behind `kube-apiserver` means they must be upgraded before the control plane can be upgraded.
+{{</ warning >}}

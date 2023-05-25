@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - mikedanese
+# - thockin
 title: 파드 디버깅하기
 content_type: task
 weight: 10

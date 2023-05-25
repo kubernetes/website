@@ -1,12 +1,16 @@
 ---
-title: 快速入门
+title: 参考文档快速入门
+linkTitle: Quickstart
 content_type: task
-weight: 40
+weight: 10
+hide_summary: true
 ---
 <!--
-title: Quickstart
+title: Reference Documentation Quickstart
+linkTitle: Quickstart
 content_type: task
-weight: 40
+weight: 10
+hide_summary: true
 -->
 
 <!-- overview -->
@@ -46,18 +50,17 @@ Determine the base directory of your clone. For example, if you followed the
 preceding step to get the repository, your base directory is
 `github.com/website.` The remaining steps refer to your base directory as
 `<web-base>`.
-
-{{< note>}}
-If you want to change the content of the component tools and API reference,
-see the [contributing upstream guide](/docs/contribute/generate-ref-docs/contribute-upstream).
-{{< /note >}}
 -->
 确定你的克隆副本的根目录。例如，如果你按照前面的步骤获取了仓库，你的根目录
 会是 `github.com/website`。接下来的步骤中，`<web-base>` 用来指代你的根目录。
 
 {{< note>}}
-如果你希望更改构建工具和 API 参考资料，可以阅读
-[上游贡献指南](/zh-cn/docs/contribute/generate-ref-docs/contribute-upstream).
+<!--
+If you want to change the content of the component tools and API reference,
+see the [contributing upstream guide](/docs/contribute/generate-ref-docs/contribute-upstream).
+-->
+如果你希望更改构建工具和 API 参考资料，
+可以阅读[上游贡献指南](/zh-cn/docs/contribute/generate-ref-docs/contribute-upstream)。
 {{< /note >}}
 
 <!--
@@ -72,7 +75,7 @@ The script builds the following references:
 * The `kubectl` command reference
 * The Kubernetes API reference
 -->
-## update-imported-docs 的概述
+## update-imported-docs 的概述   {#overview-of-update-imported-docs}
 
 脚本 `update-imported-docs.py` 位于 `<web-base>/update-imported-docs/` 目录下，
 能够生成以下参考文档：
@@ -138,8 +141,8 @@ The `update-imported-docs.py` script performs the following steps:
 -->
 脚本 `update-imported-docs.py` 执行以下步骤：
 
-1. 克隆配置文件中所指定的相关仓库。就生成参考文档这一目的而言，要克隆的
-   仓库默认为 `kubernetes-sigs/reference-docs`。
+1. 克隆配置文件中所指定的相关仓库。就生成参考文档这一目的而言，要克隆的仓库默认为
+   `kubernetes-sigs/reference-docs`。
 1. 在所克隆的仓库下运行命令，准备文档生成器，之后生成 HTML 和 Markdown 文件。
 1. 将所生成的 HTML 和 Markdown 文件复制到 `<web-base>` 本地克隆副本中，
    放在配置文件中所指定的目录下。
@@ -152,7 +155,7 @@ repository, you can submit them in a [pull request](/docs/contribute/start/)
 to `<web-base>`.
 -->
 当所生成的文件已经被放到 `<web-base>` 目录下，你就可以将其提交到你的派生副本中，
-并基于所作提交发起[拉取请求（PR）](/docs/contribute/start/)到 k/website 仓库。
+并基于所作提交发起[拉取请求（PR）](/docs/contribute/start/)到 kubernetes/website 仓库。
 
 <!--
 ## Configuration file format
@@ -184,8 +187,8 @@ repos:
 Single page Markdown documents, imported by the tool, must adhere to
 the [Documentation Style Guide](/docs/contribute/style/style-guide/).
 -->
-通过工具导入的单页面的 Markdown 文档必须遵从
-[文档样式指南](/zh-cn/docs/contribute/style/style-guide/)。
+通过工具导入的单页面的 Markdown
+文档必须遵从[文档样式指南](/zh-cn/docs/contribute/style/style-guide/)。
 
 <!--
 ## Customizing reference.yml
@@ -200,7 +203,7 @@ If you encounter build issues, contact the SIG-Docs team on the
 [#sig-docs Kubernetes Slack channel](https://kubernetes.slack.com).
 -->
 
-## 定制 reference.yml
+## 定制 reference.yml   {#customizing-reference-yml}
 
 打开 `<web-base>/update-imported-docs/reference.yml` 文件进行编辑。
 在不了解参考文档构造命令的情况下，不要更改 `generate-command` 字段的内容。
@@ -209,24 +212,21 @@ If you encounter build issues, contact the SIG-Docs team on the
 如果你遇到类似问题，请在 [Kubernetes Slack 的 #sig-docs 频道](https://kubernetes.slack.com)
 联系 SIG-Docs 团队。
 
-<!--
 {{< note >}}
+<!--
 The `generate-command` is an optional entry, which can be used to run a
 given command or a short script to generate the docs from within a repository.
+-->
+注意，`generate-command` 是一个可选项，用来运行指定命令或者短脚本以在仓库内生成文档。
 {{< /note >}}
 
+<!--
 In `reference.yml`, `files` contains a list of `src` and `dst` fields.
 The `src` field contains the location of a generated Markdown file in the cloned
 `kubernetes-sigs/reference-docs` build directory, and the `dst` field specifies
 where to copy this file in the cloned `kubernetes/website` repository.
 For example:
 -->
-
-{{< note >}}
-注意，`generate-command` 是一个可选项，用来运行指定命令或者短脚本以在仓库
-内生成文档。
-{{< /note >}}
-
 在 `reference.yml` 文件中，`files` 属性包含了一组 `src` 和 `dst` 字段。
 `src` 字段给出在所克隆的 `kubernetes-sigs/reference-docs` 构造目录中生成的
 Markdown 文件的位置，而 `dst` 字段则给出了对应文件要复制到的、所克隆的
@@ -248,8 +248,8 @@ to the same destination directory, you can use wildcards in the value given to
 `src`. You must provide the directory name as the value for `dst`.
 For example:
 -->
-注意，如果从同一源目录中有很多文件要复制到目标目录，你可以在为 `src` 所设置的
-值中使用通配符。这时，为 `dst` 所设置的值必须是目录名称。例如：
+注意，如果从同一源目录中有很多文件要复制到目标目录，你可以在为 `src`
+所设置的值中使用通配符。这时，为 `dst` 所设置的值必须是目录名称。例如：
 
 ```yaml
   files:
@@ -262,7 +262,7 @@ For example:
 
 You can run the `update-imported-docs.py` tool as follows:
 -->
-## 运行 update-imported-docs 工具
+## 运行 update-imported-docs 工具   {#running-the-update-imported-docs-tool}
 
 你可以用如下方式运行 `update-imported-docs.py` 工具：
 
@@ -279,18 +279,19 @@ cd <web-base>/update-imported-docs
 ```
 
 <!-- Revisit: is the release configuration used -->
-<!-- ## Fixing Links
+<!--
+## Fixing Links
 
 The `release.yml` configuration file contains instructions to fix relative links.
 To fix relative links within your imported files, set the`gen-absolute-links`
 property to `true`. You can find an example of this in
 [`release.yml`](https://github.com/kubernetes/website/blob/main/update-imported-docs/release.yml).
 -->
-## 修复链接
+## 修复链接   {#fixing-links}
 
 配置文件 `release.yml` 中包含用来修复相对链接的指令。
-若要修复导入文件中的相对链接，将 `gen-absolute-links` 属性设置为 `true`。
-你可以在 [`release.yml`](https://github.com/kubernetes/website/blob/main/update-imported-docs/release.yml)
+若要修复导入文件中的相对链接，将 `gen-absolute-links` 属性设置为 `true`。你可以在
+[`release.yml`](https://github.com/kubernetes/website/blob/main/update-imported-docs/release.yml)
 文件中找到示例。
 
 <!--
@@ -298,7 +299,7 @@ property to `true`. You can find an example of this in
 
 List the files that were generated and copied to `<web-base>`:
 -->
-## 添加并提交 kubernetes/website 中的变更
+## 添加并提交 kubernetes/website 中的变更   {#adding-and-committing-changes-in-k8s-website}
 
 枚举新生成并复制到 `<web-base>` 的文件：
 

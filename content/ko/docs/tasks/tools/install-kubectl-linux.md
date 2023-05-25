@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - mikedanese
 title: 리눅스에 kubectl 설치 및 설정
 content_type: task
 weight: 10
@@ -112,6 +112,10 @@ card:
    sudo apt-get update
    sudo apt-get install -y apt-transport-https ca-certificates curl
    ```
+   Debian 9(stretch) 또는 그 이전 버전을 사용하는 경우 `apt-transport-https`도 설치해야 한다.
+   ```shell
+   sudo apt-get install -y apt-transport-https
+   ```
 
 2. 구글 클라우드 공개 사이닝 키를 다운로드한다.
 
@@ -134,18 +138,20 @@ card:
 
 {{% /tab %}}
 
-{{< tab name="레드햇 기반의 배포판" codelang="bash" >}}
+{{% tab name="레드햇 기반의 배포판" %}}
+```bash
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
 enabled=1
 gpgcheck=1
-repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 sudo yum install -y kubectl
-{{< /tab >}}
+```
+
+{{% /tab %}}
 {{< /tabs >}}
 
 ### 다른 패키지 관리 도구를 사용하여 설치 {#install-using-other-package-management}

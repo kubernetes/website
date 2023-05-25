@@ -37,7 +37,7 @@ A {{< glossary_tooltip text="Pod" term_id="pod" >}} can have multiple containers
 running apps within it, but it can also have one or more init containers, which are run
 before the app containers are started.
 -->
-## 理解 Init 容器
+## 理解 Init 容器   {#understanding-init-containers}
 
 每个 {{< glossary_tooltip text="Pod" term_id="pod" >}} 中可以包含多个容器，
 应用运行在这些容器里面，同时 Pod 也可以有一个或多个先于应用容器启动的 Init 容器。
@@ -72,11 +72,11 @@ The status of the init containers is returned in `.status.initContainerStatuses`
 field as an array of the container statuses (similar to the `.status.containerStatuses`
 field).
 -->
-为 Pod 设置 Init 容器需要在 [Pod 规约](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)
-中添加 `initContainers` 字段，
+为 Pod 设置 Init 容器需要在
+[Pod 规约](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)中添加 `initContainers` 字段，
 该字段以 [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 类型对象数组的形式组织，和应用的 `containers` 数组同级相邻。
-参阅 API 参考的[容器](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)章节了解详情。
+参阅 API 参考的[容器](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)章节了解详情。
 
 Init 容器的状态在 `status.initContainerStatuses` 字段中以容器状态数组的格式返回
 （类似 `status.containerStatuses` 字段）。
@@ -92,12 +92,12 @@ as documented in [Resources](#resources).
 Also, init containers do not support `lifecycle`, `livenessProbe`, `readinessProbe`, or
 `startupProbe` because they must run to completion before the Pod can be ready.
 
-If you specify multiple init containers for a Pod, Kubelet runs each init
+If you specify multiple init containers for a Pod, kubelet runs each init
 container sequentially. Each init container must succeed before the next can run.
-When all of the init containers have run to completion, Kubelet initializes
+When all of the init containers have run to completion, kubelet initializes
 the application containers for the Pod and runs them as usual.
 -->
-### 与普通容器的不同之处
+### 与普通容器的不同之处   {#differences-from-regular-containers}
 
 Init 容器支持应用容器的全部字段和特性，包括资源限制、数据卷和安全设置。
 然而，Init 容器对资源请求和限制的处理稍有不同，在下面[资源](#resources)节有说明。
@@ -120,6 +120,18 @@ have some advantages for start-up related code:
   `sed`, `awk`, `python`, or `dig` during setup.
 * The application image builder and deployer roles can work independently without
   the need to jointly build a single app image.
+-->
+## 使用 Init 容器   {#using-init-containers}
+
+因为 Init 容器具有与应用容器分离的单独镜像，其启动相关代码具有如下优势：
+
+* Init 容器可以包含一些安装过程中应用容器中不存在的实用工具或个性化代码。
+  例如，没有必要仅为了在安装过程中使用类似 `sed`、`awk`、`python` 或 `dig`
+  这样的工具而去 `FROM` 一个镜像来生成一个新的镜像。
+
+* 应用镜像的创建者和部署者可以各自独立工作，而没有必要联合构建一个单独的应用镜像。
+
+<!--
 * Init containers can run with a different view of the filesystem than app containers in the
   same Pod. Consequently, they can be given access to
   {{< glossary_tooltip text="Secrets" term_id="secret" >}} that app containers cannot access.
@@ -130,25 +142,15 @@ have some advantages for start-up related code:
   container image less secure. By keeping unnecessary tools separate you can limit the attack
   surface of your app container image.
 -->
-## 使用 Init 容器
-
-因为 Init 容器具有与应用容器分离的单独镜像，其启动相关代码具有如下优势：
-
-* Init 容器可以包含一些安装过程中应用容器中不存在的实用工具或个性化代码。
-  例如，没有必要仅为了在安装过程中使用类似 `sed`、`awk`、`python` 或 `dig`
-  这样的工具而去 `FROM` 一个镜像来生成一个新的镜像。
-
-* Init 容器可以安全地运行这些工具，避免这些工具导致应用镜像的安全性降低。
-
-* 应用镜像的创建者和部署者可以各自独立工作，而没有必要联合构建一个单独的应用镜像。
-
-* Init 容器能以不同于 Pod 内应用容器的文件系统视图运行。因此，Init 容器可以访问
-  应用容器不能访问的 {{< glossary_tooltip text="Secret" term_id="secret" >}} 的权限。
+* 与同一 Pod 中的多个应用容器相比，Init 容器能以不同的文件系统视图运行。因此，Init
+  容器可以被赋予访问应用容器不能访问的 {{< glossary_tooltip text="Secret" term_id="secret" >}} 的权限。
 
 * 由于 Init 容器必须在应用容器启动之前运行完成，因此 Init
   容器提供了一种机制来阻塞或延迟应用容器的启动，直到满足了一组先决条件。
   一旦前置条件满足，Pod 内的所有的应用容器会并行启动。
 
+* Init 容器可以安全地运行实用程序或自定义代码，而在其他方式下运行这些实用程序或自定义代码可能会降低应用容器镜像的安全性。
+  通过将不必要的工具分开，你可以限制应用容器镜像的被攻击范围。
 <!--
 ### Examples
 
@@ -184,6 +186,7 @@ Here are some ideas for how to use init containers:
   ```shell
   sleep 60
   ```
+
 <!--
 * Clone a Git repository into a {{< glossary_tooltip text="Volume" term_id="volume" >}}
 
@@ -204,10 +207,10 @@ This example defines a simple Pod that has two init containers.
 The first waits for `myservice`, and the second waits for `mydb`. Once both
 init containers complete, the Pod runs the app container from its `spec` section.
 -->
-### 使用 Init 容器的情况
+### 使用 Init 容器的情况   {#init-containers-in-use}
 
 下面的例子定义了一个具有 2 个 Init 容器的简单 Pod。 第一个等待 `myservice` 启动，
-第二个等待 `mydb` 启动。 一旦这两个 Init容器 都启动完成，Pod 将启动 `spec` 节中的应用容器。
+第二个等待 `mydb` 启动。 一旦这两个 Init 容器都启动完成，Pod 将启动 `spec` 节中的应用容器。
 
 ```yaml
 apiVersion: v1
@@ -215,7 +218,7 @@ kind: Pod
 metadata:
   name: myapp-pod
   labels:
-    app: myapp
+    app.kubernetes.io/name: MyApp
 spec:
   containers:
   - name: myapp-container
@@ -284,7 +287,7 @@ The output is similar to this:
 Name:          myapp-pod
 Namespace:     default
 [...]
-Labels:        app=myapp
+Labels:        app.kubernetes.io/name=MyApp
 Status:        Pending
 [...]
 Init Containers:
@@ -311,8 +314,8 @@ Events:
   16s          16s         1        {default-scheduler }                                              Normal        Scheduled     Successfully assigned myapp-pod to 172.17.4.201
   16s          16s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Pulling       pulling image "busybox"
   13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Pulled        Successfully pulled image "busybox"
-  13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Created       Created container with docker id 5ced34a04634; Security:[seccomp=unconfined]
-  13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Started       Started container with docker id 5ced34a04634
+  13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Created       Created container init-myservice
+  13s          13s         1        {kubelet 172.17.4.201}    spec.initContainers{init-myservice}     Normal        Started       Started container init-myservice
 ```
 
 <!--
@@ -364,15 +367,17 @@ To create the `mydb` and `myservice` services:
 创建 `mydb` 和 `myservice` 服务的命令：
 
 ```shell
-kubectl create -f services.yaml
+kubectl apply -f services.yaml
 ```
+
 <!--
 The output is similar to this:
 -->
 输出类似于：
+
 ```
-service "myservice" created
-service "mydb" created
+service/myservice created
+service/mydb created
 ```
 
 <!--
@@ -387,7 +392,9 @@ kubectl get -f myapp.yaml
 <!--
 The output is similar to this:
 -->
+
 输出类似于：
+
 ```
 NAME        READY     STATUS    RESTARTS   AGE
 myapp-pod   1/1       Running   0          9m
@@ -499,6 +506,11 @@ for resource usage apply:
 * The Pod's *effective request/limit* for a resource is the higher of:
   * the sum of all app containers request/limit for a resource
   * the effective init request/limit for a resource
+* Scheduling is done based on effective requests/limits, which means
+  init containers can reserve resources for initialization that are not used
+  during the life of the Pod.
+* The QoS (quality of service) tier of the Pod's *effective QoS tier* is the
+  QoS tier for init containers and app containers alike.
 -->
 * 所有 Init 容器上定义的任何特定资源的 limit 或 request 的最大值，作为
   Pod **有效初始 request/limit**。
@@ -506,17 +518,9 @@ for resource usage apply:
 * Pod 对资源的 **有效 limit/request** 是如下两者中的较大者：
   * 所有应用容器对某个资源的 limit/request 之和
   * 对某个资源的有效初始 limit/request
-
-<!--
-* Scheduling is done based on effective requests/limits, which means
-  init containers can reserve resources for initialization that are not used
-  during the life of the Pod.
-* The QoS (quality of service) tier of the Pod's *effective QoS tier* is the
-  QoS tier for init containers and app containers alike.
--->
 * 基于有效 limit/request 完成调度，这意味着 Init 容器能够为初始化过程预留资源，
   这些资源在 Pod 生命周期过程中并没有被使用。
-* Pod 的 **有效 QoS 层** ，与 Init 容器和应用容器的一样。
+* Pod 的 **有效 QoS 层**，与 Init 容器和应用容器的一样。
 
 <!--
 Quota and limits are applied based on the effective Pod request and limit.
@@ -545,7 +549,7 @@ Pod 重启会导致 Init 容器重新执行，主要有如下几个原因：
 * Pod 的基础设施容器 (译者注：如 `pause` 容器) 被重启。这种情况不多见，
   必须由具备 root 权限访问节点的人员来完成。
 
-* 当 `restartPolicy` 设置为 "`Always`"，Pod 中所有容器会终止而强制重启。
+* 当 `restartPolicy` 设置为 `Always`，Pod 中所有容器会终止而强制重启。
   由于垃圾收集机制的原因，Init 容器的完成记录将会丢失。
 
 <!--

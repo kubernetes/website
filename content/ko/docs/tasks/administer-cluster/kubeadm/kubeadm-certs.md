@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - sig-cluster-lifecycle
 title: kubeadm을 사용한 인증서 관리
 content_type: task
 weight: 10
@@ -244,7 +244,7 @@ serverTLSBootstrap: true
 ```
 
 만약 이미 클러스터를 생성했다면 다음을 따라 이를 조정해야 한다.
- - `kube-system` 네임스페이스에서 `kubelet-config-{{< skew latestVersion >}}` 컨피그맵을 찾아서 수정한다.
+ - `kube-system` 네임스페이스에서 `kubelet-config-{{< skew currentVersion >}}` 컨피그맵을 찾아서 수정한다.
 해당 컨피그맵에는 `kubelet` 키가
 [KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 문서를 값으로 가진다. `serverTLSBootstrap: true` 가 되도록 KubeletConfiguration 문서를 수정한다.
@@ -276,7 +276,7 @@ kubectl certificate approve <CSR-name>
 `KubeletConfiguration` 필드의 `rotateCertificates` 를 `true` 로 설정한다. 이것은 만기가
 다가오면 인증서를 위한 신규 CSR 세트가 생성되는 것을 의미하며,
 해당 순환(rotation)을 완료하기 위해서는 승인이 되어야 한다는 것을 의미한다. 더 상세한 이해를 위해서는
-[인증서 순환](/docs/reference/command-line-tools-reference/kubelet-tls-bootstrapping/#certificate-rotation)를 확인한다.
+[인증서 순환](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#certificate-rotation)를 확인한다.
 
 만약 이 CSR들의 자동 승인을 위한 솔루션을 찾고 있다면 클라우드 제공자와
 연락하여 대역 외 메커니즘(out of band mechanism)을 통해 노드의 신분을 검증할 수 있는

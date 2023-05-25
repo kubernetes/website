@@ -6,6 +6,7 @@ reviewers:
 title: Reserve Compute Resources for System Daemons
 content_type: task
 min-kubernetes-server-version: 1.8
+weight: 290
 ---
 
 <!-- overview -->
@@ -133,6 +134,7 @@ with `.slice` appended.
 {{< feature-state for_k8s_version="v1.17" state="stable" >}}
 
 **Kubelet Flag**: `--reserved-cpus=0-3`
+**KubeletConfiguration Flag**: `reservedSystemCpus: 0-3`
 
 `reserved-cpus` is meant to define an explicit CPU set for OS system daemons and
 kubernetes system daemons. `reserved-cpus` is for systems that do not intend to
@@ -229,7 +231,7 @@ Under this scenario, 'Allocatable' will be 14.5 CPUs, 28.5Gi of memory and
 Scheduler ensures that the total memory `requests` across all pods on this node does
 not exceed 28.5Gi and storage doesn't exceed 88Gi.
 Kubelet evicts pods whenever the overall memory usage across pods exceeds 28.5Gi,
-or if overall disk usage exceeds 88Gi If all processes on the node consume as
+or if overall disk usage exceeds 88Gi. If all processes on the node consume as
 much CPU as they can, pods together cannot consume more than 14.5 CPUs.
 
 If `kube-reserved` and/or `system-reserved` is not enforced and system daemons

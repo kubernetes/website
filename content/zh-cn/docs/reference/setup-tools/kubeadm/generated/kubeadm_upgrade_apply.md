@@ -1,4 +1,15 @@
 <!--
+The file is auto-generated from the Go source code of the component using a generic
+[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
+to generate the reference documentation, please read
+[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
+To update the reference content, please follow the
+[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
+guide. You can file document formatting bugs against the
+[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
+-->
+
+<!--
 Upgrade your Kubernetes cluster to the specified version
 -->
 将 Kubernetes 集群升级到指定版本
@@ -127,13 +138,13 @@ Perform the upgrade of etcd.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for various features. Options are:<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>UnversionedKubeletConfigMap=true|false (BETA - default=true)
+A set of key=value pairs that describe feature gates for various features. Options are:<br/>EtcdLearnerMode=true|false (ALPHA - default=false)<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)
 -->
 <p>
 一组键值对，用于描述各种功能。选项包括：
-<br/>PublicKeysECDSA=true|false (ALPHA - 默认值=false
+<br/>EtcdLearnerMode=true|false (ALPHA - 默认值=false)
+<br/>PublicKeysECDSA=true|false (ALPHA - 默认值=false)
 <br/>RootlessControlPlane=true|false (ALPHA - 默认值=false)
-<br/>UnversionedKubeletConfigMap=true|false (BETA - 默认值=true)
 </p>
 </td>
 </tr>
@@ -205,16 +216,16 @@ The kubeconfig file to use when talking to the cluster. If the flag is not set, 
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.
+Path to a directory that contains files named &quot;target[suffix][+patchtype].extension&quot;. For example, &quot;kube-apiserver0+merge.yaml&quot; or just &quot;etcd.json&quot;. &quot;target&quot; can be one of &quot;kube-apiserver&quot;, &quot;kube-controller-manager&quot;, &quot;kube-scheduler&quot;, &quot;etcd&quot;, &quot;kubeletconfiguration&quot;. &quot;patchtype&quot; can be one of &quot;strategic&quot;, &quot;merge&quot; or &quot;json&quot; and they match the patch formats supported by kubectl. The default &quot;patchtype&quot; is &quot;strategic&quot;. &quot;extension&quot; must be either &quot;json&quot; or &quot;yaml&quot;. &quot;suffix&quot; is an optional string that can be used to determine which patches are applied first alpha-numerically.
 -->
 <p>
 包含名为 &quot;target[suffix][+patchtype].extension&quot; 的文件的目录的路径。
-例如，&quot;kube-apiserver0+merge.yaml&quot;或仅仅是 &quot;etcd.json&quot;。
-&quot;target&quot; 可以是 &quot;kube-apiserver&quot;、&quot;kube-controller-manager&quot;、&quot;kube-scheduler&quot;、&quot;etcd&quot; 之一。
+例如，&quot;kube-apiserver0+merge.yaml&quot;或是简单的 &quot;etcd.json&quot;。
+&quot;target&quot; 可以是 &quot;kube-apiserver&quot;、&quot;kube-controller-manager&quot;、&quot;kube-scheduler&quot;、&quot;etcd&quot; 、&quot;kubeletconfiguration&quot; 之一。
 &quot;patchtype&quot; 可以是 &quot;strategic&quot;、&quot;merge&quot; 或者 &quot;json&quot; 之一，
 并且它们与 kubectl 支持的补丁格式相同。
 默认的 &quot;patchtype&quot; 是 &quot;strategic&quot;。
-&quot;extension&quot; 必须是&quot;json&quot; 或&quot;yaml&quot;。
+&quot;extension&quot; 必须是 &quot;json&quot; 或 &quot;yaml&quot;。
 &quot;suffix&quot; 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。
 </p>
 </td>

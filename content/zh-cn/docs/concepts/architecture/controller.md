@@ -4,6 +4,12 @@ content_type: concept
 weight: 30
 ---
 
+<!-- 
+title: Controllers
+content_type: concept
+weight: 30
+-->
+
 <!-- overview -->
 <!--
 In robotics and automation, a _control loop_ is
@@ -20,8 +26,8 @@ closer to the desired state, by turning equipment on or off.
 
 这是一个控制环的例子：房间里的温度自动调节器。
 
-当你设置了温度，告诉了温度自动调节器你的*期望状态（Desired State）*。
-房间的实际温度是*当前状态（Current State）*。
+当你设置了温度，告诉了温度自动调节器你的**期望状态（Desired State）**。
+房间的实际温度是**当前状态（Current State）**。
 通过对设备的开关控制，温度自动调节器让其当前状态接近期望状态。
 
 {{< glossary_definition term_id="controller" length="short">}}
@@ -31,7 +37,7 @@ closer to the desired state, by turning equipment on or off.
 ## Controller pattern
 
 A controller tracks at least one Kubernetes resource type.
-These [objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+These {{< glossary_tooltip text="objects" term_id="object" >}}
 have a spec field that represents the desired state. The
 controller(s) for that resource are responsible for making the current
 state come closer to that desired state.
@@ -50,7 +56,7 @@ detail.
 ## 控制器模式 {#controller-pattern}
 
 一个控制器至少追踪一种类型的 Kubernetes 资源。这些
-[对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+{{< glossary_tooltip text="对象" term_id="object" >}}
 有一个代表期望状态的 `spec` 字段。
 该资源的控制器负责确保其当前状态接近期望状态。
 
@@ -74,7 +80,7 @@ Job is a Kubernetes resource that runs a
 {{< glossary_tooltip term_id="pod" >}}, or perhaps several Pods, to carry out
 a task and then stop.
 
-(Once [scheduled](/docs/concepts/scheduling/), Pod objects become part of the
+(Once [scheduled](/docs/concepts/scheduling-eviction/), Pod objects become part of the
 desired state for a kubelet).
 
 When the Job controller sees a new task it makes sure that, somewhere
@@ -127,7 +133,7 @@ indicate that your room is now at the temperature you set).
 <!--
 ### Direct control
 
-By contrast with Job, some controllers need to make changes to
+In contrast with Job, some controllers need to make changes to
 things outside of your cluster.
 
 For example, if you use a control loop to make sure there
@@ -158,11 +164,11 @@ that horizontally scales the nodes in your cluster.)
 可以水平地扩展集群中的节点。）
 
 <!--
-The important point here is that the controller makes some change to bring about
-your desired state, and then reports current state back to your cluster's API server.
+The important point here is that the controller makes some changes to bring about
+your desired state, and then reports the current state back to your cluster's API server.
 Other control loops can observe that reported data and take their own actions.
 -->
-这里，很重要的一点是，控制器做出了一些变更以使得事物更接近你的期望状态，
+这里的重点是，控制器做出了一些变更以使得事物更接近你的期望状态，
 之后将当前状态报告给集群的 API 服务器。
 其他控制回路可以观测到所汇报的数据的这种变化并采取其各自的行动。
 
@@ -206,7 +212,10 @@ Kubernetes 采用了系统的云原生视图，并且可以处理持续的变化
 As a tenet of its design, Kubernetes uses lots of controllers that each manage
 a particular aspect of cluster state. Most commonly, a particular control loop
 (controller) uses one kind of resource as its desired state, and has a different
-kind of resource that it manages to make that desired state happen.
+kind of resource that it manages to make that desired state happen. For example,
+a controller for Jobs tracks Job objects (to discover new work) and Pod objects
+(to run the Jobs, and then to see when the work is finished). In this case
+something else creates the Jobs, whereas the Job controller creates Pods.
 
 It's useful to have simple controllers rather than one, monolithic set of control
 loops that are interlinked. Controllers can fail, so Kubernetes is designed to
@@ -218,6 +227,8 @@ allow for that.
 作为设计原则之一，Kubernetes 使用了很多控制器，每个控制器管理集群状态的一个特定方面。
 最常见的一个特定的控制器使用一种类型的资源作为它的期望状态，
 控制器管理控制另外一种类型的资源向它的期望状态演化。
+例如，Job 的控制器跟踪 Job 对象（以发现新的任务）和 Pod 对象（以运行 Job，然后查看任务何时完成）。
+在这种情况下，新任务会创建 Job，而 Job 控制器会创建 Pod。
 
 使用简单的控制器而不是一组相互连接的单体控制回路是很有用的。
 控制器会失败，所以 Kubernetes 的设计正是考虑到了这一点。
@@ -249,7 +260,7 @@ the {{< glossary_tooltip term_id="kube-controller-manager" >}}. These
 built-in controllers provide important core behaviors.
 
 The Deployment controller and Job controller are examples of controllers that
-come as part of Kubernetes itself (“built-in” controllers).
+come as part of Kubernetes itself ("built-in" controllers).
 Kubernetes lets you run a resilient control plane, so that if any of the built-in
 controllers were to fail, another part of the control plane will take over the work.
 
@@ -276,12 +287,14 @@ Kubernetes 允许你运行一个稳定的控制平面，这样即使某些内置
 ## {{% heading "whatsnext" %}}
 <!--
 * Read about the [Kubernetes control plane](/docs/concepts/overview/components/#control-plane-components)
-* Discover some of the basic [Kubernetes objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+* Discover some of the basic [Kubernetes objects](/docs/concepts/overview/working-with-objects/)
 * Learn more about the [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
-* If you want to write your own controller, see [Extension Patterns](/docs/concepts/extend-kubernetes/extend-cluster/#extension-patterns) in Extending Kubernetes.
+* If you want to write your own controller, see
+  [Extension Patterns](/docs/concepts/extend-kubernetes/#extension-patterns)
+  in Extending Kubernetes.
 -->
 * 阅读 [Kubernetes 控制平面组件](/zh-cn/docs/concepts/overview/components/#control-plane-components)
-* 了解 [Kubernetes 对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+* 了解 [Kubernetes 对象](/zh-cn/docs/concepts/overview/working-with-objects/)
   的一些基本知识
 * 进一步学习 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/)
 * 如果你想编写自己的控制器，请看 Kubernetes 的

@@ -1,29 +1,29 @@
 ---
 title: Pod 优先级和抢占
 content_type: concept
-weight: 50
+weight: 90
 ---
 
-<!-- 
+<!--
 reviewers:
 - davidopp
 - wojtek-t
 title: Pod Priority and Preemption
 content_type: concept
-weight: 50
+weight: 90
 -->
 
 <!-- overview -->
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
-<!--  
+<!--
 [Pods](/docs/concepts/workloads/pods/) can have _priority_. Priority indicates the
 importance of a Pod relative to other Pods. If a Pod cannot be scheduled, the
 scheduler tries to preempt (evict) lower priority Pods to make scheduling of the
 pending Pod possible.
 -->
-[Pod](/zh-cn/docs/concepts/workloads/pods/) 可以有 _优先级_。
+[Pod](/zh-cn/docs/concepts/workloads/pods/) 可以有**优先级**。
 优先级表示一个 Pod 相对于其他 Pod 的重要性。
 如果一个 Pod 无法被调度，调度程序会尝试抢占（驱逐）较低优先级的 Pod，
 以使悬决 Pod 可以被调度。
@@ -31,7 +31,7 @@ pending Pod possible.
 <!-- body -->
 
 {{< warning >}}
-<!-- 
+<!--
 In a cluster where not all users are trusted, a malicious user could create Pods
 at the highest possible priorities, causing other Pods to be evicted/not get
 scheduled.
@@ -48,7 +48,7 @@ for details.
 
 {{< /warning >}}
 
-<!--  
+<!--
 ## How to use priority and preemption
 
 To use priority and preemption:
@@ -62,7 +62,7 @@ To use priority and preemption:
 
 Keep reading for more information about these steps.
 -->
-## 如何使用优先级和抢占
+## 如何使用优先级和抢占 {#how-to-use-priority-and-preemption}
 
 要使用优先级和抢占：
 
@@ -75,7 +75,7 @@ Keep reading for more information about these steps.
 继续阅读以获取有关这些步骤的更多信息。
 
 {{< note >}}
-<!-- 
+<!--
 Kubernetes already ships with two PriorityClasses:
 `system-cluster-critical` and `system-node-critical`.
 These are common classes and are used to [ensure that critical components are always scheduled first](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/).
@@ -85,7 +85,7 @@ Kubernetes 已经提供了 2 个 PriorityClass：
 这些是常见的类，用于[确保始终优先调度关键组件](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/)。
 {{< /note >}}
 
-<!-- 
+<!--
 ## PriorityClass
 
 A PriorityClass is a non-namespaced object that defines a mapping from a
@@ -99,18 +99,19 @@ and it cannot be prefixed with `system-`.
 -->
 ## PriorityClass {#priorityclass}
 
-PriorityClass 是一个无名称空间对象，它定义了从优先级类名称到优先级整数值的映射。
+PriorityClass 是一个无命名空间对象，它定义了从优先级类名称到优先级整数值的映射。
 名称在 PriorityClass 对象元数据的 `name` 字段中指定。
 值在必填的 `value` 字段中指定。值越大，优先级越高。
 PriorityClass 对象的名称必须是有效的
 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)，
 并且它不能以 `system-` 为前缀。
 
-<!--  
+<!--
 A PriorityClass object can have any 32-bit integer value smaller than or equal
-to 1 billion. Larger numbers are reserved for critical system Pods that should
-not normally be preempted or evicted. A cluster admin should create one
-PriorityClass object for each such mapping that they want.
+to 1 billion. This means that the range of values for a PriorityClass object is
+from -2147483648 to 1000000000 inclusive. Larger numbers are reserved for
+built-in PriorityClasses that represent critical system Pods. A cluster
+admin should create one PriorityClass object for each such mapping that they want.
 
 PriorityClass also has two optional fields: `globalDefault` and `description`.
 The `globalDefault` field indicates that the value of this PriorityClass should
@@ -123,7 +124,8 @@ The `description` field is an arbitrary string. It is meant to tell users of the
 cluster when they should use this PriorityClass.
 -->
 PriorityClass 对象可以设置任何小于或等于 10 亿的 32 位整数值。
-较大的数字是为通常不应被抢占或驱逐的关键的系统 Pod 所保留的。
+这意味着 PriorityClass 对象的值范围是从 -2,147,483,648 到 1,000,000,000（含）。
+保留更大的数字，用于表示关键系统 Pod 的内置 PriorityClass。
 集群管理员应该为这类映射分别创建独立的 PriorityClass 对象。
 
 PriorityClass 还有两个可选字段：`globalDefault` 和 `description`。
@@ -135,7 +137,7 @@ PriorityClass 还有两个可选字段：`globalDefault` 和 `description`。
 `description` 字段是一个任意字符串。
 它用来告诉集群用户何时应该使用此 PriorityClass。
 
-<!--  
+<!--
 ### Notes about PodPriority and existing clusters
 
 -   If you upgrade an existing cluster without this feature, the priority
@@ -149,18 +151,20 @@ PriorityClass 还有两个可选字段：`globalDefault` 和 `description`。
     deleted PriorityClass remain unchanged, but you cannot create more Pods that
     use the name of the deleted PriorityClass.
 -->
-### 关于 PodPriority 和现有集群的注意事项
+### 关于 PodPriority 和现有集群的注意事项 {#notes-about-podpriority-and-existing-clusters}
 
--   如果你升级一个已经存在的但尚未使用此特性的集群，该集群中已经存在的 Pod 的优先级等效于零。
+- 如果你升级一个已经存在的但尚未使用此特性的集群，该集群中已经存在的 Pod 的优先级等效于零。
 
--   添加一个将 `globalDefault` 设置为 `true` 的 PriorityClass 不会改变现有 Pod 的优先级。
-    此类 PriorityClass 的值仅用于添加 PriorityClass 后创建的 Pod。
+- 添加一个将 `globalDefault` 设置为 `true` 的 PriorityClass 不会改变现有 Pod 的优先级。
+  此类 PriorityClass 的值仅用于添加 PriorityClass 后创建的 Pod。
 
--   如果你删除了某个 PriorityClass 对象，则使用被删除的 PriorityClass 名称的现有 Pod 保持不变，
-    但是你不能再创建使用已删除的 PriorityClass 名称的 Pod。
+- 如果你删除了某个 PriorityClass 对象，则使用被删除的 PriorityClass 名称的现有 Pod 保持不变，
+  但是你不能再创建使用已删除的 PriorityClass 名称的 Pod。
 
-<!-- ### Example PriorityClass -->
-### PriorityClass 示例
+<!--
+### Example PriorityClass
+-->
+### PriorityClass 示例 {#example-priorityclass}
 
 ```yaml
 apiVersion: scheduling.k8s.io/v1
@@ -172,7 +176,7 @@ globalDefault: false
 description: "此优先级类应仅用于 XYZ 服务 Pod。"
 ```
 
-<!--  
+<!--
 ## Non-preempting PriorityClass {#non-preempting-priority-class}
 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
@@ -205,7 +209,7 @@ high-priority pods.
 
 非抢占式 Pod 仍可能被其他高优先级 Pod 抢占。
 
-<!--  
+<!--
 `preemptionPolicy` defaults to `PreemptLowerPriority`,
 which will allow pods of that PriorityClass to preempt lower-priority pods
 (as is existing default behavior).
@@ -228,8 +232,10 @@ as soon as sufficient cluster resources "naturally" become free.
 设置为 `preemptionPolicy: Never` 的高优先级作业将在其他排队的 Pod 之前被调度，
 只要足够的集群资源“自然地”变得可用。
 
-<!-- ### Example Non-preempting PriorityClass -->
-### 非抢占式 PriorityClass 示例
+<!--
+### Example Non-preempting PriorityClass
+-->
+### 非抢占式 PriorityClass 示例   {#example-non-preempting-priorityclass}
 
 ```yaml
 apiVersion: scheduling.k8s.io/v1
@@ -242,7 +248,7 @@ globalDefault: false
 description: "This priority class will not cause other pods to be preempted."
 ```
 
-<!-- 
+<!--
 ## Pod priority
 
 After you have one or more PriorityClasses, you can create Pods that specify one
@@ -280,7 +286,7 @@ spec:
   priorityClassName: high-priority
 ```
 
-<!--  
+<!--
 ### Effect of Pod priority on scheduling order
 
 When Pod priority is enabled, the scheduler orders pending Pods by
@@ -290,14 +296,14 @@ priority Pod may be scheduled sooner than Pods with lower priority if
 its scheduling requirements are met. If such Pod cannot be scheduled,
 scheduler will continue and tries to schedule other lower priority Pods.
 -->
-### Pod 优先级对调度顺序的影响
+### Pod 优先级对调度顺序的影响 {#effect-of-pod-priority-on-scheduling-order}
 
 当启用 Pod 优先级时，调度程序会按优先级对悬决 Pod 进行排序，
 并且每个悬决的 Pod 会被放置在调度队列中其他优先级较低的悬决 Pod 之前。
 因此，如果满足调度要求，较高优先级的 Pod 可能会比具有较低优先级的 Pod 更早调度。
 如果无法调度此类 Pod，调度程序将继续并尝试调度其他较低优先级的 Pod。
 
-<!-- 
+<!--
 ## Preemption
 
 When Pods are created, they go to a queue and wait to be scheduled. The
@@ -319,7 +325,7 @@ Pod 被创建后会进入队列等待调度。
 如果找到这样的节点，一个或多个优先级较低的 Pod 会被从节点中驱逐。
 被驱逐的 Pod 消失后，P 可以被调度到该节点上。
 
-<!--  
+<!--
 ### User exposed information
 
 When Pod P preempts one or more Pods on Node N, `nominatedNodeName` field of Pod
@@ -338,7 +344,7 @@ arrives, scheduler may give Node N to the new higher priority Pod. In such a
 case, scheduler clears `nominatedNodeName` of Pod P. By doing this, scheduler
 makes Pod P eligible to preempt Pods on another Node.
 -->
-### 用户暴露的信息
+### 用户暴露的信息 {#user-exposed-information}
 
 当 Pod P 抢占节点 N 上的一个或多个 Pod 时，
 Pod P 状态的 `nominatedNodeName` 字段被设置为节点 N 的名称。
@@ -355,7 +361,7 @@ Pod P 状态的 `nominatedNodeName` 字段被设置为节点 N 的名称。
 在这种情况下，调度程序会清除 Pod P 的 `nominatedNodeName`。
 通过这样做，调度程序使 Pod P 有资格抢占另一个节点上的 Pod。
 
-<!-- 
+<!--
 ### Limitations of preemption
 
 #### Graceful termination of preemption victims
@@ -372,21 +378,21 @@ point that scheduler preempts victims and the time that Pod P is scheduled. In
 order to minimize this gap, one can set graceful termination period of lower
 priority Pods to zero or a small number.
 -->
-### 抢占的限制
+### 抢占的限制 {#limitations-of-preemption}
 
 #### 被抢占牺牲者的体面终止
 
 当 Pod 被抢占时，牺牲者会得到他们的
 [体面终止期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
 它们可以在体面终止期内完成工作并退出。如果它们不这样做就会被杀死。
-这个体面终止期在调度程序抢占 Pod 的时间点和待处理的 Pod (P) 
+这个体面终止期在调度程序抢占 Pod 的时间点和待处理的 Pod (P)
 可以在节点 (N) 上调度的时间点之间划分出了一个时间跨度。
 同时，调度器会继续调度其他待处理的 Pod。当牺牲者退出或被终止时，
 调度程序会尝试在待处理队列中调度 Pod。
 因此，调度器抢占牺牲者的时间点与 Pod P 被调度的时间点之间通常存在时间间隔。
 为了最小化这个差距，可以将低优先级 Pod 的体面终止时间设置为零或一个小数字。
 
-<!-- 
+<!--
 #### PodDisruptionBudget is supported, but not guaranteed
 
 A [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) (PDB)
@@ -399,26 +405,18 @@ despite their PDBs being violated.
 -->
 #### 支持 PodDisruptionBudget，但不保证
 
-[PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/) 
+[PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/)
 (PDB) 允许多副本应用程序的所有者限制因自愿性质的干扰而同时终止的 Pod 数量。
 Kubernetes 在抢占 Pod 时支持 PDB，但对 PDB 的支持是基于尽力而为原则的。
 调度器会尝试寻找不会因被抢占而违反 PDB 的牺牲者，但如果没有找到这样的牺牲者，
 抢占仍然会发生，并且即使违反了 PDB 约束也会删除优先级较低的 Pod。
 
-<!-- 
+<!--
 #### Inter-Pod affinity on lower-priority Pods
 
 A Node is considered for preemption only when the answer to this question is
 yes: "If all the Pods with lower priority than the pending Pod are removed from
 the Node, can the pending Pod be scheduled on the Node?"
-
-{{< note >}}
-Preemption does not necessarily remove all lower-priority
-Pods. If the pending Pod can be scheduled by removing fewer than all
-lower-priority Pods, then only a portion of the lower-priority Pods are removed.
-Even so, the answer to the preceding question must be yes. If the answer is no,
-the Node is not considered for preemption.
-{{< /note >}}
 -->
 #### 与低优先级 Pod 之间的 Pod 间亲和性
 
@@ -426,6 +424,13 @@ the Node is not considered for preemption.
 “如果从此节点上删除优先级低于悬决 Pod 的所有 Pod，悬决 Pod 是否可以在该节点上调度？”
 
 {{< note >}}
+<!--
+Preemption does not necessarily remove all lower-priority
+Pods. If the pending Pod can be scheduled by removing fewer than all
+lower-priority Pods, then only a portion of the lower-priority Pods are removed.
+Even so, the answer to the preceding question must be yes. If the answer is no,
+the Node is not considered for preemption.
+-->
 抢占并不一定会删除所有较低优先级的 Pod。
 如果悬决 Pod 可以通过删除少于所有较低优先级的 Pod 来调度，
 那么只有一部分较低优先级的 Pod 会被删除。
@@ -433,12 +438,12 @@ the Node is not considered for preemption.
 如果答案是否定的，则不考虑在该节点上执行抢占。
 {{< /note >}}
 
-<!-- 
+<!--
 If a pending Pod has inter-pod {{< glossary_tooltip text="affinity" term_id="affinity" >}}
 to one or more of the lower-priority Pods on the Node, the inter-Pod affinity
-rule cannot be satisfied in the absence of those lower-priority Pods. In this case, 
+rule cannot be satisfied in the absence of those lower-priority Pods. In this case,
 the scheduler does not preempt any Pods on the Node. Instead, it looks for another
-Node. The scheduler might find a suitable Node or it might not. There is no 
+Node. The scheduler might find a suitable Node or it might not. There is no
 guarantee that the pending Pod can be scheduled.
 
 Our recommended solution for this problem is to create inter-Pod affinity only
@@ -452,7 +457,7 @@ towards equal or higher priority Pods.
 
 我们针对此问题推荐的解决方案是仅针对同等或更高优先级的 Pod 设置 Pod 间亲和性。
 
-<!-- 
+<!--
 #### Cross node preemption
 
 Suppose a Node N is being considered for preemption so that a pending Pod P can
@@ -481,12 +486,12 @@ enough demand and if we find an algorithm with reasonable performance.
 只有当另一个节点上的 Pod 被抢占时，P 才可能在 N 上变得可行。
 下面是一个例子：
 
-*   正在考虑将 Pod P 调度到节点 N 上。
-*   Pod Q 正在与节点 N 位于同一区域的另一个节点上运行。
-*   Pod P 与 Pod Q 具有 Zone 维度的反亲和（`topologyKey:topology.kubernetes.io/zone`）。
-*   Pod P 与 Zone 中的其他 Pod 之间没有其他反亲和性设置。
-*   为了在节点 N 上调度 Pod P，可以抢占 Pod Q，但调度器不会进行跨节点抢占。
-    因此，Pod P 将被视为在节点 N 上不可调度。
+* 调度器正在考虑将 Pod P 调度到节点 N 上。
+* Pod Q 正在与节点 N 位于同一区域的另一个节点上运行。
+* Pod P 与 Pod Q 具有 Zone 维度的反亲和（`topologyKey:topology.kubernetes.io/zone`）设置。
+* Pod P 与 Zone 中的其他 Pod 之间没有其他反亲和性设置。
+* 为了在节点 N 上调度 Pod P，可以抢占 Pod Q，但调度器不会进行跨节点抢占。
+  因此，Pod P 将被视为在节点 N 上不可调度。
 
 如果将 Pod Q 从所在节点中移除，则不会违反 Pod 间反亲和性约束，
 并且 Pod P 可能会被调度到节点 N 上。
@@ -494,17 +499,17 @@ enough demand and if we find an algorithm with reasonable performance.
 如果有足够的需求，并且如果我们找到性能合理的算法，
 我们可能会考虑在未来版本中添加跨节点抢占。
 
-<!-- 
+<!--
 ## Troubleshooting
 
 Pod priority and pre-emption can have unwanted side effects. Here are some
 examples of potential problems and ways to deal with them.
 -->
-## 故障排除
+## 故障排除 {#troubleshooting}
 
 Pod 优先级和抢占可能会产生不必要的副作用。以下是一些潜在问题的示例以及处理这些问题的方法。
 
-<!--  
+<!--
 ### Pods are preempted unnecessarily
 
 Preemption removes existing Pods from a cluster under resource pressure to make
@@ -527,7 +532,7 @@ than the victims. If preemption happens in such scenarios, please file an issue.
 -->
 ### Pod 被不必要地抢占
 
-抢占在资源压​​力较大时从集群中删除现有 Pod，为更高优先级的悬决 Pod 腾出空间。
+抢占在资源压力较大时从集群中删除现有 Pod，为更高优先级的悬决 Pod 腾出空间。
 如果你错误地为某些 Pod 设置了高优先级，这些无意的高优先级 Pod 可能会导致集群中出现抢占行为。
 Pod 优先级是通过设置 Pod 规约中的 `priorityClassName` 字段来指定的。
 优先级的整数值然后被解析并填充到 `podSpec` 的 `priority` 字段。
@@ -540,7 +545,7 @@ Pod 优先级是通过设置 Pod 规约中的 `priorityClassName` 字段来指�
 当没有悬决 Pod，或者悬决 Pod 的优先级等于或低于牺牲者时，不得发生抢占。
 如果在这种情况下发生抢占，请提出问题。
 
-<!-- 
+<!--
 ### Pods are preempted, but the preemptor is not scheduled
 
 When pods are preempted, they receive their requested graceful termination
@@ -566,7 +571,7 @@ of a Pod with a lower priority.
 
 这是预期的行为：具有较高优先级的 Pod 应该取代具有较低优先级的 Pod。
 
-<!-- 
+<!--
 ### Higher priority Pods are preempted before lower priority pods
 
 The scheduler tries to find nodes that can run a pending Pod. If no node is
@@ -599,7 +604,7 @@ the scheduler chooses a node with the lowest priority.
 
 当存在多个节点抢占且上述场景均不适用时，调度器会选择优先级最低的节点。
 
-<!-- 
+<!--
 ## Interactions between Pod priority and quality of service {#interactions-of-pod-priority-and-qos}
 
 Pod priority and {{< glossary_tooltip text="QoS class" term_id="qos-class" >}}
@@ -621,16 +626,16 @@ Pod 优先级和 {{<glossary_tooltip text="QoS 类" term_id="qos-class" >}}
 仅当移除优先级最低的 Pod 不足以让调度程序调度抢占式 Pod，
 或者最低优先级的 Pod 受 PodDisruptionBudget 保护时，才会考虑优先级较高的 Pod。
 
-<!-- 
+<!--
 The kubelet uses Priority to determine pod order for [node-pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
 You can use the QoS class to estimate the order in which pods are most likely
 to get evicted. The kubelet ranks pods for eviction based on the following factors:
 
   1. Whether the starved resource usage exceeds requests
   1. Pod Priority
-  1. Amount of resource usage relative to requests 
+  1. Amount of resource usage relative to requests
 
-See [evicting end-user pods](/docs/concepts/scheduling-eviction/node-pressure-eviction/#pod-selection-for-kubelet-eviction)
+See [Pod selection for kubelet eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/#pod-selection-for-kubelet-eviction)
 for more details.
 
 kubelet node-pressure eviction does not evict Pods when their
@@ -639,31 +644,30 @@ exceeding its requests, it won't be evicted. Another Pod with higher priority
 that exceeds its requests may be evicted.
 -->
 kubelet 使用优先级来确定
-[节点压力驱逐](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/) Pod 的顺序。
+[节点压力驱逐](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/) Pod 的顺序。
 你可以使用 QoS 类来估计 Pod 最有可能被驱逐的顺序。kubelet 根据以下因素对 Pod 进行驱逐排名：
 
-  1. 对紧俏资源的使用是否超过请求值
-  1. Pod 优先级
-  1. 相对于请求的资源使用量
+1. 对紧俏资源的使用是否超过请求值
+1. Pod 优先级
+1. 相对于请求的资源使用量
 
 有关更多详细信息，请参阅
 [kubelet 驱逐时 Pod 的选择](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/#pod-selection-for-kubelet-eviction)。
 
 当某 Pod 的资源用量未超过其请求时，kubelet 节点压力驱逐不会驱逐该 Pod。
-如果优先级较低的 Pod 没有超过其请求，则不会被驱逐。
-另一个优先级高于其请求的 Pod 可能会被驱逐。
+如果优先级较低的 Pod 的资源使用量没有超过其请求，则不会被驱逐。
+另一个优先级较高且资源使用量超过其请求的 Pod 可能会被驱逐。
 
 ## {{% heading "whatsnext" %}}
 
-<!-- 
-* Read about using ResourceQuotas in connection with PriorityClasses: 
-  [limit Priority Class consumption by default](/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
+<!--
+* Read about using ResourceQuotas in connection with PriorityClasses: [limit Priority Class consumption by default](/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
 * Learn about [Pod Disruption](/docs/concepts/workloads/pods/disruptions/)
-* Learn about [API-initiated Eviction](/docs/reference/generated/kubernetes-api/v1.23/)
+* Learn about [API-initiated Eviction](/docs/concepts/scheduling-eviction/api-eviction/)
 * Learn about [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/)
 -->
 * 阅读有关将 ResourceQuota 与 PriorityClass 结合使用的信息：
   [默认限制优先级消费](/zh-cn/docs/concepts/policy/resource-quotas/#limit-priority-class-consumption-by-default)
 * 了解 [Pod 干扰](/zh-cn/docs/concepts/workloads/pods/disruptions/)
-* 了解 [API 发起的驱逐](/docs/reference/generated/kubernetes-api/v1.23/)
-* 了解[节点压力驱逐](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)
+* 了解 [API 发起的驱逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)
+* 了解[节点压力驱逐](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)

@@ -1,5 +1,9 @@
 ---
 title: IPv4/IPv6 dual-stack
+description: >-
+  Kubernetes lets you configure single-stack IPv4 networking,
+  single-stack IPv6 networking, or dual stack networking with
+  both network families active. This page explains how.
 feature:
   title: IPv4/IPv6 dual-stack
   description: >
@@ -10,7 +14,7 @@ reviewers:
   - khenidak
   - aramase
   - bridgetkromhout
-weight: 70
+weight: 90
 ---
 
 <!-- overview -->
@@ -37,7 +41,7 @@ IPv4/IPv6 dual-stack on your Kubernetes cluster provides the following features:
 
 The following prerequisites are needed in order to utilize IPv4/IPv6 dual-stack Kubernetes clusters:
 
-* Kubernetes 1.20 or later  
+* Kubernetes 1.20 or later
 
   For information about using dual-stack services with earlier
   Kubernetes versions, refer to the documentation for that version
@@ -75,6 +79,13 @@ An example of an IPv6 CIDR: `fdXY:IJKL:MNOP:15::/64` (this shows the format but 
 address - see [RFC 4193](https://tools.ietf.org/html/rfc4193))
 {{< /note >}}
 
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+
+When using an external cloud provider, you can pass a dual-stack `--node-ip` value to
+kubelet if you enable the `CloudDualStackNodeIPs` feature gate in both kubelet and the
+external cloud provider. This is only supported for cloud providers that support dual
+stack clusters.
+
 ## Services
 
 You can create {{< glossary_tooltip text="Services" term_id="service" >}} which can use IPv4, IPv6, or both.
@@ -95,7 +106,7 @@ set the `.spec.ipFamilyPolicy` field to one of the following values:
 
 If you would like to define which IP family to use for single stack or define the order of IP
 families for dual-stack, you can choose the address families by setting an optional field,
-`.spec.ipFamilies`, on the Service. 
+`.spec.ipFamilies`, on the Service.
 
 {{< note >}}
 The `.spec.ipFamilies` field is immutable because the `.spec.ClusterIP` cannot be reallocated on a
@@ -133,11 +144,11 @@ These examples demonstrate the behavior of various dual-stack Service configurat
    address assignments. The field `.spec.ClusterIPs` is the primary field, and contains both assigned
    IP addresses; `.spec.ClusterIP` is a secondary field with its value calculated from
    `.spec.ClusterIPs`.
-   
+
    * For the `.spec.ClusterIP` field, the control plane records the IP address that is from the
-     same address family as the first service cluster IP range. 
+     same address family as the first service cluster IP range.
    * On a single-stack cluster, the `.spec.ClusterIPs` and `.spec.ClusterIP` fields both only list
-     one address. 
+     one address.
    * On a cluster with dual-stack enabled, specifying `RequireDualStack` in `.spec.ipFamilyPolicy`
      behaves the same as `PreferDualStack`.
 
@@ -174,7 +185,7 @@ dual-stack.)
    kind: Service
    metadata:
      labels:
-       app: MyApp
+       app.kubernetes.io/name: MyApp
      name: my-service
    spec:
      clusterIP: 10.0.197.123
@@ -188,7 +199,7 @@ dual-stack.)
        protocol: TCP
        targetPort: 80
      selector:
-       app: MyApp
+       app.kubernetes.io/name: MyApp
      type: ClusterIP
    status:
      loadBalancer: {}
@@ -214,7 +225,7 @@ dual-stack.)
    kind: Service
    metadata:
      labels:
-       app: MyApp
+       app.kubernetes.io/name: MyApp
      name: my-service
    spec:
      clusterIP: None
@@ -228,7 +239,7 @@ dual-stack.)
        protocol: TCP
        targetPort: 80
      selector:
-       app: MyApp
+       app.kubernetes.io/name: MyApp
    ```
 
 #### Switching Services between single-stack and dual-stack

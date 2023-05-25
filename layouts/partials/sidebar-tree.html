@@ -47,6 +47,15 @@
   {{ $show := cond (or (lt $ulNr $ulShow) $activePath (and (not $shouldDelayActive) (eq $s.Parent $p.Parent)) (and (not $shouldDelayActive) (eq $s.Parent $p)) (and (not $shouldDelayActive) ($p.IsDescendant $s.Parent))) true false -}}
   {{ $mid := printf "m-%s" ($s.RelPermalink | anchorize) -}}
   {{ $pages_tmp := where (union $s.Pages $s.Sections).ByWeight ".Params.toc_hide" "!=" true -}}
+  {{/* We get untranslated subpages below to make sure we build all levels of the sidenav in localizationed docs sets */}}
+  {{ with site.Params.language_alternatives -}}
+    {{ range . }}
+      {{ with (where $.section.Translations ".Lang" . ) -}}
+        {{ $p := index . 0 -}}
+        {{ $pages_tmp = where ( $pages_tmp | lang.Merge (union $p.Pages $p.Sections)) ".Params.toc_hide" "!=" true -}}
+      {{ end -}}
+    {{ end -}}
+  {{ end -}}
   {{ $pages := $pages_tmp | first $sidebarMenuTruncate -}}
   {{ $withChild := gt (len $pages) 0 -}}
   {{ $manualLink := cond (isset $s.Params "manuallink") $s.Params.manualLink ( cond (isset $s.Params "manuallinkrelref") (relref $s $s.Params.manualLinkRelref) $s.RelPermalink) -}}

@@ -6,7 +6,6 @@ spec:
   selector:
     matchLabels:
       run: php-apache
-  replicas: 1
   template:
     metadata:
       labels:
@@ -14,7 +13,7 @@ spec:
     spec:
       containers:
       - name: php-apache
-        image: k8s.gcr.io/hpa-example
+        image: registry.k8s.io/hpa-example
         ports:
         - containerPort: 80
         resources:

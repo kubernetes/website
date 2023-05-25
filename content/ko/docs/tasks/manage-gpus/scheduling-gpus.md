@@ -1,10 +1,10 @@
 ---
+# reviewers:
+# - vishh
 content_type: concept
 title: GPU 스케줄링
 description: 클러스터의 노드별로 리소스로 사용할 GPU를 구성하고 스케줄링한다.
 ---
-
-
 
 <!-- overview -->
 
@@ -63,7 +63,7 @@ spec:
   containers:
     - name: cuda-vector-add
       # https://github.com/kubernetes/kubernetes/blob/v1.7.11/test/images/nvidia-cuda/Dockerfile
-      image: "k8s.gcr.io/cuda-vector-add:v0.1"
+      image: "registry.k8s.io/cuda-vector-add:v0.1"
       resources:
         limits:
           nvidia.com/gpu: 1 # GPU 1개 요청하기
@@ -206,7 +206,7 @@ spec:
   containers:
     - name: cuda-vector-add
       # https://github.com/kubernetes/kubernetes/blob/v1.7.11/test/images/nvidia-cuda/Dockerfile
-      image: "k8s.gcr.io/cuda-vector-add:v0.1"
+      image: "registry.k8s.io/cuda-vector-add:v0.1"
       resources:
         limits:
           nvidia.com/gpu: 1

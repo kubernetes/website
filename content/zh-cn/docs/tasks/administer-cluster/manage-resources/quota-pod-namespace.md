@@ -44,7 +44,7 @@ You must have access to create namespaces in your cluster.
 Create a namespace so that the resources you create in this exercise are
 isolated from the rest of your cluster.
 -->
-## 创建一个命名空间
+## 创建一个命名空间  {#create-a-namespace}
 
 首先创建一个命名空间，这样可以将本次操作中创建的资源与集群其他资源隔离开来。
 
@@ -57,14 +57,16 @@ kubectl create namespace quota-pod-example
 
 Here is an example manifest for a ResourceQuota:
 -->
-## 创建 ResourceQuota
+## 创建 ResourceQuota {#create-a-resourcequota}
 
 下面是 ResourceQuota 的示例清单：
 
 {{< codenew file="admin/resource/quota-pod.yaml" >}}
 
-<!-- 创建 ResourceQuota: -->
-创建这个 ResourceQuota：
+<!--
+Create the ResourceQuota:
+-->
+创建 ResourceQuota：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/quota-pod.yaml --namespace=quota-pod-example
@@ -110,7 +112,7 @@ running the same application.
 
 Create the Deployment:
 -->
-在清单中，`replicas: 3` 告诉 Kubernetes 尝试创建三个 Pods，
+在清单中，`replicas: 3` 告诉 Kubernetes 尝试创建三个新的 Pod，
 且运行相同的应用。
 
 创建这个 Deployment：
@@ -132,7 +134,8 @@ kubectl get deployment pod-quota-demo --namespace=quota-pod-example --output=yam
 The output shows that even though the Deployment specifies three replicas, only two
 Pods were created because of the quota you defined earlier:
 -->
-从输出的信息我们可以看到，尽管尝试创建三个 Pod，但是由于配额的限制，只有两个 Pod 能被成功创建。
+从输出的信息显示，即使 Deployment 指定了三个副本，
+也只有两个 Pod 被创建，原因是之前已经定义了配额：
 
 ```yaml
 spec:
@@ -155,19 +158,19 @@ you could also limit the total number of other kinds of object. For example, you
 might decide to limit how many {{< glossary_tooltip text="CronJobs" term_id="cronjob" >}}
 that can live in a single namespace.
 -->
-### 资源的选择
+### 资源的选择  {#choice-of-resource}
 在此任务中，你定义了一个限制 Pod 总数的 ResourceQuota，
-你也可以限制其他类型对象的总数。例如，
-你可以限制在一个命名空间中可以创建的 {{< glossary_tooltip text="CronJobs" term_id="cronjob" >}} 的数量。
+你也可以限制其他类型对象的总数。
+例如，你可以限制在一个命名空间中可以创建的 {{< glossary_tooltip text="CronJobs" term_id="cronjob" >}} 的数量。
 
 <!--
 ## Clean up
 
 Delete your namespace:
 -->
-## 清理
+## 清理 {#clean-up}
 
-删除命名空间：
+删除你的命名空间：
 
 ```shell
 kubectl delete namespace quota-pod-example
@@ -185,10 +188,10 @@ kubectl delete namespace quota-pod-example
 * [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 -->
-### 集群管理人员参考
+### 集群管理人员参考 {#for-cluster-administrators}
 
 * [为命名空间配置默认的内存请求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
-* [为命名空间配置默认的的 CPU 请求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [为命名空间配置默认的 CPU 请求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 * [为命名空间配置内存的最小值和最大值约束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 * [为命名空间配置 CPU 的最小值和最大值约束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 * [为命名空间配置内存和 CPU 配额](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
@@ -201,9 +204,8 @@ kubectl delete namespace quota-pod-example
 * [Assign CPU Resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/)
 * [Configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/)
 -->
-### 应用开发人员参考
+### 应用开发人员参考 {#for-app-developers}
 
 * [为容器和 Pod 分配内存资源](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/)
 * [给容器和 Pod 分配 CPU 资源](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/)
 * [配置 Pod 的服务质量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)
-

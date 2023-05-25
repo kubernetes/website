@@ -32,7 +32,7 @@ Caleb is also a co-organizer of the [CloudNative NZ](https://www.meetup.com/clou
 
 ## [Dylan Graham](https://github.com/DylanGraham)
 
-Dylan Graham is a cloud engineer from Adeliade, Australia. He has been contributing to the upstream Kubernetes project since 2018.
+Dylan Graham is a cloud engineer from Adelaide, Australia. He has been contributing to the upstream Kubernetes project since 2018.
 
 He stated that being a part of such a large-scale project was initially overwhelming, but that the community's friendliness and openness assisted him in getting through it.
 

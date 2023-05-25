@@ -31,7 +31,7 @@ Attribute-based access control (ABAC) defines an access control paradigm whereby
 
 To enable `ABAC` mode, specify `--authorization-policy-file=SOME_FILENAME` and `--authorization-mode=ABAC` on startup.
 
-The file format is [one JSON object per line](http://jsonlines.org/).  There
+The file format is [one JSON object per line](https://jsonlines.org/).  There
 should be no enclosing list or map, only one map per line.
 
 Each line is a "policy object", where each such object is a map with the following
@@ -57,7 +57,7 @@ properties:
     - Non-resource-matching properties:
       - `nonResourcePath`, type string; non-resource request paths.
         - Ex: `/version` or `/apis`
-        - Wildcard:
+        - Wildcard: 
           - `*` matches all non-resource requests.
           - `/foo/*` matches all subpaths of `/foo/`.
     - `readonly`, type boolean, when true, means that the Resource-matching policy only applies to get, list, and watch operations, Non-resource-matching policy only applies to get operation.
@@ -155,7 +155,7 @@ resource, and nonResourcePath properties set to `"*"`.
 <!--
 ## Kubectl
 
-Kubectl uses the `/api` and `/apis` endpoints of api-server to discover
+Kubectl uses the `/api` and `/apis` endpoints of apiserver to discover
 served resource types, and validates objects sent to the API by create/update
 operations using schema information located at `/openapi/v2`.
 
@@ -174,7 +174,7 @@ up the verbosity:
 
 ## kubectl
 
-kubectl 使用 api-server 的 `/api` 和 `/apis` 端点来发现服务资源类型，
+kubectl 使用 apiserver 的 `/api` 和 `/apis` 端点来发现服务资源类型，
 并使用位于 `/openapi/v2` 的模式信息来验证通过创建/更新操作发送到 API 的对象。
 
 当使用 ABAC 鉴权时，这些特殊资源必须显式地通过策略中的 `nonResourcePath` 属性暴露出来（参见下面的 [示例](#examples)）：
@@ -249,11 +249,11 @@ kubectl 使用 api-server 的 `/api` 和 `/apis` 端点来发现服务资源类�
     ```
 
 <!--
-[Complete file example](http://releases.k8s.io/{{< param "fullversion" >}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
+[Complete file example](https://releases.k8s.io/{{< param "fullversion" >}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
 
 ## A quick note on service accounts
 
-Every service account has a corresponding ABAC username, and that service account's user name is generated according to the naming convention:
+Every service account has a corresponding ABAC username, and that service account's username is generated according to the naming convention:
 
 ```shell
 system:serviceaccount:<namespace>:<serviceaccountname>
@@ -277,14 +277,14 @@ Creating a new namespace leads to the creation of a new service account in the f
 system:serviceaccount:<namespace>:default
 ```
 
-For example, if you wanted to grant the default service account (in the `kube-system` namespace) full
+For example, if you wanted to grant the default service account (in the `kube-system` namespace) full 
 privilege to the API using ABAC, you would add this line to your policy file:
 
 ```json
 {"apiVersion":"abac.authorization.kubernetes.io/v1beta1","kind":"Policy","spec":{"user":"system:serviceaccount:kube-system:default","namespace":"*","resource":"*","apiGroup":"*"}}
 ```
 
-The apiserver will need to be restarted to pickup the new policy lines.
+The apiserver will need to be restarted to pick up the new policy lines.
 -->
 
 创建新的命名空间也会导致创建一个新的服务帐户：

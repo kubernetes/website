@@ -158,14 +158,14 @@ kubectl create --edit -f /tmp/srv.yaml
 ```
 
 1. `kubectl create service` 커맨드는 서비스에 대한 구성을 생성하고 이를 `/tmp/srv.yaml`에 저장한다.
-1. `kubectl create --edit` 커맨드는 오브젝트를 생성하기 전에 편집을 위해 구성파일을 열어준다.
+1. `kubectl create --edit` 커맨드는 오브젝트를 생성하기 전에 편집을 위해 구성 파일을 열어준다.
 
 
 
 ## {{% heading "whatsnext" %}}
 
 
-* [오브젝트 구성을 이용하여 쿠버네티스 관리하기(명령형)](/ko/docs/tasks/manage-kubernetes-objects/imperative-config/)
-* [오브젝트 구성을 이용하여 쿠버네티스 관리하기(선언형)](/ko/docs/tasks/manage-kubernetes-objects/declarative-config/)
+* [구성 파일을 이용한 명령형 쿠버네티스 오브젝트 관리](/ko/docs/tasks/manage-kubernetes-objects/imperative-config/)
+* [구성 파일을 이용한 쿠버네티스 오브젝트의 선언형 관리](/ko/docs/tasks/manage-kubernetes-objects/declarative-config/)
 * [Kubectl 커맨드 참조](/docs/reference/generated/kubectl/kubectl-commands/)
 * [쿠버네티스 API 참조](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)

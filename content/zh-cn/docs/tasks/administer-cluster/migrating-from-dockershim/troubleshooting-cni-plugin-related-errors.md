@@ -1,7 +1,7 @@
 ---
 title: 排查 CNI 插件相关的错误
 content_type: task
-weight: 10
+weight: 40
 ---
 <!--
 title: Troubleshooting CNI plugin-related errors
@@ -9,7 +9,7 @@ content_type: task
 reviewers:
 - mikebrow
 - divya-mohan0209
-weight: 10
+weight: 40
 -->
 
 <!-- overview -->
@@ -24,18 +24,6 @@ Kubernetes.
 该容器运行时能够在你的 Kubernetes 版本上正常工作。
 
 <!--
-For example, the following container runtimes are being prepared, or have already been prepared, for Kubernetes v1.24:
-
-* containerd v1.6.4 and later, v1.5.11 and later
-* The CRI-O v1.24.0 and later
--->
-
-例如，针对 Kubernetes v1.24 而言，以下容器运行时正在准备或已经就绪：
-
-* containerd v1.6.4 及更新版本、v1.5.11 及更新版本
-* CRI-O v1.24.0 及更新版本
-
-<!--
 ## About the "Incompatible CNI versions" and "Failed to destroy network for sandbox" errors
 -->
 
@@ -45,6 +33,7 @@ For example, the following container runtimes are being prepared, or have alread
 Service issues exist for pod CNI network setup and tear down in containerd
 v1.6.0-v1.6.3 when the CNI plugins have not been upgraded and/or the CNI config
 version is not declared in the CNI config files. The containerd team reports, "these issues are resolved in containerd v1.6.4."
+
 With containerd v1.6.0-v1.6.3, if you do not upgrade the CNI plugins and/or
 declare the CNI config version, you might encounter the following "Incompatible
 CNI versions" or "Failed to destroy network for sandbox" error conditions.
@@ -181,6 +170,7 @@ and kubelet. Uncordon the node (`kubectl uncordon <nodename>`).
 <!--
 The following example shows a configuration for `containerd` runtime v1.6.x,
 which supports a recent version of the CNI specification (v1.0.0).
+
 Please see the documentation from your plugin and networking provider for
 further instructions on configuring your system.
 -->
@@ -247,7 +237,8 @@ cat << EOF | tee /etc/cni/net.d/10-containerd-net.conflist
    },
    {
      "type": "portmap",
-     "capabilities": {"portMappings": true}
+     "capabilities": {"portMappings": true},
+     "externalSetMarkChain": "KUBE-MARK-MASQ"
    }
  ]
 }

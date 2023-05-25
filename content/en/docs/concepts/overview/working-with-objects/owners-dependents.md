@@ -1,28 +1,29 @@
 ---
 title: Owners and Dependents
 content_type: concept
-weight: 60
+weight: 90
 ---
 
 <!-- overview -->
 
-In Kubernetes, some objects are *owners* of other objects. For example, a
-{{<glossary_tooltip text="ReplicaSet" term_id="replica-set">}} is the owner of a set of Pods. These owned objects are *dependents*
-of their owner. 
+In Kubernetes, some {{< glossary_tooltip text="objects" term_id="object" >}} are
+*owners* of other objects. For example, a
+{{<glossary_tooltip text="ReplicaSet" term_id="replica-set">}} is the owner
+of a set of Pods. These owned objects are *dependents* of their owner.
 
 Ownership is different from the [labels and selectors](/docs/concepts/overview/working-with-objects/labels/)
-mechanism that some resources also use. For example, consider a Service that 
-creates `EndpointSlice` objects. The Service uses labels to allow the control plane to
+mechanism that some resources also use. For example, consider a Service that
+creates `EndpointSlice` objects. The Service uses {{<glossary_tooltip text="labels" term_id="label">}} to allow the control plane to
 determine which `EndpointSlice` objects are used for that Service. In addition
 to the labels, each `EndpointSlice` that is managed on behalf of a Service has
 an owner reference. Owner references help different parts of Kubernetes avoid
-interfering with objects they don’t control. 
+interfering with objects they don’t control.
 
 ## Owner references in object specifications
 
 Dependent objects have a `metadata.ownerReferences` field that references their
-owner object. A valid owner reference consists of the object name and a UID
-within the same namespace as the dependent object. Kubernetes sets the value of
+owner object. A valid owner reference consists of the object name and a {{<glossary_tooltip text="UID" term_id="uid">}} 
+within the same {{<glossary_tooltip text="namespace" term_id="namespace">}} as the dependent object. Kubernetes sets the value of
 this field automatically for objects that are dependents of other objects like
 ReplicaSets, DaemonSets, Deployments, Jobs and CronJobs, and ReplicationControllers.
 You can also configure these relationships manually by changing the value of
@@ -66,10 +67,10 @@ When you tell Kubernetes to delete a resource, the API server allows the
 managing controller to process any [finalizer rules](/docs/concepts/overview/working-with-objects/finalizers/)
 for the resource. {{<glossary_tooltip text="Finalizers" term_id="finalizer">}}
 prevent accidental deletion of resources your cluster may still need to function
-correctly. For example, if you try to delete a `PersistentVolume` that is still
+correctly. For example, if you try to delete a [PersistentVolume](/docs/concepts/storage/persistent-volumes/) that is still
 in use by a Pod, the deletion does not happen immediately because the
 `PersistentVolume` has the `kubernetes.io/pv-protection` finalizer on it.
-Instead, the volume remains in the `Terminating` status until Kubernetes clears
+Instead, the [volume](/docs/concepts/storage/volumes/) remains in the `Terminating` status until Kubernetes clears
 the finalizer, which only happens after the `PersistentVolume` is no longer
 bound to a Pod. 
 

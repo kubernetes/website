@@ -100,7 +100,7 @@ En quelques étapes, nous vous emmenons de Docker Compose à Kubernetes. Tous do
       services:
 
         redis-master:
-          image: k8s.gcr.io/redis:e2e
+          image: registry.k8s.io/redis:e2e
           ports:
             - "6379"
 

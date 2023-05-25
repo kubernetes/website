@@ -6,12 +6,14 @@ spec:
   selector:
     matchLabels:
       app: mysql
+      app.kubernetes.io/name: mysql
   serviceName: mysql
   replicas: 3
   template:
     metadata:
       labels:
         app: mysql
+        app.kubernetes.io/name: mysql
     spec:
       initContainers:
       - name: init-mysql

@@ -198,6 +198,6 @@ balancer, the control plane looks up that external IP address and populates it i
 
 ## {{% heading "whatsnext" %}}
 
+* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial
 * Read about [Service](/docs/concepts/services-networking/service/)
 * Read about [Ingress](/docs/concepts/services-networking/ingress/)
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)

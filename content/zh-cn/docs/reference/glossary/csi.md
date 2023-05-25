@@ -1,5 +1,5 @@
 ---
-title: 容器存储接口（Container Storage Interface，CSI）
+title: 容器存储接口（Container Storage Interface；CSI）
 id: csi
 date: 2018-06-25
 full_link: /zh-cn/docs/concepts/storage/volumes/#csi
@@ -11,9 +11,7 @@ aka:
 tags:
 - storage 
 ---
-
 <!--
----
 title: Container Storage Interface (CSI)
 id: csi
 date: 2018-06-25
@@ -25,13 +23,12 @@ short_description: >
 aka: 
 tags:
 - storage 
----
 -->
+
 <!--
  The Container Storage Interface (CSI) defines a standard interface to expose storage systems to containers.
 -->
-
- 容器存储接口 （CSI） 定义了存储系统暴露给容器的标准接口。
+容器存储接口（Container Storage Interface；CSI）定义存储系统暴露给容器的标准接口。
 
 <!--more--> 
 
@@ -41,7 +38,6 @@ CSI allows vendors to create custom storage plugins for Kubernetes without addin
 * [CSI in the Kubernetes documentation](/docs/concepts/storage/volumes/#csi)
 * [List of available CSI drivers](https://kubernetes-csi.github.io/docs/drivers.html)
 -->
-
 CSI 允许存储驱动提供商为 Kubernetes 创建定制化的存储插件，
 而无需将这些插件的代码添加到 Kubernetes 代码仓库（外部插件）。
 要使用某个存储提供商的 CSI 驱动，你首先要

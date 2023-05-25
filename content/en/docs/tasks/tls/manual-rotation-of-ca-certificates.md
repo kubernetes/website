@@ -51,22 +51,10 @@ Configurations with a single API server will experience unavailability while the
    kube-controller-manager being unable to accept a CA bundle.
    {{< /note >}}
 
-1. Update all Secrets that hold service account tokens to include both old and new CA certificates.
+1. Wait for the controller manager to update `ca.crt` in the service account Secrets to include both old and new CA certificates.
 
     If any Pods are started before new CA is used by API servers, the new Pods get this update and will trust both
     old and new CAs.
-
-   ```shell
-   base64_encoded_ca="$(base64 -w0 <path to file containing both old and new CAs>)"
-
-   for namespace in $(kubectl get namespace --no-headers -o name | cut -d / -f 2 ); do
-       for token in $(kubectl get secrets --namespace "$namespace" --field-selector type=kubernetes.io/service-account-token -o name); do
-           kubectl get $token --namespace "$namespace" -o yaml | \
-             /bin/sed "s/\(ca.crt:\).*/\1 ${base64_encoded_ca}/" | \
-             kubectl apply -f -
-       done
-   done
-   ```
 
 1. Restart all pods using in-cluster configurations (for example: kube-proxy, CoreDNS, etc) so they can use the
    updated certificate authority data from Secrets that link to ServiceAccounts.

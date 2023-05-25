@@ -8,7 +8,7 @@ reviewers:
 - yuxiangqian
 title: Volume Snapshot Classes
 content_type: concept
-weight: 41 # just after volume snapshots
+weight: 61 # just after volume snapshots
 ---
 
 <!-- overview -->

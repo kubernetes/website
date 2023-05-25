@@ -8,12 +8,13 @@ spec:
   hostNetwork: true
   containers:
   - name: konnectivity-server-container
-    image: us.gcr.io/k8s-artifacts-prod/kas-network-proxy/proxy-server:v0.0.16
+    image: registry.k8s.io/kas-network-proxy/proxy-server:v0.0.37
     command: ["/proxy-server"]
     args: [
             "--logtostderr=true",
             # 下一行需与 egressSelectorConfiguration 中设置的值一致。
             "--uds-name=/etc/kubernetes/konnectivity-server/konnectivity-server.socket",
+            "--delete-existing-uds-file",
             # 下面两行假定 Konnectivity 服务器被部署在与 apiserver 相同的机器上，
             # 并且该 API 服务器的证书和密钥位于指定的位置。
             "--cluster-cert=/etc/kubernetes/pki/apiserver.crt",

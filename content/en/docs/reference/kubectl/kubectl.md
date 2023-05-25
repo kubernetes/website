@@ -351,6 +351,24 @@ kubectl [flags]
 <td></td><td style="line-height: 130%; word-wrap: break-word;">When set to false, turns off extra HTTP headers detailing invoked kubectl command (Kubernetes version v1.22 or later)</td>
 </tr>
 
+
+
+<tr>
+<td colspan="2">KUBECTL_EXPLAIN_OPENAPIV3</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Toggles whether calls to `kubectl explain` use the new OpenAPIv3 data source available. OpenAPIV3 is enabled by default since Kubernetes 1.24.
+</td>
+</tr>
+
+<tr>
+<td colspan="2">KUBECTL_ENABLE_CMD_SHADOW</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, external plugins can be used as subcommands for builtin commands if subcommand does not exist. In alpha stage, this feature can only be used for create command(e.g. kubectl create networkpolicy). 
+</td>
+</tr>
+
 </tbody>
 </table>
 
@@ -376,6 +394,7 @@ kubectl [flags]
 * [kubectl diff](/docs/reference/generated/kubectl/kubectl-commands#diff)	 - Diff live version against would-be applied version
 * [kubectl drain](/docs/reference/generated/kubectl/kubectl-commands#drain)	 - Drain node in preparation for maintenance
 * [kubectl edit](/docs/reference/generated/kubectl/kubectl-commands#edit)	 - Edit a resource on the server
+* [kubectl events](/docs/reference/generated/kubectl/kubectl-commands#events)  - List events
 * [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands#exec)	 - Execute a command in a container
 * [kubectl explain](/docs/reference/generated/kubectl/kubectl-commands#explain)	 - Documentation of resources
 * [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands#expose)	 - Take a replication controller, service, deployment or pod and expose it as a new Kubernetes Service

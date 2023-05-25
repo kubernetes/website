@@ -154,9 +154,12 @@ kubelet은 해당 컨테이너의 재시작 백오프 타이머를 재설정한�
 
 파드는 하나의 PodStatus를 가지며,
 그것은 파드가 통과했거나 통과하지 못한 
-[PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core) 배열을 가진다.
+[PodConditions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podcondition-v1-core) 배열을 가진다. kubelet은 다음 
+PodConditions를 관리한다.
 
 * `PodScheduled`: 파드가 노드에 스케줄되었다.
+* `PodHasNetwork`: (알파 기능; 반드시 [명시적으로 활성화](#pod-has-network)해야 함)
+샌드박스가 성공적으로 생성되고 네트워킹이 구성되었다.
 * `ContainersReady`: 파드의 모든 컨테이너가 준비되었다.
 * `Initialized`: 모든 [초기화 컨테이너](/ko/docs/concepts/workloads/pods/init-containers/)가
   성공적으로 완료(completed)되었다.
@@ -230,6 +233,36 @@ status:
 
 파드의 컨테이너가 Ready 이나 적어도 한 개의 사용자 지정 컨디션이 빠졌거나 `False` 이면,
 kubelet은 파드의 [컨디션](#파드의-컨디션)을 `ContainerReady` 로 설정한다.
+
+### 파드 네트워크 준비성(readiness) {#pod-has-network}
+
+{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+
+파드가 노드에 스케줄링되면, kubelet이 이 파드를 승인해야 하고
+모든 볼륨이 마운트되어야 한다. 이러한 단계가 완료되면 kubelet은 
+({{< glossary_tooltip term_id="cri" >}}를 사용하여) 컨테이너 런타임과 
+통신하여 런타임 샌드박스를 설정하고 파드에 대한 네트워킹을 구성한다. 만약
+`PodHasNetworkCondition` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가 활성화되면,
+Kubelet은 파드의 `status.conditions` 필드에 있는 `PodHasNetwork` 컨디션을 통해 
+파드가 초기화 마일스톤에 도달했는지 여부를 보고한다.
+
+Kubelet이 파드에 네트워킹이 구성된 런타임 샌드박스가 
+없음을 탐지했을 때 `PodHasNetwork` 컨디션은 `False`로 설정된다. 이것은 다음
+시나리오에서 발생한다.
+* 파드 라이프사이클 초기에, kubelet이 컨테이너 런타임을 사용하여 파드를 위한 샌드박스 생성을 아직 ​​시작하지 않은 때.
+* 파드 라이프사이클 후기에, 파드 샌드박스가 다음중 하나의 이유로 
+파괴되었을 때.
+  * 파드 축출 없이, 노드가 재부팅됨
+  * 격리를 위해 가상 머신을 사용하는 컨테이너 런타임을 사용하는 경우, 
+    파드 샌드박스 가상 머신이 재부팅됨(이후, 새로운 샌드박스 및 새로운 컨테이너 네트워크 구성 생성이 필요함)
+
+런타임 플러그인이 파드를 위한 샌드박스 생성 및 네트워크 구성을 성공적으로 완료하면 
+kubelet이 `PodHasNetwork` 컨디션을 `True`로 설정한다. 
+`PodHasNetwork` 컨디션이 `True`로 설정되면 kubelet이 컨테이너 이미지를 풀링하고 컨테이너를 생성할 수 있다.
+
+초기화 컨테이너가 있는 파드의 경우, kubelet은 초기화 컨테이너가 성공적으로 완료(런타임 플러그인에 의한 성공적인 샌드박스 생성 및 네트워크 구성이 완료되었음을 의미)된 후 `Initialized` 컨디션을 `True`로 설정한다.
+초기화 컨테이너가 없는 파드의 경우, kubelet은 샌드박스 생성 및 네트워크 구성이 시작되기 전에 `Initialized` 컨디션을 `True`로 설정한다.
+
 
 ## 컨테이너 프로브(probe)
 
@@ -466,7 +499,7 @@ API에서 즉시 파드를 제거하므로 동일한 이름으로 새로운 파�
 [스테이트풀셋에서 파드를 삭제하기](/ko/docs/tasks/run-application/force-delete-stateful-set-pod/)에 대한
 태스크 문서를 참고한다.
 
-### 실패한 파드의 가비지 콜렉션 {#pod-garbage-collection}
+### 종료된 파드의 가비지 콜렉션 {#pod-garbage-collection}
 
 실패한 파드의 경우, API 오브젝트는 사람이나
 {{< glossary_tooltip term_id="controller" text="컨트롤러" >}} 프로세스가

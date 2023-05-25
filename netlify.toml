@@ -1,6 +1,6 @@
 [build]
 # This default build command adds the robots noindex directive to the site headers.
-# It is turned off for only for the production site by using [context.master] below
+# It is turned off for only for the production site by using [context.main] below
 # DO NOT REMOVE THIS (contact @kubernetes/sig-docs-leads)
 publish = "public"
 functions = "functions"
@@ -8,8 +8,7 @@ command = "git submodule update --init --recursive --depth 1 && make non-product
 
 [build.environment]
 NODE_VERSION = "10.20.0"
-HUGO_VERSION = "0.101.0"
-RUBY_VERSION = "3.0.1"
+HUGO_VERSION = "0.111.3"
 
 [context.production.environment]
 HUGO_BASEURL = "https://kubernetes.io/"
