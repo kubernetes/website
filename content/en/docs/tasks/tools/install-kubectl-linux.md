@@ -314,6 +314,56 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    rm kubectl-convert kubectl-convert.sha256
    ```
 
+### Uninstall kubectl using package management
+{{< tabs name="other_kubectl_uninstall" >}}
+{{% tab name="apt-get" %}}
+If you are on Ubuntu or another Debian based Linux distribution
+
+```shell
+sudo apt-get purge kubectl
+sudo apt-get autoremove
+```
+
+It is to be noted that the executable binaries are stored in the `/usr/bin` or `usr/local/bin, library files in `usr/lib` and configuration files in `/etc`. It is recommended to manually remove the library files and static data.
+
+{{% /tab %}}
+
+{{% tab name="curl" %}}
+If you have used curl to install kubectl, then the uinstallation process can be done using :-
+
+```shell
+sudo rm -rf /usr/local/bin/kubectl
+sudo rm -rf /usr/local/lib/kubectl
+```
+
+{{% /tab %}}
+
+
+{{% tab name="snap" %}}
+If you are using snap, then the uninstallation procedure can be done using the following commands.
+
+```shell
+sudo snap remove kubectl
+```
+
+{{% /tab %}}
+
+{{% /tab %}}
+
+{{% tab name="Homebrew" %}}
+If you are using homebrew as the package management tool on your machine, then the uninstallaiton process can be done using the command below.
+
+```shell
+sudo brew uninstall kubectl
+```
+
+It is to be noted that the executable binaries are stored in the `/usr/bin` or `/usr/local/bin`, library files in `/usr/lib` or `usr/local/lib` and configuration files in `/etc`. It is recommended to manually remove the library files and static data.
+{{% /tab %}}
+
+{{< /tabs >}}
+
+
+
 ## {{% heading "whatsnext" %}}
 
 {{< include "included/kubectl-whats-next.md" >}}
