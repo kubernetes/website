@@ -3,7 +3,7 @@ title: Configurar um provedor de credenciais de imagem para o kubelet
 reviewers:
 - liggitt
 - cheftako
-description: Configure o plugin de provedor de credenciais de imagem do kubelet.
+description: Configure o plugin de provedor de credenciais de imagem do kubelet
 content_type: task
 min-kubernetes-server-version: v1.26
 weight: 120
