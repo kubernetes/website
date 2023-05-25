@@ -466,7 +466,7 @@ This gave it the ability to dynamically fetch credentials for image registries.
 There were three built-in implementations of the kubelet credential provider integration:
 ACR (Azure Container Registry), ECR (Elastic Container Registry), and GCR (Google Container Registry).
 
-For more information on the legacy mechanism, read the documentation for the version of Kubenetes that you
+For more information on the legacy mechanism, read the documentation for the version of Kubernetes that you
 are using. Kubernetes v1.26 through to v{{< skew latestVersion >}} do not include the legacy mechanism, so
 you would need to either:
 - configure a kubelet image credential provider on each node
