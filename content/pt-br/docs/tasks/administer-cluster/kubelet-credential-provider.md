@@ -101,8 +101,8 @@ providers:
      # +opcional
      args:
        - get-credentials
-     # Env define variáveis de ambiente adicionais para expor ao processo. Esses
-     # são unidos com o ambiente do host, bem como as variáveis que o client-go usa
+     # Env define variáveis de ambiente adicionais para expor ao processo. Esses valores
+     # são combinados com o ambiente do host, bem como as variáveis que o client-go usa
      # para passar o argumento para o plugin.
      # +opcional
      env:
