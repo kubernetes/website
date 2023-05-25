@@ -13,7 +13,7 @@ weight: 120
 
 <!-- overview -->
 
-A partir do Kubernetes v1.20, o kubelet pode recuperar dinamicamente as credenciais para um registro de imagem de contêiner usando plugins executáveis. O kubelet e o plugin de execução se comunicam por meio de stdio (stdin, stdout e stderr) usando APIs versionadas do Kubernetes. Esses plugins permitem que o kubelet solicite credenciais para um registro de contêiner dinamicamente, em vez de armazenar credenciais estáticas no disco. Por exemplo, o plugin pode se comunicar com um servidor de metadados local para recuperar credenciais de curta duração para uma imagem que está sendo puxada pelo kubelet.
+A partir do Kubernetes v1.20, o kubelet pode obter dinamicamente as credenciais para um registro de imagem de contêiner usando plugins executáveis. O kubelet e o plugin executável se comunicam por meio de stdio (stdin, stdout e stderr) usando APIs versionadas do Kubernetes. Esses plugins permitem que o kubelet solicite credenciais para um registro de contêiner dinamicamente, em vez de armazenar credenciais estáticas no disco. Por exemplo, o plugin pode se comunicar com um servidor de metadados local para recuperar credenciais de curta duração para uma imagem que está sendo baixada pelo kubelet.
 
 Você pode estar interessado em usar essa capacidade se alguma das condições abaixo for verdadeira:
 
