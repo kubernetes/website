@@ -15,7 +15,7 @@ weight: 120
 
 A partir do Kubernetes v1.20, o kubelet pode obter dinamicamente as credenciais para um registro de imagem de contêiner usando plugins executáveis. O kubelet e o plugin executável se comunicam por meio de stdio (stdin, stdout e stderr) usando APIs versionadas do Kubernetes. Esses plugins permitem que o kubelet solicite credenciais para um registro de contêiner dinamicamente, em vez de armazenar credenciais estáticas no disco. Por exemplo, o plugin pode se comunicar com um servidor de metadados local para recuperar credenciais de curta duração para uma imagem que está sendo baixada pelo kubelet.
 
-Você pode estar interessado em usar essa capacidade se alguma das condições abaixo for verdadeira:
+Você pode estar interessado em usar essa funcionalidade se alguma das condições abaixo for verdadeira:
 
 * Chamadas de API para um serviço de provedor de nuvem são necessárias para recuperar informações de autenticação para um registro.
 * As credenciais têm tempos de expiração curtos e é necessário solicitar novas credenciais com frequência.
@@ -98,13 +98,13 @@ providers:
      # - credentialprovider.kubelet.k8s.io/v1
      apiVersion: credentialprovider.kubelet.k8s.io/v1
      # Argumentos para passar ao comando quando for executá-lo.
-     # +opcional
+     # +optional
      args:
        - get-credentials
      # Env define variáveis de ambiente adicionais para expor ao processo. Esses valores
      # são combinados com o ambiente do host, bem como as variáveis que o client-go usa
      # para passar o argumento para o plugin.
-     # +opcional
+     # +optional
      env:
        - name: AWS_PROFILE
          value: example_profile
