@@ -222,19 +222,23 @@ Below are the procedures to set up autocompletion for PowerShell.
    ```powershell
    del kubectl-convert.exe kubectl-convert.exe.sha256
    ```
-### Uninstalling kubectl on windows:
+### Uninstalling kubectl on windows
+
  {{< tabs name="kubectl_win_uninstall" >}}
    {{% tab name="choco" %}}
    ```powershell
    choco uninstall kubernetes-cli
    ```
    Generally, the packages installed using chocolatey are downloaded into the ```C:\ProgramData\chocolatey\lib```.
+   
    {{% /tab %}}
    {{% tab name="scoop" %}}
    ```powershell
    scoop uninstall kubectl
    ```
+   {{% /tab %}}
    {{< /tabs >}}
+   
 ## {{% heading "whatsnext" %}}
 
 {{< include "included/kubectl-whats-next.md" >}}
