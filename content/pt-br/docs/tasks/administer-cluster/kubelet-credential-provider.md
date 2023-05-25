@@ -115,7 +115,7 @@ O campo `providers` é uma lista de plugins habilitados usados pelo kubelet. Cad
 * `name`: o nome do plugin que DEVE corresponder ao nome do binário executável que existe no diretório passado para `--image-credential-provider-bin-dir`.
 * `matchImages`: uma lista de strings usadas para comparar com imagens, a fim de determinar se este provedor deve ser invocado. Mais sobre isso abaixo.
 * `defaultCacheDuration`: a duração padrão em que o kubelet armazenará em cache as credenciais em memória, caso a duração de cache não tenha sido especificada pelo plugin.
-* `apiVersion`: a versão da API que o kubelet e o plugin exec usarão ao se comunicar.
+* `apiVersion`: a versão da API que o kubelet e o plugin executável usarão ao se comunicar.
 
 Cada provedor de credenciais também pode receber argumentos opcionais e variáveis de ambiente. Consulte os implementadores do plugin para determinar qual conjunto de argumentos e variáveis de ambiente são necessários para um determinado plugin.
 
