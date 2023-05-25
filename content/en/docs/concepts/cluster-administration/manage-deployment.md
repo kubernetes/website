@@ -191,14 +191,14 @@ labels:
    tier: frontend
 ```
 
-while the Redis master and slave would have different `tier` labels, and perhaps even an
+while the Redis primary and secondary would have different `tier` labels, and perhaps even an
 additional `role` label:
 
 ```yaml
 labels:
    app: guestbook
    tier: backend
-   role: master
+   role: primary
 ```
 
 and
@@ -207,7 +207,7 @@ and
 labels:
    app: guestbook
    tier: backend
-   role: slave
+   role: secondary
 ```
 
 The labels allow us to slice and dice our resources along any dimension specified by a label:
