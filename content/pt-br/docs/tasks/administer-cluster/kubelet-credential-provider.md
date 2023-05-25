@@ -46,7 +46,7 @@ Para usar esse recurso, o kubelet espera que duas flags sejam definidas:
 
 ### Configurar um provedor de credenciais do kubelet
 
-O arquivo de configuração passado para `--image-credential-provider-config` é lido pelo kubelet para determinar quais plugins exec devem ser invocados para quais imagens de contêiner. Aqui está um exemplo de arquivo de configuração que você pode acabar usando se estiver usando o plugin baseado no [ECR](https://aws.amazon.com/ecr/):
+O arquivo de configuração passado para `--image-credential-provider-config` é lido pelo kubelet para determinar quais plugins executáveis devem ser invocados para quais imagens de contêiner. Aqui está um exemplo de arquivo de configuração que você pode acabar usando se estiver usando o plugin baseado no [ECR](https://aws.amazon.com/ecr/):
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1
