@@ -27,7 +27,7 @@ Este guia demonstra como configurar o mecanismo de plugin do provedor de credenc
 
 * Você precisa de um cluster Kubernetes com nós que suportem plugins de provedor de credenciais do kubelet. Esse suporte está disponível no Kubernetes {{< skew currentVersion >}}; As versões v1.24 e v1.25 do Kubernetes incluíram isso como um recurso beta, ativado por padrão.
 
-* Uma implementação funcional de um plugin exec de provedor de credenciais. Você pode construir seu próprio plugin ou usar um fornecido por provedores de nuvem.
+* Uma implementação funcional de um plugin executável de provedor de credenciais. Você pode criar seu próprio plugin ou usar um fornecido por provedores de nuvem.
 
 {{< version-check >}}
 
