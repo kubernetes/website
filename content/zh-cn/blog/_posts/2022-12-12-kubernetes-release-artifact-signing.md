@@ -61,7 +61,7 @@ files side by side to the artifacts for verifying their integrity.
 [tarballs]: https://github.com/kubernetes/kubernetes/blob/release-1.26/CHANGELOG/CHANGELOG-1.26.md#downloads-for-v1260
 [binaries]: https://gcsweb.k8s.io/gcs/kubernetes-release/release/v1.26.0/bin
 [sboms]: https://dl.k8s.io/release/v1.26.0/kubernetes-release.spdx
-[provenance]: https://dl.k8s.io/kubernetes-release/release/v1.26.0/provenance.json
+[provenance]: https://dl.k8s.io/release/v1.26.0/provenance.json
 [cosign]: https://github.com/sigstore/cosign
 
 <!--
