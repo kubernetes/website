@@ -31,7 +31,6 @@ A common pattern for liveness probes is to use the same low-cost HTTP endpoint
 s for readiness probes, but with a higher failureThreshold. This ensures that the pod
 is observed as not-ready for some period of time before it is hard killed.
 -->
-
 存活探针的常见模式是为就绪探针使用相同的低成本 HTTP 端点，但具有更高的 failureThreshold。
 这样可以确保在硬性终止 Pod 之前，将观察到 Pod 在一段时间内处于非就绪状态。
 
@@ -75,8 +74,9 @@ scalable; and increased workload on remaining pods due to some failed pods.
 Understand the difference between readiness and liveness probes and when to apply them for your app.
 -->
 错误的存活探针可能会导致级联故障。
-这会导致在高负载下容器重启；例如由于应用程序无法扩展，导致客户端请求失败；以及由于某些 Pod 失败而导致剩余 Pod 的工作负载增加。
-了解就绪探针和存活探针之间的区别，以及何时为应用程序配置使用它们非常重要。
+这会导致在高负载下容器重启；例如由于应用程序无法扩展，导致客户端请求失败；以及由于某些
+Pod 失败而导致剩余 Pod 的工作负载增加。了解就绪探针和存活探针之间的区别，
+以及何时为应用程序配置使用它们非常重要。
 {{< /note >}}
 
 ## {{% heading "prerequisites" %}}
@@ -247,7 +247,7 @@ and restarts it.
 `periodSeconds` 字段指定了 kubelet 每隔 3 秒执行一次存活探测。
 `initialDelaySeconds` 字段告诉 kubelet 在执行第一次探测前应该等待 3 秒。
 kubelet 会向容器内运行的服务（服务在监听 8080 端口）发送一个 HTTP GET 请求来执行探测。
-如果服务器上 `/healthz`  路径下的处理程序返回成功代码，则 kubelet 认为容器是健康存活的。
+如果服务器上 `/healthz` 路径下的处理程序返回成功代码，则 kubelet 认为容器是健康存活的。
 如果处理程序返回失败代码，则 kubelet 会杀死这个容器并将其重启。
 
 <!--
@@ -262,7 +262,7 @@ returns a status of 200. After that, the handler returns a status of 500.
 -->
 返回大于或等于 200 并且小于 400 的任何代码都标示成功，其它返回代码都标示失败。
 
-你可以访问 [server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go)。
+你可以访问 [server.go](https://github.com/kubernetes/kubernetes/blob/master/test/images/agnhost/liveness/server.go)
 阅读服务的源码。
 容器存活期间的最开始 10 秒中，`/healthz` 处理程序返回 200 的状态码。
 之后处理程序返回 500 的状态码。
@@ -380,11 +380,9 @@ kubectl describe pod goproxy
 {{< feature-state for_k8s_version="v1.24" state="beta" >}}
 
 <!--
-If your application implements [gRPC Health Checking Protocol](https://github.com/grpc/grpc/blob/master/doc/health-checking.md),
-kubelet can be configured to use it for application liveness checks.
-You must enable the `GRPCContainerProbe`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-in order to configure checks that rely on gRPC.
+If your application implements the [gRPC Health Checking Protocol](https://github.com/grpc/grpc/blob/master/doc/health-checking.md),
+this example shows how to configure Kubernetes to use it for application liveness checks.
+Similarly you can configure readiness and startup probes.
 
 Here is an example manifest:
 -->
@@ -395,22 +393,40 @@ kubelet 可以配置为使用该协议来执行应用存活性检查。
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 才能配置依赖于 gRPC 的检查机制。
 
+这个例子展示了如何配置 Kubernetes 以将其用于应用程序的存活性检查。
+类似地，你可以配置就绪探针和启动探针。
+
 下面是一个示例清单：
 
 {{< codenew file="pods/probe/grpc-liveness.yaml" >}}
 
 <!--
-To use a gRPC probe, `port` must be configured. If the health endpoint is configured
-on a non-default service, you must also specify the `service`.
+To use a gRPC probe, `port` must be configured. If you want to distinguish probes of different types
+and probes for different features you can use the `service` field.
+You can set `service` to the value `liveness` and make your gRPC Health Checking endpoint
+respond to this request differently then when you set `service` set to `readiness`.
+This lets you use the same endpoint for different kinds of container health check
+(rather than needing to listen on two different ports).
+If you want to specify your own custom service name and also specify a probe type,
+the Kubernetes project recommends that you use a name that concatenates
+those. For example: `myservice-liveness` (using `-` as a separator).
 -->
-要使用 gRPC 探针，必须配置 `port` 属性。如果健康状态端点配置在非默认服务之上，
-你还必须设置 `service` 属性。
+要使用 gRPC 探针，必须配置 `port` 属性。
+如果要区分不同类型的探针和不同功能的探针，可以使用 `service` 字段。
+你可以将 `service` 设置为 `liveness`，并使你的 gRPC
+健康检查端点对该请求的响应与将 `service` 设置为 `readiness` 时不同。
+这使你可以使用相同的端点进行不同类型的容器健康检查（而不需要在两个不同的端口上侦听）。
+如果你想指定自己的自定义服务名称并指定探测类型，Kubernetes
+项目建议你使用使用一个可以关联服务和探测类型的名称来命名。
+例如：`myservice-liveness`（使用 `-` 作为分隔符）。
 
 {{< note >}}
 <!--
-Unlike HTTP and TCP probes, named ports cannot be used and custom host cannot be configured.
+Unlike HTTP and TCP probes, you cannot specify the healthcheck port by name, and you
+cannot configure a custom hostname.
 -->
-与 HTTP 和 TCP 探针不同，gRPC 探测不能使用命名端口或定制主机。
+与 HTTP 和 TCP 探针不同，gRPC 探测不能使用按名称指定端口，
+也不能自定义主机名。
 {{< /note >}}
 
 <!--
@@ -580,7 +596,7 @@ Readiness probes runs on the container during its whole lifecycle.
 <!--
 Liveness probes *do not* wait for readiness probes to succeed. If you want to wait before executing a liveness probe you should use initialDelaySeconds or a startupProbe.
 -->
-存活探针 **不等待** 就绪性探针成功。
+存活探针**不等待**就绪性探针成功。
 如果要在执行存活探针之前等待，应该使用 `initialDelaySeconds` 或 `startupProbe`。
 {{< /caution >}}
 
@@ -751,8 +767,8 @@ in the range 1 to 65535.
 [HTTP Probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#httpgetaction-v1-core)
 允许针对 `httpGet` 配置额外的字段：
 
-* `host`：连接使用的主机名，默认是 Pod 的 IP。也可以在 HTTP 头中设置 “Host” 来代替。
-* `scheme` ：用于设置连接主机的方式（HTTP 还是 HTTPS）。默认是 "HTTP"。
+* `host`：连接使用的主机名，默认是 Pod 的 IP。也可以在 HTTP 头中设置 "Host" 来代替。
+* `scheme`：用于设置连接主机的方式（HTTP 还是 HTTPS）。默认是 "HTTP"。
 * `path`：访问 HTTP 服务的路径。默认值为 "/"。
 * `httpHeaders`：请求中自定义的 HTTP 头。HTTP 头字段允许重复。
 * `port`：访问容器的端口号或者端口名。如果数字必须在 1～65535 之间。
@@ -840,7 +856,7 @@ to resolve it.
 -->
 ### 探针层面的 `terminationGracePeriodSeconds`
 
-{{< feature-state for_k8s_version="v1.25" state="beta" >}}
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
 <!--
 Prior to release 1.21, the pod-level `terminationGracePeriodSeconds` was used
@@ -871,7 +887,6 @@ by default. For users choosing to disable this feature, please note the followin
 * The `ProbeTerminationGracePeriod` feature gate is only available on the API Server. 
 The kubelet always honors the probe-level `terminationGracePeriodSeconds` field if 
 it is present on a Pod.
-
 -->
 {{< note >}}
 从 Kubernetes 1.25 开始，默认启用 `ProbeTerminationGracePeriod` 特性。

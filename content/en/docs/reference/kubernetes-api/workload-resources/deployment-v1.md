@@ -66,7 +66,7 @@ DeploymentSpec is the specification of the desired behavior of the Deployment.
 
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), required
 
-  Template describes the pods that will be created.
+  Template describes the pods that will be created. The only allowed template.spec.restartPolicy value is "Always".
 
 - **replicas** (int32)
 
@@ -88,8 +88,6 @@ DeploymentSpec is the specification of the desired behavior of the Deployment.
   - **strategy.type** (string)
 
     Type of deployment. Can be "Recreate" or "RollingUpdate". Default is RollingUpdate.
-    
-    
 
   - **strategy.rollingUpdate** (RollingUpdateDeployment)
 
@@ -360,6 +358,11 @@ GET /apis/apps/v1/namespaces/{namespace}/deployments
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+
 - **timeoutSeconds** (*in query*): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -426,6 +429,11 @@ GET /apis/apps/v1/deployments
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -851,6 +859,11 @@ DELETE /apis/apps/v1/namespaces/{namespace}/deployments
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer

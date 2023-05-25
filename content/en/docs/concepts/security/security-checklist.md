@@ -423,6 +423,8 @@ alpha state but could be considered for certain use cases:
 
 - [RBAC Good Practices](/docs/concepts/security/rbac-good-practices/) for
   further information on authorization.
+- [Securing a Cluster](/docs/tasks/administer-cluster/securing-a-cluster/) for
+  information on protecting a cluster from accidental or malicious access.
 - [Cluster Multi-tenancy guide](/docs/concepts/security/multi-tenancy/) for
   configuration options recommendations and best practices on multi-tenancy.
 - [Blog post "A Closer Look at NSA/CISA Kubernetes Hardening Guidance"](/blog/2021/10/05/nsa-cisa-kubernetes-hardening-guidance/#building-secure-container-images)

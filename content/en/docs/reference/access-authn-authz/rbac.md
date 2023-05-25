@@ -29,9 +29,9 @@ kube-apiserver --authorization-mode=Example,RBAC --other-options --more-options
 ## API objects {#api-overview}
 
 The RBAC API declares four kinds of Kubernetes object: _Role_, _ClusterRole_,
-_RoleBinding_ and _ClusterRoleBinding_. You can
-[describe objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects),
-or amend them, using tools such as `kubectl`, just like any other Kubernetes object.
+_RoleBinding_ and _ClusterRoleBinding_. You can describe or amend the RBAC
+{{< glossary_tooltip text="objects" term_id="object" >}}
+using tools such as `kubectl`, just like any other Kubernetes object.
 
 {{< caution >}}
 These objects, by design, impose access restrictions. If you are making changes
@@ -284,7 +284,7 @@ If you restrict `list` or `watch` by resourceName, clients must include a `metad
 For example, `kubectl get configmaps --field-selector=metadata.name=my-configmap`
 {{< /note >}}
 
-Rather than referring to individual `resources`、`apiGroups`, and `verbs`,
+Rather than referring to individual `resources`, `apiGroups`, and `verbs`,
 you can use the wildcard `*` symbol to refer to all such objects.
 For `nonResourceURLs`, you can use the wildcard `*` as a suffix glob match.
 For `resourceNames`, an empty set means that everything is allowed.
@@ -929,8 +929,8 @@ to a role that grants that permission. To allow a user to create/update role bin
 
 1. Grant them a role that allows them to create/update RoleBinding or ClusterRoleBinding objects, as desired.
 2. Grant them permissions needed to bind a particular role:
-    * implicitly, by giving them the permissions contained in the role.
-    * explicitly, by giving them permission to perform the `bind` verb on the particular Role (or ClusterRole).
+   * implicitly, by giving them the permissions contained in the role.
+   * explicitly, by giving them permission to perform the `bind` verb on the particular Role (or ClusterRole).
 
 For example, this ClusterRole and RoleBinding would allow `user-1` to grant other users the `admin`, `edit`, and `view` roles in the namespace `user-1-namespace`:
 
@@ -1105,7 +1105,7 @@ Examples:
 
 * Test applying a manifest file of RBAC objects, displaying changes that would be made:
 
-  ```
+  ```shell
   kubectl auth reconcile -f my-rbac-rules.yaml --dry-run=client
   ```
 
@@ -1260,7 +1260,7 @@ Here are two approaches for managing this transition:
 Run both the RBAC and ABAC authorizers, and specify a policy file that contains
 the [legacy ABAC policy](/docs/reference/access-authn-authz/abac/#policy-file-format):
 
-```
+```shell
 --authorization-mode=...,RBAC,ABAC --authorization-policy-file=mypolicy.json
 ```
 

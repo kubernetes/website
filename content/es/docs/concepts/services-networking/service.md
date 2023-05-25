@@ -902,7 +902,7 @@ Esta sección está en deuda con el artículo de blog [Kubernetes Tips - Part 1]
 Si existen IPs externas que enrutan hacia uno o más nodos del clúster, los Services de Kubernetes pueden ser expuestos en esas `externalIPs`. El tráfico que ingresa al clúster con la IP externa (como IP de destino), en el puerto del Service, será enrutado a uno de estos endpoints del Service. Las `externalIPs` no son administradas por Kubernetes y son responsabilidad del administrador del clúster.
 
 En la especificación del Service, las `externalIPs` se pueden especificar junto con cualquiera de los `ServiceTypes`.
-En el ejemplo de abajo, "`mi-servicio`" puede ser accedido por clientes en "`80.11.12.10:80`" (`externalIP:port`)
+En el ejemplo de abajo, "`mi-servicio`" puede ser accedido por clientes en "`198.51.100.32:80`" (`externalIP:port`)
 
 ```yaml
 apiVersion: v1

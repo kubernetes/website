@@ -18,7 +18,7 @@ min-kubernetes-server-version: 1.16
 
 Server-Side Apply helps users and controllers manage their resources through
 declarative configurations. Clients can create and modify their
-[objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+{{< glossary_tooltip text="objects" term_id="object" >}}
 declaratively by sending their fully specified intent.
 
 A fully specified intent is a partial object that only includes the fields and

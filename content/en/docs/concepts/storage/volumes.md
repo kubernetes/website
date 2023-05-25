@@ -12,10 +12,13 @@ weight: 10
 <!-- overview -->
 
 On-disk files in a container are ephemeral, which presents some problems for
-non-trivial applications when running in containers. One problem
-is the loss of files when a container crashes. The kubelet restarts the container
-but with a clean state. A second problem occurs when sharing files
-between containers running together in a `Pod`.
+non-trivial applications when running in containers. One problem occurs when 
+a container crashes or is stopped. Container state is not saved so all of the 
+files that were created or modified during the lifetime of the container are lost. 
+During a crash, kubelet restarts the container with a clean state. 
+Another problem occurs when multiple containers are running in a `Pod` and 
+need to share files. It can be challenging to setup 
+and access a shared filesystem across all of the containers.
 The Kubernetes {{< glossary_tooltip text="volume" term_id="volume" >}} abstraction
 solves both of these problems.
 Familiarity with [Pods](/docs/concepts/workloads/pods/) is suggested.
@@ -24,15 +27,10 @@ Familiarity with [Pods](/docs/concepts/workloads/pods/) is suggested.
 
 ## Background
 
-Docker has a concept of
-[volumes](https://docs.docker.com/storage/), though it is
-somewhat looser and less managed. A Docker volume is a directory on
-disk or in another container. Docker provides volume
-drivers, but the functionality is somewhat limited.
-
 Kubernetes supports many types of volumes. A {{< glossary_tooltip term_id="pod" text="Pod" >}}
 can use any number of volume types simultaneously.
-Ephemeral volume types have a lifetime of a pod, but persistent volumes exist beyond
+[Ephemeral volume](/docs/concepts/storage/ephemeral-volumes/) types have a lifetime of a pod, 
+but [persistent volumes](/docs/concepts/storage/persistent-volumes/) exist beyond
 the lifetime of a pod. When a pod ceases to exist, Kubernetes destroys ephemeral volumes;
 however, Kubernetes does not destroy persistent volumes.
 For any kind of volume in a given pod, data is preserved across container restarts.
@@ -291,13 +289,17 @@ Note that this path is derived from the volume's `mountPath` and the `path`
 keyed with `log_level`.
 
 {{< note >}}
+
 * You must create a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)
   before you can use it.
 
+* A ConfigMap is always mounted as `readOnly`.
+
 * A container using a ConfigMap as a [`subPath`](#using-subpath) volume mount will not
   receive ConfigMap updates.
-
+  
 * Text data is exposed as files using the UTF-8 character encoding. For other character encodings, use `binaryData`.
+
 {{< /note >}}
 
 ### downwardAPI {#downwardapi}
@@ -926,12 +928,14 @@ backed by tmpfs (a RAM-backed filesystem) so they are never written to
 non-volatile storage.
 
 {{< note >}}
-You must create a Secret in the Kubernetes API before you can use it.
-{{< /note >}}
 
-{{< note >}}
-A container using a Secret as a [`subPath`](#using-subpath) volume mount will not
+* You must create a Secret in the Kubernetes API before you can use it.
+
+* A Secret is always mounted as `readOnly`.
+
+* A container using a Secret as a [`subPath`](#using-subpath) volume mount will not
 receive Secret updates.
+
 {{< /note >}}
 
 For more details, see [Configuring Secrets](/docs/concepts/configuration/secret/).
@@ -1139,9 +1143,8 @@ persistent volume:
   The value is passed as `volume_id` on all calls to the CSI volume driver when
   referencing the volume.
 * `readOnly`: An optional boolean value indicating whether the volume is to be
-  "ControllerPublished" (attached) as read only. Default is false. This value is
-  passed to the CSI driver via the `readonly` field in the
-  `ControllerPublishVolumeRequest`.
+  "ControllerPublished" (attached) as read only. Default is false. This value is passed
+  to the CSI driver via the `readonly` field in the `ControllerPublishVolumeRequest`.
 * `fsType`: If the PV's `VolumeMode` is `Filesystem` then this field may be used
   to specify the filesystem that should be used to mount the volume. If the
   volume has not been formatted and formatting is supported, this value will be
@@ -1168,10 +1171,13 @@ persistent volume:
   secrets are passed.  When you have configured secret data for node-initiated
   volume expansion, the kubelet passes that data via the `NodeExpandVolume()`
   call to the CSI driver. In order to use the `nodeExpandSecretRef` field, your
-  cluster should be running Kubernetes version 1.25 or later and you must enable
+  cluster should be running Kubernetes version 1.25 or later.
+* If you are running Kubernetes Version 1.25 or 1.26, you must enable
   the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
   named `CSINodeExpandSecret` for each kube-apiserver and for the kubelet on every
-  node. You must also be using a CSI driver that supports or requires secret data during
+  node. In Kubernetes version 1.27 this feature has been enabled by default
+  and no explicit enablement of the feature gate is required.
+  You must also be using a CSI driver that supports or requires secret data during
   node-initiated storage resize operations.
 * `nodePublishSecretRef`: A reference to the secret object containing
   sensitive information to pass to the CSI driver to complete the CSI
