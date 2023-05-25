@@ -70,7 +70,7 @@ Kubernetes 通常使用常见的 RESTful 术语来描述 API 概念：
 
 <!--
 Most Kubernetes API resource types are
-[objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects):
+{{< glossary_tooltip text="objects" term_id="object" >}} –
 they represent a concrete instance of a concept on the cluster, like a
 pod or namespace. A smaller number of API resource types are *virtual* in
 that they often represent operations on objects, rather than objects, such
@@ -80,8 +80,8 @@ as a permission check
 (used to trigger
 [API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/)).
 -->
-大多数 Kubernetes API
-资源类型都是[对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects)：
+大多数 Kubernetes API 资源类型都是
+{{< glossary_tooltip text="对象" term_id="object" >}}：
 它们代表集群上某个概念的具体实例，例如 Pod 或命名空间。
 少数 API 资源类型是 “虚拟的”，它们通常代表的是操作而非对象本身，
 例如权限检查（使用带有 JSON 编码的 `SubjectAccessReview` 主体的 POST 到 `subjectaccessreviews` 资源），
@@ -334,7 +334,7 @@ this is called a `Reflector` and is located in the `k8s.io/client-go/tools/cache
 （在 Go 客户端库中，这称为 `反射器（Reflector）`，位于 `k8s.io/client-go/tools/cache` 包中。）
 
 <!--
-### Watch bookmarks
+### Watch bookmarks {#watch-bookmarks}
 
 To mitigate the impact of short history window, the Kubernetes API provides a watch
 event named `BOOKMARK`. It is a special kind of event to mark that all changes up
@@ -1714,15 +1714,16 @@ Continue Token, Exact
 {{< note >}}
 <!--
 When you **list** resources and receive a collection response, the response includes the
-[metadata](/docs/reference/generated/kubernetes-api/v1.21/#listmeta-v1-meta) of the collection as
-well as [object metadata](/docs/reference/generated/kubernetes-api/v1.21/#listmeta-v1-meta)
+[list metadata](/docs/reference/generated/kubernetes-api/v{{ skew currentVersion >}}/#listmeta-v1-meta)
+of the collection as well as
+[object metadata](/docs/reference/generated/kubernetes-api/v{{ skew currentVersion >}}/#objectmeta-v1-meta)
 for each item in that collection. For individual objects found within a collection response,
 `.metadata.resourceVersion` tracks when that object was last updated, and not how up-to-date
 the object is when served.
 -->
 当你 **list** 资源并收到集合响应时，
-响应包括集合的[元数据](/docs/reference/generated/kubernetes-api/v1.21/#listmeta-v1-meta)
-以及该集合中每个项目的[对象元数据](/docs/reference/generated/kubernetes-api/v1.21/#listmeta-v1-meta)。
+响应包括集合的[列表元数据](/zh-cn/docs/reference/generated/kubernetes-api/v{{ skew currentVersion >}}/#listmeta-v1-meta)
+以及该集合中每个项目的[对象元数据](/zh-cn/docs/reference/generated/kubernetes-api/v{{ skew currentVersion >}}/#objectmeta-v1-meta)。
 对于在集合响应中找到的单个对象，`.metadata.resourceVersion` 跟踪该对象的最后更新时间，
 而不是对象在服务时的最新程度。
 {{< /note >}}
@@ -1749,7 +1750,7 @@ example, the client might fall back to a request with `limit` set.
 <!--
 ### Semantics for **watch**
 
-For watch, the semantics of resource version are:
+For **watch**, the semantics of resource version are:
 -->
 ### **watch** 语义   {#semantics-for-watch}
 

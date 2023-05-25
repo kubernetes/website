@@ -89,7 +89,7 @@ CEL 表达式示例：
 | `has(self.expired) && self.created + self.ttl < self.expired`                      | Validate that 'expired' date is after a 'create' date plus a 'ttl' duration       |
 | `self.health.startsWith('ok')`                                                     | Validate a 'health' string field has the prefix 'ok'                              |
 | `self.widgets.exists(w, w.key == 'x' && w.foo < 10)`                               | Validate that the 'foo' property of a listMap item with a key 'x' is less than 10 |
-| `type(self) == string ? self == '99%' : self == 42`                                | Validate an int-or-string field for both the int and string cases                 |
+| `type(self) == string ? self == '99%' : self == 42`                                | Validate an int-or-string field for both the int and string cases             |
 | `self.metadata.name == 'singleton'`                                                | Validate that an object's name matches a specific value (making it a singleton)   |
 | `self.set1.all(e, !(e in self.set2))`                                              | Validate that two listSets are disjoint                                           |
 | `self.names.size() == self.details.size() && self.names.all(n, n in self.details)` | Validate the 'details' map is keyed by the items in the 'names' listSet           |
@@ -188,6 +188,11 @@ Examples:
 | `lowPriorities.map(x, x.priority).max() < highPriorities.map(x, x.priority).min()` | 验证两组优先级不重叠                 |
 | `names.indexOf('should-be-first') == 1`                                            | 如果是特定值，则使用列表中的第一个名称  |
 
+<!--
+See the [Kubernetes List Library](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#Lists)
+godoc for more information.
+-->
+
 更多信息请查阅 Go 文档：
 [Kubernetes 列表库](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#Lists)。
 {{< /table >}}
@@ -282,6 +287,92 @@ godoc for more information.
 -->
 更多信息请查阅 Go 文档：
 [Kubernetes URL 库](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#URLs)。
+
+<!--
+### Kubernetes authorizer library
+-->
+### Kubernetes 鉴权组件库
+
+<!--
+For CEL expressions in the API where a variable of type `Authorizer` is available,
+the authorizer may be used to perform authorization checks for the principal
+(authenticated user) of the request.
+
+API resource checks are performed as follows:
+-->
+对于 API 中存在 `Authorizer` 类型变量的 CEL 表达式，
+可以使用鉴权组件来为请求的主体（已验证的用户）执行鉴权检查。
+
+API 资源的检查如下所示：
+
+<!--
+1. Specify the group and resource to check: `Authorizer.group(string).resource(string) ResourceCheck`
+2. Optionally call any combination of the following builder functions to further narrow the authorization check.
+   Note that these functions return the receiver type and can be chained:
+
+  - `ResourceCheck.subresource(string) ResourceCheck`
+  - `ResourceCheck.namespace(string) ResourceCheck`
+  - `ResourceCheck.name(string) ResourceCheck`
+
+3. Call `ResourceCheck.check(verb string) Decision` to perform the authorization check.
+4. Call `allowed() bool` or `reason() string` to inspect the result of the authorization check.
+-->
+1. 指定要检查的组和资源：`Authorizer.group(string).resource(string) ResourceCheck`
+2. 可以调用以下任意组合的构建函数以进一步缩小鉴权检查。
+   请注意，这些函数返回接收器类型并可链式调用：
+
+   - `ResourceCheck.subresource(string) ResourceCheck`
+   - `ResourceCheck.namespace(string) ResourceCheck`
+   - `ResourceCheck.name(string) ResourceCheck`
+
+3. 调用 `ResourceCheck.check(verb string) Decision` 来执行鉴权检查。
+4. 调用 `allowed() bool` 或 `reason() string` 来获取鉴权检查的结果。
+
+<!--
+Non-resource authorization performed are used as follows:
+-->
+非资源类型执行鉴权如下：
+
+<!--
+1. specify only a path: `Authorizer.path(string) PathCheck`
+1. Call `PathCheck.check(httpVerb string) Decision` to perform the authorization check.
+1. Call `allowed() bool` or `reason() string` to inspect the result of the authorization check.
+-->
+1. 仅指定路径：`Authorizer.path(string) PathCheck`
+2. 调用 `PathCheck.check(httpVerb string) Decision` 来执行鉴权检查。
+3. 调用 `allowed() bool` 或 `reason() string` 来获取鉴权检查的结果。
+
+<!--
+To perform an authorization check for a service account:
+-->
+要为服务账号执行鉴权检查：
+
+- `Authorizer.serviceAccount(namespace string, name string) Authorizer`
+
+<!--
+{{< table caption="Examples of CEL expressions using URL library functions" >}}
+| CEL Expression                                                                                               | Purpose                                        |
+|--------------------------------------------------------------------------------------------------------------|------------------------------------------------|
+| `authorizer.group('').resource('pods').namespace('default').check('create').allowed()`                       | Returns true if the principal (user or service account) is allowed create pods in the 'default' namespace. |
+| `authorizer.path('/healthz').check('get').allowed()`                                                         | Checks if the principal (user or service account) is authorized to make HTTP GET requests to the /healthz API path. |
+| `authorizer.serviceAccount('default', 'myserviceaccount').resource('deployments').check('delete').allowed()` | Checks if the service account is authorized to delete deployments. |
+{{< /table >}}
+-->
+
+{{< table caption="使用 URL 库函数的 CEL 表达式示例" >}}
+| CEL 表达式                                                                                                   | 目的                                                                         |
+| ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------- |
+| `authorizer.group('').resource('pods').namespace('default').check('create').allowed()`                       | 如果主体（用户或服务账号）允许在 'default' 命名空间中创建 Pod，则返回 true。 |
+| `authorizer.path('/healthz').check('get').allowed()`                                                         | 检查主体（用户或服务账号）是否有权向 /healthz API 路径发出 HTTP GET 请求。 |
+| `authorizer.serviceAccount('default', 'myserviceaccount').resource('deployments').check('delete').allowed()` | 检查服务账号是否有权删除 Deployment。                                       |
+{{< /table >}}
+
+<!--
+See the [Kubernetes Authz library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)
+godoc for more information.
+-->
+更多信息请查阅 Go 文档：
+[Kubernetes 鉴权组件库](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)。
 
 <!--
 ## Type checking
