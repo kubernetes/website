@@ -35,7 +35,7 @@ Este guia demonstra como configurar o mecanismo de plugin do provedor de credenc
 
 ## Instalando Plugins nos Nós
 
-Um plugin de provedor de credenciais é um binário executável que será executado pelo kubelet. Certifique-se de que o binário do plugin exista em cada nó do seu cluster e armazenado em um diretório conhecido. O diretório será necessário posteriormente ao configurar as flags do kubelet.
+Um plugin de provedor de credenciais é um binário executável que será executado pelo kubelet. Certifique-se de que o binário do plugin exista em cada nó do seu cluster e esteja armazenado em um diretório conhecido. O diretório será necessário posteriormente ao configurar as _flags_ do kubelet.
 
 ## Configurando o Kubelet
 
