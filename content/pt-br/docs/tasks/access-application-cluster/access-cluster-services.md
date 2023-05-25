@@ -56,7 +56,7 @@ grafana is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/m
 heapster is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
 ```
 
-Isso mostra a URL referente ao verbo proxy para acessar cada serviço. Por exemplo, este cluster tem _logs_ a nível de cluster habilitados (usando o Elasticsearch), que pode ser acessado em `https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/` se as credenciais adequadas forem passadas ou através do comando kubectl proxy, como por exemplo: `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`.
+Isso mostra a URL referente ao verbo proxy para acessar cada serviço. Por exemplo, este cluster tem os _logs_ a nível de cluster habilitados (usando o Elasticsearch), que pode ser acessado em `https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/` se as credenciais adequadas forem passadas ou através do comando kubectl proxy, como por exemplo: `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`.
 
 {{< note >}}
 Consulte [Acessando clusters usando a API do Kubernetes](/docs/tasks/administer-cluster/access-cluster-api/#accessing-the-cluster-api) para obter informações sobre como passar credenciais ou usar o comando kubectl proxy.
