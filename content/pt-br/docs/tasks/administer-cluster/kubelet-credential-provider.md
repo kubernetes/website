@@ -1,5 +1,5 @@
 ---
-title: Configurar um provedor de credenciais de imagem kubelet.
+title: Configurar um provedor de credenciais de imagem para o kubelet
 reviewers:
 - liggitt
 - cheftako
