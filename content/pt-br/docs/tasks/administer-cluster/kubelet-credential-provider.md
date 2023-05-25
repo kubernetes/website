@@ -75,7 +75,7 @@ providers:
      #
      # Existe uma correspondência entre uma imagem e uma matchImage quando todas as opções abaixo são verdadeiras:
      # - Ambos contêm o mesmo número de partes de domínio e cada parte faz correspondência.
-     # - O caminho do URL de um matchImages deve ser um prefixo do caminho do URL da imagem de destino.
+     # - O caminho da URL de um matchImages deve ser um prefixo do caminho do URL da imagem de destino.
      # - Se matchImages contiver uma porta, a porta também deverá corresponder à imagem.
      #
      # Valores de exemplo de matchImages:
