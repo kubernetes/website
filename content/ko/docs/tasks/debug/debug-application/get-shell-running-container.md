@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - caesarxuchao
+# - mikedanese
 title: 동작중인 컨테이너의 셸에 접근하기
 content_type: task
 ---

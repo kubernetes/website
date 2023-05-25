@@ -1,7 +1,7 @@
 ---
 title: 使用 Weave Net 提供 NetworkPolicy
 content_type: task
-weight: 50
+weight: 60
 ---
 
 <!--
@@ -9,7 +9,7 @@ reviewers:
 - bboreham
 title: Weave Net for NetworkPolicy
 content_type: task
-weight: 50
+weight: 60
 -->
 
 <!-- overview -->
@@ -17,7 +17,7 @@ weight: 50
 <!--
 This page shows how to use Weave Net for NetworkPolicy.
 -->
-本页展示如何使用使用 Weave Net 提供 NetworkPolicy。
+本页展示如何使用 Weave Net 提供 NetworkPolicy。
 
 ## {{% heading "prerequisites" %}}
 
@@ -42,7 +42,7 @@ The Weave Net addon for Kubernetes comes with a
 that automatically monitors Kubernetes for any NetworkPolicy annotations on all
 namespaces and configures `iptables` rules to allow or block traffic as directed by the policies.
 -->
-## 安装 Weave Net 插件
+## 安装 Weave Net 插件 {#install-the-weave-net-addon}
 
 按照[通过插件集成 Kubernetes](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)
 指南执行安装。
@@ -59,17 +59,19 @@ Verify that the weave works.
 
 Enter the following command:
 -->
-## 测试安装
+## 测试安装 {#test-the-installation}
 
 验证 weave 是否有效。
 
 输入以下命令：
 
 ```shell
-kubectl get po -n kube-system -o wide
+kubectl get pods -n kube-system -o wide
 ```
 
-<!-- The output is similar to this: -->
+<!--
+The output is similar to this:
+-->
 输出类似这样：
 
 ```
@@ -83,13 +85,16 @@ weave-net-pmw8w                         2/2       Running   0          9d       
 <!--
 Each Node has a weave Pod, and all Pods are `Running` and `2/2 READY`. (`2/2` means that each Pod has `weave` and `weave-npc`.)
 -->
-每个 Node 都有一个 weave Pod，所有 Pod 都是`Running` 和 `2/2 READY`。
-（`2/2` 表示每个 Pod 都有 `weave` 和 `weave-npc`）
+每个 Node 都有一个 weave Pod，所有 Pod 都是 `Running` 和 `2/2 READY`。
+（`2/2` 表示每个 Pod 都有 `weave` 和 `weave-npc`。）
 
 ## {{% heading "whatsnext" %}}
 
 <!--
-Once you have installed the Weave Net addon, you can follow the [Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/) to try out Kubernetes NetworkPolicy. If you have any question, contact us at [#weave-community on Slack or Weave User Group](https://github.com/weaveworks/weave#getting-help).
+Once you have installed the Weave Net addon, you can follow the
+[Declare Network Policy](/docs/tasks/administer-cluster/declare-network-policy/)
+to try out Kubernetes NetworkPolicy. If you have any question, contact us at
+[#weave-community on Slack or Weave User Group](https://github.com/weaveworks/weave#getting-help).
  -->
 安装 Weave Net 插件后，你可以参考
 [声明网络策略](/zh-cn/docs/tasks/administer-cluster/declare-network-policy/)
@@ -97,4 +102,3 @@ Once you have installed the Weave Net addon, you can follow the [Declare Network
 如果你有任何疑问，请通过
 [Slack 上的 #weave-community 频道或者 Weave 用户组](https://github.com/weaveworks/weave#getting-help)
 联系我们。
-

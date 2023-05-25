@@ -230,7 +230,7 @@ Volume represents a named volume in a pod that may be accessed by any container 
 
   - **emptyDir.sizeLimit** (<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-    sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: http://kubernetes.io/docs/user-guide/volumes#emptydir
+    sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir
 
 - **hostPath** (HostPathVolumeSource)
 
@@ -405,6 +405,47 @@ Volume represents a named volume in a pod that may be accessed by any container 
   - **csi.volumeAttributes** (map[string]string)
 
     volumeAttributes stores driver-specific properties that are passed to the CSI driver. Consult your driver's documentation for supported values.
+
+- **ephemeral** (EphemeralVolumeSource)
+
+  ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
+  
+  Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity
+     tracking are needed,
+  c) the storage driver is specified through a storage class, and d) the storage driver supports dynamic volume provisioning through
+     a PersistentVolumeClaim (see EphemeralVolumeSource for more
+     information on the connection between this volume type
+     and PersistentVolumeClaim).
+  
+  Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
+  
+  Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
+  
+  A pod can use both types of ephemeral volumes and persistent volumes at the same time.
+
+  <a name="EphemeralVolumeSource"></a>
+  *Represents an ephemeral volume that is handled by a normal storage driver.*
+
+  - **ephemeral.volumeClaimTemplate** (PersistentVolumeClaimTemplate)
+
+    Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `\<pod name>-\<volume name>` where `\<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
+    
+    An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
+    
+    This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
+    
+    Required, must not be nil.
+
+    <a name="PersistentVolumeClaimTemplate"></a>
+    *PersistentVolumeClaimTemplate is used to produce PersistentVolumeClaim objects as part of an EphemeralVolumeSource.*
+
+    - **ephemeral.volumeClaimTemplate.spec** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimSpec" >}}">PersistentVolumeClaimSpec</a>), required
+
+      The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
+
+    - **ephemeral.volumeClaimTemplate.metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
+
+      May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
 
 - **fc** (FCVolumeSource)
 
@@ -789,50 +830,6 @@ Volume represents a named volume in a pod that may be accessed by any container 
   - **vsphereVolume.storagePolicyName** (string)
 
     storagePolicyName is the storage Policy Based Management (SPBM) profile name.
-
-### Alpha level
-
-
-- **ephemeral** (EphemeralVolumeSource)
-
-  ephemeral represents a volume that is handled by a cluster storage driver. The volume's lifecycle is tied to the pod that defines it - it will be created before the pod starts, and deleted when the pod is removed.
-  
-  Use this if: a) the volume is only needed while the pod runs, b) features of normal volumes like restoring from snapshot or capacity
-     tracking are needed,
-  c) the storage driver is specified through a storage class, and d) the storage driver supports dynamic volume provisioning through
-     a PersistentVolumeClaim (see EphemeralVolumeSource for more
-     information on the connection between this volume type
-     and PersistentVolumeClaim).
-  
-  Use PersistentVolumeClaim or one of the vendor-specific APIs for volumes that persist for longer than the lifecycle of an individual pod.
-  
-  Use CSI for light-weight local ephemeral volumes if the CSI driver is meant to be used that way - see the documentation of the driver for more information.
-  
-  A pod can use both types of ephemeral volumes and persistent volumes at the same time.
-
-  <a name="EphemeralVolumeSource"></a>
-  *Represents an ephemeral volume that is handled by a normal storage driver.*
-
-  - **ephemeral.volumeClaimTemplate** (PersistentVolumeClaimTemplate)
-
-    Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `\<pod name>-\<volume name>` where `\<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).
-    
-    An existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.
-    
-    This field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.
-    
-    Required, must not be nil.
-
-    <a name="PersistentVolumeClaimTemplate"></a>
-    *PersistentVolumeClaimTemplate is used to produce PersistentVolumeClaim objects as part of an EphemeralVolumeSource.*
-
-    - **ephemeral.volumeClaimTemplate.spec** (<a href="{{< ref "../config-and-storage-resources/persistent-volume-claim-v1#PersistentVolumeClaimSpec" >}}">PersistentVolumeClaimSpec</a>), required
-
-      The specification for the PersistentVolumeClaim. The entire content is copied unchanged into the PVC that gets created from this template. The same fields as in a PersistentVolumeClaim are also valid here.
-
-    - **ephemeral.volumeClaimTemplate.metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
-
-      May contain labels and annotations that will be copied into the PVC when creating it. No other fields are allowed and will be rejected during validation.
 
 ### Deprecated
 

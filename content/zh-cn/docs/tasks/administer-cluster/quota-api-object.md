@@ -1,11 +1,13 @@
 ---
 title: 配置 API 对象配额
 content_type: task
+weight: 130
 ---
 
 <!--
 title: Configure Quotas for API Objects
 content_type: task
+weight: 130
 -->
 
 <!-- overview -->

@@ -1,6 +1,7 @@
 ---
 title: 名字空间演练
 content_type: task
+weight: 260
 ---
 <!--
 reviewers:
@@ -8,6 +9,7 @@ reviewers:
 - janetkuo
 title: Namespaces Walkthrough
 content_type: task
+weight: 260
 -->
 
 <!-- overview -->
@@ -50,16 +52,16 @@ This example demonstrates how to use Kubernetes namespaces to subdivide your clu
 This example assumes the following:
 
 1. You have an [existing Kubernetes cluster](/docs/setup/).
-2. You have a basic understanding of Kubernetes _[Pods](/docs/concepts/workloads/pods/pod/)_, _[Services](/docs/concepts/services-networking/service/)_, and _[Deployments](/docs/concepts/workloads/controllers/deployment/)_.
+2. You have a basic understanding of Kubernetes {{< glossary_tooltip text="Pods" term_id="pod" >}}, {{< glossary_tooltip term_id="service" text="Services" >}}, and {{< glossary_tooltip text="Deployments" term_id="deployment" >}}.
 -->
-## 环境准备
+## 环境准备   {#prerequisites}
 
 此示例作如下假设：
 
 1. 你已拥有一个[配置好的 Kubernetes 集群](/zh-cn/docs/setup/)。
-2. 你已对 Kubernetes 的 _[Pods](/zh-cn/docs/concepts/workloads/pods/)_、
-   _[Services](/zh-cn/docs/concepts/services-networking/service/)_ 和
-   _[Deployments](/zh-cn/docs/concepts/workloads/controllers/deployment/)_
+2. 你已对 Kubernetes 的 {{< glossary_tooltip text="Pod" term_id="pod" >}}、
+   {{< glossary_tooltip text="服务" term_id="service" >}} 和
+   {{< glossary_tooltip text="Deployment" term_id="deployment" >}}
    有基本理解。
 
 <!--
@@ -68,7 +70,7 @@ This example assumes the following:
 By default, a Kubernetes cluster will instantiate a default namespace when provisioning the cluster to hold the default set of Pods,
 Services, and Deployments used by the cluster.
 -->
-## 理解默认名字空间
+## 理解默认名字空间   {#understand-the-default-namespace}
 
 默认情况下，Kubernetes 集群会在配置集群时实例化一个默认名字空间，用以存放集群所使用的默认
 Pod、Service 和 Deployment 集合。
@@ -91,7 +93,7 @@ default   Active    13m
 
 For this exercise, we will create two additional Kubernetes namespaces to hold our content.
 -->
-## 创建新的名字空间
+## 创建新的名字空间   {#create-new-namespaces}
 
 在本练习中，我们将创建两个额外的 Kubernetes 名字空间来保存我们的内容。
 
@@ -127,11 +129,11 @@ Let's create two new namespaces to hold our work.
 让我们创建两个新的名字空间来保存我们的工作。
 
 <!--
-Use the file [`namespace-dev.json`](/examples/admin/namespace-dev.json) which describes a `development` namespace:
+Use the file [`namespace-dev.yaml`](/examples/admin/namespace-dev.yaml) which describes a `development` namespace:
 -->
-文件 [`namespace-dev.json`](/examples/admin/namespace-dev.json) 描述了 `development` 名字空间:
+文件 [`namespace-dev.yaml`](/examples/admin/namespace-dev.yaml) 描述了 `development` 名字空间:
 
-{{< codenew language="json" file="admin/namespace-dev.json" >}}
+{{< codenew language="yaml" file="admin/namespace-dev.yaml" >}}
 
 <!--
 Create the `development` namespace using kubectl.
@@ -140,16 +142,16 @@ Create the `development` namespace using kubectl.
 使用 kubectl 创建 `development` 名字空间。
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/namespace-dev.json
+kubectl create -f https://k8s.io/examples/admin/namespace-dev.yaml
 ```
 
 <!--
-Save the following contents into file [`namespace-prod.json`](/examples/admin/namespace-prod.json) which describes a `production` namespace:
+Save the following contents into file [`namespace-prod.yaml`](/examples/admin/namespace-prod.yaml) which describes a `production` namespace:
 -->
-将下列的内容保存到文件 [`namespace-prod.json`](/examples/admin/namespace-prod.json) 中，
+将下列的内容保存到文件 [`namespace-prod.yaml`](/examples/admin/namespace-prod.yaml) 中，
 这些内容是对 `production` 名字空间的描述：
 
-{{< codenew language="json" file="admin/namespace-prod.json" >}}
+{{< codenew language="yaml" file="admin/namespace-prod.yaml" >}}
 
 <!--
 And then let's create the `production` namespace using kubectl.
@@ -157,7 +159,7 @@ And then let's create the `production` namespace using kubectl.
 让我们使用 kubectl 创建 `production` 名字空间。
 
 ```shell
-kubectl create -f https://k8s.io/examples/admin/namespace-prod.json
+kubectl create -f https://k8s.io/examples/admin/namespace-prod.yaml
 ```
 
 <!--
@@ -185,7 +187,7 @@ Users interacting with one namespace do not see the content in another namespace
 
 To demonstrate this, let's spin up a simple Deployment and Pods in the `development` namespace.
 -->
-## 在每个名字空间中创建 pod
+## 在每个名字空间中创建 Pod   {#create-pods-in-each-namespace}
 
 Kubernetes 名字空间为集群中的 Pod、Service 和 Deployment 提供了作用域。
 
@@ -253,7 +255,7 @@ kubectl config set-context prod --namespace=production \
 ```
 
 <!--
-By default, the above commands adds two contexts that are saved into file
+By default, the above commands add two contexts that are saved into file
 `.kube/config`. You can now view the contexts and alternate against the two
 new request contexts depending on which namespace you wish to work against.
 -->
@@ -344,6 +346,10 @@ Apply the manifest to create a Deployment
 -->
 应用清单文件来创建 Deployment。
 
+```shell
+kubectl apply -f https://k8s.io/examples/admin/snowflake-deployment.yaml
+```
+
 <!--
 We have created a deployment whose replica size is 2 that is running the pod called `snowflake` with a basic container that serves the hostname.
 -->
@@ -397,7 +403,7 @@ Production likes to run cattle, so let's create some cattle pods.
 生产环境需要以放牛的方式运维，让我们创建一些名为 `cattle` 的 Pod。
 
 ```shell
-kubectl create deployment cattle --image=k8s.gcr.io/serve_hostname --replicas=5
+kubectl create deployment cattle --image=registry.k8s.io/serve_hostname --replicas=5
 kubectl get deployment
 ```
 

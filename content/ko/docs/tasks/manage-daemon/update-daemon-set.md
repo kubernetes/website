@@ -1,6 +1,6 @@
 ---
-
-
+# reviewers:
+# - janetkuo
 title: 데몬셋(DaemonSet)에서 롤링 업데이트 수행
 content_type: task
 weight: 10
@@ -39,7 +39,7 @@ weight: 10
 [`.spec.minReadySeconds`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
 (기본값은 0),
 [`.spec.updateStrategy.rollingUpdate.maxSurge`](/docs/reference/kubernetes-api/workload-resources/daemon-set-v1/#DaemonSetSpec)
-(베타 기능, 기본값은 0)를 
+(기본값은 0)를
 설정할 수도 있다.
 
 ### `RollingUpdate` 업데이트 전략으로 데몬셋 생성
@@ -79,7 +79,7 @@ kubectl apply -f https://k8s.io/examples/controllers/fluentd-daemonset.yaml --dr
 
 두 명령의 출력 결과는 다음과 같아야 한다.
 
-```shell
+```
 RollingUpdate
 ```
 

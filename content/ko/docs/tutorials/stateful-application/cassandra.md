@@ -1,5 +1,7 @@
 ---
 title: "예시: 카산드라를 스테이트풀셋으로 배포하기"
+# reviewers:
+# - ahmetb
 content_type: tutorial
 weight: 30
 ---

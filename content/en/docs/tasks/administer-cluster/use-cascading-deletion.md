@@ -1,6 +1,7 @@
 ---
 title: Use Cascading Deletion in a Cluster
 content_type: task
+weight: 360
 ---
 
 <!--overview-->
@@ -47,8 +48,7 @@ to delete dependents of an object. You can switch to foreground cascading deleti
 using either `kubectl` or the Kubernetes API, depending on the Kubernetes
 version your cluster runs. {{<version-check>}}
 
-{{<tabs name="foreground_deletion">}}
-{{% tab name="Kubernetes 1.20.x and later" %}}
+
 You can delete objects using foreground cascading deletion using `kubectl` or the
 Kubernetes API.
 
@@ -96,47 +96,6 @@ kubectl delete deployment nginx-deployment --cascade=foreground
        ...
    ```
 
-{{% /tab %}}
-{{% tab name="Versions prior to Kubernetes 1.20.x" %}}
-You can delete objects using foreground cascading deletion by calling the
-Kubernetes API.
-
-For details, read the [documentation for your Kubernetes version](/docs/home/supported-doc-versions/).
-
-1. Start a local proxy session:
-
-   ```shell
-   kubectl proxy --port=8080
-   ```
-
-1. Use `curl` to trigger deletion:
-
-   ```shell
-   curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/deployments/nginx-deployment \
-       -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Foreground"}' \
-       -H "Content-Type: application/json"
-   ```
-
-   The output contains a `foregroundDeletion` {{<glossary_tooltip text="finalizer" term_id="finalizer">}}
-   like this:
-
-   ```
-   "kind": "Deployment",
-   "apiVersion": "apps/v1",
-   "metadata": {
-       "name": "nginx-deployment",
-       "namespace": "default",
-       "uid": "d1ce1b02-cae8-4288-8a53-30e84d8fa505",
-       "resourceVersion": "1363097",
-       "creationTimestamp": "2021-07-08T20:24:37Z",
-       "deletionTimestamp": "2021-07-08T20:27:39Z",
-       "finalizers": [
-         "foregroundDeletion"
-       ]
-       ...
-   ```
-{{% /tab %}}
-{{</tabs>}}
 
 ## Use background cascading deletion {#use-background-cascading-deletion}
 
@@ -144,8 +103,6 @@ For details, read the [documentation for your Kubernetes version](/docs/home/sup
 1. Use either `kubectl` or the Kubernetes API to delete the Deployment,
    depending on the Kubernetes version your cluster runs. {{<version-check>}}
 
-{{<tabs name="background_deletion">}}
-{{% tab name="Kubernetes version 1.20.x and later" %}}
 
 You can delete objects using background cascading deletion using `kubectl`
 or the Kubernetes API.
@@ -192,54 +149,6 @@ kubectl delete deployment nginx-deployment --cascade=background
        "uid": "cc9eefb9-2d49-4445-b1c1-d261c9396456"
    }
    ```
-{{% /tab %}}
-{{% tab name="Versions prior to Kubernetes 1.20.x" %}}
-Kubernetes uses background cascading deletion by default, and does so
-even if you run the following commands without the `--cascade` flag or the
-`propagationPolicy: Background` argument.
-
-For details, read the [documentation for your Kubernetes version](/docs/home/supported-doc-versions/).
-
-**Using kubectl**
-
-Run the following command:
-
-```shell
-kubectl delete deployment nginx-deployment --cascade=true
-```
-
-**Using the Kubernetes API**
-
-1. Start a local proxy session:
-
-   ```shell
-   kubectl proxy --port=8080
-   ```
-
-1. Use `curl` to trigger deletion:
-
-   ```shell
-   curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/deployments/nginx-deployment \
-       -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Background"}' \
-       -H "Content-Type: application/json"
-   ```
-
-   The output is similar to this:
-
-   ```
-   "kind": "Status",
-   "apiVersion": "v1",
-   ...
-   "status": "Success",
-   "details": {
-       "name": "nginx-deployment",
-       "group": "apps",
-       "kind": "deployments",
-       "uid": "cc9eefb9-2d49-4445-b1c1-d261c9396456"
-   }
-   ```
-{{% /tab %}}
-{{</tabs>}}
 
 
 ## Delete owner objects and orphan dependents {#set-orphan-deletion-policy}
@@ -250,8 +159,6 @@ dependent objects. You can make Kubernetes *orphan* these dependents using
 `kubectl` or the Kubernetes API, depending on the Kubernetes version your
 cluster runs. {{<version-check>}}
 
-{{<tabs name="orphan_objects">}}
-{{% tab name="Kubernetes version 1.20.x and later" %}}
 
 **Using kubectl**
 
@@ -293,52 +200,6 @@ kubectl delete deployment nginx-deployment --cascade=orphan
    ...
    ```
 
-{{% /tab %}}
-{{% tab name="Versions prior to Kubernetes 1.20.x" %}}
-
-For details, read the [documentation for your Kubernetes version](/docs/home/supported-doc-versions/).
-
-**Using kubectl**
-
-Run the following command:
-
-```shell
-kubectl delete deployment nginx-deployment --cascade=orphan
-```
-
-**Using the Kubernetes API**
-
-1. Start a local proxy session:
-
-   ```shell
-   kubectl proxy --port=8080
-   ```
-
-1. Use `curl` to trigger deletion:
-
-   ```shell
-   curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/deployments/nginx-deployment \
-       -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Orphan"}' \
-       -H "Content-Type: application/json"
-   ```
-
-   The output contains `orphan` in the `finalizers` field, similar to this:
-
-   ```
-   "kind": "Deployment",
-   "apiVersion": "apps/v1",
-   "namespace": "default",
-   "uid": "6f577034-42a0-479d-be21-78018c466f1f",
-   "creationTimestamp": "2021-07-09T16:46:37Z",
-   "deletionTimestamp": "2021-07-09T16:47:08Z",
-   "deletionGracePeriodSeconds": 0,
-   "finalizers": [
-     "orphan"
-   ],
-   ...
-   ```
-{{% /tab %}}
-{{</tabs>}}
 
 You can check that the Pods managed by the Deployment are still running:
 

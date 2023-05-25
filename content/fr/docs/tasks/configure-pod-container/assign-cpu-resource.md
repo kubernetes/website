@@ -97,7 +97,7 @@ resources:
     cpu: 500m
 ```
 
-Utilisez `kubectl top` pour récupérer les métriques du pod :
+Utilisez `kubectl top` pour récupérer les métriques du Pod :
 
 ```shell
 kubectl top pod cpu-demo --namespace=cpu-example

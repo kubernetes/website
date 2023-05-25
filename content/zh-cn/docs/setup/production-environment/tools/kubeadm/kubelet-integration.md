@@ -44,8 +44,8 @@ kubeadm CLI 工具的生命周期与 [kubelet](/zh-cn/docs/reference/command-lin
 
 集群中涉及的所有 kubelet 的一些配置细节都必须相同，
 而其他配置方面则需要基于每个 kubelet 进行设置，以适应给定机器的不同特性（例如操作系统、存储和网络）。
-你可以手动地管理 kubelet 的配置，但是 kubeadm 现在提供一种 `KubeletConfiguration` API 类型
-用于[集中管理 kubelet 的配置](#configure-kubelets-using-kubeadm)。
+你可以手动地管理 kubelet 的配置，但是 kubeadm 现在提供一种 `KubeletConfiguration` API
+类型用于[集中管理 kubelet 的配置](#configure-kubelets-using-kubeadm)。
 
 <!-- body -->
 
@@ -95,7 +95,8 @@ a list of values to a camelCased key, illustrated by the following example:
 现在，可以从该子网分配服务的虚拟 IP。
 你还需要通过 kubelet 使用 `--cluster-dns` 标志设置 DNS 地址。
 在集群中的每个管理器和节点上的 kubelet 的设置需要相同。
-kubelet 提供了一个版本化的结构化 API 对象，该对象可以配置 kubelet 中的大多数参数，并将此配置推送到集群中正在运行的每个 kubelet 上。
+kubelet 提供了一个版本化的结构化 API 对象，该对象可以配置 kubelet
+中的大多数参数，并将此配置推送到集群中正在运行的每个 kubelet 上。
 此对象被称为 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)。
 `KubeletConfiguration` 允许用户指定标志，例如用骆峰值代表集群的 DNS IP 地址，如下所示：
 
@@ -139,8 +140,8 @@ networking, or other host-specific parameters. The following list provides a few
 - To specify the container runtime you must set its endpoint with the
   `--container-runtime-endpoint=<path>` flag.
 
-You can specify these flags by configuring an individual kubelet's configuration in your service manager,
-such as systemd.
+The recommended way of applying such instance-specific configuration is by using
+[`KubeletConfiguration` patches](/docs/setup/production-environment/tools/kubeadm/control-plane-flags#patches).
 -->
 - 由 kubelet 配置标志 `--resolv-conf` 指定的 DNS 解析文件的路径在操作系统之间可能有所不同，
   它取决于你是否使用 `systemd-resolved`。
@@ -154,29 +155,32 @@ such as systemd.
 
 - 要指定容器运行时，你必须用 `--container-runtime-endpoint=<path>` 标志来指定端点。
 
-你可以在服务管理器（例如 systemd）中设定某个 kubelet 的配置来指定这些参数。
+应用此类特定于实例的配置的推荐方法是使用
+[`KubeletConfiguration` 补丁](/zh-cn/docs/setup/production-environment/tools/kubeadm/control-plane-flags#patches)。
 
 <!--
 ## Configure kubelets using kubeadm
 
-It is possible to configure the kubelet that kubeadm will start if a custom `KubeletConfiguration`
+It is possible to configure the kubelet that kubeadm will start if a custom
+[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
 API object is passed with a configuration file like so `kubeadm ... --config some-config-file.yaml`.
 
 By calling `kubeadm config print init-defaults --component-configs KubeletConfiguration` you can
 see all the default values for this structure.
 
-Also have a look at the
-[reference for the KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/)
-for more information on the individual fields.
+It is also possible to apply instance-specific patches over the base `KubeletConfiguration`.
+Have a look at [Customizing the kubelet](/docs/setup/production-environment/tools/kubeadm/control-plane-flags#customizing-the-kubelet)
+for more details.
 -->
 ## 使用 kubeadm 配置 kubelet    {#configure-kubelets-using-kubeadm}
 
-如果自定义的 `KubeletConfiguration` API 对象使用像  `kubeadm ... --config some-config-file.yaml` 这样的配置文件进行传递，则可以配置 kubeadm 启动的 kubelet。
+如果自定义的 [`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/) API 对象使用像 `kubeadm ... --config some-config-file.yaml` 这样的配置文件进行传递，则可以配置 kubeadm 启动的 kubelet。
 
 通过调用 `kubeadm config print init-defaults --component-configs KubeletConfiguration`，
 你可以看到此结构中的所有默认值。
 
-也可以阅读 [KubeletConfiguration 参考](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
+也可以在基础 `KubeletConfiguration` 上应用实例特定的补丁。
+阅读[自定义 kubelet](/zh-cn/docs/setup/production-environment/tools/kubeadm/control-plane-flags#customizing-the-kubelet)
 来获取有关各个字段的更多信息。
 
 <!--
@@ -303,14 +307,12 @@ It augments the basic
 或者 [DEB 版本 `kubelet.service`](https://github.com/kubernetes/release/blob/master/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service)
 作了增强：
 
-<!--
 {{< note >}}
+<!--
 The contents below are just an example. If you don't want to use a package manager
 follow the guide outlined in the [Without a package manager](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#k8s-install-2))
 section.
-{{< /note >}}
 -->
-{{< note >}}
 下面的内容只是一个例子。如果你不想使用包管理器，
 请遵循[没有包管理器](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#k8s-install-2))
 章节的指南。
@@ -322,7 +324,7 @@ section.
 Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf"
 Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"
 # This is a file that "kubeadm init" and "kubeadm join" generate at runtime, populating
-the KUBELET_KUBEADM_ARGS variable dynamically
+# the KUBELET_KUBEADM_ARGS variable dynamically
 EnvironmentFile=-/var/lib/kubelet/kubeadm-flags.env
 # This is a file that the user can use for overrides of the kubelet args as a last resort. Preferably,
 # the user should use the .NodeRegistration.KubeletExtraArgs object in the configuration files instead.
@@ -336,7 +338,8 @@ ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELE
 [Service]
 Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf"
 Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"
-# 这是 "kubeadm init" 和 "kubeadm join" 运行时生成的文件，动态地填充 KUBELET_KUBEADM_ARGS 变量
+# 这是 "kubeadm init" 和 "kubeadm join" 运行时生成的文件，
+# 动态地填充 KUBELET_KUBEADM_ARGS 变量
 EnvironmentFile=-/var/lib/kubelet/kubeadm-flags.env
 # 这是一个文件，用户在不得已下可以将其用作替代 kubelet args。
 # 用户最好使用 .NodeRegistration.KubeletExtraArgs 对象在配置文件中替代。

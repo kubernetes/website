@@ -1,7 +1,7 @@
 ---
 title: Namespace(名前空間)
 content_type: concept
-weight: 30
+weight: 45
 ---
 
 <!-- overview -->

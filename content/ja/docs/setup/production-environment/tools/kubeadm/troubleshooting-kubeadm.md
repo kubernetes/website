@@ -18,10 +18,10 @@ weight: 20
 
 <!-- body -->
 
-## RBACがないため、v1.18ノードをv1.17クラスタに結合できない
-v1.18では、同名のノードが既に存在する場合にクラスタ内のノードに参加しないようにする機能を追加しました。これには、ブートストラップトークンユーザがNodeオブジェクトをGETできるようにRBACを追加する必要がありました。
+## RBACがないため、v1.18ノードをv1.17クラスターに結合できない
+v1.18では、同名のノードが既に存在する場合にクラスター内のノードに参加しないようにする機能を追加しました。これには、ブートストラップトークンユーザがNodeオブジェクトをGETできるようにRBACを追加する必要がありました。
 
-しかし、これによりv1.18の`kubeadm join`がkubeadm v1.17で作成したクラスタに参加できないという問題が発生します。
+しかし、これによりv1.18の`kubeadm join`がkubeadm v1.17で作成したクラスターに参加できないという問題が発生します。
 
 この問題を回避するには、次の2つの方法があります。
 - kubeadm v1.18を用いて、コントロールプレーンノード上で`kubeadm init phase bootstrap-token`を実行します。
@@ -147,7 +147,7 @@ Calico、Canal、FlannelのCNIプロバイダは、HostPortをサポートして
 
 ## サービスIP経由でPodにアクセスすることができない
 
-- 多くのネットワークアドオンは、PodがサービスIPを介して自分自身にアクセスできるようにする[ヘアピンモード](/ja/docs/tasks/debug-application-cluster/debug-service/#a-pod-cannot-reach-itself-via-service-ip)を有効にしていません。これは[CNI](https://github.com/containernetworking/cni/issues/476)に関連する問題です。ヘアピンモードのサポート状況については、ネットワークアドオンプロバイダにお問い合わせください。
+- 多くのネットワークアドオンは、PodがサービスIPを介して自分自身にアクセスできるようにする[ヘアピンモード](/ja/docs/tasks/debug/debug-application/debug-service/#a-pod-cannot-reach-itself-via-service-ip)を有効にしていません。これは[CNI](https://github.com/containernetworking/cni/issues/476)に関連する問題です。ヘアピンモードのサポート状況については、ネットワークアドオンプロバイダにお問い合わせください。
 
 - VirtualBoxを使用している場合(直接またはVagrant経由)は、`hostname -i`がルーティング可能なIPアドレスを返すことを確認する必要があります。デフォルトでは、最初のインターフェースはルーティング可能でないホスト専用のネットワークに接続されています。これを回避するには`/etc/hosts`を修正する必要があります。例としてはこの[Vagrantfile](https://github.com/errordeveloper/k8s-playground/blob/22dd39dfc06111235620e6c4404a96ae146f26fd/Vagrantfile#L11)を参照してください。
 
@@ -240,7 +240,7 @@ kubectl -n kube-system get deployment coredns -o yaml | \
 CoreDNSに`CrashLoopBackOff`が発生する別の原因は、KubernetesにデプロイされたCoreDNS Podがループを検出したときに発生します。CoreDNSがループを検出して終了するたびに、KubernetesがCoreDNS Podを再起動しようとするのを避けるために、[いくつかの回避策](https://github.com/coredns/coredns/tree/master/plugin/loop#troubleshooting-loops-in-kubernetes-clusters)が用意されています。
 
 {{< warning >}}
-SELinuxを無効にするか`allowPrivilegeEscalation`を`true`に設定すると、クラスタのセキュリティが損なわれる可能性があります。
+SELinuxを無効にするか`allowPrivilegeEscalation`を`true`に設定すると、クラスターのセキュリティが損なわれる可能性があります。
 {{< /warning >}}
 
 ## etcdのpodが継続的に再起動する
@@ -277,7 +277,7 @@ yum install docker-ce-18.06.1.ce-3.el7.x86_64
 
 ## cloud-controller-managerによってノードが初期化される前にkube-proxyがスケジューリングされる
 
-クラウドプロバイダのシナリオでは、クラウドコントローラマネージャがノードアドレスを初期化する前に、kube-proxyが新しいワーカーノードでスケジューリングされてしまうことがあります。これにより、kube-proxyがノードのIPアドレスを正しく拾えず、ロードバランサを管理するプロキシ機能に悪影響を及ぼします。
+クラウドプロバイダのシナリオでは、クラウドコントローラーマネージャがノードアドレスを初期化する前に、kube-proxyが新しいワーカーノードでスケジューリングされてしまうことがあります。これにより、kube-proxyがノードのIPアドレスを正しく拾えず、ロードバランサを管理するプロキシ機能に悪影響を及ぼします。
 
 kube-proxy Podsでは以下のようなエラーが発生します:
 ```
@@ -343,6 +343,6 @@ nodeRegistration:
 あるいは、`/usr`マウントを書き込み可能にするために `/etc/fstab`を変更することもできますが、これはLinuxディストリビューションの設計原理を変更していることに注意してください。
 
 ## `kubeadm upgrade plan`が`context deadline exceeded`エラーメッセージを表示する
-このエラーメッセージは、外部etcdを実行している場合に`kubeadm`でKubernetesクラスタをアップグレードする際に表示されます。これは致命的なバグではなく、古いバージョンのkubeadmが外部etcdクラスタのバージョンチェックを行うために発生します。`kubeadm upgrade apply ...`で進めることができます。
+このエラーメッセージは、外部etcdを実行している場合に`kubeadm`でKubernetesクラスターをアップグレードする際に表示されます。これは致命的なバグではなく、古いバージョンのkubeadmが外部etcdクラスターのバージョンチェックを行うために発生します。`kubeadm upgrade apply ...`で進めることができます。
 
 この問題はバージョン1.19で修正されます。

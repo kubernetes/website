@@ -33,7 +33,7 @@ kops is an automated provisioning system:
 
 <!-- steps -->
 
-## クラスタの作成
+## クラスターの作成
 
 ### (1/5) kopsのインストール
 
@@ -122,7 +122,7 @@ brew update && brew install kops
 {{< /tabs >}}
 
 
-### (2/5) クラスタ用のroute53ドメインの作成
+### (2/5) クラスター用のroute53ドメインの作成
 
 kops uses DNS for discovery, both inside the cluster and outside, so that you can reach the kubernetes API server
 from clients.
@@ -154,7 +154,7 @@ your cluster is configured correctly if you have the dig tool by running:
 
 You should see the 4 NS records that Route53 assigned your hosted zone.
 
-### (3/5) クラスタの状態を保存するS3バケットの作成
+### (3/5) クラスターの状態を保存するS3バケットの作成
 
 kops lets you manage your clusters even after installation.  To do this, it must keep track of the clusters
 that you have created, along with their configuration, the keys they are using etc.  This information is stored
@@ -179,7 +179,7 @@ the S3 bucket name.
    We suggest putting this in your bash profile or similar.
 
 
-### (4/5) クラスタ設定の構築
+### (4/5) クラスター設定の構築
 
 Run `kops create cluster` to create your cluster configuration:
 
@@ -202,7 +202,7 @@ You can have several instance groups, for example if you wanted nodes that are a
 GPU and non-GPU instances.
 
 
-### (5/5) AWSにクラスタを作成
+### (5/5) AWSにクラスターを作成
 
 Run "kops update cluster" to create your cluster in AWS:
 
@@ -231,7 +231,7 @@ See the [list of add-ons](/ja/docs/concepts/cluster-administration/addons/) to e
 ## {{% heading "whatsnext" %}}
 
 
-* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/overview/).
+* Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/ja/docs/reference/kubectl/).
 * Learn more about `kops` [advanced usage](https://kops.sigs.k8s.io/) for tutorials, best practices and advanced configuration options.
 * Follow `kops` community discussions on Slack: [community discussions](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors)
 * Contribute to `kops` by addressing or raising an issue [GitHub Issues](https://github.com/kubernetes/kops/issues)

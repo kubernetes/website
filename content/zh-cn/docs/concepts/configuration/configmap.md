@@ -189,45 +189,7 @@ Here's an example Pod that uses values from `game-demo` to configure a Pod:
 
 下面是一个 Pod 的示例，它通过使用 `game-demo` 中的值来配置一个 Pod：
 
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: configmap-demo-pod
-spec:
-  containers:
-    - name: demo
-      image: alpine
-      command: ["sleep", "3600"]
-      env:
-        # 定义环境变量
-        - name: PLAYER_INITIAL_LIVES # 请注意这里和 ConfigMap 中的键名是不一样的
-          valueFrom:
-            configMapKeyRef:
-              name: game-demo           # 这个值来自 ConfigMap
-              key: player_initial_lives # 需要取值的键
-        - name: UI_PROPERTIES_FILE_NAME
-          valueFrom:
-            configMapKeyRef:
-              name: game-demo
-              key: ui_properties_file_name
-      volumeMounts:
-      - name: config
-        mountPath: "/config"
-        readOnly: true
-  volumes:
-    # 你可以在 Pod 级别设置卷，然后将其挂载到 Pod 内的容器中
-    - name: config
-      configMap:
-        # 提供你想要挂载的 ConfigMap 的名字
-        name: game-demo
-        # 来自 ConfigMap 的一组键，将被创建为文件
-        items:
-        - key: "game.properties"
-          path: "game.properties"
-        - key: "user-interface.properties"
-          path: "user-interface.properties"
-```
+{{< codenew file="configmap/configure-pod.yaml" >}}
 
 <!--
 A ConfigMap doesn't differentiate between single line property values and
@@ -358,7 +320,7 @@ ConfigMap，你只需要设置一个 `spec.volumes` 块。
 When a ConfigMap currently consumed in a volume is updated, projected keys are eventually updated as well.
 The kubelet checks whether the mounted ConfigMap is fresh on every periodic sync.
 However, the kubelet uses its local cache for getting the current value of the ConfigMap.
-The type of the cache is configurable using the `ConfigMapAndSecretChangeDetectionStrategy` field in
+The type of the cache is configurable using the `configMapAndSecretChangeDetectionStrategy` field in
 the [KubeletConfiguration struct](/docs/reference/config-api/kubelet-config.v1beta1/).
 -->
 #### 被挂载的 ConfigMap 内容会被自动更新
@@ -368,7 +330,7 @@ kubelet 组件会在每次周期性同步时检查所挂载的 ConfigMap 是否�
 不过，kubelet 使用的是其本地的高速缓存来获得 ConfigMap 的当前值。
 高速缓存的类型可以通过
 [KubeletConfiguration 结构](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/).
-的 `ConfigMapAndSecretChangeDetectionStrategy` 字段来配置。
+的 `configMapAndSecretChangeDetectionStrategy` 字段来配置。
 
 <!--
 A ConfigMap can be either propagated by watch (default), ttl-based, or by redirecting

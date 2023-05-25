@@ -41,7 +41,7 @@ GitHub-Teams und OWNERS-Dateien.
 Es gibt zwei Kategorien von SIG Docs [Teams](https://github.com/orgs/kubernetes/teams?query=sig-docs) auf GitHub:
 
 - `@sig-docs-{language}-owners` sind Genehmiger und Verantwortliche
-- `@sig-docs-{language}-reviewers` sind Reviewer
+- `@sig-docs-{language}-reviews` sind Reviewer
 
 Jede Gruppe kann in GitHub-Kommentaren mit ihrem `@name` referenziert werden, um mit allen Mitgliedern dieser Gruppe zu kommunizieren.
 

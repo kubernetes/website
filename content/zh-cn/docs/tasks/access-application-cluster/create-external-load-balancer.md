@@ -25,9 +25,9 @@ nodes,
 _provided your cluster runs in a supported environment and is configured with
 the correct cloud load balancer provider package_.
 -->
-创建 {{< glossary_tooltip text="服务" term_id="service" >}} 时，你可以选择自动创建云网络负载均衡器。
+创建{{< glossary_tooltip text="服务" term_id="service" >}}时，你可以选择自动创建云网络负载均衡器。
 负载均衡器提供外部可访问的 IP 地址，可将流量发送到集群节点上的正确端口上
-（ **假设集群在支持的环境中运行，并配置了正确的云负载均衡器驱动包**）。
+（**假设集群在支持的环境中运行，并配置了正确的云负载均衡器驱动包**）。
 
 <!--
 You can also use an {{< glossary_tooltip term_id="ingress" >}} in place of Service.
@@ -160,10 +160,10 @@ The load balancer's IP address is listed next to `LoadBalancer Ingress`.
 -->
 负载均衡器的 IP 地址列在 `LoadBalancer Ingress` 旁边。
 
+{{< note >}}
 <!--
 If you are running your service on Minikube, you can find the assigned IP address and port with:
 -->
-{{< note >}}
 如果你在 Minikube 上运行服务，你可以通过以下命令找到分配的 IP 地址和端口：
 
 ```bash
@@ -264,10 +264,13 @@ Internal pod to pod traffic should behave similar to ClusterIP services, with eq
 内部 Pod 到 Pod 的流量应该与 ClusterIP 服务类似，所有 Pod 的概率相同。
 
 <!--
-## Garbage Collecting Load Balancers
+## Garbage collecting load balancers
+-->
+## 回收负载均衡器   {#garbage-collecting-load-balancers}
 
 {{< feature-state for_k8s_version="v1.17" state="stable" >}}
 
+<!--
 In usual case, the correlating load balancer resources in cloud provider should
 be cleaned up soon after a LoadBalancer type Service is deleted. But it is known
 that there are various corner cases where cloud resources are orphaned after the
@@ -275,10 +278,6 @@ associated Service is deleted. Finalizer Protection for Service LoadBalancers wa
 introduced to prevent this from happening. By using finalizers, a Service resource
 will never be deleted until the correlating load balancer resources are also deleted.
 -->
-## 回收负载均衡器   {#garbage-collecting-load-balancers}
-
-{{< feature-state for_k8s_version="v1.17" state="stable" >}}
-
 在通常情况下，应在删除 LoadBalancer 类型 Service 后立即清除云服务供应商中的相关负载均衡器资源。
 但是，众所周知，在删除关联的服务后，云资源被孤立的情况很多。
 引入了针对服务负载均衡器的终结器保护，以防止这种情况发生。
@@ -321,11 +320,10 @@ Kubernetes 控制平面自动创建外部负载均衡器、健康检查（如果
 ## {{% heading "whatsnext" %}}
 
 <!--
+* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial
 * Read about [Service](/docs/concepts/services-networking/service/)
 * Read about [Ingress](/docs/concepts/services-networking/ingress/)
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
 -->
+* 遵循教程[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)
 * 阅读[服务](/zh-cn/docs/concepts/services-networking/service/)
 * 阅读 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)
-* 阅读[使用 Service 连接到应用](/zh-cn/docs/concepts/services-networking/connect-applications-service/)
-

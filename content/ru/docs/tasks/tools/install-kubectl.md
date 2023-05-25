@@ -28,15 +28,15 @@ card:
 1. Загрузите последнюю версию с помощью команды:
 
     ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/`curl -LS https://dl.k8s.io/release/stable.txt`/bin/linux/amd64/kubectl
     ```
 
-    Чтобы загрузить определенную версию, вставьте в фрагмент команды `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` нужную версию.
+    Чтобы загрузить определенную версию, вставьте в фрагмент команды `$(curl -LS https://dl.k8s.io/release/stable.txt)` нужную версию.
 
     Например, команда загрузки версии {{< param "fullversion" >}} для Linux будет выглядеть следующим образом:
 
     ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
     ```
 
 2. Сделайте двоичный файл kubectl исполняемым:
@@ -72,7 +72,7 @@ baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
 enabled=1
 gpgcheck=1
 repo_gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 sudo yum install -y kubectl
 {{< /tab >}}
@@ -108,15 +108,15 @@ kubectl version
 1. Загрузите последнюю версию:
 
     ```
-    curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl"
+    curl -LO "https://dl.k8s.io/release/$(curl -LS https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl"
     ```
 
-    Чтобы загрузить определенную версию, вставьте в фрагмент команды `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` нужную версию.
+    Чтобы загрузить определенную версию, вставьте в фрагмент команды `$(curl -LS https://dl.k8s.io/release/stable.txt)` нужную версию.
 
     Например, команда загрузки версии {{< param "fullversion" >}} для macOS будет выглядеть следующим образом:
 
     ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
     ```
 
 2. Сделайте двоичный файл kubectl исполняемым:
@@ -180,15 +180,15 @@ kubectl version
 
 ### Установка двоичного файла kubectl с помощью curl в Windows
 
-1. Загрузите последнюю версию {{< param "fullversion" >}} по [этой ссылке](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
+1. Загрузите последнюю версию {{< param "fullversion" >}} по [этой ссылке](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
 
     Либо, если у вас установлен `curl`, выполните команду ниже:
 
     ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
     ```
 
-    Последнюю стабильную версию (например, при написании скриптов) вы можете узнать из файла по ссылке [https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt).
+    Последнюю стабильную версию (например, при написании скриптов) вы можете узнать из файла по ссылке [https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt).
 
 2. Переместите двоичный файл в директорию из переменной окружения PATH:
 3. Убедитесь, что версия `kubectl` совпадает загружённой:

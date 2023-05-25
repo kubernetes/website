@@ -6,7 +6,7 @@ reviewers:
 - marosset
 title: Networking on Windows
 content_type: concept
-weight: 75
+weight: 110
 ---
 
 <!-- overview -->

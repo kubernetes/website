@@ -2,6 +2,7 @@
 title: Using Source IP
 content_type: tutorial
 min-kubernetes-server-version: v1.5
+weight: 40
 ---
 
 <!-- overview -->
@@ -48,7 +49,7 @@ The examples use a small nginx webserver that echoes back the source
 IP of requests it receives through an HTTP header. You can create it as follows:
 
 ```shell
-kubectl create deployment source-ip-app --image=k8s.gcr.io/echoserver:1.4
+kubectl create deployment source-ip-app --image=registry.k8s.io/echoserver:1.4
 ```
 The output is:
 ```
@@ -73,7 +74,7 @@ deployment.apps/source-ip-app created
 
 Packets sent to ClusterIP from within the cluster are never source NAT'd if
 you're running kube-proxy in
-[iptables mode](/docs/concepts/services-networking/service/#proxy-mode-iptables),
+[iptables mode](/docs/reference/networking/virtual-ips/#proxy-mode-iptables),
 (the default). You can query the kube-proxy mode by fetching
 `http://localhost:10249/proxyMode` on the node where kube-proxy is running.
 
@@ -326,7 +327,7 @@ The `service.spec.healthCheckNodePort` field points to a port on every node
 serving the health check at `/healthz`. You can test this:
 
 ```shell
-kubectl get pod -o wide -l run=source-ip-app
+kubectl get pod -o wide -l app=source-ip-app
 ```
 The output is similar to this:
 ```
@@ -415,5 +416,5 @@ kubectl delete deployment source-ip-app
 
 ## {{% heading "whatsnext" %}}
 
-* Learn more about [connecting applications via services](/docs/concepts/services-networking/connect-applications-service/)
+* Learn more about [connecting applications via services](/docs/tutorials/services/connect-applications-service/)
 * Read how to [Create an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)

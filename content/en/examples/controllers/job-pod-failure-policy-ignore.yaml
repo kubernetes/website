@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-pod-failure-policy-ignore
+spec:
+  completions: 4
+  parallelism: 2
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: main
+        image: docker.io/library/bash:5
+        command: ["bash"]
+        args:
+        - -c
+        - echo "Hello world! I'm going to exit with 0 (success)." && sleep 90 && exit 0
+  backoffLimit: 0
+  podFailurePolicy:
+    rules:
+    - action: Ignore
+      onPodConditions:
+      - type: DisruptionTarget

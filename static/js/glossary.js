@@ -37,7 +37,6 @@ $( document ).ready(function() {
 
     function updateParams(paramHash) {
       var urlWithoutQuery = window.location.href.split('?')[0];
-      var urlHash = window.location.hash;
       window.history.pushState(null,null, urlWithoutQuery + "?" + $.param(paramHash) + window.location.hash);
     }
 
@@ -158,7 +157,7 @@ $( document ).ready(function() {
         permalink.removeClass("hide");
       }).mouseleave(function(){
         permalink.addClass("hide");
-      });;
+      });
     });
   };
 

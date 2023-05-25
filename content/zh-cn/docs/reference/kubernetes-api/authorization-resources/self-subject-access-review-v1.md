@@ -23,6 +23,7 @@ weight: 2
 `import "k8s.io/api/authorization/v1"`
 
 ## SelfSubjectAccessReview {#SelfSubjectAccessReview}
+
 <!--
 SelfSubjectAccessReview checks whether or the current user can perform an action.  Not filling in a spec.namespace means "in all namespaces".  Self is a special case, because users should always be able to check whether they can perform an action
 -->
@@ -45,8 +46,8 @@ Self 是一个特殊情况，因为用户应始终能够检查自己是否可以
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
-  标准的列表元数据。
-  更多信息：https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
+  标准的列表元数据。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **spec** (<a href="{{< ref "../authorization-resources/self-subject-access-review-v1#SelfSubjectAccessReviewSpec" >}}">SelfSubjectAccessReviewSpec</a>)，必需
   
@@ -58,6 +59,7 @@ Self 是一个特殊情况，因为用户应始终能够检查自己是否可以
   status 由服务器填写，表示请求是否被允许。
 
 ## SelfSubjectAccessReviewSpec {#SelfSubjectAccessReviewSpec}
+
 <!--
 SelfSubjectAccessReviewSpec is a description of the access request.  Exactly one of ResourceAuthorizationAttributes and NonResourceAuthorizationAttributes must be set
 -->
@@ -90,6 +92,7 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
   - **nonResourceAttributes.verb** (string)
     
     verb 是标准的 HTTP 动作。
+
 <!--
 - **resourceAttributes** (ResourceAttributes)
   ResourceAuthorizationAttributes describes information for a resource access request
@@ -119,26 +122,30 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
     
     name 是 "get" 正在请求或 "delete" 已删除的资源的名称。
     ""（空字符串）表示所有资源。
-<!--
+
+  <!--
   - **resourceAttributes.namespace** (string)
     Namespace is the namespace of the action being requested.  Currently, there is no distinction between no namespace and all namespaces "" (empty) is defaulted for LocalSubjectAccessReviews "" (empty) is empty for cluster-scoped resources "" (empty) means "all" for namespace scoped resources from a SubjectAccessReview or SelfSubjectAccessReview
 
   - **resourceAttributes.resource** (string)
     Resource is one of the existing resource types.  "*" means all.
--->  
+  -->  
+
   - **resourceAttributes.namespace** (string)
     
     namespace 是正在请求的操作的命名空间。
     目前，无命名空间和所有命名空间之间没有区别。
     对于 LocalSubjectAccessReviews，默认为 ""（空字符串）。
     对于集群范围的资源，默认为 ""（空字符串）。
-    对于来自 SubjectAccessReview 或 SelfSubjectAccessReview 的命名空间范围的资源，""（空字符串）表示 "all"（所有资源）。
+    对于来自 SubjectAccessReview 或 SelfSubjectAccessReview 的命名空间范围的资源，
+    ""（空字符串）表示 "all"（所有资源）。
   
   - **resourceAttributes.resource** (string)
     
     resource 是现有的资源类别之一。
     "*" 表示所有资源类别。
-<!--
+
+  <!--
   - **resourceAttributes.subresource** (string)
     Subresource is one of the existing resource types.  "" means none.
 
@@ -147,7 +154,8 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
 
   - **resourceAttributes.version** (string)
     Version is the API Version of the Resource.  "*" means all.
--->  
+  -->  
+
   - **resourceAttributes.subresource** (string)
     
     subresource 是现有的资源类型之一。
@@ -162,6 +170,7 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
     
     version 是资源的 API 版本。
     "*" 表示所有版本。
+
 <!--
 ## Operations {#Operations}
 
@@ -180,6 +189,7 @@ resourceAuthorizationAttributes 和 nonResourceAuthorizationAttributes 二者必
 #### HTTP 请求
 
 POST /apis/authorization.k8s.io/v1/selfsubjectaccessreviews
+
 <!--
 #### Parameters
 
@@ -216,6 +226,7 @@ POST /apis/authorization.k8s.io/v1/selfsubjectaccessreviews
 - **pretty** (**查询参数**): string
   
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
 <!--
 #### Response
 -->
@@ -228,3 +239,4 @@ POST /apis/authorization.k8s.io/v1/selfsubjectaccessreviews
 202 (<a href="{{< ref "../authorization-resources/self-subject-access-review-v1#SelfSubjectAccessReview" >}}">SelfSubjectAccessReview</a>): Accepted
 
 401: Unauthorized
+

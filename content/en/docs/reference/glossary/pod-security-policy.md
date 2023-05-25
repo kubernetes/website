@@ -17,4 +17,5 @@ tags:
 
 A cluster-level resource that controls security sensitive aspects of the Pod specification. The `PodSecurityPolicy` objects define a set of conditions that a Pod must run with in order to be accepted into the system, as well as defaults for the related fields. Pod Security Policy control is implemented as an optional admission controller.
 
-PodSecurityPolicy is deprecated as of Kubernetes v1.21, and will be removed in v1.25. We recommend migrating to [Pod Security Admission](/docs/concepts/security/pod-security-admission/), or a 3rd party admission plugin.
+PodSecurityPolicy was deprecated as of Kubernetes v1.21, and removed in v1.25.
+As an alternative, use [Pod Security Admission](/docs/concepts/security/pod-security-admission/) or a 3rd party admission plugin.

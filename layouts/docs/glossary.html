@@ -12,14 +12,14 @@
 	<div class="tag-description invisible" id="placeholder">.</div>
 	{{ range (index site.Data "canonical-tags") }}
 	<div class="tag-description hide" id="{{ printf "tag-%s-description" .id  }}">
-		<i>{{ .description }}</i>
+		<i>{{ T (printf "layout_docs_glossary_%s_description" .id) }}</i>
 	</div>
 	{{ end }}
-	{{ $sorted_tags := sort (index site.Data "canonical-tags") "name" }}
+	{{ $sorted_tags := sort (index site.Data "canonical-tags") "id" }}
 	{{ range $sorted_tags }}
 	{{ $full_tag_name := printf "tag-%s" .id }}
 	<span id="{{ $full_tag_name  }}" class="tag-option canonical-tag" data-target="{{ $full_tag_name  }}">
-		<a href="javascript:void(0)">{{  .name  }}</a>
+		<a href="javascript:void(0)">{{ T (printf "layout_docs_glossary_%s_name" .id)  }}</a>
 	</span>
 	{{ end }}
 	<span class="tag-option"><a id="select-all-tags" href="javascript:void(0)">{{ T "layouts_docs_glossary_select_all" }}</a></span>

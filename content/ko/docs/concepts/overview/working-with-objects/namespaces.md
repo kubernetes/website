@@ -1,8 +1,8 @@
 ---
-
-
-
-
+# reviewers:
+# - derekwaynecarr
+# - mikedanese
+# - thockin
 title: 네임스페이스
 content_type: concept
 weight: 30
@@ -35,7 +35,7 @@ weight: 30
 ## 네임스페이스 다루기
 
 네임스페이스의 생성과 삭제는
-[네임스페이스 관리자 가이드 문서](/docs/tasks/administer-cluster/namespaces/)에 기술되어 있다.
+[네임스페이스 관리자 가이드 문서](/ko/docs/tasks/administer-cluster/namespaces/)에 기술되어 있다.
 
 {{< note >}}
     `kube-` 접두사로 시작하는 네임스페이스는 쿠버네티스 시스템용으로 예약되어 있으므로, 사용자는 이러한 네임스페이스를 생성하지 않는다.
@@ -145,5 +145,5 @@ kubectl api-resources --namespaced=false
 
 ## {{% heading "whatsnext" %}}
 
-* [신규 네임스페이스 생성](/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace)에 대해 더 배우기.
-* [네임스페이스 삭제](/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace)에 대해 더 배우기.
+* [신규 네임스페이스 생성](/ko/docs/tasks/administer-cluster/namespaces/#새-네임스페이스-생성하기)에 대해 더 배우기.
+* [네임스페이스 삭제](/ko/docs/tasks/administer-cluster/namespaces/#네임스페이스-삭제하기)에 대해 더 배우기.

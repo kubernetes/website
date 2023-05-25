@@ -90,10 +90,12 @@ Kubernetes 文档的这一部分包含教程。
 <!--
 ## Services
 
+* [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/)
 * [Using Source IP](/docs/tutorials/services/source-ip/)
 -->
 ## 服务  {#services}
 
+* [使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)
 * [使用源 IP](/zh-cn/docs/tutorials/services/source-ip/)
 
 <!--

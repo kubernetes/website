@@ -8,7 +8,7 @@ date: 2018-12-12
 
 Kubernetes provides great primitives for deploying applications to a cluster: it can be as simple as `kubectl create -f app.yaml`. Deploy apps across multiple clusters has never been that simple. How should app workloads be distributed? Should the app resources be replicated into all clusters, replicated into selected clusters, or partitioned into clusters? How is  access to the clusters managed? What happens if some of the resources that a user wants to distribute pre-exist, in some or all of the clusters, in some form?
 
-In SIG Multicluster, our journey has revealed that there are multiple possible models to solve these problems and there probably is no single best-fit, all-scenario solution. [Federation](/docs/concepts/cluster-administration/federation/), however, is the single biggest Kubernetes open source sub-project, and has seen the maximum interest and contribution from the community in this problem space. The project initially reused the Kubernetes API to do away with any added usage complexity for an existing Kubernetes user. This approach was not viable, because of the problems summarised below:
+In SIG Multicluster, our journey has revealed that there are multiple possible models to solve these problems and there probably is no single best-fit, all-scenario solution. [Kubernetes Cluster Federation (KubeFed for short)](https://github.com/kubernetes-sigs/kubefed), however, is the single biggest Kubernetes open source sub-project, and has seen the maximum interest and contribution from the community in this problem space. The project initially reused the Kubernetes API to do away with any added usage complexity for an existing Kubernetes user. This approach was not viable, because of the problems summarised below:
 
 * Difficulties in re-implementing the Kubernetes API at the cluster level, as federation-specific extensions were stored in annotations.
 * Limited flexibility in federated types, placement and reconciliation, due to 1:1 emulation of the Kubernetes API.
@@ -82,7 +82,7 @@ For external clients, automatic DNS expansion described is not currently possibl
 
 That way, your clients can always use the short form on the left, and always be automatically routed to the closest healthy shard on their home continent. All of the required failover is handled for you automatically by Kubernetes cluster federation.
 
-As further reading, a more elaborate example for users is available in the [Multi-Cluster Service DNS with ExternalDNS guide](https://github.com/kubernetes-sigs/federation-v2/blob/master/docs/servicedns-with-externaldns.md).
+As further reading, a more elaborate example for users is available in the [Multi-Cluster Service DNS with ExternalDNS guide](https://github.com/kubernetes-retired/kubefed/blob/dbcd4da3823a7ba8ac29e80c9d5b968868638d28/docs/servicedns-with-externaldns.md)
 
 # Try it yourself
 To get started with Federation v2, please refer to the [user guide](https://github.com/kubernetes-sigs/federation-v2/blob/master/docs/userguide.md). Deployment can be accomplished with a [Helm chart](https://github.com/kubernetes-sigs/kubefed/blob/master/charts/kubefed/README.md), and once the control plane is available, the [user guide’s example](https://github.com/kubernetes-sigs/federation-v2/blob/master/docs/userguide.md#example) can be used to get some hands-on experience with using Federation V2.

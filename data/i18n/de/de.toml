@@ -79,7 +79,7 @@ other = "Kubernetes Features"
 other = """Wir sind ein <a href="https://cncf.io/">CNCF</a> Abschlussprojekt</p>"""
 
 [main_kubeweekly_baseline]
-other = "Möchten Sie die neuesten Nachrichten von Kubernetes erhalten? Melden Sie sich für KubeWeekly an."
+other = "Möchtest du die neuesten Nachrichten von Kubernetes erhalten? Melde dich für KubeWeekly an."
 
 [main_kubernetes_past_link]
 other = "Frühere Newsletter anzeigen"
@@ -200,4 +200,4 @@ other = "Veranstaltungskalender"
 other = "Suchen"
 
 [input_placeholder_email_address]
-other = "E-Mail-Addresse"
+other = "E-Mail-Adresse"

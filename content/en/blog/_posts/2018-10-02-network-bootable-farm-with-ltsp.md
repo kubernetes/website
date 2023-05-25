@@ -460,7 +460,7 @@ Now you can configure your DHCP. Basically you should set the `next-server` and 
 I use ISC-DHCP server, and here is an example `dhcpd.conf`:
 
 ```
-shared-network ltsp-netowrk {
+shared-network ltsp-network {
     subnet 10.9.0.0 netmask 255.255.0.0 {
         authoritative;
         default-lease-time -1;

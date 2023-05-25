@@ -18,7 +18,7 @@ card:
 
 Bagian ini mencantumkan berbagai cara untuk menyiapkan dan menjalankan Kubernetes. Ketika kamu menginstal Kubernetes, pilih tipe instalasi berdasarkan: kemudahan perawatan, keamanan, sumber daya yang tersedia, dan keahlian yang dibutuhkan untuk mengoperasikan dan mengelola klaster.
 
-Kamu dapat menggelar klaster Kubernetes di mesin lokal, cloud, _datacenter_ di tempat, atau pilih klaster Kubernetes yang dikelola. Ada juga solusi khusus di berbagai penyedia cloud, atau lingkungan _baremetal_.
+Kamu dapat menggelar klaster Kubernetes di mesin lokal, _cloud_, _datacenter_ di tempat, atau pilih klaster Kubernetes yang dikelola. Ada juga solusi khusus di berbagai penyedia _cloud_, atau lingkungan _baremetal_.
 
 <!-- body -->
 
@@ -28,7 +28,7 @@ Jika kamu sedang belajar Kubernetes, gunakan alat yang didukung oleh komunitas K
 
 ## Lingkungan Produksi
 
-Pada saat mengevaluasi sebuah solusi untuk lingkungan produksi, pertimbangkan aspek dari pengoperasian klaster Kubernetes (atau _abstractions_) yang ingin kamu kelola atau membiarkan penyedia.
+Pada saat mengevaluasi sebuah solusi untuk lingkungan produksi, pertimbangkan aspek dari pengoperasian klaster Kubernetes atau abstraksi yang ingin kamu kelola atau membiarkan penyedia.
 
-[Kubernetes Partners](https://kubernetes.io/partners/#conformance) termasuk dari daftar dari penyedia [Certified Kubernetes](https://github.com/cncf/k8s-conformance/#certified-kubernetes).
+[Kubernetes Partner](https://kubernetes.io/partners/#conformance) termasuk dari daftar dari penyedia [_Certified_ Kubernetes](https://github.com/cncf/k8s-conformance/#certified-kubernetes).
 

@@ -52,7 +52,7 @@ Tim GitHub dan berkas OWNERS.
 Terdapat dua kategori tim dalam SIG Docs [tim (_teams_)](https://github.com/orgs/kubernetes/teams?query=sig-docs) dalam GitHub:
 
 - `@sig-docs-{language}-owners` merupakan pemberi persetujuan (_approver_) dan pemimpin (_lead_)
-- `@sig-docs-{language}-reviewers` merupakan pengulas (_reviewer_)
+- `@sig-docs-{language}-reviews` merupakan pengulas (_reviewer_)
 
 Setiap tim dapat direferensikan dengan `@name` mereka dalam komen GitHub untuk berkomunikasi dengan setiap orang di dalam grup.
 

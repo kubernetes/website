@@ -23,8 +23,12 @@ Work on Kubernetes code and public issues are tracked using [GitHub Issues](http
 跟踪 Kubernetes 编码工作和公开问题。
 
 <!--
-* [CVE-related issues](https://github.com/kubernetes/kubernetes/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3Aarea%2Fsecurity+in%3Atitle+CVE)
+* Official [list of known CVEs](/docs/reference/issues-security/official-cve-feed/)
+  (security vulnerabilities) that have been announced by the
+  [Security Response Committee](https://github.com/kubernetes/committee-security-response)
+* [CVE-related GitHub issues](https://github.com/kubernetes/kubernetes/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3Aarea%2Fsecurity+in%3Atitle+CVE)
 -->
+* [安全响应委员会（Security Response Committee，SRC）](https://github.com/kubernetes/committee-security-response)已公布的[已知 CVE 官方列表](/zh-cn/docs/reference/issues-security/official-cve-feed/)
 * [CVE 相关问题](https://github.com/kubernetes/kubernetes/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3Aarea%2Fsecurity+in%3Atitle+CVE)
 
 <!--

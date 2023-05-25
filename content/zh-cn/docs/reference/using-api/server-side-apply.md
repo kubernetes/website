@@ -23,17 +23,16 @@ min-kubernetes-server-version: 1.16
 <!--
 ## Introduction
 
-Server Side Apply helps users and controllers manage their resources through
-declarative configurations. Clients can create and/or modify their
-[objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+Server-Side Apply helps users and controllers manage their resources through
+declarative configurations. Clients can create and modify their
+{{< glossary_tooltip text="objects" term_id="object" >}}
 declaratively by sending their fully specified intent.
 -->
 ## 简介 {#introduction}
 
 服务器端应用协助用户、控制器通过声明式配置的方式管理他们的资源。
 客户端可以发送完整描述的目标（A fully specified intent），
-声明式地创建和/或修改
-[对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/)。
+声明式地创建和修改{{< glossary_tooltip text="对象" term_id="object" >}}。
 
 <!--
 A fully specified intent is a partial object that only includes the fields and
@@ -66,22 +65,22 @@ transferred.
 冲突可以被刻意忽略，这种情况下，值将会被改写，所有权也会发生转移。
 
 <!--
-If you remove a field from a configuration and apply the configuration, server
-side apply checks if there are any other field managers that also own the
-field.  If the field is not owned by any other field managers, it is either
-deleted from the live object or reset to its default value, if it has one. The
-same rule applies to associative list or map items.
+If you remove a field from a configuration and apply the configuration,
+Server-Side Apply checks if there are any other field managers that also
+own the field. If the field is not owned by any other field managers, it
+is either deleted from the live object or reset to its default value, if
+it has one. The same rule applies to associative list or map items.
 -->
 当你从配置文件中删除一个字段，然后应用这个配置文件，
-这将触发服务端应用检查此字段是否还被其他字段管理器拥有。
+将触发服务器端应用检查此字段是否还被其他字段管理器拥有。
 如果没有，那就从活动对象中删除该字段；如果有，那就重置为默认值。
 该规则同样适用于 list 或 map 项目。
 
 <!--
-Server side apply is meant both as a replacement for the original `kubectl
+Server-Side Apply is meant both as a replacement for the original `kubectl
 apply` and as a simpler mechanism for controllers to enact their changes.
 
-If you have Server Side Apply enabled, the control plane tracks managed fields
+If you have Server-Side Apply enabled, the control plane tracks managed fields
 for all newly created objects.
 -->
 服务器端应用既是原有 `kubectl apply` 的替代品，
@@ -92,10 +91,10 @@ for all newly created objects.
 <!--
 ## Field Management
 
-Compared to the `last-applied` annotation managed by `kubectl`, Server Side
+Compared to the `last-applied` annotation managed by `kubectl`, Server-Side
 Apply uses a more declarative approach, which tracks a user's field management,
 rather than a user's last applied state. This means that as a side effect of
-using Server Side Apply, information about which field manager manages each
+using Server-Side Apply, information about which field manager manages each
 field in an object also becomes available.
 -->
 ## 字段管理 {#field-management}
@@ -107,12 +106,12 @@ field in an object also becomes available.
 关于用哪一个字段管理器负责管理对象中的哪个字段的这类信息，都要对外界开放了。
 
 <!--
-For a user to manage a field, in the Server Side Apply sense, means that the
+For a user to manage a field, in the Server-Side Apply sense, means that the
 user relies on and expects the value of the field not to change. The user who
 last made an assertion about the value of a field will be recorded as the
 current field manager. This can be done either by changing the value with
 `POST`, `PUT`, or non-apply `PATCH`, or by including the field in a config sent
-to the Server Side Apply endpoint. When using Server-Side Apply, trying to
+to the Server-Side Apply endpoint. When using Server-Side Apply, trying to
 change a field which is managed by someone else will result in a rejected
 request (if not forced, see [Conflicts](#conflicts)).
 -->
@@ -133,7 +132,7 @@ of a field by removing it from their configuration.
 Field management is stored in a`managedFields` field that is part of an object's
 [`metadata`](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#objectmeta-v1-meta).
 
-A simple example of an object created by Server Side Apply could look like this:
+A simple example of an object created by Server-Side Apply could look like this:
 -->
 如果两个或以上的应用者均把同一个字段设置为相同值，他们将共享此字段的所有权。
 后续任何改变共享字段值的尝试，不管由那个应用者发起，都会导致冲突。
@@ -173,14 +172,15 @@ data:
 The above object contains a single manager in `metadata.managedFields`. The
 manager consists of basic information about the managing entity itself, like
 operation type, API version, and the fields managed by it.
-
-This field is managed by the  API server and should not be changed by
-the user.
 -->
 上述对象在 `metadata.managedFields` 中包含了唯一的管理器。
 管理器由管理实体自身的基本信息组成，比如操作类型、API 版本、以及它管理的字段。
 
 {{< note >}}
+<!--
+This field is managed by the  API server and should not be changed by
+the user.
+-->
 该字段由 API 服务器管理，用户不应该改动它。
 {{< /note >}}
 
@@ -274,11 +274,6 @@ The two operation types considered by this feature are `Apply` (`PATCH` with
 content type `application/apply-patch+yaml`) and `Update` (all other operations
 which modify the object). Both operations update the `managedFields`, but behave
 a little differently.
-
-Whether you are submitting JSON data or YAML data, use
-`application/apply-patch+yaml` as the `Content-Type` header value.
-
-All JSON documents are valid YAML.
 -->
 ## 应用和更新 {#apply-and-update}
 
@@ -288,6 +283,12 @@ All JSON documents are valid YAML.
 这两类操作都会更新字段 `managedFields`，但行为表现有一点不同。
 
 {{< note >}}
+<!--
+Whether you are submitting JSON data or YAML data, use
+`application/apply-patch+yaml` as the `Content-Type` header value.
+
+All JSON documents are valid YAML.
+-->
 不管你提交的是 JSON 数据还是 YAML 数据，
 都要使用 `application/apply-patch+yaml` 作为 `Content-Type` 的值。
 
@@ -355,8 +356,8 @@ would have failed due to conflicting ownership.
 <!--
 ## Merge strategy
 
-The merging strategy, implemented with Server Side Apply, provides a generally
-more stable object lifecycle. Server Side Apply tries to merge fields based on
+The merging strategy, implemented with Server-Side Apply, provides a generally
+more stable object lifecycle. Server-Side Apply tries to merge fields based on
 the actor who manages them instead of overruling based on values. This way
 multiple actors can update the same object without causing unexpected interference.
 -->
@@ -367,7 +368,7 @@ multiple actors can update the same object without causing unexpected interferen
 这么做是为了多个主体可以更新同一个对象，且不会引起意外的相互干扰。
 
 <!--
-When a user sends a "fully-specified intent" object to the Server Side Apply
+When a user sends a "fully-specified intent" object to the Server-Side Apply
 endpoint, the server merges it with the live object favoring the value in the
 applied config if it is specified in both places. If the set of items present in
 the applied config is not a superset of the items applied by the same user last
@@ -434,7 +435,7 @@ field tags.
 ### 拓扑变化时的兼容性  {#compatibility-across-toplogy-changes}
 
 <!--
-On rare occurences, a CRD or built-in type author may want to change the
+On rare occurrences, a CRD or built-in type author may want to change the
 specific topology of a field in their resource without incrementing its
 version. Changing the topology of types, by upgrading the cluster or
 updating the CRD, has different consequences when updating existing
@@ -449,7 +450,7 @@ objects. There are two categories of changes: when a field goes from
 
 <!--
 When the `listType`, `mapType`, or `structType` changes from
-`map`/`set`/`granular` to `atomic`, the whole list, map or struct of
+`map`/`set`/`granular` to `atomic`, the whole list, map, or struct of
 existing objects will end-up being owned by actors who owned an element
 of these types. This means that any further change to these objects
 would cause a conflict.
@@ -504,15 +505,15 @@ manager can then modify or delete those fields without conflict.
 在 `spec.data` 从 `atomic` 改为 `granular` 之前，`manager-one` 是
 `spec.data` 字段及其所包含字段（`key1` 和 `key2`）的属主。
 当对应的 CRD 被更改，使得 `spec.data` 变为 `granular` 拓扑时，
-`manager-one` 继续拥有顶层字段 `spec.data`（这意味着其他管理者想
-删除名为 `data` 的映射而不引起冲突是不可能的），但不再拥有
+`manager-one` 继续拥有顶层字段 `spec.data`（这意味着其他管理者想删除名为
+`data` 的映射而不引起冲突是不可能的），但不再拥有
 `key1` 和 `key2`。因此，其他管理者可以在不引起冲突的情况下更改
 或删除这些字段。
 
 <!--
-### Custom Resources
+## Custom Resources
 
-By default, Server Side Apply treats custom resources as unstructured data. All
+By default, Server-Side Apply treats custom resources as unstructured data. All
 keys are treated the same as struct fields, and all lists are considered atomic.
 
 If the Custom Resource Definition defines a
@@ -521,7 +522,7 @@ that contains annotations as defined in the previous "Merge Strategy"
 section, these annotations will be used when merging objects of this
 type.
 -->
-### 自定义资源 {#custom-resources}
+## 自定义资源 {#custom-resources}
 
 默认情况下，服务器端应用把自定义资源看做非结构化数据。
 所有的键值（keys）就像 struct 的字段一样被处理，
@@ -540,7 +541,7 @@ simplify the update logic of your controller. The main differences with a
 read-modify-write and/or patch are the following:
 
 * the applied object must contain all the fields that the controller cares about.
-* there are no way to remove fields that haven't been applied by the controller
+* there is no way to remove fields that haven't been applied by the controller
   before (controller can still send a PATCH/UPDATE for these use-cases).
 * the object doesn't have to be read beforehand, `resourceVersion` doesn't have
   to be specified.
@@ -564,7 +565,7 @@ might not be able to resolve or act on these conflicts.
 ## Transferring Ownership
 
 In addition to the concurrency controls provided by [conflict resolution](#conflicts),
-Server Side Apply provides ways to perform coordinated
+Server-Side Apply provides ways to perform coordinated
 field ownership transfers from users to controllers.
 
 This is best explained by example. Let's look at how to safely transfer
@@ -589,7 +590,7 @@ Say a user has defined deployment with `replicas` set to the desired value:
 {{< codenew file="application/ssa/nginx-deployment.yaml" >}}
 
 <!--
-And the user has created the deployment using server side apply like so:
+And the user has created the deployment using Server-Side Apply like so:
 -->
 并且，用户使用服务器端应用，像这样创建 Deployment：
 
@@ -644,7 +645,25 @@ First, the user defines a new configuration containing only the `replicas` field
 
 首先，用户新定义一个只包含 `replicas` 字段的配置文件：
 
-{{< codenew file="application/ssa/nginx-deployment-replicas-only.yaml" >}}
+```yaml
+# 将此文件另存为 'nginx-deployment-replicas-only.yaml'
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 3
+```
+
+{{< note >}}
+<!--
+The YAML file for SSA in this case only contains the fields you want to change.
+You are not supposed to provide a fully compliant Deployment manifest if you only
+want to modify the `spec.replicas` field using SSA.
+-->
+此场景中针对 SSA 的 YAML 文件仅包含你要更改的字段。
+如果只想使用 SSA 来修改 `spec.replicas` 字段，你无需提供完全兼容的 Deployment 清单。
+{{< /note >}}
 
 <!--
 The user applies that configuration using the field manager name `handover-to-hpa`:
@@ -652,7 +671,7 @@ The user applies that configuration using the field manager name `handover-to-hp
 用户使用名为 `handover-to-hpa` 的字段管理器，应用此配置文件。
 
 ```shell
-kubectl apply -f https://k8s.io/examples/application/ssa/nginx-deployment-replicas-only.yaml \
+kubectl apply -f nginx-deployment-replicas-only.yaml \
   --server-side --field-manager=handover-to-hpa \
   --validate=false
 ```
@@ -699,8 +718,8 @@ complete the transfer to the other user.
 <!--
 ## Comparison with Client Side Apply
 
-A consequence of the conflict detection and resolution implemented by Server
-Side Apply is that an applier always has up to date field values in their local
+A consequence of the conflict detection and resolution implemented by Server-Side
+Apply is that an applier always has up to date field values in their local
 state. If they don't, they get a conflict the next time they apply. Any of the
 three options to resolve conflicts results in the applied configuration being an
 up to date subset of the object on the server's fields.
@@ -712,7 +731,7 @@ applier has no way of knowing whether their next apply will overwrite other
 users' changes.
 
 Another difference is that an applier using Client Side Apply is unable to
-change the API version they are using, but Server Side Apply supports this use
+change the API version they are using, but Server-Side Apply supports this use
 case.
 -->
 ## 与客户端应用的对比 {#comparison-with-client-side-apply}
@@ -746,7 +765,11 @@ kubectl apply --server-side [--dry-run=server]
 <!--
 By default, field management of the object transfers from client-side apply to
 kubectl server-side apply without encountering conflicts.
+-->
+默认情况下，对象的字段管理从客户端应用方式迁移到 kubectl 触发的服务器端应用时，不会发生冲突。
 
+{{< caution >}}
+<!--
 Keep the `last-applied-configuration` annotation up to date.
 The annotation infers client-side apply's managed fields.
 Any fields not managed by client-side apply raise conflicts.
@@ -754,15 +777,7 @@ Any fields not managed by client-side apply raise conflicts.
 For example, if you used `kubectl scale` to update the replicas field after
 client-side apply, then this field is not owned by client-side apply and
 creates conflicts on `kubectl apply --server-side`.
-
-This behavior applies to server-side apply with the `kubectl` field manager.
-As an exception, you can opt-out of this behavior by specifying a different,
-non-default field manager, as seen in the following example. The default field
-manager for kubectl server-side apply is `kubectl`.
 -->
-默认情况下，对象的字段管理从客户端应用方式迁移到 kubectl 触发的服务器端应用时，不会发生冲突。
-
-{{< caution >}}
 保持注解 `last-applied-configuration` 是最新的。
 从注解能推断出字段是由客户端应用管理的。
 任何没有被客户端应用管理的字段将引发冲突。
@@ -773,6 +788,12 @@ manager for kubectl server-side apply is `kubectl`.
 在执行 `kubectl apply --server-side` 时就会产生冲突。
 {{< /caution >}}
 
+<!--
+This behavior applies to server-side apply with the `kubectl` field manager.
+As an exception, you can opt-out of this behavior by specifying a different,
+non-default field manager, as seen in the following example. The default field
+manager for kubectl server-side apply is `kubectl`.
+-->
 此操作以 `kubectl` 作为字段管理器来应用到服务器端应用。
 作为例外，可以指定一个不同的、非默认字段管理器停止的这种行为，如下面的例子所示。
 对于 kubectl 触发的服务器端应用，默认的字段管理器是 `kubectl`。
@@ -815,8 +836,8 @@ kubectl apply --server-side --field-manager=my-manager [--dry-run=server]
 <!--
 ## API Endpoint
 
-With the Server Side Apply feature enabled, the `PATCH` endpoint accepts the
-additional `application/apply-patch+yaml` content type. Users of Server Side
+With the Server-Side Apply feature enabled, the `PATCH` endpoint accepts the
+additional `application/apply-patch+yaml` content type. Users of Server-Side
 Apply can send partially specified objects as YAML to this endpoint.  When
 applying a configuration, one should always include all the fields that they
 have an opinion about.
@@ -825,15 +846,27 @@ have an opinion about.
 
 启用了服务器端应用特性之后，
 `PATCH` 服务端点接受额外的内容类型 `application/apply-patch+yaml`。
-服务器端应用的用户就可以把 YAMl 格式的
-部分定义对象（partially specified objects）发送到此端点。
+服务器端应用的用户就可以把 YAMl
+格式的部分定义对象（partially specified objects）发送到此端点。
 当一个配置文件被应用时，它应该包含所有体现你意图的字段。
+
+<!--
+### RBAC and permissions
+
+Since Server-Side Apply is a type of `PATCH`, a role will require the
+`PATCH` permission to edit resources, but will also need the `CREATE`
+verb permission in order to create resources with Server-Side Apply.
+-->
+### RBAC 和权限   {#rbac-and-permissions}
+
+因为服务器端应用是一种 `PATCH` 操作，所以一个角色编辑资源需要 `PATCH` 权限，
+但要用服务器端应用创建资源还需要 `CREATE` 动作权限。
 
 <!--
 ## Clearing ManagedFields
 
 It is possible to strip all managedFields from an object by overwriting them
-using `MergePatch`, `StrategicMergePatch`, `JSONPatch` or `Update`, so every
+using `MergePatch`, `StrategicMergePatch`, `JSONPatch`, or `Update`, so every
 non-apply operation. This can be done by overwriting the managedFields field
 with an empty entry. Two examples are:
 -->
@@ -879,14 +912,3 @@ applier takes ownership of any fields updated in the same request.
 将导致 managedFields 首先被重置，其他改变被押后处理。
 其结果是，应用者取得了同一个请求中所有字段的所有权。
 
-<!--
-Server Side Apply does not correctly track ownership on
-sub-resources that don't receive the resource object type. If you are
-using Server Side Apply with such a sub-resource, the changed fields
-won't be tracked.
--->
-{{< caution >}}
-对于不接受资源对象类型的子资源（sub-resources），
-服务器端应用不能正确地跟踪其所有权。
-如果你对这样的子资源使用服务器端应用，变更的字段将不会被跟踪。
-{{< /caution >}}

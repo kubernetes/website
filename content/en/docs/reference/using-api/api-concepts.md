@@ -39,7 +39,7 @@ API concepts:
 * For some resource types, the API includes one or more *sub-resources*, which are represented as URI paths below the resource
 
 Most Kubernetes API resource types are
-[objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects):
+{{< glossary_tooltip text="objects" term_id="object" >}} –
 they represent a concrete instance of a concept on the cluster, like a
 pod or namespace. A smaller number of API resource types are *virtual* in
 that they often represent operations on objects, rather than objects, such
@@ -82,6 +82,16 @@ All resource types are either scoped by the cluster (`/apis/GROUP/VERSION/*`) or
 namespace (`/apis/GROUP/VERSION/namespaces/NAMESPACE/*`). A namespace-scoped resource
 type will be deleted when its namespace is deleted and access to that resource type
 is controlled by authorization checks on the namespace scope.
+
+Note: core resources use `/api` instead of `/apis` and omit the GROUP path segment.
+
+Examples:
+* `/api/v1/namespaces`
+* `/api/v1/pods`
+* `/api/v1/namespaces/my-namespace/pods`
+* `/apis/apps/v1/deployments`
+* `/apis/apps/v1/namespaces/my-namespace/deployments`
+* `/apis/apps/v1/namespaces/my-namespace/deployments/my-deployment`
 
 You can also access collections of resources (for example: listing all Nodes).
 The following paths are used to retrieve collections and resources:
@@ -185,7 +195,7 @@ For subscribing to collections, Kubernetes client libraries typically offer some
 of standard tool for this **list**-then-**watch** logic. (In the Go client library,
 this is called a `Reflector` and is located in the `k8s.io/client-go/tools/cache` package.)
 
-### Watch bookmarks
+### Watch bookmarks {#watch-bookmarks}
 
 To mitigate the impact of short history window, the Kubernetes API provides a watch
 event named `BOOKMARK`. It is a special kind of event to mark that all changes up
@@ -215,6 +225,64 @@ As a client, you can request `BOOKMARK` events by setting the
 `allowWatchBookmarks=true` query parameter to a **watch** request, but you shouldn't
 assume bookmarks are returned at any specific interval, nor can clients assume that
 the API server will send any `BOOKMARK` event even when requested.
+
+## Streaming lists
+
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+
+On large clusters, retrieving the collection of some resource types may result in
+a significant increase of resource usage (primarily RAM) on the control plane.
+In order to alleviate its impact and simplify the user experience of the **list** + **watch**
+pattern, Kubernetes v1.27 introduces as an alpha feature the support
+for requesting the initial state (previously requested via the **list** request) as part of
+the **watch** request.
+
+Provided that the `WatchList` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled, this can be achieved by specifying `sendInitialEvents=true` as query string parameter
+in a **watch** request. If set, the API server starts the watch stream with synthetic init
+events (of type `ADDED`) to build the whole state of all existing objects followed by a
+[`BOOKMARK` event](/docs/reference/using-api/api-concepts/#watch-bookmarks)
+(if requested via `allowWatchBookmarks=true` option). The bookmark event includes the resource version
+to which is synced. After sending the bookmark event, the API server continues as for any other **watch**
+request.
+
+When you set `sendInitialEvents=true` in the query string, Kubernetes also requires that you set
+`resourceVersionMatch` to `NotOlderThan` value.
+If you provided `resourceVersion` in the query string without providing a value or don't provide
+it at all, this is interpreted as a request for _consistent read_;
+the bookmark event is sent when the state is synced at least to the moment of a consistent read
+from when the request started to be processed. If you specify `resourceVersion` (in the query string),
+the bookmark event is sent when the state is synced at least to the provided resource version.
+
+### Example {#example-streaming-lists}
+
+An example: you want to watch a collection of Pods. For that collection, the current resource version
+is 10245 and there are two pods: `foo` and `bar`. Then sending the following request (explicitly requesting
+_consistent read_ by setting empty resource version using `resourceVersion=`) could result
+in the following sequence of events:
+
+```console
+GET /api/v1/namespaces/test/pods?watch=1&sendInitialEvents=true&allowWatchBookmarks=true&resourceVersion=&resourceVersionMatch=NotOlderThan
+---
+200 OK
+Transfer-Encoding: chunked
+Content-Type: application/json
+
+{
+  "type": "ADDED",
+  "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "8467", "name": "foo"}, ...}
+}
+{
+  "type": "ADDED",
+  "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "5726", "name": "bar"}, ...}
+}
+{
+  "type": "BOOKMARK",
+  "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "10245"} }
+}
+...
+<followed by regular watch stream starting from resourceVersion="10245">
+```
 
 ## Retrieving large results sets in chunks
 
@@ -269,6 +337,7 @@ of 500 pods at a time, request those chunks as follows:
      "metadata": {
        "resourceVersion":"10245",
        "continue": "ENCODED_CONTINUE_TOKEN",
+       "remainingItemCount": 753,
        ...
      },
      "items": [...] // returns pods 1-500
@@ -289,6 +358,7 @@ of 500 pods at a time, request those chunks as follows:
      "metadata": {
        "resourceVersion":"10245",
        "continue": "ENCODED_CONTINUE_TOKEN_2",
+       "remainingItemCount": 253,
        ...
      },
      "items": [...] // returns pods 501-1000
@@ -661,6 +731,90 @@ of single-resource API requests, then aggregates the responses if needed.
 By contrast, the Kubernetes API verbs **list** and **watch** allow getting multiple
 resources, and **deletecollection** allows deleting multiple resources.
 
+## Field validation
+
+Kubernetes always validates the type of fields. For example, if a field in the
+API is defined as a number, you cannot set the field to a text value. If a field
+is defined as an array of strings, you can only provide an array. Some fields
+allow you to omit them, other fields are required. Omitting a required field
+from an API request is an error.
+
+If you make a request with an extra field, one that the cluster's control plane
+does not recognize, then the behavior of the API server is more complicated.
+
+By default, the API server drops fields that it does not recognize
+from an input that it receives (for example, the JSON body of a `PUT` request).
+
+There are two situations where the API server drops fields that you supplied in
+an HTTP request.
+
+These situations are:
+
+1. The field is unrecognized because it is not in the resource's OpenAPI schema. (One
+   exception to this is for {{< glossary_tooltip
+   term_id="CustomResourceDefinition" text="CRDs" >}} that explicitly choose not to prune unknown
+   fields via `x-kubernetes-preserve-unknown-fields`).
+2. The field is duplicated in the object.
+
+### Validation for unrecognized or duplicate fields (#setting-the-field-validation-level)
+
+  {{< feature-state for_k8s_version="v1.27" state="stable" >}}
+
+From 1.25 onward, unrecognized or duplicate fields in an object are detected via
+validation on the server when you use HTTP verbs that can submit data (`POST`, `PUT`, and `PATCH`). Possible levels of
+validation are `Ignore`, `Warn` (default), and `Strict`.
+
+`Ignore`
+: The API server succeeds in handling the request as it would without the erroneous fields
+being set, dropping all unknown and duplicate fields and giving no indication it
+has done so.
+
+`Warn`
+: (Default) The API server succeeds in handling the request, and reports a
+warning to the client. The warning is sent using the `Warning:` response header,
+adding one warning item for each unknown or duplicate field. For more
+information about warnings and the Kubernetes API, see the blog article
+[Warning: Helpful Warnings Ahead](/blog/2020/09/03/warnings/).
+
+`Strict`
+: The API server rejects the request with a 400 Bad Request error when it
+detects any unknown or duplicate fields. The response message from the API
+server specifies all the unknown or duplicate fields that the API server has
+detected.
+
+The field validation level is set by the `fieldValidation` query parameter.
+
+{{< note >}}
+If you submit a request that specifies an unrecognized field, and that is also invalid for
+a different reason (for example, the request provides a string value where the API expects
+an integer for a known field), then the API server responds with a 400 Bad Request error, but will
+not provide any information on unknown or duplicate fields (only which fatal
+error it encountered first).
+
+You always receive an error response in this case, no matter what field validation level you requested.
+{{< /note >}}
+
+Tools that submit requests to the server (such as `kubectl`), might set their own
+defaults that are different from the `Warn` validation level that the API server uses
+by default.
+
+The `kubectl` tool uses the `--validate` flag to set the level of field
+validation. It accepts the values `ignore`, `warn`, and `strict` while
+also accepting the values `true` (equivalent to `strict`) and `false`
+(equivalent to `ignore`). The default validation setting for kubectl is
+`--validate=true`, which means strict server-side field validation.
+
+When kubectl cannot connect to an API server with field validation (API servers
+prior to Kubernetes 1.27), it will fall back to using client-side validation.
+Client-side validation will be removed entirely in a future version of kubectl.
+
+{{< note >}}
+
+Prior to Kubernetes 1.25  `kubectl --validate` was used to toggle client-side validation on or off as
+a boolean flag.
+
+{{< /note >}}
+
 ## Dry-run
 
  {{< feature-state for_k8s_version="v1.18" state="stable" >}}
@@ -698,7 +852,7 @@ If the non-dry-run version of a request would trigger an admission controller th
 side effects, the request will be failed rather than risk an unwanted side effect. All
 built in admission control plugins support dry-run. Additionally, admission webhooks can
 declare in their
-[configuration object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#webhook-v1beta1-admissionregistration-k8s-io)
+[configuration object](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#validatingwebhook-v1-admissionregistration-k8s-io)
 that they do not have side effects, by setting their `sideEffects` field to `None`.
 
 {{< note >}}
@@ -882,8 +1036,9 @@ Continue Token, Exact
 
 {{< note >}}
 When you **list** resources and receive a collection response, the response includes the
-[metadata](/docs/reference/generated/kubernetes-api/v1.21/#listmeta-v1-meta) of the collection as
-well as [object metadata](/docs/reference/generated/kubernetes-api/v1.21/#listmeta-v1-meta)
+[list metadata](/docs/reference/generated/kubernetes-api/v{{ skew currentVersion >}}/#listmeta-v1-meta)
+of the collection as well as
+[object metadata](/docs/reference/generated/kubernetes-api/v{{ skew currentVersion >}}/#objectmeta-v1-meta)
 for each item in that collection. For individual objects found within a collection response,
 `.metadata.resourceVersion` tracks when that object was last updated, and not how up-to-date
 the object is when served.

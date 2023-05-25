@@ -3,7 +3,11 @@ reviewers:
 - freehan
 title: EndpointSlices
 content_type: concept
-weight: 45
+weight: 60
+description: >-
+  The EndpointSlice API is the mechanism that Kubernetes uses to let your Service
+  scale to handle large numbers of backends, and allows the cluster to update its
+  list of healthy backends efficiently.
 ---
 
 
@@ -11,32 +15,13 @@ weight: 45
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-_EndpointSlices_ provide a simple way to track network endpoints within a
-Kubernetes cluster. They offer a more scalable and extensible alternative to
-Endpoints.
-
-
+Kubernetes' _EndpointSlice_ API provides a way to track network endpoints
+within a Kubernetes cluster. EndpointSlices offer a more scalable and extensible
+alternative to [Endpoints](/docs/concepts/services-networking/service/#endpoints).
 
 <!-- body -->
 
-## Motivation
-
-The Endpoints API has provided a simple and straightforward way of
-tracking network endpoints in Kubernetes. Unfortunately as Kubernetes clusters
-and {{< glossary_tooltip text="Services" term_id="service" >}} have grown to handle and
-send more traffic to more backend Pods, limitations of that original API became
-more visible.
-Most notably, those included challenges with scaling to larger numbers of
-network endpoints.
-
-Since all network endpoints for a Service were stored in a single Endpoints
-resource, those resources could get quite large. That affected the performance
-of Kubernetes components (notably the master control plane) and resulted in
-significant amounts of network traffic and processing when Endpoints changed.
-EndpointSlices help you mitigate those issues as well as provide an extensible
-platform for additional features such as topological routing.
-
-## EndpointSlice resources {#endpointslice-resource}
+## EndpointSlice API {#endpointslice-resource}
 
 In Kubernetes, an EndpointSlice contains references to a set of network
 endpoints. The control plane automatically creates EndpointSlices
@@ -48,7 +33,7 @@ Service name.
 The name of a EndpointSlice object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
-As an example, here's a sample EndpointSlice resource for the `example`
+As an example, here's a sample EndpointSlice object, that's owned by the `example`
 Kubernetes Service.
 
 ```yaml
@@ -81,8 +66,7 @@ flag, up to a maximum of 1000.
 
 EndpointSlices can act as the source of truth for
 {{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}} when it comes to
-how to route internal traffic. When enabled, they should provide a performance
-improvement for services with large numbers of endpoints.
+how to route internal traffic.
 
 ### Address types
 
@@ -91,6 +75,10 @@ EndpointSlices support three address types:
 * IPv4
 * IPv6
 * FQDN (Fully Qualified Domain Name)
+
+Each `EndpointSlice` object represents a specific IP address type. If you have
+a Service that is available via IPv4 and IPv6, there will be at least two
+`EndpointSlice` objects (one for IPv4, and one for IPv6).
 
 ### Conditions
 
@@ -108,15 +96,15 @@ Services will always have the `ready` condition set to `true`.
 
 #### Serving
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
-`serving` is identical to the `ready` condition, except it does not account for terminating states.
-Consumers of the EndpointSlice API should check this condition if they care about pod readiness while
+The `serving` condition is almost identical to the `ready` condition. The difference is that
+consumers of the EndpointSlice API should check the `serving` condition if they care about pod readiness while
 the pod is also terminating.
 
 {{< note >}}
 
-Although `serving` is almost identical to `ready`, it was added to prevent break the existing meaning
+Although `serving` is almost identical to `ready`, it was added to prevent breaking the existing meaning
 of `ready`. It may be unexpected for existing clients if `ready` could be `true` for terminating
 endpoints, since historically terminating endpoints were never included in the Endpoints or
 EndpointSlice API to begin with. For this reason, `ready` is _always_ `false` for terminating
@@ -127,7 +115,7 @@ for terminating pods independent of the existing semantics for `ready`.
 
 #### Terminating
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
 `Terminating` is a condition that indicates whether an endpoint is terminating.
 For pods, this is any pod that has a deletion timestamp set.
@@ -241,12 +229,49 @@ getting replaced.
 
 Due to the nature of EndpointSlice changes, endpoints may be represented in more
 than one EndpointSlice at the same time. This naturally occurs as changes to
-different EndpointSlice objects can arrive at the Kubernetes client watch/cache
-at different times. Implementations using EndpointSlice must be able to have the
-endpoint appear in more than one slice. A reference implementation of how to
-perform endpoint deduplication can be found in the `EndpointSliceCache`
-implementation in `kube-proxy`.
+different EndpointSlice objects can arrive at the Kubernetes client watch / cache
+at different times.
+
+{{< note >}}
+Clients of the EndpointSlice API must iterate through all the existing EndpointSlices
+associated to a Service and build a complete list of unique network endpoints. It is
+important to mention that endpoints may be duplicated in different EndpointSlices.
+
+You can find a reference implementation for how to perform this endpoint aggregation
+and deduplication as part of the `EndpointSliceCache` code within `kube-proxy`.
+{{< /note >}}
+
+## Comparison with Endpoints {#motivation}
+
+The original Endpoints API provided a simple and straightforward way of
+tracking network endpoints in Kubernetes. As Kubernetes clusters
+and {{< glossary_tooltip text="Services" term_id="service" >}} grew to handle
+more traffic and to send more traffic to more backend Pods, the
+limitations of that original API became more visible.
+Most notably, those included challenges with scaling to larger numbers of
+network endpoints.
+
+Since all network endpoints for a Service were stored in a single Endpoints
+object, those Endpoints objects could get quite large. For Services that stayed
+stable (the same set of endpoints over a long period of time) the impact was
+less noticeable; even then, some use cases of Kubernetes weren't well served.
+
+When a Service had a lot of backend endpoints and the workload was either
+ scaling frequently, or rolling out new changes frequently, each update to
+the single Endpoints object for that Service meant a lot of traffic between
+Kubernetes cluster components (within the control plane, and also between
+nodes and the API server). This extra traffic also had a cost in terms of
+CPU use.
+
+With EndpointSlices, adding or removing a single Pod triggers the same _number_
+of updates to clients that are watching for changes, but the size of those
+update message is much smaller at large scale.
+
+EndpointSlices also enabled innovation around new features such dual-stack
+networking and topology-aware routing.
 
 ## {{% heading "whatsnext" %}}
 
-* Read [Connecting Applications with Services](/docs/concepts/services-networking/connect-applications-service/)
+* Follow the [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial
+* Read the [API reference](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/) for the EndpointSlice API
+* Read the [API reference](/docs/reference/kubernetes-api/service-resources/endpoints-v1/) for the Endpoints API

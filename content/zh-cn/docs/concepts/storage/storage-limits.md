@@ -1,6 +1,7 @@
 ---
 title: 特定于节点的卷数限制
 content_type: concept
+weight: 90
 ---
 
 <!-- ---
@@ -11,22 +12,23 @@ reviewers:
 - msau42
 title: Node-specific Volume Limits
 content_type: concept
+weight: 90
 ---
  -->
 
 <!-- overview -->
 
-<!-- 
+<!--
 This page describes the maximum number of volumes that can be attached
-to a Node for various cloud providers. 
+to a Node for various cloud providers.
 -->
 此页面描述了各个云供应商可关联至一个节点的最大卷数。
 
-<!-- 
+<!--
 Cloud providers like Google, Amazon, and Microsoft typically have a limit on
 how many volumes can be attached to a Node. It is important for Kubernetes to
 respect those limits. Otherwise, Pods scheduled on a Node could get stuck
-waiting for volumes to attach. 
+waiting for volumes to attach.
 -->
 谷歌、亚马逊和微软等云供应商通常对可以关联到节点的卷数量进行限制。
 Kubernetes 需要尊重这些限制。 否则，在节点上调度的 Pod 可能会卡住去等待卷的关联。

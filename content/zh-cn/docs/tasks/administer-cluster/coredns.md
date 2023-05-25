@@ -2,6 +2,7 @@
 title: 使用 CoreDNS 进行服务发现
 min-kubernetes-server-version: v1.9
 content_type: task
+weight: 380
 ---
 
 <!--
@@ -10,6 +11,7 @@ reviewers:
 title: Using CoreDNS for Service Discovery
 min-kubernetes-server-version: v1.9
 content_type: task
+weight: 380
 -->
 
 <!-- overview -->
@@ -44,7 +46,7 @@ kube-dns in an existing deployment, or by using tools like kubeadm
 that will deploy and upgrade the cluster for you.
 -->
 通过替换现有集群部署中的 kube-dns，或者使用 kubeadm 等工具来为你部署和升级集群，
-可以在你的集群中使用 CoreDNS 而非 kube-dns，
+可以在你的集群中使用 CoreDNS 而非 kube-dns。
 
 <!--
 ## Installing CoreDNS
@@ -119,9 +121,9 @@ can take care of retaining the existing CoreDNS configuration automatically.
 <!--
 ## Tuning CoreDNS
 
-When resource utilisation is a concern, it may be useful to tune
-the configuration of CoreDNS. For more details, check out the
-[documentation on scaling CoreDNS]((https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md)).
+When resource utilisation is a concern, it may be useful to tune the
+configuration of CoreDNS. For more details, check out the
+[documentation on scaling CoreDNS](https://github.com/coredns/deployment/blob/master/kubernetes/Scaling_CoreDNS.md).
 -->
 ## CoreDNS 调优
 

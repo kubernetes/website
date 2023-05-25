@@ -1,6 +1,6 @@
 ---
 title: "Audit Annotations"
-weight: 1
+weight: 10
 ---
 
 <!-- overview -->
@@ -108,3 +108,25 @@ to ensure connections are secured properly and to avoid disruption in future rel
 
 There's more information about this in the Go documentation:
 [Rejecting SHA-1 certificates](https://go.dev/doc/go1.18#sha1).
+
+## validation.policy.admission.k8s.io/validation_failure
+
+Example: `validation.policy.admission.k8s.io/validation_failure: '[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]'`
+
+Used by Kubernetes version v1.27 and later.
+
+This annotation indicates that a admission policy validation evaluted to false
+for an API request, or that the validation resulted in an error while the policy
+was configured with `failurePolicy: Fail`.
+
+The value of the annotation is a JSON object. The `message` in the JSON
+provides the message about the validation failure.
+
+The `policy`, `binding` and `expressionIndex` in the JSON identifies the
+name of the `ValidatingAdmissionPolicy`, the name of the
+`ValidatingAdmissionPolicyBinding` and the index in the policy `validations` of
+the CEL expressions that failed, respectively.
+
+The `validationActions` shows what actions were taken for this validation failure.
+See [Validating Admission Policy](/docs/reference/access-authn-authz/validating-admission-policy/)
+for more details about `validationActions`.

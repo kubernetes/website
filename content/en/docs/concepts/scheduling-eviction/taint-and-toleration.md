@@ -5,7 +5,7 @@ reviewers:
 - bsalamat
 title: Taints and Tolerations
 content_type: concept
-weight: 40
+weight: 50
 ---
 
 
@@ -223,6 +223,11 @@ are true. The following taints are built in:
 In case a node is to be evicted, the node controller or the kubelet adds relevant taints
 with `NoExecute` effect. If the fault condition returns to normal the kubelet or node
 controller can remove the relevant taint(s).
+
+In some cases when the node is unreachable, the API server is unable to communicate
+with the kubelet on the node. The decision to delete the pods cannot be communicated to
+the kubelet until communication with the API server is re-established. In the meantime,
+the pods that are scheduled for deletion may continue to run on the partitioned node.
 
 {{< note >}}
 The control plane limits the rate of adding node new taints to nodes. This rate limiting

@@ -2,12 +2,14 @@
 title: 使用端口转发来访问集群中的应用
 content_type: task
 weight: 40
+min-kubernetes-server-version: v1.10
 ---
 
 <!--
 title: Use Port Forwarding to Access Applications in a Cluster
 content_type: task
 weight: 40
+min-kubernetes-server-version: v1.10
 -->
 
 <!-- overview -->
@@ -16,8 +18,8 @@ This page shows how to use `kubectl port-forward` to connect to a MongoDB
 server running in a Kubernetes cluster. This type of connection can be useful
 for database debugging.
 -->
-本文展示如何使用 `kubectl port-forward` 连接到在 Kubernetes 集群中
-运行的 MongoDB 服务。这种类型的连接对数据库调试很有用。
+本文展示如何使用 `kubectl port-forward` 连接到在 Kubernetes 集群中运行的 MongoDB 服务。
+这种类型的连接对数据库调试很有用。
 
 ## {{% heading "prerequisites" %}}
 
@@ -34,9 +36,9 @@ for database debugging.
 
 1. Create a Deployment that runs MongoDB:
 -->
-## 创建 MongoDB deployment 和服务
+## 创建 MongoDB Deployment 和服务   {#creating-mongodb-deployment-and-service}
 
-1. 创建一个运行 MongoDB 的 deployment：
+1. 创建一个运行 MongoDB 的 Deployment：
 
    ```shell
    kubectl apply -f https://k8s.io/examples/application/mongodb/mongo-deployment.yaml
@@ -54,7 +56,7 @@ for database debugging.
    <!--
    View the pod status to check that it is ready:
    -->
-   查看 pod 状态，检查其是否准备就绪：
+   查看 Pod 状态，检查其是否准备就绪：
 
    ```shell
    kubectl get pods
@@ -63,7 +65,7 @@ for database debugging.
    <!--
    The output displays the pod created:
    -->
-   输出显示创建的 pod：
+   输出显示创建的 Pod：
 
    ```
    NAME                     READY   STATUS    RESTARTS   AGE
@@ -149,7 +151,7 @@ for database debugging.
 <!--
 3. Verify that the MongoDB server is running in the Pod, and listening on port 27017:
 -->
-3. 验证 MongoDB 服务是否运行在 Pod 中并且在 27017 端口上监听：
+3. 验证 MongoDB 服务是否运行在 Pod 中并且在监听 27017 端口：
 
    <!--
    ```shell
@@ -181,10 +183,10 @@ for database debugging.
 
 1. `kubectl port-forward` allows using resource name, such as a pod name, to select a matching pod to port forward to.
 -->
-## 转发一个本地端口到 Pod 端口
+## 转发一个本地端口到 Pod 端口   {#forward-a-local-port-to-a-port-on-the-pod}
 
 1. `kubectl port-forward` 允许使用资源名称
-   （例如 pod 名称）来选择匹配的 pod 来进行端口转发。
+   （例如 Pod 名称）来选择匹配的 Pod 来进行端口转发。
 
    <!--
    ```shell
@@ -235,7 +237,7 @@ for database debugging.
    ```
    Forwarding from 127.0.0.1:28015 -> 27017
    Forwarding from [::1]:28015 -> 27017
-    ```
+   ```
 
    {{< note >}}
    <!--
@@ -255,7 +257,7 @@ for database debugging.
    ```
 
 <!--
-3.  At the MongoDB command line prompt, enter the `ping` command:
+3. At the MongoDB command line prompt, enter the `ping` command:
 -->
 3. 在 MongoDB 命令行提示符下，输入 `ping` 命令：
 

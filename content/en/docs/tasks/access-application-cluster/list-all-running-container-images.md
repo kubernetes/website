@@ -38,19 +38,6 @@ tr -s '[[:space:]]' '\n' |\
 sort |\
 uniq -c
 ```
-
-The above command will recursively return all fields named `image`
-for all items returned.
-
-As an alternative, it is possible to use the absolute path to the image
-field within the Pod.  This ensures the correct field is retrieved
-even when the field name is repeated,
-e.g. many fields are called `name` within a given item:
-
-```shell
-kubectl get pods --all-namespaces -o jsonpath="{.items[*].spec.containers[*].image}"
-```
-
 The jsonpath is interpreted as follows:
 
 - `.items[*]`: for each returned value
@@ -94,7 +81,7 @@ kubectl get pods --namespace kube-system -o jsonpath="{.items[*].spec.containers
 
 ## List Container images using a go-template instead of jsonpath
 
-As an alternative to jsonpath, Kubectl supports using [go-templates](https://golang.org/pkg/text/template/)
+As an alternative to jsonpath, Kubectl supports using [go-templates](https://pkg.go.dev/text/template)
 for formatting the output:
 
 ```shell
@@ -106,5 +93,4 @@ kubectl get pods --all-namespaces -o go-template --template="{{range .items}}{{r
 ### Reference
 
 * [Jsonpath](/docs/reference/kubectl/jsonpath/) reference guide
-* [Go template](https://golang.org/pkg/text/template/) reference guide
-
+* [Go template](https://pkg.go.dev/text/template) reference guide

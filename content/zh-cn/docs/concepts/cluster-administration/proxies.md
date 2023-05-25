@@ -1,7 +1,7 @@
 ---
 title: Kubernetes 中的代理
 content_type: concept
-weight: 90
+weight: 100
 ---
 <!--
 title: Proxies in Kubernetes
@@ -46,7 +46,7 @@ There are several different proxies you may encounter when using Kubernetes:
     - 添加认证头信息
 
 <!--
-1.  The [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services):
+1.  The [apiserver proxy](/docs/tasks/access-application-cluster/access-cluster-services/#discovering-builtin-services):
 
     - is a bastion built into the apiserver
     - connects a user outside of the cluster to cluster IPs which otherwise might not be reachable
@@ -56,10 +56,10 @@ There are several different proxies you may encounter when using Kubernetes:
     - can be used to reach a Node, Pod, or Service
     - does load balancing when used to reach a Service
 -->
-2. [apiserver proxy](/zh-cn/docs/tasks/access-application-cluster/access-cluster/#discovering-builtin-services)：
+2. [apiserver proxy](/zh-cn/docs/tasks/access-application-cluster/access-cluster-services/#discovering-builtin-services)：
 
     - 是一个建立在 apiserver 内部的“堡垒”
-    - 将集群外部的用户与集群 IP 相连接，这些IP是无法通过其他方式访问的
+    - 将集群外部的用户与集群 IP 相连接，这些 IP 是无法通过其他方式访问的
     - 运行在 apiserver 进程内
     - 客户端到代理使用 HTTPS 协议 (如果配置 apiserver 使用 HTTP 协议，则使用 HTTP 协议)
     - 通过可用信息进行选择，代理到目的地可能使用 HTTP 或 HTTPS 协议
@@ -115,7 +115,7 @@ There are several different proxies you may encounter when using Kubernetes:
 
 <!--
 Kubernetes users will typically not need to worry about anything other than the first two types.  The cluster admin
-will typically ensure that the latter types are setup correctly.
+will typically ensure that the latter types are set up correctly.
 -->
 
 Kubernetes 用户通常只需要关心前两种类型的代理，集群管理员通常需要确保后面几种类型的代理设置正确。

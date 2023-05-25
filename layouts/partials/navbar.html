@@ -1,6 +1,6 @@
 {{ $cover := .HasShortcode "blocks/cover" }}
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark {{ if $cover}} td-navbar-cover {{ end }} flex-column flex-md-row td-navbar" data-auto-burger="primary">
-        <a class="navbar-brand" href="{{ .Site.Home.RelPermalink }}"></a>
+        <a class="navbar-brand img-fluid" href="{{ .Site.Home.RelPermalink }}"></a>
 	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
 		
 		<ul class="navbar-nav mt-2 mt-lg-0">
@@ -15,12 +15,12 @@
 			{{ end }}
 			{{ end }}
 			{{ if  .Site.Params.versions }}
-			<li class="nav-item dropdown">
+			<li class="nav-item mr-n3 mr-lg-0 dropdown">
 				{{ partial "navbar-version-selector.html" . }}
 			</li>
 			{{ end }}
 			{{ if  (gt (len .Site.Home.Translations) 0) }}
-			<li class="nav-item dropdown">
+			<li class="nav-item mr-n4 mr-lg-0  dropdown">
 				{{ partial "navbar-lang-selector.html" . }}
 			</li>
 			{{ end }}

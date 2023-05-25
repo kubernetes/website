@@ -1,9 +1,9 @@
 ---
 title: 쿠버네티스 API 애그리게이션 레이어(aggregation layer)
-
-
-
-
+# reviewers:
+# - lavalamp
+# - cheftako
+# - chenopis
 content_type: concept
 weight: 10
 ---
@@ -28,7 +28,7 @@ APIService를 구현하는 가장 일반적인 방법은 클러스터 내에 실
 Extension-apiserver는 kube-apiserver로 오가는 연결의 레이턴시가 낮아야 한다.
 kube-apiserver로 부터의 디스커버리 요청은 왕복 레이턴시가 5초 이내여야 한다.
 
-extention API server가 레이턴시 요구 사항을 달성할 수 없는 경우 이를 충족할 수 있도록 변경하는 것을 고려한다.
+Extension API server가 레이턴시 요구 사항을 달성할 수 없는 경우 이를 충족할 수 있도록 변경하는 것을 고려한다.
 
 ## {{% heading "whatsnext" %}}
 

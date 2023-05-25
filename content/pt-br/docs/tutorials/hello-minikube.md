@@ -40,7 +40,7 @@ Este tutorial disponibiliza uma imagem de contêiner que utiliza o NGINX para re
     {{< kat-button >}}
 
 {{< note >}}
-Se você instalou o Minikube localmente, execute: `minikube start`.
+Se você instalou o Minikube localmente, execute: `minikube start`. Antes de executar `minikube dashboard`, abra um novo terminal, execute `minikube dashboard` nele, e retorne para o terminal anterior.
 {{< /note >}}
 
 2. Abra o painel do Kubernetes em um navegador: 
@@ -49,7 +49,32 @@ Se você instalou o Minikube localmente, execute: `minikube start`.
     minikube dashboard
     ```
 
-3. Apenas no ambiente do Katacoda: Na parte superior do terminal, clique em **Preview Port 30000**.
+3. Apenas no ambiente do Katacoda: Na parte superior to painel do terminal, clique no sinal de mais (+), e selecione **Select port to view on Host 1**.
+
+4. Apenas no ambiente do Katacoda: Digite `30000`, e clique em **Display
+   Port**.
+
+{{< note >}}
+O comando `dashboard` habilita o complemento (_addon_) de dashboard e abre o proxy no navegador padrão.
+Voce pode criar recursos no Kubernetes, como Deployment e Service, pela dashboard.
+
+Se você está executando em um ambiente como administrador (_root_), veja [Acessando a Dashboard via URL](#acessando-a-dashboard-via-url).
+
+Por padrão, a dashboard só é accesível internamente pela rede virtual do Kubernetes.
+O comando `dashboard` cria um proxy temporário que permite que a dashboard seja acessada externamente à rede virtual do Kubernetes.
+
+Para parar o proxy, execute `Ctrl+C` para terminar o processo.
+A dashboard permanece sendo executada no cluster Kubernetes depois do comando ter sido terminado.
+Você pode executar o comando `dashboard` novamente para criar outro proxy para accessar a dashboard
+{{< /note >}}
+
+## Acessando a Dashboard via URL
+
+Caso não queira abrir o navegador, execute o comando `dashboard` com a flag `--url` para ver a URL:
+
+```shell
+minikube dashboard --url
+```
 
 ## Criando um Deployment
 
@@ -58,7 +83,7 @@ Um [*Pod*](/docs/concepts/workloads/pods/) Kubernetes consiste em um ou mais con
 1. Usando o comando `kubectl create` para criar um Deployment que gerencia um Pod. O Pod executa um contêiner baseado na imagem docker disponibilizada.
 
     ```shell
-    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
+    kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.4
     ```
 
 2. Visualizando o Deployment:
@@ -115,7 +140,7 @@ Por padrão, um Pod só é acessível utilizando o seu endereço IP interno no c
 
     O parâmetro `--type=LoadBalancer` indica que você deseja expor o seu serviço fora do cluster Kubernetes.
     
-    A aplicação dentro da imagem `k8s.gcr.io/echoserver` "escuta" apenas na porta TCP 8080. Se você usou
+    A aplicação dentro da imagem `registry.k8s.io/echoserver` "escuta" apenas na porta TCP 8080. Se você usou
      `kubectl expose` para expor uma porta diferente, os clientes não conseguirão se conectar a essa outra porta.
 
 2. Visualizando o serviço que você acabou de criar:
@@ -144,7 +169,7 @@ Por padrão, um Pod só é acessível utilizando o seu endereço IP interno no c
 
 5. (**Apenas no ambiente do Katacoda**) Observe o número da porta com 5 dígitos exibido ao lado de `8080` na saída do serviço. Este número de porta é gerado aleatoriamente e pode ser diferente para você. Digite seu número na caixa de texto do número da porta e clique em **Display Port**. Usando o exemplo anterior, você digitaria `30369`.
 
-Isso abre uma janela do navegador, acessa o seu aplicativo e mostra o retorno da requisição.
+    Isso abre uma janela do navegador, acessa o seu aplicativo e mostra o retorno da requisição.
 
 ## Habilitando Complementos (addons)
 
@@ -255,4 +280,3 @@ minikube delete
 * Aprender mais sobre [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
 * Aprender mais sobre [Deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/).
 * Aprender mais sobre [Service objects](/docs/concepts/services-networking/service/).
-

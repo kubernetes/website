@@ -508,7 +508,7 @@ APIサーバーは、デフォルトのClusterRoleオブジェクトとClusterRo
 
 起動するたびに、APIサーバーはデフォルトのClusterRoleを不足している権限で更新し、
 デフォルトのClusterRoleBindingを不足しているsubjectsで更新します。
-これにより、誤った変更をクラスタが修復できるようになり、新しいKubernetesリリースで権限とsubjectsが変更されても、
+これにより、誤った変更をクラスターが修復できるようになり、新しいKubernetesリリースで権限とsubjectsが変更されても、
 RoleとRoleBindingを最新の状態に保つことができます。
 
 この調整を無効化するには`rbac.authorization.kubernetes.io/autoupdate`をデフォルトのClusterRoleまたはRoleBindingのアノテーションを`false`に設定します。
@@ -557,7 +557,7 @@ ClusterRoleを編集すると、変更が[自動調整](#自動調整)によるA
 
 ### ユーザー向けRole
 
-一部のデフォルトClusterRolesにはプレフィックス`system:`が付いていません。これらは、ユーザー向けのroleを想定しています。それらは、スーパーユーザのRole(`cluster-admin`)、ClusterRoleBindingsを使用してクラスタ全体に付与されることを意図しているRole、そしてRoleBindings(`admin`, `edit`, `view`)を使用して、特定のNamespace内に付与されることを意図しているRoleを含んでいます。
+一部のデフォルトClusterRolesにはプレフィックス`system:`が付いていません。これらは、ユーザー向けのroleを想定しています。それらは、スーパーユーザのRole(`cluster-admin`)、ClusterRoleBindingsを使用してクラスター全体に付与されることを意図しているRole、そしてRoleBindings(`admin`, `edit`, `view`)を使用して、特定のNamespace内に付与されることを意図しているRoleを含んでいます。
 
 ユーザー向けのClusterRolesは[ClusterRoleの集約](#集約clusterrole)を使用して、管理者がこれらのClusterRolesにカスタムリソースのルールを含めることができるようにします。ルールを`admin`、`edit`、または`view` Roleに追加するには、次のラベルの一つ以上でClusterRoleを作成します。
 
@@ -707,7 +707,7 @@ Secretsの内容を読み取るとNamespaceのServiceAccountのクレデンシ�
 Kubernetes {{< glossary_tooltip term_id="kube-controller-manager" text="controller manager" >}}は、Kubernetesコントロールプレーンに組み込まれている{{< glossary_tooltip term_id="controller" text="controllers" >}}を実行します。
 `--use-service-account-credentials`を指定して呼び出すと、kube-controller-manager個別のサービスアカウントを使用して各コントローラーを起動します。
 組み込みコントローラーごとに、プレフィックス`system:controller:`付きの対応するRoleが存在します。
-コントローラーマネージャーが`--use-service-account-credentials`で開始されていない場合、コントローラマネージャーは、関連するすべてのRoleを付与する必要がある自身のクレデンシャルを使用して、すべてのコントロールループを実行します。
+コントローラーマネージャーが`--use-service-account-credentials`で開始されていない場合、コントローラーマネージャーは、関連するすべてのRoleを付与する必要がある自身のクレデンシャルを使用して、すべてのコントロールループを実行します。
 これらのRoleは次のとおりです。
 
 * `system:controller:attachdetach-controller`
@@ -907,7 +907,7 @@ subjects:
 
 ### `kubectl create clusterrolebinding`
 
-以下に、クラスタ全体(すべてのNamespace)にClusterRoleをいくつか例として付与します。
+以下に、クラスター全体(すべてのNamespace)にClusterRoleをいくつか例として付与します。
 
 * クラスター全体で、ClusterRole「cluster-admin」へのアクセス許可を「root」という名前のユーザーに付与します。
 

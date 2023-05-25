@@ -1,20 +1,11 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-
-<!--
 Generate keys and certificate signing requests
 -->
 生成密钥和证书签名请求
 
-<!-- ### Synopsis -->
+<!--
+### Synopsis
+-->
 ### 概要
 
 <!-- 
@@ -27,14 +18,13 @@ Generates keys and certificate signing requests (CSRs) for all the certificates 
 <!--  
 This command is designed for use in [Kubeadm External CA Mode](https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#external-ca-mode). It generates CSRs which you can then submit to your external certificate authority for signing.
 -->
-此命令设计用于
-[Kubeadm 外部 CA 模式](https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#external-ca-mode)。 
+此命令设计用于 [Kubeadm 外部 CA 模式](https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/#external-ca-mode)。 
 它生成你可以提交给外部证书颁发机构进行签名的 CSR。
 
 <!--  
 The PEM encoded signed certificates should then be saved alongside the key files, using ".crt" as the file extension, or in the case of kubeconfig files, the PEM encoded signed certificate should be base64 encoded and added to the kubeconfig file in the "users &gt; user &gt; client-certificate-data" field.
 -->
-应使用 ".crt" 作为文件扩展名将 PEM 编码的签名证书与密钥文件一起保存。
+你需要使用 ".crt" 作为文件扩展名将 PEM 编码的签名证书与密钥文件一起保存。
 或者，对于 kubeconfig 文件，PEM 编码的签名证书应使用 base64 编码，
 并添加到 "users &gt; user &gt; client-certificate-data" 字段。
 
@@ -63,7 +53,7 @@ kubeadm certs generate-csr --kubeconfig-dir /tmp/etc-k8s --cert-dir /tmp/etc-k8s
 -->
 ### 选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -111,7 +101,7 @@ kubeadm certs generate-csr --kubeconfig-dir /tmp/etc-k8s --cert-dir /tmp/etc-k8s
 -->
 ### 继承于父命令的选项
 
-   <table style="width: 100%; table-layout: fixed;">
+<table style="width: 100%; table-layout: fixed;">
 <colgroup>
 <col span="1" style="width: 10px;" />
 <col span="1" />
@@ -128,3 +118,4 @@ kubeadm certs generate-csr --kubeconfig-dir /tmp/etc-k8s --cert-dir /tmp/etc-k8s
 
 </tbody>
 </table>
+

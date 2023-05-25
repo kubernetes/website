@@ -5,7 +5,7 @@ weight: 10
 ---
 <!-- overview -->
 
-Sie erstellen ihr Docker Image und laden es in eine Registry hoch, bevor es in einem Kubernetes Pod referenziert werden kann.
+Sie erstellen Ihr Docker Image und laden es in eine Registry hoch, bevor es in einem Kubernetes Pod referenziert werden kann.
 
 Die `image` Eigenschaft eines Containers unterstüzt die gleiche Syntax wie die des `docker` Kommandos, inklusive privater Registries und Tags.
 
@@ -16,7 +16,7 @@ Die `image` Eigenschaft eines Containers unterstüzt die gleiche Syntax wie die 
 
 ## Aktualisieren von Images
 
-Die Standardregel für das Herunterladen von Images ist `IfNotPresent`, dies führt dazu, dass das Kubelet Images überspringt, die bereits auf einem Node vorliegen.
+Die Standardregel für das Herunterladen von Images ist `IfNotPresent`, dies führt dazu, dass das Image wird nur heruntergeladen wenn es noch nicht lokal verfügbar ist.
 Wenn sie stattdessen möchten, dass ein Image immer forciert heruntergeladen wird, können sie folgendes tun:
 
 
@@ -75,7 +75,7 @@ Authentifizierungsdaten können auf verschiedene Weisen hinterlegt werden:
     - Alle Pods können jedes gecachte Image auf einem Node nutzen
     - Setzt root - Zugriff auf allen Nodes zum Einrichten voraus
   - Spezifizieren eines ImagePullSecrets auf einem Pod
-    - Nur Pods, die eigene Secret tragen, haben Zugriff auf eine private Registry
+    - Nur Pods, die eigene Secrets tragen, haben Zugriff auf eine private Registry
 
 Jede Option wird im Folgenden im Detail beschrieben
 
@@ -246,7 +246,7 @@ Falls jedoch die `imagePullPolicy` Eigenschaft der Containers auf `IfNotPresent`
 
 Wenn Sie sich auf im Voraus heruntergeladene Images als Ersatz für eine Registry - Authentifizierung verlassen möchten, müssen sie sicherstellen, dass alle Knoten die gleichen, im Voraus heruntergeladenen Images aufweisen.
 
-Diese Medthode kann dazu genutzt werden, bestimmte Images aus Geschwindigkeitsgründen im Voraus zu laden, oder als Alternative zur Authentifizierung an einer eigenen Registry zu nutzen.
+Diese Methode kann dazu genutzt werden, bestimmte Images aus Geschwindigkeitsgründen im Voraus zu laden, oder als Alternative zur Authentifizierung an einer eigenen Registry zu nutzen.
 
 Alle Pods haben Leserechte auf alle im Voraus geladenen Images.
 
@@ -277,7 +277,7 @@ Pods können nur eigene Image Pull Secret in ihrem eigenen Namespace referenzier
 
 #### Referenzierung eines imagePullSecrets bei einem Pod
 
-Nun können Sie Pods erstellen, die dieses Secret referenzieren, indem Sie einen Aschnitt `imagePullSecrets` zu ihrer Pod - Definition hinzufügen.
+Nun können Sie Pods erstellen, die dieses Secret referenzieren, indem Sie einen Abschnitt `imagePullSecrets` zu ihrer Pod - Definition hinzufügen.
 
 ```shell
 cat <<EOF > pod.yaml

@@ -2,7 +2,7 @@
 title: Advanced contributing
 slug: advanced
 content_type: concept
-weight: 98
+weight: 100
 ---
 
 <!-- overview -->
@@ -190,3 +190,7 @@ When you're ready to start the recording, click Record to Cloud.
 When you're ready to stop recording, click Stop.
 
 The video uploads automatically to YouTube.
+
+### Offboarding a SIG Co-chair (Emeritus)
+
+See: [k/community/sig-docs/offboarding.md](https://github.com/kubernetes/community/blob/master/sig-docs/offboarding.md)

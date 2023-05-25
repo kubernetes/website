@@ -387,11 +387,11 @@ Default: 10
 <td>
    <!--eventRecordQPS is the maximum event creations per second. If 0, there
 is no limit enforced. The value cannot be a negative number.
-Default: 5
+Default: 50
    -->
    <p><code>eventRecordQPS</code>设置每秒钟可创建的事件个数上限。如果此值为 0，
 则表示没有限制。此值不能设置为负数。</p>
-  <p>默认值：5</p>
+  <p>默认值：50</p>
 </td>
 </tr>
 
@@ -404,12 +404,12 @@ eventBurst is the maximum size of a burst of event creations, temporarily
 allows event creations to burst to this number, while still not exceeding
 eventRecordQPS. This field canot be a negative number and it is only used
 when eventRecordQPS &gt; 0.
-Default: 10
+Default: 100
    -->
    <p><code>eventBurst</code>是突发性事件创建的上限值，允许事件创建临时上升到所指定数量，
 不过仍然不超过<code>eventRecordQPS</code>所设置的约束。此值必须是非负值，
 且只有<code>eventRecordQPS</code> &gt; 0 时才会使用此设置。</p>
-  <p>默认值：10</p>
+  <p>默认值：100</p>
 </td>
 </tr>
 
@@ -434,10 +434,10 @@ Default: true
 </td>
 <td>
    <!--
-enableContentionProfiling enables lock contention profiling, if enableDebuggingHandlers is true.
+<p>enableContentionProfiling enables block profiling, if enableDebuggingHandlers is true
 Default: false
    -->
-   <p><code>enableContentionProfiling</code>用于启用锁竞争性能分析，
+   <p><code>enableContentionProfiling</code>用于启用阻塞性能分析，
 仅用于<code>enableDebuggingHandlers</code>为<code>true</code>的场合。</p>
   <p>默认值：false</code>
 </td>
@@ -804,8 +804,7 @@ resources;</li>
 <li><code>single-numa-node</code>: kubelet only allows pods with a single NUMA alignment
 of CPU and device resources.</li>
 </ul>
-<p>Policies other than &quot;none&quot; require the TopologyManager feature gate to be enabled.
-Default: &quot;none&quot;</p>
+<p>Default: &quot;none&quot;</p>
   -->
    <p><code>topologyManagerPolicy</code>是要使用的拓扑管理器策略名称。合法值包括：</p> 
    <ul>
@@ -814,7 +813,6 @@ Default: &quot;none&quot;</p>
     <li><code>none</code>：kubelet 不了解 Pod CPU 和设备资源 NUMA 对齐需求。</li>
     <li><code>single-numa-node</code>：kubelet 仅允许在 CPU 和设备资源上对齐到同一 NUMA 节点的 Pod。</li>
    </ul>
-   <p>如果策略不是 &quot;none&quot;，则要求启用<code>TopologyManager</code>特性门控。</p>
    <p>默认值：&quot;none&quot;</p>
 </td>
 </tr>
@@ -830,8 +828,7 @@ that topology manager requests and hint providers generate. Valid values include
 <li><code>container</code>: topology policy is applied on a per-container basis.</li>
 <li><code>pod</code>: topology policy is applied on a per-pod basis.</li>
 </ul>
-<p>&quot;pod&quot; scope requires the TopologyManager feature gate to be enabled.
-Default: &quot;container&quot;</p>
+<p>Default: &quot;container&quot;</p>
    -->
    <p><code>topologyManagerScope</code>代表的是拓扑提示生成的范围，
 拓扑提示信息由提示提供者生成，提供给拓扑管理器。合法值包括：</p>
@@ -839,8 +836,22 @@ Default: &quot;container&quot;</p>
     <li><code>container</code>：拓扑策略是按每个容器来实施的。</li>
     <li><code>pod</code>：拓扑策略是按每个 Pod 来实施的。</li>
    </ul>
-   <p>&quot;pod&quot; 范围要求启用<code>TopologyManager</code>特性门控。</p>
    <p>默认值：&quot;container&quot;</p>
+</td>
+</tr>
+
+<tr><td><code>topologyManagerPolicyOptions</code><br/>
+<code>map[string]string</code>
+</td>
+<td>
+   <!--
+   <p>TopologyManagerPolicyOptions is a set of key=value which allows to set extra options
+to fine tune the behaviour of the topology manager policies.
+Requires  both the &quot;TopologyManager&quot; and &quot;TopologyManagerPolicyOptions&quot; feature gates to be enabled.
+Default: nil</p>
+   -->
+   <p>TopologyManagerPolicyOptions 是一组 key=value 键值映射，容许设置额外的选项来微调拓扑管理器策略的行为。需要同时启用 &quot;TopologyManager&quot; 和 &quot;TopologyManagerPolicyOptions&quot; 特性门控。
+默认值：nil</p>
 </td>
 </tr>
 
@@ -971,7 +982,7 @@ run those in addition to the pods specified by static pod files, and exit.
 Default: false
    -->
    <p><code>runOnce</code>字段被设置时，kubelet 会咨询 API 服务器一次并获得 Pod 列表，
-运行在静态 Pod 文件中指定的 Pod 及这里所获得的的 Pod，然后退出。</p>
+运行在静态 Pod 文件中指定的 Pod 及这里所获得的 Pod，然后退出。</p>
    <p>默认值：false</p>
 </td>
 </tr>
@@ -994,13 +1005,13 @@ Default: true
 </td>
 <td>
    <!--cpuCFSQuotaPeriod is the CPU CFS quota period value, `cpu.cfs_period_us`.
-The value must be between 1 us and 1 second, inclusive.
+The value must be between 1 ms and 1 second, inclusive.
 Requires the CustomCPUCFSQuotaPeriod feature gate to be enabled.
 Default: &quot;100ms&quot;
    -->
    <p><code>cpuCFSQuotaPeriod</code>设置 CPU CFS 配额周期值，<code>cpu.cfs_period_us</code>。
-此值需要介于 1 微秒和 1 秒之间，包含 1 微秒和 1 秒。
-此功能要求启用<code>CustomCPUCFSQuotaPeriod</code>特性门控被启用。</p>
+此值需要介于 1 毫秒和 1 秒之间，包含 1 毫秒和 1 秒。
+此功能要求启用 <code>CustomCPUCFSQuotaPeriod</code> 特性门控被启用。</p>
    <p>默认值：&quot;100ms&quot;</p>
 </td>
 </tr>
@@ -1051,10 +1062,10 @@ Default: &quot;application/vnd.kubernetes.protobuf&quot;
 </td>
 <td>
    <!--kubeAPIQPS is the QPS to use while talking with kubernetes apiserver.
-Default: 5
+Default: 50
    -->
    <p><code>kubeAPIQPS</code>设置与 Kubernetes API 服务器通信时要使用的 QPS（每秒查询数）。</p>
-   <p>默认值：5</p>
+   <p>默认值：50</p>
 </td>
 </tr>
 
@@ -1064,11 +1075,11 @@ Default: 5
 <td>
    <!--kubeAPIBurst is the burst to allow while talking with kubernetes API server.
 This field cannot be a negative number.
-Default: 10
+Default: 100
    -->
    <p><code>kubeAPIBurst</code>设置与 Kubernetes API 服务器通信时突发的流量级别。
 此字段取值不可以是负数。</p>
-   <p>默认值：10</p>
+   <p>默认值：100</p>
 </td>
 </tr>
 
@@ -1077,8 +1088,8 @@ Default: 10
 </td>
 <td>
    <!--serializeImagePulls when enabled, tells the Kubelet to pull images one
-at a time. We recommend &lowast;not&lowast; changing the default value on nodes that
-run docker daemon with version  < 1.9 or an Aufs storage backend.
+at a time. We recommend <em>not</em> changing the default value on nodes that
+run docker daemon with version  &lt; 1.9 or an Aufs storage backend.
 Issue #10959 has more details.
 Default: true
    -->
@@ -1089,6 +1100,21 @@ Default: true
 </td>
 </tr>
 
+<tr><td><code>maxParallelImagePulls</code><br/>
+<code>int32</code>
+</td>
+<td>
+   <!--MaxParallelImagePulls sets the maximum number of image pulls in parallel.
+This field cannot be set if SerializeImagePulls is true.
+Setting it to nil means no limit.
+Default: nil
+   -->
+   <p>maxParallelImagePulls 设置并行拉取镜像的最大数量。
+如果 serializeImagePulls 为 true，则无法设置此字段。
+把它设置为 nil 意味着没有限制。</p>
+   <p>默认值：true</p>
+</td>
+</tr>
 <tr><td><code>evictionHard</code><br/>
 <code>map[string]string</code>
 </td>
@@ -1467,13 +1493,13 @@ Default: &quot;&quot;
 <td>
    <!--systemReservedCgroup helps the kubelet identify absolute name of top level CGroup used
 to enforce <code>systemReserved</code> compute resource reservation for OS system daemons.
-Refer to <a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+Refer to <a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">Node Allocatable</a>
 doc for more information.
 Default: &quot;&quot;
    -->
    <p><code>systemReservedCgroup</code>帮助 kubelet 识别用来为 OS 系统级守护进程实施
 <code>systemReserved</code>计算资源预留时使用的顶级控制组（CGroup）。
-参考 <a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+参考 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">Node Allocatable</a>
 以了解详细信息。</p>
    <p>默认值：&quot;&quot;</p>
 </td>
@@ -1485,14 +1511,14 @@ Default: &quot;&quot;
 </td>
 <td>
    <!--kubeReservedCgroup helps the kubelet identify absolute name of top level CGroup used
-to enforce `KubeReserved` compute resource reservation for Kubernetes node system daemons.
-Refer to <a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+to enforce <code>KubeReserved</code> compute resource reservation for Kubernetes node system daemons.
+Refer to <a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">Node Allocatable</a>
 doc for more information.
-Default: ""
+Default: &quot;&quot;
    -->
    <p><code>kubeReservedCgroup</code> 帮助 kubelet 识别用来为 Kubernetes 节点系统级守护进程实施
 <code>kubeReserved</code>计算资源预留时使用的顶级控制组（CGroup）。
-参阅 <a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">Node Allocatable</a>
 了解进一步的信息。</p>
    <p>默认值：&quot;&quot;</p>
 </td>
@@ -1509,7 +1535,7 @@ If <code>none</code> is specified, no other options may be specified.
 When <code>system-reserved</code> is in the list, systemReservedCgroup must be specified.
 When <code>kube-reserved</code> is in the list, kubeReservedCgroup must be specified.
 This field is supported only when <code>cgroupsPerQOS</code> is set to true.
-Refer to <a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+Refer to <a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">Node Allocatable</a>
 for more information.
 Default: [&quot;pods&quot;]
    -->
@@ -1520,7 +1546,7 @@ Default: [&quot;pods&quot;]
    <p>如果列表中包含<code>system-reserved</code>，则必须设置<code>systemReservedCgroup</code>。</p>
    <p>如果列表中包含<code>kube-reserved</code>，则必须设置<code>kubeReservedCgroup</code>。</p>
    <p>这个字段只有在<code>cgroupsPerQOS</code>被设置为<code>true</code>才被支持。</p>
-   <p>参阅<a href="https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md">Node Allocatable</a>
+   <p>参阅<a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable">Node Allocatable</a>
 了解进一步的信息。</p>
    <p>默认值：[&quot;pods&quot;]</p>
 </td>
@@ -1575,7 +1601,7 @@ Default: &quot;quot;
 <code>bool</code>
 </td>
 <td>
-   <!--kernelMemcgNotification, if set, instructs the the kubelet to integrate with the
+   <!--kernelMemcgNotification, if set, instructs the kubelet to integrate with the
 kernel memcg notification for determining if memory eviction thresholds are
 exceeded rather than polling.
 Default: false
@@ -1616,6 +1642,18 @@ Default: true
 </td>
 </tr>
 
+<tr><td><code>enableSystemLogQuery</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <!--enableSystemLogQuery enables the node log query feature on the /logs endpoint.
+EnableSystemLogHandler has to be enabled in addition for this feature to work.
+   -->
+   <p>enableSystemLogQuery 启用在 /logs 端点上的节点日志查询功能。
+此外，还必须启用 enableSystemLogHandler 才能使此功能起作用。</p>
+   <p>默认值：false</p>
+</td>
+</tr>
 <tr><td><code>shutdownGracePeriod</code><br/>
 <a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
 </td>
@@ -1794,19 +1832,19 @@ Default: false
 when setting the cgroupv2 memory.high value to enforce MemoryQoS.
 Decreasing this factor will set lower high limit for container cgroups and put heavier reclaim pressure
 while increasing will put less reclaim pressure.
-See http://kep.k8s.io/2570 for more details.
+See https://kep.k8s.io/2570 for more details.
 Default: 0.8
    -->
    <p>当设置 cgroupv2 <code>memory.high</code>以实施<code>MemoryQoS</code>特性时，
 <code>memoryThrottlingFactor</code>用来作为内存限制或节点可分配内存的系数。</p>
    <p>减小此系数会为容器控制组设置较低的 high 限制值，从而增大回收压力；反之，
-增大此系数会降低回收压力。更多细节参见 http://kep.k8s.io/2570。</p>
+增大此系数会降低回收压力。更多细节参见 https://kep.k8s.io/2570。</p>
    <p>默认值：0.8</p>
 </td>
 </tr>
 
 <tr><td><code>registerWithTaints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <!--registerWithTaints are an array of taints to add to a node object when
@@ -1832,6 +1870,63 @@ Default: true
    <p>默认值：true</p>
 </td>
 </tr>
+<tr><td><code>tracing</code><br/>
+<a href="#TracingConfiguration"><code>TracingConfiguration</code></a>
+</td>
+<td>
+   <!-- Tracing specifies the versioned configuration for OpenTelemetry tracing clients.
+See https://kep.k8s.io/2832 for more details. -->
+   <p>tracing 为 OpenTelemetry 追踪客户端设置版本化的配置信息。
+参阅 https://kep.k8s.io/2832 了解更多细节。</p>
+</td>
+</tr>
+<tr><td><code>localStorageCapacityIsolation</code><br/>
+<code>bool</code>
+</td>
+<td>
+   <!-- LocalStorageCapacityIsolation enables local ephemeral storage isolation feature. The default setting is true.
+This feature allows users to set request/limit for container's ephemeral storage and manage it in a similar way
+as cpu and memory. It also allows setting sizeLimit for emptyDir volume, which will trigger pod eviction if disk
+usage from the volume exceeds the limit.
+This feature depends on the capability of detecting correct root file system disk usage. For certain systems,
+such as kind rootless, if this capability cannot be supported, the feature LocalStorageCapacityIsolation should be
+disabled. Once disabled, user should not set request/limit for container's ephemeral storage, or sizeLimit for emptyDir.
+Default: true -->
+   <p>localStorageCapacityIsolation 启用本地临时存储隔离特性。默认设置为 true。
+此特性允许用户为容器的临时存储设置请求/限制，并以类似的方式管理 cpu 和 memory 的请求/限制。
+此特性还允许为 emptyDir 卷设置 sizeLimit，如果卷所用的磁盘超过此限制将触发 Pod 驱逐。
+此特性取决于准确测定根文件系统磁盘用量的能力。对于 kind rootless 这类系统，
+如果不支持此能力，则 LocalStorageCapacityIsolation 特性应被禁用。
+一旦禁用，用户不应该为容器的临时存储设置请求/限制，也不应该为 emptyDir 设置 sizeLimit。
+默认值：true</p>
+</td>
+</tr>
+<tr><td><code>containerRuntimeEndpoint</code> <B>[必需]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <!--ContainerRuntimeEndpoint is the endpoint of container runtime.
+Unix Domain Sockets are supported on Linux, while npipe and tcp endpoints are supported on Windows.
+Examples:'unix:///path/to/runtime.sock', 'npipe:////./pipe/runtime'-->
+   <p>containerRuntimeEndpoint 是容器运行时的端点。
+Linux 支持 UNIX 域套接字，而 Windows 支持命名管道和 TCP 端点。
+示例：'unix://path/to/runtime.sock', 'npipe:////./pipe/runtime'。</p>
+</td>
+</tr>
+<tr><td><code>imageServiceEndpoint</code><br/>
+<code>string</code>
+</td>
+<td>
+   <!--ImageServiceEndpoint is the endpoint of container image service.
+Unix Domain Socket are supported on Linux, while npipe and tcp endpoints are supported on Windows.
+Examples:'unix:///path/to/runtime.sock', 'npipe:////./pipe/runtime'.
+If not specified, the value in containerRuntimeEndpoint is used.-->
+   <p>imageServiceEndpoint 是容器镜像服务的端点。
+Linux 支持 UNIX 域套接字，而 Windows 支持命名管道和 TCP 端点。
+示例：'unix:///path/to/runtime.sock'、'npipe:////./pipe/runtime'。
+如果未指定，则使用 containerRuntimeEndpoint 中的值。</p>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -1854,7 +1949,7 @@ SerializedNodeConfigSource 允许对 `v1.NodeConfigSource` 执行序列化操作
 <tr><td><code>kind</code><br/>string</td><td><code>SerializedNodeConfigSource</code></td></tr>
 
 <tr><td><code>source</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#nodeconfigsource-v1-core"><code>core/v1.NodeConfigSource</code></a>
 </td>
 <td>
    <!--source is the source that we are serializing.
@@ -2319,7 +2414,7 @@ MemoryReservation 为每个 NUMA 节点设置不同类型的内存预留。
 </tr>
 
 <tr><td><code>limits</code> <B>[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#resourcelist-v1-core"><code>core/v1.ResourceList</code></a>
 </td>
 <td>
    <!--span class="text-muted">No description provided.</span-->
@@ -2443,9 +2538,10 @@ FormatOptions 包含为不同日志格式提供的选项。
 <a href="#JSONOptions"><code>JSONOptions</code></a>
 </td>
 <td>
-   <p><!--[Experimental] JSON contains options for logging format &quot;json&quot;.-->
-   [试验功能] <code>json</code> 包含为 &quot;json&quot; 日志格式提供的选项。
-   </p>
+   <!-- [Alpha] JSON contains options for logging format &quot;json&quot;.
+Only available when the LoggingAlphaOptions feature gate is enabled. -->
+   <p>[Alpha] JSON 包含记录 &quot;json&quot; 格式日志的选项。
+只有 LoggingAlphaOptions 特性门控被启用时才可用。</p>
 </td>
 </tr>
 </tbody>
@@ -2475,13 +2571,15 @@ JSONOptions 包含为 &quot;json&quot; 日志格式提供的选项。
 </td>
 <td>
    <p>
-   <!--[Experimental] SplitStream redirects error messages to stderr while
+   <!--[Alpha] SplitStream redirects error messages to stderr while
 info messages go to stdout, with buffering. The default is to write
-both to stdout, without buffering.
+both to stdout, without buffering. Only available when
+the LoggingAlphaOptions feature gate is enabled.
    -->
-   [试验功能] <code>splitStream</code> 将错误信息重定向到标准错误输出（stderr），
+   [Alpha] <code>splitStream</code> 将错误信息重定向到标准错误输出（stderr），
 而将提示信息重定向到标准输出（stdout），并为二者提供缓存。
 默认设置是将二者都写出到标准输出，并且不提供缓存。
+只有 LoggingAlphaOptions 特性门控被启用时才可用。
    </p>
 </td>
 </tr>
@@ -2491,15 +2589,24 @@ both to stdout, without buffering.
 </td>
 <td>
    <p>
-   <!--[Experimental] InfoBufferSize sets the size of the info stream when
-using split streams. The default is zero, which disables buffering.-->
-   [试验功能] <code>infoBufferSize</coe> 在分离数据流时用来设置提示数据流的大小。
-默认值为 0，相当于禁止缓存。
+   <!--[Alpha] InfoBufferSize sets the size of the info stream when
+using split streams. The default is zero, which disables buffering.
+Only available when the LoggingAlphaOptions feature gate is enabled.-->
+   [Alpha] <code>infoBufferSize</code> 在分离数据流时用来设置提示数据流的大小。
+默认值为 0，相当于禁止缓存。只有 LoggingAlphaOptions 特性门控被启用时才可用。
    </p>
 </td>
 </tr>
 </tbody>
 </table>
+
+## `LogFormatFactory`     {#LogFormatFactory}
+
+<!--
+LogFormatFactory provides support for a certain additional,
+non-default log format.
+-->
+<p>LogFormatFactory 提供了对某些附加的、非默认的日志格式的支持。</p>
 
 ## `LoggingConfiguration`     {#LoggingConfiguration}
 
@@ -2511,12 +2618,9 @@ using split streams. The default is zero, which disables buffering.-->
 - [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
 
 <!--
-LoggingConfiguration contains logging options
-Refer [Logs Options](https://github.com/kubernetes/component-base/blob/master/logs/options.go) for more information.
+LoggingConfiguration contains logging options.
 -->
 LoggingConfiguration 包含日志选项。
-参考 [Logs Options](https://github.com/kubernetes/component-base/blob/master/logs/options.go)
-以了解更多信息。
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -2541,8 +2645,8 @@ default value of format is `text`-->
   <p>
   <!--
    Maximum number of nanoseconds (i.e. 1s = 1000000000) between log
-   flushes.  Ignored if the selected logging backend writes log
-   messages without buffering.
+flushes. Ignored if the selected logging backend writes log
+messages without buffering.
   -->
    对日志进行清洗的最大间隔纳秒数（例如，1s = 1000000000）。
    如果所选的日志后端在写入日志消息时不提供缓存，则此配置会被忽略。
@@ -2551,7 +2655,7 @@ default value of format is `text`-->
 </tr>
 
 <tr><td><code>verbosity</code> <B>[必需]</B><br/>
-<code>uint32</code>
+<a href="#VerbosityLevel"><code>VerbosityLevel</code></a>
 </td>
 <td>
   <p>
@@ -2583,12 +2687,59 @@ Only supported for &quot;text&quot; log format.-->
 </td>
 <td>
   <p>
-  <!--[Experimental] Options holds additional parameters that are specific
+  <!--[Alpha] Options holds additional parameters that are specific
 to the different logging formats. Only the options for the selected
-format get used, but all of them get validated.-->
-  [试验功能] <code>options</code> 中包含特定于不同日志格式的配置参数。
-只有针对所选格式的选项会被使用，但是合法性检查时会查看所有选项配置。
+format get used, but all of them get validated.
+Only available when the LoggingAlphaOptions feature gate is enabled.-->
+  [Alpha] <code>options</code> 中包含特定于不同日志格式的附加参数。
+只有针对所选格式的选项会被使用，但是合法性检查时会查看所有参数。
+只有 LoggingAlphaOptions 特性门控被启用时才可用。
   </p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `TracingConfiguration`     {#TracingConfiguration}
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [KubeletConfiguration](#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+
+<!--
+TracingConfiguration provides versioned configuration for OpenTelemetry tracing clients.
+-->
+<p>TracingConfiguration 为 OpenTelemetry 追踪客户端提供版本化的配置信息。</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">字段</th><th>描述</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>endpoint</code><br/>
+<code>string</code>
+</td>
+<td>
+   <!-- Endpoint of the collector this component will report traces to.
+The connection is insecure, and does not currently support TLS.
+Recommended is unset, and endpoint is the otlp grpc default, localhost:4317. -->
+   <p>采集器的 endpoint，此组件将向其报告追踪链路。
+此连接不安全，目前不支持 TLS。推荐不设置，endpoint 是 otlp grpc 默认值，localhost:4317。</p>
+</td>
+</tr>
+<tr><td><code>samplingRatePerMillion</code><br/>
+<code>int32</code>
+</td>
+<td>
+   <!-- SamplingRatePerMillion is the number of samples to collect per million spans.
+Recommended is unset. If unset, sampler respects its parent span's sampling
+rate, but otherwise never samples. -->
+   <p>samplingRatePerMillion 是每百万 span 要采集的样本数。推荐不设置。
+如果不设置，则采样器优先使用其父级 span 的采样率，否则不采样。</p>
 </td>
 </tr>
 </tbody>
@@ -2597,9 +2748,9 @@ format get used, but all of them get validated.-->
 ## `VModuleConfiguration`     {#VModuleConfiguration}
 
 <!--
-(Alias of `[]k8s.io/component-base/config/v1alpha1.VModuleItem`)
+(Alias of `[]k8s.io/component-base/logs/api/v1.VModuleItem`)
 -->
-（`[]k8s.io/component-base/config/v1alpha1.VModuleItem` 类型的别名）
+（`[]k8s.io/component-base/logs/api/v1.VModuleItem` 的别名）
 
 <!--
 **Appears in:**
@@ -2614,4 +2765,23 @@ and the corresponding verbosity threshold.
 -->
 VModuleConfiguration 是一个集合，其中包含一个个文件名（或文件名模式）
 及其对应的详细程度阈值。
+
+## `VerbosityLevel`     {#VerbosityLevel}
+    
+<!--
+(Alias of `uint32`)
+-->
+（`uint32` 的别名）
+
+<!--
+**Appears in:**
+-->
+**出现在：**
+
+- [LoggingConfiguration](#LoggingConfiguration)
+
+<!--
+VerbosityLevel represents a klog or logr verbosity threshold.
+-->
+<p>VerbosityLevel 表示 klog 或 logr 的详细程度（verbosity）阈值。</p>
 

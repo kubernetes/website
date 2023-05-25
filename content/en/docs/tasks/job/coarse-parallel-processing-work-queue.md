@@ -21,7 +21,7 @@ Here is an overview of the steps in this example:
 1. **Create a queue, and fill it with messages.**  Each message represents one task to be done.  In
    this example, a message is an integer that we will do a lengthy computation on.
 1. **Start a Job that works on tasks from the queue**.  The Job starts several pods.  Each pod takes
-   one task from the message queue, processes it, and repeats until the end of the queue is reached.
+   one task from the message queue, processes it, and exits.
 
 ## {{% heading "prerequisites" %}}
 
@@ -104,7 +104,7 @@ Address: 10.0.147.152
 # Your address will vary.
 ```
 
-If Kube-DNS is not setup correctly, the previous step may not work for you.
+If Kube-DNS is not set up correctly, the previous step may not work for you.
 You can also find the service IP in an env var:
 
 ```
@@ -244,7 +244,13 @@ So, now run the Job:
 kubectl apply -f ./job.yaml
 ```
 
-Now wait a bit, then check on the job.
+You can wait for the Job to succeed, with a timeout:
+```shell
+# The check for condition name is case insensitive
+kubectl wait --for=condition=complete --timeout=300s job/job-wq-1
+```
+
+Next, check on the Job:
 
 ```shell
 kubectl describe jobs/job-wq-1
@@ -285,7 +291,9 @@ Events:
   14s        14s        1        {job }                   Normal    SuccessfulCreate    Created pod: job-wq-1-p17e0
 ```
 
-All our pods succeeded.  Yay.
+
+
+All the pods for that Job succeeded. Yay.
 
 
 

@@ -66,7 +66,7 @@ Kubernetesの主要な要素は、WindowsでもLinuxと同じように機能し�
   * リソース制限
 * [Controllers](/ja/docs/concepts/workloads/controllers/)
 
-    Kubernetesコントローラは、Podの望ましい状態を処理します。次のワークロードコントローラーは、Windowsコンテナでサポートされています。:
+    Kubernetesコントローラーは、Podの望ましい状態を処理します。次のワークロードコントローラーは、Windowsコンテナでサポートされています。:
 
   * ReplicaSet
   * ReplicationController
@@ -123,7 +123,7 @@ Kubernetes v1.18におけるWindows上でのContainerDは以下の既知の欠�
 Kubernetes[ボリューム](/docs/concepts/storage/volumes/)を使用すると、データの永続性とPodボリュームの共有要件を備えた複雑なアプリケーションをKubernetesにデプロイできます。特定のストレージバックエンドまたはプロトコルに関連付けられた永続ボリュームの管理には、ボリュームのプロビジョニング/プロビジョニング解除/サイズ変更、Kubernetesノードへのボリュームのアタッチ/デタッチ、およびデータを永続化する必要があるPod内の個別のコンテナへのボリュームのマウント/マウント解除などのアクションが含まれます。特定のストレージバックエンドまたはプロトコルに対してこれらのボリューム管理アクションを実装するコードは、Kubernetesボリューム[プラグイン](/docs/concepts/storage/volumes/#types-of-volumes)の形式で出荷されます。次の幅広いクラスのKubernetesボリュームプラグインがWindowsでサポートされています。:
 
 ##### In-treeボリュームプラグイン
-In-treeボリュームプラグインに関連付けられたコードは、コアKubernetesコードベースの一部として提供されます。In-treeボリュームプラグインのデプロイでは、追加のスクリプトをインストールしたり、個別のコンテナ化されたプラグインコンポーネントをデプロイしたりする必要はありません。これらのプラグインは、ストレージバックエンドでのボリュームのプロビジョニング/プロビジョニング解除とサイズ変更、Kubernetesノードへのボリュームのアタッチ/アタッチ解除、Pod内の個々のコンテナーへのボリュームのマウント/マウント解除を処理できます。次のIn-treeプラグインは、Windowsノードをサポートしています。:
+In-treeボリュームプラグインに関連付けられたコードは、コアKubernetesコードベースの一部として提供されます。In-treeボリュームプラグインのデプロイでは、追加のスクリプトをインストールしたり、個別のコンテナ化されたプラグインコンポーネントをデプロイしたりする必要はありません。これらのプラグインは、ストレージバックエンドでのボリュームのプロビジョニング/プロビジョニング解除とサイズ変更、Kubernetesノードへのボリュームのアタッチ/アタッチ解除、Pod内の個々のコンテナへのボリュームのマウント/マウント解除を処理できます。次のIn-treeプラグインは、Windowsノードをサポートしています。:
 
 * [awsElasticBlockStore](/docs/concepts/storage/volumes/#awselasticblockstore)
 * [azureDisk](/docs/concepts/storage/volumes/#azuredisk)
@@ -167,7 +167,7 @@ Windowsは、L2bridge、L2tunnel、Overlay、Transparent、NATの5つの異な�
 | -------------- | ----------- | ------------------------------ | --------------- | ------------------------------ |
 | L2bridge       | コンテナは外部のvSwitchに接続されます。コンテナはアンダーレイネットワークに接続されますが、物理ネットワークはコンテナのMACを上り/下りで書き換えるため、MACを学習する必要はありません。コンテナ間トラフィックは、コンテナホスト内でブリッジされます。 | MACはホストのMACに書き換えられ、IPは変わりません。| [win-bridge](https://github.com/containernetworking/plugins/tree/master/plugins/main/windows/win-bridge)、[Azure-CNI](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md)、Flannelホストゲートウェイは、win-bridgeを使用します。 | win-bridgeはL2bridgeネットワークモードを使用して、コンテナをホストのアンダーレイに接続して、最高のパフォーマンスを提供します。ノード間接続にはユーザー定義ルート(UDR)が必要です。 |
 | L2Tunnel | これはl2bridgeの特殊なケースですが、Azureでのみ使用されます。すべてのパケットは、SDNポリシーが適用されている仮想化ホストに送信されます。| MACが書き換えられ、IPがアンダーレイネットワークで表示されます。 | [Azure-CNI](https://github.com/Azure/azure-container-networking/blob/master/docs/cni.md) | Azure-CNIを使用すると、コンテナをAzure vNETと統合し、[Azure Virtual Networkが提供](https://azure.microsoft.com/en-us/services/virtual-network/)する一連の機能を活用できます。たとえば、Azureサービスに安全に接続するか、Azure NSGを使用します。[azure-cniのいくつかの例](https://docs.microsoft.com/en-us/azure/aks/concepts-network#azure-cni-advanced-networking)を参照してください。|
-| オーバーレイ(KubernetesのWindows用のオーバーレイネットワークは *アルファ* 段階です) | コンテナには、外部のvSwitchに接続されたvNICが付与されます。各オーバーレイネットワークは、カスタムIPプレフィックスで定義された独自のIPサブネットを取得します。オーバーレイネットワークドライバーは、VXLANを使用してカプセル化します。 | 外部ヘッダーでカプセル化されます。 | [Win-overlay](https://github.com/containernetworking/plugins/tree/master/plugins/main/windows/win-overlay)、Flannel VXLAN (win-overlayを使用) | win-overlayは、仮想コンテナーネットワークをホストのアンダーレイから分離する必要がある場合に使用する必要があります(セキュリティ上の理由など)。データセンター内のIPが制限されている場合に、(異なるVNIDタグを持つ)異なるオーバーレイネットワークでIPを再利用できるようにします。このオプションには、Windows Server 2019で[KB4489899](https://support.microsoft.com/help/4489899)が必要です。|
+| オーバーレイ(KubernetesのWindows用のオーバーレイネットワークは *アルファ* 段階です) | コンテナには、外部のvSwitchに接続されたvNICが付与されます。各オーバーレイネットワークは、カスタムIPプレフィックスで定義された独自のIPサブネットを取得します。オーバーレイネットワークドライバーは、VXLANを使用してカプセル化します。 | 外部ヘッダーでカプセル化されます。 | [Win-overlay](https://github.com/containernetworking/plugins/tree/master/plugins/main/windows/win-overlay)、Flannel VXLAN (win-overlayを使用) | win-overlayは、仮想コンテナネットワークをホストのアンダーレイから分離する必要がある場合に使用する必要があります(セキュリティ上の理由など)。データセンター内のIPが制限されている場合に、(異なるVNIDタグを持つ)異なるオーバーレイネットワークでIPを再利用できるようにします。このオプションには、Windows Server 2019で[KB4489899](https://support.microsoft.com/help/4489899)が必要です。|
 | 透過的([ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes)の特別な使用例) | 外部のvSwitchが必要です。コンテナは外部のvSwitchに接続され、論理ネットワーク(論理スイッチおよびルーター)を介したPod内通信を可能にします。 | パケットは、[GENEVE](https://datatracker.ietf.org/doc/draft-gross-geneve/)または[STT](https://datatracker.ietf.org/doc/draft-davie-stt/)トンネリングを介してカプセル化され、同じホスト上にないポッドに到達します。パケットは、ovnネットワークコントローラーによって提供されるトンネルメタデータ情報を介して転送またはドロップされます。NATは南北通信のために行われます。 | [ovn-kubernetes](https://github.com/openvswitch/ovn-kubernetes) | [ansible経由でデプロイ](https://github.com/openvswitch/ovn-kubernetes/tree/master/contrib)します。分散ACLは、Kubernetesポリシーを介して適用できます。 IPAMをサポートします。負荷分散は、kube-proxyなしで実現できます。 NATは、ip​​tables/netshを使用せずに行われます。 |
 | NAT(*Kubernetesでは使用されません*) | コンテナには、内部のvSwitchに接続されたvNICが付与されます。DNS/DHCPは、[WinNAT](https://blogs.technet.microsoft.com/virtualization/2016/05/25/windows-nat-winnat-capabilities-and-limitations/)と呼ばれる内部コンポーネントを使用して提供されます。 | MACおよびIPはホストMAC/IPに書き換えられます。 | [nat](https://github.com/Microsoft/windows-container-networking/tree/master/plugins/nat) | 完全を期すためにここに含まれています。 |
 
@@ -195,7 +195,7 @@ Windowsでは、次のIPAMオプションがサポートされています。
 
 #### コントロールプレーン
 
-Windowsは、Kubernetesアーキテクチャとコンポーネントマトリックスのワーカーノードとしてのみサポートされています。つまり、Kubernetesクラスタには常にLinuxマスターノード、0以上のLinuxワーカーノード、0以上のWindowsワーカーノードが含まれている必要があります。
+Windowsは、Kubernetesアーキテクチャとコンポーネントマトリックスのワーカーノードとしてのみサポートされています。つまり、Kubernetesクラスターには常にLinuxマスターノード、0以上のLinuxワーカーノード、0以上のWindowsワーカーノードが含まれている必要があります。
 
 #### コンピュート
 
@@ -221,7 +221,7 @@ Windowsには厳密な互換性ルールがあり、ホストOSのバージョ�
 
 Windowsには、Linuxのようなメモリ不足のプロセスキラーはありません。Windowsは常に全ユーザーモードのメモリ割り当てを仮想として扱い、ページファイルは必須です。正味の効果は、WindowsはLinuxのようなメモリ不足の状態にはならず、メモリ不足（OOM）終了の影響を受ける代わりにページをディスクに処理します。メモリが過剰にプロビジョニングされ、物理メモリのすべてが使い果たされると、ページングによってパフォーマンスが低下する可能性があります。
 
-2ステップのプロセスで、メモリ使用量を妥当な範囲内に保つことが可能です。まず、kubeletパラメータ`--kubelet-reserve`や`--system-reserve`を使用して、ノード（コンテナ外）でのメモリ使用量を明確にします。これにより、[NodeAllocatable](/ja/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable))が削減されます。ワークロードをデプロイするときは、コンテナにリソース制限をかけます（制限のみを設定するか、制限が要求と等しくなければなりません）。これにより、NodeAllocatableも差し引かれ、ノードのリソースがフルな状態になるとSchedulerがPodを追加できなくなります。
+2ステップのプロセスで、メモリ使用量を妥当な範囲内に保つことが可能です。まず、kubeletパラメーター`--kubelet-reserve`や`--system-reserve`を使用して、ノード（コンテナ外）でのメモリ使用量を明確にします。これにより、[NodeAllocatable](/ja/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable))が削減されます。ワークロードをデプロイするときは、コンテナにリソース制限をかけます（制限のみを設定するか、制限が要求と等しくなければなりません）。これにより、NodeAllocatableも差し引かれ、ノードのリソースがフルな状態になるとSchedulerがPodを追加できなくなります。
 
 過剰なプロビジョニングを回避するためのベストプラクティスは、Windows、Docker、およびKubernetesのプロセスに対応するために、最低2GBのメモリを予約したシステムでkubeletを構成することです。
 
@@ -365,7 +365,7 @@ Windowsでは、PodSecurityContextフィールドはどれも機能しません�
 
 ## ヘルプとトラブルシューティングを学ぶ {#troubleshooting}
 
-Kubernetesクラスターのトラブルシューティングの主なヘルプソースは、この[セクション](/docs/tasks/debug-application-cluster/troubleshooting/)から始める必要があります。このセクションには、いくつか追加的な、Windows固有のトラブルシューティングヘルプが含まれています。ログは、Kubernetesにおけるトラブルシューティング問題の重要な要素です。他のコントリビューターからトラブルシューティングの支援を求めるときは、必ずそれらを含めてください。SIG-Windows[ログ収集に関するコントリビュートガイド](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs)の指示に従ってください。
+Kubernetesクラスターのトラブルシューティングの主なヘルプソースは、[トラブルシューティング](/ja/docs/tasks/debug/)ページから始める必要があります。このセクションには、いくつか追加的な、Windows固有のトラブルシューティングヘルプが含まれています。ログは、Kubernetesにおけるトラブルシューティング問題の重要な要素です。他のコントリビューターからトラブルシューティングの支援を求めるときは、必ずそれらを含めてください。SIG-Windows[ログ収集に関するコントリビュートガイド](https://github.com/kubernetes/community/blob/master/sig-windows/CONTRIBUTING.md#gathering-logs)の指示に従ってください。
 
 1. start.ps1が正常に完了したことをどのように確認できますか？
 
@@ -481,7 +481,7 @@ Kubernetesクラスターのトラブルシューティングの主なヘルプ�
 
 1. コンテナのvNICとHNSエンドポイントが削除されています
 
-    この問題は、`hostname-override`パラメータが[kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)に渡されない場合に発生する可能性があります。これを解決するには、ユーザーは次のようにホスト名をkube-proxyに渡す必要があります。:
+    この問題は、`hostname-override`パラメーターが[kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)に渡されない場合に発生する可能性があります。これを解決するには、ユーザーは次のようにホスト名をkube-proxyに渡す必要があります。:
 
     ```powershell
     C:\k\kube-proxy.exe --hostname-override=$(hostname)

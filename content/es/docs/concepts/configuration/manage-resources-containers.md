@@ -676,7 +676,7 @@ La cantidad de recursos disponibles para los pods es menor que la capacidad del 
 los demonios del sistema utilizan una parte de los recursos disponibles. El campo `allocatable`
 [NodeStatus](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#nodestatus-v1-core)
 indica la cantidad de recursos que están disponibles para los Pods. Para más información, mira 
-[Node Allocatable Resources](https://git.k8s.io/community/contributors/design-proposals/node/node-allocatable.md).
+[Node Allocatable Resources](https://git.k8s.io/design-proposals-archive/node/node-allocatable.md).
 
 La característica [resource quota](/docs/concepts/policy/resource-quotas/) se puede configurar
 para limitar la cantidad total de recursos que se pueden consumir. Si se usa en conjunto
@@ -722,7 +722,7 @@ Conditions:
 Events:
   FirstSeen                         LastSeen                         Count  From                              SubobjectPath                       Reason      Message
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {scheduler }                                                          scheduled   Successfully assigned simmemleak-hra99 to kubernetes-node-tf0f
-  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   pulled      Pod container image "k8s.gcr.io/pause:0.8.0" already present on machine
+  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   pulled      Pod container image "registry.k8s.io/pause:0.8.0" already present on machine
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   created     Created with docker id 6a41280f516d
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   started     Started with docker id 6a41280f516d
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    spec.containers{simmemleak}         created     Created with docker id 87348f12526a
@@ -757,10 +757,10 @@ Puedes ver que el Contenedor fué terminado a causa de `reason:OOM Killed`, dond
 * Obtén experiencia práctica [assigning CPU resources to Containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
 
 * Para más detalles sobre la diferencia entre solicitudes y límites, mira
-  [Resource QoS](https://git.k8s.io/community/contributors/design-proposals/node/resource-qos.md).
+  [Resource QoS](https://git.k8s.io/design-proposals-archive/node/resource-qos.md).
 
 * Lee [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core) referencia de API
 
 * Lee [ResourceRequirements](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#resourcerequirements-v1-core) referencia de API
 
-* Lee sobre [cuotas de proyecto](https://xfs.org/index.php/XFS_FAQ#Q:_Quota:_Do_quotas_work_on_XFS.3F) en XFS
+* Lee sobre [cuotas de proyecto](https://www.linux.org/docs/man8/xfs_quota.html) en XFS

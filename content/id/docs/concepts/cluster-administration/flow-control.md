@@ -199,7 +199,7 @@ di atas batas tersebut akan mengantri, dengan teknik _sharding shuffle_ dan _fai
 untuk menyelaraskan kemajuan antara _flow_ permintaan.
 
 Konfigurasi antrian memungkinkan mengatur algoritma _fair queuing_ untuk sebuah
-tingkat prioritas. Detail algoritma dapat dibaca di [proposal pembaharuan](#what-s-next), namun secara singkat:
+tingkat prioritas. Detail algoritma dapat dibaca di [proposal pembaharuan](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness), namun secara singkat:
 
 * Meningkatkan `queue` (antrian) berarti mengurangi tingkat tabrakan antara _flow_ yang berbeda, 
   sehingga berakibat pada biaya untuk meningkatkan penggunaan memori. Nilai 1 di sini secara 
@@ -243,6 +243,7 @@ https://play.golang.org/p/Gi0PLgVHiUg, yang digunakan untuk menghitung nilai-nil
 |       6|        256|	2.7134626662687968e-12|	2.9516464018476436e-07|	0.0008895654642000348|
 |       6|        512|	4.116062922897309e-14|	4.982983350480894e-09|	2.26025764343413e-05|
 |       6|       1024|	6.337324016514285e-16|	8.09060164312957e-11|	4.517408062903668e-07|
+{{< /table >}}
 
 ### FlowSchema
 

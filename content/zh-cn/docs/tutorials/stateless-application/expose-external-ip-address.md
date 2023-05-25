@@ -28,11 +28,11 @@ external IP address.
 * Configure `kubectl` to communicate with your Kubernetes API server. For instructions, see the
   documentation for your cloud provider.
 -->
- * 安装 [kubectl](/zh-cn/docs/tasks/tools/)。
- * 使用 Google Kubernetes Engine 或 Amazon Web Services 等云供应商创建 Kubernetes 集群。
-   本教程创建了一个[外部负载均衡器](/zh-cn/docs/tasks/access-application-cluster/create-external-load-balancer/)，
-   需要云供应商。
- * 配置 `kubectl` 与 Kubernetes API 服务器通信。有关说明，请参阅云供应商文档。
+* 安装 [kubectl](/zh-cn/docs/tasks/tools/)。
+* 使用 Google Kubernetes Engine 或 Amazon Web Services 等云供应商创建 Kubernetes 集群。
+  本教程创建了一个[外部负载均衡器](/zh-cn/docs/tasks/access-application-cluster/create-external-load-balancer/)，
+  需要云供应商。
+* 配置 `kubectl` 与 Kubernetes API 服务器通信。有关说明，请参阅云供应商文档。
 
 ## {{% heading "objectives" %}}
 
@@ -50,7 +50,7 @@ external IP address.
 <!--
 ## Creating a service for an application running in five pods
 -->
-## 为一个在五个 pod 中运行的应用程序创建服务
+## 为一个在五个 pod 中运行的应用程序创建服务   {#creating-a-service-for-an-app-running-in-five-pods}
 
 <!--
 1. Run a Hello World application in your cluster:
@@ -62,6 +62,7 @@ external IP address.
    ```shell
    kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml
    ```
+
    <!--
    The preceding command creates a
    {{< glossary_tooltip text="Deployment" term_id="deployment" >}}
@@ -71,11 +72,12 @@ external IP address.
    {{< glossary_tooltip text="Pods" term_id="pod" >}}
    each of which runs the Hello World application.
    -->
+   
    前面的命令创建一个
    {{< glossary_tooltip text="Deployment" term_id="deployment" >}}
    对象和一个关联的
    {{< glossary_tooltip term_id="replica-set" text="ReplicaSet" >}} 对象。
-   ReplicaSet 有五个 {{< glossary_tooltip text="Pods" term_id="pod" >}}，
+   ReplicaSet 有五个 {{< glossary_tooltip text="Pod" term_id="pod" >}}，
    每个都运行 Hello World 应用程序。
 
 <!--
@@ -119,6 +121,7 @@ external IP address.
    <!--
    The output is similar to this:
    -->
+
    输出类似于：
 
    ```console
@@ -126,20 +129,20 @@ external IP address.
    my-service   LoadBalancer   10.3.245.137   104.198.205.71   8080/TCP   54s
    ```
 
-   <!--
    {{< note >}}
+   <!--
    The `type=LoadBalancer` service is backed by external cloud providers, which is not covered in this example, please refer to [this page](/docs/concepts/services-networking/service/#loadbalancer) for the details.
-   {{< /note >}}
    -->
-   提示：`type=LoadBalancer` 服务由外部云服务提供商提供支持，本例中不包含此部分，
+   `type=LoadBalancer` 服务由外部云服务提供商提供支持，本例中不包含此部分，
    详细信息请参考[此页](/zh-cn/docs/concepts/services-networking/service/#loadbalancer)
-
-   <!--
-   {{< note >}}
-   If the external IP address is shown as \<pending\>, wait for a minute and enter the same command again.
    {{< /note >}}
+
+   {{< note >}}
+   <!--
+   If the external IP address is shown as \<pending\>, wait for a minute and enter the same command again.
    -->
-   提示：如果外部 IP 地址显示为 \<pending\>，请等待一分钟再次输入相同的命令。
+   如果外部 IP 地址显示为 \<pending\>，请等待一分钟再次输入相同的命令。
+   {{< /note >}}
 
 <!--
 1. Display detailed information about the Service:
@@ -153,6 +156,7 @@ external IP address.
    <!--
    The output is similar to this:
    -->
+
    输出类似于：
 
    ```console
@@ -170,13 +174,15 @@ external IP address.
    Session Affinity:   None
    Events:         <none>
    ```
+
    <!--
    Make a note of the external IP address (`LoadBalancer Ingress`) exposed by
    your service. In this example, the external IP address is 104.198.205.71.
    Also note the value of `Port` and `NodePort`. In this example, the `Port`
    is 8080 and the `NodePort` is 32377.
    -->
-   记下服务公开的外部 IP 地址（`LoadBalancer Ingress`)。
+
+   记下服务公开的外部 IP 地址（`LoadBalancer Ingress`）。
    在本例中，外部 IP 地址是 104.198.205.71。还要注意 `Port` 和 `NodePort` 的值。
    在本例中，`Port` 是 8080，`NodePort` 是 32377。
 
@@ -198,6 +204,7 @@ external IP address.
    <!--
    The output is similar to this:
    -->
+
    输出类似于：
 
    ```console
@@ -225,13 +232,16 @@ external IP address.
    If you are using minikube, typing `minikube service my-service` will
    automatically open the Hello World application in a browser.
    -->
+
    其中 `<external-ip>` 是你的服务的外部 IP 地址（`LoadBalancer Ingress`），
    `<port>` 是你的服务描述中的 `port` 的值。
-   如果你正在使用 minikube，输入 `minikube service my-service` 将在浏览器中自动打开 Hello World 应用程序。
+   如果你正在使用 minikube，输入 `minikube service my-service`
+   将在浏览器中自动打开 Hello World 应用程序。
 
    <!--
    The response to a successful request is a hello message:
    -->
+
    成功请求的响应是一条问候消息：
 
    ```shell
@@ -253,7 +263,7 @@ kubectl delete services my-service
 To delete the Deployment, the ReplicaSet, and the Pods that are running
 the Hello World application, enter this command:
 -->
-要删除正在运行 Hello World 应用程序的 Deployment，ReplicaSet 和 Pod，请输入以下命令：
+要删除正在运行 Hello World 应用程序的 Deployment、ReplicaSet 和 Pod，请输入以下命令：
 
 ```shell
 kubectl delete deployment hello-world
@@ -263,7 +273,6 @@ kubectl delete deployment hello-world
 
 <!--
 Learn more about
-[connecting applications with services](/docs/concepts/services-networking/connect-applications-service/).
+[connecting applications with services](/docs/tutorials/services/connect-applications-service/).
 -->
-进一步了解[将应用程序与服务连接](/zh-cn/docs/concepts/services-networking/connect-applications-service/)。
-
+进一步了解[使用 Service 连接到应用](/zh-cn/docs/tutorials/services/connect-applications-service/)。

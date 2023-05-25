@@ -15,7 +15,7 @@ This page provides an overview of best practices when it comes to enforcing
 
 ## Using the built-in Pod Security Admission Controller
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 The [Pod Security Admission Controller](/docs/reference/access-authn-authz/admission-controllers/#podsecurity)
 intends to replace the deprecated PodSecurityPolicies. 
@@ -28,7 +28,7 @@ namespace, and by referencing the Pod Security Standards, decide on an appropria
 each of them. Unlabeled namespaces should only indicate that they've yet to be evaluated.
 
 In the scenario that all workloads in all namespaces have the same security requirements,
-we provide an [example](/docs/concepts/security/pod-security-admission/#applying-to-all-namespaces)
+we provide an [example](/docs/tasks/configure-pod-container/enforce-standards-namespace-labels/#applying-to-all-namespaces)
 that illustrates how the PodSecurity labels can be applied in bulk.
 
 ### Embrace the principle of least privilege

@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "PriorityClass defines mapping from a priority class name to the priority integer value."
 title: "PriorityClass"
-weight: 14
+weight: 13
 auto_generated: true
 ---
 
@@ -44,7 +44,7 @@ PriorityClass defines mapping from a priority class name to the priority integer
 
 - **value** (int32), required
 
-  The value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
+  value represents the integer value of this priority class. This is the actual priority that pods receive when they have the name of this class in their pod spec.
 
 - **description** (string)
 
@@ -56,7 +56,7 @@ PriorityClass defines mapping from a priority class name to the priority integer
 
 - **preemptionPolicy** (string)
 
-  PreemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
+  preemptionPolicy is the Policy for preempting pods with lower priority. One of Never, PreemptLowerPriority. Defaults to PreemptLowerPriority if unset.
 
 
 
@@ -172,6 +172,11 @@ GET /apis/scheduling.k8s.io/v1/priorityclasses
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -457,6 +462,11 @@ DELETE /apis/scheduling.k8s.io/v1/priorityclasses
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer

@@ -1,11 +1,11 @@
 ---
-
-
-
-
-
-
-
+# reviewers:
+# - saad-ali
+# - thockin
+# - msau42
+# - jingxu97
+# - xing-yang
+# - yuxiangqian
 title: 볼륨 스냅샷 클래스
 content_type: concept
 weight: 41 # just after volume snapshots

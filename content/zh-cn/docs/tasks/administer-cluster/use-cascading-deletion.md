@@ -1,11 +1,13 @@
 ---
 title: 在集群中使用级联删除
 content_type: task
+weight: 360
 ---
 
 <!--
 title: Use Cascading Deletion in a Cluster
 content_type: task
+weight: 360
 -->
 
 <!--overview-->
@@ -77,8 +79,6 @@ version your cluster runs. {{<version-check>}}
 你可以使用 `kubectl` 或者 Kubernetes API 来切换到前台级联删除。
 {{<version-check>}}
 
-{{<tabs name="foreground_deletion">}}
-{{% tab name="Kubernetes 1.20.x 及更新版本" %}}
 
 <!--
 You can delete objects using foreground cascading deletion using `kubectl` or the
@@ -149,63 +149,6 @@ kubectl delete deployment nginx-deployment --cascade=foreground
        ...
    ```
 
-{{% /tab %}}
-{{% tab name="Kubernetes 1.20.x 之前的版本" %}}
-
-<!--
-You can delete objects using foreground cascading deletion by calling the
-Kubernetes API.
-
-For details, read the [documentation for your Kubernetes version](/docs/home/supported-doc-versions/).
--->
-你可以通过调用 Kubernetes API 来基于前台级联删除模式删除对象。
-
-进一步的细节，可阅读[特定于你的 Kubernetes 版本的文档](/zh-cn/docs/home/supported-doc-versions)。
-
-<!--
-1. Start a local proxy session:
--->
-1. 启动一个本地代理会话：
-
-   ```shell
-   kubectl proxy --port=8080
-   ```
-
-<!--
-1. Use `curl` to trigger deletion:
--->
-2. 使用 `curl` 来触发删除操作：
-
-   ```shell
-   curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/deployments/nginx-deployment \
-       -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Foreground"}' \
-       -H "Content-Type: application/json"
-   ```
-
-   <!--
-   The output contains a `foregroundDeletion` {{<glossary_tooltip text="finalizer" term_id="finalizer">}}
-   like this:
-   -->
-   输出中包含 `foregroundDeletion` {{<glossary_tooltip text="finalizer" term_id="finalizer">}}，
-   类似这样：
-
-   ```
-   "kind": "Deployment",
-   "apiVersion": "apps/v1",
-   "metadata": {
-       "name": "nginx-deployment",
-       "namespace": "default",
-       "uid": "d1ce1b02-cae8-4288-8a53-30e84d8fa505",
-       "resourceVersion": "1363097",
-       "creationTimestamp": "2021-07-08T20:24:37Z",
-       "deletionTimestamp": "2021-07-08T20:27:39Z",
-       "finalizers": [
-         "foregroundDeletion"
-       ]
-       ...
-   ```
-{{% /tab %}}
-{{</tabs>}}
 
 <!--
 ## Use background cascading deletion {#use-background-cascading-deletion}
@@ -221,8 +164,6 @@ For details, read the [documentation for your Kubernetes version](/docs/home/sup
 1. 基于你的集群所运行的 Kubernetes 版本，使用 `kubectl` 或者 Kubernetes API 来删除 Deployment。
    {{<version-check>}}
 
-{{<tabs name="background_deletion">}}
-{{% tab name="Kubernetes 1.20.x 及更新版本" %}}
 
 <!--
 You can delete objects using background cascading deletion using `kubectl`
@@ -292,79 +233,7 @@ kubectl delete deployment nginx-deployment --cascade=background
        "uid": "cc9eefb9-2d49-4445-b1c1-d261c9396456"
    }
    ```
-{{% /tab %}}
-{{% tab name="Kubernetes 1.20.x 之前的版本" %}}
 
-<!--
-Kubernetes uses background cascading deletion by default, and does so
-even if you run the following commands without the `--cascade` flag or the
-`propagationPolicy: Background` argument.
--->
-Kubernetes 默认采用后台级联删除方式，如果你在运行下面的命令时不指定
-`--cascade` 标志或者 `propagationPolicy` 参数时，用这种方式来删除对象。
-
-<!--
-For details, read the [documentation for your Kubernetes version](/docs/home/supported-doc-versions/).
--->
-进一步的细节，可阅读[特定于你的 Kubernetes 版本的文档](/zh-cn/docs/home/supported-doc-versions)。
-
-<!--
-**Using kubectl**
-
-Run the following command:
--->
-**使用 kubectl**
-
-运行下面的命令：
-
-```shell
-kubectl delete deployment nginx-deployment --cascade=true
-```
-
-<!--
-**Using the Kubernetes API**
--->
-**使用 Kubernetes API**
-
-<!--
-1. Start a local proxy session:
--->
-1. 启动一个本地代理会话：
-
-   ```shell
-   kubectl proxy --port=8080
-   ```
-
-<!--
-1. Use `curl` to trigger deletion:
--->
-2. 使用 `curl` 来触发删除操作：
-
-   ```shell
-   curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/deployments/nginx-deployment \
-       -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Background"}' \
-       -H "Content-Type: application/json"
-   ```
-
-   <!--
-   The output is similar to this:
-   -->
-   输出类似于：
-
-   ```
-   "kind": "Status",
-   "apiVersion": "v1",
-   ...
-   "status": "Success",
-   "details": {
-       "name": "nginx-deployment",
-       "group": "apps",
-       "kind": "deployments",
-       "uid": "cc9eefb9-2d49-4445-b1c1-d261c9396456"
-   }
-   ```
-{{% /tab %}}
-{{</tabs>}}
 
 <!--
 ## Delete owner objects and orphan dependents {#set-orphan-deletion-policy}
@@ -383,8 +252,6 @@ cluster runs. {{<version-check>}}
 取决于你的集群所运行的 Kubernetes 版本，你也可以使用 `kubectl` 或者 Kubernetes
 API 来让 Kubernetes *孤立* 这些依赖对象。{{<version-check>}}
 
-{{<tabs name="orphan_objects">}}
-{{% tab name="Kubernetes 1.20.x 及更新版本" %}}
 
 <!--
 **Using kubectl**
@@ -443,73 +310,6 @@ kubectl delete deployment nginx-deployment --cascade=orphan
    ...
    ```
 
-{{% /tab %}}
-{{% tab name="Kubernetes 1.20.x 之前的版本" %}}
-
-<!--
-For details, read the [documentation for your Kubernetes version](/docs/home/supported-doc-versions/).
--->
-进一步的细节，可阅读[特定于你的 Kubernetes 版本的文档](/zh-cn/docs/home/supported-doc-versions)。
-
-<!--
-**Using kubectl**
-
-Run the following command:
--->
-**使用 kubectl**
-
-运行下面的命令：
-
-```shell
-kubectl delete deployment nginx-deployment --cascade=orphan
-```
-
-<!--
-**Using the Kubernetes API**
--->
-**使用 Kubernetes API**
-
-<!--
-1. Start a local proxy session:
--->
-1. 启动一个本地代理会话：
-
-   ```shell
-   kubectl proxy --port=8080
-   ```
-
-<!--
-1. Use `curl` to trigger deletion:
--->
-2. 使用 `curl` 来触发删除操作：
-
-
-   ```shell
-   curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/deployments/nginx-deployment \
-       -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Orphan"}' \
-       -H "Content-Type: application/json"
-   ```
-
-   <!--
-   The output contains `orphan` in the `finalizers` field, similar to this:
-   -->
-   输出中在 `finalizers` 字段中包含 `orphan`，如下所示：
-
-   ```
-   "kind": "Deployment",
-   "apiVersion": "apps/v1",
-   "namespace": "default",
-   "uid": "6f577034-42a0-479d-be21-78018c466f1f",
-   "creationTimestamp": "2021-07-09T16:46:37Z",
-   "deletionTimestamp": "2021-07-09T16:47:08Z",
-   "deletionGracePeriodSeconds": 0,
-   "finalizers": [
-     "orphan"
-   ],
-   ...
-   ```
-{{% /tab %}}
-{{</tabs>}}
 
 <!--
 You can check that the Pods managed by the Deployment are still running:

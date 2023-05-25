@@ -154,7 +154,7 @@ spec:
       path: /any/path/it/will/be/replaced
   containers:
   - name: pv-recycler
-    image: "k8s.gcr.io/busybox"
+    image: "registry.k8s.io/busybox"
     command: ["/bin/sh", "-c", "test -e /scrub && rm -rf /scrub/..?* /scrub/.[!.]* /scrub/*  && test -z \"$(ls -A /scrub)\" || exit 1"]
     volumeMounts:
     - name: vol
@@ -207,7 +207,7 @@ spec:
 
 ### 永続ボリュームクレームの拡大
 
-{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 PersistentVolumeClaim(PVC)の拡大はデフォルトで有効です。次のボリュームの種類で拡大できます。
 
@@ -243,7 +243,7 @@ PVCに対してさらに大きなボリュームを要求するには、PVCオ�
 
 #### CSIボリュームの拡張
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 CSIボリュームの拡張のサポートはデフォルトで有効になっていますが、ボリューム拡張をサポートするにはボリューム拡張を利用できるCSIドライバーも必要です。詳細については、それぞれのCSIドライバーのドキュメントを参照してください。
 
@@ -386,7 +386,7 @@ PersistentVolumeは、リソースプロバイダーがサポートする方法�
 : ボリュームは多数のNodeで読み取り/書き込みとしてマウントできます
 
 `ReadWriteOncePod`
-: ボリュームは、単一のPodで読み取り/書き込みとしてマウントできます。クラスタ全体で1つのPodのみがそのPVCの読み取りまたは書き込みを行えるようにする場合は、ReadWriteOncePodアクセスモードを使用します。これは、CSIボリュームとKubernetesバージョン1.22以降でのみサポートされます。
+: ボリュームは、単一のPodで読み取り/書き込みとしてマウントできます。クラスター全体で1つのPodのみがそのPVCの読み取りまたは書き込みを行えるようにする場合は、ReadWriteOncePodアクセスモードを使用します。これは、CSIボリュームとKubernetesバージョン1.22以降でのみサポートされます。
 
 これについてはブログ[Introducing Single Pod Access Mode for PersistentVolumes](/blog/2021/09/13/read-write-once-pod-access-mode-alpha/)に詳細が記載されています。
 
@@ -655,7 +655,7 @@ spec:
 ```
 
 {{< note >}}
-Podにrawブロックデバイスを追加する場合は、マウントパスの代わりにコンテナーでデバイスパスを指定します。
+Podにrawブロックデバイスを追加する場合は、マウントパスの代わりにコンテナでデバイスパスを指定します。
 {{< /note >}}
 
 ### ブロックボリュームのバインド
@@ -678,7 +678,7 @@ Podにrawブロックデバイスを追加する場合は、マウントパス�
 アルファリリースでは、静的にプロビジョニングされたボリュームのみがサポートされます。管理者は、rawブロックデバイスを使用する場合、これらの値を考慮するように注意する必要があります。
 {{< /note >}}
 
-## ボリュームのスナップショットとスナップショットからのボリュームの復元のサポート
+## ボリュームのスナップショットとスナップショットからのボリュームの復元のサポート {#volume-snapshot-and-restore-volume-from-snapshot-support}
 
 {{< feature-state for_k8s_version="v1.17" state="beta" >}}
 
@@ -746,7 +746,7 @@ spec:
 
 * [Creating a Persistent Volume](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolume)について学ぶ
 * [Creating a Persistent Volume Claim](/docs/tasks/configure-pod-container/configure-persistent-volume-storage/#create-a-persistentvolumeclaim)について学ぶ
-* [Persistent Storage design document](https://git.k8s.io/community/contributors/design-proposals/storage/persistent-storage.md)を読む
+* [Persistent Storage design document](https://git.k8s.io/design-proposals-archive/storage/persistent-storage.md)を読む
 
 ### リファレンス
 

@@ -64,16 +64,16 @@ kubectl cluster-info
 출력은 다음과 비슷하다.
 
 ```
-Kubernetes master is running at https://104.197.5.247
-elasticsearch-logging is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy
-kibana-logging is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/kibana-logging/proxy
-kube-dns is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/kube-dns/proxy
-grafana is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
-heapster is running at https://104.197.5.247/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
+Kubernetes master is running at https://192.0.2.1
+elasticsearch-logging is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy
+kibana-logging is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/kibana-logging/proxy
+kube-dns is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/kube-dns/proxy
+grafana is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
+heapster is running at https://192.0.2.1/api/v1/namespaces/kube-system/services/monitoring-heapster/proxy
 ```
 
 각 서비스에 접근하기 위한 프록시-작업 URL이 표시된다.
-예를 들어, 이 클러스터에는 `https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/` 로
+예를 들어, 이 클러스터에는 `https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/` 로
 접근할 수 있는 (Elasticsearch를 사용한) 클러스터 수준 로깅이 활성화되어 있다. 적합한 자격 증명이 전달되는 경우나 kubectl proxy를 통해 도달할 수 있다. 예를 들어 다음의 URL에서 확인할 수 있다.
 `http://localhost:8080/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/`.
 
@@ -103,13 +103,13 @@ URL에서 `<서비스_이름>`이 지원하는 형식은 다음과 같다.
 * Elasticsearch 서비스 엔드포인트 `_search?q=user:kimchy` 에 접근하려면, 다음을 사용한다.
 
     ```
-    http://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_search?q=user:kimchy
+    http://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_search?q=user:kimchy
     ```
 
 * Elasticsearch 클러스터 상태 정보 `_cluster/health?pretty=true` 에 접근하려면, 다음을 사용한다.
 
     ```
-    https://104.197.5.247/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_cluster/health?pretty=true
+    https://192.0.2.1/api/v1/namespaces/kube-system/services/elasticsearch-logging/proxy/_cluster/health?pretty=true
     ```
 
     상태 정보는 다음과 비슷하다.
@@ -132,7 +132,7 @@ URL에서 `<서비스_이름>`이 지원하는 형식은 다음과 같다.
 * *https* Elasticsearch 서비스 상태 정보 `_cluster/health?pretty=true` 에 접근하려면, 다음을 사용한다.
 
     ```
-    https://104.197.5.247/api/v1/namespaces/kube-system/services/https:elasticsearch-logging/proxy/_cluster/health?pretty=true
+    https://192.0.2.1/api/v1/namespaces/kube-system/services/https:elasticsearch-logging/proxy/_cluster/health?pretty=true
     ```
 
 #### 웹 브라우저를 사용하여 클러스터에서 실행되는 서비스에 접근

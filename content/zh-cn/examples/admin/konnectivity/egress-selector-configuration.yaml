@@ -2,7 +2,7 @@ apiVersion: apiserver.k8s.io/v1beta1
 kind: EgressSelectorConfiguration
 egressSelections:
 # 由于我们要控制集群的出站流量，所以将 “cluster” 用作 name。
-# 其他支持的值有 “etcd” 和 “master”。
+# 其他支持的值有 “etcd” 和 “controlplane”。
 - name: cluster
   connection:
     # 这一属性将控制 API 服务器 Konnectivity 服务器之间的协议。

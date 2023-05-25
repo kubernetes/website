@@ -10,15 +10,14 @@ min-kubernetes-server-version: v1.16
 
 <!-- overview -->
 This page explains how to add versioning information to
-[CustomResourceDefinitions](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#customresourcedefinition-v1beta1-apiextensions), to indicate the stability
+[CustomResourceDefinitions](/docs/reference/kubernetes-api/extend-resources/custom-resource-definition-v1/), to indicate the stability
 level of your CustomResourceDefinitions or advance your API to a new version with conversion between API representations. It also describes how to upgrade an object from one version to another.
 
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}}
 
-You should have a initial understanding of [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
+You should have an initial understanding of [custom resources](/docs/concepts/extend-kubernetes/api-extension/custom-resources/).
 
 {{< version-check >}}
 
@@ -42,10 +41,9 @@ Later it might be necessary to add new version such as `v1`.
 
 Adding a new version:
 
-1. Pick a conversion strategy. Since custom resource objects need to be able to
-   be served at both versions, that means they will sometimes be served at a
-   different version than their storage version. In order for this to be
-   possible, the custom resource objects must sometimes be converted between the
+1. Pick a conversion strategy. Since custom resource objects need the ability to
+   be served at both versions, that means they will sometimes be served in a
+   different version than the one stored. To make this possible, the custom resource objects must sometimes be converted between the
    version they are stored at and the version they are served at. If the
    conversion involves schema changes and requires custom logic, a conversion
    webhook should be used. If there are no schema changes, the default `None`
@@ -80,8 +78,8 @@ Removing an old version:
    If this occurs, switch back to using `served:true` on the old version, migrate the 
    remaining clients to the new version and repeat this step.
 1. Ensure the [upgrade of existing objects to the new stored version](#upgrade-existing-objects-to-a-new-stored-version) step has been completed.
-    1. Verify that the `storage` is set to `true` for the new version in the `spec.versions` list in the CustomResourceDefinition.
-    1. Verify that the old version is no longer listed in the CustomResourceDefinition `status.storedVersions`.
+   1. Verify that the `storage` is set to `true` for the new version in the `spec.versions` list in the CustomResourceDefinition.
+   1. Verify that the old version is no longer listed in the CustomResourceDefinition `status.storedVersions`.
 1. Remove the old version from the CustomResourceDefinition `spec.versions` list.
 1. Drop conversion support for the old version in conversion webhooks.
 
@@ -297,11 +295,13 @@ spec:
   versions:
   - name: v1alpha1
     served: true
+    storage: false
     # This indicates the v1alpha1 version of the custom resource is deprecated.
     # API requests to this version receive a warning header in the server response.
     deprecated: true
     # This overrides the default warning returned to API clients making v1alpha1 API requests.
     deprecationWarning: "example.com/v1alpha1 CronTab is deprecated; see http://example.com/v1alpha1-v1 for instructions to migrate to example.com/v1 CronTab"
+    
     schema: ...
   - name: v1beta1
     served: true
@@ -334,6 +334,7 @@ spec:
   versions:
   - name: v1alpha1
     served: true
+    storage: false
     # This indicates the v1alpha1 version of the custom resource is deprecated.
     # API requests to this version receive a warning header in the server response.
     deprecated: true
@@ -355,7 +356,7 @@ spec:
 
 ### Version removal
 
-An older API version cannot be dropped from a CustomResourceDefinition manifest until existing persisted data has been migrated to the newer API version for all clusters that served the older version of the custom resource, and the old version is removed from the `status.storedVersions` of the CustomResourceDefinition.
+An older API version cannot be dropped from a CustomResourceDefinition manifest until existing stored data has been migrated to the newer API version for all clusters that served the older version of the custom resource, and the old version is removed from the `status.storedVersions` of the CustomResourceDefinition.
 
 ```yaml
 apiVersion: apiextensions.k8s.io/v1
@@ -405,7 +406,7 @@ The webhook should perform these conversions independently.
 ### Write a conversion webhook server
 
 Please refer to the implementation of the [custom resource conversion webhook
-server](https://github.com/kubernetes/kubernetes/tree/v1.15.0/test/images/crd-conversion-webhook/main.go)
+server](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/main.go)
 that is validated in a Kubernetes e2e test. The webhook handles the
 `ConversionReview` requests sent by the API servers, and sends back conversion
 results wrapped in `ConversionResponse`. Note that the request
@@ -413,14 +414,14 @@ contains a list of custom resources that need to be converted independently with
 changing the order of objects.
 The example server is organized in a way to be reused for other conversions.
 Most of the common code are located in the
-[framework file](https://github.com/kubernetes/kubernetes/tree/v1.15.0/test/images/crd-conversion-webhook/converter/framework.go)
+[framework file](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/converter/framework.go)
 that leaves only
-[one function](https://github.com/kubernetes/kubernetes/blob/v1.15.0/test/images/crd-conversion-webhook/converter/example_converter.go#L29-L80)
+[one function](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/converter/example_converter.go#L29-L80)
 to be implemented for different conversions.
 
 {{< note >}}
 The example conversion webhook server leaves the `ClientAuth` field
-[empty](https://github.com/kubernetes/kubernetes/tree/v1.13.0/test/images/crd-conversion-webhook/config.go#L47-L48),
+[empty](https://github.com/kubernetes/kubernetes/tree/v1.25.3/test/images/agnhost/crd-conversion-webhook/config.go#L47-L48),
 which defaults to `NoClientCert`. This means that the webhook server does not
 authenticate the identity of the clients, supposedly API servers. If you need
 mutual TLS or other ways to authenticate the clients, see
@@ -1020,18 +1021,29 @@ Example of a response from a webhook indicating a conversion request failed, wit
 
 ## Writing, reading, and updating versioned CustomResourceDefinition objects
 
-When an object is written, it is persisted at the version designated as the
+When an object is written, it is stored at the version designated as the
 storage version at the time of the write. If the storage version changes,
 existing objects are never converted automatically. However, newly-created
 or updated objects are written at the new storage version. It is possible for an
 object to have been written at a version that is no longer served.
 
-When you read an object, you specify the version as part of the path. If you
-specify a version that is different from the object's persisted version,
-Kubernetes returns the object to you at the version you requested, but the
-persisted object is neither changed on disk, nor converted in any way
-(other than changing the `apiVersion` string) while serving the request.
+When you read an object, you specify the version as part of the path.
 You can request an object at any version that is currently served.
+If you specify a version that is different from the object's stored version,
+Kubernetes returns the object to you at the version you requested, but the
+stored object is not changed on disk.
+
+What happens to the object that is being returned while serving the read
+request depends on what is specified in the CRD's `spec.conversion`:
+- if the default `strategy` value `None` is specified, the only modifications
+  to the object are changing the `apiVersion` string and perhaps [pruning
+  unknown fields](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#field-pruning)
+  (depending on the configuration). Note that this is unlikely to lead to good
+  results if the schemas differ between the storage and requested version.
+  In particular, you should not use this strategy if the same data is
+  represented in different fields between versions.
+- if [webhook conversion](#webhook-conversion) is specified, then this
+  mechanism controls the conversion.
 
 If you update an existing object, it is rewritten at the version that is
 currently the storage version. This is the only way that objects can change from
@@ -1039,23 +1051,24 @@ one version to another.
 
 To illustrate this, consider the following hypothetical series of events:
 
-1.  The storage version is `v1beta1`. You create an object. It is persisted in
-    storage at version `v1beta1`
-2.  You add version `v1` to your CustomResourceDefinition and designate it as
-    the storage version.
-3.  You read your object at version `v1beta1`, then you read the object again at
-    version `v1`. Both returned objects are identical except for the apiVersion
-    field.
-4.  You create a new object. It is persisted in storage at version `v1`. You now
-    have two objects, one of which is at `v1beta1`, and the other of which is at
-    `v1`.
-5.  You update the first object. It is now persisted at version `v1` since that
-    is the current storage version.
+1. The storage version is `v1beta1`. You create an object. It is stored at version `v1beta1`
+2. You add version `v1` to your CustomResourceDefinition and designate it as
+   the storage version. Here the schemas for `v1` and `v1beta1` are identical,
+   which is typically the case when promoting an API to stable in the
+   Kubernetes ecosystem.
+3. You read your object at version `v1beta1`, then you read the object again at
+   version `v1`. Both returned objects are identical except for the apiVersion
+   field.
+4. You create a new object. It is stored at version `v1`. You now
+   have two objects, one of which is at `v1beta1`, and the other of which is at
+   `v1`.
+5. You update the first object. It is now stored at version `v1` since that
+   is the current storage version.
 
 ### Previous storage versions
 
 The API server records each version which has ever been marked as the storage
-version in the status field `storedVersions`. Objects may have been persisted
+version in the status field `storedVersions`. Objects may have been stored
 at any version that has ever been designated as a storage version. No objects
 can exist in storage at a version that has never been a storage version.
 
@@ -1066,28 +1079,33 @@ procedure.
 
 *Option 1:* Use the Storage Version Migrator
 
-1.  Run the [storage Version migrator](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
-2.  Remove the old version from the CustomResourceDefinition `status.storedVersions` field.
+1. Run the [storage Version migrator](https://github.com/kubernetes-sigs/kube-storage-version-migrator)
+2. Remove the old version from the CustomResourceDefinition `status.storedVersions` field.
 
 *Option 2:* Manually upgrade the existing objects to a new stored version
 
 The following is an example procedure to upgrade from `v1beta1` to `v1`.
 
-1.  Set `v1` as the storage in the CustomResourceDefinition file and apply it
-    using kubectl. The `storedVersions` is now `v1beta1, v1`.
-2.  Write an upgrade procedure to list all existing objects and write them with
-    the same content. This forces the backend to write objects in the current
-    storage version, which is `v1`.
-3.  Remove `v1beta1` from the CustomResourceDefinition `status.storedVersions` field.
+1. Set `v1` as the storage in the CustomResourceDefinition file and apply it
+   using kubectl. The `storedVersions` is now `v1beta1, v1`.
+2. Write an upgrade procedure to list all existing objects and write them with
+   the same content. This forces the backend to write objects in the current
+   storage version, which is `v1`.
+3. Remove `v1beta1` from the CustomResourceDefinition `status.storedVersions` field.
 
 {{< note >}}
-The `kubectl` tool currently cannot be used to edit or patch the `status` subresource on a CRD: see the [Kubectl Subresource Support KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cli/2590-kubectl-subresource) for more details.
+The flag `--subresource` is used with the kubectl get, patch, edit, and replace commands to
+fetch and update the subresources, `status` and `scale`, for all the API resources that
+support them. This flag is available starting from kubectl version v1.24. Previously, reading
+subresources (like `status`) via kubectl involved using `kubectl --raw`, and updating
+subresources using kubectl was not possible at all. Starting from v1.24, the `kubectl` tool
+can be used to edit or patch the `status` subresource on a CRD object. See [How to patch a Deployment using the subresource flag](/docs/tasks/manage-kubernetes-objects/update-api-object-kubectl-patch/#scale-kubectl-patch).
 
-The easier way to patch the status subresource from the CLI is directly interacting with the API server using the `curl` tool, in this example:
+This page is part of the documentation for Kubernetes v{{< skew currentVersion >}}.
+If you are running a different version of Kubernetes, consult the documentation for that release.
+
+Here is an example of how to patch the `status` subresource for a CRD object using `kubectl`:
 ```bash
-kubectl proxy &
-curl --header "Content-Type: application/json-patch+json" \
-  --request PATCH http://localhost:8001/apis/apiextensions.k8s.io/v1/customresourcedefinitions/<your CRD name here>/status \
-  --data '[{"op": "replace", "path": "/status/storedVersions", "value":["v1"]}]'
+kubectl patch customresourcedefinitions <CRD_Name> --subresource='status' --type='merge' -p '{"status":{"storedVersions":["v1"]}}'
 ```
 {{< /note >}}

@@ -1,7 +1,7 @@
 ---
-
-
-
+# reviewers:
+# - rickypai
+# - thockin
 title: HostAliases로 파드의 /etc/hosts 항목 추가하기
 content_type: task
 weight: 60

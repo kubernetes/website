@@ -18,12 +18,12 @@ weight: 60
 <!--
 This guide is for application owners who want to build
 highly available applications, and thus need to understand
-what types of Disruptions can happen to Pods.
+what types of disruptions can happen to Pods.
 -->
-本指南针对的是希望构建高可用性应用程序的应用所有者，他们有必要了解可能发生在 Pod 上的干扰类型。
+本指南针对的是希望构建高可用性应用的应用所有者，他们有必要了解可能发生在 Pod 上的干扰类型。
 
 <!--
-It is also for Cluster Administrators who want to perform automated
+It is also for cluster administrators who want to perform automated
 cluster actions, like upgrading and autoscaling clusters.
 -->
 文档同样适用于想要执行自动化集群操作（例如升级和自动扩展集群）的集群管理员。
@@ -31,7 +31,7 @@ cluster actions, like upgrading and autoscaling clusters.
 <!-- body -->
 
 <!--
-## Voluntary and Involuntary Disruptions
+## Voluntary and involuntary disruptions
 
 Pods do not disappear until someone (a person or a controller) destroys them, or
 there is an unavoidable hardware or system software error.
@@ -44,7 +44,7 @@ Pod 不会消失，除非有人（用户或控制器）将其销毁，或者出�
 We call these unavoidable cases *involuntary disruptions* to
 an application.  Examples are:
 -->
-我们把这些不可避免的情况称为应用的*非自愿干扰（Involuntary Disruptions）*。例如：
+我们把这些不可避免的情况称为应用的**非自愿干扰（Involuntary Disruptions）**。例如：
 
 <!--
 - a hardware failure of the physical machine backing the node
@@ -74,9 +74,9 @@ We call other cases *voluntary disruptions*.  These include both
 actions initiated by the application owner and those initiated by a Cluster
 Administrator.  Typical application owner actions include:
 -->
-我们称其他情况为*自愿干扰（Voluntary Disruptions）*。
-包括由应用程序所有者发起的操作和由集群管理员发起的操作。典型的应用程序所有者的操
-作包括：
+我们称其他情况为**自愿干扰（Voluntary Disruptions）**。
+包括由应用所有者发起的操作和由集群管理员发起的操作。
+典型的应用所有者的操作包括：
 
 <!--
 - deleting the deployment or other controller that manages the pod
@@ -88,7 +88,7 @@ Administrator.  Typical application owner actions include:
 - 直接删除 Pod（例如，因为误操作）
 
 <!--
-Cluster Administrator actions include:
+Cluster administrator actions include:
 
 - [Draining a node](/docs/tasks/administer-cluster/safely-drain-node/) for repair or upgrade.
 - Draining a node from a cluster to scale the cluster down (learn about
@@ -116,29 +116,29 @@ If none are enabled, you can skip creating Pod Disruption Budgets.
 咨询集群管理员或联系云提供商，或者查询发布文档，以确定是否为集群启用了任何资源干扰源。
 如果没有启用，可以不用创建 Pod Disruption Budgets（Pod 干扰预算）
 
+{{< caution >}}
 <!--
 Not all voluntary disruptions are constrained by Pod Disruption Budgets. For example,
 deleting deployments or pods bypasses Pod Disruption Budgets.
 -->
-{{< caution >}}
 并非所有的自愿干扰都会受到 Pod 干扰预算的限制。
 例如，删除 Deployment 或 Pod 的删除操作就会跳过 Pod 干扰预算检查。
 {{< /caution >}}
 
 <!--
-## Dealing with Disruptions
+## Dealing with disruptions
 
 Here are some ways to mitigate involuntary disruptions:
 -->
-## 处理干扰
+## 处理干扰   {#dealing-with-disruptions}
 
 以下是减轻非自愿干扰的一些方法：
 
 <!--
-- Ensure your pod [requests the resources](/docs/tasks/configure-pod-container/assign-cpu-ram-container) it needs.
+- Ensure your pod [requests the resources](/docs/tasks/configure-pod-container/assign-memory-resource) it needs.
 - Replicate your application if you need higher availability.  (Learn about running replicated
-[stateless](/docs/tasks/run-application/run-stateless-application-deployment/)
-and [stateful](/docs/tasks/run-application/run-replicated-stateful-application/) applications.)
+  [stateless](/docs/tasks/run-application/run-stateless-application-deployment/)
+  and [stateful](/docs/tasks/run-application/run-replicated-stateful-application/) applications.)
 - For even higher availability when running replicated applications,
   spread applications across racks (using
   [anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity))
@@ -146,12 +146,12 @@ and [stateful](/docs/tasks/run-application/run-replicated-stateful-application/)
   [multi-zone cluster](/docs/setup/multiple-zones).)
 -->
 - 确保 Pod 在请求中给出[所需资源](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/)。
-- 如果需要更高的可用性，请复制应用程序。
+- 如果需要更高的可用性，请复制应用。
   （了解有关运行多副本的[无状态](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)
-  和[有状态](/zh-cn/docs/tasks/run-application/run-replicated-stateful-application/)应用程序的信息。）
-- 为了在运行复制应用程序时获得更高的可用性，请跨机架（使用
-  [反亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
-  或跨区域（如果使用[多区域集群](/zh-cn/docs/setup/best-practices/multiple-zones/)）扩展应用程序。
+  和[有状态](/zh-cn/docs/tasks/run-application/run-replicated-stateful-application/)应用的信息。）
+- 为了在运行复制应用时获得更高的可用性，请跨机架（使用
+  [反亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)）
+  或跨区域（如果使用[多区域集群](/zh-cn/docs/setup/best-practices/multiple-zones/)）扩展应用。
 
 <!--
 The frequency of voluntary disruptions varies.  On a basic Kubernetes cluster, there are
@@ -174,22 +174,14 @@ in your pod spec can also cause voluntary (and involuntary) disruptions.
 也会产生自愿（和非自愿）的干扰。
 
 <!--
-Kubernetes offers features to help run highly available applications at the same
-time as frequent voluntary disruptions.  We call this set of features
-*Disruption Budgets*.
--->
-Kubernetes 提供特性来满足在出现频繁自愿干扰的同时运行高可用的应用程序。我们称这些特性为
-*干扰预算（Disruption Budget）*。
-
-<!--
 ## Pod disruption budgets
 
 Kubernetes offers features to help you run highly available applications even when you
 introduce frequent voluntary disruptions.
 
-An Application Owner can create a `PodDisruptionBudget` object (PDB) for each application.
-A PDB limits the number of pods of a replicated application that are down simultaneously from
-voluntary disruptions.  For example, a quorum-based application would
+As an application owner, you can create a PodDisruptionBudget (PDB) for each application.
+A PDB limits the number of Pods of a replicated application that are down simultaneously from
+voluntary disruptions. For example, a quorum-based application would
 like to ensure that the number of replicas running is never brought below the
 number needed for a quorum. A web front end might want to
 ensure that the number of replicas serving load never falls below a certain
@@ -199,18 +191,17 @@ percentage of the total.
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-即使你会经常引入自愿性干扰，Kubernetes 也能够支持你运行高度可用的应用。
+即使你会经常引入自愿性干扰，Kubernetes 提供的功能也能够支持你运行高度可用的应用。
 
-应用程序所有者可以为每个应用程序创建 `PodDisruptionBudget` 对象（PDB）。
-PDB 将限制在同一时间因自愿干扰导致的复制应用程序中宕机的 pod 数量。
-例如，基于票选机制的应用程序希望确保运行的副本数永远不会低于仲裁所需的数量。
+作为一个应用的所有者，你可以为每个应用创建一个 `PodDisruptionBudget`（PDB）。
+PDB 将限制在同一时间因自愿干扰导致的多副本应用中发生宕机的 Pod 数量。
+例如，基于票选机制的应用希望确保运行中的副本数永远不会低于票选所需的数量。
 Web 前端可能希望确保提供负载的副本数量永远不会低于总数的某个百分比。
 
 <!--
 Cluster managers and hosting providers should use tools which
 respect PodDisruptionBudgets by calling the [Eviction API](/docs/tasks/administer-cluster/safely-drain-node/#eviction-api)
-instead of directly deleting pods or deployments.  Examples are the `kubectl drain` command
-and the Kubernetes-on-GCE cluster upgrade script (`cluster/gce/upgrade.sh`).
+instead of directly deleting pods or deployments.
 -->
 集群管理员和托管提供商应该使用遵循 PodDisruptionBudgets 的接口
 （通过调用[Eviction API](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/#the-eviction-api)），
@@ -219,38 +210,42 @@ and the Kubernetes-on-GCE cluster upgrade script (`cluster/gce/upgrade.sh`).
 <!--
 For example, the `kubectl drain` subcommand lets you mark a node as going out of
 service. When you run `kubectl drain`, the tool tries to evict all of the Pods on
-the Node you'are taking out of service. The eviction request may be temporarily rejected,
-and the tool periodically retries all failed requests until all pods
-are terminated, or until a configurable timeout is reached.
+the Node you're taking out of service. The eviction request that `kubectl` submits on
+your behalf may be temporarily rejected, so the tool periodically retries all failed
+requests until all Pods on the target node are terminated, or until a configurable timeout
+is reached.
 -->
 例如，`kubectl drain` 命令可以用来标记某个节点即将停止服务。
-运行 `kubectl drain` 命令时，工具会尝试驱逐机器上的所有 Pod。
-`kubectl` 所提交的驱逐请求可能会暂时被拒绝，所以该工具会定时重试失败的请求，
-直到所有的 Pod 都被终止，或者达到配置的超时时间。
+运行 `kubectl drain` 命令时，工具会尝试驱逐你所停服的节点上的所有 Pod。
+`kubectl` 代表你所提交的驱逐请求可能会暂时被拒绝，
+所以该工具会周期性地重试所有失败的请求，
+直到目标节点上的所有的 Pod 都被终止，或者达到配置的超时时间。
 
 <!--
 A PDB specifies the number of replicas that an application can tolerate having, relative to how
 many it is intended to have.  For example, a Deployment which has a `.spec.replicas: 5` is
 supposed to have 5 pods at any given time.  If its PDB allows for there to be 4 at a time,
-then the Eviction API will allow voluntary disruption of one, but not two pods, at a time.
+then the Eviction API will allow voluntary disruption of one (but not two) pods at a time.
 -->
-PDB 指定应用程序可以容忍的副本数量（相当于应该有多少副本）。
+PDB 指定应用可以容忍的副本数量（相当于应该有多少副本）。
 例如，具有 `.spec.replicas: 5` 的 Deployment 在任何时间都应该有 5 个 Pod。
-如果 PDB 允许其在某一时刻有 4 个副本，那么驱逐 API 将允许同一时刻仅有一个而不是两个 Pod 自愿干扰。
+如果 PDB 允许其在某一时刻有 4 个副本，那么驱逐 API 将允许同一时刻仅有一个（而不是两个）Pod 自愿干扰。
 
 <!--
 The group of pods that comprise the application is specified using a label selector, the same
 as the one used by the application's controller (deployment, stateful-set, etc).
 -->
-使用标签选择器来指定构成应用程序的一组 Pod，这与应用程序的控制器（Deployment，StatefulSet 等）
+使用标签选择器来指定构成应用的一组 Pod，这与应用的控制器（Deployment、StatefulSet 等）
 选择 Pod 的逻辑一样。
 
 <!--
-The "intended" number of pods is computed from the `.spec.replicas` of the pods controller.
-The controller is discovered from the pods using the `.metadata.ownerReferences` of the object.
+The "intended" number of pods is computed from the `.spec.replicas` of the workload resource
+that is managing those pods. The control plane discovers the owning workload resource by
+examining the `.metadata.ownerReferences` of the Pod.
 -->
-Pod 控制器的 `.spec.replicas` 计算“预期的” Pod 数量。
-根据 Pod 对象的 `.metadata.ownerReferences` 字段来发现控制器。
+Pod 的“预期”数量由管理这些 Pod 的工作负载资源的 `.spec.replicas` 参数计算出来的。
+控制平面通过检查 Pod 的
+`.metadata.ownerReferences` 来发现关联的工作负载资源。
 
 <!--
 [Involuntary disruptions](#voluntary-and-involuntary-disruptions) cannot be prevented by PDBs; however they
@@ -262,18 +257,30 @@ PDB 无法防止[非自愿干扰](#voluntary-and-involuntary-disruptions)；
 
 <!--
 Pods which are deleted or unavailable due to a rolling upgrade to an application do count
-against the disruption budget, but controllers (like deployment and stateful-set)
-are not limited by PDBs when doing rolling upgrades - the handling of failures
-during application updates is configured in spec for the specific workload resource.
+against the disruption budget, but workload resources (such as Deployment and StatefulSet)
+are not limited by PDBs when doing rolling upgrades. Instead, the handling of failures
+during application updates is configured in the spec for the specific workload resource.
 -->
-由于应用程序的滚动升级而被删除或不可用的 Pod 确实会计入干扰预算，
-但是控制器（如 Deployment 和 StatefulSet）在进行滚动升级时不受 PDB
-的限制。应用程序更新期间的故障处理方式是在对应的工作负载资源的 `spec` 中配置的。
+由于应用的滚动升级而被删除或不可用的 Pod 确实会计入干扰预算，
+但是工作负载资源（如 Deployment 和 StatefulSet）
+在进行滚动升级时不受 PDB 的限制。
+应用更新期间的故障处理方式是在对应的工作负载资源的 `spec` 中配置的。
+
+<!--
+It is recommended to set `AlwaysAllow` [Unhealthy Pod Eviction Policy](/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy)
+to your PodDisruptionBudgets to support eviction of misbehaving applications during a node drain.
+The default behavior is to wait for the application pods to become [healthy](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)
+before the drain can proceed.
+-->
+建议在你的 PodDisruptionBudget 中将
+[不健康 Pod 驱逐策略](/zh-cn/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy)
+设置为 `AlwaysAllow` 以支持在节点腾空期间驱逐行为不当的应用程序。
+默认行为是等待应用程序 Pod 变得
+[健康](/zh-cn/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)，然后才能继续执行腾空。
 
 <!--
 When a pod is evicted using the eviction API, it is gracefully
-[terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination),
-hornoring the
+[terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination), honoring the
 `terminationGracePeriodSeconds` setting in its [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 -->
 当使用驱逐 API 驱逐 Pod 时，Pod 会被体面地
@@ -282,14 +289,14 @@ hornoring the
 中的 `terminationGracePeriodSeconds` 配置值。
 
 <!--
-## PDB Example
+## PodDisruptionBudget example {#pdb-example}
 
 Consider a cluster with 3 nodes, `node-1` through `node-3`.
 The cluster is running several applications.  One of them has 3 replicas initially called
 `pod-a`, `pod-b`, and `pod-c`.  Another, unrelated pod without a PDB, called `pod-x`, is also shown.
 Initially, the pods are laid out as follows:
 -->
-## PDB 例子   {#pdb-example}
+## PodDisruptionBudget 例子   {#pdb-example}
 
 假设集群有 3 个节点，`node-1` 到 `node-3`。集群上运行了一些应用。
 其中一个应用有 3 个副本，分别是 `pod-a`，`pod-b` 和 `pod-c`。
@@ -316,7 +323,7 @@ This puts the cluster in this state:
 -->
 
 例如，假设集群管理员想要重启系统，升级内核版本来修复内核中的缺陷。
-集群管理员首先使用 `kubectl drain` 命令尝试排空 `node-1` 节点。
+集群管理员首先使用 `kubectl drain` 命令尝试腾空 `node-1` 节点。
 命令尝试驱逐 `pod-a` 和 `pod-x`。操作立即就成功了。
 两个 Pod 同时进入 `terminating` 状态。这时的集群处于下面的状态：
 
@@ -426,11 +433,111 @@ can happen, according to:
 - the type of controller
 - the cluster's resource capacity
 -->
-- 应用程序需要多少个副本
+- 应用需要多少个副本
 - 优雅关闭应用实例需要多长时间
 - 启动应用新实例需要多长时间
 - 控制器的类型
 - 集群的资源能力
+
+<!--
+## Pod disruption conditions {#pod-disruption-conditions}
+-->
+## Pod 干扰状况 {#pod-disruption-conditions}
+
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+
+{{< note >}}
+<!-- 
+In order to use this behavior, you must have the `PodDisruptionConditions`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled in your cluster.
+-->
+要使用此行为，你必须在集群中启用 `PodDisruptionConditions`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+{{< /note >}}
+
+<!--
+When enabled, a dedicated Pod `DisruptionTarget` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions) is added to indicate
+that the Pod is about to be deleted due to a {{<glossary_tooltip term_id="disruption" text="disruption">}}.
+The `reason` field of the condition additionally
+indicates one of the following reasons for the Pod termination:
+-->
+启用后，会给 Pod 添加一个 `DisruptionTarget`
+[状况](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)，
+用来表明该 Pod 因为发生{{<glossary_tooltip term_id="disruption" text="干扰">}}而被删除。
+状况中的 `reason` 字段进一步给出 Pod 终止的原因，如下：
+
+<!--
+`PreemptionByScheduler`
+: Pod is due to be {{<glossary_tooltip term_id="preemption" text="preempted">}} by a scheduler in order to accommodate a new Pod with a higher priority. For more information, see [Pod priority preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
+-->
+`PreemptionByScheduler`
+: Pod 将被调度器{{<glossary_tooltip term_id="preemption" text="抢占">}}，
+目的是接受优先级更高的新 Pod。
+要了解更多的相关信息，请参阅 [Pod 优先级和抢占](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)。
+
+<!--
+`DeletionByTaintManager`
+: Pod is due to be deleted by Taint Manager (which is part of the node lifecycle controller within `kube-controller-manager`) due to a `NoExecute` taint that the Pod does not tolerate; see {{<glossary_tooltip term_id="taint" text="taint">}}-based evictions.
+-->
+`DeletionByTaintManager`
+: 由于 Pod 不能容忍 `NoExecute` 污点，Pod 将被
+Taint Manager（`kube-controller-manager` 中节点生命周期控制器的一部分）删除；
+请参阅基于{{<glossary_tooltip term_id="taint" text="污点">}}的驱逐。
+
+<!--
+`EvictionByEvictionAPI`
+: Pod has been marked for {{<glossary_tooltip term_id="api-eviction" text="eviction using the Kubernetes API">}}.
+-->
+`EvictionByEvictionAPI`
+: Pod 已被标记为{{<glossary_tooltip term_id="api-eviction" text="通过 Kubernetes API 驱逐">}}。
+
+<!--
+`DeletionByPodGC`
+: Pod, that is bound to a no longer existing Node, is due to be deleted by [Pod garbage collection](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection).
+-->
+`DeletionByPodGC`
+: 绑定到一个不再存在的 Node 上的 Pod 将被
+[Pod 垃圾收集](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)删除。
+
+<!--
+`TerminationByKubelet`
+: Pod has been terminated by the kubelet, because of either {{<glossary_tooltip term_id="node-pressure-eviction" text="node pressure eviction">}} or the [graceful node shutdown](/docs/concepts/architecture/nodes/#graceful-node-shutdown).
+-->
+`TerminationByKubelet`
+: Pod
+由于{{<glossary_tooltip term_id="node-pressure-eviction" text="节点压力驱逐">}}或[节点体面关闭](/zh-cn/docs/concepts/architecture/nodes/#graceful-node-shutdown)而被
+kubelet 终止。
+
+{{< note >}}
+<!-- 
+A Pod disruption might be interrupted. The control plane might re-attempt to
+continue the disruption of the same Pod, but it is not guaranteed. As a result,
+the `DisruptionTarget` condition might be added to a Pod, but that Pod might then not actually be
+deleted. In such a situation, after some time, the
+Pod disruption condition will be cleared.
+-->
+Pod 的干扰可能会被中断。控制平面可能会重新尝试继续干扰同一个 Pod，但这没办法保证。
+因此，`DisruptionTarget` 状况可能会被添加到 Pod 上，
+但该 Pod 实际上可能不会被删除。
+在这种情况下，一段时间后，Pod 干扰状况将被清除。
+{{< /note >}}
+
+<!--
+When the `PodDisruptionConditions` feature gate is enabled,
+along with cleaning up the pods, the Pod garbage collector (PodGC) will also mark them as failed if they are in a non-terminal
+phase (see also [Pod garbage collection](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)).
+-->
+当 `PodDisruptionConditions` 特性门控被启用时，在清理 Pod 的同时，如果这些 Pod 处于非终止阶段，
+则 Pod 垃圾回收器 (PodGC) 也会将这些 Pod 标记为失效
+（另见 [Pod 垃圾回收](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)）。
+
+<!--
+When using a Job (or CronJob), you may want to use these Pod disruption conditions as part of your Job's
+[Pod failure policy](/docs/concepts/workloads/controllers/job#pod-failure-policy).
+-->
+使用 Job（或 CronJob）时，你可能希望将这些 Pod 干扰状况作为 Job
+[Pod 失效策略](/zh-cn/docs/concepts/workloads/controllers/job#pod-failure-policy)的一部分。
 
 <!--
 ## Separating Cluster Owner and Application Owner Roles
@@ -440,7 +547,7 @@ and Application Owner as separate roles with limited knowledge
 of each other.   This separation of responsibilities
 may make sense in these scenarios:
 -->
-## 分离集群所有者和应用所有者角色
+## 分离集群所有者和应用所有者角色   {#separating-cluster-owner-and-application-owner-roles}
 
 通常，将集群管理者和应用所有者视为彼此了解有限的独立角色是很有用的。这种责任分离在下面这些场景下是有意义的：
 
@@ -449,7 +556,7 @@ may make sense in these scenarios:
   there is natural specialization of roles
 - when third-party tools or services are used to automate cluster management
 -->
-- 当有许多应用程序团队共用一个 Kubernetes 集群，并且有自然的专业角色
+- 当有许多应用团队共用一个 Kubernetes 集群，并且有自然的专业角色
 - 当第三方工具或服务用于集群自动化管理
 
 <!--
@@ -470,7 +577,7 @@ you may not need to use Pod Disruption Budgets.
 If you are a Cluster Administrator, and you need to perform a disruptive action on all
 the nodes in your cluster, such as a node or system software upgrade, here are some options:
 -->
-## 如何在集群上执行干扰性操作
+## 如何在集群上执行干扰性操作   {#how-to-perform-disruptive-actions-on-your-cluster}
 
 如果你是集群管理员，并且需要对集群中的所有节点执行干扰操作，例如节点或系统软件升级，则可以使用以下选项
 
@@ -487,26 +594,30 @@ the nodes in your cluster, such as a node or system software upgrade, here are s
      disruptions largely overlaps with work to support autoscaling and tolerating
      involuntary disruptions.
 -->
-
 - 接受升级期间的停机时间。
 - 故障转移到另一个完整的副本集群。
-   -  没有停机时间，但是对于重复的节点和人工协调成本可能是昂贵的。
-- 编写可容忍干扰的应用程序和使用 PDB。
-   - 不停机。
-   - 最小的资源重复。
-   - 允许更多的集群管理自动化。
-   - 编写可容忍干扰的应用程序是棘手的，但对于支持容忍自愿干扰所做的工作，和支持自动扩缩和容忍非
-     自愿干扰所做工作相比，有大量的重叠
+  - 没有停机时间，但是对于重复的节点和人工协调成本可能是昂贵的。
+- 编写可容忍干扰的应用和使用 PDB。
+  - 不停机。
+  - 最小的资源重复。
+  - 允许更多的集群管理自动化。
+  - 编写可容忍干扰的应用是棘手的，但对于支持容忍自愿干扰所做的工作，和支持自动扩缩和容忍非
+    自愿干扰所做工作相比，有大量的重叠
 
 ## {{% heading "whatsnext" %}}
 
 <!--
 * Follow steps to protect your application by [configuring a Pod Disruption Budget](/docs/tasks/run-application/configure-pdb/).
+
 * Learn more about [draining nodes](/docs/tasks/administer-cluster/safely-drain-node/)
+
 * Learn about [updating a deployment](/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
   including steps to maintain its availability during the rollout.
 -->
 * 参考[配置 Pod 干扰预算](/zh-cn/docs/tasks/run-application/configure-pdb/)中的方法来保护你的应用。
+
 * 进一步了解[排空节点](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)的信息。
+
 * 了解[更新 Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment/#updating-a-deployment)
   的过程，包括如何在其进程中维持应用的可用性
+

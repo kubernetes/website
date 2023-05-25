@@ -1,6 +1,6 @@
 ---
 title: static Podを作成する
-weight: 170
+weight: 220
 content_type: task
 ---
 
@@ -192,11 +192,11 @@ CONTAINER ID        IMAGE         COMMAND                CREATED       ...
 # This assumes you are using filesystem-hosted static Pod configuration
 # このコマンドは、kubeletが実行中のノード上で実行してください
 #
-mv /etc/kubelet.d/static-web.yaml /tmp
+mv /etc/kubernetes/manifests/static-web.yaml /tmp
 sleep 20
 docker ps
 # You see that no nginx container is running
-mv /tmp/static-web.yaml  /etc/kubelet.d/
+mv /tmp/static-web.yaml  /etc/kubernetes/manifests/
 sleep 20
 docker ps
 ```

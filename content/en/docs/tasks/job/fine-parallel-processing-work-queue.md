@@ -208,9 +208,18 @@ Events:
   FirstSeen    LastSeen    Count    From            SubobjectPath    Type        Reason            Message
   ---------    --------    -----    ----            -------------    --------    ------            -------
   33s          33s         1        {job-controller }                Normal      SuccessfulCreate  Created pod: job-wq-2-lglf8
+```
 
+You can wait for the Job to succeed, with a timeout:
+```shell
+# The check for condition name is case insensitive
+kubectl wait --for=condition=complete --timeout=300s job/job-wq-2
+```
 
+```shell
 kubectl logs pods/job-wq-2-7r7b2
+```
+```
 Worker with sessionID: bbd72d0a-9e5c-4dd6-abf6-416cc267991f
 Initial queue state: empty=False
 Working on banana

@@ -1,7 +1,7 @@
 ---
 title: Configure Liveness, Readiness and Startup Probes
 content_type: task
-weight: 110
+weight: 140
 ---
 
 <!-- overview -->
@@ -14,6 +14,10 @@ where an application is running, but unable to make progress. Restarting a
 container in such a state can help to make the application more available
 despite bugs.
 
+A common pattern for liveness probes is to use the same low-cost HTTP endpoint
+as for readiness probes, but with a higher failureThreshold. This ensures that the pod
+is observed as not-ready for some period of time before it is hard killed.
+
 The kubelet uses readiness probes to know when a container is ready to start
 accepting traffic. A Pod is considered ready when all of its containers are ready.
 One use of this signal is to control which Pods are used as backends for Services.
@@ -25,7 +29,18 @@ it succeeds, making sure those probes don't interfere with the application start
 This can be used to adopt liveness checks on slow starting containers, avoiding them
 getting killed by the kubelet before they are up and running.
 
+{{< caution >}}
+Liveness probes can be a powerful way to recover from application failures, but
+they should be used with caution. Liveness probes must be configured carefully
+to ensure that they truly indicate unrecoverable application failure, for example a deadlock.
+{{< /caution >}}
 
+{{< note >}}
+Incorrect implementation of liveness probes can lead to cascading failures. This results in
+restarting of container under high load; failed client requests as your application became less
+scalable; and increased workload on remaining pods due to some failed pods.
+Understand the difference between readiness and liveness probes and when to apply them for your app.
+{{< /note >}}
 
 ## {{% heading "prerequisites" %}}
 
@@ -43,7 +58,7 @@ broken states, and cannot recover except by being restarted. Kubernetes provides
 liveness probes to detect and remedy such situations.
 
 In this exercise, you create a Pod that runs a container based on the
-`k8s.gcr.io/busybox` image. Here is the configuration file for the Pod:
+`registry.k8s.io/busybox` image. Here is the configuration file for the Pod:
 
 {{< codenew file="pods/probe/exec-liveness.yaml" >}}
 
@@ -84,8 +99,8 @@ The output indicates that no liveness probes have failed yet:
 Type    Reason     Age   From               Message
   ----    ------     ----  ----               -------
   Normal  Scheduled  11s   default-scheduler  Successfully assigned default/liveness-exec to node01
-  Normal  Pulling    9s    kubelet, node01    Pulling image "k8s.gcr.io/busybox"
-  Normal  Pulled     7s    kubelet, node01    Successfully pulled image "k8s.gcr.io/busybox"
+  Normal  Pulling    9s    kubelet, node01    Pulling image "registry.k8s.io/busybox"
+  Normal  Pulled     7s    kubelet, node01    Successfully pulled image "registry.k8s.io/busybox"
   Normal  Created    7s    kubelet, node01    Created container liveness
   Normal  Started    7s    kubelet, node01    Started container liveness
 ```
@@ -97,14 +112,14 @@ kubectl describe pod liveness-exec
 ```
 
 At the bottom of the output, there are messages indicating that the liveness
-probes have failed, and the containers have been killed and recreated.
+probes have failed, and the failed containers have been killed and recreated.
 
 ```
   Type     Reason     Age                From               Message
   ----     ------     ----               ----               -------
   Normal   Scheduled  57s                default-scheduler  Successfully assigned default/liveness-exec to node01
-  Normal   Pulling    55s                kubelet, node01    Pulling image "k8s.gcr.io/busybox"
-  Normal   Pulled     53s                kubelet, node01    Successfully pulled image "k8s.gcr.io/busybox"
+  Normal   Pulling    55s                kubelet, node01    Pulling image "registry.k8s.io/busybox"
+  Normal   Pulled     53s                kubelet, node01    Successfully pulled image "registry.k8s.io/busybox"
   Normal   Created    53s                kubelet, node01    Created container liveness
   Normal   Started    53s                kubelet, node01    Started container liveness
   Warning  Unhealthy  10s (x3 over 20s)  kubelet, node01    Liveness probe failed: cat: can't open '/tmp/healthy': No such file or directory
@@ -117,7 +132,7 @@ Wait another 30 seconds, and verify that the container has been restarted:
 kubectl get pod liveness-exec
 ```
 
-The output shows that `RESTARTS` has been incremented:
+The output shows that `RESTARTS` has been incremented. Note that the `RESTARTS` counter increments as soon as a failed container comes back to the running state:
 
 ```
 NAME            READY     STATUS    RESTARTS   AGE
@@ -127,7 +142,7 @@ liveness-exec   1/1       Running   1          1m
 ## Define a liveness HTTP request
 
 Another kind of liveness probe uses an HTTP GET request. Here is the configuration
-file for a Pod that runs a container based on the `k8s.gcr.io/liveness`
+file for a Pod that runs a container based on the `registry.k8s.io/liveness`
 image.
 
 {{< codenew file="pods/probe/http-liveness.yaml" >}}
@@ -225,21 +240,27 @@ kubectl describe pod goproxy
 
 {{< feature-state for_k8s_version="v1.24" state="beta" >}}
 
-If your application implements [gRPC Health Checking Protocol](https://github.com/grpc/grpc/blob/master/doc/health-checking.md),
-kubelet can be configured to use it for application liveness checks.
-You must enable the `GRPCContainerProbe`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-in order to configure checks that rely on gRPC.
+If your application implements the [gRPC Health Checking Protocol](https://github.com/grpc/grpc/blob/master/doc/health-checking.md),
+this example shows how to configure Kubernetes to use it for application liveness checks.
+Similarly you can configure readiness and startup probes.
 
 Here is an example manifest:
 
 {{< codenew file="pods/probe/grpc-liveness.yaml" >}}
 
-To use a gRPC probe, `port` must be configured. If the health endpoint is configured
-on a non-default service, you must also specify the `service`.
+To use a gRPC probe, `port` must be configured. If you want to distinguish probes of different types
+and probes for different features you can use the `service` field.
+You can set `service` to the value `liveness` and make your gRPC Health Checking endpoint
+respond to this request differently then when you set `service` set to `readiness`.
+This lets you use the same endpoint for different kinds of container health check
+(rather than needing to listen on two different ports).
+If you want to specify your own custom service name and also specify a probe type,
+the Kubernetes project recommends that you use a name that concatenates
+those. For example: `myservice-liveness` (using `-` as a separator).
 
 {{< note >}}
-Unlike HTTP and TCP probes, named ports cannot be used and custom host cannot be configured.
+Unlike HTTP or TCP probes, you cannot specify the healthcheck port by name, and you
+cannot configure a custom hostname.
 {{< /note >}}
 
 Configuration problems (for example: incorrect port and service, unimplemented health checking protocol)
@@ -376,11 +397,11 @@ Eventually, some of this section could be moved to a concept topic.
 {{< /comment >}}
 
 [Probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) have a number of fields that
-you can use to more precisely control the behavior of liveness and readiness
+you can use to more precisely control the behavior of startup, liveness and readiness
 checks:
 
 * `initialDelaySeconds`: Number of seconds after the container has started
-before liveness or readiness probes are initiated. Defaults to 0 seconds. Minimum value is 0.
+before startup, liveness or readiness probes are initiated. Defaults to 0 seconds. Minimum value is 0.
 * `periodSeconds`: How often (in seconds) to perform the probe. Default to 10
 seconds. Minimum value is 1.
 * `timeoutSeconds`: Number of seconds after which the probe times out. Defaults
@@ -388,9 +409,24 @@ to 1 second. Minimum value is 1.
 * `successThreshold`: Minimum consecutive successes for the probe to be
 considered successful after having failed. Defaults to 1. Must be 1 for liveness
 and startup Probes. Minimum value is 1.
-* `failureThreshold`: When a probe fails, Kubernetes will
-try `failureThreshold` times before giving up. Giving up in case of liveness probe means restarting the container. In case of readiness probe the Pod will be marked Unready.
-Defaults to 3. Minimum value is 1.
+* `failureThreshold`: After a probe fails `failureThreshold` times in a row, Kubernetes
+  considers that the overall check has failed: the container is _not_ ready / healthy /
+  live.
+  For the case of a startup or liveness probe, if at least `failureThreshold` probes have
+  failed, Kubernetes treats the container as unhealthy and triggers a restart for that
+  specific container. The kubelet takes the setting of `terminationGracePeriodSeconds`
+  for that container into account.
+  For a failed readiness probe, the kubelet continues running the container that failed
+  checks, and also continues to run more probes; because the check failed, the kubelet
+  sets the `Ready` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)
+  on the Pod to `false`.
+* `terminationGracePeriodSeconds`: configure a grace period for the kubelet to wait
+  between triggering a shut down of the failed container, and then forcing the
+  container runtime to stop that container.
+  The default is to inherit the Pod-level value for `terminationGracePeriodSeconds`
+  (30 seconds if not specified), and the minimum value is 1.
+  See [probe-level `terminationGracePeriodSeconds`](#probe-level-terminationgraceperiodseconds)
+  for more detail.
 
 {{< note >}}
 Before Kubernetes 1.20, the field `timeoutSeconds` was not respected for exec probes:
@@ -481,7 +517,7 @@ to resolve it.
 
 ### Probe-level `terminationGracePeriodSeconds`
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
 Prior to release 1.21, the pod-level `terminationGracePeriodSeconds` was used
 for terminating a container that failed its liveness or startup probe. This
@@ -489,24 +525,25 @@ coupling was unintended and may have resulted in failed containers taking an
 unusually long time to restart when a pod-level `terminationGracePeriodSeconds`
 was set.
 
-In 1.21 and beyond, when the feature gate `ProbeTerminationGracePeriod` is
-enabled, users can specify a probe-level `terminationGracePeriodSeconds` as
-part of the probe specification. When the feature gate is enabled, and both a
-pod- and probe-level `terminationGracePeriodSeconds` are set, the kubelet will
-use the probe-level value.
+In 1.25 and beyond, users can specify a probe-level `terminationGracePeriodSeconds`
+as part of the probe specification. When both a pod- and probe-level 
+`terminationGracePeriodSeconds` are set, the kubelet will use the probe-level value.
 
 {{< note >}}
-As of Kubernetes 1.22, the `ProbeTerminationGracePeriod` feature gate is only
-available on the API Server. The kubelet always honors the probe-level
-`terminationGracePeriodSeconds` field if it is present on a Pod.
+Beginning in Kubernetes 1.25, the `ProbeTerminationGracePeriod` feature is enabled
+by default. For users choosing to disable this feature, please note the following:
 
-If you have existing Pods where the `terminationGracePeriodSeconds` field is set and
+* The `ProbeTerminationGracePeriod` feature gate is only available on the API Server. 
+The kubelet always honors the probe-level `terminationGracePeriodSeconds` field if 
+it is present on a Pod.
+
+* If you have existing Pods where the `terminationGracePeriodSeconds` field is set and
 you no longer wish to use per-probe termination grace periods, you must delete
 those existing Pods.
 
-When you (or the control plane, or some other component) create replacement
+* When you (or the control plane, or some other component) create replacement
 Pods, and the feature gate `ProbeTerminationGracePeriod` is disabled, then the
-API server ignores the Pod-level `terminationGracePeriodSeconds` field, even if
+API server ignores the Probe-level `terminationGracePeriodSeconds` field, even if
 a Pod or pod template specifies it.
 {{< /note >}}
 

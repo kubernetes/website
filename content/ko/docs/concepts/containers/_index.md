@@ -2,6 +2,9 @@
 title: 컨테이너
 weight: 40
 description: 런타임 의존성과 함께 애플리케이션을 패키징하는 기술
+# reviewers:
+# - erictune
+# - thockin
 content_type: concept
 no_list: true
 ---

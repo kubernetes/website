@@ -1,7 +1,7 @@
 ---
 title: 调度器性能调优
 content_type: concept
-weight: 100
+weight: 70
 ---
 <!--
 ---
@@ -9,13 +9,13 @@ reviewers:
 - bsalamat
 title: Scheduler Performance Tuning
 content_type: concept
-weight: 100
+weight: 70
 ---
 -->
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="1.14" state="beta" >}}
+{{< feature-state for_k8s_version="v1.14" state="beta" >}}
 
 <!--
 [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/#kube-scheduler)
@@ -81,9 +81,9 @@ kube-scheduler 的表现等价于设置值为 100。
 
 <!--
 To change the value, edit the
-[kube-scheduler configuration file](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
+[kube-scheduler configuration file](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
 and then restart the scheduler.
-In many cases, the configuration file can be found at `/etc/kubernetes/config/kube-scheduler.yaml`
+In many cases, the configuration file can be found at `/etc/kubernetes/config/kube-scheduler.yaml`.
  -->
 要修改这个值，先编辑 [kube-scheduler 的配置文件](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)
 然后重启调度器。
@@ -184,9 +184,9 @@ percentageOfNodesToScore: 50
 ```
 
 <!--
-### Tuning percentageOfNodesToScore
+## Tuning percentageOfNodesToScore
 -->
-### 调节 percentageOfNodesToScore 参数
+## 调节 percentageOfNodesToScore 参数
 
 <!--
 `percentageOfNodesToScore` must be a value between 1 and 100 with the default
@@ -207,6 +207,7 @@ change will have no or little effect, for a similar reason.
 If your cluster has several hundred Nodes or fewer, leave this configuration option
 at its default value. Making changes is unlikely to improve the
 scheduler's performance significantly.
+{{< /note >}}
 -->
 {{< note >}}
 当集群中的可调度节点少于 50 个时，调度器仍然会去检查所有的 Node，
@@ -243,9 +244,9 @@ prefer to run the Pod on any Node as long as it is feasible.
 才使用很低的参数设置。
 
 <!--
-### How the scheduler iterates over Nodes
+## How the scheduler iterates over Nodes
 -->
-### 调度器做调度选择的时候如何覆盖所有的 Node {#how-the-scheduler-iterates-over-nodes}
+## 调度器做调度选择的时候如何覆盖所有的 Node {#how-the-scheduler-iterates-over-nodes}
 
 <!--
 This section is intended for those who want to understand the internal details
@@ -298,6 +299,8 @@ After going over all the Nodes, it goes back to Node 1.
 
 ## {{% heading "whatsnext" %}}
 
-<!-- * Check the [kube-scheduler configuration reference (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) -->
+<!--
+* Check the [kube-scheduler configuration reference (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+-->
 
 * 参见 [kube-scheduler 配置参考 (v1beta3)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)

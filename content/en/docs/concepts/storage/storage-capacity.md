@@ -7,7 +7,7 @@ reviewers:
 - pohly
 title: Storage Capacity
 content_type: concept
-weight: 70
+weight: 80
 ---
 
 <!-- overview -->
@@ -70,7 +70,7 @@ decides where to create the volume, independently of Pods that will
 use the volume. The scheduler then schedules Pods onto nodes where the
 volume is available after the volume has been created.
 
-For [CSI ephemeral volumes](/docs/concepts/storage/volumes/#csi),
+For [CSI ephemeral volumes](/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes),
 scheduling always happens without considering storage capacity. This
 is based on the assumption that this volume type is only used by
 special CSI drivers which are local to a node and do not need

@@ -99,12 +99,13 @@ Here are links to some of the popular cloud providers' security documentation:
 IaaS 提供商        | 链接 |
 -------------------- | ------------ |
 Alibaba Cloud | https://www.alibabacloud.com/trust-center |
-Amazon Web Services | https://aws.amazon.com/security/ |
-Google Cloud Platform | https://cloud.google.com/security/ |
+Amazon Web Services | https://aws.amazon.com/security |
+Google Cloud Platform | https://cloud.google.com/security |
+Huawei Cloud | https://www.huaweicloud.com/securecenter/overallsafety |
 IBM Cloud | https://www.ibm.com/cloud/security |
 Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
-Oracle Cloud Infrastructure | https://www.oracle.com/security/ |
-VMWare VSphere | https://www.vmware.com/security/hardening-guides.html |
+Oracle Cloud Infrastructure | https://www.oracle.com/security |
+VMWare VSphere | https://www.vmware.com/security/hardening-guides |
 
 {{< /table >}}
 
@@ -215,7 +216,7 @@ Area of Concern for Containers | Recommendation |
 Container Vulnerability Scanning and OS Dependency Security | As part of an image build step, you should scan your containers for known vulnerabilities.
 Image Signing and Enforcement | Sign container images to maintain a system of trust for the content of your containers.
 Disallow privileged users | When constructing containers, consult your documentation for how to create users inside of the containers that have the least level of operating system privilege necessary in order to carry out the goal of the container.
-Use container runtime with stronger isolation | Select [container runtime classes](/docs/concepts/containers/runtime-class/) that provide stronger isolation
+Use container runtime with stronger isolation | Select [container runtime classes](/docs/concepts/containers/runtime-class/) that provide stronger isolation.
 -->
 ## 容器    {#container}
 

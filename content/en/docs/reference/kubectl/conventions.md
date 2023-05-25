@@ -3,6 +3,7 @@ title: kubectl Usage Conventions
 reviewers:
 - janetkuo
 content_type: concept
+weight: 60
 ---
 
 <!-- overview -->
@@ -21,9 +22,11 @@ For a stable output in a script:
 
 ## Subresources
 
-* You can use the `--subresource` alpha flag for kubectl commands like `get`, `patch`,
+* You can use the `--subresource` beta flag for kubectl commands like `get`, `patch`,
 `edit` and `replace` to fetch and update subresources for all resources that
 support them. Currently, only the `status` and `scale` subresources are supported.
+  * For `kubectl edit`, the `scale` subresource is not supported. If you use  `--subresource` with
+    `kubectl edit` and specify `scale` as the subresource, the command will error out.
 * The API contract against a subresource is identical to a full resource. While updating the
 `status` subresource to a new value, keep in mind that the subresource could be potentially
 reconciled by a controller to a different value.

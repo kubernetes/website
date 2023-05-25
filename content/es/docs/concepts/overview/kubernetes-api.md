@@ -66,7 +66,7 @@ Para facilitar la eliminación de propiedades o reestructurar la representación
 
 Se versiona a nivel de la API en vez de a nivel de los recursos o propiedades para asegurarnos de que la API presenta una visión clara y consistente de los recursos y el comportamiento del sistema, y para controlar el acceso a las APIs experimentales o que estén terminando su ciclo de vida. Los esquemas de serialización JSON y Protobuf siguen los mismos lineamientos para los cambios, es decir, estas descripciones cubren ambos formatos.
 
-Se ha de tener en cuenta que hay una relación indirecta entre el versionado de la API y el versionado del resto del software. La propuesta de [versionado de la API y releases](https://git.k8s.io/community/contributors/design-proposals/release/versioning.md) describe esta relación.
+Se ha de tener en cuenta que hay una relación indirecta entre el versionado de la API y el versionado del resto del software. La propuesta de [versionado de la API y releases](https://git.k8s.io/design-proposals-archive/release/versioning.md) describe esta relación.
 
 Las distintas versiones de la API implican distintos niveles de estabilidad y soporte. El criterio para cada nivel se describe en detalle en la documentación de [Cambios a la API](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#alpha-beta-and-stable-versions). A continuación se ofrece un resumen:
 
@@ -89,7 +89,7 @@ Las distintas versiones de la API implican distintos niveles de estabilidad y so
 
 ## Grupos de API
 
-Para que sea más fácil extender la API de Kubernetes, se han creado los [*grupos de API*](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md).
+Para que sea más fácil extender la API de Kubernetes, se han creado los [*grupos de API*](https://git.k8s.io/design-proposals-archive/api-machinery/api-group.md).
 Estos grupos se especifican en una ruta REST y en la propiedad `apiVersion` de un objeto serializado.
 
 Actualmente hay varios grupos de API en uso:

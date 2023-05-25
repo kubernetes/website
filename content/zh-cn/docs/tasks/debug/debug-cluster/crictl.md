@@ -23,7 +23,6 @@ You can use it to inspect and debug container runtimes and applications on a
 Kubernetes node. `crictl` and its source are hosted in the
 [cri-tools](https://github.com/kubernetes-sigs/cri-tools) repository.
 -->
-
 `crictl` 是 CRI 兼容的容器运行时命令行接口。
 你可以使用它来检查和调试 Kubernetes 节点上的容器运行时和应用程序。
 `crictl` 和它的源代码在
@@ -52,7 +51,7 @@ of Kubernetes. Extract it and move it to a location on your system path, such as
 你可以从 cri-tools [发布页面](https://github.com/kubernetes-sigs/cri-tools/releases)
 下载一个压缩的 `crictl` 归档文件，用于几种不同的架构。
 下载与你的 kubernetes 版本相对应的版本。
-提取它并将其移动到系统路径上的某个位置，例如`/usr/local/bin/`。
+提取它并将其移动到系统路径上的某个位置，例如 `/usr/local/bin/`。
 
 <!--
 ## General usage
@@ -82,6 +81,14 @@ You can set the endpoint for `crictl` by doing one of the following:
 - 在配置文件 `--config=/etc/crictl.yaml` 中设置端点。
   要设置不同的文件，可以在运行 `crictl` 时使用 `--config=PATH_TO_FILE` 标志。
 
+{{<note>}}
+<!--
+If you don't set an endpoint, `crictl` attempts to connect to a list of known
+endpoints, which might result in an impact to performance.
+-->
+如果你不设置端点，`crictl` 将尝试连接到已知端点的列表，这可能会影响性能。
+{{</note>}}
+
 <!--
 You can also specify timeout values when connecting to the server and enable or
 disable debugging, by specifying `timeout` or `debug` values in the configuration
@@ -98,7 +105,7 @@ container runtime would be similar to this:
 要查看或编辑当前配置，请查看或编辑 `/etc/crictl.yaml` 的内容。
 例如，使用 `containerd` 容器运行时的配置会类似于这样：
 
-```
+```none
 runtime-endpoint: unix:///var/run/containerd/containerd.sock
 image-endpoint: unix:///var/run/containerd/containerd.sock
 timeout: 10
@@ -148,7 +155,7 @@ The output is similar to this:
 -->
 输出类似于：
 
-```
+```none
 POD ID              CREATED              STATE               NAME                         NAMESPACE           ATTEMPT
 926f1b5a1d33a       About a minute ago   Ready               sh-84d7dcf559-4r2gq          default             0
 4dccb216c4adb       About a minute ago   Ready               nginx-65899c769f-wv2gp       default             0
@@ -170,7 +177,7 @@ The output is similar to this:
 -->
 输出类似于这样：
 
-```
+```none
 POD ID              CREATED             STATE               NAME                     NAMESPACE           ATTEMPT
 4dccb216c4adb       2 minutes ago       Ready               nginx-65899c769f-wv2gp   default             0
 ```
@@ -386,15 +393,15 @@ deleted by the Kubelet.
 
    ```json
    {
-       "metadata": {
-           "name": "nginx-sandbox",
-           "namespace": "default",
-           "attempt": 1,
-           "uid": "hdishd83djaidwnduwk28bcsb"
-       },
-       "logDirectory": "/tmp",
-       "linux": {
-       }
+     "metadata": {
+       "name": "nginx-sandbox",
+       "namespace": "default",
+       "attempt": 1,
+       "uid": "hdishd83djaidwnduwk28bcsb"
+     },
+     "log_directory": "/tmp",
+     "linux": {
+     }
    }
    ```
 
@@ -422,7 +429,7 @@ deleted by the Kubelet.
 ### 创建容器 {#create-a-container}
 
 用 `crictl` 创建容器对容器运行时排错很有帮助。
-在运行的 Kubernetes 集群中，沙盒会随机的被 kubelet 停止和删除。
+在运行的 Kubernetes 集群中，沙盒会随机地被 kubelet 停止和删除。
 
 <!--
 1. Pull a busybox image
@@ -448,15 +455,15 @@ deleted by the Kubelet.
 
    ```json
    {
-       "metadata": {
-           "name": "nginx-sandbox",
-           "namespace": "default",
-           "attempt": 1,
-           "uid": "hdishd83djaidwnduwk28bcsb"
-       },
-       "log_directory": "/tmp",
-       "linux": {
-       }
+     "metadata": {
+       "name": "busybox-sandbox",
+       "namespace": "default",
+       "attempt": 1,
+       "uid": "aewi4aeThua7ooShohbo1phoj"
+     },
+     "log_directory": "/tmp",
+     "linux": {
+     }
    }
    ```
 
@@ -506,7 +513,7 @@ deleted by the Kubelet.
    The output is similar to this:
    -->
    输出类似于这样：
- 
+
    ```none
    CONTAINER ID        IMAGE               CREATED             STATE               NAME                ATTEMPT
    3e025dd50a72d       busybox             32 seconds ago      Created             busybox             0
@@ -548,7 +555,7 @@ The output is similar to this:
 -->
 输出类似于这样：
 
-```
+```none
 CONTAINER ID   IMAGE    CREATED              STATE    NAME     ATTEMPT
 3e025dd50a72d  busybox  About a minute ago   Running  busybox  0
 ```

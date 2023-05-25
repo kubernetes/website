@@ -3,7 +3,7 @@ reviewers:
 - bsalamat
 title: Scheduler Performance Tuning
 content_type: concept
-weight: 100
+weight: 70
 ---
 
 <!-- overview -->

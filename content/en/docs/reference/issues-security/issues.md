@@ -8,6 +8,9 @@ To report a security issue, please follow the [Kubernetes security disclosure pr
 
 Work on Kubernetes code and public issues are tracked using [GitHub Issues](https://github.com/kubernetes/kubernetes/issues/).
 
-* [CVE-related issues](https://github.com/kubernetes/kubernetes/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3Aarea%2Fsecurity+in%3Atitle+CVE)
+* Official [list of known CVEs](/docs/reference/issues-security/official-cve-feed/)
+  (security vulnerabilities) that have been announced by the
+  [Security Response Committee](https://github.com/kubernetes/committee-security-response)
+* [CVE-related GitHub issues](https://github.com/kubernetes/kubernetes/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3Aarea%2Fsecurity+in%3Atitle+CVE)
 
 Security-related announcements are sent to the [kubernetes-security-announce@googlegroups.com](https://groups.google.com/forum/#!forum/kubernetes-security-announce) mailing list.

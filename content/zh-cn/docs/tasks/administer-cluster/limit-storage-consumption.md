@@ -1,10 +1,12 @@
 ---
-title: 限制存储消耗
+title: 限制存储使用量
 content_type: task
+weight: 240
 ---
 <!--
 title: Limit Storage Consumption
 content_type: task
+weight: 240
 -->
 
 <!-- overview -->
@@ -12,14 +14,14 @@ content_type: task
 <!--
 This example demonstrates how to limit the amount of storage consumed in a namespace
 -->
-此示例演示了如何限制一个名字空间中的存储使用量。
+此示例演示如何限制一个名字空间中的存储使用量。
 
 <!--
 The following resources are used in the demonstration: [ResourceQuota](/docs/concepts/policy/resource-quotas/),
 [LimitRange](/docs/tasks/administer-cluster/memory-default-namespace/),
 and [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/).
 -->
-演示中用到了以下资源：[ResourceQuota](/zh-cn/docs/concepts/policy/resource-quotas/)，
+演示中用到了以下资源：[ResourceQuota](/zh-cn/docs/concepts/policy/resource-quotas/)、
 [LimitRange](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/) 和
 [PersistentVolumeClaim](/zh-cn/docs/concepts/storage/persistent-volumes/)。
 
@@ -32,18 +34,18 @@ and [PersistentVolumeClaim](/docs/concepts/storage/persistent-volumes/).
 <!--
 ## Scenario: Limiting Storage Consumption
 -->
-## 场景：限制存储消耗
+## 场景：限制存储使用量
 
 <!--
 The cluster-admin is operating a cluster on behalf of a user population and the admin wants to control
 how much storage a single namespace can consume in order to control cost.
 -->
-集群管理员代表用户群操作集群，管理员希望控制单个名称空间可以消耗多少存储空间以控制成本。
+集群管理员代表用户群操作集群，该管理员希望控制单个名字空间可以消耗多少存储空间以控制成本。
 
 <!--
 The admin would like to limit:
 -->
-管理员想要限制：
+该管理员想要限制：
 
 <!--
 1. The number of persistent volume claims in a namespace
@@ -101,8 +103,8 @@ AWS EBS volumes have a 1Gi minimum requirement.
 Admins can limit the number of PVCs in a namespace as well as the cumulative capacity of those PVCs. New PVCs that exceed
 either maximum value will be rejected.
 -->
-管理员可以限制某个名字空间中的 PVCs 个数以及这些 PVCs 的累计容量。
-新 PVCs 请求如果超过任一上限值将被拒绝。
+管理员可以限制某个名字空间中的 PVC 个数以及这些 PVC 的累计容量。
+如果 PVC 的数目超过任一上限值，新的 PVC 将被拒绝。
 
 <!--
 In this example, a 6th PVC in the namespace would be rejected because it exceeds the maximum count of 5. Alternatively,
@@ -110,9 +112,9 @@ a 5Gi maximum quota when combined with the 2Gi max limit above, cannot have 3 PV
  for a namespace capped at 5Gi.
 -->
 在此示例中，名字空间中的第 6 个 PVC 将被拒绝，因为它超过了最大计数 5。
-或者，当与上面的 2Gi 最大容量限制结合在一起时，意味着 5Gi 的最大配额
-不能支持 3 个都是 2Gi 的 PVC。
-后者实际上是向名字空间请求 6Gi 容量，而该命令空间已经设置上限为 5Gi。
+或者，当与上面的 2Gi 最大容量限制结合在一起时，
+意味着 5Gi 的最大配额不能支持 3 个都是 2Gi 的 PVC。
+后者实际上是向名字空间请求 6Gi 容量，而该名字空间已经设置上限为 5Gi。
 
 ```yaml
 apiVersion: v1

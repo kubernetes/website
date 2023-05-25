@@ -1,5 +1,14 @@
 # i18n strings for the Polish site.
 # NOTE: Please keep the entries in alphabetical order when editing
+
+# For "and", see [conjunction_1]
+
+[auto_generated_edit_notice]
+other = "(strona utworzona automatycznie)"
+
+[auto_generated_pageinfo]
+other = """<p>Ta strona została utworzona przez automat.</p><p>Jeśli chcesz zgłosić problem dotyczący tej strony, pamiętaj o zaznaczeniu, że została wygenerowana automatycznie. Może być konieczna zmiana w zupełnie innymi miejscu projektu Kubernetes.</p>"""
+
 [caution]
 other = "Ostrzeżenie:"
 
@@ -27,6 +36,40 @@ other = "Twitter"
 [community_youtube_name]
 other = "YouTube"
 
+# Avoid using conjunction_1.
+# Must match the context in layouts/shortcodes/release-data.html
+# Appears on https://kubernetes.io/releases/
+# For example the "and" in "Complete 1.25 Schedule and Changelog"
+[conjunction_1]
+other = "i"
+
+[cve_id]
+other = "CVE ID"
+
+[cve_issue_url]
+other = "URL do CVE w GitHubie"
+
+[cve_json_external_url]
+other = "external_url"
+
+[cve_json_id]
+other = "id"
+
+[cve_json_summary]
+other = "podsumowanie"
+
+[cve_json_url]
+other = "url"
+
+[cve_summary]
+other = "Podsumowanie problemu"
+
+[cve_table]
+other = "Oficjalna lista CVE Kubernetesa"
+
+[cve_url]
+other = "CVE URL"
+
 [deprecation_title]
 other = "Teraz oglądasz dokumentację Kubernetesa w wersji:"
 
@@ -35,6 +78,9 @@ other = " - dokumentacja nie jest już aktualizowana. Wyświetlona jest wersja a
 
 [deprecation_file_warning]
 other = "Przestarzały"
+
+[dockershim_message]
+other = """Dockershim został usunięty z projektu Kubernetes w wydaniu 1.24. Po dalsze informacje zajrzyj do <a href="/dockershim">Dockershim Removal FAQ</a>."""
 
 [docs_label_browse]
 other = "Przeglądaj dokumentację"
@@ -60,11 +106,17 @@ other = "Starsze wersje"
 [end_of_life]
 other = "Zakończenie wsparcia:"
 
+[envvars_heading]
+other = "Zmienne środowiska"
+
 [error_404_were_you_looking_for]
 other = "Czy chodziło o:"
 
 [examples_heading]
 other = "Przykłady"
+
+[feature_state]
+other = "STATUS FUNKCJONALNOŚCI:"
 
 [feedback_heading]
 other = "Twoja opinia"
@@ -78,11 +130,17 @@ other = "Czy ta strona była przydatna?"
 [feedback_yes]
 other = "Tak"
 
+[final_patch_release]
+other = "Ostatnie wydanie poprawek"
+
 [inline_list_separator]
 other = ","
 
 [input_placeholder_email_address]
 other = "adres e-mail"
+
+[javascript_required]
+other = "JavaScript musi być [włączony](https://www.enable-javascript.com/pl/) na tej stronie"
 
 [latest_release]
 other = "Najnowsze wydanie:"
@@ -186,6 +244,10 @@ other = "Przeczytaj o"
 [main_read_more]
 other = "Przeczytaj więcej"
 
+[not_applicable]
+# Localization teams: it's OK to use a longer text here
+other = "nie dotyczy"
+
 [note]
 other = "Informacja:"
 
@@ -195,6 +257,12 @@ other = "Cele"
 [options_heading]
 other = "Opcje"
 
+[outdated_blog__message]
+other = "Ten artykuł jest starszy niż rok, więc część informacji może być już nieaktualnych. Upewnij się, że zawartość tej strony ciągle jest poprawna."
+
+[patch_release]
+other = "Patch Release"
+
 [post_create_issue]
 other = "Zgłoś problem"
 
@@ -203,6 +271,64 @@ other = "Nim zaczniesz"
 
 [previous_patches]
 other = "Poprawki:"
+
+[release_date_after]
+other = ")"
+
+[release_date_before]
+other = "(wydano: "
+
+# See https://gohugo.io/functions/format/#gos-layout-string
+# Use a suitable format for your locale
+[release_date_format]
+other = "2006-01-02"
+
+[release_cherry_pick_deadline]
+other = "Termin poprawek Cherry Pick"
+
+# Deprecated. Planned for removal in a future release.
+# Use [release_full_details_initial_text] instead.
+[release_complete]
+other = "Pełny"
+
+[release_end_of_life_date]
+other = "Termin End Of Life"
+
+# Replace [release_complete] with [release_full_details_initial_text]
+[release_full_details_initial_text]
+other = "Pełny"
+
+[release_information_navbar]
+other = "Informacje o wydaniu"
+
+[release_minor_version]
+other = "Podwersja (Minor)"
+
+[release_info_next_patch]
+other = "Następne wydanie zawierające poprawki to **%s**."
+
+# Localization note: You can use Markdown here.
+# The three placeholders (in order) are:
+#   Kubernetes minor version
+#   maintenance mode date
+#   end of life date
+#
+# Keep this order. It is OK to use more than one sentence, and it's also OK to change the
+# tense of the text so long as the meaning is clear.
+[release_info_eol]
+other = "**%s** od **%s** wchodzi w tryb minimalnego utrzymania (maintenance mode), a całkowity koniec wsparcia to **%s**."
+
+[release_note]
+other = "Uwagi"
+
+[release_schedule]
+other = "Harmonogram"
+
+[release_target_date]
+other = "Planowany termin"
+
+[release_changelog]
+other = "Rejestr zmian"
 
 [seealso_heading]
 other = "Zobacz też"
@@ -215,6 +341,16 @@ other = "Streszczenie"
 
 [thirdparty_message]
 other = """Ta sekcja przekierowuje do projektów osób trzecich, które udostępniają funkcjonalność wymaganą przez Kubernetesa. Autory projektu Kubernetes nie są odpowiedzialni za te projekty. Ta strona podąża za <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">wytycznymi CNCF dla stron internetowych</a> aby pokazać projekty w kolejności alfabetycznej. Aby dodać projekt na tę listę przeczytaj <a href="/docs/contribute/style/content-guide/#third-party-content">wytyczne dla zawartości</a> przed wysyłaniem zmian."""
+
+[thirdparty_message_edit_disclaimer]
+other="""Zastrzeżenie dotyczące zawartości zewnętrznej"""
+
+
+[thirdparty_message_single_item]
+other = """&#128711; Ta pozycja przekierowuje do projektu lub produktu osób trzecich, będących poza projektem Kubernetes. <a class="alert-more-info" href="#third-party-content-disclaimer">Więcej informacji</a>"""
+
+[thirdparty_message_disclaimer]
+other = """<p>Niektóre elementy na tej stronie odnoszą się do zewnętrznych produktów lub projektów, które dostarczają funkcjonalności wymagane przez Kubernetesa. Autorzy projektu Kubernetes nie ponoszą odpowiedzialności za te produkty oraz projekty. Zajrzyj na stronę <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF website guidelines</a> po więcej informacji.</p><p>Zapoznaj się także z  <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> zanim zaproponujesz zmianę dodającą odnośnik do zewnętrznej strony.</p>"""
 
 [ui_search_placeholder]
 other = "Szukaj"

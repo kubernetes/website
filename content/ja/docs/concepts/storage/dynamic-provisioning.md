@@ -2,7 +2,7 @@
 reviewers:
 title: ボリュームの動的プロビジョニング(Dynamic Volume Provisioning)
 content_type: concept
-weight: 40
+weight: 50
 ---
 
 <!-- overview -->
@@ -17,8 +17,8 @@ weight: 40
 
 ## バックグラウンド
 
-ボリュームの動的プロビジョニングの実装は`storage.k8s.io`というAPIグループ内の`StorageClass`というAPIオブジェクトに基づいています。クラスター管理者は`StorageClass`オブジェクトを必要に応じていくつでも定義でき、各オブジェクトはボリュームをプロビジョンする*Volumeプラグイン* (別名*プロビジョナー*)と、プロビジョンされるときにプロビジョナーに渡されるパラメータを指定します。
-クラスター管理者はクラスター内で複数の種類のストレージ(同一または異なるストレージシステム)を定義し、さらには公開でき、それらのストレージはパラメータのカスタムセットを持ちます。この仕組みにおいて、エンドユーザーはストレージがどのようにプロビジョンされるか心配する必要がなく、それでいて複数のストレージオプションから選択できることを保証します。
+ボリュームの動的プロビジョニングの実装は`storage.k8s.io`というAPIグループ内の`StorageClass`というAPIオブジェクトに基づいています。クラスター管理者は`StorageClass`オブジェクトを必要に応じていくつでも定義でき、各オブジェクトはボリュームをプロビジョンする*Volumeプラグイン* (別名*プロビジョナー*)と、プロビジョンされるときにプロビジョナーに渡されるパラメーターを指定します。
+クラスター管理者はクラスター内で複数の種類のストレージ(同一または異なるストレージシステム)を定義し、さらには公開でき、それらのストレージはパラメーターのカスタムセットを持ちます。この仕組みにおいて、エンドユーザーはストレージがどのようにプロビジョンされるか心配する必要がなく、それでいて複数のストレージオプションから選択できることを保証します。
 
 StorageClassに関するさらなる情報は[Storage Class](/docs/concepts/storage/storage-classes/)を参照ください。
 
@@ -52,7 +52,7 @@ parameters:
 
 ## 動的プロビジョニングの使用
 
-ユーザーは`PersistentVolumeClaim`リソース内でStorageClassを含むことで、動的にプロビジョンされたStorageをリクエストできます。Kubernetes v1.6以前では、この機能は`volume.beta.kubernetes.io/storage-class`アノテーションを介して使うことができました。しかしこのアノテーションではv1.6から廃止になりました。その代わりユーザーは現在では`PersistentVolumeClaim`オブジェクトの`storageClassName`を使う必要があります。このフィールドの値は、管理者によって設定された`StorageClass`の名前と一致しなければなりません([下記](#enabling-dynamic-provisioning)のセクションも参照ください)。
+ユーザーは`PersistentVolumeClaim`リソース内でStorageClassを含むことで、動的にプロビジョンされたStorageをリクエストできます。Kubernetes v1.6以前では、この機能は`volume.beta.kubernetes.io/storage-class`アノテーションを介して使うことができました。しかしこのアノテーションはv1.9から非推奨になりました。その代わりユーザーは現在では`PersistentVolumeClaim`オブジェクトの`storageClassName`を使う必要があります。このフィールドの値は、管理者によって設定された`StorageClass`の名前と一致しなければなりません([下記](#enabling-dynamic-provisioning)のセクションも参照ください)。
 
 "fast"というStorageClassを選択するために、例としてユーザーは下記のPersistentVolumeClaimを作成します。
 

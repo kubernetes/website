@@ -39,6 +39,18 @@ Resource quotas work like this:
   See the [walkthrough](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
   for an example of how to avoid this problem.
 
+{{< note >}}
+- For `cpu` and `memory` resources, ResourceQuotas enforce that **every**
+(new) pod in that namespace sets a limit for that resource.
+If you enforce a resource quota in a namespace for either `cpu` or `memory`,
+you, and other clients, **must** specify either `requests` or `limits` for that resource,
+for every new Pod you submit. If you don't, the control plane may reject admission
+for that Pod.
+- For other resources: ResourceQuota works and will ignore pods in the namespace without setting a limit or request for that resource. It means that you can create a new pod without limit/request ephemeral storage if the resource quota limits the ephemeral storage of this namespace.
+You can use a [LimitRange](/docs/concepts/policy/limit-range/) to automatically set
+a default request for these resources.
+{{< /note >}}
+
 The name of a ResourceQuota object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
 
@@ -110,7 +122,7 @@ In addition, you can limit consumption of storage resources based on associated 
 | `requests.storage` | Across all persistent volume claims, the sum of storage requests cannot exceed this value. |
 | `persistentvolumeclaims` | The total number of [PersistentVolumeClaims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
 | `<storage-class-name>.storageclass.storage.k8s.io/requests.storage` | Across all persistent volume claims associated with the `<storage-class-name>`, the sum of storage requests cannot exceed this value. |
-| `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` | Across all persistent volume claims associated with the storage-class-name, the total number of [persistent volume claims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
+| `<storage-class-name>.storageclass.storage.k8s.io/persistentvolumeclaims` | Across all persistent volume claims associated with the `<storage-class-name>`, the total number of [persistent volume claims](/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims) that can exist in the namespace. |
 
 For example, if an operator wants to quota storage with `gold` storage class separate from `bronze` storage class, the operator can
 define a quota as follows:

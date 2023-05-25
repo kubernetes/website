@@ -2,6 +2,7 @@
 title: ネットワークポリシーを宣言する
 min-kubernetes-server-version: v1.8
 content_type: task
+weight: 180
 ---
 
 <!-- overview -->

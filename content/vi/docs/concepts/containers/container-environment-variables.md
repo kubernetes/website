@@ -50,7 +50,7 @@ FOO_SERVICE_PORT=<port mà service đang chạy>
 ```
 
 Các services có địa chỉ IP và có sẵn cho Container thông qua DNS 
-nếu [DNS addon](http://releases.k8s.io/{{< param "githubbranch" >}}/cluster/addons/dns/) được enable. 
+nếu [DNS addon](http://releases.k8s.io/master/cluster/addons/dns/) được enable. 
 
 
 

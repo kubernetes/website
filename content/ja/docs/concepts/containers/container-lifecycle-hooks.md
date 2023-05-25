@@ -1,7 +1,7 @@
 ---
 title: コンテナライフサイクルフック
 content_type: concept
-weight: 30
+weight: 40
 ---
 
 <!-- overview -->
@@ -30,8 +30,7 @@ Angularなどのコンポーネントライフサイクルフックを持つ多�
 
 `PreStop`
 
-このフックは、APIからの要求、またはliveness probeの失敗、プリエンプション、リソース競合などの管理イベントが原因でコンテナが終了する直前に呼び出されます。コンテナがすでに終了状態または完了状態にある場合、preStopフックの呼び出しは失敗します。
-これはブロッキング、つまり同期的であるため、コンテナを停止する信号が送信される前に完了する必要があります。
+このフックは、APIからの要求、またはliveness/startup probeの失敗、プリエンプション、リソース競合などの管理イベントが原因でコンテナが終了する直前に呼び出されます。コンテナがすでに終了状態または完了状態にある場合には`PreStop`フックの呼び出しは失敗し、コンテナを停止するTERMシグナルが送信される前にフックは完了する必要があります。`PreStop`フックが実行される前にPodの終了猶予期間のカウントダウンが開始されるので、ハンドラーの結果に関わらず、コンテナはPodの終了猶予期間内に最終的に終了します。
 ハンドラーにパラメーターは渡されません。
 
 終了動作の詳細な説明は、[Termination of Pods](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)にあります。
@@ -48,17 +47,17 @@ Angularなどのコンポーネントライフサイクルフックを持つ多�
 ### フックハンドラーの実行
 
 コンテナライフサイクル管理フックが呼び出されると、Kubernetes管理システムはフックアクションにしたがってハンドラーを実行します。
-`exec`と`tcpSocket`はコンテナの中で実行され、`httpGet`はkubeletプロセスによって実行されます。
+`httpGet`と`tcpSocket`はkubeletプロセスによって実行され、`exec`はコンテナの中で実行されます。
 
 フックハンドラーの呼び出しは、コンテナを含むPodのコンテキスト内で同期しています。
 これは、`PostStart`フックの場合、コンテナのENTRYPOINTとフックは非同期に起動することを意味します。
 しかし、フックの実行に時間がかかりすぎたりハングしたりすると、コンテナは`running`状態になることができません。
 
-`PreStop`フックはコンテナを停止する信号から非同期で実行されるのではなく、信号が送られる前に実行を完了する必要があります。
+`PreStop`フックはコンテナを停止するシグナルから非同期で実行されるのではなく、TERMシグナルが送られる前に実行を完了する必要があります。
 もし`PreStop`フックが実行中にハングした場合、Podは`Terminating`状態になり、
 `terminationGracePeriodSeconds`の時間切れで強制終了されるまで続きます。
 この猶予時間は、`PreStop`フックが実行され正常にコンテナを停止できるまでの合計時間に適用されます。
-例えば`terminationGracePeriodSeconds`が60で、フックの終了に55秒かかり、シグナルを受信した後にコンテナを正常に停止させるのに10秒かかる場合、コンテナは正常に停止する前に終了されてしまいます。`terminationGracePeriodSeconds`が、これら２つの実行にかかる合計時間(55+10)よりも短いからです。
+例えば`terminationGracePeriodSeconds`が60で、フックの終了に55秒かかり、シグナルを受信した後にコンテナを正常に停止させるのに10秒かかる場合、コンテナは正常に停止する前に終了されてしまいます。`terminationGracePeriodSeconds`が、これら2つの実行にかかる合計時間(55+10)よりも短いからです。
 
 `PostStart`または`PreStop`フックが失敗した場合、コンテナは強制終了します。
 
@@ -80,22 +79,22 @@ Angularなどのコンポーネントライフサイクルフックを持つ多�
 フックハンドラーのログは、Podのイベントには表示されません。
 ハンドラーが何らかの理由で失敗した場合は、イベントをブロードキャストします。
 `PostStart`の場合、これは`FailedPostStartHook`イベントで、`PreStop`の場合、これは`FailedPreStopHook`イベントです。
-これらのイベントは `kubectl describe pod <pod_name>`を実行することで見ることができます。
-このコマンドの実行によるイベントの出力例をいくつか示します。
+失敗の`FailedPreStopHook`イベントを自分自身で生成する場合には、[lifecycle-events.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/lifecycle-events.yaml)ファイルに対してpostStartのコマンドを"badcommand"に変更し、適用してください。
+`kubectl describe pod lifecycle-demo`を実行した結果のイベントの出力例を以下に示します。
 
 ```
 Events:
-  FirstSeen  LastSeen  Count  From                                                   SubObjectPath          Type      Reason               Message
-  ---------  --------  -----  ----                                                   -------------          --------  ------               -------
-  1m         1m        1      {default-scheduler }                                                          Normal    Scheduled            Successfully assigned test-1730497541-cq1d2 to gke-test-cluster-default-pool-a07e5d30-siqd
-  1m         1m        1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Pulling              pulling image "test:1.0"
-  1m         1m        1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Created              Created container with docker id 5c6a256a2567; Security:[seccomp=unconfined]
-  1m         1m        1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Pulled               Successfully pulled image "test:1.0"
-  1m         1m        1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Started              Started container with docker id 5c6a256a2567
-  38s        38s       1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Killing              Killing container with docker id 5c6a256a2567: PostStart handler: Error executing in Docker Container: 1
-  37s        37s       1      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Normal    Killing              Killing container with docker id 8df9fdfd7054: PostStart handler: Error executing in Docker Container: 1
-  38s        37s       2      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}                         Warning   FailedSync           Error syncing pod, skipping: failed to "StartContainer" for "main" with RunContainerError: "PostStart handler: Error executing in Docker Container: 1"
-  1m         22s       2      {kubelet gke-test-cluster-default-pool-a07e5d30-siqd}  spec.containers{main}  Warning   FailedPostStartHook
+  Type     Reason               Age              From               Message
+  ----     ------               ----             ----               -------
+  Normal   Scheduled            7s               default-scheduler  Successfully assigned default/lifecycle-demo to ip-XXX-XXX-XX-XX.us-east-2...
+  Normal   Pulled               6s               kubelet            Successfully pulled image "nginx" in 229.604315ms
+  Normal   Pulling              4s (x2 over 6s)  kubelet            Pulling image "nginx"
+  Normal   Created              4s (x2 over 5s)  kubelet            Created container lifecycle-demo-container
+  Normal   Started              4s (x2 over 5s)  kubelet            Started container lifecycle-demo-container
+  Warning  FailedPostStartHook  4s (x2 over 5s)  kubelet            Exec lifecycle hook ([badcommand]) for Container "lifecycle-demo-container" in Pod "lifecycle-demo_default(30229739-9651-4e5a-9a32-a8f1688862db)" failed - error: command 'badcommand' exited with 126: , message: "OCI runtime exec failed: exec failed: container_linux.go:380: starting container process caused: exec: \"badcommand\": executable file not found in $PATH: unknown\r\n"
+  Normal   Killing              4s (x2 over 5s)  kubelet            FailedPostStartHook
+  Normal   Pulled               4s               kubelet            Successfully pulled image "nginx" in 215.66395ms
+  Warning  BackOff              2s (x2 over 3s)  kubelet            Back-off restarting failed container
 ```
 
 
@@ -104,5 +103,5 @@ Events:
 
 
 * [コンテナ環境](/ja/docs/concepts/containers/container-environment/)の詳細
-* [コンテナライフサイクルイベントへのハンドラー紐付け](/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)のハンズオン
+* [コンテナライフサイクルイベントへのハンドラー紐付け](/ja/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/)のハンズオン
 

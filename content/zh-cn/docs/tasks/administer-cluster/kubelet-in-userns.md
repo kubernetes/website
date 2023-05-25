@@ -1,15 +1,15 @@
 ---
-title: 以非root用户身份运行 Kubernetes 节点组件
+title: 以非 root 用户身份运行 Kubernetes 节点组件
 content_type: task
 min-kubernetes-server-version: 1.22
+weight: 300
 ---
 
 <!--
----
 title: Running Kubernetes Node Components as a Non-root User
 content_type: task
 min-kubernetes-server-version: 1.22
----
+weight: 300
 -->
 
 <!-- overview -->
@@ -23,7 +23,7 @@ without root privileges, by using a {{< glossary_tooltip text="user namespace" t
 This technique is also known as _rootless mode_.
 
 {{< note >}}
-This document describes how to run Kubernetes Node components (and hence pods) a non-root user.
+This document describes how to run Kubernetes Node components (and hence pods) as a non-root user.
 
 If you are just looking for how to run a pod as a non-root user, see [SecurityContext](/docs/tasks/configure-pod-container/security-context/).
 {{< /note >}}
@@ -32,7 +32,7 @@ If you are just looking for how to run a pod as a non-root user, see [SecurityCo
 这个文档描述了怎样不使用 root 特权，而是通过使用 {{< glossary_tooltip text="用户命名空间" term_id="userns" >}}
 去运行 Kubernetes 节点组件（例如 kubelet、CRI、OCI、CNI）。
 
-这种技术也叫做 _rootless 模式（Rootless mode）_。
+这种技术也叫做 **rootless 模式（Rootless mode）**。
 
 {{< note >}}
 这个文档描述了怎么以非 root 用户身份运行 Kubernetes 节点组件以及 Pod。
@@ -55,7 +55,7 @@ If you are just looking for how to run a pod as a non-root user, see [SecurityCo
 
 {{% version-check %}}
 
-* [启用 Cgroup v2](https://rootlesscontaine.rs/getting-started/common/cgroup2/)
+* [启用 cgroup v2](https://rootlesscontaine.rs/getting-started/common/cgroup2/)
 * [在 systemd 中启用 user session](https://rootlesscontaine.rs/getting-started/common/login/)
 * [根据不同的 Linux 发行版，配置 sysctl 的值](https://rootlesscontaine.rs/getting-started/common/sysctl/)
 * [确保你的非特权用户被列在 `/etc/subuid` 和 `/etc/subgid` 文件中](https://rootlesscontaine.rs/getting-started/common/subuid/)
@@ -74,11 +74,12 @@ See [Running kind with Rootless Docker](https://kind.sigs.k8s.io/docs/user/rootl
 
 ### minikube
 
-[minikube](https://minikube.sigs.k8s.io/) also supports running Kubernetes inside Rootless Docker.
+[minikube](https://minikube.sigs.k8s.io/) also supports running Kubernetes inside Rootless Docker or Rootless Podman.
 
-See the page about the [docker](https://minikube.sigs.k8s.io/docs/drivers/docker/) driver in the Minikube documentation.
+See the Minikube documentation:
 
-Rootless Podman is not supported.
+* [Rootless Docker](https://minikube.sigs.k8s.io/docs/drivers/docker/)
+* [Rootless Podman](https://minikube.sigs.k8s.io/docs/drivers/podman/)
 -->
 
 ## 使用 Rootless 模式的 Docker/Podman 运行 Kubernetes
@@ -91,13 +92,12 @@ Rootless Podman is not supported.
 
 ### minikube
 
-[minikube](https://minikube.sigs.k8s.io/) 也支持使用 Rootless 模式的 Docker 运行 Kubernetes。
+[minikube](https://minikube.sigs.k8s.io/) 也支持使用 Rootless 模式的 Docker 或 Podman 运行 Kubernetes。
 
-请参阅 Minikube 文档中的 [docker](https://minikube.sigs.k8s.io/docs/drivers/docker/) 驱动页面。
+请参阅 Minikube 文档：
 
-它不支持 Rootless 模式的 Podman。
-
-<!-- Supporting rootless podman is discussed in https://github.com/kubernetes/minikube/issues/8719 -->
+* [Rootless Docker](https://minikube.sigs.k8s.io/docs/drivers/docker/)
+* [Rootless Podman](https://minikube.sigs.k8s.io/docs/drivers/podman/)
 
 <!--
 ## Running Kubernetes inside Unprivileged Containers
@@ -140,7 +140,7 @@ the container plus several other advanced OS virtualization techniques.
 -->
 
 Sysbox 支持在非特权容器内运行 Kubernetes，
-而不需要 Cgroup v2 和 “KubeletInUserNamespace” 特性门控。
+而不需要 cgroup v2 和 “KubeletInUserNamespace” 特性门控。
 Sysbox 通过在容器内暴露特定的 `/proc` 和 `/sys` 文件系统，
 以及其它一些先进的操作系统虚拟化技术来实现。
 
@@ -251,18 +251,18 @@ At least, the following directories need to be writable *in* the namespace (not 
 
 在取消命名空间的共享之后，你也必须对其它的命名空间例如 mount 命名空间取消共享。
 
-在取消 mount 命名空间的共享之后，你*不*需要调用 `chroot()` 或者 `pivot_root()`，
-但是你必须*在这个命名空间内*挂载可写的文件系统到几个目录上。
+在取消 mount 命名空间的共享之后，你**不**需要调用 `chroot()` 或者 `pivot_root()`，
+但是你必须**在这个命名空间内**挂载可写的文件系统到几个目录上。
 
-请确保*这个命名空间内*(不是这个命名空间外部)至少以下几个目录是可写的：
+请确保**这个命名空间内**(不是这个命名空间外部)至少以下几个目录是可写的：
 
 - `/etc`
 - `/run`
 - `/var/logs`
 - `/var/lib/kubelet`
 - `/var/lib/cni`
-- `/var/lib/containerd` (参照 containerd )
-- `/var/lib/containers` (参照 CRI-O )
+- `/var/lib/containerd` (参照 containerd)
+- `/var/lib/containers` (参照 CRI-O)
 
 <!--
 ### Creating a delegated cgroup tree
@@ -320,6 +320,7 @@ the host with an external port forwarder, such as RootlessKit, slirp4netns, or
 You can use the port forwarder from K3s.
 See [Running K3s in Rootless Mode](https://rancher.com/docs/k3s/latest/en/advanced/#known-issues-with-rootless-mode)
 for more details.
+The implementation can be found in [the `pkg/rootlessports` package](https://github.com/k3s-io/k3s/blob/v1.22.3+k3s1/pkg/rootlessports/controller.go) of k3s.
 
 ### Configuring CRI
 
@@ -340,11 +341,12 @@ containerd or CRI-O and ensure that it is running within the user namespace befo
 Pod 的网络命名空间可以使用常规的 CNI 插件配置。对于多节点的网络，已知 Flannel (VXLAN、8472/UDP) 可以正常工作。
 
 诸如 kubelet 端口（10250/TCP）和 `NodePort` 服务端口之类的端口必须通过外部端口转发器
-（例如 RootlessKit、 slirp4netns 或
+（例如 RootlessKit、slirp4netns 或
 [socat(1)](https://linux.die.net/man/1/socat)) 从节点网络命名空间暴露给主机。
 
 你可以使用 K3s 的端口转发器。更多细节请参阅
 [在 Rootless 模式下运行 K3s](https://rancher.com/docs/k3s/latest/en/advanced/#known-issues-with-rootless-mode)。
+该实现可以在 k3s 的 [`pkg/rootlessports` 包](https://github.com/k3s-io/k3s/blob/v1.22.3+k3s1/pkg/rootlessports/controller.go)中找到。
 
 ### 配置 CRI
 
@@ -357,8 +359,7 @@ kubelet 依赖于容器运行时。你需要部署一个容器运行时（例如
 
 Running CRI plugin of containerd in a user namespace is supported since containerd 1.4.
 
-Running containerd within a user namespace requires the following configurations
-in `/etc/containerd/containerd-config.toml`.
+Running containerd within a user namespace requires the following configurations.
 
 ```toml
 version = 2
@@ -381,6 +382,9 @@ version = 2
   SystemdCgroup = false
 ```
 
+The default path of the configuration file is `/etc/containerd/config.toml`.
+The path can be specified with `containerd -c /path/to/containerd/config.toml`.
+
 {{% /tab %}}
 
 {{% tab name="CRI-O" %}}
@@ -389,7 +393,7 @@ Running CRI-O in a user namespace is supported since CRI-O 1.22.
 
 CRI-O requires an environment variable `_CRIO_ROOTLESS=1` to be set.
 
-The following configurations (in `/etc/crio/crio.conf`) are also recommended:
+The following configurations are also recommended:
 
 ```toml
 [crio]
@@ -403,6 +407,8 @@ The following configurations (in `/etc/crio/crio.conf`) are also recommended:
   cgroup_manager = "cgroupfs"
 ```
 
+The default path of the configuration file is `/etc/crio/crio.conf`.
+The path can be specified with `crio --config /path/to/crio/crio.conf`.
 {{% /tab %}}
 {{< /tabs >}}
 -->
@@ -412,7 +418,7 @@ The following configurations (in `/etc/crio/crio.conf`) are also recommended:
 
 containerd 1.4 开始支持在用户命名空间运行 containerd 的 CRI 插件。
 
-在用户命名空间运行 containerd 需要在 `/etc/containerd/containerd-config.toml` 文件包含以下配置：
+在用户命名空间运行 containerd 必须进行如下配置：
 
 ```toml
 version = 2
@@ -434,7 +440,8 @@ version = 2
 # (除非你在命名空间内运行了另一个 systemd)
   SystemdCgroup = false
 ```
-
+配置文件的默认路径是 `/etc/containerd/config.toml`。
+可以用 `containerd -c /path/to/containerd/config.toml` 来指定该路径。
 {{% /tab %}}
 
 {{% tab name="CRI-O" %}}
@@ -443,7 +450,7 @@ CRI-O 1.22 开始支持在用户命名空间运行 CRI-O。
 
 CRI-O 必须配置一个环境变量 `_CRIO_ROOTLESS=1`。
 
-也推荐使用 `/etc/crio/crio.conf` 文件内的以下配置：
+也推荐使用以下配置：
 
 ```toml
 [crio]
@@ -456,7 +463,8 @@ CRI-O 必须配置一个环境变量 `_CRIO_ROOTLESS=1`。
 # (除非你在命名空间内运行了另一个 systemd)
   cgroup_manager = "cgroupfs"
 ```
-
+配置文件的默认路径是 `/etc/containerd/config.toml`。
+可以用 `containerd -c /path/to/containerd/config.toml` 来指定该路径。
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -577,8 +585,8 @@ on the rootlesscontaine.rs website.
 ## 注意事项   {#caveats}
 
 - 大部分“非本地”的卷驱动（例如 `nfs` 和 `iscsi`）不能正常工作。
-已知诸如 `local`、`hostPath`、`emptyDir`、`configMap`、`secret` 和 `downwardAPI`
-这些本地卷是能正常工作的。
+  已知诸如 `local`、`hostPath`、`emptyDir`、`configMap`、`secret` 和 `downwardAPI`
+  这些本地卷是能正常工作的。
 
 - 一些 CNI 插件可能不正常工作。已知 Flannel (VXLAN) 是能正常工作的。
 
