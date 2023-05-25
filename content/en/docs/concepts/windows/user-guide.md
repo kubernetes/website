@@ -242,76 +242,76 @@ Here are values used for each Windows Server version:
 A cluster administrator can create a `RuntimeClass` object which is used to encapsulate these taints and tolerations.
 
 1. Save this file to `runtimeClasses.yml`. It includes the appropriate `nodeSelector`
-for the Windows OS, architecture, and version.
+   for the Windows OS, architecture, and version.
 
-```yaml
----
-apiVersion: node.k8s.io/v1
-kind: RuntimeClass
-metadata:
-  name: windows-2019
-handler: example-container-runtime-handler
-scheduling:
-  nodeSelector:
-    kubernetes.io/os: 'windows'
-    kubernetes.io/arch: 'amd64'
-    node.kubernetes.io/windows-build: '10.0.17763'
-  tolerations:
-  - effect: NoSchedule
-    key: os
-    operator: Equal
-    value: "windows"
-```
+   ```yaml
+   ---
+   apiVersion: node.k8s.io/v1
+   kind: RuntimeClass
+   metadata:
+     name: windows-2019
+   handler: example-container-runtime-handler
+   scheduling:
+     nodeSelector:
+       kubernetes.io/os: 'windows'
+       kubernetes.io/arch: 'amd64'
+       node.kubernetes.io/windows-build: '10.0.17763'
+     tolerations:
+     - effect: NoSchedule
+       key: os
+       operator: Equal
+       value: "windows"
+   ```
 
 1. Run `kubectl create -f runtimeClasses.yml` using as a cluster administrator
 1. Add `runtimeClassName: windows-2019` as appropriate to Pod specs
 
-For example:
+   For example:
 
-```yaml
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: iis-2019
-  labels:
-    app: iis-2019
-spec:
-  replicas: 1
-  template:
-    metadata:
-      name: iis-2019
-      labels:
-        app: iis-2019
-    spec:
-      runtimeClassName: windows-2019
-      containers:
-      - name: iis
-        image: mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
-        resources:
-          limits:
-            cpu: 1
-            memory: 800Mi
-          requests:
-            cpu: .1
-            memory: 300Mi
-        ports:
-          - containerPort: 80
- selector:
-    matchLabels:
-      app: iis-2019
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: iis
-spec:
-  type: LoadBalancer
-  ports:
-  - protocol: TCP
-    port: 80
-  selector:
-    app: iis-2019
-```
+   ```yaml
+   ---
+   apiVersion: apps/v1
+   kind: Deployment
+   metadata:
+     name: iis-2019
+     labels:
+       app: iis-2019
+   spec:
+     replicas: 1
+     template:
+       metadata:
+         name: iis-2019
+         labels:
+           app: iis-2019
+       spec:
+         runtimeClassName: windows-2019
+         containers:
+         - name: iis
+           image: mcr.microsoft.com/windows/servercore/iis:windowsservercore-ltsc2019
+           resources:
+             limits:
+               cpu: 1
+               memory: 800Mi
+             requests:
+               cpu: .1
+               memory: 300Mi
+           ports:
+             - containerPort: 80
+    selector:
+       matchLabels:
+         app: iis-2019
+   ---
+   apiVersion: v1
+   kind: Service
+   metadata:
+     name: iis
+   spec:
+     type: LoadBalancer
+     ports:
+     - protocol: TCP
+       port: 80
+     selector:
+       app: iis-2019
+   ```
 
 [RuntimeClass]: /docs/concepts/containers/runtime-class/

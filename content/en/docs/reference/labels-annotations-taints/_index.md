@@ -852,6 +852,18 @@ Used on: Namespace
 
 This annotation requires the [PodTolerationRestriction](/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction) admission controller to be enabled. This annotation key allows assigning tolerations to a namespace and any new pods created in this namespace would get these tolerations added.
 
+### scheduler.alpha.kubernetes.io/tolerationsWhitelist {#schedulerkubernetestolerations-whitelist}
+
+Example: `scheduler.alpha.kubernetes.io/tolerationsWhitelist: '[{"operator": "Exists", "effect": "NoSchedule", "key": "dedicated-node"}]'`
+
+Used on: Namespace
+
+This annotation is only useful when the (alpha)
+[PodTolerationRestriction](/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
+admission controller is enabled. The annotation value is a JSON document that defines a list of allowed tolerations
+for the namespace it annotates. When you create a Pod or modify its tolerations, the API server checks the tolerations
+to see if they are mentioned in the allow list. The pod is admitted only if the check succeeds.
+
 ### scheduler.alpha.kubernetes.io/preferAvoidPods (deprecated) {#scheduleralphakubernetesio-preferavoidpods}
 
 Used on: Nodes
@@ -1132,15 +1144,22 @@ used to determine if the user has applied settings different from the kubeadm de
 
 Used on: Node
 
-Label that kubeadm applies on the control plane nodes that it manages.
+A marker label to indicate that the node is used to run {{< glossary_tooltip text="control plane" term_id="control-plane" >}} components. The kubeadm tool applies this label to the control plane nodes that it manages. Other cluster management tools typically also set this taint.
+
+You can label control plane nodes with this label to make it easier to schedule Pods only onto these nodes, or to avoid running Pods on the control plane. If this label is set, [EndpointSlice controller](/docs/concepts/services-networking/topology-aware-routing/#implementation-control-plane) ignores that node while calculating Topology Aware Hints.
 
 ### node-role.kubernetes.io/control-plane {#node-role-kubernetes-io-control-plane-taint}
 
 Used on: Node
 
+Taint that kubeadm applies on control plane nodes to restrict placing pods and allow only specific pods to schedule on them.
+
 Example: `node-role.kubernetes.io/control-plane:NoSchedule`
 
-Taint that kubeadm applies on control plane nodes to allow only critical workloads to schedule on them.
+If this Taint is applied, control plane nodes allow only critical workloads to schedule on them. You can manually remove this taint with the following command on a specific node.
+```shell
+kubectl taint nodes <node-name> node-role.kubernetes.io/control-plane:NoSchedule-
+```
 
 ### node-role.kubernetes.io/master (deprecated) {#node-role-kubernetes-io-master-taint}
 
