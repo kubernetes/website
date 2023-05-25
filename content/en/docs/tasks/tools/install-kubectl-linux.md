@@ -348,8 +348,6 @@ sudo snap remove kubectl
 
 {{% /tab %}}
 
-{{% /tab %}}
-
 {{% tab name="Homebrew" %}}
 If you are using homebrew as the package management tool on your machine, then the uninstallaiton process can be done using the command below.
 
@@ -358,6 +356,7 @@ sudo brew uninstall kubectl
 ```
 
 It is to be noted that the executable binaries are stored in the ```/usr/bin``` or ```/usr/local/bin```, library files in ```/usr/lib``` or ```usr/local/lib``` and configuration files in ```/etc```. It is recommended to manually remove the library files and static data.
+
 {{% /tab %}}
 
 {{< /tabs >}}
