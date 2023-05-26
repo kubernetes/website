@@ -38,13 +38,12 @@ Quando você cria um pod, se você não especificar uma conta de serviço, é
 atribuído automaticamente a conta de serviço `default` no mesmo namespace.
 Se você pegar o JSON ou YAML para um Pod que você criou (por exemplo, 
 `Kubectl get pods/<podname> -o yaml`), você pode ver o campo 
-`spec.serviceAccountName` [configurado automaticamente] (/docs/concepts/overview/working-with-objects/object-management/).
+`spec.serviceAccountName` [configurado automaticamente](/docs/concepts/overview/working-with-objects/object-management/).
 
 Você pode acessar a API de dentro de um Pod usando credenciais de conta de serviço 
 montadas automaticamente, conforme descrito em
 [Acessando o Cluster](/docs/tasks/access-application-cluster/access-cluster).
-As permissões da API da conta de serviço dependem de [`plugin` e políticas de autorização]
-(/docs/reference/access-authn-authz/authorization/#authorization-modules) em uso.
+As permissões da API da conta de serviço dependem de [políticas e plugins de autorização](/docs/reference/access-authn-authz/authorization/#authorization-modules) em uso.
 
 Você pode optar por não ter credenciais de API de automação em 
 `/var/run/secrets/kubernetes.io/serviceaccount/token` para uma conta de serviço, 
@@ -105,8 +104,8 @@ metadata:
 EOF
 ```
 
-O nome de um objeto contas de serviço precisa ser um [DNS subdomain name]
-(/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
+O nome de um objeto contas ServiceAccount precisa ser um [DNS subdomain name]
+(/pt-br/docs/concepts/overview/working-with-objects/names#dns-subdomain-names) válido.
 
 Se você pegar um `dump` completo do objeto do serviço de conta, como este:
 
@@ -132,10 +131,9 @@ secrets:
 Então você verá que um token foi criado automaticamente 
 e é referenciado pela conta de serviço.
 
-Você pode usar plugins de autorização para [definir permissões em contas de serviço]
-(/docs/reference/access-authn-authz/rbac/#service-account-permissions).
+Você pode usar plugins de autorização para [definir permissões em contas de serviço](/docs/reference/access-authn-authz/rbac/#service-account-permissions).
 
-Para usar uma conta de serviço não-padrão, defina o campo `spec.serviceAccountName'
+Para usar uma conta de serviço não-padrão, defina o campo `spec.serviceAccountName`
 de um pod para o nome da conta de serviço que você deseja usar.
 
 A conta de serviço deve existir no momento em que o pod for criado, ou será rejeitado.
@@ -201,8 +199,7 @@ O conteúdo de `token` é eliminado aqui.
 
 ### Crie uma `imagePullSecret`
 
-- Crie como `imagePullSecret`, como descrito em [Especificando `ImagePullSecrets` para o Pod]
-(/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
+- Crie como `imagePullSecret`, como descrito em [Especificando `ImagePullSecrets` para o Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 
     ```shell
     kubectl create secret docker-registry myregistrykey --docker-server=DUMMY_SERVER \
@@ -295,12 +292,6 @@ A saída é:
 myregistrykey
 ```
 
-<!--## Adicionando segredos a uma conta de serviço.
-
-TODO: Teste e explique como usar secrets adicionais, em um não K8s com uma 
-conta de serviço existente.
--->
-
 ## Serviço de Conta com Projeção de token de volume
 
 {{< feature-state for_k8s_version="v1.20" state="stable" >}}
@@ -380,8 +371,7 @@ o recurso de projeção de token da conta de serviço está ativado, conforme de
 [acima](#service-account-token-volume-projection).
 
 {{< note >}}
-O URL do emissor deve cumprir a [especificação de descoberta OIDC]
-(https://openid.net/specs/openid-connect-discovery-1_0.html). 
+O URL do emissor deve cumprir a [especificação de descoberta OIDC](https://openid.net/specs/openid-connect-discovery-1_0.html). 
 Na prática, isso significa que ele deve usar o esquema `https`, 
 e deve servir uma configuração do provedor `OpenID` em 
 `{service-account-issuer}/.well-known/openid-configuration`.
