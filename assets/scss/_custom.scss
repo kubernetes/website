@@ -45,6 +45,30 @@ body {
   }
 }
 
+/* Complex table layout support */
+
+.td-content, body.td-content {
+  table.complex-layout {
+    tbody tr,
+    tbody tr:nth-of-type(2n+1) {
+      /* Avoid stripes */
+      background-color: initial;
+    }
+    tbody tr:not(:last-child) > td[colspan] {
+      /* provide a visual break between rows */
+      padding-bottom: 1.5em;
+    }
+    tbody > tr > th[scope="row"]:first-child {
+      min-width: 9em;
+    }
+    tbody > tr > th[rowspan] {
+      vertical-align: middle;
+    }
+    border-collapse: separate;
+    border-spacing: 0 0;
+    max-width: calc(max(min(100vw, 110%), 40vw));
+  }
+}
 
 /* Emphasize first paragraph of running text on site front page */
 body.td-home main[role="main"] > section:first-of-type .content p:first-child {

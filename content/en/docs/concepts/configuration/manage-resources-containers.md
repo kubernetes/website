@@ -226,7 +226,7 @@ see the [Troubleshooting](#troubleshooting) section.
 ### Monitoring compute & memory resource usage
 
 The kubelet reports the resource usage of a Pod as part of the Pod
-[`status`](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status).
+[`status`](/docs/concepts/overview/working-with-objects/#object-spec-and-status).
 
 If optional [tools for monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 are available in your cluster, then Pod resource usage can be retrieved either
@@ -257,7 +257,7 @@ Your applications cannot expect any performance SLAs (disk IOPS for example)
 from local ephemeral storage.
 {{< /caution >}}
 
-As a beta feature, Kubernetes lets you track, reserve and limit the amount
+Kubernetes lets you track, reserve and limit the amount
 of ephemeral local storage a Pod can consume.
 
 ### Configurations for local ephemeral storage

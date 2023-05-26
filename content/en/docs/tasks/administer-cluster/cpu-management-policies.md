@@ -21,7 +21,9 @@ acceptably. The kubelet provides methods to enable more complex workload
 placement policies while keeping the abstraction free from explicit placement
 directives.
 
-
+For detailed information on resource management, please refer to the
+[Resource Management for Pods and Containers](/docs/concepts/configuration/manage-resources-containers)
+documentation.
 
 
 ## {{% heading "prerequisites" %}}

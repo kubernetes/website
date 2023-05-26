@@ -101,7 +101,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
 <!-- 
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), required
 
-  template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format \<statefulsetname>-\<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3".  
+  template is the object that describes the pod that will be created if insufficient replicas are detected. Each pod stamped out by the StatefulSet will fulfill this Template, but have a unique identity from the rest of the StatefulSet. Each pod will be named with the format \<statefulsetname>-\<podindex>. For example, a pod in a StatefulSet named "web" with index number "3" would be named "web-3". The only allowed template.spec.restartPolicy value is "Always".
 -->
 - **template** (<a href="{{< ref "../workload-resources/pod-template-v1#PodTemplateSpec" >}}">PodTemplateSpec</a>), 必需
 
@@ -109,6 +109,7 @@ StatefulSetSpec 是 StatefulSet 的规约。
   经由 StatefulSet 创建的每个 Pod 都将满足这个模板，但与 StatefulSet 的其余 Pod 相比，每个 Pod 具有唯一的标识。
   每个 Pod 将以 \<statefulsetname>-\<podindex> 格式命名。
   例如，名为 "web" 且索引号为 "3" 的 StatefulSet 中的 Pod 将被命名为 "web-3"。
+  `template.spec.restartPolicy` 唯一被允许的值是 `Always`。
 
 <!-- 
 - **replicas** (int32)
@@ -273,11 +274,11 @@ StatefulSetSpec 是 StatefulSet 的规约。
 - **ordinals** (StatefulSetOrdinals)
 
   <!--
-  ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is alpha.
+  ordinals controls the numbering of replica indices in a StatefulSet. The default ordinals behavior assigns a "0" index to the first replica and increments the index by one for each additional replica requested. Using the ordinals field requires the StatefulSetStartOrdinal feature gate to be enabled, which is beta.
   -->
   ordinals 控制 StatefulSet 中副本索引的编号。
   默认序数行为是将索引 "0" 设置给第一个副本，对于每个额外请求的副本，该索引加一。
-  使用 ordinals 字段需要启用 Alpha 级别的 StatefulSetStartOrdinal 特性门控。
+  使用 ordinals 字段需要启用 Beta 级别的 StatefulSetStartOrdinal 特性门控。
 
   <!--
   <a name="StatefulSetOrdinals"></a>
@@ -681,6 +682,15 @@ GET /apis/apps/v1/namespaces/{namespace}/statefulsets
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a> 
 
+<!--
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+-->
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 <!-- 
 - **timeoutSeconds** (*in query*): integer
 
@@ -793,6 +803,15 @@ GET /apis/apps/v1/statefulsets
 - **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a> 
+
+<!--
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+-->
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!-- 
 - **timeoutSeconds** (*in query*): integer
@@ -1447,6 +1466,15 @@ DELETE /apis/apps/v1/namespaces/{namespace}/statefulsets
 - **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+<!--
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+-->
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!-- 
 - **timeoutSeconds** (*in query*): integer

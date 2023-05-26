@@ -1035,7 +1035,7 @@ Kustomize 中有 **基准（bases）** 和 **覆盖（overlays）** 的概念区
 覆盖则可以有多个基准，且可针对所有基准中的资源执行组织操作，还可以在其上执行定制。
 
 ```shell
-# 创建一个包含基准的目录 
+# 创建一个包含基准的目录
 mkdir base
 # 创建 base/deployment.yaml
 cat <<EOF > base/deployment.yaml
@@ -1092,14 +1092,14 @@ in different overlays. Here are two overlays using the same base.
 ```shell
 mkdir dev
 cat <<EOF > dev/kustomization.yaml
-bases:
+resources:
 - ../base
 namePrefix: dev-
 EOF
 
 mkdir prod
 cat <<EOF > prod/kustomization.yaml
-bases:
+resources:
 - ../base
 namePrefix: prod-
 EOF
@@ -1258,4 +1258,3 @@ deployment.apps "dev-my-nginx" deleted
 * [Kubectl Book](https://kubectl.docs.kubernetes.io)
 * [Kubectl 命令参考](/docs/reference/generated/kubectl/kubectl-commands/)
 * [Kubernetes API 参考](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)
-
