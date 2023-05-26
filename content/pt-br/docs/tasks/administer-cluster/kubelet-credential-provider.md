@@ -59,7 +59,7 @@ kind: CredentialProviderConfig
 providers:
    # name é o nome necessário do provedor de credenciais. Deve corresponder ao nome do
    # executável do provedor visto pelo kubelet. O executável deve estar no 
-   # diretório bin do kubelet (definido pelo sinalizador --image-credential-provider-bin-dir).
+   # diretório bin do kubelet (definido pela flag --image-credential-provider-bin-dir).
    - name: ecr
      # matchImages é uma lista obrigatória de strings usadas para corresponder às imagens para
      # determinar se este provedor deve ser invocado. Se uma das strings corresponder à
