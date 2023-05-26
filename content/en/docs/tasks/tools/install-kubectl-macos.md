@@ -293,18 +293,18 @@ Depending on how you installed `kubectl`, use one of the following methods.
 
 ### Uninstall kubectl using the command-line
 
-1. Locate the `kubectl` binary on your system:
+1.  Locate the `kubectl` binary on your system:
 
-```bash
-where kubectl
-```
+    ```bash
+    where kubectl
+    ```
 
-1. Remove the `kubectl` binary:
+1.  Remove the `kubectl` binary:
 
-```bash
-sudo rm <path>
-```
-Replace `<path>` with the path to the `kubectl` binary from the previous step. For example, `sudo rm /usr/local/bin/kubectl`.
+    ```bash
+    sudo rm <path>
+    ```
+    Replace `<path>` with the path to the `kubectl` binary from the previous step. For example, `sudo rm /usr/local/bin/kubectl`.
 
 ### Uninstall kubectl using homebrew
 
