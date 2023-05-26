@@ -136,8 +136,7 @@ For a reference to old feature gates that are removed, please refer to
 | `KubeletPodResourcesGetAllocatable` | `true` | Beta | 1.23 | |
 | `KubeletTracing` | `false` | Alpha | 1.25 | 1.26 |
 | `KubeletTracing` | `true` | Beta | 1.27 | |
-| `LegacyServiceAccountTokenTracking` | `false` | Alpha | 1.26 | 1.26 |
-| `LegacyServiceAccountTokenTracking` | `true` | Beta | 1.27 | |
+| `LegacyServiceAccountTokenCleanUp` | `false` | Alpha | 1.28 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | - |
 | `LogarithmicScaleDown` | `false` | Alpha | 1.21 | 1.21 |
 | `LogarithmicScaleDown` | `true` | Beta | 1.22 | |
@@ -290,6 +289,9 @@ For a reference to old feature gates that are removed, please refer to
 | `KubeletCredentialProviders` | `true` | GA | 1.26 | - |
 | `LegacyServiceAccountTokenNoAutoGeneration` | `true` | Beta | 1.24 | 1.25 |
 | `LegacyServiceAccountTokenNoAutoGeneration` | `true` | GA | 1.26 | - |
+| `LegacyServiceAccountTokenTracking` | `false` | Alpha | 1.26 | 1.26 |
+| `LegacyServiceAccountTokenTracking` | `true` | Beta | 1.27 | 1.27 |
+| `LegacyServiceAccountTokenTracking` | `true` | GA | 1.28 | - |
 | `MixedProtocolLBService` | `false` | Alpha | 1.20 | 1.23 |
 | `MixedProtocolLBService` | `true` | Beta | 1.24 | 1.25 |
 | `MixedProtocolLBService` | `true` | GA | 1.26 | - |
@@ -580,9 +582,12 @@ Each feature gate is designed for enabling/disabling a specific feature:
   OpenTelemetry trace spans.
   See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/system-traces) for more details.
 - `LegacyServiceAccountTokenNoAutoGeneration`: Stop auto-generation of Secret-based
-  [service account tokens](/docs/reference/access-authn-authz/authentication/#service-account-tokens).
+  [service account tokens](/docs/concepts/security/service-accounts/#get-a-token).
+- `LegacyServiceAccountTokenCleanUp`: Enable cleaning up Secret-based
+  [service account tokens](/docs/concepts/security/service-accounts/#get-a-token)
+  when they are not used in a specified time (default to be one year).
 - `LegacyServiceAccountTokenTracking`: Track usage of Secret-based
-  [service account tokens](/docs/reference/access-authn-authz/authentication/#service-account-tokens).
+  [service account tokens](/docs/concepts/security/service-accounts/#get-a-token).
 - `LocalStorageCapacityIsolationFSQuotaMonitoring`: When `LocalStorageCapacityIsolation`
   is enabled for
   [local ephemeral storage](/docs/concepts/configuration/manage-resources-containers/)
