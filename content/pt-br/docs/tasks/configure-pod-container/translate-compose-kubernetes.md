@@ -99,7 +99,7 @@ que você precisa é ter um arquivo `docker-compose.yml`.
    services:
 
      redis-master:
-       image: k8s.gcr.io/redis:e2e
+       image: registry.k8s.io/redis:e2e
        ports:
          - "6379"
 
@@ -130,24 +130,12 @@ que você precisa é ter um arquivo `docker-compose.yml`.
    A saída é semelhante a:
 
    ```none
-   INFO Kubernetes file "frontend-service.yaml" created
-      INFO Kubernetes file "frontend-service.yaml" created
-   INFO Kubernetes file "frontend-service.yaml" created
-   INFO Kubernetes file "redis-master-service.yaml" created
-      INFO Kubernetes file "redis-master-service.yaml" created
-   INFO Kubernetes file "redis-master-service.yaml" created
-   INFO Kubernetes file "redis-slave-service.yaml" created
-      INFO Kubernetes file "redis-slave-service.yaml" created
-   INFO Kubernetes file "redis-slave-service.yaml" created
-   INFO Kubernetes file "frontend-deployment.yaml" created
-      INFO Kubernetes file "frontend-deployment.yaml" created
-   INFO Kubernetes file "frontend-deployment.yaml" created
-   INFO Kubernetes file "redis-master-deployment.yaml" created
-      INFO Kubernetes file "redis-master-deployment.yaml" created
-   INFO Kubernetes file "redis-master-deployment.yaml" created
-   INFO Kubernetes file "redis-slave-deployment.yaml" created
-      INFO Kubernetes file "redis-slave-deployment.yaml" created
-   INFO Kubernetes file "redis-slave-deployment.yaml" created
+    INFO Kubernetes file "frontend-tcp-service.yaml" created
+    INFO Kubernetes file "redis-master-service.yaml" created   
+    INFO Kubernetes file "redis-slave-service.yaml" created
+    INFO Kubernetes file "frontend-deployment.yaml" created
+    INFO Kubernetes file "redis-master-deployment.yaml" created
+    INFO Kubernetes file "redis-slave-deployment.yaml" created
    ```
 
    ```bash
@@ -182,24 +170,43 @@ que você precisa é ter um arquivo `docker-compose.yml`.
    ```
 
    ```none
-   Name:                   frontend
-   Namespace:              default
-   Labels:                 service=frontend
-   Selector:               service=frontend
-   Type:                   LoadBalancer
-   IP:                     10.0.0.183
-   LoadBalancer Ingress:   192.0.2.89
-   Port:                   80      80/TCP
-   NodePort:               80      31144/TCP
-   Endpoints:              172.17.0.4:80
-   Session Affinity:       None
-   No events.
+   Name:                     frontend-tcp
+   Namespace:                default
+   Labels:                   io.kompose.service=frontend-tcp
+   Annotations:              kompose.cmd: kompose convert
+                             kompose.service.type: LoadBalancer
+                             kompose.version: 1.26.0 (40646f47)
+   Selector:                 io.kompose.service=frontend
+   Type:                     LoadBalancer
+   IP Family Policy:         SingleStack
+   IP Families:              IPv4
+   IP:                       10.43.67.174
+   IPs:                      10.43.67.174
+   Port:                     80  80/TCP
+   TargetPort:               80/TCP
+   NodePort:                 80  31254/TCP
+   Endpoints:                10.42.0.25:80
+   Session Affinity:         None
+   External Traffic Policy:  Cluster
+   Events:
+     Type    Reason                Age   From                Message
+     ----    ------                ----  ----                -------
+     Normal  EnsuringLoadBalancer  62s   service-controller  Ensuring load balancer
+     Normal  AppliedDaemonSet      62s   service-controller  Applied LoadBalancer DaemonSet kube-system/svclb-frontend-tcp-9362d276
    ```
 
    Se você está usando um provedor de nuvem, seu IP será listado após o `LoadBalancer Ingress`.
 
    ```sh
    curl http://192.0.2.89
+   ```
+
+4. Limpeza.
+
+  Depois de terminar de testar a implantação do aplicativo de exemplo, basta executar o seguinte comando em seu shell para excluir os recursos utilizados.
+    
+   ```sh
+   kubectl delete -f frontend-tcp-service.yaml,redis-master-service.yaml,redis-slave-service.yaml,frontend-deployment.yaml,redis-master-deployment.yaml,redis-slave-deployment.yaml
    ```
 
 <!-- discussion -->
@@ -330,7 +337,7 @@ Se você está empurrando manualmente os artefatos do OpenShift usando ``oc crea
 
 ## Conversões alternativas
 
-A transformação padrão do `kompose` vai gerar [Implantações](/docs/concepts/workloads/controllers/deployment/) Kubernetes e [Serviços](/docs/concepts/services-networking/service/), em formato yaml. Você tem uma opção alternativa para gerar JSON com `-j`. 
+A transformação padrão do `kompose` vai gerar [Implantações](/docs/concepts/workloads/controllers/deployment/) Kubernetes e [Serviços](/docs/concepts/services-networking/service/), em formato yaml. Você tem uma opção alternativa para gerar json com `-j`. 
 Além disso, você pode gerar alternativamente objetos [Controladores de Replicação](/docs/concepts/workloads/controllers/replicationcontroller/), [Daemon Sets](/docs/concepts/workloads/controllers/daemonset/), ou `charts` [Helm](https://github.com/helm/helm).
 
 ```sh
@@ -483,7 +490,7 @@ services:
 Se o arquivo do docker compose tiver um volume especificado para um serviço, a implantação (Kubernetes) ou a estratégia `DeploymentConfig` (OpenShift) 
 é trocada para "Recreate" em vez de "RollingUpdate" (padrão). Isso é feito para evitar que várias instâncias de um serviço acessem um volume ao mesmo tempo.
 
-Se o arquivo do docker compose tiver nome de serviço com `_` (ex.`web_service`), então será substituído por `-` e o nome do serviço será renomeado de acordo (ex.`web-service`). 
+Se o arquivo do docker compose tiver nome de serviço com `_` (por exemplo `web_service`), então será substituído por `-` e o nome do serviço será renomeado de acordo (ex.`web-service`). 
 O Kompose faz isso porque o "Kubernetes" não permite `_` no nome do objeto.
 
 Observe que alterar o nome do serviço pode quebrar alguns arquivos `docker-compose`.
