@@ -125,6 +125,17 @@ Por ejemplo, para descargar la versión {{< skew currentPatchVersion >}} en Linu
    sudo apt-get update
    sudo apt-get install -y kubectl
    ```
+{{< note >}}
+Em versões anteriores ao Debian 12 e Ubuntu 22.04, o `/etc/apt/keyrings` não existe por padrão. 
+Você pode criar este diretório se precisar, tornando-o visível para todos, mas com permissão de escrita apenas aos administradores.
+{{< /note >}}
+
+{{< note >}}
+Em caso de avisos de apt-key depreciado como `Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)).` por favor use `gpg --dearmor` ao invés de `apt-key add`:
+```shell
+sudo curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes.gpg
+```
+{{< /note >}}
 
 {{% /tab %}}
 
