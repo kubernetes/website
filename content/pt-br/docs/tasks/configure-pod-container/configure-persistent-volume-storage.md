@@ -46,7 +46,7 @@ No seu shell desse nó, crie um diretótio `/mnt/data`:
 sudo mkdir /mnt/data
 ```
 
-
+content/pt-br/docs/tasks/configure-pod-container/configure-service-account.md
 No diretório `/mnt/data`, crie o arquivo `index.html`:
 
 ```shell
@@ -81,8 +81,8 @@ Neste exercício, você cria um Volume Persistente *hostPath*. O Kubernetes supo
 
 Em um cluster de produção, você não usaria `hostPath`. Em vez disso um administrador 
 de cluster provisionaria um recurso de rede, como um disco persistente do 
-`Google Compute Engine`, um NFS compartilhado, ou um volume do 
-`Amazon Elastic Block Store`. Administradores podem também usar [classes de armazenamento](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageclass-v1-storage)
+Google Compute Engine, um NFS compartilhado, ou um volume do 
+Amazon Elastic Block Store. Administradores podem também usar [classes de armazenamento](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageclass-v1-storage)
 para incializar [provisionamento dinâmico](https://kubernetes.io/blog/2016/10/dynamic-provisioning-and-storage-in-kubernetes).
 
 Aqui está o arquivo de configuração para o Volume Persistente `hostPath`:
@@ -114,22 +114,22 @@ significa que ainda não foi vinculado a um `PersistentVolumeClaim`.
     NAME             CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS      CLAIM     STORAGECLASS   REASON    AGE
     task-pv-volume   10Gi       RWO           Retain          Available             manual                   4s
 
-## Crie um `PersistemtVolumeClaim`
+## Crie um `PersistentVolumeClaim`
 
-O próximo passo é criar um `PersistemtVolumeClaim`. Pods usam `PersistemtVolumeClaims` 
+O próximo passo é criar um `PersistentVolumeClaim`. Pods usam `PersistentVolumeClaims` 
 para requisitar armazenamento físico. Neste exercício, você vai criar 
-um `PersistemtVolumeClaim` que requisita um volume com pelo menos três 
+um `PersistentVolumeClaim` que requisita um volume com pelo menos três 
 gibibytes, com acesso de leitura-escrita para pelo menos um nó.
 
-Aqui está o arquivo de configuração para o`PersistemtVolumeClaim`:
+Aqui está o arquivo de configuração para o`PersistentVolumeClaim`:
 
 {{< codenew file="pods/storage/pv-claim.yaml" >}}
 
-Crie o `PersistemtVolumeClaim`:
+Crie o `PersistentVolumeClaim`:
 
     kubectl apply -f https://k8s.io/examples/pods/storage/pv-claim.yaml
 
-Após criar o `PersistemtVolumeClaim`, o Kubernetes `control plane` procura por um 
+Após criar o `PersistentVolumeClaim`, o Kubernetes `control plane` procura por um 
 Volume Persistente que satisfaça os requerimentos reivindicados. Se o `control plane` 
 encontrar um Volume Persistente adequado, com a mesma classe de armazenamento, 
 ele liga o volume requisitado.
@@ -145,13 +145,13 @@ Agora a saída mostra um `STATUS` de `Bound`.
     NAME             CAPACITY   ACCESSMODES   RECLAIMPOLICY   STATUS    CLAIM                   STORAGECLASS   REASON    AGE
     task-pv-volume   10Gi       RWO           Retain          Bound     default/task-pv-claim   manual                   2m
 
-Olhe para o `PersistemtVolumeClaim`:
+Olhe para o `PersistentVolumeClaim`:
 
 ```shell
 kubectl get pvc task-pv-claim
 ```
 
-A saída mostra que o`PersistemtVolumeClaim` está vinculado ao seu Volume Persistente,
+A saída mostra que o`PersistentVolumeClaim` está vinculado ao seu Volume Persistente,
 `task-pv-volume`.
 
     NAME            STATUS    VOLUME           CAPACITY   ACCESSMODES   STORAGECLASS   AGE
@@ -159,13 +159,13 @@ A saída mostra que o`PersistemtVolumeClaim` está vinculado ao seu Volume Persi
 
 ## Crie um Pod
 
-O próximo passo é criar um Pod que usa o seu `PersistemtVolumeClaim` como um volume.
+O próximo passo é criar um Pod que usa o seu `PersistentVolumeClaim` como um volume.
 
 Aqui está o arquivo de configuração para o Pod:
 
 {{< codenew file="pods/storage/pv-pod.yaml" >}}
 
-Note que o arquivo de configuração do Pod especifica um `PersistemtVolumeClaim`, mas não 
+Note que o arquivo de configuração do Pod especifica um `PersistentVolumeClaim`, mas não 
 especifica um Volume Persistente. Do ponto de vista do Pod, a reivindicação é de um volume.
 
 Crie o Pod:
@@ -204,11 +204,11 @@ A saída mostra o texto que você escreveu no arquivo `index.html` no volume do
 
 
 Se você vir essa mensagem, configurou com sucesso um pod para
-usar o armazenamento de um `PersistemtVolumeClaim`.
+usar o armazenamento de um `PersistentVolumeClaim`.
 
 ## Limpeza
 
-Exclua o Pod, o `PersistemtVolumeClaim` e o Volume Persistente:
+Exclua o Pod, o `PersistentVolumeClaim` e o Volume Persistente:
 
 ```shell
 kubectl delete pod task-pv-pod
