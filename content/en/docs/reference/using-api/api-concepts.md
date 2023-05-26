@@ -288,13 +288,13 @@ Content-Type: application/json
 
 {{< feature-state for_k8s_version="v1.16" state="beta" >}}
 
-`APIResponseCompression` is a [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-that allows the API server to compress the responses for **get** and **list** requests, reducing the network
-bandwidth and improving the performance of large-scale clusters. It is enabled by default since Kubernetes 1.16,
-but can be disabled by setting the `--feature-gates` flag on the API server to `APIResponseCompression=false`.
+`APIResponseCompression` is an option that allows the API server to compress the responses for **get**
+and **list** requests, reducing the network bandwidth and improving the performance of large-scale clusters.
+It is enabled by default since Kubernetes 1.16, but can be disabled by setting the `--feature-gates`
+flag on the API server to `APIResponseCompression=false`.
 
-The compression applies to both JSON and protobuf serialization formats, and can significantly reduce the size of
-the response, especially for large resources or [collections](/docs/reference/using-api/api-concepts/#collections).
+`APIResponseCompression` can significantly reduce the size of the response, especially for large resources or
+[collections](/docs/reference/using-api/api-concepts/#collections).
 For example, a **list** request for pods can return hundreds of kilobytes or even megabytes of data,
 depending on the number of pods and their attributes. By compressing the response, the network bandwidth
 can be saved and the latency can be reduced.
