@@ -284,6 +284,36 @@ Content-Type: application/json
 <followed by regular watch stream starting from resourceVersion="10245">
 ```
 
+## Response compression
+
+{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+
+`APIResponseCompression` is an option that allows the API server to compress the responses for **get**
+and **list** requests, reducing the network bandwidth and improving the performance of large-scale clusters.
+It is enabled by default since Kubernetes 1.16 and it can be disabled by including
+`APIResponseCompression=false` in the `--feature-gates` flag on the API server.
+
+API response compression can significantly reduce the size of the response, especially for large resources or
+[collections](/docs/reference/using-api/api-concepts/#collections).
+For example, a **list** request for pods can return hundreds of kilobytes or even megabytes of data,
+depending on the number of pods and their attributes. By compressing the response, the network bandwidth
+can be saved and the latency can be reduced.
+
+To verify if `APIResponseCompression` is working, you can send a **get** or **list** request to the
+API server with an `Accept-Encoding` header, and check the response size and headers. For example:
+
+```console
+GET /api/v1/pods
+Accept-Encoding: gzip
+---
+200 OK
+Content-Type: application/json
+content-encoding: gzip
+...
+```
+
+The `content-encoding` header indicates that the response is compressed with `gzip`.
+
 ## Retrieving large results sets in chunks
 
 {{< feature-state for_k8s_version="v1.9" state="beta" >}}
