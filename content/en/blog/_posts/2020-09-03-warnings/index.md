@@ -320,6 +320,19 @@ If you want to be sure you notice deprecations as soon as possible and get a jum
 This could be used in a CI job to apply manifests to a current server,
 and required to pass with a zero exit code in order for the CI job to succeed.
 
+## Validating Admission Policy
+
+_Added in 2023_
+
+We introduced [Validating Admission Policy](/docs/reference/access-authn-authz/validating-admission-policy) in 1.26 as an alpha feature.
+Starting in Kubernetes v1.27, a field `validationAction` is added in ValidatingAdmissionPolicyBinding which is used to declare
+how Validations of the referenced ValidatingAdmissionPolicy are enforced. When it sets to `Warn`, a validation failure is reported to the request client
+in HTTP Warning headers, with a warning code of 299.
+
+<img alt="kubectl applying a manifest file when there is an existing a ValidatingAdmissionPolicy and a validationAction set to Warn, displaying a warning message and exiting with a non-zero exit code."
+     src="kubectl-warnings-vap.png"
+     style="width:637px;max-width:100%;">
+
 ## Future Possibilities
 
 Now that we have a way to communicate helpful information to users in context,
@@ -328,3 +341,4 @@ A couple areas we're looking at next are warning about [known problematic values
 we cannot reject outright for compatibility reasons, and warning about use of deprecated fields or field values
 (like selectors using beta os/arch node labels, [deprecated in v1.14](/docs/reference/labels-annotations-taints/#beta-kubernetes-io-arch-deprecated)).
 I'm excited to see progress in this area, continuing to make it easier to use Kubernetes.
+
