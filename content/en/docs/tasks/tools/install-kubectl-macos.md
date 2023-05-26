@@ -299,7 +299,7 @@ Depending on how you installed `kubectl`, use one of the following methods.
 where kubectl
 ```
 
-2. Remove the `kubectl` binary:
+1. Remove the `kubectl` binary:
 
 ```bash
 sudo rm <path>
