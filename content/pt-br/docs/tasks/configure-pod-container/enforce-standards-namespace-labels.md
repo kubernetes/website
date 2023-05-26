@@ -20,7 +20,7 @@ cobrem amplamente o espectro de segurança e são implementados pela
 {{% version-check %}}
 
 - Garantir que a `PodSecurity` do [portal de funcionalidades](/docs/reference/command-line-tools-reference/feature-gates/#feature-gates-for-alpha-or-beta-features) 
-está habilitada.
+esteja habilitada.
 
 ## Exigindo o padrão de segurança `baseline` de pod com rótulos em namespace
 
