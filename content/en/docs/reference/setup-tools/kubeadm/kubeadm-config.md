@@ -31,6 +31,8 @@ For more information on using the kubeadm configuration API navigate to
 You can use `kubeadm config migrate` to convert your old configuration files that contain a deprecated
 API version to a newer, supported API version.
 
+`kubeadm config validate` can be used for validating a configuration file.
+
 `kubeadm config images list` and `kubeadm config images pull` can be used to list and pull the images
 that kubeadm requires.
 
@@ -50,6 +52,10 @@ that kubeadm requires.
 ## kubeadm config migrate {#cmd-config-migrate}
 
 {{< include "generated/kubeadm_config_migrate.md" >}}
+
+## kubeadm config validate {#cmd-config-validate}
+
+{{< include "generated/kubeadm_config_validate.md" >}}
 
 ## kubeadm config images list {#cmd-config-images-list}
 
