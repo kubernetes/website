@@ -10,8 +10,7 @@ card:
 <!-- overview -->
 Muitas aplicações dependem da configuração que é usada durante a inicialização do aplicativo ou do agente de execução.
 Na maioria das vezes, há um requisito para ajustar os valores atribuídos aos parâmetros de configuração.
-`ConfigMaps` é a maneira usada no Kubernetes para injetar dados de configuração em Pods de aplicativos. O ConfigMap permite que você desacople os artefatos de configuração do conteúdo da imagem, para manter os aplicativos de contêiner portáveis. Esta página fornece uma série de exemplos de uso, demonstrando como criar mapas de configurações e configurar Pods usando dados armazenados em mapas de configurações.
-
+O objeto ConfigMap é a maneira usada no Kubernetes para injetar dados de configuração em Pods de aplicativos. O ConfigMap permite que você desacople os artefatos de configuração do conteúdo da imagem, para manter os aplicativos de contêiner portáveis. Esta página fornece uma série de exemplos de uso, demonstrando como criar ConfigMaps e configurar Pods usando dados armazenados em ConfigMaps.
 
 ## {{% heading "prerequisites" %}}
 
@@ -37,7 +36,7 @@ kubectl create configmap <map-name> <data-source>
 
 Onde \<map-name> é o nome que você quer atribuir ao ConfigMap e \<data-source> é o diretório, arquivo, ou o valor literal de onde buscar os dados.
 O nome de um objeto ConfigMap precisa ser um [nome de subdomínio DNS](/pt-br/docs/concepts/overview/working-with-objects/names#dns-label-names) válido.
-Quando você estiver criando um ConfigMap baseado em um arquivo, a chave no \<data-source> indica o nome-base do arquivo, e o valor indica o conteúdo do arquivo.
+Quando você estiver criando um ConfigMap baseado em um arquivo, a chave no \<data-source> é por padrão o nome-base do arquivo, e o valor é por padrão o conteúdo do arquivo.
 
 Você pode usar [`kubectl describe`](/docs/reference/generated/kubectl/kubectl-commands/#describe) ou
 [`kubectl get`](/docs/reference/generated/kubectl/kubectl-commands/#get) para obter informações
@@ -45,7 +44,7 @@ sobre um ConfigMap.
 
 #### Crie um ConfigMap a partir de diretórios {#create-configmaps-from-directories}
 
-Você pode usar `kubectl create configmap` para criar um ConfigMap a partir de vários arquivos no mesmo diretório. Quando você está criando um ConfigMap baseado em um diretório, o kubectl identifica arquivos cujo nome-base é uma chave válida no diretório e empacota cada um desses arquivos no novo ConfigMap. Quaisquer entradas existentes no diretório, que não sejam arquivos regulares são ignoradas (ex. subdiretórios, links simbólicos, dispositivos, pipes, etc).
+Você pode usar `kubectl create configmap` para criar um ConfigMap a partir de vários arquivos no mesmo diretório. Quando você está criando um ConfigMap baseado em um diretório, o kubectl identifica arquivos cujo nome-base é uma chave válida no diretório e empacota cada um desses arquivos no novo ConfigMap. Quaisquer entradas existentes no diretório que não sejam arquivos regulares são ignoradas (ex. subdiretórios, links simbólicos, dispositivos, pipes, etc).
 
 Por exemplo:
 
@@ -657,22 +656,22 @@ Como antes, todos os arquivos préviamente existentes no diretório `/etc/config
 ### Projete chaves para caminhos específicos e permissões de arquivos
 
 Você pode projetar chaves para caminhos específicos e permissões específicas em uma base por-arquivo. 
-O guia do usuário [Segredos](/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod) explica a sintaxe.
+O guia do usuário [Segredos](/pt-br/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod) explica a sintaxe.
 
 ### Referências Opcionais
 
-Uma referência de ConfigMap pode ser marcada "opcional".  Se o ConfigMap for inexistente, o volume montado estará vazio. Se o ConfigMap existir, mas a chave referenciada
+Uma referência de ConfigMap pode ser marcada _opcional_.  Se o ConfigMap for inexistente, o volume montado estará vazio. Se o ConfigMap existir, mas a chave referenciada
 é inexistente, o caminho estará ausente no ponto de montagem.
 
-### mapas de configuração montados são atualizados automaticamente
+### ConfigMaps montados são atualizados automaticamente
 
-Quando um ConfigMap montado é atualizado, o conteúdo projetado é eventualmente atualizado também.  Isso se aplica no caso em que um ConfigMap referenciado opcionalmente, passe a existir após o Pod ser iniciado.
+Quando um ConfigMap montado é atualizado, o conteúdo projetado é eventualmente atualizado também.  Isso se aplica no caso em que um ConfigMap referenciado opcionalmente passe a existir após o Pod ser iniciado.
 
 O Kubelet verifica se o ConfigMap montado está atualizado em cada sincronização periódica. No entanto, ele usa seu cache local baseado em TTL para obter o valor atual do ConfigMap. Como resultado, o atraso total, desde o momento em que o ConfigMap foi atualizado até o momento em que novas chaves são projetadas para o pod, pode ser tão longo quanto o
 período de sincronização do Kubelet (1 minuto por padrão) + TTL de cache do ConfigMap (1 minuto por padrão) no kubelet.
 
 {{< note >}}
-Um contêiner usando um ConfigMap como um [sub caminho](/docs/concepts/storage/volumes/#using-subpath) o volume não receberá atualizações de configuração.
+Um contêiner que esteja utilizando um ConfigMap como um [subPath](/pt-br/docs/concepts/storage/volumes/#using-subpath) de volume não receberá atualizações de ConfigMaps.
 {{< /note >}}
 
 
@@ -681,13 +680,13 @@ Um contêiner usando um ConfigMap como um [sub caminho](/docs/concepts/storage/v
 
 ## Compreendendo ConfigMap e Pods
 
-A Api de recursos do ConfigMap armazena dados de configuração como pares de chave-valor. Os dados podem ser consumidos em Pods, ou fornecer as configurações para componentes do sistema, como controladores. O ConfigMap é similar a [Segredos](/docs/concepts/configuration/secret/), mas fornece um meio de trabalhar com `strings` que não contêm informações confidenciais. Usuários e componentes do sistema podem armazenar dados de configuração em mapas de configuração.
+O recurso da API ConfigMap armazena dados de configuração como pares de chave-valor. Os dados podem ser consumidos em Pods, ou fornecidos para componentes do sistema, como controladores. O ConfigMap é similar ao [Secret](/pt-br/docs/concepts/configuration/secret/), mas fornece um meio de trabalhar com _strings_ que não contêm informações confidenciais. Usuários e componentes do sistema podem armazenar dados de configuração em ConfigMaps.
 
 {{< note >}}
 Os mapas de configuração devem fazer referência a arquivos de propriedades, não substituí-los. Pense no ConfigMap como representando algo semelhante ao diretório `/etc` do Linux e seus conteúdos. Por exemplo, se você criar um [Volume Kubernetes](/docs/concepts/storage/volumes/) a partir de um ConfigMap, cada item de dados no ConfigMap é representado por um arquivo individual no volume.
 {{< /note >}}
 
-O campo `data` do ConfigMap contem os dados de configuração. Como mostrado no exemplo abaixo, isso pode ser simples -- como propriedades individuais definidas usando `--from-literal` -- ou complexo -- como arquivos de configuração ou `blobs` JSON definidos usando `--from-file`.
+O campo `data` do ConfigMap contém os dados de configuração. Como mostrado no exemplo abaixo, estes podem ser simples (como propriedades individuais definidas usando `--from-literal`) ou complexos (como arquivos de configuração ou `blobs` JSON definidos usando `--from-file`).
 
 ```yaml
 apiVersion: v1
@@ -709,9 +708,9 @@ data:
 
 ### Restrições
 
-- Você deve criar um ConfigMap antes de referenciá-lo em uma especificação de Pod (a menos que você marque o ConfigMap como "optional"). Se você referenciar um ConfigMap que não existe, O pod não vai iniciar. Da mesma forma, referências a chaves que não existem no ConfigMap, impedirá o pod de iniciar.
+- Você deve criar um ConfigMap antes de referenciá-lo em uma especificação de Pod (a menos que você marque o ConfigMap como `optional`). Se você referenciar um ConfigMap que não existe, O Pod não vai iniciar. Da mesma forma, referências a chaves que não existem no ConfigMap impedirão o Pod de iniciar.
 
-- Se você usar `envFrom` para definir variáveis de ambiente do ConfigMap, chaves que são consideradas inválidas serão ignoradas. O pod poderá começar, mas os nomes inválidos serão registrados no log de eventos (`InvalidVariableNames`). A mensagem de log lista cada chave pulada. Por exemplo:
+- Se você usar `envFrom` para definir variáveis de ambiente do ConfigMap, chaves que são consideradas inválidas serão ignoradas. O Pod poderá iniciar, mas os nomes inválidos serão registrados no log de eventos (`InvalidVariableNames`). A mensagem de log lista cada chave ignorada. Por exemplo:
 
   ```shell
   kubectl get events
