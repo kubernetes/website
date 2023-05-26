@@ -178,6 +178,16 @@ In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not 
 You can create this directory if you need to, making it world-readable but writeable only by admins.
 {{< /note >}}
 
+{{< note >}}
+In case of deprecated apt-key warning like `Warning: apt-key is deprecated. Manage keyring files in trusted.gpg.d instead (see apt-key(8)).` please use `gpg --dearmor` instead of `apt-key add`:
+```shel
+sudo curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes.gpg
+```
+{{< /note >}}
+
+
+
+
 {{% /tab %}}
 
 {{% tab name="Red Hat-based distributions" %}}
