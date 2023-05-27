@@ -79,6 +79,13 @@ An example of an IPv6 CIDR: `fdXY:IJKL:MNOP:15::/64` (this shows the format but 
 address - see [RFC 4193](https://tools.ietf.org/html/rfc4193))
 {{< /note >}}
 
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+
+When using an external cloud provider, you can pass a dual-stack `--node-ip` value to
+kubelet if you enable the `CloudDualStackNodeIPs` feature gate in both kubelet and the
+external cloud provider. This is only supported for cloud providers that support dual
+stack clusters.
+
 ## Services
 
 You can create {{< glossary_tooltip text="Services" term_id="service" >}} which can use IPv4, IPv6, or both.

@@ -490,7 +490,7 @@ in the kubeadm config file.
 
 1. 根据[这里](#manual-certs) 的描述配置 SSH。
 
-1. 将以下文件从集群中的任何 etcd 节点复制到第一个控制平面节点：
+1. 将以下文件从集群中的任一 etcd 节点复制到第一个控制平面节点：
 
    ```shell
    export CONTROL_PLANE="ubuntu@10.0.0.7"

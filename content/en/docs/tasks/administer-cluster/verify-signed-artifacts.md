@@ -11,14 +11,11 @@ weight: 420
 
 ## {{% heading "prerequisites" %}}
 
-These instructions are for Kubernetes {{< skew currentVersion >}}. If you want
-to check the integrity of components for a different version of Kubernetes,
-check the documentation for that Kubernetes release.
-
 You will need to have the following tools installed:
 
 - `cosign` ([install guide](https://docs.sigstore.dev/cosign/installation/))
 - `curl` (often provided by your operating system)
+- `jq` ([download jq](https://stedolan.github.io/jq/download/))
 
 ## Verifying binary signatures
 
@@ -27,7 +24,7 @@ standalone binaries) by using cosign's keyless signing. To verify a particular
 binary, retrieve it together with its signature and certificate:
 
 ```bash
-URL=https://dl.k8s.io/release/v{{< skew currentVersion >}}.0/bin/linux/amd64
+URL=https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64
 BINARY=kubectl
 
 FILES=(
@@ -41,18 +38,24 @@ for FILE in "${FILES[@]}"; do
 done
 ```
 
-Then verify the blob by using `cosign`:
+Then verify the blob by using `cosign verify-blob`:
 
 ```shell
-cosign verify-blob "$BINARY" --signature "$BINARY".sig --certificate "$BINARY".cert
+cosign verify-blob "$BINARY" \
+  --signature "$BINARY".sig \
+  --certificate "$BINARY".cert \
+  --certificate-identity krel-staging@k8s-releng-prod.iam.gserviceaccount.com \
+  --certificate-oidc-issuer https://accounts.google.com
 ```
 
-cosign v1.9.0 is required to be able to use the `--certificate` flag. Please use
-`--cert` for older versions of cosign.
-
 {{< note >}}
-To learn more about keyless signing, please refer to [Keyless
-Signatures](https://github.com/sigstore/cosign/blob/main/KEYLESS.md#keyless-signatures).
+Cosign 2.0 requires the `--certificate-identity` and `--certificate-oidc-issuer` options.
+
+To learn more about keyless signing, please refer to [Keyless Signatures](https://docs.sigstore.dev/cosign/keyless).
+
+Previous versions of Cosign required that you set `COSIGN_EXPERIMENTAL=1`.
+
+For additional information, plase refer to the [sigstore Blog](https://blog.sigstore.dev/cosign-2-0-released/)
 {{< /note >}}
 
 ## Verifying image signatures
@@ -60,49 +63,56 @@ Signatures](https://github.com/sigstore/cosign/blob/main/KEYLESS.md#keyless-sign
 For a complete list of images that are signed please refer
 to [Releases](/releases/download/).
 
-Let's pick one image from this list and verify its signature using
+Pick one image from this list and verify its signature using
 the `cosign verify` command:
 
 ```shell
-COSIGN_EXPERIMENTAL=1 cosign verify registry.k8s.io/kube-apiserver-amd64:v{{< skew currentVersion >}}.0
+cosign verify registry.k8s.io/kube-apiserver-amd64:v{{< skew currentPatchVersion >}} \
+  --certificate-identity krel-trust@k8s-releng-prod.iam.gserviceaccount.com \
+  --certificate-oidc-issuer https://accounts.google.com \
+  | jq .
 ```
-
-{{< note >}}
-`COSIGN_EXPERIMENTAL=1` is used to allow verification of images signed
-in `KEYLESS` mode. To learn more about keyless signing, please refer to
-[Keyless Signatures](https://github.com/sigstore/cosign/blob/main/KEYLESS.md#keyless-signatures)
-. {{< /note >}}
 
 ### Verifying images for all control plane components
 
-To verify all signed control plane images, please run this command:
+To verify all signed control plane images for the latest stable version
+(v{{< skew currentPatchVersion >}}), please run the following commands:
 
 ```shell
-curl -Ls https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/latest.txt)/release | grep 'PackageName: registry.k8s.io/' | awk '{print $2}' > images.txt
+curl -Ls "https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/stable.txt)/release" \
+  | grep "SPDXID: SPDXRef-Package-registry.k8s.io" \
+  | grep -v sha256 | cut -d- -f3- | sed 's/-/\//' | sed 's/-v1/:v1/' \
+  | sort > images.txt
 input=images.txt
 while IFS= read -r image
 do
-  COSIGN_EXPERIMENTAL=1 cosign verify "$image"
+  cosign verify "$image" \
+    --certificate-identity krel-trust@k8s-releng-prod.iam.gserviceaccount.com \
+    --certificate-oidc-issuer https://accounts.google.com \
+    | jq .
 done < "$input"
 ```
 
-Once you have verified an image, specify that image by its digest in your Pod
-manifests as per this
-example: `registry-url/image-name@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2`
-.
+Once you have verified an image, you can specify the image by its digest in your Pod
+manifests as per this example:
+
+```console
+registry-url/image-name@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2
+```
 
 For more information, please refer
-to [Image Pull Policy](/docs/concepts/containers/images/#image-pull-policy)
+to the [Image Pull Policy](/docs/concepts/containers/images/#image-pull-policy)
 section.
 
 ## Verifying Image Signatures with Admission Controller
 
-For non-control plane images (
-e.g. [conformance image](https://github.com/kubernetes/kubernetes/blob/master/test/conformance/image/README.md))
-, signatures can also be verified at deploy time using
+For non-control plane images (for example
+[conformance image](https://github.com/kubernetes/kubernetes/blob/master/test/conformance/image/README.md)),
+signatures can also be verified at deploy time using
 [sigstore policy-controller](https://docs.sigstore.dev/policy-controller/overview)
-admission controller. To get started with `policy-controller` here are a few helpful
-resources:
+admission controller.
+
+Here are some helpful resources to get started with `policy-controller`:
 
 - [Installation](https://github.com/sigstore/helm-charts/tree/main/charts/policy-controller)
 - [Configuration Options](https://github.com/sigstore/policy-controller/tree/main/config)

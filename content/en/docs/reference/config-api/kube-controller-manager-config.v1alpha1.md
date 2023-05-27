@@ -9,10 +9,56 @@ auto_generated: true
 ## Resource Types 
 
 
+- [LeaderMigrationConfiguration](#controllermanager-config-k8s-io-v1alpha1-LeaderMigrationConfiguration)
 - [KubeControllerManagerConfiguration](#kubecontrollermanager-config-k8s-io-v1alpha1-KubeControllerManagerConfiguration)
 - [CloudControllerManagerConfiguration](#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudControllerManagerConfiguration)
   
     
+
+## `LeaderMigrationConfiguration`     {#controllermanager-config-k8s-io-v1alpha1-LeaderMigrationConfiguration}
+    
+
+**Appears in:**
+
+- [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
+
+
+<p>LeaderMigrationConfiguration provides versioned configuration for all migrating leader locks.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+<tr><td><code>apiVersion</code><br/>string</td><td><code>controllermanager.config.k8s.io/v1alpha1</code></td></tr>
+<tr><td><code>kind</code><br/>string</td><td><code>LeaderMigrationConfiguration</code></td></tr>
+    
+  
+<tr><td><code>leaderName</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>LeaderName is the name of the leader election resource that protects the migration
+E.g. 1-20-KCM-to-1-21-CCM</p>
+</td>
+</tr>
+<tr><td><code>resourceLock</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>ResourceLock indicates the resource object type that will be used to lock
+Should be &quot;leases&quot; or &quot;endpoints&quot;</p>
+</td>
+</tr>
+<tr><td><code>controllerLeaders</code> <B>[Required]</B><br/>
+<a href="#controllermanager-config-k8s-io-v1alpha1-ControllerLeaderConfiguration"><code>[]ControllerLeaderConfiguration</code></a>
+</td>
+<td>
+   <p>ControllerLeaders contains a list of migrating leader lock configurations</p>
+</td>
+</tr>
+</tbody>
+</table>
 
 ## `ControllerLeaderConfiguration`     {#controllermanager-config-k8s-io-v1alpha1-ControllerLeaderConfiguration}
     
@@ -142,48 +188,6 @@ first item for a particular name wins</p>
 </td>
 <td>
    <p>LeaderMigration holds the configuration for Leader Migration.</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `LeaderMigrationConfiguration`     {#controllermanager-config-k8s-io-v1alpha1-LeaderMigrationConfiguration}
-    
-
-**Appears in:**
-
-- [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
-
-
-<p>LeaderMigrationConfiguration provides versioned configuration for all migrating leader locks.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>leaderName</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>LeaderName is the name of the leader election resource that protects the migration
-E.g. 1-20-KCM-to-1-21-CCM</p>
-</td>
-</tr>
-<tr><td><code>resourceLock</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>ResourceLock indicates the resource object type that will be used to lock
-Should be &quot;leases&quot; or &quot;endpoints&quot;</p>
-</td>
-</tr>
-<tr><td><code>controllerLeaders</code> <B>[Required]</B><br/>
-<a href="#controllermanager-config-k8s-io-v1alpha1-ControllerLeaderConfiguration"><code>[]ControllerLeaderConfiguration</code></a>
-</td>
-<td>
-   <p>ControllerLeaders contains a list of migrating leader lock configurations</p>
 </td>
 </tr>
 </tbody>
@@ -1115,14 +1119,6 @@ allowed to sync concurrently.</p>
 <tbody>
     
   
-<tr><td><code>EnableTaintManager</code> <B>[Required]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <p>If set to true enables NoExecute Taints and will evict all not-tolerating
-Pod running on Nodes tainted with this kind of Taints.</p>
-</td>
-</tr>
 <tr><td><code>NodeEvictionRate</code> <B>[Required]</B><br/>
 <code>float32</code>
 </td>
@@ -1586,6 +1582,33 @@ volume plugin should search for additional third party volume plugins</p>
   
     
 
+## `NodeControllerConfiguration`     {#NodeControllerConfiguration}
+    
+
+**Appears in:**
+
+- [CloudControllerManagerConfiguration](#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudControllerManagerConfiguration)
+
+
+<p>NodeControllerConfiguration contains elements describing NodeController.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>ConcurrentNodeSyncs</code> <B>[Required]</B><br/>
+<code>int32</code>
+</td>
+<td>
+   <p>ConcurrentNodeSyncs is the number of workers
+concurrently synchronizing nodes</p>
+</td>
+</tr>
+</tbody>
+</table>
+
 ## `ServiceControllerConfiguration`     {#ServiceControllerConfiguration}
     
 
@@ -1622,6 +1645,8 @@ management, but more CPU (and network) load.</p>
     
 
 
+<p>CloudControllerManagerConfiguration contains elements describing cloud-controller manager.</p>
+
 
 <table class="table">
 <thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
@@ -1646,6 +1671,14 @@ management, but more CPU (and network) load.</p>
 both in cloud controller manager and kube-controller manager.</p>
 </td>
 </tr>
+<tr><td><code>NodeController</code> <B>[Required]</B><br/>
+<a href="#NodeControllerConfiguration"><code>NodeControllerConfiguration</code></a>
+</td>
+<td>
+   <p>NodeController holds configuration for node controller
+related features.</p>
+</td>
+</tr>
 <tr><td><code>ServiceController</code> <B>[Required]</B><br/>
 <a href="#ServiceControllerConfiguration"><code>ServiceControllerConfiguration</code></a>
 </td>
@@ -1659,6 +1692,13 @@ related features.</p>
 </td>
 <td>
    <p>NodeStatusUpdateFrequency is the frequency at which the controller updates nodes' status</p>
+</td>
+</tr>
+<tr><td><code>Webhook</code> <B>[Required]</B><br/>
+<a href="#cloudcontrollermanager-config-k8s-io-v1alpha1-WebhookConfiguration"><code>WebhookConfiguration</code></a>
+</td>
+<td>
+   <p>Webhook is the configuration for cloud-controller-manager hosted webhooks</p>
 </td>
 </tr>
 </tbody>
@@ -1804,6 +1844,37 @@ to be configured on the cloud provider.</p>
    <p>nodeSyncPeriod is the period for syncing nodes from cloudprovider. Longer
 periods will result in fewer calls to cloud provider, but may delay addition
 of new nodes to cluster.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `WebhookConfiguration`     {#cloudcontrollermanager-config-k8s-io-v1alpha1-WebhookConfiguration}
+    
+
+**Appears in:**
+
+- [CloudControllerManagerConfiguration](#cloudcontrollermanager-config-k8s-io-v1alpha1-CloudControllerManagerConfiguration)
+
+
+<p>WebhookConfiguration contains configuration related to
+cloud-controller-manager hosted webhooks</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>Webhooks</code> <B>[Required]</B><br/>
+<code>[]string</code>
+</td>
+<td>
+   <p>Webhooks is the list of webhooks to enable or disable
+'*' means &quot;all enabled by default webhooks&quot;
+'foo' means &quot;enable 'foo'&quot;
+'-foo' means &quot;disable 'foo'&quot;
+first item for a particular name wins</p>
 </td>
 </tr>
 </tbody>

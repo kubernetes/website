@@ -230,6 +230,8 @@ GET /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 - **resourceVersionMatch** (*in query*): string
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+- **sendInitialEvents** (*in query*): boolean
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 - **timeoutSeconds** (*in query*): integer
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 - **watch** (*in query*): boolean
@@ -272,6 +274,10 @@ GET /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings
 - **resourceVersionMatch** (**查询参数**): string
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
   
@@ -316,6 +322,8 @@ GET /apis/rbac.authorization.k8s.io/v1/rolebindings
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 - **resourceVersionMatch** (*in query*): string
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+- **sendInitialEvents** (*in query*): boolean
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 - **timeoutSeconds** (*in query*): integer
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 - **watch** (*in query*): boolean
@@ -354,6 +362,10 @@ GET /apis/rbac.authorization.k8s.io/v1/rolebindings
 - **resourceVersionMatch** (**查询参数**): string
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
   
@@ -654,6 +666,8 @@ DELETE /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 - **resourceVersionMatch** (*in query*): string
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+- **sendInitialEvents** (*in query*): boolean
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 - **timeoutSeconds** (*in query*): integer
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 -->
@@ -704,6 +718,10 @@ DELETE /apis/rbac.authorization.k8s.io/v1/namespaces/{namespace}/rolebindings
 - **resourceVersionMatch** (**查询参数**): string
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
   

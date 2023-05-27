@@ -28,7 +28,7 @@ guide. You can file document formatting bugs against the
 
 ## SelfSubjectReview {#SelfSubjectReview}
 
-SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.
+SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request. When using impersonation, users will receive the user info of the user being impersonated.  If impersonation or request header authentication is used, any extra keys will have their case ignored and returned as lowercase.
 
 <hr>
 

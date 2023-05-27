@@ -88,7 +88,7 @@ Kubernetes 区分用户账号和服务账号的概念，主要基于以下原因
   tied to complex business processes. By contrast, service account creation is
   intended to be more lightweight, allowing cluster users to create service accounts
   for specific tasks on demand. Separating ServiceAccount creation from the steps to
-  onboard human users makes it easier for workloads to following the principle of
+  onboard human users makes it easier for workloads to follow the principle of
   least privilege.
 -->
 - 通常情况下，集群的用户账号可能会从企业数据库进行同步，
