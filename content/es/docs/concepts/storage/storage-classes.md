@@ -370,7 +370,7 @@ Los siguientes ejemplos utilizan el aprovisionador StorageClass de VMware Cloud 
 
    `datastore`: el usuario también puede especificar el almacén de datos en StorageClass. El volumen se creará en el almacén de datos especificado en StorageClass, que en este caso es `VSANDatastore`. Este campo es opcional. Si no se especifica el almacén de datos, el volumen se creará en el almacén de datos especificado en el archivo de configuración de vSphere utilizado para inicializar vSphere Cloud Provider.
 
-3. Gestión de políticas de almacenamiento dentro de kubernetes
+3. Gestión de políticas de almacenamiento dentro de Kubernetes
 
    - Uso de la política de vCenter SPBM existente
 
