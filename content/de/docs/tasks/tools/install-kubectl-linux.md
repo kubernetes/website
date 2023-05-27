@@ -44,7 +44,6 @@ Um kubectl auf Linux zu installieren, gibt es die folgenden Möglichkeiten:
    ```bash
    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
    ```
-
    {{< /note >}}
 
 2. Binary validieren (optional)
@@ -110,13 +109,13 @@ Um kubectl auf Linux zu installieren, gibt es die folgenden Möglichkeiten:
    ```
 
    Diese Warnung kann ignoriert werden. Prüfe lediglich die `kubectl` Version, eelche installiert wurde.
-
+   
    {{< /note >}}
-
+   
    Oder benutzte diesen Befehl für eine detailliertere Ansicht:
 
    ```cmd
-   kubectl version --client --output=yaml
+   kubectl version --client --output=yaml    
    ```
 
 ### Installieren mit Hilfe des Linux eigenen Paketmanagers
@@ -140,7 +139,7 @@ Um kubectl auf Linux zu installieren, gibt es die folgenden Möglichkeiten:
 2. Den öffentlichen Google Cloud Signaturschlüssel herunterladen:
 
    ```shell
-   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
    ```
 
 3. Kubernetes zum `apt` Repository:
@@ -164,7 +163,6 @@ Falls es benötigt wird, kann es angelegt werden. Hierzu sollte es danach von je
 {{% /tab %}}
 
 {{% tab name="Red Hat-basierte Distributionen" %}}
-
 ```bash
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
@@ -276,7 +274,7 @@ Untenstehend ist beschrieben, wie die Autovervollständigungen für Fish und Zsh
    kubectl convert --help
    ```
 
-Wenn kein Fehler ausgegeben wird, ist das Plugin erfolgreich installiert worden.
+  Wenn kein Fehler ausgegeben wird, ist das Plugin erfolgreich installiert worden.
 
 1. Nach Installation des Plugins, die Installationsdateien aufräumen:
 

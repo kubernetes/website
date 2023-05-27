@@ -20,6 +20,7 @@ Existem os seguintes métodos para instalar o kubectl no Linux:
 - [Instale usando o gerenciador de pacotes nativo](#instale-usando-o-gerenciador-de-pacotes-nativo)
 - [Instale usando outro gerenciador de pacotes](#instale-usando-outro-gerenciador-de-pacotes)
 
+
 ### Instale o binário kubectl no Linux usando o curl
 
 1. Faça download da versão mais recente com o comando:
@@ -29,15 +30,14 @@ Existem os seguintes métodos para instalar o kubectl no Linux:
    ```
 
    {{< note >}}
-   Para fazer o download de uma versão específica, substitua a parte `$(curl -L -s https://dl.k8s.io/release/stable.txt)` do comando pela versão específica.
+Para fazer o download de uma versão específica, substitua a parte `$(curl -L -s https://dl.k8s.io/release/stable.txt)` do comando pela versão específica.
 
 Por exemplo, para fazer download da versão {{< skew currentPatchVersion >}} no Linux, digite:
 
-```bash
-curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
-```
-
-{{< /note >}}
+   ```bash
+   curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
+   ```
+   {{< /note >}}
 
 1. Valide o binário (opcional)
 
@@ -97,7 +97,7 @@ curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/a
    Ou use isso para visualizar mais detalhes da versão:
 
    ```cmd
-   kubectl version --client --output=yaml
+   kubectl version --client --output=yaml    
    ```
 
 ### Instale usando o gerenciador de pacotes nativo
@@ -111,9 +111,8 @@ curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/a
    sudo apt-get update
    sudo apt-get install -y ca-certificates curl
    ```
-
+   
    Se você usa o Debian 9 (stretch) ou anterior, também precisará instalar o `apt-transport-https`:
-
    ```shell
    sudo apt-get install -y apt-transport-https
    ```
@@ -121,7 +120,7 @@ curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/a
 2. Faça download da chave de assinatura pública do Google Cloud:
 
    ```shell
-   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
    ```
 
 3. Adicione o repositório `apt` do Kubernetes:
@@ -136,16 +135,14 @@ curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/a
    sudo apt-get update
    sudo apt-get install -y kubectl
    ```
-
-   {{< note >}}
-   Em versões anteriores ao Debian 12 e Ubuntu 22.04, o `/etc/apt/keyrings` não existe por padrão.
-   Você pode criar este diretório se precisar, tornando-o visível para todos, mas com permissão de escrita apenas aos administradores.
-   {{< /note >}}
+{{< note >}}
+Em versões anteriores ao Debian 12 e Ubuntu 22.04, o `/etc/apt/keyrings` não existe por padrão. 
+Você pode criar este diretório se precisar, tornando-o visível para todos, mas com permissão de escrita apenas aos administradores.
+{{< /note >}}
 
 {{% /tab %}}
 
 {{% tab name="Distribuições baseadas no Red Hat" %}}
-
 ```bash
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
@@ -190,9 +187,8 @@ kubectl version --client
 
 {{< include "included/verify-kubectl.md" >}}
 
-## Configurações e plugins opcionais do kubectl
-
-### Ative o autocompletar no shell
+## Configurações e plugins opcionais do kubectl 
+### Ative o autocompletar no shell 
 
 O kubectl oferece recursos de autocompletar para Bash, Zsh, Fish e PowerShell, o que pode economizar muita digitação.
 
