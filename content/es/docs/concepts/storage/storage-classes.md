@@ -80,7 +80,7 @@ No está restringido especificar los aprovisionadores "internos"
 enumerados aquí (cuyos nombres tienen el prefijo "kubernetes.io" y se envían
 junto con Kubernetes). También puede ejecutar y especificar aprovisionadores externos,
 que son programas independientes que siguen una [especificación](https://git.k8s.io/design-proposals-archive/storage/volume-provisioning.md)
-definido por Kubernetes. Los autores de proveedores externos tienen total discreción
+definida por Kubernetes. Los autores de proveedores externos tienen total discreción
 sobre dónde vive su código, cómo se envía el aprovisionador, cómo debe ser
 ejecutada, qué complemento de volumen usa (incluido Flex), etc. El repositorio
 [kubernetes-sigs/sig-storage-lib-external-provisioner](https://github.com/kubernetes-sigs/sig-storage-lib-external-provisioner)
