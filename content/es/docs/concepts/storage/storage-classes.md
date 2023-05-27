@@ -190,9 +190,9 @@ spec:
 
 Cuando un operador de clúster especifica el modo de enlace de volumen `WaitForFirstConsumer`, ya no es necesario restringir el aprovisionamiento a topologías específicas en la mayoría de las situaciones. Sin embargo, si todavía es necesario, se puede especificar `allowedTopologies`.
 
-This example demonstrates how to restrict the topology of provisioned volumes to specific
-zones and should be used as a replacement for the `zone` and `zones` parameters for the
-supported plugins.
+Este ejemplo demuestra cómo restringir la topología de los volúmenes aprovisionados a determinadas
+zonas y debe usarse como reemplazo de los parámetros `zone` y `zones` para el
+complementos compatibles.
 
 ```yaml
 apiVersion: storage.k8s.io/v1
