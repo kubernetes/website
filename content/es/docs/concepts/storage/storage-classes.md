@@ -430,7 +430,7 @@ parameters:
   ```
 
 - `userSecretNamespace`: El espacio de nombres para `userSecretName`.
-- `fsType`: fsType que es compatible con kubernetes. Por defecto: `"ext4"`.
+- `fsType`: fsType que es compatible con Kubernetes. Por defecto: `"ext4"`.
 - `imageFormat`: Ceph RBD formato de imagen, "1" o "2". El valor predeterminado es "2".
 - `imageFeatures`: Este parámetro es opcional y solo debe usarse si
   establece `imageFormat` a "2". Las características admitidas actualmente son `layering` solamente.
