@@ -7,7 +7,8 @@ card:
   weight: 20
   title: 在 Linux 系统中安装 kubectl
 ---
-<!-- 
+
+<!--
 reviewers:
 - mikedanese
 title: Install and Set Up kubectl on Linux
@@ -28,6 +29,7 @@ with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0
 and v{{< skew currentVersionAddMinor 1 >}} control planes.
 Using the latest compatible version of kubectl helps avoid unforeseen issues.
 -->
+
 kubectl 版本和集群版本之间的差异必须在一个小版本号内。
 例如：v{{< skew currentVersion >}} 版本的客户端能与 v{{< skew currentVersionAddMinor -1 >}}、
 v{{< skew currentVersionAddMinor 0 >}} 和 v{{< skew currentVersionAddMinor 1 >}} 版本的控制面通信。
@@ -36,11 +38,13 @@ v{{< skew currentVersionAddMinor 0 >}} 和 v{{< skew currentVersionAddMinor 1 >}
 <!--
 ## Install kubectl on Linux
 -->
+
 ## 在 Linux 系统中安装 kubectl {#install-kubectl-on-linux}
 
 <!--
 The following methods exist for installing kubectl on Linux:
 -->
+
 在 Linux 系统中安装 kubectl 有如下几种方法：
 
 <!--
@@ -48,6 +52,7 @@ The following methods exist for installing kubectl on Linux:
 - [Install using native package management](#install-using-native-package-management)
 - [Install using other package management](#install-using-other-package-management)
 -->
+
 - [用 curl 在 Linux 系统中安装 kubectl](#install-kubectl-binary-with-curl-on-linux)
 - [用原生包管理工具安装](#install-using-native-package-management)
 - [用其他包管理工具安装](#install-using-other-package-management)
@@ -55,11 +60,13 @@ The following methods exist for installing kubectl on Linux:
 <!--
 ### Install kubectl binary with curl on Linux
 -->
+
 ### 用 curl 在 Linux 系统中安装 kubectl {#install-kubectl-binary-with-curl-on-linux}
 
 <!--
 1. Download the latest release with the command:
 -->
+
 1. 用以下命令下载最新发行版：
 
    {{< tabs name="download_binary_linux" >}}
@@ -78,6 +85,7 @@ The following methods exist for installing kubectl on Linux:
 
    For example, to download version {{< skew currentPatchVersion >}} on Linux x86-64, type:
    -->
+
    如需下载某个指定的版本，请用指定版本号替换该命令的这一部分：
    `$(curl -L -s https://dl.k8s.io/release/stable.txt)`。
 
@@ -90,11 +98,13 @@ The following methods exist for installing kubectl on Linux:
    <!--
    And for Linux ARM64, type:
    -->
+
    对于 Linux ARM64 来说，请输入：
 
    ```bash
    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/arm64/kubectl
    ```
+
    {{< /note >}}
 
 <!--
@@ -102,11 +112,12 @@ The following methods exist for installing kubectl on Linux:
 
    Download the kubectl checksum file:
 -->
+
 2. 验证该可执行文件（可选步骤）
 
    下载 kubectl 校验和文件：
 
-   {{< tabs name="download_checksum_linux" >}} 
+   {{< tabs name="download_checksum_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
    {{< /tab >}}
@@ -118,6 +129,7 @@ The following methods exist for installing kubectl on Linux:
    <!--
    Validate the kubectl binary against the checksum file:
    -->
+
    基于校验和文件，验证 kubectl 的可执行文件：
 
    ```bash
@@ -127,6 +139,7 @@ The following methods exist for installing kubectl on Linux:
    <!--
    If valid, the output is:
    -->
+
    验证通过时，输出为：
 
    ```console
@@ -136,6 +149,7 @@ The following methods exist for installing kubectl on Linux:
    <!--
    If the check fails, `sha256` exits with nonzero status and prints output similar to:
    -->
+
    验证失败时，`sha256` 将以非零值退出，并打印如下输出：
 
    ```bash
@@ -147,12 +161,14 @@ The following methods exist for installing kubectl on Linux:
    <!--
    Download the same version of the binary and checksum.
    -->
+
    下载的 kubectl 与校验和文件版本必须相同。
    {{< /note >}}
 
 <!--
 1. Install kubectl
 -->
+
 3. 安装 kubectl
 
    ```bash
@@ -164,6 +180,7 @@ The following methods exist for installing kubectl on Linux:
    If you do not have root access on the target system, you can still install
    kubectl to the `~/.local/bin` directory:
    -->
+
    即使你没有目标系统的 root 权限，仍然可以将 kubectl 安装到目录 `~/.local/bin` 中：
 
    ```bash
@@ -172,12 +189,14 @@ The following methods exist for installing kubectl on Linux:
    mv ./kubectl ~/.local/bin/kubectl
    # 之后将 ~/.local/bin 附加（或前置）到 $PATH
    ```
+
    {{< /note >}}
 
 <!--
 1. Test to ensure the version you installed is up-to-date:
 Or use this for detailed view of version:
 -->
+
 4. 执行测试，以保障你安装的版本是最新的：
 
    ```bash
@@ -188,6 +207,7 @@ Or use this for detailed view of version:
    <!--
    The above command will generate a warning:
    -->
+
    上面的命令会产生一个警告：
 
    ```
@@ -198,12 +218,14 @@ Or use this for detailed view of version:
    You can ignore this warning. You are only checking the version of `kubectl` that you
    have installed.
    -->
+
    你可以忽略这个警告。你只检查你所安装的 `kubectl` 的版本。
    {{< /note >}}
 
    <!--
    Or use this for detailed view of version:
    -->
+
    或者使用如下命令来查看版本的详细信息：
 
    ```cmd
@@ -213,6 +235,7 @@ Or use this for detailed view of version:
 <!--
 ### Install using native package management
 -->
+
 ### 用原生包管理工具安装 {#install-using-native-package-management}
 
 {{< tabs name="kubectl_install" >}}
@@ -221,6 +244,7 @@ Or use this for detailed view of version:
 <!--
 1. Update the `apt` package index and install packages needed to use the Kubernetes `apt` repository:
 -->
+
 1. 更新 `apt` 包索引，并安装使用 Kubernetes `apt` 仓库所需要的包：
 
    ```shell
@@ -230,7 +254,8 @@ Or use this for detailed view of version:
 
    <!--
    If you use Debian 9 (stretch) or earlier you would also need to install `apt-transport-https`:
-   -->   
+   -->
+
    如果你使用 Debian 9（stretch）或更早版本，则你还需要安装 `apt-transport-https`：
 
    ```shell
@@ -244,7 +269,7 @@ Or use this for detailed view of version:
 2. 下载 Google Cloud 公开签名秘钥：
 
    ```shell
-   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
    ```
 
 <!--
@@ -269,10 +294,12 @@ Or use this for detailed view of version:
    ```
 
 {{< note >}}
+
 <!--
 In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default.
 You can create this directory if you need to, making it world-readable but writeable only by admins.
 -->
+
 在低于 Debian 12 和 Ubuntu 22.04 的发行版本中，`/etc/apt/keyrings` 默认不存在。
 如有需要，你可以创建此目录，并将其设置为对所有人可读，但仅对管理员可写。
 {{< /note >}}
@@ -299,15 +326,18 @@ sudo yum install -y kubectl
 <!--
 ### Install using other package management
 -->
+
 ### 用其他包管理工具安装 {#install-using-other-package-management}
 
 {{< tabs name="other_kubectl_install" >}}
 {{% tab name="Snap" %}}
-<!-- 
+
+<!--
 If you are on Ubuntu or another Linux distribution that supports the
 [snap](https://snapcraft.io/docs/core/install) package manager, kubectl
 is available as a [snap](https://snapcraft.io/) application.
 -->
+
 如果你使用的 Ubuntu 或其他 Linux 发行版，内建支持
 [snap](https://snapcraft.io/docs/core/install) 包管理工具，
 则可用 [snap](https://snapcraft.io/) 命令安装 kubectl。
@@ -320,10 +350,12 @@ kubectl version --client
 {{% /tab %}}
 
 {{% tab name="Homebrew" %}}
-<!-- 
+
+<!--
 If you are on Linux and using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux)
 package manager, kubectl is available for [installation](https://docs.brew.sh/Homebrew-on-Linux#install).
 -->
+
 如果你使用 Linux 系统，并且装了 [Homebrew](https://docs.brew.sh/Homebrew-on-Linux)
 包管理工具，
 则可以使用这种方式[安装](https://docs.brew.sh/Homebrew-on-Linux#install) kubectl。
@@ -340,6 +372,7 @@ kubectl version --client
 <!--
 ## Verify kubectl configuration
 -->
+
 ## 验证 kubectl 配置 {#verify-kubectl-configration}
 
 {{< include "included/verify-kubectl.md" >}}
@@ -349,6 +382,7 @@ kubectl version --client
 
 ### Enable shell autocompletion
 -->
+
 ## kubectl 的可选配置和插件 {#optional-kubectl-configurations}
 
 ### 启用 shell 自动补全功能 {#enable-shell-autocompletion}
@@ -359,6 +393,7 @@ which can save you a lot of typing.
 
 Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 -->
+
 kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以为你节省大量的输入。
 
 下面是为 Bash、Fish 和 Zsh 设置自动补全功能的操作步骤。
@@ -372,6 +407,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 <!--
 ### Install `kubectl convert` plugin
 -->
+
 ### 安装 `kubectl convert` 插件
 
 {{< include "included/kubectl-convert-overview.md" >}}
@@ -379,6 +415,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 <!--
 1. Download the latest release with the command:
 -->
+
 1. 用以下命令下载最新发行版：
 
    {{< tabs name="download_binary_linux" >}}
@@ -395,6 +432,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 
    Download the kubectl-convert checksum file:
 -->
+
 2. 验证该可执行文件（可选步骤）
 
    下载 kubectl-convert 校验和文件：
@@ -411,6 +449,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    <!--
    Validate the kubectl-convert binary against the checksum file:
    -->
+
    基于校验和，验证 kubectl-convert 的可执行文件：
 
    ```bash
@@ -420,6 +459,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    <!--
    If valid, the output is:
    -->
+
    验证通过时，输出为：
 
    ```console
@@ -429,6 +469,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    <!--
    If the check fails, `sha256` exits with nonzero status and prints output similar to:
    -->
+
    验证失败时，`sha256` 将以非零值退出，并打印输出类似于：
 
    ```bash
@@ -440,12 +481,14 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    <!--
    Download the same version of the binary and checksum.
    -->
+
    下载相同版本的可执行文件和校验和。
    {{< /note >}}
 
 <!--
 1. Install kubectl-convert
 -->
+
 3. 安装 kubectl-convert
 
    ```bash
@@ -455,6 +498,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 <!--
 1. Verify plugin is successfully installed
 -->
+
 4. 验证插件是否安装成功
 
    ```shell
@@ -464,11 +508,13 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    <!--
    If you do not see an error, it means the plugin is successfully installed.
    -->
+
    如果你没有看到任何错误就代表插件安装成功了。
 
 <!--
 1. After installing the plugin, clean up the installation files:
 -->
+
 5. 安装插件后，清理安装文件：
 
    ```bash
