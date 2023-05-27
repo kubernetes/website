@@ -331,7 +331,7 @@ Hay dos tipos de aprovisionadores para las clases de almacenamiento de vSphere:
 - [CSI provisioner](#vsphere-provisioner-csi): `csi.vsphere.vmware.com`
 - [vCP provisioner](#vcp-provisioner): `kubernetes.io/vsphere-volume`
 
-Los proveedores In-tree son [deprecated](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi). Para obtener más información sobre el aprovisionador de CSI, consulte [Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) y [vSphereVolume CSI migration](/docs/concepts/storage/volumes/#vsphere-csi-migration).
+Los proveedores In-tree estan [obsoletos](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi). Para obtener más información sobre el aprovisionador de CSI, consulte [Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) y [vSphereVolume CSI migration](/docs/concepts/storage/volumes/#vsphere-csi-migration).
 
 #### Aprovisionador de CSI {#vsphere-provisioner-csi}
 
