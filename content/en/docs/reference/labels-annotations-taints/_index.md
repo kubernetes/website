@@ -126,6 +126,18 @@ For Kubernetes version {{< skew currentVersion >}}, you can use this label on Se
 
 Part of the specification used to implement [ApplySet-based pruning in kubectl](/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune). This label is what makes an object an ApplySet parent object. Its value is the unique ID of the ApplySet, which is derived from the identity of the parent object itself. This ID **must** be the base64 encoding (using the URL safe encoding of RFC4648) of the hash of the group-kind-name-namespace of the object it is on, in the form: `<base64(sha256(<name>.<namespace>.<kind>.<group>))>`. There is no relation between the value of this label and object UIDs.
 
+### kubectl.kubernetes.io/restartedAt
+
+Example: `kubectl.kubernetes.io/restartedAt: '2023-03-05T15:30:00Z`
+
+Used on: Pod
+
+This annotation indicates the time when a Kubernetes resource was last restarted using the kubectl command-line tool. It records the time of the most recent workload restart as a Unix timestamp.
+
+In the above example, the annotation indicates that the Pod was recently restarted at 3:30 PM UTC on March 31, 2023.
+
+The `"kubectl.kubernetes.io/restartedAt"` annotation is used by Kubernetes to keep track of the timestamp of the most recent container restart for a particular pod. This information can be useful for troubleshooting and auditing purposes, allowing administrators to track when a resource was last restarted and correlate it with other events or changes in the cluster.
+
 ### applyset.kubernetes.io/is-parent-type (alpha) {#applyset-kubernetes-io-is-parent-type}
 
 Example: `applyset.kubernetes.io/is-parent-type: "true"`
