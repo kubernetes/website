@@ -500,12 +500,9 @@ parameters:
   no se proporciona la cuenta, se buscan todas las cuentas de almacenamiento asociadas con el grupo de recursos para encontrar una que coincida con `skuName` y `location`. Si se proporciona una cuenta de almacenamiento, debe residir en el mismo grupo de recursos que el clúster y se ignoran `skuName` y `location`.
 - `secretNamespace`: el espacio de nombres del secreto que contiene el nombre y la clave de la cuenta de Azure Storage. El valor predeterminado es el mismo que el Pod.
 - `secretName`: el nombre del secreto que contiene el nombre y la clave de la cuenta de Azure Storage. El valor predeterminado es `azure-storage-account-<accountName>-secret`
-- `readOnly`: a flag indicating whether the storage will be mounted as read only.
-  Defaults to false which means a read/write mount. This setting will impact theuna bandera que indica si el almacenamiento se montará como de solo lectura. El valor predeterminado es falso, lo que significa un montaje de lectura/escritura. Esta configuración también afectará la configuración `ReadOnly` en VolumeMounts.
+- `readOnly`: una bandera que indica si el almacenamiento se montará como de solo lectura. El valor predeterminado es falso, lo que significa un montaje de lectura/escritura. Esta configuración también afectará la configuración `ReadOnly` en VolumeMounts.
 
-Durante el aprovisionamiento de almacenamiento, se crea un secreto denominado `secretName` para las credenciales de montaje. Si el clúster ha habilitado ambos
-y [Controller Roles](/docs/reference/access-authn-authz/rbac/#controller-roles),
-y el `create` permiso de recurso `secret` para clusterrole
+Durante el aprovisionamiento de almacenamiento, se crea un secreto denominado `secretName` para las credenciales de montaje. Si el clúster ha habilitado ambos [RBAC](/docs/reference/access-authn-authz/rbac/) y [Controller Roles](/docs/reference/access-authn-authz/rbac/#controller-roles), agregue el permiso de `create` de recurso `secret` para clusterrole
 `system:controller:persistent-volume-binder`.
 
 En un contexto de tenencia múltiple, se recomienda enfáticamente establecer el valor para `secretNamespace` explícitamente; de lo contrario, las credenciales de la cuenta de almacenamiento pueden ser leído por otros usuarios.
