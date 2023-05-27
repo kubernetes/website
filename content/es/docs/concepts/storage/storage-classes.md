@@ -383,7 +383,7 @@ Los siguientes ejemplos utilizan el aprovisionador StorageClass de VMware Cloud 
      Los administradores de Vsphere Infrastructure (VI) tendrán la capacidad de especificar capacidades de almacenamiento Virtual SAN personalizadas durante el aprovisionamiento dinámico de volúmenes. Ahora puede definir los requisitos de almacenamiento, como el rendimiento y la disponibilidad, en forma de capacidades de almacenamiento durante el aprovisionamiento dinámico de volúmenes.
      Los requisitos de capacidad de almacenamiento se convierten en una política de Virtual SAN que luego se transfiere a la capa de Virtual SAN cuando se crea un volumen persistente (disco virtual). El disco virtual se distribuye en el almacén de datos de Virtual SAN para cumplir con los requisitos.
 
-     Puedes ver[Administración basada en políticas de almacenamiento para el aprovisionamiento dinámico de volúmenes](https://github.com/vmware-archive/vsphere-storage-for-kubernetes/blob/fa4c8b8ad46a85b6555d715dd9d27ff69839df53/documentation/policy-based-mgmt.md)
+     Puedes ver la [Administración basada en políticas de almacenamiento para el aprovisionamiento dinámico de volúmenes](https://github.com/vmware-archive/vsphere-storage-for-kubernetes/blob/fa4c8b8ad46a85b6555d715dd9d27ff69839df53/documentation/policy-based-mgmt.md)
      para obtener más detalles sobre cómo utilizar las políticas de almacenamiento para la gestión de volúmenes persistentes.
 
 Hay pocos
