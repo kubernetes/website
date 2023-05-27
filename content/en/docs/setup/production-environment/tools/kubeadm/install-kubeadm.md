@@ -151,7 +151,7 @@ For more information on version skews, see:
 
    ```shell
    sudo apt-get update
-   sudo apt-get install -y apt-transport-https ca-certificates curl
+   sudo apt-get install -y apt-transport-https ca-certificates curl gpg
    ```
 
 2. Download the Google Cloud public signing key:
