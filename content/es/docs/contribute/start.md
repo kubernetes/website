@@ -18,7 +18,7 @@ Si estas buscando información sobre cómo comenzar a contribuir a los repositor
 
 ## Lo básico sobre nuestra documentación
 
-La documentación de Kuberentes esta escrita usando Markdown, procesada y
+La documentación de Kubernetes esta escrita usando Markdown, procesada y
 desplegada usando Hugo. El código fuente está en GitHub accessible en [git.k8s.io/website/](https://github.com/kubernetes/website).
 La mayoría de la documentación en castellano está en `/content/es/docs`. Alguna de
 la documentación de referencia se genera automática con los scripts del
