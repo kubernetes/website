@@ -139,7 +139,7 @@ Um kubectl auf Linux zu installieren, gibt es die folgenden Möglichkeiten:
 2. Den öffentlichen Google Cloud Signaturschlüssel herunterladen:
 
    ```shell
-   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
    ```
 
 3. Kubernetes zum `apt` Repository:
