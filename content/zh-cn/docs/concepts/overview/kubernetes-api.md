@@ -158,24 +158,17 @@ Kubernetes 为 API 实现了一种基于 Protobuf 的序列化格式，主要用
 
 ### OpenAPI V3
 
-{{< feature-state state="beta"  for_k8s_version="v1.24" >}}
+{{< feature-state state="stable"  for_k8s_version="v1.27" >}}
 
 <!--
-Kubernetes {{< param "version" >}} offers beta support for publishing its APIs as OpenAPI v3; this is a
-beta feature that is enabled by default.
-You can disable the beta feature by turning off the
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) named `OpenAPIV3`
-for the kube-apiserver component.
+Kubernetes supports publishing a description of its APIs as OpenAPI v3.
 -->
-Kubernetes {{< param "version" >}} 提供将其 API 以 OpenAPI v3 形式发布的 beta 支持；
-这一功能特性处于 beta 状态，默认被开启。
-你可以通过为 kube-apiserver 组件关闭 `OpenAPIV3`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用此 beta 特性。
+Kubernetes 支持以 OpenAPI v3 的格式发布 API 描述。
 
 <!--
 A discovery endpoint `/openapi/v3` is provided to see a list of all
-group/versions available. This endpoint only returns JSON. These group/versions
-are provided in the following format:
+group/versions available. This endpoint only returns JSON. These 
+group/versions are provided in the following format:
 -->
 发现端点 `/openapi/v3` 被提供用来查看可用的所有组、版本列表。
 此列表仅返回 JSON。这些组、版本以下面的格式提供：
@@ -252,6 +245,11 @@ Kubernetes API 服务器会在端点 `/openapi/v3/apis/<group>/<version>?hash=<h
 </table>
 
 <!--
+A Golang implementation to fetch the OpenAPI V3 is provided in the package `k8s.io/client-go/openapi3`.
+-->
+在 `k8s.io/client-go/openapi3` 包中提供了一个 Golang 的实现，用于获取 OpenAPI V3。
+
+<!--
 ## Persistence
 
 Kubernetes stores the serialized state of objects by writing them into
@@ -260,6 +258,47 @@ Kubernetes stores the serialized state of objects by writing them into
 ## 持久化 {#persistence}
 
 Kubernetes 通过将序列化状态的对象写入到 {{< glossary_tooltip term_id="etcd" >}} 中完成存储操作。
+
+<!--
+## API Discovery
+
+A list of all group versions supported by a cluster is published at
+the `/api` and `/apis` endpoints. Each group version also advertises
+the list of resources supported via `/apis/<group>/<version>` (for
+example: `/apis/rbac.authorization.k8s.io/v1alpha1`). These endpoints
+are used by kubectl to fetch the list of resources supported by a
+cluster.
+-->
+## API 发现 {#api-discovery}
+一个集群支持的所有组版本列表会发布在 `/api` 和 `/apis` 端点上。
+每个组版本也通过 `/apis/<group>/<version>` 
+（例如：`/apis/rbac.authorization.k8s.io/v1alpha1`）公布支持的资源列表。
+kubectl 使用这些端点来获取集群支持的资源列表。
+
+<!--
+### Aggregated Discovery
+-->
+### 聚集发现 {#aggregated-discovery}
+
+{{< feature-state state="beta"  for_k8s_version="v1.27" >}}
+
+<!--
+Kubernetes offers beta support for aggregated discovery, publishing
+all resources supported by a cluster through two endpoints (`/api` and
+`/apis`) compared to one for every group version. Requesting this
+endpoint drastically reduces the number of requests sent to fetch the
+discovery for the average Kubernetes cluster. This may be accessed by
+requesting the respective endpoints with an Accept header indicating
+the aggregated discovery resource:
+`Accept: application/json;v=v2beta1;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList`.
+
+The endpoint also supports ETag and protobuf encoding.
+-->
+Kubernetes 提供了对聚集发现的 Beta 支持，
+通过两个端点（`/api` 和 `/apis`）发布集群支持的所有资源，相比之下，每个组版本只有一个端点。
+请求这个端点可以极大地减少平均获取 Kubernetes 集群的服务发现信息所需的请求次数。
+这可以通过向相应的端点发送请求来访问，请求中的 Accept 头部标明了聚集发现资源：
+Accept: application/json;v=v2beta1;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList。
 
 <!--
 ## API groups and versioning
