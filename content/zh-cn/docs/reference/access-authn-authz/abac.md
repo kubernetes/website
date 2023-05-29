@@ -249,7 +249,7 @@ kubectl 使用 apiserver 的 `/api` 和 `/apis` 端点来发现服务资源类�
     ```
 
 <!--
-[Complete file example](https://releases.k8s.io/{{< param "fullversion" >}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
+[Complete file example](https://releases.k8s.io/v{{< skew currentPatchVersion >}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
 
 ## A quick note on service accounts
 
@@ -260,7 +260,7 @@ system:serviceaccount:<namespace>:<serviceaccountname>
 ```
 
 -->
-[完整文件示例](https://releases.k8s.io/{{< param "fullversion" >}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
+[完整文件示例](https://releases.k8s.io/v{{< skew currentPatchVersion >}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
 
 ## 服务帐户的快速说明   {#a-quick-note-on-service-accounts}
 
