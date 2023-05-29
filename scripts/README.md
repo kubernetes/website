@@ -140,6 +140,10 @@ Cases handled:
   + /docs/bar                : is a redirect entry, or
   + /docs/bar                : is something we don't understand
 
++ [foo](<lang>/docs/bar/...) : leading slash missing for absolute path
+
++ [foo](docs/bar/...)        : leading slash missing for absolute path
+
 ```
 ## lsync.sh
 

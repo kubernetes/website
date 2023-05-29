@@ -12,7 +12,7 @@ weight: 10
 <!-- overview -->
 
 <!-- 
-This page explains how to configure the kubelet cgroup driver to match the container
+This page explains how to configure the kubelet's cgroup driver to match the container
 runtime cgroup driver for kubeadm clusters.
 -->
 本页阐述如何配置 kubelet 的 cgroup 驱动以匹配 kubeadm 集群中的容器运行时的 cgroup 驱动。
@@ -35,11 +35,15 @@ You should be familiar with the Kubernetes
 <!-- 
 The [Container runtimes](/docs/setup/production-environment/container-runtimes) page
 explains that the `systemd` driver is recommended for kubeadm based setups instead
-of the `cgroupfs` driver, because kubeadm manages the kubelet as a systemd service.
+of the kubelet's [default](/docs/reference/config-api/kubelet-config.v1beta1) `cgroupfs` driver,
+because kubeadm manages the kubelet as a
+[systemd service](/docs/setup/production-environment/tools/kubeadm/kubelet-integration).
 -->
-[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes)页面提到：
-由于 kubeadm 把 kubelet 视为一个系统服务来管理，所以对基于 kubeadm 的安装，
-我们推荐使用 `systemd` 驱动，不推荐 `cgroupfs` 驱动。
+[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes)页面提到，
+由于 kubeadm 把 kubelet 视为一个
+[系统服务](/zh-cn/docs/setup/production-environment/tools/kubeadm/kubelet-integration)来管理，
+所以对基于 kubeadm 的安装， 我们推荐使用 `systemd` 驱动，
+不推荐 kubelet [默认](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1)的 `cgroupfs` 驱动。
 
 <!-- 
 The page also provides details on how to set up a number of different container runtimes with the
@@ -61,12 +65,12 @@ kubeadm 支持在执行 `kubeadm init` 时，传递一个 `KubeletConfiguration`
 `KubeletConfiguration` 包含 `cgroupDriver` 字段，可用于控制 kubelet 的 cgroup 驱动。
 
 <!-- 
-In v1.22, if the user is not setting the `cgroupDriver` field under `KubeletConfiguration`,
-`kubeadm` will default it to `systemd`.
+In v1.22 and later, if the user does not set the `cgroupDriver` field under `KubeletConfiguration`,
++kubeadm defaults it to `systemd`.
 -->
 
 {{< note >}}
-在版本 1.22 中，如果用户没有在 `KubeletConfiguration` 中设置 `cgroupDriver` 字段，
+在版本 1.22 及更高版本中，如果用户没有在 `KubeletConfiguration` 中设置 `cgroupDriver` 字段，
 `kubeadm` 会将它设置为默认值 `systemd`。
 {{< /note >}}
 
@@ -148,11 +152,11 @@ you must refer to the documentation of the container runtime of your choice.
 ## 迁移到 `systemd` 驱动
 
 <!-- 
-To change the cgroup driver of an existing kubeadm cluster to `systemd` in-place,
+To change the cgroup driver of an existing kubeadm cluster from `cgroupfs` to `systemd` in-place,
 a similar procedure to a kubelet upgrade is required. This must include both
 steps outlined below.
 -->
-要将现有 kubeadm 集群的 cgroup 驱动就地升级为 `systemd`，
+要将现有 kubeadm 集群的 cgroup 驱动从 `cgroupfs` 就地升级为 `systemd`，
 需要执行一个与 kubelet 升级类似的过程。
 该过程必须包含下面两个步骤：
 
