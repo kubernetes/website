@@ -65,7 +65,7 @@ other = "(last updated: %s)"
 other = "You are viewing documentation for Kubernetes version:"
 
 [deprecation_warning]
-other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date documentation, see the "
+other = " documentation is no longer actively maintained. The version you are currently viewing is a static snapshot. For up-to-date information, see the "
 
 [deprecation_file_warning]
 other = "Deprecated"

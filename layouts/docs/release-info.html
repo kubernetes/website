@@ -1,0 +1,5 @@
+{{ define "main" }}
+{{ if not .Site.Params.deprecated }}
+  {{ .Content }}
+{{ end }}
+{{ end }}
