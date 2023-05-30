@@ -1092,14 +1092,14 @@ in different overlays. Here are two overlays using the same base.
 ```shell
 mkdir dev
 cat <<EOF > dev/kustomization.yaml
-resources:
+bases:
 - ../base
 namePrefix: dev-
 EOF
 
 mkdir prod
 cat <<EOF > prod/kustomization.yaml
-resources:
+bases:
 - ../base
 namePrefix: prod-
 EOF
