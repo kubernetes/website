@@ -285,9 +285,10 @@ allow Kubernetes to work with different networking topologies and technologies.
 
 ### Kubelet image credential provider plugins
 
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 Kubelet image credential providers are plugins for the kubelet to dynamically retrieve image registry
-credentials. The credentials are then used when pulling images from any container image registries.
-The feature was made generally available (GA) in Kubernetes v1.26.
+credentials. The credentials are then used when pulling images from container image registries that
+match the configuration.
 
 The plugins can communicate with external services or use local files to obtain credentials. This way,
 the kubelet does not need to have static credentials for each registry, and can support various
