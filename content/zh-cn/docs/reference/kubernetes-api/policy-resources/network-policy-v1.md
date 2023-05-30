@@ -72,7 +72,7 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
   podSelector selects the pods to which this NetworkPolicy object applies. The array of ingress rules is applied to any pods selected by this field. Multiple network policies can select the same set of pods. In this case, the ingress rules for each are combined additively. This field is NOT optional and follows standard label selector semantics. An empty podSelector matches all pods in this namespace.
 -->
 - **podSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)，必需
-  
+
   podSelector 选择此网络策略所适用的一组 Pod。一组 Ingress 入口策略将应用于此字段选择的所有 Pod。
   多个网络策略可以选择同一组 Pod。
   在这种情况下，这些列表条目的 Ingress 规则效果会被叠加。此字段不是可选的，并且遵循标准标签选择算符语义。
@@ -91,7 +91,7 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
   如果要仅定义出站流量策略，则必须明确指定 `[ "Egress" ]`。
   同样，如果要定义一个指定拒绝所有出站流量的策略，则必须指定一个包含 “Egress” 的 policyTypes 值
   （因为这样不包含 Egress 部分的策略，将会被默认为只有 [ "Ingress" ] )。此字段在 1.8 中为 Beta。
-  
+
 <!--
 - **ingress** ([]NetworkPolicyIngressRule)
 
@@ -110,7 +110,7 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
   <a name="NetworkPolicyIngressRule"></a>
   **NetworkPolicyIngressRule 定义 NetworkPolicySpec 的 podSelector 所选 Pod 的入站规则的白名单列表，
   流量必须同时匹配 ports 和 from。**
-  
+
   <!--
   - **ingress.from** ([]NetworkPolicyPeer)
 
@@ -129,15 +129,15 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
     <a name="NetworkPolicyPeer"></a>
     **NetworkPolicyPeer 描述了允许进出流量的对等点。这个参数只允许某些字段组合。**
-  
+
     <!--
     - **ingress.from.ipBlock** (IPBlock)
-
+    
       ipBlock defines policy on a particular IPBlock. If this field is set then neither of the other fields can be.
-
+    
       <a name="IPBlock"></a>
       *IPBlock describes a particular CIDR (Ex. "192.168.1.0/24","2001:db8::/64") that is allowed to the pods matched by a NetworkPolicySpec's podSelector. The except entry describes CIDRs that should not be included within this rule.*
-    -->  
+    -->
 
     - **ingress.from.ipBlock** (IPBlock)
 
@@ -157,7 +157,7 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
         except is a slice of CIDRs that should not be included within an IPBlock Valid examples are "192.168.1.0/24" or "2001:db8::/64" Except values will be rejected if they are outside the cidr range
       -->
-      
+
       - **ingress.from.ipBlock.cidr** (string)，必需
 
         cidr 是表示 IP 组块的字符串，例如 `"192.168.1.0/24"` 或 `"2001:db8::/64"`。
@@ -172,7 +172,7 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
     - **ingress.from.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
       namespaceSelector selects namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
-      
+
       If podSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the namespaces selected by namespaceSelector. Otherwise it selects all pods in the namespaces selected by namespaceSelector.
     -->
 
@@ -180,7 +180,7 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
       namespaceSelector 使用集群范围标签来选择特定的 Namespace。此字段遵循标准标签选择算符语义；
       如果此字段存在但为空值，则会选择所有名字空间。
-      
+
       如果 podSelector 也被定义了, 那么 NetworkPolicyPeer 将选择那些同时满足 namespaceSelector
       所选名字空间下和 podSelector 规则匹配的 Pod。
       反之选择 namespaceSelector 所选名字空间下所有的 Pod。
@@ -189,7 +189,7 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
     - **ingress.from.podSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
       podSelector is a label selector which selects pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
-      
+
       If namespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the pods matching podSelector in the policy's own namespace.
     -->
 
@@ -336,7 +336,7 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
     - **egress.to.namespaceSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
       namespaceSelector selects namespaces using cluster-scoped labels. This field follows standard label selector semantics; if present but empty, it selects all namespaces.
-      
+
       If podSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the namespaces selected by namespaceSelector. Otherwise it selects all pods in the namespaces selected by namespaceSelector.
     -->
 
@@ -344,7 +344,7 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
       namespaceSelector 使用集群范围标签来选择特定的名字空间。该字段遵循标准标签选择算符语义；
       如果字段存在但为空值，那会选择所有名字空间。
-      
+
       如果 podSelector 也被定义了, 那么 NetworkPolicyPeer 将选择那些同时满足 namespaceSelector
       指定的名字空间下和 podSelector 规则匹配的 Pod。
       反之选择 namespaceSelector 指定的名字空间下所有的 Pod。
@@ -353,7 +353,7 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
     - **egress.to.podSelector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
 
       podSelector is a label selector which selects pods. This field follows standard label selector semantics; if present but empty, it selects all pods.
-      
+
       If namespaceSelector is also set, then the NetworkPolicyPeer as a whole selects the pods matching podSelector in the Namespaces selected by NamespaceSelector. Otherwise it selects the pods matching podSelector in the policy's own namespace.
     -->
 
@@ -434,9 +434,9 @@ NetworkPolicyStatus 描述有关此 NetworkPolicy 的当前状态。
 - **conditions** ([]Condition)
 
   *Patch strategy: merge on key `type`*
-  
+
   *Map: unique values on key type will be kept during a merge*
-  
+
   conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
 
   <a name="Condition"></a>
@@ -446,9 +446,9 @@ NetworkPolicyStatus 描述有关此 NetworkPolicy 的当前状态。
 - **conditions** ([]Condition)
 
   **补丁策略：根据 `type` 键执行合并操作**
-  
+
   **Map：键 type 的唯一值将在合并期间被保留**
-  
+
   conditions 包含描述此 NetworkPolicy 状态的 metav1.Condition 数组，即当前服务状态。
 
   <a name="Condition"></a>
@@ -472,20 +472,20 @@ NetworkPolicyStatus 描述有关此 NetworkPolicy 的当前状态。
     **Time 是 time.Time 的包装器，它支持对 YAML 和 JSON 的正确编组。
     time 包的许多工厂方法提供了包装器。**
 
-  <!-- 
+  <!--
   - **conditions.message** (string), required
 
-    message is a human readable message indicating details about the transition. This may be an empty string. 
+    message is a human readable message indicating details about the transition. This may be an empty string.
   -->
 
   - **conditions.message** (string)，必需
 
     message 是一条人类可读的消息，指示有关转换的详细信息。它可能是一个空字符串。
 
-  <!-- 
+  <!--
   - **conditions.reason** (string), required
 
-    reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty. 
+    reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty.
   -->
 
   - **conditions.reason** (string)，必需
@@ -494,30 +494,30 @@ NetworkPolicyStatus 描述有关此 NetworkPolicy 的当前状态。
     特定状况类型的生产者可以定义该字段的预期值和含义，以及这些值是否可被视为有保证的 API。
     该值应该是 CamelCase 字符串。此字段不能为空。
 
-  <!-- 
+  <!--
   - **conditions.status** (string), required
 
-    status of the condition, one of True, False, Unknown. 
+    status of the condition, one of True, False, Unknown.
   -->
 
   - **conditions.status** (string)，必需
 
     状况的状态为 True、False、Unknown 之一。
 
-  <!-- 
+  <!--
   - **conditions.type** (string), required
 
-    type of condition in CamelCase or in foo.example.com/CamelCase. 
+    type of condition in CamelCase or in foo.example.com/CamelCase.
   -->
 
   - **conditions.type** (string)，必需
 
     CamelCase 或 foo.example.com/CamelCase 形式的状况类型。
 
-  <!-- 
+  <!--
   - **conditions.observedGeneration** (int64)
 
-    observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance. 
+    observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
   -->
 
   - **conditions.observedGeneration** (int64)
@@ -540,10 +540,10 @@ NetworkPolicyList 是 NetworkPolicy 的集合。
 
 - **kind**: NetworkPolicyList
 
-<!-- 
+<!--
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
-  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata 
+  Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 -->
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
@@ -577,40 +577,40 @@ NetworkPolicyList 是 NetworkPolicy 的集合。
 
 GET /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
-<!-- 
-#### Parameters 
+<!--
+#### Parameters
 -->
 #### 参数
 
-<!-- 
+<!--
 - **name** (*in path*): string, required
 
-  name of the NetworkPolicy 
+  name of the NetworkPolicy
 -->
 - **name** (**路径参数**): string，必需
 
   NetworkPolicy 的名称。
 
-<!-- 
+<!--
 - **namespace** (*in path*): string, required
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
 - **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-<!-- 
+<!--
 - **pretty** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-<!-- 
-#### Response 
+<!--
+#### Response
 -->
 #### 响应
 
@@ -628,40 +628,40 @@ GET /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
 GET /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}/status
 
-<!-- 
-#### Parameters 
+<!--
+#### Parameters
 -->
 #### 参数
 
-<!-- 
+<!--
 - **name** (*in path*): string, required
 
-  name of the NetworkPolicy 
+  name of the NetworkPolicy
 -->
 - **name** (**路径参数**): string，必需
 
   NetworkPolicy 的名称。
 
-<!-- 
+<!--
 - **namespace** (*in path*): string, required
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
 - **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-<!-- 
+<!--
 - **pretty** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-<!-- 
-#### Response 
+<!--
+#### Response
 -->
 #### 响应
 
@@ -681,33 +681,33 @@ GET /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}/sta
 
 GET /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies
 
-<!-- 
-#### Parameters 
+<!--
+#### Parameters
 -->
 #### 参数
 
-<!-- 
+<!--
 - **namespace** (*in path*): string, required
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
 - **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-<!-- 
+<!--
 - **allowWatchBookmarks** (*in query*): boolean
 
-  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 -->
 - **allowWatchBookmarks** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-<!-- 
+<!--
 - **continue** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 -->
 - **continue** (**查询参数**): string
 
@@ -715,52 +715,52 @@ GET /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies
 
 <!-- - **fieldSelector** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 -->
 - **fieldSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-<!-- 
+<!--
 - **labelSelector** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 -->
 - **labelSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-<!-- 
+<!--
 - **limit** (*in query*): integer
 
-  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 -->
 - **limit** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-<!-- 
+<!--
 - **pretty** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-<!-- 
+<!--
 - **resourceVersion** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 -->
 - **resourceVersion** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-<!-- 
+<!--
 - **resourceVersionMatch** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 -->
 - **resourceVersionMatch** (**查询参数**): string
 
@@ -775,26 +775,26 @@ GET /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-<!-- 
+<!--
 - **timeoutSeconds** (*in query*): integer
 
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 -->
 - **timeoutSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-<!-- 
+<!--
 - **watch** (*in query*): boolean
 
-  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 -->
 - **watch** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
-<!-- 
-#### Response 
+<!--
+#### Response
 -->
 #### 响应
 
@@ -814,24 +814,24 @@ GET /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies
 
 GET /apis/networking.k8s.io/v1/networkpolicies
 
-<!-- 
-#### Parameters 
+<!--
+#### Parameters
 -->
 #### 参数
 
-<!-- 
+<!--
 - **allowWatchBookmarks** (*in query*): boolean
 
-  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 -->
 - **allowWatchBookmarks** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
 
-<!-- 
+<!--
 - **continue** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
 -->
 - **continue** (**查询参数**): string
 
@@ -839,52 +839,52 @@ GET /apis/networking.k8s.io/v1/networkpolicies
 
 <!-- - **fieldSelector** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 -->
 - **fieldSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
 
-<!-- 
+<!--
 - **labelSelector** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 -->
 - **labelSelector** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
 
-<!-- 
+<!--
 - **limit** (*in query*): integer
 
-  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 -->
 - **limit** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
 
-<!-- 
+<!--
 - **pretty** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
 - **pretty** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-<!-- 
+<!--
 - **resourceVersion** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 -->
 - **resourceVersion** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
 
-<!-- 
+<!--
 - **resourceVersionMatch** (*in query*): string
 
-  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 -->
 - **resourceVersionMatch** (**查询参数**): string
 
@@ -899,26 +899,26 @@ GET /apis/networking.k8s.io/v1/networkpolicies
 
   <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
-<!-- 
+<!--
 - **timeoutSeconds** (*in query*): integer
 
-  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 -->
 - **timeoutSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-<!-- 
+<!--
 - **watch** (*in query*): boolean
 
-  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 -->
 - **watch** (**查询参数**): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
-<!-- 
-#### Response 
+<!--
+#### Response
 -->
 #### 响应
 
@@ -938,15 +938,15 @@ GET /apis/networking.k8s.io/v1/networkpolicies
 
 POST /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies
 
-<!-- 
-#### Parameters 
+<!--
+#### Parameters
 -->
 #### 参数
 
-<!-- 
+<!--
 - **namespace** (*in path*): string, required
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
 - **namespace** (**路径参数**): string，必需
 
@@ -986,8 +986,8 @@ POST /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-<!-- 
-#### Response 
+<!--
+#### Response
 -->
 #### 响应
 
@@ -1011,24 +1011,24 @@ POST /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies
 
 PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
-<!-- 
-#### Parameters 
+<!--
+#### Parameters
 -->
 #### 参数
 
-<!-- 
+<!--
 - **name** (*in path*): string, required
 
-  name of the NetworkPolicy 
+  name of the NetworkPolicy
 -->
 - **name** (**路径参数**): string，必需
 
   NetworkPolicy 的名称。
 
-<!-- 
+<!--
 - **namespace** (*in path*): string, required
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
 - **namespace** (**路径参数**): string，必需
 
@@ -1071,8 +1071,8 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-<!-- 
-#### Response 
+<!--
+#### Response
 -->
 #### 响应
 
@@ -1093,24 +1093,24 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
 PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}/status
 
-<!-- 
-#### Parameters 
+<!--
+#### Parameters
 -->
 #### 参数
 
-<!-- 
+<!--
 - **name** (*in path*): string, required
 
-  name of the NetworkPolicy 
+  name of the NetworkPolicy
 -->
 - **name** (**路径参数**): string，必需
 
   NetworkPolicy 的名称。
 
-<!-- 
+<!--
 - **namespace** (*in path*): string, required
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
 - **namespace** (**路径参数**): string，必需
 
@@ -1153,8 +1153,8 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}/sta
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-<!-- 
-#### Response 
+<!--
+#### Response
 -->
 #### 响应
 
@@ -1175,24 +1175,24 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}/sta
 
 PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
-<!-- 
-#### Parameters 
+<!--
+#### Parameters
 -->
 #### 参数
 
-<!-- 
+<!--
 - **name** (*in path*): string, required
 
-  name of the NetworkPolicy 
+  name of the NetworkPolicy
 -->
 - **name** (**路径参数**): string，必需
 
   NetworkPolicy 的名称。
 
-<!-- 
+<!--
 - **namespace** (*in path*): string, required
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
 - **namespace** (**路径参数**): string，必需
 
@@ -1235,7 +1235,7 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **force** (*in query*): boolean
+- **force** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
@@ -1243,8 +1243,8 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-<!-- 
-#### Response 
+<!--
+#### Response
 -->
 #### 响应
 
@@ -1265,24 +1265,24 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
 PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}/status
 
-<!-- 
-#### Parameters 
+<!--
+#### Parameters
 -->
 #### 参数
 
-<!-- 
+<!--
 - **name** (*in path*): string, required
 
-  name of the NetworkPolicy 
+  name of the NetworkPolicy
 -->
 - **name** (**路径参数**): string，必需
 
   NetworkPolicy 的名称。
 
-<!-- 
+<!--
 - **namespace** (*in path*): string, required
 
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a> 
+  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 -->
 - **namespace** (**路径参数**): string，必需
 
@@ -1325,7 +1325,7 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}/s
 
   <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
 
-- **force** (*in query*): boolean
+- **force** (_in query_): boolean
 
   <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
 
@@ -1333,8 +1333,8 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}/s
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 
-<!-- 
-#### Response 
+<!--
+#### Response
 -->
 #### 响应
 
@@ -1355,8 +1355,8 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}/s
 
 DELETE /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
-<!-- 
-#### Parameters 
+<!--
+#### Parameters
 -->
 #### 参数
 
@@ -1413,8 +1413,8 @@ DELETE /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
 
-<!-- 
-#### Response 
+<!--
+#### Response
 -->
 #### 响应
 
@@ -1435,8 +1435,8 @@ DELETE /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
 DELETE /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies
 
-<!-- 
-#### Parameters 
+<!--
+#### Parameters
 -->
 #### 参数
 
@@ -1532,7 +1532,7 @@ s
 - **propagationPolicy** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
-  
+
 - **resourceVersion** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
@@ -1549,8 +1549,8 @@ s
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
-<!-- 
-#### Response 
+<!--
+#### Response
 -->
 #### 响应
 
