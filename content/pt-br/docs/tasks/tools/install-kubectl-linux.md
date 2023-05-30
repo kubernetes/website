@@ -120,7 +120,7 @@ Por exemplo, para fazer download da versão {{< skew currentPatchVersion >}} no 
 2. Faça download da chave de assinatura pública do Google Cloud:
 
    ```shell
-   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
    ```
 
 3. Adicione o repositório `apt` do Kubernetes:
