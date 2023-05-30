@@ -16,8 +16,8 @@ Kubernetes policies are configurations that manage other configurations or runti
 
  Some API objects act as policies. Here are some examples:
 * [NetworkPolicies](/docs/concepts/services-networking/network-policies/) can be used to restrict ingress and egress traffic for a workload.
- * [LimitRanges](/docs/concepts/policy/limit-range/) manage resource allocation constraints across different object kinds.
- * [ResourceQuotas](/docs/concepts/policy/resource-quotas/) limit resource consumption for a {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
+* [LimitRanges](/docs/concepts/policy/limit-range/) manage resource allocation constraints across different object kinds.
+* [ResourceQuotas](/docs/concepts/policy/resource-quotas/) limit resource consumption for a {{< glossary_tooltip text="namespace" term_id="namespace" >}}.
 
 ## Apply policies using admission controllers
 
