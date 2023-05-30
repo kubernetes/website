@@ -165,6 +165,11 @@ The following methods exist for installing kubectl on Linux:
    ```shell
    echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
+   3.1 For Ubuntu Jammy (22.04 LTS)
+
+   ```shell
+   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ ubuntu-jammy-mirror main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   ```
 
 4. Update `apt` package index with the new repository and install kubectl:
 
@@ -174,7 +179,7 @@ The following methods exist for installing kubectl on Linux:
    ```
 
 {{< note >}}
-In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default.
+In releases older than Debian 12 and Ubuntu 21.10 `/etc/apt/keyrings` does not exist by default.
 You can create this directory if you need to, making it world-readable but writeable only by admins.
 {{< /note >}}
 
