@@ -138,7 +138,7 @@ first and re-added after the update.
 ### Self-registration of Nodes
 
 When the kubelet flag `--register-node` is true (the default), the kubelet will attempt to
-register itself with the API server.  This is the preferred pattern, used by most distros.
+register itself with the API server. This is the preferred pattern, used by most distros.
 
 For self-registration, the kubelet is started with the following options:
 -->
@@ -219,7 +219,7 @@ Pods already scheduled on the Node may misbehave or cause issues if the Node
 configuration will be changed on kubelet restart. For example, already running
 Pod may be tainted against the new labels assigned to the Node, while other
 Pods, that are incompatible with that Pod will be scheduled based on this new
-label.  Node re-registration ensures all Pods will be drained and properly
+label. Node re-registration ensures all Pods will be drained and properly
 re-scheduled.
 -->
 如果在 kubelet 重启期间 Node 配置发生了变化，已经被调度到某 Node 上的 Pod
@@ -409,9 +409,9 @@ of the Node resource. For example, the following JSON structure describes a heal
 <!--
 When problems occur on nodes, the Kubernetes control plane automatically creates
 [taints](/docs/concepts/scheduling-eviction/taint-and-toleration/) that match the conditions
-affecting the node.  An example of this is when the `status` of the Ready condition
+affecting the node. An example of this is when the `status` of the Ready condition
 remains `Unknown` or `False` for longer than the kube-controller-manager's `NodeMonitorGracePeriod`,
-which defaults to 40 seconds.  This will cause either an `node.kubernetes.io/unreachable` taint, for an `Unknown` status,
+which defaults to 40 seconds. This will cause either an `node.kubernetes.io/unreachable` taint, for an `Unknown` status,
 or a `node.kubernetes.io/not-ready` taint, for a `False` status, to be added to the Node.
 -->
 当节点上出现问题时，Kubernetes 控制面会自动创建与影响节点的状况对应的
@@ -643,7 +643,7 @@ then the eviction mechanism does not take per-zone unavailability into account.
 A key reason for spreading your nodes across availability zones is so that the
 workload can be shifted to healthy zones when one entire zone goes down.
 Therefore, if all nodes in a zone are unhealthy, then the node controller evicts at
-the normal rate of `--node-eviction-rate`.  The corner case is when all zones are
+the normal rate of `--node-eviction-rate`. The corner case is when all zones are
 completely unhealthy (none of the nodes in the cluster are healthy). In such a
 case, the node controller assumes that there is some problem with connectivity
 between the control plane and the nodes, and doesn't perform any evictions.
@@ -740,12 +740,14 @@ The kubelet attempts to detect node system shutdown and terminates pods running 
 
 Kubelet ensures that pods follow the normal
 [pod termination process](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)
-during the node shutdown.
+during the node shutdown. During node shutdown, the kubelet does not accept new
+Pods (even if those Pods are already bound to the node).
 -->
 kubelet 会尝试检测节点系统关闭事件并终止在节点上运行的所有 Pod。
 
 在节点终止期间，kubelet 保证 Pod 遵从常规的
-[Pod 终止流程](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。
+[Pod 终止流程](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)，
+且不接受新的 Pod（即使这些 Pod 已经绑定到该节点）。
 
 <!-- 
 The Graceful node shutdown feature depends on systemd since it takes advantage of
@@ -775,6 +777,36 @@ set to non-zero values.
 注意，默认情况下，下面描述的两个配置选项，`shutdownGracePeriod` 和
 `shutdownGracePeriodCriticalPods` 都是被设置为 0 的，因此不会激活节点体面关闭功能。
 要激活此功能特性，这两个 kubelet 配置选项要适当配置，并设置为非零值。
+
+<!--
+Once systemd detects or notifies node shutdown, the kubelet sets a `NotReady` condition on
+the Node, with the `reason` set to `"node is shutting down"`. The kube-scheduler honors this condition
+and does not schedule any Pods onto the affected node; other third-party schedulers are
+expected to follow the same logic. This means that new Pods won't be scheduled onto that node
+and therefore none will start.
+-->
+一旦 systemd 检测到或通知节点关闭，kubelet 就会在节点上设置一个
+`NotReady` 状况，并将 `reason` 设置为 `"node is shutting down"`。
+kube-scheduler 会重视此状况，不将 Pod 调度到受影响的节点上；
+其他第三方调度程序也应当遵循相同的逻辑。这意味着新的 Pod 不会被调度到该节点上，
+因此不会有新 Pod 启动。
+
+<!--
+The kubelet **also** rejects Pods during the `PodAdmission` phase if an ongoing
+node shutdown has been detected, so that even Pods with a
+{{< glossary_tooltip text="toleration" term_id="toleration" >}} for
+`node.kubernetes.io/not-ready:NoSchedule` do not start there.
+-->
+如果检测到节点关闭过程正在进行中，kubelet **也会**在 `PodAdmission`
+阶段拒绝 Pod，即使是该 Pod 带有 `node.kubernetes.io/not-ready:NoSchedule`
+的{{< glossary_tooltip text="容忍度" term_id="toleration" >}}。
+
+<!--
+At the same time when kubelet is setting that condition on its Node via the API, the kubelet also begins
+terminating any Pods that are running locally.
+-->
+同时，当 kubelet 通过 API 在其 Node 上设置该状况时，kubelet
+也开始终止在本地运行的所有 Pod。
 
 <!-- 
 During a graceful shutdown, kubelet terminates pods in two phases:
@@ -809,6 +841,19 @@ Graceful node shutdown feature is configured with two
 * `shutdownGracePeriodCriticalPods`：
   * 在节点关闭期间指定用于终止[关键 Pod](/zh-cn/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
     的持续时间。该值应小于 `shutdownGracePeriod`。
+
+{{< note >}}
+<!--
+There are cases when Node termination was cancelled by the system (or perhaps manually
+by an administrator). In either of those situations the
+Node will return to the `Ready` state. However Pods which already started the process
+of termination
+will not be restored by kubelet and will need to be re-scheduled.
+-->
+在某些情况下，节点终止过程会被系统取消（或者可能由管理员手动取消）。
+无论哪种情况下，节点都将返回到 `Ready` 状态。然而，已经开始终止进程的
+Pod 将不会被 kubelet 恢复，需要被重新调度。
+{{< /note >}}
 
 <!--  
 For example, if `shutdownGracePeriod=30s`, and
@@ -1007,10 +1052,10 @@ kubelet 子系统中会生成 `graceful_shutdown_start_time_seconds` 和
 {{< feature-state state="beta" for_k8s_version="v1.26" >}}
 
 <!--
-A node shutdown action may not be detected by kubelet's Node Shutdown Manager, 
-either because the command does not trigger the inhibitor locks mechanism used by 
-kubelet or because of a user error, i.e., the ShutdownGracePeriod and 
-ShutdownGracePeriodCriticalPods are not configured properly. Please refer to above 
+A node shutdown action may not be detected by kubelet's Node Shutdown Manager,
+either because the command does not trigger the inhibitor locks mechanism used by
+kubelet or because of a user error, i.e., the ShutdownGracePeriod and
+ShutdownGracePeriodCriticalPods are not configured properly. Please refer to above
 section [Graceful Node Shutdown](#graceful-node-shutdown) for more details.
 -->
 节点关闭的操作可能无法被 kubelet 的节点关闭管理器检测到，
@@ -1019,15 +1064,15 @@ section [Graceful Node Shutdown](#graceful-node-shutdown) for more details.
 请参考以上[节点体面关闭](#graceful-node-shutdown)部分了解更多详细信息。
 
 <!--
-When a node is shutdown but not detected by kubelet's Node Shutdown Manager, the pods 
-that are part of a {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} will be stuck in terminating status on 
-the shutdown node and cannot move to a new running node. This is because kubelet on 
-the shutdown node is not available to delete the pods so the StatefulSet cannot 
-create a new pod with the same name. If there are volumes used by the pods, the 
-VolumeAttachments will not be deleted from the original shutdown node so the volumes 
-used by these pods cannot be attached to a new running node. As a result, the 
-application running on the StatefulSet cannot function properly. If the original 
-shutdown node comes up, the pods will be deleted by kubelet and new pods will be 
+When a node is shutdown but not detected by kubelet's Node Shutdown Manager, the pods
+that are part of a {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} will be stuck in terminating status on
+the shutdown node and cannot move to a new running node. This is because kubelet on
+the shutdown node is not available to delete the pods so the StatefulSet cannot
+create a new pod with the same name. If there are volumes used by the pods, the
+VolumeAttachments will not be deleted from the original shutdown node so the volumes
+used by these pods cannot be attached to a new running node. As a result, the
+application running on the StatefulSet cannot function properly. If the original
+shutdown node comes up, the pods will be deleted by kubelet and new pods will be
 created on a different running node. If the original shutdown node does not come up,  
 these pods will be stuck in terminating status on the shutdown node forever.
 -->
@@ -1043,13 +1088,13 @@ these pods will be stuck in terminating status on the shutdown node forever.
 如果原来的已关闭节点没有被恢复，那些在已关闭节点上的 Pod 将永远滞留在终止状态。
 
 <!--
-To mitigate the above situation, a  user can manually add the taint `node.kubernetes.io/out-of-service` with either `NoExecute`
-or `NoSchedule` effect to a Node marking it out-of-service. 
+To mitigate the above situation, a user can manually add the taint `node.kubernetes.io/out-of-service` with either `NoExecute`
+or `NoSchedule` effect to a Node marking it out-of-service.
 If the `NodeOutOfServiceVolumeDetach`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 is enabled on {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}, and a Node is marked out-of-service with this taint, the
 pods on the node will be forcefully deleted if there are no matching tolerations on it and volume
 detach operations for the pods terminating on the node will happen immediately. This allows the
-Pods on the out-of-service node to recover quickly on a different node. 
+Pods on the out-of-service node to recover quickly on a different node.
 -->
 为了缓解上述情况，用户可以手动将具有 `NoExecute` 或 `NoSchedule` 效果的
 `node.kubernetes.io/out-of-service` 污点添加到节点上，标记其无法提供服务。
@@ -1064,7 +1109,7 @@ Pods on the out-of-service node to recover quickly on a different node.
 During a non-graceful shutdown, Pods are terminated in the two phases:
 
 1. Force delete the Pods that do not have matching `out-of-service` tolerations.
-2. Immediately perform detach volume operation for such pods. 
+2. Immediately perform detach volume operation for such pods.
 -->
 在非体面关闭期间，Pod 分两个阶段终止：
 
@@ -1180,12 +1225,12 @@ see [KEP-2400](https://github.com/kubernetes/enhancements/issues/2400) and its
 
 <!--
 Learn more about the following:
-   * [Components](/docs/concepts/overview/components/#node-components) that make up a node.
-   * [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
-   * [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node) section of the architecture design document.
-   * [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
-   * [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).
-   * [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/).
+* [Components](/docs/concepts/overview/components/#node-components) that make up a node.
+* [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
+* [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node) section of the architecture design document.
+* [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
+* [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).
+* [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/).
 -->
 进一步了解以下资料：
 
