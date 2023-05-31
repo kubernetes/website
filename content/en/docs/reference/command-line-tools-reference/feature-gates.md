@@ -99,8 +99,6 @@ For a reference to old feature gates that are removed, please refer to
 | `ElasticIndexedJob` | `true` | Beta` | 1.27 | |
 | `EventedPLEG` | `false` | Alpha | 1.26 | 1.26 |
 | `EventedPLEG` | `false` | Beta | 1.27 | - |
-| `ExpandedDNSConfig` | `false` | Alpha | 1.22 | 1.25 |
-| `ExpandedDNSConfig` | `true` | Beta | 1.26 | |
 | `ExperimentalHostUserNamespaceDefaulting` | `false` | Beta | 1.5 | |
 | `GracefulNodeShutdown` | `false` | Alpha | 1.20 | 1.20 |
 | `GracefulNodeShutdown` | `true` | Beta | 1.21 | |
@@ -277,6 +275,9 @@ For a reference to old feature gates that are removed, please refer to
 | `EndpointSliceTerminatingCondition` | `true` | Beta | 1.22 | 1.25 |
 | `EndpointSliceTerminatingCondition` | `true` | GA | 1.26 | |
 | `ExecProbeTimeout` | `true` | GA | 1.20 | - |
+| `ExpandedDNSConfig` | `false` | Alpha | 1.22 | 1.25 |
+| `ExpandedDNSConfig` | `true` | Beta | 1.26 | 1.27 |
+| `ExpandedDNSConfig` | `true` | GA | 1.28 | - |
 | `GRPCContainerProbe` | `false` | Alpha | 1.23 | 1.23 |
 | `GRPCContainerProbe` | `true` | Beta | 1.24 | 1.26 |
 | `GRPCContainerProbe` | `true` | GA | 1.27 | |
