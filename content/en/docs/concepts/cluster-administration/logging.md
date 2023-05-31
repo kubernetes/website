@@ -149,9 +149,8 @@ If systemd is not present, the kubelet and container runtime write to `.log` fil
 run the kubelet via a helper tool, `kube-log-runner`, and use that tool to redirect
 kubelet logs to a directory that you choose.
 
-You can also set a logging directory using the deprecated kubelet command line
-argument `--log-dir`. However, the kubelet always directs your container runtime to
-write logs into directories within `/var/log/pods`.
+The kubelet always directs your container runtime to write logs into directories within
+`/var/log/pods`.
 
 For more information on `kube-log-runner`, read [System Logs](/docs/concepts/cluster-administration/system-logs/#klog).
 
