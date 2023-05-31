@@ -128,7 +128,7 @@ Part of the specification used to implement [ApplySet-based pruning in kubectl](
 
 ### kubectl.kubernetes.io/restartedAt
 
-Example: `kubectl.kubernetes.io/restartedAt: '2023-03-05T15:30:00Z`
+Example: `kubectl.kubernetes.io/restartedAt: "2023-03-05T15:30:00Z"`
 
 Used on: Pod
 
