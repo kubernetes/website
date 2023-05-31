@@ -25,7 +25,7 @@ generates log messages for the Kubernetes system components.
 Kubernetes is in the process of simplifying logging in its components.
 The following klog command line flags
 [are deprecated](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
-starting with Kubernetes 1.23 and removed in 1.26:
+starting with Kubernetes v1.23 and removed in Kubernetes v1.26:
 
 - `--add-dir-header`
 - `--alsologtostderr`
