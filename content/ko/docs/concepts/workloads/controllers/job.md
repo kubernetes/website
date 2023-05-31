@@ -874,5 +874,5 @@ API 서버로부터 제거된 파드가 있는지에 대해 알려준다. 이를
   오브젝트 정의를 읽는다.
 * 스케줄을 기반으로 실행되는 일련의 잡을 정의하는데 사용할 수 있고, 유닉스 툴 `cron`과 유사한
   [`CronJob`](/ko/docs/concepts/workloads/controllers/cron-jobs/)에 대해 읽는다.
-* 단계별로 구성된 [예제](/docs/tasks/job/pod-failure-policy/)를 통해,
-  `podFailurePolicy`를 사용하여 재시도 가능 및 재시도 불가능 파드의 실패 처리를 하기위한 구성 방법을 연습한다.
+* 단계별로 구성된 [예제](/ko/docs/tasks/job/pod-failure-policy/)를 통해,
+  `podFailurePolicy`를 사용하여 재시도 가능 및 재시도 불가능 파드의 실패 처리를 하기 위한 구성 방법을 연습한다.
