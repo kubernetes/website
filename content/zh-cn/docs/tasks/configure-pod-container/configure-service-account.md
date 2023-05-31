@@ -338,7 +338,7 @@ subresource to obtain a token to access the API is recommended instead.
 If you want to obtain an API token for a ServiceAccount, you create a new Secret
 with a special annotation, `kubernetes.io/service-account.name`.
 -->
-### 手动为 ServiceAccount 创建长期有效的 API 令牌 {#manually-create-a-long-lived-api-token-for-a-serviceaccount}」
+### 手动为 ServiceAccount 创建长期有效的 API 令牌 {#manually-create-a-long-lived-api-token-for-a-serviceaccount}
 
 如果你需要为 ServiceAccount 获得一个 API 令牌，你可以创建一个新的、带有特殊注解
 `kubernetes.io/service-account.name` 的 Secret 对象。
