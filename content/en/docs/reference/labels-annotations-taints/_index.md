@@ -132,7 +132,12 @@ Example: `kubectl.kubernetes.io/restartedAt: '2023-03-05T15:30:00Z`
 
 Used on: Pod
 
-This annotation indicates the time when a Kubernetes resource was last restarted using the kubectl command-line tool. It records the time of the most recent workload restart as a Unix timestamp.
+This annotation indicates the time when a workload restart was triggered, using 
+the kubectl command-line tool.
+The kubelet tool updates the Pod template in a Deployment, ReplicaSet, StatefulSet
+or DaemonSet, making a change to the metadata of Pods defined by that template.
+By either setting this annotation or changing the value to a new date, the kubectl tool
+triggers a rollout and indirectly causes the launch of fresh, replacement Pods.
 
 In the above example, the annotation indicates that the Pod was recently restarted at 3:30 PM UTC on March 31, 2023.
 
