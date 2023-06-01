@@ -235,7 +235,7 @@ parameters:
 - `type`: `io1`, `gp2`, `sc1`, `st1`. Ver
   [AWS docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)
   para detalles. Por defecto: `gp2`.
-- `zone` (Obsoleto): AWS sona. Si no se especifica `zone` ni `zones`, los volúmenes generalmente se distribuyen por turnos en todas las zonas activas donde el clúster de Kubernetes tiene un nodo. Los parámetros `zone` y `zones` no deben usarse al mismo tiempo.
+- `zone` (Obsoleto): AWS zona. Si no se especifica `zone` ni `zones`, los volúmenes generalmente se distribuyen por turnos en todas las zonas activas donde el clúster de Kubernetes tiene un nodo. Los parámetros `zone` y `zones` no deben usarse al mismo tiempo.
 - `zones` (Obsoleto): una lista separada por comas de las zonas de AWS. Si no se especifica `zone` ni `zones`, los volúmenes generalmente se distribuyen por turnos en todas las zonas activas donde el clúster de Kubernetes tiene un nodo. Los parámetros `zone` y `zones` no deben usarse al mismo tiempo.
 
 - `iopsPerGB`: solo para volúmenes `io1`. Operaciones de E/S por segundo por GiB. El complemento de volumen de AWS multiplica esto por el tamaño del volumen solicitado para calcular las IOPS del volumen y lo limita a 20 000 IOPS (máximo admitido por AWS, consulte [Documentos de AWS](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html)). Aquí se espera una cadena, es decir, `"10"`, no `10`.
