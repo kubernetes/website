@@ -88,8 +88,8 @@ nodes.
 
     *   If your nodes use Kubernetes v1.23 and earlier and these flags aren't
         present or if the `--container-runtime` flag is not `remote`,
-        you use the dockershim socket with Docker Engine. `--container-runtime`
-        is removed since v1.27.
+        you use the dockershim socket with Docker Engine. The `--container-runtime` command line
+        argument is not available in Kubernetes v1.27 and later.
     *   If the `--container-runtime-endpoint` flag is present, check the socket
         name to find out which runtime you use. For example,
         `unix:///run/containerd/containerd.sock` is the containerd endpoint.
