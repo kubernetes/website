@@ -53,13 +53,13 @@ setting up a cluster to use an external CA.
 
 You can use the `check-expiration` subcommand to check when certificates expire:
 
-```
+```shell
 kubeadm certs check-expiration
 ```
 
 The output is similar to this:
 
-```
+```console
 CERTIFICATE                EXPIRES                  RESIDUAL TIME   CERTIFICATE AUTHORITY   EXTERNALLY MANAGED
 admin.conf                 Dec 30, 2020 23:36 UTC   364d                                    no
 apiserver                  Dec 30, 2020 23:36 UTC   364d            ca                      no
@@ -268,7 +268,7 @@ serverTLSBootstrap: true
 If you have already created the cluster you must adapt it by doing the following:
  - Find and edit the `kubelet-config-{{< skew currentVersion >}}` ConfigMap in the `kube-system` namespace.
 In that ConfigMap, the `kubelet` key has a
-[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/)
 document as its value. Edit the KubeletConfiguration document to set `serverTLSBootstrap: true`.
 - On each node, add the `serverTLSBootstrap: true` field in `/var/lib/kubelet/config.yaml`
 and restart the kubelet with `systemctl restart kubelet`
@@ -284,6 +284,8 @@ These CSRs can be viewed using:
 
 ```shell
 kubectl get csr
+```
+```console
 NAME        AGE     SIGNERNAME                        REQUESTOR                      CONDITION
 csr-9wvgt   112s    kubernetes.io/kubelet-serving     system:node:worker-1           Pending
 csr-lz97v   1m58s   kubernetes.io/kubelet-serving     system:node:control-plane-1    Pending
