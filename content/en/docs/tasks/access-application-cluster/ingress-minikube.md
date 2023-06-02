@@ -193,6 +193,34 @@ The following manifest defines an Ingress that sends traffic to your Service via
 
      After you make this change, your web browser sends requests for
      `hello-world.info` URLs to Minikube.
+     
+     If you are still experiencing problems with routing to the miniube ip you
+     can expose the ingress instance by running: 
+     
+     To get the service name and namespace:
+     
+     ```shell
+     minikube service list
+     ```
+     
+     From the above output the service name was: `ingress-nginx-controller` and
+     the namespace was: `ingress-nginx`.
+     
+     To expose the port on localhost: 
+     
+     ```shell
+     minikube service ingress-nginx-controller --url -n ingress-nginx
+     ```
+     
+     You should now be able to navigate to the exposed ports on the local ip.
+     
+     {{< note >}}
+     There may be two ports exposed. You will utilize the first one.
+     Since you are navigating to the local IP you will get a 404 since the host does not match.
+     Follow the steps above to add `127.0.0.1 hello-world.info` to your `etc/hosts` file.
+     Then you should be able to access hello-world.info:PORT_NUMBER where `PORT_NUMBER` matches
+     the exposed port from the last minikube command to expose the web url to the ingress.
+     {{< /note >}}
 
 ## Create a second Deployment
 
