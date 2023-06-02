@@ -349,7 +349,7 @@ sudo snap remove kubectl
 {{% /tab %}}
 
 {{% tab name="Homebrew" %}}
-If you are using homebrew as the package management tool on your machine, then the uninstallaiton process can be done using the command below.
+If you are using homebrew as the package management tool on your machine, then the uninstallaiton process can be done using the below command .
 
 ```shell
 sudo brew uninstall kubectl
