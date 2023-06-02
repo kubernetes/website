@@ -168,10 +168,10 @@ kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-2.yaml 
 ```
 
 <!--
-View the [specification](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)
+View the [specification](/docs/concepts/overview/working-with-objects/#object-spec-and-status)
 of the Pod that you created:
 -->
-查看你所创建的 Pod 的[规约](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)：
+查看你所创建的 Pod 的[规约](/zh-cn/docs/concepts/overview/working-with-objects/#object-spec-and-status)：
 
 ```
 kubectl get pod default-cpu-demo-2 --output=yaml --namespace=default-cpu-example
@@ -213,10 +213,9 @@ kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-3.yaml 
 ```
 
 <!--
-View the [specification](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)
-of the Pod that you created:
+View the specification of the Pod that you created:
 -->
-查看你所创建的 Pod 的[规约](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)：
+查看你所创建的 Pod 的规约：
 
 ```
 kubectl get pod default-cpu-demo-3 --output=yaml --namespace=default-cpu-example
