@@ -81,15 +81,16 @@ See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl
 
 ![Node level logging](/images/docs/user-guide/logging/logging-node-level.png)
 
-A container runtime handles and redirects any output generated to a containerized application's `stdout` and `stderr` streams.
-Different container runtimes implement this in different ways; however, the integration with the kubelet is standardized
-as the _CRI logging format_.
+A container runtime handles and redirects any output generated to a containerized
+application's `stdout` and `stderr` streams.
+Different container runtimes implement this in different ways; however, the integration
+with the kubelet is standardized as the _CRI logging format_.
 
-By default, if a container restarts, the kubelet keeps one terminated container with its logs. If a pod is evicted from the node,
-all corresponding containers are also evicted, along with their logs.
+By default, if a container restarts, the kubelet keeps one terminated container with its logs.
+If a pod is evicted from the node, all corresponding containers are also evicted, along with their logs.
 
-The kubelet makes logs available to clients via a special feature of the Kubernetes API. The usual way to access this is
-by running `kubectl logs`.
+The kubelet makes logs available to clients via a special feature of the Kubernetes API.
+The usual way to access this is by running `kubectl logs`.
 
 ### Log rotation
 
@@ -101,7 +102,7 @@ If you configure rotation, the kubelet is responsible for rotating container log
 The kubelet sends this information to the container runtime (using CRI),
 and the runtime writes the container logs to the given location.
 
-You can configure two kubelet [configuration settings](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration),
+You can configure two kubelet [configuration settings](/docs/reference/config-api/kubelet-config.v1beta1/),
 `containerLogMaxSize` and `containerLogMaxFiles`,
 using the [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/).
 These settings let you configure the maximum size for each log file and the maximum number of files allowed for each container respectively.
@@ -201,7 +202,8 @@ as your responsibility.
 
 ## Cluster-level logging architectures
 
-While Kubernetes does not provide a native solution for cluster-level logging, there are several common approaches you can consider. Here are some options:
+While Kubernetes does not provide a native solution for cluster-level logging, there are 
+several common approaches you can consider. Here are some options:
 
 * Use a node-level logging agent that runs on every node.
 * Include a dedicated sidecar container for logging in an application pod.
@@ -211,14 +213,18 @@ While Kubernetes does not provide a native solution for cluster-level logging, t
 
 ![Using a node level logging agent](/images/docs/user-guide/logging/logging-with-node-agent.png)
 
-You can implement cluster-level logging by including a _node-level logging agent_ on each node. The logging agent is a dedicated tool that exposes logs or pushes logs to a backend. Commonly, the logging agent is a container that has access to a directory with log files from all of the application containers on that node.
+You can implement cluster-level logging by including a _node-level logging agent_ on each node.
+The logging agent is a dedicated tool that exposes logs or pushes logs to a backend.
+Commonly, the logging agent is a container that has access to a directory with log files from all of the
+application containers on that node.
 
 Because the logging agent must run on every node, it is recommended to run the agent
 as a `DaemonSet`.
 
 Node-level logging creates only one agent per node and doesn't require any changes to the applications running on the node.
 
-Containers write to stdout and stderr, but with no agreed format. A node-level agent collects these logs and forwards them for aggregation.
+Containers write to stdout and stderr, but with no agreed format. A node-level agent collects
+these logs and forwards them for aggregation.
 
 ### Using a sidecar container with the logging agent {#sidecar-container-with-logging-agent}
 
