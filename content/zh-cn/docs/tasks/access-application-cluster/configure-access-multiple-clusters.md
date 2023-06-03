@@ -66,24 +66,24 @@ cluster's API server.
 <!--
 ## Define clusters, users, and contexts
 
-Suppose you have two clusters, one for development work and one for scratch work.
+Suppose you have two clusters, one for development work and one for test work.
 In the `development` cluster, your frontend developers work in a namespace called `frontend`,
-and your storage developers work in a namespace called `storage`. In your `scratch` cluster,
+and your storage developers work in a namespace called `storage`. In your `test` cluster,
 developers work in the default namespace, or they create auxiliary namespaces as they
 see fit. Access to the development cluster requires authentication by certificate. Access
-to the scratch cluster requires authentication by username and password.
+to the test cluster requires authentication by username and password.
 
 Create a directory named `config-exercise`. In your
 `config-exercise` directory, create a file named `config-demo` with this content:
 -->
 ## 定义集群、用户和上下文    {#define-clusters-users-and-contexts}
 
-假设用户有两个集群，一个用于正式开发工作，一个用于其它临时用途（scratch）。
+假设用户有两个集群，一个用于开发工作（development），一个用于测试工作（test）。
 在 `development` 集群中，前端开发者在名为 `frontend` 的名字空间下工作，
-存储开发者在名为 `storage` 的名字空间下工作。在 `scratch` 集群中，
+存储开发者在名为 `storage` 的名字空间下工作。在 `test` 集群中，
 开发人员可能在默认名字空间下工作，也可能视情况创建附加的名字空间。
 访问开发集群需要通过证书进行认证。
-访问其它临时用途的集群需要通过用户名和密码进行认证。
+访问测试集群需要通过用户名和密码进行认证。
 
 创建名为 `config-exercise` 的目录。在
 `config-exercise` 目录中，创建名为 `config-demo` 的文件，其内容为：
@@ -97,7 +97,7 @@ clusters:
 - cluster:
   name: development
 - cluster:
-  name: scratch
+  name: test
 
 users:
 - name: developer
@@ -109,7 +109,7 @@ contexts:
 - context:
   name: dev-storage
 - context:
-  name: exp-scratch
+  name: exp-test
 ```
 
 <!--
@@ -126,7 +126,7 @@ your configuration file:
 
 ```shell
 kubectl config --kubeconfig=config-demo set-cluster development --server=https://1.2.3.4 --certificate-authority=fake-ca-file
-kubectl config --kubeconfig=config-demo set-cluster scratch --server=https://5.6.7.8 --insecure-skip-tls-verify
+kubectl config --kubeconfig=config-demo set-cluster test --server=https://5.6.7.8 --insecure-skip-tls-verify
 ```
 
 <!--
@@ -167,7 +167,7 @@ Add context details to your configuration file:
 ```shell
 kubectl config --kubeconfig=config-demo set-context dev-frontend --cluster=development --namespace=frontend --user=developer
 kubectl config --kubeconfig=config-demo set-context dev-storage --cluster=development --namespace=storage --user=developer
-kubectl config --kubeconfig=config-demo set-context exp-scratch --cluster=scratch --namespace=default --user=experimenter
+kubectl config --kubeconfig=config-demo set-context exp-test --cluster=test --namespace=default --user=experimenter
 ```
 
 <!--
@@ -196,7 +196,7 @@ clusters:
 - cluster:
     insecure-skip-tls-verify: true
     server: https://5.6.7.8
-  name: scratch
+  name: test
 contexts:
 - context:
     cluster: development
@@ -209,10 +209,10 @@ contexts:
     user: developer
   name: dev-storage
 - context:
-    cluster: scratch
+    cluster: test
     namespace: default
     user: experimenter
-  name: exp-scratch
+  name: exp-test
 current-context: ""
 kind: Config
 preferences: {}
@@ -310,29 +310,29 @@ users:
 ```
 
 <!--
-Now suppose you want to work for a while in the scratch cluster.
+Now suppose you want to work for a while in the test cluster.
 
-Change the current context to `exp-scratch`:
+Change the current context to `exp-test`:
 -->
-现在假设用户希望在其它临时用途集群中工作一段时间。
+现在假设用户希望在测试集群中工作一段时间。
 
-将当前上下文更改为 `exp-scratch`：
+将当前上下文更改为 `exp-test`：
 
 ```shell
-kubectl config --kubeconfig=config-demo use-context exp-scratch
+kubectl config --kubeconfig=config-demo use-context exp-test
 ```
 
 <!--
 Now any `kubectl` command you give will apply to the default namespace of
-the `scratch` cluster. And the command will use the credentials of the user
-listed in the `exp-scratch` context.
+the `test` cluster. And the command will use the credentials of the user
+listed in the `exp-test` context.
 
-View configuration associated with the new current context, `exp-scratch`.
+View configuration associated with the new current context, `exp-test`.
 -->
-现在你发出的所有 `kubectl` 命令都将应用于 `scratch` 集群的默认名字空间。
-同时，命令会使用 `exp-scratch` 上下文中所列用户的凭证。
+现在你发出的所有 `kubectl` 命令都将应用于 `test` 集群的默认名字空间。
+同时，命令会使用 `exp-test` 上下文中所列用户的凭证。
 
-查看更新后的当前上下文 `exp-scratch` 相关的配置：
+查看更新后的当前上下文 `exp-test` 相关的配置：
 
 ```shell
 kubectl config --kubeconfig=config-demo view --minify
@@ -476,10 +476,10 @@ contexts:
     user: developer
   name: dev-storage
 - context:
-    cluster: scratch
+    cluster: test
     namespace: default
     user: experimenter
-  name: exp-scratch
+  name: exp-test
 ```
 
 <!--
@@ -575,13 +575,13 @@ It can be even more challenging if you are managing more than one cluster at the
 如果你同时管理多个集群，这可能会更具挑战性。
 
 <!--
-There is a `kubectl` alpha subcommand command to check subject attributes, such as username,
-for your selected Kubernetes client context: `kubectl alpha auth whoami`.
+There is a `kubectl` subcommand to check subject attributes, such as username, for your selected Kubernetes 
+client context: `kubectl auth whoami`.
 
 Read [API access to authentication information for a client](/docs/reference/access-authn-authz/authentication/#self-subject-review)
 to learn about this in more detail.
 -->
-对于你所选择的 Kubernetes 客户端上下文，有一个 `kubectl` Alpha 子命令可以检查用户名等主体属性：
+对于你所选择的 Kubernetes 客户端上下文，有一个 `kubectl` 子命令可以检查用户名等主体属性：
 `kubectl alpha auth whoami`。
 
 更多细节请参阅[通过 API 访问客户端的身份验证信息](/zh-cn/docs/reference/access-authn-authz/authentication/#self-subject-review)。

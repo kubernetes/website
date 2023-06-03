@@ -1,7 +1,7 @@
 ---
 title: Liveness Probe、Readiness ProbeおよびStartup Probeを使用する
 content_type: task
-weight: 110
+weight: 140
 ---
 
 <!-- overview -->

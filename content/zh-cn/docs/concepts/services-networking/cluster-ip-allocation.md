@@ -172,7 +172,7 @@ of Services.
 -->
 ### 示例 2 {#allocation-example-2}
 
-此示例使用 IP 地址范围 10.96.00/20（CIDR 表示法）作为 Service 的 IP 地址。
+此示例使用 IP 地址范围 10.96.0.0/20（CIDR 表示法）作为 Service 的 IP 地址。
 
 <!--
 Range Size: 2<sup>12</sup> - 2 = 4094  
@@ -248,6 +248,6 @@ pie showData
 ## {{% heading "whatsnext" %}}
 
 * 阅读[服务外部流量策略](/zh-cn/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)
-* 阅读[应用程序与服务连接](/zh-cn/docs/concepts/services-networking/connect-applications-service/)
+* 阅读[应用程序与服务连接](/zh-cn/docs/tutorials/services/connect-applications-service/)
 * 阅读[服务](/zh-cn/docs/concepts/services-networking/service/)
 

@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: ""
 title: "常用参数"
-weight: 10
+weight: 11
 auto_generated: true
 ---
 
@@ -20,9 +20,6 @@ To update the reference content, please follow the
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
-
-
-
 
 ## allowWatchBookmarks {#allowWatchBookmarks}
 <!--
@@ -41,9 +38,9 @@ allowWatchBookmarks 字段请求类型为 BOOKMARK 的监视事件。
 The continue option should be set when retrieving more results from the server. Since this value is server defined, clients may only use the continue value from a previous query result with identical query parameters (except for the value of continue) and the server may reject a continue value it does not recognize. If the specified continue value is no longer valid whether due to expiration (generally five to fifteen minutes) or a configuration change on the server, the server will respond with a 410 ResourceExpired error together with a continue token. 
 -->
 当需要从服务器检索更多结果时，应该设置 continue 选项。由于这个值是服务器定义的，
-客户端只能使用先前查询结果中具有相同查询参数的 continue 值(continue值除外)，
+客户端只能使用先前查询结果中具有相同查询参数的 continue 值（continue 值除外），
 服务器可能拒绝它识别不到的 continue 值。
-如果指定的 continue 值不再有效，无论是由于过期(通常是 5 到 15 分钟)
+如果指定的 continue 值不再有效，无论是由于过期（通常是 5 到 15 分钟）
 还是服务器上的配置更改，服务器将响应 "410 ResourceExpired" 错误和一个 continue 令牌。
 <!--
 If the client needs a consistent list, it must restart their list without the continue field. Otherwise, the client may send another list request with the token received with the 410 error, the server will respond with a list starting from the next key, but from the latest snapshot, which is inconsistent from the previous list results - objects that are created, modified, or deleted after the first list request will be included in the response, as long as their keys are after the "next key".
@@ -56,7 +53,8 @@ If the client needs a consistent list, it must restart their list without the co
 <!--
 This field is not supported when watch is true. Clients may start a watch from the last resourceVersion value returned by the server and not miss any modifications.
 -->
-当 watch 字段为 true 时，不支持此字段。客户端可以从服务器返回的最后一个 resourceVersion 值开始监视，就不会错过任何修改。
+当 watch 字段为 true 时，不支持此字段。客户端可以从服务器返回的最后一个 resourceVersion
+值开始监视，就不会错过任何修改。
 <hr>
 
 ## dryRun {#dryRun}
@@ -89,22 +87,21 @@ A selector to restrict the list of returned objects by their fields. Defaults to
 ## fieldValidation {#fieldValidation}
 
 <!--
-fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields, provided that the `ServerSideFieldValidation` feature gate is also enabled.
+fieldValidation instructs the server on how to handle objects in the request (POST/PUT/PATCH) containing unknown or duplicate fields.
 -->
-fieldValidation 指示服务器如何处理请求（POST/PUT/PATCH）中包含未知或重复字段的对象，
-前提是 `ServerSideFieldValidation` 特性门控也已启用。
+fieldValidation 指示服务器如何处理请求（POST/PUT/PATCH）中包含未知或重复字段的对象。
 <!--
-Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23 and is the default behavior when the `ServerSideFieldValidation` feature gate is disabled.
+Valid values are: - Ignore: This will ignore any unknown fields that are silently dropped from the object, and will ignore all but the last duplicate field that the decoder encounters. This is the default behavior prior to v1.23.
 -->
 有效值为：
 - Ignore：这将忽略从对象中默默删除的所有未知字段，并将忽略除解码器遇到的最后一个重复字段之外的所有字段。
-  这是在 v1.23 之前的默认行为，也是当 `ServerSideFieldValidation` 特性门控被禁用时的默认行为。
+  这是在 v1.23 之前的默认行为。
 <!--
-- Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default when the `ServerSideFieldValidation` feature gate is enabled.
+- Warn: This will send a warning via the standard warning response header for each unknown field that is dropped from the object, and for each duplicate field that is encountered. The request will still succeed if there are no other errors, and will only persist the last of any duplicate fields. This is the default in v1.23+ 
 -->
 - Warn：这将针对从对象中删除的各个未知字段以及所遇到的各个重复字段，分别通过标准警告响应头发出警告。
   如果没有其他错误，请求仍然会成功，并且只会保留所有重复字段中的最后一个。
-  这是启用 `ServerSideFieldValidation` 特性门控时的默认值。
+  这是 v1.23+ 版本中的默认设置。
 <!--
 - Strict: This will fail the request with a BadRequest error if any unknown fields would be dropped from the object, or if any duplicate fields are present. The error returned from the server will contain all unknown and duplicate fields encountered.
 -->
@@ -126,8 +123,9 @@ Force 将“强制”应用请求。这意味着用户将重新获得他人拥�
 The duration in seconds before the object should be deleted. Value must be non-negative integer. The value zero indicates delete immediately. If this value is nil, the default grace period for the specified type will be used. Defaults to a per object value if not specified. zero means delete immediately.
 <hr>
 -->
-删除对象前的持续时间(秒数)。值必须为非负整数。取值为 0 表示立即删除。
-如果该值为 nil，将使用指定类型的默认宽限期。如果没有指定，默认为每个对象的设置值。0 表示立即删除。
+删除对象前的持续时间（秒数）。值必须为非负整数。取值为 0 表示立即删除。
+如果该值为 nil，将使用指定类型的默认宽限期。如果没有指定，默认为每个对象的设置值。
+0 表示立即删除。
 <hr>
 
 ## labelSelector {#labelSelector}
@@ -147,7 +145,7 @@ limit 是一个列表调用返回的最大响应数。如果有更多的条目�
 <!--
 Setting a limit may return fewer than the requested amount of items (up to zero items) in the event all requested objects are filtered out and clients should only use the presence of the continue field to determine whether more results are available. Servers may choose not to support the limit argument and will return all of the available results. If limit is specified and the continue field is empty, clients may assume that no more results are available. This field is not supported if watch is true.
 -->
-设置 limit 可能会在所有请求的对象被过滤掉的情况下返回少于请求的条目数量(下限为零)，
+设置 limit 可能会在所有请求的对象被过滤掉的情况下返回少于请求的条目数量（下限为零），
 并且客户端应该只根据 continue 字段是否存在来确定是否有更多的结果可用。
 服务器可能选择不支持 limit 参数，并将返回所有可用的结果。
 如果指定了 limit 并且 continue 字段为空，客户端可能会认为没有更多的结果可用。
@@ -204,7 +202,7 @@ Defaults to unset
 <hr>
 -->
 resourceVersion 对请求所针对的资源版本设置约束。
-详情请参见 https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions。
+详情请参见 https://kubernetes.io/zh-cn/docs/reference/using-api/api-concepts/#resource-versions。
 
 默认不设置
 <hr>
@@ -218,9 +216,56 @@ Defaults to unset
 -->
 resourceVersionMatch 字段决定如何将 resourceVersion 应用于列表调用。
 强烈建议对设置了 resourceVersion 的列表调用设置 resourceVersion 匹配，
-具体请参见 https://kubernetes.io/docs/reference/using-api/api-concepts/#resource-versions。
+具体请参见 https://kubernetes.io/zh-cn/docs/reference/using-api/api-concepts/#resource-versions。
 
 默认不设置
+
+<hr>
+
+## sendInitialEvents {#sendInitialEvents}
+
+<!-
+`sendInitialEvents=true` may be set together with `watch=true`. In that case,
+the watch stream will begin with synthetic events to produce the current state of objects in the collection. 
+Once all such events have been sent, a synthetic "Bookmark" event  will be sent.
+The bookmark will report the ResourceVersion (RV) corresponding to the set of objects,
+and be marked with `"k8s.io/initial-events-end": "true"` annotation. Afterwards,
+the watch stream will proceed as usual, sending watch events corresponding to
+changes (subsequent to the RV) to objects watched.
+-->
+`sendInitialEvents=true` 可以和 `watch=true` 一起设置。
+在这种情况下，监视通知流将从合成事件开始，以生成集合中对象的当前状态。
+一旦发送了所有此类事件，将发送合成的 "Bookmark" 事件。"bookmark" 将报告对象集合对应的
+ResourceVersion（RV），并标有 `"k8s.io/initial-events-end": "true"` 注解。
+之后，监视通知流将照常进行，发送与所监视的对象的变更（在 RV 之后）对应的监视事件。
+
+<!--
+When `sendInitialEvents` option is set, we require `resourceVersionMatch` option to also be set.
+The semantic of the watch request is as following:
+- `resourceVersionMatch` = NotOlderThan
+  is interpreted as "data at least as new as the provided `resourceVersion`"
+  and the bookmark event is send when the state is synced
+  to a `resourceVersion` at least as fresh as the one provided by the ListOptions.
+  If `resourceVersion` is unset, this is interpreted as "consistent read" and the
+  bookmark event is send when the state is synced at least to the moment
+  when request started being processed.
+- `resourceVersionMatch` set to any other value or unset
+  Invalid error is returned.
+-->
+当设置了 sendInitialEvents 选项时，我们还需要设置 resourceVersionMatch
+选项。watch 请求的语义如下：
+- `resourceVersionMatch` = NotOlderThan
+   被解释为"数据至少与提供的 `resourceVersion` 一样新"，
+   最迟当状态同步到与 ListOptions 提供的版本一样新的 `resourceVersion` 时，
+   发送 bookmark 事件。如果 `resourceVersion` 未设置，这将被解释为"一致读取"，
+   最迟当状态同步到开始处理请求的那一刻时，发送 bookmark 事件。
+- `resourceVersionMatch` 设置为任何其他值或返回 unsetInvalid 错误。
+
+<!--
+Defaults to true if `resourceVersion=""` or `resourceVersion="0"` (for backward compatibility reasons) and to false otherwise.
+-->
+如果 `resourceVersion=""` 或 `resourceVersion="0"`（出于向后兼容性原因），默认为
+true，否则默认为 false。
 
 <hr>
 
@@ -240,7 +285,3 @@ Watch for changes to the described resources and return them as a stream of add,
 监视对所述资源的更改，并将其这类变更以添加、更新和删除通知流的形式返回。指定 resourceVersion。
 
 <hr>
-
-
-
-

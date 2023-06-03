@@ -416,8 +416,8 @@ then, run:
 -->
 然后，运行：
 
-```
-kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm /bin/sh
+```shell
+kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm
 ```
 
 <!--

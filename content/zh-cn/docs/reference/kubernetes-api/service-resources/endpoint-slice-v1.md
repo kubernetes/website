@@ -41,14 +41,10 @@ EndpointSlice 是实现某 Service 的端点的子集。一个 Service 可以有
 - **addressType** (string), <!--required-->必需
   
   <!--
-  addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation.
+  addressType specifies the type of address carried by this EndpointSlice. All addresses in this slice must be the same type. This field is immutable after creation. The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
   -->
   addressType 指定当前 EndpointSlice 携带的地址类型。一个 EndpointSlice 只能携带同一类型的地址。
   EndpointSlice 对象创建完成后不可以再更改 addressType 字段。
-  
-  <!--
-  The following address types are currently supported: * IPv4: Represents an IPv4 Address. * IPv6: Represents an IPv6 Address. * FQDN: Represents a Fully Qualified Domain Name.
-  -->  
   目前支持的地址类型为：
 
   * IPv4：表示 IPv4 地址。
@@ -109,39 +105,38 @@ EndpointSlice 是实现某 Service 的端点的子集。一个 Service 可以有
     - **endpoints.conditions.ready** (boolean)  
       
       <!--
-      ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints.
+      ready indicates that this endpoint is prepared to receive traffic, according to whatever system is managing the endpoint. A nil value indicates an unknown state. In most cases consumers should interpret this unknown state as ready. For compatibility reasons, ready should never be "true" for terminating endpoints, except when the normal readiness behavior is being explicitly overridden, for example when the associated Service has set the publishNotReadyAddresses flag.
       -->
       
       ready 说明此端点已经准备好根据相关的系统映射接收流量。nil 值表示状态未知。
       在大多数情况下，消费者应将这种未知状态视为就绪（ready）。
-      考虑到兼容性，对于正在结束状态下的端点，永远不能将 ready 设置为“true”。
+      考虑到兼容性，对于正在结束状态下的端点，永远不能将 ready 设置为“true”，
+      除非正常的就绪行为被显式覆盖，例如当关联的服务设置了 publishNotReadyAddresses 标志时。
 
     - **endpoints.conditions.serving** (boolean)
       
       <!--
-      Serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+      serving is identical to ready except that it is set regardless of the terminating state of endpoints. This condition should be set to true for a ready endpoint that is terminating. If nil, consumers should defer to the ready condition.
       -->
       
       serving 和 ready 非常相似。唯一的不同在于,
       即便某端点的状态为 Terminating 也可以设置 serving。
       对于处在终止过程中的就绪端点，此状况应被设置为 “true”。
       如果设置为 nil，则消费者应该以 ready 值为准。
-      可以在 EndpointSliceTerminatingCondition 特性开关中启用此字段。
 
     - **endpoints.conditions.terminating** (boolean)
       
       <!--
-      terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating. This field can be enabled with the EndpointSliceTerminatingCondition feature gate.
+      terminating indicates that this endpoint is terminating. A nil value indicates an unknown state. Consumers should interpret this unknown state to mean that the endpoint is not terminating.
       -->
       
       terminating 说明当前端点正在终止过程中。nil 值表示状态未知。
       消费者应将这种未知状态视为端点并不处于终止过程中。
-      可以通过 EndpointSliceTerminatingCondition 特性门控启用此字段。
 
   - **endpoints.deprecatedTopology** (map[string]string)
     
     <!--
-    deprecatedTopology contains topology information part of the v1beta1 API. This field is deprecated, and will be removed when the v1beta1 API is removed (no sooner than kubernetes v1.24). While this field can hold values, it is not writable through the v1 API, and any attempts to write to it will be silently ignored. Topology information can be found in the zone and nodeName fields instead.
+    deprecatedTopology contains topology information part of the v1beta1 API. This field is deprecated, and will be removed when the v1beta1 API is removed (no sooner than kubernetes v1.24).  While this field can hold values, it is not writable through the v1 API, and any attempts to write to it will be silently ignored. Topology information can be found in the zone and nodeName fields instead.
     -->
     
     deprecatedTopology 包含 v1beta1 API 的拓扑信息部分。目前已经弃用了此字段，
@@ -257,26 +252,26 @@ EndpointSlice 是实现某 Service 的端点的子集。一个 Service 可以有
   - **ports.port** (int32)
 
     <!--
-    The port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
+    port represents the port number of the endpoint. If this is not specified, ports are not restricted and must be interpreted in the context of the specific consumer.
     -->
     
-    端点的端口号。如果未指定，就不限制端口，且必须根据消费者的具体环境进行解释。
+    port 表示端点的端口号。如果未指定，就不限制端口，且必须根据消费者的具体环境进行解释。
 
   - **ports.protocol** (string)
 
     <!--
-    The IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
+    protocol represents the IP protocol for this port. Must be UDP, TCP, or SCTP. Default is TCP.
     -->
     
-    此端口的 IP 协议。必须为 UDP、TCP 或 SCTP。默认为 TCP。
+    protocol 表示此端口的 IP 协议。必须为 UDP、TCP 或 SCTP。默认为 TCP。
 
   - **ports.name** (string)
 
     <!--
-    The name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
+    name represents the name of this port. All ports in an EndpointSlice must have a unique name. If the EndpointSlice is dervied from a Kubernetes service, this corresponds to the Service.ports[].name. Name must either be an empty string or pass DNS_LABEL validation: * must be no more than 63 characters long. * must consist of lower case alphanumeric characters or '-'. * must start and end with an alphanumeric character. Default is empty string.
     -->
     
-    此端口的名称。EndpointSlice 中所有端口的名称都不得重复。
+    name 表示此端口的名称。EndpointSlice 中所有端口的名称都不得重复。
     如果 EndpointSlice 是基于 Kubernetes Service 创建的，
     那么此端口的名称和 Service.ports[].name 字段的值一致。默认为空字符串。
     名称必须是空字符串，或者必须通过 DNS_LABEL 验证：
@@ -288,12 +283,25 @@ EndpointSlice 是实现某 Service 的端点的子集。一个 Service 可以有
   - **ports.appProtocol** (string)
 
     <!--
-    The application protocol for this port. This field follows standard Kubernetes label syntax. Un-prefixed names are reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names). Non-standard protocols should use prefixed names such as mycompany.com/my-custom-protocol.
-    -->
+    The application protocol for this port. This is used as a hint for implementations to offer richer behavior for protocols that they understand. This field follows standard Kubernetes label syntax. Valid values are either:
     
-    此端口的应用层协议。此字段遵循标准的 Kubernetes Label 句法。
-    不带前缀的名称是 IANA 标准服务的保留名称（参见 RFC-6335 和 https://www.iana.org/assignments/service-names）。
-    非标准协议应该使用带前缀的名称，例如 mycompany.com/my-custom-protocol。
+    * Un-prefixed protocol names - reserved for IANA standard service names (as per RFC-6335 and https://www.iana.org/assignments/service-names).
+    
+    * Kubernetes-defined prefixed names:
+      * 'kubernetes.io/h2c' - HTTP/2 over cleartext as described in https://www.rfc-editor.org/rfc/rfc7540
+    
+    * Other protocols should use implementation-defined prefixed names such as mycompany.com/my-custom-protocol.
+    -->
+
+    此端口的应用层协议。字段值被用作提示，允许协议实现为其所理解的协议提供更丰富的行为。
+    此字段遵循标准的 Kubernetes 标签句法。有效的取值是：
+
+    * 不带前缀的协议名 - 是 IANA 标准服务的保留名称（参见 RFC-6335 和 https://www.iana.org/assignments/service-names）。
+
+    * Kubernetes 定义的前缀名称：
+      * 'kubernetes.io/h2c' - 使用明文的 HTTP/2 协议，详见 https://www.rfc-editor.org/rfc/rfc7540
+
+    * 其他协议应该使用带前缀的名称，例如 mycompany.com/my-custom-protocol。
 
 ## EndpointSliceList {#EndpointSliceList}
 
@@ -318,9 +326,9 @@ EndpointSliceList 是 EndpointSlice 的列表。
 - **items** ([]<a href="{{< ref "../service-resources/endpoint-slice-v1#EndpointSlice" >}}">EndpointSlice</a>), <!--required-->必需
 
   <!--
-  List of endpoint slices
+  items is the list of endpoint slices
   -->
-  EndpointSlice 列表
+  items 是 EndpointSlice 列表
 
 <!--
 ## Operations {#Operations}
@@ -459,11 +467,14 @@ GET /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
 -->
-- **timeoutSeconds** (*查询参数*)：integer
+- **timeoutSeconds** (**查询参数**)：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
@@ -553,6 +564,10 @@ GET /apis/discovery.k8s.io/v1/endpointslices
 - **resourceVersionMatch** (*查询参数*)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
@@ -969,6 +984,10 @@ DELETE /apis/discovery.k8s.io/v1/namespaces/{namespace}/endpointslices
 - **resourceVersionMatch** (**查询参数**)：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer

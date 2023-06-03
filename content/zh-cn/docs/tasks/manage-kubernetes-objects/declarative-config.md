@@ -763,8 +763,8 @@ kind: Deployment
 metadata:
   annotations:
     # ...
-    # 注解中包含更新后的 image，nginx 1.16.1,
-    # 但不包含更新后的 replicas
+    # 注解中包含更新后的镜像 nginx 1.16.1,
+    # 但是其中并不包含更改后的 replicas 值 2
     kubectl.kubernetes.io/last-applied-configuration: |
       {"apiVersion":"apps/v1","kind":"Deployment",
       "metadata":{"annotations":{},"name":"nginx-deployment","namespace":"default"},
@@ -994,8 +994,8 @@ This merges the list as though it was a map where each element is keyed
 by `name`.
 -->
 此合并策略会使用每个字段上的一个名为 `patchMergeKey` 的特殊标签。
-Kubernetes 源代码中为每个字段定义了 `patchMergeKey`：
-[types.go](https://github.com/kubernetes/api/blob/d04500c8c3dda9c980b668c57abc2ca61efcf5c4/core/v1/types.go#L2747)
+Kubernetes 源代码文件 [types.go](https://github.com/kubernetes/api/blob/d04500c8c3dda9c980b668c57abc2ca61efcf5c4/core/v1/types.go#L2747)
+为每个字段定义了 `patchMergeKey`。
 当合并由 map 组成的 list 时，给定元素中被设置为 `patchMergeKey` 的字段会被
 当做该元素的 map 键值来使用。
 

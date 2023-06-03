@@ -16,7 +16,7 @@ PodをNode上で実行する時に、Pod自身は大量のシステムリソー�
 
 <!-- body -->
 
-Kubernetesでは、Podの[RuntimeClass](/docs/concepts/containers/runtime-class/)に関連するオーバーヘッドに応じて、[アドミッション](/ja/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)時にPodのオーバーヘッドが設定されます。
+Kubernetesでは、Podの[RuntimeClass](/docs/concepts/containers/runtime-class/)に関連するオーバーヘッドに応じて、[アドミッション](/docs/reference/access-authn-authz/extensible-admission-controllers/#what-are-admission-webhooks)時にPodのオーバーヘッドが設定されます。
 
 Podのオーバーヘッドを有効にした場合、Podのスケジューリング時にコンテナのリソース要求の合計に加えて、オーバーヘッドも考慮されます。同様に、Kubeletは、Podのcgroupのサイズ決定時およびPodの退役の順位付け時に、Podのオーバーヘッドを含めます。
 

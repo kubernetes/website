@@ -19,8 +19,7 @@ graceful connection draining.
 
 There are often cases when you need to terminate a Pod - be it for upgrade or scale down.
 In order to improve application availability, it may be important to implement
-a proper active connections draining. This tutorial explains the flow of
-Pod termination in connection with the corresponding endpoint state and removal.
+a proper active connections draining.
 
 This tutorial explains the flow of Pod termination in connection with the
 corresponding endpoint state and removal by using

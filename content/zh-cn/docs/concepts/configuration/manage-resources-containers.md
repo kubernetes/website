@@ -244,7 +244,7 @@ Mi, Ki. For example, the following represent roughly the same value:
 你也可以使用对应的 2 的幂数：Ei、Pi、Ti、Gi、Mi、Ki。
 例如，以下表达式所代表的是大致相同的值：
 
-```
+```shell
 128974848、129e6、129M、128974848000m、123Mi
 ```
 
@@ -405,7 +405,7 @@ see the [Troubleshooting](#troubleshooting) section.
 ### Monitoring compute & memory resource usage
 
 The kubelet reports the resource usage of a Pod as part of the Pod
-[`status`](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status).
+[`status`](/docs/concepts/overview/working-with-objects/#object-spec-and-status).
 
 If optional [tools for monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 are available in your cluster, then Pod resource usage can be retrieved either
@@ -415,7 +415,7 @@ directly or from your monitoring tools.
 ### 监控计算和内存资源用量  {#monitoring-compute-memory-resource-usage}
 
 kubelet 会将 Pod 的资源使用情况作为 Pod
-[`status`](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)
+[`status`](/zh-cn/docs/concepts/overview/working-with-objects/#object-spec-and-status)
 的一部分来报告的。
 
 如果为集群配置了可选的[监控工具](/zh-cn/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)，
@@ -457,7 +457,7 @@ If a node fails, the data in its ephemeral storage can be lost.
 Your applications cannot expect any performance SLAs (disk IOPS for example)
 from local ephemeral storage.
 
-As a beta feature, Kubernetes lets you track, reserve and limit the amount
+Kubernetes lets you track, reserve and limit the amount
 of ephemeral local storage a Pod can consume.
 -->
 
@@ -469,7 +469,7 @@ kubelet 也使用此类存储来保存[节点层面的容器日志](/zh-cn/docs/
 你的应用不能对本地临时性存储的性能 SLA（例如磁盘 IOPS）作任何假定。
 {{< /caution >}}
 
-作为一种 beta 阶段功能特性，Kubernetes 允许你跟踪、预留和限制 Pod
+Kubernetes 允许你跟踪、预留和限制 Pod
 可消耗的临时性本地存储数量。
 
 <!--
@@ -566,7 +566,6 @@ ephemeral storage.
 If you have a different configuration, then the kubelet does not apply resource
 limits for ephemeral local storage.
 -->
-
 kubelet 能够度量其本地存储的用量。
 实现度量机制的前提是你已使用本地临时存储所支持的配置之一对节点进行配置。
 
@@ -810,7 +809,7 @@ For example, XFS and ext4fs offer project quotas.
 项目配额（Project Quota）是一个操作系统层的功能特性，用来管理文件系统中的存储用量。
 在 Kubernetes 中，你可以启用项目配额以监视存储用量。
 你需要确保节点上为 `emptyDir` 提供存储的文件系统支持项目配额。
-例如，XFS 和 ext4fs  文件系统都支持项目配额。
+例如，XFS 和 ext4fs 文件系统都支持项目配额。
 
 {{< note >}}
 <!--
@@ -1038,7 +1037,7 @@ extender.
   "apiVersion": "v1",
   "extenders": [
     {
-      "urlPrefix":"<extender-endpoint>",
+      "urlPrefix": "<extender-endpoint>",
       "bindVerb": "bind",
       "managedResources": [
         {
@@ -1289,10 +1288,10 @@ resource, including a configured ResourceQuota.
 包括所配置的 ResourceQuota。
 
 <!--
-### My Container is terminated
+### My container is terminated
 
 Your container might get terminated because it is resource-starved. To check
-whether a Container is being killed because it is hitting a resource limit, call
+whether a container is being killed because it is hitting a resource limit, call
 `kubectl describe pod` on the Pod of interest:
 -->
 
@@ -1373,7 +1372,7 @@ memory limit (and possibly request) for that container.
 * Get hands-on experience [assigning CPU resources to containers and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
 * Read how the API reference defines a [container](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
   and its [resource requirements](/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)
-* Read about [project quotas](https://xfs.org/index.php/XFS_FAQ#Q:_Quota:_Do_quotas_work_on_XFS.3F) in XFS
+* Read about [project quotas](https://www.linux.org/docs/man8/xfs_quota.html) in XFS
 * Read more about the [kube-scheduler configuration reference (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
 * Read more about [Quality of Service classes for Pods](/docs/concepts/workloads/pods/pod-qos/)
 -->
@@ -1381,7 +1380,6 @@ memory limit (and possibly request) for that container.
 * 获取[分配 CPU 资源给容器和 Pod](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/) 的实践经验
 * 阅读 API 参考如何定义[容器](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
   及其[资源请求](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)。
-* 阅读 XFS 中[配额](https://xfs.org/index.php/XFS_FAQ#Q:_Quota:_Do_quotas_work_on_XFS.3F)的文档
+* 阅读 XFS 中[项目配额](https://www.linux.org/docs/man8/xfs_quota.html)的文档
 * 进一步阅读 [kube-scheduler 配置参考 (v1beta3)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)
 * 进一步阅读 [Pod 的服务质量等级](/zh-cn/docs/concepts/workloads/pods/pod-qos/)
-

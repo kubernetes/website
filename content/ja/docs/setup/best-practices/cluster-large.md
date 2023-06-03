@@ -1,6 +1,6 @@
 ---
 title: 大規模クラスターの構築
-weight: 20
+weight: 10
 ---
 
 

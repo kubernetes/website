@@ -1,13 +1,13 @@
 ---
 title: 配置 Pod 的服务质量
 content_type: task
-weight: 30
+weight: 60
 ---
 
 <!--
 title: Configure Quality of Service for Pods
 content_type: task
-weight: 30
+weight: 60
 -->
 
 <!-- overview -->
@@ -385,20 +385,6 @@ Burstable
 
 <!--
 ## Clean up
--->
-## 清理  {#clean-up}
-
-<!--
-Delete your Pod:
--->
-删除 Pod：
-
-```shell
-kubectl delete pod qos-demo-4 --namespace=qos-example
-```
-
-<!--
-## Clean up
 
 Delete your namespace:
 -->
@@ -428,12 +414,19 @@ kubectl delete namespace qos-example
 ### For cluster administrators
 
 * [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+
 * [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+
 * [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+
 * [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+
 * [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+
 * [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
+
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
+
 * [Control Topology Management policies on a node](/docs/tasks/administer-cluster/topology-manager/)
 -->
 ### 集群管理员参考
@@ -446,4 +439,3 @@ kubectl delete namespace qos-example
 * [为名字空间配置 Pod 配额](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 * [为 API 对象配置配额](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)
 * [控制节点上的拓扑管理策略](/zh-cn/docs/tasks/administer-cluster/topology-manager/)
-

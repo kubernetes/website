@@ -15,13 +15,13 @@ weight: 30
 <!-- overview -->
 
 <!--
-Each object in your cluster has a [_Name_](#names) that is unique for that type of resource.
+Each {{< glossary_tooltip text="object" term_id="object" >}} in your cluster has a [_Name_](#names) that is unique for that type of resource.
 Every Kubernetes object also has a [_UID_](#uids) that is unique across your whole cluster.
 
 For example, you can only have one Pod named `myapp-1234` within the same [namespace](/docs/concepts/overview/working-with-objects/namespaces/), but you can have one Pod and one Deployment that are each named `myapp-1234`.
 -->
 
-集群中的每一个对象都有一个[**名称**](#names)来标识在同类资源中的唯一性。
+集群中的每一个{{< glossary_tooltip text="对象" term_id="object" >}}都有一个[**名称**](#names)来标识在同类资源中的唯一性。
 
 每个 Kubernetes 对象也有一个 [**UID**](#uids) 来标识在整个集群中的唯一性。
 
