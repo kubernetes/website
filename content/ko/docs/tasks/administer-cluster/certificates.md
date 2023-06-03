@@ -18,7 +18,7 @@ weight: 20
 1. `easyrsa3`의 패치 버전을 다운로드하여 압축을 풀고, 초기화한다.
 
    ```shell
-   curl -LO https://storage.googleapis.com/kubernetes-release/easy-rsa/easy-rsa.tar.gz
+   curl -LO https://dl.k8s.io/easy-rsa/easy-rsa.tar.gz
    tar xzf easy-rsa.tar.gz
    cd easy-rsa-master/easyrsa3
    ./easyrsa init-pki
