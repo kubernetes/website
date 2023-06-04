@@ -1788,7 +1788,7 @@ the Service.
 ### 带选择算符的服务 {#with-selectors}
 
 对定义了选择算符的无头服务，Kubernetes 控制平面在 Kubernetes API 中创建 EndpointSlice 对象，
-并且修改 DNS 配置返回 A 或 AAA 条记录（IPv4 或 IPv6 地址），这些记录直接指向 `Service` 的后端 Pod 集合。
+并且修改 DNS 配置返回 A 或 AAAA 条记录（IPv4 或 IPv6 地址），这些记录直接指向 `Service` 的后端 Pod 集合。
 
 <!--
 ### Without selectors
