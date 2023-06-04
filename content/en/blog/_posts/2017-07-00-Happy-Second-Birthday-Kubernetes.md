@@ -33,7 +33,7 @@ July 2016
 
 September 2016
 
-- Kubernetes [v1.4 release](https://kubernetes.io/blog/2016/09/kubernetes-1-4-making-it-easy-to-run-on-kuberentes-anywhere/)
+- Kubernetes [v1.4 release](https://kubernetes.io/blog/2016/09/kubernetes-1-4-making-it-easy-to-run-on-kubernetes-anywhere/)
 - Launch of [kubeadm](https://kubernetes.io/blog/2016/09/how-we-made-kubernetes-easy-to-install), a tool that makes Kubernetes dramatically easier to install
 - [Pokemon Go](https://www.sdxcentral.com/articles/news/google-dealt-pokemon-go-traffic-50-times-beyond-expectations/2016/09/) - one of the largest installs of Kubernetes ever
 
