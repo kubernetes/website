@@ -775,6 +775,8 @@ has permissions to use the image.
 
 - [RBAC Good Practices](/docs/concepts/security/rbac-good-practices/) for
   further information on authorization.
+- [Securing a Cluster](/docs/tasks/administer-cluster/securing-a-cluster/) for
+  information on protecting a cluster from accidental or malicious access.
 - [Cluster Multi-tenancy guide](/docs/concepts/security/multi-tenancy/) for
   configuration options recommendations and best practices on multi-tenancy.
 - [Blog post "A Closer Look at NSA/CISA Kubernetes Hardening Guidance"](/blog/2021/10/05/nsa-cisa-kubernetes-hardening-guidance/#building-secure-container-images)
@@ -783,6 +785,7 @@ has permissions to use the image.
 ## 接下来  {#what-is-next}
 
 - [RBAC 良好实践](/zh-cn/docs/concepts/security/rbac-good-practices/)提供有关授权的更多信息。
+- [保护集群](/zh-cn/docs/tasks/administer-cluster/securing-a-cluster/)提供如何保护集群免受意外或恶意访问的信息。
 - [集群多租户指南](/zh-cn/docs/concepts/security/multi-tenancy/)提供有关多租户的配置选项建议和最佳实践。
 - [博文“深入了解 NSA/CISA Kubernetes 强化指南”](/blog/2021/10/05/nsa-cisa-kubernetes-hardening-guidance/#building-secure-container-images)为强化
   Kubernetes 集群提供补充资源。
