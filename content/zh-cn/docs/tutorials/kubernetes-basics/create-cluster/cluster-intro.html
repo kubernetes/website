@@ -1,6 +1,10 @@
 ---
 title: 使用 Minikube 创建集群
 weight: 10
+description: |-
+  了解 Kubernetes 集群。
+  了解 Minikube 。
+  启动一个 Kubernetes 集群。
 ---
 
 <!DOCTYPE html>
@@ -8,8 +12,6 @@ weight: 10
 <html lang="zh">
 
 <body>
-
-<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
 
 <div class="layout" id="top">
 
@@ -22,7 +24,7 @@ weight: 10
                 <ul>
                     <li>了解 Kubernetes 集群。</li>
                     <li>了解 Minikube 。</li>
-                    <li>使用在线终端开启一个 Kubernetes 集群。</li>
+                    <li>在你的电脑上开启一个 Kubernetes 集群。</li>
                 </ul>
             </div>
 
@@ -33,7 +35,7 @@ weight: 10
                 </p>
                 <p>一个 Kubernetes 集群包含两种类型的资源:
                     <ul>
-                        <li><b> Master </b>调度整个集群</li>
+                        <li><b> Control Plane </b>调度整个集群</li>
                         <li><b> Nodes </b>负责运行应用</li>
                     </ul>
                 </p>
@@ -71,33 +73,30 @@ weight: 10
 
         <div class="row">
             <div class="col-md-8">
-                <p><b> Master 负责管理整个集群。</b> Master 协调集群中的所有活动，例如调度应用、维护应用的所需状态、应用扩容以及推出新的更新。</p>
-                <p><b> Node 是一个虚拟机或者物理机，它在 Kubernetes 集群中充当工作机器的角色</b> 每个Node都有 Kubelet , 它管理 Node 而且是 Node 与 Master 通信的代理。 Node 还应该具有用于​​处理容器操作的工具，例如 Docker 或 rkt 。处理生产级流量的 Kubernetes 集群至少应具有三个 Node，因为如果一个 Node 出现故障其对应的 etcd 成员和控制平面实例都会丢失，并且冗余会受到影响。 你可以通过添加更多控制平面节点来降低这种风险 。</p>
+                <p><b> Control Plane 负责管理整个集群。</b> Control Plane 协调集群中的所有活动，例如调度应用、维护应用的所需状态、应用扩容以及推出新的更新。</p>
+                <p><b> Node 是一个虚拟机或者物理机，它在 Kubernetes 集群中充当工作机器的角色</b> 每个Node都有 Kubelet , 它管理 Node 而且是 Node 与 Control Plane 通信的代理。 Node 还应该具有用于​​处理容器操作的工具，例如 Docker 或 rkt 。处理生产级流量的 Kubernetes 集群至少应具有三个 Node，因为如果一个 Node 出现故障其对应的 <a href="/docs/concepts/overview/components/#etcd">etcd</a> 成员和控制平面实例都会丢失，并且冗余会受到影响。 你可以通过添加更多控制平面节点来降低这种风险 。</p>
 
             </div>
             <div class="col-md-4">
                 <div class="content__box content__box_fill">
-                    <p><i> Master 管理集群，Node 用于托管正在运行的应用。</i></p>
+                    <p><i> Control Plane 管理集群，Node 用于托管正在运行的应用。</i></p>
                 </div>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-8">
-                <p>在 Kubernetes 上部署应用时，你告诉 Master 启动应用容器。 Master 就编排容器在集群的 Node 上运行。<b> Node 使用 Master 暴露的 Kubernetes API 与 Master 通信。</b>终端用户也可以使用 Kubernetes API 与集群交互。</p>
+                <p>在 Kubernetes 上部署应用时，你告诉 Control Plane 启动应用容器。 Control Plane 就编排容器在集群的 Node 上运行。<b> Node 使用 Control Plane 暴露的 <a href="/docs/concepts/overview/kubernetes-api/">Kubernetes API</a> 与 Control Plane 通信。</b>终端用户也可以使用 Kubernetes API 与集群交互。</p>
 
-                <p> Kubernetes 既可以部署在物理机上也可以部署在虚拟机上。你可以使用 Minikube 开始部署 Kubernetes 集群。 Minikube 是一种轻量级的 Kubernetes 实现，可在本地计算机上创建 VM 并部署仅包含一个节点的简单集群。 Minikube 可用于 Linux ， macOS 和 Windows 系统。Minikube CLI 提供了用于引导集群工作的多种操作，包括启动、停止、查看状态和删除。在本教程里，你可以使用预装有 Minikube 的在线终端进行体验。</p>
+                <p> Kubernetes 既可以部署在物理机上也可以部署在虚拟机上。你可以使用 Minikube 开始部署 Kubernetes 集群。 Minikube 是一种轻量级的 Kubernetes 实现，可在本地计算机上创建 VM 并部署仅包含一个节点的简单集群。 Minikube 可用于 Linux ， macOS 和 Windows 系统。Minikube CLI 提供了用于引导集群工作的多种操作，包括启动、停止、查看状态和删除。</p>
 
-                <p>既然你已经知道 Kubernetes 是什么，让我们转到在线教程并启动我们的第一个 Kubernetes 集群！</p>
+                <p>既然你已经知道 Kubernetes 是什么，访问 <a href="/docs/tutorials/hello-minikube/">你好 Minikube</a> 在你的电脑上试试这个</p>
 
             </div>
         </div>
-        <br>
 
         <div class="row">
-            <div class="col-md-12">
-                <a class="btn btn-lg btn-success" href="/zh-cn/docs/tutorials/kubernetes-basics/create-cluster/cluster-interactive/" role="button"> 启动交互教程 <span class="btn__next">›</span></a>
-            </div>
+             <p>完成这一步之后，继续 <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">使用 <tt>kubectl</tt> 创建一个部署</a>.</p>
         </div>
 
     </main>
