@@ -201,6 +201,31 @@ them according to its `updateStrategy`.
 
 You can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/) on a DaemonSet.
 
+While working with the rolling updates of the DaemonSets, we might come across two important parameters: `maxSurge` and `maxUnavailable`.
+
+### MaxSurge 
+
+This particular parameter is responsible for determining the maximum number of pods that can be added above the desired number of pods mentioned in the DaemonSet. While performing a rolling update, Kubernetes will keep creating new pods to replace the old ones. `maxSurge` helps you to regulate the surge of additional pods beyond the desired count. Let's look at an example below: 
+
+Suppose the value of `maxSurge` is set to 1 and the desired count is 5, Kubernetes can create up to 6 pods while performing the update process. This parameter might be useful when you want to temporarily upscale the number of pods while performing the update.
+
+### MaxUnavailable
+
+This particular parameter defines the maximum number of pods that can be unavailable while performing the update. In simpler terms, they are being deleted and not yet replaced by new pods, during the update process. `maxUnavailable` can specify the number or percentage of pods that can be available at that particular moment. Let's look at an example below: 
+
+Suppose the value of `maxUnavailable` is set to 1 and the desired count is 5, Kubernetes can delete and replace pods one at a time, ensuring the fact that there should always be at least 4 pods available. This parameter might be useful to maintain the desired level of availability during updates.
+
+You may want to set `.spec.updateStrategy.rollingUpdate.maxUnavailable` (default to 1), `.spec.minReadySeconds` (default to 0) and `.spec.updateStrategy.rollingUpdate.maxSurge` (defaults to 0) as well.
+
+```yaml
+spec:
+  updateStrategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxSurge: 1
+        maxUnavailable: 1
+```
+
 ## Alternatives to DaemonSet
 
 ### Init scripts
