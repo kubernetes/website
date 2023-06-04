@@ -56,10 +56,10 @@ The key can be passed as `--certificate-key` to [`kubeadm init`](/docs/reference
 and [`kubeadm join`](/docs/reference/setup-tools/kubeadm/kubeadm-join)
 to enable the automatic copy of certificates when joining additional control-plane nodes.
 -->
-此命令可用来生成一个新的控制面证书密钥。密钥可以作为 `--certificate-key`
+此命令可用来生成一个新的控制平面证书密钥。密钥可以作为 `--certificate-key`
 标志的取值传递给 [`kubeadm init`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init)
 和 [`kubeadm join`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join)
-命令，从而在添加新的控制面节点时能够自动完成证书复制。
+命令，从而在添加新的控制平面节点时能够自动完成证书复制。
 
 {{< tabs name="tab-certs-certificate-key" >}}
 {{< tab name="certificate-key" include="generated/kubeadm_certs_certificate-key.md" />}}
@@ -87,7 +87,7 @@ For more details see
 This command can be used to generate keys and CSRs for all control-plane certificates and kubeconfig files.
 The user can then sign the CSRs with a CA of their choice.
 -->
-此命令可用来为所有控制面证书和 kubeconfig 文件生成密钥和 CSR（签名请求）。
+此命令可用来为所有控制平面证书和 kubeconfig 文件生成密钥和 CSR（签名请求）。
 用户可以根据自身需要选择 CA 为 CSR 签名。
 
 {{< tabs name="tab-certs-generate-csr" >}}
@@ -101,7 +101,7 @@ The user can then sign the CSRs with a CA of their choice.
 * [kubeadm join](/docs/reference/setup-tools/kubeadm/kubeadm-join/) to connect a node to the cluster
 * [kubeadm reset](/docs/reference/setup-tools/kubeadm/kubeadm-reset/) to revert any changes made to this host by `kubeadm init` or `kubeadm join`
 -->
-* 用来启动引导 Kubernetes 控制面节点的
+* 用来启动引导 Kubernetes 控制平面节点的
   [kubeadm init](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init/)
   命令
 * 用来将节点连接到集群的

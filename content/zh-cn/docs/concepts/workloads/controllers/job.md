@@ -261,7 +261,7 @@ A Job also needs a [`.spec` section](https://git.k8s.io/community/contributors/d
 
 与 Kubernetes 中其他资源的配置类似，Job 也需要 `apiVersion`、`kind` 和 `metadata` 字段。
 
-当控制面为 Job 创建新的 Pod 时，Job 的 `.metadata.name` 是命名这些 Pod 的基础组成部分。
+当控制平面为 Job 创建新的 Pod 时，Job 的 `.metadata.name` 是命名这些 Pod 的基础组成部分。
 Job 的名字必须是合法的 [DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)值，
 但这可能对 Pod 主机名产生意料之外的结果。为了获得最佳兼容性，此名字应遵循更严格的
 [DNS 标签](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-label-names)规则。
@@ -959,7 +959,7 @@ cluster to go offline due to this degradation.
 建议设置 `ttlSecondsAfterFinished` 字段，因为非托管任务
 （是你直接创建的 Job，而不是通过其他工作负载 API（如 CronJob）间接创建的 Job）
 的默认删除策略是 `orphanDependents`，这会导致非托管 Job 创建的 Pod 在该 Job 被完全删除后被保留。
-即使{{< glossary_tooltip text="控制面" term_id="control-plane" >}}最终在 Pod 失效或完成后
+即使{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}最终在 Pod 失效或完成后
 对已删除 Job 中的这些 Pod 执行[垃圾收集](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)操作，
 这些残留的 Pod 有时可能会导致集群性能下降，或者在最坏的情况下会导致集群因这种性能下降而离线。
 
@@ -1433,8 +1433,8 @@ The control plane doesn't track Jobs using finalizers, if the Jobs were created
 when the feature gate `JobTrackingWithFinalizers` was disabled, even after you
 upgrade the control plane to 1.26.
 -->
-如果 Job 是在特性门控 `JobTrackingWithFinalizers` 被禁用时创建的，即使你将控制面升级到 1.26，
-控制面也不会使用 Finalizer 跟踪 Job。
+如果 Job 是在特性门控 `JobTrackingWithFinalizers` 被禁用时创建的，即使你将控制平面升级到 1.26，
+控制平面也不会使用 Finalizer 跟踪 Job。
 {{< /note >}}
 
 <!--
@@ -1452,14 +1452,14 @@ the status counters for `succeeded` and `failed` Pods based only on the Pods
 that exist in the cluster. The contol plane can lose track of the progress of
 the Job if Pods are deleted from the cluster.
 -->
-控制面会跟踪属于任何 Job 的 Pod，并通知是否有任何这样的 Pod 被从 API 服务器中移除。
+控制平面会跟踪属于任何 Job 的 Pod，并通知是否有任何这样的 Pod 被从 API 服务器中移除。
 为了实现这一点，Job 控制器创建的 Pod 带有 Finalizer `batch.kubernetes.io/job-tracking`。
 控制器只有在 Pod 被记入 Job 状态后才会移除 Finalizer，允许 Pod 可以被其他控制器或用户移除。
 
 在升级到 Kubernetes 1.26 之前或在启用特性门控 `JobTrackingWithFinalizers`
 之前创建的 Job 被跟踪时不使用 Pod Finalizer。
 Job {{< glossary_tooltip term_id="controller" text="控制器" >}}仅根据集群中存在的 Pod
-更新 `succeeded` 和 `failed` Pod 的状态计数器。如果 Pod 被从集群中删除，控制面可能无法跟踪 Job 的进度。
+更新 `succeeded` 和 `failed` Pod 的状态计数器。如果 Pod 被从集群中删除，控制平面可能无法跟踪 Job 的进度。
 
 <!--
 You can determine if the control plane is tracking a Job using Pod finalizers by
@@ -1469,7 +1469,7 @@ this annotation from Jobs. Instead, you can recreate the Jobs to ensure they
 are tracked using Pod finalizers.
 -->
 你可以根据检查 Job 是否含有 `batch.kubernetes.io/job-tracking` 注解，
-来确定控制面是否正在使用 Pod Finalizer 追踪 Job。
+来确定控制平面是否正在使用 Pod Finalizer 追踪 Job。
 你**不**应该给 Job 手动添加或删除该注解。
 取而代之的是你可以重新创建 Job 以确保使用 Pod Finalizer 跟踪这些 Job。
 

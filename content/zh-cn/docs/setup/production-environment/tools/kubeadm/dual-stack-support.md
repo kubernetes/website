@@ -20,7 +20,7 @@ min-kubernetes-server-version: 1.21
 Your Kubernetes cluster includes [dual-stack](/docs/concepts/services-networking/dual-stack/) networking, which means that cluster networking lets you use either address family. In a cluster, the control plane can assign both an IPv4 address and an IPv6 address to a single {{< glossary_tooltip text="Pod" term_id="pod" >}} or a {{< glossary_tooltip text="Service" term_id="service" >}}.
 -->
 你的集群包含[双协议栈](/zh-cn/docs/concepts/services-networking/dual-stack/)组网支持，
-这意味着集群网络允许你在两种地址族间任选其一。在集群中，控制面可以为同一个
+这意味着集群网络允许你在两种地址族间任选其一。在集群中，控制平面可以为同一个
 {{< glossary_tooltip text="Pod" term_id="pod" >}} 或者 {{< glossary_tooltip text="Service" term_id="service" >}}
 同时赋予 IPv4 和 IPv6 地址。
 
@@ -89,7 +89,7 @@ To make things clearer, here is an example kubeadm
 -->
 为了更便于理解，参看下面的名为 `kubeadm-config.yaml` 的 kubeadm
 [配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)，
-该文件用于双协议栈控制面的主控制节点。
+该文件用于双协议栈控制平面的主控制节点。
 
 ```yaml
 ---
@@ -118,7 +118,7 @@ InitConfiguration 中的 `advertiseAddress` 给出 API 服务器将公告自身�
 IP 地址。`advertiseAddress` 的取值与 `kubeadm init` 的标志
 `--apiserver-advertise-address` 的取值相同。
 
-运行 kubeadm 来实例化双协议栈控制面节点：
+运行 kubeadm 来实例化双协议栈控制平面节点：
 
 ```shell
 kubeadm init --config=kubeadm-config.yaml
@@ -174,7 +174,7 @@ Also, here is an example kubeadm [configuration file](/docs/reference/config-api
 -->
 下面的名为 `kubeadm-config.yaml` 的 kubeadm
 [配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)
-示例用于向集群中添加另一个控制面节点。
+示例用于向集群中添加另一个控制平面节点。
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3
@@ -227,7 +227,7 @@ To make things more clear, here is an example kubeadm
 -->
 为了更便于理解，参看下面的名为 `kubeadm-config.yaml` 的 kubeadm
 [配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)示例，
-该文件用于单协议栈控制面节点。
+该文件用于单协议栈控制平面节点。
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1beta3

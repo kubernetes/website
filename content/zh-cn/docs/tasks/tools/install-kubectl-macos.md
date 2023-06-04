@@ -30,7 +30,7 @@ Using the latest compatible version of kubectl helps avoid unforeseen issues.
 -->
 kubectl 版本和集群之间的差异必须在一个小版本号之内。
 例如：v{{< skew currentVersion >}} 版本的客户端能与 v{{< skew currentVersionAddMinor -1 >}}、
-v{{< skew currentVersionAddMinor 0 >}} 和 v{{< skew currentVersionAddMinor 1 >}} 版本的控制面通信。
+v{{< skew currentVersionAddMinor 0 >}} 和 v{{< skew currentVersionAddMinor 1 >}} 版本的控制平面通信。
 用最新兼容版本的 kubectl 有助于避免不可预见的问题。
 
 <!--

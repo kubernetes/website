@@ -44,8 +44,8 @@ with explicit lifecycle. Workflows that use StatefulSets must determine on their
 created by a StatefulSet and what their lifecycle should be.
 -->
 StatefulSet 规约中可以包含 Pod 和 PVC 的模板。当副本先被创建时，如果 PVC 还不存在，
-Kubernetes 控制面会为该副本自动创建一个 PVC。在 Kubernetes 1.23 版本之前，
-控制面不会删除 StatefulSet 创建的 PVCs——这依赖集群管理员或你需要部署一些额外的适用的自动化工具来处理。
+Kubernetes 控制平面会为该副本自动创建一个 PVC。在 Kubernetes 1.23 版本之前，
+控制平面不会删除 StatefulSet 创建的 PVCs——这依赖集群管理员或你需要部署一些额外的适用的自动化工具来处理。
 管理 PVC 的常见模式是通过手动或使用 Helm 等工具，PVC 的具体生命周期由管理它的工具跟踪。
 使用 StatefulSet 时必须自行确定 StatefulSet 创建哪些 PVC，以及它们的生命周期应该是什么。
 

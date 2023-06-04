@@ -140,7 +140,7 @@ Before choosing a guide, here are some considerations:
 -->
 ### 保护 kubelet   {#securing-the-kubelet}
 
-* [节点与控制面之间的通信](/zh-cn/docs/concepts/architecture/control-plane-node-communication/)
+* [节点与控制平面之间的通信](/zh-cn/docs/concepts/architecture/control-plane-node-communication/)
 * [TLS 启动引导](/zh-cn/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)
 * [Kubelet 认证/鉴权](/zh-cn/docs/reference/access-authn-authz/kubelet-authn-authz/)
 

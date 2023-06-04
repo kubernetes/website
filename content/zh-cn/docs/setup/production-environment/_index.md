@@ -60,8 +60,8 @@ are influenced by the following issues:
 -->
 - **可用性**：一个单机的 Kubernetes [学习环境](/zh-cn/docs/setup/#学习环境)
   具有单点失效特点。创建高可用的集群则意味着需要考虑：
-  - 将控制面与工作节点分开
-  - 在多个节点上提供控制面组件的副本
+  - 将控制平面与工作节点分开
+  - 在多个节点上提供控制平面组件的副本
   - 为针对集群的 {{< glossary_tooltip term_id="kube-apiserver" text="API 服务器" >}}
     的流量提供负载均衡
   - 随着负载的合理需要，提供足够的可用的（或者能够迅速变为可用的）工作节点
@@ -77,7 +77,7 @@ are influenced by the following issues:
 - **规模**：如果你预期你的生产用 Kubernetes 环境要承受固定量的请求，
   你可能可以针对所需要的容量来一次性完成安装。
   不过，如果你预期服务请求会随着时间增长，或者因为类似季节或者特殊事件的原因而发生剧烈变化，
-  你就需要规划如何处理请求上升时对控制面和工作节点的压力，或者如何缩减集群规模以减少未使用资源的消耗。
+  你就需要规划如何处理请求上升时对控制平面和工作节点的压力，或者如何缩减集群规模以减少未使用资源的消耗。
 
 <!--
 - *Security and access management*: You have full admin privileges on your own
@@ -127,7 +127,7 @@ Options include:
 -->
 - **无服务**：仅是在第三方设备上运行负载，完全不必管理集群本身。
   你需要为 CPU 用量、内存和磁盘请求等付费。
-- **托管控制面**：让供应商决定集群控制面的规模和可用性，并负责打补丁和升级等操作。
+- **托管控制平面**：让供应商决定集群控制平面的规模和可用性，并负责打补丁和升级等操作。
 - **托管工作节点**：配置一个节点池来满足你的需要，由供应商来确保节点始终可用，并在需要的时候完成升级。
 - **集成**：有一些供应商能够将 Kubernetes 与一些你可能需要的其他服务集成，
   这类服务包括存储、容器镜像仓库、身份认证方法以及开发工具等。
@@ -139,7 +139,7 @@ to your cluster’s *control plane*, *worker nodes*, *user access*, and
 *workload resources*.
 -->
 无论你是自行构造一个生产用 Kubernetes 集群还是与合作伙伴一起协作，
-请审阅下面章节以评估你的需求，因为这关系到你的集群的**控制面**、**工作节点**、**用户访问**以及**负载资源**。
+请审阅下面章节以评估你的需求，因为这关系到你的集群的**控制平面**、**工作节点**、**用户访问**以及**负载资源**。
 
 <!--
 ## Production cluster setup
@@ -151,7 +151,7 @@ is configured to run Kubernetes pods.
 -->
 ## 生产用集群安装  {#production-cluster-setup}
 
-在生产质量的 Kubernetes 集群中，控制面用不同的方式来管理集群和可以分布到多个计算机上的服务。
+在生产质量的 Kubernetes 集群中，控制平面用不同的方式来管理集群和可以分布到多个计算机上的服务。
 每个工作节点则代表的是一个可配置来运行 Kubernetes Pod 的实体。
 
 <!--
@@ -164,9 +164,9 @@ worker nodes, as reflected in the diagram illustrated in
 If the cluster is meant to be available for a short period of time, or can be
 discarded if something goes seriously wrong, this might meet your needs.
 -->
-### 生产用控制面  {#production-control-plane}
+### 生产用控制平面  {#production-control-plane}
 
-最简单的 Kubernetes 集群中，整个控制面和工作节点服务都运行在同一台机器上。
+最简单的 Kubernetes 集群中，整个控制平面和工作节点服务都运行在同一台机器上。
 你可以通过添加工作节点来提升环境运算能力，正如
 [Kubernetes 组件](/zh-cn/docs/concepts/overview/components/)示意图所示。
 如果只需要集群在很短的一段时间内可用，或者可以在某些事物出现严重问题时直接丢弃，
@@ -180,8 +180,8 @@ If keeping the cluster up and running
 and ensuring that it can be repaired if something goes wrong is important,
 consider these steps:
 -->
-如果你需要一个更为持久的、高可用的集群，那么就需要考虑扩展控制面的方式。
-根据设计，运行在一台机器上的单机控制面服务不是高可用的。
+如果你需要一个更为持久的、高可用的集群，那么就需要考虑扩展控制平面的方式。
+根据设计，运行在一台机器上的单机控制平面服务不是高可用的。
 如果你认为保持集群的正常运行并需要确保它在出错时可以被修复是很重要的，
 可以考虑以下步骤：
 
@@ -193,7 +193,7 @@ consider these steps:
   methods. Different [Container Runtimes](/docs/setup/production-environment/container-runtimes/)
   are available to use with your deployments.
 -->
-- **选择部署工具**：你可以使用类似 kubeadm、kops 和 kubespray 这类工具来部署控制面。
+- **选择部署工具**：你可以使用类似 kubeadm、kops 和 kubespray 这类工具来部署控制平面。
   参阅[使用部署工具安装 Kubernetes](/zh-cn/docs/setup/production-environment/tools/)
   以了解使用这类部署方法来完成生产就绪部署的技巧。
   存在不同的[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)
@@ -204,7 +204,7 @@ consider these steps:
   during deployment or you can generate them using your own certificate authority.
   See [PKI certificates and requirements](/docs/setup/best-practices/certificates/) for details.
 -->
-- **管理证书**：控制面服务之间的安全通信是通过证书来完成的。
+- **管理证书**：控制平面服务之间的安全通信是通过证书来完成的。
   证书是在部署期间自动生成的，或者你也可以使用自己的证书机构来生成它们。
   参阅 [PKI 证书和需求](/zh-cn/docs/setup/best-practices/certificates/)了解细节。
 <!--
@@ -226,7 +226,7 @@ consider these steps:
   and [Set up a High Availability etcd cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
   for details.
 -->
-- **分离并备份 etcd 服务**：etcd 服务可以运行于其他控制面服务所在的机器上，
+- **分离并备份 etcd 服务**：etcd 服务可以运行于其他控制平面服务所在的机器上，
   也可以运行在不同的机器上以获得更好的安全性和可用性。
   因为 etcd 存储着集群的配置数据，应该经常性地对 etcd 数据库进行备份，
   以确保在需要的时候你可以修复该数据库。与配置和使用 etcd 相关的细节可参阅
@@ -245,9 +245,9 @@ consider these steps:
   consensus algorithm to do leader election of Kubernetes services. If the
   primary goes away, another service elects itself and take over. 
 -->
-- **创建多控制面系统**：为了实现高可用性，控制面不应被限制在一台机器上。
-  如果控制面服务是使用某 init 服务（例如 systemd）来运行的，每个服务应该至少运行在三台机器上。
-  不过，将控制面作为服务运行在 Kubernetes Pod 中可以确保你所请求的个数的服务始终保持可用。
+- **创建多控制平面系统**：为了实现高可用性，控制平面不应被限制在一台机器上。
+  如果控制平面服务是使用某 init 服务（例如 systemd）来运行的，每个服务应该至少运行在三台机器上。
+  不过，将控制平面作为服务运行在 Kubernetes Pod 中可以确保你所请求的个数的服务始终保持可用。
   调度器应该是可容错的，但不是高可用的。
   某些部署工具会安装 [Raft](https://raft.github.io/) 票选算法来对 Kubernetes 服务执行领导者选举。
   如果主节点消失，另一个服务会被选中并接手相应服务。
@@ -294,12 +294,12 @@ and [Operating etcd clusters for Kubernetes](/docs/tasks/administer-cluster/conf
 See [Backing up an etcd cluster](/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster)
 for information on making an etcd backup plan.
 -->
-如要了解运行控制面服务时可使用的选项，可参阅
+如要了解运行控制平面服务时可使用的选项，可参阅
 [kube-apiserver](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)、
 [kube-controller-manager](/zh-cn/docs/reference/command-line-tools-reference/kube-controller-manager/) 和
 [kube-scheduler](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/) 
 组件参考页面。
-如要了解高可用控制面的例子，可参阅[高可用拓扑结构选项](/zh-cn/docs/setup/production-environment/tools/kubeadm/ha-topology/)、
+如要了解高可用控制平面的例子，可参阅[高可用拓扑结构选项](/zh-cn/docs/setup/production-environment/tools/kubeadm/ha-topology/)、
 [使用 kubeadm 创建高可用集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)
 以及[为 Kubernetes 运维 etcd 集群](/zh-cn/docs/tasks/administer-cluster/configure-upgrade-etcd/)。
 关于制定 etcd 备份计划，可参阅[对 etcd 集群执行备份](/zh-cn/docs/tasks/administer-cluster/configure-upgrade-etcd/#backing-up-an-etcd-cluster)。
@@ -316,7 +316,7 @@ simply as *nodes*).
 ### 生产用工作节点   {#production-worker-nodes}
 
 生产质量的工作负载需要是弹性的；它们所依赖的其他组件（例如 CoreDNS）也需要是弹性的。
-无论你是自行管理控制面还是让云供应商来管理，你都需要考虑如何管理工作节点
+无论你是自行管理控制平面还是让云供应商来管理，你都需要考虑如何管理工作节点
 （有时也简称为**节点**）。
 
 <!--
@@ -525,7 +525,7 @@ needs of your cluster's workloads:
 -->
 ## 为负载资源设置约束  {#set-limits-on-workload-resources}
 
-生产环境负载的需求可能对 Kubernetes 的控制面内外造成压力。
+生产环境负载的需求可能对 Kubernetes 的控制平面内外造成压力。
 在针对你的集群的负载执行配置时，要考虑以下条目：
 
 <!--

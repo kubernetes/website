@@ -714,7 +714,7 @@ As the cluster nodes are usually initialized sequentially, the CoreDNS Pods are 
 on the first control-plane node. To provide higher availability, please rebalance the CoreDNS Pods
 with `kubectl -n kube-system rollout restart deployment coredns` after at least one new node is joined.
 -->
-由于集群节点通常是按顺序初始化的，CoreDNS Pod 很可能都运行在第一个控制面节点上。
+由于集群节点通常是按顺序初始化的，CoreDNS Pod 很可能都运行在第一个控制平面节点上。
 为了提供更高的可用性，请在加入至少一个新节点后
 使用 `kubectl -n kube-system rollout restart deployment coredns` 命令，重新平衡这些 CoreDNS Pod。
 {{< /note >}}

@@ -615,7 +615,7 @@ field of this one.
 ### 聚合的 ClusterRole    {#aggregated-clusterroles}
 
 你可以将若干 ClusterRole **聚合（Aggregate）** 起来，形成一个复合的 ClusterRole。
-作为集群控制面的一部分，控制器会监视带有 `aggregationRule` 的 ClusterRole 对象集合。`aggregationRule`
+作为集群控制平面的一部分，控制器会监视带有 `aggregationRule` 的 ClusterRole 对象集合。`aggregationRule`
 为控制器定义一个标签{{< glossary_tooltip text="选择算符" term_id="selector" >}}供后者匹配应该组合到当前
 ClusterRole 的 `roles` 字段中的 ClusterRole 对象。
 
@@ -655,7 +655,7 @@ aggregationRule:
   clusterRoleSelectors:
   - matchLabels:
       rbac.example.com/aggregate-to-monitoring: "true"
-rules: [] # 控制面自动填充这里的规则
+rules: [] # 控制平面自动填充这里的规则
 ```
 
 <!--
@@ -1124,7 +1124,7 @@ All of the default ClusterRoles and ClusterRoleBindings are labeled with `kubern
 ## 默认 Roles 和 Role Bindings {#default-roles-and-role-bindings}
 
 API 服务器创建一组默认的 ClusterRole 和 ClusterRoleBinding 对象。
-这其中许多是以 `system:` 为前缀的，用以标识对应资源是直接由集群控制面管理的。
+这其中许多是以 `system:` 为前缀的，用以标识对应资源是直接由集群控制平面管理的。
 所有的默认 ClusterRole 和 ClusterRoleBinding 都有
 `kubernetes.io/bootstrapping=rbac-defaults` 标签。
 
@@ -1668,7 +1668,7 @@ These roles include:
 ### 内置控制器的角色   {#controller-roles}
 
 Kubernetes {{< glossary_tooltip term_id="kube-controller-manager" text="控制器管理器" >}}运行内建于
-Kubernetes 控制面的{{< glossary_tooltip term_id="controller" text="控制器" >}}。
+Kubernetes 控制平面的{{< glossary_tooltip term_id="controller" text="控制器" >}}。
 当使用 `--use-service-account-credentials` 参数启动时，kube-controller-manager
 使用单独的服务账户来启动每个控制器。
 每个内置控制器都有相应的、前缀为 `system:controller:` 的角色。
@@ -2116,7 +2116,7 @@ ServiceAccounts, but are easier to administrate.
 -->
 ## 服务账户权限   {#service-account-permissions}
 
-默认的 RBAC 策略为控制面组件、节点和控制器授予权限。
+默认的 RBAC 策略为控制平面组件、节点和控制器授予权限。
 但是不会对 `kube-system` 名字空间之外的服务账户授予权限。
 （除了授予所有已认证用户的发现权限）
 
@@ -2325,7 +2325,7 @@ and controllers, but grant *no permissions* to service accounts outside the `kub
 While far more secure, this can be disruptive to existing workloads expecting to automatically receive API permissions.
 Here are two approaches for managing this transition:
 -->
-默认的 RBAC 策略为控制面组件、节点和控制器等授予有限的权限，但不会为
+默认的 RBAC 策略为控制平面组件、节点和控制器等授予有限的权限，但不会为
 `kube-system` 名字空间外的服务账户授权（除了授予所有认证用户的发现权限之外）。
 
 这样做虽然安全得多，但可能会干扰期望自动获得 API 权限的现有工作负载。

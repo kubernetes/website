@@ -476,7 +476,7 @@ If you plan to create a large number of Job objects, you may find that:
   when you create a great deal of work in one batch.
 -->
 - 即使使用标签，管理这么多 Job 对象也很麻烦。
-- 如果你一次性创建很多 Job，很可能会给 Kubernetes 控制面带来很大压力。
+- 如果你一次性创建很多 Job，很可能会给 Kubernetes 控制平面带来很大压力。
   一种替代方案是，Kubernetes API 可能对请求施加速率限制，通过 429 返回
   状态值临时拒绝你的请求。
 - 你可能会受到 Job 相关的{{< glossary_tooltip text="资源配额" term_id="resource-quota" >}}

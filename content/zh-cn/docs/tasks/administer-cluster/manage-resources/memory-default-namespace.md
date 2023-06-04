@@ -36,7 +36,7 @@ Kubernetes assigns a default memory request under certain conditions that are ex
 一个 Kubernetes 集群可被划分为多个命名空间。
 如果你在具有默认内存[限制](/zh-cn/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
 的命名空间内尝试创建一个 Pod，并且这个 Pod 中的容器没有声明自己的内存资源限制，
-那么{{< glossary_tooltip text="控制面" term_id="control-plane" >}}会为该容器设定默认的内存限制。
+那么{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}会为该容器设定默认的内存限制。
 
 Kubernetes 还为某些情况指定了默认的内存请求，本章后面会进行介绍。
 
@@ -103,7 +103,7 @@ does not specify a memory request and limit.
 -->
 现在如果你在 default-mem-example 命名空间中创建一个 Pod，
 并且该 Pod 中所有容器都没有声明自己的内存请求和内存限制，
-{{< glossary_tooltip text="控制面" term_id="control-plane" >}}
+{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}
 会将内存的默认请求值 256MiB 和默认限制值 512MiB 应用到 Pod 上。
 
 以下为只包含一个容器的 Pod 的清单。该容器没有声明内存请求和限制。
@@ -299,7 +299,7 @@ allowed to run in a namespace that is restricted by a memory ResourceQuota.
 当你添加 LimitRange 时：
 
 如果该命名空间中的任何 Pod 的容器未指定内存限制，
-控制面将默认内存限制应用于该容器，
+控制平面将默认内存限制应用于该容器，
 这样 Pod 可以在受到内存 ResourceQuota 限制的命名空间中运行。
 
 <!--

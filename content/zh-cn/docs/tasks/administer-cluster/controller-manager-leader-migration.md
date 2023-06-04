@@ -1,6 +1,6 @@
 ---
-title: 迁移多副本的控制面以使用云控制器管理器
-linkTitle: 迁移多副本的控制面以使用云控制器管理器
+title: 迁移多副本的控制平面以使用云控制器管理器
+linkTitle: 迁移多副本的控制平面以使用云控制器管理器
 content_type: task
 weight: 250
 ---

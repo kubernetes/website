@@ -96,7 +96,7 @@ Kubernetes 启动时会创建四个初始名字空间：
 `kube-node-lease`
 : 该名字空间包含用于与各个节点关联的 [Lease（租约）](/zh-cn/docs/concepts/architecture/leases/)对象。
   节点租约允许 kubelet 发送[心跳](/zh-cn/docs/concepts/architecture/nodes/#heartbeats)，
-  由此控制面能够检测到节点故障。
+  由此控制平面能够检测到节点故障。
 
 `kube-public`
 : **所有**的客户端（包括未经身份验证的客户端）都可以读取该名字空间。
@@ -277,7 +277,7 @@ The Kubernetes control plane sets an immutable {{< glossary_tooltip text="label"
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
 The value of the label is the namespace name.
 -->
-Kubernetes 控制面会为所有名字空间设置一个不可变更的{{< glossary_tooltip text="标签" term_id="label" >}}
+Kubernetes 控制平面会为所有名字空间设置一个不可变更的{{< glossary_tooltip text="标签" term_id="label" >}}
 `kubernetes.io/metadata.name`，只要 `NamespaceDefaultLabelName`
 这一[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)被启用。
 标签的值是名字空间的名称。

@@ -288,7 +288,7 @@ Learn about related Kubernetes security topics:
 * [Pod 的网络策略](/zh-cn/docs/concepts/services-networking/network-policies/)
 * [控制对 Kubernetes API 的访问](/zh-cn/docs/concepts/security/controlling-access/)
 * [保护你的集群](/zh-cn/docs/tasks/administer-cluster/securing-a-cluster/)
-* 为控制面[加密通信中的数据](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/)
+* [为控制平面加密通信中的数据](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/)
 * [加密静止状态的数据](/zh-cn/docs/tasks/administer-cluster/encrypt-data/)
 * [Kubernetes 中的 Secret](/zh-cn/docs/concepts/configuration/secret/)
 * [运行时类](/zh-cn/docs/concepts/containers/runtime-class)

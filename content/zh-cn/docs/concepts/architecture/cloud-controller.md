@@ -46,7 +46,7 @@ process.
 
 ![Kubernetes 组件](/images/docs/components-of-kubernetes.svg)
 
-云控制器管理器以一组多副本的进程集合的形式运行在控制面中，通常表现为 Pod
+云控制器管理器以一组多副本的进程集合的形式运行在控制平面中，通常表现为 Pod
 中的容器。每个 `cloud-controller-manager`
 在同一进程中实现多个{{< glossary_tooltip text="控制器" term_id="controller" >}}。
 
@@ -57,7 +57,7 @@ You can also run the cloud controller manager as a Kubernetes
 of the control plane.
 -->
 你也可以用 Kubernetes {{< glossary_tooltip text="插件" term_id="addons" >}}
-的形式而不是控制面中的一部分来运行云控制器管理器。
+的形式而不是控制平面中的一部分来运行云控制器管理器。
 {{< /note >}}
 
 <!--

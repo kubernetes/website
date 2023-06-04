@@ -125,7 +125,7 @@ minimum and maximum memory constraints imposed by the LimitRange.
 -->
 现在，每当在 constraints-mem-example 命名空间中创建 Pod 时，Kubernetes 就会执行下面的步骤：
 
-* 如果 Pod 中的任何容器未声明自己的内存请求和限制，控制面将为该容器设置默认的内存请求和限制。
+* 如果 Pod 中的任何容器未声明自己的内存请求和限制，控制平面将为该容器设置默认的内存请求和限制。
 * 确保该 Pod 中的每个容器的内存请求至少 500 MiB。
 * 确保该 Pod 中每个容器内存请求不大于 1 GiB。
 

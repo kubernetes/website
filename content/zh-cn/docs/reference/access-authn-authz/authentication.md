@@ -88,7 +88,7 @@ or be treated as an anonymous user.
 API 请求则或者与某普通用户相关联，或者与某服务账号相关联，
 亦或者被视作[匿名请求](#anonymous-requests)。这意味着集群内外的每个进程在向 API
 服务器发起请求时都必须通过身份认证，否则会被视作匿名用户。这里的进程可以是在某工作站上输入
-`kubectl` 命令的操作人员，也可以是节点上的 `kubelet` 组件，还可以是控制面的成员。
+`kubectl` 命令的操作人员，也可以是节点上的 `kubelet` 组件，还可以是控制平面的成员。
 
 <!--
 ## Authentication strategies
@@ -532,7 +532,7 @@ Since all of the data needed to validate who you are is in the `id_token`, Kuber
    因为不存在用来收集用户凭据的浏览器或用户接口，你必须自己先行完成对身份服务的认证过程。
 2. `id_token` 令牌不可收回。因其属性类似于证书，其生命期一般很短（只有几分钟），
    所以，每隔几分钟就要获得一个新的令牌这件事可能很让人头疼。
-3. 如果需要向 Kubernetes 控制面板执行身份认证，你必须使用 `kubectl proxy`
+3. 如果需要向 Kubernetes 控制平面板执行身份认证，你必须使用 `kubectl proxy`
    命令或者一个能够注入 `id_token` 的反向代理。
 
 <!--

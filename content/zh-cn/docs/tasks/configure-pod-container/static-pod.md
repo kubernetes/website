@@ -23,7 +23,7 @@ instead, the kubelet watches each static Pod (and restarts it if it fails).
 -->
 **静态 Pod** 在指定的节点上由 kubelet 守护进程直接管理，不需要
 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}监管。
-与由控制面管理的 Pod（例如，{{< glossary_tooltip text="Deployment" term_id="deployment" >}}）
+与由控制平面管理的 Pod（例如，{{< glossary_tooltip text="Deployment" term_id="deployment" >}}）
 不同；kubelet 监视每个静态 Pod（在它失败之后重新启动）。
 
 <!--
@@ -456,7 +456,7 @@ f427638871c35   docker.io/library/nginx@sha256:...    19 seconds ago    Running 
 * [Map `docker` CLI commands to `crictl`](/docs/reference/tools/map-crictl-dockercli/).
 * [Set up etcd instances as static pods managed by a kubelet](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
 -->
-* [为控制面组件生成静态 Pod 清单](/zh-cn/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifests-for-control-plane-components)
+* [为控制平面组件生成静态 Pod 清单](/zh-cn/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifests-for-control-plane-components)
 * [为本地 etcd 生成静态 Pod 清单](/zh-cn/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifest-for-local-etcd)
 * [使用 `crictl` 对 Kubernetes 节点进行调试](/docs/tasks/debug/debug-cluster/crictl/)
 * 更多细节请参阅 [`crictl`](https://github.com/kubernetes-sigs/cri-tools)

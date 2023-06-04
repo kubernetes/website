@@ -55,8 +55,8 @@ object. In most cases, Kubernetes manages owner references automatically.
 ## 属主与依赖   {#owners-dependents}
 
 Kubernetes 中很多对象通过[**属主引用**](/zh-cn/docs/concepts/overview/working-with-objects/owners-dependents/)
-链接到彼此。属主引用（Owner Reference）可以告诉控制面哪些对象依赖于其他对象。
-Kubernetes 使用属主引用来为控制面以及其他 API 客户端在删除某对象时提供一个清理关联资源的机会。
+链接到彼此。属主引用（Owner Reference）可以告诉控制平面哪些对象依赖于其他对象。
+Kubernetes 使用属主引用来为控制平面以及其他 API 客户端在删除某对象时提供一个清理关联资源的机会。
 在大多数场合，Kubernetes 都是自动管理属主引用的。
 
 <!--
@@ -71,7 +71,7 @@ interfering with objects they don’t control.
 -->
 属主关系与某些资源所使用的[标签和选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)不同。
 例如，考虑一个创建 `EndpointSlice` 对象的 {{<glossary_tooltip text="Service" term_id="service">}}。
-Service 使用**标签**来允许控制面确定哪些 `EndpointSlice` 对象被该 Service 使用。
+Service 使用**标签**来允许控制平面确定哪些 `EndpointSlice` 对象被该 Service 使用。
 除了标签，每个被 Service 托管的 `EndpointSlice` 对象还有一个属主引用属性。
 属主引用可以帮助 Kubernetes 中的不同组件避免干预并非由它们控制的对象。
 

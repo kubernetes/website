@@ -632,7 +632,7 @@ standardized label to target a specific namespace.
 -->
 只要 `NamespaceDefaultLabelName`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)被启用，
-Kubernetes 控制面会在所有名字空间上设置一个不可变更的标签
+Kubernetes 控制平面会在所有名字空间上设置一个不可变更的标签
 `kubernetes.io/metadata.name`。该标签的值是名字空间的名称。
 
 如果 NetworkPolicy 无法在某些对象字段中指向某名字空间，

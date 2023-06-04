@@ -46,7 +46,7 @@ been allocated will return an error.
 当 Kubernetes 需要为 Service 分配虚拟 IP 地址时，该分配会通过以下两种方式之一进行：
 
 **动态分配**
-: 集群的控制面自动从所配置的 IP 范围内为 `type: ClusterIP` 选择一个空闲 IP 地址。
+: 集群的控制平面自动从所配置的 IP 范围内为 `type: ClusterIP` 选择一个空闲 IP 地址。
 
 **静态分配**
 : 根据为 Service 所配置的 IP 范围，选定并设置你的 IP 地址。

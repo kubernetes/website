@@ -882,7 +882,7 @@ individually with the [`kubeadm init phase mark-control-plane`](/docs/reference/
 - 给节点打上 `node-role.kubernetes.io/control-plane=""` 标签，标记其为控制平面
 - 给节点打上 `node-role.kubernetes.io/control-plane:NoSchedule` 污点
 
-请注意，标记控制面的这个阶段可以单独通过
+请注意，标记控制平面的这个阶段可以单独通过
 [`kubeadm init phase mark-control-plane`](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-control-plane)
 命令来实现。
 

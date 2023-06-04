@@ -1916,7 +1916,7 @@ the name should follow the more restrictive rules for a
 
 A Deployment also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 -->
-当控制面为 Deployment 创建新的 Pod 时，Deployment 的 `.metadata.name` 是命名这些 Pod 的部分基础。
+当控制平面为 Deployment 创建新的 Pod 时，Deployment 的 `.metadata.name` 是命名这些 Pod 的部分基础。
 Deployment 的名称必须是一个合法的
 [DNS 子域](/zh-cn/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names)值，
 但这会对 Pod 的主机名产生意外的结果。为获得最佳兼容性，名称应遵循更严格的
@@ -1990,7 +1990,7 @@ Instead, allow the Kubernetes
 `.spec.replicas` field automatically.
 -->
 恰恰相反，应该允许 Kubernetes
-{{< glossary_tooltip text="控制面" term_id="control-plane" >}}来自动管理
+{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}来自动管理
 `.spec.replicas` 字段。
 
 <!--

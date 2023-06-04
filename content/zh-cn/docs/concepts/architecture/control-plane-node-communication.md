@@ -1,5 +1,5 @@
 ---
-title: 节点与控制面之间的通信
+title: 节点与控制平面之间的通信
 content_type: concept
 weight: 20
 ---
@@ -23,7 +23,7 @@ The intent is to allow users to customize their installation to harden the netwo
 such that the cluster can be run on an untrusted network (or on fully public IPs on a cloud
 provider).
 -->
-本文列举控制面节点（确切地说是 {{< glossary_tooltip term_id="kube-apiserver" text="API 服务器" >}}）和
+本文列举控制平面节点（确切地说是 {{< glossary_tooltip term_id="kube-apiserver" text="API 服务器" >}}）和
 Kubernetes {{< glossary_tooltip text="集群" term_id="cluster" length="all" >}}之间的通信路径。
 目的是为了让用户能够自定义他们的安装，以实现对网络配置的加固，
 使得集群能够在不可信的网络上（或者在一个云服务商完全公开的 IP 上）运行。
@@ -43,11 +43,11 @@ enabled, especially if [anonymous requests](/docs/reference/access-authn-authz/a
 or [service account tokens](/docs/reference/access-authn-authz/authentication/#service-account-tokens)
 are allowed.
 -->
-## 节点到控制面   {#node-to-control-plane}
+## 节点到控制平面   {#node-to-control-plane}
 
 Kubernetes 采用的是中心辐射型（Hub-and-Spoke）API 模式。
 所有从节点（或运行于其上的 Pod）发出的 API 调用都终止于 API 服务器。
-其它控制面组件都没有被设计为可暴露远程服务。
+其它控制平面组件都没有被设计为可暴露远程服务。
 API 服务器被配置为在一个安全的 HTTPS 端口（通常为 443）上监听远程连接请求，
 并启用一种或多种形式的客户端[身份认证](/zh-cn/docs/reference/access-authn-authz/authentication/)机制。
 一种或多种客户端[鉴权机制](/zh-cn/docs/reference/access-authn-authz/authorization/)应该被启用，
@@ -83,14 +83,14 @@ The control plane components also communicate with the API server over the secur
 用于（通过 `{{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}`）转发请求到
 API 服务器的 HTTPS 末端。
 
-控制面组件也通过安全端口与集群的 API 服务器通信。
+控制平面组件也通过安全端口与集群的 API 服务器通信。
 
 <!--
 As a result, the default operating mode for connections from the nodes and pod running on the
 nodes to the control plane is secured by default and can run over untrusted and/or public
 networks.
 -->
-这样，从集群节点和节点上运行的 Pod 到控制面的连接的缺省操作模式即是安全的，
+这样，从集群节点和节点上运行的 Pod 到控制平面的连接的缺省操作模式即是安全的，
 能够在不可信的网络或公网上运行。
 
 <!--
@@ -101,9 +101,9 @@ The first is from the API server to the {{< glossary_tooltip text="kubelet" term
 The second is from the API server to any node, pod, or service through the API server's _proxy_
 functionality.
 -->
-## 控制面到节点  {#control-plane-to-node}
+## 控制平面到节点  {#control-plane-to-node}
 
-从控制面（API 服务器）到节点有两种主要的通信路径。
+从控制平面（API 服务器）到节点有两种主要的通信路径。
 第一种是从 API 服务器到集群中每个节点上运行的
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 进程。
 第二种是从 API 服务器通过它的**代理**功能连接到任何节点、Pod 或者服务。
@@ -185,7 +185,7 @@ running.
 ### SSH 隧道 {#ssh-tunnels}
 
 Kubernetes 支持使用
-[SSH 隧道](https://www.ssh.com/academy/ssh/tunneling)来保护从控制面到节点的通信路径。
+[SSH 隧道](https://www.ssh.com/academy/ssh/tunneling)来保护从控制平面到节点的通信路径。
 在这种配置下，API 服务器建立一个到集群中各节点的 SSH 隧道（连接到在 22 端口监听的 SSH 服务器）
 并通过这个隧道传输所有到 kubelet、节点、Pod 或服务的请求。
 这一隧道保证通信不会被暴露到集群节点所运行的网络之外。
@@ -219,11 +219,11 @@ connections.
 Follow the [Konnectivity service task](/docs/tasks/extend-kubernetes/setup-konnectivity/) to set
 up the Konnectivity service in your cluster.
 -->
-作为 SSH 隧道的替代方案，Konnectivity 服务提供 TCP 层的代理，以便支持从控制面到集群的通信。
+作为 SSH 隧道的替代方案，Konnectivity 服务提供 TCP 层的代理，以便支持从控制平面到集群的通信。
 Konnectivity 服务包含两个部分：Konnectivity 服务器和 Konnectivity 代理，
-分别运行在控制面网络和节点网络中。
+分别运行在控制平面网络和节点网络中。
 Konnectivity 代理建立并维持到 Konnectivity 服务器的网络连接。
-启用 Konnectivity 服务之后，所有控制面到节点的通信都通过这些连接传输。
+启用 Konnectivity 服务之后，所有控制平面到节点的通信都通过这些连接传输。
 
 请浏览 [Konnectivity 服务任务](/zh-cn/docs/tasks/extend-kubernetes/setup-konnectivity/)
 在你的集群中配置 Konnectivity 服务。
@@ -239,7 +239,7 @@ Konnectivity 代理建立并维持到 Konnectivity 服务器的网络连接。
 * [Use Port Forwarding to Access Applications in a Cluster](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 * Learn how to [Fetch logs for Pods](/docs/tasks/debug/debug-application/debug-running-pod/#examine-pod-logs), [use kubectl port-forward](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/#forward-a-local-port-to-a-port-on-the-pod)
 -->
-* 阅读 [Kubernetes 控制面组件](/zh-cn/docs/concepts/overview/components/#control-plane-components)
+* 阅读 [Kubernetes 控制平面组件](/zh-cn/docs/concepts/overview/components/#control-plane-components)
 * 进一步了解 [Hubs and Spoke model](https://book.kubebuilder.io/multiversion-tutorial/conversion-concepts.html#hubs-spokes-and-other-wheel-metaphors)
 * 进一步了解如何[保护集群](/zh-cn/docs/tasks/administer-cluster/securing-a-cluster/)
 * 进一步了解 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/)

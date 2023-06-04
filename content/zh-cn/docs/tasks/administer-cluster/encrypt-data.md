@@ -277,7 +277,7 @@ Kubernetes 静态数据加密的 Provider
   <tr>
   <td colspan="4">
   <!-- Not recommended due to CBC's vulnerability to padding oracle attacks. Key material accessible from control plane host. -->
-  由于 CBC 容易受到密文填塞攻击（Padding Oracle Attack），不推荐使用。密钥材料可从控制面主机访问。
+  由于 CBC 容易受到密文填塞攻击（Padding Oracle Attack），不推荐使用。密钥材料可从控制平面主机访问。
   </td>
   </tr>
   <tr>
@@ -296,7 +296,7 @@ Kubernetes 静态数据加密的 Provider
   <tr>
   <td colspan="4">
   <!-- Not recommended for use except when an automated key rotation scheme is implemented. Key material accessible from control plane host. -->
-  不建议使用，除非实施了自动密钥轮换方案。密钥材料可从控制面主机访问。
+  不建议使用，除非实施了自动密钥轮换方案。密钥材料可从控制平面主机访问。
   </td>
   </tr>
   <tr>
@@ -374,7 +374,7 @@ Kubernetes 静态数据加密的 Provider
   <!--
   Uses relatively new encryption technologies that may not be considered acceptable in environments that require high levels of review. Key material accessible from control plane host.
   -->
-  使用相对较新的加密技术，在需要高度评审的环境中可能不被接受。密钥材料可从控制面主机访问。
+  使用相对较新的加密技术，在需要高度评审的环境中可能不被接受。密钥材料可从控制平面主机访问。
   </td>
   </tr>
 </tbody>

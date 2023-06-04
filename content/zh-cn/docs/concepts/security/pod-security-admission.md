@@ -91,7 +91,7 @@ Pod 安全性准入控制模式。
 Kubernetes 定义了一组{{< glossary_tooltip term_id="label" text="标签" >}}，
 你可以设置这些标签来定义某个名字空间上要使用的预定义的 Pod 安全性标准级别。
 你所选择的标签定义了检测到潜在违例时，
-{{< glossary_tooltip text="控制面" term_id="control-plane" >}}要采取什么样的动作。
+{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}要采取什么样的动作。
 
 <!--
 Mode | Description

@@ -83,7 +83,7 @@ Typically you would run one or two control plane instances per failure zone,
 scaling those instances vertically first and then scaling horizontally after reaching
 the point of falling returns to (vertical) scale.
 -->
-## 控制面组件   {#control-plane-components}
+## 控制平面组件   {#control-plane-components}
 
 对于大型集群，你需要一个具有足够计算能力和其他资源的控制平面。
 

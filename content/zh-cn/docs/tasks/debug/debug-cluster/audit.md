@@ -20,7 +20,7 @@ by applications that use the Kubernetes API, and by the control plane itself.
 Auditing allows cluster administrators to answer the following questions:
 -->
 Kubernetes **审计（Auditing）** 功能提供了与安全相关的、按时间顺序排列的记录集，
-记录每个用户、使用 Kubernetes API 的应用以及控制面自身引发的活动。
+记录每个用户、使用 Kubernetes API 的应用以及控制平面自身引发的活动。
 
 审计功能使得集群管理员能够回答以下问题：
 
@@ -256,7 +256,7 @@ Log 后端将审计事件写入 [JSONlines](https://jsonlines.org/)  格式的�
 If your cluster's control plane runs the kube-apiserver as a Pod, remember to mount the `hostPath`
 to the location of the policy file and log file, so that audit records are persisted. For example:
 -->
-如果你的集群控制面以 Pod 的形式运行 kube-apiserver，记得要通过 `hostPath`
+如果你的集群控制平面以 Pod 的形式运行 kube-apiserver，记得要通过 `hostPath`
 卷来访问策略文件和日志文件所在的目录，这样审计记录才会持久保存下来。例如：
 
 ```shell

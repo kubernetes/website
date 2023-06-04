@@ -504,7 +504,7 @@ DaemonSet 与 [Deployment](/zh-cn/docs/concepts/workloads/controllers/deployment
   object definition to understand the API for daemon sets.
 -->
 * 了解 [Pod](/zh-cn/docs/concepts/workloads/pods)。
-  * 了解[静态 Pod](#static-pods)，这对运行 Kubernetes {{< glossary_tooltip text="控制面" term_id="control-plane" >}}组件有帮助。
+  * 了解[静态 Pod](#static-pods)，这对运行 Kubernetes {{< glossary_tooltip text="控制平面" term_id="control-plane" >}}组件有帮助。
 * 了解如何使用 DaemonSet
   * [对 DaemonSet 执行滚动更新](/zh-cn/docs/tasks/manage-daemon/update-daemon-set/)
   * [对 DaemonSet 执行回滚](/zh-cn/docs/tasks/manage-daemon/rollback-daemon-set/)（例如：新的版本没有达到你的预期）

@@ -638,7 +638,7 @@ as well as other related parameters outside the Security Context. As of July 202
 [Pod Security Policies](/docs/concepts/security/pod-security-policy/) are deprecated in favor of the
 built-in [Pod Security Admission Controller](/docs/concepts/security/pod-security-admission/). 
 -->
-安全策略则是控制面用来对安全上下文以及安全性上下文之外的参数实施某种设置的机制。
+安全策略则是控制平面用来对安全上下文以及安全性上下文之外的参数实施某种设置的机制。
 在 2020 年 7 月，
 [Pod 安全性策略](/zh-cn/docs/concepts/security/pod-security-policy/)已被废弃，
 取而代之的是内置的 [Pod 安全性准入控制器](/zh-cn/docs/concepts/security/pod-security-admission/)。

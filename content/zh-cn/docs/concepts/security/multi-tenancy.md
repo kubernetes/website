@@ -240,7 +240,7 @@ your needs or capabilities change.
 <!--
 ## Control plane isolation
 -->
-## 控制面隔离 {#control-plane-isolation}
+## 控制平面隔离 {#control-plane-isolation}
 
 <!--
 Control plane isolation ensures that different tenants cannot access or affect each others'
@@ -824,7 +824,7 @@ service must be configured per tenant or a multi-tenant DNS service must be used
 Here is an example of a [customized version of CoreDNS](https://github.com/kubernetes-sigs/cluster-api-provider-nested/blob/main/virtualcluster/doc/tenant-dns.md)
 that supports multiple tenants.
 -->
-当使用[各租户独立虚拟控制面](#virtual-control-plane-per-tenant)模型时，
+当使用[各租户独立虚拟控制平面](#virtual-control-plane-per-tenant)模型时，
 必须为每个租户配置 DNS 服务或必须使用多租户 DNS 服务。参见一个
 [CoreDNS 的定制版本](https://github.com/kubernetes-sigs/cluster-api-provider-nested/blob/main/virtualcluster/doc/tenant-dns.md)支持多租户的示例。
 
@@ -1010,7 +1010,7 @@ Policy engines provide features to validate and generate tenant configurations:
 <!--
 ### Virtual control plane per tenant
 -->
-### 每个租户独立的虚拟控制面    {#virtual-control-plane-per-tenant}
+### 每个租户独立的虚拟控制平面    {#virtual-control-plane-per-tenant}
 
 <!--
 Another form of control-plane isolation is to use Kubernetes extensions to provide each tenant a
@@ -1018,7 +1018,7 @@ virtual control-plane that enables segmentation of cluster-wide API resources.
 [Data plane isolation](#data-plane-isolation) techniques can be used with this model to securely
 manage worker nodes across tenants.
 -->
-控制面隔离的另一种形式是使用 Kubernetes 扩展为每个租户提供一个虚拟控制面，
+控制平面隔离的另一种形式是使用 Kubernetes 扩展为每个租户提供一个虚拟控制平面，
 以实现集群范围内 API 资源的分段。
 [数据平面隔离](#data-plane-isolation)技术可以与此模型一起使用，
 以安全地跨多个租户管理工作节点。
@@ -1032,11 +1032,11 @@ This cluster is often referred to as a _super-cluster_ (or sometimes as a _host-
 Since a tenant’s control-plane is not directly associated with underlying compute resources it is
 referred to as a _virtual control plane_.
 -->
-基于虚拟控制面的多租户模型通过为每个租户提供专用控制面组件来扩展基于命名空间的多租户，
+基于虚拟控制平面的多租户模型通过为每个租户提供专用控制平面组件来扩展基于命名空间的多租户，
 从而完全控制集群范围的资源和附加服务。
 工作节点在所有租户之间共享，并由租户通常无法访问的 Kubernetes 集群管理。
 该集群通常被称为 **超集群（Super-Cluster）**（或有时称为 **host-cluster**）。
-由于租户的控制面不直接与底层计算资源相关联，因此它被称为**虚拟控制平面**。
+由于租户的控制平面不直接与底层计算资源相关联，因此它被称为**虚拟控制平面**。
 
 <!--
 A virtual control plane typically consists of the Kubernetes API server,
@@ -1044,9 +1044,9 @@ the controller manager, and the etcd data store.
 It interacts with the super cluster via a metadata synchronization controller
 which coordinates changes across tenant control planes and the control plane of the super-cluster.
 -->
-虚拟控制面通常由 Kubernetes API 服务器、控制器管理器和 etcd 数据存储组成。
+虚拟控制平面通常由 Kubernetes API 服务器、控制器管理器和 etcd 数据存储组成。
 它通过元数据同步控制器与超集群交互，
-该控制器跨租户控制面和超集群控制面对变化进行协调。
+该控制器跨租户控制平面和超集群控制平面对变化进行协调。
 
 <!--
 By using per-tenant dedicated control planes,
@@ -1057,7 +1057,7 @@ and conflicts between cluster scope objects such as webhooks and CRDs.
 Hence, the virtual control plane model is particularly suitable for cases
 where each tenant requires access to a Kubernetes API server and expects the full cluster manageability.
 -->
-通过使用每个租户单独的专用控制面，可以解决由于所有租户共享一个 API 服务器而导致的大部分隔离问题。
+通过使用每个租户单独的专用控制平面，可以解决由于所有租户共享一个 API 服务器而导致的大部分隔离问题。
 例如，控制平面中的嘈杂邻居、策略错误配置导致的不可控爆炸半径以及如
 Webhook 和 CRD 等集群范围对象之间的冲突。
 因此，虚拟控制平面模型特别适用于每个租户都需要访问
@@ -1071,7 +1071,7 @@ such as node-level noisy neighbors or security threats.
 These must still be addressed separately.
 -->
 改进的隔离是以每个租户运行和维护一个单独的虚拟控制平面为代价的。
-此外，租户层面的控制面不能解决数据面的隔离问题，
+此外，租户层面的控制平面不能解决数据面的隔离问题，
 例如节点级的嘈杂邻居或安全威胁。这些仍然必须单独解决。
 
 <!--

@@ -23,7 +23,7 @@ to authenticate to the
 {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}.
 -->
 Kubernetes 提供两种完全不同的方式来为客户端提供支持，这些客户端可能运行在你的集群中，
-也可能与你的集群的{{< glossary_tooltip text="控制面" term_id="control-plane" >}}相关，
+也可能与你的集群的{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}相关，
 需要向 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}完成身份认证。
 
 <!--
@@ -373,8 +373,8 @@ tokens for deleted ServiceAccounts.
 -->
 你可以看到 Secret 中现在包含针对 "build-robot" ServiceAccount 的 API 令牌。
 
-鉴于你所设置的注解，控制面会自动为该 ServiceAccount 生成一个令牌，并将其保存到相关的 Secret
-中。控制面也会为已删除的 ServiceAccount 执行令牌清理操作。
+鉴于你所设置的注解，控制平面会自动为该 ServiceAccount 生成一个令牌，并将其保存到相关的 Secret
+中。控制平面也会为已删除的 ServiceAccount 执行令牌清理操作。
 
 ```shell
 kubectl describe secrets/build-robot-secret
@@ -418,7 +418,7 @@ Secret somewhere that your terminal / computer screen could be seen by an onlook
 When you delete a ServiceAccount that has an associated Secret, the Kubernetes
 control plane automatically cleans up the long-lived token from that Secret.
 -->
-当你删除一个与某 Secret 相关联的 ServiceAccount 时，Kubernetes 的控制面会自动清理该
+当你删除一个与某 Secret 相关联的 ServiceAccount 时，Kubernetes 的控制平面会自动清理该
 Secret 中长期有效的令牌。
 
 <!--
@@ -622,7 +622,7 @@ command line arguments to `kube-apiserver`:
   确认令牌至少是被绑定到这里所给的受众之一。
   如果 `api-audiences` 被多次指定，则针对所给的多个受众中任何目标的令牌都会被
   Kubernetes API 服务器当做合法的令牌。如果你指定了 `--service-account-issuer`
-  参数，但沒有設置 `--api-audiences`，则控制面认为此参数的默认值为一个只有一个元素的列表，
+  参数，但沒有設置 `--api-audiences`，则控制平面认为此参数的默认值为一个只有一个元素的列表，
   且该元素为令牌发放者的 URL。
 
 {{< /note >}}

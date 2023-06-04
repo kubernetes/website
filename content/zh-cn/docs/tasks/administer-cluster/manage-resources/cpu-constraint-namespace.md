@@ -130,7 +130,7 @@ of the Kubernetes API creates an equivalent Pod), Kubernetes performs these step
 现在，每当你在 constraints-cpu-example 命名空间中创建 Pod 时，或者某些其他的
 Kubernetes API 客户端创建了等价的 Pod 时，Kubernetes 就会执行下面的步骤：
 
-* 如果 Pod 中的任何容器未声明自己的 CPU 请求和限制，控制面将为该容器设置默认的 CPU 请求和限制。
+* 如果 Pod 中的任何容器未声明自己的 CPU 请求和限制，控制平面将为该容器设置默认的 CPU 请求和限制。
 
 * 确保该 Pod 中的每个容器的 CPU 请求至少 200 millicpu。
 
@@ -331,7 +331,7 @@ applied the
 from the LimitRange for this namespace.
 -->
 因为这一容器没有声明自己的 CPU 请求和限制，
-控制面会根据命名空间中配置 LimitRange
+控制平面会根据命名空间中配置 LimitRange
 设置[默认的 CPU 请求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)。
 
 <!--

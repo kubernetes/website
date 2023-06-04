@@ -601,7 +601,7 @@ Pods, the kubelet directly supervises each static Pod (and restarts it if it fai
 
 **静态 Pod（Static Pod）** 直接由特定节点上的 `kubelet` 守护进程管理，
 不需要 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}看到它们。
-尽管大多数 Pod 都是通过控制面（例如，{{< glossary_tooltip text="Deployment" term_id="deployment" >}}）
+尽管大多数 Pod 都是通过控制平面（例如，{{< glossary_tooltip text="Deployment" term_id="deployment" >}}）
 来管理的，对于静态 Pod 而言，`kubelet` 直接监控每个 Pod，并在其失效时重启之。
 
 <!--
@@ -615,9 +615,9 @@ This means that the Pods running on a node are visible on the API server,
 but cannot be controlled from there.
 -->
 静态 Pod 通常绑定到某个节点上的 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}。
-其主要用途是运行自托管的控制面。
+其主要用途是运行自托管的控制平面。
 在自托管场景中，使用 `kubelet`
-来管理各个独立的[控制面组件](/zh-cn/docs/concepts/overview/components/#control-plane-components)。
+来管理各个独立的[控制平面组件](/zh-cn/docs/concepts/overview/components/#control-plane-components)。
 
 `kubelet` 自动尝试为每个静态 Pod 在 Kubernetes API
 服务器上创建一个{{< glossary_tooltip text="镜像 Pod" term_id="mirror-pod" >}}。

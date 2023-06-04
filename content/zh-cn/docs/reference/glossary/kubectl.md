@@ -37,7 +37,7 @@ using the Kubernetes API.
 -->
 
 kubectl 是使用 Kubernetes API 与 Kubernetes 
-集群的{{<glossary_tooltip text="控制面" term_id="control-plane" >}}进行通信的命令行工具。
+集群的{{<glossary_tooltip text="控制平面" term_id="control-plane" >}}进行通信的命令行工具。
 <!--more--> 
 
 <!--

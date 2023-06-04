@@ -34,7 +34,7 @@ but only under certain conditions that are explained later in this page.
 一个 Kubernetes 集群可被划分为多个命名空间。
 如果你在具有默认 CPU[限制](/zh-cn/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
 的命名空间内创建一个 Pod，并且这个 Pod 中任何容器都没有声明自己的 CPU 限制，
-那么{{< glossary_tooltip text="控制面" term_id="control-plane" >}}会为容器设定默认的 CPU 限制。
+那么{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}会为容器设定默认的 CPU 限制。
 
 Kubernetes 在一些特定情况还可以设置默认的 CPU 请求，本文后续章节将会对其进行解释。
 
@@ -102,7 +102,7 @@ does not specify a CPU request and limit.
 -->
 现在如果你在 default-cpu-example 命名空间中创建一个 Pod，
 并且该 Pod 中所有容器都没有声明自己的 CPU 请求和 CPU 限制，
-控制面会将 CPU 的默认请求值 0.5 和默认限制值 1 应用到 Pod 上。
+控制平面会将 CPU 的默认请求值 0.5 和默认限制值 1 应用到 Pod 上。
 
 以下为只包含一个容器的 Pod 的清单。该容器没有声明 CPU 请求和限制。
 
@@ -274,7 +274,7 @@ allowed to run in a namespace that is restricted by a CPU ResourceQuota.
 当你添加 LimitRange 时：
 
 如果该命名空间中的任何 Pod 的容器未指定 CPU 限制，
-控制面将默认 CPU 限制应用于该容器，
+控制平面将默认 CPU 限制应用于该容器，
 这样 Pod 可以在受到 CPU ResourceQuota 限制的命名空间中运行。
 
 <!--

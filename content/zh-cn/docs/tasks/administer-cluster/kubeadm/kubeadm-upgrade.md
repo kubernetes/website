@@ -84,7 +84,7 @@ The upgrade workflow at high level is the following:
 - All containers are restarted after upgrade, because the container spec hash value is changed.
 -->
 - 下述说明了在升级过程中何时腾空每个节点。如果你正在对任何 kubelet 进行小版本升级，
-  你需要先腾空待升级的节点（或多个节点）。对于控制面节点，其上可能运行着 CoreDNS Pod
+  你需要先腾空待升级的节点（或多个节点）。对于控制平面节点，其上可能运行着 CoreDNS Pod
   或者其它非常重要的负载。更多信息见[腾空节点](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)。
 - 升级后，因为容器规约的哈希值已更改，所有容器都会被重新启动。
 
@@ -152,8 +152,8 @@ yum list --showduplicates kubeadm --disableexcludes=kubernetes
 The upgrade procedure on control plane nodes should be executed one node at a time.
 Pick a control plane node that you wish to upgrade first. It must have the `/etc/kubernetes/admin.conf` file.
 -->
-控制面节点上的升级过程应该每次处理一个节点。
-首先选择一个要先行升级的控制面节点。该节点上必须拥有
+控制平面节点上的升级过程应该每次处理一个节点。
+首先选择一个要先行升级的控制平面节点。该节点上必须拥有
 `/etc/kubernetes/admin.conf` 文件。
 
 <!--
@@ -164,7 +164,7 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
 <!--
 **For the first control plane node**
 -->
-**对于第一个控制面节点**
+**对于第一个控制平面节点**
 
 <!--
 1. Upgrade kubeadm:
@@ -294,12 +294,12 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
 <!--
 **For the other control plane nodes**
 -->
-**对于其它控制面节点**
+**对于其它控制平面节点**
 
 <!--
 Same as the first control plane node but use:
 -->
-与第一个控制面节点相同，但是使用：
+与第一个控制平面节点相同，但是使用：
 
 ```shell
 sudo kubeadm upgrade node
@@ -336,7 +336,7 @@ kubectl drain <node-to-drain> --ignore-daemonsets
 ```
 -->
 ```shell
-# 将 <node-to-drain> 替换为你要腾空的控制面节点名称
+# 将 <node-to-drain> 替换为你要腾空的控制平面节点名称
 kubectl drain <node-to-drain> --ignore-daemonsets
 ```
 
@@ -483,7 +483,7 @@ During upgrade kubeadm writes the following backup folders under `/etc/kubernete
 In case of an etcd upgrade failure and if the automatic rollback does not work, the contents of this folder
 can be manually restored in `/var/lib/etcd`. In case external etcd is used this backup folder will be empty.
 -->
-`kubeadm-backup-etcd` 包含当前控制面节点本地 etcd 成员数据的备份。
+`kubeadm-backup-etcd` 包含当前控制平面节点本地 etcd 成员数据的备份。
 如果 etcd 升级失败并且自动回滚也无法修复，则可以将此文件夹中的内容复制到
 `/var/lib/etcd` 进行手工修复。如果使用的是外部的 etcd，则此备份文件夹为空。
 
@@ -493,7 +493,7 @@ In case of a upgrade failure and if the automatic rollback does not work, the co
 manually restored in `/etc/kubernetes/manifests`. If for some reason there is no difference between a pre-upgrade
 and post-upgrade manifest file for a certain component, a backup file for it will not be written.
 -->
-`kubeadm-backup-manifests` 包含当前控制面节点的静态 Pod 清单文件的备份版本。
+`kubeadm-backup-manifests` 包含当前控制平面节点的静态 Pod 清单文件的备份版本。
 如果升级失败并且无法自动回滚，则此文件夹中的内容可以复制到
 `/etc/kubernetes/manifests` 目录实现手工恢复。
 如果由于某些原因，在升级前后某个组件的清单未发生变化，则 kubeadm 也不会为之生成备份版本。
@@ -523,11 +523,11 @@ and post-upgrade manifest file for a certain component, a backup file for it wil
 - 检查你的集群是否处于可升级状态:
   - API 服务器是可访问的
   - 所有节点处于 `Ready` 状态
-  - 控制面是健康的
+  - 控制平面是健康的
 - 强制执行版本偏差策略。
-- 确保控制面的镜像是可用的或可拉取到服务器上。
+- 确保控制平面的镜像是可用的或可拉取到服务器上。
 - 如果组件配置要求版本升级，则生成替代配置与/或使用用户提供的覆盖版本配置。
-- 升级控制面组件或回滚（如果其中任何一个组件无法启动）。
+- 升级控制平面组件或回滚（如果其中任何一个组件无法启动）。
 - 应用新的 `CoreDNS` 和 `kube-proxy` 清单，并强制创建所有必需的 RBAC 规则。
 - 如果旧文件在 180 天后过期，将创建 API 服务器的新证书和密钥文件并备份旧文件。
 

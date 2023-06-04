@@ -145,7 +145,7 @@ Kubernetes 作为一个项目，目前支持和维护
   是一个用于 [Traefik](https://traefik.io/traefik/) 代理的 Ingress 控制器。
 * [Tyk Operator](https://github.com/TykTechnologies/tyk-operator)
   使用自定义资源扩展 Ingress，为之带来 API 管理能力。Tyk Operator
-  使用开源的 Tyk Gateway & Tyk Cloud 控制面。
+  使用开源的 Tyk Gateway & Tyk Cloud 控制平面。
 * [Voyager](https://appscode.com/products/voyager) 是一个针对
   [HAProxy](https://www.haproxy.org/#desc) 的 Ingress 控制器。
 * [Wallarm Ingress Controller](https://www.wallarm.com/solutions/waf-for-kubernetes) 是提供 WAAP（WAF）

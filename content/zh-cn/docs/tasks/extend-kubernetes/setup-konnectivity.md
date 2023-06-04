@@ -78,7 +78,7 @@ For example, you can use the OpenSSL command line tool to issue a X.509 certific
 using the cluster CA certificate `/etc/kubernetes/pki/ca.crt` from a control-plane host.
 -->
 为 konnectivity-server 生成或者取得证书和 kubeconfig 文件。
-例如，你可以使用 OpenSSL 命令行工具，基于存放在某控制面主机上
+例如，你可以使用 OpenSSL 命令行工具，基于存放在某控制平面主机上
 `/etc/kubernetes/pki/ca.crt` 文件中的集群 CA 证书来发放一个 X.509 证书。
 
 ```bash
@@ -107,7 +107,7 @@ server as a DaemonSet.
 [kubernetes-sigs/apiserver-network-proxy](https://github.com/kubernetes-sigs/apiserver-network-proxy)
 是一个参考实现。
 
-在控制面节点上部署 Konnectivity 服务。
+在控制平面节点上部署 Konnectivity 服务。
 下面提供的 `konnectivity-server.yaml` 配置清单假定在你的集群中
 Kubernetes 组件都是部署为{{< glossary_tooltip text="静态 Pod" term_id="static-pod" >}} 的。
 如果不是，你可以将 Konnectivity 服务部署为 DaemonSet。

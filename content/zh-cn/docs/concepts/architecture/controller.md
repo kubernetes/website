@@ -108,7 +108,7 @@ Job 是一种 Kubernetes 资源，它运行一个或者多个 {{< glossary_toolt
 在集群中，当 Job 控制器拿到新任务时，它会保证一组 Node 节点上的 `kubelet`
 可以运行正确数量的 Pod 来完成工作。
 Job 控制器不会自己运行任何的 Pod 或者容器。Job 控制器是通知 API 服务器来创建或者移除 Pod。
-{{< glossary_tooltip text="控制面" term_id="control-plane" >}}中的其它组件
+{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}中的其它组件
 根据新的消息作出反应（调度并运行新 Pod）并且最终完成工作。
 
 <!--
@@ -180,7 +180,7 @@ cloud provider APIs, and other services by
 [extending Kubernetes](/docs/concepts/extend-kubernetes/) to implement that.
 -->
 在温度计的例子中，如果房间很冷，那么某个控制器可能还会启动一个防冻加热器。
-就 Kubernetes 集群而言，控制面间接地与 IP 地址管理工具、存储服务、云驱动
+就 Kubernetes 集群而言，控制平面间接地与 IP 地址管理工具、存储服务、云驱动
 APIs 以及其他服务协作，通过[扩展 Kubernetes](/zh-cn/docs/concepts/extend-kubernetes/)
 来实现这点。
 
@@ -279,7 +279,7 @@ Deployment 控制器和 Job 控制器是 Kubernetes 内置控制器的典型例�
 Kubernetes 允许你运行一个稳定的控制平面，这样即使某些内置控制器失败了，
 控制平面的其他部分会接替它们的工作。
 
-你会遇到某些控制器运行在控制面之外，用以扩展 Kubernetes。
+你会遇到某些控制器运行在控制平面之外，用以扩展 Kubernetes。
 或者，如果你愿意，你也可以自己编写新控制器。
 你可以以一组 Pod 来运行你的控制器，或者运行在 Kubernetes 之外。
 最合适的方案取决于控制器所要执行的功能是什么。

@@ -30,7 +30,7 @@ cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade). You will want 
 upgrade the control plane nodes before upgrading your Windows nodes.
 -->
 * 熟悉[更新 kubeadm 集群中的其余组件](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade)。
-  在升级你的 Windows 节点之前你会想要升级控制面节点。
+  在升级你的 Windows 节点之前你会想要升级控制平面节点。
 
 <!-- steps -->
 <!--

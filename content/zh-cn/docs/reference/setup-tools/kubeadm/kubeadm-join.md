@@ -197,7 +197,7 @@ kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert
 <!--
 For control-plane nodes:
 -->
-对于控制面节点：
+对于控制平面节点：
 
 ```shell
 kubeadm join --discovery-token abcdef.1234567890abcdef --discovery-token-ca-cert-hash sha256:1234..cdef --control-plane 1.2.3.4:6443

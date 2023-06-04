@@ -1250,8 +1250,8 @@ the label isn't set.
 
 用于：Secret
 
-控制面仅为 `kubernetes.io/service-account-token` 类型的 Secret 添加此标签。
-该标签的值记录着控制面最近一次接到客户端使用服务帐户令牌进行身份验证请求的日期（ISO 8601
+控制平面仅为 `kubernetes.io/service-account-token` 类型的 Secret 添加此标签。
+该标签的值记录着控制平面最近一次接到客户端使用服务帐户令牌进行身份验证请求的日期（ISO 8601
 格式，UTC 时区）
 
 如果上一次使用老的令牌的时间在集群获得此特性（添加于 Kubernetes v1.26）之前，则不会设置此标签。

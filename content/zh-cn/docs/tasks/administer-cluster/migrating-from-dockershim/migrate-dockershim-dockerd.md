@@ -154,7 +154,7 @@ instructions for that tool.
 The kubeadm tool stores the node's socket as an annotation on the `Node` object
 in the control plane. To modify this socket for each affected node:  
 -->
-kubeadm 工具将节点上的套接字存储为控制面上 `Node` 对象的注解。
+kubeadm 工具将节点上的套接字存储为控制平面上 `Node` 对象的注解。
 要为每个被影响的节点更改此套接字：
 
 <!--

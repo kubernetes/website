@@ -411,7 +411,7 @@ The control plane limits the rate of adding node new taints to nodes. This rate 
 manages the number of evictions that are triggered when many nodes become unreachable at
 once (for example: if there is a network disruption).
 -->
-控制面会限制向节点添加新污点的速率。这一速率限制可以管理多个节点同时不可达时
+控制平面会限制向节点添加新污点的速率。这一速率限制可以管理多个节点同时不可达时
 （例如出现网络中断的情况），可能触发的驱逐的数量。
 {{< /note >}}
 

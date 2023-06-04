@@ -137,7 +137,7 @@ DaemonSet. The real rollback is done asynchronously inside the cluster
 
 `kubectl rollout undo daemonset` 向服务器表明启动 DaemonSet 回滚。
 真正的回滚是在集群的
-{{< glossary_tooltip term_id="control-plane" text="控制面" >}}
+{{< glossary_tooltip term_id="control-plane" text="控制平面" >}}
 异步完成的。
 
 <!--

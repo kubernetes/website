@@ -54,7 +54,7 @@ Kubernetes Service.
 ## EndpointSlice API {#endpointslice-resource}
 
 在 Kubernetes 中，`EndpointSlice` 包含对一组网络端点的引用。
-控制面会自动为设置了{{< glossary_tooltip text="选择算符" term_id="selector" >}}的
+控制平面会自动为设置了{{< glossary_tooltip text="选择算符" term_id="selector" >}}的
 Kubernetes Service 创建 EndpointSlice。
 这些 EndpointSlice 将包含对与 Service 选择算符匹配的所有 Pod 的引用。
 EndpointSlice 通过唯一的协议、端口号和 Service 名称将网络端点组织在一起。
@@ -96,7 +96,7 @@ EndpointSlices can act as the source of truth for
 {{< glossary_tooltip term_id="kube-proxy" text="kube-proxy" >}} when it comes to
 how to route internal traffic.
 -->
-默认情况下，控制面创建和管理的 EndpointSlice 将包含不超过 100 个端点。
+默认情况下，控制平面创建和管理的 EndpointSlice 将包含不超过 100 个端点。
 你可以使用 {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}
 的 `--max-endpoints-per-slice` 标志设置此值，最大值为 1000。
 
@@ -261,7 +261,7 @@ entities or controllers managing additional sets of EndpointSlices.
 -->
 ### 管理   {#management}
 
-通常，控制面（尤其是端点切片的{{< glossary_tooltip text="控制器" term_id="controller" >}}）
+通常，控制平面（尤其是端点切片的{{< glossary_tooltip text="控制器" term_id="controller" >}}）
 会创建和管理 EndpointSlice 对象。EndpointSlice 对象还有一些其他使用场景，
 例如作为服务网格（Service Mesh）的实现。
 这些场景都会导致有其他实体或者控制器负责管理额外的 EndpointSlice 集合。
@@ -309,7 +309,7 @@ resources to corresponding EndpointSlices.
 ### EndpointSlice 镜像    {#endpointslice-mirroring}
 
 在某些场合，应用会创建定制的 Endpoints 资源。为了保证这些应用不需要并发的更改
-Endpoints 和 EndpointSlice 资源，集群的控制面将大多数 Endpoints
+Endpoints 和 EndpointSlice 资源，集群的控制平面将大多数 Endpoints
 映射到对应的 EndpointSlice 之上。
 
 <!--
@@ -322,7 +322,7 @@ The control plane mirrors Endpoints resources unless:
 * the corresponding Service resource does not exist.
 * the corresponding Service resource has a non-nil selector.
 -->
-控制面对 Endpoints 资源进行映射的例外情况有：
+控制平面对 Endpoints 资源进行映射的例外情况有：
 
 * Endpoints 资源上标签 `endpointslice.kubernetes.io/skip-mirror` 值为 `true`。
 * Endpoints 资源包含标签 `control-plane.alpha.kubernetes.io/leader`。
@@ -366,7 +366,7 @@ actively rebalance them. The logic is fairly straightforward:
 3. If there's still new endpoints left to add, try to fit them into a previously
    unchanged slice and/or create new ones.
 -->
-控制面尝试尽量将 EndpointSlice 填满，不过不会主动地在若干 EndpointSlice
+控制平面尝试尽量将 EndpointSlice 填满，不过不会主动地在若干 EndpointSlice
 之间执行再平衡操作。这里的逻辑也是相对直接的：
 
 1. 列举所有现有的 EndpointSlices，移除那些不再需要的端点并更新那些已经变化的端点。

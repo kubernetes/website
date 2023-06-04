@@ -189,7 +189,7 @@ These components form the _control plane_. | These components form the **control
 可以 | 不可以
 :--| :-----
 每个 _集群_  是一组节点 ... | 每个“集群”是一组节点 ...
-这些组件构成了 _控制面_。 | 这些组件构成了 **控制面**。
+这些组件构成了 _控制平面_。 | 这些组件构成了 **控制平面**。
 {{< /table >}}
 
 {{< note >}}

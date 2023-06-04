@@ -119,7 +119,7 @@ Pod 可以用三种方式之一来使用 Secret：
 - 作为[容器的环境变量](#using-secrets-as-environment-variables)。
 - 由 [kubelet 在为 Pod 拉取镜像时使用](#using-imagepullsecrets)。
 
-Kubernetes 控制面也使用 Secret；
+Kubernetes 控制平面也使用 Secret；
 例如，[引导令牌 Secret](#bootstrap-token-secrets)
 是一种帮助自动化节点注册的机制。
 

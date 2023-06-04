@@ -557,7 +557,7 @@ The control plane still checks that [storage class](/docs/concepts/storage/stora
 access modes, and requested storage size are valid.
 -->
 绑定操作不会考虑某些卷匹配条件是否满足，包括节点亲和性等等。
-控制面仍然会检查[存储类](/zh-cn/docs/concepts/storage/storage-classes/)、
+控制平面仍然会检查[存储类](/zh-cn/docs/concepts/storage/storage-classes/)、
 访问模式和所请求的存储尺寸都是合法的。
 
 ```yaml

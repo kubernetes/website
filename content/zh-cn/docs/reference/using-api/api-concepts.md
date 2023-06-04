@@ -1213,7 +1213,7 @@ Kubernetes 总是校验字段的类型。例如，如果 API 中的某个字段�
 If you make a request with an extra field, one that the cluster's control plane
 does not recognize, then the behavior of the API server is more complicated.
 -->
-如果请求中带有集群控制面无法识别的额外字段，API 服务器的行为会更加复杂。
+如果请求中带有集群控制平面无法识别的额外字段，API 服务器的行为会更加复杂。
 
 <!--
 By default, the API server drops fields that it does not recognize

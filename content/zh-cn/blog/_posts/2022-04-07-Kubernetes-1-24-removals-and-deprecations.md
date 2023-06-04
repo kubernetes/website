@@ -174,7 +174,7 @@ been deprecated. These removals have been superseded by newer, stable/generally 
 <!--
 * [The `master` label is no longer present on kubeadm control plane nodes](https://github.com/kubernetes/kubernetes/pull/107533). For new clusters, the label 'node-role.kubernetes.io/master' will no longer be added to control plane nodes, only the label 'node-role.kubernetes.io/control-plane' will be added. For more information, refer to [KEP-2067: Rename the kubeadm "master" label and taint](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cluster-lifecycle/kubeadm/2067-rename-master-label-taint).
 -->
-* [kubeadm 控制面节点上不再存在 `master` 标签](https://github.com/kubernetes/kubernetes/pull/107533)。
+* [kubeadm 控制平面节点上不再存在 `master` 标签](https://github.com/kubernetes/kubernetes/pull/107533)。
   对于新集群，控制平面节点将不再添加 'node-role.kubernetes.io/master' 标签，
   只会添加 'node-role.kubernetes.io/control-plane' 标签。更多信息请参考
   [KEP-2067：重命名 kubeadm “master” 标签和污点](https://github.com/kubernetes/enhancements/tree/master/keps/sig-cluster-lifecycle/kubeadm/2067-rename-master-label-taint)。

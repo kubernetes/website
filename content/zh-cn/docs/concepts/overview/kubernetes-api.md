@@ -35,7 +35,7 @@ external components communicate with one another.
 The Kubernetes API lets you query and manipulate the state of API objects in Kubernetes
 (for example: Pods, Namespaces, ConfigMaps, and Events).
 -->
-Kubernetes {{< glossary_tooltip text="控制面" term_id="control-plane" >}}的核心是
+Kubernetes {{< glossary_tooltip text="控制平面" term_id="control-plane" >}}的核心是
 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}。
 API 服务器负责提供 HTTP API，以供用户、集群中的不同部分和集群外部组件相互通信。
 

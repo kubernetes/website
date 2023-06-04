@@ -91,7 +91,7 @@ _See [Stacked etcd topology](/docs/setup/production-environment/tools/kubeadm/ha
 需要准备：
 
 - 配置满足 [kubeadm 的最低要求](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#准备开始)
-  的三台机器作为控制面节点。控制平面节点为奇数有利于机器故障或者分区故障时重新选举。
+  的三台机器作为控制平面节点。控制平面节点为奇数有利于机器故障或者分区故障时重新选举。
   - 机器已经安装好{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}，并正常运行
 - 配置满足 [kubeadm 的最低要求](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#准备开始)
   的三台机器作为工作节点
@@ -131,7 +131,7 @@ You need:
 需要准备：
 
 - 配置满足 [kubeadm 的最低要求](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#准备开始)
-  的三台机器作为控制面节点。控制平面节点为奇数有利于机器故障或者分区故障时重新选举。
+  的三台机器作为控制平面节点。控制平面节点为奇数有利于机器故障或者分区故障时重新选举。
   - 机器已经安装好{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}，并正常运行
 - 配置满足 [kubeadm 的最低要求](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#准备开始)
   的三台机器作为工作节点
@@ -453,7 +453,7 @@ You can join multiple control-plane nodes in parallel.
    - `--certificate-key ...` 将导致从集群中的 `kubeadm-certs` Secret
      下载控制平面证书并使用给定的密钥进行解密。
 
-你可以并行地加入多个控制面节点。
+你可以并行地加入多个控制平面节点。
 <!--
 ## External etcd nodes
 

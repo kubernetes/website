@@ -194,7 +194,7 @@ set the `.spec.ipFamilyPolicy` field to one of the following values:
   * Selects the `.spec.ClusterIP` from the list of `.spec.ClusterIPs` based on the address family
     of the first element in the `.spec.ipFamilies` array.
 -->
-* `SingleStack`：单栈服务。控制面使用第一个配置的服务集群 IP 范围为服务分配集群 IP。
+* `SingleStack`：单栈服务。控制平面使用第一个配置的服务集群 IP 范围为服务分配集群 IP。
 * `PreferDualStack`：
   * 为服务分配 IPv4 和 IPv6 集群 IP 地址。
 * `RequireDualStack`：从 IPv4 和 IPv6 的地址范围分配服务的 `.spec.ClusterIPs`
@@ -292,7 +292,7 @@ These examples demonstrate the behavior of various dual-stack Service configurat
    字段 `.spec.ClusterIPs` 是主要字段，包含两个分配的 IP 地址；`.spec.ClusterIP` 是次要字段，
    其取值从 `.spec.ClusterIPs` 计算而来。
 
-   * 对于 `.spec.ClusterIP` 字段，控制面记录来自第一个服务集群 IP 范围
+   * 对于 `.spec.ClusterIP` 字段，控制平面记录来自第一个服务集群 IP 范围
      对应的地址族的 IP 地址。
    * 对于单协议栈的集群，`.spec.ClusterIPs` 和 `.spec.ClusterIP` 字段都
      仅仅列出一个地址。
@@ -334,7 +334,7 @@ dual-stack.)
    `.spec.ipFamilies` to the address family of the existing Service. The existing Service cluster IP
    will be stored in `.spec.ClusterIPs`.
 -->
-1. 在集群上启用双栈时，控制面会将现有服务（无论是 `IPv4` 还是 `IPv6`）配置
+1. 在集群上启用双栈时，控制平面会将现有服务（无论是 `IPv4` 还是 `IPv6`）配置
    `.spec.ipFamilyPolicy` 为 `SingleStack` 并设置 `.spec.ipFamilies`
    为服务的当前地址族。
 
@@ -384,7 +384,7 @@ dual-stack.)
 -->
 2. 在集群上启用双栈时，带有选择算符的现有
    [无头服务](/zh-cn/docs/concepts/services-networking/service/#headless-services)
-   由控制面设置 `.spec.ipFamilyPolicy` 为 `SingleStack`
+   由控制平面设置 `.spec.ipFamilyPolicy` 为 `SingleStack`
    并设置 `.spec.ipFamilies` 为第一个服务集群 IP 范围的地址族（通过配置 kube-apiserver 的
    `--service-cluster-ip-range` 参数），即使 `.spec.ClusterIP` 的设置值为 `None` 也如此。
 

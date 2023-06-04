@@ -29,7 +29,7 @@ spec:
                   "--logtostderr=true",
                   "--ca-cert=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt",
                   # 由于 konnectivity 服务器以 hostNetwork=true 运行，
-                  # 所以这是控制面节点的 IP 地址。
+                  # 所以这是控制平面节点的 IP 地址。
                   "--proxy-server-host=35.225.206.7",
                   "--proxy-server-port=8132",
                   "--admin-server-port=8133",

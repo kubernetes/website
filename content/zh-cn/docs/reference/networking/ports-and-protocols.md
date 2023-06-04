@@ -33,17 +33,17 @@ used by Kubernetes components
 Although etcd ports are included in control plane section, you can also host your own
 etcd cluster externally or on custom ports. 
 -->
-## 控制面  {#control-plane}
+## 控制平面  {#control-plane}
 
 | 协议     | 方向      | 端口范围     | 目的                     | 使用者                     |
 |----------|-----------|------------|-------------------------|---------------------------|
 | TCP      | 入站       | 6443       | Kubernetes API server   | 所有                       |
 | TCP      | 入站       | 2379-2380  | etcd server client API  | kube-apiserver, etcd      |
-| TCP      | 入站       | 10250      | Kubelet API             | 自身, 控制面                |
+| TCP      | 入站       | 10250      | Kubelet API             | 自身, 控制平面                |
 | TCP      | 入站       | 10259      | kube-scheduler          | 自身                       |
 | TCP      | 入站       | 10257      | kube-controller-manager | 自身                       |
 
-尽管 etcd 的端口也列举在控制面的部分，但你也可以在外部自己托管 etcd 集群或者自定义端口。
+尽管 etcd 的端口也列举在控制平面的部分，但你也可以在外部自己托管 etcd 集群或者自定义端口。
 
 <!--
 ## Worker node(s) {#node}
@@ -67,7 +67,7 @@ on the default port.
 
 | 协议     | 方向      | 端口范围     | 目的                     | 使用者                  |
 |----------|-----------|-------------|-----------------------|-------------------------|
-| TCP      | 入站       | 10250       | Kubelet API           | 自身, 控制面             |
+| TCP      | 入站       | 10250       | Kubelet API           | 自身, 控制平面             |
 | TCP      | 入站       | 30000-32767 | NodePort Services†    | 所有                    |
 
 † [NodePort Services](/zh-cn/docs/concepts/services-networking/service/)的默认端口范围。

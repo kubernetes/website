@@ -197,7 +197,7 @@ kubeadm renews all the certificates during control plane
 ## 自动更新证书 {#automatic-certificate-renewal}
 
 kubeadm
-会在控制面[升级](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)的时候更新所有证书。
+会在控制平面[升级](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/)的时候更新所有证书。
 
 <!--
 This feature is designed for addressing the simplest use cases;
@@ -259,7 +259,7 @@ the Pod and the certificate renewal for the component can complete.
 -->
 此命令用 CA（或者 front-proxy-CA ）证书和存储在 `/etc/kubernetes/pki` 中的密钥执行更新。
 
-执行完此命令之后你需要重启控制面 Pod。因为动态证书重载目前还不被所有组件和证书支持，所有这项操作是必须的。
+执行完此命令之后你需要重启控制平面 Pod。因为动态证书重载目前还不被所有组件和证书支持，所有这项操作是必须的。
 [静态 Pod](/zh-cn/docs/tasks/configure-pod-container/static-pod/) 是被本地 kubelet
 而不是 API 服务器管理，所以 kubectl 不能用来删除或重启他们。
 要重启静态 Pod 你可以临时将清单文件从 `/etc/kubernetes/manifests/` 移除并等待 20 秒
@@ -272,7 +272,7 @@ the Pod and the certificate renewal for the component can complete.
 <!--
 If you are running an HA cluster, this command needs to be executed on all the control-plane nodes.
 -->
-如果你运行了一个 HA 集群，这个命令需要在所有控制面板节点上执行。
+如果你运行了一个 HA 集群，这个命令需要在所有控制平面板节点上执行。
 {{< /warning >}}
 
 {{< note >}}

@@ -34,7 +34,7 @@ Kubernetes 通过将容器放入在节点（Node）上运行的 Pod
 中来执行你的{{< glossary_tooltip text="工作负载" term_id="workload" >}}。
 节点可以是一个虚拟机或者物理机器，取决于所在的集群配置。
 每个节点包含运行 {{< glossary_tooltip text="Pod" term_id="pod" >}} 所需的服务；
-这些节点由{{< glossary_tooltip text="控制面" term_id="control-plane" >}}负责管理。
+这些节点由{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}负责管理。
 
 通常集群中会有若干个节点；而在一个学习所用或者资源受限的环境中，你的集群中也可能只有一个节点。
 
@@ -60,11 +60,11 @@ valid. For example, if you try to create a Node from the following JSON manifest
 
 向 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}添加节点的方式主要有两种：
 
-1. 节点上的 `kubelet` 向控制面执行自注册；
+1. 节点上的 `kubelet` 向控制平面执行自注册；
 2. 你（或者别的什么人）手动添加一个 Node 对象。
 
 在你创建了 Node {{< glossary_tooltip text="对象" term_id="object" >}}或者节点上的
-`kubelet` 执行了自注册操作之后，控制面会检查新的 Node 对象是否合法。
+`kubelet` 执行了自注册操作之后，控制平面会检查新的 Node 对象是否合法。
 例如，如果你尝试使用下面的 JSON 对象来创建 Node 对象：
 
 ```json
@@ -414,7 +414,7 @@ remains `Unknown` or `False` for longer than the kube-controller-manager's `Node
 which defaults to 40 seconds. This will cause either an `node.kubernetes.io/unreachable` taint, for an `Unknown` status,
 or a `node.kubernetes.io/not-ready` taint, for a `False` status, to be added to the Node.
 -->
-当节点上出现问题时，Kubernetes 控制面会自动创建与影响节点的状况对应的
+当节点上出现问题时，Kubernetes 控制平面会自动创建与影响节点的状况对应的
 [污点](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)。
 例如当 Ready 状况的 `status` 保持 `Unknown` 或 `False` 的时间长于
 kube-controller-manager 的 `NodeMonitorGracePeriod`（默认为 40 秒）时，
@@ -548,7 +548,7 @@ CIDR block to the node when it is registered (if CIDR assignment is turned on).
 -->
 ## 节点控制器  {#node-controller}
 
-节点{{< glossary_tooltip text="控制器" term_id="controller" >}}是 Kubernetes 控制面组件，
+节点{{< glossary_tooltip text="控制器" term_id="controller" >}}是 Kubernetes 控制平面组件，
 管理节点的方方面面。
 
 节点控制器在节点的生命周期中扮演多个角色。
@@ -636,7 +636,7 @@ connected. If your cluster does not span multiple cloud provider availability zo
 then the eviction mechanism does not take per-zone unavailability into account.
 -->
 在逐个可用区域中实施这些策略的原因是，
-当一个可用区域可能从控制面脱离时其它可用区域可能仍然保持连接。
+当一个可用区域可能从控制平面脱离时其它可用区域可能仍然保持连接。
 如果你的集群没有跨越云服务商的多个可用区域，那（整个集群）就只有一个可用区域。
 
 <!--
@@ -655,7 +655,7 @@ evict pods from the remaining nodes that are unhealthy or unreachable).
 因此，如果一个可用区域中的所有节点都不健康时，节点控制器会以正常的速率
 `--node-eviction-rate` 进行驱逐操作。
 在所有的可用区域都不健康（也即集群中没有健康节点）的极端情况下，
-节点控制器将假设控制面与节点间的连接出了某些问题，它将停止所有驱逐动作
+节点控制器将假设控制平面与节点间的连接出了某些问题，它将停止所有驱逐动作
 （如果故障后部分节点重新连接，节点控制器会从剩下不健康或者不可达节点中驱逐 Pod）。
 
 <!--

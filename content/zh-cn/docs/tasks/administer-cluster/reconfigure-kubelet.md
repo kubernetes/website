@@ -87,6 +87,6 @@ satisfying the [Kubernetes version skew policy](/releases/version-skew-policy/).
 -->
 请注意，从 v1.24 开始 `DynamicKubeletConfig` 特性门控无法在 kubelet 上设置，
 因为不会生效。在 v1.26 之前 API 服务器和控制器管理器不会移除该特性门控。
-这是专为控制面支持有旧版本 kubelet 的节点以及满足
+这是专为控制平面支持有旧版本 kubelet 的节点以及满足
 [Kubernetes 版本偏差策略](/zh-cn/releases/version-skew-policy/)。
 

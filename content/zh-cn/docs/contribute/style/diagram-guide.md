@@ -871,10 +871,10 @@ Code block:
 %%{init:{"theme":"neutral"}}%%
 sequenceDiagram
     actor me
-    participant apiSrv as 控制面<br><br>api-server
-    participant etcd as 控制面<br><br>etcd 数据存储
-    participant cntrlMgr as 控制面<br><br>控制器管理器
-    participant sched as 控制面<br><br>调度器
+    participant apiSrv as 控制平面<br><br>api-server
+    participant etcd as 控制平面<br><br>etcd 数据存储
+    participant cntrlMgr as 控制平面<br><br>控制器管理器
+    participant sched as 控制平面<br><br>调度器
     participant kubelet as 节点<br><br>kubelet
     participant container as 节点<br><br>容器运行时
     me->>apiSrv: 1. kubectl create -f pod.yaml
@@ -1141,7 +1141,7 @@ The control plane ...
 ```
 -->
 ```text
-图 10 展示的是 Kubernetes 体系结构。其控制面 ...
+图 10 展示的是 Kubernetes 体系结构。其控制平面 ...
 ```
 
 <!--

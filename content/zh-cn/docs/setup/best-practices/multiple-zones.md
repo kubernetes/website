@@ -51,9 +51,9 @@ All [control plane components](/docs/concepts/overview/components/#control-plane
 support running as a pool of interchangeable resources, replicated per
 component.
 -->
-## 控制面行为   {#control-plane-behavior}
+## 控制平面行为   {#control-plane-behavior}
 
-所有的[控制面组件](/zh-cn/docs/concepts/overview/components/#control-plane-components)
+所有的[控制平面组件](/zh-cn/docs/concepts/overview/components/#control-plane-components)
 都支持以一组可相互替换的资源池的形式来运行，每个组件都有多个副本。
 
 <!--
@@ -65,9 +65,9 @@ cluster controller manager) across at least three failure zones.
 If you are running a cloud controller manager then you should
 also replicate this across all the failure zones you selected.
 -->
-当你部署集群控制面时，应将控制面组件的副本跨多个失效区来部署。
+当你部署集群控制平面时，应将控制平面组件的副本跨多个失效区来部署。
 如果可用性是一个很重要的指标，应该选择至少三个失效区，并将每个
-控制面组件（API 服务器、调度器、etcd、控制器管理器）复制多个副本，
+控制平面组件（API 服务器、调度器、etcd、控制器管理器）复制多个副本，
 跨至少三个失效区来部署。如果你在运行云控制器管理器，则也应该将
 该组件跨所选的三个失效区来部署。
 

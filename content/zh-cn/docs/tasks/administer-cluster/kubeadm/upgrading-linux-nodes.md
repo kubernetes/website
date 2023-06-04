@@ -26,7 +26,7 @@ cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade). You will want 
 upgrade the control plane nodes before upgrading your Linux Worker nodes.
 -->
 * 你自己要熟悉[升级剩余 kubeadm 集群的过程](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade)。
-  你需要先升级控制面节点，再升级 Linux 工作节点。
+  你需要先升级控制平面节点，再升级 Linux 工作节点。
 
 <!-- steps -->
 

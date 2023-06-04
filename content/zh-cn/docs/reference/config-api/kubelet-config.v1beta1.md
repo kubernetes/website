@@ -541,7 +541,7 @@ constant, it must work with nodeMonitorGracePeriod in nodecontroller.
 Default: &quot;10s&quot;
    -->
    <p><code>nodeStatusUpdateFrequency</code>是 kubelet 计算节点状态的频率。
-如果未启用节点租约特性，这一字段设置的也是 kubelet 向控制面投递节点状态的频率。</p>
+如果未启用节点租约特性，这一字段设置的也是 kubelet 向控制平面投递节点状态的频率。</p>
    <p>注意：如果节点租约特性未被启用，更改此参数设置时要非常小心，
 所设置的参数值必须与节点控制器的<code>nodeMonitorGracePeriod</code>协同。</p>
    <p>默认值：&quot;10s&quot;</p>
@@ -562,7 +562,7 @@ nodeStatusUpdateFrequency for backward compatibility.
 Default: &quot;5m&quot;
    -->
    <p><code>nodeStatusReportFrequency</code>是节点状态未发生变化时，kubelet
-向控制面更新节点状态的频率。如果节点状态发生变化，则 kubelet 会忽略这一频率设置，
+向控制平面更新节点状态的频率。如果节点状态发生变化，则 kubelet 会忽略这一频率设置，
 立即更新节点状态。</p>
    <p>此字段仅当启用了节点租约特性时才被使用。<code>nodeStatusReportFrequency</code>
 的默认值是&quot;5m&quot;。不过，如果<code>nodeStatusUpdateFrequency</code>
@@ -940,7 +940,7 @@ In cluster mode, this is obtained from the control plane.
 Default: &quot;&quot;
    -->
    <p><code>podCIDR</code>是用来设置 Pod IP 地址的 CIDR 值，仅用于独立部署模式。
-运行于集群模式时，这一数值会从控制面获得。</p>
+运行于集群模式时，这一数值会从控制平面获得。</p>
    <p>默认值：&quot;&quot;</p>
 </td>
 </tr>

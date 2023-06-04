@@ -245,7 +245,7 @@ components by adding customized setting or overriding kubeadm default settings.<
 </li>
 <li>
 <p><code>kube-apiserver</code>、<code>kube-scheduler</code>、<code>kube-controller-manager</code>
-配置：这些部分可以通过添加定制的设置或者重载 kubeadm 的默认设置来定制控制面组件。</p>
+配置：这些部分可以通过添加定制的设置或者重载 kubeadm 的默认设置来定制控制平面组件。</p>
 </li>
 </ul>
 
@@ -488,7 +488,7 @@ node only (e.g. the node ip).</p>
    <!--
    <p><code>kubernetesVersion</code> is the target version of the control plane.</p>
    -->
-   <p><code>kubernetesVersion</code> 设置控制面的目标版本。</p>
+   <p><code>kubernetesVersion</code> 设置控制平面的目标版本。</p>
 </td>
 </tr>
 <tr><td><code>controlPlaneEndpoint</code><br/>
@@ -503,7 +503,7 @@ are used; in case the <code>controlPlaneEndpoint</code> is specified but without
 the <code>bindPort</code> is used.
 Possible usages are:</p>
    -->
-   <p><code>controlPlaneEndpoint</code> 为控制面设置一个稳定的 IP 地址或 DNS 名称。
+   <p><code>controlPlaneEndpoint</code> 为控制平面设置一个稳定的 IP 地址或 DNS 名称。
 取值可以是一个合法的 IP 地址或者 RFC-1123 形式的 DNS 子域名，二者均可以带一个
 可选的 TCP 端口号。
 如果 <code>controlPlaneEndpoint</code> 未设置，则使用 <code>advertiseAddress<code>
@@ -521,10 +521,10 @@ be used for assigning a stable DNS to the control plane.</li>
 </ul>
 -->
 <ul>
-  <li>在一个包含不止一个控制面实例的集群中，该字段应该设置为放置在控制面
+  <li>在一个包含不止一个控制平面实例的集群中，该字段应该设置为放置在控制平面
 实例之前的外部负载均衡器的地址。</li>
   <li>在带有强制性节点回收的环境中，<code>controlPlaneEndpoint</code> 可以用来
-为控制面设置一个稳定的 DNS。</li>
+为控制平面设置一个稳定的 DNS。</li>
 </ul>
 </td>
 </tr>
@@ -592,7 +592,7 @@ and for kube-proxy, while <code>registry.k8s.io</code> will be used for all the 
    <p><code>imageRepository</code> 设置用来拉取镜像的容器仓库。
 如果此字段为空，默认使用 <code>registry.k8s.io</code>。
 当 Kubernetes 用来执行 CI 构造时（Kubernetes 版本以 <code>ci/</code> 开头），
-将默认使用 <code>gcr.io/k8s-staging-ci-images</code> 来拉取控制面组件镜像，
+将默认使用 <code>gcr.io/k8s-staging-ci-images</code> 来拉取控制平面组件镜像，
 而使用 <code>registry.k8s.io</code> 来拉取所有其他镜像。</p>
 </td>
 </tr>
@@ -663,7 +663,7 @@ This information IS NOT uploaded to the kubeadm cluster configmap, partly becaus
    <p><code>nodeRegistration</code> holds fields that relate to registering the new control-plane node
 to the cluster.</p>
    -->
-   <p><code>nodeRegistration</code> 中包含与向集群中注册新的控制面节点相关的字段。</p>
+   <p><code>nodeRegistration</code> 中包含与向集群中注册新的控制平面节点相关的字段。</p>
 </td>
 </tr>
 <tr><td><code>localAPIEndpoint</code><br/>
@@ -679,7 +679,7 @@ This configuration object lets you customize what IP/DNS name and port the local
 advertises it's accessible on. By default, kubeadm tries to auto-detect the IP of the default
 interface and use that, but in case that process fails you may set the desired value here.</p>
    -->
-   <p><code>localAPIEndpoint</code> 所代表的的是在此控制面节点上要部署的 API 服务器
+   <p><code>localAPIEndpoint</code> 所代表的的是在此控制平面节点上要部署的 API 服务器
 的端点。在高可用（HA）配置中，此字段与 <code>ClusterConfiguration.controlPlaneEndpoint</code>
 的取值不同：后者代表的是整个集群的全局端点，该端点上的请求会被负载均衡到每个
 API 服务器。
@@ -754,7 +754,7 @@ JoinConfiguration 包含描述特定节点的元素。
    <code>nodeRegistration</code> holds fields that relate to registering the new
 control-plane node to the cluster.
    -->
-   <code>nodeRegistration</code> 包含与向集群注册控制面节点相关的字段。
+   <code>nodeRegistration</code> 包含与向集群注册控制平面节点相关的字段。
 </p>
 </td>
 </tr>
@@ -769,7 +769,7 @@ comunications between a node and the control-plane.
 Defaults to &quot;/etc/kubernetes/pki/ca.crt&quot;.
    -->
    <code>caCertPath</code> 是指向 SSL 证书机构的路径，该证书包用来加密
-节点与控制面之间的通信。默认值为 &quot;/etc/kubernetes/pki/ca.crt&quot;。
+节点与控制平面之间的通信。默认值为 &quot;/etc/kubernetes/pki/ca.crt&quot;。
 </p>
 </td>
 </tr>
@@ -796,7 +796,7 @@ bootstrap process.
 on the joining node. If nil, no additional control plane instance will be deployed.
    -->
    <code>controlPlane</code> 定义要在正被加入到集群中的节点上部署的额外
-控制面实例。此字段为 null 时，不会再上面部署额外的控制面实例。
+控制平面实例。此字段为 null 时，不会再上面部署额外的控制平面实例。
 </p>
 </td>
 </tr>
@@ -969,7 +969,7 @@ BootstrapTokenDiscovery 用来设置基于引导令牌的服务发现选项。
    <!--
    <code>token</code> is a token used to validate cluster information fetched from the control-plane.
    -->
-   <code>token</code> 用来验证从控制面获得的集群信息。
+   <code>token</code> 用来验证从控制平面获得的集群信息。
 </p>
 </td>
 </tr>
@@ -1022,7 +1022,7 @@ impersonate the control-plane.
    -->
    <code>unsafeSkipCAVerification</code> 允许在使用基于令牌的服务发现时
 不使用 <code>caCertHashes</code> 来执行 CA 验证。这会弱化 kubeadm 的安全性，
-因为其他节点可以伪装成控制面。
+因为其他节点可以伪装成控制平面。
 </p>
 </td>
 </tr>
@@ -1042,7 +1042,7 @@ impersonate the control-plane.
 <!--
 ControlPlaneComponent holds settings common to control plane component of the cluster
 -->
-<p>ControlPlaneComponent 中包含对集群中所有控制面组件都适用的设置。</p>
+<p>ControlPlaneComponent 中包含对集群中所有控制平面组件都适用的设置。</p>
 
 <table class="table">
 <thead><tr><th width="30%"><!--Field-->字段</th><th><!--Description-->描述</th></tr></thead>
@@ -1058,7 +1058,7 @@ ControlPlaneComponent holds settings common to control plane component of the cl
 A key in this map is the flag name as it appears on the command line except
 without leading dash(es).
    -->
-   <code>extraArgs</code> 是要传递给控制面组件的一组额外的参数标志。
+   <code>extraArgs</code> 是要传递给控制平面组件的一组额外的参数标志。
 此映射中的每个键对应命令行上使用的标志名称，只是没有其引导连字符。
 </p>
 </td>
@@ -1071,7 +1071,7 @@ without leading dash(es).
    <!--
    <code>extraVolumes</code> is an extra set of host volumes, mounted to the control plane component.
    -->
-   <code>extraVolumes</code> 是一组额外的主机卷，需要挂载到控制面组件中。
+   <code>extraVolumes</code> 是一组额外的主机卷，需要挂载到控制平面组件中。
 </p>
 </td>
 </tr>
@@ -1483,7 +1483,7 @@ the above components during upgrades.
 JoinControlPlane contains elements describing an additional control plane instance
 to be deployed on the joining node.
 -->
-<p>JoinControlPlane 包含在正在加入集群的节点上要部署的额外的控制面组件的
+<p>JoinControlPlane 包含在正在加入集群的节点上要部署的额外的控制平面组件的
 设置。</p>
 
 <table class="table">
@@ -1511,7 +1511,7 @@ deployed on this node.
 they are downloaded from the secret upon joining a new control plane node.
 The corresponding encryption key is in the InitConfiguration.
    -->
-   <p><code>certificateKey</code> 是在添加新的控制面节点时用来解密所下载的
+   <p><code>certificateKey</code> 是在添加新的控制平面节点时用来解密所下载的
 Secret 中的证书的秘钥。对应的加密秘钥在 InitConfiguration 结构中。</p>
 </td>
 </tr>
@@ -1670,7 +1670,7 @@ Networking contains elements describing cluster's networking configuration
 NodeRegistrationOptions holds fields that relate to registering a new control-plane or
 node to the cluster, either via &quot;kubeadm init&quot; or &quot;kubeadm join&quot;
 -->
-<p>NodeRegistrationOptions 包含向集群中注册新的控制面或节点所需要的信息；
+<p>NodeRegistrationOptions 包含向集群中注册新的控制平面或节点所需要的信息；
 节点注册可能通过 &quot;kubeadm init&quot; 或 &quot;kubeadm join&quot; 完成。</p>
 
 <table class="table">
@@ -1852,7 +1852,7 @@ BootstrapToken describes one bootstrap token, stored as a Secret in the cluster
    <code>token</code> is used for establishing bidirectional trust between nodes and control-planes.
 Used for joining nodes in the cluster.
    -->
-   <p><code>token</code> 用来在节点与控制面之间建立双向的信任关系。
+   <p><code>token</code> 用来在节点与控制平面之间建立双向的信任关系。
 在向集群中添加节点时使用。</p>
 </td>
 </tr>

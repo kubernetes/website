@@ -47,7 +47,7 @@ Configurations with a single API server will experience unavailability while the
 -->
 确保备份你的证书目录、配置文件以及其他必要文件。
 
-这里的方法假定 Kubernetes 的控制面通过运行多个 API 服务器以高可用配置模式运行。
+这里的方法假定 Kubernetes 的控制平面通过运行多个 API 服务器以高可用配置模式运行。
 另一假定是 API 服务器可体面地终止，因而客户端可以彻底地与一个 API 服务器断开
 连接并连接到另一个 API 服务器。
 
@@ -59,7 +59,7 @@ Configurations with a single API server will experience unavailability while the
    and `front-proxy-ca.key`) to all your control plane nodes in the Kubernetes certificates directory.
 -->
 1. 将新的 CA 证书和私钥（例如：`ca.crt`、`ca.key`、`front-proxy-ca.crt` 和
-   `front-proxy-client.key`）分发到所有控制面节点，放在其 Kubernetes 证书目录下。
+   `front-proxy-client.key`）分发到所有控制平面节点，放在其 Kubernetes 证书目录下。
 
 <!--
 1. Update the `--root-ca-file` flag for the {{< glossary_tooltip term_id="kube-controller-manager" >}} to include
@@ -213,7 +213,7 @@ If any Pods are started before new CA is used by API servers, the new Pods get t
       -->
       * 重启 {{< glossary_tooltip term_id="kube-scheduler" text="kube-scheduler" >}} 以使用并信任新的
         CA 证书。
-      * 确保控制面组件的日志中没有 TLS 相关的错误信息。
+      * 确保控制平面组件的日志中没有 TLS 相关的错误信息。
 
       {{< note >}}
       <!--
@@ -281,7 +281,7 @@ If any Pods are started before new CA is used by API servers, the new Pods get t
 -->
 11. 验证集群的功能正常。
 
-    1. 检查控制面组件以及 `kubelet` 和 `kube-proxy` 的日志，确保其中没有抛出 TLS 错误，
+    1. 检查控制平面组件以及 `kubelet` 和 `kube-proxy` 的日志，确保其中没有抛出 TLS 错误，
        参阅[查看日志](/zh-cn/docs/tasks/debug/debug-cluster/#looking-at-logs)。
 
     2. 验证被聚合的 API 服务器的日志，以及所有使用集群内配置的 Pod 的日志。
@@ -310,7 +310,7 @@ If any Pods are started before new CA is used by API servers, the new Pods get t
          数据，这样就不会有 Pod 再依赖老的集群 CA。
 
     1. 从 kubeconfig 文件和 `--client-ca-file` 以及 `--root-ca-file` 标志所指向的文件
-       中去除老的 CA 数据，之后重启控制面组件。
+       中去除老的 CA 数据，之后重启控制平面组件。
 
     1. 在每个节点上，移除 `clientCAFile` 标志所指向的文件，以删除老的 CA 数据，并从
        kubelet kubeconfig 文件中去掉老的 CA，重启 kubelet。
