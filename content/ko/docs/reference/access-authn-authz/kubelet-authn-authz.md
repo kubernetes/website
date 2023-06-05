@@ -1,7 +1,7 @@
 ---
 # reviewers:
 # - liggitt
-title: Kubelet 인증/인가
+title: kubelet 인증/인가
 ---
 
 
@@ -12,7 +12,7 @@ kubelet의 HTTPS 엔드포인트는 다양한 민감도의 데이터에 대한 �
 
 이 문서는 kubelet의 HTTPS 엔드포인트에 대한 접근을 인증하고 인가하는 방법을 설명한다.
 
-## Kubelet 인증
+## kubelet 인증
 
 기본적으로, 다른 구성의 인증 방법에 의해 거부되지 않은 kubelet의 HTTPS 엔드포인트에 대한 요청은
 익명의 요청으로 처리되며, `system:anonymous`의 사용자 이름과 `system:unauthenticated`
@@ -34,7 +34,7 @@ API bearer 토큰(서비스 계정 토큰 포함)을 kubelet의 HTTPS 엔드포�
 * `--authentication-token-webhook` 및 `--kubeconfig` 플래그로 kubelet을 시작
 * kubelet은 구성된 API 서버의 `TokenReview` API를 호출하여 bearer 토큰에서 사용자 정보를 결정
 
-## Kubelet 승인
+## kubelet 승인
 
 성공적으로 인증된 모든 요청(익명 요청 포함)이 승인된다. 기본 인가 모드는 모든 요청을 허용하는 `AlwaysAllow` 이다.
 
@@ -64,7 +64,7 @@ DELETE    | delete
 
 리소스 및 하위 리소스는 들어오는 요청의 경로로부터 결정된다.
 
-Kubelet API  | 리소스 | 하위 리소스
+kubelet API  | 리소스 | 하위 리소스
 -------------|----------|------------
 /stats/\*     | nodes    | stats
 /metrics/\*   | nodes    | metrics
