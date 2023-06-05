@@ -22,27 +22,27 @@ feature:
 <!-- overview -->
 
 <!--
-When you specify a {{< glossary_tooltip term_id="pod" >}}, you can optionally specify how
-much of each resource a {{< glossary_tooltip text="container" term_id="container" >}} needs.
-The most common resources to specify are CPU and memory (RAM); there are others.
+When you specify a {{< glossary_tooltip term_id="pod" >}}, you can optionally specify how much of each resource a 
+{{< glossary_tooltip text="container" term_id="container" >}} needs. The most common resources to specify are CPU and memory 
+(RAM); there are others.
 
 When you specify the resource _request_ for containers in a Pod, the
-{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} uses this
-information to decide which node to place the Pod on. When you specify a resource _limit_
-for a container, the kubelet enforces those limits so that the running container is not
-allowed to use more of that resource than the limit you set. The kubelet also reserves
-at least the _request_ amount of that system resource specifically for that container
-to use.
+{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} uses this information to decide which node to place the Pod on. 
+When you specify a resource _limit_ for a container, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} enforces those 
+limits so that the running container is not allowed to use more of that resource 
+than the limit you set. The kubelet also reserves at least the _request_ amount of 
+that system resource specifically for that container to use.
 -->
 当你定义 {{< glossary_tooltip text="Pod" term_id="pod" >}} 时可以选择性地为每个
 {{< glossary_tooltip text="容器" term_id="container" >}}设定所需要的资源数量。
 最常见的可设定资源是 CPU 和内存（RAM）大小；此外还有其他类型的资源。
 
-当你为 Pod 中的 Container 指定了资源 __请求__ 时，
+当你为 Pod 中的 Container 指定了资源 **request（请求）**时，
 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
 就利用该信息决定将 Pod 调度到哪个节点上。
-当你还为 Container 指定了资源 __限制__ 时，kubelet 就可以确保运行的容器不会使用超出所设限制的资源。
-kubelet 还会为容器预留所 __请求__ 数量的系统资源，供其使用。
+当你为 Container 指定了资源 **limit（限制）**时，{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
+就可以确保运行的容器不会使用超出所设限制的资源。
+kubelet 还会为容器预留所 **request（请求）**数量的系统资源，供其使用。
 
 <!-- body -->
 
