@@ -41,9 +41,9 @@ node-2       Ready    v1.16.15   docker://19.3.1
 node-3       Ready    v1.16.15   docker://19.3.1
 ```
 If your runtime shows as Docker Engine, you still might not be affected by the
-removal of dockershim in Kubernetes v1.24. [Check the runtime
-endpoint](#which-endpoint) to see if you use dockershim. If you don't use
-dockershim, you aren't affected. 
+removal of dockershim in Kubernetes v1.24.
+[Check the runtime endpoint](#which-endpoint) to see if you use dockershim.
+If you don't use dockershim, you aren't affected. 
 
 For containerd, the output is similar to this:
 
