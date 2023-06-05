@@ -33,10 +33,10 @@ card:
 
     Чтобы загрузить определенную версию, вставьте в фрагмент команды `$(curl -LS https://dl.k8s.io/release/stable.txt)` нужную версию.
 
-    Например, команда загрузки версии {{< param "fullversion" >}} для Linux будет выглядеть следующим образом:
+    Например, команда загрузки версии {{< skew currentPatchVersion >}} для Linux будет выглядеть следующим образом:
 
     ```
-    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
     ```
 
 2. Сделайте двоичный файл kubectl исполняемым:
@@ -113,10 +113,10 @@ kubectl version
 
     Чтобы загрузить определенную версию, вставьте в фрагмент команды `$(curl -LS https://dl.k8s.io/release/stable.txt)` нужную версию.
 
-    Например, команда загрузки версии {{< param "fullversion" >}} для macOS будет выглядеть следующим образом:
+    Например, команда загрузки версии {{< skew currentPatchVersion >}} для macOS будет выглядеть следующим образом:
 
     ```
-    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/amd64/kubectl
     ```
 
 2. Сделайте двоичный файл kubectl исполняемым:
@@ -180,12 +180,12 @@ kubectl version
 
 ### Установка двоичного файла kubectl с помощью curl в Windows
 
-1. Загрузите последнюю версию {{< param "fullversion" >}} по [этой ссылке](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
+1. Загрузите последнюю версию {{< skew currentPatchVersion >}} по [этой ссылке](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe).
 
     Либо, если у вас установлен `curl`, выполните команду ниже:
 
     ```
-    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe
     ```
 
     Последнюю стабильную версию (например, при написании скриптов) вы можете узнать из файла по ссылке [https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt).
