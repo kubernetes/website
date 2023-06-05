@@ -107,6 +107,19 @@ matching hard affinity to the incoming pod.
    要对现存的、带有与新 Pod 匹配的硬性亲和性设置的 Pod 计算亲和性得分。</p>
 </td>
 </tr>
+<tr><td>
+<code>ignorePreferredTermsOfExistingPods</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <!--
+   IgnorePreferredTermsOfExistingPods configures the scheduler to ignore existing pods' preferred affinity
+   rules when scoring candidate nodes, unless the incoming pod has inter-pod affinities.
+   -->
+   <p>IgnorePreferredTermsOfExistingPods 配置调度器在为候选节点评分时，
+   忽略现有 Pod 的优选亲和性规则，除非传入的 Pod 有 Pod 间的亲和性。</p>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -292,7 +305,7 @@ NodeAffinityArgs holds arguments to configure the NodeAffinity plugin.
 <tr><td><code>kind</code><br/>string</td><td><code>NodeAffinityArgs</code></td></tr>
   
 <tr><td><code>addedAffinity</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
 </td>
 <td>
    <!--
@@ -412,7 +425,7 @@ PodTopologySpreadArgs holds arguments used to configure the PodTopologySpread pl
 <tr><td><code>kind</code><br/>string</td><td><code>PodTopologySpreadArgs</code></td></tr>
   
 <tr><td><code>defaultConstraints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
 </td>
 <td>
    <!--
@@ -1559,10 +1572,10 @@ client.</p>
 </td>
 <td>
    <!--
-   <p>enableContentionProfiling enables lock contention profiling, if
+   <p>enableContentionProfiling enables block profiling, if
 enableProfiling is true.</p>
    -->
-   <p>此字段在 <code>enableProfiling</code> 为 true 时允许执行锁竞争分析。</p>
+   <p>此字段在 <code>enableProfiling</code> 为 true 时启用阻塞分析。</p>
 </td>
 </tr>
 </tbody>
