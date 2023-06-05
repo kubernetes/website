@@ -1,7 +1,7 @@
 ---
 reviewers:
 - liggitt
-title: Kubelet authentication/authorization
+title: kubelet authentication/authorization
 weight: 110
 ---
 
@@ -13,7 +13,7 @@ and allow you to perform operations with varying levels of power on the node and
 
 This document describes how to authenticate and authorize access to the kubelet's HTTPS endpoint.
 
-## Kubelet authentication
+## kubelet authentication
 
 By default, requests to the kubelet's HTTPS endpoint that are not rejected by other configured
 authentication methods are treated as anonymous requests, and given a username of `system:anonymous`
@@ -35,7 +35,7 @@ To enable API bearer tokens (including service account tokens) to be used to aut
 * start the kubelet with the `--authentication-token-webhook` and `--kubeconfig` flags
 * the kubelet calls the `TokenReview` API on the configured API server to determine user information from bearer tokens
 
-## Kubelet authorization
+## kubelet authorization
 
 Any request that is successfully authenticated (including an anonymous request) is then authorized. The default authorization mode is `AlwaysAllow`, which allows all requests.
 
@@ -65,7 +65,7 @@ DELETE    | delete
 
 The resource and subresource is determined from the incoming request's path:
 
-Kubelet API  | resource | subresource
+kubelet API  | resource | subresource
 -------------|----------|------------
 /stats/\*     | nodes    | stats
 /metrics/\*   | nodes    | metrics
