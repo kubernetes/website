@@ -316,14 +316,14 @@ Defaults:
     cacheTTL: &quot;2m&quot;
    -->
    <p><code>authorization</code>设置发送给 kubelet 服务器的请求是如何进行身份认证的。</p>
-  <p>默认值：</p>
-  <pre><code>
-  anonymous:
-    enabled: false
-  webhook:
-    enabled: true
-    cacheTTL: &quot;2m&quot;
-  </code></pre>
+   <p>默认值：</p>
+<p><code><pre>
+anonymous:
+  enabled: false
+webhook:
+  enabled: true
+cacheTTL: &quot;2m&quot;
+</pre></code></p>
 </td>
 </tr>
 
@@ -736,11 +736,11 @@ Default: &quot;cgroupfs&quot;
 <td>
    <!--cpuManagerPolicy is the name of the policy to use.
 Requires the CPUManager feature gate to be enabled.
-Default: &quot;None&quot;
+Default: &quot;none&quot;
    -->
    <p><code>cpuManagerPolicy</code>是要使用的策略名称。需要启用<code>CPUManager</code>
 特性门控。</p>
-   <p>默认值：&quot;None&quot;</p>
+   <p>默认值：&quot;none&quot;</p>
 </td>
 </tr>
 
@@ -765,12 +765,9 @@ Default: nil
 </td>
 <td>
    <!--cpuManagerReconcilePeriod is the reconciliation period for the CPU Manager.
-Requires the CPUManager feature gate to be enabled.
 Default: &quot;10s&quot;
    -->
-   <p><code>cpuManagerReconcilePeriod</code>是 CPU 管理器的协调周期时长。
-需要启用<code>CPUManager</code>特性门控。</p>
-   <p>默认值：&quot;10s&quot;</p>
+   <p><code>cpuManagerReconcilePeriod</code>是 CPU 管理器的协调周期时长。默认值：&quot;10s&quot;</p>
 </td>
 </tr>
 
@@ -1556,16 +1553,16 @@ Default: [&quot;pods&quot;]
 <code>[]string</code>
 </td>
 <td>
-   <!--A comma separated whitelist of unsafe sysctls or sysctl patterns (ending in <code>*</code>).
-Unsafe sysctl groups are <code>kernel.shm*</code>, <code>kernel.msg*</code>, <code>kernel.sem</code>, <code>fs.mqueue.*</code>,
-and <code>net.*</code>. For example: &quot;<code>kernel.msg*,net.ipv4.route.min_pmtu</code>&quot;
+   <!--A comma separated whitelist of unsafe sysctls or sysctl patterns (ending in <code>&#42;</code>).
+Unsafe sysctl groups are <code>kernel.shm&#42;</code>, <code>kernel.msg&#42;</code>, <code>kernel.sem</code>, <code>fs.mqueue.&#42;</code>,
+and <code>net.&#42;</code>. For example: &quot;<code>kernel.msg&#42;,net.ipv4.route.min_pmtu</code>&quot;
 Default: []
   -->
-   <p>用逗号分隔的白名单列表，其中包含不安全的 sysctl 或 sysctl 模式（以<code>&lowast;</code>结尾）。
+   <p>用逗号分隔的白名单列表，其中包含不安全的 sysctl 或 sysctl 模式（以<code>&#42;</code>结尾）。
 </p>
-   <p>不安全的 sysctl 组有 <code>kernel.shm&lowast;</code>、<code>kernel.msg&lowast;</code>、
-<code>kernel.sem</code>、<code>fs.mqueue.&lowast;</code> 和<code>net.&lowast;</code>。</p>
-   <p>例如：&quot;<code>kernel.msg&lowast;,net.ipv4.route.min\_pmtu</code>&quot;</p>
+   <p>不安全的 sysctl 组有 <code>kernel.shm&#42;</code>、<code>kernel.msg&#42;</code>、
+<code>kernel.sem</code>、<code>fs.mqueue.&#42;</code> 和<code>net.&#42;</code>。</p>
+   <p>例如：&quot;<code>kernel.msg&#42;,net.ipv4.route.min\_pmtu</code>&quot;</p>
    <p>默认值：[]</p>
 </td>
 </tr>
@@ -2014,15 +2011,15 @@ and URL path.
 <!--
 Each entry in matchImages is a pattern which can optionally contain a port and a path.
 Globs can be used in the domain, but not in the port or the path. Globs are supported
-as subdomains like '<em>.k8s.io' or 'k8s.</em>.io', and top-level-domains such as 'k8s.<em>'.
-Matching partial subdomains like 'app</em>.k8s.io' is also supported. Each glob can only match
-a single subdomain segment, so *.io does not match *.k8s.io.
+as subdomains like <code>&ast;.k8s.io</code> or <code>k8s.&ast;.io</code>, and top-level-domains such as <code>k8s.&ast;</code>.
+Matching partial subdomains like <code>app&ast;.k8s.io</code> is also supported. Each glob can only match
+a single subdomain segment, so <code>&ast;.io</code> does not match <code>&ast;.k8s.io</code>.
 -->
 <p><code>matchImages</code> 中的每个条目都是一个模式字符串，其中可以包含端口号和路径。
 域名部分可以包含统配符，但端口或路径部分不可以。通配符可以用作子域名，例如
-'*.k8s.io' 或 'k8s.*.io'，以及顶级域名，如 'k8s.*'。</p>
-<p>对类似 'app*.k8s.io' 这类部分子域名的匹配也是支持的。
-每个通配符只能用来匹配一个子域名段，所以 '*.io' 不会匹配 '*.k8s.io'。</p>
+<code>&ast;.k8s.io</code> 或 <code>k8s.&ast;.io</code>，以及顶级域名，如 <code>k8s.&ast;</code>。</p>
+<p>对类似 <code>app&ast;.k8s.io</code> 这类部分子域名的匹配也是支持的。
+每个通配符只能用来匹配一个子域名段，所以 <code>&ast;.io</code> 不会匹配 <code>&ast;.k8s.io</code>。</p>
 <!--
 A match exists between an image and a matchImage when all of the below are true:
 -->
@@ -2043,9 +2040,9 @@ Example values of matchImages:
 <p><code>matchImages</code> 的一些示例如下：</p>
 <ul>
 <li>123456789.dkr.ecr.us-east-1.amazonaws.com</li>
-<li>*.azurecr.io</li>
+<li>&ast;.azurecr.io</li>
 <li>gcr.io</li>
-<li><em>.</em>.registry.io</li>
+<li>&ast;.&ast;.registry.io</li>
 <li>registry.io:8080/path</li>
 </ul>
 </td>
