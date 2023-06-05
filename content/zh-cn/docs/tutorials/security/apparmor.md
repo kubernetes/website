@@ -193,12 +193,10 @@ gke-test-default-pool-239f5d02-xwux: kubelet is posting ready status. AppArmor e
 {{< note >}}
 <!--
 AppArmor is currently in beta, so options are specified as annotations. Once support graduates to
-general availability, the annotations will be replaced with first-class fields (more details in
-[Upgrade path to GA](#upgrade-path-to-general-availability)).
+general availability, the annotations will be replaced with first-class fields.
 -->
 AppArmor 目前处于 Beta 阶段，因此选项以注解形式设定。
-一旦 AppArmor 支持进入正式发布阶段，注解将被替换为一阶的资源字段
-（更多详情参见[升级到 GA 的途径](#upgrade-path-to-general-availability)）。
+一旦 AppArmor 支持进入正式发布阶段，注解将被替换为一阶的资源字段。
 {{< /note >}}
 
 <!--
