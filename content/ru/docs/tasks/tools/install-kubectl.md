@@ -30,10 +30,10 @@ card:
 
     Для установки конкретной версии замените эту часть команды `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` на команду с выбранной версией.
 
-    Например, для установки версии {{< param "fullversion" >}} на Linux введите:
+    Например, для установки версии {{< skew currentPatchVersion >}} на Linux введите:
     
     ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
     ```
 
 2. Сделайте бинарный файл kubectl исполняемым.
@@ -107,10 +107,10 @@ kubectl version
 
     Для установки конкретной версии замените эту часть команды `$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)` на команду с выбранной версией.
 
-    Например, для установки версии {{< param "fullversion" >}} на macOS введите:
+    Например, для установки версии {{< skew currentPatchVersion >}} на macOS введите:
 		  
     ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/v{{< skew currentPatchVersion >}}/bin/darwin/amd64/kubectl
     ```
 
 2. Сделайте бинарный файл kubectl исполняемым.
@@ -172,12 +172,12 @@ kubectl version
 
 ### Установка бинарного файла kubectl с использованием curl на Windows
 
-1. Загрузите последний релиз {{< param "fullversion" >}} по [этой ссылке](https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
+1. Загрузите последний релиз {{< skew currentPatchVersion >}} по [этой ссылке](https://storage.googleapis.com/kubernetes-release/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe).
 
     Или, если у вас установлена утилита `curl`, воспользуйтесь командой:
 
     ```
-    curl -LO https://storage.googleapis.com/kubernetes-release/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe
     ```
 
     Чтобы определить последнюю стабильную версию (например, для написания скриптов), обратитесь к [https://storage.googleapis.com/kubernetes-release/release/stable.txt](https://storage.googleapis.com/kubernetes-release/release/stable.txt)..
