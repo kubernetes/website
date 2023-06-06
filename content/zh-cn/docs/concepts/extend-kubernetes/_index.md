@@ -546,6 +546,33 @@ allow Kubernetes to work with different networking topologies and technologies.
 Kubernetes 使用不同的网络拓扑和技术。
 
 <!--
+### Kubelet image credential provider plugins
+
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
+Kubelet image credential providers are plugins for the kubelet to dynamically retrieve image registry
+credentials. The credentials are then used when pulling images from container image registries that
+match the configuration.
+
+The plugins can communicate with external services or use local files to obtain credentials. This way,
+the kubelet does not need to have static credentials for each registry, and can support various
+authentication methods and protocols.
+
+For plugin configuration details, see
+[Configure a kubelet image credential provider](/docs/tasks/administer-cluster/kubelet-credential-provider/).
+-->
+### Kubelet 镜像凭据提供程序插件   {#kubelet-image-credential-provider-plugins}
+
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
+Kubelet 镜像凭据提供程序是 Kubelet 动态检索镜像仓库凭据的插件。
+当你从与配置匹配的容器镜像仓库中拉取镜像时，这些凭据将被使用。
+
+这些插件可以与外部服务通信或使用本地文件来获取凭据。这样，kubelet
+就不需要为每个仓库都设置静态凭据，并且可以支持各种身份验证方法和协议。
+
+有关插件配置的详细信息，请参阅
+[配置 kubelet 镜像凭据提供程序](/zh-cn/docs/tasks/administer-cluster/kubelet-credential-provider/)。
+
+<!--
 ## Scheduling extensions
 
 The scheduler is a special type of controller that watches pods, and assigns
