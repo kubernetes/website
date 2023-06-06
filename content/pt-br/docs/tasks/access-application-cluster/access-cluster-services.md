@@ -15,18 +15,18 @@ Esta página mostra como se conectar aos serviços em execução no cluster Kube
 
 ## Acessando serviços em execução no cluster
 
-No Kubernetes, [nós](/pt-br/docs/concepts/architecture/nodes/), [Pods](/docs/concepts/workloads/pods/) e [serviços](/docs/concepts/services-networking/service/) têm todos seus próprios IPs. Em muitos casos, os IPs dos nós, dos Pods e alguns dos IPs de serviço em um cluster não serão
+No Kubernetes, todos [nós](/pt-br/docs/concepts/architecture/nodes/), [Pods](/docs/concepts/workloads/pods/) e [serviços](/docs/concepts/services-networking/service/) têm seus próprios IPs. Em muitos casos, os IPs dos nós, dos Pods e alguns dos IPs de serviço em um cluster não serão
 roteáveis, portanto, não estarão acessíveis a partir de uma máquina fora do cluster, como seu computador.
 
 ### Maneiras de se conectar
 
-Você tem várias opções para se conectar a nós, pods e serviços de fora do cluster:
+Você tem várias opções para se conectar a nós, Pods e serviços de fora do cluster:
 
   - Acesse serviços através de IPs públicos.
     - Use um serviço com tipo `NodePort` ou `LoadBalancer` para tornar o serviço acessível fora do cluster. Consulte a documentação de [serviços](/docs/concepts/services-networking/service/) e
 [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands/#expose).
     - Dependendo do ambiente do cluster, isso pode expor o serviço apenas para a rede corporativa, ou pode expô-lo para a Internet. Pense se o serviço que está sendo exposto é seguro. Ele faz sua própria autenticação?
-    - Coloque Pods atrás de serviços. Para acessar um Pod específico de um conjunto de réplicas, como para depurar, coloque um rótulo exclusivo no Pod e crie um novo serviço que selecione este rótulo.
+    - Coloque Pods atrás de serviços. Para acessar um Pod específico de um conjunto de réplicas, como para depurar, coloque uma label exclusiva no Pod e crie um novo serviço que selecione esta label.
     - Na maioria dos casos, não deve ser necessário para o desenvolvedor de aplicativos acessar diretamente nós através de seus endereços IP.
   - Acesse serviços, nós ou Pods usando o Verbo Proxy.
     - Faz autenticação e autorização do servidor de API antes de acessar o serviço remoto. Use isto se os serviços não forem seguros o suficiente para expor à Internet, ou para obter acesso a portas no IP do nó, ou para depuração.
@@ -35,7 +35,7 @@ Você tem várias opções para se conectar a nós, pods e serviços de fora do 
     - Descrito [aqui](#manually-constructing-apiserver-proxy-urls).
   - Acesse a partir de um nó ou Pod no cluster.
     - Execute um Pod e, em seguida, conecte-se a um shell nele usando [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands/#exec). Conecte-se a outros nós, Pods e serviços a partir desse shell.
-    - Alguns clusters podem permitir que você faça ssh para um nó no cluster. De lá, você pode conseguir acessar os serviços do cluster. Este é um método não padrão e funcionará em alguns clusters, mas não em outros. Navegadores e outras ferramentas podem ou não estar instalados. O DNS do cluster pode não funcionar.
+    - Alguns clusters podem permitir que você faça ssh para um nó no cluster. De lá, você pode conseguir acessar os serviços do cluster. Este é um método que não é padrão e funcionará em alguns clusters, mas não em outros. Navegadores e outras ferramentas podem ou não estar instalados. O DNS do cluster pode não funcionar.
 
 ### Descobrindo serviços integrados
 
@@ -121,4 +121,4 @@ Os formatos suportados para o segmento `<nome_do_serviço>` da URL são:
 Você pode conseguir de colocar um URL de proxy do servidor da API na barra de endereço de um navegador. No entanto:
 
   - Os navegadores da web geralmente não podem passar tokens, portanto, você pode precisar usar autenticação básica (senha). O servidor da API pode ser configurado para aceitar autenticação básica, mas o seu cluster pode não estar configurado para aceitar autenticação básica.
-  - Alguns aplicativos da web podem não funcionar, principalmente aqueles com javascript do lado do cliente que constroem URLs com um mecanismo que não está ciente do prefixo do caminho do proxy.
+  - Algumas aplicações da web podem não funcionar, principalmente aqueles com javascript do lado do cliente que constroem URLs com um mecanismo que não está ciente do prefixo do caminho do proxy.
