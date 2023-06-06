@@ -37,7 +37,7 @@ Volumes não podem ser montados dentro de outros volumes (mas você pode consult
 
 Kubernetes suporta vários tipos de volumes.
 
-### awsElasticBlockStore {#awselasticblockstore}
+### awsElasticBlockStore (descontinuado) {#awselasticblockstore}
 
 Um volume `awsElasticBlockStore` monta um [volume EBS](https://aws.amazon.com/ebs/) da Amazon Web Services (AWS) em seu pod. Ao contrário do `emptyDir`que é apagado quando um pod é removido, o conteúdo de um volume EBS é preservado e o volume é desmontado. Isto significa que um volume EBS pode ser previamente populado com dados e que os dados podem ser compartilhados entre Pods.
 
@@ -97,7 +97,7 @@ Quando o recurso `CSIMigration` para `awsElasticBlockStore` está habilitado, to
 
 Para desabilitar o carregamento do plugin de armazenamento `awsElasticBlockStore` pelo gerenciador de controladores e pelo kubelet, defina a flag `InTreePluginAWSUnregister` como `true`.
 
-### azureDisk {#azuredisk}
+### azureDisk (descontinuado) {#azuredisk}
 
 O tipo de volume `azureDisk` monta um [Disco de Dados](https://docs.microsoft.com/en-us/azure/aks/csi-storage-drivers) Microsoft Azure em um pod.
 
@@ -115,7 +115,7 @@ Quando o recurso `CSIMigration` para `azureDisk` está habilitado, todas as oper
 
 Para desabilitar o carregamento do plugin de armazenamento `azureDisk` pelo gerenciador de controladores e pelo kubelet, defina a flag `InTreePluginAzureDiskUnregister` como `true`.
 
-### azureFile {#azurefile}
+### azureFile (descontinuado) {#azurefile}
 
 O tipo de volume `azureFile` monta um volume de arquivo Microsoft Azure (SMB 2.1 e 3.0) em um pod.
 
@@ -143,7 +143,7 @@ Um volume `cephfs` permite que um volume CephFS existente seja montado no seu Po
 
 Consulte o [ exemplo CephFS](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/) para mais detalhes.
 
-### cinder
+### cinder (descontinuado)
 
 {{< note >}} O Kubernetes deve ser configurado com o provedor de nuvem OpenStack. {{< /note >}}
 
@@ -275,7 +275,7 @@ Um volume `flocker` permite que um conjunto de dados Flocker seja montado em um 
 
 Consulte [exemplo do Flocker](https://github.com/kubernetes/examples/tree/master/staging/volumes/flocker) para obter mais detalhes.
 
-### gcePersistentDisk
+### gcePersistentDisk (descontinuado)
 
 Um volume `gcePersistentDisk` monta um [disco persistente](https://cloud.google.com/compute/docs/disks) (PD) do Google Compute Engine (GCE) no seu Pod. Ao contrário do `emptyDir` que é apagado quando um pod é removido, o conteúdo de um PD é preservado e o volume é simplesmente desmontado. Isto significa que um PD pode ser previamente populado com dados e que os dados podem ser compartilhados entre os Pods.
 
@@ -400,7 +400,7 @@ spec:
       revision: "22f1d8406d464b0c0874075539c1f2e96c253775"
 ```
 
-### glusterfs
+### glusterfs (removido)
 
 Um volume `glusterfs` permite que um volume [Glusterfs](https://www.gluster.org) (um sistema de arquivos em rede de código aberto) seja montado no seu Pod. Ao contrário do `emptyDir` que é apagado quando um Pod é removido, o conteúdo de um volume `glusterfs` é preservado e o volume é simplesmente desmontado. Isto significa que um volume glusterfs pode ser previamente populado com dados e que os dados podem ser compartilhados entre Pods. O GlusterFS pode ser montado para escrita por vários pods simultaneamente.
 
@@ -567,7 +567,7 @@ Um volume `persistentVolumeClaim` é usado para montar um [PersistentVolume](/pt
 
 Consulte as informações sobre [PersistentVolumes](/pt-br/docs/concepts/storage/persistent-volumes/) para obter mais detalhes.
 
-### portworxVolume {#portworxvolume}
+### portworxVolume (descontinuado) {#portworxvolume}
 
 Um `portworxVolume` é uma camada de armazenamento em bloco extensível que funciona hiperconvergente com Kubernetes. O [Portworx](https://portworx.com/use-case/kubernetes-storage/) tira as impressões digitais de um armazenamento em um servidor, organiza com base nas capacidades e agrega capacidade em múltiplos servidores. Portworx funciona em máquinas virtuais ou em nós Linux bare-metal.
 
@@ -687,7 +687,7 @@ spec:
 
 Para obter mais informações sobre StorageOS, provisionamento dinâmico e PersistentVolumeClaims, consulte os [exemplos do StorageOS](https://github.com/kubernetes/examples/blob/master/volumes/storageos).
 
-### vsphereVolume {#vspherevolume}
+### vsphereVolume (descontinuado) {#vspherevolume}
 
 {{< note >}} Você deve configurar o Kubernetes vSphere Cloud Provider. Para obter informações sobre a configuração do cloudprovider, consulte o [Guia Introdutório do vSphere](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/). {{< /note >}}
 
@@ -918,7 +918,7 @@ As operações e características que são suportadas incluem: provisionamento/e
 
 Plugins in-tree que suportam `CSIMigration` e têm um driver CSI correspondente implementado são listados [em tipos de volumes](#volume-types).
 
-### flexVolume
+### flexVolume (descontinuado)
 
 {{< feature-state for_k8s_version="v1.23" state="deprecated" >}}
 
