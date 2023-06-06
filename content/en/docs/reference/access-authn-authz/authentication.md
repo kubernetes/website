@@ -2,7 +2,6 @@
 reviewers:
 - erictune
 - lavalamp
-- ericchiang
 - deads2k
 - liggitt
 title: Authenticating

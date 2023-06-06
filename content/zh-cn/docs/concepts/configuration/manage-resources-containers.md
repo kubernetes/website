@@ -22,27 +22,27 @@ feature:
 <!-- overview -->
 
 <!--
-When you specify a {{< glossary_tooltip term_id="pod" >}}, you can optionally specify how
-much of each resource a {{< glossary_tooltip text="container" term_id="container" >}} needs.
-The most common resources to specify are CPU and memory (RAM); there are others.
+When you specify a {{< glossary_tooltip term_id="pod" >}}, you can optionally specify how much of each resource a 
+{{< glossary_tooltip text="container" term_id="container" >}} needs. The most common resources to specify are CPU and memory 
+(RAM); there are others.
 
 When you specify the resource _request_ for containers in a Pod, the
-{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} uses this
-information to decide which node to place the Pod on. When you specify a resource _limit_
-for a container, the kubelet enforces those limits so that the running container is not
-allowed to use more of that resource than the limit you set. The kubelet also reserves
-at least the _request_ amount of that system resource specifically for that container
-to use.
+{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} uses this information to decide which node to place the Pod on. 
+When you specify a resource _limit_ for a container, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} enforces those 
+limits so that the running container is not allowed to use more of that resource 
+than the limit you set. The kubelet also reserves at least the _request_ amount of 
+that system resource specifically for that container to use.
 -->
 当你定义 {{< glossary_tooltip text="Pod" term_id="pod" >}} 时可以选择性地为每个
 {{< glossary_tooltip text="容器" term_id="container" >}}设定所需要的资源数量。
 最常见的可设定资源是 CPU 和内存（RAM）大小；此外还有其他类型的资源。
 
-当你为 Pod 中的 Container 指定了资源 __请求__ 时，
+当你为 Pod 中的 Container 指定了资源 **request（请求）**时，
 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}
 就利用该信息决定将 Pod 调度到哪个节点上。
-当你还为 Container 指定了资源 __限制__ 时，kubelet 就可以确保运行的容器不会使用超出所设限制的资源。
-kubelet 还会为容器预留所 __请求__ 数量的系统资源，供其使用。
+当你为 Container 指定了资源 **limit（限制）**时，{{< glossary_tooltip text="kubelet" term_id="kubelet" >}}
+就可以确保运行的容器不会使用超出所设限制的资源。
+kubelet 还会为容器预留所 **request（请求）**数量的系统资源，供其使用。
 
 <!-- body -->
 
@@ -405,7 +405,7 @@ see the [Troubleshooting](#troubleshooting) section.
 ### Monitoring compute & memory resource usage
 
 The kubelet reports the resource usage of a Pod as part of the Pod
-[`status`](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status).
+[`status`](/docs/concepts/overview/working-with-objects/#object-spec-and-status).
 
 If optional [tools for monitoring](/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)
 are available in your cluster, then Pod resource usage can be retrieved either
@@ -415,7 +415,7 @@ directly or from your monitoring tools.
 ### 监控计算和内存资源用量  {#monitoring-compute-memory-resource-usage}
 
 kubelet 会将 Pod 的资源使用情况作为 Pod
-[`status`](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)
+[`status`](/zh-cn/docs/concepts/overview/working-with-objects/#object-spec-and-status)
 的一部分来报告的。
 
 如果为集群配置了可选的[监控工具](/zh-cn/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)，
@@ -457,7 +457,7 @@ If a node fails, the data in its ephemeral storage can be lost.
 Your applications cannot expect any performance SLAs (disk IOPS for example)
 from local ephemeral storage.
 
-As a beta feature, Kubernetes lets you track, reserve and limit the amount
+Kubernetes lets you track, reserve and limit the amount
 of ephemeral local storage a Pod can consume.
 -->
 
@@ -469,7 +469,7 @@ kubelet 也使用此类存储来保存[节点层面的容器日志](/zh-cn/docs/
 你的应用不能对本地临时性存储的性能 SLA（例如磁盘 IOPS）作任何假定。
 {{< /caution >}}
 
-作为一种 beta 阶段功能特性，Kubernetes 允许你跟踪、预留和限制 Pod
+Kubernetes 允许你跟踪、预留和限制 Pod
 可消耗的临时性本地存储数量。
 
 <!--
@@ -566,7 +566,6 @@ ephemeral storage.
 If you have a different configuration, then the kubelet does not apply resource
 limits for ephemeral local storage.
 -->
-
 kubelet 能够度量其本地存储的用量。
 实现度量机制的前提是你已使用本地临时存储所支持的配置之一对节点进行配置。
 

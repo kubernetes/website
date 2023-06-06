@@ -103,27 +103,45 @@ nor should they need to keep track of the set of backends themselves.
 ## 代理模式 {#proxy-modes}
 
 <!--
-Note that the kube-proxy starts up in different modes, which are determined by its configuration.
+The kube-proxy starts up in different modes, which are determined by its configuration.
 
-- The kube-proxy's configuration is done via a ConfigMap, and the ConfigMap for
-  kube-proxy effectively deprecates the behavior for almost all of the flags for
-  the kube-proxy.
-- The ConfigMap for the kube-proxy does not support live reloading of configuration.
-- The ConfigMap parameters for the kube-proxy cannot all be validated and verified on startup.
-  For example, if your operating system doesn't allow you to run iptables commands,
-  the standard kernel kube-proxy implementation will not work.
+On Linux nodes, the available modes for kube-proxy are:
+
+[`iptables`](#proxy-mode-iptables)
+: A mode where the kube-proxy configures packet forwarding rules using iptables, on Linux.
+
+[`ipvs`](#proxy-mode-ipvs)
+: a mode where the kube-proxy configures packet forwarding rules using ipvs.
 -->
-注意，kube-proxy 会根据不同配置以不同的模式启动。
+kube-proxy 会根据不同配置以不同的模式启动。
 
-- kube-proxy 的配置是通过 ConfigMap 完成的，kube-proxy 的 ConfigMap 实际上弃用了 kube-proxy 大部分标志的行为。
-- kube-proxy 的 ConfigMap 不支持配置的实时重新加载。
-- kube-proxy 不能在启动时验证和检查所有的 ConfigMap 参数。
-  例如，如果你的操作系统不允许你运行 iptables 命令，标准的 kube-proxy 内核实现将无法工作。
+在 Linux 节点上，kube-proxy 的可用模式是：
+
+[`iptables`](#proxy-mode-iptables)
+: kube-proxy 在 Linux 上使用 iptables 配置数据包转发规则的一种模式。
+
+[`ipvs`](#proxy-mode-ipvs)
+: kube-proxy 使用 ipvs 配置数据包转发规则的一种模式。
+
+<!--
+There is only one mode available for kube-proxy on Windows:
+
+[`kernelspace`](#proxy-mode-kernelspace)
+: a mode where the kube-proxy configures packet forwarding rules in the Windows kernel
+-->
+Windows 上的 kube-proxy 只有一种模式可用：
+
+[`kernelspace`](#proxy-mode-kernelspace)
+: kube-proxy 在 Windows 内核中配置数据包转发规则的一种模式。
 
 <!--
 ### `iptables` proxy mode {#proxy-mode-iptables}
+
+_This proxy mode is only available on Linux nodes._
 -->
 ### `iptables` 代理模式 {#proxy-mode-iptables}
+
+**此代理模式仅适用于 Linux 节点。**
 
 <!--
 In this mode, kube-proxy watches the Kubernetes
@@ -370,8 +388,12 @@ and is likely to hurt functionality more than it improves performance.
 
 <!--
 ### IPVS proxy mode {#proxy-mode-ipvs}
+
+_This proxy mode is only available on Linux nodes._
 -->
 ### IPVS 代理模式 {#proxy-mode-ipvs}
+
+**此代理模式仅适用于 Linux 节点。**
 
 <!--
 In `ipvs` mode, kube-proxy watches Kubernetes Services and EndpointSlices,
@@ -441,6 +463,67 @@ falls back to running in iptables proxy mode.
 {{< figure src="/images/docs/services-ipvs-overview.svg" title="Virtual IP address mechanism for Services, using IPVS mode" class="diagram-medium" >}}
 -->
 {{< figure src="/images/docs/services-ipvs-overview.svg" title="IPVS 模式下 Service 的虚拟 IP 地址机制" class="diagram-medium" >}}
+
+<!--
+### `kernelspace` proxy mode {#proxy-mode-kernelspace}
+
+_This proxy mode is only available on Windows nodes._
+-->
+### `kernelspace` 代理模式   {#proxy-mode-kernelspace}
+
+**此代理模式仅适用于 Windows 节点。**
+
+<!--
+The kube-proxy configures packet filtering rules in the Windows _Virtual Filtering Platform_ (VFP),
+an extension to Windows vSwitch. These rules process encapsulated packets within the node-level
+virtual networks, and rewrite packets so that the destination IP address (and layer 2 information)
+is correct for getting the packet routed to the correct destination.
+The Windows VFP is analogous to tools such as Linux `nftables` or `iptables`. The Windows VFP extends
+the _Hyper-V Switch_, which was initially implemented to support virtual machine networking.
+-->
+kube-proxy 在 Windows **虚拟过滤平台** (VFP)（Windows vSwitch 的扩展）中配置数据包过滤规则。
+这些规则处理节点级虚拟网络中的封装数据包，并重写数据包，使目标 IP 地址（和第 2 层信息）正确，
+以便将数据包路由到正确的目的地。Windows VFP 类似于 Linux `nftables` 或 `iptables` 等工具。
+Windows VFP 是最初为支持虚拟机网络而实现的 **Hyper-V Switch** 的扩展。
+
+<!--
+When a Pod on a node sends traffic to a virtual IP address, and the kube-proxy selects a Pod on
+a different node as the load balancing target, the `kernelspace` proxy mode rewrites that packet
+to be destined to the target backend Pod. The Windows _Host Networking Service_ (HNS) ensures that
+packet rewriting rules are configured so that the return traffic appears to come from the virtual
+IP address and not the specific backend Pod.
+-->
+当节点上的 Pod 将流量发送到某虚拟 IP 地址，且 kube-proxy 选择不同节点上的 Pod
+作为负载均衡目标时，`kernelspace` 代理模式会重写该数据包以将其发送到对应目标后端 Pod。
+Windows 主机网络服务（HSN）会配置数据包重写规则，确保返回流量看起来来自虚拟 IP 地址，
+而不是特定的后端 Pod。
+
+<!--
+#### Direct server return for `kernelspace` mode {#windows-direct-server-return}
+-->
+#### `kernelspace` 模式的 Direct Server Return（DSR）    {#windows-direct-server-return}
+
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+<!--
+As an alternative to the basic operation, a node that hosts the backend Pod for a Service can
+apply the packet rewriting directly, rather than placing this burden on the node where the client
+Pod is running. This is called _direct server return_.
+-->
+作为基本操作的替代方案，托管服务后端 Pod 的节点可以直接应用数据包重写，
+而不用将此工作交给运行客户端 Pod 的节点来执行。这称为**Direct Server Return（DSR）**。
+
+<!--
+To use this, you must run kube-proxy with the `--enable-dsr` command line argument **and**
+enable the `WinDSR` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+
+Direct server return also optimizes the case for Pod return traffic even when both Pods
+are running on the same node.
+-->
+要使用这种技术，你必须使用 `--enable-dsr` 命令行参数运行 kube-proxy **并**启用
+`WinDSR` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+
+即使两个 Pod 在同一节点上运行，Direct Server Return（DSR）也可优化 Pod 的返回流量。
 
 <!--
 ## Session affinity
@@ -622,7 +705,7 @@ NAME              PARENTREF
 -->
 #### Service 虚拟 IP 地址的地址段 {#service-ip-static-sub-range}
 
-{{< feature-state for_k8s_version="v1.25" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 <!--
 Kubernetes divides the `ClusterIP` range into two bands, based on
@@ -672,7 +755,7 @@ to control how Kubernetes routes traffic to healthy (“ready”) backends.
 -->
 ### 内部流量策略 {#internal-traffic-policy}
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 <!--
 You can set the `.spec.internalTrafficPolicy` field to control how traffic from

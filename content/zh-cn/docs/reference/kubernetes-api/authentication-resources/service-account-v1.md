@@ -4,7 +4,7 @@ api_metadata:
   import: "k8s.io/api/core/v1"
   kind: "ServiceAccount"
 content_type: "api_reference"
-description: "ServiceAccount 将以下内容绑定在一起：1. 用户可以理解的名称，也可能是外围系统理解的身份标识 2. 可以验证和授权的主体 3. 一组 secret。"
+description: "ServiceAccount 将以下内容绑定在一起：1. 用户可以理解的名称，也可能是外围系统理解的身份标识 2. 可以验证和授权的主体 3. 一组 Secret。"
 title: "ServiceAccount"
 weight: 1
 auto_generated: true
@@ -46,7 +46,7 @@ ServiceAccount binds together: * a name, understood by users, and perhaps by per
 ServiceAccount 将以下内容绑定在一起：
 * 用户可以理解的名称，也可能是外围系统理解的身份标识
 * 可以验证和授权的主体
-* 一组 secret
+* 一组 Secret
 
 <hr>
 
@@ -68,8 +68,8 @@ ServiceAccount 将以下内容绑定在一起：
   <!--
   AutomountServiceAccountToken indicates whether pods running as this service account should have an API token automatically mounted. Can be overridden at the pod level.
   -->
-  AutomountServiceAccountToken 指示作为此服务帐户运行的 pod 是否应自动挂载 API 令牌，
-  可以在 pod 级别覆盖。
+  AutomountServiceAccountToken 指示作为此服务帐户运行的 Pod 是否应自动挂载 API 令牌，
+  可以在 Pod 级别覆盖。
 
 - **imagePullSecrets** ([]<a href="{{< ref "../common-definitions/local-object-reference#LocalObjectReference" >}}">LocalObjectReference</a>)
 
@@ -94,11 +94,11 @@ ServiceAccount 将以下内容绑定在一起：
   -->
   **补丁策略：基于键 `name` 合并**
 
-  Secrets 是允许使用此 ServiceAccount 运行的 pod 使用的同一命名空间中的秘密列表。
+  Secrets 是允许使用此 ServiceAccount 运行的 Pod 使用的同一命名空间中的秘密列表。
   仅当此服务帐户的 “kubernetes.io/enforce-mountable-secrets” 注释设置为 “true” 时，Pod 才限于此列表。
-  此字段不应用于查找自动生成的服务帐户令牌机密以在 pod 之外使用。
-  相反，可以使用 TokenRequest API 直接请求令牌，或者可以手动创建服务帐户令牌 secret。
-  更多信息： https://kubernetes.io/docs/concepts/configuration/secret
+  此字段不应用于查找自动生成的服务帐户令牌机密以在 Pod 之外使用。
+  相反，可以使用 TokenRequest API 直接请求令牌，或者可以手动创建服务帐户令牌 Secret。
+  更多信息： https://kubernetes.io/zh-cn/docs/concepts/configuration/secret
 
 ## ServiceAccountList {#ServiceAccountList}
 
@@ -125,7 +125,7 @@ ServiceAccountList 是 ServiceAccount 对象的列表
 <!--
 - **items** ([]<a href="{{< ref "../authentication-resources/service-account-v1#ServiceAccount" >}}">ServiceAccount</a>), required
 -->
-- **items** ([]<a href="{{< ref "../authentication-resources/service-account-v1#ServiceAccount" >}}">ServiceAccount</a>), 必需
+- **items** ([]<a href="{{< ref "../authentication-resources/service-account-v1#ServiceAccount" >}}">ServiceAccount</a>)，必需
 
   <!--
   List of ServiceAccounts. More info: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
@@ -168,7 +168,7 @@ GET /api/v1/namespaces/{namespace}/serviceaccounts/{name}
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -207,7 +207,7 @@ GET /api/v1/namespaces/{namespace}/serviceaccounts
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -268,6 +268,13 @@ GET /api/v1/namespaces/{namespace}/serviceaccounts
 - **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+<!--
+- **sendInitialEvents** (*in query*): boolean
+-->
+- **sendInitialEvents** (**查询参数**): boolean
+
+<a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer
@@ -367,6 +374,13 @@ GET /api/v1/serviceaccounts
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
 <!--
+- **sendInitialEvents** (*in query*): boolean
+-->
+- **sendInitialEvents** (**查询参数**): boolean
+
+<a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+<!--
 - **timeoutSeconds** (*in query*): integer
 -->
 - **timeoutSeconds** (**查询参数**): integer
@@ -409,7 +423,7 @@ POST /api/v1/namespaces/{namespace}/serviceaccounts
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -488,7 +502,7 @@ PUT /api/v1/namespaces/{namespace}/serviceaccounts/{name}
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -556,7 +570,7 @@ PATCH /api/v1/namespaces/{namespace}/serviceaccounts/{name}
 <!--
 - **name** (*in path*): string, required
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   <!--
   name of the ServiceAccount
@@ -566,7 +580,7 @@ PATCH /api/v1/namespaces/{namespace}/serviceaccounts/{name}
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -642,7 +656,7 @@ DELETE /api/v1/namespaces/{namespace}/serviceaccounts/{name}
 <!--
 - **name** (*in path*): string, required
 -->
-- **name** (**路径参数**): string, 必需
+- **name** (**路径参数**): string，必需
 
   <!--
   name of the ServiceAccount
@@ -653,7 +667,7 @@ DELETE /api/v1/namespaces/{namespace}/serviceaccounts/{name}
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -718,7 +732,7 @@ DELETE /api/v1/namespaces/{namespace}/serviceaccounts
 <!--
 - **namespace** (*in path*): string, required
 -->
-- **namespace** (**路径参数**): string, 必需
+- **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
@@ -797,6 +811,13 @@ DELETE /api/v1/namespaces/{namespace}/serviceaccounts
 - **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+<!--
+- **sendInitialEvents** (*in query*): boolean
+-->
+- **sendInitialEvents** (**查询参数**): boolean
+
+<a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 <!--
 - **timeoutSeconds** (*in query*): integer

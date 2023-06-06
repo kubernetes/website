@@ -44,15 +44,16 @@ If you are running a version of Kubernetes other than v{{< skew currentVersion >
 check the documentation for that version.
 {{< /note >}}
 
-
 <!-- body -->
 ## Install and configure prerequisites
 
-The following steps apply common settings for Kubernetes nodes on Linux. 
+The following steps apply common settings for Kubernetes nodes on Linux.
 
 You can skip a particular setting if you're certain you don't need it.
 
-For more information, see [Network Plugin Requirements](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements) or the documentation for your specific container runtime.
+For more information, see
+[Network Plugin Requirements](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements)
+or the documentation for your specific container runtime.
 
 ### Forwarding IPv4 and letting iptables see bridged traffic
 
@@ -78,29 +79,31 @@ EOF
 sudo sysctl --system
 ```
 
-Verify that the `br_netfilter`, `overlay` modules are loaded by running below instructions:   
+Verify that the `br_netfilter`, `overlay` modules are loaded by running the following commands:
 
 ```bash
 lsmod | grep br_netfilter
 lsmod | grep overlay
 ```
 
-Verify that the `net.bridge.bridge-nf-call-iptables`, `net.bridge.bridge-nf-call-ip6tables`, `net.ipv4.ip_forward` system variables are set to 1 in your `sysctl` config by running below instruction:   
+Verify that the `net.bridge.bridge-nf-call-iptables`, `net.bridge.bridge-nf-call-ip6tables`, and
+`net.ipv4.ip_forward` system variables are set to `1` in your `sysctl` config by running the following command:
+
 ```bash
 sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
 ```
 
-## Cgroup drivers
+## cgroup drivers
 
 On Linux, {{< glossary_tooltip text="control groups" term_id="cgroup" >}}
 are used to constrain resources that are allocated to processes.
 
-Both {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} and the
+Both the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} and the
 underlying container runtime need to interface with control groups to enforce
-[resource management for pods and containers](/docs/concepts/configuration/manage-resources-containers/) and set
-resources such as cpu/memory requests and limits. To interface with control
+[resource management for pods and containers](/docs/concepts/configuration/manage-resources-containers/)
+and set resources such as cpu/memory requests and limits. To interface with control
 groups, the kubelet and the container runtime need to use a *cgroup driver*.
-It's critical that the kubelet and the container runtime uses the same cgroup
+It's critical that the kubelet and the container runtime use the same cgroup
 driver and are configured the same.
 
 There are two cgroup drivers available:
@@ -110,16 +113,15 @@ There are two cgroup drivers available:
 
 ### cgroupfs driver {#cgroupfs-cgroup-driver}
 
-The `cgroupfs` driver is the default cgroup driver in the kubelet. When the `cgroupfs`
-driver is used, the kubelet and the container runtime directly interface with
-the cgroup filesystem to configure cgroups.
+The `cgroupfs` driver is the [default cgroup driver in the kubelet](/docs/reference/config-api/kubelet-config.v1beta1).
+ When the `cgroupfs` driver is used, the kubelet and the container runtime directly interface with
+ the cgroup filesystem to configure cgroups.
 
 The `cgroupfs` driver is **not** recommended when
 [systemd](https://www.freedesktop.org/wiki/Software/systemd/) is the
 init system because systemd expects a single cgroup manager on
-the system. Additionally, if you use [cgroup v2](/docs/concepts/architecture/cgroups)
-, use the `systemd` cgroup driver instead of
-`cgroupfs`.
+the system. Additionally, if you use [cgroup v2](/docs/concepts/architecture/cgroups), use the `systemd`
+cgroup driver instead of `cgroupfs`.
 
 ### systemd cgroup driver {#systemd-cgroup-driver}
 
@@ -149,6 +151,11 @@ kind: KubeletConfiguration
 ...
 cgroupDriver: systemd
 ```
+
+{{< note >}}
+Starting with v1.22 and later, when creating a cluster with kubeadm, if the user does not set
+the `cgroupDriver` field under `KubeletConfiguration`, kubeadm defaults it to `systemd`.
+{{< /note >}}
 
 If you configure `systemd` as the cgroup driver for the kubelet, you must also
 configure `systemd` as the cgroup driver for the container runtime. Refer to
@@ -190,7 +197,9 @@ using the (deprecated) v1alpha2 API instead.
 
 This section outlines the necessary steps to use containerd as CRI runtime.
 
-To install containerd on your system, follow the instructions on [getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md).Return to this step once you've created a valid `config.toml` configuration file. 
+To install containerd on your system, follow the instructions on
+[getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md).
+Return to this step once you've created a valid `config.toml` configuration file.
 
 {{< tabs name="Finding your config.toml file" >}}
 {{% tab name="Linux" %}}

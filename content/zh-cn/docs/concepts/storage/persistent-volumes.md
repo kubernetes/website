@@ -1084,7 +1084,8 @@ The access modes are:
 : the volume can be mounted as read-write by many nodes.
 
  `ReadWriteOncePod`
-: the volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod
+: {{< feature-state for_k8s_version="v1.27" state="beta" >}}
+  the volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod
   access mode if you want to ensure that only one pod across whole cluster can
   read that PVC or write to it. This is only supported for CSI volumes and
   Kubernetes version 1.22+.
@@ -1106,7 +1107,8 @@ covers this in more detail.
 : 卷可以被多个节点以读写方式挂载。
 
 `ReadWriteOncePod`
-: 卷可以被单个 Pod 以读写方式挂载。
+: {{< feature-state for_k8s_version="v1.27" state="beta" >}}
+  卷可以被单个 Pod 以读写方式挂载。
   如果你想确保整个集群中只有一个 Pod 可以读取或写入该 PVC，
   请使用 ReadWriteOncePod 访问模式。这只支持 CSI 卷以及需要 Kubernetes 1.22 以上版本。
 

@@ -268,6 +268,24 @@ The annotation `kubernetes.io/limit-ranger` records that resource defaults were 
 and they were applied successfully.
 For more details, read about [LimitRanges](/docs/concepts/policy/limit-range).
 
+### addonmanager.kubernetes.io/mode
+
+Example: `addonmanager.kubernetes.io/mode: "Reconcile"`
+
+Used on: All objects
+
+To specify how an add-on should be managed, you can use the `addonmanager.kubernetes.io/mode` label.
+This label can have one of three values: `Reconcile`, `EnsureExists`, or `Ignore`.
+
+- `Reconcile`: Addon resources will be periodically reconciled with the expected state. If there are any differences,
+the add-on manager will recreate, reconfigure or delete the resources as needed. This is the default mode if no label is specified.
+- `EnsureExists`: Addon resources will be checked for existence only but will not be modified after creation.
+The add-on manager will create or re-create the resources when there is no instance of the resource with that name.
+- `Ignore`: Addon resources will be ignored. This mode is useful for add-ons that are not compatible with
+the add-on manager or that are managed by another controller.
+
+For more details, see [Addon-manager](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md)
+
 ### beta.kubernetes.io/arch (deprecated)
 
 This label has been deprecated. Please use `kubernetes.io/arch` instead.
@@ -339,9 +357,9 @@ Used on: ServiceAccount
 
 The value for this annotation must be **true** to take effect. This annotation indicates that pods running as this service account may only reference Secret API objects specified in the service account's `secrets` field.
 
-### node.kubernetes.io/exclude-from-external-load-balancer
+### node.kubernetes.io/exclude-from-external-load-balancers
 
-Example: `node.kubernetes.io/exclude-from-external-load-balancer`
+Example: `node.kubernetes.io/exclude-from-external-load-balancers`
 
 Used on: Node
 
@@ -834,6 +852,18 @@ Used on: Namespace
 
 This annotation requires the [PodTolerationRestriction](/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction) admission controller to be enabled. This annotation key allows assigning tolerations to a namespace and any new pods created in this namespace would get these tolerations added.
 
+### scheduler.alpha.kubernetes.io/tolerationsWhitelist {#schedulerkubernetestolerations-whitelist}
+
+Example: `scheduler.alpha.kubernetes.io/tolerationsWhitelist: '[{"operator": "Exists", "effect": "NoSchedule", "key": "dedicated-node"}]'`
+
+Used on: Namespace
+
+This annotation is only useful when the (alpha)
+[PodTolerationRestriction](/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
+admission controller is enabled. The annotation value is a JSON document that defines a list of allowed tolerations
+for the namespace it annotates. When you create a Pod or modify its tolerations, the API server checks the tolerations
+to see if they are mentioned in the allow list. The pod is admitted only if the check succeeds.
+
 ### scheduler.alpha.kubernetes.io/preferAvoidPods (deprecated) {#scheduleralphakubernetesio-preferavoidpods}
 
 Used on: Nodes
@@ -911,6 +941,64 @@ Sets this taint on a node to mark it as unusable, when kubelet is started with t
 Example: `node.cloudprovider.kubernetes.io/shutdown: "NoSchedule"`
 
 If a Node is in a cloud provider specified shutdown state, the Node gets tainted accordingly with `node.cloudprovider.kubernetes.io/shutdown` and the taint effect of `NoSchedule`.
+
+### feature.node.kubernetes.io/*
+Used on: Nodes 
+Example: `feature.node.kubernetes.io/network-sriov.capable: "true"`
+
+These features are advertised as labels in the Kubernetes Node object on nodes running NFD.
+All built-in labels use the feature.node.kubernetes.io label namespace and have the format
+`feature.node.kubernetes.io/<feature-name>: <true>`.
+NFD has many extension points for creating vendor and application-specific labels.
+For details, see the [customization guide](https://kubernetes-sigs.github.io/node-feature-discovery/v0.12/usage/customization-guide).
+
+### nfd.node.kubernetes.io/master.version
+
+Example: `nfd.node.kubernetes.io/master.version: "v0.6.0"`
+
+Used on: Nodes
+
+For node(s) where the Node Feature Discovery (NFD)
+[master](https://kubernetes-sigs.github.io/node-feature-discovery/stable/usage/nfd-master.html)
+is scheduled, this annotation records the version of the NFD master.
+It is used for informative use only.
+
+### nfd.node.kubernetes.io/worker.version
+
+Example: `nfd.node.kubernetes.io/worker.version: "v0.4.0"`
+
+Used on: Nodes
+
+This annotation records the version for a Node Feature Discovery's
+[worker](https://kubernetes-sigs.github.io/node-feature-discovery/stable/usage/nfd-worker.html)
+if there is one running on a node.
+It's used for informative use only.
+
+### nfd.node.kubernetes.io/feature-labels
+
+Example: `nfd.node.kubernetes.io/feature-labels: "cpu-cpuid.ADX,cpu-cpuid.AESNI,cpu-hardware_multithreading,kernel-version.full"`
+
+Used on: Nodes
+
+This annotation records a comma-separated list of node feature labels managed by
+[Node Feature Discovery](https://kubernetes-sigs.github.io/node-feature-discovery/) (NFD).
+NFD uses this for an internal mechanism. You should not edit this annotation yourself.
+
+### nfd.node.kubernetes.io/extended-resources
+
+Example: `nfd.node.kubernetes.io/extended-resources: "accelerator.acme.example/q500,example.com/coprocessor-fx5"`
+
+Used on: Nodes
+
+This annotation records a comma-separated list of [extended resources](/docs/concepts/configuration/manage-resources-containers/#extended-resources)
+managed by [Node Feature Discovery](https://kubernetes-sigs.github.io/node-feature-discovery/) (NFD).
+NFD uses this for an internal mechanism. You should not edit this annotation yourself.
+
+{{< note >}}
+These annotations only applies to nodes where NFD is running.
+To learn more about NFD and its components go to its official
+[documentation](https://kubernetes-sigs.github.io/node-feature-discovery/stable/get-started/).
+{{< /note >}}
 
 ### pod-security.kubernetes.io/enforce
 
@@ -1114,15 +1202,22 @@ used to determine if the user has applied settings different from the kubeadm de
 
 Used on: Node
 
-Label that kubeadm applies on the control plane nodes that it manages.
+A marker label to indicate that the node is used to run {{< glossary_tooltip text="control plane" term_id="control-plane" >}} components. The kubeadm tool applies this label to the control plane nodes that it manages. Other cluster management tools typically also set this taint.
+
+You can label control plane nodes with this label to make it easier to schedule Pods only onto these nodes, or to avoid running Pods on the control plane. If this label is set, [EndpointSlice controller](/docs/concepts/services-networking/topology-aware-routing/#implementation-control-plane) ignores that node while calculating Topology Aware Hints.
 
 ### node-role.kubernetes.io/control-plane {#node-role-kubernetes-io-control-plane-taint}
 
 Used on: Node
 
+Taint that kubeadm applies on control plane nodes to restrict placing pods and allow only specific pods to schedule on them.
+
 Example: `node-role.kubernetes.io/control-plane:NoSchedule`
 
-Taint that kubeadm applies on control plane nodes to allow only critical workloads to schedule on them.
+If this Taint is applied, control plane nodes allow only critical workloads to schedule on them. You can manually remove this taint with the following command on a specific node.
+```shell
+kubectl taint nodes <node-name> node-role.kubernetes.io/control-plane:NoSchedule-
+```
 
 ### node-role.kubernetes.io/master (deprecated) {#node-role-kubernetes-io-master-taint}
 
