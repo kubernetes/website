@@ -324,7 +324,8 @@ sudo apt-get purge kubectl
 sudo apt-get autoremove
 ```
 
-It is to be noted that the executable binaries are stored in the ```/usr/bin or usr/local/bin```, library files in ```usr/lib``` and configuration files in ```/etc```. It is recommended to manually remove the library files and static data.
+The executable binaries are stored in the ```/usr/bin or usr/local/bin```, library files in ```usr/lib``` and configuration files in ```/etc``` 
+It is recommended to manually remove the library files and static data before uninstalling the ```kubectl``` from the system
 
 {{% /tab %}}
 
@@ -355,7 +356,8 @@ If you are using homebrew as the package management tool on your machine, then t
 sudo brew uninstall kubectl
 ```
 
-It is to be noted that the executable binaries are stored in the ```/usr/bin``` or ```/usr/local/bin```, library files in ```/usr/lib``` or ```usr/local/lib``` and configuration files in ```/etc```. It is recommended to manually remove the library files and static data.
+The executable binaries are stored in the ```/usr/bin or usr/local/bin```, library files in ```usr/lib``` and configuration files in ```/etc``` 
+It is recommended to manually remove the library files and static data before uninstalling the ```kubectl``` from the system
 
 {{% /tab %}}
 
