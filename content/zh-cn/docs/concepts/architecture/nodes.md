@@ -142,7 +142,7 @@ register itself with the API server. This is the preferred pattern, used by most
 
 For self-registration, the kubelet is started with the following options:
 -->
-### 节点自注册 {#self-registration-of-nodes}
+### 节点自注册    {#self-registration-of-nodes}
 
 当 kubelet 标志 `--register-node` 为 true（默认）时，它会尝试向 API 服务注册自己。
 这是首选模式，被绝大多数发行版选用。
@@ -942,10 +942,10 @@ in a cluster,
 |`regular/unset`          | 0                      |
 
 <!--
-Within the [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+Within the [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/)
 the settings for `shutdownGracePeriodByPodPriority` could look like:
 -->
-在 [kubelet 配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)中，
+在 [kubelet 配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中，
 `shutdownGracePeriodByPodPriority` 可能看起来是这样：
 
 | Pod 优先级类数值       | 关闭期限  |
@@ -1073,7 +1073,7 @@ VolumeAttachments will not be deleted from the original shutdown node so the vol
 used by these pods cannot be attached to a new running node. As a result, the
 application running on the StatefulSet cannot function properly. If the original
 shutdown node comes up, the pods will be deleted by kubelet and new pods will be
-created on a different running node. If the original shutdown node does not come up,  
+created on a different running node. If the original shutdown node does not come up,
 these pods will be stuck in terminating status on the shutdown node forever.
 -->
 当某节点关闭但 kubelet 的节点关闭管理器未检测到这一事件时，
@@ -1150,12 +1150,12 @@ onwards, swap memory support can be enabled on a per-node basis.
 <!--
 To enable swap on a node, the `NodeSwap` feature gate must be enabled on
 the kubelet, and the `--fail-swap-on` command line flag or `failSwapOn`
-[configuration setting](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+[configuration setting](/docs/reference/config-api/kubelet-config.v1beta1/)
 must be set to false.
 -->
 要在节点上启用交换内存，必须启用 kubelet 的 `NodeSwap` 特性门控，
 同时使用 `--fail-swap-on` 命令行参数或者将 `failSwapOn`
-[配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)设置为 false。
+[配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)设置为 false。
 
 {{< warning >}}
 <!--

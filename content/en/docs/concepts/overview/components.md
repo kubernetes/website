@@ -122,6 +122,12 @@ about containers in a central database, and provides a UI for browsing that data
 A [cluster-level logging](/docs/concepts/cluster-administration/logging/) mechanism is responsible for
 saving container logs to a central log store with search/browsing interface.
 
+### Network Plugins
+
+[Network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins) are software
+components that implement the container network interface (CNI) specification. They are responsible for
+allocating IP addresses to pods and enabling them to communicate with each other within the cluster.
+
 
 ## {{% heading "whatsnext" %}}
 

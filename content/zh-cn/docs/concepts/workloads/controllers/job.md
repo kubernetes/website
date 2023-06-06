@@ -448,12 +448,6 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
     the deterministic hostnames to address each other via DNS. For more information about
     how to configure this, see [Job with Pod-to-Pod Communication](/docs/tasks/job/job-with-pod-to-pod-communication/).
   - From the containerized task, in the environment variable `JOB_COMPLETION_INDEX`.
-  
-  The Job is considered complete when there is one successfully completed Pod
-  for each index. For more information about how to use this mode, see
-  [Indexed Job for Parallel Processing with Static Work Assignment](/docs/tasks/job/indexed-parallel-processing-static/).
-  Note that, although rare, more than one Pod could be started for the same
-  index, but only one of them will count towards the completion count.
 -->
 - `NonIndexed`（默认值）：当成功完成的 Pod 个数达到 `.spec.completions` 所
   设值时认为 Job 已经完成。换言之，每个 Job 完成事件都是独立无关且同质的。
@@ -467,11 +461,27 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
     有关如何配置的更多信息，请参阅[带 Pod 间通信的 Job](/zh-cn/docs/tasks/job/job-with-pod-to-pod-communication/)。
   - 对于容器化的任务，在环境变量 `JOB_COMPLETION_INDEX` 中。
 
+<!--
+  The Job is considered complete when there is one successfully completed Pod
+  for each index. For more information about how to use this mode, see
+  [Indexed Job for Parallel Processing with Static Work Assignment](/docs/tasks/job/indexed-parallel-processing-static/).
+-->
   当每个索引都对应一个成功完成的 Pod 时，Job 被认为是已完成的。
   关于如何使用这种模式的更多信息，可参阅
   [用带索引的 Job 执行基于静态任务分配的并行处理](/zh-cn/docs/tasks/job/indexed-parallel-processing-static/)。
-  需要注意的是，对同一索引值可能被启动的 Pod 不止一个，尽管这种情况很少发生。
-  这时，只有一个会被记入完成计数中。
+
+{{< note >}}
+<!--
+Although rare, more than one Pod could be started for the same index (due to various reasons such as node failures,
+kubelet restarts, or Pod evictions). In this case, only the first Pod that completes successfully will
+count towards the completion count and update the status of the Job. The other Pods that are running
+or completed for the same index will be deleted by the Job controller once they are detected.
+-->
+带同一索引值启动的 Pod 可能不止一个（由于节点故障、kubelet
+重启或 Pod 驱逐等各种原因），尽管这种情况很少发生。
+在这种情况下，只有第一个成功完成的 Pod 才会被记入完成计数中并更新作业的状态。
+其他为同一索引值运行或完成的 Pod 一旦被检测到，将被 Job 控制器删除。
+{{< /note >}}
 
 <!--
 ## Handling Pod and container failures
@@ -697,7 +707,7 @@ Job 将被标记为失败。以下是 `main` 容器的具体规则：
 - 退出码 42 代表**整个 Job** 失败
 - 所有其他退出码都代表容器失败，同时也代表着整个 Pod 失效。
   如果重启总次数低于 `backoffLimit` 定义的次数，则会重新启动 Pod，
-  如果等于 `backoffLimit` 所设置的次数，则代表 **整个 Job** 失效。
+  如果等于 `backoffLimit` 所设置的次数，则代表**整个 Job** 失效。
 
 {{< note >}}
 <!--

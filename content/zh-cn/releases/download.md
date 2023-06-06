@@ -45,35 +45,35 @@ signatures:
 -->
 | 容器镜像                                                             | 支持架构                           |
 | ------------------------------------------------------------------- | --------------------------------- |
-| registry.k8s.io/kube-apiserver:{{< param "fullversion" >}}          | amd64, arm, arm64, ppc64le, s390x |
-| registry.k8s.io/kube-controller-manager:{{< param "fullversion" >}} | amd64, arm, arm64, ppc64le, s390x |
-| registry.k8s.io/kube-proxy:{{< param "fullversion" >}}              | amd64, arm, arm64, ppc64le, s390x |
-| registry.k8s.io/kube-scheduler:{{< param "fullversion" >}}          | amd64, arm, arm64, ppc64le, s390x |
-| registry.k8s.io/conformance:{{< param "fullversion" >}}             | amd64, arm, arm64, ppc64le, s390x |
+| registry.k8s.io/kube-apiserver:v{{< skew currentPatchVersion >}}          | amd64, arm, arm64, ppc64le, s390x |
+| registry.k8s.io/kube-controller-manager:v{{< skew currentPatchVersion >}} | amd64, arm, arm64, ppc64le, s390x |
+| registry.k8s.io/kube-proxy:v{{< skew currentPatchVersion >}}              | amd64, arm, arm64, ppc64le, s390x |
+| registry.k8s.io/kube-scheduler:v{{< skew currentPatchVersion >}}          | amd64, arm, arm64, ppc64le, s390x |
+| registry.k8s.io/conformance:v{{< skew currentPatchVersion >}}             | amd64, arm, arm64, ppc64le, s390x |
 
 <!--
 All container images are available for multiple architectures, whereas the
 container runtime should choose the correct one based on the underlying
 platform. It is also possible to pull a dedicated architecture by suffixing the
 container image name, for example
-`registry.k8s.io/kube-apiserver-arm64:{{< param "fullversion" >}}`. All
+`registry.k8s.io/kube-apiserver-arm64:v{{< skew currentPatchVersion >}}`. All
 those derivations are signed in the same way as the multi-architecture manifest lists.
 -->
 所有容器镜像都支持多架构，容器运行时应根据下层平台选择正确的镜像。
 也可以通过给容器镜像名称加后缀来拉取适合特定架构的镜像，例如
-`registry.k8s.io/kube-apiserver-arm64:{{< param "fullversion" >}}`。
+`registry.k8s.io/kube-apiserver-arm64:v{{< skew currentPatchVersion >}}`。
 所有这些派生镜像都以与多架构清单列表相同的方式签名。
 
 <!--
 The Kubernetes project publishes a list of signed Kubernetes container images
-in [SPDX 2.2](https://spdx.dev/specifications/) format.
+in [SPDX 2.3](https://spdx.dev/specifications/) format.
 You can fetch that list using:
 -->
-Kubernetes 项目以 [SPDX 2.2](https://spdx.dev/specifications/) 格式发布已签名的 Kubernetes 容器镜像列表。
+Kubernetes 项目以 [SPDX 2.3](https://spdx.dev/specifications/) 格式发布已签名的 Kubernetes 容器镜像列表。
 你可以使用以下方法获取该列表：
 
 ```shell
-curl -Ls "https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/latest.txt)/release"  | awk '/Package: registry.k8s.io\// {print $3}'
+curl -Ls "https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/stable.txt)/release" | grep "SPDXID: SPDXRef-Package-registry.k8s.io" |  grep -v sha256 | cut -d- -f3- | sed 's/-/\//' | sed 's/-v1/:v1/'
 ```
 
 <!--

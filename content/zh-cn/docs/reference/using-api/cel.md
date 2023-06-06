@@ -188,6 +188,10 @@ Examples:
 | `lowPriorities.map(x, x.priority).max() < highPriorities.map(x, x.priority).min()` | 验证两组优先级不重叠                 |
 | `names.indexOf('should-be-first') == 1`                                            | 如果是特定值，则使用列表中的第一个名称  |
 
+<!--
+See the [Kubernetes List Library](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#Lists)
+godoc for more information.
+-->
 更多信息请查阅 Go 文档：
 [Kubernetes 列表库](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#Lists)。
 {{< /table >}}
@@ -282,6 +286,85 @@ godoc for more information.
 -->
 更多信息请查阅 Go 文档：
 [Kubernetes URL 库](https://pkg.go.dev/k8s.io/apiextensions-apiserver/pkg/apiserver/schema/cel/library#URLs)。
+
+<!--
+### Kubernetes authorizer library
+
+For CEL expressions in the API where a variable of type `Authorizer` is available,
+the authorizer may be used to perform authorization checks for the principal
+(authenticated user) of the request.
+
+API resource checks are performed as follows:
+-->
+### Kubernetes 鉴权组件库
+
+在 API 中使用 CEL 表达式，可以使用类型为 `Authorizer` 的变量，
+这个鉴权组件可用于对请求的主体（已认证用户）执行鉴权检查。
+
+API 资源检查的过程如下：
+
+<!--
+1. Specify the group and resource to check: `Authorizer.group(string).resource(string) ResourceCheck`
+2. Optionally call any combination of the following builder functions to further narrow the authorization check.
+   Note that these functions return the receiver type and can be chained:
+  - `ResourceCheck.subresource(string) ResourceCheck`
+  - `ResourceCheck.namespace(string) ResourceCheck`
+  - `ResourceCheck.name(string) ResourceCheck` 
+3. Call `ResourceCheck.check(verb string) Decision` to perform the authorization check.
+4. Call `allowed() bool` or `reason() string` to inspect the result of the authorization check.
+-->
+1. 指定要检查的组和资源：`Authorizer.group(string).resource(string) ResourceCheck`
+2. 可以调用以下任意组合的构建器函数（Builder Function），以进一步缩小鉴权检查范围。
+   注意这些函数将返回接收者的类型，并且可以串接起来：
+   - `ResourceCheck.subresource(string) ResourceCheck`
+   - `ResourceCheck.namespace(string) ResourceCheck`
+   - `ResourceCheck.name(string) ResourceCheck` 
+3. 调用 `ResourceCheck.check(verb string) Decision` 来执行鉴权检查。
+4. 调用 `allowed() bool` 或 `reason() string` 来查验鉴权检查的结果。
+
+<!--
+Non-resource authorization performed are used as follows:
+
+1. specify only a path: `Authorizer.path(string) PathCheck`
+1. Call `PathCheck.check(httpVerb string) Decision` to perform the authorization check.
+1. Call `allowed() bool` or `reason() string` to inspect the result of the authorization check.
+-->
+对非资源访问的鉴权过程如下：
+
+1. 仅指定路径：`Authorizer.path(string) PathCheck`
+1. 调用 `PathCheck.check(httpVerb string) Decision` 来执行鉴权检查。
+1. 调用 `allowed() bool` 或 `reason() string` 来查验鉴权检查的结果。
+
+<!--
+To perform an authorization check for a service account:
+-->
+对于服务账号执行鉴权检查的方式：
+
+- `Authorizer.serviceAccount(namespace string, name string) Authorizer`
+
+<!--
+{{< table caption="Examples of CEL expressions using URL library functions" >}}
+| CEL Expression                                                                                               | Purpose                                        |
+|--------------------------------------------------------------------------------------------------------------|------------------------------------------------|
+| `authorizer.group('').resource('pods').namespace('default').check('create').allowed()`                       | Returns true if the principal (user or service account) is allowed create pods in the 'default' namespace. |
+| `authorizer.path('/healthz').check('get').allowed()`                                                         | Checks if the principal (user or service account) is authorized to make HTTP GET requests to the /healthz API path. |
+| `authorizer.serviceAccount('default', 'myserviceaccount').resource('deployments').check('delete').allowed()` | Checks if the service account is authorized to delete deployments. |
+{{< /table >}}
+-->
+{{< table caption="使用 URL 库函数的 CEL 表达式示例" >}}
+| CEL 表达式                                       | 用途                                           |
+|-------------------------------------------------|------------------------------------------------|
+| `authorizer.group('').resource('pods').namespace('default').check('create').allowed()`  | 如果主体（用户或服务账号）被允许在 `default` 名字空间中创建 Pod，返回 true。 |
+| `authorizer.path('/healthz').check('get').allowed()`   | 检查主体（用户或服务账号）是否有权限向 /healthz API 路径发出 HTTP GET 请求。 |
+| `authorizer.serviceAccount('default', 'myserviceaccount').resource('deployments').check('delete').allowed()` | 检查服务账号是否有权限删除 Deployment。 |
+{{< /table >}}
+
+<!--
+See the [Kubernetes Authz library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)
+godoc for more information.
+-->
+更多信息请参阅 Go 文档：
+[Kubernetes Authz library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)。
 
 <!--
 ## Type checking
@@ -391,7 +474,7 @@ Also see: [CEL types](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef
 -->
 另见：[CEL 类型](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#values)、
 [OpenAPI 类型](https://swagger.io/specification/#data-types)、
-[Kubernetes 结构化模式](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema)。
+[Kubernetes 结构化模式](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema)。
 
 <!--
 Equality comparison for arrays with `x-kubernetes-list-type` of `set` or `map` ignores element
