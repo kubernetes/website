@@ -235,6 +235,58 @@ detail the structure of that `.status` field, and its content for each different
 不同类型的对象可以有不同的 `.status` 信息。API 参考页面给出了 `.status` 字段的详细结构，
 以及针对不同类型 API 对象的具体内容。
 
+<!--
+## Server side field validation
+
+Starting with Kubernetes v1.25, the API server offers server side
+[field validation](/docs/reference/using-api/api-concepts/#field-validation)
+that detects unrecognized or duplicate fields in an object. It provides all the functionality
+of `kubectl --validate` on the server side.
+-->
+## 服务器端字段验证
+
+从 Kubernetes v1.25 开始，API 服务器提供了服务器端的
+[字段验证](/docs/reference/using-api/api-concepts/#field-validation)功能，
+用于检测对象中的未识别或重复的字段。它在服务器端提供了与 `kubectl --validate` 相同的功能。
+
+<!--
+The `kubectl` tool uses the `--validate` flag to set the level of field validation. It accepts the
+values `ignore`, `warn`, and `strict` while also accepting the values `true` (equivalent to `strict`)
+and `false` (equivalent to `ignore`). The default validation setting for `kubectl` is `--validate=true`.
+
+`Strict`
+: Strict field validation, errors on validation failure
+
+`Warn`
+: Field validation is performed, but errors are exposed as warnings rather than failing the request
+
+`Ignore`
+: No server side field validation is performed
+-->
+`kubectl` 工具使用 `--validate` 标志设置字段校验层级。该字段可取的
+值包括 `ignore`、`warn` 和 `strict`，同时还接受值 `true`（相当于 `strict`）
+和 `false`（相当于 `ignore`）。kubectl 默认的校验设置是 `--validate=true` 。
+
+`Strict`
+: 严格的字段验证，验证失败时报错
+
+`Warn`
+: 执行字段验证，但将错误显示为警告而不是请求失败
+
+`Ignore`
+: 不执行服务器端字段验证
+
+<!--
+When `kubectl` cannot connect to an API server that supports field validation it will fall back
+to using client-side validation. Kubernetes 1.27 and later versions always offer field validation;
+older Kubernetes releases might not. If your cluster is older than v1.27, check the documentation
+for your version of Kubernetes.
+-->
+当 `kubectl` 无法连接到支持字段验证的 API 服务器时，它将回退到
+使用客户端验证。Kubernetes 1.27 及更高版本中始终提供字段验证；
+较旧的 Kubernetes 版本可能没有。如果您的集群版本早于 v1.27，请查阅
+您所使用的 Kubernetes 版本的文档。
+
 ## {{% heading "whatsnext" %}}
 
 <!--
