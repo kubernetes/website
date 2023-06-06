@@ -22,7 +22,10 @@ card:
 ## {{% heading "prerequisites" %}}
 
 <!--
-You must use a kubectl version that is within one minor version difference of your cluster. For example, a v{{< skew currentVersion >}} client can communicate with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}, and v{{< skew currentVersionAddMinor 1 >}} control planes.
+You must use a kubectl version that is within one minor version difference of your cluster.
+For example, a v{{< skew currentVersion >}} client can communicate
+with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
+and v{{< skew currentVersionAddMinor 1 >}} control planes.
 Using the latest compatible version of kubectl helps avoid unforeseen issues.
 -->
 kubectl 版本和集群版本之间的差异必须在一个小版本号内。
@@ -59,23 +62,38 @@ The following methods exist for installing kubectl on Linux:
 -->
 1. 用以下命令下载最新发行版：
 
-   ```bash
+   {{< tabs name="download_binary_linux" >}}
+   {{< tab name="x86-64" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-   ```
+   {{< /tab >}}
+   {{< tab name="ARM64" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl"
+   {{< /tab >}}
+   {{< /tabs >}}
 
    {{< note >}}
    <!--
-   To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)` portion of the command with the specific version.
+   To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
+   portion of the command with the specific version.
 
-   For example, to download version {{< param "fullversion" >}} on Linux, type:
+   For example, to download version {{< skew currentPatchVersion >}} on Linux x86-64, type:
    -->
    如需下载某个指定的版本，请用指定版本号替换该命令的这一部分：
    `$(curl -L -s https://dl.k8s.io/release/stable.txt)`。
 
-   例如，要在 Linux 中下载 {{< param "fullversion" >}} 版本，请输入：
+   例如，要在 Linux x86-64 中下载 {{< skew currentPatchVersion >}} 版本，请输入：
 
    ```bash
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+   curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
+   ```
+
+   <!--
+   And for Linux ARM64, type:
+   -->
+   对于 Linux ARM64 来说，请输入：
+
+   ```bash
+   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/arm64/kubectl
    ```
    {{< /note >}}
 
@@ -88,9 +106,14 @@ The following methods exist for installing kubectl on Linux:
 
    下载 kubectl 校验和文件：
 
-   ```bash
+   {{< tabs name="download_checksum_linux" >}} 
+   {{< tab name="x86-64" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
-   ```
+   {{< /tab >}}
+   {{< tab name="ARM64" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl.sha256"
+   {{< /tab >}}
+   {{< /tabs >}}
 
    <!--
    Validate the kubectl binary against the checksum file:
@@ -138,7 +161,8 @@ The following methods exist for installing kubectl on Linux:
 
    {{< note >}}
    <!--
-   If you do not have root access on the target system, you can still install kubectl to the `~/.local/bin` directory:
+   If you do not have root access on the target system, you can still install
+   kubectl to the `~/.local/bin` directory:
    -->
    即使你没有目标系统的 root 权限，仍然可以将 kubectl 安装到目录 `~/.local/bin` 中：
 
@@ -165,9 +189,11 @@ Or use this for detailed view of version:
    The above command will generate a warning:
    -->
    上面的命令会产生一个警告：
+
    ```
    WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
    ```
+
    <!--
    You can ignore this warning. You are only checking the version of `kubectl` that you
    have installed.
@@ -175,7 +201,11 @@ Or use this for detailed view of version:
    你可以忽略这个警告。你只检查你所安装的 `kubectl` 的版本。
    {{< /note >}}
 
+   <!--
+   Or use this for detailed view of version:
+   -->
    或者使用如下命令来查看版本的详细信息：
+
    ```cmd
    kubectl version --client --output=yaml
    ```
@@ -197,10 +227,12 @@ Or use this for detailed view of version:
    sudo apt-get update
    sudo apt-get install -y ca-certificates curl
    ```
+
    <!--
    If you use Debian 9 (stretch) or earlier you would also need to install `apt-transport-https`:
-   -->
+   -->   
    如果你使用 Debian 9（stretch）或更早版本，则你还需要安装 `apt-transport-https`：
+
    ```shell
    sudo apt-get install -y apt-transport-https
    ```
@@ -212,7 +244,7 @@ Or use this for detailed view of version:
 2. 下载 Google Cloud 公开签名秘钥：
 
    ```shell
-   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
    ```
 
 <!--
@@ -235,6 +267,7 @@ Or use this for detailed view of version:
    sudo apt-get update
    sudo apt-get install -y kubectl
    ```
+
 {{< note >}}
 <!--
 In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default.
@@ -255,7 +288,7 @@ name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
 enabled=1
 gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 sudo yum install -y kubectl
 ```
@@ -271,7 +304,9 @@ sudo yum install -y kubectl
 {{< tabs name="other_kubectl_install" >}}
 {{% tab name="Snap" %}}
 <!-- 
-If you are on Ubuntu or another Linux distribution that supports the [snap](https://snapcraft.io/docs/core/install) package manager, kubectl is available as a [snap](https://snapcraft.io/) application.
+If you are on Ubuntu or another Linux distribution that supports the
+[snap](https://snapcraft.io/docs/core/install) package manager, kubectl
+is available as a [snap](https://snapcraft.io/) application.
 -->
 如果你使用的 Ubuntu 或其他 Linux 发行版，内建支持
 [snap](https://snapcraft.io/docs/core/install) 包管理工具，
@@ -286,7 +321,8 @@ kubectl version --client
 
 {{% tab name="Homebrew" %}}
 <!-- 
-If you are on Linux and using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux) package manager, kubectl is available for [installation](https://docs.brew.sh/Homebrew-on-Linux#install).
+If you are on Linux and using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux)
+package manager, kubectl is available for [installation](https://docs.brew.sh/Homebrew-on-Linux#install).
 -->
 如果你使用 Linux 系统，并且装了 [Homebrew](https://docs.brew.sh/Homebrew-on-Linux)
 包管理工具，
@@ -318,7 +354,8 @@ kubectl version --client
 ### 启用 shell 自动补全功能 {#enable-shell-autocompletion}
 
 <!--
-kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell, which can save you a lot of typing.
+kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell,
+which can save you a lot of typing.
 
 Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 -->
@@ -344,9 +381,15 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 -->
 1. 用以下命令下载最新发行版：
 
-   ```bash
+   {{< tabs name="download_binary_linux" >}}
+   {{< tab name="x86-64" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert"
-   ```
+   {{< /tab >}}
+   {{< tab name="ARM64" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl"
+   {{< /tab >}}
+   {{< /tabs >}}
+
 <!--
 1. Validate the binary (optional)
 
@@ -356,9 +399,14 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 
    下载 kubectl-convert 校验和文件：
 
-   ```bash
+   {{< tabs name="download_convert_checksum_linux" >}}
+   {{< tab name="x86-64" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
-   ```
+   {{< /tab >}}
+   {{< tab name="ARM64" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl-convert.sha256"
+   {{< /tab >}}
+   {{< /tabs >}}
 
    <!--
    Validate the kubectl-convert binary against the checksum file:

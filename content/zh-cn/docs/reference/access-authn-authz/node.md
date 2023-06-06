@@ -8,7 +8,6 @@ reviewers:
 - timstclair
 - deads2k
 - liggitt
-- ericchiang
 title: Using Node Authorization
 content_type: concept
 weight: 90

@@ -1,7 +1,7 @@
 ---
 title: dockershim削除の影響範囲を確認する
 content_type: task
-weight: 20
+weight: 50
 ---
 
 <!-- overview -->

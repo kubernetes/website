@@ -132,7 +132,7 @@ Specify a stable IP address or DNS name for the control plane.
 Don't apply any changes; just output what would be done.
 -->
 <p>
-不要应用任何更改；只是输出将要执行的操作。
+不做任何更改；只输出将要执行的操作。
 </p>
 </td>
  </tr>
@@ -143,10 +143,11 @@ Don't apply any changes; just output what would be done.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for various features. Options are:<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)
+A set of key=value pairs that describe feature gates for various features. Options are:<br/>EtcdLearnerMode=true|false (ALPHA - default=false)<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)
 -->
 <p>
 一组键值对，用于描述各种功能特性的特性门控。选项是：
+<br/>EtcdLearnerMode=true|false (ALPHA - 默认值=false)
 <br/>PublicKeysECDSA=true|false (ALPHA - 默认值=false)
 <br/>RootlessControlPlane=true|false (ALPHA - 默认值=false)
 </p>

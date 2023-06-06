@@ -44,10 +44,10 @@ StorageClass 是不受名字空间作用域限制的；按照 etcd 设定的存�
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **provisioner** (string), required
-  Provisioner indicates the type of the provisioner.
+  provisioner indicates the type of the provisioner.
 
 - **allowVolumeExpansion** (boolean)
-  AllowVolumeExpansion shows whether the storage class allow volume expand
+  allowVolumeExpansion shows whether the storage class allow volume expand
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
@@ -65,9 +65,9 @@ StorageClass 是不受名字空间作用域限制的；按照 etcd 设定的存�
 <!--
 - **allowedTopologies** ([]TopologySelectorTerm)
   *Atomic: will be replaced during a merge*
-
-  Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
   
+  allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
+
   <a name="TopologySelectorTerm"></a>
   *A topology selector term represents the result of label queries. A null or empty topology selector term matches no objects. The requirements of them are ANDed. It provides a subset of functionality as NodeSelectorTerm. This is an alpha feature and may change in the future.*
 -->
@@ -75,7 +75,7 @@ StorageClass 是不受名字空间作用域限制的；按照 etcd 设定的存�
 
   **原子性：将在合并期间被替换**
   
-  限制可以动态制备卷的节点拓扑。每个卷插件定义其自己支持的拓扑规约。
+  allowedTopologies 限制可以动态制备卷的节点拓扑。每个卷插件定义其自己支持的拓扑规约。
   空的 TopologySelectorTerm 列表意味着没有拓扑限制。
   只有启用 VolumeScheduling 功能特性的服务器才能使用此字段。
   
@@ -112,14 +112,16 @@ StorageClass 是不受名字空间作用域限制的；按照 etcd 设定的存�
 
 <!--
 - **mountOptions** ([]string)
-  Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
+
+  mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
 
 - **parameters** (map[string]string)
-  Parameters holds the parameters for the provisioner that should create volumes of this storage class.
+  parameters holds the parameters for the provisioner that should create volumes of this storage class.
 -->
 - **mountOptions** ([]string)
 
-  此存储类动态制备的 PersistentVolume 用这些 mountOptions（例如 ["ro", "soft"]）进行创建。
+  mountOptions 控制此存储类动态制备的 PersistentVolume 的挂载配置。
+  （例如 ["ro", "soft"]）。
   系统对选项作检查——如果有一个选项无效，则这些 PV 的挂载将失败。
 
 - **parameters** (map[string]string)
@@ -128,14 +130,15 @@ StorageClass 是不受名字空间作用域限制的；按照 etcd 设定的存�
 
 <!--
 - **reclaimPolicy** (string)
-  Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
+
+  reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
 
 - **volumeBindingMode** (string)
-  VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
+  volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
 -->
 - **reclaimPolicy** (string)
 
-  此存储类动态制备的 PersistentVolume 用这个 reclaimPolicy 进行创建。默认为 Delete。
+  reclaimPolicy 控制此存储类动态制备的 PersistentVolume 的 reclaimPolicy。默认为 Delete。
 
 - **volumeBindingMode** (string)
 
@@ -160,7 +163,7 @@ StorageClassList 是存储类的集合。
   Standard list metadata More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>), required
-  Items is the list of StorageClasses
+  items is the list of StorageClasses
 -->
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
@@ -260,6 +263,10 @@ GET /apis/storage.k8s.io/v1/storageclasses
 - **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 
@@ -547,6 +554,10 @@ DELETE /apis/storage.k8s.io/v1/storageclasses
 - **resourceVersionMatch** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** (**查询参数**): integer
 

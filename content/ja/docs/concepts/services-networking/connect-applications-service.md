@@ -118,8 +118,12 @@ Labels:              run=my-nginx
 Annotations:         <none>
 Selector:            run=my-nginx
 Type:                ClusterIP
+IP Family Policy:    SingleStack
+IP Families:         IPv4
 IP:                  10.0.162.149
+IPs:                 10.0.162.149
 Port:                <unset> 80/TCP
+TargetPort:          80/TCP
 Endpoints:           10.244.2.5:80,10.244.3.4:80
 Session Affinity:    None
 Events:              <none>
@@ -139,7 +143,7 @@ Service IPは完全に仮想的なもので、ホスト側のネットワーク�
 ## Serviceにアクセスする
 
 Kubernetesは、環境変数とDNSの2つの主要なService検索モードをサポートしています。
-前者はそのまま使用でき、後者は[CoreDNSクラスタアドオン](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/coredns)を必要とします。
+前者はそのまま使用でき、後者は[CoreDNSクラスターアドオン](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/coredns)を必要とします。
 {{< note >}}
 サービス環境変数が望ましくない場合(予想されるプログラム変数と衝突する可能性がある、処理する変数が多すぎる、DNSのみを使用するなど)、[Pod仕様](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)で`enableServiceLinks`フラグを`false`に設定することでこのモードを無効にできます。
 {{< /note >}}

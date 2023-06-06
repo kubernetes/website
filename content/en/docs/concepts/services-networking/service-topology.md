@@ -7,24 +7,21 @@ content_type: concept
 weight: 150
 ---
 
-
 <!-- overview -->
 
 {{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
 
 {{< note >}}
-
 This feature, specifically the alpha `topologyKeys` API, is deprecated since
 Kubernetes v1.21.
-[Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints/),
-introduced in Kubernetes v1.21, provide similar functionality.
+[Topology Aware Routing](/docs/concepts/services-networking/topology-aware-routing/),
+introduced in Kubernetes v1.21, provides similar functionality.
 {{</ note >}}
 
 _Service Topology_ enables a service to route traffic based upon the Node
 topology of the cluster. For example, a service can specify that traffic be
 preferentially routed to endpoints that are on the same Node as the client, or
 in the same availability zone.
-
 
 <!-- body -->
 
@@ -51,7 +48,8 @@ same top-of-rack switch for the lowest latency.
 
 ## Using Service Topology
 
-If your cluster has the `ServiceTopology` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled, you can control Service traffic
+If your cluster has the `ServiceTopology` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled, you can control Service traffic
 routing by specifying the `topologyKeys` field on the Service spec. This field
 is a preference-order list of Node labels which will be used to sort endpoints
 when accessing this Service. Traffic will be directed to a Node whose value for
@@ -83,8 +81,6 @@ traffic as follows.
   none are available within this zone:
   `["topology.kubernetes.io/zone", "*"]`.
 
-
-
 ## Constraints
 
 * Service topology is not compatible with `externalTrafficPolicy=Local`, and
@@ -100,7 +96,6 @@ traffic as follows.
 
 * The catch-all value, `"*"`, must be the last value in the topology keys, if
   it is used.
-
 
 ## Examples
 
@@ -147,11 +142,9 @@ spec:
     - "*"
 ```
 
-
 ### Only Zonal or Regional Endpoints
 
 A Service that prefers zonal then regional endpoints. If no endpoints exist in either, traffic is dropped.
-
 
 ```yaml
 apiVersion: v1

@@ -17,8 +17,6 @@ weight: 250
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.24" state="stable"  >}}
-
 {{< glossary_definition term_id="cloud-controller-manager" length="all">}}
 
 <!--
@@ -276,7 +274,7 @@ The migrated controllers, as specified in the configuration, are running under e
 version N or `cloud-controller-manager` of version N + 1 depending on which controller manager holds the migration lease.
 No controller will ever be running under both controller managers at any time.
 
-In a rolling manner, create a new control plane node of version N + 1 and bring down one of version N + 1 until the control plane contains only nodes of version N + 1.
+In a rolling manner, create a new control plane node of version N + 1 and bring down one of version N until the control plane contains only nodes of version N + 1.
 If a rollback from version N + 1 to N is required, add nodes of version N with Leader Migration enabled for `kube-controller-manager` back to the control plane, replacing one of version N + 1 each time until there are only nodes of version N.
 -->
 ### 升级控制平面

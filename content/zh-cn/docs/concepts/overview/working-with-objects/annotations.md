@@ -14,9 +14,11 @@ weight: 60
 
 <!--
 You can use Kubernetes annotations to attach arbitrary non-identifying metadata
-to objects. Clients such as tools and libraries can retrieve this metadata.
+to {{< glossary_tooltip text="objects" term_id="object" >}}.
+Clients such as tools and libraries can retrieve this metadata.
 -->
-你可以使用 Kubernetes 注解为对象附加任意的非标识的元数据。客户端程序（例如工具和库）能够获取这些元数据信息。
+你可以使用 Kubernetes 注解为{{< glossary_tooltip text="对象" term_id="object" >}}附加任意的非标识的元数据。
+客户端程序（例如工具和库）能够获取这些元数据信息。
 
 <!-- body -->
 <!--

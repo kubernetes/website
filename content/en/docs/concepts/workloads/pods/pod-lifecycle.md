@@ -91,6 +91,12 @@ A Pod is granted a term to terminate gracefully, which defaults to 30 seconds.
 You can use the flag `--force` to [terminate a Pod by force](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced).
 {{< /note >}}
 
+Since Kubernetes 1.27, the kubelet transitions deleted pods, except for
+[static pods](/docs/tasks/configure-pod-container/static-pod/) and
+[force-deleted pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)
+without a finalizer, to a terminal phase (`Failed` or `Succeeded` depending on
+the exit statuses of the pod containers) before their deletion from the API server.
+
 If a node dies or is disconnected from the rest of the cluster, Kubernetes
 applies a policy for setting the `phase` of all Pods on the lost node to Failed.
 
@@ -296,10 +302,7 @@ Each probe must define exactly one of these four mechanisms:
   The target should implement
   [gRPC health checks](https://grpc.io/grpc/core/md_doc_health-checking.html).
   The diagnostic is considered successful if the `status`
-  of the response is `SERVING`.
-  gRPC probes are an alpha feature and are only available if you
-  enable the `GRPCContainerProbe`
-  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+  of the response is `SERVING`.  
 
 `httpGet`
 : Performs an HTTP `GET` request against the Pod's IP
@@ -312,6 +315,10 @@ Each probe must define exactly one of these four mechanisms:
   a specified port. The diagnostic is considered successful if
   the port is open. If the remote system (the container) closes
   the connection immediately after it opens, this counts as healthy.
+
+{{< caution >}} Unlike the other mechanisms, `exec` probe's implementation involves the creation/forking of multiple processes each time when executed.
+As a result, in case of the clusters having higher pod densities, lower intervals of `initialDelaySeconds`, `periodSeconds`, configuring any probe with exec mechanism might introduce an overhead on the cpu usage of the node.
+In such scenarios, consider using the alternative probe mechanisms to avoid the overhead.{{< /caution >}}
 
 ### Probe outcome
 
@@ -494,6 +501,8 @@ feature gate `EndpointSliceTerminatingCondition` is enabled.
 1. When the grace period expires, the kubelet triggers forcible shutdown. The container runtime sends
    `SIGKILL` to any processes still running in any container in the Pod.
    The kubelet also cleans up a hidden `pause` container if that container runtime uses one.
+1. The kubelet transitions the pod into a terminal phase (`Failed` or `Succeeded` depending on
+   the end state of its containers). This step is guaranteed since version 1.27.
 1. The kubelet triggers forcible removal of Pod object from the API server, by setting grace period
    to 0 (immediate deletion).
 1. The API server deletes the Pod's API object, which is then no longer visible from any client.

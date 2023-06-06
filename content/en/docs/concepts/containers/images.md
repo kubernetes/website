@@ -157,6 +157,48 @@ that Kubernetes will keep trying to pull the image, with an increasing back-off 
 Kubernetes raises the delay between each attempt until it reaches a compiled-in limit,
 which is 300 seconds (5 minutes).
 
+## Serial and parallel image pulls
+
+By default, kubelet pulls images serially. In other words, kubelet sends only
+one image pull request to the image service at a time. Other image pull requests
+have to wait until the one being processed is complete.
+
+Nodes make image pull decisions in isolation. Even when you use serialized image
+pulls, two different nodes can pull the same image in parallel.
+
+If you would like to enable parallel image pulls, you can set the field
+`serializeImagePulls` to false in the [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/).
+With `serializeImagePulls` set to false, image pull requests will be sent to the image service immediately,
+and multiple images will be pulled at the same time.
+
+When enabling parallel image pulls, please make sure the image service of your
+container runtime can handle parallel image pulls.
+
+The kubelet never pulls multiple images in parallel on behalf of one Pod. For example,
+if you have a Pod that has an init container and an application container, the image
+pulls for the two containers will not be parallelized. However, if you have two
+Pods that use different images, the kubelet pulls the images in parallel on
+behalf of the two different Pods, when parallel image pulls is enabled.
+
+### Maximum parallel image pulls
+
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+
+When `serializeImagePulls` is set to false, the kubelet defaults to no limit on the
+maximum number of images being pulled at the same time. If you would like to
+limit the number of parallel image pulls, you can set the field `maxParallelImagePulls`
+in kubelet configuration. With `maxParallelImagePulls` set to _n_, only _n_ images
+can be pulled at the same time, and any image pull beyond _n_ will have to wait
+until at least one ongoing image pull is complete.
+
+Limiting the number parallel image pulls would prevent image pulling from consuming
+too much network bandwidth or disk I/O, when parallel image pulling is enabled.
+
+You can set `maxParallelImagePulls` to a positive number that is greater than or
+equal to 1. If you set `maxParallelImagePulls` to be greater than or equal to 2, you
+must set the `serializeImagePulls` to false. The kubelet will fail to start with invalid
+`maxParallelImagePulls` settings.
+
 ## Multi-architecture images with image indexes
 
 As well as providing binary images, a container registry can also serve a
@@ -416,9 +458,22 @@ common use cases and suggested solutions.
 
 If you need access to multiple registries, you can create one secret for each registry.
 
+## Legacy built-in kubelet credential provider
+
+In older versions of Kubernetes, the kubelet had a direct integration with cloud provider credentials.
+This gave it the ability to dynamically fetch credentials for image registries.
+
+There were three built-in implementations of the kubelet credential provider integration:
+ACR (Azure Container Registry), ECR (Elastic Container Registry), and GCR (Google Container Registry).
+
+For more information on the legacy mechanism, read the documentation for the version of Kubernetes that you
+are using. Kubernetes v1.26 through to v{{< skew latestVersion >}} do not include the legacy mechanism, so
+you would need to either:
+- configure a kubelet image credential provider on each node
+- specify image pull credentials using `imagePullSecrets` and at least one Secret
+
 ## {{% heading "whatsnext" %}}
 
 * Read the [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md).
 * Learn about [container image garbage collection](/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection).
 * Learn more about [pulling an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry).
-

@@ -32,10 +32,10 @@ Existem os seguintes métodos para instalar o kubectl no Linux:
    {{< note >}}
 Para fazer o download de uma versão específica, substitua a parte `$(curl -L -s https://dl.k8s.io/release/stable.txt)` do comando pela versão específica.
 
-Por exemplo, para fazer download da versão {{< param "fullversion" >}} no Linux, digite:
+Por exemplo, para fazer download da versão {{< skew currentPatchVersion >}} no Linux, digite:
 
    ```bash
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+   curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
    ```
    {{< /note >}}
 
@@ -120,7 +120,7 @@ Por exemplo, para fazer download da versão {{< param "fullversion" >}} no Linux
 2. Faça download da chave de assinatura pública do Google Cloud:
 
    ```shell
-   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
    ```
 
 3. Adicione o repositório `apt` do Kubernetes:

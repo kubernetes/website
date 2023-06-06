@@ -73,6 +73,21 @@ kubeadm 配置文件的路径。
 </tr>
 
 <tr>
+<td colspan="2">--cri-socket string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<p>
+<!--
+Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this value; use this option only if you have more than one CRI installed or if you have non-standard CRI socket.
+-->
+要连接的 CRI 套接字的路径。如果该值为空，kubeadm 将尝试自动检测；
+仅当你安装了多个 CRI 或使用非标准的 CRI 套接字时才应使用此选项。
+</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--dry-run</td>
 </tr>
 <tr>
@@ -81,7 +96,7 @@ kubeadm 配置文件的路径。
 Don't apply any changes; just output what would be done.
 -->
 <p>
-不要应用任何更改；只是输出将要执行的操作。
+不做任何更改；只输出将要执行的操作。
 </p>
 </td>
 </tr>
@@ -139,7 +154,7 @@ A list of checks whose errors will be shown as warnings. Example: 'IsPrivilegedU
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
 <p>
-[实验] 到 '真实' 主机根文件系统的路径。
+[实验] 到'真实'主机根文件系统的路径。
 </p>
 </td>
 </tr>
