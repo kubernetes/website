@@ -663,7 +663,7 @@ Como operador do cluster Kubernetes que administra o armazenamento, aqui estão 
 Um volume `secret` é usado para passar informações sensíveis, tais como senhas, para Pods. Você pode armazenar segredos na API Kubernetes e montá-los como arquivos para serem usados por pods sem necessidade de vinculação direta ao Kubernetes. Volumes `secret` são mantidos pelo tmpfs (um sistema de arquivos com baseado em memória RAM) para que nunca sejam gravados em armazenamento não volátil.
 
 {{< note >}}
-* Você deve criar um Secret na API Kubernetes antes de poder utilizá-lo. {{< /note >}}
+* Você deve criar um Secret na API Kubernetes antes de poder utilizá-lo.
 * Um secret é sempre montado como `readOnly`.
 * Um contêiner que utiliza um Secret como ponto de montagem para a propriedade [`subPath`](#using-subpath) não receberá atualizações deste Secret. {{< /note >}}
 
