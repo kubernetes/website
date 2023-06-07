@@ -10,7 +10,7 @@ weight: 50
 실행한다(`kube-proxy`를 대체하는 구성요소를 직접 배포한 경우가 아니라면).
 
 `kube-proxy`는 
-[`ExternalName`](/docs/concepts/services-networking/service/#externalname) 외의 `type`의 
+[`ExternalName`](/ko/docs/concepts/services-networking/service/#externalname) 외의 `type`의 
 {{< glossary_tooltip term_id="service" text="서비스">}}를 위한 
 _가상 IP_ 메커니즘의 구현을 담당한다.
 
@@ -276,7 +276,7 @@ kube-proxy는 종료 중인 해당 엔드포인트로 트래픽을 전달한다.
 ## {{% heading "whatsnext" %}}
 
 서비스에 대해 더 알아보려면, 
-[서비스와 애플리케이션 연결](/ko/docs/concepts/services-networking/connect-applications-service/)을 읽어 본다.
+[서비스와 애플리케이션 연결](/ko/docs/tutorials/services/connect-applications-service/)을 읽어 본다.
 
 또한,
 

@@ -153,7 +153,7 @@ spec:
 백엔드 소프트웨어의 다음 버전에서 파드가 노출시키는 포트 번호를 변경할 수 있다.
 
 서비스의 기본 프로토콜은 
-[TCP](/docs/reference/networking/service-protocols/#protocol-tcp)이다. 
+[TCP](/ko/docs/reference/networking/service-protocols/#protocol-tcp)이다. 
 다른 [지원되는 프로토콜](#protocol-support)을 사용할 수도 있다.
 
 많은 서비스가 하나 이상의 포트를 노출해야 하기 때문에, 쿠버네티스는 서비스 오브젝트에서 다중
@@ -1187,7 +1187,7 @@ spec:
 
 특정 클라이언트로부터의 연결이 매번 동일한 파드로 전달되도록 하고 싶다면, 
 클라이언트의 IP 주소 기반으로 세션 어피니티를 구성할 수 있다. 
-더 자세한 정보는 [세션 어피니티](/docs/reference/networking/virtual-ips/#session-affinity)를 
+더 자세한 정보는 [세션 어피니티](/ko/docs/reference/networking/virtual-ips/#session-affinity)를 
 참고한다.
 
 ## API 오브젝트
@@ -1205,7 +1205,7 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
-* [서비스와 애플리케이션 연결](/ko/docs/concepts/services-networking/connect-applications-service/) 알아보기
+* [서비스와 애플리케이션 연결](/ko/docs/tutorials/services/connect-applications-service/) 알아보기
 * [인그레스](/ko/docs/concepts/services-networking/ingress/)에 대해 알아보기
 * [엔드포인트슬라이스](/ko/docs/concepts/services-networking/endpoint-slices/)에 대해 알아보기
 

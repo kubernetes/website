@@ -271,7 +271,7 @@ etcd 백업 계획을 세우려면
   제한을 상속할 수도 있다.
 - *DNS 요청에 대한 대비*: 워크로드가 대규모로 확장될 것으로 예상된다면, 
   DNS 서비스도 확장할 준비가 되어 있어야 한다. 
-  [클러스터의 DNS 서비스 오토스케일링](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)을 확인한다.
+  [클러스터의 DNS 서비스 오토스케일링](/ko/docs/tasks/administer-cluster/dns-horizontal-autoscaling/)을 확인한다.
 - *추가적인 서비스 어카운트 생성*: 사용자 계정은 *클러스터*에서 사용자가 무엇을 할 수 있는지 결정하는 반면에, 
   서비스 어카운트는 특정 네임스페이스 내의 파드 접근 권한을 결정한다. 
   기본적으로, 파드는 자신의 네임스페이스의 기본 서비스 어카운트을 이용한다.
@@ -303,6 +303,6 @@ etcd 백업 계획을 세우려면
   [인가](/ko/docs/reference/access-authn-authz/authorization/) 방식을 선택하여 
   사용자 관리 방법을 구성한다.
 - [자원 제한](/ko/docs/tasks/administer-cluster/manage-resources/), 
-  [DNS 오토스케일링](/docs/tasks/administer-cluster/dns-horizontal-autoscaling/), 
+  [DNS 오토스케일링](/ko/docs/tasks/administer-cluster/dns-horizontal-autoscaling/), 
   [서비스 어카운트](/ko/docs/reference/access-authn-authz/service-accounts-admin/)를 설정하여 
   애플리케이션 워크로드의 실행에 대비한다.

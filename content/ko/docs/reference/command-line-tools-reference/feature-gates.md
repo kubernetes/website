@@ -419,7 +419,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면,
 - `AppArmor`: 리눅스 노드에서 실행되는 파드에 대한 AppArmor 필수 접근 제어의 사용을 활성화한다.
   자세한 내용은 [AppArmor 튜토리얼](/ko/docs/tutorials/security/apparmor/)을 참고한다.
 - `ContainerCheckpoint`: kubelet의 `체크포인트` API를 활성화한다.
-  자세한 내용은 [kubelet 체크포인트 API](/docs/reference/node/kubelet-checkpoint-api/)를 확인한다.
+  자세한 내용은 [kubelet 체크포인트 API](/ko/docs/reference/node/kubelet-checkpoint-api/)를 확인한다.
 - `ControllerManagerLeaderMigration`: HA 클러스터에서 클러스터 오퍼레이터가
   kube-controller-manager의 컨트롤러들을 외부 controller-manager(예를 들면,
   cloud-controller-manager)로 다운타임 없이 라이브 마이그레이션할 수 있도록 허용하도록
@@ -700,7 +700,7 @@ kubelet과 같은 컴포넌트의 기능 게이트를 설정하려면,
   cAdvisor가 아닌 CRI 컨테이너 런타임으로부터 수집하도록 설정한다.
 - `PodDisruptionConditions`: 중단(disruption)으로 인해 파드가 삭제되고 있음을 나타내는 파드 컨디션을 추가하도록 지원한다.
 - `PodHasNetworkCondition`: kubelet이 파드에 [파드 네트워크 준비성](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-has-network) 컨디션을 표시하도록 지원한다.
-- `PodSchedulingReadiness`: 파드의 [스케줄링 준비성](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)을 제어할 수 있도록 `schedulingGates` 필드를 활성화한다.
+- `PodSchedulingReadiness`: 파드의 [스케줄링 준비성](/ko/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)을 제어할 수 있도록 `schedulingGates` 필드를 활성화한다.
 - `PodSecurity`: `PodSecurity` 어드미션 플러그인을 사용하도록 설정한다.
 - `PreferNominatedNode`: 이 플래그는 클러스터에 존재하는 다른 노드를 반복해서 검사하기 전에
   지정된 노드를 먼저 검사할지 여부를

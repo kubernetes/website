@@ -300,7 +300,7 @@ kubectl run mysql-client-loop --image=mysql:5.7 -i -t --rm --restart=Never --\
 
 ### 준비성 프로브 고장내기
 
-`mysql` 컨테이너의 [준비성 프로브](/ko/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-readiness-probes)는
+`mysql` 컨테이너의 [준비성 프로브](/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-readiness-probes)는
 쿼리를 실행할 수 있는지를 확인하기 위해 `mysql -h 127.0.0.1 -e 'SELECT 1'`
 명령을 실행한다.
 
