@@ -214,9 +214,13 @@ This parameter is useful when you want to temporarily upscale the number of pods
 
 ### MaxUnavailable
 
-This particular parameter defines the maximum number of pods that can be unavailable while performing the update. In simpler terms, they are being deleted and not yet replaced by new pods, during the update process. `maxUnavailable` can specify the number or percentage of pods that can be available at that particular moment. Let's look at an example below: 
+This particular parameter defines the maximum number of pods that can be unavailable while performing the update.
+In simpler terms, they are being deleted and not yet replaced by new pods, during the update process. 
+`maxUnavailable` can specify the number or percentage of pods that can be available at that particular moment. Let's look at an example below: 
 
-Suppose the value of `maxUnavailable` is set to 1 and the desired count is 5, Kubernetes can delete and replace pods one at a time, ensuring the fact that there should always be at least 4 pods available. This parameter might be useful to maintain the desired level of availability during updates.
+Suppose the value of `maxUnavailable` is set to 1 and the desired count is 5,
+Kubernetes can delete and replace pods one at a time, ensuring the fact that there should always be at least 4 pods available.
+This parameter is useful to maintain the desired level of availability during updates.
 
 You need to set `.spec.updateStrategy.rollingUpdate.maxUnavailable` (default to 1), `.spec.minReadySeconds` (default to 0) and `.spec.updateStrategy.rollingUpdate.maxSurge` (defaults to 0).
 Please note that the default value of `maxSurge` and `maxUnavailable` is 25% of `replicas`.
