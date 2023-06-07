@@ -39,10 +39,10 @@ Um kubectl auf Linux zu installieren, gibt es die folgenden Möglichkeiten:
    {{< note >}}
    Um eine spezifische Version herunterzuladen, ersetze `$(curl -L -s https://dl.k8s.io/release/stable.txt)` mit der spezifischen Version.
 
-   Um zum Beispiel Version {{< param "fullversion" >}} auf Linux herunterzuladen:
+   Um zum Beispiel Version {{< skew currentPatchVersion >}} auf Linux herunterzuladen:
 
    ```bash
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+   curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
    ```
    {{< /note >}}
 
@@ -170,7 +170,7 @@ name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
 enabled=1
 gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 sudo yum install -y kubectl
 ```
