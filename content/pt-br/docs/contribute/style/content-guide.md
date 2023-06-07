@@ -39,7 +39,7 @@ quando:
 - O conteúdo é canônico no kubernetes.io, ou está vinculado a conteúdo canônico
   em outro local
 
-### Conteúdo de terceiros
+### Conteúdo de terceiros {#third-party-content}
 
 A documentação do Kubernetes contém exemplos aplicados de projetos no projeto
 Kubernetes &mdash; projetos que existem nas organizações
