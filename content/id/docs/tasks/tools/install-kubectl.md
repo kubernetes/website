@@ -31,10 +31,10 @@ Kamu harus menggunakan kubectl dengan perbedaan maksimal satu versi minor dengan
 
     Untuk mengunduh versi spesifik, ganti bagian `curl -LS https://dl.k8s.io/release/stable.txt` dengan versi yang diinginkan.
 
-    Misalnya, untuk mengunduh versi {{< param "fullversion" >}} di Linux, ketik:
+    Misalnya, untuk mengunduh versi {{< skew currentPatchVersion >}} di Linux, ketik:
     
     ```
-    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
     ```
 
 2. Jadikan program `kubectl` dapat dieksekusi.
@@ -111,10 +111,10 @@ kubectl version --client
 
     Untuk mengunduh versi spesifik, ganti bagian `curl -LS https://dl.k8s.io/release/stable.txt` dengan versi yang diinginkan.
 
-    Misalnya, untuk mengunduh versi {{< param "fullversion" >}} pada macOS, ketik:
+    Misalnya, untuk mengunduh versi {{< skew currentPatchVersion >}} pada macOS, ketik:
 		  
     ```
-    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/amd64/kubectl
     ```
 
 2. Buat agar program `kubectl` dapat dijalankan.
@@ -176,12 +176,12 @@ Jika kamu menggunakan macOS dan manajer paket [Macports](https://macports.org/),
 
 ### Menginstal program kubectl dengan curl pada Windows
 
-1. Unduh versi terbarunya {{< param "fullversion" >}} dari [tautan ini](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
+1. Unduh versi terbarunya {{< skew currentPatchVersion >}} dari [tautan ini](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe).
 
     Atau jika sudah ada `curl` pada mesin kamu, jalankan perintah ini:
 
     ```
-    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe
     ```
 
     Untuk mendapatkan versi stabil terakhir (misalnya untuk _scripting_), lihat di [https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt).
