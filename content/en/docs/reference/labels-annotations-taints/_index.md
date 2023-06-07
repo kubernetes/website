@@ -43,7 +43,8 @@ Example: `app.kubernetes.io/instance: "mysql-abcxzy"`
 
 Used on: All Objects (typically used on [workload resources](/docs/reference/kubernetes-api/workload-resources/)).
 
-A unique name identifying the instance of an application. To assign a non-unique name, use [app.kubernetes.io/name](#app-kubernetes-io-name).
+A unique name identifying the instance of an application.
+To assign a non-unique name, use [app.kubernetes.io/name](#app-kubernetes-io-name).
 
 One of the [recommended labels](/docs/concepts/overview/working-with-objects/common-labels/#labels).
 
@@ -98,10 +99,16 @@ Example: `applyset.kubernetes.io/additional-namespaces: "namespace1,namespace2"`
 
 Used on: Objects being used as ApplySet parents.
 
-Use of this annotation is alpha.
-For Kubernetes version {{< skew currentVersion >}}, you can use this annotation on Secrets, ConfigMaps, or custom resources if the {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} defining them has the `applyset.kubernetes.io/is-parent-type` label.
+Use of this annotation is alpha. For Kubernetes version {{< skew currentVersion >}},
+you can use this annotation on Secrets, ConfigMaps, or custom resources if the
+{{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
+defining them has the `applyset.kubernetes.io/is-parent-type` label.
 
-Part of the specification used to implement [ApplySet-based pruning in kubectl](/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune). This annotation is applied to the parent object used to track an ApplySet to extend the scope of the ApplySet beyond the parent object's own namespace (if any). The value is a comma-separated list of the names of namespaces other than the parent's namespace in which objects are found.
+Part of the specification used to implement
+[ApplySet-based pruning in kubectl](/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune).
+This annotation is applied to the parent object used to track an ApplySet to extend
+the scope of the ApplySet beyond the parent object's own namespace (if any).
+The value is a comma-separated list of the names of namespaces other than the parent's namespace in which objects are found.
 
 ### applyset.kubernetes.io/contains-group-resources (alpha) {#applyset-kubernetes-io-contains-group-resources}
 
@@ -109,11 +116,19 @@ Example: `applyset.kubernetes.io/contains-group-resources: "certificates.cert-ma
 
 Used on: Objects being used as ApplySet parents.
 
-Use of this annotation is alpha.
-For Kubernetes version {{< skew currentVersion >}}, you can use this annotation on Secrets, ConfigMaps, or custom resources if the {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} defining them has the `applyset.kubernetes.io/is-parent-type` label.
+Use of this annotation is alpha. For Kubernetes version {{< skew currentVersion >}},
+you can use this annotation on Secrets, ConfigMaps, or custom resources if the
+{{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
+defining them has the `applyset.kubernetes.io/is-parent-type` label.
 
-Part of the specification used to implement [ApplySet-based pruning in kubectl](/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune). This annotation is applied to the parent object used to track an ApplySet to optimize listing of ApplySet member objects. It is optional in the ApplySet specification, as tools can perform discovery or use a different optimization. However, as of Kubernetes version {{< skew currentVersion >}}, it is required by kubectl. When present, the value of this annotation must be a comma separated list of the group-kinds, in the fully-qualified name format, i.e. `<resource>.<group>`.
-
+Part of the specification used to implement
+[ApplySet-based pruning in kubectl](/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune).
+This annotation is applied to the parent object used to track an ApplySet to optimize
+listing of ApplySet member objects. It is optional in the ApplySet specification, as
+tools can perform discovery or use a different optimization. However, as of Kubernetes
+version {{< skew currentVersion >}}, it is required by kubectl. When present, the value
+of this annotation must be a comma separated list of the group-kinds, in the
+fully-qualified name format, i.e. `<resource>.<group>`.
 
 ### applyset.kubernetes.io/id (alpha) {#applyset-kubernetes-io-id}
 
@@ -121,10 +136,19 @@ Example: `applyset.kubernetes.io/id: "applyset-0eFHV8ySqp7XoShsGvyWFQD3s96yqwHmz
 
 Used on: Objects being used as ApplySet parents.
 
-Use of this label is alpha.
-For Kubernetes version {{< skew currentVersion >}}, you can use this label on Secrets, ConfigMaps, or custom resources if the {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} defining them has the `applyset.kubernetes.io/is-parent-type` label.
+Use of this label is alpha. For Kubernetes version {{< skew currentVersion >}},
+you can use this label on Secrets, ConfigMaps, or custom resources if the
+{{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
+defining them has the `applyset.kubernetes.io/is-parent-type` label.
 
-Part of the specification used to implement [ApplySet-based pruning in kubectl](/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune). This label is what makes an object an ApplySet parent object. Its value is the unique ID of the ApplySet, which is derived from the identity of the parent object itself. This ID **must** be the base64 encoding (using the URL safe encoding of RFC4648) of the hash of the group-kind-name-namespace of the object it is on, in the form: `<base64(sha256(<name>.<namespace>.<kind>.<group>))>`. There is no relation between the value of this label and object UIDs.
+Part of the specification used to implement
+[ApplySet-based pruning in kubectl](/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune).
+This label is what makes an object an ApplySet parent object. Its value is the
+unique ID of the ApplySet, which is derived from the identity of the parent object
+itself. This ID **must** be the base64 encoding (using the URL safe encoding of RFC4648)
+of the hash of the group-kind-name-namespace of the object it is on, in the form:
+`<base64(sha256(<name>.<namespace>.<kind>.<group>))>`.
+There is no relation between the value of this label and object UIDs.
 
 ### applyset.kubernetes.io/is-parent-type (alpha) {#applyset-kubernetes-io-is-parent-type}
 
@@ -132,8 +156,13 @@ Example: `applyset.kubernetes.io/is-parent-type: "true"`
 
 Used on: Custom Resource Definition (CRD)
 
-Use of this label is alpha.
-Part of the specification used to implement [ApplySet-based pruning in kubectl](/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune). You can set this label on a {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} (CRD) to identify the custom resource type it defines (not the CRD itself) as an allowed parent for an ApplySet. The only permitted value for this label is `"true"`; if you want to mark a CRD as not being a valid parent for ApplySets, omit this label.
+Use of this label is alpha. Part of the specification used to implement
+[ApplySet-based pruning in kubectl](/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune).
+You can set this label on a
+{{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} (CRD)
+to identify the custom resource type it defines (not the CRD itself) as an allowed
+parent for an ApplySet. The only permitted value for this label is `"true"`; if you
+want to mark a CRD as not being a valid parent for ApplySets, omit this label.
 
 ### applyset.kubernetes.io/part-of (alpha) {#applyset-kubernetes-io-part-of}
 
@@ -141,8 +170,10 @@ Example: `applyset.kubernetes.io/part-of: "applyset-0eFHV8ySqp7XoShsGvyWFQD3s96y
 
 Used on: All objects.
 
-Use of this label is alpha.
-Part of the specification used to implement [ApplySet-based pruning in kubectl](/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune). This label is what makes an object a member of an ApplySet. The value of the label **must** match the value of the `applyset.kubernetes.io/id` label on the parent object.
+Use of this label is alpha. Part of the specification used to implement
+[ApplySet-based pruning in kubectl](/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune).
+This label is what makes an object a member of an ApplySet. The value of the
+label **must** match the value of the `applyset.kubernetes.io/id` label on the parent object.
 
 ### applyset.kubernetes.io/tooling (alpha) {#applyset-kubernetes-io-tooling}
 
@@ -150,10 +181,16 @@ Example: `applyset.kubernetes.io/tooling: "kubectl/v{{< skew currentVersion >}}"
 
 Used on: Objects being used as ApplySet parents.
 
-Use of this annotation is alpha.
-For Kubernetes version {{< skew currentVersion >}}, you can use this annotation on Secrets, ConfigMaps, or custom resources if the {{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}} defining them has the `applyset.kubernetes.io/is-parent-type` label.
+Use of this annotation is alpha. For Kubernetes version {{< skew currentVersion >}},
+you can use this annotation on Secrets, ConfigMaps, or custom resources if the
+{{< glossary_tooltip term_id="CustomResourceDefinition" text="CustomResourceDefinition" >}}
+defining them has the `applyset.kubernetes.io/is-parent-type` label.
 
-Part of the specification used to implement [ApplySet-based pruning in kubectl](/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune). This annotation is applied to the parent object used to track an ApplySet to indicate which tooling manages that ApplySet. Tooling should refuse to mutate ApplySets belonging to other tools. The value must be in the format `<toolname>/<semver>`.
+Part of the specification used to implement
+[ApplySet-based pruning in kubectl](/docs/tasks/manage-kubernetes-objects/declarative-config/#alternative-kubectl-apply-f-directory-prune).
+This annotation is applied to the parent object used to track an ApplySet to indicate
+which tooling manages that ApplySet. Tooling should refuse to mutate ApplySets belonging
+to other tools. The value must be in the format `<toolname>/<semver>`.
 
 ### cluster-autoscaler.kubernetes.io/safe-to-evict
 
@@ -173,22 +210,33 @@ Example: `config.kubernetes.io/local-config: "true"`
 
 Used on: All objects
 
-This annotation is used in manifests to mark an object as local configuration that should not be submitted to the Kubernetes API.
+This annotation is used in manifests to mark an object as local configuration
+that should not be submitted to the Kubernetes API.
 
-A value of "true" for this annotation declares that the object is only consumed by client-side tooling and should not be submitted to the API server.
+A value of "true" for this annotation declares that the object is only consumed
+by client-side tooling and should not be submitted to the API server.
 
-A value of "false" can be used to declare that the object should be submitted to the API server even when it would otherwise be assumed to be local.
+A value of "false" can be used to declare that the object should be submitted to
+the API server even when it would otherwise be assumed to be local.
 
-This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification, which is used by Kustomize and similar third-party tools. For example, Kustomize removes objects with this annotation from its final build output.
-
+This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification,
+which is used by Kustomize and similar third-party tools. For example, Kustomize removes
+objects with this annotation from its final build output.
 
 ### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
 
 Used on: All objects
 
-This prefix is reserved for internal use by tools that act as orchestrators in accordance with the Kubernetes Resource Model (KRM) Functions Specification. Annotations with this prefix are internal to the orchestration process and are not persisted to the manifests on the filesystem. In other words, the orchestrator tool should set these annotations when reading files from the local filesystem and remove them when writing the output of functions back to the filesystem.
+This prefix is reserved for internal use by tools that act as orchestrators in
+accordance with the Kubernetes Resource Model (KRM) Functions Specification.
+Annotations with this prefix are internal to the orchestration process and are
+not persisted to the manifests on the filesystem. In other words, the orchestrator
+tool should set these annotations when reading files from the local filesystem and
+remove them when writing the output of functions back to the filesystem.
 
-A KRM function **must not** modify annotations with this prefix, unless otherwise specified for a given annotation. This enables orchestrator tools to add additional internal annotations, without requiring changes to existing functions.
+A KRM function **must not** modify annotations with this prefix, unless otherwise
+specified for a given annotation. This enables orchestrator tools to add additional
+internal annotations, without requiring changes to existing functions.
 
 ### internal.config.kubernetes.io/path
 
@@ -196,11 +244,15 @@ Example: `internal.config.kubernetes.io/path: "relative/file/path.yaml"`
 
 Used on: All objects
 
-This annotation records the slash-delimited, OS-agnostic, relative path to the manifest file the object was loaded from. The path is relative to a fixed location on the filesystem, determined by the orchestrator tool.
+This annotation records the slash-delimited, OS-agnostic, relative path to the
+manifest file the object was loaded from. The path is relative to a fixed location
+on the filesystem, determined by the orchestrator tool.
 
-This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification, which is used by Kustomize and similar third-party tools.
+This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification,
+which is used by Kustomize and similar third-party tools.
 
-A KRM Function **should not** modify this annotation on input objects unless it is modifying the referenced files. A KRM Function **may** include this annotation on objects it generates.
+A KRM Function **should not** modify this annotation on input objects unless it is
+modifying the referenced files. A KRM Function **may** include this annotation on objects it generates.
 
 ### internal.config.kubernetes.io/index
 
@@ -208,11 +260,16 @@ Example: `internal.config.kubernetes.io/index: "2"`
 
 Used on: All objects
 
-This annotation records the zero-indexed position of the YAML document that contains the object within the manifest file the object was loaded from. Note that YAML documents are separated by three dashes (`---`) and can each contain one object. When this annotation is not specified, a value of 0 is implied.
+This annotation records the zero-indexed position of the YAML document that contains
+the object within the manifest file the object was loaded from. Note that YAML documents
+are separated by three dashes (`---`) and can each contain one object.
+When this annotation is not specified, a value of 0 is implied.
 
-This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification, which is used by Kustomize and similar third-party tools.
+This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification,
+which is used by Kustomize and similar third-party tools.
 
-A KRM Function **should not** modify this annotation on input objects unless it is modifying the referenced files. A KRM Function **may** include this annotation on objects it generates.
+A KRM Function **should not** modify this annotation on input objects unless it is
+modifying the referenced files. A KRM Function **may** include this annotation on objects it generates.
 
 ### kubernetes.io/arch
 
@@ -278,11 +335,11 @@ To specify how an add-on should be managed, you can use the `addonmanager.kubern
 This label can have one of three values: `Reconcile`, `EnsureExists`, or `Ignore`.
 
 - `Reconcile`: Addon resources will be periodically reconciled with the expected state. If there are any differences,
-the add-on manager will recreate, reconfigure or delete the resources as needed. This is the default mode if no label is specified.
+  the add-on manager will recreate, reconfigure or delete the resources as needed. This is the default mode if no label is specified.
 - `EnsureExists`: Addon resources will be checked for existence only but will not be modified after creation.
-The add-on manager will create or re-create the resources when there is no instance of the resource with that name.
+  The add-on manager will create or re-create the resources when there is no instance of the resource with that name.
 - `Ignore`: Addon resources will be ignored. This mode is useful for add-ons that are not compatible with
-the add-on manager or that are managed by another controller.
+  the add-on manager or that are managed by another controller.
 
 For more details, see [Addon-manager](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md)
 
@@ -300,10 +357,13 @@ Example: `kube-aggregator.kubernetes.io/automanaged: "onstart"`
 
 Used on: APIService
 
-The `kube-apiserver` sets this label on any APIService object that the API server has created automatically. The label marks how the control plane should manage that APIService. You should not add, modify, or remove this label by yourself.
+The `kube-apiserver` sets this label on any APIService object that the API server
+has created automatically. The label marks how the control plane should manage that APIService.
+You should not add, modify, or remove this label by yourself.
 
 {{< note >}}
-Automanaged APIService objects are deleted by kube-apiserver when it has no built-in or custom resource API corresponding to the API group/version of the APIService.
+Automanaged APIService objects are deleted by kube-apiserver when it has no built-in
+or custom resource API corresponding to the API group/version of the APIService.
 {{< /note >}}
 
 There are two possible values:
@@ -327,9 +387,11 @@ Example: `kubernetes.io/hostname: "ip-172-20-114-199.ec2.internal"`
 
 Used on: Node
 
-The Kubelet populates this label with the hostname. Note that the hostname can be changed from the "actual" hostname by passing the `--hostname-override` flag to the `kubelet`.
+The Kubelet populates this label with the hostname. Note that the hostname can be
+changed from the "actual" hostname by passing the `--hostname-override` flag to the `kubelet`.
 
-This label is also used as part of the topology hierarchy.  See [topology.kubernetes.io/zone](#topologykubernetesiozone) for more information.
+This label is also used as part of the topology hierarchy.
+See [topology.kubernetes.io/zone](#topologykubernetesiozone) for more information.
 
 ### kubernetes.io/change-cause {#change-cause}
 
@@ -355,7 +417,9 @@ Example: `kubernetes.io/enforce-mountable-secrets: "true"`
 
 Used on: ServiceAccount
 
-The value for this annotation must be **true** to take effect. This annotation indicates that pods running as this service account may only reference Secret API objects specified in the service account's `secrets` field.
+The value for this annotation must be **true** to take effect. This annotation
+indicates that pods running as this service account may only reference Secret API
+objects specified in the service account's `secrets` field.
 
 ### node.kubernetes.io/exclude-from-external-load-balancers
 
@@ -363,7 +427,8 @@ Example: `node.kubernetes.io/exclude-from-external-load-balancers`
 
 Used on: Node
 
-Kubernetes automatically enables the `ServiceNodeExclusion` feature gate on the clusters it creates. With this feature gate enabled on a cluster,
+Kubernetes automatically enables the `ServiceNodeExclusion` feature gate on the
+clusters it creates. With this feature gate enabled on a cluster,
 you can add labels to particular worker nodes to exclude them from the list of backend servers.
 The following command can be used to exclude a worker node from the list of backend servers in a backend set-
 `kubectl label nodes <node-name> node.kubernetes.io/exclude-from-external-load-balancers=true`
@@ -398,7 +463,8 @@ This annotation only impacts DaemonSet pods.
 
 {{< note >}}
 Ingress traffic shaping annotation is an experimental feature.
-If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file (default `/etc/cni/net.d`) and
+If you want to enable traffic shaping support, you must add the `bandwidth`
+plugin to your CNI configuration file (default `/etc/cni/net.d`) and
 ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
 {{< /note >}}
 
@@ -417,7 +483,8 @@ For example, `10M` means 10 megabits per second.
 
 {{< note >}}
 Egress traffic shaping annotation is an experimental feature.
-If you want to enable traffic shaping support, you must add the `bandwidth` plugin to your CNI configuration file (default `/etc/cni/net.d`) and
+If you want to enable traffic shaping support, you must add the `bandwidth` plugin
+to your CNI configuration file (default `/etc/cni/net.d`) and
 ensure that the binary is included in your CNI bin dir (default `/opt/cni/bin`).
 {{< /note >}}
 
@@ -445,19 +512,25 @@ Used on: Node
 The Kubelet populates this with the instance type as defined by the `cloudprovider`.
 This will be set only if you are using a `cloudprovider`. This setting is handy
 if you want to target certain workloads to certain instance types, but typically you want
-to rely on the Kubernetes scheduler to perform resource-based scheduling. You should aim to schedule based on properties rather than on instance types (for example: require a GPU, instead of requiring a `g2.2xlarge`).
+to rely on the Kubernetes scheduler to perform resource-based scheduling. You should
+aim to schedule based on properties rather than on instance types
+(for example: require a GPU, instead of requiring a `g2.2xlarge`).
 
 ### failure-domain.beta.kubernetes.io/region (deprecated) {#failure-domainbetakubernetesioregion}
 
 See [topology.kubernetes.io/region](#topologykubernetesioregion).
 
-{{< note >}} Starting in v1.17, this label is deprecated in favor of [topology.kubernetes.io/region](#topologykubernetesioregion). {{< /note >}}
+{{< note >}}
+Starting in v1.17, this label is deprecated in favor of [topology.kubernetes.io/region](#topologykubernetesioregion).
+{{< /note >}}
 
 ### failure-domain.beta.kubernetes.io/zone (deprecated) {#failure-domainbetakubernetesiozone}
 
 See [topology.kubernetes.io/zone](#topologykubernetesiozone).
 
-{{< note >}} Starting in v1.17, this label is deprecated in favor of [topology.kubernetes.io/zone](#topologykubernetesiozone). {{< /note >}}
+{{< note >}}
+Starting in v1.17, this label is deprecated in favor of [topology.kubernetes.io/zone](#topologykubernetesiozone).
+{{< /note >}}
 
 ### pv.kubernetes.io/bind-completed {#pv-kubernetesiobind-completed}
 
@@ -539,29 +612,57 @@ Example:
 
 Used on: Node, PersistentVolume
 
-On Node: The `kubelet` or the external `cloud-controller-manager` populates this with the information as provided by the `cloudprovider`.  This will be set only if you are using a `cloudprovider`. However, you should consider setting this on nodes if it makes sense in your topology.
+On Node: The `kubelet` or the external `cloud-controller-manager` populates this
+with the information as provided by the `cloudprovider`.  This will be set only
+if you are using a `cloudprovider`. However, you should consider setting this on
+nodes if it makes sense in your topology.
 
-On PersistentVolume: topology-aware volume provisioners will automatically set node affinity constraints on `PersistentVolumes`.
+On PersistentVolume: topology-aware volume provisioners will automatically set
+node affinity constraints on `PersistentVolumes`.
 
-A zone represents a logical failure domain.  It is common for Kubernetes clusters to span multiple zones for increased availability.  While the exact definition of a zone is left to infrastructure implementations, common properties of a zone include very low network latency within a zone, no-cost network traffic within a zone, and failure independence from other zones.  For example, nodes within a zone might share a network switch, but nodes in different zones should not.
+A zone represents a logical failure domain.  It is common for Kubernetes clusters
+to span multiple zones for increased availability.  While the exact definition of
+a zone is left to infrastructure implementations, common properties of a zone
+include very low network latency within a zone, no-cost network traffic within a
+zone, and failure independence from other zones.  For example, nodes within a zone
+might share a network switch, but nodes in different zones should not.
 
-A region represents a larger domain, made up of one or more zones.  It is uncommon for Kubernetes clusters to span multiple regions,  While the exact definition of a zone or region is left to infrastructure implementations, common properties of a region include higher network latency between them than within them, non-zero cost for network traffic between them, and failure independence from other zones or regions.  For example, nodes within a region might share power infrastructure (e.g. a UPS or generator), but nodes in different regions typically would not.
+A region represents a larger domain, made up of one or more zones.  It is uncommon
+for Kubernetes clusters to span multiple regions,  While the exact definition of a
+zone or region is left to infrastructure implementations, common properties of a
+region include higher network latency between them than within them, non-zero cost
+for network traffic between them, and failure independence from other zones or regions.
+For example, nodes within a region might share power infrastructure (e.g. a UPS or generator),
+but nodes in different regions typically would not.
 
 Kubernetes makes a few assumptions about the structure of zones and regions:
 
 1) regions and zones are hierarchical: zones are strict subsets of regions and no zone can be in 2 regions
 2) zone names are unique across regions; for example region "africa-east-1" might be comprised of zones "africa-east-1a" and "africa-east-1b"
 
-It should be safe to assume that topology labels do not change.  Even though labels are strictly mutable, consumers of them can assume that a given node is not going to be moved between zones without being destroyed and recreated.
+It should be safe to assume that topology labels do not change. Even though labels
+are strictly mutable, consumers of them can assume that a given node is not going
+to be moved between zones without being destroyed and recreated.
 
-Kubernetes can use this information in various ways.  For example, the scheduler automatically tries to spread the Pods in a ReplicaSet across nodes in a single-zone cluster (to reduce the impact of node failures, see [kubernetes.io/hostname](#kubernetesiohostname)). With multiple-zone clusters, this spreading behavior also applies to zones (to reduce the impact of zone failures). This is achieved via _SelectorSpreadPriority_.
+Kubernetes can use this information in various ways.  For example, the scheduler
+automatically tries to spread the Pods in a ReplicaSet across nodes in a single-zone cluster
+(to reduce the impact of node failures, see [kubernetes.io/hostname](#kubernetesiohostname)).
+With multiple-zone clusters, this spreading behavior also applies to zones
+(to reduce the impact of zone failures). This is achieved via _SelectorSpreadPriority_.
 
-_SelectorSpreadPriority_ is a best effort placement. If the zones in your cluster are heterogeneous (for example: different numbers of nodes, different types of nodes, or different pod resource requirements), this placement might prevent equal spreading of your Pods across zones. If desired, you can use homogenous zones (same number and types of nodes) to reduce the probability of unequal spreading.
+_SelectorSpreadPriority_ is a best effort placement. If the zones in your cluster are
+heterogeneous (for example: different numbers of nodes, different types of nodes,
+or different pod resource requirements), this placement might prevent equal spreading
+of your Pods across zones. If desired, you can use homogenous zones (same number and types of nodes)
+to reduce the probability of unequal spreading.
 
-The scheduler (through the _VolumeZonePredicate_ predicate) also will ensure that Pods, that claim a given volume, are only placed into the same zone as that volume. Volumes cannot be attached across zones.
+The scheduler (through the _VolumeZonePredicate_ predicate) also will ensure that Pods,
+that claim a given volume, are only placed into the same zone as that volume. Volumes cannot be attached across zones.
 
 If `PersistentVolumeLabel` does not support automatic labeling of your PersistentVolumes, you should consider
-adding the labels manually (or adding support for `PersistentVolumeLabel`). With `PersistentVolumeLabel`, the scheduler prevents Pods from mounting volumes in a different zone. If your infrastructure doesn't have this constraint, you don't need to add the zone labels to the volumes at all.
+adding the labels manually (or adding support for `PersistentVolumeLabel`). With `PersistentVolumeLabel`,
+the scheduler prevents Pods from mounting volumes in a different zone. If your infrastructure doesn't
+have this constraint, you don't need to add the zone labels to the volumes at all.
 
 ### volume.beta.kubernetes.io/storage-provisioner (deprecated)
 
@@ -577,7 +678,10 @@ Example: `volume.beta.kubernetes.io/storage-class: "example-class"`
 
 Used on: PersistentVolume, PersistentVolumeClaim
 
-This annotation can be used for PersistentVolume(PV) or PersistentVolumeClaim(PVC) to specify the name of [StorageClass](/docs/concepts/storage/storage-classes/). When both `storageClassName` attribute and `volume.beta.kubernetes.io/storage-class` annotation are specified, the annotation `volume.beta.kubernetes.io/storage-class` takes precedence over the `storageClassName` attribute.
+This annotation can be used for PersistentVolume(PV) or PersistentVolumeClaim(PVC) to specify
+the name of [StorageClass](/docs/concepts/storage/storage-classes/). When both `storageClassName`
+attribute and `volume.beta.kubernetes.io/storage-class` annotation are specified,
+the annotation `volume.beta.kubernetes.io/storage-class` takes precedence over the `storageClassName` attribute.
 
 This annotation has been deprecated. Instead, set the [`storageClassName` field](/docs/concepts/storage/persistent-volumes/#class)
 for the PersistentVolumeClaim or PersistentVolume.
@@ -588,7 +692,8 @@ Example : `volume.beta.kubernetes.io/mount-options: "ro,soft"`
 
 Used on: PersistentVolume
 
-A Kubernetes administrator can specify additional [mount options](/docs/concepts/storage/persistent-volumes/#mount-options) for when a PersistentVolume is mounted on a node.
+A Kubernetes administrator can specify additional [mount options](/docs/concepts/storage/persistent-volumes/#mount-options)
+for when a PersistentVolume is mounted on a node.
 
 This annotation has been deprecated.
 
@@ -602,7 +707,8 @@ This annotation will be added to dynamic provisioning required PVC.
 
 Used on: PersistentVolumeClaim
 
-This annotation is added to a PVC that is triggered by a scheduler to be dynamically provisioned. Its value is the name of the selected node.
+This annotation is added to a PVC that is triggered by a scheduler to be dynamically provisioned.
+Its value is the name of the selected node.
 
 ### volumes.kubernetes.io/controller-managed-attach-detach
 
@@ -685,7 +791,8 @@ Example: `endpointslice.kubernetes.io/managed-by: "controller"`
 
 Used on: EndpointSlices
 
-The label is used to indicate the controller or entity that manages an EndpointSlice. This label aims to enable different EndpointSlice objects to be managed by different controllers or entities within the same cluster.
+The label is used to indicate the controller or entity that manages an EndpointSlice.
+This label aims to enable different EndpointSlice objects to be managed by different controllers or entities within the same cluster.
 
 ### endpointslice.kubernetes.io/skip-mirror {#endpointslicekubernetesioskip-mirror}
 
@@ -709,7 +816,10 @@ Example: `experimental.windows.kubernetes.io/isolation-type: "hyperv"`
 
 Used on: Pod
 
-The annotation is used to run Windows containers with Hyper-V isolation. To use Hyper-V isolation feature and create a Hyper-V isolated container, the kubelet should be started with feature gates HyperVContainer=true and the Pod should include the annotation `experimental.windows.kubernetes.io/isolation-type: hyperv`.
+The annotation is used to run Windows containers with Hyper-V isolation.
+To use Hyper-V isolation feature and create a Hyper-V isolated container,
+the kubelet should be started with feature gates HyperVContainer=true and
+the Pod should include the annotation `experimental.windows.kubernetes.io/isolation-type: hyperv`.
 
 {{< note >}}
 You can only set this annotation on Pods that have a single container.
@@ -722,7 +832,8 @@ Example: `ingressclass.kubernetes.io/is-default-class: "true"`
 
 Used on: IngressClass
 
-When a single IngressClass resource has this annotation set to `"true"`, new Ingress resource without a class specified will be assigned this default class.
+When a single IngressClass resource has this annotation set to `"true"`,
+new Ingress resource without a class specified will be assigned this default class.
 
 ### kubernetes.io/ingress.class (deprecated)
 
@@ -747,7 +858,10 @@ Used on: Node
 
 The kubelet can set this annotation on a Node to denote its configured IPv4 address.
 
-When kubelet is started with the `--cloud-provider` flag set to any value (includes both external and legacy in-tree cloud providers), it sets this annotation on the Node to denote an IP address set from the command line flag (`--node-ip`). This IP is verified with the cloud provider as valid by the cloud-controller-manager.
+When kubelet is started with the `--cloud-provider` flag set to any value
+(includes both external and legacy in-tree cloud providers), it sets this
+annotation on the Node to denote an IP address set from the command line flag (`--node-ip`).
+This IP is verified with the cloud provider as valid by the cloud-controller-manager.
 
 ### batch.kubernetes.io/job-completion-index
 
@@ -762,13 +876,15 @@ created with Indexed [completion mode](/docs/concepts/workloads/controllers/job/
 
 Example: `kubectl.kubernetes.io/default-container: "front-end-app"`
 
-The value of the annotation is the container name that is default for this Pod. For example, `kubectl logs` or `kubectl exec` without `-c` or `--container` flag will use this default container.
+The value of the annotation is the container name that is default for this Pod.
+For example, `kubectl logs` or `kubectl exec` without `-c` or `--container` flag will use this default container.
 
 ### kubectl.kubernetes.io/default-logs-container (deprecated)
 
 Example: `kubectl.kubernetes.io/default-logs-container: "front-end-app"`
 
-The value of the annotation is the container name that is the default logging container for this Pod. For example, `kubectl logs` without `-c` or `--container` flag will use this default container.
+The value of the annotation is the container name that is the default logging
+container for this Pod. For example, `kubectl logs` without `-c` or `--container` flag will use this default container.
 
 {{< note >}}
 This annotation is deprecated. You should use the [`kubectl.kubernetes.io/default-container`](#kubectl-kubernetes-io-default-container) annotation instead.
@@ -781,7 +897,10 @@ Example: `endpoints.kubernetes.io/over-capacity:truncated`
 
 Used on: Endpoints
 
-The {{< glossary_tooltip text="control plane" term_id="control-plane" >}} adds this annotation to an [Endpoints](/docs/concepts/services-networking/service/#endpoints) object if the associated {{< glossary_tooltip term_id="service" >}} has more than 1000 backing endpoints. The annotation indicates that the Endpoints object is over capacity and the number of endpoints has been truncated to 1000.
+The {{< glossary_tooltip text="control plane" term_id="control-plane" >}} adds
+this annotation to an [Endpoints](/docs/concepts/services-networking/service/#endpoints) object
+if the associated {{< glossary_tooltip term_id="service" >}} has more than 1000 backing endpoints.
+The annotation indicates that the Endpoints object is over capacity and the number of endpoints has been truncated to 1000.
 
 If the number of backend endpoints falls below 1000, the control plane removes this annotation.
 
@@ -850,7 +969,9 @@ Example: `scheduler.alpha.kubernetes.io/defaultTolerations: '[{"operator": "Equa
 
 Used on: Namespace
 
-This annotation requires the [PodTolerationRestriction](/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction) admission controller to be enabled. This annotation key allows assigning tolerations to a namespace and any new pods created in this namespace would get these tolerations added.
+This annotation requires the [PodTolerationRestriction](/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
+admission controller to be enabled. This annotation key allows assigning tolerations to
+a namespace and any new pods created in this namespace would get these tolerations added.
 
 ### scheduler.alpha.kubernetes.io/tolerationsWhitelist {#schedulerkubernetestolerations-whitelist}
 
@@ -896,25 +1017,35 @@ The taint will be added to a node when initializing the node to avoid race condi
 
 Example: `node.kubernetes.io/memory-pressure: "NoSchedule"`
 
-The kubelet detects memory pressure based on `memory.available` and `allocatableMemory.available` observed on a Node. The observed values are then compared to the corresponding thresholds that can be set on the kubelet to determine if the Node condition and taint should be added/removed.
+The kubelet detects memory pressure based on `memory.available` and `allocatableMemory.available`
+observed on a Node. The observed values are then compared to the corresponding thresholds that
+can be set on the kubelet to determine if the Node condition and taint should be added/removed.
 
 ### node.kubernetes.io/disk-pressure
 
 Example: `node.kubernetes.io/disk-pressure :"NoSchedule"`
 
-The kubelet detects disk pressure based on `imagefs.available`, `imagefs.inodesFree`, `nodefs.available` and `nodefs.inodesFree`(Linux only) observed on a Node. The observed values are then compared to the corresponding thresholds that can be set on the kubelet to determine if the Node condition and taint should be added/removed.
+The kubelet detects disk pressure based on `imagefs.available`, `imagefs.inodesFree`,
+`nodefs.available` and `nodefs.inodesFree`(Linux only) observed on a Node. The observed
+values are then compared to the corresponding thresholds that can be set on the kubelet
+to determine if the Node condition and taint should be added/removed.
 
 ### node.kubernetes.io/network-unavailable
 
 Example: `node.kubernetes.io/network-unavailable: "NoSchedule"`
 
-This is initially set by the kubelet when the cloud provider used indicates a requirement for additional network configuration. Only when the route on the cloud is configured properly will the taint be removed by the cloud provider.
+This is initially set by the kubelet when the cloud provider used indicates a requirement
+for additional network configuration. Only when the route on the cloud is configured
+properly will the taint be removed by the cloud provider.
 
 ### node.kubernetes.io/pid-pressure
 
 Example: `node.kubernetes.io/pid-pressure: "NoSchedule"`
 
-The kubelet checks D-value of the size of `/proc/sys/kernel/pid_max` and the PIDs consumed by Kubernetes on a node to get the number of available PIDs that referred to as the `pid.available` metric. The metric is then compared to the corresponding threshold that can be set on the kubelet to determine if the node condition and taint should be added/removed.
+The kubelet checks D-value of the size of `/proc/sys/kernel/pid_max` and the PIDs
+consumed by Kubernetes on a node to get the number of available PIDs that referred
+to as the `pid.available` metric. The metric is then compared to the corresponding
+threshold that can be set on the kubelet to determine if the node condition and taint should be added/removed.
 
 ### node.kubernetes.io/out-of-service
 
@@ -922,7 +1053,10 @@ Example: `node.kubernetes.io/out-of-service:NoExecute`
 
 A user can manually add the taint to a Node marking it out-of-service. If the `NodeOutOfServiceVolumeDetach`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled on
-`kube-controller-manager`, and a Node is marked out-of-service with this taint, the pods on the node will be forcefully deleted if there are no matching tolerations on it and volume detach operations for the pods terminating on the node will happen immediately. This allows the Pods on the out-of-service node to recover quickly on a different node.
+`kube-controller-manager`, and a Node is marked out-of-service with this taint, the pods
+on the node will be forcefully deleted if there are no matching tolerations on it and volume
+detach operations for the pods terminating on the node will happen immediately. This allows
+the Pods on the out-of-service node to recover quickly on a different node.
 
 {{< caution >}}
 Refer to
@@ -934,13 +1068,16 @@ for further details about when and how to use this taint.
 
 Example: `node.cloudprovider.kubernetes.io/uninitialized: "NoSchedule"`
 
-Sets this taint on a node to mark it as unusable, when kubelet is started with the "external" cloud provider, until a controller from the cloud-controller-manager initializes this node, and then removes the taint.
+Sets this taint on a node to mark it as unusable, when kubelet is started with the
+"external" cloud provider, until a controller from the cloud-controller-manager
+initializes this node, and then removes the taint.
 
 ### node.cloudprovider.kubernetes.io/shutdown
 
 Example: `node.cloudprovider.kubernetes.io/shutdown: "NoSchedule"`
 
-If a Node is in a cloud provider specified shutdown state, the Node gets tainted accordingly with `node.cloudprovider.kubernetes.io/shutdown` and the taint effect of `NoSchedule`.
+If a Node is in a cloud provider specified shutdown state, the Node gets tainted
+accordingly with `node.cloudprovider.kubernetes.io/shutdown` and the taint effect of `NoSchedule`.
 
 ### feature.node.kubernetes.io/*
 Used on: Nodes 
@@ -1090,10 +1227,13 @@ Example: `rbac.authorization.kubernetes.io/autoupdate: "false"`
 
 Used on: ClusterRole, ClusterRoleBinding, Role, RoleBinding
 
-When this annotation is set to `"true"` on default RBAC objects created by the kube-apiserver, they are automatically updated at server start to add missing permissions and subjects (extra permissions and subjects are left in place). To prevent autoupdating a particular role or rolebinding, set this annotation to `"false"`.
+When this annotation is set to `"true"` on default RBAC objects created by the kube-apiserver,
+they are automatically updated at server start to add missing permissions and subjects
+(extra permissions and subjects are left in place). To prevent autoupdating a particular role or
+rolebinding, set this annotation to `"false"`.
 If you create your own RBAC objects and set this annotation to `"false"`, `kubectl auth reconcile`
-(which allows reconciling arbitrary RBAC objects in a {{< glossary_tooltip text="manifest" term_id="manifest" >}}) respects this annotation and does not automatically add missing permissions and
-subjects.
+(which allows reconciling arbitrary RBAC objects in a {{< glossary_tooltip text="manifest" term_id="manifest" >}})
+respects this annotation and does not automatically add missing permissions and subjects.
 
 ### kubernetes.io/psp (deprecated) {#kubernetes-io-psp}
 
@@ -1144,7 +1284,9 @@ Used on: Pod
 
 This annotation lets Kubernetes control plane know about a pod being a critical pod so that the descheduler will not remove this pod.
 
-{{< note >}} Starting in v1.16, this annotation was removed in favor of [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/). {{< /note >}}
+{{< note >}}
+Starting in v1.16, this annotation was removed in favor of [Pod Priority](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
+{{< /note >}}
 
 ## Annotations used for audit
 
@@ -1202,9 +1344,13 @@ used to determine if the user has applied settings different from the kubeadm de
 
 Used on: Node
 
-A marker label to indicate that the node is used to run {{< glossary_tooltip text="control plane" term_id="control-plane" >}} components. The kubeadm tool applies this label to the control plane nodes that it manages. Other cluster management tools typically also set this taint.
+A marker label to indicate that the node is used to run {{< glossary_tooltip text="control plane" term_id="control-plane" >}} components.
+The kubeadm tool applies this label to the control plane nodes that it manages. Other cluster management tools typically also set this taint.
 
-You can label control plane nodes with this label to make it easier to schedule Pods only onto these nodes, or to avoid running Pods on the control plane. If this label is set, [EndpointSlice controller](/docs/concepts/services-networking/topology-aware-routing/#implementation-control-plane) ignores that node while calculating Topology Aware Hints.
+You can label control plane nodes with this label to make it easier to schedule Pods only onto these nodes,
+or to avoid running Pods on the control plane. If this label is set,
+[EndpointSlice controller](/docs/concepts/services-networking/topology-aware-routing/#implementation-control-plane)
+ignores that node while calculating Topology Aware Hints.
 
 ### node-role.kubernetes.io/control-plane {#node-role-kubernetes-io-control-plane-taint}
 
@@ -1214,7 +1360,9 @@ Taint that kubeadm applies on control plane nodes to restrict placing pods and a
 
 Example: `node-role.kubernetes.io/control-plane:NoSchedule`
 
-If this Taint is applied, control plane nodes allow only critical workloads to schedule on them. You can manually remove this taint with the following command on a specific node.
+If this Taint is applied, control plane nodes allow only critical workloads to schedule on them.
+You can manually remove this taint with the following command on a specific node.
+
 ```shell
 kubectl taint nodes <node-name> node-role.kubernetes.io/control-plane:NoSchedule-
 ```
