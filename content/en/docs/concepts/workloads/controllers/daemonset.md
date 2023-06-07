@@ -201,7 +201,7 @@ them according to its `updateStrategy`.
 
 You can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/) on a DaemonSet.
 
-While working with the rolling updates of the DaemonSets, we might come across two important parameters: `maxSurge` and `maxUnavailable`.
+While working with the rolling updates of the DaemonSets, you will come across two important parameters: `maxSurge` and `maxUnavailable`.
 
 ### MaxSurge 
 
