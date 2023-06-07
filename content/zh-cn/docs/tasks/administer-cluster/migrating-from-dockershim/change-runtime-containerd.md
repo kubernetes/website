@@ -157,7 +157,7 @@ then run the following commands:
 <!--
 ## Configure the kubelet to use containerd as its container runtime
 
-Edit the file `/var/lib/kubelet/kubeadm-flags.env` and add the containerd runtime to the flags.
+Edit the file `/var/lib/kubelet/kubeadm-flags.env` and add the containerd runtime to the flags;
 `--container-runtime=remote` and
 `--container-runtime-endpoint=unix:///run/containerd/containerd.sock`.
 -->
