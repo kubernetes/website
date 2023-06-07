@@ -146,12 +146,12 @@ kubectl get pods --selector=name=nginx,type=frontend
 
 #### 네트워크 트래픽이 포워드되지 않는 경우
 
-[서비스 디버깅하기](/docs/tasks/debug/debug-application/debug-service/)에서 더 많은 정보를 확인한다.
+[서비스 디버깅하기](/ko/docs/tasks/debug/debug-application/debug-service/)에서 더 많은 정보를 확인한다.
 
 ## {{% heading "whatsnext" %}}
 
 위의 방법 중 어떤 것으로도 문제가 해결되지 않는다면, 
-[서비스 디버깅하기 문서](/docs/tasks/debug/debug-application/debug-service/)를 참조하여 
+[서비스 디버깅하기 문서](/ko/docs/tasks/debug/debug-application/debug-service/)를 참조하여 
 `서비스`가 실행 중인지, 서비스에 `엔드포인트`가 있는지, `파드`가 실제로 서빙 중인지 확인한다. 
 예를 들어, DNS가 실행 중이고, iptables 규칙이 설정되어 있고, kube-proxy가 정상적으로 동작하는 것으로 보이는 상황이라면, 
 위와 같은 사항을 확인해 볼 수 있다.

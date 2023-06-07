@@ -219,7 +219,7 @@ spec:
 `hostnames-*` 파드로 들어오는 트래픽에 영향을 줄 수 있는 네트워크 폴리시 인그레스 규칙을
 배포하는 경우, 이를 검토해야 한다.
 
-자세한 내용은 [Network Policies](/docs/concepts/services-networking/network-policies/)를 참고한다.
+자세한 내용은 [Network Policies](/ko/docs/concepts/services-networking/network-policies/)를 참고한다.
 
 ## 서비스가 DNS 이름으로 작동하는가?
 
@@ -442,7 +442,7 @@ hostnames-632524106-tlaok   1/1       Running   0          1h
 
 "RESTARTS" 열은 파드가 자주 충돌하지 않거나 다시 시작되지 않음을 나타낸다.
 잦은 재시작은 간헐적인 연결 문제를 발생할 수 있다.
-재시작 횟수가 높으면, [파드를 디버깅하는](/docs/tasks/debug/debug-application/debug-pods/) 방법에 대해 참고한다.
+재시작 횟수가 높으면, [파드를 디버깅하는](/ko/docs/tasks/debug/debug-application/debug-pods/) 방법에 대해 참고한다.
 
 쿠버네티스 시스템 내부에는 모든 서비스의 셀렉터를 평가하고
 그 결과를 해당 엔드포인트 오브젝트에 저장하는 제어 루프가 있다.
