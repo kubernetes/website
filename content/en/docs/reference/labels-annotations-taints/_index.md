@@ -139,7 +139,12 @@ or DaemonSet, making a change to the metadata of Pods defined by that template.
 By either setting this annotation or changing the value to a new date, the kubectl tool
 triggers a rollout and indirectly causes the launch of fresh, replacement Pods.
 
-In the above example, the annotation indicates that the Pod was recently restarted at 3:30 PM UTC on March 31, 2023. The `"kubectl.kubernetes.io/restartedAt"` annotation is used by Kubernetes to keep track of the timestamp of the most recent container restart for a particular pod. This information can be useful for troubleshooting and auditing purposes, allowing administrators to track when a resource was last restarted and correlate it with other events or changes in the cluster.
+In the above example, the annotation indicates that the Pod is part of a workload that was
+most recently restarted at 3:30 PM UTC on March 31, 2023.
+
+This information can be useful for troubleshooting and auditing purposes, but is mainly used
+to trigger the rollout. Recording that date is a side effect of the mechanism to trigger those
+changes.
 
 ### applyset.kubernetes.io/is-parent-type (alpha) {#applyset-kubernetes-io-is-parent-type}
 
