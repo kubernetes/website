@@ -205,9 +205,12 @@ While working with the rolling updates of the DaemonSets, you will come across t
 
 ### MaxSurge 
 
-This particular parameter is responsible for determining the maximum number of pods that can be added above the desired number of pods mentioned in the DaemonSet. While performing a rolling update, Kubernetes will keep creating new pods to replace the old ones. `maxSurge` helps you to regulate the surge of additional pods beyond the desired count. Let's look at an example below: 
-
-Suppose the value of `maxSurge` is set to 1 and the desired count is 5, Kubernetes can create up to 6 pods while performing the update process. This parameter might be useful when you want to temporarily upscale the number of pods while performing the update.
+This parameter is responsible for determining the maximum number of pods that can be created above the desired number of pods mentioned in the DaemonSet.
+While performing a rolling update, Kubernetes will keep creating new pods to replace the old ones. 
+`maxSurge` helps you to regulate the surge of additional pods beyond the desired count. 
+Let's look at an example below: 
+Suppose the value of `maxSurge` is set to 1 and the desired count is 5, Kubernetes can create up to 6 pods while performing the update process.
+This parameter is useful when you want to temporarily upscale the number of pods while performing the update.
 
 ### MaxUnavailable
 
