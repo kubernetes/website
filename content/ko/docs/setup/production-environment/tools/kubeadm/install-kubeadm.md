@@ -46,7 +46,7 @@ card:
 경우, 쿠버네티스 클러스터 주소가 적절한 어댑터를 통해 이동하도록 IP 경로를 추가하는 것이 좋다.
 
 ## 필수 포트 확인 {#check-required-ports}
-[필수 포트들](/ko/docs/reference/ports-and-protocols/)은
+[필수 포트들](/ko/docs/reference/networking/ports-and-protocols/)은
 쿠버네티스 컴포넌트들이 서로 통신하기 위해서 열려 있어야
 한다. 다음과 같이 netcat과 같은 도구를 이용하여 포트가 열려 있는지 확인해 볼 수 있다.
 

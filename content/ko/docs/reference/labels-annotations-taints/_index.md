@@ -145,7 +145,7 @@ Go에 의해 정의된 `runtime.GOOS` 값을 kubelet이 읽어서 이 레이블�
 리밋레인지를 정의한 뒤에 배포된 파드들은 이러한 한도가 적용된다.
 `kubernetes.io/limit-ranger` 어노테이션은 파드에 대해 리소스 기본값이
 성공적으로 적용되었다고 기록한다.
-자세한 내용은 [리밋레인지](/docs/concepts/policy/limit-range)를 확인한다.
+자세한 내용은 [리밋레인지](/ko/docs/concepts/policy/limit-range/)를 확인한다.
 
 ## beta.kubernetes.io/arch (사용 중단됨)
 
@@ -401,8 +401,8 @@ kubelet이 Microsoft 윈도우에서 실행되고 있다면, 사용 중인 Windo
 
 적용 대상: 엔드포인트슬라이스(EndpointSlices)
 
-쿠버네티스는 이 레이블을 사용하여 [엔드포인트슬라이스](/docs/concepts/services-networking/endpoint-slices/)와
-[서비스](/docs/concepts/services-networking/service/)를 결합한다.
+쿠버네티스는 이 레이블을 사용하여 [엔드포인트슬라이스](/ko/docs/concepts/services-networking/endpoint-slices/)와
+[서비스](/ko/docs/concepts/services-networking/service/)를 결합한다.
 
 이 레이블은 엔드포인트슬라이스가 지원하는 서비스의 {{< glossary_tooltip term_id="name" text="이름">}}을 기록한다.
 모든 엔드포인트슬라이스는 이 레이블을
@@ -531,7 +531,7 @@ kube-controller-manager의 잡(Job) 컨트롤러는
 
 적용 대상: 엔드포인트(Endpoints)
 
-{{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}은, 연결된 {{< glossary_tooltip text="서비스" term_id="service" >}}에 1000개 이상의 엔드포인트가 있는 경우, 이 어노테이션을 [엔드포인트](/docs/concepts/services-networking/service/#endpoints) 오브젝트에 추가한다. 이 어노테이션은 엔드포인트의 용량이 초과되었거나 엔드포인트의 수가 1000개로 잘렸음을 나타낸다.
+{{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}은, 연결된 {{< glossary_tooltip text="서비스" term_id="service" >}}에 1000개 이상의 엔드포인트가 있는 경우, 이 어노테이션을 [엔드포인트](/ko/docs/concepts/services-networking/service/#endpoints) 오브젝트에 추가한다. 이 어노테이션은 엔드포인트의 용량이 초과되었거나 엔드포인트의 수가 1000개로 잘렸음을 나타낸다.
 
 백엔드 엔드포인트의 수가 1000개 미만이면, 컨트롤 플레인은 이 어노테이션을 제거한다.
 
@@ -651,7 +651,7 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 특히 `enforce` 레이블은 표시된 수준에 정의된 요구 사항을 충족하지 않는
 레이블 네임스페이스에 모든 파드의 생성을 금지한다.
 
-더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
+더 많은 정보는 [네임스페이스에서 파드 보안 적용](/ko/docs/concepts/security/pod-security-admission)을
 참고한다.
 
 ## pod-security.kubernetes.io/enforce-version
@@ -664,7 +664,7 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 설정된 파드의 유효성을 검사할 때 적용할 [파드 보안 표준](/ko/docs/concepts/security/pod-security-standards/)
 정책의 버전이 결정된다.
 
-더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
+더 많은 정보는 [네임스페이스에서 파드 보안 적용](/ko/docs/concepts/security/pod-security-admission)을
 참고한다.
 
 ## pod-security.kubernetes.io/audit
@@ -678,7 +678,7 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 특히 `audit` 레이블은 표시된 수준에 정의된 요구 사항을 충족하지 않는 레이블 네임스페이스에 파드를 생성하는 것을
 방지하지 않지만, 해당 파드에 audit 어노테이션을 추가한다.
 
-더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
+더 많은 정보는 [네임스페이스에서 파드 보안 적용](/ko/docs/concepts/security/pod-security-admission)을
 참고한다.
 
 ## pod-security.kubernetes.io/audit-version
@@ -691,7 +691,7 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 설정된 파드의 유효성을 검사할 때 적용할 [파드 보안 표준](/ko/docs/concepts/security/pod-security-standards/)
 정책의 버전이 결정된다.
 
-더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
+더 많은 정보는 [네임스페이스에서 파드 보안 적용](/ko/docs/concepts/security/pod-security-admission)을
 참고한다.
 
 ## pod-security.kubernetes.io/warn
@@ -707,7 +707,7 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 디플로이먼트, 잡, 스테이트풀셋 등과 같은 파드 템플릿을 포함하는
 객체를 만들거나 업데이트할 때에도 경고가 표시된다.
 
-더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
+더 많은 정보는 [네임스페이스에서 파드 보안 적용](/ko/docs/concepts/security/pod-security-admission)을
 참고한다.
 
 ## pod-security.kubernetes.io/warn-version
@@ -721,7 +721,7 @@ kubelet이 "외부" 클라우드 공급자에 의해 실행되었다면 노드�
 정책의 버전이 결정된다. 디플로이먼트, 잡, 스테이트풀셋 등과 같은 파드 템플릿을 포함하는
 객체를 만들거나 업데이트할 때에도 경고가 표시된다.
 
-더 많은 정보는 [네임스페이스에서 파드 보안 적용](/docs/concepts/security/pod-security-admission)을
+더 많은 정보는 [네임스페이스에서 파드 보안 적용](/ko/docs/concepts/security/pod-security-admission)을
 참고한다.
 
 ### kubernetes.io/psp (사용 중단됨) {#kubernetes-io-psp}

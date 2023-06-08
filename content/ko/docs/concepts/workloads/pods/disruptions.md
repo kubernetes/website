@@ -72,7 +72,7 @@ weight: 60
 - 파드가 필요로 하는 [리소스를 요청](/ko/docs/tasks/configure-pod-container/assign-memory-resource/)하는지 확인한다.
 - 고가용성이 필요한 경우 애플리케이션을 복제한다.
   (복제된 [스테이트리스](/ko/docs/tasks/run-application/run-stateless-application-deployment/) 및
-  [스테이트풀](/docs/tasks/run-application/run-replicated-stateful-application/) 애플리케이션에 대해 알아보기.)
+  [스테이트풀](/ko/docs/tasks/run-application/run-replicated-stateful-application/) 애플리케이션에 대해 알아보기.)
 - 복제된 애플리케이션의 구동 시 훨씬 더 높은 가용성을 위해 랙 전체
   ([안티-어피니티](/ko/docs/concepts/scheduling-eviction/assign-pod-node/#파드간-어피니티와-안티-어피니티) 이용)
   또는 영역 간

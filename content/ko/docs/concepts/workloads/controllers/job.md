@@ -265,7 +265,7 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
     인덱스된(Indexed) 잡과 
     {{< glossary_tooltip text="서비스" term_id="Service" >}}를 결합하여 사용하고 있다면, 잡에 속한 파드는
     DNS를 이용하여 서로를 디스커버 하기 위해 사전에 결정된 호스트네임을 사용할 수 있다.
-    이를 어떻게 설정하는지에 대해 궁금하다면, [파드 간 통신을 위한 잡](/docs/tasks/job/job-with-pod-to-pod-communication/)를 확인한다.
+    이를 어떻게 설정하는지에 대해 궁금하다면, [파드 간 통신을 위한 잡](/ko/docs/tasks/job/job-with-pod-to-pod-communication/)를 확인한다.
   - 컨테이너화된 태스크의 경우, 환경 변수 `JOB_COMPLETION_INDEX`에 있다.
 
   각 인덱스에 대해 성공적으로 완료된 파드가 하나 있으면 작업이 완료된 것으로
@@ -505,7 +505,7 @@ spec:
 [가변 파드 수를 가진 큐]: /ko/docs/tasks/job/fine-parallel-processing-work-queue/
 [정적 작업 할당을 사용한 인덱싱된 잡]: /ko/docs/tasks/job/indexed-parallel-processing-static/
 [잡 템플릿 확장]: /ko/docs/tasks/job/parallel-processing-expansion/
-[파드 간 통신을 위한 잡]: /docs/tasks/job/job-with-pod-to-pod-communication/
+[파드 간 통신을 위한 잡]: /ko/docs/tasks/job/job-with-pod-to-pod-communication/
 
 ## 고급 사용법
 

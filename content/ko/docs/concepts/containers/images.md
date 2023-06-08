@@ -207,7 +207,7 @@ kubelet이 컨테이너 런타임을 사용하여 파드의 컨테이너 생성�
 kubelet에서 플러그인 바이너리를 호출하여 컨테이너 이미지에 대한 레지스트리 자격증명을 동적으로 가져오도록 설정할 수 있다.
 이는 프라이빗 레지스트리에서 자격증명을 가져오는 방법 중 가장 강력하며 휘발성이 있는 방식이지만, 활성화하기 위해 kubelet 수준의 구성이 필요하다.
 
-자세한 내용은 [kubelet 이미지 자격증명 제공자 설정하기](/docs/tasks/administer-cluster/kubelet-credential-provider/)를 참고한다.
+자세한 내용은 [kubelet 이미지 자격증명 제공자 설정하기](/ko/docs/tasks/administer-cluster/kubelet-credential-provider/)를 참고한다.
 
 ### config.json 파일 해석 {#config-json}
 

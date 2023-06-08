@@ -18,7 +18,7 @@ content_type: concept
 따라서 다양한 클라우드 또는 OS 환경에서 보다 쉽게 배포할 수 있다.
 
 쿠버네티스 클러스터에 있는 개별 {{< glossary_tooltip text="node" term_id="node" >}}는
-해당 노드에 할당된 [파드](/docs/concepts/workloads/pods/)를
+해당 노드에 할당된 [파드](/ko/docs/concepts/workloads/pods/)를
 구성하는 컨테이너들을 실행한다.
 파드 내부에 컨테이너들은 같은 노드에서 실행될 수 있도록 같은 곳에 위치하고 함께 스케줄된다.
 

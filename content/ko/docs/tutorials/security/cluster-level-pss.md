@@ -32,7 +32,7 @@ weight: 10
 
 ## 적용할 알맞은 파드 시큐리티 스탠다드 선택하기
 
-[파드 시큐리티 어드미션](/docs/concepts/security/pod-security-admission/)을 이용하여 
+[파드 시큐리티 어드미션](/ko/docs/concepts/security/pod-security-admission/)을 이용하여 
 `enforce`, `audit`, 또는 `warn` 모드 중 하나로 
 내장 [파드 시큐리티 스탠다드](/ko/docs/concepts/security/pod-security-standards/)를 적용할 수 있다.
 
@@ -330,6 +330,6 @@ weight: 10
   4. kubectl context를 새로 생성한 클러스터에 설정
   5. 최소한의 파드 구성을 위한 yaml 파일을 생성
   6. 해당 파일을 적용하여 새 클러스터에 파드를 생성
-- [파드 시큐리티 어드미션](/docs/concepts/security/pod-security-admission/)
+- [파드 시큐리티 어드미션](/ko/docs/concepts/security/pod-security-admission/)
 - [파드 시큐리티 스탠다드](/ko/docs/concepts/security/pod-security-standards/)
 - [파드 시큐리티 스탠다드를 네임스페이스 수준에 적용하기](/ko/docs/tutorials/security/ns-level-pss/)
