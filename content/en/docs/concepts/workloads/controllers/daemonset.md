@@ -212,9 +212,14 @@ the number of _nodes_ that can have a duplicate Pod on them at any one moment
 during the rollout.
 While performing a rolling update, Kubernetes will keep creating new pods to replace the old ones. 
 `maxSurge` helps you to regulate the surge of additional pods beyond the desired count. 
-Let's look at an example below: 
-Suppose the value of `maxSurge` is set to 1 and the desired count is 5, Kubernetes can create up to 6 pods while performing the update process.
-This parameter is useful when you want to temporarily upscale the number of pods while performing the update.
+
+#### maxSurge and Pod failures
+
+During a DaemonSet rollout, one of the old pods maybe become unavailable for some reason
+(for example: the `Ready` condition transitions to false, the  Pod is evicted, or the node is drained).
+If that occurs, the DaemonSet controller immediately creates a replacement Pod on that node,
+without considering surge limits. The replacement Pod uses the current (new) Pod template, not
+the previous one.
 
 ### MaxUnavailable
 
