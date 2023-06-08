@@ -475,7 +475,7 @@ CPU Manager policy to use. Possible values: <code>none</code>, <code>static</cod
 <!--
 A set of key=value CPU Manager policy options to use, to fine tune their behaviour. If not supplied, keep the default behaviour. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
-一组用于微调其行为的 key=value CPU 管理器策略选项。如果未提供，请保留默认行为。
+一组用于微调 CPU 管理器策略行为的 key=value 选项。如果未提供，保留默认行为。
 （已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
 </td>
@@ -1463,7 +1463,7 @@ Number of Pods that can run on this Kubelet. (DEPRECATED: This parameter should 
 Maximum number of old instances of containers to retain globally. Each container takes up some disk space. To disable, set to a negative number. (DEPRECATED: Use <code>--eviction-hard</code> or <code>--eviction-soft</code> instead. Will be removed in a future version.)
 -->
 设置全局可保留的已停止容器实例个数上限。
-每个实例会占用一些磁盘空间。要禁用，请设置为负数。
+每个实例会占用一些磁盘空间。要禁用，可设置为负数。
 已弃用：改用 <code>--eviction-hard</code> 或 <code>--eviction-soft</code>。
 此标志将在未来的版本中删除。
 </td>
@@ -2244,7 +2244,7 @@ The full path of the directory in which to search for additional third party vol
 Specifies interval for kubelet to calculate and cache the volume disk usage for all pods and volumes. To disable volume calculations, set to <code>0</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
 指定 kubelet 计算和缓存所有 Pod 和卷的磁盘用量总值的时间间隔。要禁用磁盘用量计算，
-请设置为 0。
+可设置为 0。
 （已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
 </td>
