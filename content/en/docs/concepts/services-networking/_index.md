@@ -16,7 +16,7 @@ Kubernetes networking addresses four concerns:
   to be reachable from outside your cluster.
   - [Ingress](/docs/concepts/services-networking/ingress/) and [Gateway](https://gateway-api.sigs.k8s.io/) provide
     extra functionality specifically for exposing your applications, websites and APIs, usually to clients outside
-    the cluster.
+    the cluster. Ingress and Gateway often use a load balancer to make that work reliably and at scale.
 - You can also use Services to
   [publish services only for consumption inside your cluster](/docs/concepts/services-networking/service-traffic-policy/).
 
@@ -49,6 +49,7 @@ kube-proxy
   The kube-proxy ensures that clients can connect to [Services](/docs/concepts/services-networking/service/),
   including to any backend Pods that make up the Service. Clients might be other  Pods, or they could be connecting from outside the cluster.
   Some network plugins provide their own alternative to kube-proxy, which means   you don't need to install it when you use that particular plugin.
+  Part of the behavior of kube-proxy is to act as an load balancer, directing client traffic to endpoints.
 
   In the diagram, the kube-proxy is the icon top right of each node labelled “k-proxy”.
 
