@@ -1,6 +1,7 @@
 ---
 title: "Services, Load Balancing, and Networking"
 weight: 60
+simple_list: true
 description: >
   Concepts and resources behind networking in Kubernetes.
 ---
@@ -169,3 +170,6 @@ so there must be an IP address in the host network for the kubelet to use.
 For an adminstrative perspective on networking for your cluster, read
 [Cluster Networking](/docs/concepts/cluster-administration/networking/).
 
+### More pages in this section
+
+Read the other pages in this section of the Kubernetes documentation.
