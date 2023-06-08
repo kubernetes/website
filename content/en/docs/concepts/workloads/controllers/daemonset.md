@@ -214,7 +214,8 @@ This parameter is useful when you want to temporarily upscale the number of pods
 
 ### MaxUnavailable
 
-This particular parameter defines the maximum number of pods that can be unavailable while performing the update.
+This parameter defines the maximum number of pods, belonging to a DaemonSet,
+that can be unavailable while performing an update.
 In simpler terms, they are being deleted and not yet replaced by new pods, during the update process. 
 `maxUnavailable` specifies either the maximum number or maximum proportion of pods that can
 be (voluntarily) [disrupted](/docs/concepts/workloads/pods/disruptions/#voluntary-and-involuntary-disruptions)
