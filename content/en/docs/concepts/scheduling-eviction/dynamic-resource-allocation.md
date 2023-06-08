@@ -11,7 +11,7 @@ weight: 65
 
 {{< feature-state for_k8s_version="v1.27" state="alpha" >}}
 
-Dynamic resource allocation is a API for requesting and sharing resources
+Dynamic resource allocation is an API for requesting and sharing resources
 between pods and containers inside a pod. It is a generalization of the
 persistent volumes API for generic resources. Third-party resource drivers are
 responsible for tracking and allocating resources. Different kinds of
