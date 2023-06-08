@@ -221,7 +221,7 @@ If that occurs, the DaemonSet controller immediately creates a replacement Pod o
 without considering surge limits. The replacement Pod uses the current (new) Pod template, not
 the previous one.
 
-### MaxUnavailable
+### maxUnavailable
 
 This parameter defines the maximum number of pods, belonging to a DaemonSet,
 that can be unavailable while performing an update.
