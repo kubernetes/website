@@ -5,27 +5,25 @@ description: >
   Concepts and resources behind networking in Kubernetes.
 ---
 
-The [Kubernetes network model](#kubernetes-network-model) enables container networking within
-a {{< glossary_tooltip text="pod" term_id="pod" >}} and between pods on the same or different
-{{< glossary_tooltip text="nodes" term_id="node" >}}.
+The [Kubernetes network model](#kubernetes-network-model) enables container networking within a pod and between pods
+on the same or different {{< glossary_tooltip text="nodes" term_id="node" >}}.
 
 Kubernetes networking addresses four concerns:
-
-- Containers within a Pod can [communicate](/docs/concepts/services-networking/dns-pod-service/) via loopback.
-- All Pods within a cluster can address (as in, find the IP address) of another
-  Pod, without address translation. Providing that security policies allow it,
-  any two Pods can communicate directly.
+- Containers within a Pod [use networking to communicate](/docs/concepts/services-networking/dns-pod-service/) via loopback.
+- Cluster networking provides communication between different Pods.
 - The [Service](/docs/concepts/services-networking/service/) API lets you
   [expose an application running in Pods](/docs/tutorials/services/connect-applications-service/)
   to be reachable from outside your cluster.
-  - [Ingress](/docs/concepts/services-networking/ingress/) provides extra functionality
-    specifically for exposing HTTP applications, websites and APIs.
   - [Gateway API](/docs/concepts/services-networking/gateway/) is an {{<glossary_tooltip text="add-on" term_id="addons">}}
     that provides an expressive, extensible, and role-oriented family of API kinds for modeling service networking.
-  - [Ingress](/docs/concepts/services-networking/ingress/) and [Gateway](https://gateway-api.sigs.k8s.io/) provide
-    extra functionality specifically for exposing your applications, websites and APIs, usually to clients outside
-    the cluster.
-  You can also use Services to
+  - [Ingress](/docs/concepts/services-networking/ingress/) provides extra functionality
+    specifically for exposing HTTP applications, websites and APIs.  
+
+  [Gateway](https://gateway-api.sigs.k8s.io/) and
+  [Ingress](/docs/concepts/services-networking/ingress/) provide
+  extra functionality specifically for exposing your applications, websites and APIs, usually to clients outside
+  the cluster. Ingress and Gateway often use a load balancer to make that work reliably and at scale.
+- You can also use Services to
   [publish services only for consumption inside your cluster](/docs/concepts/services-networking/service-traffic-policy/).
 
 The [Connecting Applications with Services](/docs/tutorials/services/connect-applications-service/) tutorial lets you learn
@@ -33,7 +31,7 @@ about Services and Kubernetes networking with a hands-on example.
 
 Read on to learn more about the [Kubernetes network model](#kubernetes-network-model).
 
-## The Kubernetes network model {#kubernetes-network-model}
+## Kubernetes network model
 
 Figure 1 depicts a cluster with a control plane, a small number of nodes (VM or physical) attached to a network, each
 with pods containing one more containers. In addition, each pod has its own IP address called a _pod IP_.
