@@ -40,12 +40,12 @@ API 접근(access) 권한이 있는 모든 사용자 또는 etcd에 접근할 �
 
 1. 시크릿에 대해 [저장된 데이터 암호화(Encryption at Rest)를 활성화](/docs/tasks/administer-cluster/encrypt-data/)한다.
 1. 시크릿에 대한 최소한의 접근 권한을 지니도록
-   [RBAC 규칙을 활성화 또는 구성](/docs/reference/access-authn-authz/authorization/)한다.
+   [RBAC 규칙을 활성화 또는 구성](/ko/docs/reference/access-authn-authz/authorization/)한다.
 1. 특정 컨테이너에서만 시크릿에 접근하도록 한다.
 1. [외부 시크릿 저장소 제공 서비스를 사용하는 것을 고려](https://secrets-store-csi-driver.sigs.k8s.io/concepts.html#provider-for-the-secrets-store-csi-driver)한다.
 
 시크릿의 보안성을 높이고 관리하는 데에 관한 가이드라인은
-[쿠버네티스 시크릿에 관한 좋은 관행](/docs/concepts/security/secrets-good-practices)를 참고한다.
+[쿠버네티스 시크릿에 관한 좋은 관행](/ko/docs/concepts/security/secrets-good-practices/)를 참고한다.
 
 {{< /caution >}}
 
@@ -135,10 +135,10 @@ API 접근(access) 권한이 있는 모든 사용자 또는 etcd에 접근할 �
 만들어진 시크릿은 [불변(immutable)](#secret-immutable)만 아니라면 수정될 수 있다.
 시크릿 수정 방식은 다음과 같다.
 
-* [`kubectl` 사용하기](/docs/tasks/configmap-secret/managing-secret-using-kubectl/#edit-secret)
-* [설정 파일 사용하기](/docs/tasks/configmap-secret/managing-secret-using-config-file/#edit-secret)
+* [`kubectl` 사용하기](/ko/docs/tasks/configmap-secret/managing-secret-using-kubectl/#edit-secret)
+* [설정 파일 사용하기](/ko/docs/tasks/configmap-secret/managing-secret-using-config-file/#edit-secret)
 
-[Kustomize 도구](/docs/tasks/configmap-secret/managing-secret-using-kustomize/#edit-secret)로
+[Kustomize 도구](/ko/docs/tasks/configmap-secret/managing-secret-using-kustomize/#edit-secret)로
 시크릿 내부의 데이터를 수정하는 것도 가능하지만, 이 경우 수정된 데이터를 지닌 새로운 `Secret` 오브젝트가 생성된다.
 
 시크릿을 생성한 방법이나 파드에서 시크릿이 어떻게 사용되는지에 따라,
@@ -1274,7 +1274,7 @@ kubelet은 시크릿에 있던 기밀 데이터의 로컬 복사본을 삭제한
 ## {{% heading "whatsnext" %}}
 
 - 시크릿의 보안성을 높이고 관리하는 데에 관한 가이드라인을 원한다면
-  [쿠버네티스 시크릿을 다루는 좋은 관행들](/docs/concepts/security/secrets-good-practices)을 참고하라.
+  [쿠버네티스 시크릿을 다루는 좋은 관행들](/ko/docs/concepts/security/secrets-good-practices/)을 참고하라.
 - [`kubectl` 을 사용하여 시크릿 관리](/ko/docs/tasks/configmap-secret/managing-secret-using-kubectl/)하는 방법 배우기
 - [구성 파일을 사용하여 시크릿 관리](/ko/docs/tasks/configmap-secret/managing-secret-using-config-file/)하는 방법 배우기
 - [kustomize를 사용하여 시크릿 관리](/ko/docs/tasks/configmap-secret/managing-secret-using-kustomize/)하는 방법 배우기

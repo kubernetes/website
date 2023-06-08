@@ -197,4 +197,4 @@ spec:
 ## {{% heading "whatsnext" %}}
 
 * [토폴로지 인지 힌트](/ko/docs/concepts/services-networking/topology-aware-hints/)를 읽어보기.
-* [서비스와 애플리케이션 연결하기](/docs/tutorials/services/connect-applications-service/)를 읽어보기.
+* [서비스와 애플리케이션 연결하기](/ko/docs/tutorials/services/connect-applications-service/)를 읽어보기.

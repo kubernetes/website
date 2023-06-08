@@ -64,4 +64,4 @@ kube-proxy는 `spec.internalTrafficPolicy` 의 설정에 따라서 라우팅되�
 
 * [토폴로지 인지 힌트](/ko/docs/concepts/services-networking/topology-aware-hints/)에 대해서 읽기
 * [서비스 외부 트래픽 정책](/ko/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip)에 대해서 읽기
-* [서비스와 애플리케이션 연결하기](/docs/tutorials/services/connect-applications-service/) 를 따라하기
+* [서비스와 애플리케이션 연결하기](/ko/docs/tutorials/services/connect-applications-service/) 를 따라하기

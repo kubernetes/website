@@ -272,6 +272,6 @@ v1 API의 `zone` 필드로 접근할 수 있다.
 
 ## {{% heading "whatsnext" %}}
 
-* [서비스와 애플리케이션 연결하기](/docs/concepts/services-networking/connect-applications-service/) 튜토리얼을 따라하기
+* [서비스와 애플리케이션 연결하기](/ko/docs/tutorials/services/connect-applications-service/) 튜토리얼을 따라하기
 * [엔드포인트슬라이스 API 레퍼런스](/docs/reference/kubernetes-api/service-resources/endpoint-slice-v1/) 를 읽어보기
 * [엔드포인트 API 레퍼런스](/docs/reference/kubernetes-api/service-resources/endpoints-v1/) 를 읽어보기
