@@ -245,7 +245,9 @@ Kubernetes can delete and replace pods one at a time, ensuring the fact that the
 This parameter is useful to maintain the desired level of availability during updates.
 
 You need to set `.spec.updateStrategy.rollingUpdate.maxUnavailable` (default to 1), `.spec.minReadySeconds` (default to 0) and `.spec.updateStrategy.rollingUpdate.maxSurge` (defaults to 0).
-Please note that the default value of `maxSurge` and `maxUnavailable` is 25% of `replicas`.
+The default value of `maxSurge` is 0 and the default value of `maxUnavailable` is 25%. For 
+`maxUnavailable`,  at most this many nodes that should be running the daemon pod can have
+their pods stopped for an update at any given time.
 
 ```yaml
 spec:
