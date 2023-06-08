@@ -216,7 +216,19 @@ This parameter is useful when you want to temporarily upscale the number of pods
 
 This particular parameter defines the maximum number of pods that can be unavailable while performing the update.
 In simpler terms, they are being deleted and not yet replaced by new pods, during the update process. 
-`maxUnavailable` can specify the number or percentage of pods that can be available at that particular moment. Let's look at an example below: 
+`maxUnavailable` specifies either the maximum number or maximum proportion of pods that can
+be (voluntarily) [disrupted](/docs/concepts/workloads/pods/disruptions/#voluntary-and-involuntary-disruptions)
+at any particular moment during a rollout.
+
+#### maxUnavailable and Pod failures
+
+During a DaemonSet rollout, one of the old pods maybe become unavailable for some reason
+(for example: the `Ready` condition transitions to false, the  Pod is evicted, or the node is drained).
+If that occurs, the DaemonSet controller immediately creates a replacement Pod on that node,
+and avoids removing other old Pods until the number of unavailable Pods fits inside the
+`maxUnavailable` threshold.
+
+### Example {#updating-a-daemonset-example}
 
 Suppose the value of `maxUnavailable` is set to 1 and the desired count is 5,
 Kubernetes can delete and replace pods one at a time, ensuring the fact that there should always be at least 4 pods available.
