@@ -83,7 +83,7 @@ The rest of this section describes these steps in detail.
 
 The flow can be seen in the following diagram.
 
-![aggregation auth flows](/images/docs/aggregation-api-auth-flow.png).
+![aggregation auth flows](/images/docs/aggregation-api-auth-flow.png)
 
 The source for the above swimlanes can be found in the source of this document.
 -->
