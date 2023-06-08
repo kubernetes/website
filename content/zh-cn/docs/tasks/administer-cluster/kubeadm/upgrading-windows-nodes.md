@@ -47,14 +47,14 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
     ```powershell
     # replace {{< skew currentPatchVersion >}} with your desired version
-    curl.exe -Lo <path-to-kubeadm.exe>  "https://dl.k8s.io/{{< skew currentPatchVersion >}}/bin/windows/amd64/kubeadm.exe"
+    curl.exe -Lo <path-to-kubeadm.exe>  "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubeadm.exe"
     ```
 -->
 1. 在 Windows 节点上升级 kubeadm：
 
    ```powershell
    # 将 {{< skew currentPatchVersion >}} 替换为你希望的版本
-   curl.exe -Lo <kubeadm.exe 路径>  "https://dl.k8s.io/{{< skew currentPatchVersion >}}/bin/windows/amd64/kubeadm.exe"
+   curl.exe -Lo <kubeadm.exe 路径>  "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubeadm.exe"
    ```
 
 <!--
@@ -116,7 +116,7 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
     ```powershell
     stop-service kubelet
-    curl.exe -Lo <path-to-kubelet.exe> "https://dl.k8s.io/{{< skew currentPatchVersion >}}/bin/windows/amd64/kubelet.exe"
+    curl.exe -Lo <path-to-kubelet.exe> "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubelet.exe"
     restart-service kubelet
     ```
 -->
@@ -126,7 +126,7 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
    ```powershell
    stop-service kubelet
-   curl.exe -Lo <kubelet.exe 路径> "https://dl.k8s.io/{{< skew currentPatchVersion >}}/bin/windows/amd64/kubelet.exe"
+   curl.exe -Lo <kubelet.exe 路径> "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubelet.exe"
    restart-service kubelet
    ```
 
@@ -135,7 +135,7 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
     ```powershell
     stop-service kube-proxy
-    curl.exe -Lo <path-to-kube-proxy.exe> "https://dl.k8s.io/{{< skew currentPatchVersion >}}/bin/windows/amd64/kube-proxy.exe"
+    curl.exe -Lo <path-to-kube-proxy.exe> "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kube-proxy.exe"
     restart-service kube-proxy
     ```
 -->
@@ -143,7 +143,7 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
    ```powershell
    stop-service kube-proxy
-   curl.exe -Lo <kube-proxy.exe 路径> "https://dl.k8s.io/{{< skew currentPatchVersion >}}/bin/windows/amd64/kube-proxy.exe"
+   curl.exe -Lo <kube-proxy.exe 路径> "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kube-proxy.exe"
    restart-service kube-proxy
    ```
 
