@@ -203,7 +203,7 @@ You can [perform a rolling update](/docs/tasks/manage-daemon/update-daemon-set/)
 
 While working with the rolling updates of the DaemonSets, you will come across two important parameters: `maxSurge` and `maxUnavailable`.
 
-### MaxSurge 
+### maxSurge
 
 This parameter is responsible for determining the maximum number of pods that can be created above the desired number of pods mentioned in the DaemonSet.
 While performing a rolling update, Kubernetes will keep creating new pods to replace the old ones. 
