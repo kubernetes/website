@@ -205,7 +205,11 @@ While working with the rolling updates of the DaemonSets, you will come across t
 
 ### maxSurge
 
-This parameter is responsible for determining the maximum number of pods that can be created above the desired number of pods mentioned in the DaemonSet.
+If you set this parameter to a number above 0, you allow the DaemonSet controller
+to create temporary duplicate Pods during a rollout.
+Because a DaemonSet aims to have one healthy Pod per node, this field also implies
+the number of _nodes_ that can have a duplicate Pod on them at any one moment
+during the rollout.
 While performing a rolling update, Kubernetes will keep creating new pods to replace the old ones. 
 `maxSurge` helps you to regulate the surge of additional pods beyond the desired count. 
 Let's look at an example below: 
