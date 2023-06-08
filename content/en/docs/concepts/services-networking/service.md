@@ -699,7 +699,7 @@ metadata:
 metadata:
     name: my-service
     annotations:
-        service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+        service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
 [...]
 ```
 
