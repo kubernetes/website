@@ -196,7 +196,7 @@ kubectl logs myapp-pod -c init-myservice # Inspect the first init container
 kubectl logs myapp-pod -c init-mydb      # Inspect the second init container
 ```
 
-At this point, those init containers will be waiting to discover [Services](/docs/concepts/services-networking/service/) named
+At this point, those init containers will be waiting to discover {{< glossary_tooltip text="Services" term_id="service" >}} named
 `mydb` and `myservice`.
 
 Here's a configuration you can use to make those Services appear:
@@ -322,7 +322,7 @@ reasons:
   have to be done by someone with root access to nodes.
 * All containers in a Pod are terminated while `restartPolicy` is set to Always,
   forcing a restart, and the init container completion record has been lost due
-  to [garbage collection](/docs/concepts/architecture/garbage-collection/).
+  to {{< glossary_tooltip text="garbage collection" term_id="garbage-collection" >}}.
 
 The Pod will not be restarted when the init container image is changed, or the
 init container completion record has been lost due to garbage collection. This
@@ -334,4 +334,4 @@ Kubernetes, consult the documentation for the version you are using.
 * Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
 * Learn how to [debug init containers](/docs/tasks/debug/debug-application/debug-init-containers/)
 * Read about an overview of [kubelet](/docs/reference/command-line-tools-reference/kubelet/) and [kubectl](/docs/reference/kubectl/)
-* Let's know about [types of probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe): liveness, readiness, startup probe
+* Learn about the [types of probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe): liveness, readiness, startup probe.
