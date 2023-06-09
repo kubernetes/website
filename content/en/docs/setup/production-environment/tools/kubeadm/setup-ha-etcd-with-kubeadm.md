@@ -72,7 +72,7 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    cgroupDriver: systemd
    address: 127.0.0.1
    containerRuntimeEndpoint: unix:///var/run/containerd/containerd.sock
-   podManifestPath: /etc/kubernetes/manifests
+   staticPodPath: /etc/kubernetes/manifests
    EOF
 
    cat << EOF > /etc/systemd/system/kubelet.service.d/20-etcd-service-manager.conf
