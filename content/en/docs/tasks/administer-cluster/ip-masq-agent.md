@@ -44,9 +44,13 @@ traffic to "external" addresses must come from a known machine address. For exam
 Cloud, any traffic to the internet must come from a VM's IP. When containers are used, as in
 Google Kubernetes Engine, the Pod IP will be rejected for egress. To avoid this, we must hide
 the Pod IP behind the VM's own IP address - generally known as "masquerade". By default, the
-agent is configured to treat the three private IP ranges specified by [RFC 1918](https://tools.ietf.org/html/rfc1918) as non-masquerade [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing). These ranges are `10.0.0.0/8`, `172.16.0.0/12`, and
-`192.168.0.0 16`. The agent will also treat link-local (169.254.0.0/16) as a non-masquerade
-CIDR by default. The agent is configured to reload its configuration from the location */etc/config/ip-masq-agent* every 60 seconds, which is also configurable.
+agent is configured to treat the three private IP ranges specified by
+[RFC 1918](https://tools.ietf.org/html/rfc1918) as non-masquerade
+[CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
+These ranges are `10.0.0.0/8`, `172.16.0.0/12`, and `192.168.0.0 16`.
+The agent will also treat link-local (169.254.0.0/16) as a non-masquerade CIDR by default.
+The agent is configured to reload its configuration from the location
+*/etc/config/ip-masq-agent* every 60 seconds, which is also configurable.
 
 ![masq/non-masq example](/images/docs/ip-masq.png)
 
@@ -106,8 +110,12 @@ kubectl label nodes my-node node.kubernetes.io/masq-agent-ds-ready=true
 More information can be found in the ip-masq-agent documentation [here](https://github.com/kubernetes-sigs/ip-masq-agent)
 
 In most cases, the default set of rules should be sufficient; however, if this is not the case
-for your cluster, you can create and apply a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to customize the IP ranges that are affected.  For example, to allow
-only 10.0.0.0/8 to be considered by the ip-masq-agent, you can create the following [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) in a file called "config".
+for your cluster, you can create and apply a
+[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to customize the IP
+ranges that are affected.  For example, to allow
+only 10.0.0.0/8 to be considered by the ip-masq-agent, you can create the following
+[ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) in a file called
+"config".
 
 {{< note >}}
 It is important that the file is called config since, by default, that will be used as the key
