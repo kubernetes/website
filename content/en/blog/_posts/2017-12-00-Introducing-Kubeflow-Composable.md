@@ -127,13 +127,13 @@ Note how we set those parameters so they are used only when you deploy to GKE. Y
 
 After training, you [export your model](https://www.tensorflow.org/serving/serving_basic) to a serving location.  
 
-Kubeflow also includes a serving package as well. In a separate example, we trained a standard Inception model, and stored the trained model in a bucket we’ve created called ‘gs://kubeflow-models’ with the path ‘/inception’.  
+Kubeflow also includes a serving package as well.  
 
 To deploy a the trained model for serving, execute the following:  
 
 ```  
      ks generate tf-serving inception --name=inception  
-     ---namespace=default --model\_path=gs://kubeflow-models/inception  
+     ---namespace=default --model\_path=gs://$bucket_name/$model_loc
      ks apply gke -c inception  
 ```  
 
@@ -170,3 +170,6 @@ Thank you for your support so far, we could not be more excited!
 
 _Jeremy Lewi & David Aronchick_
 Google
+
+Note:
+* This article was amended in June 2023 to update the trained model bucket location.
