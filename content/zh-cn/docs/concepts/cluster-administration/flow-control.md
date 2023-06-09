@@ -343,7 +343,7 @@ requests, and limitations on the number of queued requests.
 对未完成的请求数有各自的限制，对排队中的请求数也有限制。
 
 <!--
-The nominal oncurrency limit for a PriorityLevelConfiguration is not
+The nominal concurrency limit for a PriorityLevelConfiguration is not
 specified in an absolute number of seats, but rather in "nominal
 concurrency shares." The total concurrency limit for the API Server is
 distributed among the existing PriorityLevelConfigurations in
