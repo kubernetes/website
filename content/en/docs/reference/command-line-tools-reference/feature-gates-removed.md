@@ -568,7 +568,7 @@ In the following table:
 
 - `DynamicKubeletConfig`: Enable the dynamic configuration of kubelet. The
   feature is no longer supported outside of supported skew policy. The feature
-  gate was removed from kubelet in 1.24. See [Reconfigure kubelet](/docs/tasks/administer-cluster/reconfigure-kubelet/).
+  gate was removed from kubelet in 1.24.
 
 - `DynamicProvisioningScheduling`: Extend the default scheduler to be aware of
   volume topology and handle PV provisioning.
