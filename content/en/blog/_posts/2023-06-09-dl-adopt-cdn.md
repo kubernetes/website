@@ -5,7 +5,7 @@ date: 2023-06-09
 slug: dl-adopt-cdn
 ---
 
-**Authors**: Arnaud Meukam (VMware), Hannah Aubry (Fast Forward), Frederico
+**Authors**: Arnaud Meukam (VMware), Hannah Aubry (Fastly), Frederico
 Muñoz (SAS Institute)
 
 We're happy to announce that dl.k8s.io, home of the official Kubernetes
