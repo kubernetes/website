@@ -133,7 +133,7 @@ To deploy a the trained model for serving, execute the following:
 
 ```  
      ks generate tf-serving inception --name=inception  
-     ---namespace=default --model\_path=gs://$bucket_name/$model
+     ---namespace=default --model\_path=gs://$bucket_name/$model_loc
      ks apply gke -c inception  
 ```  
 
@@ -170,3 +170,6 @@ Thank you for your support so far, we could not be more excited!
 
 _Jeremy Lewi & David Aronchick_
 Google
+
+Note:
+* This article was amended in June 2023 to update the trained model bucket location.
