@@ -45,15 +45,24 @@ decrypt data stored in the etcd.
 ## Understanding the encryption at rest configuration
 
 ```yaml
+---
+#
+# CAUTION: this is an example configuration.
+#          Do not use this for your own cluster!
+#
 apiVersion: apiserver.config.k8s.io/v1
 kind: EncryptionConfiguration
 resources:
   - resources:
       - secrets
       - configmaps
-      - pandas.awesome.bears.example
+      - pandas.awesome.bears.example # a custom resource API
     providers:
-      - identity: {}
+      # This configuration does not provide data confidentiality. The first
+      # configured provider is specifying the "identity" mechanism, which
+      # stores resources as plain text.
+      #
+      - identity: {} # plain text, in other words NO encryption
       - aesgcm:
           keys:
             - name: key1
@@ -73,16 +82,16 @@ resources:
   - resources:
       - events
     providers:
-      - identity: {} # do not encrypt events even though  *.* is specified below
+      - identity: {} # do not encrypt Events even though *.* is specified below
   - resources:
-      - '*.apps'
+      - '*.apps' # wildcard match requires Kubernetes 1.27 or later
     providers:
       - aescbc:
           keys:
           - name: key2
             secret: c2VjcmV0IGlzIHNlY3VyZSwgb3IgaXMgaXQ/Cg==
   - resources:
-      - '*.*'
+      - '*.*' # wildcard match requires Kubernetes 1.27 or later
     providers:
       - aescbc:
           keys:
@@ -272,6 +281,7 @@ retrieve the plaintext values, providing a higher level of security than locally
 Create a new encryption config file:
 
 ```yaml
+---
 apiVersion: apiserver.config.k8s.io/v1
 kind: EncryptionConfiguration
 resources:
@@ -283,8 +293,10 @@ resources:
       - aescbc:
           keys:
             - name: key1
+              # See the following text for more details about the secret value
               secret: <BASE 64 ENCODED SECRET>
-      - identity: {}
+      - identity: {} # this fallback allows reading unencrypted secrets;
+                     # for example, during initial migratoin
 ```
 
 To create a new Secret, perform the following steps:
@@ -305,14 +317,19 @@ To create a new Secret, perform the following steps:
    1. Edit the manifest for the `kube-apiserver` static pod: `/etc/kubernetes/manifests/kube-apiserver.yaml` similarly to this:
 
    ```yaml
+   ---
+   #
+   # This is a fragment of a manifest for a static Pod.
+   # Check whether this is correct for your cluster and for your API server.
+   #
    apiVersion: v1
    kind: Pod
    metadata:
      annotations:
-       kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: 10.10.30.4:6443
+       kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: 10.20.30.40:443
      creationTimestamp: null
      labels:
-       component: kube-apiserver
+       app.kubernetes.io/component: kube-apiserver
        tier: control-plane
      name: kube-apiserver
      namespace: kube-system
@@ -443,6 +460,7 @@ To disable encryption at rest, place the `identity` provider as the first entry 
 and restart all `kube-apiserver` processes. 
 
 ```yaml
+---
 apiVersion: apiserver.config.k8s.io/v1
 kind: EncryptionConfiguration
 resources:
