@@ -72,7 +72,7 @@ A saída mostra o texto escrito pelo manipulador `postStart`:
 
 ## Discussão
 
-O Kubernetes envia o evento `postStart` emediatamente após o Contêiner ser criado. 
+O Kubernetes envia o evento `postStart` imediatamente após o Contêiner ser criado. 
 Não há garantia, entretanto, que o manipulador `postStart` será chamado antes 
 da execução do `entrypoint` do contêiner. O manipulador `postStart` executa 
 assincronamente em relação ao código do contêiner, mas o gerenciador de contêiner do Kubernetes 
