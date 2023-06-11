@@ -2000,7 +2000,7 @@ for that Service.
 When you define a Service, you can specify `externalIPs` for any
 [service type](#publishing-services-service-types).
 In the example below, the Service named `"my-service"` can be accessed by clients using TCP,
-on `"198.51.100.32:80"` (calculated from `.spec.externalIP` and `.spec.port`).
+on `"198.51.100.32:80"` (calculated from `.spec.externalIPs[]` and `.spec.ports[].port`).
 -->
 ### 外部 IP  {#external-ips}
 
@@ -2011,7 +2011,7 @@ on `"198.51.100.32:80"` (calculated from `.spec.externalIP` and `.spec.port`).
 定义 Service 时，你可以为任何[服务类型](#publishing-services-service-types)指定 `externalIPs`。
 
 在下面的例子中，名为 `my-service` 的服务可以在 "`198.51.100.32:80`"
-（从 .spec.externalIP 和 .spec.port 计算）上被客户端使用 TCP 协议访问。
+（从 `.spec.externalIPs[]` 和 `.spec.ports[].port` 计算）上被客户端使用 TCP 协议访问。
 
 ```yaml
 apiVersion: v1
