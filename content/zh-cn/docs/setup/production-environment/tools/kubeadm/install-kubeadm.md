@@ -288,7 +288,7 @@ For more information on version skews, see:
 2. 下载 Google Cloud 公开签名秘钥：
 
    ```shell
-   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
    ```
 
 <!--
@@ -377,7 +377,7 @@ Install CNI plugins (required for most pod network):
 安装 CNI 插件（大多数 Pod 网络都需要）：
 
 ```bash
-CNI_PLUGINS_VERSION="v1.1.1"
+CNI_PLUGINS_VERSION="v1.2.0"
 ARCH="amd64"
 DEST="/opt/cni/bin"
 sudo mkdir -p "$DEST"
@@ -409,7 +409,7 @@ Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI)
 安装 crictl（kubeadm/kubelet 容器运行时接口（CRI）所需）
 
 ```bash
-CRICTL_VERSION="v1.25.0"
+CRICTL_VERSION="v1.26.0"
 ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```

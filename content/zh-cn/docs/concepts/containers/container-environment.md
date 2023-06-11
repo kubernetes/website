@@ -87,10 +87,10 @@ FOO_SERVICE_PORT=<其上服务正运行的端口>
 
 <!--
 Services have dedicated IP addresses and are available to the Container via DNS,
-if [DNS addon](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/) is enabled. 
+if [DNS addon](https://releases.k8s.io/v{{< skew currentPatchVersion >}}/cluster/addons/dns/) is enabled. 
 -->
 服务具有专用的 IP 地址。如果启用了
-[DNS 插件](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/)，
+[DNS 插件](https://releases.k8s.io/v{{< skew currentPatchVersion >}}/cluster/addons/dns/)，
 可以在容器中通过 DNS 来访问服务。
 
 ## {{% heading "whatsnext" %}}

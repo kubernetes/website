@@ -34,6 +34,10 @@
 #   + /docs/bar                : is a redirect entry, or
 #   + /docs/bar                : is something we don't understand
 #
+# + [foo](<lang>/docs/bar/...) : leading slash missing for absolute path
+#
+# + [foo](docs/bar/...)        : leading slash missing for absolute path
+#
 # + {{ < api-reference page="" anchor="" ... > }}
 # + {{ < api-reference page="" > }}
 
@@ -333,6 +337,11 @@ def check_target(page, anchor, target):
                    real_target)
             return new_record("WARNING", msg, target)
         return new_record("ERROR", "Missing link for [%s]" % anchor, target)
+
+    # absolute link missing leading slash
+    if (target.startswith("docs/") or target.startswith(LANG + "/docs/")):
+        return new_record("ERROR", "Missing leading slash. Try \"/%s\"" %
+                                   target, target)
 
     msg = "Link may be wrong for the anchor [%s]" % anchor
     return new_record("WARNING", msg, target)

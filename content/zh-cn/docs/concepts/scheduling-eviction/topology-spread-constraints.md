@@ -415,7 +415,7 @@ confusing and troubleshooting is less straightforward.
 You need a mechanism to ensure that all the nodes in a topology domain (such as a
 cloud provider region) are labelled consistently.
 To avoid you needing to manually label nodes, most clusters automatically
-populate well-known labels such as `topology.kubernetes.io/hostname`. Check whether
+populate well-known labels such as `kubernetes.io/hostname`. Check whether
 your cluster supports this.
 -->
 ## 一致性 {#Consistency}
@@ -428,7 +428,7 @@ your cluster supports this.
 
 你需要一种机制来确保拓扑域（例如云提供商区域）中的所有节点具有一致的标签。
 为了避免你需要手动为节点打标签，大多数集群会自动填充知名的标签，
-例如 `topology.kubernetes.io/hostname`。检查你的集群是否支持此功能。
+例如 `kubernetes.io/hostname`。检查你的集群是否支持此功能。
 
 <!--
 ## Topology spread constraint examples
