@@ -289,6 +289,22 @@ status:
   certificate: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JS..."
 ```
 
+template for csr yaml
+
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+metadata:
+  name: 
+spec:
+  groups:
+  - system:authenticated
+  request: < Paste the bas64 encoded value of the CSR file
+  signerName: kubernetes.io/kube-apiserver-client
+  usages:
+  - client auth
+~                                                                                                                                                                      
+~                                   
+
 ## Approval or rejection  {#approval-rejection}
 
 Before a [signer](#signers) issues a certificate based on a CertificateSigningRequest,
