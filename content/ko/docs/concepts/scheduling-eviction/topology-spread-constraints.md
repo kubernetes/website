@@ -45,7 +45,6 @@ weight: 40
 
 파드 토폴로지 분배 제약 조건은 이러한 설정을 할 수 있도록 하는 선언적인 방법을 제공한다.
 
-
 ## `topologySpreadConstraints` 필드
 
 파드 API에 `spec.topologySpreadConstraints` 필드가 있다. 이 필드는 다음과 같이 
@@ -66,8 +65,8 @@ spec:
       whenUnsatisfiable: <string>
       labelSelector: <object>
       matchLabelKeys: <list> # 선택 사항이며, v1.25에서 알파 기능으로 도입되었다.
-      nodeAffinityPolicy: [Honor|Ignore] # 선택 사항이며, v1.25에서 알파 기능으로 도입되었다.
-      nodeTaintsPolicy: [Honor|Ignore] # 선택 사항이며, v1.25에서 알파 기능으로 도입되었다.
+      nodeAffinityPolicy: [Honor|Ignore] # 선택 사항이며, v1.26에서 베타 기능으로 도입되었다.
+      nodeTaintsPolicy: [Honor|Ignore] # 선택 사항이며, v1.26에서 베타 기능으로 도입되었다.
   ### 파드의 다른 필드가 이 아래에 오게 된다.
 ```
 
@@ -99,7 +98,7 @@ kube-scheduler가 어떻게 클러스터 내에서 기존 파드와의 관계를
 
   {{< note >}}
   `minDomains` 필드는 1.25에서 기본적으로 사용하도록 설정된 베타 필드이다. 사용을 원하지 않을 경우 
-  `MinDomainsInPodToplogySpread` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 비활성화한다.
+  `MinDomainsInPodTopologySpread` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 비활성화한다.
   {{< /note >}}
   
   - `minDomains` 값을 명시하는 경우, 이 값은 0보다 커야 한다. 
@@ -158,9 +157,9 @@ kube-scheduler가 어떻게 클러스터 내에서 기존 파드와의 관계를
   옵션의 값이 null일 경우, Honor 정책과 동일하게 동작한다.
 
   {{< note >}}
-  `nodeAffinityPolicy` 필드는 1.25에서 추가된 알파 필드이다. 이 필드를 사용하려면
+  `nodeAffinityPolicy` 필드는 베타 필드이고 1.26에서 기본적으로 활성화되어 있다. 이 필드를 비활성화하려면
   `NodeInclusionPolicyInPodTopologySpread` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)
-  를 활성화시켜야 한다.
+  를 비활성화하면 된다.
   {{< /note >}}
 
 - **nodeTaintsPolicy**는 파드 토폴로지의 스프레드 스큐(spread skew)를 계산할 때 노드 테인트(taint)를 
@@ -172,9 +171,9 @@ kube-scheduler가 어떻게 클러스터 내에서 기존 파드와의 관계를
   옵션의 값이 null일 경우, Ignore 정책과 동일하게 동작한다.
 
   {{< note >}}
-  `nodeTaintsPolicy` 필드는 1.25에서 추가된 알파 필드이다. 이 필드를 사용하려면
+  `nodeTaintsPolicy` 필드는 베타 필드이고 1.26에서 기본적으로 활성화되어 있다. 이 필드를 비활성화하려면
   `NodeInclusionPolicyInPodTopologySpread` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)
-  를 활성화시켜야 한다.
+  를 비활성화하면 된다.
   {{< /note >}}
 
 파드에 2개 이상의 `topologySpreadConstraint`가 정의되어 있으면, 
@@ -201,7 +200,6 @@ kube-scheduler는 새로운 파드의 모든 제약 조건을 만족하는 노�
 다양한 각 상황에 대해, 프라이빗 레이블 키의 의미가 
 모두 우리의 생각과 같을 것이라고 가정할 수는 없다.
 {{< /note >}}
-
 
 각각 다음과 같은 레이블을 갖는 4개의 노드로 구성된 클러스터가 있다고 가정한다.
 
@@ -496,7 +494,7 @@ class zoneC cluster;
 
 기본 제약 조건은 
 [스케줄링 프로파일](/ko/docs/reference/scheduling/config/#프로파일)내의 플러그인 인자 중 하나로 설정할 수 있다. 
-제약 조건은 [위에서 설명한 것과 동일한 API](#api)를 이용하여 정의되는데, 
+제약 조건은 [위에서 설명한 것과 동일한 API](#topologyspreadconstraints-필드)를 이용하여 정의되는데,
 다만 `labelSelector`는 비워 두어야 한다. 
 셀렉터는 파드가 속한 서비스, 레플리카셋, 스테이트풀셋, 또는 레플리케이션 컨트롤러를 바탕으로 계산한다.
 
@@ -581,6 +579,7 @@ profiles:
 `podAffinity`
 : 파드를 끌어당긴다. 조건이 충족되는 토폴로지 도메인에는
   원하는 수의 파드를 얼마든지 채울 수 있다.
+
 `podAntiAffinity`
 : 파드를 밀어낸다. 
   이를 `requiredDuringSchedulingIgnoredDuringExecution` 모드로 설정하면 
@@ -615,7 +614,6 @@ profiles:
   이를 극복하기 위해, 파드 토폴로지 분배 제약 조건과 
   전반적인 토폴로지 도메인 집합에 대한 정보를 인지하고 동작하는 
   클러스터 오토스케일링 도구를 이용할 수 있다.
-
 
 ## {{% heading "whatsnext" %}}
 

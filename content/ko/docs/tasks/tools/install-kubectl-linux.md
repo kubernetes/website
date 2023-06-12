@@ -34,10 +34,10 @@ card:
    {{< note >}}
 특정 버전을 다운로드하려면, `$(curl -L -s https://dl.k8s.io/release/stable.txt)` 명령 부분을 특정 버전으로 바꾼다.
 
-예를 들어, 리눅스에서 버전 {{< param "fullversion" >}}을 다운로드하려면, 다음을 입력한다.
+예를 들어, 리눅스에서 버전 {{< skew currentPatchVersion >}}을 다운로드하려면, 다음을 입력한다.
 
    ```bash
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+   curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
    ```
    {{< /note >}}
 
@@ -120,13 +120,13 @@ card:
 2. 구글 클라우드 공개 사이닝 키를 다운로드한다.
 
    ```shell
-   sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
    ```
 
 3. 쿠버네티스 `apt` 리포지터리를 추가한다.
 
    ```shell
-   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
 4. 새 리포지터리의 `apt` 패키지 색인을 업데이트하고 kubectl을 설치한다.
@@ -135,6 +135,10 @@ card:
    sudo apt-get update
    sudo apt-get install -y kubectl
    ```
+{{< note >}}
+Debian 12 또는 Ubuntu 22.04 이전 릴리스에서는 기본적으로 `/etc/apt/keyrings` 파일이 존재하지 않는다.
+필요할 경우, 읽기 권한은 모두에게 부여되지만 쓰기 권한은 관리자만 갖도록 해당 디렉토리를 생성한다.
+{{< /note >}}
 
 {{% /tab %}}
 
@@ -146,7 +150,7 @@ name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
 enabled=1
 gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 sudo yum install -y kubectl
 ```

@@ -17,13 +17,14 @@ Kubespray 지원 사항
   - Flatcar Container Linux by Kinvolk
   - Debian Bullseye, Buster, Jessie, Stretch
   - Ubuntu 16.04, 18.04, 20.04, 22.04
-  - CentOS/RHEL 7, 8
-  - Fedora 34, 35
+  - CentOS/RHEL 7, 8, 9
+  - Fedora 35, 36
   - Fedora CoreOS
   - openSUSE Leap 15.x/Tumbleweed
-  - Oracle Linux 7, 8
-  - Alma Linux 8
-  - Rocky Linux 8
+  - Oracle Linux 7, 8, 9
+  - Alma Linux 8, 9
+  - Rocky Linux 8, 9
+  - Kylin Linux Advanced Server V10
   - Amazon Linux 2
 * 지속적인 통합 (CI) 테스트
 

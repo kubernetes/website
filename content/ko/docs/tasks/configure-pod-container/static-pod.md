@@ -38,6 +38,10 @@ API 서버에서 제어될 수는 없다.
 {{< glossary_tooltip text="시크릿" term_id="secret" >}}, 등)가 참조할 수 없다.
 {{< /note >}}
 
+{{< note >}}
+스태틱 파드는 [임시 컨테이너](/ko/docs/concepts/workloads/pods/ephemeral-containers/)를 지원하지 않는다.
+{{< /note >}}
+
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}

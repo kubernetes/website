@@ -3,7 +3,7 @@ title: PKI 인증서 및 요구 사항
 # reviewers:
 # - sig-cluster-lifecycle
 content_type: concept
-weight: 40
+weight: 50
 ---
 
 <!-- overview -->
