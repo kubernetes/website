@@ -1,7 +1,7 @@
 ---
 title: 사이트 분석 보기
 content_type: concept
-weight: 100
+weight: 120
 card:
   name: contribute
   weight: 100

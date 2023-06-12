@@ -9,7 +9,7 @@ community_styles_migrated: true
 <p>
 쿠버네티스는
 <a href="https://github.com/cncf/foundation/blob/main/code-of-conduct.md">CNCF의 행동 강령</a>을 따르고 있습니다.
-<a href="https://github.com/cncf/foundation/blob/71b12a2f8b4589788ef2d69b351a3d035c68d927/code-of-conduct.md">커밋 71b12a2</a>
+<a href="https://github.com/cncf/foundation/blob/fff715fb000ba4d7422684eca1d50d80676be254/code-of-conduct.md">커밋 fff715fb0</a>
 에 따라 CNCF 행동 강령의 내용이 아래에 복제됩니다.
 만약 최신 버전이 아닌 경우에는
 <a href="https://github.com/kubernetes/website/issues/new">이슈를 제기해 주세요</a>.

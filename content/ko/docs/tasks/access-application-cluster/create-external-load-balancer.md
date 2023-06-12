@@ -198,6 +198,6 @@ spec:
 
 ## {{% heading "whatsnext" %}}
 
+* [서비스와 애플리케이션 연결하기](/ko/docs/tutorials/services/connect-applications-service/) 튜토리얼을 따라하기
 * [서비스](/ko/docs/concepts/services-networking/service/)에 대해 알아보기
 * [인그레스](/ko/docs/concepts/services-networking/ingress/)에 대해 알아보기
-* [서비스와 애플리케이션 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/) 알아보기

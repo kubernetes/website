@@ -5,9 +5,10 @@ title: kubelet 이미지 자격 증명 공급자 구성하기
 # - cheftako
 description: kubelet의 이미지 자격 증명 공급자 플러그인을 구성한다.
 content_type: task
+min-kubernetes-server-version: v1.26
 ---
 
-{{< feature-state for_k8s_version="v1.24" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 <!-- overview -->
 
@@ -27,9 +28,12 @@ kubelet은 플러그인을 통해 정적 자격 증명을 디스크에 저장하
 
 ## {{% heading "prerequisites" %}}
 
-* kubelet 이미지 자격 증명 공급자는 알파(alpha) 기능으로 v1.20에서 도입되었다.
-  이 기능을 구동하려면, 다른 알파 기능과 마찬가지로 기능 게이트(feature gate) `KubeletCredentialProviders`가 kubelet에서만 활성화되어야 한다.
+* kubelet 자격 증명 공급자 플러그인을 지원하는 노드로 구성된 쿠버네티스 클러스터가 필요하다. 
+  이 기능은 쿠버네티스 {{< skew currentVersion >}}에서 사용 가능하다. 
+  쿠버네티스 v1.24 및 v1.25에는 베타 기능으로 포함되었으며, 기본적으로 활성화되어 있다.
 * 자격 증명 공급자 exec 플러그인에 대한 구현체(implementation)가 필요하다. 이를 위해 자체 플러그인을 구축하거나 클라우드 공급자가 제공하는 플러그인을 사용할 수 있다.
+
+{{< version-check >}}
 
 <!-- steps -->
 
@@ -52,36 +56,36 @@ kubelet은 `--image-credential-provider-config`로 전달된 구성 파일을 �
 [ECR](https://aws.amazon.com/ecr/)-based 플러그인을 사용하는 경우 사용하게 될 수 있는 구성 파일의 예:
 
 ```yaml
-apiVersion: kubelet.config.k8s.io/v1alpha1
+apiVersion: kubelet.config.k8s.io/v1
 kind: CredentialProviderConfig
-# providers is a list of credential provider plugins that will be enabled by the kubelet.
-# Multiple providers may match against a single image, in which case credentials
-# from all providers will be returned to the kubelet. If multiple providers are called
-# for a single image, the results are combined. If providers return overlapping
-# auth keys, the value from the provider earlier in this list is used.
+# providers 필드는 kubelet이 활성화할 자격 증명 공급자 헬퍼 플러그인의 목록을 나타낸다. 
+# 단일 이미지에 대해 복수 공급자가 매치될 수도 있으며, 
+# 이러한 경우 모든 공급자의 자격 증명이 kubelet으로 리턴된다. 
+# 단일 이미지에 대해 복수 공급자가 호출된 경우, 결과가 합산된다. 
+# 공급자가 중복되는(overlapping) 인증 키를 리턴한 경우, 이 목록의 위쪽에 위치하는 공급자로부터의 값이 사용된다.
 providers:
-  # name is the required name of the credential provider. It must match the name of the
-  # provider executable as seen by the kubelet. The executable must be in the kubelet's
-  # bin directory (set by the --image-credential-provider-bin-dir flag).
+  # name 필드는 자격 증명 공급자를 구분하기 위한 필수 필드이다. 
+  # 이 이름은 kubelet이 인식하는 공급자 실행 파일의 이름과 일치해야 한다. 
+  # 해당 실행 파일은 kubelet의 bin 디렉토리에 존재해야 한다(--image-credential-provider-bin-dir 플래그로 설정).
   - name: ecr
-    # matchImages is a required list of strings used to match against images in order to
-    # determine if this provider should be invoked. If one of the strings matches the
-    # requested image from the kubelet, the plugin will be invoked and given a chance
-    # to provide credentials. Images are expected to contain the registry domain
-    # and URL path.
+    # matchImages 필드는 각 이미지에 대해 이 공급자가 활성화되어야 하는지를 
+    # 판단하기 위한 문자열의 목록을 나타내는 필수 필드이다. 
+    # kubelet이 요청한 이미지가 다음 문자열 중 하나와 매치되면, 
+    # 해당 플러그인이 활성화되어 자격 증명을 제공할 수 있게 된다. 
+    # 이미지 태그 문자열은 저장소(registry) 도메인 및 URL 경로를 포함해야 한다.
     #
-    # Each entry in matchImages is a pattern which can optionally contain a port and a path.
-    # Globs can be used in the domain, but not in the port or the path. Globs are supported
-    # as subdomains like '*.k8s.io' or 'k8s.*.io', and top-level-domains such as 'k8s.*'.
-    # Matching partial subdomains like 'app*.k8s.io' is also supported. Each glob can only match
-    # a single subdomain segment, so *.io does not match *.k8s.io.
+    # matchImages의 각 항목은 패턴을 나타내며, 포트와 경로를 포함할 수 있다. 
+    # 도메인 자리에 글롭(glob)도 사용할 수 있으나, 포트와 경로에는 사용할 수 없다. 
+    # 글롭은 '*.k8s.io' 또는 'k8s.*.io'와 같이 서브도메인 형태로 사용하거나, 'k8s.*'와 같이 최상위 도메인 형태로 사용할 수 있다. 
+    # 'app*.k8s.io'와 같이 서브도메인의 일부를 매칭하는 것도 지원된다. 
+    # 각 글롭은 단일 서브도메인 분할만을 매칭할 수 있으므로, `*.io`는 `*.k8s.io`에 매치되지 **않는다**.
     #
-    # A match exists between an image and a matchImage when all of the below are true:
-    # - Both contain the same number of domain parts and each part matches.
-    # - The URL path of an imageMatch must be a prefix of the target image URL path.
-    # - If the imageMatch contains a port, then the port must match in the image as well.
+    # 다음 사항이 모두 만족될 때에만 image와 matchImage가 매치되었다고 판단한다.
+    # - 양쪽의 도메인 파트 수가 동일하고, 각 파트가 매치됨
+    # - imageMatch의 URL 경로가 타겟 이미지 URL 경로의 접두사임
+    # - imageMatch가 포트를 포함하면, 이미지 쪽에 기재된 포트와 매치됨
     #
-    # Example values of matchImages:
+    # matchImages 예시는 다음과 같다.
     # - 123456789.dkr.ecr.us-east-1.amazonaws.com
     # - *.azurecr.io
     # - gcr.io
@@ -93,21 +97,21 @@ providers:
       - "*.dkr.ecr-fips.*.amazonaws.com"
       - "*.dkr.ecr.us-iso-east-1.c2s.ic.gov"
       - "*.dkr.ecr.us-isob-east-1.sc2s.sgov.gov"
-    # defaultCacheDuration is the default duration the plugin will cache credentials in-memory
-    # if a cache duration is not provided in the plugin response. This field is required.
+    # defaultCacheDuration 필드는 캐시 기간이 플러그인 응답에 명시되지 않은 경우에 
+    # 해당 플러그인이 자격 증명을 인메모리 캐시에 보관할 기본 기간을 지정한다. 이 필드는 필수이다.
     defaultCacheDuration: "12h"
-    # Required input version of the exec CredentialProviderRequest. The returned CredentialProviderResponse
-    # MUST use the same encoding version as the input. Current supported values are:
-    # - credentialprovider.kubelet.k8s.io/v1alpha1
-    apiVersion: credentialprovider.kubelet.k8s.io/v1alpha1
-    # Arguments to pass to the command when executing it.
-    # +optional
+    # apiVersion 필드는 CredentialProviderRequest를 실행할 때 기재될 입력 버전을 지정하는 필수 필드이다. 
+    # 응답 CredentialProviderResponse는 입력과 동일한 인코딩 버전을 사용해야 한다. 현재 지원되는 값은 다음과 같다.
+    # - credentialprovider.kubelet.k8s.io/v1
+    apiVersion: credentialprovider.kubelet.k8s.io/v1
+    # args 필드는 커맨드를 실행할 때 전달할 인자를 지정하는 필드이다.
+    # 이 필드는 선택사항이다.
     args:
       - get-credentials
-    # Env defines additional environment variables to expose to the process. These
-    # are unioned with the host's environment, as well as variables client-go uses
-    # to pass argument to the plugin.
-    # +optional
+    # env 필드는 프로세스에 노출할 추가적인 환경 변수를 기재하는 필드이다. 
+    # 이들은 호스트의 환경 변수 및 
+    # client-go가 플러그인에 인자를 전달하기 위해 사용하는 변수와 합산된다.
+    # 이 필드는 선택사항이다.
     env:
       - name: AWS_PROFILE
         value: example_profile
@@ -150,7 +154,7 @@ Glob은 `*.k8s.io`이나 `k8s.*.io` 같은 서브도메인과 `k8s.*`와 같은 
 
 ## {{% heading "whatsnext" %}}
 
-* [kubelet 구성 API(v1alpha1) 레퍼런스](/docs/reference/config-api/kubelet-config.v1alpha1/)에서
+* [kubelet 구성 API(v1) 레퍼런스](/docs/reference/config-api/kubelet-config.v1/)에서
   `CredentialProviderConfig`에 대한 세부 정보 읽기
-* [kubelet 자격 증명 공급자 API (v1alpha1) 레퍼런스](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/) 읽기
+* [kubelet 자격 증명 공급자 API (v1) 레퍼런스](/docs/reference/config-api/kubelet-credentialprovider.v1/) 읽기
 

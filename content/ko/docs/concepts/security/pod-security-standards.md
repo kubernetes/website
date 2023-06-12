@@ -445,7 +445,7 @@ weight: 10
 메커니즘이 발달함에 따라, 아래와 같이 정책별로 정의가 될 것이다.
 개별 정책에 대한 시행 방식은 여기서 정의하고 있지 않는다.
 
-[**파드 시큐리티 어드미션 컨트롤러**](/docs/concepts/security/pod-security-admission/)
+[**파드 시큐리티 어드미션 컨트롤러**](/ko/docs/concepts/security/pod-security-admission/)
 
 - {{< example file="security/podsecurity-privileged.yaml" >}}특권 네임스페이스{{< /example >}}
 - {{< example file="security/podsecurity-baseline.yaml" >}}기본 네임스페이스{{< /example >}}
@@ -506,7 +506,7 @@ v1.24 이전 Kubelet은 파드 OS 필드를 필수로 요구하지 않으며, �
 시큐리티 프로필은 컨트롤 플레인 메커니즘으로, 시큐리티 컨텍스트의 상세 설정을 비롯하여 
 시큐리티 컨텍스트 외부의 다른 관련된 파라미터도 적용한다.
 2021년 7월부로, [파드 시큐리티 폴리시](/ko/docs/concepts/security/pod-security-policy/)는 
-내장된 [파드 시큐리티 어드미션 컨트롤러](/docs/concepts/security/pod-security-admission/)에 의해 대체되어 사용이 중단되었다. 
+내장된 [파드 시큐리티 어드미션 컨트롤러](/ko/docs/concepts/security/pod-security-admission/)에 의해 대체되어 사용이 중단되었다. 
 
 
 ### 샌드박스 파드는 어떠한가?

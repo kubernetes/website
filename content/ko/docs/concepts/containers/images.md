@@ -5,6 +5,7 @@
 title: 이미지
 content_type: concept
 weight: 10
+hide_summary: true # 섹션의 목차에 별도로 기재
 ---
 
 <!-- overview -->
@@ -18,6 +19,12 @@ weight: 10
 생성해서 레지스트리로 푸시한다.
 
 이 페이지는 컨테이너 이미지 개념의 개요를 제공한다.
+
+{{< note >}}
+(v{{< skew latestVersion >}}와 같은 최신 마이너 릴리즈와 같은)
+쿠버네티스 릴리즈에 대한 컨테이너 이미지를 찾고 있다면 
+[쿠버네티스 다운로드](https://kubernetes.io/releases/download/)를 확인하라.
+{{< /note >}}
 
 <!-- body -->
 
@@ -149,9 +156,16 @@ kubelet이 컨테이너 런타임을 사용하여 파드의 컨테이너 생성�
 
 ## 이미지 인덱스가 있는 다중 아키텍처 이미지
 
-바이너리 이미지를 제공할 뿐만 아니라, 컨테이너 레지스트리는 [컨테이너 이미지 인덱스](https://github.com/opencontainers/image-spec/blob/master/image-index.md)를 제공할 수도 있다. 이미지 인덱스는 컨테이너의 아키텍처별 버전에 대한 여러 [이미지 매니페스트](https://github.com/opencontainers/image-spec/blob/master/manifest.md)를 가리킬 수 있다. 아이디어는 이미지의 이름(예를 들어, `pause`, `example/mycontainer`, `kube-apiserver`)을 가질 수 있다는 것이다. 그래서 다른 시스템들이 사용하고 있는 컴퓨터 아키텍처에 적합한 바이너리 이미지를 가져올 수 있다.
+바이너리 이미지를 제공할 뿐만 아니라, 컨테이너 레지스트리는 
+[컨테이너 이미지 인덱스](https://github.com/opencontainers/image-spec/blob/master/image-index.md)를 
+제공할 수도 있다. 이미지 인덱스는 컨테이너의 아키텍처별 버전에 대한 여러 
+[이미지 매니페스트](https://github.com/opencontainers/image-spec/blob/master/manifest.md)를 가리킬 수 있다. 
+아이디어는 이미지의 이름(예를 들어, `pause`, `example/mycontainer`, `kube-apiserver`)을 가질 수 있다는 것이다. 
+그래서 다른 시스템들이 사용하고 있는 컴퓨터 아키텍처에 적합한 바이너리 이미지를 가져올 수 있다.
 
-쿠버네티스 자체는 일반적으로 `-$(ARCH)` 접미사로 컨테이너 이미지의 이름을 지정한다. 이전 버전과의 호환성을 위해, 접미사가 있는 오래된 이미지를 생성한다. 아이디어는 모든 아키텍처에 대한 매니페스트가 있는 `pause` 이미지와 이전 구성 또는 이전에 접미사로 이미지를 하드 코딩한 YAML 파일과 호환되는 `pause-amd64` 라고 하는 이미지를 생성한다.
+쿠버네티스 자체는 일반적으로 `-$(ARCH)` 접미사로 컨테이너 이미지의 이름을 지정한다. 이전 버전과의 호환성을 위해, 
+접미사가 있는 오래된 이미지를 생성한다. 아이디어는 모든 아키텍처에 대한 매니페스트가 있는 `pause` 이미지와 이전 구성 
+또는 이전에 접미사로 이미지를 하드 코딩한 YAML 파일과 호환되는 `pause-amd64` 라고 하는 이미지를 생성한다.
 
 ## 프라이빗 레지스트리 사용
 
@@ -160,6 +174,9 @@ kubelet이 컨테이너 런타임을 사용하여 파드의 컨테이너 생성�
   - 프라이빗 레지스트리에 대한 인증을 위한 노드 구성
     - 모든 파드는 구성된 프라이빗 레지스트리를 읽을 수 있음
     - 클러스터 관리자에 의한 노드 구성 필요
+  - Kubelet 자격증명 제공자(Credential Provider)를 통해 프라이빗 레지스트리로부터 동적으로 자격증명을 가져오기
+    - kubelet은 특정 프라이빗 레지스트리에 대해 자격증명 제공자 실행 
+      플러그인(credential provider exec plugin)을 사용하도록 설정될 수 있다.
   - 미리 내려받은(pre-pulled) 이미지
     - 모든 파드는 노드에 캐시된 모든 이미지를 사용 가능
     - 셋업을 위해서는 모든 노드에 대해서 root 접근이 필요
@@ -179,6 +196,18 @@ kubelet이 컨테이너 런타임을 사용하여 파드의 컨테이너 생성�
 프라이빗 컨테이너 이미지 레지스트리 구성 예시를 보려면, 
 [프라이빗 레지스트리에서 이미지 가져오기](/ko/docs/tasks/configure-pod-container/pull-image-private-registry/)를 참조한다. 
 해당 예시는 도커 허브에서 제공하는 프라이빗 레지스트리를 사용한다.
+
+### 인증된 이미지를 가져오기 위한 Kubelet 자격증명 제공자(Credential Provider) {#kubelet-credential-provider}
+
+{{< note >}}
+해당 방식은 kubelet이 자격증명을 동적으로 가져와야 할 때 특히 적절하다.
+가장 일반적으로 클라우드 제공자로부터 제공받은 레지스트리에 대해 사용된다. 인증 토큰의 수명이 짧기 때문이다.
+{{< /note >}}
+
+kubelet에서 플러그인 바이너리를 호출하여 컨테이너 이미지에 대한 레지스트리 자격증명을 동적으로 가져오도록 설정할 수 있다.
+이는 프라이빗 레지스트리에서 자격증명을 가져오는 방법 중 가장 강력하며 휘발성이 있는 방식이지만, 활성화하기 위해 kubelet 수준의 구성이 필요하다.
+
+자세한 내용은 [kubelet 이미지 자격증명 제공자 설정하기](/ko/docs/tasks/administer-cluster/kubelet-credential-provider/)를 참고한다.
 
 ### config.json 파일 해석 {#config-json}
 

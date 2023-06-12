@@ -1,5 +1,5 @@
 ---
-title: 레퍼런스 문서 개요
+title: 레퍼런스 문서 갱신하기
 main_menu: true
 weight: 80
 ---

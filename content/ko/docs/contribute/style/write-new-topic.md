@@ -1,7 +1,7 @@
 ---
 title: 새로운 주제의 문서 작성
 content_type: task
-weight: 20
+weight: 70
 ---
 
 <!-- overview -->
@@ -100,7 +100,7 @@ YAML 블록이다. 여기 예시가 있다.
 - `kubectl get deploy mydeployment -o json | jq '.status'`와 같은
   명령어의 출력을 보여주는 코드.
 - 시도해보기에는 적절하지 않은 코드. 예를 들어
-  특정 [FlexVolume](/ko/docs/concepts/storage/volumes#flexvolume) 구현에 따라
+  특정 [FlexVolume](/ko/docs/concepts/storage/volumes#flexvolume-deprecated) 구현에 따라
   파드를 만들기 위해 YAML 파일을
   포함할 수 있다.
 - 더 큰 파일의 일부분을 강조하기 위한 불완전한 예제 코드.

@@ -1,7 +1,7 @@
 ---
 title: 포트와 프로토콜
 content_type: reference
-weight: 50
+weight: 40
 ---
 
 물리적 네트워크 방화벽이 있는 온프레미스 데이터 센터 또는 

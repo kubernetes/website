@@ -5,7 +5,7 @@
 # - thockin
 title: 네임스페이스
 content_type: concept
-weight: 30
+weight: 45
 ---
 
 <!-- overview -->
@@ -32,6 +32,26 @@ weight: 30
 구별하기 위해 {{< glossary_tooltip text="레이블" term_id="label" >}}을
 사용한다.
 
+{{< note >}}
+프로덕션 클러스터의 경우, `default` 네임스페이스를 _사용하지 않는_ 것을 고려한다. 대신에, 다른 네임스페이스를 만들어 사용한다.
+{{< /note >}}
+
+## 초기 네임스페이스
+
+쿠버네티스는 처음에 네 개의 초기 네임스페이스를 갖는다.
+
+`default`
+: 쿠버네티스에는 이 네임스페이스가 포함되어 있으므로 먼저 네임스페이스를 생성하지 않고도 새 클러스터를 사용할 수 있다.
+
+`kube-node-lease`
+: 이 네임스페이스는 각 노드와 연관된 [리스](/docs/reference/kubernetes-api/cluster-resources/lease-v1/) 오브젝트를 갖는다. 노드 리스는 kubelet이 [하트비트](/ko/docs/concepts/architecture/nodes/#하트비트)를 보내서 컨트롤 플레인이 노드의 장애를 탐지할 수 있게 한다.
+
+`kube-public`
+: 이 네임스페이스는 **모든** 클라이언트(인증되지 않은 클라이언트 포함)가 읽기 권한으로 접근할 수 있다. 이 네임스페이스는 주로 전체 클러스터 중에 공개적으로 드러나서 읽을 수 있는 리소스를 위해 예약되어 있다. 이 네임스페이스의 공개적인 성격은 단지 관례이지 요구 사항은 아니다.
+
+`kube-system`
+: 쿠버네티스 시스템에서 생성한 오브젝트를 위한 네임스페이스.
+
 ## 네임스페이스 다루기
 
 네임스페이스의 생성과 삭제는
@@ -55,15 +75,6 @@ kube-node-lease   Active   1d
 kube-public       Active   1d
 kube-system       Active   1d
 ```
-
-쿠버네티스는 처음에 네 개의 초기 네임스페이스를 갖는다.
-
-   * `default` 다른 네임스페이스가 없는 오브젝트를 위한 기본 네임스페이스
-   * `kube-system` 쿠버네티스 시스템에서 생성한 오브젝트를 위한 네임스페이스
-   * `kube-public` 이 네임스페이스는 자동으로 생성되며 모든 사용자(인증되지 않은 사용자 포함)가 읽기 권한으로 접근할 수 있다. 이 네임스페이스는 주로 전체 클러스터 중에 공개적으로 드러나서 읽을 수 있는 리소스를 위해 예약되어 있다. 이 네임스페이스의 공개적인 성격은 단지 관례이지 요구 사항은 아니다.
-   * `kube-node-lease` 이 네임스페이스는 각 노드와 연관된 [리스](/docs/reference/kubernetes-api/cluster-resources/lease-v1/)
-      오브젝트를 갖는다. 노드 리스는 kubelet이 [하트비트](/ko/docs/concepts/architecture/nodes/#하트비트)를
-      보내서 컨트롤 플레인이 노드의 장애를 탐지할 수 있게 한다.
 
 ### 요청에 네임스페이스 설정하기
 
@@ -120,7 +131,7 @@ kubectl config view --minify | grep namespace:
 대부분의 쿠버네티스 리소스(예를 들어, 파드, 서비스, 레플리케이션 컨트롤러 외)는
 네임스페이스에 속한다. 하지만 네임스페이스 리소스 자체는 네임스페이스에 속하지 않는다.
 그리고 [노드](/ko/docs/concepts/architecture/nodes/)나
-퍼시스턴트 볼륨과 같은 저수준 리소스는 어느
+[퍼시스턴트 볼륨](/ko/docs/concepts/storage/persistent-volumes/)과 같은 저수준 리소스는 어느
 네임스페이스에도 속하지 않는다.
 
 다음은 네임스페이스에 속하지 않는 쿠버네티스 리소스를 조회하는 방법이다.

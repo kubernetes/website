@@ -2,7 +2,7 @@
 title: 고급 기여
 slug: advanced
 content_type: concept
-weight: 98
+weight: 100
 ---
 
 <!-- overview -->
