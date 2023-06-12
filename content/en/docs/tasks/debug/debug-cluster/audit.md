@@ -2,7 +2,6 @@
 reviewers:
 - soltysh
 - sttts
-- ericchiang
 content_type: concept
 title: Auditing
 ---

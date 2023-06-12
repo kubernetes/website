@@ -30,8 +30,8 @@ Nachfolgend finden Sie einige Methoden zur Installation von kubectl.
 {{< tabs name="kubectl_install" >}}
 {{< tab name="Ubuntu, Debian oder HypriotOS" codelang="bash" >}}
 sudo apt-get update && sudo apt-get install -y apt-transport-https
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmour -o /usr/share/keyrings/kubernetes.gpg
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/kubernetes.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update
 sudo apt-get install -y kubectl
 {{< /tab >}}
@@ -197,10 +197,10 @@ Sie können kubectl als Teil des Google Cloud SDK installieren.
 
     Um eine bestimmte Version herunterzuladen, ersetzen Sie den Befehlsteil `$(curl -LS https://dl.k8s.io/release/stable.txt)` mit der jeweiligen Version.
 
-    Um beispielsweise die Version {{< param "fullversion" >}} auf macOS herunterzuladen, verwenden Sie den folgenden Befehl:
+    Um beispielsweise die Version {{< skew currentPatchVersion >}} auf macOS herunterzuladen, verwenden Sie den folgenden Befehl:
 		
     ```
-    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/amd64/kubectl
     ```
 
 2. Machen Sie die kubectl-Binärdatei ausführbar.
@@ -225,10 +225,10 @@ Sie können kubectl als Teil des Google Cloud SDK installieren.
 
     Um eine bestimmte Version herunterzuladen, ersetzen Sie den Befehlsteil `$(curl -LS https://dl.k8s.io/release/stable.txt)` mit der jeweiligen Version.
 
-    Um beispielsweise die Version {{< param "fullversion" >}} auf Linux herunterzuladen, verwenden Sie den folgenden Befehl:
+    Um beispielsweise die Version {{< skew currentPatchVersion >}} auf Linux herunterzuladen, verwenden Sie den folgenden Befehl:
 
     ```
-    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
     ```
 
 2. Machen Sie die kubectl-Binärdatei ausführbar.
@@ -244,12 +244,12 @@ Sie können kubectl als Teil des Google Cloud SDK installieren.
     ```
 {{% /tab %}}
 {{% tab name="Windows" %}}
-1. Laden Sie das aktuellste Release {{< param "fullversion" >}} von [diesem link](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe) herunter.
+1. Laden Sie das aktuellste Release {{< skew currentPatchVersion >}} von [diesem link](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe) herunter.
 
     Oder, sofern Sie `curl` installiert haven, verwenden Sie den folgenden Befehl:
 
     ```
-    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe
     ```
 
     Informationen zur aktuellen stabilen Version (z. B. für scripting) finden Sie unter [https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt).

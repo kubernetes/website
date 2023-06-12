@@ -506,7 +506,7 @@ in a cluster,
 |`custom-class-c`         | 1000                   |
 |`regular/unset`          | 0                      |
 
-Within the [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+Within the [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/)
 the settings for `shutdownGracePeriodByPodPriority` could look like:
 
 |Pod priority class value|Shutdown period|
@@ -590,7 +590,7 @@ VolumeAttachments will not be deleted from the original shutdown node so the vol
 used by these pods cannot be attached to a new running node. As a result, the
 application running on the StatefulSet cannot function properly. If the original
 shutdown node comes up, the pods will be deleted by kubelet and new pods will be
-created on a different running node. If the original shutdown node does not come up,  
+created on a different running node. If the original shutdown node does not come up,
 these pods will be stuck in terminating status on the shutdown node forever.
 
 To mitigate the above situation, a user can manually add the taint `node.kubernetes.io/out-of-service` with either `NoExecute`
@@ -625,7 +625,7 @@ onwards, swap memory support can be enabled on a per-node basis.
 
 To enable swap on a node, the `NodeSwap` feature gate must be enabled on
 the kubelet, and the `--fail-swap-on` command line flag or `failSwapOn`
-[configuration setting](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+[configuration setting](/docs/reference/config-api/kubelet-config.v1beta1/)
 must be set to false.
 
 {{< warning >}}

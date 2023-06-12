@@ -148,9 +148,9 @@ Para ver las etiquetas generadas automáticamente en cada pod, ejecuta el comand
 
 ```shell
 NAME                                READY     STATUS    RESTARTS   AGE       LABELS
-nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
+nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
+nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
 ```
 
 El ReplicaSet creado garantiza que hay tres Pods de `nginx` ejecutándose en todo momento.
