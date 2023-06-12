@@ -15,7 +15,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
+To update the reference content, please follow the
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -71,7 +71,7 @@ IngressSpec describes the Ingress the user wishes to exist.
 - **rules** ([]IngressRule)
 
   *Atomic: will be replaced during a merge*
-  
+
   rules is a list of host rules used to configure the Ingress. If unspecified, or no rule matches, all traffic is sent to the default backend.
 
   <a name="IngressRule"></a>
@@ -85,7 +85,7 @@ IngressSpec describes the Ingress the user wishes to exist.
     	  Currently the port of an Ingress is implicitly :80 for http and
     	  :443 for https.
     Both these may change in the future. Incoming requests are matched against the host before the IngressRuleValue. If the host is unspecified, the Ingress routes all traffic based on the specified IngressRuleValue.
-    
+
     host can be "precise" which is a domain name without the terminating dot of a network host (e.g. "foo.bar.com") or "wildcard", which is a domain name prefixed with a single wildcard label (e.g. "*.foo.com"). The wildcard character '*' must appear by itself as the first DNS label and matches only a single label. You cannot have a wildcard label by itself (e.g. Host == "*"). Requests will be matched against the Host field in the following way: 1. If host is precise, the request matches this rule if the http host header is equal to Host. 2. If host is a wildcard, then the request matches this rule if the http host header is to equal to the suffix (removing the first label) of the wildcard rule.
 
   - **rules.http** (HTTPIngressRuleValue)
@@ -97,7 +97,7 @@ IngressSpec describes the Ingress the user wishes to exist.
     - **rules.http.paths** ([]HTTPIngressPath), required
 
       *Atomic: will be replaced during a merge*
-      
+
       paths is a collection of paths that map requests to backends.
 
       <a name="HTTPIngressPath"></a>
@@ -109,13 +109,18 @@ IngressSpec describes the Ingress the user wishes to exist.
 
       - **rules.http.paths.pathType** (string), required
 
-        pathType determines the interpretation of the path matching. PathType can be one of the following values: * Exact: Matches the URL path exactly. * Prefix: Matches based on a URL path prefix split by '/'. Matching is
+        pathType determines the interpretation of the path matching. PathType can be one of the following values:
+
+        * Exact: Matches the URL path exactly.
+
+        * Prefix: Matches based on a URL path prefix split by '/'. Matching is
           done on a path element by element basis. A path element refers is the
           list of labels in the path split by the '/' separator. A request is a
           match for path p if every p is an element-wise prefix of p of the
           request path. Note that if the last element of the path is a substring
           of the last element in request path, it is not a match (e.g. /foo/bar
           matches /foo/bar/baz, but does not match /foo/barbaz).
+          
         * ImplementationSpecific: Interpretation of the Path matching is up to
           the IngressClass. Implementations can treat this as a separate PathType
           or treat it identically to Prefix or Exact path types.
@@ -128,7 +133,7 @@ IngressSpec describes the Ingress the user wishes to exist.
 - **tls** ([]IngressTLS)
 
   *Atomic: will be replaced during a merge*
-  
+
   tls represents the TLS configuration. Currently the Ingress only supports a single TLS port, 443. If multiple members of this list specify different hosts, they will be multiplexed on the same port according to the hostname specified through the SNI TLS extension, if the ingress controller fulfilling the ingress supports SNI.
 
   <a name="IngressTLS"></a>
@@ -137,7 +142,7 @@ IngressSpec describes the Ingress the user wishes to exist.
   - **tls.hosts** ([]string)
 
     *Atomic: will be replaced during a merge*
-    
+
     hosts is a list of hosts included in the TLS certificate. The values in this list must match the name/s used in the tlsSecret. Defaults to the wildcard host setting for the loadbalancer controller fulfilling this Ingress, if left unspecified.
 
   - **tls.secretName** (string)
@@ -219,7 +224,7 @@ IngressStatus describe the current state of the Ingress.
     - **loadBalancer.ingress.ports** ([]IngressPortStatus)
 
       *Atomic: will be replaced during a merge*
-      
+
       ports provides information about the ports exposed by this LoadBalancer.
 
       <a name="IngressPortStatus"></a>
@@ -514,7 +519,7 @@ POST /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses
 
 - **body**: <a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -571,7 +576,7 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}
 
 - **body**: <a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -626,7 +631,7 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}/status
 
 - **body**: <a href="{{< ref "../service-resources/ingress-v1#Ingress" >}}">Ingress</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -681,7 +686,7 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -741,7 +746,7 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}/status
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -801,7 +806,7 @@ DELETE /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses/{name}
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **dryRun** (*in query*): string
@@ -851,7 +856,7 @@ DELETE /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-  
+
 
 
 - **continue** (*in query*): string
@@ -921,4 +926,3 @@ DELETE /apis/networking.k8s.io/v1/namespaces/{namespace}/ingresses
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized
-
