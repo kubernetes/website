@@ -171,7 +171,7 @@ It augments the basic
 
 {{< note >}}
 The contents below are just an example. If you don't want to use a package manager
-follow the guide outlined in the [Without a package manager](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#k8s-install-2))
+follow the guide outlined in the ([Without a package manager](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#k8s-install-2))
 section.
 {{< /note >}}
 

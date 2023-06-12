@@ -846,6 +846,37 @@ If you need access to multiple registries, you can create one secret for each re
 -->
 如果你需要访问多个仓库，可以为每个仓库创建一个 Secret。
 
+<!--
+## Legacy built-in kubelet credential provider
+
+In older versions of Kubernetes, the kubelet had a direct integration with cloud provider credentials.
+This gave it the ability to dynamically fetch credentials for image registries.
+-->
+## 旧版的内置 kubelet 凭据提供程序
+
+在旧版本的 Kubernetes 中，kubelet 与云提供商凭据直接集成。
+这使它能够动态获取镜像仓库的凭据。
+
+<!--
+There were three built-in implementations of the kubelet credential provider integration:
+ACR (Azure Container Registry), ECR (Elastic Container Registry), and GCR (Google Container Registry).
+-->
+kubelet 凭据提供程序集成存在三个内置实现：
+ACR（Azure 容器仓库）、ECR（Elastic 容器仓库）和 GCR（Google 容器仓库）
+
+<!--
+For more information on the legacy mechanism, read the documentation for the version of Kubernetes that you
+are using. Kubernetes v1.26 through to v{{< skew latestVersion >}} do not include the legacy mechanism, so
+you would need to either:
+- configure a kubelet image credential provider on each node
+- specify image pull credentials using `imagePullSecrets` and at least one Secret
+-->
+有关该旧版机制的更多信息，请阅读你正在使用的 Kubernetes 版本的文档。
+从 Kubernetes v1.26 到 v{{< skew latestVersion >}} 不再包含该旧版机制，因此你需要：
+
+- 在每个节点上配置一个 kubelet 镜像凭据提供程序
+- 使用 `imagePullSecrets` 和至少一个 Secret 指定镜像拉取凭据
+
 ## {{% heading "whatsnext" %}}
 
 <!--

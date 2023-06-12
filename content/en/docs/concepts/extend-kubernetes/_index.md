@@ -283,6 +283,20 @@ and to support other aspects of the Kubernetes network model.
 [Network Plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)
 allow Kubernetes to work with different networking topologies and technologies.
 
+### Kubelet image credential provider plugins
+
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
+Kubelet image credential providers are plugins for the kubelet to dynamically retrieve image registry
+credentials. The credentials are then used when pulling images from container image registries that
+match the configuration.
+
+The plugins can communicate with external services or use local files to obtain credentials. This way,
+the kubelet does not need to have static credentials for each registry, and can support various
+authentication methods and protocols.
+
+For plugin configuration details, see
+[Configure a kubelet image credential provider](/docs/tasks/administer-cluster/kubelet-credential-provider/).
+
 ## Scheduling extensions
 
 The scheduler is a special type of controller that watches pods, and assigns

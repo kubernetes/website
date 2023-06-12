@@ -82,7 +82,7 @@ as a permission check
 -->
 大多数 Kubernetes API
 资源类型都是[对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects)：
-它们代表集群上某个概念的具体实例，例如 Pod 或命名空间。
+它们代表集群上某个概念的具体实例，例如 Pod 或名字空间。
 少数 API 资源类型是 “虚拟的”，它们通常代表的是操作而非对象本身，
 例如权限检查（使用带有 JSON 编码的 `SubjectAccessReview` 主体的 POST 到 `subjectaccessreviews` 资源），
 或 Pod 的子资源 `eviction`（用于触发 [API-发起的驱逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)）。
@@ -105,10 +105,10 @@ example: Nodes), and so their names must be unique across the whole cluster.
 你可以通过 API 创建的所有对象都有一个唯一的{{< glossary_tooltip text="名字" term_id="name" >}}，
 以允许幂等创建和检索，
 但如果虚拟资源类型不可检索或不依赖幂等性，则它们可能没有唯一名称。
-在{{< glossary_tooltip text="命名空间" term_id="namespace" >}}内，
+在{{< glossary_tooltip text="名字空间" term_id="namespace" >}}内，
 同一时刻只能有一个给定类别的对象具有给定名称。
 但是，如果你删除该对象，你可以创建一个具有相同名称的新对象。
-有些对象没有命名空间（例如：节点），因此它们的名称在整个集群中必须是唯一的。
+有些对象没有名字空间（例如：节点），因此它们的名称在整个集群中必须是唯一的。
 
 <!--
 ### API verbs
@@ -236,7 +236,7 @@ Kubernetes API 允许客户端对对象或集合发出初始请求，然后跟�
 客户端可以发送 **list** 或者 **get** 请求，然后发出后续 **watch** 请求。
 
 为了使这种更改跟踪成为可能，每个 Kubernetes 对象都有一个 `resourceVersion` 字段，
-表示存储在底层持久层中的该资源的版本。在检索资源集合（命名空间或集群范围）时，
+表示存储在底层持久层中的该资源的版本。在检索资源集合（名字空间或集群范围）时，
 来自 API 服务器的响应包含一个 `resourceVersion` 值。
 客户端可以使用该 `resourceVersion` 来启动对 API 服务器的 **watch**。
 
@@ -255,7 +255,8 @@ for more detail.
 For example:
 -->
 当你发送 **watch** 请求时，API 服务器会响应更改流。
-这些更改逐项列出了在你指定为 **watch** 请求参数的 `resourceVersion` 之后发生的操作（例如 **create**、**delete** 和 **update**）的结果。
+这些更改逐项列出了在你指定为 **watch** 请求参数的 `resourceVersion` 之后发生的操作
+（例如 **create**、**delete** 和 **update**）的结果。
 整个 **watch** 机制允许客户端获取当前状态，然后订阅后续更改，而不会丢失任何事件。
 
 如果客户端 **watch** 连接断开，则该客户端可以从最后返回的 `resourceVersion` 开始新的 **watch** 请求；
@@ -288,12 +289,12 @@ For example:
    _test_ namespace. Each change notification is a JSON document. The HTTP response body
    (served as `application/json`) consists a series of JSON documents.
 -->
-2. 从资源版本 10245 开始，接收影响 _test_ 命名空间中 Pod 的所有 API 操作
+2. 从资源版本 10245 开始，接收影响 _test_ 名字空间中 Pod 的所有 API 操作
    （例如 **create**、**delete**、**apply** 或 **update**）的通知。
    每个更改通知都是一个 JSON 文档。
    HTTP 响应正文（用作 `application/json`）由一系列 JSON 文档组成。
 
-   ```
+   ```console
    GET /api/v1/namespaces/test/pods?watch=1&resourceVersion=10245
    ---
    200 OK
@@ -444,6 +445,7 @@ in the following sequence of events:
 举个例子：你想监视一组 Pod。对于该集合，当前资源版本为 10245，并且有两个 Pod：`foo` 和 `bar`。
 接下来你发送了以下请求（通过使用 `resourceVersion=` 设置空的资源版本来明确请求 **一致性读**），
 这样做的结果是可能收到如下事件序列：
+
 ```console
 GET /api/v1/namespaces/test/pods?watch=1&sendInitialEvents=true&allowWatchBookmarks=true&resourceVersion=&resourceVersionMatch=NotOlderThan
 ---
@@ -468,6 +470,56 @@ Content-Type: application/json
 ```
 
 <!--
+## Response compression
+-->
+## 响应压缩   {#response-compression}
+
+{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+
+<!--
+`APIResponseCompression` is an option that allows the API server to compress the responses for **get**
+and **list** requests, reducing the network bandwidth and improving the performance of large-scale clusters.
+It is enabled by default since Kubernetes 1.16 and it can be disabled by including
+`APIResponseCompression=false` in the `--feature-gates` flag on the API server.
+-->
+`APIResponseCompression` 是一个选项，允许 API 服务器压缩 **get** 和 **list** 请求的响应，
+减少占用的网络带宽并提高大规模集群的性能。此选项自 Kubernetes 1.16 以来默认启用，
+可以通过在 API 服务器上的 `--feature-gates` 标志中包含 `APIResponseCompression=false` 来禁用。
+
+<!--
+API response compression can significantly reduce the size of the response, especially for large resources or
+[collections](/docs/reference/using-api/api-concepts/#collections).
+For example, a **list** request for pods can return hundreds of kilobytes or even megabytes of data,
+depending on the number of pods and their attributes. By compressing the response, the network bandwidth
+can be saved and the latency can be reduced.
+-->
+特别是对于大型资源或[集合](/zh-cn/docs/reference/using-api/api-concepts/#collections)，
+API 响应压缩可以显著减小其响应的大小。例如，针对 Pod 的 **list** 请求可能会返回数百 KB 甚至几 MB 的数据，
+具体大小取决于 Pod 数量及其属性。通过压缩响应，可以节省网络带宽并降低延迟。
+
+<!--
+To verify if `APIResponseCompression` is working, you can send a **get** or **list** request to the
+API server with an `Accept-Encoding` header, and check the response size and headers. For example:
+-->
+要验证 `APIResponseCompression` 是否正常工作，你可以使用一个 `Accept-Encoding`
+头向 API 服务器发送一个 **get** 或 **list** 请求，并检查响应大小和头信息。例如：
+
+```console
+GET /api/v1/pods
+Accept-Encoding: gzip
+---
+200 OK
+Content-Type: application/json
+content-encoding: gzip
+...
+```
+
+<!--
+The `content-encoding` header indicates that the response is compressed with `gzip`.
+-->
+`content-encoding` 头表示响应使用 `gzip` 进行了压缩。
+
+<!--
 ## Retrieving large results sets in chunks
 -->
 ## 分块检视大体量结果  {#retrieving-large-results-sets-in-chunks}
@@ -483,7 +535,7 @@ response (10-20MB) and consume a large amount of server resources.
 -->
 在较大规模集群中，检索某些资源类型的集合可能会导致非常大的响应，从而影响服务器和客户端。
 例如，一个集群可能有数万个 Pod，每个 Pod 大约相当于 2 KiB 的编码 JSON。
-跨所有命名空间检索所有 Pod 可能会导致非常大的响应 (10-20MB) 并消耗大量服务器资源。
+跨所有名字空间检索所有 Pod 可能会导致非常大的响应 (10-20MB) 并消耗大量服务器资源。
 
 <!--
 Provided that you don't explicitly disable the `APIListChunking`

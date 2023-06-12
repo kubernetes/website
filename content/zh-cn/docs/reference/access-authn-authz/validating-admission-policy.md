@@ -154,6 +154,7 @@ metadata:
   name: "demo-binding-test.example.com"
 spec:
   policyName: "demo-policy.example.com"
+  validationActions: [Deny]
   matchResources:
     namespaceSelector:
       matchLabels:
@@ -174,6 +175,65 @@ ValidatingAdmissionPolicy 'demo-policy.example.com' with binding 'demo-binding-t
 The above provides a simple example of using ValidatingAdmissionPolicy without a parameter configured.
 -->
 上面提供的是一个简单的、无配置参数的 ValidatingAdmissionPolicy。
+
+<!--
+#### Validation actions
+
+Each `ValidatingAdmissionPolicyBinding` must specify one or more
+`validationActions` to declare how `validations` of a policy are enforced.
+-->
+#### 验证操作
+
+每个 `ValidatingAdmissionPolicyBinding` 必须指定一个或多个
+`validationActions` 来声明如何执行策略的 `validations`。
+
+<!--
+The supported `validationActions` are:
+-->
+支持的 `validationActions` 包括：
+
+<!--
+- `Deny`: Validation failure results in a denied request.
+- `Warn`: Validation failure is reported to the request client
+  as a [warning](/blog/2020/09/03/warnings/).
+- `Audit`: Validation failure is included in the audit event for the API request.
+-->
+- `Deny`: 验证失败会导致请求被拒绝。
+- `Warn`: 验证失败会作为[警告](/blog/2020/09/03/warnings/)报告给请求客户端。
+- `Audit`: 验证失败会包含在 API 请求的审计事件中。
+
+<!--
+For example, to both warn clients about a validation failure and to audit the
+validation failures, use:
+-->
+例如，要同时向客户端发出验证失败的警告并记录验证失败的审计记录，请使用以下配置：
+
+```yaml
+validationActions: [Warn, Audit]
+```
+<!--
+`Deny` and `Warn` may not be used together since this combination
+needlessly duplicates the validation failure both in the
+API response body and the HTTP warning headers.
+-->
+`Deny` 和 `Warn` 不能一起使用，因为这种组合会不必要地将验证失败重复输出到
+API 响应体和 HTTP 警告头中。
+<!--
+A `validation` that evaluates to false is always enforced according to these
+actions. Failures defined by the `failurePolicy` are enforced
+according to these actions only if the `failurePolicy` is set to `Fail` (or unset),
+otherwise the failures are ignored.
+-->
+如果 `validation` 求值为 false，则始终根据这些操作执行。
+由 `failurePolicy` 定义的失败仅在 `failurePolicy` 设置为 `Fail`（或未设置）时根据这些操作执行，
+否则这些失败将被忽略。
+
+<!-- 
+See [Audit Annotations: validation falures](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation_failure)
+for more details about the validation failure audit annotation.
+ -->
+有关验证失败审计注解的详细信息，请参见
+[审计注解：验证失败](/zh-cn/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation_failure)。
 
 <!--
 #### Parameter resources
@@ -252,6 +312,7 @@ metadata:
   name: "replicalimit-binding-test.example.com"
 spec:
   policyName: "replicalimit-policy.example.com"
+  validationActions: [Deny]
   paramRef:
     name: "replica-limit-test.example.com"
   matchResources:
@@ -289,6 +350,7 @@ metadata:
   name: "replicalimit-binding-nontest"
 spec:
   policyName: "replicalimit-policy.example.com"
+  validationActions: [Deny]
   paramRef:
     name: "replica-limit-clusterwide.example.com"
   matchResources:
@@ -327,6 +389,7 @@ metadata:
   name: "replicalimit-binding-global"
 spec:
   policyName: "replicalimit-policy.example.com"
+  validationActions: [Deny]
   params: "replica-limit-clusterwide.example.com"
   matchResources:
     namespaceSelector:
@@ -449,6 +512,12 @@ variables as well as some other useful variables:
 - 'request' - Attributes of the [admission request](/docs/reference/config-api/apiserver-admission.v1/#admission-k8s-io-v1-AdmissionRequest).
 - 'params' - Parameter resource referred to by the policy binding being evaluated. The value is
   null if `ParamKind` is unset.
+- `authorizer` - A CEL Authorizer. May be used to perform authorization checks for the principal
+  (authenticated user) of the request. See
+  [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz) in the Kubernetes CEL library
+  documentation for more details.
+- `authorizer.requestResource` - A shortcut for an authorization check configured with the request
+  resource (group, resource, (subresource), namespace, name).
 -->
 ### 检查表达式
 
@@ -460,6 +529,9 @@ CEL 表达式可以访问按 CEL 变量来组织的 Admission 请求/响应的�
 - 'oldObject' - 现有对象。对于 CREATE 请求，该值为 null。
 - 'request' - [准入请求](/zh-cn/docs/reference/config-api/apiserver-admission.v1/#admission-k8s-io-v1-AdmissionRequest)的属性。
 - 'params' - 被计算的策略绑定引用的参数资源。如果未设置 `paramKind`，该值为 null。
+- `authorizer` - 一个 CEL 鉴权组件。可以用来为请求的主体（经过身份验证的用户）执行鉴权检查。
+  更多细节可以参考 Kubernetes CEL 库的文档中的 [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)。
+- `authorizer.requestResource` - 针对请求资源（组、资源、（子资源）、命名空间、名称）所配置的鉴权检查的快捷方式。
 
 <!--
 The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from
@@ -560,3 +632,271 @@ If not set, `StatusReasonInvalid` is used in the response to the client.
 如果这是列表中第一个失败的检查，其原因以及相应的 HTTP 响应代码会被用在给客户端的 HTTP 响应中。
 目前支持的原因有：`Unauthorized`、`Forbidden`、`Invalid`、`RequestEntityTooLarge`。
 如果未设置，将在对客户端的响应中使用 `StatusReasonInvalid`。
+
+<!--
+### Matching requests: `matchConditions`
+
+You can define _match conditions_ for a `ValidatingAdmissionPolicy` if you need fine-grained request filtering. These
+conditions are useful if you find that match rules, `objectSelectors` and `namespaceSelectors` still
+doesn't provide the filtering you want. Match conditions are
+[CEL expressions](/docs/reference/using-api/cel/). All match conditions must evaluate to true for the
+resource to be evaluated.
+-->
+### 匹配请求：`matchConditions`
+
+如果需要进行精细的请求过滤，可以为 `ValidatingAdmissionPolicy` 定义 **匹配条件（match conditions）**。
+如果发现匹配规则、`objectSelectors` 和 `namespaceSelectors` 仍无法提供所需的过滤功能，则使用这些条件非常有用。
+匹配条件是 [CEL 表达式](/zh-cn/docs/reference/using-api/cel/)。
+所有匹配条件必须求值为 true 时才会对资源进行评估。
+
+<!--
+Here is an example illustrating a few different uses for match conditions:
+-->
+以下示例说明了匹配条件的几个不同用法：
+
+{{< codenew file="access/validating-admission-policy-match-conditions.yaml" >}}
+
+<!--
+Match conditions have access to the same CEL variables as validation expressions.
+
+In the event of an error evaluating a match condition the policy is not evaluated. Whether to reject
+the request is determined as follows:
+
+1. If **any** match condition evaluated to `false` (regardless of other errors), the API server skips the policy.
+2. Otherwise:
+  - for [`failurePolicy: Fail`](#failure-policy), reject the request (without evaluating the policy).
+  - for [`failurePolicy: Ignore`](#failure-policy), proceed with the request but skip the policy.
+-->
+这些匹配条件可以访问与验证表达式相同的 CEL 变量。
+
+在评估匹配条件时出现错误时，将不会评估策略。根据以下方式确定是否拒绝请求：
+
+1. 如果**任何一个**匹配条件求值结果为 `false`（不管其他错误），API 服务器将跳过 Webhook。
+2. 否则：
+
+   - 对于 [`failurePolicy: Fail`](#failure-policy)，拒绝请求（不调用 Webhook）。
+   - 对于 [`failurePolicy: Ignore`](#failure-policy)，继续处理请求但跳过 Webhook。
+
+<!--
+### Audit annotations
+
+`auditAnnotations` may be used to include audit annotations in the audit event of the API request.
+
+For example, here is an admission policy with an audit annotation:
+-->
+### 审计注解
+
+`auditAnnotations` 可用于在 API 请求的审计事件中包括审计注解。
+
+例如，以下是带有审计注解的准入策略：
+
+{{< codenew file="access/validating-admission-policy-audit-annotation.yaml" >}}
+
+<!--
+When an API request is validated with this admission policy, the resulting audit event will look like:
+-->
+当使用此准入策略验证 API 请求时，生成的审计事件将如下所示：
+
+```
+# the audit event recorded
+{
+    "kind": "Event",
+    "apiVersion": "audit.k8s.io/v1",
+    "annotations": {
+        "demo-policy.example.com/high-replica-count": "Deployment spec.replicas set to 128"
+        # other annotations
+        ...
+    }
+    # other fields
+    ...
+}
+```
+
+<!--
+In this example the annotation will only be included if the `spec.replicas` of the Deployment is more than
+50, otherwise the CEL expression evalutes to null and the annotation will not be included.
+
+Note that audit annotation keys are prefixed by the name of the `ValidatingAdmissionWebhook` and a `/`. If
+another admission controller, such as an admission webhook, uses the exact same audit annotation key, the 
+value of the first admission controller to include the audit annotation will be included in the audit
+event and all other values will be ignored.
+-->
+在此示例中，只有 Deployment 的 `spec.replicas` 大于 50 时才会包含注解，
+否则 CEL 表达式将求值为 null，并且不会包含注解。
+
+请注意，审计注解键以 `ValidatingAdmissionWebhook` 的名称和 `/` 为前缀。
+如果另一个准入控制器（例如准入 Webhook）使用完全相同的审计注解键，
+则第一个包括审计注解值的准入控制器将出现在审计事件中，而所有其他值都将被忽略。
+
+<!--
+### Message expression
+
+To return a more friendly message when the policy rejects a request, we can use a CEL expression
+to composite a message with `spec.validations[i].messageExpression`. Similar to the validation expression,
+a message expression has access to `object`, `oldObject`, `request`, and `params`. Unlike validations,
+message expression must evaluate to a string.
+
+For example, to better inform the user of the reason of denial when the policy refers to a parameter,
+we can have the following validation:
+-->
+### 消息表达式
+
+为了在策略拒绝请求时返回更友好的消息，我们在 `spec.validations[i].messageExpression`
+中使用 CEL 表达式来构造消息。
+与验证表达式类似，消息表达式可以访问 `object`、`oldObject`、`request` 和 `params`。
+但是，与验证不同，消息表达式必须求值为字符串。
+
+例如，为了在策略引用参数时更好地告知用户拒绝原因，我们可以有以下验证：
+
+{{< codenew file="access/deployment-replicas-policy.yaml" >}}
+
+<!--
+After creating a params object that limits the replicas to 3 and setting up the binding,
+when we try to create a deployment with 5 replicas, we will receive the following message.
+-->
+在创建限制副本为 3 的 Params 对象并设置绑定之后，当我们尝试创建具有 5 个副本的 Deployment
+时，我们将收到以下消息：
+
+```
+$ kubectl create deploy --image=nginx nginx --replicas=5
+error: failed to create deployment: deployments.apps "nginx" is forbidden: ValidatingAdmissionPolicy 'deploy-replica-policy.example.com' with binding 'demo-binding-test.example.com' denied request: object.spec.replicas must be no greater than 3
+```
+
+<!--
+This is more informative than a static message of "too many replicas".
+
+The message expression takes precedence over the static message defined in `spec.validations[i].message` if both are defined.
+However, if the message expression fails to evaluate, the static message will be used instead.
+Additionally, if the message expression evaluates to a multi-line string,
+the evaluation result will be discarded and the static message will be used if present.
+Note that static message is validated against multi-line strings.
+-->
+这比静态消息 "too many replicas" 更具说明性。
+
+如果既定义了消息表达式，又在 `spec.validations[i].message` 中定义了静态消息，
+则消息表达式优先于静态消息。
+但是，如果消息表达式求值失败，则将使用静态消息。
+此外，如果消息表达式求值为多行字符串，则会丢弃求值结果并使用静态消息（如果存在）。
+请注意，静态消息也要检查是否存在多行字符串。
+
+<!--
+### Type checking
+
+When a policy definition is created or updated, the validation process parses the expressions it contains
+and reports any syntax errors, rejecting the definition if any errors are found. 
+Afterward, the referred variables are checked for type errors, including missing fields and type confusion,
+against the matched types of `spec.matchConstraints`.
+The result of type checking can be retrieved from `status.typeChecking`.
+The presence of `status.typeChecking` indicates the completion of type checking,
+and an empty `status.typeChecking` means that no errors were detected.
+
+For example, given the following policy definition:
+-->
+### 类型检查
+
+创建或更新策略定义时，验证过程将解析它包含的表达式，在发现错误时报告语法错误并拒绝该定义。
+之后，引用的变量将根据 `spec.matchConstraints` 的匹配类型检查类型错误，包括缺少字段和类型混淆。
+类型检查的结果可以从 `status.typeChecking` 中获得。
+`status.typeChecking` 的存在表示类型检查已完成，而空的 `status.typeChecking` 表示未发现错误。
+
+例如，给定以下策略定义：
+
+```yaml
+apiVersion: admissionregistration.k8s.io/v1alpha1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "deploy-replica-policy.example.com"
+spec:
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["apps"]
+      apiVersions: ["v1"]
+      operations:  ["CREATE", "UPDATE"]
+      resources:   ["deployments"]
+  validations:
+  - expression: "object.replicas > 1" # 应该是 object.spec.replicas > 1
+    message: "must be replicated"
+    reason: Invalid
+```
+
+<!--
+The status will yield the following information:
+-->
+status 字段将提供以下信息：
+
+```yaml
+status:
+  typeChecking:
+    expressionWarnings:
+    - fieldRef: spec.validations[0].expression
+      warning: |-
+        apps/v1, Kind=Deployment: ERROR: <input>:1:7: undefined field 'replicas'
+         | object.replicas > 1
+         | ......^
+```
+
+<!--
+If multiple resources are matched in `spec.matchConstraints`, all of matched resources will be checked against.
+For example, the following policy definition
+-->
+如果在 `spec.matchConstraints` 中匹配了多个资源，则所有匹配的资源都将进行检查。
+例如，以下策略定义：
+
+```yaml
+apiVersion: admissionregistration.k8s.io/v1alpha1
+kind: ValidatingAdmissionPolicy
+metadata:
+  name: "replica-policy.example.com"
+spec:
+  matchConstraints:
+    resourceRules:
+    - apiGroups:   ["apps"]
+      apiVersions: ["v1"]
+      operations:  ["CREATE", "UPDATE"]
+      resources:   ["deployments","replicasets"]
+  validations:
+  - expression: "object.replicas > 1" # 应该是 object.spec.replicas > 1
+    message: "must be replicated"
+    reason: Invalid
+```
+
+<!--
+will have multiple types and type checking result of each type in the warning message.
+-->
+将具有多个类型，并在警告消息中提供每种类型的类型检查结果。
+
+```yaml
+status:
+  typeChecking:
+    expressionWarnings:
+    - fieldRef: spec.validations[0].expression
+      warning: |-
+        apps/v1, Kind=Deployment: ERROR: <input>:1:7: undefined field 'replicas'
+         | object.replicas > 1
+         | ......^
+        apps/v1, Kind=ReplicaSet: ERROR: <input>:1:7: undefined field 'replicas'
+         | object.replicas > 1
+         | ......^
+```
+<!--
+Type Checking has the following limitation:
+
+- No wildcard matching. If `spec.matchConstraints.resourceRules` contains `"*"` in any of `apiGroups`, `apiVersions` or `resources`,
+  the types that `"*"` matches will not be checked.
+- The number of matched types is limited to 10. This is to prevent a policy that manually specifying too many types.
+  to consume excessive computing resources. In the order of ascending group, version, and then resource, 11th combination and beyond are ignored.
+- Type Checking does not affect the policy behavior in any way. Even if the type checking detects errors, the policy will continue
+  to evaluate. If errors do occur during evaluate, the failure policy will decide its outcome.
+- Type Checking does not apply to CRDs, including matched CRD types and reference of paramKind. The support for CRDs will come in future release.
+-->
+类型检查具有以下限制：
+
+- 没有通配符匹配。
+  如果 `spec.matchConstraints.resourceRules` 中的任何一个 `apiGroups``、apiVersions`
+  或 `resources` 包含 "\*"，则不会检查与 "\*" 匹配的类型。
+- 匹配的类型数量最多为 10 种。这是为了防止手动指定过多类型的策略消耗过多计算资源。
+  按升序处理组、版本，然后是资源，忽略第 11 个及其之后的组合。
+- 类型检查不会以任何方式影响策略行为。即使类型检查检测到错误，策略也将继续评估。
+  如果在评估期间出现错误，则失败策略将决定其结果。
+- 类型检查不适用于 CRD（自定义资源定义），包括匹配的 CRD 类型和 paramKind 的引用。
+  对 CRD 的支持将在未来发布中推出。

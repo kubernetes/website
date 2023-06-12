@@ -108,7 +108,8 @@ content_type: concept
 | `KubeletPodResourcesGetAllocatable` | `false` | Alpha | 1.21 | 1.22 |
 | `KubeletPodResourcesGetAllocatable` | `true` | Beta | 1.23 | |
 | `KubeletTracing` | `false` | Alpha | 1.25 | |
-| `LegacyServiceAccountTokenTracking` | `false` | Alpha | 1.25 | |
+| `LegacyServiceAccountTokenTracking` | `false` | Alpha | 1.26 | 1.26 |
+| `LegacyServiceAccountTokenTracking` | `true` | Beta | 1.27 | |
 | `LocalStorageCapacityIsolationFSQuotaMonitoring` | `false` | Alpha | 1.15 | - |
 | `LogarithmicScaleDown` | `false` | Alpha | 1.21 | 1.21 |
 | `LogarithmicScaleDown` | `true` | Beta | 1.22 | |

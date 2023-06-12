@@ -19,18 +19,24 @@ weight: 10
 
 <!--
 On-disk files in a container are ephemeral, which presents some problems for
-non-trivial applications when running in containers. One problem
-is the loss of files when a container crashes. The kubelet restarts the container
-but with a clean state. A second problem occurs when sharing files
-between containers running together in a `Pod`.
+non-trivial applications when running in containers. One problem occurs when 
+a container crashes or is stopped. Container state is not saved so all of the 
+files that were created or modified during the lifetime of the container are lost. 
+During a crash, kubelet restarts the container with a clean state. 
+Another problem occurs when multiple containers are running in a `Pod` and 
+need to share files. It can be challenging to setup 
+and access a shared filesystem across all of the containers.
 The Kubernetes {{< glossary_tooltip text="volume" term_id="volume" >}} abstraction
 solves both of these problems.
 Familiarity with [Pods](/docs/concepts/workloads/pods/) is suggested.
 -->
-Container 中的文件在磁盘上是临时存放的，这给 Container 中运行的较重要的应用程序带来一些问题。
-问题之一是当容器崩溃时文件丢失。
-kubelet 会重新启动容器，但容器会以干净的状态重启。
-第二个问题会在同一 `Pod` 中运行多个容器并共享文件时出现。
+容器中的文件在磁盘上是临时存放的，这给在容器中运行较重要的应用带来一些问题。
+当容器崩溃或停止时会出现一个问题。此时容器状态未保存，
+因此在容器生命周期内创建或修改的所有文件都将丢失。
+在崩溃期间，kubelet 会以干净的状态重新启动容器。
+当多个容器在一个 Pod 中运行并且需要共享文件时，会出现另一个问题。
+跨所有容器设置和访问共享文件系统具有一定的挑战性。
+
 Kubernetes {{< glossary_tooltip text="卷（Volume）" term_id="volume" >}}
 这一抽象概念能够解决这两个问题。
 
@@ -40,30 +46,22 @@ Kubernetes {{< glossary_tooltip text="卷（Volume）" term_id="volume" >}}
 
 <!--
 ## Background
-
-Docker has a concept of
-[volumes](https://docs.docker.com/storage/), though it is
-somewhat looser and less managed. A Docker volume is a directory on
-disk or in another container. Docker provides volume
-drivers, but the functionality is somewhat limited.
 -->
 ## 背景  {#background}
-
-Docker 也有[卷（Volume）](https://docs.docker.com/storage/) 的概念，但对它只有少量且松散的管理。
-Docker 卷是磁盘上或者另外一个容器内的一个目录。
-Docker 提供卷驱动程序，但是其功能非常有限。
 
 <!--
 Kubernetes supports many types of volumes. A {{< glossary_tooltip term_id="pod" text="Pod" >}}
 can use any number of volume types simultaneously.
-Ephemeral volume types have a lifetime of a pod, but persistent volumes exist beyond
+[Ephemeral volume](/docs/concepts/storage/ephemeral-volumes/) types have a lifetime of a pod,
+but [persistent volumes](/docs/concepts/storage/persistent-volumes/) exist beyond
 the lifetime of a pod. When a pod ceases to exist, Kubernetes destroys ephemeral volumes;
 however, Kubernetes does not destroy persistent volumes.
 For any kind of volume in a given pod, data is preserved across container restarts.
 -->
 Kubernetes 支持很多类型的卷。
 {{< glossary_tooltip term_id="pod" text="Pod" >}} 可以同时使用任意数目的卷类型。
-临时卷类型的生命周期与 Pod 相同，但持久卷可以比 Pod 的存活期长。
+[临时卷](/zh-cn/docs/concepts/storage/ephemeral-volumes/)类型的生命周期与 Pod 相同，
+但[持久卷](/zh-cn/docs/concepts/storage/persistent-volumes/)可以比 Pod 的存活期长。
 当 Pod 不再存在时，Kubernetes 也会销毁临时卷；不过 Kubernetes 不会销毁持久卷。
 对于给定 Pod 中任何类型的卷，在容器重启期间数据都不会丢失。
 
@@ -502,6 +500,8 @@ keyed with `log_level`.
 * You must create a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)
   before you can use it.
 
+* A ConfigMap is always mounted as `readOnly`.
+
 * A container using a ConfigMap as a [`subPath`](#using-subpath) volume mount will not
   receive ConfigMap updates.
 
@@ -509,7 +509,8 @@ keyed with `log_level`.
 -->
 {{< note >}}
 * 在使用 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/) 之前你首先要创建它。
-* 容器以 [subPath](#using-subpath) 卷挂载方式使用 ConfigMap 时，将无法接收 ConfigMap 的更新。
+* ConfigMap 总是以 `readOnly` 的模式挂载。
+* 容器以 [`subPath`](#using-subpath) 卷挂载方式使用 ConfigMap 时，将无法接收 ConfigMap 的更新。
 * 文本数据挂载成文件时采用 UTF-8 字符编码。如果使用其他字符编码形式，可使用
   `binaryData` 字段。
 {{< /note >}}
@@ -1516,17 +1517,16 @@ API 服务器上，然后以文件的形式挂载到 Pod 中，无需直接与 K
 
 {{< note >}}
 <!--
-You must create a Secret in the Kubernetes API before you can use it.
--->
-使用前你必须在 Kubernetes API 中创建 Secret。
-{{< /note >}}
+* You must create a Secret in the Kubernetes API before you can use it.
 
-{{< note >}}
-<!--
-A container using a Secret as a [`subPath`](#using-subpath) volume mount will not
+* A Secret is always mounted as `readOnly`.
+
+* A container using a Secret as a [`subPath`](#using-subpath) volume mount will not
 receive Secret updates.
 -->
-容器以 [`subPath`](#using-subpath) 卷挂载方式挂载 Secret 时，将感知不到 Secret 的更新。
+* 使用前你必须在 Kubernetes API 中创建 Secret。
+* Secret 总是以 `readOnly` 的模式挂载。
+* 容器以 [`subPath`](#using-subpath) 卷挂载方式使用 Secret 时，将无法接收 Secret 的更新。
 {{< /note >}}
 
 <!--
@@ -1885,9 +1885,8 @@ persistent volume:
 
 <!--
 * `readOnly`: An optional boolean value indicating whether the volume is to be
-  "ControllerPublished" (attached) as read only. Default is false. This value is
-  passed to the CSI driver via the `readonly` field in the
-  `ControllerPublishVolumeRequest`.
+  "ControllerPublished" (attached) as read only. Default is false. This value is passed
+  to the CSI driver via the `readonly` field in the `ControllerPublishVolumeRequest`.
 -->
 * `readOnly`：一个可选的布尔值，指示通过 `ControllerPublished` 关联该卷时是否设置该卷为只读。默认值是 false。
   该值通过 `ControllerPublishVolumeRequest` 中的 `readonly` 字段传递给 CSI 驱动。
@@ -1943,20 +1942,26 @@ persistent volume:
   secrets are passed.  When you have configured secret data for node-initiated
   volume expansion, the kubelet passes that data via the `NodeExpandVolume()`
   call to the CSI driver. In order to use the `nodeExpandSecretRef` field, your
-  cluster should be running Kubernetes version 1.25 or later and you must enable
+  cluster should be running Kubernetes version 1.25 or later.
+  If you are running Kubernetes Version 1.25 or 1.26, you must enable
   the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
   named `CSINodeExpandSecret` for each kube-apiserver and for the kubelet on every
-  node. You must also be using a CSI driver that supports or requires secret data during
+  node. In Kubernetes version 1.27 this feature has been enabled by default
+  and no explicit enablement of the feature gate is required. 
+  You must also be using a CSI driver that supports or requires secret data during
   node-initiated storage resize operations.
 -->
 * `nodeExpandSecretRef`：对包含敏感信息的 Secret 对象的引用，
   该信息会传递给 CSI 驱动以完成 CSI `NodeExpandVolume` 调用。
   此字段是可选的，如果不需要 Secret，则可能是空的。
   如果 Secret 包含多个 Secret 条目，则传递所有 Secret 条目。
-  当你为节点初始化的卷扩展配置 Secret 数据时，kubelet 会通过 `NodeExpandVolume()` 调用将该数据传递给 CSI 驱动。
-  为了使用 `nodeExpandSecretRef` 字段，你的集群应运行 Kubernetes 1.25 或更高版本，
-  并且你必须为每个 kube-apiserver 和每个节点上的 kubelet 启用名为 `CSINodeExpandSecret`
+  当你为节点初始化的卷扩展配置 Secret 数据时，kubelet 会通过 `NodeExpandVolume()`
+  调用将该数据传递给 CSI 驱动。为了使用 `nodeExpandSecretRef` 字段，
+  你的集群应运行 Kubernetes 1.25 或更高版本，
+  如果你所运行的 Kubernetes 是 1.25 或 1.26，你必须为每个 kube-apiserver
+  和每个节点上的 kubelet 启用名为 `CSINodeExpandSecret`
   的[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+  在 Kubernetes 1.27 版本中，此特性已默认启用，无需显式启用特性门控。
   在节点初始化的存储大小调整操作期间，你还必须使用支持或需要 Secret 数据的 CSI 驱动。
 
 <!--
@@ -2115,7 +2120,8 @@ FlexVolume 是一个使用基于 exec 的模型来与驱动程序对接的树外
 驱动程序可执行文件，在某些情况下，控制平面节点中也要安装。
 
 Pod 通过 `flexvolume` 树内插件与 FlexVolume 驱动程序交互。
-更多详情请参考 FlexVolume [README](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md#readme) 文档。
+更多详情请参考 FlexVolume
+[README](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md#readme) 文档。
 
 <!--
 The following FlexVolume [plugins](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows),
@@ -2273,4 +2279,3 @@ sudo systemctl restart docker
 Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
 -->
 参考[使用持久卷部署 WordPress 和 MySQL](/zh-cn/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/) 示例。
-
