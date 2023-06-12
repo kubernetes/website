@@ -314,7 +314,7 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    rm kubectl-convert kubectl-convert.sha256
    ```
 
-### Uninstall kubectl using package management
+### Uninstall kubectl using package manager
 {{< tabs name="other_kubectl_uninstall" >}}
 {{% tab name="apt-get" %}}
 If you are on Ubuntu or another Debian based Linux distribution
@@ -324,8 +324,14 @@ sudo apt-get purge kubectl
 sudo apt-get autoremove
 ```
 
+An alternative command to carry out the uninstall:-
+
+```shell
+sudo rm $(which kubectl)
+```
+
 The executable binaries are stored in the ```/usr/bin or usr/local/bin```, library files in ```usr/lib``` and configuration files in ```/etc``` 
-It is recommended to manually remove the library files and static data before uninstalling the ```kubectl``` from the system
+It is recommended to manually remove the library files and static data for completely uninstalling the ```kubectl``` from the system
 
 {{% /tab %}}
 
@@ -336,6 +342,23 @@ If you have used curl to install kubectl, then the uinstallation process can be 
 sudo rm -rf /usr/local/bin/kubectl
 sudo rm -rf /usr/local/lib/kubectl
 ```
+
+An alternative command to carry out the uninstall:-
+
+```shell
+sudo rm $(which kubectl)
+```
+
+For getting binary files run the below command:
+
+```shell
+which kubectl
+```
+or
+```shell
+whereis kubectl
+```
+It is recommended to uninstall the executable binaries for completely removing the kubectl from the root
 
 {{% /tab %}}
 
