@@ -896,7 +896,7 @@ Please note that:
 
 <!-- 
 1. The `node-role.kubernetes.io/master` taint is deprecated and will be removed in kubeadm version 1.25
-1. Mark control-plane phase phase can be invoked individually with the command
+1. Mark control-plane phase can be invoked individually with the command
    [`kubeadm init phase mark-control-plane`](/docs/reference/setup-tools/kubeadm/kubeadm-init-phase/#cmd-phase-mark-control-plane)
 -->
 1. `node-role.kubernetes.io/master` 污点是已废弃的，将会在 kubeadm 1.25 版本中移除
