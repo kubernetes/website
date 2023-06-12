@@ -301,6 +301,7 @@ content_type: concept
 | `WindowsRunAsUserName` | `false` | 알파 | 1.16 | 1.16 |
 | `WindowsRunAsUserName` | `true` | 베타 | 1.17 | 1.17 |
 | `WindowsRunAsUserName` | `true` | GA | 1.18 | 1.20 |
+{{< /table >}}
 
 ## Descriptions for removed feature gates
 

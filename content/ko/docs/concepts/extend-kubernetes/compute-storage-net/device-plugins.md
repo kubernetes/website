@@ -175,7 +175,7 @@ kubelet 인스턴스에 자신을 다시 등록할 것으로 기대된다. 새 k
 {{< caution >}}
 쿠버네티스의 장치 관리자 컴포넌트는 안정화된(GA) 기능이지만 _장치 플러그인 API_는 안정화되지 않았다.
 장치 플러그인 API와 버전 호환성에 대한 정보는 [장치 플러그인 API 버전](/docs/reference/node/device-plugin-api-versions/)를 참고하라.
-{{< caution >}}
+{{< /caution >}}
 
 프로젝트로서, 쿠버네티스는 장치 플러그인 개발자에게 다음 사항을 권장한다.
 
