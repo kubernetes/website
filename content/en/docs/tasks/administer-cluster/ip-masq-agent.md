@@ -18,21 +18,21 @@ The `ip-masq-agent` configures iptables rules to hide a pod's IP address behind 
 node's IP address. This is typically done when sending traffic to destinations outside the
 cluster's pod [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) range.
 
-### **Key Terms**
+### Key Terms
 
-* **NAT (Network Address Translation)**
+* **NAT (Network Address Translation)**:
   Is a method of remapping one IP address to another by modifying either the source and/or
   destination address information in the IP header. Typically performed by a device doing IP routing.
-* **Masquerading**
+* **Masquerading**:
   A form of NAT that is typically used to perform a many to one address translation, where
   multiple source IP addresses are masked behind a single address, which is typically the
   device doing the IP routing. In Kubernetes this is the Node's IP address.
-* **CIDR (Classless Inter-Domain Routing)**
+* **CIDR (Classless Inter-Domain Routing)**:
   Based on the variable-length subnet masking, allows specifying arbitrary-length prefixes.
   CIDR introduced a new method of representation for IP addresses, now commonly known as
   **CIDR notation**, in which an address or routing prefix is written with a suffix indicating
   the number of bits of the prefix, such as 192.168.2.0/24.
-* **Link Local**
+* **Link Local**:
   A link-local address is a network address that is valid only for communications within the
   network segment or the broadcast domain that the host is connected to. Link-local addresses
   for IPv4 are defined in the address block 169.254.0.0/16 in CIDR notation.
@@ -94,6 +94,7 @@ to your cluster.
 <!-- steps -->
 
 ## Create an ip-masq-agent
+
 To create an ip-masq-agent, run the following kubectl command:
 
 ```shell
@@ -107,12 +108,12 @@ agent to run on.
 kubectl label nodes my-node node.kubernetes.io/masq-agent-ds-ready=true
 ```
 
-More information can be found in the ip-masq-agent documentation [here](https://github.com/kubernetes-sigs/ip-masq-agent)
+More information can be found in the ip-masq-agent documentation [here](https://github.com/kubernetes-sigs/ip-masq-agent).
 
 In most cases, the default set of rules should be sufficient; however, if this is not the case
 for your cluster, you can create and apply a
 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) to customize the IP
-ranges that are affected.  For example, to allow
+ranges that are affected. For example, to allow
 only 10.0.0.0/8 to be considered by the ip-masq-agent, you can create the following
 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) in a file called
 "config".
@@ -128,7 +129,7 @@ resyncInterval: 60s
 ```
 {{< /note >}}
 
-Run the following command to add the config map to your cluster:
+Run the following command to add the configmap to your cluster:
 
 ```shell
 kubectl create configmap ip-masq-agent --from-file=config --namespace=kube-system
@@ -160,4 +161,3 @@ nonMasqueradeCIDRs:
 resyncInterval: 60s
 masqLinkLocal: true
 ```
-
