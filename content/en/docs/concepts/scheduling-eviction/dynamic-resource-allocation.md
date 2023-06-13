@@ -11,7 +11,7 @@ weight: 65
 
 {{< feature-state for_k8s_version="v1.27" state="alpha" >}}
 
-Dynamic resource allocation is a new API for requesting and sharing resources
+Dynamic resource allocation is an API for requesting and sharing resources
 between pods and containers inside a pod. It is a generalization of the
 persistent volumes API for generic resources. Third-party resource drivers are
 responsible for tracking and allocating resources. Different kinds of
@@ -32,7 +32,7 @@ check the documentation for that version of Kubernetes.
 ## API
 
 The `resource.k8s.io/v1alpha2` {{< glossary_tooltip text="API group"
-term_id="api-group" >}} provides four new types:
+term_id="api-group" >}} provides four types:
 
 ResourceClass
 : Defines which resource driver handles a certain kind of
@@ -61,7 +61,7 @@ typically using the type defined by a {{< glossary_tooltip
 term_id="CustomResourceDefinition" text="CRD" >}} that was created when
 installing a resource driver.
 
-The `core/v1` `PodSpec` defines ResourceClaims that are needed for a Pod in a new
+The `core/v1` `PodSpec` defines ResourceClaims that are needed for a Pod in a
 `resourceClaims` field. Entries in that list reference either a ResourceClaim
 or a ResourceClaimTemplate. When referencing a ResourceClaim, all Pods using
 this PodSpec (for example, inside a Deployment or StatefulSet) share the same
