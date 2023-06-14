@@ -25,9 +25,9 @@ This information allows you to evaluate your application's performance and
 where bottlenecks can be removed to improve overall performance.
 -->
 要扩展应用程序并提供可靠的服务，你需要了解应用程序在部署时的行为。
-你可以通过检测容器检查 Kubernetes 集群中的应用程序性能，
-[Pod](/zh-cn/docs/concepts/workloads/pods)、
-[服务](/zh-cn/docs/concepts/services-networking/service/)和整个集群的特征。
+你可以通过检测容器、[Pod](/zh-cn/docs/concepts/workloads/pods)、
+[Service](/zh-cn/docs/concepts/services-networking/service/)
+和整个集群的特征来检查 Kubernetes 集群中应用程序的性能。
 Kubernetes 在每个级别上提供有关应用程序资源使用情况的详细信息。
 此信息使你可以评估应用程序的性能，以及在何处可以消除瓶颈以提高整体性能。
 
@@ -50,7 +50,7 @@ cluster components such as the
 controller, as well as the `kubectl top` utility.
 These  metrics are collected by the lightweight, short-term, in-memory 
 [metrics-server](https://github.com/kubernetes-sigs/metrics-server) and
- are exposed via the `metrics.k8s.io` API. 
+are exposed via the `metrics.k8s.io` API. 
 -->
 ## 资源度量管道  {#resource-metrics-pipeline}
 
@@ -58,8 +58,8 @@ These  metrics are collected by the lightweight, short-term, in-memory
 [Horizontal Pod Autoscaler](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/)
 控制器以及 `kubectl top` 实用程序相关的有限度量。
 这些指标是由轻量级的、短期、内存存储的
-[metrics-server](https://github.com/kubernetes-sigs/metrics-server) 收集的，
-通过 `metrics.k8s.io` 公开。
+[metrics-server](https://github.com/kubernetes-sigs/metrics-server) 收集，
+并通过 `metrics.k8s.io` 公开。
 
 <!--
 metrics-server discovers all nodes on the cluster and 
@@ -78,10 +78,10 @@ resource usage statistics through the metrics-server Resource Metrics API.
 This API is served at `/metrics/resource/v1beta1` on the kubelet's authenticated and 
 read-only ports. 
 -->
-度量服务器发现集群中的所有节点，并且查询每个节点的
+metrics-server 发现集群中的所有节点，并且查询每个节点的
 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
 以获取 CPU 和内存使用情况。
-Kubelet 充当 Kubernetes 主节点与节点之间的桥梁，管理机器上运行的 Pod 和容器。
+kubelet 充当 Kubernetes 主节点与节点之间的桥梁，管理机器上运行的 Pod 和容器。
 kubelet 将每个 Pod 转换为其组成的容器，并通过容器运行时接口从容器运行时获取各个容器使用情况统计信息。
 如果某个容器运行时使用 Linux cgroups 和名字空间来实现容器。
 并且这一容器运行时不发布资源用量统计信息，
