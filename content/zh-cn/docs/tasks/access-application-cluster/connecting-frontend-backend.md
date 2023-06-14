@@ -305,7 +305,7 @@ by using the curl command on the external IP of your frontend Service.
 IP 访问服务端点。
 
 ```shell
-curl http://${EXTERNAL_IP} # 将 EXTERNAL_P 替换为你之前看到的外部 IP
+curl http://${EXTERNAL_IP} # 将 EXTERNAL_IP 替换为你之前看到的外部 IP
 ```
 
 <!--
