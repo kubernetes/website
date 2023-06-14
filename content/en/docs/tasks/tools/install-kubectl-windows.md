@@ -225,19 +225,36 @@ Below are the procedures to set up autocompletion for PowerShell.
 ### Uninstall kubectl on windows
 
  {{< tabs name="kubectl_win_uninstall" >}}
+
+   {{% tab name="curl" %}}
+   Locate the installation folder of `kubectl` on your Windows system by navigating to the appropriate directory and use the below code.
+   ```powershell
+   del kubectl.exe kubectl.exe.sha256
+   ```
+   By default, `kubectl` is installed in the `C:\Program Files\` directory.
+   {{% /tab %}}
+
+   {{% tab name="winget" %}}
+   Uninstall package using winget:
+   ```powershell
+   winget uninstall Kubernetes.kubectl
+   ```
+   {{% /tab %}}
+
    {{% tab name="choco" %}}
    ```powershell
    choco uninstall kubernetes-cli
    ```
-   Generally, the packages installed using chocolatey are downloaded into the ```C:\ProgramData\chocolatey\lib```.
-   
+   Generally, the packages installed using chocolatey are downloaded into the ```C:\ProgramData\chocolatey\lib\```.
    {{% /tab %}}
+   
    {{% tab name="scoop" %}}
    ```powershell
    scoop uninstall kubectl
    ```
    {{% /tab %}}
-   {{< /tabs >}}
+
+{{< /tabs >}}
    
 ## {{% heading "whatsnext" %}}
 
