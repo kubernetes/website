@@ -222,7 +222,7 @@ Below are the procedures to set up autocompletion for PowerShell.
    ```powershell
    del kubectl-convert.exe kubectl-convert.exe.sha256
    ```
-### Uninstalling kubectl on windows
+### Uninstall kubectl on windows
 
  {{< tabs name="kubectl_win_uninstall" >}}
    {{% tab name="choco" %}}
