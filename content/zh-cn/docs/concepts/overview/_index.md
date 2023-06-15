@@ -64,7 +64,7 @@ Let's take a look at why Kubernetes is so useful by going back in time.
 <!--
 ![Deployment evolution](/images/docs/Container_Evolution.svg)
 -->
-![部署演进](/images/docs/Container_Evolution.svg)
+![部署演进](/zh-cn/docs/images/Container_Evolution.svg)
 
 <!--
 **Traditional deployment era:**
