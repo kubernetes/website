@@ -397,7 +397,7 @@ Before you start an upgrade, please back up your etcd cluster first.
 
 ## Maintaining etcd clusters
 
-Fore more details on etcd maintenance, please refer to the [etcd maintenance](https://etcd.io/docs/latest/op-guide/maintenance/) documentation.
+For more details on etcd maintenance, please refer to the [etcd maintenance](https://etcd.io/docs/latest/op-guide/maintenance/) documentation.
 
 {{% thirdparty-content single="true" %}}
 
