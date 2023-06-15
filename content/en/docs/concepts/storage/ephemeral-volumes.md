@@ -90,8 +90,7 @@ anymore at this stage. Volume creation has to be unlikely to fail,
 otherwise Pod startup gets stuck. In particular, [storage capacity
 aware Pod scheduling](/docs/concepts/storage/storage-capacity/) is *not*
 supported for these volumes. They are currently also not covered by
-the storage resource usage limits of a Pod, because that is something
-that kubelet can only enforce for storage that it manages itself.
+the storage resource usage limits of a Pod, because kubelet can only enforce for storage that it manages itself.
 
 
 Here's an example manifest for a Pod that uses CSI ephemeral storage:
