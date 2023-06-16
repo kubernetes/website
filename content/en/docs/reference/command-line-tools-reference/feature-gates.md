@@ -146,6 +146,7 @@ For a reference to old feature gates that are removed, please refer to
 | `MemoryManager` | `false` | Alpha | 1.21 | 1.21 |
 | `MemoryManager` | `true` | Beta | 1.22 | |
 | `MemoryQoS` | `false` | Alpha | 1.22 | |
+| `MemoryQoS` | `true` | Beta | 1.28 | |
 | `MinDomainsInPodTopologySpread` | `false` | Alpha | 1.24 | 1.24 |
 | `MinDomainsInPodTopologySpread` | `false` | Beta | 1.25 | 1.26 |
 | `MinDomainsInPodTopologySpread` | `true` | Beta | 1.27 | |
