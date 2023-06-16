@@ -439,8 +439,6 @@ Kubernetes Service API utilizes a nested structure in its type field -
 This inherent nested functionality, despite the cloud provider, gives a wider range of
 control in service exposure.
 
-
-
 ### `type: ClusterIP` {#type-clusterip}
 
 This default Service type assigns an IP address from a pool of IP addresses that
