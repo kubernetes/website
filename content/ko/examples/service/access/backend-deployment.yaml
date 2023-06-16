@@ -8,7 +8,7 @@ spec:
       app: hello
       tier: backend
       track: stable
-  replicas: 7
+  replicas: 3
   template:
     metadata:
       labels:

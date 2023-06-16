@@ -89,4 +89,14 @@ content_type: task
 kubectl convert -f pod.yaml --output-version v1
 ```
 
-`kubectl` 도구는 `pod.yaml`의 내용을 `kind`를 파드(변경되지 않음, unchanged)로 설정하는 매니페스트로 대체하고, 수정된 `apiVersion`으로 대체한다.
+`kubectl` 도구는 `pod.yaml`의 내용을 `kind`를 파드(변경되지 않음, unchanged)로 설정하는 매니페스트로 대체하고,
+수정된 `apiVersion`으로 대체한다.
+
+### 장치 플러그인
+
+클러스터가 장치 플러그인을 실행 중이고 노드를 최신 장치 플러그인 API 버전이 있는
+쿠버네티스 릴리스로 업그레이드해야 하는 경우,
+업그레이드 중에 장치 할당이 계속 성공적으로 완료되도록 하려면
+장치 플러그인을 업그레이드해야 한다.
+
+[API 호환성](docs/concepts/extend-kubernetes/compute-storage-net/device-plugins.md/#api-compatibility) 및 [Kubelet 장치 매니저 API 버전](docs/reference/node/device-plugin-api-versions.md)을 참조한다.

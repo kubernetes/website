@@ -244,7 +244,13 @@ gcloud docker -- push gcr.io/<project>/job-wq-1
 kubectl apply -f ./job.yaml
 ```
 
-이제 조금 기다린 다음, 잡을 확인한다.
+아래와 같이 시간 제한(timeout)을 설정하고, 잡이 성공할 때까지 기다린다.
+```shell
+# 조건명은 대소문자를 구분하지 않는다.
+kubectl wait --for=condition=complete --timeout=300s job/job-wq-1
+```
+
+잡을 확인한다.
 
 ```shell
 kubectl describe jobs/job-wq-1
@@ -284,6 +290,8 @@ Events:
   14s        14s        1        {job }                   Normal    SuccessfulCreate    Created pod: job-wq-1-d6ppa
   14s        14s        1        {job }                   Normal    SuccessfulCreate    Created pod: job-wq-1-p17e0
 ```
+
+
 
 모든 파드가 성공했다. 야호.
 

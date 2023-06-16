@@ -1,5 +1,9 @@
 ---
 title: IPv4/IPv6 이중 스택
+description: >-
+  쿠버네티스는 단일 스택 IPv4 네트워킹,
+  단일 스택 IPv6 네트워킹 혹은 두 네트워크 패밀리를 활성화한
+  이중 스택 네트워킹 설정할 수 있도록 해준다. 이 페이지는 이 방법을 설명한다.
 feature:
   title: IPv4/IPv6 이중 스택
   description: >
@@ -10,7 +14,7 @@ content_type: concept
 #   - khenidak
 #   - aramase
 #   - bridgetkromhout
-weight: 70
+weight: 90
 ---
 
 <!-- overview -->

@@ -4,7 +4,8 @@
 #   - dchen1107
 title: 런타임클래스(RuntimeClass)
 content_type: concept
-weight: 20
+weight: 30
+hide_summary: true # 섹션의 목차에 별도로 기재
 ---
 
 <!-- overview -->

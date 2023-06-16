@@ -208,8 +208,8 @@ sudo kubeadm upgrade apply
 - 노드를 스케줄 가능(schedulable)으로 표시하여 노드를 다시 온라인 상태로 전환한다.
 
   ```shell
-  # <node-to-drain>을 드레인하려는 노드의 이름으로 바꾼다.
-  kubectl uncordon <node-to-drain>
+  # <node-to-uncordon>을 드레인하려는 노드의 이름으로 바꾼다.
+  kubectl uncordon <node-to-uncordon>
   ```
 
 ## 워커 노드 업그레이드
@@ -289,8 +289,8 @@ sudo kubeadm upgrade apply
 -  스케줄 가능(schedulable)으로 표시하여 노드를 다시 온라인 상태로 만든다.
 
   ```shell
-  # <node-to-drain>을 노드의 이름으로 바꾼다.
-  kubectl uncordon <node-to-drain>
+  # <node-to-uncordon>을 노드의 이름으로 바꾼다.
+  kubectl uncordon <node-to-uncordon>
   ```
 
 ## 클러스터 상태 확인

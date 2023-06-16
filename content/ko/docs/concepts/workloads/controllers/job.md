@@ -1,5 +1,6 @@
 ---
 # reviewers:
+# - alculquicondor
 # - erictune
 # - soltysh
 title: 잡
@@ -260,11 +261,12 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 - `Indexed`: 잡의 파드는 연결된 완료 인덱스를 0에서 `.spec.completions-1` 까지 
   가져온다. 이 인덱스는 다음의 세 가지 메카니즘으로 얻을 수 있다.
   - 파드 어노테이션 `batch.kubernetes.io/job-completion-index`.
-  - 파드 호스트네임 중 일부(`$(job-name)-$(index)` 형태). 인덱스된(Indexed) 잡과 
-    {{< glossary_tooltip text="서비스" term_id="Service" >}}를 결합하여 사용하고 
-    있다면, 잡에 속한 파드는 DNS를 이용하여 서로를 디스커버 하기 위해 사전에 결정된 
-    호스트네임을 사용할 수 있다.
-  - 컨테이너화된 태스크의 경우, `JOB_COMPLETION_INDEX` 환경 변수.
+  - 파드 호스트네임 중 일부(`$(job-name)-$(index)` 형태).
+    인덱스된(Indexed) 잡과 
+    {{< glossary_tooltip text="서비스" term_id="Service" >}}를 결합하여 사용하고 있다면, 잡에 속한 파드는
+    DNS를 이용하여 서로를 디스커버 하기 위해 사전에 결정된 호스트네임을 사용할 수 있다.
+    이를 어떻게 설정하는지에 대해 궁금하다면, [파드 간 통신을 위한 잡](/ko/docs/tasks/job/job-with-pod-to-pod-communication/)를 확인한다.
+  - 컨테이너화된 태스크의 경우, 환경 변수 `JOB_COMPLETION_INDEX`에 있다.
 
   각 인덱스에 대해 성공적으로 완료된 파드가 하나 있으면 작업이 완료된 것으로
   간주된다. 이 모드를 사용하는 방법에 대한 자세한 내용은
@@ -289,12 +291,29 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 한다는 점이다.  특히, 이전 실행으로 인한 임시파일, 잠금, 불완전한 출력 그리고 이와 유사한
 것들을 처리해야 한다.
 
+기본적으로 파드의 실패는 `.spec.backoffLimit` 제한값으로 계산되며,
+자세한 내용은 [파드 백오프(backoff) 실패 정책](#파드-백오프-backoff-실패-정책)을 확인한다. 그러나,
+잡의 [파드 실패 정책](#pod-failure-policy)을 설정하여 파드의 실패 수준을 조절하여 사용할 수도 있다.
+
 `.spec.parallelism = 1`, `.spec.completions = 1` 그리고
 `.spec.template.spec.restartPolicy = "Never"` 를 지정하더라도 같은 프로그램을
 두 번 시작하는 경우가 있다는 점을 참고한다.
 
 `.spec.parallelism` 그리고 `.spec.completions` 를 모두 1보다 크게 지정한다면 한번에
 여러 개의 파드가 실행될 수 있다.  따라서 파드는 동시성에 대해서도 관대(tolerant)해야 한다.
+
+만약 [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)인
+`PodDisruptionConditions`와 `JobPodFailurePolicy`가 모두 활성화되어 있고,
+`.spec.podFailurePolicy` 필드가 설정되어 있다면, 잡 컨트롤러는 종료 중인
+파드(`.metadata.deletionTimestamp` 필드가 설정된 파드)가 종료 상태(`.status.phase` 값이 `Failed` 혹은 `Succeeded`)가 될 때 까지 
+해당 파드를 실패로 간주하지 않는다. 그러나, 잡 컨트롤러는
+파드가 명백히 종료되었다고 판단하면 곧바로 대체 파드를 생성한다.
+파드가 한 번 종료되면, 잡 컨트롤러는 방금 종료된 파드를 고려하여
+관련 작업에 대해 `.backoffLimit`과 `.podFailurePolicy`를 평가한다.
+
+이러한 조건들이 하나라도 충족되지 않을 경우, 잡 컨트롤러는
+종료 중인 파드가 추후 `phase: "Succeded"`로 종료된다고 할지라도,
+해당 파드를 실패한 파드로 즉시 간주한다.
 
 ### 파드 백오프(backoff) 실패 정책
 
@@ -312,10 +331,6 @@ _작업 큐_ 잡은 `.spec.completions` 를 설정하지 않은 상태로 두고
 
 계산 중 하나가 `.spec.backoffLimit`에 도달하면, 잡이
 실패한 것으로 간주한다.
-
-[`JobTrackingWithFinalizers`](#종료자-finalizers-를-이용한-잡-추적) 기능이 비활성화되어
-있다면, 실패한 파드의 수는 API에 여전히 표시되고 있는 파드로만
-계산된다.
 
 {{< note >}}
 만약 잡에 `restartPolicy = "OnFailure"` 가 있는 경우 잡 백오프 한계에
@@ -461,12 +476,13 @@ spec:
 여기에 트레이드오프가 요약되어 있고, 2열에서 4열까지가 위의 트레이드오프에 해당한다.
 패턴 이름은 예시와 더 자세한 설명을 위한 링크이다.
 
-|                  패턴                      | 단일 잡 오브젝트      | 작업 항목보다 파드가 적은가?       | 수정되지 않은 앱을 사용하는가? |
-| ----------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|
-| [작업 항목 당 파드가 있는 큐]                   |         ✓         |                             |      때때로           |
-| [가변 파드 수를 가진 큐]                       |         ✓         |             ✓               |                     |
-| [정적 작업 할당을 사용한 인덱싱된 잡]             |         ✓         |                             |          ✓          |
-| [잡 템플릿 확장]                             |                   |                             |          ✓          |
+|                  패턴                            | 단일 잡 오브젝트     | 작업 항목보다 파드가 적은가?      | 수정되지 않은 앱을 사용하는가? |
+| ----------------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|
+| [작업 항목 당 파드가 있는 큐]                        |         ✓         |                             |      때때로           |
+| [가변 파드 수를 가진 큐]                            |         ✓         |             ✓               |                     |
+| [정적 작업 할당을 사용한 인덱싱된 잡]                  |         ✓         |                             |          ✓          |
+| [잡 템플릿 확장]                                   |                   |                             |          ✓          |
+| [파드 간 통신을 위한 잡]                              |         ✓         |           때때로             |      때때로           |
 
 `.spec.completions` 로 완료를 지정할 때, 잡 컨트롤러에 의해 생성된 각 파드는
 동일한 [`사양`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)을 갖는다.  이 의미는
@@ -477,17 +493,19 @@ spec:
 이 표는 각 패턴에 필요한 `.spec.parallelism` 그리고 `.spec.completions` 설정을 보여준다.
 여기서 `W` 는 작업 항목의 수이다.
 
-|             패턴                           | `.spec.completions` |  `.spec.parallelism` |
-| ----------------------------------------- |:-------------------:|:--------------------:|
-| [작업 항목 당 파드가 있는 큐]                   |          W          |        any           |
-| [가변 파드 수를 가진 큐]                       |         null        |        any           |
-| [정적 작업 할당을 사용한 인덱싱된 잡]             |          W          |        any           |
-| [잡 템플릿 확장]                             |          1          |     1이어야 함         |
+|             패턴                                 | `.spec.completions` |  `.spec.parallelism` |
+| ----------------------------------------------- |:-------------------:|:--------------------:|
+| [작업 항목 당 파드가 있는 큐]                        |          W          |        any           |
+| [가변 파드 수를 가진 큐]                            |         null        |        any           |
+| [정적 작업 할당을 사용한 인덱싱된 잡]                  |          W          |        any           |
+| [잡 템플릿 확장]                                   |          1          |     1이어야 함         |
+| [파드 간 통신을 위한 잡]                            |          W          |         W            |
 
 [작업 항목 당 파드가 있는 큐]: /ko/docs/tasks/job/coarse-parallel-processing-work-queue/
 [가변 파드 수를 가진 큐]: /ko/docs/tasks/job/fine-parallel-processing-work-queue/
 [정적 작업 할당을 사용한 인덱싱된 잡]: /ko/docs/tasks/job/indexed-parallel-processing-static/
 [잡 템플릿 확장]: /ko/docs/tasks/job/parallel-processing-expansion/
+[파드 간 통신을 위한 잡]: /ko/docs/tasks/job/job-with-pod-to-pod-communication/
 
 ## 고급 사용법
 
@@ -697,7 +715,7 @@ spec:
 
 ### 파드 실패 정책{#pod-failure-policy}
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
 
 {{< note >}}
 잡(Job)에 대한 파드 실패 정책은
@@ -706,7 +724,7 @@ spec:
 파드 장애 정책의 파드 중단 조건 (참조:
 [파드 중단 조건](/ko/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions))을 
 감지하고 처리할 수 있도록 `PodDisruptionConditions` 기능 게이트를 활성화하는 것을 권장한다. 두 기능 게이트 모두
-쿠버네티스 v1.25에서 사용할 수 있다.
+쿠버네티스 {{< skew currentVersion >}}에서 사용할 수 있다.
 {{< /note >}}
 
 `.spec.podFailurePolicy` 필드로 정의되는 파드 실패 정책은, 클러스터가
@@ -780,43 +798,33 @@ kubelet은 특정 파드에서 `main` 컨테이너를 재시작하지 않는다.
 
 ### 종료자(finalizers)를 이용한 잡 추적
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 {{< note >}}
-이 기능을 이용하기 위해서는 
-[API 서버](/docs/reference/command-line-tools-reference/kube-apiserver/)와 
-[컨트롤러 매니저](/docs/reference/command-line-tools-reference/kube-controller-manager/)에 대해 
-`JobTrackingWithFinalizers` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다. 
-
-이 기능이 활성화되면, 컨트롤 플레인은 아래에 설명할 동작을 이용하여 새로운 잡이 생성되는지 추적한다. 
-이 기능이 활성화되기 이전에 생성된 잡은 영향을 받지 않는다. 
-사용자가 느낄 수 있는 유일한 차이점은 
-컨트롤 플레인이 잡 종료를 좀 더 정확하게 추적할 수 있다는 것이다.
+컨트롤 플레인을 1.26으로 업그레이드하더라도,
+기능 게이트 `JobTrackingWithFinalizers`가 비활성화되어 있을 때 생성된 잡이라면,
+컨트롤 플레인은 종료자를 사용하는 잡을 추적하지 않는다.
 {{< /note >}}
 
-이 기능이 활성화되지 않으면, 잡 
-{{< glossary_tooltip text="컨트롤러" term_id="controller" >}}는 
-`succeeded`와 `failed` 파드의 수를 세어 잡 상태를 추적한다. 
-그런데, 파드는 다음과 같은 이유로 제거될 수 있다.
-- 노드가 다운되었을 때 가비지 콜렉터가 버려진(orphan) 파드를 제거
-- 가비지 콜렉터가 (`Succeeded` 또는 `Failed` 단계에 있는) 완료된 파드를 
-  일정 임계값 이후에 제거
-- 잡에 속한 파드를 사용자가 임의로 제거
-- (쿠버네티스에 속하지 않는) 외부 컨트롤러가 파드를 제거하거나 
-  교체
+컨트롤 플레인은 잡에 속한 파드들을 계속 추적하고,
+API 서버로부터 제거된 파드가 있는지에 대해 알려준다. 이를 위해 잡 컨트롤러는
+`batch.kubernetes.io/job-tracking` 종료자를 갖는 파드를 생성한다.
+컨트롤러는 파드가 잡 상태로 처리된 이후에만 종료자를 제거하여,
+다른 컨트롤러나 사용자가 파드를 제거할 수 있도록 한다.
 
-클러스터에서 `JobTrackingWithFinalizers` 기능을 활성화하면, 
-컨트롤 플레인은 잡에 속하는 파드의 상태를 추적하고 
-API 서버에서 파드가 제거되면 이를 알아챈다. 
-이를 위해, 잡 컨트롤러는 `batch.kubernetes.io/job-tracking` 종료자를 갖는 파드를 생성한다. 
-컨트롤러는 파드의 상태 변화가 잡 상태에 반영된 후에만 종료자를 제거하므로, 
-이후 다른 컨트롤러나 사용자가 파드를 제거할 수 있다.
+쿠버네티스를 1.26으로 업그레이드하기 전이나, 기능 게이트
+`JobTrackingWithFinalizers`를 활성화시키기 전에 생성한 잡은 파드 종료자를 사용하지 않고
+추적된다.
+잡 {{< glossary_tooltip term_id="controller" text="컨트롤러" >}}는
+클러스터에 존재하는 파드들에 대해서만 `succeded`와 `failed` 파드들에 대한 상태 카운터를 갱신한다.
+만약 파드가 클러스터에서 제거된다면,
+컨트롤 플레인은 잡의 진행 상황을 제대로 추적하지 못할 수 있다.
 
-잡 컨트롤러는 새로운 잡에 대해서만 새로운 알고리즘을 적용한다. 
-이 기능이 활성화되기 전에 생성된 잡은 영향을 받지 않는다. 
-잡에 `batch.kubernetes.io/job-tracking` 어노테이션이 있는지 확인하여, 
-잡 컨트롤러가 파드 종료자를 이용하여 잡을 추적하고 있는지 여부를 확인할 수 있다. 
-이 어노테이션을 잡에 수동으로 추가하거나 제거해서는 **안 된다**.
+잡이 `batch.kubernetes.io/job-tracking` 어노테이션을 가지고 있는지 확인함으로써
+컨트롤 플레인이 파드 종료자를 사용하여 잡을 추적하고 있는지 알 수 있다.
+따라서 잡으로부터 이 어노테이션을 수동으로 추가하거나 제거해서는 **안 된다**.
+그 대신, 파드 종료자를 사용하여
+추적이 가능한 잡을 재생성하면 된다.
 
 ## 대안
 
@@ -856,7 +864,7 @@ API 서버에서 파드가 제거되면 이를 알아챈다.
 * 다른 방식으로 잡을 구동하는 방법에 대해서 읽는다.
   * [작업 대기열을 사용한 거친 병렬 처리](/ko/docs/tasks/job/coarse-parallel-processing-work-queue/)
   * [작업 대기열을 사용한 정밀 병렬 처리](/ko/docs/tasks/job/fine-parallel-processing-work-queue/)
-  * [병렬 처리를 위한 정적 작업 할당으로 인덱스된 잡](/ko/docs/tasks/job/indexed-parallel-processing-static/)(베타) 사용
+  * [병렬 처리를 위한 정적 작업 할당으로 인덱스된 잡](/ko/docs/tasks/job/indexed-parallel-processing-static/) 사용
   * 템플릿 기반으로 복수의 잡 생성: [확장을 사용한 병렬 처리](/ko/docs/tasks/job/parallel-processing-expansion/)
 * [완료된 잡을 자동으로 정리](#clean-up-finished-jobs-automatically) 섹션 내 링크를 따라서
   클러스터가 완료되거나 실패된 태스크를 어떻게 정리하는지에 대해 더 배운다.
@@ -866,4 +874,5 @@ API 서버에서 파드가 제거되면 이를 알아챈다.
   오브젝트 정의를 읽는다.
 * 스케줄을 기반으로 실행되는 일련의 잡을 정의하는데 사용할 수 있고, 유닉스 툴 `cron`과 유사한
   [`CronJob`](/ko/docs/concepts/workloads/controllers/cron-jobs/)에 대해 읽는다.
-* 단계별로 구성된 [예제](/docs/tasks/job/pod-failure-policy/)를 통해, `podFailurePolicy`를 사용하여 재시도 가능 및 재시도 불가능 파드의 실패 처리를 하기위한 구성 방법을 연습한다.
+* 단계별로 구성된 [예제](/docs/tasks/job/pod-failure-policy/)를 통해,
+  `podFailurePolicy`를 사용하여 재시도 가능 및 재시도 불가능 파드의 실패 처리를 하기위한 구성 방법을 연습한다.

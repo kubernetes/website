@@ -2,7 +2,7 @@
 # reviewers:
 # - davidopp
 # - kevin-wangzefeng
-# - bsalamat
+# - alculquicondor
 title: 노드에 파드 할당하기
 content_type: concept
 weight: 20
@@ -144,13 +144,13 @@ kubelet이 `node-restriction.kubernetes.io/` 접두사를 갖는 레이블을
 `nodeSelector`와 `nodeAffinity`를 모두 사용하는 경우, 
 파드가 노드에 스케줄링되려면 두 조건 *모두* 만족되어야 한다.
 
-`nodeAffinity`에 연결된 `nodeSelectorTerms`를 여러 개 명시한 경우, 
-명시된 `nodeSelectorTerms` 중 하나를 만족하는 노드에도 
-파드가 스케줄링될 수 있다.
+`nodeAffinity`의 `nodeSelectorTerms`에 여러 조건(term)을 명시한 경우,
+노드가 명시된 조건 중 하나만 만족해도 파드가
+해당 노드에 스케줄링될 수 있다. (조건들은 OR 연산자로 처리)
 
-단일 `nodeSelectorTerms`와 연결된 `matchExpressions`를 여러 개 명시한 경우, 
-모든 `matchExpressions`를 만족하는 노드에만 
-파드가 스케줄링될 수 있다.
+`nodeSelectorTerms`의 조건으로 단일 `matchExpressions` 필드에 여러 표현식(expression)을 명시한 경우,
+모든 표현식을 동시에 만족하는 노드에만
+파드가 스케줄링될 수 있다. (표현식들은 AND 연산자로 처리)
 {{</note>}}
 
 [노드 어피니티를 사용해 노드에 파드 할당](/ko/docs/tasks/configure-pod-container/assign-pods-nodes-using-node-affinity/)에서 

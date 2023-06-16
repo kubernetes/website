@@ -1,6 +1,6 @@
 ---
 title: API 접근 제어
-weight: 15
+weight: 30
 no_list: true
 ---
 
