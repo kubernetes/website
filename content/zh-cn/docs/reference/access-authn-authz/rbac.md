@@ -56,16 +56,16 @@ kube-apiserver --authorization-mode=Example,RBAC --<其他选项> --<其他选�
 ## API objects {#api-overview}
 
 The RBAC API declares four kinds of Kubernetes object: _Role_, _ClusterRole_,
-_RoleBinding_ and _ClusterRoleBinding_. You can
-[describe objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects),
-or amend them, using tools such as `kubectl`, just like any other Kubernetes object.
+_RoleBinding_ and _ClusterRoleBinding_. You can describe or amend the RBAC
+{{< glossary_tooltip text="objects" term_id="object" >}}
+using tools such as `kubectl`, just like any other Kubernetes object.
 -->
 ## API 对象  {#api-overview}
 
 RBAC API 声明了四种 Kubernetes 对象：**Role**、**ClusterRole**、**RoleBinding** 和
-**ClusterRoleBinding**。你可以像使用其他 Kubernetes 对象一样，通过类似 `kubectl`
-这类工具[描述对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects),
-或修补对象。
+**ClusterRoleBinding**。你可以像使用其他 Kubernetes 对象一样，
+通过类似 `kubectl` 这类工具描述或修补 RBAC 
+{{< glossary_tooltip text="对象" term_id="object" >}}。
 
 {{< caution >}}
 <!--
@@ -578,7 +578,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   namespace: default
-  name: example.com-superuser  # 此角色仅作示范，请勿使用
+  name: example.com-superuser # 此角色仅作示范，请勿使用
 rules:
 - apiGroups: ["example.com"]
   resources: ["*"]
