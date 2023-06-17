@@ -11,4 +11,4 @@ or you can use one of these Kubernetes playgrounds:
 -->
 
 * [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
-* [玩转 Kubernetes](http://labs.play-with-k8s.com/)
+* [玩转 Kubernetes](https://labs.play-with-k8s.com/)

@@ -5,4 +5,4 @@
 की मदद से वह बना सकते है या आप नीचे दिए हुए इन दो कुबरनेट्स प्लेग्राउंड का इस्तेमाल कर सकते हैं:
 
 * [Katacoda](https://www.katacoda.com/courses/kubernetes/playground)
-* [प्ले विथ कुबेरनेट्स](http://labs.play-with-k8s.com/)
+* [प्ले विथ कुबेरनेट्स](https://labs.play-with-k8s.com/)
