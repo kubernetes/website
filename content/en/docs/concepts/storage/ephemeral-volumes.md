@@ -127,7 +127,7 @@ instructions.
 CSI ephemeral volumes allow users to provide `volumeAttributes`
 directly to the CSI driver as part of the Pod spec. A CSI driver
 allowing `volumeAttributes` that are typically restricted to
-administrators is not suitable for use in an inline ephemeral volume.
+administrators is not appropriate for use in an inline ephemeral volume.
 For example, parameters that are normally defined in the StorageClass
 should not be exposed to users through the use of inline ephemeral volumes.
 
