@@ -1,10 +1,10 @@
 ---
 reviewers:
-- jsafrane
-- saad-ali
-- msau42
-- xing-yang
-- pohly
+  - jsafrane
+  - saad-ali
+  - msau42
+  - xing-yang
+  - pohly
 title: Ephemeral Volumes
 content_type: concept
 weight: 30
@@ -39,6 +39,7 @@ simplifies application deployment and management.
 
 Kubernetes supports several different kinds of ephemeral volumes for
 different purposes:
+
 - [emptyDir](/docs/concepts/storage/volumes/#emptydir): empty at Pod startup,
   with storage coming locally from the kubelet base directory (usually
   the root disk) or RAM
@@ -58,10 +59,10 @@ different purposes:
 storage](/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage).
 They are managed by kubelet on each node.
 
-CSI ephemeral volumes *must* be provided by third-party CSI storage
+CSI ephemeral volumes _must_ be provided by third-party CSI storage
 drivers.
 
-Generic ephemeral volumes *can* be provided by third-party CSI storage
+Generic ephemeral volumes _can_ be provided by third-party CSI storage
 drivers, but also by any other storage driver that supports dynamic
 provisioning. Some CSI drivers are written specifically for CSI
 ephemeral volumes and do not support dynamic provisioning: those then
@@ -84,15 +85,14 @@ shows which drivers support ephemeral volumes.
 
 Conceptually, CSI ephemeral volumes are similar to `configMap`,
 `downwardAPI` and `secret` volume types: the storage is managed locally on each
- node and is created together with other local resources after a Pod has been
+node and is created together with other local resources after a Pod has been
 scheduled onto a node. Kubernetes has no concept of rescheduling Pods
 anymore at this stage. Volume creation has to be unlikely to fail,
 otherwise Pod startup gets stuck. In particular, [storage capacity
-aware Pod scheduling](/docs/concepts/storage/storage-capacity/) is *not*
+aware Pod scheduling](/docs/concepts/storage/storage-capacity/) is _not_
 supported for these volumes. They are currently also not covered by
 the storage resource usage limits of a Pod, because that is something
 that kubelet can only enforce for storage that it manages itself.
-
 
 Here's an example manifest for a Pod that uses CSI ephemeral storage:
 
@@ -106,9 +106,9 @@ spec:
     - name: my-frontend
       image: busybox:1.28
       volumeMounts:
-      - mountPath: "/data"
-        name: my-csi-inline-vol
-      command: [ "sleep", "1000000" ]
+        - mountPath: "/data"
+          name: my-csi-inline-vol
+      command: ["sleep", "1000000"]
   volumes:
     - name: my-csi-inline-vol
       csi:
@@ -127,7 +127,7 @@ instructions.
 CSI ephemeral volumes allow users to provide `volumeAttributes`
 directly to the CSI driver as part of the Pod spec. A CSI driver
 allowing `volumeAttributes` that are typically restricted to
-administrators is NOT suitable for use in an inline ephemeral volume.
+administrators is not suitable for use in an inline ephemeral volume.
 For example, parameters that are normally defined in the StorageClass
 should not be exposed to users through the use of inline ephemeral volumes.
 
@@ -171,9 +171,9 @@ spec:
     - name: my-frontend
       image: busybox:1.28
       volumeMounts:
-      - mountPath: "/scratch"
-        name: scratch-volume
-      command: [ "sleep", "1000000" ]
+        - mountPath: "/scratch"
+          name: scratch-volume
+      command: ["sleep", "1000000"]
   volumes:
     - name: scratch-volume
       ephemeral:
@@ -182,7 +182,7 @@ spec:
             labels:
               type: my-frontend-volume
           spec:
-            accessModes: [ "ReadWriteOnce" ]
+            accessModes: ["ReadWriteOnce"]
             storageClassName: "scratch-storage-class"
             resources:
               requests:
@@ -213,7 +213,7 @@ that provide that ephemeral storage. When the Pod is deleted,
 the Kubernetes garbage collector deletes the PVC, which then usually
 triggers deletion of the volume because the default reclaim policy of
 storage classes is to delete volumes. You can create quasi-ephemeral local storage
-using a StorageClass with a reclaim policy of `retain`: the storage outlives the Pod, 
+using a StorageClass with a reclaim policy of `retain`: the storage outlives the Pod,
 and in this case you need to ensure that volume clean up happens separately.
 
 While these PVCs exist, they can be used like any other PVC. In
@@ -226,7 +226,7 @@ volume.
 Naming of the automatically created PVCs is deterministic: the name is
 a combination of Pod name and volume name, with a hyphen (`-`) in the
 middle. In the example above, the PVC name will be
-`my-app-scratch-volume`.  This deterministic naming makes it easier to
+`my-app-scratch-volume`. This deterministic naming makes it easier to
 interact with the PVC because one does not have to search for it once
 the Pod name and volume name are known.
 
@@ -276,4 +276,3 @@ See [local ephemeral storage](/docs/concepts/configuration/manage-resources-cont
 
 - For more information on the design, see the
   [Generic ephemeral inline volumes KEP](https://github.com/kubernetes/enhancements/blob/master/keps/sig-storage/1698-generic-ephemeral-volumes/README.md).
-
