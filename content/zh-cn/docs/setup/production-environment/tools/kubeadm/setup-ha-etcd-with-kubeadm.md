@@ -119,13 +119,23 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    kubeadm 提供的 kubelet 单元文件。
 
    ```sh
+   cat << EOF > /etc/systemd/system/kubelet.service.d/kubelet.conf
+   # 将下面的 "systemd" 替换为你的容器运行时所使用的 cgroup 驱动。
+   # kubelet 的默认值为 "cgroupfs"。
+   # 如果需要的话，将 "containerRuntimeEndpoint" 的值替换为一个不同的容器运行时。
+   #
+   apiVersion: kubelet.config.k8s.io/v1beta1
+   kind: KubeletConfiguration
+   cgroupDriver: systemd
+   address: 127.0.0.1
+   containerRuntimeEndpoint: unix:///var/run/containerd/containerd.sock
+   staticPodPath: /etc/kubernetes/manifests
+   EOF
+   
    cat << EOF > /etc/systemd/system/kubelet.service.d/20-etcd-service-manager.conf
    [Service]
    ExecStart=
-   # 将下面的 "systemd" 替换为你的容器运行时所使用的 cgroup 驱动。
-   # kubelet 的默认值为 "cgroupfs"。
-   # 如果需要的话，将 "--container-runtime-endpoint " 的值替换为一个不同的容器运行时。
-   ExecStart=/usr/bin/kubelet --address=127.0.0.1 --pod-manifest-path=/etc/kubernetes/manifests --cgroup-driver=systemd --container-runtime-endpoint=unix:///var/run/containerd/containerd.sock
+   ExecStart=/usr/bin/kubelet --config=/etc/systemd/system/kubelet.service.d/kubelet.conf
    Restart=always
    EOF
 
