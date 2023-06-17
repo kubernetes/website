@@ -25,6 +25,36 @@ should create the checkpoint archive to be only accessible by the `root` user. I
 is still important to remember if the checkpoint archive is transferred to another
 system all memory pages will be readable by the owner of the checkpoint archive.
 
+**Security Risks and Mitigation Strategies:**
+
+1. **Exposure of sensitive data**: When a container is checkpointed, all memory pages, including private data and encryption keys, are saved to the local disk. If the checkpoint archive is accessed by unauthorized users, it can lead to data exposure and potential security breaches. Mitigation strategies include:
+
+   - Restricting access: Ensure that the checkpoint archive is accessible only by authorized users. Set appropriate file permissions and access controls to limit access to the archive.
+   
+   - Encryption: Encrypt the checkpoint archive to protect the data stored within it. This adds an additional layer of security in case the archive falls into the wrong hands.
+
+2. **Transfer of checkpoint archives**: Moving checkpoint archives to another system introduces risks during the transfer process. If the archive is intercepted or tampered with, the sensitive data it contains may be compromised. Consider the following mitigation strategies:
+
+   - Secure file transfer: Use secure transfer protocols such as SSH or encrypted file transfer protocols (SFTP, SCP) to transfer the checkpoint archive between systems. This ensures that the data remains encrypted during transit.
+
+   - Verification mechanisms: Implement mechanisms to verify the integrity and authenticity of the checkpoint archive during transfer. Cryptographic checksums or digital signatures can be used to validate the archive's integrity, ensuring that it hasn't been modified or tampered with.
+
+3. **Access control and authorization**: Controlling access to the Kubelet Checkpoint API is crucial to prevent unauthorized checkpointing operations. Consider the following security practices:
+
+   - Role-based access control (RBAC): Implement RBAC policies to restrict access to the Kubelet Checkpoint API. Only authorized users or service accounts should have the necessary permissions to initiate checkpoint operations.
+
+   - Network segmentation: Deploy the Kubernetes cluster in a network environment with proper segmentation and firewall rules. Limiting access to the Kubelet's API endpoints reduces the attack surface and protects against unauthorized access.
+
+4. **Secure storage of checkpoint archives**: Storing checkpoint archives securely is essential to prevent unauthorized access and tampering. Consider the following measures:
+
+   - Secure storage location: Store checkpoint archives in a secure directory with restricted access permissions. The underlying CRI implementation should ensure that the checkpoint archive is only accessible by the root user.
+
+   - Monitoring and auditing: Implement monitoring and auditing mechanisms to track access to the checkpoint archive storage location. This helps detect any unauthorized access attempts and provides an audit trail for accountability.
+
+5. **Secure deletion of checkpoint archives**: When checkpoint archives are no longer needed, securely delete them to prevent unauthorized recovery of sensitive data. Ensure that deletion processes comply with secure deletion standards and overwrite the data with random values to make it unrecoverable.
+
+By implementing these security measures, you can mitigate the risks associated with checkpointing containers and protect sensitive data from unauthorized access or exposure.
+
 ## Operations {#operations}
 
 ### `post` checkpoint the specified container {#post-checkpoint}
@@ -68,7 +98,7 @@ POST /checkpoint/{namespace}/{pod}/{container}
 - **timeout** (*in query*): integer
 
   Timeout in seconds to wait until the checkpoint creation is finished.
-  If zero or no timeout is specfied the default {{<glossary_tooltip
+  If zero or no timeout is specified the default {{<glossary_tooltip
   term_id="cri" text="CRI">}} timeout value will be used. Checkpoint
   creation time depends directly on the used memory of the container.
   The more memory a container uses the more time is required to create
