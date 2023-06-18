@@ -82,9 +82,9 @@ segredo) então você pode personalizar o segredo antes de armazená-lo.
 Tenha certeza de:
 
 - definir o nome do campo como `.dockerconfigjson`
-- codificar com base64 o arquivo de configuração do Docker e então colar essa String, inteira, 
+- codificar em base64 o arquivo de configuração do Docker e então colar essa String, sem quebras de linha, 
 como o valor para o campo `data[".dockerconfigjson"]`
-- definir o `type` para `kubernetes.io/dockerconfigjson`
+- definir o `type` como `kubernetes.io/dockerconfigjson`
 
 Exemplo:
 
