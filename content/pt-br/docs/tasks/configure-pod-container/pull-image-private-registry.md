@@ -81,7 +81,7 @@ Se você precisar de mais controle (por exemplo, para definir um namespace ou um
 segredo) então você pode personalizar o segredo antes de armazená-lo.
 Tenha certeza de:
 
-- definir o nome do item de dados como `.dockerconfigjson`
+- definir o nome do campo como `.dockerconfigjson`
 - codificar com base64 o arquivo de configuração do Docker e então colar essa String, inteira, 
 como o valor para o campo `data[".dockerconfigjson"]`
 - definir o `type` para `kubernetes.io/dockerconfigjson`
@@ -103,9 +103,9 @@ Se você receber a mensagem de erro `error: no objects passed to create`, isso p
 Se você receber uma mensagem de erro como `Secret "myregistrykey" é inválida: data[.dockerconfigjson]: invalid value ...`, isso significa
 que a string codificada com base64 nos dados foi decodificada com sucesso, mas não pôde ser analisada como um arquivo `.docker/config.json`.
 
-## Crie um Segredo fornecendo credenciais pela linha de comando
+## Crie um Secret fornecendo credenciais pela linha de comando
 
-Crie este Segredo, nomeando a `regcred`:
+Crie este Secret, nomeando-o como `regcred`:
 
 ```shell
 kubectl create secret docker-registry regcred --docker-server=<your-registry-server> --docker-username=<your-name> --docker-password=<your-pword> --docker-email=<your-email>
