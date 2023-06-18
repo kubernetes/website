@@ -1,5 +1,5 @@
 ---
-title: Migrando de PodSecurityPolicy para Controlador de Admissão Integrado
+title: Migrando de PodSecurityPolicy para o Controlador de Admissão Integrado
 reviewers:
 - tallclair
 - liggitt
@@ -52,7 +52,7 @@ comuns, e para fornecer um conjunto padrão de níveis de segurança entre clust
 No entanto, é menos flexível do que o `PodSecurityPolicy`. Notavelmente, os seguintes 
 recursos são suportados pela `PodSecurityPolicy` mas não pela Segurança de Admissão do Pod:
 
-- **Definindo restrições de segurança padrão** - Segurança de Admissão de Pod 
+- **Definição de restrições de segurança por padrão** - Segurança de Admissão de Pod 
   é um controlador de admissão não mutável, significando que não modificará 
   os pods antes de validá-los. Se você estava confiando nesse aspecto do PSP, 
   você precisará modificar suas cargas de trabalho para atender às restrições 
@@ -71,7 +71,7 @@ recursos são suportados pela `PodSecurityPolicy` mas não pela Segurança de Ad
   mas se você precisa desse recurso de qualquer maneira, você vai precisar usar 
   um webhook de terceiros. A exceção a isso é se você apenas precisar liberar 
   completamente usuários específicos ou [Classes de Runtime](/docs/concepts/containers/runtime-class/),
-  nesse caso a Segurança de Admissão do Pod irá expor alguma
+  nesse caso a Segurança de Admissão do Pod expõe algumas opções de
   [Configuração estática para isenções](/docs/concepts/security/pod-security-admission/#exemptions).
 
 Mesmo que a Segurança de Admissão de Pod não atenda a todas as suas necessidades, 
@@ -97,21 +97,22 @@ em objetos Namespace.
 Nesta seção, você reduzirá as `PodSecurityPolicies` mutantes e removerá as opções 
 que estão fora do escopo dos padrões de segurança de pod. Você deve fazer 
 as alterações recomendadas aqui, em uma cópia da `PodSecurityPolicy` original,  
-sendo modificada offline. O PSP clonado deve ter um nome diferente do original 
-(por exemplo, coloque um `0` antes). Não crie as novas políticas no Kubernetes ainda que será coberto no [implementador de políticas atualizadas](#psp-update-rollout) 
-na seção abaixo.
+sendo modificada offline. O PSP clonado deve ter um nome diferente e
+que alfabeticamente seja ordenado antes do original 
+(por exemplo, coloque um `0` antes). Não crie as novas políticas no Kubernetes ainda - isto será coberto na seção [implantando as políticas atualizadas](#psp-update-rollout) 
+abaixo.
 
 ### 2.a. Elimine campos puramente mutantes {#eliminate-mutating-fields}
 
 Se a `PodSecurityPolicy` está mudando os pods, então você pode eliminar os pods que 
-não satisfazem os requisitos do nível de segurança do Pod, quando você finalmente 
+não satisfazem os requisitos do nível de segurança do Pod quando você finalmente 
 desativar a `PodSecurityPolicy`. Para evitar isso, você deve eliminar todo PSP mutante 
 antes da troca. Infelizmente o PSP não separa de maneira clara os campos mutantes 
 e de validação, portanto, esta não é uma migração direta.
 
 Você pode começar eliminando os campos que são puramente mutantes e não têm nenhuma 
-influência na política de validação. Esses campos de referência (também listados no 
-[Mapeando Padrões de Segurança `PodSecurityPolicies` ao Pod](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)) são:
+influência na política de validação. Esses campos de referência (também listados na referência 
+[Mapeando `PodSecurityPolicies` para Padrões de Segurança do Pod](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)) são:
 
 - `.spec.defaultAllowPrivilegeEscalation`
 - `.spec.runtimeClass.defaultRuntimeClassName`
@@ -122,24 +123,22 @@ influência na política de validação. Esses campos de referência (também li
    que executa a mesma validação sem realizar mutações.
 
 {{< caution >}}
-Remover isso pode resultar em cargas de trabalho perdendo a configuração, 
-e causar problemas. Veja [Implementando as políticas atualizadas](#psp-update-rollout) 
-abaixo, para obter sugestões sobre como implementar essas mudanças com segurança.
+Remover estes campos pode resultar em cargas de trabalho sem a configuração necessária, 
+o que pode causar problemas. Veja [implantando as políticas atualizadas](#psp-update-rollout) 
+abaixo para sugestões de como implantar essas mudanças com segurança.
 {{< /caution >}}
 
-### 2.b. Elimine as opções não cobertas pelos padrões de segurança 
-de pod {#eliminate-non-standard-options}
+### 2.b. Elimine as opções não cobertas pelos padrões de segurança de pod {#eliminate-non-standard-options}
 
 Existem vários campos em `PodSecurityPolicy` que não são cobertos pelos padrões 
 de segurança de Pod. Se você precisar aplicar essas opções, você precisará complementar 
-a admissão de segurança de Pod com um
+a Segurança de Admissão de Pod com um
 [webhook de admissão](/docs/reference/access-authn-authz/extensible-admission-controllers/),
 que está fora do escopo deste guia.
 
-Primeiro, você pode remover os campos puramente validadores que não cobrem os 
-padrões de segurança de Pod. Esses campos (também listados no
-[Mapeando de Padrões de Segurança `PodSecurityPolicies` ao Pod](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)
-referenciados por "no opinion") que são:
+Primeiro, você pode remover os campos puramente validadores que não são cobertos nos Padrões de Segurança do Pod. Esses campos (também listados no
+[Mapeando `PodSecurityPolicies` para Padrões de Segurança do Pod](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)
+referenciados com "no opinion") são:
 
 - `.spec.allowedHostPaths`
 - `.spec.allowedFlexVolumes`
@@ -147,13 +146,13 @@ referenciados por "no opinion") que são:
 - `.spec.forbiddenSysctls`
 - `.spec.runtimeClass`
 
-Você também pode remover os seguintes campos, relacionados a grupos 
-de contrôles POSIX / UNIX.
+Você também pode remover os seguintes campos, relacionados aos controles
+de grupos POSIX / UNIX.
 
 {{< caution >}}
-Se algum deles usar a estratégia `MustRunAs` eles podem estar mudando! 
-Remover isso pode resultar em cargas de trabalho, não definindo corretamente 
-os grupos necessários, e causar problemas. Veja [Implantando as políticas atualizadas](#psp-update-rollout) abaixo para obter sugestões sobre como implementar 
+Se algum deles usar a estratégia `MustRunAs` eles podem ser mutáveis! 
+Remover isso pode resultar em cargas de trabalho não definindo corretamente 
+os grupos necessários e causar problemas. Veja [Implantando as políticas atualizadas](#psp-update-rollout) abaixo para sugestões sobre como implantar 
 essas mudanças com segurança. 
 
 {{< /caution >}}
@@ -165,21 +164,21 @@ essas mudanças com segurança.
 Os campos de mutação restantes são necessários para suportar adequadamente os padrões 
 de segurança de Pod, e precisarão ser tratados caso a caso mais tarde:
 
-- `.spec.requiredDropCapabilities` - Necessário para derrubar *todos* para o perfil restrito.
-- `.spec.seLinux` - (Apenas mutação com a regra `MustRunAs`) necessário para fazer cumprir 
-  os requisitos de SELinux da `Baseline` e Perfis restritos.
-- `.spec.runAsUser` - (Não mutante com a regra `RunAsAny`) necessário para aplicar 
-  `RunAsNonRoot` para o perfil restrito.
-- `.spec.allowPrivilegeEscalation` - (Se somente mutante estiver como `false`) 
+- `.spec.requiredDropCapabilities` - Necessário para remover *todas* as _capabilities_ (opção `ALL`) no perfil restrito.
+- `.spec.seLinux` - (Mutável apenas com a regra `MustRunAs`) necessário para fazer cumprir 
+  os requisitos de SELinux dos perfis baseline e restrito.
+- `.spec.runAsUser` - (Não-mutável com a regra `RunAsAny`) necessário para garantir 
+  `RunAsNonRoot` no perfil restrito.
+- `.spec.allowPrivilegeEscalation` - (Mutável somente quando seu valor é `false`) 
   necessário para o perfil restrito.
 
 ### 2.c. Implantando os PSPs atualizados {#psp-update-rollout}
 
 Em seguida, você pode implantar as políticas alteradas ao seu cluster. 
-Você deve prosseguir com cautela, a remoção das opções de mutação pode resultar 
+Você deve prosseguir com cautela, já que a remoção das opções de mutação pode resultar 
 em cargas de trabalho com perda da configuração necessária.
 
-Para cada atualização `PodSecurityPolicy`:
+Para cada `PodSecurityPolicy` modificada:
 
 1. Identifique os Pods em execução sob o PSP original. Isso pode ser feito usando 
 a anotação `kubernetes.io/psp`. 
@@ -189,9 +188,9 @@ Por exemplo, usando o kubectl:
    kubectl get pods --all-namespaces -o jsonpath="{range .items[?(@.metadata.annotations.kubernetes\.io\/psp=='$PSP_NAME')]}{.metadata.namespace} {.metadata.name}{'\n'}{end}"
    ```
 2. Compare esses Pods em execução com a especificação original do Pod, 
-   para determinar se a `PodSecurityPolicy` modificou o Pod. Para pods criados pelo 
-   [recurso de cargas de trabalho](/docs/concepts/workloads/controllers/)
-   você pode comparar o pod com o `PodTemplate` no controlador de recurso. 
+   para determinar se a `PodSecurityPolicy` modificou o Pod. Para pods criados por 
+   [recursos de cargas de trabalho](/docs/concepts/workloads/controllers/)
+   você pode comparar o pod com o `PodTemplate` no recurso controlador. 
    Se alguma alteração for identificada, o Pod original ou `PodTemplate` 
    deve ser atualizado com a configuração desejada.
    Os campos para revisar são:
@@ -212,9 +211,9 @@ Por exemplo, usando o kubectl:
        - `.securityContext.runAsUser`
        - `.securityContext.seccompProfile`
        - `.securityContext.seLinuxOptions`
-3. Crie a nova `PodSecurityPolicies`. Se quaisquer `Roles` ou `ClusterRoles` estão 
-   permitindo o uso em todas as PSPs, isso poderia ocasionar que um novo PSPs 
-   fosse usado em vez de suas contrapartes mutantes.
+3. Crie as novas `PodSecurityPolicies`. Se quaisquer `Roles` ou `ClusterRoles` estão 
+   permitindo o verbo `use` em todas as PSPs, isso pode fazer com que as novas PSPs 
+   sejam usadas em vez de suas contrapartidas mutáveis.
 4. Altere sua autorização, para permitir o acesso aos novos PSPs. No RBAC isso 
    significa alterar todas `Roles` ou `ClusterRoles`, que dão a permissão `use` 
    no PSP original, para dar a permissão também ao PSP alterado.
