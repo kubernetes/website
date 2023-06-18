@@ -46,8 +46,8 @@ system all memory pages will be readable by the owner of the checkpoint archive.
    Consider the following `mitigation` strategies:
 
    - Secure file transfer: Use secure transfer protocols such as SSH or encrypted 
-     file transfer protocols (SFTP, SCP) to transfer the checkpoint archive between systems.
-     This ensures that the data remains encrypted during transit.
+     file transfer protocols (SFTP, SCP) to transfer the checkpoint archive between 
+     systems.This ensures that the data remains encrypted during transit.
 
    - Verification mechanisms: Implement mechanisms to verify the integrity and 
      authenticity of the checkpoint archive during transfer. Cryptographic checksums
