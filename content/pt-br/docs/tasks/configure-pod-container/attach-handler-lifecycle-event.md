@@ -105,7 +105,3 @@ Esta limitação é rastreada na [issue #55087](https://github.com/kubernetes/ku
 * [Ciclo de vida](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#lifecycle-v1-core)
 * [Contêiner](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core)
 * Veja `terminationGracePeriodSeconds` na referência da API de [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
-
-
-
-
