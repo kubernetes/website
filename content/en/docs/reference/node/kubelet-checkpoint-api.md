@@ -25,12 +25,12 @@ should create the checkpoint archive to be only accessible by the `root` user. I
 is still important to remember if the checkpoint archive is transferred to another
 system all memory pages will be readable by the owner of the checkpoint archive.
 
-## Security Risks and Mitigation Strategies
+## Security Risks and `Mitigation` Strategies
 
 1. **Exposure of sensitive data**: When a container is checkpointed, all memory pages,
    including private data and encryption keys, are saved to the local disk. If the 
    checkpoint archive is accessed by unauthorized users, it can lead to data exposure 
-   and potential security breaches. The mitigation strategies include:
+   and potential security breaches. `The mitigation` strategies include:
 
    - Restricting access: Ensure that the checkpoint archive is accessible only
      by authorized users. Set appropriate file permissions and access controls
@@ -43,7 +43,7 @@ system all memory pages will be readable by the owner of the checkpoint archive.
 2. **Transfer of checkpoint archives**: Moving checkpoint archives to another 
    system introduces risks during the transfer process. If the archive is 
    intercepted or tampered with, the sensitive data it contains may be compromised.
-   Consider the following mitigation strategies:
+   Consider the following `mitigation` strategies:
 
    - Secure file transfer: Use secure transfer protocols such as SSH or encrypted 
      file transfer protocols (SFTP, SCP) to transfer the checkpoint archive between systems.
