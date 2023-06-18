@@ -75,7 +75,7 @@ APIのバージョンが異なると、安定性やサポートのレベルも�
 
 ## APIグループ
 
-[API groups](https://git.k8s.io/community/contributors/design-proposals/api-machinery/api-group.md)で、KubernetesのAPIを簡単に拡張することができます。
+[API groups](https://git.k8s.io/design-proposals-archive/api-machinery/api-group.md)で、KubernetesのAPIを簡単に拡張することができます。
 APIグループは、RESTパスとシリアル化されたオブジェクトの`apiVersion`フィールドで指定されます。
 
 KubernetesにはいくつかのAPIグループがあります:
@@ -112,4 +112,4 @@ Kubernetesはシリアライズされた状態を、APIリソースとして{{< 
 ## {{% heading "whatsnext" %}}
 
 - [API conventions](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#api-conventions)をもっと知る
-- [aggregator](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/api-machinery/aggregated-api-servers.md)の設計ドキュメントを読む
+- [aggregator](https://git.k8s.io/design-proposals-archive/api-machinery/aggregated-api-servers.md)の設計ドキュメントを読む
