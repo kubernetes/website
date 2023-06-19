@@ -174,8 +174,9 @@ For more information on version skews, see:
    sudo apt-mark hold kubelet kubeadm kubectl
    ```
 {{< note >}}
-In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default.
-You can create this directory if you need to, making it world-readable but writeable only by admins.
+In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist.
+Instead, use `/usr/share/keyrings` path in the `gpg --dearmor` command and in `signed-by` argument of the apt repository.
+Alternatively, you can create the `/etc/apt/keyrings` directory if you need to, making it world-readable but writeable only by admins.
 {{< /note >}}
 
 {{% /tab %}}
