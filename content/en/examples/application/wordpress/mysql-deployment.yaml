@@ -54,9 +54,9 @@ spec:
               name: mysql-pass
               key: password
         - name: MYSQL_DATABASE
-          value: "wordpress"
+          value: wordpress
         - name: MYSQL_USER
-          value: "wordpress"
+          value: wordpress
         - name: MYSQL_PASSWORD
           valueFrom:
             secretKeyRef:
