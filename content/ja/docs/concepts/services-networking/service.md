@@ -466,7 +466,7 @@ Split-HorizonなDNS環境において、ユーザーは2つのServiceを外部�
 metadata:
     name: my-service
     annotations:
-        cloud.google.com/load-balancer-type: "Internal"
+        networking.gke.io /load-balancer-type: "Internal"
 [...]
 ```
 
