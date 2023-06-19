@@ -50,7 +50,7 @@ earlier versions of this tutorial.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-The example shown on this page works with `kubectl` 1.14 and above.
+The example shown on this page works with `kubectl` 1.27 and above.
 
 Download the following configuration files:
 
