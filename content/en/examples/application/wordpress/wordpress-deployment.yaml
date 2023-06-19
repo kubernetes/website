@@ -56,7 +56,7 @@ spec:
               name: mysql-pass
               key: password
         - name: WORDPRESS_DB_USER
-          value: "wordpress"
+          value: wordpress
         ports:
         - containerPort: 80
           name: wordpress
