@@ -25,12 +25,12 @@ should create the checkpoint archive to be only accessible by the `root` user. I
 is still important to remember if the checkpoint archive is transferred to another
 system all memory pages will be readable by the owner of the checkpoint archive.
 
-## Security Risks and `Mitigation` Strategies
+## Security risks and mitigation strategies
 
 1. **Exposure of sensitive data**: When a container is checkpointed, all memory pages,
    including private data and encryption keys, are saved to the local disk. If the 
    checkpoint archive is accessed by unauthorized users, it can lead to data exposure 
-   and potential security breaches. `The mitigation` strategies include:
+   and potential security breaches.You can mitigate this through:
 
    - Restricting access: Ensure that the checkpoint archive is accessible only
      by authorized users. Set appropriate file permissions and access controls
@@ -43,7 +43,7 @@ system all memory pages will be readable by the owner of the checkpoint archive.
 2. **Transfer of checkpoint archives**: Moving checkpoint archives to another 
    system introduces risks during the transfer process. If the archive is 
    intercepted or tampered with, the sensitive data it contains may be compromised.
-   Consider the following `mitigation` strategies:
+   Consider the following ways to protect checkpoint data in transit:
 
    - Secure file transfer: Use secure transfer protocols such as SSH or encrypted 
      file transfer protocols (SFTP, SCP) to transfer the checkpoint archive between 
@@ -61,6 +61,16 @@ system all memory pages will be readable by the owner of the checkpoint archive.
    - Role-based access control (RBAC): Implement RBAC policies to restrict access to the
      Kubelet Checkpoint API. Only authorized users or service accounts should have the 
      necessary permissions to initiate checkpoint operations.
+
+   - Attribute-based access control (ABAC): ABAC allows access control decisions to be
+     based on attributes associated with the user, request, or other relevant factors.
+     Consider using ABAC policies to define fine-grained access rules for the Kubelet
+     Checkpoint API.
+
+   - Webhook authentication and authorization: Kubernetes supports webhook mechanisms for
+     authentication and authorization. You can integrate external authentication and
+     authorization systems by configuring webhooks to make access control decisions for the
+     Kubelet Checkpoint API.
 
    - Network segmentation: Deploy the Kubernetes cluster in a network environment with proper
      segmentation and firewall rules. Limiting access to the Kubelet's API endpoints reduces
@@ -84,6 +94,17 @@ system all memory pages will be readable by the owner of the checkpoint archive.
 
    By implementing these security measures, you can mitigate the risks associated with checkpointing 
    containers and protect sensitive data from unauthorized access or exposure.
+
+6. **Integrity protection**:If the checkpoint includes sensitive data or data that requires protection against 
+   unauthorized modifications, integrity protection measures should be implemented. This typically involves using 
+   cryptographic mechanisms such as digital signatures or message authentication codes (MACs) to ensure the integrity of 
+   the checkpoint archive. These mechanisms verify that the checkpoint has not been tampered with during storage or 
+   transit.
+  
+7. **Determine sensitivity**:Before proceeding with integrity protection measures, it is essential to evaluate the 
+   sensitivity of the data within the container checkpoint. Confirm whether the checkpoint contains any sensitive or 
+   confidential information that needs to be protected.
+
 
 ## Operations {#operations}
 
