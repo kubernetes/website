@@ -87,6 +87,10 @@
 <script defer src="{{ "js/sortable-table.js" | relURL }}"></script>
 {{- end -}}
 
+{{- if .HasShortcode "release-binaries" -}}
+<script defer src="{{ "js/release_binaries.js" | relURL }}"></script>
+{{- end -}}
+
 {{- if eq (lower .Params.cid) "community" -}}
 {{- if eq .Params.community_styles_migrated true -}}
 <link href="/css/community.css" rel="stylesheet"><!-- legacy styles -->
