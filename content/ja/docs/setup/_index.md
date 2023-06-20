@@ -27,7 +27,7 @@ Kuerbetesクラスターをローカルマシン、クラウド、データセ�
 可能であればコンテナイメージとしてKubernetesのコンポーネントを実行し、それらのコンポーネントをKubernetesで管理するようにすることを**推奨**します。
 コンテナを実行するコンポーネント(特にkubelet)は、このカテゴリーには含まれません。
 
-Kubernetesクラスターを自分で管理するのを望まないなら、[認定プラットフォーム](/ja/docs/setup/production-environment/turnkey-solutions/)を含めマネージドのサービスを選択することもできます。
+Kubernetesクラスターを自分で管理するのを望まないなら、[認定プラットフォーム](/ja/docs/setup/production-environment/turnkey-solutions/)をはじめとする、マネージドのサービスを選択することもできます。
 複数のクラウドやベアメタル環境にまたがった、その他の標準あるいはカスタムのソリューションもあります。
 
 <!-- body -->
