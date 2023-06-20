@@ -16,18 +16,21 @@
     </header>
     <div class="container-fluid td-outer">
       <div class="td-main">
-        <div class="row flex-md-nowrap">
-          <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+        <div class="row flex">
+          <div id="sidebarnav" class="split td-sidebar d-print-none">
             {{ partial "sidebar.html" . }}
           </div>
-          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
-            {{ if not .Site.Params.ui.breadcrumb_disable }}{{ partial "breadcrumb.html" . }}{{ end }}
-            {{ block "deprecated" . }}
-              {{ partial "deprecation-warning.html" . }}
-            {{ end }}
-            {{ block "outdated_content" . }}
-              {{ partial "docs/outdated_content.html" . }}
-            {{ end }}
+          <div id="maindoc" class="split pl-md-5 row">
+          <!--main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main"-->
+            <main role="main" class="col-xl-8">
+              {{ if not .Site.Params.ui.breadcrumb_disable }}{{ partial "breadcrumb.html" . }}{{ end }}
+              {{ block "deprecated" . }}
+                {{ partial "deprecation-warning.html" . }}
+              {{ end }}
+              {{ block "outdated_content" . }}
+                {{ partial "docs/outdated_content.html" . }}
+              {{ end }}
+
               {{ block "main" . }}{{ end }}
               {{- if .HasShortcode "thirdparty-content" -}}
                 {{ block "thirdparty-disclaimer" . }}
@@ -39,18 +42,19 @@
                   {{ partial "docs/auto-generated-pageinfo.html" . }}
                 {{- end -}}
               {{- end -}}
-            {{ if (and (not .Params.hide_feedback) (.Site.Params.ui.feedback.enable) (.Site.GoogleAnalytics)) }}
-              {{ partial "feedback.html" .Site.Params.ui.feedback }}
-            {{ end }}
-            {{ partial "page-meta-lastmod.html" . }}
-            {{ if (.Site.DisqusShortname) }}
-              <br />
-              {{ partial "disqus-comment.html" . }}
-            {{ end }}
-          </main>
-          <div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
-            {{ partial "toc.html" . }}
-          </div>
+              {{ if (and (not .Params.hide_feedback) (.Site.Params.ui.feedback.enable) (.Site.GoogleAnalytics)) }}
+                {{ partial "feedback.html" .Site.Params.ui.feedback }}
+              {{ end }}
+              {{ partial "page-meta-lastmod.html" . }}
+              {{ if (.Site.DisqusShortname) }}
+                <br />
+                {{ partial "disqus-comment.html" . }}
+              {{ end }}
+            </main>
+            <div class="d-none d-xl-block td-toc d-print-none">
+              {{ partial "toc.html" . }}
+            </div>
+          </div> <!--end of main-content-->
         </div>
       </div>
     </div>
