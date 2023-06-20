@@ -7,7 +7,7 @@ slug: container-image-signature-verification
 
 **Author**: Sascha Grunert
 
-The Kubernetes community has been signing their container image based artifacts
+The Kubernetes community has been signing their container image-based artifacts
 since release v1.24. While the graduation of the [corresponding enhancement][kep]
 from `alpha` to `beta` in v1.26 introduced signatures for the binary artifacts,
 other projects followed the approach by providing image signatures for their
@@ -25,10 +25,10 @@ infrastructure for pushing images into staging buckets.
 
 Assuming that a project now produces signed container image artifacts, how can
 one actually verify the signatures? It is possible to do it manually like
-outlined in the [official Kubernetes documentation][docs]. The problem with that
+outlined in the [official Kubernetes documentation][docs]. The problem with this
 approach is that it involves no automation at all and should be only done for
 testing purposes. In production environments, tools like the [sigstore
-policy-controller][policy-controller] can help with the automation. They
+policy-controller][policy-controller] can help with the automation. These tools
 provide a higher level API by using [Custom Resource Definitions (CRD)][crd] as
 well as an integrated [admission controller and webhook][admission] to verify
 the signatures.
@@ -42,27 +42,26 @@ The general usage flow for an admission controller based verification is:
 
 ![flow](flow.png "Admission controller flow")
 
-Key benefit of this architecture is simplicity: A single instance within the
+A key benefit of this architecture is simplicity: A single instance within the
 cluster validates the signatures before any image pull can happen in the
-container runtimes on the nodes, which gets initiated by the kubelet. This
-benefit also incorporates the drawback of separation: The node which should pull
-the container image is not necessarily the same which does the admission. This
+container runtime on the nodes, which gets initiated by the kubelet. This
+benefit also brings along the issue of separation: The node which should pull
+the container image is not necessarily the same node that performs the admission. This
 means that if the controller is compromised, then a cluster-wide policy
-enforcement could not be possible any more.
+enforcement can no longer be possible.
 
-One way to solve that issue is doing the policy evaluation directly within the
+One way to solve this issue is doing the policy evaluation directly within the
 [Container Runtime Interface (CRI)][cri] compatible container runtime. The
 runtime is directly connected to the [kubelet][kubelet] on a node and does all
 the tasks like pulling images. [CRI-O][cri-o] is one of those available runtimes
-and will feature full support for container image signature verification in the
-upcoming v1.28 release.
+and will feature full support for container image signature verification in v1.28.
 
 [cri]: /docs/concepts/architecture/cri
 [kubelet]: /docs/reference/command-line-tools-reference/kubelet
 [cri-o]: https://github.com/cri-o/cri-o
 
 How does it work? CRI-O reads a file called [`policy.json`][policy.json], which
-contains all the rules defined for container images. For example, I can define a
+contains all the rules defined for container images. For example, you can define a
 policy which only allows signed images `quay.io/crio/signed` for any tag or
 digest like this:
 
@@ -90,7 +89,7 @@ digest like this:
 }
 ```
 
-CRI-O has to be started to use that policy as global source of truth:
+CRI-O has to be started to use that policy as the global source of truth:
 
 ```console
 > sudo crio --log-level debug --signature-policy ./policy.json
@@ -135,7 +134,7 @@ keys from the upstream [fulcio (OIDC PKI)][fulcio] and [rekor
 [fulcio]: https://github.com/sigstore/fulcio
 [rekor]: https://github.com/sigstore/rekor
 
-This means if I now invalidate the `subjectEmail` of the policy, for example to
+This means that if you now invalidate the `subjectEmail` of the policy, for example to
 `wrong@mail.com`:
 
 ```console
@@ -143,20 +142,20 @@ This means if I now invalidate the `subjectEmail` of the policy, for example to
 > mv new-policy.json policy.json
 ```
 
-Then removing the image, because it already exists locally:
+Then remove the image, since it already exists locally:
 
 ```console
 > sudo crictl rmi quay.io/crio/signed
 ```
 
-Now when pulling the image, CRI-O complains that the required email is wrong:
+Now when you pull the image, CRI-O complains that the required email is wrong:
 
 ```console
 > sudo crictl pull quay.io/crio/signed
 FATA[…] pulling image: rpc error: code = Unknown desc = Source image rejected: Required email wrong@mail.com not found (got []string{"sgrunert@redhat.com"})
 ```
 
-It is also possible to test an unsigned image against the policy. For that we
+It is also possible to test an unsigned image against the policy. For that you
 have to modify the key `quay.io/crio/signed` to something like
 `quay.io/crio/unsigned`:
 
@@ -164,7 +163,7 @@ have to modify the key `quay.io/crio/signed` to something like
 > sed -i 's;quay.io/crio/signed;quay.io/crio/unsigned;' policy.json
 ```
 
-If I now pull the container image, CRI-O will complain that no signature exists
+If you now pull the container image, CRI-O will complain that no signature exists
 for it:
 
 ```console
@@ -175,7 +174,7 @@ FATA[…] pulling image: rpc error: code = Unknown desc = SignatureValidationFai
 The error code `SignatureValidationFailed` got [recently added to
 Kubernetes][pr-117717] and will be available from v1.28. This error code allows
 end-users to understand image pull failures directly from the kubectl CLI. For
-example, if I run CRI-O together with Kubernetes using the policy which requires
+example, if you run CRI-O together with Kubernetes using the policy which requires
 `quay.io/crio/unsigned` to be signed, then a pod definition like this:
 
 [pr-117717]: https://github.com/kubernetes/kubernetes/pull/117717
@@ -219,41 +218,41 @@ pod    0/1     SignatureValidationFailed   0          4s
 This overall behavior provides a more Kubernetes native experience and does not
 rely on third party software to be installed in the cluster.
 
-There are still a few corner cases to consider: For example, what if we want to
+There are still a few corner cases to consider: For example, what if you want to
 allow policies per namespace in the same way the policy-controller supports it?
 Well, there is an upcoming CRI-O feature in v1.28 for that! CRI-O will support
 the `--signature-policy-dir` / `signature_policy_dir` option, which defines the
 root path for pod namespace-separated signature policies. This means that CRI-O
 will lookup that path and assemble a policy like `<SIGNATURE_POLICY_DIR>/<NAMESPACE>.json`,
-which will be used on image pull if existing. If no pod namespace is being
+which will be used on image pull if existing. If no pod namespace is
 provided on image pull ([via the sandbox config][sandbox-config]), or the
 concatenated path is non-existent, then CRI-O's global policy will be used as
 fallback.
 
 [sandbox-config]: https://github.com/kubernetes/cri-api/blob/e5515a5/pkg/apis/runtime/v1/api.proto#L1448
 
-Another corner case to consider is cricital for the correct signature
+Another corner case to consider is critical for the correct signature
 verification within container runtimes: The kubelet only invokes container image
-pulls if the image does not already exist on disk. This means, that a
+pulls if the image does not already exist on disk. This means that an
 unrestricted policy from Kubernetes namespace A can allow pulling an image,
 while namespace B is not able to enforce the policy because it already exits on
 the node. Finally, CRI-O has to verify the policy not only on image pull, but
 also on container creation. This fact makes things even a bit more complicated,
 because the CRI does not really pass down the user specified image reference on
-container creation, but more an already resolved iamge ID or digest. A [small
+container creation, but an already resolved image ID, or digest. A [small
 change to the CRI][pr-118652] can help with that.
 
 [pr-118652]: https://github.com/kubernetes/kubernetes/pull/118652
 
 Now that everything happens within the container runtime, someone has to
 maintain and define the policies to provide a good user experience around that
-feature. The CRDs of the policy-controller are great, while I could imagine that
+feature. The CRDs of the policy-controller are great, while we could imagine that
 a daemon within the cluster can write the policies for CRI-O per namespace. This
 would make any additional hook obsolete and moves the responsibility of
-verifying the image signature to the actual instance which pulls the image. [I
-was evaluating][thread] other possible paths towards a better container image
-signature verification within plain Kubernetes, but I could not find a great fit
-for a native API. This means that I believe that a CRD is the way to go, but we
+verifying the image signature to the actual instance which pulls the image. [We
+evaluated][thread] other possible paths toward a better container image
+signature verification within plain Kubernetes, but we could not find a great fit
+for a native API. This means that we believe that a CRD is the way to go, but we
 still need an instance which actually serves it.
 
 [thread]: https://groups.google.com/g/kubernetes-sig-node/c/kgpxqcsJ7Vc/m/7X7t_ElsAgAJ
