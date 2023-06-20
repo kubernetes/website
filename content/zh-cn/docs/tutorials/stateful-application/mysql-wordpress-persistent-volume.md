@@ -90,7 +90,7 @@ earlier versions of this tutorial.
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 <!--
-The example shown on this page works with `kubectl` 1.14 and above.
+The example shown on this page works with `kubectl` 1.27 and above.
 
 Download the following configuration files:
 
@@ -98,7 +98,7 @@ Download the following configuration files:
 
 1. [wordpress-deployment.yaml](/examples/application/wordpress/wordpress-deployment.yaml)
 -->
-此例在 `kubectl` 1.14 或者更高版本有效。
+此例在 `kubectl` 1.27 或者更高版本有效。
 
 下载下面的配置文件：
 
