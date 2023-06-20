@@ -46,7 +46,7 @@ Kubernetesについて学んでいる場合、Kubernetesコミュニティにサ
 ## {{% heading "whatsnext" %}}
 
 - [Kubernetesのダウンロード](/releases/download/)
-- `kubectl`を含む、ツールの[ダウンロードとインストール](/ja/docs/tasks/tools/)
+- `kubectl`を含む、ツールのダウンロードと[インストール](/ja/docs/tasks/tools/)
 - 新しいクラスターのための[コンテナランタイム](/ja/docs/setup/production-environment/container-runtimes/)の選択
 - クラスターセットアップの[ベストプラクティス](/ja/docs/setup/best-practices/)を学ぶ
 
