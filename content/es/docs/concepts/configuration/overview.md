@@ -89,3 +89,47 @@ a otros, no dudes en crear un _issue_ o enviar un PR.
 - Usa [headless Services](/docs/concepts/services-networking/service/#headless-services)
   (que tiene un `ClusterIP` de `None`) para el descubrimiento de servicios cuando no necesites
   balanceo de carga `kube-proxy`.
+
+## Usando Labels
+
+- Define y usa [labels](/docs/concepts/overview/working-with-objects/labels/) que identifiquen
+  __atributos semánticos__ de tu aplicación o Deployment, como `{ app.kubernetes.io/name:
+  MyApp, tier: frontend, phase: test, deployment: v3 }`. Puedes utilizar estas labels para seleccionar los
+  Pods apropiados para otros recursos; por ejemplo, un Service que selecciona todo los
+  Pods `tier: frontend`, o todos los componentes `phase: test` de `app.kubernetes.io/name: MyApp`.
+  Revisa el [libro de visitas](https://github.com/kubernetes/examples/tree/master/guestbook/)
+  para ver ejemplos de este enfoque.
+
+  Un Service puede hacer que abarque múltiples Deployments omitiendo las labels específicas de la versión de su
+  selector. Cuando necesites actualizar un servicio en ejecución sin downtime, usa un
+  [Deployment](/docs/concepts/workloads/controllers/deployment/).
+
+  Un estado deseado de un objeto se describe mediante una implementación, y si los cambios a esa especificación son
+  _aplicados_, el controlador de implementación cambia el estado actual al estado deseado en un
+  ritmo controlado.
+
+- Use las [labels comunes de Kubernetes](/docs/concepts/overview/working-with-objects/common-labels/)
+  para casos de uso común. Estas labels estandarizadas enriquecen los metadatos de una manera que permite que las herramientas,
+  incluyendo `kubectl` y el [dashboard](/docs/tasks/access-application-cluster/web-ui-dashboard),
+  trabajen de forma interoperable.
+
+- Puedes manipular las labels para la depuración. Debido a que los controladores de Kubernetes (como ReplicaSet) y
+  los Services coinciden con los Pods usando labels de selector, se detendrá la eliminación de las labels relevantes de un Pod
+  que sea considerado por un controlador o que un Service sirva tráfico. si quitas
+  las labels de un Pod existente, su controlador creará un nuevo Pod para ocupar su lugar. Esto es un
+  forma útil de depurar un Pod previamente "vivo" en un entorno de "cuarentena". Para eliminar interactivamente
+  o agregar labels, usa [`kubectl label`](/docs/reference/generated/kubectl/kubectl-commands#label).
+
+## Usando kubectl
+
+- Usa `kubectl apply -f <directorio>`. Esto busca la configuración de Kubernetes en todos los `.yaml`,
+   `.yml`, y `.json` en `<directorio>` y lo pasa a `apply`.
+
+- Usa selectores de labels para las operaciones `get` y `delete` en lugar de nombres de objetos específicos. Ve las
+  secciones en [selectores de labels](/docs/concepts/overview/working-with-objects/labels/#label-selectors)
+  y [usar labels de forma eficaz](/docs/concepts/cluster-administration/manage-deployment/#using-labels-effectively).
+
+- Usa `kubectl create deployment` y `kubectl expose` para crear rápidamente un contenedor único
+   Deployments y Services.
+   Consulta [Usar un Service para Acceder a una Aplicación en un Clúster](/docs/tasks/access-application-cluster/service-access-application-cluster/)
+   para un ejemplo.
