@@ -574,6 +574,19 @@ spec:
 Probe-level `terminationGracePeriodSeconds` cannot be set for readiness probes.
 It will be rejected by the API server.
 
+### Attributes for fine-tuning the health check run
+More info: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/
+
+
+| Attribute  | Default Value | Description |
+| ------------- | ------------- | -------------- |
+| `initialDelaySeconds` | 0  | Number of seconds after the container has started before liveness probes are initiated. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes |
+| `periodSeconds`  | 10 | How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1. |
+| `timeoutSeconds` | 1 | Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. More info: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes |
+| `successThreshold` | 1 | Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Must be 1 for liveness and startup. Minimum value is 1. |
+| `failureThreshold` | 3 | Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1. |
+
+
 ## {{% heading "whatsnext" %}}
 
 * Learn more about
