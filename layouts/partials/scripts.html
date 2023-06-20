@@ -22,4 +22,16 @@
 <!-- scripts for prism -->
 <script src='/js/prism.js'></script>
 {{ end }}
+
+<!--for the splitter-->
+<script>
+  eleNav = document.getElementById("sidebarnav");
+  if (eleNav !== null) {
+    Split(["#sidebarnav", "#maindoc"], {
+        sizes: [20, 80],
+        minSize: 100,
+    });
+  }
+</script>
+
 {{ partial "hooks/body-end.html" . }}
