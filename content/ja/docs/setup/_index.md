@@ -39,7 +39,7 @@ Kubernetesについて学んでいる場合、Kubernetesコミュニティにサ
 
 ## プロダクション環境
 
-[プロダクション環境](/ja/docs/setup/production-environment/)用のソリューションを評価する際には、Kubernetesクラスター(または抽象レイヤ)の運用においてどの部分を自分で管理し、どの部分をプロバイダーに任せるのかを考慮してください。
+[プロダクション環境](/ja/docs/setup/production-environment/)用のソリューションを評価する際には、Kubernetesクラスター(または*抽象概念*)の運用においてどの部分を自分で管理し、どの部分をプロバイダーに任せるのかを考慮してください。
 
 自分で管理するクラスターであれば、Kubernetesをデプロイするための公式にサポートされているツールは[kubeadm](/ja/docs/setup/production-environment/tools/kubeadm/)です。
 
