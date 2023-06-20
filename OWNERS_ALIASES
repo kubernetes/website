@@ -148,6 +148,7 @@ aliases:
     - windsonsea
     - xichengliudui
   sig-docs-zh-reviews: # PR reviews for Chinese content
+    - asa3311
     - chenrui333
     - chenxuc
     - howieyuen
