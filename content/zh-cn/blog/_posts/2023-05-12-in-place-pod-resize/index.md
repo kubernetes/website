@@ -13,7 +13,7 @@ slug: in-place-pod-resize-alpha
 
 **作者:** Vinay Kulkarni (Kubescaler Labs)
 <!-- 
-**Author:** Vinay Kulkarni (Kubescaler Labs)
+**Author:** [Vinay Kulkarni](https://github.com/vinaykul) (Kubescaler Labs)
 -->
 
 **译者**：[Paco Xu](https://github.com/pacoxu) (Daocloud)
