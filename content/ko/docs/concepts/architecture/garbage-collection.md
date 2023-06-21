@@ -1,7 +1,7 @@
 ---
 title: 가비지(Garbage) 수집
 content_type: concept
-weight: 50
+weight: 70
 ---
 
 <!-- overview -->

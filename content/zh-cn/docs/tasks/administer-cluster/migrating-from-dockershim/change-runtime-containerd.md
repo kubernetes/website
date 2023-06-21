@@ -157,14 +157,12 @@ then run the following commands:
 <!--
 ## Configure the kubelet to use containerd as its container runtime
 
-Edit the file `/var/lib/kubelet/kubeadm-flags.env` and add the containerd runtime to the flags.
-`--container-runtime=remote` and
+Edit the file `/var/lib/kubelet/kubeadm-flags.env` and add the containerd runtime to the flags;
 `--container-runtime-endpoint=unix:///run/containerd/containerd.sock`.
 -->
 ## 配置 kubelet 使用 containerd 作为其容器运行时
 
-编辑文件 `/var/lib/kubelet/kubeadm-flags.env`，将 containerd 运行时添加到标志中：
-`--container-runtime=remote` 和
+编辑文件 `/var/lib/kubelet/kubeadm-flags.env`，将 containerd 运行时添加到标志中；
 `--container-runtime-endpoint=unix:///run/containerd/containerd.sock`。
 
 <!--
