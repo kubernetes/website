@@ -140,6 +140,7 @@ aliases:
     - chenrui333
     - howieyuen
     - mengjiao-liu
+    - my-git9
     - SataQiu
     - Sea-n
     - tanjunchen
@@ -147,6 +148,7 @@ aliases:
     - windsonsea
     - xichengliudui
   sig-docs-zh-reviews: # PR reviews for Chinese content
+    - asa3311
     - chenrui333
     - chenxuc
     - howieyuen

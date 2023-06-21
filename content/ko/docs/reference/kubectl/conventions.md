@@ -3,6 +3,7 @@ title: kubectl 사용 규칙
 # reviewers:
 # - janetkuo
 content_type: concept
+weight: 60
 ---
 
 <!-- overview -->

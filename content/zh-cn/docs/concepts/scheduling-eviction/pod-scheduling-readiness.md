@@ -46,7 +46,7 @@ each schedulingGate can be removed in arbitrary order, but addition of a new sch
 该字段只能在创建 Pod 时初始化（由客户端创建，或在准入期间更改）。
 创建后，每个 schedulingGate 可以按任意顺序删除，但不允许添加新的调度门控。
 
-{{< figure src="/docs/images/podSchedulingGates.svg" alt="pod-scheduling-gates-diagram" caption="<!--Figure. Pod SchedulingGates-->图：Pod SchedulingGates" class="diagram-large" link="https://mermaid.live/edit#pako:eNplkktTwyAUhf8KgzuHWpukaYszutGlK3caFxQuCVMCGSDVTKf_XfKyPlhxz4HDB9wT5lYAptgHFuBRsdKxenFMClMYFIdfUdRYgbiD6ItJTEbR8wpEq5UpUfnDTf-5cbPoJjcbXdcaE61RVJIiqJvQ_Y30D-OCt-t3tFjcR5wZayiVnIGmkv4NiEfX9jijKTmmRH5jf0sRugOP0HyHUc1m6KGMFP27cM28fwSJDluPpNKaXqVJzmFNfHD2APRKSjnNFx9KhIpmzSfhVls3eHdTRrwG8QnxKfEZUUNeYTDBNbiaKRF_5dSfX-BQQQ0FpnEqQLJWhwIX5hyXsjbYl85wTINrgeC2EZd_xFQy7b_VJ6GCdd-itkxALE84dE3fAqXyIUZya6Qqe711OspVCI2ny2Vv35QqVO3-htt66ZWomAvVcZcv8yTfsiSFfJOydZoKvl_ttjLJVlJsblcJw-czwQ0zr9ZeqGDgeR77b2jD8xdtjtDn" >}}
+{{< figure src="/zh-cn/docs/images/podSchedulingGates.svg" alt="pod-scheduling-gates-diagram" caption="<!--Figure. Pod SchedulingGates-->图：Pod SchedulingGates" class="diagram-large" link="https://mermaid.live/edit#pako:eNplUctqFEEU_ZWispOejNPd6UxKcBVxJQjZabuo1KO7mO6upqo6GoZZCSIikp2KYuKDJApidKP0CP5Memay8hesfinBWt17zuHec-pOIZGUQQS1wYZtCxwpnA723DALM2CfHiFwW1JQff9WPX5VzcsOdlt4dfawKo-rd2-qJ0fn5aOL56eLZyedxLskOfu6nH_qGL9lFp_fV69PV78OVm-ftozgCOyQmNEiEVl00zoC5z_K5cfy98_DVnH3yj0wGFy3vnp_TSt476tr_5tjAyxP5hcvP_Sb2jE2R3VwfBmzxhcvvgDQ52hRvzfftNZH_UUkwVpvMw4mYw24SBK05rkBYRuONkpOGFrjnHf14L6gJkZ-_sAhMpGq4a51M2wQR7uO9hztO6KZF2bQgSlTKRbUHmha7w-hiVnKQohsSbGahDDMZlaHCyN39jMCkVEFc2CR03_3hIjjRFuUUWGkutVevDl8r7zRMH-FicSU2XYKzX5eiyOhjRUTmXER1XihEgvHxuQaDYc1vR4JExe760SmQy1ojJWJ97aCYeAGY-x6LNj08IbnUbI72hpz1x9xunl15GI4mzkwx9kdKXunsz8c5u0b" >}}
 
 <!--
 ## Usage example

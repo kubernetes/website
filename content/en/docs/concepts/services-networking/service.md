@@ -1239,7 +1239,7 @@ for that Service.
 When you define a Service, you can specify `externalIPs` for any
 [service type](#publishing-services-service-types).
 In the example below, the Service named `"my-service"` can be accessed by clients using TCP,
-on `"198.51.100.32:80"` (calculated from `.spec.externalIP` and `.spec.port`).
+on `"198.51.100.32:80"` (calculated from `.spec.externalIPs[]` and `.spec.ports[].port`).
 
 ```yaml
 apiVersion: v1

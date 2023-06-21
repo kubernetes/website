@@ -118,7 +118,7 @@ break the kubelet behavior and remove containers that should exist.
 To configure options for unused container and image garbage collection, tune the
 kubelet using a [configuration file](/docs/tasks/administer-cluster/kubelet-config-file/)
 and change the parameters related to garbage collection using the
-[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
 resource type.
 
 ### Container image lifecycle

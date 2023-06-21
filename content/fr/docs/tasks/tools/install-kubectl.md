@@ -110,10 +110,10 @@ kubectl version --client
 1. Téléchargez la dernière version:
 
     ```		
-    curl -LO https://dl.k8s.io/release/$(curl -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/$(curl -Ls https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl
     ```
 
-    Pour télécharger une version spécifique, remplacez `$(curl -s https://dl.k8s.io/release/stable.txt)` avec la version spécifique.
+    Pour télécharger une version spécifique, remplacez `$(curl -Ls https://dl.k8s.io/release/stable.txt)` avec la version spécifique.
 
     Par exemple, pour télécharger la version {{< param "fullversion" >}} sur macOS, tapez :
 		

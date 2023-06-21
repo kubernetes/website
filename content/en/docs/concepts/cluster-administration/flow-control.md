@@ -193,7 +193,7 @@ A PriorityLevelConfiguration represents a single priority level. Each
 PriorityLevelConfiguration has an independent limit on the number of outstanding
 requests, and limitations on the number of queued requests.
 
-The nominal oncurrency limit for a PriorityLevelConfiguration is not
+The nominal concurrency limit for a PriorityLevelConfiguration is not
 specified in an absolute number of seats, but rather in "nominal
 concurrency shares." The total concurrency limit for the API Server is
 distributed among the existing PriorityLevelConfigurations in

@@ -46,18 +46,8 @@ Kubernetes {{< glossary_tooltip text="卷（Volume）" term_id="volume" >}}
 
 <!--
 ## Background
-
-Docker has a concept of
-[volumes](https://docs.docker.com/storage/), though it is
-somewhat looser and less managed. A Docker volume is a directory on
-disk or in another container. Docker provides volume
-drivers, but the functionality is somewhat limited.
 -->
 ## 背景  {#background}
-
-Docker 也有[卷（Volume）](https://docs.docker.com/storage/) 的概念，但对它只有少量且松散的管理。
-Docker 卷是磁盘上或者另外一个容器内的一个目录。
-Docker 提供卷驱动程序，但是其功能非常有限。
 
 <!--
 Kubernetes supports many types of volumes. A {{< glossary_tooltip term_id="pod" text="Pod" >}}
@@ -510,6 +500,8 @@ keyed with `log_level`.
 * You must create a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)
   before you can use it.
 
+* A ConfigMap is always mounted as `readOnly`.
+
 * A container using a ConfigMap as a [`subPath`](#using-subpath) volume mount will not
   receive ConfigMap updates.
 
@@ -517,7 +509,8 @@ keyed with `log_level`.
 -->
 {{< note >}}
 * 在使用 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/) 之前你首先要创建它。
-* 容器以 [subPath](#using-subpath) 卷挂载方式使用 ConfigMap 时，将无法接收 ConfigMap 的更新。
+* ConfigMap 总是以 `readOnly` 的模式挂载。
+* 容器以 [`subPath`](#using-subpath) 卷挂载方式使用 ConfigMap 时，将无法接收 ConfigMap 的更新。
 * 文本数据挂载成文件时采用 UTF-8 字符编码。如果使用其他字符编码形式，可使用
   `binaryData` 字段。
 {{< /note >}}
@@ -1524,17 +1517,16 @@ API 服务器上，然后以文件的形式挂载到 Pod 中，无需直接与 K
 
 {{< note >}}
 <!--
-You must create a Secret in the Kubernetes API before you can use it.
--->
-使用前你必须在 Kubernetes API 中创建 Secret。
-{{< /note >}}
+* You must create a Secret in the Kubernetes API before you can use it.
 
-{{< note >}}
-<!--
-A container using a Secret as a [`subPath`](#using-subpath) volume mount will not
+* A Secret is always mounted as `readOnly`.
+
+* A container using a Secret as a [`subPath`](#using-subpath) volume mount will not
 receive Secret updates.
 -->
-容器以 [`subPath`](#using-subpath) 卷挂载方式挂载 Secret 时，将感知不到 Secret 的更新。
+* 使用前你必须在 Kubernetes API 中创建 Secret。
+* Secret 总是以 `readOnly` 的模式挂载。
+* 容器以 [`subPath`](#using-subpath) 卷挂载方式使用 Secret 时，将无法接收 Secret 的更新。
 {{< /note >}}
 
 <!--
@@ -1893,9 +1885,8 @@ persistent volume:
 
 <!--
 * `readOnly`: An optional boolean value indicating whether the volume is to be
-  "ControllerPublished" (attached) as read only. Default is false. This value is
-  passed to the CSI driver via the `readonly` field in the
-  `ControllerPublishVolumeRequest`.
+  "ControllerPublished" (attached) as read only. Default is false. This value is passed
+  to the CSI driver via the `readonly` field in the `ControllerPublishVolumeRequest`.
 -->
 * `readOnly`：一个可选的布尔值，指示通过 `ControllerPublished` 关联该卷时是否设置该卷为只读。默认值是 false。
   该值通过 `ControllerPublishVolumeRequest` 中的 `readonly` 字段传递给 CSI 驱动。

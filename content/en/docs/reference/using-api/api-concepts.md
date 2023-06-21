@@ -1066,9 +1066,9 @@ Continue Token, Exact
 
 {{< note >}}
 When you **list** resources and receive a collection response, the response includes the
-[list metadata](/docs/reference/generated/kubernetes-api/v{{ skew currentVersion >}}/#listmeta-v1-meta)
+[list metadata](/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#listmeta-v1-meta)
 of the collection as well as
-[object metadata](/docs/reference/generated/kubernetes-api/v{{ skew currentVersion >}}/#objectmeta-v1-meta)
+[object metadata](/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#objectmeta-v1-meta)
 for each item in that collection. For individual objects found within a collection response,
 `.metadata.resourceVersion` tracks when that object was last updated, and not how up-to-date
 the object is when served.
