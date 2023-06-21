@@ -171,7 +171,47 @@ for it:
 FATA[…] pulling image: rpc error: code = Unknown desc = SignatureValidationFailed: Source image rejected: A signature was required, but no signature exists
 ```
 
-The error code `SignatureValidationFailed` got [recently added to
+It's important to mention that CRI-O will match the
+`.critical.identity.docker-reference` field within the signature to match with
+the image repository. For example, if I verify the image
+`registry.k8s.io/kube-apiserver-amd64:v1.28.0-alpha.3`, then the corresponding
+`docker-reference` should be `registry.k8s.io/kube-apiserver-amd64`:
+
+```console
+> cosign verify registry.k8s.io/kube-apiserver-amd64:v1.28.0-alpha.3 \
+    --certificate-identity krel-trust@k8s-releng-prod.iam.gserviceaccount.com \
+    --certificate-oidc-issuer https://accounts.google.com \
+    | jq -r '.[0].critical.identity."docker-reference"'
+…
+
+registry.k8s.io/kubernetes/kube-apiserver-amd64
+```
+
+The Kubernetes community introduced `registry.k8s.io` as proxy mirror for
+various registries. Before the release of [kpromo v4.0.2][kpromo], images
+had been signed with the actual mirror rather than `registry.k8s.io`:
+
+[kpromo]: https://github.com/kubernetes-sigs/promo-tools/releases/tag/v4.0.2
+
+```console
+> cosign verify registry.k8s.io/kube-apiserver-amd64:v1.28.0-alpha.2 \
+    --certificate-identity krel-trust@k8s-releng-prod.iam.gserviceaccount.com \
+    --certificate-oidc-issuer https://accounts.google.com \
+    | jq -r '.[0].critical.identity."docker-reference"'
+…
+
+asia-northeast2-docker.pkg.dev/k8s-artifacts-prod/images/kubernetes/kube-apiserver-amd64
+```
+
+The change of the `docker-reference` to `registry.k8s.io` makes it easier for
+end users to validate the signatures, because the cannot know anything about the
+underlying infrastructure being used. The feature to set the identity on image
+signing has been added to [cosign][cosign-pr] via the flag `sign
+--sign-container-identity` as well and will be part of its upcoming release.
+
+[cosign-pr]: https://github.com/sigstore/cosign/pull/2984
+
+The Kubernetes image pull error code `SignatureValidationFailed` got [recently added to
 Kubernetes][pr-117717] and will be available from v1.28. This error code allows
 end-users to understand image pull failures directly from the kubectl CLI. For
 example, if you run CRI-O together with Kubernetes using the policy which requires
