@@ -16,7 +16,7 @@ Kubernetesは、これらの各レベルでアプリケーションのリソー�
 Kubernetesでは、アプリケーションの監視は1つの監視ソリューションに依存することはありません。
 新しいクラスターでは、[リソースメトリクス](#resource-metrics-pipeline)または[フルメトリクス](#full-metrics-pipeline)パイプラインを使用してモニタリング統計を収集することができます。
 
-## リソースメトリクスパイプライン
+## リソースメトリクスパイプライン  {#resource-metrics-pipeline}
 
 リソースメトリックパイプラインは、[Horizontal Pod Autoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/)コントローラーなどのクラスターコンポーネントや、`kubectl top`ユーティリティに関連する限定的なメトリックセットを提供します。
 
@@ -31,7 +31,7 @@ kubeletは各Podを構成するコンテナに変換し、コンテナランタ�
 そして、集約されたPodリソース使用統計情報を、metrics-server Resource Metrics APIを通じて公開します。
 このAPIは、kubeletの認証済みおよび読み取り専用ポート上の `/metrics/resource/v1beta1` で提供されます。
 
-## フルメトリクスパイプライン
+## フルメトリクスパイプライン {#full-metrics-pipeline}
 
 フルメトリクスパイプラインは、より豊富なメトリクスにアクセスすることができます。
 Kubernetesは、Horizontal Pod Autoscalerなどのメカニズムを使用して、現在の状態に基づいてクラスターを自動的にスケールまたは適応させることによって、これらのメトリクスに対応することができます。
