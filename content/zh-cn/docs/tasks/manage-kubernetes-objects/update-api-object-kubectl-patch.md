@@ -380,7 +380,7 @@ The `containers` list that you specified in the patch has only one Container.
 The output shows that your list of one Container replaced the existing `containers` list.
 -->
 patch 中指定的 `containers` 列表只有一个 Container。
-输出显示你所给出的 Contaier 列表替换了现有的 `containers` 列表。
+输出显示你所给出的 Container 列表替换了现有的 `containers` 列表。
 
 ```yaml
 spec:
