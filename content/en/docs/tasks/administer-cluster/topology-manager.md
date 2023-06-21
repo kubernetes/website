@@ -211,14 +211,18 @@ that have the `Topology Affinity` error.
 ### Topology manager policy options
 
 Support for the Topology Manager policy options requires `TopologyManagerPolicyOptions`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled
+(it is enabled by default).
 
 You can toggle groups of options on and off based upon their maturity level using the following feature gates:
-* `TopologyManagerPolicyBetaOptions` default disabled. Enable to show beta-level options. Currently there are no beta-level options.
-* `TopologyManagerPolicyAlphaOptions` default disabled. Enable to show alpha-level options. You will still have to enable each option using the `TopologyManagerPolicyOptions` kubelet option.
+* `TopologyManagerPolicyBetaOptions` default enabled. Enable to show beta-level options.
+* `TopologyManagerPolicyAlphaOptions` default disabled. Enable to show alpha-level options.
+
+You will still have to enable each option using the `TopologyManagerPolicyOptions` kubelet option.
 
 The following policy options exists:
-* `prefer-closest-numa-nodes` (alpha, invisible by default, `TopologyManagerPolicyOptions` and `TopologyManagerPolicyAlphaOptions` feature gates have to be enabled)(1.26 or higher)
+* `prefer-closest-numa-nodes` (beta, visible by default; `TopologyManagerPolicyOptions` and `TopologyManagerPolicyBetaOptions` feature gates have to be enabled).
+The `prefer-closest-numa-nodes` policy option is beta in Kubernetes {{< skew currentVersion >}}.
 
 If the `prefer-closest-numa-nodes` policy option is specified, the `best-effort` and `restricted`
 policies will favor sets of NUMA nodes with shorter distance between them when making admission decisions.
