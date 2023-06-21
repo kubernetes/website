@@ -1868,7 +1868,7 @@ Otherwise, those client Pods won't have their environment variables populated.
 If you only use DNS to discover the cluster IP for a Service, you don't need to
 worry about this ordering issue.
 -->
-当你的 Pod 具有访问某 Service，并且你在使用环境变量方法将端口和集群 IP 发布到客户端
+当你的 Pod 需要访问某 Service，并且你在使用环境变量方法将端口和集群 IP 发布到客户端
 Pod 时，必须在客户端 Pod 出现**之前**创建该 Service。
 否则，这些客户端 Pod 中将不会出现对应的环境变量。
 
