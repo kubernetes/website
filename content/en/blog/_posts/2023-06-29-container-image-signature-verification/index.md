@@ -171,9 +171,9 @@ for it:
 FATA[…] pulling image: rpc error: code = Unknown desc = SignatureValidationFailed: Source image rejected: A signature was required, but no signature exists
 ```
 
-It's important to mention that CRI-O will match the
+It is important to mention that CRI-O will match the
 `.critical.identity.docker-reference` field within the signature to match with
-the image repository. For example, if I verify the image
+the image repository. For example, if you verify the image
 `registry.k8s.io/kube-apiserver-amd64:v1.28.0-alpha.3`, then the corresponding
 `docker-reference` should be `registry.k8s.io/kube-apiserver-amd64`:
 
@@ -204,7 +204,7 @@ asia-northeast2-docker.pkg.dev/k8s-artifacts-prod/images/kubernetes/kube-apiserv
 ```
 
 The change of the `docker-reference` to `registry.k8s.io` makes it easier for
-end users to validate the signatures, because the cannot know anything about the
+end users to validate the signatures, because they cannot know anything about the
 underlying infrastructure being used. The feature to set the identity on image
 signing has been added to [cosign][cosign-pr] via the flag `sign
 --sign-container-identity` as well and will be part of its upcoming release.
