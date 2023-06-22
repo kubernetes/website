@@ -55,6 +55,7 @@ There are two types of hook handlers that can be implemented for Containers:
 * Exec - Executes a specific command, such as `pre-stop.sh`, inside the cgroups and namespaces of the Container.
 Resources consumed by the command are counted against the Container.
 * HTTP - Executes an HTTP request against a specific endpoint on the Container.
+* Sleep - Executes a sleep command to pause a containerfor a specified duration before termination.
 
 ### Hook handler execution
 

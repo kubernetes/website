@@ -1586,6 +1586,16 @@ LifecycleHandler defines a specific action that should be taken in a lifecycle h
 
     Optional: Host name to connect to, defaults to the pod IP.
 
+- **sleep** (SleepAction)
+
+  Sleep specifies the seconds to sleep.
+
+  <a name="SleepAction"></a>
+  *SleepAction describes a "sleep" action.*
+
+  - **sleep.seconds** (int32)
+
+    Seconds represents the duration in seconds that the container should sleep before being terminated. If the container terminates before the sleep finishes, this action will be interrupted.
 
 
 
