@@ -178,7 +178,7 @@ kubectl logs jobs/pi
 Jobには[`.spec`セクション](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)も必要です。
 
 ### Jobラベル
-ジョブラベルの`job-name`と`controller-uid`の接頭辞は`batch.kubernetes.io/`となります。
+Jobラベルの`job-name`と`controller-uid`の接頭辞は`batch.kubernetes.io/`となります。
 
 ### Podテンプレート  {#pod-template}
 
@@ -640,13 +640,13 @@ Kubernetes 1.26にアップグレードする前、またはフィーチャー�
 
 Jobが`batch.kubernetes.io/job-tracking`というアノテーションを持っているかどうかをチェックすることで、コントロールプレーンがPodファイナライザーを使ってJobを追跡しているかどうかを判断できます。Jobからこのアノテーションを手動で追加したり削除したりしては**いけません**。代わりに、JobがPodファイナライザーを使用して追跡されていることを確認するために、Jobを再作成することができます。
 
-### 静的なインデックス付きジョブ {#elastic-indexed-jobs}
+### 静的なインデックス付きJob {#elastic-indexed-jobs}
 
 {{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 `.spec.parallelism`と`.spec.compleitions`の両方を、`.spec.parallelism` == `.spec.compleitions`となるように変更することで、インデックス付きJobを増減させることができます。[APIサーバ](/docs/reference/command-line-tools-reference/kube-apiserver/)の`ElasticIndexedJob`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が無効になっている場合、`.spec.compleitions`は不変です。
 
-静的ななインデックス付きジョブの使用例としては、MPI、Horovord、Ray、PyTorchトレーニングジョブなど、インデックス付きJobのスケーリングを必要とするバッチワークロードがあります。
+静的ななインデックス付きJobの使用例としては、MPI、Horovord、Ray、PyTorchトレーニングジョブなど、インデックス付きJobのスケーリングを必要とするバッチワークロードがあります。
 
 ## 代替案  {#alternatives}
 
