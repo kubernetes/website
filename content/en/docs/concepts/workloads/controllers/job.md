@@ -457,6 +457,12 @@ Since Kubernetes 1.27, Kubelet transitions deleted pods to a terminal phase
 ensures that deleted pods have their finalizers removed by the Job controller.
 {{< /note >}}
 
+{{< note >}}
+Since Kubernetes v1.28, when pod failure policy is used, the Job controller recreates
+terminating pods only once they reach the terminal `Failed` phase. This behavior is analogous
+to when using `podRecreationPolicy: Failed`, see [pod replacement policy](#pod-replacement-policy) for more details.
+{{< /note >}}
+
 ## Job termination and cleanup
 
 When a Job completes, no more Pods are created, but the Pods are [usually](#pod-backoff-failure-policy) not deleted either.
@@ -866,6 +872,50 @@ is disabled, `.spec.completions` is immutable.
 
 Use cases for elastic Indexed Jobs include batch workloads which require 
 scaling an indexed Job, such as MPI, Horovord, Ray, and PyTorch training jobs.
+
+### Pod Replacement Policy
+
+{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+
+{{< note >}}
+You can only enable `PodReplacementPolicy` for Jobs if you set `JobPodReplacementPolicy`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to true.
+{{< /note >}}
+
+By default, the Job controller recreates pods as soon they are either failed or terminating (have a deletion timestamp).
+This means that, at a given time, the number of running Pods for the Jobs can be greater than `parallelism` or, if using Indexed Jobs, more than one running Pod per index, if some of the Pods are terminating.
+
+You may choose to create replacement pods only when the terminating pod is fully terminal (has `status.phase: Failed`). To do this, set the `.spec.podReplacementPolicy: Failed`.
+This will only recreate pods once they are terminated.  
+Default behavior will be to recreate upon deletion (`DeletionTimestamp != nil`).
+
+```yaml
+kind: Job
+metadata:
+  name: new
+  ...
+spec:
+  podReplacementPolicy: Failed
+  ...
+```
+
+You can inspect a new field in the JobStatus called `terminating`.  
+This will report the number pods that are currently terminating and is easily viewable in the status.
+
+```shell
+kubectl get jobs/myjob -o yaml
+```
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+# .metadata and .spec omitted
+status:
+  terminating: 1 # if pod is terminating
+```
+
+When [PodFailurePolicy](#pod-failure-policy) is enabled, a Job will have a default (and only this value is allowed) value of `Failed`.
+If `JobPodReplacementPolicy` is disabled and `podFailurePolicy` is enabled, a Job will wait for terminating pods to be fully terminated before marking the pod as failed.
+In this case, you will not be able to inspect the `terminating` field.
 
 ## Alternatives
 
