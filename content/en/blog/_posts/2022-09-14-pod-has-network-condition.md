@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'Kubernetes 1.25: PodReadyToStart Condition for Pods'
+title: 'Kubernetes 1.25: PodReadyToStartContainers Condition for Pods'
 date: 2022-09-14
 slug: pod-has-network-condition
 ---
