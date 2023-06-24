@@ -115,11 +115,11 @@ other = "अपनी कहानी बतायें"
 [layouts_docs_glossary_aka]
 other = "के रूप में भी जाना जाता है"
 
-[layouts_docs_glossary_description]
-other = "इस शब्दावली का उद्देश्य कुबेरनेट्स शब्दावली की एक व्यापक, मानकीकृत सूची है। इसमें कुबेरनेट्स के लिए विशिष्ट तकनीकी शब्द और उपयोगी संदर्भ प्रदान करने वाले सामान्य शब्द शामिल हैं।"
+[layout_docs_glossary_architecture_name]
+other = "आर्किटेक्चर"
 
-[layouts_docs_glossary_deselect_all]
-other = "सभी को अचयनित करें"
+[layout_docs_glossary_architecture_description]
+other = "कुबेरनेट्स के आंतरिक घटक।"
 
 [layouts_docs_glossary_click_details_after]
 other = "किसी विशेष शब्द के लिए लंबी व्याख्या प्राप्त करने के लिए नीचे दिए गए संकेतक।"
@@ -127,11 +127,86 @@ other = "किसी विशेष शब्द के लिए लंबी
 [layouts_docs_glossary_click_details_before]
 other = "पर क्लिक करें"
 
+[layout_docs_glossary_community_description]
+other = "कुबेरनेट्स के ओपन-सोर्स डेवलपमेंट से संबंधित।"
+
+[layout_docs_glossary_community_name]
+other = "समुदाय"
+
+[layout_docs_glossary_core-object_description]
+other = "एक संसाधन प्रकार जो कुबेरनेट्स डिफ़ॉल्ट रूप से समर्थन करता हैं।"
+
+[layout_docs_glossary_core-object_name]
+other = "कोर ऑब्जेक्ट"
+
+[layouts_docs_glossary_description]
+other = "इस शब्दावली का उद्देश्य कुबेरनेट्स शब्दावली की एक व्यापक, मानकीकृत सूची है। इसमें कुबेरनेट्स के लिए विशिष्ट तकनीकी शब्द और उपयोगी संदर्भ प्रदान करने वाले सामान्य शब्द शामिल हैं।"
+
+[layouts_docs_glossary_deselect_all]
+other = "सभी को अचयनित करें"
+
+[layout_docs_glossary_extension_description]
+other = "कुबेरनेटेस हेतु समर्थित कस्टमाइज़शंस।"
+
+[layout_docs_glossary_extension_name]
+other = "एक्सटेंशन"
+
 [layouts_docs_glossary_filter]
 other = "शब्दों को उनके टैग के अनुसार फ़िल्टर करें"
 
+[layout_docs_glossary_fundamental_description]
+other = "कुबेरनेट्स के पहली बार उपयोगकर्ता के लिए प्रासंगिक विषय।"
+
+[layout_docs_glossary_fundamental_name]
+other = "मौलिक"
+
+[layout_docs_glossary_networking_description]
+other = " कुबेरनेट्स के घटक एक दूसरे से और क्लस्टर के बाहर के प्रोग्राम्स के साथ कैसे संवाद करते हैं।"
+
+[layout_docs_glossary_networking_name]
+other = "नेटवर्किंग"
+
+[layout_docs_glossary_operation_description]
+other = "कुबेरनेट्स को शुरू करना और उसका देखरेख करना।"
+
+[layout_docs_glossary_operation_name]
+other = "संचालन"
+
+[layout_docs_glossary_security_description]
+other = "कुबेरनेट्स एप्लिकेशन को सुरक्षित रखना।"
+
+[layout_docs_glossary_security_name]
+other = "सुरक्षा"
+
 [layouts_docs_glossary_select_all]
 other = "सभी का चयन करे"
+
+[layout_docs_glossary_storage_description]
+other = "कुबेरनेट्स पर चलने वाले एप्लिकेशन परसिस्टेंट डेटा को कैसे संभालते हैं।"
+
+[layout_docs_glossary_storage_name]
+other = "स्टोरेज"
+
+[layout_docs_glossary_tool_description]
+other = "सॉफ्टवेयर जो कुबेरनेट्स के उपयोग को  आसान या फिर बेहतर बनाता है।"
+
+[layout_docs_glossary_tool_description]
+other = "सॉफ्टवेयर जो कुबेरनेट्स के उपयोग को  आसान या फिर बेहतर बनाता है।"
+
+[layout_docs_glossary_tool_name]
+other = "टूल"
+
+[layout_docs_glossary_user-type_description]
+other = "एक सामान्य प्रकार के कुबेरनेट्स उपयोगकर्ता का प्रतिनिधित्व करता है।"
+
+[layout_docs_glossary_user-type_name]
+other = "उपयोगकर्ता प्रकार"
+
+[layout_docs_glossary_workload_description]
+other = "कुबेरनेट्स पर चल रहे ऍप्लिकेशन्स।"
+
+[layout_docs_glossary_workload_name]
+other = "वर्कलोड"
 
 [layouts_docs_partials_feedback_improvement]
 other = "सुधार का सुझाव दें"
@@ -281,75 +356,3 @@ other = "चेतावनी:"
 
 [whatsnext_heading]
 other = "आगे क्या है"
-
-[layout_docs_glossary_architecture_name]
-other = "आर्किटेक्चर"
-
-[layout_docs_glossary_architecture_description]
-other = "कुबेरनेट्स के आंतरिक घटक।"
-
-[layout_docs_glossary_community_name]
-other = "समुदाय"
-
-[layout_docs_glossary_community_description]
-other = "कुबेरनेट्स के ओपन-सोर्स डेवलपमेंट से संबंधित।"
-
-[layout_docs_glossary_core-object_name]
-other = "कोर ऑब्जेक्ट"
-
-[layout_docs_glossary_core-object_description]
-other = "एक संसाधन प्रकार जो कुबेरनेट्स डिफ़ॉल्ट रूप से समर्थन करता हैं।"
-
-[layout_docs_glossary_extension_name]
-other = "एक्सटेंशन"
-
-[layout_docs_glossary_extension_description]
-other = "कुबेरनेटेस हेतु समर्थित कस्टमाइज़शंस।"
-
-[layout_docs_glossary_fundamental_name]
-other = "मौलिक"
-
-[layout_docs_glossary_fundamental_description]
-other = "कुबेरनेट्स के पहली बार उपयोगकर्ता के लिए प्रासंगिक विषय।"
-
-[layout_docs_glossary_networking_name]
-other = "नेटवर्किंग"
-
-[layout_docs_glossary_networking_description]
-other = " कुबेरनेट्स के घटक एक दूसरे से और क्लस्टर के बाहर के प्रोग्राम्स के साथ कैसे संवाद करते हैं।"
-
-[layout_docs_glossary_operation_name]
-other = "संचालन"
-
-[layout_docs_glossary_operation_description]
-other = "कुबेरनेट्स को शुरू करना और उसका देखरेख करना।"
-
-[layout_docs_glossary_security_name]
-other = "सुरक्षा"
-
-[layout_docs_glossary_security_description]
-other = "कुबेरनेट्स एप्लिकेशन को सुरक्षित रखना।"
-
-[layout_docs_glossary_storage_name]
-other = "स्टोरेज"
-
-[layout_docs_glossary_storage_description]
-other = "कुबेरनेट्स पर चलने वाले एप्लिकेशन परसिस्टेंट डेटा को कैसे संभालते हैं।"
-
-[layout_docs_glossary_tool_name]
-other = "टूल"
-
-[layout_docs_glossary_tool_description]
-other = "सॉफ्टवेयर जो कुबेरनेट्स के उपयोग को  आसान या फिर बेहतर बनाता है।"
-
-[layout_docs_glossary_user-type_name]
-other = "उपयोगकर्ता प्रकार"
-
-[layout_docs_glossary_user-type_description]
-other = "एक सामान्य प्रकार के कुबेरनेट्स उपयोगकर्ता का प्रतिनिधित्व करता है।"
-
-[layout_docs_glossary_workload_name]
-other = "वर्कलोड"
-
-[layout_docs_glossary_workload_description]
-other = "कुबेरनेट्स पर चल रहे ऍप्लिकेशन्स।"
