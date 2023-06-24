@@ -137,7 +137,7 @@ walkthrough for further examples.
 
 ## Behavior of `to` and `from` selectors
 
-There are four kinds of selectors that can be specified in an `ingress` `from` section or `egress`
+There are three kinds of selectors that can be specified in an `ingress` `from` section or `egress`
 `to` section:
 
 **podSelector**: This selects particular Pods in the same namespace as the NetworkPolicy which
