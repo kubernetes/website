@@ -35,7 +35,7 @@ Kubernetesについて学んでいる場合、Kubernetesコミュニティにサ
 
 ## 本番環境
 
-本番環境用のソリューションを評価する際には、Kubernetesクラスター(または抽象レイヤ)の運用においてどの部分を自分で管理し、どの部分をプロバイダーに任せるのかを考慮してください。
+本番環境用のソリューションを評価する際には、Kubernetesクラスター(または抽象レイヤー)の運用においてどの部分を自分で管理し、どの部分をプロバイダーに任せるのかを考慮してください。
 
 [Certified Kubernetes](https://github.com/cncf/k8s-conformance/#certified-kubernetes)プロバイダーの一覧については、[Kubernetes パートナー](https://kubernetes.io/ja/partners/#conformance)を参照してください。
 
