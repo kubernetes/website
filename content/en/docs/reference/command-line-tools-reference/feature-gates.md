@@ -126,8 +126,6 @@ For a reference to old feature gates that are removed, please refer to
 | `KMSv2` | `false` | Alpha | 1.25 | 1.26 |
 | `KMSv2` | `true` | Beta | 1.27 | |
 | `KubeletInUserNamespace` | `false` | Alpha | 1.22 | |
-| `KubeletPodResources` | `false` | Alpha | 1.13 | 1.14 |
-| `KubeletPodResources` | `true` | Beta | 1.15 | |
 | `KubeletPodResourcesDynamicResources` | `false` | Alpha | 1.27 | |
 | `KubeletPodResourcesGet` | `false` | Alpha | 1.27 | |
 | `KubeletPodResourcesGetAllocatable` | `false` | Alpha | 1.21 | 1.22 |
@@ -289,6 +287,9 @@ For a reference to old feature gates that are removed, please refer to
 | `KubeletCredentialProviders` | `false` | Alpha | 1.20 | 1.23 |
 | `KubeletCredentialProviders` | `true` | Beta | 1.24 | 1.25 |
 | `KubeletCredentialProviders` | `true` | GA | 1.26 | - |
+| `KubeletPodResources` | `false` | Alpha | 1.13 | 1.14 |
+| `KubeletPodResources` | `true` | Beta | 1.15 | 1.27 |
+| `KubeletPodResources` | `true` | GA | 1.28 | - |
 | `LegacyServiceAccountTokenNoAutoGeneration` | `true` | Beta | 1.24 | 1.25 |
 | `LegacyServiceAccountTokenNoAutoGeneration` | `true` | GA | 1.26 | - |
 | `LegacyServiceAccountTokenTracking` | `false` | Alpha | 1.26 | 1.26 |
