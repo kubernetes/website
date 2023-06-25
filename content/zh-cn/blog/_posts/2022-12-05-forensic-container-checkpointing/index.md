@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes的取证容器检查点"
+title: "Kubernetes 的取证容器检查点"
 date: 2022-12-05
 slug: forensic-container-checkpointing-alpha
 ---
@@ -27,15 +27,14 @@ sandbox environment multiple times without the original container being aware
 of it. Forensic container checkpointing was introduced as an alpha feature in
 Kubernetes v1.25.
 -->
-取证容器检查点（Forensic container checkpointing）基于 [CRIU][criu]（Checkpoint/Restore
-In Userspace ，用户空间的检查点/恢复），并允许创建正在运行的容器的有状态副本，而容器不知道它正在被
-检查。容器的副本，可以在沙箱环境中被多次分析和恢复，而原始容器并不知道。取证容器检查点是作为一个
-alpha 特性在 Kubernetes v1.25 中引入的。
+取证容器检查点（Forensic container checkpointing）基于 [CRIU][criu]（Checkpoint/Restore In Userspace ，用户空间的检查点/恢复），
+并允许创建正在运行的容器的有状态副本，而容器不知道它正在被检查。容器的副本，可以在沙箱环境中被多次分析和恢复，而原始容器并不知道。
+取证容器检查点是作为一个 alpha 特性在 Kubernetes v1.25 中引入的。
 
 <!-- 
 ## How does it work?
  -->
-## 它是如何工作的？
+## 工作原理
 
 <!-- 
 With the help of CRIU it is possible to checkpoint and restore containers.
@@ -43,13 +42,13 @@ CRIU is integrated in runc, crun, CRI-O and containerd and forensic container
 checkpointing as implemented in Kubernetes uses these existing CRIU
 integrations.
  -->
-在 CRIU 的帮助下，检查（checkpoint）和恢复容器成为可能。CRIU 集成在 runc、crun、CRI-O 和
-containerd 中，而在 Kubernetes 中实现的取证容器检查点使用这些现有的 CRIU 集成。
+在 CRIU 的帮助下，检查（checkpoint）和恢复容器成为可能。CRIU 集成在 runc、crun、CRI-O 和 containerd 中，
+而在 Kubernetes 中实现的取证容器检查点使用这些现有的 CRIU 集成。
 
 <!-- 
 ## Why is it important?
  -->
-## 为什么重要？
+## 这一特性为何重要？
 
 <!-- 
 With the help of CRIU and the corresponding integrations it is possible to get
@@ -61,10 +60,9 @@ checkpoint and analysing the container in a sandboxed environment offers the
 possibility to inspect the container without the original container and maybe
 attacker being aware of the inspection.
  -->
-借助 CRIU 和相应的集成，可以获得磁盘上正在运行的容器的所有信息和状态，供以后进行取证分析。取证分析
-对于在不阻止或影响可疑容器的情况下，对其进行检查可能很重要。如果容器确实受到攻击，攻击者可能会检测到
-检查容器的企图。获取检查点并在沙箱环境中分析容器，提供了在原始容器和可能的攻击者不知道检查的情况下检
-查容器的可能性。
+借助 CRIU 和相应的集成，可以获得磁盘上正在运行的容器的所有信息和状态，供以后进行取证分析。
+取证分析对于在不阻止或影响可疑容器的情况下，对其进行检查可能很重要。如果容器确实受到攻击，攻击者可能会检测到检查容器的企图。
+获取检查点并在沙箱环境中分析容器，提供了在原始容器和可能的攻击者不知道检查的情况下检查容器的可能性。
 
 <!-- 
 In addition to the forensic container checkpointing use case, it is also
@@ -73,8 +71,8 @@ the internal state. Especially for stateful containers with long initialization
 times restoring from a checkpoint might save time after a reboot or enable much
 faster startup times.
  -->
-除了取证容器检查点用例，还可以在不丢失内部状态的情况下，将容器从一个节点迁移到另一个节点。特别是对于
-初始化时间长的有状态容器，从检查点恢复，可能会节省重新启动后的时间，或者实现更快的启动时间。
+除了取证容器检查点用例，还可以在不丢失内部状态的情况下，将容器从一个节点迁移到另一个节点。
+特别是对于初始化时间长的有状态容器，从检查点恢复，可能会节省重新启动后的时间，或者实现更快的启动时间。
 
 <!-- 
 ## How do I use container checkpointing?
@@ -87,8 +85,7 @@ make sure to enable the `ContainerCheckpoint` gate before you can use the new
 feature.
  -->
 
-该功能在[特性门][container-checkpoint-feature-gate]后面，因此在使用新功能之前，请确保启用
-ContainerCheckpoint 特性门。
+该功能在[特性门][container-checkpoint-feature-gate]后面，因此在使用新功能之前，请确保启用了 ContainerCheckpoint 特性门。
 
 <!-- 
 The runtime must also support container checkpointing:
@@ -118,16 +115,15 @@ is also necessary to install CRIU.  Usually runc or crun depend on CRIU and
 therefore it is installed automatically.
  -->
 要将取证容器检查点与 CRI-O 结合使用，需要使用命令行选项--enable-criu-support=true 启动运行时。
-Kubernetes 方面，你需要在启用 ContainerCheckpoint 特性门的情况下运行你的集群。由于检查点功能
-是由 CRIU 提供的，因此也有必要安装 CRIU。通常 runc 或 crun 依赖于 CRIU，因此它是自动安装的。
+Kubernetes 方面，你需要在启用 ContainerCheckpoint 特性门的情况下运行你的集群。由于检查点功能是由 CRIU 提供的，因此也有必要安装 CRIU。
+通常 runc 或 crun 依赖于 CRIU，因此它是自动安装的。
 
 <!-- 
 It is also important to mention that at the time of writing the checkpointing functionality is
 to be considered as an alpha level feature in CRI-O and Kubernetes and the
 security implications are still under consideration.
  -->
-值得一提的是，在编写本文时，检查点功能被认为是 CRI-O 和 Kubernetes 中的一个 alpha 级特性，
-其安全影响仍在评估之中。
+值得一提的是，在编写本文时，检查点功能被认为是 CRI-O 和 Kubernetes 中的一个 alpha 级特性，其安全影响仍在评估之中。
 
 <!-- 
 Once containers and pods are running it is possible to create a checkpoint.
@@ -140,8 +136,8 @@ checkpoint:
 curl -X POST "https://localhost:10250/checkpoint/namespace/podId/container"
 ```
  -->
-一旦容器和 pod 开始运行，就可以创建一个检查点。[检查点][kubelet-checkpoint-api]目前只在
-kubelet 级别暴露。要检查一个容器，可以在运行该容器的节点上运行 curl，并触发一个检查点：
+一旦容器和 pod 开始运行，就可以创建一个检查点。[检查点][kubelet-checkpoint-api]目前只在 **kubelet** 级别暴露。
+要检查一个容器，可以在运行该容器的节点上运行 curl，并触发一个检查点：
 
 ```shell
 curl -X POST "https://localhost:10250/checkpoint/namespace/podId/container"
@@ -149,14 +145,13 @@ curl -X POST "https://localhost:10250/checkpoint/namespace/podId/container"
 
 <!-- 
 For a container named *counter* in a pod named *counters* in a namespace named
-*default* the **kubelet** API endpoint is reachable at:
+*default* the *kubelet* API endpoint is reachable at:
 
 ```shell
 curl -X POST "https://localhost:10250/checkpoint/default/counters/counter"
 ```
 -->
-对于名为 default 的命名空间中名为 counters 的 pod 中的名为 counter 的容器，kubelet API
-端点可在以下位置访问：
+对于名为 **default** 的命名空间中名为 **counters** 的 pod 中的名为 **counter** 的容器， **kubelet** API 端点可在以下位置访问：
 
 ```shell
 curl -X POST "https://localhost:10250/checkpoint/default/counters/counter"
@@ -171,8 +166,7 @@ use of the *kubelet* `checkpoint` API:
 --insecure --cert /var/run/kubernetes/client-admin.crt --key /var/run/kubernetes/client-admin.key
 ```
 -->
-为了完整起见，以下 curl 命令行选项对于让 curl 接受 kubelet 的自签名证书并授权使用 kubelet
-检查点 API 是必要的：
+为了完整起见，以下 curl 命令行选项对于让 curl 接受 **kubelet** 的自签名证书并授权使用 **kubelet** 检查点 API 是必要的：
 
 ```shell
 --insecure --cert /var/run/kubernetes/client-admin.crt --key /var/run/kubernetes/client-admin.key
@@ -189,8 +183,8 @@ Once the checkpointing has finished the checkpoint should be available at
 
 You could then use that tar archive to restore the container somewhere else.
 -->
-触发这个 kubelet API 将从 CRI-O 请求创建一个检查点，CRI-O 从你的低级运行时（例如，runc）
-请求一个检查点。看到这个请求，runc 调用 criu 工具来执行实际的检查点操作。
+触发这个 **kubelet** API 将从 CRI-O 请求创建一个检查点，CRI-O 从你的低级运行时（例如，runc）请求一个检查点。
+看到这个请求，runc 调用 criu 工具来执行实际的检查点操作。
 
 检查点操作完成后，检查点应该位于
 `/var/lib/kubelet/checkpoints/checkpoint-<pod-name>_<namespace-name>-<container-name>-<timestamp>.tar`
@@ -210,9 +204,8 @@ during restore, I recommend that you use the latest version of CRI-O from the
 manually create certain directories Kubernetes would create before starting the
 container.
 -->
-使用检查点 tar 归档文件，可以在 Kubernetes 之外的 CRI-O 沙箱实例中恢复容器。为了在恢复过程中
-获得更好的用户体验，我建议你使用 main CRI-O GitHub 分支中最新版本的 CRI-O。如果你使用的是
-CRI-O v1.25，你需要在启动容器之前手动创建 Kubernetes 会创建的某些目录。
+使用检查点 tar 归档文件，可以在 Kubernetes 之外的 CRI-O 沙箱实例中恢复容器。为了在恢复过程中获得更好的用户体验，我建议你使用 CRI-O GitHub 的 **main** 分支中最新版本的 CRI-O。
+如果你使用的是 CRI-O v1.25，你需要在启动容器之前手动创建 Kubernetes 会创建的某些目录。
 
 <!-- 
 The first step to restore a container outside of Kubernetes is to create a pod sandbox
@@ -222,7 +215,7 @@ using *crictl*:
 crictl runp pod-config.json
 ```
  -->
-在 Kubernetes 外恢复容器的第一步是使用 crictl 创建一个 pod 沙箱：
+在 Kubernetes 外恢复容器的第一步是使用 **crictl** 创建一个 pod 沙箱：
 
 ```shell
 crictl runp pod-config.json
@@ -319,10 +312,10 @@ The security implications of starting CRI-O with CRIU support are not yet clear
 and therefore the functionality as well as the image format should be used with
 care.
  -->
-生成的镜像未经标准化，只能与 CRI-O 结合使用。请将此镜像格式视为 pre-alpha 格式。社区正在[讨论][image-spec-discussion]
-如何标准化这样的检查点镜像格式。重要的是要记住，这种尚未标准化的镜像格式只有在 CRI-O 已经用
-`--enable-criu-support=true` 启动时才有效。在 CRIU 支持下启动 CRI-O 的安全影响尚不清楚，
-因此应谨慎使用功能和镜像格式。
+生成的镜像未经标准化，只能与 CRI-O 结合使用。请将此镜像格式视为 pre-alpha 格式。
+社区正在[讨论][image-spec-discussion]如何标准化这样的检查点镜像格式。
+重要的是要记住，这种尚未标准化的镜像格式只有在 CRI-O 已经用`--enable-criu-support=true` 启动时才有效。
+在 CRIU 支持下启动 CRI-O 的安全影响尚不清楚，因此应谨慎使用功能和镜像格式。
 
 <!-- 
 Now, you'll need to push that image to a container image registry. For example:
@@ -354,8 +347,7 @@ spec:
   nodeName: <destination-node>
 ```
  -->
-要恢复此检查点镜像（container-image-registry.example/user/checkpoint-image:latest），
-该镜像需要在 Pod 的规范中列出。下面是一个清单示例：
+要恢复此检查点镜像（container-image-registry.example/user/checkpoint-image:latest），该镜像需要在 Pod 的规范中列出。下面是一个清单示例：
 
 ```yaml
 apiVersion: v1
@@ -379,26 +371,23 @@ instead of the usual steps to create and start a container,
 CRI-O fetches the checkpoint data and restores the container from that
 specified checkpoint.
 -->
-Kubernetes 将新的 Pod 调度到一个节点上。该节点上的 kubelet 指示容器运行时（本例中为 CRI-O）
-基于指定为 `registry/user/checkpoint-image:latest` 的镜像创建并启动容器。CRI-O 检测到
-`registry/user/checkpoint-image:latest` 是对检查点数据的引用，而不是容器镜像。然后，与创建
-和启动容器的通常步骤不同，CRI-O 获取检查点数据，并从指定的检查点恢复容器。
+Kubernetes 将新的 Pod 调度到一个节点上。该节点上的 kubelet 指示容器运行时（本例中为 CRI-O）基于指定为 `registry/user/checkpoint-image:latest` 的镜像创建并启动容器。
+CRI-O 检测到 `registry/user/checkpoint-image:latest` 是对检查点数据的引用，而不是容器镜像。
+然后，与创建和启动容器的通常步骤不同，CRI-O 获取检查点数据，并从指定的检查点恢复容器。
 
 <!-- 
 The application in that Pod would continue running as if the checkpoint had not been taken;
 within the container, the application looks and behaves like any other container that had been
 started normally and not restored from a checkpoint.
 -->
-该 Pod 中的应用程序将继续运行，就像检查点未被获取一样；在该容器中，应用程序的外观和行为，与正常
-启动且未从检查点恢复的任何其他容器相似。
+该 Pod 中的应用程序将继续运行，就像检查点未被获取一样；在该容器中，应用程序的外观和行为，与正常启动且未从检查点恢复的任何其他容器相似。
 
 <!-- 
 With these steps, it is possible to replace a Pod running on one node
 with a new equivalent Pod that is running on a different node,
 and without losing the state of the containers in that Pod.
 -->
-通过这些步骤，可以用在不同节点上运行的新的等效 Pod，替换在一个节点上运行的 Pod，而不会丢失该 Pod
-中容器的状态。
+通过这些步骤，可以用在不同节点上运行的新的等效 Pod，替换在一个节点上运行的 Pod，而不会丢失该 Pod中容器的状态。
 
 <!--
 ## How do I get involved?
@@ -428,7 +417,7 @@ can be analyzed.
 -->
 有关如何分析容器检查点的详细信息，请参阅后续文章[取证容器分析][forensic-container-analysis]。
 
-[forensic-container-analysis]: /blog/2023/03/10/forensic-container-analysis/
+[forensic-container-analysis]: /zh-cn/blog/2023/03/10/forensic-container-analysis/
 [criu]: https://criu.org/
 [containerd-checkpoint-restore-pr]: https://github.com/containerd/containerd/pull/6965
 [container-checkpoint-feature-gate]: https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/
