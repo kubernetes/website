@@ -684,7 +684,7 @@ for information on referencing service account credentials from within Pods.
 
 ### Docker config Secrets
 
-You can use one of the following `type` values to create a Secret to
+You **MUST** use one of the following `type` values to create a Secret to
 store the credentials for accessing a container image registry:
 
 - `kubernetes.io/dockercfg`
