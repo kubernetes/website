@@ -359,7 +359,7 @@ zk-2      0/1       Running   0         19s
 zk-2      1/1       Running   0         40s
 ```
 
- [健全性テスト](#sanity-testing-the-ensemble)で入力した値を`zk-2` Podから取得するには、以下のコマンドを使います。
+[健全性テスト](#sanity-testing-the-ensemble)で入力した値を`zk-2` Podから取得するには、以下のコマンドを使います。
 
 ```shell
 kubectl exec zk-2 zkCli.sh get /hello
