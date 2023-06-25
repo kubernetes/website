@@ -125,6 +125,7 @@ For a reference to old feature gates that are removed, please refer to
 | `JobReadyPods` | `true` | Beta | 1.24 | |
 | `KMSv2` | `false` | Alpha | 1.25 | 1.26 |
 | `KMSv2` | `true` | Beta | 1.27 | |
+| `KubeletEnsureSecretPulledImages` | `false` | Alpha | 1.28 | |
 | `KubeletInUserNamespace` | `false` | Alpha | 1.22 | |
 | `KubeletPodResourcesDynamicResources` | `false` | Alpha | 1.27 | |
 | `KubeletPodResourcesGet` | `false` | Alpha | 1.27 | |
