@@ -29,8 +29,6 @@ v{{< skew currentVersion >}}以外のKubernetesバージョンを実行してい
 ## 適用する正しいPodセキュリティの標準の選択
 
 [Podのセキュリティアドミッション](/ja/docs/concepts/security/pod-security-admission/)は、以下のモードでビルトインの[Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards/)の適用を促します: `enforce`、`audit`、`warn`。
-
-
 設定に最適なPodセキュリティの標準を選択するにあたって助けになる情報を収集するために、以下を行ってください:
 
 1. Podセキュリティの標準を適用していないクラスターを作成します:
