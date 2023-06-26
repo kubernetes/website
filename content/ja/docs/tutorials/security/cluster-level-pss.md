@@ -24,7 +24,6 @@ v{{< skew currentVersion >}}以外のKubernetesバージョンを実行してい
 - [kubectl](/ja/docs/tasks/tools/)
 
 このチュートリアルでは、完全な制御下にあるKubernetesクラスターの何を設定できるかをデモンストレーションします。
-
 コントロールプレーンを設定できない管理されたクラスターのPodセキュリティアドミッションに対しての設定方法を知りたいのであれば、[名前空間レベルでのPodセキュリティの標準の適用](/ja/docs/tutorials/security/ns-level-pss/)を参照してください。
 
 ## 適用する正しいPodセキュリティの標準の選択
