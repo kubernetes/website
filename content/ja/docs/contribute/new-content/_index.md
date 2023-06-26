@@ -49,6 +49,7 @@ class first,second white
 ## 貢献の基本
 
 - KubernetesのドキュメントはMarkdownで書き、Kubernetesのウェブサイトは[Hugo](https://gohugo.io/)を使ってビルドします。
+- Kubernetesのドキュメントは、Markdownのスタイルとして[CommonMark](https://commonmark.org)を使用しています。
 - ソースは[GitHub](https://github.com/kubernetes/website)にあります。Kubernetesのドキュメントは`/content/en/docs/`にあります。リファレンスドキュメントの一部は、`update-imported-docs/`ディレクトリ内のスクリプトから自動的に生成されます。
 - [Page content types](/docs/contribute/style/page-content-types/)にHugoによるドキュメントのコンテンツの見え方を記述しています。
 - Kubernetesのドキュメントに貢献するのに[Docsy shortcode](https://www.docsy.dev/docs/adding-content/shortcodes/)や[カスタムのHugo shortcode](/docs/contribute/style/hugo-shortcodes/)が使えます。
