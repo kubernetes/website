@@ -143,7 +143,7 @@ API 접근(access) 권한이 있는 모든 사용자 또는 etcd에 접근할 �
 
 시크릿을 생성한 방법이나 파드에서 시크릿이 어떻게 사용되는지에 따라,
 존재하는 `Secret` 오브젝트에 대한 수정은 해당 데이터를 사용하는 파드들에 자동으로 전파된다.
-자세한 정보는 [마운트된 시크릿의 자동 업데이트](#마운트된-시크릿의-자동-업데이트)를 참고하라.
+자세한 정보는 [파드에서 시크릿을 파일처럼 사용하기](#using-secrets-as-files-from-a-pod)를 참고하라.
 
 ### 시크릿 사용하기
 
@@ -165,15 +165,35 @@ kubelet은 또한 시크릿을 가져올 수 없는 문제에 대한 세부 정�
 
 #### 선택적 시크릿 {#restriction-secret-must-exist}
 
-시크릿을 기반으로 컨테이너 환경 변수를 정의하는 경우, 
-이 환경 변수를 _선택 사항_ 으로 표시할 수 있다. 
-기본적으로는 시크릿은 필수 사항이다.
+파드에서 시크릿을 참조할 때, 다음 예제처럼 시크릿을 _선택 사항_ 으로 
+표시할 수 있다. 선택적 시크릿이 존재하지 않는 경우, 
+쿠버네티스는 이를 무시한다.
 
-모든 필수 시크릿이 사용 가능해지기 전에는 
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: mypod
+    image: redis
+    volumeMounts:
+    - name: foo
+      mountPath: "/etc/foo"
+      readOnly: true
+  volumes:
+  - name: foo
+    secret:
+      secretName: mysecret
+      optional: true
+```
+
+기본적으로, 시크릿은 필수사항이다. 모든 필수 시크릿이 사용 가능해지기 전에는 
 파드의 컨테이너가 시작되지 않을 것이다.
 
-파드가 시크릿의 특정 키를 참조하고, 해당 시크릿이 존재하지만 해당 키가 존재하지 않는 경우, 
-파드는 시작 과정에서 실패한다.
+파드가 필수 시크릿의 특정 키를 참조하고, 해당 시크릿이 
+존재하지만 해당 키가 존재하지 않는 경우, 파드는 시작 과정에서 실패한다.
 
 ### 파드에서 시크릿을 파일처럼 사용하기 {#using-secrets-as-files-from-a-pod}
 
@@ -181,181 +201,8 @@ kubelet은 또한 시크릿을 가져올 수 없는 문제에 대한 세부 정�
 쿠버네티스로 하여금 해당 시크릿의 값을 
 파드의 하나 이상의 컨테이너의 파일시스템 내에 파일 형태로 표시하도록 만드는 것이다.
 
-이렇게 구성하려면, 다음을 수행한다.
-
-1. 시크릿을 생성하거나 기존 시크릿을 사용한다. 여러 파드가 동일한 시크릿을 참조할 수 있다.
-1. `.spec.volumes[].` 아래에 볼륨을 추가하려면 파드 정의를 수정한다. 볼륨의 이름을 뭐든지 지정하고, 
-   시크릿 오브젝트의 이름과 동일한 `.spec.volumes[].secret.secretName` 필드를 생성한다.
-1. 시크릿이 필요한 각 컨테이너에 `.spec.containers[].volumeMounts[]` 를 추가한다. 
-   시크릿을 표시하려는 사용되지 않은 디렉터리 이름에
-   `.spec.containers[].volumeMounts[].readOnly = true`와 
-   `.spec.containers[].volumeMounts[].mountPath`를 지정한다.
-1. 프로그램이 해당 디렉터리에서 파일을 찾도록 이미지 또는 커맨드 라인을 수정한다. 시크릿 `data` 맵의 
-   각 키는 `mountPath` 아래의 파일명이 된다.
-
-다음은 볼륨에 `mysecret`이라는 시크릿을 마운트하는 파드의 예시이다.
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: mypod
-spec:
-  containers:
-  - name: mypod
-    image: redis
-    volumeMounts:
-    - name: foo
-      mountPath: "/etc/foo"
-      readOnly: true
-  volumes:
-  - name: foo
-    secret:
-      secretName: mysecret
-      optional: false # 기본값임; "mysecret" 은 반드시 존재해야 함
-```
-
-사용하려는 각 시크릿은 `.spec.volumes` 에서 참조해야 한다.
-
-파드에 여러 컨테이너가 있는 경우, 모든 컨테이너는
-자체 `volumeMounts` 블록이 필요하지만, 시크릿에 대해서는 시크릿당 하나의 `.spec.volumes` 만 필요하다.
-
-{{< note >}}
-쿠버네티스 v1.22 이전 버전은 쿠버네티스 API에 접근하기 위한 크리덴셜을 자동으로 생성했다. 
-이러한 예전 메커니즘은 토큰 시크릿 생성 및 이를 실행 중인 파드에 마운트하는 절차에 기반했다. 
-쿠버네티스 v{{< skew currentVersion >}} 버전을 포함한 최근 버전에서는, 
-API 크리덴셜이 [TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/) API를 사용하여 직접 얻어지고, 
-[프로젝티드 볼륨](/ko/docs/reference/access-authn-authz/service-accounts-admin/#바인딩된-서비스-어카운트-토큰-볼륨)을 
-사용하여 파드 내에 마운트된다. 
-이러한 방법을 사용하여 얻은 토큰은 수명이 제한되어 있으며, 
-토큰이 탑재된 파드가 삭제되면 자동으로 무효화된다.
-
-여전히 서비스 어카운트 토큰 시크릿을 [수동으로 생성](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-a-service-account-api-token)할 수도 있다. 
-예를 들어, 영원히 만료되지 않는 토큰이 필요한 경우에 활용할 수 있다. 
-그러나, 이렇게 하기보다는 API 접근에 필요한 토큰을 얻기 위해 
-[TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/) 서브리소스를 사용하는 것을 권장한다.
-`TokenRequest` API로부터 토큰을 얻기 위해 
-[`kubectl create token`](/docs/reference/generated/kubectl/kubectl-commands#-em-token-em-) 커맨드를 사용할 수 있다.
-{{< /note >}}
-
-#### 특정 경로에 대한 시크릿 키 투영하기
-
-시크릿 키가 투영되는 볼륨 내 경로를 제어할 수도 있다.
-`.spec.volumes[].secret.items` 필드를 사용하여 각 키의 대상 경로를 변경할 수 있다.
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: mypod
-spec:
-  containers:
-  - name: mypod
-    image: redis
-    volumeMounts:
-    - name: foo
-      mountPath: "/etc/foo"
-      readOnly: true
-  volumes:
-  - name: foo
-    secret:
-      secretName: mysecret
-      items:
-      - key: username
-        path: my-group/my-username
-```
-
-다음과 같은 일들이 일어날 것이다.
-
-* `mysecret`의 `username` 키는 컨테이너의 `/etc/foo/username` 경로 대신 
-  `/etc/foo/my-group/my-username` 경로에서 사용 가능하다.
-* 시크릿 오브젝트의 `password` 키는 투영되지 않는다.
-
-`.spec.volumes[].secret.items` 를 사용하면, `items` 에 지정된 키만 투영된다.
-시크릿의 모든 키를 사용하려면, 모든 키가 `items` 필드에 나열되어야 한다.
-
-키를 명시적으로 나열했다면, 나열된 모든 키가 해당 시크릿에 존재해야 한다. 
-그렇지 않으면, 볼륨이 생성되지 않는다.
-
-#### 시크릿 파일 퍼미션
-
-단일 시크릿 키에 대한 POSIX 파일 접근 퍼미션 비트를 설정할 수 있다.
-만약 사용자가 퍼미션을 지정하지 않는다면, 기본적으로 `0644` 가 사용된다.
-전체 시크릿 볼륨에 대한 기본 모드를 설정하고 필요한 경우 키별로 오버라이드할 수도 있다.
-
-예를 들어, 다음과 같은 기본 모드를 지정할 수 있다.
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: mypod
-spec:
-  containers:
-  - name: mypod
-    image: redis
-    volumeMounts:
-    - name: foo
-      mountPath: "/etc/foo"
-  volumes:
-  - name: foo
-    secret:
-      secretName: mysecret
-      defaultMode: 0400
-```
-
-시크릿이 `/etc/foo` 에 마운트되고, 
-시크릿 볼륨 마운트로 생성된 모든 파일의 퍼미션은 `0400` 이다.
-
-{{< note >}}
-JSON을 사용하여 파드 또는 파드 템플릿을 정의하는 경우,
-JSON 스펙은 8진수 표기법을 지원하지 않음에 유의한다.
-`defaultMode` 값으로 대신 10진수를 사용할 수 있다(예를 들어, 8진수 0400은 10진수로는 256이다).
-YAML로 작성하는 경우, `defaultMode` 값을 8진수로 표기할 수 있다.
-{{< /note >}}
-
-#### 볼륨으로부터 시크릿 값 사용하기
-
-시크릿 볼륨을 마운트하는 컨테이너 내부에서, 시크릿 키는 파일 형태로 나타난다. 
-시크릿 값은 base64로 디코딩되어 이러한 파일 내에 저장된다.
-
-다음은 위 예시의 컨테이너 내부에서 실행된 명령의 결과이다.
-
-```shell
-ls /etc/foo/
-```
-
-출력 결과는 다음과 비슷하다.
-
-```
-username
-password
-```
-
-```shell
-cat /etc/foo/username
-```
-
-출력 결과는 다음과 비슷하다.
-
-```
-admin
-```
-
-```shell
-cat /etc/foo/password
-```
-
-출력 결과는 다음과 비슷하다.
-
-```
-1f2d1e2e67df
-```
-
-컨테이너의 프로그램은 필요에 따라 
-이러한 파일에서 시크릿 데이터를 읽는다.
-
-#### 마운트된 시크릿의 자동 업데이트
+교육을 위해
+[시크릿을 사용하여 안전하게 자격증명 배포하기](/ko/docs/tasks/inject-data-application/distribute-credentials-secure/#볼륨을-통해-시크릿-데이터에-접근할-수-있는-파드-생성하기)를 참조하자.
 
 볼륨이 시크릿의 데이터를 포함하고 있는 상태에서 시크릿이 업데이트되면, 쿠버네티스는 이를 추적하고 
 최종적으로 일관된(eventually-consistent) 접근 방식을 사용하여 볼륨 안의 데이터를 업데이트한다.
@@ -366,9 +213,11 @@ cat /etc/foo/password
 받지 못한다.
 {{< /note >}}
 
-kubelet은 해당 노드의 파드의 볼륨에서 사용되는 시크릿의 현재 키 및 값 캐시를 유지한다. 
+kubelet은 해당 노드의 파드의 볼륨에서 사용되는 시크릿의 현재 키 및 값 
+캐시를 유지한다. 
 kubelet이 캐시된 값에서 변경 사항을 감지하는 방식을 변경할 수 있다. 
-[kubelet 환경 설정](/docs/reference/config-api/kubelet-config.v1beta1/)의 `configMapAndSecretChangeDetectionStrategy` 필드는 
+[kubelet 환경 설정](/docs/reference/config-api/kubelet-config.v1beta1/)의
+`configMapAndSecretChangeDetectionStrategy` 필드는 
 kubelet이 사용하는 전략을 제어한다. 기본 전략은 `Watch`이다.
 
 시크릿 업데이트는 TTL(time-to-live)이 설정된 캐시 기반의 
@@ -386,53 +235,23 @@ kubelet 동기화 기간 + 캐시 전파 지연만큼 길어질 수 있다.
 파드에서 {{< glossary_tooltip text="환경 변수" term_id="container-env-variables" >}} 형태로
 시크릿을 사용하려면 다음과 같이 한다.
 
-1. 시크릿을 생성(하거나 기존 시크릿을 사용)한다. 여러 파드가 동일한 시크릿을 참조할 수 있다.
-1. 사용하려는 각 시크릿 키에 대한 환경 변수를 추가하려면 
-   시크릿 키 값을 사용하려는 각 컨테이너에서 파드 정의를 수정한다. 
-   시크릿 키를 사용하는 환경 변수는 시크릿의 이름과 키를 `env[].valueFrom.secretKeyRef` 에 채워야 한다.
-1. 프로그램이 지정된 환경 변수에서 값을 찾도록 
+1. 파드 스펙 내의 각 컨테이너에 대해, 
+   사용하려는 각 시크릿 키에 대한 환경 변수를 
+   `env[].valueFrom.secretKeyRef` 필드에 추가한다.
+1. 위에서 명시한 환경 변수의 값을 프로그램이 읽을 수 있도록 
    이미지 및/또는 커맨드 라인을 수정한다.
 
-다음은 환경 변수를 통해 시크릿을 사용하는 파드의 예시이다.
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: secret-env-pod
-spec:
-  containers:
-  - name: mycontainer
-    image: redis
-    env:
-      - name: SECRET_USERNAME
-        valueFrom:
-          secretKeyRef:
-            name: mysecret
-            key: username
-            optional: false # 기본값과 동일하다
-                            # "mysecret"이 존재하고 "username"라는 키를 포함해야 한다
-      - name: SECRET_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: mysecret
-            key: password
-            optional: false # 기본값과 동일하다
-                            # "mysecret"이 존재하고 "password"라는 키를 포함해야 한다
-  restartPolicy: Never
-```
-
+교육을 위해
+[시크릿 데이터를 사용하여 컨테이너 환경 변수 정의하기](ko/docs/tasks/inject-data-application/distribute-credentials-secure/#시크릿-데이터를-사용하여-컨테이너-환경-변수-정의하기)를 참조하자.
 
 #### 올바르지 않은 환경 변수 {#restriction-env-from-invalid}
 
-유효하지 않은 환경 변수 이름으로 간주되는 키가 있는 `envFrom` 필드로 
-환경 변수를 채우는 데 사용되는 시크릿은 해당 키를 건너뛴다. 
+파드 명세에 환경 변수 정의가 유효하지 않은 환경 변수 이름으로
+간주되는 경우, 그 키들은 컨테이너에서 이용할 수 없다.
 하지만 파드를 시작할 수는 있다.
 
-유효하지 않은 변수 이름이 파드 정의에 포함되어 있으면, 
-`reason`이 `InvalidVariableNames`로 설정된 이벤트와 
-유효하지 않은 스킵된 키 목록 메시지가 파드 시작 실패 정보에 추가된다. 
-다음 예시는 2개의 유효하지 않은 키 `1badkey` 및 `2alsobad`를 포함하는 `mysecret` 시크릿을 참조하는 파드를 보여준다.
+쿠버네티스는 `reason`이 `InvalidVariableNames`로 설정된 이벤트와 
+유효하지 않은 스킵된 키 목록 메시지를 추가한다. 다음 예시는 2개의 유효하지 않은 키 `1badkey` 및 `2alsobad`를 포함하는 `mysecret` 시크릿을 참조하는 파드를 보여준다.
 
 ```shell
 kubectl get events
@@ -445,42 +264,6 @@ LASTSEEN   FIRSTSEEN   COUNT     NAME            KIND      SUBOBJECT            
 0s         0s          1         dapi-test-pod   Pod                                         Warning   InvalidEnvironmentVariableNames   kubelet, 127.0.0.1      Keys [1badkey, 2alsobad] from the EnvFrom secret default/mysecret were skipped since they are considered invalid environment variable names.
 ```
 
-
-#### 환경 변수로부터 시크릿 값 사용하기
-
-환경 변수 형태로 시크릿을 사용하는 컨테이너 내부에서, 
-시크릿 키는 일반적인 환경 변수로 보인다. 
-이러한 환경 변수의 값은 시크릿 데이터를 base64 디코드한 값이다.
-
-다음은 위 예시 컨테이너 내부에서 실행된 명령의 결과이다.
-
-```shell
-echo "$SECRET_USERNAME"
-```
-
-출력 결과는 다음과 비슷하다.
-
-```
-admin
-```
-
-```shell
-echo "$SECRET_PASSWORD"
-```
-
-출력 결과는 다음과 비슷하다.
-
-```
-1f2d1e2e67df
-```
-
-{{< note >}}
-컨테이너가 이미 환경 변수 형태로 시크릿을 사용하는 경우, 
-컨테이너가 다시 시작되기 전에는 
-시크릿 업데이트를 볼 수 없다. 
-시크릿이 변경되면 컨테이너 재시작을 트리거하는 써드파티 솔루션이 존재한다.
-{{< /note >}}
-
 ### 컨테이너 이미지 풀 시크릿 {#using-imagepullsecrets}
 
 비공개 저장소에서 컨테이너 이미지를 가져오고 싶다면, 
@@ -488,29 +271,23 @@ echo "$SECRET_PASSWORD"
 이를 위해 _이미지 풀 시크릿_ 을 구성할 수 있다. 
 이러한 시크릿은 파드 수준에 설정된다.
 
-파드의 `imagePullSecrets` 필드는 파드가 속한 네임스페이스에 있는 시크릿들에 대한 참조 목록이다.
-`imagePullSecrets`를 사용하여 이미지 저장소 접근 크리덴셜을 kubelet에 전달할 수 있다. 
-kubelet은 이 정보를 사용하여 파드 대신 비공개 이미지를 가져온다.
-`imagePullSecrets` 필드에 대한 더 많은 정보는 
-[파드 API 레퍼런스](/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec)의 
-`PodSpec` 부분을 확인한다.
-
 #### imagePullSecrets 사용하기
 
 `imagePullSecrets` 필드는 동일한 네임스페이스의 시크릿에 대한 참조 목록이다.
-`imagePullSecrets` 를 사용하여 도커(또는 다른 컨테이너) 이미지 레지스트리 비밀번호가 포함된 시크릿을 kubelet에 전달할 수 있다. 
-kubelet은 이 정보를 사용해서 파드를 대신하여 프라이빗 이미지를 가져온다.
-`imagePullSecrets` 필드에 대한 자세한 정보는 [PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)를 참고한다.
+`imagePullSecrets` 를 사용하여 도커(또는 다른 컨테이너) 이미지 레지스트리 비밀번호가 포함된 시크릿을
+kubelet에 전달할 수 있다. kubelet은 이 정보를 사용해서 파드를 대신하여 프라이빗 이미지를 가져온다.
+`imagePullSecrets` 필드에 대한 자세한 정보는 
+[PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)를 참고한다.
 
 ##### imagePullSecret 수동으로 지정하기
 
 [컨테이너 이미지](/ko/docs/concepts/containers/images/#파드에-imagepullsecrets-명시) 문서에서 
-`imagePullSecrets`를 지정하는 방법을 배울 수 있다.
+`imagePullSecrets`를 지정하는 방법을 
+배울 수 있다.
 
 ##### imagePullSecrets가 자동으로 연결되도록 준비하기
 
-수동으로 `imagePullSecrets` 를 생성하고, 
-서비스어카운트(ServiceAccount)에서 이들을 참조할 수 있다. 
+수동으로 `imagePullSecrets` 를 생성하고, 서비스어카운트(ServiceAccount)에서 이들을 참조할 수 있다. 
 해당 서비스어카운트로 생성되거나 기본적인 서비스어카운트로 생성된 모든 파드는 
 파드의 `imagePullSecrets` 필드를 가져오고 서비스 어카운트의 필드로 설정한다. 
 해당 프로세스에 대한 자세한 설명은 
@@ -518,47 +295,14 @@ kubelet은 이 정보를 사용해서 파드를 대신하여 프라이빗 이미
 
 ### 스태틱 파드에서의 시크릿 사용 {#restriction-static-pod}
 
-{{< glossary_tooltip text="스태틱(static) 파드" term_id="static-pod" >}}에서는 
-컨피그맵이나 시크릿을 사용할 수 없다.
+{{< glossary_tooltip text="스태틱(static) 파드" term_id="static-pod" >}}에서는 컨피그맵이나 시크릿을 사용할 수 없다.
 
 ## 사용 사례
 
-### 사용 사례: 컨테이너 환경 변수로 사용하기
+### 사용 사례: 컨테이너 환경 변수로 사용하기{#use-case-as-container-environment-variables}
 
-시크릿 정의를 작성한다.
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: mysecret
-type: Opaque
-data:
-  USER_NAME: YWRtaW4=
-  PASSWORD: MWYyZDFlMmU2N2Rm
-```
-
-시크릿을 생성한다.
-```shell
-kubectl apply -f mysecret.yaml
-```
-
-모든 시크릿 데이터를 컨테이너 환경 변수로 정의하는 데 `envFrom` 을 사용한다. 시크릿의 키는 파드의 환경 변수 이름이 된다.
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: secret-test-pod
-spec:
-  containers:
-    - name: test-container
-      image: registry.k8s.io/busybox
-      command: [ "/bin/sh", "-c", "env" ]
-      envFrom:
-      - secretRef:
-          name: mysecret
-  restartPolicy: Never
-```
+시크릿을 생성하고 이를 [컨테이너 환경 변수 설정하기](/ko/docs/tasks/inject-data-application/distribute-credentials-secure/#시크릿-데이터를-사용하여-컨테이너-환경-변수-정의하기)에
+사용할 수 있다.
 
 ### 사용 사례: SSH 키를 사용하는 파드
 
@@ -877,13 +621,28 @@ empty-secret   Opaque   0      2m6s
 {{< glossary_tooltip text="서비스 어카운트" term_id="service-account" >}}를 확인하는 
 토큰 자격증명을 저장하기 위해서 사용한다.
 
-1.22 버전 이후로는 이러한 타입의 시크릿은 더 이상 파드에 자격증명을 마운트하는 데 사용되지 않으며, 
-서비스 어카운트 토큰 시크릿 오브젝트를 사용하는 대신 
-[TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/) API를 통해 토큰을 얻는 것이 추천된다. 
-`TokenRequest` API에서 얻은 토큰은 제한된 수명을 가지며 다른 API 클라이언트에서 읽을 수 없기 때문에 
-시크릿 오브젝트에 저장된 토큰보다 더 안전하다.
-`TokenRequest` API에서 토큰을 얻기 위해서 
-[`kubectl create token`](/docs/reference/generated/kubectl/kubectl-commands#-em-token-em-) 커맨드를 사용할 수 있다.
+{{< note >}}
+쿠버네티스 v1.22 이전 버전은 쿠버네티스 API에 접근하기 위한 자격증명을 자동으로 생성했다. 
+이러한 예전 메커니즘은 토큰 시크릿 생성 및 이를 실행 중인 파드에 
+마운트하는 절차에 기반했다. 
+쿠버네티스 v{{< skew currentVersion >}} 버전을 포함한 최근 버전에서는, 
+API 자격증명이 [TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/) API를 사용하여 
+직접 얻어지고, 
+[프로젝티드 볼륨](/ko/docs/reference/access-authn-authz/service-accounts-admin/#바인딩된-서비스-어카운트-토큰-볼륨)을 
+사용하여 파드 내에 마운트된다. 
+이러한 방법을 사용하여 얻은 토큰은 수명이 제한되어 있으며, 
+토큰이 탑재된 파드가 삭제되면 자동으로 무효화된다.
+
+여전히 서비스 어카운트 토큰 시크릿을 
+[수동으로 생성](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-a-service-account-api-token)할 수도 있다. 
+예를 들어, 영원히 만료되지 않는 토큰이 필요한 경우에 활용할 수 있다. 
+그러나, 이렇게 하기보다는 
+API 접근에 필요한 토큰을 얻기 위해 
+[TokenRequest](/docs/reference/kubernetes-api/authentication-resources/token-request-v1/) 서브리소스를 사용하는 것을 권장한다.
+`TokenRequest` API로부터 토큰을 얻기 위해 
+[`kubectl create token`](/docs/reference/generated/kubectl/kubectl-commands#-em-token-em-) 명령어를 
+사용할 수 있다.
+{{< /note >}}
 
 토큰을 얻기 위한 `TokenRequest` API를 사용할 수 없는 경우에는
 서비스 어카운트 토큰 시크릿 오브젝트를 생성할 수 밖에 없으나,
