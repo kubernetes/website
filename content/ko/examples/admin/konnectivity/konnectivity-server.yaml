@@ -8,12 +8,13 @@ spec:
   hostNetwork: true
   containers:
   - name: konnectivity-server-container
-    image: registry.k8s.io/kas-network-proxy/proxy-server:v0.0.32
+    image: registry.k8s.io/kas-network-proxy/proxy-server:v0.0.37
     command: ["/proxy-server"]
     args: [
             "--logtostderr=true",
             # 이것은 egressSelectorConfiguration에 설정된 값과 일치해야 한다.
             "--uds-name=/etc/kubernetes/konnectivity-server/konnectivity-server.socket",
+            "--delete-existing-uds-file",
             # 다음 두 줄은 Konnectivity 서버가 apiserver와 
             # 동일한 시스템에 배포되고 API 서버의 인증서와 
             # 키가 지정된 위치에 있다고 가정한다.
