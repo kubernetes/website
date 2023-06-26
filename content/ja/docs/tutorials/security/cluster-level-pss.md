@@ -148,7 +148,7 @@ v{{< skew currentVersion >}}以外のKubernetesバージョンを実行してい
 このセクションでは、`latest`バージョンに以下のPodセキュリティの標準を適用します:
 
 * `enforce`モードで`baseline`標準。
-* `awrn`および`audit`モードで`restricted`標準。
+* `warn`および`audit`モードで`restricted`標準。
 
 `baseline` Podセキュリティの標準は、免除リストを短く保てて、かつ既知の特権昇格を防ぐような、利便性のある中庸を提供します。
 
