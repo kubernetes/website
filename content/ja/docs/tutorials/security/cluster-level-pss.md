@@ -301,4 +301,4 @@ kind delete cluster --name psa-wo-cluster-pss
   6. 新しいクラスター内でPodを作成するために、このファイルを適用します。
 - [Podのセキュリティアドミッション](/ja/docs/concepts/security/pod-security-admission/)
 - [Podセキュリティの標準](/ja/docs/concepts/security/pod-security-standards/)
-- [名前空間レベルでのPodセキュリティの標準の適用](/docs/tutorials/security/ns-level-pss/)
+- [名前空間レベルでのPodセキュリティの標準の適用](/ja/docs/tutorials/security/ns-level-pss/)
