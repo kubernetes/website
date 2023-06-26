@@ -120,9 +120,9 @@ Deploymentによって作成されたReplicaSetを管理しないでください
   コマンドの実行結果は以下のとおりです:
   ```shell
   NAME                                READY     STATUS    RESTARTS   AGE       LABELS
-  nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-  nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-  nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+  nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
+  nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
+  nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
   ```
   作成されたReplicaSetは`nginx`Podを3つ作成することを保証します。
 
