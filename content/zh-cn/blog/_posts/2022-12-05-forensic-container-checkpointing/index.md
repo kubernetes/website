@@ -4,14 +4,6 @@ title: "Kubernetes 的取证容器检查点"
 date: 2022-12-05
 slug: forensic-container-checkpointing-alpha
 ---
-<!-- 
----
-layout: blog
-title: "Forensic container checkpointing in Kubernetes"
-date: 2022-12-05
-slug: forensic-container-checkpointing-alpha
----
- -->
 
 **作者:** [Adrian Reber](https://github.com/adrianreber) (Red Hat)
 <!-- 
@@ -84,8 +76,8 @@ The feature is behind a [feature gate][container-checkpoint-feature-gate], so
 make sure to enable the `ContainerCheckpoint` gate before you can use the new
 feature.
  -->
-
-该功能在[特性门][container-checkpoint-feature-gate]后面，因此在使用新功能之前，请确保启用了 ContainerCheckpoint 特性门。
+该功能在[特性门控][container-checkpoint-feature-gate]后面，因此在使用这个新功能之前，
+请确保启用了 ContainerCheckpoint 特性门控。
 
 <!-- 
 The runtime must also support container checkpointing:
@@ -115,7 +107,8 @@ is also necessary to install CRIU.  Usually runc or crun depend on CRIU and
 therefore it is installed automatically.
  -->
 要将取证容器检查点与 CRI-O 结合使用，需要使用命令行选项--enable-criu-support=true 启动运行时。
-Kubernetes 方面，你需要在启用 ContainerCheckpoint 特性门的情况下运行你的集群。由于检查点功能是由 CRIU 提供的，因此也有必要安装 CRIU。
+Kubernetes 方面，你需要在启用 ContainerCheckpoint 特性门控的情况下运行你的集群。
+由于检查点功能是由 CRIU 提供的，因此也有必要安装 CRIU。
 通常 runc 或 crun 依赖于 CRIU，因此它是自动安装的。
 
 <!-- 
@@ -151,7 +144,7 @@ For a container named *counter* in a pod named *counters* in a namespace named
 curl -X POST "https://localhost:10250/checkpoint/default/counters/counter"
 ```
 -->
-对于名为 **default** 的命名空间中名为 **counters** 的 pod 中的名为 **counter** 的容器， **kubelet** API 端点可在以下位置访问：
+对于 **default** 命名空间中 **counters** Pod 中名为 **counter** 的容器，可通过以下方式访问 **kubelet** API 端点：
 
 ```shell
 curl -X POST "https://localhost:10250/checkpoint/default/counters/counter"
@@ -166,7 +159,8 @@ use of the *kubelet* `checkpoint` API:
 --insecure --cert /var/run/kubernetes/client-admin.crt --key /var/run/kubernetes/client-admin.key
 ```
 -->
-为了完整起见，以下 curl 命令行选项对于让 curl 接受 **kubelet** 的自签名证书并授权使用 **kubelet** 检查点 API 是必要的：
+为了完整起见，以下 `curl` 命令行选项对于让 `curl` 接受 **kubelet** 的自签名证书并授权使用
+**kubelet** 检查点 API 是必要的：
 
 ```shell
 --insecure --cert /var/run/kubernetes/client-admin.crt --key /var/run/kubernetes/client-admin.key
@@ -183,8 +177,8 @@ Once the checkpointing has finished the checkpoint should be available at
 
 You could then use that tar archive to restore the container somewhere else.
 -->
-触发这个 **kubelet** API 将从 CRI-O 请求创建一个检查点，CRI-O 从你的低级运行时（例如，runc）请求一个检查点。
-看到这个请求，runc 调用 criu 工具来执行实际的检查点操作。
+触发这个 **kubelet** API 将从 CRI-O 请求创建一个检查点，CRI-O 从你的低级运行时（例如 `runc`）请求一个检查点。
+看到这个请求，`runc` 调用 `criu` 工具来执行实际的检查点操作。
 
 检查点操作完成后，检查点应该位于
 `/var/lib/kubelet/checkpoints/checkpoint-<pod-name>_<namespace-name>-<container-name>-<timestamp>.tar`
@@ -204,9 +198,9 @@ during restore, I recommend that you use the latest version of CRI-O from the
 manually create certain directories Kubernetes would create before starting the
 container.
 -->
-使用检查点 tar 归档文件，可以在 Kubernetes 之外的 CRI-O 沙箱实例中恢复容器。为了在恢复过程中获得更好的用户体验，我建议你使用 CRI-O GitHub 的 **main** 分支中最新版本的 CRI-O。
+使用检查点 tar 归档文件，可以在 Kubernetes 之外的 CRI-O 沙箱实例中恢复容器。
+为了在恢复过程中获得更好的用户体验，建议你使用 CRI-O GitHub 的 **main** 分支中最新版本的 CRI-O。
 如果你使用的是 CRI-O v1.25，你需要在启动容器之前手动创建 Kubernetes 会创建的某些目录。
-
 <!-- 
 The first step to restore a container outside of Kubernetes is to create a pod sandbox
 using *crictl*:
@@ -347,7 +341,8 @@ spec:
   nodeName: <destination-node>
 ```
  -->
-要恢复此检查点镜像（container-image-registry.example/user/checkpoint-image:latest），该镜像需要在 Pod 的规范中列出。下面是一个清单示例：
+要恢复此检查点镜像（container-image-registry.example/user/checkpoint-image:latest），
+该镜像需要在 Pod 的规约中列出。下面是一个清单示例：
 
 ```yaml
 apiVersion: v1
@@ -371,7 +366,8 @@ instead of the usual steps to create and start a container,
 CRI-O fetches the checkpoint data and restores the container from that
 specified checkpoint.
 -->
-Kubernetes 将新的 Pod 调度到一个节点上。该节点上的 kubelet 指示容器运行时（本例中为 CRI-O）基于指定为 `registry/user/checkpoint-image:latest` 的镜像创建并启动容器。
+Kubernetes 将新的 Pod 调度到一个节点上。该节点上的 kubelet 指示容器运行时（本例中为 CRI-O）
+基于指定为 `registry/user/checkpoint-image:latest` 的镜像创建并启动容器。
 CRI-O 检测到 `registry/user/checkpoint-image:latest` 是对检查点数据的引用，而不是容器镜像。
 然后，与创建和启动容器的通常步骤不同，CRI-O 获取检查点数据，并从指定的检查点恢复容器。
 
@@ -380,7 +376,8 @@ The application in that Pod would continue running as if the checkpoint had not 
 within the container, the application looks and behaves like any other container that had been
 started normally and not restored from a checkpoint.
 -->
-该 Pod 中的应用程序将继续运行，就像检查点未被获取一样；在该容器中，应用程序的外观和行为，与正常启动且未从检查点恢复的任何其他容器相似。
+该 Pod 中的应用程序将继续运行，就像检查点未被获取一样；在该容器中，
+应用程序的外观和行为，与正常启动且未从检查点恢复的任何其他容器相似。
 
 <!-- 
 With these steps, it is possible to replace a Pod running on one node

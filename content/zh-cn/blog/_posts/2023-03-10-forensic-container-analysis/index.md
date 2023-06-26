@@ -110,10 +110,17 @@ For a container named *counter* in a pod named *counters* in a namespace named
 
 在分析检查点之前的最后一步是告诉 Kubernetes 创建检查点。如上一篇文章所述，这需要访问 **kubelet** 唯一的“检查点” API 端点。
 
-对于名为 **default** 的命名空间中名为 **counters** 的 pod 中的名为 **counter** 的容器， **kubelet** API 端点可在以下位置访问：
+对于 **default** 命名空间中 **counters** Pod 中名为 **counter** 的容器，
+可通过以下方式访问 **kubelet** API 端点：
 
+<!-- 
 ```shell
 # run this on the node where that Pod is executing
+curl -X POST "https://localhost:10250/checkpoint/default/counters/counter"
+```
+-->
+```shell
+# 在运行 Pod 的节点上运行这条命令
 curl -X POST "https://localhost:10250/checkpoint/default/counters/counter"
 ```
 
@@ -174,7 +181,8 @@ SIZE`). This is mainly the size of the memory pages included in the checkpoint,
 but there is also information about the size of all changed files in the
 container (`ROOT FS DIFF SIZE`).
  -->
-这展示了有关该检查点归档中的检查点的一些信息。我们可以看到容器的名称、有关容器运行时和容器引擎的信息。它还列出了检查点的大小（`CHKPT SIZE`）。
+这展示了有关该检查点归档中的检查点的一些信息。我们可以看到容器的名称、有关容器运行时和容器引擎的信息。
+它还列出了检查点的大小（`CHKPT SIZE`）。
 这主要是检查点中包含的内存页的大小，同时也有有关容器中所有更改文件的大小的信息（`ROOT FS DIFF SIZE`）。
 
 <!-- 
@@ -265,7 +273,8 @@ was created just as expected.
 With the help of `rootfs-diff.tar` it is possible to inspect all files that
 were created or changed compared to the base image of the container.
  -->
-与该容器所基于的容器镜像（`quay.io/adrianreber/counter:blog`）相比，它包含容器提供的服务的所有访问信息以及预期创建的 `logfile` 可以检查 `test-file` 文件。
+与该容器所基于的容器镜像（`quay.io/adrianreber/counter:blog`）相比，
+它包含容器提供的服务的所有访问信息以及预期创建的 `logfile` 可以检查 `test-file` 文件。
 
 在 `rootfs-diff.tar` 的帮助下，可以根据容器的基本镜像检查所有创建或修改的文件。
 
@@ -326,7 +335,8 @@ is more data to be analyzed in `checkpoint/pstree.img`.
 
 Let's compare the so far collected information to the still running container:
  -->
-这意味着容器内的三个进程是 `bash`、`counter.py`（Python 解释器）和 `tee`。 `checkpoint/pstree.img` 中有更多数据可供分析，以获取有关进程起源的详细信息。
+这意味着容器内的三个进程是 `bash`、`counter.py`（Python 解释器）和 `tee`。
+`checkpoint/pstree.img` 中有更多数据可供分析，以获取有关进程起源的详细信息。
 
 让我们将目前为止收集到的信息与仍在运行的容器进行比较。
 
@@ -360,7 +370,8 @@ processes.
 One last example of what `crit` can tell us about the container is the information
 about the UTS namespace:
  -->
-在此输出中，我们首先获取容器中第一个进程的 PID。在运行容器的系统上，它会查找其 PID 和子进程。你应该看到三个进程，第一个进程是 `bash`，容器 PID 命名空间中的 PID 为 1。
+在此输出中，我们首先获取容器中第一个进程的 PID。在运行容器的系统上，它会查找其 PID 和子进程。
+你应该看到三个进程，第一个进程是 `bash`，容器 PID 命名空间中的 PID 为 1。
 然后查看 `/proc/<PID>/comm`，可以找到与检查点镜像完全相同的值。
 
 需要记住的重点是，检查点包含容器的 PID 命名空间内的视图。因为这些信息对于恢复进程非常重要。
@@ -426,7 +437,8 @@ important to remember that anyone that can access the checkpoint
 archive has access to all information that was stored in the memory of the
 container's processes.
  -->
-确实有我的数据。通过这种方式，我可以轻松查看容器中进程的所有内存页面的内容，但需要注意的是可以访问检查点存档的任何人都可以访问存储在容器进程内存中的所有信息。
+确实有我的数据。通过这种方式，我可以轻松查看容器中进程的所有内存页面的内容，
+但需要注意的是可以访问检查点存档的任何人都可以访问存储在容器进程内存中的所有信息。
 
 <!-- 
 #### Using gdb for further analysis
@@ -514,10 +526,13 @@ are just the starting point. Depending on your requirements it is possible to
 look at certain things in much more detail, but this article should give you an
 introduction how to start the analysis of your checkpoint.
  -->
-借助容器检查点，可以在不停止容器且在容器不知情的情况下，为正在运行的容器创建检查点。 在 Kubernetes 中对容器创建一个检查点的结果是检查点存档文件；
-使用不同的工具，如 `checkpointctl`、`tar`、`crit` 和 `gdb`，可以分析检查点。即使使用像 `grep` 这样的简单工具，也可以在检查点存档中找到信息。
+借助容器检查点，可以在不停止容器且在容器不知情的情况下，为正在运行的容器创建检查点。
+在 Kubernetes 中对容器创建一个检查点的结果是检查点存档文件；
+使用不同的工具，如 `checkpointctl`、`tar`、`crit` 和 `gdb`，可以分析检查点。
+即使使用像 `grep` 这样的简单工具，也可以在检查点存档中找到信息。
 
-我在本文中展示的如何分析检查点的不同示例，这只是一个起点。 根据你的需求，可以更详细地查看某些内容，本文向你介绍了如何开始进行检查点分析。
+我在本文中展示的如何分析检查点的不同示例，这只是一个起点。
+根据你的需求，可以更详细地查看某些内容，本文向你介绍了如何开始进行检查点分析。
 
 <!-- 
 ## How do I get involved?
