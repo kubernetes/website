@@ -255,7 +255,7 @@ v{{< skew currentVersion >}}以外のKubernetesバージョンを実行してい
    Have a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community 🙂
    ```
 
-1. kubectlをクラスターに向けます:
+1. kubectlをこのクラスターに向けます:
    ```shell
    kubectl cluster-info --context kind-psa-with-cluster-pss
    ```
