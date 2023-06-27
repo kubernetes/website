@@ -50,7 +50,7 @@ P[pod data] -.- C
 end
 L[API<br>server]
 W[HPA]
-C ---->|metrics<br>resource| A -->|metrics<br>API| L --> W
+C ---->|metrics resource<br>API| A -->|metrics<br>API| L --> W
 end
 L ---> K[kubectl<br>top]
 classDef box fill:#fff,stroke:#000,stroke-width:1px,color:#000;
@@ -70,9 +70,9 @@ The architecture components, from right to left in the figure, consist of the fo
 * [kubelet](/docs/concepts/overview/components/#kubelet): Node agent for managing container
   resources. Resource metrics are accessible using the `/metrics/resource` and `/stats` kubelet
   API endpoints.
-* [Summary API](#summary-api-source): API provided by the kubelet for discovering and retrieving
-  per-node summarized stats available through the `/stats` endpoint.
-* [metrics-server](#metrics-server): Cluster addon component that collects and aggregates resource
+* [metrics resource API](#summary-api-source): API provided by the kubelet for discovering and retrieving
+  per-node summarized stats available through the `/metrics/resource` endpoint.
+* [metrics-server](/docs/reference/instrumentation/node-metrics): Cluster addon component that collects and aggregates resource
   metrics pulled from each kubelet. The API server serves Metrics API for use by HPA, VPA, and by
   the `kubectl top` command. Metrics Server is a reference implementation of the Metrics API.
 * [Metrics API](#metrics-api): Kubernetes API supporting access to CPU and memory used for
