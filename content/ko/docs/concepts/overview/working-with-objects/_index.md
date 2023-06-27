@@ -1,7 +1,12 @@
 ---
-title: 쿠버네티스 오브젝트 이해하기
+title: 쿠버네티스 오브젝트
 content_type: concept
 weight: 10
+description: >
+  쿠버네티스 오브젝트는 쿠버네티스 시스템의 영속적인(persistent) 엔티티이다.
+  쿠버네티스는 이러한 엔티티들을 사용하여 클러스터의 상태를 표현한다.
+  이 페이지에서는 쿠버네티스 오브젝트 모델과 쿠버네티스 오브젝트를 사용하는 방법에 대해 학습한다.
+simple_list: true
 card:
   name: concepts
   weight: 40
@@ -88,7 +93,7 @@ kubectl apply -f https://k8s.io/examples/application/deployment.yaml
 deployment.apps/nginx-deployment created
 ```
 
-### 요구되는 필드
+### 필요한 필드
 
 생성하고자 하는 쿠버네티스 오브젝트에 대한 `.yaml` 파일 내, 다음 필드를 위한 값들을 설정해 줘야한다.
 
@@ -115,8 +120,43 @@ deployment.apps/nginx-deployment created
 서로 다른 종류의 오브젝트는 서로 다른 `.status`를 가질 수 있다. 
 다시 한번 말하자면, 각 API 레퍼런스 페이지는 각 오브젝트 타입에 대해 해당 `.status` 필드의 구조와 내용에 대해 소개한다. 
 
+## 서버 측 필드 검증
+
+쿠버네티스 v1.25부터, API 서버는 
+서버 측 [필드 검증](/docs/reference/using-api/api-concepts/#field-validation)을 통해 
+오브젝트 내의 인식 불가능하거나 중복된 필드를 감지한다. 
+이 기능은 `kubectl --validate` 의 모든 기능을 서버 측에서 제공한다.
+
+`kubectl` 도구를 사용할 때 `--validate` 플래그를 사용하여 필드 검증 수준을 지정할 수 있다. 
+이 플래그는 `ignore`, `warn`, `strict` 값을 받을 수 있으며, 또한 `true` (`strict` 와 동일) 
+및 `false` (`ignore` 와 동일) 도 사용할 수 있다. `kubectl`의 검증 수준 기본값은 `--validate=true` 이다.
+
+`Strict`
+: 엄격한 필드 검증이며, 검증 실패 시 오류를 반환한다
+
+`Warn`
+: 필드 검증이 수행되지만, 오류가 발생해도 요청이 실패하지 않고 대신 오류가 경고(warning)의 형태로 표시된다
+
+`Ignore`
+: 서버 측 필드 검증을 수행하지 않는다
+
+`kubectl`이 필드 검증을 지원하는 API 서버에 연결하지 못하면, 
+클라이언트 측 검증을 사용하도록 폴백(fall back)한다. 
+쿠버네티스 1.27 부터는 항상 필드 검증을 제공하지만, 그 전 버전은 그렇지 않을 수 있다. 
+사용 중인 클러스터의 버전이 v1.27 이전이라면, 해당 쿠버네티스 버전의 문서를 확인한다.
+
 ## {{% heading "whatsnext" %}}
 
-* [파드](/ko/docs/concepts/workloads/pods/)와 같이, 가장 중요하고 기본적인 쿠버네티스 오브젝트에 대해 배운다.
-* 쿠버네티스의 [컨트롤러](/ko/docs/concepts/architecture/controller/)에 대해 배운다.
-* API 개념의 더 많은 설명은 [쿠버네티스 API 사용](/ko/docs/reference/using-api/)을 본다.
+쿠버네티스가 처음이라면, 다음 항목들을 더 읽어본다.
+
+* [파드](/ko/docs/concepts/workloads/pods/)는 가장 중요한 쿠버네티스 기본 오브젝트이다.
+* [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/) 오브젝트.
+* 쿠버네티스의 [컨트롤러](/ko/docs/concepts/architecture/controller/).
+* [kubectl](/ko/docs/reference/kubectl/) 및 [kubectl 명령어](/docs/reference/generated/kubectl/kubectl-commands).
+
+쿠버네티스 API의 일반적인 사항에 대해 더 알아보려면, 다음 페이지를 방문한다.
+
+* [쿠버네티스 API 개요](/ko/docs/reference/using-api/)
+
+쿠버네티스 오브젝트에 대해 더 깊이있게 알고 싶다면, 이 섹션의 다른 페이지를 읽어 본다.
+<!-- Docsy automatically includes a list of pages in the section -->
