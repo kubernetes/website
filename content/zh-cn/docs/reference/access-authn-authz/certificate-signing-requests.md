@@ -360,7 +360,7 @@ Kubernetes 提供了内置的签名者，每个签名者都有一个众所周知
    1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name starts with "`system:node:`".
    1. Permitted x509 extensions - honors key usage and DNSName/IPAddress subjectAltName extensions, forbids EmailAddress and
       URI subjectAltName extensions, drops other extensions. At least one DNS or IP subjectAltName must be present.
-   1. Permitted key usages - `["key encipherment", "digital signature", "client auth"]` or `["digital signature", "client auth"]`.
+   1. Permitted key usages - `["key encipherment", "digital signature", "server auth"]` or `["digital signature", "server auth"]`.
    1. Expiration/certificate lifetime - for the kube-controller-manager implementation of this signer, set to the minimum
       of the `--cluster-signing-duration` option or, if specified, the `spec.expirationSeconds` field of the CSR object.
    1. CA bit allowed/disallowed - not allowed.
@@ -372,8 +372,8 @@ Kubernetes 提供了内置的签名者，每个签名者都有一个众所周知
    1. 许可的 x509 扩展：允许 key usage、DNSName/IPAddress subjectAltName 等扩展，
       禁止 EmailAddress、URI subjectAltName 等扩展，并丢弃其他扩展。
       至少有一个 DNS 或 IP 的 SubjectAltName 存在。
-   1. 许可的密钥用途：`["key encipherment", "digital signature", "client auth"]`
-      或 `["digital signature", "client auth"]`。
+   1. 许可的密钥用途：`["key encipherment", "digital signature", "server auth"]`
+      或 `["digital signature", "server auth"]`。
    1. 过期时间/证书有效期：对于 kube-controller-manager 实现的签名者，
       设置为 `--cluster-signing-duration` 选项和 CSR 对象的 `spec.expirationSeconds` 字段（如有设置该字段）中的最小值。
    1. 允许/不允许 CA 位：不允许。
