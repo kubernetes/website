@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Verifying container image signatures within CRI runtimes"
+title: "Verifying Container Image Signatures Within CRI Runtimes"
 date: 2023-06-29
 slug: container-image-signature-verification
 ---
@@ -40,7 +40,7 @@ the signatures.
 
 The general usage flow for an admission controller based verification is:
 
-![flow](flow.png "Admission controller flow")
+{{< figure src="/blog/2023/06/29/container-image-signature-verification/flow.svg" alt="Create an instance of the policy and annotate the namespace to validate the signatures. Then create the pod. The controller evaluates the policy and if it passes, then it does the image pull if necessary. If the policy evaluation fails, then it will not admit the pod." >}}
 
 A key benefit of this architecture is simplicity: A single instance within the
 cluster validates the signatures before any image pull can happen in the
@@ -289,17 +289,17 @@ maintain and define the policies to provide a good user experience around that
 feature. The CRDs of the policy-controller are great, while we could imagine that
 a daemon within the cluster can write the policies for CRI-O per namespace. This
 would make any additional hook obsolete and moves the responsibility of
-verifying the image signature to the actual instance which pulls the image. [We
+verifying the image signature to the actual instance which pulls the image. [I
 evaluated][thread] other possible paths toward a better container image
-signature verification within plain Kubernetes, but we could not find a great fit
-for a native API. This means that we believe that a CRD is the way to go, but we
-still need an instance which actually serves it.
+signature verification within plain Kubernetes, but I could not find a great fit
+for a native API. This means that I believe that a CRD is the way to go, but
+users still need an instance which actually serves it.
 
 [thread]: https://groups.google.com/g/kubernetes-sig-node/c/kgpxqcsJ7Vc/m/7X7t_ElsAgAJ
 
 Thank you for reading this blog post! If you're interested in more, providing
-feedback or asking for help, then feel free to get in touch with us directly via
-[Slack (#crio)][slack] or the [SIG node mailing list][mail].
+feedback or asking for help, then feel free to get in touch with me directly via
+[Slack (#crio)][slack] or the [SIG Node mailing list][mail].
 
 [slack]: https://kubernetes.slack.com/messages/crio
 [mail]: https://groups.google.com/forum/#!forum/kubernetes-sig-node
