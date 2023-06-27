@@ -50,7 +50,7 @@ P[pod data] -.- C
 end
 L[API<br>server]
 W[HPA]
-C ---->|metrics resource<br>API| A -->|metrics<br>API| L --> W
+C ---->|node level<br>resource metrics| A -->|metrics<br>API| L --> W
 end
 L ---> K[kubectl<br>top]
 classDef box fill:#fff,stroke:#000,stroke-width:1px,color:#000;
