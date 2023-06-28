@@ -129,6 +129,14 @@ systemctl start kubelet
 
 Run `kubectl get nodes -o wide` and containerd appears as the runtime for the node we just changed.
 
+## Uncordon the node 
+
+```shell
+kubectl uncordon <node-to-uncordon>
+```
+
+Replace `<node-to-uncordon>` with the name of your node you are draining.
+
 ## Remove Docker Engine
 
 {{% thirdparty-content %}}
