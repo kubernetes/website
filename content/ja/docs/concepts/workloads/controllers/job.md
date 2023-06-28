@@ -339,7 +339,7 @@ Pod失敗ポリシーまたはPod失敗のバックオフポリシーのいず�
     - `Count`: Podがデフォルトの方法で処理されるべきであることを示します。`.spec.backoffLimit`のカウンタが加算されます。
 
 {{< note >}}
-`PodFailurePolicy`を使用すると、Jobコントローラは`Failed`フェーズのPodのみにマッチします。削除タイムスタンプを持つPodで、終了フェーズ（`Failed`または`Succeeded`）にないものは、まだ終了中と見なされます。これは、終了中Podは終了フェーズに達するまで[追跡ファイナライザー](#job-tracking-with-finalizers)を保持することを意味します。Kubernetes 1.27以降、Kubeletは削除されたPodを終了フェーズに遷移させます（参照：[Podのフェーズ](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)）。これにより、削除されたPodはJobコントローラーによってファイナライザーが削除されます。
+`PodFailurePolicy`を使用すると、Jobコントローラは`Failed`フェーズのPodのみにマッチします。削除タイムスタンプを持つPodで、終了フェーズ(`Failed`または`Succeeded`)にないものは、まだ終了中と見なされます。これは、終了中Podは終了フェーズに達するまで[追跡ファイナライザー](#job-tracking-with-finalizers)を保持することを意味します。Kubernetes 1.27以降、Kubeletは削除されたPodを終了フェーズに遷移させます(参照:[Podのフェーズ](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase))。これにより、削除されたPodはJobコントローラーによってファイナライザーが削除されます。
 {{< /note >}}
 
 ## Jobの終了とクリーンアップ  {#job-termination-and-cleanup}
