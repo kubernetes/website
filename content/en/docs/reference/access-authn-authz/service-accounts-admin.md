@@ -99,6 +99,7 @@ each source also represents a single path within that volume. The three sources 
 1. A `serviceAccountToken` source, that contains a token that the kubelet acquires from kube-apiserver.
    The kubelet fetches time-bound tokens using the TokenRequest API. A token served for a TokenRequest expires
    either when the pod is deleted or after a defined lifespan (by default, that is 1 hour).
+   The kubelet also refreshes that token before the token expires.
    The token is bound to the specific Pod and has the kube-apiserver as its audience.
    This mechanism superseded an earlier mechanism that added a volume based on a Secret,
    where the Secret represented the ServiceAccount for the Pod, but did not expire.
