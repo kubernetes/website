@@ -102,13 +102,13 @@ weight: 10
   모든 `phase: test` 컴포넌트를 선택하는 서비스를 생각해 볼 수 있다.
   이 접근 방법의 예시는 [방명록](https://github.com/kubernetes/examples/tree/master/guestbook/) 앱을 참고한다.
 
-릴리스에 특정되는 레이블을 서비스의 셀렉터에서 생략함으로써 여러 개의 디플로이먼트에 걸치는 서비스를
-생성할 수 있다. 동작 중인 서비스를 다운타임 없이 갱신하려면,
-[디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)를 사용한다.
+  릴리스에 특정되는 레이블을 서비스의 셀렉터에서 생략함으로써 여러 개의 디플로이먼트에 걸치는 서비스를
+  생성할 수 있다. 동작 중인 서비스를 다운타임 없이 갱신하려면,
+  [디플로이먼트](/ko/docs/concepts/workloads/controllers/deployment/)를 사용한다.
 
-오브젝트의 의도한 상태는 디플로이먼트에 의해 기술되며, 만약 그 스펙에 대한 변화가
-_적용될_ 경우, 디플로이먼트 컨트롤러는
-일정한 비율로 실제 상태를 의도한 상태로 변화시킨다.
+  오브젝트의 의도한 상태는 디플로이먼트에 의해 기술되며, 만약 그 스펙에 대한 변화가
+  _적용될_ 경우, 디플로이먼트 컨트롤러는
+  일정한 비율로 실제 상태를 의도한 상태로 변화시킨다.
 
 - 일반적인 활용 사례인 경우 [쿠버네티스 공통 레이블](/ko/docs/concepts/overview/working-with-objects/common-labels/)을 
   사용한다. 이 표준화된 레이블은 `kubectl` 및

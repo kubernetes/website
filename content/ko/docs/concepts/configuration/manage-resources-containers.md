@@ -12,16 +12,15 @@ feature:
 <!-- overview -->
 
 {{< glossary_tooltip text="파드" term_id="pod" >}}를 지정할 때,
-{{< glossary_tooltip text="컨테이너" term_id="container" >}}에 필요한 각 리소스의 양을 선택적으로 지정할 수 있다.
-지정할 가장 일반적인 리소스는 CPU와 메모리(RAM) 그리고 다른 것들이 있다.
+{{< glossary_tooltip text="컨테이너" term_id="container" >}}에 필요한 각 리소스의 양을 선택적으로 지정할 수 있다. 지정할 수 있는 가장 일반적인 리소스는 CPU와 메모리
+(RAM)이다. 그 외에 다른 리소스들도 지정할 수 있다.
 
 파드에서 컨테이너에 대한 리소스 _요청(request)_ 을 지정하면, 
-{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}는 이 정보를
-사용하여 파드가 배치될 노드를 결정한다. 컨테이너에 대한 리소스 _제한(limit)_ 을
-지정하면, kubelet은 실행 중인 컨테이너가 설정한 제한보다 많은 리소스를
-사용할 수 없도록 해당 제한을 적용한다. 또한 kubelet은
-컨테이너가 사용할 수 있도록 해당 시스템 리소스의 최소 _요청_ 량을
-예약한다.
+{{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}}는 이 정보를 사용하여 파드가 배치될 노드를 결정한다. 
+컨테이너에 대한 리소스 _제한(limit)_ 을 지정하면, {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}은 해당 제한을 강제하여
+실행 중인 컨테이너가 설정된 제한보다 많은 리소스를
+사용할 수 없도록 한다. 또한 kubelet은 구체적으로 컨테이너가 사용할 
+시스템 리소스의 최소 _요청_ 량을 예약한다.
 
 <!-- body -->
 
@@ -226,7 +225,7 @@ kubelet은 해당 컨테이너의 메모리/CPU 요청 및 제한을 컨테이�
 ### 컴퓨트 및 메모리 리소스 사용량 모니터링
 
 kubelet은 파드의 리소스 사용량을 파드 
-[`status`](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/#오브젝트-명세-spec-와-상태-status)에 포함하여 보고한다.
+[`status`](/ko/docs/concepts/overview/working-with-objects/#오브젝트-명세-spec-와-상태-status)에 포함하여 보고한다.
 
 클러스터에서 선택적인 [모니터링 도구](/ko/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)를
 사용할 수 있다면, [메트릭 API](/ko/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#metrics-api)에서
@@ -257,7 +256,19 @@ kubelet은 이러한 종류의 스토리지를 사용하여
 기대할 수 없다.
 {{< /caution >}}
 
-베타 기능에서, 쿠버네티스는 파드가 사용할 수 있는 임시 로컬 스토리지의 양을
+
+{{< note >}}
+임시 스토리지에 리소스를 할당하기 위해서, 다음 두 가지 작업을 수행한다.
+
+* 관리자는 네임스페이스에서 임시 스토리지를 위한 리소스 할당량을 설정한다.
+* 사용자는 파드 스펙에서 임시 스토리지 리소스 제한을 지정한다.
+
+만약 사용자가 파드 스펙에 임시 스토리지 리소스 제한을 지정하지 않으면,
+임시 스토리지의 리소스 할당량이 제한되지 않는다.
+
+{{< /note >}}
+
+쿠버네티스는 파드가 사용할 수 있는 임시 로컬 스토리지의 양을
 추적, 예약 및 제한할 수 있도록 해준다.
 
 ### 로컬 임시 스토리지 구성
@@ -323,7 +334,7 @@ kubelet은 임시 스토리지을 위해 오직 루트 파일시스템만을 추
 
 ### 로컬 임시 스토리지에 대한 요청 및 제한 설정
 
-`ephemeral-storage`를 명시하여 로컬 임시 저장소를 관리할 수 있다. 
+`ephemeral-storage`를 명시하여 로컬 임시 스토리지를 관리할 수 있다. 
 파드의 각 컨테이너는 다음 중 하나 또는 모두를 명시할 수 있다.
 
 * `spec.containers[].resources.limits.ephemeral-storage`
@@ -805,5 +816,6 @@ Events:
 * [컨테이너와 파드에 CPU 리소스를 할당](/ko/docs/tasks/configure-pod-container/assign-cpu-resource/)하는 핸즈온 경험을 해보자.
 * API 레퍼런스에 [컨테이너](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)와 
   [컨테이너 리소스 요구사항](/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources)이 어떻게 정의되어 있는지 확인한다.
-* XFS의 [프로젝트 쿼터](https://xfs.org/index.php/XFS_FAQ#Q:_Quota:_Do_quotas_work_on_XFS.3F)에 대해 읽어보기
+* XFS의 [프로젝트 쿼터](https://www.linux.org/docs/man8/xfs_quota.html)에 대해 읽어보기
 * [kube-scheduler 정책 레퍼런스 (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/)에 대해 더 읽어보기
+* [파드의 QoS(Quality of Service) 클래스](/docs/concepts/workloads/pods/pod-qos/)에 대해 더 읽어보기

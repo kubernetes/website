@@ -37,7 +37,7 @@ weight: 20
 ## 컨피그맵 오브젝트
 
 컨피그맵은 다른 오브젝트가 사용할 구성을 저장할 수 있는
-API [오브젝트](/ko/docs/concepts/overview/working-with-objects/kubernetes-objects/)이다.
+{{< glossary_tooltip text="API 오브젝트" term_id="object" >}}이다.
 `spec` 이 있는 대부분의 쿠버네티스 오브젝트와 달리, 컨피그맵에는 `data` 및 `binaryData`
 필드가 있다. 이러한 필드는 키-값 쌍을 값으로 허용한다. `data` 필드와
 `binaryData` 는 모두 선택 사항이다. `data` 필드는
@@ -189,7 +189,7 @@ spec:
 kubelet은 모든 주기적인 동기화에서 마운트된 컨피그맵이 최신 상태인지 확인한다.
 그러나, kubelet은 로컬 캐시를 사용해서 컨피그맵의 현재 값을 가져온다.
 캐시 유형은 [KubeletConfiguration 구조체](/docs/reference/config-api/kubelet-config.v1beta1/)의
-`ConfigMapAndSecretChangeDetectionStrategy` 필드를 사용해서 구성할 수 있다.
+`configMapAndSecretChangeDetectionStrategy` 필드를 사용해서 구성할 수 있다.
 컨피그맵은 watch(기본값), ttl 기반 또는 API 서버로 직접
 모든 요청을 리디렉션할 수 있다.
 따라서 컨피그맵이 업데이트되는 순간부터 새 키가 파드에 업데이트되는 순간까지의
