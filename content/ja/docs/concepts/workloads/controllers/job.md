@@ -335,8 +335,8 @@ Pod失敗ポリシーまたはPod失敗のバックオフポリシーのいず�
   - `spec.podFailurePolicy.rules[*].containerName`を指定することで、ルールを特定のコンテナに制限することができます。指定しない場合、ルールはすべてのコンテナに適用されます。指定する場合は、Pod テンプレート内のコンテナ名または`initContainer`名のいずれかに一致する必要があります。
   - Pod失敗ポリシーが`spec.podFailurePolicy.rules[*].action`にマッチしたときに実行されるアクションを指定できます。指定可能な値は以下のとおりです。
     - `FailJob`: PodのJobを`Failed`としてマークし、実行中の Pod をすべて終了させる必要があることを示します。 
-    - `Ignore`: `.spec.backoffLimit`のカウンタは加算されず、代替のPodが作成すべきであることを示します。
-    - `Count`: Podがデフォルトの方法で処理されるべきであることを示します。`.spec.backoffLimit`のカウンタが加算されます。
+    - `Ignore`: `.spec.backoffLimit`のカウンターは加算されず、代替のPodが作成すべきであることを示します。
+    - `Count`: Podがデフォルトの方法で処理されるべきであることを示します。`.spec.backoffLimit`のカウンターが加算されます。
 
 {{< note >}}
 `PodFailurePolicy`を使用すると、Jobコントローラは`Failed`フェーズのPodのみにマッチします。削除タイムスタンプを持つPodで、終了フェーズ(`Failed`または`Succeeded`)にないものは、まだ終了中と見なされます。これは、終了中Podは終了フェーズに達するまで[追跡ファイナライザー](#job-tracking-with-finalizers)を保持することを意味します。Kubernetes 1.27以降、Kubeletは削除されたPodを終了フェーズに遷移させます(参照:[Podのフェーズ](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase))。これにより、削除されたPodはJobコントローラーによってファイナライザーが削除されます。
