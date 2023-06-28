@@ -434,12 +434,10 @@ The available `type` values and their behaviors are:
   DNS server to return a `CNAME` record with that external hostname value.
   No proxying of any kind is set up.
 
-Kubernetes Service API utilizes a nested structure in its type field -
-`type: NodePort` expands upon `type: ClusterIP` capabilities, by default maintaining a `type: ClusterIP`.
-This inherent nested functionality, despite the cloud provider, gives a wider range of
-control in service exposure.
-
-
+In Kubernetes Service API, `type` field reflects layered functionality—
+`type: NodePort` includes and extends `type: ClusterIP` features.
+This design pattern is inherent to Service types, enabling flexible 
+service exposure regardless of cloud provider.
 
 ### `type: ClusterIP` {#type-clusterip}
 
