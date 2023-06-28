@@ -147,12 +147,10 @@ kubectl api-resources --namespaced=false
 
 ## Automatic labelling
 
-{{< feature-state for_k8s_version="1.22" state="stable" >}}
+{{< feature-state for_k8s_version="1.22" state="stable" for_k8s_version="1.23" state="removed" >}}
 
 The Kubernetes control plane sets an immutable {{< glossary_tooltip text="label" term_id="label" >}}
-`kubernetes.io/metadata.name` on all namespaces, provided that the `NamespaceDefaultLabelName`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
-The value of the label is the namespace name.
+`kubernetes.io/metadata.name` on all namespaces, containing the namespace name.
 
 
 ## {{% heading "whatsnext" %}}
