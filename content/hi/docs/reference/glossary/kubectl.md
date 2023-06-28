@@ -1,5 +1,5 @@
 ---
-title: kubectl
+title: क्यूबकण्ट्रोल (Kubectl)
 id: kubectl
 date: 2018-04-12
 full_link: /docs/user-guide/kubectl-overview/
