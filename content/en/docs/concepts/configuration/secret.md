@@ -846,6 +846,8 @@ When using this type of Secret, the `tls.key` and the `tls.crt` key must be prov
 in the `data` (or `stringData`) field of the Secret configuration, although the API
 server doesn't actually validate the values for each key.
 
+Use the `stringData` field to add the certificate and private key directly to the secret. Use the `data` field to provide base64 encoded values of both the certificate and private key. Refer to [Constraints on Secret names and data](#restriction-names-data) for more on this.
+
 The following YAML contains an example config for a TLS Secret:
 
 ```yaml
