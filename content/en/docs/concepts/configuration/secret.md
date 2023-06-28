@@ -854,7 +854,7 @@ kind: Secret
 metadata:
   name: secret-tls
 type: kubernetes.io/tls
-data:
+stringData:
   # the data is abbreviated in this example
   tls.crt: |
     MIIC2DCCAcCgAwIBAgIBATANBgkqh ...
