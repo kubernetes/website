@@ -38,7 +38,7 @@ a otros, no dudes en crear un _issue_ o enviar un PR.
 ## "Naked" Pods vs ReplicaSets, Deployments y Jobs {#naked-pods-vs-replicasets-deployments-and-jobs}
 
 - No use "Naked" Pods (es decir, Pods no vinculados a un [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) o a un
-  [Deployment](/docs/concepts/workloads/controllers/deployment/)) si puedes evitarlo. Naked Pods
+  [Deployment](/docs/concepts/workloads/controllers/deployment/)) si puedes evitarlo. Los Naked Pods
   no se reprogramará en caso de falla de un nodo.
 
   Un Deployment, que crea un ReplicaSet para garantizar que se alcance la cantidad deseada de Pods está
