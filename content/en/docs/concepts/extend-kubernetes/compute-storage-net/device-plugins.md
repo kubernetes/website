@@ -397,7 +397,7 @@ ensure your kubelet services are started with the following flags:
 
 ## Device plugin integration with the Topology Manager
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
 The Topology Manager is a Kubelet component that allows resources to be co-ordinated in a Topology
 aligned manner. In order to do this, the Device Plugin API was extended to include a
