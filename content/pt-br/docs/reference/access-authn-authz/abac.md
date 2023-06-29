@@ -10,7 +10,7 @@ O controle de acesso baseado em atributos (ABAC) define um paradigma de controle
 <!-- body -->
 ## Formato do arquivo de política
 
-Especifique os parametros de inicializacao `--authorization-policy-file=NOME_DE_ALGUM_ARQUIVO` e `--authorization-mode=ABAC` para habilitar o modo `ABAC`.
+Especifique os parametros de inicialização `--authorization-policy-file=NOME_DE_ALGUM_ARQUIVO` e `--authorization-mode=ABAC` para habilitar o modo `ABAC`.
 
 O formato do arquivo é de [um objeto JSON por linha](https://jsonlines.org/). Nele não deve haver lista ou mapa envolvente, apenas um mapa por linha.
 
