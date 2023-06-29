@@ -129,9 +129,10 @@ kube-apiserverには2つのバックエンドが用意されています。
 
 クラスターのコントロールプレーンでkube-apiserverをPodとして動作させている場合は、監査記録が永久化されるように、ポリシーファイルとログファイルの場所に`hostPath`をマウントすることを忘れないでください。
 例えば:
-```shell
-    --audit-policy-file=/etc/kubernetes/audit-policy.yaml \
-    --audit-log-path=/var/log/audit.log
+
+```yaml
+  - --audit-policy-file=/etc/kubernetes/audit-policy.yaml
+  - --audit-log-path=/var/log/kubernetes/audit/audit.log
 ```
 
 それからボリュームをマウントします:

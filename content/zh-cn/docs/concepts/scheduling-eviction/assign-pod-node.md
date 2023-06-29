@@ -3,7 +3,6 @@ title: 将 Pod 指派给节点
 content_type: concept
 weight: 20
 ---
-
 <!--
 reviewers:
 - davidopp
@@ -31,13 +30,12 @@ or to co-locate Pods from two different services that communicate a lot into the
 -->
 你可以约束一个 {{< glossary_tooltip text="Pod" term_id="pod" >}}
 以便 **限制** 其只能在特定的{{< glossary_tooltip text="节点" term_id="node" >}}上运行，
-或优先在特定的节点上运行。
-有几种方法可以实现这点，推荐的方法都是用
+或优先在特定的节点上运行。有几种方法可以实现这点，推荐的方法都是用
 [标签选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/)来进行选择。
 通常这样的约束不是必须的，因为调度器将自动进行合理的放置（比如，将 Pod 分散到节点上，
 而不是将 Pod 放置在可用资源不足的节点上等等）。但在某些情况下，你可能需要进一步控制
 Pod 被部署到哪个节点。例如，确保 Pod 最终落在连接了 SSD 的机器上，
-或者将来自两个不同的服务且有大量通信的 Pods 被放置在同一个可用区。
+或者将来自两个不同的服务且有大量通信的 Pod 被放置在同一个可用区。
 
 <!-- body -->
 
@@ -94,7 +92,7 @@ properties.
 ## 节点隔离/限制  {#node-isolation-restriction}
 
 通过为节点添加标签，你可以准备让 Pod 调度到特定节点或节点组上。
-你可以使用这个功能来确保特定的 Pod 只能运行在具有一定隔离性，安全性或监管属性的节点上。
+你可以使用这个功能来确保特定的 Pod 只能运行在具有一定隔离性、安全性或监管属性的节点上。
 
 <!--
 If you use labels for node isolation, choose label keys that the {{<glossary_tooltip text="kubelet" term_id="kubelet">}}
@@ -126,7 +124,7 @@ kubelet 使用 `node-restriction.kubernetes.io/` 前缀设置或修改标签。
 1. 确保你在使用[节点鉴权](/zh-cn/docs/reference/access-authn-authz/node/)机制并且已经启用了
    [NodeRestriction 准入插件](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#noderestriction)。
 2. 将带有 `node-restriction.kubernetes.io/` 前缀的标签添加到 Node 对象，
-   然后在[节点选择器](#nodeSelector)中使用这些标签。
+   然后在[节点选择算符](#nodeSelector)中使用这些标签。
    例如，`example.com.node-restriction.kubernetes.io/fips=true` 或
    `example.com.node-restriction.kubernetes.io/pci-dss=true`。
 
@@ -259,6 +257,12 @@ interpreting the rules. You can use `In`, `NotIn`, `Exists`, `DoesNotExist`,
 -->
 你可以使用 `operator` 字段来为 Kubernetes 设置在解释规则时要使用的逻辑操作符。
 你可以使用 `In`、`NotIn`、`Exists`、`DoesNotExist`、`Gt` 和 `Lt` 之一作为操作符。
+
+<!--
+Read [Operators](#operators)
+to learn more about how these work.
+-->
+阅读[操作符](#operators)了解有关这些操作的更多信息。
 
 <!--
 `NotIn` and `DoesNotExist` allow you to define node anti-affinity behavior.
@@ -419,7 +423,7 @@ Pods, the default Kubernetes scheduler places those Pods and honors any
 DaemonSet 控制器[为 DaemonSet 创建 Pod](/zh-cn/docs/concepts/workloads/controllers/daemonset/#how-daemon-pods-are-scheduled)，
 但该控制器不理会调度方案。
 DaemonSet 控制器创建 Pod 时，默认的 Kubernetes 调度器负责放置 Pod，
-并遵从 DaemonSet 控制器中奢侈的 `nodeAffinity` 规则。
+并遵从 DaemonSet 控制器中设置的 `nodeAffinity` 规则。
 {{< /note >}}
 
 <!--
@@ -579,13 +583,20 @@ refer to the [design proposal](https://git.k8s.io/design-proposals-archive/sched
 <!--
 You can use the `In`, `NotIn`, `Exists` and `DoesNotExist` values in the
 `operator` field for Pod affinity and anti-affinity.
-
-In principle, the `topologyKey` can be any allowed label key with the following
-exceptions for performance and security reasons:
 -->
 你可以针对 Pod 间亲和性与反亲和性为其 `operator` 字段使用 `In`、`NotIn`、`Exists`、
 `DoesNotExist` 等值。
 
+<!--
+Read [Operators](#operators)
+to learn more about how these work.
+-->
+阅读[操作符](#operators)了解有关这些操作的更多信息。
+
+<!--
+In principle, the `topologyKey` can be any allowed label key with the following
+exceptions for performance and security reasons:
+-->
 原则上，`topologyKey` 可以是任何合法的标签键。出于性能和安全原因，`topologyKey`
 有一些限制：
 
@@ -613,9 +624,9 @@ If omitted or empty, `namespaces` defaults to the namespace of the Pod where the
 affinity/anti-affinity definition appears.
 -->
 除了 `labelSelector` 和 `topologyKey`，你也可以指定 `labelSelector`
-要匹配的命名空间列表，方法是在 `labelSelector` 和 `topologyKey`
+要匹配的名字空间列表，方法是在 `labelSelector` 和 `topologyKey`
 所在层同一层次上设置 `namespaces`。
-如果 `namespaces` 被忽略或者为空，则默认为 Pod 亲和性/反亲和性的定义所在的命名空间。
+如果 `namespaces` 被忽略或者为空，则默认为 Pod 亲和性/反亲和性的定义所在的名字空间。
 
 <!--
 #### Namespace selector
@@ -869,6 +880,58 @@ to learn more about how these work.
 阅读 [Pod 拓扑分布约束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 以进一步了解这些约束的工作方式。
 
+<!--
+## Operators
+
+The following are all the logical operators that you can use in the `operator` field for `nodeAffinity` and `podAffinity` mentioned above.
+-->
+## 操作符   {#operators}
+
+下面是你可以在上述 `nodeAffinity` 和 `podAffinity` 的 `operator`
+字段中可以使用的所有逻辑运算符。
+
+<!--
+|    Operator    |    Behavior     |
+| :------------: | :-------------: |
+| `In` | The label value is present in the supplied set of strings |
+|   `NotIn`   | The label value is not contained in the supplied set of strings |
+| `Exists` | A label with this key exists on the object |
+| `DoesNotExist` | No label with this key exists on the object |
+-->
+| 操作符 | 行为 |
+| :------------: | :-------------: |
+| `In` | 标签值存在于提供的字符串集中 |
+| `NotIn`  | 标签值不包含在提供的字符串集中 |
+| `Exists` | 对象上存在具有此键的标签 |
+| `DoesNotExist` | 对象上不存在具有此键的标签 |
+
+<!--
+The following operators can only be used with `nodeAffinity`.
+-->
+以下操作符只能与 `nodeAffinity` 一起使用。
+
+<!--
+|    Operator    |    Behaviour    |
+| :------------: | :-------------: |
+| `Gt` | The supplied value will be parsed as an integer, and that integer is less than or equal to the integer that results from parsing the value of a label named by this selector | 
+| `Lt` | The supplied value will be parsed as an integer, and that integer is greater than or equal to the integer that results from parsing the value of a label named by this selector |
+-->
+| 操作符 | 行为 |
+| :------------: | :-------------: |
+| `Gt` | 提供的值将被解析为整数，并且该整数小于等于通过解析此选择算符命名的标签的值所得到的整数 | 
+| `Lt` | 提供的值将被解析为整数，并且该整数大于等于通过解析此选择算符命名的标签的值所得到的整数 | 
+
+{{<note>}}
+<!--
+`Gt` and `Lt` operators will not work with non-integer values. If the given value 
+doesn't parse as an integer, the pod will fail to get scheduled. Also, `Gt` and `Lt` 
+are not available for `podAffinity`.
+-->
+`Gt` 和 `Lt` 操作符不能与非整数值一起使用。
+如果给定的值未解析为整数，则该 Pod 将无法被调度。
+另外，`Gt` 和 `Lt` 不适用于 `podAffinity`。
+{{</note>}}
+
 ## {{% heading "whatsnext" %}}
 
 <!--
@@ -882,7 +945,7 @@ to learn more about how these work.
 -->
 - 进一步阅读[污点与容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)文档。
 - 阅读[节点亲和性](https://git.k8s.io/design-proposals-archive/scheduling/nodeaffinity.md)
-  和[Pod 间亲和性与反亲和性](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md)
+  和 [Pod 间亲和性与反亲和性](https://git.k8s.io/design-proposals-archive/scheduling/podaffinity.md)
   的设计文档。
 - 了解[拓扑管理器](/zh-cn/docs/tasks/administer-cluster/topology-manager/)如何参与节点层面资源分配决定。
 - 了解如何使用 [nodeSelector](/zh-cn/docs/tasks/configure-pod-container/assign-pods-nodes/)。

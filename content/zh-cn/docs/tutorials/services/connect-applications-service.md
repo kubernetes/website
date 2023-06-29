@@ -240,22 +240,22 @@ about the [service proxy](/docs/concepts/services-networking/service/#virtual-ip
 
 Kubernetes supports 2 primary modes of finding a Service - environment variables
 and DNS. The former works out of the box while the latter requires the
-[CoreDNS cluster addon](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/coredns).
+[CoreDNS cluster addon](https://releases.k8s.io/v{{< skew currentPatchVersion >}}/cluster/addons/dns/coredns).
 -->
 ## 访问 Service   {#accessing-the-service}
 
 Kubernetes 支持两种查找服务的主要模式：环境变量和 DNS。前者开箱即用，而后者则需要
-[CoreDNS 集群插件](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/coredns)。
+[CoreDNS 集群插件](https://releases.k8s.io/v{{< skew currentPatchVersion >}}/cluster/addons/dns/coredns)。
 
 {{< note >}}
 <!--
 If the service environment variables are not desired (because possible clashing
 with expected program ones, too many variables to process, only using DNS, etc)
 you can disable this mode by setting the `enableServiceLinks` flag to `false` on
-the [pod spec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core).
+the [pod spec](/docs/reference/generated/kubernetes-api/v{{< skew latestVersion >}}/#pod-v1-core).
 -->
 如果不需要服务环境变量（因为可能与预期的程序冲突，可能要处理的变量太多，或者仅使用DNS等），则可以通过在
-[pod spec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)
+[pod spec](/docs/reference/generated/kubernetes-api/v{{< skew latestVersion >}}/#pod-v1-core)
 上将 `enableServiceLinks` 标志设置为 `false` 来禁用此模式。
 {{< /note >}}
 

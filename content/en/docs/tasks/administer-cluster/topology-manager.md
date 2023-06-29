@@ -15,7 +15,7 @@ weight: 150
 
 <!-- overview -->
 
-{{< feature-state state="beta" for_k8s_version="v1.18" >}}
+{{< feature-state state="stable" for_k8s_version="v1.27" >}}
 
 An increasing number of systems leverage a combination of CPUs and hardware accelerators to
 support latency-critical execution and high-throughput parallel computation. These include
@@ -59,12 +59,6 @@ The selected hint is stored as part of the Topology Manager. Depending on the po
 the pod can be accepted or rejected from the node based on the selected hint.
 The hint is then stored in the Topology Manager for use by the *Hint Providers* when making the
 resource allocation decisions.
-
-### Enable the Topology Manager feature
-
-Support for the Topology Manager requires `TopologyManager`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
-It is enabled by default starting with Kubernetes 1.18.
 
 ## Topology Manager Scopes and Policies
 

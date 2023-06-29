@@ -37,7 +37,7 @@ Several volume plugins are being deprecated or removed.
 
 [GlusterFS will be deprecated in v1.25](https://github.com/kubernetes/enhancements/issues/3446). While a CSI driver was built for it, it has not been maintained. The possibility of migration to a compatible CSI driver [was discussed](https://github.com/kubernetes/kubernetes/issues/100897), but a decision was ultimately made to begin the deprecation of the GlusterFS plugin from in-tree drivers. The [Portworx in-tree volume plugin](https://github.com/kubernetes/enhancements/issues/2589) is also being deprecated with this release. The Flocker, Quobyte, and StorageOS in-tree volume plugins are being removed.
 
-[Flocker](https://github.com/kubernetes/kubernetes/pull/111618), [Quobyte](https://github.com/kubernetes/kubernetes/pull/111619), and [StorageOS](https://github.com/kubernetes/kubernetes/pull/111620) in-tree volume plugins will be removed in v1.25 as part of the [CSI Migration](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/625-csi-migration).
+[Flocker](https://github.com/kubernetes/kubernetes/pull/111618), [Quobyte](https://github.com/kubernetes/kubernetes/pull/111619), and [StorageOS](https://github.com/kubernetes/kubernetes/pull/111620) in-tree volume plugins will be removed in v1.25. Users of these plugins need to switch to an equivalent CSI driver or an alternate storage provider.
 
 ### [Change to vSphere version support](https://github.com/kubernetes/kubernetes/pull/111255)
 

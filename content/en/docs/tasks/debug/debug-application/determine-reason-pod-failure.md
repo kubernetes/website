@@ -128,4 +128,4 @@ is empty and the container exited with an error. The log output is limited to
 * See the `terminationMessagePath` field in
   [Container](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#container-v1-core).
 * Learn about [retrieving logs](/docs/concepts/cluster-administration/logging/).
-* Learn about [Go templates](https://golang.org/pkg/text/template/).
+* Learn about [Go templates](https://pkg.go.dev/text/template).

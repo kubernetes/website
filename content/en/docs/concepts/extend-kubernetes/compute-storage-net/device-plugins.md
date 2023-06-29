@@ -213,6 +213,7 @@ for these devices:
 service PodResourcesLister {
     rpc List(ListPodResourcesRequest) returns (ListPodResourcesResponse) {}
     rpc GetAllocatableResources(AllocatableResourcesRequest) returns (AllocatableResourcesResponse) {}
+    rpc Get(GetPodResourcesRequest) returns (GetPodResourcesResponse) {}
 }
 ```
 
@@ -222,6 +223,14 @@ The `List` endpoint provides information on resources of running pods, with deta
 id of exclusively allocated CPUs, device id as it was reported by device plugins and id of
 the NUMA node where these devices are allocated. Also, for NUMA-based machines, it contains the
 information about memory and hugepages reserved for a container.
+
+Starting from Kubernetes v1.27, the `List` endpoint can provide information on resources
+of running pods allocated in `ResourceClaims` by the `DynamicResourceAllocation` API. To enable
+this feature `kubelet` must be started with the following flags:
+
+```
+--feature-gates=DynamicResourceAllocation=true,KubeletPodResourcesDynamiceResources=true
+```
 
 ```gRPC
 // ListPodResourcesResponse is the response returned by List function
@@ -242,6 +251,7 @@ message ContainerResources {
     repeated ContainerDevices devices = 2;
     repeated int64 cpu_ids = 3;
     repeated ContainerMemory memory = 4;
+    repeated DynamicResource dynamic_resources = 5;
 }
 
 // ContainerMemory contains information about memory and hugepages assigned to a container
@@ -266,6 +276,28 @@ message ContainerDevices {
     string resource_name = 1;
     repeated string device_ids = 2;
     TopologyInfo topology = 3;
+}
+
+// DynamicResource contains information about the devices assigned to a container by Dynamic Resource Allocation
+message DynamicResource {
+    string class_name = 1;
+    string claim_name = 2;
+    string claim_namespace = 3;
+    repeated ClaimResource claim_resources = 4;
+}
+
+// ClaimResource contains per-plugin resource information
+message ClaimResource {
+    repeated CDIDevice cdi_devices = 1 [(gogoproto.customname) = "CDIDevices"];
+}
+
+// CDIDevice specifies a CDI device information
+message CDIDevice {
+    // Fully qualified CDI device name
+    // for example: vendor.com/gpu=gpudevice1
+    // see more details in the CDI specification:
+    // https://github.com/container-orchestrated-devices/container-device-interface/blob/main/SPEC.md
+    string name = 1;
 }
 ```
 {{< note >}}
@@ -332,6 +364,36 @@ DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 Support for the `PodResourcesLister service` requires `KubeletPodResources`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
 It is enabled by default starting with Kubernetes 1.15 and is v1 since Kubernetes 1.20.
+
+### `Get` gRPC endpoint {#grpc-endpoint-get}
+
+{{< feature-state state="alpha" for_k8s_version="v1.27" >}}
+
+The `Get` endpoint provides information on resources of a running Pod. It exposes information
+similar to those described in the `List` endpoint. The `Get` endpoint requires `PodName`
+and `PodNamespace` of the running Pod.
+
+```gRPC
+// GetPodResourcesRequest contains information about the pod
+message GetPodResourcesRequest {
+    string pod_name = 1;
+    string pod_namespace = 2;
+}
+```
+
+To enable this feature, you must start your kubelet services with the following flag:
+
+```
+--feature-gates=KubeletPodResourcesGet=true
+```
+
+The `Get` endpoint can provide Pod information related to dynamic resources
+allocated by the dynamic resource allocation API. To enable this feature, you must
+ensure your kubelet services are started with the following flags:
+
+```
+--feature-gates=KubeletPodResourcesGet=true,DynamicResourceAllocation=true,KubeletPodResourcesDynamiceResources=true
+```
 
 ## Device plugin integration with the Topology Manager
 

@@ -162,10 +162,10 @@ For an example of adding a label, see the PR for adding the
 
 The Kubernetes website uses Hugo as its web framework. The website's Hugo
 configuration resides in the
-[`config.toml`](https://github.com/kubernetes/website/tree/main/config.toml)
-file. You'll need to modify `config.toml` to support a new localization.
+[`hugo.toml`](https://github.com/kubernetes/website/tree/main/hugo.toml)
+file. You'll need to modify `hugo.toml` to support a new localization.
 
-Add a configuration block for the new language to `config.toml` under the
+Add a configuration block for the new language to `hugo.toml` under the
 existing `[languages]` block. The German block, for example, looks like:
 
 ```toml

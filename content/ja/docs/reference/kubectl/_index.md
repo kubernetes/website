@@ -13,11 +13,11 @@ card:
 
 このツールの名前は、`kubectl` です。
 
-`kubectl`コマンドラインツールを使うと、Kubernetesクラスターを制御できます。環境設定のために、`kubectl`は、`$HOME/.kube`ディレクトリにある`config`という名前のファイルを探します。他の[kubeconfig](/ja/docs/concepts/configuration/organize-cluster-access-kubeconfig/)ファイルは、`KUBECONFIG`環境変数を設定するか、[`--kubeconfig`](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)フラグを設定することで指定できます。
+`kubectl`コマンドラインツールを使うと、Kubernetesクラスターを制御できます。環境設定のために、`kubectl`は、`$HOME/.kube`ディレクトリにある`config`という名前のファイルを探します。他の[kubeconfig](/ja/docs/concepts/configuration/organize-cluster-access-kubeconfig/)ファイルは、`KUBECONFIG`環境変数を設定するか、[`--kubeconfig`](/ja/docs/concepts/configuration/organize-cluster-access-kubeconfig/)フラグを設定することで指定できます。
 
 この概要では、`kubectl`の構文を扱い、コマンド操作を説明し、一般的な例を示します。サポートされているすべてのフラグやサブコマンドを含め、各コマンドの詳細については、[kubectl](/docs/reference/generated/kubectl/kubectl-commands/)リファレンスドキュメントを参照してください。
 
-インストール方法については、[kubectlのインストールおよびセットアップ](/ja/docs/tasks/tools/install-kubectl/)をご覧ください。クイックガイドは、[cheat sheet](/docs/reference/kubectl/cheatsheet/) をご覧ください。`docker`コマンドラインツールに慣れている方は、[`kubectl` for Docker Users](/docs/reference/kubectl/docker-cli-to-kubectl/) でKubernetesの同等のコマンドを説明しています。
+インストール方法については、[kubectlのインストールおよびセットアップ](/ja/docs/tasks/tools/install-kubectl/)をご覧ください。クイックガイドは、[チートシート](/ja/docs/reference/kubectl/cheatsheet/)をご覧ください。`docker`コマンドラインツールに慣れている方は、[`kubectl` for Docker Users](/docs/reference/kubectl/docker-cli-to-kubectl/)でKubernetesの同等のコマンドを説明しています。
 
 <!-- body -->
 
@@ -66,6 +66,32 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 ヘルプが必要な場合は、ターミナルウィンドウから`kubectl help`を実行してください。
 
+## クラスター内認証と名前空間のオーバーライド {#in-cluster-authentication-and-namespace-overrides}
+
+デフォルトでは、`kubectl`は最初にPod内で動作しているか、つまりクラスター内で動作しているかどうかを判断します。まず、`KUBERNETES_SERVICE_HOST`と`KUBERNETES_SERVICE_PORT`の環境変数を確認し、サービスアカウントのトークンファイルが`/var/run/secrets/kubernetes.io/serviceaccount/token`に存在するかどうかを確認します。3つともクラスター内で見つかった場合、クラスター内認証とみなされます。
+
+後方互換性を保つため、クラスター内認証時に`POD_NAMESPACE`環境変数が設定されている場合には、サービスアカウントトークンのデフォルトの名前空間が上書きされます。名前空間のデフォルトに依存しているすべてのマニフェストやツールは、この影響を受けます。
+
+**`POD_NAMESPACE`環境変数**
+
+`POD_NAMESPACE`環境変数が設定されている場合、名前空間に属するリソースのCLI操作は、デフォルトで環境変数の値になります。例えば、変数に`seattle`が設定されている場合、`kubectl get pods`は、`seattle`名前空間のPodを返します。これは、Podが名前空間に属するリソースであり、コマンドで名前空間が指定されていないためです。`kubectl api-resources`の出力を見て、リソースが名前空間に属するかどうかを判断してください。
+
+明示的に`--namespace <value>`を使用すると、この動作は上書きされます。
+
+**kubectlによるServiceAccountトークンの処理方法**
+
+以下の条件がすべて成立した場合、
+* `/var/run/secrets/kubernetes.io/serviceaccount/token`にマウントされたKubernetesサービスアカウントのトークンファイルがある
+* `KUBERNETES_SERVICE_HOST`環境変数が設定されている
+* `KUBERNETES_SERVICE_PORT`環境変数が設定されている
+* kubectlコマンドラインで名前空間を明示的に指定しない
+
+kubectlはクラスター内で実行されているとみなして、そのServiceAccountの名前空間(これはPodの名前空間と同じです)を検索し、その名前空間に対して機能します。これは、クラスターの外の動作とは異なります。kubectlがクラスターの外で実行され、名前空間を指定しない場合、kubectlコマンドは、クライアント構成の現在のコンテキストに設定されている名前空間に対して動作します。kubectlのデフォルトの名前空間を変更するには、次のコマンドを使用できます。
+
+```shell
+kubectl config set-context --current --namespace=<namespace-name>
+```
+
 ## 操作
 
 以下の表に、`kubectl`のすべての操作の簡単な説明と一般的な構文を示します。
@@ -93,6 +119,7 @@ kubectl [command] [TYPE] [NAME] [flags]
 `diff`        | `kubectl diff -f FILENAME [flags]`| ファイルまたは標準出力と、現在の設定との差分を表示します。
 `drain`    | `kubectl drain NODE [options]` | メンテナンスの準備のためにNodeをdrainします。
 `edit`        | <code>kubectl edit (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [flags]</code> | デファルトのエディタを使い、サーバー上の1つ以上のリソースリソースの定義を編集し、更新します。
+`events`      | `kubectl events` | イベントを一覧表示します。
 `exec`        | `kubectl exec POD [-c CONTAINER] [-i] [-t] [flags] [-- COMMAND [args...]]` | Pod内のコンテナに対して、コマンドを実行します。
 `explain`    | `kubectl explain  [--recursive=false] [flags]` | 様々なリソースのドキュメントを取得します。例えば、Pod、Node、Serviceなどです。
 `expose`        | <code>kubectl expose (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) [--port=port] [--protocol=TCP&#124;UDP] [--target-port=number-or-name] [--name=name] [--external-ip=external-ip-of-service] [--type=type] [flags]</code> | ReplicationController、Service、Podを、新しいKubernetesサービスとして公開します。
@@ -107,7 +134,7 @@ kubectl [command] [TYPE] [NAME] [flags]
 `proxy`        | `kubectl proxy [--port=PORT] [--www=static-dir] [--www-prefix=prefix] [--api-prefix=prefix] [flags]` | Kubernetes APIサーバーへのプロキシーを実行します。
 `replace`        | `kubectl replace -f FILENAME` | ファイルや標準出力から、リソースを置き換えます。
 `rollout`    | `kubectl rollout SUBCOMMAND [options]` | リソースのロールアウトを管理します。有効なリソースには、Deployment、DaemonSetとStatefulSetが含まれます。
-`run`        | <code>kubectl run NAME --image=image [--env="key=value"] [--port=port] [--dry-run=server&#124;client&#124;none] [--overrides=inline-json] [flags]</code> | 指定したイメージを、クラスタ上で実行します。
+`run`        | <code>kubectl run NAME --image=image [--env="key=value"] [--port=port] [--dry-run=server&#124;client&#124;none] [--overrides=inline-json] [flags]</code> | 指定したイメージを、クラスター上で実行します。
 `scale`        | <code>kubectl scale (-f FILENAME &#124; TYPE NAME &#124; TYPE/NAME) --replicas=COUNT [--resource-version=version] [--current-replicas=count] [flags]</code> | 指定したReplicationControllerのサイズを更新します。
 `set`    | `kubectl set SUBCOMMAND [options]` | アプリケーションリソースを設定します。
 `taint`    | `kubectl taint NODE NAME KEY_1=VAL_1:TAINT_EFFECT_1 ... KEY_N=VAL_N:TAINT_EFFECT_N [options]` | 1つ以上のNodeのtaintを更新します。
@@ -122,59 +149,66 @@ kubectl [command] [TYPE] [NAME] [flags]
 
 以下の表に、サポートされているすべてのリソースと、省略されたエイリアスの一覧を示します。
 
-(この出力は`kubectl api-resources`から取得でき、Kubernetes 1.13.3時点で正確でした。)
+(この出力は`kubectl api-resources`から取得でき、Kubernetes 1.25.0時点で正確でした。)
 
-| リソース名 | 短縮名 | APIグループ | 名前空間に属するか | リソースの種類 |
+| リソース名 | 短縮名 | APIバージョン | 名前空間に属するか | リソースの種類 |
 |---|---|---|---|---|
-| `bindings` | | | true | Binding|
-| `componentstatuses` | `cs` | | false | ComponentStatus |
-| `configmaps` | `cm` | | true | ConfigMap |
-| `endpoints` | `ep` | | true | Endpoints |
-| `limitranges` | `limits` | | true | LimitRange |
-| `namespaces` | `ns` | | false | Namespace |
-| `nodes` | `no` | | false | Node |
-| `persistentvolumeclaims` | `pvc` | | true | PersistentVolumeClaim |
-| `persistentvolumes` | `pv` | | false | PersistentVolume |
-| `pods` | `po` | | true | Pod |
-| `podtemplates` | | | true | PodTemplate |
-| `replicationcontrollers` | `rc` | | true| ReplicationController |
-| `resourcequotas` | `quota` | | true | ResourceQuota |
-| `secrets` | | | true | Secret |
-| `serviceaccounts` | `sa` | | true | ServiceAccount |
-| `services` | `svc` | | true | Service |
-| `mutatingwebhookconfigurations` | | admissionregistration.k8s.io | false | MutatingWebhookConfiguration |
-| `validatingwebhookconfigurations` | | admissionregistration.k8s.io | false | ValidatingWebhookConfiguration |
-| `customresourcedefinitions` | `crd`, `crds` | apiextensions.k8s.io | false |  CustomResourceDefinition |
-| `apiservices` | | apiregistration.k8s.io | false | APIService |
-| `controllerrevisions` | | apps | true | ControllerRevision |
-| `daemonsets` | `ds` | apps | true | DaemonSet |
-| `deployments` | `deploy` | apps | true | Deployment |
-| `replicasets` | `rs` | apps | true | ReplicaSet |
-| `statefulsets` | `sts` | apps | true | StatefulSet |
-| `tokenreviews` | | authentication.k8s.io | false | TokenReview |
-| `localsubjectaccessreviews` | | authorization.k8s.io | true | LocalSubjectAccessReview |
-| `selfsubjectaccessreviews` | | authorization.k8s.io | false | SelfSubjectAccessReview |
-| `selfsubjectrulesreviews` | | authorization.k8s.io | false | SelfSubjectRulesReview |
-| `subjectaccessreviews` | | authorization.k8s.io | false | SubjectAccessReview |
-| `horizontalpodautoscalers` | `hpa` | autoscaling | true | HorizontalPodAutoscaler |
-| `cronjobs` | `cj` | batch | true | CronJob |
-| `jobs` | | batch | true | Job |
-| `certificatesigningrequests` | `csr` | certificates.k8s.io | false | CertificateSigningRequest |
-| `leases` | | coordination.k8s.io | true | Lease |
-| `events` | `ev` | events.k8s.io | true | Event |
-| `ingresses` | `ing` | extensions | true | Ingress |
-| `networkpolicies` | `netpol` | networking.k8s.io | true | NetworkPolicy |
-| `poddisruptionbudgets` | `pdb` | policy | true | PodDisruptionBudget |
-| `podsecuritypolicies` | `psp` | policy | false | PodSecurityPolicy |
-| `clusterrolebindings` | | rbac.authorization.k8s.io | false | ClusterRoleBinding |
-| `clusterroles` | | rbac.authorization.k8s.io | false | ClusterRole |
-| `rolebindings` | | rbac.authorization.k8s.io | true | RoleBinding |
-| `roles` | | rbac.authorization.k8s.io | true | Role |
-| `priorityclasses` | `pc` | scheduling.k8s.io | false | PriorityClass |
-| `csidrivers` | | storage.k8s.io | false | CSIDriver |
-| `csinodes` | | storage.k8s.io | false | CSINode |
-| `storageclasses` | `sc` | storage.k8s.io |  false | StorageClass |
-| `volumeattachments` | | storage.k8s.io | false | VolumeAttachment |
+| `bindings` |  | v1 | true | Binding |
+| `componentstatuses` | `cs` | v1 | false | ComponentStatus |
+| `configmaps` | `cm` | v1 | true | ConfigMap |
+| `endpoints` | `ep` | v1 | true | Endpoints |
+| `events` | `ev` | v1 | true | Event |
+| `limitranges` | `limits` | v1 | true | LimitRange |
+| `namespaces` | `ns` | v1 | false | Namespace |
+| `nodes` | `no` | v1 | false | Node |
+| `persistentvolumeclaims` | `pvc` | v1 | true | PersistentVolumeClaim |
+| `persistentvolumes` | `pv` | v1 | false | PersistentVolume |
+| `pods` | `po` | v1 | true | Pod |
+| `podtemplates` |  | v1 | true | PodTemplate |
+| `replicationcontrollers` | `rc` | v1 | true | ReplicationController |
+| `resourcequotas` | `quota` | v1 | true | ResourceQuota |
+| `secrets` |  | v1 | true | Secret |
+| `serviceaccounts` | `sa` | v1 | true | ServiceAccount |
+| `services` | `svc` | v1 | true | Service |
+| `mutatingwebhookconfigurations` |  | admissionregistration.k8s.io/v1 | false | MutatingWebhookConfiguration |
+| `validatingwebhookconfigurations` |  | admissionregistration.k8s.io/v1 | false | ValidatingWebhookConfiguration |
+| `customresourcedefinitions` | `crd,crds` | apiextensions.k8s.io/v1 | false | CustomResourceDefinition |
+| `apiservices` |  | apiregistration.k8s.io/v1 | false | APIService |
+| `controllerrevisions` |  | apps/v1 | true | ControllerRevision |
+| `daemonsets` | `ds` | apps/v1 | true | DaemonSet |
+| `deployments` | `deploy` | apps/v1 | true | Deployment |
+| `replicasets` | `rs` | apps/v1 | true | ReplicaSet |
+| `statefulsets` | `sts` | apps/v1 | true | StatefulSet |
+| `tokenreviews` |  | authentication.k8s.io/v1 | false | TokenReview |
+| `localsubjectaccessreviews` |  | authorization.k8s.io/v1 | true | LocalSubjectAccessReview |
+| `selfsubjectaccessreviews` |  | authorization.k8s.io/v1 | false | SelfSubjectAccessReview |
+| `selfsubjectrulesreviews` |  | authorization.k8s.io/v1 | false | SelfSubjectRulesReview |
+| `subjectaccessreviews` |  | authorization.k8s.io/v1 | false | SubjectAccessReview |
+| `horizontalpodautoscalers` | `hpa` | autoscaling/v2 | true | HorizontalPodAutoscaler |
+| `cronjobs` | `cj` | batch/v1 | true | CronJob |
+| `jobs` |  | batch/v1 | true | Job |
+| `certificatesigningrequests` | `csr` | certificates.k8s.io/v1 | false | CertificateSigningRequest |
+| `leases` |  | coordination.k8s.io/v1 | true | Lease |
+| `endpointslices` |  | discovery.k8s.io/v1 | true | EndpointSlice |
+| `events` | `ev` | events.k8s.io/v1 | true | Event |
+| `flowschemas` |  | flowcontrol.apiserver.k8s.io/v1beta2 | false | FlowSchema |
+| `prioritylevelconfigurations` |  | flowcontrol.apiserver.k8s.io/v1beta2 | false | PriorityLevelConfiguration |
+| `ingressclasses` |  | networking.k8s.io/v1 | false | IngressClass |
+| `ingresses` | `ing` | networking.k8s.io/v1 | true | Ingress |
+| `networkpolicies` | `netpol` | networking.k8s.io/v1 | true | NetworkPolicy |
+| `runtimeclasses` |  | node.k8s.io/v1 | false | RuntimeClass |
+| `poddisruptionbudgets` | `pdb` | policy/v1 | true | PodDisruptionBudget |
+| `podsecuritypolicies` | `psp` | policy/v1beta1 | false | PodSecurityPolicy |
+| `clusterrolebindings` |  | rbac.authorization.k8s.io/v1 | false | ClusterRoleBinding |
+| `clusterroles` |  | rbac.authorization.k8s.io/v1 | false | ClusterRole |
+| `rolebindings` |  | rbac.authorization.k8s.io/v1 | true | RoleBinding |
+| `roles` |  | rbac.authorization.k8s.io/v1 | true | Role |
+| `priorityclasses` | `pc` | scheduling.k8s.io/v1 | false | PriorityClass |
+| `csidrivers` |  | storage.k8s.io/v1 | false | CSIDriver |
+| `csinodes` |  | storage.k8s.io/v1 | false | CSINode |
+| `csistoragecapacities` |  | storage.k8s.io/v1 | true | CSIStorageCapacity |
+| `storageclasses` | `sc` | storage.k8s.io/v1 | false | StorageClass |
+| `volumeattachments` |  | storage.k8s.io/v1 | false | VolumeAttachment |
 
 ## 出力オプション
 
@@ -381,7 +415,7 @@ kubectl logs <pod-name>
 kubectl logs -f <pod-name>
 ```
 
-`kubectl diff` - 提案されたクラスタに対する更新の差分を表示します。
+`kubectl diff` - 提案されたクラスターに対する更新の差分を表示します。
 
 ```shell
 # pod.jsonに含まれるリソースの差分を表示します。

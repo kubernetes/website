@@ -98,7 +98,7 @@ Les informations sont collectées par Kubelet à partir du noeud.
 
 ## Gestion
 
-Contrairement aux [pods](/docs/concepts/workloads/pods/) et aux [services] (/docs/concepts/services-networking/service/), un nœud n'est pas créé de manière inhérente par Kubernetes: il est créé de manière externe par un cloud tel que Google Compute Engine, ou bien il existe dans votre pool de machines physiques ou virtuelles.
+Contrairement aux [pods](/docs/concepts/workloads/pods/) et aux [services](/docs/concepts/services-networking/service/), un nœud n'est pas créé de manière inhérente par Kubernetes: il est créé de manière externe par un cloud tel que Google Compute Engine, ou bien il existe dans votre pool de machines physiques ou virtuelles.
 Ainsi, lorsque Kubernetes crée un nœud, il crée un objet qui représente le nœud.
 Après la création, Kubernetes vérifie si le nœud est valide ou non.
 Par exemple, si vous essayez de créer un nœud à partir du contenu suivant:

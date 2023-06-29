@@ -81,7 +81,7 @@ kubectl get pods --namespace kube-system -o jsonpath="{.items[*].spec.containers
 
 ## List Container images using a go-template instead of jsonpath
 
-As an alternative to jsonpath, Kubectl supports using [go-templates](https://golang.org/pkg/text/template/)
+As an alternative to jsonpath, Kubectl supports using [go-templates](https://pkg.go.dev/text/template)
 for formatting the output:
 
 ```shell
@@ -93,5 +93,4 @@ kubectl get pods --all-namespaces -o go-template --template="{{range .items}}{{r
 ### Reference
 
 * [Jsonpath](/docs/reference/kubectl/jsonpath/) reference guide
-* [Go template](https://golang.org/pkg/text/template/) reference guide
-
+* [Go template](https://pkg.go.dev/text/template) reference guide

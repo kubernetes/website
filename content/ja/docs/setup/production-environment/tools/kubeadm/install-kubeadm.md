@@ -48,48 +48,17 @@ card:
 
 複数のネットワークアダプターがあり、Kubernetesコンポーネントにデフォルトで到達できない場合、IPルートを追加して、Kubernetesクラスターのアドレスが適切なアダプターを経由するように設定することをお勧めします。
 
-## iptablesがブリッジを通過するトラフィックを処理できるようにする
-
-Linuxノードのiptablesがブリッジを通過するトラフィックを正確に処理する要件として、`net.bridge.bridge-nf-call-iptables`を`sysctl`の設定ファイルで1に設定してください。例えば以下のようにします。
-
-```bash
-cat <<EOF > /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-EOF
-sysctl --system
-```
-
-この手順の前に`br_netfilter`モジュールがロードされていることを確認してください。`lsmod | grep br_netfilter`を実行することで確認できます。明示的にロードするには`modprobe br_netfilter`を実行してください。
-
-詳細は[ネットワークプラグインの要件](https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements)を参照してください。
-
 ## 必須ポートの確認
 
-### コントロールプレーンノード
+Kubernetesのコンポーネントが互いに通信するためには、これらの[必要なポート](/ja/docs/reference/networking/ports-and-protocols/)が開いている必要があります。
+netcatなどのツールを使用することで、下記のようにポートが開いているかどうかを確認することが可能です。
 
-| プロトコル | 通信の向き | ポート範囲  | 目的                    | 使用者                    |
-|-----------|------------|------------|-------------------------|---------------------------|
-| TCP       | Inbound    | 6443*      | Kubernetes API server   | 全て                      |
-| TCP       | Inbound    | 2379-2380  | etcd server client API  | kube-apiserver、etcd      |
-| TCP       | Inbound    | 10250      | Kubelet API             | 自身、コントロールプレーン |
-| TCP       | Inbound    | 10259      | kube-scheduler          | 自身                      |
-| TCP       | Inbound    | 10257      | kube-controller-manager | 自身                      |
+```shell
+nc 127.0.0.1 6443
+```
 
-### ワーカーノード
-
-| プロトコル | 通信の向き | ポート範囲   | 目的                    | 使用者                    |
-|-----------|------------|-------------|-------------------------|---------------------------|
-| TCP       | Inbound    | 10250       | Kubelet API             | 自身、コントロールプレーン |
-| TCP       | Inbound    | 30000-32767 | NodePort Service†     | 全て                      |
-
-† [NodePort Service](/ja/docs/concepts/services-networking/service/)のデフォルトのポートの範囲
-
-\*の項目は書き換え可能です。そのため、あなたが指定したカスタムポートも開いていることを確認する必要があります。
-
-etcdポートはコントロールプレーンノードに含まれていますが、独自のetcdクラスターを外部またはカスタムポートでホストすることもできます。
-
-使用するPodネットワークプラグイン(以下を参照)のポートも開く必要があります。これは各Podネットワークプラグインによって異なるため、必要なポートについてはプラグインのドキュメントを参照してください。
+使用するPodネットワークプラグインによっては、特定のポートを開く必要がある場合もあります。
+これらは各Podネットワークプラグインによって異なるため、どのようなポートが必要かについては、プラグインのドキュメントを参照してください。
 
 ## ランタイムのインストール {#installing-runtime}
 
@@ -163,7 +132,7 @@ kubeadmは`kubelet`や`kubectl`をインストールまたは管理**しない**
 2. Google Cloudの公開鍵をダウンロードします:
 
    ```shell
-   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
    ```
 
 3. Kubernetesの`apt`リポジトリを追加します:
@@ -238,7 +207,7 @@ RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
 ARCH="amd64"
 mkdir -p /opt/bin
 cd /opt/bin
-curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet,kubectl}
+curl -L --remote-name-all https://dl.k8s.io/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet,kubectl}
 chmod +x {kubeadm,kubelet,kubectl}
 
 curl -sSL "https://raw.githubusercontent.com/kubernetes/kubernetes/${RELEASE}/build/debs/kubelet.service" | sed "s:/usr/bin:/opt/bin:g" > /etc/systemd/system/kubelet.service

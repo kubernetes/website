@@ -528,6 +528,19 @@ Toggles whether calls to `kubectl explain` use the new OpenAPIv3 data source ava
 </td>
 </tr>
 
+<tr>
+<td colspan="2">KUBECTL_ENABLE_CMD_SHADOW</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+When set to true, external plugins can be used as subcommands for builtin commands if subcommand does not exist. In alpha stage, this feature can only be used for create command(e.g. kubectl create networkpolicy).
+-->
+当设置为 true 时，如果子命令不存在，外部插件可以用作内置命令的子命令。
+此功能处于 alpha 阶段，只能用于 create 命令（例如 kubectl create networkpolicy）。
+</td>
+</tr>
+
 </tbody>
 </table>
 

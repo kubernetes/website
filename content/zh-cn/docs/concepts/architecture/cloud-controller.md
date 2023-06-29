@@ -308,45 +308,46 @@ rules:
 ## {{% heading "whatsnext" %}}
 
 <!--
-[Cloud Controller Manager Administration](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)
-has instructions on running and managing the cloud controller manager.
+* [Cloud Controller Manager Administration](/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)
+  has instructions on running and managing the cloud controller manager.
 
-To upgrade a HA control plane to use the cloud controller manager, see
-[Migrate Replicated Control Plane To Use Cloud Controller Manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/).
+* To upgrade a HA control plane to use the cloud controller manager, see
+  [Migrate Replicated Control Plane To Use Cloud Controller Manager](/docs/tasks/administer-cluster/controller-manager-leader-migration/).
 
-Want to know how to implement your own cloud controller manager, or extend an existing project?
+* Want to know how to implement your own cloud controller manager, or extend an existing project?
 -->
-[云控制器管理器的管理](/zh-cn/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)
+* [云控制器管理器的管理](/zh-cn/docs/tasks/administer-cluster/running-cloud-controller/#cloud-controller-manager)
 给出了运行和管理云控制器管理器的指南。
 
-要升级 HA 控制平面以使用云控制器管理器，
+* 要升级 HA 控制平面以使用云控制器管理器，
 请参见[将复制的控制平面迁移以使用云控制器管理器](/zh-cn/docs/tasks/administer-cluster/controller-manager-leader-migration/)。
 
-想要了解如何实现自己的云控制器管理器，或者对现有项目进行扩展么？
+* 想要了解如何实现自己的云控制器管理器，或者对现有项目进行扩展么？
 
-<!--
-The cloud controller manager uses Go interfaces to allow implementations from any cloud to be plugged in.
-Specifically, it uses the `CloudProvider` interface defined in
-[`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.26/cloud.go#L43-L69) from
-[kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider).
--->
-云控制器管理器使用 Go 语言的接口，从而使得针对各种云平台的具体实现都可以接入。
-其中使用了在 [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider)
-项目中 [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.26/cloud.go#L43-L69)
-文件所定义的 `CloudProvider` 接口。
+  <!--
+  - The cloud controller manager uses Go interfaces, specifically, `CloudProvider` interface defined in
+    [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.21/cloud.go#L42-L69)
+    from [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider) to allow
+    implementations from any cloud to be plugged in.
+  -->
+  - 云控制器管理器使用 Go 语言的接口（具体指在
+    [kubernetes/cloud-provider](https://github.com/kubernetes/cloud-provider)
+    项目中 [`cloud.go`](https://github.com/kubernetes/cloud-provider/blob/release-1.26/cloud.go#L43-L69)
+    文件中所定义的 `CloudProvider` 接口），从而使得针对各种云平台的具体实现都可以接入。
 
-<!--
-The implementation of the shared controllers highlighted in this document (Node, Route, and Service),
-and some scaffolding along with the shared cloudprovider interface, is part of the Kubernetes core.
-Implementations specific to cloud providers are outside the core of Kubernetes and implement the
-`CloudProvider` interface.
+  <!--
+  - The implementation of the shared controllers highlighted in this document (Node, Route, and Service),
+    and some scaffolding along with the shared cloudprovider interface, is part of the Kubernetes core.
+    Implementations specific to cloud providers are outside the core of Kubernetes and implement
+    the `CloudProvider` interface.
+  -->
+  - 本文中列举的共享控制器（节点控制器、路由控制器和服务控制器等）的实现以及其他一些生成具有
+    CloudProvider 接口的框架的代码，都是 Kubernetes 的核心代码。
+    特定于云驱动的实现虽不是 Kubernetes 核心成分，仍要实现 `CloudProvider` 接口。
 
-For more information about developing plugins, see
-[Developing Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager/).
--->
-本文中列举的共享控制器（节点控制器、路由控制器和服务控制器等）的实现以及其他一些生成具有
-CloudProvider 接口的框架的代码，都是 Kubernetes 的核心代码。
-特定于云驱动的实现虽不是 Kubernetes 核心成分，仍要实现 `CloudProvider` 接口。
-
-关于如何开发插件的详细信息，
-可参考[开发云控制器管理器](/zh-cn/docs/tasks/administer-cluster/developing-cloud-controller-manager/)文档。
+  <!--
+  - For more information about developing plugins,
+    see [Developing Cloud Controller Manager](/docs/tasks/administer-cluster/developing-cloud-controller-manager/).
+  -->
+  - 关于如何开发插件的详细信息，
+    可参考[开发云控制器管理器](/zh-cn/docs/tasks/administer-cluster/developing-cloud-controller-manager/)文档。

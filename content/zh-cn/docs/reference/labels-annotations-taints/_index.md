@@ -4,7 +4,6 @@ content_type: concept
 weight: 40
 no_list: true
 ---
-
 <!--
 title: Well-Known Labels, Annotations and Taints
 content_type: concept
@@ -41,9 +40,9 @@ One of the [recommended labels](/docs/concepts/overview/working-with-objects/com
 
 ### app.kubernetes.io/component {#app-kubernetes-io-component}
 
-例子: `app.kubernetes.io/component: "database"`
+例子：`app.kubernetes.io/component: "database"`
 
-用于: 所有对象（通常用于[工作负载资源](/zh-cn/docs/reference/kubernetes-api/workload-resources/)）。
+用于：所有对象（通常用于[工作负载资源](/zh-cn/docs/reference/kubernetes-api/workload-resources/)）。
 
 架构中的组件。
 
@@ -209,6 +208,105 @@ If this annotation is not set then the cluster autoscaler follows its Pod-level 
 集群自动扩缩器从不驱逐将此注解显式设置为 `"false"` 的 Pod；你可以针对要保持运行的重要 Pod 设置此注解。
 如果未设置此注解，则集群自动扩缩器将遵循其 Pod 级别的行为。
 
+<!--
+### config.kubernetes.io/local-config
+
+Example: `config.kubernetes.io/local-config: "true"`
+
+Used on: All objects
+
+This annotation is used in manifests to mark an object as local configuration that should not be submitted to the Kubernetes API.
+A value of "true" for this annotation declares that the object is only consumed by client-side tooling and should not be submitted to the API server.
+A value of "false" can be used to declare that the object should be submitted to the API server even when it would otherwise be assumed to be local.
+This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification, which is used by Kustomize and similar third-party tools. For example, Kustomize removes objects with this annotation from its final build output.
+-->
+
+### config.kubernetes.io/local-config {#config-kubernetes-io-local-config}
+
+例子：`config.kubernetes.io/local-config: "true"`
+
+用于：所有对象
+
+该注解用于清单中的对象，表示某对象是本地配置，不应提交到 Kubernetes API。
+对于这个注解，当值为 "true" 时，表示该对象仅被客户端工具使用，不应提交到 API 服务器。
+当值为 "false"，可以用来声明该对象应提交到 API 服务器，即使它是本地对象。
+
+该注解是 Kubernetes 资源模型 (KRM) 函数规范的一部分，被 Kustomize 和其他类似的第三方工具使用。
+例如，Kustomize 会从其最终构建输出中删除带有此注解的对象。
+
+<!--
+### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
+
+Used on: All objects
+
+This prefix is reserved for internal use by tools that act as orchestrators in accordance with the Kubernetes Resource Model (KRM) Functions Specification. Annotations with this prefix are internal to the orchestration process and are not persisted to the manifests on the filesystem. In other words, the orchestrator tool should set these annotations when reading files from the local filesystem and remove them when writing the output of functions back to the filesystem.
+A KRM function **must not** modify annotations with this prefix, unless otherwise specified for a given annotation. This enables orchestrator tools to add additional internal annotations, without requiring changes to existing functions.
+-->
+
+### internal.config.kubernetes.io/* (保留的前缀) {#internal.config.kubernetes.io-reserved-wildcard}
+
+用于：所有对象
+
+该前缀被保留，供遵从 Kubernetes 资源模型 (KRM) 函数规范的编排工具内部使用。
+带有该前缀的注解仅在编排过程中使用，不会持久化到文件系统。
+换句话说，编排工具应从本地文件系统读取文件时设置这些注解，并在将函数输出写回文件系统时删除它们。
+
+除非特定注解另有说明，KRM 函数不得修改带有此前缀的注解。
+这使得编排工具可以添加额外的内部注解，而不需要更改现有函数。
+
+<!--
+### internal.config.kubernetes.io/path
+
+Example: `internal.config.kubernetes.io/path: "relative/file/path.yaml"`
+
+Used on: All objects
+
+This annotation records the slash-delimited, OS-agnostic, relative path to the manifest file the object was loaded from. The path is relative to a fixed location on the filesystem, determined by the orchestrator tool.
+This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification, which is used by Kustomize and similar third-party tools.
+A KRM Function **should not** modify this annotation on input objects unless it is modifying the referenced files. A KRM Function **may** include this annotation on objects it generates.
+-->
+
+### internal.config.kubernetes.io/path {#internal-config-kubernetes-io-path}
+
+例子：`internal.config.kubernetes.io/path: "relative/file/path.yaml"`
+
+用于：所有对象
+
+此注解记录了加载对象清单文件的（斜线分隔、与操作系统无关）相对路径。
+该路径相对于文件系统上由编排工具确定的固定位置。
+
+该注解是 Kubernetes 资源模型 (KRM) 函数规范的一部分，被 Kustomize 和其他类似的第三方工具使用。
+
+KRM 函数**不应**在输入对象上修改此注解，除非它正在修改引用的文件。
+KRM 函数**可以**在它所生成的对象上包含这个注解。
+
+<!--
+### internal.config.kubernetes.io/index
+
+Example: `internal.config.kubernetes.io/index: "2"`
+
+Used on: All objects
+
+This annotation records the zero-indexed position of the YAML document that contains the object within the manifest file the object was loaded from. Note that YAML documents are separated by three dashes (`---`) and can each contain one object. When this annotation is not specified, a value of 0 is implied.
+This annotation is part of the Kubernetes Resource Model (KRM) Functions Specification, which is used by Kustomize and similar third-party tools.
+A KRM Function **should not** modify this annotation on input objects unless it is modifying the referenced files. A KRM Function **may** include this annotation on objects it generates.
+-->
+
+### internal.config.kubernetes.io/index {#internal-config-kubernetes-io-index}
+
+例子：`internal.config.kubernetes.io/index: "2"`
+
+用于：所有对象
+
+该注解记录了包含对象的 YAML 文档在加载对象的清单文件中的零索引位置。
+请注意，YAML 文档由三个破折号 (---) 分隔，每个文档可以包含一个对象。
+如果未指定此注解，则该值为 0。
+
+该注解是 Kubernetes 资源模型 (KRM) 函数规范的一部分，被 Kustomize 和其他类似的第三方工具使用。
+
+KRM 函数**不应**在输入对象上修改此注解，除非它正在修改引用的文件。
+KRM 函数**可以**在它所生成的对象上包含这个注解。
+
 <!-- 
 ### kubernetes.io/arch
 
@@ -232,17 +330,39 @@ Kubelet 使用 Go 定义的 `runtime.GOARCH` 填充它。如果你混合使用 A
 
 Example: `kubernetes.io/os: "linux"`
 
-Used on: Node
+Used on: Node, Pod
 
-The Kubelet populates this with `runtime.GOOS` as defined by Go. This can be handy if you are mixing operating systems in your cluster (for example: mixing Linux and Windows nodes).
+For nodes, the kubelet populates this with `runtime.GOOS` as defined by Go. This can be handy if you are
+mixing operating systems in your cluster (for example: mixing Linux and Windows nodes).
+
+You can also set this label on a Pod. Kubernetes allows you to set any value for this label;
+if you use this label, you should nevertheless set it to the Go `runtime.GOOS` string for the operating
+system that this Pod actually works with.
+
+When the `kubernetes.io/os` label value for a Pod does not match the label value on a Node,
+the kubelet on the node will not admit the Pod. However, this is not taken into account by
+the kube-scheduler. Alternatively, the kubelet refuses to run a Pod where you have specified a Pod OS, if
+this isn't the same as the operating system for the node where that kubelet is running. Just
+look for [Pods OS](/docs/concepts/workloads/pods/#pod-os) for more details.
 -->
+
 ### kubernetes.io/os {#kubernetes-io-os}
 
 例子：`kubernetes.io/os: "linux"`
 
-用于：Node
+用于：Node，Pod
 
-Kubelet 使用 Go 定义的 `runtime.GOOS` 填充它。如果你在集群中混合使用操作系统（例如：混合 Linux 和 Windows 节点），这会很方便。
+对于节点，kubelet 会根据 Go 定义的 `runtime.GOOS` 填充这个值。
+你可以很方便地在集群中混合使用操作系统（例如：混合使用 Linux 和 Windows 节点）。
+
+你还可以在 Pod 上设置这个标签。
+Kubernetes 允许你为此标签设置任何值；如果你使用此标签，
+你应该将其设置为与该 Pod 实际使用的操作系统相对应的 Go `runtime.GOOS` 字符串。
+
+当 Pod 的 kubernetes.io/os 标签值与节点上的标签值不匹配时，节点上的 kubelet 不会运行该 Pod。
+但是，kube-scheduler 并未考虑这一点。
+另外，如果你为 Pod 指定的操作系统与运行该 kubelet 的节点操作系统不相同，那么 kubelet 会拒绝运行该 Pod。
+请查看 [Pod 操作系统](/zh-cn/docs/concepts/workloads/pods/#pod-os) 了解更多详情。
 
 <!--
 ### kubernetes.io/metadata.name
@@ -313,6 +433,62 @@ This label has been deprecated. Please use `kubernetes.io/os` instead.
 ### beta.kubernetes.io/os (已弃用) {#beta-kubernetes-io-os}
 
 此标签已被弃用。请改用 `kubernetes.io/os`。
+
+<!--
+### kube-aggregator.kubernetes.io/automanaged {#kube-aggregator-kubernetesio-automanaged}
+
+Example: `kube-aggregator.kubernetes.io/automanaged: "onstart"`
+
+Used on: APIService
+
+The `kube-apiserver` sets this label on any APIService object that the API server has created automatically. The label marks how the control plane should manage that APIService. You should not add, modify, or remove this label by yourself.
+-->
+### kube-aggregator.kubernetes.io/automanaged {#kube-aggregator-kubernetesio-automanaged}
+
+例子：`kube-aggregator.kubernetes.io/automanaged: "onstart"`
+
+用于：APIService
+
+`kube-apiserver` 会在由 API 服务器自动创建的所有 APIService 对象上设置这个标签。
+该标签标记了控制平面应如何管理该 APIService。你不应自行添加、修改或删除此标签。
+
+{{< note >}}
+<!--
+Automanaged APIService objects are deleted by kube-apiserver when it has no built-in or custom resource API corresponding to the API group/version of the APIService.
+-->
+当自动托管的 APIService 对象没有内置或自定义资源 API 对应于该 APIService 的 API 组/版本时，
+它将被 kube-apiserver 删除。
+{{< /note >}}
+
+<!--
+There are two possible values:
+
+- `onstart`: The APIService should be reconciled when an API server starts up, but not otherwise.
+- `true`: The API server should reconcile this APIService continuously.
+-->
+有两个可能的值：
+
+- `onstart`：API 服务器应在启动时协调 APIService，但在其他时间不会进行协调。
+- `true`：API 服务器应持续协调此 APIService。
+
+<!--
+### service.alpha.kubernetes.io/tolerate-unready-endpoints (deprecated)
+
+Used on: StatefulSet
+
+This annotation on a Service denotes if the Endpoints controller should go ahead and create Endpoints for unready Pods.
+Endpoints of these Services retain their DNS records and continue receiving
+traffic for the Service from the moment the kubelet starts all containers in the pod
+and marks it _Running_, til the kubelet stops all containers and deletes the pod from
+the API server.
+-->
+### service.alpha.kubernetes.io/tolerate-unready-endpoints（已弃用）   {#service-alpha-kubernetes-io-tolerate-unready-endpoints-deprecated}
+
+用于：StatefulSet
+
+Service 上的这个注解表示 Endpoints 控制器是否应该继续为未准备好的 Pod 创建 Endpoints。
+这些 Service 的 Endpoints 保留其 DNS 记录，并从 kubelet 启动 Pod 中的所有容器并将其标记为
+**Running** 的那一刻起继续接收 Service 的流量，直到 kubelet 停止所有容器并从 API 服务器删除 Pod 为止。
 
 <!--
 ### kubernetes.io/hostname {#kubernetesiohostname}
@@ -546,13 +722,17 @@ For example, `10M` means 10 megabits per second.
 以[量纲（Quantity）](/zh-cn/docs/reference/kubernetes-api/common-definitions/quantity/)的形式给出。
 例如，`10M` 表示每秒 10 兆比特。
 
-<!-- ### beta.kubernetes.io/instance-type (deprecated) -->
+<!--
+### beta.kubernetes.io/instance-type (deprecated)
+-->
 ### beta.kubernetes.io/instance-type (已弃用) {#beta-kubernetes-io-instance-type}
 
+{{< note >}}
 <!--
 Starting in v1.17, this label is deprecated in favor of [node.kubernetes.io/instance-type](#nodekubernetesioinstance-type).
 -->
-{{< note >}} 从 v1.17 开始，此标签已弃用，取而代之的是 [node.kubernetes.io/instance-type](#nodekubernetesioinstance-type)。 {{< /note >}}
+从 v1.17 开始，此标签已弃用，取而代之的是 [node.kubernetes.io/instance-type](#nodekubernetesioinstance-type)。
+{{< /note >}}
 
 <!--
 ### node.kubernetes.io/instance-type {#nodekubernetesioinstance-type}
@@ -586,10 +766,12 @@ See [topology.kubernetes.io/region](#topologykubernetesioregion).
 
 请参阅 [topology.kubernetes.io/region](#topologykubernetesioregion)。
 
+{{< note >}}
 <!--
 Starting in v1.17, this label is deprecated in favor of [topology.kubernetes.io/region](#topologykubernetesioregion).
 -->
-{{< note >}} 从 v1.17 开始，此标签已弃用，取而代之的是 [topology.kubernetes.io/region](#topologykubernetesioregion)。 {{</note>}}
+从 v1.17 开始，此标签已弃用，取而代之的是 [topology.kubernetes.io/region](#topologykubernetesioregion)。
+{{</note>}}
 
 <!--
 ### failure-domain.beta.kubernetes.io/zone (deprecated) {#failure-domainbetakubernetesiozone}
@@ -600,10 +782,91 @@ See [topology.kubernetes.io/zone](#topologykubernetesiozone).
 
 请参阅 [topology.kubernetes.io/zone](#topologykubernetesiozone)。
 
+{{< note >}}
 <!--
 Starting in v1.17, this label is deprecated in favor of [topology.kubernetes.io/zone](#topologykubernetesiozone). 
 -->
-{{< note >}} 从 v1.17 开始，此标签已弃用，取而代之的是 [topology.kubernetes.io/zone](#topologykubernetesiozone)。 {{</note>}}
+从 v1.17 开始，此标签已弃用，取而代之的是 [topology.kubernetes.io/zone](#topologykubernetesiozone)。
+{{</note>}}
+
+### pv.kubernetes.io/bind-completed {#pv-kubernetesiobind-completed}
+
+<!--
+Example: `pv.kubernetes.io/bind-completed: "yes"`
+
+Used on: PersistentVolumeClaim
+
+When this annotation is set on a PersistentVolumeClaim (PVC), that indicates that the lifecycle
+of the PVC has passed through initial binding setup. When present, that information changes
+how the control plane interprets the state of PVC objects.
+The value of this annotation does not matter to Kubernetes.
+-->
+例子：`pv.kubernetes.io/bind-completed: "yes"`
+
+用于：PersistentVolumeClaim
+
+当在 PersistentVolumeClaim (PVC) 上设置此注解时，表示 PVC 的生命周期已通过初始绑定设置。
+当存在此注解时，该信息会改变控制平面解释 PVC 对象状态的方式。此注解的值对 Kubernetes 无关紧要。
+
+### pv.kubernetes.io/bound-by-controller {#pv-kubernetesioboundby-controller}
+
+<!--
+Example: `pv.kubernetes.io/bound-by-controller: "yes"`
+
+Used on: PersistentVolume, PersistentVolumeClaim
+
+If this annotation is set on a PersistentVolume or PersistentVolumeClaim, it indicates that a storage binding
+(PersistentVolume → PersistentVolumeClaim, or PersistentVolumeClaim → PersistentVolume) was installed
+by the {{< glossary_tooltip text="controller" term_id="controller" >}}.
+If the annotation isn't set, and there is a storage binding in place, the absence of that annotation means that
+the binding was done manually. The value of this annotation does not matter.
+-->
+例子：`pv.kubernetes.io/bound-by-controller: "yes"`
+
+用于：PersistentVolume、PersistentVolumeClaim
+
+如果此注解设置在 PersistentVolume 或 PersistentVolumeClaim 上，则表示存储绑定
+（PersistentVolume → PersistentVolumeClaim，或 PersistentVolumeClaim → PersistentVolume）
+已由{{< glossary_tooltip text="控制器" term_id="controller" >}}配置完毕。
+如果未设置此注解，且存在存储绑定，则缺少该注解意味着绑定是手动完成的。此注解的值无关紧要。
+
+### pv.kubernetes.io/provisioned-by {#pv-kubernetesiodynamically-provisioned}
+
+<!--
+Example: `pv.kubernetes.io/provisioned-by: "kubernetes.io/rbd"`
+
+Used on: PersistentVolume
+
+This annotation is added to a PersistentVolume(PV) that has been dynamically provisioned by Kubernetes.
+Its value is the name of volume plugin that created the volume. It serves both user (to show where a PV
+comes from) and Kubernetes (to recognize dynamically provisioned PVs in its decisions).
+-->
+例子：`pv.kubernetes.io/provisioned-by: "kubernetes.io/rbd"`
+
+用于：PersistentVolume
+
+此注解被添加到已由 Kubernetes 动态制备的 PersistentVolume (PV)。
+它的值是创建卷的卷插件的名称。它同时服务于用户（显示 PV 的来源）和 Kubernetes（识别其决策中动态制备的 PV）。
+
+### pv.kubernetes.io/migrated-to {#pv-kubernetesio-migratedto}
+
+<!--
+Example: `pv.kubernetes.io/migrated-to: pd.csi.storage.gke.io`
+
+Used on: PersistentVolume, PersistentVolumeClaim
+
+It is added to a PersistentVolume(PV) and PersistentVolumeClaim(PVC) that is supposed to be
+dynamically provisioned/deleted by its corresponding CSI driver through the `CSIMigration` feature gate.
+When this annotation is set, the Kubernetes components will "stand-down" and the `external-provisioner`
+will act on the objects.
+-->
+例子：`pv.kubernetes.io/migrated-to: pd.csi.storage.gke.io`
+
+用于：PersistentVolume、PersistentVolumeClaim
+
+它被添加到 PersistentVolume (PV) 和 PersistentVolumeClaim (PVC)，应该由其相应的 CSI
+驱动程序通过 `CSIMigration` 特性门控动态制备/删除。设置此注解后，Kubernetes 组件将“停止”，
+而 `external-provisioner` 将作用于对象。
 
 <!--
 ### statefulset.kubernetes.io/pod-name {#statefulsetkubernetesiopod-name}
@@ -671,11 +934,6 @@ Used on: Node, PersistentVolume
 On Node: The `kubelet` or the external `cloud-controller-manager` populates this with the information as provided by the `cloudprovider`.  This will be set only if you are using a `cloudprovider`. However, you should consider setting this on nodes if it makes sense in your topology.
 
 On PersistentVolume: topology-aware volume provisioners will automatically set node affinity constraints on `PersistentVolumes`.
-
-A zone represents a logical failure domain.  It is common for Kubernetes clusters to span multiple zones for increased availability.  While the exact definition of a zone is left to infrastructure implementations, common properties of a zone include very low network latency within a zone, no-cost network traffic within a zone, and failure independence from other zones.  For example, nodes within a zone might share a network switch, but nodes in different zones should not.
-
-A region represents a larger domain, made up of one or more zones.  It is uncommon for Kubernetes clusters to span multiple regions,  While the exact definition of a zone or region is left to infrastructure implementations, common properties of a region include higher network latency between them than within them, non-zero cost for network traffic between them, and failure independence from other zones or regions.  For example, nodes within a region might share power infrastructure (e.g. a UPS or generator), but nodes in different regions typically would not.
-
 -->
 ### topology.kubernetes.io/zone {#topologykubernetesiozone}
 
@@ -689,6 +947,11 @@ A region represents a larger domain, made up of one or more zones.  It is uncomm
 
 在 PersistentVolume 上：拓扑感知卷配置器将自动在 `PersistentVolume` 上设置 Node 亲和性约束。
 
+<!--
+A zone represents a logical failure domain.  It is common for Kubernetes clusters to span multiple zones for increased availability.  While the exact definition of a zone is left to infrastructure implementations, common properties of a zone include very low network latency within a zone, no-cost network traffic within a zone, and failure independence from other zones.  For example, nodes within a zone might share a network switch, but nodes in different zones should not.
+
+A region represents a larger domain, made up of one or more zones.  It is uncommon for Kubernetes clusters to span multiple regions,  While the exact definition of a zone or region is left to infrastructure implementations, common properties of a region include higher network latency between them than within them, non-zero cost for network traffic between them, and failure independence from other zones or regions.  For example, nodes within a region might share power infrastructure (e.g. a UPS or generator), but nodes in different regions typically would not.
+-->
 一个 Zone 代表一个逻辑故障域。Kubernetes 集群通常跨越多个 Zone 以提高可用性。虽然 Zone 的确切定义留给基础设施实现，
 但 Zone 的常见属性包括 Zone 内非常低的网络延迟、Zone 内的免费网络流量以及与其他 Zone 的故障独立性。
 例如，一个 Zone 内的 Node 可能共享一个网络交换机，但不同 Zone 中的 Node 无法共享交换机。
@@ -708,7 +971,8 @@ Kubernetes 对 Zone 和 Region 的结构做了一些假设：
 
 1. Zone 和 Region 是分层的：Zone 是 Region 的严格子集，没有 Zone 可以在两个 Region 中；
 
-2. Zone 名称跨 Region 是唯一的；例如，Region “africa-east-1” 可能由 Zone “africa-east-1a” 和 “africa-east-1b” 组成。
+2. Zone 名称跨 Region 是唯一的；例如，Region “africa-east-1” 可能由 Zone “africa-east-1a”
+   和 “africa-east-1b” 组成。
 
 <!--
 It should be safe to assume that topology labels do not change.  Even though labels are strictly mutable, consumers of them can assume that a given node is not going to be moved between zones without being destroyed and recreated.
@@ -764,6 +1028,33 @@ This annotation has been deprecated.
 此注解已被弃用。
 
 <!--
+### volume.beta.kubernetes.io/storage-class (deprecated)
+
+Example: `volume.beta.kubernetes.io/storage-class: "example-class"`
+
+Used on: PersistentVolume, PersistentVolumeClaim
+-->
+### volume.beta.kubernetes.io/storage-class（已弃用）   {#volume-beta-storage-class}
+
+例子：`volume.beta.kubernetes.io/storage-class: "example-class"`
+
+用于：PersistentVolume、PersistentVolumeClaim
+
+<!--
+This annotation can be used for PersistentVolume(PV) or PersistentVolumeClaim(PVC) to specify the name of [StorageClass](/docs/concepts/storage/storage-classes/). When both `storageClassName` attribute and `volume.beta.kubernetes.io/storage-class` annotation are specified, the annotation `volume.beta.kubernetes.io/storage-class` takes precedence over the `storageClassName` attribute.
+
+This annotation has been deprecated. Instead, set the [`storageClassName` field](/docs/concepts/storage/persistent-volumes/#class)
+for the PersistentVolumeClaim or PersistentVolume.
+-->
+此注解可以为 PersistentVolume (PV) 或 PersistentVolumeClaim (PVC) 指定
+[StorageClass](/zh-cn/docs/concepts/storage/storage-classes/)。
+当 `storageClassName` 属性和 `volume.beta.kubernetes.io/storage-class` 注解均被指定时，
+注解 `volume.beta.kubernetes.io/storage-class` 将优先于 `storageClassName` 属性。
+
+此注解已被弃用。作为替代方案，你应该为 PersistentVolumeClaim 或 PersistentVolume 设置
+[`storageClassName` 字段](/zh-cn/docs/concepts/storage/persistent-volumes/#class)。
+
+<!--
 ### volume.beta.kubernetes.io/mount-options (deprecated) {#mount-options}
 
 Example : `volume.beta.kubernetes.io/mount-options: "ro,soft"`
@@ -797,6 +1088,44 @@ This annotation will be added to dynamic provisioning required PVC.
 用于：PersistentVolumeClaim
 
 此注解将被添加到根据需要动态制备的 PVC 上。
+
+<!--
+### volume.kubernetes.io/selected-node
+
+Used on: PersistentVolumeClaim
+
+This annotation is added to a PVC that is triggered by a scheduler to be dynamically provisioned. Its value is the name of the selected node.
+-->
+### volume.kubernetes.io/selected-node   {#selected-node}
+
+用于：PersistentVolumeClaim
+
+此注解被添加到调度程序所触发的 PVC 上，对应的 PVC 需要被动态制备。注解值是选定节点的名称。
+
+<!--
+### volumes.kubernetes.io/controller-managed-attach-detach
+
+Used on: Node
+
+If a node has set the annotation `volumes.kubernetes.io/controller-managed-attach-detach`
+on itself, then its storage attach and detach operations are being managed
+by the _volume attach/detach_
+{{< glossary_tooltip text="controller" term_id="controller" >}} running within the
+{{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}.
+
+The value of the annotation isn't important; if this annotation exists on a node,
+then storage attaches and detaches are controller managed.
+-->
+### volumes.kubernetes.io/controller-managed-attach-detach   {#controller-managed-attach-detach}
+
+用于：Node
+
+如果节点已在其自身上设置了注解 `volumes.kubernetes.io/controller-managed-attach-detach`，
+那么它的存储挂接和解除挂接的操作是交由运行在
+{{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
+中的**卷挂接/解除挂接**{{< glossary_tooltip text="控制器" term_id="controller" >}}来管理的。
+
+注解的值并不重要；如果节点上存在该注解，则由控制器管理存储挂接和解除挂接的操作。
 
 <!--
 ### node.kubernetes.io/windows-build {#nodekubernetesiowindows-build}
@@ -998,11 +1327,11 @@ The annotation is used to run Windows containers with Hyper-V isolation. To use 
 注解用于运行具有 Hyper-V 隔离的 Windows 容器。要使用 Hyper-V 隔离功能并创建 Hyper-V
 隔离容器，kubelet 启动时应该需要设置特性门控 HyperVContainer=true。
 
+{{< note >}}
 <!--
 You can only set this annotation on Pods that have a single container.
 Starting from v1.20, this annotation is deprecated. Experimental Hyper-V support was removed in 1.21.
 -->
-{{< note >}}
 你只能在具有单个容器的 Pod 上设置此注解。
 从 v1.20 开始，此注解已弃用。1.21 中删除了实验性 Hyper-V 支持。
 {{</note>}}
@@ -1027,12 +1356,13 @@ When a single IngressClass resource has this annotation set to `"true"`, new Ing
 
 <!--
 ### kubernetes.io/ingress.class (deprecated)
-
-Starting in v1.18, this annotation is deprecated in favor of `spec.ingressClassName`.
 -->
 ### kubernetes.io/ingress.class (已弃用) {#kubernetes-io-ingress-class}
 
 {{< note >}}
+<!--
+Starting in v1.18, this annotation is deprecated in favor of `spec.ingressClassName`.
+-->
 从 v1.18 开始，不推荐使用此注解以鼓励使用 `spec.ingressClassName`。
 {{</note>}}
 
@@ -1110,6 +1440,30 @@ The value of the annotation is the container name that is default for this Pod. 
 
 此注解的值是此 Pod 的默认容器名称。例如，未指定 `-c` 或 `--container` 标志时执行
 `kubectl logs` 或 `kubectl exec` 命令将使用此默认容器。
+
+<!--
+### kubectl.kubernetes.io/default-logs-container (deprecated)
+
+Example: `kubectl.kubernetes.io/default-logs-container: "front-end-app"`
+
+The value of the annotation is the container name that is the default logging container for this Pod. For example, `kubectl logs` without `-c` or `--container` flag will use this default container.
+-->
+### kubectl.kubernetes.io/default-logs-container（已弃用）   {#default-logs-container}
+
+例子：`kubectl.kubernetes.io/default-logs-container: "front-end-app"`
+
+此注解的值是针对此 Pod 的默认日志记录容器的名称。例如，不带 `-c` 或 `--container`
+标志的 `kubectl logs` 将使用此默认容器。
+
+{{< note >}}
+<!--
+This annotation is deprecated. You should use the [`kubectl.kubernetes.io/default-container`](#kubectl-kubernetes-io-default-container) annotation instead.
+Kubernetes versions 1.25 and newer ignore this annotation.
+-->
+此注解已被弃用。取而代之的是使用
+[`kubectl.kubernetes.io/default-container`](#kubectl-kubernetes-io-default-container) 注解。
+Kubernetes v1.25 及更高版本将忽略此注解。
+{{< /note >}}
 
 <!--
 ### endpoints.kubernetes.io/over-capacity
@@ -1198,7 +1552,7 @@ Use [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-tolera
 
 **The taints listed below are always used on Nodes**
 -->
-### scheduler.alpha.kubernetes.io/preferAvoidPods (deprecated) {#scheduleralphakubernetesio-preferavoidpods}
+### scheduler.alpha.kubernetes.io/preferAvoidPods（已弃用） {#scheduleralphakubernetesio-preferavoidpods}
 
 用于：Node
 
@@ -1523,6 +1877,30 @@ for more information.
 
 请参阅[在名字空间级别实施 Pod 安全性](/zh-cn/docs/concepts/security/pod-security-admission)了解更多信息。
 
+### rbac.authorization.kubernetes.io/autoupdate
+
+<!--
+Example: `rbac.authorization.kubernetes.io/autoupdate: "false"`
+
+Used on: ClusterRole, ClusterRoleBinding, Role, RoleBinding
+-->
+例子：`rbac.authorization.kubernetes.io/autoupdate: "false"`
+
+用于：ClusterRole、ClusterRoleBinding、Role、RoleBinding
+
+<!--
+When this annotation is set to `"true"` on default RBAC objects created by the kube-apiserver, they are automatically updated at server start to add missing permissions and subjects (extra permissions and subjects are left in place). To prevent autoupdating a particular role or rolebinding, set this annotation to `"false"`.
+If you create your own RBAC objects and set this annotation to `"false"`, `kubectl auth reconcile`
+(which allows reconciling arbitrary RBAC objects in a {{< glossary_tooltip text="manifest" term_id="manifest" >}}) respects this annotation and does not automatically add missing permissions and
+subjects.
+-->
+当在 kube-apiserver 创建的默认 RBAC 对象上将此注解设置为 `"true"` 时，
+这些对象会在服务器启动时自动更新以添加缺少的权限和主体（额外的权限和主体留在原处）。
+要防止自动更新特定的 Role 或 RoleBinding，请将此注解设置为 `"false"`。
+如果你创建自己的 RBAC 对象并将此注解设置为 `"false"`，则 `kubectl auth reconcile`
+（允许协调在{{< glossary_tooltip text="清单" term_id="manifest" >}}中给出的任意 RBAC 对象）
+尊重此注解并且不会自动添加缺少的权限和主体。
+
 <!--
 ### kubernetes.io/psp (deprecated) {#kubernetes-io-psp}
 
@@ -1537,7 +1915,6 @@ When the PodSecurityPolicy admission controller admitted a Pod, the admission co
 modified the Pod to have this annotation.
 The value of the annotation was the name of the PodSecurityPolicy that was used for validation.
 -->
-
 ### kubernetes.io/psp（已弃用） {#kubernetes-io-psp}
 
 例如：`kubernetes.io/psp: restricted`
@@ -1588,13 +1965,13 @@ based on setting `securityContext` within the Pod's `.spec`.
 seccomp 配置文件应用于 Pod 或其容器的步骤。
 该教程介绍了在 Kubernetes 中配置 seccomp 的支持机制，基于在 Pod 的 `.spec` 中设置 `securityContext`。
 
-### snapshot.storage.kubernetes.io/allowVolumeModeChange {#allow-volume-mode-change}
+### snapshot.storage.kubernetes.io/allow-volume-mode-change {#allow-volume-mode-change}
 <!--
-Example: `snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"`
+Example: `snapshot.storage.kubernetes.io/allow-volume-mode-change: "true"`
 
 Used on: VolumeSnapshotContent
 -->
-例子：`snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"`
+例子：`snapshot.storage.kubernetes.io/allow-volume-mode-change: "true"`
 
 用于：VolumeSnapshotContent
 
@@ -1607,8 +1984,8 @@ created from a VolumeSnapshot.
 Refer to [Converting the volume mode of a Snapshot](/docs/concepts/storage/volume-snapshots/#convert-volume-mode)
 and the [Kubernetes CSI Developer Documentation](https://kubernetes-csi.github.io/docs/) for more information.
 -->
-值可以是 `true` 或者 `false`。
-这决定了当从 VolumeSnapshot 创建 {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}}
+值可以是 `true` 或者 `false`。取值决定了当从 VolumeSnapshot 创建
+{{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}}
 时，用户是否可以修改源卷的模式。
 
 更多信息请参阅[转换快照的卷模式](/zh-cn/docs/concepts/storage/volume-snapshots/#convert-volume-mode)和
@@ -1787,4 +2164,3 @@ no longer sets or uses this deprecated taint.
 kubeadm 先前应用在控制平面节点上的污点，仅允许在其上调度关键工作负载。
 替换为 [`node-role.kubernetes.io/control-plane`](#node-role-kubernetes-io-control-plane-taint)；
 kubeadm 不再设置或使用这个废弃的污点。
-

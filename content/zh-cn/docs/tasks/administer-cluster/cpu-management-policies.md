@@ -32,6 +32,14 @@ directives.
 然而，为了正常运行，有些工作负载要求在延迟和/或性能方面有更强的保证。
 为此，kubelet 提供方法来实现更复杂的负载放置策略，同时保持抽象，避免显式的放置指令。
 
+<!--
+For detailed information on resource management, please refer to the
+[Resource Management for Pods and Containers](/docs/concepts/configuration/manage-resources-containers)
+documentation.
+-->
+有关资源管理的详细信息，
+请参阅 [Pod 和容器的资源管理](/zh-cn/docs/concepts/configuration/manage-resources-containers)文档。
+
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}

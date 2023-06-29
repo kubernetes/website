@@ -582,13 +582,13 @@ before the item, or just below the heading for the specific item.
 
 To generate a version string for inclusion in the documentation, you can choose from
 several version shortcodes. Each version shortcode displays a version string derived from
-the value of a version parameter found in the site configuration file, `config.toml`.
+the value of a version parameter found in the site configuration file, `hugo.toml`.
 The two most commonly used version parameters are `latest` and `version`.
 -->
 ## 版本号信息 {#version-strings}
 
 要在文档中生成版本号信息，可以从以下几种短代码中选择。每个短代码可以基于站点配置文件
-`config.toml` 中的版本参数生成一个版本号取值。最常用的参数为 `latest` 和 `version`。
+`hugo.toml` 中的版本参数生成一个版本号取值。最常用的参数为 `latest` 和 `version`。
 
 <!--
 ### `{{</* param "version" */>}}`

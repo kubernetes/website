@@ -85,6 +85,22 @@ CPU limit or a CPU request.
 Containers in a Pod can request other resources (not CPU or memory) and still be classified as
 `BestEffort`.
 
+## Memory QoS with cgroup v2
+
+{{< feature-state for_k8s_version="v1.22" state="alpha" >}}
+
+Memory QoS uses the memory controller of cgroup v2 to guarantee memory resources in Kubernetes.
+Memory requests and limits of containers in pod are used to set specific interfaces `memory.min`
+and `memory.high` provided by the memory controller. When `memory.min` is set to memory requests,
+memory resources are reserved and never reclaimed by the kernel; this is how Memory QoS ensures
+memory availability for Kubernetes pods. And if memory limits are set in the container,
+this means that the system needs to limit container memory usage; Memory QoS uses `memory.high`
+to throttle workload approaching its memory limit, ensuring that the system is not overwhelmed
+by instantaneous memory allocation.
+
+Memory QoS relies on QoS class to determine which settings to apply; however, these are different
+mechanisms that both provide controls over quality of service.
+
 ## Some behavior is independent of QoS class {#class-independent-behavior}
 
 Certain behavior is independent of the QoS class assigned by Kubernetes. For example:
@@ -111,7 +127,7 @@ Certain behavior is independent of the QoS class assigned by Kubernetes. For exa
 * Learn about [resource management for Pods and Containers](/docs/concepts/configuration/manage-resources-containers/).
 * Learn about [Node-pressure eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
 * Learn about [Pod priority and preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
-* Learn about [Pod disruptions](/docs/concepts/workload/pods/disruptions/).
+* Learn about [Pod disruptions](/docs/concepts/workloads/pods/disruptions/).
 * Learn how to [assign memory resources to containers and pods](/docs/tasks/configure-pod-container/assign-memory-resource/).
 * Learn how to [assign CPU resources to containers and pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
 * Learn how to [configure Quality of Service for Pods](/docs/tasks/configure-pod-container/quality-service-pod/).

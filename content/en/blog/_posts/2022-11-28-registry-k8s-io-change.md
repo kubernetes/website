@@ -62,7 +62,16 @@ imageRepository: "k8s.gcr.io"
 
 ### Reverting the Registry Name in kubelet
 
-The image used by kubelet for the pod sandbox (`pause`) can be overridden by setting the `--pod-infra-container-image` flag. For example:
+The image used by kubelet for the pod sandbox (`pause`) can be overridden
+by configuring your container runtime or by setting the `--pod-infra-container-image`
+flag depending on the version of Kubernetes you are using.
+
+Other runtimes:
+[containerd](/docs/setup/production-environment/container-runtimes/#override-pause-image-containerd),
+[CRI-O](/docs/setup/production-environment/container-runtimes/#override-pause-image-cri-o),
+[cri-dockerd](/docs/setup/production-environment/container-runtimes/#override-pause-image-cri-dockerd-mcr).
+
+When using dockershim before v1.23:
 
 ```
 kubelet --pod-infra-container-image=k8s.gcr.io/pause:3.5

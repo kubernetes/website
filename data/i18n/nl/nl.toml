@@ -76,7 +76,7 @@ other = "Kubernetes functies"
 other = """We zijn een <a href="https://cncf.io/">CNCF</a> project</p>"""
 
 [main_kubeweekly_baseline]
-other = "Wil je het laatste Kubernates nieuws ontvangen? Abonneer je op KubeWeekly."
+other = "Wil je het laatste Kubernetes nieuws ontvangen? Abonneer je op KubeWeekly."
 
 [main_kubernetes_past_link]
 other = "Eerdere nieuwsbrieven bekijken"

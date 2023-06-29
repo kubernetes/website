@@ -1,7 +1,7 @@
 ---
 title: PodにQuality of Serviceを設定する
 content_type: task
-weight: 30
+weight: 60
 ---
 
 

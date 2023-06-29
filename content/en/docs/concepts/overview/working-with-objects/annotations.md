@@ -6,7 +6,8 @@ weight: 60
 
 <!-- overview -->
 You can use Kubernetes annotations to attach arbitrary non-identifying metadata
-to objects. Clients such as tools and libraries can retrieve this metadata.
+to {{< glossary_tooltip text="objects" term_id="object" >}}.
+Clients such as tools and libraries can retrieve this metadata.
 
 <!-- body -->
 ## Attaching metadata to objects

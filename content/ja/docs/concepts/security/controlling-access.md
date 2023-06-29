@@ -1,6 +1,7 @@
 ---
 title: Kubernetes APIへのアクセスコントロール
 content_type: concept
+weight: 50
 ---
 
 <!-- overview -->
