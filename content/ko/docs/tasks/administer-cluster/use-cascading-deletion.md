@@ -47,8 +47,7 @@ apiVersion: v1
 `kubectl` 또는 쿠버네티스 API를 사용해 
 포그라운드 캐스케이딩 삭제로 전환할 수 있다. {{<version-check>}}
 
-{{<tabs name="foreground_deletion">}}
-{{% tab name="쿠버네티스 1.20.x 이후 버전" %}}
+
 `kubectl` 또는 쿠버네티스 API를 사용해 
 포그라운드 캐스케이딩 삭제로 오브젝트들을 삭제할 수 있다.
 
@@ -96,47 +95,6 @@ kubectl delete deployment nginx-deployment --cascade=foreground
        ...
    ```
 
-{{% /tab %}}
-{{% tab name="쿠버네티스 1.20.x 전 버전" %}}
-쿠버네티스 API를 사용해 
-포그라운드 캐스케이딩 삭제로 오브젝트들을 삭제할 수 있다.
-
-상세한 내용은 [쿠버네티스 버전에 따른 문서](/ko/docs/home/supported-doc-versions/)를 참고한다.
-
-1. 로컬 프록시 세션을 시작한다.
-
-   ```shell
-   kubectl proxy --port=8080
-   ```
-
-1. 삭제를 작동시키기 위해 `curl`을 사용한다.
-
-   ```shell
-   curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/deployments/nginx-deployment \
-       -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Foreground"}' \
-       -H "Content-Type: application/json"
-   ```
-
-   출력에는 다음과 같이 
-   `foregroundDeletion` {{<glossary_tooltip text="파이널라이저(finalizer)" term_id="finalizer">}}가 포함되어 있다.
-
-   ```
-   "kind": "Deployment",
-   "apiVersion": "apps/v1",
-   "metadata": {
-       "name": "nginx-deployment",
-       "namespace": "default",
-       "uid": "d1ce1b02-cae8-4288-8a53-30e84d8fa505",
-       "resourceVersion": "1363097",
-       "creationTimestamp": "2021-07-08T20:24:37Z",
-       "deletionTimestamp": "2021-07-08T20:27:39Z",
-       "finalizers": [
-         "foregroundDeletion"
-       ]
-       ...
-   ```
-{{% /tab %}}
-{{</tabs>}}
 
 ## 백그라운드 캐스케이딩 삭제 사용 {#use-background-cascading-deletion}
 
@@ -144,8 +102,6 @@ kubectl delete deployment nginx-deployment --cascade=foreground
 1. 클러스터를 실행하는 쿠버네티스 버전에 따라 
    디플로이먼트를 삭제하기 위해 `kubectl` 또는 쿠버네티스 API를 사용한다. {{<version-check>}}
 
-{{<tabs name="background_deletion">}}
-{{% tab name="쿠버네티스 1.20.x 이후 버전" %}}
 
 `kubectl` 또는 쿠버네티스 API를 사용해 
 백그라운드 캐스케이딩 삭제로 오브젝트들을 삭제할 수 있다.
@@ -192,54 +148,6 @@ kubectl delete deployment nginx-deployment --cascade=background
        "uid": "cc9eefb9-2d49-4445-b1c1-d261c9396456"
    }
    ```
-{{% /tab %}}
-{{% tab name="쿠버네티스 1.20.x 전 버전" %}}
-쿠버네티스는 기본적으로 백그라운드 캐스케이딩 삭제를 사용하므로, `--cascade` 플래그 
-또는 `propagationPolicy: Background` 인수 없이 
-다음 명령을 실행해도 같은 작업을 수행한다.
-
-상세한 내용은 [쿠버네티스 버전에 따른 문서](/ko/docs/home/supported-doc-versions/)를 참고한다.
-
-**kubectl 사용**
-
-다음 명령어를 실행한다.
-
-```shell
-kubectl delete deployment nginx-deployment --cascade=true
-```
-
-**쿠버네티스 API 사용**
-
-1. 로컬 프록시 세션을 시작한다.
-
-   ```shell
-   kubectl proxy --port=8080
-   ```
-
-1. 삭제를 작동시키기 위해 `curl`을 사용한다.
-
-   ```shell
-   curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/deployments/nginx-deployment \
-       -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Background"}' \
-       -H "Content-Type: application/json"
-   ```
-
-   출력은 다음과 유사하다.
-
-   ```
-   "kind": "Status",
-   "apiVersion": "v1",
-   ...
-   "status": "Success",
-   "details": {
-       "name": "nginx-deployment",
-       "group": "apps",
-       "kind": "deployments",
-       "uid": "cc9eefb9-2d49-4445-b1c1-d261c9396456"
-   }
-   ```
-{{% /tab %}}
-{{</tabs>}}
 
 
 ## 소유자 오브젝트 및 종속된 고아(orphan) 오브젝트 삭제 {#set-orphan-deletion-policy}
@@ -250,8 +158,6 @@ kubectl delete deployment nginx-deployment --cascade=true
 쿠버네티스 버전에 따라 `kubectl` 또는 쿠버네티스 API를 사용해 
 종속 오브젝트를 쿠버네티스 *고아*로 만들 수 있다. {{<version-check>}}
 
-{{<tabs name="orphan_objects">}}
-{{% tab name="쿠버네티스 1.20.x 이후 버전" %}}
 
 **kubectl 사용**
 
@@ -293,52 +199,6 @@ kubectl delete deployment nginx-deployment --cascade=orphan
    ...
    ```
 
-{{% /tab %}}
-{{% tab name="쿠버네티스 1.20.x 전 버전" %}}
-
-상세한 내용은 [쿠버네티스 버전에 따른 문서](/ko/docs/home/supported-doc-versions/)를 참고한다.
-
-**kubectl 사용**
-
-다음 명령어를 실행한다.
-
-```shell
-kubectl delete deployment nginx-deployment --cascade=orphan
-```
-
-**쿠버네티스 API 사용**
-
-1. 로컬 프록시 세션을 시작한다.
-
-   ```shell
-   kubectl proxy --port=8080
-   ```
-
-1. 삭제를 작동시키기 위해 `curl`을 사용한다.
-
-   ```shell
-   curl -X DELETE localhost:8080/apis/apps/v1/namespaces/default/deployments/nginx-deployment \
-       -d '{"kind":"DeleteOptions","apiVersion":"v1","propagationPolicy":"Orphan"}' \
-       -H "Content-Type: application/json"
-   ```
-
-   출력에는 다음과 같이 `finalizers` 필드에 `orphan`이 포함되어 있다.
-
-   ```
-   "kind": "Deployment",
-   "apiVersion": "apps/v1",
-   "namespace": "default",
-   "uid": "6f577034-42a0-479d-be21-78018c466f1f",
-   "creationTimestamp": "2021-07-09T16:46:37Z",
-   "deletionTimestamp": "2021-07-09T16:47:08Z",
-   "deletionGracePeriodSeconds": 0,
-   "finalizers": [
-     "orphan"
-   ],
-   ...
-   ```
-{{% /tab %}}
-{{</tabs>}}
 
 디플로이먼트가 관리하는 파드들이 계속 실행 중인지 확인할 수 있다.
 

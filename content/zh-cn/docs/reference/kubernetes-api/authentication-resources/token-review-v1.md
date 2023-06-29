@@ -132,7 +132,7 @@ TokenReviewStatus 是令牌认证请求的结果。
   user 是与提供的令牌关联的 UserInfo。
 
   <a name="UserInfo"></a>
-  <--
+  <!--
   *UserInfo holds the information about the user needed to implement the user.Info interface.*
   -->
   **UserInfo 保存实现 user.Info 接口所需的用户信息**
@@ -163,7 +163,7 @@ TokenReviewStatus 是令牌认证请求的结果。
     <!--
     The name that uniquely identifies this user among all active users.
     -->
-   在所有活动用户中唯一标识此用户的名称。
+   在所有活跃用户中唯一标识此用户的名称。
 
 <!--
 ## Operations {#Operations}

@@ -22,7 +22,10 @@ card:
 ## {{% heading "prerequisites" %}}
 
 <!--
-You must use a kubectl version that is within one minor version difference of your cluster. For example, a v{{< skew currentVersion >}} client can communicate with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}, and v{{< skew currentVersionAddMinor 1 >}} control planes.
+You must use a kubectl version that is within one minor version difference of
+your cluster. For example, a v{{< skew currentVersion >}} client can communicate
+with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
+and v{{< skew currentVersionAddMinor 1 >}} control planes.
 Using the latest compatible version of kubectl helps avoid unforeseen issues.
 -->
 kubectl 版本和集群版本之间的差异必须在一个小版本号内。
@@ -54,7 +57,13 @@ The following methods exist for installing kubectl on Windows:
 <!--
 1. Download the [latest release {{< param "fullversion" >}}](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
 -->
-1. 下载[最新发行版 {{< param "fullversion" >}}](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe)。
+<!--
+1. Download the latest {{< skew currentVersion >}} patch release:
+   [kubectl {{< skew currentPatchVersion >}}](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe).
+-->
+
+1. 下载最新补丁版 {{< skew currentVersion >}}：
+   [kubectl {{< skew currentPatchVersion >}}](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe)。
 
    <!--
    Or if you have `curl` installed, use this command:
@@ -62,12 +71,13 @@ The following methods exist for installing kubectl on Windows:
    如果你已安装了 `curl`，也可以使用此命令：
 
    ```powershell
-   curl.exe -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe"
+   curl.exe -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe"
    ```
 
    {{< note >}}
    <!--
-   To find out the latest stable version (for example, for scripting), take a look at [https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt).
+   To find out the latest stable version (for example, for scripting), take a look at
+   [https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt).
    -->
    要想找到最新稳定的版本（例如：为了编写脚本），可以看看这里 [https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt)。
    {{< /note >}}
@@ -82,7 +92,7 @@ The following methods exist for installing kubectl on Windows:
    下载 `kubectl` 校验和文件：
 
    ```powershell
-   curl.exe -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256"
+   curl.exe -LO "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
    ```
 
    <!--
@@ -101,7 +111,8 @@ The following methods exist for installing kubectl on Windows:
      ```
 
    <!--
-   - Using PowerShell to automate the verification using the `-eq` operator to get a `True` or `False` result:
+   - Using PowerShell to automate the verification using the `-eq` operator to
+     get a `True` or `False` result:
    -->
    - 用 PowerShell 自动验证，用运算符 `-eq` 来直接取得 `True` 或 `False` 的结果：
 
@@ -122,14 +133,17 @@ The following methods exist for installing kubectl on Windows:
    ```cmd
    kubectl version --client
    ```
+
    {{< note >}}
    <!--
    The above command will generate a warning:
    -->
    上面的命令会产生一个警告：
+
    ```
    WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
    ```
+
    <!--
    You can ignore this warning. You are only checking the version of `kubectl` that you
    have installed.
@@ -146,19 +160,12 @@ The following methods exist for installing kubectl on Windows:
    kubectl version --client --output=yaml
    ```
 
-<!--
-1. After installing the plugin, clean up the installation files:
--->
-5. 安装插件后，清理安装文件：
-
-   ```powershell
-   del kubectl.exe kubectl.exe.sha256
-   ```
-
 {{< note >}}
 <!-- 
-[Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes) adds its own version of `kubectl` to `PATH`.
-If you have installed Docker Desktop before, you may need to place your `PATH` entry before the one added by the Docker Desktop installer or remove the Docker Desktop's `kubectl`.
+[Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes)
+adds its own version of `kubectl` to `PATH`. If you have installed Docker Desktop before,
+you may need to place your `PATH` entry before the one added by the Docker Desktop
+installer or remove the Docker Desktop's `kubectl`.
 -->
 [Windows 版的 Docker Desktop](https://docs.docker.com/docker-for-windows/#kubernetes)
 将其自带版本的 `kubectl` 添加到 `PATH`。
@@ -172,7 +179,9 @@ If you have installed Docker Desktop before, you may need to place your `PATH` e
 ### 在 Windows 上用 Chocolatey、Scoop 或 winget 安装 {#install-nonstandard-package-tools}
 
 <!--
-1. To install kubectl on Windows you can use either [Chocolatey](https://chocolatey.org) package manager, [Scoop](https://scoop.sh) command-line installer, or [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/) package manager.
+1. To install kubectl on Windows you can use either [Chocolatey](https://chocolatey.org)
+   package manager, [Scoop](https://scoop.sh) command-line installer, or
+   [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/) package manager.
 -->
 1. 要在 Windows 上安装 kubectl，你可以使用包管理器 [Chocolatey](https://chocolatey.org)、
    命令行安装器 [Scoop](https://scoop.sh) 或包管理器 [winget](https://learn.microsoft.com/zh-cn/windows/package-manager/winget/)。
@@ -265,7 +274,8 @@ Edit the config file with a text editor of your choice, such as Notepad.
 ### 启用 shell 自动补全功能 {#enable-shell-autocompletion}
 
 <!--
-kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell, which can save you a lot of typing.
+kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell,
+which can save you a lot of typing.
 
 Below are the procedures to set up autocompletion for PowerShell.
 -->
@@ -288,7 +298,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 1. 用以下命令下载最新发行版：
 
    ```powershell
-   curl.exe -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe"
+   curl.exe -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl-convert.exe"
    ```
 
 <!--
@@ -302,7 +312,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    下载 `kubectl-convert` 校验和文件：
 
    ```powershell
-   curl.exe -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
+   curl.exe -LO "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
    ```
 
    <!--
@@ -321,7 +331,8 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
      ```
 
    <!--
-   - Using PowerShell to automate the verification using the `-eq` operator to get a `True` or `False` result:
+   - Using PowerShell to automate the verification using the `-eq` operator to get
+     a `True` or `False` result:
    -->
 
    - 使用 PowerShell `-eq` 操作使验证自动化，获得 `True` 或者 `False` 的结果：

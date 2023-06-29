@@ -33,9 +33,9 @@ CustomResourceDefinition 表示应在 API 服务器上公开的资源。其名�
 
 <hr>
 
-- **apiVersion**: apiextensions.k8s.io/v1
+- **apiVersion**：apiextensions.k8s.io/v1
 
-- **kind**: CustomResourceDefinition
+- **kind**：CustomResourceDefinition
 
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
   <!--
@@ -150,7 +150,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
 - **scope** (string)，必需
   
-  scope 表示自定义资源是群集作用域还是命名空间作用域。允许的值为 `Cluster` 和 `Namespaced`。
+  scope 表示自定义资源是集群作用域还是命名空间作用域。允许的值为 `Cluster` 和 `Namespaced`。
 
 <!--
 - **versions** ([]CustomResourceDefinitionVersion), required
@@ -161,7 +161,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 - **versions** ([]CustomResourceDefinitionVersion)，必需
 
   versions 是自定义资源的所有 API 版本的列表。版本名称用于计算服务版本在 API 发现中列出的顺序。
-  如果版本字符串是与 Kubernetes 的版本号形式类似，则它将排序在非 Kubernetes 形式版本字符串之前。
+  如果版本字符串与 Kubernetes 的版本号形式类似，则它将被排序在非 Kubernetes 形式版本字符串之前。
   Kubernetes 的版本号字符串按字典顺序排列。Kubernetes 版本号以 “v” 字符开头，
   后面是一个数字（主版本），然后是可选字符串 “alpha” 或 “beta” 和另一个数字（次要版本）。
   它们首先按 GA > beta > alpha 排序（其中 GA 是没有 beta 或 alpha 等后缀的版本），然后比较主要版本，
@@ -200,7 +200,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
   - **versions.storage** (boolean)，必需
 
-    storage 表示在将自定义资源持久保存到存储时应使用此版本。有且仅有一个版本的 storage=true。
+    storage 表示在将自定义资源持久保存到存储时，应使用此版本。有且仅有一个版本的 storage=true。
 
   - **versions.additionalPrinterColumns** ([]CustomResourceColumnDefinition)
 
@@ -388,8 +388,8 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
       status 表示自定义资源应该为 `/status` 子资源服务。当启用时：
 
-      1. 对自定义资源主端点的请求会忽略对对象的 `status` 节的改变；
-      2. 对自定义资源 `/status` 子资源的请求忽略对对象的 `status` 节以外的任何变化。
+      1. 对自定义资源主端点的请求会忽略对对象 `status` 节的改变；
+      2. 对自定义资源 `/status` 子资源的请求忽略对对象 `status` 节以外的任何变化。
 
       <a name="CustomResourceSubresourceStatus"></a>
       <!--
@@ -416,7 +416,7 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
   - **conversion.strategy** (string), required
 
-    strategy specifies how custom resources are converted between versions. Allowed values are: - `None`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `Webhook`: API Server will call to an external webhook to do the conversion. Additional information
+    strategy specifies how custom resources are converted between versions. Allowed values are: - `"None"`: The converter only change the apiVersion and would not touch any other field in the custom resource. - `"Webhook"`: API Server will call to an external webhook to do the conversion. Additional information
       is needed for this option. This requires spec.preserveUnknownFields to be false, and spec.conversion.webhook to be set.
   -->
 
@@ -426,17 +426,17 @@ CustomResourceDefinitionSpec 描述了用户希望资源的呈现方式。
 
     strategy 指定如何在版本之间转换自定义资源。允许的值为：
 
-    - `None`：转换器仅更改 apiVersion 并且不会触及自定义资源中的任何其他字段。
-    - `Webhook`：API 服务器将调用外部 Webhook 进行转换。此选项需要其他信息。这要求
-       spec.preserveUnknownFields 为 false，并且设置 spec.conversion.webhook。
+    - `"None"`：转换器仅更改 apiVersion 并且不会触及自定义资源中的任何其他字段。
+    - `"Webhook"`：API 服务器将调用外部 Webhook 进行转换。此选项需要其他信息。这要求
+      spec.preserveUnknownFields 为 false，并且设置 spec.conversion.webhook。
 
   - **conversion.webhook** (WebhookConversion)
 
     <!--
-    webhook describes how to call the conversion webhook. Required when `strategy` is set to `Webhook`.
+    webhook describes how to call the conversion webhook. Required when `strategy` is set to `"Webhook"`.
     -->
 
-    webhook 描述了如何调用转换 Webhook。当 `strategy` 设置为 `Webhook` 时有效。
+    webhook 描述了如何调用转换 Webhook。当 `strategy` 设置为 `"Webhook"` 时有效。
 
     <a name="WebhookConversion"></a>
     <!--
@@ -922,7 +922,7 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
     The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object and from any x-kubernetes-embedded-resource annotated objects. No other metadata properties are accessible.
     -->
 
-    `apiVersion`, `kind`, `metadata.name` 和 `metadata.generateName` 总是可以从对象的根和任何带
+    `apiVersion`、`kind`、`metadata.name` 和 `metadata.generateName` 总是可以从对象的根和任何带
     x-kubernetes-embedded-resource 注解的对象访问。其他元数据属性都无法访问。
 
     <!--
@@ -993,7 +993,23 @@ JSONSchemaProps 是JSON 模式（JSON-Schema），遵循其规范草案第 4 版
     message 表示验证失败时显示的消息。如果规则包含换行符，则需要该消息。消息不能包含换行符。
     如果未设置，则消息为 "failed rule: {Rule}"，如："must be a URL with the host matching spec.host"
 
+  - **x-kubernetes-validations.messageExpression** (string)
+
+    <!--
+    MessageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a rule, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the rule; the only difference is the return type. Example: "x must be less than max ("+string(self.max)+")"
+    -->
+    messageExpression 声明一个 CEL 表达式，其计算结果是此规则失败时返回的验证失败消息。
+    由于 messageExpression 用作失败消息，因此它的值必须是一个字符串。
+    如果在规则中同时存在 message 和 messageExpression，则在验证失败时使用 messageExpression。
+    如果是 messageExpression 出现运行时错误，则会记录运行时错误，并生成验证失败消息，
+    就好像未设置 messageExpression 字段一样。如果 messageExpression 求值为空字符串、
+    只包含空格的字符串或包含换行符的字符串，则验证失败消息也将像未设置 messageExpression 字段一样生成，
+    并记录 messageExpression 生成空字符串/只包含空格的字符串/包含换行符的字符串的事实。
+    messageExpression 可以访问的变量与规则相同；唯一的区别是返回类型。
+    例如："x must be less than max ("+string(self.max)+")"。
+
 ## CustomResourceDefinitionStatus {#CustomResourceDefinitionStatus}
+
 <!--
 CustomResourceDefinitionStatus indicates the state of the CustomResourceDefinition
 -->
@@ -1030,7 +1046,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
     plural is the plural name of the resource to serve. The custom resources are served under `/apis/\<group>/\<version>/.../\<plural>`. Must match the name of the CustomResourceDefinition (in the form `\<names.plural>.\<group>`). Must be all lowercase.
   -->
 
-  - **acceptedNames.plural** (string), required
+  - **acceptedNames.plural** (string)，必需
 
     plural 是所提供的资源的复数名称，自定义资源在 `/apis/<group>/<version>/.../<plural>` 下提供。
     必须与 CustomResourceDefinition 的名称匹配（格式为 `<names.plural>.<group>`）。必须全部小写。
@@ -1103,7 +1119,7 @@ CustomResourceDefinitionStatus 表示 CustomResourceDefinition 的状态。
 
   - **conditions.type** (string)，必需
 
-    type 是状况的类型。类型包括：Established、NamesAccepted 和 Terminating。
+    type 是条件的类型。类型包括：Established、NamesAccepted 和 Terminating。
 
   - **conditions.lastTransitionTime** (Time)
 
@@ -1162,7 +1178,7 @@ CustomResourceDefinitionList 是 CustomResourceDefinition 对象的列表。
 
 - **items** ([]<a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>)，必需
 
-  items 列出单个 CustomResourceDefinition 对象
+  items 列出单个 CustomResourceDefinition 对象。
 
 - **apiVersion** (string)
 
@@ -1179,8 +1195,9 @@ CustomResourceDefinitionList 是 CustomResourceDefinition 对象的列表。
   Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
   -->
 
-  kind 是一个字符串值，表示该对象所表示的 REST 资源。服务器可以从客户端提交请求的端点推断出 REST 资源。不能被更新。驼峰命名。
-  更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
+  kind 是一个字符串值，表示该对象所表示的 REST 资源。服务器可以从客户端提交请求的端点推断出 REST 资源。
+  不能被更新。驼峰命名。更多信息：
+  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
 - **metadata** (<a href="{{< ref "../common-definitions/list-meta#ListMeta" >}}">ListMeta</a>)
 
@@ -1216,7 +1233,7 @@ GET /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}
 
 - **name** （**路径参数**）：string，必需
 
-  CustomResourceDefinition 的名称
+  CustomResourceDefinition 的名称。
 
 - **pretty** <!--(*in query*):-->（**查询参数**）：string
 
@@ -1253,7 +1270,7 @@ GET /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}/status
 
 - **name** （**路径参数**）：string，必需
 
-  CustomResourceDefinition 的名称
+  CustomResourceDefinition 的名称。
 
 - **pretty** <!--(*in query*):-->（**查询参数**）：string
 
@@ -1315,6 +1332,10 @@ GET /apis/apiextensions.k8s.io/v1/customresourcedefinitions
 - **resourceVersionMatch** <!--(*in query*):-->（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** <!--(*in query*):-->（**查询参数**）: boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** <!--(*in query*):-->（**查询参数**）：integer
 
@@ -1406,7 +1427,7 @@ PUT /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}
 
 - **name** （**路径参数**）：string，必需
 
-  CustomResourceDefinition 的名称
+  CustomResourceDefinition 的名称。
 
 - **body**: <a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>，必需
 
@@ -1461,7 +1482,7 @@ PUT /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}/status
 
 - **name** （**路径参数**）：string，必需
 
-  CustomResourceDefinition 的名称
+  CustomResourceDefinition 的名称。
 
 - **body**: <a href="{{< ref "../extend-resources/custom-resource-definition-v1#CustomResourceDefinition" >}}">CustomResourceDefinition</a>，必需
 
@@ -1516,7 +1537,7 @@ PATCH /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}
 
 - **name** （**路径参数**）：string，必需
 
-  CustomResourceDefinition 的名称
+  CustomResourceDefinition 的名称。
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
@@ -1575,7 +1596,7 @@ PATCH /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}/status
 
 - **name** （**路径参数**）：string，必需
 
-  CustomResourceDefinition 的名称
+  CustomResourceDefinition 的名称。
 
 - **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
@@ -1632,7 +1653,7 @@ DELETE /apis/apiextensions.k8s.io/v1/customresourcedefinitions/{name}
 
 - **name** （**路径参数**）：string，必需
   
-  CustomResourceDefinition 的名称
+  CustomResourceDefinition 的名称。
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
@@ -1721,6 +1742,10 @@ DELETE /apis/apiextensions.k8s.io/v1/customresourcedefinitions
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
+- **sendInitialEvents** <!--(*in query*):-->（**查询参数**）: boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 - **timeoutSeconds** <!--(*in query*):-->（**查询参数**）：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -1733,4 +1758,3 @@ DELETE /apis/apiextensions.k8s.io/v1/customresourcedefinitions
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK
 
 401: Unauthorized
-

@@ -1,7 +1,7 @@
 ---
 title: "監視、ログ、デバッグ"
 description: クラスターのトラブルシューティングや、コンテナ化したアプリケーションのデバッグのために、監視とログをセットアップします。
-weight: 20
+weight: 40
 content_type: concept
 no_list: true
 ---
@@ -48,7 +48,7 @@ Slackは登録が必要です。[招待をリクエストする](https://slack.k
 
 登録が完了したら、増え続けるチャンネルリストを見て、興味のある様々なテーマについて調べてみましょう。
 たとえば、Kubernetesの初心者は、[`#kubernetes-novice`](https://kubernetes.slack.com/messages/kubernetes-novice)に参加してみるのもよいでしょう。
-別の例として、開発者は[`#kubernetes-dev`](https://kubernetes.slack.com/messages/kubernetes-dev)チャンネルに参加するとよいでしょう。
+別の例として、開発者は[`#kubernetes-contributors`](https://kubernetes.slack.com/messages/kubernetes-contributors)チャンネルに参加するとよいでしょう。
 
 また、多くの国別/言語別チャンネルがあります。これらのチャンネルに参加すれば、地域特有のサポートや情報を得ることができます。
 

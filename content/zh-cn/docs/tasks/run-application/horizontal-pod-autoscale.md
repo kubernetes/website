@@ -493,7 +493,7 @@ pod usage is still within acceptable limits.
 -->
 ### 容器资源指标   {#container-resource-metrics}
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 <!--
 The HorizontalPodAutoscaler API also supports a container metric source where the HPA can track the
@@ -692,7 +692,7 @@ under the `behavior` field.
 
 <!--
 You can specify a _stabilization window_ that prevents [flapping](#flapping)
-the replica count for a scaling target. Scaling policies also let you controls the
+the replica count for a scaling target. Scaling policies also let you control the
 rate of change of replicas while scaling.
 -->
 

@@ -16,12 +16,13 @@ weight: 45
 <!-- overview -->
 
 <!--
-In Kubernetes, _namespaces_ provides a mechanism for isolating groups of resources within a single cluster. Names of resources need to be unique within a namespace, but not across namespaces. Namespace-based scoping is applicable only for namespaced objects _(e.g. Deployments, Services, etc)_ and not for cluster-wide objects _(e.g. StorageClass, Nodes, PersistentVolumes, etc)_.
+In Kubernetes, _namespaces_ provides a mechanism for isolating groups of resources within a single cluster. Names of resources need to be unique within a namespace, but not across namespaces. Namespace-based scoping is applicable only for namespaced {{< glossary_tooltip text="objects" term_id="object" >}} _(e.g. Deployments, Services, etc)_ and not for cluster-wide objects _(e.g. StorageClass, Nodes, PersistentVolumes, etc)_.
 -->
 在 Kubernetes 中，**名字空间（Namespace）** 提供一种机制，将同一集群中的资源划分为相互隔离的组。
 同一名字空间内的资源名称要唯一，但跨名字空间时没有这个要求。
-名字空间作用域仅针对带有名字空间的对象，例如 Deployment、Service 等，
-这种作用域对集群访问的对象不适用，例如 StorageClass、Node、PersistentVolume 等。
+名字空间作用域仅针对带有名字空间的{{< glossary_tooltip text="对象" term_id="object" >}}，
+（例如 Deployment、Service 等），这种作用域对集群范围的对象
+（例如 StorageClass、Node、PersistentVolume 等）不适用。
 
 <!-- body -->
 

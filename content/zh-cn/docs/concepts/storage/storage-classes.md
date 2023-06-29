@@ -100,14 +100,14 @@ for provisioning PVs. This field must be specified.
 该字段必须指定。
 
 <!--
-| Volume Plugin        | Internal Provisioner| Config Example                       |
+| Volume Plugin        | Internal Provisioner |            Config Example             |
 -->
 
-| 卷插件               | 内置制备器 |               配置例子                |
+| 卷插件               | 内置制备器 |               配置示例                |
 | :------------------- | :--------: | :-----------------------------------: |
 | AWSElasticBlockStore |  &#x2713;  |          [AWS EBS](#aws-ebs)          |
-| AzureFile            |  &#x2713;  |       [Azure File](#azure-文件)       |
-| AzureDisk            |  &#x2713;  |       [Azure Disk](#azure-磁盘)       |
+| AzureFile            |  &#x2713;  |       [Azure File](#azure-file)       |
+| AzureDisk            |  &#x2713;  |       [Azure Disk](#azure-disk)       |
 | CephFS               |     -      |                   -                   |
 | Cinder               |  &#x2713;  | [OpenStack Cinder](#openstack-cinder) |
 | FC                   |     -      |                   -                   |
@@ -117,8 +117,8 @@ for provisioning PVs. This field must be specified.
 | NFS                  |     -      |              [NFS](#nfs)              |
 | RBD                  |  &#x2713;  |         [Ceph RBD](#ceph-rbd)         |
 | VsphereVolume        |  &#x2713;  |          [vSphere](#vsphere)          |
-| PortworxVolume       |  &#x2713;  |    [Portworx Volume](#portworx-卷)    |
-| Local                |     -      |            [Local](#本地)             |
+| PortworxVolume       |  &#x2713;  |  [Portworx Volume](#portworx-volume)  |
+| Local                |     -      |            [Local](#local)            |
 
 <!--
 You are not restricted to specifying the "internal" provisioners
@@ -155,7 +155,8 @@ vendors provide their own external provisioner.
 ### Reclaim Policy
 
 PersistentVolumes that are dynamically created by a StorageClass will have the
-reclaim policy specified in the `reclaimPolicy` field of the class, which can be
+[reclaim policy](/docs/concepts/storage/persistent-volumes/#reclaiming)
+specified in the `reclaimPolicy` field of the class, which can be
 either `Delete` or `Retain`. If no `reclaimPolicy` is specified when a
 StorageClass object is created, it will default to `Delete`.
 
@@ -164,8 +165,10 @@ whatever reclaim policy they were assigned at creation.
 -->
 ### 回收策略 {#reclaim-policy}
 
-由 StorageClass 动态创建的 PersistentVolume 会在类的 `reclaimPolicy` 字段中指定回收策略，可以是
-`Delete` 或者 `Retain`。如果 StorageClass 对象被创建时没有指定 `reclaimPolicy`，它将默认为 `Delete`。
+由 StorageClass 动态创建的 PersistentVolume 会在类的
+[reclaimPolicy](/zh-cn/docs/concepts/storage/persistent-volumes/#reclaiming)
+字段中指定回收策略，可以是 `Delete` 或者 `Retain`。
+如果 StorageClass 对象被创建时没有指定 `reclaimPolicy`，它将默认为 `Delete`。
 
 通过 StorageClass 手动创建并管理的 PersistentVolume 会使用它们被创建时指定的回收策略。
 
@@ -236,8 +239,9 @@ the class or PV. If a mount option is invalid, the PV mount fails.
 ### 卷绑定模式 {#volume-binding-mode}
 
 <!--
-The `volumeBindingMode` field controls when [volume binding and dynamic
-provisioning](/docs/concepts/storage/persistent-volumes/#provisioning) should occur. When unset, "Immediate" mode is used by default.
+The `volumeBindingMode` field controls when
+[volume binding and dynamic provisioning](/docs/concepts/storage/persistent-volumes/#provisioning)
+should occur. When unset, "Immediate" mode is used by default.
 -->
 `volumeBindingMode`
 字段控制了[卷绑定和动态制备](/zh-cn/docs/concepts/storage/persistent-volumes/#provisioning)应该发生在什么时候。
@@ -310,7 +314,8 @@ to see its supported topology keys and examples.
 {{< note >}}
 <!--
 If you choose to use `WaitForFirstConsumer`, do not use `nodeName` in the Pod spec
-to specify node affinity. If `nodeName` is used in this case, the scheduler will be bypassed and PVC will remain in `pending` state.
+to specify node affinity.
+If `nodeName` is used in this case, the scheduler will be bypassed and PVC will remain in `pending` state.
 
 Instead, you can use node selector for hostname in this case as shown below.
 -->
@@ -493,6 +498,7 @@ parameters:
   where Kubernetes cluster has a node. `zone` and `zones` parameters must not
   be used at the same time.
 - `fstype`: `ext4` or `xfs`. Default: `ext4`. The defined filesystem type must be supported by the host operating system.
+
 - `replication-type`: `none` or `regional-pd`. Default: `none`.
 -->
 - `type`：`pd-standard` 或者 `pd-ssd`。默认：`pd-standard`
@@ -561,10 +567,12 @@ parameters:
 - `readOnly`：是否将存储挂载为只读的标志（默认为 false）。
 
 <!--
-Kubernetes doesn't include an internal NFS provisioner. You need to use an external provisioner to create a StorageClass for NFS.
+Kubernetes doesn't include an internal NFS provisioner.
+You need to use an external provisioner to create a StorageClass for NFS.
 Here are some examples:
-* [NFS Ganesha server and external provisioner](https://github.com/kubernetes-sigs/nfs-ganesha-server-and-external-provisioner)
-* [NFS subdir external provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)
+
+- [NFS Ganesha server and external provisioner](https://github.com/kubernetes-sigs/nfs-ganesha-server-and-external-provisioner)
+- [NFS subdir external provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)
 -->
 Kubernetes 不包含内部 NFS 驱动。你需要使用外部驱动为 NFS 创建 StorageClass。
 这里有些例子：
@@ -590,10 +598,11 @@ parameters:
 - `availability`：可用区域。如果没有指定，通常卷会在 Kubernetes 集群节点所在的活动区域中轮转调度。
 
 {{< note >}}
-<!--
-This internal provisioner of OpenStack is deprecated. Please use [the external cloud provider for OpenStack](https://github.com/kubernetes/cloud-provider-openstack).
--->
 {{< feature-state state="deprecated" for_k8s_version="v1.11" >}}
+<!--
+This internal provisioner of OpenStack is deprecated. Please use
+[the external cloud provider for OpenStack](https://github.com/kubernetes/cloud-provider-openstack).
+-->
 OpenStack 的内部驱动已经被弃用。请使用
 [OpenStack 的外部云驱动](https://github.com/kubernetes/cloud-provider-openstack)。
 {{< /note >}}
@@ -606,7 +615,10 @@ There are two types of provisioners for vSphere storage classes:
 - [CSI provisioner](#vsphere-provisioner-csi): `csi.vsphere.vmware.com`
 - [vCP provisioner](#vcp-provisioner): `kubernetes.io/vsphere-volume`
 
-In-tree provisioners are [deprecated](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi). For more information on the CSI provisioner, see [Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) and [vSphereVolume CSI migration](/docs/concepts/storage/volumes/#vsphere-csi-migration).
+In-tree provisioners are [deprecated](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi).
+For more information on the CSI provisioner, see
+[Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) and
+[vSphereVolume CSI migration](/docs/concepts/storage/volumes/#vsphere-csi-migration).
 -->
 vSphere 存储类有两种制备器：
 
@@ -622,7 +634,8 @@ vSphere 存储类有两种制备器：
 <!--
 #### CSI Provisioner {#vsphere-provisioner-csi}
 
-The vSphere CSI StorageClass provisioner works with Tanzu Kubernetes clusters. For an example, refer to the [vSphere CSI repository](https://github.com/kubernetes-sigs/vsphere-csi-driver/blob/master/example/vanilla-k8s-RWM-filesystem-volumes/example-sc.yaml).
+The vSphere CSI StorageClass provisioner works with Tanzu Kubernetes clusters.
+For an example, refer to the [vSphere CSI repository](https://github.com/kubernetes-sigs/vsphere-csi-driver/blob/master/example/vanilla-k8s-RWM-filesystem-volumes/example-sc.yaml).
 -->
 #### CSI 制备器 {#vsphere-provisioner-csi}
 

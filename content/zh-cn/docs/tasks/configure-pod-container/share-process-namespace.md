@@ -1,7 +1,7 @@
 ---
 title: 在 Pod 中的容器之间共享进程命名空间
 content_type: task
-weight: 160
+weight: 200
 ---
 <!--
 ---
@@ -11,7 +11,7 @@ reviewers:
 - yujuhong
 - dchen1107
 content_type: task
-weight: 160
+weight: 200
 ---
 -->
 

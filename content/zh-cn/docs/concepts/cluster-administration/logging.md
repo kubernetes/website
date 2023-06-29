@@ -132,9 +132,10 @@ See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl
 
 ![Node level logging](/images/docs/user-guide/logging/logging-node-level.png)
 
-A container runtime handles and redirects any output generated to a containerized application's `stdout` and `stderr` streams.
-Different container runtimes implement this in different ways; however, the integration with the kubelet is standardized
-as the _CRI logging format_.
+A container runtime handles and redirects any output generated to a containerized
+application's `stdout` and `stderr` streams.
+Different container runtimes implement this in different ways; however, the integration
+with the kubelet is standardized as the _CRI logging format_.
 -->
 ### 节点的容器日志处理方式   {#how-nodes-handle-container-logs}
 
@@ -144,11 +145,11 @@ as the _CRI logging format_.
 不同的容器运行时以不同的方式实现这一点；不过它们与 kubelet 的集成都被标准化为 **CRI 日志格式**。
 
 <!--
-By default, if a container restarts, the kubelet keeps one terminated container with its logs. If a pod is evicted from the node,
-all corresponding containers are also evicted, along with their logs.
+By default, if a container restarts, the kubelet keeps one terminated container with its logs.
+If a pod is evicted from the node, all corresponding containers are also evicted, along with their logs.
 
-The kubelet makes logs available to clients via a special feature of the Kubernetes API. The usual way to access this is
-by running `kubectl logs`.
+The kubelet makes logs available to clients via a special feature of the Kubernetes API.
+The usual way to access this is by running `kubectl logs`.
 -->
 默认情况下，如果容器重新启动，kubelet 会保留一个终止的容器及其日志。
 如果一个 Pod 被逐出节点，所对应的所有容器及其日志也会被逐出。
@@ -176,7 +177,7 @@ and the runtime writes the container logs to the given location.
 kubelet（使用 CRI）将此信息发送到容器运行时，而运行时则将容器日志写到给定位置。
 
 <!--
-You can configure two kubelet [configuration settings](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration),
+You can configure two kubelet [configuration settings](/docs/reference/config-api/kubelet-config.v1beta1/),
 `containerLogMaxSize` and `containerLogMaxFiles`,
 using the [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/).
 These settings let you configure the maximum size for each log file and the maximum number of files allowed for each container respectively.
@@ -185,7 +186,7 @@ When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands
 the basic logging example, the kubelet on the node handles the request and
 reads directly from the log file. The kubelet returns the content of the log file.
 -->
-你可以使用 [kubelet 配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)配置两个
+你可以使用 [kubelet 配置文件](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)配置两个
 kubelet [配置选项](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)、
 `containerLogMaxSize` 和 `containerLogMaxFiles`。
 这些设置分别允许你分别配置每个日志文件大小的最大值和每个容器允许的最大文件数。
@@ -353,7 +354,8 @@ as your responsibility.
 <!--
 ## Cluster-level logging architectures
 
-While Kubernetes does not provide a native solution for cluster-level logging, there are several common approaches you can consider. Here are some options:
+While Kubernetes does not provide a native solution for cluster-level logging, there are
+several common approaches you can consider. Here are some options:
 
 * Use a node-level logging agent that runs on every node.
 * Include a dedicated sidecar container for logging in an application pod.
@@ -378,9 +380,12 @@ While Kubernetes does not provide a native solution for cluster-level logging, t
 ![使用节点级日志代理](/images/docs/user-guide/logging/logging-with-node-agent.png)
 
 <!--
-You can implement cluster-level logging by including a _node-level logging agent_ on each node. The logging agent is a dedicated tool that exposes logs or pushes logs to a backend. Commonly, the logging agent is a container that has access to a directory with log files from all of the application containers on that node.
+You can implement cluster-level logging by including a _node-level logging agent_ on each node.
+The logging agent is a dedicated tool that exposes logs or pushes logs to a backend.
+Commonly, the logging agent is a container that has access to a directory with log files from all of the
+application containers on that node.
 -->
-你可以通过在每个节点上使用 **节点级的日志记录代理** 来实现集群级日志记录。
+你可以通过在每个节点上使用**节点级的日志记录代理**来实现集群级日志记录。
 日志记录代理是一种用于暴露日志或将日志推送到后端的专用工具。
 通常，日志记录代理程序是一个容器，它可以访问包含该节点上所有应用程序容器的日志文件的目录。
 
@@ -395,7 +400,8 @@ Node-level logging creates only one agent per node and doesn't require any chang
 节点级日志在每个节点上仅创建一个代理，不需要对节点上的应用做修改。
 
 <!--
-Containers write to stdout and stderr, but with no agreed format. A node-level agent collects these logs and forwards them for aggregation.
+Containers write to stdout and stderr, but with no agreed format. A node-level agent collects
+these logs and forwards them for aggregation.
 -->
 容器向标准输出和标准错误输出写出数据，但在格式上并不统一。
 节点级代理收集这些日志并将其进行转发以完成汇总。
@@ -654,4 +660,3 @@ Cluster-logging that exposes or pushes logs directly from every application is o
 * 阅读有关 [Kubernetes 系统日志](/zh-cn/docs/concepts/cluster-administration/system-logs/)的信息
 * 进一步了解[追踪 Kubernetes 系统组件](/zh-cn/docs/concepts/cluster-administration/system-traces/)
 * 了解当 Pod 失效时如何[定制 Kubernetes 记录的终止消息](/zh-cn/docs/tasks/debug/debug-application/determine-reason-pod-failure/#customizing-the-termination-message)
-

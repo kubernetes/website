@@ -44,9 +44,9 @@ _디플로이먼트(Deployment)_ 는 {{< glossary_tooltip text="파드" term_id=
 
 이 예시에 대한 설명은 다음과 같다.
 
-* `.metadata.name` 필드에 따라 `nginx-deployment` 이름으로 디플로이먼트가 생성된다.
-* `.spec.replicas` 필드에 따라 디플로이먼트는 3개의 레플리카 파드를 생성한다.
-* `.spec.selector` 필드는 디플로이먼트가 관리할 파드를 찾는 방법을 정의한다.
+* `.metadata.name` 필드에 따라, `nginx-deployment` 이름을 가진 디플로이먼트가 생성된다.
+* `.spec.replicas` 필드에 따라, 디플로이먼트는 3개의 레플리카 파드를 생성하는 레플리카셋을 생성한다.
+* `.spec.selector` 필드는, 생성된 레플리카셋이 관리할 파드를 찾아내는 방법을 정의한다.
   이 사례에서는 파드 템플릿에 정의된 레이블(`app: nginx`)을 선택한다.
   그러나 파드 템플릿 자체의 규칙이 만족되는 한,
   보다 정교한 선택 규칙의 적용이 가능하다.

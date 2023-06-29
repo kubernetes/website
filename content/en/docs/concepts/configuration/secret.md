@@ -72,18 +72,18 @@ Rather than using a Secret to protect confidential data, you can pick from alter
 
 Here are some of your options:
 
-- if your cloud-native component needs to authenticate to another application that you
+- If your cloud-native component needs to authenticate to another application that you
   know is running within the same Kubernetes cluster, you can use a
   [ServiceAccount](/docs/reference/access-authn-authz/authentication/#service-account-tokens)
   and its tokens to identify your client.
-- there are third-party tools that you can run, either within or outside your cluster,
+- There are third-party tools that you can run, either within or outside your cluster,
   that provide secrets management. For example, a service that Pods access over HTTPS,
   that reveals a secret if the client correctly authenticates (for example, with a ServiceAccount
   token).
-- for authentication, you can implement a custom signer for X.509 certificates, and use
+- For authentication, you can implement a custom signer for X.509 certificates, and use
   [CertificateSigningRequests](/docs/reference/access-authn-authz/certificate-signing-requests/)
   to let that custom signer issue certificates to Pods that need them.
-- you can use a [device plugin](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
+- You can use a [device plugin](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
   to expose node-local encryption hardware to a specific Pod. For example, you can schedule
   trusted Pods onto nodes that provide a Trusted Platform Module, configured out-of-band.
 
@@ -143,7 +143,7 @@ method creates a new `Secret` object with the edited data.
 
 Depending on how you created the Secret, as well as how the Secret is used in
 your Pods, updates to existing `Secret` objects are propagated automatically to
-Pods that use the data. For more information, refer to [Mounted Secrets are updated automatically](#mounted-secrets-are-updated-automatically).
+Pods that use the data. For more information, refer to [Using Secrets as files from a Pod](#using-secrets-as-files-from-a-pod) section.
 
 ### Using a Secret
 

@@ -1,10 +1,12 @@
 ---
 title: 升级集群
 content_type: task
+weight: 350
 ---
 <!--
 title: Upgrade A Cluster
 content_type: task
+weight: 350
 -->
 
 <!-- overview -->

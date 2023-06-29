@@ -1,4 +1,4 @@
-apiVersion: flowcontrol.apiserver.k8s.io/v1beta2
+apiVersion: flowcontrol.apiserver.k8s.io/v1beta3
 kind: FlowSchema
 metadata:
   name: health-for-strangers

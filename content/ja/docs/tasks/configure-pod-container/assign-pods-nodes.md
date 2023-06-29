@@ -1,7 +1,7 @@
 ---
 title: Podをノードに割り当てる
 content_type: task
-weight: 120
+weight: 150
 ---
 
 <!-- overview -->

@@ -195,7 +195,7 @@ Windowsでは、次のIPAMオプションがサポートされています。
 
 #### コントロールプレーン
 
-Windowsは、Kubernetesアーキテクチャとコンポーネントマトリックスのワーカーノードとしてのみサポートされています。つまり、Kubernetesクラスタには常にLinuxマスターノード、0以上のLinuxワーカーノード、0以上のWindowsワーカーノードが含まれている必要があります。
+Windowsは、Kubernetesアーキテクチャとコンポーネントマトリックスのワーカーノードとしてのみサポートされています。つまり、Kubernetesクラスターには常にLinuxマスターノード、0以上のLinuxワーカーノード、0以上のWindowsワーカーノードが含まれている必要があります。
 
 #### コンピュート
 
@@ -221,7 +221,7 @@ Windowsには厳密な互換性ルールがあり、ホストOSのバージョ�
 
 Windowsには、Linuxのようなメモリ不足のプロセスキラーはありません。Windowsは常に全ユーザーモードのメモリ割り当てを仮想として扱い、ページファイルは必須です。正味の効果は、WindowsはLinuxのようなメモリ不足の状態にはならず、メモリ不足（OOM）終了の影響を受ける代わりにページをディスクに処理します。メモリが過剰にプロビジョニングされ、物理メモリのすべてが使い果たされると、ページングによってパフォーマンスが低下する可能性があります。
 
-2ステップのプロセスで、メモリ使用量を妥当な範囲内に保つことが可能です。まず、kubeletパラメータ`--kubelet-reserve`や`--system-reserve`を使用して、ノード（コンテナ外）でのメモリ使用量を明確にします。これにより、[NodeAllocatable](/ja/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable))が削減されます。ワークロードをデプロイするときは、コンテナにリソース制限をかけます（制限のみを設定するか、制限が要求と等しくなければなりません）。これにより、NodeAllocatableも差し引かれ、ノードのリソースがフルな状態になるとSchedulerがPodを追加できなくなります。
+2ステップのプロセスで、メモリ使用量を妥当な範囲内に保つことが可能です。まず、kubeletパラメーター`--kubelet-reserve`や`--system-reserve`を使用して、ノード（コンテナ外）でのメモリ使用量を明確にします。これにより、[NodeAllocatable](/ja/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable))が削減されます。ワークロードをデプロイするときは、コンテナにリソース制限をかけます（制限のみを設定するか、制限が要求と等しくなければなりません）。これにより、NodeAllocatableも差し引かれ、ノードのリソースがフルな状態になるとSchedulerがPodを追加できなくなります。
 
 過剰なプロビジョニングを回避するためのベストプラクティスは、Windows、Docker、およびKubernetesのプロセスに対応するために、最低2GBのメモリを予約したシステムでkubeletを構成することです。
 
@@ -481,7 +481,7 @@ Kubernetesクラスターのトラブルシューティングの主なヘルプ�
 
 1. コンテナのvNICとHNSエンドポイントが削除されています
 
-    この問題は、`hostname-override`パラメータが[kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)に渡されない場合に発生する可能性があります。これを解決するには、ユーザーは次のようにホスト名をkube-proxyに渡す必要があります。:
+    この問題は、`hostname-override`パラメーターが[kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)に渡されない場合に発生する可能性があります。これを解決するには、ユーザーは次のようにホスト名をkube-proxyに渡す必要があります。:
 
     ```powershell
     C:\k\kube-proxy.exe --hostname-override=$(hostname)

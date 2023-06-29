@@ -116,7 +116,7 @@ webhooks:
 
 {{< note >}}
 You must replace the `<CA_BUNDLE>` in the above example by a valid CA bundle
-which is a PEM-encoded CA bundle for validating the webhook's server certificate.
+which is a PEM-encoded (field value is Base64 encoded) CA bundle for validating the webhook's server certificate.
 {{< /note >}}
 
 The `scope` field specifies if only cluster-scoped resources ("Cluster") or namespace-scoped
@@ -719,6 +719,97 @@ webhooks:
 
 The `matchPolicy` for an admission webhooks defaults to `Equivalent`.
 
+### Matching requests: `matchConditions`
+
+{{< feature-state state="alpha" for_k8s_version="v1.27" >}}
+
+{{< note >}}
+Use of `matchConditions` requires the [featuregate](/docs/reference/command-line-tools-reference/feature-gates/)
+`AdmissionWebhookMatchConditions` to be explicitly enabled on the kube-apiserver before this feature can be used.
+{{< /note >}}
+
+You can define _match conditions_for webhooks if you need fine-grained request filtering. These
+conditions are useful if you find that match rules, `objectSelectors` and `namespaceSelectors` still
+doesn't provide the filtering you want over when to call out over HTTP. Match conditions are
+[CEL expressions](/docs/reference/using-api/cel/). All match conditions must evaluate to true for the
+webhook to be called.
+
+Here is an example illustrating a few different uses for match conditions:
+
+```yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+webhooks:
+  - name: my-webhook.example.com
+    matchPolicy: Equivalent
+    rules:
+      - operations: ['CREATE','UPDATE']
+        apiGroups: ['*']
+        apiVersions: ['*']
+        resources: ['*']
+    failurePolicy: 'Ignore' # Fail-open (optional)
+    sideEffects: None
+    clientConfig:
+      service:
+        namespace: my-namespace
+        name: my-webhook
+      caBundle: '<omitted>'
+    matchConditions:
+      - name: 'exclude-leases' # Each match condition must have a unique name
+        expression: '!(request.resource.group == "coordination.k8s.io" && request.resource.resource == "leases")' # Match non-lease resources.
+      - name: 'exclude-kubelet-requests'
+        expression: '!("system:nodes" in request.userInfo.groups)' # Match requests made by non-node users.
+      - name: 'rbac' # Skip RBAC requests, which are handled by the second webhook.
+        expression: 'request.resource.group != "rbac.authorization.k8s.io"'
+  
+  # This example illustrates the use of the 'authorizer'. The authorization check is more expensive
+  # than a simple expression, so in this example it is scoped to only RBAC requests by using a second
+  # webhook. Both webhooks can be served by the same endpoint.
+  - name: rbac.my-webhook.example.com
+    matchPolicy: Equivalent
+    rules:
+      - operations: ['CREATE','UPDATE']
+        apiGroups: ['rbac.authorization.k8s.io']
+        apiVersions: ['*']
+        resources: ['*']
+    failurePolicy: 'Fail' # Fail-closed (the default)
+    sideEffects: None
+    clientConfig:
+      service:
+        namespace: my-namespace
+        name: my-webhook
+      caBundle: '<omitted>'
+    matchConditions:
+      - name: 'breakglass'
+        # Skip requests made by users authorized to 'breakglass' on this webhook.
+        # The 'breakglass' API verb does not need to exist outside this check.
+        expression: '!authorizer.group("admissionregistration.k8s.io").resource("validatingwebhookconfigurations").name("my-webhook.example.com").check("breakglass").allowed()'
+```
+
+Match conditions have access to the following CEL variables:
+
+- `object` - The object from the incoming request. The value is null for DELETE requests. The object
+  version may be converted based on the [matchPolicy](#matching-requests-matchpolicy).
+- `oldObject` - The existing object. The value is null for CREATE requests.
+- `request` - The request portion of the [AdmissionReview](#request), excluding `object` and `oldObject`.
+- `authorizer` - A CEL Authorizer. May be used to perform authorization checks for the principal
+  (authenticated user) of the request. See
+  [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz) in the Kubernetes CEL library
+  documentation for more details.
+- `authorizer.requestResource` - A shortcut for an authorization check configured with the request
+  resource (group, resource, (subresource), namespace, name).
+
+For more information on CEL expressions, refer to the
+[Common Expression Language in Kubernetes reference](/docs/reference/using-api/cel/).
+
+In the event of an error evaluating a match condition the webhook is never called. Whether to reject
+the request is determined as follows:
+
+1. If **any** match condition evaluated to `false` (regardless of other errors), the API server skips the webhook.
+2. Otherwise:
+    - for [`failurePolicy: Fail`](#failure-policy), reject the request (without calling the webhook).
+    - for [`failurePolicy: Ignore`](#failure-policy), proceed with the request but skip the webhook.
+
 ### Contacting the webhook
 
 Once the API server has determined a request should be sent to a webhook,
@@ -1175,4 +1266,3 @@ cause the control plane components to stop functioning or introduce unknown beha
 If your admission webhooks don't intend to modify the behavior of the Kubernetes control
 plane, exclude the `kube-system` namespace from being intercepted using a
 [`namespaceSelector`](#matching-requests-namespaceselector).
-

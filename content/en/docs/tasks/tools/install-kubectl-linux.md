@@ -12,7 +12,10 @@ card:
 
 ## {{% heading "prerequisites" %}}
 
-You must use a kubectl version that is within one minor version difference of your cluster. For example, a v{{< skew currentVersion >}} client can communicate with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}, and v{{< skew currentVersionAddMinor 1 >}} control planes.
+You must use a kubectl version that is within one minor version difference of
+your cluster. For example, a v{{< skew currentVersion >}} client can communicate
+with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
+and v{{< skew currentVersionAddMinor 1 >}} control planes.
 Using the latest compatible version of kubectl helps avoid unforeseen issues.
 
 ## Install kubectl on Linux
@@ -27,27 +30,45 @@ The following methods exist for installing kubectl on Linux:
 
 1. Download the latest release with the command:
 
-   ```bash
+   {{< tabs name="download_binary_linux" >}}
+   {{< tab name="x86-64" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-   ```
+   {{< /tab >}}
+   {{< tab name="ARM64" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl"
+   {{< /tab >}}
+   {{< /tabs >}}
 
    {{< note >}}
-To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)` portion of the command with the specific version.
+   To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
+   portion of the command with the specific version.
 
-For example, to download version {{< param "fullversion" >}} on Linux, type:
+   For example, to download version {{< skew currentPatchVersion >}} on Linux x86-64, type:
 
    ```bash
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+   curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
    ```
+
+   And for Linux ARM64, type:
+
+   ```bash
+   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/arm64/kubectl
+   ```
+
    {{< /note >}}
 
 1. Validate the binary (optional)
 
    Download the kubectl checksum file:
 
-   ```bash
+   {{< tabs name="download_checksum_linux" >}}
+   {{< tab name="x86-64" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
-   ```
+   {{< /tab >}}
+   {{< tab name="ARM64" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl.sha256"
+   {{< /tab >}}
+   {{< /tabs >}}
 
    Validate the kubectl binary against the checksum file:
 
@@ -79,7 +100,8 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
    ```
 
    {{< note >}}
-   If you do not have root access on the target system, you can still install kubectl to the `~/.local/bin` directory:
+   If you do not have root access on the target system, you can still install
+   kubectl to the `~/.local/bin` directory:
 
    ```bash
    chmod +x kubectl
@@ -95,20 +117,23 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
    ```bash
    kubectl version --client
    ```
+
    {{< note >}}
    The above command will generate a warning:
+
    ```
    WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
    ```
+
    You can ignore this warning. You are only checking the version of `kubectl` that you
    have installed.
-   
+
    {{< /note >}}
-   
+
    Or use this for detailed view of version:
 
    ```cmd
-   kubectl version --client --output=yaml    
+   kubectl version --client --output=yaml
    ```
 
 ### Install using native package management
@@ -122,7 +147,9 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
    sudo apt-get update
    sudo apt-get install -y ca-certificates curl
    ```
+
    If you use Debian 9 (stretch) or earlier you would also need to install `apt-transport-https`:
+
    ```shell
    sudo apt-get install -y apt-transport-https
    ```
@@ -130,7 +157,7 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
 2. Download the Google Cloud public signing key:
 
    ```shell
-   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
    ```
 
 3. Add the Kubernetes `apt` repository:
@@ -145,6 +172,7 @@ For example, to download version {{< param "fullversion" >}} on Linux, type:
    sudo apt-get update
    sudo apt-get install -y kubectl
    ```
+
 {{< note >}}
 In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default.
 You can create this directory if you need to, making it world-readable but writeable only by admins.
@@ -160,7 +188,7 @@ name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
 enabled=1
 gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 sudo yum install -y kubectl
 ```
@@ -172,7 +200,9 @@ sudo yum install -y kubectl
 
 {{< tabs name="other_kubectl_install" >}}
 {{% tab name="Snap" %}}
-If you are on Ubuntu or another Linux distribution that supports the [snap](https://snapcraft.io/docs/core/install) package manager, kubectl is available as a [snap](https://snapcraft.io/) application.
+If you are on Ubuntu or another Linux distribution that supports the
+[snap](https://snapcraft.io/docs/core/install) package manager, kubectl
+is available as a [snap](https://snapcraft.io/) application.
 
 ```shell
 snap install kubectl --classic
@@ -182,7 +212,8 @@ kubectl version --client
 {{% /tab %}}
 
 {{% tab name="Homebrew" %}}
-If you are on Linux and using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux) package manager, kubectl is available for [installation](https://docs.brew.sh/Homebrew-on-Linux#install).
+If you are on Linux and using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux)
+package manager, kubectl is available for [installation](https://docs.brew.sh/Homebrew-on-Linux#install).
 
 ```shell
 brew install kubectl
@@ -201,7 +232,8 @@ kubectl version --client
 
 ### Enable shell autocompletion
 
-kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell, which can save you a lot of typing.
+kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell,
+which can save you a lot of typing.
 
 Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 
@@ -217,17 +249,27 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 
 1. Download the latest release with the command:
 
-   ```bash
+   {{< tabs name="download_convert_binary_linux" >}}
+   {{< tab name="x86-64" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert"
-   ```
+   {{< /tab >}}
+   {{< tab name="ARM64" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl-convert"
+   {{< /tab >}}
+   {{< /tabs >}}
 
 1. Validate the binary (optional)
 
    Download the kubectl-convert checksum file:
 
-   ```bash
+   {{< tabs name="download_convert_checksum_linux" >}}
+   {{< tab name="x86-64" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert.sha256"
-   ```
+   {{< /tab >}}
+   {{< tab name="ARM64" codelang="bash" >}}
+   curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl-convert.sha256"
+   {{< /tab >}}
+   {{< /tabs >}}
 
    Validate the kubectl-convert binary against the checksum file:
 
