@@ -555,14 +555,14 @@ Pod 中的所有容器都可以在特权模式下运行，以使用原本无法�
 此模式同时适用于 Windows 和 Linux。
 
 <!--
-### Linux priviledged containers
+### Linux privileged containers
 
 In Linux, any container in a Pod can enable privileged mode using the `privileged` (Linux) flag
 on the [security context](/docs/tasks/configure-pod-container/security-context/) of the
 container spec. This is useful for containers that want to use operating system administrative
 capabilities such as manipulating the network stack or accessing hardware devices.
 -->
-### Linux 特权容器   {#linux-priviledged-containers}
+### Linux 特权容器   {#linux-privileged-containers}
 
 在 Linux 中，Pod 中的所有容器都可以使用容器规约中的
 [安全性上下文](/zh-cn/docs/tasks/configure-pod-container/security-context/)中的
@@ -570,25 +570,22 @@ capabilities such as manipulating the network stack or accessing hardware device
 这对于想要使用操作系统管理权能（Capabilities，如操纵网络堆栈和访问硬件设备）的容器很有用。
 
 <!--
-### Windows priviledged containers
+### Windows privileged containers
 -->
-### Windows 特权容器   {#windows-priviledged-containers}
+### Windows 特权容器   {#windows-privileged-containers}
 
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 <!--
-In Windows, you can create a [Windows HostProcess pod](/docs/tasks/configure-pod-container/create-hostprocess-pod)
-by setting the `windowsOptions.hostProcess` flag on the security context of the pod spec. All containers in these
+In Windows, you can create a [Windows HostProcess pod](/docs/tasks/configure-pod-container/create-hostprocess-pod) by setting the
+`windowsOptions.hostProcess` flag on the security context of the pod spec. All containers in these
 pods must run as Windows HostProcess containers. HostProcess pods run directly on the host and can also be used
-to perform administrative tasks as is done with Linux privileged containers. In order to use this feature, the
-`WindowsHostProcessContainers` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) must be enabled.
+to perform administrative tasks as is done with Linux privileged containers. 
 -->
 在 Windows 中，你可以使用 Pod 规约中安全上下文的 `windowsOptions.hostProcess` 参数来创建
 [Windows HostProcess Pod](/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod/)。
 这些 Pod 中的所有容器都必须以 Windows HostProcess 容器方式运行。
 HostProcess Pod 可以直接运行在主机上，它也能像 Linux 特权容器一样，用于执行管理任务。
-想要使用此特性，`WindowsHostProcessContainers`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)必须被启用。
 
 <!--
 ## Static Pods

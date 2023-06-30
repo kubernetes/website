@@ -9,7 +9,7 @@ weight: 65
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
 
 Dynamic resource allocation is a new API for requesting and sharing resources
 between pods and containers inside a pod. It is a generalization of the
@@ -31,7 +31,7 @@ check the documentation for that version of Kubernetes.
 
 ## API
 
-The new `resource.k8s.io/v1alpha1` {{< glossary_tooltip text="API group"
+The `resource.k8s.io/v1alpha2` {{< glossary_tooltip text="API group"
 term_id="api-group" >}} provides four new types:
 
 ResourceClass
@@ -51,7 +51,7 @@ ResourceClaimTemplate
 : Defines the spec and some meta data for creating
   ResourceClaims. Created by a user when deploying a workload.
 
-PodScheduling
+PodSchedulingContext
 : Used internally by the control plane and resource drivers
   to coordinate pod scheduling when ResourceClaims need to be allocated
   for a Pod.
@@ -76,7 +76,7 @@ Here is an example for a fictional resource driver. Two ResourceClaim objects
 will get created for this Pod and each container gets access to one of them.
 
 ```yaml
-apiVersion: resource.k8s.io/v1alpha1
+apiVersion: resource.k8s.io/v1alpha2
 kind: ResourceClass
 name: resource.example.com
 driverName: resource-driver.example.com
@@ -88,7 +88,7 @@ spec:
   color: black
   size: large
 ---
-apiVersion: resource.k8s.io/v1alpha1
+apiVersion: resource.k8s.io/v1alpha2
 kind: ResourceClaimTemplate
 metadata:
   name: large-black-cat-claim-template
@@ -162,6 +162,12 @@ gets scheduled onto one node and then cannot run there, which is bad because
 such a pending Pod also blocks all other resources like RAM or CPU that were
 set aside for it.
 
+## Monitoring resources
+
+The kubelet provides a gRPC service to enable discovery of dynamic resources of
+running Pods. For more information on the gRPC endpoints, see the
+[resource allocation reporting](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources).
+
 ## Limitations
 
 The scheduler plugin must be involved in scheduling Pods which use
@@ -176,7 +182,7 @@ future.
 Dynamic resource allocation is an *alpha feature* and only enabled when the
 `DynamicResourceAllocation` [feature
 gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
-`resource.k8s.io/v1alpha1` {{< glossary_tooltip text="API group"
+`resource.k8s.io/v1alpha2` {{< glossary_tooltip text="API group"
 term_id="api-group" >}} are enabled. For details on that, see the
 `--feature-gates` and `--runtime-config` [kube-apiserver
 parameters](/docs/reference/command-line-tools-reference/kube-apiserver/).
@@ -203,8 +209,9 @@ error: the server doesn't have a resource type "resourceclasses"
 ```
 
 The default configuration of kube-scheduler enables the "DynamicResources"
-plugin if and only if the feature gate is enabled. Custom configurations may
-have to be modified to include it.
+plugin if and only if the feature gate is enabled and when using
+the v1 configuration API. Custom configurations may have to be modified to
+include it.
 
 In addition to enabling the feature in the cluster, a resource driver also has to
 be installed. Please refer to the driver's documentation for details.

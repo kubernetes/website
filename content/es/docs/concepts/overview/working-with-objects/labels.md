@@ -95,7 +95,7 @@ metadata:
 spec:
   containers:
     - name: cuda-test
-      image: "k8s.gcr.io/cuda-vector-add:v0.1"
+      image: "registry.k8s.io/cuda-vector-add:v0.1"
       resources:
         limits:
           nvidia.com/gpu: 1
@@ -151,7 +151,7 @@ Como ya se ha comentado, los requisitos _basados en conjunto_ son más expresivo
 kubectl get pods -l 'environment in (production, qa)'
 ```
 
-o restringir la coincidencia negativa mediante el operador _exists_:
+o restringir la coincidencia negativa mediante el operador _notin_:
 
 ```shell
 kubectl get pods -l 'environment,environment notin (frontend)'

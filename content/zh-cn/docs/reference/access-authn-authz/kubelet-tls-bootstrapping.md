@@ -140,8 +140,8 @@ In the bootstrap initialization process, the following occurs:
 6. kubelet 现在拥有受限制的凭据来创建和取回证书签名请求（CSR）
 7. kubelet 为自己创建一个 CSR，并将其 signerName 设置为 `kubernetes.io/kube-apiserver-client-kubelet`
 8. CSR 被以如下两种方式之一批复：
-  * 如果配置了，kube-controller-manager 会自动批复该 CSR
-  * 如果配置了，一个外部进程，或者是人，使用 Kubernetes API 或者使用 `kubectl`
+   * 如果配置了，kube-controller-manager 会自动批复该 CSR
+   * 如果配置了，一个外部进程，或者是人，使用 Kubernetes API 或者使用 `kubectl`
     来批复该 CSR
 9. kubelet 所需要的证书被创建
 <!--
@@ -271,7 +271,7 @@ of provisioning.
 2. [令牌认证文件](#token-authentication-file)
 
 <!--
-Using Bootstrap tokens are a simpler and more easily managed method to authenticate kubelets, and do not require any additional flags when starting kube-apiserver.
+Using bootstrap tokens is a simpler and more easily managed method to authenticate kubelets, and does not require any additional flags when starting kube-apiserver.
 -->
 启动引导令牌是一种对 kubelet 进行身份认证的方法，相对简单且容易管理，
 且不需要在启动 kube-apiserver 时设置额外的标志。
@@ -589,7 +589,7 @@ roleRef:
 
 <!--
 The `csrapproving` controller that ships as part of
-[kube-controller-manager](/docs/admin/kube-controller-manager/) and is enabled
+[kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) and is enabled
 by default. The controller uses the
 [`SubjectAccessReview` API](/docs/reference/access-authn-authz/authorization/#checking-api-access) to
 determine if a given user is authorized to request a CSR, then approves based on
@@ -787,7 +787,7 @@ or pass the following command line argument to the kubelet (deprecated):
 <!--
 Enabling `RotateKubeletServerCertificate` causes the kubelet **both** to request a serving
 certificate after bootstrapping its client credentials **and** to rotate that
-certificate. To enable this behavior, use the field `serverTLSBootstrap`  of 
+certificate. To enable this behavior, use the field `serverTLSBootstrap` of
 the [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/)
 or pass the following command line argument to the kubelet (deprecated):
 -->
@@ -869,12 +869,12 @@ You have several options for generating these credentials:
 <!--
 ## kubectl approval
 
-CSRs can be approved outside of the approval flows builtin into the controller
+CSRs can be approved outside of the approval flows built into the controller
 manager.
 -->
 ## kubectl 批复    {#kubectl-approval}
 
-CSRs 可以在控制器管理其内置的批复工作流之外被批复。
+CSR 可以在编译进控制器内部的批复工作流之外被批复。
 
 <!--
 The signing controller does not immediately sign all certificate requests.

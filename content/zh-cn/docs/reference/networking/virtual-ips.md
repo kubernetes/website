@@ -13,10 +13,12 @@ weight: 50
 <!-- overview -->
 <!--
 Every {{< glossary_tooltip term_id="node" text="node" >}} in a Kubernetes
-cluster runs a [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)
+{{< glossary_tooltip term_id="cluster" text="cluster" >}} runs a
+[kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/)
 (unless you have deployed your own alternative component in place of `kube-proxy`).
 -->
-Kubernetes 集群中的每个{{< glossary_tooltip term_id="node" text="节点" >}}会运行一个
+Kubernetes {{< glossary_tooltip text="集群" term_id="cluster" >}}中的每个
+{{< glossary_tooltip text="节点" term_id="node" >}}会运行一个
 [kube-proxy](/zh-cn/docs/reference/command-line-tools-reference/kube-proxy/)
 （除非你已经部署了自己的替换组件来替代 `kube-proxy`）。
 
@@ -77,15 +79,18 @@ to use as-is.
 
 <!--
 <a id="example"></a>
-Some of the details in this reference refer to an example: the backend Pods for a stateless
-image-processing workload, running with three replicas. Those replicas are
+Some of the details in this reference refer to an example: the backend
+{{< glossary_tooltip term_id="pod" text="Pods" >}} for a stateless
+image-processing workloads, running with
+three replicas. Those replicas are
 fungible&mdash;frontends do not care which backend they use.  While the actual Pods that
 compose the backend set may change, the frontend clients should not need to be aware of that,
 nor should they need to keep track of the set of backends themselves.
 -->
 <a id="example"></a>
 本文中的一些细节会引用这样一个例子：
-运行了 3 个 Pod 副本的无状态图像处理后端工作负载。
+运行了 3 个 {{< glossary_tooltip text="Pod" term_id="pod" >}}
+副本的无状态图像处理后端工作负载。
 这些副本是可互换的；前端不需要关心它们调用了哪个后端副本。
 即使组成这一组后端程序的 Pod 实际上可能会发生变化，
 前端客户端不应该也没必要知道，而且也不需要跟踪这一组后端的状态。
@@ -98,40 +103,59 @@ nor should they need to keep track of the set of backends themselves.
 ## 代理模式 {#proxy-modes}
 
 <!--
-Note that the kube-proxy starts up in different modes, which are determined by its configuration.
+The kube-proxy starts up in different modes, which are determined by its configuration.
 
-- The kube-proxy's configuration is done via a ConfigMap, and the ConfigMap for
-  kube-proxy effectively deprecates the behavior for almost all of the flags for
-  the kube-proxy.
-- The ConfigMap for the kube-proxy does not support live reloading of configuration.
-- The ConfigMap parameters for the kube-proxy cannot all be validated and verified on startup.
-  For example, if your operating system doesn't allow you to run iptables commands,
-  the standard kernel kube-proxy implementation will not work.
-  Likewise, if you have an operating system which doesn't support `netsh`,
-  it will not run in Windows userspace mode.
+On Linux nodes, the available modes for kube-proxy are:
+
+[`iptables`](#proxy-mode-iptables)
+: A mode where the kube-proxy configures packet forwarding rules using iptables, on Linux.
+
+[`ipvs`](#proxy-mode-ipvs)
+: a mode where the kube-proxy configures packet forwarding rules using ipvs.
 -->
-注意，kube-proxy 会根据不同配置以不同的模式启动。
+kube-proxy 会根据不同配置以不同的模式启动。
 
-- kube-proxy 的配置是通过 ConfigMap 完成的，kube-proxy 的 ConfigMap 实际上弃用了 kube-proxy 大部分标志的行为。
-- kube-proxy 的 ConfigMap 不支持配置的实时重新加载。
-- kube-proxy 不能在启动时验证和检查所有的 ConfigMap 参数。
-  例如，如果你的操作系统不允许你运行 iptables 命令，标准的 kube-proxy 内核实现将无法工作。
-  同样，如果你的操作系统不支持 `netsh`，它也无法在 Windows 用户空间模式下运行。
+在 Linux 节点上，kube-proxy 的可用模式是：
+
+[`iptables`](#proxy-mode-iptables)
+: kube-proxy 在 Linux 上使用 iptables 配置数据包转发规则的一种模式。
+
+[`ipvs`](#proxy-mode-ipvs)
+: kube-proxy 使用 ipvs 配置数据包转发规则的一种模式。
+
+<!--
+There is only one mode available for kube-proxy on Windows:
+
+[`kernelspace`](#proxy-mode-kernelspace)
+: a mode where the kube-proxy configures packet forwarding rules in the Windows kernel
+-->
+Windows 上的 kube-proxy 只有一种模式可用：
+
+[`kernelspace`](#proxy-mode-kernelspace)
+: kube-proxy 在 Windows 内核中配置数据包转发规则的一种模式。
 
 <!--
 ### `iptables` proxy mode {#proxy-mode-iptables}
+
+_This proxy mode is only available on Linux nodes._
 -->
 ### `iptables` 代理模式 {#proxy-mode-iptables}
 
+**此代理模式仅适用于 Linux 节点。**
+
 <!--
-In this mode, kube-proxy watches the Kubernetes control plane for the addition and
-removal of Service and EndpointSlice objects. For each Service, it installs
+In this mode, kube-proxy watches the Kubernetes
+{{< glossary_tooltip term_id="control-plane" text="control plane" >}} for the addition and
+removal of Service and EndpointSlice {{< glossary_tooltip term_id="object" text="objects." >}}
+For each Service, it installs
 iptables rules, which capture traffic to the Service's `clusterIP` and `port`,
 and redirect that traffic to one of the Service's
 backend sets. For each endpoint, it installs iptables rules which
 select a backend Pod.
 -->
-在这种模式下，kube-proxy 监视 Kubernetes 控制平面，获知对 Service 和 EndpointSlice 对象的添加和删除操作。
+在这种模式下，kube-proxy 监视 Kubernetes
+{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}，获知对 Service 和 EndpointSlice
+{{< glossary_tooltip text="对象" term_id="object" >}}的添加和删除操作。
 对于每个 Service，kube-proxy 会添加 iptables 规则，这些规则捕获流向 Service 的 `clusterIP` 和 `port` 的流量，
 并将这些流量重定向到 Service 后端集合中的其中之一。
 对于每个端点，它会添加指向一个特定后端 Pod 的 iptables 规则。
@@ -238,13 +262,51 @@ iptables 模式的 kube-proxy 在更新内核中的规则时可能要用较长�
 [`iptables` 节](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/#kubeproxy-config-k8s-io-v1alpha1-KubeProxyIPTablesConfiguration)中的选项来调整
 kube-proxy 的同步行为：
 
-```none
+```yaml
 ...
 iptables:
   minSyncPeriod: 1s
   syncPeriod: 30s
 ...
 ```
+
+<!--
+##### Performance optimization for `iptables` mode {#minimize-iptables-restore}
+-->
+##### 对 `iptables` 模式的性能优化 {#minimize-iptables-restore}
+
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+
+<!--
+In Kubernetes {{< skew currentVersion >}} the kube-proxy defaults to a minimal approach
+to `iptables-restore` operations, only making updates where Services or EndpointSlices have
+actually changed. This is a performance optimization.
+The original implementation updated all the rules for all Services on every sync; this
+sometimes led to performance issues (update lag) in large clusters.
+-->
+在 Kubernetes {{< skew currentVersion >}} 中，kube-proxy 默认采用最小方式进行 `iptables-restore` 操作，
+仅在 Service 或 EndpointSlice 实际发生变化的地方进行更新。这是一个性能优化。
+最初的实现在每次同步时都会更新所有服务的所有规则；这有时会导致大型集群出现性能问题（更新延迟）。
+
+<!--
+If you are not running kube-proxy from Kubernetes {{< skew currentVersion >}}, check
+the behavior and associated advice for the version that you are actually running.
+-->
+如果你运行的不是 Kubernetes {{< skew currentVersion >}} 版本的 kube-proxy，
+请检查你实际运行的版本的行为和相关建议。
+
+<!--
+If you were previously overriding `minSyncPeriod`, you should try
+removing that override and letting kube-proxy use the default value
+(`1s`) or at least a smaller value than you were using before upgrading.
+You can select the legacy behavior by disabling the `MinimizeIPTablesRestore`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+(you should not need to).
+-->
+如果你之前覆盖了 `minSyncPeriod`，你应该尝试删除该覆盖并让 kube-proxy 使用默认值（`1s`）或至少比升级前使用的值小。
+你可以通过禁用 `MinimizeIPTablesRestore`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来选择执行旧的行为
+（你应该不需要）。
 
 ##### `minSyncPeriod`
 
@@ -255,11 +317,13 @@ attempts to resynchronize iptables rules with the kernel. If it is
 every time any Service or Endpoint changes. This works fine in very
 small clusters, but it results in a lot of redundant work when lots of
 things change in a small time period. For example, if you have a
-Service backed by a Deployment with 100 pods, and you delete the
+Service backed by a {{< glossary_tooltip term_id="deployment" text="Deployment" >}}
+with 100 pods, and you delete the
 Deployment, then with `minSyncPeriod: 0s`, kube-proxy would end up
-removing the Service's Endpoints from the iptables rules one by one,
+removing the Service's endpoints from the iptables rules one by one,
 for a total of 100 updates. With a larger `minSyncPeriod`, multiple
-Pod deletion events would get aggregated together, so kube-proxy might
+Pod deletion events would get aggregated
+together, so kube-proxy might
 instead end up making, say, 5 updates, each removing 20 endpoints,
 which will be much more efficient in terms of CPU, and result in the
 full set of changes being synchronized faster.
@@ -267,7 +331,8 @@ full set of changes being synchronized faster.
 `minSyncPeriod` 参数设置尝试同步 iptables 规则与内核之间的最短时长。
 如果是 `0s`，那么每次有任一 Service 或 Endpoint 发生变更时，kube-proxy 都会立即同步这些规则。
 这种方式在较小的集群中可以工作得很好，但如果在很短的时间内很多东西发生变更时，它会导致大量冗余工作。
-例如，如果你有一个由 Deployment 支持的 Service，共有 100 个 Pod，你删除了这个 Deployment，
+例如，如果你有一个由 {{< glossary_tooltip text="Deployment" term_id="deployment" >}}
+支持的 Service，共有 100 个 Pod，你删除了这个 Deployment，
 且设置了 `minSyncPeriod: 0s`，kube-proxy 最终会从 iptables 规则中逐个删除 Service 的 Endpoint，
 总共更新 100 次。使用较大的 `minSyncPeriod` 值时，多个 Pod 删除事件将被聚合在一起，
 因此 kube-proxy 最终可能会进行例如 5 次更新，每次移除 20 个端点，
@@ -278,21 +343,20 @@ The larger the value of `minSyncPeriod`, the more work that can be
 aggregated, but the downside is that each individual change may end up
 waiting up to the full `minSyncPeriod` before being processed, meaning
 that the iptables rules spend more time being out-of-sync with the
-current apiserver state.
+current API server state.
 -->
 `minSyncPeriod` 的值越大，可以聚合的工作越多，
 但缺点是每个独立的变更可能最终要等待整个 `minSyncPeriod` 周期后才能被处理，
-这意味着 iptables 规则要用更多时间才能与当前的 apiserver 状态同步。
+这意味着 iptables 规则要用更多时间才能与当前的 API 服务器状态同步。
 
 <!--
-The default value of `1s` is a good compromise for small and medium
-clusters. In large clusters, it may be necessary to set it to a larger
-value. (Especially, if kube-proxy's
-`sync_proxy_rules_duration_seconds` metric indicates an average
-time much larger than 1 second, then bumping up `minSyncPeriod` may
-make updates more efficient.)
+The default value of `1s` should work well in most clusters, but in very
+large clusters it may be necessary to set it to a larger value.
+Especially, if kube-proxy's `sync_proxy_rules_duration_seconds` metric
+indicates an average time much larger than 1 second, then bumping up
+`minSyncPeriod` may make updates more efficient.
 -->
-默认值 `1s` 对于中小型集群是一个很好的折衷方案。
+默认值 `1s` 适用于大多数集群，
 在大型集群中，可能需要将其设置为更大的值。
 （特别是，如果 kube-proxy 的 `sync_proxy_rules_duration_seconds` 指标表明平均时间远大于 1 秒，
 那么提高 `minSyncPeriod` 可能会使更新更有效率。）
@@ -302,13 +366,13 @@ make updates more efficient.)
 <!--
 The `syncPeriod` parameter controls a handful of synchronization
 operations that are not directly related to changes in individual
-Services and Endpoints. In particular, it controls how quickly
+Services and EndpointSlices. In particular, it controls how quickly
 kube-proxy notices if an external component has interfered with
 kube-proxy's iptables rules. In large clusters, kube-proxy also only
 performs certain cleanup operations once every `syncPeriod` to avoid
 unnecessary work.
 -->
-`syncPeriod` 参数控制与单次 Service 和 Endpoint 的变更没有直接关系的少数同步操作。
+`syncPeriod` 参数控制与单次 Service 和 EndpointSlice 的变更没有直接关系的少数同步操作。
 特别是，它控制 kube-proxy 在外部组件已干涉 kube-proxy 的 iptables 规则时通知的速度。
 在大型集群中，kube-proxy 也仅在每隔 `syncPeriod` 时长执行某些清理操作，以避免不必要的工作。
 
@@ -323,49 +387,13 @@ and is likely to hurt functionality more than it improves performance.
 现在不再推荐这种做法，因为它对功能的破坏可能会超过对性能的改进。
 
 <!--
-##### Experimental performance improvements {#minimize-iptables-restore}
--->
-##### 实验性的性能改进 {#minimize-iptables-restore}
-
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
-
-<!--
-In Kubernetes 1.26, some new performance improvements were made to the
-iptables proxy mode, but they are not enabled by default (and should
-probably not be enabled in production clusters yet). To try them out,
-enable the `MinimizeIPTablesRestore` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) for
-kube-proxy with `--feature-gates=MinimizeIPTablesRestore=true,…`.
--->
-在 Kubernetes 1.26 中，社区对 iptables 代理模式进行了一些新的性能改进，
-但默认未启用（并且可能还不应该在生产集群中启用）。要试用它们，
-请使用 `--feature-gates=MinimizeIPTablesRestore=true,…` 为 kube-proxy 启用 `MinimizeIPTablesRestore`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-
-<!--
-If you enable that feature gate and you were previously overriding
-`minSyncPeriod`, you should try removing that override and letting
-kube-proxy use the default value (`1s`) or at least a smaller value
-than you were using before.
--->
-如果你启用该特性门控并且之前覆盖了 `minSyncPeriod`，
-你应该尝试移除该覆盖并让 kube-proxy 使用默认值 (`1s`) 或至少使用比之前更小的值。
-
-<!--
-If you notice kube-proxy's
-`sync_proxy_rules_iptables_restore_failures_total` or
-`sync_proxy_rules_iptables_partial_restore_failures_total` metrics
-increasing after enabling this feature, that likely indicates you are
-encountering bugs in the feature and you should file a bug report.
--->
-如果你注意到 kube-proxy 的 `sync_proxy_rules_iptables_restore_failures_total` 或
-`sync_proxy_rules_iptables_partial_restore_failures_total` 指标在启用此特性后升高，
-这可能表明你发现了该特性的错误，你应该提交错误报告。
-
-<!--
 ### IPVS proxy mode {#proxy-mode-ipvs}
+
+_This proxy mode is only available on Linux nodes._
 -->
 ### IPVS 代理模式 {#proxy-mode-ipvs}
+
+**此代理模式仅适用于 Linux 节点。**
 
 <!--
 In `ipvs` mode, kube-proxy watches Kubernetes Services and EndpointSlices,
@@ -435,6 +463,67 @@ falls back to running in iptables proxy mode.
 {{< figure src="/images/docs/services-ipvs-overview.svg" title="Virtual IP address mechanism for Services, using IPVS mode" class="diagram-medium" >}}
 -->
 {{< figure src="/images/docs/services-ipvs-overview.svg" title="IPVS 模式下 Service 的虚拟 IP 地址机制" class="diagram-medium" >}}
+
+<!--
+### `kernelspace` proxy mode {#proxy-mode-kernelspace}
+
+_This proxy mode is only available on Windows nodes._
+-->
+### `kernelspace` 代理模式   {#proxy-mode-kernelspace}
+
+**此代理模式仅适用于 Windows 节点。**
+
+<!--
+The kube-proxy configures packet filtering rules in the Windows _Virtual Filtering Platform_ (VFP),
+an extension to Windows vSwitch. These rules process encapsulated packets within the node-level
+virtual networks, and rewrite packets so that the destination IP address (and layer 2 information)
+is correct for getting the packet routed to the correct destination.
+The Windows VFP is analogous to tools such as Linux `nftables` or `iptables`. The Windows VFP extends
+the _Hyper-V Switch_, which was initially implemented to support virtual machine networking.
+-->
+kube-proxy 在 Windows **虚拟过滤平台** (VFP)（Windows vSwitch 的扩展）中配置数据包过滤规则。
+这些规则处理节点级虚拟网络中的封装数据包，并重写数据包，使目标 IP 地址（和第 2 层信息）正确，
+以便将数据包路由到正确的目的地。Windows VFP 类似于 Linux `nftables` 或 `iptables` 等工具。
+Windows VFP 是最初为支持虚拟机网络而实现的 **Hyper-V Switch** 的扩展。
+
+<!--
+When a Pod on a node sends traffic to a virtual IP address, and the kube-proxy selects a Pod on
+a different node as the load balancing target, the `kernelspace` proxy mode rewrites that packet
+to be destined to the target backend Pod. The Windows _Host Networking Service_ (HNS) ensures that
+packet rewriting rules are configured so that the return traffic appears to come from the virtual
+IP address and not the specific backend Pod.
+-->
+当节点上的 Pod 将流量发送到某虚拟 IP 地址，且 kube-proxy 选择不同节点上的 Pod
+作为负载均衡目标时，`kernelspace` 代理模式会重写该数据包以将其发送到对应目标后端 Pod。
+Windows 主机网络服务（HSN）会配置数据包重写规则，确保返回流量看起来来自虚拟 IP 地址，
+而不是特定的后端 Pod。
+
+<!--
+#### Direct server return for `kernelspace` mode {#windows-direct-server-return}
+-->
+#### `kernelspace` 模式的 Direct Server Return（DSR）    {#windows-direct-server-return}
+
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+<!--
+As an alternative to the basic operation, a node that hosts the backend Pod for a Service can
+apply the packet rewriting directly, rather than placing this burden on the node where the client
+Pod is running. This is called _direct server return_.
+-->
+作为基本操作的替代方案，托管服务后端 Pod 的节点可以直接应用数据包重写，
+而不用将此工作交给运行客户端 Pod 的节点来执行。这称为**Direct Server Return（DSR）**。
+
+<!--
+To use this, you must run kube-proxy with the `--enable-dsr` command line argument **and**
+enable the `WinDSR` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+
+Direct server return also optimizes the case for Pod return traffic even when both Pods
+are running on the same node.
+-->
+要使用这种技术，你必须使用 `--enable-dsr` 命令行参数运行 kube-proxy **并**启用
+`WinDSR` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+
+即使两个 Pod 在同一节点上运行，Direct Server Return（DSR）也可优化 Pod 的返回流量。
 
 <!--
 ## Session affinity
@@ -511,31 +600,35 @@ populated in terms of the Service's virtual IP address (and port).
 One of the primary philosophies of Kubernetes is that you should not be
 exposed to situations that could cause your actions to fail through no fault
 of your own. For the design of the Service resource, this means not making
-you choose your own port number if that choice might collide with
+you choose your own IP address if that choice might collide with
 someone else's choice.  That is an isolation failure.
 -->
 Kubernetes 的主要哲学之一是，
 你不应需要在完全不是你的问题的情况下面对可能导致你的操作失败的情形。
 对于 Service 资源的设计，也就是如果你选择的端口号可能与其他人的选择冲突，
-就不应该让你自己选择端口号。这是一种失败隔离。
+就不应该让你自己选择 IP 地址。这是一种失败隔离。
 
 <!--
-In order to allow you to choose a port number for your Services, we must
+In order to allow you to choose an IP address for your Services, we must
 ensure that no two Services can collide. Kubernetes does that by allocating each
 Service its own IP address from within the `service-cluster-ip-range`
-CIDR range that is configured for the API server.
+CIDR range that is configured for the {{< glossary_tooltip term_id="kube-apiserver" text="API Server" >}}.
 -->
-为了允许你为 Service 选择端口号，我们必须确保没有任何两个 Service 会发生冲突。
-Kubernetes 通过从为 API 服务器配置的 `service-cluster-ip-range`
-CIDR 范围内为每个 Service 分配自己的 IP 地址来实现这一点。
+为了允许你为 Service 选择 IP 地址，我们必须确保没有任何两个 Service 会发生冲突。
+Kubernetes 通过从为 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}
+配置的 `service-cluster-ip-range` CIDR 范围内为每个 Service 分配自己的 IP 地址来实现这一点。
 
 <!--
+#### IP address allocation tracking
+
 To ensure each Service receives a unique IP, an internal allocator atomically
 updates a global allocation map in {{< glossary_tooltip term_id="etcd" >}}
 prior to creating each Service. The map object must exist in the registry for
 Services to get IP address assignments, otherwise creations will
 fail with a message indicating an IP address could not be allocated.
 -->
+#### IP 地址分配追踪
+
 为了确保每个 Service 都获得唯一的 IP，内部分配器在创建每个 Service
 之前更新 {{< glossary_tooltip term_id="etcd" >}} 中的全局分配映射，这种更新操作具有原子性。
 映射对象必须存在于数据库中，这样 Service 才能获得 IP 地址分配，
@@ -552,12 +645,67 @@ IP addresses that are no longer used by any Services.
 Kubernetes 还使用控制器来检查无效的分配（例如，因管理员干预而导致无效分配）
 以及清理已分配但没有 Service 使用的 IP 地址。
 
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+<!--
+If you enable the `MultiCIDRServiceAllocator`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
+[`networking.k8s.io/v1alpha1` API group](/docs/tasks/administer-cluster/enable-disable-api/),
+the control plane replaces the existing etcd allocator with a new one, using IPAddress
+objects instead of an internal global allocation map.  The ClusterIP address
+associated to each Service will have a referenced IPAddress object.
+-->
+如果你启用 `MultiCIDRServiceAllocator` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gate/)
+和 [`networking.k8s.io/v1alpha1` API 组](/zh-cn/docs/tasks/administer-cluster/enable-disable-api/)，
+控制平面将用一个新的分配器替换现有的 etcd 分配器，使用 IPAddress 对象而不是内部的全局分配映射。
+与每个 Service 关联的 ClusterIP 地址将有一个对应的 IPAddress 对象。
+
+<!--
+The background controller is also replaced by a new one to handle the new IPAddress
+objects and the migration from the old allocator model.
+-->
+后台控制器也被一个新的控制器取代，来处理新的 IPAddress 对象和从旧的分配器模型的迁移。
+
+<!--
+One of the main benefits of the new allocator is that it removes the size limitations
+for the `service-cluster-ip-range`, there is no limitations for IPv4 and for IPv6
+users can use masks equal or larger than /64 (previously it was /108).
+-->
+新分配器的主要好处之一是它取消了对 `service-cluster-ip-range` 的大小限制，对 IPv4 没有大小限制，
+对于 IPv6 用户可以使用等于或大于 /64 的掩码（以前是 /108）。
+
+<!--
+Users now will be able to inspect the IP addresses assigned to their Services, and
+Kubernetes extensions such as the [Gateway](https://gateway-api.sigs.k8s.io/) API, can use this new
+IPAddress object kind to enhance the Kubernetes networking capabilities, going beyond the limitations of
+the built-in Service API.
+-->
+用户现在能够检查分配给他们的 Service 的 IP 地址，Kubernetes 扩展，
+如 [Gateway](https://gateway-api.sigs.k8s.io/) API
+可以使用这个新的 IPAddress 对象类别来增强 Kubernetes 的网络能力，解除内置 Service API 的限制。
+
+```shell
+kubectl get services
+```
+```
+NAME         TYPE        CLUSTER-IP        EXTERNAL-IP   PORT(S)   AGE
+kubernetes   ClusterIP   2001:db8:1:2::1   <none>        443/TCP   3d1h
+```
+
+```shell
+kubectl get ipaddresses
+```
+```
+NAME              PARENTREF
+2001:db8:1:2::1   services/default/kubernetes
+2001:db8:1:2::a   services/kube-system/kube-dns
+```
+
 <!--
 #### IP address ranges for Service virtual IP addresses {#service-ip-static-sub-range}
 -->
 #### Service 虚拟 IP 地址的地址段 {#service-ip-static-sub-range}
 
-{{< feature-state for_k8s_version="v1.25" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 <!--
 Kubernetes divides the `ClusterIP` range into two bands, based on
@@ -607,7 +755,7 @@ to control how Kubernetes routes traffic to healthy (“ready”) backends.
 -->
 ### 内部流量策略 {#internal-traffic-policy}
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 <!--
 You can set the `.spec.internalTrafficPolicy` field to control how traffic from
@@ -677,7 +825,8 @@ N to 0 replicas of that deployment. In some cases, external load balancers can s
 a node with 0 replicas in between health check probes. Routing traffic to terminating endpoints
 ensures that Node's that are scaling down Pods can gracefully receive and drain traffic to
 those terminating Pods. By the time the Pod completes termination, the external load balancer
-should have seen the node's health check failing and fully removed the node from the backend pool.
+should have seen the node's health check failing and fully removed the node from the backend
+pool.
 -->
 这种对处于终止过程中的端点的转发行为使得 `NodePort` 和 `LoadBalancer` Service
 能有条不紊地腾空设置了 `externalTrafficPolicy: Local` 时的连接。

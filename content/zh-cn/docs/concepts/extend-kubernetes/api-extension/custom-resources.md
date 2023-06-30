@@ -29,7 +29,7 @@ methods for adding custom resources and how to choose between them.
 ## Custom resources
 
 A *resource* is an endpoint in the [Kubernetes API](/docs/concepts/overview/kubernetes-api/) that
-stores a collection of [API objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+stores a collection of {{< glossary_tooltip text="API objects" term_id="object" >}}
 of a certain kind; for example, the built-in *pods* resource contains a collection of Pod objects.
 -->
 ## 定制资源  {#custom-resources}
@@ -37,7 +37,7 @@ of a certain kind; for example, the built-in *pods* resource contains a collecti
 **资源（Resource）** 是
 [Kubernetes API](/zh-cn/docs/concepts/overview/kubernetes-api/) 中的一个端点，
 其中存储的是某个类别的
-[API 对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/)的一个集合。
+{{< glossary_tooltip text="API 对象" term_id="object" >}}的一个集合。
 例如内置的 **Pod** 资源包含一组 Pod 对象。
 
 <!--

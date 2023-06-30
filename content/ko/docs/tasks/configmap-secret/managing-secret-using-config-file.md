@@ -170,6 +170,61 @@ type: Opaque
 
 `YWRtaW5pc3RyYXRvcg==`는 `administrator`으로 디코딩된다.
 
+## 시크릿(Secret) 작성 {#edit-secret}
+
+매니페스트를 사용하여 생성한 시크릿의 데이터를 편집하려면, 매니페스트에서 `data`
+및 `stringData` 필드를 수정하고 해당 파일을 클러스터에 적용하면 된다.
+그렇지 않은 경우 기존의 `시크릿` 오브젝트를 편집할 수 있다.
+[수정 불가능한(immutable)](/docs/concepts/configuration/secret/#secret-immutable).
+
+예를 들어, 이전 예제에서 패스워드를 `birdsarentreal`로 변경하려면,
+다음과 같이 수행한다.
+
+1. 새로운 암호 문자열을 인코딩한다.
+
+   ```shell
+   echo -n 'birdsarentreal' | base64
+   ```
+
+   출력은 다음과 같다.
+
+   ```
+   YmlyZHNhcmVudHJlYWw=
+   ```
+
+1. 새 암호 문자열로 `data` 필드를 업데이트 한다.
+
+   ```yaml
+   apiVersion: v1
+   kind: Secret
+   metadata:
+     name: mysecret
+   type: Opaque
+   data:
+     username: YWRtaW4=
+     password: YmlyZHNhcmVudHJlYWw=
+   ```
+
+1. 클러스터에 매니페스트를 적용한다.
+
+   ```shell
+   kubectl apply -f ./secret.yaml
+   ```
+
+   출력은 다음과 같다.
+
+   ```
+   secret/mysecret configured
+   ```
+
+쿠버네티스는 기존 `시크릿` 오브젝트를 업데이트한다. 자세히 보면, `kubectl` 도구는
+동일한 이름을 가진 기존 `Secret` 오브젝트가 있음을 알아낸다.
+`kubectl`은 기존의 오브젝트를 가져오고, 변경을 계획하며,
+변경된 `Secret` 오브젝트를 클러스터 컨트롤 플레인에 제출한다.
+
+`kubectl apply --server-side`를 지정한 경우, `kubectl`은
+[서버 사이드 어플라이](/docs/reference/using-api/server-side-apply/)를 대신 사용한다.
+
 ## 삭제
 
 생성한 시크릿을 삭제하려면 다음 명령을 실행한다.
@@ -183,4 +238,3 @@ kubectl delete secret mysecret
 - [시크릿 개념](/ko/docs/concepts/configuration/secret/)에 대해 자세히 알아보기
 - [kubectl을 사용한 시크릿 관리](/ko/docs/tasks/configmap-secret/managing-secret-using-kubectl/)하는 방법 알아보기
 - [kustomize를 사용하여 시크릿을 관리](/ko/docs/tasks/configmap-secret/managing-secret-using-kustomize/)하는 방법 알아보기
-

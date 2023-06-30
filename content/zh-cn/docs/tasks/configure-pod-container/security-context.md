@@ -1,7 +1,7 @@
 ---
 title: 为 Pod 或容器配置安全上下文
 content_type: task
-weight: 80
+weight: 110
 ---
 <!--
 reviewers:
@@ -10,7 +10,7 @@ reviewers:
 - thockin
 title: Configure a Security Context for a Pod or Container
 content_type: task
-weight: 80
+weight: 110
 -->
 
 <!-- overview -->
@@ -21,11 +21,15 @@ a Pod or Container. Security context settings include, but are not limited to:
 
 * Discretionary Access Control: Permission to access an object, like a file, is based on
   [user ID (UID) and group ID (GID)](https://wiki.archlinux.org/index.php/users_and_groups).
+
 * [Security Enhanced Linux (SELinux)](https://en.wikipedia.org/wiki/Security-Enhanced_Linux):
   Objects are assigned security labels.
+
 * Running as privileged or unprivileged.
-* [Linux Capabilities](https://linux-audit.com/linux-capabilities-hardening-linux-binaries-by-removing-setuid/): 
+
+* [Linux Capabilities](https://linux-audit.com/linux-capabilities-hardening-linux-binaries-by-removing-setuid/):
   Give a process some privileges, but not all the privileges of the root user.
+
 -->
 安全上下文（Security Context）定义 Pod 或 Container 的特权与访问控制设置。
 安全上下文包括但不限于：
@@ -33,29 +37,36 @@ a Pod or Container. Security context settings include, but are not limited to:
 * 自主访问控制（Discretionary Access Control）：
   基于[用户 ID（UID）和组 ID（GID）](https://wiki.archlinux.org/index.php/users_and_groups)
   来判定对对象（例如文件）的访问权限。
+
 * [安全性增强的 Linux（SELinux）](https://zh.wikipedia.org/wiki/%E5%AE%89%E5%85%A8%E5%A2%9E%E5%BC%BA%E5%BC%8FLinux)：
   为对象赋予安全性标签。
+
 * 以特权模式或者非特权模式运行。
+
 * [Linux 权能](https://linux-audit.com/linux-capabilities-hardening-linux-binaries-by-removing-setuid/): 
   为进程赋予 root 用户的部分特权而非全部特权。
+
 <!--
 * [AppArmor](/docs/tutorials/security/apparmor/):
   Use program profiles to restrict the capabilities of individual programs.
+
 * [Seccomp](/docs/tutorials/security/seccomp/): Filter a process's system calls.
+
 * `allowPrivilegeEscalation`: Controls whether a process can gain more privileges than
   its parent process. This bool directly controls whether the
   [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt)
   flag gets set on the container process.
-  `allowPrivilegeEscalation` is always true
-  when the container:
+  `allowPrivilegeEscalation` is always true when the container:
 
   - is run as privileged, or
   - has `CAP_SYS_ADMIN`
 
-* readOnlyRootFilesystem: Mounts the container's root filesystem as read-only.
+* `readOnlyRootFilesystem`: Mounts the container's root filesystem as read-only.
 -->
 * [AppArmor](/zh-cn/docs/tutorials/security/apparmor/)：使用程序配置来限制个别程序的权能。
+
 * [Seccomp](/zh-cn/docs/tutorials/security/seccomp/)：过滤进程的系统调用。
+
 * `allowPrivilegeEscalation`：控制进程是否可以获得超出其父进程的特权。
   此布尔值直接控制是否为容器进程设置
   [`no_new_privs`](https://www.kernel.org/doc/Documentation/prctl/no_new_privs.txt)标志。
@@ -64,10 +75,10 @@ a Pod or Container. Security context settings include, but are not limited to:
   - 以特权模式运行，或者
   - 具有 `CAP_SYS_ADMIN` 权能
 
-* readOnlyRootFilesystem：以只读方式加载容器的根文件系统。
+* `readOnlyRootFilesystem`：以只读方式加载容器的根文件系统。
 
 <!--
-The above bullets are not a complete set of security context settings - please see
+The above bullets are not a complete set of security context settings -- please see
 [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
 for a comprehensive list.
 -->
@@ -699,10 +710,10 @@ To assign SELinux labels, the SELinux security module must be loaded on the host
 -->
 ### 高效重打 SELinux 卷标签
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 <!--
-By default, the contrainer runtime recursively assigns SELinux label to all
+By default, the container runtime recursively assigns SELinux label to all
 files on all Pod volumes. To speed up this process, Kubernetes can change the
 SELinux label of a volume instantly by using a mount option
 `-o context=<label>`.
@@ -716,10 +727,11 @@ To benefit from this speedup, all these conditions must be met:
 要使用这项加速功能，必须满足下列条件：
 
 <!--
-* Alpha feature gates `ReadWriteOncePod` and `SELinuxMountReadWriteOncePod` must
-  be enabled.
+* The [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) `ReadWriteOncePod`
+  and `SELinuxMountReadWriteOncePod` must be enabled.
 -->
-* 必须启用 Alpha 特性门控 `ReadWriteOncePod` 和 `SELinuxMountReadWriteOncePod`。
+* 必须启用 `ReadWriteOncePod` 和 `SELinuxMountReadWriteOncePod`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 
 <!--
 * Pod must use PersistentVolumeClaim with `accessModes: ["ReadWriteOncePod"]`.
@@ -739,11 +751,18 @@ To benefit from this speedup, all these conditions must be met:
   * If you use a volume backed by a CSI driver, that CSI driver must announce that it
     supports mounting with `-o context` by setting `spec.seLinuxMount: true` in
     its CSIDriver instance.
+
+* The corresponding PersistentVolume must be either:
+  * A volume that uses the legacy in-tree `iscsi`, `rbd` or `fc` volume type.
+  * Or a volume that uses a {{< glossary_tooltip text="CSI" term_id="csi" >}} driver.
+    The CSI driver must announce that it supports mounting with `-o context` by setting
+    `spec.seLinuxMount: true` in its CSIDriver instance.
 -->
-* 对应的 PersistentVolume 必须是使用 {< glossary_tooltip text="CSI" term_id="csi" >}}
-  驱动程序的卷，或者是传统的 `iscsi` 卷类型的卷。
-  * 如果使用基于 CSI 驱动程序的卷，CSI 驱动程序必须能够通过在 CSIDriver
-    实例中设置 `spec.seLinuxMount: true` 以支持 `-o context` 挂载。
+* 对应的 PersistentVolume 必须是：
+  * 使用传统树内（In-Tree） `iscsi`、`rbd` 或 `fs` 卷类型的卷。
+  * 或者是使用 {< glossary_tooltip text="CSI" term_id="csi" >}} 驱动程序的卷
+    CSI 驱动程序必须能够通过在 CSIDriver 实例中设置 `spec.seLinuxMount: true`
+    以支持 `-o context` 挂载。
 
 <!--
 For any other volume types, SELinux relabelling happens another way: the container
@@ -756,19 +775,18 @@ The more files and directories in the volume, the longer that relabelling takes.
 卷中的文件和目录越多，重打标签需要耗费的时间就越长。
 
 {{< note >}}
+<!-- remove after Kubernetes v1.30 is released -->
 <!--
-In Kubernetes 1.25, the kubelet loses track of volume labels after restart. In
-other words, then kubelet may refuse to start Pods with errors similar to  "conflicting
-SELinux labels of volume", while there are no conflicting labels in Pods. Make sure
-nodes are
-[fully drained](https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/)
-before restarting kubelet.
+If you are running Kubernetes v1.25, refer to the v1.25 version of this task page:
+[Configure a Security Context for a Pod or Container](https://v1-25.docs.kubernetes.io/docs/tasks/configure-pod-container/security-context/) (v1.25).  
+There is an important note in that documentation about a situation where the kubelet
+can lose track of volume labels after restart. This deficiency has been fixed
+in Kubernetes 1.26.
 -->
-在 Kubernetes 1.25 中，kubelet 在重启后会丢失对卷标签的追踪记录。
-换言之，kubelet 可能会拒绝启动 Pod，原因类似于 “conflicting
-SELinux labels of volume”，
-但实际上 Pod 中并没有冲突的标签。在重启 kubelet
-之前确保节点已被[完全腾空](/zh-cn/docs/tasks/administer-cluster/safely-drain-node/)。
+如果你的 Kubernetes 版本是 v1.25，请参阅此任务页面的 v1.25 版本：
+[为 Pod 或 Container 配置安全上下文](https://v1-25.docs.kubernetes.io/docs/tasks/configure-pod-container/security-context/)（v1.25）。
+该文档中有一个重要的说明：kubelet 在重启后会丢失对卷标签的追踪记录。
+这个缺陷已经在 Kubernetes 1.26 中修复。
 {{< /note >}}
 
 <!--
@@ -804,15 +822,15 @@ Pod 的安全上下文适用于 Pod 中的容器，也适用于 Pod 所挂载的
   该部分设置的是赋予 Pod 中所有容器及卷的
   [多类别安全性（Multi-Category Security，MCS)](https://selinuxproject.org/page/NB_MLS)标签。
 
-  <!--
-  After you specify an MCS label for a Pod, all Pods with the same label can
-  access the Volume. If you need inter-Pod protection, you must assign a unique
-  MCS label to each Pod.
-  -->
-  {{< warning >}}
-  在为 Pod 设置 MCS 标签之后，所有带有相同标签的 Pod 可以访问该卷。
-  如果你需要跨 Pod 的保护，你必须为每个 Pod 赋予独特的 MCS 标签。
-  {{< /warning >}}
+<!--
+After you specify an MCS label for a Pod, all Pods with the same label can
+access the Volume. If you need inter-Pod protection, you must assign a unique
+MCS label to each Pod.
+-->
+{{< warning >}}
+在为 Pod 设置 MCS 标签之后，所有带有相同标签的 Pod 可以访问该卷。
+如果你需要跨 Pod 的保护，你必须为每个 Pod 赋予独特的 MCS 标签。
+{{< /warning >}}
 
 <!--
 ## Clean up
@@ -842,7 +860,8 @@ kubectl delete pod security-context-demo-4
 * [AllowPrivilegeEscalation design
   document](https://git.k8s.io/design-proposals-archive/auth/no-new-privs.md)
 * For more information about security mechanisms in Linux, see
-  [Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features) (Note: Some information is out of date)
+  [Overview of Linux Kernel Security Features](https://www.linux.com/learn/overview-linux-kernel-security-features)
+  (Note: Some information is out of date)
 -->
 * [PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core) API 定义
 * [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core) API 定义

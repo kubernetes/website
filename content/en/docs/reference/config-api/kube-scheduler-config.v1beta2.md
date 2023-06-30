@@ -85,6 +85,14 @@ that play a role in the number of candidates shortlisted. Must be at least
 matching hard affinity to the incoming pod.</p>
 </td>
 </tr>
+<tr><td><code>ignorePreferredTermsOfExistingPods</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>IgnorePreferredTermsOfExistingPods configures the scheduler to ignore existing pods' preferred affinity
+rules when scoring candidate nodes, unless the incoming pod has inter-pod affinities.</p>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -218,7 +226,7 @@ with the extender. These extenders are shared by all scheduler profiles.</p>
     
   
 <tr><td><code>addedAffinity</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
 </td>
 <td>
    <p>AddedAffinity is applied to all Pods additionally to the NodeAffinity
@@ -317,7 +325,7 @@ The default strategy is LeastAllocated with an equal &quot;cpu&quot; and &quot;m
     
   
 <tr><td><code>defaultConstraints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
 </td>
 <td>
    <p>DefaultConstraints defines topology spread constraints to be applied to
@@ -1153,7 +1161,7 @@ client.</p>
 <code>bool</code>
 </td>
 <td>
-   <p>enableContentionProfiling enables lock contention profiling, if
+   <p>enableContentionProfiling enables block profiling, if
 enableProfiling is true.</p>
 </td>
 </tr>

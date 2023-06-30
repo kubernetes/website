@@ -1,6 +1,7 @@
 ---
 title: kubectlチートシート
 content_type: concept
+weight: 10 # highlight it
 card:
   name: reference
   weight: 30
@@ -366,7 +367,7 @@ kubectl get pods -A -o=custom-columns='DATA:spec.containers[?(@.image!="registry
 kubectl get pods -A -o=custom-columns='DATA:metadata.*'
 ```
 
-kubectlに関するより多くのサンプルは[カスタムカラムのリファレンス](/ja/docs/reference/kubectl/overview/#custom-columns)を参照してください。
+kubectlに関するより多くのサンプルは[カスタムカラムのリファレンス](/ja/docs/reference/kubectl/#custom-columns)を参照してください。
 
 ### Kubectlのログレベルとデバッグ
 kubectlのログレベルは、レベルを表す整数が後に続く`-v`または`--v`フラグで制御されます。一般的なKubernetesのログ記録規則と関連するログレベルについて、[こちら](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md)で説明します。
@@ -387,7 +388,7 @@ kubectlのログレベルは、レベルを表す整数が後に続く`-v`また
 
 ## {{% heading "whatsnext" %}}
 
-* kubectlについてより深く学びたい方は[kubectl概要](/ja/docs/reference/kubectl/overview/)や[JsonPath](/docs/reference/kubectl/jsonpath)をご覧ください。
+* kubectlについてより深く学びたい方は[コマンドラインツール(kubectl)](/ja/docs/reference/kubectl/)や[JsonPath](/docs/reference/kubectl/jsonpath)をご覧ください。
 
 * オプションについては[kubectl](/docs/reference/kubectl/kubectl/) optionsをご覧ください。
  

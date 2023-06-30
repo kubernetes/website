@@ -72,7 +72,7 @@ Deploymentによって作成されたReplicaSetを管理しないでください
 2. Deploymentが作成されたことを確認するために、`kubectl get deployments`を実行してください。
 
   Deploymentがまだ作成中の場合、コマンドの実行結果は以下のとおりです。
-  ```shell
+  ```
   NAME               READY   UP-TO-DATE   AVAILABLE   AGE
   nginx-deployment   0/3     0            0           1s
   ```
@@ -95,14 +95,14 @@ Deploymentによって作成されたReplicaSetを管理しないでください
 
 4. 数秒後、再度`kubectl get deployments`を実行してください。
   コマンドの実行結果は以下のとおりです。
-  ```shell
+  ```
   NAME               READY   UP-TO-DATE   AVAILABLE   AGE
   nginx-deployment   3/3     3            3           18s
   ```
   Deploymentが3つ全てのレプリカを作成して、全てのレプリカが最新(Podが最新のPodテンプレートを含んでいる)になり、利用可能となっていることを確認してください。
 
 5. Deploymentによって作成されたReplicaSet(`rs`)を確認するには`kubectl get rs`を実行してください。コマンドの実行結果は以下のとおりです:
-  ```shell
+  ```
   NAME                          DESIRED   CURRENT   READY   AGE
   nginx-deployment-75675f5897   3         3         3       18s
   ```
@@ -118,11 +118,11 @@ Deploymentによって作成されたReplicaSetを管理しないでください
 
 6. 各Podにラベルが自動的に付けられるのを確認するには`kubectl get pods --show-labels`を実行してください。
   コマンドの実行結果は以下のとおりです:
-  ```shell
+  ```
   NAME                                READY     STATUS    RESTARTS   AGE       LABELS
-  nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-  nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-  nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+  nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
+  nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
+  nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
   ```
   作成されたReplicaSetは`nginx`Podを3つ作成することを保証します。
 
@@ -363,7 +363,7 @@ Deploymentのリビジョンは、Deploymentのロールアウトがトリガー
     ```
 
     {{< note >}}
-    Deploymentコントローラーは、この悪い状態のロールアウトを自動的に停止し、新しいReplicaSetのスケールアップを止めます。これはユーザーが指定したローリングアップデートに関するパラメータ(特に`maxUnavailable`)に依存します。デフォルトではKubernetesがこの値を25%に設定します。
+    Deploymentコントローラーは、この悪い状態のロールアウトを自動的に停止し、新しいReplicaSetのスケールアップを止めます。これはユーザーが指定したローリングアップデートに関するパラメーター(特に`maxUnavailable`)に依存します。デフォルトではKubernetesがこの値を25%に設定します。
     {{< /note >}}
 
 * Deploymentの詳細情報を取得します。
@@ -803,7 +803,7 @@ echo $?
 * リソースリミットのレンジ
 * アプリケーションランタイムの設定の不備
 
-このような状況を検知する1つの方法として、Deploymentのリソース定義でデッドラインのパラメータを指定します([`.spec.progressDeadlineSeconds`](#progress-deadline-seconds))。`.spec.progressDeadlineSeconds`はDeploymentの更新が停止したことを示す前にDeploymentコントローラーが待つ秒数を示します。
+このような状況を検知する1つの方法として、Deploymentのリソース定義でデッドラインのパラメーターを指定します([`.spec.progressDeadlineSeconds`](#progress-deadline-seconds))。`.spec.progressDeadlineSeconds`はDeploymentの更新が停止したことを示す前にDeploymentコントローラーが待つ秒数を示します。
 
 以下の`kubectl`コマンドでリソース定義に`progressDeadlineSeconds`を設定します。これはDeploymentの更新が止まってから10分後に、コントローラーが失敗を通知させるためです。
 
@@ -899,7 +899,7 @@ Conditions:
   Progressing   True    NewReplicaSetAvailable
 ```
 
-`Status=True`の`Type=Available`は、Deploymentが最小可用性の状態であることを意味します。最小可用性は、Deploymentの更新戦略において指定されているパラメータにより決定されます。`Status=True`の`Type=Progressing`は、Deploymentのロールアウトの途中で、更新処理が進行中であるか、更新処理が完了し、必要な最小数のレプリカが利用可能であることを意味します(各TypeのReason項目を確認してください。このケースでは、`Reason=NewReplicaSetAvailable`はDeploymentの更新が完了したことを意味します)。
+`Status=True`の`Type=Available`は、Deploymentが最小可用性の状態であることを意味します。最小可用性は、Deploymentの更新戦略において指定されているパラメーターにより決定されます。`Status=True`の`Type=Progressing`は、Deploymentのロールアウトの途中で、更新処理が進行中であるか、更新処理が完了し、必要な最小数のレプリカが利用可能であることを意味します(各TypeのReason項目を確認してください。このケースでは、`Reason=NewReplicaSetAvailable`はDeploymentの更新が完了したことを意味します)。
 
 `kubectl rollout status`を実行してDeploymentが更新に失敗したかどうかを確認できます。`kubectl rollout status`はDeploymentが更新処理のデッドラインを超えたときに0以外の終了コードを返します。
 
@@ -946,7 +946,7 @@ Deploymentは[`.spec`セクション](https://git.k8s.io/community/contributors/
 
 `.spec.template`と`.spec.selector`は`.spec`における必須のフィールドです。
 
-`.spec.template`は[Podテンプレート](/docs/concepts/workloads/pods/#pod-templates)です。これは.spec内でネストされていないことと、`apiVersion`や`kind`を持たないことを除いては{{< glossary_tooltip text="Pod" term_id="pod" >}}と同じスキーマとなります。
+`.spec.template`は[Podテンプレート](/ja/docs/concepts/workloads/pods/#pod-templates)です。これは.spec内でネストされていないことと、`apiVersion`や`kind`を持たないことを除いては{{< glossary_tooltip text="Pod" term_id="pod" >}}と同じスキーマとなります。
 
 Podの必須フィールドに加えて、Deployment内のPodテンプレートでは適切なラベルと再起動ポリシーを設定しなくてはなりません。ラベルは他のコントローラーと重複しないようにしてください。ラベルについては、[セレクター](#selector)を参照してください。
 

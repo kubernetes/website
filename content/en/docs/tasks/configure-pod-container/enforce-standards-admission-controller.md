@@ -4,6 +4,7 @@ reviewers:
 - tallclair
 - liggitt
 content_type: task
+weight: 240
 ---
 
 Kubernetes provides a built-in [admission controller](/docs/reference/access-authn-authz/admission-controllers/#podsecurity)

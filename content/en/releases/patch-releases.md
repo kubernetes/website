@@ -78,9 +78,9 @@ releases may also occur in between these.
 
 | Monthly Patch Release | Cherry Pick Deadline | Target date |
 | --------------------- | -------------------- | ----------- |
-| February 2023         | 2023-02-10           | 2023-02-15  |
-| March 2023            | 2023-03-10           | 2023-03-15  |
-| April 2023            | 2023-04-07           | 2023-04-12  |
+| July 2023             | 2023-07-07           | 2023-07-12  |
+| August 2023           | 2023-08-04           | 2023-08-09  |
+| September 2023        | 2023-09-08           | 2023-09-13  |
 
 ## Detailed Release History for Active Branches
 

@@ -20,10 +20,10 @@ This document describes how to configure and use kernel parameters within a
 Kubernetes cluster using the {{< glossary_tooltip term_id="sysctl" >}}
 interface.
 -->
-
 本文档介绍如何通过 {{< glossary_tooltip term_id="sysctl" >}}
 接口在 Kubernetes 集群中配置和使用内核参数。
 
+{{< note >}}
 <!--
 Starting from Kubernetes version 1.23, the kubelet supports the use of either `/` or `.`
 as separators for sysctl names.
@@ -34,7 +34,6 @@ For more sysctl parameter conversion method details, please refer to
 the page [sysctl.d(5)](https://man7.org/linux/man-pages/man5/sysctl.d.5.html) from
 the Linux man-pages project.
 -->
-{{< note >}}
 从 Kubernetes 1.23 版本开始，kubelet 支持使用 `/` 或 `.` 作为 sysctl 参数的分隔符。
 从 Kubernetes 1.25 版本开始，支持为 Pod 设置 sysctl 时使用设置名字带有斜线的 sysctl。
 例如，你可以使用点或者斜线作为分隔符表示相同的 sysctl 参数，以点作为分隔符表示为： `kernel.shm_rmid_forced`，
@@ -44,6 +43,15 @@ the Linux man-pages project.
 {{< /note >}}
 
 ## {{% heading "prerequisites" %}}
+
+{{< note >}}
+<!--
+`sysctl` is a Linux-specific command-line tool used to configure various kernel parameters
+and it is not available on non-Linux operating systems.
+-->
+`sysctl` 是一个 Linux 特有的命令行工具，用于配置各种内核参数，
+它在非 Linux 操作系统上无法使用。
+{{< /note >}}
 
 {{< include "task-tutorial-prereqs.md" >}}
 
@@ -58,7 +66,7 @@ options for the kubelets running on your cluster.
 <!--
 ## Listing all Sysctl Parameters
 -->
-## 获取 Sysctl 的参数列表
+## 获取 Sysctl 的参数列表   {#listing-all-sysctl-parameters}
 
 <!--
 In Linux, the sysctl interface allows an administrator to modify kernel
@@ -91,17 +99,17 @@ sudo sysctl -a
 ```
 
 <!--
-## Enabling Unsafe Sysctls
+## Safe and Unsafe Sysctls
 
-Sysctls are grouped into _safe_  and _unsafe_ sysctls. In addition to proper
-namespacing a _safe_ sysctl must be properly _isolated_ between pods on the same
-node. This means that setting a _safe_ sysctl for one pod
+Kubernetes classes sysctls as either _safe_ or _unsafe_. In addition to proper
+namespacing, a _safe_ sysctl must be properly _isolated_ between pods on the
+same node. This means that setting a _safe_ sysctl for one pod
 -->
-## 启用非安全的 Sysctl 参数  {#enabling-usafe-sysctls}
+## 安全和非安全的 Sysctl 参数  {#safe-and-unsafe-sysctls}
 
-sysctl 参数分为 **安全** 和 **非安全的**。
-**安全** 的 sysctl 参数除了需要设置恰当的命名空间外，在同一节点上的不同 Pod 
-之间也必须是 **相互隔离的**。这意味着 Pod 上设置 **安全** sysctl 参数：
+Kubernetes 将 sysctl 参数分为 **安全** 和 **非安全的**。
+**安全** 的 sysctl 参数除了需要设置恰当的命名空间外，在同一节点上的不同 Pod
+之间也必须是 **相互隔离的**。这意味着 Pod 上设置 **安全的** sysctl 参数时：
 
 <!--
 - must not have any influence on any other pod on the node
@@ -120,17 +128,23 @@ The following sysctls are supported in the _safe_ set:
 至今为止，大多数 **有命名空间的** sysctl 参数不一定被认为是 **安全** 的。
 以下几种 sysctl 参数是 **安全的**：
 
-- `kernel.shm_rmid_forced`
-- `net.ipv4.ip_local_port_range`
-- `net.ipv4.tcp_syncookies`
-- `net.ipv4.ping_group_range`（从 Kubernetes 1.18 开始）
+- `kernel.shm_rmid_forced`,
+- `net.ipv4.ip_local_port_range`,
+- `net.ipv4.tcp_syncookies`,
+- `net.ipv4.ping_group_range`（从 Kubernetes 1.18 开始）,
 - `net.ipv4.ip_unprivileged_port_start`（从 Kubernetes 1.22 开始）。
 
-<!--
-The example `net.ipv4.tcp_syncookies` is not namespaced on Linux kernel version 4.4 or lower.
--->
 {{< note >}}
-示例中的 `net.ipv4.tcp_syncookies` 在Linux 内核 4.4 或更低的版本中是无命名空间的。
+<!--
+There are some exceptions to the set of safe sysctls:
+
+- The `net.*` sysctls are not allowed with host networking enabled.
+- The `net.ipv4.tcp_syncookies` sysctl is not namespaced on Linux kernel version 4.4 or lower.
+-->
+安全 sysctl 参数有一些例外：
+
+- `net.*` sysctl 参数不允许在启用主机网络的情况下使用。
+- `net.ipv4.tcp_syncookies` sysctl 参数在 Linux 内核 4.4 或更低的版本中是无命名空间的。
 {{< /note >}}
 
 <!--
@@ -141,8 +155,12 @@ supports better isolation mechanisms.
 则上述列表中将会列出更多 **安全的** sysctl 参数。
 
 <!--
+### Enabling Unsafe Sysctls
+
 All _safe_ sysctls are enabled by default.
 -->
+### 启用非安全的 Sysctl 参数   {#enabling-unsafe-sysctls}
+
 所有 **安全的** sysctl 参数都默认启用。
 
 <!--
@@ -188,10 +206,10 @@ A number of sysctls are _namespaced_ in today's Linux kernels. This means that
 they can be set independently for each pod on a node. Only namespaced sysctls
 are configurable via the pod securityContext within Kubernetes.
 -->
-## 设置 Pod 的 Sysctl 参数
+## 设置 Pod 的 Sysctl 参数   {#setting-sysctls-for-pod}
 
-目前，在 Linux 内核中，有许多的 sysctl 参数都是 **有命名空间的**。 
-这就意味着可以为节点上的每个 Pod 分别去设置它们的 sysctl 参数。 
+目前，在 Linux 内核中，有许多的 sysctl 参数都是 **有命名空间的**。
+这就意味着可以为节点上的每个 Pod 分别去设置它们的 sysctl 参数。
 在 Kubernetes 中，只有那些有命名空间的 sysctl 参数可以通过 Pod 的 securityContext 对其进行配置。
 
 <!--
@@ -204,9 +222,15 @@ in future versions of the Linux kernel.
 - `kernel.msg*`,
 - `kernel.sem`,
 - `fs.mqueue.*`,
-- `net.*`（内核中可以在容器命名空间里被更改的网络配置项相关参数）。然而也有一些特例
-  （例如，`net.netfilter.nf_conntrack_max` 和 `net.netfilter.nf_conntrack_expect_max`
-  可以在容器命名空间里被更改，但它们是非命名空间的）。
+<!--
+- Those `net.*` that can be set in container networking namespace. However,
+  there are exceptions (e.g., `net.netfilter.nf_conntrack_max` and
+  `net.netfilter.nf_conntrack_expect_max` can be set in container networking
+  namespace but are unnamespaced before Linux 5.12.2).
+-->
+- 那些可以在容器网络命名空间中设置的 `net.*`。但是，也有例外（例如
+  `net.netfilter.nf_conntrack_max` 和 `net.netfilter.nf_conntrack_expect_max`
+  可以在容器网络命名空间中设置，但在 Linux 5.12.2 之前它们是无命名空间的）。
 
 <!--
 Sysctls with no namespace are called _node-level_ sysctls. If you need to set
@@ -227,7 +251,7 @@ securityContext 应用于同一个 Pod 中的所有容器。
 <!--
 This example uses the pod securityContext to set a safe sysctl
 `kernel.shm_rmid_forced` and two unsafe sysctls `net.core.somaxconn` and
-`kernel.msgmax` There is no distinction between _safe_ and _unsafe_ sysctls in
+`kernel.msgmax`. There is no distinction between _safe_ and _unsafe_ sysctls in
 the specification.
 -->
 此示例中，使用 Pod SecurityContext 来对一个安全的 sysctl 参数
@@ -235,11 +259,11 @@ the specification.
 `net.core.somaxconn` 和 `kernel.msgmax` 进行设置。
 在 Pod 规约中对 **安全的** 和 **非安全的** sysctl 参数不做区分。
 
+{{< warning >}}
 <!--
 Only modify sysctl parameters after you understand their effects, to avoid
 destabilizing your operating system.
 -->
-{{< warning >}}
 为了避免破坏操作系统的稳定性，请你在了解变更后果之后再修改 sysctl 参数。
 {{< /warning >}}
 
@@ -262,12 +286,12 @@ spec:
 
 <!-- discussion -->
 
+{{< warning >}}
 <!--
 Due to their nature of being _unsafe_, the use of _unsafe_ sysctls
 is at-your-own-risk and can lead to severe problems like wrong behavior of
 containers, resource shortage or complete breakage of a node.
 -->
-{{< warning >}}
 由于 **非安全的** sysctl 参数其本身具有不稳定性，在使用 **非安全的** sysctl 参数时可能会导致一些严重问题，
 如容器的错误行为、机器资源不足或节点被完全破坏，用户需自行承担风险。
 {{< /warning >}}
@@ -295,6 +319,3 @@ to schedule those pods onto the right nodes.
 建议开启[污点和容忍度特性](/docs/reference/generated/kubectl/kubectl-commands/#taint)或
 [为节点配置污点](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)以便将
 Pod 调度到正确的节点之上。
-
-
-

@@ -41,15 +41,27 @@ Dockershim 在 Kubernetes v1.24 版本已经被移除。
 
 <!--
 Check out the [container runtimes](/docs/setup/production-environment/container-runtimes/)
-section to know your options. Make sure to
-[report issues](https://github.com/kubernetes/kubernetes/issues) you encountered
-with the migration so the issues can be fixed in a timely manner and your cluster would be
-ready for dockershim removal.
+section to know your options.
 -->
 请参阅[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)
 一节以了解可用的备选项。
+
+<!--
+The version of Kubernetes with dockershim (1.23) is out of support and the v1.24
+will run out of support [soon](/releases/#release-v1-24). Make sure to
+[report issues](https://github.com/kubernetes/kubernetes/issues) you encountered
+with the migration so the issues can be fixed in a timely manner and your cluster would be
+ready for dockershim removal. After v1.24 running out of support, you will need
+to contact your Kubernetes provider for support or upgrade multiple versions at a time
+if there are critical issues affecting your cluster.
+-->
+带 dockershim 的 Kubernetes 版本 (1.23) 已不再支持，
+v1.24 [很快](/zh-cn/releases/#release-v1-24)也将不再支持。
+
 当在迁移过程中遇到麻烦，请[上报问题](https://github.com/kubernetes/kubernetes/issues)。
 那么问题就可以及时修复，你的集群也可以进入移除 dockershim 前的就绪状态。
+在 v1.24 支持结束后，如果出现影响集群的严重问题，
+你需要联系你的 Kubernetes 供应商以获得支持或一次升级多个版本。
 
 <!--
 Your cluster might have more than one kind of node, although this is not a common
@@ -74,15 +86,10 @@ These tasks will help you to migrate:
 <!--
 * Check out [container runtimes](/docs/setup/production-environment/container-runtimes/)
   to understand your options for an alternative.
-* There is a
-  [GitHub issue](https://github.com/kubernetes/kubernetes/issues/106917)
-  to track the discussion about the deprecation and removal of dockershim.
 * If you find a defect or other technical concern relating to migrating away from dockershim,
   you can [report an issue](https://github.com/kubernetes/kubernetes/issues/new/choose)
   to the Kubernetes project.
 -->
 * 查看[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)了解可选的容器运行时。
-* [GitHub 问题](https://github.com/kubernetes/kubernetes/issues/106917)跟踪有关
-  dockershim 的弃用和删除的讨论。
 * 如果你发现与 dockershim 迁移相关的缺陷或其他技术问题，
   可以在 Kubernetes 项目[报告问题](https://github.com/kubernetes/kubernetes/issues/new/choose)。

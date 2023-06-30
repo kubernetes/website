@@ -148,12 +148,13 @@ Pod 阶段的数量和含义是严格定义的。
 下面是 `phase` 可能的值：
 
 <!--
-Value | Description
-`Pending` | The Pod has been accepted by the Kubernetes cluster, but one or more of the containers has not been set up and made ready to run. This includes time a Pod spends waiting to bescheduled as well as the time spent downloading container images over the network.
-`Running` | The Pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting.
+Value       | Description
+:-----------|:-----------
+`Pending`   | The Pod has been accepted by the Kubernetes cluster, but one or more of the containers has not been set up and made ready to run. This includes time a Pod spends waiting to be scheduled as well as the time spent downloading container images over the network.
+`Running`   | The Pod has been bound to a node, and all of the containers have been created. At least one container is still running, or is in the process of starting or restarting.
 `Succeeded` | All containers in the Pod have terminated in success, and will not be restarted.
-`Failed` | All containers in the Pod have terminated, and at least one container has terminated in failure. That is, the container either exited with non-zero status or was terminated by the system.
-`Unknown` | For some reason the state of the Pod could not be obtained. This phase typically occurs due to an error in communicating with the node where the Pod should be running.
+`Failed`    | All containers in the Pod have terminated, and at least one container has terminated in failure. That is, the container either exited with non-zero status or was terminated by the system.
+`Unknown`   | For some reason the state of the Pod could not be obtained. This phase typically occurs due to an error in communicating with the node where the Pod should be running.
 -->
 取值 | 描述
 :-----|:-----------
@@ -175,6 +176,18 @@ You can use the flag `--force` to [terminate a Pod by force](/docs/concepts/work
 Pod 被赋予一个可以体面终止的期限，默认为 30 秒。
 你可以使用 `--force` 参数来[强制终止 Pod](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)。
 {{< /note >}}
+
+<!--
+Since Kubernetes 1.27, the kubelet transitions deleted pods, except for
+[static pods](/docs/tasks/configure-pod-container/static-pod/) and
+[force-deleted pods](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)
+without a finalizer, to a terminal phase (`Failed` or `Succeeded` depending on
+the exit statuses of the pod containers) before their deletion from the API server.
+-->
+从 Kubernetes 1.27 开始，除了[静态 Pod](/zh-cn/docs/tasks/configure-pod-container/static-pod/)
+和没有 Finalizer 的[强制终止 Pod](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced)
+之外，`kubelet` 会将已删除的 Pod 转换到终止阶段
+（`Failed` 或 `Succeeded` 具体取决于 Pod 容器的退出状态），然后再从 API 服务器中删除。
 
 <!--
 If a node dies or is disconnected from the rest of the cluster, Kubernetes
@@ -508,6 +521,19 @@ condition to `True` before sandbox creation and network configuration starts.
 `Initialized` 状况设置为 `True`。
 
 <!--
+### Pod scheduling readiness {#pod-scheduling-readiness-gate}
+-->
+### Pod 调度就绪态   {#pod-scheduling-readiness-gate}
+
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+<!--
+See [Pod Scheduling Readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/) for more information.
+-->
+有关详细信息，请参阅 [Pod 调度就绪态](/zh-cn/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)。
+
+<!--
 ## Container probes
 
 A _probe_ is a diagnostic
@@ -538,9 +564,6 @@ Each probe must define exactly one of these four mechanisms:
   [gRPC health checks](https://grpc.io/grpc/core/md_doc_health-checking.html).
   The diagnostic is considered successful if the `status`
   of the response is `SERVING`.
-  gRPC probes are an alpha feature and are only available if you
-  enable the `GRPCContainerProbe`
-  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 
 `httpGet`
 : Performs an HTTP `GET` request against the Pod's IP
@@ -568,8 +591,6 @@ Each probe must define exactly one of these four mechanisms:
   目标应该实现
   [gRPC 健康检查](https://grpc.io/grpc/core/md_doc_health-checking.html)。
   如果响应的状态是 "SERVING"，则认为诊断成功。
-  gRPC 探针是一个 Alpha 特性，只有在你启用了
-  "GRPCContainerProbe" [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)时才能使用。
 
 `httpGet`
 : 对容器的 IP 地址上指定端口和路径执行 HTTP `GET` 请求。如果响应的状态码大于等于 200
@@ -578,6 +599,18 @@ Each probe must define exactly one of these four mechanisms:
 `tcpSocket`
 : 对容器的 IP 地址上的指定端口执行 TCP 检查。如果端口打开，则诊断被认为是成功的。
   如果远程系统（容器）在打开连接后立即将其关闭，这算作是健康的。
+
+<!--
+{{< caution >}} Unlike the other mechanisms, `exec` probe's implementation involves the creation/forking of multiple processes each time when executed.
+As a result, in case of the clusters having higher pod densities, lower intervals of `initialDelaySeconds`, `periodSeconds`, configuring any probe with exec mechanism might introduce an overhead on the cpu usage of the node.
+In such scenarios, consider using the alternative probe mechanisms to avoid the overhead.{{< /caution >}}
+-->
+{{< caution >}}
+和其他机制不同，`exec` 探针的实现涉及每次执行时创建/复制多个进程。
+因此，在集群中具有较高 pod 密度、较低的 `initialDelaySeconds` 和 `periodSeconds` 时长的时候，
+配置任何使用 exec 机制的探针可能会增加节点的 CPU 负载。
+这种场景下，请考虑使用其他探针机制以避免额外的开销。
+{{< /caution >}}
 
 <!--
 ### Probe outcome
@@ -609,6 +642,7 @@ Each probe has one of three results:
 
 <!--
 ### Types of probe
+
 The kubelet can optionally perform and react to three kinds of probes on running
 containers:
 -->
@@ -881,40 +915,79 @@ An example flow:
       {{< /note >}}
 
 <!--
-1. At the same time as the kubelet is starting graceful shutdown, the control plane removes that
-   shutting-down Pod from EndpointSlice (and Endpoints) objects where these represent
+1. At the same time as the kubelet is starting graceful shutdown of the Pod, the control plane evaluates whether
+   to remove that shutting-down Pod from EndpointSlice (and Endpoints) objects, where those objects represent
    a {{< glossary_tooltip term_id="service" text="Service" >}} with a configured
    {{< glossary_tooltip text="selector" term_id="selector" >}}.
    {{< glossary_tooltip text="ReplicaSets" term_id="replica-set" >}} and other workload resources
    no longer treat the shutting-down Pod as a valid, in-service replica. Pods that shut down slowly
-   cannot continue to serve traffic as load balancers (like the service proxy) remove the Pod from
-   the list of endpoints as soon as the termination grace period _begins_.
+   should not continue to serve regular traffic and should start terminating and finish processing open connections.
+   Some applications need to go beyond finishing open connections and need more graceful termination -
+   for example: session draining and completion. Any endpoints that represent the terminating pods
+   are not immediately removed from EndpointSlices,
+   and a status indicating [terminating state](/docs/concepts/services-networking/endpoint-slices/#conditions)
+   is exposed from the EndpointSlice API (and the legacy Endpoints API). Terminating
+   endpoints always have their `ready` status
+   as `false` (for backward compatibility with versions before 1.26),
+   so load balancers will not use it for regular traffic.
+   If traffic draining on terminating pod is needed, the actual readiness can be checked as a condition `serving`.
+   You can find more details on how to implement connections draining
+   in the tutorial [Pods And Endpoints Termination Flow](/docs/tutorials/services/pods-and-endpoint-termination-flow/)
 -->
-3. 在 `kubelet` 启动体面关闭逻辑的同时，控制面会将关闭的 Pod 从对应的
-   EndpointSlice（和 Endpoints）对象中移除，过滤条件是 Pod
+3. 在 `kubelet` 启动 Pod 的体面关闭逻辑的同时，控制平面会评估是否将关闭的
+   Pod 从对应的 EndpointSlice（和端点）对象中移除，过滤条件是 Pod
    被对应的{{< glossary_tooltip term_id="service" text="服务" >}}以某
    {{< glossary_tooltip text="选择算符" term_id="selector" >}}选定。
    {{< glossary_tooltip text="ReplicaSet" term_id="replica-set" >}}
    和其他工作负载资源不再将关闭进程中的 Pod 视为合法的、能够提供服务的副本。
-   关闭动作很慢的 Pod 也无法继续处理请求数据，
-   因为负载均衡器（例如服务代理）已经在终止宽限期开始的时候将其从端点列表中移除。
+   关闭动作很慢的 Pod 不应继续处理常规服务请求，而应开始终止并完成对打开的连接的处理。
+   一些应用程序不仅需要完成对打开的连接的处理，还需要更进一步的体面终止逻辑 -
+   比如：排空和完成会话。任何正在终止的 Pod 所对应的端点都不会立即从 EndpointSlice
+   中被删除，EndpointSlice API（以及传统的 Endpoints API）会公开一个状态来指示其处于
+   [终止状态](/zh-cn/docs/concepts/services-networking/endpoint-slices/#conditions)。
+   正在终止的端点始终将其 `ready` 状态设置为 `false`（为了向后兼容 1.26 之前的版本），
+   因此负载均衡器不会将其用于常规流量。
+   如果需要排空正被终止的 Pod 上的流量，可以将 `serving` 状况作为实际的就绪状态。
+   你可以在教程
+   [探索 Pod 及其端点的终止行为](/zh-cn/docs/tutorials/services/pods-and-endpoint-termination-flow/)
+   中找到有关如何实现连接排空的更多详细信息。
+
+   {{<note>}}
+   <!--
+   If you don't have the `EndpointSliceTerminatingCondition` feature gate enabled
+   in your cluster (the gate is on by default from Kubernetes 1.22, and locked to default in 1.26), then the Kubernetes control
+   plane removes a Pod from any relevant EndpointSlices as soon as the Pod's
+   termination grace period _begins_. The behavior above is described when the
+   feature gate `EndpointSliceTerminatingCondition` is enabled.
+   -->
+   如果你的集群中没有启用 EndpointSliceTerminatingCondition 特性门控
+   （该门控从 Kubernetes 1.22 开始默认开启，在 1.26 中锁定为默认），
+   那么一旦 Pod 的终止宽限期开始，Kubernetes 控制平面就会从所有的相关 EndpointSlices 中移除 Pod。
+   上述行为是在 EndpointSliceTerminatingCondition 特性门控被启用时描述的。
+   {{</note>}}
+
 
 <!--
 1. When the grace period expires, the kubelet triggers forcible shutdown. The container runtime sends
    `SIGKILL` to any processes still running in any container in the Pod.
    The kubelet also cleans up a hidden `pause` container if that container runtime uses one.
+1. The kubelet transitions the pod into a terminal phase (`Failed` or `Succeeded` depending on
+   the end state of its containers). This step is guaranteed since version 1.27.
 1. The kubelet triggers forcible removal of Pod object from the API server, by setting grace period
    to 0 (immediate deletion).
 1. The API server deletes the Pod's API object, which is then no longer visible from any client.
 -->
-4. 超出终止宽限期限时，`kubelet` 会触发强制关闭过程。容器运行时会向 Pod
+1. 超出终止宽限期限时，`kubelet` 会触发强制关闭过程。容器运行时会向 Pod
    中所有容器内仍在运行的进程发送 `SIGKILL` 信号。
    `kubelet` 也会清理隐藏的 `pause` 容器，如果容器运行时使用了这种容器的话。
 
-5. `kubelet` 触发强制从 API 服务器上删除 Pod 对象的逻辑，并将体面终止限期设置为 0
+1. `kubelet` 将 Pod 转换到终止阶段（`Failed` 或 `Succeeded` 具体取决于其容器的结束状态）。
+    这一步从 1.27 版本开始得到保证。
+
+1. `kubelet` 触发强制从 API 服务器上删除 Pod 对象的逻辑，并将体面终止限期设置为 0
    （这意味着马上删除）。
 
-6. API 服务器删除 Pod 的 API 对象，从任何客户端都无法再看到该对象。
+1. API 服务器删除 Pod 的 API 对象，从任何客户端都无法再看到该对象。
 
 <!--
 ### Forced Pod termination {#pod-termination-forced}

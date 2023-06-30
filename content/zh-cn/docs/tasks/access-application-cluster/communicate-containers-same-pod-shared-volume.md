@@ -1,11 +1,12 @@
 ---
 title: 同 Pod 内的容器使用共享卷通信
 content_type: task
+weight: 120
 ---
 <!--
 title: Communicate Between Containers in the Same Pod Using a Shared Volume
 content_type: task
-weight: 110
+weight: 120
 -->
 <!-- overview -->
 
@@ -32,7 +33,7 @@ In this exercise, you create a Pod that runs two Containers. The two containers
 share a Volume that they can use to communicate. Here is the configuration file
 for the Pod:
 -->
-## 创建一个包含两个容器的 Pod
+## 创建一个包含两个容器的 Pod   {#creating-a-pod-that-runs-two-containers}
 
 在这个练习中，你会创建一个包含两个容器的 Pod。两个容器共享一个卷用于他们之间的通信。
 Pod 的配置文件如下：
@@ -162,7 +163,10 @@ directory. Use `curl` to send a GET request to the nginx server:
 root@two-containers:/# curl localhost
 ```
 
-输出表示 nginx 提供了 debian 容器写的页面：
+<!--
+The output shows that nginx serves a web page written by the debian container:
+-->
+输出表示 nginx 向外提供了 debian 容器所写就的页面：
 
 ```
 Hello from the debian container
@@ -180,7 +184,7 @@ Typically this is done through a shared filesystem, as shown in this exercise,
 or through the loopback network interface, localhost. An example of this pattern is a
 web server along with a helper program that polls a Git repository for new updates.
 -->
-## 讨论
+## 讨论   {#discussion}
 
 Pod 能有多个容器的主要原因是为了支持辅助应用（helper applications），以协助主应用（primary application）。
 辅助应用的典型例子是数据抽取，数据推送和代理。辅助应用和主应用经常需要相互通信。

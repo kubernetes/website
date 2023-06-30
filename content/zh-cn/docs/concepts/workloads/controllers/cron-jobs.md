@@ -3,7 +3,6 @@ title: CronJob
 content_type: concept
 weight: 80
 ---
-
 <!--
 reviewers:
 - erictune
@@ -21,9 +20,9 @@ weight: 80
 <!--
 A _CronJob_ creates {{< glossary_tooltip term_id="job" text="Jobs" >}} on a repeating schedule.
 
-CronJob is meant for performing regular scheduled actions such as backups, report generation, 
-and so on. One CronJob object is like one line of a _crontab_ (cron table) file on a 
-Unix system. It runs a job periodically on a given schedule, written in 
+CronJob is meant for performing regular scheduled actions such as backups, report generation,
+and so on. One CronJob object is like one line of a _crontab_ (cron table) file on a
+Unix system. It runs a job periodically on a given schedule, written in
 [Cron](https://en.wikipedia.org/wiki/Cron) format.
 -->
 **CronJob** 创建基于时隔重复调度的 {{< glossary_tooltip term_id="job" text="Job" >}}。
@@ -155,21 +154,21 @@ Other than the standard syntax, some macros like `@monthly` can also be used:
 除了标准语法，还可以使用一些类似 `@monthly` 的宏：
 
 <!-- 
-| Entry 	| Description   | Equivalent to |
-| ------------- | ------------- |-------------  |
-| @yearly (or @annually) | Run once a year at midnight of 1 January | 0 0 1 1 * |
-| @monthly               | Run once a month at midnight of the first day of the month | 0 0 1 * * |
-| @weekly                | Run once a week at midnight on Sunday morning | 0 0 * * 0 |
-| @daily (or @midnight)  | Run once a day at midnight | 0 0 * * * |
-| @hourly                | Run once an hour at the beginning of the hour | 0 * * * * |
+| Entry 										| Description																									| Equivalent to |
+| ------------- 						| ------------- 																							|-------------  |
+| @yearly (or @annually)		| Run once a year at midnight of 1 January										| 0 0 1 1 * 		|
+| @monthly 									| Run once a month at midnight of the first day of the month	| 0 0 1 * * 		|
+| @weekly 									| Run once a week at midnight on Sunday morning								| 0 0 * * 0 		|
+| @daily (or @midnight)			| Run once a day at midnight																	| 0 0 * * * 		|
+| @hourly 									| Run once an hour at the beginning of the hour								| 0 * * * * 		|
 -->
-| 输入                      | 描述                          | 相当于         |
-| -------------             | -------------                 |-------------   |
-| @yearly (或 @annually)    | 每年 1 月 1 日的午夜运行一次  | 0 0 1 1 *      |
-| @monthly                  | 每月第一天的午夜运行一次      | 0 0 1 * *      |
-| @weekly                   | 每周的周日午夜运行一次        | 0 0 * * 0      |
-| @daily (或 @midnight)     | 每天午夜运行一次              | 0 0 * * *      |
-| @hourly                   | 每小时的开始一次              | 0 * * * *      |
+| 输入                   | 描述                      | 相当于        |
+| ---------------------- | ------------------------ | ------------ |
+| @yearly (或 @annually) | 每年 1 月 1 日的午夜运行一次 | 0 0 1 1 *    |
+| @monthly               | 每月第一天的午夜运行一次     | 0 0 1 * *    |
+| @weekly                | 每周的周日午夜运行一次       | 0 0 * * 0    |
+| @daily (或 @midnight)  | 每天午夜运行一次            | 0 0 * * *    |
+| @hourly                | 每小时的开始一次            | 0 * * * *    |
 
 <!--
 To generate CronJob schedule expressions, you can also use web tools like [crontab.guru](https://crontab.guru/).
@@ -318,55 +317,29 @@ For another way to clean up jobs automatically, see [Clean up finished jobs auto
 
 <!-- 
 ### Time zones
-
-For CronJobs with no time zone specified, the {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}} interprets schedules relative to its local time zone.
 -->
 ## 时区    {#time-zones}
 
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
+
+<!--
+For CronJobs with no time zone specified, the {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
+interprets schedules relative to its local time zone.
+-->
 对于没有指定时区的 CronJob，
 {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
 基于本地时区解释排期表（Schedule）。
 
-{{< feature-state for_k8s_version="v1.25" state="beta" >}}
-
 <!--
-If you enable the  `CronJobTimeZone` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
-you can specify a time zone for a CronJob (if you don't enable that feature gate, or if you are using a version of
-Kubernetes that does not have experimental time zone support, all CronJobs in your cluster have an unspecified
-timezone).
-
-When you have the feature enabled, you can set `.spec.timeZone` to the name of a valid [time zone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). For example, setting
-`.spec.timeZone: "Etc/UTC"` instructs Kubernetes to interpret the schedule relative to Coordinated Universal Time.
+You can specify a time zone for a CronJob by setting `.spec.timeZone` to the name
+of a valid [time zone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+For example, setting `.spec.timeZone: "Etc/UTC"` instructs Kubernetes to interpret
+the schedule relative to Coordinated Universal Time.
 -->
-如果启用了 `CronJobTimeZone` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
-你可以为 CronJob 指定一个时区（如果你没有启用该特性门控，或者你使用的是不支持试验性时区功能的
-Kubernetes 版本，集群中所有 CronJob 的时区都是未指定的）。
-
-启用该特性后，你可以将 `spec.timeZone`
-设置为有效[时区](https://zh.wikipedia.org/wiki/%E6%97%B6%E5%8C%BA%E4%BF%A1%E6%81%AF%E6%95%B0%E6%8D%AE%E5%BA%93)名称。
-例如，设置 `spec.timeZone: "Etc/UTC"` 指示 Kubernetes 采用 UTC 来解释排期表。
-
-{{< caution >}}
-<!--
-The implementation of the CronJob API in Kubernetes {{< skew currentVersion >}} lets you set
-the `.spec.schedule` field to include a timezone; for example: `CRON_TZ=UTC * * * * *`
-or `TZ=UTC * * * * *`.
-
-Specifying a timezone that way is **not officially supported** (and never has been).
-
-If you try to set a schedule that includes `TZ` or `CRON_TZ` timezone specification,
-Kubernetes reports a [warning](/blog/2020/09/03/warnings/) to the client.
-Future versions of Kubernetes might not implement that unofficial timezone mechanism at all.
--->
-Kubernetes {{< skew currentVersion >}} 中 CronJob API 的实现允许你设置
-`.spec.schedule` 字段以包含时区；例如：`CRON_TZ=UTC * * * * *` 或 `TZ=UTC * * * * *`。
-
-以这种方式指定时区是**未正式支持**（而且从来没有）。
-
-如果你尝试设置包含 `TZ` 或 `CRON_TZ` 时区规范的排期表，
-Kubernetes 会向客户端报告[警告](/zh-cn/blog/2020/09/03/warnings/)。
-Kubernetes 的未来版本可能根本不会实现这种非正式的时区机制。
-{{< /caution >}}
+你可以通过将 `.spec.timeZone`
+设置为一个有效[时区](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones)的名称，
+为 CronJob 指定一个时区。例如设置 `.spec.timeZone: "Etc/UTC"` 将告诉
+Kubernetes 基于世界标准时间解读排期表。
 
 <!--
 A time zone database from the Go standard library is included in the binaries and used as a fallback in case an external database is not available on the system.
@@ -376,16 +349,44 @@ Go 标准库中的时区数据库包含在二进制文件中，并用作备用�
 <!--
 ## CronJob limitations {#cron-job-limitations}
 
+### Unsupported TimeZone specification
+-->
+## CronJob 的限制    {#cronjob-limitations}
+
+### 不支持的时区规范   {#unsupported-timezone-spec}
+
+<!--
+The implementation of the CronJob API in Kubernetes {{< skew currentVersion >}} lets you set
+the `.spec.schedule` field to include a timezone; for example: `CRON_TZ=UTC * * * * *`
+or `TZ=UTC * * * * *`.
+-->
+Kubernetes {{< skew currentVersion >}} 中的 CronJob API 实现允许你设置
+`.spec.schedule` 字段，在其中包括时区信息；
+例如 `CRON_TZ=UTC * * * * *` 或 `TZ=UTC * * * * *`。
+
+<!--
+Specifying a timezone that way is **not officially supported** (and never has been).
+
+If you try to set a schedule that includes `TZ` or `CRON_TZ` timezone specification,
+Kubernetes reports a [warning](/blog/2020/09/03/warnings/) to the client.
+Future versions of Kubernetes will prevent setting the unofficial timezone mechanism entirely.
+-->
+以这种方式指定时区是 **未正式支持的**（而且也从未正式支持过）。
+
+如果你尝试设置包含 `TZ` 或 `CRON_TZ` 时区规范的排期表，
+Kubernetes 会向客户端报告一条[警告](/blog/2020/09/03/warnings/)。
+后续的 Kubernetes 版本将完全阻止设置非正式的时区机制。
+
+<!--
 ### Modifying a CronJob
+
 By design, a CronJob contains a template for _new_ Jobs.
 If you modify an existing CronJob, the changes you make will apply to new Jobs that
 start to run after your modification is complete. Jobs (and their Pods) that have already
 started continue to run without changes.
 That is, the CronJob does _not_ update existing Jobs, even if those remain running.
 -->
-## CronJob 限制    {#cronjob-limitations}
-
-### 修改 CronJob  {#modifying-a-cronjob}
+### 修改 CronJob   {#modifying-a-cronjob}
 
 按照设计，CronJob 包含一个用于**新** Job 的模板。
 如果你修改现有的 CronJob，你所做的更改将应用于修改完成后开始运行的新任务。
@@ -398,7 +399,7 @@ That is, the CronJob does _not_ update existing Jobs, even if those remain runni
 A CronJob creates a Job object approximately once per execution time of its schedule.
 The scheduling is approximate because there
 are certain circumstances where two Jobs might be created, or no Job might be created.
-Kubernetes tries to avoid those situations, but do not completely prevent them. Therefore,
+Kubernetes tries to avoid those situations, but does not completely prevent them. Therefore,
 the Jobs that you define should be _idempotent_.
 -->
 ### Job 创建  {#job-creation}
@@ -491,7 +492,8 @@ CronJob 仅负责创建与其调度时间相匹配的 Job，而 Job 又负责管
   Read the {{< api-reference page="workload-resources/cron-job-v1" >}}
   API reference for more details.
 -->
-* 了解 CronJob 所依赖的 [Pod](/zh-cn/docs/concepts/workloads/pods/) 与 [Job](/zh-cn/docs/concepts/workloads/controllers/job/) 的概念。
+* 了解 CronJob 所依赖的 [Pod](/zh-cn/docs/concepts/workloads/pods/) 与
+  [Job](/zh-cn/docs/concepts/workloads/controllers/job/) 的概念。
 * 阅读 CronJob `.spec.schedule` 字段的详细[格式](https://pkg.go.dev/github.com/robfig/cron/v3#hdr-CRON_Expression_Format)。
 * 有关创建和使用 CronJob 的说明及 CronJob 清单的示例，
   请参见[使用 CronJob 运行自动化任务](/zh-cn/docs/tasks/job/automated-tasks-with-cron-jobs/)。

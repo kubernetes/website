@@ -14,13 +14,12 @@ tags:
 ---
 
 <!--
----
 title: StatefulSet
 id: statefulset
 date: 2018-04-12
 full_link: /docs/concepts/workloads/controllers/statefulset/
 short_description: >
-  Manages deployment and scaling of a set of Pods, with durable storage and persistent identifiers for each Pod.
+  A StatefulSet manages deployment and scaling of a set of Pods, with durable storage and persistent identifiers for each Pod.
 
 aka: 
 tags:
@@ -28,7 +27,6 @@ tags:
 - core-object
 - workload
 - storage
----
 -->
 
 <!--
@@ -39,7 +37,7 @@ StatefulSet 用来管理某 {{< glossary_tooltip text="Pod" term_id="pod" >}} �
 <!--more--> 
 
 <!--
-Like a {{< glossary_tooltip term_id="deployment" >}}, a StatefulSet manages Pods that are based on an identical container spec. Unlike a Deployment, a StatefulSet maintains a sticky identity for each of their Pods. These pods are created from the same spec, but are not interchangeable&#58; each has a persistent identifier that it maintains across any rescheduling.
+Like a {{< glossary_tooltip term_id="deployment" >}}, a StatefulSet manages Pods that are based on an identical container spec. Unlike a Deployment, a StatefulSet maintains a sticky identity for each of its Pods. These pods are created from the same spec, but are not interchangeable&#58; each has a persistent identifier that it maintains across any rescheduling.
 -->
 
 和 {{< glossary_tooltip text="Deployment" term_id="deployment" >}} 类似，

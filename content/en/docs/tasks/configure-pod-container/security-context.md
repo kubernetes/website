@@ -5,7 +5,7 @@ reviewers:
 - thockin
 title: Configure a Security Context for a Pod or Container
 content_type: task
-weight: 80
+weight: 110
 ---
 
 <!-- overview -->
@@ -440,26 +440,25 @@ To assign SELinux labels, the SELinux security module must be loaded on the host
 
 ### Efficient SELinux volume relabeling
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
-By default, the contrainer runtime recursively assigns SELinux label to all
+By default, the container runtime recursively assigns SELinux label to all
 files on all Pod volumes. To speed up this process, Kubernetes can change the
 SELinux label of a volume instantly by using a mount option
 `-o context=<label>`.
 
 To benefit from this speedup, all these conditions must be met:
 
-* Alpha feature gates `ReadWriteOncePod` and `SELinuxMountReadWriteOncePod` must
-  be enabled.
+* The [feature gates](/docs/reference/command-line-tools-reference/feature-gates/) `ReadWriteOncePod`
+  and `SELinuxMountReadWriteOncePod` must be enabled.
 * Pod must use PersistentVolumeClaim with `accessModes: ["ReadWriteOncePod"]`.
 * Pod (or all its Containers that use the PersistentVolumeClaim) must
   have `seLinuxOptions` set.
-* The corresponding PersistentVolume must be either a volume that uses a
-  {{< glossary_tooltip text="CSI" term_id="csi" >}} driver, or a volume that uses the
-  legacy `iscsi` volume type.
-  * If you use a volume backed by a CSI driver, that CSI driver must announce that it
-    supports mounting with `-o context` by setting `spec.seLinuxMount: true` in
-    its CSIDriver instance.
+* The corresponding PersistentVolume must be either:
+  * A volume that uses the legacy in-tree `iscsi`, `rbd` or `fc` volume type.
+  * Or a volume that uses a {{< glossary_tooltip text="CSI" term_id="csi" >}} driver.
+    The CSI driver must announce that it supports mounting with `-o context` by setting
+    `spec.seLinuxMount: true` in its CSIDriver instance.
 
 For any other volume types, SELinux relabelling happens another way: the container
 runtime  recursively changes the SELinux label for all inodes (files and directories)
@@ -467,11 +466,12 @@ in the volume.
 The more files and directories in the volume, the longer that relabelling takes.
 
 {{< note >}}
-In Kubernetes 1.25, the kubelet loses track of volume labels after restart. In
-other words, then kubelet may refuse to start Pods with errors similar to  "conflicting
-SELinux labels of volume", while there are no conflicting labels in Pods. Make sure
-nodes are [fully drained](/docs/tasks/administer-cluster/safely-drain-node/)
-before restarting kubelet.
+<!-- remove after Kubernetes v1.30 is released -->
+If you are running Kubernetes v1.25, refer to the v1.25 version of this task page:
+[Configure a Security Context for a Pod or Container](https://v1-25.docs.kubernetes.io/docs/tasks/configure-pod-container/security-context/) (v1.25).  
+There is an important note in that documentation about a situation where the kubelet
+can lose track of volume labels after restart. This deficiency has been fixed
+in Kubernetes 1.26.
 {{< /note >}}
 
 ## Discussion

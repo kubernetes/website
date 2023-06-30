@@ -1,6 +1,7 @@
 ---
 title: 通过配置内置准入控制器实施 Pod 安全标准
 content_type: task
+weight: 240
 ---
 <!--
 title: Enforce Pod Security Standards by Configuring the Built-in Admission Controller
@@ -8,6 +9,7 @@ reviewers:
 - tallclair
 - liggitt
 content_type: task
+weight: 240
 -->
 
 <!--
@@ -92,6 +94,14 @@ plugins:
       # 要豁免的名字空间列表
       namespaces: []
 ```
+
+
+{{< note >}}
+<!--
+The above manifest needs to be specified via the `--admission-control-config-file` to kube-apiserver.
+-->
+上面的清单需要通过 `——admission-control-config-file` 指定到 kube-apiserver。
+{{< /note >}}
 
 {{< note >}}
 <!--

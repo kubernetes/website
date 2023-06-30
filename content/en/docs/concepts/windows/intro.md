@@ -89,10 +89,6 @@ section refers to several key workload abstractions and how they map to Windows.
 
     The `.spec.os.name` field should be set to `windows` to indicate that the current Pod uses Windows containers.
 
-    {{< note >}}
-    Starting from 1.25, the `IdentifyPodOS` feature gate is in GA stage and defaults to be enabled.
-    {{< /note >}}
-
     If you set the `.spec.os.name` field to `windows`,
     you must not set the following fields in the `.spec` of that Pod:
 
@@ -238,11 +234,11 @@ work between Windows and Linux:
 The following list documents differences between how Pod specifications work between Windows and Linux:
 
 * `hostIPC` and `hostpid` - host namespace sharing is not possible on Windows
-* `hostNetwork` - [see below](/docs/concepts/windows/intro#compatibility-v1-pod-spec-containers-hostnetwork)
+* `hostNetwork` - [see below](#compatibility-v1-pod-spec-containers-hostnetwork)
 * `dnsPolicy` - setting the Pod `dnsPolicy` to `ClusterFirstWithHostNet` is
    not supported on Windows because host networking is not provided. Pods always
    run with a container network.
-* `podSecurityContext` [see below](/docs/concepts/windows/intro#compatibility-v1-pod-spec-containers-securitycontext)
+* `podSecurityContext` [see below](#compatibility-v1-pod-spec-containers-securitycontext)
 * `shareProcessNamespace` - this is a beta feature, and depends on Linux namespaces
   which are not implemented on Windows. Windows cannot share process namespaces or
   the container's root filesystem. Only the network can be shared.
@@ -295,7 +291,7 @@ network port spaces). Kubernetes uses pause containers to allow for worker conta
 crashing or restarting without losing any of the networking configuration.
 
 Kubernetes maintains a multi-architecture image that includes support for Windows.
-For Kubernetes v{{< skew currentVersion >}} the recommended pause image is `registry.k8s.io/pause:3.6`.
+For Kubernetes v{{< skew currentPatchVersion >}} the recommended pause image is `registry.k8s.io/pause:3.6`.
 The [source code](https://github.com/kubernetes/kubernetes/tree/master/build/pause)
 is available on GitHub.
 

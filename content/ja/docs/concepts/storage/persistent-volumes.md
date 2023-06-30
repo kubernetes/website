@@ -50,7 +50,7 @@ PVは静的か動的どちらかでプロビジョニングされます。
 
 ストレージクラスに基づいたストレージの動的プロビジョニングを有効化するには、クラスター管理者が`DefaultStorageClass`[アドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)をAPIサーバーで有効化する必要があります。
 これは例えば、`DefaultStorageClass`がAPIサーバーコンポーネントの`--enable-admission-plugins`フラグのコンマ区切りの順序付きリストの中に含まれているかで確認できます。
-APIサーバーのコマンドラインフラグの詳細については[kube-apiserver](/docs/admin/kube-apiserver/)のドキュメントを参照してください。
+APIサーバーのコマンドラインフラグの詳細については[kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)のドキュメントを参照してください。
 
 ### バインディング
 
@@ -367,7 +367,7 @@ KubernetesはPersistentVolumesの2つの`volumeModes`をサポートしていま
 
 `volumeMode`の値を`Block`に設定してボリュームをRAWブロックデバイスとして使用します。  
 このようなボリュームは、ファイルシステムを持たないブロックデバイスとしてPodに提示されます。  
-このモードは、Podとボリュームの間のファイルシステムレイヤなしにボリュームにアクセスする可能な限り最速の方法をPodに提供するのに便利です。一方で、Pod上で実行しているアプリケーションはRAWブロックデバイスの扱い方を知っていなければなりません。  
+このモードは、Podとボリュームの間のファイルシステムレイヤーなしにボリュームにアクセスする可能な限り最速の方法をPodに提供するのに便利です。一方で、Pod上で実行しているアプリケーションはRAWブロックデバイスの扱い方を知っていなければなりません。  
 Pod内で`volumeMode: Block`とともにボリュームを使用する例としては、[Raw Block Volume Support](#raw-block-volume-support)を参照してください。
 
 ### アクセスモード
@@ -386,7 +386,7 @@ PersistentVolumeは、リソースプロバイダーがサポートする方法�
 : ボリュームは多数のNodeで読み取り/書き込みとしてマウントできます
 
 `ReadWriteOncePod`
-: ボリュームは、単一のPodで読み取り/書き込みとしてマウントできます。クラスタ全体で1つのPodのみがそのPVCの読み取りまたは書き込みを行えるようにする場合は、ReadWriteOncePodアクセスモードを使用します。これは、CSIボリュームとKubernetesバージョン1.22以降でのみサポートされます。
+: ボリュームは、単一のPodで読み取り/書き込みとしてマウントできます。クラスター全体で1つのPodのみがそのPVCの読み取りまたは書き込みを行えるようにする場合は、ReadWriteOncePodアクセスモードを使用します。これは、CSIボリュームとKubernetesバージョン1.22以降でのみサポートされます。
 
 これについてはブログ[Introducing Single Pod Access Mode for PersistentVolumes](/blog/2021/09/13/read-write-once-pod-access-mode-alpha/)に詳細が記載されています。
 

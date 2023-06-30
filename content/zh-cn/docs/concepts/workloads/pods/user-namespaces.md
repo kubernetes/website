@@ -16,7 +16,7 @@ min-kubernetes-server-version: v1.25
 {{< feature-state for_k8s_version="v1.25" state="alpha" >}}
 <!--
 This page explains how user namespaces are used in Kubernetes pods. A user
-namespace allows to isolate the user running inside the container from the one
+namespace isolates the user running inside the container from the one
 in the host.
 
 A process running as root in a container can run as a different (non-root) user
@@ -24,8 +24,8 @@ in the host; in other words, the process has full privileges for operations
 inside the user namespace, but is unprivileged for operations outside the
 namespace.
 -->
-本页解释了在 Kubernetes pods 中如何使用用户命名空间。
-用户命名空间允许将容器内运行的用户与主机内的用户隔离开来。
+本页解释了在 Kubernetes Pod 中如何使用用户命名空间。
+用户命名空间将容器内运行的用户与主机中的用户隔离开来。
 
 在容器中以 root 身份运行的进程可以在主机中以不同的（非 root）用户身份运行；
 换句话说，该进程在用户命名空间内的操作具有完全的权限，
@@ -48,35 +48,68 @@ mitigate some future vulnerabilities too.
 <!-- body -->
 ## {{% heading "prerequisites" %}}
 
-{{% thirdparty-content single="true" %}}
-<!-- if adding another runtime in the future, omit the single setting -->
+{{% thirdparty-content %}}
 
 <!--
-This is a Linux only feature. In addition, support is needed in the 
+This is a Linux-only feature and support is needed in Linux for idmap mounts on
+the filesystems used. This means:
+
+* On the node, the filesystem you use for `/var/lib/kubelet/pods/`, or the
+  custom directory you configure for this, needs idmap mount support.
+* All the filesystems used in the pod's volumes must support idmap mounts.
+
+In practice this means you need at least Linux 6.3, as tmpfs started supporting
+idmap mounts in that version. This is usually needed as several Kubernetes
+features use tmpfs (the service account token that is mounted by default uses a
+tmpfs, Secrets use a tmpfs, etc.)
+
+Some popular filesystems that support idmap mounts in Linux 6.3 are: btrfs,
+ext4, xfs, fat, tmpfs, overlayfs.
+-->
+这是一个只对 Linux 有效的功能特性，且需要 Linux 支持在所用文件系统上挂载 idmap。
+这意味着：
+
+* 在节点上，你用于 `/var/lib/kubelet/pods/` 的文件系统，或你为此配置的自定义目录，
+  需要支持 idmap 挂载。
+* Pod 卷中使用的所有文件系统都必须支持 idmap 挂载。
+
+在实践中，这意味着你最低需要 Linux 6.3，因为 tmpfs 在该版本中开始支持 idmap 挂载。
+这通常是需要的，因为有几个 Kubernetes 功能特性使用 tmpfs
+（默认情况下挂载的服务账号令牌使用 tmpfs、Secret 使用 tmpfs 等等）。
+
+Linux 6.3 中支持 idmap 挂载的一些比较流行的文件系统是：btrfs、ext4、xfs、fat、
+tmpfs、overlayfs。
+
+<!-- When merging this with the dev-1.27 branch conflicts will arise. The text
+as it is in the dev-1.27 branch should be used. -->
+<!--
+In addition, support is needed in the
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
 to use this feature with Kubernetes stateless pods:
 
-* CRI-O: v1.25 has support for user namespaces.
+* CRI-O: version 1.25 (and later) supports user namespaces for containers.
 
-* containerd: support is planned for the 1.7 release. See containerd
-  issue [#7063][containerd-userns-issue] for more details.
+Please note that containerd v1.7 supports user namespaces for containers,
+compatible with Kubernetes {{< skew currentPatchVersion >}}. It should not be used
+with Kubernetes 1.27 (and later).
 
 Support for this in [cri-dockerd is not planned][CRI-dockerd-issue] yet.
 -->
 
-这是一个只对 Linux 有效的功能特性。此外，需要在{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}提供支持，
+此外，需要在{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}提供支持，
 才能在 Kubernetes 无状态 Pod 中使用这一功能：
 
-* CRI-O：v1.25 版已经支持用户命名空间。
-* containerd：计划在 1.7 版本中支持。更多细节请参见 containerd 问题 [#7063][containerd-userns-issue]。
+* CRI-O：1.25（及更高）版本支持配置容器的用户命名空间。
+
+请注意，containerd v1.7 支持配置容器的用户命名空间，与 Kubernetes {{< skew currentPatchVersion >}}
+兼容。它不应与 Kubernetes 1.27（及更高）版本一起使用。
 
 目前 [cri-dockerd 没有计划][CRI-dockerd-issue]支持此功能。
 
 [CRI-dockerd-issue]: https://github.com/Mirantis/cri-dockerd/issues/74
-[containerd-userns-issue]: https://github.com/containerd/containerd/issues/7063
 
-<!-- 
-## Introduction 
+<!--
+## Introduction
 -->
 ## 介绍 {#introduction}
 
@@ -126,8 +159,8 @@ if user namespaces is activated.
 大多数需要以 root 身份运行但不访问其他主机命名空间或资源的应用程序，
 在用户命名空间被启用时，应该可以继续正常运行，不需要做任何改变。
 
-<!-- 
-## Understanding user namespaces for stateless pods 
+<!--
+## Understanding user namespaces for stateless pods
 -->
 ## 了解无状态 Pod 的用户命名空间 {#understanding-user-namespaces-for-stateless-pods}
 
@@ -190,8 +223,8 @@ of it.
 授予一个 Pod 的权能也被限制在 Pod 的用户命名空间内，
 并且在这一命名空间之外大多无效，有些甚至完全无效。这里有两个例子：
 
- - `CAP_SYS_MODULE` 若被授予一个使用用户命名空间的 Pod 则没有任何效果，这个 Pod 不能加载内核模块。
- - `CAP_SYS_ADMIN` 只限于 Pod 所在的用户命名空间，在该命名空间之外无效。
+- `CAP_SYS_MODULE` 若被授予一个使用用户命名空间的 Pod 则没有任何效果，这个 Pod 不能加载内核模块。
+- `CAP_SYS_ADMIN` 只限于 Pod 所在的用户命名空间，在该命名空间之外无效。
 
 <!--
 Without using a user namespace a container running as root, in the case of a
@@ -235,14 +268,15 @@ kubelet 会把高于这个范围的 UID/GID 分配给 Pod。
 请注意，这个建议对减轻 [CVE-2021-25741][CVE-2021-25741] 等 CVE 的影响很重要；
 在这些 CVE 中，Pod 有可能读取主机中的任意文件。
 如果 Pod 和主机的 UID/GID 不重叠，Pod 能够做的事情就会受到限制：
-Pod的 UID/GID 不会与主机的文件所有者/组相匹配。
+Pod 的 UID/GID 不会与主机的文件所有者/组相匹配。
 
 [CVE-2021-25741]: https://github.com/kubernetes/kubernetes/issues/104980
 
-<!-- 
-# Limitations 
+<!--
+## Limitations
 -->
 ## 限制 {#limitations}
+
 <!--
 When using a user namespace for the pod, it is disallowed to use other host
 namespaces. In particular, if you set `hostUsers: false` then you are not
@@ -255,9 +289,9 @@ allowed to set any of:
 当 Pod 使用用户命名空间时，不允许 Pod 使用其他主机命名空间。
 特别是，如果你设置了 `hostUsers: false`，那么你就不可以设置如下属性：
 
- * `hostNetwork: true`
- * `hostIPC: true`
- * `hostPID: true`
+* `hostNetwork: true`
+* `hostIPC: true`
+* `hostPID: true`
 
 <!--
 The pod is allowed to use no volumes at all or, if using volumes, only these
@@ -269,29 +303,18 @@ volume types are allowed:
  * downwardAPI
  * emptyDir
 -->
+
 Pod 完全不使用卷是被允许的；如果使用卷，只允许使用以下卷类型：
 
- * configmap
- * secret
- * projected
- * downwardAPI
- * emptyDir
+* configmap
+* secret
+* projected
+* downwardAPI
+* emptyDir
 
-<!-- 
-To guarantee that the pod can read the files of such volumes, volumes are
-created as if you specified `.spec.securityContext.fsGroup` as `0` for the Pod.
-If it is specified to a different value, this other value will of course be
-honored instead.
+## {{% heading "whatsnext" %}}
 
-As a by-product of this, folders and files for these volumes will have
-permissions for the group, even if `defaultMode` or `mode` to specific items of
-the volumes were specified without permissions to groups. For example, it is not
-possible to mount these volumes in a way that its files have permissions only
-for the owner. 
+<!--
+* Take a look at [Use a User Namespace With a Pod](/docs/tasks/configure-pod-container/user-namespaces/)
 -->
-为了保证 Pod 可以读取这些卷中的文件，卷的创建操作就像你为 Pod 指定了 `.spec.securityContext.fsGroup` 为 `0` 一样。
-如果该属性被设定为不同值，那么这个不同值当然也会被使用。
-
-作为一个副产品，这些卷的文件夹和文件将具有所给组的权限，
-即使 `defaultMode` 或 volumes 的特定项目的 `mode` 被指定为没有组的权限。
-例如，不可以在挂载这些卷时使其文件只允许所有者访问。
+* 查阅[为 Pod 配置用户命名空间](/zh-cn/docs/tasks/configure-pod-container/user-namespaces/)

@@ -54,7 +54,7 @@ konnectivity-server에 대한 인증서 및 kubeconfig를 생성하거나 얻는
 클러스터 CA 인증서 `/etc/kubernetes/pki/ca.crt`를 사용하여 X.509 인증서를 발급할 수 있다.
 
 ```bash
-openssl req -subj "/CN=system:konnectivity-server" -new -newkey rsa:2048 -nodes -out konnectivity.csr -keyout konnectivity.key -out konnectivity.csr
+openssl req -subj "/CN=system:konnectivity-server" -new -newkey rsa:2048 -nodes -out konnectivity.csr -keyout konnectivity.key
 openssl x509 -req -in konnectivity.csr -CA /etc/kubernetes/pki/ca.crt -CAkey /etc/kubernetes/pki/ca.key -CAcreateserial -out konnectivity.crt -days 375 -sha256
 SERVER=$(kubectl config view -o jsonpath='{.clusters..server}')
 kubectl --kubeconfig /etc/kubernetes/konnectivity-server.conf config set-credentials system:konnectivity-server --client-certificate konnectivity.crt --client-key konnectivity.key --embed-certs=true

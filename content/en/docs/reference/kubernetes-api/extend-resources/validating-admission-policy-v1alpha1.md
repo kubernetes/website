@@ -49,50 +49,82 @@ ValidatingAdmissionPolicy describes the definition of an admission validation po
   <a name="ValidatingAdmissionPolicySpec"></a>
   *ValidatingAdmissionPolicySpec is the specification of the desired behavior of the AdmissionPolicy.*
 
-  - **spec.validations** ([]Validation), required
+  - **spec.auditAnnotations** ([]AuditAnnotation)
 
     *Atomic: will be replaced during a merge*
     
-    Validations contain CEL expressions which is used to apply the validation. A minimum of one validation is required for a policy definition. Required.
+    auditAnnotations contains CEL expressions which are used to produce audit annotations for the audit event of the API request. validations and auditAnnotations may not both be empty; a least one of validations or auditAnnotations is required.
 
-    <a name="Validation"></a>
-    *Validation specifies the CEL expression which is used to apply the validation.*
+    <a name="AuditAnnotation"></a>
+    *AuditAnnotation describes how to produce an audit annotation for an API request.*
 
-    - **spec.validations.expression** (string), required
+    - **spec.auditAnnotations.key** (string), required
 
-      Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the Admission request/response, organized into CEL variables as well as some other useful variables:
+      key specifies the audit annotation key. The audit annotation keys of a ValidatingAdmissionPolicy must be unique. The key must be a qualified name ([A-Za-z0-9][-A-Za-z0-9_.]*) no more than 63 bytes in length.
       
-      'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind.
+      The key is combined with the resource name of the ValidatingAdmissionPolicy to construct an audit annotation key: "{ValidatingAdmissionPolicy name}/{key}".
       
-      The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+      If an admission webhook uses the same resource name as this ValidatingAdmissionPolicy and the same audit annotation key, the annotation key will be identical. In this case, the first annotation written with the key will be included in the audit event and all subsequent annotations with the same key will be discarded.
       
-      Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
-      	  "true", "false", "null", "in", "as", "break", "const", "continue", "else", "for", "function", "if",
-      	  "import", "let", "loop", "package", "namespace", "return".
-      Examples:
-        - Expression accessing a property named "namespace": {"Expression": "object.__namespace__ > 0"}
-        - Expression accessing a property named "x-prop": {"Expression": "object.x__dash__prop > 0"}
-        - Expression accessing a property named "redact__d": {"Expression": "object.redact__underscores__d > 0"}
-      
-      Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
-        - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
-          non-intersecting elements in `Y` are appended, retaining their partial order.
-        - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
-          are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
-          non-intersecting keys are appended, retaining their partial order.
       Required.
 
-    - **spec.validations.message** (string)
+    - **spec.auditAnnotations.valueExpression** (string), required
 
-      Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
-
-    - **spec.validations.reason** (string)
-
-      Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
+      valueExpression represents the expression which is evaluated by CEL to produce an audit annotation value. The expression must evaluate to either a string or null value. If the expression evaluates to a string, the audit annotation is included with the string value. If the expression evaluates to null or empty string the audit annotation will be omitted. The valueExpression may be no longer than 5kb in length. If the result of the valueExpression is more than 10kb in length, it will be truncated to 10kb.
+      
+      If multiple ValidatingAdmissionPolicyBinding resources match an API request, then the valueExpression will be evaluated for each binding. All unique values produced by the valueExpressions will be joined together in a comma-separated list.
+      
+      Required.
 
   - **spec.failurePolicy** (string)
 
-    FailurePolicy defines how to handle failures for the admission policy. Failures can occur from invalid or mis-configured policy definitions or bindings. A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource. Allowed values are Ignore or Fail. Defaults to Fail.
+    failurePolicy defines how to handle failures for the admission policy. Failures can occur from CEL expression parse errors, type check errors, runtime errors and invalid or mis-configured policy definitions or bindings.
+    
+    A policy is invalid if spec.paramKind refers to a non-existent Kind. A binding is invalid if spec.paramRef.name refers to a non-existent resource.
+    
+    failurePolicy does not define how validations that evaluate to false are handled.
+    
+    When failurePolicy is set to Fail, ValidatingAdmissionPolicyBinding validationActions define how failures are enforced.
+    
+    Allowed values are Ignore or Fail. Defaults to Fail.
+
+  - **spec.matchConditions** ([]MatchCondition)
+
+    *Patch strategy: merge on key `name`*
+    
+    *Map: unique values on key name will be kept during a merge*
+    
+    MatchConditions is a list of conditions that must be met for a request to be validated. Match conditions filter requests that have already been matched by the rules, namespaceSelector, and objectSelector. An empty list of matchConditions matches all requests. There are a maximum of 64 match conditions allowed.
+    
+    If a parameter object is provided, it can be accessed via the `params` handle in the same manner as validation expressions.
+    
+    The exact matching logic is (in order):
+      1. If ANY matchCondition evaluates to FALSE, the policy is skipped.
+      2. If ALL matchConditions evaluate to TRUE, the policy is evaluated.
+      3. If any matchCondition evaluates to an error (but none are FALSE):
+         - If failurePolicy=Fail, reject the request
+         - If failurePolicy=Ignore, the policy is skipped
+
+    <a name="MatchCondition"></a>
+    **
+
+    - **spec.matchConditions.expression** (string), required
+
+      Expression represents the expression which will be evaluated by CEL. Must evaluate to bool. CEL expressions have access to the contents of the AdmissionRequest and Authorizer, organized into CEL variables:
+      
+      'object' - The object from the incoming request. The value is null for DELETE requests. 'oldObject' - The existing object. The value is null for CREATE requests. 'request' - Attributes of the admission request(/pkg/apis/admission/types.go#AdmissionRequest). 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+        See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+      'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+        request resource.
+      Documentation on CEL: https://kubernetes.io/docs/reference/using-api/cel/
+      
+      Required.
+
+    - **spec.matchConditions.name** (string), required
+
+      Name is an identifier for this match condition, used for strategic merging of MatchConditions, as well as providing an identifier for logging purposes. A good name should be descriptive of the associated expression. Name must be a qualified name consisting of alphanumeric characters, '-', '_' or '.', and must start and end with an alphanumeric character (e.g. 'MyName',  or 'my.name',  or '123-abc', regex used for validation is '([A-Za-z0-9][-A-Za-z0-9_.]*)?[A-Za-z0-9]') with an optional DNS subdomain prefix and '/' (e.g. 'example.com/MyName')
+      
+      Required.
 
   - **spec.matchConstraints** (MatchResources)
 
@@ -261,6 +293,125 @@ ValidatingAdmissionPolicy describes the definition of an admission validation po
     - **spec.paramKind.kind** (string)
 
       Kind is the API kind the resources belong to. Required.
+
+  - **spec.validations** ([]Validation)
+
+    *Atomic: will be replaced during a merge*
+    
+    Validations contain CEL expressions which is used to apply the validation. Validations and AuditAnnotations may not both be empty; a minimum of one Validations or AuditAnnotations is required.
+
+    <a name="Validation"></a>
+    *Validation specifies the CEL expression which is used to apply the validation.*
+
+    - **spec.validations.expression** (string), required
+
+      Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
+      
+      - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+        See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
+      - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
+        request resource.
+      
+      The `apiVersion`, `kind`, `metadata.name` and `metadata.generateName` are always accessible from the root of the object. No other metadata properties are accessible.
+      
+      Only property names of the form `[a-zA-Z_.-/][a-zA-Z0-9_.-/]*` are accessible. Accessible property names are escaped according to the following rules when accessed in the expression: - '__' escapes to '__underscores__' - '.' escapes to '__dot__' - '-' escapes to '__dash__' - '/' escapes to '__slash__' - Property names that exactly match a CEL RESERVED keyword escape to '__{keyword}__'. The keywords are:
+      	  "true", "false", "null", "in", "as", "break", "const", "continue", "else", "for", "function", "if",
+      	  "import", "let", "loop", "package", "namespace", "return".
+      Examples:
+        - Expression accessing a property named "namespace": {"Expression": "object.__namespace__ > 0"}
+        - Expression accessing a property named "x-prop": {"Expression": "object.x__dash__prop > 0"}
+        - Expression accessing a property named "redact__d": {"Expression": "object.redact__underscores__d > 0"}
+      
+      Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1]. Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
+        - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
+          non-intersecting elements in `Y` are appended, retaining their partial order.
+        - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
+          are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
+          non-intersecting keys are appended, retaining their partial order.
+      Required.
+
+    - **spec.validations.message** (string)
+
+      Message represents the message displayed when validation fails. The message is required if the Expression contains line breaks. The message must not contain line breaks. If unset, the message is "failed rule: {Rule}". e.g. "must be a URL with the host matching spec.host" If the Expression contains line breaks. Message is required. The message must not contain line breaks. If unset, the message is "failed Expression: {Expression}".
+
+    - **spec.validations.messageExpression** (string)
+
+      messageExpression declares a CEL expression that evaluates to the validation failure message that is returned when this rule fails. Since messageExpression is used as a failure message, it must evaluate to a string. If both message and messageExpression are present on a validation, then messageExpression will be used if validation fails. If messageExpression results in a runtime error, the runtime error is logged, and the validation failure message is produced as if the messageExpression field were unset. If messageExpression evaluates to an empty string, a string with only spaces, or a string that contains line breaks, then the validation failure message will also be produced as if the messageExpression field were unset, and the fact that messageExpression produced an empty string/string with only spaces/string with line breaks will be logged. messageExpression has access to all the same variables as the `expression` except for 'authorizer' and 'authorizer.requestResource'. Example: "object.x must be less than max ("+string(params.max)+")"
+
+    - **spec.validations.reason** (string)
+
+      Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
+
+- **status** (ValidatingAdmissionPolicyStatus)
+
+  The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
+
+  <a name="ValidatingAdmissionPolicyStatus"></a>
+  *ValidatingAdmissionPolicyStatus represents the status of a ValidatingAdmissionPolicy.*
+
+  - **status.conditions** ([]Condition)
+
+    *Map: unique values on key type will be kept during a merge*
+    
+    The conditions represent the latest available observations of a policy's current state.
+
+    <a name="Condition"></a>
+    *Condition contains details for one aspect of the current state of this API Resource.*
+
+    - **status.conditions.lastTransitionTime** (Time), required
+
+      lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
+
+      <a name="Time"></a>
+      *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
+
+    - **status.conditions.message** (string), required
+
+      message is a human readable message indicating details about the transition. This may be an empty string.
+
+    - **status.conditions.reason** (string), required
+
+      reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty.
+
+    - **status.conditions.status** (string), required
+
+      status of the condition, one of True, False, Unknown.
+
+    - **status.conditions.type** (string), required
+
+      type of condition in CamelCase or in foo.example.com/CamelCase.
+
+    - **status.conditions.observedGeneration** (int64)
+
+      observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
+
+  - **status.observedGeneration** (int64)
+
+    The generation observed by the controller.
+
+  - **status.typeChecking** (TypeChecking)
+
+    The results of type checking for each expression. Presence of this field indicates the completion of the type checking.
+
+    <a name="TypeChecking"></a>
+    *TypeChecking contains results of type checking the expressions in the ValidatingAdmissionPolicy*
+
+    - **status.typeChecking.expressionWarnings** ([]ExpressionWarning)
+
+      *Atomic: will be replaced during a merge*
+      
+      The type checking warnings for each expression.
+
+      <a name="ExpressionWarning"></a>
+      *ExpressionWarning is a warning information that targets a specific expression.*
+
+      - **status.typeChecking.expressionWarnings.fieldRef** (string), required
+
+        The path to the field that refers the expression. For example, the reference to the expression of the first item of validations is "spec.validations[0].expression"
+
+      - **status.typeChecking.expressionWarnings.warning** (string), required
+
+        The content of type checking information in a human-readable form. Each line of the warning contains the type that the expression is checked against, followed by the type check error from the compiler.
 
 
 
@@ -489,6 +640,30 @@ ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with parame
 
     PolicyName references a ValidatingAdmissionPolicy name which the ValidatingAdmissionPolicyBinding binds to. If the referenced resource does not exist, this binding is considered invalid and will be ignored Required.
 
+  - **spec.validationActions** ([]string)
+
+    *Set: unique values will be kept during a merge*
+    
+    validationActions declares how Validations of the referenced ValidatingAdmissionPolicy are enforced. If a validation evaluates to false it is always enforced according to these actions.
+    
+    Failures defined by the ValidatingAdmissionPolicy's FailurePolicy are enforced according to these actions only if the FailurePolicy is set to Fail, otherwise the failures are ignored. This includes compilation errors, runtime errors and misconfigurations of the policy.
+    
+    validationActions is declared as a set of action values. Order does not matter. validationActions may not contain duplicates of the same action.
+    
+    The supported actions values are:
+    
+    "Deny" specifies that a validation failure results in a denied request.
+    
+    "Warn" specifies that a validation failure is reported to the request client in HTTP Warning headers, with a warning code of 299. Warnings can be sent both for allowed or denied admission responses.
+    
+    "Audit" specifies that a validation failure is included in the published audit event for the request. The audit event will contain a `validation.policy.admission.k8s.io/validation_failure` audit annotation with a value containing the details of the validation failures, formatted as a JSON list of objects, each with the following fields: - message: The validation failure message string - policy: The resource name of the ValidatingAdmissionPolicy - binding: The resource name of the ValidatingAdmissionPolicyBinding - expressionIndex: The index of the failed validations in the ValidatingAdmissionPolicy - validationActions: The enforcement actions enacted for the validation failure Example audit annotation: `"validation.policy.admission.k8s.io/validation_failure": "[{"message": "Invalid value", {"policy": "policy.example.com", {"binding": "policybinding.example.com", {"expressionIndex": "1", {"validationActions": ["Audit"]}]"`
+    
+    Clients should expect to handle additional values by ignoring any values not recognized.
+    
+    "Deny" and "Warn" may not be used together since this combination needlessly duplicates the validation failure both in the API response body and the HTTP warning headers.
+    
+    Required.
+
 
 
 
@@ -509,6 +684,34 @@ ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with parame
 #### HTTP Request
 
 GET /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{name}
+
+#### Parameters
+
+
+- **name** (*in path*): string, required
+
+  name of the ValidatingAdmissionPolicy
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
+
+401: Unauthorized
+
+
+### `get` read status of the specified ValidatingAdmissionPolicy
+
+#### HTTP Request
+
+GET /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{name}/status
 
 #### Parameters
 
@@ -579,6 +782,11 @@ GET /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -697,11 +905,116 @@ PUT /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{nam
 401: Unauthorized
 
 
+### `update` replace status of the specified ValidatingAdmissionPolicy
+
+#### HTTP Request
+
+PUT /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{name}/status
+
+#### Parameters
+
+
+- **name** (*in path*): string, required
+
+  name of the ValidatingAdmissionPolicy
+
+
+- **body**: <a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>, required
+
+  
+
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
+
+201 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Created
+
+401: Unauthorized
+
+
 ### `patch` partially update the specified ValidatingAdmissionPolicy
 
 #### HTTP Request
 
 PATCH /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{name}
+
+#### Parameters
+
+
+- **name** (*in path*): string, required
+
+  name of the ValidatingAdmissionPolicy
+
+
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+
+  
+
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+
+- **fieldManager** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
+
+
+- **fieldValidation** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
+
+
+- **force** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
+
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+
+
+#### Response
+
+
+200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
+
+201 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Created
+
+401: Unauthorized
+
+
+### `patch` partially update status of the specified ValidatingAdmissionPolicy
+
+#### HTTP Request
+
+PATCH /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{name}/status
 
 #### Parameters
 
@@ -864,6 +1177,11 @@ DELETE /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer

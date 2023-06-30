@@ -105,7 +105,7 @@ spec:
       topologyKey: <string>
       whenUnsatisfiable: <string>
       labelSelector: <object>
-      matchLabelKeys: <list> # 可选；自从 v1.25 开始成为 Alpha
+      matchLabelKeys: <list> # 可选；自从 v1.27 开始成为 Beta
       nodeAffinityPolicy: [Honor|Ignore] # 可选；自从 v1.26 开始成为 Beta
       nodeTaintsPolicy: [Honor|Ignore] # 可选；自从 v1.26 开始成为 Beta
   ### 其他 Pod 字段置于此处
@@ -223,40 +223,54 @@ your cluster. Those fields are:
 
 <!--
 - **matchLabelKeys** is a list of pod label keys to select the pods over which
-  spreading will be calculated. The keys are used to lookup values from the pod labels, those key-value labels are ANDed with `labelSelector` to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the pod labels will be ignored. A null or empty list means only match against the `labelSelector`.
+  spreading will be calculated. The keys are used to lookup values from the pod labels,
+  those key-value labels are ANDed with `labelSelector` to select the group of existing
+  pods over which spreading will be calculated for the incoming pod. The same key is
+  forbidden to exist in both `matchLabelKeys` and `labelSelector`. `matchLabelKeys` cannot
+  be set when `labelSelector` isn't set. Keys that don't exist in the pod labels will be
+  ignored. A null or empty list means only match against the `labelSelector`.
 
-  With `matchLabelKeys`, users don't need to update the `pod.spec` between different revisions. The controller/operator just needs to set different values to the same `label` key for different revisions. The scheduler will assume the values automatically based on `matchLabelKeys`. For example, if users use Deployment, they can use the label keyed with `pod-template-hash`, which is added automatically by the Deployment controller, to distinguish between different revisions in a single Deployment.
+  With `matchLabelKeys`, you don't need to update the `pod.spec` between different revisions.
+  The controller/operator just needs to set different values to the same label key for different
+  revisions. The scheduler will assume the values automatically based on `matchLabelKeys`. For
+  example, if you are configuring a Deployment, you can use the label keyed with
+  [pod-template-hash](/docs/concepts/workloads/controllers/deployment/#pod-template-hash-label), which
+  is added automatically by the Deployment controller, to distinguish between different revisions
+  in a single Deployment.
 -->
 - **matchLabelKeys** 是一个 Pod 标签键的列表，用于选择需要计算分布方式的 Pod 集合。
   这些键用于从 Pod 标签中查找值，这些键值标签与 `labelSelector` 进行逻辑与运算，以选择一组已有的 Pod，
-  通过这些 Pod 计算新来 Pod 的分布方式。Pod 标签中不存在的键将被忽略。
+  通过这些 Pod 计算新来 Pod 的分布方式。`matchLabelKeys` 和 `labelSelector` 中禁止存在相同的键。
+  未设置 `labelSelector` 时无法设置 `matchLabelKeys`。Pod 标签中不存在的键将被忽略。
   null 或空列表意味着仅与 `labelSelector` 匹配。
 
-  借助 `matchLabelKeys`，用户无需在变更 Pod 修订版本时更新 `pod.spec`。
-  控制器或 Operator 只需要将不同修订版的 `label` 键设为不同的值。
-  调度器将根据 `matchLabelKeys` 自动确定取值。例如，如果用户使用 Deployment，
-  则他们可以使用由 Deployment 控制器自动添加的、以 `pod-template-hash` 为键的标签来区分单个
-  Deployment 的不同修订版。
+  借助 `matchLabelKeys`，你无需在变更 Pod 修订版本时更新 `pod.spec`。
+  控制器或 Operator 只需要将不同修订版的标签键设为不同的值。
+  调度器将根据 `matchLabelKeys` 自动确定取值。例如，如果你正在配置一个 Deployment，
+  则你可以使用由 Deployment 控制器自动添加的、以
+  [pod-template-hash](/zh-cn/docs/concepts/workloads/controllers/deployment/#pod-template-hash-label)
+  为键的标签来区分同一个 Deployment 的不同修订版。
 
   ```yaml
       topologySpreadConstraints:
           - maxSkew: 1
             topologyKey: kubernetes.io/hostname
             whenUnsatisfiable: DoNotSchedule
+            labelSelector:
+              matchLabels:
+                app: foo
             matchLabelKeys:
-              - app
               - pod-template-hash
   ```
 
   {{< note >}}
   <!--
-  The `matchLabelKeys` field is an alpha field added in 1.25. You have to enable the
-  `MatchLabelKeysInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  in order to use it.
+  The `matchLabelKeys` field is a beta-level field and enabled by default in 1.27. You can disable it by disabling the
+  `MatchLabelKeysInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   -->
-  `matchLabelKeys` 字段是 1.25 中新增的一个 Alpha 字段。
-  你必须启用 `MatchLabelKeysInPodTopologySpread`
-  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)才能使用此字段。
+  `matchLabelKeys` 字段是 1.27 中默认启用的一个 Beta 级别字段。
+  你可以通过禁用 `MatchLabelKeysInPodTopologySpread`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用此字段。
   {{< /note >}}
 
 <!--
@@ -401,7 +415,7 @@ confusing and troubleshooting is less straightforward.
 You need a mechanism to ensure that all the nodes in a topology domain (such as a
 cloud provider region) are labelled consistently.
 To avoid you needing to manually label nodes, most clusters automatically
-populate well-known labels such as `topology.kubernetes.io/hostname`. Check whether
+populate well-known labels such as `kubernetes.io/hostname`. Check whether
 your cluster supports this.
 -->
 ## 一致性 {#Consistency}
@@ -414,7 +428,7 @@ your cluster supports this.
 
 你需要一种机制来确保拓扑域（例如云提供商区域）中的所有节点具有一致的标签。
 为了避免你需要手动为节点打标签，大多数集群会自动填充知名的标签，
-例如 `topology.kubernetes.io/hostname`。检查你的集群是否支持此功能。
+例如 `kubernetes.io/hostname`。检查你的集群是否支持此功能。
 
 <!--
 ## Topology spread constraint examples
@@ -958,7 +972,7 @@ section of the enhancement proposal about Pod topology spread constraints.
 - 该调度器不会预先知道集群拥有的所有可用区和其他拓扑域。
   拓扑域由集群中存在的节点确定。在自动扩缩的集群中，如果一个节点池（或节点组）的节点数量缩减为零，
   而用户正期望其扩容时，可能会导致调度出现问题。
-  因为在这种情况下，调度器不会考虑这些拓扑域，因为其中至少有一个节点。
+  因为在这种情况下，调度器不会考虑这些拓扑域，直至这些拓扑域中至少包含有一个节点。
 
   你可以通过使用感知 Pod 拓扑分布约束并感知整个拓扑域集的集群自动扩缩工具来解决此问题。
 

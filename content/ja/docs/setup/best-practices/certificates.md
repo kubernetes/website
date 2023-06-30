@@ -1,7 +1,7 @@
 ---
 title: PKI証明書とその要件
 content_type: concept
-weight: 40
+weight: 50
 ---
 
 <!-- overview -->
@@ -15,7 +15,7 @@ Kubernetesでは、TLS認証のためにPKI証明書が必要です。
 
 <!-- body -->
 
-## クラスタではどのように証明書が使われているのか
+## クラスターではどのように証明書が使われているのか
 
 Kubernetesは下記の用途でPKIを必要とします：
 

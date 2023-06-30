@@ -22,7 +22,10 @@ card:
 ## {{% heading "prerequisites" %}}
 
 <!--
-You must use a kubectl version that is within one minor version difference of your cluster. For example, a v{{< skew currentVersion >}} client can communicate with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}}, and v{{< skew currentVersionAddMinor 1 >}} control planes.
+You must use a kubectl version that is within one minor version difference of
+your cluster. For example, a v{{< skew currentVersion >}} client can communicate
+with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
+and v{{< skew currentVersionAddMinor 1 >}} control planes.
 Using the latest compatible version of kubectl helps avoid unforeseen issues.
 -->
 kubectl 版本和集群之间的差异必须在一个小版本号之内。
@@ -80,15 +83,16 @@ The following methods exist for installing kubectl on macOS:
 
    {{< note >}}
    <!--
-   To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)` portion of the command with the specific version.
+   To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
+   portion of the command with the specific version.
 
-   For example, to download version {{< param "fullversion" >}} on Intel macOS, type:
+   For example, to download version {{< skew currentPatchVersion >}} on Intel macOS, type:
    -->
    如果需要下载某个指定的版本，用该指定版本号替换掉命令的这个部分：`$(curl -L -s https://dl.k8s.io/release/stable.txt)`。
-   例如：要为 Intel macOS 系统下载 {{< param "fullversion" >}} 版本，则输入：
+   例如：要为 Intel macOS 系统下载 {{< skew currentPatchVersion >}} 版本，则输入：
 
    ```bash
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl"
+   curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/amd64/kubectl"
    ```
 
    <!--
@@ -97,7 +101,7 @@ The following methods exist for installing kubectl on macOS:
    对于 Apple Silicon 版本的 macOS，输入：
 
    ```bash
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/arm64/kubectl"
+   curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/arm64/kubectl"
    ```
    {{< /note >}}
 
@@ -127,6 +131,7 @@ The following methods exist for installing kubectl on macOS:
    ```bash
    echo "$(cat kubectl.sha256)  kubectl" | shasum -a 256 --check
    ```
+
    <!-- 
    If valid, the output is:
    -->
@@ -188,6 +193,23 @@ The following methods exist for installing kubectl on macOS:
    kubectl version --client
    ```
 
+   {{< note >}}
+   <!--
+   The above command will generate a warning:
+   -->
+   上面的命令会产生一个警告：
+
+   ```
+   WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
+   ```
+   
+   <!--
+   You can ignore this warning. You are only checking the version of `kubectl` that you
+   have installed.
+   -->
+   你可以忽略这个警告。你只检查你所安装的 `kubectl` 的版本。
+   {{< /note >}}
+
    <!--
    Or use this for detailed view of version:
    -->
@@ -211,7 +233,8 @@ The following methods exist for installing kubectl on macOS:
 ### 用 Homebrew 在 macOS 系统上安装 {#install-with-homebrew-on-macos}
 
 <!--
-If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you can install kubectl with Homebrew.
+If you are on macOS and using [Homebrew](https://brew.sh/) package manager,
+you can install kubectl with Homebrew.
 -->
 如果你是 macOS 系统，且用的是 [Homebrew](https://brew.sh/) 包管理工具，
 则可以用 Homebrew 安装 kubectl。
@@ -247,7 +270,8 @@ If you are on macOS and using [Homebrew](https://brew.sh/) package manager, you 
 ### 用 Macports 在 macOS 系统上安装 {#install-with-macports-on-macos}
 
 <!--
-If you are on macOS and using [Macports](https://macports.org/) package manager, you can install kubectl with Macports.
+If you are on macOS and using [Macports](https://macports.org/) package manager,
+you can install kubectl with Macports.
 -->
 如果你用的是 macOS，且用 [Macports](https://macports.org/) 包管理工具，则你可以用 Macports 安装 kubectl。
 
@@ -287,7 +311,8 @@ If you are on macOS and using [Macports](https://macports.org/) package manager,
 ### 启用 shell 自动补全功能 {#enable-shell-autocompletion}
 
 <!--
-kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell which can save you a lot of typing.
+kubectl provides autocompletion support for Bash, Zsh, Fish, and PowerShell
+which can save you a lot of typing.
 
 Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 -->
@@ -418,13 +443,12 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 <!--
 1. After installing the plugin, clean up the installation files:
 -->
-1. 安装插件后，清理安装文件：
+6. 安装插件后，清理安装文件：
 
    ```bash
-   rm kubectl kubectl.sha256
+   rm kubectl-convert kubectl-convert.sha256
    ```
 
 ## {{% heading "whatsnext" %}}
 
 {{< include "included/kubectl-whats-next.md" >}}
-

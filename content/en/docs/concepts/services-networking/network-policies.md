@@ -300,6 +300,44 @@ does not support the `endPort` field and you specify a NetworkPolicy with that,
 the policy will be applied only for the single `port` field.
 {{< /note >}}
 
+## Targeting multiple namespaces by label
+
+In this scenario, your `Egress` NetworkPolicy targets more than one namespace using their
+label names. For this to work, you need to label the target namespaces. For example:
+
+```shell
+ kubectl label namespace frontend namespace=frontend
+ kubectl label namespace backend namespace=backend
+```
+
+Add the labels under `namespaceSelector` in your NetworkPolicy document. For example:
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-namespaces
+spec:
+  podSelector:
+    matchLabels:
+      app: myapp
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchExpressions:
+        - key: namespace
+          operator: In
+          values: ["frontend", "backend"]
+```
+
+{{< note >}}
+It is not possible to directly specify the name of the namespaces in a NetworkPolicy.
+You must use a `namespaceSelector` with `matchLabels` or `matchExpressions` to select the
+namespaces based on their labels.
+{{< /note >}}
+
 ## Targeting a Namespace by its name
 
 {{< feature-state for_k8s_version="1.22" state="stable" >}}
@@ -344,4 +382,3 @@ implemented using the NetworkPolicy API.
   walkthrough for further examples.
 - See more [recipes](https://github.com/ahmetb/kubernetes-network-policy-recipes) for common
   scenarios enabled by the NetworkPolicy resource.
-

@@ -7,7 +7,7 @@ content_type: concept
 
 <!-- overview -->
 
-Minikubeはローカル環境でKubernetesを簡単に実行するためのツールです。Kubernetesを試したり日々の開発への使用を検討するユーザー向けに、PC上のVM内でシングルノードのKubernetesクラスタを実行することができます。
+Minikubeはローカル環境でKubernetesを簡単に実行するためのツールです。Kubernetesを試したり日々の開発への使用を検討するユーザー向けに、PC上のVM内でシングルノードのKubernetesクラスターを実行することができます。
 
 
 <!-- body -->
@@ -198,7 +198,7 @@ MinikubeのサポートするKubernetesの機能:
 
 `minikube start`コマンドを使用してクラスターを起動することができます。
 このコマンドはシングルノードのKubernetesクラスターを実行する仮想マシンを作成・設定します。
-また、このクラスターと通信する[kubectl](/ja/docs/reference/kubectl/overview/)のインストールも設定します。
+また、このクラスターと通信する[kubectl](/ja/docs/reference/kubectl/)のインストールも設定します。
 
 {{< note >}}
 もしWebプロキシーを通している場合、そのプロキシー情報を`minikube start`コマンドに渡す必要があります:

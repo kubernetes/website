@@ -1,4 +1,4 @@
 ---
 title: メモリー、CPU、APIリソースの管理
-weight: 20
+weight: 40
 ---

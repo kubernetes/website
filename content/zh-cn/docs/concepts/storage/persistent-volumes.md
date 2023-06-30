@@ -150,7 +150,7 @@ needs to enable the `DefaultStorageClass`
 on the API server. This can be done, for example, by ensuring that `DefaultStorageClass` is
 among the comma-delimited, ordered list of values for the `--enable-admission-plugins` flag of
 the API server component. For more information on API server command-line flags,
-check [kube-apiserver](/docs/admin/kube-apiserver/) documentation.
+check [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) documentation.
 -->
 为了基于存储类完成动态的存储制备，集群管理员需要在 API 服务器上启用 `DefaultStorageClass`
 [准入控制器](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)。
@@ -1084,7 +1084,8 @@ The access modes are:
 : the volume can be mounted as read-write by many nodes.
 
  `ReadWriteOncePod`
-: the volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod
+: {{< feature-state for_k8s_version="v1.27" state="beta" >}}
+  the volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod
   access mode if you want to ensure that only one pod across whole cluster can
   read that PVC or write to it. This is only supported for CSI volumes and
   Kubernetes version 1.22+.
@@ -1106,7 +1107,8 @@ covers this in more detail.
 : 卷可以被多个节点以读写方式挂载。
 
 `ReadWriteOncePod`
-: 卷可以被单个 Pod 以读写方式挂载。
+: {{< feature-state for_k8s_version="v1.27" state="beta" >}}
+  卷可以被单个 Pod 以读写方式挂载。
   如果你想确保整个集群中只有一个 Pod 可以读取或写入该 PVC，
   请使用 ReadWriteOncePod 访问模式。这只支持 CSI 卷以及需要 Kubernetes 1.22 以上版本。
 
@@ -1897,7 +1899,7 @@ and `CrossNamespaceVolumeDataSource`
 the kube-apiserver, kube-controller-manager.
 Also, you must enable the `CrossNamespaceVolumeDataSource` feature gate for the csi-provisioner.
 
-Enabling the `CrossNamespaceVolumeDataSource` feature gate allow you to specify
+Enabling the `CrossNamespaceVolumeDataSource` feature gate allows you to specify
 a namespace in the dataSourceRef field.
 -->
 Kubernetes 支持跨名字空间卷数据源。
@@ -1927,7 +1929,7 @@ ReferenceGrant 是 `gateway.networking.k8s.io` 扩展 API 的一部分。更多�
 <!--
 ## Data source references
 
-The `dataSourceRef` field behaves almost the same as the `dataSource` field. If either one is
+The `dataSourceRef` field behaves almost the same as the `dataSource` field. If one is
 specified while the other is not, the API server will give both fields the same value. Neither
 field can be changed after creation, and attempting to specify different values for the two
 fields will result in a validation error. Therefore the two fields will always have the same

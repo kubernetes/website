@@ -1,6 +1,6 @@
 ---
 content_type: concept
-title: 为 Kubernetes 文档出一份力
+title: 为 K8s 文档出一份力
 linktitle: 贡献
 main_menu: true
 no_list: true
@@ -8,12 +8,11 @@ weight: 80
 card:
   name: contribute
   weight: 10
-  title: 开始为 Kubernetes 做贡献
+  title: 开始为 K8s 做贡献
 ---
 <!--
----
 content_type: concept
-title: Contribute to Kubernetes docs
+title: Contribute to K8s docs
 linktitle: Contribute
 main_menu: true
 no_list: true
@@ -22,7 +21,6 @@ card:
   name: contribute
   weight: 10
   title: Start contributing to K8s
----
 -->
 
 <!-- overview -->
@@ -30,10 +28,10 @@ card:
 <!--
 *Kubernetes welcomes improvements from all contributors, new and experienced!*
 -->
-*Kubernetes 欢迎来自所有贡献者的改进，无论你是新人和有经验的贡献者！*
+**Kubernetes 欢迎来自所有贡献者的改进，无论你是新人和有经验的贡献者！**
 
-<!--
 {{< note >}}
+<!--
 To learn more about contributing to Kubernetes in general, see the
 [contributor documentation](https://www.kubernetes.dev/docs/).
 
@@ -41,9 +39,7 @@ You can also read the
 {{< glossary_tooltip text="CNCF" term_id="cncf" >}}
 [page](https://contribute.cncf.io/contributors/projects/#kubernetes)
 about contributing to Kubernetes.
-{{< /note >}}
 -->
-{{< note >}}
 要了解有关为 Kubernetes 做出贡献的更多信息，请参阅
 [贡献者文档](https://www.kubernetes.dev/docs/)。
 
@@ -88,7 +84,8 @@ to work effectively in the Kubernetes community.
 
 任何人都可以提出文档方面的问题（issue），或贡献一个变更，用拉取请求（PR）的方式提交到
 [GitHub 上的 `kubernetes/website` 仓库](https://github.com/kubernetes/website)。
-当然你需要熟练使用 [git](https://git-scm.com/) 和 [GitHub](https://lab.github.com/) 才能在 Kubernetes 社区中有效工作。
+当然你需要熟练使用 [git](https://git-scm.com/) 和 [GitHub](https://lab.github.com/)
+才能在 Kubernetes 社区中有效工作。
 
 <!-- 
 To get involved with documentation:
@@ -104,7 +101,8 @@ To get involved with documentation:
 
 1. 签署 CNCF 的[贡献者许可协议](https://github.com/kubernetes/community/blob/master/CLA.md)。
 2. 熟悉[文档仓库](https://github.com/kubernetes/website)和网站的[静态站点生成器](https://gohugo.io)。
-3. 确保理解[发起 PR](/zh-cn/docs/contribute/new-content/open-a-pr/) 和[审查变更](/zh-cn/docs/contribute/review/reviewing-prs/)的基本流程。
+3. 确保理解[发起 PR](/zh-cn/docs/contribute/new-content/open-a-pr/)
+   和[审查变更](/zh-cn/docs/contribute/review/reviewing-prs/)的基本流程。
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
 <!-- You can also cut/paste the mermaid code into the live editor at https://mermaid-js.github.io/mermaid-live-editor to play around with it -->
@@ -123,7 +121,7 @@ end
 subgraph second[评审]
 direction TB
    T[ ] -.-
-   D[仔细查看<br>K8s/website<br>仓库] --- E[下载安装 Hugo<br>静态站点<br>生成器]
+   D[仔细查看<br>kubernetes/website<br>仓库] --- E[下载安装 Hugo<br>静态站点<br>生成器]
    E --- F[了解基本的<br>GitHub 命令]
    F --- G[评审待处理的 PR<br>并遵从变更审查<br>流程]
 end
@@ -190,7 +188,7 @@ flowchart LR
     direction TB
     S[ ] -.-
     G[查阅其他 K8s<br>成员发起的 PR] -->
-    A[检索 K8s/website<br>问题列表是否有<br>good first 一类的 PR] --> B[发起一个 PR!!]
+    A[检索 kubernetes/website<br>问题列表是否有<br>good first 一类的 PR] --> B[发起一个 PR!!]
     end
     subgraph first[建议的准备工作]
     direction TB
@@ -235,11 +233,11 @@ Figure 2. Preparation for your first contribution.
   检索最适合作为切入点的问题。
 - 在现有文档上，[使用 GitHub 提交 PR](/zh-cn/docs/contribute/new-content/open-a-pr/#changes-using-github)，
   掌握在 GitHub 上登记 Issue 的方法。
-- Kubernetes 社区其他成员会[评审 PR ](/zh-cn/docs/contribute/review/reviewing-prs/)，
+- Kubernetes 社区其他成员会[评审 PR](/zh-cn/docs/contribute/review/reviewing-prs/)，
   以确保文档精准和语言流畅。
 - 阅读 kubernetes 的[内容指南](/zh-cn/docs/contribute/style/content-guide/)和
   [风格指南](/zh-cn/docs/contribute/style/style-guide/)，以发表有见地的评论。
-- 了解[页面内容类型](/zh-cn/docs/contribute/style/page-content-types/)和 
+- 了解[页面内容类型](/zh-cn/docs/contribute/style/page-content-types/)和
   [Hugo 短代码](/zh-cn/docs/contribute/style/hugo-shortcodes/)。
 
 <!--
@@ -250,16 +248,16 @@ Figure 2. Preparation for your first contribution.
 - Document [features in a release](/docs/contribute/new-content/new-features/).
 - Participate in [SIG Docs](/docs/contribute/participate/), and become a
   [member or reviewer](/docs/contribute/participate/roles-and-responsibilities/).
-  
+
 - Start or help with a [localization](/docs/contribute/localization/).
 -->
 ## 下一步 {#next-teps}
 
 - 学习在仓库的[本地克隆中工作](/zh-cn/docs/contribute/new-content/open-a-pr/#fork-the-repo)。
 - 为[发行版的特性](/zh-cn/docs/contribute/new-content/new-features/)编写文档。
-- 加入 [SIG Docs](/zh-cn/docs/contribute/participate/)，并成为[成员或评审者](/zh-cn/docs/contribute/participate/roles-and-responsibilities/)。
-  
-- 开始或帮助[本地化](/zh-cn/docs/contribute/localization/) 工作。
+- 加入 [SIG Docs](/zh-cn/docs/contribute/participate/)，
+  并成为[成员或评审者](/zh-cn/docs/contribute/participate/roles-and-responsibilities/)。
+- 开始或帮助[本地化](/zh-cn/docs/contribute/localization/)工作。
 
 <!-- 
 ## Get involved with SIG Docs
@@ -277,6 +275,7 @@ SIG Docs communicates with different methods:
 参与 SIG Docs 是 Kubernetes 贡献者（开发者和其他人员）对 Kubernetes 项目产生重大影响力的好方式。
 
 SIG Docs 的几种沟通方式：
+
 <!--
 - [Join `#sig-docs` on the Kubernetes Slack instance](https://slack.k8s.io/). Make sure to
   introduce yourself!
@@ -285,9 +284,9 @@ SIG Docs 的几种沟通方式：
 - Join the [SIG Docs video meeting](https://github.com/kubernetes/community/tree/master/sig-docs) held every two weeks. Meetings are always announced on `#sig-docs` and added to the [Kubernetes community meetings calendar](https://calendar.google.com/calendar/embed?src=cgnt364vd8s86hr2phapfjc6uk%40group.calendar.google.com&ctz=America/Los_Angeles). You'll need to download the [Zoom client](https://zoom.us/download) or dial in using a phone.
 - Join the SIG Docs async Slack standup meeting on those weeks when the in-person Zoom video meeting does not take place. Meetings are always announced on `#sig-docs`. You can contribute to any one of the threads up to 24 hours after meeting announcement. 
 -->
-- [加入 Kubernetes 在 Slack 上的`#sig-docs` 频道](https://slack.k8s.io/)。
+- [加入 Kubernetes 在 Slack 上的 `#sig-docs` 频道](https://slack.k8s.io/)。
   一定记得自我介绍!
-- [加入 `kubernetes-sig-docs` 邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs),
+- [加入 `kubernetes-sig-docs` 邮件列表](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)，
   这里有更广泛的讨论，和官方决策的记录。
 - 参加每两周召开一次的 [SIG Docs 视频会议](https://github.com/kubernetes/community/tree/master/sig-docs)。
   会议总是在 `#sig-docs` 上发出公告，同时添加到

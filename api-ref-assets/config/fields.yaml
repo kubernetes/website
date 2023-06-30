@@ -99,6 +99,7 @@
     - initContainerStatuses
     - containerStatuses
     - ephemeralContainerStatuses
+    - resize
 
 - definition: io.k8s.api.core.v1.Container
   field_categories:
@@ -127,6 +128,7 @@
   - name: Resources
     fields:
     - resources
+    - resizePolicy
   - name: Lifecycle
     fields:
     - lifecycle
@@ -219,6 +221,9 @@
     fields:
     - volumeMounts
     - volumeDevices
+  - name: Resources
+    fields:
+    - resizePolicy
   - name: Lifecycle
     fields:
     - terminationMessagePath

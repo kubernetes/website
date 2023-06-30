@@ -1,12 +1,12 @@
 ---
 title: 将 Pod 分配给节点
 content_type: task
-weight: 120
+weight: 150
 ---
 <!--
 title: Assign Pods to Nodes
 content_type: task
-weight: 120
+weight: 150
 -->
 
 <!-- overview -->
@@ -41,7 +41,7 @@ Kubernetes cluster.
    -->
    输出类似如下：
 
-   ```
+   ```shell
    NAME      STATUS    ROLES    AGE     VERSION        LABELS
    worker0   Ready     <none>   1d      v1.13.0        ...,kubernetes.io/hostname=worker0
    worker1   Ready     <none>   1d      v1.13.0        ...,kubernetes.io/hostname=worker1
@@ -76,7 +76,7 @@ Kubernetes cluster.
    -->
    输出类似如下：
 
-   ```
+   ```shell
    NAME      STATUS    ROLES    AGE     VERSION        LABELS
    worker0   Ready     <none>   1d      v1.13.0        ...,disktype=ssd,kubernetes.io/hostname=worker0
    worker1   Ready     <none>   1d      v1.13.0        ...,kubernetes.io/hostname=worker1
@@ -126,7 +126,7 @@ a `disktype=ssd` label.
    -->
    输出类似如下：
 
-   ```
+   ```shell
    NAME     READY     STATUS    RESTARTS   AGE    IP           NODE
    nginx    1/1       Running   0          13s    10.200.0.4   worker0
    ```
