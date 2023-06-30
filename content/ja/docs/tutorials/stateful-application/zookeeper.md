@@ -764,7 +764,7 @@ zk-0      1/1       Running   1         1h
 readiness probeを指定するとKubernetesは、準備性チェックに合格するまで、アプリケーションのプロセスがネットワークトラフィックを受け取らないことを保証します。
 
 ZooKeeperサーバーにとって、健全性は準備性を意味します。
-そのため、`zookeeper.yaml`マニフェストからの準備性プローブは、生存プローブと同一です。
+そのため、`zookeeper.yaml`マニフェストからのreadiness probeは、liveness probeと同一です。
 
 ```yaml
   readinessProbe:
