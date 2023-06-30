@@ -13,17 +13,17 @@ weight: 140
 <!--
 This page shows how to configure liveness, readiness and startup probes for containers.
 
-The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) uses liveness probes to know when to
-restart a container. For example, liveness probes could catch a deadlock,
-where an application is running, but unable to make progress. Restarting a
-container in such a state can help to make the application more available
-despite bugs.
+The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) uses
+liveness probes to know when to restart a container. For example, liveness
+probes could catch a deadlock, where an application is running, but unable to
+make progress. Restarting a container in such a state can help to make the
+application more available despite bugs.
 -->
 这篇文章介绍如何给容器配置存活（Liveness）、就绪（Readiness）和启动（Startup）探针。
 
 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/)
 使用存活探针来确定什么时候要重启容器。
-例如，存活探针可以探测到应用死锁（应用程序在运行，但是无法继续执行后面的步骤）情况。
+例如，存活探针可以探测到应用死锁（应用在运行，但是无法继续执行后面的步骤）情况。
 重启这种状态下的容器有助于提高应用的可用性，即使其中存在缺陷。
 
 <!--
@@ -41,7 +41,7 @@ One use of this signal is to control which Pods are used as backends for Service
 When a Pod is not ready, it is removed from Service load balancers.
 
 The kubelet uses startup probes to know when a container application has started.
-If such a probe is configured, it disables liveness and readiness checks until
+If such a probe is configured, liveness and readiness probes do not start until
 it succeeds, making sure those probes don't interfere with the application startup.
 This can be used to adopt liveness checks on slow starting containers, avoiding them
 getting killed by the kubelet before they are up and running.
@@ -52,8 +52,7 @@ kubelet 使用就绪探针可以知道容器何时准备好接受请求流量，
 若 Pod 尚未就绪，会被从 Service 的负载均衡器中剔除。
 
 kubelet 使用启动探针来了解应用容器何时启动。
-如果配置了这类探针，你就可以控制容器在启动成功后再进行存活性和就绪态检查，
-确保这些存活、就绪探针不会影响应用的启动。
+如果配置了这类探针，存活探针和就绪探针成功之前不会重启，确保这些探针不会影响应用的启动。
 启动探针可以用于对慢启动容器进行存活性检测，避免它们在启动运行之前就被杀掉。
 
 {{< caution >}}
@@ -74,9 +73,9 @@ scalable; and increased workload on remaining pods due to some failed pods.
 Understand the difference between readiness and liveness probes and when to apply them for your app.
 -->
 错误的存活探针可能会导致级联故障。
-这会导致在高负载下容器重启；例如由于应用程序无法扩展，导致客户端请求失败；以及由于某些
+这会导致在高负载下容器重启；例如由于应用无法扩展，导致客户端请求失败；以及由于某些
 Pod 失败而导致剩余 Pod 的工作负载增加。了解就绪探针和存活探针之间的区别，
-以及何时为应用程序配置使用它们非常重要。
+以及何时为应用配置使用它们非常重要。
 {{< /note >}}
 
 ## {{% heading "prerequisites" %}}
@@ -389,7 +388,7 @@ kubelet 可以配置为使用该协议来执行应用存活性检查。
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 才能配置依赖于 gRPC 的检查机制。
 
-这个例子展示了如何配置 Kubernetes 以将其用于应用程序的存活性检查。
+这个例子展示了如何配置 Kubernetes 以将其用于应用的存活性检查。
 类似地，你可以配置就绪探针和启动探针。
 
 下面是一个示例清单：
@@ -557,7 +556,7 @@ provide a fast response to container deadlocks.
 If the startup probe never succeeds, the container is killed after 300s and
 subject to the pod's `restartPolicy`.
 -->
-幸亏有启动探测，应用程序将会有最多 5 分钟（30 * 10 = 300s）的时间来完成其启动过程。
+幸亏有启动探测，应用将会有最多 5 分钟（30 * 10 = 300s）的时间来完成其启动过程。
 一旦启动探测成功一次，存活探测任务就会接管对容器的探测，对容器死锁作出快速响应。
 如果启动探测一直没有成功，容器会在 300 秒后被杀死，并且根据 `restartPolicy`
 来执行进一步处置。
@@ -646,7 +645,9 @@ liveness and readiness checks:
 
 <!--
 * `initialDelaySeconds`: Number of seconds after the container has started before startup,
-  liveness or readiness probes are initiated. Defaults to 0 seconds. Minimum value is 0.
+  liveness or readiness probes are initiated. If a startup  probe is defined, liveness and
+  readiness probe delays do not begin until the startup probe has succeeded.
+  Defaults to 0 seconds. Minimum value is 0.
 * `periodSeconds`: How often (in seconds) to perform the probe. Default to 10 seconds.
   The minimum value is 1.
 * `timeoutSeconds`: Number of seconds after which the probe times out.
@@ -655,7 +656,8 @@ liveness and readiness checks:
   after having failed. Defaults to 1. Must be 1 for liveness and startup Probes.
   Minimum value is 1.
 -->
-* `initialDelaySeconds`：容器启动后要等待多少秒后才启动启动、存活和就绪探针，
+* `initialDelaySeconds`：容器启动后要等待多少秒后才启动启动、存活和就绪探针。
+  如果定义了启动探针，则存活探针和就绪探针的延迟将在启动探针已成功之后才开始计算。
   默认是 0 秒，最小值是 0。
 * `periodSeconds`：执行探测的时间间隔（单位是秒）。默认是 10 秒。最小值是 1。
 * `timeoutSeconds`：探测的超时后等待多少秒。默认值是 1 秒。最小值是 1。
