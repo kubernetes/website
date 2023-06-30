@@ -736,15 +736,22 @@ for more information.
 
 ### SecurityContextDeny {#securitycontextdeny}
 
-{{< feature-state for_k8s_version="v1.0" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="deprecated" >}}
 
 {{< caution >}}
-This admission controller plugin is **outdated** and **incomplete**, it may be
-unusable or not do what you would expect. It was originally designed to prevent
-the use of some, but not all, security-sensitive fields. Indeed, fields like
-`privileged`, were not filtered at creation and the plugin was not updated with
-the most recent fields, and new APIs like the `ephemeralContainers` field for a
-Pod.
+The Kubernetes project recommends that you **do not use** the
+`SecurityContextDeny` admission controller.
+
+The `SecurityContextDeny` admission controller plugin is deprecated and disabled
+by default. It will be removed in a future version. If you choose to enable the
+`SecurityContextDeny` admission controller plugin, you must enable the
+`SecurityContextDeny` feature gate as well.
+
+The `SecurityContextDeny` admission plugin is deprecated because it is outdated
+and incomplete; it may be unusable or not do what you would expect. As
+implemented, this plugin is unable to restrict all security-sensitive attributes
+of the Pod API. For example, the `privileged` and `ephemeralContainers` fields
+were never restricted by this plugin.
 
 The [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
 plugin enforcing the [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
