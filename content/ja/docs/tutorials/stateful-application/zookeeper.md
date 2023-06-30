@@ -700,7 +700,7 @@ zk-0      1/1       Running   1         29m
 システムのプロセスが生きていることもあれば無反応なこともあり、あるいはそうでなく不健全という状況もあります。
 アプリケーションのプロセスが不健全で再起動すべきであることをKubernetesに通知するには、liveness probeを使うのがよいでしょう。
 
-`zk` `StatefulSet`のPod `template`で生存プローブを指定します。
+`zk` `StatefulSet`のPod `template`でliveness probeを指定します。
 
 ```yaml
   livenessProbe:
