@@ -209,6 +209,10 @@ The following flags can be used:
 You can choose more than one authorization module. Modules are checked in order
 so an earlier module has higher priority to allow or deny a request.
 
+## Configuring the API Server using a Authorization Config File
+
+<!-- TODO -->
+
 ## Privilege escalation via workload creation or edits {#privilege-escalation-via-pod-creation}
 
 Users who can create/edit pods in a namespace, either directly or through a [controller](/docs/concepts/architecture/controller/)
