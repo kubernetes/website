@@ -218,10 +218,10 @@ Pour revenir à ce contexte, exécutez la commande suivante: `kubectl config use
 #### Spécifier la version de Kubernetes
 
 Vous pouvez spécifier la version de Kubernetes pour Minikube à utiliser en ajoutant la chaîne `--kubernetes-version` à la commande `minikube start`.
-Par exemple, pour exécuter la version {{< param "fullversion" >}}, procédez comme suit:
+Par exemple, pour exécuter la version {{< skew currentPatchVersion >}}, procédez comme suit:
 
 ```shell
-minikube start --kubernetes-version {{< param "fullversion" >}}
+minikube start --kubernetes-version v{{< skew currentPatchVersion >}}
 ```
 
 #### Spécification du pilote de machine virtuelle
