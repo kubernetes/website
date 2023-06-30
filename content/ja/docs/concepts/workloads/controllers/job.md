@@ -265,7 +265,7 @@ Pod内のコンテナは、その中のプロセスが0以外の終了コード�
 
 Podがノードからキックされた(ノードがアップグレード、再起動、削除されたなど)、または`.spec.template.spec.restartPolicy = "Never"`と設定されたときにPodに属するコンテナが失敗したなど、様々な理由でPod全体が故障することもあります。Podに障害が発生すると、Jobコントローラーは新しいPodを起動します。つまりアプリケーションは新しいPodで再起動された場合の処理を行う必要があります。特に、過去に実行した際に生じた一時ファイル、ロック、不完全な出力などを処理する必要があります。
 
-デフォルトでは、それぞれのPodの失敗は`.spec.backoffLimit`にカウントされます。しかし、[JobのPod失敗ポリシー](#pod-failure-policy)を設定することで、Pod失敗の処理をカスタマイズすることができます。
+デフォルトでは、それぞれのPodの失敗は`.spec.backoffLimit`にカウントされます。詳しくは[Pod失敗のバックオフポリシー](#pod-backoff-failure-policy)をご覧ください。しかし、[JobのPod失敗ポリシー](#pod-failure-policy)を設定することで、Pod失敗の処理をカスタマイズすることができます。
 
 `.spec.parallelism = 1`、`.spec.completions = 1`と`.spec.template.spec.restartPolicy = "Never"`を指定しても、同じプログラムが2回起動されることもありますので注意してください。
 
@@ -572,7 +572,7 @@ Events:
 
 [suspend](#suspending-a-job)フィールドは、これらの機能を実現するための第一歩です。Suspendは、カスタムキューコントローラーがJobをいつ開始すべきかを決定することができます。しかし、Jobの一時停止が解除されると、カスタムキューコントローラーは、Job内のPodの実際の配置場所には影響を与えません。
 
-この機能により、Jobが開始される前にスケジューリング命令を更新でき、カスタムキューコントローラーがPodの配置に影響を与えることができるようになります。これは一時停止されたJobの中で、一度も一時停止解除されたことのないJobに対してのみ許可されます。
+この機能により、Jobが開始する前にスケジューリング命令を更新でき、カスタムキューコントローラーがPodの配置に影響を与えることができるようになります。同時に実際のPodからNodeへの割り当てをkube-schedulerにオフロードする能力を提供します。これは一時停止されたJobの中で、一度も一時停止解除されたことのないJobに対してのみ許可されます。
 
 JobのPodテンプレートで更新可能なフィールドはnodeAffinity、nodeSelector、tolerations、labelsとannotations、[スケジューリングゲート](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)です。 
 
