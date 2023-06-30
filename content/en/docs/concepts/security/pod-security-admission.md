@@ -126,12 +126,15 @@ current policy level:
 - Valid updates to `.spec.tolerations`
 
 ## Metrics
-You can look at the following Prometheus metrics exposed by kube-apiserver.
 
-- `pod_security_errors_total`: metric contains the number of errors preventing normal evaluation. Non-fatal errors may result in the latest restricted profile being used for evaluation.
-- `pod_security_evaluations_total`: metric contains the number of policy evaluations that occurred, not counting ignored or exempt requests.
-  during exporting.
-- `pod_security_exemptions_total`: metric contains the number of exempt requests, not counting ignored or out of scope requests.
+Here are the Prometheus metrics exposed by kube-apiserver:
+
+- `pod_security_errors_total`: This metric indicates the number of errors preventing normal evaluation.
+  Non-fatal errors may result in the latest restricted profile being used for evaluation.
+- `pod_security_evaluations_total`: This metric indicates the number of policy evaluations that have occurred,
+  not counting ignored or exempt requests during exporting.
+- `pod_security_exemptions_total`: This metric indicates the number of exempt requests, not counting ignored
+  or out of scope requests.
 
 ## {{% heading "whatsnext" %}}
 
