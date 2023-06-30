@@ -736,7 +736,7 @@ kubectl get pod -w -l app=zk
 kubectl exec zk-0 -- rm /opt/zookeeper/bin/zookeeper-ready
 ```
 
-ZooKeeperプロセスの失敗のために生存プローブを使う時、アンサンブル内の不健全なプロセスが再起動されることを保証するために、Kubernetesは自動的にプロセスを再起動します。
+ZooKeeperプロセスの失敗のためにliveness probeを使う時、アンサンブル内の不健全なプロセスが再起動されることを保証するために、Kubernetesは自動的にプロセスを再起動します。
 
 ```shell
 kubectl get pod -w -l app=zk
