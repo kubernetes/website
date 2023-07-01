@@ -241,7 +241,7 @@ or [Installing CoreDNS](/docs/tasks/administer-cluster/coredns/#installing-cored
 Let's run another curl application to test this:
 
 ```shell
-kubectl run curl --image=radial/busyboxplus:curl -i --tty
+kubectl run curl --image=radial/busyboxplus:curl -i --tty --rm
 ```
 ```
 Waiting for pod default/curl-131556218-9fnch to be running, status is Pending, pod ready: false
