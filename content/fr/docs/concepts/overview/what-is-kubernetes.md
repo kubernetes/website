@@ -67,7 +67,7 @@ Si l'application peut fonctionner dans un conteneur, elle devrait fonctionner co
 Ces composants peuvent être lancés dans Kubernetes et/ou être accessibles à des applications tournant dans Kubernetes via des mécaniques d'intermédiation tel que Open Service Broker.
 - N'impose pas de solutions de logging, monitoring, ou alerting.
 Kubernetes fournit quelques intégrations primaires et des mécanismes de collecte et export de métriques.
-- Ne fournit ou n'impose un langague/système de configuration (e.g., [jsonnet](https://github.com/google/jsonnet)).
+- Ne fournit ou n'impose pas un langage/système de configuration (e.g., [jsonnet](https://github.com/google/jsonnet)).
 Il fournit une API déclarative qui peut être ciblée par n'importe quelle forme de spécifications déclaratives.
 - Ne fournit ou n'adopte aucune mécanique de configuration des machines, de maintenance, de gestion ou de contrôle de la santé des systèmes.
 

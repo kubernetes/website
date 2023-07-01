@@ -5,7 +5,7 @@ weight: 40
 content_type: concept
 no_list: true
 ---
-<!-- 
+<!--
 title: "Monitoring, Logging, and Debugging"
 description: Set up monitoring and logging to troubleshoot a cluster, or debug a containerized application.
 weight: 40
@@ -249,4 +249,3 @@ problem, such as:
 * Kubernetes 版本：`kubectl version`
 * 云平台、OS 发行版、网络配置和 Docker 版本
 * 重现问题的步骤
-

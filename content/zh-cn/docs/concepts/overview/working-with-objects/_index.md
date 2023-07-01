@@ -92,7 +92,7 @@ its _desired state_.
 ### 对象规约（Spec）与状态（Status）    {#object-spec-and-status}
 
 几乎每个 Kubernetes 对象包含两个嵌套的对象字段，它们负责管理对象的配置：
-对象 **`spec`（规约）** 和 对象 **`status`（状态）**。
+对象 **`spec`（规约）** 和对象 **`status`（状态）**。
 对于具有 `spec` 的对象，你必须在创建对象时设置其内容，描述你希望对象所具有的特征：
 **期望状态（Desired State）**。
 
@@ -106,7 +106,7 @@ supplied.
 `status` 描述了对象的**当前状态（Current State）**，它是由 Kubernetes
 系统和组件设置并更新的。在任何时刻，Kubernetes
 {{< glossary_tooltip text="控制平面" term_id="control-plane" >}}
-都一直都在积极地管理着对象的实际状态，以使之达成期望状态。
+都一直在积极地管理着对象的实际状态，以使之达成期望状态。
 
 <!--
 For example: in Kubernetes, a Deployment is an object that can represent an
@@ -147,7 +147,7 @@ request.
 
 创建 Kubernetes 对象时，必须提供对象的 `spec`，用来描述该对象的期望状态，
 以及关于对象的一些基本信息（例如名称）。
-当使用 Kubernetes API 创建对象时（直接创建，或经由 `kubectl`），
+当使用 Kubernetes API 创建对象时（直接创建或经由 `kubectl` 创建），
 API 请求必须在请求主体中包含 JSON 格式的信息。
 **大多数情况下，你需要提供 `.yaml` 文件为 kubectl 提供这些信息**。
 `kubectl` 在发起 API 请求时，将这些信息转换成 JSON 格式。
@@ -234,6 +234,58 @@ detail the structure of that `.status` field, and its content for each different
 该模板描述了 StatefulSet 控制器为了满足 StatefulSet 规约而要创建的 Pod。
 不同类型的对象可以有不同的 `.status` 信息。API 参考页面给出了 `.status` 字段的详细结构，
 以及针对不同类型 API 对象的具体内容。
+
+<!--
+## Server side field validation
+
+Starting with Kubernetes v1.25, the API server offers server side
+[field validation](/docs/reference/using-api/api-concepts/#field-validation)
+that detects unrecognized or duplicate fields in an object. It provides all the functionality
+of `kubectl --validate` on the server side.
+-->
+## 服务器端字段验证   {#server-side-field-validation}
+
+从 Kubernetes v1.25 开始，API
+服务器提供了服务器端[字段验证](/zh-cn/docs/reference/using-api/api-concepts/#field-validation)，
+可以检测对象中未被识别或重复的字段。它在服务器端提供了 `kubectl --validate` 的所有功能。
+
+<!--
+The `kubectl` tool uses the `--validate` flag to set the level of field validation. It accepts the
+values `ignore`, `warn`, and `strict` while also accepting the values `true` (equivalent to `strict`)
+and `false` (equivalent to `ignore`). The default validation setting for `kubectl` is `--validate=true`.
+-->
+`kubectl` 工具使用 `--validate` 标志来设置字段验证级别。它接受值
+`ignore`、`warn` 和 `strict`，同时还接受值 `true`（等同于 `strict`）和
+`false`（等同于 `ignore`）。`kubectl` 的默认验证设置为 `--validate=true`。
+
+<!--
+`Strict`
+: Strict field validation, errors on validation failure
+
+`Warn`
+: Field validation is performed, but errors are exposed as warnings rather than failing the request
+
+`Ignore`
+: No server side field validation is performed
+-->
+`Strict`
+: 严格的字段验证，验证失败时会报错
+
+`Warn`
+: 执行字段验证，但错误会以警告形式提供而不是拒绝请求
+
+`Ignore`
+: 不执行服务器端字段验证
+
+<!--
+When `kubectl` cannot connect to an API server that supports field validation it will fall back
+to using client-side validation. Kubernetes 1.27 and later versions always offer field validation;
+older Kubernetes releases might not. If your cluster is older than v1.27, check the documentation
+for your version of Kubernetes.
+-->
+当 `kubectl` 无法连接到支持字段验证的 API 服务器时，它将回退为使用客户端验证。
+Kubernetes 1.27 及更高版本始终提供字段验证；较早的 Kubernetes 版本可能没有此功能。
+如果你的集群版本低于 v1.27，可以查阅适用于你的 Kubernetes 版本的文档。
 
 ## {{% heading "whatsnext" %}}
 

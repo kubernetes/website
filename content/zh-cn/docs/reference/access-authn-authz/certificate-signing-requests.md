@@ -1,5 +1,5 @@
 ---
-title: 证书签名请求
+title: 证书和证书签名请求
 content_type: concept
 weight: 25
 ---
@@ -9,7 +9,7 @@ reviewers:
 - mikedanese
 - munnerz
 - enj
-title: Certificate Signing Requests
+title: Certificates and Certificate Signing Requests
 content_type: concept
 weight: 25
 -->
@@ -19,33 +19,41 @@ weight: 25
 {{< feature-state for_k8s_version="v1.19" state="stable" >}}
 
 <!--
-The Certificates API enables automation of
+Kubernetes certificate and trust bundle APIs enable automation of
 [X.509](https://www.itu.int/rec/T-REC-X.509) credential provisioning by providing
 a programmatic interface for clients of the Kubernetes API to request and obtain
 X.509 {{< glossary_tooltip term_id="certificate" text="certificates" >}} from a Certificate Authority (CA).
 
-A CertificateSigningRequest (CSR) resource is used to request that a certificate be signed
-by a denoted signer, after which the request may be approved or denied before
-finally being signed.
+There is also experimental (alpha) support for distributing [trust bundles](#cluster-trust-bundles).
 -->
-证书 API 支持
-[X.509](https://www.itu.int/rec/T-REC-X.509)
-的自动化配置，
-它为 Kubernetes API 的客户端提供一个编程接口，
-用于从证书颁发机构（CA）请求并获取 X.509
-{{< glossary_tooltip term_id="certificate" text="证书" >}}。
+Kubernetes 证书和信任包（trust bundle）API 可以通过为 Kubernetes API 的客户端提供编程接口，
+实现 [X.509](https://www.itu.int/rec/T-REC-X.509) 凭据的自动化制备，
+从而请求并获取证书颁发机构 (CA) 发布的 X.509 {{< glossary_tooltip term_id="certificate" text="证书" >}}。
 
-CertificateSigningRequest（CSR）资源用来向指定的签名者申请证书签名，
-在最终签名之前，申请可能被批准，也可能被拒绝。
+此外，Kubernetes 还对分发[信任包](#cluster-trust-bundles)提供了实验性（Alpha）支持。
 
 <!-- body -->
 
 <!--
-## Request signing process
+## Certificate signing requests
+-->
+## 证书签名请求   {#certificate-signing-requests}
+
+{{< feature-state for_k8s_version="v1.19" state="stable" >}}
+
+<!--
+A CertificateSigningRequest (CSR) resource is used to request that a certificate be signed
+by a denoted signer, after which the request may be approved or denied before
+finally being signed.
+-->
+CertificateSigningRequest（CSR）资源用来向指定的签名者申请证书签名，
+在最终签名之前，申请可能被批准，也可能被拒绝。
+
+<!--
+### Request signing process
 
 The CertificateSigningRequest resource type allows a client to ask for an X.509 certificate
 be issued, based on a signing request.
-
 The CertificateSigningRequest object includes a PEM-encoded PKCS#10 signing request in
 the `spec.request` field. The CertificateSigningRequest denotes the signer (the
 recipient that the request is being made to) using the `spec.signerName` field.
@@ -54,10 +62,10 @@ In Kubernetes v1.22 and later, clients may optionally set the `spec.expirationSe
 field to request a particular lifetime for the issued certificate.  The minimum valid
 value for this field is `600`, i.e. ten minutes.
 -->
-## 请求签名流程 {#request-signing-process}
+### 请求签名流程 {#request-signing-process}
 
-CertificateSigningRequest 资源类型允许客户使用它申请发放 X.509 证书。
-CertificateSigningRequest 对象 在 `spec.request` 中包含一个 PEM 编码的 PKCS#10 签名请求。
+CertificateSigningRequest 资源类型允许客户端基于签名请求申请发放 X.509 证书。
+CertificateSigningRequest 对象在 `spec.request` 字段中包含一个 PEM 编码的 PKCS#10 签名请求。
 CertificateSigningRequest 使用 `spec.signerName` 字段标示签名者（请求的接收方）。
 注意，`spec.signerName` 在 `certificates.k8s.io/v1` 之后的 API 版本是必填项。
 在 Kubernetes v1.22 和以后的版本，客户可以可选地设置 `spec.expirationSeconds`
@@ -125,20 +133,95 @@ state for some duration:
 * 所有请求：在颁发的证书过期后自动删除
 
 <!--
+### Certificate signing authorization {#authorization}
+
+To allow creating a CertificateSigningRequest and retrieving any CertificateSigningRequest:
+
+* Verbs: `create`, `get`, `list`, `watch`, group: `certificates.k8s.io`, resource: `certificatesigningrequests`
+
+For example:
+-->
+### 证书签名鉴权   {#authorization}
+
+授权创建 CertificateSigningRequest 和检索 CertificateSigningRequest：
+
+* verbs（动词）: `create`、`get`、`list`、`watch`,
+  group（组）：`certificates.k8s.io`，
+  resource（资源）：`certificatesigningrequests`
+
+例如：
+
+{{< codenew file="access/certificate-signing-request/clusterrole-create.yaml" >}}
+
+<!--
+To allow approving a CertificateSigningRequest:
+
+* Verbs: `get`, `list`, `watch`, group: `certificates.k8s.io`, resource: `certificatesigningrequests`
+* Verbs: `update`, group: `certificates.k8s.io`, resource: `certificatesigningrequests/approval`
+* Verbs: `approve`, group: `certificates.k8s.io`, resource: `signers`, resourceName: `<signerNameDomain>/<signerNamePath>` or `<signerNameDomain>/*`
+
+For example:
+-->
+授权批准 CertificateSigningRequest：
+
+* verbs（动词）: `get`、`list`、`watch`，
+  group（组）：`certificates.k8s.io`，
+  resource（资源）：`certificatesigningrequests`
+* verbs（动词）: `update`，
+  group（组）：`certificates.k8s.io`，
+  resource（资源）：`certificatesigningrequests/approval`
+* verbs（动词）：`approve`，
+  group（组）：`certificates.k8s.io`，
+  resource（资源）：`signers`，
+  resourceName：`<signerNameDomain>/<signerNamePath>` 或 `<signerNameDomain>/*`
+
+例如：
+
+{{< codenew file="access/certificate-signing-request/clusterrole-approve.yaml" >}}
+
+<!--
+To allow signing a CertificateSigningRequest:
+
+* Verbs: `get`, `list`, `watch`, group: `certificates.k8s.io`, resource: `certificatesigningrequests`
+* Verbs: `update`, group: `certificates.k8s.io`, resource: `certificatesigningrequests/status`
+* Verbs: `sign`, group: `certificates.k8s.io`, resource: `signers`, resourceName: `<signerNameDomain>/<signerNamePath>` or `<signerNameDomain>/*`
+-->
+授权签名 CertificateSigningRequest：
+
+* verbs（动词）：`get`、`list`、`watch`，
+  group（组）：`certificates.k8s.io`，
+  resource（资源）：`certificatesigningrequests`
+* verbs（动词）：`update`，
+  group（组）：`certificates.k8s.io`，
+  resource（资源）：`certificatesigningrequests/status`
+* verbs（动词）：`sign`，
+  group（组）：`certificates.k8s.io`，
+  resource（资源）：`signers`，
+  resourceName：`<signerNameDomain>/<signerNamePath>` 或 `<signerNameDomain>/*`
+
+{{< codenew file="access/certificate-signing-request/clusterrole-sign.yaml" >}}
+
+<!--
 ## Signers
 
-Custom signerNames can also be specified. All signers should provide information about how they work so that clients can predict what will happen to their CSRs.
+Signers abstractly represent the entity or entities that might sign, or have
+signed, a security certificate.
+
+Any signer that is made available for outside a particular cluster should provide information
+about how the signer works, so that consumers can understand what that means for CertifcateSigningRequests
+and (if enabled) [ClusterTrustBundles](#cluster-trust-bundles).  
 This includes:
 -->
 ## 签名者 {#signers}
 
-也可以指定自定义 signerName。
-所有签名者都应该提供自己工作方式的信息，
-以便客户端可以预期到他们的 CSR 将发生什么。
-此类信息包括：
+签名者抽象地代表可能签署或已签署安全证书的一个或多个实体。
+
+任何要在特定集群以外提供的签名者都应该提供关于签名者工作方式的信息，
+以便消费者可以理解这对于 CertifcateSigningRequests 和（如果启用的）
+[ClusterTrustBundles](#cluster-trust-bundles) 的意义。此类信息包括：
 
 <!--
-1. **Trust distribution**: how trust (CA bundles) are distributed.
+1. **Trust distribution**: how trust anchors (CA certificates or certificate bundles) are distributed.
 1. **Permitted subjects**: any restrictions on and behavior when a disallowed subject is requested.
 1. **Permitted x509 extensions**: including IP subjectAltNames, DNS subjectAltNames, Email subjectAltNames, URI subjectAltNames etc, and behavior when a disallowed extension is requested.
 1. **Permitted key usages / extended key usages**: any restrictions on and behavior when usages different than the signer-determined usages are specified in the CSR.
@@ -146,7 +229,7 @@ This includes:
    and the behavior when the signer-determined expiration is different from the CSR `spec.expirationSeconds` field.
 1. **CA bit allowed/disallowed**: and behavior if a CSR contains a request a for a CA certificate when the signer does not permit it.
 -->
-1. **信任分发**：信任（CA 证书包）是如何分发的。
+1. **信任分发**：信任锚点（CA 证书或证书包）是如何分发的。
 1. **许可的主体**：当一个受限制的主体（subject）发送请求时，相应的限制和应对手段。
 1. **许可的 x509 扩展**：包括 IP subjectAltNames、DNS subjectAltNames、
    Email subjectAltNames、URI subjectAltNames 等，请求一个受限制的扩展项时的应对手段。
@@ -157,18 +240,26 @@ This includes:
 1. **允许/不允许 CA 位**：当 CSR 包含一个签名者并不允许的 CA 证书的请求时，相应的应对手段。
 
 <!--
-Commonly, the `status.certificate` field contains a single PEM-encoded X.509
-certificate once the CSR is approved and the certificate is issued. Some
-signers store multiple certificates into the `status.certificate` field. In
+Commonly, the `status.certificate` field of a CertificateSigningRequest contains a
+single PEM-encoded X.509 certificate once the CSR is approved and the certificate is issued.
+Some signers store multiple certificates into the `status.certificate` field. In
 that case, the documentation for the signer should specify the meaning of
 additional certificates; for example, this might be the certificate plus
 intermediates to be presented during TLS handshakes.
 -->
-一般来说，当 CSR 被批准通过，且证书被签名后，`status.certificate` 字段
-将包含一个 PEM 编码的 X.509 证书。
+一般来说，当 CSR 被批准通过，且证书被签名后，CertificateSigningRequest
+的 `status.certificate` 字段将包含一个 PEM 编码的 X.509 证书。
 有些签名者在 `status.certificate` 字段中存储多个证书。
 在这种情况下，签名者的说明文档应当指明附加证书的含义。
 例如，这是要在 TLS 握手时提供的证书和中继证书。
+
+<!--
+If you want to make the _trust anchor_ (root certificate) available, this should be done
+separately from a CertificateSigningRequest and its `status.certificate` field. For example,
+you could use a ClusterTrustBundle.
+-->
+如果要让**信任锚点**（根证书）可用，应该将其与 CertificateSigningRequest 及其 `status.certificate`
+字段分开处理。例如，你可以使用 ClusterTrustBundle。
 
 <!--
 The PKCS#10 signing request format does not have a standard mechanism to specify a
@@ -243,7 +334,7 @@ Kubernetes 提供了内置的签名者，每个签名者都有一个众所周知
       is not distributed by any other means.
    1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name starts with "`system:node:`".
    1. Permitted x509 extensions - honors key usage extensions, forbids subjectAltName extensions and drops other extensions.
-   1. Permitted key usages - exactly `["key encipherment", "digital signature", "client auth"]`.
+   1. Permitted key usages - `["key encipherment", "digital signature", "client auth"]` or `["digital signature", "client auth"]`.
    1. Expiration/certificate lifetime - for the kube-controller-manager implementation of this signer, set to the minimum
       of the `--cluster-signing-duration` option or, if specified, the `spec.expirationSeconds` field of the CSR object.
    1. CA bit allowed/disallowed - not allowed.
@@ -254,7 +345,8 @@ Kubernetes 提供了内置的签名者，每个签名者都有一个众所周知
    1. 信任分发：签名的证书将被 API 服务器视为客户端证书。CA 证书包不通过任何其他方式分发。
    1. 许可的主体：组织名必须是 `["system:nodes"]`，用户名以 "`system:node:`" 开头
    1. 许可的 x509 扩展：允许 key usage 扩展，禁用 subjectAltName 扩展，并删除其他扩展。
-   1. 许可的密钥用途：必须是 `["key encipherment", "digital signature", "client auth"]`
+   1. 许可的密钥用途：`["key encipherment", "digital signature", "client auth"]`
+      或 `["digital signature", "client auth"]`。
    1. 过期时间/证书有效期：对于 kube-controller-manager 实现的签名者，
       设置为 `--cluster-signing-duration` 选项和 CSR 对象的 `spec.expirationSeconds` 字段（如有设置该字段）中的最小值。
    1. 允许/不允许 CA 位：不允许。
@@ -268,7 +360,7 @@ Kubernetes 提供了内置的签名者，每个签名者都有一个众所周知
    1. Permitted subjects - organizations are exactly `["system:nodes"]`, common name starts with "`system:node:`".
    1. Permitted x509 extensions - honors key usage and DNSName/IPAddress subjectAltName extensions, forbids EmailAddress and
       URI subjectAltName extensions, drops other extensions. At least one DNS or IP subjectAltName must be present.
-   1. Permitted key usages - exactly `["key encipherment", "digital signature", "server auth"]`.
+   1. Permitted key usages - `["key encipherment", "digital signature", "client auth"]` or `["digital signature", "client auth"]`.
    1. Expiration/certificate lifetime - for the kube-controller-manager implementation of this signer, set to the minimum
       of the `--cluster-signing-duration` option or, if specified, the `spec.expirationSeconds` field of the CSR object.
    1. CA bit allowed/disallowed - not allowed.
@@ -280,7 +372,8 @@ Kubernetes 提供了内置的签名者，每个签名者都有一个众所周知
    1. 许可的 x509 扩展：允许 key usage、DNSName/IPAddress subjectAltName 等扩展，
       禁止 EmailAddress、URI subjectAltName 等扩展，并丢弃其他扩展。
       至少有一个 DNS 或 IP 的 SubjectAltName 存在。
-   1. 许可的密钥用途：必须是 `["key encipherment", "digital signature", "server auth"]`
+   1. 许可的密钥用途：`["key encipherment", "digital signature", "client auth"]`
+      或 `["digital signature", "client auth"]`。
    1. 过期时间/证书有效期：对于 kube-controller-manager 实现的签名者，
       设置为 `--cluster-signing-duration` 选项和 CSR 对象的 `spec.expirationSeconds` 字段（如有设置该字段）中的最小值。
    1. 允许/不允许 CA 位：不允许。
@@ -310,12 +403,12 @@ Kubernetes 提供了内置的签名者，每个签名者都有一个众所周知
       设置为 `--cluster-signing-duration` 选项和 CSR 对象的 `spec.expirationSeconds` 字段（如有设置该字段）中的最小值。
    1. 允许/不允许 CA 位 - 不允许。
 
-{{< note >}}
 <!--
-Failures for all of these are only reported in kube-controller-manager logs.
+The kube-controller-manager implements [control plane signing](#signer-control-plane) for each of the built in
+signers. Failures for all of these are only reported in kube-controller-manager logs.
 -->
+kube-controller-manager 为每个内置签名者实现了[控制平面签名](#signer-control-plane)。
 注意：所有这些故障仅在 kube-controller-manager 日志中报告。
-{{< /note >}}
 
 {{< note >}}
 <!--
@@ -340,82 +433,430 @@ guaranteed to verify a connection to the API server using the default service (`
 此 CA 证书包只保证使用默认的服务（`kubernetes.default.svc`）来验证到 API 服务器的连接。
 
 <!--
-## Authorization
+## Signing
 
-To allow creating a CertificateSigningRequest and retrieving any CertificateSigningRequest:
+### Control plane signer {#signer-control-plane}
 
-* Verbs: `create`, `get`, `list`, `watch`, group: `certificates.k8s.io`, resource: `certificatesigningrequests`
-
-For example:
+The Kubernetes control plane implements each of the
+[Kubernetes signers](/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers),
+as part of the kube-controller-manager.
 -->
-## 鉴权 {#authorization}
+## 签名   {#signing}
 
-授权创建 CertificateSigningRequest 和检索 CertificateSigningRequest:
+### 控制平面签名者    {#signer-control-plane}
 
-* verbs（动词）: `create`、`get`、`list`、`watch`,
-  group（组）：`certificates.k8s.io`，
-  resources：`certificatesigningrequests`
+Kubernetes 控制平面实现了每一个
+[Kubernetes 签名者](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers)，
+每个签名者的实现都是 kube-controller-manager 的一部分。
 
-例如：
+{{< note >}}
+<!--
+Prior to Kubernetes v1.18, the kube-controller-manager would sign any CSRs that
+were marked as approved.
+-->
+在 Kubernetes v1.18 之前，
+kube-controller-manager 签名所有标记为 approved 的 CSR。
+{{< /note >}}
 
-{{< codenew file="access/certificate-signing-request/clusterrole-create.yaml" >}}
+{{< note >}}
+<!--
+The `spec.expirationSeconds` field was added in Kubernetes v1.22.  Earlier versions of Kubernetes do not honor this field.
+Kubernetes API servers prior to v1.22 will silently drop this field when the object is created.
+-->
+`spec.expirationSeconds` 字段是在 Kubernetes v1.22 中加入的。早期的 Kubernetes 版本并不认识该字段。
+v1.22 版本之前的 Kubernetes API 服务器会在创建对象的时候忽略该字段。
+{{< /note >}}
 
 <!--
-To allow approving a CertificateSigningRequest:
+### API-based signers {#signer-api}
 
-* Verbs: `get`, `list`, `watch`, group: `certificates.k8s.io`, resource: `certificatesigningrequests`
-* Verbs: `update`, group: `certificates.k8s.io`, resource: `certificatesigningrequests/approval`
-* Verbs: `approve`, group: `certificates.k8s.io`, resource: `signers`, resourceName: `<signerNameDomain>/<signerNamePath>` or `<signerNameDomain>/*`
+Users of the REST API can sign CSRs by submitting an UPDATE request to the `status`
+subresource of the CSR to be signed.
 
-For example:
+As part of this request, the `status.certificate` field should be set to contain the
+signed certificate. This field contains one or more PEM-encoded certificates.
+
+All PEM blocks must have the "CERTIFICATE" label, contain no headers,
+and the encoded data must be a BER-encoded ASN.1 Certificate structure
+as described in [section 4 of RFC5280](https://tools.ietf.org/html/rfc5280#section-4.1).
+
+Example certificate content:
 -->
-授权批准 CertificateSigningRequest：
+### 基于 API 的签名者   {#signer-api}
 
-* verbs（动词）: `get`、`list`、`watch`，
-  group（组）：`certificates.k8s.io`，
-  resources（资源）：`certificatesigningrequests`
-* verbs（动词）: `update`，
-  group（组）：`certificates.k8s.io`，
-  resources（资源）：`certificatesigningrequests/approval`
-* verbs（动词）：`approve`，
-  group（组）：`certificates.k8s.io`，
-  resources（资源）：`signers`，
-  resourceName：`<signerNameDomain>/<signerNamePath>` 或 `<signerNameDomain>/*`
+REST API 的用户可以通过向待签名的 CSR 的 `status` 子资源提交更新请求来对 CSR 进行签名。
 
-例如：
+作为这个请求的一部分，`status.certificate` 字段应设置为已签名的证书。
+此字段可包含一个或多个 PEM 编码的证书。
 
-{{< codenew file="access/certificate-signing-request/clusterrole-approve.yaml" >}}
+所有的 PEM 块必须具备 "CERTIFICATE" 标签，且不包含文件头，且编码的数据必须是
+[RFC5280 第 4 节](https://tools.ietf.org/html/rfc5280#section-4.1)
+中描述的 BER 编码的 ASN.1 证书结构。
+
+证书内容示例：
+
+```
+-----BEGIN CERTIFICATE-----
+MIIDgjCCAmqgAwIBAgIUC1N1EJ4Qnsd322BhDPRwmg3b/oAwDQYJKoZIhvcNAQEL
+BQAwXDELMAkGA1UEBhMCeHgxCjAIBgNVBAgMAXgxCjAIBgNVBAcMAXgxCjAIBgNV
+BAoMAXgxCjAIBgNVBAsMAXgxCzAJBgNVBAMMAmNhMRAwDgYJKoZIhvcNAQkBFgF4
+MB4XDTIwMDcwNjIyMDcwMFoXDTI1MDcwNTIyMDcwMFowNzEVMBMGA1UEChMMc3lz
+dGVtOm5vZGVzMR4wHAYDVQQDExVzeXN0ZW06bm9kZToxMjcuMC4wLjEwggEiMA0G
+CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDne5X2eQ1JcLZkKvhzCR4Hxl9+ZmU3
++e1zfOywLdoQxrPi+o4hVsUH3q0y52BMa7u1yehHDRSaq9u62cmi5ekgXhXHzGmm
+kmW5n0itRECv3SFsSm2DSghRKf0mm6iTYHWDHzUXKdm9lPPWoSOxoR5oqOsm3JEh
+Q7Et13wrvTJqBMJo1GTwQuF+HYOku0NF/DLqbZIcpI08yQKyrBgYz2uO51/oNp8a
+sTCsV4OUfyHhx2BBLUo4g4SptHFySTBwlpRWBnSjZPOhmN74JcpTLB4J5f4iEeA7
+2QytZfADckG4wVkhH3C2EJUmRtFIBVirwDn39GXkSGlnvnMgF3uLZ6zNAgMBAAGj
+YTBfMA4GA1UdDwEB/wQEAwIFoDATBgNVHSUEDDAKBggrBgEFBQcDAjAMBgNVHRMB
+Af8EAjAAMB0GA1UdDgQWBBTREl2hW54lkQBDeVCcd2f2VSlB1DALBgNVHREEBDAC
+ggAwDQYJKoZIhvcNAQELBQADggEBABpZjuIKTq8pCaX8dMEGPWtAykgLsTcD2jYr
+L0/TCrqmuaaliUa42jQTt2OVsVP/L8ofFunj/KjpQU0bvKJPLMRKtmxbhXuQCQi1
+qCRkp8o93mHvEz3mTUN+D1cfQ2fpsBENLnpS0F4G/JyY2Vrh19/X8+mImMEK5eOy
+o0BMby7byUj98WmcUvNCiXbC6F45QTmkwEhMqWns0JZQY+/XeDhEcg+lJvz9Eyo2
+aGgPsye1o3DpyXnyfJWAWMhOz7cikS5X2adesbgI86PhEHBXPIJ1v13ZdfCExmdd
+M1fLPhLyR54fGaY+7/X8P9AZzPefAkwizeXwe9ii6/a08vWoiE4=
+-----END CERTIFICATE-----
+```
 
 <!--
-To allow signing a CertificateSigningRequest:
+Non-PEM content may appear before or after the CERTIFICATE PEM blocks and is unvalidated,
+to allow for explanatory text as described in [section 5.2 of RFC7468](https://www.rfc-editor.org/rfc/rfc7468#section-5.2).
 
-* Verbs: `get`, `list`, `watch`, group: `certificates.k8s.io`, resource: `certificatesigningrequests`
-* Verbs: `update`, group: `certificates.k8s.io`, resource: `certificatesigningrequests/status`
-* Verbs: `sign`, group: `certificates.k8s.io`, resource: `signers`, resourceName: `<signerNameDomain>/<signerNamePath>` or `<signerNameDomain>/*`
+When encoded in JSON or YAML, this field is base-64 encoded.
+A CertificateSigningRequest containing the example certificate above would look like this:
 -->
-授权签名 CertificateSigningRequest：
+非 PEM 内容可能会出现在证书 PEM 块前后的位置，且未经验证，
+以允许使用 [RFC7468 第 5.2 节](https://www.rfc-editor.org/rfc/rfc7468#section-5.2)中描述的解释性文本。
 
-* verbs（动词）：`get`、`list`、`watch`，
-  group（组）：`certificates.k8s.io`，
-  resources（资源）：`certificatesigningrequests`
-* verbs（动词）：`update`，
-  group（组）：`certificates.k8s.io`，
-  resources（资源）：`certificatesigningrequests/status`
-* verbs（动词）：`sign`，
-  group（组）：`certificates.k8s.io`，
-  resources（资源）：`signers`，
-  resourceName：`<signerNameDomain>/<signerNamePath>` 或 `<signerNameDomain>/*`
+当使用 JSON 或 YAML 格式时，此字段是 base-64 编码。
+包含上述示例证书的 CertificateSigningRequest 如下所示：
 
-{{< codenew file="access/certificate-signing-request/clusterrole-sign.yaml" >}}
+```yaml
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+...
+status:
+  certificate: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JS..."
+```
 
 <!--
-## Normal user
+## Approval or rejection  {#approval-rejection}
+
+Before a [signer](#signers) issues a certificate based on a CertificateSigningRequest,
+the signer typically checks that the issuance for that CSR has been _approved_.
+
+### Control plane automated approval {#approval-rejection-control-plane}
+
+The kube-controller-manager ships with a built-in approver for certificates with
+a signerName of `kubernetes.io/kube-apiserver-client-kubelet` that delegates various
+permissions on CSRs for node credentials to authorization.
+The kube-controller-manager POSTs SubjectAccessReview resources to the API server
+in order to check authorization for certificate approval.
+-->
+## 批准和驳回 {#approval-rejection}
+
+[签名者](#signers)基于 CertificateSigningRequest 签发证书之前，
+通常会检查 CSR 的签发是否已被**批准**。
+
+### 控制平面的自动化批准 {#approval-rejection-control-plane}
+
+kube-controller-manager 内建了一个证书批准者，其 signerName 为
+`kubernetes.io/kube-apiserver-client-kubelet`，
+该批准者将 CSR 上用于节点凭据的各种权限委托给权威认证机构。
+kube-controller-manager 将 SubjectAccessReview 资源发送（POST）到 API 服务器，
+以便检验批准证书的授权。
+
+<!--
+### Approval or rejection using `kubectl` {#approval-rejection-kubectl}
+
+A Kubernetes administrator (with appropriate permissions) can manually approve
+(or deny) CertificateSigningRequests by using the `kubectl certificate
+approve` and `kubectl certificate deny` commands.
+
+To approve a CSR with kubectl:
+-->
+### 使用 `kubectl` 批准或驳回   {#approval-rejection-kubectl}
+
+Kubernetes 管理员（拥有足够的权限）可以手工批准（或驳回）CertificateSigningRequests，
+此操作使用 `kubectl certificate approve` 和 `kubectl certificate deny` 命令实现。
+
+使用 kubectl 批准一个 CSR：
+
+```shell
+kubectl certificate approve <certificate-signing-request-name>
+```
+
+<!--
+Likewise, to deny a CSR:
+-->
+同样地，驳回一个 CSR：
+
+```shell
+kubectl certificate deny <certificate-signing-request-name>
+```
+
+<!--
+### Approval or rejection using the Kubernetes API {#approval-rejection-api-client}
+
+Users of the REST API can approve CSRs by submitting an UPDATE request to the `approval`
+subresource of the CSR to be approved. For example, you could write an
+{{< glossary_tooltip term_id="operator-pattern" text="operator" >}} that watches for a particular
+kind of CSR and then sends an UPDATE to approve them.
+
+When you make an approval or rejection request, set either the `Approved` or `Denied`
+status condition based on the state you determine:
+
+For `Approved` CSRs:
+-->
+### 使用 Kubernetes API 批准或驳回  {#approval-rejection-api-client}
+
+REST API 的用户可以通过向待批准的 CSR 的 `approval` 子资源提交更新请求来批准 CSR。
+例如，你可以编写一个
+{{< glossary_tooltip term_id="operator-pattern" text="operator" >}}
+来监视特定类型的 CSR，然后发送一个更新来批准它。
+
+当你发出批准或驳回的指令时，根据你期望的状态来选择设置 `Approved` 或 `Denied`。
+
+批准（`Approved`） 的 CSR：
+
+<!--
+You can set this to any string
+-->
+```yaml
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+...
+status:
+  conditions:
+  - lastUpdateTime: "2020-02-08T11:37:35Z"
+    lastTransitionTime: "2020-02-08T11:37:35Z"
+    message: Approved by my custom approver controller
+    reason: ApprovedByMyPolicy # 你可以将此字段设置为任意字符串
+    type: Approved
+```
+
+<!--
+For `Denied` CSRs:
+-->
+驳回（`Denied`）的 CSR：
+
+<!--
+You can set this to any string
+-->
+```yaml
+apiVersion: certificates.k8s.io/v1
+kind: CertificateSigningRequest
+...
+status:
+  conditions:
+  - lastUpdateTime: "2020-02-08T11:37:35Z"
+    lastTransitionTime: "2020-02-08T11:37:35Z"
+    message: Denied by my custom approver controller
+    reason: DeniedByMyPolicy # 你可以将此字段设置为任意字符串
+    type: Denied
+```
+
+<!--
+It's usual to set `status.conditions.reason` to a machine-friendly reason
+code using TitleCase; this is a convention but you can set it to anything
+you like. If you want to add a note for human consumption, use the
+`status.conditions.message` field.
+-->
+`status.conditions.reason` 字段通常设置为一个首字母大写的对机器友好的原因码;
+这是一个命名约定，但你也可以随你的个人喜好设置。
+如果你想添加一个供人类使用的注释，那就用 `status.conditions.message` 字段。
+
+<!--
+## Cluster trust bundles {#cluster-trust-bundles}
+-->
+## 集群信任包   {#cluster-trust-bundles}
+
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+
+{{< note >}}
+<!--
+In Kubernetes {{< skew currentVersion >}}, you must enable the `ClusterTrustBundles`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+_and_ the `certificates.k8s.io/v1alpha1`
+{{< glossary_tooltip text="API group" term_id="api-group" >}} in order to use
+this API.
+-->
+在 Kubernetes {{< skew currentVersion >}} 中，如果想要使用此 API，
+必须同时启用 `ClusterTrustBundles` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+**以及** `certificates.k8s.io/v1alpha1` {{< glossary_tooltip text="API 组" term_id="api-group" >}}。
+{{< /note >}}
+
+<!--
+A ClusterTrustBundles is a cluster-scoped object for distributing X.509 trust
+anchors (root certificates) to workloads within the cluster.  They're designed
+to work well with the [signer](#signers) concept from CertificateSigningRequests.
+
+ClusterTrustBundles can be used in two modes:
+[signer-linked](#ctb-signer-linked) and [signer-unlinked](#ctb-signer-unlinked).
+-->
+ClusterTrustBundles 是一个作用域为集群的对象，向集群内的对象分发 X.509 信任锚点（根证书）。
+此对象旨在与 CertificateSigningRequests 中的[签名者](#signers)概念协同工作。
+
+ClusterTrustBundles 可以使用两种模式：
+[签名者关联](#ctb-signer-linked)和[签名者未关联](#ctb-signer-unlinked)。
+
+<!--
+### Common properties and validation {#ctb-common}
+
+All ClusterTrustBundle objects have strong validation on the contents of their
+`trustBundle` field.  That field must contain one or more X.509 certificates,
+DER-serialized, each wrapped in a PEM `CERTIFICATE` block.  The certificates
+must parse as valid X.509 certificates.
+
+Esoteric PEM features like inter-block data and intra-block headers are either
+rejected during object validation, or can be ignored by consumers of the object.
+Additionally, consumers are allowed to reorder the certificates in
+the bundle with their own arbitrary but stable ordering.
+-->
+### 常见属性和验证 {#ctb-common}
+
+所有 ClusterTrustBundle 对象都对其 `trustBundle` 字段的内容进行强大的验证。
+该字段必须包含一个或多个经 DER 序列化的 X.509 证书，每个证书都封装在 PEM `CERTIFICATE` 块中。
+这些证书必须解析为有效的 X.509 证书。
+
+诸如块间数据和块内标头之类的 PEM 特性在对象验证期间要么被拒绝，要么可能被对象的消费者忽略。
+此外，消费者被允许使用自己的任意但稳定的排序方式重新排序 bundle 中的证书。
+
+<!--
+ClusterTrustBundle objects should be considered world-readable within the
+cluster. If your cluster uses [RBAC](/docs/reference/access-authn-authz/rbac/)
+authorization, all ServiceAccounts have a default grant that allows them to
+**get**, **list**, and **watch** all ClusterTrustBundle objects.
+If you use your own authorization mechanism and you have enabled
+ClusterTrustBundles in your cluster, you should set up an equivalent rule to
+make these objects public within the cluster, so that they work as intended.
+
+If you do not have permission to list cluster trust bundles by default in your
+cluster, you can impersonate a service account you have access to in order to
+see available ClusterTrustBundles:
+-->
+ClusterTrustBundle 对象应该在集群内被视为全局可读的。
+如果集群使用 [RBAC](/zh-cn/docs/reference/access-authn-authz/rbac/) 鉴权，
+则所有 ServiceAccount 都具有默认授权，允许它们 **get**、**list** 和 **watch**
+所有 ClusterTrustBundle 对象。如果你使用自己的鉴权机制，并且在集群中启用了
+ClusterTrustBundles，则应设置等效规则以使这些对象在集群内公开，使这些对象按预期工作。
+
+如果你没有默认在集群中列出集群信任包的权限，则可以扮演具有访问权限的 ServiceAccount，
+以查看可用的 ClusterTrustBundle：
+
+```bash
+kubectl get clustertrustbundles --as='system:serviceaccount:mynamespace:default'
+```
+
+<!--
+### Signer-linked ClusterTrustBundles {#ctb-signer-linked}
+
+Signer-linked ClusterTrustBundles are associated with a _signer name_, like this:
+-->
+### 签名者关联的 ClusterTrustBundles {#ctb-signer-linked}
+
+签名者关联的 ClusterTrustBundles 与**签名者名称**关联，例如：
+
+```yaml
+apiVersion: certificates.k8s.io/v1alpha1
+kind: ClusterTrustBundle
+metadata:
+  name: example.com:mysigner:foo
+spec:
+  signerName: example.com/mysigner
+  trustBundle: "<... PEM data ...>"
+```
+
+<!--
+These ClusterTrustBundles are intended to be maintained by a signer-specific
+controller in the cluster, so they have several security features:
+-->
+这些 ClusterTrustBundle 预期由集群中的特定签名者控制器维护，因此它们具有多个安全特性：
+
+<!--
+* To create or update a signer-linked ClusterTrustBundle, you must be permitted
+  to **attest** on the signer (custom authorization verb `attest`,
+  API group `certificates.k8s.io`; resource path `signers`). You can configure
+  authorization for the specific resource name
+  `<signerNameDomain>/<signerNamePath>` or match a pattern such as
+  `<signerNameDomain>/*`.
+* Signer-linked ClusterTrustBundles **must** be named with a prefix derived from
+  their `spec.signerName` field.  Slashes (`/`) are replaced with colons (`:`),
+  and a final colon is appended.  This is followed by an arbitary name.  For
+  example, the signer `example.com/mysigner` can be linked to a
+  ClusterTrustBundle `example.com:mysigner:<arbitrary-name>`.
+-->
+* 要创建或更新与一个签名者关联的 ClusterTrustBundle，你必须获准**证明**该签名者
+  （自定义鉴权动词 `attest` API 组 `certificates.k8s.io`；资源路径 `signers`）。
+  你可以为特定资源名称 `<signerNameDomain>/<signerNamePath>` 或匹配 `<signerNameDomain>/*` 等模式来配置鉴权。
+* 与签名者关联的 ClusterTrustBundle **必须**使用从其 `spec.signerName` 字段派生的前缀命名。
+  斜杠 (`/`) 被替换为英文冒号 (`:`)，最后追加一个英文冒号。后跟任意名称。
+  例如，签名者 `example.com/mysigner` 可以关联到 ClusterTrustBundle `example.com:mysigner:<arbitrary-name>`。
+
+<!--
+Signer-linked ClusterTrustBundles will typically be consumed in workloads
+by a combination of a
+[field selector](/docs/concepts/overview/working-with-objects/field-selectors/) on the signer name, and a separate
+[label selector](/docs/concepts/overview/working-with-objects/labels/#label-selectors).
+-->
+与签名者关联的 ClusterTrustBundle 通常通过组合签名者名称有关的
+[字段选择算符](/zh-cn/docs/concepts/overview/working-with-objects/field-selectors/)
+或单独使用[标签选择算符](/zh-cn/docs/concepts/overview/working-with-objects/labels/#label-selectors)在工作负载中被消耗。
+
+<!--
+### Signer-unlinked ClusterTrustBundles {#ctb-signer-unlinked}
+
+Signer-unlinked ClusterTrustBundles have an empty `spec.signerName` field, like this:
+-->
+### 签名者未关联的 ClusterTrustBundles   {#ctb-signer-unlinked}
+
+签名者未关联的 ClusterTrustBundles 具有空白的 `spec.signerName` 字段，例如：
+
+<!--
+no signerName specified, so the field is blank
+-->
+```yaml
+apiVersion: certificates.k8s.io/v1alpha1
+kind: ClusterTrustBundle
+metadata:
+  name: foo
+spec:
+  # 未指定 signerName 所以该字段留空
+  trustBundle: "<... PEM data ...>"
+```
+
+<!--
+They are primarily intended for cluster configuration use cases.  Each
+signer-unlinked ClusterTrustBundle is an independent object, in contrast to the
+customary grouping behavior of signer-linked ClusterTrustBundles.
+
+Signer-unlinked ClusterTrustBundles have no `attest` verb requirement.
+Instead, you control access to them directly using the usual mechanisms,
+such as role-based access control.
+
+To distinguish them from signer-linked ClusterTrustBundles, the names of
+signer-unlinked ClusterTrustBundles **must not** contain a colon (`:`).
+-->
+它们主要用于集群配置场景。每个与签名者未关联的 ClusterTrustBundle 都是一个独立的对象，
+与签名者关联的 ClusterTrustBundle 的惯常分组行为形成了对比。
+
+与签名者为关联的 ClusterTrustBundle 没有 `attest` 动词要求。
+相反，你可以使用通常的机制（如基于角色的访问控制）直接控制对它们的访问。
+
+为了将它们与与签名者关联的 ClusterTrustBundle 区分开来，与签名者未关联的
+ClusterTrustBundle 的名称**必须不**包含英文冒号 (`:`)。
+
+<!-- TODO this should become a task page -->
+
+<!--
+## How to issue a certificate for a user {#normal-user}
 
 A few steps are required in order to get a normal user to be able to
 authenticate and invoke an API. First, this user must have a certificate issued
 by the Kubernetes cluster, and then present that certificate to the Kubernetes API.
 -->
-## 普通用户 {#normal-user}
+## 如何为用户签发证书   {#normal-user}
 
 为了让普通用户能够通过认证并调用 API，需要执行几个步骤。
 首先，该用户必须拥有 Kubernetes 集群签发的证书，
@@ -441,7 +882,7 @@ openssl req -new -key myuser.key -out myuser.csr
 ```
 
 <!--
-### Create CertificateSigningRequest
+### Create a CertificateSigningRequest {#create-certificatessigningrequest}
 
 Create a CertificateSigningRequest and submit it to a Kubernetes Cluster via kubectl. Below is a script to generate the CertificateSigningRequest.
 -->
@@ -471,7 +912,7 @@ Some points to note:
 - `usages` has to be '`client auth`'
 - `expirationSeconds` could be made longer (i.e. `864000` for ten days) or shorter (i.e. `3600` for one hour)
 - `request` is the base64 encoded value of the CSR file content.
-  You can get the content using this command:
+  You can get the content using this command: 
 -->
 需要注意的几点:
 
@@ -485,13 +926,13 @@ Some points to note:
   ```
 
 <!--
-### Approve certificate signing request
+### Approve the CertificateSigningRequest {#approve-certificate-signing-request}
 
 Use kubectl to create a CSR and approve it.
 
 Get the list of CSRs:
 -->
-### 批准证书签名请求 {#approve-certificate-signing-request}
+### 批准 CertificateSigningRequest    {#approve-certificate-signing-request}
 
 使用 kubectl 创建 CSR 并批准。
 
@@ -527,7 +968,6 @@ kubectl get csr/myuser -o yaml
 The certificate value is in Base64-encoded format under `status.certificate`.
 
 Export the issued certificate from the CertificateSigningRequest.
-
 -->
 证书的内容使用 base64 编码，存放在字段 `status.certificate`。
 
@@ -601,228 +1041,6 @@ To test it, change the context to `myuser`:
 kubectl config use-context myuser
 ```
 
-<!--
-## Approval or rejection  {#approval-rejection}
-
-### Control plane automated approval {#approval-rejection-control-plane}
-
-The kube-controller-manager ships with a built-in approver for certificates with
-a signerName of `kubernetes.io/kube-apiserver-client-kubelet` that delegates various
-permissions on CSRs for node credentials to authorization.
-The kube-controller-manager POSTs SubjectAccessReview resources to the API server
-in order to check authorization for certificate approval.
--->
-## 批准和驳回 {#approval-rejection}
-
-### 控制平面的自动化批准 {#approval-rejection-control-plane}
-
-kube-controller-manager 内建了一个证书批准者，其 signerName 为
-`kubernetes.io/kube-apiserver-client-kubelet`，
-该批准者将 CSR 上用于节点凭据的各种权限委托给权威认证机构。
-kube-controller-manager 将 SubjectAccessReview 资源发送（POST）到 API 服务器，
-以便检验批准证书的授权。
-
-<!--
-### Approval or rejection using `kubectl` {#approval-rejection-kubectl}
-
-A Kubernetes administrator (with appropriate permissions) can manually approve
-(or deny) CertificateSigningRequests by using the `kubectl certificate
-approve` and `kubectl certificate deny` commands.
-
-To approve a CSR with kubectl:
--->
-### 使用 `kubectl` 批准或驳回   {#approval-rejection-kubectl}
-
-Kubernetes 管理员（拥有足够的权限）可以手工批准（或驳回）CertificateSigningRequests，
-此操作使用 `kubectl certificate approve` 和 `kubectl certificate deny` 命令实现。
-
-使用 kubectl 批准一个 CSR：
-
-```shell
-kubectl certificate approve <certificate-signing-request-name>
-```
-
-<!--
-Likewise, to deny a CSR:
--->
-同样地，驳回一个 CSR：
-
-```shell
-kubectl certificate deny <certificate-signing-request-name>
-```
-
-<!--
-### Approval or rejection using the Kubernetes API {#approval-rejection-api-client}
-
-Users of the REST API can approve CSRs by submitting an UPDATE request to the `approval`
-subresource of the CSR to be approved. For example, you could write an
-{{< glossary_tooltip term_id="operator-pattern" text="operator" >}} that watches for a particular
-kind of CSR and then sends an UPDATE to approve them.
-
-When you make an approval or rejection request, set either the `Approved` or `Denied`
-status condition based on the state you determine:
-
-For `Approved` CSRs:
--->
-### 使用 Kubernetes API 批准或驳回  {#approval-rejection-api-client}
-
-REST API 的用户可以通过向待批准的 CSR 的 `approval` 子资源提交更新请求来批准 CSR。
-例如，你可以编写一个
-{{< glossary_tooltip term_id="operator-pattern" text="operator" >}}
-来监视特定类型的 CSR，然后发送一个更新来批准它。
-
-当你发出批准或驳回的指令时，根据你期望的状态来选择设置 `Approved` 或 `Denied`。
-
-批准（`Approved`） 的 CSR：
-
-```yaml
-apiVersion: certificates.k8s.io/v1
-kind: CertificateSigningRequest
-...
-status:
-  conditions:
-  - lastUpdateTime: "2020-02-08T11:37:35Z"
-    lastTransitionTime: "2020-02-08T11:37:35Z"
-    message: Approved by my custom approver controller
-    reason: ApprovedByMyPolicy # You can set this to any string
-    type: Approved
-```
-
-<!--
-For `Denied` CSRs:
--->
-驳回（`Denied`）的 CSR：
-
-```yaml
-apiVersion: certificates.k8s.io/v1
-kind: CertificateSigningRequest
-...
-status:
-  conditions:
-  - lastUpdateTime: "2020-02-08T11:37:35Z"
-    lastTransitionTime: "2020-02-08T11:37:35Z"
-    message: Denied by my custom approver controller
-    reason: DeniedByMyPolicy # You can set this to any string
-    type: Denied
-```
-
-<!--
-It's usual to set `status.conditions.reason` to a machine-friendly reason
-code using TitleCase; this is a convention but you can set it to anything
-you like. If you want to add a note for human consumption, use the
-`status.conditions.message` field.
--->
-`status.conditions.reason` 字段通常设置为一个首字母大写的对机器友好的原因码;
-这是一个命名约定，但你也可以随你的个人喜好设置。
-如果你想添加一个供人类使用的注释，那就用 `status.conditions.message` 字段。
-
-<!--
-## Signing
-
-### Control plane signer {#signer-control-plane}
-
-The Kubernetes control plane implements each of the
-[Kubernetes signers](/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers),
-as part of the kube-controller-manager.
-
--->
-## 签名   {#signing}
-
-### 控制平面签名者    {#signer-control-plane}
-
-Kubernetes 控制平面实现了每一个
-[Kubernetes 签名者](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers)，
-每个签名者的实现都是 kube-controller-manager 的一部分。
-
-{{< note >}}
-<!--
-Prior to Kubernetes v1.18, the kube-controller-manager would sign any CSRs that
-were marked as approved.
--->
-在 Kubernetes v1.18 之前，
-kube-controller-manager 签名所有标记为 approved 的 CSR。
-{{< /note >}}
-
-{{< note >}}
-<!--
-The `spec.expirationSeconds` field was added in Kubernetes v1.22.  Earlier versions of Kubernetes do not honor this field.
-Kubernetes API servers prior to v1.22 will silently drop this field when the object is created.
--->
-`spec.expirationSeconds` 字段是在 Kubernetes v1.22 中加入的。早期的 Kubernetes 版本并不认识该字段。
-v1.22 版本之前的 Kubernetes API 服务器会在创建对象的时候忽略该字段。
-{{< /note >}}
-
-<!--
-### API-based signers {#signer-api}
-
-Users of the REST API can sign CSRs by submitting an UPDATE request to the `status`
-subresource of the CSR to be signed.
-
-As part of this request, the `status.certificate` field should be set to contain the
-signed certificate. This field contains one or more PEM-encoded certificates.
-
-All PEM blocks must have the "CERTIFICATE" label, contain no headers,
-and the encoded data must be a BER-encoded ASN.1 Certificate structure
-as described in [section 4 of RFC5280](https://tools.ietf.org/html/rfc5280#section-4.1).
-
-Example certificate content:
--->
-### 基于 API 的签名者   {#signer-api}
-
-REST API 的用户可以通过向待签名的 CSR 的 `status` 子资源提交更新请求来对 CSR 进行签名。
-
-作为这个请求的一部分，`status.certificate` 字段应设置为已签名的证书。
-此字段可包含一个或多个 PEM 编码的证书。
-
-所有的 PEM 块必须具备 "CERTIFICATE" 标签，且不包含文件头，且编码的数据必须是
-[RFC5280 第 4 节](https://tools.ietf.org/html/rfc5280#section-4.1)
-中描述的 BER 编码的 ASN.1 证书结构。
-
-```
------BEGIN CERTIFICATE-----
-MIIDgjCCAmqgAwIBAgIUC1N1EJ4Qnsd322BhDPRwmg3b/oAwDQYJKoZIhvcNAQEL
-BQAwXDELMAkGA1UEBhMCeHgxCjAIBgNVBAgMAXgxCjAIBgNVBAcMAXgxCjAIBgNV
-BAoMAXgxCjAIBgNVBAsMAXgxCzAJBgNVBAMMAmNhMRAwDgYJKoZIhvcNAQkBFgF4
-MB4XDTIwMDcwNjIyMDcwMFoXDTI1MDcwNTIyMDcwMFowNzEVMBMGA1UEChMMc3lz
-dGVtOm5vZGVzMR4wHAYDVQQDExVzeXN0ZW06bm9kZToxMjcuMC4wLjEwggEiMA0G
-CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDne5X2eQ1JcLZkKvhzCR4Hxl9+ZmU3
-+e1zfOywLdoQxrPi+o4hVsUH3q0y52BMa7u1yehHDRSaq9u62cmi5ekgXhXHzGmm
-kmW5n0itRECv3SFsSm2DSghRKf0mm6iTYHWDHzUXKdm9lPPWoSOxoR5oqOsm3JEh
-Q7Et13wrvTJqBMJo1GTwQuF+HYOku0NF/DLqbZIcpI08yQKyrBgYz2uO51/oNp8a
-sTCsV4OUfyHhx2BBLUo4g4SptHFySTBwlpRWBnSjZPOhmN74JcpTLB4J5f4iEeA7
-2QytZfADckG4wVkhH3C2EJUmRtFIBVirwDn39GXkSGlnvnMgF3uLZ6zNAgMBAAGj
-YTBfMA4GA1UdDwEB/wQEAwIFoDATBgNVHSUEDDAKBggrBgEFBQcDAjAMBgNVHRMB
-Af8EAjAAMB0GA1UdDgQWBBTREl2hW54lkQBDeVCcd2f2VSlB1DALBgNVHREEBDAC
-ggAwDQYJKoZIhvcNAQELBQADggEBABpZjuIKTq8pCaX8dMEGPWtAykgLsTcD2jYr
-L0/TCrqmuaaliUa42jQTt2OVsVP/L8ofFunj/KjpQU0bvKJPLMRKtmxbhXuQCQi1
-qCRkp8o93mHvEz3mTUN+D1cfQ2fpsBENLnpS0F4G/JyY2Vrh19/X8+mImMEK5eOy
-o0BMby7byUj98WmcUvNCiXbC6F45QTmkwEhMqWns0JZQY+/XeDhEcg+lJvz9Eyo2
-aGgPsye1o3DpyXnyfJWAWMhOz7cikS5X2adesbgI86PhEHBXPIJ1v13ZdfCExmdd
-M1fLPhLyR54fGaY+7/X8P9AZzPefAkwizeXwe9ii6/a08vWoiE4=
------END CERTIFICATE-----
-```
-
-<!--
-Non-PEM content may appear before or after the CERTIFICATE PEM blocks and is unvalidated,
-to allow for explanatory text as described in [section 5.2 of RFC7468](https://www.rfc-editor.org/rfc/rfc7468#section-5.2).
-
-When encoded in JSON or YAML, this field is base-64 encoded.
-A CertificateSigningRequest containing the example certificate above would look like this:
--->
-非 PEM 内容可能会出现在证书 PEM 块前后的位置，且未经验证，
-以允许使用 [RFC7468 第 5.2 节](https://www.rfc-editor.org/rfc/rfc7468#section-5.2)中描述的解释性文本。
-
-当使用 JSON 或 YAML 格式时，此字段是 base-64 编码。
-包含上述示例证书的 CertificateSigningRequest 如下所示：
-
-```yaml
-apiVersion: certificates.k8s.io/v1
-kind: CertificateSigningRequest
-...
-status:
-  certificate: "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JS..."
-```
-
 ## {{% heading "whatsnext" %}}
 
 <!--
@@ -835,5 +1053,5 @@ status:
 * 参阅 [管理集群中的 TLS 认证](/zh-cn/docs/tasks/tls/managing-tls-in-a-cluster/)
 * 查看 kube-controller-manager 中[签名者](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/signer/cfssl_signer.go)部分的源代码
 * 查看 kube-controller-manager 中[批准者](https://github.com/kubernetes/kubernetes/blob/32ec6c212ec9415f604ffc1f4c1f29b782968ff1/pkg/controller/certificates/approver/sarapprove.go)部分的源代码
-* 有关 X.509 本身的详细信息，请参阅 [RFC 5280](https://tools.ietf.org/html/rfc5280#section-3.1) 第3.1节
+* 有关 X.509 本身的详细信息，请参阅 [RFC 5280](https://tools.ietf.org/html/rfc5280#section-3.1) 第 3.1 节
 * 有关 PKCS#10 证书签名请求语法的信息，请参阅 [RFC 2986](https://tools.ietf.org/html/rfc2986)

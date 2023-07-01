@@ -320,6 +320,10 @@ Each probe must define exactly one of these four mechanisms:
   the port is open. If the remote system (the container) closes
   the connection immediately after it opens, this counts as healthy.
 
+{{< caution >}} Unlike the other mechanisms, `exec` probe's implementation involves the creation/forking of multiple processes each time when executed.
+As a result, in case of the clusters having higher pod densities, lower intervals of `initialDelaySeconds`, `periodSeconds`, configuring any probe with exec mechanism might introduce an overhead on the cpu usage of the node.
+In such scenarios, consider using the alternative probe mechanisms to avoid the overhead.{{< /caution >}}
+
 ### Probe outcome
 
 Each probe has one of three results:

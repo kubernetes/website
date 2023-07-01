@@ -506,7 +506,7 @@ in a cluster,
 |`custom-class-c`         | 1000                   |
 |`regular/unset`          | 0                      |
 
-Within the [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+Within the [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/)
 the settings for `shutdownGracePeriodByPodPriority` could look like:
 
 |Pod priority class value|Shutdown period|
@@ -625,7 +625,7 @@ onwards, swap memory support can be enabled on a per-node basis.
 
 To enable swap on a node, the `NodeSwap` feature gate must be enabled on
 the kubelet, and the `--fail-swap-on` command line flag or `failSwapOn`
-[configuration setting](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+[configuration setting](/docs/reference/config-api/kubelet-config.v1beta1/)
 must be set to false.
 
 {{< warning >}}
