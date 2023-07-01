@@ -64,7 +64,7 @@ spec:
       topologyKey: <string>
       whenUnsatisfiable: <string>
       labelSelector: <object>
-      matchLabelKeys: <list> # 선택 사항이며, v1.27에서 베타 기능으로 도입되었다.
+      matchLabelKeys: <list> # 선택 사항이며, v1.25에서 알파 기능으로 도입되었다.
       nodeAffinityPolicy: [Honor|Ignore] # 선택 사항이며, v1.26에서 베타 기능으로 도입되었다.
       nodeTaintsPolicy: [Honor|Ignore] # 선택 사항이며, v1.26에서 베타 기능으로 도입되었다.
   ### 파드의 다른 필드가 이 아래에 오게 된다.
@@ -97,8 +97,8 @@ kube-scheduler가 어떻게 클러스터 내에서 기존 파드와의 관계를
   도메인의 노드가 노드 셀렉터에 매치되면 그 도메인은 적합한 도메인이다.
 
   {{< note >}}
-  `minDomains` 필드는 1.25에서 기본적으로 비활성화되어 있는 베타 필드이다. 사용을 원할 경우 
-  `MinDomainsInPodTopologySpread` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화한다.
+  `minDomains` 필드는 1.25에서 기본적으로 사용하도록 설정된 베타 필드이다. 사용을 원하지 않을 경우 
+  `MinDomainsInPodTopologySpread` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 비활성화한다.
   {{< /note >}}
   
   - `minDomains` 값을 명시하는 경우, 이 값은 0보다 커야 한다. 
@@ -129,29 +129,24 @@ kube-scheduler가 어떻게 클러스터 내에서 기존 파드와의 관계를
   [레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터)를 참조한다.
 
 - **matchLabelKeys** 는 분배도(spreading)가 계산될 파드를 선택하기 위한 파드 레이블
-  키 목록이다. 키는 파드 레이블에서 값을 조회하는 데 사용되며, 이러한 키-값 레이블은 `labelSelector`와 AND 처리되어
-  들어오는 파드(incoming pod)에 대해 분배도가 계산될 기존 파드 그룹의 선택에 사용된다.
-  `matchLabelKeys`와 `labelSelector`에 동일한 키는 금지된다. 또한 `labelSelector`가 설정되어 있지 않으면
-  `matchLabelKeys`는 설정할 수 없다. 파드 레이블에 없는 키는 무시된다. null 또는 비어 있는 목록은 `labelSelector`와만 일치함을 의미한다.
+  키 목록이다. 키는 파드 레이블에서 값을 조회하는 데 사용되며, 이러한 키-값 레이블은 `labelSelector`와 AND 처리되어 들어오는 파드(incoming pod)에 대해 분배도가 계산될 기존 파드 그룹의 선택에 사용된다. 파드 레이블에 없는 키는 무시된다. null 또는 비어 있는 목록은 `labelSelector`와만 일치함을 의미한다.
 
-  `matchLabelKeys`를 사용하면, 사용자는 다른 리비전 간에 `pod.spec`을 업데이트할 필요가 없다. 컨트롤러/오퍼레이터는 다른 리비전에 대해 동일한 `label`키에 다른 값을 설정하기만 하면 된다. 스케줄러는 `matchLabelKeys`를 기준으로 값을 자동으로 가정할 것이다. 예를 들어 당신이 디플로이먼트를 사용하는 경우, 디플로이먼트 컨트롤러에 의해 자동으로 추가되는 [pod-template-hash](/docs/concepts/workloads/controllers/deployment/#pod-template-hash-label)로 키가 지정된 레이블을 사용함으로써 단일 디플로이먼트에서 서로 다른 리비전을 구별할 수 있다.
+  `matchLabelKeys`를 사용하면, 사용자는 다른 리비전 간에 `pod.spec`을 업데이트할 필요가 없다. 컨트롤러/오퍼레이터는 다른 리비전에 대해 동일한 `label`키에 다른 값을 설정하기만 하면 된다. 스케줄러는 `matchLabelKeys`를 기준으로 값을 자동으로 가정할 것이다. 예를 들어 사용자가 디플로이먼트를 사용하는 경우, 디플로이먼트 컨트롤러에 의해 자동으로 추가되는 `pod-template-hash`로 키가 지정된 레이블을 사용함으로써 단일 디플로이먼트에서 서로 다른 리비전을 구별할 수 있다.
 
   ```yaml
       topologySpreadConstraints:
           - maxSkew: 1
             topologyKey: kubernetes.io/hostname
             whenUnsatisfiable: DoNotSchedule
-            labelSelector:
-              matchLabels:
-                app: foo
             matchLabelKeys:
+              - app
               - pod-template-hash
   ```
 
   {{< note >}}
-  `matchLabelKeys` 필드는 1.27에서 기본값으로 활성화되어 있는 베타 필드이다. 이 필드를 비활성화하려면
+  `matchLabelKeys` 필드는 1.25에서 추가된 알파 필드이다. 이 필드를 사용하려면
   `MatchLabelKeysInPodTopologySpread` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)
-  를 비활성화시켜야 한다.
+  를 활성화시켜야 한다.
   {{< /note >}}
 
 - **nodeAffinityPolicy**는 파드 토폴로지의 스프레드 스큐(spread skew)를 계산할 때
@@ -248,7 +243,7 @@ graph TB
 동일한 토폴로지 도메인(예: 클라우드 공급자 리전)에 있는 모든 노드가 
 일관적으로 레이블되도록 하는 메카니즘이 필요하다. 
 각 노드를 수동으로 레이블하는 것을 피하기 위해, 
-대부분의 클러스터는 `kubernetes.io/hostname`와 같은 잘 알려진 레이블을 자동으로 붙인다. 
+대부분의 클러스터는 `topology.kubernetes.io/hostname`와 같은 잘 알려진 레이블을 자동으로 붙인다. 
 이용하려는 클러스터가 이를 지원하는지 확인해 본다.
 
 ## 토폴로지 분배 제약 조건 예시

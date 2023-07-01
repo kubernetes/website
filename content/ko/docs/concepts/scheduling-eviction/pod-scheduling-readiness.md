@@ -70,7 +70,7 @@ kubectl get pod test-pod -o jsonpath='{.spec.schedulingGates}'
 출력은 다음과 같다.
 
 ```none
-[{"name":"example.com/foo"},{"name":"example.com/bar"}]
+[{"name":"foo"},{"name":"bar"}]
 ```
 
 스케줄러에게 이 파드가 스케줄링 될 준비가 되었음을 알리기 위해, 수정된 매니페스트를 다시 적용하여
