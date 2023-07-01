@@ -698,7 +698,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   ClusterIP range is subdivided. Dynamic allocated ClusterIP addresses will be allocated preferently
   from the upper range allowing users to assign static ClusterIPs from the lower range with a low
   risk of collision. See
-  [Avoiding collisions](/docs/concepts/services-networking/service/#avoiding-collisions)
+  [Avoiding collisions](/blog/2022/05/23/service-ip-dynamic-and-static-allocation/)
   for more details.
 - `SizeMemoryBackedVolumes`: Enable kubelets to determine the size limit for
   memory-backed volumes (mainly `emptyDir` volumes).
