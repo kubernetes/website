@@ -11,7 +11,8 @@ aliases:
 
 <!-- overview -->
 
-이 문서는 API 서버와 쿠버네티스 클러스터 사이에 대한 통신 경로의 목록을 작성한다. 
+이 문서는 {{< glossary_tooltip term_id="kube-apiserver" text="API 서버" >}}와
+쿠버네티스 {{< glossary_tooltip text="클러스터" term_id="cluster" length="all" >}} 간 통신에 대한 카탈로그이다.
 이는 사용자가 신뢰할 수 없는 네트워크(또는 클라우드 공급자의 완전한 퍼블릭 IP)에서 
 클러스터를 실행할 수 있도록 네트워크 구성을 강화하기 위한 맞춤 설치를 할 수 있도록 한다.
 
@@ -30,17 +31,17 @@ aliases:
 하나 이상의 [권한 부여](/ko/docs/reference/access-authn-authz/authorization/) 형식을 
 사용해야 한다.
 
-노드는 유효한 클라이언트 자격 증명과 함께 API 서버에 안전하게 연결할 수 있도록 
+노드는 유효한 클라이언트 {{< glossary_tooltip text="자격 증명" term_id="certificate" >}}과 함께 API 서버에 안전하게 연결할 수 있도록 
 클러스터에 대한 공개 루트 인증서(root certificate)로 프로비전해야 한다. 클라이언트 인증서(client certificate) 형식으로 
 kubelet의 클라이언트 자격 증명을 사용하는 것은 좋은 방법이다.
 kubelet 클라이언트 인증서(client certificate)의 자동 프로비저닝은
 [kubelet TLS 부트스트랩](/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/)을 참고한다.
 
-API 서버에 연결하려는 파드는 서비스 어카운트를 활용하여 안전하게
+API 서버에 연결하려는 {{< glossary_tooltip text="파드" term_id="pod" >}}는 서비스 어카운트를 활용하여 안전하게
 쿠버네티스가 공개 루트 인증서(root certificate)와 유효한 베어러 토큰(bearer token)을 파드가 인스턴스화될 때 
 파드에 자동으로 주입할 수 있다.
 `kubernetes` 서비스(`default` 네임스페이스의)는 API 서버의 HTTPS 엔드포인트로 리디렉션되는
-가상 IP 주소(kube-proxy를 통해)로 구성되어 있다.
+가상 IP 주소({{< glossary_tooltip text="kube-proxy" term_id="kube-proxy" >}}를 통해)로 구성되어 있다.
 
 컨트롤 플레인 컴포넌트는 보안 포트를 통해 클러스터 API 서버와도 통신한다.
 
@@ -51,7 +52,7 @@ API 서버에 연결하려는 파드는 서비스 어카운트를 활용하여 �
 ## 컨트롤 플레인에서 노드로의 통신
 
 컨트롤 플레인(API 서버)에서 노드로는 두 가지 기본 통신 경로가 있다. 
-첫 번째는 API 서버에서 클러스터의 각 노드에서 실행되는 kubelet 프로세스이다.
+첫 번째는 API 서버에서 클러스터의 각 노드에서 실행되는 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 프로세스이다.
 두 번째는 API 서버의 _프록시_ 기능을 통해 API 서버에서 모든 노드, 파드 또는 서비스에 
 이르는 것이다.
 
@@ -90,7 +91,7 @@ API 서버에서 노드, 파드 또는 서비스로의 연결은 기본적으로
 ### SSH 터널
 
 쿠버네티스는 SSH 터널을 지원하여 컨트롤 플레인에서 노드로의 통신 경로를 보호한다. 
-이 구성에서, API 서버는 클러스터의 각 노드에 SSH 터널을 시작하고
+이 구성에서, API 서버는 클러스터의 각 노드에 [SSH 터널](https://www.ssh.com/academy/ssh/tunneling)을 시작하고
 (포트 22에서 수신 대기하는 ssh 서버에 연결) 터널을 통해 
 kubelet, 노드, 파드 또는 서비스로 향하는 모든 트래픽을 전달한다.
 이 터널은 노드가 실행 중인 네트워크의 외부로 트래픽이 
@@ -116,3 +117,13 @@ Konnectivity 서비스를 활성화한 후, 모든 컨트롤 플레인에서 노
 
 [Konnectivity 서비스 태스크](/ko/docs/tasks/extend-kubernetes/setup-konnectivity/)에 따라 
 클러스터에서 Konnectivity 서비스를 설정한다.
+
+## {{% heading "whatsnext" %}}
+
+* [쿠버네티스 컨트롤 플레인 컴포넌트](/ko/docs/concepts/overview/components/#컨트롤-플레인-컴포넌트)에 대해 읽어보기
+* [허브 앤 스포크 모델](https://book.kubebuilder.io/multiversion-tutorial/conversion-concepts.html#hubs-spokes-and-other-wheel-metaphors)에 대해 알아보기
+* [클러스터 보안](/docs/tasks/administer-cluster/securing-a-cluster/) 방법 알아보기
+* [쿠버네티스 API](/ko/docs/concepts/overview/kubernetes-api/)에 대해 더 알아보기
+* [Konnectivity 서비스 설정](/ko/docs/tasks/extend-kubernetes/setup-konnectivity/)
+* [포트 포워딩을 사용해서 클러스터 내 애플리케이션에 접근하기](/ko/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+* [파드의 로그 확인](/ko/docs/tasks/debug/debug-application/debug-running-pod/#examine-pod-logs), [kubectl port-forward 사용](/ko/docs/tasks/access-application-cluster/port-forward-access-application-cluster/#forward-a-local-port-to-a-port-on-the-pod) 방법 알아보기

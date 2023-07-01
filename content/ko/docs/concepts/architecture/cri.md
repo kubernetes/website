@@ -25,7 +25,7 @@ weight: 60
 
 Kubelet은 gRPC를 통해 컨테이너 런타임과 연결할 때 클라이언트의 역할을 수행한다.
 런타임과 이미지 서비스 엔드포인트는 컨테이너 런타임 내에서 사용 가능해야 하며, 
-이는 각각 Kubelet 내에서 `--image-service-endpoint`와 `--container-runtime-endpoint` 
+이는 각각 Kubelet 내에서 `--image-service-endpoint` 
 [커맨드라인 플래그](/docs/reference/command-line-tools-reference/kubelet)
 를 통해 설정할 수 있다.
 
