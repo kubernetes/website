@@ -9,7 +9,7 @@ title: "HorizontalPodAutoscaler"
 weight: 11
 ---
 
-<--
+<!--
 api_metadata:
   apiVersion: "autoscaling/v1"
   import: "k8s.io/api/autoscaling/v1"

@@ -405,7 +405,7 @@ The set of pods that a `service` targets is defined with a label selector.
 Similarly, the population of pods that a `replicationcontroller` should
 manage is also defined with a label selector.
 
-Labels selectors for both objects are defined in `json` or `yaml` files using maps,
+Label selectors for both objects are defined in `json` or `yaml` files using maps,
 and only _equality-based_ requirement selectors are supported:
 -->
 #### Service 和 ReplicationController

@@ -23,8 +23,8 @@ When APIs evolve, the old API is deprecated and eventually removed.
 This page contains information you need to know when migrating from
 deprecated API versions to newer and more stable API versions.
 -->
-随着 Kubernetes API 的演化，APIs 会周期性地被重组或升级。
-当 APIs 演化时，老的 API 会被弃用并被最终删除。
+随着 Kubernetes API 的演化，API 会周期性地被重组或升级。
+当 API 演化时，老的 API 会被弃用并被最终删除。
 本页面包含你在将已弃用 API 版本迁移到新的更稳定的 API 版本时需要了解的知识。
 
 <!-- body -->
@@ -105,7 +105,7 @@ The **flowcontrol.apiserver.k8s.io/v1beta1** API version of FlowSchema and Prior
 * All existing persisted objects are accessible via the new API
 * No notable changes
 -->
-从 v1.26 版本开始不再提供 **flowcontrol.apiserver.k8s.io/v1beta1** API 版本的 
+从 v1.26 版本开始不再提供 **flowcontrol.apiserver.k8s.io/v1beta1** API 版本的
 FlowSchema 和 PriorityLevelConfiguration。
 
 * 迁移清单和 API 客户端使用 **flowcontrol.apiserver.k8s.io/v1beta3** API 版本，
@@ -148,7 +148,7 @@ The **batch/v1beta1** API version of CronJob is no longer served as of v1.25.
 
 * 迁移清单和 API 客户端使用 **batch/v1** API 版本，此 API 从 v1.21 版本开始可用；
 * 所有的已保存的对象都可以通过新的 API 来访问；
-* 没有需要额外注意的变更
+* 没有需要额外注意的变更。
 
 #### EndpointSlice {#endpointslice-v125}
 
@@ -218,7 +218,6 @@ The **events.k8s.io/v1beta1** API version of Event is no longer served as of v1.
 <!--
 The **autoscaling/v2beta1** API version of HorizontalPodAutoscaler is no longer served as of v1.25.
 
-
 * Migrate manifests and API clients to use the **autoscaling/v2** API version, available since v1.23.
 * All existing persisted objects are accessible via the new API
 -->
@@ -226,7 +225,7 @@ The **autoscaling/v2beta1** API version of HorizontalPodAutoscaler is no longer 
 HorizontalPodAutoscaler。
 
 * 迁移清单和 API 客户端使用 **autoscaling/v2** API 版本，此 API 从 v1.23 版本开始可用；
-* 所有的已保存的对象都可以通过新的 API 来访问；
+* 所有的已保存的对象都可以通过新的 API 来访问。
 
 #### PodDisruptionBudget {#poddisruptionbudget-v125}
 
@@ -244,9 +243,9 @@ The **policy/v1beta1** API version of PodDisruptionBudget is no longer served as
 * 所有的已保存的对象都可以通过新的 API 来访问；
 * **policy/v1** 中需要额外注意的变更有：
   * 在 `policy/v1` 版本的 PodDisruptionBudget 中将 `spec.selector`
-    设置为空（`{}`）时会选择名字空间中的所有 Pods（在 `policy/v1beta1`
-    版本中，空的 `spec.selector` 不会选择任何 Pods）。如果 `spec.selector`
-    未设置，则在两个 API 版本下都不会选择任何 Pods。
+    设置为空（`{}`）时会选择名字空间中的所有 Pod（在 `policy/v1beta1`
+    版本中，空的 `spec.selector` 不会选择任何 Pod）。如果 `spec.selector`
+    未设置，则在两个 API 版本下都不会选择任何 Pod。
 
 #### PodSecurityPolicy {#psp-v125}
 
@@ -278,7 +277,7 @@ RuntimeClass in the **node.k8s.io/v1beta1** API version is no longer served as o
 
 * 迁移清单和 API 客户端使用 **node.k8s.io/v1** API 版本，此 API 从 v1.20 版本开始可用；
 * 所有的已保存的对象都可以通过新的 API 来访问；
-* 没有需要额外注意的变更
+* 没有需要额外注意的变更。
 
 ### v1.22
 
@@ -303,7 +302,7 @@ The **admissionregistration.k8s.io/v1beta1** API version of MutatingWebhookConfi
 * All existing persisted objects are accessible via the new APIs
 -->
 * 迁移清单和 API 客户端使用 **admissionregistration.k8s.io/v1** API 版本，
-此 API 从 v1.16 版本开始可用；
+  此 API 从 v1.16 版本开始可用；
 * 所有的已保存的对象都可以通过新的 API 来访问；
 
 <!--
@@ -388,7 +387,7 @@ The **apiregistration.k8s.io/v1beta1** API version of APIService is no longer se
 * 迁移清单和 API 客户端使用 **apiregistration.k8s.io/v1** API 版本，此 API 从
   v1.10 版本开始可用；
 * 所有的已保存的对象都可以通过新的 API 来访问；
-* 没有需要额外注意的变更
+* 没有需要额外注意的变更。
 
 #### TokenReview {#tokenreview-v122}
 
@@ -403,7 +402,7 @@ The **authentication.k8s.io/v1beta1** API version of TokenReview is no longer se
 * 迁移清单和 API 客户端使用 **authentication.k8s.io/v1** API 版本，此 API 从
   v1.6 版本开始可用；
 * 所有的已保存的对象都可以通过新的 API 来访问；
-* 没有需要额外注意的变更
+* 没有需要额外注意的变更。
 
 #### SubjectAccessReview resources {#subjectaccessreview-resources-v122}
 
@@ -423,7 +422,6 @@ SelfSubjectAccessReview、SubjectAccessReview、SelfSubjectRulesReview 不在 v1
 * 需要额外注意的变更：
   * `spec.group` 在 v1 版本中被更名为 `spec.groups`
     （补丁 [#32709](https://github.com/kubernetes/kubernetes/issues/32709)）
-
 
 #### CertificateSigningRequest {#certificatesigningrequest-v122}
 
@@ -478,7 +476,7 @@ The **coordination.k8s.io/v1beta1** API version of Lease is no longer served as 
 * 迁移清单和 API 客户端使用 **coordination.k8s.io/v1** API 版本，此 API 从
   v1.14 版本开始可用；
 * 所有的已保存的对象都可以通过新的 API 来访问；
-* 没有需要额外注意的变更
+* 没有需要额外注意的变更。
 
 #### Ingress {#ingress-v122}
 
@@ -503,13 +501,13 @@ The **extensions/v1beta1** and **networking.k8s.io/v1beta1** API versions of Ing
     * `pathType` is now required for each specified path. Options are `Prefix`, `Exact`, and `ImplementationSpecific`. To match the undefined `v1beta1` behavior, use `ImplementationSpecific`.
 -->
 * 值得注意的变更：
-    * `spec.backend` 字段被更名为 `spec.defaultBackend`
-    * 后端的  `serviceName` 字段被更名为 `service.name`
-    * 数值表示的后端 `servicePort` 字段被更名为 `service.port.number`
-    * 字符串表示的后端 `servicePort` 字段被更名为 `service.port.name`
-    * 对所有要指定的路径，`pathType` 都成为必需字段。
-      可选项为 `Prefix`、`Exact` 和 `ImplementationSpecific`。
-      要匹配 `v1beta1` 版本中未定义路径类型时的行为，可使用 `ImplementationSpecific`
+  * `spec.backend` 字段被更名为 `spec.defaultBackend`
+  * 后端的 `serviceName` 字段被更名为 `service.name`
+  * 数值表示的后端 `servicePort` 字段被更名为 `service.port.number`
+  * 字符串表示的后端 `servicePort` 字段被更名为 `service.port.name`
+  * 对所有要指定的路径，`pathType` 都成为必需字段。
+    可选项为 `Prefix`、`Exact` 和 `ImplementationSpecific`。
+    要匹配 `v1beta1` 版本中未定义路径类型时的行为，可使用 `ImplementationSpecific`
 
 #### IngressClass {#ingressclass-v122}
 
@@ -525,8 +523,7 @@ The **networking.k8s.io/v1beta1** API version of IngressClass is no longer serve
 * 迁移清单和 API 客户端使用 **networking.k8s.io/v1** API 版本，此 API 从
   v1.19 版本开始可用；
 * 所有的已保存的对象都可以通过新的 API 来访问；
-* 没有需要额外注意的变更
-
+* 没有需要额外注意的变更。
 
 <!--
 #### RBAC resources  {#rbac-resources-v122}
@@ -545,7 +542,7 @@ Role 和 RoleBinding 不在 v1.22 版本中继续提供。
 * 迁移清单和 API 客户端使用 **rbac.authorization.k8s.io/v1** API 版本，此 API 从
   v1.8 版本开始可用；
 * 所有的已保存的对象都可以通过新的 API 来访问；
-* 没有需要额外注意的变更
+* 没有需要额外注意的变更。
 
 #### PriorityClass {#priorityclass-v122}
 
@@ -561,7 +558,7 @@ The **scheduling.k8s.io/v1beta1** API version of PriorityClass is no longer serv
 * 迁移清单和 API 客户端使用 **scheduling.k8s.io/v1** API 版本，此 API 从
   v1.14 版本开始可用；
 * 所有的已保存的对象都可以通过新的 API 来访问；
-* 没有需要额外注意的变更
+* 没有需要额外注意的变更。
 
 <!--
 #### Storage resources {#storage-resources-v122}
@@ -588,7 +585,7 @@ The **storage.k8s.io/v1beta1** API version of CSIDriver, CSINode, StorageClass, 
   * StorageClass 从 v1.6 版本开始在 **storage.k8s.io/v1** 中提供；
   * VolumeAttachment 从 v1.13 版本开始在 **storage.k8s.io/v1** 中提供；
 * 所有的已保存的对象都可以通过新的 API 来访问；
-* 没有需要额外注意的变更
+* 没有需要额外注意的变更。
 
 ### v1.16
 
@@ -609,7 +606,7 @@ The **extensions/v1beta1** API version of NetworkPolicy is no longer served as o
 
 * 迁移清单和 API 客户端使用 **networking.k8s.io/v1** API 版本，此 API 从
   v1.8 版本开始可用；
-* 所有的已保存的对象都可以通过新的 API 来访问；
+* 所有的已保存的对象都可以通过新的 API 来访问。
 
 #### DaemonSet {#daemonset-v116}
 
@@ -787,7 +784,7 @@ to automatically convert an existing object:
 <!--
 For example, to convert an older Deployment to `apps/v1`, you can run:
 -->
-例如，要将较老的 Deployment 版本转换为 `apps/v1` 版本，你可以运行
+例如，要将较老的 Deployment 版本转换为 `apps/v1` 版本，你可以运行：
 
 `kubectl-convert -f ./my-deployment.yaml --output-version apps/v1`
 

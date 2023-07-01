@@ -201,8 +201,8 @@ web-0
 web-1
 ```
 その後、次のコマンドを実行します。
-```
-kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm /bin/sh
+```shell
+kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm
 ```
 これにより、新しいシェルが起動します。新しいシェルで、次のコマンドを実行します。
 ```shell

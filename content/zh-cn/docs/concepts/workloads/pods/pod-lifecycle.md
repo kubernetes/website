@@ -601,6 +601,18 @@ Each probe must define exactly one of these four mechanisms:
   如果远程系统（容器）在打开连接后立即将其关闭，这算作是健康的。
 
 <!--
+{{< caution >}} Unlike the other mechanisms, `exec` probe's implementation involves the creation/forking of multiple processes each time when executed.
+As a result, in case of the clusters having higher pod densities, lower intervals of `initialDelaySeconds`, `periodSeconds`, configuring any probe with exec mechanism might introduce an overhead on the cpu usage of the node.
+In such scenarios, consider using the alternative probe mechanisms to avoid the overhead.{{< /caution >}}
+-->
+{{< caution >}}
+和其他机制不同，`exec` 探针的实现涉及每次执行时创建/复制多个进程。
+因此，在集群中具有较高 pod 密度、较低的 `initialDelaySeconds` 和 `periodSeconds` 时长的时候，
+配置任何使用 exec 机制的探针可能会增加节点的 CPU 负载。
+这种场景下，请考虑使用其他探针机制以避免额外的开销。
+{{< /caution >}}
+
+<!--
 ### Probe outcome
 Each probe has one of three results:
 

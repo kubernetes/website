@@ -127,7 +127,7 @@ two types of cascading deletion, as follows:
 
 Kubernetes 会检查并删除那些不再拥有属主引用的对象，例如在你删除了 ReplicaSet
 之后留下来的 Pod。当你删除某个对象时，你可以控制 Kubernetes 是否去自动删除该对象的依赖对象，
-这个过程称为 **级联删除（Cascading Deletion）**。
+这个过程称为**级联删除（Cascading Deletion）**。
 级联删除有两种类型，分别如下：
 
 * 前台级联删除
@@ -236,12 +236,12 @@ break the kubelet behavior and remove containers that should exist.
 To configure options for unused container and image garbage collection, tune the
 kubelet using a [configuration file](/docs/tasks/administer-cluster/kubelet-config-file/)
 and change the parameters related to garbage collection using the
-[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
 resource type.
 -->
 要配置对未使用容器和镜像的垃圾收集选项，可以使用一个
 [配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)，基于
-[`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+[`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
 资源类型来调整与垃圾收集相关的 kubelet 行为。
 
 <!--

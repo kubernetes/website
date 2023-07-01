@@ -233,6 +233,18 @@ saving container logs to a central log store with search/browsing interface.
 [集群层面日志](/zh-cn/docs/concepts/cluster-administration/logging/)机制负责将容器的日志数据保存到一个集中的日志存储中，
 这种集中日志存储提供搜索和浏览接口。
 
+<!--
+### Network Plugins
+
+[Network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins) are software
+components that implement the container network interface (CNI) specification. They are responsible for
+allocating IP addresses to pods and enabling them to communicate with each other within the cluster.
+-->
+### 网络插件   {#network-plugins}
+
+[网络插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins)
+是实现容器网络接口（CNI）规范的软件组件。它们负责为 Pod 分配 IP 地址，并使这些 Pod 能在集群内部相互通信。
+
 ## {{% heading "whatsnext" %}}
 
 <!--
