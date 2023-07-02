@@ -1,6 +1,10 @@
 ---
 title: 파드와 노드 보기
 weight: 10
+description: |-
+  쿠버네티스 애플리케이션 문제를 해결하는 방법 알아보기
+  kubectl get, kubectl describe, kubectl logs 및
+  kubectl exec.
 ---
 
 <!DOCTYPE html>
@@ -105,12 +109,12 @@ weight: 10
         <div class="row">
             <div class="col-md-8">
                 <h2>kubectl로 문제해결하기</h2>
-                <p>모듈 <a href="/ko/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>에서, Kubectl 커맨드-라인 인터페이스를 사용했다. 배포된 애플리케이션과 그 환경에 대한 정보를 얻기 위해 모듈3에서도 계속 그것을 사용할 것이다. 가장 보편적인 운용업무는 다음 kubectl 명령어를 이용하여 처리할 수 있다:</p>
+                <p>모듈 <a href="/ko/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>에서, Kubectl 커맨드-라인 인터페이스를 사용했다. 배포된 애플리케이션과 그 환경에 대한 정보를 얻기 위해 모듈3에서도 계속 그것을 사용할 것이다. 가장 보편적인 운용업무는 다음 kubectl 하위 명령어를 이용하여 처리할 수 있다:</p>
                 <ul>
-                    <li><b>kubectl get</b> - 자원을 나열한다</li>
-                    <li><b>kubectl describe</b> - 자원에 대해 상세한 정보를 보여준다.</li>
-                    <li><b>kubectl logs</b> - 파드 내 컨테이너의 로그들을 출력한다</li>
-                    <li><b>kubectl exec</b> - 파드 내 컨테이너에 대한 명령을 실행한다.</li>
+                    <li><tt><b>kubectl get</b></tt> - 자원을 나열한다</li>
+                    <li><tt><b>kubectl describe</b></tt> - 자원에 대해 상세한 정보를 보여준다.</li>
+                    <li><tt><b>kubectl logs</b></tt> - 파드 내 컨테이너의 로그들을 출력한다.</li>
+                    <li><tt><b>kubectl exec</b></tt> - 파드 내 컨테이너에 대한 명령을 실행한다.</li>
                 </ul>
 
                 <p>언제 애플리케이션이 배포되었으며, 현재 상태가 어떠한지, 그것의 구성은 어떠한지 등을 보기 위해 이러한 명령을 이용할 수 있다.</p>
@@ -124,13 +128,71 @@ weight: 10
                 </div>
             </div>
         </div>
-        <br>
 
         <div class="row">
             <div class="col-md-12">
-                <a class="btn btn-lg btn-success" href="/ko/docs/tutorials/kubernetes-basics/explore/explore-interactive/" role="button">대화형 튜토리얼 시작하기 <span class="btn__next">›</span></a>
+                <h3>애플리케이션 구성 확인</h3>
+                <p>이전 시나리오에서 배포한 애플리케이션이 실행 중인지 확인해보자. <code>kubectl get</code> 명령을 사용하여 기존 파드를 찾아보자:</p>
+                <p><b><code>kubectl get pods</code></b></p>
+                <p>실행 중인 파드가 없으면, 몇 초간 기다린 후 파드를 다시 나열해보자. 하나의 파드가 실행 중이면 진행할 수 있다.</p>
+                <p>다음으로, 해당 파드 내부에 어떤 컨테이너가 있고 해당 컨테이너를 빌드하는 데 사용되는 이미지를 보기 위해 <code>kubectl describe pods</code> 명령을 실행한다:</p>
+                <p><b><code>kubectl describe pods</code></b></p>
+                <p>파드의 컨테이너에 대한 세부 정보를 볼 수 있다: IP 주소, 사용된 포트 및 파드의 라이프사이클와 관련된 이벤트 목록</p>
+                <p><tt>describe</tt> 하위 명령의 출력은 광범위하며 아직 설명하지 않은 일부 개념을 다루고 있지만, 걱정하지 말자, 이 부트캠프가 끝나면 익숙해질 것이다.</p>
+                <p><em><strong>노트:</strong> <tt>describe</tt> 하위 명령을 사용하여 노드, 파드 및 디플로이먼트를 포함한 대부분의 쿠버네티스 프리미티브(primitives)에 대한 자세한 정보를 얻을 수 있다. describe 출력은 사람이 읽을 수 있도록 설계되었으며 스크립트로 작성할 수 없다.</em></p>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>터미널에 앱 표시</h3>
+                <p>파드는 격리된, 프라이빗 네트워크에서 실행되므로 - 디버깅하고 상호 작용할 수 있도록 
+                파드에 대한 프록시 접근이 필요하다. 이를 위해, <code>kubectl proxy</code> 명령을 사용하여 <strong>두 번째 터미널</strong>에서 프록시를 실행한다. 새 터미널 창을 열고 새 터미널에서 다음을 실행하자:</p>
+                <p><code><b>kubectl proxy</b></code></p>
+                <p>이제 다시, 파드 이름을 가져오고 프록시를 통해 해당 파드를 직접 쿼리한다.
+                파드 이름을 가져오고 <tt>POD_NAME</tt> 환경 변수에 저장하려면:</p>
+                <p><code><b>export POD_NAME="$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')"</b></code><br />
+                <code><b>echo Name of the Pod: $POD_NAME</b></code></p>
+                <p>애플리케이션의 출력을 보려면, <code>curl</code> 요청을 실행하자:</p>
+                <p><code><b>curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/proxy/</b></code></p>
+                <p>URL은 파드의 API에 대한 경로이다.</p>
+           </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>컨테이너 로그 보기</h3>
+                <p>일반적으로 애플리케이션이 표준 출력으로 보내는 모든 항목은 파드 내의 컨테이너에 대한 로그가 된다. <code>kubectl logs</code> 명령을 사용하여 이 로그를 검색할 수 있다:</p>
+                <p><code><b>kubectl logs "$POD_NAME"</b></code></p>
+                <p><em><strong>노트:</strong> 파드 내부에 하나의 컨테이너만 있기 때문에, 컨테이너 이름을 지정할 필요가 없다.</em></p>
+           </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>컨테이너에서 명령 실행</h3>
+                <p>파드가 실행되면 컨테이너에서 직접 명령을 실행할 수 있다.
+                이를 위해, <code>exec</code> 하위 명령을 사용하고 파드 이름을 매개변수로 사용한다. 환경 변수를 나열해보자:</p>
+                <p><code><b>kubectl exec "$POD_NAME" -- env</b></code></p>
+                <p>다시 말하지만, 파드에는 단일 컨테이너만 있으므로 컨테이너 자체의 이름을 생략할 수 있다.</p>
+                <p>다음으로 파드의 컨테이너에서 bash 세션을 시작한다:</p>
+                <p><code><b>kubectl exec -ti $POD_NAME -- bash</b></code></p>
+                <p>이제 NodeJS 애플리케이션을 실행하는 컨테이너에 열린 콘솔이 있다. 앱의 소스 코드는 <tt>server.js</tt> 파일에 있다:</p>
+                <p><code><b>cat server.js</b></code></p>
+                <p><tt>curl</tt> 명령을 실행하여 애플리케이션이 실행 중인지 확인할 수 있다:</p>
+                <p><code><b>curl http://localhost:8080</b></code></p>
+                <p><em><strong>노트:</strong> 여기서는 NodeJS 파드 내부에서 명령을 실행했기 때문에 <tt>localhost</tt>를 사용했다. localhost:8080에 연결할 수 없는 경우, <code>kubectl exec</code> 명령을 실행했고 포드 내에서 명령을 실행하고 있는지 확인해보자.</em></p>
+                <p>컨테이너 연결을 닫으려면, <code><b>exit</b></code>를 입력하자.</p>
+           </div>
+        </div>
+
+
+      <div class="row">
+          <p>
+            준비가 됐다면, <a href="/ko/docs/tutorials/kubernetes-basics/expose/expose-intro/" title="Using A Service To Expose Your App">서비스를 사용하여 앱 노출</a>로 이동하자.</p>
+          </p>
+      </div>
+
 
     </main>
 
