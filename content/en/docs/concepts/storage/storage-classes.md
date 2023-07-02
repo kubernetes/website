@@ -59,10 +59,10 @@ volumeBindingMode: Immediate
 
 ### Default StorageClass
 
-When a PVC does not specify a `storageClassName`, the default StorageClass will
-be used. The cluster can only have one default StorageClass. If more than one
-default StorageClass is accidentally set, the newest default will be used when
-dynamically provisioning a PVC without a `storageClassName`.
+When a PVC does not specify a `storageClassName`, the default StorageClass is
+used. The cluster can only have one default StorageClass. If more than one
+default StorageClass is accidentally set, the newest default is used when the
+PVC is dynamically provisioned.
 
 For instructions on setting the default StorageClass, see
 [Change the default StorageClass](https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/).
