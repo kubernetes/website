@@ -32,10 +32,13 @@ Each StorageClass contains the fields `provisioner`, `parameters`, and
 `reclaimPolicy`, which are used when a PersistentVolume belonging to the
 class needs to be dynamically provisioned.
 
-The name of a StorageClass object is significant, and is how users can
-request a particular class. Administrators set the name and other parameters
-of a class when first creating StorageClass objects, and the objects cannot
-be updated once they are created.
+The name of a StorageClass object is significant, as it allows users to request a specific
+class for their storage needs. When administrators create StorageClass objects, they define 
+not only the name but also other parameters, annotations, and labels to customize the behavior
+of the class according to different use cases. Unlike the initial statement, the objects' annotations, 
+labels, and parameters can be updated after creation. For instance, administrators can modify the StorageClass 
+by adding more storage pools through parameters to adapt to changing requirements and optimize resource allocation 
+for various workloads. This flexibility allows for better management and utilization of storage resources in the Kubernetes environment.
 
 Administrators can specify a default StorageClass only for PVCs that don't
 request any particular class to bind to: see the
@@ -46,10 +49,10 @@ for details.
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: standard
-provisioner: kubernetes.io/aws-ebs
+  name: sc-name
+provisioner: example.com/storage
 parameters:
-  type: gp2
+  pools: pool1,pool2,pool3
 reclaimPolicy: Retain
 allowVolumeExpansion: true
 mountOptions:
