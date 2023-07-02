@@ -57,14 +57,13 @@ mountOptions:
 volumeBindingMode: Immediate
 ```
 
-### Default Storage Class
+### Default StorageClass
 
-Typically, each Kubernetes cluster should have a default storage class defined, which would be used by the user who make a storage request without implicitly specifying a StorageClass in his/her PersistentVolumeClaim.  Kubernetes clusters on different cloud providers may already have default storageclasses defined.  By having a default storage classs defined, this allows users to request storage through a PersistentVolumeClaim without explicitly setting a StorageClassName.
+Typically, each Kubernetes cluster should have a default StorageClass defined, which allows users to request storage through a PersistentVolumeClaim without explicitly setting a `storageClassName`. Kubernetes clusters on different cloud providers may already have a default StorageClass defined.
 
-There can only be one default storage class in the cluster.  Dynamic provisioning will fail if there are multiple default storage classes set.
+There can only be one default StorageClass in the cluster. Dynamic provisioning will fail if there are multiple default storage classes set.
 
-Refer to [Change Default Storage Class](https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/) on how to set the default storage class.
-
+Refer to [Change the default StorageClass](https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/) on how to set the default StorageClass.
 
 ### Provisioner
 
