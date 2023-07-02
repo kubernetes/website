@@ -50,7 +50,7 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: sc-name
-provisioner: example.com/storage
+provisioner: kubernetes.io/aws-ebs
 parameters:
   pools: pool1,pool2,pool3
 reclaimPolicy: Retain
