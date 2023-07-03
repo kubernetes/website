@@ -1050,7 +1050,9 @@ Example: `batch.kubernetes.io/cronjob-scheduled-timestamp: "2016-05-19T03:00:00-
 
 Used on: Jobs and Pods controlled by Jobs
 
-This annotation is used to record the original/expected creation timestamp for the running job. It is represented in RFC3339.
+This annotation is used to record the original (expected) creation timestamp for a Job,
+when that Job is part of a CronJob.
+The control plane sets the value to that timestamp in RFC3339 format.
 
 ### kubectl.kubernetes.io/default-container
 
