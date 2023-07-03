@@ -9,10 +9,15 @@ CONTAINER_ENGINE ?= docker
 IMAGE_REGISTRY ?= gcr.io/k8s-staging-sig-docs
 IMAGE_VERSION=$(shell scripts/hash-files.sh Dockerfile Makefile | cut -c 1-12)
 CONTAINER_IMAGE   = $(IMAGE_REGISTRY)/k8s-website-hugo:v$(HUGO_VERSION)-$(IMAGE_VERSION)
-CONTAINER_RUN     = "$(CONTAINER_ENGINE)" run --rm --interactive --tty --volume "$(CURDIR):/src"
+# Mount read-only to allow use with tools like Podman in SELinux mode
+# Container targets don't need to write into /src
+CONTAINER_RUN     = "$(CONTAINER_ENGINE)" run --rm --interactive --tty --volume "$(CURDIR):/src:ro,Z"
 
 CCRED=\033[0;31m
 CCEND=\033[0m
+
+# Docker buildx related settings for multi-arch images
+DOCKER_BUILDX ?= docker buildx
 
 .PHONY: all build build-preview help serve
 
@@ -35,7 +40,7 @@ build-preview: module-check ## Build site with drafts and future posts enabled
 	hugo --cleanDestinationDir --buildDrafts --buildFuture --environment preview
 
 deploy-preview: ## Deploy preview site via netlify
-	hugo --cleanDestinationDir --enableGitInfo --buildFuture --environment preview -b $(DEPLOY_PRIME_URL)
+	GOMAXPROCS=1 hugo --cleanDestinationDir --enableGitInfo --buildFuture --environment preview -b $(DEPLOY_PRIME_URL)
 
 functions-build:
 	$(NETLIFY_FUNC) build functions-src
@@ -44,11 +49,11 @@ check-headers-file:
 	scripts/check-headers-file.sh
 
 production-build: module-check ## Build the production site and ensure that noindex headers aren't added
-	hugo --cleanDestinationDir --minify --environment production
+	GOMAXPROCS=1 hugo --cleanDestinationDir --minify --environment production
 	HUGO_ENV=production $(MAKE) check-headers-file
 
 non-production-build: module-check ## Build the non-production site, which adds noindex headers to prevent indexing
-	hugo --cleanDestinationDir --enableGitInfo --environment nonprod
+	GOMAXPROCS=1 hugo --cleanDestinationDir --enableGitInfo --environment nonprod
 
 serve: module-check ## Boot the development server.
 	hugo server --buildFuture --environment development
@@ -73,6 +78,23 @@ container-image: ## Build a container image for the preview of the website
 
 container-push: container-image ## Push container image for the preview of the website
 	$(CONTAINER_ENGINE) push $(CONTAINER_IMAGE)
+
+PLATFORMS ?= linux/arm64,linux/amd64
+docker-push: ## Build a multi-architecture image and push that into the registry
+	docker run --rm --privileged tonistiigi/binfmt:qemu-v6.2.0-26@sha256:5bf63a53ad6222538112b5ced0f1afb8509132773ea6dd3991a197464962854e --install all
+	docker version
+	$(DOCKER_BUILDX) version
+	$(DOCKER_BUILDX) inspect image-builder > /dev/null 2>&1 || $(DOCKER_BUILDX) create --name image-builder --use
+	# copy existing Dockerfile and insert --platform=${TARGETPLATFORM} into Dockerfile.cross, and preserve the original Dockerfile
+	sed -e 's/\(^FROM\)/FROM --platform=\$$\{TARGETPLATFORM\}/' Dockerfile > Dockerfile.cross
+	$(DOCKER_BUILDX) build \
+		--push \
+		--platform=$(PLATFORMS) \
+		--build-arg HUGO_VERSION=$(HUGO_VERSION) \
+		--tag $(CONTAINER_IMAGE) \
+		-f Dockerfile.cross .
+	$(DOCKER_BUILDX) stop image-builder
+	rm Dockerfile.cross
 
 container-build: module-check
 	$(CONTAINER_RUN) --read-only --mount type=tmpfs,destination=/tmp,tmpfs-mode=01777 $(CONTAINER_IMAGE) sh -c "npm ci && hugo --minify --environment development"

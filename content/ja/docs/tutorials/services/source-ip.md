@@ -2,6 +2,7 @@
 title: 送信元IPを使用する
 content_type: tutorial
 min-kubernetes-server-version: v1.5
+weight: 40
 ---
 
 <!-- overview -->
@@ -41,7 +42,7 @@ the target localization.
 以下の例では、HTTPヘッダー経由で受け取ったリクエストの送信元IPをエコーバックする、小さなnginxウェブサーバーを使用します。次のコマンドでウェブサーバーを作成できます。
 
 ```shell
-kubectl create deployment source-ip-app --image=k8s.gcr.io/echoserver:1.4
+kubectl create deployment source-ip-app --image=registry.k8s.io/echoserver:1.4
 ```
 
 出力は次のようになります。

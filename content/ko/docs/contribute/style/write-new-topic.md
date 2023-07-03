@@ -1,7 +1,7 @@
 ---
 title: 새로운 주제의 문서 작성
 content_type: task
-weight: 20
+weight: 70
 ---
 
 <!-- overview -->
@@ -97,17 +97,17 @@ YAML 블록이다. 여기 예시가 있다.
 파일에 코드를 직접 삽입하자. 다음 경우에
 권장된다. (전체 목록은 아님)
 
-- 이 코드는 `kubectl get deploy mydeployment -o json | jq '.status'`와 같은
-  명령어의 출력을 보여준다.
-- 이 코드는 시도해보기에 적절하지 않다. 예를 들어
-  특정 [FlexVolume](/ko/docs/concepts/storage/volumes#flexvolume) 구현에 따라
+- `kubectl get deploy mydeployment -o json | jq '.status'`와 같은
+  명령어의 출력을 보여주는 코드.
+- 시도해보기에는 적절하지 않은 코드. 예를 들어
+  특정 [FlexVolume](/ko/docs/concepts/storage/volumes#flexvolume-deprecated) 구현에 따라
   파드를 만들기 위해 YAML 파일을
   포함할 수 있다.
-- 이 코드의 목적은 더 큰 파일의 일부를 강조하는 것이기 때문에
-  불완전한 예제다. 예를 들어 몇 가지 이유로
-  [PodSecurityPolicy](/ko/docs/tasks/administer-cluster/sysctl-cluster/#파드시큐리티폴리시-podsecuritypolicy)
-  를 사용자 정의 방법을 설명할 때 문서 파일에서 직접 짧은 요약 정보를 제공할 수 있다.
-- 이 코드는 사용자가 다른 이유로 시도하기 위한 것이 아니다. 예를 들어
+- 더 큰 파일의 일부분을 강조하기 위한 불완전한 예제 코드.
+  예를 들어 [롤바인딩(RoleBinding)](/docs/reference/access-authn-authz/rbac/#role-binding-examples)
+  에 대한 사용자 정의 방법을 설명할 때,
+  문서 파일에서 직접 짧은 요약 정보를 제공할 수 있다.
+- 사용자가 다른 이유로 시도하기 위한 것이 아닌 코드. 예를 들어
   `kubectl edit` 명령을 사용하여 리소스에 새 속성을 추가하는 방법을
   설명할 때 추가할 만한 속성을 포함하는
   간단한 예를 제공할 수 있다.

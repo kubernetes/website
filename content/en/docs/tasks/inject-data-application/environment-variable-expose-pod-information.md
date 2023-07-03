@@ -18,6 +18,11 @@ In Kubernetes, there are two ways to expose Pod and container fields to a runnin
 Together, these two ways of exposing Pod and container fields are called the
 downward API.
 
+As Services are the primary mode of communication between containerized applications managed by Kubernetes, 
+it is helpful to be able to discover them at runtime. 
+
+Read more about accessing Services [here](/docs/tutorials/services/connect-applications-service/#accessing-the-service).
+
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}}

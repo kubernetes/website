@@ -136,7 +136,7 @@ Bob이 `projectCaribou` 네임스페이스에 있는 오브젝트에 쓰기(`cre
 쿠버네티스 감사는 클러스터에서 발생하는 일들의 순서를 문서로 기록하여, 보안과 관련되어 있고 시간 순서로 정리된 기록을 제공한다.
 클러스터는 사용자, 쿠버네티스 API를 사용하는 애플리케이션, 그리고 컨트롤 플레인 자신이 생성한 활동을 감사한다.
 
-더 많은 정보는 [감사](/docs/tasks/debug/debug-cluster/audit/)를 참고한다.
+더 많은 정보는 [감사](/ko/docs/tasks/debug/debug-cluster/audit/)를 참고한다.
 
 ## {{% heading "whatsnext" %}}
 

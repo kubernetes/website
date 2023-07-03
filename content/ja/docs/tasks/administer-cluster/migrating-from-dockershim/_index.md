@@ -1,6 +1,6 @@
 ---
 title: dockershimからの移行
-weight: 10
+weight: 20
 content_type: task
 ---
 
@@ -10,7 +10,7 @@ dockershimから他のコンテナランタイムに移行する際に知って�
 
 Kubernetes 1.20で[dockershim deprecation](blog/2020/12/08/kubernetes-1-20-release-announcement/#dockershim-deprecation)が発表されてから、様々なワークロードやKubernetesインストールにどう影響するのかという質問が寄せられています。
 
-この問題をよりよく理解するために、[Dockershim Deprecation FAQ](/blog/2020/12/02/dockershim-faq/)ブログが役に立つでしょう。
+この問題をよりよく理解するために、[dockershimの削除に関するFAQ](/ja/dockershim)ブログが役に立つでしょう。
 
 dockershimから代替のコンテナランタイムに移行することが推奨されます。
 [コンテナランタイム](/ja/docs/setup/production-environment/container-runtimes/)のセクションをチェックして、どのような選択肢があるかを確認してください。

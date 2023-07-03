@@ -5,7 +5,7 @@
 # - bsalamat
 title: 테인트(Taints)와 톨러레이션(Tolerations)
 content_type: concept
-weight: 40
+weight: 50
 ---
 
 

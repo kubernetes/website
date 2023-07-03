@@ -1,13 +1,13 @@
 ---
 title: Create a Windows HostProcess Pod
 content_type: task
-weight: 20
+weight: 50
 min-kubernetes-server-version: 1.23
 ---
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 Windows HostProcess containers enable you to run containerized
 workloads on a Windows host. These containers operate as
@@ -42,7 +42,6 @@ HostProcess containers have access to the host's network interfaces and IP addre
 - Consolidation of administrative tasks and security policies. This reduces the degree of
 privileges needed by Windows nodes.
 
-
 ## {{% heading "prerequisites" %}}
 
 <!-- change this when graduating to stable -->
@@ -56,24 +55,13 @@ communicate with containerd directly by passing the hostprocess flag via CRI. Yo
 latest version of containerd (v1.6+) to run HostProcess containers.
 [How to install containerd.](/docs/setup/production-environment/container-runtimes/#containerd)
 
-To *disable* HostProcess containers you need to pass the following feature gate flag to the
-**kubelet** and **kube-apiserver**:
-
-```powershell
---feature-gates=WindowsHostProcessContainers=false
-```
-
-See [Features Gates](/docs/reference/command-line-tools-reference/feature-gates/#overview)
-documentation for more details.
-
-
-
 ## Limitations
 
 These limitations are relevant for Kubernetes v{{< skew currentVersion >}}:
 
 - HostProcess containers require containerd 1.6 or higher
-  {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}.
+  {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}} and
+  containerd 1.7 is recommended.
 - HostProcess pods can only contain HostProcess containers. This is a current limitation
   of the Windows OS; non-privileged Windows containers cannot share a vNIC with the host IP namespace.
 - HostProcess containers run as a process on the host and do not have any degree of
@@ -121,9 +109,7 @@ the configurations which need to be set to enable the creation of a HostProcess 
     <tr>
       <td style="white-space: nowrap"><a href="/docs/concepts/security/pod-security-standards"><tt>hostNetwork</tt></a></td>
       <td>
-        <p>Will be in host network by default initially. Support
-        to set network to a different compartment may be desirable in
-        the future.</p>
+        <p>Pods container HostProcess containers must use the host's network namespace.</p>
         <p><strong>Allowed Values</strong></p>
         <ul>
           <li><code>true</code></li>
@@ -131,7 +117,7 @@ the configurations which need to be set to enable the creation of a HostProcess 
       </td>
     </tr>
     <tr>
-      <td style="white-space: nowrap"><a href="/docs/tasks/configure-pod-container/configure-runasusername/"><tt>securityContext.windowsOptions.runAsUsername</tt></a></td>
+      <td style="white-space: nowrap"><a href="/docs/tasks/configure-pod-container/configure-runasusername/"><tt>securityContext.windowsOptions.runAsUserName</tt></a></td>
       <td>
         <p>Specification of which user the HostProcess container should run as is required for the pod spec.</p>
         <p><strong>Allowed Values</strong></p>
@@ -139,6 +125,7 @@ the configurations which need to be set to enable the creation of a HostProcess 
           <li><code>NT AUTHORITY\SYSTEM</code></li>
           <li><code>NT AUTHORITY\Local service</code></li>
           <li><code>NT AUTHORITY\NetworkService</code></li>
+          <li>Local usergroup names (see below)</li>
         </ul>
       </td>
     </tr>
@@ -179,18 +166,33 @@ spec:
 ## Volume mounts
 
 HostProcess containers support the ability to mount volumes within the container volume space.
+Volume mount behavior differs depending on the version of containerd runtime used by on the node.
+
+### Containerd v1.6
+
 Applications running inside the container can access volume mounts directly via relative or
 absolute paths. An environment variable `$CONTAINER_SANDBOX_MOUNT_POINT` is set upon container
 creation and provides the absolute host path to the container volume. Relative paths are based
 upon the `.spec.containers.volumeMounts.mountPath` configuration.
 
-### Example {#volume-mount-example}
+To access service account tokens (for example) the following path structures are supported within the container:
 
-To access service account tokens the following path structures are supported within the container:
+- `.\var\run\secrets\kubernetes.io\serviceaccount\`
+- `$CONTAINER_SANDBOX_MOUNT_POINT\var\run\secrets\kubernetes.io\serviceaccount\`
 
-`.\var\run\secrets\kubernetes.io\serviceaccount\`
+### Containerd v1.7 (and greater)
 
-`$CONTAINER_SANDBOX_MOUNT_POINT\var\run\secrets\kubernetes.io\serviceaccount\`
+Applications running inside the container can access volume mounts directly via the volumeMount's
+specified `mountPath` (just like Linux and non-HostProcess Windows containers).
+
+For backwards compatibility volumes can also be accessed via using the same relative paths configured
+by containerd v1.6.
+
+As an example, to access service account tokens within the container you would use one of the following paths:
+
+- `c:\var\run\secrets\kubernetes.io\serviceaccount`
+- `/var/run/secrets/kubernetes.io/serviceaccount/`
+- `$CONTAINER_SANDBOX_MOUNT_POINT\var\run\secrets\kubernetes.io\serviceaccount\`
 
 ## Resource limits
 
@@ -203,7 +205,9 @@ used for resource tracking due to the difference in how HostProcess containers a
 
 ## Choosing a user account
 
-HostProcess containers support the ability to run as one of three supported Windows service accounts:
+### System accounts
+
+By default, HostProcess containers support the ability to run as one of three supported Windows service accounts:
 
 - **[LocalSystem](https://docs.microsoft.com/windows/win32/services/localsystem-account)**
 - **[LocalService](https://docs.microsoft.com/windows/win32/services/localservice-account)**
@@ -214,6 +218,51 @@ container, aiming to limit the degree of privileges so as to avoid accidental (o
 malicious) damage to the host. The LocalSystem service account has the highest level
 of privilege of the three and should be used only if absolutely necessary. Where possible,
 use the LocalService service account as it is the least privileged of the three options.
+
+### Local accounts {#local-accounts}
+
+If configured, HostProcess containers can also run as local user accounts which allows for node operators to give
+fine-grained access to workloads.
+
+To run HostProcess containers as a local user; A local usergroup must first be created on the node
+and the name of that local usergroup must be specified in the `runAsUserName` field in the deployment.
+Prior to initializing the HostProcess container, a new **ephemeral** local user account to be created and joined to the specified usergroup, from which the container is run.
+This provides a number a benefits including eliminating the need to manage passwords for local user accounts.
+An initial HostProcess container running as a service account can be used to
+prepare the user groups for later HostProcess containers.
+
+{{< note >}}
+Running HostProcess containers as local user accounts requires containerd v1.7+
+{{< /note >}}
+
+Example:
+
+1. Create a local user group on the node (this can be done in another HostProcess container).
+
+    ```cmd
+    net localgroup hpc-localgroup /add
+    ```
+
+1. Grant access to desired resources on the node to the local usergroup.
+   This can be done with tools like [icacls](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/icacls).
+
+1. Set `runAsUserName` to the name of the local usergroup for the pod or individual containers.
+
+    ```yaml
+    securityContext:
+      windowsOptions:
+        hostProcess: true
+        runAsUserName: hpc-localgroup
+    ```
+
+1. Schedule the pod!
+
+## Base Image for HostProcess Containers
+
+HostProcess containers can be built from any of the existing [Windows Container base images](https://learn.microsoft.com/virtualization/windowscontainers/manage-containers/container-base-images).
+
+Additionally a new base mage has been created just for HostProcess containers!
+For more information please check out the [windows-host-process-containers-base-image github project](https://github.com/microsoft/windows-host-process-containers-base-image#overview).
 
 ## Troubleshooting HostProcess containers
 

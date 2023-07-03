@@ -11,13 +11,13 @@ Kubernetesには、Kubernetesシステムの操作に役立ついくつかの組
 [`kubectl`](/ja/docs/tasks/tools/install-kubectl/)は、Kubernetesのためのコマンドラインツールです。このコマンドはKubernetes cluster managerを操作します。
 
 ## Kubeadm
-[`kubeadm`](docs/setup/production-environment/tools/kubeadm/install-kubeadm/)は、物理サーバやクラウドサーバ、仮想マシン上にKubernetesクラスタを容易にプロビジョニングするためのコマンドラインツールです(現在はアルファ版です)。
+[`kubeadm`](/ja/docs/setup/production-environment/tools/kubeadm/install-kubeadm/)は、物理サーバやクラウドサーバ、仮想マシン上にKubernetesクラスターを容易にプロビジョニングするためのコマンドラインツールです(現在はアルファ版です)。
 
 ## Minikube
-[`minikube`](https://minikube.sigs.k8s.io/docs/)は、開発やテストのためにワークステーション上でシングルノードのKubernetesクラスタをローカルで実行するツールです。
+[`minikube`](https://minikube.sigs.k8s.io/docs/)は、開発やテストのためにワークステーション上でシングルノードのKubernetesクラスターをローカルで実行するツールです。
 
 ## Dashboard
-[`Dashboard`](/ja/docs/tasks/access-application-cluster/web-ui-dashboard/)は、KubernetesのWebベースのユーザインタフェースで、コンテナ化されたアプリケーションをKubernetesクラスタにデプロイしたり、トラブルシューティングしたり、クラスタとそのリソース自体を管理したりすることが出来ます。
+[`Dashboard`](/ja/docs/tasks/access-application-cluster/web-ui-dashboard/)は、KubernetesのWebベースのユーザインタフェースで、コンテナ化されたアプリケーションをKubernetesクラスターにデプロイしたり、トラブルシューティングしたり、クラスターとそのリソース自体を管理したりすることが出来ます。
 
 ## Helm
 [`Kubernetes Helm`](https://github.com/helm/helm)は、事前に設定されたKubernetesリソースのパッケージ、別名Kubernetes chartsを管理するためのツールです。

@@ -11,7 +11,7 @@ min-kubernetes-server-version: v1.25
 weight: 60
 -->
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
 
 <!-- overview -->
 
@@ -49,18 +49,12 @@ You should already be familiar with the basic use of [Job](/docs/concepts/worklo
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-<!-- steps -->
-
-{{< note >}}
 <!--
-As the features are in Alpha, prepare the Kubernetes cluster with the two
-[feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled: `JobPodFailurePolicy` and `PodDisruptionConditions`.
+Ensure that the [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+`PodDisruptionConditions` and `JobPodFailurePolicy` are both enabled in your cluster.
 -->
-因为这些特性还处于 Alpha 阶段，所以在准备 Kubernetes
-集群时要启用两个[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)：
-`JobPodFailurePolicy` 和 `PodDisruptionConditions`。
-{{< /note >}}
+确保[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+`PodDisruptionConditions` 和 `JobPodFailurePolicy` 在你的集群中均已启用。
 
 <!--
 ## Using Pod failure policy to avoid unnecessary Pod retries
@@ -224,6 +218,180 @@ Delete the Job you created:
 
 ```sh
 kubectl delete jobs/job-pod-failure-policy-ignore
+```
+
+<!--
+The cluster automatically cleans up the Pods.
+-->
+集群自动清理 Pod。
+
+<!--
+## Using Pod failure policy to avoid unnecessary Pod retries based on custom Pod Conditions
+
+With the following example, you can learn how to use Pod failure policy to
+avoid unnecessary Pod restarts based on custom Pod Conditions.
+-->
+## 基于自定义 Pod 状况使用 Pod 失效策略避免不必要的 Pod 重试   {#avoid-pod-retries-based-on-custom-conditions}
+
+根据以下示例，你可以学习如何基于自定义 Pod 状况使用 Pod 失效策略避免不必要的 Pod 重启。
+
+{{< note >}}
+<!--
+The example below works since version 1.27 as it relies on transitioning of
+deleted pods, in the `Pending` phase, to a terminal phase
+(see: [Pod Phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)).
+-->
+以下示例自 v1.27 起开始生效，因为它依赖于将已删除的 Pod 从 `Pending` 阶段过渡到终止阶段
+（参阅 [Pod 阶段](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)）。
+{{< /note >}}
+
+<!--
+1. First, create a Job based on the config:
+-->
+1. 首先基于配置创建一个 Job：
+
+   {{< codenew file="/controllers/job-pod-failure-policy-config-issue.yaml" >}}
+
+   <!--
+   by running:
+   -->
+   执行以下命令：
+
+   ```sh
+   kubectl create -f job-pod-failure-policy-config-issue.yaml
+   ```
+
+   <!--
+   Note that, the image is misconfigured, as it does not exist.
+   -->
+   请注意，镜像配置不正确，因为该镜像不存在。
+
+<!--
+2. Inspect the status of the job's Pods by running:
+-->
+2. 通过执行以下命令检查任务 Pod 的状态：
+
+   ```sh
+   kubectl get pods -l job-name=job-pod-failure-policy-config-issue -o yaml
+   ```
+
+   <!--
+   You will see output similar to this:
+   -->
+   你将看到类似以下输出：
+
+   ```yaml
+   containerStatuses:
+   - image: non-existing-repo/non-existing-image:example
+      ...
+      state:
+      waiting:
+         message: Back-off pulling image "non-existing-repo/non-existing-image:example"
+         reason: ImagePullBackOff
+         ...
+   phase: Pending
+   ```
+
+   <!--
+   Note that the pod remains in the `Pending` phase as it fails to pull the
+   misconfigured image. This, in principle, could be a transient issue and the
+   image could get pulled. However, in this case, the image does not exist so
+   we indicate this fact by a custom condition.
+   -->
+   请注意，Pod 依然处于 `Pending` 阶段，因为它无法拉取错误配置的镜像。
+   原则上讲这可能是一个暂时问题，镜像还是会被拉取。然而这种情况下，
+   镜像不存在，因为我们通过一个自定义状况表明了这个事实。
+
+<!--
+3. Add the custom condition. First prepare the patch by running:
+-->
+3. 添加自定义状况。执行以下命令先准备补丁：
+
+   ```sh
+   cat <<EOF > patch.yaml
+   status:
+     conditions:
+     - type: ConfigIssue
+       status: "True"
+       reason: "NonExistingImage"
+       lastTransitionTime: "$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+   EOF
+   ```
+
+   <!--
+   Second, select one of the pods created by the job by running:
+   -->
+   其次，执行以下命令选择通过任务创建的其中一个 Pod：
+
+   ```
+   podName=$(kubectl get pods -l job-name=job-pod-failure-policy-config-issue -o jsonpath='{.items[0].metadata.name}')
+   ```
+
+   <!--
+   Then, apply the patch on one of the pods by running the following command:
+   -->
+   随后执行以下命令将补丁应用到其中一个 Pod 上：
+
+   ```sh
+   kubectl patch pod $podName --subresource=status --patch-file=patch.yaml
+   ```
+
+   <!--
+   If applied successfully, you will get a notification like this:
+   -->
+   如果被成功应用，你将看到类似以下的一条通知：
+
+   ```sh
+   pod/job-pod-failure-policy-config-issue-k6pvp patched
+   ```
+
+<!--
+4. Delete the pod to transition it to `Failed` phase, by running the command:
+-->
+4. 执行以下命令删除此 Pod 将其过渡到 `Failed` 阶段：
+
+   ```sh
+   kubectl delete pods/$podName
+   ```
+
+<!--
+5. Inspect the status of the Job by running:
+-->
+5. 执行以下命令查验 Job 的状态：
+
+   ```sh
+   kubectl get jobs -l job-name=job-pod-failure-policy-config-issue -o yaml
+   ```
+
+   <!--
+   In the Job status, see a job `Failed` condition with the field `reason`
+   equal `PodFailurePolicy`. Additionally, the `message` field contains a
+   more detailed information about the Job termination, such as:
+   `Pod default/job-pod-failure-policy-config-issue-k6pvp has condition ConfigIssue matching FailJob rule at index 0`.
+   -->
+   在 Job 状态中，看到任务 `Failed` 状况的 `reason` 字段等于 `PodFailurePolicy`。
+   此外，`message` 字段包含了与 Job 终止相关的更多详细信息，例如：
+   `Pod default/job-pod-failure-policy-config-issue-k6pvp has condition ConfigIssue matching FailJob rule at index 0`。
+
+{{< note >}}
+<!--
+In a production environment, the steps 3 and 4 should be automated by a
+user-provided controller.
+-->
+在生产环境中，第 3 和 4 步应由用户提供的控制器进行自动化处理。
+{{< /note >}}
+
+<!--
+### Cleaning up
+
+Delete the Job you created:
+-->
+### 清理
+
+删除你创建的 Job：
+
+```sh
+kubectl delete jobs/job-pod-failure-policy-config-issue
 ```
 
 <!--

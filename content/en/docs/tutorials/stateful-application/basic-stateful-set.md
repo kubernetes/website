@@ -131,6 +131,11 @@ Notice that the `web-1` Pod is not launched until the `web-0` Pod is
 _Running_ (see [Pod Phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase))
 and _Ready_ (see `type` in [Pod Conditions](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)).
 
+{{< note >}}
+To configure the integer ordinal assigned to each Pod in a StatefulSet, see
+[Start ordinal](/docs/concepts/workloads/controllers/statefulset/#start-ordinal).
+{{< /note >}}
+
 ## Pods in a StatefulSet
 
 Pods in a StatefulSet have a unique ordinal index and a stable network identity.
@@ -249,8 +254,8 @@ web-0
 web-1
 ```
 then, run:
-```
-kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm /bin/sh
+```shell
+kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm
 ```
 which starts a new shell.  
 In that new shell, run:

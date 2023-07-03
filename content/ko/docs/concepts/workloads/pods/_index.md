@@ -39,12 +39,10 @@ _파드_ (고래 떼(pod of whales)나 콩꼬투리(pea pod)와 마찬가지로)
 {{< /note >}}
 
 파드의 공유 콘텍스트는 리눅스 네임스페이스, 컨트롤 그룹(cgroup) 및
-도커 컨테이너를 격리하는 것과 같이 잠재적으로 다른 격리 요소들이다.
-파드의 콘텍스트 내에서 개별 애플리케이션은
-추가적으로 하위 격리가 적용된다.
+{{< glossary_tooltip text="컨테이너" term_id="container" >}}를 격리하는 것과 같이 잠재적으로 다른 격리 요소들이다.
+파드의 콘텍스트 내에서 개별 애플리케이션은 추가적으로 하위 격리가 적용된다.
 
-도커 개념 측면에서, 파드는 공유 네임스페이스와 공유 파일시스템 볼륨이
-있는 도커 컨테이너 그룹과 비슷하다.
+파드는 공유 네임스페이스와 공유 파일시스템 볼륨이 있는 컨테이너들의 집합과 비슷하다.
 
 ## 파드의 사용
 
@@ -137,6 +135,23 @@ term_id="deployment" >}} 또는 {{< glossary_tooltip text="잡(Job)" term_id="jo
 
 파드 오브젝트에 대한 매니페스트를 만들 때, 지정된 이름이 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)인지 확인한다.
+
+### 파드 OS
+
+{{< feature-state state="stable" for_k8s_version="v1.25" >}}
+
+파드를 실행할 때 OS를 표시하려면 `.spec.os.name` 필드를 `windows` 또는 
+`linux`로 설정해야 한다. 이 두 가지 운영체제는 현재 쿠버네티스에서 지원되는 
+유일한 운영체제이다. 앞으로 이 목록이 확장될 수 있다.
+
+쿠버네티스 v{{< skew currentVersion >}}에서, 이 필드에 대해 설정한 값은
+파드의 {{< glossary_tooltip text="스케줄링" term_id="kube-scheduler" >}}에 영향을 미치지 않는다.
+`.spec.os.name`을 설정하면 파드 검증 시 
+OS를 식별하는 데 도움이 된다. 
+kubelet은 
+자신이 실행되고 있는 노드의 운영체제와 
+동일하지 않은 파드 OS가 명시된 파드의 실행을 거부한다.
+[파드 시큐리티 스탠다드](/ko/docs/concepts/security/pod-security-standards/)도 이 필드를 사용하여 해당 운영체제와 관련이 없는 정책을 시행하지 않도록 한다.
 
 ### 파드와 컨트롤러
 

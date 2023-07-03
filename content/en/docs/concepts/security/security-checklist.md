@@ -206,6 +206,25 @@ SELinux is only available on Linux nodes, and enabled in
 [some Linux distributions](https://en.wikipedia.org/wiki/Security-Enhanced_Linux#Implementations).
 {{< /note >}}
 
+## Logs and auditing
+
+- [ ] Audit logs, if enabled, are protected from general access.
+- [ ] The `/logs` API is disabled (you are running kube-apiserver with
+  `--enable-logs-handler=false`).
+
+  Kubernetes includes a `/logs` API endpoint, enabled by default,
+  that lets users request the contents of the API server's `/var/log` directory over HTTP. Accessing
+  that endpoint requires authentication.
+
+Allowing broad access to Kubernetes logs can make security information
+available to a potential attacker.
+
+As a good practice, set up a separate means to collect and aggregate
+control plane logs, and do not use the `/logs` API endpoint.
+Alternatively, if you run your control plane with the `/logs` API endpoint
+and limit the content of `/var/log` (within the host or container where the API server is running) to
+Kubernetes API server logs only.
+
 ## Pod placement
 
 - [ ] Pod placement is done in accordance with the tiers of sensitivity of the
@@ -278,7 +297,7 @@ for time-bound service account credentials.
 - [ ] Container images are configured to be run as unprivileged user.
 - [ ] References to container images are made by sha256 digests (rather than
 tags) or the provenance of the image is validated by verifying the image's
-digital signature at deploy time [via admission control](/docs/tasks/administer-cluster/verify-signed-images/#verifying-image-signatures-with-admission-controller).
+digital signature at deploy time [via admission control](/docs/tasks/administer-cluster/verify-signed-artifacts/#verifying-image-signatures-with-admission-controller).
 - [ ] Container images are regularly scanned during creation and in deployment, and
   known vulnerable software is patched.
 
@@ -301,7 +320,7 @@ Avoid using image tags to reference an image, especially the `latest` tag, the
 image behind a tag can be easily modified in a registry. Prefer using the
 complete `sha256` digest which is unique to the image manifest. This policy can be
 enforced via an [ImagePolicyWebhook](/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook).
-Image signatures can also be automatically [verified with an admission controller](/docs/tasks/administer-cluster/verify-signed-images/#verifying-image-signatures-with-admission-controller)
+Image signatures can also be automatically [verified with an admission controller](/docs/tasks/administer-cluster/verify-signed-artifacts/#verifying-image-signatures-with-admission-controller)
 at deploy time to validate their authenticity and integrity.
 
 Scanning a container image can prevent critical vulnerabilities from being
@@ -404,6 +423,8 @@ alpha state but could be considered for certain use cases:
 
 - [RBAC Good Practices](/docs/concepts/security/rbac-good-practices/) for
   further information on authorization.
+- [Securing a Cluster](/docs/tasks/administer-cluster/securing-a-cluster/) for
+  information on protecting a cluster from accidental or malicious access.
 - [Cluster Multi-tenancy guide](/docs/concepts/security/multi-tenancy/) for
   configuration options recommendations and best practices on multi-tenancy.
 - [Blog post "A Closer Look at NSA/CISA Kubernetes Hardening Guidance"](/blog/2021/10/05/nsa-cisa-kubernetes-hardening-guidance/#building-secure-container-images)

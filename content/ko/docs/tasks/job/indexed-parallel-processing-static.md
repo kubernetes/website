@@ -19,7 +19,7 @@ weight: 30
 파드 인덱스는 10진수 값을 문자열로 표현한 {{< glossary_tooltip text="어노테이션" term_id="annotation" >}}
 `batch.kubernetes.io/job-completion-index` 를 통해
 사용할 수 있다. 컨테이너화된 태스크 프로세스가 이 인덱스 정보를 가져갈 수 있도록,
-[downward API](/ko/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#the-downward-api)
+[다운워드(downward) API](/ko/docs/concepts/workloads/pods/downward-api/)
 메커니즘을 사용하여 어노테이션의 값을 발행할 수 있다.
 편의상, 컨트롤 플레인은 downward API를 자동 설정하여
 `JOB_COMPLETION_INDEX` 환경변수에 인덱스를 노출할 수 있도록 한다.
@@ -107,7 +107,14 @@ kubectl apply -f https://kubernetes.io/examples/application/job/indexed-job.yaml
 
 `.spec.parallelism`가 `.spec.completions`보다 작기 때문에, 컨트롤 플레인은 추가로 파드를 시작하기 전 최초 생성된 파드 중 일부가 완료되기를 기다린다.
 
-잡을 생성했다면, 잠시 기다린 후 진행 상황을 확인한다.
+아래와 같이 시간 제한(timeout)을 설정하고, 잡이 성공할 때까지 기다린다.
+```shell
+# 조건명은 대소문자를 구분하지 않는다.
+kubectl wait --for=condition=complete --timeout=300s job/indexed-job
+```
+
+잡의 상세 설명을 출력하여 성공적으로 수행되었는지 확인한다.
+
 
 ```shell
 kubectl describe jobs/indexed-job

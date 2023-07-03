@@ -1,7 +1,7 @@
 ---
 title: 其他工具
 content_type: concept
-weight: 80
+weight: 150
 no_list: true
 ---
 
@@ -10,7 +10,7 @@ title: Other Tools
 reviewers:
 - janetkuo
 content_type: concept
-weight: 80
+weight: 150
 no_list: true
 -->
 
@@ -39,7 +39,7 @@ container runtimes.
 [`Dashboard`](/docs/tasks/access-application-cluster/web-ui-dashboard/), the web-based user interface of Kubernetes, allows you to deploy containerized applications
 to a Kubernetes cluster, troubleshoot them, and manage the cluster and its resources itself.
 -->
-## 仪表盘
+## 仪表盘   {#dashboard}
 
 [`Dashboard`](/zh-cn/docs/tasks/access-application-cluster/web-ui-dashboard/)，
 基于 Web 的 Kubernetes 用户界面，

@@ -19,18 +19,24 @@ weight: 10
 
 <!--
 On-disk files in a container are ephemeral, which presents some problems for
-non-trivial applications when running in containers. One problem
-is the loss of files when a container crashes. The kubelet restarts the container
-but with a clean state. A second problem occurs when sharing files
-between containers running together in a `Pod`.
+non-trivial applications when running in containers. One problem occurs when 
+a container crashes or is stopped. Container state is not saved so all of the 
+files that were created or modified during the lifetime of the container are lost. 
+During a crash, kubelet restarts the container with a clean state. 
+Another problem occurs when multiple containers are running in a `Pod` and 
+need to share files. It can be challenging to setup 
+and access a shared filesystem across all of the containers.
 The Kubernetes {{< glossary_tooltip text="volume" term_id="volume" >}} abstraction
 solves both of these problems.
 Familiarity with [Pods](/docs/concepts/workloads/pods/) is suggested.
 -->
-Container 中的文件在磁盘上是临时存放的，这给 Container 中运行的较重要的应用程序带来一些问题。
-问题之一是当容器崩溃时文件丢失。
-kubelet 会重新启动容器，但容器会以干净的状态重启。
-第二个问题会在同一 `Pod` 中运行多个容器并共享文件时出现。
+容器中的文件在磁盘上是临时存放的，这给在容器中运行较重要的应用带来一些问题。
+当容器崩溃或停止时会出现一个问题。此时容器状态未保存，
+因此在容器生命周期内创建或修改的所有文件都将丢失。
+在崩溃期间，kubelet 会以干净的状态重新启动容器。
+当多个容器在一个 Pod 中运行并且需要共享文件时，会出现另一个问题。
+跨所有容器设置和访问共享文件系统具有一定的挑战性。
+
 Kubernetes {{< glossary_tooltip text="卷（Volume）" term_id="volume" >}}
 这一抽象概念能够解决这两个问题。
 
@@ -40,30 +46,22 @@ Kubernetes {{< glossary_tooltip text="卷（Volume）" term_id="volume" >}}
 
 <!--
 ## Background
-
-Docker has a concept of
-[volumes](https://docs.docker.com/storage/), though it is
-somewhat looser and less managed. A Docker volume is a directory on
-disk or in another container. Docker provides volume
-drivers, but the functionality is somewhat limited.
 -->
 ## 背景  {#background}
-
-Docker 也有[卷（Volume）](https://docs.docker.com/storage/) 的概念，但对它只有少量且松散的管理。
-Docker 卷是磁盘上或者另外一个容器内的一个目录。
-Docker 提供卷驱动程序，但是其功能非常有限。
 
 <!--
 Kubernetes supports many types of volumes. A {{< glossary_tooltip term_id="pod" text="Pod" >}}
 can use any number of volume types simultaneously.
-Ephemeral volume types have a lifetime of a pod, but persistent volumes exist beyond
+[Ephemeral volume](/docs/concepts/storage/ephemeral-volumes/) types have a lifetime of a pod,
+but [persistent volumes](/docs/concepts/storage/persistent-volumes/) exist beyond
 the lifetime of a pod. When a pod ceases to exist, Kubernetes destroys ephemeral volumes;
 however, Kubernetes does not destroy persistent volumes.
 For any kind of volume in a given pod, data is preserved across container restarts.
 -->
 Kubernetes 支持很多类型的卷。
 {{< glossary_tooltip term_id="pod" text="Pod" >}} 可以同时使用任意数目的卷类型。
-临时卷类型的生命周期与 Pod 相同，但持久卷可以比 Pod 的存活期长。
+[临时卷](/zh-cn/docs/concepts/storage/ephemeral-volumes/)类型的生命周期与 Pod 相同，
+但[持久卷](/zh-cn/docs/concepts/storage/persistent-volumes/)可以比 Pod 的存活期长。
 当 Pod 不再存在时，Kubernetes 也会销毁临时卷；不过 Kubernetes 不会销毁持久卷。
 对于给定 Pod 中任何类型的卷，在容器重启期间数据都不会丢失。
 
@@ -304,7 +302,7 @@ For more details, see the [`azureFile` volume plugin](https://github.com/kuberne
 -->
 #### azureFile CSI 迁移  {#azurefile-csi-migration}
 
-{{< feature-state for_k8s_version="v1.21" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 <!--
 The `CSIMigration` feature for `azureFile`, when enabled, redirects all plugin operations
@@ -502,6 +500,8 @@ keyed with `log_level`.
 * You must create a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)
   before you can use it.
 
+* A ConfigMap is always mounted as `readOnly`.
+
 * A container using a ConfigMap as a [`subPath`](#using-subpath) volume mount will not
   receive ConfigMap updates.
 
@@ -509,7 +509,8 @@ keyed with `log_level`.
 -->
 {{< note >}}
 * 在使用 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/) 之前你首先要创建它。
-* 容器以 [subPath](#using-subpath) 卷挂载方式使用 ConfigMap 时，将无法接收 ConfigMap 的更新。
+* ConfigMap 总是以 `readOnly` 的模式挂载。
+* 容器以 [`subPath`](#using-subpath) 卷挂载方式使用 ConfigMap 时，将无法接收 ConfigMap 的更新。
 * 文本数据挂载成文件时采用 UTF-8 字符编码。如果使用其他字符编码形式，可使用
   `binaryData` 字段。
 {{< /note >}}
@@ -596,7 +597,7 @@ your container's memory limit.
 <!--
 A size limit can be specified for the default medium, which limits the capacity
 of the `emptyDir` volume. The storage is allocated from [node ephemeral
-storage](docs/concepts/configuration/manage-resources-containers/#setting-requests-and-limits-for-local-ephemeral-storage).
+storage](/docs/concepts/configuration/manage-resources-containers/#setting-requests-and-limits-for-local-ephemeral-storage).
 If that is filled up from another source (for example, log files or image
 overlays), the `emptyDir` may run out of capacity before this limit.
 -->
@@ -663,7 +664,8 @@ Kubernetes 主机才可以访问它们。
 {{< /note >}}
 
 <!--
-See the [fibre channel example](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel) for more details.
+See the [fibre channel example](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel)
+for more details.
 -->
 更多详情请参考 [FC 示例](https://github.com/kubernetes/examples/tree/master/staging/volumes/fibre_channel)。
 
@@ -863,7 +865,9 @@ and the kubelet, set the `InTreePluginGCEUnregister` flag to `true`.
 
 {{< warning >}}
 <!--
-The `gitRepo` volume type is deprecated. To provision a container with a git repo, mount an [EmptyDir](#emptydir) into an InitContainer that clones the repo using git, then mount the [EmptyDir](#emptydir) into the Pod's container.
+The `gitRepo` volume type is deprecated. To provision a container with a git repo, mount an
+[EmptyDir](#emptydir) into an InitContainer that clones the repo using git, then mount the
+[EmptyDir](#emptydir) into the Pod's container.
 -->
 `gitRepo` 卷类型已经被废弃。如果需要在容器中提供 git 仓库，请将一个
 [EmptyDir](#emptydir) 卷挂载到 InitContainer 中，使用 git
@@ -902,39 +906,23 @@ spec:
 ```
 
 <!--
-### glusterfs (deprecated) {#glusterfs}
+### glusterfs (removed) {#glusterfs}
 -->
-### glusterfs（已弃用）   {#glusterfs}
+### glusterfs（已移除）   {#glusterfs}
 
-{{< feature-state for_k8s_version="v1.25" state="deprecated" >}}
+<!-- maintenance note: OK to remove all mention of glusterfs once the v1.25 release of
+Kubernetes has gone out of support -->
 
-<!--
-A `glusterfs` volume allows a [Glusterfs](https://www.gluster.org) (an open
-source networked filesystem) volume to be mounted into your Pod. Unlike
-`emptyDir`, which is erased when a Pod is removed, the contents of a
-`glusterfs` volume are preserved and the volume is merely unmounted. This
-means that a `glusterfs` volume can be pre-populated with data, and that data can
-be shared between pods. GlusterFS can be mounted by multiple writers
-simultaneously.
+<!-- 
+Kubernetes {{< skew currentVersion >}} does not include a `glusterfs` volume type.
+
+The GlusterFS in-tree storage driver was deprecated in the Kubernetes v1.25 release
+and then removed entirely in the v1.26 release.
 -->
-`glusterfs` 卷能将 [Glusterfs](https://www.gluster.org) (一个开源的网络文件系统)
-挂载到你的 Pod 中。不像 `emptyDir` 那样会在删除 Pod 的同时也会被删除，`glusterfs`
-卷的内容在删除 Pod 时会被保存，卷只是被卸载。
-这意味着 `glusterfs` 卷可以被预先填充数据，并且这些数据可以在 Pod 之间共享。
-GlusterFS 可以被多个写者同时挂载。
+Kubernetes {{< skew currentVersion >}} 不包含 `glusterfs` 卷类型。
 
-{{< note >}}
-<!--
-You must have your own GlusterFS installation running before you can use it.
--->
-在使用前你必须先安装运行自己的 GlusterFS。
-{{< /note >}}
-
-<!--
-See the [GlusterFS example](https://github.com/kubernetes/examples/tree/master/volumes/glusterfs) for more details.
--->
-更多详情请参考 [GlusterFS 示例](https://github.com/kubernetes/examples/tree/master/volumes/glusterfs)。
-
+GlusterFS 树内存储驱动程序在 Kubernetes v1.25 版本中被弃用，然后在 v1.26 版本中被完全移除。
+ 
 ### hostPath {#hostpath}
 
 {{< warning >}}
@@ -1293,7 +1281,9 @@ spec:
 <!--
 You must have your own NFS server running with the share exported before you can use it.
 
-Also note that you can't specify NFS mount options in a Pod spec. You can either set mount options server-side or use [/etc/nfsmount.conf](https://man7.org/linux/man-pages/man5/nfsmount.conf.5.html). You can also mount NFS volumes via PersistentVolumes which do allow you to set mount options.
+Also note that you can't specify NFS mount options in a Pod spec. You can either set mount options server-side or
+use [/etc/nfsmount.conf](https://man7.org/linux/man-pages/man5/nfsmount.conf.5.html).
+You can also mount NFS volumes via PersistentVolumes which do allow you to set mount options.
 -->
 在使用 NFS 卷之前，你必须运行自己的 NFS 服务器并将目标 share 导出备用。
 
@@ -1304,7 +1294,8 @@ Also note that you can't specify NFS mount options in a Pod spec. You can either
 {{< /note >}}
 
 <!--
-See the [NFS example](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs) for an example of mounting NFS volumes with PersistentVolumes.
+See the [NFS example](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)
+for an example of mounting NFS volumes with PersistentVolumes.
 -->
 如需了解用持久卷挂载 NFS 卷的示例，请参考 [NFS 示例](https://github.com/kubernetes/examples/tree/master/staging/volumes/nfs)。
 
@@ -1526,17 +1517,16 @@ API 服务器上，然后以文件的形式挂载到 Pod 中，无需直接与 K
 
 {{< note >}}
 <!--
-You must create a Secret in the Kubernetes API before you can use it.
--->
-使用前你必须在 Kubernetes API 中创建 Secret。
-{{< /note >}}
+* You must create a Secret in the Kubernetes API before you can use it.
 
-{{< note >}}
-<!--
-A container using a Secret as a [`subPath`](#using-subpath) volume mount will not
+* A Secret is always mounted as `readOnly`.
+
+* A container using a Secret as a [`subPath`](#using-subpath) volume mount will not
 receive Secret updates.
 -->
-容器以 [`subPath`](#using-subpath) 卷挂载方式挂载 Secret 时，将感知不到 Secret 的更新。
+* 使用前你必须在 Kubernetes API 中创建 Secret。
+* Secret 总是以 `readOnly` 的模式挂载。
+* 容器以 [`subPath`](#using-subpath) 卷挂载方式使用 Secret 时，将无法接收 Secret 的更新。
 {{< /note >}}
 
 <!--
@@ -1575,37 +1565,34 @@ For more information, see the [vSphere volume](https://github.com/kubernetes/exa
 -->
 #### vSphere CSI 迁移  {#vsphere-csi-migration}
 
-{{< feature-state for_k8s_version="v1.19" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
+
 
 <!--
-The `CSIMigrationvSphere` feature for `vsphereVolume` is enabled by default as of Kubernetes v1.25.
-All plugin operations from the in-tree `vspherevolume` will be redirected to the `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver unless `CSIMigrationvSphere` feature gate is disabled.
+In Kubernetes {{< skew currentVersion >}}, all operations for the in-tree `vsphereVolume` type
+are redirected to the `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} driver.
 -->
-从 Kubernetes v1.25 开始，针对 `vsphereVolume` 的 `CSIMigrationvSphere` 特性默认被启用。
-来自树内 `vspherevolume` 的所有插件操作将被重新指向到
-`csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 驱动，
-除非 `CSIMigrationvSphere` 特性门控被禁用。
+在 Kubernetes {{< skew currentVersion >}} 中，对树内 `vsphereVolume`
+类的所有操作都会被重定向至 `csi.vsphere.vmware.com` {{< glossary_tooltip text="CSI" term_id="csi" >}} 驱动程序。
 
 <!--
 [vSphere CSI driver](https://github.com/kubernetes-sigs/vsphere-csi-driver)
 must be installed on the cluster. You can find additional advice on how to migrate in-tree `vsphereVolume` in VMware's documentation page 
 [Migrating In-Tree vSphere Volumes to vSphere Container Storage Plug-in](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html).
+If vSphere CSI Driver is not installed volume operations can not be performed on the PV created with the in-tree `vsphereVolume` type.
 -->
 [vSphere CSI 驱动](https://github.com/kubernetes-sigs/vsphere-csi-driver)必须安装到集群上。
 你可以在 VMware 的文档页面[迁移树内 vSphere 卷插件到 vSphere 容器存储插件](https://docs.vmware.com/en/VMware-vSphere-Container-Storage-Plug-in/2.0/vmware-vsphere-csp-getting-started/GUID-968D421F-D464-4E22-8127-6CB9FF54423F.html)
 中找到有关如何迁移树内 `vsphereVolume` 的其他建议。
+如果未安装 vSphere CSI 驱动程序，则无法对由树内 `vsphereVolume` 类型创建的 PV 执行卷操作。
 
 <!--
-As of Kubernetes v1.25, vSphere releases less than 7.0u2 are not supported for the
-(deprecated) in-tree vSphere storage driver. You must run vSphere 7.0u2 or later
-in order to either continue using the deprecated driver, or to migrate to
-the replacement CSI driver.
+You must run vSphere 7.0u2 or later in order to migrate to the vSphere CSI driver.
 
 If you are running a version of Kubernetes other than v{{< skew currentVersion >}}, consult
 the documentation for that version of Kubernetes.
 -->
-从 Kubernetes v1.25 开始，（已弃用）树内 vSphere 存储驱动不支持低于 7.0u2 的 vSphere 版本。
-你必须运行 vSphere 7.0u2 或更高版本才能继续使用这个已弃用的驱动，或迁移到替代的 CSI 驱动。
+你必须运行 vSphere 7.0u2 或更高版本才能迁移到 vSphere CSI 驱动程序。
 
 如果你正在运行 Kubernetes v{{< skew currentVersion >}}，请查阅该 Kubernetes 版本的文档。
 
@@ -1898,9 +1885,8 @@ persistent volume:
 
 <!--
 * `readOnly`: An optional boolean value indicating whether the volume is to be
-  "ControllerPublished" (attached) as read only. Default is false. This value is
-  passed to the CSI driver via the `readonly` field in the
-  `ControllerPublishVolumeRequest`.
+  "ControllerPublished" (attached) as read only. Default is false. This value is passed
+  to the CSI driver via the `readonly` field in the `ControllerPublishVolumeRequest`.
 -->
 * `readOnly`：一个可选的布尔值，指示通过 `ControllerPublished` 关联该卷时是否设置该卷为只读。默认值是 false。
   该值通过 `ControllerPublishVolumeRequest` 中的 `readonly` 字段传递给 CSI 驱动。
@@ -1956,20 +1942,26 @@ persistent volume:
   secrets are passed.  When you have configured secret data for node-initiated
   volume expansion, the kubelet passes that data via the `NodeExpandVolume()`
   call to the CSI driver. In order to use the `nodeExpandSecretRef` field, your
-  cluster should be running Kubernetes version 1.25 or later and you must enable
-  the [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/)
+  cluster should be running Kubernetes version 1.25 or later.
+  If you are running Kubernetes Version 1.25 or 1.26, you must enable
+  the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
   named `CSINodeExpandSecret` for each kube-apiserver and for the kubelet on every
-  node. You must also be using a CSI driver that supports or requires secret data during
+  node. In Kubernetes version 1.27 this feature has been enabled by default
+  and no explicit enablement of the feature gate is required. 
+  You must also be using a CSI driver that supports or requires secret data during
   node-initiated storage resize operations.
 -->
 * `nodeExpandSecretRef`：对包含敏感信息的 Secret 对象的引用，
   该信息会传递给 CSI 驱动以完成 CSI `NodeExpandVolume` 调用。
   此字段是可选的，如果不需要 Secret，则可能是空的。
   如果 Secret 包含多个 Secret 条目，则传递所有 Secret 条目。
-  当你为节点初始化的卷扩展配置 Secret 数据时，kubelet 会通过 `NodeExpandVolume()` 调用将该数据传递给 CSI 驱动。
-  为了使用 `nodeExpandSecretRef` 字段，你的集群应运行 Kubernetes 1.25 或更高版本，
-  并且你必须为每个 kube-apiserver 和每个节点上的 kubelet 启用名为 `CSINodeExpandSecret`
+  当你为节点初始化的卷扩展配置 Secret 数据时，kubelet 会通过 `NodeExpandVolume()`
+  调用将该数据传递给 CSI 驱动。为了使用 `nodeExpandSecretRef` 字段，
+  你的集群应运行 Kubernetes 1.25 或更高版本，
+  如果你所运行的 Kubernetes 是 1.25 或 1.26，你必须为每个 kube-apiserver
+  和每个节点上的 kubelet 启用名为 `CSINodeExpandSecret`
   的[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+  在 Kubernetes 1.27 版本中，此特性已默认启用，无需显式启用特性门控。
   在节点初始化的存储大小调整操作期间，你还必须使用支持或需要 Secret 数据的 CSI 驱动。
 
 <!--
@@ -2128,7 +2120,8 @@ FlexVolume 是一个使用基于 exec 的模型来与驱动程序对接的树外
 驱动程序可执行文件，在某些情况下，控制平面节点中也要安装。
 
 Pod 通过 `flexvolume` 树内插件与 FlexVolume 驱动程序交互。
-更多详情请参考 FlexVolume [README](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md#readme) 文档。
+更多详情请参考 FlexVolume
+[README](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-storage/flexvolume.md#readme) 文档。
 
 <!--
 The following FlexVolume [plugins](https://github.com/Microsoft/K8s-Storage-Plugins/tree/master/flexvolume/windows),
@@ -2175,15 +2168,25 @@ in `Container.volumeMounts`. Its values are:
   In similar fashion, no mounts created by the container will be visible on
   the host. This is the default mode.
 
-  This mode is equal to `private` mount propagation as described in the
-  [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
+  This mode is equal to `rprivate` mount propagation as described in
+  [`mount(8)`](https://man7.org/linux/man-pages/man8/mount.8.html)
+
+  However, the CRI runtime may choose `rslave` mount propagation (i.e.,
+  `HostToContainer`) instead, when `rprivate` propagation is not applicable.
+  cri-dockerd (Docker) is known to choose `rslave` mount propagation when the
+  mount source contains the Docker daemon's root directory (`/var/lib/docker`).
 -->
 
 * `None` - 此卷挂载将不会感知到主机后续在此卷或其任何子目录上执行的挂载变化。
    类似的，容器所创建的卷挂载在主机上是不可见的。这是默认模式。
 
-   该模式等同于 [Linux 内核文档](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)中描述的
-  `private` 挂载传播选项。
+   该模式等同于 [`mount(8)`](https://man7.org/linux/man-pages/man8/mount.8.html)中描述的
+   `rprivate` 挂载传播选项。
+
+   然而，当 `rprivate` 传播选项不适用时，CRI 运行时可以转为选择 `rslave` 挂载传播选项
+   （即 `HostToContainer`）。当挂载源包含 Docker 守护进程的根目录（`/var/lib/docker`）时，
+   cri-dockerd (Docker) 已知可以选择 `rslave` 挂载传播选项。
+   。
 
 <!--
 * `HostToContainer` - This volume mount will receive all subsequent mounts
@@ -2197,7 +2200,7 @@ in `Container.volumeMounts`. Its values are:
   propagation will see it.
 
   This mode is equal to `rslave` mount propagation as described in the
-  [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
+  [`mount(8)`](https://man7.org/linux/man-pages/man8/mount.8.html)
 -->
 * `HostToContainer` - 此卷挂载将会感知到主机后续针对此卷或其任何子目录的挂载操作。
 
@@ -2206,7 +2209,7 @@ in `Container.volumeMounts`. Its values are:
   类似的，配置了 `Bidirectional` 挂载传播选项的 Pod 如果在同一卷上挂载了内容，挂载传播设置为
   `HostToContainer` 的容器都将能看到这一变化。
 
-  该模式等同于 [Linux 内核文档](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)中描述的
+  该模式等同于 [`mount(8)`](https://man7.org/linux/man-pages/man8/mount.8.html)中描述的
   `rslave` 挂载传播选项。
 
 <!--
@@ -2218,12 +2221,12 @@ in `Container.volumeMounts`. Its values are:
   a Pod that needs to mount something on the host using a `hostPath` volume.
 
   This mode is equal to `rshared` mount propagation as described in the
-  [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
+  [`mount(8)`](https://man7.org/linux/man-pages/man8/mount.8.html)
 -->
 * `Bidirectional` - 这种卷挂载和 `HostToContainer` 挂载表现相同。
   另外，容器创建的卷挂载将被传播回至主机和使用同一卷的所有 Pod 的所有容器。
 
-  该模式等同于 [Linux 内核文档](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)中描述的
+  该模式等同于 [`mount(8)`](https://man7.org/linux/man-pages/man8/mount.8.html)中描述的
   `rshared` 挂载传播选项。
 
   {{< warning >}}
@@ -2276,4 +2279,3 @@ sudo systemctl restart docker
 Follow an example of [deploying WordPress and MySQL with Persistent Volumes](/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/).
 -->
 参考[使用持久卷部署 WordPress 和 MySQL](/zh-cn/docs/tutorials/stateful-application/mysql-wordpress-persistent-volume/) 示例。
-

@@ -22,8 +22,8 @@ The Pod Security Standards define three different _policies_ to broadly cover th
 spectrum. These policies are _cumulative_ and range from highly-permissive to highly-restrictive.
 This guide outlines the requirements of each policy.
 -->
-Pod 安全性标准定义了三种不同的 **策略（Policy）**，以广泛覆盖安全应用场景。
-这些策略是 **叠加式的（Cumulative）**，安全级别从高度宽松至高度受限。
+Pod 安全性标准定义了三种不同的**策略（Policy）**，以广泛覆盖安全应用场景。
+这些策略是**叠加式的（Cumulative）**，安全级别从高度宽松至高度受限。
 本指南概述了每个策略的要求。
 
 <!--
@@ -84,7 +84,7 @@ containers_. If any of the listed containers fails to meet the requirements, the
 fail validation.
 -->
 在下述表格中，通配符（`*`）意味着一个列表中的所有元素。
-例如 `spec.containers[*].securityContext` 表示 _所定义的所有容器_ 的安全性上下文对象。
+例如 `spec.containers[*].securityContext` 表示**所定义的所有容器**的安全性上下文对象。
 如果所列出的任一容器不能满足要求，整个 Pod 将无法通过校验。
 {{< /note >}}
 
@@ -100,7 +100,7 @@ fail validation.
 			<td style="white-space: nowrap">HostProcess</td>
 			<td>
 				<p><!--Windows pods offer the ability to run <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess containers</a> which enables privileged access to the Windows node. Privileged access to the host is disallowed in the baseline policy. -->
-                                Windows Pod 提供了运行 <a href="/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess 容器</a> 的能力，这使得对 Windows 节点的特权访问成为可能。Baseline 策略中禁止对宿主的特权访问。{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+                                Windows Pod 提供了运行 <a href="/zh-cn/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess 容器</a> 的能力，这使得对 Windows 节点的特权访问成为可能。Baseline 策略中禁止对宿主的特权访问。{{< feature-state for_k8s_version="v1.26" state="stable" >}}
                                 </p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
@@ -196,7 +196,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap"><!--Host Ports-->宿主端口</td>
 			<td>
-				<p><!--HostPorts should be disallowed, or at minimum restricted to a known list.-->应该禁止使用宿主端口，或者至少限制只能使用某确定列表中的端口。</p>
+				<p><!--HostPorts should be disallowed entirely (recommended) or restricted to a known list.-->应该完全禁止使用宿主端口（推荐）或者至少限制只能使用某确定列表中的端口。</p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
 					<li><code>spec.containers[*].ports[*].hostPort</code></li>
@@ -206,7 +206,7 @@ fail validation.
 				<p><strong><!--Allowed Values-->准许的取值</strong></p>
 				<ul>
 					<li><!--Undefined/nil-->未定义、nil</li>
-					<li><!--Known list-->已知列表</li>
+					<li><!--Known list (not supported by the built-in <a href="/docs/concepts/security/pod-security-admission/">Pod Security Admission controller</a>)-->已知列表（不支持内置的 <a href="/docs/concepts/security/pod-security-admission/">Pod 安全性准入控制器</a> ）</li>
 					<li><code>0</code></li>
 				</ul>
 			</td>
@@ -380,7 +380,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap"><!--Privilege Escalation (v1.8+)-->特权提升（v1.8+）</td>
 			<td>
-				<p><!--Privilege escalation (such as via set-user-ID or set-group-ID file mode) should not be allowed. <em><a href="#policies-specific-to-linux">This is Linux only policy</a> in v1.25+ <code>(spec.os.name != windows)</code></em>-->禁止（通过 SetUID 或 SetGID 文件模式）获得特权提升。<em><a href="#policies-specific-to-linux">这是 v1.25+ 中仅针对 Linux 的策略</a> <code>(spec.os.name != windows)</code></em></p>
+				<p><!--Privilege escalation (such as via set-user-ID or set-group-ID file mode) should not be allowed. <em><a href="#os-specific-policy-controls">This is Linux only policy</a> in v1.25+ <code>(spec.os.name != windows)</code></em>-->禁止（通过 SetUID 或 SetGID 文件模式）获得特权提升。<em><a href="#policies-specific-to-linux">这是 v1.25+ 中仅针对 Linux 的策略</a> <code>(spec.os.name != windows)</code></em></p>
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
 					<li><code>spec.containers[*].securityContext.allowPrivilegeEscalation</code></li>
@@ -421,7 +421,7 @@ fail validation.
 				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
 					<li><code>spec.securityContext.runAsUser</code></li>
-					<li><code>spec.containers[*].securityContext.runAsUser</code></li>
+          <li><code>spec.containers[*].securityContext.runAsUser</code></li>
 					<li><code>spec.initContainers[*].securityContext.runAsUser</code></li>
 					<li><code>spec.ephemeralContainers[*].securityContext.runAsUser</code></li>
 				</ul>
@@ -435,7 +435,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">Seccomp (v1.19+)</td>
 			<td>
-  				<p><!--Seccomp profile must be explicitly set to one of the allowed values. Both the <code>Unconfined</code> profile and the <em>absence</em> of a profile are prohibited. <em><a href="#policies-specific-to-linux">This is Linux only policy</a> in v1.25+ <code>(spec.os.name != windows)</code></em>-->Seccomp Profile 必须被显式设置成一个允许的值。禁止使用 <code>Unconfined</code> Profile 或者指定 <em>不存在的</em> Profile。<em><a href="#policies-specific-to-linux">这是 v1.25+ 中仅针对 Linux 的策略</a> <code>(spec.os.name != windows)</code></em></p>
+  				<p><!--Seccomp profile must be explicitly set to one of the allowed values. Both the <code>Unconfined</code> profile and the <em>absence</em> of a profile are prohibited. <em><a href="#os-specific-policy-controls">This is Linux only policy</a> in v1.25+ <code>(spec.os.name != windows)</code></em>-->Seccomp Profile 必须被显式设置成一个允许的值。禁止使用 <code>Unconfined</code> Profile 或者指定 <em>不存在的</em> Profile。<em><a href="#policies-specific-to-linux">这是 v1.25+ 中仅针对 Linux 的策略</a> <code>(spec.os.name != windows)</code></em></p>
   				<p><strong><!--Restricted Fields-->限制的字段</strong></p>
 				<ul>
 					<li><code>spec.securityContext.seccompProfile.type</code></li>
@@ -468,7 +468,7 @@ fail validation.
 				<p>
 					<!--
 					Containers must drop <code>ALL</code> capabilities, and are only permitted to add back
-					the <code>NET_BIND_SERVICE</code> capability. <em><a href="#policies-specific-to-linux">This is Linux only policy</a> in v1.25+ <code>(.spec.os.name != "windows")</code></em>
+					the <code>NET_BIND_SERVICE</code> capability. <em><a href="#os-specific-policy-controls">This is Linux only policy</a> in v1.25+ <code>(.spec.os.name != "windows")</code></em>
           -->
           容器必须弃用 <code>ALL</code> 权能，并且只允许添加
           <code>NET_BIND_SERVICE</code> 权能。<em><a href="#policies-specific-to-linux">这是 v1.25+ 中仅针对 Linux 的策略</a> <code>(.spec.os.name != "windows")</code></em>
@@ -575,7 +575,7 @@ to a particular OS can be relaxed for the other OS.
 -->
 ### 限制性的 Pod Security Standard 变更   {#restricted-pod-security-standard-changes}
 
-Kubernetes v1.25 中的另一个重要变化是 **限制性的（Restricted）** Pod 安全性已更新，
+Kubernetes v1.25 中的另一个重要变化是**限制性的（Restricted）** Pod 安全性已更新，
 能够处理 `pod.spec.os.name` 字段。根据 OS 名称，专用于特定 OS 的某些策略对其他 OS 可以放宽限制。
 
 <!--

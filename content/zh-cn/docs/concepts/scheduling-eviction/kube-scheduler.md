@@ -51,7 +51,7 @@ page will help you learn about scheduling.
 ## kube-scheduler
 
 <!--
-[kube-scheduler](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/)
+[kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/)
 is the default scheduler for Kubernetes and runs as part of the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}.
 kube-scheduler is designed so that, if you want and need to, you can
@@ -64,16 +64,16 @@ write your own scheduling component and use that instead.
 在设计上允许你自己编写一个调度组件并替换原有的 kube-scheduler。
 
 <!--
-For every newly created pods or other unscheduled pods, kube-scheduler
-selects a optimal node for them to run on.  However, every container in
-pods has different requirements for resources and every pod also has
-different requirements. Therefore, existing nodes need to be filtered
-according to the specific scheduling requirements.
+Kube-scheduler selects an optimal node to run newly created or not yet
+scheduled (unscheduled) pods. Since containers in pods - and pods themselves -
+can have different requirements, the scheduler filters out any nodes that
+don't meet a Pod's specific scheduling needs. Alternatively, the API lets
+you specify a node for a Pod when you create it, but this is unusual
+and is only done in special cases.
 -->
-对每一个新创建的 Pod 或者是未被调度的 Pod，kube-scheduler 会选择一个最优的节点去运行这个 Pod。
-然而，Pod 内的每一个容器对资源都有不同的需求，
-而且 Pod 本身也有不同的需求。因此，Pod 在被调度到节点上之前，
-根据这些特定的调度需求，需要对集群中的节点进行一次过滤。
+Kube-scheduler 选择一个最佳节点来运行新创建的或尚未调度（unscheduled）的 Pod。
+由于 Pod 中的容器和 Pod 本身可能有不同的要求，调度程序会过滤掉任何不满足 Pod 特定调度需求的节点。
+或者，API 允许你在创建 Pod 时为它指定一个节点，但这并不常见，并且仅在特殊情况下才会这样做。
 
 <!--
 In a cluster, Nodes that meet the scheduling requirements for a Pod
@@ -104,15 +104,15 @@ locality, inter-workload interference, and so on.
 亲和以及反亲和要求、数据局部性、负载间的干扰等等。
 
 <!--
-## Scheduling with kube-scheduler {#kube-scheduler-implementation}
+### Node selection in kube-scheduler {#kube-scheduler-implementation}
 -->
-## kube-scheduler 调度流程 {#kube-scheduler-implementation}
+### kube-scheduler 中的节点选择 {#kube-scheduler-implementation}
 
 <!--
 kube-scheduler selects a node for the pod in a 2-step operation:
 
 1. Filtering
-2. Scoring
+1. Scoring
 -->
 kube-scheduler 给一个 Pod 做调度选择时包含两个步骤：
 
@@ -183,7 +183,7 @@ of the scheduler:
   * [Node-specific Volume Limits](/docs/concepts/storage/storage-limits/)
 -->
 * 阅读关于[调度器性能调优](/zh-cn/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
-* 阅读关于 [Pod 拓扑分布约束](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+* 阅读关于 [Pod 拓扑分布约束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 * 阅读关于 kube-scheduler 的[参考文档](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)
 * 阅读 [kube-scheduler 配置参考 (v1beta3)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)
 * 了解关于[配置多个调度器](/zh-cn/docs/tasks/extend-kubernetes/configure-multiple-schedulers/) 的方式

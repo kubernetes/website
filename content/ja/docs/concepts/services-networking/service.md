@@ -12,7 +12,7 @@ weight: 10
 
 <!-- overview -->
 
-{{< glossary_definition term_id="service" length="short" >}}
+{{< glossary_definition term_id="service" length="short" prepend="KubernetesにおけるServiceとは、" >}}
 
 Kubernetesでは、なじみのないサービスディスカバリーのメカニズムを使用するためにユーザーがアプリケーションの修正をする必要はありません。
 KubernetesはPodにそれぞれのIPアドレス割り振りや、Podのセットに対する単一のDNS名を提供したり、それらのPodのセットに対する負荷分散が可能です。
@@ -466,7 +466,7 @@ Split-HorizonなDNS環境において、ユーザーは2つのServiceを外部�
 metadata:
     name: my-service
     annotations:
-        cloud.google.com/load-balancer-type: "Internal"
+        networking.gke.io/load-balancer-type: "Internal"
 [...]
 ```
 
@@ -830,7 +830,7 @@ HTTPやHTTPSなどの一般的なプロトコルでExternalNameを使用する�
 `externalIPs`はKubernetesによって管理されず、それを管理する責任はクラスターの管理者にあります。
 
 Serviceのspecにおいて、`externalIPs`は他のどの`ServiceTypes`と併用して設定できます。
-下記の例では、"`my-service`"は"`80.11.12.10:80`" (`externalIP:port`)のクライアントからアクセス可能です。
+下記の例では、"`my-service`"は"`198.51.100.32:80`" (`externalIP:port`)のクライアントからアクセス可能です。
 
 ```yaml
 apiVersion: v1

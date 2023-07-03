@@ -83,6 +83,7 @@ Adopting a common convention for annotations ensures consistency and understanda
 | `a8r.io/uptime`                            | Link to external uptime dashboard. |
 | `a8r.io/performance`                       | Link to external performance dashboard. |
 | `a8r.io/dependencies`                      | Unstructured text describing the service dependencies for humans. |
+{{< /table >}}
 
 
 ## Visualizing annotations: Service Catalogs

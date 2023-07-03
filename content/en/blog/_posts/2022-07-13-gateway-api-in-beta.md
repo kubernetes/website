@@ -145,7 +145,7 @@ workstream within the Gateway API subproject focused on Gateway API for Mesh
 Management and Administration.
 
 This group will deliver [enhancement
-proposals](https://gateway-api.sigs.k8s.io/v1beta1/contributing/gep/) consisting
+proposals](https://gateway-api.sigs.k8s.io/geps/overview/) consisting
 of resources, additions, and modifications to the Gateway API specification for
 mesh and mesh-adjacent use-cases.
 

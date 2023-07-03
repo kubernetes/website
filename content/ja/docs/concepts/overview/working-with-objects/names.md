@@ -2,7 +2,7 @@
 reviewers:
 title: オブジェクトの名前とID
 content_type: concept
-weight: 20
+weight: 30
 ---
 
 <!-- overview -->

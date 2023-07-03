@@ -2,6 +2,7 @@
 title: 控制节点上的拓扑管理策略
 content_type: task
 min-kubernetes-server-version: v1.18
+weight: 150
 ---
 <!--
 title: Control Topology Management Policies on a node
@@ -15,11 +16,12 @@ reviewers:
 
 content_type: task
 min-kubernetes-server-version: v1.18
+weight: 150
 -->
 
 <!-- overview -->
 
-{{< feature-state state="beta" for_k8s_version="v1.18" >}}
+{{< feature-state state="beta" for_k8s_version="v1.27" >}}
 
 <!--
 An increasing number of systems leverage a combination of CPUs and hardware accelerators to
@@ -99,19 +101,6 @@ resource allocation decisions.
 所选建议将被存储为拓扑管理器的一部分。
 取决于所配置的策略，所选建议可用来决定节点接受或拒绝 Pod。
 之后，建议会被存储在拓扑管理器中，供 **建议提供者** 在作资源分配决策时使用。
-
-<!--
-### Enable the Topology Manager feature
-
-Support for the Topology Manager requires `TopologyManager`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
-It is enabled by default starting with Kubernetes 1.18.
--->
-### 启用拓扑管理器功能特性 {#enable-the-topology-manager-feature}
-
-为了使用拓扑管理器，需要先启用 `TopologyManager`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-从 Kubernetes 1.18 版本开始，这一特性默认是启用的。
 
 <!--
 ## Topology Manager Scopes and Policies
@@ -427,6 +416,54 @@ that have the `Topology Affinity` error.
 一旦 Pod 处于 `Terminated` 状态，Kubernetes 调度器将不会尝试重新调度该 Pod。
 建议使用多副本的 Deployment 来触发重新部署 Pod。
 还可以通过实现外部控制环，以触发重新部署具有 `Topology Affinity` 错误的 Pod。
+
+<!--
+### Topology manager policy options
+
+Support for the Topology Manager policy options requires `TopologyManagerPolicyOptions`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
+-->
+### 拓扑管理器策略选项  {#topology-manager-policy-options}
+
+对拓扑管理器策略选项的支持需要启用 `TopologyManagerPolicyOptions`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+
+<!--
+You can toggle groups of options on and off based upon their maturity level using the following feature gates:
+* `TopologyManagerPolicyBetaOptions` default disabled. Enable to show beta-level options. Currently there are no beta-level options.
+* `TopologyManagerPolicyAlphaOptions` default disabled. Enable to show alpha-level options. You will still have to enable each option using the `TopologyManagerPolicyOptions` kubelet option.
+-->
+你可以使用以下特性门控根据成熟度级别打开和关闭这些选项组：
+* `TopologyManagerPolicyBetaOptions` 默认禁用。启用以显示 Beta 级别选项。目前没有 Beta 级别选项。
+* `TopologyManagerPolicyAlphaOptions` 默认禁用。启用以显示 Alpha 级别选项。你仍然需要使用
+  `TopologyManagerPolicyOptions` kubelet 选项来启用每个选项。
+
+<!--
+The following policy options exists:
+* `prefer-closest-numa-nodes` (alpha, invisible by default, `TopologyManagerPolicyOptions` and `TopologyManagerPolicyAlphaOptions` feature gates have to be enabled)(1.26 or higher)
+-->
+存在以下策略选项：
+* `prefer-closest-numa-nodes`（Alpha，默认不可见，`TopologyManagerPolicyOptions` 和
+  `TopologyManagerPolicyAlphaOptions` 特性门控必须被启用）（1.26 或更高版本）
+
+<!--
+If the `prefer-closest-numa-nodes` policy option is specified, the `best-effort` and `restricted`
+policies will favor sets of NUMA nodes with shorter distance between them when making admission decisions.
+You can enable this option by adding `prefer-closest-numa-nodes=true` to the Topology Manager policy options.
+By default, without this option, Topology Manager aligns resources on either a single NUMA node or
+the minimum number of NUMA nodes (in cases where more than one NUMA node is required). However,
+the `TopologyManager` is not aware of NUMA distances and does not take them into account when making admission decisions.
+This limitation surfaces in multi-socket, as well as single-socket multi NUMA systems,
+and can cause significant performance degradation in latency-critical execution and high-throughput applications if the
+Topology Manager decides to align resources on non-adjacent NUMA nodes.
+-->
+如果 `prefer-closest-numa-nodes` 策略选项被指定，则在做出准入决策时 `best-effort` 和 `restricted`
+策略将偏向于彼此之间距离较短的一组 NUMA 节点。
+你可以通过将 `prefer-closest-numa-nodes=true` 添加到拓扑管理器策略选项来启用此选项。
+默认情况下，如果没有此选项，拓扑管理器会在单个 NUMA 节点或（在需要多个 NUMA 节点时）最小数量的 NUMA 节点上对齐资源。
+然而，`TopologyManager` 无法感知到 NUMA 距离且在做出准入决策时也没有考虑这些距离。
+这种限制出现在多插槽以及单插槽多 NUMA 系统中，如果拓扑管理器决定在非相邻 NUMA 节点上对齐资源，
+可能导致对执行延迟敏感和高吞吐的应用程序出现明显的性能下降。
 
 <!--
 ### Pod Interactions with Topology Manager Policies

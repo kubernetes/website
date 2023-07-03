@@ -1,6 +1,7 @@
 ---
 title: Access Clusters Using the Kubernetes API
 content_type: task
+weight: 60
 ---
 
 <!-- overview -->

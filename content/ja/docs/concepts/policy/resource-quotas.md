@@ -2,7 +2,7 @@
 reviewers:
 title: リソースクォータ
 content_type: concept
-weight: 10
+weight: 20
 ---
 
 <!-- overview -->
@@ -25,6 +25,11 @@ weight: 10
 - リソースの作成や更新がクォータの制約に違反しているとき、そのリクエストはHTTPステータスコード`403 FORBIDDEN`で失敗し、違反した制約を説明するメッセージが表示されます。
 - `cpu`や`memory`といったコンピューターリソースに対するクォータが名前空間内で有効になっているとき、ユーザーはそれらの値に対する`requests`や`limits`を設定する必要があります。設定しないとクォータシステムがPodの作成を拒否します。 ヒント: コンピュートリソースの要求を設定しないPodに対してデフォルト値を強制するために、`LimitRanger`アドミッションコントローラーを使用してください。この問題を解決する例は[walkthrough](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)で参照できます。
 
+{{< note >}}
+- `cpu`および`memory`リソースに関しては、ResourceQuotaはlimitを設定している名前空間内の**全ての**(新しい)Podに対して当該リソースのlimitの設定を強制します。名前空間内の`cpu`または`memory`どちらかに対してリソースクォータを適用する場合、ユーザーやクライアントは全ての新しいPodごとに、そのリソースの`requests`あるいは`limits`を指定**しなければなりません**。そうでない場合、コントロールプレーンがそのPodの作成を拒否する可能性があります。
+- その他のリソースに関して: ResourceQuotaはリソースのlimitまたはrequestを設定していないPodでも機能します。これは、名前空間内のリソースクォータにおいてエフェメラルストレージのlimitを設定している場合、エフェメラルストレージのlimit/requestsを設定していないPodでも新規作成できることを意味します。[LimitRange](/ja/docs/concepts/policy/limit-range/)を使うことで、リソースに対して自動的にデフォルト要求を設定することができます。
+{{< /note >}}
+
 ResourceQuotaのオブジェクト名は、有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)である必要があります.
 
 名前空間とクォータを使用して作成できるポリシーの例は以下の通りです。
@@ -42,7 +47,7 @@ ResourceQuotaのオブジェクト名は、有効な[DNSサブドメイン名](/
 
 特定の名前空間にResourceQuotaがあるとき、そのリソースクォータはその名前空間に適用されます。
 
-## リソースクォータの計算
+## コンピュートリソースクォータ
 
 特定の名前空間において、[コンピュートリソース](/ja/docs/concepts/configuration/manage-resources-containers/)の合計に上限を設定できます。
 

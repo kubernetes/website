@@ -3,18 +3,20 @@ title: 在集群级别应用 Pod 安全标准
 content_type: tutorial
 weight: 10
 ---
-<!-- 
+<!--
 title: Apply Pod Security Standards at the Cluster Level
 content_type: tutorial
 weight: 10
 -->
 
 {{% alert title="Note" %}}
-<!-- This tutorial applies only for new clusters. -->
+<!--
+This tutorial applies only for new clusters.
+-->
 本教程仅适用于新集群。
 {{% /alert %}}
 
-<!-- 
+<!--
 Pod Security admission (PSA) is enabled by default in v1.23 and later, as it has
 [graduated to beta](/blog/2021/12/09/pod-security-admission-beta/).
 Pod Security
@@ -44,16 +46,26 @@ Pod 安全准入是在创建 Pod 时应用
 请查阅该版本的文档。
 
 ## {{% heading "prerequisites" %}}
-<!-- 
+<!--
 Install the following on your workstation:
 
 - [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
-- [kubectl](https://kubernetes.io/docs/tasks/tools/)
+- [kubectl](/docs/tasks/tools/)
 -->
 在你的工作站中安装以下内容：
 
 - [KinD](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 - [kubectl](/zh-cn/docs/tasks/tools/)
+
+<!--
+This tutorial demonstrates what you can configure for a Kubernetes cluster that you fully
+control. If you are learning how to configure Pod Security Admission for a managed cluster
+where you are not able to configure the control plane, read
+[Apply Pod Security Standards at the namespace level](/docs/tutorials/security/ns-level-pss).
+-->
+本教程演示了你可以对完全由你控制的 Kubernetes 集群所配置的内容。
+如果你正在学习如何为一个无法配置控制平面的托管集群配置 Pod 安全准入，
+请参阅[在名字空间级别应用 Pod 安全标准](/zh-cn/docs/tutorials/security/ns-level-pss)。
 
 <!--
 ## Choose the right Pod Security Standard to apply
@@ -63,7 +75,7 @@ lets you apply built-in [Pod Security Standards](/docs/concepts/security/pod-sec
 with the following modes: `enforce`, `audit`, and `warn`.
 
 To gather information that helps you to choose the Pod Security Standards
-that are most appropriate for your configuration, do the following: 
+that are most appropriate for your configuration, do the following:
 -->
 ## 正确选择要应用的 Pod 安全标准  {#choose-the-right-pod-security-standard-to-apply}
 
@@ -74,34 +86,37 @@ that are most appropriate for your configuration, do the following:
 
 要收集信息以便选择最适合你的配置的 Pod 安全标准，请执行以下操作：
 
-<!-- 
+<!--
 1. Create a cluster with no Pod Security Standards applied:
- -->
+-->
 1. 创建一个没有应用 Pod 安全标准的集群：
 
    ```shell
-   kind create cluster --name psa-wo-cluster-pss --image kindest/node:v1.24.0
+   kind create cluster --name psa-wo-cluster-pss
    ```
-   <!-- The output is similar to this: -->
+   <!--
+   The output is similar to:
+   -->
+
    输出类似于：
+
    ```
    Creating cluster "psa-wo-cluster-pss" ...
-   ✓ Ensuring node image (kindest/node:v1.24.0) 🖼
-   ✓ Preparing nodes 📦  
+   ✓ Ensuring node image (kindest/node:v{{< skew currentPatchVersion >}}) 🖼
+   ✓ Preparing nodes 📦
    ✓ Writing configuration 📜
    ✓ Starting control-plane 🕹️
    ✓ Installing CNI 🔌
    ✓ Installing StorageClass 💾
    Set kubectl context to "kind-psa-wo-cluster-pss"
    You can now use your cluster with:
-   
+
    kubectl cluster-info --context kind-psa-wo-cluster-pss
-   
+
    Thanks for using kind! 😊
-   
    ```
 
-<!-- 
+<!--
 1. Set the kubectl context to the new cluster:
 -->
 2. 将 kubectl 上下文设置为新集群：
@@ -109,17 +124,21 @@ that are most appropriate for your configuration, do the following:
    ```shell
    kubectl cluster-info --context kind-psa-wo-cluster-pss
    ```
-   <!-- The output is similar to this: -->
+   <!--
+   The output is similar to this:
+   -->
+
    输出类似于：
 
    ```
-   Kubernetes control plane is running at https://127.0.0.1:61350 
+   Kubernetes control plane is running at https://127.0.0.1:61350
+
    CoreDNS is running at https://127.0.0.1:61350/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
-   
+
    To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
    ```
 
-<!-- 
+<!--
 1. Get a list of namespaces in the cluster:
 -->
 3. 获取集群中的名字空间列表：
@@ -127,9 +146,13 @@ that are most appropriate for your configuration, do the following:
    ```shell
    kubectl get ns
    ```
-   <!-- The output is similar to this: -->
+   <!--
+   The output is similar to this:
+   -->
+
    输出类似于：
-   ```      
+
+   ```
    NAME                 STATUS   AGE
    default              Active   9m30s
    kube-node-lease      Active   9m32s
@@ -138,34 +161,44 @@ that are most appropriate for your configuration, do the following:
    local-path-storage   Active   9m26s
    ```
 
-<!-- 
+<!--
 1. Use `--dry-run=server` to understand what happens when different Pod Security Standards
    are applied:
- -->
+-->
 4. 使用 `--dry-run=server` 来了解应用不同的 Pod 安全标准时会发生什么：
 
    1. Privileged
       ```shell
-      kubectl label --dry-run=server --overwrite ns --all \                    
+      kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=privileged
       ```
-      <!-- The output is similar to this: -->
+
+      <!--
+      The output is similar to:
+      -->
+
       输出类似于：
-       ```      
-       namespace/default labeled
-       namespace/kube-node-lease labeled
-       namespace/kube-public labeled
-       namespace/kube-system labeled
-       namespace/local-path-storage labeled
-       ```
+
+      ```
+      namespace/default labeled
+      namespace/kube-node-lease labeled
+      namespace/kube-public labeled
+      namespace/kube-system labeled
+      namespace/local-path-storage labeled
+      ```
    2. Baseline
-      ```shell    
+      ```shell
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=baseline
       ```
-      <!-- The output is similar to this: -->
+
+      <!--
+      The output is similar to:
+      -->
+
       输出类似于：
-      ```   
+
+      ```
       namespace/default labeled
       namespace/kube-node-lease labeled
       namespace/kube-public labeled
@@ -182,9 +215,14 @@ that are most appropriate for your configuration, do the following:
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=restricted
       ```
-      <!-- The output is similar to this: -->
+
+      <!--
+      The output is similar to:
+      -->
+
       输出类似于：
-      ```   
+
+      ```
       namespace/default labeled
       namespace/kube-node-lease labeled
       namespace/kube-public labeled
@@ -199,15 +237,16 @@ that are most appropriate for your configuration, do the following:
       namespace/local-path-storage labeled
       ```
 
-<!-- 
+<!--
 From the previous output, you'll notice that applying the `privileged` Pod Security Standard shows no warnings
 for any namespaces. However, `baseline` and `restricted` standards both have
 warnings, specifically in the `kube-system` namespace.
 -->
+
 从前面的输出中，你会注意到应用 `privileged` Pod 安全标准不会显示任何名字空间的警告。
 然而，`baseline` 和 `restricted` 标准都有警告，特别是在 `kube-system` 名字空间中。
 
-<!-- 
+<!--
 ## Set modes, versions and standards
 
 In this section, you apply the following Pod Security Standards to the `latest` version:
@@ -222,7 +261,7 @@ In this section, you apply the following Pod Security Standards to the `latest` 
 * 在 `enforce` 模式下的 `baseline` 标准。
 * `warn` 和 `audit` 模式下的 `restricted` 标准。
 
-<!-- 
+<!--
 The `baseline` Pod Security Standard provides a convenient
 middle ground that allows keeping the exemption list short and prevents known
 privilege escalations.
@@ -239,7 +278,7 @@ following:
 
 在你自己的环境中实施 Pod 安全准入时，请考虑以下事项：
 
-<!-- 
+<!--
 1. Based on the risk posture applied to a cluster, a stricter Pod Security
    Standard like `restricted` might be a better choice.
 1. Exempting the `kube-system` namespace allows pods to run as
@@ -259,7 +298,7 @@ following:
 
    ```
    mkdir -p /tmp/pss
-   cat <<EOF > /tmp/pss/cluster-level-pss.yaml 
+   cat <<EOF > /tmp/pss/cluster-level-pss.yaml
    apiVersion: apiserver.config.k8s.io/v1
    kind: AdmissionConfiguration
    plugins:
@@ -280,24 +319,25 @@ following:
          namespaces: [kube-system]
    EOF
    ```
-    {{< note >}}
-    <!--
-    `pod-security.admission.config.k8s.io/v1` configuration requires v1.25+.
-    For v1.23 and v1.24, use [v1beta1](https://v1-24.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
-    For v1.22, use [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
-    -->
-   `pod-security.admission.config.k8s.io/v1` 配置需要 v1.25+。
-    对于 v1.23 和 v1.24，使用 [v1beta1](https://v1-24.docs.kubernetes.io/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)。
-    对于 v1.22，使用 [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)。
-    {{< /note >}}
 
-<!-- 
+   {{< note >}}
+   <!--
+   `pod-security.admission.config.k8s.io/v1` configuration requires v1.25+.
+   For v1.23 and v1.24, use [v1beta1](https://v1-24.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
+   For v1.22, use [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/).
+   -->
+   `pod-security.admission.config.k8s.io/v1` 配置需要 v1.25+。
+   对于 v1.23 和 v1.24，使用 [v1beta1](https://v1-24.docs.kubernetes.io/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)。
+   对于 v1.22，使用 [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)。
+   {{< /note >}}
+
+<!--
 1. Configure the API server to consume this file during cluster creation:
 -->
 4. 在创建集群时配置 API 服务器使用此文件：
 
    ```
-   cat <<EOF > /tmp/pss/cluster-config.yaml 
+   cat <<EOF > /tmp/pss/cluster-config.yaml
    kind: Cluster
    apiVersion: kind.x-k8s.io/v1alpha4
    nodes:
@@ -331,7 +371,7 @@ following:
    ```
 
    {{<note>}}
-   <!-- 
+   <!--
    If you use Docker Desktop with KinD on macOS, you can
    add `/tmp` as a Shared Directory under the menu item
    **Preferences > Resources > File Sharing**.
@@ -341,54 +381,62 @@ following:
    下添加 `/tmp` 作为共享目录。
    {{</note>}}
 
-<!-- 
+<!--
 1. Create a cluster that uses Pod Security Admission to apply
    these Pod Security Standards:
 -->
 5. 创建一个使用 Pod 安全准入的集群来应用这些 Pod 安全标准：
 
    ```shell
-   kind create cluster --name psa-with-cluster-pss --image kindest/node:v1.24.0 --config /tmp/pss/cluster-config.yaml
+   kind create cluster --name psa-with-cluster-pss --config /tmp/pss/cluster-config.yaml
    ```
-   <!-- The output is similar to this: -->
+   <!--
+   The output is similar to this:
+   -->
+
    输出类似于：
+
    ```
    Creating cluster "psa-with-cluster-pss" ...
-    ✓ Ensuring node image (kindest/node:v1.24.0) 🖼 
-    ✓ Preparing nodes 📦  
-    ✓ Writing configuration 📜 
-    ✓ Starting control-plane 🕹️ 
-    ✓ Installing CNI 🔌 
-    ✓ Installing StorageClass 💾 
+    ✓ Ensuring node image (kindest/node:v{{< skew currentPatchVersion >}}) 🖼
+    ✓ Preparing nodes 📦
+    ✓ Writing configuration 📜
+    ✓ Starting control-plane 🕹️
+    ✓ Installing CNI 🔌
+    ✓ Installing StorageClass 💾
    Set kubectl context to "kind-psa-with-cluster-pss"
    You can now use your cluster with:
-   
+
    kubectl cluster-info --context kind-psa-with-cluster-pss
-   
+
    Have a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community 🙂
    ```
 
-<!-- 
-1. Point kubectl to the cluster
+<!--
+1. Point kubectl to the cluster:
 -->
 6. 将 kubectl 指向集群
 
    ```shell
    kubectl cluster-info --context kind-psa-with-cluster-pss
    ```
-   <!-- The output is similar to this: -->
+   <!--
+   The output is similar to this:
+   -->
+
    输出类似于：
+
    ```
    Kubernetes control plane is running at https://127.0.0.1:63855
    CoreDNS is running at https://127.0.0.1:63855/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
- 
+
    To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
    ```
 
-<!-- 
-1. Create the following Pod specification for a minimal configuration in the default namespace:
+<!--
+1. Create a Pod in the default namespace:
 -->
-7. 创建以下 Pod 规约作为在 default 名字空间中的一个最小配置：
+7. 在 default 名字空间下创建一个 Pod：
 
    ```
    cat <<EOF > /tmp/pss/nginx-pod.yaml
@@ -404,42 +452,48 @@ following:
            - containerPort: 80
    EOF
    ```
-
-<!-- 
+<!--
 1. Create the Pod in the cluster:
 -->
 8. 在集群中创建 Pod：
 
    ```shell
-   kubectl apply -f /tmp/pss/nginx-pod.yaml
+   kubectl apply -f https://k8s.io/examples/security/example-baseline-pod.yaml
    ```
-   <!-- The output is similar to this: -->
-   输出类似于：
+
+   <!--
+   The pod is started normally, but the output includes a warning:
+   -->
+   这个 Pod 正常启动，但输出包含警告：
    ```
-   Warning: would violate PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "nginx" must set securityContext allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext seccompProfile.type to "RuntimeDefault" or "Localhost")
+   Warning: would violate PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "nginx" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
    pod/nginx created
    ```
 
-<!-- 
+<!--
 ## Clean up
 
-Run `kind delete cluster --name psa-with-cluster-pss` and
-`kind delete cluster --name psa-wo-cluster-pss` to delete the clusters you
-created.
+Now delete the clusters which you created above by running the following command:
 -->
 ## 清理  {#clean-up}
 
-运行 `kind delete cluster --name psa-with-cluster-pss` 和
-`kind delete cluster --name psa-wo-cluster-pss` 来删除你创建的集群。
+现在通过运行以下命令删除你上面创建的集群：
+
+```shell
+kind delete cluster --name psa-with-cluster-pss
+```
+```shell
+kind delete cluster --name psa-wo-cluster-pss
+```
 
 ## {{% heading "whatsnext" %}}
 
-<!-- 
+<!--
 - Run a
   [shell script](/examples/security/kind-with-cluster-level-baseline-pod-security.sh)
   to perform all the preceding steps at once:
   1. Create a Pod Security Standards based cluster level Configuration
-  2. Create a file to let API server consumes this configuration
+  2. Create a file to let API server consume this configuration
   3. Create a cluster that creates an API server with this configuration
   4. Set kubectl context to this new cluster
   5. Create a minimal pod yaml file

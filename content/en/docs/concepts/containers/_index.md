@@ -14,7 +14,7 @@ Each container that you run is repeatable; the standardization from having
 dependencies included means that you get the same behavior wherever you
 run it.
 
-Containers decouple applications from underlying host infrastructure.
+Containers decouple applications from the underlying host infrastructure.
 This makes deployment easier in different cloud or OS environments.
 
 Each {{< glossary_tooltip text="node" term_id="node" >}} in a Kubernetes
@@ -27,7 +27,7 @@ Containers in a Pod are co-located and co-scheduled to run on the same node.
 
 ## Container images
 A [container image](/docs/concepts/containers/images/) is a ready-to-run
-software package, containing everything needed to run an application:
+software package containing everything needed to run an application:
 the code and any runtime it requires, application and system libraries,
 and default values for any essential settings.
 

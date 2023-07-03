@@ -310,11 +310,11 @@ It augments the basic
 {{< note >}}
 <!--
 The contents below are just an example. If you don't want to use a package manager
-follow the guide outlined in the [Without a package manager](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#k8s-install-2))
+follow the guide outlined in the ([Without a package manager](/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#k8s-install-2))
 section.
 -->
 下面的内容只是一个例子。如果你不想使用包管理器，
-请遵循[没有包管理器](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#k8s-install-2))
+请遵循([没有包管理器](/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#k8s-install-2))
 章节的指南。
 {{< /note >}}
 

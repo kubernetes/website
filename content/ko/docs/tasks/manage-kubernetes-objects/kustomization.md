@@ -86,20 +86,12 @@ metadata:
   name: example-configmap-1-8mbdf7882g
 ```
 
-env 파일에서 컨피그맵을 생성하려면, `configMapGenerator`의 `envs` 리스트에 항목을 추가한다. `=` 및 값을 생략하여 로컬 환경 변수로부터 값을 설정할 수도 있다.
-
-{{< note >}}
-로컬 환경 변수 채우기 기능은 꼭 필요한 경우에만 사용하는 것이 좋은데, 이는 패치를 할 수 있는 오버레이가 있는 편이 유지 관리에 더 유리하기 때문이다. 로컬 환경 변수 채우기 기능은 git SHA와 같이 그 값을 쉽게 예측할 수 없는 경우에 유용할 수 있다.
-{{< /note >}}
-
-다음은 `.env` 파일의 데이터 항목으로 컨피그맵을 생성하는 예시를 보여준다.
+env 파일에서 컨피그맵을 생성하려면, `configMapGenerator`의 `envs` 리스트에 항목을 추가한다. 다음은 `.env` 파일의 데이터 항목으로 컨피그맵을 생성하는 예시를 보여준다.
 
 ```shell
 # .env 파일 생성
-# BAZ 에는 로컬 환경 변수 $BAZ 의 값이 입력될 것이다
 cat <<EOF >.env
 FOO=Bar
-BAZ
 EOF
 
 cat <<EOF >./kustomization.yaml
@@ -113,7 +105,7 @@ EOF
 생성된 컨피그맵은 다음 명령어로 검사할 수 있다.
 
 ```shell
-BAZ=Qux kubectl kustomize ./
+kubectl kustomize ./
 ```
 
 생성된 컨피그맵은 다음과 같다.
@@ -121,11 +113,10 @@ BAZ=Qux kubectl kustomize ./
 ```yaml
 apiVersion: v1
 data:
-  BAZ: Qux
   FOO: Bar
 kind: ConfigMap
 metadata:
-  name: example-configmap-1-892ghb99c8
+  name: example-configmap-1-42cfbf598f
 ```
 
 {{< note >}}
@@ -902,14 +893,14 @@ EOF
 ```shell
 mkdir dev
 cat <<EOF > dev/kustomization.yaml
-bases:
+resources:
 - ../base
 namePrefix: dev-
 EOF
 
 mkdir prod
 cat <<EOF > prod/kustomization.yaml
-bases:
+resources:
 - ../base
 namePrefix: prod-
 EOF

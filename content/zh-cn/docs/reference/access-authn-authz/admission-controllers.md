@@ -4,7 +4,6 @@ linkTitle: 准入控制器
 content_type: concept
 weight: 30
 ---
-
 <!--
 reviewers:
 - lavalamp
@@ -180,8 +179,21 @@ In Kubernetes {{< skew currentVersion >}}, the default ones are:
 在 Kubernetes {{< skew currentVersion >}} 中，默认启用的插件有：
 
 ```shell
-CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, LimitRanger, MutatingAdmissionWebhook, NamespaceLifecycle, PersistentVolumeClaimResize, PodSecurity, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionWebhook
+CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, LimitRanger, MutatingAdmissionWebhook, NamespaceLifecycle, PersistentVolumeClaimResize, PodSecurity, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook
 ```
+
+{{< note >}}
+<!--
+The [`ValidatingAdmissionPolicy`](#validatingadmissionpolicy) admission plugin is enabled
+by default, but is only active if you enable the `ValidatingAdmissionPolicy`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) **and**
+the `admissionregistration.k8s.io/v1alpha1` API.
+-->
+[`ValidatingAdmissionPolicy`](#validatingadmissionpolicy) 准入插件默认被启用，
+但只有启用 `ValidatingAdmissionPolicy`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/) **和**
+`admissionregistration.k8s.io/v1alpha1` API 时才会激活。
+{{< /note >}}
 
 <!--
 ## What does each admission controller do?
@@ -329,7 +341,8 @@ This admission controller ignores any `PersistentVolumeClaim` updates; it acts o
 See [persistent volume](/docs/concepts/storage/persistent-volumes/) documentation about persistent volume claims and
 storage classes and how to mark a storage class as default.
 -->
-关于持久卷申领和存储类，以及如何将存储类标记为默认，请参见[持久卷](/zh-cn/docs/concepts/storage/persistent-volumes/)页面。
+关于持久卷申领和存储类，以及如何将存储类标记为默认，
+请参见[持久卷](/zh-cn/docs/concepts/storage/persistent-volumes/)页面。
 
 ### DefaultTolerationSeconds {#defaulttolerationseconds}
 
@@ -492,6 +505,20 @@ This file may be json or yaml and has the following format:
 ImagePolicyWebhook 使用配置文件来为后端行为设置选项。该文件可以是 JSON 或 YAML，
 并具有以下格式:
 
+<!--
+```yaml
+imagePolicy:
+  kubeConfigFile: /path/to/kubeconfig/for/backend
+  # time in s to cache approval
+  allowTTL: 50
+  # time in s to cache denial
+  denyTTL: 50
+  # time in ms to wait between retries
+  retryBackoff: 500
+  # determines behavior if the webhook backend fails
+  defaultAllow: true
+```
+-->
 ```yaml
 imagePolicy:
   kubeConfigFile: /path/to/kubeconfig/for/backend
@@ -622,33 +649,32 @@ group (`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`).
 -->
 注意，Webhook API 对象与其他 Kubernetes API 对象一样受制于相同的版本控制兼容性规则。
 实现者应该知道对 alpha 对象兼容性是相对宽松的，并检查请求的 "apiVersion" 字段，
-以确保正确的反序列化。
-此外，API 服务器必须启用 `imagepolicy.k8s.io/v1alpha1` API 扩展组
+以确保正确的反序列化。此外，API 服务器必须启用 `imagepolicy.k8s.io/v1alpha1` API 扩展组
 （`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`）。
 {{< /note >}}
 
 <!--
 An example request body:
 -->
-请求载荷示例：
+请求体示例：
 
 ```json
 {
-  "apiVersion":"imagepolicy.k8s.io/v1alpha1",
-  "kind":"ImageReview",
-  "spec":{
-    "containers":[
+  "apiVersion": "imagepolicy.k8s.io/v1alpha1",
+  "kind": "ImageReview",
+  "spec": {
+    "containers": [
       {
-        "image":"myrepo/myimage:v1"
+        "image": "myrepo/myimage:v1"
       },
       {
-        "image":"myrepo/myimage@sha256:beb6bd6a68f114c1dc2ea4b28db81bdf91de202a9014972bec5e4d9171d90ed"
+        "image": "myrepo/myimage@sha256:beb6bd6a68f114c1dc2ea4b28db81bdf91de202a9014972bec5e4d9171d90ed"
       }
     ],
-    "annotations":{
+    "annotations": {
       "mycluster.image-policy.k8s.io/ticket-1234": "break-glass"
     },
-    "namespace":"mynamespace"
+    "namespace": "mynamespace"
   }
 }
 ```
@@ -795,7 +821,7 @@ group/version via the `--runtime-config` flag, both are on by default.
 <!--
 #### Use caution when authoring and installing mutating webhooks
 -->
-#### 谨慎编写和安装变更 webhook  {#use-caution-when-authoring-and-installing-mutating-webhooks}
+#### 谨慎编写和安装变更 Webhook  {#use-caution-when-authoring-and-installing-mutating-webhooks}
 
 <!--
 * Users may be confused when the objects they try to create are different from
@@ -847,8 +873,7 @@ This admission controller also prevents deletion of three system reserved namesp
 `kube-system`, `kube-public`.
 -->
 该准入控制器禁止在一个正在被终止的 `Namespace` 中创建新对象，并确保针对不存在的
-`Namespace` 的请求被拒绝。
-该准入控制器还会禁止删除三个系统保留的名字空间，即 `default`、
+`Namespace` 的请求被拒绝。该准入控制器还会禁止删除三个系统保留的名字空间，即 `default`、
 `kube-system` 和 `kube-public`。
 
 <!--
@@ -897,8 +922,8 @@ and enforces kubelet modification of labels under the `kubernetes.io/` or `k8s.i
   * `kubernetes.io/os`
   * `beta.kubernetes.io/instance-type`
   * `node.kubernetes.io/instance-type`
-  * `failure-domain.beta.kubernetes.io/region` （已弃用）
-  * `failure-domain.beta.kubernetes.io/zone` （已弃用）
+  * `failure-domain.beta.kubernetes.io/region`（已弃用）
+  * `failure-domain.beta.kubernetes.io/zone`（已弃用）
   * `topology.kubernetes.io/region`
   * `topology.kubernetes.io/zone`
   * `kubelet.kubernetes.io/` 为前缀的标签
@@ -974,7 +999,7 @@ For more information about persistent volume claims, see [PersistentVolumeClaims
 关于持久化卷申领的更多信息，请参见
 [PersistentVolumeClaim](/zh-cn/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims)。
 
-### PersistentVolumeLabel {#persistentvolumelabel} 
+### PersistentVolumeLabel {#persistentvolumelabel}
 
 {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
@@ -993,8 +1018,7 @@ This admission controller is disabled by default.
 此准入控制器会自动将由云提供商（如 Azure 或 GCP）定义的区（region）或区域（zone）
 标签附加到 PersistentVolume 上。这有助于确保 Pod 和 PersistentVolume 位于相同的区或区域。
 如果准入控制器不支持为 PersistentVolumes 自动添加标签，那你可能需要手动添加标签，
-以防止 Pod 挂载其他区域的卷。
-PersistentVolumeLabel **已被弃用**，
+以防止 Pod 挂载其他区域的卷。PersistentVolumeLabel **已被弃用**，
 为持久卷添加标签的操作已由{{< glossary_tooltip text="云管理控制器" term_id="cloud-controller-manager" >}}接管。
 
 此准入控制器默认被禁用。
@@ -1028,9 +1052,9 @@ This file may be json or yaml and has the following format:
 
 ```yaml
 podNodeSelectorPluginConfig:
- clusterDefaultNodeSelector: name-of-node-selector
- namespace1: name-of-node-selector
- namespace2: name-of-node-selector
+  clusterDefaultNodeSelector: name-of-node-selector
+  namespace1: name-of-node-selector
+  namespace2: name-of-node-selector
 ```
 
 <!--
@@ -1110,37 +1134,26 @@ PodNodeSelector 允许 Pod 强制在特定标签的节点上运行。
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 <!--
-This is the replacement for the deprecated [PodSecurityPolicy](#podsecuritypolicy) admission controller
-defined in the next section. This admission controller acts on creation and modification of the pod and
-determines if it should be admitted based on the requested security context and the 
-[Pod Security Standards](/docs/concepts/security/pod-security-standards/).
-
-See the [Pod Security Admission documentation](/docs/concepts/security/pod-security-admission/)
-for more information.
+The PodSecurity admission controller checks new Pods before they are
+admitted, determines if it should be admitted based on the requested security context and the restrictions on permitted
+[Pod Security Standards](/docs/concepts/security/pod-security-standards/)
+for the namespace that the Pod would be in.
 -->
-这是下节所讨论的已被废弃的 [PodSecurityPolicy](#podsecuritypolicy) 准入控制器的替代品。
-此准入控制器负责在创建和修改 Pod 时，根据请求的安全上下文和
-[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)
-来确定是否可以执行请求。
-
-更多信息请参阅 [Pod 安全性准入控制器](/zh-cn/docs/concepts/security/pod-security-admission/)。
-
-### PodSecurityPolicy {#podsecuritypolicy}
-
-{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
+PodSecurity 准入控制器在新 Pod 被准入之前对其进行检查，
+根据请求的安全上下文和 Pod 所在名字空间允许的
+[Pod 安全性标准](/zh/docs/concepts/security/pod-security-standards/)的限制来确定新 Pod
+是否应该被准入。
 
 <!--
-This admission controller acts on creation and modification of the pod and determines if it should be admitted
-based on the requested security context and the available Pod Security Policies.
+See the [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
+documentation for more information.
 -->
-此准入控制器负责在创建和修改 Pod 时根据请求的安全上下文和可用的 Pod
-安全策略确定是否可以执行请求。
+更多信息请参阅 [Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)。
 
 <!--
-See also the [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) documentation
-for more information.
+PodSecurity replaced an older admission controller named PodSecurityPolicy.
 -->
-查看 [Pod 安全策略文档](/zh-cn/docs/concepts/security/pod-security-policy/)进一步了解其间细节。
+PodSecurity 取代了一个名为 PodSecurityPolicy 的旧准入控制器。
 
 ### PodTolerationRestriction {#podtolerationrestriction}
 
@@ -1251,30 +1264,72 @@ for more information.
 
 ### SecurityContextDeny {#securitycontextdeny}
 
+{{< feature-state for_k8s_version="v1.27" state="deprecated" >}}
+
+{{< caution >}}
 <!--
-This admission controller will deny any Pod that attempts to set certain escalating
-[SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
-fields, as shown in the
-[Configure a Security Context for a Pod or Container](/docs/tasks/configure-pod-container/security-context/)
-task.
-If you don't use [Pod Security admission](/docs/concepts/security/pod-security-admission/),
-[PodSecurityPolicies](/docs/concepts/security/pod-security-policy/), nor any external enforcement mechanism,
-then you could use this admission controller to restrict the set of values a security context can take.
+The Kubernetes project recommends that you **do not use** the
+`SecurityContextDeny` admission controller.
+
+The `SecurityContextDeny` admission controller plugin is deprecated and disabled
+by default. It will be removed in a future version. If you choose to enable the
+`SecurityContextDeny` admission controller plugin, you must enable the
+`SecurityContextDeny` feature gate as well.
 -->
-此准入控制器将拒绝任何试图设置特定提升
-[SecurityContext](/zh-cn/docs/tasks/configure-pod-container/security-context/)
-中某些字段的 Pod，正如任务[为 Pod 或 Container 配置安全上下文](/zh-cn/docs/tasks/configure-pod-container/security-context/)
-中所展示的那样。如果集群没有使用
-[Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)、
-[PodSecurityPolicy](/zh-cn/docs/concepts/security/pod-security-policy/)，
-也没有任何外部强制机制，那么你可以使用此准入控制器来限制安全上下文所能获取的值集。
+Kubernetes 项目建议你**不要使用** `SecurityContextDeny` 准入控制器。
+
+`SecurityContextDeny` 准入控制器插件已被弃用，并且默认处于禁用状态。
+此插件将在后续的版本中被移除。如果你选择启用 `SecurityContextDeny` 准入控制器插件，
+也必须同时启用 `SecurityContextDeny` 特性门控。
 
 <!--
-See [Pod Security Standards](/docs/concepts/security/pod-security-standards/) for more context on restricting
-pod privileges.
+The `SecurityContextDeny` admission plugin is deprecated because it is outdated
+and incomplete; it may be unusable or not do what you would expect. As
+implemented, this plugin is unable to restrict all security-sensitive attributes
+of the Pod API. For example, the `privileged` and `ephemeralContainers` fields
+were never restricted by this plugin.
 -->
-有关限制 Pod 权限的更多内容，请参阅
-[Pod 安全标准](/zh-cn/docs/concepts/security/pod-security-standards/)。
+`SecurityContextDeny` 准入插件已被弃用，因为它已经过时且不完整；
+它可能无法使用或无法达到你的预期。该插件实现之时，就无法限制 Pod API 的所有与安全相关的属性。
+例如，`privileged` 和 `ephemeralContainers` 字段就从未受过此插件的限制。
+
+<!--
+The [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
+plugin enforcing the [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
+`Restricted` profile captures what this plugin was trying to achieve in a better
+and up-to-date way.
+-->
+采用 [Pod 安全性标准](/zh-cn/docs/concepts/security/pod-security-standards/)中的 `Restricted`
+方案的 [Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)插件，
+能以更好和最新的方式来表述此插件所要实现的目标。
+{{< /caution >}}
+
+<!--
+This admission controller will deny any Pod that attempts to set the following
+[SecurityContext](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
+fields:
+-->
+此准入控制器将拒绝任何尝试设置以下
+[SecurityContext](/zh-cn/docs/tasks/configure-pod-container/security-context/)
+字段的 Pod：
+
+- `.spec.securityContext.supplementalGroups`
+- `.spec.securityContext.seLinuxOptions`
+- `.spec.securityContext.runAsUser`
+- `.spec.securityContext.fsGroup`
+- `.spec.(init)Containers[*].securityContext.seLinuxOptions`
+- `.spec.(init)Containers[*].securityContext.runAsUser`
+
+<!--
+For more historical context on this plugin, see
+[The birth of PodSecurityPolicy](/blog/2022/08/23/podsecuritypolicy-the-historical-context/#the-birth-of-podsecuritypolicy)
+from the Kubernetes blog article about PodSecurityPolicy and its removal. The
+article details the PodSecurityPolicy historical context and the birth of the
+`securityContext` field for Pods.
+-->
+有关此插件的更多历史背景，请参阅 Kubernetes 博客中这篇有关 PodSecurityPolicy 及其移除的文章：
+[The birth of PodSecurityPolicy](/blog/2022/08/23/podsecuritypolicy-the-historical-context/#the-birth-of-podsecuritypolicy)。
+这篇文章详细地介绍了 PodSecurityPolicy 的历史背景以及 Pod 的 `securityContext` 字段的诞生。
 
 ### ServiceAccount {#serviceaccount}
 
@@ -1302,8 +1357,8 @@ Refer to the
 for more detailed information.
 -->
 `StorageObjectInUseProtection` 插件将 `kubernetes.io/pvc-protection` 或
-`kubernetes.io/pv-protection` finalizers 添加到新创建的持久卷申领（PVC）
-或持久卷（PV）中。如果用户尝试删除 PVC/PV，除非 PVC/PV 的保护控制器移除终结器（finalizers），
+`kubernetes.io/pv-protection` 终结器（finalizers）添加到新创建的持久卷申领（PVC）
+或持久卷（PV）中。如果用户尝试删除 PVC/PV，除非 PVC/PV 的保护控制器移除终结器，
 否则 PVC/PV 不会被删除。有关更多详细信息，
 请参考[保护使用中的存储对象](/zh-cn/docs/concepts/storage/persistent-volumes/#storage-object-in-use-protection)。
 
@@ -1319,6 +1374,17 @@ conditions.
 {{< glossary_tooltip text="污点" term_id="taint" >}}。
 这些污点能够避免一些竞态条件的发生，而这类竞态条件可能导致 Pod
 在更新节点污点以准确反映其所报告状况之前，就被调度到新节点上。
+
+### ValidatingAdmissionPolicy {#validatingadmissionpolicy}
+
+<!--
+[This admission controller](/docs/reference/access-authn-authz/validating-admission-policy/) implements the CEL validation for incoming matched requests.
+It is enabled when both feature gate `validatingadmissionpolicy` and `admissionregistration.k8s.io/v1alpha1` group/version are enabled.
+If any of the ValidatingAdmissionPolicy fails, the request fails.
+-->
+[此准入控制器](/zh-cn/docs/reference/access-authn-authz/validating-admission-policy/)针对传入的匹配请求实现
+CEL 校验。当 `validatingadmissionpolicy` 和 `admissionregistration.k8s.io/v1alpha1` 特性门控组/版本被启用时，
+此特性被启用。如果任意 ValidatingAdmissionPolicy 失败，则请求失败。
 
 ### ValidatingAdmissionWebhook {#validatingadmissionwebhook}
 
@@ -1364,4 +1430,3 @@ You can enable additional admission controllers beyond the default set using the
 （请查看[这里](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/#options)）。
 因此，你无需显式指定它们。
 你可以使用 `--enable-admission-plugins` 标志（ **顺序不重要** ）来启用默认设置以外的其他准入控制器。
-

@@ -1,12 +1,12 @@
 ---
 title: ノードで使用されているコンテナランタイムの確認
 content_type: task
-weight: 10
+weight: 30
 ---
 
 <!-- overview -->
 
-このページでは、クラスター内のノードが使用している[コンテナランタイム](/docs/setup/production-environment/container-runtimes/)を確認する手順を概説しています。
+このページでは、クラスター内のノードが使用している[コンテナランタイム](/ja/docs/setup/production-environment/container-runtimes/)を確認する手順を概説しています。
 
 クラスターの実行方法によっては、ノード用のコンテナランタイムが事前に設定されている場合と、設定する必要がある場合があります。
 マネージドKubernetesサービスを使用している場合、ノードに設定されているコンテナランタイムを確認するためのベンダー固有の方法があるかもしれません。
@@ -42,4 +42,4 @@ node-2       Ready    v1.19.6   containerd://1.4.1
 node-3       Ready    v1.19.6   containerd://1.4.1
 ```
 
-コンテナランタイムについては、[コンテナランタイム](/docs/setup/production-environment/container-runtimes/)のページで詳細を確認することができます。
+コンテナランタイムについては、[コンテナランタイム](/ja/docs/setup/production-environment/container-runtimes/)のページで詳細を確認することができます。

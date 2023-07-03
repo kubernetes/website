@@ -66,7 +66,7 @@ weight: 10
 
 		<div class="row">
 			<div class="col-md-8">
-				<p>Serwis kieruje przychodzący ruch do grupy Podów. Serwisy są obiektami abstrakcyjnymi, dzięki którym pody mogą się psuć i być zastępowane przez Kubernetes nowymi bez ujemnego wpływu na działanie twoich aplikacji. Detekcją nowych podów i kierowaniem ruchu pomiędzy zależnymi podami (takimi, jak składowe front-end i back-end w aplikacji) zajmują się Serwisy Kubernetes.</p>
+				<p>Serwis kieruje przychodzący ruch do grupy Podów. Serwisy są obiektami abstrakcyjnymi, dzięki czemu Pody, które z jakichś powodów przestały działać i zostały zastąpione przez Kubernetesa nowymi instancjami, nie wpłyną ujemnie na działanie twoich aplikacji. Detekcją nowych podów i kierowaniem ruchu pomiędzy zależnymi podami (takimi, jak składowe front-end i back-end w aplikacji) zajmują się Serwisy Kubernetes.</p>
 				<p>Serwis znajduje zestaw odpowiednich Podów przy pomocy <a href="/docs/concepts/overview/working-with-objects/labels">etykiet i selektorów</a>, podstawowych jednostek grupujących, które umożliwiają operacje logiczne na obiektach Kubernetes. Etykiety to pary klucz/wartość przypisane do obiektów. Mogą być używane na różne sposoby:</p>
 				<ul>
 					<li>Dzielić obiekty na deweloperskie, testowe i produkcyjne</li>

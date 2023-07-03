@@ -512,7 +512,32 @@ kubectl 的配置 ("kubeconfig") 文件的路径。默认值: "$HOME/.kube/confi
 <!--
 When set to false, turns off extra HTTP headers detailing invoked kubectl command (Kubernetes version v1.22 or later)
 -->
-设置为 false 时，将关闭额外的 HTTP 标头，不再详细说明被调用的 kubectl 命令 (此变量适用于 Kubernetes v1.22 或更高版本)
+设置为 false 时，将关闭额外的 HTTP 标头，不再详细说明被调用的 kubectl 命令（此变量适用于 Kubernetes v1.22 或更高版本）
+</td>
+</tr>
+
+<tr>
+<td colspan="2">KUBECTL_EXPLAIN_OPENAPIV3</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Toggles whether calls to `kubectl explain` use the new OpenAPIv3 data source available. OpenAPIV3 is enabled by default since Kubernetes 1.24.
+-->
+切换对 `kubectl explain` 的调用是否使用可用的新 OpenAPIv3 数据源。OpenAPIV3 自 Kubernetes 1.24 起默认被启用。
+</td>
+</tr>
+
+<tr>
+<td colspan="2">KUBECTL_ENABLE_CMD_SHADOW</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+When set to true, external plugins can be used as subcommands for builtin commands if subcommand does not exist. In alpha stage, this feature can only be used for create command(e.g. kubectl create networkpolicy).
+-->
+当设置为 true 时，如果子命令不存在，外部插件可以用作内置命令的子命令。
+此功能处于 alpha 阶段，只能用于 create 命令（例如 kubectl create networkpolicy）。
 </td>
 </tr>
 
@@ -566,6 +591,7 @@ When set to false, turns off extra HTTP headers detailing invoked kubectl comman
 * [kubectl diff](/docs/reference/generated/kubectl/kubectl-commands#diff)	 - Diff live version against would-be applied version
 * [kubectl drain](/docs/reference/generated/kubectl/kubectl-commands#drain)	 - Drain node in preparation for maintenance
 * [kubectl edit](/docs/reference/generated/kubectl/kubectl-commands#edit)	 - Edit a resource on the server
+* [kubectl events](/docs/reference/generated/kubectl/kubectl-commands#events)  - List events
 * [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands#exec)	 - Execute a command in a container
 * [kubectl explain](/docs/reference/generated/kubectl/kubectl-commands#explain)	 - Documentation of resources
 * [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands#expose)	 - Take a replication controller, service, deployment or pod and expose it as a new Kubernetes Service
@@ -574,6 +600,7 @@ When set to false, turns off extra HTTP headers detailing invoked kubectl comman
 * [kubectl diff](/docs/reference/generated/kubectl/kubectl-commands#diff)	 - 显示目前版本与将要应用的版本之间的差异
 * [kubectl drain](/docs/reference/generated/kubectl/kubectl-commands#drain)	 - 腾空节点，准备维护
 * [kubectl edit](/docs/reference/generated/kubectl/kubectl-commands#edit)	 - 修改服务器上的某资源
+* [kubectl events](/docs/reference/generated/kubectl/kubectl-commands#events)  - 列举事件
 * [kubectl exec](/docs/reference/generated/kubectl/kubectl-commands#exec)	 - 在容器中执行相关命令
 * [kubectl explain](/docs/reference/generated/kubectl/kubectl-commands#explain)	 - 显示资源文档说明
 * [kubectl expose](/docs/reference/generated/kubectl/kubectl-commands#expose)	 - 给定副本控制器、服务、Deployment 或 Pod，将其暴露为新的 kubernetes Service
@@ -617,7 +644,7 @@ When set to false, turns off extra HTTP headers detailing invoked kubectl comman
 * [kubectl scale](/docs/reference/generated/kubectl/kubectl-commands#scale)	 - 为一个 Deployment、ReplicaSet 或 ReplicationController 设置一个新的规模值
 * [kubectl set](/docs/reference/generated/kubectl/kubectl-commands#set)	 - 为对象设置功能特性
 * [kubectl taint](/docs/reference/generated/kubectl/kubectl-commands#taint)	 - 在一个或者多个节点上更新污点配置
-* [kubectl top](/docs/reference/generated/kubectl/kubectl-commands#top)	 - 显示资源（CPU /内存/存储）使用率
+* [kubectl top](/docs/reference/generated/kubectl/kubectl-commands#top)	 - 显示资源（CPU/内存/存储）使用率
 * [kubectl uncordon](/docs/reference/generated/kubectl/kubectl-commands#uncordon)	 - 标记节点为可调度的
 * [kubectl version](/docs/reference/generated/kubectl/kubectl-commands#version)	 - 打印客户端和服务器的版本信息
 * [kubectl wait](/docs/reference/generated/kubectl/kubectl-commands#wait)	 - 实验性：等待一个或多个资源达到某种状态

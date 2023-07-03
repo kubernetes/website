@@ -1,12 +1,14 @@
 ---
 title: 장치 플러그인
-description: 장치 플러그인을 사용하여 GPU, NIC, FPGA, 또는 비휘발성 주 메모리와 같이 공급 업체별 설정이 필요한 장치 또는 리소스를 클러스터에서 지원하도록 설정할 수 있다.
+description: >
+  장치 플러그인을 사용하여 GPU, NIC, FPGA, 또는 비휘발성 주 메모리와 같이 공급 업체별 설정이 필요한 장치 
+  또는 리소스를 클러스터에서 지원하도록 설정할 수 있다.
 content_type: concept
 weight: 20
 ---
 
 <!-- overview -->
-{{< feature-state for_k8s_version="v1.10" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 쿠버네티스는 시스템 하드웨어 리소스를 {{< glossary_tooltip term_id="kubelet" >}}에 알리는 데 사용할 수 있는
 [장치 플러그인 프레임워크](https://git.k8s.io/design-proposals-archive/resource-management/device-plugin.md)를
@@ -33,12 +35,12 @@ service Registration {
 장치 플러그인은 이 gRPC 서비스를 통해 kubelet에 자체 등록할 수 있다.
 등록하는 동안, 장치 플러그인은 다음을 보내야 한다.
 
-  * 유닉스 소켓의 이름.
-  * 빌드된 장치 플러그인 API 버전.
-  * 알리려는 `ResourceName`. 여기서 `ResourceName` 은
-	[확장된 리소스 네이밍 체계](/ko/docs/concepts/configuration/manage-resources-containers/#확장된-리소스)를
-	`vendor-domain/resourcetype` 의 형식으로 따라야 한다.
-	(예를 들어, NVIDIA GPU는 `nvidia.com/gpu` 로 알려진다.)
+* 유닉스 소켓의 이름.
+* 빌드된 장치 플러그인 API 버전.
+* 알리려는 `ResourceName`. 여기서 `ResourceName` 은
+  [확장된 리소스 네이밍 체계](/ko/docs/concepts/configuration/manage-resources-containers/#확장된-리소스)를
+  `vendor-domain/resourcetype` 의 형식으로 따라야 한다.
+  (예를 들어, NVIDIA GPU는 `nvidia.com/gpu` 로 알려진다.)
 
 성공적으로 등록하고 나면, 장치 플러그인은 kubelet이 관리하는
 장치 목록을 전송한 다음, kubelet은 kubelet 노드 상태 업데이트의 일부로
@@ -68,7 +70,7 @@ metadata:
 spec:
   containers:
     - name: demo-container-1
-      image: k8s.gcr.io/pause:2.0
+      image: registry.k8s.io/pause:2.0
       resources:
         limits:
           hardware-vendor.example/foo: 2
@@ -102,7 +104,7 @@ spec:
         rpc ListAndWatch(Empty) returns (stream ListAndWatchResponse) {}
 
 				// 컨테이너를 생성하는 동안 Allocate가 호출되어 장치
-				// 플러그인이 장치별 작업을 실행하고 Kubelet에 장치를
+				// 플러그인이 장치별 작업을 실행하고 kubelet에 장치를
 				// 컨테이너에서 사용할 수 있도록 하는 단계를 지시할 수 있다.
         rpc Allocate(AllocateRequest) returns (AllocateResponse) {}
 
@@ -133,17 +135,17 @@ spec:
   유닉스 소켓을 통해 kubelet에 직접 등록한다.
 
 * 성공적으로 등록하고 나면, 장치 플러그인은 서빙(serving) 모드에서 실행되며, 그 동안 플러그인은 장치 상태를
-모니터링하고 장치 상태 변경 시 kubelet에 다시 보고한다.
-또한 gRPC 요청 `Allocate` 를 담당한다. `Allocate` 하는 동안, 장치 플러그인은
-GPU 정리 또는 QRNG 초기화와 같은 장치별 준비를 수행할 수 있다.
-작업이 성공하면, 장치 플러그인은 할당된 장치에 접근하기 위한 컨테이너 런타임 구성이 포함된
-`AllocateResponse` 를 반환한다. kubelet은 이 정보를
-컨테이너 런타임에 전달한다.
+  모니터링하고 장치 상태 변경 시 kubelet에 다시 보고한다.
+  또한 gRPC 요청 `Allocate` 를 담당한다. `Allocate` 하는 동안, 장치 플러그인은
+  GPU 정리 또는 QRNG 초기화와 같은 장치별 준비를 수행할 수 있다.
+  작업이 성공하면, 장치 플러그인은 할당된 장치에 접근하기 위한 컨테이너 런타임 구성이 포함된
+  `AllocateResponse` 를 반환한다. kubelet은 이 정보를
+  컨테이너 런타임에 전달한다.
 
 ### kubelet 재시작 처리
 
 장치 플러그인은 일반적으로 kubelet의 재시작을 감지하고 새로운
-kubelet 인스턴스에 자신을 다시 등록할 것으로 기대된다. 현재의 구현에서, 새 kubelet 인스턴스는 시작될 때
+kubelet 인스턴스에 자신을 다시 등록할 것으로 기대된다. 새 kubelet 인스턴스는 시작될 때
 `/var/lib/kubelet/device-plugins` 아래에 있는 모든 기존의 유닉스 소켓을 삭제한다. 장치 플러그인은 유닉스 소켓의
 삭제를 모니터링하고 이러한 이벤트가 발생하면 다시 자신을 등록할 수 있다.
 
@@ -164,16 +166,26 @@ kubelet 인스턴스에 자신을 다시 등록할 것으로 기대된다. 현�
 
 ## API 호환성
 
-쿠버네티스 장치 플러그인 지원은 베타 버전이다. 호환되지 않는 방식으로 안정화 전에 API가
-변경될 수 있다. 프로젝트로서, 쿠버네티스는 장치 플러그인 개발자에게 다음 사항을 권장한다.
+과거에는 장치 플러그인의 API 버전을 반드시 kubelet의 버전과 정확하게 일치시켜야 했다.
+해당 기능이 v1.12의 베타 버전으로 올라오면서 이는 필수 요구사항이 아니게 되었다.
+해당 기능이 베타 버전이 된 이후로 API는 버전화되었고 그동안 변하지 않았다.
+그러므로 kubelet 업그레이드를 원활하게 진행할 수 있을 것이지만,
+안정화되기 전까지는 향후 API가 변할 수도 있으므로 업그레이드를 했을 때 절대로 문제가 없을 것이라고는 보장할 수는 없다.
 
-* 향후 릴리스에서 변경 사항을 확인하자.
-* 이전/이후 버전과의 호환성을 위해 여러 버전의 장치 플러그인 API를 지원한다.
+{{< caution >}}
+쿠버네티스의 장치 관리자 컴포넌트는 안정화된(GA) 기능이지만 _장치 플러그인 API_는 안정화되지 않았다.
+장치 플러그인 API와 버전 호환성에 대한 정보는 [장치 플러그인 API 버전](/docs/reference/node/device-plugin-api-versions/)를 참고하라.
+{{< /caution >}}
 
-최신 장치 플러그인 API 버전의 쿠버네티스 릴리스로 업그레이드해야 하는 노드에서 DevicePlugins 기능을 활성화하고
-장치 플러그인을 실행하는 경우, 이 노드를 업그레이드하기 전에
-두 버전을 모두 지원하도록 장치 플러그인을 업그레이드한다. 이 방법을 사용하면
-업그레이드 중에 장치 할당이 지속적으로 작동한다.
+프로젝트로서, 쿠버네티스는 장치 플러그인 개발자에게 다음 사항을 권장한다.
+
+* 향후 릴리스에서 장치 플러그인 API의 변경 사항을 확인하자.
+* 이전/이후 버전과의 호환성을 위해 여러 버전의 장치 플러그인 API를 지원하자.
+
+최신 장치 플러그인 API 버전의 쿠버네티스 릴리스로 업그레이드해야 하는 노드에서
+장치 플러그인을 실행하기 위해서는, 해당 노드를 업그레이드하기 전에
+두 버전을 모두 지원하도록 장치 플러그인을 업그레이드해야 한다. 이러한 방법은
+업그레이드 중에 장치 할당이 지속적으로 동작할 것을 보장한다.
 
 ## 장치 플러그인 리소스 모니터링
 
@@ -273,8 +285,9 @@ List() 엔드포인트와 함께 사용되어야 한다. `GetAllocableResources`
 노출된 기본 리소스가 변경되지 않는 한 동일하게 유지된다. 이러한 변경은 드물지만, 발생하게 된다면
 (예를 들면: hotplug/hotunplug, 장치 상태 변경) 클라이언트가 `GetAlloctableResources` 엔드포인트를
 호출할 것으로 가정한다.
+
 그러나 CPU 및/또는 메모리가 갱신된 경우 `GetAllocateableResources` 엔드포인트를 호출하는 것만으로는
-충분하지 않으며, Kubelet을 다시 시작하여 올바른 리소스 용량과 할당 가능(allocatable) 리소스를 반영해야 한다.
+충분하지 않으며, kubelet을 다시 시작하여 올바른 리소스 용량과 할당 가능(allocatable) 리소스를 반영해야 한다.
 {{< /note >}}
 
 
@@ -288,12 +301,14 @@ message AllocatableResourcesResponse {
 
 ```
 쿠버네티스 v1.23부터, `GetAllocatableResources`가 기본으로 활성화된다.
-이를 비활성화하려면 `KubeletPodResourcesGetAllocatable` [기능 게이트(feature gate)](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
-끄면 된다.
+이를 비활성화하려면 `KubeletPodResourcesGetAllocatable` 
+[기능 게이트(feature gate)](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 끄면 된다.
 
 쿠버네티스 v1.23 이전 버전에서 이 기능을 활성화하려면 `kubelet`이 다음 플래그를 가지고 시작되어야 한다. 
 
-`--feature-gates=KubeletPodResourcesGetAllocatable=true`
+```
+--feature-gates=KubeletPodResourcesGetAllocatable=true
+```
 
 `ContainerDevices` 는 장치가 어떤 NUMA 셀과 연관되는지를 선언하는 토폴로지 정보를 노출한다.
 NUMA 셀은 불분명한(opaque) 정수 ID를 사용하여 식별되며, 이 값은
@@ -315,7 +330,8 @@ gRPC 서비스는 `/var/lib/kubelet/pod-resources/kubelet.sock` 의 유닉스 �
 
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
-토폴로지 관리자는 Kubelet 컴포넌트로, 리소스를 토폴로지 정렬 방식으로 조정할 수 있다. 이를 위해, 장치 플러그인 API가 `TopologyInfo` 구조체를 포함하도록 확장되었다.
+토폴로지 관리자는 kubelet 컴포넌트로, 리소스를 토폴로지 정렬 방식으로 조정할 수 있다. 
+이를 위해, 장치 플러그인 API가 `TopologyInfo` 구조체를 포함하도록 확장되었다.
 
 
 ```gRPC
@@ -327,9 +343,15 @@ message NUMANode {
     int64 ID = 1;
 }
 ```
-토폴로지 관리자를 활용하려는 장치 플러그인은 장치 ID 및 장치의 정상 상태와 함께 장치 등록의 일부로 채워진 TopologyInfo 구조체를 다시 보낼 수 있다. 그런 다음 장치 관리자는 이 정보를 사용하여 토폴로지 관리자와 상의하고 리소스 할당 결정을 내린다.
 
-`TopologyInfo` 는 `nil`(기본값) 또는 NUMA 노드 목록인 `nodes` 필드를 지원한다. 이를 통해 NUMA 노드에 걸쳐있을 수 있는 장치 플러그인을 게시할 수 있다.
+토폴로지 관리자를 활용하려는 장치 플러그인은 장치 ID 및 장치의 정상 상태와 함께 장치 등록의 일부로 채워진 TopologyInfo 구조체를 다시 보낼 수 있다.
+그런 다음 장치 관리자는 이 정보를 사용하여 토폴로지 관리자와 상의하고 리소스 할당 결정을 내린다.
+
+`TopologyInfo` 는 `nodes` 필드에 `nil`(기본값) 또는 NUMA 노드 목록을 설정하는 것을 지원한다.
+이를 통해 복수의 NUMA 노드에 연관된 장치에 대해 장치 플러그인을 설정할 수 있다.
+
+특정 장치에 대해 `TopologyInfo`를 `nil`로 설정하거나 비어있는 NUMA 노드 목록을 제공하는 것은 
+장치 플러그인이 해당 장치에 대한 NUMA 선호도(affinity)를 지니지 못함을 시사한다.
 
 장치 플러그인으로 장치에 대해 채워진 `TopologyInfo` 구조체의 예는 다음과 같다.
 
@@ -351,8 +373,7 @@ pluginapi.Device{ID: "25102017", Health: pluginapi.Healthy, Topology:&pluginapi.
 * [SocketCAN 장치 플러그인](https://github.com/collabora/k8s-socketcan)
 * [Solarflare 장치 플러그인](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * [SR-IOV 네트워크 장치 플러그인](https://github.com/intel/sriov-network-device-plugin)
-* Xilinx FPGA 장치용 [Xilinx FPGA 장치 플러그인](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin)
-
+* Xilinx FPGA 장치용 [Xilinx FPGA 장치 플러그인](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-device-plugin)
 
 ## {{% heading "whatsnext" %}}
 

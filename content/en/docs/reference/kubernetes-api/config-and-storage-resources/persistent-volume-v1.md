@@ -108,8 +108,6 @@ PersistentVolumeSpec is the specification of a persistent volume.
 - **persistentVolumeReclaimPolicy** (string)
 
   persistentVolumeReclaimPolicy defines what happens to a persistent volume when released from its claim. Valid options are Retain (default for manually created PersistentVolumes), Delete (default for dynamically provisioned PersistentVolumes), and Recycle (deprecated). Recycle must be supported by the volume plugin underlying this PersistentVolume. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#reclaiming
-  
-  
 
 - **storageClassName** (string)
 
@@ -329,7 +327,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
   - **csi.controllerExpandSecretRef** (SecretReference)
 
-    controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This is an beta field and requires enabling ExpandCSIVolumes feature gate. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+    controllerExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI ControllerExpandVolume call. This field is optional, and may be empty if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 
     <a name="SecretReference"></a>
     *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
@@ -363,7 +361,7 @@ PersistentVolumeSpec is the specification of a persistent volume.
 
   - **csi.nodeExpandSecretRef** (SecretReference)
 
-    nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is an alpha field and requires enabling CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
+    nodeExpandSecretRef is a reference to the secret object containing sensitive information to pass to the CSI driver to complete the CSI NodeExpandVolume call. This is a beta field which is enabled default by CSINodeExpandSecret feature gate. This field is optional, may be omitted if no secret is required. If the secret object contains more than one secret, all secrets are passed.
 
     <a name="SecretReference"></a>
     *SecretReference represents a Secret Reference. It has enough information to retrieve secret in any namespace*
@@ -861,8 +859,6 @@ PersistentVolumeStatus is the current status of a persistent volume.
 - **phase** (string)
 
   phase indicates if a volume is available, bound to a claim, or released by a claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#phase
-  
-  
 
 - **reason** (string)
 
@@ -1010,6 +1006,11 @@ GET /api/v1/persistentvolumes
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -1400,6 +1401,11 @@ DELETE /api/v1/persistentvolumes
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer

@@ -185,7 +185,7 @@ Proses penghapusan ini asinkron, jadi untuk beberapa waktu kamu akan melihat Nam
     Untuk menunjukkan hal ini, mari kita jalankan Deployment dan Pod sederhana di dalam Namespace `development`.
 
     ```shell
-    kubectl create deployment snowflake --image=k8s.gcr.io/serve_hostname -n=development
+    kubectl create deployment snowflake --image=registry.k8s.io/serve_hostname -n=development
     kubectl scale deployment snowflake --replicas=2 -n=development
     ```
     Kita baru aja membuat sebuah Deployment yang memiliki ukuran replika dua yang menjalankan Pod dengan nama `snowflake` dengan sebuah Container dasar yang hanya melayani _hostname_.
@@ -221,7 +221,7 @@ Proses penghapusan ini asinkron, jadi untuk beberapa waktu kamu akan melihat Nam
     `Production` Namespace ingin menjalankan `cattle`, mari kita buat beberapa Pod `cattle`.
 
     ```shell
-    kubectl create deployment cattle --image=k8s.gcr.io/serve_hostname -n=production
+    kubectl create deployment cattle --image=registry.k8s.io/serve_hostname -n=production
     kubectl scale deployment cattle --replicas=5 -n=production
 
     kubectl get deployment -n=production

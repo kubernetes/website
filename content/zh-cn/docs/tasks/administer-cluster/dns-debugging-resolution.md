@@ -2,15 +2,23 @@
 title: 调试 DNS 问题
 content_type: task
 min-kubernetes-server-version: v1.6
+weight: 170
 ---
+<!--
+reviewers:
+- bowei
+- zihongz
+title:  Debugging DNS Resolution
+content_type: task
+min-kubernetes-server-version: v1.6
+weight: 170
+-->
 
 <!-- overview -->
 <!--
 This page provides hints on diagnosing DNS problems.
 -->
 这篇文章提供了一些关于 DNS 问题诊断的方法。
-
-<!-- steps -->
 
 ## {{% heading "prerequisites" %}}
 
@@ -27,6 +35,8 @@ kube-dns.
 
 {{< version-check >}}
 
+<!-- steps -->
+
 <!--
 ### Create a simple Pod to use as a test environment
 
@@ -39,17 +49,8 @@ services depends on the namespace of the pod. For more information, review
 {{< /note >}}
 
 Use that manifest to create a Pod:
-
-```shell
-kubectl create -f https://k8s.io/examples/admin/dns/busybox.yaml
-pod/busybox created
-
-kubectl get pods busybox
-NAME      READY     STATUS    RESTARTS   AGE
-busybox   1/1       Running   0          <some-time>
-```
 -->
-### 创建一个简单的 Pod 作为测试环境
+### 创建一个简单的 Pod 作为测试环境   {#create-a-simple-pod-to-use-as-a-test-environment}
 
 {{< codenew file="admin/dns/dnsutils.yaml" >}}
 
@@ -84,7 +85,7 @@ dnsutils   1/1       Running   0          <some-time>
 ```
 
 <!--
-Once that pod is running, you can exec `nslookup` in that environment.
+Once that Pod is running, you can exec `nslookup` in that environment.
 If you see something like the following, DNS is working correctly.
 -->
 一旦 Pod 处于运行状态，你就可以在该环境里执行 `nslookup`。
@@ -116,7 +117,7 @@ Take a look inside the resolv.conf file.
 (See [Customizing DNS Service](/docs/tasks/administer-cluster/dns-custom-nameservers) and
 [Known issues](#known-issues) below for more information)
 -->
-### 先检查本地的 DNS 配置
+### 先检查本地的 DNS 配置   {#check-the-local-dns-configuration-first}
 
 查看 resolv.conf 文件的内容
 （阅读[定制 DNS 服务](/zh-cn/docs/tasks/administer-cluster/dns-custom-nameservers/) 和
@@ -204,7 +205,7 @@ The value for label `k8s-app` is `kube-dns` for both CoreDNS and kube-dns deploy
 {{< /note >}}
 
 <!--
-If you see that no CoreDNS pod is running or that the pod has failed/completed,
+If you see that no CoreDNS Pod is running or that the Pod has failed/completed,
 the DNS add-on may not be deployed by default in your current environment and you
 will have to deploy it manually.
 -->
@@ -212,9 +213,9 @@ will have to deploy it manually.
 那可能这个 DNS 插件在你当前的环境里并没有成功部署，你将需要手动去部署它。
 
 <!--
-### Check for Errors in the DNS pod
+### Check for errors in the DNS pod
 
-Use `kubectl logs` command to see logs for the DNS containers.
+Use the `kubectl logs` command to see logs for the DNS containers.
 -->
 ### 检查 DNS Pod 里的错误    {#check-for-errors-in-the-dns-pod}
 
@@ -308,8 +309,8 @@ kube-dns   10.180.3.17:53,10.180.3.17:53    1h
 ```
 
 <!--
-If you do not see the endpoints, see endpoints section in the
-[debugging services](/docs/tasks/debug/debug-application/debug-service/) documentation.
+If you do not see the endpoints, see the endpoints section in the
+[debugging Services](/docs/tasks/debug/debug-application/debug-service/) documentation.
 
 For additional Kubernetes DNS examples, see the
 [cluster-dns examples](https://github.com/kubernetes/examples/tree/master/staging/cluster-dns)
@@ -338,7 +339,7 @@ kubectl -n kube-system edit configmap coredns
 ```
 
 <!--
-Then add `log` in the Corefile section per the example below.
+Then add `log` in the Corefile section per the example below:
 -->
 然后按下面的例子给 Corefile 添加 `log`。
 
@@ -377,7 +378,7 @@ CoreDNS 的 Pod 里。
 <!--
 Next, make some queries and view the logs per the sections above in this document. If CoreDNS pods are receiving the queries, you should see them in the logs.
 
-Here is an example of a query in the log.
+Here is an example of a query in the log:
 -->
 接下来，发起一些查询并依照前文所述查看日志信息，如果 CoreDNS 的 Pod 接收到这些查询，
 你将可以在日志信息里看到它们。
@@ -404,7 +405,7 @@ term_id="endpoint" >}} related resources to properly resolve service names.
 
 Sample error message:
 -->
-### CoreDNS 是否有足够的权限？
+### CoreDNS 是否有足够的权限？   {#does-coredns-have-sufficient-permissions}
 
 CoreDNS 必须能够列出 {{< glossary_tooltip text="service" term_id="service" >}} 和
 {{< glossary_tooltip text="endpoint" term_id="endpoint" >}} 相关的资源来正确解析服务名称。
@@ -431,7 +432,6 @@ Expected output:
 PolicyRule:
   Resources                        Non-Resource URLs  Resource Names  Verbs
   ---------                        -----------------  --------------  -----
-  nodes                            []                 []              [get]
   endpoints                        []                 []              [list watch]
   namespaces                       []                 []              [list watch]
   pods                             []                 []              [list watch]
@@ -475,7 +475,7 @@ the namespace of the service.
 
 This query is limited to the pod's namespace:
 -->
-### 你的服务在正确的名字空间中吗？
+### 你的服务在正确的名字空间中吗？   {#are-you-in-the-right-namespace-for-the-service}
 
 未指定名字空间的 DNS 查询仅作用于 Pod 所在的名字空间。
 
@@ -504,9 +504,9 @@ To learn more about name resolution, see
 <!--
 ## Known issues
 
-Some Linux distributions (e.g. Ubuntu), use a local DNS resolver by default (systemd-resolved).
+Some Linux distributions (e.g. Ubuntu) use a local DNS resolver by default (systemd-resolved).
 Systemd-resolved moves and replaces `/etc/resolv.conf` with a stub file that can cause a fatal forwarding
-loop when resolving names in upstream servers. This can be fixed manually by using kubelet's `-resolv-conf` flag
+loop when resolving names in upstream servers. This can be fixed manually by using kubelet's `--resolv-conf` flag
 to point to the correct `resolv.conf` (With `systemd-resolved`, this is `/run/systemd/resolve/resolv.conf`).
 kubeadm automatically detects `systemd-resolved`, and adjusts the kubelet flags accordingly.
 -->
@@ -527,45 +527,24 @@ This should probably be implemented eventually.
 Kubernetes 的安装并不会默认配置节点的 `resolv.conf` 文件来使用集群的 DNS 服务，因为这个配置对于不同的发行版本是不一样的。这个问题应该迟早会被解决的。
 
 <!--
-Linux's libc (a.k.a. glibc) has a limit for the DNS `nameserver` records to 3
-by default. What's more, for the glibc versions which are older than
-glibc-2.17-222 ([the new versions update see this
-issue](https://access.redhat.com/solutions/58028)), the allowed number of DNS
-`search` records has been limited to 6 ([see this bug from
-2005](https://bugzilla.redhat.com/show_bug.cgi?id=168253)). Kubernetes needs
-to consume 1 `nameserver` record and 3 `search` records. This means that if a
-local installation already uses 3 `nameserver`s or uses more than 3 `search`es
-while your glibc version is in the affected list, some of those settings will
-be lost. To work around the DNS `nameserver` records limit, the node can run
-`dnsmasq`, which will provide more `nameserver` entries. You can also use
-kubelet's `--resolv-conf` flag. To fix the DNS `search` records limit,
-consider upgrading your linux distribution or upgrading to an unaffected
-version of glibc.
+Linux's libc (a.k.a. glibc) has a limit for the DNS `nameserver` records to 3 by
+default and Kubernetes needs to consume 1 `nameserver` record. This means that
+if a local installation already uses 3 `nameserver`s, some of those entries will
+be lost. To work around this limit, the node can run `dnsmasq`, which will
+provide more `nameserver` entries. You can also use kubelet's `--resolv-conf`
+flag.
 -->
-Linux 的 libc 限制 `nameserver` 只能有三个记录。不仅如此，对于 glibc-2.17-222
-之前的版本（[参见此 Issue 了解新版本的更新](https://access.redhat.com/solutions/58028)），`search` 的记录不能超过 6 个
-（ [详情请查阅这个 2005 年的 bug](https://bugzilla.redhat.com/show_bug.cgi?id=168253)）。
-Kubernetes 需要占用一个 `nameserver` 记录和三个`search`记录。
-这意味着如果一个本地的安装已经使用了三个 `nameserver` 或者使用了超过三个
-`search` 记录，而你的 glibc 版本也在有问题的版本列表中，那么有些配置很可能会丢失。
-为了绕过 DNS `nameserver` 个数限制，节点可以运行 `dnsmasq`，以提供更多的
-`nameserver` 记录。你也可以使用kubelet 的 `--resolv-conf` 标志来解决这个问题。
-要想修复 DNS `search` 记录个数限制问题，可以考虑升级你的 Linux 发行版本，或者
-升级 glibc 到一个不再受此困扰的版本。
+Linux 的 libc（又名 glibc）默认将 DNS `nameserver` 记录限制为 3，
+而 Kubernetes 需要使用 1 条 `nameserver` 记录。
+这意味着如果本地的安装已经使用了 3 个 `nameserver`，那么其中有些条目将会丢失。
+要解决此限制，节点可以运行 `dnsmasq`，以提供更多 `nameserver` 条目。
+你也可以使用 kubelet 的 `--resolv-conf` 标志来解决这个问题。
 
-{{< note >}}
-<!--
-With [Expanded DNS Configuration](/docs/concepts/services-networking/dns-pod-service/#expanded-dns-configuration),
-Kubernetes allows more DNS `search` records.
--->
-使用[扩展 DNS 设置](/zh-cn/docs/concepts/services-networking/dns-pod-service/#expanded-dns-configuration)，
-Kubernetes 允许更多的 `search` 记录。
-{{< /note >}}
 <!--
 If you are using Alpine version 3.3 or earlier as your base image, DNS may not
-work properly owing to a known issue with Alpine.
-Check [here](https://github.com/kubernetes/kubernetes/issues/30215)
-for more information.
+work properly due to a known issue with Alpine.
+Kubernetes [issue 30215](https://github.com/kubernetes/kubernetes/issues/30215)
+details more information on this.
 -->
 如果你使用 Alpine 3.3 或更早版本作为你的基础镜像，DNS 可能会由于 Alpine 中
 一个已知的问题导致无法正常工作。

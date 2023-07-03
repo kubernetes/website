@@ -3,7 +3,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
+To update the reference content, please follow the 
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -75,6 +75,22 @@ The path to the directory where the certificates are stored. If specified, clean
 </tr>
 
 <tr>
+<td colspan="2">--cleanup-tmp-dir</td>
+</tr>
+<tr>
+<td>
+</td>
+<td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Cleanup the &quot;/etc/kubernetes/tmp&quot; directory
+-->
+<p>
+清理 &quot;/etc/kubernetes/tmp&quot; 目录
+</p>
+</td>
+</tr>
+
+<tr>
 <td colspan="2">--cri-socket string</td>
 </tr>
 <tr>
@@ -96,7 +112,7 @@ Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this
 <!--
 Don't apply any changes; just output what would be done.
 -->
-不要应用任何更改；只需输出将要做什么。
+不做任何更改；只输出将要执行的操作。
 </p>
 </td>
 

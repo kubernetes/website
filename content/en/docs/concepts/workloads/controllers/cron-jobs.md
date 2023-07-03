@@ -14,44 +14,27 @@ weight: 80
 
 A _CronJob_ creates {{< glossary_tooltip term_id="job" text="Jobs" >}} on a repeating schedule.
 
-One CronJob object is like one line of a _crontab_ (cron table) file. It runs a job periodically
-on a given schedule, written in [Cron](https://en.wikipedia.org/wiki/Cron) format.
+CronJob is meant for performing regular scheduled actions such as backups, report generation,
+and so on. One CronJob object is like one line of a _crontab_ (cron table) file on a
+Unix system. It runs a job periodically on a given schedule, written in
+[Cron](https://en.wikipedia.org/wiki/Cron) format.
 
-{{< caution >}}
-All **CronJob** `schedule:` times are based on the timezone of the
-{{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}.
+CronJobs have limitations and idiosyncrasies.
+For example, in certain circumstances, a single CronJob can create multiple concurrent Jobs. See the [limitations](#cron-job-limitations) below.
 
-If your control plane runs the kube-controller-manager in Pods or bare
-containers, the timezone set for the kube-controller-manager container determines the timezone
-that the cron job controller uses.
-{{< /caution >}}
-
-{{< caution >}}
-The [v1 CronJob API](/docs/reference/kubernetes-api/workload-resources/cron-job-v1/)
-does not officially support setting timezone as explained above.
-
-Setting variables such as `CRON_TZ` or `TZ` is not officially supported by the Kubernetes project.
-`CRON_TZ` or `TZ` is an implementation detail of the internal library being used
-for parsing and calculating the next Job creation time. Any usage of it is not
-recommended in a production cluster.
-{{< /caution >}}
-
-When creating the manifest for a CronJob resource, make sure the name you provide
-is a valid [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
-The name must be no longer than 52 characters. This is because the CronJob controller will automatically
-append 11 characters to the job name provided and there is a constraint that the
-maximum length of a Job name is no more than 63 characters.
+When the control plane creates new Jobs and (indirectly) Pods for a CronJob, the `.metadata.name`
+of the CronJob is part of the basis for naming those Pods.  The name of a CronJob must be a valid
+[DNS subdomain](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
+value, but this can produce unexpected results for the Pod hostnames.  For best compatibility,
+the name should follow the more restrictive rules for a
+[DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
+Even when the name is a DNS subdomain, the name must be no longer than 52
+characters.  This is because the CronJob controller will automatically append
+11 characters to the name you provide and there is a constraint that the
+length of a Job name is no more than 63 characters.
 
 <!-- body -->
-
-## CronJob
-
-CronJobs are meant for performing regular scheduled actions such as backups,
-report generation, and so on. Each of those tasks should be configured to recur
-indefinitely (for example: once a day / week / month); you can define the point
-in time within that interval when the job should start.
-
-### Example
+## Example
 
 This example CronJob manifest prints the current time and a hello message every minute:
 
@@ -60,7 +43,9 @@ This example CronJob manifest prints the current time and a hello message every 
 ([Running Automated Tasks with a CronJob](/docs/tasks/job/automated-tasks-with-cron-jobs/)
 takes you through this example in more detail).
 
-### Cron schedule syntax
+## Writing a CronJob spec
+### Schedule syntax
+The `.spec.schedule` field is required. The value of that field follows the [Cron](https://en.wikipedia.org/wiki/Cron) syntax:
 
 ```
 # ┌───────────── minute (0 - 59)
@@ -74,6 +59,24 @@ takes you through this example in more detail).
 # * * * * *
 ```
 
+For example, `0 0 13 * 5` states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight.
+
+The format also includes extended "Vixie cron" step values. As explained in the
+[FreeBSD manual](https://www.freebsd.org/cgi/man.cgi?crontab%285%29):
+
+> Step values can be used in conjunction with ranges. Following a range
+> with `/<number>` specifies skips of the number's value through the
+> range. For example, `0-23/2` can be used in the hours field to specify
+> command execution every other hour (the alternative in the V7 standard is
+> `0,2,4,6,8,10,12,14,16,18,20,22`). Steps are also permitted after an
+> asterisk, so if you want to say "every two hours", just use `*/2`.
+
+{{< note >}}
+A question mark (`?`) in the schedule has the same meaning as an asterisk `*`, that is,
+it stands for any of available value for a given field.
+{{< /note >}}
+
+Other than the standard syntax, some macros like `@monthly` can also be used:
 
 | Entry 										| Description																									| Equivalent to |
 | ------------- 						| ------------- 																							|-------------  |
@@ -83,35 +86,123 @@ takes you through this example in more detail).
 | @daily (or @midnight)			| Run once a day at midnight																	| 0 0 * * * 		|
 | @hourly 									| Run once an hour at the beginning of the hour								| 0 * * * * 		|
 
-
-
-For example, the line below states that the task must be started every Friday at midnight, as well as on the 13th of each month at midnight:
-
-`0 0 13 * 5`
-
 To generate CronJob schedule expressions, you can also use web tools like [crontab.guru](https://crontab.guru/).
 
-## Time zones
+### Job template
 
-For CronJobs with no time zone specified, the kube-controller-manager interprets schedules relative to its local time zone.
+The `.spec.jobTemplate` defines a template for the Jobs that the CronJob creates, and it is required.
+It has exactly the same schema as a [Job](/docs/concepts/workloads/controllers/job/), except that
+it is nested and does not have an `apiVersion` or `kind`.
+You can specify common metadata for the templated Jobs, such as
+{{< glossary_tooltip text="labels" term_id="label" >}} or
+{{< glossary_tooltip text="annotations" term_id="annotation" >}}.
+For information about writing a Job `.spec`, see [Writing a Job Spec](/docs/concepts/workloads/controllers/job/#writing-a-job-spec).
 
-{{< feature-state for_k8s_version="v1.25" state="beta" >}}
+### Deadline for delayed job start {#starting-deadline}
 
-If you enable the  `CronJobTimeZone` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
-you can specify a time zone for a CronJob (if you don't enable that feature gate, or if you are using a version of
-Kubernetes that does not have experimental time zone support, all CronJobs in your cluster have an unspecified
-timezone).
+The `.spec.startingDeadlineSeconds` field is optional.
+This field defines a deadline (in whole seconds) for starting the Job, if that Job misses its scheduled time
+for any reason.
 
-When you have the feature enabled, you can set `spec.timeZone` to the name of a valid [time zone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). For example, setting
-`spec.timeZone: "Etc/UTC"` instructs Kubernetes to interpret the schedule relative to Coordinated Universal Time.
+After missing the deadline, the CronJob skips that instance of the Job (future occurrences are still scheduled).
+For example, if you have a backup job that runs twice a day, you might allow it to start up to 8 hours late,
+but no later, because a backup taken any later wouldn't be useful: you would instead prefer to wait for
+the next scheduled run.
+
+For Jobs that miss their configured deadline, Kubernetes treats them as failed Jobs.
+If you don't specify `startingDeadlineSeconds` for a CronJob, the Job occurrences have no deadline.
+
+If the `.spec.startingDeadlineSeconds` field is set (not null), the CronJob
+controller measures the time between when a job is expected to be created and
+now. If the difference is higher than that limit, it will skip this execution.
+
+For example, if it is set to `200`, it allows a job to be created for up to 200
+seconds after the actual schedule.
+
+### Concurrency policy
+
+The `.spec.concurrencyPolicy` field is also optional.
+It specifies how to treat concurrent executions of a job that is created by this CronJob.
+The spec may specify only one of the following concurrency policies:
+
+* `Allow` (default): The CronJob allows concurrently running jobs
+* `Forbid`: The CronJob does not allow concurrent runs; if it is time for a new job run and the
+  previous job run hasn't finished yet, the CronJob skips the new job run
+* `Replace`: If it is time for a new job run and the previous job run hasn't finished yet, the
+  CronJob replaces the currently running job run with a new job run
+
+Note that concurrency policy only applies to the jobs created by the same cron job.
+If there are multiple CronJobs, their respective jobs are always allowed to run concurrently.
+
+### Schedule suspension
+
+You can suspend execution of Jobs for a CronJob, by setting the optional `.spec.suspend` field
+to true. The field defaults to false.
+
+This setting does _not_ affect Jobs that the CronJob has already started.
+
+If you do set that field to true, all subsequent executions are suspended (they remain
+scheduled, but the CronJob controller does not start the Jobs to run the tasks) until
+you unsuspend the CronJob.
+
+{{< caution >}}
+Executions that are suspended during their scheduled time count as missed jobs.
+When `.spec.suspend` changes from `true` to `false` on an existing CronJob without a
+[starting deadline](#starting-deadline), the missed jobs are scheduled immediately.
+{{< /caution >}}
+
+### Jobs history limits
+
+The `.spec.successfulJobsHistoryLimit` and `.spec.failedJobsHistoryLimit` fields are optional.
+These fields specify how many completed and failed jobs should be kept.
+By default, they are set to 3 and 1 respectively.  Setting a limit to `0` corresponds to keeping
+none of the corresponding kind of jobs after they finish.
+
+For another way to clean up jobs automatically, see [Clean up finished jobs automatically](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically).
+
+### Time zones
+
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
+
+For CronJobs with no time zone specified, the {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
+interprets schedules relative to its local time zone.
+
+You can specify a time zone for a CronJob by setting `.spec.timeZone` to the name
+of a valid [time zone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+For example, setting `.spec.timeZone: "Etc/UTC"` instructs Kubernetes to interpret
+the schedule relative to Coordinated Universal Time.
 
 A time zone database from the Go standard library is included in the binaries and used as a fallback in case an external database is not available on the system.
 
 ## CronJob limitations {#cron-job-limitations}
 
-A cron job creates a job object _about_ once per execution time of its schedule. We say "about" because there
-are certain circumstances where two jobs might be created, or no job might be created. We attempt to make these rare,
-but do not completely prevent them. Therefore, jobs should be _idempotent_.
+### Unsupported TimeZone specification
+
+The implementation of the CronJob API in Kubernetes {{< skew currentVersion >}} lets you set
+the `.spec.schedule` field to include a timezone; for example: `CRON_TZ=UTC * * * * *`
+or `TZ=UTC * * * * *`.
+
+Specifying a timezone that way is **not officially supported** (and never has been).
+
+If you try to set a schedule that includes `TZ` or `CRON_TZ` timezone specification,
+Kubernetes reports a [warning](/blog/2020/09/03/warnings/) to the client.
+Future versions of Kubernetes will prevent setting the unofficial timezone mechanism entirely.
+
+### Modifying a CronJob
+
+By design, a CronJob contains a template for _new_ Jobs.
+If you modify an existing CronJob, the changes you make will apply to new Jobs that
+start to run after your modification is complete. Jobs (and their Pods) that have already
+started continue to run without changes.
+That is, the CronJob does _not_ update existing Jobs, even if those remain running.
+
+### Job creation
+
+A CronJob creates a Job object approximately once per execution time of its schedule.
+The scheduling is approximate because there
+are certain circumstances where two Jobs might be created, or no Job might be created.
+Kubernetes tries to avoid those situations, but does not completely prevent them. Therefore,
+the Jobs that you define should be _idempotent_.
 
 If `startingDeadlineSeconds` is set to a large value or left unset (the default)
 and if `concurrencyPolicy` is set to `Allow`, the jobs will always run
@@ -143,32 +234,16 @@ be down for the same period as the previous example (`08:29:00` to `10:21:00`,) 
 The CronJob is only responsible for creating Jobs that match its schedule, and
 the Job in turn is responsible for the management of the Pods it represents.
 
-## Controller version {#new-controller}
-
-Starting with Kubernetes v1.21 the second version of the CronJob controller
-is the default implementation. To disable the default CronJob controller
-and use the original CronJob controller instead, pass the `CronJobControllerV2`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-flag to the {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}},
-and set this flag to `false`. For example:
-
-```
---feature-gates="CronJobControllerV2=false"
-```
-
-
 ## {{% heading "whatsnext" %}}
 
 * Learn about [Pods](/docs/concepts/workloads/pods/) and
   [Jobs](/docs/concepts/workloads/controllers/job/), two concepts
   that CronJobs rely upon.
-* Read about the [format](https://pkg.go.dev/github.com/robfig/cron/v3#hdr-CRON_Expression_Format)
+* Read about the detailed [format](https://pkg.go.dev/github.com/robfig/cron/v3#hdr-CRON_Expression_Format)
   of CronJob `.spec.schedule` fields.
 * For instructions on creating and working with CronJobs, and for an example
   of a CronJob manifest,
   see [Running automated tasks with CronJobs](/docs/tasks/job/automated-tasks-with-cron-jobs/).
-* For instructions to clean up failed or completed jobs automatically,
-  see [Clean up Jobs automatically](/docs/concepts/workloads/controllers/job/#clean-up-finished-jobs-automatically)
 * `CronJob` is part of the Kubernetes REST API.
   Read the {{< api-reference page="workload-resources/cron-job-v1" >}}
-  object definition to understand the API for Kubernetes cron jobs.
+  API reference for more details.

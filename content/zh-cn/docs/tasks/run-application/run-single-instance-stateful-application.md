@@ -36,7 +36,7 @@ application is MySQL.
 <!--
 You can run a stateful application by creating a Kubernetes Deployment
 and connecting it to an existing PersistentVolume using a
-PersistentVolumeClaim.  For example, this YAML file describes a
+PersistentVolumeClaim. For example, this YAML file describes a
 Deployment that runs MySQL and references the PersistentVolumeClaim. The file
 defines a volume mount for /var/lib/mysql, and then creates a
 PersistentVolumeClaim that looks for a 20G volume. This claim is
@@ -60,22 +60,28 @@ for a secure solution.
 {{< codenew file="application/mysql/mysql-deployment.yaml" >}}
 {{< codenew file="application/mysql/mysql-pv.yaml" >}}
 
-1. <!--Deploy the PV and PVC of the YAML file-->
-   部署 YAML 文件中定义的 PV 和 PVC：
+<!--
+1. Deploy the PV and PVC of the YAML file:
+-->
+1. 部署 YAML 文件中定义的 PV 和 PVC：
 
    ```shell
    kubectl apply -f https://k8s.io/examples/application/mysql/mysql-pv.yaml
    ```
 
-1. <!-- Deploy the contents of the YAML file -->
-   部署 YAML 文件中定义的 Deployment：
+<!--
+1. Deploy the contents of the YAML file:
+-->
+2. 部署 YAML 文件中定义的 Deployment：
 
    ```shell
    kubectl apply -f https://k8s.io/examples/application/mysql/mysql-deployment.yaml
    ```
 
-1. <!-- Display information about the Deployment -->
-   展示 Deployment 相关信息:
+<!--
+1. Display information about the Deployment:
+-->
+3. 展示 Deployment 相关信息:
 
    ```shell
    kubectl describe deployment mysql
@@ -111,21 +117,23 @@ for a secure solution.
        Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
        ClaimName:  mysql-pv-claim
        ReadOnly:   false
-       Conditions:
-         Type          Status  Reason
-         ----          ------  ------
-         Available     False   MinimumReplicasUnavailable
-         Progressing   True    ReplicaSetUpdated
-         OldReplicaSets:       <none>
-         NewReplicaSet:        mysql-63082529 (1/1 replicas created)
-         Events:
-           FirstSeen    LastSeen    Count    From                SubobjectPath    Type        Reason            Message
-           ---------    --------    -----    ----                -------------    --------    ------            -------
-           33s          33s         1        {deployment-controller }             Normal      ScalingReplicaSet Scaled up replica set mysql-63082529 to 1
+   Conditions:
+     Type          Status  Reason
+     ----          ------  ------
+     Available     False   MinimumReplicasUnavailable
+     Progressing   True    ReplicaSetUpdated
+   OldReplicaSets:       <none>
+   NewReplicaSet:        mysql-63082529 (1/1 replicas created)
+   Events:
+     FirstSeen    LastSeen    Count    From                SubobjectPath    Type        Reason            Message
+     ---------    --------    -----    ----                -------------    --------    ------            -------
+     33s          33s         1        {deployment-controller }             Normal      ScalingReplicaSet Scaled up replica set mysql-63082529 to 1
    ```
 
-1. <!-- List the pods created by the Deployment -->
-   列举出 Deployment 创建的 pods:
+<!--
+1. List the pods created by the Deployment:
+-->
+4. 列举出 Deployment 创建的 pods:
 
    ```shell
    kubectl get pods -l app=mysql
@@ -141,8 +149,10 @@ for a secure solution.
    mysql-63082529-2z3ki   1/1       Running   0          3m
    ```
 
-1. <!-- Inspect the PersistentVolumeClaim -->
-   查看 PersistentVolumeClaim：
+<!--
+1. Inspect the PersistentVolumeClaim:
+-->
+5. 查看 PersistentVolumeClaim：
 
    ```shell
    kubectl describe pvc mysql-pv-claim
@@ -180,14 +190,13 @@ Run a MySQL client to connect to the server:
 -->
 ## 访问 MySQL 实例   {#accessing-the-mysql-instance}
 
-
 前面 YAML 文件中创建了一个允许集群内其他 Pod 访问的数据库服务。该服务中选项
 `clusterIP: None` 让服务 DNS 名称直接解析为 Pod 的 IP 地址。
 当在一个服务下只有一个 Pod 并且不打算增加 Pod 的数量这是最好的.
 
 运行 MySQL 客户端以连接到服务器:
 
-```
+```shell
 kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -ppassword
 ```
 
@@ -246,7 +255,7 @@ Delete the deployed objects by name:
 
 通过名称删除部署的对象:
 
-```
+```shell
 kubectl delete deployment,svc mysql
 kubectl delete pvc mysql-pv-claim
 kubectl delete pv mysql-pv-volume
@@ -282,5 +291,3 @@ PersistentVolume 将被自动删除。
 * 参阅 [kubectl run 文档](/docs/reference/generated/kubectl/kubectl-commands/#run)
 
 * 参阅[卷](/zh-cn/docs/concepts/storage/volumes/)和[持久卷](/zh-cn/docs/concepts/storage/persistent-volumes/)
-
-

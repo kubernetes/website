@@ -88,13 +88,12 @@ API 및 kubectl의 관점에서, 윈도우 컨테이너는 리눅스 기반 컨�
   * OS 필드: 
 
     특정 파드가 윈도우 컨테이너를 사용하고 있다는 것을 나타내려면 `.spec.os.name` 필드를 `windows`로 설정해야 한다.
-    이 필드가 인식되도록 하기 위해서는 `IdentifyPodOS` 기능 게이트가 활성화되어야 한다.
 
     {{< note >}}
-    쿠버네티스 1.24부터, `IdentifyPodOS` 기능 게이트는 베타 단계이며 기본적으로 활성화되어 있다.
+    쿠버네티스 1.25부터, `IdentifyPodOS` 기능 게이트는 GA 단계이며 기본적으로 활성화되어 있다.
     {{< /note >}}
 
-    `IdentifyPodOS` 기능 게이트가 활성화되어 있고 `.spec.os.name` 필드를 `windows`로 설정했다면,
+    `.spec.os.name` 필드를 `windows`로 설정했다면,
     해당 파드의 `.spec` 내의 다음 필드는 설정하지 않아야 한다.
 
     * `spec.hostPID`
@@ -213,7 +212,7 @@ API 및 kubectl의 관점에서, 윈도우 컨테이너는 리눅스 기반 컨�
 * `securityContext.capabilities` - 
   POSIX 기능은 윈도우에서 구현되지 않았다.
 * `securityContext.privileged` - 
-  윈도우는 특권을 가진(privileged) 컨테이너를 지원하지 않는다.
+  윈도우는 특권을 가진(privileged) 컨테이너를 지원하지 않는다. 대신 [호스트 프로세스 컨테이너](/docs/tasks/configure-pod-container/create-hostprocess-pod/)를 사용한다.
 * `securityContext.procMount` - 
   윈도우에는 `/proc` 파일시스템이 없다.
 * `securityContext.readOnlyRootFilesystem` - 
@@ -239,11 +238,11 @@ API 및 kubectl의 관점에서, 윈도우 컨테이너는 리눅스 기반 컨�
 다음 목록은 윈도우와 리눅스에서 파드 명세가 어떻게 다르게 동작하는지 기술한다.
 
 * `hostIPC` 및 `hostpid` - 호스트 네임스페이스 공유 기능은 윈도우에서 사용할 수 없다.
-* `hostNetwork` - 윈도우 운영 체제에서 호스트 네트워크 공유 기능을 지원하지 않는다.
+* `hostNetwork` - [하단 참조](#compatibility-v1-pod-spec-containers-hostnetwork)
 * `dnsPolicy` - 윈도우에서 호스트 네트워킹이 지원되지 않기 때문에 
   `dnsPolicy`를 `ClusterFirstWithHostNet`로 설정할 수 없다. 
   파드는 항상 컨테이너 네트워크와 함께 동작한다.
-* `podSecurityContext` (하단 참조)
+* `podSecurityContext` [하단 참조](#compatibility-v1-pod-spec-containers-securitycontext)
 * `shareProcessNamespace` - 이것은 베타 기능이며, 윈도우에서 구현되지 않은 리눅스 네임스페이스에 의존한다. 
   윈도우는 프로세스 네임스페이스 또는 컨테이너의 루트 파일시스템을 공유할 수 없다. 
   네트워크만 공유할 수 있다.
@@ -261,6 +260,17 @@ API 및 kubectl의 관점에서, 윈도우 컨테이너는 리눅스 기반 컨�
   * `emptyDir` 볼륨을 정의한 경우, 이 볼륨의 소스(source)를 `memory`로 설정할 수는 없다.
 * `mountPropagation` - 마운트 전파(propagation)는 윈도우에서 지원되지 않으므로 
   이 필드는 활성화할 수 없다.
+
+#### 호스트 네트워크(hostNetwork)의 필드 호환성 {#compatibility-v1-pod-spec-containers-hostnetwork}
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+이제 kubelet은, 윈도우 노드에서 실행되는 파드가 새로운 파드 네트워크 네임스페이스를 생성하는 대신 호스트의 네트워크 네임스페이스를 사용하도록 요청할 수 있다.
+이 기능을 활성화하려면 kubelet에 `--feature-gates=WindowsHostNetwork=true`를 전달한다.
+
+{{< note >}}
+이 기능을 지원하는 컨테이너 런타임을 필요로 한다.
+{{< /note >}}
 
 #### 파드 시큐리티 컨텍스트의 필드 호환성 {#compatibility-v1-pod-spec-containers-securitycontext}
 
@@ -285,7 +295,7 @@ API 및 kubectl의 관점에서, 윈도우 컨테이너는 리눅스 기반 컨�
 
 쿠버네티스는 윈도우 지원을 포함하는 다중 아키텍처 이미지를 유지보수한다. 
 쿠버네티스 v{{< skew currentVersion >}}의 경우 
-권장 퍼즈 이미지는 `k8s.gcr.io/pause:3.6`이다. 
+권장 퍼즈 이미지는 `registry.k8s.io/pause:3.6`이다. 
 [소스 코드](https://github.com/kubernetes/kubernetes/tree/master/build/pause)는 GitHub에서 찾을 수 있다.
 
 Microsoft는 리눅스 및 윈도우 amd64를 지원하는 다중 아키텍처 이미지를 

@@ -45,10 +45,10 @@ weight: 40
 
 파드 토폴로지 분배 제약 조건은 이러한 설정을 할 수 있도록 하는 선언적인 방법을 제공한다.
 
-
 ## `topologySpreadConstraints` 필드
 
-파드 API에 `spec.topologySpreadConstraints` 필드가 있다. 예시는 다음과 같다.
+파드 API에 `spec.topologySpreadConstraints` 필드가 있다. 이 필드는 다음과 같이 
+쓰인다.
 
 ```yaml
 ---
@@ -60,14 +60,18 @@ spec:
   # 토폴로지 분배 제약 조건을 구성한다.
   topologySpreadConstraints:
     - maxSkew: <integer>
-      minDomains: <integer> # 선택 사항이며, v1.24에서 알파 기능으로 도입되었다.
+      minDomains: <integer> # 선택 사항이며, v1.25에서 베타 기능으로 도입되었다.
       topologyKey: <string>
       whenUnsatisfiable: <string>
       labelSelector: <object>
+      matchLabelKeys: <list> # 선택 사항이며, v1.25에서 알파 기능으로 도입되었다.
+      nodeAffinityPolicy: [Honor|Ignore] # 선택 사항이며, v1.26에서 베타 기능으로 도입되었다.
+      nodeTaintsPolicy: [Honor|Ignore] # 선택 사항이며, v1.26에서 베타 기능으로 도입되었다.
   ### 파드의 다른 필드가 이 아래에 오게 된다.
 ```
 
-`kubectl explain Pod.spec.topologySpreadConstraints` 명령을 실행하여 이 필드에 대해 좀 더 알아볼 수 있다.
+`kubectl explain Pod.spec.topologySpreadConstraints` 명령을 실행하거나 파드에 관한 API 레퍼런스의
+[스케줄링](/docs/reference/kubernetes-api/workload-resources/pod-v1/#scheduling) 섹션을 참조해서 이 필드에 대해 좀 더 알아볼 수 있다.
 
 ### 분배 제약 조건 정의
 
@@ -81,10 +85,10 @@ kube-scheduler가 어떻게 클러스터 내에서 기존 파드와의 관계를
 
   - `whenUnsatisfiable: DoNotSchedule`을 선택했다면, 
     `maxSkew`는 대상 토폴로지에서 일치하는 파드 수와 
-    _전역 최솟값(global minimum)_ (토폴로지 도메인에서 레이블 셀렉터와 일치하는 최소 파드 수) 
+    _전역 최솟값(global minimum)_ (적절한 도메인 내에서 일치하는 파드의 최소 수, 또는 적절한 도메인의 수가 `minDomains`보다 작은 경우에는 0)  
     사이의 최대 허용 차이를 나타낸다. 
-    예를 들어, 3개의 존에 각각 2, 4, 5개의 일치하는 파드가 있으면, 
-    전역 최솟값은 2이며 시스템은 이 숫자를 `maxSkew`와 비교한다.
+    예를 들어, 3개의 존에 각각 2, 2, 1개의 일치하는 파드가 있으면, 
+    `maxSkew`는 1로 설정되고 전역 최솟값은 1로 설정된다.
   - `whenUnsatisfiable: ScheduleAnyway`를 선택하면, 
     스케줄러는 차이(skew)를 줄이는 데 도움이 되는 토폴로지에 더 높은 우선 순위를 부여한다.
 
@@ -93,9 +97,8 @@ kube-scheduler가 어떻게 클러스터 내에서 기존 파드와의 관계를
   도메인의 노드가 노드 셀렉터에 매치되면 그 도메인은 적합한 도메인이다.
 
   {{< note >}}
-  `minDomains` 필드는 1.24에서 추가된 알파 필드이다.
-  이를 사용하려면 `MinDomainsInPodToplogySpread`
-  [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다.
+  `minDomains` 필드는 1.25에서 기본적으로 사용하도록 설정된 베타 필드이다. 사용을 원하지 않을 경우 
+  `MinDomainsInPodTopologySpread` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 비활성화한다.
   {{< /note >}}
   
   - `minDomains` 값을 명시하는 경우, 이 값은 0보다 커야 한다. 
@@ -108,10 +111,12 @@ kube-scheduler가 어떻게 클러스터 내에서 기존 파드와의 관계를
     이 값은 스케줄링에 영향을 미치지 않는다.
   - `minDomains`를 명시하지 않으면, 분배 제약 조건은 `minDomains`가 1이라고 가정하고 동작한다.
 
-- **topologyKey** 는 [노드 레이블](#node-labels)의 키(key)이다. 
-  만약 두 노드가 이 키로 레이블이 지정되고 레이블이 동일한 값을 가진다면, 
-  스케줄러는 두 노드를 같은 토폴로지에 있는 것으로 여기게 된다. 
-  스케줄러는 각 토폴로지 도메인에 균형잡힌 수의 파드를 배치하려고 시도한다.
+- **topologyKey** 는 [노드 레이블](#node-labels)의 키(key)이다. 이 키와 동일한 값을 가진 
+  레이블이 있는 노드는 동일한 토폴로지에 있는 것으로 간주된다.  
+  토폴로지의 각 인스턴스(즉, <키, 값> 쌍)를 도메인이라고 한다. 스케줄러는
+  각 도메인에 균형잡힌 수의 파드를 배치하려고 시도할 것이다.
+	또한, 노드가 nodeAffinityPolicy 및 nodeTaintsPolicy의 요구 사항을 충족하는 도메인을
+	적절한 도메인이라고 정의한다.
 
 - **whenUnsatisfiable** 는 분산 제약 조건을 만족하지 않을 경우에 파드를 처리하는 방법을 나타낸다.
   - `DoNotSchedule`(기본값)은 스케줄러에 스케줄링을 하지 말라고 알려준다.
@@ -122,6 +127,54 @@ kube-scheduler가 어떻게 클러스터 내에서 기존 파드와의 관계를
   해당 토폴로지 도메인에 속할 파드의 수를 결정한다. 
   자세한 내용은 
   [레이블 셀렉터](/ko/docs/concepts/overview/working-with-objects/labels/#레이블-셀렉터)를 참조한다.
+
+- **matchLabelKeys** 는 분배도(spreading)가 계산될 파드를 선택하기 위한 파드 레이블
+  키 목록이다. 키는 파드 레이블에서 값을 조회하는 데 사용되며, 이러한 키-값 레이블은 `labelSelector`와 AND 처리되어 들어오는 파드(incoming pod)에 대해 분배도가 계산될 기존 파드 그룹의 선택에 사용된다. 파드 레이블에 없는 키는 무시된다. null 또는 비어 있는 목록은 `labelSelector`와만 일치함을 의미한다.
+
+  `matchLabelKeys`를 사용하면, 사용자는 다른 리비전 간에 `pod.spec`을 업데이트할 필요가 없다. 컨트롤러/오퍼레이터는 다른 리비전에 대해 동일한 `label`키에 다른 값을 설정하기만 하면 된다. 스케줄러는 `matchLabelKeys`를 기준으로 값을 자동으로 가정할 것이다. 예를 들어 사용자가 디플로이먼트를 사용하는 경우, 디플로이먼트 컨트롤러에 의해 자동으로 추가되는 `pod-template-hash`로 키가 지정된 레이블을 사용함으로써 단일 디플로이먼트에서 서로 다른 리비전을 구별할 수 있다.
+
+  ```yaml
+      topologySpreadConstraints:
+          - maxSkew: 1
+            topologyKey: kubernetes.io/hostname
+            whenUnsatisfiable: DoNotSchedule
+            matchLabelKeys:
+              - app
+              - pod-template-hash
+  ```
+
+  {{< note >}}
+  `matchLabelKeys` 필드는 1.25에서 추가된 알파 필드이다. 이 필드를 사용하려면
+  `MatchLabelKeysInPodTopologySpread` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)
+  를 활성화시켜야 한다.
+  {{< /note >}}
+
+- **nodeAffinityPolicy**는 파드 토폴로지의 스프레드 스큐(spread skew)를 계산할 때
+  파드의 nodeAffinity/nodeSelector를 다루는 방법을 나타낸다. 옵션은 다음과 같다.
+  - Honor: nodeAffinity/nodeSelector와 일치하는 노드만 계산에 포함된다.
+  - Ignore: nodeAffinity/nodeSelector는 무시된다. 모든 노드가 계산에 포함된다.
+
+  옵션의 값이 null일 경우, Honor 정책과 동일하게 동작한다.
+
+  {{< note >}}
+  `nodeAffinityPolicy` 필드는 베타 필드이고 1.26에서 기본적으로 활성화되어 있다. 이 필드를 비활성화하려면
+  `NodeInclusionPolicyInPodTopologySpread` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)
+  를 비활성화하면 된다.
+  {{< /note >}}
+
+- **nodeTaintsPolicy**는 파드 토폴로지의 스프레드 스큐(spread skew)를 계산할 때 노드 테인트(taint)를 
+  다루는 방법을 나타낸다. 옵션은 다음과 같다.
+  - Honor: 테인트가 없는 노드, 그리고 노드가 톨러레이션이 있는 들어오는 파드(incoming pod)를 위한 테인트가 설정된
+    노드가 포함된다.
+  - Ignore: 노드 테인트는 무시된다. 모든 노드가 포함된다.
+
+  옵션의 값이 null일 경우, Ignore 정책과 동일하게 동작한다.
+
+  {{< note >}}
+  `nodeTaintsPolicy` 필드는 베타 필드이고 1.26에서 기본적으로 활성화되어 있다. 이 필드를 비활성화하려면
+  `NodeInclusionPolicyInPodTopologySpread` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)
+  를 비활성화하면 된다.
+  {{< /note >}}
 
 파드에 2개 이상의 `topologySpreadConstraint`가 정의되어 있으면, 
 각 제약 조건은 논리 AND 연산으로 조합되며, 
@@ -147,7 +200,6 @@ kube-scheduler는 새로운 파드의 모든 제약 조건을 만족하는 노�
 다양한 각 상황에 대해, 프라이빗 레이블 키의 의미가 
 모두 우리의 생각과 같을 것이라고 가정할 수는 없다.
 {{< /note >}}
-
 
 각각 다음과 같은 레이블을 갖는 4개의 노드로 구성된 클러스터가 있다고 가정한다.
 
@@ -442,7 +494,7 @@ class zoneC cluster;
 
 기본 제약 조건은 
 [스케줄링 프로파일](/ko/docs/reference/scheduling/config/#프로파일)내의 플러그인 인자 중 하나로 설정할 수 있다. 
-제약 조건은 [위에서 설명한 것과 동일한 API](#api)를 이용하여 정의되는데, 
+제약 조건은 [위에서 설명한 것과 동일한 API](#topologyspreadconstraints-필드)를 이용하여 정의되는데,
 다만 `labelSelector`는 비워 두어야 한다. 
 셀렉터는 파드가 속한 서비스, 레플리카셋, 스테이트풀셋, 또는 레플리케이션 컨트롤러를 바탕으로 계산한다.
 
@@ -527,6 +579,7 @@ profiles:
 `podAffinity`
 : 파드를 끌어당긴다. 조건이 충족되는 토폴로지 도메인에는
   원하는 수의 파드를 얼마든지 채울 수 있다.
+
 `podAntiAffinity`
 : 파드를 밀어낸다. 
   이를 `requiredDuringSchedulingIgnoredDuringExecution` 모드로 설정하면 
@@ -557,10 +610,10 @@ profiles:
   예를 들어 노드 풀(또는 노드 그룹)이 0으로 스케일 다운되고, 
   클러스터가 다시 스케일 업 되기를 기대하는 경우, 
   해당 토폴로지 도메인은 적어도 1개의 노드가 존재하기 전에는 고려가 되지 않을 것이다. 
+
   이를 극복하기 위해, 파드 토폴로지 분배 제약 조건과 
   전반적인 토폴로지 도메인 집합에 대한 정보를 인지하고 동작하는 
   클러스터 오토스케일링 도구를 이용할 수 있다.
-
 
 ## {{% heading "whatsnext" %}}
 

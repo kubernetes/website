@@ -133,8 +133,11 @@ is not a process, but an environment for running container(s). A Pod persists un
 it is deleted.
 {{< /note >}}
 
-When you create the manifest for a Pod object, make sure the name specified is a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+The name of a Pod must be a valid
+[DNS subdomain](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
+value, but this can produce unexpected results for the Pod hostname.  For best compatibility,
+the name should follow the more restrictive rules for a
+[DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
 ### Pod OS
 
@@ -286,13 +289,28 @@ section.
 
 ## Privileged mode for containers
 
-In Linux, any container in a Pod can enable privileged mode using the `privileged` (Linux) flag on the [security context](/docs/tasks/configure-pod-container/security-context/) of the container spec. This is useful for containers that want to use operating system administrative capabilities such as manipulating the network stack or accessing hardware devices.
-
-If your cluster has the `WindowsHostProcessContainers` feature enabled, you can create a [Windows HostProcess pod](/docs/tasks/configure-pod-container/create-hostprocess-pod) by setting the `windowsOptions.hostProcess` flag on the security context of the pod spec. All containers in these pods must run as Windows HostProcess containers. HostProcess pods run directly on the host and can also be used to perform administrative tasks as is done with Linux privileged containers.
-
 {{< note >}}
 Your {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}} must support the concept of a privileged container for this setting to be relevant.
 {{< /note >}}
+
+Any container in a pod can run in privileged mode to use operating system administrative capabilities
+that would otherwise be inaccessible. This is available for both Windows and Linux.
+
+### Linux privileged containers
+
+In Linux, any container in a Pod can enable privileged mode using the `privileged` (Linux) flag
+on the [security context](/docs/tasks/configure-pod-container/security-context/) of the
+container spec. This is useful for containers that want to use operating system administrative
+capabilities such as manipulating the network stack or accessing hardware devices.
+
+### Windows privileged containers
+
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
+
+In Windows, you can create a [Windows HostProcess pod](/docs/tasks/configure-pod-container/create-hostprocess-pod) by setting the 
+`windowsOptions.hostProcess` flag on the security context of the pod spec. All containers in these
+pods must run as Windows HostProcess containers. HostProcess pods run directly on the host and can also be used
+to perform administrative tasks as is done with Linux privileged containers.
 
 ## Static Pods
 

@@ -211,12 +211,12 @@ kubectl delete pod constraints-cpu-demo --namespace=constraints-cpu-example
 <!--
 ## Attempt to create a Pod that exceeds the maximum CPU constraint
 
-Here's the configuration file for a Pod that has one Container. The Container specifies a
+Here's a manifest for a Pod that has one container. The container specifies a
 CPU request of 500 millicpu and a cpu limit of 1.5 cpu.
 -->
 ## 尝试创建一个超过最大 CPU 限制的 Pod
 
-这里给出了包含一个容器的 Pod 的配置文件。容器声明了 500 millicpu 的 CPU 
+这里给出了包含一个容器的 Pod 清单。容器声明了 500 millicpu 的 CPU 
 请求和 1.5 CPU 的 CPU 限制。
 
 {{< codenew file="admin/resource/cpu-constraints-pod-2.yaml" >}}
@@ -273,7 +273,7 @@ enforced minimum:
 
 ```
 Error from server (Forbidden): error when creating "examples/admin/resource/cpu-constraints-pod-3.yaml":
-pods "constraints-cpu-demo-4" is forbidden: minimum cpu usage per Container is 200m, but request is 100m.
+pods "constraints-cpu-demo-3" is forbidden: minimum cpu usage per Container is 200m, but request is 100m.
 ```
 
 <!--
@@ -408,15 +408,15 @@ kubectl delete namespace constraints-cpu-example
 <!--
 ### For cluster administrators
 
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/memory-default-namespace/)
+* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/cpu-default-namespace/)
+* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/memory-constraint-namespace/)
+* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 
-* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
+* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 
-* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/quota-pod-namespace/)
+* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 -->
@@ -424,8 +424,8 @@ kubectl delete namespace constraints-cpu-example
 ### 集群管理员参考：
 
 * [为命名空间配置默认内存请求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [为命名空间配置默认 CPU 请求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
 * [为命名空间配置内存限制的最小值和最大值](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
-* [为命名空间配置 CPU 限制的最小值和最大值](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 * [为命名空间配置内存和 CPU 配额](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 * [为命名空间配置 Pod 配额](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 * [为 API 对象配置配额](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)

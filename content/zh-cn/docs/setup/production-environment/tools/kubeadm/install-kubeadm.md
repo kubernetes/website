@@ -22,7 +22,8 @@ card:
 <!--
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
 This page shows how to install the `kubeadm` toolbox.
-For information on how to create a cluster with kubeadm once you have performed this installation process, see the [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
+For information on how to create a cluster with kubeadm once you have performed this installation process,
+see the [Creating a cluster with kubeadm](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/) page.
 -->
 <img src="/images/kubeadm-stacked-color.png" align="right" width="150px"></img>
 本页面显示如何安装 `kubeadm` 工具箱。
@@ -32,13 +33,15 @@ For information on how to create a cluster with kubeadm once you have performed 
 ## {{% heading "prerequisites" %}}
 
 <!--
-* A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions based on Debian and Red Hat, and those distributions without a package manager.
+* A compatible Linux host. The Kubernetes project provides generic instructions for Linux distributions
+  based on Debian and Red Hat, and those distributions without a package manager.
 * 2 GB or more of RAM per machine (any less will leave little room for your apps).
 * 2 CPUs or more.
 * Full network connectivity between all machines in the cluster (public or private network is fine).
 * Unique hostname, MAC address, and product_uuid for every node. See [here](#verify-mac-address) for more details.
 * Certain ports are open on your machines. See [here](#check-required-ports) for more details.
 * Swap disabled. You **MUST** disable swap in order for the kubelet to work properly.
+    * For example, `sudo swapoff -a` will disable swapping temporarily. To make this change persistent across reboots, make sure swap is disabled in config files like `/etc/fstab`, `systemd.swap`, depending how it was configured on your system.
 -->
 * 一台兼容的 Linux 主机。Kubernetes 项目为基于 Debian 和 Red Hat 的 Linux
   发行版以及一些不提供包管理器的发行版提供通用的指令。
@@ -48,6 +51,8 @@ For information on how to create a cluster with kubeadm once you have performed 
 * 节点之中不可以有重复的主机名、MAC 地址或 product_uuid。请参见[这里](#verify-mac-address)了解更多详细信息。
 * 开启机器上的某些端口。请参见[这里](#check-required-ports)了解更多详细信息。
 * 禁用交换分区。为了保证 kubelet 正常工作，你**必须**禁用交换分区。
+  * 例如，`sudo swapoff -a` 将暂时禁用交换分区。要使此更改在重启后保持不变，请确保在如
+    `/etc/fstab`、`systemd.swap` 等配置文件中禁用交换分区，具体取决于你的系统如何配置。
 
 <!-- steps -->
 
@@ -85,12 +90,13 @@ route, we recommend you add IP route(s) so Kubernetes cluster addresses go via t
 <!--
 ## Check required ports
 These
-[required ports](/docs/reference/ports-and-protocols/)
-need to be open in order for Kubernetes components to communicate with each other. You can use tools like netcat to check if a port is open. For example:
+These [required ports](/docs/reference/networking/ports-and-protocols/)
+need to be open in order for Kubernetes components to communicate with each other.
+You can use tools like netcat to check if a port is open. For example:
 -->
 ## 检查所需端口{#check-required-ports}
 
-启用这些[必要的端口](/zh-cn/docs/reference/ports-and-protocols/)后才能使 Kubernetes 的各组件相互通信。
+启用这些[必要的端口](/zh-cn/docs/reference/networking/ports-and-protocols/)后才能使 Kubernetes 的各组件相互通信。
 可以使用 netcat 之类的工具来检查端口是否启用，例如：
 
 ```shell
@@ -282,7 +288,7 @@ For more information on version skews, see:
 2. 下载 Google Cloud 公开签名秘钥：
 
    ```shell
-   sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
    ```
 
 <!--
@@ -291,7 +297,7 @@ For more information on version skews, see:
 3. 添加 Kubernetes `apt` 仓库：
 
    ```shell
-   echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
 <!--
@@ -304,6 +310,14 @@ For more information on version skews, see:
    sudo apt-get install -y kubelet kubeadm kubectl
    sudo apt-mark hold kubelet kubeadm kubectl
    ```
+{{< note >}}
+<!--
+In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default.
+You can create this directory if you need to, making it world-readable but writeable only by admins.
+-->
+在低于 Debian 12 和 Ubuntu 22.04 的发行版本中，`/etc/apt/keyrings` 默认不存在。
+如有需要，你可以创建此目录，并将其设置为对所有人可读，但仅对管理员可写。
+{{< /note >}}
 
 {{% /tab %}}
 
@@ -339,8 +353,8 @@ sudo systemctl enable --now kubelet
   - You can leave SELinux enabled if you know how to configure it but it may require settings that are not supported by kubeadm.
 
   - If the `baseurl` fails because your Red Hat-based distribution cannot interpret `basearch`, replace `\$basearch` with your computer's architecture.
-    Type `uname -m` to see that value.
-    For example, the `baseurl` URL for `x86_64` could be: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`.
+  Type `uname -m` to see that value.
+  For example, the `baseurl` URL for `x86_64` could be: `https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64`.
 -->
 **请注意：**
 
@@ -363,7 +377,7 @@ Install CNI plugins (required for most pod network):
 安装 CNI 插件（大多数 Pod 网络都需要）：
 
 ```bash
-CNI_PLUGINS_VERSION="v1.1.1"
+CNI_PLUGINS_VERSION="v1.3.0"
 ARCH="amd64"
 DEST="/opt/cni/bin"
 sudo mkdir -p "$DEST"
@@ -395,7 +409,7 @@ Install crictl (required for kubeadm / Kubelet Container Runtime Interface (CRI)
 安装 crictl（kubeadm/kubelet 容器运行时接口（CRI）所需）
 
 ```bash
-CRICTL_VERSION="v1.25.0"
+CRICTL_VERSION="v1.27.0"
 ARCH="amd64"
 curl -L "https://github.com/kubernetes-sigs/cri-tools/releases/download/${CRICTL_VERSION}/crictl-${CRICTL_VERSION}-linux-${ARCH}.tar.gz" | sudo tar -C $DOWNLOAD_DIR -xz
 ```
@@ -412,7 +426,7 @@ cd $DOWNLOAD_DIR
 sudo curl -L --remote-name-all https://dl.k8s.io/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet}
 sudo chmod +x {kubeadm,kubelet}
 
-RELEASE_VERSION="v0.4.0"
+RELEASE_VERSION="v0.15.1"
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubelet/lib/systemd/system/kubelet.service" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service
 sudo mkdir -p /etc/systemd/system/kubelet.service.d
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf

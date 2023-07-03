@@ -94,7 +94,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: nginx
-        image: k8s.gcr.io/nginx-slim:0.8
+        image: registry.k8s.io/nginx-slim:0.8
         ports:
         - containerPort: 80
           name: web
@@ -138,15 +138,13 @@ spec:
 
 ### 최소 준비 시간 초 {#minimum-ready-seconds}
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 `.spec.minReadySeconds` 는 파드가 '사용 가능(available)'이라고 간주될 수 있도록 파드의 모든 컨테이너가 
-문제 없이 실행되어야 하는 최소 시간(초)을 나타내는 선택적인 필드이다. 이 기능은 베타이며 기본적으로 활성화되어 
-있음에 유의한다. 이 기능을 사용하지 않으려면
-StatefulSetMinReadySeconds 플래그를 설정 해제한다. 
-이 필드의 기본값은 0이다(이 경우, 파드가 Ready 상태가 되면 바로 사용 가능하다고 간주된다.) 
-파드가 언제 사용 가능하다고 간주되는지에 대한 자세한 정보는
-[컨테이너 프로브(probe)](/ko/docs/concepts/workloads/pods/pod-lifecycle/#컨테이너-프로브-probe)를 참고한다.
+문제 없이 실행되고 준비되는 최소 시간(초)을 나타내는 선택적인 필드이다.
+[롤링 업데이트](#롤링-업데이트) 전략을 사용할 때 롤아웃 진행 상황을 확인하는 데 사용된다.
+이 필드의 기본값은 0이다(이 경우, 파드가 Ready 상태가 되면 바로 사용 가능하다고 간주된다.)
+파드가 언제 사용 가능하다고 간주되는지에 대한 자세한 정보는 [컨테이너 프로브(probe)](/ko/docs/concepts/workloads/pods/pod-lifecycle/#컨테이너-프로브-probe)를 참고한다.
 
 ## 파드 신원
 
@@ -156,8 +154,23 @@ StatefulSetMinReadySeconds 플래그를 설정 해제한다.
 
 ### 순서 색인
 
-N개의 레플리카가 있는 스테이트풀셋은 스테이트풀셋에 있는
+N개의 [레플리카](#레플리카)가 있는 스테이트풀셋은 스테이트풀셋에 있는
 각 파드에 0에서 N-1 까지의 정수가 순서대로 할당되며 해당 스테이트풀셋 내에서 고유 하다.
+기본적으로 파드는 0부터 N-1까지의 순서대로 할당된다.
+
+### 시작 순서
+
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+`.spec.ordinals`은 각 파드에 할당할 순서에 대한
+정수값을 설정할 수 있게 해주는 선택적인 필드로, 기본값은 nil이다.
+이 필드를 사용하기 위해서는
+`StatefulSetStartOrdinal` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다.
+활성화 시, 다음과 같은 옵션들을 설정할 수 있다.
+
+* `.spec.ordinals.start`: 만약 `.spec.ordinals.start` 필드가 세팅되지 않을 경우, 파드는
+  `.spec.ordinals.start` 부터
+  `.spec.ordinals.start + .spec.replicas - 1`의 순서대로 할당된다.
 
 ### 안정적인 네트워크 신원
 
@@ -216,7 +229,7 @@ PersistentVolumeClaim을 받는다. 위의 nginx 예시에서 각 파드는 `my-
 
 ### 파드 이름 레이블
 
-스테이트풀셋 {{< glossary_tooltip term_id="controller" >}}
+스테이트풀셋 {{< glossary_tooltip text="컨트롤러" term_id="controller" >}}
 가 파드를 생성할 때 파드 이름으로 `statefulset.kubernetes.io/pod-name`
 레이블이 추가된다. 이 레이블로 스테이트풀셋의 특정 파드에 서비스를
 연결할 수 있다.
@@ -352,7 +365,7 @@ web-0이 실패할 경우 web-1은 web-0이 Running 및 Ready 상태가
 선택적 필드인 `.spec.persistentVolumeClaimRetentionPolicy` 는 
 스테이트풀셋의 생애주기동안 PVC를 삭제할 것인지, 
 삭제한다면 어떻게 삭제하는지를 관리한다. 
-이 필드를 사용하려면 `StatefulSetAutoDeletePVC` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다. 
+이 필드를 사용하려면 API 서버와 컨트롤러 매니저에 `StatefulSetAutoDeletePVC` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화해야 한다. 
 활성화 시, 각 스테이트풀셋에 대해 두 가지 정책을 설정할 수 있다.
 
 `whenDeleted`
@@ -445,7 +458,7 @@ spec:
 * 스테이트풀셋을 사용하는 방법을 알아본다.
   * [스테이트풀셋 애플리케이션 배포](/ko/docs/tutorials/stateful-application/basic-stateful-set/) 예제를 따라한다.
   * [스테이트풀셋으로 카산드라 배포](/ko/docs/tutorials/stateful-application/cassandra/) 예제를 따라한다.
-  * [복제된 스테이트풀셋 애플리케이션 구동하기](/docs/tasks/run-application/run-replicated-stateful-application/) 예제를 따라한다.
+  * [복제된 스테이트풀셋 애플리케이션 구동하기](/ko/docs/tasks/run-application/run-replicated-stateful-application/) 예제를 따라한다.
   * [스테이트풀셋 확장하기](/ko/docs/tasks/run-application/scale-stateful-set/)에 대해 배운다.
   * [스테이트풀셋을 삭제하면](/ko/docs/tasks/run-application/delete-stateful-set/) 어떤 일이 수반되는지를 배운다.
   * [스토리지의 볼륨을 사용하는 파드 구성](/ko/docs/tasks/configure-pod-container/configure-volume-storage/)을 하는 방법을 배운다.

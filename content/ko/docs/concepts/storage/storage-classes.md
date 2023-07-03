@@ -6,7 +6,7 @@
 # - msau42
 title: 스토리지 클래스
 content_type: concept
-weight: 30
+weight: 40
 ---
 
 <!-- overview -->
@@ -71,17 +71,12 @@ volumeBindingMode: Immediate
 | Cinder               | &#x2713;            | [OpenStack Cinder](#openstack-cinder)|
 | FC                   | -                   | -                                    |
 | FlexVolume           | -                   | -                                    |
-| Flocker              | &#x2713;            | -                                    |
 | GCEPersistentDisk    | &#x2713;            | [GCE PD](#gce-pd)                          |
-| Glusterfs            | &#x2713;            | [Glusterfs](#glusterfs)              |
 | iSCSI                | -                   | -                                    |
-| Quobyte              | &#x2713;            | [Quobyte](#quobyte)                  |
 | NFS                  | -                   | [NFS](#nfs)       |
 | RBD                  | &#x2713;            | [Ceph RBD](#ceph-rbd)                |
 | VsphereVolume        | &#x2713;            | [vSphere](#vsphere)                  |
 | PortworxVolume       | &#x2713;            | [Portworx 볼륨](#portworx-볼륨)  |
-| ScaleIO              | &#x2713;            | [ScaleIO](#scaleio)                  |
-| StorageOS            | &#x2713;            | [StorageOS](#storageos)              |
 | Local                | -                   | [Local](#local)              |
 
 여기 목록에서 "내부" 프로비저너를 지정할 수 있다(이
@@ -127,7 +122,6 @@ true로 설정된 경우 볼륨 확장을 지원한다.
 gcePersistentDisk | 1.11
 awsElasticBlockStore | 1.11
 Cinder | 1.11
-glusterfs | 1.11
 rbd | 1.11
 Azure File | 1.11
 Azure Disk | 1.11
@@ -342,87 +336,6 @@ parameters:
 [allowedTopologies](#allowed-topologies)로 대체되었다.
 {{< /note >}}
 
-### Glusterfs
-
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: slow
-provisioner: kubernetes.io/glusterfs
-parameters:
-  resturl: "http://127.0.0.1:8081"
-  clusterid: "630372ccdc720a92c681fb928f27b53f"
-  restauthenabled: "true"
-  restuser: "admin"
-  secretNamespace: "default"
-  secretName: "heketi-secret"
-  gidMin: "40000"
-  gidMax: "50000"
-  volumetype: "replicate:3"
-```
-
-* `resturl`: 필요에 따라 gluster 볼륨을 프로비전하는 Gluster REST 서비스/Heketi
-  서비스 url 이다. 일반적인 형식은 `IPaddress:Port` 이어야 하며 이는 GlusterFS
-  동적 프로비저너의 필수 파라미터이다. Heketi 서비스가 openshift/kubernetes
-  설정에서 라우팅이 가능한 서비스로 노출이 되는 경우 이것은 fqdn이 해석할 수 있는
-  Heketi 서비스 url인 `http://heketi-storage-project.cloudapps.mystorage.com` 과
-  유사한 형식을 가질 수 있다.
-* `restauthenabled` : REST 서버에 대한 인증을 가능하게 하는 Gluster REST 서비스
-  인증 부울이다. 이 값이 `"true"` 이면, `restuser` 와 `restuserkey`
-  또는 `secretNamespace` + `secretName` 을 채워야 한다. 이 옵션은
-  사용 중단이며, `restuser`, `restuserkey`, `secretName` 또는
-  `secretNamespace` 중 하나를 지정하면 인증이 활성화된다.
-* `restuser` : Gluster REST 서비스/Heketi 사용자로 Gluster Trusted Pool에서
-  볼륨을 생성할 수 있다.
-* `restuserkey` : REST 서버에 대한 인증에 사용될 Gluster REST 서비스/Heketi
-  사용자의 암호이다. 이 파라미터는 `secretNamespace` + `secretName` 을 위해
-  사용 중단 되었다.
-* `secretNamespace`, `secretName` : Gluster REST 서비스와 통신할 때 사용할
-  사용자 암호가 포함된 시크릿 인스턴스를 식별한다. 이 파라미터는
-  선택 사항으로 `secretNamespace` 와 `secretName` 을 모두 생략하면
-  빈 암호가 사용된다. 제공된 시크릿은 `"kubernetes.io/glusterfs"` 유형이어야
-  하며, 예를 들어 다음과 같이 생성한다.
-
-    ```
-    kubectl create secret generic heketi-secret \
-      --type="kubernetes.io/glusterfs" --from-literal=key='opensesame' \
-      --namespace=default
-    ```
-
-    시크릿의 예시는
-    [glusterfs-provisioning-secret.yaml](https://github.com/kubernetes/examples/tree/master/staging/persistent-volume-provisioning/glusterfs/glusterfs-secret.yaml)에서 찾을 수 있다.
-
-* `clusterid`: `630372ccdc720a92c681fb928f27b53f` 는 볼륨을 프로비저닝할
-  때 Heketi가 사용할 클러스터의 ID이다. 또한, 예시와 같이 클러스터
-  ID 목록이 될 수 있다. 예:
-  `"8452344e2becec931ece4e33c4674e4e,42982310de6c63381718ccfa6d8cf397"`. 이것은
-  선택적 파라미터이다.
-* `gidMin`, `gidMax` : 스토리지클래스에 대한 GID 범위의 최소값과
-  최대값이다. 이 범위( gidMin-gidMax )의 고유한 값(GID)은 동적으로
-  프로비전된 볼륨에 사용된다. 이것은 선택적인 값이다. 지정하지 않으면,
-  볼륨은 각각 gidMin과 gidMax의 기본값인 2000-2147483647
-  사이의 값으로 프로비전된다.
-* `volumetype` : 볼륨 유형과 파라미터는 이 선택적 값으로 구성할
-  수 있다. 볼륨 유형을 언급하지 않는 경우, 볼륨 유형을 결정하는 것은
-  프로비저너의 책임이다.
-
-    예를 들어:
-    * 레플리카 볼륨: `volumetype: replicate:3` 여기서 '3'은 레플리카의 수이다.
-    * Disperse/EC 볼륨: `volumetype: disperse:4:2` 여기서 '4'는 데이터이고 '2'는 중복 횟수이다.
-    * Distribute 볼륨: `volumetype: none`
-
-    사용 가능한 볼륨 유형과 관리 옵션에 대해서는
-    [관리 가이드](https://access.redhat.com/documentation/en-US/Red_Hat_Storage/3.1/html/Administration_Guide/part-Overview.html)를 참조한다.
-
-    자세한 정보는
-    [Heketi 구성 방법](https://github.com/heketi/heketi/wiki/Setting-up-the-topology)을 참조한다.
-
-    퍼시스턴트 볼륨이 동적으로 프로비전되면 Gluster 플러그인은
-    `gluster-dynamic-<claimname>` 이라는 이름으로 엔드포인트와
-    헤드리스 서비스를 자동으로 생성한다. 퍼시스턴트 볼륨 클레임을
-    삭제하면 동적 엔드포인트와 서비스가 자동으로 삭제된다.
-
 ### NFS
 
 ```yaml
@@ -473,7 +386,7 @@ vSphere 스토리지 클래스에는 두 가지 유형의 프로비저닝 도구
 - [CSI 프로비저닝 도구](#vsphere-provisioner-csi): `csi.vsphere.vmware.com`
 - [vCP 프로비저닝 도구](#vcp-프로비저닝-도구): `kubernetes.io/vsphere-volume`
 
-인-트리 프로비저닝 도구는 [사용 중단](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi)되었다. CSI 프로비저닝 도구에 대한 자세한 내용은 [쿠버네티스 vSphere CSI 드라이버](https://vsphere-csi-driver.sigs.k8s.io/) 및 [vSphereVolume CSI 마이그레이션](/ko/docs/concepts/storage/volumes/#csi-마이그레이션)을 참고한다.
+인-트리 프로비저닝 도구는 [사용 중단](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi)되었다. CSI 프로비저닝 도구에 대한 자세한 내용은 [쿠버네티스 vSphere CSI 드라이버](https://vsphere-csi-driver.sigs.k8s.io/) 및 [vSphereVolume CSI 마이그레이션](/ko/docs/concepts/storage/volumes/#vsphere-csi-migration)을 참고한다.
 
 #### CSI 프로비저닝 도구 {#vsphere-provisioner-csi}
 
@@ -544,7 +457,7 @@ vSphere CSI 스토리지클래스 프로비저닝 도구는 Tanzu 쿠버네티�
         스토어에 분산되어 요구 사항을 충족시키게 된다.
 
         퍼시스턴트 볼륨 관리에 스토리지 정책을 사용하는 방법에 대한 자세한 내용은
-        [볼륨의 동적 프로비저닝을 위한 스토리지 정책 기반 관리(SPBM)](https://vmware.github.io/vsphere-storage-for-kubernetes/documentation/policy-based-mgmt.html)를
+        [볼륨의 동적 프로비저닝을 위한 스토리지 정책 기반 관리(SPBM)](https://github.com/vmware-archive/vsphere-storage-for-kubernetes/blob/fa4c8b8ad46a85b6555d715dd9d27ff69839df53/documentation/policy-based-mgmt.md)를
         참조한다.
 
 vSphere용 쿠버네티스 내에서 퍼시스턴트 볼륨 관리를 시도하는
@@ -598,61 +511,6 @@ parameters:
 * `imageFeatures`: 이 파라미터는 선택 사항이며, `imageFormat` 을 "2"로 설정한
   경우에만 사용해야 한다. 현재 `layering` 에서만 기능이 지원된다.
   기본값은 ""이며, 기능이 설정되어 있지 않다.
-
-### Quobyte
-
-{{< feature-state for_k8s_version="v1.22" state="deprecated" >}}
-
-Quobyte 인-트리 스토리지 플러그인은 사용 중단되었으며, 
-아웃-오브-트리 Quobyte 플러그인에 대한 [예제](https://github.com/quobyte/quobyte-csi/blob/master/example/StorageClass.yaml) 
-`StorageClass`는 Quobyte CSI 저장소에서 찾을 수 있다.
-
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-   name: slow
-provisioner: kubernetes.io/quobyte
-parameters:
-    quobyteAPIServer: "http://138.68.74.142:7860"
-    registry: "138.68.74.142:7861"
-    adminSecretName: "quobyte-admin-secret"
-    adminSecretNamespace: "kube-system"
-    user: "root"
-    group: "root"
-    quobyteConfig: "BASE"
-    quobyteTenant: "DEFAULT"
-```
-
-* `quobyteAPIServer`: `"http(s)://api-server:7860"` 형식의
-  Quobyte의 API 서버이다.
-* `registry`: 볼륨을 마운트하는 데 사용할 Quobyte 레지스트리이다. 레지스트리를
-  ``<host>:<port>`` 의 쌍으로 지정하거나 여러 레지스트리를
-  지정하려면 쉼표만 있으면 된다.
-  예: ``<host1>:<port>,<host2>:<port>,<host3>:<port>``
-  호스트는 IP 주소이거나 DNS가 작동 중인 경우
-  DNS 이름을 제공할 수도 있다.
-* `adminSecretNamespace`: `adminSecretName` 의 네임스페이스.
-  기본값은 "default".
-* `adminSecretName`: 시크릿은 API 서버에 대해 인증하기 위한 Quobyte 사용자와 암호에
-  대한 정보를 담고 있다. 제공된 시크릿은 "kubernetes.io/quobyte"
-  유형과 `user` 및 `password` 키를 가져야 하며, 예를 들면
-  다음과 같다.
-
-    ```shell
-    kubectl create secret generic quobyte-admin-secret \
-      --type="kubernetes.io/quobyte" --from-literal=user='admin' --from-literal=password='opensesame' \
-      --namespace=kube-system
-    ```
-
-* `user`: 이 사용자에 대한 모든 접근을 매핑한다. 기본값은 "root".
-* `group`: 이 그룹에 대한 모든 접근을 매핑한다. 기본값은 "nfsnobody".
-* `quobyteConfig`: 지정된 구성을 사용해서 볼륨을 생성한다. 웹 콘솔
-  또는 quobyte CLI를 사용해서 새 구성을 작성하거나 기존 구성을
-  수정할 수 있다. 기본값은 "BASE".
-* `quobyteTenant`: 지정된 테넌트 ID를 사용해서 볼륨을 생성/삭제한다.
-  이 Quobyte 테넌트는 이미 Quobyte에 있어야 한다.
-  기본값은 "DEFAULT".
 
 ### Azure 디스크
 
@@ -782,96 +640,6 @@ parameters:
   카산드라와 같은 데이터베이스는 false로 설정해야 한다. `true/false` (기본값 `false`)
   여기에는 문자열, 즉 `true` 가 아닌, `"true"` 가 필요하다.
 
-### ScaleIO
-
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: slow
-provisioner: kubernetes.io/scaleio
-parameters:
-  gateway: https://192.168.99.200:443/api
-  system: scaleio
-  protectionDomain: pd0
-  storagePool: sp1
-  storageMode: ThinProvisioned
-  secretRef: sio-secret
-  readOnly: "false"
-  fsType: xfs
-```
-
-* `provisioner`: 속성이 `kubernetes.io/scaleio` 로 설정되어 있다.
-* `gateway`: ScaleIO API 게이트웨이 주소(필수)
-* `system`: ScaleIO 시스템의 이름(필수)
-* `protectionDomain`: ScaleIO 보호 도메인의 이름(필수)
-* `storagePool`: 볼륨 스토리지 풀의 이름(필수)
-* `storageMode`: 스토리지 프로비전 모드: `ThinProvisioned` (기본값) 또는
-  `ThickProvisioned`
-* `secretRef`: 구성된 시크릿 오브젝트에 대한 참조(필수)
-* `readOnly`: 마운트된 볼륨에 대한 접근 모드의 지정(기본값: false)
-* `fsType`: 볼륨에 사용할 파일 시스템 유형(기본값: ext4)
-
-ScaleIO 쿠버네티스 볼륨 플러그인에는 구성된 시크릿 오브젝트가 필요하다.
-시크릿은 다음 명령에 표시된 것처럼 `kubernetes.io/scaleio` 유형으로
-작성해야 하며, PVC와 동일한 네임스페이스
-값을 사용해야 한다.
-
-```shell
-kubectl create secret generic sio-secret --type="kubernetes.io/scaleio" \
---from-literal=username=sioadmin --from-literal=password=d2NABDNjMA== \
---namespace=default
-```
-
-### StorageOS
-
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: fast
-provisioner: kubernetes.io/storageos
-parameters:
-  pool: default
-  description: Kubernetes volume
-  fsType: ext4
-  adminSecretNamespace: default
-  adminSecretName: storageos-secret
-```
-
-* `pool`: 볼륨을 프로비전할 StorageOS 분산 용량
-  풀의 이름. 지정되지 않은 경우 일반적으로 존재하는 `default` 풀을 사용한다.
-* `description`: 동적으로 생성된 볼륨에 할당할 설명.
-  모든 볼륨 설명은 스토리지 클래스에 대해 동일하지만, 서로 다른
-  유스케이스에 대한 설명을 허용하기 위해 다른 스토리지 클래스를 사용할 수 있다.
-  기본값은 `Kubernetes volume`.
-* `fsType`: 요청할 기본 파일 시스템 유형. StorageOS 내의 사용자
-  정의 규칙이 이 값을 무시할 수 있다. 기본 값은 `ext4`.
-* `adminSecretNamespace`: API 구성 시크릿이 있는 네임스페이스.
-  adminSecretName 이 설정된 경우 필수이다.
-* `adminSecretName`: StorageOS API 자격증명을 얻는 데 사용할 시크릿의 이름.
-  지정하지 않으면 기본값이 시도된다.
-
-StorageOS 쿠버네티스 볼륨 플러그인은 시크릿 오브젝트를 사용해서 StorageOS API에
-접근하기 위한 엔드포인트와 자격증명을 지정할 수 있다. 이것은 기본값이
-변경된 경우에만 필요하다.
-시크릿은 다음의 명령과 같이 `kubernetes.io/storageos` 유형으로
-만들어야 한다.
-
-```shell
-kubectl create secret generic storageos-secret \
---type="kubernetes.io/storageos" \
---from-literal=apiAddress=tcp://localhost:5705 \
---from-literal=apiUsername=storageos \
---from-literal=apiPassword=storageos \
---namespace=default
-```
-
-동적으로 프로비전된 볼륨에 사용되는 시크릿은 모든 네임스페이스에서
-생성할 수 있으며 `adminSecretNamespace` 파라미터로 참조될 수 있다.
-사전에 프로비전된 볼륨에서 사용하는 시크릿은 이를 참조하는 PVC와
-동일한 네임스페이스에서 작성해야 한다.
-
 ### Local
 
 {{< feature-state for_k8s_version="v1.14" state="stable" >}}
@@ -892,3 +660,4 @@ volumeBindingMode: WaitForFirstConsumer
 볼륨 바인딩을 지연시키면 스케줄러가 퍼시스턴트볼륨클레임에
 적절한 퍼시스턴트볼륨을 선택할 때 파드의 모든 스케줄링
 제약 조건을 고려할 수 있다.
+

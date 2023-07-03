@@ -1,6 +1,6 @@
 ---
 title: "Changing the Container Runtime on a Node from Docker Engine to containerd"
-weight: 8
+weight: 10
 content_type: task 
 ---
 
@@ -98,8 +98,7 @@ then run the following commands:
 
 ## Configure the kubelet to use containerd as its container runtime
 
-Edit the file `/var/lib/kubelet/kubeadm-flags.env` and add the containerd runtime to the flags.
-`--container-runtime=remote` and
+Edit the file `/var/lib/kubelet/kubeadm-flags.env` and add the containerd runtime to the flags;
 `--container-runtime-endpoint=unix:///run/containerd/containerd.sock`.
 
 Users using kubeadm should be aware that the `kubeadm` tool stores the CRI socket for each host as

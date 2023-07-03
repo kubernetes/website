@@ -17,7 +17,7 @@ weight: 20
 1. Скачайте, распакуйте и инициализируйте пропатченную версию `easyrsa3`.
 
    ```shell
-   curl -LO https://storage.googleapis.com/kubernetes-release/easy-rsa/easy-rsa.tar.gz
+   curl -LO curl -LO https://dl.k8s.io/easy-rsa/easy-rsa.tar.gz
    tar xzf easy-rsa.tar.gz
    cd easy-rsa-master/easyrsa3
    ./easyrsa init-pki
@@ -128,7 +128,7 @@ weight: 20
    ```shell
    openssl x509 -req -in server.csr -CA ca.crt -CAkey ca.key \
        -CAcreateserial -out server.crt -days 10000 \
-       -extensions v3_ext -extfile csr.conf
+       -extensions v3_ext -extfile csr.conf  -sha256
    ```
 
 1. Используйте следующую команду, чтобы просмотреть запрос на подписание сертификата:

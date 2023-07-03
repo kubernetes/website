@@ -4,7 +4,7 @@
 # - thockin
 title: 컨테이너 라이프사이클 훅(Hook)
 content_type: concept
-weight: 30
+weight: 40
 ---
 
 <!-- overview -->
@@ -103,9 +103,9 @@ Kubelet이 구동된 후에 해당 훅은 재전송될 것이다.
 
 훅 핸들러의 로그는 파드 이벤트로 노출되지 않는다.
 만약 핸들러가 어떠한 이유로 실패하면, 핸들러는 이벤트를 방송한다.
-`PostStart`의 경우, 이것은 `FailedPostStartHook` 이벤트이며,
-`PreStop`의 경우, 이것은 `FailedPreStopHook` 이벤트이다.
-실패한 `FailedPreStopHook` 이벤트를 직접 생성하려면, [lifecycle-events.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/lifecycle-events.yaml) 파일을 수정하여 postStart 명령을 "badcommand"로 변경하고 이를 적용한다.
+`PostStart`의 경우 `FailedPostStartHook` 이벤트이며,
+`PreStop`의 경우 `FailedPreStopHook` 이벤트이다.
+실패한 `FailedPostStartHook` 이벤트를 직접 생성하려면, [lifecycle-events.yaml](https://raw.githubusercontent.com/kubernetes/website/main/content/en/examples/pods/lifecycle-events.yaml) 파일을 수정하여 postStart 명령을 "badcommand"로 변경하고 이를 적용한다.
 다음은 `kubectl describe pod lifecycle-demo` 를 실행하여 볼 수 있는 이벤트 출력 예시이다.
 
 ```

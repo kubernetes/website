@@ -39,13 +39,6 @@ kubelet [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--add-dir-header</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">If true, adds the file directory to the header of the log messages (DEPRECATED: will be removed in a future release, see <a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components">here</a>.)</td>
-</tr>
-
-<tr>
 <td colspan="2">--address string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 0.0.0.0 </td>
 </tr>
 <tr>
@@ -57,13 +50,6 @@ kubelet [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">Comma-separated whitelist of unsafe sysctls or unsafe sysctl patterns (ending in <code>&ast;</code>). Use these at your own risk. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--alsologtostderr</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Log to standard error as well as files (DEPRECATED: will be removed in a future release, see <a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components">here</a>.)</td>
 </tr>
 
 <tr>
@@ -91,7 +77,7 @@ kubelet [flags]
 <td colspan="2">--authorization-mode string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>AlwaysAllow</code></td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Authorization mode for Kubelet server. Valid options are AlwaysAllow or Webhook. Webhook mode uses the SubjectAccessReview API to determine authorization. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Authorization mode for Kubelet server. Valid options are AlwaysAllow or Webhook. Webhook mode uses the SubjectAccessReview API to determine authorization. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
@@ -140,7 +126,7 @@ kubelet [flags]
 <td colspan="2">--cgroup-root string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>''</code></td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Optional root cgroup to use for pods. This is handled by the container runtime on a best effort basis. Default: '', which means use the container runtime default. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Optional root cgroup to use for pods. This is handled by the container runtime on a best effort basis. Default: '', which means use the container runtime default. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
@@ -154,7 +140,7 @@ kubelet [flags]
 <td colspan="2">--client-ca-file string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">If set, any request presenting a client certificate signed by one of the authorities in the client-ca-file is authenticated with an identity corresponding to the <code>CommonName</code> of the client certificate. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">If set, any request presenting a client certificate signed by one of the authorities in the client-ca-file is authenticated with an identity corresponding to the <code>CommonName</code> of the client certificate. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
@@ -196,21 +182,14 @@ kubelet [flags]
 <td colspan="2">--container-log-max-files int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 5</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">&lt;Warning: Beta feature&gt; Set the maximum number of container log files that can be present for a container. The number must be &gt;= 2. This flag can only be used with <code>--container-runtime=remote</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">&lt;Warning: Beta feature&gt; Set the maximum number of container log files that can be present for a container. The number must be &gt;= 2. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
 <td colspan="2">--container-log-max-size string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>10Mi</code></td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">&lt;Warning: Beta feature&gt; Set the maximum size (e.g. <code>10Mi</code>) of container log file before it is rotated. This flag can only be used with <code>--container-runtime=remote</code>.  (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--container-runtime string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>remote</code></td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">The container runtime to use. Possible values: <code>docker</code>, <code>remote</code>. (DEPRECATED: will be removed in 1.27 as the only valid value is 'remote')</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">&lt;Warning: Beta feature&gt; Set the maximum size (e.g. <code>10Mi</code>) of container log file before it is rotated.  (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
@@ -224,7 +203,7 @@ kubelet [flags]
 <td colspan="2">--contention-profiling</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Enable lock contention profiling, if profiling is enabled (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Enable block profiling, if profiling is enabled (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
@@ -249,7 +228,7 @@ kubelet [flags]
 </tr>
 
 <tr>
-<td colspan="2">--cpu-manager-policy-options mapStringString</td>
+<td colspan="2">--cpu-manager-policy-options string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value CPU Manager policy options to use, to fine tune their behaviour. If not supplied, keep the default behaviour. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
@@ -287,25 +266,25 @@ kubelet [flags]
 <td colspan="2">--enforce-node-allocatable strings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>pods</code></td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">A comma separated list of levels of node allocatable enforcement to be enforced by kubelet. Acceptable options are <code>none</code>, <code>pods</code>, <code>system-reserved</code>, and <code>kube-reserved</code>. If the latter two options are specified, <code>--system-reserved-cgroup</code> and <code>--kube-reserved-cgroup</code> must also be set, respectively. If <code>none</code> is specified, no additional options should be set. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/">here</a> for more details. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">A comma separated list of levels of node allocatable enforcement to be enforced by kubelet. Acceptable options are <code>none</code>, <code>pods</code>, <code>system-reserved</code>, and <code>kube-reserved</code>. If the latter two options are specified, <code>--system-reserved-cgroup</code> and <code>--kube-reserved-cgroup</code> must also be set, respectively. If <code>none</code> is specified, no additional options should be set. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/">here</a> for more details. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
-<td colspan="2">--event-burst int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10</td>
+<td colspan="2">--event-burst int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 100</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Maximum size of a bursty event records, temporarily allows event records to burst to this number, while still not exceeding <code>--event-qps</code>. The number must be &gt;= 0. If 0 will use default burst (10). (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--event-qps int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 5</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">QPS to limit event creations. The number must be &gt;= 0. If 0 will use default QPS (5). (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Maximum size of a bursty event records, temporarily allows event records to burst to this number, while still not exceeding <code>--event-qps</code>. The number must be &gt;= 0. If 0 will use default burst (100). (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
-<td colspan="2">--eviction-hard mapStringString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>imagefs.available<15%,memory.available<100Mi,nodefs.available<10%</code></td>
+<td colspan="2">--event-qps int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 50</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">QPS to limit event creations. The number must be &gt;= 0. If 0 will use default QPS (50). (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+</tr>
+
+<tr>
+<td colspan="2">--eviction-hard strings&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>imagefs.available<15%,memory.available<100Mi,nodefs.available<10%</code></td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of eviction thresholds (e.g. <code>memory.available<1Gi</code>) that if met would trigger a pod eviction. On a Linux node, the default value also includes <code>nodefs.inodesFree<5%</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
@@ -319,7 +298,7 @@ kubelet [flags]
 </tr>
 
 <tr>
-<td colspan="2">--eviction-minimum-reclaim mapStringString</td>
+<td colspan="2">--eviction-minimum-reclaim string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of minimum reclaims (e.g. <code>imagefs.available=2Gi</code>) that describes the minimum amount of resource the kubelet will reclaim when performing a pod eviction if that resource is under pressure. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
@@ -333,14 +312,14 @@ kubelet [flags]
 </tr>
 
 <tr>
-<td colspan="2">--eviction-soft mapStringString</td>
+<td colspan="2">--eviction-soft string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of eviction thresholds (e.g. <code>memory.available<1.5Gi</code>) that if met over a corresponding grace period would trigger a pod eviction. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
-<td colspan="2">--eviction-soft-grace-period mapStringString</td>
+<td colspan="2">--eviction-soft-grace-period string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of eviction grace periods (e.g. <code>memory.available=1m30s</code>) that correspond to how long a soft eviction threshold must hold before triggering a pod eviction. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
@@ -358,13 +337,6 @@ kubelet [flags]
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">When set to <code>true</code>, hard eviction thresholds will be ignored while calculating node allocatable. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/reserve-compute-resources/">here</a> for more details. (DEPRECATED: will be removed in 1.24 or later)</td>
-</tr>
-
-<tr>
-<td colspan="2">--experimental-kernel-memcg-notification</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Use kernelMemcgNotification configuration, this flag will be removed in 1.24 or later. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
@@ -389,39 +361,34 @@ kubelet [flags]
 APIListChunking=true|false (BETA - default=true)<br/>
 APIPriorityAndFairness=true|false (BETA - default=true)<br/>
 APIResponseCompression=true|false (BETA - default=true)<br/>
-APIServerIdentity=true|false (ALPHA - default=false)<br/>
+APISelfSubjectReview=true|false (ALPHA - default=false)<br/>
+APIServerIdentity=true|false (BETA - default=true)<br/>
 APIServerTracing=true|false (ALPHA - default=false)<br/>
+AggregatedDiscoveryEndpoint=true|false (ALPHA - default=false)<br/>
 AllAlpha=true|false (ALPHA - default=false)<br/>
 AllBeta=true|false (BETA - default=false)<br/>
 AnyVolumeDataSource=true|false (BETA - default=true)<br/>
 AppArmor=true|false (BETA - default=true)<br/>
-CPUManager=true|false (BETA - default=true)<br/>
 CPUManagerPolicyAlphaOptions=true|false (ALPHA - default=false)<br/>
 CPUManagerPolicyBetaOptions=true|false (BETA - default=true)<br/>
 CPUManagerPolicyOptions=true|false (BETA - default=true)<br/>
-CSIInlineVolume=true|false (BETA - default=true)<br/>
-CSIMigration=true|false (BETA - default=true)<br/>
-CSIMigrationAWS=true|false (BETA - default=true)<br/>
-CSIMigrationAzureFile=true|false (BETA - default=true)<br/>
-CSIMigrationGCE=true|false (BETA - default=true)<br/>
-CSIMigrationPortworx=true|false (ALPHA - default=false)<br/>
+CSIMigrationPortworx=true|false (BETA - default=false)<br/>
 CSIMigrationRBD=true|false (ALPHA - default=false)<br/>
-CSIMigrationvSphere=true|false (BETA - default=false)<br/>
+CSINodeExpandSecret=true|false (BETA - default=true)<br/>
 CSIVolumeHealth=true|false (ALPHA - default=false)<br/>
+ComponentSLIs=true|false (ALPHA - default=false)<br/>
+ContainerCheckpoint=true|false (ALPHA - default=false)<br/>
 ContextualLogging=true|false (ALPHA - default=false)<br/>
-CronJobTimeZone=true|false (ALPHA - default=false)<br/>
+CronJobTimeZone=true|false (BETA - default=true)<br/>
+CrossNamespaceVolumeDataSource=true|false (ALPHA - default=false)<br/>
 CustomCPUCFSQuotaPeriod=true|false (ALPHA - default=false)<br/>
-CustomResourceValidationExpressions=true|false (ALPHA - default=false)<br/>
-DaemonSetUpdateSurge=true|false (BETA - default=true)<br/>
-DelegateFSGroupToCSIDriver=true|false (BETA - default=true)<br/>
-DevicePlugins=true|false (BETA - default=true)<br/>
-DisableAcceleratorUsageMetrics=true|false (BETA - default=true)<br/>
+CustomResourceValidationExpressions=true|false (BETA - default=true)<br/>
 DisableCloudProviders=true|false (ALPHA - default=false)<br/>
 DisableKubeletCloudCredentialProviders=true|false (ALPHA - default=false)<br/>
 DownwardAPIHugePages=true|false (BETA - default=true)<br/>
-EndpointSliceTerminatingCondition=true|false (BETA - default=true)<br/>
-EphemeralContainers=true|false (BETA - default=true)<br/>
-ExpandedDNSConfig=true|false (ALPHA - default=false)<br/>
+DynamicResourceAllocation=true|false (ALPHA - default=false)<br/>
+EventedPLEG=true|false (ALPHA - default=false)<br/>
+ExpandedDNSConfig=true|false (BETA - default=true)<br/>
 ExperimentalHostUserNamespaceDefaulting=true|false (BETA - default=false)<br/>
 GRPCContainerProbe=true|false (BETA - default=true)<br/>
 GracefulNodeShutdown=true|false (BETA - default=true)<br/>
@@ -429,7 +396,7 @@ GracefulNodeShutdownBasedOnPodPriority=true|false (BETA - default=true)<br/>
 HPAContainerMetrics=true|false (ALPHA - default=false)<br/>
 HPAScaleToZero=true|false (ALPHA - default=false)<br/>
 HonorPVReclaimPolicy=true|false (ALPHA - default=false)<br/>
-IdentifyPodOS=true|false (BETA - default=true)<br/>
+IPTablesOwnershipCleanup=true|false (ALPHA - default=false)<br/>
 InTreePluginAWSUnregister=true|false (ALPHA - default=false)<br/>
 InTreePluginAzureDiskUnregister=true|false (ALPHA - default=false)<br/>
 InTreePluginAzureFileUnregister=true|false (ALPHA - default=false)<br/>
@@ -439,53 +406,65 @@ InTreePluginPortworxUnregister=true|false (ALPHA - default=false)<br/>
 InTreePluginRBDUnregister=true|false (ALPHA - default=false)<br/>
 InTreePluginvSphereUnregister=true|false (ALPHA - default=false)<br/>
 JobMutableNodeSchedulingDirectives=true|false (BETA - default=true)<br/>
+JobPodFailurePolicy=true|false (BETA - default=true)<br/>
 JobReadyPods=true|false (BETA - default=true)<br/>
-JobTrackingWithFinalizers=true|false (BETA - default=false)<br/>
-KubeletCredentialProviders=true|false (BETA - default=true)<br/>
+KMSv2=true|false (ALPHA - default=false)<br/>
 KubeletInUserNamespace=true|false (ALPHA - default=false)<br/>
 KubeletPodResources=true|false (BETA - default=true)<br/>
 KubeletPodResourcesGetAllocatable=true|false (BETA - default=true)<br/>
-LegacyServiceAccountTokenNoAutoGeneration=true|false (BETA - default=true)<br/>
-LocalStorageCapacityIsolation=true|false (BETA - default=true)<br/>
+KubeletTracing=true|false (ALPHA - default=false)<br/>
+LegacyServiceAccountTokenTracking=true|false (ALPHA - default=false)<br/>
 LocalStorageCapacityIsolationFSQuotaMonitoring=true|false (ALPHA - default=false)<br/>
 LogarithmicScaleDown=true|false (BETA - default=true)<br/>
+LoggingAlphaOptions=true|false (ALPHA - default=false)<br/>
+LoggingBetaOptions=true|false (BETA - default=true)<br/>
+MatchLabelKeysInPodTopologySpread=true|false (ALPHA - default=false)<br/>
 MaxUnavailableStatefulSet=true|false (ALPHA - default=false)<br/>
 MemoryManager=true|false (BETA - default=true)<br/>
 MemoryQoS=true|false (ALPHA - default=false)<br/>
-MinDomainsInPodTopologySpread=true|false (ALPHA - default=false)<br/>
-MixedProtocolLBService=true|false (BETA - default=true)<br/>
-NetworkPolicyEndPort=true|false (BETA - default=true)<br/>
+MinDomainsInPodTopologySpread=true|false (BETA - default=false)<br/>
+MinimizeIPTablesRestore=true|false (ALPHA - default=false)<br/>
+MultiCIDRRangeAllocator=true|false (ALPHA - default=false)<br/>
 NetworkPolicyStatus=true|false (ALPHA - default=false)<br/>
-NodeOutOfServiceVolumeDetach=true|false (ALPHA - default=false)<br/>
+NodeInclusionPolicyInPodTopologySpread=true|false (BETA - default=true)<br/>
+NodeOutOfServiceVolumeDetach=true|false (BETA - default=true)<br/>
 NodeSwap=true|false (ALPHA - default=false)<br/>
 OpenAPIEnums=true|false (BETA - default=true)<br/>
 OpenAPIV3=true|false (BETA - default=true)<br/>
+PDBUnhealthyPodEvictionPolicy=true|false (ALPHA - default=false)<br/>
 PodAndContainerStatsFromCRI=true|false (ALPHA - default=false)<br/>
 PodDeletionCost=true|false (BETA - default=true)<br/>
-PodSecurity=true|false (BETA - default=true)<br/>
-ProbeTerminationGracePeriod=true|false (BETA - default=false)<br/>
+PodDisruptionConditions=true|false (BETA - default=true)<br/>
+PodHasNetworkCondition=true|false (ALPHA - default=false)<br/>
+PodSchedulingReadiness=true|false (ALPHA - default=false)<br/>
+ProbeTerminationGracePeriod=true|false (BETA - default=true)<br/>
 ProcMountType=true|false (ALPHA - default=false)<br/>
-ProxyTerminatingEndpoints=true|false (ALPHA - default=false)<br/>
+ProxyTerminatingEndpoints=true|false (BETA - default=true)<br/>
 QOSReserved=true|false (ALPHA - default=false)<br/>
 ReadWriteOncePod=true|false (ALPHA - default=false)<br/>
 RecoverVolumeExpansionFailure=true|false (ALPHA - default=false)<br/>
 RemainingItemCount=true|false (BETA - default=true)<br/>
+RetroactiveDefaultStorageClass=true|false (BETA - default=true)<br/>
 RotateKubeletServerCertificate=true|false (BETA - default=true)<br/>
-SeccompDefault=true|false (ALPHA - default=false)<br/>
-ServerSideFieldValidation=true|false (ALPHA - default=false)<br/>
-ServiceIPStaticSubrange=true|false (ALPHA - default=false)<br/>
-ServiceInternalTrafficPolicy=true|false (BETA - default=true)<br/>
+SELinuxMountReadWriteOncePod=true|false (ALPHA - default=false)<br/>
+SeccompDefault=true|false (BETA - default=true)<br/>
+ServerSideFieldValidation=true|false (BETA - default=true)<br/>
 SizeMemoryBackedVolumes=true|false (BETA - default=true)<br/>
 StatefulSetAutoDeletePVC=true|false (ALPHA - default=false)<br/>
-StatefulSetMinReadySeconds=true|false (BETA - default=true)<br/>
+StatefulSetStartOrdinal=true|false (ALPHA - default=false)<br/>
 StorageVersionAPI=true|false (ALPHA - default=false)<br/>
 StorageVersionHash=true|false (BETA - default=true)<br/>
 TopologyAwareHints=true|false (BETA - default=true)<br/>
 TopologyManager=true|false (BETA - default=true)<br/>
+TopologyManagerPolicyAlphaOptions=true|false (ALPHA - default=false)<br/>
+TopologyManagerPolicyBetaOptions=true|false (BETA - default=false)<br/>
+TopologyManagerPolicyOptions=true|false (ALPHA - default=false)<br/>
+UserNamespacesStatelessPodsSupport=true|false (ALPHA - default=false)<br/>
+ValidatingAdmissionPolicy=true|false (ALPHA - default=false)<br/>
 VolumeCapacityPriority=true|false (ALPHA - default=false)<br/>
 WinDSR=true|false (ALPHA - default=false)<br/>
 WinOverlay=true|false (BETA - default=true)<br/>
-WindowsHostProcessContainers=true|false (BETA - default=true)<br/>
+WindowsHostNetwork=true|false (ALPHA - default=true)<br/>
 (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
@@ -602,10 +581,10 @@ WindowsHostProcessContainers=true|false (BETA - default=true)<br/>
 </tr>
 
 <tr>
-<td colspan="2">--kube-api-burst int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 10</td>
+<td colspan="2">--kube-api-burst int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 100</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Burst to use while talking with kubernetes API server. The number must be >= 0. If 0 will use default burst (10). (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Burst to use while talking with kubernetes API server. The number must be >= 0. If 0 will use default burst (100). (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
@@ -616,14 +595,14 @@ WindowsHostProcessContainers=true|false (BETA - default=true)<br/>
 </tr>
 
 <tr>
-<td colspan="2">--kube-api-qps int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 5</td>
+<td colspan="2">--kube-api-qps int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 50</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">QPS to use while talking with kubernetes API server. The number must be &gt;= 0. If 0 will use default QPS (5). Doesn't cover events and node heartbeat apis which rate limiting is controlled by a different set of flags. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">QPS to use while talking with kubernetes API server. The number must be &gt;= 0. If 0 will use default QPS (50). Doesn't cover events and node heartbeat apis which rate limiting is controlled by a different set of flags. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
-<td colspan="2">--kube-reserved mapStringString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: &lt;None&gt;</td>
+<td colspan="2">--kube-reserved string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: &lt;None&gt;</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">A set of <code>&lt;resource name&gt;=&lt;resource quantity&gt;</code> (e.g. <code>cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'</code>) pairs that describe resources reserved for kubernetes system components. Currently <code>cpu</code>, <code>memory</code> and local <code>ephemeral-storage</code> for root file system are supported. See <a href="http://kubernetes.io/docs/user-guide/compute-resources">here</a> for more detail. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
@@ -651,38 +630,17 @@ WindowsHostProcessContainers=true|false (BETA - default=true)<br/>
 </tr>
 
 <tr>
+<td colspan="2">--local-storage-capacity-isolation&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>true</code></td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">If true, local ephemeral storage isolation is enabled. Otherwise, local storage isolation feature will be disabled. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/ for more information.)</td>
+</tr>
+
+<tr>
 <td colspan="2">--lock-file string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">&lt;Warning: Alpha feature&gt; The path to file for kubelet to use as a lock file.</td>
-</tr>
-
-<tr>
-<td colspan="2">--log-backtrace-at &lt;A string of format 'file:line'&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>":0"</code></td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">When logging hits line <code><file>:<N></code>, emit a stack trace. (DEPRECATED: will be removed in a future release, see <a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components">here</a>.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--log-dir string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">If non-empty, write log files in this directory. (DEPRECATED: will be removed in a future release, see <a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components">here</a>.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--log-file string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">If non-empty, use this log file. (DEPRECATED: will be removed in a future release, see <a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components">here</a>.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--log-file-max-size uint&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 1800</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Defines the maximum size a log file can grow to. Unit is megabytes. If the value is 0, the maximum file size is unlimited. (DEPRECATED: will be removed in a future release, see <a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components">here</a>.)</td>
 </tr>
 
 <tr>
@@ -696,28 +654,21 @@ WindowsHostProcessContainers=true|false (BETA - default=true)<br/>
 <td colspan="2">--log-json-info-buffer-size string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>'0'</code></td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">[Experimental] In JSON format with split output streams, the info messages can be buffered for a while to increase performance. The default value of zero bytes disables buffering. The size can be specified as number of bytes (512), multiples of 1000 (1K), multiples of 1024 (2Ki), or powers of those (3M, 4G, 5Mi, 6Gi). (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">[Alpha] In JSON format with split output streams, the info messages can be buffered for a while to increase performance. The default value of zero bytes disables buffering. The size can be specified as number of bytes (512), multiples of 1000 (1K), multiples of 1024 (2Ki), or powers of those (3M, 4G, 5Mi, 6Gi). Enable the <code>LoggingAlphaOptions</code> feature gate to use this. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
 <td colspan="2">--log-json-split-stream</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">[Experimental] In JSON format, write error messages to stderr and info messages to stdout. The default is to write a single stream to stdout. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">[Alpha] In JSON format, write error messages to stderr and info messages to stdout. The default is to write a single stream to stdout. Enable the <code>LoggingAlphaOptions</code> feature gate to use this. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
 <td colspan="2">--logging-format string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>text</code></td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Sets the log format. Permitted formats: <code>text</code>, <code>json</code>.<br/>Non-default formats don't honor these flags: <code>--add-dir-header</code>, <code>--alsologtostderr</code>, <code>--log-backtrace-at</code>, <code>--log-dir</code>, <code>--log-file</code>, <code>--log-file-max-size</code>, <code>--logtostderr</code>, <code>--skip_headers</code>, <code>--skip_log_headers</code>, <code>--stderrthreshold</code>, <code>--log-flush-frequency</code>.<br/>Non-default choices are currently alpha and subject to change without warning. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--logtostderr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>true</code></td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">log to standard error instead of files. (DEPRECATED: will be removed in a future release, see <a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components">here</a>.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Sets the log format. Permitted formats: <code>text</code>, <code>json</code> (gated by <code>LoggingBetaOptions</code>). (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
@@ -739,13 +690,6 @@ WindowsHostProcessContainers=true|false (BETA - default=true)<br/>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">Comma-separated list of HTTP headers to use when accessing the URL provided to <code>--manifest-url</code>. Multiple headers with the same name will be added in the same order provided. This flag can be repeatedly invoked. For example: <code>--manifest-url-header 'a:hello,b:again,c:world' --manifest-url-header 'b:beautiful'</code> (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--master-service-namespace string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>default</code></td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">The namespace from which the kubernetes master services should be injected into pods. (DEPRECATED: This flag will be removed in a future version.)</td>
 </tr>
 
 <tr>
@@ -805,7 +749,7 @@ WindowsHostProcessContainers=true|false (BETA - default=true)<br/>
 </tr>
 
 <tr>
-<td colspan="2">--node-labels mapStringString</td>
+<td colspan="2">--node-labels &lt;key=value pairs&gt;</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">&lt;Warning: Alpha feature&gt;Labels to add when registering the node in the cluster. Labels must be <code>key=value pairs</code> separated by <code>','</code>. Labels in the <code>'kubernetes.io'</code> namespace must begin with an allowed prefix (<code>'kubelet.kubernetes.io'</code>, <code>'node.kubernetes.io'</code>) or be in the specifically allowed set (<code>'beta.kubernetes.io/arch'</code>, <code>'beta.kubernetes.io/instance-type'</code>, <code>'beta.kubernetes.io/os'</code>, <code>'failure-domain.beta.kubernetes.io/region'</code>, <code>'failure-domain.beta.kubernetes.io/zone'</code>, <code>'kubernetes.io/arch'</code>, <code>'kubernetes.io/hostname'</code>, <code>'kubernetes.io/os'</code>, <code>'node.kubernetes.io/instance-type'</code>, <code>'topology.kubernetes.io/region'</code>, <code>'topology.kubernetes.io/zone'</code>)</td>
@@ -826,13 +770,6 @@ WindowsHostProcessContainers=true|false (BETA - default=true)<br/>
 </tr>
 
 <tr>
-<td colspan="2">--one-output</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">If true, only write logs to their native severity level (vs also writing to each lower severity level). (DEPRECATED: will be removed in a future release, see <a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components">here</a>.)</td>
-</tr>
-
-<tr>
 <td colspan="2">--oom-score-adj int32&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: -999</td>
 </tr>
 <tr>
@@ -847,10 +784,10 @@ WindowsHostProcessContainers=true|false (BETA - default=true)<br/>
 </tr>
 
 <tr>
-<td colspan="2">--pod-infra-container-image string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>registry.k8s.io/pause:3.6</code></td>
+<td colspan="2">--pod-infra-container-image string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>registry.k8s.io/pause:3.9</code></td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Specified image will not be pruned by the image garbage collector. When container-runtime is set to <code>docker</code>, all containers in each pod will use the network/IPC namespaces from this image. Other CRI implementations have their own configuration to set this image.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Specified image will not be pruned by the image garbage collector. CRI implementations have their own configuration to set this image. (DEPRECATED: will be removed in 1.27. Image garbage collector will get sandbox image information from CRI.)</td>
 </tr>
 
 <tr>
@@ -885,7 +822,7 @@ WindowsHostProcessContainers=true|false (BETA - default=true)<br/>
 <td colspan="2">--protect-kernel-defaults</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"> Default kubelet behaviour for kernel tuning. If set, kubelet errors if any of kernel tunables is different than kubelet defaults. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Default kubelet behaviour for kernel tuning. If set, kubelet errors if any of kernel tunables is different than kubelet defaults. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
@@ -896,7 +833,7 @@ WindowsHostProcessContainers=true|false (BETA - default=true)<br/>
 </tr>
 
 <tr>
-<td colspan="2">--qos-reserved mapStringString</td>
+<td colspan="2">--qos-reserved string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">&lt;Warning: Alpha feature&gt; A set of <code>&lt;resource name&gt;=&lt;percentage&gt;</code> (e.g. <code>memory=50%</code>) pairs that describe how pod resource requests are reserved at the QoS level. Currently only <code>memory</code> is supported. Requires the <code>QOSReserved</code> feature gate to be enabled. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
@@ -913,7 +850,7 @@ WindowsHostProcessContainers=true|false (BETA - default=true)<br/>
 <td colspan="2">--register-node&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>true</code></td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Register the node with the API server. If <code>--kubeconfig</code> is not provided, this flag is irrelevant, as the Kubelet won't have an API server to register with. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Register the node with the API server. If <code>--kubeconfig</code> is not provided, this flag is irrelevant, as the Kubelet won't have an API server to register with. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
@@ -924,10 +861,10 @@ WindowsHostProcessContainers=true|false (BETA - default=true)<br/>
   </tr>
 
 <tr>
-<td colspan="2">--register-with-taints mapStringString</td>
+<td colspan="2">--register-with-taints string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Register the node with the given list of taints (comma separated <code>&lt;key&gt;=&lt;value&gt;:&lt;effect&gt;</code>). No-op if <code>--register-node</code> is <code>false</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Register the node with the given list of taints (comma separated <code>&lt;key&gt;=&lt;value&gt;:&lt;effect&gt;</code>). No-op if <code>--register-node</code> is <code>false</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
@@ -976,21 +913,21 @@ WindowsHostProcessContainers=true|false (BETA - default=true)<br/>
 <td colspan="2">--rotate-certificates</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">&lt;Warning: Beta feature&gt; Auto rotate the kubelet client certificates by requesting new certificates from the <code>kube-apiserver</code> when the certificate expiration approaches. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Auto rotate the kubelet client certificates by requesting new certificates from the <code>kube-apiserver</code> when the certificate expiration approaches. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
 <td colspan="2">--rotate-server-certificates</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Auto-request and rotate the kubelet serving certificates by requesting new certificates from the <code>kube-apiserver</code> when the certificate expiration approaches. Requires the <code>RotateKubeletServerCertificate</code> feature gate to be enabled, and approval of the submitted <code>CertificateSigningRequest</code> objects. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">&lt;Warning: Beta feature&gt; Auto-request and rotate the kubelet serving certificates by requesting new certificates from the <code>kube-apiserver</code> when the certificate expiration approaches. Requires the <code>RotateKubeletServerCertificate</code> feature gate to be enabled, and approval of the submitted <code>CertificateSigningRequest</code> objects. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
 <td colspan="2">--runonce</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">If <code>true</code>, exit after spawning pods from local manifests or remote urls. Exclusive with <code>--enable-server</code> (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">If <code>true</code>, exit after spawning pods from local manifests or remote urls. Exclusive with <code>--enable-server</code> (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
@@ -1008,10 +945,10 @@ WindowsHostProcessContainers=true|false (BETA - default=true)<br/>
 </tr>
 
 <tr>
-<td colspan="2">--seccomp-default string</td>
+<td colspan="2">--seccomp-default&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>false</code></td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">&lt;Warning: Alpha feature&gt; Enable the use of <code>RuntimeDefault</code> as the default seccomp profile for all workloads. The <code>SeccompDefault</code> feature gate must be enabled to allow this flag, which is disabled by default.</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">&lt;Warning: Beta feature&gt; Enable the use of <code>RuntimeDefault</code> as the default seccomp profile for all workloads. The <code>SeccompDefault</code> feature gate must be enabled to allow this flag.</td>
 </tr>
 
 <tr>
@@ -1019,27 +956,6 @@ WindowsHostProcessContainers=true|false (BETA - default=true)<br/>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">Pull images one at a time. We recommend *not* changing the default value on nodes that run docker daemon with version &lt; 1.9 or an <code>aufs</code> storage backend. Issue #10959 has more details. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--skip-headers</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">If <code>true</code>, avoid header prefixes in the log messages. (DEPRECATED: will be removed in a future release, see <a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components">here</a>.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--skip-log-headers</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">If <code>true</code>, avoid headers when opening log files. (DEPRECATED: will be removed in a future release, see <a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components">here</a>.)</td>
-</tr>
-
-<tr>
-<td colspan="2">--stderrthreshold int&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: 2</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">logs at or above this threshold go to stderr. (DEPRECATED: will be removed in a future release, see <a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components">here</a>.)</td>
 </tr>
 
 <tr>
@@ -1064,10 +980,10 @@ WindowsHostProcessContainers=true|false (BETA - default=true)<br/>
 </tr>
 
 <tr>
-<td colspan="2">--system-reserved mapStringString&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: &lt;none&gt;</td>
+<td colspan="2">--system-reserved string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: &lt;none&gt;</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">A set of <code>&lt;resource name&gt;=&lt;resource quantity&gt;</code> (e.g. <code>cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'</code>) pairs that describe resources reserved for non-kubernetes components. Currently only <code>cpu</code> and <code>memory</code> are supported. See <a href="http://kubernetes.io/docs/user-guide/compute-resources">here</a> for more detail. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">A set of <code>&lt;resource name&gt;=&lt;resource quantity&gt;</code> (e.g. <code>cpu=200m,memory=500Mi,ephemeral-storage=1Gi,pid='100'</code>) pairs that describe resources reserved for non-kubernetes components. Currently only <code>cpu</code> and <code>memory</code> and local ephemeral storage for root file system are supported. See <a href="http://kubernetes.io/docs/user-guide/compute-resources">here</a> for more detail. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>
@@ -1085,15 +1001,15 @@ WindowsHostProcessContainers=true|false (BETA - default=true)<br/>
 </tr>
 
 <tr>
-<td colspan="2">--tls-cipher-suites strings</td>
+<td colspan="2">--tls-cipher-suites string</td>
 </tr>
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">Comma-separated list of cipher suites for the server. If omitted, the default Go cipher suites will be used.<br/>
 Preferred values:
-`TLS_AES_128_GCM_SHA256`, `TLS_AES_256_GCM_SHA384`, `TLS_CHACHA20_POLY1305_SHA256`, `TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA`, `TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256`, `TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA`, `TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384`, `TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305`, `TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256`, `TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA`, `TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256`, `TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA`, `TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384`, `TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305`, `TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256`, `TLS_RSA_WITH_AES_128_CBC_SHA`, `TLS_RSA_WITH_AES_128_GCM_SHA256`, `TLS_RSA_WITH_AES_256_CBC_SHA`, `TLS_RSA_WITH_AES_256_GCM_SHA384`<br/>
+<code>TLS_AES_128_GCM_SHA256</code>, <code>TLS_AES_256_GCM_SHA384</code>, <code>TLS_CHACHA20_POLY1305_SHA256</code>, <code>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA</code>, <code>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256</code>, <code>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA</code>, <code>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</code>, <code>TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305</code>, <code>TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256</code>, <code>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA</code>, <code>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256</code>, <code>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA</code>, <code>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384</code>, <code>TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305</code>, <code>TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256</code>, <code>TLS_RSA_WITH_AES_128_CBC_SHA</code>, <code>TLS_RSA_WITH_AES_128_GCM_SHA256</code>, <code>TLS_RSA_WITH_AES_256_CBC_SHA</code>, <code>TLS_RSA_WITH_AES_256_GCM_SHA384</code><br/>
 Insecure values:
-`TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256`, `TLS_ECDHE_ECDSA_WITH_RC4_128_SHA`, `TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA`, `TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256`, `TLS_ECDHE_RSA_WITH_RC4_128_SHA`, `TLS_RSA_WITH_3DES_EDE_CBC_SHA`, `TLS_RSA_WITH_AES_128_CBC_SHA256`, `TLS_RSA_WITH_RC4_128_SHA`.<br/>
-(DEPRECATED: This parameter should be set via the config file specified by the Kubelet's `--config` flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
+<code>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256</code>, <code>TLS_ECDHE_ECDSA_WITH_RC4_128_SHA</code>, <code>TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA</code>, <code>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256</code>, <code>TLS_ECDHE_RSA_WITH_RC4_128_SHA</code>, <code>TLS_RSA_WITH_3DES_EDE_CBC_SHA</code>, <code>TLS_RSA_WITH_AES_128_CBC_SHA256</code>, <code>TLS_RSA_WITH_RC4_128_SHA</code>.<br/>
+(DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 </tr>
 
 <tr>
@@ -1119,10 +1035,17 @@ Insecure values:
 </tr>
 
 <tr>
+<td colspan="2">--topology-manager-policy-options string</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">A set of key=value Topology Manager policy options to use, to fine tune their behaviour. If not supplied, keep the default behaviour. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+</tr>
+
+<tr>
 <td colspan="2">--topology-manager-scope string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: <code>container</code></td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">Scope to which topology hints applied. Topology Manager collects hints from Hint Providers and applies them to defined scope to ensure the pod admission. Possible values: <code>'container'</code>, <code>'pod'</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's --config flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">Scope to which topology hints are applied. Topology Manager collects hints from Hint Providers and applies them to the defined scope to ensure the pod admission. Possible values: <code>'container'</code>, <code>'pod'</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)</td>
 </tr>
 
 <tr>

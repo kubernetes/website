@@ -119,8 +119,8 @@ Here are some of the images we built：
 - `gcr.io/kubernetes-e2e-test-images/volume/iscsi:2.0`
 - `gcr.io/kubernetes-e2e-test-images/volume/nfs:1.0`
 - `gcr.io/kubernetes-e2e-test-images/volume/rbd:1.0.1`
-- `k8s.gcr.io/etcd:3.3.15`
-- `k8s.gcr.io/pause:3.1`
+- `registry.k8s.io/etcd:3.3.15` (image changed since publication - previously used registry "k8s.gcr.io")
+- `registry.k8s.io/pause:3.1` (image changed since publication - previously used registry "k8s.gcr.io")
 
 Finally, we ran the tests and got the test result, include `e2e.log`, which showed that all test cases passed. Additionally, we submitted our test result to [k8s-conformance](https://github.com/cncf/k8s-conformance) as a [pull request](https://github.com/cncf/k8s-conformance/pull/779).
 

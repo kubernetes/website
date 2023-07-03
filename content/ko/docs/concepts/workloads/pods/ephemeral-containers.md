@@ -9,7 +9,7 @@ weight: 80
 
 <!-- overview -->
 
-{{< feature-state state="beta" for_k8s_version="v1.23" >}}
+{{< feature-state state="stable" for_k8s_version="v1.25" >}}
 
 이 페이지는 임시 컨테이너에 대한 개요를 제공한다. 
 이 특별한 유형의 컨테이너는 트러블슈팅과 같은 사용자가 시작한 작업을 완료하기 위해 
@@ -51,6 +51,10 @@ API에서 특별한 `ephemeralcontainers` 핸들러를 사용해서 만들어지
 
 일반 컨테이너와 마찬가지로, 사용자는 임시 컨테이너를 파드에 추가한
 이후에 변경하거나 제거할 수 없다.
+
+{{< note >}}
+임시 컨테이너는 [스태틱 파드](/ko/docs/tasks/configure-pod-container/static-pod/)에서 지원되지 않는다.
+{{< /note >}}
 
 ## 임시 컨테이너의 사용
 

@@ -37,7 +37,7 @@ kubectl exec <POD-NAME> -c <CONTAINER-NAME> -- <COMMAND>
 
 
 ```shell
-kubectl create deployment hostnames --image=k8s.gcr.io/serve_hostname
+kubectl create deployment hostnames --image=registry.k8s.io/serve_hostname
 ```
 ```none
 deployment.apps/hostnames created
@@ -76,7 +76,7 @@ spec:
     spec:
       containers:
       - name: hostnames
-        image: k8s.gcr.io/serve_hostname
+        image: registry.k8s.io/serve_hostname
 ```
 
 "app"ラベルは`kubectl create deployment`によって、Deploymentの名前に自動的にセットされます。
@@ -375,7 +375,7 @@ hostnames-632524106-tlaok   1/1       Running   0          1h
 
 "AGE"列は、これらのPodが約1時間前のものであることを示しており、それらが正常に実行され、クラッシュしていないことを意味します。
 
-"RESTARTS"列は、これらのポッドが頻繁にクラッシュしたり、再起動されていないことを示しています。頻繁に再起動すると、断続的な接続性の問題が発生する可能性があります。再起動回数が多い場合は、[ポッドをデバッグする](/ja/docs/tasks/debug-application-cluster/debug-pods)を参照してください。
+"RESTARTS"列は、これらのポッドが頻繁にクラッシュしたり、再起動されていないことを示しています。頻繁に再起動すると、断続的な接続性の問題が発生する可能性があります。再起動回数が多い場合は、[ポッドをデバッグする](/ja/docs/tasks/debug/debug-application/debug-pods)を参照してください。
 
 Kubernetesシステム内には、すべてのServiceのセレクターを評価し、結果をEndpointsオブジェクトに保存するコントロールループがあります。
 

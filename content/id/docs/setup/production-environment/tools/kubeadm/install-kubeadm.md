@@ -247,7 +247,7 @@ RELEASE="$(curl -sSL https://dl.k8s.io/release/stable.txt)"
 mkdir -p /opt/bin
 ARCH="amd64"
 cd /opt/bin
-curl -L --remote-name-all https://storage.googleapis.com/kubernetes-release/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet,kubectl}
+curl -L --remote-name-all https://dl.k8s.io/release/${RELEASE}/bin/linux/${ARCH}/{kubeadm,kubelet,kubectl}
 chmod +x {kubeadm,kubelet,kubectl}
 
 RELEASE_VERSION="v0.2.7"

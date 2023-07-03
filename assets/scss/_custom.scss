@@ -45,6 +45,30 @@ body {
   }
 }
 
+/* Complex table layout support */
+
+.td-content, body.td-content {
+  table.complex-layout {
+    tbody tr,
+    tbody tr:nth-of-type(2n+1) {
+      /* Avoid stripes */
+      background-color: initial;
+    }
+    tbody tr:not(:last-child) > td[colspan] {
+      /* provide a visual break between rows */
+      padding-bottom: 1.5em;
+    }
+    tbody > tr > th[scope="row"]:first-child {
+      min-width: 9em;
+    }
+    tbody > tr > th[rowspan] {
+      vertical-align: middle;
+    }
+    border-collapse: separate;
+    border-spacing: 0 0;
+    max-width: calc(max(min(100vw, 110%), 40vw));
+  }
+}
 
 /* Emphasize first paragraph of running text on site front page */
 body.td-home main[role="main"] > section:first-of-type .content p:first-child {
@@ -163,7 +187,7 @@ body.td-404 main .error-details {
     margin-top: 3.5rem !important;
   }
 
-  @media only screen and (min-width: 1075px) {
+  @media only screen and (min-width: 1170px) {
     margin-top: 1rem !important;
   }
 }
@@ -877,4 +901,18 @@ div.alert > em.javascript-required {
 {
     color: #fff;
     background: #326de6;
+}
+
+// Adjust Bing search result page
+#bing-results-container {
+    padding: 1em;
+}
+#bing-pagination-container {
+    padding: 1em;
+    margin-bottom: 1em;
+
+    a.bing-page-anchor {
+        padding: 0.5em;
+        margin: 0.25em;
+    }
 }

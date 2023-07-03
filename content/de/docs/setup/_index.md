@@ -34,7 +34,7 @@ Benutzen Sie eine Docker-basierende Lösung, wenn Sie Kubernetes erlernen wollen
 |                     | [IBM Cloud Private-CE (Community Edition)](https://github.com/IBM/deploy-ibm-cloud-private) |
 |                     | [IBM Cloud Private-CE (Community Edition) on Linux Containers](https://github.com/HSBawa/icp-ce-on-linux-containers)|
 |                     | [k3s](https://k3s.io)|
-
+{{< /table >}}
 
 ## Produktionsumgebung
 
@@ -98,5 +98,6 @@ Die folgende Tabelle für Produktionsumgebungs-Lösungen listet Anbieter und der
 | [VEXXHOST](https://vexxhost.com/)         | &#x2714;             | &#x2714;      |             |      |          |
 | [VMware](https://cloud.vmware.com/) | [VMware Cloud PKS](https://cloud.vmware.com/vmware-cloud-pks)              |[VMware Enterprise PKS](https://cloud.vmware.com/vmware-enterprise-pks)        |   [VMware Enterprise PKS](https://cloud.vmware.com/vmware-enterprise-pks)          | [VMware Essential PKS](https://cloud.vmware.com/vmware-essential-pks)      |          |[VMware Essential PKS](https://cloud.vmware.com/vmware-essential-pks)
 | [Z.A.R.V.I.S.](https://zarvis.ai/) | &#x2714; | | | | | |
+{{< /table >}}
 
 

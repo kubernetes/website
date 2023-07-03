@@ -2,6 +2,7 @@
 title: 声明网络策略
 min-kubernetes-server-version: v1.8
 content_type: task
+weight: 180
 ---
 <!--
 reviewers:
@@ -10,6 +11,7 @@ reviewers:
 title: Declare Network Policy
 min-kubernetes-server-version: v1.8
 content_type: task
+weight: 180
 -->
 
 <!-- overview -->
@@ -90,11 +92,11 @@ kubectl get svc,pod
 ```
 ```none
 NAME                        CLUSTER-IP    EXTERNAL-IP   PORT(S)    AGE
-svc/kubernetes              10.100.0.1    <none>        443/TCP    46m
-svc/nginx                   10.100.0.16   <none>        80/TCP     33s
+service/kubernetes          10.100.0.1    <none>        443/TCP    46m
+service/nginx               10.100.0.16   <none>        80/TCP     33s
 
 NAME                        READY         STATUS        RESTARTS   AGE
-po/nginx-701339712-e0qfq    1/1           Running       0          35s
+pod/nginx-701339712-e0qfq   1/1           Running       0          35s
 ```
 
 <!--
@@ -108,7 +110,7 @@ You should be able to access the new `nginx` service from other Pods. To access 
 要从 default 命名空间中的其它 Pod 来访问该服务。可以启动一个 busybox 容器：
 
 ```shell
-kubectl run busybox --rm -ti --image=busybox:1.28 /bin/sh
+kubectl run busybox --rm -ti --image=busybox:1.28 -- /bin/sh
 ```
 
 <!--

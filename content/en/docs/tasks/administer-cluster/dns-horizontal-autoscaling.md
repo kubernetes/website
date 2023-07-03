@@ -1,6 +1,7 @@
 ---
 title: Autoscale the DNS Service in a Cluster
 content_type: task
+weight: 80
 ---
 
 <!-- overview -->

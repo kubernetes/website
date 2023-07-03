@@ -105,7 +105,7 @@ Capacity:
 ```
 
 이제, 애플리케이션 개발자는 특정 개수의 동글을 요청하는 파드를
-만들 수 있다. [컨테이너에 확장 리소스 할당하기](/docs/tasks/configure-pod-container/extended-resource/)를
+만들 수 있다. [컨테이너에 확장 리소스 할당하기](/ko/docs/tasks/configure-pod-container/extended-resource/)를
 참고한다.
 
 ## 토론
@@ -198,7 +198,7 @@ kubectl describe node <your-node-name> | grep dongle
 
 ### 애플리케이션 개발자를 위한 문서
 
-* [컨테이너에 확장 리소스 할당하기](/docs/tasks/configure-pod-container/extended-resource/)
+* [컨테이너에 확장 리소스 할당하기](/ko/docs/tasks/configure-pod-container/extended-resource/)
 
 ### 클러스터 관리자를 위한 문서
 
