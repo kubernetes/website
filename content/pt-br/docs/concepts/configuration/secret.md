@@ -617,7 +617,7 @@ metadata:
 spec:
   containers:
     - name: test-container
-      image: k8s.gcr.io/busybox
+      image: registry.k8s.io/busybox
       command: [ "/bin/sh", "-c", "env" ]
       envFrom:
       - secretRef:
@@ -855,7 +855,7 @@ spec:
       secretName: dotfile-secret
   containers:
   - name: dotfile-test-container
-    image: k8s.gcr.io/busybox
+    image: registry.k8s.io/busybox
     command:
     - ls
     - "-l"
@@ -1256,7 +1256,7 @@ Um Secret do tipo token de autoinicialização possui as seguintes chaves no cam
   do token. Requerido.
 - `description`: Uma string contendo uma descrição do propósito para o qual este
   token é utilizado. Opcional.
-- `expiration`: Um horário absoluto UTC no formato RFC3339 especificando quando
+- `expiration`: Um horário absoluto UTC no formato [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) especificando quando
   o token deve expirar. Opcional.
 - `usage-bootstrap-<usage>`: Um conjunto de flags booleanas indicando outros
   usos para este token de autoinicialização.

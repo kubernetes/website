@@ -13,7 +13,7 @@ weight: 40
 
 쿠버네티스에는 실행 중인 컨테이너에 파드 필드 및 컨테이너 필드를 노출하는 두 가지 방법이 있다.
 
-* [환경 변수](/ko/docs/tasks/inject-data-application/environment-variable-expose-pod-information/#다운워드-downward-api)
+* [환경 변수](/ko/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 * 볼륨 파일
 
 파드 및 컨테이너 필드를 노출하는 이 두 가지 방법을
@@ -161,11 +161,14 @@ total 8
 단일 컨테이너는 `/etc/podinfo`에 
 볼륨을 마운트하는 것을 확인할 수 있다.
 
-`downwardAPI` 아래의 `items` 배열을 살펴보자. 배열의 각 요소는 downward API 볼륨의 파일을 의미한다.
+`downwardAPI` 아래의 `items` 배열을 살펴보자.
+배열의 각 요소는 downward API 볼륨의 파일을 의미한다.
 
 첫 번째 요소는 `client-container`라는 컨테이너에서 
 `1m`으로 지정된 형식의 `limits.cpu` 필드 값이 
-`cpu_limit`이라는 파일에 배포되어야 함을 지정한다. `divisor` 필드는 선택 사항이다. divisor 1은 `cpu` 리소스를 위한 코어 수를 의미하거나 `memory` 리소스에 대한 바이트 수를 의미한다.
+`cpu_limit`이라는 파일에 배포되어야 함을 지정한다.
+`divisor` 필드는 선택 사항이며, 지정하지 않을 경우 `1`의 값을 갖는다.
+divisor 1은 `cpu` 리소스를 위한 코어 수를 의미하거나 `memory` 리소스에 대한 바이트 수를 의미한다.
 
 파드를 생성한다.
 

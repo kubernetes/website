@@ -15,25 +15,25 @@ weight: 10
 A cluster is a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (physical
 or virtual machines) running Kubernetes agents, managed by the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}.
-Kubernetes {{< param "version" >}} supports clusters with up to 5000 nodes. More specifically,
+Kubernetes {{< param "version" >}} supports clusters with up to 5,000 nodes. More specifically,
 Kubernetes is designed to accommodate configurations that meet *all* of the following criteria:
 -->
 集群是运行 Kubernetes 代理的、
 由{{< glossary_tooltip text="控制平面" term_id="control-plane" >}}管理的一组
 {{< glossary_tooltip text="节点" term_id="node" >}}（物理机或虚拟机）。
-Kubernetes {{< param "version" >}} 单个集群支持的最大节点数为 5000。
+Kubernetes {{< param "version" >}} 单个集群支持的最大节点数为 5,000。
 更具体地说，Kubernetes 旨在适应满足以下**所有**标准的配置：
 
 <!--
 * No more than 110 pods per node
-* No more than 5000 nodes
-* No more than 150000 total pods
-* No more than 300000 total containers
+* No more than 5,000 nodes
+* No more than 150,000 total pods
+* No more than 300,000 total containers
 -->
 * 每个节点的 Pod 数量不超过 110
-* 节点数不超过 5000
-* Pod 总数不超过 150000
-* 容器总数不超过 300000
+* 节点数不超过 5,000
+* Pod 总数不超过 150,000
+* 容器总数不超过 300,000
 
 <!-- 
 You can scale your cluster by adding or removing nodes. The way you do this depends
@@ -55,21 +55,22 @@ consider:
     * Number of load balancers
     * Network subnets
     * Log streams
-* Gating the cluster scaling actions to brings up new nodes in batches, with a pause
+* Gating the cluster scaling actions to bring up new nodes in batches, with a pause
   between batches, because some cloud providers rate limit the creation of new instances.
 -->
 ## 云供应商资源配额 {#quota-issues}
 
 为避免遇到云供应商配额问题，在创建具有大规模节点的集群时，请考虑以下事项：
+
 * 请求增加云资源的配额，例如：
-    * 计算实例
-    * CPUs
-    * 存储卷
-    * 使用中的 IP 地址
-    * 数据包过滤规则集
-    * 负载均衡数量
-    * 网络子网
-    * 日志流
+  * 计算实例
+  * CPU
+  * 存储卷
+  * 使用中的 IP 地址
+  * 数据包过滤规则集
+  * 负载均衡数量
+  * 网络子网
+  * 日志流
 * 由于某些云供应商限制了创建新实例的速度，因此通过分批启动新节点来控制集群扩展操作，并在各批之间有一个暂停。
 
 <!--  
@@ -159,7 +160,7 @@ Kubernetes [资源限制](/zh-cn/docs/concepts/configuration/manage-resources-co
 这些资源限制适用于{{< glossary_tooltip text="插件" term_id="addons" >}}资源，
 就像它们适用于应用程序工作负载一样。
 
-例如，你可以对日志组件设置 CPU 和内存限制
+例如，你可以对日志组件设置 CPU 和内存限制：
 
 ```yaml
   ...
@@ -217,27 +218,26 @@ many nodes, consider the following:
 ## {{% heading "whatsnext" %}}
 
 <!-- 
-`VerticalPodAutoscaler` is a custom resource that you can deploy into your cluster
+* `VerticalPodAutoscaler` is a custom resource that you can deploy into your cluster
 to help you manage resource requests and limits for pods.  
-Visit [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme)
-to learn more about `VerticalPodAutoscaler` and how you can use it to scale cluster
+Learn more about [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme) 
+and how you can use it to scale cluster
 components, including cluster-critical addons.
 
-The [cluster autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
+* The [cluster autoscaler](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
 integrates with a number of cloud providers to help you run the right number of
 nodes for the level of resource demand in your cluster.
 -->
-`VerticalPodAutoscaler` 是一种自定义资源，你可以将其部署到集群中，帮助你管理资源请求和 Pod 的限制。
-访问 [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme)
-以了解有关 `VerticalPodAutoscaler` 的更多信息，
-以及如何使用它来扩展集群组件（包括对集群至关重要的插件）的信息。
+* `VerticalPodAutoscaler` 是一种自定义资源，你可以将其部署到集群中，帮助你管理 Pod 的资源请求和资源限制。
+  了解有关 [Vertical Pod Autoscaler](https://github.com/kubernetes/autoscaler/tree/master/vertical-pod-autoscaler#readme)
+  的更多信息，了解如何用它扩展集群组件（包括对集群至关重要的插件）的信息。
 
-[集群自动扩缩器](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
-与许多云供应商集成在一起，帮助你在你的集群中，按照资源需求级别运行正确数量的节点。
+* [集群自动扩缩器](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler#readme)
+  与许多云供应商集成在一起，帮助你在你的集群中，按照资源需求级别运行正确数量的节点。
 
 <!-- 
-The [addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)
+* The [addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)
 helps you in resizing the addons automatically as your cluster's scale changes.
 -->
-[addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)
-可帮助你在集群规模变化时自动调整插件的大小。
+* [addon resizer](https://github.com/kubernetes/autoscaler/tree/master/addon-resizer#readme)
+  可帮助你在集群规模变化时自动调整插件的大小。

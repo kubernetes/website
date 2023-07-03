@@ -3,7 +3,6 @@ title: 调试 Pod
 content_type: task
 weight: 10
 ---
-
 <!-- 
 reviewers:
 - mikedanese
@@ -16,23 +15,21 @@ weight: 10
 <!-- overview -->
 
 <!--
-This guide is to help users debug applications that are deployed into Kubernetes and not behaving correctly.
-This is *not* a guide for people who want to debug their cluster.  For that you should check out
-[this guide](/docs/tasks/debug/debug-cluster).
+This guide is to help users debug applications that are deployed into Kubernetes
+and not behaving correctly. This is *not* a guide for people who want to debug their cluster.
+For that you should check out [this guide](/docs/tasks/debug/debug-cluster).
 -->
-
 本指南帮助用户调试那些部署到 Kubernetes 上后没有正常运行的应用。
 本指南 **并非** 指导用户如何调试集群。
 如果想调试集群的话，请参阅[这里](/zh-cn/docs/tasks/debug/debug-cluster)。
-
 
 <!-- body -->
 
 <!--
 ## Diagnosing the problem
 
-The first step in troubleshooting is triage.  What is the problem?  Is it your Pods, your Replication Controller or
-your Service?
+The first step in troubleshooting is triage. What is the problem?
+Is it your Pods, your Replication Controller or your Service?
 
    * [Debugging Pods](#debugging-pods)
    * [Debugging Replication Controllers](#debugging-replication-controllers)
@@ -49,7 +46,8 @@ your Service?
 <!--
 ### Debugging Pods
 
-The first step in debugging a Pod is taking a look at it.  Check the current state of the Pod and recent events with the following command:
+The first step in debugging a Pod is taking a look at it. Check the current
+state of the Pod and recent events with the following command:
 -->
 ### 调试 Pod   {#debugging-pods}
 
@@ -60,7 +58,8 @@ kubectl describe pods ${POD_NAME}
 ```
 
 <!--
-Look at the state of the containers in the pod.  Are they all `Running`?  Have there been recent restarts?
+Look at the state of the containers in the pod. Are they all `Running`?
+Have there been recent restarts?
 
 Continue debugging depending on the state of the pods.
 -->
@@ -71,32 +70,35 @@ Continue debugging depending on the state of the pods.
 <!--
 #### My pod stays pending
 
-If a Pod is stuck in `Pending` it means that it can not be scheduled onto a node.  Generally this is because
-there are insufficient resources of one type or another that prevent scheduling.  Look at the output of the
-`kubectl describe ...` command above.  There should be messages from the scheduler about why it can not schedule
-your pod.  Reasons include:
+If a Pod is stuck in `Pending` it means that it can not be scheduled onto a node.
+Generally this is because there are insufficient resources of one type or another
+that prevent scheduling. Look at the output of the `kubectl describe ...` command above.
+There should be messages from the scheduler about why it can not schedule your pod.
+Reasons include:
 -->
 #### Pod 停滞在 Pending 状态  {#my-pod-stays-pending}
 
-如果一个 Pod 停滞在 `Pending` 状态，表示 Pod 没有被调度到节点上。通常这是因为
-某种类型的资源不足导致无法调度。
+如果一个 Pod 停滞在 `Pending` 状态，表示 Pod 没有被调度到节点上。
+通常这是因为某种类型的资源不足导致无法调度。
 查看上面的 `kubectl describe ...` 命令的输出，其中应该显示了为什么没被调度的原因。
 常见原因如下：
 
 <!--
-* **You don't have enough resources**:  You may have exhausted the supply of CPU or Memory in your cluster, in this case
-you need to delete Pods, adjust resource requests, or add new nodes to your cluster. See
-[Compute Resources document](/docs/concepts/configuration/manage-resources-containers/) for more information.
+* **You don't have enough resources**: You may have exhausted the supply of CPU
+  or Memory in your cluster, in this case you need to delete Pods, adjust resource
+  requests, or add new nodes to your cluster. See [Compute Resources document](/docs/concepts/configuration/manage-resources-containers/)
+  for more information.
 
-* **You are using `hostPort`**:  When you bind a Pod to a `hostPort` there are a limited number of places that pod can be
-scheduled.  In most cases, `hostPort` is unnecessary, try using a Service object to expose your Pod.  If you do require
-`hostPort` then you can only schedule as many Pods as there are nodes in your Kubernetes cluster.
+* **You are using `hostPort`**: When you bind a Pod to a `hostPort` there are a
+  limited number of places that pod can be scheduled. In most cases, `hostPort`
+  is unnecessary, try using a Service object to expose your Pod.  If you do require
+  `hostPort` then you can only schedule as many Pods as there are nodes in your Kubernetes cluster.
 -->
-* **资源不足**:
+* **资源不足**：
   你可能耗尽了集群上所有的 CPU 或内存。此时，你需要删除 Pod、调整资源请求或者为集群添加节点。
   更多信息请参阅[计算资源文档](/zh-cn/docs/concepts/configuration/manage-resources-containers/)
 
-* **使用了 `hostPort`**:
+* **使用了 `hostPort`**：
   如果绑定 Pod 到 `hostPort`，那么能够运行该 Pod 的节点就有限了。
   多数情况下，`hostPort` 是非必要的，而应该采用 Service 对象来暴露 Pod。
   如果确实需要使用 `hostPort`，那么集群中节点的个数就是所能创建的 Pod
@@ -105,8 +107,10 @@ scheduled.  In most cases, `hostPort` is unnecessary, try using a Service object
 <!--
 #### My pod stays waiting
 
-If a Pod is stuck in the `Waiting` state, then it has been scheduled to a worker node, but it can't run on that machine.
-Again, the information from `kubectl describe ...` should be informative.  The most common cause of `Waiting` pods is a failure to pull the image.  There are three things to check:
+If a Pod is stuck in the `Waiting` state, then it has been scheduled to a worker node, 
+but it can't run on that machine. Again, the information from `kubectl describe ...`
+should be informative. The most common cause of `Waiting` pods is a failure to pull the image.
+There are three things to check:
 
 * Make sure that you have the name of the image correct.
 * Have you pushed the image to the registry?
@@ -119,20 +123,21 @@ Again, the information from `kubectl describe ...` should be informative.  The m
 同样，`kubectl describe ...` 命令的输出可能很有用。
 `Waiting` 状态的最常见原因是拉取镜像失败。要检查的有三个方面：
 
-* 确保镜像名字拼写正确
-* 确保镜像已被推送到镜像仓库
+* 确保镜像名字拼写正确。
+* 确保镜像已被推送到镜像仓库。
 * 尝试手动是否能拉取镜像。例如，如果你在你的 PC 上使用 Docker，请运行 `docker pull <镜像>`。
 
 <!--
 #### My pod is crashing or otherwise unhealthy
 
-Once your pod has been scheduled, the methods described in [Debug Running Pods](
-/docs/tasks/debug/debug-application/debug-running-pod/) are available for debugging.
+Once your pod has been scheduled, the methods described in
+[Debug Running Pods](/docs/tasks/debug/debug-application/debug-running-pod/)
+are available for debugging.
 -->
 #### Pod 处于 Crashing 或别的不健康状态   {#my-pod-is-crashing-or-otherwise-unhealthy}
 
-一旦 Pod 被调度，就可以采用
-[调试运行中的 Pod](/zh-cn/docs/tasks/debug/debug-application/debug-running-pod/)
+一旦 Pod 被调度，
+就可以采用[调试运行中的 Pod](/zh-cn/docs/tasks/debug/debug-application/debug-running-pod/)
 中的方法来进一步调试。
 
 <!--
@@ -160,9 +165,9 @@ If you misspelled `command` as `commnd` then will give an error like this:
 -->
 可以做的第一件事是删除你的 Pod，并尝试带有 `--validate` 选项重新创建。
 例如，运行 `kubectl apply --validate -f mypod.yaml`。
-如果 `command`  被误拼成 `commnd`，你将会看到下面的错误信息：
+如果 `command` 被误拼成 `commnd`，你将会看到下面的错误信息：
 
-```
+```shell
 I0805 10:43:25.129850   46757 schema.go:126] unknown field: commnd
 I0805 10:43:25.129973   46757 schema.go:129] this may be a false alarm, see https://github.com/kubernetes/kubernetes/issues/6842
 pods/mypod
@@ -175,9 +180,9 @@ The next thing to check is whether the pod on the apiserver
 matches the pod you meant to create (e.g. in a yaml file on your local machine).
 For example, run `kubectl get pods/mypod -o yaml > mypod-on-apiserver.yaml` and then
 manually compare the original pod description, `mypod.yaml` with the one you got
-back from apiserver, `mypod-on-apiserver.yaml`.  There will typically be some
-lines on the "apiserver" version that are not on the original version.  This is
-expected.  However, if there are lines on the original that are not on the apiserver
+back from apiserver, `mypod-on-apiserver.yaml`. There will typically be some
+lines on the "apiserver" version that are not on the original version. This is
+expected. However, if there are lines on the original that are not on the apiserver
 version, then this may indicate a problem with your pod spec.
 -->
 接下来就要检查的是 API 服务器上的 Pod 与你所期望创建的是否匹配
@@ -191,11 +196,12 @@ Pod 规约是有问题的。
 <!--
 ### Debugging Replication Controllers
 
-Replication controllers are fairly straightforward.  They can either create Pods or they can't.  If they can't
-create pods, then please refer to the [instructions above](#debugging-pods) to debug your pods.
+Replication controllers are fairly straightforward. They can either create Pods or they can't.
+If they can't create pods, then please refer to the
+[instructions above](#debugging-pods) to debug your pods.
 
-You can also use `kubectl describe rc ${CONTROLLER_NAME}` to introspect events related to the replication
-controller.
+You can also use `kubectl describe rc ${CONTROLLER_NAME}` to introspect events
+related to the replication controller.
 -->
 ### 调试副本控制器  {#debugging-replication-controllers}
 
@@ -207,10 +213,11 @@ controller.
 <!--
 ### Debugging Services
 
-Services provide load balancing across a set of pods.  There are several common problems that can make Services
+Services provide load balancing across a set of pods. There are several common problems that can make Services
 not work properly.  The following instructions should help debug Service problems.
 
-First, verify that there are endpoints for the service. For every Service object, the apiserver makes an `endpoints` resource available.
+First, verify that there are endpoints for the service. For every Service object,
+the apiserver makes an `endpoints` resource available.
 
 You can view this resource with:
 -->
@@ -241,8 +248,8 @@ IP addresses in the Service's endpoints.
 <!--
 #### My service is missing endpoints
 
-If you are missing endpoints, try listing pods using the labels that Service uses.  Imagine that you have
-a Service where the labels are:
+If you are missing endpoints, try listing pods using the labels that Service uses.
+Imagine that you have a Service where the labels are:
 -->
 #### 服务缺少 Endpoints   {#my-service-is-missing-endpoints}
 
@@ -263,7 +270,8 @@ You can use:
 kubectl get pods --selector=name=nginx,type=frontend
 ```
 
-to list pods that match this selector.  Verify that the list matches the Pods that you expect to provide your Service.
+to list pods that match this selector. Verify that the list matches the Pods that you expect to provide your Service.
+Verify that the pod's `containerPort` matches up with the Service's `targetPort`
 -->
 你可以使用如下命令列出与选择算符相匹配的 Pod，并验证这些 Pod 是否归属于创建的服务：
 
@@ -279,17 +287,17 @@ Verify that the pod's `containerPort` matches up with the Service's `targetPort`
 <!--
 #### Network traffic is not forwarded
 
-Please see [debugging service](/docs/tasks/debug/debug-applications/debug-service/) for more information.
+Please see [debugging service](/docs/tasks/debug/debug-application/debug-service/) for more information.
 -->
 #### 网络流量未被转发  {#network-traffic-is-not-forwarded}
 
-请参阅[调试 Service](/zh-cn/docs/tasks/debug/debug-applications/debug-service/) 了解更多信息。
+请参阅[调试 Service](/zh-cn/docs/tasks/debug/debug-application/debug-service/) 了解更多信息。
 
 ## {{% heading "whatsnext" %}}
 
 <!--
 If none of the above solves your problem, follow the instructions in
-[Debugging Service document](/docs/tasks/debug/debug-applications/debug-service/)
+[Debugging Service document](/docs/tasks/debug/debug-application/debug-service/)
 to make sure that your `Service` is running, has `Endpoints`, and your `Pods` are
 actually serving; you have DNS working, iptables rules installed, and kube-proxy
 does not seem to be misbehaving.
@@ -297,9 +305,8 @@ does not seem to be misbehaving.
 You may also visit [troubleshooting document](/docs/tasks/debug/) for more information.
 -->
 如果上述方法都不能解决你的问题，
-请按照[调试 Service 文档](/zh-cn/docs/tasks/debug/debug-applications/debug-service/)中的介绍，
-确保你的 `Service` 处于 Running 态，有 `Endpoints` 被创建，`Pod` 真的在提供服务；
-DNS 服务已配置并正常工作，iptables 规则也以安装并且 `kube-proxy` 也没有异常行为。
+请按照[调试 Service 文档](/zh-cn/docs/tasks/debug/debug-application/debug-service/)中的介绍，
+确保你的 `Service` 处于 Running 状态，有 `Endpoints` 被创建，`Pod` 真的在提供服务；
+DNS 服务已配置并正常工作，iptables 规则也已安装并且 `kube-proxy` 也没有异常行为。
 
 你也可以访问[故障排查文档](/zh-cn/docs/tasks/debug/)来获取更多信息。
-

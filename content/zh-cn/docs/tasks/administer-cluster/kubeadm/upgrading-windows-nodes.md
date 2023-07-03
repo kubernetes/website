@@ -2,13 +2,13 @@
 title: 升级 Windows 节点
 min-kubernetes-server-version: 1.17
 content_type: task
-weight: 40
+weight: 110
 ---
 <!--
 title: Upgrading Windows nodes
 min-kubernetes-server-version: 1.17
 content_type: task
-weight: 40
+weight: 110
 -->
 
 <!-- overview -->
@@ -16,10 +16,9 @@ weight: 40
 {{< feature-state for_k8s_version="v1.18" state="beta" >}}
 
 <!--
-This page explains how to upgrade a Windows node [created with kubeadm](/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes).
+This page explains how to upgrade a Windows node created with kubeadm.
 -->
-本页解释如何升级[用 kubeadm 创建的](/zh-cn/docs/tasks/administer-cluster/kubeadm/adding-windows-nodes)
-Windows 节点。
+本页解释如何升级用 kubeadm 创建的 Windows 节点。
 
 ## {{% heading "prerequisites" %}}
  
@@ -47,15 +46,15 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 1.  From the Windows node, upgrade kubeadm:
 
     ```powershell
-    # replace {{< param "fullversion" >}} with your desired version
-    curl.exe -Lo <path-to-kubeadm.exe>  "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubeadm.exe"
+    # replace {{< skew currentPatchVersion >}} with your desired version
+    curl.exe -Lo <path-to-kubeadm.exe>  "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubeadm.exe"
     ```
 -->
 1. 在 Windows 节点上升级 kubeadm：
 
    ```powershell
-   # 将 {{< param "fullversion" >}} 替换为你希望的版本
-   curl.exe -Lo <kubeadm.exe 路径>  "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubeadm.exe"
+   # 将 {{< skew currentPatchVersion >}} 替换为你希望的版本
+   curl.exe -Lo <kubeadm.exe 路径>  "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubeadm.exe"
    ```
 
 <!--
@@ -117,7 +116,7 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
     ```powershell
     stop-service kubelet
-    curl.exe -Lo <path-to-kubelet.exe> "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubelet.exe"
+    curl.exe -Lo <path-to-kubelet.exe> "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubelet.exe"
     restart-service kubelet
     ```
 -->
@@ -127,7 +126,7 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
    ```powershell
    stop-service kubelet
-   curl.exe -Lo <kubelet.exe 路径> "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubelet.exe"
+   curl.exe -Lo <kubelet.exe 路径> "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubelet.exe"
    restart-service kubelet
    ```
 
@@ -136,7 +135,7 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
     ```powershell
     stop-service kube-proxy
-    curl.exe -Lo <path-to-kube-proxy.exe> "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kube-proxy.exe"
+    curl.exe -Lo <path-to-kube-proxy.exe> "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kube-proxy.exe"
     restart-service kube-proxy
     ```
 -->
@@ -144,13 +143,14 @@ upgrade the control plane nodes before upgrading your Windows nodes.
 
    ```powershell
    stop-service kube-proxy
-   curl.exe -Lo <kube-proxy.exe 路径> "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kube-proxy.exe"
+   curl.exe -Lo <kube-proxy.exe 路径> "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kube-proxy.exe"
    restart-service kube-proxy
    ```
 
 {{< note >}}
 <!--
-If you are running kube-proxy in a HostProcess container within a Pod, and not as a Windows Service, you can upgrade kube-proxy by applying a newer version of your kube-proxy manifests.
+If you are running kube-proxy in a HostProcess container within a Pod, and not as a Windows Service,
+you can upgrade kube-proxy by applying a newer version of your kube-proxy manifests.
 -->
 如果你是在 Pod 内的 HostProcess 容器中运行 kube-proxy，而不是作为 Windows 服务，
 你可以通过应用更新版本的 kube-proxy 清单文件来升级 kube-proxy。
@@ -177,3 +177,10 @@ bring the node back online by marking it schedulable:
    kubectl uncordon <要腾空的节点>
    ```
 
+## {{% heading "whatsnext" %}}
+
+<!--
+* See how to [Upgrade Linux nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes/).
+-->
+
+* 查看如何[升级 Linux 节点](/zh-cn/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes/)。

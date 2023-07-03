@@ -116,7 +116,7 @@ metadata:
 spec:
   containers:
     - name: cuda-test
-      image: "k8s.gcr.io/cuda-vector-add:v0.1"
+      image: "registry.k8s.io/cuda-vector-add:v0.1"
       resources:
         limits:
           nvidia.com/gpu: 1
@@ -172,7 +172,7 @@ Seperti yang telah disebutkan sebelumnya, kondisi _set-based_ lebih ekspresif.  
 kubectl get pods -l 'environment in (production, qa)'
 ```
 
-atau membatasi pencocokan negatif dengan operator _exists_:
+atau membatasi pencocokan negatif dengan operator _notin_:
 
 ```shell
 kubectl get pods -l 'environment,environment notin (frontend)'

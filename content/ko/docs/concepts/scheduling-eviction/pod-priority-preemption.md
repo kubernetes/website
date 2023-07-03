@@ -4,7 +4,7 @@
 # - wojtek-t
 title: 파드 우선순위(priority)와 선점(preemption)
 content_type: concept
-weight: 70
+weight: 90
 ---
 
 <!-- overview -->
@@ -203,7 +203,6 @@ spec:
 정보를 제공한다.
 
 파드 P는 반드시 "지정된 노드"로 스케줄링되지는 않는다.
-The scheduler always tries the "nominated Node" before iterating over any other nodes.
 스케줄러는 다른 노드에 스케줄링을 시도하기 전에 항상 "지정된 노드"부터 시도한다.
 피해자 파드가 축출된 후, 그것은 정상적(graceful)으로 종료되는 기간을 갖는다.
 스케줄러가 종료될 피해자 파드를 기다리는 동안 다른 노드를 사용할 수

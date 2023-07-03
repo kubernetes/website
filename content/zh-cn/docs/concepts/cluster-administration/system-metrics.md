@@ -17,7 +17,8 @@ weight: 70
 <!-- overview -->
 
 <!--
-System component metrics can give a better look into what is happening inside them. Metrics are particularly useful for building dashboards and alerts.
+System component metrics can give a better look into what is happening inside them. Metrics are
+particularly useful for building dashboards and alerts.
 
 Kubernetes components emit metrics in [Prometheus format](https://prometheus.io/docs/instrumenting/exposition_formats/).
 This format is structured plain text, designed so that people and machines can both read it.
@@ -33,11 +34,12 @@ Kubernetes 组件以 [Prometheus 格式](https://prometheus.io/docs/instrumentin
 <!--
 ## Metrics in Kubernetes
 
-In most cases metrics are available on `/metrics` endpoint of the HTTP server. For components that doesn't expose endpoint by default it can be enabled using `--bind-address` flag.
+In most cases metrics are available on `/metrics` endpoint of the HTTP server. For components that
+doesn't expose endpoint by default it can be enabled using `--bind-address` flag.
 
 Examples of those components:
 -->
-## Kubernetes 中组件的指标
+## Kubernetes 中组件的指标  {#metrics-in-kubernetes}
 
 在大多数情况下，可以通过 HTTP 访问组件的 `/metrics` 端点来获取组件的度量值。
 对于那些默认情况下不暴露端点的组件，可以使用 `--bind-address` 标志启用。
@@ -51,13 +53,17 @@ Examples of those components:
 * {{< glossary_tooltip term_id="kubelet" text="kubelet" >}}
 
 <!--
-In a production environment you may want to configure [Prometheus Server](https://prometheus.io/) or some other metrics scraper
-to periodically gather these metrics and make them available in some kind of time series database.
+In a production environment you may want to configure [Prometheus Server](https://prometheus.io/)
+or some other metrics scraper to periodically gather these metrics and make them available in some
+kind of time series database.
 
-Note that {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} also exposes metrics in `/metrics/cadvisor`, `/metrics/resource` and `/metrics/probes` endpoints. Those metrics do not have same lifecycle.
+Note that {{< glossary_tooltip term_id="kubelet" text="kubelet" >}} also exposes metrics in
+`/metrics/cadvisor`, `/metrics/resource` and `/metrics/probes` endpoints. Those metrics do not
+have the same lifecycle.
 
-If your cluster uses {{< glossary_tooltip term_id="rbac" text="RBAC" >}}, reading metrics requires authorization via a user, group or ServiceAccount with a ClusterRole that allows accessing `/metrics`.
-For example:
+If your cluster uses {{< glossary_tooltip term_id="rbac" text="RBAC" >}}, reading metrics requires
+authorization via a user, group or ServiceAccount with a ClusterRole that allows accessing
+`/metrics`. For example:
 -->
 在生产环境中，你可能需要配置 [Prometheus 服务器](https://prometheus.io/) 或
 某些其他指标搜集器以定期收集这些指标，并使它们在某种时间序列数据库中可用。
@@ -96,7 +102,7 @@ Stable metrics are guaranteed to not change. This means:
 Deprecated metrics are slated for deletion, but are still available for use.
 These metrics include an annotation about the version in which they became deprecated.
 -->
-## 指标生命周期
+## 指标生命周期  {#metric-lifecycle}
 
 Alpha 指标 →  稳定的指标 →  弃用的指标 →  隐藏的指标 → 删除的指标
 
@@ -137,7 +143,8 @@ For example:
   ```
 
 <!--
-Hidden metrics are no longer published for scraping, but are still available for use. To use a hidden metric, please refer to the [Show hidden metrics](#show-hidden-metrics) section. 
+Hidden metrics are no longer published for scraping, but are still available for use. To use a
+hidden metric, please refer to the [Show hidden metrics](#show-hidden-metrics) section.
 
 Deleted metrics are no longer published and cannot be used.
 -->
@@ -149,13 +156,21 @@ Deleted metrics are no longer published and cannot be used.
 <!--
 ## Show hidden metrics
 
-As described above, admins can enable hidden metrics through a command-line flag on a specific binary. This intends to be used as an escape hatch for admins if they missed the migration of the metrics deprecated in the last release.
+As described above, admins can enable hidden metrics through a command-line flag on a specific
+binary. This intends to be used as an escape hatch for admins if they missed the migration of the
+metrics deprecated in the last release.
 
-The flag `show-hidden-metrics-for-version` takes a version for which you want to show metrics deprecated in that release. The version is expressed as x.y, where x is the major version, y is the minor version. The patch version is not needed even though a metrics can be deprecated in a patch release, the reason for that is the metrics deprecation policy runs against the minor release.
+The flag `show-hidden-metrics-for-version` takes a version for which you want to show metrics
+deprecated in that release. The version is expressed as x.y, where x is the major version, y is
+the minor version. The patch version is not needed even though a metrics can be deprecated in a
+patch release, the reason for that is the metrics deprecation policy runs against the minor release.
 
-The flag can only take the previous minor version as it's value. All metrics hidden in previous will be emitted if admins set the previous version to `show-hidden-metrics-for-version`. The too old version is not allowed because this violates the metrics deprecated policy.
+The flag can only take the previous minor version as it's value. All metrics hidden in previous
+will be emitted if admins set the previous version to `show-hidden-metrics-for-version`. The too
+old version is not allowed because this violates the metrics deprecated policy.
 
-Take metric `A` as an example, here assumed that `A` is deprecated in 1.n. According to metrics deprecated policy, we can reach the following conclusion:
+Take metric `A` as an example, here assumed that `A` is deprecated in 1.n. According to metrics
+deprecated policy, we can reach the following conclusion:
 -->
 ## 显示隐藏指标   {#show-hidden-metrics}
 
@@ -174,10 +189,13 @@ Take metric `A` as an example, here assumed that `A` is deprecated in 1.n. Accor
 
 <!--
 * In release `1.n`, the metric is deprecated, and it can be emitted by default.
-* In release `1.n+1`, the metric is hidden by default and it can be emitted by command line `show-hidden-metrics-for-version=1.n`.
+* In release `1.n+1`, the metric is hidden by default and it can be emitted by command line
+  `show-hidden-metrics-for-version=1.n`.
 * In release `1.n+2`, the metric should be removed from the codebase. No escape hatch anymore.
 
-If you're upgrading from release `1.12` to `1.13`, but still depend on a metric `A` deprecated in `1.12`, you should set hidden metrics via command line: `--show-hidden-metrics=1.12` and remember to remove this metric dependency before upgrading to `1.14`
+If you're upgrading from release `1.12` to `1.13`, but still depend on a metric `A` deprecated in
+`1.12`, you should set hidden metrics via command line: `--show-hidden-metrics=1.12` and remember
+to remove this metric dependency before upgrading to `1.14`
 -->
 * 在版本 `1.n` 中，这个指标已经弃用，且默认情况下可以生成。
 * 在版本 `1.n+1` 中，这个指标默认隐藏，可以通过命令行参数 `show-hidden-metrics-for-version=1.n` 来再度生成。
@@ -189,13 +207,20 @@ If you're upgrading from release `1.12` to `1.13`, but still depend on a metric 
 <!--
 ## Disable accelerator metrics
 
-The kubelet collects accelerator metrics through cAdvisor. To collect these metrics, for accelerators like NVIDIA GPUs, kubelet held an open handle on the driver. This meant that in order to perform infrastructure changes (for example, updating the driver), a cluster administrator needed to stop the kubelet agent.
+The kubelet collects accelerator metrics through cAdvisor. To collect these metrics, for
+accelerators like NVIDIA GPUs, kubelet held an open handle on the driver. This meant that in order
+to perform infrastructure changes (for example, updating the driver), a cluster administrator
+needed to stop the kubelet agent.
 
-The responsibility for collecting accelerator metrics now belongs to the vendor rather than the kubelet. Vendors must provide a container that collects metrics and exposes them to the metrics service (for example, Prometheus).
+The responsibility for collecting accelerator metrics now belongs to the vendor rather than the
+kubelet. Vendors must provide a container that collects metrics and exposes them to the metrics
+service (for example, Prometheus).
 
-The [`DisableAcceleratorUsageMetrics` feature gate](/docs/reference/command-line-tools-reference/feature-gates/) disables metrics collected by the kubelet, with a [timeline for enabling this feature by default](https://github.com/kubernetes/enhancements/tree/411e51027db842355bd489691af897afc1a41a5e/keps/sig-node/1867-disable-accelerator-usage-metrics#graduation-criteria).
+The [`DisableAcceleratorUsageMetrics` feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+disables metrics collected by the kubelet, with a
+[timeline for enabling this feature by default](https://github.com/kubernetes/enhancements/tree/411e51027db842355bd489691af897afc1a41a5e/keps/sig-node/1867-disable-accelerator-usage-metrics#graduation-criteria).
 -->
-## 禁用加速器指标
+## 禁用加速器指标  {#disable-accelerator-metrics}
 
 kubelet 通过 cAdvisor 收集加速器指标。为了收集这些指标，对于 NVIDIA GPU 之类的加速器，
 kubelet 在驱动程序上保持打开状态。这意味着为了执行基础结构更改（例如更新驱动程序），
@@ -213,19 +238,20 @@ kubelet 在驱动程序上保持打开状态。这意味着为了执行基础结
 
 ### kube-controller-manager metrics
 
-Controller manager metrics provide important insight into the performance and health of the controller manager.
-These metrics include common Go language runtime metrics such as go_routine count and controller specific metrics such as
-etcd request latencies or Cloudprovider (AWS, GCE, OpenStack) API latencies that can be used
-to gauge the health of a cluster.
+Controller manager metrics provide important insight into the performance and health of the
+controller manager. These metrics include common Go language runtime metrics such as go_routine
+count and controller specific metrics such as etcd request latencies or Cloudprovider (AWS, GCE,
+OpenStack) API latencies that can be used to gauge the health of a cluster.
 
-Starting from Kubernetes 1.7, detailed Cloudprovider metrics are available for storage operations for GCE, AWS, Vsphere and OpenStack.
+Starting from Kubernetes 1.7, detailed Cloudprovider metrics are available for storage operations
+for GCE, AWS, Vsphere and OpenStack.
 These metrics can be used to monitor health of persistent volume operations.
 
 For example, for GCE these metrics are called:
 -->
-## 组件指标
+## 组件指标  {#component-metrics}
 
-### kube-controller-manager 指标
+### kube-controller-manager 指标  {#kube-controller-manager-metrics}
 
 控制器管理器指标可提供有关控制器管理器性能和运行状况的重要洞察。
 这些指标包括通用的 Go 语言运行时指标（例如 go_routine 数量）和控制器特定的度量指标，
@@ -253,7 +279,10 @@ cloudprovider_gce_api_request_duration_seconds { request = "list_disk"}
 {{< feature-state for_k8s_version="v1.21" state="beta" >}}
 
 <!--
-The scheduler exposes optional metrics that reports the requested resources and the desired limits of all running pods. These metrics can be used to build capacity planning dashboards, assess current or historical scheduling limits, quickly identify workloads that cannot schedule due to lack of resources, and compare actual usage to the pod's request.
+The scheduler exposes optional metrics that reports the requested resources and the desired limits
+of all running pods. These metrics can be used to build capacity planning dashboards, assess
+current or historical scheduling limits, quickly identify workloads that cannot schedule due to
+lack of resources, and compare actual usage to the pod's request.
 -->
 调度器会暴露一些可选的指标，报告所有运行中 Pods 所请求的资源和期望的约束值。
 这些指标可用来构造容量规划监控面板、访问调度约束的当前或历史数据、
@@ -261,7 +290,9 @@ The scheduler exposes optional metrics that reports the requested resources and 
 与其请求值进行比较。
 
 <!--
-The kube-scheduler identifies the resource [requests and limits](/docs/concepts/configuration/manage-resources-containers/) configured for each Pod; when either a request or limit is non-zero, the kube-scheduler reports a metrics timeseries. The time series is labelled by:
+The kube-scheduler identifies the resource [requests and limits](/docs/concepts/configuration/manage-resources-containers/)
+configured for each Pod; when either a request or limit is non-zero, the kube-scheduler reports a
+metrics timeseries. The time series is labelled by:
 - namespace
 - pod name
 - the node where the pod is scheduled or an empty string if not yet scheduled
@@ -283,10 +314,14 @@ kube-scheduler 组件能够辩识各个 Pod 所配置的资源
 - 资源的单位，如果知道的话（例如，`cores`）
 
 <!--
-Once a pod reaches completion (has a `restartPolicy` of `Never` or `OnFailure` and is in the `Succeeded` or `Failed` pod phase, or has been deleted and all containers have a terminated state) the series is no longer reported since the scheduler is now free to schedule other pods to run. The two metrics are called `kube_pod_resource_request` and `kube_pod_resource_limit`.
+Once a pod reaches completion (has a `restartPolicy` of `Never` or `OnFailure` and is in the
+`Succeeded` or `Failed` pod phase, or has been deleted and all containers have a terminated state)
+the series is no longer reported since the scheduler is now free to schedule other pods to run.
+The two metrics are called `kube_pod_resource_request` and `kube_pod_resource_limit`.
 
-The metrics are exposed at the HTTP endpoint `/metrics/resources` and require the same authorization as the `/metrics`
-endpoint on the scheduler. You must use the `-show-hidden-metrics-for-version=1.20` flag to expose these alpha stability metrics.
+The metrics are exposed at the HTTP endpoint `/metrics/resources` and require the same
+authorization as the `/metrics` endpoint on the scheduler. You must use the
+`-show-hidden-metrics-for-version=1.20` flag to expose these alpha stability metrics.
 -->
 一旦 Pod 进入完成状态（其 `restartPolicy` 为 `Never` 或 `OnFailure`，且
 其处于 `Succeeded` 或 `Failed` Pod 阶段，或者已经被删除且所有容器都具有
@@ -301,7 +336,9 @@ endpoint on the scheduler. You must use the `-show-hidden-metrics-for-version=1.
 <!--
 ## Disabling metrics
 
-You can explicitly turn off metrics via command line flag `--disabled-metrics`. This may be desired if, for example, a metric is causing a performance problem. The input is a list of disabled metrics (i.e. `--disabled-metrics=metric1,metric2`).
+You can explicitly turn off metrics via command line flag `--disabled-metrics`. This may be
+desired if, for example, a metric is causing a performance problem. The input is a list of
+disabled metrics (i.e. `--disabled-metrics=metric1,metric2`).
 -->
 ## 禁用指标 {#disabling-metrics}
 
@@ -312,7 +349,9 @@ You can explicitly turn off metrics via command line flag `--disabled-metrics`. 
 <!--
 ## Metric cardinality enforcement
 
-Metrics with unbounded dimensions could cause memory issues in the components they instrument. To limit resource use, you can use the `--allow-label-value` command line option to dynamically configure an allow-list of label values for a metric.
+Metrics with unbounded dimensions could cause memory issues in the components they instrument. To
+limit resource use, you can use the `--allow-label-value` command line option to dynamically
+configure an allow-list of label values for a metric.
 -->
 ## 指标顺序性保证    {#metric-cardinality-enforcement}
 
@@ -322,22 +361,31 @@ Metrics with unbounded dimensions could cause memory issues in the components th
 
 <!--
 The overall format looks like:
-`--allow-label-value <metric_name>,<label_name>='<allow_value1>, <allow_value2>...', <metric_name2>,<label_name>='<allow_value1>, <allow_value2>...', ...`.
+
+```
+--allow-label-value <metric_name>,<label_name>='<allow_value1>, <allow_value2>...', <metric_name2>,<label_name>='<allow_value1>, <allow_value2>...', ...
+```
 -->
 最终的格式看起来会是这样：
-`--allow-label-value <指标名称>,<标签名称>='<可用值1>,<可用值2>...', <指标名称2>,<标签名称>='<可用值1>, <可用值2>...', ...`.
+
+```
+--allow-label-value <指标名称>,<标签名称>='<可用值1>,<可用值2>...', <指标名称2>,<标签名称>='<可用值1>, <可用值2>...', ...
+```
 
 <!--
 Here is an example:
 -->
 下面是一个例子：
 
-`--allow-label-value number_count_metric,odd_number='1,3,5', number_count_metric,even_number='2,4,6', date_gauge_metric,weekend='Saturday,Sunday'`
+```none
+--allow-label-value number_count_metric,odd_number='1,3,5', number_count_metric,even_number='2,4,6', date_gauge_metric,weekend='Saturday,Sunday'
+```
 
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Read about the [Prometheus text format](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format) for metrics
+* Read about the [Prometheus text format](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format)
+  for metrics
 * Read about the [Kubernetes deprecation policy](/docs/reference/using-api/deprecation-policy/#deprecating-a-feature-or-behavior)
 -->
 * 阅读有关指标的 [Prometheus 文本格式](https://github.com/prometheus/docs/blob/master/content/docs/instrumenting/exposition_formats.md#text-based-format)

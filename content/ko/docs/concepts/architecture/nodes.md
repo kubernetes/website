@@ -194,9 +194,9 @@ kubectl describe node <insert-node-name-here>
 {{< /table >}}
 
 {{< note >}}
-커맨드 라인 도구를 사용해서 코드화된 노드의 세부 정보를 출력하는 경우 조건에는
+커맨드 라인 도구를 사용해서 통제된(cordoned) 노드의 세부 정보를 출력하는 경우 조건에는
 `SchedulingDisabled` 이 포함된다. `SchedulingDisabled` 은 쿠버네티스 API의 조건이 아니며,
-대신 코드화된 노드는 사양에 스케줄 불가로 표시된다.
+대신 통제된(cordoned) 노드는 사양에 스케줄 불가로 표시된다.
 {{< /note >}}
 
 쿠버네티스 API에서, 노드의 컨디션은 노드 리소스의 `.status` 부분에
@@ -456,7 +456,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 
 ## 논 그레이스풀 노드 셧다운 {#non-graceful-node-shutdown}
 
-{{< feature-state state="alpha" for_k8s_version="v1.24" >}}
+{{< feature-state state="beta" for_k8s_version="v1.26" >}}
 
 전달한 명령이 kubelet에서 사용하는 금지 잠금 메커니즘(inhibitor locks mechanism)을 트리거하지 않거나, 
 또는 사용자 오류(예: ShutdownGracePeriod 및 ShutdownGracePeriodCriticalPods가 제대로 설정되지 않음)로 인해 
@@ -476,9 +476,8 @@ kubelet의 노드 셧다운 관리자(Node Shutdown Mananger)가
 기존의 셧다운된 노드가 정상으로 돌아오지 못하면, 
 이러한 파드는 셧다운된 노드에 '종료 중(terminating)' 상태로 영원히 고착될 것이다.
 
-위와 같은 상황을 완화하기 위해, 사용자가 `node.kubernetes.io/out-of-service` 테인트를 
-`NoExecute` 또는 `NoSchedule` 값으로 추가하여 
-노드를 서비스 불가(out-of-service) 상태로 표시할 수 있다. 
+위와 같은 상황을 완화하기 위해, 사용자가 `node.kubernetes.io/out-of-service` 테인트를 `NoExecute` 또는 `NoSchedule` 값으로 
+추가하여 노드를 서비스 불가(out-of-service) 상태로 표시할 수 있다. 
 `kube-controller-manager`에 `NodeOutOfServiceVolumeDetach`[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)
 가 활성화되어 있고, 노드가 이 테인트에 의해 서비스 불가 상태로 표시되어 있는 경우, 
 노드에 매치되는 톨러레이션이 없다면 노드 상의 파드는 강제로 삭제될 것이고, 

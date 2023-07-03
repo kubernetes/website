@@ -799,7 +799,6 @@ should see something like:
 ```none
 I1027 22:14:53.995134    5063 server.go:200] Running in resource-only container "/kube-proxy"
 I1027 22:14:53.998163    5063 server.go:247] Using iptables Proxier.
-I1027 22:14:53.999055    5063 server.go:255] Tearing down userspace rules. Errors here are acceptable.
 I1027 22:14:54.038140    5063 proxier.go:352] Setting endpoints for "kube-system/kube-dns:dns-tcp" to [10.244.1.3:53]
 I1027 22:14:54.038164    5063 proxier.go:352] Setting endpoints for "kube-system/kube-dns:dns" to [10.244.1.3:53]
 I1027 22:14:54.038209    5063 proxier.go:352] Setting endpoints for "default/kubernetes:https" to [10.240.0.2:443]
@@ -830,13 +829,11 @@ and then retry.
 <!--
 Kube-proxy can run in one of a few modes.  In the log listed above, the
 line `Using iptables Proxier` indicates that kube-proxy is running in
-"iptables" mode.  The most common other mode is "ipvs".  The older "userspace"
-mode has largely been replaced by these.
-
+"iptables" mode.  The most common other mode is "ipvs".
 -->
 Kube-proxy 可以以若干模式之一运行。在上述日志中，`Using iptables Proxier`
 行表示 kube-proxy 在 "iptables" 模式下运行。
-最常见的另一种模式是 "ipvs"。先前的 "userspace" 模式已经被这些所代替。
+最常见的另一种模式是 "ipvs"。
 
 <!--
 #### Iptables mode
@@ -914,36 +911,6 @@ hostnames(`10.0.1.175:80`) has 3 endpoints(`10.244.0.5:9376`,
 `10.244.0.6:9376` 和 `10.244.0.7:9376`）。
 
 <!--
-#### Userspace mode
-
-In rare cases, you may be using "userspace" mode.  From your Node:
--->
-#### Userspace 模式   {#userspace-mode}
-
-在极少数情况下，你可能会用到 "userspace" 模式。在你的节点上运行：
-
-```shell
-iptables-save | grep hostnames
-```
-
-```none
--A KUBE-PORTALS-CONTAINER -d 10.0.1.175/32 -p tcp -m comment --comment "default/hostnames:default" -m tcp --dport 80 -j REDIRECT --to-ports 48577
--A KUBE-PORTALS-HOST -d 10.0.1.175/32 -p tcp -m comment --comment "default/hostnames:default" -m tcp --dport 80 -j DNAT --to-destination 10.240.115.247:48577
-```
-
-<!--
-There should be 2 rules for each port of your Service (only one in this
-example) - a "KUBE-PORTALS-CONTAINER" and a "KUBE-PORTALS-HOST".
-
-Almost nobody should be using the "userspace" mode any more, so you won't spend
-more time on it here.
--->
-对于 Service （本例中只有一个）的每个端口，应当有 2 条规则：
-一条 "KUBE-PORTALS-CONTAINER" 和一条 "KUBE-PORTALS-HOST" 规则。
-
-几乎没有人应该再使用 "userspace" 模式，因此你在这里不会花更多的时间。
-
-<!--
 ### Is kube-proxy proxying?
 
 Assuming you do see one the above cases, try again to access your Service by
@@ -962,28 +929,6 @@ hostnames-632524106-bbpiw
 ```
 
 <!--
-If this fails and you are using the userspace proxy, you can try accessing the
-proxy directly.  If you are using the iptables proxy, skip this section.
-
-Look back at the `iptables-save` output above, and extract the
-port number that `kube-proxy` is using for your Service.  In the above
-examples it is "48577".  Now connect to that:
--->
-如果失败，并且你正在使用用户空间代理，则可以尝试直接访问代理。
-如果你使用的是 iptables 代理，请跳过本节。
-
-回顾上面的 `iptables-save` 输出，并提取 `kube-proxy` 为你的 Service 所使用的端口号。
-在上面的例子中，端口号是 “48577”。现在试着连接它：
-
-```shell
-curl localhost:48577
-```
-
-```none
-hostnames-632524106-tlaok
-```
-
-<!--
 If this still fails, look at the `kube-proxy` logs for specific lines like:
 -->
 如果这步操作仍然失败，请查看 `kube-proxy` 日志中的特定行，如：
@@ -996,7 +941,7 @@ Setting endpoints for default/hostnames:default to [10.244.0.5:9376 10.244.0.6:9
 If you don't see those, try restarting `kube-proxy` with the `-v` flag set to 4, and
 then look at the logs again.
 -->
-如果你没有看到这些，请尝试将 `-V` 标志设置为 4 并重新启动 `kube-proxy`，然后再查看日志。
+如果你没有看到这些，请尝试将 `-v` 标志设置为 4 并重新启动 `kube-proxy`，然后再查看日志。
 
 <!--
 ### Edge case: A Pod fails to reach itself via the Service IP {#a-pod-fails-to-reach-itself-via-the-service-ip}
@@ -1010,7 +955,6 @@ are connected with bridge network. The `Kubelet` exposes a `hairpin-mode`
 back to themselves if they try to access their own Service VIP. The
 `hairpin-mode` flag must either be set to `hairpin-veth` or
 `promiscuous-bridge`.
-
 -->
 ### 边缘案例: Pod 无法通过 Service IP 连接到它本身  {#a-pod-fails-to-reach-itself-via-the-service-ip}
 

@@ -30,17 +30,22 @@ weight: 30
 특별히 기밀 데이터를 보관하기 위한 것이다.
 
 {{< caution >}}
-쿠버네티스 시크릿은 기본적으로 API 서버의 기본 데이터 저장소(etcd)에 암호화되지 않은 상태로 저장된다. API 접근(access) 권한이 있는 모든 사용자 또는 etcd에 접근할 수 있는 모든 사용자는 시크릿을 조회하거나 수정할 수 있다.
-또한 네임스페이스에서 파드를 생성할 권한이 있는 사람은 누구나 해당 접근을 사용하여 해당 네임스페이스의 모든 시크릿을 읽을 수 있다. 여기에는 디플로이먼트 생성 기능과 같은 간접 접근이 포함된다. 
+쿠버네티스 시크릿은 기본적으로 API 서버의 기본 데이터 저장소(etcd)에 암호화되지 않은 상태로 저장된다. 
+API 접근(access) 권한이 있는 모든 사용자 또는 etcd에 접근할 수 있는 모든 사용자는 시크릿을 조회하거나 수정할 수 있다.
+또한 네임스페이스에서 파드를 생성할 권한이 있는 사람은 누구나
+해당 접근을 사용하여 해당 네임스페이스의 모든 시크릿을 읽을 수 있다.
+여기에는 디플로이먼트 생성 기능과 같은 간접 접근이 포함된다.
 
 시크릿을 안전하게 사용하려면 최소한 다음의 단계를 따르는 것이 좋다.
 
 1. 시크릿에 대해 [저장된 데이터 암호화(Encryption at Rest)를 활성화](/docs/tasks/administer-cluster/encrypt-data/)한다.
-1. 시크릿 읽기 및 쓰기를 제한하는 
-   [RBAC 규칙을 활성화 또는 구성](/ko/docs/reference/access-authn-authz/authorization/)한다. 
-   파드 생성 권한을 가진 사람은 암묵적으로 시크릿에 접근할 수 있음에 주의한다.
-1. 적절한 경우, RBAC과 같은 메커니즘을 사용하여 새로운 시크릿을 생성하거나 
-   기존 시크릿을 대체할 수 있는 주체(principal)들을 제한한다.
+1. 시크릿에 대한 최소한의 접근 권한을 지니도록
+   [RBAC 규칙을 활성화 또는 구성](/ko/docs/reference/access-authn-authz/authorization/)한다.
+1. 특정 컨테이너에서만 시크릿에 접근하도록 한다.
+1. [외부 시크릿 저장소 제공 서비스를 사용하는 것을 고려](https://secrets-store-csi-driver.sigs.k8s.io/concepts.html#provider-for-the-secrets-store-csi-driver)한다.
+
+시크릿의 보안성을 높이고 관리하는 데에 관한 가이드라인은
+[쿠버네티스 시크릿에 관한 좋은 관행](/ko/docs/concepts/security/secrets-good-practices/)를 참고한다.
 
 {{< /caution >}}
 
@@ -96,9 +101,9 @@ weight: 30
 
 시크릿 생성에는 다음과 같은 방법이 있다.
 
-- [`kubectl` 명령으로 시크릿 생성](/ko/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
-- [환경 설정 파일을 사용하여 시크릿 생성](/ko/docs/tasks/configmap-secret/managing-secret-using-config-file/)
-- [kustomize를 사용하여 시크릿 생성](/ko/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
+- [`kubectl` 사용하기](/ko/docs/tasks/configmap-secret/managing-secret-using-kubectl/)
+- [환경 설정 파일 사용하기](/ko/docs/tasks/configmap-secret/managing-secret-using-config-file/)
+- [kustomize 도구 사용하기](/ko/docs/tasks/configmap-secret/managing-secret-using-kustomize/)
 
 #### 시크릿 이름 및 데이터에 대한 제약 사항 {#restriction-names-data}
 
@@ -125,43 +130,20 @@ weight: 30
 [리소스 쿼터](/ko/docs/concepts/policy/resource-quotas/)를 사용하여 
 한 네임스페이스의 시크릿 (또는 다른 리소스) 수를 제한할 수 있다.
 
-### 시크릿 편집하기
+### 시크릿 수정하기
 
-kubectl을 사용하여 기존 시크릿을 편집할 수 있다.
+만들어진 시크릿은 [불변(immutable)](#secret-immutable)만 아니라면 수정될 수 있다.
+시크릿 수정 방식은 다음과 같다.
 
-```shell
-kubectl edit secrets mysecret
-```
+* [`kubectl` 사용하기](/ko/docs/tasks/configmap-secret/managing-secret-using-kubectl/#edit-secret)
+* [설정 파일 사용하기](/ko/docs/tasks/configmap-secret/managing-secret-using-config-file/#edit-secret)
 
-이렇게 하면 기본으로 설정된 에디터가 열리며, 
-다음과 같이 `data` 필드에 base64로 인코딩된 시크릿 값을 업데이트할 수 있다.
+[Kustomize 도구](/ko/docs/tasks/configmap-secret/managing-secret-using-kustomize/#edit-secret)로
+시크릿 내부의 데이터를 수정하는 것도 가능하지만, 이 경우 수정된 데이터를 지닌 새로운 `Secret` 오브젝트가 생성된다.
 
-```yaml
-# 아래 오브젝트를 수정한다. '#'로 시작하는 줄은 무시되고,
-# 빈 파일을 저장하면 편집이 취소된다. 이 파일을 저장하는 도중에 오류가 발생하면
-# 관련 오류와 함께 파일이 다시 열릴 것이다.
-#
-apiVersion: v1
-data:
-  username: YWRtaW4=
-  password: MWYyZDFlMmU2N2Rm
-kind: Secret
-metadata:
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: { ... }
-  creationTimestamp: 2020-01-22T18:41:56Z
-  name: mysecret
-  namespace: default
-  resourceVersion: "164619"
-  uid: cfee02d6-c137-11e5-8d73-42010af00002
-type: Opaque
-```
-
-위의 예시 매니페스트는 `data`에 `username` 및 `password` 2개의 키를 갖는 시크릿을 정의한다. 
-매니페스트에서 이 값들은 Base64 문자열이지만, 
-이 시크릿을 파드에 대해 사용할 때에는 kubelet이 파드와 컨테이너에 _디코드된_ 데이터를 제공한다.
-
-한 시크릿에 여러 키 및 값을 넣을 수도 있고, 여러 시크릿으로 정의할 수도 있으며, 둘 중 편리한 쪽을 고르면 된다.
+시크릿을 생성한 방법이나 파드에서 시크릿이 어떻게 사용되는지에 따라,
+존재하는 `Secret` 오브젝트에 대한 수정은 해당 데이터를 사용하는 파드들에 자동으로 전파된다.
+자세한 정보는 [마운트된 시크릿의 자동 업데이트](#마운트된-시크릿의-자동-업데이트)를 참고하라.
 
 ### 시크릿 사용하기
 
@@ -202,9 +184,14 @@ kubelet은 또한 시크릿을 가져올 수 없는 문제에 대한 세부 정�
 이렇게 구성하려면, 다음을 수행한다.
 
 1. 시크릿을 생성하거나 기존 시크릿을 사용한다. 여러 파드가 동일한 시크릿을 참조할 수 있다.
-1. `.spec.volumes[].` 아래에 볼륨을 추가하려면 파드 정의를 수정한다. 볼륨의 이름을 뭐든지 지정하고, 시크릿 오브젝트의 이름과 동일한 `.spec.volumes[].secret.secretName` 필드를 생성한다.
-1. 시크릿이 필요한 각 컨테이너에 `.spec.containers[].volumeMounts[]` 를 추가한다. 시크릿을 표시하려는 사용되지 않은 디렉터리 이름에 `.spec.containers[].volumeMounts[].readOnly = true` 와 `.spec.containers[].volumeMounts[].mountPath` 를 지정한다.
-1. 프로그램이 해당 디렉터리에서 파일을 찾도록 이미지 또는 커맨드 라인을 수정한다. 시크릿 `data` 맵의 각 키는 `mountPath` 아래의 파일명이 된다.
+1. `.spec.volumes[].` 아래에 볼륨을 추가하려면 파드 정의를 수정한다. 볼륨의 이름을 뭐든지 지정하고, 
+   시크릿 오브젝트의 이름과 동일한 `.spec.volumes[].secret.secretName` 필드를 생성한다.
+1. 시크릿이 필요한 각 컨테이너에 `.spec.containers[].volumeMounts[]` 를 추가한다. 
+   시크릿을 표시하려는 사용되지 않은 디렉터리 이름에
+   `.spec.containers[].volumeMounts[].readOnly = true`와 
+   `.spec.containers[].volumeMounts[].mountPath`를 지정한다.
+1. 프로그램이 해당 디렉터리에서 파일을 찾도록 이미지 또는 커맨드 라인을 수정한다. 시크릿 `data` 맵의 
+   각 키는 `mountPath` 아래의 파일명이 된다.
 
 다음은 볼륨에 `mysecret`이라는 시크릿을 마운트하는 파드의 예시이다.
 
@@ -320,11 +307,10 @@ spec:
 시크릿이 `/etc/foo` 에 마운트되고, 
 시크릿 볼륨 마운트로 생성된 모든 파일의 퍼미션은 `0400` 이다.
 
-
 {{< note >}}
-JSON을 사용하여 파드 또는 파드 템플릿을 정의하는 경우, 
-JSON 스펙은 8진수 표기법을 지원하지 않음에 유의한다. 
-`defaultMode` 값으로 대신 10진수를 사용할 수 있다(예를 들어, 8진수 0400은 10진수로는 256이다). 
+JSON을 사용하여 파드 또는 파드 템플릿을 정의하는 경우,
+JSON 스펙은 8진수 표기법을 지원하지 않음에 유의한다.
+`defaultMode` 값으로 대신 10진수를 사용할 수 있다(예를 들어, 8진수 0400은 10진수로는 256이다).
 YAML로 작성하는 경우, `defaultMode` 값을 8진수로 표기할 수 있다.
 {{< /note >}}
 
@@ -369,7 +355,7 @@ cat /etc/foo/password
 컨테이너의 프로그램은 필요에 따라 
 이러한 파일에서 시크릿 데이터를 읽는다.
 
-#### 마운트된 시크릿은 자동으로 업데이트됨
+#### 마운트된 시크릿의 자동 업데이트
 
 볼륨이 시크릿의 데이터를 포함하고 있는 상태에서 시크릿이 업데이트되면, 쿠버네티스는 이를 추적하고 
 최종적으로 일관된(eventually-consistent) 접근 방식을 사용하여 볼륨 안의 데이터를 업데이트한다.
@@ -535,7 +521,7 @@ kubelet은 이 정보를 사용해서 파드를 대신하여 프라이빗 이미
 {{< glossary_tooltip text="스태틱(static) 파드" term_id="static-pod" >}}에서는 
 컨피그맵이나 시크릿을 사용할 수 없다.
 
-## 사용 사레
+## 사용 사례
 
 ### 사용 사례: 컨테이너 환경 변수로 사용하기
 
@@ -566,7 +552,7 @@ metadata:
 spec:
   containers:
     - name: test-container
-      image: k8s.gcr.io/busybox
+      image: registry.k8s.io/busybox
       command: [ "/bin/sh", "-c", "env" ]
       envFrom:
       - secretRef:
@@ -794,7 +780,7 @@ spec:
       secretName: dotfile-secret
   containers:
   - name: dotfile-test-container
-    image: k8s.gcr.io/busybox
+    image: registry.k8s.io/busybox
     command:
     - ls
     - "-l"
@@ -1186,7 +1172,7 @@ data:
 - `token-secret`: 실제 토큰 시크릿으로 임의의 16개 문자의 문자열. 필수 사항.
 - `description`: 토큰의 사용처를 설명하는 사람이 읽을 수 있는
   문자열. 선택 사항.
-- `expiration`: 토큰이 만료되어야 하는 시기를 명시한 RFC3339를
+- `expiration`: 토큰이 만료되어야 하는 시기를 명시한 [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339)를
   사용하는 절대 UTC 시간. 선택 사항.
 - `usage-bootstrap-<usage>`: 부트스트랩 토큰의 추가적인 사용처를 나타내는
   불리언(boolean) 플래그.
@@ -1218,22 +1204,23 @@ stringData:
 ```
 
 
-## 수정 불가능한(immutable) 시크릿 {#secret-immutable}
+## 불변(immutable) 시크릿 {#secret-immutable}
 
 {{< feature-state for_k8s_version="v1.21" state="stable" >}}
 
-쿠버네티스에서 특정 시크릿(및 컨피그맵)을 _수정 불가능_ 으로 표시할 수 있다.
+쿠버네티스에서 특정 시크릿(및 컨피그맵)을 _불변_ 으로 표시할 수 있다.
 기존 시크릿 데이터의 변경을 금지시키면 다음과 같은 이점을 가진다.
 
 - 잘못된(또는 원치 않은) 업데이트를 차단하여 애플리케이션 중단을 방지
 - (수만 개 이상의 시크릿-파드 마운트와 같이 시크릿을 대규모로 사용하는 클러스터의 경우,) 
-  수정 불가능한 시크릿으로 전환하면 kube-apiserver의 부하를 크게 줄여 클러스터의 성능을 향상시킬 수 있다. 
-  kubelet은 수정 불가능으로 지정된 시크릿에 대해서는 
+  불변 시크릿으로 전환하면 kube-apiserver의 부하를 크게 줄여 클러스터의 성능을 향상시킬 수 있다. 
+  kubelet은 불변으로 지정된 시크릿에 대해서는 
   [감시(watch)]를 유지할 필요가 없기 때문이다.
 
-### 시크릿을 수정 불가능으로 지정하기 {#secret-immutable-create}
+### 시크릿을 불변으로 지정하기 {#secret-immutable-create}
 
-다음과 같이 시크릿의 `immutable` 필드를 `true`로 설정하여 수정 불가능한 시크릿을 만들 수 있다.
+다음과 같이 시크릿의 `immutable` 필드를 `true`로 설정하여 불변 시크릿을 만들 수 있다.
+
 ```yaml
 apiVersion: v1
 kind: Secret
@@ -1244,10 +1231,10 @@ data:
 immutable: true
 ```
 
-또한 기존의 수정 가능한 시크릿을 변경하여 수정 불가능한 시크릿으로 바꿀 수도 있다.
+또한 기존의 수정 가능한 시크릿을 변경하여 불변 시크릿으로 바꿀 수도 있다.
 
 {{< note >}}
-시크릿 또는 컨피그맵이 수정 불가능으로 지정되면, 이 변경을 취소하거나 `data` 필드의 내용을 바꿀 수 _없다_. 
+시크릿 또는 컨피그맵이 불변으로 지정되면, 이 변경을 취소하거나 `data` 필드의 내용을 바꿀 수 _없다_. 
 시크릿을 삭제하고 다시 만드는 것만 가능하다. 
 기존의 파드는 삭제된 시크릿으로의 마운트 포인트를 유지하기 때문에, 
 이러한 파드는 재생성하는 것을 추천한다.
@@ -1280,61 +1267,14 @@ kubelet은 시크릿에 있던 기밀 데이터의 로컬 복사본을 삭제한
 따라서, 하나의 파드는 다른 파드의 시크릿에 접근할 수 없다.
 
 {{< warning >}}
-노드 상의 높은 권한을 갖는(privileged) 컨테이너는 
-해당 노드에 있는 모든 시크릿에 접근할 수 있다.
+특정 노드에 대해 `privileged: true`가 설정되어 실행 중인 컨테이너들은 전부 
+해당 노드에서 사용 중인 모든 시크릿에 접근할 수 있다.
 {{< /warning >}}
-
-
-### 개발자를 위한 보안 추천 사항
-
-- 애플리케이션은 환경 변수 또는 볼륨에서 기밀 정보를 읽은 뒤에 기밀 정보를 계속 보호해야 한다. 
-  예를 들어, 애플리케이션은 비밀 데이터를 암호화되지 않은 상태로 기록하거나 
-  신뢰할 수 없는 당사자에게 전송하지 말아야 한다.
-- 파드에 여러 컨테이너가 있고, 
-  그 중 한 컨테이너만 시크릿에 접근해야 하는 경우, 
-  다른 컨테이너는 해당 시크릿에 접근할 수 없도록 
-  볼륨 마운트 또는 환경 변수 구성을 적절히 정의한다.
-- {{< glossary_tooltip text="매니페스트" term_id="manifest" >}}를 통해 시크릿을 구성하고, 
-  이 안에 비밀 데이터가 base64로 인코딩된 경우, 
-  이 파일을 공유하거나 소스 저장소에 올리면 
-  해당 매니페스트를 읽을 수 있는 모든 사람이 이 비밀 정보를 볼 수 있음에 주의한다. 
-  base64 인코딩은 암호화 수단이 _아니기 때문에_, 평문과 마찬가지로 기밀성을 제공하지 않는다.
-- 시크릿 API와 통신하는 애플리케이션을 배포할 때, 
-  [RBAC](/docs/reference/access-authn-authz/rbac/)과 같은 
-  [인증 정책](/ko/docs/reference/access-authn-authz/authorization/)을 사용하여 
-  접근을 제한해야 한다.
-- 쿠버네티스 API에서, 네임스페이스 내 시크릿에 대한 `watch` 와 `list` 요청은 매우 강력한 기능이다. 
-  시크릿 목록 조회를 가능하게 하면 
-  클라이언트가 해당 네임스페이스에 있는 모든 시크릿의 값을 검사할 수도 있기 때문에 
-  가능한 한 이러한 접근 권한을 주는 것은 피해야 한다.
-
-### 클러스터 관리자를 위한 보안 추천 사항
-
-{{< caution >}}
-시크릿을 사용하는 파드를 생성할 수 있는 사용자는 해당 시크릿의 값을 볼 수도 있다. 
-클러스터 정책에서 사용자가 직접 시크릿을 조회하는 것을 금지했더라도, 
-동일한 사용자가 시크릿을 노출하는 파드에 접근 권한을 가질 수 있다.
-{{< /caution >}}
-
-- (쿠버네티스 API를 사용하여) 클러스터의 모든 시크릿을 감시(`watch`) 또는 나열(`list`)하는 권한을 제한하여, 
-  가장 특권이 있는 시스템 레벨의 컴포넌트에만 이 동작을 허용한다.
-- 시크릿 API와 통신하는 애플리케이션을 배포할 때, 
-  [RBAC](/docs/reference/access-authn-authz/rbac/)과 같은 
-  [인증 정책](/ko/docs/reference/access-authn-authz/authorization/)을 사용하여 
-  접근을 제한해야 한다.
-- API 서버에서, (시크릿을 포함한) 오브젝트는 
-  {{< glossary_tooltip term_id="etcd" >}}에 저장된다. 그러므로
-  - 클러스터 관리자만 etcd에 접근할 수 있도록 한다(읽기 전용 접근 포함)
-  - 시크릿 오브젝트에 대해 
-    [저장된 데이터 암호화(encryption at rest)](/docs/tasks/administer-cluster/encrypt-data/)를 활성화하여, 
-    이러한 시크릿의 데이터가 {{< glossary_tooltip term_id="etcd" >}}에 암호화되지 않은 상태로 저장되지 않도록 한다.
-  - etcd가 동작하던 장기 저장 장치를 더 이상 사용하지 않는다면 
-    초기화 또는 파쇄하는 것을 검토한다.
-  - etcd 인스턴스가 여러 개라면, 
-    etcd 피어 간 통신에 SSL/TLS를 사용하고 있는지 확인한다.
 
 ## {{% heading "whatsnext" %}}
 
+- 시크릿의 보안성을 높이고 관리하는 데에 관한 가이드라인을 원한다면
+  [쿠버네티스 시크릿을 다루는 좋은 관행들](/ko/docs/concepts/security/secrets-good-practices/)을 참고하라.
 - [`kubectl` 을 사용하여 시크릿 관리](/ko/docs/tasks/configmap-secret/managing-secret-using-kubectl/)하는 방법 배우기
 - [구성 파일을 사용하여 시크릿 관리](/ko/docs/tasks/configmap-secret/managing-secret-using-config-file/)하는 방법 배우기
 - [kustomize를 사용하여 시크릿 관리](/ko/docs/tasks/configmap-secret/managing-secret-using-kustomize/)하는 방법 배우기

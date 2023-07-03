@@ -1,7 +1,7 @@
 ---
 title: 쿠버네티스에서 프락시(Proxy)
 content_type: concept
-weight: 90
+weight: 100
 ---
 
 <!-- overview -->
@@ -23,7 +23,7 @@ weight: 90
     - API 서버를 찾는다.
     - 인증 헤더를 추가한다.
 
-1.  [apiserver proxy](/ko/docs/tasks/access-application-cluster/access-cluster/#빌트인-서비스들의-발견):
+1.  [apiserver proxy](/ko/docs/tasks/access-application-cluster/access-cluster-services/#discovering-builtin-services):
 
     - API 서버에 내장된 요새(bastion)이다.
     - 클러스터 외부의 사용자가 도달할 수 없는 클러스터 IP 주소로 연결한다.

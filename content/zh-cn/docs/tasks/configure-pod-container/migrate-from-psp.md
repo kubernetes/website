@@ -2,6 +2,7 @@
 title: 从 PodSecurityPolicy 迁移到内置的 PodSecurity 准入控制器
 content_type: task
 min-kubernetes-server-version: v1.22
+weight: 260
 ---
 
 <!--
@@ -11,6 +12,7 @@ reviewers:
 - liggitt
 content_type: task
 min-kubernetes-server-version: v1.22
+weight: 260
 -->
 
 <!-- overview -->
@@ -30,11 +32,11 @@ admission controller. This can be done effectively using a combination of dry-ru
 
 <!--
 If you are currently running a version of Kubernetes other than
-{{ skew currentVersion }}, you may want to switch to viewing this
+{{< skew currentVersion >}}, you may want to switch to viewing this
 page in the documentation for the version of Kubernetes that you
 are actually running.
 -->
-如果你目前运行的 Kubernetes 版本不是 {{ skew currentVersion }}，
+如果你目前运行的 Kubernetes 版本不是 {{< skew currentVersion >}}，
 你可能要切换本页面以查阅你实际所运行的 Kubernetes 版本文档。
 
 <!--
@@ -255,8 +257,7 @@ you must enforce these options, you will need to supplement Pod Security Admissi
 which is outside the scope of this guide.
 -->
 PodSecurityPolicy 中有一些字段未被 Pod 安全性准入机制覆盖。如果你必须使用这些选项，
-你需要在 Pod 安全性准入之外部署
-[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
+你需要在 Pod 安全性准入之外部署[准入 Webhook](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/)
 以补充这一能力，而这类操作不在本指南范围。
 
 <!--
@@ -265,8 +266,9 @@ These fields (also listed in the
 [Mapping PodSecurityPolicies to Pod Security Standards](/docs/reference/access-authn-authz/psp-to-pod-security-standards/)
 reference with "no opinion") are:
 -->
-首先，你可以去掉 Pod 安全性标准所未覆盖的那些验证性字段。这些字段（也列举于
-[将 PodSecurityPolicy 映射到 Pod 安全性标准](/zh-cn/docs/reference/access-authn-authz/psp-to-pod-security-standards/)参考中，标记为“无意见”）有：
+首先，你可以去掉 Pod 安全性标准所未覆盖的那些验证性字段。这些字段
+（也列举于[将 PodSecurityPolicy 映射到 Pod 安全性标准](/zh-cn/docs/reference/access-authn-authz/psp-to-pod-security-standards/)参考中，
+标记为“无意见”）有：
 
 - `.spec.allowedHostPaths`
 - `.spec.allowedFlexVolumes`
@@ -356,6 +358,7 @@ For each updated PodSecurityPolicy:
    you can compare the pod with the PodTemplate in the controller resource. If any changes are
    identified, the original Pod or PodTemplate should be updated with the desired configuration.
    The fields to review are:
+   - `.metadata.annotations['container.apparmor.security.beta.kubernetes.io/*']` (replace * with each container name)
 -->
 2. 比较运行中的 Pod 与原来的 Pod 规约，确定 PodSecurityPolicy 是否更改过这些 Pod。
    对于通过[工作负载资源](/zh-cn/docs/concepts/workloads/controllers/)所创建的 Pod，
@@ -386,7 +389,7 @@ For each updated PodSecurityPolicy:
 3. Create the new PodSecurityPolicies. If any Roles or ClusterRoles are granting `use` on all PSPs
    this could cause the new PSPs to be used instead of their mutating counter-parts.
 4. Update your authorization to grant access to the new PSPs. In RBAC this means updating any Roles
-   or ClusterRoles that grant the `use` permision on the original PSP to also grant it to the
+   or ClusterRoles that grant the `use` permission on the original PSP to also grant it to the
    updated PSP.
 -->
 3. 创建新的 PodSecurityPolicy。如果存在 Role 或 ClusterRole 对象为用户授权了在所有 PSP
@@ -449,8 +452,8 @@ There are several ways to choose a Pod Security level for your namespace:
    level that is at least as restrictive. You can see which PSPs are in use for pods in a given
    namespace with this command:
 -->
-2. **根据现有的 PodSecurityPolicy 来确定** - 基于
-   [将 PodSecurityPolicy 映射到 Pod 安全性标准](/zh-cn/docs/reference/access-authn-authz/psp-to-pod-security-standards/)
+2. **根据现有的 PodSecurityPolicy 来确定** -
+   基于[将 PodSecurityPolicy 映射到 Pod 安全性标准](/zh-cn/docs/reference/access-authn-authz/psp-to-pod-security-standards/)
    参考资料，你可以将各个 PSP 映射到某个 Pod 安全性标准级别。如果你的 PSP 不是基于
    Pod 安全性标准的，你可能或者需要选择一个至少与该 PSP 一样宽松的级别，
    或者选择一个至少与其一样严格的级别。使用下面的命令你可以查看被 Pod 使用的 PSP 有哪些：

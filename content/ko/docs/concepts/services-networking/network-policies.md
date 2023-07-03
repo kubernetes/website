@@ -5,7 +5,12 @@
 # - danwinship
 title: 네트워크 정책
 content_type: concept
-weight: 50
+weight: 70
+description: >-
+  IP 주소 또는 포트 수준(OSI 계층 3 또는 4)에서 트래픽 흐름을 제어하려는 경우,
+  네트워크 정책은 클러스터 내의 트래픽 흐름뿐만 아니라
+  파드와 외부 간의 규칙을 정의할 수 있도록 해준다.
+  클러스터는 반드시 네트워크 정책을 지원하는 네트워크 플러그인을 사용해야 한다.
 ---
 
 <!-- overview -->
@@ -70,7 +75,7 @@ __egress__: 각 네트워크폴리시에는 화이트리스트 `egress` 규칙�
 따라서 예시의 네트워크폴리시는 다음과 같이 동작한다.
 
 1. 인그레스 및 이그레스 트래픽에 대해 "default" 네임스페이스에서 "role=db"인 파드를 격리한다(아직 격리되지 않은 경우).
-2. (인그레스 규칙)은 "role=db" 레이블을 사용하는 "default" 네임스페이스의 모든 파드에 대해서 TCP 포트 6397로의 연결을 허용한다. 인그레스을 허용 할 대상은 다음과 같다.
+2. (인그레스 규칙)은 "role=db" 레이블을 사용하는 "default" 네임스페이스의 모든 파드에 대해서 TCP 포트 6379로의 연결을 허용한다. 인그레스을 허용 할 대상은 다음과 같다.
 
    * "role=frontend" 레이블이 있는 "default" 네임스페이스의 모든 파드
    * 네임스페이스와 "project=myproject" 를 레이블로 가지는 모든 파드
@@ -195,7 +200,7 @@ SCTP 프로토콜 네트워크폴리시를 지원하는 {{< glossary_tooltip tex
 
 ## 포트 범위 지정
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 네트워크폴리시를 작성할 때, 단일 포트 대신 포트 범위를 대상으로 지정할 수 있다.
 
@@ -228,10 +233,6 @@ spec:
 TCP를 통해 `10.0.0.0/24` 범위 내의 모든 IP와 통신하도록 허용한다.
 
 이 필드를 사용할 때 다음의 제한 사항이 적용된다.
-* 베타 기능으로, 기본적으로 활성화되어 있다. 
-클러스터 수준에서 `endPort` 필드를 비활성화하려면, 사용자(또는 클러스터 관리자)가 
-API 서버에 대해 `--feature-gates=NetworkPolicyEndPort=false,…` 명령을 이용하여 
-`NetworkPolicyEndPort` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 비활성화해야 한다.
 * `endPort` 필드는 `port` 필드보다 크거나 같아야 한다.
 * `endPort` 는 `port` 도 정의된 경우에만 정의할 수 있다.
 * 두 포트 모두 숫자여야 한다.

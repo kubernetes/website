@@ -21,4 +21,4 @@ tags:
 
 이벤트는 유익(imformative)해야 하고, 최선을 다한(best-effort), 보완적(supplemental) 데이터로 취급되어야 한다.
 
-쿠버네티스에서, [감사(auditing)](/docs/tasks/debug/debug-cluster/audit/)는 다른 종류의 이벤트 레코드를 생성한다. (API 그룹 `audit.k8s.io`).
+쿠버네티스에서, [감사(auditing)](/ko/docs/tasks/debug/debug-cluster/audit/)는 다른 종류의 이벤트 레코드를 생성한다. (API 그룹 `audit.k8s.io`).

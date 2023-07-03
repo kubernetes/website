@@ -1,10 +1,12 @@
 ---
 title: 限制存储使用量
 content_type: task
+weight: 240
 ---
 <!--
 title: Limit Storage Consumption
 content_type: task
+weight: 240
 -->
 
 <!-- overview -->

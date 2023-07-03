@@ -3,7 +3,7 @@ title: Kubernetes 组件
 content_type: concept
 description: >
   Kubernetes 集群由控制平面的组件和一组称为节点的机器组成。
-weight: 20
+weight: 30
 card:
   name: concepts
   weight: 20
@@ -16,22 +16,22 @@ content_type: concept
 description: >
   A Kubernetes cluster consists of the components that are a part of the control
   plane and a set of machines called nodes.
-weight: 20
+weight: 30
 card:
   name: concepts
   weight: 20
 -->
 
+<!-- overview -->
 <!--
 When you deploy Kubernetes, you get a cluster.
--{{ < glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of">}}
+{{ < glossary_definition term_id="cluster" length="all" prepend="A Kubernetes cluster consists of">}}
 
 This document outlines the various components you need to have for
 a complete and working Kubernetes cluster.
 
 {{ < figure src="/images/docs/components-of-kubernetes.svg" alt="Components of Kubernetes" caption="The components of a Kubernetes cluster" class="diagram-large" >}}
 -->
-<!-- overview -->
 当你部署完 Kubernetes，便拥有了一个完整的集群。
 
 {{< glossary_definition term_id="cluster" length="all" >}}
@@ -152,7 +152,7 @@ Node components run on every node, maintaining running pods and providing the Ku
 {{< glossary_definition term_id="kube-proxy" length="all" >}}
 
 <!--
-### Container Runtime
+### Container runtime
 -->
 ### 容器运行时（Container Runtime）    {#container-runtime}
 
@@ -233,15 +233,35 @@ saving container logs to a central log store with search/browsing interface.
 [集群层面日志](/zh-cn/docs/concepts/cluster-administration/logging/)机制负责将容器的日志数据保存到一个集中的日志存储中，
 这种集中日志存储提供搜索和浏览接口。
 
+<!--
+### Network Plugins
+
+[Network plugins](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins) are software
+components that implement the container network interface (CNI) specification. They are responsible for
+allocating IP addresses to pods and enabling them to communicate with each other within the cluster.
+-->
+### 网络插件   {#network-plugins}
+
+[网络插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins)
+是实现容器网络接口（CNI）规范的软件组件。它们负责为 Pod 分配 IP 地址，并使这些 Pod 能在集群内部相互通信。
+
 ## {{% heading "whatsnext" %}}
 
 <!--
-* Learn about [Nodes](/docs/concepts/architecture/nodes/)
-* Learn about [Controllers](/docs/concepts/architecture/controller/)
-* Learn about [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/)
-* Read etcd's official [documentation](https://etcd.io/docs/)
+Learn more about the following:
+   * [Nodes](/docs/concepts/architecture/nodes/) and [their communication](/docs/concepts/architecture/control-plane-node-communication/) with the control plane.
+   * Kubernetes [controllers](/docs/concepts/architecture/controller/).
+   * [kube-scheduler](/docs/concepts/scheduling-eviction/kube-scheduler/) which is the default scheduler for Kubernetes.
+   * Etcd's official [documentation](https://etcd.io/docs/).
+   * Several [container runtimes](/docs/setup/production-environment/container-runtimes/) in Kubernetes.
+   * Integrating with cloud providers using [cloud-controller-manager](/docs/concepts/architecture/cloud-controller/).
+   * [kubectl](/docs/reference/generated/kubectl/kubectl-commands) commands.
 -->
-* 进一步了解[节点](/zh-cn/docs/concepts/architecture/nodes/)
-* 进一步了解[控制器](/zh-cn/docs/concepts/architecture/controller/)
-* 进一步了解 [kube-scheduler](/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/)
-* 阅读 etcd 官方[文档](https://etcd.io/docs/)
+进一步了解以下内容：
+   * [节点](/zh-cn/docs/concepts/architecture/nodes/)及其与[控制平面](/zh-cn/docs/concepts/architecture/control-plane-node-communication/)的通信。
+   * Kubernetes 中的[控制器](/zh-cn/docs/concepts/architecture/controller/)。
+   * Kubernetes 的默认调度程序 [kube-scheduler](/zh-cn/docs/concepts/scheduling-eviction/kube-scheduler/)。
+   * etcd 的官方[文档](https://etcd.io/docs/)。
+   * Kubernetes 中的几个[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)。
+   * 使用 [cloud-controller-manager](/zh-cn/docs/concepts/architecture/cloud-controller/) 与云提供商进行集成。
+   * [kubectl](/docs/reference/generated/kubectl/kubectl-commands) 命令。

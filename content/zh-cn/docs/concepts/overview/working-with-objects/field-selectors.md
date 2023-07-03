@@ -10,10 +10,13 @@ weight: 70
 -->
 
 <!--
-_Field selectors_ let you [select Kubernetes resources](/docs/concepts/overview/working-with-objects/kubernetes-objects) based on the value of one or more resource fields. Here are some example field selector queries:
+_Field selectors_ let you [select Kubernetes resources](/docs/concepts/overview/working-with-objects/kubernetes-objects) based on the value of one or more resource fields. Here are some examples of field selector queries:
+
+_Field selectors_ let you select Kubernetes {{< glossary_tooltip text="objects" term_id="object" >}} based on the
+value of one or more resource fields. Here are some examples of field selector queries:
 -->
-“字段选择器（Field selectors）”允许你根据一个或多个资源字段的值
-[筛选 Kubernetes 资源](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects)。
+“字段选择器（Field selectors）”允许你根据一个或多个资源字段的值筛选
+Kubernetes {{< glossary_tooltip text="对象" term_id="object" >}}。
 下面是一些使用字段选择器查询的例子：
 
 * `metadata.name=my-service`
@@ -23,24 +26,23 @@ _Field selectors_ let you [select Kubernetes resources](/docs/concepts/overview/
 <!--
 This `kubectl` command selects all Pods for which the value of the [`status.phase`](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) field is `Running`:
 -->
-下面这个 `kubectl` 命令将筛选出 [`status.phase`](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)
+下面这个 `kubectl` 命令将筛选出
+[`status.phase`](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)
 字段值为 `Running` 的所有 Pod：
 
 ```shell
 kubectl get pods --field-selector status.phase=Running
 ```
-<!--
-Field selectors are essentially resource *filters*. By default, no selectors/filters are applied, meaning that all resources of the specified type are selected. This makes the following `kubectl` queries equivalent:
--->
+
 {{< note >}}
+<!--
+Field selectors are essentially resource *filters*. By default, no selectors/filters are applied, meaning that all resources of the specified type are selected. This makes the `kubectl` queries `kubectl get pods` and `kubectl get pods --field-selector ""` equivalent.
+-->
 字段选择器本质上是资源“过滤器（Filters）”。默认情况下，字段选择器/过滤器是未被应用的，
 这意味着指定类型的所有资源都会被筛选出来。
-这使得以下的两个 `kubectl` 查询是等价的：
+这使得 `kubectl get pods` 和 `kubectl get pods --field-selector ""`
+这两个 `kubectl` 查询是等价的。
 
-```shell
-kubectl get pods
-kubectl get pods --field-selector ""
-```
 {{< /note >}}
 
 <!--

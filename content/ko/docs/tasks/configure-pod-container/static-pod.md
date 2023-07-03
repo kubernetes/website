@@ -38,6 +38,10 @@ API 서버에서 제어될 수는 없다.
 {{< glossary_tooltip text="시크릿" term_id="secret" >}}, 등)가 참조할 수 없다.
 {{< /note >}}
 
+{{< note >}}
+스태틱 파드는 [임시 컨테이너](/ko/docs/concepts/workloads/pods/ephemeral-containers/)를 지원하지 않는다.
+{{< /note >}}
+
 ## {{% heading "prerequisites" %}}
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
@@ -182,7 +186,7 @@ static-web   1/1     Running   0               2m
 ```
 
 {{< note >}}
-Kubelet에 API 서버에서 미러 파드를 생성할 수 있는 권한이 있는지 미리 확인해야 한다. 그렇지 않을 경우 API 서버에 의해서 생성 요청이 거부된다. [파드 시큐리티 어드미션](/docs/concepts/security/pod-security-admission/) 및 [파드시큐리티폴리시(PodSecurityPolicy)](/ko/docs/concepts/security/pod-security-policy/)를 확인한다.
+API 서버에서 미러 파드를 생성할 수 있는 권한이 kubelet에게 있는지 미리 확인해야 한다. 그렇지 않을 경우 API 서버에 의해서 생성 요청이 거부된다.
 {{< /note >}}
 
 스태틱 파드에 있는 {{< glossary_tooltip term_id="label" text="레이블" >}} 은

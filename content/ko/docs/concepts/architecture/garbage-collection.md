@@ -1,14 +1,13 @@
 ---
 title: 가비지(Garbage) 수집
 content_type: concept
-weight: 50
+weight: 70
 ---
 
 <!-- overview -->
 {{<glossary_definition term_id="garbage-collection" length="short">}}
 다음과 같은 리소스를 정리한다:
 
-  * [실패한 파드](/ko/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)
   * [종료된 잡](/ko/docs/concepts/workloads/controllers/ttlafterfinished/)
   * [소유자 참조가 없는 오브젝트](#owners-dependents)
   * [사용되지 않는 컨테이너와 컨테이너 이미지](#containers-images)

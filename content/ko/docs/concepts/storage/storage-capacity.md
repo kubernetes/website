@@ -7,7 +7,7 @@
 # - pohly
 title: 스토리지 용량
 content_type: concept
-weight: 70
+weight: 80
 ---
 
 <!-- overview -->
@@ -70,7 +70,7 @@ weight: 70
 볼륨을 생성한 후에, 스케줄러는
 볼륨을 사용할 수 있는 노드에 파드를 스케줄링한다.
 
-[CSI 임시 볼륨](/ko/docs/concepts/storage/volumes/#csi)의 경우에는
+[CSI 임시 볼륨](/ko/docs/concepts/storage/ephemeral-volumes/#csi-ephemeral-volumes)의 경우에는
 볼륨 유형이 로컬 볼륨이고
 큰 자원이 필요하지 않은 특정 CSI 드라이버에서만 사용된다는 가정하에,
 항상 스토리지 용량을 고려하지 않고

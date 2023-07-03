@@ -1,6 +1,7 @@
 ---
 title: 다운워드(Downward) API
 content_type: concept
+weight: 170
 description: >
   실행 중인 컨테이너에 파드 및 컨테이너 필드를 노출하는 두 가지 방법이 있다.
   환경 변수를 활용하거나, 그리고 특수한 볼륨 타입으로 채워진 파일을 이용한다.
@@ -22,7 +23,7 @@ description: >
 
 쿠버네티스에는 실행 중인 컨테이너에 파드 및 컨테이너 필드를 노출하는 두 가지 방법이 있다.
 
-* [환경 변수](/ko/docs/tasks/inject-data-application/environment-variable-expose-pod-information/#다운워드-downward-api)
+* [환경 변수](/ko/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 * [볼륨 파일](/ko/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)
 
 파드 및 컨테이너 필드를 노출하는 이 두 가지 방법을
@@ -127,5 +128,5 @@ CPU와 메모리에 할당 가능한 최댓값을 노출시킨다.
 자세한 정보는 [`다운워드API` 볼륨](/ko/docs/concepts/storage/volumes/#downwardapi)를 참고한다.
 
 다운워드 API를 사용하여 파드 및 컨테이너 정보를 노출시켜보자.
-* [환경 변수](/ko/docs/tasks/inject-data-application/environment-variable-expose-pod-information/#다운워드-downward-api)
+* [환경 변수](/ko/docs/tasks/inject-data-application/environment-variable-expose-pod-information/)
 * [볼륨 파일](/ko/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/)

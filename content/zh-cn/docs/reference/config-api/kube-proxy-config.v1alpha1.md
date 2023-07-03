@@ -194,18 +194,6 @@ in order to proxy service traffic. If unspecified (0-0) then ports will be rando
    用来设置代理服务所使用的端口。如果未指定（即 ‘0-0’），则代理服务会随机选择端口号。</p>
 </td>
 </tr>
-<tr><td><code>udpIdleTimeout</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <!--
-   udpIdleTimeout is how long an idle UDP connection will be kept open (e.g. '250ms', '2s').
-Must be greater than 0. Only applicable for proxyMode=userspace.
-   -->
-   <p><code>udpIdleTimeout</code> 字段用来设置 UDP 链接保持活跃的时长（例如，'250ms'、'2s'）。
-   此值必须大于 0。此字段仅适用于 mode 值为 'userspace' 的场合。</p>
-</td>
-</tr>
 <tr><td><code>conntrack</code> <B><!--[Required]-->[必需]</B><br/>
 <a href="#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConntrackConfiguration"><code>KubeProxyConntrackConfiguration</code></a>
 </td>
@@ -456,6 +444,15 @@ the pure iptables proxy mode. Values must be within the range [0, 31].
    -->
    <p><code>masqueradeAll</code> 字段用来通知 kube-proxy
    在使用纯 iptables 代理模式时对所有流量执行 SNAT 操作。</p>
+</td>
+</tr>
+<tr><td><code>localhostNodePorts</code> <B><!--[Required]-->[必需]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <!--LocalhostNodePorts tells kube-proxy to allow service NodePorts to be accessed via
+localhost (iptables mode only)-->
+   <p>localhostNodePorts 告知 kube-proxy 允许通过 localhost 访问服务 NodePorts（仅 iptables 模式）</p>
 </td>
 </tr>
 <tr><td><code>syncPeriod</code> <B><!--[Required]-->[必需]</B><br/>
@@ -711,40 +708,22 @@ LocalMode 代表的是对节点上本地流量进行检测的模式。
 <!--
 ProxyMode represents modes used by the Kubernetes proxy server.
 
-Currently, three modes of proxy are available in Linux platform: 'userspace' (older, going to be EOL), 'iptables'
-(newer, faster), 'ipvs'(newest, better in performance and scalability).
-
-Two modes of proxy are available in Windows platform: 'userspace'(older, stable) and 'kernelspace' (newer, faster).
+Currently, two modes of proxy are available on Linux platforms: 'iptables' and 'ipvs'.
+One mode of proxy is available on Windows platforms: 'kernelspace'.
 -->
-ProxyMode 表示的是 Kubernetes 代理服务器所使用的模式。
+<p>ProxyMode 表示的是 Kubernetes 代理服务器所使用的模式。</p>
 
-目前 Linux 平台上有三种可用的代理模式：'userspace'（相对较老，即将被淘汰）、
-'iptables'（相对较新，速度较快）、'ipvs'（最新，在性能和可扩缩性上表现好）。
-
-在 Windows 平台上有两种可用的代理模式：'userspace'（相对较老，但稳定）和
-'kernelspace'（相对较新，速度更快）。
+<p>目前 Linux 平台上有两种可用的代理模式：'iptables' 和 'ipvs'。
+在 Windows 平台上可用的一种代理模式是：'kernelspace'。</p>
 
 <!--
-In Linux platform, if proxy mode is blank, use the best-available proxy (currently iptables, but may change in the
-future). If the iptables proxy is selected, regardless of how, but the system's kernel or iptables versions are
-insufficient, this always falls back to the userspace proxy. IPVS mode will be enabled when proxy mode is set to 'ipvs',
-and the fall back path is firstly iptables and then userspace.
+If the proxy mode is unspecified, the best-available proxy mode will be used (currently this
+is <code>iptables</code> on Linux and <code>kernelspace</code> on Windows). If the selected proxy mode cannot be
+used (due to lack of kernel support, missing userspace components, etc) then kube-proxy
+will exit with an error.
 -->
-在 Linux 平台上，如果代理的 mode 为空，则使用可用的最佳代理（目前是 iptables，
-将来可能会发生变化）。如果选择的是 iptables 代理（无论原因如何），但系统的内核
-或者 iptables 的版本不够高，kube-proxy 也会回退为 userspace 代理服务器所使用的模式。
-当代理的 mode 设置为 'ipvs' 时会启用 IPVS 模式，对应的回退路径是先尝试 iptables，
-最后回退到 userspace。
-
-<!--
-In Windows platform, if proxy mode is blank, use the best-available proxy (currently userspace, but may change in the
-future). If winkernel proxy is selected, regardless of how, but the Windows kernel can't support this mode of proxy,
-this always falls back to the userspace proxy.
--->
-在 Windows 平台上，如果代理 mode 为空，则使用可用的最佳代理（目前是 userspace，
-不过将来可能会发生变化）。如果所选择的是 winkernel 代理（无论原因如何），
-但 Windows 内核不支持此代理模式，则 kube-proxy 会回退到 userspace 代理。
-
+<p>如果代理模式未被指定，将使用最佳可用的代理模式（目前在 Linux 上是 <code>iptables</code>，在 Windows 上是 <code>kernelspace</code>）。
+如果不能使用选定的代理模式（由于缺少内核支持、缺少用户空间组件等），则 kube-proxy 将出错并退出。</p>
 
 ## `ClientConnectionConfiguration`     {#ClientConnectionConfiguration}
     
@@ -755,9 +734,12 @@ this always falls back to the userspace proxy.
 
 - [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
 
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
 
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 
@@ -833,9 +815,11 @@ default value of 'application/json'. This field will control all connections to 
 -->
 **出现在：**
 
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
+
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
 
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 
@@ -864,11 +848,11 @@ enableProfiling enables profiling via web interface host:port/debug/pprof/
 </td>
 <td>
 <!--
-enableContentionProfiling enables lock contention profiling, if
+enableContentionProfiling enables lock c
 enableProfiling is true.
 -->
    <p><code>enableContentionProfiling</code> 字段在 <code>enableProfiling</code>
-   为 true 时允许执行锁竞争分析。</p>
+   为 true 时启用阻塞分析。</p>
 </td>
 </tr>
 </tbody>
@@ -885,6 +869,8 @@ enableProfiling is true.
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
 
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 

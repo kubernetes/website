@@ -1,7 +1,7 @@
 ---
 title: "監視、ログ、デバッグ"
 description: クラスターのトラブルシューティングや、コンテナ化したアプリケーションのデバッグのために、監視とログをセットアップします。
-weight: 20
+weight: 40
 content_type: concept
 no_list: true
 ---
@@ -29,7 +29,7 @@ no_list: true
 
 [コンセプト](/ja/docs/concepts/)では、Kubernetesのアーキテクチャと各コンポーネントの動作について説明し、[セットアップ](/ja/docs/setup/)では、使い始めるための実用的な手順を提供しています。
 [タスク](/ja/docs/tasks/) は、よく使われるタスクの実行方法を示し、 [チュートリアル](/ja/docs/tutorials/)は、実世界の業界特有、またはエンドツーエンドの開発シナリオ、より包括的なウォークスルーとなります。
-[リファレンス](/ja/docs/reference/)セクションでは、[Kubernetes API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)や[`kubectl`](/docs/reference/kubectl/overview/)などのコマンドラインインターフェース(CLI)に関する詳しいドキュメントが提供されています。
+[リファレンス](/ja/docs/reference/)セクションでは、[Kubernetes API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/)や[`kubectl`](/docs/reference/kubectl/)などのコマンドラインインターフェース(CLI)に関する詳しいドキュメントが提供されています。
 
 ## ヘルプ!私の質問はカバーされていません!今すぐ助けてください!
 
@@ -37,19 +37,18 @@ no_list: true
 
 コミュニティの誰かがすでに同じような質問をしている可能性があり、あなたの問題を解決できるかもしれません。
 Kubernetesチームも[Kubernetesタグが付けられた投稿](https://stackoverflow.com/questions/tagged/kubernetes)を監視しています。
-もし役立つ既存の質問がない場合は、[新しく質問してみてください](https://stackoverflow.com/questions/ask?tags=kubernetes)。
-
+もし役立つ既存の質問がない場合は、[新しく質問する](https://stackoverflow.com/questions/ask?tags=kubernetes)前に、**[あなたの質問がStack Overflowのトピックに沿ったものであることを確認し](https://stackoverflow.com/help/on-topic)、[新しく質問する方法](https://stackoverflow.com/help/how-to-ask)のガイダンスに目を通してください！**
 
 ### Slack
 
 Kubernetesコミュニティの多くの人々は、Kubernetes Slackの`#kubernetes-users`チャンネルに集まっています。
-Slackは登録が必要です。[招待をリクエストする](https://slack.kubernetes.io)ことができ、登録は誰でも可能です）。
+Slackは登録が必要です。[招待をリクエストする](https://slack.kubernetes.io)ことができ、登録は誰でも可能です。
 お気軽にお越しいただき、何でも質問してください。
 登録が完了したら、WebブラウザまたはSlackの専用アプリから[Kubernetes organization in Slack](https://kubernetes.slack.com)にアクセスします。
 
 登録が完了したら、増え続けるチャンネルリストを見て、興味のある様々なテーマについて調べてみましょう。
 たとえば、Kubernetesの初心者は、[`#kubernetes-novice`](https://kubernetes.slack.com/messages/kubernetes-novice)に参加してみるのもよいでしょう。
-別の例として、開発者は[`#kubernetes-dev`](https://kubernetes.slack.com/messages/kubernetes-dev)チャンネルに参加するとよいでしょう。
+別の例として、開発者は[`#kubernetes-contributors`](https://kubernetes.slack.com/messages/kubernetes-contributors)チャンネルに参加するとよいでしょう。
 
 また、多くの国別/言語別チャンネルがあります。これらのチャンネルに参加すれば、地域特有のサポートや情報を得ることができます。
 
@@ -85,7 +84,7 @@ Kubernetesの公式フォーラムへの参加は大歓迎です[discuss.kuberne
 バグを報告する場合は、そのバグを再現するための詳細な情報を含めてください。
 
 * Kubernetes のバージョン: `kubectl version`
-* クラウドプロバイダー、OSディストリビューション、ネットワーク構成、Dockerバージョン
+* クラウドプロバイダー、OSディストリビューション、ネットワーク構成、コンテナランタイムバージョン
 * 問題を再現するための手順
 
 

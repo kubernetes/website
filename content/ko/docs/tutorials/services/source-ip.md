@@ -2,6 +2,7 @@
 title: 소스 IP 주소 이용하기
 content_type: tutorial
 min-kubernetes-server-version: v1.5
+weight: 40
 ---
 
 <!-- overview -->
@@ -48,7 +49,7 @@ min-kubernetes-server-version: v1.5
 작은 nginx 웹 서버를 이용한다. 다음과 같이 생성할 수 있다.
 
 ```shell
-kubectl create deployment source-ip-app --image=k8s.gcr.io/echoserver:1.4
+kubectl create deployment source-ip-app --image=registry.k8s.io/echoserver:1.4
 ```
 출력은 다음과 같다.
 ```
@@ -323,10 +324,10 @@ kubectl get svc loadbalancer -o yaml | grep -i healthCheckNodePort
 ```
 
 `service.spec.healthCheckNodePort` 필드는 `/healthz`에서 헬스 체크를 제공하는
-모든 노드의 포트를 가르킨다. 이것을 테스트할 수 있다.
+모든 노드의 포트를 가리킨다. 이것을 테스트할 수 있다.
 
 ```shell
-kubectl get pod -o wide -l run=source-ip-app
+kubectl get pod -o wide -l app=source-ip-app
 ```
 출력은 다음과 유사하다.
 ```
@@ -415,5 +416,5 @@ kubectl delete deployment source-ip-app
 
 ## {{% heading "whatsnext" %}}
 
-* [서비스를 통한 애플리케이션 연결하기](/ko/docs/concepts/services-networking/connect-applications-service/)를 더 자세히 본다.
+* [서비스를 통한 애플리케이션 연결하기](/ko/docs/tutorials/services/connect-applications-service/)를 더 자세히 본다.
 * [외부 로드밸런서 생성](/ko/docs/tasks/access-application-cluster/create-external-load-balancer/) 방법을 본다.

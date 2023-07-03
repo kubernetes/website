@@ -3,7 +3,7 @@ reviewers:
 - stclair
 title: Restrict a Container's Access to Resources with AppArmor
 content_type: tutorial
-weight: 10
+weight: 30
 ---
 
 <!-- overview -->
@@ -122,8 +122,7 @@ gke-test-default-pool-239f5d02-xwux: kubelet is posting ready status. AppArmor e
 
 {{< note >}}
 AppArmor is currently in beta, so options are specified as annotations. Once support graduates to
-general availability, the annotations will be replaced with first-class fields (more details in
-[Upgrade path to GA](#upgrade-path-to-general-availability)).
+general availability, the annotations will be replaced with first-class fields.
 {{< /note >}}
 
 AppArmor profiles are specified *per-container*. To specify the AppArmor profile to run a Pod

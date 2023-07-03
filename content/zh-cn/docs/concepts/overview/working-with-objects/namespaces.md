@@ -16,12 +16,13 @@ weight: 45
 <!-- overview -->
 
 <!--
-In Kubernetes, _namespaces_ provides a mechanism for isolating groups of resources within a single cluster. Names of resources need to be unique within a namespace, but not across namespaces. Namespace-based scoping is applicable only for namespaced objects _(e.g. Deployments, Services, etc)_ and not for cluster-wide objects _(e.g. StorageClass, Nodes, PersistentVolumes, etc)_.
+In Kubernetes, _namespaces_ provides a mechanism for isolating groups of resources within a single cluster. Names of resources need to be unique within a namespace, but not across namespaces. Namespace-based scoping is applicable only for namespaced {{< glossary_tooltip text="objects" term_id="object" >}} _(e.g. Deployments, Services, etc)_ and not for cluster-wide objects _(e.g. StorageClass, Nodes, PersistentVolumes, etc)_.
 -->
 在 Kubernetes 中，**名字空间（Namespace）** 提供一种机制，将同一集群中的资源划分为相互隔离的组。
 同一名字空间内的资源名称要唯一，但跨名字空间时没有这个要求。
-名字空间作用域仅针对带有名字空间的对象，例如 Deployment、Service 等，
-这种作用域对集群访问的对象不适用，例如 StorageClass、Node、PersistentVolume 等。
+名字空间作用域仅针对带有名字空间的{{< glossary_tooltip text="对象" term_id="object" >}}，
+（例如 Deployment、Service 等），这种作用域对集群范围的对象
+（例如 StorageClass、Node、PersistentVolume 等）不适用。
 
 <!-- body -->
 
@@ -58,8 +59,52 @@ resources, such as different versions of the same software: use
 resources within the same namespace.
 -->
 不必使用多个名字空间来分隔仅仅轻微不同的资源，例如同一软件的不同版本：
-应该使用{{< glossary_tooltip text="标签" term_id="label" >}}
-来区分同一名字空间中的不同资源。
+应该使用{{< glossary_tooltip text="标签" term_id="label" >}}来区分同一名字空间中的不同资源。
+
+{{< note >}}
+<!--
+For a production cluster, consider _not_ using the `default` namespace. Instead, make other namespaces and use those.
+-->
+对于生产集群，请考虑**不要**使用 `default` 名字空间，而是创建其他名字空间来使用。
+{{< /note >}}
+
+<!--
+## Initial namespaces
+-->
+## 初始名字空间   {#initial-namespaces}
+
+<!--
+Kubernetes starts with four initial namespaces:
+
+`default`
+: Kubernetes includes this namespace so that you can start using your new cluster without first creating a namespace.
+
+`kube-node-lease`
+: This namespace holds [Lease](/docs/concepts/architecture/leases/) objects associated with each node. Node leases allow the kubelet to send [heartbeats](/docs/concepts/architecture/nodes/#heartbeats) so that the control plane can detect node failure.
+
+`kube-public`
+: This namespace is readable by *all* clients (including those not authenticated). This namespace is mostly reserved for cluster usage, in case that some resources should be visible and readable publicly throughout the whole cluster. The public aspect of this namespace is only a convention, not a requirement.
+
+`kube-system`
+: The namespace for objects created by the Kubernetes system.
+-->
+Kubernetes 启动时会创建四个初始名字空间：
+
+`default`
+: Kubernetes 包含这个名字空间，以便于你无需创建新的名字空间即可开始使用新集群。
+
+`kube-node-lease`
+: 该名字空间包含用于与各个节点关联的 [Lease（租约）](/zh-cn/docs/concepts/architecture/leases/)对象。
+  节点租约允许 kubelet 发送[心跳](/zh-cn/docs/concepts/architecture/nodes/#heartbeats)，
+  由此控制面能够检测到节点故障。
+
+`kube-public`
+: **所有**的客户端（包括未经身份验证的客户端）都可以读取该名字空间。
+  该名字空间主要预留为集群使用，以便某些资源需要在整个集群中可见可读。
+  该名字空间的公共属性只是一种约定而非要求。
+
+`kube-system`
+: 该名字空间用于 Kubernetes 系统创建的对象。
 
 <!--
 ## Working with Namespaces
@@ -71,10 +116,10 @@ Creation and deletion of namespaces are described in the
 
 名字空间的创建和删除在[名字空间的管理指南文档](/zh-cn/docs/tasks/administer-cluster/namespaces/)描述。
 
+{{< note >}}
 <!--
 Avoid creating namespaces with the prefix `kube-`, since it is reserved for Kubernetes system namespaces.
 -->
-{{< note >}}
 避免使用前缀 `kube-` 创建名字空间，因为它是为 Kubernetes 系统名字空间保留的。
 {{< /note >}}
 
@@ -97,28 +142,6 @@ kube-node-lease   Active   1d
 kube-public       Active   1d
 kube-system       Active   1d
 ```
-
-<!--
-Kubernetes starts with four initial namespaces:
-
-   * `default` The default namespace for objects with no other namespace
-   * `kube-system` The namespace for objects created by the Kubernetes system
-   * `kube-public` This namespace is created automatically and is readable by all users (including those not authenticated). This namespace is mostly reserved for cluster usage, in case that some resources should be visible and readable publicly throughout the whole cluster. The public aspect of this namespace is only a convention, not a requirement.
-   * `kube-node-lease` This namespace holds [Lease](/docs/reference/kubernetes-api/cluster-resources/lease-v1/)
-      objects associated with each node. Node leases allow the kubelet to send
-      [heartbeats](/docs/concepts/architecture/nodes/#heartbeats) so that the control plane
-      can detect node failure.
--->
-Kubernetes 会创建四个初始名字空间：
-
-   * `default` 没有指明使用其它名字空间的对象所使用的默认名字空间
-   * `kube-system` Kubernetes 系统创建对象所使用的名字空间
-   * `kube-public` 这个名字空间是自动创建的，所有用户（包括未经过身份验证的用户）都可以读取它。
-      这个名字空间主要用于集群使用，以防某些资源在整个集群中应该是可见和可读的。
-      这个名字空间的公共方面只是一种约定，而不是要求。
-   * `kube-node-lease` 此名字空间用于与各个节点相关的
-     [租约（Lease）](/docs/reference/kubernetes-api/cluster-resources/lease-v1/)对象。
-      节点租期允许 kubelet 发送[心跳](/zh-cn/docs/concepts/architecture/nodes/#heartbeats)，由此控制面能够检测到节点故障。
 
 <!--
 ### Setting the namespace for a request
@@ -191,8 +214,8 @@ namespaces can have short DNS names that overlap with public DNS records.
 Workloads from any namespace performing a DNS lookup without a [trailing dot](https://datatracker.ietf.org/doc/html/rfc1034#page-8) will
 be redirected to those services, taking precedence over public DNS.
 -->
-通过创建与[公共顶级域名](https://data.iana.org/TLD/tlds-alpha-by-domain.txt)
-同名的名字空间，这些名字空间中的服务可以拥有与公共 DNS 记录重叠的、较短的 DNS 名称。
+通过创建与[公共顶级域名](https://data.iana.org/TLD/tlds-alpha-by-domain.txt)同名的名字空间，
+这些名字空间中的服务可以拥有与公共 DNS 记录重叠的、较短的 DNS 名称。
 所有名字空间中的负载在执行 DNS 查找时，
 如果查找的名称没有[尾部句点](https://datatracker.ietf.org/doc/html/rfc1034#page-8)，
 就会被重定向到这些服务上，因此呈现出比公共 DNS 更高的优先序。
@@ -213,7 +236,7 @@ TLDs](https://data.iana.org/TLD/tlds-alpha-by-domain.txt).
 {{< /warning >}}
 
 <!--
-## Not All Objects are in a Namespace
+## Not all objects are in a namespace
 -->
 ## 并非所有对象都在名字空间中    {#not-all-objects-are-in-a-namespace}
 
@@ -222,11 +245,11 @@ Most Kubernetes resources (e.g. pods, services, replication controllers, and oth
 in some namespaces.  However namespace resources are not themselves in a namespace.
 And low-level resources, such as
 [nodes](/docs/concepts/architecture/nodes/) and
-persistentVolumes, are not in any namespace.
+[persistentVolumes](/docs/concepts/storage/persistent-volumes/), are not in any namespace.
 -->
 大多数 kubernetes 资源（例如 Pod、Service、副本控制器等）都位于某些名字空间中。
 但是名字空间资源本身并不在名字空间中。而且底层资源，
-例如[节点](/zh-cn/docs/concepts/architecture/nodes/)和持久化卷不属于任何名字空间。
+例如[节点](/zh-cn/docs/concepts/architecture/nodes/)和[持久化卷](/zh-cn/docs/concepts/storage/persistent-volumes/)不属于任何名字空间。
 
 <!--
 To see which Kubernetes resources are and aren't in a namespace:
@@ -246,18 +269,15 @@ kubectl api-resources --namespaced=false
 -->
 ## 自动打标签   {#automatic-labelling}
 
-{{< feature-state state="beta" for_k8s_version="1.21" >}}
+{{< feature-state for_k8s_version="1.22" state="stable" >}}
 
 <!--
 The Kubernetes control plane sets an immutable {{< glossary_tooltip text="label" term_id="label" >}}
-`kubernetes.io/metadata.name` on all namespaces, provided that the `NamespaceDefaultLabelName`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
+`kubernetes.io/metadata.name` on all namespaces.
 The value of the label is the namespace name.
 -->
-Kubernetes 控制面会为所有名字空间设置一个不可变更的
-{{< glossary_tooltip text="标签" term_id="label" >}}
-`kubernetes.io/metadata.name`，只要 `NamespaceDefaultLabelName`
-这一[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)被启用。
+Kubernetes 控制面会为所有名字空间设置一个不可变更的{{< glossary_tooltip text="标签" term_id="label" >}}
+`kubernetes.io/metadata.name`。
 标签的值是名字空间的名称。
 
 ## {{% heading "whatsnext" %}}

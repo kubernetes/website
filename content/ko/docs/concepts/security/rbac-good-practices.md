@@ -12,7 +12,7 @@ weight: 60
 쿠버네티스 {{< glossary_tooltip text="RBAC" term_id="rbac" >}}는
 클러스터 사용자 및 워크로드가 자신의 역할을 수행하기 위해 필요한 자원에 대해서만
 접근 권한을 가지도록 보장하는 핵심 보안 제어 방식이다. 클러스터 관리자가 클러스터 사용자 권한을 설정할 시에는,
-보안 사고로 이어지는 과도한 접근 권한 부여의 위험을 줄이기 위해
+보안 사고로 이어지는 과도한 접근 권한 부여의 위험을 줄이기 위해 
 권한 에스컬레이션 발생 가능성에 대해 이해하는 것이 중요하다.
 
 여기서 제공하는 모범 사례는 [RBAC 문서](/docs/reference/access-authn-authz/rbac/#restrictions-on-role-creation-or-update)
@@ -33,7 +33,7 @@ weight: 60
  - 와일드카드(wildcard)를 사용한 권한 지정을 할 시에는, 특히 모든 리소스에 대해서는 가능하면 지양한다. 
    쿠버네티스는 확장성을 지니는 시스템이기 때문에,
    와일드카드를 이용한 권한 지정은 현재 클러스터에 있는 모든 오브젝트 타입뿐만 아니라
-   추후에 생성될 오브젝트 타입에 대해서도 권한을 부여하게 된다.
+   모든 오브젝트 타입에 대해서도 권한을 부여하게 된다.
  - 운영자는 `cluster-admin` 계정이 필수로 요구되지 않을시에는 사용을 지양한다. 
    적은 권한을 가진 계정과
    [가장 (impersonation) 권한](/docs/reference/access-authn-authz/authentication/#user-impersonation)을 
@@ -99,25 +99,25 @@ weight: 60
 
 ### 워크로드 생성
 
-워크로드(파드 혹은 파드를 관리하는 
-[워크로드 리소스](/ko/docs/concepts/workloads/controllers/))를 생성할 수 있는 사용자는
-[파드 시큐리티 스탠다드](/ko/docs/concepts/security/pod-security-standards/)에 
-기반한 제한 사항이 없을 시에는 해당 노드에 대한 접근 권한을 부여받을 수 있다.
+네임스페이스에 워크로드(파드 혹은 파드를 관리하는 
+[워크로드 리소스](/ko/docs/concepts/workloads/controllers/))를 생성할 수 있는 권한은
+파드에 마운트할 수 있는 시크릿, 컨피그맵 그리고 퍼시스턴트볼륨(PersistentVolume)과 같은 해당 네임스페이스의 다른 많은 리소스에 대한 
+액세스 권한을 암묵적으로 부여한다. 또한 파드는 모든 [서비스어카운트](/ko/docs/reference/access-authn-authz/service-accounts-admin/)로 
+실행할 수 있기 때문에, 워크로드 생성 권한을 부여하면 
+해당 네임스페이스에 있는 모든 서비스어카운트의 API 액세스 수준도 암묵적으로 
+부여된다.
 
 특권 파드 실행 권한을 가지는 사용자는 해당 노드에 대한 권한을 부여받을 수 있으며, 
 더 나아가 권한을 상승시킬 수 있는 가능성도 존재한다.
 특정 사용자 혹은, 적절히 안정 및 격리 된 파드를 생성할 수 있는 자격을 가진 다른 주체를 완전히 신뢰하지 못하는 상황이라면,
 **베이스라인** 혹은 **제한된** 파드 시큐리티 스탠다드를 사용해야 한다. 
-이는 [파드 시큐리티 어드미션](/docs/concepts/security/pod-security-admission/) 
+이는 [파드 시큐리티 어드미션](/ko/docs/concepts/security/pod-security-admission/) 
 또는 다른 (서드 파티) 매커니즘을 통해 시행할 수 있다.
 
-사용자의 특권을 가진 파드 생성 자격을 제한하기 위해, 
-현재는 사용이 중지 된 [파드시큐리티폴리시](/ko/docs/concepts/security/pod-security-policy/) 
-매커니즘도 사용할 수 있다. (주의 - 파드시큐리티폴리시는 1.25 버전 이후로 중지될 예정이다.)
-
-사용자가 네임스페이스 내에서 워크로드를 생성하면, 해당 네임스페이스에 위치한 시크릿에 대한 간접적 접근 권한을 부여 받게 된다.
-사용자가 kube-system 또는 유사한 특권을 가진 네임스페이스에서 파드를 생성하게 되면, 
-RBAC를 통해 직접적으로는 접근 권한을 가지지 못할 시크릿에 대한 권한도 부여받게 된다.
+이러한 이유로, 네임스페이스는 서로 다른 수준의 보안 또는 테넌시가 필요한 리소스들을 분리하는 데 사용해야 
+한다. [최소 권한](#least-privilege) 원칙을 따르고 권한을 가장 적게 할당하는 것이 
+바람직하지만, 네임스페이스 내의 경계는 약한 것으로 간주되어야 
+한다.
 
 ### 퍼시스턴트 볼륨 생성
 
@@ -186,4 +186,3 @@ CSR API를 통해 CSR에 대한 `create` 권한 및 `certificatesigningrequests/
 ## {{% heading "whatsnext" %}}
 
 * RBAC에 대한 추가적인 정보를 얻기 위해서는 [RBAC 문서](/docs/reference/access-authn-authz/rbac/)를 참고한다.
-

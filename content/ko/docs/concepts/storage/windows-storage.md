@@ -8,6 +8,7 @@
 # - aravindhp
 title: 윈도우 스토리지
 content_type: concept
+weight: 110
 ---
 
 <!-- overview -->
@@ -56,9 +57,9 @@ content_type: concept
 [플러그인](/ko/docs/concepts/storage/volumes/#volume-types) 형태로 제공된다. 
 윈도우는 다음의 광역 쿠버네티스 볼륨 플러그인 클래스를 지원한다.
 
-* [`FlexVolume 플러그인`](/ko/docs/concepts/storage/volumes/#flexVolume)
-  * FlexVolumes은 1.23부터 사용 중단되었음에 유의한다.
-* [`CSI 플러그인`](/ko/docs/concepts/storage/volumes/#csi)
+* [`FlexVolume` 플러그인](/ko/docs/concepts/storage/volumes/#flexvolume)
+  * FlexVolume은 1.23부터 사용 중단되었음에 유의한다.
+* [`CSI` 플러그인](/ko/docs/concepts/storage/volumes/#csi)
 
 ##### 인-트리(In-tree) 볼륨 플러그인
 

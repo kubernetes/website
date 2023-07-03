@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ClusterRole 是一个集群级别的 PolicyRule 逻辑分组，可以被 RoleBinding 或 ClusterRoleBinding 作为一个单元引用。"  
 title: "ClusterRole" 
-weight: 5  
+weight: 6  
 ---
 <!--
 api_metadata:
@@ -16,7 +16,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ClusterRole is a cluster level, logical grouping of PolicyRules that can be referenced as a unit by a RoleBinding or ClusterRoleBinding."
 title: "ClusterRole"
-weight: 5
+weight: 6
 auto_generated: true
 -->
 
@@ -260,6 +260,10 @@ GET /apis/rbac.authorization.k8s.io/v1/clusterroles
 - **resourceVersionMatch**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds**（**查询参数**）：integer
   
@@ -567,6 +571,10 @@ DELETE /apis/rbac.authorization.k8s.io/v1/clusterroles
 - **resourceVersionMatch**（**查询参数**）：string
   
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds**（**查询参数**）：integer
   

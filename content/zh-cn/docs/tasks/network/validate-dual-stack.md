@@ -7,6 +7,8 @@ content_type: task
 reviewers:
 - lachie83
 - khenidak
+- bridgetkromhout
+min-kubernetes-server-version: v1.23
 title: Validate IPv4/IPv6 dual-stack
 content_type: task
 -->
@@ -316,7 +318,7 @@ Events:            <none>
 <!--
 ### Create a dual-stack load balanced Service
 
-If the cloud provider supports the provisioning of IPv6 enabled external load balancers, create the following Service with `PreferDualStack` in `.spec.ipFamilyPolicy`. `IPv6` as the first element of the `.spec.ipFamilies` array and the `type` field set to `LoadBalancer`.
+If the cloud provider supports the provisioning of IPv6 enabled external load balancers, create the following Service with `PreferDualStack` in `.spec.ipFamilyPolicy`, `IPv6` as the first element of the `.spec.ipFamilies` array and the `type` field set to `LoadBalancer`.
 -->
 ### 创建双协议栈负载均衡服务
 
@@ -336,7 +338,7 @@ kubectl get svc -l app.kubernetes.io/name=MyApp
 ```
 
 <!--
-Validate that the Service receives a `CLUSTER-IP` address from the IPv6 address block along with an `EXTERNAL-IP`. You may then validate access to the service via the IP and port. 
+Validate that the Service receives a `CLUSTER-IP` address from the IPv6 address block along with an `EXTERNAL-IP`. You may then validate access to the service via the IP and port.
 -->
 验证服务是否从 IPv6 地址块中接收到 `CLUSTER-IP` 地址以及 `EXTERNAL-IP`。
 然后，你可以通过 IP 和端口验证对服务的访问。

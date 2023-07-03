@@ -2,14 +2,27 @@
 title: "fish 自动补全"
 description: "启用 fish 自动补全的可选配置。"
 headless: true
+_build:
+  list: never
+  render: never
+  publishResources: false
 ---
 <!--
----
 title: "fish auto-completion"
 description: "Optional configuration to enable fish shell auto-completion."
 headless: true
----
+_build:
+  list: never
+  render: never
+  publishResources: false
 -->
+
+{{< note >}}
+<!--
+Autocomplete for Fish requires kubectl 1.23 or later.
+-->
+自动补全 Fish 需要 kubectl 1.23 或更高版本。
+{{< /note >}}
 
 <!--
 The kubectl completion script for Fish can be generated with the command `kubectl completion fish`. Sourcing the completion script in your shell enables kubectl autocompletion.

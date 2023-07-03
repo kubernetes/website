@@ -1,14 +1,14 @@
 ---
 title: 查明节点上所使用的容器运行时
 content_type: task
-weight: 10
+weight: 30
 ---
 <!--
 title: Find Out What Container Runtime is Used on a Node
 content_type: task
 reviewers:
 - SergeyKanzhelev
-weight: 10
+weight: 30
 -->
 
 <!-- overview -->
@@ -69,9 +69,9 @@ node-3       Ready    v1.16.15   docker://19.3.1
 ```
 <!--
 If your runtime shows as Docker Engine, you still might not be affected by the
-removal of dockershim in Kubernetes v1.24. [Check the runtime
-endpoint](#which-endpoint) to see if you use dockershim. If you don't use
-dockershim, you aren't affected. 
+removal of dockershim in Kubernetes v1.24.
+[Check the runtime endpoint](#which-endpoint) to see if you use dockershim.
+If you don't use dockershim, you aren't affected. 
 
 For containerd, the output is similar to this:
 -->
@@ -154,29 +154,29 @@ nodes.
 
     *   If your nodes use Kubernetes v1.23 and earlier and these flags aren't
         present or if the `--container-runtime` flag is not `remote`,
-        you use the dockershim socket with Docker Engine.
+        you use the dockershim socket with Docker Engine. The `--container-runtime` command line
+        argument is not available in Kubernetes v1.27 and later.
     *   If the `--container-runtime-endpoint` flag is present, check the socket
         name to find out which runtime you use. For example,
         `unix:///run/containerd/containerd.sock` is the containerd endpoint.
 -->
 2. 在命令的输出中，查找 `--container-runtime` 和 `--container-runtime-endpoint` 标志。
 
-   * 如果 Kubernetes 集群版本是 v1.23 或者更早的版本，并且这两个参数不存在，
-      或者 `container-runtime` 标志值不是 `remote`，则你在通过 dockershim 套接字使用
-      Docker Engine。
-     或者如果集群使用的 Docker engine 和 dockershim socket，则输出结果中 `--container-runtime` 不是 `remote`,
+   * 如果你的节点使用 Kubernetes v1.23 或更早的版本，这两个参数不存在，
+     或者 `--container-runtime` 标志值不是 `remote`，则你在通过 dockershim 套接字使用
+     Docker Engine。
+     在 Kubernetes v1.27 及以后的版本中，`--container-runtime` 命令行参数不再可用。
    * 如果设置了 `--container-runtime-endpoint` 参数，查看套接字名称即可得知当前使用的运行时。
      如若套接字 `unix:///run/containerd/containerd.sock` 是 containerd 的端点。
 
 <!--
 If you want to change the Container Runtime on a Node from Docker Engine to containerd,
 you can find out more information on [migrating from Docker Engine to  containerd](/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/),
-or, if you want to continue using Docker Engine in v1.24 and later, migrate to a
+or, if you want to continue using Docker Engine in Kubernetes v1.24 and later, migrate to a
 CRI-compatible adapter like [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd).
 -->
 如果你将节点上的容器运行时从 Docker Engine 改变为 containerd，可在
 [迁移到不同的运行时](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/change-runtime-containerd/)
 找到更多信息。或者，如果你想在 Kubernetes v1.24 及以后的版本仍使用 Docker Engine，
 可以安装 CRI 兼容的适配器实现，如 [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd)。
-[`cri-dockerd`](https://github.com/Mirantis/cri-dockerd)。
 

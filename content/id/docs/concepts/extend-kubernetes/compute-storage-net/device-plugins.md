@@ -67,7 +67,7 @@ metadata:
 spec:
   containers:
     - name: demo-container-1
-      image: k8s.gcr.io/pause:2.0
+      image: registry.k8s.io/pause:2.0
       resources:
         limits:
           hardware-vendor.example/foo: 2
@@ -221,7 +221,7 @@ Berikut beberapa contoh implementasi _plugin_ perangkat:
 * [Plugin perangkat RDMA](https://github.com/hustcat/k8s-rdma-device-plugin)
 * [Plugin perangkat Solarflare](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * [Plugin perangkat SR-IOV Network](https://github.com/intel/sriov-network-device-plugin)
-* [Plugin perangkat Xilinx FPGA](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-fpga-device-plugin) untuk perangkat Xilinx FPGA
+* [Plugin perangkat Xilinx FPGA](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-device-plugin) untuk perangkat Xilinx FPGA
 
 
 ## {{% heading "whatsnext" %}}

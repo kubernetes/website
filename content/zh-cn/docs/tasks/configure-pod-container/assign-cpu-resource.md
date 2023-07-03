@@ -27,7 +27,7 @@ allocated as much CPU as it requests.
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 <!--
-Each node in your cluster must have at least 1 CPU.
+Your cluster must have at least 1 CPU available for use to run the task examples.
 
 A few of the steps on this page require you to run the
 [metrics-server](https://github.com/kubernetes-sigs/metrics-server)
@@ -37,7 +37,7 @@ running, you can skip those steps.
 If you are running {{< glossary_tooltip term_id="minikube" >}}, run the
 following command to enable metrics-server:
 -->
-集群中的每个节点必须至少有 1 个 CPU 可用才能运行本任务中的示例。
+你的集群必须至少有 1 个 CPU 可用才能运行本任务中的示例。
 
 本页的一些步骤要求你在集群中运行
 [metrics-server](https://github.com/kubernetes-sigs/metrics-server)
@@ -61,7 +61,7 @@ kubectl get apiservices
 ```
 
 <!-- 
-If the resource metrics  API  is available, the output will include a
+If the resource metrics API is available, the output will include a
 reference to `metrics.k8s.io`.
 -->
 如果资源指标 API 可用，则会输出将包含一个对 `metrics.k8s.io` 的引用。
@@ -124,7 +124,7 @@ kubectl apply -f https://k8s.io/examples/pods/resource/cpu-request-limit.yaml --
 ```
 
 <!-- 
-Verify that the  Pod  is running:
+Verify that the Pod is running:
 -->
 验证所创建的 Pod 处于 Running 状态
 
@@ -182,15 +182,13 @@ Recall that by setting `-cpu "2"`, you configured the Container to attempt to us
 但是容器只被允许使用大约 1 个 CPU。
 容器的 CPU 用量受到限制，因为该容器正尝试使用超出其限制的 CPU 资源。
 
+{{< note >}}
 <!-- 
 Another possible explanation for the CPU use being below 1.0 is that the Node might not have
-enough CPU resources available. Recall that the prerequisites for this exercise require each of
-your Nodes to have at least 1 CPU. If your Container runs on a Node that has only 1 CPU, the Container
-cannot use more than 1 CPU regardless of the CPU limit specified for the Container.
+enough CPU resources available. Recall that the prerequisites for this exercise require your cluster to have at least 1 CPU available for use. If your Container runs on a Node that has only 1 CPU, the Container cannot use more than 1 CPU regardless of the CPU limit specified for the Container.
 -->
-{{< note >}}
 CPU 使用率低于 1.0 的另一种可能的解释是，节点可能没有足够的 CPU 资源可用。
-回想一下，此练习的先决条件需要你的节点至少具有 1 个 CPU 可用。
+回想一下，此练习的先决条件需要你的集群至少具有 1 个 CPU 可用。
 如果你的容器在只有 1 个 CPU 的节点上运行，则容器无论为容器指定的 CPU 限制如何，
 都不能使用超过 1 个 CPU。
 {{< /note >}}
@@ -276,7 +274,7 @@ Pod 调度是基于资源请求值来进行的。
 kubectl apply -f https://k8s.io/examples/pods/resource/cpu-request-limit-2.yaml --namespace=cpu-example
 ```
 <!-- 
-View the  Pod  status:
+View the Pod status:
 -->
 查看该 Pod 的状态：
 
@@ -420,21 +418,23 @@ kubectl delete namespace cpu-example
 <!-- 
 ### For cluster administrators
 
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/memory-default-namespace/)
-* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/cpu-default-namespace/)
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/memory-constraint-namespace/)
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
-* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
-* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/quota-pod-namespace/)
+* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [Configure Default CPU Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
+* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
-
+* [Resize CPU and Memory Resources assigned to Containers](/docs/tasks/configure-pod-container/resize-container-resources/)
 -->
 ### 针对集群管理员 {for-cluster-administrators}
 
 * [配置名字空间的默认内存请求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 * [为名字空间配置默认 CPU 请求和限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/)
-* [为名字空间配置最小和最大内存限制](/zh-cn/docs/tasks/administer-cluster//manage-resources/memory-constraint-namespace/)
+* [为名字空间配置最小和最大内存限制](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
 * [为名字空间配置最小和最大 CPU 约束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 * [为名字空间配置内存和 CPU 配额](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
 * [为名字空间配置 Pod 配额](/zh-cn/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 * [配置 API 对象的配额](/zh-cn/docs/tasks/administer-cluster/quota-api-object/)
+* [调整分配给容器的 CPU 和内存资源](/zh-cn/docs/tasks/configure-pod-container/resize-container-resources/)
+ 

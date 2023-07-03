@@ -17,6 +17,10 @@ Commands related to handling kubernetes certificates
 
 Commands related to handling kubernetes certificates
 
+```
+kubeadm certs [flags]
+```
+
 ### Options
 
    <table style="width: 100%; table-layout: fixed;">

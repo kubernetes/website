@@ -17,6 +17,8 @@ canonicalUrl: https://gateway-api.sigs.k8s.io/blog/2022/graduating-to-beta/
 -->
 **作者：** Shane Utt (Kong)、Rob Scott (Google)、Nick Young (VMware)、Jeff Apple (HashiCorp)
 
+**译者：** Michael Yao (DaoCloud)
+
 <!-- 
 We are excited to announce the v0.5.0 release of Gateway API. For the first
 time, several of our most important Gateway API resources are graduating to
@@ -279,7 +281,7 @@ Management and Administration.
 
 <!-- 
 This group will deliver [enhancement
-proposals](https://gateway-api.sigs.k8s.io/v1beta1/contributing/gep/) consisting
+proposals](https://gateway-api.sigs.k8s.io/geps/overview/) consisting
 of resources, additions, and modifications to the Gateway API specification for
 mesh and mesh-adjacent use-cases.
 
@@ -287,13 +289,12 @@ This work has begun with [an exploration of using Gateway API for
 service-to-service
 traffic](https://docs.google.com/document/d/1T_DtMQoq2tccLAtJTpo3c0ohjm25vRS35MsestSL9QU/edit#heading=h.jt37re3yi6k5)
 and will continue with enhancement in areas such as authentication and
-authorization policy. 
+authorization policy.
 -->
-这个小组将交付[增强提案](https://gateway-api.sigs.k8s.io/v1beta1/contributing/gep/)，
+这个小组将交付[增强提案](https://gateway-api.sigs.k8s.io/geps/overview/)，
 包括对网格和网格相关用例适用的 Gateway API 规约的资源、添加和修改。
 
-这项工作已从
-[探索针对服务间流量使用 Gateway API](https://docs.google.com/document/d/1T_DtMQoq2tccLAtJTpo3c0ohjm25vRS35MsestSL9QU/edit#heading=h.jt37re3yi6k5)
+这项工作已从[探索针对服务间流量使用 Gateway API](https://docs.google.com/document/d/1T_DtMQoq2tccLAtJTpo3c0ohjm25vRS35MsestSL9QU/edit#heading=h.jt37re3yi6k5)
 开始，并将继续增强身份验证和鉴权策略等领域。
 
 <!-- 

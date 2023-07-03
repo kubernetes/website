@@ -6,8 +6,6 @@ content_type: tutorial
 weight: 10
 ---
 
-
-
 <!-- overview -->
 
 {{< feature-state for_k8s_version="v1.4" state="beta" >}}
@@ -108,7 +106,7 @@ AppArmor 지원이 포함된 Kubelet (>= v1.4)이면
 노드 준비 조건 메시지를 확인하여(이후 릴리스에서는 삭제될 것 같지만) 검증할 수 있다.
 
 ```shell
-kubectl get nodes -o=jsonpath=$'{range .items[*]}{@.metadata.name}: {.status.conditions[?(@.reason=="KubeletReady")].message}\n{end}'
+kubectl get nodes -o=jsonpath='{range .items[*]}{@.metadata.name}: {.status.conditions[?(@.reason=="KubeletReady")].message}{"\n"}{end}'
 ```
 ```
 gke-test-default-pool-239f5d02-gyn2: kubelet is posting ready status. AppArmor enabled
@@ -120,10 +118,10 @@ gke-test-default-pool-239f5d02-xwux: kubelet is posting ready status. AppArmor e
 
 <!-- lessoncontent -->
 
-## 파드 보안 강화하기 {#securing-a-pod}
+## 파드 보안 강화하기
 
 {{< note >}}
-AppArmor는 현재 베타라서 옵션은 어노테이션 형식으로 지정한다. 일반 사용자 버전이 되면,
+AppArmor는 현재 베타이며, 이 때문에 옵션은 어노테이션 형식으로 지정한다. 일반 사용자 버전이 되면,
 어노테이션은 최상위 종류의 필드로 대체될 것이다(자세한 내용은
 [일반 사용자 버전으로 업그레이드 방법](#upgrade-path-to-general-availability) 참고)
 {{< /note >}}
@@ -154,19 +152,19 @@ container.apparmor.security.beta.kubernetes.io/<container_name>: <profile_ref>
 kubectl get events | grep Created
 ```
 ```
-22s        22s         1         hello-apparmor     Pod       spec.containers{hello}   Normal    Created     {kubelet e2e-test-stclair-node-pool-31nt}   Created container with docker id 269a53b202d3; Security:[seccomp=unconfined apparmor=k8s-apparmor-example-deny-write]apparmor=k8s-apparmor-example-deny-write]
+22s        22s         1         hello-apparmor     Pod       spec.containers{hello}   Normal    Created     {kubelet e2e-test-stclair-node-pool-31nt}   Created container with docker id 269a53b202d3; Security:[seccomp=unconfined apparmor=k8s-apparmor-example-deny-write]
 ```
 
 컨테이너의 루트 프로세스가 올바른 프로파일로 실행되는지는 proc attr을 확인하여 직접 검증할 수 있다.
 
 ```shell
-kubectl exec <pod_name> cat /proc/1/attr/current
+kubectl exec <pod_name> -- cat /proc/1/attr/current
 ```
 ```
 k8s-apparmor-example-deny-write (enforce)
 ```
 
-## 예시 {#example}
+## 예시
 
 *이 예시는 AppArmor를 지원하는 클러스터를 이미 구성하였다고 가정한다.*
 
@@ -327,9 +325,9 @@ Events:
 파드 상태는 Pending이며, 오류 메시지는 `Pod Cannot enforce AppArmor: profile
 "k8s-apparmor-example-allow-write" is not loaded`이다. 이벤트도 동일한 메시지로 기록되었다.
 
-## 관리 {#administration}
+## 관리
 
-### 프로파일과 함께 노드 설정하기 {#setting-up-nodes-with-profiles}
+### 프로파일과 함께 노드 설정하기
 
 현재 쿠버네티스는 AppArmor 프로파일을 노드에 적재하기 위한 네이티브 메커니즘을 제공하지 않는다.
 프로파일을 설정하는 여러 방법이 있다. 예를 들면 다음과 같다.
@@ -348,36 +346,9 @@ Events:
 [노드 셀렉터](/ko/docs/concepts/scheduling-eviction/assign-pod-node/)를 이용하여
 파드가 필요한 프로파일이 있는 노드에서 실행되도록 한다.
 
-### 파드시큐리티폴리시(PodSecurityPolicy)로 프로파일 제한하기 {#restricting-profiles-with-the-podsecuritypolicy}
+### AppArmor 비활성화
 
-{{< note >}}
-파드시큐리티폴리시는 쿠버네티스 v1.21에서 사용 중단되었으며, v1.25에서 제거될 예정이다. 
-더 자세한 내용은 [파드시큐리티폴리시](/ko/docs/concepts/security/pod-security-policy/) 문서를 참고한다.
-{{< /note >}}
-
-만약 파드시큐리티폴리시 확장을 사용하면, 클러스터 단위로 AppArmor 제한을 적용할 수 있다.
-파드시큐리티폴리시를 사용하려면 위해 다음의 플래그를 반드시 `apiserver`에 설정해야 한다.
-
-```
---enable-admission-plugins=PodSecurityPolicy[,others...]
-```
-
-AppArmor 옵션은 파드시큐리티폴리시의 어노테이션으로 지정할 수 있다.
-
-```yaml
-apparmor.security.beta.kubernetes.io/defaultProfileName: <profile_ref>
-apparmor.security.beta.kubernetes.io/allowedProfileNames: <profile_ref>[,others...]
-```
-
-기본 프로파일 이름 옵션은 프로파일을 지정하지 않았을 때에
-컨테이너에 기본으로 적용하는 프로파일을 지정한다.
-허용하는 프로파일 이름 옵션은 파드 컨테이너가 함께 실행하도록 허용되는 프로파일 목록을 지정한다.
-두 옵션을 모두 사용하는 경우, 기본값은 반드시 필요하다.
-프로파일은 컨테이너에서 같은 형식으로 지정된다. 전체 사양은 [API 참조](#api-reference)를 찾아본다.
-
-### AppArmor 비활성화 {#disabling-apparmor}
-
-클러스터에서 AppArmor 사용하지 않으려면, 커맨드라인 플래그로 비활성화 할 수 있다.
+클러스터에서 AppArmor를 사용하지 않으려면, 커맨드라인 플래그로 비활성화 할 수 있다.
 
 ```
 --feature-gates=AppArmor=false
@@ -392,7 +363,7 @@ AppArmor가 general availability (GA) 상태로 바뀌면
 AppArmor 기능을 비활성화하는 옵션은 제거될 것이다.
 {{</note>}}
 
-## 프로파일 제작 {#authoring-profiles}
+## 프로파일 제작
 
 AppArmor 프로파일을 만들고 올바르게 지정하는 것은 매우 까다로울 수 있다.
 다행히 이 작업에 도움 되는 도구가 있다.
@@ -409,9 +380,9 @@ AppArmor 로그는 `dmesg`에서 보이며, 오류는 보통 시스템 로그나
 [AppArmor 실패](https://gitlab.com/apparmor/apparmor/wikis/AppArmor_Failures)에서 제공한다.
 
 
-## API 참조 {#api-reference}
+## API 참조
 
-### 파드 어노테이션 {#pod-annotation}
+### 파드 어노테이션
 
 컨테이너를 실행할 프로파일을 지정한다.
 
@@ -420,7 +391,7 @@ AppArmor 로그는 `dmesg`에서 보이며, 오류는 보통 시스템 로그나
   분리된 프로파일은 파드 내에 각 컨테이너로 지정할 수 있다.
 - **값**: 아래 기술된 프로파일 참조
 
-### 프로파일 참조 {#profile-reference}
+### 프로파일 참조
 
 - `runtime/default`: 기본 런타임 프로파일을 참조한다.
   - (기본 파드시큐리티폴리시 없이) 프로파일을 지정하지 않고
@@ -433,22 +404,6 @@ AppArmor 로그는 `dmesg`에서 보이며, 오류는 보통 시스템 로그나
 - `unconfined`: 이것은 컨테이너에서 AppArmor를 효과적으로 비활성시킨다.
 
 다른 어떤 프로파일 참조 형식도 유효하지 않다.
-
-### 파드시큐리티폴리시 어노테이션 {#podsecuritypolicy-annotations}
-
-아무 프로파일도 제공하지 않을 때에 컨테이너에 적용할 기본 프로파일을 지정하기
-
-* **키**: `apparmor.security.beta.kubernetes.io/defaultProfileName`
-* **값**: 프로파일 참조. 위에 기술됨.
-
-파드 컨테이너에서 지정을 허용하는 프로파일 목록 지정하기
-
-* **키**: `apparmor.security.beta.kubernetes.io/allowedProfileNames`
-* **값**: 컴마로 구분된 참조 프로파일 목록(위에 기술함)
-  - 비록 이스케이프된 쉼표(%2C ',')도 프로파일 이름에서 유효한 문자이지만
-    여기에서 명시적으로 허용하지 않는다.
-
-
 
 ## {{% heading "whatsnext" %}}
 

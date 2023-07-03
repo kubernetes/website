@@ -130,3 +130,47 @@ announcements:
   message: |
     5 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
     October 24 - 28, 2022.
+
+- name: Freezing k8s.gcr.io - Before
+  startTime: 2023-02-20T00:00:00 # Added in https://github.com/kubernetes/website/pull/39575
+                                 # This should run before and after Kubecon EU 2023
+  endTime: 2023-03-10T00:00:00
+  style: "background: #c70202"
+  title: "Legacy k8s.gcr.io container image registry will be frozen in early April 2023"
+  message: |
+    k8s.gcr.io image registry will be frozen from the 3rd of April 2023.<br/>
+    Images for Kubernetes 1.27 will not be available in the k8s.gcr.io image registry.<br/>
+    Please read our [announcement](/blog/2023/02/06/k8s-gcr-io-freeze-announcement/) for more details.
+
+- name: Redirecting k8s.gcr.io - Before
+  startTime: 2023-03-10T00:00:00 # This should run before the redirect
+  endTime: 2023-03-26T00:00:00
+  style: "background: #c70202"
+  title: Legacy k8s.gcr.io container image registry will be redirected to registry.k8s.io
+  message: |
+    k8s.gcr.io image registry will be redirected to registry.k8s.io on Monday March 20th.<br>
+    All images available in k8s.gcr.io are available at registry.k8s.io.</br>
+    Please read our [announcement](/blog/2023/03/10/image-registry-redirect/) for more details.
+
+- name: Kubecon 2023 EU
+  startTime: 2023-04-15T00:00:00  #Added in https://github.com/kubernetes/website/pull/40691
+  endTime: 2023-04-22T18:00:00
+  style: >-
+    background: linear-gradient(90deg, rgba(174,28,40,1) 0%, rgba(50,79,133,1) 65%, rgba(33,70,139,1) 100%);
+    color: #fffff;
+  title: |
+    <img src ="/images/announcements/kccnc-eu-2023-white.svg" style="float: right; height: 80px;" />
+    <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/">KubeCon + CloudNativeCon EU 2023</a> <em> Amsterdam, Netherlands + Virtual</em>.
+  message: |
+    4 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
+    April 18 - April 21, 2023.
+    
+- name: Redirecting k8s.gcr.io - After
+  startTime: 2023-03-27T00:00:00 # This should run after the redirect begins
+  endTime: 2023-05-31T00:00:00
+  style: "background: #c70202"
+  title: Legacy k8s.gcr.io container image registry is being redirected to registry.k8s.io
+  message: |
+    k8s.gcr.io image registry is gradually being redirected to registry.k8s.io (since Monday March 20th).<br>
+    All images available in k8s.gcr.io are available at registry.k8s.io.</br>
+    Please read our [announcement](/blog/2023/03/10/image-registry-redirect/) for more details.

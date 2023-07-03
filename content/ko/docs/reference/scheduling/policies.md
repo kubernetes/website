@@ -3,6 +3,7 @@ title: 스케줄링 정책
 content_type: concept
 sitemap:
   priority: 0.2 # Scheduling priorities are deprecated
+weight: 30
 ---
 
 <!-- overview -->
@@ -16,4 +17,4 @@ sitemap:
 
 * [스케줄링](/ko/docs/concepts/scheduling-eviction/kube-scheduler/)에 대해 배우기
 * [kube-scheduler 프로파일](/docs/reference/scheduling/profiles/)에 대해 배우기
-* [kube-scheduler configuration 레퍼런스 (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3) 읽어보기
+* [kube-scheduler configuration 레퍼런스 (v1)](/docs/reference/config-api/kube-scheduler-config.v1/) 읽어보기

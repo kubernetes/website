@@ -46,17 +46,17 @@ StorageClasses are non-namespaced; the name of the storage class according to et
 
 - **provisioner** (string), required
 
-  Provisioner indicates the type of the provisioner.
+  provisioner indicates the type of the provisioner.
 
 - **allowVolumeExpansion** (boolean)
 
-  AllowVolumeExpansion shows whether the storage class allow volume expand
+  allowVolumeExpansion shows whether the storage class allow volume expand.
 
 - **allowedTopologies** ([]TopologySelectorTerm)
 
   *Atomic: will be replaced during a merge*
   
-  Restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
+  allowedTopologies restrict the node topologies where volumes can be dynamically provisioned. Each volume plugin defines its own supported topology specifications. An empty TopologySelectorTerm list means there is no topology restriction. This field is only honored by servers that enable the VolumeScheduling feature.
 
   <a name="TopologySelectorTerm"></a>
   *A topology selector term represents the result of label queries. A null or empty topology selector term matches no objects. The requirements of them are ANDed. It provides a subset of functionality as NodeSelectorTerm. This is an alpha feature and may change in the future.*
@@ -78,19 +78,19 @@ StorageClasses are non-namespaced; the name of the storage class according to et
 
 - **mountOptions** ([]string)
 
-  Dynamically provisioned PersistentVolumes of this storage class are created with these mountOptions, e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
+  mountOptions controls the mountOptions for dynamically provisioned PersistentVolumes of this storage class. e.g. ["ro", "soft"]. Not validated - mount of the PVs will simply fail if one is invalid.
 
 - **parameters** (map[string]string)
 
-  Parameters holds the parameters for the provisioner that should create volumes of this storage class.
+  parameters holds the parameters for the provisioner that should create volumes of this storage class.
 
 - **reclaimPolicy** (string)
 
-  Dynamically provisioned PersistentVolumes of this storage class are created with this reclaimPolicy. Defaults to Delete.
+  reclaimPolicy controls the reclaimPolicy for dynamically provisioned PersistentVolumes of this storage class. Defaults to Delete.
 
 - **volumeBindingMode** (string)
 
-  VolumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
+  volumeBindingMode indicates how PersistentVolumeClaims should be provisioned and bound.  When unset, VolumeBindingImmediate is used. This field is only honored by servers that enable the VolumeScheduling feature.
 
 
 
@@ -114,7 +114,7 @@ StorageClassList is a collection of storage classes.
 
 - **items** ([]<a href="{{< ref "../config-and-storage-resources/storage-class-v1#StorageClass" >}}">StorageClass</a>), required
 
-  Items is the list of StorageClasses
+  items is the list of StorageClasses
 
 
 
@@ -206,6 +206,11 @@ GET /apis/storage.k8s.io/v1/storageclasses
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -491,6 +496,11 @@ DELETE /apis/storage.k8s.io/v1/storageclasses
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer

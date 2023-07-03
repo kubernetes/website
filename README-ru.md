@@ -13,7 +13,7 @@
 Чтобы работать с этим репозиторием, понадобятся следующие компоненты, установленные локально:
 
 - [npm](https://www.npmjs.com/)
-- [Go](https://golang.org/)
+- [Go](https://go.dev/)
 - [Hugo (Extended version)](https://gohugo.io/)
 - Исполняемая среда для контейнеров вроде [Docker](https://www.docker.com/)
 

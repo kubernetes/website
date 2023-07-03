@@ -87,7 +87,9 @@ GitHub Access Controls: [@kubernetes/release-managers](https://github.com/orgs/k
 GitHub Mentions: [@kubernetes/release-engineering](https://github.com/orgs/kubernetes/teams/release-engineering)
 
 - Adolfo García Veytia ([@puerco](https://github.com/puerco))
+- Cici Huang ([@cici37](https://github.com/cici37))
 - Carlos Panato ([@cpanato](https://github.com/cpanato))
+- Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
 - Marko Mudrinić ([@xmudrii](https://github.com/xmudrii))
 - Nabarun Pal ([@palnabarun](https://github.com/palnabarun))
 - Sascha Grunert ([@saschagrunert](https://github.com/saschagrunert))
@@ -133,15 +135,8 @@ referred to as Release Manager shadows. They are responsible for:
 GitHub Mentions: @kubernetes/release-engineering
 
 - Arnaud Meukam ([@ameukam](https://github.com/ameukam))
-- Cici Huang ([@cici37](https://github.com/cici37))
-- Jeremy Rickard ([@jeremyrickard](https://github.com/jeremyrickard))
 - Jim Angel ([@jimangel](https://github.com/jimangel))
 - Joseph Sandoval ([@jrsapi](https://github.com/jrsapi))
-- Joyce Kung ([@thejoycekung](https://github.com/thejoycekung))
-- Max Körbächer ([@mkorbi](https://github.com/mkorbi))
-- Seth McCombs ([@sethmccombs](https://github.com/sethmccombs))
-- Taylor Dolezal ([@onlydole](https://github.com/onlydole))
-- Wilson Husin ([@wilsonehusin](https://github.com/wilsonehusin))
 - Xander Grzywinski([@salaxander](https://github.com/salaxander))
 
 ### Becoming a Release Manager Associate

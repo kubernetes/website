@@ -66,7 +66,7 @@ opening a pull request. Figure 1 outlines the steps and the details follow.
 
 {{< mermaid >}}
 flowchart LR
-A([fa:fa-user 新的<br>贡献者]) --- id1[(K8s/Website<br>GitHub)]
+A([fa:fa-user 新的<br>贡献者]) --- id1[(kubernetes/website<br>GitHub)]
 subgraph tasks[使用 GitHub 提交变更]
 direction TB
     0[ ] -.-
@@ -98,8 +98,7 @@ Figure 1. Steps for opening a PR using GitHub.
 图 1. 使用 GitHub 发起一个 PR 的步骤。
 
 <!--
-1. On the page where you see the issue, select the pencil icon at the top right.
-   You can also scroll to the bottom of the page and select **Edit this page**.
+1. On the page where you see the issue, select the **Edit this page** option in the right-hand side navigation panel.
 
 1. Make your changes in the GitHub markdown editor.
 
@@ -107,8 +106,7 @@ Figure 1. Steps for opening a PR using GitHub.
    In the first field, give your commit message a title.
    In the second field, provide a description.
 -->
-1. 在你发现问题的网页，选择右上角的铅笔图标。
-   你也可以滚动到页面底端，选择**编辑此页**。
+1. 在你发现问题的页面上，选择右侧导航面板中的**编辑此页面**选项。
 
 2. 在 GitHub 的 Markdown 编辑器中修改内容。
 
@@ -229,7 +227,7 @@ Figure 2 shows the steps to follow when you work from a local fork. The details 
 
 {{< mermaid >}}
 flowchart LR
-1[派生 K8s/website<br>仓库] --> 2[创建本地克隆副本<br>并指定 upstream 仓库]
+1[派生 kubernetes/website<br>仓库] --> 2[创建本地克隆副本<br>并指定 upstream 仓库]
 subgraph changes[你的变更]
 direction TB
 S[ ] -.-
@@ -278,7 +276,7 @@ Figure 2. Working from a local fork to make your changes.
 1. 打开终端窗口，克隆你所派生的副本，并更新 [Docsy Hugo 主题](https://github.com/google/docsy#readme)：
 
    ```shell
-   git clone git@github.com/<github_username>/website
+   git clone git@github.com:<github_username>/website
    cd website
    git submodule update --init --recursive --depth 1
    ```
@@ -594,9 +592,9 @@ Alternately, install and use the `hugo` command on your computer:
 ### 从你的克隆副本向 kubernetes/website 发起拉取请求（PR）   {#open-a-pr}
 
 <!-- 
-Figure 3 shows the steps to open a PR from your fork to the K8s/website. The details follow.
+Figure 3 shows the steps to open a PR from your fork to the kubernetes/website. The details follow.
 -->
-图 3 显示了从你的克隆副本向 K8s/website 发起 PR 的步骤。
+图 3 显示了从你的克隆副本向 kubernetes/website 发起 PR 的步骤。
 详细信息如下。
 
 <!-- See https://github.com/kubernetes/website/issues/28808 for live-editor URL to this figure -->
@@ -606,7 +604,7 @@ Figure 3 shows the steps to open a PR from your fork to the K8s/website. The det
 flowchart LR
 subgraph first[ ]
 direction TB
-1[1. 前往 K8s/website 仓库] --> 2[2. 选择 New Pull Request]
+1[1. 前往 kubernetes/website 仓库] --> 2[2. 选择 New Pull Request]
 2 --> 3[3. 选择 compare across forks]
 3 --> 4[4. 从 head repository 下拉菜单<br>选择你的克隆副本]
 end
@@ -626,9 +624,9 @@ class first,second white
 {{</ mermaid >}}
 
 <!-- 
-Figure 3. Steps to open a PR from your fork to the K8s/website.
+Figure 3. Steps to open a PR from your fork to the kubernetes/website.
 -->
-图 3. 从你的克隆副本向 K8s/website 发起一个 PR 的步骤。
+图 3. 从你的克隆副本向 kubernetes/website 发起一个 PR 的步骤。
 
 <!--
 1. In a web browser, go to the [`kubernetes/website`](https://github.com/kubernetes/website/) repository.

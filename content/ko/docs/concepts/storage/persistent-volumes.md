@@ -9,7 +9,7 @@ title: 퍼시스턴트 볼륨
 feature:
   title: 스토리지 오케스트레이션
   description: >
-    로컬 스토리지, <a href="https://cloud.google.com/storage/">GCP</a>나 <a href="https://aws.amazon.com/products/storage/">AWS</a>와 같은 퍼블릭 클라우드 공급자 또는 NFS, iSCSI, Gluster, Ceph, Cinder나 Flocker와 같은 네트워크 스토리지 시스템에서 원하는 스토리지 시스템을 자동으로 마운트한다.
+    로컬 스토리지, <a href="https://aws.amazon.com/products/storage/">AWS</a>나 <a href="https://cloud.google.com/storage/">GCP</a>와 같은 퍼블릭 클라우드 공급자 또는 NFS, iSCSI, Ceph, Cinder와 같은 네트워크 스토리지 시스템에서 원하는 스토리지 시스템을 자동으로 마운트한다.
 content_type: concept
 weight: 20
 ---
@@ -166,7 +166,7 @@ spec:
       path: /any/path/it/will/be/replaced
   containers:
   - name: pv-recycler
-    image: "k8s.gcr.io/busybox"
+    image: "registry.k8s.io/busybox"
     command: ["/bin/sh", "-c", "test -e /scrub && rm -rf /scrub/..?* /scrub/.[!.]* /scrub/*  && test -z \"$(ls -A /scrub)\" || exit 1"]
     volumeMounts:
     - name: vol
@@ -238,10 +238,9 @@ Source:
 Events:                <none>
 ```
 
-특정 인-트리 볼륨 플러그인에 대해 `CSIMigration` 기능을 활성화하면 `kubernetes.io/pv-controller` 파이널라이저는 제거되고, 
-`external-provisioner.volume.kubernetes.io/finalizer` 파이널라이저가 추가된다. 
-이와 비슷하게, `CSIMigration` 기능을 비활성화하면 `external-provisioner.volume.kubernetes.io/finalizer` 파이널라이저는 제거되고, 
-`kubernetes.io/pv-controller` 파이널라이저가 추가된다.
+특정 인-트리 볼륨 플러그인에 대해 `CSIMigration{provider}` 기능 플래그가 활성화되어 있을 때,
+`kubernetes.io/pv-controller` 파이널라이저는
+`external-provisioner.volume.kubernetes.io/finalizer` 파이널라이저로 대체된다.
 
 ### 퍼시스턴트볼륨 예약
 
@@ -286,7 +285,7 @@ spec:
 
 ### 퍼시스턴트 볼륨 클레임 확장
 
-{{< feature-state for_k8s_version="v1.11" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 퍼시스턴트볼륨클레임(PVC) 확장 지원은 기본적으로 활성화되어 있다. 다음 유형의
 볼륨을 확장할 수 있다.
@@ -298,18 +297,17 @@ spec:
 * {{< glossary_tooltip text="csi" term_id="csi" >}}
 * flexVolume (deprecated)
 * gcePersistentDisk
-* glusterfs
 * rbd
 * portworxVolume
 
 스토리지 클래스의 `allowVolumeExpansion` 필드가 true로 설정된 경우에만 PVC를 확장할 수 있다.
 
-``` yaml
+```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: gluster-vol-default
-provisioner: kubernetes.io/glusterfs
+  name: example-vol-default
+provisioner: vendor-name.example/magicstorage
 parameters:
   resturl: "http://192.168.10.100:8080"
   restuser: ""
@@ -334,7 +332,7 @@ PVC에 대해 더 큰 볼륨을 요청하려면 PVC 오브젝트를 수정하여
 
 #### CSI 볼륨 확장
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 CSI 볼륨 확장 지원은 기본적으로 활성화되어 있지만 볼륨 확장을 지원하려면 특정 CSI 드라이버도 필요하다. 자세한 내용은 특정 CSI 드라이버 문서를 참고한다.
 
@@ -413,14 +411,9 @@ PVC 확장 실패의 사용자에 의한 복구는 쿠버네티스 1.23부터 �
 
 퍼시스턴트볼륨 유형은 플러그인으로 구현된다. 쿠버네티스는 현재 다음의 플러그인을 지원한다.
 
-* [`awsElasticBlockStore`](/ko/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
-* [`azureDisk`](/ko/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
-* [`azureFile`](/ko/docs/concepts/storage/volumes/#azurefile) - Azure File
 * [`cephfs`](/ko/docs/concepts/storage/volumes/#cephfs) - CephFS 볼륨
 * [`csi`](/ko/docs/concepts/storage/volumes/#csi) - 컨테이너 스토리지 인터페이스 (CSI)
 * [`fc`](/ko/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) 스토리지
-* [`gcePersistentDisk`](/ko/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
-* [`glusterfs`](/ko/docs/concepts/storage/volumes/#glusterfs) - Glusterfs 볼륨
 * [`hostPath`](/ko/docs/concepts/storage/volumes/#hostpath) - HostPath 볼륨
   (단일 노드 테스트 전용. 다중-노드 클러스터에서 작동하지 않음.
   대신 `로컬` 볼륨 사용 고려)
@@ -428,29 +421,39 @@ PVC 확장 실패의 사용자에 의한 복구는 쿠버네티스 1.23부터 �
 * [`local`](/ko/docs/concepts/storage/volumes/#local) - 노드에 마운트된
   로컬 스토리지 디바이스
 * [`nfs`](/ko/docs/concepts/storage/volumes/#nfs) - 네트워크 파일 시스템 (NFS) 스토리지
-* [`portworxVolume`](/ko/docs/concepts/storage/volumes/#portworxvolume) - Portworx 볼륨
 * [`rbd`](/ko/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) 볼륨
-* [`vsphereVolume`](/ko/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK 볼륨
 
 아래의 PersistentVolume 타입은 사용 중단되었다. 이 말인 즉슨, 지원은 여전히 제공되지만 추후 쿠버네티스 릴리스에서는 삭제될 예정이라는 것이다.
 
+* [`awsElasticBlockStore`](/ko/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
+  (v1.17에서 **사용 중단**)
+* [`azureDisk`](/ko/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
+  (v1.19에서 **사용 중단**)
+* [`azureFile`](/ko/docs/concepts/storage/volumes/#azurefile) - Azure File
+  (v1.21에서 **사용 중단**)
 * [`cinder`](/ko/docs/concepts/storage/volumes/#cinder) - Cinder (오픈스택 블록 스토리지)
   (v1.18에서 **사용 중단**)
 * [`flexVolume`](/ko/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
   (v1.23에서 **사용 중단**)
-* [`flocker`](/ko/docs/concepts/storage/volumes/#flocker) - Flocker 스토리지
-  (v1.22에서 **사용 중단**)
-* [`quobyte`](/ko/docs/concepts/storage/volumes/#quobyte) - Quobyte 볼륨
-  (v1.22에서 **사용 중단**)
-* [`storageos`](/ko/docs/concepts/storage/volumes/#storageos) - StorageOS 볼륨
-  (v1.22에서 **사용 중단**)
+* [`gcePersistentDisk`](/ko/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
+  (v1.17에서 **사용 중단**)
+* [`portworxVolume`](/ko/docs/concepts/storage/volumes/#portworxvolume) - Portworx 볼륨
+  (v1.25에서 **사용 중단**)
+* [`vsphereVolume`](/ko/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK 볼륨
+  (v1.19에서 **사용 중단**)
 
 이전 쿠버네티스 버전은 아래의 인-트리 PersistentVolume 타입도 지원했었다.
 
 * `photonPersistentDisk` - Photon 컨트롤러 퍼시스턴트 디스크.
-  (v1.15 이후 **사용 불가**)
+  (v1.15부터 **사용 불가**)
 * [`scaleIO`](/ko/docs/concepts/storage/volumes/#scaleio) - ScaleIO 볼륨
-  (v1.21 이후 **사용 불가**)
+  (v1.21부터 **사용 불가**)
+* [`flocker`](/ko/docs/concepts/storage/volumes/#flocker) - Flocker 스토리지
+  (v1.25부터 **사용 불가**)
+* [`quobyte`](/ko/docs/concepts/storage/volumes/#quobyte) - Quobyte 볼륨
+  (v1.25부터 **사용 불가**)
+* [`storageos`](/ko/docs/concepts/storage/volumes/#storageos) - StorageOS 볼륨
+  (v1.25부터 **사용 불가**)
 
 ## 퍼시스턴트 볼륨
 
@@ -562,17 +565,14 @@ CLI에서 접근 모드는 다음과 같이 약어로 표시된다.
 | CSI                  | 드라이버에 의존            | 드라이버에 의존           | 드라이버에 의존   | 드라이버에 의존            |
 | FC                   | &#x2713;               | &#x2713;              | -             | -                      |
 | FlexVolume           | &#x2713;               | &#x2713;              | 드라이버에 의존   | -                      |
-| Flocker              | &#x2713;               | -                     | -             | -                      |
 | GCEPersistentDisk    | &#x2713;               | &#x2713;              | -             | -                      |
 | Glusterfs            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | HostPath             | &#x2713;               | -                     | -             | -                      |
 | iSCSI                | &#x2713;               | &#x2713;              | -             | -                      |
-| Quobyte              | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | NFS                  | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | RBD                  | &#x2713;               | &#x2713;              | -             | -                      |
 | VsphereVolume        | &#x2713;               | -                     | - (파드를 배치할(collocated) 때 동작한다)      | - |
 | PortworxVolume       | &#x2713;               | -                     | &#x2713;      | -                  | - |
-| StorageOS            | &#x2713;               | -                     | -             | -                      |
 
 ### 클래스
 
@@ -613,12 +613,9 @@ PV는 `storageClassName` 속성을
 * `cephfs`
 * `cinder` (v1.18에서 **사용 중단됨**)
 * `gcePersistentDisk`
-* `glusterfs`
 * `iscsi`
 * `nfs`
-* `quobyte` (v1.22에서 **사용 중단됨**)
 * `rbd`
-* `storageos` (v1.22에서 **사용 중단됨**)
 * `vsphereVolume`
 
 마운트 옵션의 유효성이 검사되지 않는다. 마운트 옵션이 유효하지 않으면, 마운트가 실패한다.
@@ -718,9 +715,13 @@ PVC는 항상 클래스가 없는 PV를 요청하는 것으로 해석되므로
   플러그인은 모든 PVC 생성을
   금지한다.
 * 어드미션 플러그인이 꺼져 있으면 기본 스토리지클래스에 대한 기본값 자체가 없다.
-  `storageClassName`이 없는 모든 PVC는 클래스가 없는 PV에만 바인딩할 수 있다. 이 경우
-  `storageClassName`이 없는 PVC는 `storageClassName`이 `""`로 설정된 PVC와
-  같은 방식으로 처리된다.
+  `storageClassName`이 `""`으로 설정된 모든 PVC는
+  `storageClassName`이 마찬가지로 `""`로 설정된 PV에만 바인딩할 수 있다.
+  하지만, `storageClassName`이 없는 PVC는
+  기본 스토리지클래스가 사용 가능해지면 갱신될 수 있다. PVC가 갱신되면
+  해당 PVC는 더 이상 `storageClassName`이 `""`로 설정된 PV와 바인딩되어있지 않게 된다.
+
+더 자세한 정보는 [retroactive default StorageClass assignment](#retroactive-default-storageclass-assignment)를 참조한다.
 
 설치 방법에 따라 설치 중에 애드온 관리자가 기본 스토리지클래스를 쿠버네티스 클러스터에
 배포할 수 있다.
@@ -736,6 +737,19 @@ AND 조건으로 동작한다. 요청된 클래스와 요청된 레이블이 있
 이전에는 `volume.beta.kubernetes.io/storage-class` 어노테이션이 `storageClassName`
 속성 대신 사용되었다. 이 어노테이션은 아직까지는 사용할 수 있지만,
 향후 쿠버네티스 릴리스에서는 지원되지 않는다.
+
+
+#### 기본 스토리지클래스 할당 소급 적용하기 {#retroactive-default-storageclass-assignment}
+
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+
+새로운 PVC를 위한 `storageClassName`을 설정하지 않고 퍼시스턴트볼륨클레임을 생성할 수 있으며, 이는 클러스터에 기본 스토리지클래스가 존재하지 않을 때에도 가능하다. 이 경우, 새로운 PVC는 정의된 대로 생성되며, 해당 PVC의 `storageClassName`은 기본값이 사용 가능해질 때까지 미설정 상태로 남는다.
+
+기본 스토리지클래스가 사용 가능해지면, 컨트롤플레인은 `storageClassName`가 없는 PVC를 찾는다. `storageClassName`의 값이 비어있거나 해당 키 자체가 없는 PVC라면, 컨트롤플레인은 해당 PVC의 `storageClassName`가 새로운 기본 스토리지클래스와 일치하도록 설정하여 갱신한다. `storageClassName`가 `""`인 PVC가 있고, 기본 스토리지클래스를 설정한다면, 해당 PVC는 갱신되지 않는다.
+
+기본 스토리지클래스가 존재할 때 `storageClassName`가 `""`로 설정된 PV와의 바인딩을 유지하고싶다면, 연결된 PVC의 `storageClassName`를 `""`로 설정해야 한다.
+
+이 행동은 관리자가 오래된 기본 스토리지클래스를 삭제하고 새로운 기본 스토리지클래스를 생성하거나 설정하여 기본 스토리지클래스를 변경하는 데 도움이 된다.  기본값이 설정되어있지 않을 때의 이 작은 틈새로 인해 이 때 생성된 `storageClassName`가 없는 PVC는 아무런 기본값도 없이 생성될 수 있지만, 기본 스토리지클래스 할당 소급 적용에 의해 이러한 방식으로 기본값을 변경하는 것은 안전하다.
 
 ## 볼륨으로 클레임하기
 
@@ -934,6 +948,25 @@ kube-apiserver와 kube-controller-manager에 대해 `AnyVolumeDataSource`
 어떠한 오브젝트에 대한 참조도 명시할 수 있다(단, PVC 외의 다른 코어 오브젝트는 제외). 
 기능 게이트가 활성화된 클러스터에서는 `dataSource`보다 `dataSourceRef`를 사용하는 것을 권장한다.
 
+## 네임스페이스를 교차하는 데이터 소스
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+쿠버네티스는 네임스페이스를 교차하는 볼륨 데이터 소스를 지원한다.
+네임스페이스를 교차하는 볼륨 데이터 소스를 사용하기 위해서는, kube-apiserver, kube-controller-manager에 대해서 `AnyVolumeDataSource`와 `CrossNamespaceVolumeDataSource`
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
+활성화해야 한다.
+또한, csi-provisioner에 대한 `CrossNamespaceVolumeDataSource` 기능 게이트도 활성화해야 한다.
+
+`CrossNamespaceVolumeDataSource` 기능 게이트를 활성화하면 dataSourceRef 필드에 네임스페이스를 명시할 수 있다.
+{{< note >}}
+볼륨 데이터 소스의 네임스페이스를 명시하면, 쿠버네티스는
+참조를 받아들이기 전에 다른 네임스페이스의 레퍼런스그랜트를 확인한다.
+레퍼런스그랜트는 `gateway.networking.k8s.io` 확장 API에 속한다.
+자세한 정보는 게이트웨이 API 문서의 [레퍼런스그랜트](https://gateway-api.sigs.k8s.io/api-types/referencegrant/)를 참고하라.
+즉 이 방법을 사용하려면 우선 게이트웨이 API에서 최소한 레퍼런스그랜트 이상을 사용하여
+쿠버네티스 클러스터를 확장해야 한다는 것을 의미한다.
+{{< /note >}}
+
 ## 데이터 소스 참조
 
 `dataSourceRef` 필드는 `dataSource` 필드와 거의 동일하게 동작한다. 
@@ -950,6 +983,11 @@ kube-apiserver와 kube-controller-manager에 대해 `AnyVolumeDataSource`
   유효하지 않은 값은 PVC를 제외한 모든 코어 오브젝트(apiGroup이 없는 오브젝트)이다.
 * `dataSourceRef` 필드는 여러 타입의 오브젝트를 포함할 수 있지만, `dataSource` 필드는 
   PVC와 VolumeSnapshot만 포함할 수 있다.
+
+`CrossNamespaceVolumeDataSource` 기능이 활성화되어 있을 때, 추가적인 차이점이 존재한다:
+
+* `dataSource` 필드는 로컬 오브젝트만을 허용하지만, `dataSourceRef` 필드는 모든 네임스페이스의 오브젝트를 허용한다.
+* 네임스페이스가 명시되어 있을 때, `dataSource`와 `dataSourceRef`는 동기화되지 않는다.
 
 기능 게이트가 활성화된 클러스터에서는 `dataSourceRef`를 사용해야 하고, 그렇지 않은 
 클러스터에서는 `dataSource`를 사용해야 한다. 어떤 경우에서든 두 필드 모두를 확인해야 
@@ -990,6 +1028,50 @@ PVC 생성 상태에 대한 피드백을 제공하기 위해, PVC에 대한 이�
 해당 데이터 소스를 다루는 파퓰레이터가 등록되어 있지 않다면 이 컨트롤러가 PVC에 경고 이벤트를 생성한다.
 PVC를 위한 적절한 파퓰레이터가 설치되어 있다면, 
 볼륨 생성과 그 과정에서 발생하는 이슈에 대한 이벤트를 생성하는 것은 파퓰레이터 컨트롤러의 몫이다.
+
+### 네임스페이스를 교차하는 볼륨 데이터 소스 사용하기
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+네임스페이스 소유자가 참조를 받아들일 수 있도록 레퍼런스그랜트를 생성한다.
+`dataSourceRef` 필드를 사용하여 네임스페이스를 교차하는 볼륨 데이터 소스를 명시해서 파퓰레이트된 볼륨을 정의한다. 이 때, 원천 네임스페이스에 유효한 레퍼런스그랜트를 보유하고 있어야 한다:
+
+   ```yaml
+   apiVersion: gateway.networking.k8s.io/v1beta1
+   kind: ReferenceGrant
+   metadata:
+     name: allow-ns1-pvc
+     namespace: default
+   spec:
+     from:
+     - group: ""
+       kind: PersistentVolumeClaim
+       namespace: ns1
+     to:
+     - group: snapshot.storage.k8s.io
+       kind: VolumeSnapshot
+       name: new-snapshot-demo
+   ```
+
+   ```yaml
+   apiVersion: v1
+   kind: PersistentVolumeClaim
+   metadata:
+     name: foo-pvc
+     namespace: ns1
+   spec:
+     storageClassName: example
+     accessModes:
+     - ReadWriteOnce
+     resources:
+       requests:
+         storage: 1Gi
+     dataSourceRef:
+       apiGroup: snapshot.storage.k8s.io
+       kind: VolumeSnapshot
+       name: new-snapshot-demo
+       namespace: default
+     volumeMode: Filesystem
+   ```
 
 ## 포터블 구성 작성
 

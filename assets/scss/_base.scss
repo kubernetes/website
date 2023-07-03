@@ -102,6 +102,16 @@ main {
   }
 }
 
+::selection {
+  background: #326ce5;
+  color: white;
+}
+
+::-moz-selection {
+  background: #326ce5;
+  color: white;
+}
+
 // HEADER
 
 #hamburger {
@@ -861,6 +871,10 @@ section#cncf {
 // nav-tabs and tab-content
 .nav-tabs {
   border-bottom: none !important;
+
+  .nav-item {
+    margin-bottom: 0;
+  }
 }
 
 .td-content .tab-content .highlight {

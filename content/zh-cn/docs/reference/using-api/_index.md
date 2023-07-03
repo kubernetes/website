@@ -1,7 +1,7 @@
 ---
 title: API 概述
 content_type: concept
-weight: 10
+weight: 20
 no_list: true
 card:
   name: reference
@@ -16,7 +16,7 @@ reviewers:
 - lavalamp
 - jbeda
 content_type: concept
-weight: 10
+weight: 20
 no_list: true
 card:
   name: reference
@@ -218,7 +218,7 @@ part is omitted, it is treated as if `=true` is specified. For example:
 
  - to disable `batch/v1`, set `--runtime-config=batch/v1=false`
  - to enable `batch/v2alpha1`, set `--runtime-config=batch/v2alpha1`
- - to enable a specific version of an API, such as `storage.k8s.io/v1beta1/csistoragecapacities`, set `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities` 
+ - to enable a specific version of an API, such as `storage.k8s.io/v1beta1/csistoragecapacities`, set `--runtime-config=storage.k8s.io/v1beta1/csistoragecapacities`
 -->
 ## 启用或禁用 API 组   {#enabling-or-disabling}
 

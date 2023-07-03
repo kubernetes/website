@@ -54,6 +54,8 @@
   - name: Alpha level
     fields:
     - hostUsers
+    - resourceClaims
+    - schedulingGates
   - name: Deprecated
     fields:
     - serviceAccount
@@ -97,6 +99,7 @@
     - initContainerStatuses
     - containerStatuses
     - ephemeralContainerStatuses
+    - resize
 
 - definition: io.k8s.api.core.v1.Container
   field_categories:
@@ -125,6 +128,7 @@
   - name: Resources
     fields:
     - resources
+    - resizePolicy
   - name: Lifecycle
     fields:
     - lifecycle
@@ -217,6 +221,9 @@
     fields:
     - volumeMounts
     - volumeDevices
+  - name: Resources
+    fields:
+    - resizePolicy
   - name: Lifecycle
     fields:
     - terminationMessagePath
@@ -317,6 +324,7 @@
     - volumeClaimTemplates
     - minReadySeconds
     - persistentVolumeClaimRetentionPolicy
+    - ordinals
 
 - definition: io.k8s.api.apps.v1.StatefulSetUpdateStrategy
   field_categories:

@@ -44,9 +44,9 @@ _디플로이먼트(Deployment)_ 는 {{< glossary_tooltip text="파드" term_id=
 
 이 예시에 대한 설명은 다음과 같다.
 
-* `.metadata.name` 필드에 따라 `nginx-deployment` 이름으로 디플로이먼트가 생성된다.
-* `.spec.replicas` 필드에 따라 디플로이먼트는 3개의 레플리카 파드를 생성한다.
-* `.spec.selector` 필드는 디플로이먼트가 관리할 파드를 찾는 방법을 정의한다.
+* `.metadata.name` 필드에 따라, `nginx-deployment` 이름을 가진 디플로이먼트가 생성된다.
+* `.spec.replicas` 필드에 따라, 디플로이먼트는 3개의 레플리카 파드를 생성하는 레플리카셋을 생성한다.
+* `.spec.selector` 필드는, 생성된 레플리카셋이 관리할 파드를 찾아내는 방법을 정의한다.
   이 사례에서는 파드 템플릿에 정의된 레이블(`app: nginx`)을 선택한다.
   그러나 파드 템플릿 자체의 규칙이 만족되는 한,
   보다 정교한 선택 규칙의 적용이 가능하다.
@@ -121,8 +121,8 @@ kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml
    * `READY` 는 사용자가 사용할 수 있는 애플리케이션의 레플리카의 수를 표시한다.
    * `AGE` 는 애플리케이션의 실행된 시간을 표시한다.
 
-   레플리카셋의 이름은 항상 `[DEPLOYMENT-NAME]-[RANDOM-STRING]` 형식으로 된 것을 알 수 있다. 무작위 문자열은
-   무작위로 생성되며, `pod-template-hash` 를 시드(seed)로 사용한다.
+   레플리카셋의 이름은 항상 `[DEPLOYMENT-NAME]-[HASH]` 형식으로 된 것을 알 수 있다.
+   `HASH` 문자열은 레플리카셋의 `pod-template-hash` 레이블과 같다.
 
 6. 각 파드에 자동으로 생성된 레이블을 보려면, `kubectl get pods --show-labels` 를 실행한다.
    다음과 유사하게 출력된다.
@@ -532,7 +532,7 @@ API 버전 `apps/v1` 에서 디플로이먼트의 레이블 셀렉터는 생성 
     ```
     deployment.apps/nginx-deployment rolled back
     ```
-    Alternatively, you can rollback to a specific revision by specifying it with `--to-revision`:
+    또는 특정 수정 버전으로 롤백하려면 `--to-revision` 옵션에 해당 수정 버전을 명시한다.
 
     ```shell
     kubectl rollout undo deployment/nginx-deployment --to-revision=2

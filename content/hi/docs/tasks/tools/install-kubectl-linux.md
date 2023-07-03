@@ -32,10 +32,10 @@ Linux पर kubectl संस्थापित करने के लिए �
    {{< note >}}
 एक विशिष्ट संस्करण डाउनलोड करने के लिए, कमांड के `$(curl -L -s https://dl.k8s.io/release/stable.txt)` हिस्से को विशिष्ट संस्करण से बदलें।
 
-उदाहरण के लिए, लिनक्स पर {{< param "fullversion" >}} संस्करण डाउनलोड करने के लिए, टाइप करें:
+उदाहरण के लिए, लिनक्स पर {{< skew currentPatchVersion >}} संस्करण डाउनलोड करने के लिए, टाइप करें:
 
    ```bash
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+   curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
    ```
    {{< /note >}}
 
@@ -135,7 +135,7 @@ baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
 enabled=1
 gpgcheck=1
 repo_gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
 yum install -y kubectl
 {{< /tab >}}

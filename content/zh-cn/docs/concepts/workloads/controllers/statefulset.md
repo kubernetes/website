@@ -169,7 +169,7 @@ In the above example:
   PersistentVolume Provisioner.
 
 The name of a StatefulSet object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+[DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 -->
 上述例子中：
 
@@ -179,7 +179,7 @@ The name of a StatefulSet object must be a valid
   [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/) 来提供稳定的存储。
 
 StatefulSet 的命名需要遵循
-[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)规范。
+[DNS 标签](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-label-names)规范。
 
 <!--
 ### Pod Selector
@@ -208,7 +208,9 @@ Provisioner.
 它可以使用 PersistentVolume 制备程序所准备的
 [PersistentVolumes](/zh-cn/docs/concepts/storage/persistent-volumes/) 来提供稳定的存储。
 
-<!-- ### Minimum ready seconds -->
+<!--
+### Minimum ready seconds
+-->
 ### 最短就绪秒数 {#minimum-ready-seconds}
 
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
@@ -242,13 +244,41 @@ StatefulSet Pod 具有唯一的标识，该标识包括顺序标识、稳定的�
 <!--
 ### Ordinal Index
 
-For a StatefulSet with N replicas, each Pod in the StatefulSet will be
-assigned an integer ordinal, from 0 up through N-1, that is unique over the Set.
+For a StatefulSet with N [replicas](#replicas), each Pod in the StatefulSet
+will be assigned an integer ordinal, that is unique over the Set. By default,
+pods will be assigned ordinals from 0 up through N-1.
 -->
 ### 有序索引   {#ordinal-index}
 
-对于具有 N 个副本的 StatefulSet，该 StatefulSet 中的每个 Pod 将被分配一个从 0 到 N-1
-的整数序号，该序号在此 StatefulSet 上是唯一的。
+对于具有 N 个[副本](#replicas)的 StatefulSet，该 StatefulSet 中的每个 Pod 将被分配一个整数序号，
+该序号在此 StatefulSet 上是唯一的。默认情况下，这些 Pod 将被从 0 到 N-1 的序号。
+
+<!--
+### Start ordinal
+-->
+### 起始序号   {#start-ordinal}
+
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+
+<!--
+`.spec.ordinals` is an optional field that allows you to configure the integer
+ordinals assigned to each Pod. It defaults to nil. You must enable the
+`StatefulSetStartOrdinal`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
+use this field. Once enabled, you can configure the following options:
+-->
+`.spec.ordinals` 是一个可选的字段，允许你配置分配给每个 Pod 的整数序号。
+该字段默认为 nil 值。你必须启用 `StatefulSetStartOrdinal`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)才能使用此字段。
+一旦启用，你就可以配置以下选项：
+
+<!--
+* `.spec.ordinals.start`: If the `.spec.ordinals.start` field is set, Pods will
+  be assigned ordinals from `.spec.ordinals.start` up through
+  `.spec.ordinals.start + .spec.replicas - 1`.
+-->
+* `.spec.ordinals.start`：如果 `.spec.ordinals.start` 字段被设置，则 Pod 将被分配从
+  `.spec.ordinals.start` 到 `.spec.ordinals.start + .spec.replicas - 1` 的序号。
 
 <!--
 ### Stable Network ID
@@ -328,7 +358,7 @@ Cluster Domain | Service (ns/name) | StatefulSet (ns/name)  | StatefulSet Domain
 {{< note >}}
 <!--
 Cluster Domain will be set to `cluster.local` unless
-[otherwise configured](/docs/concepts/services-networking/dns-pod-service/#how-it-works).
+[otherwise configured](/docs/concepts/services-networking/dns-pod-service/).
 -->
 集群域会被设置为 `cluster.local`，除非有[其他配置](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
 {{< /note >}}
@@ -449,8 +479,8 @@ described [above](#deployment-and-scaling-guarantees).
 `Parallel` pod management tells the StatefulSet controller to launch or
 terminate all Pods in parallel, and to not wait for Pods to become Running
 and Ready or completely terminated prior to launching or terminating another
-Pod. This option only affects the behavior for scaling operations. Updates are not affected.
-
+Pod. This option only affects the behavior for scaling operations. Updates are not
+affected.
 -->
 #### 并行 Pod 管理   {#parallel-pod-management}
 
@@ -459,7 +489,7 @@ Pod. This option only affects the behavior for scaling operations. Updates are n
 这个选项只会影响扩缩操作的行为，更新则不会被影响。
 
 <!--
-## Update Strategies
+## Update strategies
 
 A StatefulSet's `.spec.updateStrategy` field allows you to configure
 and disable automated rolling updates for containers, labels, resource request/limits, and
@@ -613,10 +643,12 @@ StatefulSet will then begin to recreate the Pods using the reverted template.
 恢复模板后，还必须删除 StatefulSet 尝试使用错误的配置来运行的 Pod。这样，
 StatefulSet 才会开始使用被还原的模板来重新创建 Pod。
 
-<!-- ## PersistentVolumeClaim retention -->
+<!--
+## PersistentVolumeClaim retention
+-->
 ## PersistentVolumeClaim 保留  {#persistentvolumeclaim-retention}
 
-{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 <!--
 The optional `.spec.persistentVolumeClaimRetentionPolicy` field controls if
@@ -638,7 +670,7 @@ Once enabled, there are two policies you can configure for each StatefulSet:
 `whenScaled`
 : configures the volume retention behavior that applies when the replica count of
   the StatefulSet   is reduced; for example, when scaling down the set.
-  
+
 For each policy that you can configure, you can set the value to either `Delete` or `Retain`.
 -->
 `whenDeleted`
@@ -676,7 +708,7 @@ StatefulSet being deleted or scaled down. For example, if a Pod associated with 
 fails due to node failure, and the control plane creates a replacement Pod, the StatefulSet
 retains the existing PVC.  The existing volume is unaffected, and the cluster will attach it to
 the node where the new Pod is about to launch.
-  
+
 The default for policies is `Retain`, matching the StatefulSet behavior before this new feature.
 
 Here is an example policy.

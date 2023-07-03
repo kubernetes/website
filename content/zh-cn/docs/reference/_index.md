@@ -77,7 +77,7 @@ client libraries:
 ## CLI
 
 * [kubectl](/docs/reference/kubectl/) - Main CLI tool for running commands and managing Kubernetes clusters.
-    * [JSONPath](/docs/reference/kubectl/jsonpath/) - Syntax guide for using [JSONPath expressions](https://goessner.net/articles/JsonPath/) with kubectl.
+  * [JSONPath](/docs/reference/kubectl/jsonpath/) - Syntax guide for using [JSONPath expressions](https://goessner.net/articles/JsonPath/) with kubectl.
 * [kubeadm](/docs/reference/setup-tools/kubeadm/) - CLI tool to easily provision a secure Kubernetes cluster.
 -->
 ## CLI
@@ -85,7 +85,7 @@ client libraries:
 * [kubectl](/zh-cn/docs/reference/kubectl/) —— 主要的 CLI 工具，用于运行命令和管理 Kubernetes 集群。
   * [JSONPath](/zh-cn/docs/reference/kubectl/jsonpath/) —— 通过 kubectl 使用
     [JSONPath 表达式](https://goessner.net/articles/JsonPath/)的语法指南。
-* [kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/) - 此 CLI 工具可轻松配置安全的 Kubernetes 集群。
+* [kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/) —— 此 CLI 工具可轻松配置安全的 Kubernetes 集群。
 
 <!--
 ## Components
@@ -96,16 +96,19 @@ client libraries:
 * [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) -
   REST API that validates and configures data for API objects such as  pods,
   services, replication controllers.
-* [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) - Daemon that embeds the core control loops shipped with Kubernetes.
+* [kube-controller-manager](/docs/reference/command-line-tools-reference/kube-controller-manager/) -
+  Daemon that embeds the core control loops shipped with Kubernetes.
 * [kube-proxy](/docs/reference/command-line-tools-reference/kube-proxy/) - Can
   do simple TCP/UDP stream forwarding or round-robin TCP/UDP forwarding across
   a set of back-ends.
-* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) - Scheduler that manages availability, performance, and capacity.
+* [kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/) -
+  Scheduler that manages availability, performance, and capacity.
   
   * [Scheduler Policies](/docs/reference/scheduling/policies)
   * [Scheduler Profiles](/docs/reference/scheduling/config#profiles)
-  * List of [ports and protocols](/docs/reference/ports-and-protocols/) that
-    should be open on control plane and worker nodes
+
+* List of [ports and protocols](/docs/reference/networking/ports-and-protocols/) that
+  should be open on control plane and worker nodes
 -->
 ## 组件  {#components}
 
@@ -122,7 +125,8 @@ client libraries:
   
   * [调度策略](/zh-cn/docs/reference/scheduling/policies)
   * [调度配置](/zh-cn/docs/reference/scheduling/config#profiles)
-  * 应该在控制平面和工作节点上打开的[端口和协议](/zh-cn/docs/reference/ports-and-protocols/)列表
+
+* 应该在控制平面和工作节点上打开的[端口和协议](/zh-cn/docs/reference/networking/ports-and-protocols/)列表
 
 <!--
 ## Config APIs
@@ -132,17 +136,23 @@ configure  kubernetes components or tools. Most of these APIs are not exposed
 by the API server in a RESTful way though they are essential for a user or an
 operator to use or manage a cluster.
 
-* [kube-apiserver configuration (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/)
-* [kube-apiserver configuration (v1)](/docs/reference/config-api/apiserver-config.v1/)
+* [kubeconfig (v1)](/docs/reference/config-api/kubeconfig.v1/)
+* [kube-apiserver admission (v1)](/docs/reference/config-api/apiserver-admission.v1/)
+* [kube-apiserver configuration (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/) and
+  [kube-apiserver configuration (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/) and
+  [kube-apiserver configuration (v1)](/docs/reference/config-api/apiserver-config.v1/)
 * [kube-apiserver encryption (v1)](/docs/reference/config-api/apiserver-encryption.v1/)
 * [kube-apiserver event rate limit (v1alpha1)](/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
 * [kubelet configuration (v1alpha1)](/docs/reference/config-api/kubelet-config.v1alpha1/) and
   [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
-* [kubelet credential providers (v1alpha1)](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/)
-* [kubelet credential providers (v1beta1)](/docs/reference/config-api/kubelet-credentialprovider.v1beta1/)
+  [kubelet configuration (v1)](/docs/reference/config-api/kubelet-config.v1/)
+* [kubelet credential providers (v1alpha1)](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/),
+  [kubelet credential providers (v1beta1)](/docs/reference/config-api/kubelet-credentialprovider.v1beta1/) and
+  [kubelet credential providers (v1)](/docs/reference/config-api/kubelet-credentialprovider.v1/)
 * [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/),
   [kube-scheduler configuration (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) and
   [kube-scheduler configuration (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
+* [kube-controller-manager configuration (v1alpha1)](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
 * [kube-proxy configuration (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 * [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
 * [Client authentication API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/) and 
@@ -156,17 +166,23 @@ operator to use or manage a cluster.
 尽管这些 API 对于用户或操作者使用或管理集群来说是必不可少的，
 它们大都没有以 RESTful 的方式在 API 服务器上公开。
 
-* [kube-apiserver 配置 (v1alpha1)](/zh-cn/docs/reference/config-api/apiserver-config.v1alpha1/)
-* [kube-apiserver 配置 (v1)](/zh-cn/docs/reference/config-api/apiserver-config.v1/)
+* [kubeconfig (v1)](/zh-cn/docs/reference/config-api/kubeconfig.v1/)
+* [kube-apiserver 准入 (v1)](/zh-cn/docs/reference/config-api/apiserver-admission.v1/)
+* [kube-apiserver 配置 (v1alpha1)](/zh-cn/docs/reference/config-api/apiserver-config.v1alpha1/) 和
+  [kube-apiserver 配置 (v1beta1)](/zh-cn/docs/reference/config-api/apiserver-config.v1beta1/) 和
+  [kube-apiserver 配置 (v1)](/zh-cn/docs/reference/config-api/apiserver-config.v1/)
 * [kube-apiserver 加密 (v1)](/zh-cn/docs/reference/config-api/apiserver-encryption.v1/)
 * [kube-apiserver 事件速率限制 (v1alpha1)](/zh-cn/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
-* [kubelet 配置 (v1alpha1)](/zh-cn/docs/reference/config-api/kubelet-config.v1alpha1/) 和
-  [kubelet 配置 (v1beta1)](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
-* [kubelet 凭据驱动 (v1alpha1)](/zh-cn/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/)
-* [kubelet 凭据驱动 (v1beta1)](/zh-cn/docs/reference/config-api/kubelet-credentialprovider.v1beta1/)
-* [kube-scheduler 配置 (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/)、
-  [kube-scheduler 配置 (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) 和
-  [kube-scheduler 配置 (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
+* [kubelet 配置 (v1alpha1)](/zh-cn/docs/reference/config-api/kubelet-config.v1alpha1/)、
+  [kubelet 配置 (v1beta1)](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/) 和
+  [kubelet 配置 (v1)](/zh-cn/docs/reference/config-api/kubelet-config.v1/)
+* [kubelet 凭据驱动 (v1alpha1)](/zh-cn/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/)、
+  [kubelet 凭据驱动 (v1beta1)](/zh-cn/docs/reference/config-api/kubelet-credentialprovider.v1beta1/) 和
+  [kubelet 凭据驱动 (v1)](/zh-cn/docs/reference/config-api/kubelet-credentialprovider.v1/)
+* [kube-scheduler 配置 (v1beta2)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta2/)、
+  [kube-scheduler 配置 (v1beta3)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/) 和
+  [kube-scheduler 配置 (v1)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)
+* [kube-controller-manager 配置 (v1alpha1)](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
 * [kube-proxy 配置 (v1alpha1)](/zh-cn/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 * [`audit.k8s.io/v1` API](/zh-cn/docs/reference/config-api/apiserver-audit.v1/)
 * [客户端身份认证 API (v1beta1)](/zh-cn/docs/reference/config-api/client-authentication.v1beta1/) 和
@@ -177,12 +193,10 @@ operator to use or manage a cluster.
 <!--
 ## Config API for kubeadm
 
-* [v1beta2](/docs/reference/config-api/kubeadm-config.v1beta2/)
 * [v1beta3](/docs/reference/config-api/kubeadm-config.v1beta3/)
 -->
 ## kubeadm 的配置 API   {#config-api-for-kubeadm}
 
-* [v1beta2](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta2/)
 * [v1beta3](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)
 
 <!--
@@ -195,6 +209,6 @@ An archive of the design docs for Kubernetes functionality. Good starting points
 ## 设计文档   {#design-docs}
 
 Kubernetes 功能的设计文档归档，不妨考虑从
-[Kubernetes 架构](https://git.k8s.io/design-proposals-archive/architecture/architecture.md) 和
+[Kubernetes 架构](https://git.k8s.io/design-proposals-archive/architecture/architecture.md)和
 [Kubernetes 设计概述](https://git.k8s.io/design-proposals-archive)开始阅读。
 

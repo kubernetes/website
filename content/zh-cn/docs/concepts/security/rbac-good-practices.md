@@ -238,17 +238,41 @@ considered weak.
 <!--
 ### Persistent volume creation
 
-As noted in the [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/#volumes-and-file-systems)
-documentation, access to create PersistentVolumes can allow for escalation of access to the underlying host.
-Where access to persistent storage is required trusted administrators should create
-PersistentVolumes, and constrained users should use PersistentVolumeClaims to access that storage.
+If someone - or some application - is allowed to create arbitrary PersistentVolumes, that access
+includes the creation of `hostPath` volumes, which then means that a Pod would get access
+to the underlying host filesystem(s) on the associated node. Granting that ability is a security risk.
 -->
 ### 持久卷的创建 {#persistent-volume-creation}
 
-如 [PodSecurityPolicy](/zh-cn/docs/concepts/security/pod-security-policy/#volumes-and-file-systems)
-文档中所述，创建 PersistentVolumes 的权限可以提权访问底层主机。
-如果需要访问 PersistentVolume，受信任的管理员应该创建 `PersistentVolume`，
-受约束的用户应该使用 `PersistentVolumeClaim` 访问该存储。
+如果允许某人或某个应用创建任意的 PersistentVolume，则这种访问权限包括创建 `hostPath` 卷，
+这意味着 Pod 将可以访问对应节点上的下层主机文件系统。授予该能力会带来安全风险。
+
+<!--
+There are many ways a container with unrestricted access to the host filesystem can escalate privileges, including 
+reading data from other containers, and abusing the credentials of system services, such as Kubelet.
+
+You should only allow access to create PersistentVolume objects for:
+-->
+不受限制地访问主机文件系统的容器可以通过多种方式提升特权，包括从其他容器读取数据以及滥用系统服务（例如 Kubelet）的凭据。
+
+你应该只允许以下实体具有创建 PersistentVolume 对象的访问权限：
+
+<!--
+- users (cluster operators) that need this access for their work, and who you trust,
+- the Kubernetes control plane components which creates PersistentVolumes based on PersistentVolumeClaims
+  that are configured for automatic provisioning.
+  This is usually setup by the Kubernetes provider or by the operator when installing a CSI driver.
+-->
+- 需要此访问权限才能工作的用户（集群操作员）以及你信任的人，
+- Kubernetes 控制平面组件，这些组件基于已配置为自动制备的 PersistentVolumeClaim 创建 PersistentVolume。
+  这通常由 Kubernetes 提供商或操作员在安装 CSI 驱动程序时进行设置。
+
+<!--
+Where access to persistent storage is required trusted administrators should create 
+PersistentVolumes, and constrained users should use PersistentVolumeClaims to access that storage.
+-->
+在需要访问持久存储的地方，受信任的管理员应创建 PersistentVolume，而受约束的用户应使用
+PersistentVolumeClaim 来访问该存储。
 
 <!--
 ### Access to `proxy` subresource of Nodes

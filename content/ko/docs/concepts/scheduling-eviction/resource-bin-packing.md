@@ -54,8 +54,8 @@ profiles:
 할당된 리소스의 구성된 기능에 따라 노드를 선호하게 한다. `NodeResourcesFit`점수 기능의
 `RequestedToCapacityRatio` 동작은 [scoringStrategy](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-ScoringStrategy)필드를
 이용하여 제어할 수 있다.
-`scoringStrategy` 필드에서 `requestedToCapacityRatioParam`와 `resources`라는 두 개의 파라미터를
-구성할 수 있다. `requestedToCapacityRatioParam`파라미터의
+`scoringStrategy` 필드에서 `requestedToCapacityRatio`와 `resources`라는 두 개의 파라미터를
+구성할 수 있다. `requestedToCapacityRatio`파라미터의
 `shape`를 사용하면 `utilization`과 `score` 값을 기반으로
 최소 요청 혹은 최대 요청된 대로 기능을 조정할 수 있게 한다.
 `resources` 파라미터는 점수를 매길 때 고려할 리소스의 `name` 과 
@@ -77,7 +77,7 @@ profiles:
           weight: 3
         - name: intel.com/bar
           weight: 3
-        requestedToCapacityRatioParam:
+        requestedToCapacityRatio:
           shape:
           - utilization: 0
             score: 0

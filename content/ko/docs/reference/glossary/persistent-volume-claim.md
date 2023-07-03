@@ -2,7 +2,7 @@
 title: 퍼시스턴트 볼륨 클레임(Persistent Volume Claim)
 id: persistent-volume-claim
 date: 2018-04-12
-full_link: /ko/docs/concepts/storage/persistent-volumes/
+full_link: /ko/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims
 short_description: >
   컨테이너의 볼륨으로 마운트될 수 있도록 퍼시스턴트볼륨(PersistentVolume)에 정의된 스토리지 리소스를 요청한다.
 

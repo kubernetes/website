@@ -214,6 +214,6 @@ kubectl edit clusterrole system:kube-scheduler
 kubectl get events
 ```
 또한, 관련된 컨트롤 플레인 노드들의 스태틱 파드 매니페스트를 수정하면 클러스터의 메인 스케줄러로
-[사용자 정의 스케줄러 구성](/ko/docs/reference/scheduling/config/#multiple-profiles)
+[사용자 정의 스케줄러 구성](/ko/docs/reference/scheduling/config/#여러-프로파일)
 또는 사용자 정의 컨테이너 이미지를 사용할 수도 있다.
 

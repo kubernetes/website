@@ -45,11 +45,11 @@ job.batch/pi created
 {{< tab name="kubectl describe job pi" codelang="bash" >}}
 Name:           pi
 Namespace:      default
-Selector:       controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
-Labels:         controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
-                job-name=pi
-Annotations:    kubectl.kubernetes.io/last-applied-configuration:
-                  {"apiVersion":"batch/v1","kind":"Job","metadata":{"annotations":{},"name":"pi","namespace":"default"},"spec":{"backoffLimit":4,"template":...
+Selector:       batch.kubernetes.io/controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
+Labels:         batch.kubernetes.io/controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
+                batch.kubernetes.io/job-name=pi
+                ...
+Annotations:    batch.kubernetes.io/job-tracking: ""
 Parallelism:    1
 Completions:    1
 Start Time:     Mon, 02 Dec 2019 15:20:11 +0200
@@ -57,8 +57,8 @@ Completed At:   Mon, 02 Dec 2019 15:21:16 +0200
 Duration:       65s
 Pods Statuses:  0 Running / 1 Succeeded / 0 Failed
 Pod Template:
-  Labels:  controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
-           job-name=pi
+  Labels:  batch.kubernetes.io/controller-uid=c9948307-e56d-4b5d-8302-ae2d7b7da67c
+           batch.kubernetes.io/job-name=pi
   Containers:
    pi:
     Image:      perl:5.34.0
@@ -75,24 +75,24 @@ Pod Template:
 Events:
   Type    Reason            Age   From            Message
   ----    ------            ----  ----            -------
-  Normal  SuccessfulCreate  14m   job-controller  Created pod: pi-5rwd7
+  Normal  SuccessfulCreate  21s   job-controller  Created pod: pi-xf9p4
+  Normal  Completed         18s   job-controller  Job completed
 {{< /tab >}}
 {{< tab name="kubectl get job pi -o yaml" codelang="bash" >}}
 apiVersion: batch/v1
 kind: Job
 metadata:
-  annotations:
-    kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"batch/v1","kind":"Job","metadata":{"annotations":{},"name":"pi","namespace":"default"},"spec":{"backoffLimit":4,"template":{"spec":{"containers":[{"command":["perl","-Mbignum=bpi","-wle","print bpi(2000)"],"image":"perl","name":"pi"}],"restartPolicy":"Never"}}}}
-  creationTimestamp: "2022-06-15T08:40:15Z"
+  annotations: batch.kubernetes.io/job-tracking: ""
+             ...  
+  creationTimestamp: "2022-11-10T17:53:53Z"
   generation: 1
   labels:
-    controller-uid: 863452e6-270d-420e-9b94-53a54146c223
-    job-name: pi
+    batch.kubernetes.io/controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+    batch.kubernetes.io/job-name: pi
   name: pi
   namespace: default
-  resourceVersion: "987"
-  uid: 863452e6-270d-420e-9b94-53a54146c223
+  resourceVersion: "4751"
+  uid: 204fb678-040b-497f-9266-35ffa8716d14
 spec:
   backoffLimit: 4
   completionMode: NonIndexed
@@ -100,14 +100,14 @@ spec:
   parallelism: 1
   selector:
     matchLabels:
-      controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+      batch.kubernetes.io/controller-uid: 863452e6-270d-420e-9b94-53a54146c223
   suspend: false
   template:
     metadata:
       creationTimestamp: null
       labels:
-        controller-uid: 863452e6-270d-420e-9b94-53a54146c223
-        job-name: pi
+        batch.kubernetes.io/controller-uid: 863452e6-270d-420e-9b94-53a54146c223
+        batch.kubernetes.io/job-name: pi
     spec:
       containers:
       - command:
@@ -116,7 +116,7 @@ spec:
         - -wle
         - print bpi(2000)
         image: perl:5.34.0
-        imagePullPolicy: Always
+        imagePullPolicy: IfNotPresent
         name: pi
         resources: {}
         terminationMessagePath: /dev/termination-log
@@ -128,8 +128,9 @@ spec:
       terminationGracePeriodSeconds: 30
 status:
   active: 1
-  ready: 1
-  startTime: "2022-06-15T08:40:15Z"
+  ready: 0
+  startTime: "2022-11-10T17:53:57Z"
+  uncountedTerminatedPods: {}
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -138,7 +139,7 @@ Jobの完了したPodを確認するには、`kubectl get pods`を使います�
 Jobに属するPodの一覧を機械可読形式で出力するには、下記のコマンドを使います:
 
 ```shell
-pods=$(kubectl get pods --selector=job-name=pi --output=jsonpath='{.items[*].metadata.name}')
+pods=$(kubectl get pods --selector=batch.kubernetes.io/job-name=pi --output=jsonpath='{.items[*].metadata.name}')
 echo $pods
 ```
 
@@ -156,6 +157,12 @@ pi-5rwd7
 kubectl logs $pods
 ```
 
+Jobの標準出力を確認するもう一つの方法は:
+
+```shell
+kubectl logs jobs/pi
+```
+
 出力結果はこのようになります:
 
 ```
@@ -165,15 +172,19 @@ kubectl logs $pods
 ## Job spec(仕様)の書き方  {#writing-a-job-spec}
 
 他のKubernetesオブジェクト設定ファイルと同様に、Jobにも`apiVersion`、`kind`または`metadata`フィールドが必要です。
-Jobの名前は有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names)である必要があります。
+
+コントロールプレーンがJobのために新しいPodを作成するとき、Jobの`.metadata.name`はそれらのPodに名前をつけるための基礎の一部になります。Jobの名前は有効な[DNSサブドメイン名](/ja/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names)である必要がありますが、これはPodのホスト名に予期しない結果をもたらす可能性があります。最高の互換性を得るためには、名前は[DNSラベル](/ja/docs/concepts/overview/working-with-objects/names/#dns-label-names)のより限定的な規則に従うべきです。名前がDNSサブドメインの場合でも、名前は63文字以下でなければなりません。
 
 Jobには[`.spec`セクション](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)も必要です。
+
+### Jobラベル
+Jobラベルの`job-name`と`controller-uid`の接頭辞は`batch.kubernetes.io/`となります。
 
 ### Podテンプレート  {#pod-template}
 
 `.spec.template`は`.spec`の唯一の必須フィールドです。
 
-`.spec.template`は[podテンプレート](/ja/docs/concepts/workloads/pods/#pod-template)です。ネストされていることと`apiVersion`や`kind`フィールドが不要になったことを除いて、仕様の定義が{{< glossary_tooltip text="Pod" term_id="pod" >}}と全く同じです。
+`.spec.template`は[podテンプレート](/ja/docs/concepts/workloads/pods/#pod-templates)です。ネストされていることと`apiVersion`や`kind`フィールドが不要になったことを除いて、仕様の定義が{{< glossary_tooltip text="Pod" term_id="pod" >}}と全く同じです。
 
 Podの必須フィールドに加えて、Job定義ファイルにあるPodテンプレートでは、適切なラベル([podセレクター](#pod-selector)を参照)と適切な再起動ポリシーを指定する必要があります。
 
@@ -238,11 +249,14 @@ Jobで実行するのに適したタスクは主に3種類あります:
 - `Indexed`: Jobに属するPodはそれぞれ、0から`.spec.completions-1`の範囲内の完了インデックスを取得できます。インデックスは下記の三つの方法で取得できます。
   - Podアノテーション`batch.kubernetes.io/job-completion-index`。
   - Podホスト名の一部として、`$(job-name)-$(index)`の形式になっています。
-    インデックス付きJob(Indexed Job)と{{< glossary_tooltip term_id="Service" >}}を一緒に使用すると、Jobに属するPodはお互いにDNSを介して確定的ホスト名で通信できます。
+    インデックス付きJob(Indexed Job)と{{< glossary_tooltip term_id="Service" >}}を一緒に使用すると、Jobに属するPodはお互いにDNSを介して確定的ホスト名で通信できます。この設定方法の詳細は[Pod間通信を使用したJob](https://kubernetes.io/docs/tasks/job/job-with-pod-to-pod-communication/)を参照してください。　
   - コンテナ化されたタスクの環境変数`JOB_COMPLETION_INDEX`。
 
-  インデックスごとに、成功したPodが一つ存在すると、Jobの完了となります。完了モードの使用方法の詳細については、
-  [静的な処理の割り当てを使用した並列処理のためのインデックス付きJob](/ja/docs/tasks/job/indexed-parallel-processing-static/)を参照してください。めったに発生しませんが、同じインデックスを取得して稼働し始めるPodも存在する可能性があります。ただし、完了数にカウントされるのはそのうちの一つだけです。
+  各インデックスに1つずつ正常に完了したPodがあると、Jobは完了したとみなされます。このモードの使い方については、[静的な処理の割り当てを使用した並列処理のためのインデックス付きJob](/ja/docs/tasks/job/indexed-parallel-processing-static/)を参照してください。
+
+{{< note >}}
+めったに発生しませんが、同じインデックスに対して複数のPodが起動することがあります。(Nodeの障害、kubeletの再起動、Podの立ち退きなど)。この場合、正常に完了した最初のPodだけ完了数にカウントされ、Jobのステータスが更新されます。同じインデックスに対して実行中または完了した他のPodは、検出されるとJobコントローラーによって削除されます。
+{{< /note >}}
 
 ## Podとコンテナの障害対策  {#handling-pod-and-container-failures}
 
@@ -251,9 +265,15 @@ Pod内のコンテナは、その中のプロセスが0以外の終了コード�
 
 Podがノードからキックされた(ノードがアップグレード、再起動、削除されたなど)、または`.spec.template.spec.restartPolicy = "Never"`と設定されたときにPodに属するコンテナが失敗したなど、様々な理由でPod全体が故障することもあります。Podに障害が発生すると、Jobコントローラーは新しいPodを起動します。つまりアプリケーションは新しいPodで再起動された場合の処理を行う必要があります。特に、過去に実行した際に生じた一時ファイル、ロック、不完全な出力などを処理する必要があります。
 
+デフォルトでは、それぞれのPodの失敗は`.spec.backoffLimit`にカウントされます。詳しくは[Pod失敗のバックオフポリシー](#pod-backoff-failure-policy)をご覧ください。しかし、[JobのPod失敗ポリシー](#pod-failure-policy)を設定することで、Pod失敗の処理をカスタマイズすることができます。
+
 `.spec.parallelism = 1`、`.spec.completions = 1`と`.spec.template.spec.restartPolicy = "Never"`を指定しても、同じプログラムが2回起動されることもありますので注意してください。
 
 `.spec.parallelism`と`.spec.completions`を両方とも2以上指定した場合、複数のPodが同時に実行される可能性があります。そのため、Podは並行処理を行えるようにする必要があります。
+
+[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)の`PodDisruptionConditions`と`JobPodFailurePolicy`の両方が有効で、`.spec.podFailurePolicy`フィールドが設定されている場合、Jobコントローラーは終了するPod(`.metadata.deletionTimestamp`フィールドが設定されているPod)を、そのPodが終了する(`.status.phase`が`Failed`または`Succeeded`になる)までは失敗とはみなしません。ただし、Jobコントローラーは、終了が明らかになるとすみやかに代わりのPodを作成します。Podが終了すると、Jobコントローラーはこの終了したPodを考慮に入れて、該当のJobの`.backoffLimit`と`.podFailurePolicy`を評価します。
+
+これらの要件のいずれかが満たされていない場合、Jobコントローラーは、そのPodが後に`phase: "Succeeded"`で終了する場合でも、終了するPodを即時に失敗として数えます。
 
 ### Pod失敗のバックオフポリシー  {#pod-backoff-failure-policy}
 
@@ -272,13 +292,63 @@ Podがノードからキックされた(ノードがアップグレード、再�
 `restartPolicy = "OnFailure"`が設定されたJobはバックオフ制限に達すると、属するPodは全部終了されるので注意してください。これにより、Jobの実行ファイルのデバッグ作業が難しくなる可能性があります。失敗したJobからの出力が不用意に失われないように、Jobのデバッグ作業をする際は`restartPolicy = "Never"`を設定するか、ロギングシステムを使用することをお勧めします。
 {{< /note >}}
 
+## Pod失敗ポリシー {#pod-failure-policy}
+
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+
+{{< note >}}
+クラスターで`JobPodFailurePolicy`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が有効になっている場合のみ、Jobに対してPod失敗ポリシーを設定することができます。さらにPod失敗ポリシーでPodの中断条件を検知して処理できるように、`PodDisruptionConditions`フィーチャーゲートを有効にすることが推奨されます。([Podの中断条件](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)を参照してください)。どちらのフィーチャーゲートもKubernetes 1.27で利用可能です。
+{{< /note >}}
+
+`.spec.podFailurePolicy`フィールドで定義されるPod失敗ポリシーを使用すると、コンテナの終了コードとPodの条件に基づいてクラスターがPodの失敗を処理できるようになります。
+
+状況によっては、Podの失敗を処理するときに、Jobの`.spec.backoffLimit`に基づいた[Pod失敗のバックオフポリシー](#pod-backoff-failure-policy)が提供する制御よりも、Podの失敗処理に対してより良い制御を求めるかもしれません。これらはいくつかの使用例です:
+
+  - 不要なPodの再起動を回避してワークロードの実行コストを最適化するために、Podの1つがソフトウェアバグを示す終了コードで失敗するとすぐにJobを終了させることができます。
+  - 中断が発生してもJobが完了するように、中断によって発生したPodの失敗({{< glossary_tooltip text="preemption" term_id="preemption" >}}、{{< glossary_tooltip text="APIを起点とした退避" term_id="api-eviction" >}}、{{< glossary_tooltip text="taint" term_id="taint" >}}を起点とした立ち退き)を無視し、`.spec.backoffLimit`のリトライ回数にカウントしないようにすることができます。
+
+上記のユースケースを満たすために、`.spec.podFailurePolicy`フィールドでPod失敗ポリシーを設定できます。このポリシーは、コンテナの終了コードとPodの条件に基づいてPodの失敗を処理できます。
+
+以下は、`podFailurePolicy`を定義するJobのマニフェストです:
+
+{{< codenew file="controllers/job-pod-failure-policy-example.yaml" >}}
+
+上記の例では、Pod失敗ポリシーの最初のルールは、`main`コンテナが42の終了コードで失敗した場合、そのJobを失敗とマークすることを指定しています。以下は特に `main`コンテナに関するルールです:
+
+  - 終了コード0はコンテナが成功したことを意味します。
+  - 終了コード42は**Job全体**が失敗したことを意味します。
+  - それ以外の終了コードは、コンテナが失敗したこと、つまりPod全体が失敗したことを示します。再起動の合計回数が`backoffLimit`未満であれば、Podは再作成されます。`backoffLimit`に達した場合、**Job全体**が失敗したことになります。
+
+{{< note >}}
+Podテンプレートは`restartPolicy.Never`を指定しているため、kubeletはその特定のPodの`main`コンテナを再起動しません。
+{{< /note >}}
+
+Pod失敗ポリシーの2つ目のルールでは、`DisruptionTarget`という条件で失敗したPodに対してIgnoreアクションを指定することで、Podの中断が`.spec.backoffLimit`によるリトライの制限にカウントされないようにします。
+
+{{< note >}}
+Pod失敗ポリシーまたはPod失敗のバックオフポリシーのいずれかによってJobが失敗し、そのJobが複数のPodを実行している場合、KubernetesはそのJob内の保留中または実行中のすべてのPodを終了します。
+{{< /note >}}
+
+これらはAPIの要件と機能です:
+  - `.spec.podFailurePolicy`フィールドをJobに使いたい場合は、`.spec.restartPolicy`を`Never`に設定してそのJobのPodテンプレートも定義する必要があります。
+  - `spec.podFailurePolicy.rules`で指定したPod失敗ポリシーのルールが順番に評価されます。あるPodの失敗がルールに一致すると、残りのルールは無視されます。Pod失敗に一致するルールがない場合は、デフォルトの処理が適用されます。
+  - `spec.podFailurePolicy.rules[*].containerName`を指定することで、ルールを特定のコンテナに制限することができます。指定しない場合、ルールはすべてのコンテナに適用されます。指定する場合は、Pod テンプレート内のコンテナ名または`initContainer`名のいずれかに一致する必要があります。
+  - Pod失敗ポリシーが`spec.podFailurePolicy.rules[*].action`にマッチしたときに実行されるアクションを指定できます。指定可能な値は以下のとおりです。
+    - `FailJob`: PodのJobを`Failed`としてマークし、実行中の Pod をすべて終了させる必要があることを示します。 
+    - `Ignore`: `.spec.backoffLimit`のカウンターは加算されず、代替のPodが作成すべきであることを示します。
+    - `Count`: Podがデフォルトの方法で処理されるべきであることを示します。`.spec.backoffLimit`のカウンターが加算されます。
+
+{{< note >}}
+`PodFailurePolicy`を使用すると、Jobコントローラは`Failed`フェーズのPodのみにマッチします。削除タイムスタンプを持つPodで、終了フェーズ(`Failed`または`Succeeded`)にないものは、まだ終了中と見なされます。これは、終了中Podは終了フェーズに達するまで[追跡ファイナライザー](#job-tracking-with-finalizers)を保持することを意味します。Kubernetes 1.27以降、Kubeletは削除されたPodを終了フェーズに遷移させます(参照:[Podのフェーズ](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase))。これにより、削除されたPodはJobコントローラーによってファイナライザーが削除されます。
+{{< /note >}}
+
 ## Jobの終了とクリーンアップ  {#job-termination-and-cleanup}
 
 Jobが完了すると、それ以上Podは作成されませんが、[通常](#pod-backoff-failure-policy)Podが削除されることもありません。
 これらを残しておくと、完了したPodのログを確認でき、エラーや警告などの診断出力を確認できます。
 またJobオブジェクトはJob完了後も残っているため、状態を確認することができます。古いJobの状態を把握した上で、削除するかどうかはユーザー次第です。Jobを削除するには`kubectl` (例:`kubectl delete jobs/pi`または`kubectl delete -f ./job.yaml`)を使います。`kubectl`でJobを削除する場合、Jobが作成したPodも全部削除されます。
 
-デフォルトでは、Jobは中断されることなく実行できますが、Podが失敗した場合(`restartPolicy=Never`)、またはコンテナがエラーで終了した場合(`restartPolicy=OnFailure`)のみ、前述の`.spec.backoffLimit`で決まった回数まで再試行します。`.spec.backoffLimit`に達すると、Jobが失敗とマークされ、実行中のPodもすべて終了されます。
+デフォルトでは、Podが失敗しない(`restartPolicy=Never`)またはコンテナがエラーで終了しない(`restartPolicy=OnFailure`)限り、Jobは中断されることなく実行されます。`.spec.backoffLimit`に達するとそのJobは失敗と見なされ、実行中のPodはすべて終了します。
 
 Jobを終了させるもう一つの方法は、活動期間を設定することです。
 Jobの`.spec.activeDeadlineSeconds`フィールドに秒数を設定することで、活動期間を設定できます。
@@ -376,29 +446,32 @@ Jobオブジェクトは、Podの確実な並列実行をサポートするた�
 ここでは、上記のトレードオフをまとめてあり、それぞれ2～4列目に対応しています。
 またパターン名のところは、例やより詳しい説明が書いてあるページへのリンクになっています。
 
-|                  パターン                  | 単一Jobオブジェクト | Podが作業項目より少ない？ | アプリを修正せずに使用できる？ |
-| ----------------------------------------- |:-----------------:|:---------------------------:|:-------------------:|
-| [作業項目ごとにPodを持つキュー]            |         ✓         |                             |      時々      |
-| [Pod数可変のキュー]           |         ✓         |             ✓               |                     |
-| [静的な処理の割り当てを使用したインデックス付きJob] |         ✓         |                             |          ✓          | 
-| [Jobテンプレート拡張]                  |                   |                             |          ✓          |
+| パターン                                            | 単一Jobオブジェクト | Podが作業項目より少ない？ | アプリを修正せずに使用できる？ |
+| --------------------------------------------------- | :-----------------: | :-----------------------: | :----------------------------: |
+| [作業項目ごとにPodを持つキュー]                     |          ✓          |                           |              時々              |
+| [Pod数可変のキュー]                                 |          ✓          |             ✓             |                                |
+| [静的な処理の割り当てを使用したインデックス付きJob] |          ✓          |                           |               ✓                |
+| [Jobテンプレート拡張]                               |                     |                           |               ✓                |
+| [Pod間通信を使用したJob]                            |          ✓          |           時々            |              時々              |
 
 `.spec.completions`で完了数を指定する場合、Jobコントローラーより作成された各Podは同一の[`spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)を持ちます。これは、このタスクのすべてのPodが同じコマンドライン、同じイメージ、同じボリューム、そして(ほぼ)同じ環境変数を持つことを意味します。これらのパターンは、Podが異なる作業をするためのさまざまな配置方法になります。
 
 この表は、各パターンで必要な`.spec.parallelism`と`.spec.completions`の設定を示しています。
 ここで、`W`は作業項目の数を表しています。
 
-|             パターン                       | `.spec.completions` |  `.spec.parallelism` |
-| ----------------------------------------- |:-------------------:|:--------------------:|
-| [作業項目ごとにPodを持つキュー]            |          W          |        任意           |
-| [Pod数可変のキュー]           |         null        |        任意           |
-| [静的な処理の割り当てを使用したインデックス付きJob] |          W          |        任意           |
-| [Jobテンプレート拡張]                  |          1          |     1であるべき      |
+| パターン                                            | `.spec.completions` | `.spec.parallelism` |
+| --------------------------------------------------- | :-----------------: | :-----------------: |
+| [作業項目ごとにPodを持つキュー]                     |          W          |        任意         |
+| [Pod数可変のキュー]                                 |        null         |        任意         |
+| [静的な処理の割り当てを使用したインデックス付きJob] |          W          |        任意         |
+| [Jobテンプレート拡張]                               |          1          |     1であるべき     |
+| [Pod間通信を使用したJob]                            |          W          |          W          |
 
 [作業項目ごとにPodを持つキュー]: /docs/tasks/job/coarse-parallel-processing-work-queue/
 [Pod数可変のキュー]: /docs/tasks/job/fine-parallel-processing-work-queue/
 [静的な処理の割り当てを使用したインデックス付きJob]: /ja/docs/tasks/job/indexed-parallel-processing-static/
 [Jobテンプレート拡張]: /docs/tasks/job/parallel-processing-expansion/
+[Pod間通信を使用したJob]: /docs/tasks/job/job-with-pod-to-pod-communication/
 
 ## 高度な使い方  {#advanced-usage}
 
@@ -413,7 +486,7 @@ Jobを一時停止するには、Jobの`.spec.suspend`フィールドをtrueに�
 
 一時停止状態のJobを再開すると、`.status.startTime`フィールドの値は現在時刻にリセットされます。これはつまり、Jobが一時停止して再開すると、`.spec.activeDeadlineSeconds`タイマーは停止してリセットされることになります。
 
-Jobを中断すると、稼働中のPodは全部削除されることを忘れないでください。Jobが中断されると、PodはSIGTERMシグナルを受信して[終了されます](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。Podのグレースフル終了の猶予期間がカウントダウンされ、この期間内に、Podはこのシグナルを処理しなければなりません。場合により、その後のために処理状況を保存したり、変更を元に戻したりする処理が含まれます。この方法で終了したPodは`completions`数にカウントされません。
+Jobを中断すると、状態が`Completed`ではない実行中のPodはすべてSIGTERMシグナルを受信して[終了されます](/ja/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination)。Podのグレースフル終了の猶予期間がカウントダウンされ、この期間内に、Podはこのシグナルを処理しなければなりません。場合により、その後のために処理状況を保存したり、変更を元に戻したりする処理が含まれます。この方法で終了したPodは`completions`数にカウントされません。
 
 下記は一時停止状態のままで作成されたJobの定義例になります:
 
@@ -433,6 +506,20 @@ spec:
   template:
     spec:
       ...
+```
+
+コマンドラインを使ってJobにパッチを当てることで、Jobの一時停止状態を切り替えることもできます。
+
+活動中のJobを一時停止する:
+
+```shell
+kubectl patch job/myjob --type=strategic --patch '{"spec":{"suspend":true}}'
+```
+
+一時停止中のJobを再開する:
+
+```shell
+kubectl patch job/myjob --type=strategic --patch '{"spec":{"suspend":false}}'
 ```
 
 Jobのstatusセクションで、Jobが停止中なのか、過去に停止したことがあるかを判断できます:
@@ -479,20 +566,15 @@ Events:
 
 ### 可変スケジューリング命令  {#mutable-scheduling-directives}
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
-
-{{< note >}}
-この機能を使うためには、[APIサーバー](/docs/reference/command-line-tools-reference/kube-apiserver/)上で`JobMutableNodeSchedulingDirectives`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があります。
-デフォルトで有効になっています。
-{{< /note >}}
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
 ほとんどの場合、並列Jobは、すべてのPodが同じゾーン、またはすべてのGPUモデルxかyのいずれかであるが、両方の混在ではない、などの制約付きで実行することが望ましいです。
 
 [suspend](#suspending-a-job)フィールドは、これらの機能を実現するための第一歩です。Suspendは、カスタムキューコントローラーがJobをいつ開始すべきかを決定することができます。しかし、Jobの一時停止が解除されると、カスタムキューコントローラーは、Job内のPodの実際の配置場所には影響を与えません。
 
-この機能により、Jobが開始される前にスケジューリング命令を更新でき、カスタムキューコントローラーがPodの配置に影響を与えることができると同時に、実際のPodとノードの割り当てをkube-schedulerにオフロードすることができます。これは一時停止されたJobの中で、一度も一時停止解除されたことのないJobに対してのみ許可されます。
+この機能により、Jobが開始する前にスケジューリング命令を更新でき、カスタムキューコントローラーがPodの配置に影響を与えることができるようになります。同時に実際のPodからNodeへの割り当てをkube-schedulerにオフロードする能力を提供します。これは一時停止されたJobの中で、一度も一時停止解除されたことのないJobに対してのみ許可されます。
 
-JobのPodテンプレートで更新可能なフィールドはnodeAffinity、nodeSelector、tolerations、labelsとannotationsです。 
+JobのPodテンプレートで更新可能なフィールドはnodeAffinity、nodeSelector、tolerations、labelsとannotations、[スケジューリングゲート](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)です。 
 
 ### 独自のPodセレクターを指定  {#specifying-your-own-pod-selector}
 
@@ -521,11 +603,11 @@ metadata:
 spec:
   selector:
     matchLabels:
-      controller-uid: a8f3d00d-c6d2-11e5-9f87-42010af00002
+      batch.kubernetes.io/controller-uid: a8f3d00d-c6d2-11e5-9f87-42010af00002
   ...
 ```
 
-次に、`new`という名前で新しくJobを作成し、同じセレクターを明示的に指定します。既存のPodも`controller-uid=a8f3d00d-c6d2-11e5-9f87-42010af00002`ラベルが付いているので、同じく`new`Jobによってコントロールされます。
+次に、`new`という名前で新しくJobを作成し、同じセレクターを明示的に指定します。既存のPodも`batch.kubernetes.io/controller-uid=a8f3d00d-c6d2-11e5-9f87-42010af00002`ラベルが付いているので、同じく`new`Jobによってコントロールされます。
 
 通常システムが自動的に生成するセレクターを使用しないため、新しいJobで `manualSelector: true`を指定する必要があります。
 
@@ -538,7 +620,7 @@ spec:
   manualSelector: true
   selector:
     matchLabels:
-      controller-uid: a8f3d00d-c6d2-11e5-9f87-42010af00002
+      batch.kubernetes.io/controller-uid: a8f3d00d-c6d2-11e5-9f87-42010af00002
   ...
 ```
 
@@ -546,26 +628,25 @@ spec:
 
 ### FinalizerによるJob追跡  {#job-tracking-with-finalizers}
 
-{{< feature-state for_k8s_version="v1.23" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 {{< note >}}
-この機能を使うためには、[APIサーバー](/docs/reference/command-line-tools-reference/kube-apiserver/)と[コントローラーマネージャー](/docs/reference/command-line-tools-reference/kube-controller-manager/)で`JobTrackingWithFinalizers`
-[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)を有効にする必要があります。
-
-有効にした場合、コントロールプレーンは下記に示す機能で新しいJobを追跡します。この機能が有効になる前に作成されたJobは影響を受けません。ユーザーとして実感できる唯一の違いは、コントロールプレーンのJob完了ステータス追跡がより正確になるということだけです。
+`JobTrackingWithFinalizers`機能が無効になっている時に作成されたJobについては、コントロールプレーンを1.26にアップグレードしても、ファイナライザーを使用してJobを追跡しません。
 {{< /note >}}
 
-この機能が有効でない場合、Job {{< glossary_tooltip term_id="controller" >}}はクラスター内に存在するPodを数えてJobステータスを追跡します。つまり`succeeded`Podと`failed`Podのカウンターを保持します。
-しかし、Podは以下のような理由で削除されることもあります:
-- Nodeがダウンしたときに、孤立した(Orphan)Podを削除するガベージコレクター。
-- 閾値に達すると、(`Succeeded`または`Failed`フェーズで)終了したPodを削除するガベージコレクター。 
-- Jobに属するPodの人為的な削除。
-- 外部コントローラー(Kubernetesの一部として提供されていない)によるPodの削除や置き換え。
+コントロールプレーンは任意のJobに属するPodを追跡し、そのPodがAPIサーバーから削除されたかどうか認識します。そのためJobコントローラはファイナライザー`batch.kubernetes.io/job-tracking`を持つPodを作成します。コントローラーがファイナライザーを削除するのは、PodがJobステータスに反映された後なので、他のコントローラーやユーザがPodを削除することができます。
 
-クラスターで`JobTrackingWithFinalizers`機能を有効にすると、コントロールプレーンは任意のJobに属するPodを追跡し、そのようなPodがAPIサーバーから削除された場合に通知します。そのために、Jobコントローラーは`batch.kubernetes.io/job-tracking`Finalizerを持つPodを作成します。コントローラーはPodがJobステータスに計上された後にのみFinalizerを削除し、他のコントローラーやユーザーによるPodの削除を可能にします。
+Kubernetes 1.26にアップグレードする前、またはフィーチャーゲート`JobTrackingWithFinalizers`が有効になる前に作成されたJobは、Podファイナライザーを使用せずに追跡されます。Job{{< glossary_tooltip term_id="controller" text="コントローラー" >}}は、クラスタに存在するPodのみに基づいて、`succeeded`Podと`failed`Podのステータスカウンタを更新します。クラスタからPodが削除されると、コントロールプレーンはJobの進捗を見失う可能性があります。
 
-Jobコントローラーは、新しいJobに対してのみ新しいアルゴリズムを使用します。この機能が有効になる前に作成されたJobは影響を受けません。JobコントローラーがPod FinalizerでJob追跡しているかどうかは、Jobが`batch.kubernetes.io/job-tracking`というアノテーションを持っているかどうかで判断できます。
-このアノテーションを手動で追加または削除しては**いけません**。
+Jobが`batch.kubernetes.io/job-tracking`というアノテーションを持っているかどうかをチェックすることで、コントロールプレーンがPodファイナライザーを使ってJobを追跡しているかどうかを判断できます。Jobからこのアノテーションを手動で追加したり削除したりしては**いけません**。代わりに、JobがPodファイナライザーを使用して追跡されていることを確認するために、Jobを再作成することができます。
+
+### 静的なインデックス付きJob {#elastic-indexed-jobs}
+
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+
+`.spec.parallelism`と`.spec.compleitions`の両方を、`.spec.parallelism` == `.spec.compleitions`となるように変更することで、インデックス付きJobを増減させることができます。[APIサーバ](/docs/reference/command-line-tools-reference/kube-apiserver/)の`ElasticIndexedJob`[フィーチャーゲート](/ja/docs/reference/command-line-tools-reference/feature-gates/)が無効になっている場合、`.spec.compleitions`は不変です。
+
+静的なインデックス付きJobの使用例としては、MPI、Horovord、Ray、PyTorchトレーニングジョブなど、インデックス付きJobのスケーリングを必要とするバッチワークロードがあります。
 
 ## 代替案  {#alternatives}
 
@@ -601,3 +682,4 @@ Replication Controllerは、終了することが想定されていないPod(Web
 * [終了したJobの自動クリーンアップ](#clean-up-finished-jobs-automatically)のリンクから、クラスターが完了または失敗したJobをどのようにクリーンアップするかをご確認ください。
 * `Job`はKubernetes REST APIの一部です。JobのAPIを理解するために、{{< api-reference page="workload-resources/job-v1" >}}オブジェクトの定義をお読みください。
 * UNIXツールの`cron`と同様に、スケジュールに基づいて実行される一連のJobを定義するために使用できる[`CronJob`](/ja/docs/concepts/workloads/controllers/cron-jobs/)についてお読みください。
+* 段階的な[例](/docs/tasks/job/pod-failure-policy/)に基づいて、`PodFailurePolicy`を使用して、回復可能なPod失敗と回復不可能なPod失敗の処理を構成する方法を練習します。

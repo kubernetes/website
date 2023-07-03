@@ -4,12 +4,15 @@ reviewers:
 - sjenning
 - ConnorDoyle
 - balajismaniam
+
 content_type: task
+min-kubernetes-server-version: v1.26
+weight: 140
 ---
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.12" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 Kubernetes keeps many aspects of how pods execute on nodes abstracted
 from the user. This is by design.  However, some workloads require
@@ -18,7 +21,9 @@ acceptably. The kubelet provides methods to enable more complex workload
 placement policies while keeping the abstraction free from explicit placement
 directives.
 
-
+For detailed information on resource management, please refer to the
+[Resource Management for Pods and Containers](/docs/concepts/configuration/manage-resources-containers)
+documentation.
 
 
 ## {{% heading "prerequisites" %}}
@@ -26,6 +31,7 @@ directives.
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
+If you are running an older version of Kubernetes, please look at the documentation for the version you are actually running.
 
 
 <!-- steps -->
@@ -61,10 +67,14 @@ duration as `--node-status-update-frequency`.
 
 The behavior of the static policy can be fine-tuned using the `--cpu-manager-policy-options` flag.
 The flag takes a comma-separated list of `key=value` policy options.
-This feature can be disabled completely using the `CPUManagerPolicyOptions` feature gate.
+If you disable the `CPUManagerPolicyOptions`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+then you cannot fine-tune CPU manager policies. In that case, the CPU manager
+operates only using its default settings.
 
-The policy options are split into two groups: alpha quality (hidden by default) and beta quality
-(visible by default). The groups are guarded respectively by the `CPUManagerPolicyAlphaOptions`
+In addition to the top-level `CPUManagerPolicyOptions` feature gate, the policy options are split
+into two groups: alpha quality (hidden by default) and beta quality (visible by default).
+The groups are guarded respectively by the `CPUManagerPolicyAlphaOptions`
 and `CPUManagerPolicyBetaOptions` feature gates. Diverging from the Kubernetes standard, these
 feature gates guard groups of options, because it would have been too cumbersome to add a feature
 gate for each individual option.

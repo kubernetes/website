@@ -1,14 +1,14 @@
 ---
 title: 使用 Calico 提供 NetworkPolicy
 content_type: task
-weight: 10
+weight: 20
 ---
 <!--
 reviewers:
 - caseydavenport
 title: Use Calico for NetworkPolicy
 content_type: task
-weight: 10
+weight: 20
 -->
 
 <!-- overview -->
@@ -69,12 +69,12 @@ Decide whether you want to deploy a [cloud](#creating-a-calico-cluster-with-goog
 ## Creating a local Calico cluster with kubeadm
 
 To get a local single-host Calico cluster in fifteen minutes using kubeadm, refer to the 
-[Calico Quickstart](https://docs.projectcalico.org/latest/getting-started/kubernetes/).
+[Calico Quickstart](https://projectcalico.docs.tigera.io/getting-started/kubernetes/).
 -->
 ## 使用 kubeadm 创建一个本地 Calico 集群   {#local-cluster}
 
 使用 kubeadm 在 15 分钟内得到一个本地单主机 Calico 集群，请参考
-[Calico 快速入门](https://docs.projectcalico.org/latest/getting-started/kubernetes/)。
+[Calico 快速入门](https://projectcalico.docs.tigera.io/getting-started/kubernetes/)。
 
 ## {{% heading "whatsnext" %}}
 

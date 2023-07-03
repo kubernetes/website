@@ -2,6 +2,7 @@
 title: 为系统守护进程预留计算资源
 content_type: task
 min-kubernetes-server-version: 1.8
+weight: 290
 ---
 <!--
 reviewers:
@@ -11,6 +12,7 @@ reviewers:
 title: Reserve Compute Resources for System Daemons
 content_type: task
 min-kubernetes-server-version: 1.8
+weight: 290
 -->
 
 <!-- overview -->
@@ -249,8 +251,10 @@ with `.slice` appended.
 
 <!--
 **Kubelet Flag**: `--reserved-cpus=0-3`
+**KubeletConfiguration Flag**: `reservedSystemCpus: 0-3`
 -->
-**Kubelet 标志**：`--reserved-cpus=0-3`
+**Kubelet 标志**: `--reserved-cpus=0-3`
+**KubeletConfiguration 标志**：`reservedSystemCpus: 0-3`
 
 <!--
 `reserved-cpus` is meant to define an explicit CPU set for OS system daemons and
@@ -433,7 +437,7 @@ Under this scenario, 'Allocatable' will be 14.5 CPUs, 28.5Gi of memory and
 Scheduler ensures that the total memory `requests` across all pods on this node does
 not exceed 28.5Gi and storage doesn't exceed 88Gi.
 Kubelet evicts pods whenever the overall memory usage across pods exceeds 28.5Gi,
-or if overall disk usage exceeds 88Gi If all processes on the node consume as
+or if overall disk usage exceeds 88Gi. If all processes on the node consume as
 much CPU as they can, pods together cannot consume more than 14.5 CPUs.
 -->
 在这个场景下，'Allocatable' 将会是 14.5 CPUs、28.5Gi 内存以及 `88Gi` 本地存储。
