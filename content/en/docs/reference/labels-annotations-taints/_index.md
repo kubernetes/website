@@ -1042,6 +1042,16 @@ Used on: Pod
 The Job controller in the kube-controller-manager sets this annotation for Pods
 created with Indexed [completion mode](/docs/concepts/workloads/controllers/job/#completion-mode).
 
+### batch.kubernetes.io/cronjob-scheduled-timestamp
+
+Type: Annotation
+
+Example: `batch.kubernetes.io/cronjob-scheduled-timestamp: "2016-05-19T03:00:00-07:00"`
+
+Used on: Jobs and Pods controlled by Jobs
+
+This annotation is used to record the original/expected creation timestamp for the running job. It is represented in RFC3339.
+
 ### kubectl.kubernetes.io/default-container
 
 Type: Annotation
