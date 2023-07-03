@@ -689,7 +689,7 @@ When this annotation is set, the Kubernetes components will "stand-down" and the
 
 ### statefulset.kubernetes.io/pod-name {#statefulsetkubernetesiopod-name}
 
-Type: Annotation
+Type: Label
 
 Example: `statefulset.kubernetes.io/pod-name: "mystatefulset-7"`
 
