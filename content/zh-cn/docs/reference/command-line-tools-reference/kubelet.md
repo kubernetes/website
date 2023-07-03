@@ -356,10 +356,9 @@ kubelet 将从此标志所指的文件中加载其初始配置。此路径可以
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-&lt;Warning: Beta feature&gt; Set the maximum number of container log files that can be present for a container. The number must be &gt;= 2. This flag can only be used with <code>--container-runtime=remote</code>. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
+&lt;Warning: Beta feature&gt; Set the maximum number of container log files that can be present for a container. The number must be &gt;= 2. (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
 【警告：Beta 特性】设置容器的日志文件个数上限。此值必须大于等于 2。
-此标志只能与 <code>--container-runtime=remote</code> 标志一起使用。
 （已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
 </td>
@@ -371,10 +370,9 @@ kubelet 将从此标志所指的文件中加载其初始配置。此路径可以
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-&lt;Warning: Beta feature&gt; Set the maximum size (e.g. <code>10Mi</code>) of container log file before it is rotated. This flag can only be used with <code>--container-runtime=remote</code>.  (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
+&lt;Warning: Beta feature&gt; Set the maximum size (e.g. <code>10Mi</code>) of container log file before it is rotated.  (DEPRECATED: This parameter should be set via the config file specified by the Kubelet's <code>--config</code> flag. See <a href="https://kubernetes.io/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> for more information.)
 -->
 【警告：Beta 特性】设置容器日志文件在轮换生成新文件时之前的最大值（例如，<code>10Mi</code>）。
-此标志只能与 <code>--container-runtime=remote</code> 标志一起使用。
 （已弃用：应在 <code>--config</code> 所给的配置文件中进行设置。
 请参阅 <a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/">kubelet-config-file</a> 了解更多信息。）
 </td>

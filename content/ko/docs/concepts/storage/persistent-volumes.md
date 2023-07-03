@@ -297,18 +297,17 @@ spec:
 * {{< glossary_tooltip text="csi" term_id="csi" >}}
 * flexVolume (deprecated)
 * gcePersistentDisk
-* glusterfs
 * rbd
 * portworxVolume
 
 스토리지 클래스의 `allowVolumeExpansion` 필드가 true로 설정된 경우에만 PVC를 확장할 수 있다.
 
-``` yaml
+```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: gluster-vol-default
-provisioner: kubernetes.io/glusterfs
+  name: example-vol-default
+provisioner: vendor-name.example/magicstorage
 parameters:
   resturl: "http://192.168.10.100:8080"
   restuser: ""
@@ -333,7 +332,7 @@ PVC에 대해 더 큰 볼륨을 요청하려면 PVC 오브젝트를 수정하여
 
 #### CSI 볼륨 확장
 
-{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+{{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 CSI 볼륨 확장 지원은 기본적으로 활성화되어 있지만 볼륨 확장을 지원하려면 특정 CSI 드라이버도 필요하다. 자세한 내용은 특정 CSI 드라이버 문서를 참고한다.
 
@@ -438,8 +437,6 @@ PVC 확장 실패의 사용자에 의한 복구는 쿠버네티스 1.23부터 �
   (v1.23에서 **사용 중단**)
 * [`gcePersistentDisk`](/ko/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
   (v1.17에서 **사용 중단**)
-* [`glusterfs`](/ko/docs/concepts/storage/volumes/#glusterfs) - Glusterfs 볼륨
-  (v1.25에서 **사용 중단**)
 * [`portworxVolume`](/ko/docs/concepts/storage/volumes/#portworxvolume) - Portworx 볼륨
   (v1.25에서 **사용 중단**)
 * [`vsphereVolume`](/ko/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK 볼륨
@@ -616,7 +613,6 @@ PV는 `storageClassName` 속성을
 * `cephfs`
 * `cinder` (v1.18에서 **사용 중단됨**)
 * `gcePersistentDisk`
-* `glusterfs`
 * `iscsi`
 * `nfs`
 * `rbd`
@@ -745,10 +741,9 @@ AND 조건으로 동작한다. 요청된 클래스와 요청된 레이블이 있
 
 #### 기본 스토리지클래스 할당 소급 적용하기 {#retroactive-default-storageclass-assignment}
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
 
 새로운 PVC를 위한 `storageClassName`을 설정하지 않고 퍼시스턴트볼륨클레임을 생성할 수 있으며, 이는 클러스터에 기본 스토리지클래스가 존재하지 않을 때에도 가능하다. 이 경우, 새로운 PVC는 정의된 대로 생성되며, 해당 PVC의 `storageClassName`은 기본값이 사용 가능해질 때까지 미설정 상태로 남는다.
-하지만, [`RetroactiveDefaultStorageClass` 기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를 활성화하면 쿠버네티스는 다르게 동작하여, 기존에 존재하는 PVC 중 `storageClassName`가 설정되지 않은 PVC는 새로운 기본 스토리지클래스를 사용하도록 갱신된다.
 
 기본 스토리지클래스가 사용 가능해지면, 컨트롤플레인은 `storageClassName`가 없는 PVC를 찾는다. `storageClassName`의 값이 비어있거나 해당 키 자체가 없는 PVC라면, 컨트롤플레인은 해당 PVC의 `storageClassName`가 새로운 기본 스토리지클래스와 일치하도록 설정하여 갱신한다. `storageClassName`가 `""`인 PVC가 있고, 기본 스토리지클래스를 설정한다면, 해당 PVC는 갱신되지 않는다.
 
@@ -953,6 +948,25 @@ kube-apiserver와 kube-controller-manager에 대해 `AnyVolumeDataSource`
 어떠한 오브젝트에 대한 참조도 명시할 수 있다(단, PVC 외의 다른 코어 오브젝트는 제외). 
 기능 게이트가 활성화된 클러스터에서는 `dataSource`보다 `dataSourceRef`를 사용하는 것을 권장한다.
 
+## 네임스페이스를 교차하는 데이터 소스
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+쿠버네티스는 네임스페이스를 교차하는 볼륨 데이터 소스를 지원한다.
+네임스페이스를 교차하는 볼륨 데이터 소스를 사용하기 위해서는, kube-apiserver, kube-controller-manager에 대해서 `AnyVolumeDataSource`와 `CrossNamespaceVolumeDataSource`
+[기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)를
+활성화해야 한다.
+또한, csi-provisioner에 대한 `CrossNamespaceVolumeDataSource` 기능 게이트도 활성화해야 한다.
+
+`CrossNamespaceVolumeDataSource` 기능 게이트를 활성화하면 dataSourceRef 필드에 네임스페이스를 명시할 수 있다.
+{{< note >}}
+볼륨 데이터 소스의 네임스페이스를 명시하면, 쿠버네티스는
+참조를 받아들이기 전에 다른 네임스페이스의 레퍼런스그랜트를 확인한다.
+레퍼런스그랜트는 `gateway.networking.k8s.io` 확장 API에 속한다.
+자세한 정보는 게이트웨이 API 문서의 [레퍼런스그랜트](https://gateway-api.sigs.k8s.io/api-types/referencegrant/)를 참고하라.
+즉 이 방법을 사용하려면 우선 게이트웨이 API에서 최소한 레퍼런스그랜트 이상을 사용하여
+쿠버네티스 클러스터를 확장해야 한다는 것을 의미한다.
+{{< /note >}}
+
 ## 데이터 소스 참조
 
 `dataSourceRef` 필드는 `dataSource` 필드와 거의 동일하게 동작한다. 
@@ -969,6 +983,11 @@ kube-apiserver와 kube-controller-manager에 대해 `AnyVolumeDataSource`
   유효하지 않은 값은 PVC를 제외한 모든 코어 오브젝트(apiGroup이 없는 오브젝트)이다.
 * `dataSourceRef` 필드는 여러 타입의 오브젝트를 포함할 수 있지만, `dataSource` 필드는 
   PVC와 VolumeSnapshot만 포함할 수 있다.
+
+`CrossNamespaceVolumeDataSource` 기능이 활성화되어 있을 때, 추가적인 차이점이 존재한다:
+
+* `dataSource` 필드는 로컬 오브젝트만을 허용하지만, `dataSourceRef` 필드는 모든 네임스페이스의 오브젝트를 허용한다.
+* 네임스페이스가 명시되어 있을 때, `dataSource`와 `dataSourceRef`는 동기화되지 않는다.
 
 기능 게이트가 활성화된 클러스터에서는 `dataSourceRef`를 사용해야 하고, 그렇지 않은 
 클러스터에서는 `dataSource`를 사용해야 한다. 어떤 경우에서든 두 필드 모두를 확인해야 
@@ -1009,6 +1028,50 @@ PVC 생성 상태에 대한 피드백을 제공하기 위해, PVC에 대한 이�
 해당 데이터 소스를 다루는 파퓰레이터가 등록되어 있지 않다면 이 컨트롤러가 PVC에 경고 이벤트를 생성한다.
 PVC를 위한 적절한 파퓰레이터가 설치되어 있다면, 
 볼륨 생성과 그 과정에서 발생하는 이슈에 대한 이벤트를 생성하는 것은 파퓰레이터 컨트롤러의 몫이다.
+
+### 네임스페이스를 교차하는 볼륨 데이터 소스 사용하기
+{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+
+네임스페이스 소유자가 참조를 받아들일 수 있도록 레퍼런스그랜트를 생성한다.
+`dataSourceRef` 필드를 사용하여 네임스페이스를 교차하는 볼륨 데이터 소스를 명시해서 파퓰레이트된 볼륨을 정의한다. 이 때, 원천 네임스페이스에 유효한 레퍼런스그랜트를 보유하고 있어야 한다:
+
+   ```yaml
+   apiVersion: gateway.networking.k8s.io/v1beta1
+   kind: ReferenceGrant
+   metadata:
+     name: allow-ns1-pvc
+     namespace: default
+   spec:
+     from:
+     - group: ""
+       kind: PersistentVolumeClaim
+       namespace: ns1
+     to:
+     - group: snapshot.storage.k8s.io
+       kind: VolumeSnapshot
+       name: new-snapshot-demo
+   ```
+
+   ```yaml
+   apiVersion: v1
+   kind: PersistentVolumeClaim
+   metadata:
+     name: foo-pvc
+     namespace: ns1
+   spec:
+     storageClassName: example
+     accessModes:
+     - ReadWriteOnce
+     resources:
+       requests:
+         storage: 1Gi
+     dataSourceRef:
+       apiGroup: snapshot.storage.k8s.io
+       kind: VolumeSnapshot
+       name: new-snapshot-demo
+       namespace: default
+     volumeMode: Filesystem
+   ```
 
 ## 포터블 구성 작성
 

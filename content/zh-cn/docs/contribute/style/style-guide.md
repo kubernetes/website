@@ -865,7 +865,7 @@ For example:
     1. Preheat oven to 350˚F
     
     1. Prepare the batter, and pour into springform pan.
-       `{{</* note */>}}Grease the pan for best results.{{</* /note */>}}`
+       {{</* note */>}}Grease the pan for best results.{{</* /note */>}}
 
     1. Bake for 20-25 minutes or until set.
 
