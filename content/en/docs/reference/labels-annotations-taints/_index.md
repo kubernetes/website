@@ -1048,7 +1048,7 @@ Type: Annotation
 
 Example: `batch.kubernetes.io/cronjob-scheduled-timestamp: "2016-05-19T03:00:00-07:00"`
 
-Used on: Jobs and Pods controlled by Jobs
+Used on: Jobs and Pods controlled by CronJobs
 
 This annotation is used to record the original (expected) creation timestamp for a Job,
 when that Job is part of a CronJob.
