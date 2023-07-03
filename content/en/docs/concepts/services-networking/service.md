@@ -462,7 +462,7 @@ The IP address that you choose must be a valid IPv4 or IPv6 address from within 
 If you try to create a Service with an invalid `clusterIP` address value, the API
 server will return a 422 HTTP status code to indicate that there's a problem.
 
-Read [avoiding collisions](#avoiding-collisions)
+Read [avoiding collisions](/docs/reference/networking/virtual-ips/#avoiding-collisions)
 to learn how Kubernetes helps reduce the risk and impact of two different Services
 both trying to use the same IP address.
 
