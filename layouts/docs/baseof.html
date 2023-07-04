@@ -25,6 +25,9 @@
             {{ block "deprecated" . }}
               {{ partial "deprecation-warning.html" . }}
             {{ end }}
+            {{ block "outdated_content" . }}
+              {{ partial "docs/outdated_content.html" . }}
+            {{ end }}
               {{ block "main" . }}{{ end }}
               {{- if .HasShortcode "thirdparty-content" -}}
                 {{ block "thirdparty-disclaimer" . }}
