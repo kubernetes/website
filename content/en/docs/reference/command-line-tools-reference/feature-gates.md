@@ -224,9 +224,6 @@ For a reference to old feature gates that are removed, please refer to
 
 | Feature | Default | Stage | Since | Until |
 |---------|---------|-------|-------|-------|
-| `AdvancedAuditing` | `false` | Alpha | 1.7 | 1.7 |
-| `AdvancedAuditing` | `true` | Beta | 1.8 | 1.11 |
-| `AdvancedAuditing` | `true` | GA | 1.12 | - |
 | `APISelfSubjectReview` | `false` | Alpha | 1.26 | 1.26 |
 | `APISelfSubjectReview` | `true` | Beta | 1.27 | 1.27 |
 | `APISelfSubjectReview` | `true` | GA | 1.28 | - |
@@ -390,7 +387,6 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `APIServerIdentity`: Assign each API server an ID in a cluster, using a [Lease](/docs/concepts/architecture/leases).
 - `APIServerTracing`: Add support for distributed tracing in the API server.
   See [Traces for Kubernetes System Components](/docs/concepts/cluster-administration/system-traces) for more details.
-- `AdvancedAuditing`: Enable [advanced auditing](/docs/tasks/debug/debug-cluster/audit/#advanced-audit)
 - `AggregatedDiscoveryEndpoint`: Enable a single HTTP endpoint `/discovery/<version>` which
   supports native HTTP caching with ETags containing all APIResources known to the API server.
 - `AnyVolumeDataSource`: Enable use of any custom resource as the `DataSource` of a

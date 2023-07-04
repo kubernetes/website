@@ -32,6 +32,9 @@ In the following table:
 |---------|---------|-------|-------|-------|
 | `Accelerators` | `false` | Alpha | 1.6 | 1.10 |
 | `Accelerators` | - | Deprecated | 1.11 | 1.11 |
+| `AdvancedAuditing` | `false` | Alpha | 1.7 | 1.7 |
+| `AdvancedAuditing` | `true` | Beta | 1.8 | 1.11 |
+| `AdvancedAuditing` | `true` | GA | 1.12 | 1.27 |
 | `AffinityInAnnotations` | `false` | Alpha | 1.6 | 1.7 |
 | `AffinityInAnnotations` | - | Deprecated | 1.8 | 1.8 |
 | `AllowExtTrafficLocalEndpoints` | `false` | Beta | 1.4 | 1.6 |
@@ -395,6 +398,8 @@ In the following table:
 
 - `AffinityInAnnotations`: Enable setting
   [Pod affinity or anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
+
+- `AdvancedAuditing`: Enable [advanced auditing](/docs/tasks/debug/debug-cluster/audit/#advanced-audit)
 
 - `AllowExtTrafficLocalEndpoints`: Enable a service to route external requests to node local endpoints.
 
