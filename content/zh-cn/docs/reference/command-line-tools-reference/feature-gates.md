@@ -1269,12 +1269,12 @@ Each feature gate is designed for enabling/disabling a specific feature:
   ClusterIP range is subdivided. Dynamic allocated ClusterIP addresses will be allocated preferently
   from the upper range allowing users to assign static ClusterIPs from the lower range with a low
   risk of collision. See
-  [Avoiding collisions](/docs/concepts/services-networking/service/#avoiding-collisions)
+  [Avoiding collisions](/docs/reference/networking/virtual-ips/#avoiding-collisions)
   for more details.
 -->
 - `ServiceIPStaticSubrange`：启用服务 ClusterIP 分配策略，从而细分 ClusterIP 范围。
   动态分配的 ClusterIP 地址将优先从较高范围分配，以低冲突风险允许用户从较低范围分配静态 ClusterIP。
-  更多详细信息请参阅[避免冲突](/zh-cn/docs/concepts/services-networking/service/#avoiding-collisions)
+  更多详细信息请参阅[避免冲突](/zh-cn/docs/reference/networking/virtual-ips/#avoiding-collisions)
 <!--
 - `SizeMemoryBackedVolumes`: Enable kubelets to determine the size limit for
   memory-backed volumes (mainly `emptyDir` volumes).
