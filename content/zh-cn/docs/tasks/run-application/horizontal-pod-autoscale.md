@@ -837,13 +837,13 @@ for scaling down which allows a 100% of the currently running replicas to be rem
 means the scaling target can be scaled down to the minimum allowed replicas.
 For scaling up there is no stabilization window. When the metrics indicate that the target should be
 scaled up the target is scaled up immediately. There are 2 policies where 4 pods or a 100% of the currently
-running replicas will be added every 15 seconds till the HPA reaches its steady state.
+running replicas may at most be added every 15 seconds till the HPA reaches its steady state.
 -->
 用于缩小稳定窗口的时间为 **300** 秒（或是 `--horizontal-pod-autoscaler-downscale-stabilization`
 参数设定值）。
 只有一种缩容的策略，允许 100% 删除当前运行的副本，这意味着扩缩目标可以缩小到允许的最小副本数。
 对于扩容，没有稳定窗口。当指标显示目标应该扩容时，目标会立即扩容。
-这里有两种策略，每 15 秒添加 4 个 Pod 或 100% 当前运行的副本数，直到 HPA 达到稳定状态。
+这里有两种策略，每 15 秒最多添加 4 个 Pod 或 100% 当前运行的副本数，直到 HPA 达到稳定状态。
 
 <!--
 ### Example: change downscale stabilization window
