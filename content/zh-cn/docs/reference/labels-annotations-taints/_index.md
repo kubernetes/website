@@ -420,19 +420,19 @@ Kubernetes 默认不提供任何资源限制，这意味着除非你明确定义
 <!--
 ### beta.kubernetes.io/arch (deprecated)
 
-This label has been deprecated. Please use [kubernetes.io/arch](#kubernetes-io-arch) instead.
+This label has been deprecated. Please use `kubernetes.io/arch` instead.
 
 ### beta.kubernetes.io/os (deprecated)
 
-This label has been deprecated. Please use [kubernetes.io/os](#kubernetes-io-os) instead.
+This label has been deprecated. Please use `kubernetes.io/os` instead.
 -->
 ### beta.kubernetes.io/arch (已弃用) {#beta-kubernetes-io-arch}
 
-此标签已被弃用。请改用 [kubernetes.io/arch](#kubernetes-io-arch)。
+此标签已被弃用。请改用 `kubernetes.io/arch`。
 
 ### beta.kubernetes.io/os (已弃用) {#beta-kubernetes-io-os}
 
-此标签已被弃用。请改用 [kubernetes.io/os](#kubernetes-io-os)。
+此标签已被弃用。请改用 `kubernetes.io/os`。
 
 <!--
 ### kube-aggregator.kubernetes.io/automanaged {#kube-aggregator-kubernetesio-automanaged}
