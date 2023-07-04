@@ -195,7 +195,7 @@ of the device allocations during the upgrade.
 
 ## Monitoring device plugin resources
 
-{{< feature-state for_k8s_version="v1.15" state="beta" >}}
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 In order to monitor resources provided by device plugins, monitoring agents need to be able to
 discover the set of devices that are in-use on the node and obtain metadata to describe which
