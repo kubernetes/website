@@ -149,11 +149,11 @@ Go에 의해 정의된 `runtime.GOOS` 값을 kubelet이 읽어서 이 레이블�
 
 ## beta.kubernetes.io/arch (사용 중단됨)
 
-이 레이블은 사용 중단되었다. 대신 [kubernetes.io/arch](#kubernetes-io-arch) 을 사용한다.
+이 레이블은 사용 중단되었다. 대신 `kubernetes.io/arch` 을 사용한다.
 
 ## beta.kubernetes.io/os (사용 중단됨)
 
-이 레이블은 사용 중단되었다. 대신 [kubernetes.io/os](#kubernetes-io-os) 을 사용한다.
+이 레이블은 사용 중단되었다. 대신 `kubernetes.io/os` 을 사용한다.
 
 ## kubernetes.io/hostname {#kubernetesiohostname}
 
