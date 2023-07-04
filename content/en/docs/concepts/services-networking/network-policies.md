@@ -73,7 +73,7 @@ pod for a given direction, the connections allowed in that direction from that p
 what the applicable policies allow. Thus, order of evaluation does not affect the policy result.
 
 For a connection from a source pod to a destination pod to be allowed, both the egress policy on
-the source pod and the ingress policy on the destination pod need to allow the connection. If
+the source pod and the ingress policy on the destination pod need to allow the connection. If any one of the 
 either side does not allow the connection, it will not happen.
 
 ## The NetworkPolicy resource {#networkpolicy-resource}
