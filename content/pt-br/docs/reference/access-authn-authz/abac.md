@@ -5,7 +5,7 @@ weight: 80
 ---
 
 <!-- overview -->
-O controle de acesso baseado em atributos (ABAC) define um paradigma de controle de acesso onde os direitos de acesso são concedidos aos usuários por meio do use de políticas que combinam atributos.
+O controle de acesso baseado em atributos (ABAC) define um paradigma de controle de acesso onde os direitos de acesso são concedidos aos usuários por meio do uso de políticas que combinam atributos.
 
 <!-- body -->
 ## Formato do arquivo de política
@@ -18,33 +18,32 @@ Cada linha é um "objeto de política", onde cada objeto é um mapa com as segui
 
   - Propriedades de versionamento:
     - `apiVersion`, tipo string; os valores válidos são "abac.authorization.kubernetes.io/v1beta1". Permite controle de versão e conversão do formato da política.
-
-- `kind`, tipo string: os valores válidos são "Policy". Permite controle de versão e conversão do formato da política.
-   - `spec` definida para um mapa com as seguintes propriedades:
-     - Propriedades de correspondência de assunto:
-       - `user`, tipo string; a string de usuário de `--token-auth-file`. Se você especificar `user`, ele deve corresponder ao nome do usuário autenticado.
-       - `group`, tipo string; se você especificar `group`, ele deve corresponder a um dos grupos do usuário autenticado. `system:authenticated` corresponde a todas as requi autenticadas. `system:unauthenticated` corresponde a todas as requisições não autenticadas.
-     - Propriedades de correspondência de recursos:
-       - `apiGroup`, tipo string; um grupo de API.
-         - Ex: `apps`, `networking.k8s.io`
-         - Curinga: `*` corresponde a todos os grupos de API.
-       - `namespace`, tipo string; um namespace.
-         - Ex: `kube-system`
-         - Curinga: `*` corresponde a todas as requisições de recursos.
-       - `resource`, tipo string; um tipo de recurso
-         - Ex: `pods`, `deployments`
-         - Curinga: `*` corresponde a todas as requisições de recursos.
-     - Propriedades sem correspondência de recursos:
-       - `nonResourcePath`, tipo string; caminhos de solicitação sem recurso.
-         - Ex: `/version` ou `/apis`
-         - Curinga:
-           - `*` corresponde a todas as requisições que não são de recursos.
-           - `/foo/*` corresponde a todos os subcaminhos de `/foo/`.
-     - `readonly`, tipo boolean, quando verdadeiro, significa que a política de correspondência de recursos se aplica apenas às operações `get`, `list` e `watch`, a política de não correspondência de recursos se aplica apenas à operação `get`.
+    - `kind`, tipo string: os valores válidos são "Policy". Permite controle de versão e conversão do formato da política.
+  - `spec` definida para um mapa com as seguintes propriedades:
+    - Propriedades de correspondência de sujeito:
+      - `user`, tipo string; a string de usuário de `--token-auth-file`. Se você especificar `user`, ele deve corresponder ao nome do usuário autenticado.
+      - `group`, tipo string; se você especificar `group`, ele deve corresponder a um dos grupos do usuário autenticado `system:authenticated` corresponde a todas as requisições autenticadas. `system:unauthenticated` corresponde a todas as requisições não autenticadas.
+    - Propriedades de correspondência de recursos:
+      - `apiGroup`, tipo string; um grupo de API.
+        - Ex: `apps`, `networking.k8s.io`
+        - Curinga: `*` corresponde a todos os grupos de API.
+      - `namespace`, tipo string; um namespace.
+        - Ex: `kube-system`
+        - Curinga: `*` corresponde a todas as requisições de recursos.
+      - `resource`, tipo string; um tipo de recurso
+        - Ex: `pods`, `deployments`
+        - Curinga: `*` corresponde a todas as requisições de recursos.
+    - Propriedades sem correspondência de recursos:
+      - `nonResourcePath`, tipo string; caminhos de solicitação sem recurso.
+        - Ex: `/version` ou `/apis`
+        - Curinga:
+          - `*` corresponde a todas as requisições que não são de recursos.
+          - `/foo/*` corresponde a todos os subcaminhos de `/foo/`.
+    - `readonly`, tipo booleano. Quando verdadeiro, significa que a política de correspondência de recursos se aplica apenas às operações `get`, `list` e `watch`. Em caso de políticas sem correspondência de recursos se aplica apenas à operação `get`.
 
 {{< note >}}
 Uma propriedade não definida é igual a uma propriedade definida com o valor zero para seu tipo
-(por exemplo, string vazia, 0, falso). No entanto, `unset` deve ser preferido para legibilidade.
+(por exemplo, string vazia, 0, falso). No entanto, indefinido deve ser preferido para legibilidade.
 
 No futuro, as políticas poderão ser expressas no formato JSON e gerenciadas por meio de uma interface REST.
 {{< /note >}}
@@ -87,7 +86,7 @@ Para inspecionar as chamadas HTTP envolvidas em uma operação kubectl específi
     ```json
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "alice", "namespace": "*", "resource": "*", "apiGroup": "*"}}
     ```
- 2. O Kubelet pode ler qualquer pod:
+ 2. O Kubelet pode ler qualquer Pod:
 
     ```json
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "kubelet", "namespace": "*", "resource": "pods", "readonly": true}}
@@ -97,7 +96,7 @@ Para inspecionar as chamadas HTTP envolvidas em uma operação kubectl específi
     ```json
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "kubelet", "namespace": "*", "resource": "events"}}
     ```
- 4. Bob pode ler pods somente pertencentes ao namespace "projectCaribou":
+ 4. Bob pode ler Pods somente pertencentes ao namespace "projectCaribou":
 
     ```json
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "bob", "namespace": "projectCaribou", "resource": "pods", "readonly": true}}
@@ -125,13 +124,10 @@ A criação de um novo namespace leva à criação de uma nova conta de serviço
 system:serviceaccount:<namespace>:default
 ```
 
-For example, if you wanted to grant the default service account (in the `kube-system` namespace) full 
-privilege to the API using ABAC, you would add this line to your policy file:
-
 Por exemplo, se você quiser conceder à conta de serviço padrão (no namespace `kube-system`) privilégio total à API usando ABAC, adicione esta linha ao seu arquivo de política:
 
 ```json
 {"apiVersion":"abac.authorization.kubernetes.io/v1beta1","kind":"Policy","spec":{"user":"system:serviceaccount:kube-system:default","namespace":"*","resource":"*","apiGroup":"*"}}
 ```
 
-O servidor de API precisará ser reiniciado para selecionar as novas linhas da política.
+O servidor de API precisará ser reiniciado para carregar as novas linhas da política.
