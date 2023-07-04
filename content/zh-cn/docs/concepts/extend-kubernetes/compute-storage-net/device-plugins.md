@@ -735,7 +735,7 @@ ensure your kubelet services are started with the following flags:
 -->
 ## 设备插件与拓扑管理器的集成   {#device-plugin-integration-with-the-topology-manager}
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
 <!--
 The Topology Manager is a Kubelet component that allows resources to be co-ordinated in a Topology
