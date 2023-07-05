@@ -65,7 +65,7 @@ default StorageClass is accidentally set, the newest default is used when the
 PVC is dynamically provisioned.
 
 For instructions on setting the default StorageClass, see
-[Change the default StorageClass](https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/).
+[Change the default StorageClass](/docs/tasks/administer-cluster/change-default-storage-class/).
 Note that certain cloud providers may already define a default StorageClass.
 
 ### Provisioner
