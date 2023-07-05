@@ -231,7 +231,7 @@ zk-1.zk-hs.default.svc.cluster.local
 zk-2.zk-hs.default.svc.cluster.local
 ```
 
-これは、ZooKeeperの`zzo.cfg`ファイル内の`servers`プロパティが正しく設定されたアンサンブルを表していることを保証します。
+これは、ZooKeeperの`zoo.cfg`ファイル内の`servers`プロパティが正しく設定されたアンサンブルを表していることを保証します。
 
 ```
 server.1=zk-0.zk-hs.default.svc.cluster.local:2888:3888
