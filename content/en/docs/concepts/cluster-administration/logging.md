@@ -71,11 +71,12 @@ You can use `kubectl logs --previous` to retrieve logs from a previous instantia
 If your pod has multiple containers, specify which container's logs you want to access by
 appending a container name to the command, with a `-c` flag, like so:
 
-```console
+```shell
 kubectl logs counter -c count
 ```
 
-See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands#logs) for more details.
+See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands#logs)
+for more details.
 
 ### How nodes handle container logs
 
@@ -98,23 +99,23 @@ The usual way to access this is by running `kubectl logs`.
 
 You can configure the kubelet to rotate logs automatically.
 
-If you configure rotation, the kubelet is responsible for rotating container logs and managing the logging directory structure.
+If you configure rotation, the kubelet is responsible for rotating container logs and managing the
+logging directory structure.
 The kubelet sends this information to the container runtime (using CRI),
 and the runtime writes the container logs to the given location.
 
 You can configure two kubelet [configuration settings](/docs/reference/config-api/kubelet-config.v1beta1/),
 `containerLogMaxSize` and `containerLogMaxFiles`,
 using the [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/).
-These settings let you configure the maximum size for each log file and the maximum number of files allowed for each container respectively.
+These settings let you configure the maximum size for each log file and the maximum number of
+files allowed for each container respectively.
 
 When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) as in
 the basic logging example, the kubelet on the node handles the request and
 reads directly from the log file. The kubelet returns the content of the log file.
 
-
 {{< note >}}
-Only the contents of the latest log file are available through
-`kubectl logs`.
+Only the contents of the latest log file are available through `kubectl logs`.
 
 For example, if a Pod writes 40 MiB of logs and the kubelet rotates logs
 after 10 MiB, running `kubectl logs` returns at most 10MiB of data.
@@ -149,9 +150,8 @@ If systemd is not present, the kubelet and container runtime write to `.log` fil
 run the kubelet via a helper tool, `kube-log-runner`, and use that tool to redirect
 kubelet logs to a directory that you choose.
 
-You can also set a logging directory using the deprecated kubelet command line
-argument `--log-dir`. However, the kubelet always directs your container runtime to
-write logs into directories within `/var/log/pods`.
+The kubelet always directs your container runtime to write logs into directories within
+`/var/log/pods`.
 
 For more information on `kube-log-runner`, read [System Logs](/docs/concepts/cluster-administration/system-logs/#klog).
 
@@ -221,7 +221,8 @@ application containers on that node.
 Because the logging agent must run on every node, it is recommended to run the agent
 as a `DaemonSet`.
 
-Node-level logging creates only one agent per node and doesn't require any changes to the applications running on the node.
+Node-level logging creates only one agent per node and doesn't require any changes to the
+applications running on the node.
 
 Containers write to stdout and stderr, but with no agreed format. A node-level agent collects
 these logs and forwards them for aggregation.
@@ -231,7 +232,8 @@ these logs and forwards them for aggregation.
 You can use a sidecar container in one of the following ways:
 
 * The sidecar container streams application logs to its own `stdout`.
-* The sidecar container runs a logging agent, which is configured to pick up logs from an application container.
+* The sidecar container runs a logging agent, which is configured to pick up logs
+  from an application container.
 
 #### Streaming sidecar container
 
@@ -346,10 +348,13 @@ The pod mounts a volume where fluentd can pick up its configuration data.
 
 ![Exposing logs directly from the application](/images/docs/user-guide/logging/logging-from-application.png)
 
-Cluster-logging that exposes or pushes logs directly from every application is outside the scope of Kubernetes.
+Cluster-logging that exposes or pushes logs directly from every application is outside the scope
+of Kubernetes.
 
 ## {{% heading "whatsnext" %}}
 
 * Read about [Kubernetes system logs](/docs/concepts/cluster-administration/system-logs/)
 * Learn about [Traces For Kubernetes System Components](/docs/concepts/cluster-administration/system-traces/)
-* Learn how to [customise the termination message](/docs/tasks/debug/debug-application/determine-reason-pod-failure/#customizing-the-termination-message) that Kubernetes records when a Pod fails
+* Learn how to [customise the termination message](/docs/tasks/debug/debug-application/determine-reason-pod-failure/#customizing-the-termination-message)
+  that Kubernetes records when a Pod fails
+
