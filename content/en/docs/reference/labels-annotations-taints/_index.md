@@ -405,13 +405,13 @@ For more details, see [Addon-manager](https://github.com/kubernetes/kubernetes/b
 
 Type: Label
 
-This label has been deprecated. Please use [kubernetes.io/arch](#kubernetes-io-arch) instead.
+This label has been deprecated. Please use [`kubernetes.io/arch`](#kubernetes-io-arch) instead.
 
 ### beta.kubernetes.io/os (deprecated)
 
 Type: Label
 
-This label has been deprecated. Please use [kubernetes.io/os](#kubernetes-io-os) instead.
+This label has been deprecated. Please use [`kubernetes.io/os`](#kubernetes-io-os) instead.
 
 ### kube-aggregator.kubernetes.io/automanaged {#kube-aggregator-kubernetesio-automanaged}
 
