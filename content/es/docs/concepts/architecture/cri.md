@@ -15,7 +15,7 @@ cada Nodo en tu clúster, de manera que el
 {{<glossary_tooltip text="kubelet" term_id="kubelet">}} pueda iniciar
 {{<glossary_tooltip text="Pods" term_id="pod">}} y sus contenedores.
 
-{{< glossary_definition prepend="_Container Runtime Interface (CRI)_ es" term_id="container-runtime-interface" length="all" >}}
+{{<glossary_definition prepend="Container Runtime Interface (CRI) es" term_id="container-runtime-interface" length="all">}}
 
 <!-- body -->
 
