@@ -152,8 +152,7 @@ and Never. The default value is Always.
 
 The `restartPolicy` applies to all containers in the Pod. `restartPolicy` only
 refers to restarts of the containers by the kubelet on the same node. After containers
-in a Pod exit, the kubelet restarts them with an exponential back-off delay (10s, 20s,
-40s, …), that is capped at five minutes. Once a container has executed for 10 minutes
+in a Pod exit, the kubelet restarts them with an exponential back-off delay (0s, 10s, 20s, 40s, ...), that is capped at five minutes. Once a container has executed for 10 minutes
 without any problems, the kubelet resets the restart backoff timer for that container.
 
 ## Pod conditions
