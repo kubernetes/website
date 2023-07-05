@@ -287,6 +287,35 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    rm kubectl-convert kubectl-convert.sha256
    ```
 
+### Uninstall kubectl on macOS
+
+Depending on how you installed `kubectl`, use one of the following methods.
+
+### Uninstall kubectl using the command-line
+
+1.  Locate the `kubectl` binary on your system:
+
+    ```bash
+    where kubectl
+    ```
+
+1.  Remove the `kubectl` binary:
+
+    ```bash
+    sudo rm <path>
+    ```
+    Replace `<path>` with the path to the `kubectl` binary from the previous step. For example, `sudo rm /usr/local/bin/kubectl`.
+
+### Uninstall kubectl using homebrew
+
+If you installed `kubectl` using Homebrew, run the following command:
+
+```bash
+brew remove kubectl
+```
+  
 ## {{% heading "whatsnext" %}}
 
 {{< include "included/kubectl-whats-next.md" >}}
+
+
