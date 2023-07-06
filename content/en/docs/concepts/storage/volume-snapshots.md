@@ -128,6 +128,11 @@ spec:
   volumeSnapshotClassName: csi-hostpath-snapclass
   source:
     persistentVolumeClaimName: pvc-test
+status:
+  boundVolumeSnapshotContentName: snapcontent-9ef06180-0665-4b1d-ae02-a1d35f74b262
+  creationTime: "2023-02-16T23:03:18Z"
+  readyToUse: true
+  restoreSize: 1Gi
 ```
 
 `persistentVolumeClaimName` is the name of the PersistentVolumeClaim data source
@@ -150,6 +155,11 @@ metadata:
 spec:
   source:
     volumeSnapshotContentName: test-content
+status:
+  boundVolumeSnapshotContentName: test-content
+  creationTime: "2023-02-20T02:41:12Z"
+  readyToUse: true
+  restoreSize: 1Gi
 ```
 
 ## Volume Snapshot Contents
