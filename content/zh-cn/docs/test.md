@@ -116,9 +116,9 @@ Markdown doesn't have strict rules about how to process lists. When we moved
 from Jekyll to Hugo, we broke some lists. To fix them, keep the following in
 mind:
 
-- Make sure you indent sub-list items **2 spaces**. 
+- Make sure you indent sub-list items **2 spaces**.
 
-- To end a list and start another, you need a HTML comment block on a new line
+- To end a list and start another, you need an HTML comment block on a new line
   between the lists, flush with the left-hand border. The first list won't end
   otherwise, no matter how many blank lines you put between it and the second.
 -->
@@ -133,18 +133,18 @@ Markdown 在如何处理列表方面没有严格的规则。在我们从 Jekyll 
 <!--
 ### Bullet lists
 
-- This is a list item
-* This is another list item in the same list
-- You can mix `-` and `*`
+- This is a list item.
+* This is another list item in the same list.
+- You can mix `-` and `*`.
   - To make a sub-item, indent two spaces.
     - This is a sub-sub-item. Indent two more spaces.
   - Another sub-item.
 -->
 ### 项目符号列表   {#bullet-lists}
 
-- 此为列表条目
-* 此为另一列表条目，位于同一列表中
-- 你可以将 `-` 和 `*` 混合使用
+- 此为列表条目。
+* 此为另一列表条目，位于同一列表中。
+- 你可以将 `-` 和 `*` 混合使用。
   - 要开始子列表，缩进两个空格。
     - 这是另一个子子条目。进一步多缩进两个空格。
   - 另一个子条目。
@@ -178,8 +178,8 @@ Markdown 在如何处理列表方面没有严格的规则。在我们从 Jekyll 
 
 <!--
 - A bullet list item can contain a numbered list.
-    1.  Numbered sub-list item 1
-    2.  Numbered sub-list item 2
+  1. Numbered sub-list item 1
+  1. Numbered sub-list item 2
 -->
 - 项目符号列表条目中还可以包含编号列表。
   1. 编号子列表条目一
@@ -194,44 +194,41 @@ Markdown 在如何处理列表方面没有严格的规则。在我们从 Jekyll 
 <!--
 ### Numbered lists
 
-1.  This is a list item
-2.  This is another list item in the same list. The number you use in Markdown
-    does not necessarily correlate to the number in the final output. By
-    convention, we keep them in sync.
-3.  {{<note>}}
-    For single-digit numbered lists, using two spaces after the period makes
-    interior block-level content line up better along tab-stops.
-    {{</note>}}
+1. This is a list item
+1. This is another list item in the same list. The number you use in Markdown
+   does not necessarily correlate to the number in the final output. By
+   convention, we keep them in sync.
 -->
 ### 编号列表  {#numbered-lists}
 
 1. 此为列表条目
-2. 此为列表中的第二个条目。在 Markdown 源码中所给的编号数字与最终输出的数字
+1. 此为列表中的第二个条目。在 Markdown 源码中所给的编号数字与最终输出的数字
    可能不同。建议在紧凑列表中编号都使用 1。如果条目之间有其他内容（比如注释
    掉的英文）存在，则需要显式给出编号。
-3. {{<note>}}
-   <!--
-   For single-digit numbered lists, using two spaces after the period makes
-   interior block-level content line up better along tab-stops.
-   -->
-   对于单个数字的编号列表，在句点（`.`）后面加两个空格。这样有助于将列表的
-   内容更好地对齐。
-   {{</note>}}
+
+{{<note>}}
+<!--
+For single-digit numbered lists, using two spaces after the period makes
+interior block-level content line up better along tab-stops.
+-->
+对于单个数字的编号列表，在句点（`.`）后面加两个空格。这样有助于将列表的
+内容更好地对齐。
+{{</note>}}
 
 <!-- separate lists -->
 
 <!--
-1.  This is a new list. With Hugo, you need to use a HTML comment to separate
-    two consecutive lists. **The HTML comment needs to be at the left margin.**
-2.  Numbered lists can have paragraphs or block elements within them.
+1. This is a new list. With Hugo, you need to use an HTML comment to separate
+   two consecutive lists. **The HTML comment needs to be at the left margin.**
+1. Numbered lists can have paragraphs or block elements within them.
 
-    Indent the content to be the same as the first line of the bullet
-    point. **This paragraph and the code block line up with the `N` in
-    `Numbered` above.**
+   Indent the content to be the same as the first line of the bullet
+   point. **This paragraph and the code block line up with the `N` in
+   `Numbered` above.**
 -->
 1. 这是一个新的列表。 使用 Hugo 时，你需要用 HTML 注释将两个紧挨着的列表分开。
    **HTML 注释需要按左边顶边对齐。**
-2. 编号列表条目中也可以包含额外的段落或者块元素。
+1. 编号列表条目中也可以包含额外的段落或者块元素。
 
    后续段落应该按编号列表文字的第一行左侧对齐。
    **此段落及下面的代码段都与本条目中的第一个字“编”对齐。**
@@ -242,8 +239,8 @@ Markdown 在如何处理列表方面没有严格的规则。在我们从 Jekyll 
 
    <!--
    - And a sub-list after some block-level content. This is at the same
-      "level" as the paragraph and code block above, despite being indented
-      more.
+     "level" as the paragraph and code block above, despite being indented
+     more.
    -->
    - 编号列表条目中可以在块级内容之后有子列表。子列表的符号项要与上层列表条目文字左侧对齐。
 
@@ -477,20 +474,23 @@ source for this page).
 ## Links
 
 To format a link, put the link text inside square brackets, followed by the
-link target in parentheses. [Link to Kubernetes.io](https://kubernetes.io/) or
-[Relative link to Kubernetes.io](/)
+link target in parentheses.
+
+- `[Link to Kubernetes.io](https://kubernetes.io/)` or
+- `[Relative link to Kubernetes.io](/)`
 
 You can also use HTML, but it is not preferred.
-<a href="https://kubernetes.io/">Link to Kubernetes.io</a>
+For example, `<a href="https://kubernetes.io/">Link to Kubernetes.io</a>`.
 -->
 ## 链接   {#links}
 
 要格式化链接，将链接显示文本放在方括号中，后接用圆括号括起来的链接目标。
-[指向 Kubernetes.io 的链接](https://kubernetes.io/)或
-[到 Kubernetes.io 的相对链接](/)。
+
+- `[指向 Kubernetes.io 的链接](https://kubernetes.io/)`或
+- `[到 Kubernetes.io 的相对链接](/)`
 
 你也可以使用 HTML，但这种方式不是推荐的方式。
-<a href="https://kubernetes.io/">到 Kubernetes.io 的链接</a>。
+例如，`<a href="https://kubernetes.io/">到 Kubernetes.io 的链接</a>`。
 
 ### 中文链接
 
@@ -595,7 +595,7 @@ You can also use HTML for images, but it is not preferred.
 即使你不想使用 figure 短代码，图片也可以展示为链接。这里，铅笔图标指向
 Kubernetes 网站。外层的方括号将整个 image 标签封装起来，链接目标在末尾的圆括号之间给出。
 
-[![pencil icon](/images/pencil.png)](https://kubernetes.io)
+[![铅笔图标](/images/pencil.png)](https://kubernetes.io)
 
 你也可以使用 HTML 来嵌入图片，不过这种方式是不推荐的。
 
@@ -690,7 +690,7 @@ graph TD;
 ```
 
 <!--
-Produces: 
+Produces:
 -->
 会产生：
 
@@ -742,7 +742,7 @@ sequenceDiagram
 ```
 
 <!--
-Produces: 
+Produces:
 -->
 会产生：
 
@@ -772,9 +772,9 @@ sequenceDiagram
 {{</ mermaid >}}
 
 <!--
-<br>More [examples](https://mermaid-js.github.io/mermaid/#/examples) from the official docs.
+You can check more [examples](https://mermaid-js.github.io/mermaid/#/examples) from the official docs.
 -->
-<br>在官方网站上有更多的[示例](https://mermaid-js.github.io/mermaid/#/examples)。
+你可以查阅官方网站上的更多[示例](https://mermaid-js.github.io/mermaid/#/examples)。
 
 <!--
 ## Sidebars and Admonitions
@@ -813,6 +813,7 @@ A sidebar offsets text visually, but without the visual prominence of
 > ```bash
 > sudo dmesg
 > ```
+
 <!--
 ### Admonitions
 
@@ -822,8 +823,8 @@ Admonitions (notes, warnings, etc) use Hugo shortcodes.
 
 提醒框（说明、警告等等）都是用 Hugo 短代码的形式展现。
 
-<!--
 {{< note >}}
+<!--
 Notes catch the reader's attention without a sense of urgency.
 
 You can have multiple paragraphs and block-level elements inside an admonition.
