@@ -9,13 +9,13 @@ min-kubernetes-server-version: 1.23
 
 Un [HorizontalPodAutoscaler](/docs/tasks/run-application/horizontal-pod-autoscale/) (raccourci en HPA) 
 met à jour automatiquement une ressource de charge de travail 
-(comme un {{< glossary_tooltip text=Deployment term_id=deployment >}} 
-ou un {{< glossary_tooltip text=StatefulSet term_id=statefulset >}}), 
+(comme un {{< glossary_tooltip text="Deployment" term_id="deployment" >}} 
+ou un {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}), 
 dans le but de faire évoluer automatiquement la charge de travail en fonction 
 de la demande. 
 
 L'évolutivité horizontale signifie que la réponse à une
-augmentation de la charge est de déployer plus de {{< glossary_tooltip text=Pods term_id=pod >}}. 
+augmentation de la charge est de déployer plus de {{< glossary_tooltip text="Pods" term_id="pod" >}}. 
 Cela diffère de l'évolutivité _verticale_, qui pour Kubernetes 
 signifierait attribuer plus de ressources (par exemple : mémoire ou CPU)
 aux Pods qui sont déjà en cours d'exécution pour la charge de travail.
@@ -30,6 +30,7 @@ automatiquement l'échelle d'une application web.
 Cette charge de travail d'exemple est Apache httpd exécutant du code PHP.
 
 ## {{% heading prerequisites %}}  
+
 {{< include task-tutorial-prereqs.md >}} {{< version-check >}} Si vous utilisez 
 une version plus ancienne de Kubernetes, consultez la version de la documentation correspondante 
 (voir [versions de documentation disponibles](/docs/home/supported-doc-versions/)). 
@@ -38,7 +39,7 @@ Pour suivre ce guide, vous devez également utiliser un cluster qui dispose d'un
 [Metrics Server](https://github.com/kubernetes-sigs/metrics-server#readme) déployé et configuré. 
 
 Le Metrics Server Kubernetes collecte les métriques des ressources des 
-{{<glossary_tooltip term_id=kubelet text=kubelets>}} de votre cluster et expose 
+{{<glossary_tooltip term_id="kubelet" text="kubelets">}} de votre cluster et expose 
 ces métriques via l'[API Kubernetes](/docs/concepts/overview/kubernetes-api/), 
 en utilisant un [APIService](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) 
 pour ajouter de nouveaux types de ressources représentant les lectures de métriques. 
@@ -51,8 +52,8 @@ Pour apprendre comment déployer le Metrics Server, consultez la [documentation 
 
 Pour démontrer un HorizontalPodAutoscaler, vous commencerez par démarrer un 
 Deployment qui exécute un conteneur utilisant l'image `hpa-example`
-et l'expose en tant que {{< glossary_tooltip term_id=service>}} en utilisant le 
-manifeste suivant: {{< codenew file=application/php-apache.yaml >}} 
+et l'expose en tant que {{< glossary_tooltip term_id="service">}} en utilisant le 
+manifeste suivant: {{< codenew file="application/php-apache.yaml" >}} 
 
 Pour créer les ressources, exécutez la commande suivante:
 ```shell
@@ -74,7 +75,7 @@ Vous allez bientôt exécuter une commande qui crée un HorizontalPodAutoscaler
 qui maintient entre 1 et 10 réplicas des Pods contrôlés par le déploiement
 php-apache que vous avez créé lors de la première étape.
 
-Généralement, le HPA ({{<glossary_tooltip text="contrôleur" term_id="controller">}})
+En parlant simplement, le HPA ({{<glossary_tooltip text="contrôleur" term_id="controller">}})
 augmentera ou diminuera le nombre de réplicas (en mettant à jour le déploiement)
 pour maintenir une utilisation CPU moyenne de 50% sur l'ensemble des Pods.
 
@@ -84,7 +85,7 @@ ajoute ou supprime des Pods en fonction des modifications apportées à son cham
 
 Étant donné que chaque pod demande 200 milli-cores via `kubectl run`,
 cela signifie une utilisation CPU moyenne de 100 milli-cores.
-Consultez les [détails de l'algorithme](/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details) pour plus d'informations sur l'algorithme.
+Consultez les [détails de l'algorithme](/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details) pour plus d'informations sur celui-ci.
 
 Créez le HorizontalPodAutoscaler :
 
@@ -158,7 +159,7 @@ Ainsi, le nombre de réplicas du Deployment a été augmenté à 7:
 kubectl get deployment php-apache
 ```
 
-Vous devriez voir le nombre de réplicas être égal à la valeur du HorizontalPodAutoscaler
+Vous devriez voir le nombre de réplicas être égal à la valeur du HorizontalPodAutoscaler:
 ```
 NAME         READY   UP-TO-DATE   AVAILABLE   AGE
 php-apache   7/7      7           7           19m
@@ -178,7 +179,7 @@ Dans le terminal utilisé pour créer le Pod qui exécute une image `busybox`, a
 
 Puis vérifiez le résultat après un temps d'attente:
 ```shell
-# entrez Ctrl+C pour terminer lorsque c'est ok
+# entrez Ctrl+C pour arrêter une fois la charge arretée
 kubectl get hpa php-apache --watch
 ```
 
@@ -189,7 +190,7 @@ NAME         REFERENCE                     TARGET       MINPODS   MAXPODS   REPL
 php-apache   Deployment/php-apache/scale   0% / 50%     1         10        1          11m
 ```
 
-et le nombre de réplicas du Deployment sera descendu: 
+et le nombre de réplicas du Deployment sera redescendu: 
 
 ```shell
 kubectl get deployment php-apache
