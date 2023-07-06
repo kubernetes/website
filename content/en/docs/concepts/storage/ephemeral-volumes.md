@@ -48,7 +48,7 @@ different purposes:
   kinds of Kubernetes data into a Pod
 - [CSI ephemeral volumes](#csi-ephemeral-volumes):
   similar to the previous volume kinds, but provided by special
-  [CSI drivers](https://github.com/container-storage-interface/spec/blob/master/spec.md)
+  [CSI drivers](https://kubernetes-csi.github.io/docs/drivers.html)
   which specifically [support this feature](https://kubernetes-csi.github.io/docs/drivers.html)
 - [generic ephemeral volumes](#generic-ephemeral-volumes), which
   can be provided by all storage drivers that also support persistent volumes
