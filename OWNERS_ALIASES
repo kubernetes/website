@@ -205,6 +205,12 @@ aliases:
     - idvoretskyi
     - MaxymVlasov
     - Potapy4
+  sig-docs-tr-owners: # Admins for Turkish content
+    - alkinkaz
+    - LokmaSpeedy
+  sig-docs-tr-reviews: # PR reviews for Turkish content
+    - alkinkaz
+    - LokmaSpeedy
   # authoritative source: git.k8s.io/community/OWNERS_ALIASES
   committee-steering: # provide PR approvals for announcements
     - cblecker
