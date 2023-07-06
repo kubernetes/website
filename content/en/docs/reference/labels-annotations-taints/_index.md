@@ -1052,7 +1052,8 @@ Used on: Jobs and Pods controlled by CronJobs
 
 This annotation is used to record the original (expected) creation timestamp for a Job,
 when that Job is part of a CronJob.
-The control plane sets the value to that timestamp in RFC3339 format.
+The control plane sets the value to that timestamp in RFC3339 format. The timezone for 
+that timestamp is either the explicit timezone in the cronjob or the controller-manager's local time.
 
 ### kubectl.kubernetes.io/default-container
 
