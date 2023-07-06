@@ -56,8 +56,7 @@ Quando uma requisição é recebida, os atributos são determinados. Atributos d
 
 Uma propriedade definida como `"*"` corresponderá a qualquer valor do atributo correspondente.
 
-A tupla de atributos é verificada em relação a cada política do
-arquivo de política. Se pelo menos uma linha corresponder aos atributos da solicitação, a requisição é autorizada (mas pode falhar em validação posterior).
+A tupla de atributos é verificada em relação a cada política do arquivo de política. Se pelo menos uma linha corresponder aos atributos da requisição, ela é então autorizada (mas pode falhar em validação posterior).
 
 Para permitir que qualquer usuário autenticado faça algo, escreva uma política com a propriedade do grupo definida como `"system:authenticated"`.
 
@@ -75,9 +74,11 @@ Ao utilizar a autorização ABAC, esses recursos especiais devem ser explicitame
 * `/version` para recuperar a versão do servidor via `kubectl version`.
 * `/swaggerapi/*` para operações de criação/atualização.
 
-Para inspecionar as chamadas HTTP envolvidas em uma operação kubectl específica, você pode ativar aumentar a verbosidade:
+Para inspecionar as chamadas HTTP envolvidas em uma operação kubectl específica, você pode aumentar a verbosidade:
 
-     kubectl --v=8 versão
+```shell
+kubectl --v=8 version
+```
 
 ## Exemplos
 
