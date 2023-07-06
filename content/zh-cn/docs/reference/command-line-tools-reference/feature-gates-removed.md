@@ -1195,7 +1195,7 @@ In the following table:
   `attach` and `port-forward` requests.
 
 - `SupportIPVSProxyMode`: Enable providing in-cluster service load balancing using IPVS.
-  See [service proxies](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies) for more details.
+  See [service proxies](/docs/reference/networking/virtual-ips/) for more details.
 
 - `SupportNodePidsLimit`: Enable the support to limiting PIDs on the Node.  The parameter
   `pid=<number>` in the `--system-reserved` and `--kube-reserved` options can be specified to
@@ -1209,7 +1209,7 @@ In the following table:
   流请求的例子包括 `exec`、`attach` 和 `port-forward` 请求。
 
 - `SupportIPVSProxyMode`：启用使用 IPVS 提供集群内服务负载平衡。更多详细信息，
-  请参见[服务代理](/zh-cn/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)。
+  请参见[服务代理](/zh-cn/docs/reference/networking/virtual-ips/)。
 
 - `SupportNodePidsLimit`：启用支持，限制节点上的 PID 用量。
   `--system-reserved` 和 `--kube-reserved` 中的参数 `pid=<数值>`

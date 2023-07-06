@@ -182,7 +182,7 @@ There are two cgroup drivers available:
 <!--
 ### cgroupfs driver {#cgroupfs-cgroup-driver}
 
-The `cgroupfs` driver is the [default cgroup driver in the kubelet](docs/reference/config-api/kubelet-config.v1beta1).
+The `cgroupfs` driver is the [default cgroup driver in the kubelet](/docs/reference/config-api/kubelet-config.v1beta1).
 When the `cgroupfs` driver is used, the kubelet and the container runtime directly interface with
 the cgroup filesystem to configure cgroups.
 
@@ -194,8 +194,8 @@ cgroup driver instead of `cgroupfs`.
 -->
 ### cgroupfs 驱动 {#cgroupfs-cgroup-driver}
 
-`cgroupfs` 驱动是 kubelet 中默认的 cgroup 驱动。当使用 `cgroupfs` 驱动时，
-kubelet 和容器运行时将直接对接 cgroup 文件系统来配置 cgroup。
+`cgroupfs` 驱动是 [kubelet 中默认的 cgroup 驱动](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1)。
+当使用 `cgroupfs` 驱动时， kubelet 和容器运行时将直接对接 cgroup 文件系统来配置 cgroup。
 
 当 [systemd](https://www.freedesktop.org/wiki/Software/systemd/) 是初始化系统时，
 **不** 推荐使用 `cgroupfs` 驱动，因为 systemd 期望系统上只有一个 cgroup 管理器。

@@ -44,16 +44,16 @@ Um kubectl auf macOS zu installieren, gibt es die folgenden Möglichkeiten:
    {{< note >}}
    Um eine spezifische Version herunterzuladen, ersetze `$(curl -L -s https://dl.k8s.io/release/stable.txt)` mit der spezifischen Version
 
-   Um zum Beispiel Version {{< param "fullversion" >}} auf Intel macOS herunterzuladen:
+   Um zum Beispiel Version {{< skew currentPatchVersion >}} auf Intel macOS herunterzuladen:
 
    ```bash
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl"
+   curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/amd64/kubectl"
    ```
 
    Für macOS auf Apple Silicon (z.B. M1/M2):
 
    ```bash
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/arm64/kubectl"
+   curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/arm64/kubectl"
    ```
 
    {{< /note >}}

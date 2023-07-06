@@ -35,10 +35,10 @@ Vous devez utiliser une version de kubectl qui différe seulement d'une version 
 
     Pour télécharger une version spécifique, remplacez `$(curl -s https://dl.k8s.io/release/stable.txt)` avec la version spécifique.
 
-    Par exemple, pour télécharger la version {{< param "fullversion" >}} sur Linux, tapez :
+    Par exemple, pour télécharger la version {{< skew currentPatchVersion >}} sur Linux, tapez :
 
     ```
-    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
     ```
 
 2. Rendez le binaire kubectl exécutable.
@@ -110,15 +110,15 @@ kubectl version --client
 1. Téléchargez la dernière version:
 
     ```		
-    curl -LO https://dl.k8s.io/release/$(curl -s https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/$(curl -Ls https://dl.k8s.io/release/stable.txt)/bin/darwin/amd64/kubectl
     ```
 
-    Pour télécharger une version spécifique, remplacez `$(curl -s https://dl.k8s.io/release/stable.txt)` avec la version spécifique.
+    Pour télécharger une version spécifique, remplacez `$(curl -Ls https://dl.k8s.io/release/stable.txt)` avec la version spécifique.
 
-    Par exemple, pour télécharger la version {{< param "fullversion" >}} sur macOS, tapez :
+    Par exemple, pour télécharger la version {{< skew currentPatchVersion >}} sur macOS, tapez :
 		
     ```
-    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/amd64/kubectl
     ```
 
 2. Rendez le binaire kubectl exécutable.
@@ -180,12 +180,12 @@ Si vous êtes sur MacOS et que vous utilisez le gestionnaire de paquets [Macport
 
 ### Installer le binaire kubectl avec curl sur Windows
 
-1. Téléchargez la dernière version {{< param "fullversion" >}} depuis [ce lien](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
+1. Téléchargez la dernière version {{< skew currentPatchVersion >}} depuis [ce lien](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe).
 
     Ou si vous avez `curl` installé, utilisez cette commande:
 
     ```
-    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe
     ```
 
     Pour connaître la dernière version stable (par exemple, en scripting), jetez un coup d'oeil à [https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt).

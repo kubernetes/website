@@ -154,7 +154,7 @@ my-nginx-7vzhx   IPv4          80      10.244.2.5,10.244.3.4   21s
 You should now be able to curl the nginx Service on `<CLUSTER-IP>:<PORT>` from
 any node in your cluster. Note that the Service IP is completely virtual, it
 never hits the wire. If you're curious about how this works you can read more
-about the [service proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies).
+about the [service proxy](/docs/reference/networking/virtual-ips/).
 
 ## Accessing the Service
 
@@ -241,7 +241,7 @@ or [Installing CoreDNS](/docs/tasks/administer-cluster/coredns/#installing-cored
 Let's run another curl application to test this:
 
 ```shell
-kubectl run curl --image=radial/busyboxplus:curl -i --tty
+kubectl run curl --image=radial/busyboxplus:curl -i --tty --rm
 ```
 ```
 Waiting for pod default/curl-131556218-9fnch to be running, status is Pending, pod ready: false

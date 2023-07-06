@@ -1,11 +1,11 @@
 ---
-title: 사용 가능한 문서의 버전
+title: 가용 문서 버전
 content_type: custom
 layout: supported-versions
 card:
   name: about
   weight: 10
-  title: 사용 가능한 문서 버전
+  title: 가용 문서 버전
 ---
 
 이 웹사이트에서는 쿠버네티스 현재 버전 및

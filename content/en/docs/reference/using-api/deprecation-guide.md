@@ -83,9 +83,9 @@ The **discovery.k8s.io/v1beta1** API version of EndpointSlice is no longer serve
 * Migrate manifests and API clients to use the **discovery.k8s.io/v1** API version, available since v1.21.
 * All existing persisted objects are accessible via the new API
 * Notable changes in **discovery.k8s.io/v1**:
-    * use per Endpoint `nodeName` field instead of deprecated `topology["kubernetes.io/hostname"]` field
-    * use per Endpoint `zone` field instead of deprecated `topology["topology.kubernetes.io/zone"]` field
-    * `topology` is replaced with the `deprecatedTopology` field which is not writable in v1
+  * use per Endpoint `nodeName` field instead of deprecated `topology["kubernetes.io/hostname"]` field
+  * use per Endpoint `zone` field instead of deprecated `topology["topology.kubernetes.io/zone"]` field
+  * `topology` is replaced with the `deprecatedTopology` field which is not writable in v1
 
 #### Event {#event-v125}
 
@@ -94,14 +94,20 @@ The **events.k8s.io/v1beta1** API version of Event is no longer served as of v1.
 * Migrate manifests and API clients to use the **events.k8s.io/v1** API version, available since v1.19.
 * All existing persisted objects are accessible via the new API
 * Notable changes in **events.k8s.io/v1**:
-    * `type` is limited to `Normal` and `Warning`
-    * `involvedObject` is renamed to `regarding`
-    * `action`, `reason`, `reportingController`, and `reportingInstance` are required when creating new **events.k8s.io/v1** Events
-    * use `eventTime` instead of the deprecated `firstTimestamp` field (which is renamed to `deprecatedFirstTimestamp` and not permitted in new **events.k8s.io/v1** Events)
-    * use `series.lastObservedTime` instead of the deprecated `lastTimestamp` field (which is renamed to `deprecatedLastTimestamp` and not permitted in new **events.k8s.io/v1** Events)
-    * use `series.count` instead of the deprecated `count` field (which is renamed to `deprecatedCount` and not permitted in new **events.k8s.io/v1** Events)
-    * use `reportingController` instead of the deprecated `source.component` field (which is renamed to `deprecatedSource.component` and not permitted in new **events.k8s.io/v1** Events)
-    * use `reportingInstance` instead of the deprecated `source.host` field (which is renamed to `deprecatedSource.host` and not permitted in new **events.k8s.io/v1** Events)
+  * `type` is limited to `Normal` and `Warning`
+  * `involvedObject` is renamed to `regarding`
+  * `action`, `reason`, `reportingController`, and `reportingInstance` are required
+    when creating new **events.k8s.io/v1** Events
+  * use `eventTime` instead of the deprecated `firstTimestamp` field (which is renamed
+    to `deprecatedFirstTimestamp` and not permitted in new **events.k8s.io/v1** Events)
+  * use `series.lastObservedTime` instead of the deprecated `lastTimestamp` field
+    (which is renamed to `deprecatedLastTimestamp` and not permitted in new **events.k8s.io/v1** Events)
+  * use `series.count` instead of the deprecated `count` field
+    (which is renamed to `deprecatedCount` and not permitted in new **events.k8s.io/v1** Events)
+  * use `reportingController` instead of the deprecated `source.component` field
+    (which is renamed to `deprecatedSource.component` and not permitted in new **events.k8s.io/v1** Events)
+  * use `reportingInstance` instead of the deprecated `source.host` field
+    (which is renamed to `deprecatedSource.host` and not permitted in new **events.k8s.io/v1** Events)
 
 #### HorizontalPodAutoscaler {#horizontalpodautoscaler-v125}
 
@@ -117,11 +123,14 @@ The **policy/v1beta1** API version of PodDisruptionBudget is no longer served as
 * Migrate manifests and API clients to use the **policy/v1** API version, available since v1.21.
 * All existing persisted objects are accessible via the new API
 * Notable changes in **policy/v1**:
-  * an empty `spec.selector` (`{}`) written to a `policy/v1` PodDisruptionBudget selects all pods in the namespace (in `policy/v1beta1` an empty `spec.selector` selected no pods). An unset `spec.selector` selects no pods in either API version.
+  * an empty `spec.selector` (`{}`) written to a `policy/v1` PodDisruptionBudget selects all
+    pods in the namespace (in `policy/v1beta1` an empty `spec.selector` selected no pods).
+    An unset `spec.selector` selects no pods in either API version.
 
 #### PodSecurityPolicy {#psp-v125}
 
-PodSecurityPolicy in the **policy/v1beta1** API version is no longer served as of v1.25, and the PodSecurityPolicy admission controller will be removed.
+PodSecurityPolicy in the **policy/v1beta1** API version is no longer served as of v1.25,
+and the PodSecurityPolicy admission controller will be removed.
 
 Migrate to [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
 or a [3rd party admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/).
@@ -142,17 +151,20 @@ The **v1.22** release stopped serving the following deprecated API versions:
 
 #### Webhook resources {#webhook-resources-v122}
 
-The **admissionregistration.k8s.io/v1beta1** API version of MutatingWebhookConfiguration and ValidatingWebhookConfiguration is no longer served as of v1.22.
+The **admissionregistration.k8s.io/v1beta1** API version of MutatingWebhookConfiguration
+and ValidatingWebhookConfiguration is no longer served as of v1.22.
 
 * Migrate manifests and API clients to use the **admissionregistration.k8s.io/v1** API version, available since v1.16.
 * All existing persisted objects are accessible via the new APIs
 * Notable changes:
-    * `webhooks[*].failurePolicy` default changed from `Ignore` to `Fail` for v1
-    * `webhooks[*].matchPolicy` default changed from `Exact` to `Equivalent` for v1
-    * `webhooks[*].timeoutSeconds` default changed from `30s` to `10s` for v1
-    * `webhooks[*].sideEffects` default value is removed, and the field made required, and only `None` and `NoneOnDryRun` are permitted for v1
-    * `webhooks[*].admissionReviewVersions` default value is removed and the field made required for v1 (supported versions for AdmissionReview are `v1` and `v1beta1`)
-    * `webhooks[*].name` must be unique in the list for objects created via `admissionregistration.k8s.io/v1`
+  * `webhooks[*].failurePolicy` default changed from `Ignore` to `Fail` for v1
+  * `webhooks[*].matchPolicy` default changed from `Exact` to `Equivalent` for v1
+  * `webhooks[*].timeoutSeconds` default changed from `30s` to `10s` for v1
+  * `webhooks[*].sideEffects` default value is removed, and the field made required,
+    and only `None` and `NoneOnDryRun` are permitted for v1
+  * `webhooks[*].admissionReviewVersions` default value is removed and the field made
+    required for v1 (supported versions for AdmissionReview are `v1` and `v1beta1`)
+  * `webhooks[*].name` must be unique in the list for objects created via `admissionregistration.k8s.io/v1`
 
 #### CustomResourceDefinition {#customresourcedefinition-v122}
 
@@ -161,16 +173,19 @@ The **apiextensions.k8s.io/v1beta1** API version of CustomResourceDefinition is 
 * Migrate manifests and API clients to use the **apiextensions.k8s.io/v1** API version, available since v1.16.
 * All existing persisted objects are accessible via the new API
 * Notable changes:
-    * `spec.scope` is no longer defaulted to `Namespaced` and must be explicitly specified
-    * `spec.version` is removed in v1; use `spec.versions` instead
-    * `spec.validation` is removed in v1; use `spec.versions[*].schema` instead
-    * `spec.subresources` is removed in v1; use `spec.versions[*].subresources` instead
-    * `spec.additionalPrinterColumns` is removed in v1; use `spec.versions[*].additionalPrinterColumns` instead
-    * `spec.conversion.webhookClientConfig` is moved to `spec.conversion.webhook.clientConfig` in v1
-    * `spec.conversion.conversionReviewVersions` is moved to `spec.conversion.webhook.conversionReviewVersions` in v1
-    * `spec.versions[*].schema.openAPIV3Schema` is now required when creating v1 CustomResourceDefinition objects, and must be a [structural schema](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema)
-    * `spec.preserveUnknownFields: true` is disallowed when creating v1 CustomResourceDefinition objects; it must be specified within schema definitions as `x-kubernetes-preserve-unknown-fields: true`
-    * In `additionalPrinterColumns` items, the `JSONPath` field was renamed to `jsonPath` in v1 (fixes [#66531](https://github.com/kubernetes/kubernetes/issues/66531))
+  * `spec.scope` is no longer defaulted to `Namespaced` and must be explicitly specified
+  * `spec.version` is removed in v1; use `spec.versions` instead
+  * `spec.validation` is removed in v1; use `spec.versions[*].schema` instead
+  * `spec.subresources` is removed in v1; use `spec.versions[*].subresources` instead
+  * `spec.additionalPrinterColumns` is removed in v1; use `spec.versions[*].additionalPrinterColumns` instead
+  * `spec.conversion.webhookClientConfig` is moved to `spec.conversion.webhook.clientConfig` in v1
+  * `spec.conversion.conversionReviewVersions` is moved to `spec.conversion.webhook.conversionReviewVersions` in v1
+  * `spec.versions[*].schema.openAPIV3Schema` is now required when creating v1 CustomResourceDefinition objects,
+    and must be a [structural schema](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema)
+  * `spec.preserveUnknownFields: true` is disallowed when creating v1 CustomResourceDefinition objects;
+    it must be specified within schema definitions as `x-kubernetes-preserve-unknown-fields: true`
+  * In `additionalPrinterColumns` items, the `JSONPath` field was renamed to `jsonPath` in v1
+    (fixes [#66531](https://github.com/kubernetes/kubernetes/issues/66531))
 
 #### APIService {#apiservice-v122}
 
@@ -189,11 +204,12 @@ The **authentication.k8s.io/v1beta1** API version of TokenReview is no longer se
 
 #### SubjectAccessReview resources {#subjectaccessreview-resources-v122}
 
-The **authorization.k8s.io/v1beta1** API version of LocalSubjectAccessReview, SelfSubjectAccessReview, SubjectAccessReview, and SelfSubjectRulesReview is no longer served as of v1.22.
+The **authorization.k8s.io/v1beta1** API version of LocalSubjectAccessReview,
+SelfSubjectAccessReview, SubjectAccessReview, and SelfSubjectRulesReview is no longer served as of v1.22.
 
 * Migrate manifests and API clients to use the **authorization.k8s.io/v1** API version, available since v1.6.
 * Notable changes:
-    * `spec.group` was renamed to `spec.groups` in v1 (fixes [#32709](https://github.com/kubernetes/kubernetes/issues/32709))
+  * `spec.group` was renamed to `spec.groups` in v1 (fixes [#32709](https://github.com/kubernetes/kubernetes/issues/32709))
 
 #### CertificateSigningRequest {#certificatesigningrequest-v122}
 
@@ -202,13 +218,15 @@ The **certificates.k8s.io/v1beta1** API version of CertificateSigningRequest is 
 * Migrate manifests and API clients to use the **certificates.k8s.io/v1** API version, available since v1.19.
 * All existing persisted objects are accessible via the new API
 * Notable changes in `certificates.k8s.io/v1`:
-    * For API clients requesting certificates:
-        * `spec.signerName` is now required (see [known Kubernetes signers](/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers)), and requests for `kubernetes.io/legacy-unknown` are not allowed to be created via the `certificates.k8s.io/v1` API
-        * `spec.usages` is now required, may not contain duplicate values, and must only contain known usages
-    * For API clients approving or signing certificates:
-        * `status.conditions` may not contain duplicate types
-        * `status.conditions[*].status` is now required
-        * `status.certificate` must be PEM-encoded, and contain only `CERTIFICATE` blocks
+  * For API clients requesting certificates:
+    * `spec.signerName` is now required
+      (see [known Kubernetes signers](/docs/reference/access-authn-authz/certificate-signing-requests/#kubernetes-signers)),
+      and requests for `kubernetes.io/legacy-unknown` are not allowed to be created via the `certificates.k8s.io/v1` API
+    * `spec.usages` is now required, may not contain duplicate values, and must only contain known usages
+  * For API clients approving or signing certificates:
+    * `status.conditions` may not contain duplicate types
+    * `status.conditions[*].status` is now required
+    * `status.certificate` must be PEM-encoded, and contain only `CERTIFICATE` blocks
 
 #### Lease {#lease-v122}
 
@@ -225,11 +243,12 @@ The **extensions/v1beta1** and **networking.k8s.io/v1beta1** API versions of Ing
 * Migrate manifests and API clients to use the **networking.k8s.io/v1** API version, available since v1.19.
 * All existing persisted objects are accessible via the new API
 * Notable changes:
-    * `spec.backend` is renamed to `spec.defaultBackend`
-    * The backend `serviceName` field is renamed to `service.name`
-    * Numeric backend `servicePort` fields are renamed to `service.port.number`
-    * String backend `servicePort` fields are renamed to `service.port.name`
-    * `pathType` is now required for each specified path. Options are `Prefix`, `Exact`, and `ImplementationSpecific`. To match the undefined `v1beta1` behavior, use `ImplementationSpecific`.
+  * `spec.backend` is renamed to `spec.defaultBackend`
+  * The backend `serviceName` field is renamed to `service.name`
+  * Numeric backend `servicePort` fields are renamed to `service.port.number`
+  * String backend `servicePort` fields are renamed to `service.port.name`
+  * `pathType` is now required for each specified path. Options are `Prefix`,
+    `Exact`, and `ImplementationSpecific`. To match the undefined `v1beta1` behavior, use `ImplementationSpecific`.
 
 #### IngressClass {#ingressclass-v122}
 
@@ -241,7 +260,8 @@ The **networking.k8s.io/v1beta1** API version of IngressClass is no longer serve
 
 #### RBAC resources {#rbac-resources-v122}
 
-The **rbac.authorization.k8s.io/v1beta1** API version of ClusterRole, ClusterRoleBinding, Role, and RoleBinding is no longer served as of v1.22.
+The **rbac.authorization.k8s.io/v1beta1** API version of ClusterRole, ClusterRoleBinding,
+Role, and RoleBinding is no longer served as of v1.22.
 
 * Migrate manifests and API clients to use the **rbac.authorization.k8s.io/v1** API version, available since v1.8.
 * All existing persisted objects are accessible via the new APIs
@@ -285,9 +305,11 @@ The **extensions/v1beta1** and **apps/v1beta2** API versions of DaemonSet are no
 * Migrate manifests and API clients to use the **apps/v1** API version, available since v1.9.
 * All existing persisted objects are accessible via the new API
 * Notable changes:
-    * `spec.templateGeneration` is removed
-    * `spec.selector` is now required and immutable after creation; use the existing template labels as the selector for seamless upgrades
-    * `spec.updateStrategy.type` now defaults to `RollingUpdate` (the default in `extensions/v1beta1` was `OnDelete`)
+  * `spec.templateGeneration` is removed
+  * `spec.selector` is now required and immutable after creation; use the existing
+    template labels as the selector for seamless upgrades
+  * `spec.updateStrategy.type` now defaults to `RollingUpdate`
+    (the default in `extensions/v1beta1` was `OnDelete`)
 
 #### Deployment {#deployment-v116}
 
@@ -296,11 +318,15 @@ The **extensions/v1beta1**, **apps/v1beta1**, and **apps/v1beta2** API versions 
 * Migrate manifests and API clients to use the **apps/v1** API version, available since v1.9.
 * All existing persisted objects are accessible via the new API
 * Notable changes:
-    * `spec.rollbackTo` is removed
-    * `spec.selector` is now required and immutable after creation; use the existing template labels as the selector for seamless upgrades
-    * `spec.progressDeadlineSeconds` now defaults to `600` seconds (the default in `extensions/v1beta1` was no deadline)
-    * `spec.revisionHistoryLimit` now defaults to `10` (the default in `apps/v1beta1` was `2`, the default in `extensions/v1beta1` was to retain all)
-    * `maxSurge` and `maxUnavailable` now default to `25%` (the default in `extensions/v1beta1` was `1`)
+  * `spec.rollbackTo` is removed
+  * `spec.selector` is now required and immutable after creation; use the existing
+    template labels as the selector for seamless upgrades
+  * `spec.progressDeadlineSeconds` now defaults to `600` seconds
+    (the default in `extensions/v1beta1` was no deadline)
+  * `spec.revisionHistoryLimit` now defaults to `10`
+    (the default in `apps/v1beta1` was `2`, the default in `extensions/v1beta1` was to retain all)
+  * `maxSurge` and `maxUnavailable` now default to `25%`
+    (the default in `extensions/v1beta1` was `1`)
 
 #### StatefulSet {#statefulset-v116}
 
@@ -309,8 +335,10 @@ The **apps/v1beta1** and **apps/v1beta2** API versions of StatefulSet are no lon
 * Migrate manifests and API clients to use the **apps/v1** API version, available since v1.9.
 * All existing persisted objects are accessible via the new API
 * Notable changes:
-    * `spec.selector` is now required and immutable after creation; use the existing template labels as the selector for seamless upgrades
-    * `spec.updateStrategy.type` now defaults to `RollingUpdate` (the default in `apps/v1beta1` was `OnDelete`)
+  * `spec.selector` is now required and immutable after creation;
+    use the existing template labels as the selector for seamless upgrades
+  * `spec.updateStrategy.type` now defaults to `RollingUpdate`
+    (the default in `apps/v1beta1` was `OnDelete`)
 
 #### ReplicaSet {#replicaset-v116}
 
@@ -319,7 +347,7 @@ The **extensions/v1beta1**, **apps/v1beta1**, and **apps/v1beta2** API versions 
 * Migrate manifests and API clients to use the **apps/v1** API version, available since v1.9.
 * All existing persisted objects are accessible via the new API
 * Notable changes:
-    * `spec.selector` is now required and immutable after creation; use the existing template labels as the selector for seamless upgrades
+  * `spec.selector` is now required and immutable after creation; use the existing template labels as the selector for seamless upgrades
 
 #### PodSecurityPolicy {#psp-v116}
 

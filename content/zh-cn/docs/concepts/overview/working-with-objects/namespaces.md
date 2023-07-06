@@ -18,7 +18,7 @@ weight: 45
 <!--
 In Kubernetes, _namespaces_ provides a mechanism for isolating groups of resources within a single cluster. Names of resources need to be unique within a namespace, but not across namespaces. Namespace-based scoping is applicable only for namespaced {{< glossary_tooltip text="objects" term_id="object" >}} _(e.g. Deployments, Services, etc)_ and not for cluster-wide objects _(e.g. StorageClass, Nodes, PersistentVolumes, etc)_.
 -->
-在 Kubernetes 中，**名字空间（Namespace）**提供一种机制，将同一集群中的资源划分为相互隔离的组。
+在 Kubernetes 中，**名字空间（Namespace）** 提供一种机制，将同一集群中的资源划分为相互隔离的组。
 同一名字空间内的资源名称要唯一，但跨名字空间时没有这个要求。
 名字空间作用域仅针对带有名字空间的{{< glossary_tooltip text="对象" term_id="object" >}}，
 （例如 Deployment、Service 等），这种作用域对集群范围的对象
@@ -273,13 +273,11 @@ kubectl api-resources --namespaced=false
 
 <!--
 The Kubernetes control plane sets an immutable {{< glossary_tooltip text="label" term_id="label" >}}
-`kubernetes.io/metadata.name` on all namespaces, provided that the `NamespaceDefaultLabelName`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
+`kubernetes.io/metadata.name` on all namespaces.
 The value of the label is the namespace name.
 -->
 Kubernetes 控制面会为所有名字空间设置一个不可变更的{{< glossary_tooltip text="标签" term_id="label" >}}
-`kubernetes.io/metadata.name`，只要 `NamespaceDefaultLabelName`
-这一[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)被启用。
+`kubernetes.io/metadata.name`。
 标签的值是名字空间的名称。
 
 ## {{% heading "whatsnext" %}}

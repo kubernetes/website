@@ -189,7 +189,6 @@ are a bunch of registries that already supports OCI artifacts:
 - [Amazon Elastic Container Registry](https://aws.amazon.com/ecr)
 - [Google Artifact Registry](https://cloud.google.com/artifact-registry)
 - [GitHub Packages container registry](https://docs.github.com/en/packages/guides/about-github-container-registry)
-- [Bundle Bar](https://bundle.bar/docs/supported-clients/oras)
 - [Docker Hub](https://hub.docker.com)
 - [Zot Registry](https://zotregistry.io)
 

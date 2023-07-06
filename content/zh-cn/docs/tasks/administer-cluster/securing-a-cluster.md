@@ -47,7 +47,7 @@ the cluster components. Note that some components and installation methods may e
 HTTP and administrators should familiarize themselves with the settings of each component to identify
 potentially unsecured traffic.
 -->
-### 为所有 API 交互使用传输层安全 （TLS）
+### 为所有 API 交互使用传输层安全（TLS）
 
 Kubernetes 期望集群中所有的 API 通信在默认情况下都使用 TLS 加密，
 大多数安装方法也允许创建所需的证书并且分发到集群组件中。
@@ -274,7 +274,6 @@ kernel on behalf of some more-privileged process.)
 来彻底拒绝容器的 `module_request` 权限，从而防止在任何情况下系统为容器加载内核模块。
 （Pod 仍然可以使用手动加载的模块，或者使用由内核代表某些特权进程所加载的模块。）
 
-
 <!--
 ### Restricting network access
 
@@ -414,10 +413,10 @@ that result in security vulnerabilities. Always assess the value an alpha or bet
 provide against the possible risk to your security posture. When in doubt, disable features you
 do not use.
 -->
-### 限制使用 alpha 和 beta 特性
+### 限制使用 Alpha 和 Beta 特性
 
-Kubernetes 的 alpha 和 beta 特性还在努力开发中，可能存在导致安全漏洞的缺陷或错误。
-要始终评估 alpha 和 beta 特性可能给你的安全态势带来的风险。
+Kubernetes 的 Alpha 和 Beta 特性还在努力开发中，可能存在导致安全漏洞的缺陷或错误。
+要始终评估 Alpha 和 Beta 特性可能给你的安全态势带来的风险。
 当你怀疑存在风险时，可以禁用那些不需要使用的特性。
 
 <!--
@@ -492,7 +491,7 @@ and may grant an attacker significant visibility into the state of your cluster.
 your backups using a well reviewed backup and encryption solution, and consider using full disk
 encryption where possible.
 
-Kubernetes supports optional [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/) for information in the Kubernetes API. 
+Kubernetes supports optional [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/) for information in the Kubernetes API.
 This lets you ensure that when Kubernetes stores data for objects (for example, `Secret` or
 `ConfigMap` objects), the API server writes an encrypted representation of the object.
 That encryption means that even someone who has access to etcd backup data is unable
@@ -528,4 +527,14 @@ page for more on how to report vulnerabilities.
 请加入 [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce)
 组，这样你就能够收到有关安全公告的邮件。有关如何报告漏洞的更多信息，
 请参见[安全报告](/zh-cn/docs/reference/issues-security/security/)页面。
+
+<!--
+## What's next
+
+- [Security Checklist](/docs/concepts/security/security-checklist/) for additional information on Kubernetes security guidance.
+-->
+## {{% heading "whatsnext" %}}
+
+- 阅读[安全检查清单](/zh-cn/docs/concepts/security/security-checklist/)了解有关
+  Kubernetes 安全指南的更多信息。
 

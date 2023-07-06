@@ -278,7 +278,7 @@ You should set the `.spec.os.name` field to either `windows` or `linux` to indic
 In Kubernetes v{{< skew currentVersion >}}, the value you set for this field has no
 effect on {{< glossary_tooltip text="scheduling" term_id="kube-scheduler" >}} of the pods.
 Setting the `.spec.os.name` helps to identify the pod OS
-authoratitively and is used for validation. The kubelet refuses to run a Pod where you have
+authoritatively and is used for validation. The kubelet refuses to run a Pod where you have
 specified a Pod OS, if this isn't the same as the operating system for the node where
 that kubelet is running.
 The [Pod security standards](/docs/concepts/security/pod-security-standards/) also use this
