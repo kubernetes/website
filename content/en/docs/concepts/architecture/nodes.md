@@ -1,7 +1,7 @@
 ---
 reviewers:
-- caesarxuchao
-- dchen1107
+  - caesarxuchao
+  - dchen1107
 title: Nodes
 content_type: concept
 weight: 10
@@ -93,6 +93,7 @@ For self-registration, the kubelet is started with the following options:
   {{< glossary_tooltip text="taints" term_id="taint" >}} (comma separated `<key>=<value>:<effect>`).
 
   No-op if `register-node` is false.
+
 - `--node-ip` - Optional comma-separated list of the IP addresses for the node.
   You can only specify a single address for each address family.
   For example, in a single-stack IPv4 cluster, you set this value to be the IPv4 address that the
@@ -102,6 +103,7 @@ For self-registration, the kubelet is started with the following options:
 
   If you don't provide this argument, the kubelet uses the node's default IPv4 address, if any;
   if the node has no IPv4 addresses then the kubelet uses the node's default IPv6 address.
+
 - `--node-labels` - {{< glossary_tooltip text="Labels" term_id="label" >}} to add when registering the node
   in the cluster (see label restrictions enforced by the
   [NodeRestriction admission plugin](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)).
@@ -163,10 +165,10 @@ that should run on the Node even if it is being drained of workload applications
 
 A Node's status contains the following information:
 
-* [Addresses](#addresses)
-* [Conditions](#condition)
-* [Capacity and Allocatable](#capacity)
-* [Info](#info)
+- [Addresses](#addresses)
+- [Conditions](#condition)
+- [Capacity and Allocatable](#capacity)
+- [Info](#info)
 
 You can use `kubectl` to view a Node's status and other details:
 
@@ -180,24 +182,23 @@ Each section of the output is described below.
 
 The usage of these fields varies depending on your cloud provider or bare metal configuration.
 
-* HostName: The hostname as reported by the node's kernel. Can be overridden via the kubelet
+- HostName: The hostname as reported by the node's kernel. Can be overridden via the kubelet
   `--hostname-override` parameter.
-* ExternalIP: Typically the IP address of the node that is externally routable (available from
+- ExternalIP: Typically the IP address of the node that is externally routable (available from
   outside the cluster).
-* InternalIP: Typically the IP address of the node that is routable only within the cluster.
-
+- InternalIP: Typically the IP address of the node that is routable only within the cluster.
 
 ### Conditions {#condition}
 
 The `conditions` field describes the status of all `Running` nodes. Examples of conditions include:
 
 {{< table caption = "Node conditions, and a description of when each condition applies." >}}
-| Node Condition       | Description |
+| Node Condition | Description |
 |----------------------|-------------|
-| `Ready`              | `True` if the node is healthy and ready to accept pods, `False` if the node is not healthy and is not accepting pods, and `Unknown` if the node controller has not heard from the node in the last `node-monitor-grace-period` (default is 40 seconds) |
-| `DiskPressure`       | `True` if pressure exists on the disk size—that is, if the disk capacity is low; otherwise `False` |
-| `MemoryPressure`     | `True` if pressure exists on the node memory—that is, if the node memory is low; otherwise `False` |
-| `PIDPressure`        | `True` if pressure exists on the processes—that is, if there are too many processes on the node; otherwise `False` |
+| `Ready` | `True` if the node is healthy and ready to accept pods, `False` if the node is not healthy and is not accepting pods, and `Unknown` if the node controller has not heard from the node in the last `node-monitor-grace-period` (default is 40 seconds) |
+| `DiskPressure` | `True` if pressure exists on the disk size—that is, if the disk capacity is low; otherwise `False` |
+| `MemoryPressure` | `True` if pressure exists on the node memory—that is, if the node memory is low; otherwise `False` |
+| `PIDPressure` | `True` if pressure exists on the processes—that is, if there are too many processes on the node; otherwise `False` |
 | `NetworkUnavailable` | `True` if the network for the node is not correctly configured, otherwise `False` |
 {{< /table >}}
 
@@ -267,8 +268,8 @@ availability of each node, and to take action when failures are detected.
 
 For nodes there are two forms of heartbeats:
 
-* updates to the `.status` of a Node
-* [Lease](/docs/concepts/architecture/leases/) objects
+- updates to the `.status` of a Node
+- [Lease](/docs/concepts/architecture/leases/) objects
   within the `kube-node-lease`
   {{< glossary_tooltip term_id="namespace" text="namespace">}}.
   Each Node has an associated Lease object.
@@ -436,12 +437,12 @@ During a graceful shutdown, kubelet terminates pods in two phases:
 Graceful node shutdown feature is configured with two
 [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/) options:
 
-* `shutdownGracePeriod`:
-  * Specifies the total duration that the node should delay the shutdown by. This is the total
+- `shutdownGracePeriod`:
+  - Specifies the total duration that the node should delay the shutdown by. This is the total
     grace period for pod termination for both regular and
     [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical).
-* `shutdownGracePeriodCriticalPods`:
-  * Specifies the duration used to terminate
+- `shutdownGracePeriodCriticalPods`:
+  - Specifies the duration used to terminate
     [critical pods](/docs/tasks/administer-cluster/guaranteed-scheduling-critical-addon-pods/#marking-pod-as-critical)
     during a node shutdown. This value should be less than `shutdownGracePeriod`.
 
@@ -475,7 +476,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 
 ### Pod Priority based graceful node shutdown {#pod-priority-graceful-node-shutdown}
 
-{{< feature-state state="alpha" for_k8s_version="v1.23" >}}
+{{< feature-state state="beta" for_k8s_version="v1.24" >}}
 
 To provide more flexibility during graceful node shutdown around the ordering
 of pods during shutdown, graceful node shutdown honors the PriorityClass for
@@ -499,22 +500,22 @@ Assuming the following custom pod
 [priority classes](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass)
 in a cluster,
 
-|Pod priority class name|Pod priority class value|
-|-------------------------|------------------------|
-|`custom-class-a`         | 100000                 |
-|`custom-class-b`         | 10000                  |
-|`custom-class-c`         | 1000                   |
-|`regular/unset`          | 0                      |
+| Pod priority class name | Pod priority class value |
+| ----------------------- | ------------------------ |
+| `custom-class-a`        | 100000                   |
+| `custom-class-b`        | 10000                    |
+| `custom-class-c`        | 1000                     |
+| `regular/unset`         | 0                        |
 
 Within the [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/)
 the settings for `shutdownGracePeriodByPodPriority` could look like:
 
-|Pod priority class value|Shutdown period|
-|------------------------|---------------|
-| 100000                 |10 seconds     |
-| 10000                  |180 seconds    |
-| 1000                   |120 seconds    |
-| 0                      |60 seconds     |
+| Pod priority class value | Shutdown period |
+| ------------------------ | --------------- |
+| 100000                   | 10 seconds      |
+| 10000                    | 180 seconds     |
+| 1000                     | 120 seconds     |
+| 0                        | 60 seconds      |
 
 The corresponding kubelet config YAML configuration would be:
 
@@ -538,12 +539,11 @@ Finally, all other pods will get 60 seconds to stop.
 One doesn't have to specify values corresponding to all of the classes. For
 example, you could instead use these settings:
 
-|Pod priority class value|Shutdown period|
-|------------------------|---------------|
-| 100000                 |300 seconds    |
-| 1000                   |120 seconds    |
-| 0                      |60 seconds     |
-
+| Pod priority class value | Shutdown period |
+| ------------------------ | --------------- |
+| 100000                   | 300 seconds     |
+| 1000                     | 120 seconds     |
+| 0                        | 60 seconds      |
 
 In the above case, the pods with `custom-class-b` will go into the same bucket
 as `custom-class-c` for shutdown.
@@ -607,13 +607,14 @@ During a non-graceful shutdown, Pods are terminated in the two phases:
 2. Immediately perform detach volume operation for such pods.
 
 {{< note >}}
+
 - Before adding the taint `node.kubernetes.io/out-of-service` , it should be verified
   that the node is already in shutdown or power off state (not in the middle of
   restarting).
 - The user is required to manually remove the out-of-service taint after the pods are
   moved to a new node and the user has checked that the shutdown node has been
   recovered since the user was the one who originally added the taint.
-{{< /note >}}
+  {{< /note >}}
 
 ## Swap memory management {#swap-memory}
 
@@ -666,9 +667,10 @@ see [KEP-2400](https://github.com/kubernetes/enhancements/issues/2400) and its
 ## {{% heading "whatsnext" %}}
 
 Learn more about the following:
-* [Components](/docs/concepts/overview/components/#node-components) that make up a node.
-* [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
-* [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node) section of the architecture design document.
-* [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
-* [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).
-* [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/).
+
+- [Components](/docs/concepts/overview/components/#node-components) that make up a node.
+- [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
+- [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node) section of the architecture design document.
+- [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
+- [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).
+- [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/).
