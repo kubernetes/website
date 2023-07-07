@@ -20,6 +20,7 @@ Kubernetesでは、TLS認証のためにPKI証明書が必要です。
 Kubernetesは下記の用途でPKIを必要とします：
 
 * kubeletがAPIサーバーの認証をするためのクライアント証明書
+* API サーバーが kubelet と通信するための Kubelet [サーバー認証書](https://kubernetes.io/docs/reference/access-authn-authz/kubelet-tls-bootstrapping/#client-and-serving-certificates)
 * APIサーバーのエンドポイント用サーバー証明書
 * クラスターの管理者がAPIサーバーの認証を行うためのクライアント証明書
 * APIサーバーがkubeletと通信するためのクライアント証明書
