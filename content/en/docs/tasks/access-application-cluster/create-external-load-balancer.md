@@ -158,6 +158,21 @@ spec:
 
 ### Caveats and limitations when preserving source IPs
 
+Health check node port serves HTTP traffic. The response body contains JSON service name, namespace and number 
+of local endpoints:
+
+```json
+{
+	"service": {
+		"namespace": "default",
+		"name": "example-service"
+	},
+	"localEndpoints": 2
+}
+```
+
+Starting from kubernetes v1.28 number of local endpoints is returned also in response header `X-Load-Balancing-Endpoint-Weight`.
+
 Load balancing services from some cloud providers do not let you configure different weights for each target.
 
 With each target weighted equally in terms of sending traffic to Nodes, external
