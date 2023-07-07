@@ -46,8 +46,6 @@ tmpfs, Secrets use a tmpfs, etc.)
 Some popular filesystems that support idmap mounts in Linux 6.3 are: btrfs,
 ext4, xfs, fat, tmpfs, overlayfs.
 
-<!-- When merging this with the dev-1.27 branch conflicts will arise. The text
-as it is in the dev-1.27 branch should be used. -->
 In addition, support is needed in the 
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
 to use this feature with Kubernetes stateless pods:
