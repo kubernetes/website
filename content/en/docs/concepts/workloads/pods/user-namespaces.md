@@ -60,7 +60,8 @@ check the documentation for that version of Kubernetes for the most relevant inf
 If there is a newer release of containerd than v1.7 available for use, also check the containerd
 documentation for compatibility information.
 
-Support for this in [cri-dockerd is not planned][CRI-dockerd-issue] yet.
+You can see the status of user namespaces support in cri-dockerd tracked in an [issue][CRI-dockerd-issue]
+on GitHub.
 
 [CRI-dockerd-issue]: https://github.com/Mirantis/cri-dockerd/issues/74
 
