@@ -89,6 +89,28 @@ volumeBindingMode: Immediate
 ```
 
 <!--
+### Default StorageClass
+
+When a PVC does not specify a `storageClassName`, the default StorageClass is
+used. The cluster can only have one default StorageClass. If more than one
+default StorageClass is accidentally set, the newest default is used when the
+PVC is dynamically provisioned.
+
+For instructions on setting the default StorageClass, see
+[Change the default StorageClass](/docs/tasks/administer-cluster/change-default-storage-class/).
+Note that certain cloud providers may already define a default StorageClass.
+-->
+### 默认 StorageClass  {#default-storageclass} 
+
+当一个 PVC 没有指定 `storageClassName` 时，会使用默认的 StorageClass。
+集群中只能有一个默认的 StorageClass。如果不小心设置了多个默认的 StorageClass，
+当 PVC 动态配置时，将使用最新设置的默认 StorageClass。
+
+关于如何设置默认的 StorageClass，
+请参见[更改默认 StorageClass](/zh-cn/docs/tasks/administer-cluster/change-default-storage-class/)。
+请注意，某些云服务提供商可能已经定义了一个默认的 StorageClass。
+
+<!--
 ### Provisioner
 
 Each StorageClass has a provisioner that determines what volume plugin is used
