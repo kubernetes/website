@@ -102,8 +102,8 @@ kubectl --v=8 version
     ```json
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"user": "bob", "namespace": "projectCaribou", "resource": "pods", "readonly": true}}
     ```
- 5. Qualquer pessoa pode realizar requisições de somente-leitura em todos os caminhos que não são de recursos:  
-
+ 5. Qualquer pessoa pode realizar requisições somente-leitura em todos os caminhos que não são de recursos:
+ 
     ```json
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"group": "system:authenticated", "readonly": true, "nonResourcePath": "*"}}
     {"apiVersion": "abac.authorization.kubernetes.io/v1beta1", "kind": "Policy", "spec": {"group": "system:unauthenticated", "readonly": true, "nonResourcePath": "*"}}
