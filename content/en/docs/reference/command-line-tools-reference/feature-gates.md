@@ -118,6 +118,7 @@ For a reference to old feature gates that are removed, please refer to
 | `InTreePluginPortworxUnregister` | `false` | Alpha | 1.23 | |
 | `InTreePluginRBDUnregister` | `false` | Alpha | 1.23 | |
 | `InTreePluginvSphereUnregister` | `false` | Alpha | 1.21 | |
+| `JobBackoffLimitPerIndex` | `false` | Alpha | 1.28 | 1.28 |
 | `JobPodFailurePolicy` | `false` | Alpha | 1.25 | 1.25 |
 | `JobPodFailurePolicy` | `true` | Beta | 1.26 | |
 | `JobReadyPods` | `false` | Alpha | 1.23 | 1.23 |
@@ -551,6 +552,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
   and volume controllers.
 - `JobMutableNodeSchedulingDirectives`: Allows updating node scheduling directives in
   the pod template of [Job](/docs/concepts/workloads/controllers/job).
+- `JobBackoffLimitPerIndex`: Allows users to specify the maximal number of pod
+  retries per index in Indexed jobs.
 - `JobPodFailurePolicy`: Allow users to specify handling of pod failures based on container
   exit codes and pod conditions.
 - `JobReadyPods`: Enables tracking the number of Pods that have a `Ready`
