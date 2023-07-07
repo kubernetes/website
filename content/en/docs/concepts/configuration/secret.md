@@ -55,82 +55,15 @@ See [Information security for Secrets](#information-security-for-secrets) for mo
 
 ## Uses for Secrets
 
-There are three main ways for a Pod to use a Secret:
+You can use Secrets for purposes such as the following:
 
-- As [files](#using-secrets-as-files-from-a-pod) in a
-  {{< glossary_tooltip text="volume" term_id="volume" >}} mounted on one or more of
-  its containers.
-- As [container environment variable](#using-secrets-as-environment-variables).
-- By the [kubelet when pulling images](#using-imagepullsecrets) for the Pod.
+- [Set environment variables for a container](/docs/tasks/inject-data-application/distribute-credentials-secure/#define-container-environment-variables-using-secret-data).
+- [Provide credentials such as SSH keys or passwords to Pods](/docs/tasks/inject-data-application/distribute-credentials-secure/#provide-prod-test-creds).
+- [Allow the kubelet to pull container images from private registries](/docs/tasks/configure-pod-container/pull-image-private-registry/).
 
 The Kubernetes control plane also uses Secrets; for example,
 [bootstrap token Secrets](#bootstrap-token-secrets) are a mechanism to
 help automate node registration.
-
-## Use cases
-
-### Use case: As container environment variables {#use-case-as-container-environment-variables}
-
-You can create a Secret and use it to
-[set environment variables for a container](/docs/tasks/inject-data-application/distribute-credentials-secure/#define-container-environment-variables-using-secret-data).
-
-### Use case: Pod with SSH keys
-
-Create a Secret containing some SSH keys:
-
-```shell
-kubectl create secret generic ssh-key-secret --from-file=ssh-privatekey=/path/to/.ssh/id_rsa --from-file=ssh-publickey=/path/to/.ssh/id_rsa.pub
-```
-
-The output is similar to:
-
-```
-secret "ssh-key-secret" created
-```
-
-You can also create a `kustomization.yaml` with a `secretGenerator` field containing ssh keys.
-
-{{< caution >}}
-Think carefully before sending your own SSH keys: other users of the cluster may have access
-to the Secret.
-
-You could instead create an SSH private key representing a service identity that you want to be
-accessible to all the users with whom you share the Kubernetes cluster, and that you can revoke
-if the credentials are compromised.
-{{< /caution >}}
-
-Now you can create a Pod which references the secret with the SSH key and
-consumes it in a volume:
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: secret-test-pod
-  labels:
-    name: secret-test
-spec:
-  volumes:
-    - name: secret-volume
-      secret:
-        secretName: ssh-key-secret
-  containers:
-    - name: ssh-test-container
-      image: mySshImage
-      volumeMounts:
-        - name: secret-volume
-          readOnly: true
-          mountPath: "/etc/secret-volume"
-```
-
-When the container's command runs, the pieces of the key will be available in:
-
-```
-/etc/secret-volume/ssh-publickey
-/etc/secret-volume/ssh-privatekey
-```
-
-The container is then free to use the secret data to establish an SSH connection.
 
 ### Use case: Pods with prod / test credentials
 
