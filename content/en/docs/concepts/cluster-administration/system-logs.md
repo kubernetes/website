@@ -22,12 +22,10 @@ scheduler decisions).
 klog is the Kubernetes logging library. [klog](https://github.com/kubernetes/klog)
 generates log messages for the Kubernetes system components.
 
-For more information about klog configuration, see the [Command line tool reference](/docs/reference/command-line-tools-reference/).
-
 Kubernetes is in the process of simplifying logging in its components.
 The following klog command line flags
 [are deprecated](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
-starting with Kubernetes 1.23 and will be removed in a future release:
+starting with Kubernetes v1.23 and removed in Kubernetes v1.26:
 
 - `--add-dir-header`
 - `--alsologtostderr`
@@ -96,13 +94,13 @@ klog output or structured logging.
 The default formatting of structured log messages is as text, with a format that is backward
 compatible with traditional klog:
 
-```ini
+```
 <klog header> "<message>" <key1>="<value1>" <key2>="<value2>" ...
 ```
 
 Example:
 
-```ini
+```
 I1025 00:15:15.525108       1 controller_utils.go:116] "Pod status updated" pod="kube-system/kubedns" status="ready"
 ```
 
@@ -245,6 +243,7 @@ in the application log provider. On both operating systems, logs are also availa
 
 Provided you are authorized to interact with node objects, you can try out this alpha feature on all your nodes or
 just a subset. Here is an example to retrieve the kubelet service logs from a node:
+
 ```shell
 # Fetch kubelet logs from a node named node-1.example
 kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet"
@@ -252,6 +251,7 @@ kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet"
 
 You can also fetch files, provided that the files are in a directory that the kubelet allows for log
 fetches. For example, you can fetch a log from `/var/log` on a Linux node:
+
 ```shell
 kubectl get --raw "/api/v1/nodes/<insert-node-name-here>/proxy/logs/?query=/<insert-log-file-name-here>"
 ```
@@ -273,6 +273,7 @@ Option | Description
 `tailLines` | specify how many lines from the end of the log to retrieve; the default is to fetch the whole log
 
 Example of a more complex query:
+
 ```shell
 # Fetch kubelet logs from a node named node-1.example that have the word "error"
 kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet&pattern=error"

@@ -1,16 +1,14 @@
 ---
-title: 静态加密 Secret 数据
+title: 静态加密机密数据
 content_type: task
-min-kubernetes-server-version: 1.13
 weight: 210
 ---
 <!--
-title: Encrypting Secret Data at Rest
+title: Encrypting Confidential Data at Rest
 reviewers:
 - smarterclayton
 - enj
 content_type: task
-min-kubernetes-server-version: 1.13
 weight: 210
 -->
 
@@ -35,6 +33,7 @@ This page shows how to enable and configure encryption of secret data at rest.
   方式运行在每个控制平面节点上。
 
 * 集群的控制平面**必须**使用 etcd v3.x（主版本 3，任何次要版本）。
+
 <!--
 * To encrypt a custom resource, your cluster must be running Kubernetes v1.26 or newer.
 
@@ -78,18 +77,32 @@ decrypt data stored in the etcd.
 ## 理解静态数据加密    {#understanding-the-encryption-at-rest-configuration}
 
 <!--
-do not encrypt events even though  *.* is specified below
+# CAUTION: this is an example configuration.
+#          Do not use this for your own cluster!
+# This configuration does not provide data confidentiality. The first
+# configured provider is specifying the "identity" mechanism, which
+# stores resources as plain text.
+# plain text, in other words NO encryption
+# do not encrypt Events even though *.* is specified below
+# wildcard match requires Kubernetes 1.27 or later
+# wildcard match requires Kubernetes 1.27 or later
 -->
 ```yaml
+---
+#
+# 注意：这是一个示例配置。请勿将其用于你自己的集群！
+#
 apiVersion: apiserver.config.k8s.io/v1
 kind: EncryptionConfiguration
 resources:
   - resources:
       - secrets
       - configmaps
-      - pandas.awesome.bears.example
+      - pandas.awesome.bears.example # 自定义资源 API
     providers:
-      - identity: {}
+      # 此配置不提供数据机密性。
+      # 第一个配置的 provider 正在指定将资源存储为纯文本的 "identity" 机制。
+      - identity: {} # 纯文本，换言之未加密
       - aesgcm:
           keys:
             - name: key1
@@ -111,14 +124,14 @@ resources:
     providers:
       - identity: {} # 即使如下指定 *.* 也不会加密 events
   - resources:
-      - '*.apps'
+      - '*.apps' # 通配符匹配需要 Kubernetes 1.27 或更高版本
     providers:
       - aescbc:
           keys:
           - name: key2
             secret: c2VjcmV0IGlzIHNlY3VyZSwgb3IgaXMgaXQ/Cg==
   - resources:
-      - '*.*'
+      - '*.*' # 通配符匹配需要 Kubernetes 1.27 或更高版本
     providers:
       - aescbc:
           keys:
@@ -429,7 +442,13 @@ Create a new encryption config file:
 
 创建一个新的加密配置文件：
 
+<!--
+# See the following text for more details about the secret value
+# this fallback allows reading unencrypted secrets;
+# for example, during initial migratoin
+-->
 ```yaml
+---
 apiVersion: apiserver.config.k8s.io/v1
 kind: EncryptionConfiguration
 resources:
@@ -441,8 +460,10 @@ resources:
       - aescbc:
           keys:
             - name: key1
+              # 参见以下文本了解有关 Secret 值的详情
               secret: <BASE 64 ENCODED SECRET>
-      - identity: {}
+      - identity: {} # 这个回退允许读取未加密的 Secret；
+                     # 例如，在初始迁移期间
 ```
 
 <!--
@@ -479,17 +500,24 @@ To create a new Secret, perform the following steps:
       代码范例如下：
 
    <!--
-   add this line
+   # This is a fragment of a manifest for a static Pod.
+   # Check whether this is correct for your cluster and for your API server.
+   # add this line
    -->
    ```yaml
+   ---
+   #
+   # 这是一个静态 Pod 的清单片段。
+   # 检查是否适用于你的集群和 API 服务器。
+   #
    apiVersion: v1
    kind: Pod
    metadata:
      annotations:
-       kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: 10.10.30.4:6443
+       kubeadm.kubernetes.io/kube-apiserver.advertise-address.endpoint: 10.20.30.40:443
      creationTimestamp: null
      labels:
-       component: kube-apiserver
+       app.kubernetes.io/component: kube-apiserver
        tier: control-plane
      name: kube-apiserver
      namespace: kube-system
@@ -694,6 +722,7 @@ and restart all `kube-apiserver` processes.
 作为配置中的第一个条目并重新启动所有 `kube-apiserver` 进程。
 
 ```yaml
+---
 apiVersion: apiserver.config.k8s.io/v1
 kind: EncryptionConfiguration
 resources:
