@@ -57,6 +57,17 @@ mountOptions:
 volumeBindingMode: Immediate
 ```
 
+### Default StorageClass
+
+When a PVC does not specify a `storageClassName`, the default StorageClass is
+used. The cluster can only have one default StorageClass. If more than one
+default StorageClass is accidentally set, the newest default is used when the
+PVC is dynamically provisioned.
+
+For instructions on setting the default StorageClass, see
+[Change the default StorageClass](/docs/tasks/administer-cluster/change-default-storage-class/).
+Note that certain cloud providers may already define a default StorageClass.
+
 ### Provisioner
 
 Each StorageClass has a provisioner that determines what volume plugin is used

@@ -743,12 +743,12 @@ server will return a 422 HTTP status code to indicate that there's a problem.
 如果 IP 地址不合法，API 服务器会返回 HTTP 状态码 422，表示值不合法。
 
 <!--
-Read [avoiding collisions](#avoiding-collisions)
+Read [avoiding collisions](/docs/reference/networking/virtual-ips/#avoiding-collisions)
 to learn how Kubernetes helps reduce the risk and impact of two different Services
 both trying to use the same IP address.
 -->
-阅读[避免冲突](#avoiding-collisions)，了解 Kubernetes
-如何协助降低两种不同服务试图使用相同 IP 地址的风险和影响。
+阅读[避免冲突](/zh-cn/docs/reference/networking/virtual-ips/#avoiding-collisions)，
+了解 Kubernetes 如何协助降低两种不同服务试图使用相同 IP 地址的风险和影响。
 
 <!--
 ### `type: NodePort` {#type-nodeport}
