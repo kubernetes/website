@@ -26,7 +26,7 @@ closer to the desired state, by turning equipment on or off.
 ## Controller pattern
 
 A controller tracks at least one Kubernetes resource type.
-These [objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects)
+These {{< glossary_tooltip text="objects" term_id="object" >}}
 have a spec field that represents the desired state. The
 controller(s) for that resource are responsible for making the current
 state come closer to that desired state.
@@ -162,7 +162,7 @@ controller does.
 ## {{% heading "whatsnext" %}}
 
 * Read about the [Kubernetes control plane](/docs/concepts/overview/components/#control-plane-components)
-* Discover some of the basic [Kubernetes objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+* Discover some of the basic [Kubernetes objects](/docs/concepts/overview/working-with-objects/)
 * Learn more about the [Kubernetes API](/docs/concepts/overview/kubernetes-api/)
 * If you want to write your own controller, see
   [Extension Patterns](/docs/concepts/extend-kubernetes/#extension-patterns)

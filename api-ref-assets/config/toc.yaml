@@ -66,18 +66,18 @@ parts:
   - name: PriorityClass
     group: scheduling.k8s.io
     version: v1
-  - name: PodScheduling
+  - name: PodSchedulingContext
     group: resource.k8s.io
-    version: v1alpha1
+    version: v1alpha2
   - name: ResourceClaim
     group: resource.k8s.io
-    version: v1alpha1
+    version: v1alpha2
   - name: ResourceClaimTemplate
     group: resource.k8s.io
-    version: v1alpha1
+    version: v1alpha2
   - name: ResourceClass
     group: resource.k8s.io
-    version: v1alpha1
+    version: v1alpha2
 - name: Service Resources
   chapters:
   - name: Service
@@ -148,6 +148,12 @@ parts:
   - name: CertificateSigningRequest
     group: certificates.k8s.io
     version: v1
+  - name: ClusterTrustBundle
+    group: certificates.k8s.io
+    version: v1alpha1
+  - name: SelfSubjectReview
+    group: authentication.k8s.io
+    version: v1beta1
 - name: Authorization Resources
   chapters:
   - name: LocalSubjectAccessReview
@@ -191,6 +197,9 @@ parts:
   - name: PodDisruptionBudget
     group: policy
     version: v1
+  - name: IPAddress
+    group: networking.k8s.io
+    version: v1alpha1
 - name: Extend Resources
   chapters:
   - name: CustomResourceDefinition

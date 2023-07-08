@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "Kubernetes 1.26: Retroactive Default StorageClass"
+title: "Kubernetes v1.26: Retroactive Default StorageClass"
 date: 2023-01-05
 slug: retroactive-default-storage-class
 ---
@@ -11,7 +11,7 @@ The v1.25 release of Kubernetes introduced an alpha feature to change how a defa
 StorageClass was assigned to a PersistentVolumeClaim (PVC). With the feature enabled,
 you no longer need to create a default StorageClass first and PVC second to assign the
 class. Additionally, any PVCs without a StorageClass assigned can be updated later.
-This feature was graduated to beta in Kubernetes 1.26.
+This feature was graduated to beta in Kubernetes v1.26.
 
 You can read [retroactive default StorageClass assignment](/docs/concepts/storage/persistent-volumes/#retroactive-default-storageclass-assignment)
 in the Kubernetes documentation for more details about how to use that,
@@ -146,23 +146,35 @@ If you would like to see the feature in action and verify it works fine in your 
    The PVC won't provision or bind (unless there is an existing, suitable PV already present)
    and will remain in <code>Pending</code> state.
 
+   ```shell
+   kubectl get pvc
    ```
-   $ kc get pvc
+
+   The output is similar to this:
+   ```console
    NAME      STATUS    VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   AGE
    pvc-1     Pending   
    ```
 
 3. Configure one StorageClass as default.
 
+   ```shell
+   kubectl patch sc -p '{"metadata":{"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
    ```
-   $ kc patch sc -p '{"metadata":{"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+
+   The output is similar to this:
+   ```console
    storageclass.storage.k8s.io/my-storageclass patched
    ```
 
 4. Verify that PersistentVolumeClaims is now provisioned correctly and was updated retroactively with new default StorageClass.
 
+   ```shell
+   kubectl get pvc
    ```
-   $ kc get pvc
+
+   The output is similar to this:
+   ```console
    NAME      STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS      AGE
    pvc-1     Bound    pvc-06a964ca-f997-4780-8627-b5c3bf5a87d8   1Gi        RWO            my-storageclass   87m
    ```

@@ -162,7 +162,7 @@ restricted environments or using very old clients that do not respect redirects 
 
 ## What will happen to k8s.gcr.io?
 
-Separate from the the redirect, k8s.gcr.io will be frozen [and will not be updated with new images
+Separate from the redirect, k8s.gcr.io will be frozen [and will not be updated with new images
 after April 3rd, 2023](https://kubernetes.io/blog/2023/02/06/k8s-gcr-io-freeze-announcement/). `k8s.gcr.io`
 will not get any new releases, patches, or security updates. It will continue to remain available to
 help people migrate, but it **WILL** be phased out entirely in the future.

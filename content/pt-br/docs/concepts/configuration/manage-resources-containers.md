@@ -867,6 +867,6 @@ o requerimento) de memória para aquele contêiner.
 * Pratique [a criação de requerimentos de CPU em contêineres and Pods](/docs/tasks/configure-pod-container/assign-cpu-resource/).
 * Leia como a referência da API define um [contêiner](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
   e seus [requerimentos de recursos](/docs/reference/kubernetes-api/workload-resources/pod-v1/#resources).
-* Leia sobre [quotas de projeto](https://xfs.org/index.php/XFS_FAQ#Q:_Quota:_Do_quotas_work_on_XFS.3F) no XFS.
+* Leia sobre [quotas de projeto](https://www.linux.org/docs/man8/xfs_quota.html) no XFS.
 * Leia mais sobre a [referência de configuração do kube-scheduler (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/).
 

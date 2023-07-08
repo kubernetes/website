@@ -91,7 +91,7 @@ Authorization: Bearer 31ada4fd-adec-460c-809a-9e56ceb75269
 
 {{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
-新しいクラスタの効率的なブートストラップを可能にするために、Kubernetesには*ブートストラップトークン*と呼ばれる動的に管理されたBearerトークンタイプが含まれています。これらのトークンは、`kube-system`名前空間にSecretsとして格納され、動的に管理したり作成したりすることができます。コントローラーマネージャーには、TokenCleanerコントローラーが含まれており、ブートストラップトークンの有効期限が切れると削除します。
+新しいクラスターの効率的なブートストラップを可能にするために、Kubernetesには*ブートストラップトークン*と呼ばれる動的に管理されたBearerトークンタイプが含まれています。これらのトークンは、`kube-system`名前空間にSecretsとして格納され、動的に管理したり作成したりすることができます。コントローラーマネージャーには、TokenCleanerコントローラーが含まれており、ブートストラップトークンの有効期限が切れると削除します。
 
 トークンの形式は`[a-z0-9]{6}.[a-z0-9]{16}`です。最初のコンポーネントはトークンIDであり、第2のコンポーネントはToken Secretです。以下のように、トークンをHTTPヘッダーに指定します。
 
@@ -101,7 +101,7 @@ Authorization: Bearer 781292.db7bc3a58fc5f07e
 
 APIサーバーの`--enable-bootstrap-token-auth`フラグで、Bootstrap Token Authenticatorを有効にする必要があります。TokenCleanerコントローラーを有効にするには、コントローラーマネージャーの`--controllers`フラグを使います。`--controllers=*,tokencleaner`のようにして行います。クラスターをブートストラップするために`kubeadm`を使用している場合は、`kubeadm`がこれを代行してくれます。
 
-認証機能は`system:bootstrap:<Token ID>`という名前で認証します。これは`system:bootstrappers`グループに含まれます。名前とグループは意図的に制限されており、ユーザーがブートストラップ後にこれらのトークンを使わないようにしています。ユーザー名とグループは、クラスタのブートストラップをサポートする適切な認可ポリシーを作成するために使用され、`kubeadm`によって使用されます。
+認証機能は`system:bootstrap:<Token ID>`という名前で認証します。これは`system:bootstrappers`グループに含まれます。名前とグループは意図的に制限されており、ユーザーがブートストラップ後にこれらのトークンを使わないようにしています。ユーザー名とグループは、クラスターのブートストラップをサポートする適切な認可ポリシーを作成するために使用され、`kubeadm`によって使用されます。
 
 ブートストラップトークンの認証機能やコントローラーについての詳細な説明、`kubeadm`でこれらのトークンを管理する方法については、[ブートストラップトークン](/docs/reference/access-authn-authz/bootstrap-tokens/)を参照してください。
 
@@ -184,7 +184,7 @@ type: kubernetes.io/service-account-token
 Secretは常にbase64でエンコードされるため、これらの値もbase64でエンコードされています。
 {{< /note >}}
 
-署名されたJWTは、与えられたサービスアカウントとして認証するためのBearerトークンとして使用できます。トークンをリクエストに含める方法については、[リクエストにBearerトークンを含める](#putting-a-bearer-token-in-a-request)を参照してください。通常、これらのSecretはAPIサーバーへのクラスタ内アクセス用にPodにマウントされますが、クラスター外からも使用することができます。
+署名されたJWTは、与えられたサービスアカウントとして認証するためのBearerトークンとして使用できます。トークンをリクエストに含める方法については、[リクエストにBearerトークンを含める](#putting-a-bearer-token-in-a-request)を参照してください。通常、これらのSecretはAPIサーバーへのクラスター内アクセス用にPodにマウントされますが、クラスター外からも使用することができます。
 
 サービスアカウントは、ユーザー名`system:serviceaccount:(NAMESPACE):(SERVICEACCOUNT)`で認証され、グループ`system:serviceaccounts`と`system:serviceaccounts:(NAMESPACE)`に割り当てられます。
 
@@ -642,7 +642,7 @@ contexts:
 current-context: my-cluster
 ```
 
-相対的なコマンドパスは、設定ファイルのディレクトリーからの相対的なものとして解釈されます。KUBECONFIGが`/home/jane/kubeconfig`に設定されていて、execコマンドが`./bin/example-client-go-exec-plugin`の場合、バイナリー`/home/jane/bin/example-client-go-exec-plugin`が実行されます。
+相対的なコマンドパスは、設定ファイルのディレクトリーからの相対的なものとして解釈されます。KUBECONFIGが`/home/jane/kubeconfig`に設定されていて、execコマンドが`./bin/example-client-go-exec-plugin`の場合、バイナリ`/home/jane/bin/example-client-go-exec-plugin`が実行されます。
 
 ```yaml
 - name: my-user

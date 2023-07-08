@@ -48,16 +48,16 @@ The following methods exist for installing kubectl on macOS:
    To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
    portion of the command with the specific version.
 
-   For example, to download version {{< param "fullversion" >}} on Intel macOS, type:
+   For example, to download version {{< skew currentPatchVersion >}} on Intel macOS, type:
 
    ```bash
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl"
+   curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/amd64/kubectl"
    ```
 
    And for macOS on Apple Silicon, type:
 
    ```bash
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/arm64/kubectl"
+   curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/arm64/kubectl"
    ```
 
    {{< /note >}}
@@ -287,6 +287,35 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    rm kubectl-convert kubectl-convert.sha256
    ```
 
+### Uninstall kubectl on macOS
+
+Depending on how you installed `kubectl`, use one of the following methods.
+
+### Uninstall kubectl using the command-line
+
+1.  Locate the `kubectl` binary on your system:
+
+    ```bash
+    where kubectl
+    ```
+
+1.  Remove the `kubectl` binary:
+
+    ```bash
+    sudo rm <path>
+    ```
+    Replace `<path>` with the path to the `kubectl` binary from the previous step. For example, `sudo rm /usr/local/bin/kubectl`.
+
+### Uninstall kubectl using homebrew
+
+If you installed `kubectl` using Homebrew, run the following command:
+
+```bash
+brew remove kubectl
+```
+  
 ## {{% heading "whatsnext" %}}
 
 {{< include "included/kubectl-whats-next.md" >}}
+
+

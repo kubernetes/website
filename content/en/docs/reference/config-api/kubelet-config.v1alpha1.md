@@ -170,5 +170,3 @@ credential plugin.</p>
 </tbody>
 </table>
   
-  
-    

@@ -274,7 +274,7 @@ pod usage is still within acceptable limits.
 
 ### Container resource metrics
 
-{{< feature-state for_k8s_version="v1.20" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 The HorizontalPodAutoscaler API also supports a container metric source where the HPA can track the
 resource usage of individual containers across a set of Pods, in order to scale the target resource.
@@ -470,7 +470,7 @@ for scaling down which allows a 100% of the currently running replicas to be rem
 means the scaling target can be scaled down to the minimum allowed replicas.
 For scaling up there is no stabilization window. When the metrics indicate that the target should be
 scaled up the target is scaled up immediately. There are 2 policies where 4 pods or a 100% of the currently
-running replicas will be added every 15 seconds till the HPA reaches its steady state.
+running replicas may at most be added every 15 seconds till the HPA reaches its steady state.
 
 ### Example: change downscale stabilization window
 

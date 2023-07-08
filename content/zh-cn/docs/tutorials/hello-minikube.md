@@ -30,21 +30,11 @@ card:
 <!-- overview -->
 
 <!--
-This tutorial shows you how to run a sample app
-on Kubernetes using minikube and Katacoda.
-Katacoda provides a free, in-browser Kubernetes environment.
+This tutorial shows you how to run a sample app on Kubernetes using minikube.
+The tutorial provides a container image that uses NGINX to echo back all the requests.
 -->
-本教程向你展示如何使用 Minikube 和 Katacoda
-在 Kubernetes 上运行一个应用示例。Katacoda 提供免费的浏览器内 Kubernetes 环境。
-
-{{< note >}}
-<!--
-You can also follow this tutorial if you've installed minikube locally.
-See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
--->
-如果你已在本地安装 Minikube，也可以按照本教程操作。
-安装指南参阅 [minikube start](https://minikube.sigs.k8s.io/docs/start/)。
-{{< /note >}}
+本教程向你展示如何使用 Minikube 在 Kubernetes 上运行一个应用示例。
+教程提供了容器镜像，使用 NGINX 来对所有请求做出回应。
 
 ## {{% heading "objectives" %}}
 
@@ -60,52 +50,54 @@ See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation 
 ## {{% heading "prerequisites" %}}
 
 <!--
-This tutorial provides a container image that uses NGINX to echo back all the requests.
+This tutorial assumes that you have already set up `minikube`.
+See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
+
+You also need to install `kubectl`.
+See [Install tools](/docs/tasks/tools/#kubectl) for installation instructions.
 -->
-本教程提供了容器镜像，使用 NGINX 来对所有请求做出回应。
+本教程假设你已经安装了 `minikube`。
+有关安装说明，请参阅 [minikube start](https://minikube.sigs.k8s.io/docs/start/)。
+
+你还需要安装 `kubectl`。
+有关安装说明，请参阅[安装工具](/zh-cn/docs/tasks/tools/#kubectl)。
 
 <!-- lessoncontent -->
 
 <!--
 ## Create a minikube cluster
-
-1. Click **Launch Terminal**.
 -->
 ## 创建 Minikube 集群  {#create-a-minikube-cluster}
 
-1. 点击 **Launch Terminal**。
-
-   {{< kat-button >}}
-
-   {{< note >}}
-   <!-- 
-   If you installed minikube locally, run `minikube start`. Before you run `minikube dashboard`, you should open a new terminal, start `minikube dashboard` there, and then switch back to the main terminal.
-   -->
-   如果你在本地安装了 Minikube，运行 `minikube start`。
-   在运行 `minikube dashboard` 之前，你应该打开一个新终端，
-   在此启动 `minikube dashboard` ，然后切换回主终端。
-   {{< /note >}}
+```shell
+minikube start
+```
 
 <!--
-2. Open the Kubernetes dashboard in a browser:
--->
-2. 在浏览器中打开 Kubernetes 仪表板（Dashboard）：
+## Open the Dashboard
 
-   ```shell
-   minikube dashboard
-   ```
+Open the Kubernetes dashboard. You can do this two different ways:
+-->
+## 打开仪表板  {#open-the-dashboard}
+
+打开 Kubernetes 仪表板。你可以通过两种不同的方式执行此操作：
+
+{{< tabs name="dashboard" >}}
+{{% tab name="启动浏览器" %}}
+<!--
+Open a **new** terminal, and run:
+-->
+打开一个**新的**终端，然后运行：
+```shell
+# 启动一个新的终端，并保持此命令运行。
+minikube dashboard
+```
 
 <!--
-3. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then click **Select port to view on Host 1**.
+Now, switch back to the terminal where you ran `minikube start`.
 -->
-3. 仅限 Katacoda 环境：在终端窗口的顶部，单击加号，然后单击 **Select port to view on Host 1**。
+现在，切换回运行 `minikube start` 的终端。
 
-<!--
-4. Katacoda environment only: Type `30000`, and then click **Display Port**.
--->
-4. 仅限 Katacoda 环境：输入 `30000`，然后单击 **Display Port**。
-
-{{< note >}}
 <!--
 The `dashboard` command enables the dashboard add-on and opens the proxy in the default web browser.
 You can create Kubernetes resources on the dashboard such as Deployment and Service.
@@ -119,6 +111,7 @@ To stop the proxy, run `Ctrl+C` to exit the process.
 After the command exits, the dashboard remains running in the Kubernetes cluster.
 You can run the `dashboard` command again to create another proxy to access the dashboard.
 -->
+{{< note >}}
 `dashboard` 命令启用仪表板插件，并在默认的 Web 浏览器中打开代理。
 你可以在仪表板上创建 Kubernetes 资源，例如 Deployment 和 Service。
 
@@ -133,19 +126,32 @@ You can run the `dashboard` command again to create another proxy to access the 
 你可以再次运行 `dashboard` 命令创建另一个代理来访问仪表板。
 {{< /note >}}
 
-<!--
-## Open Dashboard with URL
--->
-## 使用 URL 打开仪表板  {#open-dashboard-with-url}
+{{% /tab %}}
+{{% tab name="URL 复制粘贴" %}}
 
 <!--
-If you don't want to open a web browser, run the dashboard command with the `--url` flag to emit a URL:
+If you don't want minikube to open a web browser for you, run the dashboard command with the
+`--url` flag. `minikube` outputs a URL that you can open in the browser you prefer:
+
+Open a **new** terminal, and run:
 -->
-如果你不想打开 Web 浏览器，请使用 `--url` 标志运行显示板命令以得到 URL：
+如果你不想 Minikube 为你打开 Web 浏览器，可以使用 `--url` 标志运行仪表板命令。
+`minikube` 会输出一个 URL，你可以在你喜欢的浏览器中打开该 URL。
+
+打开一个**新的**终端，然后运行：
 
 ```shell
+# 启动一个新的终端，并保持此命令运行。
 minikube dashboard --url
 ```
+
+<!--
+Now, switch back to the terminal where you ran `minikube start`.
+-->
+现在，切换回运行 `minikube start` 的终端。
+
+{{% /tab %}}
+{{< /tabs >}}
 
 <!--
 ## Create a Deployment
@@ -166,25 +172,21 @@ Kubernetes [**Deployment**](/zh-cn/docs/concepts/workloads/controllers/deploymen
 Deployment 是管理 Pod 创建和扩展的推荐方法。
 
 <!--
-1. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then **Open New Terminal**.
--->
-1. 仅 Katacoda 环境：在终端窗格的顶部，点击加号，然后点击 **Open New Terminal**。
-
-<!--
 1. Use the `kubectl create` command to create a Deployment that manages a Pod. The
-Pod runs a Container based on the provided Docker image.
+   Pod runs a Container based on the provided Docker image.
 -->
-2. 使用 `kubectl create` 命令创建管理 Pod 的 Deployment。该 Pod 根据提供的 Docker
+1. 使用 `kubectl create` 命令创建管理 Pod 的 Deployment。该 Pod 根据提供的 Docker
    镜像运行容器。
 
    ```shell
+   # 运行包含 Web 服务器的测试容器镜像
    kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080
    ```
 
 <!--
 1. View the Deployment:
 -->
-3. 查看 Deployment：
+2. 查看 Deployment：
 
    ```shell
    kubectl get deployments
@@ -204,7 +206,7 @@ Pod runs a Container based on the provided Docker image.
 <!--
 1. View the Pod:
 -->
-4. 查看 Pod：
+3. 查看 Pod：
 
    ```shell
    kubectl get pods
@@ -224,7 +226,7 @@ Pod runs a Container based on the provided Docker image.
 <!--
 1. View cluster events:
 -->
-5. 查看集群事件：
+4. 查看集群事件：
 
    ```shell
    kubectl get events
@@ -233,7 +235,7 @@ Pod runs a Container based on the provided Docker image.
 <!--
 1. View the `kubectl` configuration:
 -->
-6. 查看 `kubectl` 配置：
+5. 查看 `kubectl` 配置：
 
    ```shell
    kubectl config view
@@ -241,8 +243,7 @@ Pod runs a Container based on the provided Docker image.
 
 {{< note >}}
 <!--
-For more information about `kubectl`commands, see the
-[kubectl overview](/docs/reference/kubectl/).
+For more information about `kubectl` commands, see the [kubectl overview](/docs/reference/kubectl/).
 -->
 有关 `kubectl` 命令的更多信息，请参阅 [kubectl 概述](/zh-cn/docs/reference/kubectl/)。
 {{< /note >}}
@@ -274,13 +275,13 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
    The `--type=LoadBalancer` flag indicates that you want to expose your Service
    outside of the cluster.
 
-   The application code inside the image `registry.k8s.io/echoserver` only listens on TCP port 8080. If you used
+   The application code inside the test image only listens on TCP port 8080. If you used
    `kubectl expose` to expose a different port, clients could not connect to that other port.
    -->
 
    这里的 `--type=LoadBalancer` 参数表明你希望将你的 Service 暴露到集群外部。
 
-   镜像 `registry.k8s.io/echoserver` 中的应用程序代码仅监听 TCP 8080 端口。
+   测试镜像中的应用程序代码仅监听 TCP 8080 端口。
    如果你用 `kubectl expose` 暴露了其它的端口，客户端将不能访问其它端口。
 
 <!--
@@ -323,21 +324,9 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
    minikube service hello-node
    ```
 
-<!--
-4. Katacoda environment only: Click the plus sign, and then click **Select port to view on Host 1**.
--->
-4. 仅限 Katacoda 环境：单击加号，然后单击 **Select port to view on Host 1**。
-
-<!--
-5. Katacoda environment only: Note the 5-digit port number displayed opposite to `8080` in services output. This port number is randomly generated and it can be different for you. Type your number in the port number text box, then click Display Port. Using the example from earlier, you would type `30369`.
-
-    This opens up a browser window that serves your app and shows the app's response.
--->
-5. 仅限 Katacoda 环境：请注意在 service 输出中与 `8080` 对应的长度为 5 位的端口号。
-   此端口号是随机生成的，可能与你的不同。
-   在端口号文本框中输入你自己的端口号，然后单击 **Display Port**。
-   对应于上面的例子，需要输入 `30369`。
-
+   <!--
+   This opens up a browser window that serves your app and shows the app's response.
+   -->
    这将打开一个浏览器窗口，为你的应用程序提供服务并显示应用的响应。
 
 <!--
@@ -403,9 +392,9 @@ Minikube 有一组内置的{{< glossary_tooltip text="插件" term_id="addons" >
    ```
 
 <!--
-3. View the Pod and Service you created:
+3. View the Pod and Service you created by installing that addon:
 -->
-3. 查看创建的 Pod 和 Service：
+3. 查看通过安装该插件所创建的 Pod 和 Service：
 
    ```shell
    kubectl get pod,svc -n kube-system
@@ -472,9 +461,9 @@ kubectl delete deployment hello-node
 ```
 
 <!--
-Optionally, stop the Minikube virtual machine (VM):
+Stop the Minikube cluster
 -->
-可选地，停止 Minikube 虚拟机（VM）：
+停止 Minikube 集群：
 
 ```shell
 minikube stop
@@ -486,8 +475,14 @@ Optionally, delete the Minikube VM:
 可选地，删除 Minikube 虚拟机（VM）：
 
 ```shell
+# 可选的
 minikube delete
 ```
+
+<!--
+If you want to use minikube again to learn more about Kubernetes, you don't need to delete it.
+-->
+如果你还想使用 Minikube 进一步学习 Kubernetes，那就不需要删除 Minikube。
 
 ## {{% heading "whatsnext" %}}
 

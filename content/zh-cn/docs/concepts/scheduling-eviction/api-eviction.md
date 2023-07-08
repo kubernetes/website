@@ -42,7 +42,7 @@ You can use a [Kubernetes language client](/docs/tasks/administer-cluster/access
 to access the Kubernetes API and create an `Eviction` object. To do this, you
 POST the attempted operation, similar to the following example:
 -->
-## 调用 Eviction API
+## 调用 Eviction API   {#calling-eviction-api}
 
 你可以使用 [Kubernetes 语言客户端](/zh-cn/docs/tasks/administer-cluster/access-cluster-api/#programmatic-access-to-the-api)
 来访问 Kubernetes API 并创建 `Eviction` 对象。
@@ -73,7 +73,7 @@ POST the attempted operation, similar to the following example:
 <!--
 Deprecated in v1.22 in favor of `policy/v1`
 -->
-在 v1.22 版本废弃以支持 `policy/v1`
+在 v1.22 版本废弃以支持 `policy/v1`。
 {{< /note >}}
 
 ```json
@@ -105,8 +105,7 @@ curl -v -H 'Content-type: application/json' https://your-cluster-api-endpoint.ex
 When you request an eviction using the API, the API server performs admission
 checks and responds in one of the following ways:
 -->
-
-## API 发起驱逐的工作原理
+## API 发起驱逐的工作原理   {#how-api-initiated-eviction-works}
 
 当你使用 API 来请求驱逐时，API 服务器将执行准入检查，并通过以下方式之一做出响应：
 
@@ -122,7 +121,8 @@ checks and responds in one of the following ways:
 -->
 * `200 OK`：允许驱逐，子资源 `Eviction` 被创建，并且 Pod 被删除，
   类似于发送一个 `DELETE` 请求到 Pod 地址。
-* `429 Too Many Requests`：当前不允许驱逐，因为配置了 {{<glossary_tooltip term_id="pod-disruption-budget" text="PodDisruptionBudget">}}。
+* `429 Too Many Requests`：当前不允许驱逐，因为配置了
+  {{<glossary_tooltip term_id="pod-disruption-budget" text="PodDisruptionBudget">}}。
   你可以稍后再尝试驱逐。你也可能因为 API 速率限制而看到这种响应。
 * `500 Internal Server Error`：不允许驱逐，因为存在配置错误，
   例如存在多个 PodDisruptionBudgets 引用同一个 Pod。
@@ -175,7 +175,7 @@ happen if, for example, a ReplicaSet creates pods for your application but new
 pods do not enter a `Ready` state. You may also notice this behavior in cases
 where the last evicted Pod had a long termination grace period.
 -->
-## 解决驱逐被卡住的问题
+## 解决驱逐被卡住的问题   {#troubleshooting-stuck-evictions}
 
 在某些情况下，你的应用可能进入中断状态，
 在你干预之前，驱逐 API 总是返回 `429` 或 `500`。
@@ -203,6 +203,6 @@ If you notice stuck evictions, try one of the following solutions:
 * Learn about [Node-pressure Eviction](/docs/concepts/scheduling-eviction/node-pressure-eviction/).
 * Learn about [Pod Priority and Preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
 -->
-* 了解如何使用 [Pod 干扰预算](/zh-cn/docs/tasks/run-application/configure-pdb/) 保护你的应用。
+* 了解如何使用 [Pod 干扰预算](/zh-cn/docs/tasks/run-application/configure-pdb/)保护你的应用。
 * 了解[节点压力引发的驱逐](/zh-cn/docs/concepts/scheduling-eviction/node-pressure-eviction/)。
 * 了解 [Pod 优先级和抢占](/zh-cn/docs/concepts/scheduling-eviction/pod-priority-preemption/)。

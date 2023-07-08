@@ -68,7 +68,7 @@ symlinks, devices, pipes, and more).
 
 {{< note >}}
 Each filename being used for ConfigMap creation must consist of only acceptable characters,
-which are: letters (`A` to `Z` and `a` to z`), digits (`0` to `9`), '-', '_', or '.'.
+which are: letters (`A` to `Z` and `a` to `z`), digits (`0` to `9`), '-', '_', or '.'.
 If you use `kubectl create configmap` with a directory where any of the file names contains
 an unacceptable character, the `kubectl` command may fail.
 
@@ -411,8 +411,9 @@ For example, to generate a ConfigMap from files `configure-pod-container/configm
 cat <<EOF >./kustomization.yaml
 configMapGenerator:
 - name: game-config-4
-  labels:
-    game-config: config-4
+  options:
+    labels:
+      game-config: config-4
   files:
   - configure-pod-container/configmap/game.properties
 EOF
@@ -477,8 +478,9 @@ with the key `game-special-key`
 cat <<EOF >./kustomization.yaml
 configMapGenerator:
 - name: game-config-5
-  labels:
-    game-config: config-5
+  options:
+    labels:
+      game-config: config-5
   files:
   - game-special-key=configure-pod-container/configmap/game.properties
 EOF

@@ -631,7 +631,7 @@ When creating a debugging session on a node, keep in mind that:
 * The root filesystem of the Node will be mounted at `/host`.
 * The container runs in the host IPC, Network, and PID namespaces, although
   the pod isn't privileged, so reading some process information may fail,
-  and `chroot /host` will fail.
+  and `chroot /host` may fail.
 * If you need a privileged pod, create it manually.
 
 Don't forget to clean up the debugging Pod when you're finished with it:

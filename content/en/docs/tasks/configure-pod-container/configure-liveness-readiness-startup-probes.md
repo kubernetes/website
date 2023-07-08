@@ -8,11 +8,11 @@ weight: 140
 
 This page shows how to configure liveness, readiness and startup probes for containers.
 
-The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) uses liveness probes to know when to
-restart a container. For example, liveness probes could catch a deadlock,
-where an application is running, but unable to make progress. Restarting a
-container in such a state can help to make the application more available
-despite bugs.
+The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) uses
+liveness probes to know when to restart a container. For example, liveness
+probes could catch a deadlock, where an application is running, but unable to
+make progress. Restarting a container in such a state can help to make the
+application more available despite bugs.
 
 A common pattern for liveness probes is to use the same low-cost HTTP endpoint
 as for readiness probes, but with a higher failureThreshold. This ensures that the pod
@@ -24,7 +24,7 @@ One use of this signal is to control which Pods are used as backends for Service
 When a Pod is not ready, it is removed from Service load balancers.
 
 The kubelet uses startup probes to know when a container application has started.
-If such a probe is configured, it disables liveness and readiness checks until
+If such a probe is configured, liveness and readiness probes do not start until
 it succeeds, making sure those probes don't interfere with the application startup.
 This can be used to adopt liveness checks on slow starting containers, avoiding them
 getting killed by the kubelet before they are up and running.
@@ -44,10 +44,7 @@ Understand the difference between readiness and liveness probes and when to appl
 
 ## {{% heading "prerequisites" %}}
 
-
 {{< include "task-tutorial-prereqs.md" >}}
-
-
 
 <!-- steps -->
 
@@ -95,14 +92,14 @@ kubectl describe pod liveness-exec
 
 The output indicates that no liveness probes have failed yet:
 
-```
+```none
 Type    Reason     Age   From               Message
-  ----    ------     ----  ----               -------
-  Normal  Scheduled  11s   default-scheduler  Successfully assigned default/liveness-exec to node01
-  Normal  Pulling    9s    kubelet, node01    Pulling image "registry.k8s.io/busybox"
-  Normal  Pulled     7s    kubelet, node01    Successfully pulled image "registry.k8s.io/busybox"
-  Normal  Created    7s    kubelet, node01    Created container liveness
-  Normal  Started    7s    kubelet, node01    Started container liveness
+----    ------     ----  ----               -------
+Normal  Scheduled  11s   default-scheduler  Successfully assigned default/liveness-exec to node01
+Normal  Pulling    9s    kubelet, node01    Pulling image "registry.k8s.io/busybox"
+Normal  Pulled     7s    kubelet, node01    Successfully pulled image "registry.k8s.io/busybox"
+Normal  Created    7s    kubelet, node01    Created container liveness
+Normal  Started    7s    kubelet, node01    Started container liveness
 ```
 
 After 35 seconds, view the Pod events again:
@@ -114,16 +111,16 @@ kubectl describe pod liveness-exec
 At the bottom of the output, there are messages indicating that the liveness
 probes have failed, and the failed containers have been killed and recreated.
 
-```
-  Type     Reason     Age                From               Message
-  ----     ------     ----               ----               -------
-  Normal   Scheduled  57s                default-scheduler  Successfully assigned default/liveness-exec to node01
-  Normal   Pulling    55s                kubelet, node01    Pulling image "registry.k8s.io/busybox"
-  Normal   Pulled     53s                kubelet, node01    Successfully pulled image "registry.k8s.io/busybox"
-  Normal   Created    53s                kubelet, node01    Created container liveness
-  Normal   Started    53s                kubelet, node01    Started container liveness
-  Warning  Unhealthy  10s (x3 over 20s)  kubelet, node01    Liveness probe failed: cat: can't open '/tmp/healthy': No such file or directory
-  Normal   Killing    10s                kubelet, node01    Container liveness failed liveness probe, will be restarted
+```none
+Type     Reason     Age                From               Message
+----     ------     ----               ----               -------
+Normal   Scheduled  57s                default-scheduler  Successfully assigned default/liveness-exec to node01
+Normal   Pulling    55s                kubelet, node01    Pulling image "registry.k8s.io/busybox"
+Normal   Pulled     53s                kubelet, node01    Successfully pulled image "registry.k8s.io/busybox"
+Normal   Created    53s                kubelet, node01    Created container liveness
+Normal   Started    53s                kubelet, node01    Started container liveness
+Warning  Unhealthy  10s (x3 over 20s)  kubelet, node01    Liveness probe failed: cat: can't open '/tmp/healthy': No such file or directory
+Normal   Killing    10s                kubelet, node01    Container liveness failed liveness probe, will be restarted
 ```
 
 Wait another 30 seconds, and verify that the container has been restarted:
@@ -132,9 +129,10 @@ Wait another 30 seconds, and verify that the container has been restarted:
 kubectl get pod liveness-exec
 ```
 
-The output shows that `RESTARTS` has been incremented. Note that the `RESTARTS` counter increments as soon as a failed container comes back to the running state:
+The output shows that `RESTARTS` has been incremented. Note that the `RESTARTS` counter
+increments as soon as a failed container comes back to the running state:
 
-```
+```none
 NAME            READY     STATUS    RESTARTS   AGE
 liveness-exec   1/1       Running   1          1m
 ```
@@ -142,8 +140,7 @@ liveness-exec   1/1       Running   1          1m
 ## Define a liveness HTTP request
 
 Another kind of liveness probe uses an HTTP GET request. Here is the configuration
-file for a Pod that runs a container based on the `registry.k8s.io/liveness`
-image.
+file for a Pod that runs a container based on the `registry.k8s.io/liveness` image.
 
 {{< codenew file="pods/probe/http-liveness.yaml" >}}
 
@@ -196,9 +193,6 @@ the container has been restarted:
 kubectl describe pod liveness-http
 ```
 
-In releases prior to v1.13 (including v1.13), if the environment variable
-`http_proxy` (or `HTTP_PROXY`) is set on the node where a Pod is running,
-the HTTP liveness probe uses that proxy.
 In releases after v1.13, local HTTP proxy environment variable settings do not
 affect the HTTP liveness probe.
 
@@ -240,24 +234,31 @@ kubectl describe pod goproxy
 
 {{< feature-state for_k8s_version="v1.24" state="beta" >}}
 
-If your application implements [gRPC Health Checking Protocol](https://github.com/grpc/grpc/blob/master/doc/health-checking.md),
-kubelet can be configured to use it for application liveness checks.
-You must enable the `GRPCContainerProbe`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-in order to configure checks that rely on gRPC.
+If your application implements the
+[gRPC Health Checking Protocol](https://github.com/grpc/grpc/blob/master/doc/health-checking.md),
+this example shows how to configure Kubernetes to use it for application liveness checks.
+Similarly you can configure readiness and startup probes.
 
 Here is an example manifest:
 
 {{< codenew file="pods/probe/grpc-liveness.yaml" >}}
 
-To use a gRPC probe, `port` must be configured. If the health endpoint is configured
-on a non-default service, you must also specify the `service`.
+To use a gRPC probe, `port` must be configured. If you want to distinguish probes of different types
+and probes for different features you can use the `service` field.
+You can set `service` to the value `liveness` and make your gRPC Health Checking endpoint
+respond to this request differently than when you set `service` set to `readiness`.
+This lets you use the same endpoint for different kinds of container health check
+rather than listening on two different ports.
+If you want to specify your own custom service name and also specify a probe type,
+the Kubernetes project recommends that you use a name that concatenates
+those. For example: `myservice-liveness` (using `-` as a separator).
 
 {{< note >}}
-Unlike HTTP and TCP probes, named ports cannot be used and custom host cannot be configured.
+Unlike HTTP or TCP probes, you cannot specify the health check port by name, and you
+cannot configure a custom hostname.
 {{< /note >}}
 
-Configuration problems (for example: incorrect port and service, unimplemented health checking protocol)
+Configuration problems (for example: incorrect port or service, unimplemented health checking protocol)
 are considered a probe failure, similar to HTTP and TCP probes.
 
 To try the gRPC liveness check, create a Pod using the command below.
@@ -273,23 +274,24 @@ After 15 seconds, view Pod events to verify that the liveness check has not fail
 kubectl describe pod etcd-with-grpc
 ```
 
-Before Kubernetes 1.23, gRPC health probes were often implemented using [grpc-health-probe](https://github.com/grpc-ecosystem/grpc-health-probe/),
-as described in the blog post [Health checking gRPC servers on Kubernetes](/blog/2018/10/01/health-checking-grpc-servers-on-kubernetes/).
-The built-in gRPC probes behavior is similar to one implemented by grpc-health-probe.
+Before Kubernetes 1.23, gRPC health probes were often implemented using
+[grpc-health-probe](https://github.com/grpc-ecosystem/grpc-health-probe/),
+as described in the blog post
+[Health checking gRPC servers on Kubernetes](/blog/2018/10/01/health-checking-grpc-servers-on-kubernetes/).
+The built-in gRPC probe's behavior is similar to the one implemented by grpc-health-probe.
 When migrating from grpc-health-probe to built-in probes, remember the following differences:
 
-- Built-in probes run against the pod IP address, unlike grpc-health-probe that often runs against `127.0.0.1`.
-  Be sure to configure your gRPC endpoint to listen on the Pod's IP address.
+- Built-in probes run against the pod IP address, unlike grpc-health-probe that often runs against
+  `127.0.0.1`. Be sure to configure your gRPC endpoint to listen on the Pod's IP address.
 - Built-in probes do not support any authentication parameters (like `-tls`).
 - There are no error codes for built-in probes. All errors are considered as probe failures.
-- If `ExecProbeTimeout` feature gate is set to `false`, grpc-health-probe does **not** respect the `timeoutSeconds` setting (which defaults to 1s),
-  while built-in probe would fail on timeout.
+- If `ExecProbeTimeout` feature gate is set to `false`, grpc-health-probe does **not** 
+  respect the `timeoutSeconds` setting (which defaults to 1s), while built-in probe would fail on timeout.
 
 ## Use a named port
 
-You can use a named
-[`port`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#ports)
-for HTTP and TCP probes. (gRPC probes do not support named ports).
+You can use a named [`port`](/docs/reference/kubernetes-api/workload-resources/pod-v1/#ports)
+for HTTP and TCP probes. gRPC probes do not support named ports.
 
 For example:
 
@@ -361,7 +363,9 @@ Readiness probes runs on the container during its whole lifecycle.
 {{< /note >}}
 
 {{< caution >}}
-Liveness probes *do not* wait for readiness probes to succeed. If you want to wait before executing a liveness probe you should use initialDelaySeconds or a startupProbe.
+Liveness probes *do not* wait for readiness probes to succeed.
+If you want to wait before executing a liveness probe you should use
+`initialDelaySeconds` or a `startupProbe`.
 {{< /caution >}}
 
 Readiness probes are configured similarly to liveness probes. The only difference
@@ -386,37 +390,36 @@ for it, and that containers are restarted when they fail.
 
 ## Configure Probes
 
-{{< comment >}}
-Eventually, some of this section could be moved to a concept topic.
-{{< /comment >}}
+<!--Eventually, some of this section could be moved to a concept topic.-->
 
-[Probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core) have a number of fields that
-you can use to more precisely control the behavior of startup, liveness and readiness
-checks:
+[Probes](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#probe-v1-core)
+have a number of fields that you can use to more precisely control the behavior of startup,
+liveness and readiness checks:
 
-* `initialDelaySeconds`: Number of seconds after the container has started
-before startup, liveness or readiness probes are initiated. Defaults to 0 seconds. Minimum value is 0.
-* `periodSeconds`: How often (in seconds) to perform the probe. Default to 10
-seconds. Minimum value is 1.
-* `timeoutSeconds`: Number of seconds after which the probe times out. Defaults
-to 1 second. Minimum value is 1.
-* `successThreshold`: Minimum consecutive successes for the probe to be
-considered successful after having failed. Defaults to 1. Must be 1 for liveness
-and startup Probes. Minimum value is 1.
+* `initialDelaySeconds`: Number of seconds after the container has started before startup,
+  liveness or readiness probes are initiated. If a startup  probe is defined, liveness and
+  readiness probe delays do not begin until the startup probe has succeeded.
+  Defaults to 0 seconds. Minimum value is 0.
+* `periodSeconds`: How often (in seconds) to perform the probe. Default to 10 seconds.
+  The minimum value is 1.
+* `timeoutSeconds`: Number of seconds after which the probe times out.
+  Defaults to 1 second. Minimum value is 1.
+* `successThreshold`: Minimum consecutive successes for the probe to be considered successful
+  after having failed. Defaults to 1. Must be 1 for liveness and startup Probes.
+  Minimum value is 1.
 * `failureThreshold`: After a probe fails `failureThreshold` times in a row, Kubernetes
-  considers that the overall check has failed: the container is _not_ ready / healthy /
-  live.
+  considers that the overall check has failed: the container is _not_ ready/healthy/live.
   For the case of a startup or liveness probe, if at least `failureThreshold` probes have
   failed, Kubernetes treats the container as unhealthy and triggers a restart for that
-  specific container. The kubelet takes the setting of `terminationGracePeriodSeconds`
-  for that container into account.
+  specific container. The kubelet honors the setting of `terminationGracePeriodSeconds`
+  for that container.
   For a failed readiness probe, the kubelet continues running the container that failed
   checks, and also continues to run more probes; because the check failed, the kubelet
   sets the `Ready` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)
   on the Pod to `false`.
-* `terminationGracePeriodSeconds`: configure a grace period for the kubelet to wait
-  between triggering a shut down of the failed container, and then forcing the
-  container runtime to stop that container.
+* `terminationGracePeriodSeconds`: configure a grace period for the kubelet to wait between
+  triggering a shut down of the failed container, and then forcing the container runtime to stop
+  that container.
   The default is to inherit the Pod-level value for `terminationGracePeriodSeconds`
   (30 seconds if not specified), and the minimum value is 1.
   See [probe-level `terminationGracePeriodSeconds`](#probe-level-terminationgraceperiodseconds)
@@ -429,16 +432,16 @@ until a result was returned.
 
 This defect was corrected in Kubernetes v1.20. You may have been relying on the previous behavior,
 even without realizing it, as the default timeout is 1 second.
-As a cluster administrator, you can disable the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) `ExecProbeTimeout` (set it to `false`)
-on each kubelet to restore the  behavior from older versions, then remove that override
-once all the exec probes in the cluster have a `timeoutSeconds` value set.
-If you have pods that are impacted from the default 1 second timeout,
-you should update their probe timeout so that you're ready for the
-eventual removal of that feature gate.
+As a cluster administrator, you can disable the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+`ExecProbeTimeout` (set it to `false`) on each kubelet to restore the behavior from older versions,
+then remove that override once all the exec probes in the cluster have a `timeoutSeconds` value set.
+If you have pods that are impacted from the default 1 second timeout, you should update their
+probe timeout so that you're ready for the eventual removal of that feature gate.
 
 With the fix of the defect, for exec probes, on Kubernetes `1.20+` with the `dockershim` container runtime,
 the process inside the container may keep running even after probe returned failure because of the timeout.
 {{< /note >}}
+
 {{< caution >}}
 Incorrect implementation of readiness probes may result in an ever growing number
 of processes in the container, and resource starvation if this is left unchecked.
@@ -450,15 +453,15 @@ of processes in the container, and resource starvation if this is left unchecked
 have additional fields that can be set on `httpGet`:
 
 * `host`: Host name to connect to, defaults to the pod IP. You probably want to
-set "Host" in httpHeaders instead.
-* `scheme`: Scheme to use for connecting to the host (HTTP or HTTPS). Defaults to HTTP.
-* `path`: Path to access on the HTTP server. Defaults to /.
+  set "Host" in `httpHeaders` instead.
+* `scheme`: Scheme to use for connecting to the host (HTTP or HTTPS). Defaults to "HTTP".
+* `path`: Path to access on the HTTP server. Defaults to "/".
 * `httpHeaders`: Custom headers to set in the request. HTTP allows repeated headers.
 * `port`: Name or number of the port to access on the container. Number must be
-in the range 1 to 65535.
+  in the range 1 to 65535.
 
-For an HTTP probe, the kubelet sends an HTTP request to the specified path and
-port to perform the check. The kubelet sends the probe to the pod's IP address,
+For an HTTP probe, the kubelet sends an HTTP request to the specified port and
+path to perform the check. The kubelet sends the probe to the Pod's IP address,
 unless the address is overridden by the optional `host` field in `httpGet`. If
 `scheme` field is set to `HTTPS`, the kubelet sends an HTTPS request skipping the
 certificate verification. In most scenarios, you do not want to set the `host` field.
@@ -468,10 +471,12 @@ to 127.0.0.1. If your pod relies on virtual hosts, which is probably the more co
 case, you should not use `host`, but rather set the `Host` header in `httpHeaders`.
 
 For an HTTP probe, the kubelet sends two request headers in addition to the mandatory `Host` header:
-`User-Agent`, and `Accept`. The default values for these headers are `kube-probe/{{< skew currentVersion >}}`
-(where `{{< skew currentVersion >}}` is the version of the kubelet ), and `*/*` respectively.
+- `User-Agent`: The default value is `kube-probe/{{< skew currentVersion >}}`,
+  where `{{< skew currentVersion >}}` is the version of the kubelet.
+- `Accept`: The default value is `*/*`.
 
-You can override the default headers by defining `.httpHeaders` for the probe; for example
+You can override the default headers by defining `httpHeaders` for the probe.
+For example:
 
 ```yaml
 livenessProbe:
@@ -505,21 +510,21 @@ startupProbe:
 
 ### TCP probes
 
-For a TCP probe, the kubelet makes the probe connection at the node, not in the pod, which
+For a TCP probe, the kubelet makes the probe connection at the node, not in the Pod, which
 means that you can not use a service name in the `host` parameter since the kubelet is unable
 to resolve it.
 
 ### Probe-level `terminationGracePeriodSeconds`
 
-{{< feature-state for_k8s_version="v1.25" state="beta" >}}
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
-Prior to release 1.21, the pod-level `terminationGracePeriodSeconds` was used
+Prior to release 1.21, the Pod-level `terminationGracePeriodSeconds` was used
 for terminating a container that failed its liveness or startup probe. This
 coupling was unintended and may have resulted in failed containers taking an
-unusually long time to restart when a pod-level `terminationGracePeriodSeconds`
+unusually long time to restart when a Pod-level `terminationGracePeriodSeconds`
 was set.
 
-In 1.25 and beyond, users can specify a probe-level `terminationGracePeriodSeconds`
+In 1.25 and above, users can specify a probe-level `terminationGracePeriodSeconds`
 as part of the probe specification. When both a pod- and probe-level 
 `terminationGracePeriodSeconds` are set, the kubelet will use the probe-level value.
 
@@ -528,20 +533,20 @@ Beginning in Kubernetes 1.25, the `ProbeTerminationGracePeriod` feature is enabl
 by default. For users choosing to disable this feature, please note the following:
 
 * The `ProbeTerminationGracePeriod` feature gate is only available on the API Server. 
-The kubelet always honors the probe-level `terminationGracePeriodSeconds` field if 
-it is present on a Pod.
+  The kubelet always honors the probe-level `terminationGracePeriodSeconds` field if 
+  it is present on a Pod.
 
 * If you have existing Pods where the `terminationGracePeriodSeconds` field is set and
-you no longer wish to use per-probe termination grace periods, you must delete
-those existing Pods.
+  you no longer wish to use per-probe termination grace periods, you must delete
+  those existing Pods.
 
-* When you (or the control plane, or some other component) create replacement
-Pods, and the feature gate `ProbeTerminationGracePeriod` is disabled, then the
-API server ignores the Probe-level `terminationGracePeriodSeconds` field, even if
-a Pod or pod template specifies it.
+* When you or the control plane, or some other components create replacement
+  Pods, and the feature gate `ProbeTerminationGracePeriod` is disabled, then the
+  API server ignores the Probe-level `terminationGracePeriodSeconds` field, even if
+  a Pod or pod template specifies it.
 {{< /note >}}
 
-For example,
+For example:
 
 ```yaml
 spec:
@@ -571,10 +576,11 @@ It will be rejected by the API server.
 ## {{% heading "whatsnext" %}}
 
 * Learn more about
-[Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
+  [Container Probes](/docs/concepts/workloads/pods/pod-lifecycle/#container-probes).
 
 You can also read the API references for:
 
 * [Pod](/docs/reference/kubernetes-api/workload-resources/pod-v1/), and specifically:
   * [container(s)](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Container)
   * [probe(s)](/docs/reference/kubernetes-api/workload-resources/pod-v1/#Probe)
+

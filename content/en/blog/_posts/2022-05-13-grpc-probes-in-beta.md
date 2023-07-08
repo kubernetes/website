@@ -7,6 +7,7 @@ slug: grpc-probes-now-in-beta
 
 **Author**: Sergey Kanzhelev (Google)
 
+_Update: Since this article was posted, the feature was graduated to GA in v1.27 and doesn't require any feature gates to be enabled.
 
 With Kubernetes 1.24 the gRPC probes functionality entered beta and is available by default.
 Now you can configure startup, liveness, and readiness probes for your gRPC app

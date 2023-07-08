@@ -33,7 +33,7 @@
 /docs/concepts/abstractions/controllers/garbage-collection/     /docs/concepts/workloads/controllers/garbage-collection/ 301
 /docs/concepts/abstractions/controllers/statefulsets/     /docs/concepts/workloads/controllers/statefulset/ 301
 /docs/concepts/abstractions/init-containers/     /docs/concepts/workloads/pods/init-containers/ 301
-/docs/concepts/abstractions/overview/     /docs/concepts/overview/working-with-objects/kubernetes-objects/ 301
+/docs/concepts/abstractions/overview/     /docs/concepts/overview/working-with-objects/ 301
 /docs/concepts/abstractions/pod/     /docs/concepts/workloads/pods/ 301
 /docs/concepts/api-extension/apiserver-aggregation/     /docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/ 301
 /docs/concepts/api-extension/custom-resources/     /docs/concepts/extend-kubernetes/api-extension/custom-resources/ 301
@@ -94,6 +94,7 @@
 /docs/concepts/service-catalog/     /docs/concepts/extend-kubernetes/service-catalog/ 301
 /docs/concepts/services-networking/networkpolicies/     /docs/concepts/services-networking/network-policies/ 301
 /docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/     /docs/tasks/network/customize-hosts-file-for-pods/ 301
+/docs/concepts/services-networking/topology-aware-hints/     /docs/concepts/services-networking/topology-aware-routing/ 302
 /docs/concepts/storage/etcd-store-api-object/     /docs/tasks/administer-cluster/configure-upgrade-etcd/ 301
 /docs/concepts/storage/volumes/emptyDirapiVersion/     /docs/concepts/storage/volumes/#emptydir/ 301
 /docs/concepts/tools/kubectl/object-management-overview/     /docs/concepts/overview/object-management-kubectl/overview/ 301
@@ -101,6 +102,7 @@
 /docs/concepts/tools/kubectl/object-management-using-declarative-config/     /docs/concepts/overview/object-management-kubectl/declarative-config/ 301
 /docs/concepts/tools/kubectl/object-management-using-imperative-commands/     /docs/concepts/overview/object-management-kubectl/imperative-command/ 301
 /docs/concepts/tools/kubectl/object-management-using-imperative-config/     /docs/concepts/overview/object-management-kubectl/imperative-config/ 301
+/docs/concepts/overview/working-with-objects/kubernetes-objects/ /docs/concepts/overview/working-with-objects/ 301
 /docs/concepts/overview/object-management-kubectl/overview/     /docs/concepts/overview/working-with-objects/object-management/ 301
 /docs/concepts/overview/object-management-kubectl/declarative-config/     /docs/tasks/manage-kubernetes-objects/declarative-config/ 301
 /docs/concepts/overview/object-management-kubectl/imperative-command/     /docs/tasks/manage-kubernetes-objects/imperative-command/ 301

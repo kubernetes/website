@@ -100,7 +100,6 @@ operator to use or manage a cluster.
 
 ## Config API for kubeadm
 
-* [v1beta2](/docs/reference/config-api/kubeadm-config.v1beta2/)
 * [v1beta3](/docs/reference/config-api/kubeadm-config.v1beta3/)
 
 ## Design Docs
