@@ -475,7 +475,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 
 ### Pod Priority based graceful node shutdown {#pod-priority-graceful-node-shutdown}
 
-{{< feature-state state="beta" for_k8s_version="v1.24" >}}
+{{< feature-state state="alpha" for_k8s_version="v1.23" >}}
 
 To provide more flexibility during graceful node shutdown around the ordering
 of pods during shutdown, graceful node shutdown honors the PriorityClass for
