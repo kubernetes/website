@@ -292,6 +292,8 @@ And also the configmap:
 ```shell
 kubectl create configmap nginxconfigmap --from-file=default.conf
 ```
+Note: the default.conf is located in [https://github.com/kubernetes/examples/tree/master/staging/https-nginx/](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/)
+
 ```
 configmap/nginxconfigmap created
 ```
@@ -302,6 +304,47 @@ kubectl get configmaps
 NAME             DATA   AGE
 nginxconfigmap   1      114s
 ```
+
+Details of the configmap ```nginxconfigmap``` can be viewed with the following command
+```
+kubectl describe cm nginxconfigmap
+```
+The output can look like the following
+
+```
+Name:         nginxconfigmap
+Namespace:    default
+Labels:       <none>
+Annotations:  <none>
+
+Data
+====
+default.conf:
+----
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server ipv6only=on;
+
+        listen 443 ssl;
+
+        root /usr/share/nginx/html;
+        index index.html;
+
+        server_name localhost;
+        ssl_certificate /etc/nginx/ssl/tls.crt;
+        ssl_certificate_key /etc/nginx/ssl/tls.key;
+
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}
+
+BinaryData
+====
+
+Events:  <none>
+```
+
 Following are the manual steps to follow in case you run into problems running make (on windows for example):
 
 ```shell
@@ -311,7 +354,7 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -ou
 cat /d/tmp/nginx.crt | base64
 cat /d/tmp/nginx.key | base64
 ```
-
+<!-- 
 Use the output from the previous commands to create a yaml file as follows.
 The base64 encoded value should all be on a single line.
 
@@ -336,7 +379,7 @@ kubectl get secrets
 NAME                  TYPE                                  DATA      AGE
 nginxsecret           kubernetes.io/tls                     2         1m
 ```
-
+-->
 Now modify your nginx replicas to start an https server using the certificate
 in the secret, and the Service, to expose both ports (80 and 443):
 
@@ -476,5 +519,3 @@ LoadBalancer Ingress:   a320587ffd19711e5a37606cf4a74574-1142138393.us-east-1.el
 * Learn more about [Using a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 * Learn more about [Connecting a Front End to a Back End Using a Service](/docs/tasks/access-application-cluster/connecting-frontend-backend/)
 * Learn more about [Creating an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)
-
-
