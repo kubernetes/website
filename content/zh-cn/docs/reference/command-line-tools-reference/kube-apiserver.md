@@ -126,8 +126,8 @@ Requests that are not rejected by another authentication method
 are treated as anonymous requests. Anonymous requests have a 
 username of system:anonymous, and a group name of system:unauthenticated.
 -->
-启用到 API 服务器的安全端口的匿名请求。
-未被其他认证方法拒绝的请求被当做匿名请求。
+启用针对 API 服务器的安全端口的匿名请求。
+未被其他身份认证方法拒绝的请求被当做匿名请求。
 匿名请求的用户名为 <code>system:anonymous</code>，
 用户组名为 </code>system:unauthenticated</code>。
 </td>
@@ -160,7 +160,7 @@ API 的标识符。
 <!--
 The size of the buffer to store events before batching and writing. Only used in batch mode.
 -->
-批处理和写入之前用于存储事件的缓冲区大小。
+批处理和写入事件之前用于缓存事件的缓冲区大小。
 仅在批处理模式下使用。
 </td>
 </tr>
@@ -972,7 +972,7 @@ replace the max-in-flight handler with an enhanced one that queues
 and dispatches with priority and fairness
 -->
 如果为 true 且启用了 <code>APIPriorityAndFairness</code> 特性门控，
-请使用增强的处理程序替换 max-in-flight 处理程序，
+则使用增强的处理程序替换 max-in-flight 处理程序，
 以便根据优先级和公平性完成排队和调度。
 </td>
 </tr>
@@ -1450,12 +1450,12 @@ will be sent a GOAWAY. Clusters with single apiservers, or which
 don't use a load balancer, should NOT enable this. Min is 0 (off), 
 Max is .02 (1/50 requests); .001 (1/1000) is a recommended starting point.
 -->
-为防止 HTTP/2 客户端卡在单个 API 服务器上，可启用随机关闭连接（GOAWAY）。
-客户端的其他运行中请求将不会受到影响，并且客户端将重新连接，
-可能会在再次通过负载平衡器后登陆到其他 API 服务器上。
-此参数设置将发送 GOAWAY 的请求的比例。
-具有单个 API 服务器或不使用负载平衡器的集群不应启用此功能。
-最小值为0（关闭），最大值为 .02（1/50 请求）；建议使用 .001（1/1000）。
+为防止 HTTP/2 客户端卡在单个 API 服务器上，随机关闭某连接（GOAWAY）。
+客户端的其他运行中请求不会受到影响。被关闭的客户端将重新连接，
+重新被负载均衡后可能会与其他 API 服务器开始通信。
+此参数设置将被发送 GOAWAY 指令的请求的比例。
+只有一个 API 服务器或不使用负载均衡器的集群不应启用此特性。
+最小值为 0（关闭），最大值为 .02（1/50 请求）；建议使用 .001（1/1000）。
 </td>
 </tr>
 
@@ -1556,7 +1556,7 @@ will be of type NodePort, using this as the value of the port. If zero,
 the Kubernetes master service will be of type ClusterIP.
 -->
 如果非零，那么 Kubernetes 主服务（由 apiserver 创建/维护）将是 NodePort 类型，
-使用它作为端口的值。
+使用此字段值作为端口值。
 如果为零，则 Kubernetes 主服务将为 ClusterIP 类型。
 </td>
 </tr>
@@ -1600,7 +1600,7 @@ post-start hooks will complete successfully and therefore return true.
 <!--
 Maximum number of seconds between log flushes
 -->
-两次日志刷新之间的最大秒数
+两次日志刷新之间的最大秒数。
 </td>
 </tr>
 
@@ -1640,7 +1640,7 @@ DEPRECATED: the namespace from which the Kubernetes master services should be in
 <!--
 If non-zero, throttle each user connection to this number of bytes/sec. Currently only applies to long-running requests.
 -->
-如果不为零，则将每个用户连接限制为该数（字节数/秒）。
+如果不为零，则将每个用户连接的带宽限制为此数值（字节数/秒）。
 当前仅适用于长时间运行的请求。
 </td>
 </tr>
@@ -1654,8 +1654,9 @@ If non-zero, throttle each user connection to this number of bytes/sec. Currentl
 This and --max-requests-inflight are summed to determine the server's total concurrency limit (which must be positive) if --enable-priority-and-fairness is true.
 Otherwise, this flag limits the maximum number of mutating requests in flight, or a zero value disables the limit completely.
 -->
-如果 --enable-priority-and-fairness 为 true，那么此值和 --max-requests-inflight 的和将确定服务器的总并发限制（必须是正数）。
-否则，该值限制进行中变更类型请求的最大个数，零表示无限制。
+如果 --enable-priority-and-fairness 为 true，那么此值和 --max-requests-inflight
+的和将确定服务器的总并发限制（必须是正数）。
+否则，该值限制同时运行的变更类型的请求的个数上限。0 表示无限制。
 </td>
 </tr>
 
@@ -1668,7 +1669,8 @@ Otherwise, this flag limits the maximum number of mutating requests in flight, o
 This and --max-mutating-requests-inflight are summed to determine the server's total concurrency limit (which must be positive) if --enable-priority-and-fairness is true.
 Otherwise, this flag limits the maximum number of non-mutating requests in flight, or a zero value disables the limit completely.
 -->
-如果 --enable-priority-and-fairness 为 true，那么此值和 --max-mutating-requests-inflight 的和将确定服务器的总并发限制（必须是正数）。
+如果 --enable-priority-and-fairness 为 true，那么此值和 --max-mutating-requests-inflight
+的和将确定服务器的总并发限制（必须是正数）。
 否则，该值限制进行中非变更类型请求的最大个数，零表示无限制。
 </td>
 </tr>
@@ -1684,8 +1686,9 @@ keep a request open before timing it out. Currently only honored by the
 watch request handler, which picks a randomized value above this number 
 as the connection timeout, to spread out load.
 -->
-可选字段，表示处理程序在请求超时前，必须保持其处于打开状态的最小秒数。
-当前只对监听（Watch）请求的处理程序有效，它基于这个值选择一个随机数作为连接超时值，
+可选字段，表示处理程序在请求超时前，必须保持连接处于打开状态的最小秒数。
+当前只对监听（Watch）请求的处理程序有效。
+Watch 请求的处理程序会基于这个值选择一个随机数作为连接超时值，
 以达到分散负载的目的。
 </td>
 </tr>
@@ -1985,7 +1988,7 @@ List of request headers to inspect for groups. X-Remote-Group is suggested.
 <!--
 List of request headers to inspect for usernames. X-Remote-User is common.
 -->
-用于查验用户名的请求头头列表。建议使用 <code>X-Remote-User</code>。
+用于查验用户名的请求头部字段列表。建议使用 <code>X-Remote-User</code>。
 </td>
 </tr>
 
@@ -2220,7 +2223,7 @@ This can be used to allow load balancer to stop sending traffic to this server.
 延迟终止时间。在此期间，服务器将继续正常处理请求。
 端点 /healthz 和 /livez 将返回成功，但是 /readyz 立即返回失败。
 在此延迟过去之后，将开始正常终止。
-这可用于允许负载平衡器停止向该服务器发送流量。
+这可用于允许负载均衡器停止向该服务器发送流量。
 </td>
 </tr>
 

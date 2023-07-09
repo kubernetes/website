@@ -25,6 +25,13 @@ card:
 This page contains a list of commonly used `kubectl` commands and flags.
 -->
 
+{{< note >}}
+<!--
+These instructions are for Kubernetes v{{< skew currentVersion >}}. To check the version, use the `kubectl version` command.
+-->
+这些指令适用于 Kubernetes v{{< skew currentVersion >}}。要检查版本，请使用 `kubectl version` 命令。
+{{< /note >}}
+
 本页列举了常用的 `kubectl` 命令和标志。
 
 <!-- body -->
@@ -520,7 +527,9 @@ kubectl get pod mypod -o yaml | sed 's/\(image: myimage\):.*$/\1:v4/' | kubectl 
 
 kubectl label pods my-pod new-label=awesome                      # Add a Label
 kubectl label pods my-pod new-label-                             # Remove a label
+kubectl label pods my-pod new-label=new-value --overwrite        # Overwrite an existing value
 kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq       # Add an annotation
+kubectl annotate pods my-pod icon-                               # Remove annotation
 kubectl autoscale deployment foo --min=2 --max=10                # Auto scale a deployment "foo"
 ```
 -->
@@ -545,7 +554,9 @@ kubectl get pod mypod -o yaml | sed 's/\(image: myimage\):.*$/\1:v4/' | kubectl 
 
 kubectl label pods my-pod new-label=awesome                      # 添加标签
 kubectl label pods my-pod new-label-                             # 移除标签
+kubectl label pods my-pod new-label=new-value --overwrite        # 覆盖现有的值
 kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq       # 添加注解
+kubectl annotate pods my-pod icon-                               # 移除标签
 kubectl autoscale deployment foo --min=2 --max=10                # 对 "foo" Deployment 自动伸缩容
 ```
 
@@ -826,9 +837,12 @@ kubectl taint nodes foo dedicated=special-user:NoSchedule
 ### 资源类型   {#resource-types}
 
 <!--
-List all supported resource types along with their shortnames, [API group](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning), whether they are [namespaced](/docs/concepts/overview/working-with-objects/namespaces), and [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects):
+List all supported resource types along with their shortnames, [API group](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning), whether they are [namespaced](/docs/concepts/overview/working-with-objects/namespaces), and [kind](/docs/concepts/overview/working-with-objects/):
 -->
-列出所支持的全部资源类型和它们的简称、[API 组](/zh-cn/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning), 是否是[名字空间作用域](/zh-cn/docs/concepts/overview/working-with-objects/namespaces) 和 [Kind](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects)。
+列出所支持的全部资源类型和它们的简称、
+[API 组](/zh-cn/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning), 
+是否是[名字空间作用域](/zh-cn/docs/concepts/overview/working-with-objects/namespaces) 
+和 [Kind](/zh-cn/docs/concepts/overview/working-with-objects/)。
 
 ```bash
 kubectl api-resources

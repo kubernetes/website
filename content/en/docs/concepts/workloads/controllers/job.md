@@ -290,8 +290,13 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
   The Job is considered complete when there is one successfully completed Pod
   for each index. For more information about how to use this mode, see
   [Indexed Job for Parallel Processing with Static Work Assignment](/docs/tasks/job/indexed-parallel-processing-static/).
-  Note that, although rare, more than one Pod could be started for the same
-  index, but only one of them will count towards the completion count.
+
+{{< note >}}
+Although rare, more than one Pod could be started for the same index (due to various reasons such as node failures,
+kubelet restarts, or Pod evictions). In this case, only the first Pod that completes successfully will
+count towards the completion count and update the status of the Job. The other Pods that are running
+or completed for the same index will be deleted by the Job controller once they are detected.
+{{< /note >}}
 
 
 ## Handling Pod and container failures

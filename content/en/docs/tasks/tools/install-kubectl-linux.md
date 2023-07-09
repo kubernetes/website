@@ -84,7 +84,7 @@ The following methods exist for installing kubectl on Linux:
 
    If the check fails, `sha256` exits with nonzero status and prints output similar to:
 
-   ```bash
+   ```console
    kubectl: FAILED
    sha256sum: WARNING: 1 computed checksum did NOT match
    ```
@@ -157,7 +157,7 @@ The following methods exist for installing kubectl on Linux:
 2. Download the Google Cloud public signing key:
 
    ```shell
-   sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
    ```
 
 3. Add the Kubernetes `apt` repository:
@@ -285,7 +285,7 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 
    If the check fails, `sha256` exits with nonzero status and prints output similar to:
 
-   ```bash
+   ```console
    kubectl-convert: FAILED
    sha256sum: WARNING: 1 computed checksum did NOT match
    ```

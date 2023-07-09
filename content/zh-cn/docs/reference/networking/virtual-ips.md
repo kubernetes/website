@@ -705,7 +705,7 @@ NAME              PARENTREF
 -->
 #### Service 虚拟 IP 地址的地址段 {#service-ip-static-sub-range}
 
-{{< feature-state for_k8s_version="v1.25" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 <!--
 Kubernetes divides the `ClusterIP` range into two bands, based on
@@ -755,7 +755,7 @@ to control how Kubernetes routes traffic to healthy (“ready”) backends.
 -->
 ### 内部流量策略 {#internal-traffic-policy}
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 <!--
 You can set the `.spec.internalTrafficPolicy` field to control how traffic from

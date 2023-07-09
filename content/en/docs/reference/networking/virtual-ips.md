@@ -372,7 +372,7 @@ NAME              PARENTREF
 
 #### IP address ranges for Service virtual IP addresses {#service-ip-static-sub-range}
 
-{{< feature-state for_k8s_version="v1.25" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 Kubernetes divides the `ClusterIP` range into two bands, based on
 the size of the configured `service-cluster-ip-range` by using the following formula
@@ -396,7 +396,7 @@ to control how Kubernetes routes traffic to healthy (“ready”) backends.
 
 ### Internal traffic policy
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 You can set the `.spec.internalTrafficPolicy` field to control how traffic from
 internal sources is routed. Valid values are `Cluster` and `Local`. Set the field to

@@ -113,7 +113,7 @@ There are two cgroup drivers available:
 
 ### cgroupfs driver {#cgroupfs-cgroup-driver}
 
-The `cgroupfs` driver is the [default cgroup driver in the kubelet](docs/reference/config-api/kubelet-config.v1beta1).
+The `cgroupfs` driver is the [default cgroup driver in the kubelet](/docs/reference/config-api/kubelet-config.v1beta1).
  When the `cgroupfs` driver is used, the kubelet and the container runtime directly interface with
  the cgroup filesystem to configure cgroups.
 

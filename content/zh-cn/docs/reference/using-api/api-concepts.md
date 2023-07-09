@@ -470,6 +470,56 @@ Content-Type: application/json
 ```
 
 <!--
+## Response compression
+-->
+## 响应压缩   {#response-compression}
+
+{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+
+<!--
+`APIResponseCompression` is an option that allows the API server to compress the responses for **get**
+and **list** requests, reducing the network bandwidth and improving the performance of large-scale clusters.
+It is enabled by default since Kubernetes 1.16 and it can be disabled by including
+`APIResponseCompression=false` in the `--feature-gates` flag on the API server.
+-->
+`APIResponseCompression` 是一个选项，允许 API 服务器压缩 **get** 和 **list** 请求的响应，
+减少占用的网络带宽并提高大规模集群的性能。此选项自 Kubernetes 1.16 以来默认启用，
+可以通过在 API 服务器上的 `--feature-gates` 标志中包含 `APIResponseCompression=false` 来禁用。
+
+<!--
+API response compression can significantly reduce the size of the response, especially for large resources or
+[collections](/docs/reference/using-api/api-concepts/#collections).
+For example, a **list** request for pods can return hundreds of kilobytes or even megabytes of data,
+depending on the number of pods and their attributes. By compressing the response, the network bandwidth
+can be saved and the latency can be reduced.
+-->
+特别是对于大型资源或[集合](/zh-cn/docs/reference/using-api/api-concepts/#collections)，
+API 响应压缩可以显著减小其响应的大小。例如，针对 Pod 的 **list** 请求可能会返回数百 KB 甚至几 MB 的数据，
+具体大小取决于 Pod 数量及其属性。通过压缩响应，可以节省网络带宽并降低延迟。
+
+<!--
+To verify if `APIResponseCompression` is working, you can send a **get** or **list** request to the
+API server with an `Accept-Encoding` header, and check the response size and headers. For example:
+-->
+要验证 `APIResponseCompression` 是否正常工作，你可以使用一个 `Accept-Encoding`
+头向 API 服务器发送一个 **get** 或 **list** 请求，并检查响应大小和头信息。例如：
+
+```console
+GET /api/v1/pods
+Accept-Encoding: gzip
+---
+200 OK
+Content-Type: application/json
+content-encoding: gzip
+...
+```
+
+<!--
+The `content-encoding` header indicates that the response is compressed with `gzip`.
+-->
+`content-encoding` 头表示响应使用 `gzip` 进行了压缩。
+
+<!--
 ## Retrieving large results sets in chunks
 -->
 ## 分块检视大体量结果  {#retrieving-large-results-sets-in-chunks}
@@ -1716,15 +1766,15 @@ Continue Token, Exact
 {{< note >}}
 <!--
 When you **list** resources and receive a collection response, the response includes the
-[metadata](/docs/reference/generated/kubernetes-api/v1.21/#listmeta-v1-meta) of the collection as
-well as [object metadata](/docs/reference/generated/kubernetes-api/v1.21/#listmeta-v1-meta)
+[list metadata](/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#listmeta-v1-meta) of the collection as
+well as [object metadata](/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#objectmeta-v1-meta)
 for each item in that collection. For individual objects found within a collection response,
 `.metadata.resourceVersion` tracks when that object was last updated, and not how up-to-date
 the object is when served.
 -->
 当你 **list** 资源并收到集合响应时，
-响应包括集合的[元数据](/docs/reference/generated/kubernetes-api/v1.21/#listmeta-v1-meta)
-以及该集合中每个项目的[对象元数据](/docs/reference/generated/kubernetes-api/v1.21/#listmeta-v1-meta)。
+响应包括集合的[列表元数据](/zh-cn/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#listmeta-v1-meta)。
+以及该集合中每个项目的[对象元数据](/zh-cn/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#objectmeta-v1-meta)。
 对于在集合响应中找到的单个对象，`.metadata.resourceVersion` 跟踪该对象的最后更新时间，
 而不是对象在服务时的最新程度。
 {{< /note >}}

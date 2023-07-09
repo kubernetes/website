@@ -629,7 +629,99 @@ For example, the names `123-abc` and `web` are valid, but `123_abc` and `-web` a
 {{< /note >}}
 
 <!--
-## Choosing your own IP address
+## Publishing Services (ServiceTypes) {#publishing-services-service-types}
+
+For some parts of your application (for example, frontends) you may want to expose a
+Service onto an external IP address, that's outside of your cluster.
+
+Kubernetes `ServiceTypes` allow you to specify what kind of Service you want.
+
+The available `type` values and their behaviors are:
+-->
+## 发布服务（服务类型）      {#publishing-services-service-types}
+
+对一些应用的某些部分（如前端），可能希望将其暴露给 Kubernetes 集群外部的 IP 地址。
+
+Kubernetes `ServiceTypes` 允许指定你所需要的 Service 类型。
+
+可用的 `type` 值及其行为有：
+
+<!--
+[`ClusterIP`](#type-clusterip)
+: Exposes the Service on a cluster-internal IP. Choosing this value
+  makes the Service only reachable from within the cluster. This is the
+  default that is used if you don't explicitly specify a `type` for a Service.
+  You can expose the Service to the public internet using an [Ingress](/docs/concepts/services-networking/ingress/) or a
+  [Gateway](https://gateway-api.sigs.k8s.io/).
+
+[`NodePort`](#type-nodeport)
+: Exposes the Service on each Node's IP at a static port (the `NodePort`).
+  To make the node port available, Kubernetes sets up a cluster IP address,
+  the same as if you had requested a Service of `type: ClusterIP`.
+-->
+`ClusterIP`
+: 通过集群的内部 IP 暴露服务，选择该值时服务只能够在集群内部访问。
+  这也是你没有为服务显式指定 `type` 时使用的默认值。
+  你可以使用 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)
+  或者 [Gateway API](https://gateway-api.sigs.k8s.io/) 向公众暴露服务。
+
+[`NodePort`](#type-nodeport)
+: 通过每个节点上的 IP 和静态端口（`NodePort`）暴露服务。
+  为了让节点端口可用，Kubernetes 设置了集群 IP 地址，这等同于你请求 `type: ClusterIP` 的服务。
+
+<!--
+[`LoadBalancer`](#loadbalancer)
+: Exposes the Service externally using an external load balancer. Kubernetes
+  does not directly offer a load balancing component; you must provide one, or
+  you can integrate your Kubernetes cluster with a cloud provider.
+
+[`ExternalName`](#externalname)
+: Maps the Service to the contents of the `externalName` field (for example,
+  to the hostname `api.foo.bar.example`). The mapping configures your cluster's
+  DNS server to return a `CNAME` record with that external hostname value.
+  No proxying of any kind is set up.
+-->
+[`LoadBalancer`](#loadbalancer)
+: 使用云提供商的负载均衡器向外部暴露服务。
+  Kubernetes 不直接提供负载均衡组件；你必须提供一个，或者将你的 Kubernetes 集群与云提供商集成。
+
+[`ExternalName`](#externalname)
+: 将服务映射到 `externalName` 字段的内容（例如，映射到主机名 `api.foo.bar.example`）。
+  该映射将集群的 DNS 服务器配置为返回具有该外部主机名值的 `CNAME` 记录。 
+  无需创建任何类型代理。
+
+<!--
+The `type` field in the Service API is designed as nested functionality - each level
+adds to the previous.  This is not strictly required on all cloud providers, but
+the Kubernetes API design for Service requires it anyway.
+-->
+服务 API 中的 `type` 字段被设计为层层递进的形式 - 每个级别都建立在前一个级别基础上。
+并不是所有云提供商都如此严格要求的，但 Kubernetes 的 Service API 设计要求满足这一逻辑。
+
+<!--
+### `type: ClusterIP` {#type-clusterip}
+
+This default Service type assigns an IP address from a pool of IP addresses that
+your cluster has reserved for that purpose.
+
+Several of the other types for Service build on the `ClusterIP` type as a
+foundation.
+
+If you define a Service that has the `.spec.clusterIP` set to `"None"` then
+Kubernetes does not assign an IP address. See [headless Services](#headless-services)
+for more information.
+-->
+### `type: ClusterIP` {#type-clusterip}
+
+此默认服务类型从你的集群中有意预留的 IP 地址池中分配一个 IP 地址。
+
+其他几种服务类型在 `ClusterIP` 类型的基础上进行构建。
+
+如果你定义的服务将 `.spec.clusterIP` 设置为 `"None"`，则 Kubernetes
+不会分配 IP 地址。有关详细信息，请参阅 [headless 服务](#headless-services)。
+
+<!--
+#### Choosing your own IP address
 
 You can specify your own cluster IP address as part of a `Service` creation
 request.  To do this, set the `.spec.clusterIP` field. For example, if you
@@ -641,7 +733,7 @@ The IP address that you choose must be a valid IPv4 or IPv6 address from within 
 If you try to create a Service with an invalid clusterIP address value, the API
 server will return a 422 HTTP status code to indicate that there's a problem.
 -->
-## 选择自己的 IP 地址   {#choosing-your-own-ip-address}
+#### 选择自己的 IP 地址   {#choosing-your-own-ip-address}
 
 在 `Service` 创建的请求中，可以通过设置 `spec.clusterIP` 字段来指定自己的集群 IP 地址。
 比如，希望替换一个已经已存在的 DNS 条目，或者遗留系统已经配置了一个固定的 IP 且很难重新配置。
@@ -651,261 +743,15 @@ server will return a 422 HTTP status code to indicate that there's a problem.
 如果 IP 地址不合法，API 服务器会返回 HTTP 状态码 422，表示值不合法。
 
 <!--
-## Discovering services
-
-Kubernetes supports 2 primary modes of finding a Service - environment
-variables and DNS.
+Read [avoiding collisions](/docs/reference/networking/virtual-ips/#avoiding-collisions)
+to learn how Kubernetes helps reduce the risk and impact of two different Services
+both trying to use the same IP address.
 -->
-## 服务发现  {#discovering-services}
-
-Kubernetes 支持两种基本的服务发现模式 —— 环境变量和 DNS。
+阅读[避免冲突](/zh-cn/docs/reference/networking/virtual-ips/#avoiding-collisions)，
+了解 Kubernetes 如何协助降低两种不同服务试图使用相同 IP 地址的风险和影响。
 
 <!--
-### Environment variables
-
-When a Pod is run on a Node, the kubelet adds a set of environment variables
-for each active Service. It adds `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT` variables,
-where the Service name is upper-cased and dashes are converted to underscores.
-It also supports variables (see [makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72))
-that are compatible with Docker Engine's
-"_[legacy container links](https://docs.docker.com/network/links/)_" feature.
-
-For example, the Service `redis-primary` which exposes TCP port 6379 and has been
-allocated cluster IP address 10.0.0.11, produces the following environment
-variables:
--->
-### 环境变量   {#environment-variables}
-
-当 Pod 运行在 `Node` 上，kubelet 会为每个活跃的 Service 添加一组环境变量。
-kubelet 为 Pod 添加环境变量 `{SVCNAME}_SERVICE_HOST` 和 `{SVCNAME}_SERVICE_PORT`。
-这里 Service 的名称需大写，横线被转换成下划线。
-它还支持与 Docker Engine 的 "**[legacy container links](https://docs.docker.com/network/links/)**" 特性兼容的变量
-（参阅 [makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72)) 。
-
-举个例子，一个名称为 `redis-primary` 的 Service 暴露了 TCP 端口 6379，
-同时给它分配了 Cluster IP 地址 10.0.0.11，这个 Service 生成了如下环境变量：
-
-```shell
-REDIS_PRIMARY_SERVICE_HOST=10.0.0.11
-REDIS_PRIMARY_SERVICE_PORT=6379
-REDIS_PRIMARY_PORT=tcp://10.0.0.11:6379
-REDIS_PRIMARY_PORT_6379_TCP=tcp://10.0.0.11:6379
-REDIS_PRIMARY_PORT_6379_TCP_PROTO=tcp
-REDIS_PRIMARY_PORT_6379_TCP_PORT=6379
-REDIS_PRIMARY_PORT_6379_TCP_ADDR=10.0.0.11
-```
-
-{{< note >}}
-<!--
-When you have a Pod that needs to access a Service, and you are using
-the environment variable method to publish the port and cluster IP to the client
-Pods, you must create the Service *before* the client Pods come into existence.
-Otherwise, those client Pods won't have their environment variables populated.
-
-If you only use DNS to discover the cluster IP for a Service, you don't need to
-worry about this ordering issue.
--->
-当你具有需要访问服务的 Pod 时，并且你正在使用环境变量方法将端口和集群 IP 发布到客户端
-Pod 时，必须在客户端 Pod 出现 **之前** 创建服务。
-否则，这些客户端 Pod 将不会设定其环境变量。
-
-如果仅使用 DNS 查找服务的集群 IP，则无需担心此设定问题。
-{{< /note >}}
-
-### DNS
-
-<!--
-You can (and almost always should) set up a DNS service for your Kubernetes
-cluster using an [add-on](/docs/concepts/cluster-administration/addons/).
-
-A cluster-aware DNS server, such as CoreDNS, watches the Kubernetes API for new
-Services and creates a set of DNS records for each one.  If DNS has been enabled
-throughout your cluster then all Pods should automatically be able to resolve
-Services by their DNS name.
--->
-你可以（几乎总是应该）使用[附加组件](/zh-cn/docs/concepts/cluster-administration/addons/)
-为 Kubernetes 集群设置 DNS 服务。
-
-支持集群的 DNS 服务器（例如 CoreDNS）监视 Kubernetes API 中的新服务，并为每个服务创建一组 DNS 记录。
-如果在整个集群中都启用了 DNS，则所有 Pod 都应该能够通过其 DNS 名称自动解析服务。
-
-<!--
-For example, if you have a Service called `my-service` in a Kubernetes
-namespace `my-ns`, the control plane and the DNS Service acting together
-create a DNS record for `my-service.my-ns`. Pods in the `my-ns` namespace
-should be able to find the service by doing a name lookup for `my-service`
-(`my-service.my-ns` would also work).
-
-Pods in other namespaces must qualify the name as `my-service.my-ns`. These names
-will resolve to the cluster IP assigned for the Service.
--->
-例如，如果你在 Kubernetes 命名空间 `my-ns` 中有一个名为 `my-service` 的服务，
-则控制平面和 DNS 服务共同为 `my-service.my-ns` 创建 DNS 记录。
-`my-ns` 命名空间中的 Pod 应该能够通过按名检索 `my-service` 来找到服务
-（`my-service.my-ns` 也可以工作）。
-
-其他命名空间中的 Pod 必须将名称限定为 `my-service.my-ns`。
-这些名称将解析为为服务分配的集群 IP。
-
-<!--
-Kubernetes also supports DNS SRV (Service) records for named ports.  If the
-`my-service.my-ns` Service has a port named `http` with the protocol set to
-`TCP`, you can do a DNS SRV query for `_http._tcp.my-service.my-ns` to discover
-the port number for `http`, as well as the IP address.
-
-The Kubernetes DNS server is the only way to access `ExternalName` Services.
-You can find more information about `ExternalName` resolution in
-[DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/).
--->
-Kubernetes 还支持命名端口的 DNS SRV（服务）记录。
-如果 `my-service.my-ns` 服务具有名为 `http`　的端口，且协议设置为 TCP，
-则可以对 `_http._tcp.my-service.my-ns` 执行 DNS SRV 查询以发现该端口号、`"http"` 以及 IP 地址。
-
-Kubernetes DNS 服务器是唯一的一种能够访问 `ExternalName` 类型的 Service 的方式。
-更多关于 `ExternalName` 解析的信息可以查看
-[Service 与 Pod 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
-
-<!--
-## Headless Services  {#headless-services}
-
-Sometimes you don't need load-balancing and a single Service IP.  In
-this case, you can create what are termed "headless" Services, by explicitly
-specifying `"None"` for the cluster IP (`.spec.clusterIP`).
-
-You can use a headless Service to interface with other service discovery mechanisms,
-without being tied to Kubernetes' implementation.
-
-For headless `Services`, a cluster IP is not allocated, kube-proxy does not handle
-these Services, and there is no load balancing or proxying done by the platform
-for them. How DNS is automatically configured depends on whether the Service has
-selectors defined:
--->
-## 无头服务（Headless Services）  {#headless-services}
-
-有时不需要或不想要负载均衡，以及单独的 Service IP。
-遇到这种情况，可以通过指定 Cluster IP（`spec.clusterIP`）的值为 `"None"`
-来创建 `Headless` Service。
-
-你可以使用一个无头 Service 与其他服务发现机制进行接口，而不必与 Kubernetes 的实现捆绑在一起。
-
-对于无头 `Services` 并不会分配 Cluster IP，kube-proxy 不会处理它们，
-而且平台也不会为它们进行负载均衡和路由。
-DNS 如何实现自动配置，依赖于 Service 是否定义了选择算符。
-
-<!--
-### With selectors
-
-For headless Services that define selectors, the Kubernetes control plane creates
-EndpointSlice objects in the Kubernetes API, and modifies the DNS configuration to return
-A or AAAA records (IPv4 or IPv6 addresses) that point directly to the Pods backing
-the Service.
--->
-### 带选择算符的服务 {#with-selectors}
-
-对定义了选择算符的无头服务，Kubernetes 控制平面在 Kubernetes API 中创建 EndpointSlice 对象，
-并且修改 DNS 配置返回 A 或 AAA 条记录（IPv4 或 IPv6 地址），通过这个地址直接到达 `Service` 的后端 Pod 上。
-
-<!--
-### Without selectors
-
-For headless Services that do not define selectors, the control plane does
-not create EndpointSlice objects. However, the DNS system looks for and configures
-either:
-
-* DNS CNAME records for [`type: ExternalName`](#externalname) Services.
-* DNS A / AAAA records for all IP addresses of the Service's ready endpoints,
-  for all Service types other than `ExternalName`.
-  * For IPv4 endpoints, the DNS system creates A records.
-  * For IPv6 endpoints, the DNS system creates AAAA records.
--->
-### 无选择算符的服务  {#without-selectors}
-
-对没有定义选择算符的无头服务，控制平面不会创建 EndpointSlice 对象。
-然而 DNS 系统会查找和配置以下之一：
-
-* 对于 [`type: ExternalName`](#externalname) 服务，查找和配置其 CNAME 记录
-* 对所有其他类型的服务，针对 Service 的就绪端点的所有 IP 地址，查找和配置 DNS A / AAAA 条记录
-  * 对于 IPv4 端点，DNS 系统创建 A 条记录。
-  * 对于 IPv6 端点，DNS 系统创建 AAAA 条记录。
-
-<!--
-## Publishing Services (ServiceTypes) {#publishing-services-service-types}
-
-For some parts of your application (for example, frontends) you may want to expose a
-Service onto an external IP address, that's outside of your cluster.
-
-Kubernetes `ServiceTypes` allow you to specify what kind of Service you want.
-
-`Type` values and their behaviors are:
--->
-## 发布服务（服务类型）      {#publishing-services-service-types}
-
-对一些应用的某些部分（如前端），可能希望将其暴露给 Kubernetes 集群外部的 IP 地址。
-
-Kubernetes `ServiceTypes` 允许指定你所需要的 Service 类型。
-
-`Type` 的取值以及行为如下：
-
-<!--
-* `ClusterIP`: Exposes the Service on a cluster-internal IP. Choosing this value
-  makes the Service only reachable from within the cluster. This is the
-  default that is used if you don't explicitly specify a `type` for a Service.
-  You can expose the service to the public with an [Ingress](/docs/concepts/services-networking/ingress/) or the
-  [Gateway API](https://gateway-api.sigs.k8s.io/).
-* [`NodePort`](#type-nodeport): Exposes the Service on each Node's IP at a static port
-  (the `NodePort`).
-  To make the node port available, Kubernetes sets up a cluster IP address,
-  the same as if you had requested a Service of `type: ClusterIP`.
-* [`LoadBalancer`](#loadbalancer): Exposes the Service externally using a cloud
-  provider's load balancer.
-* [`ExternalName`](#externalname): Maps the Service to the contents of the
-  `externalName` field (e.g. `foo.bar.example.com`), by returning a `CNAME` record
-  with its value. No proxying of any kind is set up.
--->
-* `ClusterIP`：通过集群的内部 IP 暴露服务，选择该值时服务只能够在集群内部访问。
-  这也是你没有为服务显式指定 `type` 时使用的默认值。
-  你可以使用 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/)
-  或者 [Gateway API](https://gateway-api.sigs.k8s.io/) 向公众暴露服务。
-* [`NodePort`](#type-nodeport)：通过每个节点上的 IP 和静态端口（`NodePort`）暴露服务。
-  为了让节点端口可用，Kubernetes 设置了集群 IP 地址，这等同于你请求 `type: ClusterIP` 的服务。
-* [`LoadBalancer`](#loadbalancer)：使用云提供商的负载均衡器向外部暴露服务。
-  外部负载均衡器可以将流量路由到自动创建的 `NodePort` 服务和 `ClusterIP` 服务上。
-* [`ExternalName`](#externalname)：通过返回 `CNAME` 记录和对应值，可以将服务映射到
-  `externalName` 字段的内容（例如，`foo.bar.example.com`）。
-  无需创建任何类型代理。
-
-  {{< note >}}
-  <!--
-  You need either `kube-dns` version 1.7 or CoreDNS version 0.0.8 or higher
-  to use the `ExternalName` type.
-  -->
-  你需要使用 kube-dns 1.7 及以上版本或者 CoreDNS 0.0.8 及以上版本才能使用 `ExternalName` 类型。
-  {{< /note >}}
-
-<!--
-The `type` field was designed as nested functionality - each level adds to the
-previous.  This is not strictly required on all cloud providers (for example: Google
-Compute Engine does not need to allocate a node port to make `type: LoadBalancer` work,
-but another cloud provider integration might do). Although strict nesting is not required,
-but the Kubernetes API design for Service requires it anyway.
--->
-`type` 字段被设计为嵌套功能 - 每个级别都添加到前一个级别。
-这并不是所有云提供商都严格要求的（例如：Google Compute Engine
-不需要分配节点端口来使 `type: LoadBalancer` 工作，但另一个云提供商集成可能会这样做）。
-虽然不需要严格的嵌套，但是 Service 的 Kubernetes API 设计无论如何都需要它。
-
-<!--
-You can also use [Ingress](/docs/concepts/services-networking/ingress/) to expose your Service.
-Ingress is not a Service type, but it acts as the entry point for your cluster.
-It lets you consolidate your routing rules into a single resource as it can expose multiple
-services under the same IP address.
--->
-你也可以使用 [Ingress](/zh-cn/docs/concepts/services-networking/ingress/) 来暴露自己的服务。
-Ingress 不是一种服务类型，但它充当集群的入口点。
-它可以将路由规则整合到一个资源中，因为它可以在同一 IP 地址下公开多个服务。
-
-<!--
-### Type NodePort {#type-nodeport}
+### `type: NodePort` {#type-nodeport}
 
 If you set the `type` field to `NodePort`, the Kubernetes control plane
 allocates a port from a range specified by `--service-node-port-range` flag (default: 30000-32767).
@@ -916,7 +762,7 @@ Using a NodePort gives you the freedom to set up your own load balancing solutio
 to configure environments that are not fully supported by Kubernetes, or even
 to expose one or more nodes' IP addresses directly.
 -->
-### NodePort 类型  {#type-nodeport}
+### `type: NodePort`  {#type-nodeport}
 
 如果你将 `type` 字段设置为 `NodePort`，则 Kubernetes 控制平面将在
 `--service-node-port-range` 标志指定的范围内分配端口（默认值：30000-32767）。
@@ -951,7 +797,7 @@ You also have to use a valid port number, one that's inside the range configured
 for NodePort use.
 
 Here is an example manifest for a Service of `type: NodePort` that specifies
-a NodePort value (30007, in this example).
+a NodePort value (30007, in this example):
 -->
 #### 选择你自己的端口   {#nodeport-custom-port}
 
@@ -960,7 +806,7 @@ a NodePort value (30007, in this example).
 这意味着你需要自己注意可能发生的端口冲突。
 你还必须使用有效的端口号，该端口号在配置用于 NodePort 的范围内。
 
-以下是 `type: NodePort` 服务的一个示例清单，它指定了一个 NodePort 值（在本例中为 30007）。
+以下是 `type: NodePort` 服务的一个示例清单，它指定了一个 NodePort 值（在本例中为 30007）：
 
 ```yaml
 apiVersion: v1
@@ -1035,7 +881,7 @@ in the kube-proxy configuration file is set, `<NodeIP>` would be a filtered node
 {{< /note >}}
 
 <!--
-### Type LoadBalancer {#loadbalancer}
+### `type: LoadBalancer` {#loadbalancer}
 
 On cloud providers which support external load balancers, setting the `type`
 field to `LoadBalancer` provisions a load balancer for your Service.
@@ -1044,7 +890,7 @@ information about the provisioned balancer is published in the Service's
 `.status.loadBalancer` field.
 For example:
 -->
-### LoadBalancer 类型  {#loadbalancer}
+### `type: LoadBalancer`  {#loadbalancer}
 
 在使用支持外部负载均衡器的云提供商的服务时，设置 `type` 的值为 `"LoadBalancer"`，
 将为 Service 提供负载均衡器。
@@ -1074,16 +920,16 @@ status:
 ```
 
 <!--
-Traffic from the external load balancer is directed at the backend Pods.
-The cloud provider decides how it is load balanced.
+Traffic from the external load balancer is directed at the backend Pods. The cloud
+provider decides how it is load balanced.
 -->
-来自外部负载均衡器的流量将直接重定向到后端 Pod 上，不过实际它们是如何工作的，这要依赖于云提供商。
+来自外部负载均衡器的流量将直接重定向到后端 Pod 上，由云提供商决定如何进行负载平衡。
 
 <!--
 To implement a Service of `type: LoadBalancer`, Kubernetes typically starts off
 by making the changes that are equivalent to you requesting a Service of
-`type: NodePort`. The cloud-controller-manager component then configures the external load balancer to
-forward traffic to that assigned node port.
+`type: NodePort`. The cloud-controller-manager component then configures the external
+load balancer to forward traffic to that assigned node port.
 
 You can configure a load balanced Service to
 [omit](#load-balancer-nodeport-allocation) assigning a node port, provided that the
@@ -1098,7 +944,7 @@ cloud-controller-manager 组件随后配置外部负载均衡器以将流量转�
 <!--
 Some cloud providers allow you to specify the `loadBalancerIP`. In those cases, the load-balancer is created
 with the user-specified `loadBalancerIP`. If the `loadBalancerIP` field is not specified,
-the loadBalancer is set up with an ephemeral IP address. If you specify a `loadBalancerIP`
+the load Balancer is set up with an ephemeral IP address. If you specify a `loadBalancerIP`
 but your cloud provider does not support the feature, the `loadbalancerIP` field that you
 set is ignored.
 -->
@@ -1159,11 +1005,12 @@ different protocols for LoadBalancer type of Services, when there is more than o
 
 {{< note >}}
 <!--
-The set of protocols that can be used for LoadBalancer type of Services is still defined by the cloud provider. If a
-cloud provider does not support mixed protocols they will provide only a single protocol.
+The set of protocols that can be used for load balanced Services is defined by your
+cloud provider; they may impose restrictions beyond what the Kubernetes API enforces.
 -->
-可用于 LoadBalancer 类型服务的协议集仍然由云提供商决定。
-如果云提供商不支持混合协议，他们将只提供单一协议。
+可用于负载均衡服务的协议集由你的云提供商决定，他们可能在
+Kubernetes API 强制执行的限制之外另加一些约束。
+
 {{< /note >}}
 
 <!--
@@ -1174,7 +1021,7 @@ cloud provider does not support mixed protocols they will provide only a single 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 <!--
-You can optionally disable node port allocation for a Service of `type=LoadBalancer`, by setting
+You can optionally disable node port allocation for a Service of `type: LoadBalancer`, by setting
 the field `spec.allocateLoadBalancerNodePorts` to `false`. This should only be used for load balancer implementations
 that route traffic directly to pods as opposed to using node ports. By default, `spec.allocateLoadBalancerNodePorts`
 is `true` and type LoadBalancer Services will continue to allocate node ports. If `spec.allocateLoadBalancerNodePorts`
@@ -1198,20 +1045,30 @@ LoadBalancer 类型的服务继续分配节点端口。
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
 
 <!--
-`spec.loadBalancerClass` enables you to use a load balancer implementation other than the cloud provider default.
-By default, `spec.loadBalancerClass` is `nil` and a `LoadBalancer` type of Service uses
-the cloud provider's default load balancer implementation if the cluster is configured with
-a cloud provider using the `--cloud-provider` component flag.
-If `spec.loadBalancerClass` is specified, it is assumed that a load balancer
+For a Service with `type` set to `LoadBalancer`, the `.spec.loadBalancerClass` field
+enables you to use a load balancer implementation other than the cloud provider default.
+
+By default, `.spec.loadBalancerClass` is not set and a `LoadBalancer`
+type of Service uses the cloud provider's default load balancer implementation if the
+cluster is configured with a cloud provider using the `--cloud-provider` component
+flag.
+-->
+对于 `type` 设置为 `LoadBalancer` 的 Service，
+`spec.loadBalancerClass` 字段允许你不使用云提供商的默认负载均衡器实现，
+转而使用指定的负载均衡器实现。
+
+默认情况下，`.spec.loadBalancerClass` 未设置，如果集群使用 `--cloud-provider` 配置了云提供商，
+`LoadBalancer` 类型服务会使用云提供商的默认负载均衡器实现。
+
+<!--
+If you specify `.spec.loadBalancerClass`, it is assumed that a load balancer
 implementation that matches the specified class is watching for Services.
 Any default load balancer implementation (for example, the one provided by
 the cloud provider) will ignore Services that have this field set.
 `spec.loadBalancerClass` can be set on a Service of type `LoadBalancer` only.
 Once set, it cannot be changed.
 -->
-`spec.loadBalancerClass` 允许你不使用云提供商的默认负载均衡器实现，转而使用指定的负载均衡器实现。
-默认情况下，`.spec.loadBalancerClass` 的取值是 `nil`，如果集群使用 `--cloud-provider` 配置了云提供商，
-`LoadBalancer` 类型服务会使用云提供商的默认负载均衡器实现。
+
 如果设置了 `.spec.loadBalancerClass`，则假定存在某个与所指定的类相匹配的负载均衡器实现在监视服务变化。
 所有默认的负载均衡器实现（例如，由云提供商所提供的）都会忽略设置了此字段的服务。`.spec.loadBalancerClass`
 只能设置到类型为 `LoadBalancer` 的 Service 之上，而且一旦设置之后不可变更。
@@ -1259,7 +1116,7 @@ Select one of the tabs.
 metadata:
     name: my-service
     annotations:
-        cloud.google.com/load-balancer-type: "Internal"
+        networking.gke.io/load-balancer-type: "Internal"
 [...]
 ```
 
@@ -1363,462 +1220,7 @@ metadata:
 {{< /tabs >}}
 
 <!--
-#### TLS support on AWS {#ssl-support-on-aws}
-
-For partial TLS / SSL support on clusters running on AWS, you can add three
-annotations to a `LoadBalancer` service:
--->
-### AWS TLS 支持 {#ssl-support-on-aws}
-
-为了对在 AWS 上运行的集群提供 TLS/SSL 部分支持，你可以向 `LoadBalancer`
-服务添加三个注解：
-
-```yaml
-metadata:
-  name: my-service
-  annotations:
-    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-1:123456789012:certificate/12345678-1234-1234-1234-123456789012
-```
-
-<!--
-The first specifies the ARN of the certificate to use. It can be either a
-certificate from a third party issuer that was uploaded to IAM or one created
-within AWS Certificate Manager.
--->
-第一个指定要使用的证书的 ARN。 它可以是已上载到 IAM 的第三方颁发者的证书，
-也可以是在 AWS Certificate Manager 中创建的证书。
-
-```yaml
-metadata:
-  name: my-service
-  annotations:
-    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: (https|http|ssl|tcp)
-```
-
-<!--
-The second annotation specifies which protocol a Pod speaks. For HTTPS and
-SSL, the ELB expects the Pod to authenticate itself over the encrypted
-connection, using a certificate.
-
-HTTP and HTTPS selects layer 7 proxying: the ELB terminates
-the connection with the user, parses headers, and injects the `X-Forwarded-For`
-header with the user's IP address (Pods only see the IP address of the
-ELB at the other end of its connection) when forwarding requests.
-
-TCP and SSL selects layer 4 proxying: the ELB forwards traffic without
-modifying the headers.
-
-In a mixed-use environment where some ports are secured and others are left unencrypted,
-you can use the following annotations:
--->
-第二个注解指定 Pod 使用哪种协议。对于 HTTPS 和 SSL，ELB 希望 Pod
-使用证书通过加密连接对自己进行身份验证。
-
-HTTP 和 HTTPS 选择第 7 层代理：ELB 终止与用户的连接，解析标头，并在转发请求时向
-`X-Forwarded-For` 标头注入用户的 IP 地址（Pod 仅在连接的另一端看到 ELB 的 IP 地址）。
-
-TCP 和 SSL 选择第 4 层代理：ELB 转发流量而不修改报头。
-
-在某些端口处于安全状态而其他端口未加密的混合使用环境中，可以使用以下注解：
-
-```yaml
-    metadata:
-      name: my-service
-      annotations:
-        service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
-        service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443,8443"
-```
-
-<!--
-In the above example, if the Service contained three ports, `80`, `443`, and
-`8443`, then `443` and `8443` would use the SSL certificate, but `80` would be proxied HTTP.
-
-From Kubernetes v1.9 onwards you can use
-[predefined AWS SSL policies](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html)
-with HTTPS or SSL listeners for your Services.
-To see which policies are available for use, you can use the `aws` command line tool:
--->
-在上例中，如果服务包含 `80`、`443` 和 `8443` 三个端口， 那么 `443` 和 `8443` 将使用 SSL 证书，
-而 `80` 端口将转发 HTTP 数据包。
-
-从 Kubernetes v1.9 起可以使用
-[预定义的 AWS SSL 策略](https://docs.aws.amazon.com/zh_cn/elasticloadbalancing/latest/classic/elb-security-policy-table.html)
-为你的服务使用 HTTPS 或 SSL 侦听器。
-要查看可以使用哪些策略，可以使用 `aws` 命令行工具：
-
-```bash
-aws elb describe-load-balancer-policies --query 'PolicyDescriptions[].PolicyName'
-```
-
-<!--
-You can then specify any one of those policies using the
-"`service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy`"
-annotation; for example:
--->
-然后，你可以使用 "`service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy`"
-注解；例如：
-
-```yaml
-    metadata:
-      name: my-service
-      annotations:
-        service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy: "ELBSecurityPolicy-TLS-1-2-2017-01"
-```
-
-<!--
-#### PROXY protocol support on AWS
-
-To enable [PROXY protocol](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)
-support for clusters running on AWS, you can use the following service
-annotation:
--->
-#### AWS 上的 PROXY 协议支持
-
-为了支持在 AWS 上运行的集群，启用
-[PROXY 协议](https://www.haproxy.org/download/1.8/doc/proxy-protocol.txt)。
-你可以使用以下服务注解：
-
-```yaml
-    metadata:
-      name: my-service
-      annotations:
-        service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
-```
-
-<!--
-Since version 1.3.0, the use of this annotation applies to all ports proxied by the ELB
-and cannot be configured otherwise.
--->
-从 1.3.0 版开始，此注解的使用适用于 ELB 代理的所有端口，并且不能进行其他配置。
-
-<!--
-#### ELB Access Logs on AWS
-
-There are several annotations to manage access logs for ELB Services on AWS.
-
-The annotation `service.beta.kubernetes.io/aws-load-balancer-access-log-enabled`
-controls whether access logs are enabled.
-
-The annotation `service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval`
-controls the interval in minutes for publishing the access logs. You can specify
-an interval of either 5 or 60 minutes.
-
-The annotation `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name`
-controls the name of the Amazon S3 bucket where load balancer access logs are
-stored.
-
-The annotation `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix`
-specifies the logical hierarchy you created for your Amazon S3 bucket.
--->
-#### AWS 上的 ELB 访问日志
-
-有几个注解可用于管理 AWS 上 ELB 服务的访问日志。
-
-注解 `service.beta.kubernetes.io/aws-load-balancer-access-log-enabled` 控制是否启用访问日志。
-
-注解 `service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval`
-控制发布访问日志的时间间隔（以分钟为单位）。你可以指定 5 分钟或 60 分钟的间隔。
-
-注解 `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name`
-控制存储负载均衡器访问日志的 Amazon S3 存储桶的名称。
-
-注解 `service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix`
-指定为 Amazon S3 存储桶创建的逻辑层次结构。
-
-<!--
-```yaml
-    metadata:
-      name: my-service
-      annotations:
-        # Specifies whether access logs are enabled for the load balancer
-        service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: "true"
-
-        # The interval for publishing the access logs. You can specify an interval of either 5 or 60 (minutes).
-        service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval: "60"
-
-        # The name of the Amazon S3 bucket where the access logs are stored
-        service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name: "my-bucket"
-
-        # The logical hierarchy you created for your Amazon S3 bucket, for example `my-bucket-prefix/prod`
-        service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix: "my-bucket-prefix/prod"
-```
--->
-```yaml
-    metadata:
-      name: my-service
-      annotations:
-        # 指定是否为负载均衡器启用访问日志
-        service.beta.kubernetes.io/aws-load-balancer-access-log-enabled: "true"
-        # 发布访问日志的时间间隔。你可以将其设置为 5 分钟或 60 分钟。
-        service.beta.kubernetes.io/aws-load-balancer-access-log-emit-interval: "60"
-        # 用来存放访问日志的 Amazon S3 Bucket 名称
-        service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-name: "my-bucket"
-        # 你为 Amazon S3 Bucket 所创建的逻辑层次结构，例如 `my-bucket-prefix/prod`
-        service.beta.kubernetes.io/aws-load-balancer-access-log-s3-bucket-prefix: "my-bucket-prefix/prod"
-```
-
-<!--
-#### Connection Draining on AWS
-
-Connection draining for Classic ELBs can be managed with the annotation
-`service.beta.kubernetes.io/aws-load-balancer-connection-draining-enabled` set
-to the value of `"true"`. The annotation
-`service.beta.kubernetes.io/aws-load-balancer-connection-draining-timeout` can
-also be used to set maximum time, in seconds, to keep the existing connections open before
-deregistering the instances.
--->
-#### AWS 上的连接排空
-
-可以将注解 `service.beta.kubernetes.io/aws-load-balancer-connection-draining-enabled`
-设置为 `"true"` 来管理 ELB 的连接排空。
-注解 `service.beta.kubernetes.io/aws-load-balancer-connection-draining-timeout`
-也可以用于设置最大时间（以秒为单位），以保持现有连接在注销实例之前保持打开状态。
-
-```yaml
-    metadata:
-      name: my-service
-      annotations:
-        service.beta.kubernetes.io/aws-load-balancer-connection-draining-enabled: "true"
-        service.beta.kubernetes.io/aws-load-balancer-connection-draining-timeout: "60"
-```
-
-<!--
-#### Other ELB annotations
-
-There are other annotations to manage Classic Elastic Load Balancers that are described below.
--->
-#### 其他 ELB 注解
-
-还有其他一些注解，用于管理经典弹性负载均衡器，如下所述。
-
-<!--
-```yaml
-    metadata:
-      name: my-service
-      annotations:
-        # The time, in seconds, that the connection is allowed to be idle (no data has been sent
-        # over the connection) before it is closed by the load balancer
-        service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "60"
-
-        # Specifies whether cross-zone load balancing is enabled for the load balancer
-        service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
-
-        # A comma-separated list of key-value pairs which will be recorded as
-        # additional tags in the ELB.
-        service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: "environment=prod,owner=devops"
-
-        # The number of successive successful health checks required for a backend to
-        # be considered healthy for traffic. Defaults to 2, must be between 2 and 10
-        service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold: ""
-
-        # The number of unsuccessful health checks required for a backend to be
-        # considered unhealthy for traffic. Defaults to 6, must be between 2 and 10
-        service.beta.kubernetes.io/aws-load-balancer-healthcheck-unhealthy-threshold: "3"
-
-        # The approximate interval, in seconds, between health checks of an
-        # individual instance. Defaults to 10, must be between 5 and 300
-        service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval: "20"
-
-        # The amount of time, in seconds, during which no response means a failed
-        # health check. This value must be less than the service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval
-        # value. Defaults to 5, must be between 2 and 60
-        service.beta.kubernetes.io/aws-load-balancer-healthcheck-timeout: "5"
-
-        # A list of existing security groups to be configured on the ELB created. Unlike the annotation
-        # service.beta.kubernetes.io/aws-load-balancer-extra-security-groups, this replaces all other
-        # security groups previously assigned to the ELB and also overrides the creation
-        # of a uniquely generated security group for this ELB.
-        # The first security group ID on this list is used as a source to permit incoming traffic to
-        # target worker nodes (service traffic and health checks).
-        # If multiple ELBs are configured with the same security group ID, only a single permit line
-        # will be added to the worker node security groups, that means if you delete any
-        # of those ELBs it will remove the single permit line and block access for all ELBs that shared the same security group ID.
-        # This can cause a cross-service outage if not used properly
-        service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f"
-
-        # A list of additional security groups to be added to the created ELB, this leaves the uniquely
-        # generated security group in place, this ensures that every ELB
-        # has a unique security group ID and a matching permit line to allow traffic to the target worker nodes
-        # (service traffic and health checks).
-        # Security groups defined here can be shared between services.
-        service.beta.kubernetes.io/aws-load-balancer-extra-security-groups: "sg-53fae93f,sg-42efd82e"
-
-        # A comma separated list of key-value pairs which are used
-        # to select the target nodes for the load balancer
-        service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "ingress-gw,gw-name=public-api"
-```
--->
-```yaml
-    metadata:
-      name: my-service
-      annotations:
-        # 按秒计的时间，表示负载均衡器关闭连接之前连接可以保持空闲
-        # （连接上无数据传输）的时间长度
-        service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "60"
-
-        # 指定该负载均衡器上是否启用跨区的负载均衡能力
-        service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
-
-        # 逗号分隔列表值，每一项都是一个键-值耦对，会作为额外的标签记录于 ELB 中
-        service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: "environment=prod,owner=devops"
-
-        # 将某后端视为健康、可接收请求之前需要达到的连续成功健康检查次数。
-        # 默认为 2，必须介于 2 和 10 之间
-        service.beta.kubernetes.io/aws-load-balancer-healthcheck-healthy-threshold: ""
-
-        # 将某后端视为不健康、不可接收请求之前需要达到的连续不成功健康检查次数。
-        # 默认为 6，必须介于 2 和 10 之间
-        service.beta.kubernetes.io/aws-load-balancer-healthcheck-unhealthy-threshold: "3"
-
-        # 对每个实例进行健康检查时，连续两次检查之间的大致间隔秒数
-        # 默认为 10，必须介于 5 和 300 之间
-        service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval: "20"
-
-        # 时长秒数，在此期间没有响应意味着健康检查失败
-        # 此值必须小于 service.beta.kubernetes.io/aws-load-balancer-healthcheck-interval
-        # 默认值为 5，必须介于 2 和 60 之间
-        service.beta.kubernetes.io/aws-load-balancer-healthcheck-timeout: "5"
-
-        # 由已有的安全组所构成的列表，可以配置到所创建的 ELB 之上。
-        # 与注解 service.beta.kubernetes.io/aws-load-balancer-extra-security-groups 不同，
-        # 这一设置会替代掉之前指定给该 ELB 的所有其他安全组，也会覆盖掉为此
-        # ELB 所唯一创建的安全组。
-        # 此列表中的第一个安全组 ID 被用来作为决策源，以允许入站流量流入目标工作节点
-        # (包括服务流量和健康检查）。
-        # 如果多个 ELB 配置了相同的安全组 ID，为工作节点安全组添加的允许规则行只有一个，
-        # 这意味着如果你删除了这些 ELB 中的任何一个，都会导致该规则记录被删除，
-        # 以至于所有共享该安全组 ID 的其他 ELB 都无法访问该节点。
-        # 此注解如果使用不当，会导致跨服务的不可用状况。
-        service.beta.kubernetes.io/aws-load-balancer-security-groups: "sg-53fae93f"
-
-        # 额外的安全组列表，将被添加到所创建的 ELB 之上。
-        # 添加时，会保留为 ELB 所专门创建的安全组。
-        # 这样会确保每个 ELB 都有一个唯一的安全组 ID 和与之对应的允许规则记录，
-        # 允许请求（服务流量和健康检查）发送到目标工作节点。
-        # 这里顶一个安全组可以被多个服务共享。
-        service.beta.kubernetes.io/aws-load-balancer-extra-security-groups: "sg-53fae93f,sg-42efd82e"
-
-        # 用逗号分隔的一个键-值偶对列表，用来为负载均衡器选择目标节点
-        service.beta.kubernetes.io/aws-load-balancer-target-node-labels: "ingress-gw,gw-name=public-api"
-```
-
-<!--
-#### Network Load Balancer support on AWS {#aws-nlb-support}
--->
-#### AWS 上网络负载均衡器支持 {#aws-nlb-support}
-
-{{< feature-state for_k8s_version="v1.15" state="beta" >}}
-
-<!--
-To use a Network Load Balancer on AWS, use the annotation `service.beta.kubernetes.io/aws-load-balancer-type` with the value set to `nlb`.
--->
-要在 AWS 上使用网络负载均衡器，可以使用注解
-`service.beta.kubernetes.io/aws-load-balancer-type`，将其取值设为 `nlb`。
-
-```yaml
-    metadata:
-      name: my-service
-      annotations:
-        service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
-```
-
-{{< note >}}
-<!--
-NLB only works with certain instance classes; see the
-[AWS documentation](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-register-targets.html#register-deregister-targets)
-on Elastic Load Balancing for a list of supported instance types.
--->
-NLB 仅适用于某些实例类。有关受支持的实例类型的列表，
-请参见
-[AWS 文档](https://docs.aws.amazon.com/zh_cn/elasticloadbalancing/latest/network/target-group-register-targets.html#register-deregister-targets)
-中关于所支持的实例类型的 Elastic Load Balancing 说明。
-{{< /note >}}
-
-<!--
-Unlike Classic Elastic Load Balancers, Network Load Balancers (NLBs) forward the
-client's IP address through to the node. If a Service's `.spec.externalTrafficPolicy`
-is set to `Cluster`, the client's IP address is not propagated to the end
-Pods.
-
-By setting `.spec.externalTrafficPolicy` to `Local`, the client IP addresses is
-propagated to the end Pods, but this could result in uneven distribution of
-traffic. Nodes without any Pods for a particular LoadBalancer Service will fail
-the NLB Target Group's health check on the auto-assigned
-`.spec.healthCheckNodePort` and not receive any traffic.
--->
-与经典弹性负载均衡器不同，网络负载均衡器（NLB）将客户端的 IP 地址转发到该节点。
-如果服务的 `.spec.externalTrafficPolicy` 设置为 `Cluster` ，则客户端的 IP 地址不会传达到最终的 Pod。
-
-通过将 `.spec.externalTrafficPolicy` 设置为 `Local`，客户端 IP 地址将传播到最终的 Pod，
-但这可能导致流量分配不均。
-没有针对特定 LoadBalancer 服务的任何 Pod 的节点将无法通过自动分配的
-`.spec.healthCheckNodePort` 进行 NLB 目标组的运行状况检查，并且不会收到任何流量。
-
-<!--
-In order to achieve even traffic, either use a DaemonSet or specify a
-[pod anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
-to not locate on the same node.
-
-You can also use NLB Services with the [internal load balancer](/docs/concepts/services-networking/service/#internal-load-balancer)
-annotation.
-
-In order for client traffic to reach instances behind an NLB, the Node security
-groups are modified with the following IP rules:
--->
-为了获得均衡流量，请使用 DaemonSet 或指定
-[Pod 反亲和性](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
-使其不在同一节点上。
-
-你还可以将 NLB 服务与[内部负载均衡器](/zh-cn/docs/concepts/services-networking/service/#internal-load-balancer)
-注解一起使用。
-
-为了使客户端流量能够到达 NLB 后面的实例，使用以下 IP 规则修改了节点安全组：
-
-<!--
-| Rule | Protocol | Port(s) | IpRange(s) | IpRange Description |
-|------|----------|---------|------------|---------------------|
-| Health Check | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy = Local`) | Subnet CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
-| Client Traffic | TCP | NodePort(s) | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
-| MTU Discovery | ICMP | 3,4 | `.spec.loadBalancerSourceRanges` (defaults to `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
--->
-| 规则 | 协议 | 端口 | IpRange(s) | IpRange 描述 |
-|------|----------|---------|------------|---------------------|
-| Health Check | TCP | NodePort(s) (`.spec.healthCheckNodePort` for `.spec.externalTrafficPolicy = Local`) | Subnet CIDR | kubernetes.io/rule/nlb/health=\<loadBalancerName\> |
-| Client Traffic | TCP | NodePort(s) | `.spec.loadBalancerSourceRanges` (默认值为 `0.0.0.0/0`) | kubernetes.io/rule/nlb/client=\<loadBalancerName\> |
-| MTU Discovery | ICMP | 3,4 | `.spec.loadBalancerSourceRanges` (默认值为 `0.0.0.0/0`) | kubernetes.io/rule/nlb/mtu=\<loadBalancerName\> |
-
-<!--
-In order to limit which client IP's can access the Network Load Balancer,
-specify `loadBalancerSourceRanges`.
--->
-为了限制哪些客户端 IP 可以访问网络负载均衡器，请指定 `loadBalancerSourceRanges`。
-
-```yaml
-spec:
-  loadBalancerSourceRanges:
-    - "143.231.0.0/16"
-```
-
-{{< note >}}
-<!--
-If `.spec.loadBalancerSourceRanges` is not set, Kubernetes
-allows traffic from `0.0.0.0/0` to the Node Security Group(s). If nodes have
-public IP addresses, be aware that non-NLB traffic can also reach all instances
-in those modified security groups.
--->
-如果未设置 `.spec.loadBalancerSourceRanges` ，则 Kubernetes 允许从 `0.0.0.0/0` 到节点安全组的流量。
-如果节点具有公共 IP 地址，请注意，非 NLB 流量也可以到达那些修改后的安全组中的所有实例。
-{{< /note >}}
-
-<!--
-Further documentation on annotations for Elastic IPs and other common use-cases may be found
-in the [AWS Load Balancer Controller documentation](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/).
--->
-有关弹性 IP 注解和更多其他常见用例，
-请参阅[AWS 负载均衡控制器文档](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/)。
-
-<!--
-### Type ExternalName {#externalname}
+### `type: ExternalName` {#externalname}
 
 Services of type ExternalName map a Service to a DNS name, not to a typical selector such as
 `my-service` or `cassandra`. You specify these Services with the `spec.externalName` parameter.
@@ -1847,14 +1249,18 @@ spec:
 
 {{< note >}}
 <!--
-ExternalName accepts an IPv4 address string, but as a DNS name comprised of digits, not as an IP address.
-ExternalNames that resemble IPv4 addresses are not resolved by CoreDNS or ingress-nginx because ExternalName
-is intended to specify a canonical DNS name. To hardcode an IP address, consider using
-[headless Services](#headless-services).
+A Service of `type: ExternalName` accepts an IPv4 address string, but treats that string as a DNS name comprised of digits,
+not as an IP address (the internet does not however allow such names in DNS). Services with external names that resemble IPv4
+addresses are not resolved by DNS servers.
+
+If you want to map a Service directly to a specific IP address, consider using [headless Services](#headless-services).
 -->
-ExternalName 服务接受 IPv4 地址字符串，但作为包含数字的 DNS 名称，而不是 IP 地址。
+`type: ExternalName` 的服务接受 IPv4 地址字符串，但将该字符串视为由数字组成的 DNS 名称，
+而不是 IP 地址（然而，互联网不允许在 DNS 中使用此类名称）。
 类似于 IPv4 地址的外部名称不能由 CoreDNS 或 ingress-nginx 解析，因为外部名称旨在指定规范的 DNS 名称。
-要对 IP 地址进行硬编码，请考虑使用[无头 Services](#headless-services)。
+DNS 服务器不解析类似于 IPv4 地址的外部名称的服务。
+
+如果你想要将服务直接映射到特定的 IP 地址，请考虑使用[无头 Services](#headless-services)。
 {{< /note >}}
 
 <!--
@@ -1871,7 +1277,7 @@ Service's `type`.
 访问 `my-service` 的方式与其他服务的方式相同，但主要区别在于重定向发生在 DNS 级别，而不是通过代理或转发。
 如果以后你决定将数据库移到集群中，则可以启动其 Pod，添加适当的选择算符或端点以及更改服务的 `type`。
 
-{{< warning >}}
+{{< caution >}}
 <!--
 You may have trouble using ExternalName for some common protocols, including HTTP and HTTPS.
 If you use ExternalName then the hostname used by clients inside your cluster is different from
@@ -1887,37 +1293,275 @@ TLS servers will not be able to provide a certificate matching the hostname that
 对于使用主机名的协议，此差异可能会导致错误或意外响应。
 HTTP 请求将具有源服务器无法识别的 `Host:` 标头；
 TLS 服务器将无法提供与客户端连接的主机名匹配的证书。
-{{< /warning >}}
+{{< /caution >}}
+
+<!--
+## Headless Services  {#headless-services}
+
+Sometimes you don't need load-balancing and a single Service IP.  In
+this case, you can create what are termed "headless" Services, by explicitly
+specifying `"None"` for the cluster IP (`.spec.clusterIP`).
+
+You can use a headless Service to interface with other service discovery mechanisms,
+without being tied to Kubernetes' implementation.
+
+For headless `Services`, a cluster IP is not allocated, kube-proxy does not handle
+these Services, and there is no load balancing or proxying done by the platform
+for them. How DNS is automatically configured depends on whether the Service has
+selectors defined:
+-->
+## 无头服务（Headless Services）  {#headless-services}
+
+有时不需要或不想要负载均衡，以及单独的 Service IP。
+遇到这种情况，可以通过显式指定 Cluster IP（`spec.clusterIP`）的值为 `"None"`
+来创建 `Headless` Service。
+
+你可以使用一个无头 Service 与其他服务发现机制进行接口，而不必与 Kubernetes 的实现捆绑在一起。
+
+无头 `Services` 不会获得 Cluster IP，kube-proxy 不会处理这类服务，
+而且平台也不会为它们提供负载均衡或路由。
+DNS 如何实现自动配置，依赖于 Service 是否定义了选择算符。
+
+<!--
+### With selectors
+
+For headless Services that define selectors, the Kubernetes control plane creates
+EndpointSlice objects in the Kubernetes API, and modifies the DNS configuration to return
+A or AAAA records (IPv4 or IPv6 addresses) that point directly to the Pods backing
+the Service.
+-->
+### 带选择算符的服务 {#with-selectors}
+
+对定义了选择算符的无头服务，Kubernetes 控制平面在 Kubernetes API 中创建 EndpointSlice 对象，
+并且修改 DNS 配置返回 A 或 AAAA 条记录（IPv4 或 IPv6 地址），这些记录直接指向 `Service` 的后端 Pod 集合。
+
+<!--
+### Without selectors
+
+For headless Services that do not define selectors, the control plane does
+not create EndpointSlice objects. However, the DNS system looks for and configures
+either:
+
+* DNS CNAME records for [`type: ExternalName`](#externalname) Services.
+* DNS A / AAAA records for all IP addresses of the Service's ready endpoints,
+  for all Service types other than `ExternalName`.
+  * For IPv4 endpoints, the DNS system creates A records.
+  * For IPv6 endpoints, the DNS system creates AAAA records.
+
+When you define a headless Service without a selector, the `port` must
+match the `targetPort`.
+-->
+### 无选择算符的服务  {#without-selectors}
+
+对没有定义选择算符的无头服务，控制平面不会创建 EndpointSlice 对象。
+然而 DNS 系统会查找和配置以下之一：
+
+* 对于 [`type: ExternalName`](#externalname) 服务，查找和配置其 CNAME 记录
+* 对所有其他类型的服务，针对 Service 的就绪端点的所有 IP 地址，查找和配置 DNS A / AAAA 条记录
+  * 对于 IPv4 端点，DNS 系统创建 A 条记录。
+  * 对于 IPv6 端点，DNS 系统创建 AAAA 条记录。
+
+当你定义无选择算符的无头服务时，`port` 必须与 `targetPort` 匹配。
+
+<!--
+## Discovering services
+
+For clients running inside your cluster, Kubernetes supports two primary modes of
+finding a Service: environment variables and DNS.
+-->
+## 服务发现  {#discovering-services}
+
+对于在集群内运行的客户端，Kubernetes 支持两种主要的服务发现模式：环境变量和 DNS。
+
+<!--
+### Environment variables
+
+When a Pod is run on a Node, the kubelet adds a set of environment variables
+for each active Service. It adds `{SVCNAME}_SERVICE_HOST` and `{SVCNAME}_SERVICE_PORT` variables,
+where the Service name is upper-cased and dashes are converted to underscores.
+It also supports variables (see [makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72))
+that are compatible with Docker Engine's
+"_[legacy container links](https://docs.docker.com/network/links/)_" feature.
+
+For example, the Service `redis-primary` which exposes TCP port 6379 and has been
+allocated cluster IP address 10.0.0.11, produces the following environment
+variables:
+-->
+### 环境变量   {#environment-variables}
+
+当 Pod 运行在某 Node 上时，kubelet 会为每个活跃的 Service 添加一组环境变量。
+kubelet 为 Pod 添加环境变量 `{SVCNAME}_SERVICE_HOST` 和 `{SVCNAME}_SERVICE_PORT`。
+这里 Service 的名称被转为大写字母，横线被转换成下划线。
+它还支持与 Docker Engine 的 "**[legacy container links](https://docs.docker.com/network/links/)**" 特性兼容的变量
+（参阅 [makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72)) 。
+
+举个例子，一个 Service `redis-primary` 暴露了 TCP 端口 6379，
+同时被分配了 Cluster IP 地址 10.0.0.11，这个 Service 生成的环境变量如下：
+
+```shell
+REDIS_PRIMARY_SERVICE_HOST=10.0.0.11
+REDIS_PRIMARY_SERVICE_PORT=6379
+REDIS_PRIMARY_PORT=tcp://10.0.0.11:6379
+REDIS_PRIMARY_PORT_6379_TCP=tcp://10.0.0.11:6379
+REDIS_PRIMARY_PORT_6379_TCP_PROTO=tcp
+REDIS_PRIMARY_PORT_6379_TCP_PORT=6379
+REDIS_PRIMARY_PORT_6379_TCP_ADDR=10.0.0.11
+```
 
 {{< note >}}
 <!--
-This section is indebted to the [Kubernetes Tips - Part
-1](https://akomljen.com/kubernetes-tips-part-1/) blog post from [Alen Komljen](https://akomljen.com/).
+When you have a Pod that needs to access a Service, and you are using
+the environment variable method to publish the port and cluster IP to the client
+Pods, you must create the Service *before* the client Pods come into existence.
+Otherwise, those client Pods won't have their environment variables populated.
+
+If you only use DNS to discover the cluster IP for a Service, you don't need to
+worry about this ordering issue.
 -->
-有关这部分内容，我们要感谢 [Alen Komljen](https://akomljen.com/) 刊登的
-[Kubernetes Tips - Part1](https://akomljen.com/kubernetes-tips-part-1/) 这篇博文。
+当你的 Pod 需要访问某 Service，并且你在使用环境变量方法将端口和集群 IP 发布到客户端
+Pod 时，必须在客户端 Pod 出现**之前**创建该 Service。
+否则，这些客户端 Pod 中将不会出现对应的环境变量。
+
+如果仅使用 DNS 查找服务的集群 IP，则无需担心此设定问题。
 {{< /note >}}
+
+<!--
+Kubernetes also supports and provides variables that are compatible with Docker
+Engine's "_[legacy container links](https://docs.docker.com/network/links/)_" feature.
+You can read [`makeLinkVariables`](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72)
+to see how this is implemented in Kubernetes.
+-->
+Kubernetes 还支持并提供与 Docker Engine 的
+"**[legacy container links](https://docs.docker.com/network/links/)**"
+兼容的变量。
+你可以阅读 [makeLinkVariables](https://github.com/kubernetes/kubernetes/blob/dd2d12f6dc0e654c15d5db57a5f9f6ba61192726/pkg/kubelet/envvars/envvars.go#L72)
+来了解这是如何在 Kubernetes 中实现的。
+
+### DNS
+
+<!--
+You can (and almost always should) set up a DNS service for your Kubernetes
+cluster using an [add-on](/docs/concepts/cluster-administration/addons/).
+
+A cluster-aware DNS server, such as CoreDNS, watches the Kubernetes API for new
+Services and creates a set of DNS records for each one.  If DNS has been enabled
+throughout your cluster then all Pods should automatically be able to resolve
+Services by their DNS name.
+-->
+你可以（几乎总是应该）使用[附加组件](/zh-cn/docs/concepts/cluster-administration/addons/)
+为 Kubernetes 集群安装 DNS 服务。
+
+支持集群的 DNS 服务器（例如 CoreDNS）监视 Kubernetes API 中的新 Service，并为每个 Service 创建一组 DNS 记录。
+如果在整个集群中都启用了 DNS，则所有 Pod 都应该能够通过 DNS 名称自动解析 Service。
+
+<!--
+For example, if you have a Service called `my-service` in a Kubernetes
+namespace `my-ns`, the control plane and the DNS Service acting together
+create a DNS record for `my-service.my-ns`. Pods in the `my-ns` namespace
+should be able to find the service by doing a name lookup for `my-service`
+(`my-service.my-ns` would also work).
+
+Pods in other namespaces must qualify the name as `my-service.my-ns`. These names
+will resolve to the cluster IP assigned for the Service.
+-->
+例如，如果你在 Kubernetes 命名空间 `my-ns` 中有一个名为 `my-service` 的 Service，
+则控制平面和 DNS 服务共同为 `my-service.my-ns` 创建 DNS 记录。
+名字空间 `my-ns` 中的 Pod 应该能够通过按名检索 `my-service` 来找到服务
+（`my-service.my-ns` 也可以）。
+
+其他名字空间中的 Pod 必须将名称限定为 `my-service.my-ns`。
+这些名称将解析为为服务分配的集群 IP。
+
+<!--
+Kubernetes also supports DNS SRV (Service) records for named ports.  If the
+`my-service.my-ns` Service has a port named `http` with the protocol set to
+`TCP`, you can do a DNS SRV query for `_http._tcp.my-service.my-ns` to discover
+the port number for `http`, as well as the IP address.
+
+The Kubernetes DNS server is the only way to access `ExternalName` Services.
+You can find more information about `ExternalName` resolution in
+[DNS for Services and Pods](/docs/concepts/services-networking/dns-pod-service/).
+-->
+Kubernetes 还支持命名端口的 DNS SRV（Service）记录。
+如果 Service `my-service.my-ns` 具有名为 `http`　的端口，且协议设置为 TCP，
+则可以用 `_http._tcp.my-service.my-ns` 执行 DNS SRV 查询以发现 `http` 的端口号以及 IP 地址。
+
+Kubernetes DNS 服务器是唯一的一种能够访问 `ExternalName` 类型的 Service 的方式。
+更多关于 `ExternalName` 解析的信息可以查看
+[Service 与 Pod 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)。
+
+<!-- preserve existing hyperlinks -->
+<a id="shortcomings" />
+<a id="the-gory-details-of-virtual-ips" />
+<a id="proxy-modes" />
+<a id="proxy-mode-userspace" />
+<a id="proxy-mode-iptables" />
+<a id="proxy-mode-ipvs" />
+<a id="ips-and-vips" />
+
+<!--
+## Virtual IP addressing mechanism
+
+Read [Virtual IPs and Service Proxies](/docs/reference/networking/virtual-ips/) to learn about the
+mechanism Kubernetes provides to expose a Service with a virtual IP address.
+-->
+## 虚拟 IP 寻址机制   {#virtual-ip-addressing-mechanism}
+
+阅读[虚拟 IP 和 Service 代理](/zh-cn/docs/reference/networking/virtual-ips/)以了解
+Kubernetes 提供的使用虚拟 IP 地址公开服务的机制。
+
+<!--
+### Traffic policies
+
+You can set the `.spec.internalTrafficPolicy` and `.spec.externalTrafficPolicy` fields
+to control how Kubernetes routes traffic to healthy (“ready”) backends.
+
+See [Traffic Policies](/docs/reference/networking/virtual-ips/#traffic-policies) for more details.
+-->
+### 流量策略
+
+你可以设置 `.spec.internalTrafficPolicy` 和 `.spec.externalTrafficPolicy`
+字段来控制 Kubernetes 如何将流量路由到健康（“就绪”）的后端。
+
+有关详细信息，请参阅[流量策略](/zh-cn/docs/reference/networking/virtual-ips/#traffic-policies)。
+
+<!--
+## Session stickiness
+
+If you want to make sure that connections from a particular client are passed to
+the same Pod each time, you can configure session affinity based on the client's
+IP address. Read [session affinity](/docs/reference/networking/virtual-ips/#session-affinity)
+to learn more.
+-->
+## 会话的黏性   {#session-stickiness}
+
+如果你想确保来自特定客户端的连接每次都传递到同一个 Pod，你可以配置根据客户端 IP 地址来执行的会话亲和性。
+深入了解可阅读[会话亲和性](/zh-cn/docs/reference/networking/virtual-ips/#session-affinity)。
 
 <!--
 ### External IPs
 
-If there are external IPs that route to one or more cluster nodes, Kubernetes Services can be exposed on those
-`externalIPs`. Traffic that ingresses into the cluster with the external IP (as destination IP), on the Service port,
-will be routed to one of the Service endpoints. `externalIPs` are not managed by Kubernetes and are the responsibility
-of the cluster administrator.
+If there are external IPs that route to one or more cluster nodes, Kubernetes Services
+can be exposed on those `externalIPs`. When network traffic arrives into the cluster, with
+the external IP (as destination IP) and the port matching that Service, rules and routes
+that Kubernetes has configured ensure that the traffic is routed to one of the endpoints
+for that Service.
 
-In the Service spec, `externalIPs` can be specified along with any of the `ServiceTypes`.
-In the example below, "`my-service`" can be accessed by clients on "198.51.100.32:80`" (`externalIP:port`)
+When you define a Service, you can specify `externalIPs` for any
+[service type](#publishing-services-service-types).
+In the example below, the Service named `"my-service"` can be accessed by clients using TCP,
+on `"198.51.100.32:80"` (calculated from `.spec.externalIPs[]` and `.spec.ports[].port`).
 -->
 ### 外部 IP  {#external-ips}
 
-如果外部的 IP 路由到集群中一个或多个 Node 上，Kubernetes Service 会被暴露给这些 `externalIPs`。
-通过外部 IP（作为目的 IP 地址）进入到集群，打到 Service 的端口上的流量，
-将会被路由到 Service 的 Endpoint 上。
-`externalIPs` 不会被 Kubernetes 管理，它属于集群管理员的职责范畴。
+如果有外部 IP 能够路由到一个或多个集群节点上，则 Kubernetes 服务可以暴露在这些 `externalIPs` 上。
+当网络流量到达集群时，如果外部 IP（作为目的 IP 地址）和端口都与该 Service 匹配，Kubernetes
+配置的规则和路由会确保流量被路由到该 Service 的端点之一。
 
-根据 Service 的规定，`externalIPs` 可以同任意的 `ServiceType` 来一起指定。
-在上面的例子中，`my-service` 可以在 "`198.51.100.32:80`" (`externalIP:port`) 上被客户端访问。
+定义 Service 时，你可以为任何[服务类型](#publishing-services-service-types)指定 `externalIPs`。
+
+在下面的例子中，名为 `my-service` 的服务可以在 "`198.51.100.32:80`"
+（从 `.spec.externalIPs[]` 和 `.spec.ports[].port` 计算）上被客户端使用 TCP 协议访问。
 
 ```yaml
 apiVersion: v1
@@ -1936,18 +1580,13 @@ spec:
     - 198.51.100.32
 ```
 
+{{< note >}}
 <!--
-## Session stickiness
-
-If you want to make sure that connections from a particular client are passed to
-the same Pod each time, you can configure session affinity based on the client's
-IP address. Read [session affinity](/docs/reference/networking/virtual-ips/#session-affinity)
-to learn more.
+Kubernetes does not manage allocation of `externalIPs`; these are the responsibility
+of the cluster administrator.
 -->
-## 粘性会话   {#session-stickiness}
-
-如果你想确保来自特定客户端的连接每次都传递到同一个 Pod，你可以配置根据客户端 IP 地址来执行的会话亲和性。
-阅读[会话亲和性](/zh-cn/docs/reference/networking/virtual-ips/#session-affinity)了解更多。
+Kubernetes 不管理 `externalIPs` 的分配，这属于集群管理员的职责。
+{{< /note >}}
 
 <!--
 ## API Object
@@ -1963,17 +1602,6 @@ Service 是 Kubernetes REST API 中的顶级资源。你可以找到有关
 
 <!-- preserve existing hyperlinks -->
 <a id="shortcomings" /><a id="#the-gory-details-of-virtual-ips" />
-
-<!--
-## Virtual IP addressing mechanism
-
-Read [Virtual IPs and Service Proxies](/docs/reference/networking/virtual-ips/) to learn about the
-mechanism Kubernetes provides to expose a Service with a virtual IP address.
--->
-## 虚拟 IP 寻址机制   {#virtual-ip-addressing-mechanism}
-
-阅读[虚拟 IP 和 Service 代理](/zh-cn/docs/reference/networking/virtual-ips/)以了解
-Kubernetes 提供的使用虚拟 IP 地址公开服务的机制。
 
 ## {{% heading "whatsnext" %}}
 

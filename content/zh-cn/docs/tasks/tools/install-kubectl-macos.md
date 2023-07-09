@@ -449,6 +449,56 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    rm kubectl-convert kubectl-convert.sha256
    ```
 
+<!--
+### Uninstall kubectl on macOS
+
+Depending on how you installed `kubectl`, use one of the following methods.
+-->
+### 在 macOS 上卸载 kubectl   {#uninstall-kubectl-on-macos}
+
+根据你安装 `kubectl` 的方式，使用以下某种方法来卸载：
+
+<!--
+### Uninstall kubectl using the command-line
+
+1.  Locate the `kubectl` binary on your system:
+-->
+### 使用命令行卸载 kubectl   {#uninstall-kubectl-using-cli}
+
+1. 找到你系统上的 `kubectl` 可执行文件：
+
+   ```bash
+   where kubectl
+   ```
+
+<!--
+1.  Remove the `kubectl` binary:
+-->
+2. 移除 `kubectl` 可执行文件：
+
+   ```bash
+   sudo rm <path>
+   ```
+
+   <!--
+   Replace `<path>` with the path to the `kubectl` binary from the previous step. For example, `sudo rm /usr/local/bin/kubectl`.
+   -->
+   将 `<path>` 替换为上一步中找到的 `kubectl` 可执行文件的路径。
+   例如，`sudo rm /usr/local/bin/kubectl`。
+
+<!--
+### Uninstall kubectl using homebrew
+
+If you installed `kubectl` using Homebrew, run the following command:
+-->
+### 使用 Homebrew 卸载 kubectl    {#uninstall-kubectl-using-homebrew}
+
+如果你使用 Homebrew 安装了 `kubectl`，运行以下命令：
+
+```bash
+brew remove kubectl
+```
+
 ## {{% heading "whatsnext" %}}
 
 {{< include "included/kubectl-whats-next.md" >}}

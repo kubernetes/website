@@ -132,16 +132,16 @@ auth 是一个映射，包含传递给 kubelet 的身份验证信息。
 <!--
 Each key in the map is a pattern which can optionally contain a port and a path.
 Globs can be used in the domain, but not in the port or the path. Globs are supported
-as subdomains like '<em>.k8s.io' or 'k8s.</em>.io', and top-level-domains such as 'k8s.<em>'.
-Matching partial subdomains like 'app</em>.k8s.io' is also supported. Each glob can only match
-a single subdomain segment, so *.io does not match *.k8s.io.
+as subdomains like <code>&ast;.k8s.io</code> or <code>k8s.&ast;.io</code>, and top-level-domains such as <code>k8s.&ast;</code>.
+Matching partial subdomains like <code>app&ast;.k8s.io</code> is also supported. Each glob can only match
+a single subdomain segment, so <code>&ast;.io</code> does not match <code>&ast;.k8s.io</code>.</p>
 -->
 <p>
 映射中的每个主键都可以包含端口和路径。
 域名中可以使用 Glob 通配，但不能在端口或路径中使用 Glob。
-Glob 支持类似 “\*.k8s.io” 或 “k8s.\*.io” 这类子域以及 “k8s.\*” 这类顶级域。
-也支持匹配的部分子域，例如 “app\*.k8s.io”。
-每个 Glob 只能匹配一个子域段，因此 *.io 与 *.k8s.io 不匹配。
+Glob 支持类似 <code>&ast;.k8s.io</code> 或 <code>k8s.&ast;.io</code> 这类子域以及 <code>k8s.&ast;</code> 这类顶级域。
+也支持匹配的部分子域，例如 <code>app&ast;.k8s.io</code>。
+每个 Glob 只能匹配一个子域段，因此 <code>&ast;.io</code> 与 <code>&ast;.k8s.io</code> 不匹配。
 </p>
 <!--
 The kubelet will match images against the key when all of the below are true:
@@ -190,9 +190,9 @@ Example keys:
 <p>示例键：</p>
 <ul>
 <li>123456789.dkr.ecr.us-east-1.amazonaws.com</li>
-<li>*.azurecr.io</li>
+<li>&ast;.azurecr.io</li>
 <li>gcr.io</li>
-<li>*.registry.io</li>
+<li>&ast;.&ast;.registry.io</li>
 <li>registry.io:8080/path</li>
 </ul>
 </td>

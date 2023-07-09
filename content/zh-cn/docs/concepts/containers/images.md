@@ -162,11 +162,11 @@ You should avoid using the `:latest` tag when deploying containers in production
 it is harder to track which version of the image is running and more difficult to
 roll back properly.
 
-Instead, specify a meaningful tag such as `v1.42.0`.
+Instead, specify a meaningful tag such as `v1.42.0` and/or a digest.
 -->
 在生产环境中部署容器时，你应该避免使用 `:latest` 标签，因为这使得正在运行的镜像的版本难以追踪，并且难以正确地回滚。
 
-相反，应指定一个有意义的标签，如 `v1.42.0`。
+相反，应指定一个有意义的标签，如 `v1.42.0`，和/或者一个摘要。
 {{< /note >}}
 
 <!--
@@ -204,10 +204,16 @@ running the same code no matter what tag changes happen at the registry.
 
 When you (or a controller) submit a new Pod to the API server, your cluster sets the
 `imagePullPolicy` field when specific conditions are met:
+
+- if you omit the `imagePullPolicy` field, and you specify the digest for the
+  container image, the `imagePullPolicy` is automatically set to `IfNotPresent`.
 -->
 #### 默认镜像拉取策略    {#imagepullpolicy-defaulting}
 
 当你（或控制器）向 API 服务器提交一个新的 Pod 时，你的集群会在满足特定条件时设置 `imagePullPolicy` 字段：
+
+- 如果你省略了 `imagePullPolicy` 字段，并且你为容器镜像指定了摘要，
+  那么 `imagePullPolicy` 会自动设置为 `IfNotPresent`。
 
 <!--
 - if you omit the `imagePullPolicy` field, and the tag for the container image is
@@ -228,14 +234,15 @@ When you (or a controller) submit a new Pod to the API server, your cluster sets
 {{< note >}}
 <!--
 The value of `imagePullPolicy` of the container is always set when the object is
-first _created_, and is not updated if the image's tag later changes.
+first _created_, and is not updated if the image's tag or digest later changes.
 
 For example, if you create a Deployment with an image whose tag is _not_
 `:latest`, and later update that Deployment's image to a `:latest` tag, the
 `imagePullPolicy` field will _not_ change to `Always`. You must manually change
 the pull policy of any object after its initial creation.
 -->
-容器的 `imagePullPolicy` 的值总是在对象初次 _创建_ 时设置的，如果后来镜像的标签发生变化，则不会更新。
+容器的 `imagePullPolicy` 的值总是在对象初次 _创建_ 时设置的，
+如果后来镜像的标签或摘要发生变化，则不会更新。
 
 例如，如果你用一个 **非** `:latest` 的镜像标签创建一个 Deployment，
 并在随后更新该 Deployment 的镜像标签为 `:latest`，则 `imagePullPolicy` 字段 **不会** 变成 `Always`。
@@ -845,6 +852,37 @@ common use cases and suggested solutions.
 If you need access to multiple registries, you can create one secret for each registry.
 -->
 如果你需要访问多个仓库，可以为每个仓库创建一个 Secret。
+
+<!--
+## Legacy built-in kubelet credential provider
+
+In older versions of Kubernetes, the kubelet had a direct integration with cloud provider credentials.
+This gave it the ability to dynamically fetch credentials for image registries.
+-->
+## 旧版的内置 kubelet 凭据提供程序
+
+在旧版本的 Kubernetes 中，kubelet 与云提供商凭据直接集成。
+这使它能够动态获取镜像仓库的凭据。
+
+<!--
+There were three built-in implementations of the kubelet credential provider integration:
+ACR (Azure Container Registry), ECR (Elastic Container Registry), and GCR (Google Container Registry).
+-->
+kubelet 凭据提供程序集成存在三个内置实现：
+ACR（Azure 容器仓库）、ECR（Elastic 容器仓库）和 GCR（Google 容器仓库）
+
+<!--
+For more information on the legacy mechanism, read the documentation for the version of Kubernetes that you
+are using. Kubernetes v1.26 through to v{{< skew latestVersion >}} do not include the legacy mechanism, so
+you would need to either:
+- configure a kubelet image credential provider on each node
+- specify image pull credentials using `imagePullSecrets` and at least one Secret
+-->
+有关该旧版机制的更多信息，请阅读你正在使用的 Kubernetes 版本的文档。
+从 Kubernetes v1.26 到 v{{< skew latestVersion >}} 不再包含该旧版机制，因此你需要：
+
+- 在每个节点上配置一个 kubelet 镜像凭据提供程序
+- 使用 `imagePullSecrets` 和至少一个 Secret 指定镜像拉取凭据
 
 ## {{% heading "whatsnext" %}}
 
