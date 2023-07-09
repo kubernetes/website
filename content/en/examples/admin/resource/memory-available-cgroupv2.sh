@@ -1,5 +1,4 @@
 #!/bin/bash
-#!/usr/bin/env bash
 
 # This script reproduces what the kubelet does
 # to calculate memory.available relative to kubepods cgroup.
