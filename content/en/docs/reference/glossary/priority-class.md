@@ -10,7 +10,7 @@ aka:
 tags:
 - operation
 ---
- the PriorityClass is a resource that allows you to assign priorities to different pods within a     {{ glossary_tooltip term_id="cluster" }}. It helps the scheduler prioritize the scheduling of pods based on their importance or criticality.
+ the PriorityClass is a resource that allows you to assign priorities to different pods within a     {{< glossary_tooltip term_id="cluster" >}}. It helps the scheduler prioritize the scheduling of pods based on their importance or criticality.
 
 
 
