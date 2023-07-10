@@ -197,6 +197,7 @@ For a reference to old feature gates that are removed, please refer to
 | `SELinuxMountReadWriteOncePod` | `false` | Alpha | 1.25 | 1.26 |
 | `SELinuxMountReadWriteOncePod` | `true` | Beta | 1.27 | |
 | `SecurityContextDeny` | `false` | Alpha | 1.27 | |
+| `SeparateTaintManager` | `true` | Beta | 1.28 | |
 | `ServiceNodePortStaticSubrange` | `false` | Alpha | 1.27 | |
 | `SizeMemoryBackedVolumes` | `false` | Alpha | 1.20 | 1.21 |
 | `SizeMemoryBackedVolumes` | `true` | Beta | 1.22 | |
@@ -688,6 +689,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   for all workloads.
   The seccomp profile is specified in the `securityContext` of a Pod and/or a Container.
 - `SecurityContextDeny`: This gate signals that the `SecurityContextDeny` admission controller is deprecated.
+- `SeparateTaintManager`: Enables running `TaintManager` - that performs [Taint Based Evictions](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-based-evictions) - in a separated controller from `NodeLifecycleController`.
 - `ServerSideApply`: Enables the [Sever Side Apply (SSA)](/docs/reference/using-api/server-side-apply/)
   feature on the API Server.
 - `ServerSideFieldValidation`: Enables server-side field validation. This means the validation
