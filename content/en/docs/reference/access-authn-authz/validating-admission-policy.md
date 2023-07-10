@@ -373,11 +373,12 @@ Examples on escaping:
 	
 Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1].
 Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
-    - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
-      non-intersecting elements in `Y` are appended, retaining their partial order.
-    - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
-      are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
-      non-intersecting keys are appended, retaining their partial order.
+
+- 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
+  non-intersecting elements in `Y` are appended, retaining their partial order.
+- 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
+  are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
+  non-intersecting keys are appended, retaining their partial order.
 
 #### Validation expression examples
 
@@ -425,8 +426,8 @@ the request is determined as follows:
 
 1. If **any** match condition evaluated to `false` (regardless of other errors), the API server skips the policy.
 2. Otherwise:
-  - for [`failurePolicy: Fail`](#failure-policy), reject the request (without evaluating the policy).
-  - for [`failurePolicy: Ignore`](#failure-policy), proceed with the request but skip the policy.
+   - for [`failurePolicy: Fail`](#failure-policy), reject the request (without evaluating the policy).
+   - for [`failurePolicy: Ignore`](#failure-policy), proceed with the request but skip the policy.
 
 ### Audit annotations
 
