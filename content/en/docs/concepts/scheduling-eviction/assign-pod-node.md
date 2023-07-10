@@ -426,7 +426,7 @@ spec:
               - key: app
                 operator: In
                 values:
-                - store
+                - web-store
             topologyKey: "kubernetes.io/hostname"
       containers:
       - name: web-app
