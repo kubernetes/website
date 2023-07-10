@@ -184,6 +184,7 @@ For a reference to old feature gates that are removed, please refer to
 | `SELinuxMountReadWriteOncePod` | `true` | Beta | 1.28 | |
 | `SchedulerQueueingHints` | `true` | Beta | 1.28 | |
 | `SecurityContextDeny` | `false` | Alpha | 1.27 | |
+| `SeparateTaintEvictionController` | `true` | Beta | 1.29 | |
 | `ServiceAccountTokenJTI` | `false` | Alpha | 1.29 | |
 | `ServiceAccountTokenNodeBinding` | `false` | Alpha | 1.29 | |
 | `ServiceAccountTokenNodeBindingValidation` | `false` | Alpha | 1.29 | |
@@ -726,6 +727,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
   for all workloads.
   The seccomp profile is specified in the `securityContext` of a Pod and/or a Container.
 - `SecurityContextDeny`: This gate signals that the `SecurityContextDeny` admission controller is deprecated.
+- `SeparateTaintEvictionController`: Enables running `TaintEvictionController`,
+  that performs [Taint-based Evictions](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-based-evictions),
+  in a controller separated from `NodeLifecycleController`. When this feature is
+  enabled, users can optionally disable Taint-based Eviction setting the
+  `--controllers=-taint-eviction-controller` flag on the `kube-controller-manager`.
 - `ServerSideApply`: Enables the [Sever Side Apply (SSA)](/docs/reference/using-api/server-side-apply/)
   feature on the API Server.
 - `ServerSideFieldValidation`: Enables server-side field validation. This means the validation
