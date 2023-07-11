@@ -117,10 +117,9 @@ spec:
       targetPort: 9376
 ```
 
-Applying this manifest creates a new Service named "my-service" with default 
-[service type](/docs/concepts/services-networking/service/#publishing-services-service-types)
-of ClusterIP and targets TCP port 9376 on any Pod with the 
-`app.kubernetes.io/name: MyApp` label.
+Applying this manifest creates a new Service named "my-service" with the default
+ ClusterIP [service type](#publishing-services-service-types). The Service 
+targets TCP port 9376 on any Pod with the `app.kubernetes.io/name: MyApp` label.
 
 Kubernetes assigns this Service an IP address (the _cluster IP_),
 that is used by the virtual IP address mechanism. For more details on that mechanism,
