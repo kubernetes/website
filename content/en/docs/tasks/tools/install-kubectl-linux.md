@@ -158,7 +158,9 @@ The following methods exist for installing kubectl on Linux:
 
    ```shell
    # /etc/apt/keyrings might not yet exist on older operating systems.
-   # On the latest Debian or Ubuntu releases, you can skip the next 3 lines.
+   # Older releases of Debian (version 11 or older) and Ubuntu (21.10 or older) do not provide
+   # that directory as part of the operating system.
+   # If you are running a current enough release of Debian or Ubuntu, you can skip the next 3 lines.
    [ ! -d /etc/apt/keyrings ] && \
     sudo mkdir -p /etc/apt/keyrings && \
     sudo chmod 0755 /etc/apt/keyrings
