@@ -126,7 +126,7 @@ The Pod spec also has an optional `subdomain` field which can be used to indicat
 that the pod is part of sub-group of the namespace. For example, a Pod with `spec.hostname`
 set to `"foo"`, and `spec.subdomain` set to `"bar"`, in namespace `"my-namespace"`, will
 have its hostname set to `"foo"` and its fully qualified domain name (FQDN) set to
-`"foo.bar.my-namespace.svc.cluster.local"` (once more, as observed from within
+`"foo.bar.my-namespace.pod.cluster.local"` (once more, as observed from within
 the Pod).
 
 If there exists a headless Service in the same namespace as the Pod, with
