@@ -29,22 +29,41 @@ mitigate some future vulnerabilities too.
 <!-- body -->
 ## {{% heading "prerequisites" %}}
 
-{{% thirdparty-content single="true" %}}
-<!-- if adding another runtime in the future, omit the single setting -->
+{{% thirdparty-content %}}
 
-This is a Linux only feature. In addition, support is needed in the 
+This is a Linux-only feature and support is needed in Linux for idmap mounts on
+the filesystems used. This means:
+
+* On the node, the filesystem you use for `/var/lib/kubelet/pods/`, or the
+  custom directory you configure for this, needs idmap mount support.
+* All the filesystems used in the pod's volumes must support idmap mounts.
+
+In practice this means you need at least Linux 6.3, as tmpfs started supporting
+idmap mounts in that version. This is usually needed as several Kubernetes
+features use tmpfs (the service account token that is mounted by default uses a
+tmpfs, Secrets use a tmpfs, etc.)
+
+Some popular filesystems that support idmap mounts in Linux 6.3 are: btrfs,
+ext4, xfs, fat, tmpfs, overlayfs.
+
+In addition, support is needed in the 
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
 to use this feature with Kubernetes stateless pods:
 
-* CRI-O: v1.25 has support for user namespaces.
+* CRI-O: version 1.25 (and later) supports user namespaces for containers.
 
-* containerd: support is planned for the 1.7 release. See containerd
-  issue [#7063][containerd-userns-issue] for more details.
+containerd v1.7 is not compatible with the userns support in Kubernetes v{{< skew currentVersion >}}.
+Kubernetes v1.25 and v1.26 used an earlier implementation that **is** compatible with containerd v1.7,
+in terms of userns support.
+If you are using a version of Kubernetes other than {{< skew currentVersion >}},
+check the documentation for that version of Kubernetes for the most relevant information.
+If there is a newer release of containerd than v1.7 available for use, also check the containerd
+documentation for compatibility information.
 
-Support for this in [cri-dockerd is not planned][CRI-dockerd-issue] yet.
+You can see the status of user namespaces support in cri-dockerd tracked in an [issue][CRI-dockerd-issue]
+on GitHub.
 
 [CRI-dockerd-issue]: https://github.com/Mirantis/cri-dockerd/issues/74
-[containerd-userns-issue]: https://github.com/containerd/containerd/issues/7063
 
 ## Introduction
 
@@ -152,13 +171,6 @@ volume types are allowed:
  * downwardAPI
  * emptyDir
 
-To guarantee that the pod can read the files of such volumes, volumes are
-created as if you specified `.spec.securityContext.fsGroup` as `0` for the Pod.
-If it is specified to a different value, this other value will of course be
-honored instead.
+## {{% heading "whatsnext" %}}
 
-As a by-product of this, folders and files for these volumes will have
-permissions for the group, even if `defaultMode` or `mode` to specific items of
-the volumes were specified without permissions to groups. For example, it is not
-possible to mount these volumes in a way that its files have permissions only
-for the owner.
+* Take a look at [Use a User Namespace With a Pod](/docs/tasks/configure-pod-container/user-namespaces/)

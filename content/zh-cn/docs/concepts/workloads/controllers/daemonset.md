@@ -233,7 +233,7 @@ consideration by the DaemonSet controller when evaluating the eligible nodes,
 but is replaced on the created Pod with the node affinity that matches the name
 of the eligible node.
 -->
-用户通过设置 DaemonSet 的 `.spec.template.spec.schedulerName` 字段，可以为 DamonSet
+用户通过设置 DaemonSet 的 `.spec.template.spec.schedulerName` 字段，可以为 DaemonSet
 的 Pod 指定不同的调度程序。
 
 当评估符合条件的节点时，原本在 `.spec.template.spec.affinity.nodeAffinity` 字段上指定的节点亲和性将由

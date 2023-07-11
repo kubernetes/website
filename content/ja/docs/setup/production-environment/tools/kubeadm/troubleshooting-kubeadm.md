@@ -18,10 +18,10 @@ weight: 20
 
 <!-- body -->
 
-## RBACがないため、v1.18ノードをv1.17クラスタに結合できない
-v1.18では、同名のノードが既に存在する場合にクラスタ内のノードに参加しないようにする機能を追加しました。これには、ブートストラップトークンユーザがNodeオブジェクトをGETできるようにRBACを追加する必要がありました。
+## RBACがないため、v1.18ノードをv1.17クラスターに結合できない
+v1.18では、同名のノードが既に存在する場合にクラスター内のノードに参加しないようにする機能を追加しました。これには、ブートストラップトークンユーザがNodeオブジェクトをGETできるようにRBACを追加する必要がありました。
 
-しかし、これによりv1.18の`kubeadm join`がkubeadm v1.17で作成したクラスタに参加できないという問題が発生します。
+しかし、これによりv1.18の`kubeadm join`がkubeadm v1.17で作成したクラスターに参加できないという問題が発生します。
 
 この問題を回避するには、次の2つの方法があります。
 - kubeadm v1.18を用いて、コントロールプレーンノード上で`kubeadm init phase bootstrap-token`を実行します。
@@ -240,7 +240,7 @@ kubectl -n kube-system get deployment coredns -o yaml | \
 CoreDNSに`CrashLoopBackOff`が発生する別の原因は、KubernetesにデプロイされたCoreDNS Podがループを検出したときに発生します。CoreDNSがループを検出して終了するたびに、KubernetesがCoreDNS Podを再起動しようとするのを避けるために、[いくつかの回避策](https://github.com/coredns/coredns/tree/master/plugin/loop#troubleshooting-loops-in-kubernetes-clusters)が用意されています。
 
 {{< warning >}}
-SELinuxを無効にするか`allowPrivilegeEscalation`を`true`に設定すると、クラスタのセキュリティが損なわれる可能性があります。
+SELinuxを無効にするか`allowPrivilegeEscalation`を`true`に設定すると、クラスターのセキュリティが損なわれる可能性があります。
 {{< /warning >}}
 
 ## etcdのpodが継続的に再起動する
@@ -343,6 +343,6 @@ nodeRegistration:
 あるいは、`/usr`マウントを書き込み可能にするために `/etc/fstab`を変更することもできますが、これはLinuxディストリビューションの設計原理を変更していることに注意してください。
 
 ## `kubeadm upgrade plan`が`context deadline exceeded`エラーメッセージを表示する
-このエラーメッセージは、外部etcdを実行している場合に`kubeadm`でKubernetesクラスタをアップグレードする際に表示されます。これは致命的なバグではなく、古いバージョンのkubeadmが外部etcdクラスタのバージョンチェックを行うために発生します。`kubeadm upgrade apply ...`で進めることができます。
+このエラーメッセージは、外部etcdを実行している場合に`kubeadm`でKubernetesクラスターをアップグレードする際に表示されます。これは致命的なバグではなく、古いバージョンのkubeadmが外部etcdクラスターのバージョンチェックを行うために発生します。`kubeadm upgrade apply ...`で進めることができます。
 
 この問題はバージョン1.19で修正されます。

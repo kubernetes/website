@@ -1,6 +1,10 @@
 ---
 title: Using Minikube to Create a Cluster
 weight: 10
+description: |-
+  Learn what a Kubernetes cluster is.
+  Learn what Minikube is.
+  Start a Kubernetes cluster.
 ---
 
 <!DOCTYPE html>
@@ -20,7 +24,7 @@ weight: 10
                 <ul>
                     <li>Learn what a Kubernetes cluster is.</li>
                     <li>Learn what Minikube is.</li>
-                    <li>Start a Kubernetes cluster using an online terminal.</li>
+                    <li>Start a Kubernetes cluster on your computer.</li>
                 </ul>
             </div>
 
@@ -84,18 +88,16 @@ weight: 10
             <div class="col-md-8">
                 <p>When you deploy applications on Kubernetes, you tell the control plane to start the application containers. The control plane schedules the containers to run on the cluster's nodes. <b>The nodes communicate with the control plane using the <a href="/docs/concepts/overview/kubernetes-api/">Kubernetes API</a></b>, which the control plane exposes. End users can also use the Kubernetes API directly to interact with the cluster.</p>
 
-                <p>A Kubernetes cluster can be deployed on either physical or virtual machines. To get started with Kubernetes development, you can use Minikube. Minikube is a lightweight Kubernetes implementation that creates a VM on your local machine and deploys a simple cluster containing only one node. Minikube is available for Linux, macOS, and Windows systems. The Minikube CLI provides basic bootstrapping operations for working with your cluster, including start, stop, status, and delete. For this tutorial, however, you'll use a provided online terminal with Minikube pre-installed.</p>
+                <p>A Kubernetes cluster can be deployed on either physical or virtual machines. To get started with Kubernetes development, you can use Minikube. Minikube is a lightweight Kubernetes implementation that creates a VM on your local machine and deploys a simple cluster containing only one node. Minikube is available for Linux, macOS, and Windows systems. The Minikube CLI provides basic bootstrapping operations for working with your cluster, including start, stop, status, and delete.</p>
 
-                <p>Now that you know what Kubernetes is, let's go to the online tutorial and start our first cluster!</p>
+                <p>Now that you know more about what Kubernetes is, visit <a href="/docs/tutorials/hello-minikube/">Hello Minikube</a>
+                   to try this out on your computer.</p>
+
 
             </div>
         </div>
-        <br>
-
         <div class="row">
-            <div class="col-md-12">
-                <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-interactive/" role="button">Start Interactive Tutorial <span class="btn__next">›</span></a>
-            </div>
+            <p>Once you've done that, move on to <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">Using <tt>kubectl</tt> to create a Deployment</a>.</p>
         </div>
 
     </main>

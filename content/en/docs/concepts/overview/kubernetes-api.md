@@ -82,17 +82,13 @@ packages that define the API objects.
 
 ### OpenAPI V3
 
-{{< feature-state state="beta"  for_k8s_version="v1.24" >}}
+{{< feature-state state="stable"  for_k8s_version="v1.27" >}}
 
-Kubernetes {{< param "version" >}} offers beta support for publishing its APIs as OpenAPI v3; this is a
-beta feature that is enabled by default.
-You can disable the beta feature by turning off the
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) named `OpenAPIV3`
-for the kube-apiserver component.
+Kubernetes supports publishing a description of its APIs as OpenAPI v3.
 
 A discovery endpoint `/openapi/v3` is provided to see a list of all
-group/versions available. This endpoint only returns JSON. These group/versions
-are provided in the following format:
+group/versions available. This endpoint only returns JSON. These
+group/versions are provided in the following format:
 
 ```yaml
 {
@@ -153,10 +149,36 @@ Refer to the table below for accepted request headers.
   </tbody>
 </table>
 
+A Golang implementation to fetch the OpenAPI V3 is provided in the package `k8s.io/client-go/openapi3`.
+
 ## Persistence
 
 Kubernetes stores the serialized state of objects by writing them into
 {{< glossary_tooltip term_id="etcd" >}}.
+
+## API Discovery
+
+A list of all group versions supported by a cluster is published at
+the `/api` and `/apis` endpoints. Each group version also advertises
+the list of resources supported via `/apis/<group>/<version>` (for
+example: `/apis/rbac.authorization.k8s.io/v1alpha1`). These endpoints
+are used by kubectl to fetch the list of resources supported by a
+cluster.
+
+### Aggregated Discovery
+
+{{< feature-state state="beta"  for_k8s_version="v1.27" >}}
+
+Kubernetes offers beta support for aggregated discovery, publishing
+all resources supported by a cluster through two endpoints (`/api` and
+`/apis`) compared to one for every group version. Requesting this
+endpoint drastically reduces the number of requests sent to fetch the
+discovery for the average Kubernetes cluster. This may be accessed by
+requesting the respective endpoints with an Accept header indicating
+the aggregated discovery resource:
+`Accept: application/json;v=v2beta1;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList`.
+
+The endpoint also supports ETag and protobuf encoding.
 
 ## API groups and versioning
 

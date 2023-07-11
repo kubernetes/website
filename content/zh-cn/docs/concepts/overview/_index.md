@@ -64,7 +64,7 @@ Let's take a look at why Kubernetes is so useful by going back in time.
 <!--
 ![Deployment evolution](/images/docs/Container_Evolution.svg)
 -->
-![部署演进](/images/docs/Container_Evolution.svg)
+![部署演进](/zh-cn/docs/images/Container_Evolution.svg)
 
 <!--
 **Traditional deployment era:**
@@ -83,7 +83,7 @@ was expensive for organizations to maintain many physical servers.
 例如，如果在同一台物理服务器上运行多个应用程序，
 则可能会出现一个应用程序占用大部分资源的情况，而导致其他应用程序的性能下降。
 一种解决方案是将每个应用程序都运行在不同的物理服务器上，
-但是当某个应用程式资源利用率不高时，剩余资源无法被分配给其他应用程式，
+但是当某个应用程序资源利用率不高时，剩余资源无法被分配给其他应用程序，
 而且维护许多物理服务器的成本很高。
 
 <!--
@@ -268,7 +268,7 @@ Kubernetes 为你提供：
 -->
 * **密钥与配置管理**
 
-  Kubernetes 允许你存储和管理敏感信息，例如密码、OAuth 令牌和 ssh 密钥。
+  Kubernetes 允许你存储和管理敏感信息，例如密码、OAuth 令牌和 SSH 密钥。
   你可以在不重建容器镜像的情况下部署和更新密钥和应用程序配置，也无需在堆栈配置中暴露密钥。
 
 <!--

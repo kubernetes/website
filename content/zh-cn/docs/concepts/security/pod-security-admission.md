@@ -182,7 +182,7 @@ Exemptions can be statically configured in the
 -->
 ## 豁免   {#exemptions}
 
-你可以为 Pod 安全性的实施设置**豁免（Exemptions）**规则，
+你可以为 Pod 安全性的实施设置**豁免（Exemptions）** 规则，
 从而允许创建一些本来会被与给定名字空间相关的策略所禁止的 Pod。
 豁免规则可以在[准入控制器配置](/zh-cn/docs/tasks/configure-pod-container/enforce-standards-admission-controller/#configure-the-admission-controller)
 中静态配置。

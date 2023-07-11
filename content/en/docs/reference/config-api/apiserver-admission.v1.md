@@ -72,14 +72,14 @@ It is suitable for correlating log entries between the webhook and apiserver, fo
 </td>
 </tr>
 <tr><td><code>kind</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#groupversionkind-v1-meta"><code>meta/v1.GroupVersionKind</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#GroupVersionKind"><code>meta/v1.GroupVersionKind</code></a>
 </td>
 <td>
    <p>Kind is the fully-qualified type of object being submitted (for example, v1.Pod or autoscaling.v1.Scale)</p>
 </td>
 </tr>
 <tr><td><code>resource</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#groupversionresource-v1-meta"><code>meta/v1.GroupVersionResource</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#GroupVersionResource"><code>meta/v1.GroupVersionResource</code></a>
 </td>
 <td>
    <p>Resource is the fully-qualified resource being requested (for example, v1.pods)</p>
@@ -93,7 +93,7 @@ It is suitable for correlating log entries between the webhook and apiserver, fo
 </td>
 </tr>
 <tr><td><code>requestKind</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#groupversionkind-v1-meta"><code>meta/v1.GroupVersionKind</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#GroupVersionKind"><code>meta/v1.GroupVersionKind</code></a>
 </td>
 <td>
    <p>RequestKind is the fully-qualified type of the original API request (for example, v1.Pod or autoscaling.v1.Scale).
@@ -107,7 +107,7 @@ and <code>requestKind: {group:&quot;apps&quot;, version:&quot;v1beta1&quot;, kin
 </td>
 </tr>
 <tr><td><code>requestResource</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#groupversionresource-v1-meta"><code>meta/v1.GroupVersionResource</code></a>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#GroupVersionResource"><code>meta/v1.GroupVersionResource</code></a>
 </td>
 <td>
    <p>RequestResource is the fully-qualified resource of the original API request (for example, v1.pods).
@@ -153,7 +153,7 @@ requested. e.g. a patch can result in either a CREATE or UPDATE Operation.</p>
 </td>
 </tr>
 <tr><td><code>userInfo</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#userinfo-v1-authentication"><code>authentication/v1.UserInfo</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
 </td>
 <td>
    <p>UserInfo is information about the requesting user</p>
@@ -227,7 +227,7 @@ This must be copied over from the corresponding AdmissionRequest.</p>
 </td>
 </tr>
 <tr><td><code>status</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#status-v1-meta"><code>meta/v1.Status</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#status-v1-meta"><code>meta/v1.Status</code></a>
 </td>
 <td>
    <p>Result contains extra details into why an admission request was denied.

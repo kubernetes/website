@@ -17,8 +17,6 @@ You can register for Kubernetes Slack at https://slack.k8s.io/.
 For information on creating new content for the Kubernetes
 docs, follow the [style guide](/docs/contribute/style/style-guide).
 
-
-
 <!-- body -->
 
 ## Overview
@@ -40,15 +38,19 @@ Kubernetes docs allow content for third-party projects only when:
 
 ### Third party content
 
-Kubernetes documentation includes applied examples of projects in the Kubernetes project&mdash;projects that live in the [kubernetes](https://github.com/kubernetes) and
+Kubernetes documentation includes applied examples of projects in the Kubernetes
+project&mdash;projects that live in the [kubernetes](https://github.com/kubernetes) and
 [kubernetes-sigs](https://github.com/kubernetes-sigs) GitHub organizations.
 
 Links to active content in the Kubernetes project are always allowed.
 
 Kubernetes requires some third party content to function. Examples include container runtimes (containerd, CRI-O, Docker),
-[networking policy](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) (CNI plugins), [Ingress controllers](/docs/concepts/services-networking/ingress-controllers/), and [logging](/docs/concepts/cluster-administration/logging/).
+[networking policy](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/) (CNI plugins),
+[Ingress controllers](/docs/concepts/services-networking/ingress-controllers/),
+and [logging](/docs/concepts/cluster-administration/logging/).
 
-Docs can link to third-party open source software (OSS) outside the Kubernetes project only if it's necessary for Kubernetes to function.
+Docs can link to third-party open source software (OSS) outside the Kubernetes
+project only if it's necessary for Kubernetes to function.
 
 ### Dual sourced content
 
@@ -59,19 +61,14 @@ Dual-sourced content requires double the effort (or more!) to maintain
 and grows stale more quickly.
 
 {{< note >}}
-
 If you're a maintainer for a Kubernetes project and need help hosting your own docs,
 ask for help in [#sig-docs on Kubernetes Slack](https://kubernetes.slack.com/messages/C1J0BPD2M/).
-
 {{< /note >}}
 
 ### More information
 
 If you have questions about allowed content, join the [Kubernetes Slack](https://slack.k8s.io/) #sig-docs channel and ask!
 
-
-
 ## {{% heading "whatsnext" %}}
-
 
 * Read the [Style guide](/docs/contribute/style/style-guide).

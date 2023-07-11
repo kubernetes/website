@@ -420,7 +420,7 @@ and Netlify previews to verify the diagram is properly rendered.
 
 {{< caution >}}
 <!--
-The Mermaid live editor feature set may not support the K8s/website Mermaid feature set. 
+The Mermaid live editor feature set may not support the kubernetes/website Mermaid feature set. 
 You might see a syntax error or a blank screen after the Hugo build.
 If that is the case, consider using the Mermaid+SVG method. 
 -->
@@ -548,7 +548,7 @@ The following lists advantages of the Mermaid+SVG method:
 
 * Live editor tool.
 * Live editor tool supports the most current Mermaid feature set.  
-* Employ existing K8s/website methods for handling `.svg` image files.
+* Employ existing kubernetes/website methods for handling `.svg` image files.
 * Environment doesn't require Mermaid support.
 -->
 使用 Mermaid+SVG 方法的好处有：

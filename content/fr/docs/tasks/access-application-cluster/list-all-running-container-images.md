@@ -83,7 +83,7 @@ kubectl get pods --namespace kube-system -o jsonpath="{.items[*].spec.containers
 
 ## Répertorier les images de conteneurs en utilisant un go-template au lieu de jsonpath
 
-Comme alternative à jsonpath, Kubectl peut aussi utiliser les [go-templates](https://golang.org/pkg/text/template/) pour formater la sortie:
+Comme alternative à jsonpath, Kubectl peut aussi utiliser les [go-templates](https://pkg.go.dev/text/template) pour formater la sortie:
 
 ```shell
 kubectl get pods --all-namespaces -o go-template --template="{{range .items}}{{range .spec.containers}}{{.image}} {{end}}{{end}}"
@@ -94,4 +94,4 @@ kubectl get pods --all-namespaces -o go-template --template="{{range .items}}{{r
 ### Reference
 
 - Guide de référence pour [Jsonpath](/docs/reference/kubectl/jsonpath/)
-- Guide de référence pour les [Go template](https://golang.org/pkg/text/template/)
+- Guide de référence pour les [Go template](https://pkg.go.dev/text/template)

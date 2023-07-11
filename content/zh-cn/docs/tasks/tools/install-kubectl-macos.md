@@ -86,13 +86,13 @@ The following methods exist for installing kubectl on macOS:
    To download a specific version, replace the `$(curl -L -s https://dl.k8s.io/release/stable.txt)`
    portion of the command with the specific version.
 
-   For example, to download version {{< param "fullversion" >}} on Intel macOS, type:
+   For example, to download version {{< skew currentPatchVersion >}} on Intel macOS, type:
    -->
    如果需要下载某个指定的版本，用该指定版本号替换掉命令的这个部分：`$(curl -L -s https://dl.k8s.io/release/stable.txt)`。
-   例如：要为 Intel macOS 系统下载 {{< param "fullversion" >}} 版本，则输入：
+   例如：要为 Intel macOS 系统下载 {{< skew currentPatchVersion >}} 版本，则输入：
 
    ```bash
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl"
+   curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/amd64/kubectl"
    ```
 
    <!--
@@ -101,7 +101,7 @@ The following methods exist for installing kubectl on macOS:
    对于 Apple Silicon 版本的 macOS，输入：
 
    ```bash
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/arm64/kubectl"
+   curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/arm64/kubectl"
    ```
    {{< /note >}}
 
@@ -131,6 +131,7 @@ The following methods exist for installing kubectl on macOS:
    ```bash
    echo "$(cat kubectl.sha256)  kubectl" | shasum -a 256 --check
    ```
+
    <!-- 
    If valid, the output is:
    -->
@@ -447,6 +448,56 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    ```bash
    rm kubectl-convert kubectl-convert.sha256
    ```
+
+<!--
+### Uninstall kubectl on macOS
+
+Depending on how you installed `kubectl`, use one of the following methods.
+-->
+### 在 macOS 上卸载 kubectl   {#uninstall-kubectl-on-macos}
+
+根据你安装 `kubectl` 的方式，使用以下某种方法来卸载：
+
+<!--
+### Uninstall kubectl using the command-line
+
+1.  Locate the `kubectl` binary on your system:
+-->
+### 使用命令行卸载 kubectl   {#uninstall-kubectl-using-cli}
+
+1. 找到你系统上的 `kubectl` 可执行文件：
+
+   ```bash
+   where kubectl
+   ```
+
+<!--
+1.  Remove the `kubectl` binary:
+-->
+2. 移除 `kubectl` 可执行文件：
+
+   ```bash
+   sudo rm <path>
+   ```
+
+   <!--
+   Replace `<path>` with the path to the `kubectl` binary from the previous step. For example, `sudo rm /usr/local/bin/kubectl`.
+   -->
+   将 `<path>` 替换为上一步中找到的 `kubectl` 可执行文件的路径。
+   例如，`sudo rm /usr/local/bin/kubectl`。
+
+<!--
+### Uninstall kubectl using homebrew
+
+If you installed `kubectl` using Homebrew, run the following command:
+-->
+### 使用 Homebrew 卸载 kubectl    {#uninstall-kubectl-using-homebrew}
+
+如果你使用 Homebrew 安装了 `kubectl`，运行以下命令：
+
+```bash
+brew remove kubectl
+```
 
 ## {{% heading "whatsnext" %}}
 

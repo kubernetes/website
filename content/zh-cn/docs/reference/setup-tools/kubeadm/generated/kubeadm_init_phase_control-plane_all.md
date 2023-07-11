@@ -175,10 +175,11 @@ Don't apply any changes; just output what would be done.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for various features. Options are:<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)
+A set of key=value pairs that describe feature gates for various features. Options are:<br/>EtcdLearnerMode=true|false (ALPHA - default=false)<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)
 -->
 <p>
 一组用来描述各种特性门控的键值（key=value）对。选项是：
+<br/>EtcdLearnerMode=true|false (ALPHA - 默认值=false)
 <br/>PublicKeysECDSA=true|false (ALPHA - 默认值=false)
 <br/>RootlessControlPlane=true|false (ALPHA - 默认值=false)
 </p>
@@ -332,7 +333,7 @@ Use alternative range of IP address for service VIPs.
 [EXPERIMENTAL] The path to the 'real' host root filesystem.
 -->
 <p>
-[实验] 指向 '真实' 宿主机的根文件系统的路径。
+[实验] 指向'真实'宿主机的根文件系统的路径。
 </p>
 </td>
 </tr>

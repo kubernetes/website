@@ -152,6 +152,19 @@ announcements:
     All images available in k8s.gcr.io are available at registry.k8s.io.</br>
     Please read our [announcement](/blog/2023/03/10/image-registry-redirect/) for more details.
 
+- name: Kubecon 2023 EU
+  startTime: 2023-04-15T00:00:00  #Added in https://github.com/kubernetes/website/pull/40691
+  endTime: 2023-04-22T18:00:00
+  style: >-
+    background: linear-gradient(90deg, rgba(174,28,40,1) 0%, rgba(50,79,133,1) 65%, rgba(33,70,139,1) 100%);
+    color: #fffff;
+  title: |
+    <img src ="/images/announcements/kccnc-eu-2023-white.svg" style="float: right; height: 80px;" />
+    <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/">KubeCon + CloudNativeCon EU 2023</a> <em> Amsterdam, Netherlands + Virtual</em>.
+  message: |
+    4 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
+    April 18 - April 21, 2023.
+    
 - name: Redirecting k8s.gcr.io - After
   startTime: 2023-03-27T00:00:00 # This should run after the redirect begins
   endTime: 2023-05-31T00:00:00

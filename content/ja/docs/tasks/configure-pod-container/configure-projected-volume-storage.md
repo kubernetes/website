@@ -1,7 +1,7 @@
 ---
 title: ストレージにProjectedボリュームを使用するようPodを設定する
 content_type: task
-weight: 70
+weight: 100
 ---
 
 <!-- overview -->

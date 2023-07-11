@@ -14,7 +14,7 @@ weight: 65
 
 <!-- overview -->
 
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
 
 <!-- 
 Dynamic resource allocation is a new API for requesting and sharing resources
@@ -48,10 +48,10 @@ Kubernetes v{{< skew currentVersion >}} 包含用于动态资源分配的集群�
 
 ## API {#api}
 <!-- 
-The new `resource.k8s.io/v1alpha1` {{< glossary_tooltip text="API group"
+The `resource.k8s.io/v1alpha2` {{< glossary_tooltip text="API group"
 term_id="api-group" >}} provides four new types:
 -->
-新的 `resource.k8s.io/v1alpha1`
+`resource.k8s.io/v1alpha2`
 {{< glossary_tooltip text="API 组" term_id="api-group" >}}提供四种新类型：
 
 <!-- 
@@ -72,7 +72,7 @@ ResourceClaimTemplate
 : Defines the spec and some meta data for creating
   ResourceClaims. Created by a user when deploying a workload.
 
-PodScheduling
+PodSchedulingContext
 : Used internally by the control plane and resource drivers
   to coordinate pod scheduling when ResourceClaims need to be allocated
   for a Pod.
@@ -91,7 +91,7 @@ ResourceClaimTemplate
 : 定义用于创建 ResourceClaim 的 spec 和一些元数据。
   部署工作负载时由用户创建。
 
-PodScheduling
+PodSchedulingContext
 : 供控制平面和资源驱动程序内部使用，
   在需要为 Pod 分配 ResourceClaim 时协调 Pod 调度。
 
@@ -134,7 +134,7 @@ will get created for this Pod and each container gets access to one of them.
 该示例将为此 Pod 创建两个 ResourceClaim 对象，每个容器都可以访问其中一个。
 
 ```yaml
-apiVersion: resource.k8s.io/v1alpha1
+apiVersion: resource.k8s.io/v1alpha2
 kind: ResourceClass
 name: resource.example.com
 driverName: resource-driver.example.com
@@ -146,7 +146,7 @@ spec:
   color: black
   size: large
 ---
-apiVersion: resource.k8s.io/v1alpha1
+apiVersion: resource.k8s.io/v1alpha2
 kind: ResourceClaimTemplate
 metadata:
   name: large-black-cat-claim-template
@@ -253,6 +253,19 @@ set aside for it.
 这种情况很糟糕，因为被挂起 Pod 也会阻塞为其保留的其他资源，如 RAM 或 CPU。
 
 <!-- 
+## Monitoring resources
+-->
+## 监控资源  {#monitoring-resources}
+
+<!-- 
+The kubelet provides a gRPC service to enable discovery of dynamic resources of
+running Pods. For more information on the gRPC endpoints, see the
+[resource allocation reporting](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources).
+-->
+kubelet 提供了一个 gRPC 服务，以便发现正在运行的 Pod 的动态资源。
+有关 gRPC 端点的更多信息，请参阅[资源分配报告](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources)。
+
+<!-- 
 ## Limitations
 -->
 ## 限制 {#limitations}
@@ -279,7 +292,7 @@ future.
 Dynamic resource allocation is an *alpha feature* and only enabled when the
 `DynamicResourceAllocation` [feature
 gate](/docs/reference/command-line-tools-reference/feature-gates/) and the
-`resource.k8s.io/v1alpha1` {{< glossary_tooltip text="API group"
+`resource.k8s.io/v1alpha2` {{< glossary_tooltip text="API group"
 term_id="api-group" >}} are enabled. For details on that, see the
 `--feature-gates` and `--runtime-config` [kube-apiserver
 parameters](/docs/reference/command-line-tools-reference/kube-apiserver/).
@@ -322,10 +335,11 @@ error: the server doesn't have a resource type "resourceclasses"
 
 <!-- 
 The default configuration of kube-scheduler enables the "DynamicResources"
-plugin if and only if the feature gate is enabled. Custom configurations may
-have to be modified to include it.
+plugin if and only if the feature gate is enabled and when using
+the v1 configuration API. Custom configurations may have to be modified to
+include it.
 -->
-kube-scheduler 的默认配置仅在启用特性门控时才启用 "DynamicResources" 插件。
+kube-scheduler 的默认配置仅在启用特性门控且使用 v1 配置 API 时才启用 "DynamicResources" 插件。
 自定义配置可能需要被修改才能启用它。
 
 <!-- 
