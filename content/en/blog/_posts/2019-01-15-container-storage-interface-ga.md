@@ -143,7 +143,7 @@ spec:
 
 When the pod referencing a CSI volume is scheduled, Kubernetes will trigger the appropriate operations against the external CSI plugin (`ControllerPublishVolume`, `NodeStageVolume`, `NodePublishVolume`, etc.) to ensure the specified volume is attached, mounted, and ready to use by the containers in the pod.
 
-For more details please see the CSI implementation [design doc](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md) and [documentation](/docs/concepts/storage/volumes/#csi).
+For more details please see the CSI implementation [design doc](https://github.com/kubernetes/design-proposals-archive/blob/main/storage/container-storage-interface.md) and [documentation](/docs/concepts/storage/volumes/#csi).
 
 ## How to write a CSI Driver?
 
