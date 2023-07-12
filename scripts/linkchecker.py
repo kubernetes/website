@@ -419,7 +419,10 @@ def validate_links(page, in_place_edit):
             target_records.append(m[1])
 
     # if multiple records are the same they need not be checked repeatedly
-    target_records = set(target_records)
+    # remove paths that are not relative too
+    target_records = set([item for item in target_records
+                         if not item.startswith("http") and
+                          not item.startswith(f"/{LANG}")])
 
     if in_place_edit and len(target_records) > 0:
         updated_data = []
