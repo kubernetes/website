@@ -3,6 +3,12 @@ title: Well-Known Labels, Annotations and Taints
 content_type: concept
 weight: 40
 no_list: true
+card:
+  name: reference
+  weight: 30
+  anchors:
+  - anchor: "#labels-annotations-and-taints-used-on-api-objects"
+    title: Labels, annotations and taints
 ---
 
 <!-- overview -->

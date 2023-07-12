@@ -7,8 +7,8 @@ reviewers:
 content_type: concept
 weight: 10 # highlight it
 card:
-  name: reference
-  weight: 30
+  name: tasks
+  weight: 10
 ---
 
 <!-- overview -->

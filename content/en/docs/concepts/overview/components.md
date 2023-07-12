@@ -8,6 +8,7 @@ description: >
   plane and a set of machines called nodes.
 weight: 30
 card: 
+  title: Components of a cluster
   name: concepts
   weight: 20
 ---
