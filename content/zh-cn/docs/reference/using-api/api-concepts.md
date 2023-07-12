@@ -1918,7 +1918,6 @@ on whether a request is served from cache or not, the API server may reply with 
 Servers are not required to serve unrecognized resource versions. If you request
 **list** or **get** for a resource version that the API server does not recognize,
 then the API server may either:
-当你 list 资源并收到集合响应时
 * wait briefly for the resource version to become available, then timeout with a
   `504 (Gateway Timeout)` if the provided resource versions does not become available
   in a reasonable amount of time;
