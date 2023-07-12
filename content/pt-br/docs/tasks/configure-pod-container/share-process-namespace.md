@@ -1,9 +1,5 @@
 ---
 title: Compartilhando o Namespace de Processo Entre Contêineres em um Pod
-reviewers:
-- verb
-- yujuhong
-- dchen1107
 content_type: task
 weight: 160
 ---
