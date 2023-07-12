@@ -373,7 +373,7 @@ kubectl [flags]
 <td colspan="2">KUBECTL_INTERACTIVE_DELETE</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, --interactive flag in kubectl delete command will be activated and by passing this flag, users can preview and confirm resources before proceeding to delete. 
+<td></td><td style="line-height: 130%; word-wrap: break-word;">When set to true, the --interactive flag in the kubectl delete command will be activated, allowing users to preview and confirm resources before proceeding to delete by passing this flag.
 </td>
 </tr>
 
