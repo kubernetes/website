@@ -481,7 +481,8 @@ def parse_arguments():
                         help=("File pattern to scan. "
                               "(default='content/en/docs/**/*.md')"))
     PARSER.add_argument("-w", dest="in_place_edit", action="store_true",
-                        help="[EXPERIMENTAL] Turns on in-place replacement.")
+                        help="[EXPERIMENTAL] Turns on in-place replacement "
+                             "for localized content.")
 
     return PARSER.parse_args()
 
