@@ -21,3 +21,4 @@ spec:
     - action: Ignore
       onPodConditions:
       - type: DisruptionTarget
+	status: "True"

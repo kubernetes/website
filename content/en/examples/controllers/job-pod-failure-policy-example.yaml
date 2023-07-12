@@ -26,3 +26,4 @@ spec:
     - action: Ignore             # one of: Ignore, FailJob, Count
       onPodConditions:
       - type: DisruptionTarget   # indicates Pod disruption
+        status: "True"           # one of: True, False or Unknown
