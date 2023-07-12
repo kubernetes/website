@@ -427,9 +427,9 @@ def validate_links(page, in_place_edit):
             if any(rec in line for rec in target_records):
                 for rec in target_records:
                     line = line.replace(
-                        "(" + rec + ")",
+                        f"({rec})",
                         # assumes unlocalized links are in "/docs/..." format
-                        "(/" + LANG + rec + ")")
+                        f"(/{LANG}{rec})")
             updated_data.append(line)
 
         with open(page, "w") as f:
