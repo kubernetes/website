@@ -8,8 +8,10 @@ content_type: task
 {{% thirdparty-content %}}
 
 `mirrord` is an open-source tool that lets developers run local processes in the context of their cloud environment. 
-It makes it easy to test your code on a Kubernetes environment without actually going through the hassle of Dockerization, CI, or deployment, and without disrupting the environment by deploying untested code. 
-Instead of saving cloud testing for the last step, mirrord lets you shift it all the way left, letting you run your code in the context of your Kubernetes cluster from the very beginning of your development process.
+It makes it easy to test your code on a Kubernetes environment without actually going through the hassle of Dockerization,
+CI, or deployment, and without disrupting the environment by deploying untested code. 
+Instead of saving cloud testing for the last step, mirrord lets you shift it all the way left, 
+letting you run your code in the context of your Kubernetes cluster from the very beginning of your development process.
  
 When mirrord is executed, it injects itself into your local process, and starts a temporary pod in your Kubernetes cluster called the mirrord Agent. 
 It then overrides low level functions in your local process, and relays them to a pod in your Kubernetes cluster
@@ -33,9 +35,11 @@ When developing an application on Kubernetes, you typically program
 or debug a single service. The service might require access to other
 services for testing and debugging. One option is to use the continuous
 deployment pipeline, but even the fastest deployment pipeline introduces
-a delay in the program or debug cycle. Additionally, by deploying untested code to the cluster, you risk affecting the other developers using it.
+a delay in the program or debug cycle. Additionally, by deploying untested code to the cluster, 
+you risk affecting the other developers using it.
 
-mirrord lets you run your new code within the context of a pod or deployment in your cluster, without deploying it there. The pod or deployment whose context you want your local process to run in is called the Target.
+mirrord lets you run your new code within the context of a pod or deployment in your cluster, without deploying it there. 
+The pod or deployment whose context you want your local process to run in is called the Target.
 
 To use mirrord to develop a specific service, use the following command:
 `mirrord exec -t pod/<the pod running your service in the cluster> <the command that runs your service>`
