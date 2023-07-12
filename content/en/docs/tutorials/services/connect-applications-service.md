@@ -314,7 +314,7 @@ kubectl describe cm nginxconfigmap
 
 The output is similar to:
 
-```
+```console
 Name:         nginxconfigmap
 Namespace:    default
 Labels:       <none>
