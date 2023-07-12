@@ -308,9 +308,8 @@ nginxconfigmap   1      114s
 ```
 
 Details of the configmap ```nginxconfigmap``` can be viewed with the following command
-```
+```shell
 kubectl describe cm nginxconfigmap
-```
 
 The output is similar to:
 
