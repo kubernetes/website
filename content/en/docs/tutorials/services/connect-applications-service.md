@@ -311,7 +311,8 @@ Details of the configmap ```nginxconfigmap``` can be viewed with the following c
 ```
 kubectl describe cm nginxconfigmap
 ```
-The output can look like the following
+
+The output is similar to:
 
 ```
 Name:         nginxconfigmap
