@@ -48,13 +48,15 @@ for an example control plane setup that runs across multiple machines.
 
 {{< glossary_definition term_id="kube-controller-manager" length="all" >}}
 
-Some types of these controllers are:
+There are many different types of controllers. Some examples of them are:
 
   * Node controller: Responsible for noticing and responding when nodes go down.
   * Job controller: Watches for Job objects that represent one-off tasks, then creates
     Pods to run those tasks to completion.
   * EndpointSlice controller: Populates EndpointSlice objects (to provide a link between Services and Pods).
   * ServiceAccount controller: Create default ServiceAccounts for new namespaces.
+
+The above is not an exhaustive list
 
 ### cloud-controller-manager
 
