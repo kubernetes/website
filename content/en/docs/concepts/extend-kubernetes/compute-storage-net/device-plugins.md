@@ -147,6 +147,22 @@ The general workflow of a device plugin includes the following steps:
    runtime configurations for accessing the allocated devices. The kubelet passes this information
    to the container runtime.
 
+   An `AllocateResponse` contains zero or more `ContainerAllocateResponse` objects. In these, the
+   device plugin defines modifications that must be made to a container's definition to provide
+   access to the device. These modifications include:
+
+   * annotations
+   * device nodes
+   * environment variables
+   * mounts
+   * fully-qualified CDI device names
+
+   {{< note >}}
+   The processing of the fully-qualified CDI device names by the Device Manager requires
+   the `DevicePluginCDIDevices` feature gate to be enabled. This was added as an alpha feature in
+   v1.28.
+   {{< note >}}
+
 ### Handling kubelet restarts
 
 A device plugin is expected to detect kubelet restarts and re-register itself with the new
