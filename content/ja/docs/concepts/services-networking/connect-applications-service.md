@@ -143,7 +143,7 @@ Service IPは完全に仮想的なもので、ホスト側のネットワーク�
 ## Serviceにアクセスする
 
 Kubernetesは、環境変数とDNSの2つの主要なService検索モードをサポートしています。
-前者はそのまま使用でき、後者は[CoreDNSクラスターアドオン](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/coredns)を必要とします。
+前者はそのまま使用でき、後者は[CoreDNSクラスターアドオン](https://releases.k8s.io/v{{< skew currentPatchVersion >}}/cluster/addons/dns/coredns)を必要とします。
 {{< note >}}
 サービス環境変数が望ましくない場合(予想されるプログラム変数と衝突する可能性がある、処理する変数が多すぎる、DNSのみを使用するなど)、[Pod仕様](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)で`enableServiceLinks`フラグを`false`に設定することでこのモードを無効にできます。
 {{< /note >}}
