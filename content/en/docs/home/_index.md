@@ -41,20 +41,20 @@ cards:
   description: "Look up common tasks and how to perform them using a short sequence of steps."
   button: "View Tasks"
   button_path: "/docs/tasks"
-- name: training
-  title: "Training"
-  description: "Get certified in Kubernetes and make your cloud native projects successful!"
-  button: "View training"
-  button_path: "/training"
 - name: reference
   title: Look up reference information
   description: Browse terminology, command line syntax, API resource types, and setup tool documentation.
   button: View Reference
   button_path: /docs/reference
+- name: training
+  title: "Training"
+  description: "Get certified in Kubernetes and make your cloud native projects successful!"
+  button: "View training"
+  button_path: "/training"
 - name: contribute
-  title: Contribute to the docs
+  title: Contribute to Kubernetes
   description: Anyone can contribute, whether you're new to the project or you've been around a long time.
-  button: Contribute to the docs
+  button: Find out how to help
   button_path: /docs/contribute
 - name: Download
   title: Download Kubernetes

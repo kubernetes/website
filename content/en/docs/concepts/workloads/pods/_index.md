@@ -5,9 +5,6 @@ title: Pods
 content_type: concept
 weight: 10
 no_list: true
-card:
-  name: concepts
-  weight: 60
 ---
 
 <!-- overview -->
