@@ -229,11 +229,11 @@ my-nginx-7vzhx   IPv4          80      10.244.2.5,10.244.3.4   21s
 You should now be able to curl the nginx Service on `<CLUSTER-IP>:<PORT>` from
 any node in your cluster. Note that the Service IP is completely virtual, it
 never hits the wire. If you're curious about how this works you can read more
-about the [service proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies).
+about the [service proxy](/docs/reference/networking/virtual-ips/).
 -->
 现在，你应该能够从集群中任意节点上使用 curl 命令向 `<CLUSTER-IP>:<PORT>` 发送请求以访问 Nginx Service。
 注意 Service IP 完全是虚拟的，它从来没有走过网络，如果对它如何工作的原理感到好奇，
-可以进一步阅读[服务代理](/zh-cn/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)的内容。
+可以进一步阅读[服务代理](/zh-cn/docs/reference/networking/virtual-ips/)的内容。
 
 <!--
 ## Accessing the Service
@@ -360,7 +360,7 @@ IP 分配名称的 DNS 服务器。 这里我们使用 CoreDNS 集群插件（�
 让我们运行另一个 curl 应用来进行测试：
 
 ```shell
-kubectl run curl --image=radial/busyboxplus:curl -i --tty
+kubectl run curl --image=radial/busyboxplus:curl -i --tty --rm
 ```
 ```
 Waiting for pod default/curl-131556218-9fnch to be running, status is Pending, pod ready: false
