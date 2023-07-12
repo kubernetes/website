@@ -12,7 +12,9 @@ It makes it easy to test your code on a Kubernetes environment without actually 
 Instead of saving cloud testing for the last step, mirrord lets you shift it all the way left, letting you run your code in the context of your Kubernetes cluster from the very beginning of your development process.
  
 When mirrord is executed, it injects itself into your local process, and starts a temporary pod in your Kubernetes cluster called the mirrord Agent. 
-It then overrides low level functions in your local process, and relays them to a pod in your Kubernetes cluster through the mirrord Agent. mirrord does this for incoming and outgoing traffic, file access, and environment variables, so your process "thinks" it's running in the pod you selected, even though it's actually running locally.
+It then overrides low level functions in your local process, and relays them to a pod in your Kubernetes cluster
+through the mirrord Agent. mirrord does this for incoming and outgoing traffic, file access, and environment
+variables, so your process "thinks" it's running in the pod you selected, even though it's actually running locally.
  
 This document describes using `mirrord` to develop and debug services
 running on a remote cluster locally.
