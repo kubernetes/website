@@ -424,7 +424,8 @@ def validate_links(page, in_place_edit):
                          if not item.startswith("http") and
                           not item.startswith(f"/{LANG}")])
 
-    if in_place_edit and target_records:
+    # English-language pages don't have "en" in their path
+    if in_place_edit and target_records and LANG != "en":
         updated_data = []
         for line in data:
             if any(rec in line for rec in target_records):
