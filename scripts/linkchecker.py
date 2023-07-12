@@ -422,7 +422,7 @@ def validate_links(page, in_place_edit):
     # remove paths that are not relative too
     target_records = {item for item in target_records
                          if not item.startswith("http") and
-                          not item.startswith(f"/{LANG}")])
+                          not item.startswith(f"/{LANG}")}
 
     # English-language pages don't have "en" in their path
     if in_place_edit and target_records and LANG != "en":
