@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'Kubernetes 1.25: PodReadyToStartContainers Condition for Pods'
+title: 'Kubernetes 1.25: PodHasNetwork Condition for Pods'
 date: 2022-09-14
 slug: pod-has-network-condition
 ---
@@ -9,19 +9,25 @@ slug: pod-has-network-condition
 Deep Debroy (Apple)
 
 Kubernetes 1.25 introduces Alpha support for a new kubelet-managed pod condition
-in the status field of a pod: `PodReadyToStartContainers`. The kubelet, for a worker node,
-will use the `PodReadyToStartContainers` condition to accurately surface the initialization
+in the status field of a pod: `PodHasNetwork`. The kubelet, for a worker node,
+will use the `PodHasNetwork` condition to accurately surface the initialization
 state of a pod from the perspective of pod sandbox creation and network
 configuration by a container runtime (typically in coordination with CNI
 plugins). The kubelet starts to pull container images and start individual
-containers (including init containers) after the status of the `PodReadyToStartContainers`
+containers (including init containers) after the status of the `PodHasNetwork`
 condition is set to `"True"`. Metrics collection services that report latency of
 pod initialization from a cluster infrastructural perspective (i.e. agnostic of
 per container characteristics like image size or payload) can utilize the
-`PodReadyToStartContainers` condition to accurately generate Service Level Indicators
+`PodHasNetwork` condition to accurately generate Service Level Indicators
 (SLIs). Certain operators or controllers that manage underlying pods may utilize
-the `PodReadyToStartContainers` condition to optimize the set of actions performed when pods
+the `PodHasNetwork` condition to optimize the set of actions performed when pods
 repeatedly fail to come up.
+
+### Updates for Kubernetes 1.28
+
+The PodHasNetwork condition has been renamed to PodReadyToStartContainers.
+To enable this alpha feature you have to set the feature toggle PodReadyToStartContainersCondition 
+to true.
 
 ### How is this different from the existing Initialized condition reported for pods?
 
@@ -44,14 +50,14 @@ containers will report the status of the `Initialized` condition as `"True"`
 even if the container runtime is not able to successfully initialize the pod
 sandbox environment.
 
-Relative to either situation above, the `PodReadyToStartContainers` condition surfaces more
+Relative to either situation above, the `PodHasNetwork` condition surfaces more
 accurate data around when the pod runtime sandbox was initialized with
 networking configured so that the kubelet can proceed to launch user-configured
 containers (including init containers) in the pod.
 
 ### Special Cases
 
-If a pod specifies `hostNetwork` as `"True"`, the `PodReadyToStartContainers` condition is
+If a pod specifies `hostNetwork` as `"True"`, the `PodHasNetwork` condition is
 set to `"True"` based on successful creation of the pod sandbox while the
 network configuration state of the pod sandbox is ignored. This is because the
 CRI implementation typically skips any pod sandbox network configuration when
@@ -61,17 +67,17 @@ A node agent may dynamically re-configure network interface(s) for a pod by
 watching changes in pod annotations that specify additional networking
 configuration (e.g. `k8s.v1.cni.cncf.io/networks`). Dynamic updates of pod
 networking configuration after the pod sandbox is initialized by Kubelet (in
-coordination with a container runtime) are not reflected by the `PodReadyToStartContainers`
+coordination with a container runtime) are not reflected by the `PodHasNetwork`
 condition.
 
-### Try out the PodReadyToStartContainers condition for pods
+### Try out the PodHasNetwork condition for pods
 
-In order to have the kubelet report the `PodReadyToStartContainers` condition in the status
-field of a pod, please enable the `PodReadyToStartContainersCondition` feature gate on the
+In order to have the kubelet report the `PodHasNetwork` condition in the status
+field of a pod, please enable the `PodHasNetworkCondition` feature gate on the
 kubelet.
 
 For a pod whose runtime sandbox has been successfully created and has networking
-configured, the kubelet will report the `PodReadyToStartContainers` condition with status set to `"True"`:
+configured, the kubelet will report the `PodHasNetwork` condition with status set to `"True"`:
 
 ```
 $ kubectl describe pod nginx1
@@ -80,7 +86,7 @@ Namespace:        default
 ...
 Conditions:
   Type              Status
-  PodReadyToStartContainers     True
+  PodHasNetwork     True
   Initialized       True
   Ready             True
   ContainersReady   True
@@ -88,7 +94,7 @@ Conditions:
 ```
 
 For a pod whose runtime sandbox has not been created yet (and networking not
-configured either), the kubelet will report the `PodReadyToStartContainers` condition with
+configured either), the kubelet will report the `PodHasNetwork` condition with
 status set to `"False"`:
 
 ```
@@ -98,7 +104,7 @@ Namespace:        default
 ...
 Conditions:
   Type              Status
-  PodReadyToStartContainers     False
+  PodHasNetwork     False
   Initialized       True
   Ready             False
   ContainersReady   False
@@ -108,13 +114,13 @@ Conditions:
 ### What’s next?
 
 Depending on feedback and adoption, the Kubernetes team plans to push the
-reporting of the `PodReadyToStartContainers` condition to Beta in 1.26 or 1.27.
+reporting of the `PodHasNetwork` condition to Beta in 1.26 or 1.27.
 
 ### How can I learn more?
 
 Please check out the
 [documentation](/docs/concepts/workloads/pods/pod-lifecycle/) for the
-`PodReadyToStartContainers` condition to learn more about it and how it fits in relation to
+`PodHasNetwork` condition to learn more about it and how it fits in relation to
 other pod conditions.
 
 ### How to get involved?
