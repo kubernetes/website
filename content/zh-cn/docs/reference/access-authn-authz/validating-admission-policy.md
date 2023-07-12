@@ -674,8 +674,8 @@ the request is determined as follows:
 1. 如果**任何一个**匹配条件求值结果为 `false`（不管其他错误），API 服务器将跳过 Webhook。
 2. 否则：
 
- - 对于 [`failurePolicy: Fail`](#failure-policy)，拒绝请求（不调用 Webhook）。
- - 对于 [`failurePolicy: Ignore`](#failure-policy)，继续处理请求但跳过 Webhook。
+   - 对于 [`failurePolicy: Fail`](#failure-policy)，拒绝请求（不调用 Webhook）。
+   - 对于 [`failurePolicy: Ignore`](#failure-policy)，继续处理请求但跳过 Webhook。
 
 <!--
 ### Audit annotations
