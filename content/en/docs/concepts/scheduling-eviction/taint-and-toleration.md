@@ -18,7 +18,7 @@ a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (either as a prefe
 hard requirement). _Taints_ are the opposite -- they allow a node to repel a set of pods.
 
 _Tolerations_ are applied to pods. Tolerations allow the scheduler to schedule pods with matching
-taints. Tolerations allow scheduling but don't guarantee scheduling. The scheduler also
+taints. Tolerations allow scheduling but don't guarantee scheduling: the scheduler also
 [evaluates other parameters](/docs/concepts/scheduling-eviction/pod-priority-preemption/)
 as part of its function.
 
