@@ -3,7 +3,6 @@ layout: blog
 title: "Spotlight on SIG CLI"
 date: 2023-07-20
 slug: sig-cli-spotlight-2023
-author: "Arpit Agrawal"
 ---
 
 **Author**: Arpit Agrawal
