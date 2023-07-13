@@ -15,7 +15,7 @@ Taints are a Kubernetes node property that enable nodes to repel certain pods. T
 [_Node affinity_](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity)
 is a property of {{< glossary_tooltip text="Pods" term_id="pod" >}} that *attracts* them to
 a set of {{< glossary_tooltip text="nodes" term_id="node" >}} (either as a preference or a
-hard requirement). _Taints_ are the opposite and allow a node to repel a set of pods.
+hard requirement). _Taints_ are the opposite -- they allow a node to repel a set of pods.
 
 _Tolerations_ are applied to pods. Tolerations allow the scheduler to schedule pods with matching
 taints. Tolerations allow scheduling but don't guarantee scheduling. The scheduler also
