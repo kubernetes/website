@@ -98,8 +98,8 @@ Environment variables that you define in a Pod's configuration under
 example in commands and arguments that you set for the Pod's containers.
 In the example configuration below, the `GREETING`, `HONORIFIC`, and
 `NAME` environment variables are set to `Warm greetings to`, `The Most
-Honorable`, and `Kubernetes`, respectively. And the environment variable 
-`MESSAGE` combines the set of all these  environment variables and then used 
+Honorable`, and `Kubernetes`, respectively. The environment variable 
+`MESSAGE` combines the set of all these environment variables and then uses it 
 as a CLI argument passed to the `env-print-demo` container.
 
 ```yaml
