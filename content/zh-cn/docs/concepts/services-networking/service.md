@@ -986,7 +986,7 @@ can define your own (provider specific) annotations on the Service that specify 
 -->
 #### 混合协议类型的负载均衡器
 
-{{< feature-state for_k8s_version="v1.24" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 <!--
 By default, for LoadBalancer type of Services, when there is more than one port defined, all
