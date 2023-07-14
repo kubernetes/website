@@ -1768,6 +1768,8 @@ Continue Token, Exact
 When you **list** resources and receive a collection response, the response includes the
 [list metadata](/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#listmeta-v1-meta) of the collection as
 well as [object metadata](/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#objectmeta-v1-meta)
+[metadata](/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#listmeta-v1-meta) of the collection as
+well as [object metadata](/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#listmeta-v1-meta)
 for each item in that collection. For individual objects found within a collection response,
 `.metadata.resourceVersion` tracks when that object was last updated, and not how up-to-date
 the object is when served.
@@ -1775,6 +1777,10 @@ the object is when served.
 当你 **list** 资源并收到集合响应时，
 响应包括集合的[列表元数据](/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#listmeta-v1-meta)。
 以及该集合中每个项目的[对象元数据](/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#objectmeta-v1-meta)。
+响应包括集合的[列表元数据](/zh-cn/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#listmeta-v1-meta)。
+以及该集合中每个项目的[对象元数据](/zh-cn/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#objectmeta-v1-meta)。
+响应包括集合的[元数据](/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#listmeta-v1-meta)
+以及该集合中每个项目的[对象元数据](/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#listmeta-v1-meta)。
 对于在集合响应中找到的单个对象，`.metadata.resourceVersion` 跟踪该对象的最后更新时间，
 而不是对象在服务时的最新程度。
 {{< /note >}}
