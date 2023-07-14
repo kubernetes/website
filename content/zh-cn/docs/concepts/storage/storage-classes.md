@@ -560,9 +560,19 @@ using `allowedTopologies`.
 {{< note >}}
 <!--
 `zone` and `zones` parameters are deprecated and replaced with
-[allowedTopologies](#allowed-topologies)
+[allowedTopologies](#allowed-topologies). When
+[GCE CSI Migration](/docs/concepts/storage/volumes/#gce-csi-migration) is
+enabled, a GCE PD volume can be provisioned in a topology that does not match
+any nodes, but any pod trying to use that volume will fail to schedule. With
+legacy pre-migration GCE PD, in this case an error will be produced
+instead at provisioning time. GCE CSI Migration is enabled by default beginning
+from the Kubernetes 1.23 release.
 -->
 `zone` 和 `zones` 已被弃用并被 [allowedTopologies](#allowed-topologies) 取代。
+当启用 [GCE CSI 迁移](/zh-cn/docs/concepts/storage/volumes/#gce-csi-migration)时，
+GCE PD 卷可能被制备在某个与所有节点都不匹配的拓扑域中，但任何尝试使用该卷的 Pod 都无法被调度。
+对于传统的迁移前 GCE PD，这种情况下将在制备卷的时候产生错误。
+从 Kubernetes 1.23 版本开始，GCE CSI 迁移默认启用。
 {{< /note >}}
 
 ### NFS  {#nfs}

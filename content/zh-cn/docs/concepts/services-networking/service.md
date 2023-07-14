@@ -195,15 +195,17 @@ spec:
 ```
 
 <!--
-Applying this manifest creates a new Service named "my-service", which
+Applying this manifest creates a new Service named "my-service" with the default
+ClusterIP [service type](#publishing-services-service-types). The Service
 targets TCP port 9376 on any Pod with the `app.kubernetes.io/name: MyApp` label.
 
 Kubernetes assigns this Service an IP address (the _cluster IP_),
 that is used by the virtual IP address mechanism. For more details on that mechanism,
 read [Virtual IPs and Service Proxies](/docs/reference/networking/virtual-ips/).
 -->
-应用上述清单将创建一个名称为 "my-service" 的新 Service，它在所有 Pod 上指向
-TCP 端口 9376，并且具有标签 `app.kubernetes.io/name: MyApp`。
+应用上述清单将创建一个名称为 "my-service" 的新 Service，
+该服务[服务类型](#publishing-services-service-types)默认为 ClusterIP。
+该服务指向带有标签 `app.kubernetes.io/name: MyApp` 的所有 Pod 的TCP 端口 9376。
 
 Kubernetes 为该服务分配一个 IP 地址（有时称为 “集群 IP”），该 IP 地址由虚拟 IP 地址机制使用。
 有关该机制的更多详情，请阅读[虚拟 IP 和服务代理](/zh-cn/docs/reference/networking/virtual-ips/)。
