@@ -10,9 +10,8 @@ weight: 20
 <!-- overview -->
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
-Kubernetes provides a [device plugin framework](https://git.k8s.io/enhancements/keps/sig-node/3573-device-plugin/README.md)
-that you can use to advertise system hardware resources to the
-{{< glossary_tooltip term_id="kubelet" >}}.
+Kubernetes provides a device plugin framework that you can use to advertise system hardware
+resources to the {{< glossary_tooltip term_id="kubelet" >}}.
 
 Instead of customizing the code for Kubernetes itself, vendors can implement a
 device plugin that you deploy either manually or as a {{< glossary_tooltip term_id="daemonset" >}}.
