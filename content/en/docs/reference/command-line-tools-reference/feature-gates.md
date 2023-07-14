@@ -221,7 +221,7 @@ For a reference to old feature gates that are removed, please refer to
 | `WinDSR` | `false` | Alpha | 1.14 | |
 | `WinOverlay` | `false` | Alpha | 1.14 | 1.19 |
 | `WinOverlay` | `true` | Beta | 1.20 | |
-| `WindowsHostNetwork` | `false` | Alpha | 1.26| |
+| `WindowsHostNetwork` | `true` | Alpha | 1.26| |
 {{< /table >}}
 
 ### Feature gates for graduated or deprecated features
