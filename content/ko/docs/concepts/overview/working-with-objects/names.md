@@ -9,7 +9,7 @@ weight: 30
 
 <!-- overview -->
 
-클러스터의 각 오브젝트는 해당 유형의 리소스에 대하여 고유한 [_이름_](#names) 을 가지고 있다.
+클러스터의 각 {{< glossary_tooltip text="오브젝트" term_id="object" >}}는 해당 유형의 리소스에 대하여 고유한 [_이름_](#names) 을 가지고 있다.
 또한, 모든 쿠버네티스 오브젝트는 전체 클러스터에 걸쳐 고유한 [_UID_](#uids) 를 가지고 있다.
 
 예를 들어, 이름이 `myapp-1234`인 파드는 동일한 [네임스페이스](/ko/docs/concepts/overview/working-with-objects/namespaces/) 내에서 하나만 존재할 수 있지만, 이름이 `myapp-1234`인 파드와 디플로이먼트는 각각 존재할 수 있다.
@@ -23,6 +23,10 @@ weight: 30
 ## 이름 {#names}
 
 {{< glossary_definition term_id="name" length="all" >}}
+
+**이름은 해당 리소스의 모든 [API 버전](/ko/docs/concepts/overview/kubernetes-api/#api-그룹과-버전-규칙)에 대해 유일해야 한다. 
+각 API 리소스는 API 그룹, 리소스 종류, 네임스페이스(네임스페이스에 속하는 리소스에 한함), 이름의 조합으로 구별된다. 
+즉. API 버전으로는 구별할 수 없다.**
 
 {{< note >}}
 물리적 호스트를 나타내는 노드와 같이 오브젝트가 물리적 엔티티를 나타내는 경우, 노드를 삭제한 후 다시 생성하지 않은 채 동일한 이름으로 호스트를 다시 생성하면, 쿠버네티스는 새 호스트를 불일치로 이어질 수 있는 이전 호스트로 취급한다.

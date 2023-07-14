@@ -10,7 +10,7 @@ weight: 45
 
 <!-- overview -->
 
-쿠버네티스에서, _네임스페이스_ 는 단일 클러스터 내에서의 리소스 그룹 격리 메커니즘을 제공한다. 리소스의 이름은 네임스페이스 내에서 유일해야 하며, 네임스페이스 간에서 유일할 필요는 없다. 네임스페이스 기반 스코핑은 네임스페이스 기반 오브젝트 _(예: 디플로이먼트, 서비스 등)_ 에만 적용 가능하며 클러스터 범위의 오브젝트 _(예: 스토리지클래스, 노드, 퍼시스턴트볼륨 등)_ 에는 적용 불가능하다.
+쿠버네티스에서, _네임스페이스_ 는 단일 클러스터 내에서의 리소스 그룹 격리 메커니즘을 제공한다. 리소스의 이름은 네임스페이스 내에서 유일해야 하며, 네임스페이스 간에서 유일할 필요는 없다. 네임스페이스 기반 스코핑은 네임스페이스 기반 {{< glossary_tooltip text="오브젝트" term_id="object" >}} _(예: 디플로이먼트, 서비스 등)_ 에만 적용 가능하며 클러스터 범위의 오브젝트 _(예: 스토리지클래스, 노드, 퍼시스턴트볼륨 등)_ 에는 적용 불가능하다.
 
 <!-- body -->
 
@@ -44,7 +44,7 @@ weight: 45
 : 쿠버네티스에는 이 네임스페이스가 포함되어 있으므로 먼저 네임스페이스를 생성하지 않고도 새 클러스터를 사용할 수 있다.
 
 `kube-node-lease`
-: 이 네임스페이스는 각 노드와 연관된 [리스](/docs/reference/kubernetes-api/cluster-resources/lease-v1/) 오브젝트를 갖는다. 노드 리스는 kubelet이 [하트비트](/ko/docs/concepts/architecture/nodes/#하트비트)를 보내서 컨트롤 플레인이 노드의 장애를 탐지할 수 있게 한다.
+: 이 네임스페이스는 각 노드와 연관된 [리스](/ko/docs/concepts/architecture/leases/) 오브젝트를 갖는다. 노드 리스는 kubelet이 [하트비트](/ko/docs/concepts/architecture/nodes/#하트비트)를 보내서 컨트롤 플레인이 노드의 장애를 탐지할 수 있게 한다.
 
 `kube-public`
 : 이 네임스페이스는 **모든** 클라이언트(인증되지 않은 클라이언트 포함)가 읽기 권한으로 접근할 수 있다. 이 네임스페이스는 주로 전체 클러스터 중에 공개적으로 드러나서 읽을 수 있는 리소스를 위해 예약되어 있다. 이 네임스페이스의 공개적인 성격은 단지 관례이지 요구 사항은 아니다.
@@ -146,7 +146,7 @@ kubectl api-resources --namespaced=false
 
 ## 자동 레이블링
 
-{{< feature-state state="beta" for_k8s_version="1.21" >}}
+{{< feature-state for_k8s_version="1.22" state="stable" >}}
 
 쿠버네티스 컨트롤 플레인은 `NamespaceDefaultLabelName` [기능 게이트](/ko/docs/reference/command-line-tools-reference/feature-gates/)가
 활성화된 경우 모든 네임스페이스에 변경할 수 없는(immutable) {{< glossary_tooltip text="레이블" term_id="label" >}}
