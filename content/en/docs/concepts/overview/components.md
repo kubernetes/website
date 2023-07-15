@@ -56,7 +56,7 @@ There are many different types of controllers. Some examples of them are:
   * EndpointSlice controller: Populates EndpointSlice objects (to provide a link between Services and Pods).
   * ServiceAccount controller: Create default ServiceAccounts for new namespaces.
 
-The above is not an exhaustive list
+The above is not an exhaustive list.
 
 ### cloud-controller-manager
 
