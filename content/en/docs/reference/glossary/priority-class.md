@@ -15,7 +15,7 @@ tags:
 
 <!--more-->
 
-The [PriorityClass](docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityClass) is a non-namespaced object that defines a mapping from a priority class name to the integer value of the priority. The name of the priority is specified in the `metadata.name` field, and the value of the priority is specified in the `value` field. The higher the value, the higher the priority. The value of PriorityClass object can be in range from -2147483648 to 1000000000 inclusive. 
+The [PriorityClass](docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityClass) is a non-namespaced object that defines a mapping from a priority class name to the integer value of the priority. The name of the priority is specified in the `name` field, and the value of the priority is specified in the `value` field. The higher the value, the higher the priority. The value of PriorityClass object can be in range from -2147483648 to 1000000000 inclusive. 
 
 
 
