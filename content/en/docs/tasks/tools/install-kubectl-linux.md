@@ -320,60 +320,39 @@ Depending on how you installed `kubectl`, use one of the following methods.
 {{< tabs name="other_kubectl_uninstall" >}}
 
 {{% tab name="curl" %}}
-If you have used curl to install kubectl, then the uinstallation process can be done using :-
-
-```shell
-sudo rm -rf /usr/local/bin/kubectl
-sudo rm -rf /usr/local/lib/kubectl
-```
-
-An alternative command to carry out the uninstall:-
+If you installed kubectl using curl, you can uninstall it by executing the following commands:
 
 ```shell
 sudo rm $(which kubectl)
 ```
 
-For getting binary files run the below command:
-
-```shell
-which kubectl
-```
-or
-```shell
-whereis kubectl
-```
-It is recommended to uninstall the executable binaries for completely removing the kubectl from the root.
-
 {{% /tab %}}
 
 {{% tab name="apt-get" %}}
-If you are on Ubuntu or another Debian based Linux distribution
+If you installed kubectl using apt-get, you can uninstall it by executing the following command:
 
 ```shell
 sudo apt-get purge kubectl
 sudo apt-get autoremove
 ```
 
-An alternative command to carry out the uninstall:-
+{{% /tab %}}
+
+{{% tab name="yum" %}}
+If you installed kubectl using yum, you can uninstall it by executing the following command:
 
 ```shell
-sudo rm $(which kubectl)
+yum remove kubectl
 ```
-
-The executable binaries are stored in the ```/usr/bin or usr/local/bin```, library files in ```usr/lib``` and configuration files in ```/etc```.
-It is recommended to manually remove the library files and static data for completely uninstalling the ```kubectl``` from the system.
 
 {{% /tab %}}
 
 {{% tab name="Homebrew" %}}
-If you are using homebrew as the package management tool on your machine, then the uninstallation process can be done using the below command:
+If you installed kubectl using Homebrew, you can uninstall it by executing the following command:
 
 ```shell
 sudo brew uninstall kubectl
 ```
-
-The executable binaries are stored in the ```/usr/bin or usr/local/bin```, library files in ```usr/lib``` and configuration files in ```/etc```.
-It is recommended to manually remove the library files and static data before uninstalling the ```kubectl``` from the system.
 
 {{% /tab %}}
 
@@ -388,6 +367,11 @@ sudo snap remove kubectl
 {{% /tab %}}
 
 {{< /tabs >}}
+
+After the removal process completes, you can verify that kubectl is no longer installed by running:
+```shell
+kubectl version
+```
 
 
 
