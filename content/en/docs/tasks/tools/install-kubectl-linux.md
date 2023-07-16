@@ -315,6 +315,8 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    ```
 
 ### Uninstall kubectl
+Depending on how you installed `kubectl`, use one of the following methods.
+
 {{< tabs name="other_kubectl_uninstall" >}}
 
 {{% tab name="curl" %}}
