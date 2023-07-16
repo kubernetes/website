@@ -888,7 +888,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 -->
 ### 基于 Pod 优先级的节点体面关闭    {#pod-priority-graceful-node-shutdown}
 
-{{< feature-state state="alpha" for_k8s_version="v1.23" >}}
+{{< feature-state state="beta" for_k8s_version="v1.24" >}}
 
 <!--
 To provide more flexibility during graceful node shutdown around the ordering

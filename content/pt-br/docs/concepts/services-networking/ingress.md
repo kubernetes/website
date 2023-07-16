@@ -185,7 +185,7 @@ As correspondências curinga exigem que o cabeçalho do `host` HTTP seja igual a
 
 ## Classe Ingress
 
-Os Ingress podem ser implementadas por diferentes controladores, muitas vezes com diferentes configurações. 
+Os Ingress podem ser implementados por diferentes controladores, muitas vezes com diferentes configurações. 
 Cada Ingress deve especificar uma classe, uma referência a um recurso IngressClass que contém uma configuração adicional, incluindo o nome do controlador que deve implementar a classe.
 
 {{< codenew file="service/networking/external-lb.yaml" >}}
