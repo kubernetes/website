@@ -126,6 +126,13 @@ on Kubernetes dual-stack support see [Dual-stack support with kubeadm](/docs/set
    #
    apiVersion: kubelet.config.k8s.io/v1beta1
    kind: KubeletConfiguration
+   authentication:
+     anonymous:
+       enabled: false
+     webhook:
+       enabled: false
+   authorization:
+     mode: AlwaysAllow
    cgroupDriver: systemd
    address: 127.0.0.1
    containerRuntimeEndpoint: unix:///var/run/containerd/containerd.sock

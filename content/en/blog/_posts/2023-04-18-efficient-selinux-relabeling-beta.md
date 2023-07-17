@@ -7,7 +7,7 @@ slug: kubernetes-1-27-efficient-selinux-relabeling-beta
 
 **Author:** Jan Šafránek (Red Hat)
 
-# The problem
+## The problem
 
 On Linux with Security-Enhanced Linux (SELinux) enabled, it's traditionally
 the container runtime that applies SELinux labels to a Pod and all its volumes.
@@ -30,7 +30,7 @@ escapes the container boundary cannot access data of any other container on the
 host. The container runtime still recursively relabels all pod volumes with this
 random SELinux label.
 
-# Improvement using mount options
+## Improvement using mount options
 
 If a Pod and its volume meet **all** of the following conditions, Kubernetes will
 _mount_ the volume directly with the right SELinux label. Such mount will happen
@@ -50,7 +50,9 @@ relabel any files on it.
    applied by the container runtime by a recursive walk through the volume
    (or its subPaths).
 
-1. The Pod must have at least `seLinuxOptions.level` assigned in its [Pod Security Context](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context) or all Pod containers must have it set in their [Security Contexts](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context-1).
+1. The Pod must have at least `seLinuxOptions.level` assigned in its
+   [Pod Security Context](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
+   or all Pod containers must have it set in their [Security Contexts](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context-1).
    Kubernetes will read the default `user`, `role` and `type` from the operating
    system defaults (typically `system_u`, `system_r` and `container_t`).
 
@@ -90,7 +92,7 @@ relabel any files on it.
    set `seLinuxMount: true` will be recursively relabelled by the container
    runtime.
 
-## Mounting with SELinux context
+### Mounting with SELinux context
 
 When all aforementioned conditions are met, kubelet will
 pass `-o context=<SELinux label>` mount option to the volume plugin or CSI
@@ -105,7 +107,8 @@ value. Similarly, CIFS may need `-o context=<SELinux label>,nosharesock`.
 It's up to the CSI driver vendor to test their CSI driver in a SELinux enabled
 environment before setting `seLinuxMount: true` in the CSIDriver instance.
 
-# How can I learn more?
+## How can I learn more?
+
 SELinux in containers: see excellent
 [visual SELinux guide](https://opensource.com/business/13/11/selinux-policy-guide)
 by Daniel J Walsh. Note that the guide is older than Kubernetes, it describes
@@ -114,6 +117,7 @@ however, a similar concept is used for containers.
 
 See a series of blog posts for details how exactly SELinux is applied to
 containers by container runtimes:
+
 * [How SELinux separates containers using Multi-Level Security](https://www.redhat.com/en/blog/how-selinux-separates-containers-using-multi-level-security)
 * [Why you should be using Multi-Category Security for your Linux containers](https://www.redhat.com/en/blog/why-you-should-be-using-multi-category-security-your-linux-containers)
 

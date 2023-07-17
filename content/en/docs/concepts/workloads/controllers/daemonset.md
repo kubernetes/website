@@ -6,8 +6,11 @@ reviewers:
 - janetkuo
 - kow3ns
 title: DaemonSet
+description: >-
+ A DaemonSet defines Pods that provide node-local facilities. These might be fundamental to the operation of your cluster, such as a networking helper tool, or be part of an add-on.
 content_type: concept
 weight: 40
+hide_summary: true # Listed separately in section index
 ---
 
 <!-- overview -->

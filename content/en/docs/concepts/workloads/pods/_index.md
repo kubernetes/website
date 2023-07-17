@@ -32,10 +32,8 @@ for debugging if your cluster offers this.
 ## What is a Pod?
 
 {{< note >}}
-While Kubernetes supports more
-{{< glossary_tooltip text="container runtimes" term_id="container-runtime" >}}
-than just Docker, [Docker](https://www.docker.com/) is the most commonly known
-runtime, and it helps to describe Pods using some terminology from Docker.
+You need to install a [container runtime](/docs/setup/production-environment/container-runtimes/)
+into each node in the cluster so that Pods can run there.
 {{< /note >}}
 
 The shared context of a Pod is a set of Linux namespaces, cgroups, and
