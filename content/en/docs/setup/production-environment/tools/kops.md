@@ -14,9 +14,12 @@ It uses a tool called [`kOps`](https://github.com/kubernetes/kops).
 * Fully automated installation
 * Uses DNS to identify clusters
 * Self-healing: everything runs in Auto-Scaling Groups
-* Multiple OS support (Amazon Linux, Debian, Flatcar, RHEL, Rocky and Ubuntu) - see the [images.md](https://github.com/kubernetes/kops/blob/master/docs/operations/images.md)
-* High-Availability support - see the [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/operations/high_availability.md)
-* Can directly provision, or generate terraform manifests - see the [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)
+* Multiple OS support (Amazon Linux, Debian, Flatcar, RHEL, Rocky and Ubuntu) - see the
+  [images.md](https://github.com/kubernetes/kops/blob/master/docs/operations/images.md)
+* High-Availability support - see the
+  [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/operations/high_availability.md)
+* Can directly provision, or generate terraform manifests - see the
+  [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)
 
 ## {{% heading "prerequisites" %}}
 
@@ -24,7 +27,10 @@ It uses a tool called [`kOps`](https://github.com/kubernetes/kops).
 
 * You must [install](https://github.com/kubernetes/kops#installing) `kops` on a 64-bit (AMD64 and Intel 64) device architecture.
 
-* You must have an [AWS account](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html), generate [IAM keys](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) and [configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration) them. The IAM user will need [adequate permissions](https://github.com/kubernetes/kops/blob/master/docs/getting_started/aws.md#setup-iam-user).
+* You must have an [AWS account](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html),
+  generate [IAM keys](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys)
+  and [configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration) them.
+  The IAM user will need [adequate permissions](https://github.com/kubernetes/kops/blob/master/docs/getting_started/aws.md#setup-iam-user).
 
 <!-- steps -->
 
@@ -34,7 +40,8 @@ It uses a tool called [`kOps`](https://github.com/kubernetes/kops).
 
 #### Installation
 
-Download kops from the [releases page](https://github.com/kubernetes/kops/releases) (it is also convenient to build from source):
+Download kops from the [releases page](https://github.com/kubernetes/kops/releases)
+(it is also convenient to build from source):
 
 {{< tabs name="kops_installation" >}}
 {{% tab name="macOS" %}}
@@ -212,7 +219,8 @@ for production clusters!
 
 ### Explore other add-ons
 
-See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to explore other add-ons, including tools for logging, monitoring, network policy, visualization, and control of your Kubernetes cluster.
+See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to explore other add-ons,
+including tools for logging, monitoring, network policy, visualization, and control of your Kubernetes cluster.
 
 ## Cleanup
 
@@ -221,6 +229,8 @@ See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to expl
 ## {{% heading "whatsnext" %}}
 
 * Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/).
-* Learn more about `kOps` [advanced usage](https://kops.sigs.k8s.io/) for tutorials, best practices and advanced configuration options.
-* Follow `kOps` community discussions on Slack: [community discussions](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors).
+* Learn more about `kOps` [advanced usage](https://kops.sigs.k8s.io/) for tutorials,
+  best practices and advanced configuration options.
+* Follow `kOps` community discussions on Slack:
+  [community discussions](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors).
 * Contribute to `kOps` by addressing or raising an issue [GitHub Issues](https://github.com/kubernetes/kops/issues).
