@@ -210,6 +210,31 @@ kubectl apply -f my-private-reg-pod.yaml
 kubectl get pod private-reg
 ```
 
+{{< note >}}
+In case the Pod fails to start with the status `ImagePullBackOff`, view the Pod events:
+```shell
+kubectl describe pod private-reg
+```
+
+If you then see an event with the reason set to `FailedToRetrieveImagePullSecret`,
+Kubernetes can't find a Secret with name (`regcred`, in this example).
+If you specify that a Pod needs image pull credentials, the kubelet checks that it can
+access that Secret before attempting to pull the image.
+
+Make sure that the Secret you have specified exists, and that its name is spelled properly.
+```shell
+Events:
+  ...  Reason                           ...  Message
+       ------                                -------
+  ...  FailedToRetrieveImagePullSecret  ...  Unable to retrieve some image pull secrets (<regcred>); attempting to pull the image may not succeed.
+```
+
+
+{{< /note >}}
+
+
+
+
 ## {{% heading "whatsnext" %}}
 
 * Learn more about [Secrets](/docs/concepts/configuration/secret/)

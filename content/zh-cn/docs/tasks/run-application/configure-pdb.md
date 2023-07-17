@@ -95,10 +95,10 @@ is enabled.
 <!--
 You can also use PDBs with pods which are not controlled by one of the above
 controllers, or arbitrary groups of pods, but there are some restrictions,
-described in [Arbitrary Controllers and Selectors](#arbitrary-controllers-and-selectors).
+described in [Arbitrary workloads and arbitrary selectors](#arbitrary-controllers-and-selectors).
 -->
 用户也可以用 PDB 来保护不受上述控制器控制的 Pod，或任意的 Pod 集合，但是正如
-[任意控制器和选择算符](#arbitrary-controllers-and-selectors)中描述的，这里存在一些限制。
+[任意工作负载和任意选择算符](#arbitrary-controllers-and-selectors)中描述的，这里存在一些限制。
 
 <!--
 ## Think about how your application reacts to disruptions
@@ -509,23 +509,27 @@ Pods in `Pending`, `Succeeded` or `Failed` phase are always considered for evict
 {{< /note >}}
 
 <!--
-## Arbitrary Controllers and Selectors
+## Arbitrary workloads and arbitrary selectors {#arbitrary-controllers-and-selectors}
 
 You can skip this section if you only use PDBs with the built-in
-application controllers (Deployment, ReplicationController, ReplicaSet, and StatefulSet),
-with the PDB selector matching the controller's selector.
+workload resources (Deployment, ReplicaSet, StatefulSet and ReplicationController)
+or with {{< glossary_tooltip term_id="CustomResourceDefinition" text="custom resources" >}}
+that implement a `scale` [subresource](/docs/concepts/extend-kubernetes/api-extension/custom-resources/#advanced-features-and-flexibility),
+and where the PDB selector exactly matches the selector of the Pod's owning resource.
 -->
-## 任意控制器和选择算符   {#arbitrary-controllers-and-selectors}
+## 任意工作负载和任意选择算符   {#arbitrary-controllers-and-selectors}
 
-如果你只使用与内置的应用控制器（Deployment、ReplicationController、ReplicaSet 和 StatefulSet）
-对应的 PDB，也就是 PDB 的选择算符与 控制器的选择算符相匹配，那么可以跳过这一节。
+如果你只针对内置的工作负载资源（Deployment、ReplicaSet、StatefulSet 和 ReplicationController）
+或在实现了 `scale` [子资源](/zh-cn/docs/concepts/extend-kubernetes/api-extension/custom-resources/#advanced-features-and-flexibility)
+的{{< glossary_tooltip term_id="CustomResourceDefinition" text="自定义资源" >}}使用 PDB，
+并且 PDB 选择算符与 Pod 所属资源的选择算符完全匹配，那么可以跳过这一节。
 
 <!--
-You can use a PDB with pods controlled by another type of controller, by an
+You can use a PDB with pods controlled by another resource, by an
 "operator", or bare pods, but with these restrictions:
 -->
-你可以使用这样的 PDB：它对应的 Pod 可能由其他类型的控制器控制，可能由 "operator" 控制，
-也可能为“裸的（不受控制器控制）” Pod，但该类 PDB 存在以下限制：
+你可以针对由其他资源、某个 "operator" 控制的或者“裸的（不受控制器控制）” Pod
+使用 PDB，但存在以下限制：
 
 <!--
 - only `.spec.minAvailable` can be used, not `.spec.maxUnavailable`.
@@ -535,11 +539,16 @@ You can use a PDB with pods controlled by another type of controller, by an
 - 只能够使用整数作为 `.spec.minAvailable` 的值，而不能使用百分比。
 
 <!--
-You can use a selector which selects a subset or superset of the pods belonging to a built-in
-controller. The eviction API will disallow eviction of any pod covered by multiple PDBs,
+It is not possible to use other availability configurations,
+because Kubernetes cannot derive a total number of pods without a supported owning resource.
+
+You can use a selector which selects a subset or superset of the pods belonging to a
+workload resource. The eviction API will disallow eviction of any pod covered by multiple PDBs,
 so most users will want to avoid overlapping selectors. One reasonable use of overlapping
 PDBs is when pods are being transitioned from one PDB to another.
 -->
-你可以令选择算符选择一个内置控制器所控制 Pod 的子集或父集。
+你无法使用其他的可用性配置，因为如果没有被支持的属主资源，Kubernetes 无法推导出 Pod 的总数。
+
+你可以使用能够选择属于工作负载资源的 Pod 的子集或超集的选择算符。
 驱逐 API 将不允许驱逐被多个 PDB 覆盖的任何 Pod，因此大多数用户都希望避免重叠的选择算符。
-重叠 PDB 的一种合理用途是当 Pod 从一个 PDB 过渡到另一个 PDB 时再使用。
+重叠 PDB 的一种合理用途是将 Pod 从一个 PDB 转交到另一个 PDB 的场合。

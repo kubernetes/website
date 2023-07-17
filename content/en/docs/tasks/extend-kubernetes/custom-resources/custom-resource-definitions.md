@@ -1593,7 +1593,7 @@ To enable the scale subresource, the following fields are defined in the CustomR
   `Scale.Status.Selector`.
 
   - It is an optional value.
-  - It must be set to work with HPA.
+  - It must be set to work with HPA and VPA.
   - Only JSONPaths under `.status` or `.spec` and with the dot notation are allowed.
   - If there is no value under the `labelSelectorPath` in the custom resource,
     the status selector value in the `/scale` subresource will default to the empty string.

@@ -70,6 +70,12 @@ other = " documentation is no longer actively maintained. The version you are cu
 [deprecation_file_warning]
 other = "Deprecated"
 
+[outdated_content_title]
+other = "Information in this document may be out of date"
+
+[outdated_content_message]
+other = "This document has an older update date than the original, so the information it contains may be out of date. If you're able to read English, see the English version for the most up-to-date information: "
+
 [dockershim_message]
 other = """Dockershim has been removed from the Kubernetes project as of release 1.24. Read the <a href="/dockershim">Dockershim Removal FAQ</a> for further details."""
 
