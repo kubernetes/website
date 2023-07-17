@@ -372,7 +372,7 @@ announced deprecation.**
 If the feature or behavior is being replaced with an alternative implementation
 that requires work to adopt the change, there should be an effort to simplify
 the transition whenever possible. If an alternative implementation is under
-Kubernetes organization control, the following rule apply:
+Kubernetes organization control, the following rules apply:
 
 **Rule #8: The feature of behavior must not be deprecated in favor of an alternative
 implementation that is less stable**
