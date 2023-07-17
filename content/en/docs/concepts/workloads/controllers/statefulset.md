@@ -160,7 +160,8 @@ regardless of which node it's (re)scheduled on.
 
 For a StatefulSet with N [replicas](#replicas), each Pod in the StatefulSet
 will be assigned an integer ordinal, that is unique over the Set. By default,
-pods will be assigned ordinals from 0 up through N-1.
+pods will be assigned ordinals from 0 up through N-1. The StatefulSet controller
+will also add a pod label with this index: `apps.kubernetes.io/pod-index`.
 
 ### Start ordinal
 
@@ -237,6 +238,13 @@ When the StatefulSet {{<glossary_tooltip text="controller" term_id="controller">
 it adds a label, `statefulset.kubernetes.io/pod-name`, that is set to the name of
 the Pod. This label allows you to attach a Service to a specific Pod in
 the StatefulSet.
+
+### Pod Index Label
+
+When the StatefulSet {{<glossary_tooltip text="controller" term_id="controller">}} creates a Pod,
+it adds a label, `apps.kubernetes.io/pod-index`, that is set to the ordinal index of
+the Pod. This label allows you to route traffic to a particular pod index, filter logs/metrics
+using the pod index label, and more.
 
 ## Deployment and Scaling Guarantees
 
