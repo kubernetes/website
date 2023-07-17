@@ -379,8 +379,8 @@ implementation that is less stable**
 
 For example, GA feature cannot be deprecated in favor of a Beta replacement.
 We should, however, encourage the transition to the alternative implementation
-even before it reached the same maturity level. Especially for the new use of
-a feature or to get an early feedback on the replacement.
+even before it reached the same maturity level. This is particularly important
+for exploring new use cases of a feature or getting an early feedback on the replacement.
 
 Alternative implementations may sometimes be external tools or products,
 for example the feature may move from the kubelet to container runtime
