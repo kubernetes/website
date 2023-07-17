@@ -387,7 +387,7 @@ Notice that the field `someRandomField` was pruned.
 
 This example turned off client-side validation to demonstrate the API server's behavior, by adding
 the `--validate=false` command line option.
-Because the [OpenAPI validation schemas are also published](#publish-validation-schema-in-openapi-v2)
+Because the [OpenAPI validation schemas are also published](#publish-validation-schema-in-openapi)
 to clients, `kubectl` also checks for unknown fields and rejects those objects well before they
 would be sent to the API server.
 
@@ -501,7 +501,7 @@ allOf:
 
 With one of those specification, both an integer and a string validate.
 
-In [Validation Schema Publishing](#publish-validation-schema-in-openapi-v2),
+In [Validation Schema Publishing](#publish-validation-schema-in-openapi),
 `x-kubernetes-int-or-string: true` is unfolded to one of the two patterns shown above.
 
 ### RawExtension
