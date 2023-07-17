@@ -578,3 +578,4 @@ Type Checking has the following limitation:
 - Type Checking does not affect the policy behavior in any way. Even if the type checking detects errors, the policy will continue
   to evaluate. If errors do occur during evaluate, the failure policy will decide its outcome.
 - Type Checking does not apply to CRDs, including matched CRD types and reference of paramKind. The support for CRDs will come in future release.
+
