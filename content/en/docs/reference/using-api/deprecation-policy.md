@@ -387,8 +387,8 @@ for example the feature may move from the kubelet to container runtime
 that is not under Kuberentes project control. In such cases, the rule cannot be
 applied, but there must be an effort to ensure that there is a transition path
 that does not compromise on components maturity level. In the example with
-container runtimes, the effort may be to ensure that popular container runtimes
-has a same stability level versions implementing that replacement behavior.
+container runtimes, the effort may involve ensuring that popular container runtimes
+have versions that offer the same level of stability while implementing that replacement behavior.
 
 Deprecation rules for features and behaviors do not imply that all changes
 to the system are governed by this policy.
