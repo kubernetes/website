@@ -248,7 +248,7 @@ For a reference to old feature gates that are removed, please refer to
 | `ServiceNodePortStaticSubrange` | `false` | Alpha | 1.27 | |
 | `SizeMemoryBackedVolumes` | `false` | Alpha | 1.20 | 1.21 |
 | `SizeMemoryBackedVolumes` | `true` | Beta | 1.22 | |
-| `StableLoadBalancerNodeGet` | `true` | Beta | 1.27 | |
+| `StableLoadBalancerNodeSet` | `true` | Beta | 1.27 | |
 | `StatefulSetAutoDeletePVC` | `false` | Alpha | 1.23 | 1.26 |
 | `StatefulSetAutoDeletePVC` | `false` | Beta | 1.27 | |
 | `StatefulSetStartOrdinal` | `false` | Alpha | 1.26 | 1.26 |
@@ -269,7 +269,7 @@ For a reference to old feature gates that are removed, please refer to
 | `WinDSR` | `false` | Alpha | 1.14 | |
 | `WinOverlay` | `false` | Alpha | 1.14 | 1.19 |
 | `WinOverlay` | `true` | Beta | 1.20 | |
-| `WindowsHostNetwork` | `false` | Alpha | 1.26| |
+| `WindowsHostNetwork` | `true` | Alpha | 1.26| |
 {{< /table >}}
 
 <!--
@@ -1278,7 +1278,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 <!--
 - `SizeMemoryBackedVolumes`: Enable kubelets to determine the size limit for
   memory-backed volumes (mainly `emptyDir` volumes).
-- `StableLoadBalancerNodeGet`: Enables less load balancer re-configurations by 
+- `StableLoadBalancerNodeSet`: Enables less load balancer re-configurations by 
   the service controller (KCCM) as an effect of changing node state.
 - `StatefulSetStartOrdinal`: Allow configuration of the start ordinal in a
   StatefulSet. See
@@ -1286,7 +1286,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   for more details.
 -->
 - `SizeMemoryBackedVolumes`：允许 kubelet 检查基于内存制备的卷的尺寸约束（目前主要针对 `emptyDir` 卷）。
-- `StableLoadBalancerNodeGet`: 允许服务控制器（KCCM）根据节点状态变化来减少负载均衡器的重新配置。
+- `StableLoadBalancerNodeSet`: 允许服务控制器（KCCM）根据节点状态变化来减少负载均衡器的重新配置。
 - `StatefulSetMinReadySeconds`: 允许 StatefulSet 控制器采纳 `minReadySeconds` 设置。
 - `StatefulSetStartOrdinal`：允许在 StatefulSet 中配置起始序号。
   更多细节请参阅[起始序号](/zh-cn/docs/concepts/workloads/controllers/statefulset/#start-ordinal)。
