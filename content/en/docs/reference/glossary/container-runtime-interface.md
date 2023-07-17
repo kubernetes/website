@@ -11,7 +11,7 @@ tags:
   - cri
 ---
 
-The main protocol for the communication between the kubelet and Container Runtime.
+The main protocol for the communication between the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} and Container Runtime.
 
 <!--more-->
 
