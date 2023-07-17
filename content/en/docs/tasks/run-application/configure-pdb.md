@@ -56,7 +56,7 @@ is enabled.
 
 You can also use PDBs with pods which are not controlled by one of the above
 controllers, or arbitrary groups of pods, but there are some restrictions,
-described in [Arbitrary Controllers and Selectors](#arbitrary-controllers-and-selectors).
+described in [Arbitrary workloads and arbitrary selectors](#arbitrary-controllers-and-selectors).
 
 ## Think about how your application reacts to disruptions
 
@@ -283,19 +283,24 @@ Policies:
 Pods in `Pending`, `Succeeded` or `Failed` phase are always considered for eviction.
 {{< /note >}}
 
-## Arbitrary Controllers and Selectors
+## Arbitrary workloads and arbitrary selectors {#arbitrary-controllers-and-selectors}
 
 You can skip this section if you only use PDBs with the built-in
-application controllers (Deployment, ReplicationController, ReplicaSet, and StatefulSet),
-with the PDB selector matching the controller's selector.
+workload resources (Deployment, ReplicaSet, StatefulSet and ReplicationController)
+or with {{< glossary_tooltip term_id="CustomResourceDefinition" text="custom resources" >}}
+that implement a `scale` [subresource](/docs/concepts/extend-kubernetes/api-extension/custom-resources/#advanced-features-and-flexibility),
+and where the PDB selector exactly matches the selector of the Pod's owning resource.
 
-You can use a PDB with pods controlled by another type of controller, by an
+You can use a PDB with pods controlled by another resource, by an
 "operator", or bare pods, but with these restrictions:
 
 - only `.spec.minAvailable` can be used, not `.spec.maxUnavailable`.
 - only an integer value can be used with `.spec.minAvailable`, not a percentage.
 
-You can use a selector which selects a subset or superset of the pods belonging to a built-in
-controller. The eviction API will disallow eviction of any pod covered by multiple PDBs,
+It is not possible to use other availability configurations,
+because Kubernetes cannot derive a total number of pods without a supported owning resource.
+
+You can use a selector which selects a subset or superset of the pods belonging to a
+workload resource. The eviction API will disallow eviction of any pod covered by multiple PDBs,
 so most users will want to avoid overlapping selectors. One reasonable use of overlapping
 PDBs is when pods are being transitioned from one PDB to another.

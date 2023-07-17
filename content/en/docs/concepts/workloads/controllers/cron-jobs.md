@@ -5,7 +5,10 @@ reviewers:
 - janetkuo
 title: CronJob
 content_type: concept
+description: >-
+  A CronJob starts one-time Jobs on a repeating schedule.
 weight: 80
+hide_summary: true # Listed separately in section index
 ---
 
 <!-- overview -->
