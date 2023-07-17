@@ -5,11 +5,14 @@ reviewers:
 - soltysh
 title: Jobs
 content_type: concept
+description: >-
+  Jobs represent one-off tasks that run to completion and then stop.
 feature:
   title: Batch execution
   description: >
     In addition to services, Kubernetes can manage your batch and CI workloads, replacing containers that fail, if desired.
 weight: 50
+hide_summary: true # Listed separately in section index
 ---
 
 <!-- overview -->

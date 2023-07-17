@@ -89,6 +89,28 @@ volumeBindingMode: Immediate
 ```
 
 <!--
+### Default StorageClass
+
+When a PVC does not specify a `storageClassName`, the default StorageClass is
+used. The cluster can only have one default StorageClass. If more than one
+default StorageClass is accidentally set, the newest default is used when the
+PVC is dynamically provisioned.
+
+For instructions on setting the default StorageClass, see
+[Change the default StorageClass](/docs/tasks/administer-cluster/change-default-storage-class/).
+Note that certain cloud providers may already define a default StorageClass.
+-->
+### 默认 StorageClass  {#default-storageclass} 
+
+当一个 PVC 没有指定 `storageClassName` 时，会使用默认的 StorageClass。
+集群中只能有一个默认的 StorageClass。如果不小心设置了多个默认的 StorageClass，
+当 PVC 动态配置时，将使用最新设置的默认 StorageClass。
+
+关于如何设置默认的 StorageClass，
+请参见[更改默认 StorageClass](/zh-cn/docs/tasks/administer-cluster/change-default-storage-class/)。
+请注意，某些云服务提供商可能已经定义了一个默认的 StorageClass。
+
+<!--
 ### Provisioner
 
 Each StorageClass has a provisioner that determines what volume plugin is used
@@ -538,9 +560,19 @@ using `allowedTopologies`.
 {{< note >}}
 <!--
 `zone` and `zones` parameters are deprecated and replaced with
-[allowedTopologies](#allowed-topologies)
+[allowedTopologies](#allowed-topologies). When
+[GCE CSI Migration](/docs/concepts/storage/volumes/#gce-csi-migration) is
+enabled, a GCE PD volume can be provisioned in a topology that does not match
+any nodes, but any pod trying to use that volume will fail to schedule. With
+legacy pre-migration GCE PD, in this case an error will be produced
+instead at provisioning time. GCE CSI Migration is enabled by default beginning
+from the Kubernetes 1.23 release.
 -->
 `zone` 和 `zones` 已被弃用并被 [allowedTopologies](#allowed-topologies) 取代。
+当启用 [GCE CSI 迁移](/zh-cn/docs/concepts/storage/volumes/#gce-csi-migration)时，
+GCE PD 卷可能被制备在某个与所有节点都不匹配的拓扑域中，但任何尝试使用该卷的 Pod 都无法被调度。
+对于传统的迁移前 GCE PD，这种情况下将在制备卷的时候产生错误。
+从 Kubernetes 1.23 版本开始，GCE CSI 迁移默认启用。
 {{< /note >}}
 
 ### NFS  {#nfs}
