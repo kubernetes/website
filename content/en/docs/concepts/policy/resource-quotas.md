@@ -465,7 +465,7 @@ from getting scheduled in a failure domain.
 
 Using this scope operators can prevent certain namespaces (`foo-ns` in the example below) 
 from having pods that use cross-namespace pod affinity by creating a resource quota object in
-that namespace with `CrossNamespaceAffinity` scope and hard limit of 0:
+that namespace with `CrossNamespacePodAffinity` scope and hard limit of 0:
 
 ```yaml
 apiVersion: v1
@@ -478,11 +478,12 @@ spec:
     pods: "0"
   scopeSelector:
     matchExpressions:
-    - scopeName: CrossNamespaceAffinity
+    - scopeName: CrossNamespacePodAffinity
+      operator: Exists
 ```
 
 If operators want to disallow using `namespaces` and `namespaceSelector` by default, and 
-only allow it for specific namespaces, they could configure `CrossNamespaceAffinity` 
+only allow it for specific namespaces, they could configure `CrossNamespacePodAffinity` 
 as a limited resource by setting the kube-apiserver flag --admission-control-config-file
 to the path of the following configuration file:
 
@@ -497,12 +498,13 @@ plugins:
     limitedResources:
     - resource: pods
       matchScopes:
-      - scopeName: CrossNamespaceAffinity
+      - scopeName: CrossNamespacePodAffinity
+        operator: Exists
 ```
 
 With the above configuration, pods can use `namespaces` and `namespaceSelector` in pod affinity only
 if the namespace where they are created have a resource quota object with 
-`CrossNamespaceAffinity` scope and a hard limit greater than or equal to the number of pods using those fields.
+`CrossNamespacePodAffinity` scope and a hard limit greater than or equal to the number of pods using those fields.
 
 ## Requests compared to Limits {#requests-vs-limits}
 
