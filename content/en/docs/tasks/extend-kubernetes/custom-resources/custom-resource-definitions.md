@@ -1066,6 +1066,33 @@ message will be used instead.
 `messageExpression` is a CEL expression, so the restrictions listed in [Resource use by validation functions](#resource-use-by-validation-functions) apply. If evaluation halts due to resource constraints 
 during `messageExpression` execution, then no further validation rules will be executed.
 
+#### The reason and fieldPath fields
+
+Besides the `message` and `messageExpression` fields, which defines the string reported for a validation rule failure,
+we have also added two more fields under `validation`:
+- `reason` field which allows user to specify a machine-readable validation failure reason when a request fails this validation rule.
+- `fieldPath` field which specify the field path returned when the validation fails.
+
+For example:
+
+```yaml
+x-kubernetes-validations:
+- rule: "self.x <= self.maxLimit"
+  messageExpression: '"x exceeded max limit of " + string(self.maxLimit)'
+  reason: "FieldValueInvalid"
+  fieldPath: ".x"
+```
+
+The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule.
+The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate".
+If not set, default to use "FieldValueInvalid".
+
+For `fieldPath`, It must be a relative JSON path scoped to the location of this x-kubernetes-validations extension in the schema and refer to an existing field.
+For example when validation checks if a specific attribute `foo` under a map `testMap`, the fieldPath could be set to `".testMap.foo"` or `.tetsMap['foo']'`.  
+If the validation checks two lists must have unique attributes, the fieldPath could be set to either of the list: e.g. `.testList1` or `.testList2`.
+It supports child operation to refer to an existing field currently. Refer to [JSONPath support in Kubernetes](https://kubernetes.io/docs/reference/kubectl/jsonpath/) for more info.
+And it does not support numeric index of array.
+
 #### Validation functions {#available-validation-functions}
 
 Functions available include:
