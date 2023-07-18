@@ -112,6 +112,26 @@ main {
   color: white;
 }
 
+// elements with blue backgrounds get different selection color
+.button::selection {
+  background: #7DA1FF;
+}
+.call-to-action,
+.community-cta-button {
+  ::selection  {
+    background: #7DA1FF;
+  }
+}
+.button::-moz-selection {
+  background: #7DA1FF;
+}
+.call-to-action,
+.community-cta-button {
+  ::-moz-selection  {
+    background: #7DA1FF;
+  }
+}
+
 // HEADER
 
 #hamburger {
