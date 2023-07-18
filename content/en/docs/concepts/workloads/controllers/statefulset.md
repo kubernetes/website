@@ -241,6 +241,8 @@ the StatefulSet.
 
 ### Pod Index Label
 
+{{< feature-state for_k8s_version="v1.28" state="beta" >}}
+
 When the StatefulSet {{<glossary_tooltip text="controller" term_id="controller">}} creates a Pod,
 it adds a label, `apps.kubernetes.io/pod-index`, that is set to the ordinal index of
 the Pod. This label allows you to route traffic to a particular pod index, filter logs/metrics
