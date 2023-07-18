@@ -165,7 +165,8 @@ For a reference to old feature gates that are removed, please refer to
 | `NodeLogQuery` | `false` | Alpha | 1.27 | |
 | `NodeOutOfServiceVolumeDetach` | `false` | Alpha | 1.24 | 1.25 |
 | `NodeOutOfServiceVolumeDetach` | `true` | Beta | 1.26 | |
-| `NodeSwap` | `false` | Alpha | 1.22 | |
+| `NodeSwap` | `false` | Alpha | 1.22 | 1.27 |
+| `NodeSwap` | `false` | Beta1 | 1.28 | |
 | `OpenAPIEnums` | `false` | Alpha | 1.23 | 1.23 |
 | `OpenAPIEnums` | `true` | Beta | 1.24 | |
 | `PDBUnhealthyPodEvictionPolicy` | `false` | Alpha | 1.26 | 1.26 |
