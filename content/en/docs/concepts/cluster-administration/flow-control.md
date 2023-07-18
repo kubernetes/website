@@ -472,23 +472,6 @@ that originate from outside your cluster.
 
 {{% code_sample file="priority-and-fairness/health-for-strangers.yaml" %}}
 
-## Diagnostics
-
-Every HTTP response from an API server with the priority and fairness feature
-enabled has two extra headers: `X-Kubernetes-PF-FlowSchema-UID` and
-`X-Kubernetes-PF-PriorityLevel-UID`, noting the flow schema that matched the request
-and the priority level to which it was assigned, respectively. The API objects'
-names are not included in these headers in case the requesting user does not
-have permission to view them, so when debugging you can use a command like
-
-```shell
-kubectl get flowschemas -o custom-columns="uid:{metadata.uid},name:{metadata.name}"
-kubectl get prioritylevelconfigurations -o custom-columns="uid:{metadata.uid},name:{metadata.name}"
-```
-
-to get a mapping of UIDs to names for both FlowSchemas and
-PriorityLevelConfigurations.
-
 ## Observability
 
 ### Metrics
@@ -898,6 +881,7 @@ Example FlowSchema object to isolate list event requests:
 
 ## {{% heading "whatsnext" %}}
 
+You can visit flow control [troubleshooting page](/docs/tasks/debug/flow-control.md) to learn how to debug.
 For background information on design details for API priority and fairness, see
 the [enhancement proposal](https://github.com/kubernetes/enhancements/tree/master/keps/sig-api-machinery/1040-priority-and-fairness).
 You can make suggestions and feature requests via [SIG API Machinery](https://github.com/kubernetes/community/tree/master/sig-api-machinery)
