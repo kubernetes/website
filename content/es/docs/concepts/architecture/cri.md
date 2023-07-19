@@ -6,7 +6,7 @@ weight: 60
 
 <!-- overview -->
 
-_CRI_ es una interfaz de complemento que permite que el kubelet use una amplia variedad de
+_CRI_ es una interfaz de plugin que permite que kubelet use una amplia variedad de
 tiempos de ejecución del contenedor, sin necesidad de volver a compilar los componentes del clúster.
 
 Necesitas un
