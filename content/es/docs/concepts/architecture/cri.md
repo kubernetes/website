@@ -25,7 +25,7 @@ cada Nodo en tu clúster, de manera que
 
 Kubelet actúa como un cliente cuando se conecta al _runtime_ del contenedor a través de gRPC.
 El _runtime_ y los _endpoints_ del servicio de imágenes deben estar disponibles en el _runtime_ del contenedor,
-que se puede configurar por separado dentro del kubelet usando
+que se puede configurar por separado dentro de kubelet usando
 `--image-service-endpoint` [banderas de línea de comando](/docs/reference/command-line-tools-reference/kubelet).
 
 Para Kubernetes v{{< skew currentVersion >}}, kubelet prefiere usar CRI `v1`.
