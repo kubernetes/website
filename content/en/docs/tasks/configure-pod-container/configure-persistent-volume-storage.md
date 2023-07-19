@@ -123,7 +123,7 @@ task-pv-volume   10Gi       RWO           Retain          Available             
 The next step is to create a PersistentVolumeClaim. Pods use PersistentVolumeClaims
 to request physical storage. In this exercise, you create a PersistentVolumeClaim
 that requests a volume of at least three gibibytes that can provide read-write
-access for at least one Node.
+access for at most one Node at a time.
 
 Here is the configuration file for the PersistentVolumeClaim:
 
