@@ -31,7 +31,7 @@ Pod 占用；由于其它原因导致节点上可用资源的总量发生变化�
 
 <!--
 Note that marking a pod as critical is not meant to prevent evictions entirely; it only prevents the pod from becoming permanently unavailable.
-A static pod marked as critical, can't be evicted. However, a non-static pods marked as critical are always rescheduled.
+A static pod marked as critical can't be evicted. However, non-static pods marked as critical are always rescheduled.
 -->
 注意，把某个 Pod 标记为关键 Pod 并不意味着完全避免该 Pod 被逐出；它只能防止该 Pod 变成永久不可用。
 被标记为关键性的静态 Pod 不会被逐出。但是，被标记为关键性的非静态 Pod 总是会被重新调度。

@@ -2531,7 +2531,7 @@ To enable the scale subresource, the following fields are defined in the CustomR
   `Scale.Status.Selector`.
 
   - It is an optional value.
-  - It must be set to work with HPA.
+  - It must be set to work with HPA and VPA.
   - Only JSONPaths under `.status` or `.spec` and with the dot notation are allowed.
   - If there is no value under the `labelSelectorPath` in the custom resource,
     the status selector value in the `/scale` subresource will default to the empty string.
@@ -2541,7 +2541,7 @@ To enable the scale subresource, the following fields are defined in the CustomR
 - `labelSelectorPath` 指定定制资源内与 `Scale.Status.Selector` 对应的 JSON 路径。
 
   - 此字段为可选值。
-  - 此字段必须设置才能使用 HPA。
+  - 此字段必须设置才能使用 HPA 和 VPA。
   - 只可以使用 `.status` 或 `.spec` 下的 JSON 路径，只可使用带句点的路径。
   - 如果定制资源的 `labelSelectorPath` 下没有取值，则针对 `/scale`
     子资源的选择算符状态值默认为空字符串。
