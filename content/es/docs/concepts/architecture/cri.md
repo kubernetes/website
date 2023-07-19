@@ -34,7 +34,7 @@ negociar cualquier versión compatible anterior.
 Kubelet v{{< skew currentVersion >}} también puede negociar CRI `v1alpha2`, pero
 esta versión se considera obsoleta.
 Si kubelet no puede negociar una versión CRI soportada, kubelet se da por vencido
-y no se registra como un nodo.
+y no se registra como nodo.
 
 ## Actualizando
 
