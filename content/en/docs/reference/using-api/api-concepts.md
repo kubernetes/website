@@ -704,6 +704,8 @@ An encoded Protobuf message with the following IDL:
   }
 ```
 
+The messages described above can also be found at https://github.com/kubernetes/apimachinery/blob/master/pkg/runtime/generated.proto.
+
 {{< note >}}
 Clients that receive a response in `application/vnd.kubernetes.protobuf` that does
 not match the expected prefix should reject the response, as future versions may need
