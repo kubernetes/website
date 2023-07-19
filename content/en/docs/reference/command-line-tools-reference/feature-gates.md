@@ -563,10 +563,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
   track of the finished Pods to count towards completion.
 - `KMSv2`: Enables KMS v2 API for encryption at rest. See [Using a KMS Provider for data encryption](/docs/tasks/administer-cluster/kms-provider) for more details.
 - `KubeletCgroupDriverFromCRI`: Enable detection of the kubelet cgroup driver
-  configuration option from the CRI. The container runtime also needs to support
-  this feature in which case the kubelet will ignore the cgroupDriver
+  configuration option from the CRI. This feature gate requires the user run a
+  container runtime that supports the `RuntimeConfig` CRI call. If both CRI and
+  Kubelet support this feature, the kubelet will ignore the cgroupDriver
   (--cgroup-driver) configuration option. If the container runtime doesn't
-  support it, the kubelet will fallback to using it's cgroupDriver option.
+  support it, the kubelet will fallback to using its cgroupDriver option.
   See [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver)
   for more details.
 - `KubeletCredentialProviders`: Enable kubelet exec credential providers for
