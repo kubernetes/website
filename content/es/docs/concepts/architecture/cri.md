@@ -38,7 +38,7 @@ y no se registra como nodo.
 
 ## Actualizando
 
-Al actualizar Kubernetes, el kubelet intenta seleccionar automáticamente la
+Al actualizar Kubernetes, kubelet intenta seleccionar automáticamente la
 última versión de CRI al reiniciar el componente. Si eso falla, entonces la alternativa
 se llevará a cabo como se mencionó anteriormente. Si se requirió una rellamada de gRPC porque el
 _runtime_ del contenedor se ha actualizado, entonces el _runtime_ del contenedor también debe
