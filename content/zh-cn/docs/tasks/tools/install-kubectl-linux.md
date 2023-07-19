@@ -138,7 +138,7 @@ The following methods exist for installing kubectl on Linux:
    -->
    验证失败时，`sha256` 将以非零值退出，并打印如下输出：
 
-   ```bash
+   ```console
    kubectl: FAILED
    sha256sum: WARNING: 1 computed checksum did NOT match
    ```
@@ -431,7 +431,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    -->
    验证失败时，`sha256` 将以非零值退出，并打印输出类似于：
 
-   ```bash
+   ```console
    kubectl-convert: FAILED
    sha256sum: WARNING: 1 computed checksum did NOT match
    ```
