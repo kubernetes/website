@@ -244,7 +244,7 @@ the StatefulSet.
 {{< feature-state for_k8s_version="v1.28" state="beta" >}}
 
 When the StatefulSet {{<glossary_tooltip text="controller" term_id="controller">}} creates a Pod,
-it adds a label, `apps.kubernetes.io/pod-index`, that is set to the ordinal index of
+the new Pod is labelled with `apps.kubernetes.io/pod-index`. The value of this label is the ordinal index of
 the Pod. This label allows you to route traffic to a particular pod index, filter logs/metrics
 using the pod index label, and more. Note the feature gate `PodIndexLabel` must be enabled for this
 feature, and it is enabled by default.
