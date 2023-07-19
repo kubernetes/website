@@ -33,7 +33,7 @@ Si el _runtime_ del contenedor no es compatible con `v1` del CRI, kubelet intent
 negociar cualquier versión compatible anterior.
 Kubelet v{{< skew currentVersion >}} también puede negociar CRI `v1alpha2`, pero
 esta versión se considera obsoleta.
-Si el kubelet no puede negociar una versión CRI soportada, el kubelet se da por vencido
+Si kubelet no puede negociar una versión CRI soportada, kubelet se da por vencido
 y no se registra como un nodo.
 
 ## Actualizando
