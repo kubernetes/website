@@ -189,7 +189,7 @@ Note there's no mention of your Service. This is because you created the replica
 before the Service. Another disadvantage of doing this is that the scheduler might
 put both Pods on the same machine, which will take your entire Service down if
 it dies. We can do this the right way by killing the 2 Pods and waiting for the
-Deployment to recreate them. This time around the Service exists *before* the
+Deployment to recreate them. This time the Service exists *before* the
 replicas. This will give you scheduler-level Service spreading of your Pods
 (provided all your nodes have equal capacity), as well as the right environment
 variables:
