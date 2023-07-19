@@ -19,7 +19,7 @@ cada Nodo en tu clúster, de manera que
 
 <!-- body -->
 
-## El API {#api}
+## API {#api}
 
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
