@@ -524,11 +524,11 @@ contexts:
 {{% /tab %}}
 {{< /tabs >}}
 
-### Authenticating Proxy
+### 인증 프록시(Authenticating Proxy)
 
 API 서버는 `X-Remote-User`와 같은 요청 헤더 값에서 사용자를 식별할 수 있도록 구성할 수 있습니다. 이는 요청 헤더 값을 설정하는 인증 프록시와 함께 사용하기 위해 설계되었습니다.
 
-* `--requestheader-username-headers` Required, case-insensitive. Header names to check, in order, for the user identity. The first header containing a value is used as the username.
+* `--requestheader-username-headers` 필수이며 대소문자를 구분하지 않습니다. 사용자 신원을 확인하기 위해 확인할 헤더 이름들을 순서대로 지정합니다. 값이 포함된 첫 번째 헤더가 사용자 이름으로 사용됩니다.
 * `--requestheader-group-headers` 1.6+. Optional, case-insensitive. "X-Remote-Group" is suggested. Header names to check, in order, for the user's groups. All values in all specified headers are used as group names.
 * `--requestheader-extra-headers-prefix` 1.6+. Optional, case-insensitive. "X-Remote-Extra-" is suggested. Header prefixes to look for to determine extra information about the user (typically used by the configured authorization plugin). Any headers beginning with any of the specified prefixes have the prefix removed. The remainder of the header name is lowercased and [percent-decoded](https://tools.ietf.org/html/rfc3986#section-2.1) and becomes the extra key, and the header value is the extra value.
 
