@@ -43,7 +43,7 @@ Al actualizar Kubernetes, kubelet intenta seleccionar automáticamente la
 se llevará a cabo como se mencionó anteriormente. Si se requirió una rellamada de gRPC porque el
 _runtime_ del contenedor se ha actualizado, entonces el _runtime_ del contenedor también debe
 soportar la versión seleccionada inicialmente o se espera que la rellamada falle. Esto
-requiere un reinicio del kubelet.
+requiere un reinicio de kubelet.
 
 ## {{% heading "whatsnext" %}}
 
