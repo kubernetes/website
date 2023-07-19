@@ -38,6 +38,13 @@ In v1.22 and later, if the user does not set the `cgroupDriver` field under `Kub
 kubeadm defaults it to `systemd`.
 {{< /note >}}
 
+{{< note >}}
+In v1.28 and later, with KubeletCgroupDriverFromCRI feature gate
+enabled and a container runtime that supports the RuntimeConfig CRI rpc,
+kubelet will automatically detect the cgroup driver from the runtime and the
+kubelet cgroup driver setting does not need to be manually configured.
+{{< /note >}}
+
 A minimal example of configuring the field explicitly:
 
 ```yaml
