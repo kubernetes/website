@@ -129,6 +129,7 @@ For a reference to old feature gates that are removed, please refer to
 | `JobReadyPods` | `true` | Beta | 1.24 | |
 | `KMSv2` | `false` | Alpha | 1.25 | 1.26 |
 | `KMSv2` | `true` | Beta | 1.27 | |
+| `KubeletCgroupDriverFromCRI` | `false` | Alpha | 1.28 | |
 | `KubeletInUserNamespace` | `false` | Alpha | 1.22 | |
 | `KubeletPodResources` | `false` | Alpha | 1.13 | 1.14 |
 | `KubeletPodResources` | `true` | Beta | 1.15 | |
@@ -561,6 +562,13 @@ Each feature gate is designed for enabling/disabling a specific feature:
   The Job controller uses Pod finalizers and a field in the Job status to keep
   track of the finished Pods to count towards completion.
 - `KMSv2`: Enables KMS v2 API for encryption at rest. See [Using a KMS Provider for data encryption](/docs/tasks/administer-cluster/kms-provider) for more details.
+- `KubeletCgroupDriverFromCRI`: Enable detection of the kubelet cgroup driver
+  configuration option from the CRI. The container runtime also needs to support
+  this feature in which case the kubelet will ignore the cgroupDriver
+  (--cgroup-driver) configuration option. If the container runtime doesn't
+  support it, the kubelet will fallback to using it's cgroupDriver option.
+  See [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver)
+  for more details.
 - `KubeletCredentialProviders`: Enable kubelet exec credential providers for
   image pull credentials.
 - `KubeletInUserNamespace`: Enables support for running kubelet in a
