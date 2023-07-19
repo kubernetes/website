@@ -11,7 +11,7 @@ container runtimes, sin necesidad de volver a compilar los componentes del clús
 
 Necesitas un
 _{{<glossary_tooltip text="container runtime" term_id="container-runtime">}}_ ejecutándose en
-cada Nodo en tu clúster, de manera que el
+cada Nodo en tu clúster, de manera que
 {{<glossary_tooltip text="kubelet" term_id="kubelet">}} pueda iniciar
 {{<glossary_tooltip text="Pods" term_id="pod">}} y sus contenedores.
 
