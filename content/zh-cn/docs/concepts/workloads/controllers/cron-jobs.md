@@ -2,7 +2,7 @@
 title: CronJob
 content_type: concept
 description: >-
-  CronJob 通过重复调度启动一次性的任务。
+  CronJob 通过重复调度启动一次性的 Job。
 weight: 80
 hide_summary: true # 在章节索引中单独列出
 ---
