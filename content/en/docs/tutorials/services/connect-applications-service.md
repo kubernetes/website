@@ -59,7 +59,7 @@ to make queries against both IPs. Note that the containers are *not* using port 
 the node, nor are there any special NAT rules to route traffic to the pod. This means
 you can run multiple nginx pods on the same node all using the same `containerPort`,
 and access them from any other pod or node in your cluster using the assigned IP
-address for the Service. If you want to arrange for a specific port on the host
+address for the pod. If you want to arrange for a specific port on the host
 Node to be forwarded to backing Pods, you can - but the networking model should
 mean that you do not need to do so.
 
