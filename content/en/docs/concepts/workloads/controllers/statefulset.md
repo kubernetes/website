@@ -239,14 +239,15 @@ it adds a label, `statefulset.kubernetes.io/pod-name`, that is set to the name o
 the Pod. This label allows you to attach a Service to a specific Pod in
 the StatefulSet.
 
-### Pod Index Label
+### Pod index label
 
 {{< feature-state for_k8s_version="v1.28" state="beta" >}}
 
 When the StatefulSet {{<glossary_tooltip text="controller" term_id="controller">}} creates a Pod,
 it adds a label, `apps.kubernetes.io/pod-index`, that is set to the ordinal index of
 the Pod. This label allows you to route traffic to a particular pod index, filter logs/metrics
-using the pod index label, and more.
+using the pod index label, and more. Note the feature gate `PodIndexLabel` must be enabled for this
+feature, and it is enabled by default.
 
 ## Deployment and Scaling Guarantees
 

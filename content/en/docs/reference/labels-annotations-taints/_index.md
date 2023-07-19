@@ -1035,13 +1035,13 @@ by the cloud-controller-manager.
 
 ### batch.kubernetes.io/job-completion-index
 
-Type: Annotation
+Type: Label and Annotation
 
 Example: `batch.kubernetes.io/job-completion-index: "3"`
 
 Used on: Pod
 
-The Job controller in the kube-controller-manager sets this annotation for Pods
+The Job controller in the kube-controller-manager sets this as a label and annotation for Pods
 created with Indexed [completion mode](/docs/concepts/workloads/controllers/job/#completion-mode).
 
 ### kubectl.kubernetes.io/default-container
