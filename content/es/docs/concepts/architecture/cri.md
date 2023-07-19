@@ -7,7 +7,7 @@ weight: 60
 <!-- overview -->
 
 _CRI_ es una interfaz de plugin que permite que kubelet use una amplia variedad de
-tiempos de ejecución del contenedor, sin necesidad de volver a compilar los componentes del clúster.
+container runtimes, sin necesidad de volver a compilar los componentes del clúster.
 
 Necesitas un
 _{{<glossary_tooltip text="container runtime" term_id="container-runtime">}}_ ejecutándose en
