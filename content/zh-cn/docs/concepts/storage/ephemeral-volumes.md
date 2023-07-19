@@ -136,12 +136,12 @@ is managed by kubelet, or injecting different data.
 
 <!--
 CSI ephemeral volumes are only supported by a subset of CSI drivers.
-The Kubernetes CSI [Drivers list](https://kubernetes-csi.github.io/docs/drivers.html)
+The Kubernetes CSI [Drivers list](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
 shows which drivers support ephemeral volumes.
 -->
 {{< note >}}
 只有一部分 CSI 驱动程序支持 CSI 临时卷。Kubernetes CSI
-[驱动程序列表](https://kubernetes-csi.github.io/docs/drivers.html)
+[驱动程序列表](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
 显示了支持临时卷的驱动程序。
 {{< /note >}}
 
