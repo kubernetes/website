@@ -28,7 +28,7 @@ El _runtime_ y los _endpoints_ del servicio de imágenes deben estar disponibles
 que se puede configurar por separado dentro del kubelet usando
 `--image-service-endpoint` [banderas de línea de comando](/docs/reference/command-line-tools-reference/kubelet).
 
-Para Kubernetes v{{< skew currentVersion >}}, el kubelet prefiere usar CRI `v1`.
+Para Kubernetes v{{< skew currentVersion >}}, kubelet prefiere usar CRI `v1`.
 Si el _runtime_ del contenedor no es compatible con `v1` del CRI, el kubelet intenta
 negociar cualquier versión compatible anterior.
 El kubelet v{{< skew currentVersion >}} también puede negociar CRI `v1alpha2`, pero
