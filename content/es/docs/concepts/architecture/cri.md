@@ -23,7 +23,7 @@ cada Nodo en tu clúster, de manera que
 
 {{< feature-state for_k8s_version="v1.23" state="stable" >}}
 
-El kubelet actúa como un cliente cuando se conecta al _runtime_ del contenedor a través de gRPC.
+Kubelet actúa como un cliente cuando se conecta al _runtime_ del contenedor a través de gRPC.
 El _runtime_ y los _endpoints_ del servicio de imágenes deben estar disponibles en el _runtime_ del contenedor,
 que se puede configurar por separado dentro del kubelet usando
 `--image-service-endpoint` [banderas de línea de comando](/docs/reference/command-line-tools-reference/kubelet).
