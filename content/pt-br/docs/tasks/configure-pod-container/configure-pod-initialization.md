@@ -46,7 +46,9 @@ Crie o Pod:
 
 Verifique se o container nginx está executando:
 
-    kubectl get pod init-demo
+```shell
+kubectl get pod init-demo
+```
 
 A saída mostra que o contêiner nginx está em execução:
 
