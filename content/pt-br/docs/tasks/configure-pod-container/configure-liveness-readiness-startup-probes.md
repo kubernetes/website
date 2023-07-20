@@ -310,8 +310,7 @@ livenessProbe:
     port: liveness-port
 ```
 
-## Proteja contêineres de lenta inicialização com _startup probes_  
-{#define-startup-probes}
+## Proteja contêineres de lenta inicialização com _startup probes_ {#define-startup-probes}
 
 As vezes, você precisa lidar com aplicativos legados, que possam exigir um tempo 
 de inicialização adicional na primeira inicialização.
