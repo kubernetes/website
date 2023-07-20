@@ -283,7 +283,7 @@ Ao migrar de `grpc-health-probe` para verificações incorporadas, lembre-se
 das seguintes diferenças:
 - Verificações incorporadas executam contra o endereço IP do pod, 
   diferente do `grpc-health-probe` que executa no ip local `127.0.0.1`.
-  Certifique-se de configurar seu `endpoint` gRPC para escutar no endereço IP do Pod.
+  Certifique-se de configurar seu endpoint gRPC para escutar no endereço IP do Pod.
 - As verificações incorporadas não suportam nenhum parâmetro de autenticação (como `-tls`).
 - Não há códigos de erro para verficações incorporadas. 
   Todos os erros são considerados falhas de verfificação.
