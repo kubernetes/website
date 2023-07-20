@@ -227,7 +227,7 @@ This annotation is applied to the parent object used to track an ApplySet to ind
 tooling manages that ApplySet. Tooling should refuse to mutate ApplySets belonging to other tools.
 The value must be in the format `<toolname>/<semver>`.
 
-### apps.kubernetes.io/pod-index (beta)
+### apps.kubernetes.io/pod-index (beta) {#apps-kubernetes.io-pod-index}
 
 Type: Label
 
