@@ -93,11 +93,11 @@ your cluster. Those fields are:
     precedence to topologies that would help reduce the skew.
 
 - **topologyKey** is the key of [node labels](#node-labels). Nodes that have a label with this key
-	and identical values are considered to be in the same topology.
+  and identical values are considered to be in the same topology.
   We call each instance of a topology (in other words, a <key, value> pair) a domain. The scheduler
   will try to put a balanced number of pods into each domain.
-	Also, we define an eligible domain as a domain whose nodes meet the requirements of
-	nodeAffinityPolicy and nodeTaintsPolicy.
+  Also, we define an eligible domain as a domain whose nodes meet the requirements of
+  nodeAffinityPolicy and nodeTaintsPolicy.
 
 - **minDomains** indicates a minimum number of eligible domains. This field is optional.
   A domain is a particular instance of a topology. An eligible domain is a domain whose
