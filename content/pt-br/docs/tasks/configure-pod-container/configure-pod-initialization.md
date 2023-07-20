@@ -44,7 +44,7 @@ Crie o Pod:
 
     kubectl apply -f https://k8s.io/examples/pods/init-containers.yaml
 
-Verifique se o container nginx está executando:
+Verifique que o contêiner nginx está executando:
 
 ```shell
 kubectl get pod init-demo
