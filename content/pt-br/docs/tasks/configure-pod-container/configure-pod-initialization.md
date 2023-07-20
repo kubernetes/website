@@ -21,9 +21,8 @@ aplicativo ser iniciado.
 
 ## Crie um Pod que tem um Contêiner de Inicialização
 
-Neste exercício, você cria um pod que possui um aplicativo de contêiner e um
-contêiner de inicialização. O contêiner de incialização é executado até a sua conclusão, antes da aplicação
-do contêiner ser iniciada.
+Neste exercício, você cria um Pod que possui um contêiner de aplicação e um
+contêiner de inicialização. O contêiner de incialização é executado até a sua conclusão, antes do contêiner de aplicação ser iniciado.
 
 Aqui está o arquivo de configuração do pod:
 
