@@ -276,8 +276,7 @@ kubectl describe pod etcd-with-grpc
 
 Antes da versão 1.23 do Kubernetes, verificações de integridade gRPC foram frequentemente 
 implementadas usando [grpc-health-probe](https://github.com/grpc-ecosystem/grpc-health-probe/),
-como descrito no post do blog [verificação de integridade gRPC em servidores no Kubernetes]
-(/blog/2018/10/01/health-checking-grpc-servers-on-kubernetes/).
+como descrito no post do blog [verificação de integridade gRPC em servidores no Kubernetes](/blog/2018/10/01/health-checking-grpc-servers-on-kubernetes/).
 O comportamento de verificação gRPC interno é semelhante 
 ao implementado pelo `grpc-healthh-probe`.
 Ao migrar de `grpc-health-probe` para verificações incorporadas, lembre-se 
