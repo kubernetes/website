@@ -71,7 +71,7 @@ if you're curious.
 
 So we have pods running nginx in a flat, cluster wide, address space. In theory,
 you could talk to these pods directly, but what happens when a node dies? The pods
-die with it, and the Deployment will create new ones, with different IPs. This is
+die with it, and the ReplicaSet inside the Deployment will create new ones, with different IPs. This is
 the problem a Service solves.
 
 A Kubernetes Service is an abstraction which defines a logical set of Pods running
