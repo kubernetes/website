@@ -31,9 +31,9 @@ Aqui está o arquivo de configuração do Pod:
 No arquivo de configuração, você pode ver que o Pod tem um volume 
 que o contêiner de inicialização e o contêiner da aplicação compartilham.
 
-O contêiner de incialização monta o volume compartilhado em `/work-dir`, e o contêiner 
+O contêiner de inicialização monta o volume compartilhado em `/work-dir`, e o contêiner 
 da aplicação monta o volume compartilhado em `/usr/share/nginx/html`. 
-O contêiner de incialização executa o seguinte comando e depois termina:
+O contêiner de inicialização executa o seguinte comando e depois termina:
 
     wget -O /work-dir/index.html http://info.cern.ch
 
