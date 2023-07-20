@@ -55,7 +55,9 @@ A saída mostra que o contêiner nginx está em execução:
 
  Abra um shell dentro do contêiner nginx, executando o comando abaixo, no Pod init-demo:
 
-    kubectl exec -it init-demo -- /bin/bash
+```shell
+kubectl exec -it init-demo -- /bin/bash
+```
 
 Se o seu shell, enviar uma requesição GET para o servidor nginx:
 
