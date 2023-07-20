@@ -1,6 +1,6 @@
 ---
 reviewers:
-  - mikedanese
+- mikedanese
 title: Secrets
 content_type: concept
 feature:
@@ -576,17 +576,17 @@ metadata:
   name: mypod
 spec:
   containers:
-    - name: mypod
-      image: redis
-      volumeMounts:
-        - name: foo
-          mountPath: "/etc/foo"
-          readOnly: true
-  volumes:
+  - name: mypod
+    image: redis
+    volumeMounts:
     - name: foo
-      secret:
-        secretName: mysecret
-        optional: true
+      mountPath: "/etc/foo"
+      readOnly: true
+  volumes:
+  - name: foo
+    secret:
+    secretName: mysecret
+    optional: true
 ```
 
 By default, Secrets are required. None of a Pod's containers will start until
@@ -741,16 +741,16 @@ metadata:
     name: secret-test
 spec:
   volumes:
-    - name: secret-volume
-      secret:
-        secretName: ssh-key-secret
+  - name: secret-volume
+    secret:
+      secretName: ssh-key-secret
   containers:
-    - name: ssh-test-container
-      image: mySshImage
-      volumeMounts:
-        - name: secret-volume
-          readOnly: true
-          mountPath: "/etc/secret-volume"
+  - name: ssh-test-container
+    image: mySshImage
+    volumeMounts:
+    - name: secret-volume
+      readOnly: true
+      mountPath: "/etc/secret-volume"
 ```
 
 When the container's command runs, the pieces of the key will be available in:
@@ -895,8 +895,8 @@ metadata:
 spec:
   serviceAccount: prod-db-client
   containers:
-    - name: db-client-container
-      image: myClientImage
+  - name: db-client-container
+    image: myClientImage
 ```
 
 ### Use case: dotfiles in a secret volume
@@ -919,20 +919,20 @@ metadata:
   name: secret-dotfiles-pod
 spec:
   volumes:
-    - name: secret-volume
-      secret:
-        secretName: dotfile-secret
+  - name: secret-volume
+    secret:
+      secretName: dotfile-secret
   containers:
-    - name: dotfile-test-container
-      image: registry.k8s.io/busybox
-      command:
-        - ls
-        - "-l"
-        - "/etc/secret-volume"
-      volumeMounts:
-        - name: secret-volume
-          readOnly: true
-          mountPath: "/etc/secret-volume"
+  - name: dotfile-test-container
+    image: registry.k8s.io/busybox
+    command:
+    - ls
+    - "-l"
+    - "/etc/secret-volume"
+    volumeMounts:
+    - name: secret-volume
+      readOnly: true
+      mountPath: "/etc/secret-volume"
 ```
 
 The volume will contain a single file, called `.secret-file`, and
