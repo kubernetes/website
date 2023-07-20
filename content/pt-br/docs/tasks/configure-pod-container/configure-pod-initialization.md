@@ -29,7 +29,7 @@ Aqui está o arquivo de configuração do Pod:
 {{< codenew file="pods/init-containers.yaml" >}}
 
 No arquivo de configuração, você pode ver que o Pod tem um volume 
-que o contêiner de inicialiazação e o contêiner da aplicação compartilham.
+que o contêiner de inicialização e o contêiner da aplicação compartilham.
 
 O contêiner de incialização monta o volume compartilhado em `/work-dir`, e o contêiner 
 da aplicação monta o volume compartilhado em `/usr/share/nginx/html`. 
