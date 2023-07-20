@@ -35,7 +35,9 @@ O contêiner de inicialização monta o volume compartilhado em `/work-dir`, e o
 da aplicação monta o volume compartilhado em `/usr/share/nginx/html`. 
 O contêiner de inicialização executa o seguinte comando e depois termina:
 
-    wget -O /work-dir/index.html http://info.cern.ch
+```shell
+wget -O /work-dir/index.html http://info.cern.ch
+```
 
 Observe que o contêiner de inicialização grava o arquivo `index.html` no diretório raiz
 do servidor nginx.
