@@ -61,7 +61,7 @@ A saída mostra que o contêiner nginx está em execução:
 kubectl exec -it init-demo -- /bin/bash
 ```
 
-Se o seu shell, enviar uma requesição GET para o servidor nginx:
+Em seu shell, envie uma requisição GET para o servidor nginx:
 
     root@nginx:~# apt-get update
     root@nginx:~# apt-get install curl
