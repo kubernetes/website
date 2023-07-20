@@ -6,7 +6,7 @@ reviewers:
 ---
 
 <!-- overview -->
-Esta página mostra como usar um contêiner de incialização para um Pod, que será executado antes de um 
+Esta página mostra como usar um contêiner de inicialização para um Pod, que será executado antes de um 
 aplicativo ser iniciado.
 
 
