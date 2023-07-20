@@ -69,14 +69,16 @@ Em seu shell, envie uma requisição GET para o servidor nginx:
 
 A saída mostra que o nginx está servindo a página da web que foi escrita pelo contêiner de incialização:
 
-    <html><head></head><body><header>
-    <title>http://info.cern.ch</title>
-    </header>
+```html
+<html><head></head><body><header>
+<title>http://info.cern.ch</title>
+</header>
 
-    <h1>http://info.cern.ch - home of the first website</h1>
-      ...
-      <li><a href="http://info.cern.ch/hypertext/WWW/TheProject.html">Browse the first website</a></li>
-      ...
+<h1>http://info.cern.ch - home of the first website</h1>
+  ...
+  <li><a href="http://info.cern.ch/hypertext/WWW/TheProject.html">Browse the first website</a></li>
+  ...
+```
 
 
 
