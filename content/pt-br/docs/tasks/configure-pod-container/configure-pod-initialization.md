@@ -44,7 +44,9 @@ do servidor nginx.
 
 Crie o Pod:
 
-    kubectl apply -f https://k8s.io/examples/pods/init-containers.yaml
+```shell
+kubectl apply -f https://k8s.io/examples/pods/init-containers.yaml
+```
 
 Verifique que o contêiner nginx está executando:
 
