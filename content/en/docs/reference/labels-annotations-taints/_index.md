@@ -1049,7 +1049,7 @@ by the cloud-controller-manager.
 
 ### batch.kubernetes.io/job-completion-index
 
-Type: Label and Annotation
+Type: Annotation, Label
 
 Example: `batch.kubernetes.io/job-completion-index: "3"`
 
