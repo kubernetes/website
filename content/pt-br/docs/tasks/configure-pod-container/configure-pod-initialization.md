@@ -24,7 +24,7 @@ aplicativo ser iniciado.
 Neste exercício, você cria um Pod que possui um contêiner de aplicação e um
 contêiner de inicialização. O contêiner de incialização é executado até a sua conclusão, antes do contêiner de aplicação ser iniciado.
 
-Aqui está o arquivo de configuração do pod:
+Aqui está o arquivo de configuração do Pod:
 
 {{< codenew file="pods/init-containers.yaml" >}}
 
