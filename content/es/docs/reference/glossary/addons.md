@@ -1,7 +1,7 @@
 ---
 title: Add-ons - (Complementos)
 id: addons
-date: 2019-12-15
+date: 2023-07-20
 full_link: /docs/concepts/cluster-administration/addons/
 short_description: >
   Son recursos que amplían la funcionalidad de Kubernetes.
