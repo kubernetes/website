@@ -13,4 +13,4 @@ tags:
   Son recursos que amplían la funcionalidad de Kubernetes.
 
 <!--more-->
-[Instalar complementos](/docs/concepts/cluster-administration/addons/) ayuda a una mejor administración de las funcionalidades de Kubernetes.
+[Instalar complementos](/docs/concepts/cluster-administration/addons/) explica más sobre el uso de complementos con tu clúster y lista algunos complementos populares.
