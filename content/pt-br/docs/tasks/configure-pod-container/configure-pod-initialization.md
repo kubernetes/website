@@ -85,10 +85,8 @@ A saída mostra que o nginx está servindo a página da web que foi escrita pelo
 ## {{% heading "whatsnext" %}}
 
 
-* Aprenda mais sobre [communicação entre Contêineres executando no mesmo Pod](/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/).
-* Aprenda mais sobre [Contêineres de incialização](/docs/concepts/workloads/pods/init-containers/).
-* Aprenda mais sobre [Volumes](/docs/concepts/storage/volumes/).
-* Aprenda mais sobre [Debugando Contêineres de incialização](/docs/tasks/debug/debug-application/debug-init-containers/)
-
-
+* Aprenda mais sobre [Comunicação entre Contêineres executando no mesmo Pod](/pt-br/docs/tasks/access-application-cluster/communicate-containers-same-pod-shared-volume/).
+* Aprenda mais sobre [Contêineres de Inicialização](/docs/concepts/workloads/pods/init-containers/).
+* Aprenda mais sobre [Volumes](/pt-br/docs/concepts/storage/volumes/).
+* Aprenda mais sobre [Depurar Contêineres de Inicialização](/pt-br/docs/tasks/debug/debug-application/debug-init-containers/)
 
