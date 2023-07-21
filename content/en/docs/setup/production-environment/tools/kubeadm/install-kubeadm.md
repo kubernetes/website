@@ -29,6 +29,14 @@ see the [Creating a cluster with kubeadm](/docs/setup/production-environment/too
 * Swap disabled. You **MUST** disable swap in order for the kubelet to work properly.
     * For example, `sudo swapoff -a` will disable swapping temporarily. To make this change persistent across reboots, make sure swap is disabled in config files like `/etc/fstab`, `systemd.swap`, depending how it was configured on your system.
 
+{{< note >}}
+The `kubeadm` installation is done via binaries that use dynamic linking and assumes that your target system provides `glibc`.
+This is a reasonable assumption on many Linux distributions (including Debian, Ubuntu, Fedora, CentOS, etc.)
+but it is not always the case with custom and lightweight distributions which don't include `glibc` by default, such as Alpine Linux.
+The expectation is that the distribution either includes `glibc` or a [compatibility layer](https://wiki.alpinelinux.org/wiki/Running_glibc_programs)
+that provides the expected symbols.
+{{< /note >}}
+
 <!-- steps -->
 
 ## Verify the MAC address and product_uuid are unique for every node {#verify-mac-address}
@@ -258,6 +266,10 @@ curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSIO
 sudo mkdir -p /etc/systemd/system/kubelet.service.d
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 ```
+
+{{< note >}}
+Please refer to the note in the [Before you begin](#before-you-begin) section for Linux distributions that do not include `glibc` by default.
+{{< /note >}}
 
 Install `kubectl` by following the instructions on [Install Tools page](/docs/tasks/tools/#kubectl).
 
