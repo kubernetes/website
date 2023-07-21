@@ -14,6 +14,7 @@ reviewers:
 title: Horizontal Pod Autoscaler Walkthrough
 content_type: task
 weight: 100
+min-kubernetes-server-version: 1.23
 -->
 
 <!-- overview -->
@@ -61,8 +62,7 @@ HorizontalPodAutoscaler 会指示工作负载资源（Deployment、StatefulSet �
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
 <!--
-If you're running an older
-release of Kubernetes, refer to the version of the documentation for that release (see
+If you're running an older release of Kubernetes, refer to the version of the documentation for that release (see
 [available documentation versions](/docs/home/supported-doc-versions/)).
 -->
 如果你运行的是旧版本的 Kubernetes，请参阅该版本的文档版本
@@ -159,7 +159,9 @@ Deployment 然后更新 ReplicaSet —— 这是所有 Deployment 在 Kubernetes
 请参阅[算法详细信息](/zh-cn/docs/tasks/run-application/horizontal-pod-autoscale/#algorithm-details)。
 
 
-<!-- Create the HorizontalPodAutoscaler: -->
+<!-- 
+Create the HorizontalPodAutoscaler:
+ -->
 创建 HorizontalPodAutoscaler：
 
 ```shell
@@ -181,7 +183,9 @@ You can check the current status of the newly-made HorizontalPodAutoscaler, by r
 kubectl get hpa
 ```
 
-<!-- The output is similar to: -->
+<!--
+The output is similar to:
+-->
 输出类似于：
 
 ```
@@ -258,7 +262,7 @@ php-apache   Deployment/php-apache/scale   305% / 50%  1         10        7    
 
 <!--
 Here, CPU consumption has increased to 305% of the request.
-As a result, the deployment was resized to 7 replicas:
+As a result, the Deployment was resized to 7 replicas:
 -->
 这时，由于请求增多，CPU 利用率已经升至请求值的 305%。
 可以看到，Deployment 的副本数量已经增长到了 7：
@@ -319,7 +323,9 @@ NAME         REFERENCE                     TARGET       MINPODS   MAXPODS   REPL
 php-apache   Deployment/php-apache/scale   0% / 50%     1         10        1          11m
 ```
 
-<!-- and the Deployment also shows that it has scaled down: -->
+<!--
+and the Deployment also shows that it has scaled down:
+-->
 Deployment 也显示它已经缩小了：
 
 ```shell

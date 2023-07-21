@@ -380,7 +380,7 @@ The `containers` list that you specified in the patch has only one Container.
 The output shows that your list of one Container replaced the existing `containers` list.
 -->
 patch 中指定的 `containers` 列表只有一个 Container。
-输出显示你所给出的 Contaier 列表替换了现有的 `containers` 列表。
+输出显示你所给出的 Container 列表替换了现有的 `containers` 列表。
 
 ```yaml
 spec:
@@ -492,7 +492,7 @@ Patch your Deployment again with this new patch:
 使用新的 patch 重新修补 Deployment：
 
 ```shell
-kubectl patch deployment retainkeys-demo --type merge --patch-file patch-file-retainkeys.yaml
+kubectl patch deployment retainkeys-demo --type strategic --patch-file patch-file-retainkeys.yaml
 ```
 
 <!--
@@ -639,7 +639,7 @@ kubectl patch deployment patch-demo --patch '{"spec": {"template": {"spec": {"co
 The flag `--subresource=[subresource-name]` is used with kubectl commands like get, patch,
 edit and replace to fetch and update `status` and `scale` subresources of the resources
 (applicable for kubectl version v1.24 or more). This flag is used with all the API resources
-(built-in and CRs) which has `status` or `scale` subresource. Deployment is one of the
+(built-in and CRs) that have `status` or `scale` subresource. Deployment is one of the
 examples which supports these subresources.
 
 Here's a manifest for a Deployment that has two replicas:

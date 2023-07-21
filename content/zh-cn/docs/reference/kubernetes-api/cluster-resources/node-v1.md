@@ -8,7 +8,6 @@ description: "Node 是 Kubernetes 中的工作节点。"
 title: "Node"
 weight: 1
 ---
-
 <!-- 
 api_metadata:
   apiVersion: "v1"
@@ -29,7 +28,6 @@ weight: 1
 <!-- 
 Node is a worker node in Kubernetes. Each node will have a unique identifier in the cache (i.e. in etcd). 
 -->
-
 Node 是 Kubernetes 中的工作节点。
 每个节点在缓存中（即在 etcd 中）都有一个唯一的标识符。
 
@@ -44,7 +42,6 @@ Node 是 Kubernetes 中的工作节点。
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata 
 -->
-
 - **metadata** (<a href="{{< ref "../common-definitions/object-meta#ObjectMeta" >}}">ObjectMeta</a>)
 
   标准的对象元数据。
@@ -55,7 +52,6 @@ Node 是 Kubernetes 中的工作节点。
 
   Spec defines the behavior of a node. https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status 
 -->
-
 - **spec** (<a href="{{< ref "../cluster-resources/node-v1#NodeSpec" >}}">NodeSpec</a>)
 
   spec 定义节点的行为。
@@ -66,7 +62,6 @@ Node 是 Kubernetes 中的工作节点。
 
   Most recently observed status of the node. Populated by the system. Read-only. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status 
 -->
-
 - **status** (<a href="{{< ref "../cluster-resources/node-v1#NodeStatus" >}}">NodeStatus</a>)
 
   此节点的最近观测状态。由系统填充。只读。
@@ -77,7 +72,6 @@ Node 是 Kubernetes 中的工作节点。
 <!-- 
 NodeSpec describes the attributes that a node is created with. 
 -->
-
 NodeSpec 描述了创建节点时使用的属性。
 
 <hr>
@@ -85,17 +79,14 @@ NodeSpec 描述了创建节点时使用的属性。
 - **configSource** (NodeConfigSource)
 
   <!-- 
-  Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed from Kubelets as of 1.24 and will be fully removed in 1.26. 
+  Deprecated: Previously used to specify the source of the node's configuration for the DynamicKubeletConfig feature. This feature is removed.
   -->
-
-  已弃用：以前用于为 DynamicKubeletConfig 功能指定节点配置的来源。
-  自 1.24 的版本起，此功能已从 Kubelets 中移除，并将在 1.26 的版本中完全移除。
+  已弃用：以前用于为 DynamicKubeletConfig 功能指定节点配置的来源。此功能已删除。
 
   <a name="NodeConfigSource"></a>
   <!-- 
   *NodeConfigSource specifies a source of node configuration. Exactly one subfield (excluding metadata) must be non-nil. This API is deprecated since 1.22* 
   -->
-
   **NodeConfigSource 指定节点配置的来源。指定一个子字段（不包括元数据）必须为非空。此 API 自 1.22的版本起已被弃用**
 
   - **configSource.configMap** (ConfigMapNodeConfigSource)
@@ -159,7 +150,8 @@ NodeSpec 描述了创建节点时使用的属性。
     - **configSource.configMap.uid** (string)
 
       <!--
-      UID is the metadata.UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status. -->
+      UID is the metadata.UID of the referenced ConfigMap. This field is forbidden in Node.Spec, and required in Node.Status.
+      -->
 
       uid 是所引用的 ConfigMap 的 metadata.uid。
       该字段在 Node.spec 中是禁止的，在 Node.status 中是必需的。
@@ -169,7 +161,6 @@ NodeSpec 描述了创建节点时使用的属性。
   <!--
   Deprecated. Not all kubelets will set this field. Remove field after 1.13. see: https://issues.k8s.io/61966 
   -->
-
   已弃用。并非所有 kubelet 都会设置此字段。
   1.13 的版本之后会删除该字段。参见： https://issues.k8s.io/61966
 
@@ -178,7 +169,6 @@ NodeSpec 描述了创建节点时使用的属性。
   <!-- 
   PodCIDR represents the pod IP range assigned to the node. 
   -->
-
   podCIDR 表示分配给节点的 Pod IP 范围。
 
 - **podCIDRs** ([]string)
@@ -186,7 +176,6 @@ NodeSpec 描述了创建节点时使用的属性。
   <!-- 
   podCIDRs represents the IP ranges assigned to the node for usage by Pods on that node. If this field is specified, the 0th entry must match the podCIDR field. It may contain at most 1 value for each of IPv4 and IPv6. 
   -->
-
   podCIDRs 表示分配给节点以供该节点上的 Pod 使用的 IP 范围。
   如果指定了该字段，则第 0 个条目必须与 podCIDR 字段匹配。
   对于 IPv4 和 IPv6，它最多可以包含 1 个值。
@@ -196,7 +185,6 @@ NodeSpec 描述了创建节点时使用的属性。
   <!-- 
   ID of the node assigned by the cloud provider in the format: \<ProviderName>://\<ProviderSpecificNodeID> 
   -->
-
   云提供商分配的节点ID，格式为：\<ProviderName>://\<ProviderSpecificNodeID>
 
 - **taints** ([]Taint)
@@ -204,14 +192,12 @@ NodeSpec 描述了创建节点时使用的属性。
   <!-- 
   If specified, the node's taints. 
   -->
-
   如果设置了，则为节点的污点。
 
   <a name="Taint"></a>
   <!-- 
   *The node this Taint is attached to has the "effect" on any pod that does not tolerate the Taint.* 
   -->
-
   **此污点附加到的节点对任何不容忍污点的 Pod 都有 “影响”。**
 
   <!-- 
@@ -222,7 +208,7 @@ NodeSpec 描述了创建节点时使用的属性。
 
   - **taints.effect** (string), 必需
 
-   必需的。污点对不容忍污点的 Pod 的影响。合法的 effect 值有 NoSchedule、PreferNoSchedule 和 NoExecute。
+    必需的。污点对不容忍污点的 Pod 的影响。合法的 effect 值有 NoSchedule、PreferNoSchedule 和 NoExecute。
 
   <!-- 
   - **taints.key** (string), required
@@ -247,8 +233,8 @@ NodeSpec 描述了创建节点时使用的属性。
     *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
     -->
 
-    Time 是 time.Time 的包装器，它支持对 YAML 和 JSON 的正确编组。
-    time 包的许多工厂方法提供了包装器。
+    **Time 是 time.Time 的包装器，它支持对 YAML 和 JSON 的正确编组。
+    time 包的许多工厂方法提供了包装器。**
 
   - **taints.value** (string)
 
@@ -273,7 +259,6 @@ NodeSpec 描述了创建节点时使用的属性。
 <!-- 
 NodeStatus is information about the current status of a node. 
 -->
-
 NodeStatus 是有关节点当前状态的信息。
 
 <hr>
@@ -283,9 +268,8 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   *Patch strategy: merge on key `type`*
   
-  List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See http://pr.k8s.io/79391 for an example. 
+  List of addresses reachable to the node. Queried from cloud provider, if available. More info: https://kubernetes.io/docs/concepts/nodes/node/#addresses Note: This field is declared as mergeable, but the merge key is not sufficiently unique, which can cause data corruption when it is merged. Callers should instead use a full-replacement patch. See https://pr.k8s.io/79391 for an example. Consumers should assume that addresses can change during the lifetime of a Node. However, there are some exceptions where this may not be possible, such as Pods that inherit a Node's address in its own status or consumers of the downward API (status.hostIP).
   -->
-
   **补丁策略：根据 `type` 键执行合并操作**
 
   节点可到达的地址列表。从云提供商处查询（如果有）。
@@ -293,13 +277,16 @@ NodeStatus 是有关节点当前状态的信息。
   
   注意：该字段声明为可合并，但合并键不够唯一，合并时可能导致数据损坏。
   调用者应改为使用完全替换性质的补丁操作。
-  有关示例，请参见 http://pr.k8s.io/79391。
+  有关示例，请参见 https://pr.k8s.io/79391。
+
+  消费者应假设地址可以在节点的生命期内发生变化。
+  然而在一些例外情况下这是不可能的，例如在自身状态中继承 Node 地址的 Pod
+  或 downward API (status.hostIP) 的消费者。
 
   <a name="NodeAddress"></a>
   <!--
   *NodeAddress contains information for the node's address.* 
   -->
-
   **NodeAddress 包含节点地址的信息。**
 
   <!--
@@ -327,7 +314,6 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   Allocatable represents the resources of a node that are available for scheduling. Defaults to Capacity. 
   -->
-
   allocatable 表示节点的可用于调度的资源。默认为容量。
 
 - **capacity** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
@@ -335,7 +321,6 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   Capacity represents the total resources of a node. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#capacity 
   -->
-
   capacity 代表一个节点的总资源。
   更多信息： https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes/#capacity
 
@@ -346,7 +331,6 @@ NodeStatus 是有关节点当前状态的信息。
   
   Conditions is an array of current observed node conditions. More info: https://kubernetes.io/docs/concepts/nodes/node/#condition 
   -->
-
   **补丁策略：根据 `type` 键执行合并操作**
 
   conditions 是当前观测到的节点状况的数组。
@@ -356,7 +340,6 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   *NodeCondition contains condition information for a node.* 
   -->
-
   **NodeCondition 包含节点状况的信息。**
 
   <!--
@@ -432,14 +415,12 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   Status of the config assigned to the node via the dynamic Kubelet config feature. 
   -->
-
   通过动态 Kubelet 配置功能分配给节点的配置状态。
 
   <a name="NodeConfigStatus"></a>
   <!-- 
   *NodeConfigStatus describes the status of the config assigned by Node.Spec.ConfigSource.* 
   -->
-
   **NodeConfigStatus 描述了由 Node.spec.configSource 分配的配置的状态。**
 
   - **config.active** (NodeConfigSource)
@@ -691,8 +672,8 @@ NodeStatus 是有关节点当前状态的信息。
 
       - **config.lastKnownGood.configMap.namespace** (string), 必需
 
-       namespace 是所引用的 ConfigMap 的 metadata.namespace。
-       此字段在所有情况下都是必需的。
+        namespace 是所引用的 ConfigMap 的 metadata.namespace。
+        此字段在所有情况下都是必需的。
 
       - **config.lastKnownGood.configMap.resourceVersion** (string)
 
@@ -717,14 +698,12 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   Endpoints of daemons running on the Node. 
   -->
-
   在节点上运行的守护进程的端点。
 
   <a name="NodeDaemonEndpoints"></a>
   <!--
   *NodeDaemonEndpoints lists ports opened by daemons running on the Node.* 
   -->
-
   **NodeDaemonEndpoints 列出了节点上运行的守护进程打开的端口。**
 
   - **daemonEndpoints.kubeletEndpoint** (DaemonEndpoint)
@@ -757,14 +736,12 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   List of container images on this node 
   -->
-
   该节点上的容器镜像列表。
 
   <a name="ContainerImage"></a>
   <!--
   *Describe a container image* 
   -->
-
   **描述一个容器镜像**
 
   - **images.names** ([]string)
@@ -789,7 +766,6 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   Set of ids/uuids to uniquely identify the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#info 
   -->
-
   用于唯一标识节点的 ids/uuids 集。
   更多信息： https://kubernetes.io/zh-cn/docs/concepts/architecture/nodes/#info
 
@@ -797,7 +773,6 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   *NodeSystemInfo is a set of ids/uuids to uniquely identify the node.* 
   -->
-
   **NodeSystemInfo 是一组用于唯一标识节点的 ids/uuids。**
 
   <!--
@@ -818,7 +793,7 @@ NodeStatus 是有关节点当前状态的信息。
 
   - **nodeInfo.bootID** (string), 必需
 
-   节点报告的 bootID。
+    节点报告的 bootID。
 
   <!--
   - **nodeInfo.containerRuntimeVersion** (string), required
@@ -880,7 +855,7 @@ NodeStatus 是有关节点当前状态的信息。
 
   - **nodeInfo.operatingSystem** (string), 必需
 
-   节点上报的操作系统。
+    节点上报的操作系统。
 
   <!--
   - **nodeInfo.osImage** (string), required
@@ -909,7 +884,6 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   NodePhase is the recently observed lifecycle phase of the node. More info: https://kubernetes.io/docs/concepts/nodes/node/#phase The field is never populated, and now is deprecated. 
   -->
-
   NodePhase 是最近观测到的节点的生命周期阶段。
   更多信息： https://kubernetes.io/zh-cn/docs/concepts/architecture/nodes/#phase
   
@@ -920,14 +894,12 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   List of volumes that are attached to the node. 
   -->
-
   附加到节点的卷的列表。
 
   <a name="AttachedVolume"></a>
   <!--
   *AttachedVolume describes a volume attached to a node* 
   -->
-
   **AttachedVolume 描述附加到节点的卷**
 
   <!--
@@ -938,7 +910,7 @@ NodeStatus 是有关节点当前状态的信息。
 
    - **volumesAttached.devicePath** (string), 必需
 
-    devicePath 表示卷应该可用的设备路径。
+     devicePath 表示卷应该可用的设备路径。
 
   <!--
   - **volumesAttached.name** (string), required
@@ -955,7 +927,6 @@ NodeStatus 是有关节点当前状态的信息。
   <!--
   List of attachable volumes in use (mounted) by the node. 
   -->
-
   节点正在使用（安装）的可附加卷的列表。
 
 ## NodeList {#NodeList}
@@ -963,7 +934,6 @@ NodeStatus 是有关节点当前状态的信息。
 <!--
 NodeList is the whole list of all Nodes which have been registered with master. 
 -->
-
 NodeList 是已注册到 master 的所有节点的完整列表。
 
 <hr>
@@ -977,7 +947,6 @@ NodeList 是已注册到 master 的所有节点的完整列表。
   <!--
   Standard list metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds 
   -->
-
   标准的列表元数据。
   更多信息： https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds
 
@@ -986,7 +955,6 @@ NodeList 是已注册到 master 的所有节点的完整列表。
 
   List of nodes
 -->
-
 - **items** ([]<a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>), 必需
 
   节点的列表。
@@ -999,7 +967,6 @@ NodeList 是已注册到 master 的所有节点的完整列表。
 GET /api/v1/nodes/{name}
 #### Parameters 
 -->
-
 ## 操作 {#Operations}
 
 <hr>
@@ -1018,7 +985,6 @@ GET /api/v1/nodes/{name}
 - **pretty** (*in query*): string
 #### Response 
 -->
-
 - **name** (**路径参数**): string, 必需
 
   节点的名称。
@@ -1039,7 +1005,6 @@ GET /api/v1/nodes/{name}
 GET /api/v1/nodes/{name}/status
 #### Parameters 
 -->
-
 ### `get` 读取指定节点的状态
 
 #### HTTP 请求
@@ -1054,7 +1019,6 @@ GET /api/v1/nodes/{name}/status
 - **pretty** (*in query*): string
 #### Response 
 -->
-
 - **name** (**路径参数**): string, 必需
 
   节点的名称。
@@ -1075,28 +1039,60 @@ GET /api/v1/nodes/{name}/status
 GET /api/v1/nodes
 #### Parameters
 -->
-
 ### `list` 列出或监视节点类型的对象
 
 #### HTTP 请求
 
 GET /api/v1/nodes
 
-#### 参数
-
 <!--
+#### Parameters
+
 - **allowWatchBookmarks** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#allowWatchBookmarks" >}}">allowWatchBookmarks</a>
+
 - **continue** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+
 - **fieldSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
 - **labelSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+
 - **limit** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
 - **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
 - **resourceVersion** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
 - **resourceVersionMatch** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 - **timeoutSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+
 - **watch** (*in query*): boolean
-#### Response
+
+  <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 -->
+#### 参数
 
 - **allowWatchBookmarks** (**查询参数**): boolean
 
@@ -1130,6 +1126,10 @@ GET /api/v1/nodes
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 - **timeoutSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -1138,6 +1138,9 @@ GET /api/v1/nodes
 
   <a href="{{< ref "../common-parameters/common-parameters#watch" >}}">watch</a>
 
+<!--
+#### Response
+-->
 #### 响应
 
 200 (<a href="{{< ref "../cluster-resources/node-v1#NodeList" >}}">NodeList</a>): OK
@@ -1150,7 +1153,6 @@ GET /api/v1/nodes
 POST /api/v1/nodes
 #### Parameters 
 -->
-
 ### `create` 创建一个节点
 
 #### HTTP 请求
@@ -1167,7 +1169,6 @@ POST /api/v1/nodes
 - **pretty** (*in query*): string
 #### Response 
 -->
-
 - **body**: <a href="{{< ref "../cluster-resources/node-v1#Node" >}}">Node</a>, 必需
 
 - **dryRun** (**查询参数**): string
@@ -1202,7 +1203,6 @@ POST /api/v1/nodes
 PUT /api/v1/nodes/{name}
 #### Parameters 
 -->
-
 ### `update` 替换指定节点
 
 #### HTTP 请求
@@ -1221,7 +1221,6 @@ PUT /api/v1/nodes/{name}
 - **pretty** (*in query*): string
 #### Response 
 -->
-
 - **name** (**路径参数**): string, 必需
 
   节点的名称。
@@ -1261,7 +1260,6 @@ PUT /api/v1/nodes/{name}/status
 
 #### Parameters 
 -->
-
 ### `update` 替换指定节点的状态
 
 #### HTTP 请求
@@ -1280,7 +1278,6 @@ PUT /api/v1/nodes/{name}/status
 - **pretty** (*in query*): string
 #### Response 
 -->
-
 - **name** (**路径参数**): string, 必需
 
   节点的名称。
@@ -1317,7 +1314,6 @@ PUT /api/v1/nodes/{name}/status
 PATCH /api/v1/nodes/{name}
 #### Parameters 
 -->
-
 ### `patch` 部分更新指定节点
 
 #### HTTP 请求
@@ -1337,7 +1333,6 @@ PATCH /api/v1/nodes/{name}
 - **pretty** (*in query*): string
 #### Response 
 -->
-
 - **name** (**路径参数**): string, 必需
 
   节点的名称。
@@ -1378,7 +1373,6 @@ PATCH /api/v1/nodes/{name}
 PATCH /api/v1/nodes/{name}/status
 #### Parameters 
 -->
-
 ### `patch` 部分更新指定节点的状态
 
 #### HTTP 请求
@@ -1398,7 +1392,6 @@ PATCH /api/v1/nodes/{name}/status
 - **pretty** (*in query*): string
 #### Response 
 -->
-
 - **name** (**路径参数**): string, 必需
 
   节点的名称。
@@ -1439,7 +1432,6 @@ PATCH /api/v1/nodes/{name}/status
 DELETE /api/v1/nodes/{name}
 #### Parameters 
 -->
-
 ### `delete` 删除一个节点
 
 #### HTTP 请求
@@ -1458,7 +1450,6 @@ DELETE /api/v1/nodes/{name}
 - **propagationPolicy** (*in query*): string
 #### Response
 -->
-
 - **name** (**路径参数**): string, 必需
 
   节点的名称。
@@ -1491,36 +1482,68 @@ DELETE /api/v1/nodes/{name}
 
 <!--
 ### `deletecollection` delete collection of Node
-#### HTTP Request
-DELETE /api/v1/nodes
-#### Parameters 
--->
 
+#### HTTP Request
+-->
 ### `deletecollection` 删除节点的集合
 
 #### HTTP 请求
 
 DELETE /api/v1/nodes
 
-#### 参数
+<!--
+#### Parameters
 
 - **body**: <a href="{{< ref "../common-definitions/delete-options#DeleteOptions" >}}">DeleteOptions</a>
 
-<!--
 - **continue** (*in query*): string
-- **dryRun** (*in query*): string
-- **fieldSelector** (*in query*): string
-- **gracePeriodSeconds** (*in query*): integer
-- **labelSelector** (*in query*): string
-- **limit** (*in query*): integer
-- **pretty** (*in query*): string
-- **propagationPolicy** (*in query*): string
-- **resourceVersion** (*in query*): string
-- **resourceVersionMatch** (*in query*): string
-- **timeoutSeconds** (*in query*): integer
-#### Response
--->
 
+  <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
+
+- **dryRun** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
+
+- **fieldSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#fieldSelector" >}}">fieldSelector</a>
+
+- **gracePeriodSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#gracePeriodSeconds" >}}">gracePeriodSeconds</a>
+
+- **labelSelector** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#labelSelector" >}}">labelSelector</a>
+
+- **limit** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#limit" >}}">limit</a>
+
+- **pretty** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
+
+- **propagationPolicy** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#propagationPolicy" >}}">propagationPolicy</a>
+
+- **resourceVersion** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersion" >}}">resourceVersion</a>
+
+- **resourceVersionMatch** (*in query*): string
+
+  <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
+- **timeoutSeconds** (*in query*): integer
+
+  <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
+-->
 - **continue** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#continue" >}}">continue</a>
@@ -1561,10 +1584,17 @@ DELETE /api/v1/nodes
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
+- **sendInitialEvents** (**查询参数**): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 - **timeoutSeconds** (**查询参数**): integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
 
+<!--
+#### Response
+-->
 #### 响应
 
 200 (<a href="{{< ref "../common-definitions/status#Status" >}}">Status</a>): OK

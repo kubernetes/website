@@ -20,12 +20,12 @@ weight: 150
 <!--
 This feature, specifically the alpha `topologyKeys` API, is deprecated since
 Kubernetes v1.21.
-[Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints/),
+[Topology Aware Routing](/docs/concepts/services-networking/topology-aware-routing/),
 introduced in Kubernetes v1.21, provide similar functionality.
 -->
 此功能特性，尤其是 Alpha 阶段的 `topologyKeys` API，在 Kubernetes v1.21
 版本中已被废弃。Kubernetes v1.21 版本中引入的
-[拓扑感知的提示](/zh-cn/docs/concepts/services-networking/topology-aware-hints/),
+[拓扑感知路由](/zh-cn/docs/concepts/services-networking/topology-aware-routing/),
 提供类似的功能。
 {{</ note >}}
 

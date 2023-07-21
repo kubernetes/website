@@ -1,7 +1,7 @@
 ---
 title: Kubernetes API
 content_type: concept
-weight: 30
+weight: 40
 description: >
   Kubernetes API 使你可以查询和操纵 Kubernetes 中对象的状态。
   Kubernetes 控制平面的核心是 API 服务器和它暴露的 HTTP API。
@@ -15,7 +15,7 @@ reviewers:
 - chenopis
 title: The Kubernetes API
 content_type: concept
-weight: 30
+weight: 40
 description: >
   The Kubernetes API lets you query and manipulate the state of objects in Kubernetes.
   The core of Kubernetes' control plane is the API server and the HTTP API that it exposes. Users, the different parts of your cluster, and external components all communicate with one another through the API server.
@@ -34,28 +34,28 @@ external components communicate with one another.
 
 The Kubernetes API lets you query and manipulate the state of API objects in Kubernetes
 (for example: Pods, Namespaces, ConfigMaps, and Events).
-
-Most operations can be performed through the
-[kubectl](/docs/reference/kubectl/) command-line interface or other
-command-line tools, such as
-[kubeadm](/docs/reference/setup-tools/kubeadm/), which in turn use the
-API. However, you can also access the API directly using REST calls.
 -->
 Kubernetes {{< glossary_tooltip text="控制面" term_id="control-plane" >}}的核心是
 {{< glossary_tooltip text="API 服务器" term_id="kube-apiserver" >}}。
 API 服务器负责提供 HTTP API，以供用户、集群中的不同部分和集群外部组件相互通信。
 
-Kubernetes API 使你可以查询和操纵 Kubernetes API
-中对象（例如：Pod、Namespace、ConfigMap 和 Event）的状态。
+Kubernetes API 使你可以在 Kubernetes 中查询和操纵 API 对象
+（例如 Pod、Namespace、ConfigMap 和 Event）的状态。
 
+<!--
+Most operations can be performed through the
+[kubectl](/docs/reference/kubectl/) command-line interface or other
+command-line tools, such as
+[kubeadm](/docs/reference/setup-tools/kubeadm/), which in turn use the
+API. However, you can also access the API directly using REST calls.
+
+Consider using one of the [client libraries](/docs/reference/using-api/client-libraries/)
+if you are writing an application using the Kubernetes API.
+-->
 大部分操作都可以通过 [kubectl](/zh-cn/docs/reference/kubectl/) 命令行接口或类似
 [kubeadm](/zh-cn/docs/reference/setup-tools/kubeadm/) 这类命令行工具来执行，
 这些工具在背后也是调用 API。不过，你也可以使用 REST 调用来访问这些 API。
 
-<!--
-Consider using one of the [client libraries](/docs/reference/using-api/client-libraries/)
-if you are writing an application using the Kubernetes API.
--->
 如果你正在编写程序来访问 Kubernetes API，
 可以考虑使用[客户端库](/zh-cn/docs/reference/using-api/client-libraries/)之一。
 
@@ -76,7 +76,7 @@ request headers as follows:
 
 完整的 API 细节是用 [OpenAPI](https://www.openapis.org/) 来表述的。
 
-### OpenAPI V2
+### OpenAPI v2
 
 Kubernetes API 服务器通过 `/openapi/v2` 端点提供聚合的 OpenAPI v2 规范。
 你可以按照下表所给的请求头部，指定响应的格式：
@@ -156,26 +156,19 @@ Kubernetes 为 API 实现了一种基于 Protobuf 的序列化格式，主要用
 [Kubernetes Protobuf 序列化](https://git.k8s.io/design-proposals-archive/api-machinery/protobuf.md)设计提案。
 每种模式对应的接口描述语言（IDL）位于定义 API 对象的 Go 包中。
 
-### OpenAPI V3
+### OpenAPI v3
 
-{{< feature-state state="beta"  for_k8s_version="v1.24" >}}
+{{< feature-state state="stable"  for_k8s_version="v1.27" >}}
 
 <!--
-Kubernetes {{< param "version" >}} offers beta support for publishing its APIs as OpenAPI v3; this is a
-beta feature that is enabled by default.
-You can disable the beta feature by turning off the
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) named `OpenAPIV3`
-for the kube-apiserver component.
+Kubernetes supports publishing a description of its APIs as OpenAPI v3.
 -->
-Kubernetes {{< param "version" >}} 提供将其 API 以 OpenAPI v3 形式发布的 beta 支持；
-这一功能特性处于 beta 状态，默认被开启。
-你可以通过为 kube-apiserver 组件关闭 `OpenAPIV3`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用此 beta 特性。
+Kubernetes 支持将其 API 的描述以 OpenAPI v3 形式发布。
 
 <!--
 A discovery endpoint `/openapi/v3` is provided to see a list of all
-group/versions available. This endpoint only returns JSON. These group/versions
-are provided in the following format:
+group/versions available. This endpoint only returns JSON. These
+group/versions are provided in the following format:
 -->
 发现端点 `/openapi/v3` 被提供用来查看可用的所有组、版本列表。
 此列表仅返回 JSON。这些组、版本以下面的格式提供：
@@ -201,7 +194,7 @@ The relative URLs are pointing to immutable OpenAPI descriptions, in
 order to improve client-side caching. The proper HTTP caching headers
 are also set by the API server for that purpose (`Expires` to 1 year in
 the future, and `Cache-Control` to `immutable`). When an obsolete URL is
-used, the API server returns a redirect to the newest URL. 
+used, the API server returns a redirect to the newest URL.
 -->
 为了改进客户端缓存，相对的 URL 会指向不可变的 OpenAPI 描述。
 为了此目的，API 服务器也会设置正确的 HTTP 缓存标头
@@ -213,7 +206,7 @@ The Kubernetes API server publishes an OpenAPI v3 spec per Kubernetes
 group version at the `/openapi/v3/apis/<group>/<version>?hash=<hash>`
 endpoint.
 
-Refer to the table below for accepted request headers. 
+Refer to the table below for accepted request headers.
 -->
 Kubernetes API 服务器会在端点 `/openapi/v3/apis/<group>/<version>?hash=<hash>`
 发布一个 Kubernetes 组版本的 OpenAPI v3 规范。
@@ -252,14 +245,64 @@ Kubernetes API 服务器会在端点 `/openapi/v3/apis/<group>/<version>?hash=<h
 </table>
 
 <!--
+A Golang implementation to fetch the OpenAPI V3 is provided in the package `k8s.io/client-go/openapi3`.
+-->
+`k8s.io/client-go/openapi3` 包中提供了获取 OpenAPI v3 的 Golang 实现。
+
+<!--
 ## Persistence
 
 Kubernetes stores the serialized state of objects by writing them into
 {{< glossary_tooltip term_id="etcd" >}}.
 -->
-## 持久化 {#persistence}
+## 持久化   {#persistence}
 
 Kubernetes 通过将序列化状态的对象写入到 {{< glossary_tooltip term_id="etcd" >}} 中完成存储操作。
+
+<!--
+## API Discovery
+
+A list of all group versions supported by a cluster is published at
+the `/api` and `/apis` endpoints. Each group version also advertises
+the list of resources supported via `/apis/<group>/<version>` (for
+example: `/apis/rbac.authorization.k8s.io/v1alpha1`). These endpoints
+are used by kubectl to fetch the list of resources supported by a
+cluster.
+-->
+## API 发现   {#api-discovery}
+
+集群支持的所有组版本列表被发布在 `/api` 和 `/apis` 端点。
+每个组版本还会通过 `/apis/<group>/<version>`
+（例如 `/apis/rbac.authorization.k8s.io/v1alpha1`）广播支持的资源列表。
+这些端点由 kubectl 用于获取集群支持的资源列表。
+
+<!--
+### Aggregated Discovery
+-->
+### 聚合发现   {#aggregated-discovery}
+
+{{< feature-state state="beta"  for_k8s_version="v1.27" >}}
+
+<!--
+Kubernetes offers beta support for aggregated discovery, publishing
+all resources supported by a cluster through two endpoints (`/api` and
+`/apis`) compared to one for every group version. Requesting this
+endpoint drastically reduces the number of requests sent to fetch the
+discovery for the average Kubernetes cluster. This may be accessed by
+requesting the respective endpoints with an Accept header indicating
+the aggregated discovery resource:
+`Accept: application/json;v=v2beta1;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList`.
+
+The endpoint also supports ETag and protobuf encoding.
+-->
+Kubernetes 对聚合发现提供 Beta 支持，通过两个端点（`/api` 和 `/apis`）
+发布集群支持的所有资源，而不是每个组版本都需要一个端点。
+请求此端点显著减少了获取平均 Kubernetes 集群发现而发送的请求数量。
+通过请求各自的端点并附带表明聚合发现资源
+`Accept: application/json;v=v2beta1;g=apidiscovery.k8s.io;as=APIGroupDiscoveryList`
+的 Accept 头部来进行访问。
+
+该端点还支持 ETag 和 protobuf 编码。
 
 <!--
 ## API groups and versioning
@@ -291,12 +334,6 @@ API resources are distinguished by their API group, resource type, namespace
 API versions transparently: all the different versions are actually representations
 of the same persisted data. The API server may serve the same underlying data
 through multiple API versions.
-
-For example, suppose there are two API versions, `v1` and `v1beta1`, for the same
-resource. If you originally created an object using the `v1beta1` version of its
-API, you can later read, update, or delete that object using either the `v1beta1`
-or the `v1` API version, until the `v1beta1` version is deprecated and removed.
-At that point you can continue accessing and modifying the object using the `v1` API.
 -->
 为了更容易演进和扩展其 API，Kubernetes 实现了 [API 组](/zh-cn/docs/reference/using-api/#api-groups)，
 这些 API 组可以被[启用或禁用](/zh-cn/docs/reference/using-api/#enabling-or-disabling)。
@@ -305,20 +342,27 @@ API 资源通过其 API 组、资源类型、名字空间（用于名字空间�
 API 服务器透明地处理 API 版本之间的转换：所有不同的版本实际上都是相同持久化数据的呈现。
 API 服务器可以通过多个 API 版本提供相同的底层数据。
 
+<!--
+For example, suppose there are two API versions, `v1` and `v1beta1`, for the same
+resource. If you originally created an object using the `v1beta1` version of its
+API, you can later read, update, or delete that object using either the `v1beta1`
+or the `v1` API version, until the `v1beta1` version is deprecated and removed.
+At that point you can continue accessing and modifying the object using the `v1` API.
+-->
 例如，假设针对相同的资源有两个 API 版本：`v1` 和 `v1beta1`。
 如果你最初使用其 API 的 `v1beta1` 版本创建了一个对象，
 你稍后可以使用 `v1beta1` 或 `v1` API 版本来读取、更新或删除该对象，
 直到 `v1beta1` 版本被废弃和移除为止。此后，你可以使用 `v1` API 继续访问和修改该对象。
 
 <!--
-## API changes
+### API changes
 
 Any system that is successful needs to grow and change as new use cases emerge or existing ones change.
 Therefore, Kubernetes has designed the Kubernetes API to continuously change and grow.
 The Kubernetes project aims to _not_ break compatibility with existing clients, and to maintain that
 compatibility for a length of time so that other projects have an opportunity to adapt.
 -->
-## API 变更     {#api-changes}
+### API 变更     {#api-changes}
 
 任何成功的系统都要随着新的使用案例的出现和现有案例的变化来成长和变化。
 为此，Kubernetes 已设计了 Kubernetes API 来持续变更和成长。
@@ -413,4 +457,3 @@ The Kubernetes API can be extended in one of two ways:
 - 通过阅读 [API 参考](/zh-cn/docs/reference/kubernetes-api/)了解 API 端点、资源类型以及示例。
 - 阅读 [API 变更（英文）](https://git.k8s.io/community/contributors/devel/sig-architecture/api_changes.md#readme)
   以了解什么是兼容性的变更以及如何变更 API。
-

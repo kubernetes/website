@@ -28,6 +28,7 @@ On how to read and use this document:
 此清单不求详尽无遗，是预计会不断演化的。
 
 关于如何阅读和使用本文档：
+
 - 主题的顺序并不代表优先级的顺序。
 - 在每章节的列表下面的段落中，都详细列举了一些检查清项目。
 
@@ -101,7 +102,7 @@ an admin user.
 
 - [ ] 使用的 CNI 插件可支持网络策略。
 - [ ] 对集群中的所有工作负载应用入站和出站的网络策略。
-- [ ] 落实每个名称空间内的默认网络策略，覆盖所有 Pod，拒绝一切访问。
+- [ ] 落实每个名字空间内的默认网络策略，覆盖所有 Pod，拒绝一切访问。
 - [ ] 如果合适，使用服务网格来加密集群内的所有通信。
 - [ ] 不在互联网上公开 Kubernetes API、kubelet API 和 etcd。
 - [ ] 过滤工作负载对云元数据 API 的访问。
@@ -120,8 +121,8 @@ is missed.
 许多[容器网络接口（Container Network Interface，CNI）插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)提供了限制
 Pod 可能与之通信的网络资源的功能。
 这种限制通常通过[网络策略](/zh-cn/docs/concepts/services-networking/network-policies/)来完成，
-网络策略提供了一种名称空间作用域的资源来定义规则。
-在每个名称空间中，默认的网络策略会阻塞所有的出入站流量，并选择所有 Pod，
+网络策略提供了一种名字空间作用域的资源来定义规则。
+在每个名字空间中，默认的网络策略会阻塞所有的出入站流量，并选择所有 Pod，
 采用允许列表的方法很有用，可以确保不遗漏任何工作负载。
 
 <!--
@@ -226,8 +227,8 @@ admission can be easily combined with admission webhooks and external services.
 [Pod 安全性标准](/zh-cn/docs/concepts/security/pod-security-standards/)定义了三种不同的策略：
 特权策略（Privileged）、基线策略（Baseline）和限制策略（Restricted），它们限制了 `PodSpec` 中关于安全的字段的设置。
 这些标准可以通过默认启用的新的
-[Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)或第三方准入 Webhook 在名称空间级别强制执行。
-请注意，与它所取代的、已被删除的 PodSecurityPolicy 准入机制相反，
+[Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)或第三方准入 Webhook 在名字空间级别强制执行。
+请注意，与它所取代的、已被移除的 PodSecurityPolicy 准入机制相反，
 [Pod 安全性准入](/zh-cn/docs/concepts/security/pod-security-admission/)可以轻松地与准入 Webhook 和外部服务相结合使用。
 
 <!--
@@ -307,7 +308,6 @@ profile can be found [in containerd](https://github.com/containerd/containerd/bl
 as well. Fortunately, [Seccomp Default](/blog/2021/08/25/seccomp-default/), a
 new alpha feature to use a default seccomp profile for all workloads can now be
 enabled and tested.
-
 -->
 从历史背景看，请注意 Docker 自 2016 年以来一直使用[默认的 Seccomp 配置文件](https://docs.docker.com/engine/security/seccomp/)，
 仅允许来自 [Docker Engine 1.10](https://www.docker.com/blog/docker-engine-1-10-security/) 的很小的一组系统调用，
@@ -342,7 +342,7 @@ violations. AppArmor profiles are enforced on a per-container basis, with an
 annotation, allowing for processes to gain just the right privileges.
 -->
 [AppArmor](https://apparmor.net/) 是一个 Linux 内核安全模块，
-可以提供一种简单的方法来实现强制访问控制（Mandatory Access Control， MAC）并通过系统日志进行更好地审计。
+可以提供一种简单的方法来实现强制访问控制（Mandatory Access Control, MAC）并通过系统日志进行更好地审计。
 要在 Kubernetes 中[启用 AppArmor](/zh-cn/docs/tutorials/security/apparmor/)，至少需要 1.4 版本。
 与 Seccomp 一样，AppArmor 也通过配置文件进行配置，
 其中每个配置文件要么在强制（Enforcing）模式下运行，即阻止访问不允许的资源，要么在投诉（Complaining）模式下运行，只报告违规行为。
@@ -353,7 +353,8 @@ AppArmor 配置文件是通过注解的方式，以容器为粒度强制执行�
 AppArmor is only available on Linux nodes, and enabled in
 [some Linux distributions](https://gitlab.com/apparmor/apparmor/-/wikis/home#distributions-and-ports).
 -->
-AppArmor 仅在 Linux 节点上可用，在[一些 Linux 发行版](https://gitlab.com/apparmor/apparmor/-/wikis/home#distributions-and-ports)中已启用。
+AppArmor 仅在 Linux 节点上可用，
+在[一些 Linux 发行版](https://gitlab.com/apparmor/apparmor/-/wikis/home#distributions-and-ports)中已启用。
 {{< /note >}}
 
 #### SELinux
@@ -374,8 +375,46 @@ SELinux 标签可以[通过 `securityContext` 节](/zh-cn/docs/tasks/configure-p
 SELinux is only available on Linux nodes, and enabled in
 [some Linux distributions](https://en.wikipedia.org/wiki/Security-Enhanced_Linux#Implementations).
 -->
-SELinux 仅在 Linux 节点上可用，在[一些 Linux 发行版](https://en.wikipedia.org/wiki/Security-Enhanced_Linux#Implementations)中已启用。
+SELinux 仅在 Linux 节点上可用，
+在[一些 Linux 发行版](https://en.wikipedia.org/wiki/Security-Enhanced_Linux#Implementations)中已启用。
 {{< /note >}}
+
+<!--
+## Logs and auditing
+
+- [ ] Audit logs, if enabled, are protected from general access.
+- [ ] The `/logs` API is disabled (you are running kube-apiserver with
+  `--enable-logs-handler=false`).
+-->
+## 日志和审计   {#logs-and-auditing}
+
+- [ ] 审计日志（如果启用）将受到保护以防止常规访问。
+- [ ] `/logs` API 被禁用（你所运行的 kube-apiserver 设置了 `--enable-logs-handler=false`）。
+
+  <!--
+  Kubernetes includes a `/logs` API endpoint, enabled by default,
+  that lets users request the contents of the API server's `/var/log` directory over HTTP. Accessing
+  that endpoint requires authentication.
+  -->
+  Kubernetes 包含一个 `/logs` API 端点，默认启用。
+  这个端点允许用户通过 HTTP 来请求 API 服务器的 `/var/log` 目录的内容。
+  访问此端点需要身份验证。
+
+<!--
+Allowing broad access to Kubernetes logs can make security information
+available to a potential attacker.
+
+As a good practice, set up a separate means to collect and aggregate
+control plane logs, and do not use the `/logs` API endpoint.
+Alternatively, if you run your control plane with the `/logs` API endpoint
+and limit the content of `/var/log` (within the host or container where the API server is running) to
+Kubernetes API server logs only.
+-->
+允许大范围访问 Kubernetes 日志可能会令安全信息被潜在的攻击者利用。
+
+一个好的做法是设置一个单独的方式来收集和聚合控制平面日志，
+并且不要使用 `/logs` API 端点。另一个使用场景是你运行控制平面时启用了 `/logs` API 端点并
+（在运行 API 服务器的主机或容器内）将 `/var/log` 的内容限制为仅保存 Kubernetes API 服务器日志。
 
 <!--
 ## Pod placement
@@ -414,8 +453,8 @@ admission controller.
 -->
 [节点选择器（Node Selector）](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/)
 : 作为 Pod 规约的一部分来设置的键值对，指定 Pod 可部署到哪些节点。
-通过 [PodNodeSelector](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#podnodeselector)
-准入控制器可以在名字空间和集群级别强制实施节点选择。
+  通过 [PodNodeSelector](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#podnodeselector)
+  准入控制器可以在名字空间和集群级别强制实施节点选择。
 
 <!--
 [PodTolerationRestriction](/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
@@ -427,8 +466,8 @@ tolerations.
 -->
 [PodTolerationRestriction](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#podtolerationrestriction)
 : [容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)准入控制器，
-允许管理员设置在名字空间内允许使用的容忍度。
-名字空间中的 Pod 只能使用名字空间对象的注解键上所指定的容忍度，这些键提供默认和允许的容忍度集合。
+  允许管理员设置在名字空间内允许使用的容忍度。
+  名字空间中的 Pod 只能使用名字空间对象的注解键上所指定的容忍度，这些键提供默认和允许的容忍度集合。
 
 <!--
 [RuntimeClass](/docs/concepts/containers/runtime-class/)
@@ -439,7 +478,7 @@ overhead.
 -->
 [RuntimeClass](/zh-cn/docs/concepts/containers/runtime-class/)
 : RuntimeClass 是一个用于选择容器运行时配置的特性，容器运行时配置用于运行 Pod 中的容器，
-并以性能开销为代价提供或多或少的主机隔离能力。
+  并以性能开销为代价提供或多或少的主机隔离能力。
 
 ## Secrets {#secrets}
 
@@ -482,7 +521,7 @@ permission mechanism on files.
 需要 Secret 的 Pod 应该通过卷自动挂载这些信息，
 最好使用 [`emptyDir.medium` 选项](/zh-cn/docs/concepts/storage/volumes/#emptydir)存储在内存中。
 该机制还可以用于从第三方存储中注入 Secret 作为卷，如 [Secret Store CSI 驱动](https://secrets-store-csi-driver.sigs.k8s.io/)。
-与通过 RBAC 来允许 Pod 服务帐户访问 Secret 相比，应该优先使用上述机制。这种机制允许将 Secret 作为环境变量或文件添加到 Pod 中。
+与通过 RBAC 来允许 Pod 服务账号访问 Secret 相比，应该优先使用上述机制。这种机制允许将 Secret 作为环境变量或文件添加到 Pod 中。
 请注意，与带访问权限控制的文件相比，由于日志的崩溃转储，以及 Linux 的环境变量的非机密性，环境变量方法可能更容易发生泄漏。
 
 <!--
@@ -493,13 +532,11 @@ or specifically for a pod. For Kubernetes v1.22 and above, use
 [Bound Service Accounts](/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)
 for time-bound service account credentials.
 -->
-不应该将服务账号令牌挂载到不需要它们的 Pod 中。
-这可以通过在服务帐号内将
+不应该将服务账号令牌挂载到不需要它们的 Pod 中。这可以通过在服务账号内将
 [`automountServiceAccountToken`](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#use-the-default-service-account-to-access-the-api-server)
-设置为 `false` 来完成整个名字空间范围的配置，
-或者也可以单独在 Pod 层面定制。
+设置为 `false` 来完成整个名字空间范围的配置，或者也可以单独在 Pod 层面定制。
 对于 Kubernetes v1.22 及更高版本，
-请使用[绑定服务账号](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)作为有时间限制的服务帐号凭证。
+请使用[绑定服务账号](/zh-cn/docs/reference/access-authn-authz/service-accounts-admin/#bound-service-account-token-volume)作为有时间限制的服务账号凭证。
 
 <!--
 ## Images
@@ -508,15 +545,16 @@ for time-bound service account credentials.
 - [ ] Container images are configured to be run as unprivileged user.
 - [ ] References to container images are made by sha256 digests (rather than
 tags) or the provenance of the image is validated by verifying the image's
-digital signature at deploy time [via admission control](/docs/tasks/administer-cluster/verify-signed-images/#verifying-image-signatures-with-admission-controller).
+digital signature at deploy time [via admission control](/docs/tasks/administer-cluster/verify-signed-artifacts/#verifying-image-signatures-with-admission-controller).
 - [ ] Container images are regularly scanned during creation and in deployment, and
   known vulnerable software is patched.
 -->
 ## 镜像 {#images}
+
 - [ ] 尽量减少容器镜像中不必要的内容。
 - [ ] 容器镜像配置为以非特权用户身份运行。
 - [ ] 对容器镜像的引用是通过 Sha256 摘要实现的，而不是标签（tags），
-  或者[通过准入控制器](/zh-cn/docs/tasks/administer-cluster/verify-signed-images/#verifying-image-signatures-with-admission-controller)在部署时验证镜像的数字签名来验证镜像的来源。
+  或者[通过准入控制器](/zh-cn/docs/tasks/administer-cluster/verify-signed-artifacts/#verifying-image-signatures-with-admission-controller)在部署时验证镜像的数字签名来验证镜像的来源。
 - [ ] 在创建和部署过程中定期扫描容器镜像，并对已知的漏洞软件进行修补。
 
 <!--
@@ -553,14 +591,14 @@ Avoid using image tags to reference an image, especially the `latest` tag, the
 image behind a tag can be easily modified in a registry. Prefer using the
 complete `sha256` digest which is unique to the image manifest. This policy can be
 enforced via an [ImagePolicyWebhook](/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook).
-Image signatures can also be automatically [verified with an admission controller](/docs/tasks/administer-cluster/verify-signed-images/#verifying-image-signatures-with-admission-controller)
+Image signatures can also be automatically [verified with an admission controller](/docs/tasks/administer-cluster/verify-signed-artifacts/#verifying-image-signatures-with-admission-controller)
 at deploy time to validate their authenticity and integrity.
 -->
 避免使用镜像标签来引用镜像，尤其是 `latest` 标签，因为标签对应的镜像可以在仓库中被轻松地修改。
 首选使用完整的 `Sha256` 摘要，该摘要对特定镜像清单文件而言是唯一的。
 可以通过 [ImagePolicyWebhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook)
 强制执行此策略。
-镜像签名还可以在部署时由[准入控制器自动验证](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook)，
+镜像签名还可以在部署时由[准入控制器自动验证](/zh-cn/docs/tasks/administer-cluster/verify-signed-artifacts/#verifying-image-signatures-with-admission-controller)，
 以验证其真实性和完整性。
 
 <!--
@@ -642,7 +680,7 @@ permission to sign certificate requests.
 attribute') of `system:masters`.
 -->
 [`CertificateSubjectRestriction`](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#certificatesubjectrestriction)
-: 拒绝将 `group`（或 `organization attribute` ）设置为 `system:masters` 的所有证书请求。
+: 拒绝将 `group`（或 `organization attribute`）设置为 `system:masters` 的所有证书请求。
 
 <!--
 [`LimitRanger`](/docs/reference/access-authn-authz/admission-controllers/#limitranger)
@@ -695,7 +733,8 @@ availability state and recommended to improve your security posture:
 -->
 [`DenyServiceExternalIPs`](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#denyserviceexternalips)
 : 拒绝使用 `Service.spec.externalIPs` 字段，已有的 Service 不受影响，新增或者变更时不允许使用。
-这是 [CVE-2020-8554：中间人使用 LoadBalancer 或 ExternalIP](https://github.com/kubernetes/kubernetes/issues/97076) 的缓解措施。
+  这是 [CVE-2020-8554：中间人使用 LoadBalancer 或 ExternalIP](https://github.com/kubernetes/kubernetes/issues/97076)
+  的缓解措施。
 
 <!--
 [`NodeRestriction`](/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
@@ -707,8 +746,8 @@ placement to the controlled node.
 -->
 [`NodeRestriction`](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#noderestriction)
 : 将 kubelet 的权限限制为只能修改其拥有的 Pod API 资源或代表其自身的节点 API 资源。
-此插件还可以防止 kubelet 使用 `node-restriction.kubernetes.io/` 注解，
-攻击者可以使用该注解来访问 kubelet 的凭证，从而影响所控制的节点上的 Pod 布局。
+  此插件还可以防止 kubelet 使用 `node-restriction.kubernetes.io/` 注解，
+  攻击者可以使用该注解来访问 kubelet 的凭证，从而影响所控制的节点上的 Pod 布局。
 
 <!--
 The third group includes plugins that are not enabled by default but could be
@@ -736,14 +775,17 @@ has permissions to use the image.
 
 - [RBAC Good Practices](/docs/concepts/security/rbac-good-practices/) for
   further information on authorization.
+- [Securing a Cluster](/docs/tasks/administer-cluster/securing-a-cluster/) for
+  information on protecting a cluster from accidental or malicious access.
 - [Cluster Multi-tenancy guide](/docs/concepts/security/multi-tenancy/) for
   configuration options recommendations and best practices on multi-tenancy.
 - [Blog post "A Closer Look at NSA/CISA Kubernetes Hardening Guidance"](/blog/2021/10/05/nsa-cisa-kubernetes-hardening-guidance/#building-secure-container-images)
   for complementary resource on hardening Kubernetes clusters.
 -->
-## 接下来
+## 接下来  {#what-is-next}
 
 - [RBAC 良好实践](/zh-cn/docs/concepts/security/rbac-good-practices/)提供有关授权的更多信息。
+- [保护集群](/zh-cn/docs/tasks/administer-cluster/securing-a-cluster/)提供如何保护集群免受意外或恶意访问的信息。
 - [集群多租户指南](/zh-cn/docs/concepts/security/multi-tenancy/)提供有关多租户的配置选项建议和最佳实践。
 - [博文“深入了解 NSA/CISA Kubernetes 强化指南”](/blog/2021/10/05/nsa-cisa-kubernetes-hardening-guidance/#building-secure-container-images)为强化
   Kubernetes 集群提供补充资源。

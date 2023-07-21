@@ -1,12 +1,12 @@
 ---
 title: "工作负载"
-weight: 50
+weight: 55
 description: 理解 Pods，Kubernetes 中可部署的最小计算对象，以及辅助它运行它们的高层抽象对象。
 ---
 
 <!--
 title: "Workloads"
-weight: 50
+weight: 55
 description: >
   Understand Pods, the smallest deployable compute object in Kubernetes, and the higher-level abstractions that help you to run them.
 no_list: true
@@ -17,7 +17,7 @@ no_list: true
 <!--
 Whether your workload is a single component or several that work together, on Kubernetes you run
 it inside a set of [_pods_](/docs/concepts/workloads/pods).
-In Kubernetes, a `Pod` represents a set of running
+In Kubernetes, a Pod represents a set of running
 {{< glossary_tooltip text="containers" term_id="container" >}} on your cluster.
 
 A Pod has a defined lifecycle. For example, once a Pod is running in your cluster then
@@ -27,7 +27,7 @@ of failure as final: you would need to create a new Pod even if the node later r
 -->
 在 Kubernetes 中，无论你的负载是由单个组件还是由多个一同工作的组件构成，
 你都可以在一组 [**Pod**](/zh-cn/docs/concepts/workloads/pods) 中运行它。
-在 Kubernetes 中，`Pod` 代表的是集群上处于运行状态的一组
+在 Kubernetes 中，Pod 代表的是集群上处于运行状态的一组
 {{< glossary_tooltip text="容器" term_id="container" >}} 的集合。
 
 <!--

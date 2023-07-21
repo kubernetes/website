@@ -51,7 +51,7 @@ page will help you learn about scheduling.
 ## kube-scheduler
 
 <!--
-[kube-scheduler](https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/)
+[kube-scheduler](/docs/reference/command-line-tools-reference/kube-scheduler/)
 is the default scheduler for Kubernetes and runs as part of the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}.
 kube-scheduler is designed so that, if you want and need to, you can
@@ -104,15 +104,15 @@ locality, inter-workload interference, and so on.
 亲和以及反亲和要求、数据局部性、负载间的干扰等等。
 
 <!--
-## Scheduling with kube-scheduler {#kube-scheduler-implementation}
+### Node selection in kube-scheduler {#kube-scheduler-implementation}
 -->
-## kube-scheduler 调度流程 {#kube-scheduler-implementation}
+### kube-scheduler 中的节点选择 {#kube-scheduler-implementation}
 
 <!--
 kube-scheduler selects a node for the pod in a 2-step operation:
 
 1. Filtering
-2. Scoring
+1. Scoring
 -->
 kube-scheduler 给一个 Pod 做调度选择时包含两个步骤：
 
@@ -183,7 +183,7 @@ of the scheduler:
   * [Node-specific Volume Limits](/docs/concepts/storage/storage-limits/)
 -->
 * 阅读关于[调度器性能调优](/zh-cn/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
-* 阅读关于 [Pod 拓扑分布约束](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+* 阅读关于 [Pod 拓扑分布约束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 * 阅读关于 kube-scheduler 的[参考文档](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)
 * 阅读 [kube-scheduler 配置参考 (v1beta3)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)
 * 了解关于[配置多个调度器](/zh-cn/docs/tasks/extend-kubernetes/configure-multiple-schedulers/) 的方式

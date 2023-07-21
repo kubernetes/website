@@ -22,8 +22,8 @@ For additional information on creating new content for the Kubernetes
 documentation, read the [Documentation Content Guide](/docs/contribute/style/content-guide/).
 
 Changes to the style guide are made by SIG Docs as a group. To propose a change
-or addition, [add it to the agenda](https://bit.ly/sig-docs-agenda) for an upcoming SIG Docs meeting, and attend the meeting to participate in the
-discussion.
+or addition, [add it to the agenda](https://bit.ly/sig-docs-agenda) for an upcoming
+SIG Docs meeting, and attend the meeting to participate in the discussion.
 -->
 本页讨论 Kubernetes 文档的样式指南。
 这些仅仅是指南而不是规则。
@@ -37,13 +37,15 @@ discussion.
 例会的[议程表](https://bit.ly/sig-docs-agenda)上，并按时参加会议讨论。
 
 <!-- body -->
-<!--
-Kubernetes documentation uses [Goldmark Markdown Renderer](https://github.com/yuin/goldmark)
-with some adjustments along with a few
-[Hugo Shortcodes](/docs/contribute/style/hugo-shortcodes/) to support glossary entries, tabs,
-and representing feature state.
--->
+
 {{< note >}}
+<!--
+Kubernetes documentation uses
+[Goldmark Markdown Renderer](https://github.com/yuin/goldmark)
+with some adjustments along with a few
+[Hugo Shortcodes](/docs/contribute/style/hugo-shortcodes/) to support
+glossary entries, tabs, and representing feature state.
+-->
 Kubernetes 文档使用带调整的 [Goldmark Markdown 解释器](https://github.com/yuin/goldmark/)
 和一些 [Hugo 短代码](/zh-cn/docs/contribute/style/hugo-shortcodes/)来支持词汇表项、Tab
 页以及特性门控标注。
@@ -64,7 +66,7 @@ The English-language documentation uses U.S. English spelling and grammar.
 ## 语言 {#language}
 
 Kubernetes 文档已经被翻译为多个语种
-（参见 [本地化 READMEs](https://github.com/kubernetes/website/blob/main/README.md#localization-readmemds)）。
+（参见 [本地化 README](https://github.com/kubernetes/website/blob/main/README.md#localization-readmemds)）。
 
 [本地化 Kubernetes 文档](/zh-cn/docs/contribute/localization/)描述了如何为一种新的语言提供本地化文档。
 
@@ -77,11 +79,17 @@ Kubernetes 文档已经被翻译为多个语种
 
 ### Use upper camel case for API objects
 
-When you refer specifically to interacting with an API object, use [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case), also known as Pascal case. You may see different capitalization, such as "configMap", in the [API Reference](/docs/reference/kubernetes-api/). When writing general documentation, it's better to use upper camel case, calling it "ConfigMap" instead.
+When you refer specifically to interacting with an API object, use
+[UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case), also known as
+Pascal case. You may see different capitalization, such as "configMap",
+in the [API Reference](/docs/reference/kubernetes-api/). When writing
+general documentation, it's better to use upper camel case, calling it "ConfigMap" instead.
 
-When you are generally discussing an API object, use [sentence-style capitalization](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
+When you are generally discussing an API object, use
+[sentence-style capitalization](https://docs.microsoft.com/en-us/style-guide/text-formatting/using-type/use-sentence-style-capitalization).
 
-The following examples focus on capitalization. For more information about formatting API object names, review the related guidance on [Code Style](#code-style-inline-code).
+The following examples focus on capitalization. For more information about formatting
+API object names, review the related guidance on [Code Style](#code-style-inline-code).
 -->
 ## 文档格式标准 {#documentation-formatting-standards}
 
@@ -126,7 +134,7 @@ For managing confidential data, consider using the Secret API. | For managing co
 Use angle brackets for placeholders. Tell the reader what a placeholder
 represents, for example:
 
-Display information about a Pod:
+Display information about a pod:
 
 ```shell
 kubectl describe pod <pod-name> -n <namespace>
@@ -149,7 +157,7 @@ kubectl describe pod <Pod 名称> -n <名字空间>
 <!--
 ### Use bold for user interface elements
 
-{{< table caption = "粗体界面元素约定" >}}
+{{< table caption = "Do and Don't - Bold interface elements" >}}
 Do | Don't
 :--| :-----
 Click **Fork**. | Click "Fork".
@@ -231,7 +239,7 @@ The copy is called a "fork". | The copy is called a "fork."
 <!--
 ## Inline code formatting
 
-### Use code style for inline code and commands, and API objects
+### Use code style for inline code, commands, and API objects {#code-style-inline-code}
 
 For inline code in an HTML document, use the `<code>` tag. In a Markdown
 document, use the backtick (`` ` ``).
@@ -272,10 +280,12 @@ Remove trailing spaces in the code. | Add trailing spaces in the code, where the
 删除代码中行尾空白。 | 在代码中包含行尾空白，因为屏幕抓取工具通常也会抓取空白字符。
 {{< /table >}}
 
-<!--
-The website supports syntax highlighting for code samples, but specifying a language is optional. Syntax highlighting in the code block should conform to the [contrast guidelines.](https://www.w3.org/WAI/WCAG21/quickref/?versions=2.0&showtechniques=141%2C143#contrast-minimum)
--->
 {{< note >}}
+<!--
+The website supports syntax highlighting for code samples, but specifying a language
+is optional. Syntax highlighting in the code block should conform to the
+[contrast guidelines.](https://www.w3.org/WAI/WCAG21/quickref/?versions=2.0&showtechniques=141%2C143#contrast-minimum)
+-->
 网站支持为代码示例使用语法加亮，不过指定语法加亮是可选的。
 代码段的语法加亮要遵从[对比度指南](https://www.w3.org/WAI/WCAG21/quickref/?versions=2.0&showtechniques=141%2C143#contrast-minimum)
 {{< /note >}}
@@ -392,7 +402,10 @@ This section talks about how we reference API resources in the documentation.
 
 ### Clarification about "resource"
 
-Kubernetes uses the word "resource" to refer to API resources, such as `pod`, `deployment`, and so on. We also use "resource" to talk about CPU and memory requests and limits. Always refer to API resources as "API resources" to avoid confusion with CPU and memory resources.
+Kubernetes uses the word "resource" to refer to API resources, such as `pod`,
+`deployment`, and so on. We also use "resource" to talk about CPU and memory
+requests and limits. Always refer to API resources as "API resources" to avoid
+confusion with CPU and memory resources.
 -->
 ## 引用 Kubernetes API 资源   {#referring-to-kubernetes-api-resources}
 
@@ -411,9 +424,11 @@ The different Kubernetes API terminologies are:
 
 - Resource type: the name used in the API URL (such as `pods`, `namespaces`)
 - Resource: a single instance of a resource type (such as `pod`, `secret`)
-- Object: a resource that serves as a "record of intent". An object is a desired state for a specific part of your cluster, which the Kubernetes control plane tries to maintain.
+- Object: a resource that serves as a "record of intent". An object is a desired
+  state for a specific part of your cluster, which the Kubernetes control plane tries to maintain.
 
-Always use "resource" or "object" when referring to an API resource in docs. For example, use "a `Secret` object" over just "a `Secret`".
+Always use "resource" or "object" when referring to an API resource in docs.
+For example, use "a `Secret` object" over just "a `Secret`".
 -->
 ### 何时使用 Kubernetes API 术语
 
@@ -430,15 +445,19 @@ Always use "resource" or "object" when referring to an API resource in docs. For
 <!--
 ### API resource names
 
-Always format API resource names using [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case), also known as PascalCase, and code formatting.
+Always format API resource names using [UpperCamelCase](https://en.wikipedia.org/wiki/Camel_case),
+also known as PascalCase, and code formatting.
 
 For inline code in an HTML document, use the `<code>` tag. In a Markdown document, use the backtick (`` ` ``).
 
 Don't split an API object name into separate words. For example, use `PodTemplateList`, not Pod Template List.
 
-For more information about PascalCase and code formatting, please review the related guidance on [Use upper camel case for API objects](/docs/contribute/style/style-guide/#use-upper-camel-case-for-api-objects) and [Use code style for inline code, commands, and API objects](/docs/contribute/style/style-guide/#code-style-inline-code).
+For more information about PascalCase and code formatting, please review the related guidance on
+[Use upper camel case for API objects](/docs/contribute/style/style-guide/#use-upper-camel-case-for-api-objects)
+and [Use code style for inline code, commands, and API objects](/docs/contribute/style/style-guide/#code-style-inline-code).
 
-For more information about Kubernetes API terminologies, please review the related guidance on [Kubernetes API terminology](/docs/reference/using-api/api-concepts/#standard-api-terminology).
+For more information about Kubernetes API terminologies, please review the related
+guidance on [Kubernetes API terminology](/docs/reference/using-api/api-concepts/#standard-api-terminology).
 -->
 ### API 资源名称
 
@@ -515,11 +534,16 @@ nginx    1/1       Running   0          13s    10.200.0.4   worker0
 <!--
 ### Versioning Kubernetes examples
 
-Code examples and configuration examples that include version information should be consistent with the accompanying text.
+Code examples and configuration examples that include version information should
+be consistent with the accompanying text.
 
-If the information is version specific, the Kubernetes version needs to be defined in the `prerequisites` section of the [Task template](/docs/contribute/style/page-content-types/#task) or the [Tutorial template](/docs/contribute/style/page-content-types/#tutorial). Once the page is saved, the `prerequisites` section is shown as **Before you begin**.
+If the information is version specific, the Kubernetes version needs to be defined
+in the `prerequisites` section of the [Task template](/docs/contribute/style/page-content-types/#task)
+or the [Tutorial template](/docs/contribute/style/page-content-types/#tutorial).
+Once the page is saved, the `prerequisites` section is shown as **Before you begin**.
 
-To specify the Kubernetes version for a task or tutorial page, include `min-kubernetes-server-version` in the front matter of the page.
+To specify the Kubernetes version for a task or tutorial page, include
+`min-kubernetes-server-version` in the front matter of the page.
 -->
 ### 为 Kubernetes 示例给出版本   {#versioning-kubernetes-examples}
 
@@ -553,6 +577,14 @@ like:
 例如，如果你在编写一个教程，与 Kubernetes 1.8 版本相关。那么你的 Markdown
 文件的文件头应该开始起来像这样：
 
+<!--
+```yaml
+---
+title: <your tutorial title here>
+min-kubernetes-server-version: v1.8
+---
+```
+-->
 ```yaml
 ---
 title: <教程标题>
@@ -608,7 +640,10 @@ On-premises | On-premises 或 On-prem 而不是 On-premise 或其他变体。
 <!--
 ## Shortcodes
 
-Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create different rhetorical appeal levels. Our documentation supports three different shortcodes in this category: **Note** `{{</* note */>}}`, **Caution** `{{</* caution */>}}`, and **Warning** `{{</* warning */>}}`.
+Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create
+different rhetorical appeal levels. Our documentation supports three different
+shortcodes in this category: **Note** `{{</* note */>}}`,
+**Caution** `{{</* caution */>}}`, and **Warning** `{{</* warning */>}}`.
 
 1. Surround the text with an opening and closing shortcode.
 
@@ -621,10 +656,6 @@ Hugo [Shortcodes](https://gohugo.io/content-management/shortcodes) help create d
    ```
 
    The output is:
-
-   {{< note >}}
-   The prefix you choose is the same text for the tag.
-   {{< /note >}}
 -->
 ## 短代码（Shortcodes） {#shortcodes}
 
@@ -644,6 +675,9 @@ Hugo [短代码（Shortcodes）](https://gohugo.io/content-management/shortcodes
    输出的样子是：
 
    {{< note >}}
+   <!--
+   The prefix you choose is the same text for the tag.
+   -->
    你所选择的标记决定了文字的前缀。
    {{< /note >}}
 
@@ -661,10 +695,6 @@ You can _still_ use Markdown inside these callouts.
 ```
 
 The output is:
-
-{{< note >}}
-You can _still_ use Markdown inside these callouts.
-{{< /note >}}
 -->
 ### 注释（Note） {#note}
 
@@ -681,6 +711,9 @@ You can _still_ use Markdown inside these callouts.
 输出为：
 
 {{< note >}}
+<!--
+You can _still_ use Markdown inside these callouts.
+-->
 在这类短代码中仍然 _可以_ 使用 Markdown 语法。
 {{< /note >}}
 
@@ -724,14 +757,6 @@ The output is:
 1. Use the note shortcode in a list
 
 1. A second item with an embedded note
-
-    {{< note >}}
-    Warning, Caution, and Note shortcodes, embedded in lists, need to be indented four spaces. See [Common Shortcode Issues](#common-shortcode-issues).
-    {{< /note >}}
-
-1. A third item in a list
-
-1. A fourth item in a list
 -->
 其输出为：
 
@@ -740,10 +765,18 @@ The output is:
 1. 带嵌套 note 的第二个条目
 
     {{< note >}}
-    警告、小心和注意短代码可以嵌套在列表中，但是要缩进四个空格。
+    <!--
+    Warning, Caution, and Note shortcodes, embedded in lists, need to be indented four spaces. See [Common Shortcode Issues](#common-shortcode-issues).
+    -->
+    警告、小心和注释短代码可以嵌套在列表中，但是要缩进四个空格。
     参见[常见短代码问题](#common-shortcode-issues)。
     {{< /note >}}
 
+<!--
+1. A third item in a list
+
+1. A fourth item in a list
+-->
 1. 列表中第三个条目
 
 1. 列表中第四个条目
@@ -762,10 +795,6 @@ The callout style only applies to the line directly above the tag.
 ```
 
 The output is:
-
-{{< caution >}}
-The callout style only applies to the line directly above the tag.
-{{< /caution >}}
 -->
 ### 小心（Caution）  {#caution}
 
@@ -782,6 +811,9 @@ The callout style only applies to the line directly above the tag.
 其输出为：
 
 {{< caution >}}
+<!--
+The callout style only applies to the line directly above the tag.
+-->
 此短代码样式仅对标记之上的一行起作用。
 {{< /caution >}}
 
@@ -799,10 +831,6 @@ Beware.
 ```
 
 The output is:
-
-{{< warning >}}
-Beware.
-{{< /warning >}}
 -->
 ### 警告（Warning）  {#warning}
 
@@ -819,54 +847,12 @@ Beware.
 其输出为：
 
 {{< warning >}}
+<!--
+Beware.
+-->
 注意事项
 {{< /warning >}}
 
-<!--
-### Katacoda Embedded Live Environment
-
-This button lets users run Minikube in their browser using the [Katacoda Terminal](https://www.katacoda.com/embed/panel).
-It lowers the barrier of entry by allowing users to use Minikube with one click instead of going through the complete
-Minikube and Kubectl installation process locally.
-
-The Embedded Live Environment is configured to run `minikube start` and lets users complete tutorials in the same window
-as the documentation.
-
-{{< caution >}}
-The session is limited to 15 minutes.
-{{< /caution >}}
-
-For example:
-
-```
-{{</* kat-button */>}}
-```
-
-The output is:
-
-{{< kat-button >}}
--->
-### Katacoda 嵌套现场环境   {#katacoda-embedded-live-environment}
-
-此按钮允许用户使用 [Katacoda 终端](https://www.katacoda.com/embed/panel)
-在其浏览器中运行 Minikube。该环境降低了用户对 Minikube 的入门难度，
-只需要一次鼠标点击即可完成，而不需要完全经历 Minikube 和 kubectl 的安装过程。
-
-嵌套现场环境配置为运行 `minikube start`，允许用户在文档所在的窗口完成教程。
-
-{{< caution >}}
-会话限制为 15 分钟。
-{{< /caution >}}
-
-例如：
-
-```
-{{</* kat-button */>}}
-```
-
-其输出为：
-
-{{< kat-button >}}
 <!--
 ## Common Shortcode Issues
 
@@ -879,7 +865,7 @@ For example:
     1. Preheat oven to 350˚F
     
     1. Prepare the batter, and pour into springform pan.
-       `{{</* note */>}}Grease the pan for best results.{{</* /note */>}}`
+       {{</* note */>}}Grease the pan for best results.{{</* /note */>}}
 
     1. Bake for 20-25 minutes or until set.
 
@@ -918,7 +904,8 @@ The output is:
 <!--
 ### Include Statements
 
-Shortcodes inside include statements will break the build. You must insert them in the parent document, before and after you call the include. For example:
+Shortcodes inside include statements will break the build. You must insert them
+in the parent document, before and after you call the include. For example:
 
 ```
 {{</* note */>}}
@@ -942,7 +929,12 @@ Shortcodes inside include statements will break the build. You must insert them 
 ## Markdown elements
 
 ### Line breaks
-Use a single newline to separate block-level content like headings, lists, images, code blocks, and others. The exception is second-level headings, where it should be two newlines. Second-level headings follow the first-level (or the title) without any preceding paragraphs or texts. A two line spacing helps visualize the overall structure of content in a code editor better.
+
+Use a single newline to separate block-level content like headings, lists, images,
+code blocks, and others. The exception is second-level headings, where it should
+be two newlines. Second-level headings follow the first-level (or the title) without
+any preceding paragraphs or texts. A two line spacing helps visualize the overall
+structure of content in a code editor better.
 -->
 ## Markdown 元素 {#markdown-elements}
 
@@ -957,7 +949,11 @@ Use a single newline to separate block-level content like headings, lists, image
 <!--
 ### Headings and titles {#headings}
 
-People accessing this documentation may use a screen reader or other assistive technology (AT). [Screen readers](https://en.wikipedia.org/wiki/Screen_reader) are linear output devices, they output items on a page one at a time. If there is a lot of content on a page, you can use headings to give the page an internal structure. A good page structure helps all readers to easily navigate the page or filter topics of interest.
+People accessing this documentation may use a screen reader or other assistive technology (AT).
+[Screen readers](https://en.wikipedia.org/wiki/Screen_reader) are linear output devices,
+they output items on a page one at a time. If there is a lot of content on a page, you can
+use headings to give the page an internal structure. A good page structure helps all readers
+to easily navigate the page or filter topics of interest.
 -->
 ### 大标题和小标题  {#headings}
 
@@ -974,12 +970,8 @@ Do | Don't
 Update the title in the front matter of the page or blog post. | Use first level heading, as Hugo automatically converts the title in the front matter of the page into a first-level heading.
 Use ordered headings to provide a meaningful high-level outline of your content. | Use headings level 4 through 6, unless it is absolutely necessary. If your content is that detailed, it may need to be broken into separate articles.
 Use pound or hash signs (`#`) for non-blog post content. | Use underlines (`---` or `===`) to designate first-level headings.
-Use sentence case for headings in the page body. For example,
-**Extend kubectl with plugins** | Use title case for headings in the page body. For example, **Extend Kubectl With Plugins**
-Use title case for the page title in the front matter. For example,
-`title: Kubernetes API Server Bypass Risks` | Use sentence case for page titles
-in the front matter. For example, don't use
-`title: Kubernetes API server bypass risks`
+Use sentence case for headings in the page body. For example, **Extend kubectl with plugins** | Use title case for headings in the page body. For example, **Extend Kubectl With Plugins**
+Use title case for the page title in the front matter. For example, `title: Kubernetes API Server Bypass Risks` | Use sentence case for page titles in the front matter. For example, don't use `title: Kubernetes API server bypass risks`
 {{< /table >}}
 -->
 {{< table caption = "标题约定" >}}
@@ -1032,12 +1024,15 @@ Write Markdown-style links: `[link text](URL)`. For example: `[Hugo shortcodes](
 <!--
 ### Lists
 
-Group items in a list that are related to each other and need to appear in a specific order or to indicate a correlation between multiple items. When a screen reader comes across a list—whether it is an ordered or unordered list—it will be announced to the user that there is a group of list items. The user can then use the arrow keys to move up and down between the various items in the list.
-Website navigation links can also be marked up as list items; after all they are nothing but a group of related links.
+Group items in a list that are related to each other and need to appear in a specific
+order or to indicate a correlation between multiple items. When a screen reader comes
+across a list—whether it is an ordered or unordered list—it will be announced to the
+user that there is a group of list items. The user can then use the arrow keys to move
+up and down between the various items in the list. Website navigation links can also be
+marked up as list items; after all they are nothing but a group of related links.
 
-- End each item in a list with a period if one or more items in the list are complete sentences. For the sake of consistency, normally either all items or none should be complete sentences.
-
-  {{< note >}} Ordered lists that are part of an incomplete introductory sentence can be in lowercase and punctuated as if each item was a part of the introductory sentence.{{< /note >}}
+- End each item in a list with a period if one or more items in the list are complete
+  sentences. For the sake of consistency, normally either all items or none should be complete sentences.
 -->
 ### 列表  {#lists}
 
@@ -1050,6 +1045,10 @@ Website navigation links can also be marked up as list items; after all they are
   出于一致性考虑，一般要么所有条目要么没有条目是完整句子。
 
   {{< note >}}
+  <!--
+  Ordered lists that are part of an incomplete introductory sentence can be in lowercase
+  and punctuated as if each item was a part of the introductory sentence.
+  -->
   编号列表如果是不完整的介绍性句子的一部分，可以全部用小写字母，并按照
   每个条目都是句子的一部分来看待和处理。
   {{< /note >}}
@@ -1063,7 +1062,8 @@ Website navigation links can also be marked up as list items; after all they are
 
 - Indent nested lists with four spaces (for example, ⋅⋅⋅⋅).
 
-- List items may consist of multiple paragraphs. Each subsequent paragraph in a list item must be indented by either four spaces or one tab.
+- List items may consist of multiple paragraphs. Each subsequent paragraph in a list
+  item must be indented by either four spaces or one tab.
 -->
 - 在编号列表中，使用数字 1（`1.`）。
 
@@ -1078,7 +1078,10 @@ Website navigation links can also be marked up as list items; after all they are
 <!--
 ### Tables
 
-The semantic purpose of a data table is to present tabular data. Sighted users can quickly scan the table but a screen reader goes through line by line. A table caption is used to create a descriptive title for a data table. Assistive technologies (AT) use the HTML table caption element to identify the table contents to the user within the page structure.
+The semantic purpose of a data table is to present tabular data. Sighted users can
+quickly scan the table but a screen reader goes through line by line. A table caption
+is used to create a descriptive title for a data table. Assistive technologies (AT)
+use the HTML table caption element to identify the table contents to the user within the page structure.
 
 - Add table captions using [Hugo shortcodes](/docs/contribute/style/hugo-shortcodes/#table-captions) for tables.
 -->
@@ -1221,10 +1224,11 @@ whether they're part of the "we" you're describing.
 
 {{< table caption = "Do and Don't - Patterns to avoid" >}}
 Do | Don't
+:--| :-----
 Version 1.4 includes ... | In version 1.4, we have added ...
 Kubernetes provides a new feature for ... | We provide a new feature ...
 This page teaches you how to use pods. | In this page, we are going to learn about pods.
-{{< /table >}}   
+{{< /table >}} 
 -->
 ## 应避免的模式   {#patterns-to-avoid}
 
@@ -1292,11 +1296,11 @@ considered new in a few months.
 
 {{< table caption = "Do and Don't - Avoid statements that will soon be out of date" >}}
 Do | Don't
+:--| :-----
 In version 1.4, ... | In the current version, ...
 The Federation feature provides ... | The new Federation feature provides ...
-{{< /table >}}  
+{{< /table >}}
 -->
-
 ### 避免使用很快就会过时的表达
 
 避免使用一些很快就会过时的陈述，例如“目前”、“新的”。
@@ -1342,9 +1346,10 @@ These steps ... | These simple steps ...
 <!--
 * Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).
 * Learn about [using page templates](/docs/contribute/style/page-content-types/).
+* Learn about [custom hugo shortcodes](/docs/contribute/style/hugo-shortcodes/).
 * Learn about [creating a pull request](/docs/contribute/new-content/open-a-pr/).
 -->
 * 了解[编写新主题](/zh-cn/docs/contribute/style/write-new-topic/)。
 * 了解[页面内容类型](/zh-cn/docs/contribute/style/page-content-types/)。
+* 了解[定制 Hugo 短代码](/zh-cn/docs/contribute/style/hugo-shortcodes/)。
 * 了解[发起 PR](/zh-cn/docs/contribute/new-content/open-a-pr/)。
-

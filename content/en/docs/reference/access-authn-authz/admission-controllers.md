@@ -102,8 +102,15 @@ kube-apiserver -h | grep enable-admission-plugins
 In Kubernetes {{< skew currentVersion >}}, the default ones are:
 
 ```shell
-CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, LimitRanger, MutatingAdmissionWebhook, NamespaceLifecycle, PersistentVolumeClaimResize, PodSecurity, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionWebhook
+CertificateApproval, CertificateSigning, CertificateSubjectRestriction, DefaultIngressClass, DefaultStorageClass, DefaultTolerationSeconds, LimitRanger, MutatingAdmissionWebhook, NamespaceLifecycle, PersistentVolumeClaimResize, PodSecurity, Priority, ResourceQuota, RuntimeClass, ServiceAccount, StorageObjectInUseProtection, TaintNodesByCondition, ValidatingAdmissionPolicy, ValidatingAdmissionWebhook
 ```
+
+{{< note >}}
+The [`ValidatingAdmissionPolicy`](#validatingadmissionpolicy) admission plugin is enabled
+by default, but is only active if you enable the `ValidatingAdmissionPolicy`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) **and**
+the `admissionregistration.k8s.io/v1alpha1` API.
+{{< /note >}}
 
 ## What does each admission controller do?
 
@@ -366,21 +373,21 @@ An example request body:
 
 ```json
 {
-  "apiVersion":"imagepolicy.k8s.io/v1alpha1",
-  "kind":"ImageReview",
-  "spec":{
-    "containers":[
+  "apiVersion": "imagepolicy.k8s.io/v1alpha1",
+  "kind": "ImageReview",
+  "spec": {
+    "containers": [
       {
-        "image":"myrepo/myimage:v1"
+        "image": "myrepo/myimage:v1"
       },
       {
-        "image":"myrepo/myimage@sha256:beb6bd6a68f114c1dc2ea4b28db81bdf91de202a9014972bec5e4d9171d90ed"
+        "image": "myrepo/myimage@sha256:beb6bd6a68f114c1dc2ea4b28db81bdf91de202a9014972bec5e4d9171d90ed"
       }
     ],
-    "annotations":{
+    "annotations": {
       "mycluster.image-policy.k8s.io/ticket-1234": "break-glass"
     },
-    "namespace":"mynamespace"
+    "namespace": "mynamespace"
   }
 }
 ```
@@ -603,9 +610,9 @@ This file may be json or yaml and has the following format:
 
 ```yaml
 podNodeSelectorPluginConfig:
- clusterDefaultNodeSelector: name-of-node-selector
- namespace1: name-of-node-selector
- namespace2: name-of-node-selector
+  clusterDefaultNodeSelector: name-of-node-selector
+  namespace1: name-of-node-selector
+  namespace2: name-of-node-selector
 ```
 
 Reference the `PodNodeSelector` configuration file from the file provided to the API server's
@@ -656,23 +663,15 @@ admission plugin, which allows preventing pods from running on specifically tain
 
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
-This is the replacement for the deprecated [PodSecurityPolicy](#podsecuritypolicy) admission controller
-defined in the next section. This admission controller acts on creation and modification of the pod and
-determines if it should be admitted based on the requested security context and the 
-[Pod Security Standards](/docs/concepts/security/pod-security-standards/).
+The PodSecurity admission controller checks new Pods before they are
+admitted, determines if it should be admitted based on the requested security context and the restrictions on permitted
+[Pod Security Standards](/docs/concepts/security/pod-security-standards/)
+for the namespace that the Pod would be in.
 
-See the [Pod Security Admission documentation](/docs/concepts/security/pod-security-admission/)
-for more information.
+See the [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
+documentation for more information.
 
-### PodSecurityPolicy {#podsecuritypolicy}
-
-{{< feature-state for_k8s_version="v1.21" state="deprecated" >}}
-
-This admission controller acts on creation and modification of the pod and determines if it should be admitted
-based on the requested security context and the available Pod Security Policies.
-
-See also the [PodSecurityPolicy](/docs/concepts/security/pod-security-policy/) documentation
-for more information.
+PodSecurity replaced an older admission controller named PodSecurityPolicy.
 
 ### PodTolerationRestriction {#podtolerationrestriction}
 
@@ -737,17 +736,44 @@ for more information.
 
 ### SecurityContextDeny {#securitycontextdeny}
 
-This admission controller will deny any Pod that attempts to set certain escalating
-[SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
-fields, as shown in the
-[Configure a Security Context for a Pod or Container](/docs/tasks/configure-pod-container/security-context/)
-task.
-If you don't use [Pod Security admission](/docs/concepts/security/pod-security-admission/),
-[PodSecurityPolicies](/docs/concepts/security/pod-security-policy/), nor any external enforcement mechanism,
-then you could use this admission controller to restrict the set of values a security context can take.
+{{< feature-state for_k8s_version="v1.27" state="deprecated" >}}
 
-See [Pod Security Standards](/docs/concepts/security/pod-security-standards/) for more context on restricting
-pod privileges.
+{{< caution >}}
+The Kubernetes project recommends that you **do not use** the
+`SecurityContextDeny` admission controller.
+
+The `SecurityContextDeny` admission controller plugin is deprecated and disabled
+by default. It will be removed in a future version. If you choose to enable the
+`SecurityContextDeny` admission controller plugin, you must enable the
+`SecurityContextDeny` feature gate as well.
+
+The `SecurityContextDeny` admission plugin is deprecated because it is outdated
+and incomplete; it may be unusable or not do what you would expect. As
+implemented, this plugin is unable to restrict all security-sensitive attributes
+of the Pod API. For example, the `privileged` and `ephemeralContainers` fields
+were never restricted by this plugin.
+
+The [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
+plugin enforcing the [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
+`Restricted` profile captures what this plugin was trying to achieve in a better
+and up-to-date way.
+{{< /caution >}}
+
+This admission controller will deny any Pod that attempts to set the following
+[SecurityContext](/docs/reference/kubernetes-api/workload-resources/pod-v1/#security-context)
+fields:
+- `.spec.securityContext.supplementalGroups`
+- `.spec.securityContext.seLinuxOptions`
+- `.spec.securityContext.runAsUser`
+- `.spec.securityContext.fsGroup`
+- `.spec.(init)Containers[*].securityContext.seLinuxOptions`
+- `.spec.(init)Containers[*].securityContext.runAsUser`
+
+For more historical context on this plugin, see
+[The birth of PodSecurityPolicy](/blog/2022/08/23/podsecuritypolicy-the-historical-context/#the-birth-of-podsecuritypolicy)
+from the Kubernetes blog article about PodSecurityPolicy and its removal. The
+article details the PodSecurityPolicy historical context and the birth of the
+`securityContext` field for Pods.
 
 ### ServiceAccount {#serviceaccount}
 
@@ -773,6 +799,12 @@ This admission controller {{< glossary_tooltip text="taints" term_id="taint" >}}
 Nodes as `NotReady` and `NoSchedule`. That tainting avoids a race condition that could cause Pods
 to be scheduled on new Nodes before their taints were updated to accurately reflect their reported
 conditions.
+
+### ValidatingAdmissionPolicy {#validatingadmissionpolicy}
+
+[This admission controller](/docs/reference/access-authn-authz/validating-admission-policy/) implements the CEL validation for incoming matched requests. 
+It is enabled when both feature gate `validatingadmissionpolicy` and `admissionregistration.k8s.io/v1alpha1` group/version are enabled.
+If any of the ValidatingAdmissionPolicy fails, the request fails.
 
 ### ValidatingAdmissionWebhook {#validatingadmissionwebhook}
 

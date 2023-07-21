@@ -2,7 +2,6 @@
 reviewers:
 - erictune
 - lavalamp
-- ericchiang
 - deads2k
 - liggitt
 title: Authenticating
@@ -1218,6 +1217,147 @@ The following `ExecCredential` manifest describes a cluster information sample.
 ```
 {{% /tab %}}
 {{< /tabs >}}
+
+## API access to authentication information for a client {#self-subject-review}
+
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+
+If your cluster has the API enabled, you can use the `SelfSubjectReview` API to find out how your Kubernetes cluster maps your authentication
+information to identify you as a client. This works whether you are authenticating as a user (typically representing
+a real person) or as a ServiceAccount.
+
+`SelfSubjectReview` objects do not have any configurable fields. On receiving a request, the Kubernetes API server fills the status with the user attributes and returns it to the user.
+
+Request example (the body would be a `SelfSubjectReview`):
+```
+POST /apis/authentication.k8s.io/v1beta1/selfsubjectreviews
+```
+```json
+{
+  "apiVersion": "authentication.k8s.io/v1beta1",
+  "kind": "SelfSubjectReview"
+}
+```
+Response example:
+
+```json
+{
+  "apiVersion": "authentication.k8s.io/v1beta1",
+  "kind": "SelfSubjectReview",
+  "status": {
+    "userInfo": {
+      "name": "jane.doe",
+      "uid": "b6c7cfd4-f166-11ec-8ea0-0242ac120002",
+      "groups": [
+        "viewers",
+        "editors",
+        "system:authenticated"
+      ],
+      "extra": {
+        "provider_id": ["token.company.example"]
+      }
+    }
+  }
+}
+```
+
+For convenience, the `kubectl auth whoami` command is present. Executing this command will produce the following output (yet different user attributes will be shown):
+
+* Simple output example
+    ```
+    ATTRIBUTE         VALUE
+    Username          jane.doe
+    Groups            [system:authenticated]
+    ```
+
+* Complex example including extra attributes
+    ```
+    ATTRIBUTE         VALUE
+    Username          jane.doe
+    UID               b79dbf30-0c6a-11ed-861d-0242ac120002
+    Groups            [students teachers system:authenticated]
+    Extra: skills     [reading learning]
+    Extra: subjects   [math sports]
+    ```
+By providing the output flag, it is also possible to print the JSON or YAML representation of the result:
+
+{{< tabs name="self_subject_attributes_review_Example_1" >}}
+{{% tab name="JSON" %}}
+```json
+{
+  "apiVersion": "authentication.k8s.io/v1alpha1",
+  "kind": "SelfSubjectReview",
+  "status": {
+    "userInfo": {
+      "username": "jane.doe",
+      "uid": "b79dbf30-0c6a-11ed-861d-0242ac120002",
+      "groups": [
+        "students",
+        "teachers",
+        "system:authenticated"
+      ],
+      "extra": {
+        "skills": [
+          "reading",
+          "learning"
+        ],
+        "subjects": [
+          "math",
+          "sports"
+        ]
+      }
+    }
+  }
+}
+```
+{{% /tab %}}
+
+{{% tab name="YAML" %}}
+```yaml
+apiVersion: authentication.k8s.io/v1alpha1
+kind: SelfSubjectReview
+status:
+  userInfo:
+    username: jane.doe
+    uid: b79dbf30-0c6a-11ed-861d-0242ac120002
+    groups:
+    - students
+    - teachers
+    - system:authenticated
+    extra:
+      skills:
+      - reading
+      - learning
+      subjects:
+      - math
+      - sports
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+This feature is extremely useful when a complicated authentication flow is used in a Kubernetes cluster, 
+for example, if you use [webhook token authentication](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) or [authenticating proxy](/docs/reference/access-authn-authz/authentication/#authenticating-proxy).
+
+{{< note >}}
+The Kubernetes API server fills the `userInfo` after all authentication mechanisms are applied,
+including [impersonation](/docs/reference/access-authn-authz/authentication/#user-impersonation).
+If you, or an authentication proxy, make a SelfSubjectReview using impersonation,
+you see the user details and properties for the user that was impersonated.
+{{< /note >}}
+
+By default, all authenticated users can create `SelfSubjectReview` objects when the `APISelfSubjectReview` feature is enabled. It is allowed by the `system:basic-user` cluster role. 
+
+{{< note >}}
+You can only make `SelfSubjectReview` requests if:
+* the `APISelfSubjectReview`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  is enabled for your cluster (enabled by default after reaching Beta)
+* the API server for your cluster has the `authentication.k8s.io/v1alpha1` or `authentication.k8s.io/v1beta1`
+  {{< glossary_tooltip term_id="api-group" text="API group" >}}
+  enabled.
+{{< /note >}}
+
+
 
 ## {{% heading "whatsnext" %}}
 

@@ -88,12 +88,14 @@ Kubernetes 区分用户账号和服务账号的概念，主要基于以下原因
   tied to complex business processes. By contrast, service account creation is
   intended to be more lightweight, allowing cluster users to create service accounts
   for specific tasks on demand. Separating ServiceAccount creation from the steps to
-  onboard human users makes it easier for workloads to following the principle of
+  onboard human users makes it easier for workloads to follow the principle of
   least privilege.
 -->
-- 通常情况下，集群的用户账号可能会从企业数据库进行同步，创建新用户需要特殊权限，并且涉及到复杂的业务流程。
+- 通常情况下，集群的用户账号可能会从企业数据库进行同步，
+  创建新用户需要特殊权限，并且涉及到复杂的业务流程。
   服务账号创建有意做得更轻量，允许集群用户为了具体的任务按需创建服务账号。
-  将 ServiceAccount 的创建与新用户注册的步骤分离开来，使工作负载更易于遵从权限最小化原则。
+  将 ServiceAccount 的创建与新用户注册的步骤分离开来，
+  使工作负载更易于遵从权限最小化原则。
 <!--
 - Auditing considerations for humans and service accounts may differ; the separation
   makes that easier to achieve.
@@ -115,13 +117,13 @@ Kubernetes 区分用户账号和服务账号的概念，主要基于以下原因
 
 <!--
 By default, the Kubernetes control plane (specifically, the
-[ServiceAccount admission controller](#service-account-admission-controller))
+[ServiceAccount admission controller](#serviceaccount-admission-controller))
 adds a [projected volume](/docs/concepts/storage/projected-volumes/) to Pods,
 and this volume includes a token for Kubernetes API access.
 
 Here's an example of how that looks for a launched Pod:
 -->
-默认情况下，Kubernetes 控制平面（特别是 [ServiceAccount 准入控制器](#service-account-admission-controller)）
+默认情况下，Kubernetes 控制平面（特别是 [ServiceAccount 准入控制器](#serviceaccount-admission-controller)）
 添加一个[投射卷](/zh-cn/docs/concepts/storage/projected-volumes/)到 Pod，
 此卷包括了访问 Kubernetes API 的令牌。
 
@@ -160,7 +162,7 @@ each source also represents a single path within that volume. The three sources 
 1. A `configMap` source. The ConfigMap contains a bundle of certificate authority data. Pods can use these
    certificates to make sure that they are connecting to your cluster's kube-apiserver (and not to middlebox
    or an accidentally misconfigured peer).
-1. A `downwardAPI` source that looks up the name of thhe namespace containing the Pod, and makes
+1. A `downwardAPI` source that looks up the name of the namespace containing the Pod, and makes
    that name information available to application code running inside the Pod.
 -->
 该清单片段定义了由三个数据源组成的投射卷。在当前场景中，每个数据源也代表该卷内的一条独立路径。这三个数据源是：
@@ -186,7 +188,8 @@ There is no specific mechanism to invalidate a token issued via TokenRequest. If
 trust a bound service account token for a Pod, you can delete that Pod. Deleting a Pod expires
 its bound service account tokens.
 -->
-没有特定的机制可以使通过 TokenRequest 签发的令牌无效。如果你不再信任为某个 Pod 绑定的服务账号令牌，
+没有特定的机制可以使通过 TokenRequest 签发的令牌无效。
+如果你不再信任为某个 Pod 绑定的服务账号令牌，
 你可以删除该 Pod。删除 Pod 将使其绑定的服务账号令牌过期。
 {{< /note >}}
 
@@ -211,9 +214,10 @@ The tokens obtained using this method have bounded lifetimes, and are automatica
 invalidated when the Pod they are mounted into is deleted.
 -->
 在包括 Kubernetes v{{< skew currentVersion >}} 在内最近的几个版本中，使用
-[TokenRequest](/zh-cn/docs/reference/kubernetes-api/authentication-resources/token-request-v1/) API
-[直接获得](#bound-service-account-token-volume) API 凭据，并使用投射卷挂载到 Pod 中。
-使用这种方法获得的令牌具有绑定的生命周期，当挂载的 Pod 被删除时这些令牌将自动失效。
+[TokenRequest](/zh-cn/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
+API [直接获得](#bound-service-account-token-volume) API 凭据，
+并使用投射卷挂载到 Pod 中。使用这种方法获得的令牌具有绑定的生命周期，
+当挂载的 Pod 被删除时这些令牌将自动失效。
 
 <!--
 You can still [manually create](/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount) a Secret to hold a service account token; for example, if you need a token that never expires.
@@ -223,7 +227,8 @@ Once you manually create a Secret and link it to a ServiceAccount, the Kubernete
 你仍然可以[手动创建](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount)
 Secret 来保存服务账号令牌；例如在你需要一个永不过期的令牌的时候。
 
-一旦你手动创建一个 Secret 并将其关联到 ServiceAccount，Kubernetes 控制平面就会自动将令牌填充到该 Secret 中。
+一旦你手动创建一个 Secret 并将其关联到 ServiceAccount，
+Kubernetes 控制平面就会自动将令牌填充到该 Secret 中。
 
 {{< note >}}
 <!--
@@ -239,6 +244,15 @@ to obtain short-lived API access tokens is recommended instead.
 <!--
 ## Control plane details
 
+A ServiceAccount controller manages the ServiceAccounts inside namespaces, and
+ensures a ServiceAccount named "default" exists in every active namespace.
+-->
+## 控制平面细节   {#control-plane-details}
+
+ServiceAccount 控制器管理名字空间内的 ServiceAccount，
+并确保每个活跃的名字空间中都存在名为 `default` 的 ServiceAccount。
+
+<!--
 ### Token controller
 
 The service account token controller runs as part of `kube-controller-manager`.
@@ -251,16 +265,14 @@ This controller acts asynchronously. It:
 - watches for Secret deletion and removes a reference from the corresponding
   ServiceAccount if needed.
 -->
-## 控制平面细节   {#control-plane-details}
-
 ### 令牌控制器   {#token-controller}
 
 服务账号令牌控制器作为 `kube-controller-manager` 的一部分运行，以异步的形式工作。
 其职责包括：
 
 - 监测 ServiceAccount 的删除并删除所有相应的服务账号令牌 Secret。
-- 监测服务账号令牌 Secret 的添加，保证相应的 ServiceAccount 存在，如有需要，
-  向 Secret 中添加令牌。
+- 监测服务账号令牌 Secret 的添加，保证相应的 ServiceAccount 存在，
+  如有需要，向 Secret 中添加令牌。
 - 监测服务账号令牌 Secret 的删除，如有需要，从相应的 ServiceAccount 中移除引用。
 
 <!--
@@ -271,9 +283,10 @@ Similarly, you must pass the corresponding public key to the `kube-apiserver`
 using the `--service-account-key-file` flag. The public key will be used to
 verify the tokens during authentication.
 -->
-你必须通过 `--service-account-private-key-file` 标志为 `kube-controller-manager`
-的令牌控制器传入一个服务账号私钥文件。该私钥用于为所生成的服务账号令牌签名。
-同样地，你需要通过 `--service-account-key-file` 标志将对应的公钥通知给
+你必须通过 `--service-account-private-key-file` 标志为
+`kube-controller-manager`的令牌控制器传入一个服务账号私钥文件。
+该私钥用于为所生成的服务账号令牌签名。同样地，你需要通过
+`--service-account-key-file` 标志将对应的公钥通知给
 kube-apiserver。公钥用于在身份认证过程中校验令牌。
 
 <!--
@@ -315,7 +328,7 @@ it does the following when a Pod is created:
      `/var/run/secrets/kubernetes.io/serviceaccount`.
      For Linux containers, that volume is mounted at `/var/run/secrets/kubernetes.io/serviceaccount`;
      on Windows nodes, the mount is at the equivalent path.
-1. If the spec of the incoming Pod does already contain any `imagePullSecrets`, then the
+1. If the spec of the incoming Pod doesn't already contain any `imagePullSecrets`, then the
    admission controller adds `imagePullSecrets`, copying them from the `ServiceAccount`.
 -->
 3. 如果服务账号的 `automountServiceAccountToken` 字段或 Pod 的
@@ -326,7 +339,7 @@ it does the following when a Pod is created:
      忽略已为 `/var/run/secrets/kubernetes.io/serviceaccount` 路径定义的卷挂载的所有容器。
      对于 Linux 容器，此卷挂载在 `/var/run/secrets/kubernetes.io/serviceaccount`；
      在 Windows 节点上，此卷挂载在等价的路径上。
-4. 如果新来 Pod 的规约已包含任何 `imagePullSecrets`，则准入控制器添加 `imagePullSecrets`，
+4. 如果新来 Pod 的规约不包含任何 `imagePullSecrets`，则准入控制器添加 `imagePullSecrets`，
    并从 `ServiceAccount` 进行复制。
 
 ### TokenRequest API
@@ -345,7 +358,8 @@ If you want to use the TokenRequest API from `kubectl`, see
 你使用 ServiceAccount 的
 [TokenRequest](/zh-cn/docs/reference/kubernetes-api/authentication-resources/token-request-v1/)
 子资源为该 ServiceAccount 获取有时间限制的令牌。
-你不需要调用它来获取在容器中使用的 API 令牌，因为 kubelet 使用 **投射卷** 对此进行了设置。
+你不需要调用它来获取在容器中使用的 API 令牌，
+因为 kubelet 使用**投射卷**对此进行了设置。
 
 如果你想要从 `kubectl` 使用 TokenRequest API，
 请参阅[为 ServiceAccount 手动创建 API 令牌](/zh-cn/docs/tasks/configure-pod-container/configure-service-account/#manually-create-an-api-token-for-a-serviceaccount)。
@@ -392,22 +406,23 @@ kubelet 确保该卷包含允许容器作为正确 ServiceAccount 进行身份�
 <!--
 That manifest snippet defines a projected volume that combines information from three sources:
 
-1. A `serviceAccountToken` source, that contains a token that the kubelet acquires from kube-apiserver
+1. A `serviceAccountToken` source, that contains a token that the kubelet acquires from kube-apiserver.
    The kubelet fetches time-bound tokens using the TokenRequest API. A token served for a TokenRequest expires
    either when the pod is deleted or after a defined lifespan (by default, that is 1 hour).
+   The kubelet also refreshes that token before the token expires.
    The token is bound to the specific Pod and has the kube-apiserver as its audience.
 1. A `configMap` source. The ConfigMap contains a bundle of certificate authority data. Pods can use these
    certificates to make sure that they are connecting to your cluster's kube-apiserver (and not to middlebox
    or an accidentally misconfigured peer).
-1. A `downwardAPI` source. This `downwardAPI` volume makes the name of the namespace container the Pod available
+1. A `downwardAPI` source. This `downwardAPI` volume makes the name of the namespace containing the Pod available
    to application code running inside the Pod.
 -->
 该清单片段定义了由三个数据源信息组成的投射卷。
 
 1. `serviceAccountToken` 数据源，包含 kubelet 从 kube-apiserver 获取的令牌。
    kubelet 使用 TokenRequest API 获取有时间限制的令牌。为 TokenRequest 服务的这个令牌会在
-   Pod 被删除或定义的生命周期（默认为 1 小时）结束之后过期。该令牌绑定到特定的 Pod，
-   并将其 audience（受众）设置为与 `kube-apiserver` 的 audience 相匹配。
+   Pod 被删除或定义的生命周期（默认为 1 小时）结束之后过期。在令牌过期之前，kubelet 还会刷新该令牌。
+   该令牌绑定到特定的 Pod，并将其 audience（受众）设置为与 `kube-apiserver` 的 audience 相匹配。
 1. `configMap` 数据源。ConfigMap 包含一组证书颁发机构数据。
    Pod 可以使用这些证书来确保自己连接到集群的 kube-apiserver（而不是连接到中间件或意外配置错误的对等点上）。
 1. `downwardAPI` 数据源。这个 `downwardAPI` 卷获得包含 Pod 的名字空间的名称，
@@ -441,8 +456,9 @@ updates that Secret with that generated token data.
 Here is a sample manifest for such a Secret:
 -->
 要为 ServiceAccount 创建一个不过期、持久化的 API 令牌，
-请创建一个类型为 `kubernetes.io/service-account-token` 的 Secret，附带引用 ServiceAccount 的注解。
-控制平面随后生成一个长久的令牌，并使用生成的令牌数据更新该 Secret。
+请创建一个类型为 `kubernetes.io/service-account-token` 的 Secret，
+附带引用 ServiceAccount 的注解。控制平面随后生成一个长久的令牌，
+并使用生成的令牌数据更新该 Secret。
 
 以下是此类 Secret 的示例清单：
 
@@ -491,7 +507,7 @@ token:          ...
 If you launch a new Pod into the `examplens` namespace, it can use the `myserviceaccount`
 service-account-token Secret that you just created.
 -->
-如果你在 `examplens` 名字空间中启动新的 Pod，可以使用你刚刚创建的
+如果你在 `examplens` 名字空间中启动一个新的 Pod，它可以使用你刚刚创建的
 `myserviceaccount` service-account-token Secret。
 
 <!--
@@ -536,7 +552,7 @@ metadata:
   selfLink: /api/v1/namespaces/examplens/serviceaccounts/example-automated-thing
   uid: f23fd170-66f2-4697-b049-e1e266b7f835
 secrets:
-- name: example-automated-thing-token-zyxwv
+  - name: example-automated-thing-token-zyxwv
 ```
 
 <!--
@@ -572,7 +588,7 @@ metadata:
   selfLink: /api/v1/namespaces/examplens/serviceaccounts/example-automated-thing
   uid: f23fd170-66f2-4697-b049-e1e266b7f835
 secrets:
-- name: example-automated-thing-token-4rdrh
+  - name: example-automated-thing-token-4rdrh
 ```
 
 <!--
@@ -587,60 +603,6 @@ If you created a namespace `examplens` to experiment with, you can remove it:
 ```shell
 kubectl delete namespace examplens
 ```
-
-<!--
-## Control plane details
-
-### ServiceAccount controller
-
-A ServiceAccount controller manages the ServiceAccounts inside namespaces, and
-ensures a ServiceAccount named "default" exists in every active namespace.
--->
-## 控制平面细节   {#control-plane-details}
-
-### ServiceAccount 控制器   {#serviceaccount-controller}
-
-ServiceAccount 控制器管理名字空间内的 ServiceAccount，并确保每个活跃的名字空间中都存在名为
-“default” 的 ServiceAccount。
-
-<!--
-### Token controller
-
-The service account token controller runs as part of `kube-controller-manager`.
-This controller acts asynchronously. It:
-
-- watches for ServiceAccount creation and creates a corresponding
-  ServiceAccount token Secret to allow API access.
-- watches for ServiceAccount deletion and deletes all corresponding ServiceAccount
-  token Secrets.
-- watches for ServiceAccount token Secret addition, and ensures the referenced
-  ServiceAccount exists, and adds a token to the Secret if needed.
-- watches for Secret deletion and removes a reference from the corresponding
-  ServiceAccount if needed.
--->
-### 令牌控制器
-
-服务账号令牌控制器作为 `kube-controller-manager` 的一部分运行，以异步的形式工作。
-其职责包括：
-
-- 监测 ServiceAccount 的创建并创建相应的服务账号令牌 Secret 以允许 API 访问。
-- 监测 ServiceAccount 的删除并删除所有相应的服务账号令牌 Secret。
-- 监测服务账号令牌 Secret 的添加，保证相应的 ServiceAccount 存在，如有需要，
-  向 Secret 中添加令牌。
-- 监测 Secret 的删除，如有需要，从相应的 ServiceAccount 中移除引用。
-
-<!--
-You must pass a service account private key file to the token controller in
-the `kube-controller-manager` using the `--service-account-private-key-file`
-flag. The private key is used to sign generated service account tokens.
-Similarly, you must pass the corresponding public key to the `kube-apiserver`
-using the `--service-account-key-file` flag. The public key will be used to
-verify the tokens during authentication.
--->
-你必须通过 `--service-account-private-key-file` 标志为 `kube-controller-manager`
-的令牌控制器传入一个服务账号私钥文件。该私钥用于为所生成的服务账号令牌签名。
-同样地，你需要通过 `--service-account-key-file` 标志将对应的公钥通知给
-kube-apiserver。公钥用于在身份认证过程中校验令牌。
 
 ## {{% heading "whatsnext" %}}
 

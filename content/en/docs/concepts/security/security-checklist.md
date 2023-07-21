@@ -97,6 +97,7 @@ For restricted LoadBalancer and ExternalIPs use, see
 [CVE-2020-8554: Man in the middle using LoadBalancer or ExternalIPs](https://github.com/kubernetes/kubernetes/issues/97076)
 and the [DenyServiceExternalIPs admission controller](/docs/reference/access-authn-authz/admission-controllers/#denyserviceexternalips)
 for further information.
+
 ## Pod security
 
 - [ ] RBAC rights to `create`, `update`, `patch`, `delete` workloads is only granted if necessary.
@@ -153,23 +154,20 @@ Memory limit superior to request can expose the whole node to OOM issues.
 
 ### Enabling Seccomp
 
-Seccomp can improve the security of your workloads by reducing the Linux kernel
-syscall attack surface available inside containers. The seccomp filter mode
-leverages BPF to create an allow or deny list of specific syscalls, named
-profiles. Those seccomp profiles can be enabled on individual workloads,
-[a security tutorial is available](/docs/tutorials/security/seccomp/). In
-addition, the [Kubernetes Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator)
-is a project to facilitate the management and use of seccomp in clusters.
+Seccomp stands for secure computing mode and has been a feature of the Linux kernel since version 2.6.12.
+It can be used to sandbox the privileges of a process, restricting the calls it is able to make
+from userspace into the kernel. Kubernetes lets you automatically apply seccomp profiles loaded onto
+a node to your Pods and containers.
 
-For historical context, please note that Docker has been using
-[a default seccomp profile](https://docs.docker.com/engine/security/seccomp/)
-to only allow a restricted set of syscalls since 2016 from
-[Docker Engine 1.10](https://www.docker.com/blog/docker-engine-1-10-security/),
-but Kubernetes is still not confining workloads by default. The default seccomp
-profile can be found [in containerd](https://github.com/containerd/containerd/blob/main/contrib/seccomp/seccomp_default.go)
-as well. Fortunately, [Seccomp Default](/blog/2021/08/25/seccomp-default/), a
-new alpha feature to use a default seccomp profile for all workloads can now be
-enabled and tested.
+Seccomp can improve the security of your workloads by reducing the Linux kernel syscall attack
+surface available inside containers. The seccomp filter mode leverages BPF to create an allow or
+deny list of specific syscalls, named profiles.
+
+Since Kubernetes 1.27, you can enable the use of `RuntimeDefault` as the default seccomp profile
+for all workloads. A [security tutorial](/docs/tutorials/security/seccomp/) is available on this
+topic. In addition, the
+[Kubernetes Security Profiles Operator](https://github.com/kubernetes-sigs/security-profiles-operator)
+is a project that facilitates the management and use of seccomp in clusters.
 
 {{< note >}}
 Seccomp is only available on Linux nodes.
@@ -205,6 +203,25 @@ labels can be assigned to containers or pods
 SELinux is only available on Linux nodes, and enabled in
 [some Linux distributions](https://en.wikipedia.org/wiki/Security-Enhanced_Linux#Implementations).
 {{< /note >}}
+
+## Logs and auditing
+
+- [ ] Audit logs, if enabled, are protected from general access.
+- [ ] The `/logs` API is disabled (you are running kube-apiserver with
+  `--enable-logs-handler=false`).
+
+  Kubernetes includes a `/logs` API endpoint, enabled by default,
+  that lets users request the contents of the API server's `/var/log` directory over HTTP. Accessing
+  that endpoint requires authentication.
+
+Allowing broad access to Kubernetes logs can make security information
+available to a potential attacker.
+
+As a good practice, set up a separate means to collect and aggregate
+control plane logs, and do not use the `/logs` API endpoint.
+Alternatively, if you run your control plane with the `/logs` API endpoint
+and limit the content of `/var/log` (within the host or container where the API server is running) to
+Kubernetes API server logs only.
 
 ## Pod placement
 
@@ -278,7 +295,7 @@ for time-bound service account credentials.
 - [ ] Container images are configured to be run as unprivileged user.
 - [ ] References to container images are made by sha256 digests (rather than
 tags) or the provenance of the image is validated by verifying the image's
-digital signature at deploy time [via admission control](/docs/tasks/administer-cluster/verify-signed-images/#verifying-image-signatures-with-admission-controller).
+digital signature at deploy time [via admission control](/docs/tasks/administer-cluster/verify-signed-artifacts/#verifying-image-signatures-with-admission-controller).
 - [ ] Container images are regularly scanned during creation and in deployment, and
   known vulnerable software is patched.
 
@@ -301,7 +318,7 @@ Avoid using image tags to reference an image, especially the `latest` tag, the
 image behind a tag can be easily modified in a registry. Prefer using the
 complete `sha256` digest which is unique to the image manifest. This policy can be
 enforced via an [ImagePolicyWebhook](/docs/reference/access-authn-authz/admission-controllers/#imagepolicywebhook).
-Image signatures can also be automatically [verified with an admission controller](/docs/tasks/administer-cluster/verify-signed-images/#verifying-image-signatures-with-admission-controller)
+Image signatures can also be automatically [verified with an admission controller](/docs/tasks/administer-cluster/verify-signed-artifacts/#verifying-image-signatures-with-admission-controller)
 at deploy time to validate their authenticity and integrity.
 
 Scanning a container image can prevent critical vulnerabilities from being
@@ -404,6 +421,8 @@ alpha state but could be considered for certain use cases:
 
 - [RBAC Good Practices](/docs/concepts/security/rbac-good-practices/) for
   further information on authorization.
+- [Securing a Cluster](/docs/tasks/administer-cluster/securing-a-cluster/) for
+  information on protecting a cluster from accidental or malicious access.
 - [Cluster Multi-tenancy guide](/docs/concepts/security/multi-tenancy/) for
   configuration options recommendations and best practices on multi-tenancy.
 - [Blog post "A Closer Look at NSA/CISA Kubernetes Hardening Guidance"](/blog/2021/10/05/nsa-cisa-kubernetes-hardening-guidance/#building-secure-container-images)

@@ -10,11 +10,12 @@ reviewers:
 
 content_type: task
 min-kubernetes-server-version: v1.18
+weight: 150
 ---
 
 <!-- overview -->
 
-{{< feature-state state="beta" for_k8s_version="v1.18" >}}
+{{< feature-state state="stable" for_k8s_version="v1.27" >}}
 
 An increasing number of systems leverage a combination of CPUs and hardware accelerators to
 support latency-critical execution and high-throughput parallel computation. These include
@@ -58,12 +59,6 @@ The selected hint is stored as part of the Topology Manager. Depending on the po
 the pod can be accepted or rejected from the node based on the selected hint.
 The hint is then stored in the Topology Manager for use by the *Hint Providers* when making the
 resource allocation decisions.
-
-### Enable the Topology Manager feature
-
-Support for the Topology Manager requires `TopologyManager`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
-It is enabled by default starting with Kubernetes 1.18.
 
 ## Topology Manager Scopes and Policies
 
@@ -213,6 +208,28 @@ reschedule the pod. It is recommended to use a Deployment with replicas to trigg
 the Pod.An external control loop could be also implemented to trigger a redeployment of pods
 that have the `Topology Affinity` error.
 
+### Topology manager policy options
+
+Support for the Topology Manager policy options requires `TopologyManagerPolicyOptions`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
+
+You can toggle groups of options on and off based upon their maturity level using the following feature gates:
+* `TopologyManagerPolicyBetaOptions` default disabled. Enable to show beta-level options. Currently there are no beta-level options.
+* `TopologyManagerPolicyAlphaOptions` default disabled. Enable to show alpha-level options. You will still have to enable each option using the `TopologyManagerPolicyOptions` kubelet option.
+
+The following policy options exists:
+* `prefer-closest-numa-nodes` (alpha, invisible by default, `TopologyManagerPolicyOptions` and `TopologyManagerPolicyAlphaOptions` feature gates have to be enabled)(1.26 or higher)
+
+If the `prefer-closest-numa-nodes` policy option is specified, the `best-effort` and `restricted`
+policies will favor sets of NUMA nodes with shorter distance between them when making admission decisions.
+You can enable this option by adding `prefer-closest-numa-nodes=true` to the Topology Manager policy options.
+By default, without this option, Topology Manager aligns resources on either a single NUMA node or
+the minimum number of NUMA nodes (in cases where more than one NUMA node is required). However,
+the `TopologyManager` is not aware of NUMA distances and does not take them into account when making admission decisions.
+This limitation surfaces in multi-socket, as well as single-socket multi NUMA systems,
+and can cause significant performance degradation in latency-critical execution and high-throughput applications if the
+Topology Manager decides to align resources on non-adjacent NUMA nodes.
+
 ### Pod Interactions with Topology Manager Policies
 
 Consider the containers in the following pod specs:
@@ -330,4 +347,3 @@ assignments.
 
 2. The scheduler is not topology-aware, so it is possible to be scheduled on a node and then fail
    on the node due to the Topology Manager.
-

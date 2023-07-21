@@ -37,6 +37,9 @@ other = "現在表示しているのは、次のバージョン向けのドキ�
 [deprecation_warning]
 other = " のドキュメントは積極的にメンテナンスされていません。現在表示されているバージョンはスナップショットです。最新のドキュメントはこちらです: "
 
+[dockershim_message]
+other = """dockershimは1.24のリリースをもってKubernetesプロジェクトから削除されました。詳しくは、<a href="/ja/dockershim">dockershimの削除に関するFAQ</a>をご覧ください。"""
+
 [docs_label_browse]
 other = "ドキュメントの参照"
 

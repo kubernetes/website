@@ -3,7 +3,12 @@
 # - bprashanth
 title: 인그레스(Ingress)
 content_type: concept
-weight: 40
+description: >-
+  URI, 호스트네임, 경로 등과 같은 웹 개념을 이해하는 프로토콜-인지형(protocol-aware configuration) 설정 메커니즘을 이용하여
+  HTTP (혹은 HTTPS) 네트워크 서비스를 사용 가능하게 한다.
+  인그레스 개념은 쿠버네티스 API를 통해 정의한 규칙에 기반하여 트래픽을 다른 백엔드에
+  매핑할 수 있게 해준다.
+weight: 30
 ---
 
 <!-- overview -->
@@ -95,7 +100,7 @@ weight: 40
   보내기 전에 호스트와 경로가 모두 수신 요청의 내용과
   일치해야 한다.
 * 백엔드는 [서비스 문서](/ko/docs/concepts/services-networking/service/) 또는 [사용자 정의 리소스 백엔드](#resource-backend)에 설명된 바와 같이
-  서비스와 포트 이름의 조합이다. 호스트와 규칙 경로가 일치하는 인그레스에 대한
+  서비스와 포트 이름의 조합이다. 규칙의 호스트와 경로가 일치하는 인그레스에 대한
   HTTP(와 HTTPS) 요청은 백엔드 목록으로 전송된다.
 
 `defaultBackend` 는 종종 사양의 경로와 일치하지 않는 서비스에 대한 모든 요청을 처리하도록 인그레스

@@ -3,7 +3,7 @@ title: Find Out What Container Runtime is Used on a Node
 content_type: task
 reviewers:
 - SergeyKanzhelev
-weight: 10
+weight: 30
 ---
 
 <!-- overview -->
@@ -41,9 +41,9 @@ node-2       Ready    v1.16.15   docker://19.3.1
 node-3       Ready    v1.16.15   docker://19.3.1
 ```
 If your runtime shows as Docker Engine, you still might not be affected by the
-removal of dockershim in Kubernetes v1.24. [Check the runtime
-endpoint](#which-endpoint) to see if you use dockershim. If you don't use
-dockershim, you aren't affected. 
+removal of dockershim in Kubernetes v1.24.
+[Check the runtime endpoint](#which-endpoint) to see if you use dockershim.
+If you don't use dockershim, you aren't affected. 
 
 For containerd, the output is similar to this:
 
@@ -88,7 +88,8 @@ nodes.
 
     *   If your nodes use Kubernetes v1.23 and earlier and these flags aren't
         present or if the `--container-runtime` flag is not `remote`,
-        you use the dockershim socket with Docker Engine.
+        you use the dockershim socket with Docker Engine. The `--container-runtime` command line
+        argument is not available in Kubernetes v1.27 and later.
     *   If the `--container-runtime-endpoint` flag is present, check the socket
         name to find out which runtime you use. For example,
         `unix:///run/containerd/containerd.sock` is the containerd endpoint.

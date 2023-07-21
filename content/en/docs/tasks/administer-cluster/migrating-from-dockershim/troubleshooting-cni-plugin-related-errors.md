@@ -4,7 +4,7 @@ content_type: task
 reviewers:
 - mikebrow
 - divya-mohan0209
-weight: 10
+weight: 40
 ---
 
 <!-- overview -->
@@ -129,7 +129,8 @@ cat << EOF | tee /etc/cni/net.d/10-containerd-net.conflist
    },
    {
      "type": "portmap",
-     "capabilities": {"portMappings": true}
+     "capabilities": {"portMappings": true},
+     "externalSetMarkChain": "KUBE-MARK-MASQ"
    }
  ]
 }

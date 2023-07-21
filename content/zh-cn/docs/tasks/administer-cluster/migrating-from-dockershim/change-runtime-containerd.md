@@ -1,12 +1,12 @@
 ---
 title: 将节点上的容器运行时从 Docker Engine 改为 containerd
-weight: 8
+weight: 10
 content_type: task 
 ---
 
 <!--
 title: "Changing the Container Runtime on a Node from Docker Engine to containerd"
-weight: 8
+weight: 10
 content_type: task 
 -->
 
@@ -157,14 +157,12 @@ then run the following commands:
 <!--
 ## Configure the kubelet to use containerd as its container runtime
 
-Edit the file `/var/lib/kubelet/kubeadm-flags.env` and add the containerd runtime to the flags.
-`--container-runtime=remote` and
+Edit the file `/var/lib/kubelet/kubeadm-flags.env` and add the containerd runtime to the flags;
 `--container-runtime-endpoint=unix:///run/containerd/containerd.sock`.
 -->
 ## 配置 kubelet 使用 containerd 作为其容器运行时
 
-编辑文件 `/var/lib/kubelet/kubeadm-flags.env`，将 containerd 运行时添加到标志中：
-`--container-runtime=remote` 和
+编辑文件 `/var/lib/kubelet/kubeadm-flags.env`，将 containerd 运行时添加到标志中；
 `--container-runtime-endpoint=unix:///run/containerd/containerd.sock`。
 
 <!--
@@ -172,7 +170,6 @@ Users using kubeadm should be aware that the `kubeadm` tool stores the CRI socke
 an annotation in the Node object for that host. To change it you can execute the following command
 on a machine that has the kubeadm `/etc/kubernetes/admin.conf` file.
 -->
-`kubeadm` 工具将每个主机的 CRI 套接字保存在该主机对应的 Node 对象的注解中。
 使用 `kubeadm` 的用户应该知道，`kubeadm` 工具将每个主机的 CRI 套接字保存在该主机对应的
 Node 对象的注解中。
 要更改这一注解信息，你可以在一台包含 kubeadm `/etc/kubernetes/admin.conf` 文件的机器上执行以下命令：
@@ -229,9 +226,9 @@ Run `kubectl get nodes -o wide` and containerd appears as the runtime for the no
 {{% thirdparty-content %}}
 
 <!--
-Finally if everything goes well, remove Docker.
+If the node appears healthy, remove Docker.
 -->
-最后，在一切顺利时删除 Docker。
+如果节点显示正常，删除 Docker。
 
 {{< tabs name="tab-remove-docker-engine" >}}
 {{% tab name="CentOS" %}}
@@ -275,3 +272,17 @@ Docker 所提供的卸载 Docker Engine 命令指导中，存在删除 container
 在执行命令时要谨慎。
 {{< /caution >}}
 
+<!--
+## Uncordon the node
+-->
+## uncordon 节点
+
+```shell
+kubectl uncordon <node-to-uncordon>
+```
+
+<!--
+Replace `<node-to-uncordon>` with the name of your node you previously drained.
+-->
+
+将 `<node-to-uncordon>` 替换为你之前腾空的节点的名称。

@@ -64,9 +64,9 @@ spec:
       topologyKey: <string>
       whenUnsatisfiable: <string>
       labelSelector: <object>
-      matchLabelKeys: <list> # optional; alpha since v1.25
-      nodeAffinityPolicy: [Honor|Ignore] # optional; alpha since v1.25
-      nodeTaintsPolicy: [Honor|Ignore] # optional; alpha since v1.25
+      matchLabelKeys: <list> # optional; beta since v1.27
+      nodeAffinityPolicy: [Honor|Ignore] # optional; beta since v1.26
+      nodeTaintsPolicy: [Honor|Ignore] # optional; beta since v1.26
   ### other Pod fields go here
 ```
 
@@ -97,7 +97,7 @@ your cluster. Those fields are:
   nodes match the node selector.
 
   {{< note >}}
-  The `minDomains` field is a beta field and enabled by default in 1.25. You can disable it by disabling the
+  The `minDomains` field is a beta field and disabled by default in 1.25. You can enable it by enabling the
   `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   {{< /note >}}
 
@@ -129,24 +129,36 @@ your cluster. Those fields are:
   for more details.
 
 - **matchLabelKeys** is a list of pod label keys to select the pods over which
-  spreading will be calculated. The keys are used to lookup values from the pod labels, those key-value labels are ANDed with `labelSelector` to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the pod labels will be ignored. A null or empty list means only match against the `labelSelector`.
+  spreading will be calculated. The keys are used to lookup values from the pod labels,
+  those key-value labels are ANDed with `labelSelector` to select the group of existing
+  pods over which spreading will be calculated for the incoming pod. The same key is
+  forbidden to exist in both `matchLabelKeys` and `labelSelector`. `matchLabelKeys` cannot
+  be set when `labelSelector` isn't set. Keys that don't exist in the pod labels will be
+  ignored. A null or empty list means only match against the `labelSelector`.
 
-  With `matchLabelKeys`, users don't need to update the `pod.spec` between different revisions. The controller/operator just needs to set different values to the same `label` key for different revisions. The scheduler will assume the values automatically based on `matchLabelKeys`. For example, if users use Deployment, they can use the label keyed with `pod-template-hash`, which is added automatically by the Deployment controller, to distinguish between different revisions in a single Deployment.
+  With `matchLabelKeys`, you don't need to update the `pod.spec` between different revisions.
+  The controller/operator just needs to set different values to the same label key for different
+  revisions. The scheduler will assume the values automatically based on `matchLabelKeys`. For
+  example, if you are configuring a Deployment, you can use the label keyed with
+  [pod-template-hash](/docs/concepts/workloads/controllers/deployment/#pod-template-hash-label), which
+  is added automatically by the Deployment controller, to distinguish between different revisions
+  in a single Deployment.
 
   ```yaml
       topologySpreadConstraints:
           - maxSkew: 1
             topologyKey: kubernetes.io/hostname
             whenUnsatisfiable: DoNotSchedule
+            labelSelector:
+              matchLabels:
+                app: foo
             matchLabelKeys:
-              - app
               - pod-template-hash
   ```
 
   {{< note >}}
-  The `matchLabelKeys` field is an alpha field added in 1.25. You have to enable the
-  `MatchLabelKeysInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  in order to use it.
+  The `matchLabelKeys` field is a beta-level field and enabled by default in 1.27. You can disable it by disabling the
+  `MatchLabelKeysInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   {{< /note >}}
 
 - **nodeAffinityPolicy** indicates how we will treat Pod's nodeAffinity/nodeSelector
@@ -157,9 +169,8 @@ your cluster. Those fields are:
   If this value is null, the behavior is equivalent to the Honor policy.
 
   {{< note >}}
-  The `nodeAffinityPolicy` is an alpha-level field added in 1.25. You have to enable the
-  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  in order to use it.
+  The `nodeAffinityPolicy` is a beta-level field and enabled by default in 1.26. You can disable it by disabling the
+  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   {{< /note >}}
 
 - **nodeTaintsPolicy** indicates how we will treat node taints when calculating
@@ -171,9 +182,8 @@ your cluster. Those fields are:
   If this value is null, the behavior is equivalent to the Ignore policy.
 
   {{< note >}}
-  The `nodeTaintsPolicy` is an alpha-level field added in 1.25. You have to enable the
-  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  in order to use it.
+  The `nodeTaintsPolicy` is a beta-level field and enabled by default in 1.26. You can disable it by disabling the
+  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   {{< /note >}}
 
 When a Pod defines more than one `topologySpreadConstraint`, those constraints are
@@ -243,7 +253,7 @@ confusing and troubleshooting is less straightforward.
 You need a mechanism to ensure that all the nodes in a topology domain (such as a
 cloud provider region) are labelled consistently.
 To avoid you needing to manually label nodes, most clusters automatically
-populate well-known labels such as `topology.kubernetes.io/hostname`. Check whether
+populate well-known labels such as `kubernetes.io/hostname`. Check whether
 your cluster supports this.
 
 ## Topology spread constraint examples

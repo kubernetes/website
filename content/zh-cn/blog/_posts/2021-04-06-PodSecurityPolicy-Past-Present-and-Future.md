@@ -13,6 +13,21 @@ title: "PodSecurityPolicy Deprecation: Past, Present, and Future"
 -->
 作者：Tabitha Sable（Kubernetes SIG Security）
 
+{{% pageinfo color="primary" %}}
+<!--
+**Update:** *With the release of Kubernetes v1.25, PodSecurityPolicy has been removed.*
+-->
+**更新：随着 Kubernetes v1.25 的发布，PodSecurityPolicy 已被删除。**
+
+<!--
+*You can read more information about the removal of PodSecurityPolicy in the
+[Kubernetes 1.25 release notes](/blog/2022/08/23/kubernetes-v1-25-release/#pod-security-changes).*
+-->
+**你可以在 [Kubernetes 1.25 发布说明](/zh-cn/blog/2022/08/23/kubernetes-v1-25-release/#pod-security-changes)
+中阅读有关删除 PodSecurityPolicy 的更多信息。**
+
+{{% /pageinfo %}}
+
 <!--
 PodSecurityPolicy (PSP) is being deprecated in Kubernetes 1.21, to be released later this week.
 This starts the countdown to its removal, but doesn’t change anything else.
@@ -128,7 +143,7 @@ configuring some software or hardware to accomplish our goals.
 In most Kubernetes clusters, 
 RBAC (Role-Based Access Control) [rules](/docs/reference/access-authn-authz/rbac/#role-and-clusterrole)
 control access to these resources. `list`, `get`, `create`, `edit`, and `delete` are
-the sorts of API operations that RBAC cares about, 
+the sorts of API operations that RBAC cares about,
 but _RBAC does not consider what settings are being put into the resources it controls_.
 For example, a Pod can be almost anything from a simple webserver to
 a privileged command prompt offering full access to the underlying server node and all the data.

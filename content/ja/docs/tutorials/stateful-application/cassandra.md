@@ -80,7 +80,7 @@ cassandra   ClusterIP   None         <none>        9042/TCP   45s
 ```
 
 
-`cassandra`という名前のServiceが表示されない場合、作成に失敗しています。よくある問題のトラブルシューティングについては、[Serviceのデバッグ](/ja/docs/tasks/debug-application-cluster/debug-service/)を読んでください。
+`cassandra`という名前のServiceが表示されない場合、作成に失敗しています。よくある問題のトラブルシューティングについては、[Serviceのデバッグ](/ja/docs/tasks/debug/debug-application/debug-service/)を読んでください。
 
 ## StatefulSetを使ってCassandra ringを作成する
 
@@ -265,5 +265,3 @@ StatefulSetに関連するすべてのリソースを自動的に破棄するよ
 * [StatefulSetのスケール](/ja/docs/tasks/run-application/scale-stateful-set/)を行う方法を学ぶ。
 * [*KubernetesSeedProvider*](https://github.com/kubernetes/examples/blob/master/cassandra/java/src/main/java/io/k8s/cassandra/KubernetesSeedProvider.java)についてもっと学ぶ。
 * カスタムの[Seed Providerの設定](https://git.k8s.io/examples/cassandra/java/README.md)についてもっと学ぶ。
-
-

@@ -32,13 +32,20 @@ This page is an overview of Kubernetes.
 
 <!-- body -->
 <!--
-Kubernetes is a portable, extensible, open source platform for managing containerized workloads and services, that facilitates both declarative configuration and automation. It has a large, rapidly growing ecosystem. Kubernetes services, support, and tools are widely available.
+Kubernetes is a portable, extensible, open source platform for managing containerized
+workloads and services, that facilitates both declarative configuration and automation.
+It has a large, rapidly growing ecosystem. Kubernetes services, support, and tools are widely available.
+
 -->
 Kubernetes 是一个可移植、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化。
 Kubernetes 拥有一个庞大且快速增长的生态，其服务、支持和工具的使用范围相当广泛。
 
 <!--
-The name Kubernetes originates from Greek, meaning helmsman or pilot. K8s as an abbreviation results from counting the eight letters between the "K" and the "s". Google open-sourced the Kubernetes project in 2014. Kubernetes combines [over 15 years of Google's experience](/blog/2015/04/borg-predecessor-to-kubernetes/) running production workloads at scale with best-of-breed ideas and practices from the community.
+The name Kubernetes originates from Greek, meaning helmsman or pilot. K8s as an abbreviation
+results from counting the eight letters between the "K" and the "s". Google open-sourced the
+Kubernetes project in 2014. Kubernetes combines
+[over 15 years of Google's experience](/blog/2015/04/borg-predecessor-to-kubernetes/) running
+production workloads at scale with best-of-breed ideas and practices from the community.
 -->
 **Kubernetes** 这个名字源于希腊语，意为“舵手”或“飞行员”。k8s 这个缩写是因为 k 和 s 之间有八个字符的关系。
 Google 在 2014 年开源了 Kubernetes 项目。
@@ -57,11 +64,17 @@ Let's take a look at why Kubernetes is so useful by going back in time.
 <!--
 ![Deployment evolution](/images/docs/Container_Evolution.svg)
 -->
-![部署演进](/images/docs/Container_Evolution.svg)
+![部署演进](/zh-cn/docs/images/Container_Evolution.svg)
 
 <!--
 **Traditional deployment era:**
-Early on, organizations ran applications on physical servers. There was no way to define resource boundaries for applications in a physical server, and this caused resource allocation issues. For example, if multiple applications run on a physical server, there can be instances where one application would take up most of the resources, and as a result, the other applications would underperform. A solution for this would be to run each application on a different physical server. But this did not scale as resources were underutilized, and it was expensive for organizations to maintain many physical servers.
+Early on, organizations ran applications on physical servers. There was no way to define
+resource boundaries for applications in a physical server, and this caused resource
+allocation issues. For example, if multiple applications run on a physical server, there
+can be instances where one application would take up most of the resources, and as a result,
+the other applications would underperform. A solution for this would be to run each application
+on a different physical server. But this did not scale as resources were underutilized, and it
+was expensive for organizations to maintain many physical servers.
 -->
 **传统部署时代：**
 
@@ -70,11 +83,14 @@ Early on, organizations ran applications on physical servers. There was no way t
 例如，如果在同一台物理服务器上运行多个应用程序，
 则可能会出现一个应用程序占用大部分资源的情况，而导致其他应用程序的性能下降。
 一种解决方案是将每个应用程序都运行在不同的物理服务器上，
-但是当某个应用程式资源利用率不高时，剩余资源无法被分配给其他应用程式，
+但是当某个应用程序资源利用率不高时，剩余资源无法被分配给其他应用程序，
 而且维护许多物理服务器的成本很高。
 
 <!--
-**Virtualized deployment era:**  As a solution, virtualization was introduced. It allows you to run multiple Virtual Machines (VMs) on a single physical server's CPU. Virtualization allows applications to be isolated between VMs and provides a level of security as the information of one application cannot be freely accessed by another application.
+**Virtualized deployment era:** As a solution, virtualization was introduced. It allows you
+to run multiple Virtual Machines (VMs) on a single physical server's CPU. Virtualization
+allows applications to be isolated between VMs and provides a level of security as the
+information of one application cannot be freely accessed by another application.
 -->
 **虚拟化部署时代：**
 
@@ -83,9 +99,13 @@ Early on, organizations ran applications on physical servers. There was no way t
 因为一个应用程序的信息不能被另一应用程序随意访问。
 
 <!--
-Virtualization allows better utilization of resources in a physical server and allows better scalability because an application can be added or updated easily, reduces hardware costs, and much more. With virtualization you can present a set of physical resources as a cluster of disposable virtual machines.
+Virtualization allows better utilization of resources in a physical server and allows
+better scalability because an application can be added or updated easily, reduces
+hardware costs, and much more. With virtualization you can present a set of physical
+resources as a cluster of disposable virtual machines.
 
-Each VM is a full machine running all the components, including its own operating system, on top of the virtualized hardware.
+Each VM is a full machine running all the components, including its own operating
+system, on top of the virtualized hardware.
 -->
 虚拟化技术能够更好地利用物理服务器的资源，并且因为可轻松地添加或更新应用程序，
 而因此可以具有更高的可扩缩性，以及降低硬件成本等等的好处。
@@ -94,7 +114,12 @@ Each VM is a full machine running all the components, including its own operatin
 每个 VM 是一台完整的计算机，在虚拟化硬件之上运行所有组件，包括其自己的操作系统。
 
 <!--
-**Container deployment era:** Containers are similar to VMs, but they have relaxed isolation properties to share the Operating System (OS) among the applications. Therefore, containers are considered lightweight. Similar to a VM, a container has its own filesystem, share of CPU, memory, process space, and more. As they are decoupled from the underlying infrastructure, they are portable across clouds and OS distributions.
+**Container deployment era:** Containers are similar to VMs, but they have relaxed
+isolation properties to share the Operating System (OS) among the applications.
+Therefore, containers are considered lightweight. Similar to a VM, a container
+has its own filesystem, share of CPU, memory, process space, and more. As they
+are decoupled from the underlying infrastructure, they are portable across clouds
+and OS distributions.
 -->
 **容器部署时代：**
 
@@ -108,14 +133,25 @@ Containers have become popular because they provide extra benefits, such as:
 容器因具有许多优势而变得流行起来，例如：
 
 <!--
-* Agile application creation and deployment: increased ease and efficiency of container image creation compared to VM image use.
-* Continuous development, integration, and deployment: provides for reliable and frequent container image build and deployment with quick and efficient rollbacks (due to image immutability).
-* Dev and Ops separation of concerns: create application container images at build/release time rather than deployment time, thereby decoupling applications from infrastructure.
-* Observability: not only surfaces OS-level information and metrics, but also application health and other signals.
-* Environmental consistency across development, testing, and production: Runs the same on a laptop as it does in the cloud.
-* Cloud and OS distribution portability: Runs on Ubuntu, RHEL, CoreOS, on-premises, on major public clouds, and anywhere else.
-* Application-centric management: Raises the level of abstraction from running an OS on virtual hardware to running an application on an OS using logical resources.
-* Loosely coupled, distributed, elastic, liberated micro-services: applications are broken into smaller, independent pieces and can be deployed and managed dynamically – not a monolithic stack running on one big single-purpose machine.
+* Agile application creation and deployment: increased ease and efficiency of
+  container image creation compared to VM image use.
+* Continuous development, integration, and deployment: provides for reliable
+  and frequent container image build and deployment with quick and efficient
+  rollbacks (due to image immutability).
+* Dev and Ops separation of concerns: create application container images at
+  build/release time rather than deployment time, thereby decoupling
+  applications from infrastructure.
+* Observability: not only surfaces OS-level information and metrics, but also
+  application health and other signals.
+* Environmental consistency across development, testing, and production: runs
+  the same on a laptop as it does in the cloud.
+* Cloud and OS distribution portability: runs on Ubuntu, RHEL, CoreOS, on-premises,
+  on major public clouds, and anywhere else.
+* Application-centric management: raises the level of abstraction from running an
+  OS on virtual hardware to running an application on an OS using logical resources.
+* Loosely coupled, distributed, elastic, liberated micro-services: applications are
+  broken into smaller, independent pieces and can be deployed and managed dynamically –
+  not a monolithic stack running on one big single-purpose machine.
 * Resource isolation: predictable application performance.
 * Resource utilization: high efficiency and density.
 -->
@@ -140,7 +176,10 @@ Containers have become popular because they provide extra benefits, such as:
 ## 为什么需要 Kubernetes，它能做什么？   {#why-you-need-kubernetes-and-what-can-it-do}
 
 <!--
-Containers are a good way to bundle and run your applications. In a production environment, you need to manage the containers that run the applications and ensure that there is no downtime. For example, if a container goes down, another container needs to start. Wouldn't it be easier if this behavior was handled by a system?
+Containers are a good way to bundle and run your applications. In a production
+environment, you need to manage the containers that run the applications and
+ensure that there is no downtime. For example, if a container goes down, another
+container needs to start. Wouldn't it be easier if this behavior was handled by a system?
 -->
 容器是打包和运行应用程序的好方式。在生产环境中，
 你需要管理运行着应用程序的容器，并确保服务不会下线。
@@ -148,7 +187,10 @@ Containers are a good way to bundle and run your applications. In a production e
 如果此行为交由给系统处理，是不是会更容易一些？
 
 <!--
-That's how Kubernetes comes to the rescue! Kubernetes provides you with a framework to run distributed systems resiliently. It takes care of scaling and failover for your application, provides deployment patterns, and more. For example: Kubernetes can easily manage a canary deployment for your system.
+That's how Kubernetes comes to the rescue! Kubernetes provides you with a framework
+to run distributed systems resiliently. It takes care of scaling and failover for
+your application, provides deployment patterns, and more. For example: Kubernetes
+can easily manage a canary deployment for your system.
 -->
 这就是 Kubernetes 要来做的事情！
 Kubernetes 为你提供了一个可弹性运行分布式系统的框架。
@@ -162,7 +204,9 @@ Kubernetes 为你提供：
 
 <!--
 * **Service discovery and load balancing**
-Kubernetes can expose a container using the DNS name or using their own IP address. If traffic to a container is high, Kubernetes is able to load balance and distribute the network traffic so that the deployment is stable.
+  Kubernetes can expose a container using the DNS name or using their own IP address.
+  If traffic to a container is high, Kubernetes is able to load balance and distribute
+  the network traffic so that the deployment is stable.
 -->
 * **服务发现和负载均衡**
 
@@ -172,7 +216,8 @@ Kubernetes can expose a container using the DNS name or using their own IP addre
 
 <!--
 * **Storage orchestration**
-Kubernetes allows you to automatically mount a storage system of your choice, such as local storages, public cloud providers, and more.
+  Kubernetes allows you to automatically mount a storage system of your choice, such as
+  local storages, public cloud providers, and more.
 -->
 * **存储编排**
 
@@ -180,7 +225,10 @@ Kubernetes allows you to automatically mount a storage system of your choice, su
 
 <!--
 * **Automated rollouts and rollbacks**
-You can describe the desired state for your deployed containers using Kubernetes, and it can change the actual state to the desired state at a controlled rate. For example, you can automate Kubernetes to create new containers for your deployment, remove existing containers and adopt all their resources to the new container.
+  You can describe the desired state for your deployed containers using Kubernetes,
+  and it can change the actual state to the desired state at a controlled rate.
+  For example, you can automate Kubernetes to create new containers for your
+  deployment, remove existing containers and adopt all their resources to the new container.
 -->
 * **自动部署和回滚**
 
@@ -191,7 +239,9 @@ You can describe the desired state for your deployed containers using Kubernetes
 
 <!--
 * **Automatic bin packing**
-You provide Kubernetes with a cluster of nodes that it can use to run containerized tasks. You tell Kubernetes how much CPU and memory (RAM) each container needs. Kubernetes can fit containers onto your nodes to make the best use of your resources.
+  You provide Kubernetes with a cluster of nodes that it can use to run containerized tasks.
+  You tell Kubernetes how much CPU and memory (RAM) each container needs. Kubernetes can fit
+  containers onto your nodes to make the best use of your resources.
 -->
 * **自动完成装箱计算**
 
@@ -201,7 +251,9 @@ You provide Kubernetes with a cluster of nodes that it can use to run containeri
 
 <!--
 * **Self-healing**
-Kubernetes restarts containers that fail, replaces containers, kills containers that don't respond to your user-defined health check, and doesn't advertise them to clients until they are ready to serve.
+  Kubernetes restarts containers that fail, replaces containers, kills containers that don't
+  respond to your user-defined health check, and doesn't advertise them to clients until they
+  are ready to serve.
 -->
 * **自我修复**
 
@@ -210,11 +262,13 @@ Kubernetes restarts containers that fail, replaces containers, kills containers 
 
 <!--
 * **Secret and configuration management**
-Kubernetes lets you store and manage sensitive information, such as passwords, OAuth tokens, and SSH keys. You can deploy and update secrets and application configuration without rebuilding your container images, and without exposing secrets in your stack configuration.
+  Kubernetes lets you store and manage sensitive information, such as passwords, OAuth tokens,
+  and SSH keys. You can deploy and update secrets and application configuration without
+  rebuilding your container images, and without exposing secrets in your stack configuration.
 -->
 * **密钥与配置管理**
 
-  Kubernetes 允许你存储和管理敏感信息，例如密码、OAuth 令牌和 ssh 密钥。
+  Kubernetes 允许你存储和管理敏感信息，例如密码、OAuth 令牌和 SSH 密钥。
   你可以在不重建容器镜像的情况下部署和更新密钥和应用程序配置，也无需在堆栈配置中暴露密钥。
 
 <!--
@@ -223,7 +277,13 @@ Kubernetes lets you store and manage sensitive information, such as passwords, O
 ## Kubernetes 不是什么   {#what-kubernetes-is-not}
 
 <!--
-Kubernetes is not a traditional, all-inclusive PaaS (Platform as a Service) system. Since Kubernetes operates at the container level rather than at the hardware level, it provides some generally applicable features common to PaaS offerings, such as deployment, scaling, load balancing, and lets users integrate their logging, monitoring, and alerting solutions. However, Kubernetes is not monolithic, and these default solutions are optional and pluggable. Kubernetes provides the building blocks for building developer platforms, but preserves user choice and flexibility where it is important.
+Kubernetes is not a traditional, all-inclusive PaaS (Platform as a Service) system.
+Since Kubernetes operates at the container level rather than at the hardware level,
+it provides some generally applicable features common to PaaS offerings, such as
+deployment, scaling, load balancing, and lets users integrate their logging, monitoring,
+and alerting solutions. However, Kubernetes is not monolithic, and these default solutions
+are optional and pluggable. Kubernetes provides the building blocks for building developer
+platforms, but preserves user choice and flexibility where it is important.
 -->
 Kubernetes 不是传统的、包罗万象的 PaaS（平台即服务）系统。
 由于 Kubernetes 是在容器级别运行，而非在硬件级别，它提供了 PaaS 产品共有的一些普遍适用的功能，
@@ -237,9 +297,17 @@ Kubernetes:
 Kubernetes：
 
 <!--
-* Does not limit the types of applications supported. Kubernetes aims to support an extremely diverse variety of workloads, including stateless, stateful, and data-processing workloads. If an application can run in a container, it should run great on Kubernetes.
-* Does not deploy source code and does not build your application. Continuous Integration, Delivery, and Deployment (CI/CD) workflows are determined by organization cultures and preferences as well as technical requirements.
-* Does not provide application-level services, such as middleware (for example, message buses), data-processing frameworks (for example, Spark), databases (for example, MySQL), caches, nor cluster storage systems (for example, Ceph) as built-in services. Such components can run on Kubernetes, and/or can be accessed by applications running on Kubernetes through portable mechanisms, such as the [Open Service Broker](https://openservicebrokerapi.org/).
+* Does not limit the types of applications supported. Kubernetes aims to support an
+  extremely diverse variety of workloads, including stateless, stateful, and data-processing
+  workloads. If an application can run in a container, it should run great on Kubernetes.
+* Does not deploy source code and does not build your application. Continuous Integration,
+  Delivery, and Deployment (CI/CD) workflows are determined by organization cultures and
+  preferences as well as technical requirements.
+* Does not provide application-level services, such as middleware (for example, message buses),
+  data-processing frameworks (for example, Spark), databases (for example, MySQL), caches, nor
+  cluster storage systems (for example, Ceph) as built-in services. Such components can run on
+  Kubernetes, and/or can be accessed by applications running on Kubernetes through portable
+  mechanisms, such as the [Open Service Broker](https://openservicebrokerapi.org/).
 -->
 * 不限制支持的应用程序类型。
   Kubernetes 旨在支持极其多种多样的工作负载，包括无状态、有状态和数据处理工作负载。
@@ -251,10 +319,18 @@ Kubernetes：
   （例如 Ceph）。这样的组件可以在 Kubernetes 上运行，并且/或者可以由运行在
   Kubernetes 上的应用程序通过可移植机制（例如[开放服务代理](https://openservicebrokerapi.org/)）来访问。
 <!--
-* Does not dictate logging, monitoring, or alerting solutions. It provides some integrations as proof of concept, and mechanisms to collect and export metrics.
-* Does not provide nor mandate a configuration language/system (for example, Jsonnet). It provides a declarative API that may be targeted by arbitrary forms of declarative specifications.
-* Does not provide nor adopt any comprehensive machine configuration, maintenance, management, or self-healing systems.
-* Additionally, Kubernetes is not a mere orchestration system. In fact, it eliminates the need for orchestration. The technical definition of orchestration is execution of a defined workflow: first do A, then B, then C. In contrast, Kubernetes comprises a set of independent, composable control processes that continuously drive the current state towards the provided desired state. It shouldn't matter how you get from A to C. Centralized control is also not required. This results in a system that is easier to use and more powerful, robust, resilient, and extensible.
+* Does not dictate logging, monitoring, or alerting solutions. It provides some integrations
+  as proof of concept, and mechanisms to collect and export metrics.
+* Does not provide nor mandate a configuration language/system (for example, Jsonnet). It provides
+  a declarative API that may be targeted by arbitrary forms of declarative specifications.
+* Does not provide nor adopt any comprehensive machine configuration, maintenance, management,
+  or self-healing systems.
+* Additionally, Kubernetes is not a mere orchestration system. In fact, it eliminates the need
+  for orchestration. The technical definition of orchestration is execution of a defined workflow:
+  first do A, then B, then C. In contrast, Kubernetes comprises a set of independent, composable
+  control processes that continuously drive the current state towards the provided desired state.
+  It shouldn't matter how you get from A to C. Centralized control is also not required. This
+  results in a system that is easier to use and more powerful, robust, resilient, and extensible.
 -->
 * 不是日志记录、监视或警报的解决方案。
   它集成了一些功能作为概念证明，并提供了收集和导出指标的机制。
@@ -263,7 +339,7 @@ Kubernetes：
 * 不提供也不采用任何全面的机器配置、维护、管理或自我修复系统。
 * 此外，Kubernetes 不仅仅是一个编排系统，实际上它消除了编排的需要。
   编排的技术定义是执行已定义的工作流程：首先执行 A，然后执行 B，再执行 C。
-  而 Kubernetes 包含了一组独立可组合的控制过程，可以连续地将当前状态驱动到所提供的预期状态。
+  而 Kubernetes 包含了一组独立可组合的控制过程，可以持续地将当前状态驱动到所提供的预期状态。
   你不需要在乎如何从 A 移动到 C，也不需要集中控制，这使得系统更易于使用且功能更强大、
   系统更健壮，更为弹性和可扩展。
 

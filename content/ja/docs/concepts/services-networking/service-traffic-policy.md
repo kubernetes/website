@@ -1,7 +1,7 @@
 ---
 title: サービス内部トラフィックポリシー
 content_type: concept
-weight: 45
+weight: 120
 ---
 
 

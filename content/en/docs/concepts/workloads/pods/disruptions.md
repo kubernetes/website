@@ -136,6 +136,11 @@ against the disruption budget, but workload resources (such as Deployment and St
 are not limited by PDBs when doing rolling upgrades. Instead, the handling of failures
 during application updates is configured in the spec for the specific workload resource.
 
+It is recommended to set `AlwaysAllow` [Unhealthy Pod Eviction Policy](/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy)
+to your PodDisruptionBudgets to support eviction of misbehaving applications during a node drain.
+The default behavior is to wait for the application pods to become [healthy](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)
+before the drain can proceed.
+
 When a pod is evicted using the eviction API, it is gracefully
 [terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination), honoring the
 `terminationGracePeriodSeconds` setting in its [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
@@ -229,12 +234,12 @@ can happen, according to:
 
 ## Pod disruption conditions {#pod-disruption-conditions}
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
 
 {{< note >}}
-In order to use this behavior, you must enable the `PodDisruptionConditions`
+In order to use this behavior, you must have the `PodDisruptionConditions`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-in your cluster.
+enabled in your cluster.
 {{< /note >}}
 
 When enabled, a dedicated Pod `DisruptionTarget` [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions) is added to indicate
@@ -242,7 +247,7 @@ that the Pod is about to be deleted due to a {{<glossary_tooltip term_id="disrup
 The `reason` field of the condition additionally
 indicates one of the following reasons for the Pod termination:
 
-`PreemptionByKubeScheduler`
+`PreemptionByScheduler`
 : Pod is due to be {{<glossary_tooltip term_id="preemption" text="preempted">}} by a scheduler in order to accommodate a new Pod with a higher priority. For more information, see [Pod priority preemption](/docs/concepts/scheduling-eviction/pod-priority-preemption/).
 
 `DeletionByTaintManager`
@@ -254,6 +259,9 @@ indicates one of the following reasons for the Pod termination:
 `DeletionByPodGC`
 : Pod, that is bound to a no longer existing Node, is due to be deleted by [Pod garbage collection](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection).
 
+`TerminationByKubelet`
+: Pod has been terminated by the kubelet, because of either {{<glossary_tooltip term_id="node-pressure-eviction" text="node pressure eviction">}} or the [graceful node shutdown](/docs/concepts/architecture/nodes/#graceful-node-shutdown).
+
 {{< note >}}
 A Pod disruption might be interrupted. The control plane might re-attempt to
 continue the disruption of the same Pod, but it is not guaranteed. As a result,
@@ -261,6 +269,10 @@ the `DisruptionTarget` condition might be added to a Pod, but that Pod might the
 deleted. In such a situation, after some time, the
 Pod disruption condition will be cleared.
 {{< /note >}}
+
+When the `PodDisruptionConditions` feature gate is enabled,
+along with cleaning up the pods, the Pod garbage collector (PodGC) will also mark them as failed if they are in a non-terminal
+phase (see also [Pod garbage collection](/docs/concepts/workloads/pods/pod-lifecycle/#pod-garbage-collection)).
 
 When using a Job (or CronJob), you may want to use these Pod disruption conditions as part of your Job's
 [Pod failure policy](/docs/concepts/workloads/controllers/job#pod-failure-policy).

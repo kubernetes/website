@@ -69,7 +69,7 @@ Andy 是 Kubernetes 中国社区的活跃成员。
 ## [Shiming Zhang](https://github.com/wzshiming)
 
 <!--
-Shiming Zhang is a Software Engineer working on Kubernetes for DaoCloud in Shanghai, China. 
+Shiming Zhang is a Software Engineer working on Kubernetes for DaoCloud in Shanghai, China.
 
 He has mostly been involved with SIG Node as a reviewer. His major contributions have mainly been bug fixes and feature improvements in an ongoing [KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-node/2712-pod-priority-based-graceful-node-shutdown), all revolving around SIG Node.
 
@@ -128,11 +128,11 @@ Jintao Zhang 目前受聘于 API7，他专注于 Ingress 和服务网格。
 在为 Kubernetes 做贡献之前，Jintao 是 Docker 相关开源项目的长期贡献者。
 
 <!--
-Currently Jintao is a reviewer for the [ingress-nginx](https://kubernetes.github.io/ingress-nginx/) project.
+Currently Jintao is a maintainer for the [ingress-nginx](https://kubernetes.github.io/ingress-nginx/) project.
 
 He suggests keeping track of job opportunities at open source companies so that you can find one that allows you to contribute full time. For new contributors Jintao says that if anyone wants to make a significant contribution to an open source project, then they should choose the project based on their interests and should generously invest time.
 -->
-目前 Jintao 是 [ingress-nginx](https://kubernetes.github.io/ingress-nginx/) 项目的 Reviewer。
+目前 Jintao 是 [ingress-nginx](https://kubernetes.github.io/ingress-nginx/) 项目的 Maintainer。
 
 他建议关注开源公司的工作机会，这样你就可以找到一个可以让你全职贡献的机会。
 对于新的贡献者们，Jintao 表示如果有人想为一个开源项目做重大贡献，

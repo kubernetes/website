@@ -94,7 +94,7 @@ spec:
 Comme pour toutes les autres ressources Kubernetes, un Ingress (une entrée) a besoin des champs `apiVersion`, `kind` et `metadata`.
  Pour des informations générales sur l'utilisation des fichiers de configuration, voir [déployer des applications](/docs/tasks/run-application/run-stateless-application-deployment/), [configurer des conteneurs](/docs/tasks/configure-pod-container/configure-pod-configmap/), [gestion des ressources](/docs/concepts/cluster-administration/manage-deployment/).
  Ingress utilise fréquemment des annotations pour configurer certaines options en fonction du contrôleur Ingress, dont un exemple
- est l'annotation [rewrite-target](https://github.com/kubernetes/ingress-nginx/blob/master/docs/examples/rewrite/README.md).
+ est l'annotation [rewrite-target](https://github.com/kubernetes/ingress-nginx/blob/main/docs/examples/rewrite/README.md).
  Différents [Ingress controller](/docs/concepts/services-networking/ingress-controllers) prennent en charge différentes annotations. Consultez la documentation du contrôleur Ingress de votre choix pour savoir quelles annotations sont prises en charge.
 
 La [spécification de la ressource Ingress](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#spec-and-status) dispose de toutes les informations nécessaires pour configurer un loadbalancer ou un serveur proxy. Plus important encore, il

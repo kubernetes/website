@@ -37,6 +37,23 @@ to others, please don't hesitate to file an issue or submit a PR.
 
 - Put object descriptions in annotations, to allow better introspection.
 
+{{< note >}}
+There is a breaking change introduced in the [YAML 1.2](https://yaml.org/spec/1.2.0/#id2602744)
+boolean values specification with respect to [YAML 1.1](https://yaml.org/spec/1.1/#id864510).
+This is a known [issue](https://github.com/kubernetes/kubernetes/issues/34146) in Kubernetes.
+YAML 1.2 only recognizes **true** and **false** as valid booleans, while YAML 1.1 also accepts
+**yes**, **no**, **on**, and  **off** as booleans. However, Kubernetes uses YAML
+[parsers](https://github.com/kubernetes/kubernetes/issues/34146#issuecomment-252692024) that are
+mostly compatible with YAML 1.1, which means that using **yes** or **no** instead of **true** or
+**false** in a YAML manifest may cause unexpected errors or behaviors. To avoid this issue, it is
+recommended to always use **true** or **false** for boolean values in YAML manifests, and to quote
+any strings that may be confused with booleans, such as **"yes"** or **"no"**.
+
+Besides booleans, there are additional specifications changes between YAML versions. Please refer
+to the [YAML Specification Changes](https://spec.yaml.io/main/spec/1.2.2/ext/changes) documentation
+for a comprehensive list.
+{{< /note >}}
+
 ## "Naked" Pods versus ReplicaSets, Deployments, and Jobs {#naked-pods-vs-replicasets-deployments-and-jobs}
 
 - Don't use naked Pods (that is, Pods not bound to a [ReplicaSet](/docs/concepts/workloads/controllers/replicaset/) or
@@ -102,13 +119,13 @@ to others, please don't hesitate to file an issue or submit a PR.
   See the [guestbook](https://github.com/kubernetes/examples/tree/master/guestbook/) app
   for examples of this approach.
 
-A Service can be made to span multiple Deployments by omitting release-specific labels from its
-selector. When you need to update a running service without downtime, use a
-[Deployment](/docs/concepts/workloads/controllers/deployment/).
+  A Service can be made to span multiple Deployments by omitting release-specific labels from its
+  selector. When you need to update a running service without downtime, use a
+  [Deployment](/docs/concepts/workloads/controllers/deployment/).
 
-A desired state of an object is described by a Deployment, and if changes to that spec are
-_applied_, the deployment controller changes the actual state to the desired state at a controlled
-rate.
+  A desired state of an object is described by a Deployment, and if changes to that spec are
+  _applied_, the deployment controller changes the actual state to the desired state at a controlled
+  rate.
 
 - Use the [Kubernetes common labels](/docs/concepts/overview/working-with-objects/common-labels/)
   for common use cases. These standardized labels enrich the metadata in a way that allows tools,
@@ -135,4 +152,3 @@ rate.
   Deployments and Services.
   See [Use a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/)
   for an example.
-

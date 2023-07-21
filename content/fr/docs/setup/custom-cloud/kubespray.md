@@ -38,7 +38,7 @@ Les serveurs doivent être installés en s'assurant des éléments suivants:
 * Les serveurs cibles doivent avoir **accès à Internet** afin de télécharger les images Docker. Autrement, une configuration supplémentaire est nécessaire, (se référer à [Offline Environment](https://github.com/kubernetes-sigs/kubespray/blob/master/docs/downloads.md#offline-environment))
 * Les serveurs cibles doivent être configurés afin d'autoriser le transfert IPv4 (**IPv4 forwarding**)
 * **Votre clé ssh doit être copiée** sur tous les serveurs faisant partie de votre inventaire Ansible.
-* La configuration du **pare-feu n'est pas gérée**. Vous devrez vous en charger en utilisant votre méthode habituelle. Afin d'éviter tout problème pendant l'installation nous vous conseillons de le désacttiver.
+* La configuration du **pare-feu n'est pas gérée**. Vous devrez vous en charger en utilisant votre méthode habituelle. Afin d'éviter tout problème pendant l'installation nous vous conseillons de le désactiver.
 * Si Kubespray est exécuté avec un utilisateur autre que "root", une méthode d'autorisation appropriée devra être configurée sur les serveurs cibles (exemple: sudo). Il faudra aussi utiliser le paramètre `ansible_become` ou ajouter `--become` ou `b` à la ligne de commande.
 
 Afin de vous aider à préparer votre de votre environnement, Kubespray fournit les outils suivants:

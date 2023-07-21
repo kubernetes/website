@@ -57,7 +57,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">HostProcess</td>
 			<td>
-				<p>Windows pods offer the ability to run <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess containers</a> which enables privileged access to the Windows node. Privileged access to the host is disallowed in the baseline policy. {{< feature-state for_k8s_version="v1.23" state="beta" >}}</p>
+				<p>Windows pods offer the ability to run <a href="/docs/tasks/configure-pod-container/create-hostprocess-pod">HostProcess containers</a> which enables privileged access to the Windows node. Privileged access to the host is disallowed in the baseline policy. {{< feature-state for_k8s_version="v1.26" state="stable" >}}</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.securityContext.windowsOptions.hostProcess</code></li>
@@ -152,7 +152,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">Host Ports</td>
 			<td>
-				<p>HostPorts should be disallowed, or at minimum restricted to a known list.</p>
+				<p>HostPorts should be disallowed entirely (recommended) or restricted to a known list</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.containers[*].ports[*].hostPort</code></li>
@@ -162,7 +162,7 @@ fail validation.
 				<p><strong>Allowed Values</strong></p>
 				<ul>
 					<li>Undefined/nil</li>
-					<li>Known list</li>
+					<li>Known list (not supported by the built-in <a href="/docs/concepts/security/pod-security-admission/">Pod Security Admission controller</a>)</li>
 					<li><code>0</code></li>
 				</ul>
 			</td>
@@ -326,7 +326,7 @@ fail validation.
 		<tr>
 			<td style="white-space: nowrap">Privilege Escalation (v1.8+)</td>
 			<td>
-				<p>Privilege escalation (such as via set-user-ID or set-group-ID file mode) should not be allowed. <em><a href="#policies-specific-to-linux">This is Linux only policy</a> in v1.25+ <code>(spec.os.name != windows)</code></em></p>
+				<p>Privilege escalation (such as via set-user-ID or set-group-ID file mode) should not be allowed. <em><a href="#os-specific-policy-controls">This is Linux only policy</a> in v1.25+ <code>(spec.os.name != windows)</code></em></p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.containers[*].securityContext.allowPrivilegeEscalation</code></li>
@@ -367,7 +367,7 @@ fail validation.
 				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.securityContext.runAsUser</code></li>
-					<li><code>spec.containers[*].securityContext.runAsUser</code></li>
+				    <li><code>spec.containers[*].securityContext.runAsUser</code></li>
 					<li><code>spec.initContainers[*].securityContext.runAsUser</code></li>
 					<li><code>spec.ephemeralContainers[*].securityContext.runAsUser</code></li>
 				</ul>
@@ -381,7 +381,7 @@ fail validation.
 		<tr>
   			<td style="white-space: nowrap">Seccomp (v1.19+)</td>
   			<td>
-  				<p>Seccomp profile must be explicitly set to one of the allowed values. Both the <code>Unconfined</code> profile and the <em>absence</em> of a profile are prohibited. <em><a href="#policies-specific-to-linux">This is Linux only policy</a> in v1.25+ <code>(spec.os.name != windows)</code></em></p>
+  				<p>Seccomp profile must be explicitly set to one of the allowed values. Both the <code>Unconfined</code> profile and the <em>absence</em> of a profile are prohibited. <em><a href="#os-specific-policy-controls">This is Linux only policy</a> in v1.25+ <code>(spec.os.name != windows)</code></em></p>
   				<p><strong>Restricted Fields</strong></p>
 				<ul>
 					<li><code>spec.securityContext.seccompProfile.type</code></li>
@@ -407,7 +407,7 @@ fail validation.
 			<td>
 				<p>
 					Containers must drop <code>ALL</code> capabilities, and are only permitted to add back
- 					the <code>NET_BIND_SERVICE</code> capability. <em><a href="#policies-specific-to-linux">This is Linux only policy</a> in v1.25+ <code>(.spec.os.name != "windows")</code></em>
+ 					the <code>NET_BIND_SERVICE</code> capability. <em><a href="#os-specific-policy-controls">This is Linux only policy</a> in v1.25+ <code>(.spec.os.name != "windows")</code></em>
 				</p>
 				<p><strong>Restricted Fields</strong></p>
 				<ul>

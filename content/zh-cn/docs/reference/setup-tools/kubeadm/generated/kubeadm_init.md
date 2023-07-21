@@ -27,7 +27,7 @@ Run this command in order to set up the Kubernetes control plane
 运行此命令来搭建 Kubernetes 控制平面节点。
 
 <!--
-The "init" command executes the following phases: 
+The "init" command executes the following phases:
 -->
 
 "init" 命令执行以下阶段：
@@ -69,6 +69,7 @@ kubelet-finalize             Updates settings relevant to the kubelet after TLS 
 addon                        Install required addons for passing Conformance tests
   /coredns                     Install the CoreDNS addon to a Kubernetes cluster
   /kube-proxy                  Install the kube-proxy addon to a Kubernetes cluster
+show-join-command            Show the join command for control-plane and worker node
 ```
 
 ```
@@ -219,7 +220,7 @@ Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this
 Don't apply any changes; just output what would be done.
 -->
 <p>
-不要应用任何更改；只是输出将要执行的操作。
+不做任何更改；只输出将要执行的操作。
 </p>
 </td>
 </tr>
@@ -230,12 +231,12 @@ Don't apply any changes; just output what would be done.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for various features. Options are:<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>UnversionedKubeletConfigMap=true|false (default=true)
+A set of key=value pairs that describe feature gates for various features. Options are:<br/>EtcdLearnerMode=true|false (ALPHA - default=false)<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)
 -->
 一组用来描述各种功能特性的键值（key=value）对。选项是：
+<br/>EtcdLearnerMode=true|false (ALPHA - 默认值=false)
 <br/>PublicKeysECDSA=true|false (ALPHA - 默认值=false)
 <br/>RootlessControlPlane=true|false (ALPHA - 默认值=false)
-<br/>UnversionedKubeletConfigMap=true|false (默认值=true)
 </td>
 </tr>
 

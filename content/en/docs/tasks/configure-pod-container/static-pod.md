@@ -2,7 +2,7 @@
 reviewers:
 - jsafrane
 title: Create static Pods
-weight: 170
+weight: 220
 content_type: task
 ---
 
@@ -117,7 +117,7 @@ Similar to how [filesystem-hosted manifests](#configuration-files) work, the kub
 refetches the manifest on a schedule. If there are changes to the list of static
 Pods, the kubelet applies them.
 
-To use this approach: 
+To use this approach:
 
 1. Create a YAML file and store it on a web server so that you can pass the URL of that file to the kubelet.
 
@@ -225,6 +225,18 @@ crictl ps
 CONTAINER       IMAGE                                 CREATED           STATE      NAME    ATTEMPT    POD ID
 89db4553e1eeb   docker.io/library/nginx@sha256:...    19 seconds ago    Running    web     1          34533c6729106
 ```
+Once you identify the right container, you can get the logs for that container with `crictl`:
+
+```shell
+# Run these commands on the node where the container is running
+crictl logs <container_id>
+```
+```console
+10.240.0.48 - - [16/Nov/2022:12:45:49 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.47.0" "-"
+10.240.0.48 - - [16/Nov/2022:12:45:50 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.47.0" "-"
+10.240.0.48 - - [16/Nove/2022:12:45:51 +0000] "GET / HTTP/1.1" 200 612 "-" "curl/7.47.0" "-"
+```
+To find more about how to debug using `crictl`, please visit [_Debugging Kubernetes nodes with crictl_](https://kubernetes.io/docs/tasks/debug/debug-cluster/crictl/)
 
 ## Dynamic addition and removal of static pods
 
@@ -232,7 +244,7 @@ The running kubelet periodically scans the configured directory (`/etc/kubernete
 
 ```shell
 # This assumes you are using filesystem-hosted static Pod configuration
-# Run these commands on the node where the kubelet is running
+# Run these commands on the node where the container is running
 #
 mv /etc/kubernetes/manifests/static-web.yaml /tmp
 sleep 20
@@ -246,3 +258,12 @@ crictl ps
 CONTAINER       IMAGE                                 CREATED           STATE      NAME    ATTEMPT    POD ID
 f427638871c35   docker.io/library/nginx@sha256:...    19 seconds ago    Running    web     1          34533c6729106
 ```
+## {{% heading "whatsnext" %}}
+
+* [Generate static Pod manifests for control plane components](/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifests-for-control-plane-components)
+* [Generate static Pod manifest for local etcd](/docs/reference/setup-tools/kubeadm/implementation-details/#generate-static-pod-manifest-for-local-etcd)
+* [Debugging Kubernetes nodes with `crictl`](/docs/tasks/debug/debug-cluster/crictl/)
+* [Learn more about `crictl`](https://github.com/kubernetes-sigs/cri-tools).
+* [Map `docker` CLI commands to `crictl`](/docs/reference/tools/map-crictl-dockercli/).
+* [Set up etcd instances as static pods managed by a kubelet](/docs/setup/production-environment/tools/kubeadm/setup-ha-etcd-with-kubeadm/)
+

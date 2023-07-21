@@ -41,9 +41,9 @@ spec:
       serviceAccountName: cloud-controller-manager
       containers:
       - name: cloud-controller-manager
-        # pour les fournisseurs in-tree, nous utilisons k8s.gcr.io/cloud-controller-manager
+        # pour les fournisseurs in-tree, nous utilisons registry.k8s.io/cloud-controller-manager
         # cela peut être remplacé par n'importe quelle autre image pour les fournisseurs out-of-tree
-        image: k8s.gcr.io/cloud-controller-manager:v1.8.0
+        image: registry.k8s.io/cloud-controller-manager:v1.8.0
         command:
         - /usr/local/bin/cloud-controller-manager
         - --cloud-provider=<YOUR_CLOUD_PROVIDER>   # Ajoutez votre propre fournisseur de cloud ici!

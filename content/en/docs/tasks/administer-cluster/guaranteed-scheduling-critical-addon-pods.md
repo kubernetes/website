@@ -5,6 +5,7 @@ reviewers:
 - piosz
 title: Guaranteed Scheduling For Critical Add-On Pods
 content_type: concept
+weight: 220
 ---
 
 <!-- overview -->
@@ -16,7 +17,7 @@ and becomes pending (for example when the cluster is highly utilized and either 
 vacated by the evicted critical add-on pod or the amount of resources available on the node changed for some other reason).
 
 Note that marking a pod as critical is not meant to prevent evictions entirely; it only prevents the pod from becoming permanently unavailable.
-A static pod marked as critical, can't be evicted. However, a non-static pods marked as critical are always rescheduled.
+A static pod marked as critical can't be evicted. However, non-static pods marked as critical are always rescheduled.
 
 <!-- body -->
 

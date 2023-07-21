@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      terminationGracePeriodSeconds: 120 # 非常に長い猶予期間
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        lifecycle:
+          preStop:
+            exec:
+              # 実際の活動終了はterminationGracePeriodSecondsまでかかる可能性がある。
+              # この例においては、少なくともterminationGracePeriodSecondsの間は待機し、
+              # 120秒経過すると、コンテナは強制的に終了される。
+              # この間ずっとnginxはリクエストを処理し続けていることに注意。
+              command: [
+                "/bin/sh", "-c", "sleep 180"
+              ]
