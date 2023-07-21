@@ -1083,13 +1083,13 @@ x-kubernetes-validations:
   fieldPath: ".x"
 ```
 
-The HTTP status code returned to the caller will match the reason of the reason of the first failed validation rule.
+The HTTP status code returned to the caller will match the reason of the first failed validation rule.
 The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate".
 If not set, default to use "FieldValueInvalid".
 
-For `fieldPath`, It must be a relative JSON path scoped to the location of this x-kubernetes-validations extension in the schema and refer to an existing field.
+The `fieldPath` value must be a relative JSON path that is scoped to the location of this x-kubernetes-validations extension in the schema. Additionally, it should refer to an existing field within the schema.
 For example when validation checks if a specific attribute `foo` under a map `testMap`, the fieldPath could be set to `".testMap.foo"` or `.tetsMap['foo']'`.  
-If the validation checks two lists must have unique attributes, the fieldPath could be set to either of the list: e.g. `.testList1` or `.testList2`.
+If the validation requires checking for unique attributes in two lists, the fieldPath can be set to either of the lists. For example, it can be set to `.testList1` or `.testList2`.
 It supports child operation to refer to an existing field currently. Refer to [JSONPath support in Kubernetes](https://kubernetes.io/docs/reference/kubectl/jsonpath/) for more info.
 And it does not support numeric index of array.
 
