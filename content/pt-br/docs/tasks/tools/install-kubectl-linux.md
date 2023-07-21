@@ -61,7 +61,7 @@ Por exemplo, para fazer download da versão {{< skew currentPatchVersion >}} no 
 
    Se a verificação falhar, o `sha256` exibirá o status diferente de zero e a saída será semelhante a:
 
-   ```bash
+   ```console
    kubectl: FAILED
    sha256sum: WARNING: 1 computed checksum did NOT match
    ```
@@ -232,7 +232,7 @@ Abaixo estão os procedimentos para configurar o autocompletar para Bash, Fish e
 
    Se a verificação falhar, o `sha256` exibirá o status diferente de zero e a saída será semelhante a:
 
-   ```bash
+   ```console
    kubectl-convert: FAILED
    sha256sum: WARNING: 1 computed checksum did NOT match
    ```
