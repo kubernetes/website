@@ -2,6 +2,10 @@
 title: "kubectl 설치 검증하기"
 description: "kubectl을 검증하는 방법에 대해 설명한다."
 headless: true
+_build:
+  list: never
+  render: never
+  publishResources: false
 ---
 
 kubectl이 쿠버네티스 클러스터를 찾아 접근하려면,

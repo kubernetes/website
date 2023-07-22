@@ -2,6 +2,10 @@
 title: "PowerShell 자동 완성"
 description: "PowerShell 자동 완성을 위한 몇 가지 선택적 구성에 대해 설명한다."
 headless: true
+_build:
+  list: never
+  render: never
+  publishResources: false
 ---
 
 PowerShell용 kubectl 자동 완성 스크립트는 `kubectl completion powershell` 명령으로 생성할 수 있다.

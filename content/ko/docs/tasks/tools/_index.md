@@ -23,7 +23,7 @@ no_list: true
 
 ## kind
 
-[kind](https://kind.sigs.k8s.io/docs/)를 사용하면 로컬 컴퓨터에서
+[kind](https://kind.sigs.k8s.io/)를 사용하면 로컬 컴퓨터에서
 쿠버네티스를 실행할 수 있다. 이 도구를 사용하려면
 [도커](https://docs.docker.com/get-docker/)를 설치하고 구성해야 한다.
 

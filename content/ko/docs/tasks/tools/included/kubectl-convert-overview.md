@@ -4,6 +4,10 @@ description: >-
   특정 버전의 쿠버네티스 API로 작성된 매니페스트를 다른 버전으로 변환하는
   kubectl 플러그인.
 headless: true
+_build:
+  list: never
+  render: never
+  publishResources: false
 ---
 
 이것은 쿠버네티스 커맨드 라인 도구인 `kubectl`의 플러그인으로서, 특정 버전의 쿠버네티스 API로 작성된 매니페스트를 다른 버전으로

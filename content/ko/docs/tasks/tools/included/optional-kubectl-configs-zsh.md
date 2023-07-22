@@ -2,6 +2,10 @@
 title: "zsh 자동 완성"
 description: "zsh 자동 완성을 위한 몇 가지 선택적 구성에 대해 설명한다."
 headless: true
+_build:
+  list: never
+  render: never
+  publishResources: false
 ---
 
 Zsh용 kubectl 자동 완성 스크립트는 `kubectl completion zsh` 명령으로 생성할 수 있다. 셸에서 자동 완성 스크립트를 소싱하면 kubectl 자동 완성 기능이 활성화된다.
