@@ -96,7 +96,7 @@ operator to use or manage a cluster.
     * [v1](/docs/reference/config-api/kubelet-credentialprovider.v1/)
 * kube-scheduler configuration
     * [v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
-    * [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/) and
+    * [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
     * [v1](/docs/reference/config-api/kube-scheduler-config.v1/)
 * kube-controller-manager configuration
     * [1alpha1](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
