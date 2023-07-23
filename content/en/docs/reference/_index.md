@@ -102,7 +102,7 @@ operator to use or manage a cluster.
     * [1alpha1](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
 * kube-proxy configuration
     * [v1alpha1](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
-* `audit.k8s.io/v1` API
+* kube-apiserver audit configuration
     * [v1](/docs/reference/config-api/apiserver-audit.v1/)
 * Client authentication API
     * [v1beta1](/docs/reference/config-api/client-authentication.v1beta1/) and
