@@ -74,29 +74,43 @@ by the API server in a RESTful way though they are essential for a user or an
 operator to use or manage a cluster.
 
 
-* [kubeconfig (v1)](/docs/reference/config-api/kubeconfig.v1/)
-* [kube-apiserver admission (v1)](/docs/reference/config-api/apiserver-admission.v1/)
-* [kube-apiserver configuration (v1alpha1)](/docs/reference/config-api/apiserver-config.v1alpha1/) and
-* [kube-apiserver configuration (v1beta1)](/docs/reference/config-api/apiserver-config.v1beta1/) and
-  [kube-apiserver configuration (v1)](/docs/reference/config-api/apiserver-config.v1/)
-* [kube-apiserver encryption (v1)](/docs/reference/config-api/apiserver-encryption.v1/)
-* [kube-apiserver event rate limit (v1alpha1)](/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
-* [kubelet configuration (v1alpha1)](/docs/reference/config-api/kubelet-config.v1alpha1/) and
-  [kubelet configuration (v1beta1)](/docs/reference/config-api/kubelet-config.v1beta1/)
-  [kubelet configuration (v1)](/docs/reference/config-api/kubelet-config.v1/)
-* [kubelet credential providers (v1alpha1)](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/),
-  [kubelet credential providers (v1beta1)](/docs/reference/config-api/kubelet-credentialprovider.v1beta1/) and
-  [kubelet credential providers (v1)](/docs/reference/config-api/kubelet-credentialprovider.v1/)
-* [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/),
-  [kube-scheduler configuration (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) and
-  [kube-scheduler configuration (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
-* [kube-controller-manager configuration (v1alpha1)](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
-* [kube-proxy configuration (v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
-* [`audit.k8s.io/v1` API](/docs/reference/config-api/apiserver-audit.v1/)
-* [Client authentication API (v1beta1)](/docs/reference/config-api/client-authentication.v1beta1/) and 
-  [Client authentication API (v1)](/docs/reference/config-api/client-authentication.v1/)
-* [WebhookAdmission configuration (v1)](/docs/reference/config-api/apiserver-webhookadmission.v1/)
-* [ImagePolicy API (v1alpha1)](/docs/reference/config-api/imagepolicy.v1alpha1/)
+* kubeconfig
+    * [v1](/docs/reference/config-api/kubeconfig.v1/)
+* kube-apiserver admission
+    * [v1](/docs/reference/config-api/apiserver-admission.v1/)
+* kube-apiserver configuration
+    * [v1alpha1](/docs/reference/config-api/apiserver-config.v1alpha1/) 
+    * [v1beta1](/docs/reference/config-api/apiserver-config.v1beta1/) and
+    * [v1](/docs/reference/config-api/apiserver-config.v1/)
+* kube-apiserver encryption
+    * [v1](/docs/reference/config-api/apiserver-encryption.v1/)
+* kube-apiserver event rate limit
+    * [v1alpha1](/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
+* kubelet configuration   
+    * [v1alpha1](/docs/reference/config-api/kubelet-config.v1alpha1/)
+    * [v1beta1](/docs/reference/config-api/kubelet-config.v1beta1/) and
+    * [v1](/docs/reference/config-api/kubelet-config.v1/)
+* kubelet credential providers
+    * [v1alpha1](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/)
+    * [1beta1](/docs/reference/config-api/kubelet-credentialprovider.v1beta1/) and
+    * [v1](/docs/reference/config-api/kubelet-credentialprovider.v1/)
+* kube-scheduler configuration
+    * [v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
+    * [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/) and
+    * [v1](/docs/reference/config-api/kube-scheduler-config.v1/)
+* kube-controller-manager configuration
+    * [(1alpha1](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
+* kube-proxy configuration
+    * [v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
+* `audit.k8s.io/v1` API
+    * [v1](/docs/reference/config-api/apiserver-audit.v1/)
+* Client authentication API
+    * [v1beta1](/docs/reference/config-api/client-authentication.v1beta1/) and
+    * [v1](/docs/reference/config-api/client-authentication.v1/)
+* WebhookAdmission configuration
+    * [v1](/docs/reference/config-api/apiserver-webhookadmission.v1/)
+* ImagePolicy API
+* [v1alpha1](/docs/reference/config-api/imagepolicy.v1alpha1/)
 
 ## Config API for kubeadm
 
