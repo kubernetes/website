@@ -99,7 +99,7 @@ operator to use or manage a cluster.
     * [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/) and
     * [v1](/docs/reference/config-api/kube-scheduler-config.v1/)
 * kube-controller-manager configuration
-    * [(1alpha1](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
+    * [1alpha1](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
 * kube-proxy configuration
     * [v1alpha1)](/docs/reference/config-api/kube-proxy-config.v1alpha1/)
 * `audit.k8s.io/v1` API
