@@ -110,7 +110,7 @@ operator to use or manage a cluster.
 * WebhookAdmission configuration
     * [v1](/docs/reference/config-api/apiserver-webhookadmission.v1/)
 * ImagePolicy API
-* [v1alpha1](/docs/reference/config-api/imagepolicy.v1alpha1/)
+    * [v1alpha1](/docs/reference/config-api/imagepolicy.v1alpha1/)
 
 ## Config API for kubeadm
 
