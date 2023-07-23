@@ -1121,6 +1121,22 @@ This annotation is deprecated. You should use the
 annotation instead. Kubernetes versions 1.25 and newer ignore this annotation.
 {{< /note >}}
 
+### kubectl.kubernetes.io/last-applied-configuration
+
+Type: Annotation
+
+Example: _see following snippet_
+```yaml
+    kubectl.kubernetes.io/last-applied-configuration: >
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"example","namespace":"default"},"spec":{"selector":{"matchLabels":{"app.kubernetes.io/name":foo}},"template":{"metadata":{"labels":{"app.kubernetes.io/name":"foo"}},"spec":{"containers":[{"image":"container-registry.example/foo-bar:1.42","name":"foo-bar","ports":[{"containerPort":42}]}]}}}}
+```
+
+Used on: all objects
+
+The kubectl command line tool uses this annotation as a legacy mechanism
+to track changes. That mechanism has been superseded by
+[Server-side apply](/docs/reference/using-api/server-side-apply/).
+
 ### endpoints.kubernetes.io/over-capacity
 
 Type: Annotation
