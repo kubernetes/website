@@ -105,7 +105,7 @@ operator to use or manage a cluster.
 * kube-apiserver audit configuration
     * [v1](/docs/reference/config-api/apiserver-audit.v1/)
 * Client authentication API
-    * [v1beta1](/docs/reference/config-api/client-authentication.v1beta1/) and
+    * [v1beta1](/docs/reference/config-api/client-authentication.v1beta1/)
     * [v1](/docs/reference/config-api/client-authentication.v1/)
 * WebhookAdmission configuration
     * [v1](/docs/reference/config-api/apiserver-webhookadmission.v1/)
