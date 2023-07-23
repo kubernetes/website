@@ -5,7 +5,10 @@ reviewers:
 - janetkuo
 title: CronJob
 content_type: concept
+description: >-
+  A CronJob starts one-time Jobs on a repeating schedule.
 weight: 80
+hide_summary: true # Listed separately in section index
 ---
 
 <!-- overview -->
@@ -14,9 +17,9 @@ weight: 80
 
 A _CronJob_ creates {{< glossary_tooltip term_id="job" text="Jobs" >}} on a repeating schedule.
 
-CronJob is meant for performing regular scheduled actions such as backups, report generation, 
-and so on. One CronJob object is like one line of a _crontab_ (cron table) file on a 
-Unix system. It runs a job periodically on a given schedule, written in 
+CronJob is meant for performing regular scheduled actions such as backups, report generation,
+and so on. One CronJob object is like one line of a _crontab_ (cron table) file on a
+Unix system. It runs a job periodically on a given schedule, written in
 [Cron](https://en.wikipedia.org/wiki/Cron) format.
 
 CronJobs have limitations and idiosyncrasies.
@@ -162,19 +165,22 @@ For another way to clean up jobs automatically, see [Clean up finished jobs auto
 
 ### Time zones
 
-For CronJobs with no time zone specified, the {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}} interprets schedules relative to its local time zone.
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
-{{< feature-state for_k8s_version="v1.25" state="beta" >}}
+For CronJobs with no time zone specified, the {{< glossary_tooltip term_id="kube-controller-manager" text="kube-controller-manager" >}}
+interprets schedules relative to its local time zone.
 
-If you enable the  `CronJobTimeZone` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
-you can specify a time zone for a CronJob (if you don't enable that feature gate, or if you are using a version of
-Kubernetes that does not have experimental time zone support, all CronJobs in your cluster have an unspecified
-timezone).
+You can specify a time zone for a CronJob by setting `.spec.timeZone` to the name
+of a valid [time zone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+For example, setting `.spec.timeZone: "Etc/UTC"` instructs Kubernetes to interpret
+the schedule relative to Coordinated Universal Time.
 
-When you have the feature enabled, you can set `.spec.timeZone` to the name of a valid [time zone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). For example, setting
-`.spec.timeZone: "Etc/UTC"` instructs Kubernetes to interpret the schedule relative to Coordinated Universal Time.
+A time zone database from the Go standard library is included in the binaries and used as a fallback in case an external database is not available on the system.
 
-{{< caution >}}
+## CronJob limitations {#cron-job-limitations}
+
+### Unsupported TimeZone specification
+
 The implementation of the CronJob API in Kubernetes {{< skew currentVersion >}} lets you set
 the `.spec.schedule` field to include a timezone; for example: `CRON_TZ=UTC * * * * *`
 or `TZ=UTC * * * * *`.
@@ -183,14 +189,10 @@ Specifying a timezone that way is **not officially supported** (and never has be
 
 If you try to set a schedule that includes `TZ` or `CRON_TZ` timezone specification,
 Kubernetes reports a [warning](/blog/2020/09/03/warnings/) to the client.
-Future versions of Kubernetes might not implement that unofficial timezone mechanism at all.
-{{< /caution >}}
-
-A time zone database from the Go standard library is included in the binaries and used as a fallback in case an external database is not available on the system.
-
-## CronJob limitations {#cron-job-limitations}
+Future versions of Kubernetes will prevent setting the unofficial timezone mechanism entirely.
 
 ### Modifying a CronJob
+
 By design, a CronJob contains a template for _new_ Jobs.
 If you modify an existing CronJob, the changes you make will apply to new Jobs that
 start to run after your modification is complete. Jobs (and their Pods) that have already
@@ -202,7 +204,7 @@ That is, the CronJob does _not_ update existing Jobs, even if those remain runni
 A CronJob creates a Job object approximately once per execution time of its schedule.
 The scheduling is approximate because there
 are certain circumstances where two Jobs might be created, or no Job might be created.
-Kubernetes tries to avoid those situations, but do not completely prevent them. Therefore,
+Kubernetes tries to avoid those situations, but does not completely prevent them. Therefore,
 the Jobs that you define should be _idempotent_.
 
 If `startingDeadlineSeconds` is set to a large value or left unset (the default)

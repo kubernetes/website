@@ -456,7 +456,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 
 ## 논 그레이스풀 노드 셧다운 {#non-graceful-node-shutdown}
 
-{{< feature-state state="alpha" for_k8s_version="v1.24" >}}
+{{< feature-state state="beta" for_k8s_version="v1.26" >}}
 
 전달한 명령이 kubelet에서 사용하는 금지 잠금 메커니즘(inhibitor locks mechanism)을 트리거하지 않거나, 
 또는 사용자 오류(예: ShutdownGracePeriod 및 ShutdownGracePeriodCriticalPods가 제대로 설정되지 않음)로 인해 

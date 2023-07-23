@@ -245,8 +245,8 @@ web-0
 web-1
 ```
 selanjutnya, jalankan:
-```
-kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm /bin/sh
+```shell
+kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm
 ```
 perintah itu akan menjalankan _shell_ baru.
 Di dalam _shell_ yang baru jalankan:

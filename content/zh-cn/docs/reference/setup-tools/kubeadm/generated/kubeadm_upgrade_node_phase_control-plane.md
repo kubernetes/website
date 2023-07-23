@@ -3,11 +3,11 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
+To update the reference content, please follow the 
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
+--
 
 <!-- 
 Upgrade the control plane instance deployed on this node, if any 
@@ -113,6 +113,7 @@ Path to a directory that contains files named "target[suffix][+patchtype].extens
 -->
 包含名为 "target[suffix][+patchtype].extension" 的文件的目录的路径。
 例如，"kube-apiserver0+merge.yaml" 或仅仅是 "etcd.json"。
+"target" 可以是 "kube-apiserver"、"kube-controller-manager"、"kube-scheduler"、"etcd"、"kubeletconfiguration" 之一。
 "patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，并且它们与 kubectl 支持的补丁格式匹配。
 默认的 "patchtype" 为 "strategic"。 "extension" 必须为 "json" 或 "yaml"。 
 "suffix" 是一个可选字符串，可用于确定首先按字母顺序应用哪些补丁。

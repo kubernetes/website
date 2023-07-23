@@ -3,7 +3,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
+To update the reference content, please follow the 
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -86,7 +86,7 @@ kubeadm init phase control-plane controller-manager [flags]
 <!-- 
 Don't apply any changes; just output what would be done. 
 -->
-不应用任何变更，仅输出将要执行的操作
+不做任何更改；只输出将要执行的操作。
 </p></td>
 </tr>
 
@@ -105,9 +105,9 @@ Don't apply any changes; just output what would be done.
 <tr>
 <td colspan="2">
 <!--
---image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "k8s.gcr.io"
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Default: "registry.k8s.ioo"
 -->
---image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："k8s.gcr.io"
+--image-repository string&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认值："registry.k8s.ioo"
 </td>
 </tr>
 <tr>
@@ -142,10 +142,11 @@ Don't apply any changes; just output what would be done.
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-<p>Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.</p>
+<p>Path to a directory that contains files named "target[suffix][+patchtype].extension". For example, "kube-apiserver0+merge.yaml" or just "etcd.json". "target" can be one of "kube-apiserver", "kube-controller-manager", "kube-scheduler", "etcd", "kubeletconfiguration". "patchtype" can be one of "strategic", "merge" or "json" and they match the patch formats supported by kubectl. The default "patchtype" is "strategic". "extension" must be either "json" or "yaml". "suffix" is an optional string that can be used to determine which patches are applied first alpha-numerically.</p>
 -->
 <p>包含名为 "target[suffix][+patchtype].extension" 的文件的目录。
 例如，"kube-apiserver0+merge.yaml" 或者 "etcd.json"。
+"target" 可以是 "kube-apiserver"、"kube-controller-manager"、"kube-scheduler"、"etcd"、"kubeletconfiguration" 之一。
 "patchtype" 可以是 "strategic"、"merge" 或 "json" 之一，分别与 kubectl
 所支持的 patch 格式相匹配。默认的 "patchtype" 是 "strategic"。
 "extension" 必须是 "json" 或 "yaml"。

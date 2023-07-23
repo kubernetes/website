@@ -45,7 +45,7 @@ ComponentConfigの詳細については、[このセクション](#configure-kub
 
 ### インスタンス固有の設定内容を適用 {#providing-instance-specific-configuration-details}
 
-いくつかのホストでは、ハードウェア、オペレーティングシステム、ネットワーク、その他ホスト固有のパラメータの違いのため、特定のkubeletの設定を必要とします。以下にいくつかの例を示します。
+いくつかのホストでは、ハードウェア、オペレーティングシステム、ネットワーク、その他ホスト固有のパラメーターの違いのため、特定のkubeletの設定を必要とします。以下にいくつかの例を示します。
 
 - DNS解決ファイルへのパスは`--resolv-conf`フラグで指定することができますが、オペレーティングシステムや`systemd-resolved`を使用するかどうかによって異なる場合があります。このパスに誤りがある場合、そのNode上でのDNS解決は失敗します。
 - クラウドプロバイダーを使用していない場合、Node APIオブジェクト`.metadata.name`はデフォルトでマシンのホスト名に設定されます。異なるNode名を指定する必要がある場合には、`--hostname-override`フラグによってこの挙動を書き換えることができます。
@@ -64,7 +64,7 @@ ComponentConfigの詳細については、[このセクション](#configure-kub
 
 ### `kubeadm init`実行時の流れ
 
-`kubeadm init`を実行した場合、kubeletの設定は`/var/lib/kubelet/config.yaml`に格納され、クラスターのConfigMapにもアップロードされます。ConfigMapは`kubelet-config-1.X`という名前で、`X`は初期化するKubernetesのマイナーバージョンを表します。またこの設定ファイルは、クラスタ内の全てのkubeletのために、クラスター全体設定の基準と共に`/etc/kubernetes/kubelet.conf`にも書き込まれます。この設定ファイルは、kubeletがAPIサーバと通信するためのクライアント証明書を指し示します。これは、[各kubeletにクラスターレベルの設定を配布](#propagating-cluster-level-configuration-to-each-kubelet)することの必要性を示しています。
+`kubeadm init`を実行した場合、kubeletの設定は`/var/lib/kubelet/config.yaml`に格納され、クラスターのConfigMapにもアップロードされます。ConfigMapは`kubelet-config-1.X`という名前で、`X`は初期化するKubernetesのマイナーバージョンを表します。またこの設定ファイルは、クラスター内の全てのkubeletのために、クラスター全体設定の基準と共に`/etc/kubernetes/kubelet.conf`にも書き込まれます。この設定ファイルは、kubeletがAPIサーバと通信するためのクライアント証明書を指し示します。これは、[各kubeletにクラスターレベルの設定を配布](#propagating-cluster-level-configuration-to-each-kubelet)することの必要性を示しています。
 
 二つ目のパターンである、[インスタンス固有の設定内容を適用](#providing-instance-specific-configuration-details)するために、kubeadmは環境ファイルを`/var/lib/kubelet/kubeadm-flags.env`へ書き出します。このファイルは以下のように、kubelet起動時に渡されるフラグのリストを含んでいます。
 
@@ -72,7 +72,7 @@ ComponentConfigの詳細については、[このセクション](#configure-kub
 KUBELET_KUBEADM_ARGS="--flag1=value1 --flag2=value2 ..."
 ```
 
-kubelet起動時に渡されるフラグに加えて、このファイルはcgroupドライバーや異なるCRIランタイムソケットを使用するかどうか(`--cri-socket`)といった動的なパラメータも含みます。
+kubelet起動時に渡されるフラグに加えて、このファイルはcgroupドライバーや異なるCRIランタイムソケットを使用するかどうか(`--cri-socket`)といった動的なパラメーターも含みます。
 
 これら二つのファイルがディスク上に格納されると、systemdを使用している場合、kubeadmは以下の二つのコマンドを実行します。
 

@@ -53,7 +53,7 @@ for a number of reasons:
   tied to complex business processes. By contrast, service account creation is
   intended to be more lightweight, allowing cluster users to create service accounts
   for specific tasks on demand. Separating ServiceAccount creation from the steps to
-  onboard human users makes it easier for workloads to following the principle of
+  onboard human users makes it easier for workloads to follow the principle of
   least privilege.
 - Auditing considerations for humans and service accounts may differ; the separation
   makes that easier to achieve.
@@ -67,7 +67,7 @@ for a number of reasons:
 {{< feature-state for_k8s_version="v1.22" state="stable" >}}
 
 By default, the Kubernetes control plane (specifically, the
-[ServiceAccount admission controller](#service-account-admission-controller))
+[ServiceAccount admission controller](#serviceaccount-admission-controller)) 
 adds a [projected volume](/docs/concepts/storage/projected-volumes/) to Pods,
 and this volume includes a token for Kubernetes API access.
 
@@ -99,6 +99,7 @@ each source also represents a single path within that volume. The three sources 
 1. A `serviceAccountToken` source, that contains a token that the kubelet acquires from kube-apiserver.
    The kubelet fetches time-bound tokens using the TokenRequest API. A token served for a TokenRequest expires
    either when the pod is deleted or after a defined lifespan (by default, that is 1 hour).
+   The kubelet also refreshes that token before the token expires.
    The token is bound to the specific Pod and has the kube-apiserver as its audience.
    This mechanism superseded an earlier mechanism that added a volume based on a Secret,
    where the Secret represented the ServiceAccount for the Pod, but did not expire.
@@ -140,6 +141,11 @@ to obtain short-lived API access tokens is recommended instead.
 {{< /note >}}
 
 ## Control plane details
+
+### ServiceAccount controller
+
+A ServiceAccount controller manages the ServiceAccounts inside namespaces, and
+ensures a ServiceAccount named "default" exists in every active namespace.
 
 ### Token controller
 
@@ -365,34 +371,6 @@ If you created a namespace `examplens` to experiment with, you can remove it:
 ```shell
 kubectl delete namespace examplens
 ```
-
-## Control plane details
-
-### ServiceAccount controller
-
-A ServiceAccount controller manages the ServiceAccounts inside namespaces, and
-ensures a ServiceAccount named "default" exists in every active namespace.
-
-### Token controller
-
-The service account token controller runs as part of `kube-controller-manager`.
-This controller acts asynchronously. It:
-
-- watches for ServiceAccount creation and creates a corresponding
-  ServiceAccount token Secret to allow API access.
-- watches for ServiceAccount deletion and deletes all corresponding ServiceAccount
-  token Secrets.
-- watches for ServiceAccount token Secret addition, and ensures the referenced
-  ServiceAccount exists, and adds a token to the Secret if needed.
-- watches for Secret deletion and removes a reference from the corresponding
-  ServiceAccount if needed.
-
-You must pass a service account private key file to the token controller in
-the `kube-controller-manager` using the `--service-account-private-key-file`
-flag. The private key is used to sign generated service account tokens.
-Similarly, you must pass the corresponding public key to the `kube-apiserver`
-using the `--service-account-key-file` flag. The public key will be used to
-verify the tokens during authentication.
 
 ## {{% heading "whatsnext" %}}
 

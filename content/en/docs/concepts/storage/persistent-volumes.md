@@ -82,13 +82,13 @@ needs to enable the `DefaultStorageClass`
 on the API server. This can be done, for example, by ensuring that `DefaultStorageClass` is
 among the comma-delimited, ordered list of values for the `--enable-admission-plugins` flag of
 the API server component. For more information on API server command-line flags,
-check [kube-apiserver](/docs/admin/kube-apiserver/) documentation.
+check [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/) documentation.
 
 ### Binding
 
 A user creates, or in the case of dynamic provisioning, has already created,
 a PersistentVolumeClaim with a specific amount of storage requested and with
-certain access modes. A control loop in the master watches for new PVCs, finds
+certain access modes. A control loop in the control plane watches for new PVCs, finds
 a matching PV (if possible), and binds them together. If a PV was dynamically
 provisioned for a new PVC, the loop will always bind that PV to the PVC. Otherwise,
 the user will always get at least what they asked for, but the volume may be in
@@ -637,7 +637,8 @@ The access modes are:
 : the volume can be mounted as read-write by many nodes.
 
  `ReadWriteOncePod`
-: the volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod
+: {{< feature-state for_k8s_version="v1.27" state="beta" >}}
+  the volume can be mounted as read-write by a single Pod. Use ReadWriteOncePod
   access mode if you want to ensure that only one pod across whole cluster can
   read that PVC or write to it. This is only supported for CSI volumes and
   Kubernetes version 1.22+.
@@ -1123,7 +1124,7 @@ and `CrossNamespaceVolumeDataSource`
 the kube-apiserver, kube-controller-manager.
 Also, you must enable the `CrossNamespaceVolumeDataSource` feature gate for the csi-provisioner.
 
-Enabling the `CrossNamespaceVolumeDataSource` feature gate allow you to specify
+Enabling the `CrossNamespaceVolumeDataSource` feature gate allows you to specify
 a namespace in the dataSourceRef field.
 
 {{< note >}}
@@ -1138,7 +1139,7 @@ Gateway API before you can use this mechanism.
 
 ## Data source references
 
-The `dataSourceRef` field behaves almost the same as the `dataSource` field. If either one is
+The `dataSourceRef` field behaves almost the same as the `dataSource` field. If one is
 specified while the other is not, the API server will give both fields the same value. Neither
 field can be changed after creation, and attempting to specify different values for the two
 fields will result in a validation error. Therefore the two fields will always have the same

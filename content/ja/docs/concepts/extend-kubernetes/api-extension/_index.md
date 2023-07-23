@@ -1,4 +1,4 @@
 ---
 title: Kubernetes APIの拡張
-weight: 20
+weight: 30
 ---

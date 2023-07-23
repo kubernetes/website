@@ -2,7 +2,7 @@
 reviewers:
 - jsafrane
 title: Create static Pods
-weight: 170
+weight: 220
 content_type: task
 ---
 

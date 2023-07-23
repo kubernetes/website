@@ -8,7 +8,11 @@ reviewers:
 - smarterclayton
 title: StatefulSets
 content_type: concept
+description: >-
+  A StatefulSet runs a group of Pods, and maintains a sticky identity for each of those Pods. This is useful for managing
+  applications that need persistent storage or a stable, unique network identity.
 weight: 30
+hide_summary: true # Listed separately in section index
 ---
 
 <!-- overview -->
@@ -160,7 +164,7 @@ pods will be assigned ordinals from 0 up through N-1.
 
 ### Start ordinal
 
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 `.spec.ordinals` is an optional field that allows you to configure the integer
 ordinals assigned to each Pod. It defaults to nil. You must enable the
@@ -360,7 +364,7 @@ StatefulSet will then begin to recreate the Pods using the reverted template.
 
 ## PersistentVolumeClaim retention
 
-{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 The optional `.spec.persistentVolumeClaimRetentionPolicy` field controls if
 and how PVCs are deleted during the lifecycle of a StatefulSet. You must enable the

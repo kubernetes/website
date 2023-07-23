@@ -15,14 +15,8 @@ card:
 
 <!-- overview -->
 
-This tutorial shows you how to run a sample app
-on Kubernetes using minikube and Katacoda.
-Katacoda provides a free, in-browser Kubernetes environment.
-
-{{< note >}}
-You can also follow this tutorial if you've installed minikube locally.
-See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
-{{< /note >}}
+This tutorial shows you how to run a sample app on Kubernetes using minikube.
+The tutorial provides a container image that uses NGINX to echo back all the requests.
 
 ## {{% heading "objectives" %}}
 
@@ -33,31 +27,34 @@ See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation 
 ## {{% heading "prerequisites" %}}
 
 
-This tutorial provides a container image that uses NGINX to echo back all the requests.
+This tutorial assumes that you have already set up `minikube`.
+See [minikube start](https://minikube.sigs.k8s.io/docs/start/) for installation instructions.
 
+You also need to install `kubectl`.
+See [Install tools](/docs/tasks/tools/#kubectl) for installation instructions.
 
 
 <!-- lessoncontent -->
 
 ## Create a minikube cluster
 
-1. Click **Launch Terminal**.
+```shell
+minikube start
+```
 
-    {{< kat-button >}}
+## Open the Dashboard
 
-{{< note >}}
-If you installed minikube locally, run `minikube start`. Before you run `minikube dashboard`, you should open a new terminal, start `minikube dashboard` there, and then switch back to the main terminal.
-{{< /note >}}
+Open the Kubernetes dashboard. You can do this two different ways:
 
-2. Open the Kubernetes dashboard in a browser:
+{{< tabs name="dashboard" >}}
+{{% tab name="Launch a browser" %}}
+Open a **new** terminal, and run:
+```shell
+# Start a new terminal, and leave this running.
+minikube dashboard
+```
 
-    ```shell
-    minikube dashboard
-    ```
-
-3. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then click **Select port to view on Host 1**.
-
-4. Katacoda environment only: Type `30000`, and then click **Display Port**.
+Now, switch back to the terminal where you ran `minikube start`.
 
 {{< note >}}
 The `dashboard` command enables the dashboard add-on and opens the proxy in the default web browser.
@@ -73,13 +70,22 @@ After the command exits, the dashboard remains running in the Kubernetes cluster
 You can run the `dashboard` command again to create another proxy to access the dashboard.
 {{< /note >}}
 
-## Open Dashboard with URL
+{{% /tab %}}
+{{% tab name="URL copy and paste" %}}
 
-If you don't want to open a web browser, run the dashboard command with the `--url` flag to emit a URL:
+If you don't want minikube to open a web browser for you, run the dashboard command with the
+`--url` flag. `minikube` outputs a URL that you can open in the browser you prefer.
 
+Open a **new** terminal, and run:
 ```shell
+# Start a new terminal, and leave this running.
 minikube dashboard --url
 ```
+
+Now, switch back to the terminal where you ran `minikube start`.
+
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Create a Deployment
 
@@ -90,12 +96,11 @@ tutorial has only one Container. A Kubernetes
 Pod and restarts the Pod's Container if it terminates. Deployments are the
 recommended way to manage the creation and scaling of Pods.
 
-1. Katacoda environment only: At the top of the terminal pane, click the plus sign, and then click **Open New Terminal**.
-
 1. Use the `kubectl create` command to create a Deployment that manages a Pod. The
-Pod runs a Container based on the provided Docker image.
+   Pod runs a Container based on the provided Docker image.
 
     ```shell
+    # Run a test container image that includes a webserver
     kubectl create deployment hello-node --image=registry.k8s.io/e2e-test-images/agnhost:2.39 -- /agnhost netexec --http-port=8080
     ```
 
@@ -157,7 +162,7 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
     The `--type=LoadBalancer` flag indicates that you want to expose your Service
     outside of the cluster.
     
-    The application code inside the image `registry.k8s.io/echoserver` only listens on TCP port 8080. If you used
+    The application code inside the test image only listens on TCP port 8080. If you used
     `kubectl expose` to expose a different port, clients could not connect to that other port.
 
 2. View the Service you created:
@@ -184,10 +189,6 @@ Kubernetes [*Service*](/docs/concepts/services-networking/service/).
     ```shell
     minikube service hello-node
     ```
-
-4. Katacoda environment only: Click the plus sign, and then click **Select port to view on Host 1**.
-
-5. Katacoda environment only: Note the 5-digit port number displayed opposite to `8080` in services output. This port number is randomly generated and it can be different for you. Type your number in the port number text box, then click Display Port. Using the example from earlier, you would type `30369`.
 
     This opens up a browser window that serves your app and shows the app's response.
 
@@ -235,7 +236,7 @@ The minikube tool includes a set of built-in {{< glossary_tooltip text="addons" 
     The 'metrics-server' addon is enabled
     ```
 
-3. View the Pod and Service you created:
+3. View the Pod and Service you created by installing that addon:
 
     ```shell
     kubectl get pod,svc -n kube-system
@@ -285,7 +286,7 @@ kubectl delete service hello-node
 kubectl delete deployment hello-node
 ```
 
-Optionally, stop the Minikube virtual machine (VM):
+Stop the Minikube cluster
 
 ```shell
 minikube stop
@@ -294,14 +295,16 @@ minikube stop
 Optionally, delete the Minikube VM:
 
 ```shell
+# Optional
 minikube delete
 ```
 
-
+If you want to use minikube again to learn more about Kubernetes, you don't need to delete it.
 
 ## {{% heading "whatsnext" %}}
 
 
+* Tutorial to _[deploy your first app on Kubernetes with kubectl](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/)_.
 * Learn more about [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
 * Learn more about [Deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/).
 * Learn more about [Service objects](/docs/concepts/services-networking/service/).

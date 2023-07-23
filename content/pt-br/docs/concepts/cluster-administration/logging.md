@@ -1,7 +1,4 @@
 ---
-reviewers:
-  - piosz
-  - x13n
 title: Arquitetura de Log
 content_type: concept
 weight: 60

@@ -1,6 +1,7 @@
 ---
 title: アドオンのインストール
 content_type: concept
+weight: 120
 ---
 
 <!-- overview -->
@@ -44,7 +45,7 @@ content_type: concept
 
 ## インフラストラクチャ {#infrastructure}
 
-* [KubeVirt](https://kubevirt.io/user-guide/#/installation/installation)は仮想マシンをKubernetes上で実行するためのアドオンです。通常、ベアメタルのクラスタで実行します。
+* [KubeVirt](https://kubevirt.io/user-guide/#/installation/installation)は仮想マシンをKubernetes上で実行するためのアドオンです。通常、ベアメタルのクラスターで実行します。
 * [node problem detector](https://github.com/kubernetes/node-problem-detector)はLinuxノード上で動作し、システムの問題を[Event](/docs/reference/kubernetes-api/cluster-resources/event-v1/)または[ノードのCondition](/ja/docs/concepts/architecture/nodes/#condition)として報告します。
 
 ## レガシーなアドオン {#legacy-add-ons}

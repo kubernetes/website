@@ -2,6 +2,7 @@
 title: 从 PodSecurityPolicy 迁移到内置的 PodSecurity 准入控制器
 content_type: task
 min-kubernetes-server-version: v1.22
+weight: 260
 ---
 
 <!--
@@ -11,6 +12,7 @@ reviewers:
 - liggitt
 content_type: task
 min-kubernetes-server-version: v1.22
+weight: 260
 -->
 
 <!-- overview -->
@@ -387,7 +389,7 @@ For each updated PodSecurityPolicy:
 3. Create the new PodSecurityPolicies. If any Roles or ClusterRoles are granting `use` on all PSPs
    this could cause the new PSPs to be used instead of their mutating counter-parts.
 4. Update your authorization to grant access to the new PSPs. In RBAC this means updating any Roles
-   or ClusterRoles that grant the `use` permision on the original PSP to also grant it to the
+   or ClusterRoles that grant the `use` permission on the original PSP to also grant it to the
    updated PSP.
 -->
 3. 创建新的 PodSecurityPolicy。如果存在 Role 或 ClusterRole 对象为用户授权了在所有 PSP

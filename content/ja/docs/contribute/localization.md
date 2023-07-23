@@ -1,6 +1,7 @@
 ---
 title: Kubernetesのドキュメントを翻訳する
 content_type: concept
+weight: 50
 card:
   name: contribute
   weight: 30

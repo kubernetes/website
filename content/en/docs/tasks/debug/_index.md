@@ -1,7 +1,7 @@
 ---
 title: "Monitoring, Logging, and Debugging"
 description: Set up monitoring and logging to troubleshoot a cluster, or debug a containerized application.
-weight: 20
+weight: 40
 reviewers:
 - brendandburns
 - davidopp
@@ -81,7 +81,7 @@ via your web browser or via Slack's own dedicated app.
 Once you are registered, browse the growing list of channels for various subjects of
 interest. For example, people new to Kubernetes may also want to join the
 [`#kubernetes-novice`](https://kubernetes.slack.com/messages/kubernetes-novice) channel. As another example, developers should join the
-[`#kubernetes-dev`](https://kubernetes.slack.com/messages/kubernetes-dev) channel.
+[`#kubernetes-contributors`](https://kubernetes.slack.com/messages/kubernetes-contributors) channel.
 
 There are also many country specific / local language channels. Feel free to join
 these channels for localized support and info:

@@ -126,8 +126,8 @@ following steps:
    - 配置自动签发新的 CSR 请求。
 
    更多相关信息，请查看 [kubeadm join](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-join/)。
-   
-<!-- 
+
+<!--
 1. Installs a DNS server (CoreDNS) and the kube-proxy addon components via the API server.
    In Kubernetes version 1.11 and later CoreDNS is the default DNS server.
    Please note that although the DNS server is deployed, it will not be scheduled until CNI is installed.
@@ -148,7 +148,8 @@ following steps:
 
 Kubeadm allows you to create a control-plane node in phases using the `kubeadm init phase` command.
 -->
-### 在 kubeadm 中使用 init 阶段  {#init-phases}
+
+### 在 kubeadm 中使用 init 阶段 {#init-phases}
 
 Kubeadm 允许你使用 `kubeadm init phase` 命令分阶段创建控制平面节点。
 
@@ -213,7 +214,7 @@ will create a control plane node with the custom manifest files.
 
 {{< feature-state for_k8s_version="v1.22" state="beta" >}}
 
-<!-- 
+<!--
 Alternatively, you can use the `skipPhases` field under `InitConfiguration`.
 -->
 或者，你可以使用 `InitConfiguration` 下的 `skipPhases` 字段。
@@ -227,7 +228,7 @@ Alternatively, you can use the `skipPhases` field under `InitConfiguration`.
 <!--
 The config file is still considered beta and may change in future versions.
 -->
-配置文件的功能仍然处于 alpha 状态并且在将来的版本中可能会改变。
+配置文件的功能仍然处于 beta 状态并且在将来的版本中可能会改变。
 {{< /caution >}}
 
 <!--
@@ -262,12 +263,12 @@ For more information on the fields and usage of the configuration you can naviga
 
 关于配置的字段和用法的更多信息，你可以访问 [API 参考页面](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)。
 
-<!-- 
-### Using kubeadm init with feature gates {#feature-gates} 
+<!--
+### Using kubeadm init with feature gates {#feature-gates}
 -->
 ### 使用 kubeadm init 时设置特性门控 {#feature-gates}
 
-<!-- 
+<!--
 Kubeadm supports a set of feature gates that are unique to kubeadm and can only be applied
 during cluster creation with `kubeadm init`. These features can control the behavior
 of the cluster. Feature gates are removed after a feature graduates to GA.
@@ -275,7 +276,7 @@ of the cluster. Feature gates are removed after a feature graduates to GA.
 Kubeadm 支持一组独有的特性门控，只能在 `kubeadm init` 创建集群期间使用。
 这些特性可以控制集群的行为。特性门控会在毕业到 GA 后被移除。
 
-<!-- 
+<!--
 To pass a feature gate you can either use the `--feature-gates` flag for
 `kubeadm init`, or you can add items into the `featureGates` field when you pass
 a [configuration file](/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-ClusterConfiguration)
@@ -285,7 +286,7 @@ using `--config`.
 或者你可以在用 `--config`
 传递[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-ClusterConfiguration)时添加条目到 `featureGates` 字段中。
 
-<!-- 
+<!--
 Passing [feature gates for core Kubernetes components](/docs/reference/command-line-tools-reference/feature-gates)
 directly to kubeadm is not supported. Instead, it is possible to pass them by
 [Customizing components with the kubeadm API](/docs/setup/production-environment/tools/kubeadm/control-plane-flags/).
@@ -293,8 +294,8 @@ directly to kubeadm is not supported. Instead, it is possible to pass them by
 直接传递 [Kubernetes 核心组件的特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates)给 kubeadm 是不支持的。
 相反，可以通过[使用 kubeadm API 的自定义组件](/zh-cn/docs/setup/production-environment/tools/kubeadm/control-plane-flags/)来传递。
 
-<!-- 
-List of feature gates: 
+<!--
+List of feature gates:
 -->
 特性门控的列表：
 
@@ -313,12 +314,12 @@ Once a feature gate goes GA its value becomes locked to `true` by default.
 一旦特性门控变成了 GA，它的值会被默认锁定为 `true`。
 {{< /note >}}
 
-<!-- 
-Feature gate descriptions: 
+<!--
+Feature gate descriptions:
 -->
 特性门控的描述：
 
-<!-- 
+<!--
 `PublicKeysECDSA`
 : Can be used to create a cluster that uses ECDSA certificates instead of the default RSA algorithm.
 Renewal of existing ECDSA certificates is also supported using `kubeadm certs renew`, but you cannot
@@ -329,7 +330,7 @@ switch between the RSA and ECDSA algorithms on the fly or during upgrades.
 支持用 `kubeadm certs renew` 更新现有 ECDSA 证书，
 但你不能在集群运行期间或升级期间切换 RSA 和 ECDSA 算法。
 
-<!-- 
+<!--
 `RootlessControlPlane`
 : Setting this flag configures the kubeadm deployed control plane component static Pod containers
 for `kube-apiserver`, `kube-controller-manager`, `kube-scheduler` and `etcd` to run as non-root users.
@@ -342,7 +343,7 @@ you upgrade to a newer version of Kubernetes.
 如果未设置该标志，则这些组件以 root 身份运行。
 你可以在升级到更新版本的 Kubernetes 之前更改此特性门控的值。
 
-<!-- 
+<!--
 `UnversionedKubeletConfigMap`
 : This flag controls the name of the {{< glossary_tooltip text="ConfigMap" term_id="configmap" >}} where kubeadm stores
 kubelet configuration data. With this flag not specified or set to `true`, the ConfigMap is named `kubelet-config`.
@@ -413,15 +414,15 @@ kubeadm config images list
 kubeadm config images pull
 ```
 
-<!-- 
+<!--
 You can pass `--config` to the above commands with a [kubeadm configuration file](#config-file)
 to control the `kubernetesVersion` and `imageRepository` fields.
 -->
 你可以通过 `--config` 把 [kubeadm 配置文件](#config-file) 传递给上述命令来控制
 `kubernetesVersion` 和 `imageRepository` 字段。
 
-<!-- 
-All default `registry.k8s.io` images that kubeadm requires support multiple architectures. 
+<!--
+All default `registry.k8s.io` images that kubeadm requires support multiple architectures.
 -->
 kubeadm 需要的所有默认 `registry.k8s.io` 镜像都支持多种硬件体系结构。
 
@@ -453,7 +454,7 @@ Allowed customization are:
 * 使用其他的 `imageRepository` 来代替 `registry.k8s.io`。
 * 为 etcd 或 CoreDNS 提供特定的 `imageRepository` 和 `imageTag`。
 
-<!-- 
+<!--
 Image paths between the default `registry.k8s.io` and a custom repository specified using
 `imageRepository` may differ for backwards compatibility reasons. For example,
 one image might have a subpath at `registry.k8s.io/subpath/image`, but be defaulted
@@ -463,13 +464,13 @@ to `my.customrepository.io/image` when using a custom repository.
 `registry.k8s.io` 镜像路径不同。例如，某镜像的子路径可能是 `registry.k8s.io/subpath/image`，
 但使用自定义仓库时默认为 `my.customrepository.io/image`。
 
-<!-- 
+<!--
 To ensure you push the images to your custom repository in paths that kubeadm
 can consume, you must:
 -->
 确保将镜像推送到 kubeadm 可以使用的自定义仓库的路径中，你必须：
 
-<!-- 
+<!--
 * Pull images from the defaults paths at `registry.k8s.io` using `kubeadm config images {list|pull}`.
 * Push images to the paths from `kubeadm config images list --config=config.yaml`,
 where `config.yaml` contains the custom `imageRepository`, and/or `imageTag`
@@ -484,7 +485,7 @@ for etcd and CoreDNS.
 <!--
 #### Custom sandbox (pause) images {#custom-pause-image}
 
-To set a custom image for these you need to configure this in your 
+To set a custom image for these you need to configure this in your
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
 to use the image.
 Consult the documentation for your container runtime to find out how to change this setting;
@@ -636,7 +637,7 @@ DNS name or an address of a load balancer.
 -->
 1. 生成一个令牌。这个令牌必须采用的格式为：`<6 个字符的字符串>.<16 个字符的字符串>`。
    更加正式的说法是，它必须符合正则表达式：`[a-z0-9]{6}\.[a-z0-9]{16}`。
-   
+
    kubeadm 可以为你生成一个令牌：
 
    ```shell
@@ -698,4 +699,3 @@ provisioned). For details, see the [kubeadm join](/docs/reference/setup-tools/ku
   将 Kubernetes 集群升级到新版本
 * [kubeadm reset](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
   恢复 `kubeadm init` 或 `kubeadm join` 命令对节点所作的变更
-

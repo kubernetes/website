@@ -58,6 +58,16 @@ Install the following on your workstation:
 - [kubectl](/zh-cn/docs/tasks/tools/)
 
 <!--
+This tutorial demonstrates what you can configure for a Kubernetes cluster that you fully
+control. If you are learning how to configure Pod Security Admission for a managed cluster
+where you are not able to configure the control plane, read
+[Apply Pod Security Standards at the namespace level](/docs/tutorials/security/ns-level-pss).
+-->
+本教程演示了你可以对完全由你控制的 Kubernetes 集群所配置的内容。
+如果你正在学习如何为一个无法配置控制平面的托管集群配置 Pod 安全准入，
+请参阅[在名字空间级别应用 Pod 安全标准](/zh-cn/docs/tutorials/security/ns-level-pss)。
+
+<!--
 ## Choose the right Pod Security Standard to apply
 
 [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
@@ -82,13 +92,17 @@ that are most appropriate for your configuration, do the following:
 1. 创建一个没有应用 Pod 安全标准的集群：
 
    ```shell
-   kind create cluster --name psa-wo-cluster-pss --image kindest/node:v1.24.0
+   kind create cluster --name psa-wo-cluster-pss
    ```
-   <!-- The output is similar to this: -->
+   <!--
+   The output is similar to:
+   -->
+
    输出类似于：
+
    ```
    Creating cluster "psa-wo-cluster-pss" ...
-   ✓ Ensuring node image (kindest/node:v1.24.0) 🖼
+   ✓ Ensuring node image (kindest/node:v{{< skew currentPatchVersion >}}) 🖼
    ✓ Preparing nodes 📦
    ✓ Writing configuration 📜
    ✓ Starting control-plane 🕹️
@@ -110,8 +124,12 @@ that are most appropriate for your configuration, do the following:
    ```shell
    kubectl cluster-info --context kind-psa-wo-cluster-pss
    ```
-   <!-- The output is similar to this: -->
+   <!--
+   The output is similar to this:
+   -->
+
    输出类似于：
+
    ```
    Kubernetes control plane is running at https://127.0.0.1:61350
 
@@ -128,8 +146,12 @@ that are most appropriate for your configuration, do the following:
    ```shell
    kubectl get ns
    ```
-   <!-- The output is similar to this: -->
+   <!--
+   The output is similar to this:
+   -->
+
    输出类似于：
+
    ```
    NAME                 STATUS   AGE
    default              Active   9m30s
@@ -150,8 +172,13 @@ that are most appropriate for your configuration, do the following:
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=privileged
       ```
-      <!-- The output is similar to this: -->
+
+      <!--
+      The output is similar to:
+      -->
+
       输出类似于：
+
       ```
       namespace/default labeled
       namespace/kube-node-lease labeled
@@ -164,8 +191,13 @@ that are most appropriate for your configuration, do the following:
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=baseline
       ```
-      <!-- The output is similar to this: -->
+
+      <!--
+      The output is similar to:
+      -->
+
       输出类似于：
+
       ```
       namespace/default labeled
       namespace/kube-node-lease labeled
@@ -183,8 +215,13 @@ that are most appropriate for your configuration, do the following:
       kubectl label --dry-run=server --overwrite ns --all \
       pod-security.kubernetes.io/enforce=restricted
       ```
-      <!-- The output is similar to this: -->
+
+      <!--
+      The output is similar to:
+      -->
+
       输出类似于：
+
       ```
       namespace/default labeled
       namespace/kube-node-lease labeled
@@ -351,13 +388,17 @@ following:
 5. 创建一个使用 Pod 安全准入的集群来应用这些 Pod 安全标准：
 
    ```shell
-   kind create cluster --name psa-with-cluster-pss --image kindest/node:v1.24.0 --config /tmp/pss/cluster-config.yaml
+   kind create cluster --name psa-with-cluster-pss --config /tmp/pss/cluster-config.yaml
    ```
-   <!-- The output is similar to this: -->
+   <!--
+   The output is similar to this:
+   -->
+
    输出类似于：
+
    ```
    Creating cluster "psa-with-cluster-pss" ...
-    ✓ Ensuring node image (kindest/node:v1.24.0) 🖼
+    ✓ Ensuring node image (kindest/node:v{{< skew currentPatchVersion >}}) 🖼
     ✓ Preparing nodes 📦
     ✓ Writing configuration 📜
     ✓ Starting control-plane 🕹️
@@ -379,18 +420,23 @@ following:
    ```shell
    kubectl cluster-info --context kind-psa-with-cluster-pss
    ```
-   <!-- The output is similar to this: -->
+   <!--
+   The output is similar to this:
+   -->
+
    输出类似于：
+
    ```
    Kubernetes control plane is running at https://127.0.0.1:63855
    CoreDNS is running at https://127.0.0.1:63855/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
 
    To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
    ```
+
 <!--
-1. Create the following Pod specification for a minimal configuration in the default namespace:
+1. Create a Pod in the default namespace:
 -->
-7. 创建以下 Pod 规约作为在 default 名字空间中的一个最小配置：
+7. 在 default 名字空间下创建一个 Pod：
 
    ```
    cat <<EOF > /tmp/pss/nginx-pod.yaml
@@ -412,12 +458,15 @@ following:
 8. 在集群中创建 Pod：
 
    ```shell
-   kubectl apply -f /tmp/pss/nginx-pod.yaml
+   kubectl apply -f https://k8s.io/examples/security/example-baseline-pod.yaml
    ```
-   <!-- The output is similar to this: -->
-   输出类似于：
+
+   <!--
+   The pod is started normally, but the output includes a warning:
+   -->
+   这个 Pod 正常启动，但输出包含警告：
    ```
-   Warning: would violate PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "nginx" must set securityContext allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext seccompProfile.type to "RuntimeDefault" or "Localhost")
+   Warning: would violate PodSecurity "restricted:latest": allowPrivilegeEscalation != false (container "nginx" must set securityContext.allowPrivilegeEscalation=false), unrestricted capabilities (container "nginx" must set securityContext.capabilities.drop=["ALL"]), runAsNonRoot != true (pod or container "nginx" must set securityContext.runAsNonRoot=true), seccompProfile (pod or container "nginx" must set securityContext.seccompProfile.type to "RuntimeDefault" or "Localhost")
    pod/nginx created
    ```
 

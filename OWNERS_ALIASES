@@ -18,6 +18,7 @@ aliases:
     - onlydole
     - reylejano
     - sftim
+    - seokho-son
     - tengqm
   sig-docs-de-owners: # Admins for German content
     - bene2k1
@@ -32,11 +33,11 @@ aliases:
     - bradtopol
     - divya-mohan0209
     - kbhawkey
-    - krol3
     - natalisucks
     - nate-double-u
     - onlydole
     - reylejano
+    - Rishit-dagli # 1.28 Release Team Docs Lead
     - sftim
     - tengqm
   sig-docs-en-reviews: # PR reviews for English content
@@ -53,11 +54,17 @@ aliases:
     - shannonxtreme
     - tengqm
   sig-docs-es-owners: # Admins for Spanish content
+    - 92nqb
+    - krol3
     - electrocucaracha
     - raelga
+    - ramrodo
   sig-docs-es-reviews: # PR reviews for Spanish content
+    - 92nqb
+    - krol3
     - electrocucaracha
     - raelga
+    - ramrodo
   sig-docs-fr-owners: # Admins for French content
     - awkif
     - feloy
@@ -78,8 +85,6 @@ aliases:
     - Babapool
     - bishal7679
     - divya-mohan0209
-    - Garima-Negi
-    - verma-kunal
   sig-docs-id-owners: # Admins for Indonesian content
     - ariscahyadi
     - danninov
@@ -134,12 +139,15 @@ aliases:
     - chenrui333
     - howieyuen
     - mengjiao-liu
+    - my-git9
     - SataQiu
     - Sea-n
     - tanjunchen
     - tengqm
+    - windsonsea
     - xichengliudui
   sig-docs-zh-reviews: # PR reviews for Chinese content
+    - asa3311
     - chenrui333
     - chenxuc
     - howieyuen
@@ -160,7 +168,6 @@ aliases:
     - edsoncelio
     - femrtnz
     - jcjesus
-    - rikatz
     - stormqueen1990
     - yagonobre
   sig-docs-pt-reviews: # PR reviews for Portugese content
@@ -169,7 +176,6 @@ aliases:
     - femrtnz
     - jcjesus
     - mrerlison
-    - rikatz
     - stormqueen1990
     - yagonobre
   sig-docs-vi-owners: # Admins for Vietnamese content

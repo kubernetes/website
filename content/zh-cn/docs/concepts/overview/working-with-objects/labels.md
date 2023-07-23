@@ -14,7 +14,8 @@ weight: 40
 <!-- overview -->
 
 <!--
-_Labels_ are key/value pairs that are attached to objects, such as pods.
+_Labels_ are key/value pairs that are attached to
+{{< glossary_tooltip text="objects" term_id="object" >}} such as pods.
 Labels are intended to be used to specify identifying attributes of objects
 that are meaningful and relevant to users, but do not directly imply semantics
 to the core system. Labels can be used to organize and to select subsets of
@@ -22,7 +23,8 @@ objects. Labels can be attached to objects at creation time and subsequently
 added and modified at any time. Each object can have a set of key/value labels
 defined. Each Key must be unique for a given object.
 -->
-**标签（Labels）** 是附加到 Kubernetes 对象（比如 Pod）上的键值对。
+**标签（Labels）** 是附加到 Kubernetes
+{{< glossary_tooltip text="对象" term_id="object" >}}（比如 Pod）上的键值对。
 标签旨在用于指定对用户有意义且相关的对象的标识属性，但不直接对核心系统有语义含义。
 标签可以用于组织和选择对象的子集。标签可以在创建时附加到对象，随后可以随时添加和修改。
 每个对象都可以定义一组键/值标签。每个键对于给定对象必须是唯一的。
@@ -132,10 +134,10 @@ Valid label value:
 * 包含破折号（`-`）、下划线（`_`）、点（`.`）和字母或数字
 
 <!--
-For example, here's the configuration file for a Pod that has two labels
+For example, here's a manifest for a Pod that has two labels
 `environment: production` and `app: nginx`:
 -->
-例如，这是一个有 `environment: production` 和 `app: nginx` 标签的 Pod 配置文件：
+例如，以下是一个清单 (manifest)，适用于具有 `environment: production` 和 `app: nginx` 这两个标签的 Pod：
 
 ```yaml
 
@@ -403,7 +405,7 @@ The set of pods that a `service` targets is defined with a label selector.
 Similarly, the population of pods that a `replicationcontroller` should
 manage is also defined with a label selector.
 
-Labels selectors for both objects are defined in `json` or `yaml` files using maps,
+Label selectors for both objects are defined in `json` or `yaml` files using maps,
 and only _equality-based_ requirement selectors are supported:
 -->
 #### Service 和 ReplicationController
@@ -427,7 +429,7 @@ or
 
 ```yaml
 selector:
-    component: redis
+  component: redis
 ```
 
 <!---
@@ -458,8 +460,8 @@ selector:
   matchLabels:
     component: redis
   matchExpressions:
-    - {key: tier, operator: In, values: [cache]}
-    - {key: environment, operator: NotIn, values: [dev]}
+    - { key: tier, operator: In, values: [cache] }
+    - { key: environment, operator: NotIn, values: [dev] }
 ```
 
 <!--

@@ -49,7 +49,7 @@ different purposes:
 - [CSI ephemeral volumes](#csi-ephemeral-volumes):
   similar to the previous volume kinds, but provided by special
   [CSI drivers](https://github.com/container-storage-interface/spec/blob/master/spec.md)
-  which specifically [support this feature](https://kubernetes-csi.github.io/docs/drivers.html)
+  which specifically [support this feature](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
 - [generic ephemeral volumes](#generic-ephemeral-volumes), which
   can be provided by all storage drivers that also support persistent volumes
 

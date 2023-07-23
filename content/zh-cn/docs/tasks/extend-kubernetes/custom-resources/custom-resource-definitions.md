@@ -505,7 +505,8 @@ anyOf:
 ```
 
 <!--
-Violations of the structural schema rules are reported in the `NonStructural` condition in the CustomResourceDefinition.
+Violations of the structural schema rules are reported in the `NonStructural` condition in the
+CustomResourceDefinition.
 -->
 如果违反了结构化模式规则，CustomResourceDefinition 的 `NonStructural`
 状况中会包含报告信息。
@@ -1195,7 +1196,7 @@ For example:
         required:
           - minReplicas
           - replicas
-          - maxReplicas 
+          - maxReplicas
 ```
 
 <!--
@@ -1225,7 +1226,7 @@ The CronTab "my-new-cron-object" is invalid:
 ```
 
 <!--
-`x-kubernetes-validations` could have multiple rules. 
+`x-kubernetes-validations` could have multiple rules.
 
 The `rule` under `x-kubernetes-validations` represents the expression which will be evaluated by CEL.
 
@@ -1244,8 +1245,8 @@ The CronTab "my-new-cron-object" is invalid:
 ```
 
 <!--
-Validation rules are compiled when CRDs are created/updated. 
-The request of CRDs create/update will fail if compilation of validation rules fail. 
+Validation rules are compiled when CRDs are created/updated.
+The request of CRDs create/update will fail if compilation of validation rules fail.
 Compilation process includes type checking as well.
 -->
 当 CRD 被创建/更新时，验证规则被编译。
@@ -1256,7 +1257,7 @@ Compilation process includes type checking as well.
 The compilation failure:
 
 - `no_matching_overload`: this function has no overload for the types of the arguments.
- 
+
   For example, a rule like `self == true` against a field of integer type will get error:
 -->
 编译失败：
@@ -1269,9 +1270,9 @@ The compilation failure:
   Invalid value: apiextensions.ValidationRule{Rule:"self == true", Message:""}: compilation failed: ERROR: \<input>:1:6: found no matching overload for '_==_' applied to '(int, bool)'
   ```
 
-<!--  
+<!--
 - `no_such_field`: does not contain the desired field.
-  
+
   For example, a rule like `self.nonExistingField > 0` against a non-existing field will return
   the following error:
 -->
@@ -1285,7 +1286,7 @@ The compilation failure:
 
 <!--
 - `invalid argument`: invalid argument to macros.
- 
+
   For example, a rule like `has(self)` will return error:
 -->
 - `invalid argument`：对宏的无效参数。
@@ -1634,6 +1635,64 @@ xref: [CEL types](https://github.com/google/cel-spec/blob/v0.6.0/doc/langdef.md#
 [Kubernetes 结构化模式](/zh-cn/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#specifying-a-structural-schema)。
 
 <!--
+#### The messageExpression field
+-->
+#### `messageExpression` 字段  {#the-messageExpression-field}
+
+<!--
+Similar to the `message` field, which defines the string reported for a validation rule failure,
+`messageExpression` allows you to use a CEL expression to construct the message string.
+This allows you to insert more descriptive information into the validation failure message.
+`messageExpression` must evaluate a string and may use the same variables that are available to the `rule`
+field. For example:
+-->
+`message` 字段定义因验证规则失败时提示的字符串，与它类似，
+`messageExpression` 允许你使用 CEL 表达式构造消息字符串。
+这使你可以在验证失败消息中插入更详细的信息。`messageExpression`
+必须计算为字符串，并且可以使用在 `rule` 字段中可用的变量。
+例如：
+
+```yaml
+x-kubernetes-validations:
+- rule: "self.x <= self.maxLimit"
+  messageExpression: '"x exceeded max limit of " + string(self.maxLimit)'
+```
+
+<!--
+Keep in mind that CEL string concatenation (`+` operator) does not auto-cast to string. If
+you have a non-string scalar, use the `string(<value>)` function to cast the scalar to a string
+like shown in the above example.
+-->
+请记住，CEL 字符串连接（`+` 运算符）不会自动转换为字符串。
+如果你有一个非字符串标量，请使用 `string(<value>)` 函数将标量转换为字符串，如上例所示。
+
+<!--
+`messageExpression` must evaluate to a string, and this is checked while the CRD is being written. Note that it is possible
+to set `message` and `messageExpression` on the same rule, and if both are present, `messageExpression`
+will be used. However, if `messageExpression` evaluates to an error, the string defined in `message`
+will be used instead, and the `messageExpression` error will be logged. This fallback will also occur if
+the CEL expression defined in `messageExpression` generates an empty string, or a string containing line
+breaks.
+-->
+`messageExpression` 必须计算为一个字符串，并且在编写 CRD 时进行检查。
+请注意，可以在同一个规则上设置 `message` 和 `messageExpression`，如果两者都存在，则将使用 `messageExpression`。
+但是，如果 `messageExpression` 计算出错，则将使用 `message` 中定义的字符串，而 `messageExpression` 的错误将被打印到日志。
+如果在 `messageExpression` 中定义的 CEL 表达式产生一个空字符串或包含换行符的字符串，也会发生这种回退。
+
+<!--
+If one of the above conditions are met and no `message` has been set, then the default validation failure
+message will be used instead.
+-->
+如果满足上述条件之一且未设置 `message` 字段，则将使用默认的检查失败消息。
+
+<!--
+`messageExpression` is a CEL expression, so the restrictions listed in [Resource use by validation functions](#resource-use-by-validation-functions) apply. If evaluation halts due to resource constraints
+during `messageExpression` execution, then no further validation rules will be executed.
+-->
+`messageExpression` 是一个 CEL 表达式，因此[验证函数的资源使用](#resource-use-by-validation-functions)中列出的限制也适用于它。
+如果在 `messageExpression` 执行期间由于资源限制而导致计算停止，则不会执行进一步的检查规则。
+
+<!--
 #### Validation functions {#available-validation-functions}
 -->
 #### 验证函数   {#available-validation-functions}
@@ -1749,7 +1808,7 @@ Here are some examples for transition rules:
 <!--
 #### Resource use by validation functions
 -->
-#### 验证函数的资源使用
+#### 验证函数的资源使用  {#resource-use-by-validation-functions}
 
 <!--
 When you create or update a CustomResourceDefinition that uses validation rules,
@@ -1766,8 +1825,8 @@ too many instructions, execution of the rule will be halted, and an error will r
 -->
 运行时也使用类似的系统来观察解释器的行动。如果解释器执行了太多的指令，规则的执行将被停止，并且会产生一个错误。
 <!--
-Each CustomResourceDefinition is also allowed a certain amount of resources to finish executing all of 
-its validation rules. If the sum total of its rules are estimated at creation time to go over that limit, 
+Each CustomResourceDefinition is also allowed a certain amount of resources to finish executing all of
+its validation rules. If the sum total of its rules are estimated at creation time to go over that limit,
 then a validation error will also occur.
 -->
 每个 CustomResourceDefinition 也被允许有一定数量的资源来完成其所有验证规则的执行。
@@ -1798,7 +1857,7 @@ given, and this will happen for anything that can be iterated over (lists, maps,
 如果没有给出 `foo` 的长度限制，成本系统总是假设最坏的情况，这将发生在任何可以被迭代的事物上（list、map 等）。
 
 <!--
-Because of this, it is considered best practice to put a limit via `maxItems`, `maxProperties`, and 
+Because of this, it is considered best practice to put a limit via `maxItems`, `maxProperties`, and
 `maxLength` for anything that will be processed in a validation rule in order to prevent validation
 errors during cost estimation. For example, given this schema with one rule:
 -->
@@ -1823,8 +1882,8 @@ then the API server rejects this rule on validation budget grounds with error:
 API 服务器以验证预算为由拒绝该规则，并显示错误：
 
 ```
-spec.validation.openAPIV3Schema.properties[spec].properties[foo].x-kubernetes-validations[0].rule: Forbidden: 
-CEL rule exceeded budget by more than 100x (try simplifying the rule, or adding maxItems, maxProperties, and 
+spec.validation.openAPIV3Schema.properties[spec].properties[foo].x-kubernetes-validations[0].rule: Forbidden:
+CEL rule exceeded budget by more than 100x (try simplifying the rule, or adding maxItems, maxProperties, and
 maxLength where arrays, maps, and strings are used)
 ```
 
@@ -1880,7 +1939,7 @@ openAPIV3Schema:
 ```
 
 <!--
-If a list inside of a list has a validation rule that uses `self.all`, that is significantly more expensive 
+If a list inside of a list has a validation rule that uses `self.all`, that is significantly more expensive
 than a non-nested list with the same rule. A rule that would have been allowed on a non-nested list might need
 lower limits set on both nested lists in order to be allowed. For example, even without having limits set,
 the following rule is allowed:
@@ -2114,31 +2173,38 @@ default.
 `baz` 字段则被完全剪裁掉，因为该字段是不可为空的，并且没有默认值设置。
 
 <!--
-### Publish Validation Schema in OpenAPI v2
+### Publish Validation Schema in OpenAPI
 
 CustomResourceDefinition [OpenAPI v3 validation schemas](#validation) which are
 [structural](#specifying-a-structural-schema) and [enable pruning](#field-pruning) are published
-as part of the [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions)
-from Kubernetes API server.
+as [OpenAPI v3](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions) and
+OpenAPI v2 from Kubernetes API server. It is recommended to use the OpenAPI v3 document
+as it is a lossless representation of the CustomResourceDefinition OpenAPI v3 validation schema
+while OpenAPI v2 represents a lossy conversion.
 
 The [kubectl](/docs/reference/kubectl/) command-line tool consumes the published schema to perform
 client-side validation (`kubectl create` and `kubectl apply`), schema explanation (`kubectl explain`)
 on custom resources. The published schema can be consumed for other purposes as well, like client generation or documentation.
 -->
-### 以 OpenAPI v2 形式发布合法性检查模式      {#publish-validation-schema-in-openapi-v2}
+### 以 OpenAPI 形式发布合法性检查模式  {#publish-validation-schema-in-openapi}
 
 CustomResourceDefinition 的[结构化的](#specifying-a-structural-schema)、
 [启用了剪裁的](#field-pruning) [OpenAPI v3 合法性检查模式](#validation)会在
 Kubernetes API 服务器上作为
-[OpenAPI v2 规约](/zh-cn/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions)的一部分发布出来。
+[OpenAPI 3](/zh-cn/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions)
+和 OpenAPI v2 发布出来。建议使用 OpenAPI v3 文档，因为它是 CustomResourceDefinition OpenAPI v3
+验证模式的无损表示，而 OpenAPI v2 表示有损转换。
 
 [kubectl](/zh-cn/docs/reference/kubectl/) 命令行工具会基于所发布的模式定义来执行客户端的合法性检查
 （`kubectl create` 和 `kubectl apply`），为定制资源的模式定义提供解释（`kubectl explain`）。
 所发布的模式还可被用于其他目的，例如生成客户端或者生成文档。
 
 <!--
-The OpenAPI v3 validation schema is converted to OpenAPI v2 schema, and
-show up in `definitions` and `paths` fields in the
+
+#### Compatibility with OpenAPI V2
+
+For compatibility with OpenAPI V2, the OpenAPI v3 validation schema performs a lossy conversion
+to the OpenAPI v2 schema. The schema show up in `definitions` and `paths` fields in the
 [OpenAPI v2 spec](/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions).
 
 The following modifications are applied during the conversion to keep backwards compatibility with
@@ -2146,6 +2212,11 @@ kubectl in previous 1.13 version. These modifications prevent kubectl from being
 valid OpenAPI schemas that it doesn't understand. The conversion won't modify the validation schema defined in CRD,
 and therefore won't affect [validation](#validation) in the API server.
 -->
+#### Compatibility with OpenAPI V2
+
+为了与 OpenAPI V2 兼容，OpenAPI v3 验证模式会对 OpenAPI v2 模式进行有损转换。
+该模式显示在 [OpenAPI v2 规范](/zh-cn/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions)中的
+`definitions` 和` paths` 字段中。
 OpenAPI v3 合法性检查模式定义会被转换为 OpenAPI v2 模式定义，并出现在
 [OpenAPI v2 规范](/zh-cn/docs/concepts/overview/kubernetes-api/#openapi-and-swagger-definitions)的
 `definitions` 和 `paths` 字段中。
@@ -2156,16 +2227,14 @@ OpenAPI v3 合法性检查模式定义会被转换为 OpenAPI v2 模式定义，
 API 服务器中的[合法性检查](#validation)。
 
 <!--
-1. The following fields are removed as they aren't supported by OpenAPI v2
-   (in future versions OpenAPI v3 will be used without these restrictions)
+1. The following fields are removed as they aren't supported by OpenAPI v2.
 
    - The fields `allOf`, `anyOf`, `oneOf` and `not` are removed
 
 2. If `nullable: true` is set, we drop `type`, `nullable`, `items` and `properties` because OpenAPI v2 is
    not able to express nullable. To avoid kubectl to reject good objects, this is necessary.
 -->
-1. 以下字段会被移除，因为它们在 OpenAPI v2 中不支持（在将来版本中将使用 OpenAPI v3，
-   因而不会有这些限制）
+1. 以下字段会被移除，因为它们在 OpenAPI v2 中不支持。
 
    - 字段 `allOf`、`anyOf`、`oneOf` 和 `not` 会被删除
 
@@ -2462,7 +2531,7 @@ To enable the scale subresource, the following fields are defined in the CustomR
   `Scale.Status.Selector`.
 
   - It is an optional value.
-  - It must be set to work with HPA.
+  - It must be set to work with HPA and VPA.
   - Only JSONPaths under `.status` or `.spec` and with the dot notation are allowed.
   - If there is no value under the `labelSelectorPath` in the custom resource,
     the status selector value in the `/scale` subresource will default to the empty string.
@@ -2472,7 +2541,7 @@ To enable the scale subresource, the following fields are defined in the CustomR
 - `labelSelectorPath` 指定定制资源内与 `Scale.Status.Selector` 对应的 JSON 路径。
 
   - 此字段为可选值。
-  - 此字段必须设置才能使用 HPA。
+  - 此字段必须设置才能使用 HPA 和 VPA。
   - 只可以使用 `.status` 或 `.spec` 下的 JSON 路径，只可使用带句点的路径。
   - 如果定制资源的 `labelSelectorPath` 下没有取值，则针对 `/scale`
     子资源的选择算符状态值默认为空字符串。
