@@ -787,9 +787,9 @@ These situations are:
    fields via `x-kubernetes-preserve-unknown-fields`).
 2. The field is duplicated in the object.
 
-### Validation for unrecognized or duplicate fields (#setting-the-field-validation-level)
+### Validation for unrecognized or duplicate fields {#setting-the-field-validation-level}
 
-  {{< feature-state for_k8s_version="v1.27" state="stable" >}}
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
 From 1.25 onward, unrecognized or duplicate fields in an object are detected via
 validation on the server when you use HTTP verbs that can submit data (`POST`, `PUT`, and `PATCH`). Possible levels of
