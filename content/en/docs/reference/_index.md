@@ -80,7 +80,7 @@ operator to use or manage a cluster.
     * [v1](/docs/reference/config-api/apiserver-admission.v1/)
 * kube-apiserver configuration
     * [v1alpha1](/docs/reference/config-api/apiserver-config.v1alpha1/) 
-    * [v1beta1](/docs/reference/config-api/apiserver-config.v1beta1/) and
+    * [v1beta1](/docs/reference/config-api/apiserver-config.v1beta1/)
     * [v1](/docs/reference/config-api/apiserver-config.v1/)
 * kube-apiserver encryption
     * [v1](/docs/reference/config-api/apiserver-encryption.v1/)
