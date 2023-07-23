@@ -88,7 +88,7 @@ operator to use or manage a cluster.
     * [v1alpha1](/docs/reference/config-api/apiserver-eventratelimit.v1alpha1/)
 * kubelet configuration   
     * [v1alpha1](/docs/reference/config-api/kubelet-config.v1alpha1/)
-    * [v1beta1](/docs/reference/config-api/kubelet-config.v1beta1/) and
+    * [v1beta1](/docs/reference/config-api/kubelet-config.v1beta1/)
     * [v1](/docs/reference/config-api/kubelet-config.v1/)
 * kubelet credential providers
     * [v1alpha1](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/)
