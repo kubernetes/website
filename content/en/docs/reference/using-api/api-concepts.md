@@ -940,6 +940,10 @@ See [Authorization Overview](/docs/reference/access-authn-authz/authorization/).
 
 ## Updates to existing resources {#patch-and-apply}
 
+Kubernetes provides several ways to update existing objects.
+You can read [choosing an update mechanism](#update-mechanism-choose) to
+learn about which approach might be best for your use case.
+
 You can overwrite (**update**) an existing resource - for example, a ConfigMap -
 using an HTTP PUT. For a PUT request, it is the client's responsibility to specify
 the `resourceVersion` (taking this from the object being updated). Kubernetes uses
@@ -1007,6 +1011,69 @@ does not yet exist, and a **patch** otherwise. For other requests that use PATCH
 at the HTTP level, the logical Kubernetes operation is always **patch**.
 
 See [Server Side Apply](/docs/reference/using-api/server-side-apply/) for more details.
+
+### Choosing an update mechanism {#update-mechanism-choose}
+
+#### HTTP PUT to replace existing resource {#update-mechanism-update}
+
+The **update** (HTTP `PUT`) operation is simple to implement and flexible,
+but has drawbacks:
+
+* You need to handle conflicts where the `resourceVersion` of the object changes
+  between your client reading it and trying to write it back. Kubernetes always
+  detects the conflict, but you as the client author need to implement retries.
+* You might accidentally drop fields if you decode an object locally (for example,
+  using client-go, you could receive fields that your client does not know how to
+  handle - and then drop them as part of your update.
+* If there's a lot of contention on the object (even on a field, or set of fields,
+  that you're not trying to edit), you might have trouble sending the update.
+  The problem is worse for larger objects and for objects with many fields.
+
+#### HTTP PATCH using JSON Patch {#update-mechanism-json-patch}
+
+A **patch** update is helpful, because:
+
+* As you're only sending differences, you have less data to send in the `PATCH`
+  request.
+* You can make changes that rely on existing values, such as copying the
+  value of a particular field into an annotation.
+* Unlike with an **update** (HTTP `PUT`), making your change can happen right away
+  even if there are frequent changes to unrelated fields): you usually would
+  not need to retry.
+  * You might still need to specify the `resourceVersion` (to match an existing object)
+    if you want to be extra careful to avoid lost updates
+  * It's still good practice to write in some retry logic in case of errors.
+* You can use test conditions to careful craft specific update conditions.
+  For example, you can increment a counter without reading it if the existing
+  value matches what you expect. You can do this with no lost update risk,
+  even if the object has changed in other ways since you last wrote to it.
+  (If the test condition fails, you can fall back to reading the current value
+  and then write back the changed number).
+
+However:
+
+* you need more local (client) logic to build the patch; it helps a lot if you have
+  a library implementation of JSON Patch, or even for making a JSON Patch specifically against Kubernetes
+* as the author of client software, you need to be careful when building the patch
+  (the HTTP request body) not to drop fields (the order of operations matters)
+
+#### HTTP PATCH using Server-Side Apply {#update-mechanism-server-side-apply}
+
+Server-Side Apply has some clear benefits:
+
+* A single round trip: it rarely requires making a `GET` request first.
+  * and you can still detect conflicts for unexpected changes
+  * you have the option to force override a conflict, if appropriate
+* Client implementations are easy to make
+* You get an atomic create-or-update operation without extra effort
+  (similar to `UPSERT` in some SQL dialects)
+
+However:
+
+* Server-Side Apply does not work at all for field changes that depend on a current value of the object
+* You can only apply updates to objects. Some resources in the Kubernetes HTTP API are
+  not objects (they do not have a `.metadata` field), and Server-Side Apply
+  is only relevant for Kubernetes objects.
 
 ## Resource versions
 
