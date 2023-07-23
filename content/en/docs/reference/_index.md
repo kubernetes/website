@@ -92,7 +92,7 @@ operator to use or manage a cluster.
     * [v1](/docs/reference/config-api/kubelet-config.v1/)
 * kubelet credential providers
     * [v1alpha1](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/)
-    * [1beta1](/docs/reference/config-api/kubelet-credentialprovider.v1beta1/) and
+    * [1beta1](/docs/reference/config-api/kubelet-credentialprovider.v1beta1/)
     * [v1](/docs/reference/config-api/kubelet-credentialprovider.v1/)
 * kube-scheduler configuration
     * [v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
