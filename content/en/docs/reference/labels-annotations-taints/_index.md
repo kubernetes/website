@@ -226,6 +226,20 @@ This annotation is applied to the parent object used to track an ApplySet to ind
 tooling manages that ApplySet. Tooling should refuse to mutate ApplySets belonging to other tools.
 The value must be in the format `<toolname>/<semver>`.
 
+### apps.kubernetes.io/pod-index (beta) {#apps-kubernetes.io-pod-index}
+
+Type: Label
+
+Example: `apps.kubernetes.io/pod-index: "0"`
+
+Used on: Pod
+
+When a StatefulSet controller creates a Pod for the StatefulSet, it sets this label on that Pod. 
+The value of the label is the ordinal index of the pod being created.
+
+See [Pod Index Label](/docs/concepts/workloads/controllers/statefulset/#pod-index-label)
+in the StatefulSet topic for more details.
+
 ### cluster-autoscaler.kubernetes.io/safe-to-evict
 
 Type: Annotation
@@ -1033,13 +1047,13 @@ by the cloud-controller-manager.
 
 ### batch.kubernetes.io/job-completion-index
 
-Type: Annotation
+Type: Annotation, Label
 
 Example: `batch.kubernetes.io/job-completion-index: "3"`
 
 Used on: Pod
 
-The Job controller in the kube-controller-manager sets this annotation for Pods
+The Job controller in the kube-controller-manager sets this as a label and annotation for Pods
 created with Indexed [completion mode](/docs/concepts/workloads/controllers/job/#completion-mode).
 
 ### kubectl.kubernetes.io/default-container
