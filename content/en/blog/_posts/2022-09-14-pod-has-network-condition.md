@@ -25,7 +25,7 @@ repeatedly fail to come up.
 
 ### Updates for Kubernetes 1.28
 
-The PodHasNetwork condition has been renamed to PodReadyToStartContainers.
+The `PodHasNetwork` condition has been renamed to `PodReadyToStartContainers`.
 To enable this alpha feature you have to set the feature toggle PodReadyToStartContainersCondition 
 to true.
 
