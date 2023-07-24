@@ -834,28 +834,31 @@ using the attribute `storageClassName`.
 Only PVs of the requested class, ones with the same `storageClassName` as the PVC, can
 be bound to the PVC.
 
-PVCs don't necessarily have to request a class. A PVC with its `storageClassName` set
-equal to `""` is always interpreted to be requesting a PV with no class, so it
-can only be bound to PVs with no class (no annotation or one set equal to
-`""`). A PVC with no `storageClassName` is not quite the same and is treated differently
-by the cluster, depending on whether the
-[`DefaultStorageClass` admission plugin](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
-is turned on.
+PVCs (Persistent Volume Claims) can be created without
+explicitly requesting a storage class. If a PVC has its
+`storageClassName` set to an empty string `""` it means it is
+requesting a PV (Persistent Volume) with no storage class.
+In this case, it can only be bound to PVs with no class specified
+(no annotation or one set to `""`).
 
-* If the admission plugin is turned on, the administrator may specify a
-  default StorageClass. All PVCs that have no `storageClassName` can be bound only to
-  PVs of that default. Specifying a default StorageClass is done by setting the
-  annotation `storageclass.kubernetes.io/is-default-class` equal to `true` in
-  a StorageClass object. If the administrator does not specify a default, the
-  cluster responds to PVC creation as if the admission plugin were turned off. If
-  more than one default is specified, the admission plugin forbids the creation of
-  all PVCs.
-* If the admission plugin is turned off, there is no notion of a default
-  StorageClass. All PVCs that have `storageClassName` set to `""` can be
-  bound only to PVs that have `storageClassName` also set to `""`.
-  However, PVCs with missing `storageClassName` can be updated later once
-  default StorageClass becomes available. If the PVC gets updated it will no
-  longer bind to PVs that have `storageClassName` also set to `""`.
+However, if a PVC has no `storageClassName` specified at all,
+its behavior depends on whether the [`DefaultStorageClass` admission plugin](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)
+is enabled in the cluster.
+
+* If the admission plugin is turned on, the administrator can
+  set a default StorageClass. If a default StorageClass is present,
+  any PVCs without a `storageClassName` can only be bound to PVs
+  of that default class. The default class is determined by setting
+  the annotation `storageclass.kubernetes.io/is-default-class`
+  to `true` in a StorageClass object. If no default class is
+  specified, the cluster behaves as if the admission plugin is
+  turned off. If more than one default StorageClass is specified,
+  the newest default is used when the PVC is dynamically provisioned.
+
+* In case the admission plugin is turned off, there is no concept
+  of a default StorageClass. PVCs without a `storageClassName`
+  can only be bound to PVs with no class specified
+  (no annotation or one set to `""`).
 
 See [retroactive default StorageClass assignment](#retroactive-default-storageclass-assignment) for more details.
 
