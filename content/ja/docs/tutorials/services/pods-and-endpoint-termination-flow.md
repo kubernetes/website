@@ -27,7 +27,7 @@ weight: 60
 
 1つの`nginx`レプリカを含むDeployment(純粋にデモンストレーション目的です)とServiceがあるとします:
 
-{{< codenew file="service/pod-with-graceful-termination.yaml" >}}
+{{% codenew file="service/pod-with-graceful-termination.yaml" %}}
 
 ```yaml
 apiVersion: apps/v1

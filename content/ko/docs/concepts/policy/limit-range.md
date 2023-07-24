@@ -54,12 +54,12 @@ _리밋레인지_ 는 다음과 같은 제약 조건을 제공한다.
 
 예를 들어, 이 매니페스트에 `LimitRange`를 정의한다.
 
-{{< codenew file="concepts/policy/limit-range/problematic-limit-range.yaml" >}}
+{{% codenew file="concepts/policy/limit-range/problematic-limit-range.yaml" %}}
 
 
 이 때 CPU 리소스 요청을 `700m`로 선언하지만 제한은 선언하지 않는 파드를 포함한다.
 
-{{< codenew file="concepts/policy/limit-range/example-conflict-with-limitrange-cpu.yaml" >}}
+{{% codenew file="concepts/policy/limit-range/example-conflict-with-limitrange-cpu.yaml" %}}
 
 
 그러면 해당 파드는 스케줄링되지 않고 다음과 유사한 오류와 함께 실패한다.
@@ -69,7 +69,7 @@ Pod "example-conflict-with-limitrange-cpu" is invalid: spec.containers[0].resour
 
 `request`와 `limit`를 모두 설정하면, 동일한 `LimitRange`가 적용되어 있어도 새 파드는 성공적으로 스케줄링된다.
 
-{{< codenew file="concepts/policy/limit-range/example-no-conflict-with-limitrange-cpu.yaml" >}}
+{{% codenew file="concepts/policy/limit-range/example-no-conflict-with-limitrange-cpu.yaml" %}}
 
 ## 리소스 제약 예시
 

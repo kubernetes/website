@@ -29,7 +29,7 @@ weight: 70
 
 다음은 파드의 구성 파일이다.
 
-{{< codenew file="pods/storage/projected.yaml" >}}
+{{% codenew file="pods/storage/projected.yaml" %}}
 
 1. 시크릿을 생성한다.
 

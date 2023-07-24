@@ -129,7 +129,7 @@ IPv4, IPv6 또는 둘 다를 사용할 수 있는 {{< glossary_tooltip text="서
 [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)와
 같은 방식으로 동작한다.)
 
-{{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
+{{% codenew file="service/networking/dual-stack-default-svc.yaml" %}}
 
 1. 이 서비스 사양은 `.spec.ipFamilyPolicy`에 `PreferDualStack`을
    명시적으로 정의한다. 이중 스택 클러스터에서 이 서비스를 생성하면 쿠버네티스는
@@ -145,14 +145,14 @@ IPv4, IPv6 또는 둘 다를 사용할 수 있는 {{< glossary_tooltip text="서
    * 이중 스택이 활성화된 클러스터에서 `.spec.ipFamilyPolicy`에 `RequireDualStack`을
      지정하면 `PreferDualStack`과 동일하게 작동한다.
 
-{{< codenew file="service/networking/dual-stack-preferred-svc.yaml" >}}
+{{% codenew file="service/networking/dual-stack-preferred-svc.yaml" %}}
 
 1. 이 서비스 사양은 `.spec.ipFamilies`에` IPv6`과 `IPv4`를 명시적으로 정의하고
    `.spec.ipFamilyPolicy`에 `PreferDualStack`을 정의한다. 쿠버네티스가 `.spec.ClusterIPs`에
    IPv6 및 IPv4 주소를 할당할 때 `.spec.ClusterIP`는 `.spec.ClusterIPs` 배열의
    첫 번째 요소이므로 IPv6 주소로 설정되어 기본값을 재정의한다.
 
-{{< codenew file="service/networking/dual-stack-preferred-ipfamilies-svc.yaml" >}}
+{{% codenew file="service/networking/dual-stack-preferred-ipfamilies-svc.yaml" %}}
 
 #### 기존 서비스의 이중 스택 기본값
 
@@ -165,7 +165,7 @@ IPv4, IPv6 또는 둘 다를 사용할 수 있는 {{< glossary_tooltip text="서
    `.spec.ipFamilies`를 기존 서비스의 주소 계열로 설정한다.
    기존 서비스 클러스터 IP는 `.spec.ClusterIPs`에 저장한다.
 
-   {{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
+   {{% codenew file="service/networking/dual-stack-default-svc.yaml" %}}
 
    kubectl을 사용하여 기존 서비스를 검사하여 이 동작을 검증할 수 있다.
 
@@ -205,7 +205,7 @@ IPv4, IPv6 또는 둘 다를 사용할 수 있는 {{< glossary_tooltip text="서
    클러스터 IP 범위(kube-apiserver에 대한 `--service-cluster-ip-range` 플래그를 통해 구성)의 주소 계열으로
    지정한다.
 
-   {{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
+   {{% codenew file="service/networking/dual-stack-default-svc.yaml" %}}
 
    kubectl을 사용하여 셀렉터로 기존 헤드리스 서비스를 검사하여 이 동작의 유효성을 검사 할 수 있다.
 

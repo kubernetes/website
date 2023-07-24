@@ -36,7 +36,7 @@ weight: 50
 다음은 잡 설정 예시이다.  예시는 파이(π)의 2000 자리까지 계산해서 출력한다.
 이를 완료하는 데 약 10초가 소요된다.
 
-{{< codenew file="controllers/job.yaml" >}}
+{{% codenew file="controllers/job.yaml" %}}
 
 이 명령으로 예시를 실행할 수 있다.
 
@@ -749,7 +749,7 @@ spec:
 
 다음은 `podFailurePolicy`를 정의하는 잡의 매니페스트이다.
 
-{{< codenew file="/controllers/job-pod-failure-policy-example.yaml" >}}
+{{% codenew file="/controllers/job-pod-failure-policy-example.yaml" %}}
 
 위 예시에서, 파드 실패 정책의 첫 번째 규칙은 `main` 컨테이너가 42 종료코드와 
 함께 실패하면 잡도 실패로 표시되는 것으로 

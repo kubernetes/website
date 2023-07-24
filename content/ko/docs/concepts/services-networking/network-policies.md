@@ -50,7 +50,7 @@ pod- 또는 namespace- 기반의 네트워크폴리시를 정의할 때, {{< glo
 
 네트워크폴리시 의 예시는 다음과 같다.
 
-{{< codenew file="service/networking/networkpolicy.yaml" >}}
+{{% codenew file="service/networking/networkpolicy.yaml" %}}
 
 {{< note >}}
 선택한 네트워킹 솔루션이 네트워킹 정책을 지원하지 않으면 클러스터의 API 서버에 이를 POST 하더라도 효과가 없다.
@@ -150,7 +150,7 @@ __ipBlock__: 인그레스 소스 또는 이그레스 대상으로 허용할 IP C
 
 모든 파드를 선택하지만 해당 파드에 대한 인그레스 트래픽은 허용하지 않는 네트워크폴리시를 생성해서 네임스페이스에 대한 "기본" 인그레스 격리 정책을 생성할 수 있다.
 
-{{< codenew file="service/networking/network-policy-default-deny-ingress.yaml" >}}
+{{% codenew file="service/networking/network-policy-default-deny-ingress.yaml" %}}
 
 이렇게 하면 다른 네트워크폴리시에서 선택하지 않은 파드도 인그레스에 대해 여전히 격리된다. 이 정책은 다른 파드로부터의 이그레스 격리에는 영향을 미치지 않는다.
 
@@ -158,7 +158,7 @@ __ipBlock__: 인그레스 소스 또는 이그레스 대상으로 허용할 IP C
 
 한 네임스페이스의 모든 파드로의 인입(incoming) 연결을 허용하려면, 이를 명시적으로 허용하는 정책을 만들 수 있다.
 
-{{< codenew file="service/networking/network-policy-allow-all-ingress.yaml" >}}
+{{% codenew file="service/networking/network-policy-allow-all-ingress.yaml" %}}
 
 이 정책이 존재하면, 해당 파드로의 인입 연결을 막는 다른 정책은 효력이 없다. 이 정책은 모든 파드로부터의 이그레스 격리에는 영향을 미치지 않는다.
 
@@ -166,7 +166,7 @@ __ipBlock__: 인그레스 소스 또는 이그레스 대상으로 허용할 IP C
 
 모든 파드를 선택하지만, 해당 파드의 이그레스 트래픽을 허용하지 않는 네트워크폴리시를 생성해서 네임스페이스에 대한 "기본" 이그레스 격리 정책을 생성할 수 있다.
 
-{{< codenew file="service/networking/network-policy-default-deny-egress.yaml" >}}
+{{% codenew file="service/networking/network-policy-default-deny-egress.yaml" %}}
 
 이렇게 하면 다른 네트워크폴리시에서 선택하지 않은 파드조차도 이그레스 트래픽을 허용하지 않는다. 이 정책은
 모든 파드의 인그레스 격리 정책을 변경하지 않는다.
@@ -175,7 +175,7 @@ __ipBlock__: 인그레스 소스 또는 이그레스 대상으로 허용할 IP C
 
 한 네임스페이스의 모든 파드로부터의 모든 연결을 허용하려면, 해당 네임스페이스의 파드로부터 나가는(outgoing) 모든 연결을 명시적으로 허용하는 정책을 생성할 수 있다.
 
-{{< codenew file="service/networking/network-policy-allow-all-egress.yaml" >}}
+{{% codenew file="service/networking/network-policy-allow-all-egress.yaml" %}}
 
 이 정책이 존재하면, 해당 파드에서 나가는 연결을 막는 다른 정책은 효력이 없다. 이 정책은 모든 파드로의 인그레스 격리에는 영향을 미치지 않는다.
 
@@ -183,7 +183,7 @@ __ipBlock__: 인그레스 소스 또는 이그레스 대상으로 허용할 IP C
 
 해당 네임스페이스에 아래의 네트워크폴리시를 만들어 모든 인그레스와 이그레스 트래픽을 방지하는 네임스페이스에 대한 "기본" 정책을 만들 수 있다.
 
-{{< codenew file="service/networking/network-policy-default-deny-all.yaml" >}}
+{{% codenew file="service/networking/network-policy-default-deny-all.yaml" %}}
 
 이렇게 하면 다른 네트워크폴리시에서 선택하지 않은 파드도 인그레스 또는 이그레스 트래픽을 허용하지 않는다.
 

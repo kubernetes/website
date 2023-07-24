@@ -462,7 +462,7 @@ Here is a sample manifest for such a Secret:
 
 以下是此类 Secret 的示例清单：
 
-{{< codenew file="secret/serviceaccount/mysecretname.yaml" >}}
+{{% codenew file="secret/serviceaccount/mysecretname.yaml" %}}
 
 <!--
 To create a Secret based on this example, run:

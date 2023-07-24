@@ -58,7 +58,7 @@ HorizontalPodAutoscaler 시연을 위해, `hpa-example` 이미지를 사용하�
 다음의 매니페스트를 사용하여 디플로이먼트를
 {{< glossary_tooltip term_id="service" text="서비스">}}로 노출한다.
 
-{{< codenew file="application/php-apache.yaml" >}}
+{{% codenew file="application/php-apache.yaml" %}}
 
 이를 위해, 다음의 명령어를 실행한다.
 
@@ -498,7 +498,7 @@ HorizontalPodAutoscaler와 메트릭 API에서 모든 메트릭은
 HorizontalPodAutoscaler를 생성하기 위해 `kubectl autoscale` 명령어를 사용하지 않고,
 명시적으로 다음 매니페스트를 사용하여 만들 수 있다.
 
-{{< codenew file="application/hpa/php-apache.yaml" >}}
+{{% codenew file="application/hpa/php-apache.yaml" %}}
 
 다음으로, 아래의 명령어를 실행하여 오토스케일러를 생성한다.
 

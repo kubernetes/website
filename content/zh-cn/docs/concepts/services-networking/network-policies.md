@@ -160,7 +160,7 @@ An example NetworkPolicy might look like this:
 
 下面是一个 NetworkPolicy 的示例:
 
-{{< codenew file="service/networking/networkpolicy.yaml" >}}
+{{% codenew file="service/networking/networkpolicy.yaml" %}}
 
 {{< note >}}
 <!--
@@ -391,7 +391,7 @@ that selects all pods but does not allow any ingress traffic to those pods.
 你可以通过创建选择所有 Pod 但不允许任何进入这些 Pod 的入站流量的 NetworkPolicy
 来为名字空间创建 “default” 隔离策略。
 
-{{< codenew file="service/networking/network-policy-default-deny-ingress.yaml" >}}
+{{% codenew file="service/networking/network-policy-default-deny-ingress.yaml" %}}
 
 <!--
 This ensures that even pods that aren't selected by any other NetworkPolicy will still be isolated
@@ -411,7 +411,7 @@ that explicitly allows that.
 -->
 如果你想允许一个名字空间中所有 Pod 的所有入站连接，你可以创建一个明确允许的策略。
 
-{{< codenew file="service/networking/network-policy-allow-all-ingress.yaml" >}}
+{{% codenew file="service/networking/network-policy-allow-all-ingress.yaml" %}}
 
 <!--
 With this policy in place, no additional policy or policies can cause any incoming connection to
@@ -431,7 +431,7 @@ that selects all pods but does not allow any egress traffic from those pods.
 你可以通过创建选择所有容器但不允许来自这些容器的任何出站流量的 NetworkPolicy
 来为名字空间创建 “default” 隔离策略。
 
-{{< codenew file="service/networking/network-policy-default-deny-egress.yaml" >}}
+{{% codenew file="service/networking/network-policy-default-deny-egress.yaml" %}}
 
 <!--
 This ensures that even pods that aren't selected by any other NetworkPolicy will not be allowed
@@ -452,7 +452,7 @@ explicitly allows all outgoing connections from pods in that namespace.
 如果要允许来自名字空间中所有 Pod 的所有连接，
 则可以创建一个明确允许来自该名字空间中 Pod 的所有出站连接的策略。
 
-{{< codenew file="service/networking/network-policy-allow-all-egress.yaml" >}}
+{{% codenew file="service/networking/network-policy-allow-all-egress.yaml" %}}
 
 <!--
 With this policy in place, no additional policy or policies can cause any outgoing connection from
@@ -472,7 +472,7 @@ creating the following NetworkPolicy in that namespace.
 你可以为名字空间创建“默认”策略，以通过在该名字空间中创建以下 NetworkPolicy
 来阻止所有入站和出站流量。
 
-{{< codenew file="service/networking/network-policy-default-deny-all.yaml" >}}
+{{% codenew file="service/networking/network-policy-default-deny-all.yaml" %}}
 
 <!--
 This ensures that even pods that aren't selected by any other NetworkPolicy will not be allowed
@@ -524,7 +524,7 @@ This is achievable with the usage of the `endPort` field, as the following examp
 
 这一目的可以通过使用 `endPort` 字段来实现，如下例所示：
 
-{{< codenew file="service/networking/networkpolicy-multiport-egress.yaml" >}}
+{{% codenew file="service/networking/networkpolicy-multiport-egress.yaml" %}}
 
 <!--
 The above rule allows any Pod with label `role=db` on the namespace `default` to communicate 

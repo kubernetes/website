@@ -26,7 +26,7 @@ weight: 20
 값을 가지는 환경 변수를 정의한다. 다음은 파드를 위한 구성 매니페스트
 예시이다.
 
-{{< codenew file="pods/inject/envars.yaml" >}}
+{{% codenew file="pods/inject/envars.yaml" %}}
 
 1. YAML 구성 파일을 활용해 파드를 생성한다.
 

@@ -55,7 +55,7 @@ Create an nginx Pod, and note that it has a container port specification:
 我们在之前的示例中已经做过，然而让我们以网络连接的视角再重做一遍。
 创建一个 Nginx Pod，注意其中包含一个容器端口的规约：
 
-{{< codenew file="service/networking/run-my-nginx.yaml" >}}
+{{% codenew file="service/networking/run-my-nginx.yaml" %}}
 
 <!--
 This makes it accessible from any node in your cluster. Check the nodes the Pod is running on:
@@ -149,7 +149,7 @@ This is equivalent to `kubectl apply -f` the following yaml:
 -->
 这等价于使用 `kubectl create -f` 命令及如下的 yaml 文件创建：
 
-{{< codenew file="service/networking/nginx-svc.yaml" >}}
+{{% codenew file="service/networking/nginx-svc.yaml" %}}
 
 <!--
 This specification will create a Service which targets TCP port 80 on any Pod
@@ -495,7 +495,7 @@ in the secret, and the Service, to expose both ports (80 and 443):
 -->
 现在修改 Nginx 副本以启动一个使用 Secret 中的证书的 HTTPS 服务器以及相应的用于暴露其端口（80 和 443）的 Service：
 
-{{< codenew file="service/networking/nginx-secure-app.yaml" >}}
+{{% codenew file="service/networking/nginx-secure-app.yaml" %}}
 
 <!--
 Noteworthy points about the nginx-secure-app manifest:
@@ -548,7 +548,7 @@ for simplicity, the pod only needs nginx.crt to access the Service):
 通过创建 Service，我们连接了在证书中的 CName 与在 Service 查询时被 Pod 使用的实际 DNS 名字。
 让我们从一个 Pod 来测试（为了方便，这里使用同一个 Secret，Pod 仅需要使用 nginx.crt 去访问 Service）：
 
-{{< codenew file="service/networking/curlpod.yaml" >}}
+{{% codenew file="service/networking/curlpod.yaml" %}}
 
 ```shell
 kubectl apply -f ./curlpod.yaml

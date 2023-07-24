@@ -56,7 +56,7 @@ weight: 30
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-configmap.yaml
 ```
 
-{{< codenew file="application/mysql/mysql-configmap.yaml" >}}
+{{% codenew file="application/mysql/mysql-configmap.yaml" %}}
 
 このConfigMapは、MySQLマスターとスレーブの設定を独立して制御するために、
 それぞれの`my.cnf`を上書きする内容を提供します。
@@ -75,7 +75,7 @@ ConfigMap自体に特別なことはありませんが、ConfigMapの各部分�
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-services.yaml
 ```
 
-{{< codenew file="application/mysql/mysql-services.yaml" >}}
+{{% codenew file="application/mysql/mysql-services.yaml" %}}
 
 ヘッドレスサービスは、StatefulSetコントローラーが
 StatefulSetの一部であるPodごとに作成するDNSエントリーのベースエントリーを提供します。
@@ -98,7 +98,7 @@ MySQLマスターは1つしかいないため、クライアントが書き込�
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-statefulset.yaml
 ```
 
-{{< codenew file="application/mysql/mysql-statefulset.yaml" >}}
+{{% codenew file="application/mysql/mysql-statefulset.yaml" %}}
 
 次のコマンドを実行して起動の進行状況を確認できます。
 

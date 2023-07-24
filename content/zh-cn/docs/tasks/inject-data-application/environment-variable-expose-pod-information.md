@@ -60,7 +60,7 @@ project Pod-level fields into the running container as environment variables.
 
 在这部分练习中，你将创建一个包含一个容器的 Pod。并将 Pod 级别的字段作为环境变量投射到正在运行的容器中。
 
-{{< codenew file="pods/inject/dapi-envars-pod.yaml" >}}
+{{% codenew file="pods/inject/dapi-envars-pod.yaml" %}}
 
 <!--
 In that manifest, you can see five environment variables. The `env`
@@ -185,7 +185,7 @@ Here is a manifest for another Pod that again has just one container:
 
 这里是只包含一个容器的 Pod 的清单：
 
-{{< codenew file="pods/inject/dapi-envars-container.yaml" >}}
+{{% codenew file="pods/inject/dapi-envars-container.yaml" %}}
 
 <!--
 In this manifest, you can see four environment variables. The `env`

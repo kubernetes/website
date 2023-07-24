@@ -26,7 +26,7 @@ content_type: task
 このエクササイズでは、1つのコンテナを持つPodを作成します。
 コンテナはnginxのイメージを実行します。以下がそのPodの設定ファイルです:
 
-{{< codenew file="application/shell-demo.yaml" >}}
+{{% codenew file="application/shell-demo.yaml" %}}
 
 Podを作成します:
 

@@ -282,7 +282,7 @@ Kubelet juga dapat memproyeksikan _token_ ServiceAccount ke Pod. Kamu dapat mene
 
 Perilaku ini diatur pada PodSpec menggunakan tipe ProjectedVolume yaitu [ServiceAccountToken](/id/docs/concepts/storage/volumes/#projected). Untuk memungkinkan Pod dengan _token_ dengan pengguna bertipe _"vault"_ dan durasi validitas selama dua jam, kamu harus mengubah bagian ini pada PodSpec:
 
-{{< codenew file="pods/pod-projected-svc-token.yaml" >}}
+{{% codenew file="pods/pod-projected-svc-token.yaml" %}}
 
 Buat Pod:
 

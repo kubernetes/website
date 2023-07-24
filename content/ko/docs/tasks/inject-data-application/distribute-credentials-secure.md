@@ -39,7 +39,7 @@ echo -n '39528$vdg7Jb' | base64
 다음은 사용자 이름과 암호가 들어 있는 시크릿을 생성하는 데 사용할 수 있는 
 구성 파일이다.
 
-{{< codenew file="pods/inject/secret.yaml" >}}
+{{% codenew file="pods/inject/secret.yaml" %}}
 
 1. 시크릿을 생성한다.
 
@@ -99,7 +99,7 @@ kubectl create secret generic test-secret --from-literal='username=my-app' --fro
 
 다음은 파드를 생성하는 데 사용할 수 있는 구성 파일이다.
 
-{{< codenew file="pods/inject/secret-pod.yaml" >}}
+{{% codenew file="pods/inject/secret-pod.yaml" %}}
 
 1. 파드를 생성한다.
 
@@ -161,7 +161,7 @@ kubectl create secret generic test-secret --from-literal='username=my-app' --fro
 
 *  시크릿에 정의된 `backend-username` 값을 파드 명세의 `SECRET_USERNAME` 환경 변수에 할당한다.
 
-   {{< codenew file="pods/inject/pod-single-secret-env-variable.yaml" >}}
+   {{% codenew file="pods/inject/pod-single-secret-env-variable.yaml" %}}
 
 *  파드를 생성한다.
 
@@ -191,7 +191,7 @@ kubectl create secret generic test-secret --from-literal='username=my-app' --fro
 
 *  파드 명세에 환경 변수를 정의한다.
 
-   {{< codenew file="pods/inject/pod-multiple-secret-env-variable.yaml" >}}
+   {{% codenew file="pods/inject/pod-multiple-secret-env-variable.yaml" %}}
 
 *  파드를 생성한다.
 
@@ -225,7 +225,7 @@ kubectl create secret generic test-secret --from-literal='username=my-app' --fro
 
 *  envFrom을 사용하여 시크릿의 모든 데이터를 컨테이너 환경 변수로 정의한다. 시크릿의 키는 파드에서 환경 변수의 이름이 된다.
 
-    {{< codenew file="pods/inject/pod-secret-envFrom.yaml" >}}
+    {{% codenew file="pods/inject/pod-secret-envFrom.yaml" %}}
 
 *  파드를 생성한다.
 

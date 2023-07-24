@@ -45,7 +45,7 @@ card:
 
 以下のマニフェストファイルは、シングルレプリカのRedisのマスターPodを実行するDeploymentコントローラーを指定しています。
 
-{{< codenew file="application/guestbook/redis-master-deployment.yaml" >}}
+{{% codenew file="application/guestbook/redis-master-deployment.yaml" %}}
 
 1. マニフェストファイルをダウンロードしたディレクトリ内で、ターミナルウィンドウを起動します。
 1. `redis-master-deployment.yaml`ファイルから、RedisのマスターのDeploymentを適用します。
@@ -81,7 +81,7 @@ POD-NAMEの部分を実際のPodの名前に書き換えてください。
 
 ゲストブックアプリケーションは、データを書き込むためにRedisのマスターと通信する必要があります。そのためには、[Service](/ja/docs/concepts/services-networking/service/)を適用して、トラフィックをRedisのマスターのPodへプロキシーしなければなりません。Serviceは、Podにアクセスするためのポリシーを指定します。
 
-{{< codenew file="application/guestbook/redis-master-service.yaml" >}}
+{{% codenew file="application/guestbook/redis-master-service.yaml" %}}
 
 1. 次の`redis-master-service.yaml`から、RedisのマスターのServiceを適用します。
 
@@ -118,7 +118,7 @@ Deploymentはマニフェストファイル内に書かれた設定に基づい�
 
 もし1つもレプリカが実行されていなければ、このDeploymentは2つのレプリカをコンテナクラスター上で起動します。逆に、もしすでに2つ以上のレプリカが実行されていれば、実行中のレプリカが2つになるようにスケールダウンします。
 
-{{< codenew file="application/guestbook/redis-slave-deployment.yaml" >}}
+{{% codenew file="application/guestbook/redis-slave-deployment.yaml" %}}
 
 1. `redis-slave-deployment.yaml`ファイルから、RedisのスレーブのDeploymentを適用します。
 
@@ -145,7 +145,7 @@ Deploymentはマニフェストファイル内に書かれた設定に基づい�
 
 ゲストブックアプリケーションは、データを読み込むためにRedisのスレーブと通信する必要があります。Redisのスレーブが発見できるようにするためには、Serviceをセットアップする必要があります。Serviceは一連のPodに対する透過的なロードバランシングを提供します。
 
-{{< codenew file="application/guestbook/redis-slave-service.yaml" >}}
+{{% codenew file="application/guestbook/redis-slave-service.yaml" %}}
 
 1. 次の`redis-slave-service.yaml`ファイルから、RedisのスレーブのServiceを適用します。
 
@@ -174,7 +174,7 @@ Deploymentはマニフェストファイル内に書かれた設定に基づい�
 
 ### ゲストブックのフロントエンドのDeploymentを作成する
 
-{{< codenew file="application/guestbook/frontend-deployment.yaml" >}}
+{{% codenew file="application/guestbook/frontend-deployment.yaml" %}}
 
 1. `frontend-deployment.yaml`ファイルから、フロントエンドのDeploymentを適用します。
 
@@ -207,7 +207,7 @@ Deploymentはマニフェストファイル内に書かれた設定に基づい�
 一部のクラウドプロバイダーでは、Google Compute EngineやGoogle Kubernetes Engineなど、外部のロードバランサーをサポートしているものがあります。もしクラウドプロバイダーがロードバランサーをサポートしていて、それを使用したい場合は、`type: NodePort`という行を単に削除またはコメントアウトして、`type: LoadBalancer`のコメントアウトを外せば使用できます。
 {{< /note >}}
 
-{{< codenew file="application/guestbook/frontend-service.yaml" >}}
+{{% codenew file="application/guestbook/frontend-service.yaml" %}}
 
 1. `frontend-service.yaml`ファイルから、フロントエンドのServiceを提供します。
 

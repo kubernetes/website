@@ -39,7 +39,7 @@ weight: 60
 아래 예시는, 초당 한 번씩 표준 출력에 텍스트를 기록하는
 컨테이너를 포함하는 `파드` 매니페스트를 사용한다.
 
-{{< codenew file="debug/counter-pod.yaml" >}}
+{{% codenew file="debug/counter-pod.yaml" %}}
 
 이 파드를 실행하려면, 다음의 명령을 사용한다.
 
@@ -247,7 +247,7 @@ etcd와 etcd의 로그를 기록하는 방식에 대한 자세한 정보는 [etc
 서로 다른 두 가지 형식을 사용하여 서로 다른 두 개의 로그 파일에 기록한다.
 다음은 파드에 대한 매니페스트이다.
 
-{{< codenew file="admin/logging/two-files-counter-pod.yaml" >}}
+{{% codenew file="admin/logging/two-files-counter-pod.yaml" %}}
 
 두 컴포넌트를 컨테이너의 `stdout` 스트림으로 리디렉션한 경우에도, 동일한 로그
 스트림에 서로 다른 형식의 로그 항목을 작성하는 것은
@@ -257,7 +257,7 @@ etcd와 etcd의 로그를 기록하는 방식에 대한 자세한 정보는 [etc
 
 다음은 사이드카 컨테이너가 두 개인 파드에 대한 매니페스트이다.
 
-{{< codenew file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" >}}
+{{% codenew file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" %}}
 
 이제 이 파드를 실행하면, 다음의 명령을 실행하여 각 로그 스트림에
 개별적으로 접근할 수 있다.
@@ -324,7 +324,7 @@ CPU 및 메모리 사용량이 낮은(몇 밀리코어 수준의 CPU와 몇 메�
 첫 번째 매니페스트는 fluentd를 구성하는
 [`컨피그맵(ConfigMap)`](/docs/tasks/configure-pod-container/configure-pod-configmap/)이 포함되어 있다.
 
-{{< codenew file="admin/logging/fluentd-sidecar-config.yaml" >}}
+{{% codenew file="admin/logging/fluentd-sidecar-config.yaml" %}}
 
 {{< note >}}
 예제 매니페스트에서, 꼭 fluentd가 아니더라도,
@@ -334,7 +334,7 @@ CPU 및 메모리 사용량이 낮은(몇 밀리코어 수준의 CPU와 몇 메�
 두 번째 매니페스트는 fluentd가 실행되는 사이드카 컨테이너가 있는 파드를 설명한다.
 파드는 fluentd가 구성 데이터를 가져올 수 있는 볼륨을 마운트한다.
 
-{{< codenew file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" >}}
+{{% codenew file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" %}}
 
 ### 애플리케이션에서 직접 로그 노출
 

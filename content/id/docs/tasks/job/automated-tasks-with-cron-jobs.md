@@ -34,7 +34,7 @@ Untuk informasi lanjut mengenai keterbatasan, lihat [CronJob](/id/docs/concepts/
 CronJob  membutuhkan sebuah berkas konfigurasi.
 Ini adalah contoh dari berkas konfigurasi CronJob `.spec` yang akan mencetak waktu sekarang dan pesan "hello" setiap menit:
 
-{{< codenew file="application/job/cronjob.yaml" >}}
+{{% codenew file="application/job/cronjob.yaml" %}}
 
 Jalankan contoh CronJob menggunakan perintah berikut:
 

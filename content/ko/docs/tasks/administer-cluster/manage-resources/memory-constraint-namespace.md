@@ -43,7 +43,7 @@ kubectl create namespace constraints-mem-example
 
 다음은 리밋레인지의 예시 매니페스트이다.
 
-{{< codenew file="admin/resource/memory-constraints.yaml" >}}
+{{% codenew file="admin/resource/memory-constraints.yaml" %}}
 
 리밋레인지를 생성한다.
 
@@ -89,7 +89,7 @@ kubectl get limitrange mem-min-max-demo-lr --namespace=constraints-mem-example -
 파드 명세 내에, 파드의 유일한 컨테이너는 600 MiB의 메모리 요청량 및 800 MiB의 메모리 상한을 지정하고 있다. 
 이는 리밋레인지에 의해 부과된 최소 및 최대 메모리 제약 조건을 충족시킨다.
 
-{{< codenew file="admin/resource/memory-constraints-pod.yaml" >}}
+{{% codenew file="admin/resource/memory-constraints-pod.yaml" %}}
 
 파드를 생성한다.
 
@@ -132,7 +132,7 @@ kubectl delete pod constraints-mem-demo --namespace=constraints-mem-example
 다음은 컨테이너가 하나인 파드의 매니페스트이다. 
 컨테이너는 800MiB의 메모리 요청량과 1.5GiB의 메모리 상한을 지정하고 있다.
 
-{{< codenew file="admin/resource/memory-constraints-pod-2.yaml" >}}
+{{% codenew file="admin/resource/memory-constraints-pod-2.yaml" %}}
 
 파드 생성을 시도한다.
 
@@ -153,7 +153,7 @@ pods "constraints-mem-demo-2" is forbidden: maximum memory usage per Container i
 다음은 컨테이너가 하나인 파드의 매니페스트이다.
 컨테이너는 100MiB의 메모리 요청량과 800MiB의 메모리 상한을 지정하고 있다.
 
-{{< codenew file="admin/resource/memory-constraints-pod-3.yaml" >}}
+{{% codenew file="admin/resource/memory-constraints-pod-3.yaml" %}}
 
 파드 생성을 시도한다.
 
@@ -174,7 +174,7 @@ pods "constraints-mem-demo-3" is forbidden: minimum memory usage per Container i
 다음은 컨테이너가 하나인 파드의 매니페스트이다. 
 해당 컨테이너는 메모리 요청량과 상한을 지정하지 않는다.
 
-{{< codenew file="admin/resource/memory-constraints-pod-4.yaml" >}}
+{{% codenew file="admin/resource/memory-constraints-pod-4.yaml" %}}
 
 파드를 생성한다.
 

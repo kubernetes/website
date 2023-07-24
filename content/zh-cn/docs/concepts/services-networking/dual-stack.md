@@ -269,7 +269,7 @@ These examples demonstrate the behavior of various dual-stack Service configurat
    和[无头服务](/zh-cn/docs/concepts/services-networking/service/#headless-services)的行为方式
    与此相同。）
 
-   {{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
+   {{% codenew file="service/networking/dual-stack-default-svc.yaml" %}}
 
 <!--
 1. This Service specification explicitly defines `PreferDualStack` in `.spec.ipFamilyPolicy`. When
@@ -299,7 +299,7 @@ These examples demonstrate the behavior of various dual-stack Service configurat
    * 对于启用了双协议栈的集群，将 `.spec.ipFamilyPolicy` 设置为
      `RequireDualStack` 时，其行为与 `PreferDualStack` 相同。
 
-   {{< codenew file="service/networking/dual-stack-preferred-svc.yaml" >}}
+   {{% codenew file="service/networking/dual-stack-preferred-svc.yaml" %}}
 
 <!--
 1. This Service specification explicitly defines `IPv6` and `IPv4` in `.spec.ipFamilies` as well
@@ -313,7 +313,7 @@ These examples demonstrate the behavior of various dual-stack Service configurat
    `.spec.ClusterIP` 被设置成 IPv6 地址，因为它是 `.spec.ClusterIPs` 数组中的第一个元素，
    覆盖其默认值。
 
-   {{< codenew file="service/networking/dual-stack-preferred-ipfamilies-svc.yaml" >}}
+   {{% codenew file="service/networking/dual-stack-preferred-ipfamilies-svc.yaml" %}}
 
 <!--
 #### Dual-stack defaults on existing Services
@@ -338,7 +338,7 @@ dual-stack.)
    `.spec.ipFamilyPolicy` 为 `SingleStack` 并设置 `.spec.ipFamilies`
    为服务的当前地址族。
 
-   {{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
+   {{% codenew file="service/networking/dual-stack-default-svc.yaml" %}}
 
    <!--
    You can validate this behavior by using kubectl to inspect an existing service.
@@ -388,7 +388,7 @@ dual-stack.)
    并设置 `.spec.ipFamilies` 为第一个服务集群 IP 范围的地址族（通过配置 kube-apiserver 的
    `--service-cluster-ip-range` 参数），即使 `.spec.ClusterIP` 的设置值为 `None` 也如此。
 
-   {{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
+   {{% codenew file="service/networking/dual-stack-default-svc.yaml" %}}
 
    <!--
    You can validate this behavior by using kubectl to inspect an existing headless service with selectors.

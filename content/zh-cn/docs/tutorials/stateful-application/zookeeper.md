@@ -144,7 +144,7 @@ and a [StatefulSet](/docs/concepts/workloads/controllers/statefulset/).
 一个 [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/#specifying-a-poddisruptionbudget)
 和一个 [StatefulSet](/zh-cn/docs/concepts/workloads/controllers/statefulset/)。
 
-{{< codenew file="application/zookeeper/zookeeper.yaml" >}}
+{{% codenew file="application/zookeeper/zookeeper.yaml" %}}
 
 <!--
 Open a terminal, and use the

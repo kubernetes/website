@@ -47,7 +47,7 @@ The manifest for that Pod specifies a command that runs when the container start
 在本练习中，你将创建运行一个容器的 Pod。
 配置文件指定在容器启动时要运行的命令。
 
-{{< codenew file="debug/termination.yaml" >}}
+{{% codenew file="debug/termination.yaml" %}}
 
 <!--
 1. Create a Pod based on the YAML configuration file:

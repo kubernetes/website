@@ -274,7 +274,7 @@ graph BT
 신규 파드가 기존 파드와 함께 여러 존에 걸쳐 균등하게 분배되도록 하려면, 
 다음과 같은 매니페스트를 사용할 수 있다.
 
-{{< codenew file="pods/topology-spread-constraints/one-constraint.yaml" >}}
+{{% codenew file="pods/topology-spread-constraints/one-constraint.yaml" %}}
 
 위의 매니페스트에서, `topologyKey: zone`이 의미하는 것은 `zone: <any value>`로 레이블된 
 노드에 대해서만 균등한 분배를 적용한다는 뜻이다(`zone` 레이블이 없는 노드는 무시된다). 
@@ -367,7 +367,7 @@ graph BT
 사용자는 2개의 토폴로지 분배 제약 조건을 사용하여 
 노드 및 존 기반으로 파드가 분배되도록 제어할 수 있다.
 
-{{< codenew file="pods/topology-spread-constraints/two-constraints.yaml" >}}
+{{% codenew file="pods/topology-spread-constraints/two-constraints.yaml" %}}
 
 이 경우에는, 첫 번째 제약 조건에 부합하려면, 신규 파드는 오직 `B` 존에만 배치될 수 있다. 
 한편 두 번째 제약 조건에 따르면 신규 파드는 오직 `node4` 노드에만 배치될 수 있다. 
@@ -456,7 +456,7 @@ class zoneC cluster;
 이 경우에, 다음과 같이 매니페스트를 작성하여, `mypod` 파드가 `C` 존 대신 `B` 존에 배치되도록 할 수 있다. 
 유사하게, 쿠버네티스는 `spec.nodeSelector` 필드도 고려한다.
 
-{{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
+{{% codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" %}}
 
 ## 암묵적 규칙
 

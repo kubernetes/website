@@ -46,7 +46,7 @@ stateDiagram-v2
 
 파드가 스케줄링 될 준비가 되지 않았다고 표시하려면, 다음과 같이 하나 이상의 스케줄링 게이트를 생성하여 표시할 수 있다.
 
-{{< codenew file="pods/pod-with-scheduling-gates.yaml" >}}
+{{% codenew file="pods/pod-with-scheduling-gates.yaml" %}}
 
 파드가 생성된 후에는 다음 명령을 사용하여 상태를 확인할 수 있다.
 
@@ -76,7 +76,7 @@ kubectl get pod test-pod -o jsonpath='{.spec.schedulingGates}'
 스케줄러에게 이 파드가 스케줄링 될 준비가 되었음을 알리기 위해, 수정된 매니페스트를 다시 적용하여
 `schedulingGates`를 완전히 제거할 수 있다.
 
-{{< codenew file="pods/pod-without-scheduling-gates.yaml" >}}
+{{% codenew file="pods/pod-without-scheduling-gates.yaml" %}}
 
 `schedulingGates`가 지워졌는지 확인하려면 다음 명령을 실행하여 확인할 수 있다.
 

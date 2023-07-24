@@ -231,7 +231,7 @@ the topic. In your topic file, use the `codenew` shortcode:
 其中 `<LANG>` 是该主题的语言。在主题文件中使用 `codenew` 短代码：
 
 ```none
-{{</* codenew file="<RELPATH>/my-example-yaml>" */>}}
+{{%/* codenew file="<RELPATH>/my-example-yaml>" */%}}
 ```
 
 <!--
@@ -245,7 +245,7 @@ file located at `/content/en/examples/pods/storage/gce-volume.yaml`.
 文件。
 
 ```none
-{{</* codenew file="pods/storage/gce-volume.yaml" */>}}
+{{%/* codenew file="pods/storage/gce-volume.yaml" */%}}
 ```
 
 <!--

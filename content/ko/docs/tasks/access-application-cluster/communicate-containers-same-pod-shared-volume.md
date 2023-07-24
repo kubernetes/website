@@ -23,7 +23,7 @@ weight: 110
 통신에 사용할 수 있는 볼륨을 공유한다.
 아래는 이 파드의 구성 파일이다.
 
-{{< codenew file="pods/two-container-pod.yaml" >}}
+{{% codenew file="pods/two-container-pod.yaml" %}}
 
 이 구성 파일에는 파드가 `shared-data`로 명명한 볼륨을 가진 것을
 알 수 있다.

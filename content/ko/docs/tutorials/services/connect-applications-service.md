@@ -26,7 +26,7 @@ weight: 20
 이 작업은 이전 예시에서 수행해 보았지만, 네트워킹 관점을 중점에 두고 다시 한번 수행해 보자.
 nginx 파드를 생성하고, 해당 파드에 컨테이너 포트 사양이 있는 것을 참고한다.
 
-{{< codenew file="service/networking/run-my-nginx.yaml" >}}
+{{% codenew file="service/networking/run-my-nginx.yaml" %}}
 
 이렇게 하면 클러스터의 모든 노드에서 접근할 수 있다. 파드를 실행 중인 노드를 확인한다.
 
@@ -71,7 +71,7 @@ service/my-nginx exposed
 
 이것은 다음 yaml 파일을 `kubectl apply -f` 로 실행한 것과 동일하다.
 
-{{< codenew file="service/networking/nginx-svc.yaml" >}}
+{{% codenew file="service/networking/nginx-svc.yaml" %}}
 
 이 사양은 `run: my-nginx` 레이블이 부착된 모든 파드에 TCP 포트 80을
 대상으로 하는 서비스를 만들고 추상화된 서비스 포트에 노출시킨다
@@ -298,7 +298,7 @@ nginxsecret           kubernetes.io/tls                     2         1m
 
 이제 nginx 레플리카를 수정하여 암호화된 인증서를 사용한 https 서버와 서비스를 실행하고, 두 포트(80과 443)를 노출한다.
 
-{{< codenew file="service/networking/nginx-secure-app.yaml" >}}
+{{% codenew file="service/networking/nginx-secure-app.yaml" %}}
 
 nginx-secure-app의 매니페스트에 대한 주목할만한 점:
 
@@ -331,7 +331,7 @@ node $ curl -k https://10.244.3.5
 curl에 CName 불일치를 무시하도록 지시해야하기 때문이다. 서비스를 생성해서 인증서에 사용된 CName을 서비스 조회시 파드에서 사용된 실제 DNS 이름과 연결했다.
 파드에서 이것을 테스트 해보자(단순히 동일한 시크릿이 재사용되고 있으며, 파드는 서비스에 접근하기위해 nginx.crt만 필요하다).
 
-{{< codenew file="service/networking/curlpod.yaml" >}}
+{{% codenew file="service/networking/curlpod.yaml" %}}
 
 ```shell
 kubectl apply -f ./curlpod.yaml
