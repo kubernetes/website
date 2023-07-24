@@ -32,6 +32,7 @@ robust, more user-friendly, and addresses many known shortcomings. This graduati
 represents a crucial step towards achieving the goal of fully supporting swap in Kubernetes.
 
 ## How do I use it?
+
 The utilization of swap memory on a node where it has already been provisioned can be
 facilitated by the activation of the `NodeSwap` feature gate on the kubelet.
 Additionally, you must disable the `failSwapOn` configuration setting, or the deprecated
@@ -58,7 +59,53 @@ enabled, by default the kubelet will apply the same behaviour as the
 Note that `NodeSwap` is supported for **cgroup v2** only. For Kubernetes v1.28,
 using swap along with cgroup v1 is no longer supported.
 
+## Install a swap-enabled cluster with kubeadm
+
+### Before you begin
+
+It is required for this demo that the kubeadm tool be installed, following the steps outlined in the
+[kubeadm installation guide](/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm).
+If swap is already enabled on the node, cluster creation may
+proceed. If swap is not enabled, please refer to the provided instructions for enabling swap.
+
+### Create a swap file and turn swap on
+
+I'll demonstrate creating 4GiB of unencrypted swap.
+
+```bash
+dd if=/dev/zero of=/swapfile bs=128M count=32
+chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+swapon -s # enable the swap file only until this node is rebooted
+```
+
+To start the swap file at boot time, add line like `/swapfile swap swap defaults 0 0` to `/etc/fstab` file.
+
+### Set up a Kubernetes cluster that uses swap-enabled nodes
+
+To make things clearer, here is an example kubeadm configuration file `kubeadm-config.yaml` for the swap enabled cluster.
+
+```yaml
+---
+apiVersion: "kubeadm.k8s.io/v1beta3"
+kind: InitConfiguration
+---
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+failSwapOn: false
+featureGates:
+  NodeSwap: true
+memorySwap:
+  swapBehavior: LimitedSwap
+```
+
+Then create a single-node cluster using `kubeadm init --config kubeadm-config.yaml`.
+During init, there is a warning that swap is enabled on the node and in case the kubelet
+`failSwapOn` is set to true. We plan to remove this warning in a future release.
+
 ## How is the swap limit being determined with LimitedSwap?
+
 The configuration of swap memory, including its limitations, presents a significant
 challenge. Not only is it prone to misconfiguration, but as a system-level property, any
 misconfiguration could potentially compromise the entire node rather than just a specific
@@ -92,6 +139,7 @@ opt-out of swap usage by specifying memory requests that are equal to memory lim
 Containers configured in this manner will not have access to swap memory.
 
 ## How does it work?
+
 There are a number of possible ways that one could envision swap use on a node.
 When swap is already provisioned and available on a node,
 SIG Node have [proposed](https://github.com/kubernetes/enhancements/blob/9d127347773ad19894ca488ee04f1cd3af5774fc/keps/sig-node/2400-node-swap/README.md#proposal)
@@ -112,6 +160,7 @@ enable the desired swap configuration for a container. The CRI is then responsib
 write these settings to the container-level cgroup.
 
 ## How can I monitor swap?
+
 A notable deficiency in the Alpha version was the inability to monitor and introspect swap
 usage. This issue has been addressed in the Beta version introduced in Kubernetes 1.28, which now
 provides the capability to monitor swap usage through several different methods.
@@ -125,6 +174,7 @@ monitor swap usage and remaining swap memory when using LimitedSwap. Additionall
 machine.
 
 ## Caveats
+
 Having swap available on a system reduces predictability. Swap's performance is
 worse than regular memory, sometimes by many orders of magnitude, which can
 cause unexpected performance regressions. Furthermore, swap changes a system's
@@ -148,6 +198,7 @@ Cluster administrators and developers should benchmark their nodes and applicati
 before using swap in production scenarios, and [we need your help](#how-do-i-get-involved) with that!
 
 ### Security risk
+
 Enabling swap on a system without encryption poses a security risk, as critical information,
 such as volumes that represent Kubernetes Secrets, [may be swapped out to the disk](/docs/concepts/configuration/secret/#information-security-for-secrets).
 If an unauthorized individual gains
@@ -162,6 +213,7 @@ disable swap usage for a container by specifying memory requests that are equal 
 This will prevent the corresponding containers from accessing swap memory.
 
 ## Looking ahead
+
 The Kubernetes 1.28 release introduced Beta support for swap memory on Linux nodes,
 and we will continue to work towards [general availability](/docs/reference/command-line-tools-reference/feature-gates/#feature-stages)
 for this feature. I hope that this will include:
@@ -174,6 +226,7 @@ for this feature. I hope that this will include:
     node-wide swap limit for workloads.
 
 ## How can I learn more?
+
 You can review the current [documentation](/docs/concepts/architecture/nodes/#swap-memory)
 for using swap with Kubernetes.
 
@@ -182,6 +235,7 @@ see [KEP-2400](https://github.com/kubernetes/enhancements/issues/4128) and its
 [design proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md).
 
 ## How do I get involved?
+
 Your feedback is always welcome! SIG Node [meets regularly](https://github.com/kubernetes/community/tree/master/sig-node#meetings)
 and [can be reached](https://github.com/kubernetes/community/tree/master/sig-node#contact)
 via [Slack](https://slack.k8s.io/) (channel **#sig-node**), or the SIG's
