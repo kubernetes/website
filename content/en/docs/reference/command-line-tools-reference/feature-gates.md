@@ -6,6 +6,163 @@ card:
   name: reference
   weight: 60
 ---
+<style>
+  .tblFilter tr td {
+    padding: 0.3rem;
+  }
+  select { width: 4em; }
+</style>
+
+<script type="application/javascript">
+  // $( document ).ready()
+  $(function() {
+    //Set Since list
+    getSinceVal($(".tblFeatureGate1").next("table").children('tbody'));
+    getSinceVal($(".tblFeatureGate2").next("table").children('tbody'));
+  });
+
+  //Feature gates for Alpha or Beta features
+  //Onchange of Default/Stage/Since combobox
+  function gatesAlphaAndBeta(sinceFlg){
+    var tbody=$(".tblFeatureGate1").next("table").children('tbody');
+    var selDefault= $("#selDefault1");
+    var selStage= $("#selStage1");
+    var selSince = $("#selSince1");
+
+    //Show all the default list
+    showAll(tbody);
+    //Hide Default unmatch row
+    if($(selDefault).val()!==""){
+      hideDefault(tbody,$(selDefault).val());
+    }
+    //Hide Stage unmatch row
+    if($(selStage).val()!==""){
+      hideStage(tbody,$(selStage).val());
+    }
+    if(0==sinceFlg){
+      // Set Since list
+      getSinceVal(tbody,selSince);
+    }
+  }
+  
+  //Feature gates for graduated or deprecated features
+  //Onchange of Default/Stage/Since combobox
+  function gatesGraduAndDepr(sinceFlg){
+    var tbody=$(".tblFeatureGate2").next("table").children('tbody');
+    var selDefault= $("#selDefault2");
+    var selStage= $("#selStage2");
+    var selSince = $("#selSince2");
+    //Show all the default list
+    showAll(tbody);
+    //Hide Default unmatch row
+    if($(selDefault).val()!==""){
+      hideDefault(tbody,$(selDefault).val());
+    }
+    //Hide Stage unmatch row
+    if($(selStage).val()!==""){
+      hideStage(tbody,$(selStage).val());
+    }
+    if(0==sinceFlg){
+      // Set Since list
+      getSinceVal(tbody,selSince);
+    }
+  }
+
+//Onchange of Since combobox1
+function changeSince1(sinceVal){
+  gatesAlphaAndBeta(1);
+  if(sinceVal != ""){
+    hideSince($(".tblFeatureGate1").next("table").children('tbody'),sinceVal);
+  }
+}
+//Onchange of Since combobox2
+function changeSince2(sinceVal){
+  gatesGraduAndDepr(1);
+  if(sinceVal != ""){
+    hideSince($(".tblFeatureGate2").next("table").children('tbody'),sinceVal);
+  }
+}
+
+//Reset all list and table data
+function resetData(tableFlg){
+  var tbl= null;
+  var selDefault= null;
+  var selStage= null;
+  var selSince = null;
+  if(1==tableFlg){
+    tbl= $(".tblFeatureGate1").next("table").children('tbody');
+    selDefault= $("#selDefault1");
+    selStage= $("#selStage1");
+    selSince = $("#selSince1");
+  }else if(2==tableFlg){
+    tbl= $(".tblFeatureGate2").next("table").children('tbody');
+    selDefault= $("#selDefault2");
+    selStage= $("#selStage2");
+    selSince = $("#selSince2");
+  }
+  //Show all the default list
+  showAll(tbl);
+  $(selDefault).val("");
+  $(selStage).val("");
+  getSinceVal(tbl,selSince);
+}
+
+//Show all rows
+function showAll(tbodyObj) {
+  $(tbodyObj).find('tr').each (function(index, tr) { 
+     var tr = $(this);
+     tr.show();
+    });
+}
+
+//Hide rows by Default value
+function hideDefault(tbodyObj,val){
+  $(tbodyObj).find('tr').each (function(index, tr) { 
+      var tr = $(this);
+      if (tr.find('td:eq(1)').text().trim() != val){
+        tr.hide();
+      }
+  });
+}
+
+//Hide rows by Stage value
+function hideStage(tbodyObj,val){
+  $(tbodyObj).find('tr').filter(':visible').each (function(index, tr) { 
+      var tr = $(this);
+      if (tr.find('td:eq(2)').text().trim() != val){
+        tr.hide();
+      }
+  });
+}
+
+//Hide rows by Since value
+function hideSince(tbodyObj,val){
+  $(tbodyObj).find('tr').filter(':visible').each (function(index, tr) { 
+      var tr = $(this);
+      if (tr.find('td:eq(3)').text().trim() != val){
+        tr.hide();
+      }
+  });
+}
+
+//Get and set Since list 
+function getSinceVal(tbodyObj,selSince){
+  var arrSince = [];
+  arrSince.push("");
+  $(tbodyObj).find('tr').filter(':visible').each (function(index, tr) { 
+      var sinceVal = $(this).find('td:eq(3)').text().trim();
+      if(jQuery.inArray(sinceVal, arrSince) == -1){
+        arrSince.push(sinceVal);
+      }
+  });
+  arrSince=arrSince.sort();
+  $(selSince).empty();
+  $.each(arrSince, function(index, item) {
+    selSince.append(new Option(item, item));
+  });
+}
+
+</script>
 
 <!-- overview -->
 This page contains an overview of the various feature gates an administrator
@@ -51,8 +208,36 @@ For a reference to old feature gates that are removed, please refer to
 {{< /note >}}
 
 ### Feature gates for Alpha or Beta features
-
-{{< table caption="Feature gates for features in Alpha or Beta states" >}}
+<table class="tblFilter" style="display:inline;float: right;width:65%">
+    <tr>
+        <td>
+          <label for="selDefault1">Default: </label>
+          <select name="selDefault1" id="selDefault1" onChange="gatesAlphaAndBeta(0);">
+            <option value=""></option>
+            <option value="true">true</option>
+            <option value="false">false</option>
+          </select>
+        </td>
+         <td>
+          <label for="selStage1">Stage: </label>
+          <select name="selStage1" id="selStage1" onChange="gatesAlphaAndBeta(0);">
+            <option value=""></option>
+            <option value="Alpha">Alpha</option>
+            <option value="Beta">Beta</option>
+          </select>
+        </td>
+        <td>
+          <label for="selSince1">Since: </label>
+          <select name="selSince1" id="selSince1" onChange="changeSince1($(this).val());">
+          </select>
+        </td>
+        <td>
+          <input type="button" value="Reset" onclick="resetData(1);">
+        </td>
+      </tr>
+</table>
+<div class="tblFeatureGate1"></div>
+{{< table caption="Feature gates for features in Alpha or Beta states" id="ttttt">}}
 
 | Feature | Default | Stage | Since | Until |
 |---------|---------|-------|-------|-------|
@@ -225,7 +410,36 @@ For a reference to old feature gates that are removed, please refer to
 {{< /table >}}
 
 ### Feature gates for graduated or deprecated features
-
+<table class="tblFilter" style="display:inline;float: right;width:65%">
+    <tr>
+        <td>
+          <label for="selDefault2">Default: </label>
+          <select name="selDefault2" id="selDefault2" onChange="gatesGraduAndDepr(0);">
+            <option value=""></option>
+            <option value="true">true</option>
+            <option value="false">false</option>
+          </select>
+        </td>
+         <td>
+          <label for="selStage2">Stage: </label>
+          <select name="selStage2" id="selStage2" onChange="gatesGraduAndDepr(0);">
+            <option value=""></option>
+            <option value="Alpha">Alpha</option>
+            <option value="Beta">Beta</option>
+            <option value="GA">GA</option>
+          </select>
+        </td>
+        <td>
+          <label for="selSince2">Since: </label>
+          <select name="selSince2" id="selSince2" onChange="changeSince2($(this).val());">
+          </select>
+        </td>
+        <td>
+          <input type="button" value="Reset" onclick="resetData(2);">
+        </td>
+      </tr>
+</table>
+<div class="tblFeatureGate2"></div>
 {{< table caption="Feature Gates for Graduated or Deprecated Features" >}}
 
 | Feature | Default | Stage | Since | Until |
