@@ -1158,7 +1158,6 @@ In the following table:
   A node is eligible for exclusion if labelled with "`node.kubernetes.io/exclude-from-external-load-balancers`".
 
 - `ServiceTopology`: Enable service to route traffic based upon the Node topology of the cluster.
-  See [ServiceTopology](/docs/concepts/services-networking/service-topology/) for more details.
 
 - `SetHostnameAsFQDN`: Enable the ability of setting Fully Qualified Domain Name(FQDN) as the
   hostname of a pod. See
@@ -1171,7 +1170,6 @@ In the following table:
   如果节点标记有 `node.kubernetes.io/exclude-from-external-load-balancers` 标签，则可以排除该节点。
 
 - `ServiceTopology`：启用服务拓扑可以让一个服务基于集群的节点拓扑进行流量路由。
-  有关更多详细信息，请参见[服务拓扑](/zh-cn/docs/concepts/services-networking/service-topology/)。
 
 - `SetHostnameAsFQDN`：启用将全限定域名（FQDN）设置为 Pod 主机名的功能。
   请参见[为 Pod 设置 `setHostnameAsFQDN` 字段](/zh-cn/docs/concepts/services-networking/dns-pod-service/#pod-sethostnameasfqdn-field)。
