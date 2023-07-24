@@ -262,6 +262,20 @@ This annotation is part of the Kubernetes Resource Model (KRM) Functions Specifi
 which is used by Kustomize and similar third-party tools.
 For example, Kustomize removes objects with this annotation from its final build output.
 
+### config.kubernetes.io/apply-time-mutation
+
+Type: Annotation
+
+Example: `config.kubernetes.io/apply-time-mutation: "true"`
+
+Used on: All objects
+
+The `config.kubernetes.io/apply-time-mutation` annotation is used in manifests to indicate whether an object may undergo mutation during the apply-time process, and thus, should not be directly modified by users or external tooling.
+
+A value of `"true"` for this annotation signifies that the object's configuration might be altered during the application process, either by server-side controllers or by client-side tools like kubectl apply. It serves as a warning to users that any changes made directly to this object may be overridden during the apply process.
+
+On the other hand, a value of `"false"` can be used to indicate that the object's configuration should not be subject to any automatic mutations during apply-time. This means that the object should retain its exact configuration as specified by the user or external tool.
+
 ### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
 
 Type: Annotation
