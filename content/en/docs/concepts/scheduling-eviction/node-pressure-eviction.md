@@ -196,6 +196,9 @@ The kubelet maps eviction signals to node conditions as follows:
 | `DiskPressure`    | `nodefs.available`, `nodefs.inodesFree`, `imagefs.available`, or `imagefs.inodesFree` | Available disk space and inodes on either the node's root filesystem or image filesystem has satisfied an eviction threshold |
 | `PIDPressure`     | `pid.available`                                                                       | Available processes identifiers on the (Linux) node has fallen below an eviction threshold                                   |
 
+The control plane also [maps](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)
+these node conditions to taints.
+
 The kubelet updates the node conditions based on the configured
 `--node-status-update-frequency`, which defaults to `10s`.
 
