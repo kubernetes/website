@@ -12,8 +12,8 @@ When one or more of these resources reach specific consumption levels, the
 kubelet can proactively fail one or more pods on the node to reclaim resources
 and prevent starvation.
 
-During a node-pressure eviction, the kubelet sets the `PodPhase` for the
-selected pods to `Failed`. This terminates the pods.
+During a node-pressure eviction, the kubelet sets the [phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase) for the
+selected pods to `Failed`, and terminates the Pod.
 
 Node-pressure eviction is not the same as
 [API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/).
