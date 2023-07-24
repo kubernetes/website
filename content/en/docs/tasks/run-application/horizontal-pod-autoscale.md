@@ -400,6 +400,7 @@ behavior:
 ```
 
 `periodSeconds` indicates the length of time in the past for which the policy must hold true.
+The value of `periodSeconds` must be less than or equal to 1800 (half an hour).
 The first policy _(Pods)_ allows at most 4 replicas to be scaled down in one minute. The second policy
 _(Percent)_ allows at most 10% of the current replicas to be scaled down in one minute.
 
