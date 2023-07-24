@@ -847,9 +847,9 @@ is turned on.
   PVs of that default. Specifying a default StorageClass is done by setting the
   annotation `storageclass.kubernetes.io/is-default-class` equal to `true` in
   a StorageClass object. If the administrator does not specify a default, the
-  cluster responds to PVC creation as if the admission plugin were turned off. If
-  more than one default is specified, the admission plugin forbids the creation of
-  all PVCs.
+  cluster responds to PVC creation as if the admission plugin were turned off. If more than one
+  default StorageClass is specified, the newest default is used when the
+  PVC is dynamically provisioned.
 * If the admission plugin is turned off, there is no notion of a default
   StorageClass. All PVCs that have `storageClassName` set to `""` can be
   bound only to PVs that have `storageClassName` also set to `""`.
