@@ -14,11 +14,11 @@ card:
 </style>
 
 <script type="application/javascript">
-  // $( document ).ready()
-  $(function() {
+  // On page load
+   $(document).ready(function() {
     //Set Since list
-    getSinceVal($(".tblFeatureGate1").next("table").children('tbody'));
-    getSinceVal($(".tblFeatureGate2").next("table").children('tbody'));
+    getSinceVal($(".tblFeatureGate1").next("table").children('tbody'),$("#selSince1"));
+    getSinceVal($(".tblFeatureGate2").next("table").children('tbody'),$("#selSince2"));
   });
 
   //Feature gates for Alpha or Beta features
@@ -157,7 +157,7 @@ function getSinceVal(tbodyObj,selSince){
   });
   arrSince=arrSince.sort();
   $(selSince).empty();
-  $.each(arrSince, function(index, item) {
+  jQuery.each(arrSince, function(index, item) {
     selSince.append(new Option(item, item));
   });
 }
