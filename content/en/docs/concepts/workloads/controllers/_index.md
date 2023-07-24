@@ -13,9 +13,9 @@ Ultimately, your applications run as containers inside
 Pods would be a lot of effort. For example, if a Pod fails, you probably want to
 run a new Pod to replace it. Kubernetes can do that for you.
 
-You use the Kubernetes API to create workload
-{{< glossary_tooltip text="object" term_id="object" >}} that represent a higher level
-abstraction than a Pod, and then the Kubernetes
+You use the Kubernetes API to create a workload
+{{< glossary_tooltip text="object" term_id="object" >}} that represents a higher abstraction level
+than a Pod, and then the Kubernetes
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}} automatically manages
 Pod objects on your behalf, based on the specification for the workload object you defined.
 
