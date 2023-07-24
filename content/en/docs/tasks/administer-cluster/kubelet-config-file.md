@@ -73,6 +73,49 @@ If `--config` is provided and the values are not specified via the command line,
 defaults for the `KubeletConfiguration` version apply.
 In the above example, this version is `kubelet.config.k8s.io/v1beta1`.
 
+## Drop-in directory for Kubelet configuration files {#kubelet-conf-d}
+
+As of Kubernetes v1.28.0, the Kubelet has been extended to support a drop-in configuration directory. The location of it can be specified with
+`--config-dir` flag, and it defaults to `""`, or disabled, by default.
+
+You can only set `--config-dir` if you set the environment variable `KUBELET_CONFIG_DROPIN_DIR_ALPHA` for the kubelet process (the value of that variable does not matter).
+For Kubernetes v{{< skew currentVersion >}}, the kubelet returns an error if you specify `--config-dir` without that variable set, and startup fails.
+You cannot specify the drop-in configuration directory using the kubelet configuration file; only the CLI argument `--config-dir` can set it.
+
+One can use the Kubelet configuration directory in a similar way to the Kubelet config file.
+{{< note >}}
+The suffix of a valid Kubelet drop-in configuration file must be `.conf`. For instance: `99-kubelet-address.conf`
+{{< /note >}}
+
+For instance, you may want a baseline Kubelet configuration for all nodes, but you may want to customize the `address` field. This can be done as follows:
+
+Main Kubelet configuration file contents:
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+port: 20250
+serializeImagePulls: false
+evictionHard:
+    memory.available:  "200Mi"
+```
+
+Contents of a file in `--config-dir` directory:
+```yaml
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+address: "192.168.0.8"
+```
+
+On startup, the Kubelet merges configuration from:
+
+* Command line arguments (lowest precedence).
+* the Kubelet configuration
+* Drop-in configuration files, according to sort order.
+* Feature gates specified over the command line (highest precedence).
+
+This produces the same outcome as if you used the [single configuration file](#create-the-config-file) used in the earlier example.
+
+
 <!-- discussion -->
 
 ## {{% heading "whatsnext" %}}
@@ -80,4 +123,3 @@ In the above example, this version is `kubelet.config.k8s.io/v1beta1`.
 - Learn more about kubelet configuration by checking the
   [`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
   reference.
-
