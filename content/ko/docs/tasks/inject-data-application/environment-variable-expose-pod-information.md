@@ -27,7 +27,7 @@ weight: 30
 
 이 연습에서 하나의 컨테이너가 있는 파드와 파드 수준의 필드를 실행 중인 컨테이너의 환경변수로 생성한다.
 
-{{% codenew file="pods/inject/dapi-envars-pod.yaml" %}}
+{{< codenew file="pods/inject/dapi-envars-pod.yaml" >}}
 
 매니페스트에서 5개의 환경 변수를 확인할 수 있다. `env` 필드는 
 환경 변수 정의의 배열이다. 배열의 첫 번째 요소는 `MY_NODE_NAME` 환경 변수가 파드의 `spec.nodeName` 필드에서 값을 가져오도록 지정한다. 마찬가지로 다른 환경 변수도 파드 필드에서 이름을 가져온다.
@@ -100,7 +100,7 @@ MY_POD_NAME=dapi-envars-fieldref
 
 여기, 다시 하나의 컨테이너만 가진 파드를 위한 매니페스트가 있다.
 
-{{% codenew file="pods/inject/dapi-envars-container.yaml" %}}
+{{< codenew file="pods/inject/dapi-envars-container.yaml" >}}
 
 매니페스트에서 4개의 환경 변수를 확인할 수 있다. `env` 필드는 
 환경 변수 정의의 배열이다. 배열의 첫 번째 요소는 `MY_CPU_REQUEST` 환경 변수가 `test-container`라는 컨테이너의 

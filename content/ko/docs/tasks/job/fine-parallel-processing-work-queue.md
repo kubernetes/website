@@ -119,7 +119,7 @@ rediswq.py([다운로드](/examples/application/job/redis/rediswq.py))라는
 잡의 각 파드에 있는 "워커" 프로그램은 작업 대기열
 클라이언트 라이브러리를 사용하여 작업을 가져온다. 다음은 워커 프로그램이다.
 
-{{% codenew language="python" file="application/job/redis/worker.py" %}}
+{{< codenew language="python" file="application/job/redis/worker.py" >}}
 
 [`worker.py`](/examples/application/job/redis/worker.py),
 [`rediswq.py`](/examples/application/job/redis/rediswq.py) 및
@@ -158,7 +158,7 @@ gcloud docker -- push gcr.io/<project>/job-wq-2
 
 다음은 잡 정의이다.
 
-{{% codenew file="application/job/redis/job.yaml" %}}
+{{< codenew file="application/job/redis/job.yaml" >}}
 
 사용자 자신의 경로로 `gcr.io/myproject` 를
 변경하려면 잡 템플릿을 편집해야 한다.

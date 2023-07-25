@@ -64,7 +64,7 @@ tolerations:
 
 톨러레이션을 사용하는 파드의 예는 다음과 같다.
 
-{{% codenew file="pods/pod-with-toleration.yaml" %}}
+{{< codenew file="pods/pod-with-toleration.yaml" >}}
 
 지정하지 않으면 `operator` 의 기본값은 `Equal` 이다.
 

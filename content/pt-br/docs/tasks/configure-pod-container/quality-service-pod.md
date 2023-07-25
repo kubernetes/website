@@ -54,7 +54,7 @@ Essas restrições se aplicam igualmente a contêineres de inicialização bem c
 
 Aqui está o arquivo de configuração para um pod que possui um contêiner. O contêiner tem um limite de memória e um requisito de memória, ambos iguais a 200 MiB. O contêiner tem um limite de CPU e uma solicitação de CPU, ambos iguais a 700 miliCPU:
 
-{{% codenew file="pods/qos/qos-pod.yaml" %}}
+{{< codenew file="pods/qos/qos-pod.yaml" >}}
 
 Crie o Pod:
 
@@ -111,7 +111,7 @@ Um Pod recebe uma classe de QoS `Burstable` se:
 Aqui está o arquivo de configuração para um Pod que possui um contêiner. O contêiner tem um limite de memória de 200 MiB
 e um requisito de memória de 100 MiB.
 
-{{% codenew file="pods/qos/qos-pod-2.yaml" %}}
+{{< codenew file="pods/qos/qos-pod-2.yaml" >}}
 
 Crie o Pod:
 
@@ -156,7 +156,7 @@ ter quaisquer requisitos ou limites de CPU ou memória.
 
 Aqui está o arquivo de configuração para um Pod que possui um contêiner. O contêiner não tem requisitos ou limites de memória ou CPU:
 
-{{% codenew file="pods/qos/qos-pod-3.yaml" %}}
+{{< codenew file="pods/qos/qos-pod-3.yaml" >}}
 
 Crie o Pod:
 
@@ -192,7 +192,7 @@ kubectl delete pod qos-demo-3 --namespace=qos-example
 
 Aqui está o arquivo de configuração para um Pod que possui dois contêineres. Um contêiner especifica um requisito de memória de 200 MiB. O outro contêiner não especifica nenhum requisito ou limite.
 
-{{% codenew file="pods/qos/qos-pod-4.yaml" %}}
+{{< codenew file="pods/qos/qos-pod-4.yaml" >}}
 
 Observe que este Pod atende aos critérios para a classe de QoS `Burstable`. Isto é, ele não atende aos
 critérios para a classe de QoS `Guaranteed`, e um de seus contêineres tem um requisito de memória.

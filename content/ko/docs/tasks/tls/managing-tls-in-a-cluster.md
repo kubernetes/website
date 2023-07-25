@@ -236,7 +236,7 @@ EOF
 
 ### 인증서 발급하기
 
-{{% codenew file="tls/server-signing-config.json" %}}
+{{< codenew file="tls/server-signing-config.json" >}}
 
 `server-signing-config.json` 서명 구성 파일, 인증 기관 키 파일 및 인증서를 사용하여 
 인증서 요청에 서명한다.

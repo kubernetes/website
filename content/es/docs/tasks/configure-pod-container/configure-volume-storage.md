@@ -25,7 +25,7 @@ El sistema de ficheros de un Contenedor existe mientras el Contenedor exista. Po
 
 En este ejercicio crearás un Pod que ejecuta un único Contenedor. Este Pod tiene un Volume de tipo [emptyDir](/docs/concepts/storage/volumes/#emptydir) (directorio vacío) que existe durante todo el ciclo de vida del Pod, incluso cuando el Contenedor es destruido y reiniciado. Aquí está el fichero de configuración del Pod:
 
-{{% codenew file="pods/storage/redis.yaml" %}}
+{{< codenew file="pods/storage/redis.yaml" >}}
 
 1. Crea el Pod:
 

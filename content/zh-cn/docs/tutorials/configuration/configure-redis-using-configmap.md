@@ -109,7 +109,7 @@ ConfigMap above as `/redis-master/redis.conf` inside the Pod.
 这样做的最终效果是将上面 `example-redis-config` 配置中 `data.redis-config`
 的数据作为 Pod 中的 `/redis-master/redis.conf` 公开。
 
-{{% codenew file="pods/config/redis-pod.yaml" %}}
+{{< codenew file="pods/config/redis-pod.yaml" >}}
 
 <!--
 Examine the created objects:
@@ -210,7 +210,7 @@ Now let's add some configuration values to the `example-redis-config` ConfigMap:
 -->
 现在，向 `example-redis-config` ConfigMap 添加一些配置：
 
-{{% codenew file="pods/config/example-redis-config.yaml" %}}
+{{< codenew file="pods/config/example-redis-config.yaml" >}}
 
 <!--
 Apply the updated ConfigMap:

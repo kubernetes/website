@@ -71,7 +71,7 @@ kubectl create namespace cpu-example
 이 예제에서는, 하나의 컨테이너를 가진 파드를 생성한다.
 컨테이너는 0.5 CPU 요청량과 1 CPU 상한을 갖는다. 아래는 파드의 구성 파일이다.
 
-{{% codenew file="pods/resource/cpu-request-limit.yaml" %}}
+{{< codenew file="pods/resource/cpu-request-limit.yaml" >}}
 
 구성 파일 내 `args` 섹션은 컨테이너가 시작될 때 인수(argument)를 제공한다.
 `-cpus "2"` 인수는 컨테이너가 2 CPU 할당을 시도하도록 한다.
@@ -163,7 +163,7 @@ CPU 요청량과 상한은 컨테이너와 연관되어 있지만,
 컨테이너는 100 CPU을 요청하고 있는데, 이것은 클러스터의 모든 노드 가용량을
 초과하는 것이다.
 
-{{% codenew file="pods/resource/cpu-request-limit-2.yaml" %}}
+{{< codenew file="pods/resource/cpu-request-limit-2.yaml" >}}
 
 파드 생성:
 

@@ -210,7 +210,7 @@ done
 
 다음으로 쓰기 금지 프로파일된 "Hello AppArmor" 파드를 실행한다.
 
-{{% codenew file="pods/security/hello-apparmor.yaml" %}}
+{{< codenew file="pods/security/hello-apparmor.yaml" >}}
 
 ```shell
 kubectl create -f ./hello-apparmor.yaml

@@ -69,7 +69,7 @@ fe00::2	ip6-allrouters
 `foo.remote`, `bar.remote`가 `10.1.2.3`로 해석될 수 있도록, `.spec.hostAliases` 항목에서 정의하여 파드에
 HostAliases를 추가하면 가능하다.
 
-{{% codenew file="service/networking/hostaliases-pod.yaml" %}}
+{{< codenew file="service/networking/hostaliases-pod.yaml" >}}
 
 다음을 실행하여 해당 구성으로 파드를 실행할 수 있다.
 

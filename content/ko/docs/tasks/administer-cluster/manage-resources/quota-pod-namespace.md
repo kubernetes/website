@@ -39,7 +39,7 @@ kubectl create namespace quota-pod-example
 
 다음은 예시 리소스쿼터 오브젝트에 대한 매니페스트이다.
 
-{{% codenew file="admin/resource/quota-pod.yaml" %}}
+{{< codenew file="admin/resource/quota-pod.yaml" >}}
 
 리소스쿼터를 생성한다.
 
@@ -69,7 +69,7 @@ status:
 
 다음은 {{< glossary_tooltip text="디플로이먼트(Deployment)" term_id="deployment" >}}에 대한 예시 매니페스트이다.
 
-{{% codenew file="admin/resource/quota-pod-deployment.yaml" %}}
+{{< codenew file="admin/resource/quota-pod-deployment.yaml" >}}
 
 매니페스트에서, `replicas: 3` 은 쿠버네티스가 모두 동일한 애플리케이션을 실행하는 
 세 개의 새로운 파드를 만들도록 지시한다.

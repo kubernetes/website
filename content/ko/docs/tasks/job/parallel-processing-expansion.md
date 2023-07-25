@@ -43,7 +43,7 @@ pip install --user jinja2
 먼저, 다음의 잡 템플릿을 다운로드해서 `job-tmpl.yaml` 파일로 저장한다.
 다운로드할 내용은 다음과 같다.
 
-{{% codenew file="application/job/job-tmpl.yaml" %}}
+{{< codenew file="application/job/job-tmpl.yaml" >}}
 
 ```shell
 # job-tmpl.yaml를 다운로드하기 위해 curl을 사용한다

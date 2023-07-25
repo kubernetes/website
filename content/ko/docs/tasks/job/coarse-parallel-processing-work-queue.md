@@ -186,7 +186,7 @@ done
 실제 프로그램을 실행해 볼 것이다.
 여기에 아주 간단한 예제 프로그램이 있다.
 
-{{% codenew language="python" file="application/job/rabbitmq/worker.py" %}}
+{{< codenew language="python" file="application/job/rabbitmq/worker.py" >}}
 
 스크립트에 실행 권한을 준다.
 
@@ -230,7 +230,7 @@ gcloud docker -- push gcr.io/<project>/job-wq-1
 이미지를 수정하고, 파일 이름을 `./job.yaml`이라 정한다.
 
 
-{{% codenew file="application/job/rabbitmq/job.yaml" %}}
+{{< codenew file="application/job/rabbitmq/job.yaml" >}}
 
 이 예시에서는, 각 파드가 대기열로부터 얻은 하나의 아이템을 수행하고 종료한다.
 그래서, 잡의 완료 횟수가 완료된 작업 아이템의 숫자에 대응한다.

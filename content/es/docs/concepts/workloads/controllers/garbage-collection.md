@@ -30,7 +30,7 @@ de forma manual indicando el valor del campo `ownerReference`.
 
 Aquí se muestra un archivo de configuración para un ReplicaSet que tiene tres Pods:
 
-{{% codenew file="controllers/replicaset.yaml" %}}
+{{< codenew file="controllers/replicaset.yaml" >}}
 
 Si se crea el ReplicaSet y entonces se muestra los metadatos del Pod, se puede 
 observar el campo OwnerReferences:

@@ -329,7 +329,7 @@ Next, we'll run a simple "Hello AppArmor" pod with the deny-write profile:
 -->
 接下来，我们将运行一个带有拒绝写入配置文件的简单 “Hello AppArmor” Pod：
 
-{{% codenew file="pods/security/hello-apparmor.yaml" %}}
+{{< codenew file="pods/security/hello-apparmor.yaml" >}}
 
 ```shell
 kubectl create -f ./hello-apparmor.yaml

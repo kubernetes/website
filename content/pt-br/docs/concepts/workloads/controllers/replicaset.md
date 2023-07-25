@@ -28,7 +28,7 @@ prefira usar um Deployment, e defina sua aplicação na seção spec.
 
 ## Exemplo
 
-{{% codenew file="controllers/frontend.yaml" %}}
+{{< codenew file="controllers/frontend.yaml" >}}
 
 Salvando esse manifesto como `frontend.yaml` e submetendo no cluster Kubernetes irá criar o ReplicaSet definido e os Pods mantidos pelo mesmo.
 
@@ -135,7 +135,7 @@ Enquanto você pode criar Pods diretamente sem problemas, é fortemente recomend
 
 Observe o exemplo anterior do ReplicaSet frontend, e seus Pods especificados no seguinte manifesto:
 
-{{% codenew file="pods/pod-rs.yaml" %}}
+{{< codenew file="pods/pod-rs.yaml" >}}
 
 Como esses Pods não possuem um Controller (ou qualquer objeto) referenciados como seu dono e possuem labels que combinam com o seletor do ReplicaSet frontend, eles serão imediatamente adquiridos pelo ReplicaSet.
 
@@ -303,7 +303,7 @@ Um ReplicaSet pode também ser controlado por um
 [Horizontal Pod Autoscalers (HPA)](/docs/tasks/run-application/horizontal-pod-autoscale/). Isto é,
 um ReplicaSet pode ser automaticamente escalonado por um HPA. Aqui está um exemplo de um HPA controlando o ReplicaSet que nós criamos no exemplo anterior.
 
-{{% codenew file="controllers/hpa-rs.yaml" %}}
+{{< codenew file="controllers/hpa-rs.yaml" >}}
 
 Salvando esse manifesto como `hpa-rs.yaml` e enviando para o cluster Kubernetes deve 
 criar um HPA definido que autoescalona o ReplicaSet controlado dependendo do uso de CPU 

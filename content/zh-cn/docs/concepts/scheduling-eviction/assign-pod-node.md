@@ -233,7 +233,7 @@ For example, consider the following Pod spec:
 你可以使用 Pod 规约中的 `.spec.affinity.nodeAffinity` 字段来设置节点亲和性。
 例如，考虑下面的 Pod 规约：
 
-{{% codenew file="pods/pod-with-node-affinity.yaml" %}}
+{{< codenew file="pods/pod-with-node-affinity.yaml" >}}
 
 <!--
 In this example, the following rules apply:
@@ -333,7 +333,7 @@ For example, consider the following Pod spec:
 
 例如，考虑下面的 Pod 规约：
 
-{{% codenew file="pods/pod-with-affinity-anti-affinity.yaml" %}}
+{{< codenew file="pods/pod-with-affinity-anti-affinity.yaml" >}}
 
 <!--
 If there are two possible nodes that match the
@@ -536,7 +536,7 @@ Consider the following Pod spec:
 
 考虑下面的 Pod 规约：
 
-{{% codenew file="pods/pod-with-pod-affinity.yaml" %}}
+{{< codenew file="pods/pod-with-pod-affinity.yaml" >}}
 
 <!--
 This example defines one Pod affinity rule and one Pod anti-affinity rule. The

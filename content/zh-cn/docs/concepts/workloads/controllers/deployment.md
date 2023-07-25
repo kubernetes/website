@@ -97,7 +97,7 @@ The following is an example of a Deployment. It creates a ReplicaSet to bring up
 
 下面是一个 Deployment 示例。其中创建了一个 ReplicaSet，负责启动三个 `nginx` Pod：
 
-{{% codenew file="controllers/nginx-deployment.yaml" %}}
+{{< codenew file="controllers/nginx-deployment.yaml" >}}
 
 <!--
 In this example:

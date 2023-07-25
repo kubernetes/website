@@ -55,7 +55,7 @@ kubectl create namespace qos-example
 다음은 하나의 컨테이너를 갖는 파드의 구성 파일이다. 해당 컨테이너는 메모리 상한과
 메모리 요청량을 갖고 있고, 200MiB로 동일하다. 해당 컨테이너는 CPU 상한과 CPU 요청량을 가지며, 700 milliCPU로 동일하다.
 
-{{% codenew file="pods/qos/qos-pod.yaml" %}}
+{{< codenew file="pods/qos/qos-pod.yaml" >}}
 
 파드를 생성한다.
 
@@ -112,7 +112,7 @@ kubectl delete pod qos-demo --namespace=qos-example
 컨테이너가 하나인 파드의 구성 파일은 다음과 같다. 컨테이너는
 200MiB의 메모리 상한과 100MiB의 메모리 요청량을 가진다.
 
-{{% codenew file="pods/qos/qos-pod-2.yaml" %}}
+{{< codenew file="pods/qos/qos-pod-2.yaml" >}}
 
 파드를 생성한다.
 
@@ -158,7 +158,7 @@ kubectl delete pod qos-demo-2 --namespace=qos-example
 컨테이너가 하나인 파드의 구성 파일이다. 해당 컨테이너는 메모리 또는 CPU의
 상한이나 요청량을 갖지 않는다.
 
-{{% codenew file="pods/qos/qos-pod-3.yaml" %}}
+{{< codenew file="pods/qos/qos-pod-3.yaml" >}}
 
 파드를 생성한다.
 
@@ -195,7 +195,7 @@ kubectl delete pod qos-demo-3 --namespace=qos-example
 컨테이너가 두 개인 파드의 구성 파일이다. 한 컨테이너는 200MiB의 메모리
 요청량을 지정한다. 다른 컨테이너는 어떤 요청량이나 상한을 지정하지 않는다.
 
-{{% codenew file="pods/qos/qos-pod-4.yaml" %}}
+{{< codenew file="pods/qos/qos-pod-4.yaml" >}}
 
 참고로 이 파드는 Burstable QoS 클래스의 기준을 충족한다. 즉, Guaranteed QoS 클래스에 대한
 기준을 충족하지 않으며, 해당 컨테이너 중 하나가 메모리 요청량을 갖는다.

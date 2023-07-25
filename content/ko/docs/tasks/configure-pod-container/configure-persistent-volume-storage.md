@@ -92,7 +92,7 @@ Block Store 볼륨과 같은 네트워크 자원을 프로비저닝한다. 클�
 
 hostPath 퍼시스턴트볼륨의 설정 파일은 아래와 같다.
 
-{{% codenew file="pods/storage/pv-volume.yaml" %}}
+{{< codenew file="pods/storage/pv-volume.yaml" >}}
 
 설정 파일에 클러스터 노드의 `/mnt/data` 에 볼륨이 있다고
 지정한다. 또한 설정에서 볼륨 크기를 10 기가바이트로 지정하고 단일 노드가
@@ -128,7 +128,7 @@ kubectl get pv task-pv-volume
 
 퍼시스턴트볼륨클레임에 대한 설정 파일은 다음과 같다.
 
-{{% codenew file="pods/storage/pv-claim.yaml" %}}
+{{< codenew file="pods/storage/pv-claim.yaml" >}}
 
 퍼시스턴트볼륨클레임을 생성한다.
 
@@ -168,7 +168,7 @@ kubectl get pvc task-pv-claim
 
 파드에 대한 설정 파일은 다음과 같다.
 
-{{% codenew file="pods/storage/pv-pod.yaml" %}}
+{{< codenew file="pods/storage/pv-pod.yaml" >}}
 
 파드의 설정 파일은 퍼시스턴트볼륨클레임을 지정하지만, 
 퍼시스턴트볼륨을 지정하지는 않는다는 것을 유념하자. 파드의 관점에서 볼때, 
@@ -238,7 +238,7 @@ sudo rmdir /mnt/data
 
 ## 하나의 퍼시스턴트볼륨을 두 경로에 마운트하기
 
-{{% codenew file="pods/storage/pv-duplicate.yaml" %}}
+{{< codenew file="pods/storage/pv-duplicate.yaml" >}}
 
 하나의 퍼시스턴트볼륨을 nginx 컨테이너의 두 경로에 마운트할 수 있다.
 

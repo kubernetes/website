@@ -26,7 +26,7 @@ weight: 20
 파드를 위한 구성 파일은 일반적인 방식으로 정의된 종속 환경 변수를 정의한다.
 다음은 파드를 위한 구성 매니페스트 예시이다.
 
-{{% codenew file="pods/inject/dependent-envars.yaml" %}}
+{{< codenew file="pods/inject/dependent-envars.yaml" >}}
 
 1. YAML 구성 파일을 활용해 파드를 생성한다.
 

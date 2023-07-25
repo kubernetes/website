@@ -75,7 +75,7 @@ This example ReplicationController config runs three copies of the nginx web ser
 
 这个示例 ReplicationController 配置运行 nginx Web 服务器的三个副本。
 
-{{% codenew file="controllers/replication.yaml" %}}
+{{< codenew file="controllers/replication.yaml" >}}
 
 <!--
 Run the example job by downloading the example file and then running this command:

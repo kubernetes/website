@@ -27,7 +27,7 @@ weight: 30
 이 예제에서는, 하나의 컨테이너를 실행하는 파드를 생성한다.
 파드의 매니페스트는 컨테이너가 시작될 때 수행하는 명령어를 지정한다.
 
-{{% codenew file="debug/termination.yaml" %}}
+{{< codenew file="debug/termination.yaml" >}}
 
 1. 다음의 YAML 설정 파일에 기반한 파드를 생성한다.
 

@@ -80,7 +80,7 @@ API 오브젝트와는
 
 다음은 감사 정책 파일의 예이다.
 
-{{% codenew file="audit/audit-policy.yaml" %}}
+{{< codenew file="audit/audit-policy.yaml" >}}
 
 최소 감사 정책 파일을 사용하여 `Metadata` 수준에서 모든 요청을 기록할 수 있다.
 

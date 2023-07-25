@@ -45,7 +45,7 @@ weight: 20
 
 1. `node-problem-detector.yaml`와 유사하게 노드 문제 감지기 구성을 생성한다:
 
-   {{% codenew file="debug/node-problem-detector.yaml" %}}
+   {{< codenew file="debug/node-problem-detector.yaml" >}}
 
    {{< note >}}
    현재 운영 체제 배포판의 시스템 로그 디렉토리와 일치하도록 기재했는지 확인해야 한다.
@@ -83,7 +83,7 @@ weight: 20
 
 1. `컨피그맵(ConfigMap)`을 사용하도록 `node-problem-detector.yaml`을 변경한다.
 
-   {{% codenew file="debug/node-problem-detector-configmap.yaml" %}}
+   {{< codenew file="debug/node-problem-detector-configmap.yaml" >}}
 
 4. 새로운 설정 파일을 사용하여 노드 문제 감지기를 재생성한다.
 

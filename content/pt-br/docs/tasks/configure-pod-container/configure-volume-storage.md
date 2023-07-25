@@ -33,7 +33,7 @@ Volume do tipo [emptyDir](/docs/concepts/storage/volumes/#emptydir)
 que persiste durante a existência do Pod, mesmo que o contêiner termine e
 reinicie. Aqui está o arquivo de configuração para o pod:
 
-{{% codenew file="pods/storage/redis.yaml" %}}
+{{< codenew file="pods/storage/redis.yaml" >}}
 
 1. Crie o Pod:
 

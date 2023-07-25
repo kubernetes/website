@@ -68,7 +68,7 @@ Redis 파드 매니페스트의 내용을 검토하고 다음의 사항을 염�
 이 내용은 위의 `example-redis-config` 컨피그맵의 `data.redis-config` 내부 데이터를 파드 안에 있는
 `/redis-master/redis.conf` 파일의 내용으로 노출시키는 순효과(net effect)를 낸다.
 
-{{% codenew file="pods/config/redis-pod.yaml" %}}
+{{< codenew file="pods/config/redis-pod.yaml" >}}
 
 생성된 오브젝트를 확인한다.
 
@@ -139,7 +139,7 @@ kubectl exec -it redis -- redis-cli
 
 이제 `example-redis-config` 컨피그맵에 몇 가지 설정값을 추가해 본다.
 
-{{% codenew file="pods/config/example-redis-config.yaml" %}}
+{{< codenew file="pods/config/example-redis-config.yaml" >}}
 
 갱신된 컨피그맵을 적용한다.
 

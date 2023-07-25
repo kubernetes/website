@@ -69,7 +69,7 @@ kubectl create namespace mem-example
 이 예제에서 하나의 컨테이너를 가진 파드를 생성한다. 생성된 컨테이너는
 100 MiB 메모리 요청량과 200 MiB 메모리 상한을 갖는다. 이 것이 파드 구성 파일이다.
 
-{{% codenew file="pods/resource/memory-request-limit.yaml" %}}
+{{< codenew file="pods/resource/memory-request-limit.yaml" >}}
 
 구성 파일 내 `args` 섹션은 컨테이너가 시작될 때 아규먼트를 제공한다.
 `"--vm-bytes", "150M"` 아규먼트는 컨테이너가 150 MiB 할당을 시도 하도록 한다.
@@ -139,7 +139,7 @@ kubectl delete pod memory-demo --namespace=mem-example
 이 것은 50 MiB 메모리 요청량과 100 MiB 메모리 상한을 갖는
 하나의 컨테이너를 갖는 파드의 구성 파일이다.
 
-{{% codenew file="pods/resource/memory-request-limit-2.yaml" %}}
+{{< codenew file="pods/resource/memory-request-limit-2.yaml" >}}
 
 구성 파일의 `args` 섹션에서 컨테이너가
 100 MiB 상한을 훨씬 초과하는 250 MiB의 메모리를 할당하려는 것을 볼 수 있다.
@@ -248,7 +248,7 @@ kubectl delete pod memory-demo-2 --namespace=mem-example
 컨테이너를 갖는
 파드의 구성 파일이다.
 
-{{% codenew file="pods/resource/memory-request-limit-3.yaml" %}}
+{{< codenew file="pods/resource/memory-request-limit-3.yaml" >}}
 
 파드 생성:
 

@@ -39,7 +39,7 @@ Pod:
 此 Pod 的配置文件定义了一个已定义常用用法的相互依赖的环境变量。
 下面是此 Pod 的配置清单：
 
-{{% codenew file="pods/inject/dependent-envars.yaml" %}}
+{{< codenew file="pods/inject/dependent-envars.yaml" >}}
 
 <!--
 1. Create a Pod based on that manifest:

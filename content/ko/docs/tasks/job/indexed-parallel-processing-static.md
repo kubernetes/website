@@ -77,7 +77,7 @@ rev data.txt
 
 다음은 색인된(`Indexed`) 완료 모드를 사용하는 잡 매니페스트의 예이다.
 
-{{% codenew language="yaml" file="application/job/indexed-job.yaml" %}}
+{{< codenew language="yaml" file="application/job/indexed-job.yaml" >}}
 
 위 예제에서, 잡 컨트롤러가 모든 컨테이너에 설정한 `JOB_COMPLETION_INDEX`
 내장 환경 변수를 사용한다. [초기화 컨테이너](/ko/docs/concepts/workloads/pods/init-containers/)는
@@ -92,7 +92,7 @@ rev data.txt
 /ko/docs/tasks/inject-data-application/downward-api-volume-expose-pod-information/#파드-필드-저장)할
 수도 있다.
 
-{{% codenew language="yaml" file="application/job/indexed-job-vol.yaml" %}}
+{{< codenew language="yaml" file="application/job/indexed-job-vol.yaml" >}}
 
 ## 잡 실행하기
 

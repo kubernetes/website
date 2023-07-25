@@ -35,7 +35,7 @@ The following steps require an egress configuration, for example:
 
 接下来的步骤需要出口配置，比如：
 
-{{% codenew file="admin/konnectivity/egress-selector-configuration.yaml" %}}
+{{< codenew file="admin/konnectivity/egress-selector-configuration.yaml" >}}
 
 <!--
 You need to configure the API Server to use the Konnectivity service
@@ -112,19 +112,19 @@ server as a DaemonSet.
 Kubernetes 组件都是部署为{{< glossary_tooltip text="静态 Pod" term_id="static-pod" >}} 的。
 如果不是，你可以将 Konnectivity 服务部署为 DaemonSet。
 
-{{% codenew file="admin/konnectivity/konnectivity-server.yaml" %}}
+{{< codenew file="admin/konnectivity/konnectivity-server.yaml" >}}
 
 <!--
 Then deploy the Konnectivity agents in your cluster:
 -->
 在你的集群中部署 Konnectivity 代理：
 
-{{% codenew file="admin/konnectivity/konnectivity-agent.yaml" %}}
+{{< codenew file="admin/konnectivity/konnectivity-agent.yaml" >}}
 
 <!--
 Last, if RBAC is enabled in your cluster, create the relevant RBAC rules:
 -->
 最后，如果你的集群启用了 RBAC，请创建相关的 RBAC 规则：
 
-{{% codenew file="admin/konnectivity/konnectivity-rbac.yaml" %}}
+{{< codenew file="admin/konnectivity/konnectivity-rbac.yaml" >}}
 

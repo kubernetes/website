@@ -46,7 +46,7 @@ weight: 10
 
 이 YAML 파일은 'RollingUpdate'를 업데이트 전략으로 사용하여 데몬셋을 명시한다.
 
-{{% codenew file="controllers/fluentd-daemonset.yaml" %}}
+{{< codenew file="controllers/fluentd-daemonset.yaml" >}}
 
 데몬셋 매니페스트의 업데이트 전략을 확인한 후, 데몬셋을 생성한다.
 
@@ -92,7 +92,7 @@ RollingUpdate
 `RollingUpdate` 데몬셋 `.spec.template` 에 대한 업데이트는 롤링 업데이트를
 트리거한다. 새 YAML 파일을 적용하여 데몬셋을 업데이트한다. 이것은 여러 가지 다른 `kubectl` 명령으로 수행할 수 있다.
 
-{{% codenew file="controllers/fluentd-daemonset-update.yaml" %}}
+{{< codenew file="controllers/fluentd-daemonset-update.yaml" >}}
 
 #### 선언적 커맨드
 

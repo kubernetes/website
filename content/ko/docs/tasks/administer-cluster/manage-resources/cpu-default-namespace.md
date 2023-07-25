@@ -49,7 +49,7 @@ kubectl create namespace default-cpu-example
 다음은 예시 {{< glossary_tooltip text="리밋레인지" term_id="limitrange" >}}에 대한 매니페스트이다.
 이 매니페스트는 기본 CPU 요청량 및 기본 CPU 상한을 지정한다.
 
-{{% codenew file="admin/resource/cpu-defaults.yaml" %}}
+{{< codenew file="admin/resource/cpu-defaults.yaml" >}}
 
 default-cpu-example 네임스페이스에 리밋레인지를 생성한다.
 
@@ -65,7 +65,7 @@ kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults.yaml --name
 다음은 컨테이너가 하나인 파드의 매니페스트이다. 
 해당 컨테이너는 CPU 요청량과 상한을 지정하지 않는다.
 
-{{% codenew file="admin/resource/cpu-defaults-pod.yaml" %}}
+{{< codenew file="admin/resource/cpu-defaults-pod.yaml" >}}
 
 파드를 생성한다.
 
@@ -100,7 +100,7 @@ containers:
 다음은 컨테이너가 하나인 파드의 매니페스트이다. 
 해당 컨테이너는 CPU 상한은 지정하지만, 요청량은 지정하지 않는다.
 
-{{% codenew file="admin/resource/cpu-defaults-pod-2.yaml" %}}
+{{< codenew file="admin/resource/cpu-defaults-pod-2.yaml" >}}
 
 파드를 생성한다.
 
@@ -132,7 +132,7 @@ resources:
 다음은 컨테이너가 하나인 파드의 예시 매니페스트이다. 
 해당 컨테이너는 CPU 요청량은 지정하지만, 상한은 지정하지 않는다.
 
-{{% codenew file="admin/resource/cpu-defaults-pod-3.yaml" %}}
+{{< codenew file="admin/resource/cpu-defaults-pod-3.yaml" >}}
 
 파드를 생성한다.
 

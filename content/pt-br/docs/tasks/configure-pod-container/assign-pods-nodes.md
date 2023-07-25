@@ -66,7 +66,7 @@ juntamente com seus rótulos:
 Este arquivo de configuração de pod descreve um pod que tem um seletor de nó, 
 `disktype: ssd`. Isto significa que o pod será agendado em um nó que tem o rótulo `disktype=ssd`.
 
-{{% codenew file="pods/pod-nginx.yaml" %}}
+{{< codenew file="pods/pod-nginx.yaml" >}}
 
 1. Use o arquivo de configuração para criar um pod que será agendado no nó escolhido:
     
@@ -91,7 +91,7 @@ Este arquivo de configuração de pod descreve um pod que tem um seletor de nó,
 
 Você pode também agendar um pod para um nó específico usando `nodeName`.
 
-{{% codenew file="pods/pod-nginx-specific-node.yaml" %}}
+{{< codenew file="pods/pod-nginx-specific-node.yaml" >}}
 
 Use o arquivo de configuração para criar um pod que será agendado somente no nó `foo-node`.
 

@@ -300,7 +300,7 @@ spec:
 
 다음은 커스텀 DNS 세팅을 한 파드의 예시이다.
 
-{{% codenew file="service/networking/custom-dns.yaml" %}}
+{{< codenew file="service/networking/custom-dns.yaml" >}}
 
 위에서 파드가 생성되면,
 컨테이너 `test`의 `/etc/resolv.conf` 파일에는 다음과 같은 내용이 추가된다.

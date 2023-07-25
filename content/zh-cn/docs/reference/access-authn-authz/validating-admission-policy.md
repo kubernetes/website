@@ -654,7 +654,7 @@ Here is an example illustrating a few different uses for match conditions:
 -->
 以下示例说明了匹配条件的几个不同用法：
 
-{{% codenew file="access/validating-admission-policy-match-conditions.yaml" %}}
+{{< codenew file="access/validating-admission-policy-match-conditions.yaml" >}}
 
 <!--
 Match conditions have access to the same CEL variables as validation expressions.
@@ -690,7 +690,7 @@ For example, here is an admission policy with an audit annotation:
 
 例如，以下是带有审计注解的准入策略：
 
-{{% codenew file="access/validating-admission-policy-audit-annotation.yaml" %}}
+{{< codenew file="access/validating-admission-policy-audit-annotation.yaml" >}}
 
 <!--
 When an API request is validated with this admission policy, the resulting audit event will look like:
@@ -748,7 +748,7 @@ we can have the following validation:
 
 例如，为了在策略引用参数时更好地告知用户拒绝原因，我们可以有以下验证：
 
-{{% codenew file="access/deployment-replicas-policy.yaml" %}}
+{{< codenew file="access/deployment-replicas-policy.yaml" >}}
 
 <!--
 After creating a params object that limits the replicas to 3 and setting up the binding,

@@ -48,7 +48,7 @@ _파드_ (고래 떼(pod of whales)나 콩꼬투리(pea pod)와 마찬가지로)
 
 다음은 `nginx:1.14.2` 이미지를 실행하는 컨테이너로 구성되는 파드의 예시이다.
 
-{{% codenew file="pods/simple-pod.yaml" %}}
+{{< codenew file="pods/simple-pod.yaml" >}}
 
 위에서 설명한 파드를 생성하려면, 다음 명령을 실행한다.
 ```shell

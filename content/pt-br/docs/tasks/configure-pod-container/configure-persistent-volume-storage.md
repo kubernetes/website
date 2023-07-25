@@ -87,7 +87,7 @@ para incializar [provisionamento dinâmico](https://kubernetes.io/blog/2016/10/d
 
 Aqui está o arquivo de configuração para o Volume Persistente `hostPath`:
 
-{{% codenew file="pods/storage/pv-volume.yaml" %}}
+{{< codenew file="pods/storage/pv-volume.yaml" >}}
 
 O arquivo de configuração especifica que o volume está no diretório `/mnt/data` do nó do cluster. 
 A configuração também especifica um tamanho de 10 gibibytes e um modo de acesso 
@@ -123,7 +123,7 @@ gibibytes, com acesso de leitura-escrita para pelo menos um nó.
 
 Aqui está o arquivo de configuração para o`PersistentVolumeClaim`:
 
-{{% codenew file="pods/storage/pv-claim.yaml" %}}
+{{< codenew file="pods/storage/pv-claim.yaml" >}}
 
 Crie o `PersistentVolumeClaim`:
 
@@ -163,7 +163,7 @@ O próximo passo é criar um Pod que usa o seu `PersistentVolumeClaim` como um v
 
 Aqui está o arquivo de configuração para o Pod:
 
-{{% codenew file="pods/storage/pv-pod.yaml" %}}
+{{< codenew file="pods/storage/pv-pod.yaml" >}}
 
 Note que o arquivo de configuração do Pod especifica um `PersistentVolumeClaim`, mas não 
 especifica um Volume Persistente. Do ponto de vista do Pod, a reivindicação é de um volume.
@@ -231,7 +231,7 @@ Você pode agora fechar o shell do seu nó.
 
 ## Montando o mesmo Volume Persistente em dois lugares
 
-{{% codenew file="pods/storage/pv-duplicate.yaml" %}}
+{{< codenew file="pods/storage/pv-duplicate.yaml" >}}
 
 Você pode realizar a montagem de 2 volumes no seu contêiner nginx:
 

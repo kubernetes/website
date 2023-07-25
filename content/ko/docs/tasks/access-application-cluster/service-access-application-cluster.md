@@ -26,7 +26,7 @@ weight: 60
 
 다음은 애플리케이션 디플로이먼트(Deployment) 설정 파일이다.
 
-{{% codenew file="service/access/hello-application.yaml" %}}
+{{< codenew file="service/access/hello-application.yaml" >}}
 
 1. 클러스터 내 Hello World 애플리케이션을 실행하자.
    위 파일을 사용하여 애플리케이션 디플로이먼트를 생성하자.

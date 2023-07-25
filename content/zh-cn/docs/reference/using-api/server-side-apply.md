@@ -587,7 +587,7 @@ Say a user has defined deployment with `replicas` set to the desired value:
 
 假设用户定义了 Deployment，且 `replicas` 字段已经设置为期望的值：
 
-{{% codenew file="application/ssa/nginx-deployment.yaml" %}}
+{{< codenew file="application/ssa/nginx-deployment.yaml" >}}
 
 <!--
 And the user has created the deployment using Server-Side Apply like so:
@@ -688,7 +688,7 @@ At this point the user may remove the `replicas` field from their configuration.
 
 在此时间点，用户可以从配置文件中删除 `replicas` 。
 
-{{% codenew file="application/ssa/nginx-deployment-no-replicas.yaml" %}}
+{{< codenew file="application/ssa/nginx-deployment-no-replicas.yaml" >}}
 
 <!--
 Note that whenever the HPA controller sets the `replicas` field to a new value,

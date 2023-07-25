@@ -47,7 +47,7 @@ kubectl create namespace constraints-cpu-example
 
 다음은 {{< glossary_tooltip text="리밋레인지" term_id="limitrange" >}} 예제 매니페스트이다.
 
-{{% codenew file="admin/resource/cpu-constraints.yaml" %}}
+{{< codenew file="admin/resource/cpu-constraints.yaml" >}}
 
 리밋레인지를 생성한다.
 
@@ -98,7 +98,7 @@ limits:
 500 millicpu의 CPU 요청량 및 800 millicpu의 CPU 상한을 지정하고 있다. 이는 이 네임스페이스의 리밋레인지에
 의해 부과된 CPU의 최소와 최대 제약 조건을 충족시킨다.
 
-{{% codenew file="admin/resource/cpu-constraints-pod.yaml" %}}
+{{< codenew file="admin/resource/cpu-constraints-pod.yaml" >}}
 
 파드를 생성한다.
 
@@ -140,7 +140,7 @@ kubectl delete pod constraints-cpu-demo --namespace=constraints-cpu-example
 다음은 컨테이너가 하나인 파드의 매니페스트이다. 컨테이너는
 500 millicpu의 CPU 요청량과 1.5 cpu의 CPU 상한을 지정하고 있다.
 
-{{% codenew file="admin/resource/cpu-constraints-pod-2.yaml" %}}
+{{< codenew file="admin/resource/cpu-constraints-pod-2.yaml" >}}
 
 파드 생성을 시도한다.
 
@@ -161,7 +161,7 @@ pods "constraints-cpu-demo-2" is forbidden: maximum cpu usage per Container is 8
 다음은 컨테이너가 하나인 파드의 매니페스트이다. 컨테이너는
 100 millicpu의 CPU 요청량과 800 millicpu의 CPU 상한을 지정하고 있다.
 
-{{% codenew file="admin/resource/cpu-constraints-pod-3.yaml" %}}
+{{< codenew file="admin/resource/cpu-constraints-pod-3.yaml" >}}
 
 파드 생성을 시도한다.
 
@@ -183,7 +183,7 @@ pods "constraints-cpu-demo-3" is forbidden: minimum cpu usage per Container is 2
 다음은 컨테이너가 하나인 파드의 매니페스트이다. 컨테이너는
 CPU 요청량을 지정하지 않았으며, CPU 상한도 지정하지 않았다.
 
-{{% codenew file="admin/resource/cpu-constraints-pod-4.yaml" %}}
+{{< codenew file="admin/resource/cpu-constraints-pod-4.yaml" >}}
 
 파드를 생성한다.
 

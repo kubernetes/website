@@ -60,7 +60,7 @@ min-kubernetes-server-version: v1.25
 스테이트리스 파드의 유저 네임스페이스는 `.spec`의 `hostUsers` 필드를 
 `false`로 설정하여 사용할 수 있다. 다음은 예시이다.
 
-{{% codenew file="pods/user-namespaces-stateless.yaml" %}}
+{{< codenew file="pods/user-namespaces-stateless.yaml" >}}
 
 1. 클러스터에 파드를 생성한다.
 

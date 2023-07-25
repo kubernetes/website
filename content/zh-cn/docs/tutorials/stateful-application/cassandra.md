@@ -123,7 +123,7 @@ Create a Service to track all Cassandra StatefulSet members from the `cassandra-
 
 以下 Service 用于在 Cassandra Pod 和集群中的客户端之间进行 DNS 查找：
 
-{{% codenew file="application/cassandra/cassandra-service.yaml" %}}
+{{< codenew file="application/cassandra/cassandra-service.yaml" >}}
 
 创建一个 Service 来跟踪 `cassandra-service.yaml` 文件中的所有 Cassandra StatefulSet：
 
@@ -181,7 +181,7 @@ Please update the following StatefulSet for the cloud you are working with.
 请为正在使用的云更新以下 StatefulSet。
 {{< /note >}}
 
-{{% codenew file="application/cassandra/cassandra-statefulset.yaml" %}}
+{{< codenew file="application/cassandra/cassandra-statefulset.yaml" >}}
 
 <!--
 Create the Cassandra StatefulSet from the `cassandra-statefulset.yaml` file:

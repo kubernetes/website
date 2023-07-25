@@ -123,7 +123,7 @@ kubelet이 `node-restriction.kubernetes.io/` 접두사를 갖는 레이블을
 
 예를 들어, 다음과 같은 파드 스펙이 있다고 하자.
 
-{{% codenew file="pods/pod-with-node-affinity.yaml" %}}
+{{< codenew file="pods/pod-with-node-affinity.yaml" >}}
 
 이 예시에서는 다음의 규칙이 적용된다.
 
@@ -170,7 +170,7 @@ kubelet이 `node-restriction.kubernetes.io/` 접두사를 갖는 레이블을
 
 예를 들어, 다음과 같은 파드 스펙이 있다고 하자.
 
-{{% codenew file="pods/pod-with-affinity-anti-affinity.yaml" %}}
+{{< codenew file="pods/pod-with-affinity-anti-affinity.yaml" >}}
 
 `preferredDuringSchedulingIgnoredDuringExecution` 규칙을 만족하는 노드가 2개 있고, 
 하나에는 `label-1:key-1` 레이블이 있고 다른 하나에는 `label-2:key-2` 레이블이 있으면, 
@@ -286,7 +286,7 @@ Y는 쿠버네티스가 충족할 규칙이다.
 
 다음과 같은 파드 스펙을 가정한다.
 
-{{% codenew file="pods/pod-with-pod-affinity.yaml" %}}
+{{< codenew file="pods/pod-with-pod-affinity.yaml" >}}
 
 이 예시는 하나의 파드 어피니티 규칙과 
 하나의 파드 안티-어피니티 규칙을 정의한다.

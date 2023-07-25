@@ -83,7 +83,7 @@ Pod 类似于共享名字空间并共享文件系统卷的一组容器。
 
 The following is an example of a Pod which consists of a container running the image `nginx:1.14.2`.
 
-{{% codenew file="pods/simple-pod.yaml" %}}
+{{< codenew file="pods/simple-pod.yaml" >}}
 
 To create the Pod shown above, run the following command:
 -->
@@ -91,7 +91,7 @@ To create the Pod shown above, run the following command:
 
 下面是一个 Pod 示例，它由一个运行镜像 `nginx:1.14.2` 的容器组成。
 
-{{% codenew file="pods/simple-pod.yaml" %}}
+{{< codenew file="pods/simple-pod.yaml" >}}
 
 要创建上面显示的 Pod，请运行以下命令：
 

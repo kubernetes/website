@@ -28,7 +28,7 @@ weight: 50
 유형의 볼륨이 있다.
 파드의 구성 파일은 다음과 같다.
 
-{{% codenew file="pods/storage/redis.yaml" %}}
+{{< codenew file="pods/storage/redis.yaml" >}}
 
 1. 파드 생성
 

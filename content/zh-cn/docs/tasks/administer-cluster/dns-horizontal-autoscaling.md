@@ -147,7 +147,7 @@ Create a file named `dns-horizontal-autoscaler.yaml` with this content:
 
 创建文件 `dns-horizontal-autoscaler.yaml`，内容如下所示：
 
-{{% codenew file="admin/dns/dns-horizontal-autoscaler.yaml" %}}
+{{< codenew file="admin/dns/dns-horizontal-autoscaler.yaml" >}}
 
 <!--
 In the file, replace `<SCALE_TARGET>` with your scale target.

@@ -35,7 +35,7 @@ _데몬셋_ 은 모든(또는 일부) 노드가 파드의 사본을 실행하도
 YAML 파일에 데몬셋 명세를 작성할 수 있다. 예를 들어 아래 `daemonset.yaml` 파일은 
 fluentd-elasticsearch 도커 이미지를 실행하는 데몬셋을 설명한다.
 
-{{% codenew file="controllers/daemonset.yaml" %}}
+{{< codenew file="controllers/daemonset.yaml" >}}
 
 YAML 파일을 기반으로 데몬셋을 생성한다.
 

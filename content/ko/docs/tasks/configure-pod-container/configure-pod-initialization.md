@@ -27,7 +27,7 @@ weight: 130
 
 아래는 해당 파드의 구성 파일이다.
 
-{{% codenew file="pods/init-containers.yaml" %}}
+{{< codenew file="pods/init-containers.yaml" >}}
 
 이 구성 파일에서, 파드가 가진 볼륨을 초기화
 컨테이너와 애플리케이션 컨테이너가 공유하는 것을 볼 수 있다.
