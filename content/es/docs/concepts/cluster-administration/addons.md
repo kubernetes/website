@@ -26,7 +26,7 @@ En esta página se listan algunos de los complementos disponibles con sus respec
   poder elegir la opción más eficiente para su situación, incluidas las 
   redes superpuestas y no superpuestas, con o sin BGP (Border Gateway Protocol). 
   Calico utiliza el mismo motor para aplicar las políticas de red para hosts, 
-  pods (como lo usa Istio y Envoy) aplicaciones de la capa de servicios (service Mesh). 
+  Pods, y (si se usa Istio y Envoy) aplicaciones en la capa de la malla de servicios. 
 * [Canal](https://projectcalico.docs.tigera.io/getting-started/kubernetes/flannel/flannel)
   Es la unión de Flannel y Calico, proporciona redes y políticas de redes.
 * [Cilium](https://github.com/cilium/cilium) es una solución de red, observabilidad 
