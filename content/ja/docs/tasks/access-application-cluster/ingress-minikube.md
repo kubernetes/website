@@ -134,7 +134,7 @@ weight: 110
 
 1. 以下の内容で`example-ingress.yaml`を作成します。
 
-    {{< codenew file="service/networking/example-ingress.yaml" >}}
+    {{% codenew file="service/networking/example-ingress.yaml" %}}
 
 1. 次のコマンドを実行して、Ingressリソースを作成します。
 

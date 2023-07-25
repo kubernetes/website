@@ -41,7 +41,7 @@ StatefulSetはステートフルアプリケーションや分散システムで
 
 はじめに、以下の例を使ってStatefulSetを作成しましょう。これは、コンセプトの[StatefulSet](/ja/docs/concepts/workloads/controllers/statefulset/)のページで使ったものと同じような例です。`nginx`という[headless Service](/ja/docs/concepts/services-networking/service/#headless-services)を作成し、`web`というStatefulSet内のPodのIPアドレスを公開します。
 
-{{< codenew file="application/web/web.yaml" >}}
+{{% codenew file="application/web/web.yaml" %}}
 
 上の例をダウンロードして、`web.yaml`という名前で保存します。
 
@@ -908,7 +908,7 @@ statefulset "web" deleted
 
 `Parallel`のPod管理では、StatefulSetコントローラーに対して、PodがRunningかつReadyの状態や完全に停止するまで待たないように指示し、すべてのPodを並列に起動または停止させるようにします。
 
-{{< codenew file="application/web/web-parallel.yaml" >}}
+{{% codenew file="application/web/web-parallel.yaml" %}}
 
 上の例をダウンロードして、`web-parallel.yaml`という名前でファイルに保存してください。
 

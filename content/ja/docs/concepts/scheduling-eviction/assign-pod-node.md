@@ -88,7 +88,7 @@ Podのspec(仕様)にある`.spec.affinity.nodeAffinity`フィールドを使用
 
 例えば、次のようなPodのspec(仕様)を考えてみましょう:
 
-{{< codenew file="pods/pod-with-node-affinity.yaml" >}}
+{{% codenew file="pods/pod-with-node-affinity.yaml" %}}
 
 この例では、以下のルールが適用されます:
 
@@ -118,7 +118,7 @@ Podの他のスケジューリング要件をすべて満たすNodeを見つけ�
 
 例えば、次のようなPodのspec(仕様)を考えてみましょう: 
 
-{{< codenew file="pods/pod-with-affinity-anti-affinity.yaml" >}}
+{{% codenew file="pods/pod-with-affinity-anti-affinity.yaml" %}}
 
 `preferredDuringSchedulingIgnoredDuringExecution`ルールにマッチするNodeとして、一つは`label-1:key-1`ラベル、もう一つは`label-2:key-2`ラベルの2つの候補がある場合、スケジューラーは各Nodeの`weight`を考慮し、その重みとNodeの他のスコアを加え、最終スコアが最も高いNodeにPodをスケジューリングします。
 
@@ -197,7 +197,7 @@ Pod間アフィニティを使用するには、Pod仕様(spec)の`affinity.podA
 
 次のようなPod仕様(spec)を考えてみましょう:
 
-{{< codenew file="pods/pod-with-pod-affinity.yaml" >}}
+{{% codenew file="pods/pod-with-pod-affinity.yaml" %}}
 
 この例では、PodアフィニティルールとPodアンチアフィニティルールを1つずつ定義しています。
 Podアフィニティルールは"ハード"な`requiredDuringSchedulingIgnoredDuringExecution`を使用し、アンチアフィニティルールは"ソフト"な`preferredDuringSchedulingIgnoredDuringExecution`を使用しています。

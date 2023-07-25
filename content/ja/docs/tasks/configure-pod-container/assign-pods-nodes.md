@@ -58,7 +58,7 @@ weight: 150
 
 以下のPodの構成ファイルには、nodeSelectorに`disktype: ssd`を持つPodが書かれています。これにより、Podは`disktype: ssd`というラベルを持っているノードにスケジューリングされるようになります。
 
-{{< codenew file="pods/pod-nginx.yaml" >}}
+{{% codenew file="pods/pod-nginx.yaml" %}}
 
 1. 構成ファイルを使用して、選択したノードにスケジューリングされるPodを作成します。
 
@@ -83,7 +83,7 @@ weight: 150
 
 `nodeName`という設定を使用して、Podを特定のノードにスケジューリングすることもできます。
 
-{{< codenew file="pods/pod-nginx-specific-node.yaml" >}}
+{{% codenew file="pods/pod-nginx-specific-node.yaml" %}}
 
 構成ファイルを使用して、`foo-node`にだけスケジューリングされるPodを作成します。
 

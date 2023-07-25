@@ -35,7 +35,7 @@ Podとコンテナのフィールドを実行中のコンテナに共有する�
 
 この演習では、1つのコンテナを持つPodを作成します。Podの設定ファイルは次のとおりです:
 
-{{< codenew file="pods/inject/dapi-envars-pod.yaml" >}}
+{{% codenew file="pods/inject/dapi-envars-pod.yaml" %}}
 
 設定ファイルには、5つの環境変数があります。`env`フィールドは[EnvVars](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvar-v1-core)の配列です。配列の最初の要素では、環境変数`MY_NODE_NAME`の値をPodの`spec.nodeName`フィールドから取得することを指定します。同様に、他の環境変数もPodのフィールドから名前を取得します。
 
@@ -102,7 +102,7 @@ MY_POD_NAME=dapi-envars-fieldref
 
 前の演習では、環境変数の値としてPodフィールドを使用しました。次の演習では、環境変数の値としてコンテナフィールドを使用します。これは、1つのコンテナを持つPodの設定ファイルです:
 
-{{< codenew file="pods/inject/dapi-envars-container.yaml" >}}
+{{% codenew file="pods/inject/dapi-envars-container.yaml" %}}
 
 設定ファイルには、4つの環境変数があります。`env`フィールドは[EnvVars](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#envvar-v1-core)の配列です。配列の最初の要素では、環境変数`MY_CPU_REQUEST`の値を`test-container`という名前のコンテナの`requests.cpu`フィールドから取得することを指定します。同様に、他の環境変数もコンテナのフィールドから値を取得します。
 
