@@ -21,7 +21,7 @@ Arsitektur _logging_ pada level klaster yang akan dijelaskan berikut mengasumsik
 
 Pada bagian ini, kamu dapat melihat contoh tentang dasar _logging_ pada Kubernetes yang mengeluarkan data pada _standard output_. Demonstrasi berikut ini menggunakan sebuah [spesifikasi pod](/examples/debug/counter-pod.yaml) dengan kontainer yang akan menuliskan beberapa teks ke _standard output_ tiap detik.
 
-{{< codenew file="debug/counter-pod.yaml" >}}
+{{% codenew file="debug/counter-pod.yaml" %}}
 
 Untuk menjalankan pod ini, gunakan perintah berikut:
 
@@ -126,13 +126,13 @@ Dengan menggunakan cara ini kamu dapat memisahkan aliran log dari bagian-bagian 
 
 Sebagai contoh, sebuah pod berjalan pada satu kontainer tunggal, dan kontainer menuliskan ke dua berkas log yang berbeda, dengan dua format yang berbeda pula. Berikut ini _file_ konfigurasi untuk Pod:
 
-{{< codenew file="admin/logging/two-files-counter-pod.yaml" >}}
+{{% codenew file="admin/logging/two-files-counter-pod.yaml" %}}
 
 Hal ini akan menyulitkan untuk mengeluarkan log dalam format yang berbeda pada aliran log yang sama, meskipun kamu dapat me-_redirect_ keduanya ke `stdout` dari kontainer.  Sebagai gantinya, kamu dapat menggunakan dua buah kontainer _sidecar_. Tiap kontainer _sidecar_ dapat membaca suatu berkas log tertentu dari _shared volume_ kemudian mengarahkan log ke `stdout`-nya sendiri.
 
 Berikut _file_ konfigurasi untuk pod yang memiliki dua buah kontainer _sidecard_:
 
-{{< codenew file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" >}}
+{{% codenew file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" %}}
 
 Saat kamu menjalankan pod ini, kamu dapat mengakses tiap aliran log secara terpisah dengan menjalankan perintah berikut:
 
@@ -175,7 +175,7 @@ Menggunakan agen _logging_ di dalam kontainer _sidecar_ dapat berakibat pengguna
 Sebagai contoh, kamu dapat menggunakan [Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/),
 yang menggunakan fluentd sebagai agen _logging_. Berikut ini dua _file_ konfigurasi yang dapat kamu pakai untuk mengimplementasikan cara ini. _File_ yang pertama berisi sebuah [ConfigMap](/id/docs/tasks/configure-pod-container/configure-pod-configmap/) untuk mengonfigurasi fluentd.
 
-{{< codenew file="admin/logging/fluentd-sidecar-config.yaml" >}}
+{{% codenew file="admin/logging/fluentd-sidecar-config.yaml" %}}
 
 {{< note >}}
 Konfigurasi fluentd berada diluar cakupan artikel ini. Untuk informasi lebih lanjut tentang cara mengonfigurasi fluentd, silakan lihat [dokumentasi resmi fluentd ](http://docs.fluentd.org/).
@@ -183,7 +183,7 @@ Konfigurasi fluentd berada diluar cakupan artikel ini. Untuk informasi lebih lan
 
 _File_ yang kedua mendeskripsikan sebuah pod yang memiliki kontainer _sidecar_ yang menjalankan fluentd. Pod ini melakukan _mount_ sebuah volume yang akan digunakan fluentd untuk mengambil data konfigurasinya.
 
-{{< codenew file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" >}}
+{{% codenew file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" %}}
 
 Setelah beberapa saat, kamu akan mendapati pesan log pada _interface_ Stackdriver.
 

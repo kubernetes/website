@@ -34,7 +34,7 @@ proses pemecahan masalah (_troubleshoot_) image kontainer yang tidak memiliki ut
 Pembagian _namespace_ proses (_Process Namespace Sharing_) diaktifkan menggunakan _field_ `shareProcessNamespace`
 `v1.PodSpec`. Sebagai contoh:
 
-{{< codenew file="pods/share-process-namespace.yaml" >}}
+{{% codenew file="pods/share-process-namespace.yaml" %}}
 
 1. Buatlah sebuah Pod `nginx` di dalam klaster kamu:
 
