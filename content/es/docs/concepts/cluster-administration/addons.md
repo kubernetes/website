@@ -30,8 +30,8 @@ En esta página se listan algunos de los complementos disponibles con sus respec
 * [Canal](https://projectcalico.docs.tigera.io/getting-started/kubernetes/flannel/flannel)
   Es la unión de Flannel y Calico, proporciona redes y políticas de redes.
 * [Cilium](https://github.com/cilium/cilium) es una solución de red, observabilidad 
-  y seguridad con un plano de datos basado en eBPF. Cilium proporciona una sencilla
-   red plana de capa 3 con la capacidad de abarcar varios clústeres en un modo de 
+  y seguridad con un plano de datos basado en eBPF. Cilium proporciona una
+  red sencilla y plana en capa 3 con la capacidad de abarcar varios clústeres en un modo de 
   enrutamiento nativo o de superposición/encapsulación, y puede aplicar políticas
   de red en L3-L7 utilizando un modelo de seguridad basado en identidad que está 
   desacoplado del direccionamiento de red. Cilium puede actuar como sustituto de
