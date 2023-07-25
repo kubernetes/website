@@ -235,6 +235,14 @@ detail the structure of that `.status` field, and its content for each different
 不同类型的对象可以有不同的 `.status` 信息。API 参考页面给出了 `.status` 字段的详细结构，
 以及针对不同类型 API 对象的具体内容。
 
+{{< note >}}
+<!--
+See [Configuration Best Practices](/docs/concepts/configuration/overview/) for additional
+information on writing YAML configuration files.
+-->
+请查看[配置最佳实践](/zh-cn/docs/concepts/configuration/overview/)来获取有关编写 YAML 配置文件的更多信息。
+{{< /note >}}
+
 <!--
 ## Server side field validation
 

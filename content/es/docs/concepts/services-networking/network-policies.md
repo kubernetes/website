@@ -47,7 +47,7 @@ Ver la referencia [NetworkPolicy](/docs/reference/generated/kubernetes-api/{{< p
 
 Un ejemplo de NetworkPolicy pudiera ser este:
 
-{{< codenew file="service/networking/networkpolicy.yaml" >}}
+{{% codenew file="service/networking/networkpolicy.yaml" %}}
 
 {{< note >}}
 Enviar esto al API Server de su clúster no tendrá ningún efecto a menos que su solución de red soporte de políticas de red.
@@ -150,7 +150,7 @@ Por defecto, si no existen políticas en un Namespace, se permite todo el tráfi
 
 Puedes crear una política que "por defecto" aisle a un Namespace del tráfico de entrada con la creación de una política que seleccione todos los Pods del Namespace pero no permite ningún tráfico de entrada en esos Pods.
 
-{{< codenew file="service/networking/network-policy-default-deny-ingress.yaml" >}}
+{{% codenew file="service/networking/network-policy-default-deny-ingress.yaml" %}}
 
 Esto asegura que incluso los Pods que no están seleccionados por ninguna otra NetworkPolicy también serán aislados del tráfico de entrada. Esta política no afecta el aislamiento en el tráfico de salida desde cualquier Pod. 
 
@@ -159,7 +159,7 @@ Esto asegura que incluso los Pods que no están seleccionados por ninguna otra N
 
 Si tu quieres permitir todo el tráfico de entrada a todos los Pods en un Namespace, puedes crear una política que explícitamente permita eso.
 
-{{< codenew file="service/networking/network-policy-allow-all-ingress.yaml" >}}
+{{% codenew file="service/networking/network-policy-allow-all-ingress.yaml" %}}
 
 Con esta política en curso, ninguna política(s) adicional puede hacer que se niegue cualquier conexión entrante a esos Pods. Esta política no tiene efecto sobre el aislamiento del tráfico de salida de cualquier Pod.
 
@@ -168,7 +168,7 @@ Con esta política en curso, ninguna política(s) adicional puede hacer que se n
 
 Puedes crear una política que "por defecto" aisle el tráfico de salida para un Namespace, creando una NetworkPolicy que seleccione todos los Pods pero que no permita ningún tráfico de salida desde esos Pods.
 
-{{< codenew file="service/networking/network-policy-default-deny-egress.yaml" >}}
+{{% codenew file="service/networking/network-policy-default-deny-egress.yaml" %}}
 
 Esto asegura que incluso los Pods que no son seleccionados por ninguna otra NetworkPolicy no tengan permitido el tráfico de salida. Esta política no cambia el comportamiento de aislamiento para el tráfico de entrada de ningún Pod.
 
@@ -177,7 +177,7 @@ Esto asegura que incluso los Pods que no son seleccionados por ninguna otra Netw
 
 Si quieres permitir todas las conexiones desde todos los Pods de un Namespace, puedes crear una política que permita explícitamente todas las conexiones salientes de los Pods de ese Namespace.
 
-{{< codenew file="service/networking/network-policy-allow-all-egress.yaml" >}}
+{{% codenew file="service/networking/network-policy-allow-all-egress.yaml" %}}
 
 Con esta política en vigor, ninguna política(s) adicional puede hacer que se niegue cualquier conexión de salida desde esos Pods. Esta política no tiene efecto sobre el aislamiento para el tráfico de entrada a cualquier Pod.
 
@@ -186,7 +186,7 @@ Con esta política en vigor, ninguna política(s) adicional puede hacer que se n
 
 Puede crear una política que "por defecto" en un Namespace impida todo el tráfico de entrada y de salida creando la siguiente NetworkPolicy en ese Namespace.
 
-{{< codenew file="service/networking/network-policy-default-deny-all.yaml" >}}
+{{% codenew file="service/networking/network-policy-default-deny-all.yaml" %}}
 
 Esto asegura que incluso los Pods que no son seleccionados por ninguna otra NetworkPolicy no tendrán permitido el tráfico de entrada o salida.
 
