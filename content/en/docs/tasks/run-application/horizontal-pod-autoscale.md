@@ -400,7 +400,7 @@ behavior:
 ```
 
 `periodSeconds` indicates the length of time in the past for which the policy must hold true.
-The default maximum value of `periodSeconds` is 1800 (half an hour).
+The maximum value that you can set for `periodSeconds` is 1800 (half an hour).
 The first policy _(Pods)_ allows at most 4 replicas to be scaled down in one minute. The second policy
 _(Percent)_ allows at most 10% of the current replicas to be scaled down in one minute.
 
