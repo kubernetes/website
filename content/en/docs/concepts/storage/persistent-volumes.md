@@ -876,7 +876,7 @@ it won't be supported in a future Kubernetes release.
 
 #### Retroactive default StorageClass assignment
 
-{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 You can create a PersistentVolumeClaim without specifying a `storageClassName`
 for the new PVC, and you can do so even when no default StorageClass exists
