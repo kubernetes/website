@@ -157,7 +157,7 @@ For more information on version skews, see:
 2. Download the Google Cloud public signing key:
 
    ```shell
-   curl -fsSL https://dl.k8s.io/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
    ```
 
 3. Add the Kubernetes `apt` repository:
