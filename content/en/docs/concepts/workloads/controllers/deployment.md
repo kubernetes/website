@@ -46,7 +46,7 @@ for a container.
 
 The following is an example of a Deployment. It creates a ReplicaSet to bring up three `nginx` Pods:
 
-{{< codenew file="controllers/nginx-deployment.yaml" >}}
+{{% codenew file="controllers/nginx-deployment.yaml" %}}
 
 In this example:
 
