@@ -27,7 +27,7 @@ This page shows how to perform a rollback on a {{< glossary_tooltip term_id="dae
 You should already know how to [perform a rolling update on a
  DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/).
 -->
-你应该已经了解如何[为 DaemonSet 执行滚东更新](/zh-cn/docs/tasks/manage-daemon/update-daemon-set/)。
+你应该已经了解如何[为 DaemonSet 执行滚动更新](/zh-cn/docs/tasks/manage-daemon/update-daemon-set/)。
 
 <!-- steps -->
 
