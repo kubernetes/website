@@ -8,10 +8,26 @@ aliases:
     - mrbobbytables
     - nate-double-u
     - sftim
+  sig-docs-website-owners: # Admins for overall website
+    - divya-mohan0209
+    - natalisucks
+    - reylejano
+    - sftim
+    - tengqm
   sig-docs-localization-owners: # Admins for localization content
     - a-mccarthy
     - divya-mohan0209
     - natalisucks
+    - nate-double-u
+    - reylejano
+    - sftim
+    - seokho-son
+    - tengqm
+  sig-docs-localization-reviewers: # PR reviews for localization changes
+    - a-mccarthy
+    - divya-mohan0209
+    - natalisucks
+    - nate-double-u
     - reylejano
     - sftim
     - seokho-son
