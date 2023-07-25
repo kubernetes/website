@@ -1,4 +1,4 @@
-# This is the localization project for Portuguese.
+# This is the localization project for (Brazilian) Portuguese.
 # Teams and members are visible at https://github.com/orgs/kubernetes/teams.
 
 reviewers:
@@ -6,6 +6,14 @@ reviewers:
 
 approvers:
 - sig-docs-pt-owners
+- sig-docs-website-owners # important due to no_parent_owners option
 
 labels:
+- area/localization
 - language/pt
+
+# Disable inheritance so that the localization team don't end up as approvers for all
+# languages.
+# https://github.com/kubernetes/community/blob/master/communication/website-guidelines.md
+options:
+  no_parent_owners: true
