@@ -257,7 +257,6 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl-convert"
    {{< /tab >}}
    {{< /tabs >}}
-
    Once the process is finished, you can verify the successful installation of kubectl by executing the following command:
    ```shell
    kubectl version
