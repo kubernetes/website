@@ -93,7 +93,7 @@ untuk mengatur
 
 Berikut berkas konfigurasi untuk hostPath PersistentVolume:
 
-{{< codenew file="pods/storage/pv-volume.yaml" >}}
+{{% codenew file="pods/storage/pv-volume.yaml" %}}
 
 Berkas konfigurasi tersebut menentukan bahwa volume berada di `/mnt/data` pada 
 klaster Node. Konfigurasi tersebut juga menentukan ukuran dari 10 gibibytes dan 
@@ -129,7 +129,7 @@ setidaknya untuk satu Node.
 
 Berikut berkas konfigurasi untuk PersistentVolumeClaim:
 
-{{< codenew file="pods/storage/pv-claim.yaml" >}}
+{{% codenew file="pods/storage/pv-claim.yaml" %}}
 
 Membuat sebuah PersistentVolumeClaim:
 
@@ -169,7 +169,7 @@ Langkah selanjutnya adalah membuat sebuah Pod yang akan menggunakan PersistentVo
 
 Berikut berkas konfigurasi untuk Pod:
 
-{{< codenew file="pods/storage/pv-pod.yaml" >}}
+{{% codenew file="pods/storage/pv-pod.yaml" %}}
 
 Perhatikan bahwa berkas konfigurasi Pod menentukan sebuah PersistentVolumeClaim, tetapi
 tidak menentukan PeristentVolume. Dari sudut pandang Pod, _claim_ adalah volume.
