@@ -77,7 +77,7 @@ to detect customized node problems. For example:
 <!--
 1. Create a Node Problem Detector configuration similar to `node-problem-detector.yaml`:
 
-   {{< codenew file="debug/node-problem-detector.yaml" >}}
+   {{% codenew file="debug/node-problem-detector.yaml" %}}
 
    {{< note >}}
    You should verify that the system log directory is right for your operating system distribution.
@@ -90,7 +90,7 @@ to detect customized node problems. For example:
    ```
 -->
 1. 创建类似于 `node-strought-detector.yaml` 的节点问题检测器配置：
-   {{< codenew file="debug/node-problem-detector.yaml" >}}
+   {{% codenew file="debug/node-problem-detector.yaml" %}}
 
    {{< note >}}
    你应该检查系统日志目录是否适用于操作系统发行版本。
@@ -148,7 +148,7 @@ to overwrite the configuration:
 
 1. Change the `node-problem-detector.yaml` to use the `ConfigMap`:
 
-   {{< codenew file="debug/node-problem-detector-configmap.yaml" >}}
+   {{% codenew file="debug/node-problem-detector-configmap.yaml" %}}
 
 1. Recreate the Node Problem Detector with the new configuration file:
 
@@ -167,7 +167,7 @@ to overwrite the configuration:
 
 1. 更改 `node-problem-detector.yaml` 以使用 ConfigMap:
 
-   {{< codenew file="debug/node-problem-detector-configmap.yaml" >}}
+   {{% codenew file="debug/node-problem-detector-configmap.yaml" %}}
 
 1. 使用新的配置文件重新创建节点问题检测器：
 

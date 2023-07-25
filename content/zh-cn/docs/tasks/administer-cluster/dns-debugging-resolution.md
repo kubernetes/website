@@ -40,7 +40,7 @@ kube-dns.
 <!--
 ### Create a simple Pod to use as a test environment
 
-{{< codenew file="admin/dns/dnsutils.yaml" >}}
+{{% codenew file="admin/dns/dnsutils.yaml" %}}
 
 {{< note >}}
 This example creates a pod in the `default` namespace. DNS name resolution for 
@@ -52,7 +52,7 @@ Use that manifest to create a Pod:
 -->
 ### 创建一个简单的 Pod 作为测试环境   {#create-a-simple-pod-to-use-as-a-test-environment}
 
-{{< codenew file="admin/dns/dnsutils.yaml" >}}
+{{% codenew file="admin/dns/dnsutils.yaml" %}}
 
 {{< note >}}
 此示例在 `default` 名字空间创建 Pod。

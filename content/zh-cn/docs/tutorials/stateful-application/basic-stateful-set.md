@@ -114,7 +114,7 @@ It creates a [headless Service](/docs/concepts/services-networking/service/#head
 它创建了一个 [Headless Service](/zh-cn/docs/concepts/services-networking/service/#headless-services)
 `nginx` 用来发布 StatefulSet `web` 中的 Pod 的 IP 地址。
 
-{{< codenew file="application/web/web.yaml" >}}
+{{% codenew file="application/web/web.yaml" %}}
 
 <!--
 Download the example above, and save it to a file named `web.yaml`
@@ -1650,7 +1650,7 @@ Pod. This option only affects the behavior for scaling operations. Updates are n
 `Parallel` Pod 管理策略告诉 StatefulSet 控制器并行的终止所有 Pod，
 在启动或终止另一个 Pod 前，不必等待这些 Pod 变成 Running 和 Ready 或者完全终止状态。
 
-{{< codenew file="application/web/web-parallel.yaml" >}}
+{{% codenew file="application/web/web-parallel.yaml" %}}
 
 <!--
 Download the example above, and save it to a file named `web-parallel.yaml`

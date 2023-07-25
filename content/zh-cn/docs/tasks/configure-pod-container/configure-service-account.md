@@ -657,7 +657,7 @@ of two hours, you could define a Pod manifest that is similar to:
 要为某 Pod 提供一个受众为 `vault` 并且有效期限为 2 小时的令牌，你可以定义一个与下面类似的
 Pod 清单：
 
-{{< codenew file="pods/pod-projected-svc-token.yaml" >}}
+{{% codenew file="pods/pod-projected-svc-token.yaml" %}}
 
 <!--
 Create the Pod:

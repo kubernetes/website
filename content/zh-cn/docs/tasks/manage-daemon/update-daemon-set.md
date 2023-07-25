@@ -85,7 +85,7 @@ This YAML file specifies a DaemonSet with an update strategy as 'RollingUpdate'
 
 下面的 YAML 包含一个 DaemonSet，其更新策略为 'RollingUpdate'：
 
-{{< codenew file="controllers/fluentd-daemonset.yaml" >}}
+{{% codenew file="controllers/fluentd-daemonset.yaml" %}}
 
 <!--
 After verifying the update strategy of the DaemonSet manifest, create the DaemonSet:
@@ -157,7 +157,7 @@ update. Let's update the DaemonSet by applying a new YAML file. This can be done
 对 `RollingUpdate` DaemonSet 的 `.spec.template` 的任何更新都将触发滚动更新。
 这可以通过几个不同的 `kubectl` 命令来完成。
 
-{{< codenew file="controllers/fluentd-daemonset-update.yaml" >}}
+{{% codenew file="controllers/fluentd-daemonset-update.yaml" %}}
 
 <!--
 #### Declarative commands

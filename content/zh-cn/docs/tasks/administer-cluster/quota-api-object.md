@@ -53,7 +53,7 @@ Here is the configuration file for a ResourceQuota object:
 
 下面是一个 ResourceQuota 对象的配置文件：
 
-{{< codenew file="admin/resource/quota-objects.yaml" >}}
+{{% codenew file="admin/resource/quota-objects.yaml" %}}
 
 <!--
 Create the ResourceQuota:
@@ -102,7 +102,7 @@ Here is the configuration file for a PersistentVolumeClaim object:
 
 下面是一个 PersistentVolumeClaim 对象的配置文件：
 
-{{< codenew file="admin/resource/quota-objects-pvc.yaml" >}}
+{{% codenew file="admin/resource/quota-objects-pvc.yaml" %}}
 
 <!--
 Create the PersistentVolumeClaim:
@@ -141,7 +141,7 @@ Here is the configuration file for a second PersistentVolumeClaim:
 
 下面是第二个 PersistentVolumeClaim 的配置文件：
 
-{{< codenew file="admin/resource/quota-objects-pvc-2.yaml" >}}
+{{% codenew file="admin/resource/quota-objects-pvc-2.yaml" %}}
 
 <!--
 Attempt to create the second PersistentVolumeClaim:

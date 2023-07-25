@@ -42,7 +42,7 @@ Here is the configuration file for the Pod:
 -->
 下面是对应 Pod 的配置文件：
 
-{{< codenew file="pods/lifecycle-events.yaml" >}}
+{{% codenew file="pods/lifecycle-events.yaml" %}}
 
 <!--
 In the configuration file, you can see that the postStart command writes a `message`

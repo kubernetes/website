@@ -831,7 +831,7 @@ that originate from outside your cluster.
 则可以配置规则，阻止所有来自集群外部的健康检查请求。
 {{< /caution >}}
 
-{{< codenew file="priority-and-fairness/health-for-strangers.yaml" >}}
+{{% codenew file="priority-and-fairness/health-for-strangers.yaml" %}}
 
 <!--
 ## Diagnostics

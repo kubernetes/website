@@ -63,7 +63,7 @@ with the `ssd` label set to `"true"`.
 
 接下来，使用 `nodeSelector` 确保 DaemonSet 仅在 `ssd` 标签设为 `"true"` 的节点上运行 Pod。
 
-{{<codenew file="controllers/daemonset-label-selector.yaml">}}
+{{% codenew file="controllers/daemonset-label-selector.yaml" %}}
 
 <!--
 ### Step 3: Create the DaemonSet

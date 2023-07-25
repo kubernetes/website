@@ -189,7 +189,7 @@ Here's an example Pod that uses values from `game-demo` to configure a Pod:
 
 下面是一个 Pod 的示例，它通过使用 `game-demo` 中的值来配置一个 Pod：
 
-{{< codenew file="configmap/configure-pod.yaml" >}}
+{{% codenew file="configmap/configure-pod.yaml" %}}
 
 <!--
 A ConfigMap doesn't differentiate between single line property values and
