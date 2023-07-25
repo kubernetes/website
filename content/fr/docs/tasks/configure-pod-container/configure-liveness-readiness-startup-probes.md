@@ -29,7 +29,7 @@ De nombreuses applications fonctionnant pour des longues périodes finissent par
 
 Dans cet exercice, vous allez créer un Pod qui exécute un conteneur basé sur l'image  `registry.k8s.io/busybox`. Voici le fichier de configuration pour le Pod :
 
-{{< codenew file="pods/probe/exec-liveness.yaml" >}}
+{{% codenew file="pods/probe/exec-liveness.yaml" %}}
 
 Dans le fichier de configuration, vous constatez que le Pod a un seul conteneur.
 Le champ `periodSeconds` spécifie que le Kubelet doit effectuer un check de liveness toutes les 5 secondes. Le champ `initialDelaySeconds` indique au Kubelet qu'il devrait attendre 5 secondes avant d'effectuer la première probe. Pour effectuer une probe, le Kubelet exécute la commande `cat /tmp/healthy` dans le conteneur. Si la commande réussit, elle renvoie 0, et le Kubelet considère que le conteneur est vivant et en bonne santé. Si la commande renvoie une valeur non nulle, le Kubelet tue le conteneur et le redémarre.
@@ -104,7 +104,7 @@ liveness-exec   1/1       Running   1          1m
 Un autre type de liveness probe utilise une requête GET HTTP. Voici la configuration
 d'un Pod qui fait fonctionner un conteneur basé sur l'image `registry.k8s.io/liveness`.
 
-{{< codenew file="pods/probe/http-liveness.yaml" >}}
+{{% codenew file="pods/probe/http-liveness.yaml" %}}
 
 Dans le fichier de configuration, vous pouvez voir que le Pod a un seul conteneur.
 Le champ `periodSeconds` spécifie que le Kubelet doit effectuer une liveness probe toutes les 3 secondes. Le champ `initialDelaySeconds` indique au Kubelet qu'il devrait attendre 3 secondes avant d'effectuer la première probe. Pour effectuer une probe, le Kubelet envoie une requête HTTP GET au serveur qui s'exécute dans le conteneur et écoute sur le port 8080. Si le handler du chemin `/healthz` du serveur renvoie un code de succès, le Kubelet considère que le conteneur est vivant et en bonne santé. Si le handler renvoie un code d'erreur, le Kubelet tue le conteneur et le redémarre.
@@ -152,7 +152,7 @@ Dans les versions postérieures à la v1.13, les paramètres de la variable d'en
 Un troisième type de liveness probe utilise un TCP Socket. Avec cette configuration, le Kubelet tentera d'ouvrir un socket vers votre conteneur sur le port spécifié.
 S'il arrive à établir une connexion, le conteneur est considéré comme étant en bonne santé, s'il n'y arrive pas, c'est un échec.
 
-{{< codenew file="pods/probe/tcp-liveness-readiness.yaml" >}}
+{{% codenew file="pods/probe/tcp-liveness-readiness.yaml" %}}
 
 Comme vous le voyez, la configuration pour un check TCP est assez similaire à un check HTTP.
 Cet exemple utilise à la fois des readiness et liveness probes. Le Kubelet transmettra la première readiness probe 5 secondes après le démarrage du conteneur. Il tentera de se connecter au conteneur `goproxy` sur le port 8080. Si la probe réussit, le conteneur sera marqué comme prêt. Kubelet continuera à effectuer ce check tous les 10 secondes.
