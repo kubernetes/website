@@ -738,6 +738,10 @@ Here is an example illustrating a few different uses for match conditions:
 
 {{< codenew file="access/validating-webhook-configuration-match-conditions.yaml" >}}
 
+{{< note >}}
+You can define up to 64 elements in the `matchConditions`` field per webhook.
+{{< /note >}}
+
 Match conditions have access to the following CEL variables:
 
 - `object` - The object from the incoming request. The value is null for DELETE requests. The object
