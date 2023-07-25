@@ -435,9 +435,16 @@ The available `type` values and their behaviors are:
   DNS server to return a `CNAME` record with that external hostname value.
   No proxying of any kind is set up.
 
-The `type` field in the Service API is designed as nested functionality - each level
-adds to the previous.  This is not strictly required on all cloud providers, but
-the Kubernetes API design for Service requires it anyway.
+In Kubernetes Service API, the different values that you can specify in `type`
+field represent a series of functionalities. Several Service types build upon
+others; for example, the `type: NodePort` includes and extends `type: ClusterIP`
+features.This design pattern is inherent to Service types, enabling flexible 
+Services to work on different clusters and integrate with different cloud
+providers. The layered approach helps Kubernetes integrate with cloud provider
+load balancing where the cloud provider's architecture assumes that something
+like this exists (and also works with cloud providers that don't have special
+requirements here). There is an exception to this pattern. The `type: ExternalName`
+is separate and does not build on any of the other types of Service.
 
 ### `type: ClusterIP` {#type-clusterip}
 
