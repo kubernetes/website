@@ -10,7 +10,7 @@ weight: 120
 
 Los complementos amplían las funcionalidades de Kubernetes.
 
-En esta página se listan algunos de los complementos disponibles con  sus respectivos enlaces de instrucciones para su  instalación y uso. La lista no pretende ser exhaustiva.
+En esta página se listan algunos de los complementos disponibles con sus respectivos enlaces de instrucciones para su instalación y uso. La lista no pretende ser exhaustiva.
 
 <!-- body -->
 
