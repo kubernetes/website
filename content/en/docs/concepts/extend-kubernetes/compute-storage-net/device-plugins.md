@@ -161,7 +161,7 @@ The general workflow of a device plugin includes the following steps:
    The processing of the fully-qualified CDI device names by the Device Manager requires
    the `DevicePluginCDIDevices` feature gate to be enabled. This was added as an alpha feature in
    v1.28.
-   {{< note >}}
+   {{< /note >}}
 
 ### Handling kubelet restarts
 
