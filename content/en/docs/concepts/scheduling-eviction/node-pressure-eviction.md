@@ -31,10 +31,24 @@ before it terminates end-user pods. For example, it removes unused container
 images when disk resources are starved.
 
 If the pods are managed by a {{< glossary_tooltip text="workload" term_id="workload" >}}
-resource (such as {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}
+management object (such as {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}
 or {{< glossary_tooltip text="Deployment" term_id="deployment" >}}) that
-replaces failed pods, the control plane or `kube-controller-manager` creates new
+replaces failed pods, the control plane (`kube-controller-manager`) creates new
 pods in place of the evicted pods.
+
+### Self healing for static pods
+
+If you are running a [static pod](/docs/concepts/workloads/pods/#static-pods)
+on a node that is under resource pressure, the kubelet may evict that static
+Pod. The kubelet then tries to create a replacement, because static Pods always
+represent an intent to run a Pod on that node.
+
+The kubelet takes the _priority_ of the static pod into account when creating
+a replacement. If the static pod manifest specifies a low priority, and there
+are higher-priority Pods defined within the cluster's control plane, and the
+node is under resource pressure, the kubelet may not be able to make room for
+that static pod. The kubelet continues to attempt to run all static pods even
+when there is resource pressure on a node.
 
 ## Eviction signals and thresholds
 
@@ -255,6 +269,11 @@ and `journald`) is consuming more resources than were reserved via
 then the kubelet must choose to evict one of these pods to preserve node stability
 and to limit the impact of resource starvation on other pods. In this case, it
 will choose to evict pods of lowest Priority first.
+
+If you are running a [static pod](/docs/concepts/workloads/pods/#static-pods)
+and want to avoid having it evicted under resource pressure, set the
+`priority` field for that Pod directly. Static pods do not support the
+`priorityClassName` field.
 
 When the kubelet evicts pods in response to inode or process ID starvation, it uses
 the Pods' relative priority to determine the eviction order, because inodes and PIDs have no
