@@ -258,6 +258,11 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
    {{< /tab >}}
    {{< /tabs >}}
 
+   Once the process is finished, you can verify the successful installation of kubectl by executing the following command:
+   ```shell
+   kubectl version
+   ```
+
 1. Validate the binary (optional)
 
    Download the kubectl-convert checksum file:
@@ -323,13 +328,13 @@ Depending on how you installed `kubectl`, use one of the following methods.
 If you installed kubectl using curl, you can uninstall it by executing the following commands:
 
 ```shell
-sudo rm $(which kubectl)
+sudo rm "$(which kubectl)"
 ```
 
 {{% /tab %}}
 
 {{% tab name="apt-get" %}}
-If you installed kubectl using apt-get, you can uninstall it by executing the following command:
+If you installed kubectl using `apt` or `apt-get`, you can uninstall it by executing the following commands:
 
 ```shell
 sudo apt-get purge kubectl
@@ -339,7 +344,7 @@ sudo apt-get autoremove
 {{% /tab %}}
 
 {{% tab name="yum" %}}
-If you installed kubectl using yum, you can uninstall it by executing the following command:
+If you installed kubectl using `yum`, you can uninstall it by executing the following command:
 
 ```shell
 yum remove kubectl
@@ -348,7 +353,7 @@ yum remove kubectl
 {{% /tab %}}
 
 {{% tab name="Homebrew" %}}
-If you installed kubectl using Homebrew, you can uninstall it by executing the following command:
+If you installed kubectl using `Homebrew`, you can uninstall it by executing the following command:
 
 ```shell
 sudo brew uninstall kubectl
@@ -367,11 +372,6 @@ sudo snap remove kubectl
 {{% /tab %}}
 
 {{< /tabs >}}
-
-After the removal process completes, you can verify that kubectl is no longer installed by running:
-```shell
-kubectl version
-```
 
 
 
