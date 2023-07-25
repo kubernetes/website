@@ -818,7 +818,7 @@ Here are some examples of device plugin implementations:
 * [Solarflare 设备插件](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * [SR-IOV 网络设备插件](https://github.com/intel/sriov-network-device-plugin)
 * [Xilinx FPGA 设备插件](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-device-plugin)
-* [linux的通用设备插件](https://github.com/squat/generic-device-plugin)
+* Linux 的[通用设备插件](https://github.com/squat/generic-device-plugin)
 
 ## {{% heading "whatsnext" %}}
 
