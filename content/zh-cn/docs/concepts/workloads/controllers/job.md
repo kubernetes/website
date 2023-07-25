@@ -1,11 +1,14 @@
 ---
 title: Job
 content_type: concept
+description: >-
+  Job 表示一次性任务，运行完成后就会停止。
 feature:
   title: 批量执行
   description: >
     除了服务之外，Kubernetes 还可以管理你的批处理和 CI 工作负载，在期望时替换掉失效的容器。
 weight: 50
+hide_summary: true # 在章节索引中单独列出
 ---
 <!--
 reviewers:
@@ -14,11 +17,14 @@ reviewers:
 - soltysh
 title: Jobs
 content_type: concept
+description: >-
+  Jobs represent one-off tasks that run to completion and then stop.
 feature:
   title: Batch execution
   description: >
     In addition to services, Kubernetes can manage your batch and CI workloads, replacing containers that fail, if desired.
 weight: 50
+hide_summary: true # Listed separately in section index
 -->
 
 <!-- overview -->

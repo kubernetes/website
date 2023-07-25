@@ -8,7 +8,11 @@ feature:
     杀死不响应用户定义的健康检查的容器，
     并且在它们准备好服务之前不会将它们公布给客户端。
 content_type: concept
+description: >-
+  ReplicaSet 的作用是维持在任何给定时间运行的一组稳定的副本 Pod。
+  通常，你会定义一个 Deployment，并用这个 Deployment 自动管理 ReplicaSet。
 weight: 20
+hide_summary: true # 在章节索引中单独列出
 ---
 <!--
 reviewers:
@@ -24,7 +28,11 @@ feature:
     kills containers that don't respond to your user-defined health check,
     and doesn't advertise them to clients until they are ready to serve.
 content_type: concept
+description: >-
+  A ReplicaSet's purpose is to maintain a stable set of replica Pods running at any given time.
+  Usually, you define a Deployment and let that Deployment manage ReplicaSets automatically.
 weight: 20
+hide_summary: true # Listed separately in section index
 -->
 
 <!-- overview -->

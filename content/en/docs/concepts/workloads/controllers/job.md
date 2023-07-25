@@ -5,11 +5,14 @@ reviewers:
 - soltysh
 title: Jobs
 content_type: concept
+description: >-
+  Jobs represent one-off tasks that run to completion and then stop.
 feature:
   title: Batch execution
   description: >
     In addition to services, Kubernetes can manage your batch and CI workloads, replacing containers that fail, if desired.
 weight: 50
+hide_summary: true # Listed separately in section index
 ---
 
 <!-- overview -->
@@ -36,7 +39,7 @@ see [CronJob](/docs/concepts/workloads/controllers/cron-jobs/).
 Here is an example Job config.  It computes π to 2000 places and prints it out.
 It takes around 10s to complete.
 
-{{< codenew file="controllers/job.yaml" >}}
+{{% codenew file="controllers/job.yaml" %}}
 
 You can run the example with this command:
 
@@ -399,7 +402,7 @@ container exit codes and the Pod conditions.
 
 Here is a manifest for a Job that defines a `podFailurePolicy`:
 
-{{< codenew file="/controllers/job-pod-failure-policy-example.yaml" >}}
+{{% codenew file="/controllers/job-pod-failure-policy-example.yaml" %}}
 
 In the example above, the first rule of the Pod failure policy specifies that
 the Job should be marked failed if the `main` container fails with the 42 exit

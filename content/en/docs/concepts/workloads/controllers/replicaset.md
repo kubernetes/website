@@ -12,7 +12,11 @@ feature:
     kills containers that don't respond to your user-defined health check,
     and doesn't advertise them to clients until they are ready to serve.
 content_type: concept
+description: >-
+  A ReplicaSet's purpose is to maintain a stable set of replica Pods running at any given time.
+  Usually, you define a Deployment and let that Deployment manage ReplicaSets automatically.
 weight: 20
+hide_summary: true # Listed separately in section index
 ---
 
 <!-- overview -->
@@ -52,7 +56,7 @@ use a Deployment instead, and define your application in the spec section.
 
 ## Example
 
-{{< codenew file="controllers/frontend.yaml" >}}
+{{% codenew file="controllers/frontend.yaml" %}}
 
 Saving this manifest into `frontend.yaml` and submitting it to a Kubernetes cluster will
 create the defined ReplicaSet and the Pods that it manages.
@@ -162,7 +166,7 @@ to owning Pods specified by its template-- it can acquire other Pods in the mann
 
 Take the previous frontend ReplicaSet example, and the Pods specified in the following manifest:
 
-{{< codenew file="pods/pod-rs.yaml" >}}
+{{% codenew file="pods/pod-rs.yaml" %}}
 
 As those Pods do not have a Controller (or any object) as their owner reference and match the selector of the frontend
 ReplicaSet, they will immediately be acquired by it.
@@ -377,7 +381,7 @@ A ReplicaSet can also be a target for
 a ReplicaSet can be auto-scaled by an HPA. Here is an example HPA targeting
 the ReplicaSet we created in the previous example.
 
-{{< codenew file="controllers/hpa-rs.yaml" >}}
+{{% codenew file="controllers/hpa-rs.yaml" %}}
 
 Saving this manifest into `hpa-rs.yaml` and submitting it to a Kubernetes cluster should
 create the defined HPA that autoscales the target ReplicaSet depending on the CPU usage

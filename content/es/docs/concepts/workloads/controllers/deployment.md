@@ -44,7 +44,7 @@ A continuación se presentan los casos de uso típicos de los Deployments:
 
 El siguiente ejemplo de un Deployment crea un ReplicaSet para arrancar tres Pods con `nginx`:
 
-{{< codenew file="controllers/nginx-deployment.yaml" >}}
+{{% codenew file="controllers/nginx-deployment.yaml" %}}
 
 En este ejemplo:
 
