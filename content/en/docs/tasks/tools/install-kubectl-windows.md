@@ -229,7 +229,8 @@ Depending on how you installed `kubectl`, use one of the following methods.
  {{< tabs name="kubectl_win_uninstall" >}}
 
    {{% tab name="curl" %}}
-   Locate the installation folder of `kubectl` on your Windows system by navigating to the appropriate directory and use the below code.
+   Locate the installation folder of `kubectl` on your Windows system by navigating to the appropriate directory where kubectl is       
+   installed and use the below code.
    ```powershell
    del kubectl.exe kubectl.exe.sha256
    ```
