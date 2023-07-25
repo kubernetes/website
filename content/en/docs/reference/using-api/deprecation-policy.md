@@ -441,6 +441,12 @@ deprecating and removing a metric are as follows:
    * **STABLE: 3 releases or 9 months (whichever is longer)**
    * **BETA: 1 releases or 4 months (whichever is longer)**
    * **ALPHA: 0 releases**
+   
+It is permissible, in certain cases, for metrics to skip stability levels in the process
+of graduation. This is done on a case by case basis, at the discretion of the SIG which
+owns the metric. Since the stability framework was introduced far after the conception
+of Kubernetes, there are many existing metrics which may not want or need to go through
+the entire graduation process, since people already likely rely on these metrics.
 
 Deprecated metrics will have their description text prefixed with a deprecation notice
 string '(Deprecated from x.y)' and a warning log will be emitted during metric
