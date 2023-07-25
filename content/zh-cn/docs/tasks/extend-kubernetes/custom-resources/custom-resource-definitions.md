@@ -611,12 +611,12 @@ Notice that the field `someRandomField` was pruned.
 <!--
 This example turned off client-side validation to demonstrate the API server's behavior, by adding
 the `--validate=false` command line option.
-Because the [OpenAPI validation schemas are also published](#publish-validation-schema-in-openapi-v2)
+Because the [OpenAPI validation schemas are also published](#publish-validation-schema-in-openapi)
 to clients, `kubectl` also checks for unknown fields and rejects those objects well before they
 would be sent to the API server.
 -->
 本例中通过 `--validate=false` 命令行选项 关闭了客户端的合法性检查以展示 API 服务器的行为，
-因为 [OpenAPI 合法性检查模式也会发布到](#publish-validation-schema-in-openapi-v2)
+因为 [OpenAPI 合法性检查模式也会发布到](#publish-validation-schema-in-openapi)
 客户端，`kubectl` 也会检查未知的字段并在对象被发送到 API
 服务器之前就拒绝它们。
 
@@ -770,12 +770,12 @@ allOf:
 <!--
 With one of those specification, both an integer and a string validate.
 
-In [Validation Schema Publishing](#publish-validation-schema-in-openapi-v2),
+In [Validation Schema Publishing](#publish-validation-schema-in-openapi),
 `x-kubernetes-int-or-string: true` is unfolded to one of the two patterns shown above.
 -->
 在以上两种规约中，整数值和字符串值都会被认为是合法的。
 
-在[合法性检查模式定义的发布时](#publish-validation-schema-in-openapi-v2)，
+在[合法性检查模式定义的发布时](#publish-validation-schema-in-openapi)，
 `x-kubernetes-int-or-string: true` 会被展开为上述两种模式之一。
 
 ### RawExtension
