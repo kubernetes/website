@@ -447,7 +447,6 @@ Here are some examples of device plugin implementations:
 * The [Solarflare device plugin](https://github.com/vikaschoudhary16/sfc-device-plugin)
 * The [SR-IOV Network device plugin](https://github.com/intel/sriov-network-device-plugin)
 * The [Xilinx FPGA device plugins](https://github.com/Xilinx/FPGA_as_a_Service/tree/master/k8s-device-plugin) for Xilinx FPGA devices
-* The [generic device plugin](https://github.com/squat/generic-device-plugin) for generic linux devices
 
 ## {{% heading "whatsnext" %}}
 
