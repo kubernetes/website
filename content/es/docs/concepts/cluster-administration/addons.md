@@ -1,5 +1,5 @@
 ---
-title: Instalación de Complementos 
+title: Instalación de Complementos (AddOns)
 content_type: concept
 weight: 120
 ---
@@ -43,28 +43,28 @@ En esta página se listan algunos de los complementos disponibles con sus respec
 * [Contiv](https://contivpp.io/) proporciona redes configurables (L3 nativo mediante BGP,
   con superposición mediante vxlan, L2 clásica y Cisco-SDN/ACI) para diversos casos de uso 
   y un vasto marco de políticas.  
-  El proyecto Contiv es de  [código abierto](https://github.com/contiv).
-  El [instalador](https://github.com/contiv/install) ofrece opciones de instalado basada en kubeadm como no basadas en kubeadm.
+  El proyecto Contiv es de [código abierto](https://github.com/contiv).
+  El [instalador](https://github.com/contiv/install) ofrece opciones de instalación basadas en kubeadm y no basadas en kubeadm.
 * [Contrail](https://www.juniper.net/us/en/products-services/sdn/contrail/contrail-networking/),
   basada en [Tungsten Fabric](https://tungsten.io), es una plataforma de gestión de políticas y
   virtualización de redes multicloud de código abierto. Contrail y Tungsten Fabric se integran
   con sistemas de orquestación como Kubernetes, OpenShift, OpenStack y Mesos, y proporcionan modos
-  de aislamiento para máquinas virtuales, contenedores/pods y cargas de trabajo para bare metal (On-premises).
+  de aislamiento para máquinas virtuales, contenedores/Pods y cargas de trabajo para bare metal.
 * [Flannel](https://github.com/flannel-io/flannel#deploying-flannel-manually) es un
-  proveedor de red superpuesto que se puede usar con Kubernetes.
+  proveedor de red superpuesta que se puede usar con Kubernetes.
 * [Knitter](https://github.com/ZTE/Knitter/) es un complemento que 
-  soportar múltiples interfaces de red en un pod de Kubernetes.
-* [Multus](https://github.com/k8snetworkplumbingwg/multus-cni) es un complemento múltiple para 
-  soporte de diversas redes en Kubernetes, que admite todos los complementos de CNI 
+  soportar múltiples interfaces de red en un Pod de Kubernetes.
+* [Multus](https://github.com/k8snetworkplumbingwg/multus-cni) es un multicomplemento para 
+  soporte de múltiple redes en Kubernetes, que admite todos los complementos de CNI 
   (ej. Calico, Cilium, Contiv, Flannel), además de SRIOV, DPDK, OVS-DPDK y cargas de 
   trabajo basadas en VPP en Kubernetes.
 * [OVN-Kubernetes](https://github.com/ovn-org/ovn-kubernetes/) es un proveedor de red 
   para Kubernetes basado en [OVN (Open Virtual Network)](https://github.com/ovn-org/ovn/),
   es una implementación de red virtual que surgió del proyecto Open vSwitch (OVS). 
   OVN-Kubernetes proporciona una implementación de red basada en la superposición para Kubernetes,
-  incluida una implementación basada en OVS de equilibrio de carga y política de red.
+  incluyendo una implementación basada en OVS de balanceo de carga y política de red.
 * [Nodus](https://github.com/akraino-edge-stack/icn-nodus) es un complemento de controlador CNI 
-  basado en OVN para proporcionar encadenamiento de funciones de servicio (SFC) es basado en la nube (nativo de la nube).
+  basado en OVN para proveer Service function chaining(SFC) con base nativa para la nube.
 * [NSX-T](https://docs.vmware.com/en/VMware-NSX-T-Data-Center/index.html)  Container Plug-in (NCP)
   proporciona integración entre VMware NSX-T y orquestadores de contenedores como
   Kubernetes, así como integración entre NSX-T y plataformas CaaS/PaaS basadas 
@@ -72,31 +72,31 @@ En esta página se listan algunos de los complementos disponibles con sus respec
 * [Nuage](https://github.com/nuagenetworks/nuage-kubernetes/blob/v5.1.1-1/docs/kubernetes-1-installation.rst)
   es una plataforma SDN que proporciona redes basadas en políticas entre Kubernetes 
   Pods y entornos no Kubernetes con visibilidad y supervisión de la seguridad.
-* [Romana](https://github.com/romana) es una solución de red de capa 3 para las redes de pods
-  que también son compatible con la API de [NetworkPolicy](/docs/concepts/services-networking/network-policies/).
+* [Romana](https://github.com/romana) es una solución de red de capa 3 para las redes de Pods
+  que también son compatibles con la API de [NetworkPolicy](/docs/concepts/services-networking/network-policies/).
 * [Weave Net](https://www.weave.works/docs/net/latest/kubernetes/kube-addon/)
-  proporciona políticas de red, funciona a ambos lados de una partición de 
+  proporciona redes y políticas de red, funciona en ambos lados de una partición de 
   red y no requiere una base de datos externa.
 
-## Detecció de Servicio 
+## Detección de Servicios 
 
 * [CoreDNS](https://coredns.io) es un servidor de DNS flexible y extensible que  
   puede [instalarse](https://github.com/coredns/deployment/tree/master/kubernetes)
-  como DNS dentro del clúster para los pods.
+  como DNS dentro del clúster para los Pods.
 
-## Visualización &amp; Control
+## Visualización y Control
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard)
   es un panel de control con una interfaz web para Kubernetes.
 * [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s)
-  es una herramienta para visualizar gráficamente tus contenedores, pods, servicios, etc. 
+  es una herramienta para visualizar gráficamente tus contenedores, Pods, Services, etc. 
   Utilícela junto con una [cuenta de Weave Cloud](https://cloud.weave.works/)
   o aloje la interfaz de usuario usted mismo.
 
 ## Infraestructura
 
 * [KubeVirt](https://kubevirt.io/user-guide/#/installation/installation) es un complemento 
-  para ejecutar máquinas virtuales en Kubernetes. Suele ejecutarse en clústeres de Bare metal(On-premises).
+  para ejecutar máquinas virtuales en Kubernetes. Suele ejecutarse en clústeres de Bare metal.
 * El
   [detector de problemas de nodo](https://github.com/kubernetes/node-problem-detector)
   se ejecuta en nodos Linux e informa de los problemas del sistema como 
@@ -105,7 +105,7 @@ En esta página se listan algunos de los complementos disponibles con sus respec
 
 ## Complementos Antiguos
 
-Hay otros complementos documentados como obsoletos en este directorio 
+Hay otros complementos documentados como obsoletos en el directorio 
 [cluster/addons](https://git.k8s.io/kubernetes/cluster/addons).
 
-Los con mejor mantenimiento deben estar vinculados aquí. !Los PR son Bienvenidos!
+Los que mejor mantenimiento tienen deben estar vinculados aquí. !PRs son bienvenidos!
