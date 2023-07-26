@@ -325,7 +325,7 @@ options ndots:5
 
 ## DNS search domain list limits
 
-{{< feature-state for_k8s_version="1.26" state="beta" >}}
+{{< feature-state for_k8s_version="1.28" state="stable" >}}
 
 Kubernetes itself does not limit the DNS Config until the length of the search
 domain list exceeds 32 or the total length of all search domains exceeds 2048.
