@@ -6,16 +6,16 @@ description: >-
   Details of the metric data that Kubernetes components export.
 ---
 
-## Metrics (v1.27)
+## Metrics (v1.28)
 
-<!-- (auto-generated 2023 Mar 16) -->
-<!-- (auto-generated v1.27) -->
+<!-- (auto-generated 2023 Jul 20) -->
+<!-- (auto-generated v1.28) -->
 This page details the metrics that different Kubernetes components export. You can query the metrics endpoint for these 
 components using an HTTP scrape, and fetch the current metrics data in Prometheus format.
 
 ### List of Stable Kubernetes Metrics
 
-Stable metrics observe strict API contracts and no labels can be added or removed from stable metrics during their lifetime. 
+Stable metrics observe strict API contracts and no labels can be added or removed from stable metrics during their lifetime.
 
 <table class="table metrics" caption="This is the list of STABLE metrics emitted from core Kubernetes components">
 <thead>
@@ -225,8 +225,7 @@ Stable metrics observe strict API contracts and no labels can be added or remove
 
 ### List of Beta Kubernetes Metrics
 
-Beta metrics observe a looser API contract than its stable counterparts. No labels can be removed from beta metrics during their lifetime, however, labels can be added while the metric is in the beta stage. This offers the assurance that beta metrics will honor existing dashboards and alerts, while allowing for amendments in the future. 
-
+Beta metrics observe a looser API contract than its stable counterparts. No labels can be removed from beta metrics during their lifetime, however, labels can be added while the metric is in the beta stage. This offers the assurance that beta metrics will honor existing dashboards and alerts, while allowing for amendments in the future.
 
 <table class="table metrics" caption="This is the list of BETA metrics emitted from core Kubernetes components">
 <thead>
@@ -242,12 +241,103 @@ Beta metrics observe a looser API contract than its stable counterparts. No labe
 </thead>
 <tbody>
 
+<tr class="metric"><td class="metric_name">apiserver_flowcontrol_current_executing_requests</td>
+<td class="metric_stability_level" data-stability="beta">BETA</td>
+<td class="metric_type" data-type="gauge">Gauge</td>
+<td class="metric_description">Number of requests in initial (for a WATCH) or any (for a non-WATCH) execution stage in the API Priority and Fairness subsystem</td>
+<td class="metric_labels_varying"><div class="metric_label">flow_schema</div><div class="metric_label">priority_level</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">apiserver_flowcontrol_current_executing_seats</td>
+<td class="metric_stability_level" data-stability="beta">BETA</td>
+<td class="metric_type" data-type="gauge">Gauge</td>
+<td class="metric_description">Concurrency (number of seats) occupied by the currently executing (initial stage for a WATCH, any stage otherwise) requests in the API Priority and Fairness subsystem</td>
+<td class="metric_labels_varying"><div class="metric_label">flow_schema</div><div class="metric_label">priority_level</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">apiserver_flowcontrol_current_inqueue_requests</td>
+<td class="metric_stability_level" data-stability="beta">BETA</td>
+<td class="metric_type" data-type="gauge">Gauge</td>
+<td class="metric_description">Number of requests currently pending in queues of the API Priority and Fairness subsystem</td>
+<td class="metric_labels_varying"><div class="metric_label">flow_schema</div><div class="metric_label">priority_level</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">apiserver_flowcontrol_dispatched_requests_total</td>
+<td class="metric_stability_level" data-stability="beta">BETA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">Number of requests executed by API Priority and Fairness subsystem</td>
+<td class="metric_labels_varying"><div class="metric_label">flow_schema</div><div class="metric_label">priority_level</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">apiserver_flowcontrol_nominal_limit_seats</td>
+<td class="metric_stability_level" data-stability="beta">BETA</td>
+<td class="metric_type" data-type="gauge">Gauge</td>
+<td class="metric_description">Nominal number of execution seats configured for each priority level</td>
+<td class="metric_labels_varying"><div class="metric_label">priority_level</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">apiserver_flowcontrol_rejected_requests_total</td>
+<td class="metric_stability_level" data-stability="beta">BETA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">Number of requests rejected by API Priority and Fairness subsystem</td>
+<td class="metric_labels_varying"><div class="metric_label">flow_schema</div><div class="metric_label">priority_level</div><div class="metric_label">reason</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">apiserver_flowcontrol_request_wait_duration_seconds</td>
+<td class="metric_stability_level" data-stability="beta">BETA</td>
+<td class="metric_type" data-type="histogram">Histogram</td>
+<td class="metric_description">Length of time a request spent waiting in its queue</td>
+<td class="metric_labels_varying"><div class="metric_label">execute</div><div class="metric_label">flow_schema</div><div class="metric_label">priority_level</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">disabled_metrics_total</td>
+<td class="metric_stability_level" data-stability="beta">BETA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">The count of disabled metrics.</td>
+<td class="metric_labels_varying"></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">hidden_metrics_total</td>
+<td class="metric_stability_level" data-stability="beta">BETA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">The count of hidden metrics.</td>
+<td class="metric_labels_varying"></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">kubernetes_feature_enabled</td>
+<td class="metric_stability_level" data-stability="beta">BETA</td>
+<td class="metric_type" data-type="gauge">Gauge</td>
+<td class="metric_description">This metric records the data about the stage and enablement of a k8s feature.</td>
+<td class="metric_labels_varying"><div class="metric_label">name</div><div class="metric_label">stage</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">kubernetes_healthcheck</td>
+<td class="metric_stability_level" data-stability="beta">BETA</td>
+<td class="metric_type" data-type="gauge">Gauge</td>
+<td class="metric_description">This metric records the result of a single healthcheck.</td>
+<td class="metric_labels_varying"><div class="metric_label">name</div><div class="metric_label">type</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">kubernetes_healthchecks_total</td>
+<td class="metric_stability_level" data-stability="beta">BETA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">This metric records the results of all healthcheck.</td>
+<td class="metric_labels_varying"><div class="metric_label">name</div><div class="metric_label">status</div><div class="metric_label">type</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">registered_metrics_total</td>
+<td class="metric_stability_level" data-stability="beta">BETA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">The count of registered metrics broken by stability level and deprecation version.</td>
+<td class="metric_labels_varying"><div class="metric_label">deprecated_version</div><div class="metric_label">stability_level</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
 </tbody>
 </table>
 
 ### List of Alpha Kubernetes Metrics
 
-Alpha metrics do not have any API guarantees. These metrics must be used at your own risk, subsequent versions of Kubernetes may remove these metrics altogether, or mutate the API in such a way that breaks existing dashboards and alerts. 
+Alpha metrics do not have any API guarantees. These metrics must be used at your own risk, subsequent versions of Kubernetes may remove these metrics altogether, or mutate the API in such a way that breaks existing dashboards and alerts.
 
 <table class="table metrics" caption="This is the list of ALPHA metrics emitted from core Kubernetes components">
 <thead>
@@ -312,11 +402,25 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_labels_varying"><div class="metric_label">crd</div><div class="metric_label">group</div><div class="metric_label">reason</div><div class="metric_label">version</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
-<tr class="metric"><td class="metric_name">apiserver_admission_admission_match_condition_evaluation_errors_total</td>
+<tr class="metric"><td class="metric_name">apiserver_admission_match_condition_evaluation_errors_total</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="counter">Counter</td>
-<td class="metric_description">Admission match condition evaluation errors count, identified by name of resource containing the match condition and broken out for each admission type (validating or mutating).</td>
-<td class="metric_labels_varying"><div class="metric_label">name</div><div class="metric_label">type</div></td>
+<td class="metric_description">Admission match condition evaluation errors count, identified by name of resource containing the match condition and broken out for each kind containing matchConditions (webhook or policy), operation and admission type (validate or admit).</td>
+<td class="metric_labels_varying"><div class="metric_label">kind</div><div class="metric_label">name</div><div class="metric_label">operation</div><div class="metric_label">type</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">apiserver_admission_match_condition_evaluation_seconds</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="histogram">Histogram</td>
+<td class="metric_description">Admission match condition evaluation time in seconds, identified by name and broken out for each kind containing matchConditions (webhook or policy), operation and type (validate or admit).</td>
+<td class="metric_labels_varying"><div class="metric_label">kind</div><div class="metric_label">name</div><div class="metric_label">operation</div><div class="metric_label">type</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">apiserver_admission_match_condition_exclusions_total</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">Admission match condition evaluation exclusions count, identified by name of resource containing the match condition and broken out for each kind containing matchConditions (webhook or policy), operation and admission type (validate or admit).</td>
+<td class="metric_labels_varying"><div class="metric_label">kind</div><div class="metric_label">name</div><div class="metric_label">operation</div><div class="metric_label">type</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">apiserver_admission_step_admission_duration_seconds_summary</td>
@@ -431,7 +535,21 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_labels_varying"></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
-<tr class="metric"><td class="metric_name">apiserver_crd_webhook_conversion_duration_seconds</td>
+<tr class="metric"><td class="metric_name">apiserver_conversion_webhook_duration_seconds</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="histogram">Histogram</td>
+<td class="metric_description">Conversion webhook request latency</td>
+<td class="metric_labels_varying"><div class="metric_label">failure_type</div><div class="metric_label">result</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">apiserver_conversion_webhook_request_total</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">Counter for conversion webhook requests with success/failure and failure error type</td>
+<td class="metric_labels_varying"><div class="metric_label">failure_type</div><div class="metric_label">result</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">apiserver_crd_conversion_webhook_duration_seconds</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="histogram">Histogram</td>
 <td class="metric_description">CRD webhook conversion duration in seconds</td>
@@ -494,6 +612,27 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_labels_varying"><div class="metric_label">protocol</div><div class="metric_label">transport</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">apiserver_encryption_config_controller_automatic_reload_failures_total</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">Total number of failed automatic reloads of encryption configuration.</td>
+<td class="metric_labels_varying"></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">apiserver_encryption_config_controller_automatic_reload_last_timestamp_seconds</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="gauge">Gauge</td>
+<td class="metric_description">Timestamp of the last successful or failed automatic reload of encryption configuration.</td>
+<td class="metric_labels_varying"><div class="metric_label">status</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">apiserver_encryption_config_controller_automatic_reload_success_total</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">Total number of successful automatic reloads of encryption configuration.</td>
+<td class="metric_labels_varying"></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">apiserver_envelope_encryption_dek_cache_fill_percent</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="gauge">Gauge</td>
@@ -541,20 +680,6 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_type" data-type="histogram">Histogram</td>
 <td class="metric_description">KMS operation duration with gRPC error code status total.</td>
 <td class="metric_labels_varying"><div class="metric_label">grpc_status_code</div><div class="metric_label">method_name</div><div class="metric_label">provider_name</div></td>
-<td class="metric_labels_constant"></td>
-<td class="metric_deprecated_version"></td></tr>
-<tr class="metric"><td class="metric_name">apiserver_flowcontrol_current_executing_requests</td>
-<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
-<td class="metric_type" data-type="gauge">Gauge</td>
-<td class="metric_description">Number of requests in initial (for a WATCH) or any (for a non-WATCH) execution stage in the API Priority and Fairness subsystem</td>
-<td class="metric_labels_varying"><div class="metric_label">flow_schema</div><div class="metric_label">priority_level</div></td>
-<td class="metric_labels_constant"></td>
-<td class="metric_deprecated_version"></td></tr>
-<tr class="metric"><td class="metric_name">apiserver_flowcontrol_current_inqueue_requests</td>
-<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
-<td class="metric_type" data-type="gauge">Gauge</td>
-<td class="metric_description">Number of requests currently pending in queues of the API Priority and Fairness subsystem</td>
-<td class="metric_labels_varying"><div class="metric_label">flow_schema</div><div class="metric_label">priority_level</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">apiserver_flowcontrol_current_limit_seats</td>
@@ -613,13 +738,6 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_labels_varying"><div class="metric_label">priority_level</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
-<tr class="metric"><td class="metric_name">apiserver_flowcontrol_dispatched_requests_total</td>
-<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
-<td class="metric_type" data-type="counter">Counter</td>
-<td class="metric_description">Number of requests executed by API Priority and Fairness subsystem</td>
-<td class="metric_labels_varying"><div class="metric_label">flow_schema</div><div class="metric_label">priority_level</div></td>
-<td class="metric_labels_constant"></td>
-<td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">apiserver_flowcontrol_epoch_advance_total</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="counter">Counter</td>
@@ -655,13 +773,6 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_labels_varying"><div class="metric_label">bound</div><div class="metric_label">priority_level</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
-<tr class="metric"><td class="metric_name">apiserver_flowcontrol_nominal_limit_seats</td>
-<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
-<td class="metric_type" data-type="gauge">Gauge</td>
-<td class="metric_description">Nominal number of execution seats configured for each priority level</td>
-<td class="metric_labels_varying"><div class="metric_label">priority_level</div></td>
-<td class="metric_labels_constant"></td>
-<td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">apiserver_flowcontrol_priority_level_request_utilization</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="timingratiohistogram">TimingRatioHistogram</td>
@@ -683,27 +794,20 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_labels_varying"><div class="metric_label">phase</div><div class="metric_label">request_kind</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
-<tr class="metric"><td class="metric_name">apiserver_flowcontrol_rejected_requests_total</td>
-<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
-<td class="metric_type" data-type="counter">Counter</td>
-<td class="metric_description">Number of requests rejected by API Priority and Fairness subsystem</td>
-<td class="metric_labels_varying"><div class="metric_label">flow_schema</div><div class="metric_label">priority_level</div><div class="metric_label">reason</div></td>
-<td class="metric_labels_constant"></td>
-<td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">apiserver_flowcontrol_request_concurrency_in_use</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="gauge">Gauge</td>
 <td class="metric_description">Concurrency (number of seats) occupied by the currently executing (initial stage for a WATCH, any stage otherwise) requests in the API Priority and Fairness subsystem</td>
 <td class="metric_labels_varying"><div class="metric_label">flow_schema</div><div class="metric_label">priority_level</div></td>
 <td class="metric_labels_constant"></td>
-<td class="metric_deprecated_version"></td></tr>
+<td class="metric_deprecated_version">1.31.0</td></tr>
 <tr class="metric"><td class="metric_name">apiserver_flowcontrol_request_concurrency_limit</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="gauge">Gauge</td>
-<td class="metric_description">Shared concurrency limit in the API Priority and Fairness subsystem</td>
+<td class="metric_description">Nominal number of execution seats configured for each priority level</td>
 <td class="metric_labels_varying"><div class="metric_label">priority_level</div></td>
 <td class="metric_labels_constant"></td>
-<td class="metric_deprecated_version"></td></tr>
+<td class="metric_deprecated_version">1.30.0</td></tr>
 <tr class="metric"><td class="metric_name">apiserver_flowcontrol_request_dispatch_no_accommodation_total</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="counter">Counter</td>
@@ -723,13 +827,6 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_type" data-type="histogram">Histogram</td>
 <td class="metric_description">Length of queue in the API Priority and Fairness subsystem, as seen by each request after it is enqueued</td>
 <td class="metric_labels_varying"><div class="metric_label">flow_schema</div><div class="metric_label">priority_level</div></td>
-<td class="metric_labels_constant"></td>
-<td class="metric_deprecated_version"></td></tr>
-<tr class="metric"><td class="metric_name">apiserver_flowcontrol_request_wait_duration_seconds</td>
-<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
-<td class="metric_type" data-type="histogram">Histogram</td>
-<td class="metric_description">Length of time a request spent waiting in its queue</td>
-<td class="metric_labels_varying"><div class="metric_label">execute</div><div class="metric_label">flow_schema</div><div class="metric_label">priority_level</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">apiserver_flowcontrol_seat_fair_frac</td>
@@ -844,6 +941,13 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_labels_varying"><div class="metric_label">code_path</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">apiserver_rerouted_request_total</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">Total number of requests that were proxied to a peer kube apiserver because the local apiserver was not capable of serving it</td>
+<td class="metric_labels_varying"><div class="metric_label">code</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">apiserver_selfrequest_total</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="counter">Counter</td>
@@ -871,7 +975,7 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_description">Total size of the storage database file physically allocated in bytes.</td>
 <td class="metric_labels_varying"><div class="metric_label">endpoint</div></td>
 <td class="metric_labels_constant"></td>
-<td class="metric_deprecated_version"></td></tr>
+<td class="metric_deprecated_version">1.28.0</td></tr>
 <tr class="metric"><td class="metric_name">apiserver_storage_decode_errors_total</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="counter">Counter</td>
@@ -921,6 +1025,13 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_labels_varying"><div class="metric_label">resource</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">apiserver_storage_size_bytes</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Size of the storage database file physically allocated in bytes.</td>
+<td class="metric_labels_varying"><div class="metric_label">cluster</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">apiserver_storage_transformation_duration_seconds</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="histogram">Histogram</td>
@@ -931,7 +1042,7 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <tr class="metric"><td class="metric_name">apiserver_storage_transformation_operations_total</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="counter">Counter</td>
-<td class="metric_description">Total number of transformations.</td>
+<td class="metric_description">Total number of transformations. Successful transformation will have a status 'OK' and a varied status string when the transformation fails. This status and transformation_type fields may be used for alerting on encryption/decryption failure using transformation_type from_storage for decryption and to_storage for encryption</td>
 <td class="metric_labels_varying"><div class="metric_label">status</div><div class="metric_label">transformation_type</div><div class="metric_label">transformer_prefix</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
@@ -1019,11 +1130,11 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_labels_varying"></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
-<tr class="metric"><td class="metric_name">attachdetach_controller_forced_detaches</td>
+<tr class="metric"><td class="metric_name">attach_detach_controller_attachdetach_controller_forced_detaches</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="counter">Counter</td>
 <td class="metric_description">Number of times the A/D Controller performed a forced detach</td>
-<td class="metric_labels_varying"></td>
+<td class="metric_labels_varying"><div class="metric_label">reason</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">attachdetach_controller_total_volumes</td>
@@ -1080,6 +1191,20 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_type" data-type="counter">Counter</td>
 <td class="metric_description"></td>
 <td class="metric_labels_varying"><div class="metric_label">status</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">authorization_attempts_total</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">Counter of authorization attempts broken down by result. It can be either 'allowed', 'denied', 'no-opinion' or 'error'.</td>
+<td class="metric_labels_varying"><div class="metric_label">result</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">authorization_duration_seconds</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="histogram">Histogram</td>
+<td class="metric_description">Authorization duration in seconds broken out by result.</td>
+<td class="metric_labels_varying"><div class="metric_label">result</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">cloud_provider_webhook_request_duration_seconds</td>
@@ -1205,6 +1330,13 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="custom">Custom</td>
 <td class="metric_description">Start time of the container since unix epoch in seconds</td>
+<td class="metric_labels_varying"><div class="metric_label">container</div><div class="metric_label">pod</div><div class="metric_label">namespace</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">container_swap_usage_bytes</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Current amount of the container swap usage in bytes. Reported only on non-windows systems</td>
 <td class="metric_labels_varying"><div class="metric_label">container</div><div class="metric_label">pod</div><div class="metric_label">namespace</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
@@ -1369,6 +1501,20 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_labels_varying"><div class="metric_label">operation</div><div class="metric_label">type</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">etcd_request_errors_total</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">Etcd failed request counts for each operation and object type.</td>
+<td class="metric_labels_varying"><div class="metric_label">operation</div><div class="metric_label">type</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">etcd_requests_total</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">Etcd request counts for each operation and object type.</td>
+<td class="metric_labels_varying"><div class="metric_label">operation</div><div class="metric_label">type</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">etcd_version_info</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="gauge">Gauge</td>
@@ -1493,20 +1639,6 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_type" data-type="gauge">Gauge</td>
 <td class="metric_description">Gauge measuring the number of allocated NodePorts for Services</td>
 <td class="metric_labels_varying"></td>
-<td class="metric_labels_constant"></td>
-<td class="metric_deprecated_version"></td></tr>
-<tr class="metric"><td class="metric_name">kube_apiserver_nodeport_allocator_allocation_errors_total</td>
-<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
-<td class="metric_type" data-type="counter">Counter</td>
-<td class="metric_description">Number of errors trying to allocate NodePort</td>
-<td class="metric_labels_varying"><div class="metric_label">scope</div></td>
-<td class="metric_labels_constant"></td>
-<td class="metric_deprecated_version"></td></tr>
-<tr class="metric"><td class="metric_name">kube_apiserver_nodeport_allocator_allocation_total</td>
-<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
-<td class="metric_type" data-type="counter">Counter</td>
-<td class="metric_description">Number of NodePort allocations</td>
-<td class="metric_labels_varying"><div class="metric_label">scope</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">kube_apiserver_nodeport_allocator_available_ports</td>
@@ -1967,14 +2099,14 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <tr class="metric"><td class="metric_name">kubelet_started_host_process_containers_errors_total</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="counter">Counter</td>
-<td class="metric_description">Cumulative number of errors when starting hostprocess containers. This metric will only be collected on Windows and requires WindowsHostProcessContainers feature gate to be enabled.</td>
+<td class="metric_description">Cumulative number of errors when starting hostprocess containers. This metric will only be collected on Windows.</td>
 <td class="metric_labels_varying"><div class="metric_label">code</div><div class="metric_label">container_type</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">kubelet_started_host_process_containers_total</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="counter">Counter</td>
-<td class="metric_description">Cumulative number of hostprocess containers started. This metric will only be collected on Windows and requires WindowsHostProcessContainers feature gate to be enabled.</td>
+<td class="metric_description">Cumulative number of hostprocess containers started. This metric will only be collected on Windows.</td>
 <td class="metric_labels_varying"><div class="metric_label">container_type</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
@@ -2083,6 +2215,34 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_labels_varying"></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">kubeproxy_proxy_healthz_total</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">Cumulative proxy healthz HTTP status</td>
+<td class="metric_labels_varying"><div class="metric_label">code</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">kubeproxy_proxy_livez_total</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">Cumulative proxy livez HTTP status</td>
+<td class="metric_labels_varying"><div class="metric_label">code</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">kubeproxy_sync_full_proxy_rules_duration_seconds</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="histogram">Histogram</td>
+<td class="metric_description">SyncProxyRules latency in seconds for full resyncs</td>
+<td class="metric_labels_varying"></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">kubeproxy_sync_partial_proxy_rules_duration_seconds</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="histogram">Histogram</td>
+<td class="metric_description">SyncProxyRules latency in seconds for partial resyncs</td>
+<td class="metric_labels_varying"></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">kubeproxy_sync_proxy_rules_duration_seconds</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="histogram">Histogram</td>
@@ -2104,6 +2264,13 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_labels_varying"></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">kubeproxy_sync_proxy_rules_iptables_last</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="gauge">Gauge</td>
+<td class="metric_description">Number of iptables rules written by kube-proxy in last sync</td>
+<td class="metric_labels_varying"><div class="metric_label">table</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">kubeproxy_sync_proxy_rules_iptables_partial_restore_failures_total</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="counter">Counter</td>
@@ -2121,7 +2288,7 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <tr class="metric"><td class="metric_name">kubeproxy_sync_proxy_rules_iptables_total</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="gauge">Gauge</td>
-<td class="metric_description">Number of proxy iptables rules programmed</td>
+<td class="metric_description">Total number of iptables rules owned by kube-proxy</td>
 <td class="metric_labels_varying"><div class="metric_label">table</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
@@ -2165,27 +2332,6 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_type" data-type="gauge">Gauge</td>
 <td class="metric_description">A metric with a constant '1' value labeled by major, minor, git version, git commit, git tree state, build date, Go version, and compiler from which Kubernetes was built, and platform on which it is running.</td>
 <td class="metric_labels_varying"><div class="metric_label">build_date</div><div class="metric_label">compiler</div><div class="metric_label">git_commit</div><div class="metric_label">git_tree_state</div><div class="metric_label">git_version</div><div class="metric_label">go_version</div><div class="metric_label">major</div><div class="metric_label">minor</div><div class="metric_label">platform</div></td>
-<td class="metric_labels_constant"></td>
-<td class="metric_deprecated_version"></td></tr>
-<tr class="metric"><td class="metric_name">kubernetes_feature_enabled</td>
-<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
-<td class="metric_type" data-type="gauge">Gauge</td>
-<td class="metric_description">This metric records the data about the stage and enablement of a k8s feature.</td>
-<td class="metric_labels_varying"><div class="metric_label">name</div><div class="metric_label">stage</div></td>
-<td class="metric_labels_constant"></td>
-<td class="metric_deprecated_version"></td></tr>
-<tr class="metric"><td class="metric_name">kubernetes_healthcheck</td>
-<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
-<td class="metric_type" data-type="gauge">Gauge</td>
-<td class="metric_description">This metric records the result of a single healthcheck.</td>
-<td class="metric_labels_varying"><div class="metric_label">name</div><div class="metric_label">type</div></td>
-<td class="metric_labels_constant"></td>
-<td class="metric_deprecated_version"></td></tr>
-<tr class="metric"><td class="metric_name">kubernetes_healthchecks_total</td>
-<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
-<td class="metric_type" data-type="counter">Counter</td>
-<td class="metric_description">This metric records the results of all healthcheck.</td>
-<td class="metric_labels_varying"><div class="metric_label">name</div><div class="metric_label">status</div><div class="metric_label">type</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">leader_election_master_status</td>
@@ -2235,6 +2381,20 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_type" data-type="gauge">Gauge</td>
 <td class="metric_description">Gauge measuring number of registered Nodes per zones.</td>
 <td class="metric_labels_varying"><div class="metric_label">zone</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">node_controller_cloud_provider_taint_removal_delay_seconds</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="histogram">Histogram</td>
+<td class="metric_description">Number of seconds after node creation when NodeController removed the cloud-provider taint of a single node.</td>
+<td class="metric_labels_varying"></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">node_controller_initial_node_sync_delay_seconds</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="histogram">Histogram</td>
+<td class="metric_description">Number of seconds after node creation when NodeController finished the initial synchronization of a single node.</td>
+<td class="metric_labels_varying"></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">node_cpu_usage_seconds_total</td>
@@ -2321,6 +2481,13 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_labels_varying"></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">node_swap_usage_bytes</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Current swap usage of the node in bytes. Reported only on non-windows systems</td>
+<td class="metric_labels_varying"></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">number_of_l4_ilbs</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="gauge">Gauge</td>
@@ -2346,14 +2513,14 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="counter">Counter</td>
 <td class="metric_description">Number of errors encountered when forcefully deleting the pods since the Pod GC Controller started.</td>
-<td class="metric_labels_varying"></td>
+<td class="metric_labels_varying"><div class="metric_label">namespace</div><div class="metric_label">reason</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">pod_gc_collector_force_delete_pods_total</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="counter">Counter</td>
 <td class="metric_description">Number of pods that are being forcefully deleted since the Pod GC Controller started.</td>
-<td class="metric_labels_varying"></td>
+<td class="metric_labels_varying"><div class="metric_label">namespace</div><div class="metric_label">reason</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">pod_memory_working_set_bytes</td>
@@ -2382,6 +2549,13 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_type" data-type="counter">Counter</td>
 <td class="metric_description">Number of exempt requests, not counting ignored or out of scope requests.</td>
 <td class="metric_labels_varying"><div class="metric_label">request_operation</div><div class="metric_label">resource</div><div class="metric_label">subresource</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">pod_swap_usage_bytes</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="custom">Custom</td>
+<td class="metric_description">Current amount of the pod swap usage in bytes. Reported only on non-windows systems</td>
+<td class="metric_labels_varying"><div class="metric_label">pod</div><div class="metric_label">namespace</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">prober_probe_duration_seconds</td>
@@ -2468,6 +2642,13 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_labels_varying"></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">rest_client_dns_resolution_duration_seconds</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="histogram">Histogram</td>
+<td class="metric_description">DNS resolver latency in seconds. Broken down by host.</td>
+<td class="metric_labels_varying"><div class="metric_label">host</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">rest_client_exec_plugin_call_total</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="counter">Counter</td>
@@ -2529,6 +2710,20 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_type" data-type="histogram">Histogram</td>
 <td class="metric_description">Response size in bytes. Broken down by verb and host.</td>
 <td class="metric_labels_varying"><div class="metric_label">host</div><div class="metric_label">verb</div></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">rest_client_transport_cache_entries</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="gauge">Gauge</td>
+<td class="metric_description">Number of transport entries in the internal cache.</td>
+<td class="metric_labels_varying"></td>
+<td class="metric_labels_constant"></td>
+<td class="metric_deprecated_version"></td></tr>
+<tr class="metric"><td class="metric_name">rest_client_transport_create_calls_total</td>
+<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
+<td class="metric_type" data-type="counter">Counter</td>
+<td class="metric_description">Number of calls to get a new transport, partitioned by the result of the operation hit: obtained from the cache, miss: created and added to the cache, uncacheable: created and not cached</td>
+<td class="metric_labels_varying"><div class="metric_label">result</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
 <tr class="metric"><td class="metric_name">retroactive_storageclass_errors_total</td>
@@ -2601,13 +2796,6 @@ Alpha metrics do not have any API guarantees. These metrics must be used at your
 <td class="metric_labels_varying"><div class="metric_label">type</div></td>
 <td class="metric_labels_constant"></td>
 <td class="metric_deprecated_version"></td></tr>
-<tr class="metric"><td class="metric_name">scheduler_scheduler_goroutines</td>
-<td class="metric_stability_level" data-stability="alpha">ALPHA</td>
-<td class="metric_type" data-type="gauge">Gauge</td>
-<td class="metric_description">Number of running goroutines split by the work they do such as binding. This metric is replaced by the \"goroutines\" metric.</td>
-<td class="metric_labels_varying"><div class="metric_label">work</div></td>
-<td class="metric_labels_constant"></td>
-<td class="metric_deprecated_version">1.26.0</td></tr>
 <tr class="metric"><td class="metric_name">scheduler_scheduling_algorithm_duration_seconds</td>
 <td class="metric_stability_level" data-stability="alpha">ALPHA</td>
 <td class="metric_type" data-type="histogram">Histogram</td>
