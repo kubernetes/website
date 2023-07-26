@@ -111,7 +111,7 @@ data:
 
 다음은 `game-demo` 의 값을 사용하여 파드를 구성하는 파드 예시이다.
 
-{{< codenew file="configmap/configure-pod.yaml" >}}
+{{% codenew file="configmap/configure-pod.yaml" %}}
 
 컨피그맵은 단일 라인 속성(single line property) 값과 멀티 라인의 파일과 비슷한(multi-line file-like) 값을
 구분하지 않는다.

@@ -42,7 +42,7 @@ kubectl create namespace quota-mem-cpu-example
 
 다음은 예시 리소스쿼터 오브젝트에 대한 매니페스트이다.
 
-{{< codenew file="admin/resource/quota-mem-cpu.yaml" >}}
+{{% codenew file="admin/resource/quota-mem-cpu.yaml" %}}
 
 리소스쿼터를 생성한다.
 
@@ -71,7 +71,7 @@ kubectl get resourcequota mem-cpu-demo --namespace=quota-mem-cpu-example --outpu
 
 다음은 예시 파드에 대한 매니페스트이다.
 
-{{< codenew file="admin/resource/quota-mem-cpu-pod.yaml" >}}
+{{% codenew file="admin/resource/quota-mem-cpu-pod.yaml" %}}
 
 
 파드를 생성한다.
@@ -121,7 +121,7 @@ kubectl get resourcequota mem-cpu-demo --namespace=quota-mem-cpu-example -o json
 
 다음은 두 번째 파드에 대한 매니페스트이다.
 
-{{< codenew file="admin/resource/quota-mem-cpu-pod-2.yaml" >}}
+{{% codenew file="admin/resource/quota-mem-cpu-pod-2.yaml" %}}
 
 매니페스트에서, 파드의 메모리 요청량이 700MiB임을 알 수 있다.
 사용된 메모리 요청량과 이 새 메모리 요청량의 합계가

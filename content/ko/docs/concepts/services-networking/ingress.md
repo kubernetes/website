@@ -62,7 +62,7 @@ weight: 30
 
 최소한의 인그레스 리소스 예제:
 
-{{< codenew file="service/networking/minimal-ingress.yaml" >}}
+{{% codenew file="service/networking/minimal-ingress.yaml" %}}
 
 인그레스에는 `apiVersion`, `kind`, `metadata` 및 `spec` 필드가 명시되어야 한다.
 인그레스 오브젝트의 이름은 유효한
@@ -128,7 +128,7 @@ weight: 30
 백엔드의 일반적인 용도는 정적 자산이 있는 오브젝트 스토리지 백엔드로 데이터를
 수신하는 것이다.
 
-{{< codenew file="service/networking/ingress-resource-backend.yaml" >}}
+{{% codenew file="service/networking/ingress-resource-backend.yaml" %}}
 
 위의 인그레스를 생성한 후, 다음의 명령으로 확인할 수 있다.
 
@@ -213,7 +213,7 @@ Events:       <none>
 | `*.foo.com` | `baz.bar.foo.com` | 일치하지 않음, 와일드카드는 단일 DNS 레이블만 포함함          |
 | `*.foo.com` | `foo.com`         | 일치하지 않음, 와일드카드는 단일 DNS 레이블만 포함함          |
 
-{{< codenew file="service/networking/ingress-wildcard-host.yaml" >}}
+{{% codenew file="service/networking/ingress-wildcard-host.yaml" %}}
 
 ## 인그레스 클래스
 
@@ -222,7 +222,7 @@ Events:       <none>
 이름을 포함하여 추가 구성이 포함된 IngressClass
 리소스에 대한 참조 클래스를 지정해야 한다.
 
-{{< codenew file="service/networking/external-lb.yaml" >}}
+{{% codenew file="service/networking/external-lb.yaml" %}}
 
 인그레스클래스의 `.spec.parameters` 필드를 사용하여 
 해당 인그레스클래스와 연관있는 환경 설정을 제공하는 다른 리소스를 참조할 수 있다.
@@ -350,7 +350,7 @@ spec:
 하지만 다음과 같이 기본 `IngressClass`를 명시하는 것을 
 [권장](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)한다.
 
-{{< codenew file="service/networking/default-ingressclass.yaml" >}}
+{{% codenew file="service/networking/default-ingressclass.yaml" %}}
 
 ## 인그레스 유형들
 
@@ -360,7 +360,7 @@ spec:
 ([대안](#대안)을 본다). 인그레스에 규칙 없이 *기본 백엔드* 를 지정해서
 이를 수행할 수 있다.
 
-{{< codenew file="service/networking/test-ingress.yaml" >}}
+{{% codenew file="service/networking/test-ingress.yaml" %}}
 
 만약 `kubectl apply -f` 를 사용해서 생성한다면 추가한 인그레스의
 상태를 볼 수 있어야 한다.
@@ -393,7 +393,7 @@ test-ingress   external-lb   *       203.0.113.123   80      59s
 
 다음과 같은 인그레스가 필요하다.
 
-{{< codenew file="service/networking/simple-fanout-example.yaml" >}}
+{{% codenew file="service/networking/simple-fanout-example.yaml" %}}
 
 `kubectl apply -f` 를 사용해서 인그레스를 생성 할 때 다음과 같다.
 
@@ -439,7 +439,7 @@ Events:
 다음 인그레스는 [호스트 헤더](https://tools.ietf.org/html/rfc7230#section-5.4)에 기반한 요청을
 라우팅 하기 위해 뒷단의 로드 밸런서를 알려준다.
 
-{{< codenew file="service/networking/name-virtual-host-ingress.yaml" >}}
+{{% codenew file="service/networking/name-virtual-host-ingress.yaml" %}}
 
 만약 규칙에 정의된 호스트 없이 인그레스 리소스를 생성하는 경우,
 이름 기반 가상 호스트가 없어도 인그레스 컨트롤러의 IP 주소에 대한 웹
@@ -448,7 +448,7 @@ Events:
 예를 들어, 다음 인그레스는 `first.bar.com`에 요청된 트래픽을
 `service1`로, `second.bar.com`는 `service2`로, 그리고 요청 헤더가 `first.bar.com` 또는 `second.bar.com`에 해당되지 않는 모든 트래픽을 `service3`로 라우팅한다.
 
-{{< codenew file="service/networking/name-virtual-host-ingress-no-third-host.yaml" >}}
+{{% codenew file="service/networking/name-virtual-host-ingress-no-third-host.yaml" %}}
 
 ### TLS
 
@@ -486,7 +486,7 @@ TLS는 기본 규칙에서 작동하지 않는다. 따라서
 한다.
 {{< /note >}}
 
-{{< codenew file="service/networking/tls-example-ingress.yaml" >}}
+{{% codenew file="service/networking/tls-example-ingress.yaml" %}}
 
 {{< note >}}
 TLS 기능을 제공하는 다양한 인그레스 컨트롤러간의 기능

@@ -69,7 +69,7 @@ gcloud docker -- push gcr.io/my-gcp-project/my-kube-scheduler:1.0
 이는 또 파드를 관리하기 때문에 스케줄러에 대한 회복 탄력성을 제공한다.
 다음은 디플로이먼트에 대한 구성 파일이다. 이 파일을 `my-scheduler.yaml`으로 저장한다.
 
-{{< codenew file="admin/sched/my-scheduler.yaml" >}}
+{{% codenew file="admin/sched/my-scheduler.yaml" %}}
 
 해당 매니페스트에서는 [KubeSchedulerConfiguration](/ko/docs/reference/scheduling/config/)을 
 사용하여 구현할 스케줄러의 특성을 정의한다. 이러한 설정은 초기화 과정에서 `--config` 옵션을 통해 `kube-scheduler`에게 전달된다.
@@ -139,7 +139,7 @@ my-scheduler 파드가 실행("Running")되고 있다는 것을 목록에서 볼
 kubectl edit clusterrole system:kube-scheduler
 ```
 
-{{< codenew file="admin/sched/clusterrole.yaml" >}}
+{{% codenew file="admin/sched/clusterrole.yaml" %}}
 
 ## 파드의 스케줄러를 지정하기
 
@@ -150,7 +150,7 @@ kubectl edit clusterrole system:kube-scheduler
 
 - 스케줄러 이름을 명시하지 않은 파드 명세
 
-  {{< codenew file="admin/sched/pod1.yaml" >}}
+  {{% codenew file="admin/sched/pod1.yaml" %}}
 
   스케줄러 이름을 제공받지 못했다면,
   파드는 자동으로 기본 스케줄러에 의해 스케줄링이 수행된다.
@@ -163,7 +163,7 @@ kubectl edit clusterrole system:kube-scheduler
 
 - `default-scheduler`를 명시한 파드 명세
 
-  {{< codenew file="admin/sched/pod2.yaml" >}}
+  {{% codenew file="admin/sched/pod2.yaml" %}}
 
   `spec.schedulerName`의 값으로 스케줄러 이름을 제공함으로써 스케줄러가 정해진다.
   이와 같은 경우에서는, 기본 스케줄러의 이름인 `default-scheduler`를 명시하고 있다.
@@ -176,7 +176,7 @@ kubectl edit clusterrole system:kube-scheduler
 
 - `my-scheduler`를 명시한 파드 명세
 
-  {{< codenew file="admin/sched/pod3.yaml" >}}
+  {{% codenew file="admin/sched/pod3.yaml" %}}
 
   이와 같은 경우에서는, 직접 배치한 스케줄러 - `my-scheduler`를 통해
   해당 파드의 스케줄링이 수행되어야 한다는 것을 명시하고 있다.

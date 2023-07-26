@@ -52,7 +52,7 @@ OwnerReference가 없거나, OwnerReference가 {{< glossary_tooltip term_id="con
 
 ## 예시
 
-{{< codenew file="controllers/frontend.yaml" >}}
+{{% codenew file="controllers/frontend.yaml" %}}
 
 이 매니페스트를 `frontend.yaml`에 저장하고 쿠버네티스 클러스터에 적용하면 정의되어 있는 레플리카셋이
 생성되고 레플리카셋이 관리하는 파드가 생성된다.
@@ -162,7 +162,7 @@ metadata:
 
 이전 프런트엔드 레플리카셋 예제와 다음의 매니페스트에 명시된 파드를 가져와 참조한다.
 
-{{< codenew file="pods/pod-rs.yaml" >}}
+{{% codenew file="pods/pod-rs.yaml" %}}
 
 기본 파드는 소유자 관련 정보에 컨트롤러(또는 오브젝트)를 가지지 않기 때문에 프런트엔드
 레플리카셋의 셀렉터와 일치하면 즉시 레플리카셋에 소유된다.
@@ -373,7 +373,7 @@ apiserver에서 많은 양의 파드 업데이트를 동반하기 때문이다.
 즉, 레플리카셋은 HPA에 의해 오토스케일될 수 있다.
 다음은 이전에 만든 예시에서 만든 레플리카셋을 대상으로 하는 HPA 예시이다.
 
-{{< codenew file="controllers/hpa-rs.yaml" >}}
+{{% codenew file="controllers/hpa-rs.yaml" %}}
 
 이 매니페스트를 `hpa-rs.yaml`로 저장한 다음 쿠버네티스
 클러스터에 적용하면 CPU 사용량에 따라 파드가 복제되는

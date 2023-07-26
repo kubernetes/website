@@ -36,7 +36,7 @@ weight: 70
 백엔드는 인사하기라는 간단한 마이크로서비스이다. 여기에 백엔드 디플로이먼트
 구성 파일이 있다.
 
-{{< codenew file="service/access/backend-deployment.yaml" >}}
+{{% codenew file="service/access/backend-deployment.yaml" %}}
 
 백엔드 디플로이먼트를 생성한다.
 
@@ -97,7 +97,7 @@ Events:
 
 먼저, 서비스 구성 파일을 살펴보자.
 
-{{< codenew file="service/access/backend-service.yaml" >}}
+{{% codenew file="service/access/backend-service.yaml" %}}
 
 구성 파일에서 `hello` 라는 이름의 서비스가 `app: hello` 및 `tier: backend` 레이블을 갖는
 파드에 트래픽을 보내는 것을 볼 수 있다.
@@ -125,7 +125,7 @@ kubectl apply -f https://k8s.io/examples/service/access/backend-service.yaml
 프론트엔드 디플로이먼트 안의 파드는 `hello` 백엔드 서비스에 대한 요청을
 프록시하도록 구성된 nginx 이미지를 실행한다. 다음은 nginx 구성 파일이다.
 
-{{< codenew file="service/access/frontend-nginx.conf" >}}
+{{% codenew file="service/access/frontend-nginx.conf" %}}
 
 백엔드와 같이, 프론트엔드는 디플로이먼트와 서비스를 갖고 있다. 백엔드
 서비스와 프론트엔드 서비스 간에 주목해야 할 중요한 차이점은 프론트엔드
@@ -133,9 +133,9 @@ kubectl apply -f https://k8s.io/examples/service/access/backend-service.yaml
 서비스가 클라우드 공급자가 프로비저닝한 로드 밸런서를 사용하고
 클러스터 외부에서 접근할 수 있음을 의미한다.
 
-{{< codenew file="service/access/frontend-service.yaml" >}}
+{{% codenew file="service/access/frontend-service.yaml" %}}
 
-{{< codenew file="service/access/frontend-deployment.yaml" >}}
+{{% codenew file="service/access/frontend-deployment.yaml" %}}
 
 프론트엔드 디플로이먼트와 서비스를 생성한다.
 

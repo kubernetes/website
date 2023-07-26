@@ -62,7 +62,7 @@ weight: 10
 [헤드리스 서비스](/ko/docs/concepts/services-networking/service/#헤드리스-headless-서비스)인
 `nginx` 를 생성한다.
 
-{{< codenew file="application/web/web.yaml" >}}
+{{% codenew file="application/web/web.yaml" %}}
 
 위에 예제를 다운로드 받아서 파일이름을 `web.yaml`으로 저장하자.
 
@@ -1090,7 +1090,7 @@ statefulset "web" deleted
 기다리지 않음을 뜻한다.
 이 옵션은 스케일링 동작에만 영향을 미치며, 업데이트 동작에는 영향을 미치지 않는다.
 
-{{< codenew file="application/web/web-parallel.yaml" >}}
+{{% codenew file="application/web/web-parallel.yaml" %}}
 
 상기 예제를 다운로드받아 파일 이름을 `web-parallel.yaml`로 저장하자.
 

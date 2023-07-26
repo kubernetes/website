@@ -62,7 +62,7 @@ MySQL 디플로이먼트 예시는 컨피그맵과, 2개의 서비스, 그리고
 
 다음 YAML 설정 파일로부터 컨피그맵을 생성한다.
 
-{{< codenew file="application/mysql/mysql-configmap.yaml" >}}
+{{% codenew file="application/mysql/mysql-configmap.yaml" %}}
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-configmap.yaml
@@ -82,7 +82,7 @@ kubectl apply -f https://k8s.io/examples/application/mysql/mysql-configmap.yaml
 
 다음 YAML 설정 파일로부터 서비스를 생성한다.
 
-{{< codenew file="application/mysql/mysql-services.yaml" >}}
+{{% codenew file="application/mysql/mysql-services.yaml" %}}
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-services.yaml
@@ -109,7 +109,7 @@ Ready 상태인 모든 MySQL 파드들에게 커넥션을 분배하는 일반적
 
 마지막으로, 다음 YAML 설정 파일로부터 스테이트풀셋을 생성한다.
 
-{{< codenew file="application/mysql/mysql-statefulset.yaml" >}}
+{{% codenew file="application/mysql/mysql-statefulset.yaml" %}}
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-statefulset.yaml

@@ -106,7 +106,7 @@ fe00::2    ip6-allrouters
 
 `.spec.ipFamilyPolicy` 를 명시적으로 정의하지 않은 다음의 서비스를 생성한다. 쿠버네티스는 처음 구성된 `service-cluster-ip-range` 에서 서비스에 대한 클러스터 IP를 할당하고 `.spec.ipFamilyPolicy` 를 `SingleStack` 으로 설정한다.
 
-{{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
+{{% codenew file="service/networking/dual-stack-default-svc.yaml" %}}
 
 `kubectl` 을 사용하여 서비스의 YAML을 확인한다.
 
@@ -143,7 +143,7 @@ status:
 
 `.spec.ipFamilies` 의 첫 번째 배열 요소로 `IPv6` 을 명시적으로 정의하는 다음 서비스를 생성한다. Kubernetes는 `service-cluster-ip-range`로 구성된 IPv6 범위에서 서비스용 클러스터 IP를 할당하고 `.spec.ipFamilyPolicy` 를 `SingleStack` 으로 설정한다.
 
-{{< codenew file="service/networking/dual-stack-ipfamilies-ipv6.yaml" >}}
+{{% codenew file="service/networking/dual-stack-ipfamilies-ipv6.yaml" %}}
 
 `kubectl` 를 사용하여 서비스의 YAML을 확인한다.
 
@@ -181,7 +181,7 @@ status:
 
 `PreferDualStack` 에 `.spec.ipFamilyPolicy` 을 명시적으로 정의하는 다음 서비스를 생성한다. 쿠버네티스는 IPv4 및 IPv6 주소를 모두 할당하고 (이 클러스터에는 이중 스택을 사용하도록 설정되었으므로) `.spec.ipFamilies` 배열에 있는 첫 번째 요소의 주소 계열을 기반으로`.spec.ClusterIP` 목록에서 `.spec.ClusterIPs` 를 선택한다.
 
-{{< codenew file="service/networking/dual-stack-preferred-svc.yaml" >}}
+{{% codenew file="service/networking/dual-stack-preferred-svc.yaml" %}}
 
 {{< note >}}
 `kubectl get svc` 명령어는 오직 `CLUSTER-IP` 필드에 주요 IP만 표시한다.
@@ -222,7 +222,7 @@ Events:            <none>
 
 만약 클라우드 제공자가 IPv6 기반 외부 로드 밸런서 구성을 지원한다면 `.spec.ipFamilyPolicy` 의 `PreferDualStack` 과 `.spec.ipFamilies` 배열의 첫 번째 요소로 `IPv6` 및 `LoadBalancer` 로 설정된 `type` 필드를 사용하여 다음 서비스를 생성한다.
 
-{{< codenew file="service/networking/dual-stack-prefer-ipv6-lb-svc.yaml" >}}
+{{% codenew file="service/networking/dual-stack-prefer-ipv6-lb-svc.yaml" %}}
 
 Check the Service:
 

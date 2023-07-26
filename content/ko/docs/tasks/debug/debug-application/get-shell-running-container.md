@@ -29,7 +29,7 @@ content_type: task
 이 예시에서는 하나의 컨테이너를 가진 파드를 생성할 것이다. 이 컨테이너는
 nginx 이미지를 실행한다. 해당 파드에 대한 설정 파일은 다음과 같다.
 
-{{< codenew file="application/shell-demo.yaml" >}}
+{{% codenew file="application/shell-demo.yaml" %}}
 
 파드를 생성한다.
 

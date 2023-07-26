@@ -67,7 +67,7 @@ weight: 120
 즉, `disktype=ssd` 레이블이 있는 노드에 파드가 스케줄될 것이라는
 것을 의미한다.
 
-{{< codenew file="pods/pod-nginx.yaml" >}}
+{{% codenew file="pods/pod-nginx.yaml" %}}
 
 1. 구성 파일을 사용해서 선택한 노드로 스케줄되도록 파드를
    생성하자.
@@ -93,7 +93,7 @@ weight: 120
 
 `nodeName` 설정을 통해 특정 노드로 파드를 배포할 수 있다.
 
-{{< codenew file="pods/pod-nginx-specific-node.yaml" >}}
+{{% codenew file="pods/pod-nginx-specific-node.yaml" %}}
 
 설정 파일을 사용해 `foo-node` 노드에 파드를 스케줄되도록 만들어 보자.
 
