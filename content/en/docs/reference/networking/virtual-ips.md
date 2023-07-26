@@ -411,7 +411,7 @@ relevant Service.
 
 ### Traffic to terminating endpoints
 
-{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 If the `ProxyTerminatingEndpoints`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
