@@ -69,7 +69,14 @@ help automate node registration.
 
 You can make your data "hidden" by defining a key that begins with a dot.
 This key represents a dotfile or "hidden" file. For example, when the following secret
-is mounted into a volume, `secret-volume`:
+is mounted into a volume, `secret-volume`, the volume will contain a single file,
+called `.secret-file`, and the `dotfile-test-container` will have this file
+present at the path `/etc/secret-volume/.secret-file`.
+
+{{< note >}}
+Files beginning with dot characters are hidden from the output of `ls -l`;
+you must use `ls -la` to see them when listing directory contents.
+{{< /note >}}
 
 ```yaml
 apiVersion: v1
@@ -100,15 +107,6 @@ spec:
           readOnly: true
           mountPath: "/etc/secret-volume"
 ```
-
-The volume will contain a single file, called `.secret-file`, and
-the `dotfile-test-container` will have this file present at the path
-`/etc/secret-volume/.secret-file`.
-
-{{< note >}}
-Files beginning with dot characters are hidden from the output of `ls -l`;
-you must use `ls -la` to see them when listing directory contents.
-{{< /note >}}
 
 ### Use case: Secret visible to one container in a Pod
 
