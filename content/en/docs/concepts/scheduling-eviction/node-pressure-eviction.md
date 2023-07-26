@@ -50,14 +50,15 @@ the resource that should be available on the node.
 
 Kubelet uses the following eviction signals:
 
-| Eviction Signal      | Description                                                                           |
-|----------------------|---------------------------------------------------------------------------------------|
-| `memory.available`   | `memory.available` := `node.status.capacity[memory]` - `node.stats.memory.workingSet` |
-| `nodefs.available`   | `nodefs.available` := `node.stats.fs.available`                                       |
-| `nodefs.inodesFree`  | `nodefs.inodesFree` := `node.stats.fs.inodesFree`                                     |
-| `imagefs.available`  | `imagefs.available` := `node.stats.runtime.imagefs.available`                         |
-| `imagefs.inodesFree` | `imagefs.inodesFree` := `node.stats.runtime.imagefs.inodesFree`                       |
-| `pid.available`      | `pid.available` := `node.stats.rlimit.maxpid` - `node.stats.rlimit.curproc`           |
+| Eviction Signal                 | Description                                                                           |
+|---------------------------------|---------------------------------------------------------------------------------------|
+| `memory.available`              | `memory.available` := `node.status.capacity[memory]` - `node.stats.memory.workingSet` |
+| `allocatableMemory.available`   | `allocatableMemory.available` := `node.status.allocatable[memory]` - `pods.stats.memory.workingSet` |
+| `nodefs.available`              | `nodefs.available` := `node.stats.fs.available`                                       |
+| `nodefs.inodesFree`             | `nodefs.inodesFree` := `node.stats.fs.inodesFree`                                     |
+| `imagefs.available`             | `imagefs.available` := `node.stats.runtime.imagefs.available`                         |
+| `imagefs.inodesFree`            | `imagefs.inodesFree` := `node.stats.runtime.imagefs.inodesFree`                       |
+| `pid.available`                 | `pid.available` := `node.stats.rlimit.maxpid` - `node.stats.rlimit.curproc`           |
 
 In this table, the `Description` column shows how kubelet gets the value of the
 signal. Each signal supports either a percentage or a literal value. Kubelet
@@ -66,14 +67,14 @@ the signal.
 
 The value for `memory.available` is derived from the cgroupfs instead of tools
 like `free -m`. This is important because `free -m` does not work in a
-container, and if users use the [node allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
-feature, out of resource decisions
-are made local to the end user Pod part of the cgroup hierarchy as well as the
-root node. This [script](/examples/admin/resource/memory-available.sh)
+container. This [script](/examples/admin/resource/memory-available.sh)
 reproduces the same set of steps that the kubelet performs to calculate
 `memory.available`. The kubelet excludes inactive_file (i.e. # of bytes of
 file-backed memory on inactive LRU list) from its calculation as it assumes that
 memory is reclaimable under pressure.
+
+From v1.6, [node allocatable](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable) is enforced by default across all pods on a node using cgroups, out of resource decisions are made local to the end user Pod part of the cgroup hierarchy as well as the
+root node. The threshold value for `allocatableMemory.available` is the same with `memory.available`.
 
 The kubelet supports the following filesystem partitions:
 
