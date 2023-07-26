@@ -157,7 +157,7 @@ Starting with v1.22 and later, when creating a cluster with kubeadm, if the user
 the `cgroupDriver` field under `KubeletConfiguration`, kubeadm defaults it to `systemd`.
 {{< /note >}}
 
-For Kubernetes v1.28 and later, with the `KubeletCgroupDriverFromCRI`
+In Kubernetes {{< skew currentVersion >}}, with the `KubeletCgroupDriverFromCRI`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 enabled and a container runtime that supports the `RuntimeConfig` CRI RPC,
 the kubelet automatically detects the appropriate cgroup driver from the runtime,
@@ -257,7 +257,7 @@ sudo systemctl restart containerd
 When using kubeadm, manually configure the
 [cgroup driver for kubelet](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver).
 
-Starting with v1.28 and later, you can enable automatic detection of the
+In Kubernetes {{< skew currentVersion >}}, you can enable automatic detection of the
 cgroup driver as an alpha feature. See [systemd cgroup driver](#systemd-cgroup-driver)
 for more details.
 
@@ -302,7 +302,7 @@ You should also note the changed `conmon_cgroup`, which has to be set to the val
 cgroup driver configuration of the kubelet (usually done via kubeadm) and CRI-O
 in sync.
 
-Starting with v1.28 and later, you can enable automatic detection of the
+In Kubernetes {{< skew currentVersion >}}, you can enable automatic detection of the
 cgroup driver as an alpha feature. See [systemd cgroup driver](#systemd-cgroup-driver)
 for more details.
 
