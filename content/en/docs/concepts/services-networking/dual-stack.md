@@ -109,9 +109,7 @@ families for dual-stack, you can choose the address families by setting an optio
 `.spec.ipFamilies`, on the Service.
 
 {{< note >}}
-The `.spec.ipFamilies` field is immutable because the `.spec.ClusterIP` cannot be reallocated on a
-Service that already exists. If you want to change `.spec.ipFamilies`, delete and recreate the
-Service.
+The `.spec.ipFamilies` field is conditionally mutable: it allows for adding or removing a secondary IP family, but it does not allow changing the primary IP family of the Service.
 {{< /note >}}
 
 You can set `.spec.ipFamilies` to any of the following array values:
