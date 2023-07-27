@@ -238,3 +238,17 @@ aliases:
     - jimangel # Release Manager Associate
     - jrsapi # Release Manager Associate
     - salaxander # Release Manager Associate
+# authoritative source: https://github.com/kubernetes/committee-security-response/blob/main/OWNERS_ALIASES
+  committee-security-response:
+    - cjcullen
+    - cji
+    - enj
+    - joelsmith
+    - micahhausler
+    - ritazh
+    - SaranBalaji90
+    - tabbysable
+# authoritative source: https://github.com/kubernetes/sig-security/blob/main/OWNERS_ALIASES
+  sig-security-leads:
+    - IanColdwater
+    - tabbysable
