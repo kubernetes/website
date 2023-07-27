@@ -201,8 +201,10 @@ For a reference to old feature gates that are removed, please refer to
 | `TopologyAwareHints` | `false` | Beta | 1.23 | 1.23 |
 | `TopologyAwareHints` | `true` | Beta | 1.24 | |
 | `TopologyManagerPolicyAlphaOptions` | `false` | Alpha | 1.26 | |
-| `TopologyManagerPolicyBetaOptions` | `false` | Beta | 1.26 | |
-| `TopologyManagerPolicyOptions` | `false` | Alpha | 1.26 | |
+| `TopologyManagerPolicyBetaOptions` | `false` | Beta | 1.26 | 1.27 |
+| `TopologyManagerPolicyBetaOptions` | `true` | Beta | 1.28 | |
+| `TopologyManagerPolicyOptions` | `false` | Alpha | 1.26 | 1.27 |
+| `TopologyManagerPolicyOptions` | `true` | Beta | 1.28 | |
 | `UnknownVersionInteroperabilityProxy` | `false` | Alpha | 1.28 | |
 | `UserNamespacesStatelessPodsSupport` | `false` | Alpha | 1.25 | |
 | `ValidatingAdmissionPolicy` | `false` | Alpha | 1.26 | |
