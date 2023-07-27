@@ -266,15 +266,15 @@ For example, Kustomize removes objects with this annotation from its final build
 
 Type: Annotation
 
-Example: `config.kubernetes.io/apply-time-mutation: "true"`
+Example: `config.kubernetes.io/apply-time-mutation: ""`
 
 Used on: All objects
 
-The `config.kubernetes.io/apply-time-mutation` annotation is used in manifests to indicate whether an object may undergo mutation during the apply-time process, and thus, should not be directly modified by users or external tooling.
-
-A value of `"true"` for this annotation signifies that the object's configuration might be altered during the application process, either by server-side controllers or by client-side tools like kubectl apply. It serves as a warning to users that any changes made directly to this object may be overridden during the apply process.
-
-On the other hand, a value of `"false"` can be used to indicate that the object's configuration should not be subject to any automatic mutations during apply-time. This means that the object should retain its exact configuration as specified by the user or external tool.
+This annotation is used on the target object to be modified to configure [Apply-Time Mutation](https://github.com/kubernetes-sigs/cli-utils/blob/master/README.md#apply-time-mutation). The annotation may specify one or more substitutions. 
+Each substitution includes a source object, a source field path, and a target field path, with an optional token.
+The source and target field paths are specified using JSONPath.
+If the token is specified, the token is replaced in the target field value string with the source field value. 
+If the token is not specified, the target field value is replaced with the source field value. This alternatively allows either templated interpretation or type preservation.
 
 ### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
 
