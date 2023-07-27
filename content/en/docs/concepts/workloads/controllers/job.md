@@ -878,7 +878,7 @@ scaling an indexed Job, such as MPI, Horovord, Ray, and PyTorch training jobs.
 {{< feature-state for_k8s_version="v1.28" state="alpha" >}}
 
 {{< note >}}
-You can only enable `PodReplacementPolicy` for Jobs if you set `JobPodReplacementPolicy`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to true.
+You can only set `podReplacementPolicy` on Jobs if you enable the `JobPodReplacementPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 {{< /note >}}
 
 By default, the Job controller recreates pods as soon they are either failed or terminating (have a deletion timestamp).
@@ -886,7 +886,7 @@ This means that, at a given time, the number of running Pods for the Jobs can be
 
 You may choose to create replacement pods only when the terminating pod is fully terminal (has `status.phase: Failed`). To do this, set the `.spec.podReplacementPolicy: Failed`.
 This will only recreate pods once they are terminated.  
-Default behavior will be to recreate upon deletion (`DeletionTimestamp != nil`).
+The default policy is `FailedOrTerminating`, meaning that the control plane creates replacement Pods upon deletion (`DeletionTimestamp != nil`).
 
 ```yaml
 kind: Job
@@ -913,7 +913,7 @@ status:
   terminating: 1 # if pod is terminating
 ```
 
-When [PodFailurePolicy](#pod-failure-policy) is enabled, a Job will have a default (and only this value is allowed) value of `Failed`.
+When you use a [podFailurePolicy](#pod-failure-policy) in a Job, the Job will have a default `podReplacementPolicy` value of `Failed`, and this is the only policy allowed.
 If `JobPodReplacementPolicy` is disabled and `podFailurePolicy` is enabled, a Job will wait for terminating pods to be fully terminated before marking the pod as failed.
 In this case, you will not be able to inspect the `terminating` field.
 
