@@ -57,40 +57,62 @@ or the documentation for your specific container runtime.
 
 ### Forwarding IPv4 and letting iptables see bridged traffic
 
-Execute the below mentioned instructions:
+This requires loading 2 kernel modules and ensuring 3 sysctls are set. Rebooting is not required to complete any of these steps.
+
+1. Load the following aditional kernel modules at boot and now:
 
 ```bash
-cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+sudo tee /etc/modules-load.d/k8s.conf <<'MODULES_LOAD'
 overlay
 br_netfilter
-EOF
+MODULES_LOAD
 
+# Load them now
 sudo modprobe overlay
-sudo modprobe br_netfilter
+sudo modprove br_netfilter
+```
 
-# sysctl params required by setup, params persist across reboots
-cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+Verify kernel modules are currently loaded by running:
+
+```bash
+lsmod | grep -E 'br_netfilter|overlay'
+```
+
+Output should look similar to this:
+
+```
+br_netfilter           32768  0               # <--- important part
+overlay               155648  0               # <--- important part
+bridge                315392  1 br_netfilter  # <--- don't care
+```
+
+
+2. Add required sysctls; persist them across reboots and activate them now:
+
+```bash
+sudo tee /etc/sysctl.d/k8s.conf >/dev/null <<'SYSCTLS'
 net.bridge.bridge-nf-call-iptables  = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 net.ipv4.ip_forward                 = 1
-EOF
+SYSCTLS
 
-# Apply sysctl params without reboot
+# Apply sysctls now
 sudo sysctl --system
 ```
 
-Verify that the `br_netfilter`, `overlay` modules are loaded by running the following commands:
+
+Verify sysctls are currently set properly by running:
 
 ```bash
-lsmod | grep br_netfilter
-lsmod | grep overlay
+sysctl net.bridge.bridge-nf-call-ip{,6}tables net.ipv4.ip_forward
 ```
 
-Verify that the `net.bridge.bridge-nf-call-iptables`, `net.bridge.bridge-nf-call-ip6tables`, and
-`net.ipv4.ip_forward` system variables are set to `1` in your `sysctl` config by running the following command:
+Output should be:
 
-```bash
-sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
+```
+net.bridge.bridge-nf-call-iptables = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward = 1
 ```
 
 ## cgroup drivers
