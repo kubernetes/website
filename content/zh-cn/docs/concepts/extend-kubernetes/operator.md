@@ -197,7 +197,7 @@ You also implement an operator (that is, a Controller) using any language / runt
 that can act as a [client for the Kubernetes API](/docs/reference/using-api/client-libraries/).
 -->
 
-如果生态系统中没可以实现你目标的 Operator，你可以自己编写代码。
+如果生态系统中没有可以实现你目标的 Operator，你可以自己编写代码。
 
 你还可以使用任何支持
 [Kubernetes API 客户端](/zh-cn/docs/reference/using-api/client-libraries/)的语言或运行时来实现
