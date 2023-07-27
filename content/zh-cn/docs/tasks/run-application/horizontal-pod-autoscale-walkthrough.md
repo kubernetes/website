@@ -39,7 +39,7 @@ running for the workload.
 目的是自动扩缩工作负载以满足需求。
 
 水平扩缩意味着对增加的负载的响应是部署更多的 {{< glossary_tooltip text="Pod" term_id="pod" >}}。
-这与 “垂直（Vertical）” 扩缩不同，对于 Kubernetes，
+这与“垂直（Vertical）”扩缩不同，对于 Kubernetes，
 垂直扩缩意味着将更多资源（例如：内存或 CPU）分配给已经为工作负载运行的 Pod。
 
 <!--
@@ -104,7 +104,7 @@ using the following manifest:
 为了演示 HorizontalPodAutoscaler，你将首先启动一个 Deployment 用 `hpa-example` 镜像运行一个容器，
 然后使用以下清单文件将其暴露为一个 {{< glossary_tooltip term_id="service">}}：
 
-{{< codenew file="application/php-apache.yaml" >}}
+{{% codenew file="application/php-apache.yaml" %}}
 
 <!--
 To do so, run the following command:
@@ -415,7 +415,7 @@ the only other supported resource metric is memory.  These resources do not chan
 to cluster, and should always be available, as long as the `metrics.k8s.io` API is available.
 -->
 需要注意的是，`targetCPUUtilizationPercentage` 字段已经被名为 `metrics` 的数组所取代。
-CPU 利用率这个度量指标是一个 *resource metric*（资源度量指标），因为它表示容器上指定资源的百分比。
+CPU 利用率这个度量指标是一个 **resource metric**（资源度量指标），因为它表示容器上指定资源的百分比。
 除 CPU 外，你还可以指定其他资源度量指标。默认情况下，目前唯一支持的其他资源度量指标为内存。
 只要 `metrics.k8s.io` API 存在，这些资源度量指标就是可用的，并且他们不会在不同的 Kubernetes 集群中改变名称。
 
@@ -433,7 +433,7 @@ There are two other types of metrics, both of which are considered *custom metri
 object metrics.  These metrics may have names which are cluster specific, and require a more
 advanced cluster monitoring setup.
 -->
-还有两种其他类型的度量指标，他们被认为是 *custom metrics*（自定义度量指标）：
+还有两种其他类型的度量指标，他们被认为是 **custom metrics**（自定义度量指标）：
 即 Pod 度量指标和 Object 度量指标。
 这些度量指标可能具有特定于集群的名称，并且需要更高级的集群监控设置。
 
@@ -444,7 +444,7 @@ They work much like resource metrics, except that they *only* support a `target`
 -->
 第一种可选的度量指标类型是 **Pod 度量指标**。这些指标从某一方面描述了 Pod，
 在不同 Pod 之间进行平均，并通过与一个目标值比对来确定副本的数量。
-它们的工作方式与资源度量指标非常相像，只是它们 **仅** 支持 `target` 类型为 `AverageValue`。
+它们的工作方式与资源度量指标非常相像，只是它们**仅**支持 `target` 类型为 `AverageValue`。
 
 <!--
 Pod metrics are specified using a metric block like this:
@@ -589,7 +589,7 @@ label, you can specify the following metric block to scale only on GET requests:
 -->
 ### 基于更特别的度量值来扩缩   {#autoscaing-on-more-specific-metrics}
 
-许多度量流水线允许你通过名称或附加的 **标签** 来描述度量指标。
+许多度量流水线允许你通过名称或附加的**标签**来描述度量指标。
 对于所有非资源类型度量指标（Pod、Object 和后面将介绍的 External），
 可以额外指定一个标签选择算符。例如，如果你希望收集包含 `verb` 标签的
 `http_requests` 度量指标，可以按如下所示设置度量指标块，使得扩缩操作仅针对
@@ -735,7 +735,7 @@ HorizontalPodAutoscaler.
 -->
 对于上面展示的这个 HorizontalPodAutoscaler，我们可以看出有若干状态条件处于健康状态。
 首先，`AbleToScale` 表明 HPA 是否可以获取和更新扩缩信息，以及是否存在阻止扩缩的各种回退条件。
-其次，`ScalingActive` 表明 HPA 是否被启用（即目标的副本数量不为零） 以及是否能够完成扩缩计算。
+其次，`ScalingActive` 表明 HPA 是否被启用（即目标的副本数量不为零）以及是否能够完成扩缩计算。
 当这一状态为 `False` 时，通常表明获取度量指标存在问题。
 最后一个条件 `ScalingLimited` 表明所需扩缩的值被 HorizontalPodAutoscaler
 所定义的最大或者最小值所限制（即已经达到最大或者最小扩缩值）。
@@ -775,7 +775,7 @@ can use the following manifest to create it declaratively:
 -->
 除了使用 `kubectl autoscale` 命令，也可以使用以下清单以声明方式创建 HorizontalPodAutoscaler：
 
-{{< codenew file="application/hpa/php-apache.yaml" >}}
+{{% codenew file="application/hpa/php-apache.yaml" %}}
 
 <!--
 Then, create the autoscaler by executing the following command:
