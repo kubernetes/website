@@ -8,7 +8,28 @@ weight: 210
 ---
 
 <!-- overview -->
-This page shows how to enable and configure encryption of secret data at rest.
+
+All of the APIs in Kubernetes that let you write persistent API resource data support
+at-rest encryption. For example, you can enable at-rest encryption for
+{{< glossary_tooltip text="Secrets" term_id="secret" >}}.
+This at-rest encryption is additional to any system-level encryption for the
+etcd cluster or for the filesystem(s) on hosts where you are running the
+kube-apiserver.
+
+This page shows how to enable and configure encryption of API data at rest.
+
+{{< note >}}
+This task covers encryption for resource data stored using the
+{{< glossary_tooltip text="Kubernetes API" term_id="kubernetes-api" >}}. For example, you can
+encrypt Secret objects, including the key-value data they contain.
+
+If you want to encrypt data in filesystems that are mounted into containers, you instead need
+to either:
+
+- use a storage integration that provides encrypted
+  {{< glossary_tooltip text="volumes" term_id="volume" >}}
+- encrypt the data within your own application
+{{< /note >}}
 
 ## {{% heading "prerequisites" %}}
 
