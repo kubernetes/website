@@ -120,6 +120,7 @@ For a reference to old feature gates that are removed, please refer to
 | `InTreePluginvSphereUnregister` | `false` | Alpha | 1.21 | |
 | `JobPodFailurePolicy` | `false` | Alpha | 1.25 | 1.25 |
 | `JobPodFailurePolicy` | `true` | Beta | 1.26 | |
+| `JobPodReplacementPolicy` | `false` | Alpha | 1.28 | |
 | `JobReadyPods` | `false` | Alpha | 1.23 | 1.23 |
 | `JobReadyPods` | `true` | Beta | 1.24 | |
 | `KMSv2` | `false` | Alpha | 1.25 | 1.26 |
@@ -551,6 +552,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   the pod template of [Job](/docs/concepts/workloads/controllers/job).
 - `JobPodFailurePolicy`: Allow users to specify handling of pod failures based on container
   exit codes and pod conditions.
+- `JobPodReplacementPolicy`: Allows users to specify pod replacement for terminating pods in a [Job](/docs/concepts/workloads/controllers/job)
 - `JobReadyPods`: Enables tracking the number of Pods that have a `Ready`
   [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions).
   The count of `Ready` pods is recorded in the
