@@ -136,14 +136,6 @@ the range [-1000, 1000]</p>
 in order to proxy service traffic. If unspecified (0-0) then ports will be randomly chosen.</p>
 </td>
 </tr>
-<tr><td><code>udpIdleTimeout</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <p>udpIdleTimeout is how long an idle UDP connection will be kept open (e.g. '250ms', '2s').
-Must be greater than 0. Only applicable for proxyMode=userspace.</p>
-</td>
-</tr>
 <tr><td><code>conntrack</code> <B>[Required]</B><br/>
 <a href="#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConntrackConfiguration"><code>KubeProxyConntrackConfiguration</code></a>
 </td>
@@ -323,6 +315,14 @@ the pure iptables proxy mode. Values must be within the range [0, 31].</p>
 </td>
 <td>
    <p>masqueradeAll tells kube-proxy to SNAT everything if using the pure iptables proxy mode.</p>
+</td>
+</tr>
+<tr><td><code>localhostNodePorts</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>LocalhostNodePorts tells kube-proxy to allow service NodePorts to be accessed via
+localhost (iptables mode only)</p>
 </td>
 </tr>
 <tr><td><code>syncPeriod</code> <B>[Required]</B><br/>
@@ -511,16 +511,12 @@ Windows</p>
 
 
 <p>ProxyMode represents modes used by the Kubernetes proxy server.</p>
-<p>Currently, three modes of proxy are available in Linux platform: 'userspace' (older, going to be EOL), 'iptables'
-(newer, faster), 'ipvs'(newest, better in performance and scalability).</p>
-<p>Two modes of proxy are available in Windows platform: 'userspace'(older, stable) and 'kernelspace' (newer, faster).</p>
-<p>In Linux platform, if proxy mode is blank, use the best-available proxy (currently iptables, but may change in the
-future). If the iptables proxy is selected, regardless of how, but the system's kernel or iptables versions are
-insufficient, this always falls back to the userspace proxy. IPVS mode will be enabled when proxy mode is set to 'ipvs',
-and the fall back path is firstly iptables and then userspace.</p>
-<p>In Windows platform, if proxy mode is blank, use the best-available proxy (currently userspace, but may change in the
-future). If winkernel proxy is selected, regardless of how, but the Windows kernel can't support this mode of proxy,
-this always falls back to the userspace proxy.</p>
+<p>Currently, two modes of proxy are available on Linux platforms: 'iptables' and 'ipvs'.
+One mode of proxy is available on Windows platforms: 'kernelspace'.</p>
+<p>If the proxy mode is unspecified, the best-available proxy mode will be used (currently this
+is <code>iptables</code> on Linux and <code>kernelspace</code> on Windows). If the selected proxy mode cannot be
+used (due to lack of kernel support, missing userspace components, etc) then kube-proxy
+will exit with an error.</p>
 
 
 
@@ -535,9 +531,11 @@ this always falls back to the userspace proxy.</p>
 
 - [KubeProxyConfiguration](#kubeproxy-config-k8s-io-v1alpha1-KubeProxyConfiguration)
 
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
+
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
 
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 
@@ -595,9 +593,11 @@ client.</p>
 
 **Appears in:**
 
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
+
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
 
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 
@@ -621,7 +621,7 @@ client.</p>
 <code>bool</code>
 </td>
 <td>
-   <p>enableContentionProfiling enables lock contention profiling, if
+   <p>enableContentionProfiling enables block profiling, if
 enableProfiling is true.</p>
 </td>
 </tr>
@@ -636,6 +636,8 @@ enableProfiling is true.</p>
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
 
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
 
 - [GenericControllerManagerConfiguration](#controllermanager-config-k8s-io-v1alpha1-GenericControllerManagerConfiguration)
 

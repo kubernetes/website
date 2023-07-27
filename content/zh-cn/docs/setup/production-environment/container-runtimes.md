@@ -21,7 +21,7 @@ You need to install a
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
 into each node in the cluster so that Pods can run there. This page outlines
 what is involved and describes related tasks for setting up nodes.
- -->
+-->
 你需要在集群内每个节点上安装一个
 {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}
 以使 Pod 可以运行在上面。本文概述了所涉及的内容并描述了与节点设置相关的任务。
@@ -61,9 +61,8 @@ v1.24 之前的 Kubernetes 版本直接集成了 Docker Engine 的一个组件�
 
 <!--
 You can read
-[Check whether Dockershim deprecation affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-deprecation-affects-you/)
-to understand how this removal might
-affect you. To learn about migrating from using dockershim, see
+[Check whether Dockershim removal affects you](/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)
+to understand how this removal might affect you. To learn about migrating from using dockershim, see
 [Migrating from dockershim](/docs/tasks/administer-cluster/migrating-from-dockershim/).
 -->
 你可以阅读[检查 Dockershim 移除是否会影响你](/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/check-if-dockershim-removal-affects-you/)以了解此删除可能会如何影响你。
@@ -99,20 +98,11 @@ For more information, see [Network Plugin Requirements](/docs/concepts/extend-ku
 <!-- 
 ### Forwarding IPv4 and letting iptables see bridged traffic
 
-Verify that the `br_netfilter` module is loaded by running `lsmod | grep br_netfilter`. 
-
-To load it explicitly, run `sudo modprobe br_netfilter`.
-
-In order for a Linux node's iptables to correctly view bridged traffic, verify that `net.bridge.bridge-nf-call-iptables` is set to 1 in your `sysctl` config. For example: 
+Execute the below mentioned instructions:
 -->
 ### 转发 IPv4 并让 iptables 看到桥接流量
 
-通过运行 `lsmod | grep br_netfilter` 来验证 `br_netfilter` 模块是否已加载。
-
-若要显式加载此模块，请运行 `sudo modprobe br_netfilter`。
-
-为了让 Linux 节点的 iptables 能够正确查看桥接流量，请确认 `sysctl` 配置中的
-`net.bridge.bridge-nf-call-iptables` 设置为 1。例如：
+执行下述指令：
 
 ```bash
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
@@ -135,7 +125,27 @@ sudo sysctl --system
 ```
 
 <!--
-## Cgroup drivers
+Verify that the `br_netfilter`, `overlay` modules are loaded by running below instructions:
+-->
+通过运行以下指令确认 `br_netfilter` 和 `overlay` 模块被加载：
+
+```bash
+lsmod | grep br_netfilter
+lsmod | grep overlay
+```
+
+<!--
+Verify that the `net.bridge.bridge-nf-call-iptables`, `net.bridge.bridge-nf-call-ip6tables`, `net.ipv4.ip_forward` system variables are set to 1 in your `sysctl` config by running below instruction:
+-->
+通过运行以下指令确认 `net.bridge.bridge-nf-call-iptables`、`net.bridge.bridge-nf-call-ip6tables`
+和 `net.ipv4.ip_forward` 系统变量在你的 `sysctl` 配置中被设置为 1：
+
+```bash
+sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward
+```
+
+<!--
+## cgroup drivers
 
 On Linux, {{< glossary_tooltip text="control groups" term_id="cgroup" >}}
 are used to constrain resources that are allocated to processes.
@@ -145,12 +155,12 @@ are used to constrain resources that are allocated to processes.
 在 Linux 上，{{<glossary_tooltip text="控制组（CGroup）" term_id="cgroup" >}}用于限制分配给进程的资源。
 
 <!--
-Both {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} and the
+Both the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} and the
 underlying container runtime need to interface with control groups to enforce
-[resource management for pods and containers](/docs/concepts/configuration/manage-resources-containers/) and set
-resources such as cpu/memory requests and limits. To interface with control
+[resource management for pods and containers](/docs/concepts/configuration/manage-resources-containers/)
+and set resources such as cpu/memory requests and limits. To interface with control
 groups, the kubelet and the container runtime need to use a *cgroup driver*.
-It's critical that the kubelet and the container runtime uses the same cgroup
+It's critical that the kubelet and the container runtime use the same cgroup
 driver and are configured the same.
 -->
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 和底层容器运行时都需要对接控制组来强制执行
@@ -172,21 +182,20 @@ There are two cgroup drivers available:
 <!--
 ### cgroupfs driver {#cgroupfs-cgroup-driver}
 
-The `cgroupfs` driver is the default cgroup driver in the kubelet. When the `cgroupfs`
-driver is used, the kubelet and the container runtime directly interface with
+The `cgroupfs` driver is the [default cgroup driver in the kubelet](/docs/reference/config-api/kubelet-config.v1beta1).
+When the `cgroupfs` driver is used, the kubelet and the container runtime directly interface with
 the cgroup filesystem to configure cgroups.
 
 The `cgroupfs` driver is **not** recommended when
 [systemd](https://www.freedesktop.org/wiki/Software/systemd/) is the
 init system because systemd expects a single cgroup manager on
-the system. Additionally, if you use [cgroup v2](/docs/concepts/architecture/cgroups)
-, use the `systemd` cgroup driver instead of
-`cgroupfs`.
+the system. Additionally, if you use [cgroup v2](/docs/concepts/architecture/cgroups), use the `systemd`
+cgroup driver instead of `cgroupfs`.
 -->
 ### cgroupfs 驱动 {#cgroupfs-cgroup-driver}
 
-`cgroupfs` 驱动是 kubelet 中默认的 cgroup 驱动。当使用 `cgroupfs` 驱动时，
-kubelet 和容器运行时将直接对接 cgroup 文件系统来配置 cgroup。
+`cgroupfs` 驱动是 [kubelet 中默认的 cgroup 驱动](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1)。
+当使用 `cgroupfs` 驱动时， kubelet 和容器运行时将直接对接 cgroup 文件系统来配置 cgroup。
 
 当 [systemd](https://www.freedesktop.org/wiki/Software/systemd/) 是初始化系统时，
 **不** 推荐使用 `cgroupfs` 驱动，因为 systemd 期望系统上只有一个 cgroup 管理器。
@@ -227,6 +236,7 @@ the kubelet and the container runtime when systemd is the selected init system.
 
 当 systemd 是选定的初始化系统时，缓解这个不稳定问题的方法是针对 kubelet 和容器运行时将
 `systemd` 用作 cgroup 驱动。
+
 <!--
 To set `systemd` as the cgroup driver, edit the
 [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/)
@@ -242,13 +252,22 @@ kind: KubeletConfiguration
 cgroupDriver: systemd
 ```
 
+{{< note >}}
+<!--
+Starting with v1.22 and later, when creating a cluster with kubeadm, if the user does not set
+the `cgroupDriver` field under `KubeletConfiguration`, kubeadm defaults it to `systemd`.
+-->
+从 v1.22 开始，在使用 kubeadm 创建集群时，如果用户没有在
+`KubeletConfiguration` 下设置 `cgroupDriver` 字段，kubeadm 默认使用 `systemd`。
+{{< /note >}}
+
 <!--
 If you configure `systemd` as the cgroup driver for the kubelet, you must also
 configure `systemd` as the cgroup driver for the container runtime. Refer to
 the documentation for your container runtime for instructions. For example:
 -->
-如果你将 `systemd` 配置为 kubelet 的 cgroup 驱动，你也必须将 `systemd` 配置为容器运行时的 cgroup 驱动。
-参阅容器运行时文档，了解指示说明。例如：
+如果你将 `systemd` 配置为 kubelet 的 cgroup 驱动，你也必须将 `systemd`
+配置为容器运行时的 cgroup 驱动。参阅容器运行时文档，了解指示说明。例如：
 
 *  [containerd](#containerd-systemd)
 *  [CRI-O](#cri-o)
@@ -291,17 +310,24 @@ Your container runtime must support at least v1alpha2 of the container runtime i
 Kubernetes {{< skew currentVersion >}}  defaults to using v1 of the CRI API.
 If a container runtime does not support the v1 API, the kubelet falls back to
 using the (deprecated) v1alpha2 API instead.
+
+Kubernetes [starting v1.26](/blog/2022/11/18/upcoming-changes-in-kubernetes-1-26/#cri-api-removal)
+_only works_ with v1 of the CRI API. Earlier versions default
+to v1 version, however if a container runtime does not support the v1 API, the kubelet falls back to
+using the (deprecated) v1alpha2 API instead.
 -->
 ## CRI 版本支持 {#cri-versions}
 
 你的容器运行时必须至少支持 v1alpha2 版本的容器运行时接口。
 
-Kubernetes {{< skew currentVersion >}} 默认使用 v1 版本的 CRI API。如果容器运行时不支持 v1 版本的 API，
+Kubernetes [从 1.26 版本开始](/blog/2022/11/18/upcoming-changes-in-kubernetes-1-26/#cri-api-removal)**仅适用于**
+v1 版本的容器运行时（CRI）API。早期版本默认为 v1 版本，
+但是如果容器运行时不支持 v1 版本的 API，
 则 kubelet 会回退到使用（已弃用的）v1alpha2 版本的 API。
 
 <!-- 
 ## Container runtimes
- -->
+-->
 ## 容器运行时
 
 {{% thirdparty-content %}}
@@ -310,27 +336,28 @@ Kubernetes {{< skew currentVersion >}} 默认使用 v1 版本的 CRI API。如�
 
 <!--
 This section outlines the necessary steps to use containerd as CRI runtime.
-
-Use the following commands to install Containerd on your system:
 -->
 本节概述了使用 containerd 作为 CRI 运行时的必要步骤。
 
-使用以下命令在系统上安装 Containerd：
-
 <!-- 
-Follow the instructions for [getting started with containerd](https://github.com/containerd/containerd/blob/main/docs getting-started.md). Return to this step once you've created a valid configuration file, `config.toml`. 
- -->
-
-按照[开始使用 containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md) 的说明进行操作。 
-创建有效的配置文件 `config.toml` 后返回此步骤。
+To install containerd on your system, follow the instructions on
+[getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md).
+Return to this step once you've created a valid `config.toml` configuration file.
+-->
+要在系统上安装 containerd，请按照[开始使用 containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md)
+的说明进行操作。创建有效的 `config.toml` 配置文件后返回此步骤。
 
 {{< tabs name="找到 config.toml 文件" >}}
 {{% tab name="Linux" %}}
-<!-- You can find this file under the path `/etc/containerd/config.toml`. -->
+<!--
+You can find this file under the path `/etc/containerd/config.toml`.
+-->
 你可以在路径 `/etc/containerd/config.toml` 下找到此文件。
 {{% /tab %}}
 {{% tab name="Windows" %}}
-<!-- You can find this file under the path `C:\Program Files\containerd\config.toml`. -->
+<!--
+You can find this file under the path `C:\Program Files\containerd\config.toml`.
+-->
 你可以在路径 `C:\Program Files\containerd\config.toml` 下找到此文件。
 {{% /tab %}}
 {{< /tabs >}}
@@ -378,6 +405,20 @@ CRI 集成插件。
 你需要启用 CRI 支持才能在 Kubernetes 集群中使用 containerd。
 要确保 `cri` 没有出现在 `/etc/containerd/config.toml` 文件中 `disabled_plugins`
 列表内。如果你更改了这个文件，也请记得要重启 `containerd`。
+
+<!--
+If you experience container crash loops after the initial cluster installation or after
+installing a CNI, the containerd configuration provided with the package might contain
+incompatible configuration parameters. Consider resetting the containerd configuration
+with `containerd config default > /etc/containerd/config.toml` as specified in
+[getting-started.md](https://github.com/containerd/containerd/blob/main/docs/getting-started.md#advanced-topics)
+and then set the configuration parameters specified above accordingly.
+-->
+如果你在初次安装集群后或安装 CNI 后遇到容器崩溃循环，则随软件包提供的 containerd
+配置可能包含不兼容的配置参数。考虑按照
+[getting-started.md](https://github.com/containerd/containerd/blob/main/docs/getting-started.md#advanced-topics)
+中指定的 `containerd config default > /etc/containerd/config.toml` 重置 containerd
+配置，然后相应地设置上述配置参数。
 {{< /note >}}
 
 <!--
@@ -416,6 +457,17 @@ sandbox image by setting the following config:
 You might need to restart `containerd` as well once you've updated the config file: `systemctl restart containerd`.
 -->
 一旦你更新了这个配置文件，可能就同样需要重启 `containerd`：`systemctl restart containerd`。
+
+<!--
+Please note, that it is a best practice for kubelet to declare the matching `pod-infra-container-image`.
+If not configured, kubelet may attempt to garbage collect the `pause` image.
+There is ongoing work in [containerd to pin the pause image](https://github.com/containerd/containerd/issues/6352)
+and not require this setting on kubelet any longer.
+-->
+请注意，声明匹配的 `pod-infra-container-image` 是 kubelet 的最佳实践。
+如果未配置，kubelet 可能会尝试对 `pause` 镜像进行垃圾回收。
+[containerd 固定 pause 镜像](https://github.com/containerd/containerd/issues/6352)的工作正在进行中，
+将不再需要在 kubelet 上进行此设置。
 
 ### CRI-O
 
@@ -495,11 +547,11 @@ Docker Engine with Kubernetes.
 -->
 以下操作假设你使用 [`cri-dockerd`](https://github.com/Mirantis/cri-dockerd) 适配器来将
 Docker Engine 与 Kubernetes 集成。
-{{< /note >}} 
+{{< /note >}}
 
 <!--
 1. On each of your nodes, install Docker for your Linux distribution as per
-   [Install Docker Engine](https://docs.docker.com/engine/install/#server). 
+  [Install Docker Engine](https://docs.docker.com/engine/install/#server).
 -->
 1. 在你的每个节点上，遵循[安装 Docker Engine](https://docs.docker.com/engine/install/#server)
    指南为你的 Linux 发行版安装 Docker。
@@ -539,7 +591,8 @@ visit [MCR Deployment Guide](https://docs.mirantis.com/mcr/20.10/install.html).
 请访问 [MCR 部署指南](https://docs.mirantis.com/mcr/20.10/install.html)。
 
 <!-- 
-Check the systemd unit named `cri-docker.socket` to find out the path to the CRI socket.
+Check the systemd unit named `cri-docker.socket` to find out the path to the CRI
+socket.
 -->
 检查名为 `cri-docker.socket` 的 systemd 单元以找出 CRI 套接字的路径。
 
@@ -562,4 +615,3 @@ As well as a container runtime, your cluster will need a working
 [network plugin](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model).
 -->
 除了容器运行时，你的集群还需要有效的[网络插件](/zh-cn/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model)。
-

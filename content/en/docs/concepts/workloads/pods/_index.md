@@ -32,10 +32,8 @@ for debugging if your cluster offers this.
 ## What is a Pod?
 
 {{< note >}}
-While Kubernetes supports more
-{{< glossary_tooltip text="container runtimes" term_id="container-runtime" >}}
-than just Docker, [Docker](https://www.docker.com/) is the most commonly known
-runtime, and it helps to describe Pods using some terminology from Docker.
+You need to install a [container runtime](/docs/setup/production-environment/container-runtimes/)
+into each node in the cluster so that Pods can run there.
 {{< /note >}}
 
 The shared context of a Pod is a set of Linux namespaces, cgroups, and
@@ -48,7 +46,7 @@ A Pod is similar to a set of containers with shared namespaces and shared filesy
 
 The following is an example of a Pod which consists of a container running the image `nginx:1.14.2`.
 
-{{< codenew file="pods/simple-pod.yaml" >}}
+{{% codenew file="pods/simple-pod.yaml" %}}
 
 To create the Pod shown above, run the following command:
 ```shell
@@ -133,8 +131,11 @@ is not a process, but an environment for running container(s). A Pod persists un
 it is deleted.
 {{< /note >}}
 
-When you create the manifest for a Pod object, make sure the name specified is a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+The name of a Pod must be a valid
+[DNS subdomain](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
+value, but this can produce unexpected results for the Pod hostname.  For best compatibility,
+the name should follow the more restrictive rules for a
+[DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
 ### Pod OS
 
@@ -147,7 +148,7 @@ Kubernetes. In future, this list may be expanded.
 In Kubernetes v{{< skew currentVersion >}}, the value you set for this field has no
 effect on {{< glossary_tooltip text="scheduling" term_id="kube-scheduler" >}} of the pods.
 Setting the `.spec.os.name` helps to identify the pod OS
-authoratitively and is used for validation. The kubelet refuses to run a Pod where you have
+authoritatively and is used for validation. The kubelet refuses to run a Pod where you have
 specified a Pod OS, if this isn't the same as the operating system for the node where
 that kubelet is running.
 The [Pod security standards](/docs/concepts/security/pod-security-standards/) also use this
@@ -286,13 +287,28 @@ section.
 
 ## Privileged mode for containers
 
-In Linux, any container in a Pod can enable privileged mode using the `privileged` (Linux) flag on the [security context](/docs/tasks/configure-pod-container/security-context/) of the container spec. This is useful for containers that want to use operating system administrative capabilities such as manipulating the network stack or accessing hardware devices.
-
-If your cluster has the `WindowsHostProcessContainers` feature enabled, you can create a [Windows HostProcess pod](/docs/tasks/configure-pod-container/create-hostprocess-pod) by setting the `windowsOptions.hostProcess` flag on the security context of the pod spec. All containers in these pods must run as Windows HostProcess containers. HostProcess pods run directly on the host and can also be used to perform administrative tasks as is done with Linux privileged containers.
-
 {{< note >}}
 Your {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}} must support the concept of a privileged container for this setting to be relevant.
 {{< /note >}}
+
+Any container in a pod can run in privileged mode to use operating system administrative capabilities
+that would otherwise be inaccessible. This is available for both Windows and Linux.
+
+### Linux privileged containers
+
+In Linux, any container in a Pod can enable privileged mode using the `privileged` (Linux) flag
+on the [security context](/docs/tasks/configure-pod-container/security-context/) of the
+container spec. This is useful for containers that want to use operating system administrative
+capabilities such as manipulating the network stack or accessing hardware devices.
+
+### Windows privileged containers
+
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
+
+In Windows, you can create a [Windows HostProcess pod](/docs/tasks/configure-pod-container/create-hostprocess-pod) by setting the 
+`windowsOptions.hostProcess` flag on the security context of the pod spec. All containers in these
+pods must run as Windows HostProcess containers. HostProcess pods run directly on the host and can also be used
+to perform administrative tasks as is done with Linux privileged containers.
 
 ## Static Pods
 
@@ -310,7 +326,7 @@ using the kubelet to supervise the individual [control plane components](/docs/c
 The kubelet automatically tries to create a {{< glossary_tooltip text="mirror Pod" term_id="mirror-pod" >}}
 on the Kubernetes API server for each static Pod.
 This means that the Pods running on a node are visible on the API server,
-but cannot be controlled from there.
+but cannot be controlled from there. See the guide [Create static Pods](/docs/tasks/configure-pod-container/static-pod) for more information.
 
 {{< note >}}
 The `spec` of a static Pod cannot refer to other API objects

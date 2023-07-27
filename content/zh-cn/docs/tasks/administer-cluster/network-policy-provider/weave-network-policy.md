@@ -1,7 +1,7 @@
 ---
 title: 使用 Weave Net 提供 NetworkPolicy
 content_type: task
-weight: 50
+weight: 60
 ---
 
 <!--
@@ -9,7 +9,7 @@ reviewers:
 - bboreham
 title: Weave Net for NetworkPolicy
 content_type: task
-weight: 50
+weight: 60
 -->
 
 <!-- overview -->

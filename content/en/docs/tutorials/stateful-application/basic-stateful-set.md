@@ -63,7 +63,7 @@ example presented in the
 It creates a [headless Service](/docs/concepts/services-networking/service/#headless-services),
 `nginx`, to publish the IP addresses of Pods in the StatefulSet, `web`.
 
-{{< codenew file="application/web/web.yaml" >}}
+{{% codenew file="application/web/web.yaml" %}}
 
 Download the example above, and save it to a file named `web.yaml`
 
@@ -130,6 +130,11 @@ web-1     1/1       Running   0         18s
 Notice that the `web-1` Pod is not launched until the `web-0` Pod is
 _Running_ (see [Pod Phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase))
 and _Ready_ (see `type` in [Pod Conditions](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions)).
+
+{{< note >}}
+To configure the integer ordinal assigned to each Pod in a StatefulSet, see
+[Start ordinal](/docs/concepts/workloads/controllers/statefulset/#start-ordinal).
+{{< /note >}}
 
 ## Pods in a StatefulSet
 
@@ -249,8 +254,8 @@ web-0
 web-1
 ```
 then, run:
-```
-kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm /bin/sh
+```shell
+kubectl run -i --tty --image busybox:1.28 dns-test --restart=Never --rm
 ```
 which starts a new shell.  
 In that new shell, run:
@@ -1085,7 +1090,7 @@ terminate all Pods in parallel, and not to wait for Pods to become Running
 and Ready or completely terminated prior to launching or terminating another
 Pod. This option only affects the behavior for scaling operations. Updates are not affected.
 
-{{< codenew file="application/web/web-parallel.yaml" >}}
+{{% codenew file="application/web/web-parallel.yaml" %}}
 
 Download the example above, and save it to a file named `web-parallel.yaml`
 

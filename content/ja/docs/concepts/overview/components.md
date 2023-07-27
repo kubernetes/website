@@ -2,8 +2,8 @@
 title: Kubernetesのコンポーネント
 content_type: concept
 description: >
-  Kubernetesクラスターはコントロールプレーンやノードと呼ばれるマシン群といったコンポーネントからなります。
-weight: 20
+  Kubernetesクラスターはコントロールプレーンのコンポーネントとノードと呼ばれるマシン群で構成されています。
+weight: 30
 card: 
   name: concepts
   weight: 20
@@ -15,11 +15,7 @@ Kubernetesをデプロイすると、クラスターが展開されます。
 
 このドキュメントでは、Kubernetesクラスターが機能するために必要となるさまざまなコンポーネントの概要を説明します。
 
-すべてのコンポーネントが結び付けられたKubernetesクラスターの図を次に示します。
-
-![Kubernetesのコンポーネント](/images/docs/components-of-kubernetes.svg)
-
-
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Kubernetesのコンポーネント" caption="Kubernetesクラスターを構成するコンポーネント" class="diagram-large" >}}
 
 <!-- body -->
 
@@ -28,7 +24,7 @@ Kubernetesをデプロイすると、クラスターが展開されます。
 コントロールプレーンコンポーネントは、クラスターに関する全体的な決定(スケジューリングなど)を行います。また、クラスターイベントの検出および応答を行います(たとえば、deploymentの`replicas`フィールドが満たされていない場合に、新しい {{< glossary_tooltip text="Pod" term_id="pod">}} を起動する等)。
 
 コントロールプレーンコンポーネントはクラスター内のどのマシンでも実行できますが、シンプルにするため、セットアップスクリプトは通常、すべてのコントロールプレーンコンポーネントを同じマシンで起動し、そのマシンではユーザーコンテナを実行しません。
-マルチマスター VMセットアップの例については、[高可用性クラスターの構築](/docs/admin/high-availability/) を参照してください。
+複数のマシンにまたがって実行されるコントロールプレーンのセットアップ例については、[kubeadmを使用した高可用性クラスターの構築](/ja/docs/setup/production-environment/tools/kubeadm/high-availability/) を参照してください。
 
 ### kube-apiserver
 
@@ -49,24 +45,25 @@ Kubernetesをデプロイすると、クラスターが展開されます。
 コントローラーには以下が含まれます。
 
   * ノードコントローラー：ノードがダウンした場合の通知と対応を担当します。
-  * レプリケーションコントローラー：システム内の全レプリケーションコントローラーオブジェクトについて、Podの数を正しく保つ役割を持ちます。
-  * エンドポイントコントローラー：エンドポイントオブジェクトを注入します(つまり、ServiceとPodを紐付けます)。
-  * サービスアカウントとトークンコントローラー：新規の名前空間に対して、デフォルトアカウントとAPIアクセストークンを作成します。
+  * Jobコントローラー：単発タスクを表すJobオブジェクトを監視し、そのタスクを実行して完了させるためのPodを作成します。
+  * EndpointSliceコントローラー：EndpointSliceオブジェクトを作成します(つまり、ServiceとPodを紐付けます)。
+  * ServiceAccountコントローラー：新規の名前空間に対して、デフォルトのServiceAccountを作成します。
 
 ### cloud-controller-manager
 
 {{< glossary_definition term_id="cloud-controller-manager" length="short" >}}
 
 cloud-controller-managerは、クラウドプロバイダー固有のコントローラーのみを実行します。
-KubernetesをオンプレミスあるいはPC内での学習環境で動かす際には、クラスターにcloud container managerはありません。
+Kubernetesをオンプレミスあるいは個人のPC内での学習環境で動かす際には、クラスターにcloud controller managerはありません。
 
-kube-controller-managerを使用すると、cloud-controller-managerは複数の論理的に独立したコントロールループをシングルバイナリにまとめ、これが一つのプロセスとして動作します。パフォーマンスを向上させるあるいは障害に耐えるために水平方向にスケールする(一つ以上のコピーを動かす)ことができます。
+kube-controller-managerと同様に、cloud-controller-managerは複数の論理的に独立したコントロールループをシングルバイナリにまとめ、一つのプロセスとして動作します。パフォーマンスを向上させるあるいは障害に耐えるために水平方向にスケールする(一つ以上のコピーを動かす)ことができます。
 
-次のコントローラーには、クラウドプロバイダーへの依存関係を持つ可能性があります。
+次の各コントローラーは、それぞれ以下に示すような目的のためにクラウドプロバイダーへの依存関係を持つことができるようになっています。
 
-  * ノードコントローラー：ノードが応答を停止した後、クラウドで削除されたかどうかを判断するため、クラウドプロバイダーをチェックします。
-  * ルーティングコントローラー：基盤であるクラウドインフラでルーティングを設定します。
-  * サービスコントローラー：クラウドプロバイダーのロードバランサーの作成、更新、削除を行います。
+  * Nodeコントローラー: ノードが応答を停止した後、クラウドで当該ノードが削除されたかどうかを判断するため
+  * Route コントローラー: 基盤となるクラウドインフラのルートを設定するため
+  * Service コントローラー: クラウドプロバイダーのロードバランサーの作成、更新、削除を行うため
+
 ## ノードコンポーネント {#node-components}
 
 ノードコンポーネントはすべてのノードで実行され、稼働中のPodの管理やKubernetesの実行環境を提供します。
@@ -105,11 +102,11 @@ Kubernetesによって開始されたコンテナは、DNS検索にこのDNSサ�
 
 ### コンテナリソース監視
 
-[コンテナリソース監視](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)は、コンテナに関する一般的な時系列メトリックを中央データベースに記録します。また、そのデータを閲覧するためのUIを提供します。
+[コンテナリソース監視](/ja/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)は、コンテナに関する一般的な時系列メトリックを中央データベースに記録します。また、そのデータを閲覧するためのUIを提供します。
 
-### クラスターレベルログ
+### クラスターレベルのロギング
 
-[クラスターレベルログ](/docs/concepts/cluster-administration/logging/)メカニズムは、コンテナのログを、検索／参照インターフェイスを備えた中央ログストアに保存します。
+[クラスターレベルのロギング](/ja/docs/concepts/cluster-administration/logging/)メカニズムは、コンテナのログを、検索／参照インターフェイスを備えた中央ログストアに保存します。
 
 
 ## {{% heading "whatsnext" %}}

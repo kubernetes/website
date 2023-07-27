@@ -27,7 +27,7 @@ in this task demonstrate a strategic merge patch and a JSON merge patch.
 Here's the configuration file for a Deployment that has two replicas. Each replica
 is a Pod that has one container:
 
-{{< codenew file="application/deployment-patch.yaml" >}}
+{{% codenew file="application/deployment-patch.yaml" %}}
 
 Create the Deployment:
 
@@ -261,7 +261,7 @@ kubectl get deployment patch-demo --output yaml
 The `containers` list that you specified in the patch has only one Container.
 The output shows that your list of one Container replaced the existing `containers` list.
 
-```shell
+```yaml
 spec:
   containers:
   - image: gcr.io/google-samples/node-hello:1.0
@@ -288,7 +288,7 @@ patch-demo-1307768864-c86dc   1/1       Running   0          1m
 
 Here's the configuration file for a Deployment that uses the `RollingUpdate` strategy:
 
-{{< codenew file="application/deployment-retainkeys.yaml" >}}
+{{% codenew file="application/deployment-retainkeys.yaml" %}}
 
 Create the deployment:
 
@@ -434,12 +434,12 @@ kubectl patch deployment patch-demo --patch '{"spec": {"template": {"spec": {"co
 The flag `--subresource=[subresource-name]` is used with kubectl commands like get, patch,
 edit and replace to fetch and update `status` and `scale` subresources of the resources
 (applicable for kubectl version v1.24 or more). This flag is used with all the API resources
-(built-in and CRs) which has `status` or `scale` subresource. Deployment is one of the
+(built-in and CRs) that have `status` or `scale` subresource. Deployment is one of the
 examples which supports these subresources.
 
 Here's a manifest for a Deployment that has two replicas:
 
-{{< codenew file="application/deployment.yaml" >}}
+{{% codenew file="application/deployment.yaml" %}}
 
 Create the Deployment:
 

@@ -1,7 +1,7 @@
 ---
 title: Windows 网络
 content_type: concept
-weight: 75
+weight: 110
 ---
 <!--
 reviewers:
@@ -11,7 +11,7 @@ reviewers:
 - marosset
 title: Networking on Windows
 content_type: concept
-weight: 75
+weight: 110
 -->
 <!-- overview -->
 <!--
@@ -45,7 +45,7 @@ is responsible for the management of networking resources such as:
 Windows 容器网络通过 [CNI 插件](/zh-cn/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/)暴露。
 Windows 容器网络的工作方式与虚拟机类似。
 每个容器都有一个连接到 Hyper-V 虚拟交换机（vSwitch）的虚拟网络适配器（vNIC）。
-主机网络服务（Host Networking Service，HNS）和主机计算服务（Host Comute Service，HCS）
+主机网络服务（Host Networking Service，HNS）和主机计算服务（Host Compute Service，HCS）
 协同创建容器并将容器 vNIC 挂接到网络。
 HCS 负责管理容器，而 HNS 负责管理以下网络资源：
 
@@ -210,7 +210,7 @@ Windows 容器网络与 Linux 网络有着很重要的差异。
 | Session affinity | Ensures that connections from a particular client are passed to the same Pod each time. | Windows Server 2022 | Set `service.spec.sessionAffinity` to "ClientIP" |
 | Direct Server Return (DSR) | Load balancing mode where the IP address fixups and the LBNAT occurs at the container vSwitch port directly; service traffic arrives with the source IP set as the originating pod IP. | Windows Server 2019 | Set the following flags in kube-proxy: `--feature-gates="WinDSR=true" --enable-dsr=true` |
 | Preserve-Destination | Skips DNAT of service traffic, thereby preserving the virtual IP of the target service in packets reaching the backend Pod. Also disables node-node forwarding. | Windows Server, version 1903 | Set `"preserve-destination": "true"` in service annotations and enable DSR in kube-proxy. |
-| IPv4/IPv6 dual-stack networking | Native IPv4-to-IPv4 in parallel with IPv6-to-IPv6 communications to, from, and within a cluster | Windows Server 2019 | See [IPv4/IPv6 dual-stack](#ipv4ipv6-dual-stack) |
+| IPv4/IPv6 dual-stack networking | Native IPv4-to-IPv4 in parallel with IPv6-to-IPv6 communications to, from, and within a cluster | Windows Server 2019 | See [IPv4/IPv6 dual-stack](/docs/concepts/services-networking/dual-stack/#windows-support) |
 | Client IP preservation | Ensures that source IP of incoming ingress traffic gets preserved. Also disables node-node forwarding. |  Windows Server 2019  | Set `service.spec.externalTrafficPolicy` to "Local" and enable DSR in kube-proxy |
 {{< /table >}}
 -->
@@ -220,7 +220,7 @@ Windows 容器网络与 Linux 网络有着很重要的差异。
 | 会话亲和性 | 确保每次都将来自特定客户端的连接传递到同一个 Pod。 | Windows Server 2022 | 将 `service.spec.sessionAffinity` 设为 “ClientIP” |
 | Direct Server Return (DSR) | 在负载均衡模式中 IP 地址修正和 LBNAT 直接发生在容器 vSwitch 端口；服务流量到达时源 IP 设置为原始 Pod IP。 | Windows Server 2019 | 在 kube-proxy 中设置以下标志：`--feature-gates="WinDSR=true" --enable-dsr=true` |
 | 保留目标（Preserve-Destination） | 跳过服务流量的 DNAT，从而在到达后端 Pod 的数据包中保留目标服务的虚拟 IP。也会禁用节点间的转发。 | Windows Server，version 1903 | 在服务注解中设置 `"preserve-destination": "true"` 并在 kube-proxy 中启用 DSR。 |
-| IPv4/IPv6 双栈网络 | 进出集群和集群内通信都支持原生的 IPv4 间与 IPv6 间流量 | Windows Server 2019 | 参考 [IPv4/IPv6 双栈](#ipv4ipv6-dual-stack)。 |
+| IPv4/IPv6 双栈网络 | 进出集群和集群内通信都支持原生的 IPv4 间与 IPv6 间流量 | Windows Server 2019 | 参考 [IPv4/IPv6 双栈](/zh-cn/docs/concepts/services-networking/dual-stack/#windows-support)。 |
 | 客户端 IP 保留 | 确保入站流量的源 IP 得到保留。也会禁用节点间转发。 |  Windows Server 2019  | 将 `service.spec.externalTrafficPolicy` 设置为 “Local” 并在 kube-proxy 中启用 DSR。 |
 {{< /table >}}
 

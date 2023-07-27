@@ -1,6 +1,6 @@
 ---
 title: 调度、抢占和驱逐
-weight: 90
+weight: 95
 content_type: concept
 description: >
   在 Kubernetes 中，调度 (scheduling) 指的是确保 Pod 匹配到合适的节点，
@@ -11,12 +11,12 @@ no_list: true
 
 <!--
 title: "Scheduling, Preemption and Eviction"
-weight: 90
+weight: 95
 content_type: concept
 description: >
   In Kubernetes, scheduling refers to making sure that Pods are matched to Nodes
-  so that the kubelet can run them. Preemption is the process of terminating 
-  Pods with lower Priority so that Pods with higher Priority can schedule on 
+  so that the kubelet can run them. Preemption is the process of terminating
+  Pods with lower Priority so that Pods with higher Priority can schedule on
   Nodes. Eviction is the process of proactively terminating one or more Pods on
   resource-starved Nodes.
 no_list: true
@@ -46,8 +46,10 @@ of terminating one or more Pods on Nodes.
 * [Pod Topology Spread Constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 * [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/)
 * [Scheduling Framework](/docs/concepts/scheduling-eviction/scheduling-framework)
+* [Dynamic Resource Allocation](/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
 * [Scheduler Performance Tuning](/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * [Resource Bin Packing for Extended Resources](/docs/concepts/scheduling-eviction/resource-bin-packing/)
+* [Pod Scheduling Readiness](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
 -->
 
 ## 调度
@@ -57,9 +59,11 @@ of terminating one or more Pods on Nodes.
 * [Pod 开销](/zh-cn/docs/concepts/scheduling-eviction/pod-overhead/)
 * [Pod 拓扑分布约束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 * [污点和容忍度](/zh-cn/docs/concepts/scheduling-eviction/taint-and-toleration/)
+* [动态资源分配](/zh-cn/docs/concepts/scheduling-eviction/dynamic-resource-allocation)
 * [调度框架](/zh-cn/docs/concepts/scheduling-eviction/scheduling-framework)
 * [调度器性能调试](/zh-cn/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
 * [扩展资源的资源装箱](/zh-cn/docs/concepts/scheduling-eviction/resource-bin-packing/)
+* [Pod 调度就绪](/zh-cn/docs/concepts/scheduling-eviction/pod-scheduling-readiness/)
 
 <!--
 ## Pod Disruption

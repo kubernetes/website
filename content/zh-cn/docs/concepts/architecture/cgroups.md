@@ -193,13 +193,22 @@ cgroup v2 使用一个与 cgroup v1 不同的 API，因此如果有任何应用�
  Update these agents to versions that support cgroup v2.
 * If you run [cAdvisor](https://github.com/google/cadvisor) as a stand-alone
  DaemonSet for monitoring pods and containers, update it to v0.43.0 or later.
-* If you use JDK, prefer to use JDK 11.0.16 and later or JDK 15 and later, which [fully support cgroup v2](https://bugs.openjdk.org/browse/JDK-8230305).
+ * If you deploy Java applications, prefer to use versions which fully support cgroup v2:
+    * [OpenJDK / HotSpot](https://bugs.openjdk.org/browse/JDK-8230305): jdk8u372, 11.0.16, 15 and later
+    * [IBM Semeru Runtimes](https://www.eclipse.org/openj9/docs/version0.33/#control-groups-v2-support): jdk8u345-b01, 11.0.16.0, 17.0.4.0, 18.0.2.0 and later
+    * [IBM Java](https://www.ibm.com/docs/en/sdk-java-technology/8?topic=new-service-refresh-7#whatsnew_sr7__fp15): 8.0.7.15 and later
+* If you are using the [uber-go/automaxprocs](https://github.com/uber-go/automaxprocs) package, make sure
+  the version you use is v1.5.1 or higher.
 -->
 * 一些第三方监控和安全代理可能依赖于 cgroup 文件系统。你要将这些代理更新到支持 cgroup v2 的版本。
 * 如果以独立的 DaemonSet 的形式运行 [cAdvisor](https://github.com/google/cadvisor) 以监控 Pod 和容器，
   需将其更新到 v0.43.0 或更高版本。
-* 如果你使用 JDK，推荐使用 JDK 11.0.16 及更高版本或 JDK 15 及更高版本，
-  以便[完全支持 cgroup v2](https://bugs.openjdk.org/browse/JDK-8230305)。
+* 如果你部署 Java 应用程序，最好使用完全支持 cgroup v2 的版本：
+    * [OpenJDK / HotSpot](https://bugs.openjdk.org/browse/JDK-8230305): jdk8u372、11.0.16、15 及更高的版本
+    * [IBM Semeru Runtimes](https://www.eclipse.org/openj9/docs/version0.33/#control-groups-v2-support): jdk8u345-b01、11.0.16.0、17.0.4.0、18.0.2.0 及更高的版本
+    * [IBM Java](https://www.ibm.com/docs/en/sdk-java-technology/8?topic=new-service-refresh-7#whatsnew_sr7__fp15): 8.0.7.15 及更高的版本
+* 如果你正在使用 [uber-go/automaxprocs](https://github.com/uber-go/automaxprocs) 包，
+  确保你使用的版本是 v1.5.1 或者更高。
 
 <!--
 ## Identify the cgroup version on Linux Nodes  {#check-cgroup-version}

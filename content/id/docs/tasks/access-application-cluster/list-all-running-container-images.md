@@ -100,7 +100,7 @@ kubectl get pods --namespace kube-system -o jsonpath="{.items[*].spec.containers
 
 ## Membuat daftar _image_ Container dengan menggunakan go-template sebagai alternatif dari jsonpath
 
-Sebagai alternatif untuk `jsonpath`, kubectl mendukung penggunaan [go-template](https://golang.org/pkg/text/template/)
+Sebagai alternatif untuk `jsonpath`, kubectl mendukung penggunaan [go-template](https://pkg.go.dev/text/template)
 untuk memformat keluaran seperti berikut:
 
 
@@ -122,7 +122,7 @@ kubectl get pods --all-namespaces -o go-template --template="{{range .items}}{{r
 ### Referensi
 
 * Referensi panduan [Jsonpath](/docs/user-guide/jsonpath/).
-* Referensi panduan [Go template](https://golang.org/pkg/text/template/).
+* Referensi panduan [Go template](https://pkg.go.dev/text/template).
 
 
 

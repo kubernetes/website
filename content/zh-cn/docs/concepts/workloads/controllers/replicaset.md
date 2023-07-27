@@ -8,7 +8,11 @@ feature:
     杀死不响应用户定义的健康检查的容器，
     并且在它们准备好服务之前不会将它们公布给客户端。
 content_type: concept
+description: >-
+  ReplicaSet 的作用是维持在任何给定时间运行的一组稳定的副本 Pod。
+  通常，你会定义一个 Deployment，并用这个 Deployment 自动管理 ReplicaSet。
 weight: 20
+hide_summary: true # 在章节索引中单独列出
 ---
 <!--
 reviewers:
@@ -24,7 +28,11 @@ feature:
     kills containers that don't respond to your user-defined health check,
     and doesn't advertise them to clients until they are ready to serve.
 content_type: concept
+description: >-
+  A ReplicaSet's purpose is to maintain a stable set of replica Pods running at any given time.
+  Usually, you define a Deployment and let that Deployment manage ReplicaSets automatically.
 weight: 20
+hide_summary: true # Listed separately in section index
 -->
 
 <!-- overview -->
@@ -357,8 +365,12 @@ In this manner, a ReplicaSet can own a non-homogenous set of Pods
 As with all other Kubernetes API objects, a ReplicaSet needs the `apiVersion`, `kind`, and `metadata` fields.
 For ReplicaSets, the `kind` is always a ReplicaSet.
 
-The name of a ReplicaSet object must be a valid
-[DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).
+When the control plane creates new Pods for a ReplicaSet, the `.metadata.name` of the
+ReplicaSet is part of the basis for naming those Pods.  The name of a ReplicaSet must be a valid
+[DNS subdomain](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
+value, but this can produce unexpected results for the Pod hostnames.  For best compatibility,
+the name should follow the more restrictive rules for a
+[DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 
 A ReplicaSet also needs a [`.spec` section](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
 -->
@@ -367,8 +379,11 @@ A ReplicaSet also needs a [`.spec` section](https://git.k8s.io/community/contrib
 与所有其他 Kubernetes API 对象一样，ReplicaSet 也需要 `apiVersion`、`kind`、和 `metadata` 字段。
 对于 ReplicaSet 而言，其 `kind` 始终是 ReplicaSet。
 
-ReplicaSet 对象的名称必须是合法的
-[DNS 子域名](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)。
+当控制平面为 ReplicaSet 创建新的 Pod 时，ReplicaSet
+的 `.metadata.name` 是命名这些 Pod 的部分基础。ReplicaSet 的名称必须是一个合法的
+[DNS 子域](/zh-cn/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names)值，
+但这可能对 Pod 的主机名产生意外的结果。为获得最佳兼容性，名称应遵循更严格的
+[DNS 标签](/zh-cn/docs/concepts/overview/working-with-objects/names#dns-label-names)规则。
 
 ReplicaSet 也需要
 [`.spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status)
@@ -567,6 +582,9 @@ prioritize scaling down pods based on the following general algorithm:
    （当 `LogarithmicScaleDown` 这一[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
    被启用时，创建时间是按整数幂级来分组的）。
 
+<!--
+If all of the above match, then selection is random.
+-->
 如果以上比较结果都相同，则随机选择。
 
 <!--
@@ -681,7 +699,7 @@ kubectl autoscale rs frontend --max=10 --min=3 --cpu-percent=50
 
 [`Deployment`](/docs/concepts/workloads/controllers/deployment/) is an object which can own ReplicaSets and update
 them and their Pods via declarative, server-side rolling updates.
-While ReplicaSets can be used independently, today they're  mainly used by Deployments as a mechanism to orchestrate Pod
+While ReplicaSets can be used independently, today they're mainly used by Deployments as a mechanism to orchestrate Pod
 creation, deletion and updates. When you use Deployments you don't have to worry about managing the ReplicaSets that
 they create. Deployments own and manage their ReplicaSets.
 As such, it is recommended to use Deployments when you want ReplicaSets.

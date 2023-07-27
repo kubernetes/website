@@ -46,11 +46,6 @@ The support of multihomed SCTP associations requires that the CNI plugin can sup
 
 NAT for multihomed SCTP associations requires special logic in the corresponding kernel modules.
 
-{{< note >}}
-The kube-proxy does not support the management of SCTP associations when it is in userspace mode.
-{{< /note >}}
-
-
 ### `TCP` {#protocol-tcp}
 
 You can use TCP for any kind of Service, and it's the default network protocol.

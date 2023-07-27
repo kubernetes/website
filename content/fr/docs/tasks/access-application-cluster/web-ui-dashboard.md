@@ -29,7 +29,7 @@ L'interface utilisateur du tableau de bord n'est pas déployée par défaut.
 Pour le déployer, exécutez la commande suivante:
 
 ```text
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/aio/deploy/recommended.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/charts/recommended.yaml
 ```
 
 ## Accès à l'interface utilisateur du tableau de bord

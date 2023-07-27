@@ -1,14 +1,14 @@
 ---
 title: 使用 AppArmor 限制容器对资源的访问
 content_type: tutorial
-weight: 10
+weight: 30
 ---
 <!--
 reviewers:
 - stclair
 title: Restrict a Container's Access to Resources with AppArmor
 content_type: tutorial
-weight: 10
+weight: 30
 -->
 
 <!-- overview -->
@@ -193,12 +193,10 @@ gke-test-default-pool-239f5d02-xwux: kubelet is posting ready status. AppArmor e
 {{< note >}}
 <!--
 AppArmor is currently in beta, so options are specified as annotations. Once support graduates to
-general availability, the annotations will be replaced with first-class fields (more details in
-[Upgrade path to GA](#upgrade-path-to-general-availability)).
+general availability, the annotations will be replaced with first-class fields.
 -->
 AppArmor 目前处于 Beta 阶段，因此选项以注解形式设定。
-一旦 AppArmor 支持进入正式发布阶段，注解将被替换为一阶的资源字段
-（更多详情参见[升级到 GA 的途径](#upgrade-path-to-general-availability)）。
+一旦 AppArmor 支持进入正式发布阶段，注解将被替换为一阶的资源字段。
 {{< /note >}}
 
 <!--
@@ -481,7 +479,7 @@ Note the pod status is Pending, with a helpful error message: `Pod Cannot enforc
 
 <!--
 Kubernetes does not currently provide any native mechanisms for loading AppArmor profiles onto
-nodes. There are lots of ways to setup the profiles though, such as:
+nodes. There are lots of ways to set up the profiles though, such as:
 -->
 Kubernetes 目前不提供任何本地机制来将 AppArmor 配置文件加载到节点上。
 有很多方法可以设置配置文件，例如：

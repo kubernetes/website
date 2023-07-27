@@ -39,7 +39,7 @@ Kubernetes captures logs from each container in a running Pod.
 This example uses a manifest for a `Pod` with a container
 that writes text to the standard output stream, once per second.
 
-{{< codenew file="debug/counter-pod.yaml" >}}
+{{% codenew file="debug/counter-pod.yaml" %}}
 
 To run this pod, use the following command:
 
@@ -71,25 +71,27 @@ You can use `kubectl logs --previous` to retrieve logs from a previous instantia
 If your pod has multiple containers, specify which container's logs you want to access by
 appending a container name to the command, with a `-c` flag, like so:
 
-```console
+```shell
 kubectl logs counter -c count
 ```
 
-See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands#logs) for more details.
+See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands#logs)
+for more details.
 
 ### How nodes handle container logs
 
 ![Node level logging](/images/docs/user-guide/logging/logging-node-level.png)
 
-A container runtime handles and redirects any output generated to a containerized application's `stdout` and `stderr` streams.
-Different container runtimes implement this in different ways; however, the integration with the kubelet is standardized
-as the _CRI logging format_.
+A container runtime handles and redirects any output generated to a containerized
+application's `stdout` and `stderr` streams.
+Different container runtimes implement this in different ways; however, the integration
+with the kubelet is standardized as the _CRI logging format_.
 
-By default, if a container restarts, the kubelet keeps one terminated container with its logs. If a pod is evicted from the node,
-all corresponding containers are also evicted, along with their logs.
+By default, if a container restarts, the kubelet keeps one terminated container with its logs.
+If a pod is evicted from the node, all corresponding containers are also evicted, along with their logs.
 
-The kubelet makes logs available to clients via a special feature of the Kubernetes API. The usual way to access this is
-by running `kubectl logs`.
+The kubelet makes logs available to clients via a special feature of the Kubernetes API.
+The usual way to access this is by running `kubectl logs`.
 
 ### Log rotation
 
@@ -97,23 +99,23 @@ by running `kubectl logs`.
 
 You can configure the kubelet to rotate logs automatically.
 
-If you configure rotation, the kubelet is responsible for rotating container logs and managing the logging directory structure.
+If you configure rotation, the kubelet is responsible for rotating container logs and managing the
+logging directory structure.
 The kubelet sends this information to the container runtime (using CRI),
 and the runtime writes the container logs to the given location.
 
-You can configure two kubelet [configuration settings](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration),
+You can configure two kubelet [configuration settings](/docs/reference/config-api/kubelet-config.v1beta1/),
 `containerLogMaxSize` and `containerLogMaxFiles`,
 using the [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/).
-These settings let you configure the maximum size for each log file and the maximum number of files allowed for each container respectively.
+These settings let you configure the maximum size for each log file and the maximum number of
+files allowed for each container respectively.
 
 When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) as in
 the basic logging example, the kubelet on the node handles the request and
 reads directly from the log file. The kubelet returns the content of the log file.
 
-
 {{< note >}}
-Only the contents of the latest log file are available through
-`kubectl logs`.
+Only the contents of the latest log file are available through `kubectl logs`.
 
 For example, if a Pod writes 40 MiB of logs and the kubelet rotates logs
 after 10 MiB, running `kubectl logs` returns at most 10MiB of data.
@@ -148,9 +150,8 @@ If systemd is not present, the kubelet and container runtime write to `.log` fil
 run the kubelet via a helper tool, `kube-log-runner`, and use that tool to redirect
 kubelet logs to a directory that you choose.
 
-You can also set a logging directory using the deprecated kubelet command line
-argument `--log-dir`. However, the kubelet always directs your container runtime to
-write logs into directories within `/var/log/pods`.
+The kubelet always directs your container runtime to write logs into directories within
+`/var/log/pods`.
 
 For more information on `kube-log-runner`, read [System Logs](/docs/concepts/cluster-administration/system-logs/#klog).
 
@@ -201,7 +202,8 @@ as your responsibility.
 
 ## Cluster-level logging architectures
 
-While Kubernetes does not provide a native solution for cluster-level logging, there are several common approaches you can consider. Here are some options:
+While Kubernetes does not provide a native solution for cluster-level logging, there are 
+several common approaches you can consider. Here are some options:
 
 * Use a node-level logging agent that runs on every node.
 * Include a dedicated sidecar container for logging in an application pod.
@@ -211,21 +213,27 @@ While Kubernetes does not provide a native solution for cluster-level logging, t
 
 ![Using a node level logging agent](/images/docs/user-guide/logging/logging-with-node-agent.png)
 
-You can implement cluster-level logging by including a _node-level logging agent_ on each node. The logging agent is a dedicated tool that exposes logs or pushes logs to a backend. Commonly, the logging agent is a container that has access to a directory with log files from all of the application containers on that node.
+You can implement cluster-level logging by including a _node-level logging agent_ on each node.
+The logging agent is a dedicated tool that exposes logs or pushes logs to a backend.
+Commonly, the logging agent is a container that has access to a directory with log files from all of the
+application containers on that node.
 
 Because the logging agent must run on every node, it is recommended to run the agent
 as a `DaemonSet`.
 
-Node-level logging creates only one agent per node and doesn't require any changes to the applications running on the node.
+Node-level logging creates only one agent per node and doesn't require any changes to the
+applications running on the node.
 
-Containers write to stdout and stderr, but with no agreed format. A node-level agent collects these logs and forwards them for aggregation.
+Containers write to stdout and stderr, but with no agreed format. A node-level agent collects
+these logs and forwards them for aggregation.
 
 ### Using a sidecar container with the logging agent {#sidecar-container-with-logging-agent}
 
 You can use a sidecar container in one of the following ways:
 
 * The sidecar container streams application logs to its own `stdout`.
-* The sidecar container runs a logging agent, which is configured to pick up logs from an application container.
+* The sidecar container runs a logging agent, which is configured to pick up logs
+  from an application container.
 
 #### Streaming sidecar container
 
@@ -247,7 +255,7 @@ For example, a pod runs a single container, and the container
 writes to two different log files using two different formats. Here's a
 manifest for the Pod:
 
-{{< codenew file="admin/logging/two-files-counter-pod.yaml" >}}
+{{% codenew file="admin/logging/two-files-counter-pod.yaml" %}}
 
 It is not recommended to write log entries with different formats to the same log
 stream, even if you managed to redirect both components to the `stdout` stream of
@@ -257,7 +265,7 @@ the logs to its own `stdout` stream.
 
 Here's a manifest for a pod that has two sidecar containers:
 
-{{< codenew file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" >}}
+{{% codenew file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" %}}
 
 Now when you run this pod, you can access each log stream separately by
 running the following commands:
@@ -324,7 +332,7 @@ Here are two example manifests that you can use to implement a sidecar container
 The first manifest contains a [`ConfigMap`](/docs/tasks/configure-pod-container/configure-pod-configmap/)
 to configure fluentd.
 
-{{< codenew file="admin/logging/fluentd-sidecar-config.yaml" >}}
+{{% codenew file="admin/logging/fluentd-sidecar-config.yaml" %}}
 
 {{< note >}}
 In the sample configurations, you can replace fluentd with any logging agent, reading
@@ -334,16 +342,19 @@ from any source inside an application container.
 The second manifest describes a pod that has a sidecar container running fluentd.
 The pod mounts a volume where fluentd can pick up its configuration data.
 
-{{< codenew file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" >}}
+{{% codenew file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" %}}
 
 ### Exposing logs directly from the application
 
 ![Exposing logs directly from the application](/images/docs/user-guide/logging/logging-from-application.png)
 
-Cluster-logging that exposes or pushes logs directly from every application is outside the scope of Kubernetes.
+Cluster-logging that exposes or pushes logs directly from every application is outside the scope
+of Kubernetes.
 
 ## {{% heading "whatsnext" %}}
 
 * Read about [Kubernetes system logs](/docs/concepts/cluster-administration/system-logs/)
 * Learn about [Traces For Kubernetes System Components](/docs/concepts/cluster-administration/system-traces/)
-* Learn how to [customise the termination message](/docs/tasks/debug/debug-application/determine-reason-pod-failure/#customizing-the-termination-message) that Kubernetes records when a Pod fails
+* Learn how to [customise the termination message](/docs/tasks/debug/debug-application/determine-reason-pod-failure/#customizing-the-termination-message)
+  that Kubernetes records when a Pod fails
+

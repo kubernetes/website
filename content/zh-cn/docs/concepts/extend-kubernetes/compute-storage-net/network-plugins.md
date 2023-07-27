@@ -123,7 +123,7 @@ work correctly with the iptables proxy.
 -->
 默认情况下，如果未指定 kubelet 网络插件，则使用 `noop` 插件，
 该插件设置 `net/bridge/bridge-nf-call-iptables=1`，以确保简单的配置
-（如带网桥的 Docker ）与 iptables 代理正常工作。
+（如带网桥的 Docker）与 iptables 代理正常工作。
 
 <!--
 ### Loopback CNI
@@ -187,7 +187,8 @@ CNI 网络插件支持 `hostPort`。你可以使用官方
     },
     {
       "type": "portmap",
-      "capabilities": {"portMappings": true}
+      "capabilities": {"portMappings": true},
+      "externalSetMarkChain": "KUBE-MARK-MASQ"
     }
   ]
 }

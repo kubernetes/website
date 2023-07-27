@@ -3,7 +3,7 @@ The file is auto-generated from the Go source code of the component using a gene
 [generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
 to generate the reference documentation, please read
 [Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference conent, please follow the 
+To update the reference content, please follow the 
 [Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
 guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
@@ -118,6 +118,20 @@ Specify a stable IP address or DNS name for the control plane.
 -->
 <p>
 为控制平面指定一个稳定的 IP 地址或 DNS 名称。
+</p>
+</td>
+</tr>
+
+<tr>
+<td colspan="2">--dry-run</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;">
+<!--
+Don't apply any changes; just output what would be done.
+-->
+<p>
+不做任何更改；只输出将要执行的操作。
 </p>
 </td>
 </tr>

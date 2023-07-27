@@ -6,7 +6,7 @@ reviewers:
 - kow3ns
 title: Safely Drain a Node
 content_type: task
-min-kubernetes-server-version: 1.5
+weight: 310
 ---
 
 <!-- overview -->
@@ -15,8 +15,7 @@ optionally respecting the PodDisruptionBudget you have defined.
 
 ## {{% heading "prerequisites" %}}
 
-{{% version-check %}}
-This task also assumes that you have met the following prerequisites:
+This task assumes that you have met the following prerequisites:
   1. You do not require your applications to be highly available during the
      node drain, or
   1. You have read about the [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) concept,
@@ -33,6 +32,11 @@ configure a [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/).
 If availability is important for any applications that run or could run on the node(s)
 that you are draining, [configure a PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/)
 first and then continue following this guide.
+
+It is recommended to set `AlwaysAllow` [Unhealthy Pod Eviction Policy](/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy)
+to your PodDisruptionBudgets to support eviction of misbehaving applications during a node drain.
+The default behavior is to wait for the application pods to become [healthy](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)
+before the drain can proceed.
 
 ## Use `kubectl drain` to remove a node from service
 
@@ -56,6 +60,16 @@ and respecting the PodDisruptionBudget you have defined). It is then safe to
 bring down the node by powering down its physical machine or, if running on a
 cloud platform, deleting its virtual machine.
 
+{{< note >}}
+If any new Pods tolerate the `node.kubernetes.io/unschedulable` taint, then those Pods
+might be scheduled to the node you have drained. Avoid tolerating that taint other than
+for DaemonSets.
+
+If you or another API user directly set the [`nodeName`](/docs/concepts/scheduling-eviction/assign-pod-node/#nodename)
+field for a Pod (bypassing the scheduler), then the Pod is bound to the specified node
+and will run there, even though you have drained that node and marked it unschedulable.
+{{< /note >}}
+
 First, identify the name of the node you wish to drain. You can list all of the nodes in your cluster with
 
 ```shell
@@ -65,8 +79,15 @@ kubectl get nodes
 Next, tell Kubernetes to drain the node:
 
 ```shell
-kubectl drain <node name>
+kubectl drain --ignore-daemonsets <node name>
 ```
+
+If there are pods managed by a DaemonSet, you will need to specify
+`--ignore-daemonsets` with `kubectl` to successfully drain the node. The `kubectl drain` subcommand on its own does not actually drain
+a node of its DaemonSet pods:
+the DaemonSet controller (part of the control plane) immediately replaces missing Pods with
+new equivalent Pods. The DaemonSet controller also creates Pods that ignore unschedulable
+taints, which allows the new Pods to launch onto a node that you are draining.
 
 Once it returns (without giving an error), you can power down the node
 (or equivalently, if on a cloud platform, delete the virtual machine backing the node).
@@ -88,10 +109,11 @@ respect the PodDisruptionBudget you specify.
 For example, if you have a StatefulSet with three replicas and have
 set a PodDisruptionBudget for that set specifying `minAvailable: 2`,
 `kubectl drain` only evicts a pod from the StatefulSet if all three
-replicas pods are ready; if then you issue multiple drain commands in
-parallel, Kubernetes respects the PodDisruptionBudget and ensure
-that only 1 (calculated as `replicas - minAvailable`) Pod is unavailable
-at any given time. Any drains that would cause the number of ready
+replicas pods are [healthy](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod);
+if then you issue multiple drain commands in parallel,
+Kubernetes respects the PodDisruptionBudget and ensures that
+only 1 (calculated as `replicas - minAvailable`) Pod is unavailable
+at any given time. Any drains that would cause the number of [healthy](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)
 replicas to fall below the specified budget are blocked.
 
 ## The Eviction API {#eviction-api}

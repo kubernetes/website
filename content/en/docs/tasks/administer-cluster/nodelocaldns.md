@@ -5,6 +5,7 @@ reviewers:
 - sftim
 title: Using NodeLocal DNSCache in Kubernetes Clusters
 content_type: task
+weight: 390
 ---
  
 <!-- overview -->

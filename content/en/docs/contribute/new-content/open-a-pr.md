@@ -65,8 +65,7 @@ class id1 k8s
 
 Figure 1. Steps for opening a PR using GitHub.
 
-1. On the page where you see the issue, select the pencil icon at the top right.
-   You can also scroll to the bottom of the page and select **Edit this page**.
+1. On the page where you see the issue, select the **Edit this page** option in the right-hand side navigation panel.
 
 1. Make your changes in the GitHub markdown editor.
 
@@ -168,7 +167,7 @@ Figure 2. Working from a local fork to make your changes.
 1. In a terminal window, clone your fork and update the [Docsy Hugo theme](https://github.com/google/docsy#readme):
 
    ```shell
-   git clone git@github.com/<github_username>/website
+   git clone git@github.com:<github_username>/website
    cd website
    git submodule update --init --recursive --depth 1
    ```

@@ -162,11 +162,16 @@ that the API server certificate is valid under the root CA.
 以及 API 服务器证书在根 CA 下是否有效。
 
 <!--
-The CA key hash has the format `sha256:<hex_encoded_hash>`. By default, the hash value is returned in the `kubeadm join` command printed at the end of `kubeadm init` or in the output of `kubeadm token create --print-join-command`. It is in a standard format (see [RFC7469](https://tools.ietf.org/html/rfc7469#section-2.4)) and can also be calculated by 3rd party tools or provisioning systems. For example, using the OpenSSL CLI:
+The CA key hash has the format `sha256:<hex_encoded_hash>`.
+By default, the hash value is printed at the end of the `kubeadm init` command or
+in the output from the `kubeadm token create --print-join-command` command.
+It is in a standard format (see [RFC7469](https://tools.ietf.org/html/rfc7469#section-2.4))
+and can also be calculated by 3rd party tools or provisioning systems.
+For example, using the OpenSSL CLI:
 -->
 CA 键哈希格式为 `sha256:<hex_encoded_hash>`。
-默认情况下，在 `kubeadm init` 最后打印的 `kubeadm join` 命令
-或者 `kubeadm token create --print-join-command` 的输出信息中返回哈希值。
+默认情况下，哈希值会打印在 `kubeadm init` 命令输出的末尾
+或者从 `kubeadm token create --print-join-command` 命令的输出信息中返回。
 它使用标准格式（请参考 [RFC7469](https://tools.ietf.org/html/rfc7469#section-2.4)）
 并且也能通过第三方工具或者制备系统进行计算。
 例如，使用 OpenSSL CLI：
@@ -355,6 +360,45 @@ In case the discovery file does not contain credentials, the TLS discovery token
   这可能通过你的云提供商或供应工具来实现。
 
 <!--
+#### Use of custom kubelet credentials with `kubeadm join`
+-->
+#### 将自定义 kubelet 凭据与 `kubeadm join` 结合使用
+
+<!--
+To allow `kubeadm join` to use predefined kubelet credentials and skip client TLS bootstrap 
+and CSR approval for a new node:
+-->
+要允许 `kubeadm join` 使用预定义的 kubelet 凭据并跳过客户端 TLS 引导程序和新节点的 CSR 批准：
+
+<!--
+1. From a working control plane node in the cluster that has `/etc/kubernetes/pki/ca.key`
+   execute `kubeadm kubeconfig user --org system:nodes --client-name system:node:$NODE > kubelet.conf`.
+   `$NODE` must be set to the name of the new node.
+2. Modify the resulted `kubelet.conf` manually to adjust the cluster name and the server endpoint,
+   or run `kubeadm kubeconfig user --config` (it accepts `InitConfiguration`). 
+-->
+1. 从集群中带有 `/etc/kubernetes/pki/ca.key` 的工作控制平面节点执行
+   `kubeadm kubeconfig user --org system:nodes --client-name system:node:$NODE > kubelet.conf`。
+   `$NODE` 必须设置为新节点的名称。
+2. 手动修改生成的 `kubelet.conf` 以调整集群名称和服务器端点，
+   或运行 `kubeadm kubeconfig user --config`（它接受 `InitConfiguration`）。
+
+<!--
+If your cluster does not have the `ca.key` file, you must sign the embedded certificates in 
+the `kubelet.conf` externally.
+-->
+如果集群没有 `ca.key` 文件，你必须在外部对 `kubelet.conf` 中嵌入的证书进行签名。
+
+<!--
+1. Copy the resulting `kubelet.conf` to `/etc/kubernetes/kubelet.conf` on the new node.
+2. Execute `kubeadm join` with the flag
+   `--ignore-preflight-errors=FileAvailable--etc-kubernetes-kubelet.conf` on the new node.
+-->
+1. 将生成的 `kubelet.conf` 复制为新节点上的 `/etc/kubernetes/kubelet.conf`。
+2. 在新节点上带着标志
+   `--ignore-preflight-errors=FileAvailable--etc-kubernetes-kubelet.conf` 执行 `kubeadm join`。
+
+<!--
 ### Securing your installation even more {#securing-more}
 -->
 ### 确保你的安装更加安全 {#securing-more}
@@ -378,7 +422,7 @@ automatically approve kubelet client certs, you can turn it off by executing thi
 -->
 默认情况下，Kubernetes 启用了 CSR 自动批准器，如果在身份验证时使用启动引导令牌，
 它会批准对 kubelet 的任何客户端证书的请求。
-如果不希望集群自动批准kubelet客户端证书，可以通过执行以下命令关闭它：
+如果不希望集群自动批准 kubelet 客户端证书，可以通过执行以下命令关闭它：
 
 ```shell
 kubectl delete clusterrolebinding kubeadm:node-autoapprove-bootstrap
@@ -402,15 +446,15 @@ After that, `kubeadm join` will block until the admin has manually approved the 
    The output is similar to this:
    -->
    输出类似于：
-   
+
    ```
    NAME                                                   AGE       REQUESTOR                 CONDITION
    node-csr-c69HXe7aYcqkS1bKmH4faEnHAWxn6i2bHZ2mD04jZyQ   18s       system:bootstrap:878f07   Pending
    ```
 
 <!--
-2. `kubectl certificate approve` allows the admin to approve CSR. This action tells a certificate signing
-  controller to issue a certificate to the requestor with the attributes requested in the CSR.
+2. `kubectl certificate approve` allows the admin to approve CSR.This action tells a certificate signing
+   controller to issue a certificate to the requestor with the attributes requested in the CSR.
 -->
 2. `kubectl certificate approve` 允许管理员批准 CSR。
    此操作告知证书签名控制器向请求者颁发一个证书，该证书具有 CSR 中所请求的那些属性。
@@ -475,7 +519,7 @@ it off regardless. Doing so will disable the ability to use the `--discovery-tok
 * 从 API 服务器获取 `cluster-info` 文件：
 
 ```shell
-kubectl -n kube-public get cm cluster-info -o yaml | grep "kubeconfig:" -A11 | grep "apiVersion" -A10 | sed "s/    //" | tee cluster-info.yaml
+kubectl -n kube-public get cm cluster-info -o jsonpath='{.data.kubeconfig}' | tee cluster-info.yaml
 ```
 
 <!--
@@ -573,4 +617,3 @@ For more information on the fields and usage of the configuration you can naviga
   管理 `kubeadm join` 的令牌。
 * [kubeadm reset](/zh-cn/docs/reference/setup-tools/kubeadm/kubeadm-reset/)
   将 `kubeadm init` 或 `kubeadm join` 对主机的更改恢复到之前状态。
-

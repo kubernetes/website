@@ -150,6 +150,18 @@ IPv6 CIDR 的一个例子：`fdXY:IJKL:MNOP:15::/64`
 （这里演示的是格式而非有效地址 - 请看 [RFC 4193](https://tools.ietf.org/html/rfc4193)）。
 {{< /note >}}
 
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+
+<!--
+When using an external cloud provider, you can pass a dual-stack `--node-ip` value to
+kubelet if you enable the `CloudDualStackNodeIPs` feature gate in both kubelet and the
+external cloud provider. This is only supported for cloud providers that support dual
+stack clusters.
+-->
+使用外部云驱动时，如果你在 kubelet 和外部云提供商中都启用了
+`CloudDualStackNodeIPs` 特性门控，则可以将双栈 `--node-ip`
+值传递给 kubelet。此特性需要保证云提供商支持双栈集群。
+
 <!--
 ## Services
 -->

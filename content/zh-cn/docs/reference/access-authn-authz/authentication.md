@@ -7,7 +7,6 @@ weight: 10
 reviewers:
 - erictune
 - lavalamp
-- ericchiang
 - deads2k
 - liggitt
 title: Authenticating
@@ -275,9 +274,9 @@ Authorization: Bearer 781292.db7bc3a58fc5f07e
 
 <!--
 You must enable the Bootstrap Token Authenticator with the
-`-enable-bootstrap-token-auth` flag on the API Server.  You must enable
-the TokenCleaner controller via the `-controllers` flag on the Controller
-Manager.  This is done with something like `-controllers=*,tokencleaner`.
+`--enable-bootstrap-token-auth` flag on the API Server.  You must enable
+the TokenCleaner controller via the `--controllers` flag on the Controller
+Manager.  This is done with something like `--controllers=*,tokencleaner`.
 `kubeadm` will do this for you if you are using it to bootstrap a cluster.
 -->
 你必须在 API 服务器上设置 `--enable-bootstrap-token-auth` 标志来启用基于启动引导令牌的身份认证组件。
@@ -495,26 +494,26 @@ sequenceDiagram
 {{< /mermaid >}}
 
 <!--
-1.  Login to your identity provider
-2.  Your identity provider will provide you with an `access_token`, `id_token` and a `refresh_token`
-3.  When using `kubectl`, use your `id_token` with the `-token` flag or add it directly to your `kubeconfig`
-4.  `kubectl` sends your `id_token` in a header called Authorization to the API server
-5.  The API server will make sure the JWT signature is valid by checking against the certificate named in the configuration
-6.  Check to make sure the `id_token` hasn't expired
-7.  Make sure the user is authorized
-8.  Once authorized the API server returns a response to `kubectl`
-9.  `kubectl` provides feedback to the user
+1. Login to your identity provider
+2. Your identity provider will provide you with an `access_token`, `id_token` and a `refresh_token`
+3. When using `kubectl`, use your `id_token` with the `--token` flag or add it directly to your `kubeconfig`
+4. `kubectl` sends your `id_token` in a header called Authorization to the API server
+5. The API server will make sure the JWT signature is valid by checking against the certificate named in the configuration
+6. Check to make sure the `id_token` hasn't expired
+7. Make sure the user is authorized
+8. Once authorized the API server returns a response to `kubectl`
+9. `kubectl` provides feedback to the user
 -->
-1.  登录到你的身份服务（Identity Provider）
-2.  你的身份服务将为你提供 `access_token`、`id_token` 和 `refresh_token`
-3.  在使用 `kubectl` 时，将 `id_token` 设置为 `--token` 标志值，或者将其直接添加到
-    `kubeconfig` 中
-4.  `kubectl` 将你的 `id_token` 放到一个称作 `Authorization` 的头部，发送给 API 服务器
-5.  API 服务器将负责通过检查配置中引用的证书来确认 JWT 的签名是合法的
-6.  检查确认 `id_token` 尚未过期
-7.  确认用户有权限执行操作
-8.  鉴权成功之后，API 服务器向 `kubectl` 返回响应
-9.  `kubectl` 向用户提供反馈信息
+1. 登录到你的身份服务（Identity Provider）
+2. 你的身份服务将为你提供 `access_token`、`id_token` 和 `refresh_token`
+3. 在使用 `kubectl` 时，将 `id_token` 设置为 `--token` 标志值，或者将其直接添加到
+   `kubeconfig` 中
+4. `kubectl` 将你的 `id_token` 放到一个称作 `Authorization` 的头部，发送给 API 服务器
+5. API 服务器将负责通过检查配置中引用的证书来确认 JWT 的签名是合法的
+6. 检查确认 `id_token` 尚未过期
+7. 确认用户有权限执行操作
+8. 鉴权成功之后，API 服务器向 `kubectl` 返回响应
+9. `kubectl` 向用户提供反馈信息
 
 <!--
 Since all of the data needed to validate who you are is in the `id_token`, Kubernetes doesn't need to
@@ -589,7 +588,7 @@ tokens on behalf of another.
 Kubernetes does not provide an OpenID Connect Identity Provider.
 You can use an existing public OpenID Connect Identity Provider (such as Google, or
 [others](https://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)).
-Or, you can run your own Identity Provider, such as CoreOS [dex](https://github.com/coreos/dex),
+Or, you can run your own Identity Provider, such as [dex](https://dexidp.io/),
 [Keycloak](https://github.com/keycloak/keycloak),
 CloudFoundry [UAA](https://github.com/cloudfoundry/uaa), or
 Tremolo Security's [OpenUnison](https://openunison.github.io/).
@@ -597,8 +596,7 @@ Tremolo Security's [OpenUnison](https://openunison.github.io/).
 Kubernetes 并未提供 OpenID Connect 的身份服务。
 你可以使用现有的公共的 OpenID Connect 身份服务
 （例如 Google 或者[其他服务](https://connect2id.com/products/nimbus-oauth-openid-connect-sdk/openid-connect-providers)）。
-或者，你也可以选择自己运行一个身份服务，例如
-CoreOS [dex](https://github.com/coreos/dex)、
+或者，你也可以选择自己运行一个身份服务，例如 [dex](https://dexidp.io/)、
 [Keycloak](https://github.com/keycloak/keycloak)、
 CloudFoundry [UAA](https://github.com/cloudfoundry/uaa) 或者
 Tremolo Security 的 [OpenUnison](https://openunison.github.io/)。
@@ -735,6 +733,9 @@ Webhook authentication is a hook for verifying bearer tokens.
 
 * `--authentication-token-webhook-config-file` a configuration file describing how to access the remote webhook service.
 * `--authentication-token-webhook-cache-ttl` how long to cache authentication decisions. Defaults to two minutes.
+* `--authentication-token-webhook-version` determines whether to use `authentication.k8s.io/v1beta1` or `authentication.k8s.io/v1` 
+  `TokenReview` objects to send/receive information from the webhook. Defaults to `v1beta1`.
+
 -->
 ### Webhook 令牌身份认证   {#webhook-token-authentication}
 
@@ -744,6 +745,9 @@ Webhook 身份认证是一种用来验证持有者令牌的回调机制。
   其中描述如何访问远程的 Webhook 服务。
 * `--authentication-token-webhook-cache-ttl` 用来设定身份认证决定的缓存时间。
   默认时长为 2 分钟。
+* `--authentication-token-webhook-version` 决定是使用 `authentication.k8s.io/v1beta1` 还是
+  `authenticationk8s.io/v1` 版本的 `TokenReview` 对象从 webhook 发送/接收信息。
+  默认为“v1beta1”。
 
 <!--
 The configuration file uses the [kubeconfig](/docs/concepts/configuration/organize-cluster-access-kubeconfig/)
@@ -1986,6 +1990,200 @@ The following `ExecCredential` manifest describes a cluster information sample.
 ```
 {{% /tab %}}
 {{< /tabs >}}
+
+<!--
+## API access to authentication information for a client {#self-subject-review}
+-->
+## 为客户端提供的对身份验证信息的 API 访问   {#self-subject-review}
+
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
+
+<!--
+If your cluster has the API enabled, you can use the `SelfSubjectReview` API to find out how your Kubernetes cluster maps your authentication information to identify you as a client. This works whether you are authenticating as a user (typically representing a real person) or as a ServiceAccount.
+
+`SelfSubjectReview` objects do not have any configurable fields. On receiving a request, the Kubernetes API server fills the status with the user attributes and returns it to the user.
+
+Request example (the body would be a `SelfSubjectReview`):
+-->
+如果集群启用了此 API，你可以使用 `SelfSubjectReview` API 来了解 Kubernetes
+集群如何映射你的身份验证信息从而将你识别为某客户端。无论你是作为用户（通常代表一个真的人）还是作为
+ServiceAccount 进行身份验证，这一 API 都可以使用。
+
+`SelfSubjectReview` 对象没有任何可配置的字段。
+Kubernetes API 服务器收到请求后，将使用用户属性填充 status 字段并将其返回给用户。
+
+请求示例（主体将是 `SelfSubjectReview`）：
+
+```
+POST /apis/authentication.k8s.io/v1beta1/selfsubjectreviews
+```
+
+```json
+{
+  "apiVersion": "authentication.k8s.io/v1beta1",
+  "kind": "SelfSubjectReview"
+}
+```
+
+<!--
+Response example:
+-->
+响应示例：
+
+```json
+{
+  "apiVersion": "authentication.k8s.io/v1beta1",
+  "kind": "SelfSubjectReview",
+  "status": {
+    "userInfo": {
+      "name": "jane.doe",
+      "uid": "b6c7cfd4-f166-11ec-8ea0-0242ac120002",
+      "groups": [
+        "viewers",
+        "editors",
+        "system:authenticated"
+      ],
+      "extra": {
+        "provider_id": ["token.company.example"]
+      }
+    }
+  }
+}
+```
+
+<!--
+For convenience, the `kubectl auth whoami` command is present. Executing this command will produce the following output (yet different user attributes will be shown):
+
+* Simple output example
+-->
+为了方便，Kubernetes 提供了 `kubectl auth whoami` 命令。
+执行此命令将产生以下输出（但将显示不同的用户属性）：
+
+* 简单的输出示例
+
+  ```
+  ATTRIBUTE         VALUE
+  Username          jane.doe
+  Groups            [system:authenticated]
+  ```
+
+<!--
+* Complex example including extra attributes
+-->
+* 包括额外属性的复杂示例
+
+  ```
+  ATTRIBUTE         VALUE
+  Username          jane.doe
+  UID               b79dbf30-0c6a-11ed-861d-0242ac120002
+  Groups            [students teachers system:authenticated]
+  Extra: skills     [reading learning]
+  Extra: subjects   [math sports]
+  ```
+
+<!--
+By providing the output flag, it is also possible to print the JSON or YAML representation of the result:
+-->
+通过提供 output 标志，也可以打印结果的 JSON 或 YAML 表现形式：
+
+{{< tabs name="self_subject_attributes_review_Example_1" >}}
+{{% tab name="JSON" %}}
+```json
+{
+  "apiVersion": "authentication.k8s.io/v1alpha1",
+  "kind": "SelfSubjectReview",
+  "status": {
+    "userInfo": {
+      "username": "jane.doe",
+      "uid": "b79dbf30-0c6a-11ed-861d-0242ac120002",
+      "groups": [
+        "students",
+        "teachers",
+        "system:authenticated"
+      ],
+      "extra": {
+        "skills": [
+          "reading",
+          "learning"
+        ],
+        "subjects": [
+          "math",
+          "sports"
+        ]
+      }
+    }
+  }
+}
+```
+{{% /tab %}}
+
+{{% tab name="YAML" %}}
+```yaml
+apiVersion: authentication.k8s.io/v1alpha1
+kind: SelfSubjectReview
+status:
+  userInfo:
+    username: jane.doe
+    uid: b79dbf30-0c6a-11ed-861d-0242ac120002
+    groups:
+    - students
+    - teachers
+    - system:authenticated
+    extra:
+      skills:
+      - reading
+      - learning
+      subjects:
+      - math
+      - sports
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+<!--
+This feature is extremely useful when a complicated authentication flow is used in a Kubernetes cluster, 
+for example, if you use [webhook token authentication](/docs/reference/access-authn-authz/authentication/#webhook-token-authentication) or [authenticating proxy](/docs/reference/access-authn-authz/authentication/#authenticating-proxy).
+-->
+在 Kubernetes 集群中使用复杂的身份验证流程时，例如如果你使用
+[Webhook 令牌身份验证](/zh-cn/docs/reference/access-authn-authz/authentication/#webhook-token-authentication)或[身份验证代理](/zh-cn/docs/reference/access-authn-authz/authentication/#authenticating-proxy)时，
+此特性极其有用。
+
+{{< note >}}
+<!--
+The Kubernetes API server fills the `userInfo` after all authentication mechanisms are applied,
+including [impersonation](/docs/reference/access-authn-authz/authentication/#user-impersonation).
+If you, or an authentication proxy, make a SelfSubjectReview using impersonation,
+you see the user details and properties for the user that was impersonated.
+-->
+Kubernetes API 服务器在所有身份验证机制
+（包括[伪装](/zh-cn/docs/reference/access-authn-authz/authentication/#user-impersonation)），
+被应用后填充 `userInfo`，
+如果你或某个身份验证代理使用伪装进行 SelfSubjectReview，你会看到被伪装用户的用户详情和属性。
+{{< /note >}}
+
+<!--
+By default, all authenticated users can create `SelfSubjectReview` objects when the `APISelfSubjectReview` feature is enabled. It is allowed by the `system:basic-user` cluster role.
+-->
+默认情况下，所有经过身份验证的用户都可以在 `APISelfSubjectReview` 特性被启用时创建 `SelfSubjectReview` 对象。
+这是 `system:basic-user` 集群角色允许的操作。
+
+{{< note >}}
+<!--
+You can only make `SelfSubjectReview` requests if:
+* the `APISelfSubjectReview`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+  is enabled for your cluster (enabled by default after reaching Beta)
+* the API server for your cluster has the `authentication.k8s.io/v1alpha1` or `authentication.k8s.io/v1beta1`
+  {{< glossary_tooltip term_id="api-group" text="API group" >}}
+  enabled.
+-->
+你只能在以下情况下进行 `SelfSubjectReview` 请求：
+
+* 集群启用了 `APISelfSubjectReview` (Beta 版本默认启用)
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
+* 集群的 API 服务器已启用 `authentication.k8s.io/v1alpha1` 或者 `authentication.k8s.io/v1beta1`
+  {{< glossary_tooltip term_id="api-group" text="API 组" >}}。。
+{{< /note >}}
 
 ## {{% heading "whatsnext" %}}
 

@@ -18,7 +18,7 @@ min-kubernetes-server-version: 1.16
 
 Server-Side Apply helps users and controllers manage their resources through
 declarative configurations. Clients can create and modify their
-[objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/)
+{{< glossary_tooltip text="objects" term_id="object" >}}
 declaratively by sending their fully specified intent.
 
 A fully specified intent is a partial object that only includes the fields and
@@ -332,7 +332,7 @@ resource and its accompanying controller.
 
 Say a user has defined deployment with `replicas` set to the desired value:
 
-{{< codenew file="application/ssa/nginx-deployment.yaml" >}}
+{{% codenew file="application/ssa/nginx-deployment.yaml" %}}
 
 And the user has created the deployment using Server-Side Apply like so:
 
@@ -366,12 +366,26 @@ There are two solutions:
 
 First, the user defines a new configuration containing only the `replicas` field:
 
-{{< codenew file="application/ssa/nginx-deployment-replicas-only.yaml" >}}
+```yaml
+# Save this file as 'nginx-deployment-replicas-only.yaml'.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 3
+```
+
+{{< note >}}
+The YAML file for SSA in this case only contains the fields you want to change.
+You are not supposed to provide a fully compliant Deployment manifest if you only
+want to modify the `spec.replicas` field using SSA.
+{{< /note >}}
 
 The user applies that configuration using the field manager name `handover-to-hpa`:
 
 ```shell
-kubectl apply -f https://k8s.io/examples/application/ssa/nginx-deployment-replicas-only.yaml \
+kubectl apply -f nginx-deployment-replicas-only.yaml \
   --server-side --field-manager=handover-to-hpa \
   --validate=false
 ```
@@ -382,7 +396,7 @@ process than it sometimes does.
 
 At this point the user may remove the `replicas` field from their configuration.
 
-{{< codenew file="application/ssa/nginx-deployment-no-replicas.yaml" >}}
+{{% codenew file="application/ssa/nginx-deployment-no-replicas.yaml" %}}
 
 Note that whenever the HPA controller sets the `replicas` field to a new value,
 the temporary field manager will no longer own any fields and will be

@@ -1,6 +1,6 @@
 ---
 title: "Changing the Container Runtime on a Node from Docker Engine to containerd"
-weight: 8
+weight: 10
 content_type: task 
 ---
 
@@ -98,8 +98,7 @@ then run the following commands:
 
 ## Configure the kubelet to use containerd as its container runtime
 
-Edit the file `/var/lib/kubelet/kubeadm-flags.env` and add the containerd runtime to the flags.
-`--container-runtime=remote` and
+Edit the file `/var/lib/kubelet/kubeadm-flags.env` and add the containerd runtime to the flags;
 `--container-runtime-endpoint=unix:///run/containerd/containerd.sock`.
 
 Users using kubeadm should be aware that the `kubeadm` tool stores the CRI socket for each host as
@@ -134,7 +133,7 @@ Run `kubectl get nodes -o wide` and containerd appears as the runtime for the no
 
 {{% thirdparty-content %}}
 
-Finally if everything goes well, remove Docker.
+If the node appears healthy, remove Docker.
 
 {{< tabs name="tab-remove-docker-engine" >}}
 {{% tab name="CentOS" %}}
@@ -169,3 +168,11 @@ To delete them, follow Docker's instructions to [Uninstall Docker Engine](https:
 {{< caution >}}
 Docker's instructions for uninstalling Docker Engine create a risk of deleting containerd. Be careful when executing commands.
 {{< /caution >}}
+
+## Uncordon the node 
+
+```shell
+kubectl uncordon <node-to-uncordon>
+```
+
+Replace `<node-to-uncordon>` with the name of your node you previously drained.

@@ -58,7 +58,7 @@ Minikube поддерживает следующие возможности Kube
     Давайте создадим развёртывание (Deployment) в Kubernetes, используя существующий образ `echoserver`, представляющий простой HTTP-сервер, и сделаем его доступным на порту 8080 с помощью `--port`.
 
     ```shell
-    kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.10
+    kubectl create deployment hello-minikube --image=registry.k8s.io/echoserver:1.10
     ```
 
     Вывод будет примерно следующим:
@@ -219,10 +219,10 @@ Minikube также создает контекст "minikube" и устанав
 
 #### Указание версии Kubernetes
 
-Вы можете указать используемую версию Kubernetes в Minikube, добавив параметр `--kubernetes-version` в команду `minikube start`. Например, чтобы запустить Minikube из-под версии {{< param "fullversion" >}}, вам нужно выполнить следующую команду:
+Вы можете указать используемую версию Kubernetes в Minikube, добавив параметр `--kubernetes-version` в команду `minikube start`. Например, чтобы запустить Minikube из-под версии {{< skew currentPatchVersion >}}, вам нужно выполнить следующую команду:
 
 ```shell
-minikube start --kubernetes-version {{< param "fullversion" >}}
+minikube start --kubernetes-version {{< skew currentPatchVersion >}}
 ```
 
 #### Указание драйвера виртуальной машины

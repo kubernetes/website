@@ -5,7 +5,7 @@ reviewers:
 - saschagrunert
 title: Restrict a Container's Syscalls with seccomp
 content_type: tutorial
-weight: 20
+weight: 40
 min-kubernetes-server-version: v1.22
 ---
 
@@ -64,13 +64,13 @@ into the cluster.
 
 {{< tabs name="tab_with_code" >}}
 {{< tab name="audit.json" >}}
-{{< codenew file="pods/security/seccomp/profiles/audit.json" >}}
+{{% codenew file="pods/security/seccomp/profiles/audit.json" %}}
 {{< /tab >}}
 {{< tab name="violation.json" >}}
-{{< codenew file="pods/security/seccomp/profiles/violation.json" >}}
+{{% codenew file="pods/security/seccomp/profiles/violation.json" %}}
 {{< /tab >}}
 {{< tab name="fine-grained.json" >}}
-{{< codenew file="pods/security/seccomp/profiles/fine-grained.json" >}}
+{{% codenew file="pods/security/seccomp/profiles/fine-grained.json" %}}
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -97,7 +97,7 @@ so each node of the cluster is a container. This allows for files
 to be mounted in the filesystem of each container similar to loading files
 onto a node.
 
-{{< codenew file="pods/security/seccomp/kind.yaml" >}}
+{{% codenew file="pods/security/seccomp/kind.yaml" %}}
 
 Download that example kind configuration, and save it to a file named `kind.yaml`:
 ```shell
@@ -156,14 +156,12 @@ running within kind.
 
 ## Enable the use of `RuntimeDefault` as the default seccomp profile for all workloads
 
-{{< feature-state state="beta" for_k8s_version="v1.25" >}}
+{{< feature-state state="stable" for_k8s_version="v1.27" >}}
 
-To use seccomp profile defaulting, you must run the kubelet with the `SeccompDefault`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled
-(this is the default). You must also explicitly enable the defaulting behavior for each
-node where you want to use this with the corresponding `--seccomp-default`
-[command line flag](/docs/reference/command-line-tools-reference/kubelet).
-Both have to be enabled simultaneously to use the feature.
+To use seccomp profile defaulting, you must run the kubelet with the
+`--seccomp-default`
+[command line flag](/docs/reference/command-line-tools-reference/kubelet)
+enabled for each node where you want to use it. 
 
 If enabled, the kubelet will use the `RuntimeDefault` seccomp profile by default, which is
 defined by the container runtime, instead of using the `Unconfined` (seccomp disabled) mode.
@@ -200,10 +198,8 @@ in the related Kubernetes Enhancement Proposal (KEP):
 
 Kubernetes {{< skew currentVersion >}} lets you configure the seccomp profile
 that applies when the spec for a Pod doesn't define a specific seccomp profile.
-This is a beta feature and the corresponding `SeccompDefault` [feature
-gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled by
-default. However, you still need to enable this defaulting for each node where
-you would like to use it.
+However, you still need to enable this defaulting for each node where you would
+like to use it.
 
 If you are running a Kubernetes {{< skew currentVersion >}} cluster and want to
 enable the feature, either run the kubelet with the `--seccomp-default` command
@@ -216,8 +212,6 @@ the minimum required Kubernetes version and enables the `SeccompDefault` feature
 ```yaml
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
-featureGates:
-  SeccompDefault: true
 nodes:
   - role: control-plane
     image: kindest/node:v1.23.0@sha256:49824ab1727c04e56a21a5d8372a402fcd32ea51ac96a2706a12af38934f81ac
@@ -234,7 +228,6 @@ nodes:
         kind: JoinConfiguration
         nodeRegistration:
           kubeletExtraArgs:
-            feature-gates: SeccompDefault=true
             seccomp-default: "true"
 ```
 
@@ -265,6 +258,44 @@ docker exec -it kind-worker bash -c \
 }
 ```
 
+## Create Pod that uses the container runtime default seccomp profile
+
+Most container runtimes provide a sane set of default syscalls that are allowed
+or not. You can adopt these defaults for your workload by setting the seccomp
+type in the security context of a pod or container to `RuntimeDefault`.
+
+{{< note >}}
+If you have the `seccompDefault` [configuration](/docs/reference/config-api/kubelet-config.v1beta1/)
+enabled, then Pods use the `RuntimeDefault` seccomp profile whenever
+no other seccomp profile is specified. Otherwise, the default is `Unconfined`.
+{{< /note >}}
+
+Here's a manifest for a Pod that requests the `RuntimeDefault` seccomp profile
+for all its containers:
+
+{{% codenew file="pods/security/seccomp/ga/default-pod.yaml" %}}
+
+Create that Pod:
+```shell
+kubectl apply -f https://k8s.io/examples/pods/security/seccomp/ga/default-pod.yaml
+```
+
+```shell
+kubectl get pod default-pod
+```
+
+The Pod should be showing as having started successfully:
+```
+NAME        READY   STATUS    RESTARTS   AGE
+default-pod 1/1     Running   0          20s
+```
+
+Finally, now that you saw that work OK, clean up:
+
+```shell
+kubectl delete pod default-pod --wait --now
+```
+
 ## Create a Pod with a seccomp profile for syscall auditing
 
 To start off, apply the `audit.json` profile, which will log all syscalls of the
@@ -272,20 +303,14 @@ process, to a new Pod.
 
 Here's a manifest for that Pod:
 
-{{< codenew file="pods/security/seccomp/ga/audit-pod.yaml" >}}
+{{% codenew file="pods/security/seccomp/ga/audit-pod.yaml" %}}
 
 {{< note >}}
-The functional support for the already deprecated seccomp annotations
-`seccomp.security.alpha.kubernetes.io/pod` (for the whole pod) and
-`container.seccomp.security.alpha.kubernetes.io/[name]` (for a single container)
-is going to be removed with a future release of Kubernetes. Please always use
-the native API fields in favor of the annotations.
-
-Since Kubernetes v1.25, kubelets no longer support the annotations, use of the
-annotations in static pods is no longer supported, and the seccomp annotations
-are no longer auto-populated when pods with seccomp fields are created.
-Auto-population of the seccomp fields from the annotations is planned to be
-removed in a future release.
+Older versions of Kubernetes allowed you to configure seccomp
+behavior using {{< glossary_tooltip text="annotations" term_id="annotation" >}}.
+Kubernetes {{< skew currentVersion >}} only supports using fields within
+`.spec.securityContext` to configure seccomp, and this tutorial explains that
+approach.
 {{< /note >}}
 
 Create the Pod in the cluster:
@@ -382,7 +407,7 @@ syscalls.
 
 The manifest for this demonstration is:
 
-{{< codenew file="pods/security/seccomp/ga/violation-pod.yaml" >}}
+{{% codenew file="pods/security/seccomp/ga/violation-pod.yaml" %}}
 
 Attempt to create the Pod in the cluster:
 
@@ -425,7 +450,7 @@ sent to `syslog`.
 
 The manifest for this example is:
 
-{{< codenew file="pods/security/seccomp/ga/fine-pod.yaml" >}}
+{{% codenew file="pods/security/seccomp/ga/fine-pod.yaml" %}}
 
 Create the Pod in your cluster:
 
@@ -491,43 +516,6 @@ Clean up that Pod and Service before moving to the next section:
 ```shell
 kubectl delete service fine-pod --wait
 kubectl delete pod fine-pod --wait --now
-```
-
-## Create Pod that uses the container runtime default seccomp profile
-
-Most container runtimes provide a sane set of default syscalls that are allowed
-or not. You can adopt these defaults for your workload by setting the seccomp
-type in the security context of a pod or container to `RuntimeDefault`.
-
-{{< note >}}
-If you have the `SeccompDefault` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) enabled, then Pods use the `RuntimeDefault` seccomp profile whenever
-no other seccomp profile is specified. Otherwise, the default is `Unconfined`.
-{{< /note >}}
-
-Here's a manifest for a Pod that requests the `RuntimeDefault` seccomp profile
-for all its containers:
-
-{{< codenew file="pods/security/seccomp/ga/default-pod.yaml" >}}
-
-Create that Pod:
-```shell
-kubectl apply -f https://k8s.io/examples/pods/security/seccomp/ga/default-pod.yaml
-```
-
-```shell
-kubectl get pod default-pod
-```
-
-The Pod should be showing as having started successfully:
-```
-NAME        READY   STATUS    RESTARTS   AGE
-default-pod 1/1     Running   0          20s
-```
-
-Finally, now that you saw that work OK, clean up:
-
-```shell
-kubectl delete pod default-pod --wait --now
 ```
 
 ## {{% heading "whatsnext" %}}

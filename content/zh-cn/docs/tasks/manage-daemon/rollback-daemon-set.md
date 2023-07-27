@@ -27,7 +27,7 @@ This page shows how to perform a rollback on a {{< glossary_tooltip term_id="dae
 You should already know how to [perform a rolling update on a
  DaemonSet](/docs/tasks/manage-daemon/update-daemon-set/).
 -->
-你应该已经了解如何[为 DaemonSet 执行滚东更新](/zh-cn/docs/tasks/manage-daemon/update-daemon-set/)。
+你应该已经了解如何[为 DaemonSet 执行滚动更新](/zh-cn/docs/tasks/manage-daemon/update-daemon-set/)。
 
 <!-- steps -->
 
@@ -67,7 +67,7 @@ REVISION        CHANGE-CAUSE
 
 <!--
 * Change cause is copied from DaemonSet annotation `kubernetes.io/change-cause`
-  to its revisions upon creation. You may specify `-record=true` in `kubectl`
+  to its revisions upon creation. You may specify `--record=true` in `kubectl`
   to record the command executed in the change cause annotation.
 
 To see the details of a specific revision:
@@ -93,11 +93,11 @@ Pod Template:
 Labels:       foo=bar
 Containers:
 app:
- Image:       ...
- Port:        ...
- Environment: ...
- Mounts:      ...
-Volumes:       ...
+ Image:        ...
+ Port:         ...
+ Environment:  ...
+ Mounts:       ...
+Volumes:      ...
 ```
 
 <!--

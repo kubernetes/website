@@ -6,7 +6,7 @@ api_metadata:
 content_type: "api_reference"
 description: "ClusterRoleBinding references a ClusterRole, but not contain it."
 title: "ClusterRoleBinding"
-weight: 6
+weight: 7
 auto_generated: true
 ---
 
@@ -198,6 +198,11 @@ GET /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer
@@ -483,6 +488,11 @@ DELETE /apis/rbac.authorization.k8s.io/v1/clusterrolebindings
 - **resourceVersionMatch** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+
+- **sendInitialEvents** (*in query*): boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 
 - **timeoutSeconds** (*in query*): integer

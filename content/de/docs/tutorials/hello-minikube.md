@@ -38,9 +38,9 @@ Sie können dieses Tutorial auch verwenden, wenn Sie [Minikube lokal](/docs/task
 
 Dieses Lernprogramm enthält ein aus den folgenden Dateien erstelltes Container-Image:
 
-{{< codenew language="js" file="minikube/server.js" >}}
+{{% codenew language="js" file="minikube/server.js" %}}
 
-{{< codenew language="conf" file="minikube/Dockerfile" >}}
+{{% codenew language="conf" file="minikube/Dockerfile" %}}
 
 Weitere Informationen zum `docker build` Befehl, lesen Sie die [Docker Dokumentation](https://docs.docker.com/engine/reference/commandline/build/).
 
@@ -77,7 +77,7 @@ Deployments sind die empfohlene Methode zum Verwalten der Erstellung und Skalier
 Der Pod führt einen Container basierend auf dem bereitgestellten Docker-Image aus.
 
     ```shell
-    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
+    kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.4
     ```
 
 2. Anzeigen des Deployments:

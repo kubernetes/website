@@ -55,7 +55,7 @@ card:
 
 MySQLとWordpressはそれぞれ、データを保存するためのPersistentVolumeを必要とします。各PersistentVolumeClaimはデプロイの段階で作成されます。
 
-多くのクラスタ環境では、デフォルトのStorageClassがインストールされています。StorageClassがPersistentVolumeClaim中で指定されていなかった場合、クラスターのデフォルトのStorageClassが代わりに使われます。
+多くのクラスター環境では、デフォルトのStorageClassがインストールされています。StorageClassがPersistentVolumeClaim中で指定されていなかった場合、クラスターのデフォルトのStorageClassが代わりに使われます。
 
 PersistentVolumeClaimが作成されるとき、StorageClassの設定に基づいてPersistentVolumeが動的にプロビジョニングされます。
 
@@ -234,8 +234,7 @@ WordPressのインストールをこのページのまま放置してはいけ�
 ## {{% heading "whatsnext" %}}
 
 
-* [イントロスペクションとデバッグ](/docs/tasks/debug/debug-application)についてさらに学ぶ
+* [イントロスペクションとデバッグ](/ja/docs/tasks/debug/debug-application/debug-running-pod/)についてさらに学ぶ
 * [Job](/docs/concepts/workloads/controllers/job/)についてさらに学ぶ
 * [Portフォワーディング](/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)についてさらに学ぶ
-* [コンテナへのシェルを取得する](/ja/docs/tasks/debug-application-cluster/get-shell-running-container/)方法について学ぶ
-
+* [コンテナへのシェルを取得する](/ja/docs/tasks/debug/debug-application/get-shell-running-container/)方法について学ぶ

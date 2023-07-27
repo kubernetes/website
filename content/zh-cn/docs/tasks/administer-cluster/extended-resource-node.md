@@ -1,10 +1,12 @@
 ---
 title: 为节点发布扩展资源
 content_type: task
+weight: 70
 ---
 <!--
 title: Advertise Extended Resources for a Node
 content_type: task
+weight: 70
 -->
 
 <!-- overview -->
@@ -26,7 +28,6 @@ resources that would otherwise be unknown to Kubernetes.
 <!--
 ## Get the names of your Nodes
 
-Choose one of your Nodes to use for this exercise.
 -->
 ## 获取你的节点名称
 
@@ -34,6 +35,9 @@ Choose one of your Nodes to use for this exercise.
 kubectl get nodes
 ```
 
+<!--
+Choose one of your Nodes to use for this exercise.
+-->
 选择一个节点用于此练习。
 
 <!--
@@ -50,7 +54,7 @@ for your Node.
 例如：假设你的一个节点上带有四个 dongle 资源。
 下面是一个 PATCH 请求的示例，该请求为你的节点发布四个 dongle 资源。
 
-```shell
+```
 PATCH /api/v1/nodes/<your-node-name>/status HTTP/1.1
 Accept: application/json
 Content-Type: application/json-patch+json
@@ -95,13 +99,13 @@ curl --header "Content-Type: application/json-patch+json" \
   http://localhost:8001/api/v1/nodes/<your-node-name>/status
 ```
 
+{{< note >}}
 <!--
 In the preceding request, `~1` is the encoding for the character / in
 the patch path. The operation path value in JSON-Patch is interpreted as a
 JSON-Pointer. For more details, see
 [IETF RFC 6901](https://tools.ietf.org/html/rfc6901), section 3.
 -->
-{{< note >}}
 在前面的请求中，`~1` 为 patch 路径中 “/” 符号的编码。
 JSON-Patch 中的操作路径值被解析为 JSON 指针。
 更多细节，请查看 [IETF RFC 6901](https://tools.ietf.org/html/rfc6901) 的第 3 节。
@@ -119,21 +123,25 @@ The output shows that the Node has a capacity of 4 dongles:
   "example.com/dongle": "4",
 ```
 
-<!-- Describe your Node: -->
+<!--
+Describe your Node:
+-->
 描述你的节点：
 
-```shell
+```
 kubectl describe node <your-node-name>
 ```
 
-<!-- Once again, the output shows the dongle resource: -->
+<!--
+Once again, the output shows the dongle resource:
+-->
 输出再次展示了 dongle 资源：
 
 ```yaml
 Capacity:
- cpu:  2
- memory:  2049008Ki
- example.com/dongle:  4
+  cpu: 2
+  memory: 2049008Ki
+  example.com/dongle: 4
 ```
 
 <!--
@@ -260,9 +268,9 @@ Replace `<your-node-name>` with the name of your Node:
 
 ```shell
 curl --header "Content-Type: application/json-patch+json" \
---request PATCH \
---data '[{"op": "remove", "path": "/status/capacity/example.com~1dongle"}]' \
-http://localhost:8001/api/v1/nodes/<your-node-name>/status
+  --request PATCH \
+  --data '[{"op": "remove", "path": "/status/capacity/example.com~1dongle"}]' \
+  http://localhost:8001/api/v1/nodes/<your-node-name>/status
 ```
 
 <!--
@@ -275,29 +283,27 @@ kubectl describe node <your-node-name> | grep dongle
 ```
 
 <!--
-(you should not see any output)  
+(you should not see any output)
 -->
 (你应该看不到任何输出)
-
 
 ## {{% heading "whatsnext" %}}
 
 <!--
 ### For application developers
 
-* [Assign Extended Resources to a Container](/docs/tasks/configure-pod-container/extended-resource/)
+- [Assign Extended Resources to a Container](/docs/tasks/configure-pod-container/extended-resource/)
 
 ### For cluster administrators
 
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/memory-constraint-namespace/)
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
+- [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+- [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
 -->
 ### 针对应用开发人员
 
-* [将扩展资源分配给容器](/zh-cn/docs/tasks/configure-pod-container/extended-resource/)
-  
+- [将扩展资源分配给容器](/zh-cn/docs/tasks/configure-pod-container/extended-resource/)
+
 ### 针对集群管理员
 
-* [为名字空间配置最小和最大内存约束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
-* [为名字空间配置最小和最大 CPU 约束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
-
+- [为名字空间配置最小和最大内存约束](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+- [为名字空间配置最小和最大 CPU 约束](/zh-cn/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)

@@ -21,7 +21,7 @@ Here is an overview of the steps in this example:
 1. **Create a queue, and fill it with messages.**  Each message represents one task to be done.  In
    this example, a message is an integer that we will do a lengthy computation on.
 1. **Start a Job that works on tasks from the queue**.  The Job starts several pods.  Each pod takes
-   one task from the message queue, processes it, and repeats until the end of the queue is reached.
+   one task from the message queue, processes it, and exits.
 
 ## {{% heading "prerequisites" %}}
 
@@ -186,7 +186,7 @@ We will use the `amqp-consume` utility to read the message
 from the queue and run our actual program.  Here is a very simple
 example program:
 
-{{< codenew language="python" file="application/job/rabbitmq/worker.py" >}}
+{{% codenew language="python" file="application/job/rabbitmq/worker.py" %}}
 
 Give the script execution permission:
 
@@ -230,7 +230,7 @@ Here is a job definition.  You'll need to make a copy of the Job and edit the
 image to match the name you used, and call it `./job.yaml`.
 
 
-{{< codenew file="application/job/rabbitmq/job.yaml" >}}
+{{% codenew file="application/job/rabbitmq/job.yaml" %}}
 
 In this example, each pod works on one item from the queue and then exits.
 So, the completion count of the Job corresponds to the number of work items

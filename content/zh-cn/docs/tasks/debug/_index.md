@@ -1,14 +1,14 @@
 ---
 title: 监控、日志和调试
 description: 设置监控和日志记录以对集群进行故障排除或调试容器化应用程序。
-weight: 20
+weight: 40
 content_type: concept
 no_list: true
 ---
-<!-- 
+<!--
 title: "Monitoring, Logging, and Debugging"
 description: Set up monitoring and logging to troubleshoot a cluster, or debug a containerized application.
-weight: 20
+weight: 40
 reviewers:
 - brendandburns
 - davidopp
@@ -83,23 +83,55 @@ and command-line interfaces (CLIs), such as [`kubectl`](/docs/reference/kubectl/
 ## 求救！我的问题还没有解决！我现在需要帮助！
 
 <!--
-### Stack Overflow
+### Stack Exchange, Stack Overflow, or Server Fault {#stack-exchange}
 
-Someone else from the community may have already asked a similar question or may
-be able to help with your problem. The Kubernetes team will also monitor
-[posts tagged Kubernetes](https://stackoverflow.com/questions/tagged/kubernetes).
-If there aren't any existing questions that help, **please [ensure that your question is on-topic on Stack Overflow](https://stackoverflow.com/help/on-topic)
-and that you read through the guidance on [how to ask a new question](https://stackoverflow.com/help/how-to-ask)**,
-before [asking a new one](https://stackoverflow.com/questions/ask?tags=kubernetes)!
+If you have questions related to *software development* for your containerized app,
+you can ask those on [Stack Overflow](https://stackoverflow.com/questions/tagged/kubernetes).
+
+If you have Kubernetes questions related to *cluster management* or *configuration*,
+you can ask those on
+[Server Fault](https://serverfault.com/questions/tagged/kubernetes).
 -->
-### Stack Overflow    {#stack-overflow}
+### Stack Exchange、Stack Overflow 或 Server Fault {#stack-exchange}
+
+若你对容器化应用有**软件开发**相关的疑问，你可以在
+[Stack Overflow](https://stackoverflow.com/questions/tagged/kubernetes) 上询问。
+
+若你有**集群管理**或**配置**相关的疑问，你可以在
+[Server Fault](https://serverfault.com/questions/tagged/kubernetes) 上询问。
+
+<!--
+There are also several more specific Stack Exchange network sites which might
+be the right place to ask Kubernetes questions in areas such as
+[DevOps](https://devops.stackexchange.com/questions/tagged/kubernetes), 
+[Software Engineering](https://softwareengineering.stackexchange.com/questions/tagged/kubernetes),
+or [InfoSec](https://security.stackexchange.com/questions/tagged/kubernetes).
+
+Someone else from the community may have already asked a similar question or 
+may be able to help with your problem.
+-->
+还有几个更专业的 Stack Exchange 网站，很适合在这些地方询问有关
+[DevOps](https://devops.stackexchange.com/questions/tagged/kubernetes)、
+[软件工程](https://softwareengineering.stackexchange.com/questions/tagged/kubernetes)或[信息安全 (InfoSec)](https://security.stackexchange.com/questions/tagged/kubernetes)
+领域中 Kubernetes 的问题。
 
 社区中的其他人可能已经问过和你类似的问题，也可能能够帮助解决你的问题。
+
+<!--
+The Kubernetes team will also monitor
+[posts tagged Kubernetes](https://stackoverflow.com/questions/tagged/kubernetes).
+If there aren't any existing questions that help, **please ensure that your question 
+is [on-topic on Stack Overflow](https://stackoverflow.com/help/on-topic),
+[Server Fault](https://serverfault.com/help/on-topic), or the Stack Exchange 
+Network site you're asking on**, and read through the guidance on 
+[how to ask a new question](https://stackoverflow.com/help/how-to-ask),
+before asking a new one!
+-->
 Kubernetes 团队还会监视[带有 Kubernetes 标签的帖子](https://stackoverflow.com/questions/tagged/kubernetes)。
-如果现有的问题对你没有帮助，在[问一个新问题](https://stackoverflow.com/questions/ask?tags=kubernetes)
-之前，**请[确保你的问题是关于 Stack Overflow 的主题](https://stackoverflow.com/help/on-topic)
-并且你需要阅读关于[如何提出新问题](https://stackoverflow.com/help/how-to-ask)
-的指南。**
+如果现有的问题对你没有帮助，**请在问一个新问题之前，确保你的问题切合
+[Stack Overflow](https://stackoverflow.com/help/on-topic)、
+[Server Fault](https://serverfault.com/help/on-topic) 或 Stack Exchange 的主题**，
+并通读[如何提出新问题](https://stackoverflow.com/help/how-to-ask)的指导说明！
 
 <!--
 ### Slack
@@ -122,13 +154,13 @@ Slack 需要注册；你可以[请求一份邀请](https://slack.kubernetes.io)�
 Once you are registered, browse the growing list of channels for various subjects of
 interest. For example, people new to Kubernetes may also want to join the
 [`#kubernetes-novice`](https://kubernetes.slack.com/messages/kubernetes-novice) channel. As another example, developers should join the
-[`#kubernetes-dev`](https://kubernetes.slack.com/messages/kubernetes-dev) channel.
+[`#kubernetes-contributors`](https://kubernetes.slack.com/messages/kubernetes-contributors) channel.
 -->
 一旦你完成了注册，就可以浏览各种感兴趣主题的频道列表（一直在增长）。
 例如，Kubernetes 新人可能还想加入
 [`#kubernetes-novice`](https://kubernetes.slack.com/messages/kubernetes-novice)
 频道。又比如，开发人员应该加入
-[`#kubernetes-dev`](https://kubernetes.slack.com/messages/kubernetes-dev)
+[`#kubernetes-contributors`](https://kubernetes.slack.com/messages/kubernetes-contributors)
 频道。
 
 <!--
@@ -193,10 +225,10 @@ You're welcome to join the official Kubernetes Forum: [discuss.kubernetes.io](ht
 If you have what looks like a bug, or you would like to make a feature request,
 please use the [Github issue tracking system](https://github.com/kubernetes/kubernetes/issues).
 -->
-### Bugs 和功能请求   {#bugs-and-feature-requests}
+### Bug 和功能请求   {#bugs-and-feature-requests}
 
 如果你发现一个看起来像 Bug 的问题，或者你想提出一个功能请求，请使用
-[Github 问题跟踪系统](https://github.com/kubernetes/kubernetes/issues)。
+[GitHub 问题跟踪系统](https://github.com/kubernetes/kubernetes/issues)。
 
 <!--
 Before you file an issue, please search existing issues to see if your issue is
@@ -217,4 +249,3 @@ problem, such as:
 * Kubernetes 版本：`kubectl version`
 * 云平台、OS 发行版、网络配置和 Docker 版本
 * 重现问题的步骤
-

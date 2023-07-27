@@ -82,7 +82,7 @@ as a permission check
 -->
 大多数 Kubernetes API
 资源类型都是[对象](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects)：
-它们代表集群上某个概念的具体实例，例如 Pod 或命名空间。
+它们代表集群上某个概念的具体实例，例如 Pod 或名字空间。
 少数 API 资源类型是 “虚拟的”，它们通常代表的是操作而非对象本身，
 例如权限检查（使用带有 JSON 编码的 `SubjectAccessReview` 主体的 POST 到 `subjectaccessreviews` 资源），
 或 Pod 的子资源 `eviction`（用于触发 [API-发起的驱逐](/zh-cn/docs/concepts/scheduling-eviction/api-eviction/)）。
@@ -105,10 +105,10 @@ example: Nodes), and so their names must be unique across the whole cluster.
 你可以通过 API 创建的所有对象都有一个唯一的{{< glossary_tooltip text="名字" term_id="name" >}}，
 以允许幂等创建和检索，
 但如果虚拟资源类型不可检索或不依赖幂等性，则它们可能没有唯一名称。
-在{{< glossary_tooltip text="命名空间" term_id="namespace" >}}内，
+在{{< glossary_tooltip text="名字空间" term_id="namespace" >}}内，
 同一时刻只能有一个给定类别的对象具有给定名称。
 但是，如果你删除该对象，你可以创建一个具有相同名称的新对象。
-有些对象没有命名空间（例如：节点），因此它们的名称在整个集群中必须是唯一的。
+有些对象没有名字空间（例如：节点），因此它们的名称在整个集群中必须是唯一的。
 
 <!--
 ### API verbs
@@ -148,6 +148,28 @@ namespace (`/apis/GROUP/VERSION/namespaces/NAMESPACE/*`). A namespace-scoped res
 type will be deleted when its namespace is deleted and access to that resource type
 is controlled by authorization checks on the namespace scope.
 
+Note: core resources use `/api` instead of `/apis` and omit the GROUP path segment.
+
+Examples:
+-->
+## 资源 URI {#resource-uris}
+
+所有资源类型要么是集群作用域的（`/apis/GROUP/VERSION/*`），
+要么是名字空间作用域的（`/apis/GROUP/VERSION/namespaces/NAMESPACE/*`）。
+名字空间作用域的资源类型会在其名字空间被删除时也被删除，
+并且对该资源类型的访问是由定义在名字空间域中的授权检查来控制的。
+
+注意： 核心资源使用 `/api` 而不是 `/apis`，并且不包含 GROUP 路径段。
+
+例如:
+* `/api/v1/namespaces`
+* `/api/v1/pods`
+* `/api/v1/namespaces/my-namespace/pods`
+* `/apis/apps/v1/deployments`
+* `/apis/apps/v1/namespaces/my-namespace/deployments`
+* `/apis/apps/v1/namespaces/my-namespace/deployments/my-deployment`
+
+<!--
 You can also access collections of resources (for example: listing all Nodes).
 The following paths are used to retrieve collections and resources:
 
@@ -162,13 +184,6 @@ The following paths are used to retrieve collections and resources:
   * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE` - return collection of all instances of the resource type in NAMESPACE
   * `GET /apis/GROUP/VERSION/namespaces/NAMESPACE/RESOURCETYPE/NAME` - return the instance of the resource type with NAME in NAMESPACE
 -->
-## 资源 URI {#resource-uris}
-
-所有资源类型要么是集群作用域的（`/apis/GROUP/VERSION/*`），
-要么是名字空间作用域的（`/apis/GROUP/VERSION/namespaces/NAMESPACE/*`）。
-名字空间作用域的资源类型会在其名字空间被删除时也被删除，
-并且对该资源类型的访问是由定义在名字空间域中的授权检查来控制的。
-
 你还可以访问资源集合（例如：列出所有 Node）。以下路径用于检索集合和资源：
 
 * 集群作用域的资源：
@@ -221,7 +236,7 @@ Kubernetes API 允许客户端对对象或集合发出初始请求，然后跟�
 客户端可以发送 **list** 或者 **get** 请求，然后发出后续 **watch** 请求。
 
 为了使这种更改跟踪成为可能，每个 Kubernetes 对象都有一个 `resourceVersion` 字段，
-表示存储在底层持久层中的该资源的版本。在检索资源集合（命名空间或集群范围）时，
+表示存储在底层持久层中的该资源的版本。在检索资源集合（名字空间或集群范围）时，
 来自 API 服务器的响应包含一个 `resourceVersion` 值。
 客户端可以使用该 `resourceVersion` 来启动对 API 服务器的 **watch**。
 
@@ -240,7 +255,8 @@ for more detail.
 For example:
 -->
 当你发送 **watch** 请求时，API 服务器会响应更改流。
-这些更改逐项列出了在你指定为 **watch** 请求参数的 `resourceVersion` 之后发生的操作（例如 **create**、**delete** 和 **update**）的结果。
+这些更改逐项列出了在你指定为 **watch** 请求参数的 `resourceVersion` 之后发生的操作
+（例如 **create**、**delete** 和 **update**）的结果。
 整个 **watch** 机制允许客户端获取当前状态，然后订阅后续更改，而不会丢失任何事件。
 
 如果客户端 **watch** 连接断开，则该客户端可以从最后返回的 `resourceVersion` 开始新的 **watch** 请求；
@@ -273,12 +289,12 @@ For example:
    _test_ namespace. Each change notification is a JSON document. The HTTP response body
    (served as `application/json`) consists a series of JSON documents.
 -->
-2. 从资源版本 10245 开始，接收影响 _test_ 命名空间中 Pod 的所有 API 操作
+2. 从资源版本 10245 开始，接收影响 _test_ 名字空间中 Pod 的所有 API 操作
    （例如 **create**、**delete**、**apply** 或 **update**）的通知。
    每个更改通知都是一个 JSON 文档。
    HTTP 响应正文（用作 `application/json`）由一系列 JSON 文档组成。
 
-   ```
+   ```console
    GET /api/v1/namespaces/test/pods?watch=1&resourceVersion=10245
    ---
    200 OK
@@ -361,6 +377,149 @@ the API server will send any `BOOKMARK` event even when requested.
 但你不应假设书签会在任何特定时间间隔返回，即使要求时，客户端也不能假设 API 服务器会发送任何 `BOOKMARK` 事件。
 
 <!--
+## Streaming lists
+-->
+## 流式列表  {#streaming-lists}
+
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+
+<!--
+On large clusters, retrieving the collection of some resource types may result in
+a significant increase of resource usage (primarily RAM) on the control plane.
+In order to alleviate its impact and simplify the user experience of the **list** + **watch**
+pattern, Kubernetes v1.27 introduces as an alpha feature the support
+for requesting the initial state (previously requested via the **list** request) as part of
+the **watch** request.
+-->
+在大型集群检索某些资源类型的集合可能会导致控制平面的资源使用量（主要是 RAM）显著增加。
+为了减轻其影响并简化 **list** + **watch** 模式的用户体验，
+Kubernetes 1.27 版本引入了一个 alpha 功能，支持在 **watch** 请求中请求初始状态
+（之前在 **list** 请求中请求）。
+
+<!--
+Provided that the `WatchList` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+is enabled, this can be achieved by specifying `sendInitialEvents=true` as query string parameter
+in a **watch** request. If set, the API server starts the watch stream with synthetic init
+events (of type `ADDED`) to build the whole state of all existing objects followed by a
+[`BOOKMARK` event](/docs/reference/using-api/api-concepts/#watch-bookmarks)
+(if requested via `allowWatchBookmarks=true` option). The bookmark event includes the resource version
+to which is synced. After sending the bookmark event, the API server continues as for any other **watch**
+request.
+-->
+如果启用了 `WatchList` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+可以通过在 **watch** 请求中指定 `sendInitialEvents=true` 作为查询字符串参数来实现这一功能。
+如果指定了这个参数，API 服务器将使用合成的初始事件（类型为 `ADDED`）来启动监视流，
+以构建所有现有对象的完整状态；如果请求还带有 `allowWatchBookmarks=true` 选项，
+则继续发送 [`BOOKMARK` 事件](/zh-cn/docs/reference/using-api/api-concepts/#watch-bookmarks)。
+BOOKMARK 事件包括已被同步的资源版本。
+发送 BOOKMARK 事件后，API 服务器会像处理所有其他 **watch** 请求一样继续执行。
+
+<!--
+When you set `sendInitialEvents=true` in the query string, Kubernetes also requires that you set
+`resourceVersionMatch` to `NotOlderThan` value.
+If you provided `resourceVersion` in the query string without providing a value or don't provide
+it at all, this is interpreted as a request for _consistent read_;
+the bookmark event is sent when the state is synced at least to the moment of a consistent read
+from when the request started to be processed. If you specify `resourceVersion` (in the query string),
+the bookmark event is sent when the state is synced at least to the provided resource version.
+-->
+当你在查询字符串中设置 `sendInitialEvents=true` 时，
+Kubernetes 还要求你将 `resourceVersionMatch` 的值设置为 `NotOlderThan`。
+如果你在查询字符串中提供 `resourceVersion` 而没有提供值或者根本没有提供这个参数，
+这一请求将被视为 **一致性读（Consistent Read）** 请求；
+当状态至少被同步到开始处理一致性读操作时，才会发送 BOOKMARK 事件。
+如果你（在查询字符串中）指定了 `resourceVersion`，则只要需要等状态同步到所给资源版本时，
+BOOKMARK 事件才会被发送。
+
+<!--
+### Example {#example-streaming-lists}
+-->
+### 示例  {#example-streaming-lists}
+
+<!--
+An example: you want to watch a collection of Pods. For that collection, the current resource version
+is 10245 and there are two pods: `foo` and `bar`. Then sending the following request (explicitly requesting
+_consistent read_ by setting empty resource version using `resourceVersion=`) could result
+in the following sequence of events:
+-->
+举个例子：你想监视一组 Pod。对于该集合，当前资源版本为 10245，并且有两个 Pod：`foo` 和 `bar`。
+接下来你发送了以下请求（通过使用 `resourceVersion=` 设置空的资源版本来明确请求 **一致性读**），
+这样做的结果是可能收到如下事件序列：
+
+```console
+GET /api/v1/namespaces/test/pods?watch=1&sendInitialEvents=true&allowWatchBookmarks=true&resourceVersion=&resourceVersionMatch=NotOlderThan
+---
+200 OK
+Transfer-Encoding: chunked
+Content-Type: application/json
+
+{
+  "type": "ADDED",
+  "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "8467", "name": "foo"}, ...}
+}
+{
+  "type": "ADDED",
+  "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "5726", "name": "bar"}, ...}
+}
+{
+  "type": "BOOKMARK",
+  "object": {"kind": "Pod", "apiVersion": "v1", "metadata": {"resourceVersion": "10245"} }
+}
+...
+<followed by regular watch stream starting from resourceVersion="10245">
+```
+
+<!--
+## Response compression
+-->
+## 响应压缩   {#response-compression}
+
+{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+
+<!--
+`APIResponseCompression` is an option that allows the API server to compress the responses for **get**
+and **list** requests, reducing the network bandwidth and improving the performance of large-scale clusters.
+It is enabled by default since Kubernetes 1.16 and it can be disabled by including
+`APIResponseCompression=false` in the `--feature-gates` flag on the API server.
+-->
+`APIResponseCompression` 是一个选项，允许 API 服务器压缩 **get** 和 **list** 请求的响应，
+减少占用的网络带宽并提高大规模集群的性能。此选项自 Kubernetes 1.16 以来默认启用，
+可以通过在 API 服务器上的 `--feature-gates` 标志中包含 `APIResponseCompression=false` 来禁用。
+
+<!--
+API response compression can significantly reduce the size of the response, especially for large resources or
+[collections](/docs/reference/using-api/api-concepts/#collections).
+For example, a **list** request for pods can return hundreds of kilobytes or even megabytes of data,
+depending on the number of pods and their attributes. By compressing the response, the network bandwidth
+can be saved and the latency can be reduced.
+-->
+特别是对于大型资源或[集合](/zh-cn/docs/reference/using-api/api-concepts/#collections)，
+API 响应压缩可以显著减小其响应的大小。例如，针对 Pod 的 **list** 请求可能会返回数百 KB 甚至几 MB 的数据，
+具体大小取决于 Pod 数量及其属性。通过压缩响应，可以节省网络带宽并降低延迟。
+
+<!--
+To verify if `APIResponseCompression` is working, you can send a **get** or **list** request to the
+API server with an `Accept-Encoding` header, and check the response size and headers. For example:
+-->
+要验证 `APIResponseCompression` 是否正常工作，你可以使用一个 `Accept-Encoding`
+头向 API 服务器发送一个 **get** 或 **list** 请求，并检查响应大小和头信息。例如：
+
+```console
+GET /api/v1/pods
+Accept-Encoding: gzip
+---
+200 OK
+Content-Type: application/json
+content-encoding: gzip
+...
+```
+
+<!--
+The `content-encoding` header indicates that the response is compressed with `gzip`.
+-->
+`content-encoding` 头表示响应使用 `gzip` 进行了压缩。
+
+<!--
 ## Retrieving large results sets in chunks
 -->
 ## 分块检视大体量结果  {#retrieving-large-results-sets-in-chunks}
@@ -376,7 +535,7 @@ response (10-20MB) and consume a large amount of server resources.
 -->
 在较大规模集群中，检索某些资源类型的集合可能会导致非常大的响应，从而影响服务器和客户端。
 例如，一个集群可能有数万个 Pod，每个 Pod 大约相当于 2 KiB 的编码 JSON。
-跨所有命名空间检索所有 Pod 可能会导致非常大的响应 (10-20MB) 并消耗大量服务器资源。
+跨所有名字空间检索所有 Pod 可能会导致非常大的响应 (10-20MB) 并消耗大量服务器资源。
 
 <!--
 Provided that you don't explicitly disable the `APIListChunking`
@@ -1090,49 +1249,20 @@ These situations are:
 2. 字段在对象中重复出现。
 
 <!--
-### Setting the field validation level
+### Validation for unrecognized or duplicate fields (#setting-the-field-validation-level)
 -->
-### 设置字段校验层级   {#setting-the-field-validation-level}
+### 检查无法识别或重复的字段  {#setting-the-field-validation-level}
 
-  {{< feature-state for_k8s_version="v1.25" state="beta" >}}
+  {{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
 <!--
-Provided that the `ServerSideFieldValidation` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled (disabled
-by default in 1.23 and 1.24, enabled by default starting in 1.25), you can take
-advantage of server side field validation to catch these unrecognized fields.
+From 1.25 onward, unrecognized or duplicate fields in an object are detected via
+validation on the server when you use HTTP verbs that can submit data (`POST`, `PUT`, and `PATCH`). Possible levels of
+validation are `Ignore`, `Warn` (default), and `Strict`.
 -->
-如果启用了 `ServerSideFieldValidation` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-（在 1.23 和 1.24 中默认处于禁用状态，从 1.25 开始默认启用），
-你可以用服务端的字段校验来抓取这些未能识别的字段。
-
-<!--
-When you use HTTP verbs that can submit data (`POST`, `PUT`, and `PATCH`), field
-validation gives you the option to choose how you would like to be notified of
-these fields that are being dropped by the API server. Possible levels of
-validation are `Ignore`, `Warn`, and `Strict`.
--->
-使用可以提交数据的 HTTP 动词（`POST`、`PUT`、`PATCH`）时，可以在字段校验中设置
-API 服务器丢弃字段时的通知设置。通知层级可能包括 `Ignore`、`Warn` 和 `Strict`。
-
-{{< note >}}
-<!--
-If you submit a request that specifies an unrecognized field, and that is also invalid for
-a different reason (for example, the request provides a string value where the API expects
-an integer), then the API server responds with a 400 Bad Request error response.
-You always receive an error response in this case, no matter what field validation level you requested.
--->
-如果你所提交的请求中指定了无法识别的字段，并且该请求由于其他某种原因无法生效
-（例如：请求提供的是字符值，而 API 需要整数），那么 API 服务器会返回 400 Bad Request（400 请求无效）错误响应码。
-
-在这种情况下，无论请求哪个层级的字段校验，都总会收到错误响应。
-{{< /note >}}
-
-<!--
-Field validation is set by the `fieldValidation` query parameter. The three
-values that you can provide for this parameter are:
--->
-字段校验需要通过 `fieldValidation` 查询参数进行设置。此参数接受三种值：
-
+从 1.25 开始，当使用可以提交数据的 HTTP 动词（`POST`、`PUT` 和 `PATCH`）时，
+将通过服务器上的校验检测到对象中无法识别或重复的字段。
+校验的级别可以是 `Ignore`、`Warn`（默认值） 和 `Strict` 之一。
 <!--
 : The API server succeeds in handling the request as it would without the erroneous fields
 being set, dropping all unknown and duplicate fields and giving no indication it
@@ -1164,6 +1294,29 @@ detected.
 来自 API 服务器的响应消息列出了 API 检测到的所有未知字段或重复字段。
 
 <!--
+The field validation level is set by the `fieldValidation` query parameter.
+-->
+字段校验级别可通过查询参数 `fieldValidation` 来设置。
+
+{{< note >}}
+<!--
+If you submit a request that specifies an unrecognized field, and that is also invalid for
+a different reason (for example, the request provides a string value where the API expects
+an integer for a known field), then the API server responds with a 400 Bad Request error, but will
+not provide any information on unknown or duplicate fields (only which fatal
+error it encountered first).
+
+You always receive an error response in this case, no matter what field validation level you requested.
+-->
+如果你提交的请求中设置了一个无法被识别的字段，并且该请求存在因其他原因引起的不合法
+（例如，请求为某已知字段提供了一个字符串值，而 API 期望该字段为整数），
+那么 API 服务器会以 400 Bad Request 错误作出响应，但不会提供有关未知或重复字段的任何信息
+（仅提供它首先遇到的致命错误）。
+
+在这种情况下，不管你设置哪种字段校验级别，你总会收到出错响应。
+{{< /note >}}
+
+<!--
 Tools that submit requests to the server (such as `kubectl`), might set their own
 defaults that are different from the `Warn` validation level that the API server uses
 by default.
@@ -1172,26 +1325,31 @@ by default.
 校验层级不同。
 
 <!--
-The `kubectl` tool uses the `--validate` flag to set the level of field validation.
-Historically `--validate` was used to toggle client-side validation on or off as
-a boolean flag. Since Kubernetes 1.25, kubectl uses
-server-side field validation when sending requests to a serer with this feature
-enabled. Validation will fall back to client-side only when it cannot connect
-to an API server with field validation enabled.
+The `kubectl` tool uses the `--validate` flag to set the level of field
+validation. It accepts the values `ignore`, `warn`, and `strict` while
+also accepting the values `true` (equivalent to `strict`) and `false`
+(equivalent to `ignore`). The default validation setting for kubectl is
+`--validate=true`, which means strict server-side field validation.
+
+When kubectl cannot connect to an API server with field validation (API servers
+prior to Kubernetes 1.27), it will fall back to using client-side validation.
+Client-side validation will be removed entirely in a future version of kubectl.
 -->
 `kubectl` 工具使用 `--validate` 标志设置字段校验层级。
-之前 `--validate` 被作为布尔值开启或关闭客户段的校验功能。
-从 Kubernetes 1.25 开始，kubectl 向启用字段校验的服务器发送请求时使用服务端字段校验。
-只有无法连接启用了字段校验的 API 服务器时，才会恢复使用客户端的字段校验。
+该字段可取的值包括 `ignore`、`warn` 和 `strict`，同时还接受值 `true`（相当于 `strict`）和
+`false`（相当于 `ignore`）。
+kubectl 默认的校验设置是 `--validate=true` ，这意味着执行严格的服务端字段校验。
+
+当 kubectl 无法连接到启用字段校验的 API 服务器（Kubernetes 1.27 之前的 API 服务器）时，
+将回退到使用客户端的字段校验。
+客户端校验将在 kubectl 未来版本中被完全删除。
+{{< note >}}
 <!--
-It accepts the values `ignore`, `warn`,
-and `strict` while also accepting the values `true` (equivalent to `strict`) and `false`
-(equivalent to `ignore`). The default validation setting for kubectl is `--validate=true`,
-which means strict server-side field validation.
+Prior to Kubernetes 1.25  `kubectl --validate` was used to toggle client-side validation on or off as
+a boolean flag.
 -->
-`kubectl` 接受 `ignore`、`warn`、`strict` 值，同时也接受 `true`（等效于 `strict`）
-和 `false`（等效于 `ignore`）。kubectl 的字段校验默认配置为 `--validate=true`，
-即服务端的 `strict` 级字段校验。
+在 Kubernetes 1.25 之前，`kubectl --validate` 是用来开启或关闭客户端校验的布尔标志的命令。
+{{< /note >}}
 
 <!--
 ## Dry-run
@@ -1297,7 +1455,10 @@ generated fields may differ.
 <!--
 ### Generated values
 
-Some values of an object are typically generated before the object is persisted. It is important not to rely upon the values of these fields set by a dry-run request, since these values will likely be different in dry-run mode from when the real request is made. Some of these fields are:
+Some values of an object are typically generated before the object is persisted. It
+is important not to rely upon the values of these fields set by a dry-run request,
+since these values will likely be different in dry-run mode from when the real
+request is made. Some of these fields are:
 
 * `name`: if `generateName` is set, `name` will have a unique random name
 * `creationTimestamp` / `deletionTimestamp`: records the time of creation/deletion
@@ -1605,15 +1766,15 @@ Continue Token, Exact
 {{< note >}}
 <!--
 When you **list** resources and receive a collection response, the response includes the
-[metadata](/docs/reference/generated/kubernetes-api/v1.21/#listmeta-v1-meta) of the collection as
-well as [object metadata](/docs/reference/generated/kubernetes-api/v1.21/#listmeta-v1-meta)
+[list metadata](/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#listmeta-v1-meta) of the collection as
+well as [object metadata](/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#objectmeta-v1-meta)
 for each item in that collection. For individual objects found within a collection response,
 `.metadata.resourceVersion` tracks when that object was last updated, and not how up-to-date
 the object is when served.
 -->
 当你 **list** 资源并收到集合响应时，
-响应包括集合的[元数据](/docs/reference/generated/kubernetes-api/v1.21/#listmeta-v1-meta)
-以及该集合中每个项目的[对象元数据](/docs/reference/generated/kubernetes-api/v1.21/#listmeta-v1-meta)。
+响应包括集合的[列表元数据](/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#listmeta-v1-meta)。
+以及该集合中每个项目的[对象元数据](/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#objectmeta-v1-meta)。
 对于在集合响应中找到的单个对象，`.metadata.resourceVersion` 跟踪该对象的最后更新时间，
 而不是对象在服务时的最新程度。
 {{< /note >}}
@@ -1667,7 +1828,7 @@ For watch, the semantics of resource version are:
 {{< /table >}}
 
 <!--
-The meaning of the **watch** semantics are:
+The meaning of those **watch** semantics are:
 
 Get State and Start at Any
 : {{< caution >}} Watches initialized this way may return arbitrarily stale
@@ -1757,7 +1918,6 @@ on whether a request is served from cache or not, the API server may reply with 
 Servers are not required to serve unrecognized resource versions. If you request
 **list** or **get** for a resource version that the API server does not recognize,
 then the API server may either:
-
 * wait briefly for the resource version to become available, then timeout with a
   `504 (Gateway Timeout)` if the provided resource versions does not become available
   in a reasonable amount of time;

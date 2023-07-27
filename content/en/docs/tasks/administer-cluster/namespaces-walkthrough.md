@@ -4,6 +4,7 @@ reviewers:
 - janetkuo
 title: Namespaces Walkthrough
 content_type: task
+weight: 260
 ---
 
 <!-- overview -->
@@ -72,7 +73,7 @@ Let's create two new namespaces to hold our work.
 
 Use the file [`namespace-dev.yaml`](/examples/admin/namespace-dev.yaml) which describes a `development` namespace:
 
-{{< codenew language="yaml" file="admin/namespace-dev.yaml" >}}
+{{% codenew language="yaml" file="admin/namespace-dev.yaml" %}}
 
 Create the `development` namespace using kubectl.
 
@@ -82,7 +83,7 @@ kubectl create -f https://k8s.io/examples/admin/namespace-dev.yaml
 
 Save the following contents into file [`namespace-prod.yaml`](/examples/admin/namespace-prod.yaml) which describes a `production` namespace:
 
-{{< codenew language="yaml" file="admin/namespace-prod.yaml" >}}
+{{% codenew language="yaml" file="admin/namespace-prod.yaml" %}}
 
 And then let's create the `production` namespace using kubectl.
 
@@ -160,7 +161,7 @@ kubectl config set-context prod --namespace=production \
   --user=lithe-cocoa-92103_kubernetes
 ```
 
-By default, the above commands adds two contexts that are saved into file
+By default, the above commands add two contexts that are saved into file
 `.kube/config`. You can now view the contexts and alternate against the two
 new request contexts depending on which namespace you wish to work against.
 
@@ -225,7 +226,7 @@ At this point, all requests we make to the Kubernetes cluster from the command l
 
 Let's create some contents.
 
-{{< codenew file="admin/snowflake-deployment.yaml" >}}
+{{% codenew file="admin/snowflake-deployment.yaml" %}}
 
 Apply the manifest to create a Deployment 
 

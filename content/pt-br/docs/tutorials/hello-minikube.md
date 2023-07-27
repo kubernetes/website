@@ -15,53 +15,104 @@ card:
 
 <!-- overview -->
 
-Este tutorial mostra como executar uma aplicação exemplo no Kubernetes utilizando o [Minikube](https://minikube.sigs.k8s.io) e o [Katacoda](https://www.katacoda.com). O Katacoda disponibiliza um ambiente Kubernetes gratuito e acessível via navegador. 
+Este tutorial demonstra como executar uma aplicação exemplo no Kubernetes utilizando
+o minikube.
+O tutorial fornece uma imagem de contêiner que utiliza o NGINX para repetir todas
+as requisições.
 
-{{< note >}}
-Você também consegue seguir os passos desse tutorial instalando o Minikube localmente. Para instruções de instalação, acesse: [iniciando com minikube](https://minikube.sigs.k8s.io/docs/start/).
-{{< /note >}}
-
-## Objetivos
+## {{% heading "objectives" %}}
 
 * Instalar uma aplicação exemplo no minikube.
 * Executar a aplicação.
 * Visualizar os logs da aplicação.
 
-## Antes de você iniciar
+## {{% heading "prerequisites" %}}
 
-Este tutorial disponibiliza uma imagem de contêiner que utiliza o NGINX para retornar todas as requisições.
+Este tutorial assume que você já tem uma instância do `minikube` configurada.
+Veja [minikube start](https://minikube.sigs.k8s.io/docs/start/) para instruções
+de como instalar.
+
+Você também irá precisar instalar o `kubectl`.
+Veja [instalando ferramentas](/pt-br/docs/tasks/tools/#kubectl) para instruções de como
+instalar.
 
 <!-- lessoncontent -->
 
-## Criando um cluster do Minikube
+## Criando um cluster do minikube
 
-1. Clique no botão abaixo **para iniciar o terminal do Katacoda**.
+```shell
+minikube start
+```
 
-    {{< kat-button >}}
+## Abra o painel (_dashboard_)
+
+Abra o painel (_dashboard_) do Kubernetes. Você pode fazer isso de duas formas
+distintas:
+
+{{< tabs name="dashboard" >}}
+{{% tab name="Abra um navegador" %}}
+Abra um **novo** terminal e rode o comando:
+```shell
+# Inicie um novo terminal e deixe este comando rodando.
+minikube dashboard
+```
+
+Agora, retorne para o terminal onde você executou o comando `minikube start`.
 
 {{< note >}}
-Se você instalou o Minikube localmente, execute: `minikube start`.
+O comando `dashboard` habilita o complemento do painel e abre o proxy no navegador
+padrão. Você pode criar recursos do Kubernetes no painel, como Deployment e
+Service.
+
+Se você estiver executando num ambiente com o usuário _root_, veja
+[Abrir o Painel com URL](#open-dashboard-with-url).
+
+Por padrão, o painel só é acessível pela rede virtual interna do Kubernetes. O
+comando `dashboard` cria um proxy temporário para tornar o painel acessível por
+fora da rede virtual do Kubernetes.
+
+Para parar o proxy, utilize o comando `Ctrl+C` para encerrar o processo.
+Após o término do comando, o painel permanece executando no cluster do Kubernetes.
+Você pode executar o comando `dashboard` novamente para criar outro proxy para
+acessar o painel.
 {{< /note >}}
 
-2. Abra o painel do Kubernetes em um navegador: 
+{{% /tab %}}
+{{% tab name="Copie e cole a URL" %}}
 
-    ```shell
-    minikube dashboard
-    ```
+Se você não deseja que o minikube abra um navegador para você, rode o comando
+`dashboard` com a opção de linha de comando `--url`. O minikube irá imprimir
+uma URL que você poderá abrir no navegador de sua preferência.
 
-3. Apenas no ambiente do Katacoda: Na parte superior do terminal, clique em **Preview Port 30000**.
+Abra um **novo** terminal e rode o comando:
+```shell
+# Inicie um novo terminal e deixe este comando rodando.
+minikube dashboard --url
+```
+
+Agora, retorne para o terminal onde você executou o comando `minikube start`.
+
+{{% /tab %}}
+{{< /tabs >}}
 
 ## Criando um Deployment
 
-Um [*Pod*](/docs/concepts/workloads/pods/) Kubernetes consiste em um ou mais contêineres agrupados para fins de administração e gerenciamento de rede. O Pod desse tutorial possui apenas um contêiner. Um [*Deployment*](/docs/concepts/workloads/controllers/deployment/) Kubernetes verifica a saúde do seu Pod e reinicia o contêiner do Pod caso o mesmo seja finalizado. Deployments são a maneira recomendada de gerenciar a criação e escalonamento dos Pods.
+Um [*Pod*](/docs/concepts/workloads/pods/) do Kubernetes consiste em um ou mais
+contêineres agrupados para fins de administração e gerenciamento de rede. O Pod
+deste tutorial possui apenas um contêiner. Um
+[*Deployment*](/docs/concepts/workloads/controllers/deployment/) do Kubernetes
+verifica a integridade do seu Pod e reinicia o contêiner do Pod caso este seja
+finalizado. Deployments são a maneira recomendada de gerenciar a criação e
+escalonamento dos Pods.
 
-1. Usando o comando `kubectl create` para criar um Deployment que gerencia um Pod. O Pod executa um contêiner baseado na imagem docker disponibilizada.
+1. Usando o comando `kubectl create` para criar um Deployment que gerencia um Pod.
+   O Pod executa um contêiner baseado na imagem do Docker disponibilizada.
 
     ```shell
-    kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
+    kubectl create deployment hello-node --image=registry.k8s.io/echoserver:1.4
     ```
 
-2. Visualizando o Deployment:
+1. Visualize o Deployment:
 
     ```shell
     kubectl get deployments
@@ -74,7 +125,7 @@ Um [*Pod*](/docs/concepts/workloads/pods/) Kubernetes consiste em um ou mais con
     hello-node   1/1     1            1           1m
     ```
 
-3. Visualizando o Pod:
+1. Visualize o Pod:
 
     ```shell
     kubectl get pods
@@ -87,38 +138,44 @@ Um [*Pod*](/docs/concepts/workloads/pods/) Kubernetes consiste em um ou mais con
     hello-node-5f76cf6ccf-br9b5   1/1       Running   0          1m
     ```
 
-4. Visualizando os eventos do cluster:
+1. Visualize os eventos do cluster:
 
     ```shell
     kubectl get events
     ```
 
-5. Visualizando a configuração do `kubectl`:
+1. Visualize a configuração do `kubectl`:
 
     ```shell
     kubectl config view
     ```
 
 {{< note >}}
-Para mais informações sobre o comando `kubectl`, veja o [kubectl overview](/docs/reference/kubectl/overview/).
+Para mais informações sobre o comando `kubectl`, consulte
+[visão geral do kubectl](/docs/reference/kubectl/).
 {{< /note >}}
 
-## Criando um serviço
+## Criando um Serviço
 
-Por padrão, um Pod só é acessível utilizando o seu endereço IP interno no cluster Kubernetes. Para dispobiblilizar o contêiner `hello-node` fora da rede virtual do Kubernetes, você deve expor o Pod como um [*serviço*](/docs/concepts/services-networking/service/) Kubernetes.
+Por padrão, um Pod só é acessível utilizando o seu endereço IP interno no cluster
+Kubernetes. Para dispobiblilizar o contêiner `hello-node` fora da rede virtual do
+Kubernetes, você deve expor o Pod como um
+[*Service*](/docs/concepts/services-networking/service/) do Kubernetes.
 
-1. Expondo o Pod usando o comando `kubectl expose`:
+1. Exponha o Pod usando o comando `kubectl expose`:
 
     ```shell
     kubectl expose deployment hello-node --type=LoadBalancer --port=8080
     ```
 
-    O parâmetro `--type=LoadBalancer` indica que você deseja expor o seu serviço fora do cluster Kubernetes.
+    O parâmetro `--type=LoadBalancer` indica que você deseja expor o seu serviço
+    fora do cluster Kubernetes.
     
-    A aplicação dentro da imagem `k8s.gcr.io/echoserver` "escuta" apenas na porta TCP 8080. Se você usou
-     `kubectl expose` para expor uma porta diferente, os clientes não conseguirão se conectar a essa outra porta.
+    A aplicação dentro da imagem de teste escuta apenas na porta TCP 8080. Se
+    você usou `kubectl expose` para expor uma porta diferente, os clientes não
+    conseguirão se conectar a essa outra porta.
 
-2. Visualizando o serviço que você acabou de criar:
+1. Visualize o serviço que você acabou de criar:
 
     ```shell
     kubectl get services
@@ -132,25 +189,26 @@ Por padrão, um Pod só é acessível utilizando o seu endereço IP interno no c
     kubernetes   ClusterIP      10.96.0.1       <none>        443/TCP          23m
     ```
 
-    Em provedores de Cloud que fornecem serviços de balanceamento de carga para o Kubernetes, um IP externo seria provisionado para acessar o serviço. No Minikube, o tipo `LoadBalancer` torna o serviço acessível por meio do comando `minikube service`.
+    Em provedores de nuvem que fornecem serviços de balanceamento de carga para
+    o Kubernetes, um IP externo seria provisionado para acessar o serviço. No
+    minikube, o tipo `LoadBalancer` torna o serviço acessível por meio do comando
+    `minikube service`.
 
-3. Executar o comando a seguir:
+1. Execute o comando a seguir:
 
     ```shell
     minikube service hello-node
     ```
 
-4. (**Apenas no ambiente do Katacoda**) Clicar no sinal de mais e então clicar em **Select port to view on Host 1**.
-
-5. (**Apenas no ambiente do Katacoda**) Observe o número da porta com 5 dígitos exibido ao lado de `8080` na saída do serviço. Este número de porta é gerado aleatoriamente e pode ser diferente para você. Digite seu número na caixa de texto do número da porta e clique em **Display Port**. Usando o exemplo anterior, você digitaria `30369`.
-
-Isso abre uma janela do navegador, acessa o seu aplicativo e mostra o retorno da requisição.
+    Este comando abre uma janela do navegador que serve o seu aplicativo e exibe
+    o retorno da requisição ao aplicativo.
 
 ## Habilitando Complementos (addons)
 
-O Minikube inclui um conjunto integrado de {{< glossary_tooltip text="complementos" term_id="addons" >}} que podem ser habilitados, desabilitados e executados no ambiente Kubernetes local.
+A ferramenta minikube inclui um conjunto integrado de {{< glossary_tooltip text="complementos" term_id="addons" >}}
+que podem ser habilitados, desabilitados e executados no ambiente Kubernetes local.
 
-1. Listando os complementos suportados atualmente:
+1. Liste os complementos suportados atualmente:
 
     ```shell
     minikube addons list
@@ -178,7 +236,7 @@ O Minikube inclui um conjunto integrado de {{< glossary_tooltip text="complement
     storage-provisioner-gluster: disabled
     ```
 
-2. Habilitando um complemento, por exemplo, `metrics-server`:
+2. Habilite um complemento, por exemplo, `metrics-server`:
 
     ```shell
     minikube addons enable metrics-server
@@ -187,10 +245,10 @@ O Minikube inclui um conjunto integrado de {{< glossary_tooltip text="complement
     A saída será semelhante a:
 
     ```
-    metrics-server was successfully enabled
+    The 'metrics-server' addon is enabled
     ```
 
-3. Visualizando os Pods e os Serviços que você acabou de criar:
+3. Visualize o Pod e o Service que você acabou de criar:
 
     ```shell
     kubectl get pod,svc -n kube-system
@@ -219,7 +277,7 @@ O Minikube inclui um conjunto integrado de {{< glossary_tooltip text="complement
     service/monitoring-influxdb    ClusterIP   10.111.169.94   <none>        8083/TCP,8086/TCP   26s
     ```
 
-4. Desabilitando o complemento `metrics-server`:
+4. Desabilite o complemento `metrics-server`:
 
     ```shell
     minikube addons disable metrics-server
@@ -231,7 +289,7 @@ O Minikube inclui um conjunto integrado de {{< glossary_tooltip text="complement
     metrics-server was successfully disabled
     ```
 
-## Removendo os recursos do Minikube
+## Limpeza
 
 Agora você pode remover todos os recursos criados no seu cluster:
 
@@ -239,20 +297,25 @@ Agora você pode remover todos os recursos criados no seu cluster:
 kubectl delete service hello-node
 kubectl delete deployment hello-node
 ```
-(**Opcional**) Pare a máquina virtual (VM) do Minikube:
+
+Encerre o cluster do minikube:
 
 ```shell
 minikube stop
 ```
-(**Opcional**) Remova a VM do Minikube:
+
+(Opcional) Apague a máquina virtual (VM) do minikube:
 
 ```shell
+# Opcional
 minikube delete
 ```
 
-## Próximos passos
+Se você desejar utilizar o minikube novamente para aprender mais sobre o Kubernetes,
+você não precisa apagar a VM.
 
-* Aprender mais sobre [Deployment objects](/docs/concepts/workloads/controllers/deployment/).
-* Aprender mais sobre [Deploying applications](/docs/tasks/run-application/run-stateless-application-deployment/).
-* Aprender mais sobre [Service objects](/docs/concepts/services-networking/service/).
+## {{% heading "whatsnext" %}}
 
+* Aprenda mais sobre [objetos Deployment](/docs/concepts/workloads/controllers/deployment/).
+* Aprenda mais sobre [implantar aplicações](/docs/tasks/run-application/run-stateless-application-deployment/).
+* Aprenda mais sobre [objetos Service](/docs/concepts/services-networking/service/).

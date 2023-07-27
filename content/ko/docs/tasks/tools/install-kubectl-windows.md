@@ -20,16 +20,17 @@ card:
 다음과 같은 방법으로 윈도우에 kubectl을 설치할 수 있다.
 
 - [윈도우에서 curl을 사용하여 kubectl 바이너리 설치](#install-kubectl-binary-with-curl-on-windows)
-- [Chocolatey 또는 Scoop을 사용하여 윈도우에 설치](#install-on-windows-using-chocolatey-or-scoop)
+- [Chocolatey, Scoop, 또는 winget을 사용하여 윈도우에 설치](#install-nonstandard-package-tools)
 
 ### 윈도우에서 curl을 사용하여 kubectl 바이너리 설치 {#install-kubectl-binary-with-curl-on-windows}
 
-1. [최신 릴리스 {{< param "fullversion" >}}](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe)를 다운로드한다.
+1. 최신 패치 릴리스 {{< skew currentVersion >}} 다운로드: 
+   [kubectl {{< skew currentPatchVersion >}}](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe)
 
    또는 `curl` 을 설치한 경우, 다음 명령을 사용한다.
 
    ```powershell
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe"
+   curl.exe -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe"
    ```
 
    {{< note >}}
@@ -41,7 +42,7 @@ card:
    `kubectl` 체크섬 파일을 다운로드한다.
 
    ```powershell
-   curl -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256"
+   curl.exe -LO "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe.sha256"
    ```
 
    `kubectl` 바이너리를 체크섬 파일을 통해 검증한다.
@@ -77,9 +78,9 @@ card:
 도커 데스크톱을 이전에 설치한 경우, 도커 데스크톱 설치 프로그램에서 추가한 `PATH` 항목 앞에 `PATH` 항목을 배치하거나 도커 데스크톱의 `kubectl` 을 제거해야 할 수도 있다.
 {{< /note >}}
 
-### Chocolatey 또는 Scoop을 사용하여 윈도우에 설치 {#install-on-windows-using-chocolatey-or-scoop}
+### Chocolatey, Scoop, 또는 winget을 사용하여 윈도우에 설치 {#install-nonstandard-package-tools}
 
-1. 윈도우에 kubectl을 설치하기 위해서 [Chocolatey](https://chocolatey.org) 패키지 관리자나 [Scoop](https://scoop.sh) 커맨드 라인 설치 프로그램을 사용할 수 있다.
+1. 윈도우에 kubectl을 설치하기 위해서 [Chocolatey](https://chocolatey.org) 패키지 관리자, [Scoop](https://scoop.sh) 커맨드 라인 설치 프로그램, [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/) 패키지 관리자를 사용할 수 있다.
 
    {{< tabs name="kubectl_win_install" >}}
    {{% tab name="choco" %}}
@@ -92,8 +93,12 @@ card:
     scoop install kubectl
    ```
    {{% /tab %}}
+   {{% tab name="winget" %}}
+   ```powershell
+   winget install -e --id Kubernetes.kubectl
+   ```
+   {{% /tab %}}
    {{< /tabs >}}
-
 
 1. 설치한 버전이 최신 버전인지 확인한다.
 
@@ -151,7 +156,7 @@ kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제
 1. 다음 명령으로 최신 릴리스를 다운로드한다.
 
    ```powershell
-   curl -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe"
+   curl.exe -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl-convert.exe"
    ```
 
 1. 바이너리를 검증한다. (선택 사항)
@@ -159,7 +164,7 @@ kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제
    `kubectl-convert` 체크섬(checksum) 파일을 다운로드한다.
 
    ```powershell
-   curl -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
+   curl.exe -LO "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
    ```
 
    `kubectl-convert` 바이너리를 체크섬 파일을 통해 검증한다.

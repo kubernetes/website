@@ -1,12 +1,12 @@
 ---
 title: Configuring a cgroup driver
 content_type: task
-weight: 10
+weight: 20
 ---
 
 <!-- overview -->
 
-This page explains how to configure the kubelet cgroup driver to match the container
+This page explains how to configure the kubelet's cgroup driver to match the container
 runtime cgroup driver for kubeadm clusters.
 
 ## {{% heading "prerequisites" %}}
@@ -20,7 +20,9 @@ You should be familiar with the Kubernetes
 
 The [Container runtimes](/docs/setup/production-environment/container-runtimes) page
 explains that the `systemd` driver is recommended for kubeadm based setups instead
-of the `cgroupfs` driver, because kubeadm manages the kubelet as a systemd service.
+of the kubelet's [default](/docs/reference/config-api/kubelet-config.v1beta1) `cgroupfs` driver,
+because kubeadm manages the kubelet as a
+[systemd service](/docs/setup/production-environment/tools/kubeadm/kubelet-integration).
 
 The page also provides details on how to set up a number of different container runtimes with the
 `systemd` driver by default.
@@ -32,9 +34,8 @@ This `KubeletConfiguration` can include the `cgroupDriver` field which controls 
 driver of the kubelet.
 
 {{< note >}}
-
-In v1.22, if the user is not setting the `cgroupDriver` field under `KubeletConfiguration`,
-`kubeadm` will default it to `systemd`.
+In v1.22 and later, if the user does not set the `cgroupDriver` field under `KubeletConfiguration`,
+kubeadm defaults it to `systemd`.
 {{< /note >}}
 
 A minimal example of configuring the field explicitly:
@@ -81,7 +82,7 @@ you must refer to the documentation of the container runtime of your choice.
 
 ## Migrating to the `systemd` driver
 
-To change the cgroup driver of an existing kubeadm cluster to `systemd` in-place,
+To change the cgroup driver of an existing kubeadm cluster from `cgroupfs` to `systemd` in-place,
 a similar procedure to a kubelet upgrade is required. This must include both
 steps outlined below.
 

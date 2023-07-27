@@ -10,7 +10,7 @@ weight: 45
 
 <!-- overview -->
 
-In Kubernetes, _namespaces_ provides a mechanism for isolating groups of resources within a single cluster. Names of resources need to be unique within a namespace, but not across namespaces. Namespace-based scoping is applicable only for namespaced objects _(e.g. Deployments, Services, etc)_ and not for cluster-wide objects _(e.g. StorageClass, Nodes, PersistentVolumes, etc)_.
+In Kubernetes, _namespaces_ provides a mechanism for isolating groups of resources within a single cluster. Names of resources need to be unique within a namespace, but not across namespaces. Namespace-based scoping is applicable only for namespaced {{< glossary_tooltip text="objects" term_id="object" >}} _(e.g. Deployments, Services, etc)_ and not for cluster-wide objects _(e.g. StorageClass, Nodes, PersistentVolumes, etc)_.
 
 <!-- body -->
 
@@ -44,7 +44,7 @@ Kubernetes starts with four initial namespaces:
 : Kubernetes includes this namespace so that you can start using your new cluster without first creating a namespace.
 
 `kube-node-lease`
-: This namespace holds [Lease](/docs/reference/kubernetes-api/cluster-resources/lease-v1/) objects associated with each node. Node leases allow the kubelet to send [heartbeats](/docs/concepts/architecture/nodes/#heartbeats) so that the control plane can detect node failure.
+: This namespace holds [Lease](/docs/concepts/architecture/leases/) objects associated with each node. Node leases allow the kubelet to send [heartbeats](/docs/concepts/architecture/nodes/#heartbeats) so that the control plane can detect node failure.
 
 `kube-public`
 : This namespace is readable by *all* clients (including those not authenticated). This namespace is mostly reserved for cluster usage, in case that some resources should be visible and readable publicly throughout the whole cluster. The public aspect of this namespace is only a convention, not a requirement.
@@ -147,11 +147,10 @@ kubectl api-resources --namespaced=false
 
 ## Automatic labelling
 
-{{< feature-state state="beta" for_k8s_version="1.21" >}}
+{{< feature-state for_k8s_version="1.22" state="stable" >}}
 
 The Kubernetes control plane sets an immutable {{< glossary_tooltip text="label" term_id="label" >}}
-`kubernetes.io/metadata.name` on all namespaces, provided that the `NamespaceDefaultLabelName`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
+`kubernetes.io/metadata.name` on all namespaces.
 The value of the label is the namespace name.
 
 

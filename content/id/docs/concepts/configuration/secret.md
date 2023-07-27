@@ -559,7 +559,7 @@ apakah  terdapat perubahan pada Secret yang telah di-_mount_. Meskipun demikian,
 proses pengecekan ini dilakukan dengan menggunakan _cache_ lokal untuk mendapatkan _value_ saat ini 
 dari sebuah Secret. Tipe _cache_ yang ada dapat diatur dengan menggunakan 
 (_field_ `ConfigMapAndSecretChangeDetectionStrategy` pada
-[_struct_ KubeletConfiguration](https://github.com/kubernetes/kubernetes/blob/{{< param "docsbranch" >}}/staging/src/k8s.io/kubelet/config/v1beta1/types.go)).
+[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/)).
 Mekanisme ini kemudian dapat diteruskan dengan mekanisme _watch_(_default_), ttl, atau melakukan pengalihan semua 
 _request_ secara langsung pada kube-apiserver.
 Sebagai hasilnya, _delay_ total dari pertama kali Secret diubah hingga dilakukannya mekanisme 
@@ -920,7 +920,7 @@ spec:
       secretName: dotfile-secret
   containers:
   - name: dotfile-test-container
-    image: k8s.gcr.io/busybox
+    image: registry.k8s.io/busybox
     command:
     - ls
     - "-l"

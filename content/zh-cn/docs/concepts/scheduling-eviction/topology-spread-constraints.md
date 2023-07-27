@@ -4,15 +4,15 @@ content_type: concept
 weight: 40
 ---
 
-<!-- 
+<!--
 title: Pod Topology Spread Constraints
 content_type: concept
-weight: 40 
+weight: 40
 -->
 
 <!-- overview -->
 
-<!-- 
+<!--
 You can use _topology spread constraints_ to control how
 {{< glossary_tooltip text="Pods" term_id="Pod" >}} are spread across your cluster
 among failure-domains such as regions, zones, nodes, and other user-defined topology
@@ -20,7 +20,7 @@ domains. This can help to achieve high availability as well as efficient resourc
 utilization.
 
 You can set [cluster-level constraints](#cluster-level-default-constraints) as a default,
-or configure topology spread constraints for individual workloads. 
+or configure topology spread constraints for individual workloads.
 -->
 你可以使用 **拓扑分布约束（Topology Spread Constraints）** 来控制
 {{< glossary_tooltip text="Pod" term_id="Pod" >}} 在集群内故障域之间的分布，
@@ -31,7 +31,7 @@ or configure topology spread constraints for individual workloads.
 
 <!-- body -->
 
-<!-- 
+<!--
 ## Motivation
 
 Imagine that you have a cluster of up to twenty nodes, and you want to run a
@@ -43,7 +43,7 @@ same node: you would run the risk that a single node failure takes your workload
 offline.
 
 In addition to this basic usage, there are some advanced usage examples that
-enable your workloads to benefit on high availability and cluster utilization. 
+enable your workloads to benefit on high availability and cluster utilization.
 -->
 ## 动机 {#motivation}
 
@@ -55,7 +55,7 @@ enable your workloads to benefit on high availability and cluster utilization.
 
 除了这个基本的用法之外，还有一些高级的使用案例，能够让你的工作负载受益于高可用性并提高集群利用率。
 
-<!-- 
+<!--
 As you scale up and run more Pods, a different concern becomes important. Imagine
 that you have three nodes running five Pods each. The nodes have enough capacity
 to run that many replicas; however, the clients that interact with this workload
@@ -81,7 +81,7 @@ Pod topology spread constraints offer you a declarative way to configure that.
 
 Pod 拓扑分布约束使你能够以声明的方式进行配置。
 
-<!-- 
+<!--
 ## `topologySpreadConstraints` field
 
 The Pod API includes a field, `spec.topologySpreadConstraints`. The usage of this field looks like
@@ -105,13 +105,13 @@ spec:
       topologyKey: <string>
       whenUnsatisfiable: <string>
       labelSelector: <object>
-      matchLabelKeys: <list> # 可选；自从 v1.25 开始成为 Alpha
-      nodeAffinityPolicy: [Honor|Ignore] # 可选；自从 v1.25 开始成为 Alpha
-      nodeTaintsPolicy: [Honor|Ignore] # 可选；自从 v1.25 开始成为 Alpha
+      matchLabelKeys: <list> # 可选；自从 v1.27 开始成为 Beta
+      nodeAffinityPolicy: [Honor|Ignore] # 可选；自从 v1.26 开始成为 Beta
+      nodeTaintsPolicy: [Honor|Ignore] # 可选；自从 v1.26 开始成为 Beta
   ### 其他 Pod 字段置于此处
 ```
 
-<!-- 
+<!--
 You can read more about this field by running `kubectl explain Pod.spec.topologySpreadConstraints` or
 refer to [scheduling](/docs/reference/kubernetes-api/workload-resources/pod-v1/#scheduling) section of the API reference for Pod.
 -->
@@ -119,7 +119,7 @@ refer to [scheduling](/docs/reference/kubernetes-api/workload-resources/pod-v1/#
 参考的[调度](/zh-cn/docs/reference/kubernetes-api/workload-resources/pod-v1/#scheduling)一节，
 了解有关此字段的更多信息。
 
-<!-- 
+<!--
 ### Spread constraint definition
 
 You can define one or multiple `topologySpreadConstraints` entries to instruct the
@@ -147,7 +147,7 @@ your cluster. Those fields are:
 -->
 - **maxSkew** 描述这些 Pod 可能被均匀分布的程度。你必须指定此字段且该数值必须大于零。
   其语义将随着 `whenUnsatisfiable` 的值发生变化：
-  
+
   - 如果你选择 `whenUnsatisfiable: DoNotSchedule`，则 `maxSkew` 定义目标拓扑中匹配 Pod 的数量与
     **全局最小值**（符合条件的域中匹配的最小 Pod 数量，如果符合条件的域数量小于 MinDomains 则为零）
     之间的最大允许差值。例如，如果你有 3 个可用区，分别有 2、2 和 1 个匹配的 Pod，则 `MaxSkew` 设为 1，
@@ -161,17 +161,17 @@ your cluster. Those fields are:
 -->
 - **minDomains** 表示符合条件的域的最小数量。此字段是可选的。域是拓扑的一个特定实例。
   符合条件的域是其节点与节点选择器匹配的域。
-  
+
   {{< note >}}
   <!--
-  The `minDomains` field is a beta field and enabled by default in 1.25. You can disable it by disabling the
-  `MinDomainsInPodToplogySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+  The `minDomains` field is a beta field and disabled by default in 1.25. You can enable it by enabling the
+  `MinDomainsInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   -->
-  `minDomains` 字段是一个 Alpha 字段，在 1.25 中默认被启用。
-  你可以通过禁用 `MinDomainsInPodToplogySpread`
-  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用该字段。
+  `minDomains` 字段是一个 Beta 字段，在 1.25 中默认被禁用。
+  你可以通过启用 `MinDomainsInPodTopologySpread`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来启用该字段。
   {{< /note >}}
-  
+
   <!--
   - The value of `minDomains` must be greater than 0, when specified.
     You can only specify `minDomains` in conjunction with `whenUnsatisfiable: DoNotSchedule`.
@@ -223,40 +223,54 @@ your cluster. Those fields are:
 
 <!--
 - **matchLabelKeys** is a list of pod label keys to select the pods over which
-  spreading will be calculated. The keys are used to lookup values from the pod labels, those key-value labels are ANDed with `labelSelector` to select the group of existing pods over which spreading will be calculated for the incoming pod. Keys that don't exist in the pod labels will be ignored. A null or empty list means only match against the `labelSelector`.
+  spreading will be calculated. The keys are used to lookup values from the pod labels,
+  those key-value labels are ANDed with `labelSelector` to select the group of existing
+  pods over which spreading will be calculated for the incoming pod. The same key is
+  forbidden to exist in both `matchLabelKeys` and `labelSelector`. `matchLabelKeys` cannot
+  be set when `labelSelector` isn't set. Keys that don't exist in the pod labels will be
+  ignored. A null or empty list means only match against the `labelSelector`.
 
-  With `matchLabelKeys`, users don't need to update the `pod.spec` between different revisions. The controller/operator just needs to set different values to the same `label` key for different revisions. The scheduler will assume the values automatically based on `matchLabelKeys`. For example, if users use Deployment, they can use the label keyed with `pod-template-hash`, which is added automatically by the Deployment controller, to distinguish between different revisions in a single Deployment.
+  With `matchLabelKeys`, you don't need to update the `pod.spec` between different revisions.
+  The controller/operator just needs to set different values to the same label key for different
+  revisions. The scheduler will assume the values automatically based on `matchLabelKeys`. For
+  example, if you are configuring a Deployment, you can use the label keyed with
+  [pod-template-hash](/docs/concepts/workloads/controllers/deployment/#pod-template-hash-label), which
+  is added automatically by the Deployment controller, to distinguish between different revisions
+  in a single Deployment.
 -->
 - **matchLabelKeys** 是一个 Pod 标签键的列表，用于选择需要计算分布方式的 Pod 集合。
   这些键用于从 Pod 标签中查找值，这些键值标签与 `labelSelector` 进行逻辑与运算，以选择一组已有的 Pod，
-  通过这些 Pod 计算新来 Pod 的分布方式。Pod 标签中不存在的键将被忽略。
+  通过这些 Pod 计算新来 Pod 的分布方式。`matchLabelKeys` 和 `labelSelector` 中禁止存在相同的键。
+  未设置 `labelSelector` 时无法设置 `matchLabelKeys`。Pod 标签中不存在的键将被忽略。
   null 或空列表意味着仅与 `labelSelector` 匹配。
 
-  借助 `matchLabelKeys`，用户无需在变更 Pod 修订版本时更新 `pod.spec`。
-  控制器或 Operator 只需要将不同修订版的 `label` 键设为不同的值。
-  调度器将根据 `matchLabelKeys` 自动确定取值。例如，如果用户使用 Deployment，
-  则他们可以使用由 Deployment 控制器自动添加的、以 `pod-template-hash` 为键的标签来区分单个
-  Deployment 的不同修订版。
+  借助 `matchLabelKeys`，你无需在变更 Pod 修订版本时更新 `pod.spec`。
+  控制器或 Operator 只需要将不同修订版的标签键设为不同的值。
+  调度器将根据 `matchLabelKeys` 自动确定取值。例如，如果你正在配置一个 Deployment，
+  则你可以使用由 Deployment 控制器自动添加的、以
+  [pod-template-hash](/zh-cn/docs/concepts/workloads/controllers/deployment/#pod-template-hash-label)
+  为键的标签来区分同一个 Deployment 的不同修订版。
 
   ```yaml
       topologySpreadConstraints:
           - maxSkew: 1
             topologyKey: kubernetes.io/hostname
             whenUnsatisfiable: DoNotSchedule
+            labelSelector:
+              matchLabels:
+                app: foo
             matchLabelKeys:
-              - app
               - pod-template-hash
   ```
 
   {{< note >}}
   <!--
-  The `matchLabelKeys` field is an alpha field added in 1.25. You have to enable the
-  `MatchLabelKeysInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  in order to use it.
+  The `matchLabelKeys` field is a beta-level field and enabled by default in 1.27. You can disable it by disabling the
+  `MatchLabelKeysInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   -->
-  `matchLabelKeys` 字段是 1.25 中新增的一个 Alpha 字段。
-  你必须启用 `MatchLabelKeysInPodTopologySpread`
-  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)才能使用此字段。
+  `matchLabelKeys` 字段是 1.27 中默认启用的一个 Beta 级别字段。
+  你可以通过禁用 `MatchLabelKeysInPodTopologySpread`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用此字段。
   {{< /note >}}
 
 <!--
@@ -276,13 +290,12 @@ your cluster. Those fields are:
 
   {{< note >}}
   <!--
-  The `nodeAffinityPolicy` is an alpha-level field added in 1.25. You have to enable the
-  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  in order to use it.
+  The `nodeAffinityPolicy` is a beta-level field and enabled by default in 1.26. You can disable it by disabling the
+  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   -->
-  `nodeAffinityPolicy` 是 1.25 中新增的一个 Alpha 级别字段。
-  你必须启用 `NodeInclusionPolicyInPodTopologySpread`
-  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)才能使用此字段。
+  `nodeAffinityPolicy` 是 1.26 中默认启用的一个 Beta 级别字段。
+  你可以通过禁用 `NodeInclusionPolicyInPodTopologySpread`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用此字段。
   {{< /note >}}
 
 <!--
@@ -302,13 +315,12 @@ your cluster. Those fields are:
 
   {{< note >}}
   <!--
-  The `nodeTaintsPolicy` is an alpha-level field added in 1.25. You have to enable the
-  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-  in order to use it.
+  The `nodeTaintsPolicy` is a beta-level field and enabled by default in 1.26. You can disable it by disabling the
+  `NodeInclusionPolicyInPodTopologySpread` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
   -->
-  `nodeTaintsPolicy` 是 1.25 中新增的一个 Alpha 级别字段。
-  你必须启用 `NodeInclusionPolicyInPodTopologySpread`
-  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)才能使用此字段。
+  `nodeTaintsPolicy` 是一个 Beta 级别字段，在 1.26 版本默认启用。
+  你可以通过禁用 `NodeInclusionPolicyInPodTopologySpread`
+  [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用此字段。
   {{< /note >}}
 
 <!--
@@ -403,7 +415,7 @@ confusing and troubleshooting is less straightforward.
 You need a mechanism to ensure that all the nodes in a topology domain (such as a
 cloud provider region) are labelled consistently.
 To avoid you needing to manually label nodes, most clusters automatically
-populate well-known labels such as `topology.kubernetes.io/hostname`. Check whether
+populate well-known labels such as `kubernetes.io/hostname`. Check whether
 your cluster supports this.
 -->
 ## 一致性 {#Consistency}
@@ -416,7 +428,7 @@ your cluster supports this.
 
 你需要一种机制来确保拓扑域（例如云提供商区域）中的所有节点具有一致的标签。
 为了避免你需要手动为节点打标签，大多数集群会自动填充知名的标签，
-例如 `topology.kubernetes.io/hostname`。检查你的集群是否支持此功能。
+例如 `kubernetes.io/hostname`。检查你的集群是否支持此功能。
 
 <!--
 ## Topology spread constraint examples
@@ -729,7 +741,7 @@ There are some implicit conventions worth noting here:
 - 只有与新来的 Pod 具有相同命名空间的 Pod 才能作为匹配候选者。
 
 - 调度器会忽略没有任何 `topologySpreadConstraints[*].topologyKey` 的节点。这意味着：
-  
+
   1. 位于这些节点上的 Pod 不影响 `maxSkew` 计算，在上面的例子中，假设节点 `node1` 没有标签 "zone"，
      则 2 个 Pod 将被忽略，因此新来的 Pod 将被调度到可用区 `A` 中。
   2. 新的 Pod 没有机会被调度到这类节点上。在上面的例子中，
@@ -906,8 +918,8 @@ Pod 彼此的调度方式（更密集或更分散）。
 
 `podAntiAffinity`
 : 驱逐 Pod。如果将此设为 `requiredDuringSchedulingIgnoredDuringExecution` 模式，
-  则只有单个 Pod 可以调度到单个拓扑域；如果你选择 `preferredDuringSchedulingIgnoredDuringExecution`，
-  则你将丢失强制执行此约束的能力。
+则只有单个 Pod 可以调度到单个拓扑域；如果你选择 `preferredDuringSchedulingIgnoredDuringExecution`，
+则你将丢失强制执行此约束的能力。
 
 <!--
 For finer control, you can specify topology spread constraints to distribute
@@ -939,7 +951,7 @@ section of the enhancement proposal about Pod topology spread constraints.
 ## 已知局限性 {#known-limitations}
 
 - 当 Pod 被移除时，无法保证约束仍被满足。例如，缩减某 Deployment 的规模时，Pod 的分布可能不再均衡。
-  
+
   你可以使用 [Descheduler](https://github.com/kubernetes-sigs/descheduler) 来重新实现 Pod 分布的均衡。
 
 - 具有污点的节点上匹配的 Pod 也会被统计。
@@ -960,7 +972,7 @@ section of the enhancement proposal about Pod topology spread constraints.
 - 该调度器不会预先知道集群拥有的所有可用区和其他拓扑域。
   拓扑域由集群中存在的节点确定。在自动扩缩的集群中，如果一个节点池（或节点组）的节点数量缩减为零，
   而用户正期望其扩容时，可能会导致调度出现问题。
-  因为在这种情况下，调度器不会考虑这些拓扑域，因为其中至少有一个节点。
+  因为在这种情况下，调度器不会考虑这些拓扑域，直至这些拓扑域中至少包含有一个节点。
 
   你可以通过使用感知 Pod 拓扑分布约束并感知整个拓扑域集的集群自动扩缩工具来解决此问题。
 

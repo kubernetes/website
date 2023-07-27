@@ -42,7 +42,7 @@ Putuskan apakah kamu ingin menggelar (_deploy_) sebuah klaster di [_cloud_](#mem
 
 Untuk membuat satu klaster Calico dengan hos tunggal dalam waktu lima belas menit dengan menggunakan kubeadm, silakan merujuk pada
 
-[Memulai cepat Calico](https://docs.projectcalico.org/latest/getting-started/kubernetes/).
+[Memulai cepat Calico](https://projectcalico.docs.tigera.io/getting-started/kubernetes/).
 
 
 ## {{% heading "whatsnext" %}}

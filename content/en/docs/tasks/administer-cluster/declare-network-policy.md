@@ -5,6 +5,7 @@ reviewers:
 title: Declare Network Policy
 min-kubernetes-server-version: v1.8
 content_type: task
+weight: 180
 ---
 <!-- overview -->
 This document helps you get started using the Kubernetes [NetworkPolicy API](/docs/concepts/services-networking/network-policies/) to declare network policies that govern how pods communicate with each other.
@@ -86,7 +87,7 @@ remote file exists
 
 To limit the access to the `nginx` service so that only Pods with the label `access: true` can query it, create a NetworkPolicy object as follows:
 
-{{< codenew file="service/networking/nginx-policy.yaml" >}}
+{{% codenew file="service/networking/nginx-policy.yaml" %}}
 
 The name of a NetworkPolicy object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).

@@ -1,6 +1,6 @@
 ---
 title: Configure DNS for a Cluster
-weight: 120
+weight: 130
 content_type: concept
 ---
 

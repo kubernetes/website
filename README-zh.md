@@ -22,11 +22,11 @@ This repository contains the assets required to build the [Kubernetes website an
 <!--
 ## Using this repository
 
-You can run the website locally using Hugo (Extended version), or you can run it in a container runtime. We strongly recommend using the container runtime, as it gives deployment consistency with the live website.
+You can run the website locally using [Hugo (Extended version)](https://gohugo.io/), or you can run it in a container runtime. We strongly recommend using the container runtime, as it gives deployment consistency with the live website.
 -->
 ## 使用这个仓库
 
-可以使用 Hugo（扩展版）在本地运行网站，也可以在容器中运行它。强烈建议使用容器，因为这样可以和在线网站的部署保持一致。
+可以使用 [Hugo（扩展版）](https://gohugo.io/)在本地运行网站，也可以在容器中运行它。强烈建议使用容器，因为这样可以和在线网站的部署保持一致。
 
 <!--
 ## Prerequisites
@@ -60,14 +60,34 @@ cd website
 <!--
 The Kubernetes website uses the [Docsy Hugo theme](https://github.com/google/docsy#readme). Even if you plan to run the website in a container, we strongly recommend pulling in the submodule and other development dependencies by running the following:
 -->
-
 Kubernetes 网站使用的是 [Docsy Hugo 主题](https://github.com/google/docsy#readme)。
 即使你打算在容器中运行网站，我们也强烈建议你通过运行以下命令来引入子模块和其他开发依赖项：
 
-```bash
-# 引入 Docsy 子模块
+<!-- 
+### Windows
+```powershell
+# fetch submodule dependencies
 git submodule update --init --recursive --depth 1
-```
+``` 
+-->
+### Windows
+```powershell
+# 获取子模块依赖
+git submodule update --init --recursive --depth 1
+``` 
+
+<!-- 
+### Linux / other Unix
+```bash
+# fetch submodule dependencies
+make module-init
+``` 
+-->
+### Linux / 其它 Unix
+```bash
+# 获取子模块依赖
+make module-init
+``` 
 
 <!--
 ## Running the website using a container
@@ -130,11 +150,11 @@ This will start the local Hugo server on port 1313. Open up your browser to <htt
 ## 构建 API 参考页面
 
 <!--
-The API reference pages located in `content/en/docs/reference/kubernetes-api` are built from the Swagger specification, using <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>.
+The API reference pages located in `content/en/docs/reference/kubernetes-api` are built from the Swagger specification, also known as OpenAPI specification, using <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>.
 
 To update the reference pages for a new Kubernetes release follow these steps:
 -->
-位于 `content/en/docs/reference/kubernetes-api` 的 API 参考页面是根据 Swagger 规范构建的，使用 <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs>。
+位于 `content/en/docs/reference/kubernetes-api` 的 API 参考页面是使用 <https://github.com/kubernetes-sigs/reference-docs/tree/master/gen-resourcesdocs> 根据 Swagger 规范（也称为 OpenAPI 规范）构建的。
 
 要更新 Kubernetes 新版本的参考页面，请执行以下步骤：
 

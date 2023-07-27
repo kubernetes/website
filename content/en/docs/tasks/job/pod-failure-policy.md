@@ -5,7 +5,7 @@ min-kubernetes-server-version: v1.25
 weight: 60
 ---
 
-{{< feature-state for_k8s_version="v1.25" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
 
 <!-- overview -->
 
@@ -28,13 +28,8 @@ You should already be familiar with the basic use of [Job](/docs/concepts/worklo
 
 {{< include "task-tutorial-prereqs.md" >}} {{< version-check >}}
 
-<!-- steps -->
-
-{{< note >}}
-As the features are in Alpha, prepare the Kubernetes cluster with the two
-[feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled: `JobPodFailurePolicy` and `PodDisruptionConditions`.
-{{< /note >}}
+Ensure that the [feature gates](/docs/reference/command-line-tools-reference/feature-gates/)
+`PodDisruptionConditions` and `JobPodFailurePolicy` are both enabled in your cluster.
 
 ## Using Pod failure policy to avoid unnecessary Pod retries
 
@@ -44,7 +39,7 @@ software bug.
 
 First, create a Job based on the config:
 
-{{< codenew file="/controllers/job-pod-failure-policy-failjob.yaml" >}}
+{{% codenew file="/controllers/job-pod-failure-policy-failjob.yaml" %}}
 
 by running:
 
@@ -90,7 +85,7 @@ node while the Pod is running on it (within 90s since the Pod is scheduled).
 
 1. Create a Job based on the config:
 
-   {{< codenew file="/controllers/job-pod-failure-policy-ignore.yaml" >}}
+   {{% codenew file="/controllers/job-pod-failure-policy-ignore.yaml" %}}
 
    by running:
 
@@ -133,6 +128,114 @@ Delete the Job you created:
 
 ```sh
 kubectl delete jobs/job-pod-failure-policy-ignore
+```
+
+The cluster automatically cleans up the Pods.
+
+## Using Pod failure policy to avoid unnecessary Pod retries based on custom Pod Conditions
+
+With the following example, you can learn how to use Pod failure policy to
+avoid unnecessary Pod restarts based on custom Pod Conditions.
+
+{{< note >}}
+The example below works since version 1.27 as it relies on transitioning of
+deleted pods, in the `Pending` phase, to a terminal phase
+(see: [Pod Phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)).
+{{< /note >}}
+
+1. First, create a Job based on the config:
+
+   {{% codenew file="/controllers/job-pod-failure-policy-config-issue.yaml" %}}
+
+   by running:
+
+   ```sh
+   kubectl create -f job-pod-failure-policy-config-issue.yaml
+   ```
+
+   Note that, the image is misconfigured, as it does not exist.
+
+2. Inspect the status of the job's Pods by running:
+
+   ```sh
+   kubectl get pods -l job-name=job-pod-failure-policy-config-issue -o yaml
+   ```
+
+   You will see output similar to this:
+   ```yaml
+   containerStatuses:
+   - image: non-existing-repo/non-existing-image:example
+      ...
+      state:
+      waiting:
+         message: Back-off pulling image "non-existing-repo/non-existing-image:example"
+         reason: ImagePullBackOff
+         ...
+   phase: Pending
+   ```
+
+   Note that the pod remains in the `Pending` phase as it fails to pull the
+   misconfigured image. This, in principle, could be a transient issue and the
+   image could get pulled. However, in this case, the image does not exist so
+   we indicate this fact by a custom condition.
+
+3. Add the custom condition. First prepare the patch by running:
+
+   ```sh
+   cat <<EOF > patch.yaml
+   status:
+     conditions:
+     - type: ConfigIssue
+       status: "True"
+       reason: "NonExistingImage"
+       lastTransitionTime: "$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+   EOF
+   ```
+   Second, select one of the pods created by the job by running:
+   ```
+   podName=$(kubectl get pods -l job-name=job-pod-failure-policy-config-issue -o jsonpath='{.items[0].metadata.name}')
+   ```
+
+   Then, apply the patch on one of the pods by running the following command:
+
+   ```sh
+   kubectl patch pod $podName --subresource=status --patch-file=patch.yaml
+   ```
+
+   If applied successfully, you will get a notification like this:
+
+   ```sh
+   pod/job-pod-failure-policy-config-issue-k6pvp patched
+   ```
+
+4. Delete the pod to transition it to `Failed` phase, by running the command:
+
+   ```sh
+   kubectl delete pods/$podName
+   ```
+
+5. Inspect the status of the Job by running:
+
+   ```sh
+   kubectl get jobs -l job-name=job-pod-failure-policy-config-issue -o yaml
+   ```
+
+   In the Job status, see a job `Failed` condition with the field `reason`
+   equal `PodFailurePolicy`. Additionally, the `message` field contains a
+   more detailed information about the Job termination, such as:
+   `Pod default/job-pod-failure-policy-config-issue-k6pvp has condition ConfigIssue matching FailJob rule at index 0`.
+
+{{< note >}}
+In a production environment, the steps 3 and 4 should be automated by a
+user-provided controller.
+{{< /note >}}
+
+### Cleaning up
+
+Delete the Job you created:
+
+```sh
+kubectl delete jobs/job-pod-failure-policy-config-issue
 ```
 
 The cluster automatically cleans up the Pods.

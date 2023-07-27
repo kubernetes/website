@@ -27,7 +27,7 @@ Our goal is for Kubernetes docs to be a trustworthy guide to Kubernetes features
 
 ### Re-homing content
 
-Some content will be removed that readers may find helpful. To make sure readers have continous access to information, we're giving stakeholders until the [1.19 release deadline for docs](https://github.com/kubernetes/sig-release/tree/master/releases/release-1.19), **July 9th, 2020** to re-home any content slated for removal.
+Some content will be removed that readers may find helpful. To make sure readers have continuous access to information, we're giving stakeholders until the [1.19 release deadline for docs](https://github.com/kubernetes/sig-release/tree/master/releases/release-1.19), **July 9th, 2020** to re-home any content slated for removal.
 
 Over the next few months you'll see less third party content in the docs as contributors open PRs to remove content.
 

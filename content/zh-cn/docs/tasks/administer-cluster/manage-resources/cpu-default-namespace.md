@@ -168,17 +168,17 @@ kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-2.yaml 
 ```
 
 <!--
-View the [specification](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)
+View the [specification](/docs/concepts/overview/working-with-objects/#object-spec-and-status)
 of the Pod that you created:
 -->
-查看你所创建的 Pod 的[规约](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)：
+查看你所创建的 Pod 的[规约](/zh-cn/docs/concepts/overview/working-with-objects/#object-spec-and-status)：
 
 ```
 kubectl get pod default-cpu-demo-2 --output=yaml --namespace=default-cpu-example
 ```
 
 <!--
-The output shows that the Container's CPU request is set to match its CPU limit.
+The output shows that the container's CPU request is set to match its CPU limit.
 Notice that the container was not assigned the default CPU request value of 0.5 `cpu`:
 -->
 输出显示该容器的 CPU 请求和 CPU 限制设置相同。注意该容器没有被指定默认的 CPU 请求值 0.5 `cpu`：
@@ -213,10 +213,9 @@ kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-3.yaml 
 ```
 
 <!--
-View the [specification](/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)
-of the Pod that you created:
+View the specification of the Pod that you created:
 -->
-查看你所创建的 Pod 的[规约](/zh-cn/docs/concepts/overview/working-with-objects/kubernetes-objects/#object-spec-and-status)：
+查看你所创建的 Pod 的规约：
 
 ```
 kubectl get pod default-cpu-demo-3 --output=yaml --namespace=default-cpu-example
@@ -248,7 +247,7 @@ it is helpful to have a default value in place for CPU limit.
 Here are two of the restrictions that a CPU resource quota imposes on a namespace:
 
 * For every Pod that runs in the namespace, each of its containers must have a CPU limit.
-* CPU request apply a resource reservation on the node where the Pod in question is scheduled.
+* CPU limits apply a resource reservation on the node where the Pod in question is scheduled.
   The total amount of CPU that is reserved for use by all Pods in the namespace must not
   exceed a specified limit.
 
@@ -300,11 +299,11 @@ kubectl delete namespace default-cpu-example
 <!--
 ### For cluster administrators
 
-* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/memory-default-namespace/)
-* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/memory-constraint-namespace/)
-* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/cpu-constraint-namespace/)
-* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/quota-memory-cpu-namespace/)
-* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/quota-pod-namespace/)
+* [Configure Default Memory Requests and Limits for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
+* [Configure Minimum and Maximum Memory Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/)
+* [Configure Minimum and Maximum CPU Constraints for a Namespace](/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/)
+* [Configure Memory and CPU Quotas for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/)
+* [Configure a Pod Quota for a Namespace](/docs/tasks/administer-cluster/manage-resources/quota-pod-namespace/)
 * [Configure Quotas for API Objects](/docs/tasks/administer-cluster/quota-api-object/)
 -->
 ### 集群管理员参考
@@ -328,5 +327,3 @@ kubectl delete namespace default-cpu-example
 * [为容器和 Pod 分配内存资源](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/)
 * [为容器和 Pod 分配 CPU 资源](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/)
 * [为 Pod 配置服务质量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)
-
-

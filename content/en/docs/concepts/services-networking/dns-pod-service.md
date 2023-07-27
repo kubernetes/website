@@ -300,13 +300,13 @@ Below are the properties a user can specify in the `dnsConfig` field:
 
 The following is an example Pod with custom DNS settings:
 
-{{< codenew file="service/networking/custom-dns.yaml" >}}
+{{% codenew file="service/networking/custom-dns.yaml" %}}
 
 When the Pod above is created, the container `test` gets the following contents
 in its `/etc/resolv.conf` file:
 
 ```
-nameserver 1.2.3.4
+nameserver 192.0.2.1
 search ns1.svc.cluster-domain.example my.dns.search.suffix
 options ndots:2 edns0
 ```
@@ -323,16 +323,24 @@ search default.svc.cluster-domain.example svc.cluster-domain.example cluster-dom
 options ndots:5
 ```
 
-#### Expanded DNS Configuration
+## DNS search domain list limits
 
-{{< feature-state for_k8s_version="1.22" state="alpha" >}}
+{{< feature-state for_k8s_version="1.26" state="beta" >}}
 
-By default, for Pod's DNS Config, Kubernetes allows at most 6 search domains and
-a list of search domains of up to 256 characters.
+Kubernetes itself does not limit the DNS Config until the length of the search
+domain list exceeds 32 or the total length of all search domains exceeds 2048.
+This limit applies to the node's resolver configuration file, the Pod's DNS
+Config, and the merged DNS Config respectively.
 
-If the feature gate `ExpandedDNSConfig` is enabled for the kube-apiserver and
-the kubelet, it is allowed for Kubernetes to have at most 32 search domains and
-a list of search domains of up to 2048 characters.
+{{< note >}}
+Some container runtimes of earlier versions may have their own restrictions on
+the number of DNS search domains. Depending on the container runtime
+environment, the pods with a large number of DNS search domains may get stuck in
+the pending state.
+
+It is known that containerd v1.5.5 or earlier and CRI-O v1.21 or earlier have
+this problem.
+{{< /note >}}
 
 ## DNS resolution on Windows nodes {#dns-windows}
 

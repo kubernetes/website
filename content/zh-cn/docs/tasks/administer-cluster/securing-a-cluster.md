@@ -1,15 +1,16 @@
 ---
 title: 保护集群
 content_type: task
+weight: 320
 ---
 <!--
 reviewers:
 - smarterclayton
 - liggitt
-- ericchiang
-- destijl
+- enj
 title: Securing a Cluster
 content_type: task
+weight: 320
 -->
 
 <!-- overview -->
@@ -46,7 +47,7 @@ the cluster components. Note that some components and installation methods may e
 HTTP and administrators should familiarize themselves with the settings of each component to identify
 potentially unsecured traffic.
 -->
-### 为所有 API 交互使用传输层安全 （TLS）
+### 为所有 API 交互使用传输层安全（TLS）
 
 Kubernetes 期望集群中所有的 API 通信在默认情况下都使用 TLS 加密，
 大多数安装方法也允许创建所需的证书并且分发到集群组件中。
@@ -273,7 +274,6 @@ kernel on behalf of some more-privileged process.)
 来彻底拒绝容器的 `module_request` 权限，从而防止在任何情况下系统为容器加载内核模块。
 （Pod 仍然可以使用手动加载的模块，或者使用由内核代表某些特权进程所加载的模块。）
 
-
 <!--
 ### Restricting network access
 
@@ -413,10 +413,10 @@ that result in security vulnerabilities. Always assess the value an alpha or bet
 provide against the possible risk to your security posture. When in doubt, disable features you
 do not use.
 -->
-### 限制使用 alpha 和 beta 特性
+### 限制使用 Alpha 和 Beta 特性
 
-Kubernetes 的 alpha 和 beta 特性还在努力开发中，可能存在导致安全漏洞的缺陷或错误。
-要始终评估 alpha 和 beta 特性可能给你的安全态势带来的风险。
+Kubernetes 的 Alpha 和 Beta 特性还在努力开发中，可能存在导致安全漏洞的缺陷或错误。
+要始终评估 Alpha 和 Beta 特性可能给你的安全态势带来的风险。
 当你怀疑存在风险时，可以禁用那些不需要使用的特性。
 
 <!--
@@ -491,11 +491,14 @@ and may grant an attacker significant visibility into the state of your cluster.
 your backups using a well reviewed backup and encryption solution, and consider using full disk
 encryption where possible.
 
-Kubernetes supports [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/), a feature 
-introduced in 1.7, v1 beta since 1.13, and v2 alpha since 1.25. This will encrypt resources like `Secret` and `ConfigMap` in etcd, preventing
-parties that gain access to your etcd backups from viewing the content of those secrets. While
-this feature is currently beta, it offers an additional level of defense when backups
-are not encrypted or an attacker gains read access to etcd.
+Kubernetes supports optional [encryption at rest](/docs/tasks/administer-cluster/encrypt-data/) for information in the Kubernetes API.
+This lets you ensure that when Kubernetes stores data for objects (for example, `Secret` or
+`ConfigMap` objects), the API server writes an encrypted representation of the object.
+That encryption means that even someone who has access to etcd backup data is unable
+to view the content of those objects.
+In Kubernetes {{< skew currentVersion >}} you can also encrypt custom resources;
+encryption-at-rest for extension APIs defined in CustomResourceDefinitions was added to
+Kubernetes as part of the v1.26 release.
 -->
 ### 对 Secret 进行静态加密
 
@@ -504,11 +507,12 @@ are not encrypted or an attacker gains read access to etcd.
 你要始终使用经过充分审查的备份和加密方案来加密备份数据，
 并考虑在可能的情况下使用全盘加密。
 
-Kubernetes 支持[静态数据加密](/zh-cn/docs/tasks/administer-cluster/encrypt-data/)。
-该功能在 1.7 版引入，在 1.13 版成为 v1 Beta，在 1.25 版成为 v2 Alpha。
-它会加密 etcd 里面的 `Secret` 和 `ConfigMap` 资源，以防止某一方通过查看 etcd 的备份文件查看到这些
-Secret 的内容。虽然目前该功能还只是 Beta 阶段，
-在备份未被加密或者攻击者获取到 etcd 的读访问权限时，它仍能提供额外的防御层级。
+对于 Kubernetes API 中的信息，Kubernetes 支持可选的[静态数据加密](/zh-cn/docs/tasks/administer-cluster/encrypt-data/)。
+这让你可以确保当 Kubernetes 存储对象（例如 `Secret` 或 `ConfigMap`）的数据时，API 服务器写入的是加密的对象。
+这种加密意味着即使有权访问 etcd 备份数据的某些人也无法查看这些对象的内容。
+在 Kubernetes {{< skew currentVersion >}} 中，你也可以加密自定义资源；
+针对以 CustomResourceDefinition 形式定义的扩展 API，对其执行静态加密的能力作为 v1.26
+版本的一部分已添加到 Kubernetes。
 
 <!--
 ### Receiving alerts for security updates and reporting vulnerabilities
@@ -523,4 +527,14 @@ page for more on how to report vulnerabilities.
 请加入 [kubernetes-announce](https://groups.google.com/forum/#!forum/kubernetes-announce)
 组，这样你就能够收到有关安全公告的邮件。有关如何报告漏洞的更多信息，
 请参见[安全报告](/zh-cn/docs/reference/issues-security/security/)页面。
+
+<!--
+## What's next
+
+- [Security Checklist](/docs/concepts/security/security-checklist/) for additional information on Kubernetes security guidance.
+-->
+## {{% heading "whatsnext" %}}
+
+- 阅读[安全检查清单](/zh-cn/docs/concepts/security/security-checklist/)了解有关
+  Kubernetes 安全指南的更多信息。
 

@@ -176,12 +176,10 @@ Currently the only Condition associated with a Pod is the binary Ready condition
 并且应该添加到相应服务的负载均衡池中。
 
 <!--
-Lastly, you see a log of recent events related to your Pod. The system compresses multiple identical events by indicating the first and last time it was seen and the number of times it was seen. "From" indicates the component that is logging the event, "SubobjectPath" tells you which object (e.g. container within the pod) is being referred to, and "Reason" and "Message" tell you what happened.
+Lastly, you see a log of recent events related to your Pod. "From" indicates the component that is logging the event. "Reason" and "Message" tell you what happened.
 -->
 最后，你还可以看到与 Pod 相关的近期事件。
-系统通过指示第一次和最后一次看到事件以及看到该事件的次数来压缩多个相同的事件。
 “From” 标明记录事件的组件，
-“SubobjectPath” 告诉你引用了哪个对象（例如 Pod 中的容器），
 “Reason” 和 “Message” 告诉你发生了什么。
 
 <!--
@@ -535,14 +533,6 @@ https://github.com/GoogleContainerTools/distroless).
 
 You can use the `kubectl debug` command to add ephemeral containers to a
 running Pod. First, create a pod for the example:
-
-```shell
-kubectl run ephemeral-demo --image=registry.k8s.io/pause:3.1 --restart=Never
-```
-
-The examples in this section use the `pause` container image because it does not
-contain debugging utilities, but this method works with all container
-images.
 -->
 ## 使用临时容器来调试的例子 {#ephemeral-container-example}
 
@@ -550,12 +540,15 @@ images.
 首先，像示例一样创建一个 pod：
 
 ```shell
-kubectl run ephemeral-demo --image=k8s.gcr.io/pause:3.1 --restart=Never
+kubectl run ephemeral-demo --image=registry.k8s.io/pause:3.1 --restart=Never
 ```
 
-{{< note >}}
+<!--
+The examples in this section use the `pause` container image because it does not
+contain debugging utilities, but this method works with all container
+images.
+-->
 本节示例中使用 `pause` 容器镜像，因为它不包含调试程序，但是这个方法适用于所有容器镜像。
-{{< /note >}}
 
 <!--
 If you attempt to use `kubectl exec` to create a shell you will see an error
@@ -898,7 +891,7 @@ When creating a debugging session on a node, keep in mind that:
 * The root filesystem of the Node will be mounted at `/host`.
 * The container runs in the host IPC, Network, and PID namespaces, although
   the pod isn't privileged, so reading some process information may fail,
-  and `chroot /host` will fail.
+  and `chroot /host` may fail.
 * If you need a privileged pod, create it manually.
 
 Don't forget to clean up the debugging Pod when you're finished with it:
@@ -907,7 +900,7 @@ Don't forget to clean up the debugging Pod when you're finished with it:
 * `kubectl debug` 基于节点的名字自动生成新的 Pod 的名字。
 * 节点的根文件系统会被挂载在 `/host`。
 * 新的调试容器运行在主机 IPC 名字空间、主机网络名字空间以及主机 PID 名字空间内，
-  Pod 没有特权，因此读取某些进程信息可能会失败，并且 `chroot /host` 也会失败。
+  Pod 没有特权，因此读取某些进程信息可能会失败，并且 `chroot /host` 也可能会失败。
 * 如果你需要一个特权 Pod，需要手动创建。
 
 当你完成节点调试时，不要忘记清理调试 Pod：

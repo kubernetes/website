@@ -1,24 +1,22 @@
 ---
-title: 扩展资源的资源装箱
+title: 资源装箱
 content_type: concept
 weight: 80
 ---
 <!--
----
 reviewers:
 - bsalamat
 - k82cn
 - ahg-g
-title: Resource Bin Packing for Extended Resources
+title: Resource Bin Packing
 content_type: concept
 weight: 80
----
 -->
 
 <!-- overview -->
 
 <!--
-In the [scheduling-plugin](/docs/reference/scheduling/config/#scheduling-plugins)  `NodeResourcesFit` of kube-scheduler, there are two 
+In the [scheduling-plugin](/docs/reference/scheduling/config/#scheduling-plugins) `NodeResourcesFit` of kube-scheduler, there are two
 scoring strategies that support the bin packing of resources: `MostAllocated` and `RequestedToCapacityRatio`.
 -->
 在 kube-scheduler 的[调度插件](/zh-cn/docs/reference/scheduling/config/#scheduling-plugins)
@@ -65,7 +63,7 @@ profiles:
 ```
 
 <!--
-To learn more about other parameters and their default configuration, see the API documentation for 
+To learn more about other parameters and their default configuration, see the API documentation for
 [`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-NodeResourcesFitArgs).
 -->
 要进一步了解其它参数及其默认配置，请参阅
@@ -83,10 +81,10 @@ configured function of the allocated resources. The behavior of the `RequestedTo
 the `NodeResourcesFit` score function can be controlled by the
 [scoringStrategy](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-ScoringStrategy) field.
 Within the `scoringStrategy` field, you can configure two parameters: `requestedToCapacityRatio` and
-`resources`. The `shape` in `requestedToCapacityRatio` 
-parameter allows the user to tune the function as least requested or most 
-requested based on `utilization` and `score` values.  The `resources` parameter 
-consists of `name` of the resource to be considered during scoring and `weight` 
+`resources`. The `shape` in the `requestedToCapacityRatio`
+parameter allows the user to tune the function as least requested or most
+requested based on `utilization` and `score` values. The `resources` parameter
+consists of `name` of the resource to be considered during scoring and `weight`
 specify the weight of each resource.
 -->
 ## 使用 RequestedToCapacityRatio 策略来启用资源装箱 {#enabling-bin-packing-using-requestedtocapacityratio}
@@ -133,15 +131,15 @@ profiles:
 ```
 
 <!--
-Referencing the `KubeSchedulerConfiguration` file with the kube-scheduler 
-flag `--config=/path/to/config/file` will pass the configuration to the 
+Referencing the `KubeSchedulerConfiguration` file with the kube-scheduler
+flag `--config=/path/to/config/file` will pass the configuration to the
 scheduler.
 -->
 使用 kube-scheduler 标志 `--config=/path/to/config/file` 
 引用 `KubeSchedulerConfiguration` 文件，可以将配置传递给调度器。
 
 <!--
-To learn more about other parameters and their default configuration, see the API documentation for 
+To learn more about other parameters and their default configuration, see the API documentation for
 [`NodeResourcesFitArgs`](/docs/reference/config-api/kube-scheduler-config.v1beta3/#kubescheduler-config-k8s-io-v1beta3-NodeResourcesFitArgs).
 -->
 要进一步了解其它参数及其默认配置，可以参阅
@@ -159,10 +157,10 @@ To learn more about other parameters and their default configuration, see the AP
 
 ```yaml
 shape:
- - utilization: 0
-   score: 0
- - utilization: 100
-   score: 10
+  - utilization: 0
+    score: 0
+  - utilization: 100
+    score: 10
 ```
 
 <!--
@@ -175,7 +173,7 @@ requested the score value must be reversed as follows.
 要启用最少请求（least requested）模式，必须按如下方式反转得分值。
 
 ```yaml
- shape:
+shape:
   - utilization: 0
     score: 10
   - utilization: 100
@@ -183,11 +181,11 @@ requested the score value must be reversed as follows.
 ```
 
 <!--
-`resources` is an optional parameter which by defaults is set to:
+`resources` is an optional parameter which defaults to:
 -->
-`resources` 是一个可选参数，默认情况下设置为：
+`resources` 是一个可选参数，默认值为：
 
-``` yaml
+```yaml
 resources:
   - name: cpu
     weight: 1
@@ -262,8 +260,8 @@ Node 1 spec:
 
 ```
 可用：
-  intel.com/foo : 4
-  memory : 1 GB
+  intel.com/foo: 4
+  memory: 1 GB
   cpu: 8
 
 已用：
@@ -282,8 +280,8 @@ intel.com/foo  = resourceScoringFunction((2+1),4)
                = (100 - ((4-3)*100/4)
                = (100 - 25)
                = 75                       # requested + used = 75% * available
-               = rawScoringFunction(75) 
-               = 7                        # floor(75/10) 
+               = rawScoringFunction(75)
+               = 7                        # floor(75/10)
 
 memory         = resourceScoringFunction((256+256),1024)
                = (100 -((1024-512)*100/1024))
@@ -297,7 +295,7 @@ cpu            = resourceScoringFunction((2+1),8)
                = rawScoringFunction(37.5)
                = 3                        # floor(37.5/10)
 
-NodeScore   =  (7 * 5) + (5 * 1) + (3 * 3) / (5 + 1 + 3)
+NodeScore   =  ((7 * 5) + (5 * 1) + (3 * 3)) / (5 + 1 + 3)
             =  5
 ```
 
@@ -343,7 +341,7 @@ cpu            = resourceScoringFunction((2+6),8)
                = rawScoringFunction(100)
                = 10
 
-NodeScore   =  (5 * 5) + (7 * 1) + (10 * 3) / (5 + 1 + 3)
+NodeScore   =  ((5 * 5) + (7 * 1) + (10 * 3)) / (5 + 1 + 3)
             =  7
 ```
 
@@ -355,4 +353,3 @@ NodeScore   =  (5 * 5) + (7 * 1) + (10 * 3) / (5 + 1 + 3)
 -->
 - 继续阅读[调度器框架](/zh-cn/docs/concepts/scheduling-eviction/scheduling-framework/)
 - 继续阅读[调度器配置](/zh-cn/docs/reference/scheduling/config/)
-

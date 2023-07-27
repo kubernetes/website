@@ -24,9 +24,9 @@ Podが動作しているNodeに利用可能なリソースが十分にある場�
 
 たとえば、コンテナに256MiBの`メモリー`要求を設定し、そのコンテナが8GiBのメモリーを持つNodeにスケジュールされたPod内に存在し、他のPodが存在しない場合、コンテナはより多くのRAMを使用しようとする可能性があります。
 
-そのコンテナに4GiBの`メモリー`制限を設定すると、kubelet(および{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}) が制限を適用します。ランタイムは、コンテナーが設定済みのリソース制限を超えて使用するのを防ぎます。例えば、コンテナ内のプロセスが、許容量を超えるメモリを消費しようとすると、システムカーネルは、メモリ不足(OOM)エラーで、割り当てを試みたプロセスを終了します。
+そのコンテナに4GiBの`メモリー`制限を設定すると、kubelet(および{{< glossary_tooltip text="コンテナランタイム" term_id="container-runtime" >}}) が制限を適用します。ランタイムは、コンテナが設定済みのリソース制限を超えて使用するのを防ぎます。例えば、コンテナ内のプロセスが、許容量を超えるメモリを消費しようとすると、システムカーネルは、メモリ不足(OOM)エラーで、割り当てを試みたプロセスを終了します。
 
-制限は、違反が検出されるとシステムが介入するように事後的に、またはコンテナーが制限を超えないようにシステムが防ぐように強制的に、実装できます。
+制限は、違反が検出されるとシステムが介入するように事後的に、またはコンテナが制限を超えないようにシステムが防ぐように強制的に、実装できます。
 異なるランタイムは、同じ制限を実装するために異なる方法をとることができます。
 
 {{< note >}}
@@ -170,7 +170,7 @@ Dockerを使用する場合:
 
 Podのリソース使用量は、Podのステータスの一部として報告されます。
 
-オプションの[監視ツール](/docs/tasks/debug-application-cluster/resource-usage-monitoring/)がクラスターにおいて利用可能な場合、Podのリソース使用量は[メトリクスAPI](/docs/tasks/debug-application-cluster/resource-metrics-pipeline/#the-metrics-api)から直接、もしくは監視ツールから取得できます。
+オプションの[監視ツール](/ja/docs/tasks/debug/debug-cluster/resource-usage-monitoring/)がクラスターにおいて利用可能な場合、Podのリソース使用量は[メトリクスAPI](/ja/docs/tasks/debug/debug-cluster/resource-metrics-pipeline/#the-metrics-api)から直接、もしくは監視ツールから取得できます。
 
 ## ローカルのエフェメラルストレージ {#local-ephemeral-storage}
 
@@ -378,10 +378,10 @@ Kubernetesが使用しないようにする必要があります。
 ## 拡張リソース {#extended-resources}
 
 拡張リソースは`kubernetes.io`ドメインの外で完全に修飾されたリソース名です。
-これにより、クラスタオペレータはKubernetesに組み込まれていないリソースをアドバタイズし、ユーザはそれを利用することができるようになります。
+これにより、クラスターオペレーターはKubernetesに組み込まれていないリソースをアドバタイズし、ユーザはそれを利用することができるようになります。
 
 拡張リソースを使用するためには、2つのステップが必要です。
-第一に、クラスタオペレーターは拡張リソースをアドバタイズする必要があります。
+第一に、クラスターオペレーターは拡張リソースをアドバタイズする必要があります。
 第二に、ユーザーはPodで拡張リソースを要求する必要があります。
 
 ### 拡張リソースの管理 {#managing-extended-resources}
@@ -394,7 +394,7 @@ Nodeレベルの拡張リソースはNodeに関連付けられています。
 各Nodeにデバイスプラグインで管理されているリソースをアドバタイズする方法については、[デバイスプラグイン](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)を参照してください。
 
 ##### その他のリソース {#other-resources}
-新しいNodeレベルの拡張リソースをアドバタイズするには、クラスタオペレータはAPIサーバに`PATCH`HTTPリクエストを送信し、クラスタ内のNodeの`status.capacity`に利用可能な量を指定します。
+新しいNodeレベルの拡張リソースをアドバタイズするには、クラスターオペレーターはAPIサーバに`PATCH`HTTPリクエストを送信し、クラスター内のNodeの`status.capacity`に利用可能な量を指定します。
 この操作の後、ノードの`status.capacity`には新しいリソースが含まれます。
 `status.allocatable`フィールドは、kubeletによって非同期的に新しいリソースで自動的に更新されます。
 スケジューラはPodの適合性を評価する際にNodeの`status.allocatable`値を使用するため、Nodeの容量に新しいリソースを追加してから、そのNodeでリソースのスケジューリングを要求する最初のPodが現れるまでには、短い遅延が生じる可能性があることに注意してください。
@@ -513,7 +513,7 @@ Events:
 同様のエラーメッセージは、メモリー不足による失敗を示唆することもあります(PodExceedsFreeMemory)。
 一般的に、このタイプのメッセージでPodが保留されている場合は、いくつか試すべきことがあります。
 
-- クラスタにNodeを追加します。
+- クラスターにNodeを追加します。
 - 不要なポッドを終了して、保留中のPodのためのスペースを空けます。
 - PodがすべてのNodeよりも大きくないことを確認してください。
   例えば、すべてのNodeが`cpu: 1`の容量を持っている場合、`cpu: 1.1`を要求するPodは決してスケジューリングされません。
@@ -601,7 +601,7 @@ Conditions:
 Events:
   FirstSeen                         LastSeen                         Count  From                              SubobjectPath                       Reason      Message
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {scheduler }                                                          scheduled   Successfully assigned simmemleak-hra99 to kubernetes-node-tf0f
-  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   pulled      Pod container image "k8s.gcr.io/pause:0.8.0" already present on machine
+  Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   pulled      Pod container image "registry.k8s.io/pause:0.8.0" already present on machine
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   created     Created with docker id 6a41280f516d
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    implicitly required container POD   started     Started with docker id 6a41280f516d
   Tue, 07 Jul 2015 12:53:51 -0700   Tue, 07 Jul 2015 12:53:51 -0700  1      {kubelet kubernetes-node-tf0f}    spec.containers{simmemleak}         created     Created with docker id 87348f12526a

@@ -64,7 +64,7 @@ tolerations:
 
 Here's an example of a pod that uses tolerations:
 
-{{< codenew file="pods/pod-with-toleration.yaml" >}}
+{{% codenew file="pods/pod-with-toleration.yaml" %}}
 
 The default value for `operator` is `Equal`.
 
@@ -220,12 +220,17 @@ are true. The following taints are built in:
     as unusable. After a controller from the cloud-controller-manager initializes
     this node, the kubelet removes this taint.
 
-In case a node is to be evicted, the node controller or the kubelet adds relevant taints
+In case a node is to be drained, the node controller or the kubelet adds relevant taints
 with `NoExecute` effect. If the fault condition returns to normal the kubelet or node
 controller can remove the relevant taint(s).
 
+In some cases when the node is unreachable, the API server is unable to communicate
+with the kubelet on the node. The decision to delete the pods cannot be communicated to
+the kubelet until communication with the API server is re-established. In the meantime,
+the pods that are scheduled for deletion may continue to run on the partitioned node.
+
 {{< note >}}
-The control plane limits the rate of adding node new taints to nodes. This rate limiting
+The control plane limits the rate of adding new taints to nodes. This rate limiting
 manages the number of evictions that are triggered when many nodes become unreachable at
 once (for example: if there is a network disruption).
 {{< /note >}}
