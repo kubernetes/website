@@ -1018,7 +1018,7 @@ Used on: StorageClass
 When a single StorageClass resource has this annotation set to `"true"`, new PersistentVolumeClaim
 resource without a class specified will be assigned this default class.
 
-### alpha.kubernetes.io/provided-node-ip
+### alpha.kubernetes.io/provided-node-ip (alpha) {#alpha-kubernetes-io-provided-node-ip}
 
 Type: Annotation
 
