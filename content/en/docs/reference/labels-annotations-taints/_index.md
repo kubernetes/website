@@ -266,7 +266,7 @@ For example, Kustomize removes objects with this annotation from its final build
 
 Type: Annotation
 
-Example: `config.kubernetes.io/apply-time-mutation: ""`
+Example: `config.kubernetes.io/apply-time-mutation: "pods"`
 
 Used on: All objects
 
