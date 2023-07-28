@@ -1,0 +1,445 @@
+# i18n strings for the Arabic (main) site.
+# NOTE: Please keep the entries in alphabetical order when editing
+
+# For "and", see [conjunction_1]
+
+[auto_generated_edit_notice]
+other = "(صفحة تم إنشاؤها تلقائيًا)"
+
+[auto_generated_pageinfo]
+other = """<p>يتم إنشاء هذه الصفحة تلقائيًا.</p><p>.كوبيرنيتيس إذا كنت تخطط للإبلاغ عن مشكلة بهذه الصفحة، فاذكر أن الصفحة تم إنشاؤها تلقائيًا في وصف مشكلتك. قد يلزم إجراء الإصلاح في مكان آخر في مشروع</p>"""
+
+[caution]
+other = "تحذير:"
+
+[cleanup_heading]
+other = "تنظيف"
+
+[community_events_calendar]
+other = "تقويم الأحداث"
+
+[community_forum_name]
+other = "المنتدى"
+
+[community_github_name]
+other = "GitHub"
+
+[community_slack_name]
+other = "Slack"
+
+[community_stack_overflow_name]
+other = "Stack Overflow"
+
+[community_twitter_name]
+other = "Twitter"
+
+[community_youtube_name]
+other = "YouTube"
+
+# Avoid using conjunction_1.
+# Must match the context in layouts/shortcodes/release-data.html
+# Appears on https://kubernetes.io/releases/
+# For example the "and" in "Complete 1.25 Schedule and Changelog"
+[conjunction_1]
+other = "و"
+
+[cve_id]
+other = "الرقم المحدد للثغرة الأمنية"
+
+[cve_issue_url]
+other = "للثغرة الأمنية GitHub عنوان المشكل"
+
+[cve_summary]
+other = "ملخص المشكل"
+
+[cve_table]
+other = "القائمة الرسمية للثغرات الأمنية ل كوبيرنيتيس"
+
+[cve_table_date_format]
+other = "02 Jan 2006 15:04:05 MST"
+
+[cve_table_date_format_string]
+other = "(last updated: %s)"
+
+[deprecation_title]
+other = "أنت تقرأ التوثيق الخاص بالنسخة كوبيرنيتيس:"
+
+[deprecation_warning]
+other = " التوثيق لم يعد مصانا. النسخة المعروضة حاليا ثابتة. للحصول على أحدث توثيق، راجع "
+
+[deprecation_file_warning]
+other = "باطل الاستعمال"
+
+[dockershim_message]
+other = """تمت إزالة Dockershim من مشروع كوبيرنيتيس انطلاقا من الإصدار 1.24. راجع <a href="/dockershim">Dockershim Removal FAQ</a> لمزيد من التفاصيل. """
+
+[docs_label_browse]
+other = "تصفح الوثائق"
+
+[docs_label_contributors]
+other = "المساهمون"
+
+[docs_label_i_am]
+other = "... أنا"
+
+[docs_label_users]
+other = "المستخدمون"
+
+[docs_version_current]
+other = "(هذا التوثيق)"
+
+[docs_version_latest_heading]
+other = "أحدث إصدار"
+
+[docs_version_other_heading]
+other = "نسخ قديمة"
+
+[end_of_life]
+other = "منتهية الصلاحية :"
+
+[envvars_heading]
+other = "متغيرات البيئة"
+
+[error_404_were_you_looking_for]
+other = "هل كنت تبحث عن:"
+
+[examples_heading]
+other = "أمثلة"
+
+[feature_state]
+other = "حالة الميزة:"
+
+[feedback_heading]
+other = "تعليق"
+
+[feedback_no]
+other = "لا"
+
+[feedback_question]
+other = "هل كانت هذه الصفحة مفيدة؟"
+
+[feedback_yes]
+other = "نعم"
+
+[final_patch_release]
+other = "إصدار التصحيح النهائي"
+
+[inline_list_separator]
+other = ","
+
+[input_placeholder_email_address]
+other = "عنوان البريد الإلكتروني"
+
+[javascript_required]
+other = "يجب [ترخيص] (https://www.enable-javascript.com/) الجافا سكريبت في متصفحك لعرض هذا المحتوى"
+
+[katacoda_message]
+other = """<h4>البرامج التعليمية التفاعلية</h4>
+<p>تم إغلاق البرامج التعليمية التفاعلية على هذا الموقع
+.يأمل مشروع كوبيرنيتيس في استعادة خيار التعلم التفاعلي المماثل على المدى الطويل.</p>
+<p>يأتي الإغلاق بعد إصدار O'Reilly Media's لعام 2019 <a
+href="https://www.oreilly.com/content/oreilly-acquires-katacoda-and-a-new-way-for-2-5m-customers-to-learn/">و امتلاك</a>
+Katacoda.</p>
+<p>كوبيرنيتيس ممتن لـ O'Reilly و Katacoda لسنوات عديدة من مساعدة
+الأشخاص في رحلة تعلم كوبيرنيتيس.</p>
+<p>ستتوقف البرامج التعليمية عن العمل عن بعد <b>31<sup>st</sup>  من شهر مارس,
+2023</b>. لمزيد من المعلومات، راجع "<a href="/blog/2023/02/14/kubernetes-katacoda-tutorials-stop-from-2023-03-31/">دروس Katacoda المجانية المتعلقة بـ كوبيرنيتيس تغلق
+</a>."</p>"""
+
+[latest_release]
+other = "أحدث إصدار :"
+
+[latest_version]
+other = "أحدث نسخة."
+
+[layouts_blog_pager_next]
+other = "التالي >>"
+
+[layouts_blog_pager_prev]
+other = "<< السابق"
+
+[layouts_case_studies_list_tell]
+other = "احكي قصتك"
+
+[layouts_docs_glossary_aka]
+other = "يُعرف أيضًا تحت إسم"
+
+[layout_docs_glossary_architecture_description]
+other = "المكونات الداخلية لـ كوبيرنيتيس."
+
+[layout_docs_glossary_architecture_name]
+other = "هيكلة"
+
+[layouts_docs_glossary_click_details_after]
+other = "المؤشرات أدناه للحصول على شرح أطول لأي مصطلح معين."
+
+[layouts_docs_glossary_click_details_before]
+other = "إضغط على"
+
+[layout_docs_glossary_community_description]
+other = "ذات صلة بالتطوير المفتوح المصدر ل كوبيرنيتيس."
+
+[layout_docs_glossary_community_name]
+other = "مجتمع"
+
+[layout_docs_glossary_core-object_description]
+other = "نوع المورد الَّذي يدعمه كوبيرنيتيس افتراضيًا"
+
+[layout_docs_glossary_core-object_name]
+other = "الكائن الأساسي"
+
+[layouts_docs_glossary_description]
+other = "يهدف هذا المسرد إلى أن يكون قائمة شاملة وموحدة لمصطلحات كوبيرنيتيس. يتضمن المصطلحات الفنية الخاصة بـكوبيرنيتيس ،بالإضافة إلى المصطلحات الأكثر عمومية التي توفر سياقًا مفيدًا."
+
+[layouts_docs_glossary_deselect_all]
+other = "إلغاء تحديد الكل"
+
+[layout_docs_glossary_extension_description]
+other = "التخصيصات المدعومة لـ كوبيرنيتيس."
+
+[layout_docs_glossary_extension_name]
+other = "إضَافَة"
+
+[layouts_docs_glossary_filter]
+other = "قم بإنتقاء المصطلحات وفقًا لعلاماتها"
+
+[layout_docs_glossary_fundamental_description]
+other = "مناسب لمستخدم كوبيرنيتيس لأول مرة."
+
+[layout_docs_glossary_fundamental_name]
+other = "أساسي"
+
+[layout_docs_glossary_networking_description]
+other = "كيف تتواصل مكونات كوبيرنيتيس مع بعضها البعض (ومع البرامج خارج العنقود)."
+
+[layout_docs_glossary_networking_name]
+other = "الشبكات"
+
+[layout_docs_glossary_operation_description]
+other = "بدء وصيانة كوبيرنيتيس."
+
+[layout_docs_glossary_operation_name]
+other = "عملية"
+
+[layout_docs_glossary_security_description]
+other = "الحفاظ على تطبيقات كوبيرنيتيس آمنة ومأمونة."
+
+[layout_docs_glossary_security_name]
+other = "أمن"
+
+[layouts_docs_glossary_select_all]
+other = "اختر الكل"
+
+[layout_docs_glossary_storage_description]
+other = "كيف تتعامل تطبيقات كوبيرنيتيس مع البيانات المستمرة."
+
+[layout_docs_glossary_storage_name]
+other = "تخزين"
+
+[layout_docs_glossary_tool_description]
+other = "برنامج يجعل استخدام كوبيرنيتيس أسهل أو أفضل."
+
+[layout_docs_glossary_tool_name]
+other = "أداة"
+
+[layout_docs_glossary_user-type_description]
+other = "يمثل نوعًا شائعًا من مستخدمي كوبيرنيتيس."
+
+[layout_docs_glossary_user-type_name]
+other = "نوع المستخدم"
+
+[layout_docs_glossary_workload_description]
+other = "تطبيقات تعمل على كوبيرنيتيس."
+
+[layout_docs_glossary_workload_name]
+other = "عبء العمل"
+
+[layouts_docs_partials_feedback_improvement]
+other = "إقترح تحسينات"
+
+[layouts_docs_partials_feedback_issue]
+other = "افتح موضوع في GitHub مستودع إذا كنت تريد ذلك "
+
+[layouts_docs_partials_feedback_or]
+other = "أو"
+
+[layouts_docs_partials_feedback_problem]
+other = "الإبلاغ عن مشكلة"
+
+[layouts_docs_partials_feedback_thanks]
+other = "شكرا على انطباعك. إذا كان لديك سؤال محدد يمكن الإجابة عليه حول كيفية استخدام كوبيرنيتيس فمرحبا بسؤالك"
+
+[layouts_docs_search_fetching]
+other = "إحضار النتائج ..."
+
+[main_by]
+other = "بواسطة"
+
+[main_cncf_project]
+other = """نحن مشروع مُدرَّج <a href="https://cncf.io/">CNCF</a></p>"""
+
+[main_community_explore]
+other = "اكتشف مجتمع المنخرطين"
+
+[main_contribute]
+other = "ساهم"
+
+[main_copyright_notice]
+other = """مؤسسة لينكس &reg;. جميع الحقوق محفوظة. مؤسسة لينكس لديها علامات تجارية مسجلة وتستخدم العلامات التجارية.للحصول على قائمة العلامات التجارية لمؤسسة لينكس يرجى الاطلاع على <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">صفحة استخدام العلامات التجارية</a>"""
+
+[main_documentation_license]
+other = """مطورو كوبيرنيتيس | تم توزيع الوثائق تحت <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC ب 4.0</a>"""
+
+[main_github_invite]
+other = "هل أنت مهتم بالولوج إلى قاعدة كود كوبيرنيتيس الأساسية؟"
+
+[main_github_view_on]
+other = "عرض على GitHub"
+
+[main_kubernetes_features]
+other = "ميزات كوبيرنيتيس"
+
+[main_kubeweekly_baseline]
+other = "هل أنت مهتم بتلقي آخر أخبار كوبيرنيتيس ؟ اشترك في Kube الاسبوعي."
+
+[main_kubernetes_past_link]
+other = "عرض الرسائل الإخبارية السابقة"
+
+[main_kubeweekly_signup]
+other = "إشترك"
+
+[main_page_history]
+other ="أرشيف الصفحة"
+
+[main_page_last_modified_on]
+other = "آخر تعديل للصفحة في"
+
+[main_read_about]
+other = "إقرأ عن"
+
+[main_read_more]
+other = "اقرأ المزيد"
+
+[not_applicable]
+# Localization teams: it's OK to use a longer text here
+other = "n/a"
+
+[note]
+other = "ملحوظة:"
+
+[objectives_heading]
+other = "أهداف"
+
+[options_heading]
+other = "خيارات"
+
+[outdated_blog__message]
+other = "This article is more than one year old. Older articles may contain outdated content. Check that the information in the page has not become incorrect since its publication."
+
+[patch_release]
+other = "إصدار التصحيح"
+
+[post_create_issue]
+other = "الإبلاغ عن مشكلة"
+
+[prerequisites_heading]
+other = "قبل أن تبدأ"
+
+[previous_patches]
+other = "إصدارات التصحيح:"
+
+[release_date_after]
+other = ")"
+
+[release_date_before]
+other = "(صدور: "
+
+# See https://gohugo.io/functions/format/#gos-layout-string
+# Use a suitable format for your locale
+[release_date_format]
+other = "2006-01-02"
+
+[release_cherry_pick_deadline]
+other = "Cherry Pick Deadline"
+
+[release_end_of_life_date]
+other = "تاريخ نهاية الصلاحية"
+
+[release_full_details_initial_text]
+other = "مُكتمِل"
+
+[release_information_navbar]
+other = "معلومة حول الإصدار"
+
+[release_minor_version]
+other = "الإصدار الثانوي"
+
+[release_info_next_patch]
+other = "إصدار التصحيح التالي هو **%s**."
+
+# Localization note: You can use Markdown here.
+# The three placeholders (in order) are:
+#   Kubernetes minor version
+#   maintenance mode date
+#   end of life date
+#
+# Keep this order. It is OK to use more than one sentence, and it's also OK to change the
+# tense of the text so long as the meaning is clear.
+[release_info_eol]
+other = "**%s** يدخل في وضع الصيانة في **%s** وتاريخ إنتهاء الصلاحية في **%s**."
+
+[release_note]
+other = "ملحوظة"
+
+[release_schedule]
+other = "جدول"
+
+[release_target_date]
+other = "التاريخ المستهدف"
+
+[release_changelog]
+other = "سجل التغيير"
+
+[seealso_heading]
+other = "أنظر أيضاً"
+
+[subscribe_button]
+other = "اِشترك"
+
+[synopsis_heading]
+other = "خُلاَصَة"
+
+[thirdparty_message]
+other = """تربط هذه الفقرة بمشاريع الجهات الخارجية التي توفر الوظائف المطلوبة من طرف كوبيرنيتيس. مؤلفو مشروع كوبيرنيتيس ليسوا مسؤولين عن هذه المشاريع، المدرجة أبجديًا. لإضافة مشروع إلى هذه القائمة، اقرأ ملف <a href="/docs/contribute/style/content-guide/#third-party-content">content guide</a> قبل تقديم التغيير. <a href="#third-party-content-disclaimer">للمزيد من المعلومات.</a>"""
+
+[thirdparty_message_edit_disclaimer]
+other="""نصيحة بشأن محتوى الطرف الخارجي"""
+
+
+[thirdparty_message_single_item]
+other = """&#128711; يرتبط هذا العنصر بمشروع أو منتج تابع لجهة خارجية ليس جزءًا من كوبيرنيتيس.
+ <a class="alert-more-info" href="#third-party-content-disclaimer">للمزيد من المعلومات</a>"""
+
+[thirdparty_message_disclaimer]
+other = """<p>تشير العناصر الموجودة في هذه الصفحة إلى منتجات أو مشاريع الجهات الخارجية التي توفر الوظائف التي يحتاجها كوبيرنيتيس. مؤلفو مشروع كوبيرنيتيس ليسوا مسؤولين عن منتجات أو مشاريع الجهات الخارجية. أنظر <a href="https://github.com/cncf/foundation/blob/master/website-guidelines.md" target="_blank">CNCF إرشادات موقع</a> لمزيد من التفاصيل.</p><p>يجب أن تقرأ <a href="/docs/contribute/style/content-guide/#third-party-content">دليل المحتوى</a> قبل اقتراح تغيير يضيف رابطًا إضافيًا لجهة خارجية.</p>"""
+
+[ui_search_placeholder]
+other = "بحث"
+
+[version_check_mustbe]
+other = "يجب أن يكون خادم كوبيرنيتيس إصدارًا"
+
+[version_check_mustbeorlater]
+other = "يجب أن يكون خادم كوبيرنيتيس في أو أحدث من الإصدار"
+
+[version_check_tocheck]
+other = "للتحقق من الإصدار، أدخل"
+
+[version_menu]
+other = "إصدارات"
+
+[warning]
+other = "Warning:"
+
+[whatsnext_heading]
+other = "ماذا لاحقا"

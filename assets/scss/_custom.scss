@@ -916,3 +916,16 @@ div.alert > em.javascript-required {
         margin: 0.25em;
     }
 }
+
+//Arabic language
+body {
+	&:lang(ar) {
+		.navbar-brand { left: 16px;
+	}
+}
+
+.announcement-main {
+	direction: ltr;
+	text-align: left;
+  }
+}

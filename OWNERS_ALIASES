@@ -207,6 +207,12 @@ aliases:
     - MaxymVlasov
     - Potapy4
   # authoritative source: git.k8s.io/community/OWNERS_ALIASES
+  sig-docs-ar-owners: # Admins for Arabic content
+    - selaamimech
+    - mboukhalfa
+  sig-docs-ar-reviews: # PR reviews for Arabic content
+    - selaamimech
+    - mboukhalfa 
   committee-steering: # provide PR approvals for announcements
     - cblecker
     - cpanato
