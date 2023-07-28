@@ -159,14 +159,19 @@ The following methods exist for installing kubectl on Linux:
    ```shell
    curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
    ```
+   On Debian 12 (bookworm) import the Google Cloud signing key with:
 
-3. Add the Kubernetes `apt` repository:
+   ```shell
+   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/kubernetes-archive-keyring.gpg
+   ```
+   
+4. Add the Kubernetes `apt` repository:
 
    ```shell
    echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
-4. Update `apt` package index with the new repository and install kubectl:
+5. Update `apt` package index with the new repository and install kubectl:
 
    ```shell
    sudo apt-get update
