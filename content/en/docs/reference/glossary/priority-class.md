@@ -7,8 +7,9 @@ short_description: >
  The PriorityClass is a resource that allows you to assign priorities to different pods within a cluster It helps the scheduler prioritize the scheduling of pods based on their importance or criticality.
 aka:
 tags:
-- operation
+    - core-object
+    - workload
 ---
- A Priority Class is an object that is not namespaced and it maps a priority class name to a priority value represented as an integer.
+A Priority Class maps a name to a priority value as an integer, and is not namespaced
 <!--more-->
-The [PriorityClass](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass) is a non-namespaced object that defines a mapping from a priority class name to the integer value of the priority. The name of the priority is specified in the `name` field, and the value of the priority is specified in the `value` field. The higher the value, the higher the priority. The value of PriorityClass object can be in range from -2147483648 to 1000000000 inclusive.
+The [PriorityClass](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass) is a non-namespaced object mapping a name to an integer priority. The name is specified in the name field, and the priority value in the value field. Priorities range from -2147483648 to 1000000000 inclusive. Higher values indicate higher priority.
