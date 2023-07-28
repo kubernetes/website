@@ -93,8 +93,9 @@ The following methods exist for installing kubectl on Linux:
    对于 Linux ARM64 来说，请输入：
 
    ```bash
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/arm64/kubectl
+   curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/arm64/kubectl
    ```
+
    {{< /note >}}
 
 <!--
@@ -106,7 +107,7 @@ The following methods exist for installing kubectl on Linux:
 
    下载 kubectl 校验和文件：
 
-   {{< tabs name="download_checksum_linux" >}} 
+   {{< tabs name="download_checksum_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
    {{< /tab >}}
@@ -172,6 +173,7 @@ The following methods exist for installing kubectl on Linux:
    mv ./kubectl ~/.local/bin/kubectl
    # 之后将 ~/.local/bin 附加（或前置）到 $PATH
    ```
+
    {{< /note >}}
 
 <!--
@@ -230,7 +232,7 @@ Or use this for detailed view of version:
 
    <!--
    If you use Debian 9 (stretch) or earlier you would also need to install `apt-transport-https`:
-   -->   
+   -->
    如果你使用 Debian 9（stretch）或更早版本，则你还需要安装 `apt-transport-https`：
 
    ```shell
@@ -340,7 +342,7 @@ kubectl version --client
 <!--
 ## Verify kubectl configuration
 -->
-## 验证 kubectl 配置 {#verify-kubectl-configration}
+## 验证 kubectl 配置 {#verify-kubectl-configuration}
 
 {{< include "included/verify-kubectl.md" >}}
 
@@ -381,12 +383,12 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 -->
 1. 用以下命令下载最新发行版：
 
-   {{< tabs name="download_binary_linux" >}}
+   {{< tabs name="download_convert_binary_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert"
    {{< /tab >}}
    {{< tab name="ARM64" codelang="bash" >}}
-   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl"
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl-convert"
    {{< /tab >}}
    {{< /tabs >}}
 
