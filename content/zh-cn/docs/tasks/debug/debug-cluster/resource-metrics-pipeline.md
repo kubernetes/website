@@ -357,7 +357,7 @@ to collect metrics from each node. Depending on the metrics-server version it us
 * Summary API endpoint `/stats/summary` in older versions
 -->
 metrics-server 调用 [kubelet](/zh-cn/docs/reference/command-line-tools-reference/kubelet/) API
-从每个节点收集指标。根据它使用的度量服务器版本：
+从每个节点收集指标。根据它使用的 metrics-server 版本：
 
 * 版本 v0.6.0+ 中，使用指标资源端点 `/metrics/resource`
 * 旧版本中使用 Summary  API 端点 `/stats/summary`
