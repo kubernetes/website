@@ -468,7 +468,7 @@ Depending on how you installed `kubectl`, use one of the following methods.
 1. 找到你系统上的 `kubectl` 可执行文件：
 
    ```bash
-   where kubectl
+   which kubectl
    ```
 
 <!--
