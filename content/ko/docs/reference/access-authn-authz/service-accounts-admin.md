@@ -259,7 +259,7 @@ kubelet이 _프로젝티드 볼륨_ 을 사용하여 이를 설정하기 때문�
 
 아래는 시크릿을 위한 예제 매니페스트이다.
 
-{{< codenew file="secret/serviceaccount/mysecretname.yaml" >}}
+{{% codenew file="secret/serviceaccount/mysecretname.yaml" %}}
 
 이 예제에 기반한 시크릿을 생성하려면, 아래의 명령어를 실행한다.
 

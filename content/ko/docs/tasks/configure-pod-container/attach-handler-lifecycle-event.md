@@ -30,7 +30,7 @@ postStart와 preStop 이벤트에 대한 핸들러가 있다.
 
 다음은 파드의 구성 파일이다.
 
-{{< codenew file="pods/lifecycle-events.yaml" >}}
+{{% codenew file="pods/lifecycle-events.yaml" %}}
 
 구성 파일에서, postStart 명령은 컨테이너의 `/usr/share` 디렉토리에
 `message` 파일을 생성하는 것을 확인할 수 있다. preStop 명령은 nginx를

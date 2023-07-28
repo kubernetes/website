@@ -37,7 +37,7 @@ weight: 40
 
 다음은 컨테이너가 하나 있는 파드의 구성 파일이다.
 
-{{< codenew file="pods/resource/extended-resource-pod.yaml" >}}
+{{% codenew file="pods/resource/extended-resource-pod.yaml" %}}
 
 구성 파일에서 컨테이너가 3개의 동글을 요청하는 것을 알 수 있다.
 
@@ -73,7 +73,7 @@ Requests:
 다음은 컨테이너가 하나 있는 파드의 구성 파일이다.
 컨테이너는 두 개의 동글을 요청한다.
 
-{{< codenew file="pods/resource/extended-resource-pod-2.yaml" >}}
+{{% codenew file="pods/resource/extended-resource-pod-2.yaml" %}}
 
 첫 번째 파드가 사용 가능한 4개의 동글 중 3개를 사용했기 때문에
 쿠버네티스는 두 개의 동글에 대한 요청을 충족시킬 수 없을 것이다.

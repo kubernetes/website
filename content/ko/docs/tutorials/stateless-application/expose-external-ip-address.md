@@ -31,7 +31,7 @@ weight: 10
 
 1. 클러스터에서 Hello World 애플리케이션을 실행한다.
 
-   {{< codenew file="service/load-balancer-example.yaml" >}}
+   {{% codenew file="service/load-balancer-example.yaml" %}}
 
    ```shell
    kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml

@@ -85,7 +85,7 @@ CoreDNS는 본래 kube-dns로 사용한 클러스터에서 작동할 수 있도�
 
 다음의 내용으로 `dns-horizontal-autoscaler.yaml`라는 파일을 만든다.
 
-{{< codenew file="admin/dns/dns-horizontal-autoscaler.yaml" >}}
+{{% codenew file="admin/dns/dns-horizontal-autoscaler.yaml" %}}
 
 파일에서, `<SCALE_TARGET>`을 사용자의 스케일 대상으로 변경한다.
 

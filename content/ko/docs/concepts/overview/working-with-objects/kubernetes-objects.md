@@ -72,7 +72,7 @@ JSON 형식으로 정보를 포함시켜 줘야만 한다. **대부분의 경우
 
 여기 쿠버네티스 디플로이먼트를 위한 필수 필드와 오브젝트 spec을 보여주는 `.yaml` 파일 예시가 있다.
 
-{{< codenew file="application/deployment.yaml" >}}
+{{% codenew file="application/deployment.yaml" %}}
 
 위 예시와 같이 .yaml 파일을 이용하여 디플로이먼트를 생성하기 위한 하나의 방식으로는
 `kubectl` 커맨드-라인 인터페이스에 인자값으로 `.yaml` 파일을 건네

@@ -42,7 +42,7 @@ weight: 10
 이 예제에서는 한 개의 컨테이너를 실행하는 파드를 생성한다. 파드를 위한 구성
 파일에서 커맨드와 두 개의 인자를 정의한다.
 
-{{< codenew file="pods/commands.yaml" >}}
+{{% codenew file="pods/commands.yaml" %}}
 
 1. YAML 구성 파일을 활용해 파드를 생성한다.
 

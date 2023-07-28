@@ -70,7 +70,7 @@ minikube start --memory 5120 --cpus=4
 
 다음의 서비스는 클러스터에서 카산드라 파드와 클라이언트 간에 DNS 찾아보기 용도로 사용한다.
 
-{{< codenew file="application/cassandra/cassandra-service.yaml" >}}
+{{% codenew file="application/cassandra/cassandra-service.yaml" %}}
 
 `cassandra-service.yaml` 파일에서 카산드라 스테이트풀셋 노드를 모두 추적하는 서비스를 생성한다.
 
@@ -107,7 +107,7 @@ cassandra   ClusterIP   None         <none>        9042/TCP   45s
 다음 스테이트풀셋을 작업하는 클라우드 환경에서 갱신한다.
 {{< /note >}}
 
-{{< codenew file="application/cassandra/cassandra-statefulset.yaml" >}}
+{{% codenew file="application/cassandra/cassandra-statefulset.yaml" %}}
 
 `cassandra-statefulset.yaml` 파일로 카산드라 스테이트풀셋 생성
 

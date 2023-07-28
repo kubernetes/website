@@ -64,7 +64,7 @@ weight: 120
 이 매니페스트는 `disktype: ssd` 라는 `requiredDuringSchedulingIgnoredDuringExecution` 노드 어피니티를 가진 파드를 설명한다.
 파드가 `disktype=ssd` 레이블이 있는 노드에만 스케줄될 것이라는 것을 의미한다.
 
-{{< codenew file="pods/pod-nginx-required-affinity.yaml" >}}
+{{% codenew file="pods/pod-nginx-required-affinity.yaml" %}}
 
 1. 매니페스트를 적용하여 선택한 노드에 스케줄된 파드를
    생성한다.
@@ -91,7 +91,7 @@ weight: 120
 이 매니페스트는 `disktype: ssd` 라는 `preferredDuringSchedulingIgnoredDuringExecution` 노드 어피니티를 가진 파드를 설명한다.
 파드가 `disktype=ssd` 레이블이 있는 노드를 선호한다는 것을 의미한다.
 
-{{< codenew file="pods/pod-nginx-preferred-affinity.yaml" >}}
+{{% codenew file="pods/pod-nginx-preferred-affinity.yaml" %}}
 
 1. 매니페스트를 적용하여 선택한 노드에 스케줄된 파드를
    생성한다.

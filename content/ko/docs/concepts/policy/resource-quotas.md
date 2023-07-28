@@ -687,7 +687,7 @@ plugins:
 
 그리고, `kube-system` 네임스페이스에 리소스 쿼터 오브젝트를 생성한다.
 
-{{< codenew file="policy/priority-class-resourcequota.yaml" >}}
+{{% codenew file="policy/priority-class-resourcequota.yaml" %}}
 
 ```shell
 kubectl apply -f https://k8s.io/examples/policy/priority-class-resourcequota.yaml -n kube-system

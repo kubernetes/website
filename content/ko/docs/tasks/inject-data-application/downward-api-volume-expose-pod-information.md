@@ -32,7 +32,7 @@ _downward API_ 라고 한다.
 파드 수준(Pod-level) 필드를 실행 중인 컨테이너에 파일 형태로 생성한다.
 다음은 파드를 위한 매니페스트를 보여준다.
 
-{{< codenew file="pods/inject/dapi-volume.yaml" >}}
+{{% codenew file="pods/inject/dapi-volume.yaml" %}}
 
 매니페스트에서, 파드에 `downwardAPI` 볼륨이 있고, 
 컨테이너가 `/etc/podinfo`에 볼륨을 마운트하는 것을 확인할 수 있다.
@@ -155,7 +155,7 @@ total 8
 컨테이너만 가진 파드의 매니페스트를
 보여준다.
 
-{{< codenew file="pods/inject/dapi-volume-resources.yaml" >}}
+{{% codenew file="pods/inject/dapi-volume-resources.yaml" %}}
 
 매니페스트에서 파드에 [`downwardAPI` 볼륨](/ko/docs/concepts/storage/volumes/#downwardapi)이 있고 
 단일 컨테이너는 `/etc/podinfo`에 

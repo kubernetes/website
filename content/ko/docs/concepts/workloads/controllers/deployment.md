@@ -40,7 +40,7 @@ _디플로이먼트(Deployment)_ 는 {{< glossary_tooltip text="파드" term_id=
 
 다음은 디플로이먼트의 예시이다. 예시는 3개의 `nginx` 파드를 불러오기 위한 레플리카셋을 생성한다.
 
-{{< codenew file="controllers/nginx-deployment.yaml" >}}
+{{% codenew file="controllers/nginx-deployment.yaml" %}}
 
 이 예시에 대한 설명은 다음과 같다.
 

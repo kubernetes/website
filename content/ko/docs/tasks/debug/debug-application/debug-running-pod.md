@@ -25,7 +25,7 @@ content_type: task
 
 이 예제에서는 앞의 예제와 비슷하게 두 개의 파드를 생성하기 위해 디플로이먼트를 사용할 것이다.
 
-{{< codenew file="application/nginx-with-request.yaml" >}}
+{{% codenew file="application/nginx-with-request.yaml" %}}
 
 다음 명령을 실행하여 디플로이먼트를 생성한다.
 
