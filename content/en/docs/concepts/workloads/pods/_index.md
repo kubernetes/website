@@ -46,7 +46,7 @@ A Pod is similar to a set of containers with shared namespaces and shared filesy
 
 The following is an example of a Pod which consists of a container running the image `nginx:1.14.2`.
 
-{{< codenew file="pods/simple-pod.yaml" >}}
+{{% codenew file="pods/simple-pod.yaml" %}}
 
 To create the Pod shown above, run the following command:
 ```shell
@@ -326,7 +326,7 @@ using the kubelet to supervise the individual [control plane components](/docs/c
 The kubelet automatically tries to create a {{< glossary_tooltip text="mirror Pod" term_id="mirror-pod" >}}
 on the Kubernetes API server for each static Pod.
 This means that the Pods running on a node are visible on the API server,
-but cannot be controlled from there.
+but cannot be controlled from there. See the guide [Create static Pods](/docs/tasks/configure-pod-container/static-pod) for more information.
 
 {{< note >}}
 The `spec` of a static Pod cannot refer to other API objects

@@ -83,21 +83,24 @@ for an example control plane setup that runs across multiple machines.
 {{< glossary_definition term_id="kube-controller-manager" length="all" >}}
 
 <!--
-Some types of these controllers are:
+There are many different types of controllers. Some examples of them are:
 
   * Node controller: Responsible for noticing and responding when nodes go down.
   * Job controller: Watches for Job objects that represent one-off tasks, then creates
     Pods to run those tasks to completion.
   * EndpointSlice controller: Populates EndpointSlice objects (to provide a link between Services and Pods).
   * ServiceAccount controller: Create default ServiceAccounts for new namespaces.
+
+The above is not an exhaustive list.
 -->
-这些控制器包括：
+有许多不同类型的控制器。以下是一些例子：
 
 * 节点控制器（Node Controller）：负责在节点出现故障时进行通知和响应
 * 任务控制器（Job Controller）：监测代表一次性任务的 Job 对象，然后创建 Pods 来运行这些任务直至完成
 * 端点分片控制器（EndpointSlice controller）：填充端点分片（EndpointSlice）对象（以提供 Service 和 Pod 之间的链接）。
 * 服务账号控制器（ServiceAccount controller）：为新的命名空间创建默认的服务账号（ServiceAccount）。
 
+以上并不是一个详尽的列表。
 <!--
 ### cloud-controller-manager
 

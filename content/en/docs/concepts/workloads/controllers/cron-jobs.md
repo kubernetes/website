@@ -5,7 +5,10 @@ reviewers:
 - janetkuo
 title: CronJob
 content_type: concept
+description: >-
+  A CronJob starts one-time Jobs on a repeating schedule.
 weight: 80
+hide_summary: true # Listed separately in section index
 ---
 
 <!-- overview -->
@@ -38,7 +41,7 @@ length of a Job name is no more than 63 characters.
 
 This example CronJob manifest prints the current time and a hello message every minute:
 
-{{< codenew file="application/job/cronjob.yaml" >}}
+{{% codenew file="application/job/cronjob.yaml" %}}
 
 ([Running Automated Tasks with a CronJob](/docs/tasks/job/automated-tasks-with-cron-jobs/)
 takes you through this example in more detail).

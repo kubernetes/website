@@ -58,7 +58,7 @@ in the Pod specification. The `securityContext` field is a
 The security settings that you specify for a Pod apply to all Containers in the Pod.
 Here is a configuration file for a Pod that has a `securityContext` and an `emptyDir` volume:
 
-{{< codenew file="pods/security/security-context.yaml" >}}
+{{% codenew file="pods/security/security-context.yaml" %}}
 
 In the configuration file, the `runAsUser` field specifies that for any Containers in
 the Pod, all processes run with user ID 1000. The `runAsGroup` field specifies the primary group ID of 3000 for
@@ -221,7 +221,7 @@ there is overlap. Container settings do not affect the Pod's Volumes.
 Here is the configuration file for a Pod that has one Container. Both the Pod
 and the Container have a `securityContext` field:
 
-{{< codenew file="pods/security/security-context-2.yaml" >}}
+{{% codenew file="pods/security/security-context-2.yaml" %}}
 
 Create the Pod:
 
@@ -274,7 +274,7 @@ of the root user. To add or remove Linux capabilities for a Container, include t
 First, see what happens when you don't include a `capabilities` field.
 Here is configuration file that does not add or remove any Container capabilities:
 
-{{< codenew file="pods/security/security-context-3.yaml" >}}
+{{% codenew file="pods/security/security-context-3.yaml" %}}
 
 Create the Pod:
 
@@ -336,7 +336,7 @@ that it has additional capabilities set.
 Here is the configuration file for a Pod that runs one Container. The configuration
 adds the `CAP_NET_ADMIN` and `CAP_SYS_TIME` capabilities:
 
-{{< codenew file="pods/security/security-context-4.yaml" >}}
+{{% codenew file="pods/security/security-context-4.yaml" %}}
 
 Create the Pod:
 
@@ -511,7 +511,7 @@ kubectl delete pod security-context-demo-4
 
 * [PodSecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podsecuritycontext-v1-core)
 * [SecurityContext](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#securitycontext-v1-core)
-* [Tuning Docker with the newest security enhancements](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
+* [CRI Plugin Config Guide](https://github.com/containerd/containerd/blob/main/docs/cri/config.md)
 * [Security Contexts design document](https://git.k8s.io/design-proposals-archive/auth/security_context.md)
 * [Ownership Management design document](https://git.k8s.io/design-proposals-archive/storage/volume-ownership-management.md)
 * [PodSecurity Admission](/docs/concepts/security/pod-security-admission/)
