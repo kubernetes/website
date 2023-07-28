@@ -39,7 +39,7 @@ nodes.
 - 你是 Kubernetes 集群中某应用的所有者，该应用有高可用要求。
 - 你应了解如何部署[无状态应用](/zh-cn/docs/tasks/run-application/run-stateless-application-deployment/)
   和/或[有状态应用](/zh-cn/docs/tasks/run-application/run-replicated-stateful-application/)。
-- 你应当已经阅读过关于 [Pod 干扰](/zh-cn/docs/concepts/workloads/pods/disruptions/) 的文档。
+- 你应当已经阅读过关于 [Pod 干扰](/zh-cn/docs/concepts/workloads/pods/disruptions/)的文档。
 - 用户应当与集群所有者或服务提供者确认其遵从 Pod 干扰预算（Pod Disruption Budgets）的规则。
 
 <!-- steps -->
@@ -54,7 +54,7 @@ nodes.
 -->
 ## 用 PodDisruptionBudget 来保护应用   {#protecting-app-with-pdb}
 
-1. 确定想要使用 PodDisruptionBudget (PDB) 来保护的应用。
+1. 确定想要使用 PodDisruptionBudget（PDB）来保护的应用。
 1. 考虑应用对干扰的反应。
 1. 以 YAML 文件形式定义 PDB。
 1. 通过 YAML 文件创建 PDB 对象。
@@ -146,7 +146,7 @@ due to a voluntary disruption.
       (允许同时出现更多的干扰)。
 - 可重新启动的批处理任务：
   - 关注：自发干扰的情况下，需要确保任务完成。
-    - 可能的解决方案：不创建 PDB。 任务控制器会创建一个替换 Pod。
+    - 可能的解决方案：不创建 PDB。任务控制器会创建一个替换 Pod。
 
 <!--
 ### Rounding logic when specifying percentages
@@ -221,8 +221,8 @@ PodDisruptionBudgets. For policy/v1beta1 an empty selector matches zero pods, wh
 for policy/v1 an empty selector matches every pod in the namespace.
 -->
 `policy/v1beta1` 和 `policy/v1` API 中 PodDisruptionBudget 的空选择算符的行为
-略有不同。在 `policy/v1beta1` 中，空的选择算符不会匹配任何 Pods，而
-`policy/v1` 中，空的选择算符会匹配名字空间中所有 Pods。
+略有不同。在 `policy/v1beta1` 中，空的选择算符不会匹配任何 Pod，而
+`policy/v1` 中，空的选择算符会匹配名字空间中所有 Pod。
 {{< /note >}}
 
 <!--
@@ -235,7 +235,7 @@ is the `scale` of the controller managing the pods being selected by the
 用户在同一个 `PodDisruptionBudget` 中只能够指定 `maxUnavailable` 和 `minAvailable` 中的一个。
 `maxUnavailable` 只能够用于控制存在相应控制器的 Pod 的驱逐（即不受控制器控制的 Pod 不在
 `maxUnavailable` 控制范围内）。在下面的示例中，
-“所需副本” 指的是相应控制器的 `scale`，控制器对 `PodDisruptionBudget` 所选择的 Pod 进行管理。
+“所需副本”指的是相应控制器的 `scale`，控制器对 `PodDisruptionBudget` 所选择的 Pod 进行管理。
 
 <!--
 Example 1: With a `minAvailable` of 5, evictions are allowed as long as they leave behind
@@ -311,14 +311,14 @@ Example PDB Using minAvailable:
 -->
 使用 minAvailable 的 PDB 示例：
 
-{{< codenew file="policy/zookeeper-pod-disruption-budget-minavailable.yaml" >}}
+{{% codenew file="policy/zookeeper-pod-disruption-budget-minavailable.yaml" %}}
 
 <!--
 Example PDB Using maxUnavailable:
 -->
 使用 maxUnavailable 的 PDB 示例：
 
-{{< codenew file="policy/zookeeper-pod-disruption-budget-maxunavailable.yaml" >}}
+{{% codenew file="policy/zookeeper-pod-disruption-budget-maxunavailable.yaml" %}}
 
 <!--
 For example, if the above `zk-pdb` object selects the pods of a StatefulSet of size 3, both
@@ -368,7 +368,7 @@ zk-pdb   2               N/A               0                     7s
 <!--
 If there are matching pods (say, 3), then you would see something like this:
 -->
-假设有匹配的 Pod (比如说 3 个), 那么用户会看到类似下面的信息：
+假设有匹配的 Pod（比如说 3 个），那么用户会看到类似下面的信息：
 
 ```shell
 kubectl get poddisruptionbudgets
@@ -477,7 +477,7 @@ Policies:
   （`.status.currentHealthy` 至少等于 `.status.desiredHealthy`）时才能被驱逐。
 
 : 此策略确保已受干扰的应用程序所运行的 Pod 会尽可能成为健康。
-  这对排空节点有负面影响，可能会因 PDB 守护的应用程序行为错误而阻止排空。
+  这对腾空节点有负面影响，可能会因 PDB 守护的应用程序行为错误而阻止腾空。
   更具体地说，这些应用程序的 Pod 处于 `CrashLoopBackOff` 状态
   （由于漏洞或错误配置）或其 Pod 只是未能报告 `Ready` 状况。
 
@@ -505,7 +505,7 @@ Policies:
 <!--
 Pods in `Pending`, `Succeeded` or `Failed` phase are always considered for eviction.
 -->
-处于`Pending`、`Succeeded` 或 `Failed` 阶段的 Pod 总是被考虑驱逐。
+处于 `Pending`、`Succeeded` 或 `Failed` 阶段的 Pod 总是被考虑驱逐。
 {{< /note >}}
 
 <!--
@@ -535,7 +535,7 @@ You can use a PDB with pods controlled by another resource, by an
 - only `.spec.minAvailable` can be used, not `.spec.maxUnavailable`.
 - only an integer value can be used with `.spec.minAvailable`, not a percentage.
 -->
-- 只能够使用 `.spec.minAvailable` ，而不能够使用 `.spec.maxUnavailable。`
+- 只能够使用 `.spec.minAvailable`，而不能够使用 `.spec.maxUnavailable。`
 - 只能够使用整数作为 `.spec.minAvailable` 的值，而不能使用百分比。
 
 <!--
