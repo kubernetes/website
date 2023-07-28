@@ -40,7 +40,8 @@ In order to complete all steps in this tutorial, you must install
 [kind](/docs/tasks/tools/#kind) and [kubectl](/docs/tasks/tools/#kubectl).
 
 The commands used in the tutorial assume that you are using
-[Docker](https://www.docker.com/) as your container runtime. You could also use
+[Docker](https://www.docker.com/) as your container runtime. (The cluster that `kind` creates may
+use a different container runtime internally). You could also use
 [Podman](https://podman.io/) but in that case, you would have to follow specific
 [instructions](https://kind.sigs.k8s.io/docs/user/rootless/) in order to complete the tasks
 successfully.
