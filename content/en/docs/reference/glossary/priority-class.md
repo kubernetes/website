@@ -7,7 +7,8 @@ short_description: >
 PriorityClass resource assigns priorities to pods, helping the scheduler prioritize scheduling based on importance or criticality.
 aka:
 tags:
-- operation
+- core-object
+- workload
 ---
 A Priority Class maps a name to a priority value as an integer, and is not namespaced
 <!--more-->
