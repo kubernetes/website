@@ -26,14 +26,33 @@ Each day in a week-long shift as Issue Wrangler:
 - A minimum of 15 quality contributions to Kubernetes (of which a certain amount should be directed towards kubernetes/website).
 - Performing the role in an informal capacity already
 
-### What is its place in the contributor hierarchy?
+### Helpful Prow commands for wranglers
 
-- In between a contributor and a reviewer.
-- For someone who assumes the role and demonstrates ability, the next step is to shadow a PR Wrangler and review PRs informally.
+```
+# reopen an issue
+/reopen
 
-### Process Implementation
+# transfer issues that don't fit in k/website to another repository
+/transfer[-issue]
 
-- Identify people who are already triaging issues and put them on a roster.
-- Pilot a shadow program and gauge interest
-- The mantel may be passed on if there is interest.
-- Keep repeating.
+# change the state of rotten issues
+/remove-lifecycle rotten
+```
+
+### When to close Issues
+
+For an open source project to succeed, good issue management is crucial. But it is also critical to resolve issues in order to maintain the repository and communicate clearly with contributors and users.
+
+Close issues when:
+
+- A similar issue has been reported more than once. It is also advisable to direct the users to the original issue.
+- It is very difficult to understand and address the issue presented by the author with the information provided.
+  However, encourage the user to provide more details or reopen the issue if they can reproduce it later.
+- Having implemented the same functionality elsewhere. One can close this issue and direct user to the appropriate place.
+- Feature requests that are not currently planned or aligned with the project's goals.
+- If the assignee has not responded to comments or feedback in more than two weeks
+  The issue can be assigned to someone who is highly motivated to contribute.
+- In cases where an issue appears to be spam and is clearly unrelated.
+- If the issue is related to an external limitation or dependency and is beyond the control of the project.
+
+To close an issue, leave a `/close` comment on the issue.
