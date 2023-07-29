@@ -2087,7 +2087,7 @@ It's used for informative use only.
 的版本(如果在节点上运行了一个 NFD-worker 的话)。
 它只用于提供信息。
 
-<--
+<!--
 ### nfd.node.kubernetes.io/feature-labels
 
 Example: `nfd.node.kubernetes.io/feature-labels: "cpu-cpuid.ADX,cpu-cpuid.AESNI,cpu-hardware_multithreading,kernel-version.full"`
