@@ -6,8 +6,7 @@ weight: 20
 
 <!-- overview -->
 
-There are many issues that need triage, and in order to reduce our reliance on formal approvers or reviewers, we have introduced a new role to wrangle issues every week.The main responsibility of this role is to bridge the gap between organizational contributor and reviewer.
-This section covers the duties of a PR wrangler.
+In order to reduce the burden on the [PR Wrangler](/docs/contribute/participate/pr-wrangler), formal approvers, and reviewers, members of SIG Docs take week long shifts [triaging and categorising issues](/docs/contribute/review/for-approvers.md/#triage-and-categorize-issues) for the repository.
 
 <!-- body -->
 
@@ -15,7 +14,7 @@ This section covers the duties of a PR wrangler.
 
 Each day in a week-long shift as Issue Wrangler:
 
-- Making sure the issue is worded and titled correctly to provide contributors with adequate information.
+- Triage and tag incoming issues daily. See [Triage and categorize issues](https://github.com/kubernetes/website/blob/main/docs/contribute/review/for-approvers/#triage-and-categorize-issues) for guidelines on how SIG Docs uses metadata.
 - Identifying whether the issue falls under the support category and assigning a "triage/accepted" status.
 - Assuring the issue is tagged with the appropriate sig/area/kind labels.
 - Keeping an eye on stale & rotten issues within the kubernetes/website repository.
