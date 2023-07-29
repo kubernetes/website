@@ -542,6 +542,10 @@ This is split into discovery (having the Node trust the Kubernetes Master) and T
 see [Authenticating with Bootstrap Tokens](/docs/reference/access-authn-authz/bootstrap-tokens/)
 or the corresponding [design proposal](https://git.k8s.io/design-proposals-archive/cluster-lifecycle/bootstrap-discovery.md).
 
+Please note that:
+
+1. Kubeadm uses cluster-info for bootstrap with bootstrap tokens.
+
 ### Preflight checks
 
 `kubeadm` executes a set of preflight checks before starting the join, with the aim to verify
@@ -621,4 +625,3 @@ Please note that:
   during the `kubeadm init` process
 - The automatic CSR approval is managed by the csrapprover controller, according with
   configuration done the `kubeadm init` process
-

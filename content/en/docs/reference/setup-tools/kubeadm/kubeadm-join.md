@@ -74,6 +74,8 @@ The kubeadm discovery has several options, each with security tradeoffs.
 The right method for your environment depends on how you provision nodes and the
 security expectations you have about your network and node lifecycles.
 
+Note: Kubeadm uses cluster-info for bootstrap with bootstrap tokens.
+
 #### Token-based discovery with CA pinning
 
 This is the default mode in kubeadm. In this mode, kubeadm downloads
@@ -123,6 +125,7 @@ if the `kubeadm init` command was called with `--upload-certs`.
   which can make it more difficult to build automated provisioning tools that
   use kubeadm. By generating your CA in beforehand, you may workaround this
   limitation.
+
 
 #### Token-based discovery without CA pinning
 
