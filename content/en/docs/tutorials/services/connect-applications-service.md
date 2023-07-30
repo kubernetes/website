@@ -310,7 +310,7 @@ nginxconfigmap   1      114s
 You can view the details of the `nginxconfigmap` ConfigMap using the following command:
 
 ```shell
-kubectl describe cm nginxconfigmap
+kubectl describe configmap  nginxconfigmap
 
 The output is similar to:
 
@@ -357,7 +357,7 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /d/tmp/nginx.key -ou
 cat /d/tmp/nginx.crt | base64
 cat /d/tmp/nginx.key | base64
 ```
-<!-- 
+ 
 Use the output from the previous commands to create a yaml file as follows.
 The base64 encoded value should all be on a single line.
 
@@ -382,7 +382,7 @@ kubectl get secrets
 NAME                  TYPE                                  DATA      AGE
 nginxsecret           kubernetes.io/tls                     2         1m
 ```
--->
+
 Now modify your nginx replicas to start an https server using the certificate
 in the secret, and the Service, to expose both ports (80 and 443):
 
