@@ -307,7 +307,8 @@ NAME             DATA   AGE
 nginxconfigmap   1      114s
 ```
 
-Details of the configmap ```nginxconfigmap``` can be viewed with the following command
+You can view the details of the `nginxconfigmap` ConfigMap using the following command:
+
 ```shell
 kubectl describe cm nginxconfigmap
 
