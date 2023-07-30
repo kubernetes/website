@@ -83,10 +83,10 @@ Windowsノードをアップグレードする前にコントロールプレー�
 ### kube-proxyをアップグレード
 
 1. Kubernetes APIにアクセスできるマシンから、次を実行します、
-もう一度{{< param "fullversion" >}}を目的のバージョンに置き換えます:
+もう一度{{< skew currentPatchVersion >}}を目的のバージョンに置き換えます:
 
     ```shell
-    curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/kube-proxy.yml | sed 's/VERSION/{{< param "fullversion" >}}/g' | kubectl apply -f -
+    curl -L https://github.com/kubernetes-sigs/sig-windows-tools/releases/latest/download/kube-proxy.yml | sed 's/VERSION/v{{< skew currentPatchVersion >}}/g' | kubectl apply -f -
     ```
 
 

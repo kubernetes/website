@@ -165,7 +165,7 @@ check [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserv
 
 A user creates, or in the case of dynamic provisioning, has already created,
 a PersistentVolumeClaim with a specific amount of storage requested and with
-certain access modes. A control loop in the master watches for new PVCs, finds
+certain access modes. A control loop in the control plane watches for new PVCs, finds
 a matching PV (if possible), and binds them together. If a PV was dynamically
 provisioned for a new PVC, the loop will always bind that PV to the PVC. Otherwise,
 the user will always get at least what they asked for, but the volume may be in
@@ -178,7 +178,7 @@ and the PersistentVolumeClaim.
 
 用户创建一个带有特定存储容量和特定访问模式需求的 PersistentVolumeClaim 对象；
 在动态制备场景下，这个 PVC 对象可能已经创建完毕。
-主控节点中的控制回路监测新的 PVC 对象，寻找与之匹配的 PV 卷（如果可能的话），
+控制平面中的控制回路监测新的 PVC 对象，寻找与之匹配的 PV 卷（如果可能的话），
 并将二者绑定到一起。
 如果为了新的 PVC 申领动态制备了 PV 卷，则控制回路总是将该 PV 卷绑定到这一 PVC 申领。
 否则，用户总是能够获得他们所请求的资源，只是所获得的 PV 卷可能会超出所请求的配置。
