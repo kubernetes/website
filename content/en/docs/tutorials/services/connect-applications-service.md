@@ -293,7 +293,7 @@ And also the configmap:
 kubectl create configmap nginxconfigmap --from-file=default.conf
 ```
 
-Note: The `default.conf` file is located in
+You can find an example for `default.conf` in
 [https://github.com/kubernetes/examples/tree/master/staging/https-nginx/](https://github.com/kubernetes/examples/tree/master/staging/https-nginx/).
 
 ```
