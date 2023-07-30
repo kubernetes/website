@@ -3,7 +3,7 @@ title: I componenti di Kubernetes
 description: >
   Un cluster di Kubernetes è costituito da un insieme di componenti che sono, come minimo, un Control Plane e uno o più sistemi di elaborazione, detti nodi.
 content_type: concept
-weight: 20
+weight: 30
 card: 
   name: concepts
   weight: 20
@@ -16,16 +16,12 @@ Facendo il deployment di Kubernetes, ottieni un cluster.
 Questo documento descrive i diversi componenti che sono necessari per avere 
 un cluster Kubernetes completo e funzionante.
 
-Questo è un diagramma di un cluster Kubernetes con tutti i componenti e le loro relazioni.
-
-![I componenti di Kubernetes](/images/docs/components-of-kubernetes.png)
-
-
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="I componenti di Kubernetes" caption="I componenti di un cluster Kubernetes" class="diagram-large" >}}
 
 <!-- body -->
-## Componenti della Control Plane
+## Componenti della control plane
 
-I componenti del Control Plane sono responsabili di tutte le decisioni globali sul cluster (ad esempio, lo scheduling) oltre che a rilevare e rispondere agli eventi del cluster (ad esempio, l'avvio di un nuovo {{< glossary_tooltip text="pod" term_id="pod">}} quando il valore `replicas` di un deployment non è soddisfatto).
+I componenti del control plane sono responsabili di tutte le decisioni globali sul cluster (ad esempio, lo scheduling) oltre che a rilevare e rispondere agli eventi del cluster (ad esempio, l'avvio di un nuovo {{< glossary_tooltip text="pod" term_id="pod">}} quando il valore `replicas` di un deployment non è soddisfatto).
 
 I componenti della Control Plane possono essere eseguiti su qualsiasi nodo del cluster stesso. Solitamente, per semplicità, gli script di installazione tendono a eseguire tutti i componenti della Control Plane sulla stessa macchina, separando la Control Plane dai workload dell'utente.
 Vedi [creare un cluster in High-Availability](/docs/admin/high-availability/) per un esempio di un'installazione multi-master.
@@ -46,12 +42,16 @@ Vedi [creare un cluster in High-Availability](/docs/admin/high-availability/) pe
 
 {{< glossary_definition term_id="kube-controller-manager" length="all" >}}
 
-Alcuni esempi di controller gestiti dal kube-controller-manager sono:
+Ci sono molti tipi differenti di _controller_ (controllori). Alcuni esempi sono:
 
-  * Node Controller: Responsabile del monitoraggio dei nodi del cluster, e.g. della gestione delle azioni da eseguire quando un nodo diventa non disponibile.
-  * Replication Controller: Responsabile per il mantenimento del corretto numero di Pod per ogni ReplicaSet presente nel sistema
-  * Endpoints Controller: Popola gli oggetti Endpoints (cioè, mette in relazioni i Pods con i Services).
-  * Service Account & Token Controllers: Creano gli account di default e i token di accesso alle API per i nuovi namespaces.
+  * Node controller: Responsabile del monitoraggio e della reazione quando i nodi del cluster diventano irraggiungibili.
+  * Job controller: Monitora gli oggetti di tipo Job, i quali rappresentano
+    delle operazioni una tantum, e crea i Pod necessari per la loro esecuzione.
+  * EndpointSlice controller: Popola gli oggetti EndpointSlice (che servono per
+    collegare i Service e i Pod).
+  * ServiceAccount controller: Crea i ServiceAccount di default per i nuovi namespace.
+
+Questa non è una lista esaustiva.
 
 ### cloud-controller-manager
 
@@ -115,11 +115,17 @@ Il [Monitoraggio dei Container](/docs/tasks/debug-application-cluster/resource-u
 
 Un [log a livello di cluster](/docs/concepts/cluster-administration/logging/) è responsabile per il salvataggio dei log dei container in un log centralizzato la cui interfaccia permette di cercare e navigare nei log.
 
+### Network Plugin
+I [Network plugin](/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins) sono dei componenti software che implementano la specifica Container Network Interface (CNI). Questi sono responsabili per l'allocazione degli indirizzi utilizzati dai pod e permettere a questi ultimi di comunicare tra loro all'interno del cluster.
+
 
 ## {{% heading "whatsnext" %}}
-
-* Scopri i concetti relativi ai [Nodi](/docs/concepts/architecture/nodes/)
-* Scopri i concetti relativi ai [Controller](/docs/concepts/architecture/controller/)
-* Scopri i concetti relativi al [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/)
-* Leggi la [documentazione](https://etcd.io/docs/) ufficiale di etcd
-
+Scopri di più riguardo a:
+  * I [Nodi](/docs/concepts/architecture/nodes/) e [come comunicano](/docs/concepts/architecture/control-plane-node-communication/) con la  control plane.
+  * I Kubernetes [Controller](/docs/concepts/architecture/controller/).
+  * Il [kube-scheduler](/docs/concepts/scheduling/kube-scheduler/) che è
+  il componente che by default assegna i pod ai diversi nodi in Kubernetes.
+  * La [documentazione](https://etcd.io/docs/) ufficiale di etcd.
+  * Molti dei [container runtime](/docs/setup/production-environment/container-runtimes/) di Kubernetes.
+  * Come integrare Kubernetes con i cloud provider usando il [cloud-controller-manager](/docs/concepts/architecture/cloud-controller/).
+  * I comandi di [kubectl](/docs/reference/generated/kubectl/kubectl-commands).
