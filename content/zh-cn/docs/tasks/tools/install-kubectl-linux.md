@@ -22,8 +22,8 @@ card:
 ## {{% heading "prerequisites" %}}
 
 <!--
-You must use a kubectl version that is within one minor version difference of your cluster.
-For example, a v{{< skew currentVersion >}} client can communicate
+You must use a kubectl version that is within one minor version difference of
+your cluster. For example, a v{{< skew currentVersion >}} client can communicate
 with v{{< skew currentVersionAddMinor -1 >}}, v{{< skew currentVersionAddMinor 0 >}},
 and v{{< skew currentVersionAddMinor 1 >}} control planes.
 Using the latest compatible version of kubectl helps avoid unforeseen issues.
@@ -93,7 +93,7 @@ The following methods exist for installing kubectl on Linux:
    对于 Linux ARM64 来说，请输入：
 
    ```bash
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/arm64/kubectl
+   curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/arm64/kubectl
    ```
    {{< /note >}}
 
@@ -230,7 +230,7 @@ Or use this for detailed view of version:
 
    <!--
    If you use Debian 9 (stretch) or earlier you would also need to install `apt-transport-https`:
-   -->   
+   -->
    如果你使用 Debian 9（stretch）或更早版本，则你还需要安装 `apt-transport-https`：
 
    ```shell
@@ -303,7 +303,7 @@ sudo yum install -y kubectl
 
 {{< tabs name="other_kubectl_install" >}}
 {{% tab name="Snap" %}}
-<!-- 
+<!--
 If you are on Ubuntu or another Linux distribution that supports the
 [snap](https://snapcraft.io/docs/core/install) package manager, kubectl
 is available as a [snap](https://snapcraft.io/) application.
@@ -320,7 +320,7 @@ kubectl version --client
 {{% /tab %}}
 
 {{% tab name="Homebrew" %}}
-<!-- 
+<!--
 If you are on Linux and using [Homebrew](https://docs.brew.sh/Homebrew-on-Linux)
 package manager, kubectl is available for [installation](https://docs.brew.sh/Homebrew-on-Linux#install).
 -->
@@ -340,7 +340,7 @@ kubectl version --client
 <!--
 ## Verify kubectl configuration
 -->
-## 验证 kubectl 配置 {#verify-kubectl-configration}
+## 验证 kubectl 配置 {#verify-kubectl-configuration}
 
 {{< include "included/verify-kubectl.md" >}}
 
@@ -372,7 +372,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 <!--
 ### Install `kubectl convert` plugin
 -->
-### 安装 `kubectl convert` 插件
+### 安装 `kubectl convert` 插件 {#install-kubectl-convert-plugin}
 
 {{< include "included/kubectl-convert-overview.md" >}}
 
@@ -381,12 +381,12 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
 -->
 1. 用以下命令下载最新发行版：
 
-   {{< tabs name="download_binary_linux" >}}
+   {{< tabs name="download_convert_binary_linux" >}}
    {{< tab name="x86-64" codelang="bash" >}}
    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert"
    {{< /tab >}}
    {{< tab name="ARM64" codelang="bash" >}}
-   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl"
+   curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl-convert"
    {{< /tab >}}
    {{< /tabs >}}
 
