@@ -1,0 +1,87 @@
+---
+title: Pear Deck Case Study
+case_study_styles: true
+cid: caseStudies
+
+new_case_study_styles: true
+heading_background: /images/case-studies/peardeck/banner3.jpg
+heading_title_logo: /images/peardeck_logo.png
+subheading: >
+  Infrastructure for a Growing EdTech Startup
+case_study_details:
+  - Company: Pear Deck
+  - Location: Iowa City, Iowa
+  - Industry: Educational Software
+---
+
+<h2>Challenge</h2>
+
+<p>The three-year-old startup provides a web app for teachers to interact with their students in the classroom. The JavaScript app was built on Google's web app development platform <a href="https://firebase.google.com/">Firebase</a>, using <a href="https://www.heroku.com/">Heroku</a>. As the user base steadily grew, so did the development team. "We outgrew Heroku when we started wanting to have multiple services, and the deploying story got pretty horrendous. We were frustrated that we couldn't have the developers quickly stage a version," says CEO Riley Eynon-Lynch. "Tracing and monitoring became basically impossible." On top of that, many of Pear Deck's customers are behind government firewalls and connect through Firebase, not Pear Deck's servers, making troubleshooting even more difficult.</p>
+
+<h2>Solution</h2>
+
+<p>In 2016, the company began moving their code from Heroku to containers running on <a href="https://cloud.google.com/kubernetes-engine/">Google Kubernetes Engine</a>, orchestrated by <a href="http://kubernetes.io/">Kubernetes</a> and monitored with <a href="https://prometheus.io/">Prometheus</a>.</p>
+
+<h2>Impact</h2>
+
+<p>The new cloud native stack immediately improved the development workflow, speeding up deployments. Prometheus gave Pear Deck "a lot of confidence, knowing that people are still logging into the app and using it all the time," says Eynon-Lynch. "The biggest impact is being able to work as a team on the configuration in git in a pull request, and the biggest confidence comes from the solidity of the abstractions and the trust that we have in Kubernetes actually making our yaml files a reality."</p>
+
+{{< case-studies/quote author="RILEY EYNON-LYNCH, CEO OF PEAR DECK" >}}
+"We didn't even realize how stressed out we were about our lack of insight into what was happening with the app. I'm really excited and have more and more confidence in the actual state of our application for our actual users, and not just what the CPU graphs are saying, because of Prometheus and Kubernetes."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+With the speed befitting a startup, Pear Deck delivered its first prototype to customers within three months of incorporating.
+{{< /case-studies/lead >}}
+
+<p>As a former high school math teacher, CEO Riley Eynon-Lynch felt an urgency to provide a tech solution to classes where instructors struggle to interact with every student in a short amount of time. "Pear Deck is an app that students can use to interact with the teacher all at once," he says. "When the teacher asks a question, instead of just the kid at the front of the room answering again, everybody can answer every single question. It's a huge fundamental shift in the messaging to the students about how much we care about them and how much they are a part of the classroom."</p>
+
+<p>Eynon-Lynch and his partners quickly built a JavaScript web app on Google's web app development platform <a href="https://firebase.google.com/">Firebase</a>, and launched the minimum viable product [MVP] on <a href="https://www.heroku.com/">Heroku</a> "because it was fast and easy," he says. "We made everything as easy as we could."</p>
+
+<p>But once it launched, the user base began growing steadily at a rate of 30 percent a month. "Our Heroku bill was getting totally insane," Eynon-Lynch says. But even more crucially, as the company hired more developers to keep pace, "we outgrew Heroku. We wanted to have multiple services and the deploying story got pretty horrendous. We were frustrated that we couldn't have the developers quickly stage a version. Tracing and monitoring became basically impossible."</p>
+
+<p>On top of that, many of Pear Deck's customers are behind government firewalls and connect through Firebase, not Pear Deck's servers, making troubleshooting even more difficult.</p>
+
+<p>The team began looking around for another solution, and finally decided in early 2016 to start moving the app from Heroku to containers running on <a href="https://cloud.google.com/kubernetes-engine/">Google Kubernetes Engine</a>, orchestrated by <a href="http://kubernetes.io/">Kubernetes</a> and monitored with <a href="https://prometheus.io/">Prometheus</a>.</p>
+
+{{< case-studies/quote image="/images/case-studies/peardeck/banner1.jpg" >}}
+"When it became clear that Google Kubernetes Engine was going to have a lot of support from Google and be a fully-managed Kubernetes platform, it seemed very obvious to us that was the way to go," says Eynon-Lynch.
+{{< /case-studies/quote >}}
+
+<p>They had considered other options like Google's App Engine (which they were already using for one service) and Amazon's <a href="https://aws.amazon.com/ec2/">Elastic Compute Cloud</a> (EC2), while experimenting with running one small service that wasn't accessible to the Internet in Kubernetes. "When it became clear that Google Kubernetes Engine was going to have a lot of support from Google and be a fully-managed Kubernetes platform, it seemed very obvious to us that was the way to go," says Eynon-Lynch. "We didn't really consider Terraform and the other competitors because the abstractions offered by Kubernetes just jumped off the page to us."</p>
+
+<p>Once the team started porting its Heroku apps into Kubernetes, which was "super easy," he says, the impact was immediate. "Before, to make a new version of the app meant going to Heroku and reconfiguring 10 new services, so basically no one was willing to do it, and we never   staged things," he says. "Now we can deploy our exact same configuration in lots of different clusters in 30 seconds. We have a full set up that's always running, and then any of our developers or designers can stage new versions with one command, including their recent changes. We stage all the time now, and everyone stopped talking about how cool it is because it's become invisible how great it is."</p>
+
+<p>Along with Kubernetes came Prometheus. "Until pretty recently we didn't have any kind of visibility into aggregate server metrics or performance," says Eynon-Lynch. The team had tried to use Google Kubernetes Engine's <a href="https://cloud.google.com/stackdriver/">Stackdriver</a> monitoring, but had problems making it work, and considered <a href="https://newrelic.com/">New Relic</a>. When they started looking at Prometheus in the fall of 2016, "the fit between the abstractions in Prometheus and the way we think about how our system works, was so clear and obvious," he says.</p>
+
+<p>The integration with Kubernetes made set-up easy. Once Helm installed Prometheus, "We started getting a graph of the health of all our Kubernetes nodes and pods immediately. I think we were pretty hooked at that point," Eynon-Lynch says. "Then we got our own custom instrumentation working in 15 minutes, and had an actively updated count of requests that we could do, rate on and get a sense of how many users are connected at a given point. And then it was another hour before we had alarms automatically showing up in our Slack channel. All that was in one afternoon. And it was an afternoon of gasping with delight, basically!"</p>
+
+{{< case-studies/quote image="/images/case-studies/peardeck/banner2.jpg" >}}
+"We started getting a graph of the health of all our Kubernetes nodes and pods immediately. I think we were pretty hooked at that point," Eynon-Lynch says. "Then we got our own custom instrumentation working in 15 minutes, and had an actively updated count of requests that we could do, rate on and get a sense of how many users are connected at a given point. And then it was another hour before we had alarms automatically showing up in our Slack channel. All that was in one afternoon. And it was an afternoon of gasping with delight, basically!"
+{{< /case-studies/quote >}}
+
+<p>With Pear Deck's specific challenges—traffic through Firebase as well as government firewalls—Prometheus was a game-changer. "We didn't even realize how stressed out we were about our lack of insight into what was happening with the app," Eynon-Lynch says. Before, when a customer would report that the app wasn't working, the team had to manually investigate the problem without knowing whether customers were affected all over the world, or whether Firebase was down, and where.</p>
+
+<p>To help solve that problem, the team wrote a script that pings Firebase from several different geographical locations, and then reports the responses to Prometheus in a histogram. "A huge impact that Prometheus had on us was just an amazing sigh of relief, of feeling like we knew what was happening," he says. "It took 45 minutes to implement [the Firebase alarm] because we knew that we had this trustworthy metrics platform in Prometheus. We weren't going to have to figure out, 'Where do we send these metrics? How do we aggregate the metrics? How do we understand them?'"</p>
+
+<p>Plus, Prometheus has allowed Pear Deck to build alarms for business goals. One measures the rate of successful app loads and goes off if the day's loads are less than 90 percent of the loads from seven days before. "We run a JavaScript app behind ridiculous firewalls and all kinds of crazy browser extensions messing with it—Chrome will push a feature that breaks some CSS that we're using," Eynon-Lynch says. "So that gives us a lot of confidence, and we at least know that people are still logging into the app and using it all the time."</p>
+
+<p>Now, when a customer complains, and none of the alarms have gone off, the team can feel confident that it's not a widespread problem. "Just to be sure, we can go and double check the graphs and say, 'Yep, there's currently 10,000 people connected to that Firebase node. It's definitely working. Let's investigate your network settings, customer,'" he says. "And we can pass that back off to our support reps instead of the whole development team freaking out that Firebase is down."</p>
+
+<p>Pear Deck is also giving back to the community, building and open-sourcing a <a href="https://github.com/peardeck/prometheus-user-metrics">metrics aggregator</a> that enables end-user monitoring in Prometheus. "We can measure, for example, the time to interactive-dom on the web clients," he says. "The users all report that to our aggregator, then the aggregator reports to Prometheus. So we can set an alarm for some client side errors."</p>
+
+<p>Most of Pear Deck's services have now been moved onto Kubernetes. And all of the team's new code is going on Kubernetes. "Kubernetes lets us experiment with service configurations and stage them on a staging cluster all at once, and test different scenarios and talk about them as a development team looking at code, not just talking about the steps we would eventually take as humans," says Eynon-Lynch.</p>
+
+{{< case-studies/quote >}}
+"A huge impact that Prometheus had on us was just an amazing sigh of relief, of feeling like we knew what was happening. It took 45 minutes to implement [the Firebase alarm] because we knew that we had this trustworthy metrics platform in Prometheus...in terms of the cloud, Kubernetes and Prometheus have so much to offer," he says.
+{{< /case-studies/quote >}}
+
+<p>Looking ahead, the team is planning to explore autoscaling on Kubernetes. With users all over the world but mostly in the United States, there are peaks and valleys in the traffic. One service that's still on App Engine can get as many as 10,000 requests a second during the day but far less at night. "We pay for the same servers at night, so I understand there's autoscaling that we can be taking advantage of," he says. "Implementing it is a big worry, exposing the rest of our Kubernetes cluster to us and maybe messing that up. But it's definitely our intention to move everything over, because now none of the developers want to work on that app anymore because it's such a pain to deploy it."</p>
+
+<p>They're also eager to explore the work that Kubernetes is doing with stateful sets. "Right now all of the services we run in Kubernetes are stateless, and Google basically runs our databases for us and manages backups," Eynon-Lynch says. "But we're interested in building our own web-socket solution that doesn't have to be super stateful but will have maybe an hour's worth of state on it."</p>
+
+<p>That project will also involve Prometheus, for a dark launch of web socket connections. "We don't know how reliable web socket connections behind all these horrible firewalls will be to our servers," he says. "We don't know what work Firebase has done to make them more reliable. So I'm really looking forward to trying to get persistent connections with web sockets to our clients and have optional tools to understand if it's working. That's our next new adventure, into stateful servers."</p>
+
+<p>As for Prometheus, Eynon-Lynch thinks the company has only gotten started. "We haven't instrumented all our important features, especially those that depend on third parties," he says. "We have to wait for those third parties to tell us they're down, which sometimes they don't do for a long time. So I'm really excited and have more and more confidence in the actual state of our application for our actual users, and not just what the CPU graphs are saying, because of Prometheus and Kubernetes."</p>
+
+<p>For a spry startup that's continuing to grow rapidly—and yes, they're <a href="https://www.peardeck.com/careers/">hiring</a>!—Pear Deck is notably satisfied with how its infrastructure has evolved in the cloud native ecosystem. "Usually I have some angsty thing where I want to get to the new, better technology," says Eynon-Lynch, "but in terms of the cloud, Kubernetes and Prometheus have so much to offer."</p>

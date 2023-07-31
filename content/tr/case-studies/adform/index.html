@@ -1,0 +1,86 @@
+---
+title: Adform Case Study
+linkTitle: Adform
+case_study_styles: true
+cid: caseStudies
+logo: adform_featured_logo.png
+draft: false
+featured: true
+weight: 47
+quote: >
+  Kubernetes enabled the self-healing and immutable infrastructure. We can do faster releases, so our developers are really happy. They can ship our features faster than before, and that makes our clients happier.
+
+new_case_study_styles: true
+heading_background: /images/case-studies/adform/banner1.jpg
+heading_title_logo: /images/adform_logo.png
+subheading: >
+  Improving Performance and Morale with Cloud Native
+case_study_details:
+  - Company: AdForm
+  - Location: Copenhagen, Denmark
+  - Industry: Adtech
+---
+
+<h2>Challenge</h2>
+
+<p><a href="https://site.adform.com/">Adform's</a> mission is to provide a secure and transparent full stack of advertising technology to enable digital ads across devices. The company has a large infrastructure: <a href="https://www.openstack.org/">OpenStack</a>-based private clouds running on 1,100 physical servers in 7 data centers around the world, 3 of which were opened in the past year. With the company's growth, the infrastructure team felt that "our private cloud was not really flexible enough," says IT System Engineer Edgaras Apšega. "The biggest pain point is that our developers need to maintain their virtual machines, so rolling out technology and new software takes time. We were really struggling with our releases, and we didn't have self-healing infrastructure."</p>
+
+<h2>Solution</h2>
+
+<p>The team, which had already been using <a href="https://prometheus.io/">Prometheus</a> for monitoring, embraced <a href="https://kubernetes.io/">Kubernetes</a> and cloud native practices in 2017. "To start our Kubernetes journey, we had to adapt all our software, so we had to choose newer frameworks," says Apšega. "We also adopted the microservices way, so observability is much better because you can inspect the bug or the services separately."</p>
+
+<h2>Impact</h2>
+
+<p>"Kubernetes helps our business a lot because our features are coming to market faster," says Apšega. The release process went from several hours to several minutes. Autoscaling has been at least 6 times faster than the semi-manual VM bootstrapping and application deployment required before. The team estimates that the company has experienced cost savings of 4-5x due to less hardware and fewer man hours needed to set up the hardware and virtual machines, metrics, and logging. Utilization of the hardware resources has been reduced as well, with containers notching 2-3 times more efficiency over virtual machines. "The deployments are very easy because developers just push the code and it automatically appears on Kubernetes," says Apšega. Prometheus has also had a positive impact: "It provides high availability for metrics and alerting. We monitor everything starting from hardware to applications. Having all the metrics in <a href="https://grafana.com/">Grafana</a> dashboards provides great insight on your systems."</p>
+
+{{< case-studies/quote author="Edgaras Apšega, IT Systems Engineer, Adform" >}}
+"Kubernetes enabled the self-healing and immutable infrastructure. We can do faster releases, so our developers are really happy. They can ship our features faster than before, and that makes our clients happier."  
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+Adform made <a href="https://www.wsj.com/articles/fake-ad-operation-used-to-steal-from-publishers-is-uncovered-1511290981">headlines</a> last year when it detected the HyphBot ad fraud network that was costing some businesses hundreds of thousands of dollars a day.
+{{< /case-studies/lead >}}
+
+<p>With its mission to provide a secure and transparent full stack of advertising technology to enable an open internet, Adform published a <a href="https://site.adform.com/media/85132/hyphbot_whitepaper_.pdf">white paper</a> revealing what it did—and others could too—to limit customers' exposure to the scam.</p>
+
+<p>In that same spirit, Adform is sharing its cloud native journey. "When you see that everyone shares their best practices, it inspires you to contribute back to the project," says IT Systems Engineer Edgaras Apšega.</p>
+
+<p>The company has a large infrastructure: <a href="https://www.openstack.org/">OpenStack</a>-based private clouds running on 1,100 physical servers in their own seven data centers around the world, three of which were opened in the past year. With the company's growth, the infrastructure team felt that "our private cloud was not really flexible enough," says Apšega. "The biggest pain point is that our developers need to maintain their virtual machines, so rolling out technology and new software really takes time. We were really struggling with our releases, and we didn't have self-healing infrastructure."</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/adform/banner3.jpg"
+  author="Edgaras Apšega, IT Systems Engineer, Adform"
+>}}
+"The fact that Cloud Native Computing Foundation incubated Kubernetes was a really big point for us because it was vendor neutral. And we can see that a community really gathers around it. Everyone shares their experiences, their knowledge, and the fact that it's open source, you can contribute."
+{{< /case-studies/quote >}}
+
+<p>The team, which had already been using Prometheus for monitoring, embraced Kubernetes, microservices, and cloud native practices. "The fact that Cloud Native Computing Foundation incubated Kubernetes was a really big point for us because it was vendor neutral," says Apšega. "And we can see that a community really gathers around it."</p>
+
+<p>A proof of concept project was started, with a Kubernetes cluster running on bare metal in the data center. When developers saw how quickly containers could be spun up compared to the virtual machine process, "they wanted to ship their containers in production right away, and we were still doing proof of concept," says IT Systems Engineer Andrius Cibulskis.</p>
+
+<p>Of course, a lot of work still had to be done. "First of all, we had to learn Kubernetes, see all of the moving parts, how they glue together," says Apšega. "Second of all, the whole CI/CD part had to be redone, and our DevOps team had to invest more man hours to implement it. And third is that developers had to rewrite the code, and they're still doing it."</p>
+
+<p>The first production cluster was launched in the spring of 2018, and is now up to 20 physical machines dedicated for pods throughout three data centers, with plans for separate clusters in the other four data centers. The user-facing Adform application platform, data distribution platform, and back ends are now all running on Kubernetes. "Many APIs for critical applications are being developed for Kubernetes," says Apšega. "Teams are rewriting their applications to .NET core, because it supports containers, and preparing to move to Kubernetes. And new applications, by default, go in containers."</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/adform/banner4.jpg"
+  author="Andrius Cibulskis, IT Systems Engineer, Adform"
+>}}
+"Releases are really nice for them, because they just push their code to Git and that's it. They don't have to worry about their virtual machines anymore."  
+{{< /case-studies/quote >}}
+
+<p>This big push has been driven by the real impact that these new practices have had. "Kubernetes helps our business a lot because our features are coming to market faster," says Apšega. "The deployments are very easy because developers just push the code and it automatically appears on Kubernetes." The release process went from several hours to several minutes. Autoscaling is at least six times faster than the semi-manual VM bootstrapping and application deployment required before.</p>
+
+<p>The team estimates that the company has experienced cost savings of 4-5x due to less hardware and fewer man hours needed to set up the hardware and virtual machines, metrics, and logging. Utilization of the hardware resources has been reduced as well, with containers notching two to three times more efficiency over virtual machines.</p>
+
+<p>Prometheus has also had a positive impact: "It provides high availability for metrics and alerting," says Apšega. "We monitor everything starting from hardware to applications. Having all the metrics in Grafana dashboards provides great insight on our systems."</p>
+
+{{< case-studies/quote author="Edgaras Apšega, IT Systems Engineer, Adform" >}}
+"I think that our company just started our cloud native journey. It seems like a huge road ahead, but we're really happy that we joined it."  
+{{< /case-studies/quote >}}
+
+<p>All of these benefits have trickled down to individual team members, whose working lives have been changed for the better. "They used to have to get up at night to re-start some services, and now Kubernetes handles all of that," says Apšega. Adds Cibulskis: "Releases are really nice for them, because they just push their code to Git and that's it. They don't have to worry about their virtual machines anymore." Even the security teams have been impacted. "Security teams are always not happy," says Apšega, "and now they're happy because they can easily inspect the containers."</p>
+
+<p>The company plans to remain in the data centers for now, "mostly because we want to keep all the data, to not share it in any way," says Cibulskis, "and it's cheaper at our scale." But, Apšega says, the possibility of using a hybrid cloud for computing is intriguing: "One of the projects we're interested in is the <a href="https://github.com/virtual-kubelet/virtual-kubelet">Virtual Kubelet</a> that lets you spin up the working nodes on different clouds to do some computing."</p>
+
+<p>Apšega, Cibulskis and their colleagues are keeping tabs on how the cloud native ecosystem develops, and are excited to contribute where they can. "I think that our company just started our cloud native journey," says Apšega. "It seems like a huge road ahead, but we're really happy that we joined it."</p>

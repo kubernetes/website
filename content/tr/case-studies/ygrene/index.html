@@ -1,0 +1,82 @@
+---
+title: Ygrene Case Study
+linkTitle: Ygrene
+case_study_styles: true
+cid: caseStudies
+logo: ygrene_featured_logo.png
+featured: true
+weight: 48
+quote: >
+  We had to change some practices and code, and the way things were built, but we were able to get our main systems onto Kubernetes in a month or so, and then into production within two months. That's very fast for a finance company.
+
+new_case_study_styles: true
+heading_background: /images/case-studies/ygrene/banner1.jpg
+heading_title_logo: /images/ygrene_logo.png
+subheading: >
+  Ygrene: Using Cloud Native to Bring Security and Scalability to the Finance Industry
+case_study_details:
+  - Company: Ygrene
+  - Location: Petaluma, Calif.
+  - Industry: Clean energy financing
+---
+
+<h2>Challenge</h2>
+
+<p>A PACE (Property Assessed Clean Energy) financing company, Ygrene has funded more than $1 billion in loans since 2010. In order to approve and process those loans, "We have lots of data sources that are being aggregated, and we also have lots of systems that need to churn on that data," says Ygrene Development Manager Austin Adams. The company was utilizing massive servers, and "we just reached the limit of being able to scale them vertically. We had a really unstable system that became overwhelmed with requests just for doing background data processing in real time. The performance the users saw was very poor. We needed a solution that wouldn't require us to make huge refactors to the code base." As a finance company, Ygrene also needed to ensure that they were shipping their applications securely.</p>
+
+<h2>Solution</h2>
+
+<p>Moving from an Engine Yard platform and Amazon Elastic Beanstalk, the Ygrene team embraced cloud native technologies and practices: <a href="https://kubernetes.io/">Kubernetes</a> to help scale out vertically and distribute workloads, <a href="https://github.com/theupdateframework/notary">Notary</a> to put in build-time controls and get trust on the Docker images being used with third-party dependencies, and <a href="https://www.fluentd.org/">Fluentd</a> for "observing every part of our stack," all running on <a href="https://aws.amazon.com/ec2/spot/">Amazon EC2 Spot</a>.</p>
+
+<h2>Impact</h2>
+
+<p>Before, deployments typically took three to four hours, and two or three months' worth of work would be deployed at low-traffic times every week or two weeks. Now, they take five minutes for Kubernetes, and an hour for the overall deploy with smoke testing. And "we're able to deploy three or four times a week, with just one week's or two days' worth of work," Adams says. "We're deploying during the work week, in the daytime and without any downtime. We had to ask for business approval to take the systems down, even in the middle of the night, because people could be doing loans. Now we can deploy, ship code, and migrate databases, all without taking the system down. The company gets new features without worrying that some business will be lost or delayed." Additionally, by using the kops project, Ygrene can now run its Kubernetes clusters with AWS EC2 Spot, at a tenth of the previous cost. These cloud native technologies have "changed the game for scalability, observability, and security—we're adding new data sources that are very secure," says Adams. "Without Kubernetes, Notary, and Fluentd, we couldn't tell our investors and team members that we knew what was going on."</p>
+
+{{< case-studies/quote author="Austin Adams, Development Manager, Ygrene Energy Fund" >}}
+"CNCF projects are helping Ygrene determine the security and observability standards for the entire PACE industry. We're an emerging finance industry, and without these projects, especially Kubernetes, we couldn't be the industry leader that we are today."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+In less than a decade, <a href="https://ygrene.com/">Ygrene</a> has funded more than $1 billion in loans for renewable energy projects.
+{{< /case-studies/lead >}}
+
+<p>A <a href="https://www.energy.gov/eere/slsc/property-assessed-clean-energy-programs">PACE</a> (Property Assessed Clean Energy) financing company, "We take the equity in a home or a commercial building, and use it to finance property improvements for anything that saves electricity, produces electricity, saves water, or reduces carbon emissions," says Development Manager Austin Adams.</p>
+
+<p>In order to approve those loans, the company processes an enormous amount of underwriting data. "We have tons of different points that we have to validate about the property, about the company, or about the person," Adams says. "So we have lots of data sources that are being aggregated, and we also have lots of systems that need to churn on that data in real time."</p>
+
+<p>By 2017, deployments and scalability had become pain points. The company was utilizing massive servers, and "we just reached the limit of being able to scale them vertically," he says. Migrating to AWS Elastic Beanstalk didn't solve the problem: "The Scala services needed a lot of data from the main Ruby on Rails services and from different vendors, so they were asking for information from our Ruby services at a rate that those services couldn't handle. We had lots of configuration misses with Elastic Beanstalk as well. It just came to a head, and we realized we had a really unstable system."</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/ygrene/banner3.jpg"
+  author="Austin Adams, Development Manager, Ygrene Energy Fund"
+>}}
+"CNCF has been an amazing incubator for so many projects. Now we look at its webpage regularly to find out if there are any new, awesome, high-quality projects we can implement into our stack. It's actually become a hub for us for knowing what software we need to be looking at to make our systems more secure or more scalable."
+{{< /case-studies/quote >}}
+
+<p>Adams along with the rest of the team set out to find a solution that would be transformational, but "wouldn't require us to make huge refactors to the code base," he says. And as a finance company, Ygrene needed security as much as scalability. They found the answer by embracing cloud native technologies: Kubernetes to help scale out vertically and distribute workloads, Notary to achieve reliable security at every level, and Fluentd for observability. "Kubernetes was where the community was going, and we wanted to be future proof," says Adams.</p>
+
+<p>With Kubernetes, the team was able to quickly containerize the Ygrene application with Docker. "We had to change some practices and code, and the way things were built," Adams says, "but we were able to get our main systems onto Kubernetes in a month or so, and then into production within two months. That's very fast for a finance company."</p>
+
+<p>How? Cloud native has "changed the game for scalability, observability, and security—we're adding new data sources that are very secure," says Adams. "Without Kubernetes, Notary, and Fluentd, we couldn't tell our investors and team members that we knew what was going on."</p>
+
+<p>Notary, in particular, "has been a godsend," says Adams. "We need to know that our attack surface on third-party dependencies is low, or at least managed. We use it as a trust system and we also use it as a separation, so production images are signed by Notary, but some development images we don't sign. That is to ensure that they can't get into the production cluster. We've been using it in the test cluster to feel more secure about our builds."</p>
+
+{{< case-studies/quote image="/images/case-studies/ygrene/banner4.jpg">}}
+"We had to change some practices and code, and the way things were built," Adams says, "but we were able to get our main systems onto Kubernetes in a month or so, and then into production within two months. That's very fast for a finance company."
+{{< /case-studies/quote >}}
+
+<p>By using the kops project, Ygrene was able to move from Elastic Beanstalk to running its Kubernetes clusters on AWS EC2 Spot, at a tenth of the previous cost. "In order to scale before, we would need to up our instance sizes, incurring high cost for low value," says Adams. "Now with Kubernetes and kops, we are able to scale horizontally on Spot with multiple instance groups."</p>
+
+<p>That also helped them mitigate the risk that comes with running in the public cloud. "We figured out, essentially, that if we're able to select instance classes using EC2 Spot that had an extremely low likelihood of interruption and zero history of interruption, and we're willing to pay a price high enough, that we could virtually get the same guarantee using Kubernetes because we have enough nodes," says Software Engineer Zach Arnold, who led the migration to Kubernetes. "Now that we've re-architected these pieces of the application to not live on the same server, we can push out to many different servers and have a more stable deployment."</p>
+
+<p>As a result, the team can now ship code any time of day. "That was risky because it could bring down your whole loan management software with it," says Arnold. "But we now can deploy safely and securely during the day."</p>
+
+{{< case-studies/quote >}}
+"In order to scale before, we would need to up our instance sizes, incurring high cost for low value," says Adams. "Now with Kubernetes and kops, we are able to scale horizontally on Spot with multiple instance groups."
+{{< /case-studies/quote >}}
+
+<p>Before, deployments typically took three to four hours, and two or three months' worth of work would be deployed at low-traffic times every week or two weeks. Now, they take five minutes for Kubernetes, and an hour for an overall deploy with smoke testing. And "we're able to deploy three or four times a week, with just one week's or two days' worth of work," Adams says. "We're deploying during the work week, in the daytime and without any downtime. We had to ask for business approval to take the systems down for 30 minutes to an hour, even in the middle of the night, because people could be doing loans. Now we can deploy, ship code, and migrate databases, all without taking the system down. The company gets new features without worrying that some business will be lost or delayed."</p>
+
+<p>Cloud native also affected how Ygrene's 50+ developers and contractors work. Adams and Arnold spent considerable time "teaching people to think distributed out of the box," says Arnold. "We ended up picking what we call the Four S's of Shipping: safely, securely, stably, and speedily." (For more on the security piece of it, see their <a href="https://thenewstack.io/beyond-ci-cd-how-continuous-hacking-of-docker-containers-and-pipeline-driven-security-keeps-ygrene-secure/">article</a> on their "continuous hacking" strategy.) As for the engineers, says Adams, "they have been able to advance as their software has advanced. I think that at the end of the day, the developers feel better about what they're doing, and they also feel more connected to the modern software development community."</p>
+
+<p>Looking ahead, Adams is excited to explore more CNCF projects, including SPIFFE and SPIRE. "CNCF has been an amazing incubator for so many projects," he says. "Now we look at its webpage regularly to find out if there are any new, awesome, high-quality projects we can implement into our stack. It's actually become a hub for us for knowing what software we need to be looking at to make our systems more secure or more scalable."</p>
