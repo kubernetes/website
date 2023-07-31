@@ -71,13 +71,13 @@ into the cluster.
 
 {{< tabs name="tab_with_code" >}}
 {{< tab name="audit.json" >}}
-{{% codenew file="pods/security/seccomp/profiles/audit.json" %}}
+{{% code file="pods/security/seccomp/profiles/audit.json" %}}
 {{< /tab >}}
 {{< tab name="violation.json" >}}
-{{% codenew file="pods/security/seccomp/profiles/violation.json" %}}
+{{% code file="pods/security/seccomp/profiles/violation.json" %}}
 {{< /tab >}}
 {{< tab name="fine-grained.json" >}}
-{{% codenew file="pods/security/seccomp/profiles/fine-grained.json" %}}
+{{% code file="pods/security/seccomp/profiles/fine-grained.json" %}}
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -104,7 +104,7 @@ so each node of the cluster is a container. This allows for files
 to be mounted in the filesystem of each container similar to loading files
 onto a node.
 
-{{% codenew file="pods/security/seccomp/kind.yaml" %}}
+{{% code file="pods/security/seccomp/kind.yaml" %}}
 
 Download that example kind configuration, and save it to a file named `kind.yaml`:
 ```shell
@@ -176,7 +176,7 @@ no other seccomp profile is specified. Otherwise, the default is `Unconfined`.
 Here's a manifest for a Pod that requests the `RuntimeDefault` seccomp profile
 for all its containers:
 
-{{% codenew file="pods/security/seccomp/ga/default-pod.yaml" %}}
+{{% code file="pods/security/seccomp/ga/default-pod.yaml" %}}
 
 Create that Pod:
 ```shell
@@ -206,7 +206,7 @@ process, to a new Pod.
 
 Here's a manifest for that Pod:
 
-{{% codenew file="pods/security/seccomp/ga/audit-pod.yaml" %}}
+{{% code file="pods/security/seccomp/ga/audit-pod.yaml" %}}
 
 {{< note >}}
 Older versions of Kubernetes allowed you to configure seccomp
@@ -311,7 +311,7 @@ syscalls.
 
 The manifest for this demonstration is:
 
-{{% codenew file="pods/security/seccomp/ga/violation-pod.yaml" %}}
+{{% code file="pods/security/seccomp/ga/violation-pod.yaml" %}}
 
 Attempt to create the Pod in the cluster:
 
@@ -354,7 +354,7 @@ sent to `syslog`.
 
 The manifest for this example is:
 
-{{% codenew file="pods/security/seccomp/ga/fine-pod.yaml" %}}
+{{% code file="pods/security/seccomp/ga/fine-pod.yaml" %}}
 
 Create the Pod in your cluster:
 
