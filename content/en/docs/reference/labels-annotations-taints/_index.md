@@ -272,7 +272,8 @@ Used on: All objects
 
 This annotation is used on the target object to be modified to configure [Depends-on](https://kpt.dev/reference/annotations/depends-on/). This annotation specifies one or more resource dependencies.
 The annotation value accepts a list of resource references, delimited by commas.
-`Resource reference`
+
+**Resource reference**
 - **Group**: This represents the API group of the resource (e.g., apps, v1, extensions).
 - **Kind**: This indicates the type of resource (e.g., Pod, Service, Deployment).
 - **Name**: The name is the unique identifier of the specific resource instance.
