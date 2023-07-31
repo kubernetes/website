@@ -81,7 +81,7 @@ request and a default memory limit.
 以下为 {{< glossary_tooltip text="LimitRange" term_id="limitrange" >}} 的示例清单。
 清单中声明了默认的内存请求和默认的内存限制。
 
-{{< codenew file="admin/resource/memory-defaults.yaml" >}}
+{{% codenew file="admin/resource/memory-defaults.yaml" %}}
 
 <!--
 Create the LimitRange in the default-mem-example namespace:
@@ -108,7 +108,7 @@ does not specify a memory request and limit.
 
 以下为只包含一个容器的 Pod 的清单。该容器没有声明内存请求和限制。
 
-{{< codenew file="admin/resource/memory-defaults-pod.yaml" >}}
+{{% codenew file="admin/resource/memory-defaults-pod.yaml" %}}
 
 <!--
 Create the Pod.
@@ -166,7 +166,7 @@ specifies a memory limit, but not a request:
 
 以下为只包含一个容器的 Pod 的清单。该容器声明了内存限制，而没有声明内存请求。
 
-{{< codenew file="admin/resource/memory-defaults-pod-2.yaml" >}}
+{{% codenew file="admin/resource/memory-defaults-pod-2.yaml" %}}
 
 <!--
 Create the Pod:
@@ -211,7 +211,7 @@ specifies a memory request, but not a limit:
 -->
 以下为只包含一个容器的 Pod 的清单。该容器声明了内存请求，但没有内存限制：
 
-{{< codenew file="admin/resource/memory-defaults-pod-3.yaml" >}}
+{{% codenew file="admin/resource/memory-defaults-pod-3.yaml" %}}
 
 <!--
 Create the Pod:
@@ -253,8 +253,8 @@ resources:
 A `LimitRange` does **not** check the consistency of the default values it applies. This means that a default value for the _limit_ that is set by `LimitRange` may be less than the _request_ value specified for the container in the spec that a client submits to the API server. If that happens, the final Pod will not be scheduleable.
 See [Constraints on resource limits and requests](/docs/concepts/policy/limit-range/#constraints-on-resource-limits-and-requests) for more details.
 -->
-`LimitRange` **不会**检查它应用的默认值的一致性。 这意味着 `LimitRange` 设置的 _limit_ 的默认值可能小于客户端提交给
-API 服务器的声明中为容器指定的 _request_ 值。如果发生这种情况，最终会导致 Pod 无法调度。更多信息，
+`LimitRange` **不会**检查它应用的默认值的一致性。 这意味着 `LimitRange` 设置的 **limit** 的默认值可能小于客户端提交给
+API 服务器的声明中为容器指定的 **request** 值。如果发生这种情况，最终会导致 Pod 无法调度。更多信息，
 请参阅[资源限制的 limit 和 request](/zh-cn/docs/concepts/policy/limit-range/#constraints-on-resource-limits-and-requests)。
 
 {{< /note >}}
@@ -355,4 +355,3 @@ kubectl delete namespace default-mem-example
 * [为容器和 Pod 分配内存资源](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/)
 * [为容器和 Pod 分配 CPU 资源](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/)
 * [为 Pod 配置服务质量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)
-

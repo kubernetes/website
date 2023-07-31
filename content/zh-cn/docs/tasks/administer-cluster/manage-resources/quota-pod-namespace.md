@@ -61,7 +61,7 @@ Here is an example manifest for a ResourceQuota:
 
 下面是 ResourceQuota 的示例清单：
 
-{{< codenew file="admin/resource/quota-pod.yaml" >}}
+{{% codenew file="admin/resource/quota-pod.yaml" %}}
 
 <!--
 Create the ResourceQuota:
@@ -104,7 +104,7 @@ Here is an example manifest for a {{< glossary_tooltip term_id="deployment" >}}:
 -->
 下面是一个 {{< glossary_tooltip term_id="deployment" >}} 的示例清单：
 
-{{< codenew file="admin/resource/quota-pod-deployment.yaml" >}}
+{{% codenew file="admin/resource/quota-pod-deployment.yaml" %}}
 
 <!--
 In that manifest, `replicas: 3` tells Kubernetes to attempt to create three new Pods, all
@@ -161,7 +161,7 @@ that can live in a single namespace.
 ### 资源的选择  {#choice-of-resource}
 在此任务中，你定义了一个限制 Pod 总数的 ResourceQuota，
 你也可以限制其他类型对象的总数。
-例如，你可以限制在一个命名空间中可以创建的 {{< glossary_tooltip text="CronJobs" term_id="cronjob" >}} 的数量。
+例如，你可以限制在一个命名空间中可以创建的 {{< glossary_tooltip text="CronJob" term_id="cronjob" >}} 的数量。
 
 <!--
 ## Clean up
