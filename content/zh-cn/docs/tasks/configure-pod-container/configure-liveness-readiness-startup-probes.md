@@ -797,7 +797,7 @@ You can override the default headers by defining `httpHeaders` for the probe.
 For example
 -->
 针对 HTTP 探针，kubelet 除了必需的 `Host` 头部之外还发送两个请求头部字段：
-- `User-Agent`：默认值是 `kube-probe/{{ skew currentVersion >}}`，其中 `{{< skew currentVersion >}}` 是 kubelet 的版本号。
+- `User-Agent`：默认值是 `kube-probe/{{< skew currentVersion >}}`，其中 `{{< skew currentVersion >}}` 是 kubelet 的版本号。
 - `Accept`：默认值 `*/*`。
 
 你可以通过为探测设置 `httpHeaders` 来重载默认的头部字段值。例如：

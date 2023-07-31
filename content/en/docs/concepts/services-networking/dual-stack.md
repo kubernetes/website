@@ -109,9 +109,8 @@ families for dual-stack, you can choose the address families by setting an optio
 `.spec.ipFamilies`, on the Service.
 
 {{< note >}}
-The `.spec.ipFamilies` field is immutable because the `.spec.ClusterIP` cannot be reallocated on a
-Service that already exists. If you want to change `.spec.ipFamilies`, delete and recreate the
-Service.
+The `.spec.ipFamilies` field is conditionally mutable: you can add or remove a secondary
+IP address family, but you cannot change the primary IP address family of an existing Service.
 {{< /note >}}
 
 You can set `.spec.ipFamilies` to any of the following array values:
@@ -136,7 +135,7 @@ These examples demonstrate the behavior of various dual-stack Service configurat
    [headless Services](/docs/concepts/services-networking/service/#headless-services) with selectors
    will behave in this same way.)
 
-   {{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
+   {{% codenew file="service/networking/dual-stack-default-svc.yaml" %}}
 
 1. This Service specification explicitly defines `PreferDualStack` in `.spec.ipFamilyPolicy`. When
    you create this Service on a dual-stack cluster, Kubernetes assigns both IPv4 and IPv6
@@ -152,14 +151,14 @@ These examples demonstrate the behavior of various dual-stack Service configurat
    * On a cluster with dual-stack enabled, specifying `RequireDualStack` in `.spec.ipFamilyPolicy`
      behaves the same as `PreferDualStack`.
 
-   {{< codenew file="service/networking/dual-stack-preferred-svc.yaml" >}}
+   {{% codenew file="service/networking/dual-stack-preferred-svc.yaml" %}}
 
 1. This Service specification explicitly defines `IPv6` and `IPv4` in `.spec.ipFamilies` as well
    as defining `PreferDualStack` in `.spec.ipFamilyPolicy`. When Kubernetes assigns an IPv6 and
    IPv4 address in `.spec.ClusterIPs`, `.spec.ClusterIP` is set to the IPv6 address because that is
    the first element in the `.spec.ClusterIPs` array, overriding the default.
 
-   {{< codenew file="service/networking/dual-stack-preferred-ipfamilies-svc.yaml" >}}
+   {{% codenew file="service/networking/dual-stack-preferred-ipfamilies-svc.yaml" %}}
 
 #### Dual-stack defaults on existing Services
 
@@ -172,7 +171,7 @@ dual-stack.)
    `.spec.ipFamilies` to the address family of the existing Service. The existing Service cluster IP
    will be stored in `.spec.ClusterIPs`.
 
-   {{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
+   {{% codenew file="service/networking/dual-stack-default-svc.yaml" %}}
 
    You can validate this behavior by using kubectl to inspect an existing service.
 
@@ -212,7 +211,7 @@ dual-stack.)
    `--service-cluster-ip-range` flag to the kube-apiserver) even though `.spec.ClusterIP` is set to
    `None`.
 
-   {{< codenew file="service/networking/dual-stack-default-svc.yaml" >}}
+   {{% codenew file="service/networking/dual-stack-default-svc.yaml" %}}
 
    You can validate this behavior by using kubectl to inspect an existing headless service with selectors.
 

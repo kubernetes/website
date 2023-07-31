@@ -32,7 +32,7 @@ da sua organização e `foo` é um nome descritivo de recurso.
 
 Aqui está o arquivo de configuração para um pod que possui um contêiner:
 
-{{< codenew file="pods/resource/extended-resource-pod.yaml" >}}
+{{% codenew file="pods/resource/extended-resource-pod.yaml" %}}
 
 No arquivo de configuração, você pode ver que o contêiner solicita 3 *dongles*.
 
@@ -68,7 +68,7 @@ Requests:
 Aqui está o arquivo de configuração para um pod que possui um contêiner. 
 O contêiner solicita dois *dongles*.
 
-{{< codenew file="pods/resource/extended-resource-pod-2.yaml" >}}
+{{% codenew file="pods/resource/extended-resource-pod-2.yaml" %}}
 
 O Kubernetes não poderá satisfazer o pedido de dois *dongles*, porque o primeiro pod
 usou três dos quatro *dongles* disponíveis.

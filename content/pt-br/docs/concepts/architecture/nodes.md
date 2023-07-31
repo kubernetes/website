@@ -284,7 +284,7 @@ Message:        Pod was terminated in response to imminent node shutdown.
 
 ### Desligamento gradual do nó baseado em prioridade do Pod {#pod-priority-graceful-node-shutdown}
 
-{{< feature-state state="alpha" for_k8s_version="v1.23" >}}
+{{< feature-state state="beta" for_k8s_version="v1.24" >}}
 
 Para fornecer mais flexibilidade durante o desligamento gradual do nó em torno da ordem de pods durante o desligamento, o desligamento gradual do nó respeita a PriorityClass dos Pods, desde que você tenha ativado esse recurso em seu cluster. O recurso permite que o cluster defina explicitamente a ordem dos pods durante o desligamento gradual do nó com base em [classes de prioridade](/docs/concepts/scheduling-eviction/pod-priority-preemption/#priorityclass).
 

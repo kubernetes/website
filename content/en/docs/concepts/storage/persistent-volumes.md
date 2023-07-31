@@ -88,7 +88,7 @@ check [kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserv
 
 A user creates, or in the case of dynamic provisioning, has already created,
 a PersistentVolumeClaim with a specific amount of storage requested and with
-certain access modes. A control loop in the master watches for new PVCs, finds
+certain access modes. A control loop in the control plane watches for new PVCs, finds
 a matching PV (if possible), and binds them together. If a PV was dynamically
 provisioned for a new PVC, the loop will always bind that PV to the PVC. Otherwise,
 the user will always get at least what they asked for, but the volume may be in

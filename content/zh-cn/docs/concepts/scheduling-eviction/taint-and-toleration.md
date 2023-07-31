@@ -177,7 +177,7 @@ scheduled onto the node (if it is not yet running on the node).
   则 Kubernetes 会 **尝试** 不将 Pod 调度到该节点。
 * 如果未被忽略的污点中存在至少一个 effect 值为 `NoExecute` 的污点，
   则 Kubernetes 不会将 Pod 调度到该节点（如果 Pod 还未在节点上运行），
-  或者将 Pod 从该节点驱逐（如果 Pod 已经在节点上运行）。
+  并且会将 Pod 从该节点驱逐（如果 Pod 已经在节点上运行）。
 
 <!--
 For example, imagine you taint a node like this

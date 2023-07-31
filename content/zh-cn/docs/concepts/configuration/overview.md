@@ -78,6 +78,39 @@ to others, please don't hesitate to file an issue or submit a PR.
 -->
 - 将对象描述放在注释中，以便更好地进行内省。
 
+{{< note >}}
+<!--
+There is a breaking change introduced in the [YAML 1.2](https://yaml.org/spec/1.2.0/#id2602744)
+boolean values specification with respect to [YAML 1.1](https://yaml.org/spec/1.1/#id864510).
+This is a known [issue](https://github.com/kubernetes/kubernetes/issues/34146) in Kubernetes.
+YAML 1.2 only recognizes **true** and **false** as valid booleans, while YAML 1.1 also accepts
+**yes**, **no**, **on**, and  **off** as booleans. However, Kubernetes uses YAML
+[parsers](https://github.com/kubernetes/kubernetes/issues/34146#issuecomment-252692024) that are
+mostly compatible with YAML 1.1, which means that using **yes** or **no** instead of **true** or
+**false** in a YAML manifest may cause unexpected errors or behaviors. To avoid this issue, it is
+recommended to always use **true** or **false** for boolean values in YAML manifests, and to quote
+any strings that may be confused with booleans, such as **"yes"** or **"no"**.
+-->
+相较于 [YAML 1.1](https://yaml.org/spec/1.1/#id864510)，
+[YAML 1.2](https://yaml.org/spec/1.2.0/#id2602744) 在布尔值规范中引入了一个破坏性的变更。
+这是 Kubernetes 中的一个已知[问题](https://github.com/kubernetes/kubernetes/issues/34146)。
+YAML 1.2 仅识别 **true** 和 **false** 作为有效的布尔值，而 YAML 1.1 还可以接受 
+**yes**、**no**、**on** 和 **off** 作为布尔值。
+然而，Kubernetes 正在使用的 YAML [解析器](https://github.com/kubernetes/kubernetes/issues/34146#issuecomment-252692024)
+与 YAML 1.1 基本兼容，
+这意味着在 YAML 清单中使用 **yes** 或 **no** 而不是 **true** 或 **false** 可能会导致意外的错误或行为。
+为避免此类问题，建议在 YAML 清单中始终使用 **true** 或 **false** 作为布尔值，
+并对任何可能与布尔值混淆的字符串进行引号标记，例如 **"yes"** 或 **"no"**。
+
+<!--
+Besides booleans, there are additional specifications changes between YAML versions. Please refer
+to the [YAML Specification Changes](https://spec.yaml.io/main/spec/1.2.2/ext/changes) documentation
+for a comprehensive list.
+-->
+除了布尔值之外，YAML 版本之间还存在其他的规范变化。
+请参考 [YAML 规范变更](https://spec.yaml.io/main/spec/1.2.2/ext/changes)文档来获取完整列表。
+{{< /note >}}
+
 <!--
 ## "Naked" Pods versus ReplicaSets, Deployments, and Jobs {#naked-pods-vs-replicasets-deployments-and-jobs}
 -->
