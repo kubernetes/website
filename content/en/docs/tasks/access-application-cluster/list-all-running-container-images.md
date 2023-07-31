@@ -56,7 +56,8 @@ Pod is returned instead of a list of items.
 Listing Pods may yield different results based on the Pods defined lifecycle.
 
 The following example lists all the images possible run in the cluster, except 
-for Orphaned Pods created directly without using workload resources. 
+for {{< glossary_tooltip text="static" term_id="static-pod" >}} or standalone
+Pods (standalone means Pods that you created directly without using workload resources).
 
 ```shell
 kubectl get Deployment,ReplicaSet,StatefulSet,DaemonSet,Job,CronJob --all-namespaces \
