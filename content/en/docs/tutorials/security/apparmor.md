@@ -209,7 +209,7 @@ done
 
 Next, we'll run a simple "Hello AppArmor" pod with the deny-write profile:
 
-{{% codenew file="pods/security/hello-apparmor.yaml" %}}
+{{% code file="pods/security/hello-apparmor.yaml" %}}
 
 ```shell
 kubectl create -f ./hello-apparmor.yaml
