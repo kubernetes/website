@@ -16,9 +16,9 @@ pods to reclaim resources on nodes.
 
 <!--more-->
 
-The {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} monitors resources like CPU, memory, disk space, and filesystem 
+The kubelet monitors resources like CPU, memory, disk space, and filesystem 
 inodes on your cluster's nodes. When one or more of these resources reach
-specific consumption levels, the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} can proactively fail one or more pods
+specific consumption levels, the kubelet can proactively fail one or more pods
 on the node to reclaim resources and prevent starvation. 
 
 Node-pressure eviction is not the same as [API-initiated eviction](/docs/concepts/scheduling-eviction/api-eviction/).
