@@ -93,7 +93,7 @@ The following methods exist for installing kubectl on Linux:
    对于 Linux ARM64 来说，请输入：
 
    ```bash
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/arm64/kubectl
+   curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/arm64/kubectl
    ```
    {{< /note >}}
 
