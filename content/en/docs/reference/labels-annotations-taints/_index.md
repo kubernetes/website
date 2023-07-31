@@ -266,14 +266,22 @@ For example, Kustomize removes objects with this annotation from its final build
 
 Type: Annotation
 
-Example: `config.kubernetes.io/apply-time-mutation: "pods"`
+Example: `config.kubernetes.io/apply-time-mutation: 
+```yaml
+    # Set $CONFIG_MANAGED_BY based on an annotation of a related ConfigMap
+    # Source annotation key is app.kubernetes.io/managed-by
+    config.kubernetes.io/apply-time-mutation: |
+      - sourceRef:
+          kind: ConfigMap
+          name: example-config
+        sourcePath: $.metadata.annotations.app\.kubernetes\.io/managed-by
+        targetPath: $.spec.containers[?(@.name=="example")].env[?(@.name=="CONFIG_MANAGED_BY")].value
+```
 
 Used on: All objects
 
-This annotation is used on the target object to be modified to configure [Apply-Time Mutation](https://github.com/kubernetes-sigs/cli-utils/blob/master/README.md#apply-time-mutation). The annotation may specify one or more substitutions. 
+This annotation is used on the target object to be modified to configure [Apply-Time Mutation](https://kpt.dev/reference/annotations/apply-time-mutation/). The annotation may specify one or more substitutions. 
 Each substitution includes a source object, a source field path, and a target field path, with an optional token.
-The source and target field paths are specified using JSONPath.
-If the token is specified, the token is replaced in the target field value string with the source field value. 
 If the token is not specified, the target field value is replaced with the source field value. This alternatively allows either templated interpretation or type preservation.
 
 ### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
