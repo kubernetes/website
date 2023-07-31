@@ -266,7 +266,7 @@ For example, Kustomize removes objects with this annotation from its final build
 
 Type: Annotation
 
-Example: `config.kubernetes.io/apply-time-mutation: 
+Example: `config.kubernetes.io/apply-time-mutation:`
 ```yaml
     # Set $CONFIG_MANAGED_BY based on an annotation of a related ConfigMap
     # Source annotation key is app.kubernetes.io/managed-by
