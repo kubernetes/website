@@ -5,4 +5,4 @@ description: >
   The architectural concepts behind Kubernetes.
 ---
 
-{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Components of Kubernetes" caption="The components of a Kubernetes cluster" class="diagram-large" >}}
+{{< figure src="/images/docs/components-of-kubernetes.svg" alt="Components of Kubernetes" caption="Kubernetes cluster architecture" class="diagram-large" >}}
