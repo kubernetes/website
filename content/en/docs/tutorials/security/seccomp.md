@@ -39,6 +39,13 @@ profiles that give only the necessary privileges to your container processes.
 In order to complete all steps in this tutorial, you must install
 [kind](/docs/tasks/tools/#kind) and [kubectl](/docs/tasks/tools/#kubectl).
 
+The commands used in the tutorial assume that you are using
+[Docker](https://www.docker.com/) as your container runtime. (The cluster that `kind` creates may
+use a different container runtime internally). You could also use
+[Podman](https://podman.io/) but in that case, you would have to follow specific
+[instructions](https://kind.sigs.k8s.io/docs/user/rootless/) in order to complete the tasks
+successfully.
+
 This tutorial shows some examples that are still beta (since v1.25) and
 others that use only generally available seccomp functionality. You should
 make sure that your cluster is
@@ -154,6 +161,267 @@ audit.json  fine-grained.json  violation.json
 You have verified that these seccomp profiles are available to the kubelet
 running within kind.
 
+## Create a Pod that uses the container runtime default seccomp profile
+
+Most container runtimes provide a sane set of default syscalls that are allowed
+or not. You can adopt these defaults for your workload by setting the seccomp
+type in the security context of a pod or container to `RuntimeDefault`.
+
+{{< note >}}
+If you have the `seccompDefault` [configuration](/docs/reference/config-api/kubelet-config.v1beta1/)
+enabled, then Pods use the `RuntimeDefault` seccomp profile whenever
+no other seccomp profile is specified. Otherwise, the default is `Unconfined`.
+{{< /note >}}
+
+Here's a manifest for a Pod that requests the `RuntimeDefault` seccomp profile
+for all its containers:
+
+{{% codenew file="pods/security/seccomp/ga/default-pod.yaml" %}}
+
+Create that Pod:
+```shell
+kubectl apply -f https://k8s.io/examples/pods/security/seccomp/ga/default-pod.yaml
+```
+
+```shell
+kubectl get pod default-pod
+```
+
+The Pod should be showing as having started successfully:
+```
+NAME        READY   STATUS    RESTARTS   AGE
+default-pod 1/1     Running   0          20s
+```
+
+Delete the Pod before moving to the next section:
+
+```shell
+kubectl delete pod default-pod --wait --now
+```
+
+## Create a Pod with a seccomp profile for syscall auditing
+
+To start off, apply the `audit.json` profile, which will log all syscalls of the
+process, to a new Pod.
+
+Here's a manifest for that Pod:
+
+{{% codenew file="pods/security/seccomp/ga/audit-pod.yaml" %}}
+
+{{< note >}}
+Older versions of Kubernetes allowed you to configure seccomp
+behavior using {{< glossary_tooltip text="annotations" term_id="annotation" >}}.
+Kubernetes {{< skew currentVersion >}} only supports using fields within
+`.spec.securityContext` to configure seccomp, and this tutorial explains that
+approach.
+{{< /note >}}
+
+Create the Pod in the cluster:
+
+```shell
+kubectl apply -f https://k8s.io/examples/pods/security/seccomp/ga/audit-pod.yaml
+```
+
+This profile does not restrict any syscalls, so the Pod should start
+successfully.
+
+```shell
+kubectl get pod audit-pod
+```
+
+```
+NAME        READY   STATUS    RESTARTS   AGE
+audit-pod   1/1     Running   0          30s
+```
+
+In order to be able to interact with this endpoint exposed by this
+container, create a NodePort {{< glossary_tooltip text="Service" term_id="service" >}}
+that allows access to the endpoint from inside the kind control plane container.
+
+```shell
+kubectl expose pod audit-pod --type NodePort --port 5678
+```
+
+Check what port the Service has been assigned on the node.
+
+```shell
+kubectl get service audit-pod
+```
+
+The output is similar to:
+```
+NAME        TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+audit-pod   NodePort   10.111.36.142   <none>        5678:32373/TCP   72s
+```
+
+Now you can use `curl` to access that endpoint from inside the kind control plane container,
+at the port exposed by this Service. Use `docker exec` to run the `curl` command within the
+container belonging to that control plane container:
+
+```shell
+# Change 6a96207fed4b to the control plane container ID and 32373 to the port number you saw from "docker ps"
+docker exec -it 6a96207fed4b curl localhost:32373
+```
+
+```
+just made some syscalls!
+```
+
+You can see that the process is running, but what syscalls did it actually make?
+Because this Pod is running in a local cluster, you should be able to see those
+in `/var/log/syslog` on your local system. Open up a new terminal window and `tail` the output for
+calls from `http-echo`:
+
+```shell
+# The log path on your computer might be different from "/var/log/syslog"
+tail -f /var/log/syslog | grep 'http-echo'
+```
+
+You should already see some logs of syscalls made by `http-echo`, and if you run `curl` again inside
+the control plane container you will see more output written to the log.
+
+For example:
+```
+Jul  6 15:37:40 my-machine kernel: [369128.669452] audit: type=1326 audit(1594067860.484:14536): auid=4294967295 uid=0 gid=0 ses=4294967295 pid=29064 comm="http-echo" exe="/http-echo" sig=0 arch=c000003e syscall=51 compat=0 ip=0x46fe1f code=0x7ffc0000
+Jul  6 15:37:40 my-machine kernel: [369128.669453] audit: type=1326 audit(1594067860.484:14537): auid=4294967295 uid=0 gid=0 ses=4294967295 pid=29064 comm="http-echo" exe="/http-echo" sig=0 arch=c000003e syscall=54 compat=0 ip=0x46fdba code=0x7ffc0000
+Jul  6 15:37:40 my-machine kernel: [369128.669455] audit: type=1326 audit(1594067860.484:14538): auid=4294967295 uid=0 gid=0 ses=4294967295 pid=29064 comm="http-echo" exe="/http-echo" sig=0 arch=c000003e syscall=202 compat=0 ip=0x455e53 code=0x7ffc0000
+Jul  6 15:37:40 my-machine kernel: [369128.669456] audit: type=1326 audit(1594067860.484:14539): auid=4294967295 uid=0 gid=0 ses=4294967295 pid=29064 comm="http-echo" exe="/http-echo" sig=0 arch=c000003e syscall=288 compat=0 ip=0x46fdba code=0x7ffc0000
+Jul  6 15:37:40 my-machine kernel: [369128.669517] audit: type=1326 audit(1594067860.484:14540): auid=4294967295 uid=0 gid=0 ses=4294967295 pid=29064 comm="http-echo" exe="/http-echo" sig=0 arch=c000003e syscall=0 compat=0 ip=0x46fd44 code=0x7ffc0000
+Jul  6 15:37:40 my-machine kernel: [369128.669519] audit: type=1326 audit(1594067860.484:14541): auid=4294967295 uid=0 gid=0 ses=4294967295 pid=29064 comm="http-echo" exe="/http-echo" sig=0 arch=c000003e syscall=270 compat=0 ip=0x4559b1 code=0x7ffc0000
+Jul  6 15:38:40 my-machine kernel: [369188.671648] audit: type=1326 audit(1594067920.488:14559): auid=4294967295 uid=0 gid=0 ses=4294967295 pid=29064 comm="http-echo" exe="/http-echo" sig=0 arch=c000003e syscall=270 compat=0 ip=0x4559b1 code=0x7ffc0000
+Jul  6 15:38:40 my-machine kernel: [369188.671726] audit: type=1326 audit(1594067920.488:14560): auid=4294967295 uid=0 gid=0 ses=4294967295 pid=29064 comm="http-echo" exe="/http-echo" sig=0 arch=c000003e syscall=202 compat=0 ip=0x455e53 code=0x7ffc0000
+```
+
+You can begin to understand the syscalls required by the `http-echo` process by
+looking at the `syscall=` entry on each line. While these are unlikely to
+encompass all syscalls it uses, it can serve as a basis for a seccomp profile
+for this container.
+
+Delete the Service and the Pod before moving to the next section:
+
+```shell
+kubectl delete service audit-pod --wait
+kubectl delete pod audit-pod --wait --now
+```
+
+## Create a Pod with a seccomp profile that causes violation
+
+For demonstration, apply a profile to the Pod that does not allow for any
+syscalls.
+
+The manifest for this demonstration is:
+
+{{% codenew file="pods/security/seccomp/ga/violation-pod.yaml" %}}
+
+Attempt to create the Pod in the cluster:
+
+```shell
+kubectl apply -f https://k8s.io/examples/pods/security/seccomp/ga/violation-pod.yaml
+```
+
+The Pod creates, but there is an issue.
+If you check the status of the Pod, you should see that it failed to start.
+
+```shell
+kubectl get pod violation-pod
+```
+
+```
+NAME            READY   STATUS             RESTARTS   AGE
+violation-pod   0/1     CrashLoopBackOff   1          6s
+```
+
+As seen in the previous example, the `http-echo` process requires quite a few
+syscalls. Here seccomp has been instructed to error on any syscall by setting
+`"defaultAction": "SCMP_ACT_ERRNO"`. This is extremely secure, but removes the
+ability to do anything meaningful. What you really want is to give workloads
+only the privileges they need.
+
+Delete the Pod before moving to the next section:
+
+```shell
+kubectl delete pod violation-pod --wait --now
+```
+
+## Create a Pod with a seccomp profile that only allows necessary syscalls
+
+If you take a look at the `fine-grained.json` profile, you will notice some of the syscalls
+seen in syslog of the first example where the profile set `"defaultAction":
+"SCMP_ACT_LOG"`. Now the profile is setting `"defaultAction": "SCMP_ACT_ERRNO"`,
+but explicitly allowing a set of syscalls in the `"action": "SCMP_ACT_ALLOW"`
+block. Ideally, the container will run successfully and you will see no messages
+sent to `syslog`.
+
+The manifest for this example is:
+
+{{% codenew file="pods/security/seccomp/ga/fine-pod.yaml" %}}
+
+Create the Pod in your cluster:
+
+```shell
+kubectl apply -f https://k8s.io/examples/pods/security/seccomp/ga/fine-pod.yaml
+```
+
+```shell
+kubectl get pod fine-pod
+```
+
+The Pod should be showing as having started successfully:
+```
+NAME        READY   STATUS    RESTARTS   AGE
+fine-pod   1/1     Running   0          30s
+```
+
+Open up a new terminal window and use `tail` to monitor for log entries that
+mention calls from `http-echo`:
+
+```shell
+# The log path on your computer might be different from "/var/log/syslog"
+tail -f /var/log/syslog | grep 'http-echo'
+```
+
+Next, expose the Pod with a NodePort Service:
+
+```shell
+kubectl expose pod fine-pod --type NodePort --port 5678
+```
+
+Check what port the Service has been assigned on the node:
+
+```shell
+kubectl get service fine-pod
+```
+
+The output is similar to:
+```
+NAME        TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+fine-pod    NodePort   10.111.36.142   <none>        5678:32373/TCP   72s
+```
+
+Use `curl` to access that endpoint from inside the kind control plane container:
+
+```shell
+# Change 6a96207fed4b to the control plane container ID and 32373 to the port number you saw from "docker ps"
+docker exec -it 6a96207fed4b curl localhost:32373
+```
+
+```
+just made some syscalls!
+```
+
+You should see no output in the `syslog`. This is because the profile allowed all
+necessary syscalls and specified that an error should occur if one outside of
+the list is invoked. This is an ideal situation from a security perspective, but
+required some effort in analyzing the program. It would be nice if there was a
+simple way to get closer to this security without requiring as much effort.
+
+Delete the Service and the Pod before moving to the next section:
+
+```shell
+kubectl delete service fine-pod --wait
+kubectl delete pod fine-pod --wait --now
+```
+
 ## Enable the use of `RuntimeDefault` as the default seccomp profile for all workloads
 
 {{< feature-state state="stable" for_k8s_version="v1.27" >}}
@@ -161,7 +429,7 @@ running within kind.
 To use seccomp profile defaulting, you must run the kubelet with the
 `--seccomp-default`
 [command line flag](/docs/reference/command-line-tools-reference/kubelet)
-enabled for each node where you want to use it. 
+enabled for each node where you want to use it.
 
 If enabled, the kubelet will use the `RuntimeDefault` seccomp profile by default, which is
 defined by the container runtime, instead of using the `Unconfined` (seccomp disabled) mode.
@@ -256,266 +524,6 @@ docker exec -it kind-worker bash -c \
     }
   ]
 }
-```
-
-## Create Pod that uses the container runtime default seccomp profile
-
-Most container runtimes provide a sane set of default syscalls that are allowed
-or not. You can adopt these defaults for your workload by setting the seccomp
-type in the security context of a pod or container to `RuntimeDefault`.
-
-{{< note >}}
-If you have the `seccompDefault` [configuration](/docs/reference/config-api/kubelet-config.v1beta1/)
-enabled, then Pods use the `RuntimeDefault` seccomp profile whenever
-no other seccomp profile is specified. Otherwise, the default is `Unconfined`.
-{{< /note >}}
-
-Here's a manifest for a Pod that requests the `RuntimeDefault` seccomp profile
-for all its containers:
-
-{{% codenew file="pods/security/seccomp/ga/default-pod.yaml" %}}
-
-Create that Pod:
-```shell
-kubectl apply -f https://k8s.io/examples/pods/security/seccomp/ga/default-pod.yaml
-```
-
-```shell
-kubectl get pod default-pod
-```
-
-The Pod should be showing as having started successfully:
-```
-NAME        READY   STATUS    RESTARTS   AGE
-default-pod 1/1     Running   0          20s
-```
-
-Finally, now that you saw that work OK, clean up:
-
-```shell
-kubectl delete pod default-pod --wait --now
-```
-
-## Create a Pod with a seccomp profile for syscall auditing
-
-To start off, apply the `audit.json` profile, which will log all syscalls of the
-process, to a new Pod.
-
-Here's a manifest for that Pod:
-
-{{% codenew file="pods/security/seccomp/ga/audit-pod.yaml" %}}
-
-{{< note >}}
-Older versions of Kubernetes allowed you to configure seccomp
-behavior using {{< glossary_tooltip text="annotations" term_id="annotation" >}}.
-Kubernetes {{< skew currentVersion >}} only supports using fields within
-`.spec.securityContext` to configure seccomp, and this tutorial explains that
-approach.
-{{< /note >}}
-
-Create the Pod in the cluster:
-
-```shell
-kubectl apply -f https://k8s.io/examples/pods/security/seccomp/ga/audit-pod.yaml
-```
-
-This profile does not restrict any syscalls, so the Pod should start
-successfully.
-
-```shell
-kubectl get pod/audit-pod
-```
-
-```
-NAME        READY   STATUS    RESTARTS   AGE
-audit-pod   1/1     Running   0          30s
-```
-
-In order to be able to interact with this endpoint exposed by this
-container, create a NodePort {{< glossary_tooltip text="Services" term_id="service" >}}
-that allows access to the endpoint from inside the kind control plane container.
-
-```shell
-kubectl expose pod audit-pod --type NodePort --port 5678
-```
-
-Check what port the Service has been assigned on the node.
-
-```shell
-kubectl get service audit-pod
-```
-
-The output is similar to:
-```
-NAME        TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
-audit-pod   NodePort   10.111.36.142   <none>        5678:32373/TCP   72s
-```
-
-Now you can use `curl` to access that endpoint from inside the kind control plane container,
-at the port exposed by this Service. Use `docker exec` to run the `curl` command within the
-container belonging to that control plane container:
-
-```shell
-# Change 6a96207fed4b to the control plane container ID you saw from "docker ps"
-docker exec -it 6a96207fed4b curl localhost:32373
-```
-
-```
-just made some syscalls!
-```
-
-You can see that the process is running, but what syscalls did it actually make?
-Because this Pod is running in a local cluster, you should be able to see those
-in `/var/log/syslog`. Open up a new terminal window and `tail` the output for
-calls from `http-echo`:
-
-```shell
-tail -f /var/log/syslog | grep 'http-echo'
-```
-
-You should already see some logs of syscalls made by `http-echo`, and if you
-`curl` the endpoint in the control plane container you will see more written.
-
-For example:
-```
-Jul  6 15:37:40 my-machine kernel: [369128.669452] audit: type=1326 audit(1594067860.484:14536): auid=4294967295 uid=0 gid=0 ses=4294967295 pid=29064 comm="http-echo" exe="/http-echo" sig=0 arch=c000003e syscall=51 compat=0 ip=0x46fe1f code=0x7ffc0000
-Jul  6 15:37:40 my-machine kernel: [369128.669453] audit: type=1326 audit(1594067860.484:14537): auid=4294967295 uid=0 gid=0 ses=4294967295 pid=29064 comm="http-echo" exe="/http-echo" sig=0 arch=c000003e syscall=54 compat=0 ip=0x46fdba code=0x7ffc0000
-Jul  6 15:37:40 my-machine kernel: [369128.669455] audit: type=1326 audit(1594067860.484:14538): auid=4294967295 uid=0 gid=0 ses=4294967295 pid=29064 comm="http-echo" exe="/http-echo" sig=0 arch=c000003e syscall=202 compat=0 ip=0x455e53 code=0x7ffc0000
-Jul  6 15:37:40 my-machine kernel: [369128.669456] audit: type=1326 audit(1594067860.484:14539): auid=4294967295 uid=0 gid=0 ses=4294967295 pid=29064 comm="http-echo" exe="/http-echo" sig=0 arch=c000003e syscall=288 compat=0 ip=0x46fdba code=0x7ffc0000
-Jul  6 15:37:40 my-machine kernel: [369128.669517] audit: type=1326 audit(1594067860.484:14540): auid=4294967295 uid=0 gid=0 ses=4294967295 pid=29064 comm="http-echo" exe="/http-echo" sig=0 arch=c000003e syscall=0 compat=0 ip=0x46fd44 code=0x7ffc0000
-Jul  6 15:37:40 my-machine kernel: [369128.669519] audit: type=1326 audit(1594067860.484:14541): auid=4294967295 uid=0 gid=0 ses=4294967295 pid=29064 comm="http-echo" exe="/http-echo" sig=0 arch=c000003e syscall=270 compat=0 ip=0x4559b1 code=0x7ffc0000
-Jul  6 15:38:40 my-machine kernel: [369188.671648] audit: type=1326 audit(1594067920.488:14559): auid=4294967295 uid=0 gid=0 ses=4294967295 pid=29064 comm="http-echo" exe="/http-echo" sig=0 arch=c000003e syscall=270 compat=0 ip=0x4559b1 code=0x7ffc0000
-Jul  6 15:38:40 my-machine kernel: [369188.671726] audit: type=1326 audit(1594067920.488:14560): auid=4294967295 uid=0 gid=0 ses=4294967295 pid=29064 comm="http-echo" exe="/http-echo" sig=0 arch=c000003e syscall=202 compat=0 ip=0x455e53 code=0x7ffc0000
-```
-
-You can begin to understand the syscalls required by the `http-echo` process by
-looking at the `syscall=` entry on each line. While these are unlikely to
-encompass all syscalls it uses, it can serve as a basis for a seccomp profile
-for this container.
-
-Clean up that Pod and Service before moving to the next section:
-
-```shell
-kubectl delete service audit-pod --wait
-kubectl delete pod audit-pod --wait --now
-```
-
-## Create Pod with a seccomp profile that causes violation
-
-For demonstration, apply a profile to the Pod that does not allow for any
-syscalls.
-
-The manifest for this demonstration is:
-
-{{% codenew file="pods/security/seccomp/ga/violation-pod.yaml" %}}
-
-Attempt to create the Pod in the cluster:
-
-```shell
-kubectl apply -f https://k8s.io/examples/pods/security/seccomp/ga/violation-pod.yaml
-```
-
-The Pod creates, but there is an issue.
-If you check the status of the Pod, you should see that it failed to start.
-
-```shell
-kubectl get pod/violation-pod
-```
-
-```
-NAME            READY   STATUS             RESTARTS   AGE
-violation-pod   0/1     CrashLoopBackOff   1          6s
-```
-
-As seen in the previous example, the `http-echo` process requires quite a few
-syscalls. Here seccomp has been instructed to error on any syscall by setting
-`"defaultAction": "SCMP_ACT_ERRNO"`. This is extremely secure, but removes the
-ability to do anything meaningful. What you really want is to give workloads
-only the privileges they need.
-
-Clean up that Pod before moving to the next section:
-
-```shell
-kubectl delete pod violation-pod --wait --now
-```
-
-## Create Pod with a seccomp profile that only allows necessary syscalls
-
-If you take a look at the `fine-grained.json` profile, you will notice some of the syscalls
-seen in syslog of the first example where the profile set `"defaultAction":
-"SCMP_ACT_LOG"`. Now the profile is setting `"defaultAction": "SCMP_ACT_ERRNO"`,
-but explicitly allowing a set of syscalls in the `"action": "SCMP_ACT_ALLOW"`
-block. Ideally, the container will run successfully and you will see no messages
-sent to `syslog`.
-
-The manifest for this example is:
-
-{{% codenew file="pods/security/seccomp/ga/fine-pod.yaml" %}}
-
-Create the Pod in your cluster:
-
-```shell
-kubectl apply -f https://k8s.io/examples/pods/security/seccomp/ga/fine-pod.yaml
-```
-
-```shell
-kubectl get pod fine-pod
-```
-
-The Pod should be showing as having started successfully:
-```
-NAME        READY   STATUS    RESTARTS   AGE
-fine-pod   1/1     Running   0          30s
-```
-
-Open up a new terminal window and use `tail` to monitor for log entries that
-mention calls from `http-echo`:
-
-```shell
-# The log path on your computer might be different from "/var/log/syslog"
-tail -f /var/log/syslog | grep 'http-echo'
-```
-
-Next, expose the Pod with a NodePort Service:
-
-```shell
-kubectl expose pod fine-pod --type NodePort --port 5678
-```
-
-Check what port the Service has been assigned on the node:
-
-```shell
-kubectl get service fine-pod
-```
-
-The output is similar to:
-```
-NAME        TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
-fine-pod    NodePort   10.111.36.142   <none>        5678:32373/TCP   72s
-```
-
-Use `curl` to access that endpoint from inside the kind control plane container:
-
-```shell
-# Change 6a96207fed4b to the control plane container ID you saw from "docker ps"
-docker exec -it 6a96207fed4b curl localhost:32373
-```
-
-```
-just made some syscalls!
-```
-
-You should see no output in the `syslog`. This is because the profile allowed all
-necessary syscalls and specified that an error should occur if one outside of
-the list is invoked. This is an ideal situation from a security perspective, but
-required some effort in analyzing the program. It would be nice if there was a
-simple way to get closer to this security without requiring as much effort.
-
-Clean up that Pod and Service before moving to the next section:
-
-```shell
-kubectl delete service fine-pod --wait
-kubectl delete pod fine-pod --wait --now
 ```
 
 ## {{% heading "whatsnext" %}}
