@@ -55,7 +55,7 @@ Pod is returned instead of a list of items.
 
 Listing Pods may yield different results based on the Pods defined lifecycle.
 
-The following example list all the images possible run in the cluster, except 
+The following example lists all the images possible run in the cluster, except 
 for Orphaned Pods created directly without using workload resources. 
 
 ```shell
