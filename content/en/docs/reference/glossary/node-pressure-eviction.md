@@ -6,6 +6,7 @@ full_link: /docs/concepts/scheduling-eviction/node-pressure-eviction/
 short_description: >
   Node-pressure eviction is the process by which the kubelet proactively fails
   pods to reclaim resources on nodes.
+
 aka:
 - kubelet eviction
 tags:
