@@ -400,7 +400,7 @@ admission failure.
 -->
 ### single-numa-node 策略 {#policy-single-numa-node}
 
-对于 Pod 中的每个容器，配置了 `single-numa-nodde` 拓扑管理策略的
+对于 Pod 中的每个容器，配置了 `single-numa-node` 拓扑管理策略的
 kubelet 调用每个建议提供者以确定其资源可用性。
 使用此信息，拓扑管理器确定是否支持单 NUMA 节点亲和性。
 如果支持，则拓扑管理器将存储此信息，然后 **建议提供者** 可以在做出资源分配决定时使用此信息。
