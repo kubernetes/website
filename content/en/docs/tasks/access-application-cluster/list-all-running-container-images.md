@@ -61,7 +61,7 @@ Pods (standalone means Pods that you created directly without using workload res
 
 ```shell
 kubectl get Deployment,ReplicaSet,StatefulSet,DaemonSet,Job,CronJob --all-namespaces \
-        -o=custom-columns='NAME:metadata.namespace,KIND:kind,NAME:metadata.name,IMAGE:..image'
+        -o=custom-columns='NAMESPACE:metadata.namespace,KIND:kind,NAME:metadata.name,IMAGE:..image'
 ```
 
 ## List Container images by Pod
