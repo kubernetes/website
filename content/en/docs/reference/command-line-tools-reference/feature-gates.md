@@ -552,7 +552,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   the pod template of [Job](/docs/concepts/workloads/controllers/job).
 - `JobPodFailurePolicy`: Allow users to specify handling of pod failures based on container
   exit codes and pod conditions.
-- `JobPodReplacementPolicy`: Allows users to specify pod replacement for terminating pods in a [Job](/docs/concepts/workloads/controllers/job)
+- `JobPodReplacementPolicy`: Allows you to specify pod replacement for terminating pods in a [Job](/docs/concepts/workloads/controllers/job)
 - `JobReadyPods`: Enables tracking the number of Pods that have a `Ready`
   [condition](/docs/concepts/workloads/pods/pod-lifecycle/#pod-conditions).
   The count of `Ready` pods is recorded in the
