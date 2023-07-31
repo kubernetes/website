@@ -51,6 +51,18 @@ the `.items[*]` portion of the path should be omitted because a single
 Pod is returned instead of a list of items.
 {{< /note >}}
 
+## List all images of the workload resources
+
+Listing Pods may yield different results based on the Pods defined lifecycle.
+
+The following example list all the images possible run in the cluster, except 
+for Orphaned Pods created directly without using workload resources. 
+
+```shell
+kubectl get Deployment,ReplicaSet,StatefulSet,DaemonSet,Job,CronJob --all-namespaces \
+        -o=custom-columns='NAME:metadata.namespace,KIND:kind,NAME:metadata.name,IMAGE:..image'
+```
+
 ## List Container images by Pod
 
 The formatting can be controlled further by using the `range` operation to
