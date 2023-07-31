@@ -262,6 +262,21 @@ This annotation is part of the Kubernetes Resource Model (KRM) Functions Specifi
 which is used by Kustomize and similar third-party tools.
 For example, Kustomize removes objects with this annotation from its final build output.
 
+### config.kubernetes.io/depends-on
+
+Type: Annotation
+
+Example: `config.kubernetes.io/depends-on: "OBJECT_REFERENCE"` 
+
+Used on: All objects
+
+This annotation is used on the target object to be modified to configure [Depends-on](https://kpt.dev/reference/annotations/depends-on/). This annotation specifies one or more resource dependencies.
+The annotation value accepts a list of resource references, delimited by commas.
+`Resource reference`
+- **Group**: This represents the API group of the resource (e.g., apps, v1, extensions).
+- **Kind**: This indicates the type of resource (e.g., Pod, Service, Deployment).
+- **Name**: The name is the unique identifier of the specific resource instance.
+
 ### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
 
 Type: Annotation
