@@ -270,13 +270,13 @@ Example: `config.kubernetes.io/depends-on: "OBJECT_REFERENCE"`
 
 Used on: All objects
 
-This annotation is used on the target object to be modified to configure [Depends-on](https://kpt.dev/reference/annotations/depends-on/). This annotation specifies one or more resource dependencies.
-The annotation value accepts a list of resource references, delimited by commas.
+This annotation is used on the target object to be modified to configure explicit dependency ordering. 
 
-**Resource reference**
-- **Group**: This represents the API group of the resource (e.g., apps, v1, extensions).
-- **Kind**: This indicates the type of resource (e.g., Pod, Service, Deployment).
-- **Name**: The name is the unique identifier of the specific resource instance.
+The annotation helps to determine the apply order, and dependency reconciliation while applying and deletion and prevents accidental premature deletion.
+
+For eg. If `config.kubernetes.io/depends-on: /namespaces/default/Pod/pod-a` annotation is added to `pod-b`,  it identifies that pod-a must be successfully applied prior to pod-a actuation.
+
+See [Depends-on](https://kpt.dev/reference/annotations/depends-on/) for more information. 
 
 ### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
 
