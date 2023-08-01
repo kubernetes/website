@@ -417,7 +417,7 @@ resource to be evaluated.
 
 Here is an example illustrating a few different uses for match conditions:
 
-{{% codenew file="access/validating-admission-policy-match-conditions.yaml" %}}
+{{% code file="access/validating-admission-policy-match-conditions.yaml" %}}
 
 Match conditions have access to the same CEL variables as validation expressions.
 
@@ -435,7 +435,7 @@ the request is determined as follows:
 
 For example, here is an admission policy with an audit annotation:
 
-{{% codenew file="access/validating-admission-policy-audit-annotation.yaml" %}}
+{{% code file="access/validating-admission-policy-audit-annotation.yaml" %}}
 
 When an API request is validated with this admission policy, the resulting audit event will look like:
 
@@ -472,7 +472,7 @@ message expression must evaluate to a string.
 For example, to better inform the user of the reason of denial when the policy refers to a parameter,
 we can have the following validation:
 
-{{% codenew file="access/deployment-replicas-policy.yaml" %}}
+{{% code file="access/deployment-replicas-policy.yaml" %}}
 
 After creating a params object that limits the replicas to 3 and setting up the binding,
 when we try to create a deployment with 5 replicas, we will receive the following message.
