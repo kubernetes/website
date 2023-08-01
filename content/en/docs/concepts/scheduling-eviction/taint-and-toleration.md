@@ -226,7 +226,7 @@ are true. The following taints are built in:
     this node, the kubelet removes this taint.
 
 In case a node is to be drained, the node controller or the kubelet adds relevant taints
-with `NoExecute` effect. This effect added by default for the  `node.kubernetes.io/not-ready` and `node.kubernetes.io/unreachable` taint.  If the fault condition returns to normal the kubelet or node
+with `NoExecute` effect. This effect is added by default for the  `node.kubernetes.io/not-ready` and `node.kubernetes.io/unreachable` taints.  If the fault condition returns to normal the kubelet or node
 controller can remove the relevant taint(s).
 
 In some cases when the node is unreachable, the API server is unable to communicate
