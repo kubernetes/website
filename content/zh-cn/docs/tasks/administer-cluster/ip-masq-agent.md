@@ -50,18 +50,18 @@ cluster's pod [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routin
   到另一个 IP 地址的方法。通常由执行 IP 路由的设备执行。
 
 <!--
-* **Masquerading**
+* **Masquerading**:
   A form of NAT that is typically used to perform a many to one address translation, where
   multiple source IP addresses are masked behind a single address, which is typically the
   device doing the IP routing. In Kubernetes this is the Node's IP address.
--->    
+-->
 * **伪装**：
   NAT 的一种形式，通常用于执行多对一地址转换，其中多个源 IP 地址被隐藏在
   单个地址后面，该地址通常是执行 IP 路由的设备。在 Kubernetes 中，
   这是节点的 IP 地址。
 
 <!--
-* **CIDR (Classless Inter-Domain Routing)**
+* **CIDR (Classless Inter-Domain Routing)**:
   Based on the variable-length subnet masking, allows specifying arbitrary-length prefixes.
   CIDR introduced a new method of representation for IP addresses, now commonly known as
   **CIDR notation**, in which an address or routing prefix is written with a suffix indicating
@@ -73,7 +73,7 @@ cluster's pod [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routin
   其中地址或路由前缀后添加一个后缀，用来表示前缀的位数，例如 192.168.2.0/24。
 
 <!--
-* Link Local
+* **Link Local**:
   A link-local address is a network address that is valid only for communications within the
   network segment or the broadcast domain that the host is connected to. Link-local addresses
   for IPv4 are defined in the address block 169.254.0.0/16 in CIDR notation.
@@ -93,7 +93,7 @@ the Pod IP behind the VM's own IP address - generally known as "masquerade". By 
 agent is configured to treat the three private IP ranges specified by
 [RFC 1918](https://tools.ietf.org/html/rfc1918) as non-masquerade
 [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
-These ranges are `10.0.0.0/8`, `172.16.0.0/12`, and `192.168.0.0 16`.
+These ranges are `10.0.0.0/8`, `172.16.0.0/12`, and `192.168.0.0/16`.
 The agent will also treat link-local (169.254.0.0/16) as a non-masquerade CIDR by default.
 The agent is configured to reload its configuration from the location
 */etc/config/ip-masq-agent* every 60 seconds, which is also configurable.
@@ -108,7 +108,7 @@ Pod IP 地址。在某些环境中，去往"外部"地址的流量必须从已�
 [RFC 1918](https://tools.ietf.org/html/rfc1918)
 指定的三个私有 IP 范围视为非伪装
 [CIDR](https://zh.wikipedia.org/wiki/%E6%97%A0%E7%B1%BB%E5%88%AB%E5%9F%9F%E9%97%B4%E8%B7%AF%E7%94%B1)。
-这些范围是 10.0.0.0/8、172.16.0.0/12 和 192.168.0.0/16。
+这些范围是 `10.0.0.0/8`、`172.16.0.0/12` 和 `192.168.0.0/16`。
 默认情况下，代理还将链路本地地址（169.254.0.0/16）视为非伪装 CIDR。
 代理程序配置为每隔 60 秒从 **/etc/config/ip-masq-agent** 重新加载其配置，
 这也是可修改的。
