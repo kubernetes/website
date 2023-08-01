@@ -286,5 +286,5 @@ Kubernetes 控制面会为所有名字空间设置一个不可变更的{{< gloss
 * Learn more about [creating a new namespace](/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace).
 * Learn more about [deleting a namespace](/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace).
 -->
-* 进一步了解[建立新的名字空间](/zh-cn/docs/tasks/administer-cluster/namespaces/#creating-a-new-namespace)。
-* 进一步了解[删除名字空间](/zh-cn/docs/tasks/administer-cluster/namespaces/#deleting-a-namespace)。
+* 进一步了解[建立新的名字空间](/zh-cn/docs/tasks/administer-cluster/namespaces/#创建名字空间)。
+* 进一步了解[删除名字空间](/zh-cn/docs/tasks/administer-cluster/namespaces/#删除名字空间)。
