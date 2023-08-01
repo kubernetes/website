@@ -26,7 +26,7 @@ provides load balancing for an application that has two running instances.
 
 Here is the configuration file for the application Deployment:
 
-{{% codenew file="service/access/hello-application.yaml" %}}
+{{% code file="service/access/hello-application.yaml" %}}
 
 1. Run a Hello World application in your cluster:
    Create the application Deployment using the file above:
