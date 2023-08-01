@@ -232,5 +232,6 @@ including tools for logging, monitoring, network policy, visualization, and cont
 * Learn more about `kOps` [advanced usage](https://kops.sigs.k8s.io/) for tutorials,
   best practices and advanced configuration options.
 * Follow `kOps` community discussions on Slack:
-  [community discussions](https://kubernetes.slack.com/archives/C3QUFP0QM).
+  [community discussions](https://kubernetes.slack.com/archives/C3QUFP0QM).   
+  (visit https://slack.k8s.io/ for an invitation to this Slack workspace).
 * Contribute to `kOps` by addressing or raising an issue [GitHub Issues](https://github.com/kubernetes/kops/issues).
