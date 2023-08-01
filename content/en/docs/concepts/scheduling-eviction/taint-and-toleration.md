@@ -87,8 +87,8 @@ An empty `effect` matches all effects with key `key1`.
 The above example used `effect` of `NoSchedule`. Alternatively, you can use `effect` of `PreferNoSchedule`.
 
 
-There are three types of taint `effects` 
-* `NoExecute`: This  affects pods that are already
+There are three types of taint `effects` enforced by the Kubernetes scheduler
+* `NoExecute`: This affects pods that are already
 running on the node as follows
     * pods that do not tolerate the taint are evicted immediately
     * pods that tolerate the taint without specifying `tolerationSeconds` in
@@ -98,7 +98,6 @@ running on the node as follows
     * `NoSchedule`: No new pods will be scheduled on the node unless they have the matching toleration. Pods that are currently running on the node are not evicted.
 * `PreferNoSchedule`: This is a "preference" or "soft" version of `NoSchedule`, the system will *try* to avoid placing a
 pod that does not tolerate the taint on the node, but it is not required. 
-
 
 
 You can put multiple taints on the same node and multiple tolerations on the same pod.
@@ -206,14 +205,7 @@ when there are node problems, which is described in the next section.
 
 {{< feature-state for_k8s_version="v1.18" state="stable" >}}
 
-The `NoExecute` taint effect, mentioned above, affects pods that are already
-running on the node as follows
 
- * pods that do not tolerate the taint are evicted immediately
- * pods that tolerate the taint without specifying `tolerationSeconds` in
-   their toleration specification remain bound forever
- * pods that tolerate the taint with a specified `tolerationSeconds` remain
-   bound for the specified amount of time
 
 The node controller automatically taints a Node when certain conditions
 are true. The following taints are built in:
@@ -233,7 +225,7 @@ are true. The following taints are built in:
     this node, the kubelet removes this taint.
 
 In case a node is to be drained, the node controller or the kubelet adds relevant taints
-with `NoExecute` effect. If the fault condition returns to normal the kubelet or node
+with `NoExecute` effect. This effect added by default for the  `node.kubernetes.io/not-ready` and `node.kubernetes.io/unreachable` taint.  If the fault condition returns to normal the kubelet or node
 controller can remove the relevant taint(s).
 
 In some cases when the node is unreachable, the API server is unable to communicate
