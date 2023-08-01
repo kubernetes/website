@@ -278,8 +278,11 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
   completion is homologous to each other. Note that Jobs that have null
   `.spec.completions` are implicitly `NonIndexed`.
 - `Indexed`: the Pods of a Job get an associated completion index from 0 to
-  `.spec.completions-1`. The index is available through three mechanisms:
+  `.spec.completions-1`. The index is available through four mechanisms:
   - The Pod annotation `batch.kubernetes.io/job-completion-index`.
+  - The Pod label `batch.kubernetes.io/job-completion-index` (for v1.28 and later). Note
+  the feature gate `PodIndexLabel` must be enabled to use this label, and it is enabled
+  by default.
   - As part of the Pod hostname, following the pattern `$(job-name)-$(index)`.
     When you use an Indexed Job in combination with a
     {{< glossary_tooltip term_id="Service" >}}, Pods within the Job can use
