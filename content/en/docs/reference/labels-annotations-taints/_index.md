@@ -271,7 +271,6 @@ Example: `config.kubernetes.io/depends-on: "OBJECT_REFERENCE"`
 Used on: All objects
 
 This annotation is used on the target object to be modified to configure explicit dependency ordering. 
-
 The annotation helps to determine the apply order, and dependency reconciliation while applying and deletion and prevents accidental premature deletion.
 
 For eg. If `config.kubernetes.io/depends-on: /namespaces/default/Pod/pod-a` annotation is added to `pod-b`,  it identifies that pod-a must be successfully applied prior to pod-a actuation.
