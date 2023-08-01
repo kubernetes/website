@@ -332,7 +332,7 @@ resource and its accompanying controller.
 
 Say a user has defined deployment with `replicas` set to the desired value:
 
-{{% codenew file="application/ssa/nginx-deployment.yaml" %}}
+{{% code file="application/ssa/nginx-deployment.yaml" %}}
 
 And the user has created the deployment using Server-Side Apply like so:
 
@@ -396,7 +396,7 @@ process than it sometimes does.
 
 At this point the user may remove the `replicas` field from their configuration.
 
-{{% codenew file="application/ssa/nginx-deployment-no-replicas.yaml" %}}
+{{% code file="application/ssa/nginx-deployment-no-replicas.yaml" %}}
 
 Note that whenever the HPA controller sets the `replicas` field to a new value,
 the temporary field manager will no longer own any fields and will be

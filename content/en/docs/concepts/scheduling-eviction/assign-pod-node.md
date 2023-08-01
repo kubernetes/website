@@ -122,7 +122,7 @@ your Pod spec.
 
 For example, consider the following Pod spec:
 
-{{% codenew file="pods/pod-with-node-affinity.yaml" %}}
+{{% code file="pods/pod-with-node-affinity.yaml" %}}
 
 In this example, the following rules apply:
 
@@ -172,7 +172,7 @@ scheduling decision for the Pod.
 
 For example, consider the following Pod spec:
 
-{{% codenew file="pods/pod-with-affinity-anti-affinity.yaml" %}}
+{{% code file="pods/pod-with-affinity-anti-affinity.yaml" %}}
 
 If there are two possible nodes that match the
 `preferredDuringSchedulingIgnoredDuringExecution` rule, one with the
@@ -288,7 +288,7 @@ spec.
 
 Consider the following Pod spec:
 
-{{% codenew file="pods/pod-with-pod-affinity.yaml" %}}
+{{% code file="pods/pod-with-pod-affinity.yaml" %}}
 
 This example defines one Pod affinity rule and one Pod anti-affinity rule. The
 Pod affinity rule uses the "hard"
