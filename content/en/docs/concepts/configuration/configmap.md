@@ -111,7 +111,7 @@ technique also lets you access a ConfigMap in a different namespace.
 
 Here's an example Pod that uses values from `game-demo` to configure a Pod:
 
-{{% codenew file="configmap/configure-pod.yaml" %}}
+{{% code file="configmap/configure-pod.yaml" %}}
 
 A ConfigMap doesn't differentiate between single line property values and
 multi-line file-like values.

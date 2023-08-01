@@ -62,7 +62,7 @@ created without user namespaces.**
 A user namespace for a stateless pod is enabled setting the `hostUsers` field of
 `.spec` to `false`. For example:
 
-{{% codenew file="pods/user-namespaces-stateless.yaml" %}}
+{{% code file="pods/user-namespaces-stateless.yaml" %}}
 
 1. Create the pod on your cluster:
 

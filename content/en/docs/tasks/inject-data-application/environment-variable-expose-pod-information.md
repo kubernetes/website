@@ -34,7 +34,7 @@ Read more about accessing Services [here](/docs/tutorials/services/connect-appli
 In this part of exercise, you create a Pod that has one container, and you
 project Pod-level fields into the running container as environment variables.
 
-{{% codenew file="pods/inject/dapi-envars-pod.yaml" %}}
+{{% code file="pods/inject/dapi-envars-pod.yaml" %}}
 
 In that manifest, you can see five environment variables. The `env`
 field is an array of
@@ -119,7 +119,7 @@ rather than from the Pod overall.
 
 Here is a manifest for another Pod that again has just one container:
 
-{{% codenew file="pods/inject/dapi-envars-container.yaml" %}}
+{{% code file="pods/inject/dapi-envars-container.yaml" %}}
 
 In this manifest, you can see four environment variables. The `env`
 field is an array of

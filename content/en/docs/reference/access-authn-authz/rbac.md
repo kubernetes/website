@@ -1240,7 +1240,7 @@ guidance for restricting this access in existing clusters.
 If you want new clusters to retain this level of access in the aggregated roles,
 you can create the following ClusterRole:
 
-{{% codenew file="access/endpoints-aggregated.yaml" %}}
+{{% code file="access/endpoints-aggregated.yaml" %}}
 
 ## Upgrading from ABAC
 
