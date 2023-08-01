@@ -45,12 +45,13 @@ Example:
 
 ### kubelet
 
-`kubelet` must not be newer than `kube-apiserver`, and may be up to two minor versions older.
+* `kubelet` must not be newer than `kube-apiserver`.
+* `kubelet` may be up to three minor versions older than `kube-apiserver` (`kubelet` < 1.25 may only be up to two minor versions older than `kube-apiserver`).
 
 Example:
 
 * `kube-apiserver` is at **{{< skew currentVersion >}}**
-* `kubelet` is supported at **{{< skew currentVersion >}}**, **{{< skew currentVersionAddMinor -1 >}}**, and **{{< skew currentVersionAddMinor -2 >}}**
+* `kubelet` is supported at **{{< skew currentVersion >}}**, **{{< skew currentVersionAddMinor -1 >}}**, **{{< skew currentVersionAddMinor -2 >}}**, and **{{< skew currentVersionAddMinor -3 >}}**
 
 {{< note >}}
 If version skew exists between `kube-apiserver` instances in an HA cluster, this narrows the allowed `kubelet` versions.
@@ -59,17 +60,18 @@ If version skew exists between `kube-apiserver` instances in an HA cluster, this
 Example:
 
 * `kube-apiserver` instances are at **{{< skew currentVersion >}}** and **{{< skew currentVersionAddMinor -1 >}}**
-* `kubelet` is supported at **{{< skew currentVersionAddMinor -1 >}}**, and **{{< skew currentVersionAddMinor -2 >}}** (**{{< skew currentVersion >}}** is not supported because that would be newer than the `kube-apiserver` instance at version **{{< skew currentVersionAddMinor -1 >}}**)
+* `kubelet` is supported at **{{< skew currentVersionAddMinor -1 >}}**, **{{< skew currentVersionAddMinor -2 >}}**, and **{{< skew currentVersionAddMinor -3 >}}** (**{{< skew currentVersion >}}** is not supported because that would be newer than the `kube-apiserver` instance at version **{{< skew currentVersionAddMinor -1 >}}**)
 
 ### kube-proxy
 
-`kube-proxy` must not be newer than `kube-apiserver`, and may be up to two minor versions older.
-`kube-proxy` may be up to two minor versions older or newer than the `kubelet` instance it runs alongside.
+* `kube-proxy` must not be newer than `kube-apiserver`.
+* `kube-proxy` may be up to three minor versions older than `kube-apiserver` (`kube-proxy` < 1.25 may only be up to two minor versions older than `kube-apiserver`).
+* `kube-proxy` may be up to three minor versions older or newer than the `kubelet` instance it runs alongside (`kube-proxy` < 1.25 may only be up to two minor versions older or newer than the `kubelet` instance it runs alongside).
 
 Example:
 
 * `kube-apiserver` is at **{{< skew currentVersion >}}**
-* `kube-proxy` is supported at **{{< skew currentVersion >}}**, **{{< skew currentVersionAddMinor -1 >}}**, and **{{< skew currentVersionAddMinor -2 >}}**
+* `kube-proxy` is supported at **{{< skew currentVersion >}}**, **{{< skew currentVersionAddMinor -1 >}}**, **{{< skew currentVersionAddMinor -2 >}}**, and **{{< skew currentVersionAddMinor -3 >}}**
 
 {{< note >}}
 If version skew exists between `kube-apiserver` instances in an HA cluster, this narrows the allowed `kube-proxy` versions.
@@ -78,7 +80,7 @@ If version skew exists between `kube-apiserver` instances in an HA cluster, this
 Example:
 
 * `kube-apiserver` instances are at **{{< skew currentVersion >}}** and **{{< skew currentVersionAddMinor -1 >}}**
-* `kube-proxy` is supported at **{{< skew currentVersionAddMinor -1 >}}**, and **{{< skew currentVersionAddMinor -2 >}}** (**{{< skew currentVersion >}}** is not supported because that would be newer than the `kube-apiserver` instance at version **{{< skew currentVersionAddMinor -1 >}}**)
+* `kube-proxy` is supported at **{{< skew currentVersionAddMinor -1 >}}**, **{{< skew currentVersionAddMinor -2 >}}**, and **{{< skew currentVersionAddMinor -3 >}}** (**{{< skew currentVersion >}}** is not supported because that would be newer than the `kube-apiserver` instance at version **{{< skew currentVersionAddMinor -1 >}}**)
 
 ### kube-controller-manager, kube-scheduler, and cloud-controller-manager
 
@@ -173,7 +175,7 @@ Pre-requisites:
 
 * The `kube-apiserver` instances the `kubelet` communicates with are at **{{< skew currentVersion >}}**
 
-Optionally upgrade `kubelet` instances to **{{< skew currentVersion >}}** (or they can be left at **{{< skew currentVersionAddMinor -1 >}}** or **{{< skew currentVersionAddMinor -2 >}}**)
+Optionally upgrade `kubelet` instances to **{{< skew currentVersion >}}** (or they can be left at **{{< skew currentVersionAddMinor -1 >}}**, **{{< skew currentVersionAddMinor -2 >}}**, or **{{< skew currentVersionAddMinor -3 >}}**)
 
 {{< note >}}
 Before performing a minor version `kubelet` upgrade, [drain](/docs/tasks/administer-cluster/safely-drain-node/) pods from that node.
@@ -181,7 +183,7 @@ In-place minor version `kubelet` upgrades are not supported.
 {{</ note >}}
 
 {{< warning >}}
-Running a cluster with `kubelet` instances that are persistently two minor versions behind `kube-apiserver` means they must be upgraded before the control plane can be upgraded.
+Running a cluster with `kubelet` instances that are persistently three minor versions behind `kube-apiserver` means they must be upgraded before the control plane can be upgraded.
 {{</ warning >}}
 
 ### kube-proxy
@@ -190,8 +192,8 @@ Pre-requisites:
 
 * The `kube-apiserver` instances `kube-proxy` communicates with are at **{{< skew currentVersion >}}**
 
-Optionally upgrade `kube-proxy` instances to **{{< skew currentVersion >}}** (or they can be left at **{{< skew currentVersionAddMinor -1 >}}** or **{{< skew currentVersionAddMinor -2 >}}**)
+Optionally upgrade `kube-proxy` instances to **{{< skew currentVersion >}}** (or they can be left at **{{< skew currentVersionAddMinor -1 >}}**, **{{< skew currentVersionAddMinor -2 >}}**, or **{{< skew currentVersionAddMinor -3 >}}**)
 
 {{< warning >}}
-Running a cluster with `kube-proxy` instances that are persistently two minor versions behind `kube-apiserver` means they must be upgraded before the control plane can be upgraded.
+Running a cluster with `kube-proxy` instances that are persistently three minor versions behind `kube-apiserver` means they must be upgraded before the control plane can be upgraded.
 {{</ warning >}}
