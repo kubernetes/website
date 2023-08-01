@@ -211,7 +211,9 @@ kubectl get pod private-reg
 ```
 
 {{< note >}}
-In case the Pod fails to start with the status `ImagePullBackOff`, view the Pod events:
+Please ensure that the Pod or Deployment, and so on, created within a particular namespace contains the necessary secret in that same namespace.
+
+Also, in case the Pod fails to start with the status `ImagePullBackOff`, view the Pod events:
 ```shell
 kubectl describe pod private-reg
 ```
