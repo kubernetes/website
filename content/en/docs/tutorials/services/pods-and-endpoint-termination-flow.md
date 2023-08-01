@@ -36,7 +36,7 @@ document.
 Let's say you have a Deployment containing of a single `nginx` replica
 (just for demonstration purposes) and a Service:
 
-{{% codenew file="service/pod-with-graceful-termination.yaml" %}}
+{{% code file="service/pod-with-graceful-termination.yaml" %}}
 
 ```yaml
 apiVersion: apps/v1
