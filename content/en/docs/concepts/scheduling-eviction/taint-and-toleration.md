@@ -85,9 +85,21 @@ An empty `effect` matches all effects with key `key1`.
 {{< /note >}}
 
 The above example used `effect` of `NoSchedule`. Alternatively, you can use `effect` of `PreferNoSchedule`.
-This is a "preference" or "soft" version of `NoSchedule` -- the system will *try* to avoid placing a
-pod that does not tolerate the taint on the node, but it is not required. The third kind of `effect` is
-`NoExecute`, described later.
+
+
+There are three types of taint `effects` 
+* `NoExecute`: This  affects pods that are already
+running on the node as follows
+    * pods that do not tolerate the taint are evicted immediately
+    * pods that tolerate the taint without specifying `tolerationSeconds` in
+   their toleration specification remain bound forever
+    * pods that tolerate the taint with a specified `tolerationSeconds` remain
+   bound for the specified amount of time
+    * `NoSchedule`: No new pods will be scheduled on the node unless they have the matching toleration. Pods that are currently running on the node are not evicted.
+* `PreferNoSchedule`: This is a "preference" or "soft" version of `NoSchedule`, the system will *try* to avoid placing a
+pod that does not tolerate the taint on the node, but it is not required. 
+
+
 
 You can put multiple taints on the same node and multiple tolerations on the same pod.
 The way Kubernetes processes multiple taints and tolerations is like a filter: start
