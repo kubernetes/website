@@ -96,7 +96,7 @@ running on the node as follows
     * pods that tolerate the taint with a specified `tolerationSeconds` remain
    bound for the specified amount of time
 * `NoSchedule`: No new pods will be scheduled on the node unless they have the matching toleration. Pods that are currently running on the node are not evicted.
-* `PreferNoSchedule`: This is a "preference" or "soft" version of `NoSchedule`, the system will *try* to avoid placing a
+* `PreferNoSchedule`: This is a "preference" or "soft" version of `NoSchedule`. The system will *try* to avoid placing a
 pod that does not tolerate the taint on the node, but it is not required. 
 
 All the taint effects are enforced by Kubernetes scheduler except for `NoExecute` which is enforced by NodeController.
