@@ -76,7 +76,7 @@ P[Pod 数据] -.- C
 end
 L[API<br>服务器]
 W[HPA]
-C ---->|node level<br>resource metrics| A -->|metrics<br>API| L --> W
+C ---->|节点层面<br>资源度量值| A -->|metrics<br>API| L --> W
 end
 L ---> K[kubectl<br>top]
 classDef box fill:#fff,stroke:#000,stroke-width:1px,color:#000;
