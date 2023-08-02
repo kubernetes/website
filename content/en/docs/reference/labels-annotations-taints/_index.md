@@ -1033,7 +1033,7 @@ and legacy in-tree cloud providers), it sets this annotation on the Node to deno
 set from the command line flag (`--node-ip`). This IP is verified with the cloud provider as valid
 by the cloud-controller-manager.
 
-### volume.alpha.kubernetes.io/node-affinity (alpha) {#alpha-kubernetes-io-provided-node-ip}
+### volume.alpha.kubernetes.io/node-affinity (alpha) {#volume-alpha-kubernetes-io-node-affinity}
 
 Type: Annotation
 
@@ -1041,7 +1041,7 @@ Example: `volume.alpha.kubernetes.io/node-affinity: "constrain-with-nodes"`
 
 Used on: Node
 
-Node affinity and [nodeSelector](https://kubernetes.io/docs/reference/labels-annotations-taints/#schedulerkubernetesnode-selector) are conceptually similar, both enabling you to restrict the scheduling of your Pod to specific nodes in the cluster, based on node labels.
+Node affinity and [nodeSelector](/docs/reference/labels-annotations-taints/#schedulerkubernetesnode-selector) are conceptually similar, both enabling you to restrict the scheduling of your Pod to specific nodes in the cluster, based on node labels.
 
 See [node affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity) for more information. 
 
