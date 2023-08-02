@@ -87,22 +87,11 @@ The following are typical use cases for Deployments:
 * [清理较旧的不再需要的 ReplicaSet](#clean-up-policy) 。
 
 <!--
-## Creating a Deployment
-
-Before creating a Deployment define an 
-[environment variable](/docs/tasks/inject-data-application/define-environment-variable-container/#define-an-environment-variable-for-a-container)
-for a container.
-
 The following is an example of a Deployment. It creates a ReplicaSet to bring up three `nginx` Pods:
 -->
-## 创建 Deployment  {#creating-a-deployment}
-
-在创建 Deployment 之前，请为容器定义一个
-[环境变量](/zh-cn/docs/tasks/inject-data-application/define-environment-variable-container/#define-an-environment-variable-for-a-container)。
-
 下面是一个 Deployment 示例。其中创建了一个 ReplicaSet，负责启动三个 `nginx` Pod：
 
-{{< codenew file="controllers/nginx-deployment.yaml" >}}
+{{% code file="controllers/nginx-deployment.yaml" %}}
 
 <!--
 In this example:
