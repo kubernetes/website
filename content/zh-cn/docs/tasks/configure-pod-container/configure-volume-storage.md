@@ -46,12 +46,12 @@ restarts. Here is the configuration file for the Pod:
 [emptyDir](/zh-cn/docs/concepts/storage/volumes/#emptydir) 的卷，
 在整个 Pod 生命周期中一直存在，即使 Pod 中的容器被终止和重启。以下是 Pod 的配置：
 
-{{< codenew file="pods/storage/redis.yaml" >}}
+{{% code file="pods/storage/redis.yaml" %}}
 
 <!--
 1. Create the Pod:
 -->
-1. 创建 Pod:
+1. 创建 Pod：
 
    ```shell
    kubectl apply -f https://k8s.io/examples/pods/storage/redis.yaml
@@ -206,4 +206,3 @@ of `Always`.
 - 除了 `emptyDir` 提供的本地磁盘存储外，Kubernetes 还支持许多不同的网络附加存储解决方案，
   包括 GCE 上的 PD 和 EC2 上的 EBS，它们是关键数据的首选，并将处理节点上的一些细节，
   例如安装和卸载设备。了解更多详情请参阅[卷](/zh-cn/docs/concepts/storage/volumes/)。
-
