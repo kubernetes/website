@@ -1043,7 +1043,7 @@ Used on: Node
 
 Node affinity and [nodeSelector](https://github.com/kubernetes/website/blob/main/content/en/docs/reference/labels-annotations-taints/_index.md#scheduleralphakubernetesionode-selector-schedulerkubernetesnode-selector) are conceptually similar, both enabling you to restrict the scheduling of your Pod to specific nodes in the cluster, based on node labels.
 
-See [node affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity) for more information. 
+For more details, see [node affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity) kubernets docs `#node-affinity`.
 
 ### batch.kubernetes.io/job-completion-index
 
