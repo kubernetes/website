@@ -85,17 +85,16 @@ Pod 类似于共享名字空间并共享文件系统卷的一组容器。
 ## Using Pods
 
 The following is an example of a Pod which consists of a container running the image `nginx:1.14.2`.
-
-{{< codenew file="pods/simple-pod.yaml" >}}
-
-To create the Pod shown above, run the following command:
 -->
 ## 使用 Pod   {#using-pods}
 
 下面是一个 Pod 示例，它由一个运行镜像 `nginx:1.14.2` 的容器组成。
 
-{{< codenew file="pods/simple-pod.yaml" >}}
+{{% code file="pods/simple-pod.yaml" %}}
 
+<!--
+To create the Pod shown above, run the following command:
+-->
 要创建上面显示的 Pod，请运行以下命令：
 
 ```shell
@@ -115,10 +114,9 @@ Pod 通常不是直接创建的，而是使用工作负载资源创建的。
 ### 用于管理 Pod 的工作负载资源   {#workload-resources-for-managing-pods}
 
 <!--
-Usually you don't need to create Pods directly, even singleton Pods. 
-Instead, create them using workload resources such as {{< glossary_tooltip text="Deployment"
+Usually you don't need to create Pods directly, even singleton Pods. Instead, create them using workload resources such as {{< glossary_tooltip text="Deployment"
 term_id="deployment" >}} or {{< glossary_tooltip text="Job" term_id="job" >}}.
-If your Pods need to track state, consider the 
+If your Pods need to track state, consider the
 {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} resource.
 
 Pods in a Kubernetes cluster are used in two main ways:
@@ -209,9 +207,7 @@ that updates those files from a remote source, as in the following diagram:
 {{< figure src="/zh-cn/docs/images/pod.svg" alt="Pod 创建示意图" class="diagram-medium" >}}
 
 <!--
-Some Pods have {{< glossary_tooltip text="init containers" term_id="init-container" >}} 
-as well as {{< glossary_tooltip text="app containers" term_id="app-container" >}}. 
-Init containers run and complete before the app containers are started.
+Some Pods have {{< glossary_tooltip text="init containers" term_id="init-container" >}} as well as {{< glossary_tooltip text="app containers" term_id="app-container" >}}. Init containers run and complete before the app containers are started.
 
 Pods natively provide two kinds of shared resources for their constituent containers:
 [networking](#pod-networking) and [storage](#pod-storage).
@@ -272,7 +268,9 @@ Pod 的名称必须是一个合法的
 {{< feature-state state="stable" for_k8s_version="v1.25" >}}
 
 <!--
-You should set the `.spec.os.name` field to either `windows` or `linux` to indicate the OS on which you want the pod to run. These two are the only operating systems supported for now by Kubernetes. In future, this list may be expanded.
+You should set the `.spec.os.name` field to either `windows` or `linux` to indicate the OS on
+which you want the pod to run. These two are the only operating systems supported for now by 
+Kubernetes. In future, this list may be expanded.
 
 In Kubernetes v{{< skew currentVersion >}}, the value you set for this field has no
 effect on {{< glossary_tooltip text="scheduling" term_id="kube-scheduler" >}} of the pods.
@@ -611,7 +609,7 @@ using the kubelet to supervise the individual [control plane components](/docs/c
 The kubelet automatically tries to create a {{< glossary_tooltip text="mirror Pod" term_id="mirror-pod" >}}
 on the Kubernetes API server for each static Pod.
 This means that the Pods running on a node are visible on the API server,
-but cannot be controlled from there.
+but cannot be controlled from there. See the guide [Create static Pods](/docs/tasks/configure-pod-container/static-pod) for more information.
 -->
 静态 Pod 通常绑定到某个节点上的 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}}。
 其主要用途是运行自托管的控制面。
@@ -621,6 +619,7 @@ but cannot be controlled from there.
 `kubelet` 自动尝试为每个静态 Pod 在 Kubernetes API
 服务器上创建一个{{< glossary_tooltip text="镜像 Pod" term_id="mirror-pod" >}}。
 这意味着在节点上运行的 Pod 在 API 服务器上是可见的，但不可以通过 API 服务器来控制。
+有关更多信息，请参阅[创建静态 Pod](/zh-cn/docs/tasks/configure-pod-container/static-pod) 的指南。
 
 {{< note >}}
 <!--
@@ -668,7 +667,7 @@ in the Pod Lifecycle documentation.
   The {{< api-reference page="workload-resources/pod-v1" >}}
   object definition describes the object in detail.
 * [The Distributed System Toolkit: Patterns for Composite Containers](/blog/2015/06/the-distributed-system-toolkit-patterns/) explains common layouts for Pods with more than one container.
-* Read about [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/).
+* Read about [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 -->
 * 了解 [Pod 生命周期](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/)。
 * 了解 [RuntimeClass](/zh-cn/docs/concepts/containers/runtime-class/)，
@@ -690,8 +689,15 @@ To understand the context for why Kubernetes wraps a common Pod API in other res
 或 {{< glossary_tooltip text="Deployment" term_id="deployment" >}}）
 封装通用的 Pod API，相关的背景信息可以在前人的研究中找到。具体包括：
 
+<!--
 * [Aurora](https://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)
 * [Borg](https://research.google.com/pubs/pub43438.html)
 * [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)
 * [Omega](https://research.google/pubs/pub41684/)
-* [Tupperware](https://engineering.fb.com/data-center-engineering/tupperware/)
+* [Tupperware](https://engineering.fb.com/data-center-engineering/tupperware/).
+-->
+* [Aurora](https://aurora.apache.org/documentation/latest/reference/configuration/#job-schema)
+* [Borg](https://research.google.com/pubs/pub43438.html)
+* [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)
+* [Omega](https://research.google/pubs/pub41684/)
+* [Tupperware](https://engineering.fb.com/data-center-engineering/tupperware/)。
