@@ -409,6 +409,7 @@ That manifest snippet defines a projected volume that combines information from 
 1. A `serviceAccountToken` source, that contains a token that the kubelet acquires from kube-apiserver.
    The kubelet fetches time-bound tokens using the TokenRequest API. A token served for a TokenRequest expires
    either when the pod is deleted or after a defined lifespan (by default, that is 1 hour).
+   The kubelet also refreshes that token before the token expires.
    The token is bound to the specific Pod and has the kube-apiserver as its audience.
 1. A `configMap` source. The ConfigMap contains a bundle of certificate authority data. Pods can use these
    certificates to make sure that they are connecting to your cluster's kube-apiserver (and not to middlebox
@@ -420,8 +421,8 @@ That manifest snippet defines a projected volume that combines information from 
 
 1. `serviceAccountToken` 数据源，包含 kubelet 从 kube-apiserver 获取的令牌。
    kubelet 使用 TokenRequest API 获取有时间限制的令牌。为 TokenRequest 服务的这个令牌会在
-   Pod 被删除或定义的生命周期（默认为 1 小时）结束之后过期。该令牌绑定到特定的 Pod，
-   并将其 audience（受众）设置为与 `kube-apiserver` 的 audience 相匹配。
+   Pod 被删除或定义的生命周期（默认为 1 小时）结束之后过期。在令牌过期之前，kubelet 还会刷新该令牌。
+   该令牌绑定到特定的 Pod，并将其 audience（受众）设置为与 `kube-apiserver` 的 audience 相匹配。
 1. `configMap` 数据源。ConfigMap 包含一组证书颁发机构数据。
    Pod 可以使用这些证书来确保自己连接到集群的 kube-apiserver（而不是连接到中间件或意外配置错误的对等点上）。
 1. `downwardAPI` 数据源。这个 `downwardAPI` 卷获得包含 Pod 的名字空间的名称，
