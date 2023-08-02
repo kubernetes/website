@@ -890,8 +890,13 @@ Example: `service.kubernetes.io/topology-aware-hints: "Auto"`
 Used on: Service
 
 This annotation is used for enabling [Topology Aware Hints](/docs/concepts/services-networking/topology-aware-hints/) for a Service.
-If you set the annotation to `"auto"`, that instructs the EndpointSlice controller to set topology hints
-(if the control plane considers that appropriate).
+Setting the annotation to `Auto`, on a Service, configured the Kubernetes control plane to
+add topology hints on EndpointSlices associated with that Service. You can also explicitly
+set the annotation to `Disabled`.
+
+If you are running a version of Kubernetes older than {{< skew currentVersion >}},
+check the documentation for that Kubernetes version to see how topology aware routing
+works in that release.
 
 There are no other valid values for this annotation. If you don't want topology aware hints
 for a Service, don't add this annotation.
