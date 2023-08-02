@@ -156,12 +156,12 @@ Here is the configuration file for the hostPath PersistentVolume:
 在生产集群中，你不会使用 hostPath。
 集群管理员会提供网络存储资源，比如 Google Compute Engine 持久盘卷、NFS 共享卷或 Amazon Elastic Block Store 卷。
 集群管理员还可以使用
-[StorageClasses](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageclass-v1-storage-k8s-io)
+[StorageClass](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#storageclass-v1-storage-k8s-io)
 来设置[动态制备存储](/zh-cn/docs/concepts/storage/dynamic-provisioning/)。
 
 下面是 hostPath PersistentVolume 的配置文件：
 
-{{< codenew file="pods/storage/pv-volume.yaml" >}}
+{{% code file="pods/storage/pv-volume.yaml" %}}
 
 <!--
 The configuration file specifies that the volume is at `/mnt/data` on the
@@ -227,7 +227,7 @@ Pod 使用 PersistentVolumeClaim 来请求物理存储。
 
 下面是 PersistentVolumeClaim 的配置文件：
 
-{{< codenew file="pods/storage/pv-claim.yaml" >}}
+{{% code file="pods/storage/pv-claim.yaml" %}}
 
 <!--
 Create the PersistentVolumeClaim:
@@ -299,7 +299,7 @@ Here is the configuration file for the Pod:
 
 下面是此 Pod 的配置文件：
 
-{{< codenew file="pods/storage/pv-pod.yaml" >}}
+{{% code file="pods/storage/pv-pod.yaml" %}}
 
 <!--
 Notice that the Pod's configuration file specifies a PersistentVolumeClaim, but
@@ -414,7 +414,7 @@ You can now close the shell to your Node.
 -->
 ## 在两个地方挂载相同的 persistentVolume   {#mounting-the-same-pv-in-two-places}
 
-{{< codenew file="pods/storage/pv-duplicate.yaml" >}}
+{{% code file="pods/storage/pv-duplicate.yaml" %}}
 
 <!--
 You can perform 2 volume mounts on your nginx container:
@@ -422,7 +422,7 @@ You can perform 2 volume mounts on your nginx container:
 - `/usr/share/nginx/html` for the static website
 - `/etc/nginx/nginx.conf` for the default config
 -->
-你可以在 nginx 容器上执行两个卷挂载:
+你可以在 nginx 容器上执行两个卷挂载：
 
 - `/usr/share/nginx/html` 用于静态网站
 - `/etc/nginx/nginx.conf` 作为默认配置
