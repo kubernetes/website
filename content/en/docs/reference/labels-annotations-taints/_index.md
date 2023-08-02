@@ -883,7 +883,7 @@ Used on: Service
 
 The control plane adds this label to an Endpoints object when the owning Service is headless.
 
-### service.kubernetes.io/topology-aware-hints {#servicekubernetesiotopology-aware-hints}
+### service.kubernetes.io/topology-aware-hints (deprecated) {#servicekubernetesiotopology-aware-hints}
 
 Example: `service.kubernetes.io/topology-aware-hints: "auto"`
 
