@@ -571,9 +571,9 @@ the feature is Beta and is enabled by default.
 Metrics `graceful_shutdown_start_time_seconds` and `graceful_shutdown_end_time_seconds`
 are emitted under the kubelet subsystem to monitor node shutdowns.
 
-## Non Graceful node shutdown {#non-graceful-node-shutdown}
+## Non-graceful node shutdown handling {#non-graceful-node-shutdown}
 
-{{< feature-state state="beta" for_k8s_version="v1.26" >}}
+{{< feature-state state="stable" for_k8s_version="v1.28" >}}
 
 A node shutdown action may not be detected by kubelet's Node Shutdown Manager,
 either because the command does not trigger the inhibitor locks mechanism used by
