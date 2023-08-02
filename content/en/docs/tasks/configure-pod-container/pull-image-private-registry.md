@@ -211,7 +211,10 @@ kubectl get pod private-reg
 ```
 
 {{< note >}}
-Please ensure that the Pod or Deployment, and so on, created within a particular namespace contains the necessary secret in that same namespace.
+To use image pull secrets for a Pod (or a Deployment, or other object that
+has a pod template that you are using), you need to make sure that the appropriate
+Secret does exist in the right namespace. The namespace to use is the same
+namespace where you defined the Pod.
 
 Also, in case the Pod fails to start with the status `ImagePullBackOff`, view the Pod events:
 ```shell
