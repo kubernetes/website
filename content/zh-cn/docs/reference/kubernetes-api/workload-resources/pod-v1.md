@@ -681,7 +681,7 @@ PodSpec 是对 Pod 的描述。
 - **activeDeadlineSeconds** (int64)
 
   在系统将主动尝试将此 Pod 标记为已失败并杀死相关容器之前，Pod 可能在节点上活跃的时长；
-  市场计算基于 startTime 计算间（以秒为单位）。字段值必须是正整数。
+  时长计算基于 startTime 计算（以秒为单位）。字段值必须是正整数。
 
 <!--
 - **readinessGates** ([]PodReadinessGate)
