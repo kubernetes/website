@@ -885,7 +885,7 @@ The control plane adds this label to an Endpoints object when the owning Service
 
 ### service.kubernetes.io/topology-aware-hints (deprecated) {#servicekubernetesiotopology-aware-hints}
 
-Example: `service.kubernetes.io/topology-aware-hints: "auto"`
+Example: `service.kubernetes.io/topology-aware-hints: "Auto"`
 
 Used on: Service
 
