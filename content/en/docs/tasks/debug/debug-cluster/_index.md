@@ -14,9 +14,11 @@ problem you are experiencing. See
 the [application troubleshooting guide](/docs/tasks/debug/debug-application/) for tips on application debugging.
 You may also visit the [troubleshooting overview document](/docs/tasks/debug/) for more information.
 
-{{% alert title="Note" %}}If you are looking for troubleshooting
+{{% alert title="Note" %}}
+If you are looking for troubleshooting
 {{<glossary_tooltip text="kubectl" term_id="kubectl">}} click
-[here](/docs/tasks/debug/debug-cluster/troubleshoot-kubectl-connectivity/).{{% /alert %}}
+[here](/docs/tasks/debug/debug-cluster/troubleshoot-kubectl-connectivity/).
+{{% /alert %}}
 
 <!-- body -->
 
