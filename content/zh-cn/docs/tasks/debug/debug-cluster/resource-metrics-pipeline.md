@@ -76,7 +76,7 @@ P[Pod 数据] -.- C
 end
 L[API<br>服务器]
 W[HPA]
-C ---->|节点层面<br>资源度量值| A -->|metrics<br>API| L --> W
+C ---->|节点层面<br>资源指标| A -->|metrics<br>API| L --> W
 end
 L ---> K[kubectl<br>top]
 classDef box fill:#fff,stroke:#000,stroke-width:1px,color:#000;
@@ -97,7 +97,7 @@ The architecture components, from right to left in the figure, consist of the fo
 * [kubelet](/docs/concepts/overview/components/#kubelet): Node agent for managing container
   resources. Resource metrics are accessible using the `/metrics/resource` and `/stats` kubelet
   API endpoints.
-* [node level resource metrics](/docs/reference/instrumentation/node-metrics): API provided by the kubelet for discovering and retrieving
+* [节点层面资源指标](/docs/reference/instrumentation/node-metrics): API provided by the kubelet for discovering and retrieving
   per-node summarized stats available through the `/metrics/resource` endpoint.
 * [metrics-server](#metrics-server): Cluster addon component that collects and aggregates resource
   metrics pulled from each kubelet. The API server serves Metrics API for use by HPA, VPA, and by
