@@ -578,3 +578,35 @@ Type Checking has the following limitation:
 - Type Checking does not affect the policy behavior in any way. Even if the type checking detects errors, the policy will continue
   to evaluate. If errors do occur during evaluate, the failure policy will decide its outcome.
 - Type Checking does not apply to CRDs, including matched CRD types and reference of paramKind. The support for CRDs will come in future release.
+
+### Variable Composition
+
+If an expression grows too complicated, or part of the expression is reusable and computationally expensive to evaluate,
+we can extract some part of the expressions into variables. A variable is a named expression that can be referred later
+in `variables` in other expressions.
+
+```yaml
+spec:
+  variables:
+    - name: foo
+      expression: "'foo' in object.spec.metadata.labels ? object.spec.metadata.labels['foo'] : 'default'"
+  validations:
+    - expression: variables.foo == 'bar'
+```
+
+A variable is lazily evaluated when it is first referred. Any error that occurs during the evaluation will be
+reported during the evaluation of the referring expression. Both the result and potential error are memorized and
+count only once towards the runtime cost.
+
+The order of variables are important because a variable can refer to other variables that are defined before it.
+This can prevent circular reference.
+
+The following is a more complex example of enforcing that image repo names match the environment defined in its namespace.
+
+{{< codenew file="access/image-matches-namespace-environment.policy.yaml" >}}
+
+With the policy bound to the namespace `default`, which is labeled `environment: prod`, the following attempt to create a deployment will be rejected.
+```text
+$ kubectl create deploy --image=dev.example.com/nginx invalid       
+error: failed to create deployment: deployments.apps "invalid" is forbidden: ValidatingAdmissionPolicy 'image-matches-namespace-environment.policy.example.com' with binding 'demo-binding-test.example.com' denied request: only prod images are allowed in namespace default
+```
