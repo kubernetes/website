@@ -55,13 +55,16 @@ for debugging if your cluster offers this.
 
 <!-- body -->
 
+<!--
+## What is a Pod?
+-->
 ## 什么是 Pod？   {#what-is-a-pod}
 
+{{< note >}}
 <!--
 You need to install a [container runtime](/docs/setup/production-environment/container-runtimes/)
 into each node in the cluster so that Pods can run there.
 -->
-{{< note >}}
 为了运行 Pod，你需要提前在每个节点安装好[容器运行时](/zh-cn/docs/setup/production-environment/container-runtimes/)。
 {{< /note >}}
 
@@ -109,7 +112,7 @@ with workload resources.
 Pod 通常不是直接创建的，而是使用工作负载资源创建的。
 有关如何将 Pod 用于工作负载资源的更多信息，请参阅[使用 Pod](#working-with-pods)。
 
-### 用于管理 pod 的工作负载资源   {#workload-resources-for-managing-pods}
+### 用于管理 Pod 的工作负载资源   {#workload-resources-for-managing-pods}
 
 <!--
 Usually you don't need to create Pods directly, even singleton Pods. 
@@ -120,8 +123,7 @@ If your Pods need to track state, consider the
 
 Pods in a Kubernetes cluster are used in two main ways:
 -->
-通常你不需要直接创建 Pod，甚至单实例 Pod。
-相反，你会使用诸如
+通常你不需要直接创建 Pod，甚至单实例 Pod。相反，你会使用诸如
 {{< glossary_tooltip text="Deployment" term_id="deployment" >}} 或
 {{< glossary_tooltip text="Job" term_id="job" >}} 这类工作负载资源来创建 Pod。
 如果 Pod 需要跟踪状态，可以考虑
@@ -173,7 +175,6 @@ See [Pods and controllers](#pods-and-controllers) for more information on how
 Kubernetes uses workload resources, and their controllers, to implement application
 scaling and auto-healing.
 -->
-
 每个 Pod 都旨在运行给定应用程序的单个实例。如果希望横向扩展应用程序
 （例如，运行多个实例以提供更多的资源），则应该使用多个 Pod，每个实例使用一个 Pod。
 在 Kubernetes 中，这通常被称为**副本（Replication）**。
@@ -202,11 +203,10 @@ For example, you might have a container that
 acts as a web server for files in a shared volume, and a separate "sidecar" container
 that updates those files from a remote source, as in the following diagram:
 -->
-
 例如，你可能有一个容器，为共享卷中的文件提供 Web 服务器支持，以及一个单独的
 "边车 (sidercar)" 容器负责从远端更新这些文件，如下图所示：
 
-{{< figure src="/images/docs/pod.svg" alt="Pod 创建示意图" class="diagram-medium" >}}
+{{< figure src="/zh-cn/docs/images/pod.svg" alt="Pod 创建示意图" class="diagram-medium" >}}
 
 <!--
 Some Pods have {{< glossary_tooltip text="init containers" term_id="init-container" >}} 
@@ -241,12 +241,12 @@ the Pod is *evicted* for lack of resources, or the node fails.
 创建时，它被调度在集群中的{{< glossary_tooltip text="节点" term_id="node" >}}上运行。
 Pod 会保持在该节点上运行，直到 Pod 结束执行、Pod 对象被删除、Pod 因资源不足而被**驱逐**或者节点失效为止。
 
+{{< note >}}
 <!--
 Restarting a container in a Pod should not be confused with restarting a Pod. A Pod
 is not a process, but an environment for running container(s). A Pod persists until
 it is deleted.
 -->
-{{< note >}}
 重启 Pod 中的容器不应与重启 Pod 混淆。
 Pod 不是进程，而是容器运行的环境。
 在被删除之前，Pod 会一直存在。
@@ -266,9 +266,12 @@ Pod 的名称必须是一个合法的
 
 <!-- 
 ### Pod OS
+-->
+### Pod 操作系统   {#pod-os}
 
 {{< feature-state state="stable" for_k8s_version="v1.25" >}}
 
+<!--
 You should set the `.spec.os.name` field to either `windows` or `linux` to indicate the OS on which you want the pod to run. These two are the only operating systems supported for now by Kubernetes. In future, this list may be expanded.
 
 In Kubernetes v{{< skew currentVersion >}}, the value you set for this field has no
@@ -280,10 +283,6 @@ that kubelet is running.
 The [Pod security standards](/docs/concepts/security/pod-security-standards/) also use this
 field to avoid enforcing policies that aren't relevant to that operating system.  
 -->
-### Pod 操作系统   {#pod-os}
-
-{{< feature-state state="stable" for_k8s_version="v1.25" >}}
-
 你应该将 `.spec.os.name` 字段设置为 `windows` 或 `linux` 以表示你希望 Pod 运行在哪个操作系统之上。
 这两个是 Kubernetes 目前支持的操作系统。将来，这个列表可能会被扩充。
 
@@ -353,6 +352,10 @@ container. The container in that Pod prints a message then pauses.
 下面的示例是一个简单的 Job 的清单，其中的 `template` 指示启动一个容器。
 该 Pod 中的容器会打印一条消息之后暂停。
 
+<!--
+# This is the pod template
+# The pod template ends here
+-->
 ```yaml
 apiVersion: batch/v1
 kind: Job
@@ -691,4 +694,4 @@ To understand the context for why Kubernetes wraps a common Pod API in other res
 * [Borg](https://research.google.com/pubs/pub43438.html)
 * [Marathon](https://mesosphere.github.io/marathon/docs/rest-api.html)
 * [Omega](https://research.google/pubs/pub41684/)
-* [Tupperware](https://engineering.fb.com/data-center-engineering/tupperware/).
+* [Tupperware](https://engineering.fb.com/data-center-engineering/tupperware/)

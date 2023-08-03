@@ -40,10 +40,6 @@ The following are typical use cases for Deployments:
 
 ## Creating a Deployment
 
-Before creating a Deployment define an 
-[environment variable](/docs/tasks/inject-data-application/define-environment-variable-container/#define-an-environment-variable-for-a-container)
-for a container. 
-
 The following is an example of a Deployment. It creates a ReplicaSet to bring up three `nginx` Pods:
 
 {{% code file="controllers/nginx-deployment.yaml" %}}

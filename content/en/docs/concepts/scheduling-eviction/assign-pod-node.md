@@ -36,8 +36,7 @@ specific Pods:
 
 Like many other Kubernetes objects, nodes have
 [labels](/docs/concepts/overview/working-with-objects/labels/). You can [attach labels manually](/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node).
-Kubernetes also populates a standard set of labels on all nodes in a cluster. See [Well-Known Labels, Annotations and Taints](/docs/reference/labels-annotations-taints/)
-for a list of common node labels.
+Kubernetes also populates a [standard set of labels](/docs/reference/node/node-labels/) on all nodes in a cluster.
 
 {{<note>}}
 The value of these labels is cloud provider specific and is not guaranteed to be reliable.
@@ -513,8 +512,8 @@ The following operators can only be used with `nodeAffinity`.
 
 |    Operator    |    Behaviour    |
 | :------------: | :-------------: |
-| `Gt` | The supplied value will be parsed as an integer, and that integer is less than or equal to the integer that results from parsing the value of a label named by this selector | 
-| `Lt` | The supplied value will be parsed as an integer, and that integer is greater than or equal to the integer that results from parsing the value of a label named by this selector | 
+| `Gt` | The supplied value will be parsed as an integer, and that integer is less than the integer that results from parsing the value of a label named by this selector | 
+| `Lt` | The supplied value will be parsed as an integer, and that integer is greater than the integer that results from parsing the value of a label named by this selector | 
 
 
 {{<note>}}

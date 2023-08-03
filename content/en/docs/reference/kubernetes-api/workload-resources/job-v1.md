@@ -117,14 +117,14 @@ JobSpec describes how the job execution will look like.
 
   manualSelector controls generation of pod labels and pod selectors. Leave `manualSelector` unset unless you are certain what you are doing. When false or unset, the system pick labels unique to this job and appends those labels to the pod template.  When true, the user is responsible for picking unique labels and specifying the selector.  Failure to pick a unique label may cause this and other jobs to not function correctly.  However, You may see `manualSelector=true` in jobs that were created with the old `extensions/v1beta1` API. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
 
-### Alpha level
+### Beta level
 
 
 - **podFailurePolicy** (PodFailurePolicy)
 
   Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
   
-  This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+  This field is beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default).
 
   <a name="PodFailurePolicy"></a>
   *PodFailurePolicy describes how failed pods influence the backoffLimit.*

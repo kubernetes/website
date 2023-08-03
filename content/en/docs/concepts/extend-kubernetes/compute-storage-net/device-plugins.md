@@ -361,9 +361,27 @@ DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 {{< glossary_tooltip term_id="volume" >}} in the device monitoring agent's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
+{{< note >}}
+
+When accessing the `/var/lib/kubelet/pod-resources/kubelet.sock` from DaemonSet
+or any other app deployed as a container on the host, which is mounting socket as
+a volume, it is a good practice to mount directory `/var/lib/kubelet/pod-resources/`
+instead of the `/var/lib/kubelet/pod-resources/kubelet.sock`. This will ensure
+that after kubelet restart, container will be able to re-connect to this socket.
+
+Container mounts are managed by inode referencing the socket or directory,
+depending on what was mounted. When kubelet restarts, socket is deleted
+and a new socket is created, while directory stays untouched.
+So the original inode for the socket become unusable. Inode to directory
+will continue working.
+
+{{< /note >}}
+
 Support for the `PodResourcesLister service` requires `KubeletPodResources`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
 It is enabled by default starting with Kubernetes 1.15 and is v1 since Kubernetes 1.20.
+
+
 
 ### `Get` gRPC endpoint {#grpc-endpoint-get}
 
