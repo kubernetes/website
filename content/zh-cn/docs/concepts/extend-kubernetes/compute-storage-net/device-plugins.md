@@ -230,8 +230,8 @@ The general workflow of a device plugin includes the following steps:
 1. The plugin registers itself with the kubelet through the Unix socket at host
    path `/var/lib/kubelet/device-plugins/kubelet.sock`.
 -->
-3. 插件通过位于主机路径 `/var/lib/kubelet/device-plugins/kubelet.sock` 下的 UNIX 套接字
-   向 kubelet 注册自身。
+3. 插件通过位于主机路径 `/var/lib/kubelet/device-plugins/kubelet.sock` 下的 UNIX
+   套接字向 kubelet 注册自身。
 
    {{< note >}}
    <!--
@@ -659,10 +659,6 @@ agents must run in a privileged security context. If a device monitoring agent i
 DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 {{< glossary_tooltip term_id="volume" >}} in the device monitoring agent's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
-
-Support for the `PodResourcesLister service` requires `KubeletPodResources`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
-It is enabled by default starting with Kubernetes 1.15 and is v1 since Kubernetes 1.20.
 -->
 gRPC 服务通过 `/var/lib/kubelet/pod-resources/kubelet.sock` 的 UNIX 套接字来提供服务。
 设备插件资源的监控代理程序可以部署为守护进程或者 DaemonSet。
@@ -673,6 +669,39 @@ gRPC 服务通过 `/var/lib/kubelet/pod-resources/kubelet.sock` 的 UNIX 套接�
 中声明将 `/var/lib/kubelet/pod-resources`
 目录以{{< glossary_tooltip text="卷" term_id="volume" >}}的形式被挂载到设备监控代理中。
 
+{{< note >}}
+
+<!--
+When accessing the `/var/lib/kubelet/pod-resources/kubelet.sock` from DaemonSet
+or any other app deployed as a container on the host, which is mounting socket as
+a volume, it is a good practice to mount directory `/var/lib/kubelet/pod-resources/`
+instead of the `/var/lib/kubelet/pod-resources/kubelet.sock`. This will ensure
+that after kubelet restart, container will be able to re-connect to this socket.
+-->
+在从 DaemonSet 或以容器形式部署在主机上的任何其他应用中访问
+`/var/lib/kubelet/pod-resources/kubelet.sock` 时，
+如果将套接字作为卷挂载，最好的做法是挂载目录 `/var/lib/kubelet/pod-resources/`
+而不是 `/var/lib/kubelet/pod-resources/kubelet.sock`。
+这样可以确保在 kubelet 重新启动后，容器将能够重新连接到此套接字。
+
+<!--
+Container mounts are managed by inode referencing the socket or directory,
+depending on what was mounted. When kubelet restarts, socket is deleted
+and a new socket is created, while directory stays untouched.
+So the original inode for the socket become unusable. Inode to directory
+will continue working.
+-->
+容器挂载是通过引用套接字或目录的 inode 进行管理的，具体取决于挂载的内容。
+当 kubelet 重新启动时，套接字会被删除并创建一个新的套接字，而目录则保持不变。
+因此，针对原始套接字的 inode 将变得无法使用，而到目录的 inode 将继续正常工作。
+
+{{< /note >}}
+
+<!--
+Support for the `PodResourcesLister service` requires `KubeletPodResources`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
+It is enabled by default starting with Kubernetes 1.15 and is v1 since Kubernetes 1.20.
+-->
 对 “PodResourcesLister 服务”的支持要求启用 `KubeletPodResources`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 从 Kubernetes 1.15 开始默认启用，自从 Kubernetes 1.20 开始为 v1。
