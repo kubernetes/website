@@ -21,7 +21,7 @@ cause.
 * Kubernetes cluster is installed.
 * `kubectl` is installed and configured to communicate with the cluster.
 
-## Verify kubectl Setup
+## Verify kubectl setup
 
 Make sure you have installed and configured kubectl correctly on your local machine.
 Check the kubectl version to ensure it is up-to-date and compatible with your cluster.
@@ -44,7 +44,7 @@ Server Version: version.Info{Major:"1", Minor:"27", GitVersion:"v1.27.3",GitComm
 If you see `Unable to connect to the server: dial tcp <server-ip>:8443: i/o timeout`,
 instead of `Server Version`, you need to troubleshoot kubectl connectivity with your cluster.
 
-## Verify Contexts
+## Verify contexts
 
 Kubernetes supports [multiple clusters and contexts](/docs/tasks/access-application-cluster/configure-access-multiple-clusters/).
 Ensure that you are using the correct context to interact with your cluster.
@@ -61,14 +61,14 @@ Switch to the appropriate context:
 kubectl config use-context <context-name>
 ```
 
-## Check VPN Connectivity
+## Check VPN connectivity
 
 If you are using a Virtual Private Network (VPN) to access your Kubernetes cluster,
 make sure that your VPN connection is active and stable. Sometimes, VPN disconnections
 can lead to connection issues with the cluster. Reconnect to the VPN and try accessing
 the cluster again.
 
-## API Server and Load Balancer
+## API server and load balancer
 
 The {{<glossary_tooltip text="kube-apiserver" term_id="kube-apiserver">}} server is the
 central component of a Kubernetes cluster. If the API server or the load balancer it uses
@@ -81,7 +81,7 @@ using a cloud provider for deploying the cluster, check your cloud provider's
 Verify the status of the load balancer (if used) to ensure it is healthy and forwarding
 traffic to the API server.
 
-## TLS Problems
+## TLS problems
 
 Transport Layer Security (TLS) is used to secure communication with the Kubernetes
 API server. TLS problems can occur due to various reasons, such as certificate expiry or
@@ -102,7 +102,7 @@ openssl x509 -in /path/to/ca-certificate.crt -noout -dates
 
 ```
 
-## Verify kubectl Helpers
+## Verify kubectl helpers
 
 Some kubectl authentication helpers provide easy access to Kubernetes clusters. If you
 have used such helpers and are facing connectivity issues, ensure that the necessary
