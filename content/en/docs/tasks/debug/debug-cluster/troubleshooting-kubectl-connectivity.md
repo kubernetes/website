@@ -70,15 +70,13 @@ the cluster again.
 
 ## API Server and Load Balancer
 
-The {{<glossary_tooltip text="kube-apiserver" term_id="kube-apiserver">}} server is the central component of a Kubernetes cluster. If the API server or
-the load balancer it uses is not reachable or not responding, you won't be able to
-interact with the cluster.
+The {{<glossary_tooltip text="kube-apiserver" term_id="kube-apiserver">}} server is the
+central component of a Kubernetes cluster. If the API server or the load balancer it uses
+is not reachable or not responding, you won't be able to interact with the cluster.
 
-Check the status of the Kubernetes API server:
-
-```shell
-kubectl cluster-info
-```
+Check the if the API server's host is reachable by using `ping` command. Or if your are
+using a cloud provider for deploying the cluster, check your cloud provider's
+`health check status` for the API server.
 
 Verify the status of the load balancer (if used) to ensure it is healthy and forwarding
 traffic to the API server.
