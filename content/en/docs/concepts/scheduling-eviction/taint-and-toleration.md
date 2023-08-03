@@ -87,7 +87,7 @@ An empty `effect` matches all effects with key `key1`.
 The above example used `effect` of `NoSchedule`. Alternatively, you can use `effect` of `PreferNoSchedule`.
 
 
-There are three types of taint `effects` 
+Allowed values for taint `effects` are:
 * `NoExecute`: This affects pods that are already
 running on the node as follows
     * pods that do not tolerate the taint are evicted immediately
