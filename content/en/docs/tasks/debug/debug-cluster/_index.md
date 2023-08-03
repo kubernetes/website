@@ -14,11 +14,10 @@ problem you are experiencing. See
 the [application troubleshooting guide](/docs/tasks/debug/debug-application/) for tips on application debugging.
 You may also visit the [troubleshooting overview document](/docs/tasks/debug/) for more information.
 
-{{% alert title="Note" %}}
-If you are looking for troubleshooting
-{{<glossary_tooltip text="kubectl" term_id="kubectl">}} click
-[here](/docs/tasks/debug/debug-cluster/troubleshoot-kubectl-connectivity/).
-{{% /alert %}}
+{{< note >}}
+For troubleshooting {{<glossary_tooltip text="kubectl" term_id="kubectl">}} refer
+[Troubleshooting kubectl Connectivity](/docs/tasks/debug/debug-cluster/troubleshooting-kubectl-connectivity/).
+{{< /note >}}
 
 <!-- body -->
 
