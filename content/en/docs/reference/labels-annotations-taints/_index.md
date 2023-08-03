@@ -1043,7 +1043,7 @@ Used on: Node
 
 The `volume.alpha.kubernetes.io/node-affinity` annotation is used to specify node affinity rules for a 
 PersistentVolume (PV) in Kubernetes. It allows you to restrict the scheduling of Pods that use the corresponding 
-PersistentVolume to specific nodes in the cluster, based on node labels.
+PersistentVolume to specific nodes in the cluster, based on [node labels](/docs/concepts/storage/persistent-volumes/#selector).
 
 Node affinity and [nodeSelector](https://github.com/kubernetes/website/blob/main/content/en/docs/reference/labels-annotations-taints/_index.md#scheduleralphakubernetesionode-selector-schedulerkubernetesnode-selector) are conceptually similar, both enabling you to restrict the scheduling 
 of your Pod to specific nodes in the cluster, based on node labels.
