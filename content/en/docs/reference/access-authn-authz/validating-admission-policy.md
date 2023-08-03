@@ -334,6 +334,8 @@ variables as well as some other useful variables:
 - 'request' - Attributes of the [admission request](/docs/reference/config-api/apiserver-admission.v1/#admission-k8s-io-v1-AdmissionRequest).
 - 'params' - Parameter resource referred to by the policy binding being evaluated. The value is
   null if `ParamKind` is unset.
+- `namespaceObject` - The namespace, as a Kubernetes resource, that the incoming object belongs.
+  The value is null if the incoming object is cluster-scoped.
 - `authorizer` - A CEL Authorizer. May be used to perform authorization checks for the principal
   (authenticated user) of the request. See
   [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz) in the Kubernetes CEL library
@@ -465,8 +467,8 @@ event and all other values will be ignored.
 
 To return a more friendly message when the policy rejects a request, we can use a CEL expression
 to composite a message with `spec.validations[i].messageExpression`. Similar to the validation expression,
-a message expression has access to `object`, `oldObject`, `request`, and `params`. Unlike validations,
-message expression must evaluate to a string.
+a message expression has access to `object`, `oldObject`, `request`, `params`, and `namespaceObject`.
+Unlike validations, message expression must evaluate to a string.
 
 For example, to better inform the user of the reason of denial when the policy refers to a parameter,
 we can have the following validation:
