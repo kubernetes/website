@@ -14,11 +14,12 @@ If you are unable to connect to your cluster using kubectl, this document descri
 several common scenarios and potential solutions to identify and address the likely
 cause.
 
-Before proceeding with the troubleshooting guide, please ensure that you have already
-[installed](/docs/tasks/tools/#kubectl) and set up kubectl on your local machine and
-have the appropriate permissions to access the Kubernetes cluster.
-
 <!-- body -->
+
+## {{% heading "prerequisites" %}}
+
+* Kubernetes cluster is installed.
+* `kubectl` is installed and configured to communicate with the cluster.
 
 ## Verify kubectl Setup
 
