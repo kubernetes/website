@@ -1041,9 +1041,15 @@ Example: `volume.alpha.kubernetes.io/node-affinity: "constrain-with-nodes"`
 
 Used on: Node
 
-Node affinity and [nodeSelector](https://github.com/kubernetes/website/blob/main/content/en/docs/reference/labels-annotations-taints/_index.md#scheduleralphakubernetesionode-selector-schedulerkubernetesnode-selector) are conceptually similar, both enabling you to restrict the scheduling of your Pod to specific nodes in the cluster, based on node labels.
+The `volume.alpha.kubernetes.io/node-affinity` annotation is used to specify node affinity rules for a 
+PersistentVolume (PV) in Kubernetes. It allows you to restrict the scheduling of Pods that use the corresponding 
+PersistentVolume to specific nodes in the cluster, based on node labels.
 
-For more details, see [node affinity](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#node-affinity) kubernets docs `#node-affinity`.
+Node affinity and [nodeSelector](https://github.com/kubernetes/website/blob/main/content/en/docs/reference/labels-annotations-taints/_index.md#scheduleralphakubernetesionode-selector-schedulerkubernetesnode-selector) are conceptually similar, both enabling you to restrict the scheduling 
+of your Pod to specific nodes in the cluster, based on node labels.
+
+For more details, see [node affinity](/docs/concepts/storage/persistent-volumes/#node-affinity)
+in the documentation about PersistentVolumes.
 
 ### batch.kubernetes.io/job-completion-index
 
