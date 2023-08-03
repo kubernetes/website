@@ -85,12 +85,21 @@ traffic to the API server.
 
 Transport Layer Security (TLS) is used to secure communication with the Kubernetes
 API server. TLS problems can occur due to various reasons, such as certificate expiry or
-chain-of-trust validity.
+chain of trust validity.
 
-Check if TLS certificates are valid:
+You can find the directory of TLS certificate in the `~/.kube/config`. The
+`certificate-authority` attribute contains the CA certificate and the `client-certificate`
+attribute contains the client certificate.
+
+Verify the expiry of these certificates:
 
 ```shell
-kubectl get secrets -n kube-system | grep 'kubernetes.io/tls'
+openssl x509 -in /path/to/client-certificate.crt -noout -dates
+```
+
+```shell
+openssl x509 -in /path/to/ca-certificate.crt -noout -dates
+
 ```
 
 ## Verify kubectl Helpers
