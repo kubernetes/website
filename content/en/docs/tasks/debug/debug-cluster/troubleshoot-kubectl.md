@@ -1,25 +1,25 @@
 ---
 reviewers:
 # Should be added by an experienced contributor
-title: "Troubleshooting kubectl Connectivity"
+title: "Troubleshooting kubectl"
 content_type: task
 weight: 10
 ---
 
 <!-- overview -->
 
-This documentation is about investigating and diagnosing connectivity issues between
-{{<glossary_tooltip text="kubectl" term_id="kubectl">}} and your Kubernetes cluster.
-If you are unable to connect to your cluster using kubectl, this document describes
-several common scenarios and potential solutions to identify and address the likely
-cause.
+This documentation is about investigating and diagnosing
+{{<glossary_tooltip text="kubectl" term_id="kubectl">}} related issues.
+If you are unable to access `kubectl` or unable to connect to your cluster using
+`kubectl`, this document describes several common scenarios and potential solutions
+to identify and address the likely cause.
 
 <!-- body -->
 
 ## {{% heading "prerequisites" %}}
 
 * Kubernetes cluster is installed.
-* `kubectl` is installed and configured to communicate with the cluster.
+* `kubectl` is installed.
 
 ## Verify kubectl setup
 

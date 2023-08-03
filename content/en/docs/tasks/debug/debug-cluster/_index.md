@@ -16,7 +16,7 @@ You may also visit the [troubleshooting overview document](/docs/tasks/debug/) f
 
 {{< note >}}
 For troubleshooting {{<glossary_tooltip text="kubectl" term_id="kubectl">}} refer
-[Troubleshooting kubectl Connectivity](/docs/tasks/debug/debug-cluster/troubleshooting-kubectl-connectivity/).
+[Troubleshooting kubectl](/docs/tasks/debug/debug-cluster/troubleshoot-kubectl/).
 {{< /note >}}
 
 <!-- body -->
