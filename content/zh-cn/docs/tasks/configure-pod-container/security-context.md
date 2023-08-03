@@ -108,7 +108,7 @@ Here is a configuration file for a Pod that has a `securityContext` and an `empt
 对象。你为 Pod 所设置的安全性配置会应用到 Pod 中所有 Container 上。
 下面是一个 Pod 的配置文件，该 Pod 定义了 `securityContext` 和一个 `emptyDir` 卷：
 
-{{% codenew file="pods/security/security-context.yaml" %}}
+{{% code file="pods/security/security-context.yaml" %}}
 
 <!--
 In the configuration file, the `runAsUser` field specifies that for any Containers in
@@ -371,7 +371,7 @@ Pod 层面设置的内容发生重叠时，会重写 Pod 层面的设置。Conta
 下面是一个 Pod 的配置文件，其中包含一个 Container。Pod 和 Container 都有
 `securityContext` 字段：
 
-{{% codenew file="pods/security/security-context-2.yaml" %}}
+{{% code file="pods/security/security-context-2.yaml" %}}
 
 <!--
 Create the Pod:
@@ -454,7 +454,7 @@ Here is configuration file that does not add or remove any Container capabilitie
 首先，看一下不包含 `capabilities` 字段时候会发生什么。
 下面是一个配置文件，其中没有添加或移除容器的权能：
 
-{{% codenew file="pods/security/security-context-3.yaml" %}}
+{{% code file="pods/security/security-context-3.yaml" %}}
 
 <!--
 Create the Pod:
@@ -546,7 +546,7 @@ adds the `CAP_NET_ADMIN` and `CAP_SYS_TIME` capabilities:
 下面是一个 Pod 的配置，其中运行一个容器。配置为容器添加 `CAP_NET_ADMIN` 和
 `CAP_SYS_TIME` 权能：
 
-{{% codenew file="pods/security/security-context-4.yaml" %}}
+{{% code file="pods/security/security-context-4.yaml" %}}
 
 <!--
 Create the Pod:
@@ -872,4 +872,3 @@ kubectl delete pod security-context-demo-4
 * [AllowPrivilegeEscalation 的设计文档（英文）](https://github.com/kubernetes/design-proposals-archive/blob/main/auth/no-new-privs.md)
 * 关于在 Linux 系统中的安全机制的更多信息，可参阅
   [Linux 内核安全性能力概述](https://www.linux.com/learn/overview-linux-kernel-security-features)（注意：部分信息已过时）。
-
