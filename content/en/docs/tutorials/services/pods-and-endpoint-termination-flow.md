@@ -36,42 +36,40 @@ document.
 Let's say you have a Deployment containing of a single `nginx` replica
 (just for demonstration purposes) and a Service:
 
-{{% code file="service/pod-with-graceful-termination.yaml" %}}
+{{< codenew file="service/pod-with-graceful-termination.yaml" >}} 
 
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nginx-deployment
-  labels:
-    app: nginx
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      terminationGracePeriodSeconds: 120 # extra long grace period
-      containers:
-      - name: nginx
-        image: nginx:latest
-        ports:
-        - containerPort: 80
-        lifecycle:
-          preStop:
-            exec:
-              # Real life termination may take any time up to terminationGracePeriodSeconds.
-              # In this example - just hang around for at least the duration of terminationGracePeriodSeconds,
-              # at 120 seconds container will be forcibly terminated.
-              # Note, all this time nginx will keep processing requests.
-              command: [
-                "/bin/sh", "-c", "sleep 180"
-              ]
-
+apiVersion: apps/v1 
+kind: Deployment 
+metadata: 
+  name: nginx-deployment 
+  labels: 
+    app: nginx 
+spec: 
+  replicas: 1 
+  selector: 
+    matchLabels: 
+      app: nginx 
+  template: 
+    metadata: 
+      labels: 
+        app: nginx 
+    spec: 
+      terminationGracePeriodSeconds: 120 # extra long grace period 
+      containers: 
+      - name: nginx 
+        image: nginx:latest 
+        ports: 
+        - containerPort: 80 
+        lifecycle: 
+          preStop: 
+            exec: 
+              # Real life termination may take any time up to terminationGracePeriodSeconds. 
+              # In this example - just hang around for at least the duration of terminationGracePeriodSeconds, 
+              # at 120 seconds container will be forcibly terminated. 
+              # Note, all this time nginx will keep processing requests. 
+              command: [ 
+                "/bin/sh", "-c", "sleep 180" 
+              ] 
 ---
 
 apiVersion: v1
@@ -217,4 +215,3 @@ When Pod is deleted, the old endpoint will also be deleted.
 * Learn more about [Using a Service to Access an Application in a Cluster](/docs/tasks/access-application-cluster/service-access-application-cluster/)
 * Learn more about [Connecting a Front End to a Back End Using a Service](/docs/tasks/access-application-cluster/connecting-frontend-backend/)
 * Learn more about [Creating an External Load Balancer](/docs/tasks/access-application-cluster/create-external-load-balancer/)
-
