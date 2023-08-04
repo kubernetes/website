@@ -153,7 +153,8 @@ For a reference to old feature gates that are removed, please refer to
 | `NodeInclusionPolicyInPodTopologySpread` | `false` | Alpha | 1.25 | 1.25 |
 | `NodeInclusionPolicyInPodTopologySpread` | `true` | Beta | 1.26 | |
 | `NodeLogQuery` | `false` | Alpha | 1.27 | |
-| `NodeSwap` | `false` | Alpha | 1.22 | |
+| `NodeSwap` | `false` | Alpha | 1.22 | 1.27 |
+| `NodeSwap` | `false` | Beta1 | 1.28 | |
 | `OpenAPIEnums` | `false` | Alpha | 1.23 | 1.23 |
 | `OpenAPIEnums` | `true` | Beta | 1.24 | |
 | `PDBUnhealthyPodEvictionPolicy` | `false` | Alpha | 1.26 | 1.26 |
