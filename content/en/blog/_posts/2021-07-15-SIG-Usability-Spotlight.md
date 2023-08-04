@@ -7,6 +7,12 @@ slug: sig-usability-spotlight-2021
 
 **Author:** Kunal Kushwaha, Civo
 
+_**Note: SIG Usability is Not active.**_
+_SIG Usability, which is featured in this Spotlight blog, has been deprecated and is no longer active.
+As a result, the links and information provided in this post may no longer be valid or relevant.
+Should there be renewed interest and increased participation in the future, the SIG may be revived. However, for the time being, it will be inactive as per the k8s/community policy.
+We encourage you to explore other SIGs and resources available on the Kubernetes website to stay up-to-date with the latest developments and enhancements in Kubernetes usability._
+
 ## Introduction
 
 Are you interested in learning about what [SIG Usability](https://github.com/kubernetes/community/tree/master/sig-usability) does and how you can get involved? Well, you're at the right place. SIG Usability is all about making Kubernetes more accessible to new folks, and its main activity is conducting user research for the community. In this blog, we have summarized our conversation with [Gaby Moreno](https://twitter.com/morengab), who walks us through the various aspects of being a part of the SIG and shares some insights about how others can get involved.
