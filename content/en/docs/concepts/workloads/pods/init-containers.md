@@ -269,8 +269,10 @@ is in the `Pending` state but should have a condition `Initialized` set to false
 If the Pod [restarts](#pod-restart-reasons), or is restarted, all init containers
 must execute again.
 
-Changes to the init container spec are limited to the container image field.
-Altering an init container image field is equivalent to restarting the Pod.
+Changes to the InitContainer spec are limited to the `image` field. 
+If you try to change any other field within `.spec.initContainers`, 
+the API server rejects the attempt. Altering the image field of a InitContainer
+will trigger a restart of the Pod.
 
 Because init containers can be restarted, retried, or re-executed, init container
 code should be idempotent. In particular, code that writes to files on `EmptyDirs`
@@ -324,9 +326,10 @@ reasons:
   forcing a restart, and the init container completion record has been lost due
   to {{< glossary_tooltip text="garbage collection" term_id="garbage-collection" >}}.
 
-The Pod will not be restarted when the init container image is changed, or the
-init container completion record has been lost due to garbage collection. This
-applies for Kubernetes v1.20 and later. If you are using an earlier version of
+The Pod will _not_ be restarted when the InitContainer {{<glossary_tooltip term_id="image" >}} 
+is changed, 
+or the init container completion record has been lost due to garbage collection. 
+This applies for Kubernetes v1.20 and later. If you are using an earlier version of 
 Kubernetes, consult the documentation for the version you are using.
 
 ## {{% heading "whatsnext" %}}
