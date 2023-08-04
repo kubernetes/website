@@ -2,7 +2,9 @@
 title: Node Status
 weight: 80
 ---
+<!-- overview -->
 
+The status of a [node](/docs/concepts/architecture/nodes/)  in Kubernetes a critical aspect of managing a Kubernetes cluster. In this article, we'll cover the basics of monitoring and maintaining node status to ensure a healthy and stable cluster
 
 ## Node status fields
 
