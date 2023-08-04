@@ -176,6 +176,19 @@ kubectl describe node <insert-node-name-here>
 
 See [Node Status](/docs/concepts/node/node-status) for more details
 
+## Node heartbeats
+
+Heartbeats, sent by Kubernetes nodes, help your cluster determine the
+availability of each node, and to take action when failures are detected.
+
+For nodes there are two forms of heartbeats:
+
+* Updates to the [`.status`](/docs/concepts/node/node-status/) of a Node
+* [Lease](/docs/concepts/architecture/leases/) objects
+  within the `kube-node-lease`
+  {{< glossary_tooltip term_id="namespace" text="namespace">}}.
+  Each Node has an associated Lease object.
+
 ## Node controller
 
 The node {{< glossary_tooltip text="controller" term_id="controller" >}} is a
