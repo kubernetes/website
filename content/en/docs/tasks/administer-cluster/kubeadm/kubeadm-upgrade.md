@@ -52,6 +52,13 @@ The upgrade workflow at high level is the following:
 
 <!-- steps -->
 
+## Changing the package repository
+
+If you're using the Kubernetes community-owned repositories, you need to change
+the package repository to one that contains packages for your desired Kubernetes
+minor version. This is explained in [Changing the Kubernetes package repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)
+document.
+
 ## Determine which version to upgrade to
 
 Find the latest patch release for Kubernetes {{< skew currentVersion >}} using the OS package manager:
