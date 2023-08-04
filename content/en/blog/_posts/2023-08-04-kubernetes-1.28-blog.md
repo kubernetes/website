@@ -35,7 +35,7 @@ This KEP proposes that an inline expression language be integrated directly into
 
 It is sufficiently lightweight and safe to be run directly in the kube-apiserver (since CRD creation is a privileged operation), has a straight-forward and unsurprising grammar, and supports pre-parsing and type checking of expressions, allowing syntax and type errors to be caught at CRD registration time.
 
-## Common Expression Language For Admission Control
+## ValidatingAdmissionPolicies graduate to beta
     
 Common Expression language for admission control is customizable, in-process validation of requests to the Kubernetes API server as an alternative to validating admission webhooks.
 
