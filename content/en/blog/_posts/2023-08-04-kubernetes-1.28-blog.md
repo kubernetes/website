@@ -25,7 +25,7 @@ Special thanks to [someone](https://www.some-link) for creating the logo.
 
 # What's New (Major Themes)
     
-## CRD Validation Rules
+## Improvements to CustomResourceDefinition validation expressions 
 
 This [Common Expression Language (CEL)](https://github.com/google/cel-go) can be used to validate custom resources. The primary goal is to allow the majority of the validation use cases that currently must be handled by a webhook, to instead be handled by adding inline validation expressions directly into the schema of a CRD.
     
