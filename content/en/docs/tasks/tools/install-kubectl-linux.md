@@ -22,9 +22,9 @@ Using the latest compatible version of kubectl helps avoid unforeseen issues.
 
 The following methods exist for installing kubectl on Linux:
 
- - [Install kubectl binary with curl on Linux](#install-kubectl-binary-with-curl-on-linux)
- - [Install using native package management](#install-using-native-package-management)
- - [Install using other package management](#install-using-other-package-management)
+- [Install kubectl binary with curl on Linux](#install-kubectl-binary-with-curl-on-linux)
+- [Install using native package management](#install-using-native-package-management)
+- [Install using other package management](#install-using-other-package-management)
 
 ### Install kubectl binary with curl on Linux
 
@@ -145,6 +145,7 @@ The following methods exist for installing kubectl on Linux:
 
    ```shell
    sudo apt-get update
+   # apt-transport-https may be a dummy package; if so, you can skip that package
    sudo apt-get install -y apt-transport-https ca-certificates curl
    ```
 
@@ -158,11 +159,12 @@ The following methods exist for installing kubectl on Linux:
    replace {{< param "version" >}} with the desired minor version in the command below:
 
    ```shell
+   # This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list
    echo 'deb https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
    {{< note >}}
-   If you desire to upgrade kubectl to another minor release at some point, you'll need to change version in `/etc/apt/sources.list.d/kubernetes.list` before running `apt-get update` and `apt-get upgrade`. This procedure is described in [Changing the Kubernetes package repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/) document.
+   To upgrade kubectl to another minor release at some point, you'll need to bump the version in `/etc/apt/sources.list.d/kubernetes.list` before running `apt-get update` and `apt-get upgrade`. This procedure is described in more detail in [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
    {{< /note >}}
 
 4. Update `apt` package index, then install kubectl:
@@ -180,9 +182,15 @@ In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not 
 
 {{% tab name="Red Hat-based distributions" %}}
 
-1. Add the Kubernetes `yum` repository. If you want to use Kubernetes version different than {{< param "version" >}}, replace {{< param "version" >}} with the desired minor version in the command below:
+1. Add the Kubernetes `yum` repository. If you want to use Kubernetes version
+   different than {{< param "version" >}}, replace {{< param "version" >}} with
+   the desired minor version in the command below. The `exclude` parameter in the
+   repository definition ensures that the packages related to Kubernetes are
+   not upgraded upon running `yum update` as there's a special procedure that
+   must be followed for upgrading Kubernetes.
 
 ```bash
+# This overwrites any existing configuration in /etc/yum.repos.d/kubernetes.repo
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
@@ -195,10 +203,10 @@ EOF
 ```
 
 {{< note >}}
-If you desire to upgrade kubectl to another minor release at some point, you'll need to change version in `/etc/yum.repos.d/kubernetes.repo` before running `yum update`. This procedure is described in [Changing the Kubernetes package repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/) document.
+To upgrade kubectl to another minor release at some point, you'll need to bump the version in `/etc/yum.repos.d/kubernetes.repo` before running `yum update`. This procedure is described in more detail in [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
 {{< /note >}}
 
-2. Install kubectl using `yum`:
+1. Install kubectl using `yum`:
 
 ```bash
 sudo yum install -y kubectl
