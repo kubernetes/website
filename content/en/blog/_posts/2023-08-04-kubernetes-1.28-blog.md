@@ -255,6 +255,7 @@ Special thanks to our Release Lead, Grace Nguyen, for guiding us through a smoot
 
 ## Ecosystem Updates
 
+* KubeCon + CloudNativeCon China 2023 will take place in Shanghai, China, from 26 – 28 September 2023! You can find more information about the conference and registration on the [event site](https://www.lfasiallc.com/kubecon-cloudnativecon-open-source-summit-china/).
 * KubeCon + CloudNativeCon North America 2023 will take place in Chicago, Illinois, The United States of America, from 6 – 9 November 2023! You can find more information about the conference and registration on the [event site](https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/).
 
 ## Project Velocity
