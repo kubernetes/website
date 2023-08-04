@@ -86,8 +86,10 @@ Kubernetes has introduced a new concept called ephemeral containers to deal with
 
 Now that we have the new feature we can start a ephemeral container in any Pod we like  
 
+```shell
 kubectl run ephemeral-demo --image=k8s.gcr.io/pause:3.1 --restart=Never
 kubectl debug -it ephemeral-demo --image=busybox:1.28
+```
 
 We get a shell and life is now much simpler, but wait a minute. This post is not about how to use ephemeral containers, there are enough of those already, but rather the security implications of enabling ephemeral containers. Let's have a look at the YAML for the Pod that we created the ephemeral container in.
 
