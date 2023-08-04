@@ -88,17 +88,17 @@ The above example used `effect` of `NoSchedule`. Alternatively, you can use `eff
 
 
 Allowed values for taint `effects` are:
-### `NoExecute`
-This affects pods that are already running on the node as follows
+`NoExecute`
+: This affects pods that are already running on the node as follows
     * pods that do not tolerate the taint are evicted immediately
     * pods that tolerate the taint without specifying `tolerationSeconds` in
    their toleration specification remain bound forever
     * pods that tolerate the taint with a specified `tolerationSeconds` remain
    bound for the specified amount of time
-### `NoSchedule`
-No new pods will be scheduled on the node unless they have the matching toleration. Pods that are currently running on the node are not evicted.
-### `PreferNoSchedule`
-This is a "preference" or "soft" version of `NoSchedule`. The system will *try* to avoid placing a
+`NoSchedule`
+: No new pods will be scheduled on the node unless they have the matching toleration. Pods that are currently running on the node are not evicted.
+`PreferNoSchedule`
+: This is a "preference" or "soft" version of `NoSchedule`. The system will *try* to avoid placing a
 pod that does not tolerate the taint on the node, but it is not required. 
 
 All the taint effects are enforced by Kubernetes scheduler except for `NoExecute` which is enforced by NodeController.
