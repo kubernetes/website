@@ -253,7 +253,7 @@ To wrap up, let's look at what happens if we try to specify a profile that hasn'
 
 
 
-```yaml
+```shell
 kubectl create -f /dev/stdin <<EOF
 apiVersion: v1
 kind: Pod
