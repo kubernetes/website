@@ -22,9 +22,9 @@ Using the latest compatible version of kubectl helps avoid unforeseen issues.
 
 The following methods exist for installing kubectl on Linux:
 
-- [Install kubectl binary with curl on Linux](#install-kubectl-binary-with-curl-on-linux)
-- [Install using native package management](#install-using-native-package-management)
-- [Install using other package management](#install-using-other-package-management)
+ - [Install kubectl binary with curl on Linux](#install-kubectl-binary-with-curl-on-linux)
+ - [Install using native package management](#install-using-native-package-management)
+ - [Install using other package management](#install-using-other-package-management)
 
 ### Install kubectl binary with curl on Linux
 
@@ -145,28 +145,27 @@ The following methods exist for installing kubectl on Linux:
 
    ```shell
    sudo apt-get update
-   sudo apt-get install -y ca-certificates curl
+   sudo apt-get install -y apt-transport-https ca-certificates curl
    ```
 
-   If you use Debian 9 (stretch) or earlier you would also need to install `apt-transport-https`:
+2. Download the public signing key for the Kubernetes package repositories. The same signing key is used for all repositories so you can disregard the version in the URL:
 
    ```shell
-   sudo apt-get install -y apt-transport-https
+   curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
-2. Download the Google Cloud public signing key:
+3. Add the appropriate Kubernetes `apt` repository. If you want to use Kubernetes version different than {{< param "version" >}},
+   replace {{< param "version" >}} with the desired minor version in the command below:
 
    ```shell
-   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
+   echo 'deb https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
-3. Add the Kubernetes `apt` repository:
+   {{< note >}}
+   If you desire to upgrade kubectl to another minor release at some point, you'll need to change version in `/etc/apt/sources.list.d/kubernetes.list` before running `apt-get update` and `apt-get upgrade`. This procedure is described in [Changing the Kubernetes package repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/) document.
+   {{< /note >}}
 
-   ```shell
-   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-   ```
-
-4. Update `apt` package index with the new repository and install kubectl:
+4. Update `apt` package index, then install kubectl:
 
    ```shell
    sudo apt-get update
@@ -180,15 +179,28 @@ In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not 
 {{% /tab %}}
 
 {{% tab name="Red Hat-based distributions" %}}
+
+1. Add the Kubernetes `yum` repository. If you want to use Kubernetes version different than {{< param "version" >}}, replace {{< param "version" >}} with the desired minor version in the command below:
+
 ```bash
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
+baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
 enabled=1
 gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
+exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
 EOF
+```
+
+{{< note >}}
+If you desire to upgrade kubectl to another minor release at some point, you'll need to change version in `/etc/yum.repos.d/kubernetes.repo` before running `yum update`. This procedure is described in [Changing the Kubernetes package repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/) document.
+{{< /note >}}
+
+2. Install kubectl using `yum`:
+
+```bash
 sudo yum install -y kubectl
 ```
 
