@@ -251,9 +251,10 @@ error: error executing remote command: command terminated with non-zero exit cod
 To wrap up, let's look at what happens if we try to specify a profile that hasn't been loaded:
 
 ```shell
-kubectl create -f /dev/stdin <<EOF
+
 ```
 ```yaml
+kubectl create -f /dev/stdin <<EOF
 apiVersion: v1
 kind: Pod
 metadata:
