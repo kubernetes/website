@@ -12,15 +12,14 @@ repositories, the Kubernetes package repositories are structured in a way that
 there's a dedicated package repository for each Kubernetes minor version.
 
 For more information about the Kubernetes community-owned package repositories,
-see the ["pkgs.k8s.io: Introducing Kubernetes community-owned package repositories"](/2023/08/15/pkgs-k8s-io-introduction/)
-blog post.
+see ["pkgs.k8s.io: Introducing Kubernetes community-owned package repositories"](/2023/08/15/pkgs-k8s-io-introduction/).
 
 ## {{% heading "prerequisites" %}}
 
 This document assumes that you're already using the Kubernetes community-owned
 package repositories. If that's not the case, it's strongly recommend to migrate
-from the Google-hosted repository to the Kubernetes package repositories
-as described in [the blog post](TBD).
+to the Kubernetes package repositories as described in
+["pkgs.k8s.io: Introducing Kubernetes community-owned package repositories"](/2023/08/15/pkgs-k8s-io-introduction/).
 
 ### Verifying if the Kubernetes package repositories are used
 
@@ -40,7 +39,7 @@ pager /etc/apt/sources.list.d/kubernetes.list
 If you see a line similar to:
 
 ```
-deb https://pkgs.k8s.io/core:/stable:/v{{< skew currentVersionAddMinor -1 "." >}}/deb/ /
+deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v{{< skew currentVersionAddMinor -1 "." >}}/deb/ /
 ```
 
 **You're using the Kubernetes package repositories and this guide applies to you.**
@@ -108,13 +107,13 @@ minor version. For example, if you're using v{{< skew currentVersionAddMinor -1 
 you should see this:
 
 ```
-deb https://pkgs.k8s.io/core:/stable:/v{{< skew currentVersionAddMinor -1 "." >}}/deb/ /
+deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v{{< skew currentVersionAddMinor -1 "." >}}/deb/ /
 ```
 
 2. Change the version in the URL to **the next available minor release**, for example:
 
 ```
-deb https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /
+deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /
 ```
 
 3. Save the file and exit your text editor. Continue following the relevant upgrade instructions.
