@@ -43,7 +43,7 @@ This builds on the capabilities of the CRD Validation Rules feature that graduat
     
 This will lower the infrastructure barrier to enforcing customizable policies as well as providing primitives that help the community establish and adhere to the best practices of both K8s and its extensions.
         
-## Admission Webhook Match Conditions
+## Match conditions for admission webhooks
     
 Introduce CEL expression filters to webhooks, to allow webhooks to be scoped more narrowly.
 
