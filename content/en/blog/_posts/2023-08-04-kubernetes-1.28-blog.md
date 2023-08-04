@@ -86,7 +86,8 @@ The field restartPolicy will only be accepted on init containers. The only suppo
 
 Other values for restartPolicy of containers will not be accepted and containers will follow the logic currently implemented.
 
-Sidecar containers will not block Pod completion - if all regular containers are complete, sidecar containers will be terminated.
+Sidecar containers do not block Pod completion: if all regular containers are complete, sidecar
+containers in that Pod will be terminated.
 
 During the sidecar startup stage, the restart behavior will be similar to init containers. If the Pod restartPolicy is Never, the sidecar container that failed during startup will NOT be restarted and the whole Pod will fail. If the Pod restartPolicy is Always or OnFailure, it will be restarted.
 
