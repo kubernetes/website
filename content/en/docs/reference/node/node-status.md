@@ -4,7 +4,7 @@ weight: 80
 ---
 
 
-## Node status
+## Node status fields
 
 A Node's status contains the following information:
 
