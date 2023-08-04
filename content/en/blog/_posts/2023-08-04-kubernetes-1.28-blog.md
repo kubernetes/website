@@ -82,9 +82,8 @@ This introduces a restartPolicy field to init containers and uses it to indicate
 
 The condition for startup completion will be that the startup probe succeeded (or if no startup probe is defined) and postStart handler is completed. This condition is represented with the field Started of ContainerStatus type. See the section "Pod startup completed condition" for considerations on picking this signal.
 
-The field restartPolicy will only be accepted on init containers. The only supported value now is Always. No other values will be defined. Moreover, the field will be nullable so the default value will be "no value".
-
-Other values for restartPolicy of containers will not be accepted and containers will follow the logic currently implemented.
+For init containers, you can either omit the `restartPolicy` field, or set it to `Always`. Omitting the field
+means that you want a true init container that runs to completion before application startup.
 
 Sidecar containers do not block Pod completion: if all regular containers are complete, sidecar
 containers in that Pod will be terminated.
