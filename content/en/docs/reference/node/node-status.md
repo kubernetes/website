@@ -21,7 +21,7 @@ kubectl describe node <insert-node-name-here>
 
 Each section of the output is described below.
 
-### Addresses
+## Addresses
 
 The usage of these fields varies depending on your cloud provider or bare metal configuration.
 
@@ -32,7 +32,7 @@ The usage of these fields varies depending on your cloud provider or bare metal 
 * InternalIP: Typically the IP address of the node that is routable only within the cluster.
 
 
-### Conditions {#condition}
+## Conditions {#condition}
 
 The `conditions` field describes the status of all `Running` nodes. Examples of conditions include:
 
@@ -84,7 +84,7 @@ See [Taint Based Evictions](/docs/concepts/scheduling-eviction/taint-and-tolerat
 [Taint Nodes by Condition](/docs/concepts/scheduling-eviction/taint-and-toleration/#taint-nodes-by-condition)
 for more details.
 
-### Capacity and Allocatable {#capacity}
+## Capacity and Allocatable {#capacity}
 
 Describes the resources available on the node: CPU, memory, and the maximum
 number of pods that can be scheduled onto the node.
@@ -97,7 +97,7 @@ You may read more about capacity and allocatable resources while learning how
 to [reserve compute resources](/docs/tasks/administer-cluster/reserve-compute-resources/#node-allocatable)
 on a Node.
 
-### Info
+## Info
 
 Describes general information about the node, such as kernel version, Kubernetes
 version (kubelet and kube-proxy version), container runtime details, and which
