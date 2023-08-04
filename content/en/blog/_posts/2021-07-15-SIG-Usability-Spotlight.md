@@ -10,7 +10,7 @@ slug: sig-usability-spotlight-2021
 _**Note: SIG Usability is Not active.**_
 _SIG Usability, which is featured in this Spotlight blog, has been deprecated and is no longer active.
 As a result, the links and information provided in this post may no longer be valid or relevant.
-Should there be renewed interest and increased participation in the future, the SIG may be revived. However, for the time being, it will be inactive as per the k8s/community policy.
+Should there be renewed interest and increased participation in the future, the SIG may be revived. However, for the time being, it will be inactive as per the Kubernetes community policy.
 We encourage you to explore other SIGs and resources available on the Kubernetes website to stay up-to-date with the latest developments and enhancements in Kubernetes usability._
 
 ## Introduction
