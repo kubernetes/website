@@ -126,6 +126,7 @@ Pod Security Policies used to be the default policy tool for Kubernetes, and a l
 
 If PSP is your only policy tool and you are planning to upgrade to v1.23, don't. As PSP is deprecated no new features have been added, and that includes policy enforcement on ephemeral containers. Which means that any security context in an ephemeral container is allowed no matter the PSP in the cluster. The PSP below will have no affect when adding an ephemeral container to a Pod which is privileged.  
    
+```yaml
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
