@@ -271,9 +271,7 @@ Renders to:
 {{< tab name="JSON File" include="podtemplate.json" />}}
 {{< /tabs >}}
 
-### Source code files
-
-`{{%/* codenew */%}}` shortcode is replaced by `{{%/* code */%}}`.
+## Source code files
 
 You can use the `{{%/* code */%}}` shortcode to embed the contents of file in a code block to allow users to download or copy its content to their clipboard. This shortcode is used when the contents of the sample file is generic and reusable, and you want the users to try it out themselves.
 
@@ -299,6 +297,9 @@ where `<RELATIVE-PATH>` is the path to the sample file to include, relative to t
 ```none
 {{%/* code file="configmap/configmaps.yaml" */%}}
 ```
+
+The legacy `{{%/* codenew */%}}` shortcode is being replaced by `{{%/* code */%}}`.
+Use `{{%/* code */%}}` in new documentation.
 
 ## Third party content marker
 
