@@ -12,7 +12,7 @@ repositories, the Kubernetes package repositories are structured in a way that
 there's a dedicated package repository for each Kubernetes minor version.
 
 For more information about the Kubernetes community-owned package repositories,
-see the ["pkgs.k8s.io: Introducing Kubernetes community-owned package repositories"](TBD)
+see the ["pkgs.k8s.io: Introducing Kubernetes community-owned package repositories"](/2023/08/15/pkgs-k8s-io-introduction/)
 blog post.
 
 ## {{% heading "prerequisites" %}}
@@ -45,7 +45,7 @@ deb https://pkgs.k8s.io/core:/stable:/v{{< skew currentVersionAddMinor -1 "." >}
 
 **You're using the Kubernetes package repositories and this guide applies to you.**
 Otherwise, it's strongly recommend to migrate to the Kubernetes package repositories
-as described in [the blog post](TBD).
+as described in ["pkgs.k8s.io: Introducing Kubernetes community-owned package repositories"](/2023/08/15/pkgs-k8s-io-introduction/).
 
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
@@ -71,7 +71,7 @@ exclude=kubelet kubeadm kubectl
 
 **You're using the Kubernetes package repositories and this guide applies to you.**
 Otherwise, it's strongly recommend to migrate to the Kubernetes package repositories
-as described in [the blog post](TBD).
+as described in ["pkgs.k8s.io: Introducing Kubernetes community-owned package repositories"](/2023/08/15/pkgs-k8s-io-introduction/).
 
 {{% /tab %}}
 {{< /tabs >}}
