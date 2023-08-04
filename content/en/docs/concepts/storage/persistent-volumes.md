@@ -768,6 +768,20 @@ A volume will be in one of the following phases:
 
 The CLI will show the name of the PVC bound to the PV.
 
+#### Phase transition timestamp
+
+{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+
+Persistent volume status contains `lastPhaseTransitionTime` field which holds
+a timestamp of when the volume last transitioned its phase. For newly created
+volumes the phase is set to "Pending" and `lastPhaseTransitionTime` is set to
+current time.
+
+{{< note >}}
+You need to enable the `PersistentVolumeLastPhaseTransitionTime` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+to see `lastPhaseTransitionTime` field.
+{{< /note >}}
+
 ## PersistentVolumeClaims
 
 Each PVC contains a spec and status, which is the specification and status of the claim.
