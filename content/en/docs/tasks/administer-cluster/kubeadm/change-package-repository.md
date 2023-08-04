@@ -1,17 +1,15 @@
 ---
-title: Changing the Kubernetes package repository
-min-kubernetes-server-version: 1.24
+title: Changing The Kubernetes Package Repository
 content_type: task
 weight: 120
 ---
 
 <!-- overview -->
 
-This page explains how to switch from one to another Kubernetes package repository
-upon upgrading from one to another Kubernetes minor release. Unlike Google-hosted
-repositories, the Kubernetes community-owned package repositories are structured
-in a way that there's a dedicated package repository for each Kubernetes minor version.
-
+This page explains how to switch from one Kubernetes package repository to another
+when upgrading Kubernetes minor releases. Unlike deprecated Google-hosted
+repositories, the Kubernetes package repositories are structured in a way that
+there's a dedicated package repository for each Kubernetes minor version.
 
 For more information about the Kubernetes community-owned package repositories,
 see the ["pkgs.k8s.io: Introducing Kubernetes community-owned package repositories"](TBD)
@@ -24,26 +22,22 @@ package repositories. If that's not the case, it's strongly recommend to migrate
 from the Google-hosted repository to the Kubernetes package repositories
 as described in [the blog post](TBD).
 
+### Verifying if the Kubernetes package repositories are used
+
 If you're unsure if you're using the Kubernetes package repositories or the
-Google-hosted repository, the first step of this document explains how to check
-what repository is in use.
-
-<!-- steps -->
-
-## Verifying if the Kubernetes package repositories are used
-
-The purpose of this step is to verify if you're using the Kubernetes package repositories.
+Google-hosted repository, take the following steps to verify:
 
 {{< tabs name="k8s_install_versions" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}
 
-Print contents of the file that defines the Kubernetes `apt` repository:
+Print the contents of the file that defines the Kubernetes `apt` repository:
 
 ```shell
-cat /etc/apt/sources.list.d/kubernetes.list
+# On your system, this configuration file could have a different name
+pager /etc/apt/sources.list.d/kubernetes.list
 ```
 
-If you see the URL similar to:
+If you see a line similar to:
 
 ```
 deb https://pkgs.k8s.io/core:/stable:/v{{< skew currentVersionAddMinor -1 "." >}}/deb/ /
@@ -56,9 +50,10 @@ as described in [the blog post](TBD).
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
 
-Print contents of the file that defines the Kubernetes `yum` repository:
+Print the contents of the file that defines the Kubernetes `yum` repository:
 
 ```shell
+# On your system, this configuration file could have a different name
 cat /etc/yum.repos.d/kubernetes.repo
 ```
 
@@ -91,10 +86,12 @@ it can also be one of:
 - `packages.kubernetes.io`
 {{</ note >}}
 
+<!-- steps -->
+
 ## Switching to another Kubernetes package repository
 
 This step should be done upon upgrading from one to another Kubernetes minor
-release in order to get access to packages for the desired Kubernetes minor
+release in order to get access to the packages of the desired Kubernetes minor
 version.
 
 {{< tabs name="k8s_install_versions" >}}
@@ -120,7 +117,7 @@ deb https://pkgs.k8s.io/core:/stable:/v{{< skew currentVersionAddMinor -1 "." >}
 deb https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /
 ```
 
-3. Save the file and exit your text editor. Proceed with following the relevant upgrade guidelines.
+3. Save the file and exit your text editor. Continue following the relevant upgrade instructions.
 
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
@@ -157,7 +154,7 @@ gpgkey=https://pkgs.k8s.io/core:/stable:/v{{< param "version" >}}/rpm/repodata/r
 exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
 ```
 
-3. Save the file and exit your text editor. Proceed with following the relevant upgrade guidelines.
+3. Save the file and exit your text editor. Continue following the relevant upgrade instructions.
 
 {{% /tab %}}
 {{< /tabs >}}
