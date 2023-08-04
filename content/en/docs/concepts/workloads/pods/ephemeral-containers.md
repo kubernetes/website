@@ -156,6 +156,7 @@ Write or use a third-party admission controller to allow or reject Pod updates t
 Disable the feature using the EphemeralContainers feature gate.
 RBAC is additive which means that it is not possible to remove permissions from a role. This type of mitigation obviously does not matter if all users a cluster admin, which they should not be, so we assume that new roles are created for the cluster consumers. In this case having a look at the existing roles can be enough to make sure that the subresource /ephemeralcontainers is not included in the role.
 
+```yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -171,10 +172,10 @@ metadata:
                 - pods/proxy
                   verbs:
                     - create
-                      - delete
-                        - deletecollection
-                          - patch
-                            - update
+                    - delete
+                    - deletecollection
+                    - patch
+                    - update
 
 ## Checking Policy Enforcement
 
