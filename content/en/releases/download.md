@@ -5,7 +5,7 @@ type: docs
 
 Kubernetes ships binaries for each component as well as a standard set of client
 applications to bootstrap or interact with a cluster. Components like the
-API server are capable of running within container images inside of a
+API servers are capable of running within container images inside a
 cluster. Those components are also shipped in container images as part of the
 official release process. All binaries as well as container images are available
 for multiple operating systems as well as hardware architectures.
@@ -40,11 +40,11 @@ The Kubernetes project publishes a list of signed Kubernetes container images
 in [SPDX 2.3](https://spdx.dev/specifications/) format.
 You can fetch that list using:
 
-```shell
+``` shell
 curl -Ls "https://sbom.k8s.io/$(curl -Ls https://dl.k8s.io/release/stable.txt)/release" | grep "SPDXID: SPDXRef-Package-registry.k8s.io" |  grep -v sha256 | cut -d- -f3- | sed 's/-/\//' | sed 's/-v1/:v1/'
 ```
 For Kubernetes v{{< skew currentVersion >}}, the only kind of code artifact that
-you can verify integrity for is a container image, using the experimental
+you can verify the integrity for is a container image, using the experimental
 signing support.
 
 To manually verify signed container images of Kubernetes core components, refer to
@@ -69,7 +69,7 @@ You can use kubectl to deploy applications, inspect and manage cluster resources
 and view logs. For more information including a complete list of kubectl operations, see the
 [`kubectl` reference documentation](/docs/reference/kubectl/).
 
-kubectl is installable on a variety of Linux platforms, macOS and Windows.
+kubectl is installable on a variety of Linux platforms, macOS, and Windows.
 Find your preferred operating system below.
 
 - [Install kubectl on Linux](/docs/tasks/tools/install-kubectl-linux)
