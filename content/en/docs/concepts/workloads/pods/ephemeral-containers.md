@@ -98,16 +98,16 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: ephemeral-demo
-  spec:
-    ...
-      ephemeralContainers:
-        - name: debugger-r59b7
-            image: busybox:1.28
-                imagePullPolicy: IfNotPresent
-                    stdin: true
-                        terminationMessagePath: /dev/termination-log
-                            terminationMessagePolicy: File
-                                tty: true
+spec:
+  ...
+  ephemeralContainers:
+  - name: debugger-r59b7
+    image: busybox:1.28
+    imagePullPolicy: IfNotPresent
+    stdin: true
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    tty: true
 ```
                             
 Interesting, there is a new field called ephemeralContainers in the Pod definition. This new field contains a list of containers similar to initContainers and containers. It is not identical as there are certain options which are not available, refer to the API documentation for more information. It does however allow configuration of the container security context, which could in theory allow a bad actor to escalate the container's privileges. This should not affect those of us who use a policy enforcement tool right? The answer is yes and no depending on the tool and version that is being used. It also depends on if you are using policies from the project's library or policies developed in house.
