@@ -363,12 +363,8 @@ $table-caption: "This is the list of STABLE metrics emitted from core Kubernetes
 @mixin key-value-pair {
   td {
     padding: 5px 10px;
-    font-weight: bold;
     text-align: left;
     width: 100%;
-    &:nth-child(odd) {
-      font-style: italic;
-    }
   }
 }
 
@@ -376,17 +372,23 @@ $table-caption: "This is the list of STABLE metrics emitted from core Kubernetes
 table.metrics {
   border-collapse: collapse;
   width: 100%;
-  margin-top: 20px;
   caption {
     font-size: 1.2em;
     font-weight: bold;
     padding-bottom: 10px;
   }
   thead {
+    border: 1px solid $medium-grey;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin-bottom: 1rem;
+
     tr{
+      display: contents;
       th{
         display: block;
-        width: 100%;
+        white-space: nowrap;
       }
     }
   }
@@ -395,10 +397,23 @@ table.metrics {
       td {
         @include key-value-pair;
         display: block;
-        margin-bottom: 10px;
+        margin-bottom: 1rem;
+        min-width: 2rem;
       }
       td.metric_name {
         font-weight: 700;
+      }
+      td.metric_labels_varying{
+        div {
+        position: relative;
+        padding-left: 1em;
+
+        &::before{
+          content: '-';
+          position: absolute;
+          left:0;
+        }
+        }
       }
     }
   }
