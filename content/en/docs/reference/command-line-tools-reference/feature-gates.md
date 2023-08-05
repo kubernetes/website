@@ -124,6 +124,7 @@ For a reference to old feature gates that are removed, please refer to
 | `JobReadyPods` | `true` | Beta | 1.24 | |
 | `KMSv2` | `false` | Alpha | 1.25 | 1.26 |
 | `KMSv2` | `true` | Beta | 1.27 | |
+| `KubeletCgroupDriverFromCRI` | `false` | Alpha | 1.28 | |
 | `KubeletInUserNamespace` | `false` | Alpha | 1.22 | |
 | `KubeletPodResourcesDynamicResources` | `false` | Alpha | 1.27 | |
 | `KubeletPodResourcesGet` | `false` | Alpha | 1.27 | |
@@ -573,6 +574,17 @@ Each feature gate is designed for enabling/disabling a specific feature:
   The Job controller uses Pod finalizers and a field in the Job status to keep
   track of the finished Pods to count towards completion.
 - `KMSv2`: Enables KMS v2 API for encryption at rest. See [Using a KMS Provider for data encryption](/docs/tasks/administer-cluster/kms-provider) for more details.
+- `KubeletCgroupDriverFromCRI`: Enable detection of the kubelet cgroup driver
+  configuration option from the {{<glossary_tooltip term_id="cri" text="CRI">}}.
+  You can use this feature gate on nodes with a kubelet that supports the feature gate
+  and where there is a CRI container runtime that supports the `RuntimeConfig`
+  CRI call. If both CRI and kubelet support this feature, the kubelet ignores the
+  `cgroupDriver` configuration setting (or deprecated `--cgroup-driver` command
+  line argument). If you enable this feature gate and the container runtime
+  doesn't support it, the kubelet falls back to using the driver configured using
+  the `cgroupDriver` configuration setting.
+  See [Configuring a cgroup driver](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver)
+  for more details.
 - `KubeletCredentialProviders`: Enable kubelet exec credential providers for
   image pull credentials.
 - `KubeletInUserNamespace`: Enables support for running kubelet in a
