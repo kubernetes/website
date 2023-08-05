@@ -108,6 +108,7 @@ metadata:
                         terminationMessagePath: /dev/termination-log
                             terminationMessagePolicy: File
                                 tty: true
+```
                             
 Interesting, there is a new field called ephemeralContainers in the Pod definition. This new field contains a list of containers similar to initContainers and containers. It is not identical as there are certain options which are not available, refer to the API documentation for more information. It does however allow configuration of the container security context, which could in theory allow a bad actor to escalate the container's privileges. This should not affect those of us who use a policy enforcement tool right? The answer is yes and no depending on the tool and version that is being used. It also depends on if you are using policies from the project's library or policies developed in house.
 
@@ -146,7 +147,7 @@ metadata:
                               volumes:
                                 - '*'
 
-
+```
 
 ## RBAC
 
@@ -180,6 +181,7 @@ metadata:
                     - patch
                     - update
 
+```
 ## Checking Policy Enforcement
 
 Let's say that you upgraded your cluster and informed all end users of the great new feature. How do you know that the correct policies are enforced in accordance to your security practices. You may have been aware of the API changes and taken the correct precautionary steps. Or you just updated Kyverno and it's policies out of pure happenstance. Either way it is good to trust but verify that it is not for example possible to create a privileged ephemeral container. Annoyingly the debug command does not expose any options to set any security context configuration, so we need another option. Ephemeral containers cannot be defined in a Pod when it is created and it can neither be added with an update. We need some other method to create these specific ephemeral containers.
@@ -187,7 +189,7 @@ Let's say that you upgraded your cluster and informed all end users of the great
 Ephemeral containers are created using a special ephemeralcontainers handler in the API rather than by adding them directly to pod.spec, so it's not possible to add an ephemeral container using kubectl edit.
 
 The simplest method to add an ephemeral container with a security context to a Pod is to use the Go client. A couple of lines of code can add a new ephemeral container running as privileged or use any other security context setting which is to your liking.
-
+```
 package main
 
 import (
@@ -253,17 +255,18 @@ import (
                                                                                                                                                                                                                                                                                             }
                                                                                                                                                                                                                                                                                                 return client, nil
                                                                                                                                                                                                                                                                                                 }
-
+```
 
 Run the program and pass the namespace, pod name, and path to a kube config file. We assume that the ephemeral-demo Pod is still running.
 
 go run main.go default ephemeral-demo $KUBECONFIG
 
 If it completes with no error a privileged ephemeral container should have been added to the Pod. Exec into it and list the host's devices to prove that it is a privileged container.
-
+```
+shell
 kubectl exec -it ephemeral-demo -c debug -- sh
 ls /dev
-
+```
 ### Conclusion
 
 If there is one takeaway from this post, it is that any policy tool that has not been updated in the last couple of months will not enforce rules on ephemeral containers. This also includes all policies written in house! It is not enough to update the community policies.
