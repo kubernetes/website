@@ -188,73 +188,78 @@ Let's say that you upgraded your cluster and informed all end users of the great
 
 Ephemeral containers are created using a special ephemeralcontainers handler in the API rather than by adding them directly to pod.spec, so it's not possible to add an ephemeral container using kubectl edit.
 
-The simplest method to add an ephemeral container with a security context to a Pod is to use the Go client. A couple of lines of code can add a new ephemeral container running as privileged or use any other security context setting which is to your liking.
+The simplest method to add an ephemeral container with a security context to a Pod is to use the Go client. A couple of lines of code can add a new ephemeral container running as privileged or use any other security context setting which is to your liking
 ```
 package main
 
 import (
     "context"
-        "fmt"
-            "os"
+    "fmt"
+    "os"
 
-                corev1 "k8s.io/api/core/v1"
-                    metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-                        "k8s.io/client-go/kubernetes"
-                            "k8s.io/client-go/tools/clientcmd"
-                            )
+    corev1 "k8s.io/api/core/v1"
+    metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+    "k8s.io/client-go/kubernetes"
+    "k8s.io/client-go/tools/clientcmd"
+)
 
-                            func main() {
-                                if len(os.Args) != 4 {
-                                        panic("expected three args")
-                                            }
-                                                podNamespace := os.Args[1]
-                                                    podName := os.Args[2]
-                                                        kubeconfigPath := os.Args[3]
+func main() {
+    if len(os.Args) != 4 {
+        panic("expected three args")
+    }
+    podNamespace := os.Args[1]
+    podName := os.Args[2]
+    kubeconfigPath := os.Args[3]
 
-                                                            // Create the client
-                                                                client, err := getKubernetesClients(kubeconfigPath)
-                                                                    if err != nil {
-                                                                        panic(fmt.Errorf("could not create client: %w", err))
-                                                                            }
-                                                                                ctx := context.Background()
+    // Create the client
+    client, err := getKubernetesClients(kubeconfigPath)
+    if err != nil {
+    panic(fmt.Errorf("could not create client: %w", err))
+    }
+    ctx := context.Background()
 
-                                                                                    // Get the Pod
-                                                                                        pod, err := client.CoreV1().Pods(podNamespace).Get(ctx, podName, metav1.GetOptions{})
-                                                                                            if err != nil {
-                                                                                                panic(fmt.Errorf("could not get pod: %w", err))
-                                                                                                    }
+    // Get the Pod
+    pod, err := client.CoreV1().Pods(podNamespace).Get(ctx, podName, metav1.GetOptions{})
+    if err != nil {
+    panic(fmt.Errorf("could not get pod: %w", err))
+    }
 
-                                                                                                        // Add a new ephemeral container
-                                                                                                            trueValue := true
-                                                                                                                ephemeralContainer := corev1.EphemeralContainer{
-                                                                                                                        EphemeralContainerCommon: corev1.EphemeralContainerCommon{
-                                                                                                                                    Name:  "debug",
-                                                                                                                                                Image: "busybox",
-                                                                                                                                                            TTY:   true,
-                                                                                                                                                                        SecurityContext: &corev1.SecurityContext{
-                                                                                                                                                                                        Privileged:               &trueValue,
-                                                                                                                                                                                                        AllowPrivilegeEscalation: &trueValue,
-                                                                                                                                                                                                                    },
-                                                                                                                                                                                                                            },
-                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                    pod.Spec.EphemeralContainers = append(pod.Spec.EphemeralContainers, ephemeralContainer)
-                                                                                                                                                                                                                                        pod, err = client.CoreV1().Pods(pod.Namespace).UpdateEphemeralContainers(ctx, pod.Name, pod, metav1.UpdateOptions{})
-                                                                                                                                                                                                                                            if err != nil {
-                                                                                                                                                                                                                                                panic(fmt.Errorf("could not add ephemeral container: %w", err))
-                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                    }
+    // Add a new ephemeral container
+    trueValue := true
+    ephemeralContainer := corev1.EphemeralContainer{
+        EphemeralContainerCommon: corev1.EphemeralContainerCommon{
+            Name:  "debug",
+            Image: "busybox",
+            TTY:   true,
+            SecurityContext: &corev1.SecurityContext{
+                Privileged:               &trueValue,
+                AllowPrivilegeEscalation: &trueValue,
+            },
+        },
+    }
+    pod.Spec.EphemeralContainers = append(pod.Spec.EphemeralContainers, ephemeralContainer)
+    pod, err = client.CoreV1().Pods(pod.Namespace).UpdateEphemeralContainers(ctx, pod.Name, pod, metav1.UpdateOptions{})
+    if err != nil {
+    panic(fmt.Errorf("could not add ephemeral container: %w", err))
+    }
+}
 
-                                                                                                                                                                                                                                                    func getKubernetesClients(path string) (kubernetes.Interface, error) {
-                                                                                                                                                                                                                                                        cfg, err := clientcmd.BuildConfigFromFlags("", path)
-                                                                                                                                                                                                                                                            if err != nil {
-                                                                                                                                                                                                                                                                    return nil, err
-                                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                                            client, err := kubernetes.NewForConfig(cfg)
-                                                                                                                                                                                                                                                                                if err != nil {
-                                                                                                                                                                                                                                                                                        return nil, err
-                                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                                                return client, nil
-                                                                                                                                                                                                                                                                                                }
+func getKubernetesClients(path string) (kubernetes.Interface, error) {
+    cfg, err := clientcmd.BuildConfigFromFlags("", path)
+    if err != nil {
+        return nil, err
+    }
+    client, err := kubernetes.NewForConfig(cfg)
+    if err != nil {
+        return nil, err
+    }
+    return client, nil
+}
+                                                                                                                                                                                                                                                                                                                                                     
+
+                                                                                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                                                                           
+                                                                                                                                                                                                                                                                                                
 ```
 
 Run the program and pass the namespace, pod name, and path to a kube config file. We assume that the ephemeral-demo Pod is still running.
