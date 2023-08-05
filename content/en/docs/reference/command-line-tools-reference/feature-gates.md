@@ -107,8 +107,6 @@ For a reference to old feature gates that are removed, please refer to
 | `HPAContainerMetrics` | `true` | Beta | 1.27 | |
 | `HPAScaleToZero` | `false` | Alpha | 1.16 | |
 | `HonorPVReclaimPolicy` | `false` | Alpha | 1.23 |  |
-| `IPTablesOwnershipCleanup` | `false` | Alpha | 1.25 | 1.26 |
-| `IPTablesOwnershipCleanup` | `true` | Beta | 1.27 | |
 | `InPlacePodVerticalScaling` | `false` | Alpha | 1.27 | |
 | `InTreePluginAWSUnregister` | `false` | Alpha | 1.21 | |
 | `InTreePluginAzureDiskUnregister` | `false` | Alpha | 1.21 | |
@@ -270,6 +268,9 @@ For a reference to old feature gates that are removed, please refer to
 | `GRPCContainerProbe` | `false` | Alpha | 1.23 | 1.23 |
 | `GRPCContainerProbe` | `true` | Beta | 1.24 | 1.26 |
 | `GRPCContainerProbe` | `true` | GA | 1.27 | |
+| `IPTablesOwnershipCleanup` | `false` | Alpha | 1.25 | 1.26 |
+| `IPTablesOwnershipCleanup` | `true` | Beta | 1.27 | 1.27 |
+| `IPTablesOwnershipCleanup` | `true` | GA | 1.28 | - |
 | `JobMutableNodeSchedulingDirectives` | `true` | Beta | 1.23 | 1.26 |
 | `JobMutableNodeSchedulingDirectives` | `true` | GA | 1.27 | |
 | `JobTrackingWithFinalizers` | `false` | Alpha | 1.22 | 1.22 |
