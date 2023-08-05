@@ -354,18 +354,10 @@ main {
     word-break: break-word;
   }
 
-  $table-caption: "This is the list of STABLE metrics emitted from core Kubernetes components";
+/* SCSS Related to the Metrics Table */
 
-// If any more parameters are needed in future , Define them here
-$labels: (
-  "Name",
-  "Stability Level",
-  "Type",
-  "Help",
-  "Labels",
-  "Const Labels",
-  "Deprecated Version"
-);
+// Define the variable for the table caption
+$table-caption: "This is the list of STABLE metrics emitted from core Kubernetes components";
 
 // Define a mixin for the key-value pair style
 @mixin key-value-pair {
@@ -374,17 +366,8 @@ $labels: (
     font-weight: bold;
     text-align: left;
     width: 100%;
-    position: relative;
     &:nth-child(odd) {
       font-style: italic;
-    }
-    // Pseudo-class 'before' FOR EDITING THE LABELS MAKE EDITS HERE
-    &::before {
-      content: "";
-      display: inline;
-      position: absolute;
-      left: 0;
-      padding-bottom: 10em;
     }
   }
 }
@@ -398,10 +381,14 @@ table.metrics {
     font-size: 1.2em;
     font-weight: bold;
     padding-bottom: 10px;
-    border-bottom: 2px solid #333;
   }
   thead {
-    display: none; // Hide the table header
+    tr{
+      th{
+        display: block;
+        width: 100%;
+      }
+    }
   }
   tbody {
     tr.metric {
@@ -409,35 +396,20 @@ table.metrics {
         @include key-value-pair;
         display: block;
         margin-bottom: 10px;
-        .metric_labels,
-        .metric_const_labels,
-        .metric_deprecated_version {
-          display: block;
-          position: relative;
-        }
       }
-      // Cycles through all the labels and places them one after the other
-      $i: 1;
-      // Use @each to iterate through the labels and apply the mixin
-      @each $label in $labels {
-        td:nth-child(#{$i})::before {
-          content: "#{$label}:"; // Add the label content
-          font-weight: 800; // Set font weight 800 for all labels
-          margin-right: 5px; // Adds a margin on the right of the label
-        }
-        $i: $i + 1;
+      td.metric_name {
+        font-weight: 700;
       }
     }
   }
 }
 
-
   table.no-word-break td,
   table.no-word-break code {
     word-break: normal;
   }
-}
 
+}
 
 // blockquotes and callouts
 
