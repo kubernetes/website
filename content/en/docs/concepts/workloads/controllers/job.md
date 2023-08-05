@@ -532,6 +532,12 @@ Since Kubernetes 1.27, Kubelet transitions deleted pods to a terminal phase
 ensures that deleted pods have their finalizers removed by the Job controller.
 {{< /note >}}
 
+{{< note >}}
+Starting with Kubernetes v1.28, when Pod failure policy is used, the Job controller recreates
+terminating Pods only once these Pods reach the terminal `Failed` phase. This behavior is similar
+to `podRecreationPolicy: Failed`. For more information, see [Pod replacement policy](#pod-replacement-policy).
+{{< /note >}}
+
 ## Job termination and cleanup
 
 When a Job completes, no more Pods are created, but the Pods are [usually](#pod-backoff-failure-policy) not deleted either.
@@ -941,6 +947,53 @@ is disabled, `.spec.completions` is immutable.
 
 Use cases for elastic Indexed Jobs include batch workloads which require 
 scaling an indexed Job, such as MPI, Horovord, Ray, and PyTorch training jobs.
+
+### Delayed creation of replacement pods
+
+{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+
+{{< note >}}
+You can only set `podReplacementPolicy` on Jobs if you enable the `JobPodReplacementPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+{{< /note >}}
+
+By default, the Job controller recreates Pods as soon they either fail or are terminating (have a deletion timestamp).
+This means that, at a given time, when some of the Pods are terminating, the number of running Pods for the Jobs can be greater than `parallelism` or greater than one Pod per index (if using Indexed Jobs).
+
+You may choose to create replacement Pods only when the terminating Pod is fully terminal (has `status.phase: Failed`). To do this, set the `.spec.podReplacementPolicy: Failed`.
+This will only recreate Pods once they are terminated.  
+The default replacement policy depends on whether the Job has a `podFailurePolicy` set.
+With no Pod failure policy defined for a Job, omitting the `podReplacementPolicy` field selects the
+`FailedOrTerminating` replacement policy:
+the control plane creates replacement Pods immediately upon Pod deletion
+(as soon as the control plane sees that a Pod for this Job has `deletionTimestamp` set).
+For Jobs with a Pod failure policy set, the default  `podReplacementPolicy` is `Failed`, and no other
+value is permitted.
+See [Pod failure policy](#pod-failure-policy) to learn more about Pod failure policies for Jobs.
+
+```yaml
+kind: Job
+metadata:
+  name: new
+  ...
+spec:
+  podReplacementPolicy: Failed
+  ...
+```
+
+Provided your cluster has the feature gate enabled, you can inspect the `.status.terminating` field of a Job.
+The value of the field is the number of Pods owned by the Job that are currently terminating.
+
+```shell
+kubectl get jobs/myjob -o yaml
+```
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+# .metadata and .spec omitted
+status:
+  terminating: 3 # three Pods are terminating and have not yet reached the Failed phase
+```
 
 ## Alternatives
 
