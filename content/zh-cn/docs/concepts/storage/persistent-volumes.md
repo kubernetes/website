@@ -340,7 +340,7 @@ An administrator can manually reclaim the volume with the following steps.
 
 <!--
 1. Delete the PersistentVolume. The associated storage asset in external infrastructure
-   (such as an AWS EBS, GCE PD, Azure Disk, or Cinder volume) still exists after the PV is deleted.
+   (such as an AWS EBS or GCE PD volume) still exists after the PV is deleted.
 1. Manually clean up the data on the associated storage asset accordingly.
 1. Manually delete the associated storage asset.
 
@@ -348,7 +348,7 @@ If you want to reuse the same storage asset, create a new PersistentVolume with
 the same storage asset definition.
 -->
 1. 删除 PersistentVolume 对象。与之相关的、位于外部基础设施中的存储资产
-   （例如 AWS EBS、GCE PD、Azure Disk 或 Cinder 卷）在 PV 删除之后仍然存在。
+   （例如 AWS EBS 或 GCE PD 卷）在 PV 删除之后仍然存在。
 1. 根据情况，手动清除所关联的存储资产上的数据。
 1. 手动删除所关联的存储资产。
 
@@ -359,8 +359,8 @@ the same storage asset definition.
 
 For volume plugins that support the `Delete` reclaim policy, deletion removes
 both the PersistentVolume object from Kubernetes, as well as the associated
-storage asset in the external infrastructure, such as an AWS EBS, GCE PD,
-Azure Disk, or Cinder volume. Volumes that were dynamically provisioned
+storage asset in the external infrastructure, such as an AWS EBS or GCE PD volume.
+Volumes that were dynamically provisioned
 inherit the [reclaim policy of their StorageClass](#reclaim-policy), which
 defaults to `Delete`. The administrator should configure the StorageClass
 according to users' expectations; otherwise, the PV must be edited or
@@ -370,8 +370,7 @@ patched after it is created. See
 #### 删除（Delete）    {#delete}
 
 对于支持 `Delete` 回收策略的卷插件，删除动作会将 PersistentVolume 对象从
-Kubernetes 中移除，同时也会从外部基础设施（如 AWS EBS、GCE PD、Azure Disk 或
-Cinder 卷）中移除所关联的存储资产。
+Kubernetes 中移除，同时也会从外部基础设施（如 AWS EBS 或 GCE PD 卷）中移除所关联的存储资产。
 动态制备的卷会继承[其 StorageClass 中设置的回收策略](#reclaim-policy)，
 该策略默认为 `Delete`。管理员需要根据用户的期望来配置 StorageClass；
 否则 PV 卷被创建之后必须要被编辑或者修补。
@@ -616,15 +615,20 @@ the following types of volumes:
 -->
 现在，对扩充 PVC 申领的支持默认处于被启用状态。你可以扩充以下类型的卷：
 
-* azureDisk
-* azureFile
-* awsElasticBlockStore
-* cinder （已弃用）
+<!--
+* azureFile (deprecated)
 * {{< glossary_tooltip text="csi" term_id="csi" >}}
-* flexVolume （已弃用）
-* gcePersistentDisk
+* flexVolume (deprecated)
+* gcePersistentDisk (deprecated)
 * rbd
-* portworxVolume
+* portworxVolume (deprecated)
+-->
+* azureFile（已弃用）
+* {{< glossary_tooltip text="csi" term_id="csi" >}}
+* flexVolume（已弃用）
+* gcePersistentDisk（已弃用）
+* rbd
+* portworxVolume（已弃用）
 
 <!--
 You can only expand a PVC if its storage class's `allowVolumeExpansion` field is set to true.
@@ -885,14 +889,8 @@ PV 持久卷是用插件的形式来实现的。Kubernetes 目前支持以下插
 The following types of PersistentVolume are deprecated.
 This means that support is still available but will be removed in a future Kubernetes release.
 
-* [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
-  (**deprecated** in v1.17)
-* [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
-  (**deprecated** in v1.19)
 * [`azureFile`](/docs/concepts/storage/volumes/#azurefile) - Azure File
   (**deprecated** in v1.21)
-* [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
-  (**deprecated** in v1.18)
 * [`flexVolume`](/docs/concepts/storage/volumes/#flexvolume) - FlexVolume
   (**deprecated** in v1.23)
 * [`gcePersistentDisk`](/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
@@ -904,13 +902,8 @@ This means that support is still available but will be removed in a future Kuber
 -->
 以下的持久卷已被弃用。这意味着当前仍是支持的，但是 Kubernetes 将来的发行版会将其移除。
 
-* [`awsElasticBlockStore`](/zh-cn/docs/concepts/storage/volumes/#awselasticblockstore) - AWS 弹性块存储（EBS）
-  （于 v1.17 **弃用**）
-* [`azureDisk`](/zh-cn/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
-  （于 v1.19 **弃用**）
 * [`azureFile`](/zh-cn/docs/concepts/storage/volumes/#azurefile) - Azure File
   （于 v1.21 **弃用**）
-* [`cinder`](/zh-cn/docs/concepts/storage/volumes/#cinder) - Cinder（OpenStack 块存储）（于 v1.18 **弃用**）
 * [`flexVolume`](/zh-cn/docs/concepts/storage/volumes/#flexVolume) - FlexVolume （于 v1.23 **弃用**）
 * [`gcePersistentDisk`](/zh-cn/docs/concepts/storage/volumes/#gcepersistentdisk) - GCE Persistent Disk
   （于 v1.17 **弃用**）
@@ -922,6 +915,12 @@ This means that support is still available but will be removed in a future Kuber
 <!-- 
 Older versions of Kubernetes also supported the following in-tree PersistentVolume types:
 
+* [`awsElasticBlockStore`](/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
+  (**not available** in v1.27)
+* [`azureDisk`](/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
+  (**not available** in v1.27)
+* [`cinder`](/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
+  (**not available** in v1.26)
 * `photonPersistentDisk` - Photon controller persistent disk.
   (**not available** starting v1.15)
 * [`scaleIO`](/docs/concepts/storage/volumes/#scaleio) - ScaleIO volume
@@ -936,6 +935,12 @@ Older versions of Kubernetes also supported the following in-tree PersistentVolu
 
 旧版本的 Kubernetes 仍支持这些“树内（In-Tree）”持久卷类型：
 
+* [`awsElasticBlockStore`](/zh-cn/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
+  （v1.27 开始**不可用**）
+* [`azureDisk`](/zh-cn/docs/concepts/storage/volumes/#azuredisk) - Azure Disk
+  （v1.27 开始**不可用**）
+* [`cinder`](/zh-cn/docs/concepts/storage/volumes/#cinder) - Cinder (OpenStack block storage)
+  （v1.27 开始**不可用**）
 * `photonPersistentDisk` - Photon 控制器持久化盘。（从 v1.15 版本开始将**不可用**）
 * [`scaleIO`](/zh-cn/docs/concepts/storage/volumes/#scaleio) - ScaleIO 卷（v1.21 之后**不可用**）
 * [`flocker`](/zh-cn/docs/concepts/storage/volumes/#flocker) - Flocker 存储
@@ -1158,16 +1163,27 @@ Kubernetes 使用卷访问模式来匹配 PersistentVolumeClaim 和 PersistentVo
 > 模式挂载，或者被多个节点以 ReadOnlyMany 模式挂载，但不可以同时以两种模式挂载。
 
 <!--
-| Volume Plugin        | ReadWriteOnce          | ReadOnlyMany          | ReadWriteMany|
+| Volume Plugin        | ReadWriteOnce          | ReadOnlyMany          | ReadWriteMany | ReadWriteOncePod       |
+| :---                 | :---:                  | :---:                 | :---:         | -                      |
+| AzureFile            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
+| CephFS               | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
+| CSI                  | depends on the driver  | depends on the driver | depends on the driver | depends on the driver |
+| FC                   | &#x2713;               | &#x2713;              | -             | -                      |
+| FlexVolume           | &#x2713;               | &#x2713;              | depends on the driver | -              |
+| GCEPersistentDisk    | &#x2713;               | &#x2713;              | -             | -                      |
+| Glusterfs            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
+| HostPath             | &#x2713;               | -                     | -             | -                      |
+| iSCSI                | &#x2713;               | &#x2713;              | -             | -                      |
+| NFS                  | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
+| RBD                  | &#x2713;               | &#x2713;              | -             | -                      |
+| VsphereVolume        | &#x2713;               | -                     | - (works when Pods are collocated) | - |
+| PortworxVolume       | &#x2713;               | -                     | &#x2713;      | -                  | - |
 -->
 
 | 卷插件               | ReadWriteOnce          | ReadOnlyMany          | ReadWriteMany | ReadWriteOncePod       |
 | :---                 | :---:                  | :---:                 | :---:         | -                      |
-| AWSElasticBlockStore | &#x2713;               | -                     | -             | -                      |
 | AzureFile            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
-| AzureDisk            | &#x2713;               | -                     | -             | -                      |
 | CephFS               | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
-| Cinder               | &#x2713;               | -                     | ([如果多次挂接卷可用](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/features.md#multi-attach-volumes))            | -                      |
 | CSI                  | 取决于驱动              | 取决于驱动            | 取决于驱动      | 取决于驱动    |
 | FC                   | &#x2713;               | &#x2713;              | -             | -                      |
 | FlexVolume           | &#x2713;               | &#x2713;              | 取决于驱动   | -              |
@@ -1213,11 +1229,9 @@ Current reclaim policies are:
 
 * Retain -- manual reclamation
 * Recycle -- basic scrub (`rm -rf /thevolume/*`)
-* Delete -- associated storage asset such as AWS EBS, GCE PD, Azure Disk,
-  or OpenStack Cinder volume is deleted
+* Delete -- associated storage asset such as AWS EBS or GCE PD volume is deleted
 
-Currently, only NFS and HostPath support recycling. AWS EBS, GCE PD, Azure Disk,
-and Cinder volumes support deletion.
+Currently, only NFS and HostPath support recycling. AWS EBS and GCE PD volumes support deletion.
 -->
 ### 回收策略   {#reclaim-policy}
 
@@ -1225,10 +1239,10 @@ and Cinder volumes support deletion.
 
 * Retain -- 手动回收
 * Recycle -- 基本擦除 (`rm -rf /thevolume/*`)
-* Delete -- 诸如 AWS EBS、GCE PD、Azure Disk 或 OpenStack Cinder 卷这类关联存储资产也被删除
+* Delete -- 诸如 AWS EBS 或 GCE PD 卷这类关联存储资产也被删除
 
 目前，仅 NFS 和 HostPath 支持回收（Recycle）。
-AWS EBS、GCE PD、Azure Disk 和 Cinder 卷都支持删除（Delete）。
+AWS EBS 和 GCE PD 卷支持删除（Delete）。
 
 <!--
 ### Mount Options
@@ -1252,11 +1266,8 @@ The following volume types support mount options:
 -->
 以下卷类型支持挂载选项：
 
-* `awsElasticBlockStore`
-* `azureDisk`
 * `azureFile`
 * `cephfs`
-* `cinder`（于 v1.18 **弃用**）
 * `gcePersistentDisk`
 * `iscsi`
 * `nfs`
@@ -1285,15 +1296,11 @@ it will become fully deprecated in a future Kubernetes release.
 {{< note >}}
 <!--
 For most volume types, you do not need to set this field. It is automatically
-populated for [AWS EBS](/docs/concepts/storage/volumes/#awselasticblockstore),
-[GCE PD](/docs/concepts/storage/volumes/#gcepersistentdisk) and
-[Azure Disk](/docs/concepts/storage/volumes/#azuredisk) volume block types. You
-need to explicitly set this for [local](/docs/concepts/storage/volumes/#local) volumes.
+populated for [GCE PD](/docs/concepts/storage/volumes/#gcepersistentdisk) volume block types.
+You need to explicitly set this for [local](/docs/concepts/storage/volumes/#local) volumes.
 -->
 对大多数类型的卷而言，你不需要设置节点亲和性字段。
-[AWS EBS](/zh-cn/docs/concepts/storage/volumes/#awselasticblockstore)、
-[GCE PD](/zh-cn/docs/concepts/storage/volumes/#gcepersistentdisk) 和
-[Azure Disk](/zh-cn/docs/concepts/storage/volumes/#azuredisk) 卷类型都能自动设置相关字段。
+[GCE PD](/zh-cn/docs/concepts/storage/volumes/#gcepersistentdisk) 卷类型能自动设置相关字段。
 你需要为 [local](/zh-cn/docs/concepts/storage/volumes/#local) 卷显式地设置此属性。
 {{< /note >}}
 
@@ -1644,14 +1651,20 @@ applicable:
 -->
 以下卷插件支持原始块卷，包括其动态制备（如果支持的话）的卷：
 
-* AWSElasticBlockStore
-* AzureDisk
+<!--
+* CSI
+* FC (Fibre Channel)
+* GCEPersistentDisk
+* iSCSI
+* Local volume
+* RBD (Ceph Block Device)
+* VsphereVolume
+-->
 * CSI
 * FC（光纤通道）
 * GCEPersistentDisk
 * iSCSI
 * Local 卷
-* OpenStack Cinder
 * RBD（Ceph 块设备）
 * VsphereVolume
 
