@@ -193,7 +193,8 @@ and the kubelet, set the `InTreePluginAzureFileUnregister` flag to `true`.
 {{< feature-state for_k8s_version="v1.28" state="deprecated" >}}
 
 {{< note >}}
-The Kubernetes project recommends to use [CephFS CSI](https://github.com/ceph/ceph-csi) out-of-tree driver instead.
+The Kubernetes project suggests that you use the [CephFS CSI](https://github.com/ceph/ceph-csi) third party
+storage driver instead.
 {{< /note >}}
 
 A `cephfs` volume allows an existing CephFS volume to be
@@ -873,7 +874,8 @@ directory. For more details, see [projected volumes](/docs/concepts/storage/proj
 {{< feature-state for_k8s_version="v1.28" state="deprecated" >}}
 
 {{< note >}}
-The Kubernetes project recommends to use [Ceph RBD CSI](https://github.com/ceph/ceph-csi)  out-of-tree driver instead.
+The Kubernetes project suggests that you use the [Ceph CSI](https://github.com/ceph/ceph-csi)
+third party storage driver instead, in RBD mode.
 {{< /note >}}
 
 An `rbd` volume allows a
@@ -953,7 +955,8 @@ For more details, see [Configuring Secrets](/docs/concepts/configuration/secret/
 ### vsphereVolume (deprecated) {#vspherevolume}
 
 {{< note >}}
-The Kubernetes project recommends to use vSphere CSI out-of-tree driver instead.
+The Kubernetes project recommends using the [vSphere CSI](https://github.com/kubernetes-sigs/vsphere-csi-driver)
+out-of-tree storage driver instead.
 {{< /note >}}
 
 A `vsphereVolume` is used to mount a vSphere VMDK volume into your Pod.  The contents
