@@ -375,7 +375,7 @@ the following types of volumes:
 * {{< glossary_tooltip text="csi" term_id="csi" >}}
 * flexVolume (deprecated)
 * gcePersistentDisk
-* rbd ( **deprecated** in v1.28)
+* rbd (deprecated)
 * portworxVolume
 
 You can only expand a PVC if its storage class's `allowVolumeExpansion` field is set to true.
@@ -954,7 +954,7 @@ applicable:
 * iSCSI
 * Local volume
 * OpenStack Cinder
-* RBD (Ceph Block Device) ( **deprecated** in v1.28)
+* RBD (deprecated)
 * VsphereVolume
 
 ### PersistentVolume using a Raw Block Volume {#persistent-volume-using-a-raw-block-volume}
