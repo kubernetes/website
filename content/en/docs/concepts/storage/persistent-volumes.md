@@ -492,7 +492,7 @@ value you previously tried.
 This is useful if expansion to a higher value did not succeed because of capacity constraint.
 If that has happened, or you suspect that it might have, you can retry expansion by specifying a
 size that is within the capacity limits of underlying storage provider. You can monitor status of
-resize operation by watching `.status.resizeStatus` and events on the PVC.
+resize operation by watching `.status.allocatedResourceStatuses` and events on the PVC.
 
 Note that,
 although you can specify a lower amount of storage than what was requested previously,
