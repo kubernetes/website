@@ -162,6 +162,7 @@ For a reference to old feature gates that are removed, please refer to
 | `PodDeletionCost` | `true` | Beta | 1.22 | |
 | `PodDisruptionConditions` | `false` | Alpha | 1.25 | 1.25 |
 | `PodDisruptionConditions` | `true` | Beta | 1.26 | |
+| `PodHostIPs` | `false` | Alpha | 1.28 | |
 | `PodReadyToStartContainersCondition` | `false` | Alpha | 1.28 | |
 | `PodSchedulingReadiness` | `false` | Alpha | 1.26 | 1.26 |
 | `PodSchedulingReadiness` | `true` | Beta | 1.27 | |
@@ -664,6 +665,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `PodAndContainerStatsFromCRI`: Configure the kubelet to gather container and pod stats from the CRI container runtime rather than gathering them from cAdvisor.
   As of 1.26, this also includes gathering metrics from CRI and emitting them over `/metrics/cadvisor` (rather than having cAdvisor emit them directly).
 - `PodDisruptionConditions`: Enables support for appending a dedicated pod condition indicating that the pod is being deleted due to a disruption.
+- `PodHostIPs`: Enable the `status.hostIPs` field for pods and the {{< glossary_tooltip term_id="downward-api" text="downward API" >}}.
+  The field lets you expose host IP addresses to workloads.
 - `PodIndexLabel`: Enables the Job controller and StatefulSet controller to add the pod index as a label when creating new pods. See [Job completion mode docs](/docs/concepts/workloads/controllers/job#completion-mode) and [StatefulSet pod index label docs](/docs/concepts/workloads/controllers/statefulset/#pod-index-label) for more details.
 - `PodReadyToStartContainersCondition`: Enable the kubelet to mark the [PodReadyToStartContainers](/docs/concepts/workloads/pods/pod-lifecycle/#pod-has-network)
   condition on pods. This was previously (1.25-1.27) known as `PodHasNetworkCondition`.
