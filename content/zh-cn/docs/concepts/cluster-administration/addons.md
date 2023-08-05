@@ -67,6 +67,7 @@ Add-on 扩展了 Kubernetes 的功能。
   并且可以使用与网络寻址分离的基于身份的安全模型在 L3 至 L7 上实施网络策略。
   Cilium 可以作为 kube-proxy 的替代品；它还提供额外的、可选的可观察性和安全功能。
   Cilium 是一个[孵化级别的 CNCF 项目](https://www.cncf.io/projects/cilium/)。
+
 <!--
 * [CNI-Genie](https://github.com/cni-genie/CNI-Genie) enables Kubernetes to seamlessly
   connect to a choice of CNI plugins, such as Calico, Canal, Flannel, or Weave.
@@ -94,6 +95,7 @@ Add-on 扩展了 Kubernetes 的功能。
   [Tungsten Fabric](https://tungsten.io)，是一个开源的多云网络虚拟化和策略管理平台。
   Contrail 和 Tungsten Fabric 与业务流程系统（例如 Kubernetes、OpenShift、OpenStack 和 Mesos）集成在一起，
   为虚拟机、容器或 Pod 以及裸机工作负载提供了隔离模式。
+
 <!--
 * [Flannel](https://github.com/flannel-io/flannel#deploying-flannel-manually) is
   an overlay network provider that can be used with Kubernetes.
@@ -110,6 +112,7 @@ Add-on 扩展了 Kubernetes 的功能。
 * [Multus](https://github.com/k8snetworkplumbingwg/multus-cni) 是一个多插件，
   可在 Kubernetes 中提供多种网络支持，以支持所有 CNI 插件（例如 Calico、Cilium、Contiv、Flannel），
   而且包含了在 Kubernetes 中基于 SRIOV、DPDK、OVS-DPDK 和 VPP 的工作负载。
+
 <!--
 * [OVN-Kubernetes](https://github.com/ovn-org/ovn-kubernetes/) is a networking
   provider for Kubernetes based on [OVN (Open Virtual Network)](https://github.com/ovn-org/ovn/),
@@ -125,6 +128,7 @@ Add-on 扩展了 Kubernetes 的功能。
   包括一个基于 OVS 实现的负载均衡器和网络策略。
 * [Nodus](https://github.com/akraino-edge-stack/icn-nodus) 是一个基于 OVN 的 CNI 控制器插件，
   提供基于云原生的服务功能链 (SFC)。
+
 <!--
 * [NSX-T](https://docs.vmware.com/en/VMware-NSX-T-Data-Center/index.html) Container Plug-in (NCP)
   provides integration between VMware NSX-T and container orchestrators such as
@@ -166,17 +170,14 @@ Add-on 扩展了 Kubernetes 的功能。
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard)
   is a dashboard web interface for Kubernetes.
-* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s)
-  is a tool for graphically visualizing your containers, pods, services etc.
-  Use it in conjunction with a [Weave Cloud account](https://cloud.weave.works/)
-  or host the UI yourself.
+* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s) is a
+  tool for visualizing your containers, Pods, Services and more.
 -->
 ## 可视化管理   {#visualization-and-control}
 
 * [Dashboard](https://github.com/kubernetes/dashboard#kubernetes-dashboard) 是一个 Kubernetes 的 Web 控制台界面。
-* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s) 是一个图形化工具，
-  用于查看你的容器、Pod、服务等。请和一个 [Weave Cloud 账号](https://cloud.weave.works/) 一起使用，
-  或者自己运行 UI。
+* [Weave Scope](https://www.weave.works/documentation/scope-latest-installing/#k8s)
+  是一个可视化工具，用于查看你的容器、Pod、服务等。
 
 <!--
 ## Infrastructure
