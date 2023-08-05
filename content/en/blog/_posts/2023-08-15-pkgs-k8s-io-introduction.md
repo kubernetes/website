@@ -31,7 +31,7 @@ repositories.
   over the package builds. This means that anything before v1.24.0 will only be
   available in the Google-hosted repository.
 - There's a dedicated package repository for each Kubernetes minor version.
-  When upgrading to to a different minor release, you must bear in mind that
+  When upgrading to a different minor release, you must bear in mind that
   the package repository details also change.
 
 ## Why are we introducing new package repositories?
@@ -105,7 +105,7 @@ There are three significant differences that you should be aware of:
   For example, repository called `core:/stable:/v1.28` only hosts packages for
   stable Kubernetes v1.28 releases. This means you can install v1.28.0 from
   this repository, but you can't install v1.27.0 or any other minor release
-  other then v1.28. Upon upgrading to another minor version, you have to add a
+  other than v1.28. Upon upgrading to another minor version, you have to add a
   new repository and optionally remove the old one
 - There's a difference in what `cri-tools` and `kubernetes-cni` package
   versions are available in each Kubernetes repository
@@ -138,7 +138,7 @@ publishing packages to the Google-hosted repository in the future.
 
 1. Replace the `apt` repository definition so that `apt` points to the new
    repository instead of the Google-hosted repository. Make sure to replace the
-   Kubernetes minor version in the command below with your the minor version
+   Kubernetes minor version in the command below with the minor version
    that you're currently using:
 
    ```shell
@@ -146,7 +146,7 @@ publishing packages to the Google-hosted repository in the future.
    ```
 
 2. Download the public signing key for the Kubernetes package repositories.
-   The same signing key is used for all repositories so you can disregard the
+   The same signing key is used for all repositories, so you can disregard the
    version in the URL:
 
    ```shell
@@ -163,7 +163,7 @@ publishing packages to the Google-hosted repository in the future.
 
 1. Replace the `yum` repository definition so that `yum` points to the new 
    repository instead of the Google-hosted repository. Make sure to replace the
-   Kubernetes minor version in the command below with your the minor version
+   Kubernetes minor version in the command below with the minor version
    that you're currently using:
 
 ```shell
