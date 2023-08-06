@@ -127,6 +127,7 @@ For a reference to old feature gates that are removed, please refer to
 | `JobReadyPods` | `true` | Beta | 1.24 | |
 | `KMSv2` | `false` | Alpha | 1.25 | 1.26 |
 | `KMSv2` | `true` | Beta | 1.27 | |
+| `KMSv2KDF` | `false` | Beta | 1.28 | |
 | `KubeletCgroupDriverFromCRI` | `false` | Alpha | 1.28 | |
 | `KubeletInUserNamespace` | `false` | Alpha | 1.22 | |
 | `KubeletPodResourcesDynamicResources` | `false` | Alpha | 1.27 | |
@@ -286,6 +287,7 @@ For a reference to old feature gates that are removed, please refer to
 | `JobTrackingWithFinalizers` | `false` | Beta | 1.23 | 1.24 |
 | `JobTrackingWithFinalizers` | `true` | Beta | 1.25 | 1.25 |
 | `JobTrackingWithFinalizers` | `true` | GA | 1.26 | - |
+| `KMSv1` | `true` | Deprecated | 1.28 | - |
 | `KubeletCredentialProviders` | `false` | Alpha | 1.20 | 1.23 |
 | `KubeletCredentialProviders` | `true` | Beta | 1.24 | 1.25 |
 | `KubeletCredentialProviders` | `true` | GA | 1.26 | - |
@@ -584,7 +586,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
   completions without relying on Pods remaining in the cluster indefinitely.
   The Job controller uses Pod finalizers and a field in the Job status to keep
   track of the finished Pods to count towards completion.
+- `KMSv1`: Enables KMS v1 API for encryption at rest. See [Using a KMS Provider for data encryption](/docs/tasks/administer-cluster/kms-provider) for more details.
 - `KMSv2`: Enables KMS v2 API for encryption at rest. See [Using a KMS Provider for data encryption](/docs/tasks/administer-cluster/kms-provider) for more details.
+- `KMSv2KDF`: Enables KMS v2 to generate single use data encryption keys.
+  See [Using a KMS Provider for data encryption](/docs/tasks/administer-cluster/kms-provider) for more details.
+  If the `KMSv2` feature gate is not enabled in your cluster, the value of the `KMSv2KDF` feature gate has no effect.
 - `KubeletCgroupDriverFromCRI`: Enable detection of the kubelet cgroup driver
   configuration option from the {{<glossary_tooltip term_id="cri" text="CRI">}}.
   You can use this feature gate on nodes with a kubelet that supports the feature gate
