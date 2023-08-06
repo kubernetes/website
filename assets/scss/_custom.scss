@@ -356,74 +356,43 @@ main {
 
 /* SCSS Related to the Metrics Table */
 
-// Define the variable for the table caption
-$table-caption: "This is the list of STABLE metrics emitted from core Kubernetes components";
+    @media (max-width: 767px) { // for mobile devices, Display the names, Stability levels & types
 
-// Define a mixin for the key-value pair style
-@mixin key-value-pair {
-  td {
-    padding: 5px 10px;
-    text-align: left;
-    width: 100%;
-  }
-}
+      th:nth-child(n + 4),
+      td:nth-child(n + 4) {
+        display: none;
+      }
 
-// Apply the key-value pair style to the table
-table.metrics {
-  border-collapse: collapse;
-  width: 100%;
-  caption {
-    font-size: 1.2em;
-    font-weight: bold;
-    padding-bottom: 10px;
-  }
-  thead {
-    border: 1px solid $medium-grey;
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
-    margin-bottom: 1rem;
-
-    tr{
-      display: contents;
-      th{
-        display: block;
-        white-space: nowrap;
+      td.metric_type{
+        min-width: 7em;
+      }
+      td.metric_stability_level{
+        min-width: 6em;
       }
     }
-  }
-  tbody {
-    tr.metric {
-      td {
-        @include key-value-pair;
-        display: block;
-        margin-bottom: 1rem;
-        min-width: 2rem;
-      }
-      td.metric_name {
-        font-weight: 700;
-      }
-      td.metric_labels_varying{
-        div {
-        position: relative;
-        padding-left: 1em;
 
-        &::before{
-          content: '-';
-          position: absolute;
-          left:0;
+    tbody{ // Tested dimensions to improve overall aesthetic of the table
+      tr {
+        td {
+          font-size: smaller;
         }
+        td.metric_labels_varying{
+          min-width: 9em;
         }
+        td.metric_type{
+          min-width: 9em;
+        }
+        td.metric_description{
+          min-width: 10em;
+        }
+    
       }
     }
-  }
-}
 
   table.no-word-break td,
   table.no-word-break code {
     word-break: normal;
-  }
-
+}
 }
 
 // blockquotes and callouts
