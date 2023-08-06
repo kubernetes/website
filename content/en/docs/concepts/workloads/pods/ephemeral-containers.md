@@ -119,8 +119,6 @@ spec:
     image: busybox:1.28
     imagePullPolicy: IfNotPresent
     stdin: true
-    terminationMessagePath: /dev/termination-log
-    terminationMessagePolicy: File
     tty: true
 ```
                             
@@ -149,14 +147,6 @@ following rego as an example.
 The good news is that this is a pretty easy fix, the bad news is
 that it requires end users to update the policies pulled from the library.
 
-## Kyverno
-
-Kyverno seems to have resolved the issues faster. Compared to OPA Gatekeeper
-however it did require a small code change which means that version 1.5.3
-or later is needed to write policies for ephemeral containers. They have
-also updated their policy library to include checking ephemeral containers. 
-Kyverno has done a great job solving these issues quickly.
-It does still require end users to update however.
 
 ## Pod Security Policies
 
