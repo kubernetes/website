@@ -134,18 +134,18 @@ apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
   name: default
-  spec:
-    privileged: false
-      seLinux:
-          rule: RunAsAny
-            supplementalGroups:
-                rule: RunAsAny
-                  runAsUser:
-                      rule: RunAsAny
-                        fsGroup:
-                            rule: RunAsAny
-                              volumes:
-                                - '*'
+spec:
+  privileged: false
+  seLinux:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: RunAsAny
+  runAsUser:
+    rule: RunAsAny
+  fsGroup:
+    rule: RunAsAny
+  volumes:
+  - '*'
 
 ```
 
@@ -165,21 +165,21 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: edit
-  rules:
-  - apiGroups:
-    - ""
-      resources:
-        - pods
-          - pods/attach
-            - pods/exec
-              - pods/portforward
-                - pods/proxy
-                  verbs:
-                    - create
-                    - delete
-                    - deletecollection
-                    - patch
-                    - update
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - pods/attach
+  - pods/exec
+  - pods/portforward
+  - pods/proxy
+  verbs:
+  - create
+  - delete
+  - deletecollection
+  - patch
+  - update
 
 ```
 ## Checking Policy Enforcement
