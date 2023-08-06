@@ -104,8 +104,6 @@ Allowed values for taint `effects` are:
 : This is a "preference" or "soft" version of `NoSchedule`. The system will *try* to avoid placing a
 pod that does not tolerate the taint on the node, but it is not required. 
 
-All the taint effects are enforced by Kubernetes scheduler except for `NoExecute` which is enforced by NodeController.
-
 You can put multiple taints on the same node and multiple tolerations on the same pod.
 The way Kubernetes processes multiple taints and tolerations is like a filter: start
 with all of a node's taints, then ignore the ones for which the pod has a matching toleration; the
