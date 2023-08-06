@@ -117,170 +117,45 @@ Kubernetes supports several types of volumes.
 Kubernetes 支持下列类型的卷：
 
 <!--
-### awsElasticBlockStore (deprecated) {#awselasticblockstore}
-
-An `awsElasticBlockStore` volume mounts an Amazon Web Services (AWS)
-[EBS volume](https://aws.amazon.com/ebs/) into your pod. Unlike
-`emptyDir`, which is erased when a pod is removed, the contents of an EBS
-volume are persisted and the volume is unmounted. This means that an
-EBS volume can be pre-populated with data, and that data can be shared between pods.
+### awsElasticBlockStore (removed) {#awselasticblockstore}
 -->
-### awsElasticBlockStore （已弃用）   {#awselasticblockstore}
+### awsElasticBlockStore（已移除）   {#awselasticblockstore}
 
-{{< feature-state for_k8s_version="v1.17" state="deprecated" >}}
-
-`awsElasticBlockStore` 卷将 Amazon Web 服务（AWS）[EBS 卷](https://aws.amazon.com/ebs/)挂载到你的
-Pod 中。`emptyDir` 在 Pod 被删除时也会一起被删除，但 EBS 卷的内容在删除
-Pod 时会被保留，卷只是被卸载掉了。
-这意味着 EBS 卷可以预先填充数据，并且该数据可以在 Pod 之间共享。
-
-{{< note >}}
-<!--
-You must create an EBS volume by using `aws ec2 create-volume` or the AWS API before you can use it.
--->
-你在使用 EBS 卷之前必须使用 `aws ec2 create-volume` 命令或者 AWS API 创建该卷。
-{{< /note >}}
+<!-- maintenance note: OK to remove all mention of awsElasticBlockStore once the v1.27 release of
+Kubernetes has gone out of support -->
 
 <!--
-There are some restrictions when using an `awsElasticBlockStore` volume:
+Kubernetes {{< skew currentVersion >}} does not include a `awsElasticBlockStore` volume type.
 
-* the nodes on which pods are running must be AWS EC2 instances
-* those instances need to be in the same region and availability zone as the EBS volume
-* EBS only supports a single
+The AWSElasticBlockStore in-tree storage driver was deprecated in the Kubernetes v1.19 release
+and then removed entirely in the v1.27 release.
+
+The Kubernetes project suggests that you use the [AWS EBS](https://github.com/kubernetes-sigs/aws-ebs-csi-driver) third party
+storage driver instead.
 -->
-使用 `awsElasticBlockStore` 卷时有一些限制：
+Kubernetes {{< skew currentVersion >}} 不包含 `awsElasticBlockStore` 卷类型。
 
-* Pod 运行所在的节点必须是 AWS EC2 实例。
-* 这些实例需要与 EBS 卷在相同的地域（Region）和可用区（Availability-Zone）。
-* EBS 卷只支持被挂载到单个 EC2 实例上。
+AWSElasticBlockStore 树内存储驱动程序在 Kubernetes v1.19 版本中被弃用，并在 v1.27 版本中完全删除。
 
 <!--
-#### Creating an AWS EBS volume
+### azureDisk (removed) {#azuredisk}
 
-Before you can use an EBS volume with a pod, you need to create it.
+Kubernetes {{< skew currentVersion >}} does not include a `azureDisk` volume type.
+
+The AzureDisk in-tree storage driver was deprecated in the Kubernetes v1.19 release
+and then removed entirely in the v1.27 release.
+
+The Kubernetes project suggests that you use the [Azure Disk](https://github.com/kubernetes-sigs/azuredisk-csi-driver) third party
+storage driver instead.
 -->
-#### 创建 AWS EBS 卷
+### azureDisk （已移除）   {#azuredisk}
 
-在将 EBS 卷用到 Pod 上之前，你首先要创建它。
+Kubernetes {{< skew currentVersion >}} 不包含 `azureDisk` 卷类型。
 
-```shell
-aws ec2 create-volume --availability-zone=eu-west-1a --size=10 --volume-type=gp2
-```
+AzureDisk 树内存储驱动程序在 Kubernetes v1.19 版本中被弃用，并在 v1.27 版本中完全删除。
 
-<!--
-Make sure the zone matches the zone you brought up your cluster in. Check that the size and EBS volume
-type are suitable for your use.
--->
-确保该区域与你的集群所在的区域相匹配。还要检查卷的大小和 EBS 卷类型都适合你的用途。
-
-<!--
-#### AWS EBS configuration example
--->
-#### AWS EBS 配置示例
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: test-ebs
-spec:
-  containers:
-  - image: registry.k8s.io/test-webserver
-    name: test-container
-    volumeMounts:
-    - mountPath: /test-ebs
-      name: test-volume
-  volumes:
-  - name: test-volume
-    # 此 AWS EBS 卷必须已经存在
-    awsElasticBlockStore:
-      volumeID: "<volume id>"
-      fsType: ext4
-```
-<!--
-If the EBS volume is partitioned, you can supply the optional field `partition: "<partition number>"` to specify which partition to mount on.
--->
-如果 EBS 卷是分区的，你可以提供可选的字段 `partition: "<partition number>"` 来指定要挂载到哪个分区上。
-
-<!--
-#### AWS EBS CSI migration
--->
-#### AWS EBS CSI 卷迁移
-
-{{< feature-state for_k8s_version="v1.25" state="stable" >}}
-
-<!--
-The `CSIMigration` feature for `awsElasticBlockStore`, when enabled, redirects
-all plugin operations from the existing in-tree plugin to the `ebs.csi.aws.com` Container
-Storage Interface (CSI) driver. In order to use this feature, the [AWS EBS CSI
-driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)
-must be installed on the cluster.
--->
-启用 `awsElasticBlockStore` 的 `CSIMigration` 特性后，所有插件操作将从现有的树内插件重定向到
-`ebs.csi.aws.com` 容器存储接口（CSI）驱动程序。
-为了使用此特性，必须在集群中安装
-[AWS EBS CSI 驱动](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)。
-
-<!--
-#### AWS EBS CSI migration complete
--->
-#### AWS EBS CSI 迁移结束
-
-{{< feature-state for_k8s_version="v1.17" state="alpha" >}}
-
-<!--
-To disable the `awsElasticBlockStore` storage plugin from being loaded by the controller manager
-and the kubelet, set the `InTreePluginAWSUnregister` flag to `true`.
--->
-要禁止控制器管理器和 kubelet 加载 `awsElasticBlockStore` 存储插件，
-请将 `InTreePluginAWSUnregister` 标志设置为 `true`。
-
-<!--
-### azureDisk (deprecated) {#azuredisk}
-
-The `azureDisk` volume type mounts a Microsoft Azure [Data Disk](https://docs.microsoft.com/en-us/azure/aks/csi-storage-drivers) into a pod.
-
-For more details, see the [`azureDisk` volume plugin](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_disk/README.md).
--->
-### azureDisk （已弃用）   {#azuredisk}
-
-{{< feature-state for_k8s_version="v1.19" state="deprecated" >}}
-
-`azureDisk` 卷类型用来在 Pod 上挂载 Microsoft Azure
-[数据盘（Data Disk）](https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-about-disks-vhds/) 。
-若需了解更多详情，请参考 [`azureDisk` 卷插件](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_disk/README.md)。
-
-<!--
-#### azureDisk CSI migration
--->
-#### azureDisk 的 CSI 迁移  {#azuredisk-csi-migration}
-
-{{< feature-state for_k8s_version="v1.24" state="stable" >}}
-
-<!--
-The `CSIMigration` feature for `azureDisk`, when enabled, redirects all plugin operations
-from the existing in-tree plugin to the `disk.csi.azure.com` Container
-Storage Interface (CSI) Driver. In order to use this feature, the
-[Azure Disk CSI Driver](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
-must be installed on the cluster.
--->
-启用 `azureDisk` 的 `CSIMigration` 特性后，所有插件操作从现有的树内插件重定向到
-`disk.csi.azure.com` 容器存储接口（CSI）驱动程序。
-为了使用此特性，必须在集群中安装
-[Azure 磁盘 CSI 驱动程序](https://github.com/kubernetes-sigs/azuredisk-csi-driver)。
-
-<!--
-#### azureDisk CSI migration complete
-
-To disable the `azureDisk` storage plugin from being loaded by the controller manager
-and the kubelet, set the `InTreePluginAzureDiskUnregister` flag to `true`.
--->
-#### azureDisk CSI 迁移完成
-
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
-
-要禁止控制器管理器和 kubelet 加载 `azureDisk` 存储插件，
-请将 `InTreePluginAzureDiskUnregister` 标志设置为 `true`。
+Kubernetes 项目建议你改用 [Azure Disk](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
+第三方存储驱动程序。
 
 <!--
 ### azureFile (deprecated) {#azurefile}
@@ -368,23 +243,31 @@ See the [CephFS example](https://github.com/kubernetes/examples/tree/master/volu
 更多信息请参考 [CephFS 示例](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/)。
 
 <!--
-### cinder (deprecated) {#cinder}
+### cinder (removed) {#cinder}
 -->
-### cinder （已弃用）   {#cinder}
+### cinder （已移除）   {#cinder}
 
-{{< feature-state for_k8s_version="v1.18" state="deprecated" >}}
-
-{{< note >}}
-<!--
-Kubernetes must be configured with the OpenStack cloud provider.
--->
-Kubernetes 必须配置了 OpenStack Cloud Provider。
-{{< /note >}}
+<!-- maintenance note: OK to remove all mention of cinder once the v1.26 release of
+Kubernetes has gone out of support -->
 
 <!--
-The `cinder` volume type is used to mount the OpenStack Cinder volume into your pod.
+Kubernetes {{< skew currentVersion >}} does not include a `cinder` volume type.
+
+The OpenStack Cinder in-tree storage driver was deprecated in the Kubernetes v1.11 release
+and then removed entirely in the v1.26 release.
+
+The Kubernetes project suggests that you use the 
+[OpenStack Cinder](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)
+third party storage driver instead.
 -->
-`cinder` 卷类型用于将 OpenStack Cinder 卷挂载到 Pod 中。
+Kubernetes {{< skew currentVersion >}} 不包含 `cinder` 卷类型。
+
+OpenStack Cinder 树内存储驱动程序在 Kubernetes v1.11 版本中被弃用，
+并在 v1.26 版本中完全删除。
+
+Kubernetes 项目建议你改用
+[OpenStack Cinder](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)
+第三方存储驱动程序。
 
 <!--
 #### Cinder volume configuration example
@@ -2094,8 +1977,6 @@ The following in-tree plugins support persistent storage on Windows nodes:
 
 下面是支持 Windows 节点上持久性存储的树内插件：
 
-* [`awsElasticBlockStore`](#awselasticblockstore)
-* [`azureDisk`](#azuredisk)
 * [`azureFile`](#azurefile)
 * [`gcePersistentDisk`](#gcepersistentdisk)
 * [`vsphereVolume`](#vspherevolume)
