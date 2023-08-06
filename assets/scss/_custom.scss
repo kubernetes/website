@@ -358,6 +358,7 @@ main {
 
     @media (max-width: 767px) { // for mobile devices, Display the names, Stability levels & types
 
+     table.metrics { 
       th:nth-child(n + 4),
       td:nth-child(n + 4) {
         display: none;
@@ -370,8 +371,9 @@ main {
         min-width: 6em;
       }
     }
+    }
 
-    tbody{ // Tested dimensions to improve overall aesthetic of the table
+    table.metrics tbody{ // Tested dimensions to improve overall aesthetic of the table
       tr {
         td {
           font-size: smaller;
