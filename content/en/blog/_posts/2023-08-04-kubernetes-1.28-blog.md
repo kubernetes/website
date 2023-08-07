@@ -134,7 +134,7 @@ When a node is shutdown but not detected by Kubelet's Node Shutdown Manager, the
 
 This handles node shutdown cases that are not detected by Kubelet's Node Shutdown Manager. The pods will be forcefully deleted in this case, triggering the deletion of the VolumeAttachments, and new pods will be created on a new running node so that application can continue to function.
 
-## Retroactive Default StorageClass Assignment
+## Automatic, retroactive assignment of a default StorageClass
     
 This feature makes it easier to change the default StorageClass by allowing the default storage class assignment to be retroactive for existing unbound persistent volume claims without any storage class assigned.
     
