@@ -52,7 +52,7 @@ to use this feature with Kubernetes pods:
 
 * CRI-O: version 1.25 (and later) supports user namespaces for containers.
 
-containerd v1.7 is not compatible with the userns support in Kubernetes v{{< skew currentVersion >}}.
+containerd v1.7 is not compatible with the userns support in Kubernetes v1.27 to v{{< skew latestVersion >}}.
 Kubernetes v1.25 and v1.26 used an earlier implementation that **is** compatible with containerd v1.7,
 in terms of userns support.
 If you are using a version of Kubernetes other than {{< skew currentVersion >}},
