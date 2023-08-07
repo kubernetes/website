@@ -523,7 +523,7 @@ The following is an example Pod with custom DNS settings:
 -->
 以下是具有自定义 DNS 设置的 Pod 示例：
 
-{{< codenew file="service/networking/custom-dns.yaml" >}}
+{{% code file="service/networking/custom-dns.yaml" %}}
 
 <!--
 When the Pod above is created, the container `test` gets the following contents
