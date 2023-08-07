@@ -51,7 +51,7 @@ This adds "match conditions" to admission webhooks, as an extension to the exist
     
 ValidatingAdmissionPolicy is an exciting new feature that we hope will greatly reduce the need for admission webhooks, but it is intentionally not attempting to cover every possible use case. This proposal aims to improve the situation for those webhooks that cannot be migrated.
     
-## Mixed version proxy
+## Mixed version proxy (alpha) {#mixed-version-proxy}
 
 When a cluster has multiple API servers at mixed versions (such as during an upgrade/downgrade or when runtime-config changes and a rollout happens), not every apiserver can serve every resource at every version.
 
