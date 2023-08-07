@@ -79,7 +79,7 @@ k/generic-controlplane.
 
 CDI provides a standardized way of injecting complex devices into a container (i.e. devices that logically require more than just a single /dev node to be injected for them to work). This new feature enables plugin developers to utilize the CDIDevices field added to the CRI in 1.27 to pass CDI devices directly to CDI enabled runtimes (of which containerd and crio-o are in recent releases).
     
-## API awareness of sidecar containers (alpha)
+## API awareness of sidecar containers (alpha) {#sidecar-init-containers}
 
 Kubernetes 1.28 introduces an alpha `restartPolicy` field for [init containers](/docs/concepts/workloads/pods/init-containers/),
 and uses that to indicate when an init container is also a _sidecar container_. The will start init containers with `restartPolicy: Always` in the order they are defined, along with other init containers. Instead of waiting for that sidecar container to complete before starting the main container(s) for the Pod, the kubelet only waits for
