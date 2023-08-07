@@ -184,7 +184,7 @@ Begin: control plane and nodes on v1.40
 Control plane upgrade: v1.40 → v1.41 → v1.42 → v1.43
 Node upgrades: v1.40 → v1.43
    
-## Pod Replacement Policy
+## Pod replacement policy for Jobs
 
 Kubernetes 1.28 adds a new field for the Job API that allows you to specify if you want the control
 plane to make new Pods as soon as the previous Pods begin termination (existing behavior),
