@@ -184,6 +184,7 @@ For a reference to old feature gates that are removed, please refer to
 | `SecurityContextDeny` | `false` | Alpha | 1.27 | |
 | `ServiceNodePortStaticSubrange` | `false` | Alpha | 1.27 | 1.27 |
 | `ServiceNodePortStaticSubrange` | `true` | Beta | 1.28 | |
+| `SidecarContainers` | `false` | Alpha | 1.28 | |
 | `SizeMemoryBackedVolumes` | `false` | Alpha | 1.20 | 1.21 |
 | `SizeMemoryBackedVolumes` | `true` | Beta | 1.22 | |
 | `StableLoadBalancerNodeGet` | `true` | Beta | 1.27 | |
@@ -732,6 +733,11 @@ Each feature gate is designed for enabling/disabling a specific feature:
   from the upper range allowing users to assign static ClusterIPs from the lower range with a low
   risk of collision. See
   [Avoiding collisions](/docs/reference/networking/virtual-ips/#avoiding-collisions)
+  for more details.
+- `SidecarContainers`: Allow setting the `restartPolicy` of an init container to
+  `Always` so that the container becomes a sidecar container (restartable init containers).
+  See
+  [Sidecar containers and restartPolicy](/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)
   for more details.
 - `SizeMemoryBackedVolumes`: Enable kubelets to determine the size limit for
   memory-backed volumes (mainly `emptyDir` volumes).
