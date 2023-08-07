@@ -118,16 +118,11 @@ spec:
     tty: true
 ```
                             
-Interesting, there is a new field called ephemeralContainers in the Pod 
-definition. This new field contains a list of containers similar to
-initContainers and containers. It is not identical as there are certain
-options which are not available, refer to the API documentation for more
-information. It does however allow configuration of the container security 
-context, which could in theory allow a bad actor to escalate the container's
-privileges. This should not affect those of us who use a policy enforcement
-tool right? The answer is yes and no depending on the tool and version that 
-is being used. It also depends on if you are using policies from the project's
-library or policies developed in house.
+In the latest Pod definition, a new field called `ephemeralContainers` has been introduced. Similar to `initContainers` and `containers`, this field contains a list of containers. However, it is important to note that `ephemeralContainers` has certain options not available in the other fields. For more details, please refer to the API documentation.
+
+One notable feature of `ephemeralContainers` is its ability to configure the container security context. This means that in theory, a malicious actor could potentially escalate the container's privileges. However, the impact of this depends on the policy enforcement tool being used. If you are using a robust policy enforcement tool, it should be able to mitigate such risks.
+
+The answer to whether it affects users of policy enforcement tools varies. It depends on the specific tool and its version, as well as whether you are using policies from the project's library or custom policies developed in-house. To ensure security, it is advisable to review the policies and keep the policy enforcement tool up-to-date with the latest security measures.
 
 
 ## OPA Gatekeeper
