@@ -98,7 +98,7 @@ Create the ConfigMap from the following YAML configuration file:
 
 使用以下的 YAML 配置文件创建 ConfigMap ：
 
-{{% codenew file="application/mysql/mysql-configmap.yaml" %}}
+{{% code file="application/mysql/mysql-configmap.yaml" %}}
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-configmap.yaml
@@ -132,7 +132,7 @@ Create the Services from the following YAML configuration file:
 
 使用以下 YAML 配置文件创建服务：
 
-{{% codenew file="application/mysql/mysql-services.yaml" %}}
+{{% code file="application/mysql/mysql-services.yaml" %}}
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-services.yaml
@@ -180,7 +180,7 @@ Finally, create the StatefulSet from the following YAML configuration file:
 
 最后，使用以下 YAML 配置文件创建 StatefulSet：
 
-{{< codenew file="application/mysql/mysql-statefulset.yaml" >}}
+{{% code file="application/mysql/mysql-statefulset.yaml" %}}
 
 ```shell
 kubectl apply -f https://k8s.io/examples/application/mysql/mysql-statefulset.yaml

@@ -27,7 +27,7 @@ in this task demonstrate a strategic merge patch and a JSON merge patch.
 Here's the configuration file for a Deployment that has two replicas. Each replica
 is a Pod that has one container:
 
-{{% codenew file="application/deployment-patch.yaml" %}}
+{{% code file="application/deployment-patch.yaml" %}}
 
 Create the Deployment:
 
@@ -288,7 +288,7 @@ patch-demo-1307768864-c86dc   1/1       Running   0          1m
 
 Here's the configuration file for a Deployment that uses the `RollingUpdate` strategy:
 
-{{% codenew file="application/deployment-retainkeys.yaml" %}}
+{{% code file="application/deployment-retainkeys.yaml" %}}
 
 Create the deployment:
 
@@ -439,7 +439,7 @@ examples which supports these subresources.
 
 Here's a manifest for a Deployment that has two replicas:
 
-{{% codenew file="application/deployment.yaml" %}}
+{{% code file="application/deployment.yaml" %}}
 
 Create the Deployment:
 

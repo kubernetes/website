@@ -76,7 +76,7 @@ P[Pod 数据] -.- C
 end
 L[API<br>服务器]
 W[HPA]
-C ---->|Summary<br>API| A -->|metrics<br>API| L --> W
+C ---->|节点层面<br>资源指标| A -->|metrics<br>API| L --> W
 end
 L ---> K[kubectl<br>top]
 classDef box fill:#fff,stroke:#000,stroke-width:1px,color:#000;
@@ -97,8 +97,8 @@ The architecture components, from right to left in the figure, consist of the fo
 * [kubelet](/docs/concepts/overview/components/#kubelet): Node agent for managing container
   resources. Resource metrics are accessible using the `/metrics/resource` and `/stats` kubelet
   API endpoints.
-* [Summary API](#summary-api-source): API provided by the kubelet for discovering and retrieving
-  per-node summarized stats available through the `/stats` endpoint.
+* [node level resource metrics](/docs/reference/instrumentation/node-metrics): API provided by the kubelet for discovering and retrieving
+  per-node summarized stats available through the `/metrics/resource` endpoint.
 * [metrics-server](#metrics-server): Cluster addon component that collects and aggregates resource
   metrics pulled from each kubelet. The API server serves Metrics API for use by HPA, VPA, and by
   the `kubectl top` command. Metrics Server is a reference implementation of the Metrics API.
@@ -113,7 +113,7 @@ The architecture components, from right to left in the figure, consist of the fo
 * [cAdvisor](https://github.com/google/cadvisor): 用于收集、聚合和公开 Kubelet 中包含的容器指标的守护程序。
 * [kubelet](/zh-cn/docs/concepts/overview/components/#kubelet): 用于管理容器资源的节点代理。
   可以使用 `/metrics/resource` 和 `/stats` kubelet API 端点访问资源指标。
-* [Summary API](#summary-api-source): kubelet 提供的 API，用于发现和检索可通过 `/stats` 端点获得的每个节点的汇总统计信息。
+* [节点层面资源指标](/zh-cn/docs/reference/instrumentation/node-metrics): kubelet 提供的 API，用于发现和检索可通过 `/metrics/resource` 端点获得的每个节点的汇总统计信息。
 * [metrics-server](#metrics-server): 集群插件组件，用于收集和聚合从每个 kubelet 中提取的资源指标。
   API 服务器提供 Metrics API 以供 HPA、VPA 和 `kubectl top` 命令使用。Metrics Server 是 Metrics API 的参考实现。
 * [Metrics API](#metrics-api): Kubernetes API 支持访问用于工作负载自动缩放的 CPU 和内存。

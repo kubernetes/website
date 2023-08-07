@@ -111,7 +111,7 @@ technique also lets you access a ConfigMap in a different namespace.
 
 Here's an example Pod that uses values from `game-demo` to configure a Pod:
 
-{{% codenew file="configmap/configure-pod.yaml" %}}
+{{% code file="configmap/configure-pod.yaml" %}}
 
 A ConfigMap doesn't differentiate between single line property values and
 multi-line file-like values.
@@ -216,8 +216,6 @@ data has the following advantages:
 - improves performance of your cluster by significantly reducing load on kube-apiserver, by
   closing watches for ConfigMaps marked as immutable.
 
-This feature is controlled by the `ImmutableEphemeralVolumes`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 You can create an immutable ConfigMap by setting the `immutable` field to `true`.
 For example:
 

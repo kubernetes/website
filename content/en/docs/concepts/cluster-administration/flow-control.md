@@ -470,7 +470,7 @@ traffic, you can configure rules to block any health check requests
 that originate from outside your cluster.
 {{< /caution >}}
 
-{{% codenew file="priority-and-fairness/health-for-strangers.yaml" %}}
+{{% code file="priority-and-fairness/health-for-strangers.yaml" %}}
 
 ## Diagnostics
 

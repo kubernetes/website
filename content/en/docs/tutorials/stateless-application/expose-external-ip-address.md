@@ -31,7 +31,7 @@ external IP address.
 
 1. Run a Hello World application in your cluster:
 
-   {{% codenew file="service/load-balancer-example.yaml" %}}
+   {{% code file="service/load-balancer-example.yaml" %}}
 
    ```shell
    kubectl apply -f https://k8s.io/examples/service/load-balancer-example.yaml

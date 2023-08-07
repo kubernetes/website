@@ -13,10 +13,46 @@ weight: 210
 -->
 
 <!-- overview -->
+
 <!--
-This page shows how to enable and configure encryption of secret data at rest.
+All of the APIs in Kubernetes that let you write persistent API resource data support
+at-rest encryption. For example, you can enable at-rest encryption for
+{{< glossary_tooltip text="Secrets" term_id="secret" >}}.
+This at-rest encryption is additional to any system-level encryption for the
+etcd cluster or for the filesystem(s) on hosts where you are running the
+kube-apiserver.
+
+This page shows how to enable and configure encryption of API data at rest.
 -->
-本文展示如何启用和配置静态 Secret 数据的加密。
+Kubernetes 中允许允许用户编辑的持久 API 资源数据的所有 API 都支持静态加密。
+例如，你可以启用静态加密 {{< glossary_tooltip text="Secret" term_id="secret" >}}。
+此静态加密是对 etcd 集群或运行 kube-apiserver 的主机上的文件系统的任何系统级加密的补充。
+
+本页展示如何启用和配置静态 API 数据加密。
+
+{{< note >}}
+<!--
+This task covers encryption for resource data stored using the
+{{< glossary_tooltip text="Kubernetes API" term_id="kubernetes-api" >}}. For example, you can
+encrypt Secret objects, including the key-value data they contain.
+-->
+此任务涵盖使用 {{< glossary_tooltip text="Kubernetes API" term_id="kubernetes-api" >}}
+存储的资源数据的加密。
+例如，你可以加密 Secret 对象，包括它们包含的键值数据。
+<!--
+If you want to encrypt data in filesystems that are mounted into containers, you instead need
+to either:
+
+- use a storage integration that provides encrypted
+  {{< glossary_tooltip text="volumes" term_id="volume" >}}
+- encrypt the data within your own application
+-->
+如果要加密安装到容器中的文件系统中的数据，则需要：
+
+- 使用提供加密 {{< glossary_tooltip text="volumes" term_id="volume" >}} 的存储集成
+- 在你自己的应用程序中加密数据
+
+{{< /note >}}
 
 ## {{% heading "prerequisites" %}}
 

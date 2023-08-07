@@ -165,11 +165,11 @@ You can find examples of pod disruption budgets defined below. They match pods w
 
 Example PDB Using minAvailable:
 
-{{% codenew file="policy/zookeeper-pod-disruption-budget-minavailable.yaml" %}}
+{{% code file="policy/zookeeper-pod-disruption-budget-minavailable.yaml" %}}
 
 Example PDB Using maxUnavailable:
 
-{{% codenew file="policy/zookeeper-pod-disruption-budget-maxunavailable.yaml" %}}
+{{% code file="policy/zookeeper-pod-disruption-budget-maxunavailable.yaml" %}}
 
 For example, if the above `zk-pdb` object selects the pods of a StatefulSet of size 3, both
 specifications have the exact same meaning. The use of `maxUnavailable` is recommended as it
