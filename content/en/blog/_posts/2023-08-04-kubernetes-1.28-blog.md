@@ -52,7 +52,7 @@ is a CEL expression that must evaluate to true for the admission request to be s
 
 In Kubernetes v1.28, that field moved to beta, and it's enabled by default.
     
-ValidatingAdmissionPolicy is an exciting new feature that we hope will greatly reduce the need for admission webhooks, but it is intentionally not attempting to cover every possible use case. This proposal aims to improve the situation for those webhooks that cannot be migrated.
+To learn more, see [`matchConditions`](/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchconditions) in the Kubernetes documentation.
     
 ## Mixed version proxy (alpha) {#mixed-version-proxy}
 
