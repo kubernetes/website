@@ -231,7 +231,7 @@ This aims to enhance CRI implementations to be able to fulfill all the stats nee
 
 This release includes a total of 12 enhancements promoted to Stable:
 
-* [Kubectl Events](https://github.com/kubernetes/enhancements/issues/1440)
+* [`kubectl events`](https://github.com/kubernetes/enhancements/issues/1440)
 * [Retroactive default StorageClass assignment](https://github.com/kubernetes/enhancements/issues/3333)
 * [Non-graceful node shutdown](https://github.com/kubernetes/enhancements/issues/2268)
 * [Support 3rd party device monitoring plugins](https://github.com/kubernetes/enhancements/issues/606)
