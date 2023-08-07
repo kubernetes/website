@@ -101,11 +101,7 @@ kubectl run ephemeral-demo --image=k8s.gcr.io/pause:3.1 --restart=Never
 kubectl debug -it ephemeral-demo --image=busybox:1.28
 ```
 
-We get a shell and life is now much simpler, but wait a minute.
-This post is not about how to use ephemeral containers, there are 
-enough of those already, but rather the security implications of enabling 
-ephemeral containers. Let's have a look at the YAML for the Pod that we 
-created the ephemeral container in.
+Once we gain access to a shell, managing tasks becomes easier. However, let's take a moment to clarify the purpose of this post. It doesn't aim to explain how to use ephemeral containers, as that information is readily available. Instead, the main focus is on discussing the security implications that arise when enabling ephemeral containers. Now, let's go ahead and take a closer look at the YAML representation of the Pod where we created the ephemeral container. 
 
 ```yaml
 apiVersion: v1
