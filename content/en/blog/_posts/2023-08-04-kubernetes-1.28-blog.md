@@ -216,7 +216,7 @@ Additionally, we propose a new action in PodFailurePolicy, called FailIndex, to 
    
 ## cAdvisor-less, CRI-full Container And Pod Stats
 
-This encompasses two related pieces of work (summary API and /metrics/cadvisor), and will require changes in three different components (CRI implementation, Kubelet, cAdvisor).
+This encompasses two related pieces of work (changes to the kubelet's `/metrics/cadvisor` endpoint, and improvements to the replacement _summary_ API).
 
 There are two main APIs that consumers use to gather stats about running containers and pods: summary API and /metrics/cadvisor. The Kubelet is responsible for implementing the summary API, and cadvisor is responsible for fulfilling /metrics/cadvisor.
 
