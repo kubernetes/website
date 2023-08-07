@@ -214,7 +214,6 @@ fully independent of other indexes.
 
 For instance, if indexed jobs were used as the basis for a suite of long-running integration tests, then each test run would only be able to find a single test failure.
 
-Other popular batch services like AWS Batch use a separate backoff limit for each index, showing that this is a common use case that should be supported by Kubernetes.
     
 We propose a new policy for running Indexed Jobs in which the backoff limit controls the number of retries per index. When the new policy is used all indexes execute until their success or failure. We also propose a new API field to control the number of failed indexes.
 
