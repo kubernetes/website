@@ -66,7 +66,7 @@ are all possible). This new alpha mechanism lets you hide that skew from clients
     
 This Allows CRs to fail validation if the patch did not alter any of the invalid fields.  The ability to shift left validation logic from controllers to the front end is a long-term goal for improving the useability of the Kubernetes project.
     
-## Add Generic Control Plane Staging Repositories
+## Source code reorganization for control plane components
 
 This factors the kube-apiserver to build on a new staging repository that consumes k/apiserver but has a bigger, carefully chosen subset of the functionality of kube-apiserver such that it is reusable.
 
