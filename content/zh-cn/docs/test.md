@@ -41,7 +41,7 @@ This is in an H5 section.
 
 This is in an H6 section.
 -->
-## 标题级别
+## 标题级别   {#heading-levels}
 
 上面的标题是 H2 级别。页面标题（Title）会渲染为 H1。以下各节分别展示 H3-H6
 的渲染结果。
@@ -68,7 +68,7 @@ This is in an H6 section.
 Inline elements show up within the text of paragraph, list item, admonition, or
 other block-level element.
 -->
-## 内联元素（Inline elements）
+## 内联元素（Inline elements）   {#inline-elements}
 
 内联元素显示在段落文字、列表条目、提醒信息或者块级别元素之内。
 
@@ -79,7 +79,10 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
 fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
 culpa qui officia deserunt mollit anim id est laborum.
 
-### 内联文本风格
+<!--
+### Inline text styles
+-->
+### 内联文本风格   {#inline-text-styles}
 
 <!--
 - **bold**
@@ -103,7 +106,10 @@ culpa qui officia deserunt mollit anim id est laborum.
 - `monospace text`  <- 等宽字体
 - **`monospace bold`**    <- 粗等宽字体
 
-## 列表
+<!--
+## Lists
+-->
+## 列表   {#lists}
 
 <!--
 Markdown doesn't have strict rules about how to process lists. When we moved
@@ -119,11 +125,10 @@ mind:
 Markdown 在如何处理列表方面没有严格的规则。在我们从 Jekyll 迁移到 Hugo 时，
 我们遇到了一些问题。为了处理这些问题，请注意以下几点：
 
-- 确保你将子列表的条目缩进**两个空格**
+- 确保你将子列表的条目缩进**两个空格**。
 
 - 要结束一个列表并开始一个新的列表，你需要在两个列表之间添加加一个 HTML 注释块，
-  并将其置于独立的一行，左边顶边对齐。否则前一个列表不会结束，无论你在它与
-  第二个列表之间放多少个空行。
+  并将其置于独立的一行，左边顶边对齐。否则前一个列表不会结束，无论你在它与第二个列表之间放多少个空行。
 
 <!--
 ### Bullet lists
@@ -133,33 +138,27 @@ Markdown 在如何处理列表方面没有严格的规则。在我们从 Jekyll 
 - You can mix `-` and `*`
   - To make a sub-item, indent two spaces.
     - This is a sub-sub-item. Indent two more spaces.
-    - Another sub-item.
+  - Another sub-item.
 -->
-### 项目符号列表
+### 项目符号列表   {#bullet-lists}
 
 - 此为列表条目
 * 此为另一列表条目，位于同一列表中
 - 你可以将 `-` 和 `*` 混合使用
   - 要开始子列表，缩进两个空格。
     - 这是另一个子子条目。进一步多缩进两个空格。
-  - 另一个子条目
+  - 另一个子条目。
 
 <!-- separate lists -->
 
 <!--
-- This is a new list.  With Hugo, you need to use a HTML comment to separate two
+- This is a new list. With Hugo, you need to use a HTML comment to separate two
   consecutive lists. **The HTML comment needs to be at the left margin.**
 - Bullet lists can have paragraphs or block elements within them.
 
-      Indent the content to be the same as the first line of the bullet
-      point. **This paragraph and the code block line up with the second `l` in
-      `Bullet` above.**
-
-      ```bash
-      ls -l
-      ```
-
-      - And a sub-list after some block-level content
+  Indent the content to be the same as the first line of the bullet point.
+  **This paragraph and the code block line up with the first `B` in `Bullet`
+  above.**
 -->
 - 这是一个新的列表。使用 Hugo 时，你需要用一行 HTML 注释将两个紧挨着的列表分开。
   **这里的 HTML 注释需要按左侧顶边对齐。**
@@ -172,6 +171,9 @@ Markdown 在如何处理列表方面没有严格的规则。在我们从 Jekyll 
   ls -l
   ```
 
+  <!--
+  - And a sub-list after some block-level content
+  -->
   - 在块级内容之后还可以有子列表内容。
 
 <!--
@@ -180,11 +182,11 @@ Markdown 在如何处理列表方面没有严格的规则。在我们从 Jekyll 
     2.  Numbered sub-list item 2
 -->
 - 项目符号列表条目中还可以包含编号列表。
-    1.  编号子列表条目一
-    1.  编号子列表条目二
+  1. 编号子列表条目一
+  1. 编号子列表条目二
 
-- 项目符号列表条目中包含编号列表的另一种形式（推荐形式）。让子列表的编号数字
-  与项目符号列表文字左对齐。
+- 项目符号列表条目中包含编号列表的另一种形式（推荐形式）。
+  让子列表的编号数字与项目符号列表文字左对齐。
 
   1. 编号子列表条目一，左侧编号与前一行的“项”字左对齐。
   1.  编号子列表条目二，条目文字与数字之间多了一个空格。
@@ -201,17 +203,20 @@ Markdown 在如何处理列表方面没有严格的规则。在我们从 Jekyll 
     interior block-level content line up better along tab-stops.
     {{</note>}}
 -->
-### 编号列表
+### 编号列表  {#numbered-lists}
 
-1.  此为列表条目
-1.  此为列表中的第二个条目。在 Markdown 源码中所给的编号数字与最终输出的数字
-    可能不同。建议在紧凑列表中编号都使用 1。如果条目之间有其他内容（比如注释
-    掉的英文）存在，则需要显式给出编号。
-2.  {{<note>}}
-    对于单个数字的编号列表，在句点（`.`）后面加两个空格。这样有助于将列表的
-    内容更好地对齐。
-    {{</note>}}
-
+1. 此为列表条目
+2. 此为列表中的第二个条目。在 Markdown 源码中所给的编号数字与最终输出的数字
+   可能不同。建议在紧凑列表中编号都使用 1。如果条目之间有其他内容（比如注释
+   掉的英文）存在，则需要显式给出编号。
+3. {{<note>}}
+   <!--
+   For single-digit numbered lists, using two spaces after the period makes
+   interior block-level content line up better along tab-stops.
+   -->
+   对于单个数字的编号列表，在句点（`.`）后面加两个空格。这样有助于将列表的
+   内容更好地对齐。
+   {{</note>}}
 
 <!-- separate lists -->
 
@@ -220,31 +225,27 @@ Markdown 在如何处理列表方面没有严格的规则。在我们从 Jekyll 
     two consecutive lists. **The HTML comment needs to be at the left margin.**
 2.  Numbered lists can have paragraphs or block elements within them.
 
-      Just indent the content to be one tab stop beyond the text of the bullet
-      point. **This paragraph and the code block line up with the `m` in
-      `Numbered` above.**
+    Indent the content to be the same as the first line of the bullet
+    point. **This paragraph and the code block line up with the `N` in
+    `Numbered` above.**
+-->
+1. 这是一个新的列表。 使用 Hugo 时，你需要用 HTML 注释将两个紧挨着的列表分开。
+   **HTML 注释需要按左边顶边对齐。**
+2. 编号列表条目中也可以包含额外的段落或者块元素。
 
-      ```bash
-      ls -l
-      ```
+   后续段落应该按编号列表文字的第一行左侧对齐。
+   **此段落及下面的代码段都与本条目中的第一个字“编”对齐。**
 
-    - And a sub-list after some block-level content. This is at the same
+   ```bash
+   ls -l
+   ```
+
+   <!--
+   - And a sub-list after some block-level content. This is at the same
       "level" as the paragraph and code block above, despite being indented
       more.
--->
-1.  这是一个新的列表。 使用 Hugo 时，你需要用 HTML 注释将两个紧挨着的列表分开。
-    **HTML 注释需要按左边顶边对齐。**
-2.  编号列表条目中也可以包含额外的段落或者块元素。
-
-    后续段落应该按编号列表文字的第一行左侧对齐。
-    **此段落及下面的代码段都与本条目中的第一个字“编”对齐。**
-
-    ```bash
-    ls -l
-    ```
-
-    - 编号列表条目中可以在块级内容之后有子列表。子列表的符号项要与上层列表条目
-      文字左侧对齐。
+   -->
+   - 编号列表条目中可以在块级内容之后有子列表。子列表的符号项要与上层列表条目文字左侧对齐。
 
 ### 中文译文的编号列表格式 1
 
@@ -266,7 +267,9 @@ Markdown 在如何处理列表方面没有严格的规则。在我们从 Jekyll 
 -->
 1. 译文条目一
 
-   <!-- trunk of english text -->
+   <!--
+   trunk of english text
+   -->
    中文译文段落。
 
    <!--
@@ -285,8 +288,8 @@ Markdown 在如何处理列表方面没有严格的规则。在我们从 Jekyll 
 <!--
 1. English item 2
 -->
-2. 译文条目二，由于前述原因，条目 2 与 1 之间存在注释行，如果此条目不显式给出
-   起始编号，会被 Hugo 当做两个独立的列表。
+2. 译文条目二，由于前述原因，条目 2 与 1 之间存在注释行，如果此条目不显式给出起始编号，
+   会被 Hugo 当做两个独立的列表。
 
 <!--
 ### Tab lists
@@ -294,10 +297,10 @@ Markdown 在如何处理列表方面没有严格的规则。在我们从 Jekyll 
 Tab lists can be used to conditionally display content, e.g., when multiple
 options must be documented that require distinct instructions or context.
 -->
-### 标签列表
+### 标签列表  {#tab-lists}
 
-标签列表可以用来有条件地显式内容，例如，当有多种选项可供选择时，每个选项
-可能需要完全不同的指令或者上下文。
+标签列表可以用来有条件地显式内容，例如，当有多种选项可供选择时，
+每个选项可能需要完全不同的指令或者上下文。
 
 <!--
 {{</* tabs name="tab_lists_example" */>}}
@@ -352,16 +355,14 @@ echo '标签页里面也可以有代码段!'
 
 Nested header tags may also be included.
 -->
-### 在标签页中的子标题
+### 在标签页中的子标题  {#headers-in-tab-list}
 
 标签页中也可以包含嵌套的子标题。
 
-<!--
-{{</* warning */>}}
-Headers within tab lists will not appear in the Table of Contents.
-{{</* /warning */>}}
--->
 {{< warning >}}
+<!--
+Headers within tab lists will not appear in the Table of Contents.
+-->
 标签页中的子标题不会在目录中出现。
 {{< /warning >}}
 
@@ -392,10 +393,10 @@ back-ticks (code fences) for code blocks.** This allows you to specify the
 language of the enclosed code, which enables syntax highlighting. It is also more
 predictable than using indentation.
 -->
-## 代码段
+## 代码段  {#code-blocks}
 
-你可以用两种方式来创建代码块。一种方式是将在代码块之前和之后分别加上包含三个
-反引号的独立行。**反引号应该仅用于代码段。**
+你可以用两种方式来创建代码块。一种方式是将在代码块之前和之后分别加上包含三个反引号的独立行。
+**反引号应该仅用于代码段。**
 用这种方式标记代码段时，你还可以指定所包含的代码的编程语言，从而启用语法加亮。
 这种方式也比使用空格缩进的方式可预测性更好。
 
@@ -423,8 +424,7 @@ The back-tick method has some advantages.
 - 这种方式几乎总是能正确工作
 - 在查看源代码时，内容相对紧凑
 - 允许你指定代码块的编程语言，以便启用语法加亮
-- 代码段的结束位置有明确标记。有时候，采用缩进空格的方式会使得一些对空格
-  很敏感的语言（如 Python、YAML）很难处理。
+- 代码段的结束位置有明确标记。有时候，采用缩进空格的方式会使得一些对空格很敏感的语言（如 Python、YAML）很难处理。
 
 <!--
 To specify the language for the code block, put it directly after the first
@@ -448,12 +448,12 @@ Common languages used in Kubernetes documentation code blocks include:
 -->
 Kubernetes 文档中代码块常用语言包括：
 
-- `bash` / `shell` （二者几乎完全相同）
+- `bash` / `shell`（二者几乎完全相同）
 - `go`
 - `json`
 - `yaml`
 - `xml`
-- `none` （禁止对代码块执行语法加亮）
+- `none`（禁止对代码块执行语法加亮）
 
 <!--
 ### Code blocks containing Hugo shortcodes
@@ -463,7 +463,7 @@ from interpreting them, use C-style comments directly after the `<` and before
 the `>` characters. The following example illustrates this (view the Markdown
 source for this page).
 -->
-### 包含 Hugo 短代码的代码块
+### 包含 Hugo 短代码的代码块   {#code-blocks-containing-hugo-shortcodes}
 
 如果要像上面的例子一样显示 Hugo 短代码（Shortcode），不希望 Hugo 将其当做短代码来处理，
 可以在 `<` 和 `>` 之间使用 C 语言风格的注释。
@@ -483,10 +483,10 @@ link target in parentheses. [Link to Kubernetes.io](https://kubernetes.io/) or
 You can also use HTML, but it is not preferred.
 <a href="https://kubernetes.io/">Link to Kubernetes.io</a>
 -->
-## 链接
+## 链接   {#links}
 
 要格式化链接，将链接显示文本放在方括号中，后接用圆括号括起来的链接目标。
-[指向 Kubernetes.io 的连接](https://kubernetes.io/) 或
+[指向 Kubernetes.io 的链接](https://kubernetes.io/)或
 [到 Kubernetes.io 的相对链接](/)。
 
 你也可以使用 HTML，但这种方式不是推荐的方式。
@@ -496,16 +496,16 @@ You can also use HTML, but it is not preferred.
 
 中文版本文档中的链接要注意以下两点：
 
-- 指向 Kubernetes 文档的站内链接，需要在英文链接之前添加前缀 `/zh`。
+- 指向 Kubernetes 文档的站内链接，需要在英文链接之前添加前缀 `/zh-cn`。
   例如，原链接目标为 `/docs/foo/bar` 时，译文中的链接目标应为
   `/zh-cn/docs/foo/bar`。例如：
 
   - 英文版本链接 [Kubernetes Components](/docs/concepts/overview/components/)
   - 对应中文链接 [Kubernetes 组件](/zh-cn/docs/concepts/overview/components/)
 
-- 英文页面子标题会生成对应锚点（Anchor），例如子标题 `## Using object` 会生成
-  对应标签 `#using-objects`。在翻译为中文之后，对应锚点可能会失效。对此，有
-  两种方法处理。假定译文中存在以下子标题：
+- 英文页面子标题会生成对应锚点（Anchor），例如子标题 `## Using object` 会生成对应标签
+  `#using-objects`。在翻译为中文之后，对应锚点可能会失效。对此，有两种方法处理。
+  假定译文中存在以下子标题：
 
   ```
   <!--
@@ -531,8 +531,8 @@ You can also use HTML, but it is not preferred.
   ..., 请参考[清理工作](#清理现场)一节。
   ```
 
-  第二种方式（也是推荐的方式）是将原来可能生成的锚点（尽管在英文原文中未明确
-  给出）显式标记在译文的子标题上。
+  第二种方式（也是推荐的方式）是将原来可能生成的锚点（尽管在英文原文中未明确给出）
+  显式标记在译文的子标题上。
 
   ```
   <!--
@@ -555,10 +555,10 @@ character. The square brackets contain the image's alt text. Try to always use
 alt text so that people using screen readers can get some benefit from the
 image.
 -->
-## 图片
+## 图片  {#images}
 
-要显示图片，可以使用与链接类似的语法（`[links](#links)`），不过要在整个链接
-之前添加一个感叹号（`!`）。方括号中给出的是图片的替代文本。
+要显示图片，可以使用与链接类似的语法（`[links](#links)`），不过要在整个链接之前添加一个感叹号（`!`）。
+方括号中给出的是图片的替代文本。
 请坚持为图片设定替代文本，这样使用屏幕阅读器的人也能够了解图片中包含的是什么。
 
 ![pencil icon](/images/pencil.png)
@@ -573,8 +573,8 @@ figure in Markdown link syntax as shown below.
 要设置扩展的属性，例如 width、title、caption 等等，可以使用
 <a href="https://gohugo.io/content-management/shortcodes/#figure">figure</a>
 短代码，而不是使用 HTML 的 `<img>` 标签。
-此外，如果你需要让图片本身变成超链接，可以使用短代码的 `link` 属性，而不是
-将整个图片放到 Markdown 的链接语法之内。下面是一个例子：
+此外，如果你需要让图片本身变成超链接，可以使用短代码的 `link` 属性，
+而不是将整个图片放到 Markdown 的链接语法之内。下面是一个例子：
 
 <!--
 {{</* figure src="/static/images/pencil.png" title="Pencil icon" caption="Image used to illustrate the figure shortcode" width="200px" */>}}
@@ -593,8 +593,7 @@ You can also use HTML for images, but it is not preferred.
 <img src="/images/pencil.png" alt="pencil icon" />
 -->
 即使你不想使用 figure 短代码，图片也可以展示为链接。这里，铅笔图标指向
-Kubernetes 网站。外层的方括号将整个 image 标签封装起来，链接目标在
-末尾的圆括号之间给出。
+Kubernetes 网站。外层的方括号将整个 image 标签封装起来，链接目标在末尾的圆括号之间给出。
 
 [![pencil icon](/images/pencil.png)](https://kubernetes.io)
 
@@ -610,12 +609,12 @@ characters. The header is separated from the body by cells containing nothing
 but at least three `-` characters. For ease of maintenance, try to keep all the
 cell separators even, even if you heed to use extra space.
 -->
-## 表格
+## 表格   {#tables}
 
 简单的表格可能每行只有一个独立的数据行，各个列之间用 `|` 隔开。
-表格的标题行与表格内容之间用独立的一行隔开，在这一行中每个单元格的内容
-只有 `-` 字符，且至少三个。出于方便维护考虑，请尝试将各个单元格间的
-分割线对齐，尽管这样意味着你需要多输入几个空格。
+表格的标题行与表格内容之间用独立的一行隔开，在这一行中每个单元格的内容只有
+`-` 字符，且至少三个。出于方便维护考虑，请尝试将各个单元格间的分割线对齐，
+尽管这样意味着你需要多输入几个空格。
 
 <!--
 | Heading cell 1 | Heading cell 2 |
@@ -623,9 +622,8 @@ cell separators even, even if you heed to use extra space.
 | Body cell 1    | Body cell 2    |
 -->
 | 标题单元格 1   | 标题单元格 2   |
-|----------------|----------------|
+|--------------|---------------|
 | 内容单元格 1   | 内容单元格 2   |
-
 
 <!--
 The header is optional. Any text separated by `|` will render as a table.
@@ -666,7 +664,7 @@ HTML。
 You can use [Mermaid JS](https://mermaidjs.github.io) visualizations.
 The Mermaid JS version is specified in [/layouts/partials/head.html](https://github.com/kubernetes/website/blob/main/layouts/partials/head.html)
 -->
-## 使用 Mermaid 来可视化
+## 使用 Mermaid 来可视化  {#visualizations-with-mermaid}
 
 你可以使用 [Mermaid JS](https://mermaidjs.github.io) 来进行可视化展示。
 Mermaid JS 版本在 [/layouts/partials/head.html](https://github.com/kubernetes/website/blob/main/layouts/partials/head.html)
@@ -681,7 +679,6 @@ graph TD;
   C->D;
 {{</* mermaid */>}}
 -->
-
 ```
 {{</* mermaid */>}}
 graph TD;
@@ -706,7 +703,6 @@ graph TD;
   C->D;
 {{</*/ mermaid */>}}
 -->
-
 {{< mermaid >}}
 graph TD;
   甲-->乙;
@@ -714,7 +710,6 @@ graph TD;
   乙-->丁;
   丙-->丁;
 {{</ mermaid >}}
-
 
 <!--
 ```
@@ -749,7 +744,7 @@ sequenceDiagram
 <!--
 Produces: 
 -->
-产生：
+会产生：
 
 <!--
 {{< mermaid >}}
@@ -764,7 +759,6 @@ sequenceDiagram
     Alice->John: Yes... John, how are you?
 {{</ mermaid >}}
 -->
-
 {{< mermaid >}}
 sequenceDiagram
     张三 ->> 李四: 李四，锄禾日当午？
@@ -788,7 +782,7 @@ sequenceDiagram
 Sidebars and admonitions provide ways to add visual importance to text. Use
 them sparingly.
 -->
-## 侧边栏和提醒框
+## 侧边栏和提醒框   {#sidebars-and-admonitions}
 
 侧边栏和提醒框可以为文本提供直观的重要性强调效果，可以偶尔一用。
 
@@ -798,7 +792,7 @@ them sparingly.
 A sidebar offsets text visually, but without the visual prominence of
 [admonitions](#admonitions).
 -->
-### 侧边栏（Sidebar）
+### 侧边栏（Sidebar）  {#sidebars}
 
 侧边栏可以将文字横向平移，只是其显示效果可能不像[提醒](#admonitions)那么明显。
 
@@ -808,10 +802,6 @@ A sidebar offsets text visually, but without the visual prominence of
 > You can have paragraphs and block-level elements within a sidebar.
 >
 > You can even have code blocks.
->
-> ```bash
-> sudo dmesg
-> ```
 -->
 
 > 此为侧边栏。
@@ -839,9 +829,7 @@ Notes catch the reader's attention without a sense of urgency.
 You can have multiple paragraphs and block-level elements inside an admonition.
 
 | Or | a | table |
-{{< /note >}}
 -->
-{{< note >}}
 说明信息用来引起读者的注意，但不过分强调其紧迫性。
 
 你可以在提醒框内包含多个段落和块级元素。
@@ -849,26 +837,22 @@ You can have multiple paragraphs and block-level elements inside an admonition.
 | 甚至 | 包含 | 表格 |
 {{< /note >}}
 
+{{< caution >}}
 <!--
-{{< caution >}}
 The reader should proceed with caution.
-{{< /caution >}}
 -->
-{{< caution >}}
 读者继续此操作时要格外小心。
 {{< /caution >}}
 
+{{< warning >}}
 <!--
-{{< warning >}}
 Warnings point out something that could cause harm if ignored.
-{{< /warning >}}
 -->
-{{< warning >}}
 警告信息试图为读者指出一些不应忽略的、可能引发问题的事情。
 {{< /warning >}}
 
-注意，在较老的 Hugo 版本中，直接将 `note`、`warning` 或 `caution` 短代码
-括入 HTML 注释当中是有问题的。这些短代码仍然会起作用。目前，在 0.70.0 
+注意，在较老的 Hugo 版本中，直接将 `note`、`warning` 或 `caution` 短代码括入
+HTML 注释当中是有问题的。这些短代码仍然会起作用。目前，在 0.70.0
 以上版本中似乎已经修复了这一问题。
 
 <!--
@@ -876,7 +860,7 @@ Warnings point out something that could cause harm if ignored.
 
 To add shortcodes to includes.
 -->
-## 包含其他页面
+## 包含其他页面   {#includes}
 
 要包含其他页面，可使用短代码。
 
@@ -887,7 +871,6 @@ To add shortcodes to includes.
 <!--
 ## Katacoda Embedded Live Environment
 -->
-## 嵌入的 Katacoda 环境
+## 嵌入的 Katacoda 环境   {#katacoda-embedded-live-env}
 
 {{< kat-button >}}
-

@@ -72,7 +72,7 @@ Deploymentによって作成されたReplicaSetを管理しないでください
 2. Deploymentが作成されたことを確認するために、`kubectl get deployments`を実行してください。
 
   Deploymentがまだ作成中の場合、コマンドの実行結果は以下のとおりです。
-  ```shell
+  ```
   NAME               READY   UP-TO-DATE   AVAILABLE   AGE
   nginx-deployment   0/3     0            0           1s
   ```
@@ -95,14 +95,14 @@ Deploymentによって作成されたReplicaSetを管理しないでください
 
 4. 数秒後、再度`kubectl get deployments`を実行してください。
   コマンドの実行結果は以下のとおりです。
-  ```shell
+  ```
   NAME               READY   UP-TO-DATE   AVAILABLE   AGE
   nginx-deployment   3/3     3            3           18s
   ```
   Deploymentが3つ全てのレプリカを作成して、全てのレプリカが最新(Podが最新のPodテンプレートを含んでいる)になり、利用可能となっていることを確認してください。
 
 5. Deploymentによって作成されたReplicaSet(`rs`)を確認するには`kubectl get rs`を実行してください。コマンドの実行結果は以下のとおりです:
-  ```shell
+  ```
   NAME                          DESIRED   CURRENT   READY   AGE
   nginx-deployment-75675f5897   3         3         3       18s
   ```
@@ -118,11 +118,11 @@ Deploymentによって作成されたReplicaSetを管理しないでください
 
 6. 各Podにラベルが自動的に付けられるのを確認するには`kubectl get pods --show-labels`を実行してください。
   コマンドの実行結果は以下のとおりです:
-  ```shell
+  ```
   NAME                                READY     STATUS    RESTARTS   AGE       LABELS
-  nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-  nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-  nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+  nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
+  nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
+  nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
   ```
   作成されたReplicaSetは`nginx`Podを3つ作成することを保証します。
 

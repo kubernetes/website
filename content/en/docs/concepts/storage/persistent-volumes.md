@@ -375,7 +375,7 @@ the following types of volumes:
 * {{< glossary_tooltip text="csi" term_id="csi" >}}
 * flexVolume (deprecated)
 * gcePersistentDisk
-* rbd
+* rbd (deprecated)
 * portworxVolume
 
 You can only expand a PVC if its storage class's `allowVolumeExpansion` field is set to true.
@@ -492,7 +492,7 @@ value you previously tried.
 This is useful if expansion to a higher value did not succeed because of capacity constraint.
 If that has happened, or you suspect that it might have, you can retry expansion by specifying a
 size that is within the capacity limits of underlying storage provider. You can monitor status of
-resize operation by watching `.status.resizeStatus` and events on the PVC.
+resize operation by watching `.status.allocatedResourceStatuses` and events on the PVC.
 
 Note that,
 although you can specify a lower amount of storage than what was requested previously,
@@ -505,7 +505,6 @@ Kubernetes does not support shrinking a PVC to less than its current size.
 
 PersistentVolume types are implemented as plugins. Kubernetes currently supports the following plugins:
 
-* [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - CephFS volume
 * [`csi`](/docs/concepts/storage/volumes/#csi) - Container Storage Interface (CSI)
 * [`fc`](/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) storage
 * [`hostPath`](/docs/concepts/storage/volumes/#hostpath) - HostPath volume
@@ -515,7 +514,6 @@ PersistentVolume types are implemented as plugins. Kubernetes currently supports
 * [`local`](/docs/concepts/storage/volumes/#local) - local storage devices
   mounted on nodes.
 * [`nfs`](/docs/concepts/storage/volumes/#nfs) - Network File System (NFS) storage
-* [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume
 
 The following types of PersistentVolume are deprecated.
 This means that support is still available but will be removed in a future Kubernetes release.
@@ -536,6 +534,10 @@ This means that support is still available but will be removed in a future Kuber
   (**deprecated** in v1.25)
 * [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
   (**deprecated** in v1.19)
+* [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - CephFS volume
+  (**deprecated** in v1.28)
+* [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume
+  (**deprecated** in v1.28)
 
 Older versions of Kubernetes also supported the following in-tree PersistentVolume types:
 
@@ -726,12 +728,12 @@ The following volume types support mount options:
 * `awsElasticBlockStore`
 * `azureDisk`
 * `azureFile`
-* `cephfs`
+* `cephfs` ( **deprecated** in v1.28)
 * `cinder` (**deprecated** in v1.18)
 * `gcePersistentDisk`
 * `iscsi`
 * `nfs`
-* `rbd`
+* `rbd` ( **deprecated** in v1.28)
 * `vsphereVolume`
 
 Mount options are not validated. If a mount option is invalid, the mount fails.
@@ -767,6 +769,20 @@ A volume will be in one of the following phases:
 * Failed -- the volume has failed its automatic reclamation
 
 The CLI will show the name of the PVC bound to the PV.
+
+#### Phase transition timestamp
+
+{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+
+Persistent volume status contains `lastPhaseTransitionTime` field which holds
+a timestamp of when the volume last transitioned its phase. For newly created
+volumes the phase is set to "Pending" and `lastPhaseTransitionTime` is set to
+current time.
+
+{{< note >}}
+You need to enable the `PersistentVolumeLastPhaseTransitionTime` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+to see `lastPhaseTransitionTime` field.
+{{< /note >}}
 
 ## PersistentVolumeClaims
 
@@ -876,7 +892,7 @@ it won't be supported in a future Kubernetes release.
 
 #### Retroactive default StorageClass assignment
 
-{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 You can create a PersistentVolumeClaim without specifying a `storageClassName`
 for the new PVC, and you can do so even when no default StorageClass exists
@@ -952,7 +968,7 @@ applicable:
 * iSCSI
 * Local volume
 * OpenStack Cinder
-* RBD (Ceph Block Device)
+* RBD (deprecated)
 * VsphereVolume
 
 ### PersistentVolume using a Raw Block Volume {#persistent-volume-using-a-raw-block-volume}

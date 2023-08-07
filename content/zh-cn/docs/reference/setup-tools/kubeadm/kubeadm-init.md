@@ -228,7 +228,7 @@ Alternatively, you can use the `skipPhases` field under `InitConfiguration`.
 <!--
 The config file is still considered beta and may change in future versions.
 -->
-配置文件的功能仍然处于 alpha 状态并且在将来的版本中可能会改变。
+配置文件的功能仍然处于 beta 状态并且在将来的版本中可能会改变。
 {{< /caution >}}
 
 <!--

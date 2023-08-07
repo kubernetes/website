@@ -88,7 +88,7 @@ You should avoid using the `:latest` tag when deploying containers in production
 it is harder to track which version of the image is running and more difficult to
 roll back properly.
 
-Instead, specify a meaningful tag such as `v1.42.0`.
+Instead, specify a meaningful tag such as `v1.42.0` and/or a digest.
 {{< /note >}}
 
 To make sure the Pod always uses the same version of a container image, you can specify
@@ -113,6 +113,8 @@ running the same code no matter what tag changes happen at the registry.
 When you (or a controller) submit a new Pod to the API server, your cluster sets the
 `imagePullPolicy` field when specific conditions are met:
 
+- if you omit the `imagePullPolicy` field, and you specify the digest for the
+  container image, the `imagePullPolicy` is automatically set to `IfNotPresent`.
 - if you omit the `imagePullPolicy` field, and the tag for the container image is
   `:latest`, `imagePullPolicy` is automatically set to `Always`;
 - if you omit the `imagePullPolicy` field, and you don't specify the tag for the
@@ -123,7 +125,7 @@ When you (or a controller) submit a new Pod to the API server, your cluster sets
 
 {{< note >}}
 The value of `imagePullPolicy` of the container is always set when the object is
-first _created_, and is not updated if the image's tag later changes.
+first _created_, and is not updated if the image's tag or digest later changes.
 
 For example, if you create a Deployment with an image whose tag is _not_
 `:latest`, and later update that Deployment's image to a `:latest` tag, the
@@ -182,7 +184,7 @@ behalf of the two different Pods, when parallel image pulls is enabled.
 
 ### Maximum parallel image pulls
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.28" state="beta" >}}
 
 When `serializeImagePulls` is set to false, the kubelet defaults to no limit on the
 maximum number of images being pulled at the same time. If you would like to
