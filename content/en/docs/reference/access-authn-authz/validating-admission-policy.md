@@ -581,7 +581,7 @@ Type Checking has the following limitation:
   to evaluate. If errors do occur during evaluate, the failure policy will decide its outcome.
 - Type Checking does not apply to CRDs, including matched CRD types and reference of paramKind. The support for CRDs will come in future release.
 
-### Variable Composition
+### Variable composition
 
 If an expression grows too complicated, or part of the expression is reusable and computationally expensive to evaluate,
 we can extract some part of the expressions into variables. A variable is a named expression that can be referred later
@@ -607,7 +607,8 @@ The following is a more complex example of enforcing that image repo names match
 
 {{< codenew file="access/image-matches-namespace-environment.policy.yaml" >}}
 
-With the policy bound to the namespace `default`, which is labeled `environment: prod`, the following attempt to create a deployment will be rejected.
+With the policy bound to the namespace `default`, which is labeled `environment: prod`,
+the following attempt to create a deployment would be rejected.
 ```text
 $ kubectl create deploy --image=dev.example.com/nginx invalid       
 error: failed to create deployment: deployments.apps "invalid" is forbidden: ValidatingAdmissionPolicy 'image-matches-namespace-environment.policy.example.com' with binding 'demo-binding-test.example.com' denied request: only prod images are allowed in namespace default
