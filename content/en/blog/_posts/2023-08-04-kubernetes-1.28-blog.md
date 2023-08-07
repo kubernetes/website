@@ -45,9 +45,12 @@ This will lower the infrastructure barrier to enforcing customizable policies as
         
 ## Match conditions for admission webhooks
     
-Introduce CEL expression filters to webhooks, to allow webhooks to be scoped more narrowly.
+Kubernetes v1.27 lets you specify _match conditions_ for admission webhooks,
+which lets you narrow the scope of when Kubernetes makes a remote HTTP call at admission time.
+The `matchCondition` field for ValidatingWebhookConfiguration and MutatingWebhookConfiguration
+is a CEL expression that must evaluate to true for the admission request to be sent to the webhook.
 
-This adds "match conditions" to admission webhooks, as an extension to the existing rules to define the scope of a webhook. A matchCondition is a CEL expression that must evaluate to true for the admission request to be sent to the webhook. If a matchCondition evaluates to false, the webhook is skipped for that request (implicitly allowed).
+In Kubernetes v1.28, that field moved to beta, and it's enabled by default.
     
 ValidatingAdmissionPolicy is an exciting new feature that we hope will greatly reduce the need for admission webhooks, but it is intentionally not attempting to cover every possible use case. This proposal aims to improve the situation for those webhooks that cannot be migrated.
     
