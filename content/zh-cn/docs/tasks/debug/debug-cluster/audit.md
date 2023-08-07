@@ -19,7 +19,7 @@ by applications that use the Kubernetes API, and by the control plane itself.
 
 Auditing allows cluster administrators to answer the following questions:
 -->
-Kubernetes**审计（Auditing）**功能提供了与安全相关的、按时间顺序排列的记录集，
+Kubernetes **审计（Auditing）** 功能提供了与安全相关的、按时间顺序排列的记录集，
 记录每个用户、使用 Kubernetes API 的应用以及控制面自身引发的活动。
 
 审计功能使得集群管理员能够回答以下问题：

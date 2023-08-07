@@ -147,6 +147,22 @@ The general workflow of a device plugin includes the following steps:
    runtime configurations for accessing the allocated devices. The kubelet passes this information
    to the container runtime.
 
+   An `AllocateResponse` contains zero or more `ContainerAllocateResponse` objects. In these, the
+   device plugin defines modifications that must be made to a container's definition to provide
+   access to the device. These modifications include:
+
+   * annotations
+   * device nodes
+   * environment variables
+   * mounts
+   * fully-qualified CDI device names
+
+   {{< note >}}
+   The processing of the fully-qualified CDI device names by the Device Manager requires
+   the `DevicePluginCDIDevices` feature gate to be enabled. This was added as an alpha feature in
+   v1.28.
+   {{< /note >}}
+
 ### Handling kubelet restarts
 
 A device plugin is expected to detect kubelet restarts and re-register itself with the new
@@ -312,7 +328,7 @@ below:
 
 ### `GetAllocatableResources` gRPC endpoint {#grpc-endpoint-getallocatableresources}
 
-{{< feature-state state="beta" for_k8s_version="v1.23" >}}
+{{< feature-state state="stable" for_k8s_version="v1.28" >}}
 
 GetAllocatableResources provides information on resources initially available on the worker node.
 It provides more information than kubelet exports to APIServer.
@@ -338,16 +354,6 @@ message AllocatableResourcesResponse {
 }
 ```
 
-Starting from Kubernetes v1.23, the `GetAllocatableResources` is enabled by default.
-You can disable it by turning off the `KubeletPodResourcesGetAllocatable`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
-
-Preceding Kubernetes v1.23, to enable this feature `kubelet` must be started with the following flag:
-
-```
---feature-gates=KubeletPodResourcesGetAllocatable=true
-```
-
 `ContainerDevices` do expose the topology information declaring to which NUMA cells the device is
 affine. The NUMA cells are identified using a opaque integer ID, which value is consistent to
 what device plugins report
@@ -360,10 +366,6 @@ agents must run in a privileged security context. If a device monitoring agent i
 DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 {{< glossary_tooltip term_id="volume" >}} in the device monitoring agent's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
-
-Support for the `PodResourcesLister service` requires `KubeletPodResources`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
-It is enabled by default starting with Kubernetes 1.15 and is v1 since Kubernetes 1.20.
 
 ### `Get` gRPC endpoint {#grpc-endpoint-get}
 
@@ -397,7 +399,7 @@ ensure your kubelet services are started with the following flags:
 
 ## Device plugin integration with the Topology Manager
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
 The Topology Manager is a Kubelet component that allows resources to be co-ordinated in a Topology
 aligned manner. In order to do this, the Device Plugin API was extended to include a
