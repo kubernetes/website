@@ -23,7 +23,7 @@ from the upgrade process.
 This mechanism is called the _Mixed Version Proxy_. 
 
 ## Enabling the Mixed Version Proxy
-Ensure that {{< glossary_tooltip text="MVP" term_id="mixed-version-proxy" >}} [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) 
+Ensure that `UnknownVersionInteroperabilityProxy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
 is enabled when you start the {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}:
 
 ```shell
@@ -58,9 +58,9 @@ these fields in the API server configuration file.
 If these flags are unspecified, peers will use the value from either `--advertise-address` or
 `--bind-address` command line argument to the kube-apiserver. If those too, are unset, the host's default interface is used.
 
-## Mixed Version Proxying
+## Mixed version proxying
 
-When you enable {{< glossary_tooltip text="MVP" term_id="mixed-version-proxy" >}}, the [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) 
+When you enable mixed version proxying, the [aggregation layer](/docs/concepts/extend-kubernetes/api-extension/apiserver-aggregation/) 
 loads a special filter that does the following:
 
 * When a resource request reaches an API server that cannot serve that API (either because it is at a version pre-dating the introduction of the API or the API is turned off on the API server) the API server attempts to send the request to a peer API server that can serve the requested API. It does so by identifying API groups / versions / resources that the local server doesn't recognise, and tries to proxy those requests to a peer API server that is capable of handling the request.
