@@ -194,7 +194,10 @@ Many common machine learning frameworks, such as Tensorflow and JAX, require uni
 With the older behaviour, if a pod that belongs to an `Indexed` Job enters a terminating state (due to preemption, eviction or other external factors), a replacement pod is created but then immediately fails to start due
 to the clash with the old pod that has not yet shut down.
 
-Having a replacement Pod before the previous one fully terminates can also cause problems in clusters with scarce resources or with tight budgets. These resources can be difficult to obtain so pods can take a long time to find resources and they may only be able to find nodes once the existing pods have been terminated. If cluster autoscaler is enabled, the replacement Pods might produce undesired scale-ups.
+Having a replacement Pod appear before the previous one fully terminates can also cause problems
+in clusters with scarce resources or with tight budgets. These resources can be difficult to obtain so 
+can take a long time to find resources and they may only be able to find nodes once the existing pods
+have been terminated. If cluster autoscaler is enabled, early creation of replacement Pods might produce undesired scale-ups.
 
 On the other hand, if a replacement Pod is not immediately created, the Job status would show that the number of active pods doesn't match the desired parallelism. To provide better visibility, the job status can have a new field to track the number of Pods currently terminating.
 
