@@ -163,9 +163,9 @@ And have a parameter resource:
 
 {{% code language="yaml" file="validatingadmissionpolicy/replicalimit-param-prod.yaml" %}}
 
-For each admission request, CEL expressions will be evaluated for each 
+For each admission request, the API server evaluates CEL expressions of each 
 (policy, binding, param) combination that match the request. For a request
-to be admitted it must pass ALL evaluations.
+to be admitted it must pass **all** evaluations.
 
 If multiple bindings match the request, the policy will be evaluated for each,
 and they must all pass evaluation for the policy to be considered passed. 
@@ -212,20 +212,25 @@ Here, we first check that the optional parameter is present with `!has(params.op
 
 ##### Per-namespace Parameters
 
-Authors of policy bindings may choose to specify cluster-wide, or per-namespace
-parameters. Normally, parameters will be searched for only in the `namespace` provided
-in the binding's `paramRef`.
+As the author of a ValidatingAdmissionPolicy and its ValidatingAdmissionPolicyBinding, 
+you can choose to specify cluster-wide, or per-namespace parameters. 
+If you specify a `namespace` for the binding's `paramRef`, the control plane only
+searches for parameters in that namespace.
 
-However, if `namesapce` is not specified, the `namespace` for the request object can be
-used to search params. This enables policy configuration that depends on the namespace
+However, if `namespace` is not specified in the ValidatingAdmissionPolicyBinding, the
+API server can search for relevant parameters in the namespace that a request is against.
+For example, if you make a request to modify a ConfigMap in the `default` namespace and
+there is a relevant ValidatingAdmissionPolicyBinding with no `namespace` set, then the
+API server looks for a parameter object in `default`.
+This design enables policy configuration that depends on the namespace
 of the resource being manipulated, for more fine-tuned control.
 
 ##### Parameter selector
 
 In addition to specify a parameter in a binding by `name`, you may
-choose instead to specify a matching label, such that all resources of the
+choose instead to specify label selector, such that all resources of the
 policy's `paramKind`, and the param's `namespace` (if applicable) that match the
-label selector are selected for evaluation.
+label selector are selected for evaluation. See {{< glossary_tooltip text="selector" term_id="selector">}} for more information on how label selectors match resources.
 
 If multiple parameters are found to meet the condition, the policy's rules are
 evaluated for each parameter found and the results will be ANDed together.
@@ -256,15 +261,7 @@ admission policy are handled. Allowed values are `Ignore` or `Fail`.
 
 Note that the `failurePolicy` is defined inside `ValidatingAdmissionPolicy`:
 
-```yaml
-apiVersion: admissionregistration.k8s.io/v1beta1
-kind: ValidatingAdmissionPolicy
-spec:
-...
-failurePolicy: Ignore # The default is "Fail"
-validations:
-- expression: "object.spec.xyz == params.x"  
-```
+{{% code language="yaml" file="validatingadmissionpolicy/failure-policy-ignore.yaml" %}}
 
 ### Validation Expression
 
@@ -447,23 +444,7 @@ and an empty `status.typeChecking` means that no errors were detected.
 
 For example, given the following policy definition:
 
-```yaml
-apiVersion: admissionregistration.k8s.io/v1beta1
-kind: ValidatingAdmissionPolicy
-metadata:
-  name: "deploy-replica-policy.example.com"
-spec:
-  matchConstraints:
-    resourceRules:
-    - apiGroups:   ["apps"]
-      apiVersions: ["v1"]
-      operations:  ["CREATE", "UPDATE"]
-      resources:   ["deployments"]
-  validations:
-  - expression: "object.replicas > 1" # should be "object.spec.replicas > 1"
-    message: "must be replicated"
-    reason: Invalid
-```
+{{% code language="yaml" file="validatingadmissionpolicy/typechecking.yaml" %}}
 
 The status will yield the following information:
 
@@ -481,23 +462,8 @@ status:
 If multiple resources are matched in `spec.matchConstraints`, all of matched resources will be checked against.
 For example, the following policy definition 
 
-```yaml
-apiVersion: admissionregistration.k8s.io/v1beta1
-kind: ValidatingAdmissionPolicy
-metadata:
-  name: "replica-policy.example.com"
-spec:
-  matchConstraints:
-    resourceRules:
-    - apiGroups:   ["apps"]
-      apiVersions: ["v1"]
-      operations:  ["CREATE", "UPDATE"]
-      resources:   ["deployments","replicasets"]
-  validations:
-  - expression: "object.replicas > 1" # should be "object.spec.replicas > 1"
-    message: "must be replicated"
-    reason: Invalid
-```
+{{% code language="yaml" file="validatingadmissionpolicy/typechecking-multiple-match.yaml" %}}
+
 
 will have multiple types and type checking result of each type in the warning message.
 
