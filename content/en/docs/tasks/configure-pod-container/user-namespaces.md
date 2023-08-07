@@ -9,7 +9,7 @@ min-kubernetes-server-version: v1.25
 <!-- overview -->
 {{< feature-state for_k8s_version="v1.25" state="alpha" >}}
 
-This page shows how to configure a user namespace for pods. This allows to
+This page shows how to configure a user namespace for pods. This allows you to
 isolate the user running inside the container from the one in the host.
 
 A process running as root in a container can run as a different (non-root) user
