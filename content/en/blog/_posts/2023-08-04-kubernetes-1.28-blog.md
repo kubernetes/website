@@ -202,7 +202,7 @@ have been terminated. If cluster autoscaler is enabled, early creation of replac
 To learn more, read [Delayed creation of replacement pods](/docs/concepts/workloads/controllers/job/#delayed-creation-of-replacement-pods)
 in the Job documentation.
   
-## Backoff Limit Per Index
+## Job retry backoff limit, per index
     
 This extends the Job API to support indexed jobs where the backoff limit is per index, and the Job can continue execution despite some of its indexes failing.
     
