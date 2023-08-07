@@ -215,9 +215,7 @@ fully independent of other indexes.
 For instance, if indexed jobs were used as the basis for a suite of long-running integration tests, then each test run would only be able to find a single test failure.
 
     
-We propose a new policy for running Indexed Jobs in which the backoff limit controls the number of retries per index. When the new policy is used all indexes execute until their success or failure. We also propose a new API field to control the number of failed indexes.
-
-Additionally, we propose a new action in PodFailurePolicy, called FailIndex, to short-circuit the failing of the index before the backoff limit per index is reached.
+For more information, read [Handling Pod and container failures](/docs/concepts/workloads/controllers/job/#handling-pod-and-container-failures) in the Kubernetes documentation.
    
 ## cAdvisor-less, CRI-full Container And Pod Stats
 
