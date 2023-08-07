@@ -112,7 +112,7 @@ This also enables sidecar containers (those will not be allowed for other init c
     
 Readiness probes of sidecars will contribute to determining the whole Pod readiness.
     
-## Node System Memory Swap Support
+## Beta support for enabling swap space on Linux
     
 This adds swap support to nodes in a controlled, predictable manner so that Kubernetes users can perform testing and provide data to continue building cluster capabilities on top of swap.
 
