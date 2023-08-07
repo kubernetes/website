@@ -610,6 +610,9 @@ The following is a more complex example of enforcing that image repo names match
 With the policy bound to the namespace `default`, which is labeled `environment: prod`,
 the following attempt to create a deployment would be rejected.
 ```text
-$ kubectl create deploy --image=dev.example.com/nginx invalid       
+$ kubectl create deploy --image=dev.example.com/nginx invalid
+```
+The error message is similar to this.
+```
 error: failed to create deployment: deployments.apps "invalid" is forbidden: ValidatingAdmissionPolicy 'image-matches-namespace-environment.policy.example.com' with binding 'demo-binding-test.example.com' denied request: only prod images are allowed in namespace default
 ```
