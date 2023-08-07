@@ -75,7 +75,7 @@ nothing to k/apiserver, and then progressively move generic functionality from
 kube-apiserver to the new repository. The new repo will be named
 k/generic-controlplane.
   
-## CDI Support To The Device Plugin API
+## Support for CDI injection into containers (alpha) {#cdi-device-plugin}
 
 CDI provides a standardized way of injecting complex devices into a container (i.e. devices that logically require more than just a single /dev node to be injected for them to work). This new feature enables plugin developers to utilize the CDIDevices field added to the CRI in 1.27 to pass CDI devices directly to CDI enabled runtimes (of which containerd and crio-o are in recent releases).
     
