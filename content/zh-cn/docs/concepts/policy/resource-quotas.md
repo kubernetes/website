@@ -1045,7 +1045,7 @@ Then, create a resource quota object in the `kube-system` namespace:
 -->
 现在在 `kube-system` 名字空间中创建一个资源配额对象：
 
-{{< codenew file="policy/priority-class-resourcequota.yaml" >}}
+{{% code file="policy/priority-class-resourcequota.yaml" %}}
 
 ```shell
 kubectl apply -f https://k8s.io/examples/policy/priority-class-resourcequota.yaml -n kube-system
