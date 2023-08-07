@@ -185,7 +185,7 @@ another claim because the previous claimant's data remains on the volume.
 An administrator can manually reclaim the volume with the following steps.
 
 1. Delete the PersistentVolume. The associated storage asset in external infrastructure
-   (such as an AWS EBS or GCE PD volume) still exists after the PV is deleted.
+   (such as a GCE PD volume) still exists after the PV is deleted.
 1. Manually clean up the data on the associated storage asset accordingly.
 1. Manually delete the associated storage asset.
 
@@ -196,7 +196,7 @@ the same storage asset definition.
 
 For volume plugins that support the `Delete` reclaim policy, deletion removes
 both the PersistentVolume object from Kubernetes, as well as the associated
-storage asset in the external infrastructure, such as an AWS EBS or GCE PD volume. Volumes that were dynamically provisioned
+storage asset in the external infrastructure, such as a GCE PD volume. Volumes that were dynamically provisioned
 inherit the [reclaim policy of their StorageClass](#reclaim-policy), which
 defaults to `Delete`. The administrator should configure the StorageClass
 according to users' expectations; otherwise, the PV must be edited or
@@ -438,11 +438,6 @@ Similar to other volume types - FlexVolume volumes can also be expanded when in-
 FlexVolume resize is possible only when the underlying driver supports resize.
 {{< /note >}}
 
-{{< note >}}
-Expanding EBS volumes is a time-consuming operation.
-Also, there is a per-volume quota of one modification every 6 hours.
-{{< /note >}}
-
 #### Recovering from Failure when Expanding Volumes
 
 If a user specifies a new size that is too big to be satisfied by underlying
@@ -674,7 +669,6 @@ are specified as ReadWriteOncePod, the volume is constrained and can be mounted 
 | FC                   | &#x2713;               | &#x2713;              | -             | -                      |
 | FlexVolume           | &#x2713;               | &#x2713;              | depends on the driver | -              |
 | GCEPersistentDisk    | &#x2713;               | &#x2713;              | -             | -                      |
-| Glusterfs            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
 | HostPath             | &#x2713;               | -                     | -             | -                      |
 | iSCSI                | &#x2713;               | &#x2713;              | -             | -                      |
 | NFS                  | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
@@ -701,9 +695,10 @@ Current reclaim policies are:
 
 * Retain -- manual reclamation
 * Recycle -- basic scrub (`rm -rf /thevolume/*`)
-* Delete -- associated storage asset such as AWS EBS or GCE PD volume is deleted
+* Delete -- associated storage asset such as GCE PD volume is deleted
 
-Currently, only NFS and HostPath support recycling. AWS EBS and GCE PD volumes support deletion.
+For Kubernetes {{< skew currentVersion >}}, only `nfs` and `hostPath` volume types support recycling.
+The `gcePersistentDisk` volume type supports deletion only.
 
 ### Mount Options
 
