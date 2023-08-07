@@ -468,7 +468,7 @@ can use a manifest similar to:
 -->
 如果你希望新来的 Pod 均匀分布在现有的可用区域，则可以按如下设置其清单：
 
-{{< codenew file="pods/topology-spread-constraints/one-constraint.yaml" >}}
+{{% code file="pods/topology-spread-constraints/one-constraint.yaml" %}}
 
 <!--
 From that manifest, `topologyKey: zone` implies the even distribution will only be applied
@@ -589,7 +589,7 @@ by node and by zone:
 -->
 可以组合使用 2 个拓扑分布约束来控制 Pod 在节点和可用区两个维度上的分布：
 
-{{< codenew file="pods/topology-spread-constraints/two-constraints.yaml" >}}
+{{% code file="pods/topology-spread-constraints/two-constraints.yaml" %}}
 
 <!--
 In this case, to match the first constraint, the incoming Pod can only be placed onto
@@ -714,7 +714,7 @@ Similarly, Kubernetes also respects `spec.nodeSelector`.
 以便将 Pod `mypod` 放置在可用区 `B` 上，而不是可用区 `C` 上。
 同样，Kubernetes 也会一样处理 `spec.nodeSelector`。
 
-{{< codenew file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" >}}
+{{% code file="pods/topology-spread-constraints/one-constraint-with-nodeaffinity.yaml" %}}
 
 <!--
 ## Implicit conventions
