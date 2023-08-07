@@ -584,7 +584,7 @@ Type Checking has the following limitation:
 ### Variable composition
 
 If an expression grows too complicated, or part of the expression is reusable and computationally expensive to evaluate,
-we can extract some part of the expressions into variables. A variable is a named expression that can be referred later
+you can extract some part of the expressions into variables. A variable is a named expression that can be referred later
 in `variables` in other expressions.
 
 ```yaml
