@@ -87,7 +87,7 @@ An empty `effect` matches all effects with key `key1`.
 The above example used `effect` of `NoSchedule`. Alternatively, you can use `effect` of `PreferNoSchedule`.
 
 
-Allowed values for taint `effects` are:
+The allowed values for the `effect` field are:
 
 `NoExecute`
 : This affects pods that are already running on the node as follows
@@ -95,13 +95,15 @@ Allowed values for taint `effects` are:
     * pods that tolerate the taint without specifying `tolerationSeconds` in
    their toleration specification remain bound forever
     * pods that tolerate the taint with a specified `tolerationSeconds` remain
-   bound for the specified amount of time
+  * pods that tolerate the taint with a specified `tolerationSeconds` remain
+   bound for the specified amount of time. After that time elapses, the node
+   lifecycle controller (within the control plane) evicts the Pod from the node.
    
 `NoSchedule`
-: No new pods will be scheduled on the node unless they have the matching toleration. Pods that are currently running on the node are not evicted.
+: No new pods with this will be scheduled on the tainted node unless they have the matching toleration. Pods that are currently running on the node are **not** evicted.
 
 `PreferNoSchedule`
-: This is a "preference" or "soft" version of `NoSchedule`. The system will *try* to avoid placing a
+: `PreferNoSchedule` is a "preference" or "soft" version of `NoSchedule`. The control plane will *try* to avoid placing a
 pod that does not tolerate the taint on the node, but it is not required. 
 
 You can put multiple taints on the same node and multiple tolerations on the same pod.
