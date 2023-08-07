@@ -199,9 +199,8 @@ in clusters with scarce resources or with tight budgets. These resources can be 
 can take a long time to find resources and they may only be able to find nodes once the existing pods
 have been terminated. If cluster autoscaler is enabled, early creation of replacement Pods might produce undesired scale-ups.
 
-On the other hand, if a replacement Pod is not immediately created, the Job status would show that the number of active pods doesn't match the desired parallelism. To provide better visibility, the job status can have a new field to track the number of Pods currently terminating.
-
-This new field can also be used by queueing controllers, such as Kueue, to track the number of terminating pods to calculate quotas.
+To learn more, read [Delayed creation of replacement pods](/docs/concepts/workloads/controllers/job/#delayed-creation-of-replacement-pods)
+in the Job documentation.
   
 ## Backoff Limit Per Index
     
