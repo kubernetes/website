@@ -601,7 +601,7 @@ reported during the evaluation of the referring expression. Both the result and 
 count only once towards the runtime cost.
 
 The order of variables are important because a variable can refer to other variables that are defined before it.
-This can prevent circular reference.
+This ordering prevents circular references.
 
 The following is a more complex example of enforcing that image repo names match the environment defined in its namespace.
 
