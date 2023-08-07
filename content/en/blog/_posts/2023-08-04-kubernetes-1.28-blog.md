@@ -208,7 +208,9 @@ This extends the Job API to support indexed jobs where the backoff limit is per 
     
 Currently, the indexes of an indexed job share a single backoff limit. When the job reaches this shared backoff limit, the job controller marks the entire job as failed, and the resources are cleaned up, including indexes that have yet to run to completion.
 
-As a result, the current implementation does not cover the situation where the workload is truly embarrassingly parallel and each index is independent of other indexes.
+As a result, the existing implementation did not cover the situation where the workload is truly
+[embarrassingly parallel](https://en.wikipedia.org/wiki/Embarrassingly_parallel): each index is
+fully independent of other indexes.
 
 For instance, if indexed jobs were used as the basis for a suite of long-running integration tests, then each test run would only be able to find a single test failure.
 
