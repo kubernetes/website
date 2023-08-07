@@ -331,35 +331,12 @@ ls /dev
 ```
 ### Conclusion
 
-If there is one takeaway from this post, it is that any policy
-tool that has not been updated in the last couple of months will 
-not enforce rules on ephemeral containers. This also includes all
-policies written in house! It is not enough to update the community policies.
 
-Some may argue that this type of oversight is not really an issue.
-Ephemeral containers can't mount host paths, or access the hosts
-namespaces. All it can do is set the common container security 
-context. That is a fair comment, because it's true. Being able 
-to create a privileged container is however still not ideal,
-and there are methods to escalate privileges when this is possible.
-Either way it is important to be aware of how policies are enforced 
-and the security contexts which are allowed.
+The main message of this docs page is that it's essential to keep your policy tools updated regularly. If a policy tool hasn't been updated in the last few months, it won't be able to enforce rules on ephemeral containers. This applies to policies created internally as well, not just community ones. So, it's crucial to ensure all policies are up to date.
 
-I am still not sure how much of an issue this will be short term.
-Cloud providers are currently in the process of rolling out Kubernetes 
-v1.23 in their SaaS offerings. In these solutions it is still a possibility 
-that they chose to disable ephemeral containers. Those rolling their own 
-clusters may have already upgraded to v1.23 and not be aware of the new feature. 
-That is the biggest issue really, that the platform administrator has to be aware
-of the existence of ephemeral containers. The fact that kubectl does not expose the 
-option to set a security context will make even less people aware that it is still 
-possible to set one with other means. Investing in a security audit 6 months ago 
-will only be  valuable as long as the same Kubernetes version is used. Kubernetes 
-is by design not secure by default, so each new feature introduced has to be analyzed.
-The fact that upgrading from Kubernetes v1.22 to v.23 could make your cluster less
-secure is part of the difficulties of working with Kubernetes, requiring platform 
-administrators to always stay on top of things. The reality is that these types
-of things are easy to miss, so hopefully this post has helped someone make their
-cluster a bit more secure.
+Some may argue that overlooking ephemeral containers is not a big deal since they can't access certain parts of the system. They can only set basic container security settings, which is true. However, it's still not ideal because there are ways to gain more privileges if it's not properly controlled. So, it's important to understand how policies work and what security measures they allow.
 
+In the short term, there might be some uncertainty about the impact of this issue. Cloud providers are introducing a new version of Kubernetes (v1.23) in their services, and some might disable ephemeral containers. On the other hand, users with their own clusters may have already upgraded to v1.23 without realizing the new feature. The main concern is that platform administrators need to be aware of ephemeral containers and their implications. Additionally, the lack of an obvious way to set a security context in kubectl might mean fewer people are aware of alternative methods to do so.
+
+Investing in a security audit six months ago would only be useful if the same version of Kubernetes is still in use. Kubernetes is not designed to be secure by default, so every new feature needs careful analysis. Upgrading from Kubernetes v1.22 to v1.23 might even make a cluster less secure, highlighting the challenges of working with Kubernetes and the need for administrators to stay informed about updates. The reality is that it's easy to miss these things, so hopefully, this docs  helps someone improve the security of their cluster.
 
