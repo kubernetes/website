@@ -1,7 +1,7 @@
 ---
 layout: blog
 title: "Kubernetes 1.28: Beta support for using swap on Linux"
-date: 2023-07-18
+date: 2023-08-24T10:00:00-08:00
 slug: swap-linux-beta
 ---
 
