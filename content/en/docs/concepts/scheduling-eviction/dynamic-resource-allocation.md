@@ -168,14 +168,36 @@ The kubelet provides a gRPC service to enable discovery of dynamic resources of
 running Pods. For more information on the gRPC endpoints, see the
 [resource allocation reporting](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/#monitoring-device-plugin-resources).
 
-## Limitations
+## Pre-scheduled Pods
 
-The scheduler plugin must be involved in scheduling Pods which use
-ResourceClaims. Bypassing the scheduler by setting the `nodeName` field leads
-to Pods that the kubelet refuses to start because the ResourceClaims are not
-reserved or not even allocated. It may be possible to [remove this
-limitation](https://github.com/kubernetes/kubernetes/issues/114005) in the
-future.
+When creating a Pod with `nodeName` already set, the scheduler gets bypassed.
+If some ResourceClaim needed by that Pod does not exist yet, is not allocated
+or not reserved for the Pod, then the kubelet will fail to run the Pod and
+re-check periodically because those requirements might still get fulfilled
+later.
+
+Such a situation can also arise when support for dynamic resource allocation
+was not enabled in the scheduler at the time when the Pod got scheduled
+(version skew, configuration, feature gate, etc.). kube-controller-manager
+detects this and tries to make the Pod runnable by triggering allocation and/or
+reserving the required ResourceClaims.
+
+However, it is better to avoid this because a Pod which is assigned to a node
+blocks normal resources (RAM, CPU) that then cannot be used for other Pods
+while the Pod is stuck. To make a Pod run on a specific node while still going
+through the normal scheduling flow, create the Pod with a node selector that
+matches exactly the desired node:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-cats
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: name-of-the-intended-node
+  ...
+```
 
 ## Enabling dynamic resource allocation
 
