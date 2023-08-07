@@ -334,7 +334,7 @@ variables as well as some other useful variables:
 - 'request' - Attributes of the [admission request](/docs/reference/config-api/apiserver-admission.v1/#admission-k8s-io-v1-AdmissionRequest).
 - 'params' - Parameter resource referred to by the policy binding being evaluated. The value is
   null if `ParamKind` is unset.
-- `namespaceObject` - The namespace, as a Kubernetes resource, that the incoming object belongs.
+- `namespaceObject` - The namespace, as a Kubernetes resource, that the incoming object belongs to.
   The value is null if the incoming object is cluster-scoped.
 - `authorizer` - A CEL Authorizer. May be used to perform authorization checks for the principal
   (authenticated user) of the request. See
