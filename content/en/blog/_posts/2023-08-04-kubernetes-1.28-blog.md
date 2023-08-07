@@ -57,7 +57,10 @@ When a cluster has multiple API servers at mixed versions (such as during an upg
 
 To fix this, the filter is added to the handler chain in the aggregator which proxies clients to an API server that is capable of handling their request.
     
-When an upgrade or downgrade is performed on a cluster, for some period of time the api servers are at differing versions and are able to serve different sets of built-in resources (different groups, versions, and resources are all possible).
+When an upgrade or downgrade is performed on a cluster, for some period of time the API servers
+within the control plane may be at differing versions; when that happens, different subsets of the
+API servers are able to serve different sets of built-in resources (different groups, versions, and resources
+are all possible). This new alpha mechanism lets you hide that skew from clients.
 
 ## CRD Validation Ratcheting
     
