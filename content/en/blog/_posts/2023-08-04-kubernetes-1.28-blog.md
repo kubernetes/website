@@ -180,7 +180,9 @@ Node upgrades: v1.40 → v1.43
    
 ## Pod Replacement Policy
 
-This enables a new field for the Job API that allows for users to specify if they want replacement Pods as soon as the previous Pods are terminating (existing behavior) or only once the existing pods are fully terminated (new behavior).
+Kubernetes 1.28 adds a new field for the Job API that allows you to specify if you want the control
+plane to make new Pods as soon as the previous Pods begin termination (existing behavior),
+ or only once the existing pods are fully terminated (new, optional behavior).
     
 Many common machine learning frameworks, such as Tensorflow and JAX, require unique pods per Index. Currently, if a pod enters a terminating state (due to preemption, eviction or other external factors), a replacement pod is created and immediately fails to start.
 
