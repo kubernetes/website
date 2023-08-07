@@ -190,7 +190,9 @@ Kubernetes 1.28 adds a new field for the Job API that allows you to specify if y
 plane to make new Pods as soon as the previous Pods begin termination (existing behavior),
  or only once the existing pods are fully terminated (new, optional behavior).
     
-Many common machine learning frameworks, such as Tensorflow and JAX, require unique pods per Index. Currently, if a pod enters a terminating state (due to preemption, eviction or other external factors), a replacement pod is created and immediately fails to start.
+Many common machine learning frameworks, such as Tensorflow and JAX, require unique pods per index.
+With the older behaviour, if a pod that belongs to an `Indexed` Job enters a terminating state (due to preemption, eviction or other external factors), a replacement pod is created but then immediately fails to start due
+to the clash with the old pod that has not yet shut down.
 
 Having a replacement Pod before the previous one fully terminates can also cause problems in clusters with scarce resources or with tight budgets. These resources can be difficult to obtain so pods can take a long time to find resources and they may only be able to find nodes once the existing pods have been terminated. If cluster autoscaler is enabled, the replacement Pods might produce undesired scale-ups.
 
