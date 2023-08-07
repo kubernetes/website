@@ -58,7 +58,10 @@ To learn more, see [`matchConditions`](/docs/reference/access-authn-authz/extens
 
 When a cluster has multiple API servers at mixed versions (such as during an upgrade/downgrade or when runtime-config changes and a rollout happens), not every apiserver can serve every resource at every version.
 
-To fix this, the filter is added to the handler chain in the aggregator which proxies clients to an API server that is capable of handling their request.
+For Kubernetes v1.28, you can enable the _mixed version proxy_ within the API server's aggregation layer.
+The mixed version proxy finds requests that the local API server doesn't recognize but another API server
+inside the control plan is able to support. Having found a suitable peer, the aggregation layer proxies
+the request to a compatible API server; this is transparent from the client's perspective.
     
 When an upgrade or downgrade is performed on a cluster, for some period of time the API servers
 within the control plane may be at differing versions; when that happens, different subsets of the
