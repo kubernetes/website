@@ -156,7 +156,7 @@ When users want to change the default SC parameters, they must delete the SC and
 
 Defined ordering during cluster installation. Kubernetes cluster installation tools must be currently smart enough to create a default SC before starting anything that may create PVCs that need it. If such a tool supports multiple cloud providers, storage backends, and add-ons that require storage (such as an image registry), it may be quite complicated to do the ordering right.
           
-## Support The Oldest Node And Newest Control Plane
+## Changes to supported skew between control plane and node versions
     
 This enables testing and expanding the supported skew between core node and control plane components by one version from n-2 to n-3, so that node components (kubelet and kube-proxy) for the oldest supported minor version work with control plane components (kube-apiserver, kube-scheduler, kube-controller-manager, cloud-controller-manager) for the newest supported minor version.
     
