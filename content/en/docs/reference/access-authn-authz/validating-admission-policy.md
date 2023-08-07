@@ -45,7 +45,7 @@ At least a `ValidatingAdmissionPolicy` and a corresponding  `ValidatingAdmission
 must be defined for a policy to have an effect.
 
 If a `ValidatingAdmissionPolicy` does not need to be configured via parameters, simply leave
-`spec.paramKind` in  `ValidatingAdmissionPolicy` unset.
+`spec.paramKind` in  `ValidatingAdmissionPolicy` not specified.
 
 ## {{% heading "prerequisites" %}}
 
@@ -61,22 +61,7 @@ with great caution. The following describes how to quickly experiment with Valid
 
 The following is an example of a ValidatingAdmissionPolicy.
 
-```yaml
-apiVersion: admissionregistration.k8s.io/v1beta1
-kind: ValidatingAdmissionPolicy
-metadata:
-  name: "demo-policy.example.com"
-spec:
-  failurePolicy: Fail
-  matchConstraints:
-    resourceRules:
-    - apiGroups:   ["apps"]
-      apiVersions: ["v1"]
-      operations:  ["CREATE", "UPDATE"]
-      resources:   ["deployments"]
-  validations:
-    - expression: "object.spec.replicas <= 5"
-```
+{{% code language="yaml" file="validatingadmissionpolicy/basic-example-policy.yaml" %}}
 
 `spec.validations` contains CEL expressions which use the [Common Expression Language (CEL)](https://github.com/google/cel-spec)
 to validate the request. If an expression evaluates to false, the validation check is enforced
@@ -85,19 +70,7 @@ according to the `spec.failurePolicy` field.
 To configure a validating admission policy for use in a cluster, a binding is required.
 The following is an example of a ValidatingAdmissionPolicyBinding.:
 
-```yaml
-apiVersion: admissionregistration.k8s.io/v1alpha1
-kind: ValidatingAdmissionPolicyBinding
-metadata:
-  name: "demo-binding-test.example.com"
-spec:
-  policyName: "demo-policy.example.com"
-  validationActions: [Deny]
-  matchResources:
-    namespaceSelector:
-      matchLabels:
-        environment: test
-```
+{{% code language="yaml" file="validatingadmissionpolicy/basic-example-binding.yaml" %}}
 
 When trying to create a deployment with replicas set not satisfying the validation expression, an
 error will return containing message:
@@ -133,7 +106,7 @@ API response body and the HTTP warning headers.
 
 A `validation` that evaluates to false is always enforced according to these
 actions. Failures defined by the `failurePolicy` are enforced
-according to these actions only if the `failurePolicy` is set to `Fail` (or unset),
+according to these actions only if the `failurePolicy` is set to `Fail` (or not specified),
 otherwise the failures are ignored.
 
 See [Audit Annotations: validation falures](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation_failure)
@@ -148,26 +121,7 @@ and then a policy binding ties a policy by name (via policyName) to a particular
 If parameter configuration is needed, the following is an example of a ValidatingAdmissionPolicy
 with parameter configuration.
 
-```yaml
-apiVersion: admissionregistration.k8s.io/v1beta1
-kind: ValidatingAdmissionPolicy
-metadata:
-  name: "replicalimit-policy.example.com"
-spec:
-  failurePolicy: Fail
-  paramKind:
-    apiVersion: rules.example.com/v1
-    kind: ReplicaLimit
-  matchConstraints:
-    resourceRules:
-    - apiGroups:   ["apps"]
-      apiVersions: ["v1"]
-      operations:  ["CREATE", "UPDATE"]
-      resources:   ["deployments"]
-  validations:
-    - expression: "object.spec.replicas <= params.maxReplicas"
-      reason: Invalid
-```
+{{% code language="yaml" file="validatingadmissionpolicy/policy-with-param.yaml" %}}
 
 The `spec.paramKind` field of the ValidatingAdmissionPolicy specifies the kind of resources used
 to parameterize this policy. For this example, it is configured by ReplicaLimit custom resources. 
@@ -182,70 +136,32 @@ validation check is enforced according to the `spec.failurePolicy` field.
 The validating admission policy author is responsible for providing the ReplicaLimit parameter CRD.
 
 To configure an validating admission policy for use in a cluster, a binding and parameter resource
-are created. The following is an example of a ValidatingAdmissionPolicyBinding.
+are created. The following is an example of a ValidatingAdmissionPolicyBinding 
+that uses a **cluster-wide** param - the same param will be used to validate
+every resource request that matches the binding:
 
-```yaml
-apiVersion: admissionregistration.k8s.io/v1beta1
-kind: ValidatingAdmissionPolicyBinding
-metadata:
-  name: "replicalimit-binding-test.example.com"
-spec:
-  policyName: "replicalimit-policy.example.com"
-  validationActions: [Deny]
-  paramRef:
-    name: "replica-limit-test.example.com"
-    namespace: "default"
-  matchResources:
-    namespaceSelector:
-      matchLabels:
-        environment: test
-```
+{{% code language="yaml" file="validatingadmissionpolicy/binding-with-param.yaml" %}}
+
+Notice this binding applies a parameter to the policy for all resources which
+are in the `test` environment.
 
 The parameter resource could be as following:
 
-```yaml
-apiVersion: rules.example.com/v1
-kind: ReplicaLimit
-metadata:
-  name: "replica-limit-test.example.com"
-  namesapce: "default"
-maxReplicas: 3
-```
+{{% code language="yaml" file="validatingadmissionpolicy/replicalimit-param.yaml" %}}
 
 This policy parameter resource limits deployments to a max of 3 replicas.
 
 An admission policy may have multiple bindings. To bind all other environments
-environment to have a maxReplicas limit of 100, create another ValidatingAdmissionPolicyBinding:
+to have a maxReplicas limit of 100, create another ValidatingAdmissionPolicyBinding:
 
-```yaml
-apiVersion: admissionregistration.k8s.io/v1beta1
-kind: ValidatingAdmissionPolicyBinding
-metadata:
-  name: "replicalimit-binding-nontest"
-spec:
-  policyName: "replicalimit-policy.example.com"
-  validationActions: [Deny]
-  paramRef:
-    name: "replica-limit-clusterwide.example.com"
-    namespace: "default"
-  matchResources:
-    namespaceSelector:
-      matchExpressions:
-      - key: environment
-        operator: NotIn
-        values:
-        - test
-```
+{{% code language="yaml" file="validatingadmissionpolicy/binding-with-param-prod.yaml" %}}
 
-And have a parameter resource like:
+Notice this binding applies a different parameter to resources which
+are not in the `test` environment.
 
-```yaml
-apiVersion: rules.example.com/v1
-kind: ReplicaLimit
-metadata:
-  name: "replica-limit-clusterwide.example.com"
-maxReplicas: 100
-```
+And have a parameter resource:
+
+{{% code language="yaml" file="validatingadmissionpolicy/replicalimit-param-prod.yaml" %}}
 
 For each admission request, CEL expressions will be evaluated for each 
 (policy, binding, param) combination that match the request. For a request
@@ -256,30 +172,15 @@ and they must all pass evaluation for the policy to be considered passed.
 
 If multiple parameters match a single binding, the policy rules will be evaluated
 for each param, and they too must all pass for the binding to be considered passed.
-
-Bindings can have overlapping match criteria. The policy is evaluated for each matching binding.
-In the above example, the "nontest" policy binding could instead have been defined as a global policy:
-
-```yaml
-apiVersion: admissionregistration.k8s.io/v1beta1
-kind: ValidatingAdmissionPolicyBinding
-metadata:
-  name: "replicalimit-binding-global"
-spec:
-  policyName: "replicalimit-policy.example.com"
-  validationActions: [Deny]
-  params: "replica-limit-clusterwide.example.com"
-  matchResources:
-    namespaceSelector:
-      matchExpressions:
-      - key: environment
-        operator: Exists
-```
+Bindings can have overlapping match criteria. The policy is evaluated for each 
+matching binding-parameter combination. A policy may even be evaluated multiple
+times if multiple bindings match it, or a single binding that matches multiple 
+parameters.
 
 The params object representing a parameter resource will not be set if a parameter resource has
 not been bound, so for policies requiring a parameter resource, it can be useful to add a check to
-ensure one has been bound. A parameter resource will not be bound, and `params` will be null,
-if `paramKind` of the policy, or `paramRef` of the binding are unset.
+ensure one has been bound. A parameter resource will not be bound and `params` will be null
+if `paramKind` of the policy, or `paramRef` of the binding are not specified.
 
 For the use cases require parameter configuration, we recommend to add a param check in
 `spec.validations[0].expression`:
@@ -289,7 +190,7 @@ For the use cases require parameter configuration, we recommend to add a param c
   message: "params missing but required to bind to this policy"
 ```
 
-##### Optional Parameters
+##### Optional P=parameters
 
 It can be convenient to be able to have optional parameters as part of a parameter resource, and
 only validate them if present. CEL provides `has()`, which checks if the key passed to it exists.
@@ -309,17 +210,17 @@ Here, we first check that the optional parameter is present with `!has(params.op
   10 inclusive.
 
 
-##### Per-Namespaced Parameters
+##### Per-namespace Parameters
 
 Authors of policy bindings may choose to specify cluster-wide, or per-namespace
 parameters. Normally, parameters will be searched for only in the `namespace` provided
 in the binding's `paramRef`.
 
-However, if `namesapce` is unset, the `namespace` for the request object can be
+However, if `namesapce` is not specified, the `namespace` for the request object can be
 used to search params. This enables policy configuration that depends on the namespace
 of the resource being manipulated, for more fine-tuned control.
 
-##### Parameter Selector
+##### Parameter selector
 
 In addition to specify a parameter in a binding by `name`, you may
 choose instead to specify a matching label, such that all resources of the
@@ -334,7 +235,7 @@ namespace are eligible for selection. Otherwise, when `namespace` is empty and
 `paramKind` is namespace-scoped, the `namespace` used in the request being 
 admitted will be used.
 
-#### Authorization Check
+#### Authorization checks {#authorization-check} 
 
 We introduced the authorization check for parameter resources.
 User is expected to have `read` access to the resources referenced by `paramKind` in
@@ -376,7 +277,7 @@ variables as well as some other useful variables:
 - 'oldObject' - The existing object. The value is null for CREATE requests.
 - 'request' - Attributes of the [admission request](/docs/reference/config-api/apiserver-admission.v1/#admission-k8s-io-v1-AdmissionRequest).
 - 'params' - Parameter resource referred to by the policy binding being evaluated. The value is
-  null if `ParamKind` is unset.
+  null if `ParamKind` is not specified.
 - `namespaceObject` - The namespace, as a Kubernetes resource, that the incoming object belongs to.
   The value is null if the incoming object is cluster-scoped.
 - `authorizer` - A CEL Authorizer. May be used to perform authorization checks for the principal
