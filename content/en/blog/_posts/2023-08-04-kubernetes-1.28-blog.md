@@ -62,7 +62,7 @@ within the control plane may be at differing versions; when that happens, differ
 API servers are able to serve different sets of built-in resources (different groups, versions, and resources
 are all possible). This new alpha mechanism lets you hide that skew from clients.
 
-## CRD Validation Ratcheting
+## CRD validation ratcheting
     
 This Allows CRs to fail validation if the patch did not alter any of the invalid fields.  The ability to shift left validation logic from controllers to the front end is a long-term goal for improving the useability of the Kubernetes project.
     
