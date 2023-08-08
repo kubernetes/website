@@ -112,9 +112,13 @@ description: |-
 				<p>Create an environment variable called <tt>NODE_PORT</tt> that has the value of the Node port assigned:</p>
 				<p><code><b>export NODE_PORT="$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')"</b></code><br />
 				<code><b>echo "NODE_PORT=$NODE_PORT"</b></code></p>
-				<p>Now we can test that the app is exposed outside of the cluster using <code>curl</code>, the IP address of the Node and the externally exposed port:</p>
-				<p><code><b>curl http://"$(minikube ip):$NODE_PORT"</b></code></p>
-				<p>And we get a response from the server. The Service is exposed.</p>
+        <p>In order to expose this port to the machine you are working on you will need to create a tunnel using the following command:</p>
+        <p><code><b>minikube service kubernetes-bootcamp</b></code></p>
+        <p>The tunnel will automatically open in your browser. Your terminal should show you the tunnel URL used as well.</p>
+        <p>You can connect to it using <code><b>curl</b></code> as follows:</p>
+				<p><code><b>curl http://"127.0.0.1:TUNNEL_PORT"</b></code></p>
+        <p>Where <code><b>TUNNEL_PORT</b></code>is the port assigned by minikube when setting up the tunnel.</p>
+				<p>We get a response from the server. The Service is exposed.</p>
 			</div>
 		</div>
 
