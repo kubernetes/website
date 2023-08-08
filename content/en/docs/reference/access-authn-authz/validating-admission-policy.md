@@ -334,6 +334,8 @@ variables as well as some other useful variables:
 - 'request' - Attributes of the [admission request](/docs/reference/config-api/apiserver-admission.v1/#admission-k8s-io-v1-AdmissionRequest).
 - 'params' - Parameter resource referred to by the policy binding being evaluated. The value is
   null if `ParamKind` is unset.
+- `namespaceObject` - The namespace, as a Kubernetes resource, that the incoming object belongs to.
+  The value is null if the incoming object is cluster-scoped.
 - `authorizer` - A CEL Authorizer. May be used to perform authorization checks for the principal
   (authenticated user) of the request. See
   [Authz](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz) in the Kubernetes CEL library
@@ -465,8 +467,8 @@ event and all other values will be ignored.
 
 To return a more friendly message when the policy rejects a request, we can use a CEL expression
 to composite a message with `spec.validations[i].messageExpression`. Similar to the validation expression,
-a message expression has access to `object`, `oldObject`, `request`, and `params`. Unlike validations,
-message expression must evaluate to a string.
+a message expression has access to `object`, `oldObject`, `request`, `params`, and `namespaceObject`.
+Unlike validations, message expression must evaluate to a string.
 
 For example, to better inform the user of the reason of denial when the policy refers to a parameter,
 we can have the following validation:
@@ -578,3 +580,39 @@ Type Checking has the following limitation:
 - Type Checking does not affect the policy behavior in any way. Even if the type checking detects errors, the policy will continue
   to evaluate. If errors do occur during evaluate, the failure policy will decide its outcome.
 - Type Checking does not apply to CRDs, including matched CRD types and reference of paramKind. The support for CRDs will come in future release.
+
+### Variable composition
+
+If an expression grows too complicated, or part of the expression is reusable and computationally expensive to evaluate,
+you can extract some part of the expressions into variables. A variable is a named expression that can be referred later
+in `variables` in other expressions.
+
+```yaml
+spec:
+  variables:
+    - name: foo
+      expression: "'foo' in object.spec.metadata.labels ? object.spec.metadata.labels['foo'] : 'default'"
+  validations:
+    - expression: variables.foo == 'bar'
+```
+
+A variable is lazily evaluated when it is first referred. Any error that occurs during the evaluation will be
+reported during the evaluation of the referring expression. Both the result and potential error are memorized and
+count only once towards the runtime cost.
+
+The order of variables are important because a variable can refer to other variables that are defined before it.
+This ordering prevents circular references.
+
+The following is a more complex example of enforcing that image repo names match the environment defined in its namespace.
+
+{{< codenew file="access/image-matches-namespace-environment.policy.yaml" >}}
+
+With the policy bound to the namespace `default`, which is labeled `environment: prod`,
+the following attempt to create a deployment would be rejected.
+```shell
+kubectl create deploy --image=dev.example.com/nginx invalid
+```
+The error message is similar to this.
+```console
+error: failed to create deployment: deployments.apps "invalid" is forbidden: ValidatingAdmissionPolicy 'image-matches-namespace-environment.policy.example.com' with binding 'demo-binding-test.example.com' denied request: only prod images are allowed in namespace default
+```
