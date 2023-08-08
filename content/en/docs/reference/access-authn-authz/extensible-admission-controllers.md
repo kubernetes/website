@@ -723,7 +723,7 @@ The `matchPolicy` for an admission webhooks defaults to `Equivalent`.
 
 {{< feature-state state="beta" for_k8s_version="v1.28" >}}
 
-You can define _match conditions_for webhooks if you need fine-grained request filtering. These
+You can define _match conditions_ for webhooks if you need fine-grained request filtering. These
 conditions are useful if you find that match rules, `objectSelectors` and `namespaceSelectors` still
 doesn't provide the filtering you want over when to call out over HTTP. Match conditions are
 [CEL expressions](/docs/reference/using-api/cel/). All match conditions must evaluate to true for the
@@ -734,7 +734,7 @@ Here is an example illustrating a few different uses for match conditions:
 {{< codenew file="access/validating-webhook-configuration-match-conditions.yaml" >}}
 
 {{< note >}}
-You can define up to 64 elements in the `matchConditions`` field per webhook.
+You can define up to 64 elements in the `matchConditions` field per webhook.
 {{< /note >}}
 
 Match conditions have access to the following CEL variables:
