@@ -717,6 +717,50 @@ And create it:
 kubectl apply -f my-crontab.yaml
 crontab "my-new-cron-object" created
 ```
+### Validation Ratcheting
+
+Validation Ratcheting is alpha since 1.28. Enable the `CRDValidationRatcheting`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
+use the feature.
+
+Validation Ratcheting refers to the ability of the apiserver to accept updates
+to resources which fail validation, if the failing part of the resource was
+unchanged by the update operation.
+
+This feature allows authors of CRDs to confidently add new validations to the
+OpenAPIV3 schema under certain conditions. Users can update to the new schema
+safely without bumping the version of the object or breaking workflows.
+
+While most validations placed in the OpenAPIV3 schema of a CRD are support
+ratcheting, there are a few exceptions. The following OpenAPIV3 schema 
+validations are not supported by ratcheting under the current implementation 
+and if violated will continue to throw an error as normally:
+
+- Quantors
+  - `allOf`
+  - `oneOf`
+  - `anyOf`
+  - `not`
+  -  any validations in a descendent of one of these fields
+- `x-kubernetes-validations`
+  CRD Validation Rules are currently ignored by ratcheting. This may be subject
+  to change.
+- `x-kubernetes-list-type`
+  Errors arising from changing the list type of a subschema will not be 
+  ratcheted. For example adding `set` onto a list with duplicates will always 
+  result in an error.
+- x-kubernetes-map-keys
+  Errors arising from changing the map keys of a list schema will not be 
+  ratcheted.
+- `required`
+  Required fields may not be safely added
+- `properties`
+  Properties may not be safely removed, but changes to validations in their
+  schemas and subschemas may be ratcheted
+- `additionalProperties`
+  To remove a previously specified `additionalProperties` validation will not be
+  ratcheted.
+
 
 ## Validation rules
 
