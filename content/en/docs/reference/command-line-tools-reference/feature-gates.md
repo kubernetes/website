@@ -460,16 +460,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `CronJobTimeZone`: Allow the use of the `timeZone` optional field in [CronJobs](/docs/concepts/workloads/controllers/cron-jobs/)
 - `CRDValidationRatcheting`: Enable updates to custom resources to contain 
    violations of their OpenAPI schema if the offending portions of the resource
-   update did not change. Allows users to update to stricter versions of a CRD
-   schema without bumping the version of the object or breaking workflows.
-   While most are supported, does not support ratcheting updates across all 
-   schema changes. The following OpenAPIV3 schema validations are not supported
-   by ratcheting under the current implementation and if violated will continue
-   to throw an error as normally:
-   - `allOf`/`oneOf`/`anyOf`/`not` nested validations
-   - `x-kubernetes-validations`
-   - `x-kubernetes-list-type`
-   - `required` fields
+   update did not change. See [Validation Ratcheting](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-ratcheting) for more details.
 - `CrossNamespaceVolumeDataSource`: Enable the usage of cross namespace volume data source
    to allow you to specify a source namespace in the `dataSourceRef` field of a
    PersistentVolumeClaim.
