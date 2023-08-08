@@ -294,7 +294,7 @@ validation error is thrown for any container sharing a name with another.
 {{< feature-state for_k8s_version="v1.28" state="alpha" >}}
 
 Starting with Kubernetes 1.28 in alpha, a feature gate named `SidecarContainers`
-allows to specify a `restartPolicy` for init containers which is independent of
+allows you to specify a `restartPolicy` for init containers which is independent of
 the Pod and other init containers. Container [probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe)
 can also be added to control their lifecycle.
 
@@ -309,9 +309,11 @@ Since these containers are defined as init containers, they benefit from the sam
 ordering and sequential guarantees as other init containers, allowing them to
 be mixed with other init containers into complex Pod initialization flows.
 
-The only difference is that they are not required to complete before the next
-init container starts, so a next init container will start after the current
-container status has been set to `Pod.status.containerStatuses[id of container].started=true`
+Compared to regular init containers, sidecar-style init containers continue to
+run and the next init container can begin starting once the kubelet has set
+the `started` container status for the sidecar-style init container to true.
+That status either becomes true because there is a process running in the
+container and no startup probe defined, or
 as a result of its `startupProbe` succeeding.
 
 This feature can be used to implement the sidecar container pattern in a more
