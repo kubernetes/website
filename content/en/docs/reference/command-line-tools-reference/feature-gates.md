@@ -453,7 +453,7 @@ Each feature gate is designed for enabling/disabling a specific feature:
   allowing you to scrape health check metrics.
 - `ConsistentHTTPGetHandlers`: Normalize HTTP get URL and Header passing for lifecycle
   handlers with probers.
-- `ConsistentListFromCache`: Allow the API server to serve consistent lists from cache
+- `ConsistentListFromCache`: Allow the API server to serve consistent lists from cache.
 - `ContainerCheckpoint`: Enables the kubelet `checkpoint` API.
   See [Kubelet Checkpoint API](/docs/reference/node/kubelet-checkpoint-api/) for more details.
 - `ContextualLogging`: When you enable this feature gate, Kubernetes components that support
