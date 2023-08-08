@@ -112,7 +112,7 @@ otherwise the failures are ignored.
 See [Audit Annotations: validation falures](/docs/reference/labels-annotations-taints/audit-annotations/#validation-policy-admission-k8s-io-validation_failure)
 for more details about the validation failure audit annotation.
 
-#### Parameter resources
+### Parameter resources
 
 Parameter resources allow a policy configuration to be separate from its definition. 
 A policy can define paramKind, which outlines GVK of the parameter resource, 
@@ -190,7 +190,7 @@ For the use cases require parameter configuration, we recommend to add a param c
   message: "params missing but required to bind to this policy"
 ```
 
-##### Optional P=parameters
+#### Optional parameters
 
 It can be convenient to be able to have optional parameters as part of a parameter resource, and
 only validate them if present. CEL provides `has()`, which checks if the key passed to it exists.
@@ -210,7 +210,7 @@ Here, we first check that the optional parameter is present with `!has(params.op
   10 inclusive.
 
 
-##### Per-namespace Parameters
+#### Per-namespace Parameters
 
 As the author of a ValidatingAdmissionPolicy and its ValidatingAdmissionPolicyBinding, 
 you can choose to specify cluster-wide, or per-namespace parameters. 
@@ -225,7 +225,7 @@ API server looks for a parameter object in `default`.
 This design enables policy configuration that depends on the namespace
 of the resource being manipulated, for more fine-tuned control.
 
-##### Parameter selector
+#### Parameter selector
 
 In addition to specify a parameter in a binding by `name`, you may
 choose instead to specify label selector, such that all resources of the
