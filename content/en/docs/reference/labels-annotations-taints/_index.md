@@ -281,8 +281,6 @@ Example: `config.kubernetes.io/apply-time-mutation:`
 Used on: All objects
 
 This annotation is used on the target object to be modified to configure [Apply-Time Mutation](https://kpt.dev/reference/annotations/apply-time-mutation/). The annotation may specify one or more substitutions. 
-Each substitution includes a source object, a source field path, and a target field path, with an optional token.
-If the token is not specified, the target field value is replaced with the source field value. This alternatively allows either templated interpretation or type preservation.
 
 ### internal.config.kubernetes.io/* (reserved prefix) {#internal.config.kubernetes.io-reserved-wildcard}
 
