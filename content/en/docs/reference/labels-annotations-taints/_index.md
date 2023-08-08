@@ -1094,17 +1094,10 @@ Example: `batch.kubernetes.io/job-tracking: ""`
 
 Used on: Jobs
 
-The presence of this annotation on a Job indicates that the control plane is
+The presence of this annotation on a Job used to indicate that the control plane is
 [tracking the Job status using finalizers](/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers).
-The control plane uses this annotation to safely transition to tracking Jobs
-using finalizers, while the feature is in development.
-You should **not** manually add or remove this annotation.
-
-{{< note >}}
-Starting from Kubernetes 1.26, this annotation is deprecated.
-Kubernetes 1.27 and newer will ignore this annotation and always track Jobs
-using finalizers.
-{{< /note >}}
+Adding or removing this annotation no longer has an effect (Kubernetes v1.27 and later)
+All Jobs are tracked with finalizers.
 
 ### job-name (deprecated) {#job-name}
 
