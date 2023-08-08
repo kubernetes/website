@@ -142,8 +142,7 @@ A minimal Ingress resource example:
 一个最小的 Ingress 资源示例：
 
 
-{{< codenew file="service/networking/minimal-ingress.yaml" >}}
-
+{{% code file="service/networking/minimal-ingress.yaml" %}}
 <!-- 
 An Ingress needs `apiVersion`, `kind`, `metadata` and `spec` fields.
 The name of an Ingress object must be a valid
@@ -275,7 +274,7 @@ with static assets.
 `Resource` 后端与 Service 后端是互斥的，在二者均被设置时会无法通过合法性检查。
 `Resource` 后端的一种常见用法是将所有入站数据导向带有静态资产的对象存储后端。
 
-{{< codenew file="service/networking/ingress-resource-backend.yaml" >}}
+{{% code file="service/networking/ingress-resource-backend.yaml" %}}
 
 <!--
 After creating the Ingress above, you can view it with the following command:
@@ -432,7 +431,7 @@ equal to the suffix of the wildcard rule.
 | `*.foo.com`  | `baz.bar.foo.com`  | 不匹配，通配符仅覆盖了一个 DNS 标签 |
 | `*.foo.com`  | `foo.com`          | 不匹配，通配符仅覆盖了一个 DNS 标签 |
 
-{{< codenew file="service/networking/ingress-wildcard-host.yaml" >}}
+{{% code file="service/networking/ingress-wildcard-host.yaml" %}}
 
 <!-- 
 ## Ingress class
@@ -448,7 +447,7 @@ Ingress 可以由不同的控制器实现，通常使用不同的配置。
 每个 Ingress 应当指定一个类，也就是一个对 IngressClass 资源的引用。
 IngressClass 资源包含额外的配置，其中包括应当实现该类的控制器名称。
 
-{{< codenew file="service/networking/external-lb.yaml" >}}
+{{% code file="service/networking/external-lb.yaml" %}}
 
 <!-- 
 The `.spec.parameters` field of an IngressClass lets you reference another
@@ -653,7 +652,7 @@ default `IngressClass`:
 不过仍然[推荐](https://kubernetes.github.io/ingress-nginx/#i-have-only-one-instance-of-the-ingresss-nginx-controller-in-my-cluster-what-should-i-do)
 设置默认的 `IngressClass`。
 
-{{< codenew file="service/networking/default-ingressclass.yaml" >}}
+{{% code file="service/networking/default-ingressclass.yaml" %}}
 
 <!--
 ## Types of Ingress
@@ -671,7 +670,7 @@ There are existing Kubernetes concepts that allow you to expose a single Service
 现有的 Kubernetes 概念允许你暴露单个 Service (参见[替代方案](#alternatives))。
 你也可以通过指定无规则的**默认后端**来对 Ingress 进行此操作。
 
-{{< codenew file="service/networking/test-ingress.yaml" >}}
+{{% code file="service/networking/test-ingress.yaml" %}}
 
 <!-- 
 If you create it using `kubectl apply -f` you should be able to view the state
@@ -722,7 +721,7 @@ It would require an Ingress such as:
 -->
 这将需要一个如下所示的 Ingress：
 
-{{< codenew file="service/networking/simple-fanout-example.yaml" >}}
+{{% code file="service/networking/simple-fanout-example.yaml" %}}
 
 <!--
 When you create the Ingress with `kubectl apply -f`:
@@ -790,7 +789,7 @@ the [Host header](https://tools.ietf.org/html/rfc7230#section-5.4).
 以下 Ingress 让后台负载均衡器基于
 [host 头部字段](https://tools.ietf.org/html/rfc7230#section-5.4)来路由请求。
 
-{{< codenew file="service/networking/name-virtual-host-ingress.yaml" >}}
+{{% code file="service/networking/name-virtual-host-ingress.yaml" %}}
 
 <!-- 
 If you create an Ingress resource without any hosts defined in the rules, then any
@@ -809,7 +808,7 @@ and `second.bar.com` to `service3`.
 例如，以下 Ingress 会将请求 `first.bar.com` 的流量路由到 `service1`，将请求
 `second.bar.com` 的流量路由到 `service2`，而所有其他流量都会被路由到 `service3`。
 
-{{< codenew file="service/networking/name-virtual-host-ingress-no-third-host.yaml" >}}
+{{% code file="service/networking/name-virtual-host-ingress-no-third-host.yaml" %}}
 
 <!--
 ### TLS
@@ -868,7 +867,7 @@ section.
 因此，`tls` 字段中的 `hosts` 的取值需要与 `rules` 字段中的 `host` 完全匹配。
 {{< /note >}}
 
-{{< codenew file="service/networking/tls-example-ingress.yaml" >}}
+{{% code file="service/networking/tls-example-ingress.yaml" %}}
 
 <!-- 
 There is a gap between TLS features supported by various Ingress
