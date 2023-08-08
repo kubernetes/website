@@ -205,7 +205,8 @@ For a reference to old feature gates that are removed, please refer to
 | `TopologyManagerPolicyOptions` | `false` | Alpha | 1.26 | 1.27 |
 | `TopologyManagerPolicyOptions` | `true` | Beta | 1.28 | |
 | `UnknownVersionInteroperabilityProxy` | `false` | Alpha | 1.28 | |
-| `UserNamespacesStatelessPodsSupport` | `false` | Alpha | 1.25 | |
+| `UserNamespacesStatelessPodsSupport` | `false` | Alpha | 1.25 | 1.27 |
+| `UserNamespacesSupport` | `false` | Alpha | 1.28 | |
 | `ValidatingAdmissionPolicy` | `false` | Alpha | 1.26 | |
 | `VolumeCapacityPriority` | `false` | Alpha | 1.21 | - |
 | `WatchList` | false | Alpha | 1.27 | |
@@ -774,7 +775,8 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `UnknownVersionInteroperabilityProxy`: Proxy resource requests to the correct peer kube-apiserver when
   multiple kube-apiservers exist at varied versions.
   See [Mixed version proxy](/docs/concepts/architecture/mixed-version-proxy/) for more information.
-- `UserNamespacesStatelessPodsSupport`: Enable user namespace support for stateless Pods.
+- `UserNamespacesStatelessPodsSupport`: Enable user namespace support for stateless Pods. This flag was renamed on newer releases to `UserNamespacesSupport`.
+- `UserNamespacesSupport`: Enable user namespace support for Pods.
 - `ValidatingAdmissionPolicy`: Enable [ValidatingAdmissionPolicy](/docs/reference/access-authn-authz/validating-admission-policy/) support for CEL validations be used in Admission Control.
 - `VolumeCapacityPriority`: Enable support for prioritizing nodes in different
   topologies based on available PV capacity.
