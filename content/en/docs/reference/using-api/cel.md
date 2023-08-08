@@ -182,6 +182,50 @@ To perform an authorization check for a service account:
 See the [Kubernetes Authz library](https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz)
 godoc for more information.
 
+### Kubernetes quantity library
+
+Kubernetes 1.28 adds support for manipulating quantity strings (ex 1.5G, 512k, 20Mi)
+
+- `isQuantity(string)` checks if a string is a valid Quantity according to [Kubernetes'
+  resource.Quantity](https://pkg.go.dev/k8s.io/apimachinery/pkg/api/resource#Quantity). 
+- `quantity(string) Quantity` converts a string to a Quantity or results in an error if the
+  string is not a valid quantity.
+
+Once parsed via the `quantity` function, the resulting Quantity object has the 
+following library of member functions:
+
+{{< table caption="Available member functions of a Quantity" >}}
+| Member Function               | CEL Return Value  | Description                                                                                                                                                          |
+|-------------------------------|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `isInteger()`                 | bool              | returns true if and only if asInteger is safe to call without an error                                                                                               |
+| `asInteger()`                 | int               | returns a representation of the current value as an int64 if possible or results in an error if conversion would result in overflow or loss of precision.             |
+| `asApproximateFloat()`        | float              | returns a float64 representation of the quantity which may lose precision. If the value of the quantity is outside the range of a float64 +Inf/-Inf will be returned.  |
+| `sign()`                      | int               | Returns `1` if the quantity is positive, `-1` if it is negative. `0` if it is zero                                                                                   |
+| `add(<Quantity>)`             | Quantity          | Returns sum of two quantities                                                                                                                                        |
+| `add(<int>)`                  | Quantity          | Returns sum of quantity and an integer                                                                                                                               | 
+| `sub(<Quantity>)`             | Quantity          | Returns difference between two quantities                                                                                                                            |
+| `sub(<int>)`                  | Quantity          | Returns difference between a quantity and an integer                                                                                                                 |
+| `isLessThan(<Quantity>)`      | bool              | Returns true if and only if the receiver is less than the operand                                                                                                    |
+| `isGreaterThan(<Quantity>)`   | bool              | Returns true if and only if the receiver is greater than the operand                                                                                                 |
+| `compareTo(<Quantity>)`       | int               | Compares receiver to operand and returns 0 if they are equal, 1 if the receiver is greater, or -1 if the receiver is less than the operand                           |
+{{< /table >}}
+
+Examples:
+
+{{< table caption="Examples of CEL expressions using URL library functions" >}}
+| CEL Expression                                                            | Purpose                                               |
+|---------------------------------------------------------------------------|-------------------------------------------------------|
+| `quantity("500000G").isInteger()`                                         | Test if conversion to integer would throw an error    |
+| `quantity("50k").asInteger()`                                             | Precise conversion to integer                         |
+| `quantity("9999999999999999999999999999999999999G").asApproximateFloat()` | Lossy conversion to float                              |
+| `quantity("50k").add("20k")`                                              | Add two quantities                                    |
+| `quantity("50k").sub(20000)`                                              | Subtract an integer from a quantity                   |
+| `quantity("50k").add(20).sub(quantity("100k")).sub(-50000)`               | Chain adding and subtracting integers and quantities  |
+| `quantity("200M").compareTo(quantity("0.2G"))`                            | Compare two quantities                                |
+| `quantity("150Mi").isGreaterThan(quantity("100Mi"))`                      | Test if a quantity is greater than the receiver       |
+| `quantity("50M").isLessThan(quantity("100M"))`                            | Test if a quantity is less than the receiver          |
+{{< /table >}}
+
 ## Type checking
 
 CEL is a [gradually typed language](https://github.com/google/cel-spec/blob/master/doc/langdef.md#gradual-type-checking).
