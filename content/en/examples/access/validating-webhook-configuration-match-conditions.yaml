@@ -15,6 +15,7 @@ webhooks:
         namespace: my-namespace
         name: my-webhook
       caBundle: '<omitted>'
+    # You can have up to 64 matchConditions per webhook
     matchConditions:
       - name: 'exclude-leases' # Each match condition must have a unique name
         expression: '!(request.resource.group == "coordination.k8s.io" && request.resource.resource == "leases")' # Match non-lease resources.
@@ -40,6 +41,7 @@ webhooks:
         namespace: my-namespace
         name: my-webhook
       caBundle: '<omitted>'
+    # You can have up to 64 matchConditions per webhook
     matchConditions:
       - name: 'breakglass'
         # Skip requests made by users authorized to 'breakglass' on this webhook.
