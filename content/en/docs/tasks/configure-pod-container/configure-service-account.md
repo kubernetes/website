@@ -291,7 +291,7 @@ Next, verify it has been created. For example:
   [Specifying ImagePullSecrets on a Pod](/docs/concepts/containers/images/#specifying-imagepullsecrets-on-a-pod).
 
   ```shell
-  kubectl create secret docker-registry myregistrykey --docker-server=DUMMY_SERVER \
+  kubectl create secret docker-registry myregistrykey --docker-server=<registry name> \
           --docker-username=DUMMY_USERNAME --docker-password=DUMMY_DOCKER_PASSWORD \
           --docker-email=DUMMY_DOCKER_EMAIL
   ```
@@ -361,7 +361,7 @@ Now, when a new Pod is created in the current namespace and using the default
 ServiceAccount, the new Pod has its `spec.imagePullSecrets` field set automatically:
 
 ```shell
-kubectl run nginx --image=nginx --restart=Never
+kubectl run nginx --image=<registry name>/nginx --restart=Never
 kubectl get pod nginx -o=jsonpath='{.spec.imagePullSecrets[0].name}{"\n"}'
 ```
 
