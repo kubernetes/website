@@ -88,6 +88,7 @@ For a reference to old feature gates that are removed, please refer to
 | `ComponentSLIs` | `true` | Beta | 1.27 | |
 | `ContainerCheckpoint` | `false` | Alpha | 1.25 | |
 | `ContextualLogging` | `false` | Alpha | 1.24 | |
+|  CRDValidationRatcheting | false | Alpha | 1.28 |
 | `CrossNamespaceVolumeDataSource` | `false` | Alpha| 1.26 | |
 | `CustomCPUCFSQuotaPeriod` | `false` | Alpha | 1.12 | |
 | `CustomResourceValidationExpressions` | `false` | Alpha | 1.23 | 1.24 |
@@ -472,6 +473,9 @@ Each feature gate is designed for enabling/disabling a specific feature:
 - `ContextualLogging`: When you enable this feature gate, Kubernetes components that support
    contextual logging add extra detail to log output.
 - `CronJobTimeZone`: Allow the use of the `timeZone` optional field in [CronJobs](/docs/concepts/workloads/controllers/cron-jobs/)
+- `CRDValidationRatcheting`: Enable updates to custom resources to contain 
+   violations of their OpenAPI schema if the offending portions of the resource
+   update did not change. See [Validation Ratcheting](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-ratcheting) for more details.
 - `CrossNamespaceVolumeDataSource`: Enable the usage of cross namespace volume data source
    to allow you to specify a source namespace in the `dataSourceRef` field of a
    PersistentVolumeClaim.
