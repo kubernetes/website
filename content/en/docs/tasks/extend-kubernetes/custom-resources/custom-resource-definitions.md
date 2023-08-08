@@ -717,6 +717,57 @@ And create it:
 kubectl apply -f my-crontab.yaml
 crontab "my-new-cron-object" created
 ```
+### Validation ratcheting
+
+{{< feature-state state="alpha" for_k8s_version="v1.28" >}}
+
+You need to enable the `CRDValidationRatcheting`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
+use this behavior, which then applies to all CustomResourceDefinitions in your
+cluster.
+
+Provided you enabled the feature gate, Kubernetes implements _validation racheting_
+for CustomResourceDefinitions. The API server is willing accept updates to resources that
+are not valid after the update, provided that each part of the resource that failed to validate
+was not changed by the update operation. In other words, any invalid part of the resource
+that remains invalid must have already been wrong.
+You cannot use this mechanism to update a valid resource so that it becomes invalid.
+
+This feature allows authors of CRDs to confidently add new validations to the
+OpenAPIV3 schema under certain conditions. Users can update to the new schema
+safely without bumping the version of the object or breaking workflows.
+
+While most validations placed in the OpenAPIV3 schema of a CRD are support
+ratcheting, there are a few exceptions. The following OpenAPIV3 schema 
+validations are not supported by ratcheting under the implementation in Kubernetes
+{{< skew currentVersion >}} and if violated will continue to throw an error as normally:
+
+- Quantors
+  - `allOf`
+  - `oneOf`
+  - `anyOf`
+  - `not`
+  -  any validations in a descendent of one of these fields
+- `x-kubernetes-validations`
+  For Kubernetes {{< skew currentVersion >}}, CRD validation rules](#validation-rules) are ignored by
+  ratcheting. This may change in later Kubernetes releases.
+- `x-kubernetes-list-type`
+  Errors arising from changing the list type of a subschema will not be 
+  ratcheted. For example adding `set` onto a list with duplicates will always 
+  result in an error.
+- `x-kubernetes-map-keys`
+  Errors arising from changing the map keys of a list schema will not be 
+  ratcheted.
+- `required`
+  Errors arising from changing the list of required fields will not be ratcheted.
+- `properties`
+  Adding/removing/modifying the names of properties is not ratcheted, but 
+  changes to validations in each properties' schemas and subschemas may be ratcheted
+  if the name of the property stays the same.
+- `additionalProperties`
+  To remove a previously specified `additionalProperties` validation will not be
+  ratcheted.
+
 
 ## Validation rules
 
