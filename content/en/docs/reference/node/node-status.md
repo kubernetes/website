@@ -1,4 +1,5 @@
 ---
+content_type: reference
 title: Node Status
 weight: 80
 ---
