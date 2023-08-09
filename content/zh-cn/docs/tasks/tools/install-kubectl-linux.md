@@ -270,11 +270,10 @@ Or use this for detailed view of version:
 
 {{< note >}}
 <!--
-In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default.
-You can create this directory if you need to, making it world-readable but writeable only by admins.
+In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default, and can be created using `sudo mkdir -m 755 /etc/apt/keyrings`
 -->
 在低于 Debian 12 和 Ubuntu 22.04 的发行版本中，`/etc/apt/keyrings` 默认不存在。
-如有需要，你可以创建此目录，并将其设置为对所有人可读，但仅对管理员可写。
+可以使用 `sudo mkdir -m 755 /etc/apt/keyrings` 来创建。
 {{< /note >}}
 
 {{% /tab %}}
