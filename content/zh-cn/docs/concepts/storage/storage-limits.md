@@ -31,7 +31,7 @@ respect those limits. Otherwise, Pods scheduled on a Node could get stuck
 waiting for volumes to attach.
 -->
 谷歌、亚马逊和微软等云供应商通常对可以关联到节点的卷数量进行限制。
-Kubernetes 需要尊重这些限制。 否则，在节点上调度的 Pod 可能会卡住去等待卷的关联。
+Kubernetes 需要尊重这些限制。否则，在节点上调度的 Pod 可能会卡住去等待卷的关联。
 
 <!-- body -->
 
@@ -108,7 +108,7 @@ Dynamic volume limits are supported for following volume types.
 For volumes managed by in-tree volume plugins, Kubernetes automatically determines the Node
 type and enforces the appropriate maximum number of volumes for the node. For example:
 -->
-对于由内建插件管理的卷，Kubernetes 会自动确定节点类型并确保节点上可关联的卷数目合规。 例如：
+对于由内建插件管理的卷，Kubernetes 会自动确定节点类型并确保节点上可关联的卷数目合规。例如：
 
 <!--
 * On
@@ -129,20 +129,18 @@ Refer to the [CSI specifications](https://github.com/container-storage-interface
 * For volumes managed by in-tree plugins that have been migrated to a CSI driver, the maximum number of volumes will be the one reported by the CSI driver.
 -->
 * 在
-<a href="https://cloud.google.com/compute/">Google Compute Engine</a>环境中,
-[根据节点类型](https://cloud.google.com/compute/docs/disks/#pdnumberlimits)最多可以将127个卷关联到节点。
+  <a href="https://cloud.google.com/compute/">Google Compute Engine</a>环境中，
+  [根据节点类型](https://cloud.google.com/compute/docs/disks/#pdnumberlimits)最多可以将 127 个卷关联到节点。
 
 * 对于 M5、C5、R5、T3 和 Z1D 类型实例的 Amazon EBS 磁盘，Kubernetes 仅允许 25 个卷关联到节点。
-对于 ec2 上的其他实例类型
-<a href="https://aws.amazon.com/ec2/">Amazon Elastic Compute Cloud (EC2)</a>,
-Kubernetes 允许 39 个卷关联至节点。
+  对于 ec2 上的其他实例类型
+  <a href="https://aws.amazon.com/ec2/">Amazon Elastic Compute Cloud (EC2)</a>，
+  Kubernetes 允许 39 个卷关联至节点。
 
 * 在 Azure 环境中, 根据节点类型，最多 64 个磁盘可以关联至一个节点。
-更多详细信息，请参阅[Azure 虚拟机的数量大小](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes)。
+  更多详细信息，请参阅 [Azure 虚拟机的数量大小](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/sizes)。
 
 * 如果 CSI 存储驱动程序（使用 `NodeGetInfo` ）为节点通告卷数上限，则 {{< glossary_tooltip text="kube-scheduler" term_id="kube-scheduler" >}} 将遵守该限制值。
-参考 [CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo) 获取更多详细信息。
+  参考 [CSI 规范](https://github.com/container-storage-interface/spec/blob/master/spec.md#nodegetinfo) 获取更多详细信息。
 
 * 对于由已迁移到 CSI 驱动程序的树内插件管理的卷，最大卷数将是 CSI 驱动程序报告的卷数。
-
-

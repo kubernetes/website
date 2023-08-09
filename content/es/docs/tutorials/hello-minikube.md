@@ -39,9 +39,9 @@ También se puede  seguir este tutorial si se ha instalado [Minikube localmente]
 
 Este tutorial provee una imagen de contenedor construida desde los siguientes archivos:
 
-{{< codenew language="js" file="minikube/server.js" >}}
+{{% codenew language="js" file="minikube/server.js" %}}
 
-{{< codenew language="conf" file="minikube/Dockerfile" >}}
+{{% codenew language="conf" file="minikube/Dockerfile" %}}
 
 Para más información sobre el comando `docker build`, lea la [documentación de Docker ](https://docs.docker.com/engine/reference/commandline/build/).
 

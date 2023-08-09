@@ -116,7 +116,7 @@ A user namespace for a stateless pod is enabled setting the `hostUsers` field of
 为一个无状态的 Pod 启用用户名字空间需要设置 `.spec` 的 `hostUsers` 字段
 为 `false`. 例如:
 
-{{< codenew file="pods/user-namespaces-stateless.yaml" >}}
+{{% code file="pods/user-namespaces-stateless.yaml" %}}
 
 <!--
 1. Create the pod on your cluster:

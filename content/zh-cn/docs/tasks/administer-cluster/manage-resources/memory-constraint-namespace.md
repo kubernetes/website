@@ -66,12 +66,12 @@ Here's an example manifest for a LimitRange:
 
 下面是 LimitRange 的示例清单：
 
-{{< codenew file="admin/resource/memory-constraints.yaml" >}}
+{{% codenew file="admin/resource/memory-constraints.yaml" %}}
 
 <!--
 Create the LimitRange:
 -->
-创建 LimitRange:
+创建 LimitRange：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-constraints.yaml --namespace=constraints-mem-example
@@ -132,7 +132,7 @@ minimum and maximum memory constraints imposed by the LimitRange.
 以下为包含一个容器的 Pod 清单。该容器声明了 600 MiB 的内存请求和 800 MiB 的内存限制，
 这些满足了 LimitRange 施加的最小和最大内存约束。
 
-{{< codenew file="admin/resource/memory-constraints-pod.yaml" >}}
+{{% codenew file="admin/resource/memory-constraints-pod.yaml" %}}
 
 <!--
 Create the Pod:
@@ -196,12 +196,12 @@ memory request of 800 MiB and a memory limit of 1.5 GiB.
 
 以下为包含一个容器的 Pod 的清单。这个容器声明了 800 MiB 的内存请求和 1.5 GiB 的内存限制。
 
-{{< codenew file="admin/resource/memory-constraints-pod-2.yaml" >}}
+{{% codenew file="admin/resource/memory-constraints-pod-2.yaml" %}}
 
 <!--
 Attempt to create the Pod:
 -->
-尝试创建 Pod:
+尝试创建 Pod：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/memory-constraints-pod-2.yaml --namespace=constraints-mem-example
@@ -228,7 +228,7 @@ memory request of 100 MiB and a memory limit of 800 MiB.
 
 以下为只有一个容器的 Pod 的清单。这个容器声明了 100 MiB 的内存请求和 800 MiB 的内存限制。
 
-{{< codenew file="admin/resource/memory-constraints-pod-3.yaml" >}}
+{{% codenew file="admin/resource/memory-constraints-pod-3.yaml" %}}
 
 <!--
 Attempt to create the Pod:
@@ -260,7 +260,7 @@ specify a memory request, and it does not specify a memory limit.
 
 以下为只有一个容器的 Pod 清单。该容器没有声明内存请求，也没有声明内存限制。
 
-{{< codenew file="admin/resource/memory-constraints-pod-4.yaml" >}}
+{{% codenew file="admin/resource/memory-constraints-pod-4.yaml" %}}
 
 <!--
 Create the Pod:
@@ -423,4 +423,3 @@ kubectl delete namespace constraints-mem-example
 * [为容器和 Pod 分配内存资源](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/)
 * [为容器和 Pod 分配 CPU 资源](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/)
 * [为 Pod 配置服务质量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)
-

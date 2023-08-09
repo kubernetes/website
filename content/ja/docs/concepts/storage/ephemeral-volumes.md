@@ -25,7 +25,7 @@ weight: 30
 Kubernetesは、さまざまな目的のためにいくつかの異なる種類のエフェメラルボリュームをサポートしています。
 - [emptyDir](/ja/docs/concepts/storage/volumes/#emptydir):Podの起動時には空で、ストレージはkubeletベースディレクトリ(通常はルートディスク)またはRAMからローカルに取得されます。
 - [configMap](/ja/docs/concepts/storage/volumes/#configmap)、[downwardAPI](/ja/docs/concepts/storage/volumes/#downwardapi)、[secret](/ja/docs/concepts/storage/volumes/#secret):Podにさまざまな種類のKubernetesデータを挿入します。
-- [CSIエフェメラルボリューム](#csi-ephemeral-volumes):上のボリュームの種類に似ていますが、特に[この機能をサポートする](https://kubernetes-csi.github.io/docs/drivers.html)特別な[CSIドライバー](https://github.com/container-storage-interface/spec/blob/master/spec.md)によって提供されます。
+- [CSIエフェメラルボリューム](#csi-ephemeral-volumes):上のボリュームの種類に似ていますが、特に[この機能をサポートする](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)特別な[CSIドライバー](https://github.com/container-storage-interface/spec/blob/master/spec.md)によって提供されます。
 - [汎用エフェメラルボリューム](#generic-ephemeral-volumes):これは、永続ボリュームもサポートするすべてのストレージドライバーで提供できます。
 
 `emptyDir`、`configMap`、`downwardAPI`、`secret`は[ローカルエフェメラルストレージ](/ja/docs/concepts/configuration/manage-resources-containers/#local-ephemeral-storage)として提供されます。

@@ -1,7 +1,4 @@
 ---
-reviewers:
-  - piosz
-  - x13n
 title: Arquitetura de Log
 content_type: concept
 weight: 60
@@ -23,7 +20,7 @@ As arquiteturas de log no nível de cluster são descritas no pressuposto de que
 
 Nesta seção, você pode ver um exemplo de log básico no Kubernetes que gera dados para o fluxo de saída padrão(standard output stream). Esta demostração usa uma [especificação de pod](/examples/debug/counter-pod.yaml) com um contêiner que grava algum texto na saída padrão uma vez por segundo.
 
-{{< codenew file="debug/counter-pod.yaml" >}}
+{{% codenew file="debug/counter-pod.yaml" %}}
 
 Para executar este pod, use o seguinte comando:
 
@@ -131,13 +128,13 @@ Essa abordagem permite separar vários fluxos de logs de diferentes partes do se
 
 Considere o seguinte exemplo. Um pod executa um único contêiner e grava em dois arquivos de log diferentes, usando dois formatos diferentes. Aqui está um arquivo de configuração para o Pod:
 
-{{< codenew file="admin/logging/two-files-counter-pod.yaml" >}}
+{{% codenew file="admin/logging/two-files-counter-pod.yaml" %}}
 
 Seria uma bagunça ter entradas de log de diferentes formatos no mesmo fluxo de logs, mesmo se você conseguisse redirecionar os dois componentes para o fluxo `stdout` do contêiner. Em vez disso, você pode introduzir dois contêineres sidecar. Cada contêiner sidecar pode direcionar um arquivo de log específico de um volume compartilhado e depois redirecionar os logs para seu próprio fluxo `stdout`.
 
 Aqui está um arquivo de configuração para um pod que possui dois contêineres sidecar:
 
-{{< codenew file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" >}}
+{{% codenew file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" %}}
 
 Agora, quando você executa este pod, é possível acessar cada fluxo de log separadamente, executando os seguintes comandos:
 
@@ -182,7 +179,7 @@ O uso de um agente de log em um contêiner sidecar pode levar a um consumo signi
 
 Como exemplo, você pode usar o [Stackdriver](/docs/tasks/debug-application-cluster/logging-stackdriver/), que usa fluentd como um agente de log. Aqui estão dois arquivos de configuração que você pode usar para implementar essa abordagem. O primeiro arquivo contém um [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) para configurar o fluentd.
 
-{{< codenew file="admin/logging/fluentd-sidecar-config.yaml" >}}
+{{% codenew file="admin/logging/fluentd-sidecar-config.yaml" %}}
 
 {{< note >}}
 A configuração do fluentd está além do escopo deste artigo. Para obter informações sobre como configurar o fluentd, consulte a [documentação oficial do fluentd](http://docs.fluentd.org/).
@@ -191,7 +188,7 @@ A configuração do fluentd está além do escopo deste artigo. Para obter infor
 O segundo arquivo descreve um pod que possui um contêiner sidecar rodando fluentemente.
 O pod monta um volume onde o fluentd pode coletar seus dados de configuração.
 
-{{< codenew file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" >}}
+{{% codenew file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" %}}
 
 Depois de algum tempo, você pode encontrar mensagens de log na interface do Stackdriver.
 
