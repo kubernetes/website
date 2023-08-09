@@ -681,7 +681,7 @@ PodSpec 是对 Pod 的描述。
 - **activeDeadlineSeconds** (int64)
 
   在系统将主动尝试将此 Pod 标记为已失败并杀死相关容器之前，Pod 可能在节点上活跃的时长；
-  市场计算基于 startTime 计算间（以秒为单位）。字段值必须是正整数。
+  时长计算基于 startTime 计算（以秒为单位）。字段值必须是正整数。
 
 <!--
 - **readinessGates** ([]PodReadinessGate)
@@ -1940,7 +1940,7 @@ A single application container that you want to run within a pod.
 
     如果为 true，则以只读方式挂载，否则（false 或未设置）以读写方式挂载。默认为 false。
 
-  - **volumeMounts.subPath** (boolean)
+  - **volumeMounts.subPath** (string)
 
     卷中的路径，容器中的卷应该这一路径安装。默认为 ""（卷的根）。
 

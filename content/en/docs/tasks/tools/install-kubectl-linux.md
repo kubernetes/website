@@ -52,7 +52,7 @@ The following methods exist for installing kubectl on Linux:
    And for Linux ARM64, type:
 
    ```bash
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/arm64/kubectl
+   curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/arm64/kubectl
    ```
 
    {{< /note >}}
@@ -84,7 +84,7 @@ The following methods exist for installing kubectl on Linux:
 
    If the check fails, `sha256` exits with nonzero status and prints output similar to:
 
-   ```bash
+   ```console
    kubectl: FAILED
    sha256sum: WARNING: 1 computed checksum did NOT match
    ```
@@ -174,8 +174,7 @@ The following methods exist for installing kubectl on Linux:
    ```
 
 {{< note >}}
-In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default.
-You can create this directory if you need to, making it world-readable but writeable only by admins.
+In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not exist by default, and can be created using `sudo mkdir -m 755 /etc/apt/keyrings`
 {{< /note >}}
 
 {{% /tab %}}
@@ -285,7 +284,7 @@ Below are the procedures to set up autocompletion for Bash, Fish, and Zsh.
 
    If the check fails, `sha256` exits with nonzero status and prints output similar to:
 
-   ```bash
+   ```console
    kubectl-convert: FAILED
    sha256sum: WARNING: 1 computed checksum did NOT match
    ```

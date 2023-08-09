@@ -1,5 +1,4 @@
 ---
-reviewers:
 title: Configurando o Garbage Collection do kubelet
 content_type: concept
 weight: 70

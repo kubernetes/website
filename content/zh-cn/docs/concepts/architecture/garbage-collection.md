@@ -344,8 +344,6 @@ configure garbage collection:
 * [配置 Kubernetes 对象的级联删除](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/)
 * [配置已完成 Job 的清理](/zh-cn/docs/concepts/workloads/controllers/ttlafterfinished/)
 
-<!-- * [Configuring unused container and image garbage collection](/docs/tasks/administer-cluster/reconfigure-kubelet/) -->
-
 ## {{% heading "whatsnext" %}}
 
 <!--

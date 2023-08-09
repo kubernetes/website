@@ -226,9 +226,9 @@ Run `kubectl get nodes -o wide` and containerd appears as the runtime for the no
 {{% thirdparty-content %}}
 
 <!--
-Finally if everything goes well, remove Docker.
+If the node appears healthy, remove Docker.
 -->
-最后，在一切顺利时删除 Docker。
+如果节点显示正常，删除 Docker。
 
 {{< tabs name="tab-remove-docker-engine" >}}
 {{% tab name="CentOS" %}}
@@ -272,3 +272,17 @@ Docker 所提供的卸载 Docker Engine 命令指导中，存在删除 container
 在执行命令时要谨慎。
 {{< /caution >}}
 
+<!--
+## Uncordon the node
+-->
+## uncordon 节点
+
+```shell
+kubectl uncordon <node-to-uncordon>
+```
+
+<!--
+Replace `<node-to-uncordon>` with the name of your node you previously drained.
+-->
+
+将 `<node-to-uncordon>` 替换为你之前腾空的节点的名称。

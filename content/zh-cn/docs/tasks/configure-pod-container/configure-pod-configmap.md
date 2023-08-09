@@ -788,12 +788,12 @@ section, and learn how to use these objects with Pods.
 -->
 2. 将 ConfigMap 中定义的 `special.how` 赋值给 Pod 规约中的 `SPECIAL_LEVEL_KEY` 环境变量。
 
-   {{< codenew file="pods/pod-single-configmap-env-variable.yaml" >}}
+   {{% code file="pods/pod-single-configmap-env-variable.yaml" %}}
 
    <!--
    Create the Pod:
    -->
-   创建 Pod:
+   创建 Pod：
 
    ```shell
    kubectl create -f https://kubernetes.io/examples/pods/pod-single-configmap-env-variable.yaml
@@ -816,7 +816,7 @@ Here is the manifest you will use:
 与前面的示例一样，首先创建 ConfigMap。
 这是你将使用的清单：
 
-{{< codenew file="configmap/configmaps.yaml" >}}
+{{% code file="configmap/configmaps.yaml" %}}
 
 <!--
 * Create the ConfigMap:
@@ -832,12 +832,12 @@ Here is the manifest you will use:
 -->
 * 在 Pod 规约中定义环境变量。
 
-  {{< codenew file="pods/pod-multiple-configmap-env-variable.yaml" >}}
+  {{% code file="pods/pod-multiple-configmap-env-variable.yaml" %}}
 
   <!--
   Create the Pod:
   -->
-  创建 Pod:
+  创建 Pod：
 
   ```shell
   kubectl create -f https://kubernetes.io/examples/pods/pod-multiple-configmap-env-variable.yaml
@@ -867,7 +867,7 @@ Here is the manifest you will use:
 -->
 * 创建一个包含多个键值对的 ConfigMap。
 
-  {{< codenew file="configmap/configmap-multikeys.yaml" >}}
+  {{% code file="configmap/configmap-multikeys.yaml" %}}
 
   <!--
   Create the ConfigMap:
@@ -885,12 +885,12 @@ Here is the manifest you will use:
 * 使用 `envFrom` 将所有 ConfigMap 的数据定义为容器环境变量，ConfigMap
   中的键成为 Pod 中的环境变量名称。
 
-  {{< codenew file="pods/pod-configmap-envFrom.yaml" >}}
+  {{% code file="pods/pod-configmap-envFrom.yaml" %}}
 
   <!--
   Create the Pod:
   -->
-  创建 Pod:
+  创建 Pod：
 
   ```shell
   kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-envFrom.yaml
@@ -928,7 +928,7 @@ For example, the following Pod manifest:
 -->
 例如，以下 Pod 清单：
 
-{{< codenew file="pods/pod-configmap-env-var-valueFrom.yaml" >}}
+{{% code file="pods/pod-configmap-env-var-valueFrom.yaml" %}}
 
 <!--
 Create that Pod, by running:
@@ -975,12 +975,12 @@ The examples in this section refer to a ConfigMap named `special-config`:
 -->
 本节中的示例引用了一个名为 `special-config` 的 ConfigMap：
 
-{{< codenew file="configmap/configmap-multikeys.yaml" >}}
+{{% code file="configmap/configmap-multikeys.yaml" %}}
 
 <!--
 Create the ConfigMap:
 -->
-创建 ConfigMap:
+创建 ConfigMap：
 
 ```shell
 kubectl create -f https://kubernetes.io/examples/configmap/configmap-multikeys.yaml
@@ -1001,12 +1001,12 @@ keys in ConfigMap.
 （在本例中为 `/etc/config`）。
 `command` 部分列出了名称与 ConfigMap 中的键匹配的目录文件。
 
-{{< codenew file="pods/pod-configmap-volume.yaml" >}}
+{{% code file="pods/pod-configmap-volume.yaml" %}}
 
 <!--
 Create the Pod:
 -->
-创建 Pod:
+创建 Pod：
 
 ```shell
 kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-volume.yaml
@@ -1060,7 +1060,7 @@ In this case, the `SPECIAL_LEVEL` item will be mounted in the `config-volume` vo
 在这里，ConfigMap 中键 `SPECIAL_LEVEL` 的内容将挂载在 `config-volume`
 卷中 `/etc/config/keys` 文件中。
 
-{{< codenew file="pods/pod-configmap-volume-specific-key.yaml" >}}
+{{% code file="pods/pod-configmap-volume-specific-key.yaml" %}}
 
 <!--
 Create the Pod:
@@ -1090,7 +1090,7 @@ Like before, all previous files in the `/etc/config/` directory will be deleted.
 <!--
 Delete that Pod:
 -->
-删除该 Pod:
+删除该 Pod：
 
 ```shell
 kubectl delete pod dapi-test-pod --now
@@ -1251,7 +1251,7 @@ If the ConfigMap doesn't exist, the configuration for which it provides data in 
 (for example: environment variable, mounted volume) will be empty.
 If the ConfigMap exists, but the referenced key is non-existent the data is also empty.
 -->
-你可以在 Pod 规约中将对 ConfigMap 的引用标记为 **可选（optional）**。
+你可以在 Pod 规约中将对 ConfigMap 的引用标记为**可选（optional）**。
 如果 ConfigMap 不存在，那么它在 Pod 中为其提供数据的配置（例如：环境变量、挂载的卷）将为空。
 如果 ConfigMap 存在，但引用的键不存在，那么数据也是空的。
 
@@ -1358,7 +1358,8 @@ spec:
   <!--
   The output is similar to this:
   -->
-  输出与此类似:
+  输出与此类似：
+
   ```
   LASTSEEN FIRSTSEEN COUNT NAME          KIND  SUBOBJECT  TYPE      REASON                            SOURCE                MESSAGE
   0s       0s        1     dapi-test-pod Pod              Warning   InvalidEnvironmentVariableNames   {kubelet, 127.0.0.1}  Keys [1badkey, 2alsobad] from the EnvFrom configMap default/myconfig were skipped since they are considered invalid environment variable names.
@@ -1369,7 +1370,7 @@ spec:
   Pods can only refer to ConfigMaps that are in the same namespace as the Pod.
 -->
 - ConfigMap 位于确定的{{< glossary_tooltip term_id="namespace" text="名字空间" >}}中。
-  每个 ConfigMap 只能被同一名字空间中的 Pod 引用.
+  每个 ConfigMap 只能被同一名字空间中的 Pod 引用。
 
 <!--
 - You can't use ConfigMaps for

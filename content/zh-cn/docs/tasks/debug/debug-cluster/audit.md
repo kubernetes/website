@@ -441,7 +441,7 @@ By default truncate is disabled in both `webhook` and `log`, a cluster administr
 默认情况下，截断操作在 `webhook` 和 `log` 后端都是被禁用的，集群管理员需要设置
 `audit-log-truncate-enabled` 或 `audit-webhook-truncate-enabled` 标志来启用此操作。
 
-## {{% heading "接下来" %}}
+## {{% heading "whatsnext" %}}
 
 <!--
 * Learn about [Mutating webhook auditing annotations](/docs/reference/access-authn-authz/extensible-admission-controllers/#mutating-webhook-auditing-annotations).

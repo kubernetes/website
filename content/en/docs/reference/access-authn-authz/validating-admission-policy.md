@@ -316,11 +316,12 @@ Examples on escaping:
 	
 Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1].
 Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
-    - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
-      non-intersecting elements in `Y` are appended, retaining their partial order.
-    - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
-      are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
-      non-intersecting keys are appended, retaining their partial order.
+
+- 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
+  non-intersecting elements in `Y` are appended, retaining their partial order.
+- 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
+  are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
+  non-intersecting keys are appended, retaining their partial order.
 
 #### Validation expression examples
 
@@ -359,7 +360,7 @@ resource to be evaluated.
 
 Here is an example illustrating a few different uses for match conditions:
 
-{{< codenew file="access/validating-admission-policy-match-conditions.yaml" >}}
+{{% code file="access/validating-admission-policy-match-conditions.yaml" %}}
 
 Match conditions have access to the same CEL variables as validation expressions.
 
@@ -368,8 +369,8 @@ the request is determined as follows:
 
 1. If **any** match condition evaluated to `false` (regardless of other errors), the API server skips the policy.
 2. Otherwise:
-  - for [`failurePolicy: Fail`](#failure-policy), reject the request (without evaluating the policy).
-  - for [`failurePolicy: Ignore`](#failure-policy), proceed with the request but skip the policy.
+   - for [`failurePolicy: Fail`](#failure-policy), reject the request (without evaluating the policy).
+   - for [`failurePolicy: Ignore`](#failure-policy), proceed with the request but skip the policy.
 
 ### Audit annotations
 
@@ -377,7 +378,7 @@ the request is determined as follows:
 
 For example, here is an admission policy with an audit annotation:
 
-{{< codenew file="access/validating-admission-policy-audit-annotation.yaml" >}}
+{{% code file="access/validating-admission-policy-audit-annotation.yaml" %}}
 
 When an API request is validated with this admission policy, the resulting audit event will look like:
 
@@ -414,7 +415,7 @@ Unlike validations, message expression must evaluate to a string.
 For example, to better inform the user of the reason of denial when the policy refers to a parameter,
 we can have the following validation:
 
-{{< codenew file="access/deployment-replicas-policy.yaml" >}}
+{{% code file="access/deployment-replicas-policy.yaml" %}}
 
 After creating a params object that limits the replicas to 3 and setting up the binding,
 when we try to create a deployment with 5 replicas, we will receive the following message.

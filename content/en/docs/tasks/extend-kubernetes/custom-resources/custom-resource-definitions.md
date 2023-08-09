@@ -387,7 +387,7 @@ Notice that the field `someRandomField` was pruned.
 
 This example turned off client-side validation to demonstrate the API server's behavior, by adding
 the `--validate=false` command line option.
-Because the [OpenAPI validation schemas are also published](#publish-validation-schema-in-openapi-v2)
+Because the [OpenAPI validation schemas are also published](#publish-validation-schema-in-openapi)
 to clients, `kubectl` also checks for unknown fields and rejects those objects well before they
 would be sent to the API server.
 
@@ -501,7 +501,7 @@ allOf:
 
 With one of those specification, both an integer and a string validate.
 
-In [Validation Schema Publishing](#publish-validation-schema-in-openapi-v2),
+In [Validation Schema Publishing](#publish-validation-schema-in-openapi),
 `x-kubernetes-int-or-string: true` is unfolded to one of the two patterns shown above.
 
 ### RawExtension
@@ -1700,7 +1700,7 @@ To enable the scale subresource, the following fields are defined in the CustomR
   `Scale.Status.Selector`.
 
   - It is an optional value.
-  - It must be set to work with HPA.
+  - It must be set to work with HPA and VPA.
   - Only JSONPaths under `.status` or `.spec` and with the dot notation are allowed.
   - If there is no value under the `labelSelectorPath` in the custom resource,
     the status selector value in the `/scale` subresource will default to the empty string.

@@ -26,7 +26,7 @@ In this release, [IPVS-based in-cluster service load balancing](https://github.c
 
 ## Dynamic Kubelet Configuration Moves to Beta
 
-This feature makes it possible for new Kubelet configurations to be rolled out in a live cluster.  Currently, Kubelets are configured via command-line flags, which makes it difficult to update Kubelet configurations in a running cluster. With this beta feature, [users can configure Kubelets in a live cluster](/docs/tasks/administer-cluster/reconfigure-kubelet/) via the API server.
+This feature makes it possible for new Kubelet configurations to be rolled out in a live cluster. Currently, Kubelets are configured via command-line flags, which makes it difficult to update Kubelet configurations in a running cluster. With this beta feature, users can configure Kubelets in a live cluster via the API server.
 
 ## Custom Resource Definitions Can Now Define Multiple Versions
 

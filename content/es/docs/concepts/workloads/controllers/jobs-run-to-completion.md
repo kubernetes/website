@@ -31,7 +31,7 @@ También se puede usar un Job para ejecutar múltiples Pods en paralelo.
 Aquí se muestra un ejemplo de configuración de Job. Este ejemplo calcula los primeros 2000 decimales de π y los imprime por pantalla.
 Tarda unos 10s en completarse.
 
-{{< codenew file="controllers/job.yaml" >}}
+{{% codenew file="controllers/job.yaml" %}}
 
 Puedes ejecutar el ejemplo con este comando:
 
