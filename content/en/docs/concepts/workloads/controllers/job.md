@@ -538,7 +538,7 @@ ensures that deleted pods have their finalizers removed by the Job controller.
 {{< note >}}
 Starting with Kubernetes v1.28, when Pod failure policy is used, the Job controller recreates
 terminating Pods only once these Pods reach the terminal `Failed` phase. This behavior is similar
-to `podRecreationPolicy: Failed`. For more information, see [Pod replacement policy](#pod-replacement-policy).
+to `podReplacementPolicy: Failed`. For more information, see [Pod replacement policy](#pod-replacement-policy).
 {{< /note >}}
 
 ## Job termination and cleanup
@@ -946,7 +946,7 @@ You may choose to create replacement Pods only when the terminating Pod is fully
 This will only recreate Pods once they are terminated.  
 The default replacement policy depends on whether the Job has a `podFailurePolicy` set.
 With no Pod failure policy defined for a Job, omitting the `podReplacementPolicy` field selects the
-`FailedOrTerminating` replacement policy:
+`TerminatingOrFailed` replacement policy:
 the control plane creates replacement Pods immediately upon Pod deletion
 (as soon as the control plane sees that a Pod for this Job has `deletionTimestamp` set).
 For Jobs with a Pod failure policy set, the default  `podReplacementPolicy` is `Failed`, and no other
