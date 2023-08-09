@@ -1060,6 +1060,19 @@ created with Indexed [completion mode](/docs/concepts/workloads/controllers/job/
 Note the [PodIndexLabel](content/en/docs/reference/command-line-tools-reference/feature-gates.md) feature gate must be enabled
 for this to be added as a pod **label**, otherwise it will just be an annotation.
 
+### batch.kubernetes.io/cronjob-scheduled-timestamp
+
+Type: Annotation
+
+Example: `batch.kubernetes.io/cronjob-scheduled-timestamp: "2016-05-19T03:00:00-07:00"`
+
+Used on: Jobs and Pods controlled by CronJobs
+
+This annotation is used to record the original (expected) creation timestamp for a Job,
+when that Job is part of a CronJob.
+The control plane sets the value to that timestamp in RFC3339 format. If the Job belongs to a CronJob
+with a timezone specified, then the timestamp is in that timezone. Otherwise, the timestamp is in controller-manager's local time.
+
 ### kubectl.kubernetes.io/default-container
 
 Type: Annotation
