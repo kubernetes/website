@@ -38,7 +38,7 @@ Let's say you have a Deployment containing of a single `nginx` replica
 
 {{% code file="service/pod-with-graceful-termination.yaml" %}}
 
-{{< codenew file="service/explore-graceful-termination-nginx.yaml" >}}
+{{% code file="service/explore-graceful-termination-nginx.yaml" %}}
 
 Now create the Deployment Pod and Service using the above files:
 
