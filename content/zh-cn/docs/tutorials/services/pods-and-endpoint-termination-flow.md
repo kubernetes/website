@@ -61,62 +61,18 @@ Let's say you have a Deployment containing of a single `nginx` replica
 
 假设你有包含单个 nginx 副本（仅用于演示目的）的一个 Deployment 和一个 Service：
 
-{{< codenew file="service/pod-with-graceful-termination.yaml" >}}
+{{% code file="service/pod-with-graceful-termination.yaml" %}}
+
+{{% code file="service/explore-graceful-termination-nginx.yaml" %}}
 
 <!--
-# extra long grace period
-# Real life termination may take any time up to terminationGracePeriodSeconds.
-# In this example - just hang around for at least the duration of terminationGracePeriodSeconds,
-# at 120 seconds container will be forcibly terminated.
-# Note, all this time nginx will keep processing requests.
+Now create the Deployment Pod and Service using the above files:
 -->
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nginx-deployment
-  labels:
-    app: nginx
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      terminationGracePeriodSeconds: 120 # 超长优雅期
-      containers:
-      - name: nginx
-        image: nginx:latest
-        ports:
-        - containerPort: 80
-        lifecycle:
-          preStop:
-            exec:
-              # 实际生产环境中的 Pod 终止可能需要执行任何时长，但不会超过 terminationGracePeriodSeconds。
-              # 在本例中，只需挂起至少 terminationGracePeriodSeconds 所指定的持续时间，
-              # 在 120 秒时容器将被强制终止。
-              # 请注意，在所有这些时间点 nginx 都将继续处理请求。
-              command: [
-                "/bin/sh", "-c", "sleep 180"
-              ]
+现在使用以上文件创建 Deployment Pod 和 Service：
 
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx-service
-spec:
-  selector:
-    app: nginx
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
+```shell
+kubectl apply -f pod-with-graceful-termination.yaml
+kubectl apply -f explore-graceful-termination-nginx.yaml
 ```
 
 <!--
