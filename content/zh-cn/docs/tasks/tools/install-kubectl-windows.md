@@ -55,13 +55,9 @@ The following methods exist for installing kubectl on Windows:
 ### 用 curl 在 Windows 上安装 kubectl {#install-kubectl-binary-with-curl-on-windows}
 
 <!--
-1. Download the [latest release {{< skew currentPatchVersion >}}](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe).
--->
-<!--
 1. Download the latest {{< skew currentVersion >}} patch release:
    [kubectl {{< skew currentPatchVersion >}}](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe).
 -->
-
 1. 下载最新补丁版 {{< skew currentVersion >}}：
    [kubectl {{< skew currentPatchVersion >}}](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe)。
 
@@ -103,6 +99,7 @@ The following methods exist for installing kubectl on Windows:
    <!--
    - Using Command Prompt to manually compare `CertUtil`'s output to the checksum file downloaded:
    -->
+
    - 在命令行环境中，手工对比 `CertUtil` 命令的输出与校验和文件：
 
      ```cmd
@@ -114,6 +111,7 @@ The following methods exist for installing kubectl on Windows:
    - Using PowerShell to automate the verification using the `-eq` operator to
      get a `True` or `False` result:
    -->
+
    - 用 PowerShell 自动验证，用运算符 `-eq` 来直接取得 `True` 或 `False` 的结果：
 
      ```powershell
@@ -125,7 +123,6 @@ The following methods exist for installing kubectl on Windows:
 
 1. Test to ensure the version of `kubectl` is the same as downloaded:
 -->
-
 3. 将 `kubectl` 二进制文件夹追加或插入到你的 `PATH` 环境变量中。
 
 4. 测试一下，确保此 `kubectl` 的版本和期望版本一致：
@@ -323,6 +320,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    <!--
    - Using Command Prompt to manually compare `CertUtil`'s output to the checksum file downloaded:
    -->
+
    - 用提示的命令对 `CertUtil` 的输出和下载的校验和文件进行手动比较。
 
      ```cmd
