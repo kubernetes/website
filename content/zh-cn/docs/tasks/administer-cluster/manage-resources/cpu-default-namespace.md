@@ -27,12 +27,11 @@ CPU limit to that container.
 Kubernetes assigns a default CPU
 [request](/docs/concepts/configuration/manage-resources-containers/#requests-and-limits),
 but only under certain conditions that are explained later in this page.
-
 -->
 本章介绍如何为{{< glossary_tooltip text="命名空间" term_id="namespace" >}}配置默认的 CPU 请求和限制。
 
 一个 Kubernetes 集群可被划分为多个命名空间。
-如果你在具有默认 CPU[限制](/zh-cn/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
+如果你在具有默认 CPU [限制](/zh-cn/docs/concepts/configuration/manage-resources-containers/#requests-and-limits)
 的命名空间内创建一个 Pod，并且这个 Pod 中任何容器都没有声明自己的 CPU 限制，
 那么{{< glossary_tooltip text="控制面" term_id="control-plane" >}}会为容器设定默认的 CPU 限制。
 
@@ -80,7 +79,7 @@ The manifest specifies a default CPU request and a default CPU limit.
 以下为 {{< glossary_tooltip text="LimitRange" term_id="limitrange" >}} 的示例清单。
 清单中声明了默认 CPU 请求和默认 CPU 限制。
 
-{{< codenew file="admin/resource/cpu-defaults.yaml" >}}
+{{% codenew file="admin/resource/cpu-defaults.yaml" %}}
 
 <!--
 Create the LimitRange in the default-cpu-example namespace:
@@ -106,7 +105,7 @@ does not specify a CPU request and limit.
 
 以下为只包含一个容器的 Pod 的清单。该容器没有声明 CPU 请求和限制。
 
-{{< codenew file="admin/resource/cpu-defaults-pod.yaml" >}}
+{{% codenew file="admin/resource/cpu-defaults-pod.yaml" %}}
 
 <!--
 Create the Pod.
@@ -156,12 +155,12 @@ specifies a CPU limit, but not a request:
 
 以下为只包含一个容器的 Pod 的清单。该容器声明了 CPU 限制，而没有声明 CPU 请求。
 
-{{< codenew file="admin/resource/cpu-defaults-pod-2.yaml" >}}
+{{% codenew file="admin/resource/cpu-defaults-pod-2.yaml" %}}
 
 <!--
 Create the Pod:
 -->
-创建 Pod
+创建 Pod：
 
 ```shell
 kubectl apply -f https://k8s.io/examples/admin/resource/cpu-defaults-pod-2.yaml --namespace=default-cpu-example
@@ -201,7 +200,7 @@ specifies a CPU request, but not a limit:
 
 这里给出了包含一个容器的 Pod 的示例清单。该容器声明了 CPU 请求，而没有声明 CPU 限制。
 
-{{< codenew file="admin/resource/cpu-defaults-pod-3.yaml" >}}
+{{% codenew file="admin/resource/cpu-defaults-pod-3.yaml" %}}
 
 <!--
 Create the Pod:
@@ -250,7 +249,6 @@ Here are two of the restrictions that a CPU resource quota imposes on a namespac
 * CPU limits apply a resource reservation on the node where the Pod in question is scheduled.
   The total amount of CPU that is reserved for use by all Pods in the namespace must not
   exceed a specified limit.
-
 -->
 ## 默认 CPU 限制和请求的动机
 

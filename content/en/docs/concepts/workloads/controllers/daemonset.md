@@ -6,8 +6,11 @@ reviewers:
 - janetkuo
 - kow3ns
 title: DaemonSet
+description: >-
+ A DaemonSet defines Pods that provide node-local facilities. These might be fundamental to the operation of your cluster, such as a networking helper tool, or be part of an add-on.
 content_type: concept
 weight: 40
+hide_summary: true # Listed separately in section index
 ---
 
 <!-- overview -->
@@ -35,7 +38,7 @@ different flags and/or different memory and cpu requests for different hardware 
 You can describe a DaemonSet in a YAML file. For example, the `daemonset.yaml` file below
 describes a DaemonSet that runs the fluentd-elasticsearch Docker image:
 
-{{< codenew file="controllers/daemonset.yaml" >}}
+{{% code file="controllers/daemonset.yaml" %}}
 
 Create a DaemonSet based on the YAML file:
 

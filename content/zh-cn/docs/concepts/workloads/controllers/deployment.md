@@ -4,8 +4,11 @@ feature:
   title: 自动化上线和回滚
   description: >
     Kubernetes 会分步骤地将针对应用或其配置的更改上线，同时监视应用程序运行状况以确保你不会同时终止所有实例。如果出现问题，Kubernetes 会为你回滚所作更改。你应该充分利用不断成长的部署方案生态系统。
+description: >-
+  Deployment 用于管理运行一个应用负载的一组 Pod，通常适用于不保持状态的负载。
 content_type: concept
 weight: 10
+hide_summary: true # 在章节索引中单独列出
 ---
 <!--
 reviewers:
@@ -15,9 +18,11 @@ feature:
   title: Automated rollouts and rollbacks
   description: >
     Kubernetes progressively rolls out changes to your application or its configuration, while monitoring application health to ensure it doesn't kill all your instances at the same time. If something goes wrong, Kubernetes will rollback the change for you. Take advantage of a growing ecosystem of deployment solutions.
-
+description: >-
+  A Deployment manages a set of Pods to run an application workload, usually one that doesn't maintain state.
 content_type: concept
 weight: 10
+hide_summary: true # Listed separately in section index
 -->
 
 <!-- overview -->
@@ -82,22 +87,11 @@ The following are typical use cases for Deployments:
 * [清理较旧的不再需要的 ReplicaSet](#clean-up-policy) 。
 
 <!--
-## Creating a Deployment
-
-Before creating a Deployment define an 
-[environment variable](/docs/tasks/inject-data-application/define-environment-variable-container/#define-an-environment-variable-for-a-container)
-for a container.
-
 The following is an example of a Deployment. It creates a ReplicaSet to bring up three `nginx` Pods:
 -->
-## 创建 Deployment  {#creating-a-deployment}
-
-在创建 Deployment 之前，请为容器定义一个
-[环境变量](/zh-cn/docs/tasks/inject-data-application/define-environment-variable-container/#define-an-environment-variable-for-a-container)。
-
 下面是一个 Deployment 示例。其中创建了一个 ReplicaSet，负责启动三个 `nginx` Pod：
 
-{{< codenew file="controllers/nginx-deployment.yaml" >}}
+{{% code file="controllers/nginx-deployment.yaml" %}}
 
 <!--
 In this example:

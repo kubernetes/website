@@ -32,10 +32,8 @@ for debugging if your cluster offers this.
 ## What is a Pod?
 
 {{< note >}}
-While Kubernetes supports more
-{{< glossary_tooltip text="container runtimes" term_id="container-runtime" >}}
-than just Docker, [Docker](https://www.docker.com/) is the most commonly known
-runtime, and it helps to describe Pods using some terminology from Docker.
+You need to install a [container runtime](/docs/setup/production-environment/container-runtimes/)
+into each node in the cluster so that Pods can run there.
 {{< /note >}}
 
 The shared context of a Pod is a set of Linux namespaces, cgroups, and
@@ -48,7 +46,7 @@ A Pod is similar to a set of containers with shared namespaces and shared filesy
 
 The following is an example of a Pod which consists of a container running the image `nginx:1.14.2`.
 
-{{< codenew file="pods/simple-pod.yaml" >}}
+{{% code file="pods/simple-pod.yaml" %}}
 
 To create the Pod shown above, run the following command:
 ```shell
@@ -161,7 +159,7 @@ Kubernetes. In future, this list may be expanded.
 In Kubernetes v{{< skew currentVersion >}}, the value you set for this field has no
 effect on {{< glossary_tooltip text="scheduling" term_id="kube-scheduler" >}} of the pods.
 Setting the `.spec.os.name` helps to identify the pod OS
-authoratitively and is used for validation. The kubelet refuses to run a Pod where you have
+authoritatively and is used for validation. The kubelet refuses to run a Pod where you have
 specified a Pod OS, if this isn't the same as the operating system for the node where
 that kubelet is running.
 The [Pod security standards](/docs/concepts/security/pod-security-standards/) also use this
@@ -339,7 +337,7 @@ using the kubelet to supervise the individual [control plane components](/docs/c
 The kubelet automatically tries to create a {{< glossary_tooltip text="mirror Pod" term_id="mirror-pod" >}}
 on the Kubernetes API server for each static Pod.
 This means that the Pods running on a node are visible on the API server,
-but cannot be controlled from there.
+but cannot be controlled from there. See the guide [Create static Pods](/docs/tasks/configure-pod-container/static-pod) for more information.
 
 {{< note >}}
 The `spec` of a static Pod cannot refer to other API objects

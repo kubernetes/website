@@ -45,7 +45,7 @@ en vez de ello, usa un Deployment, y define tu aplicación en la sección spec.
 
 ## Ejemplo
 
-{{< codenew file="controllers/frontend.yaml" >}}
+{{% codenew file="controllers/frontend.yaml" %}}
 
 Si guardas este manifiesto en un archivo llamado `frontend.yaml` y lo lanzas en un clúster de Kubernetes,
  se creará el ReplicaSet definido y los Pods que maneja.
@@ -151,7 +151,7 @@ especificados en su plantilla -- sino que puede adquirir otros Pods como se expl
 
 Toma el ejemplo anterior del ReplicaSet frontend, y los Pods especificados en el siguiente manifiesto:
 
-{{< codenew file="pods/pod-rs.yaml" >}}
+{{% codenew file="pods/pod-rs.yaml" %}}
 
 Como estos Pods no tienen un Controlador (o cualquier otro objeto) como referencia de propietario
 y como además su selector coincide con el del ReplicaSet frontend, este último los terminará adquiriendo de forma inmediata.
@@ -308,7 +308,7 @@ Un ReplicaSet puede también ser el blanco de un
 un ReplicaSet puede auto-escalarse mediante un HPA. Aquí se muestra un ejemplo de HPA dirigido
 al ReplicaSet que creamos en el ejemplo anterior.
 
-{{< codenew file="controllers/hpa-rs.yaml" >}}
+{{% codenew file="controllers/hpa-rs.yaml" %}}
 
 Si guardas este manifiesto en un archivo `hpa-rs.yaml` y lo lanzas contra el clúster de Kubernetes,
 debería crear el HPA definido que auto-escala el ReplicaSet destino dependiendo del uso

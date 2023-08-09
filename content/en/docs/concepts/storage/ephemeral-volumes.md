@@ -49,7 +49,7 @@ different purposes:
 - [CSI ephemeral volumes](#csi-ephemeral-volumes):
   similar to the previous volume kinds, but provided by special
   [CSI drivers](https://github.com/container-storage-interface/spec/blob/master/spec.md)
-  which specifically [support this feature](https://kubernetes-csi.github.io/docs/drivers.html)
+  which specifically [support this feature](https://kubernetes-csi.github.io/docs/ephemeral-local-volumes.html)
 - [generic ephemeral volumes](#generic-ephemeral-volumes), which
   can be provided by all storage drivers that also support persistent volumes
 
@@ -248,11 +248,10 @@ same namespace, so that these conflicts can't occur.
 
 ### Security
 
-Enabling the GenericEphemeralVolume feature allows users to create
-PVCs indirectly if they can create Pods, even if they do not have
-permission to create PVCs directly. Cluster administrators must be
-aware of this. If this does not fit their security model, they should
-use an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
+Using generic ephemeral volumes allows users to create PVCs indirectly
+if they can create Pods, even if they do not have permission to create PVCs directly.
+Cluster administrators must be aware of this. If this does not fit their security model,
+they should use an [admission webhook](/docs/reference/access-authn-authz/extensible-admission-controllers/)
 that rejects objects like Pods that have a generic ephemeral volume.
 
 The normal [namespace quota for PVCs](/docs/concepts/policy/resource-quotas/#storage-resource-quota)

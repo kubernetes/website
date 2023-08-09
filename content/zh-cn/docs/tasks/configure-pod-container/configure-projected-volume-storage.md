@@ -20,14 +20,14 @@ several existing volume sources into the same directory. Currently, `secret`, `c
 and `serviceAccountToken` volumes can be projected.
 -->
 
-本文介绍怎样通过[`projected`](/zh-cn/docs/concepts/storage/volumes/#projected) 卷将现有的多个卷资源挂载到相同的目录。
+本文介绍怎样通过 [`projected`](/zh-cn/docs/concepts/storage/volumes/#projected) 卷将现有的多个卷资源挂载到相同的目录。
 当前，`secret`、`configMap`、`downwardAPI` 和 `serviceAccountToken` 卷可以被投射。
 
 <!--
 `serviceAccountToken` is not a volume type.
 -->
 {{< note >}}
-`serviceAccountToken` 不是一种卷类型
+`serviceAccountToken` 不是一种卷类型。
 {{< /note >}}
 
 ## {{% heading "prerequisites" %}}
@@ -52,13 +52,13 @@ Here is the configuration file for the Pod:
 
 下面是 Pod 的配置文件：
 
-{{< codenew file="pods/storage/projected.yaml" >}}
+{{% code file="pods/storage/projected.yaml" %}}
 
 1. <!--Create the Secrets:-->
-   创建 Secret:
+   创建 Secret：
 
    ```shell
-   # 创建包含用户名和密码的文件:
+   # 创建包含用户名和密码的文件：
    echo -n "admin" > ./username.txt
    echo -n "1f2d1e2e67df" > ./password.txt
 
@@ -113,7 +113,7 @@ Here is the configuration file for the Pod:
 <!--
 Delete the Pod and the Secrets:
 -->
-删除 Pod 和 Secret:
+删除 Pod 和 Secret：
 
 ```shell
 kubectl delete pod test-projected-volume
@@ -127,5 +127,5 @@ kubectl delete secret user pass
 * Read the [all-in-one volume](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md) design document.
 -->
 
-* 进一步了解[`projected`](/zh-cn/docs/concepts/storage/volumes/#projected) 卷。
+* 进一步了解 [`projected`](/zh-cn/docs/concepts/storage/volumes/#projected) 卷。
 * 阅读[一体卷](https://git.k8s.io/design-proposals-archive/node/all-in-one-volume.md)设计文档。

@@ -77,7 +77,7 @@ request.
 
 Here's an example `.yaml` file that shows the required fields and object spec for a Kubernetes Deployment:
 
-{{< codenew file="application/deployment.yaml" >}}
+{{% code file="application/deployment.yaml" %}}
 
 One way to create a Deployment using a `.yaml` file like the one above is to use the
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply) command
@@ -119,6 +119,11 @@ for Pod objects. That template describes Pods that the StatefulSet controller wi
 satisfy the StatefulSet specification.
 Different kinds of object can also have different `.status`; again, the API reference pages
 detail the structure of that `.status` field, and its content for each different type of object.
+
+{{< note >}}
+See [Configuration Best Practices](/docs/concepts/configuration/overview/) for additional
+information on writing YAML configuration files.
+{{< /note >}}
 
 ## Server side field validation
 

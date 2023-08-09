@@ -48,8 +48,8 @@ kubectl 可安装在各种 Linux 平台、 macOS 和 Windows 上。
 
 <!--
 [`kind`](https://kind.sigs.k8s.io/) lets you run Kubernetes on
-your local computer. This tool requires that you have
-[Docker](https://docs.docker.com/get-docker/) installed and configured.
+your local computer. This tool requires that you have either
+[Docker](https://www.docker.com/) or [Podman](https://podman.io/) installed.
 
 The kind [Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start/) page
 shows you what you need to do to get up and running with kind.
@@ -57,7 +57,7 @@ shows you what you need to do to get up and running with kind.
 <a class="btn btn-primary" href="https://kind.sigs.k8s.io/docs/user/quick-start/" role="button" aria-label="View kind Quick Start Guide">View kind Quick Start Guide</a>
 -->
 [`kind`](https://kind.sigs.k8s.io/) 让你能够在本地计算机上运行 Kubernetes。
-`kind` 要求你安装并配置好 [Docker](https://docs.docker.com/get-docker/)。
+使用这个工具需要你安装 [Docker](https://www.docker.com/) 或者 [Podman](https://podman.io/)。
 
 kind 的 [Quick Start](https://kind.sigs.k8s.io/docs/user/quick-start/) 页面展示开始使用
 `kind` 所需要完成的操作。
