@@ -73,7 +73,7 @@ describes a DaemonSet that runs the fluentd-elasticsearch Docker image:
 你可以在 YAML 文件中描述 DaemonSet。
 例如，下面的 daemonset.yaml 文件描述了一个运行 fluentd-elasticsearch Docker 镜像的 DaemonSet：
 
-{{< codenew file="controllers/daemonset.yaml" >}}
+{{% code file="controllers/daemonset.yaml" %}}
 
 <!--
 Create a DaemonSet based on the YAML file:
