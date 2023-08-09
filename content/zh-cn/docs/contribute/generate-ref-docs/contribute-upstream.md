@@ -229,9 +229,8 @@ Go to `<k8s-base>` and run these scripts:
 进入 `<k8s-base>` 目录并运行以下脚本：
 
 ```shell
-hack/update-generated-swagger-docs.sh
-hack/update-openapi-spec.sh
-hack/update-generated-protobuf.sh
+./hack/update-codegen.sh
+./hack/update-openapi-spec.sh
 ```
 
 <!-- Run `git status` to see what was generated.  -->
@@ -355,10 +354,8 @@ release-{{< skew prevMinorVersion >}} branch of your local environment.
 下一步是在本地环境的 release-{{< skew prevMinorVersion >}} 分支中运行如下脚本。
 
 ```shell
-hack/update-generated-swagger-docs.sh
-hack/update-openapi-spec.sh
-hack/update-generated-protobuf.sh
-hack/update-api-reference-docs.sh
+./hack/update-codegen.sh
+./hack/update-openapi-spec.sh
 ```
 
 <!--

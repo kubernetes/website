@@ -33,4 +33,5 @@ tags:
 <!--
 Certificates enable applications within a Kubernetes cluster to access the Kubernetes API securely. Certificates validate that clients are allowed to access the API.
 -->
-证书（Certificate）可以让 Kubernetes 集群中运行的应用程序安全的访问 Kubernetes API。证书可以确认客户端是否被允许访问 API。
+证书（Certificate）可以让 Kubernetes 集群中运行的应用程序安全的访问 Kubernetes API。
+证书可以确认客户端是否被允许访问 API。

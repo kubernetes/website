@@ -44,7 +44,7 @@ card:
 
 Ниже представлен пример `.yaml`-файла, в котором заданы обязательные поля и спецификация объекта, необходимая для объекта Deployment в Kubernetes:
 
-{{< codenew file="application/deployment.yaml" >}}
+{{% codenew file="application/deployment.yaml" %}}
 
 Один из способов создания объекта Deployment с помощью файла `.yaml`, показанного выше — использовать команду [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply), которая принимает в качестве аргумента файл в формате `.yaml`. Например:
 
