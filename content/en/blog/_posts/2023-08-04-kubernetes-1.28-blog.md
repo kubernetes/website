@@ -74,7 +74,7 @@ This Allows CRs to fail validation if the patch did not alter any of the invalid
     
 ## Source code reorganization for control plane components
 
-This factors the kube-apiserver to build on a new staging repository that consumes k/apiserver but has a bigger, carefully chosen subset of the functionality of kube-apiserver such that it is reusable.
+Kubernetes contributors have begun to reorganize the code for the kube-apiserver to build on a new staging repository that consumes [k/apiserver](https://github.com/kubernetes/apiserver) but has a bigger, carefully chosen subset of the functionality of kube-apiserver such that it is reusable.
 
 This is a gradual reorganization; eventually there will be a new
 [k/generic-controlplane](https://github.com/kubernetes/generic-controlplane) Git repository
