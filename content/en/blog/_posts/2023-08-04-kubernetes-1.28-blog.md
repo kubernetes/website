@@ -76,10 +76,9 @@ This Allows CRs to fail validation if the patch did not alter any of the invalid
 
 This factors the kube-apiserver to build on a new staging repository that consumes k/apiserver but has a bigger, carefully chosen subset of the functionality of kube-apiserver such that it is reusable.
 
-The factoring will be progressive: we will start with a new repo that adds
-nothing to k/apiserver, and then progressively move generic functionality from
-kube-apiserver to the new repository. The new repo will be named
-k/generic-controlplane.
+This is a gradual reorganization; eventually there will be a new
+[k/generic-controlplane](https://github.com/kubernetes/generic-controlplane) Git repository
+with generic functionality abstracted from Kubernetes' API server.
   
 ## Support for CDI injection into containers (alpha) {#cdi-device-plugin}
 
