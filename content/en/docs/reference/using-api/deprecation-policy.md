@@ -353,7 +353,8 @@ after their announced deprecation for no less than:**
 CLI elements**
 
 Similar to the Rule #3 for APIs, if CLI element is being replaced with the
-alternative implementation, e.g. renamed elements or use of a config flag
+alternative implementation, such as by renaming an existing element, or by switching to
+use configuration sourced from a file 
 instead of command line argument, that recommended alternative must be of
 the same or higher stability level.
 
