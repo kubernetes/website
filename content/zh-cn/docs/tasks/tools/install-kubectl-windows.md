@@ -42,7 +42,7 @@ The following methods exist for installing kubectl on Windows:
 
 在 Windows 系统中安装 kubectl 有如下几种方法：
 
-<!-- 
+<!--
 - [Install kubectl binary with curl on Windows](#install-kubectl-binary-with-curl-on-windows)
 - [Install on Windows using Chocolatey, Scoop, or winget](#install-nonstandard-package-tools)
 -->
@@ -55,13 +55,9 @@ The following methods exist for installing kubectl on Windows:
 ### 用 curl 在 Windows 上安装 kubectl {#install-kubectl-binary-with-curl-on-windows}
 
 <!--
-1. Download the [latest release {{< param "fullversion" >}}](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
--->
-<!--
 1. Download the latest {{< skew currentVersion >}} patch release:
    [kubectl {{< skew currentPatchVersion >}}](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe).
 -->
-
 1. 下载最新补丁版 {{< skew currentVersion >}}：
    [kubectl {{< skew currentPatchVersion >}}](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe)。
 
@@ -88,7 +84,7 @@ The following methods exist for installing kubectl on Windows:
    Download the `kubectl` checksum file:
 -->
 2. 验证该可执行文件（可选步骤）
-   
+
    下载 `kubectl` 校验和文件：
 
    ```powershell
@@ -103,6 +99,7 @@ The following methods exist for installing kubectl on Windows:
    <!--
    - Using Command Prompt to manually compare `CertUtil`'s output to the checksum file downloaded:
    -->
+
    - 在命令行环境中，手工对比 `CertUtil` 命令的输出与校验和文件：
 
      ```cmd
@@ -114,18 +111,18 @@ The following methods exist for installing kubectl on Windows:
    - Using PowerShell to automate the verification using the `-eq` operator to
      get a `True` or `False` result:
    -->
+
    - 用 PowerShell 自动验证，用运算符 `-eq` 来直接取得 `True` 或 `False` 的结果：
 
      ```powershell
      $(Get-FileHash -Algorithm SHA256 .\kubectl.exe).Hash -eq $(Get-Content .\kubectl.exe.sha256)
      ```
 
-<!-- 
+<!--
 1. Append or prepend the `kubectl` binary folder to your `PATH` environment variable.
 
 1. Test to ensure the version of `kubectl` is the same as downloaded:
 -->
-
 3. 将 `kubectl` 二进制文件夹追加或插入到你的 `PATH` 环境变量中。
 
 4. 测试一下，确保此 `kubectl` 的版本和期望版本一致：
@@ -161,7 +158,7 @@ The following methods exist for installing kubectl on Windows:
    ```
 
 {{< note >}}
-<!-- 
+<!--
 [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes)
 adds its own version of `kubectl` to `PATH`. If you have installed Docker Desktop before,
 you may need to place your `PATH` entry before the one added by the Docker Desktop
@@ -204,7 +201,7 @@ installer or remove the Docker Desktop's `kubectl`.
    {{% /tab %}}
    {{< /tabs >}}
 
-<!-- 
+<!--
 1. Test to ensure the version you installed is up-to-date:
 -->
 2. 测试一下，确保安装的是最新版本：
@@ -213,7 +210,7 @@ installer or remove the Docker Desktop's `kubectl`.
    kubectl version --client
    ```
 
-<!-- 
+<!--
 1. Navigate to your home directory:
 -->
 3. 导航到你的 home 目录：
@@ -223,7 +220,7 @@ installer or remove the Docker Desktop's `kubectl`.
    cd ~
    ```
 
-<!-- 
+<!--
 1. Create the `.kube` directory:
 -->
 4. 创建目录 `.kube`：
@@ -241,7 +238,7 @@ installer or remove the Docker Desktop's `kubectl`.
    cd .kube
    ```
 
-<!-- 
+<!--
 1. Configure kubectl to use a remote Kubernetes cluster:
  -->
 6. 配置 kubectl，以接入远程的 Kubernetes 集群：
@@ -251,20 +248,20 @@ installer or remove the Docker Desktop's `kubectl`.
    ```
 
 {{< note >}}
-<!-- 
+<!--
 Edit the config file with a text editor of your choice, such as Notepad.
 -->
 编辑配置文件，你需要先选择一个文本编辑器，比如 Notepad。
 {{< /note >}}
 
-<!-- 
+<!--
 ## Verify kubectl configuration
 -->
 ## 验证 kubectl 配置 {#verify-kubectl-configration}
 
 {{< include "included/verify-kubectl.md" >}}
 
-<!-- 
+<!--
 ## Optional kubectl configurations and plugins
 
 ### Enable shell autocompletion
@@ -323,8 +320,9 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    <!--
    - Using Command Prompt to manually compare `CertUtil`'s output to the checksum file downloaded:
    -->
+
    - 用提示的命令对 `CertUtil` 的输出和下载的校验和文件进行手动比较。
-   
+
      ```cmd
      CertUtil -hashfile kubectl-convert.exe SHA256
      type kubectl-convert.exe.sha256
@@ -336,7 +334,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    -->
 
    - 使用 PowerShell `-eq` 操作使验证自动化，获得 `True` 或者 `False` 的结果：
-   
+
      ```powershell
      $($(CertUtil -hashfile .\kubectl-convert.exe SHA256)[1] -replace " ", "") -eq $(type .\kubectl-convert.exe.sha256)
      ```

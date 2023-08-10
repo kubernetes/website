@@ -140,9 +140,6 @@ showedit = true
 
 latest = "v1.27"
 
-fullversion = "v1.27.0" # legacy; use {{< skew currentPatchVersion >}} instead
-                        # retain until all localizations have migrated
-
 version = "v1.27"
 githubbranch = "main"
 docsbranch = "main"
@@ -183,40 +180,30 @@ js = [
 ]
 
 [[params.versions]]
-fullversion = "v1.27.0"  # legacy; use {{< skew currentPatchVersion >}} instead
-                         # retain until all localizations have migrated
 version = "v1.27"
 githubbranch = "v1.27.0"
 docsbranch = "main"
 url = "https://kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.26.3"  # legacy; use {{< skew currentPatchVersion >}} instead
-                         # retain until all localizations have migrated
 version = "v1.26"
 githubbranch = "v1.26.3"
 docsbranch = "release-1.26"
 url = "https://v1-26.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.25.8"  # legacy; use {{< skew currentPatchVersion >}} instead
-                         # retain until all localizations have migrated
 version = "v1.25"
 githubbranch = "v1.25.8"
 docsbranch = "release-1.25"
 url = "https://v1-25.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.24.12" # legacy; use {{< skew currentPatchVersion >}} instead
-                         # retain until all localizations have migrated
 version = "v1.24"
 githubbranch = "v1.24.12"
 docsbranch = "release-1.24"
 url = "https://v1-24.docs.kubernetes.io"
 
 [[params.versions]]
-fullversion = "v1.23.17" # legacy; use {{< skew currentPatchVersion >}} instead
-                         # retain until all localizations have migrated
 version = "v1.23"
 githubbranch = "v1.23.17"
 docsbranch = "release-1.23"

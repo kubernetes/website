@@ -25,7 +25,7 @@ Special thanks to [someone](https://www.some-link) for creating the logo.
 
 # What's New (Major Themes)
     
-## CRD Validation Rules
+## Improvements to CustomResourceDefinition validation expressions 
 
 This [Common Expression Language (CEL)](https://github.com/google/cel-go) can be used to validate custom resources. The primary goal is to allow the majority of the validation use cases that currently must be handled by a webhook, to instead be handled by adding inline validation expressions directly into the schema of a CRD.
     
@@ -35,7 +35,7 @@ This KEP proposes that an inline expression language be integrated directly into
 
 It is sufficiently lightweight and safe to be run directly in the kube-apiserver (since CRD creation is a privileged operation), has a straight-forward and unsurprising grammar, and supports pre-parsing and type checking of expressions, allowing syntax and type errors to be caught at CRD registration time.
 
-## Common Expression Language For Admission Control
+## ValidatingAdmissionPolicies graduate to beta
     
 Common Expression language for admission control is customizable, in-process validation of requests to the Kubernetes API server as an alternative to validating admission webhooks.
 
@@ -43,50 +43,60 @@ This builds on the capabilities of the CRD Validation Rules feature that graduat
     
 This will lower the infrastructure barrier to enforcing customizable policies as well as providing primitives that help the community establish and adhere to the best practices of both K8s and its extensions.
         
-## Admission Webhook Match Conditions
+## Match conditions for admission webhooks
     
-Introduce CEL expression filters to webhooks, to allow webhooks to be scoped more narrowly.
+Kubernetes v1.27 lets you specify _match conditions_ for admission webhooks,
+which lets you narrow the scope of when Kubernetes makes a remote HTTP call at admission time.
+The `matchCondition` field for ValidatingWebhookConfiguration and MutatingWebhookConfiguration
+is a CEL expression that must evaluate to true for the admission request to be sent to the webhook.
 
-This adds "match conditions" to admission webhooks, as an extension to the existing rules to define the scope of a webhook. A matchCondition is a CEL expression that must evaluate to true for the admission request to be sent to the webhook. If a matchCondition evaluates to false, the webhook is skipped for that request (implicitly allowed).
+In Kubernetes v1.28, that field moved to beta, and it's enabled by default.
     
-ValidatingAdmissionPolicy is an exciting new feature that we hope will greatly reduce the need for admission webhooks, but it is intentionally not attempting to cover every possible use case. This proposal aims to improve the situation for those webhooks that cannot be migrated.
+To learn more, see [`matchConditions`](/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchconditions) in the Kubernetes documentation.
     
-## Unknown Version Interoperability Proxy
+## Mixed version proxy (alpha) {#mixed-version-proxy}
 
 When a cluster has multiple API servers at mixed versions (such as during an upgrade/downgrade or when runtime-config changes and a rollout happens), not every apiserver can serve every resource at every version.
 
-To fix this, the filter is added to the handler chain in the aggregator which proxies clients to an API server that is capable of handling their request.
+For Kubernetes v1.28, you can enable the _mixed version proxy_ within the API server's aggregation layer.
+The mixed version proxy finds requests that the local API server doesn't recognize but another API server
+inside the control plan is able to support. Having found a suitable peer, the aggregation layer proxies
+the request to a compatible API server; this is transparent from the client's perspective.
     
-When an upgrade or downgrade is performed on a cluster, for some period of time the api servers are at differing versions and are able to serve different sets of built-in resources (different groups, versions, and resources are all possible).
+When an upgrade or downgrade is performed on a cluster, for some period of time the API servers
+within the control plane may be at differing versions; when that happens, different subsets of the
+API servers are able to serve different sets of built-in resources (different groups, versions, and resources
+are all possible). This new alpha mechanism lets you hide that skew from clients.
 
-## CRD Validation Ratcheting
+## CRD validation ratcheting
     
 This Allows CRs to fail validation if the patch did not alter any of the invalid fields.  The ability to shift left validation logic from controllers to the front end is a long-term goal for improving the useability of the Kubernetes project.
     
-## Add Generic Control Plane Staging Repositories
+## Source code reorganization for control plane components
 
-This factors the kube-apiserver to build on a new staging repository that consumes k/apiserver but has a bigger, carefully chosen subset of the functionality of kube-apiserver such that it is reusable.
+Kubernetes contributors have begun to reorganize the code for the kube-apiserver to build on a new staging repository that consumes [k/apiserver](https://github.com/kubernetes/apiserver) but has a bigger, carefully chosen subset of the functionality of kube-apiserver such that it is reusable.
 
-The factoring will be progressive: we will start with a new repo that adds
-nothing to k/apiserver, and then progressively move generic functionality from
-kube-apiserver to the new repository. The new repo will be named
-k/generic-controlplane.
+This is a gradual reorganization; eventually there will be a new
+[k/generic-controlplane](https://github.com/kubernetes/generic-controlplane) Git repository
+with generic functionality abstracted from Kubernetes' API server.
   
-## CDI Support To The Device Plugin API
+## Support for CDI injection into containers (alpha) {#cdi-device-plugin}
 
 CDI provides a standardized way of injecting complex devices into a container (i.e. devices that logically require more than just a single /dev node to be injected for them to work). This new feature enables plugin developers to utilize the CDIDevices field added to the CRI in 1.27 to pass CDI devices directly to CDI enabled runtimes (of which containerd and crio-o are in recent releases).
     
-## Sidecar Containers Built-in Support
+## API awareness of sidecar containers (alpha) {#sidecar-init-containers}
 
-This introduces a restartPolicy field to init containers and uses it to indicate that an init container is a sidecar container. Kubelet will start init containers with restartPolicy=Always in the order with other init containers, but instead of waiting for its completion, it will wait for the container startup completion.
+Kubernetes 1.28 introduces an alpha `restartPolicy` field for [init containers](/docs/concepts/workloads/pods/init-containers/),
+and uses that to indicate when an init container is also a _sidecar container_. The will start init containers with `restartPolicy: Always` in the order they are defined, along with other init containers. Instead of waiting for that sidecar container to complete before starting the main container(s) for the Pod, the kubelet only waits for
+the sidecar init container to have started.
 
 The condition for startup completion will be that the startup probe succeeded (or if no startup probe is defined) and postStart handler is completed. This condition is represented with the field Started of ContainerStatus type. See the section "Pod startup completed condition" for considerations on picking this signal.
 
-The field restartPolicy will only be accepted on init containers. The only supported value now is Always. No other values will be defined. Moreover, the field will be nullable so the default value will be "no value".
+For init containers, you can either omit the `restartPolicy` field, or set it to `Always`. Omitting the field
+means that you want a true init container that runs to completion before application startup.
 
-Other values for restartPolicy of containers will not be accepted and containers will follow the logic currently implemented.
-
-Sidecar containers will not block Pod completion - if all regular containers are complete, sidecar containers will be terminated.
+Sidecar containers do not block Pod completion: if all regular containers are complete, sidecar
+containers in that Pod will be terminated.
 
 During the sidecar startup stage, the restart behavior will be similar to init containers. If the Pod restartPolicy is Never, the sidecar container that failed during startup will NOT be restarted and the whole Pod will fail. If the Pod restartPolicy is Always or OnFailure, it will be restarted.
 
@@ -101,7 +111,7 @@ This also enables sidecar containers (those will not be allowed for other init c
     
 Readiness probes of sidecars will contribute to determining the whole Pod readiness.
     
-## Node System Memory Swap Support
+## Beta support for enabling swap space on Linux
     
 This adds swap support to nodes in a controlled, predictable manner so that Kubernetes users can perform testing and provide data to continue building cluster capabilities on top of swap.
 
@@ -123,7 +133,7 @@ When a node is shutdown but not detected by Kubelet's Node Shutdown Manager, the
 
 This handles node shutdown cases that are not detected by Kubelet's Node Shutdown Manager. The pods will be forcefully deleted in this case, triggering the deletion of the VolumeAttachments, and new pods will be created on a new running node so that application can continue to function.
 
-## Retroactive Default StorageClass Assignment
+## Automatic, retroactive assignment of a default StorageClass
     
 This feature makes it easier to change the default StorageClass by allowing the default storage class assignment to be retroactive for existing unbound persistent volume claims without any storage class assigned.
     
@@ -145,7 +155,7 @@ When users want to change the default SC parameters, they must delete the SC and
 
 Defined ordering during cluster installation. Kubernetes cluster installation tools must be currently smart enough to create a default SC before starting anything that may create PVCs that need it. If such a tool supports multiple cloud providers, storage backends, and add-ons that require storage (such as an image registry), it may be quite complicated to do the ordering right.
           
-## Support The Oldest Node And Newest Control Plane
+## Changes to supported skew between control plane and node versions
     
 This enables testing and expanding the supported skew between core node and control plane components by one version from n-2 to n-3, so that node components (kubelet and kube-proxy) for the oldest supported minor version work with control plane components (kube-apiserver, kube-scheduler, kube-controller-manager, cloud-controller-manager) for the newest supported minor version.
     
@@ -161,7 +171,7 @@ Node upgrades: v1.42 → v1.43
     
 Node upgrades are inherently more disruptive than control plane upgrades to workloads, for several reasons:
 
-Workloads can be designed to have no dependencies on the Kubernetes control plane, so Kubernetes control plane availability does not directly impact running pods
+Workloads can be designed to have no dependencies on the Kubernetes control plane, so Kubernetes control plane availability does not directly impact running pods.
 There can be many more nodes (hundreds to thousands) than control plane members (typically 1 or 3).
     
 Every time nodes are upgraded to a new minor version, every pod running on those nodes must be drained/rescheduled. This is true for immutable nodes and mutable/bare-metal nodes. If all nodes are being upgraded, this means every pod in the cluster will be replaced at least once. Patch updates of kubelet / kube-proxy components can be done in place, so it is possible to pick up security fixes and patch updates less disruptively.
@@ -173,37 +183,42 @@ Begin: control plane and nodes on v1.40
 Control plane upgrade: v1.40 → v1.41 → v1.42 → v1.43
 Node upgrades: v1.40 → v1.43
    
-## Pod Replacement Policy
+## Pod replacement policy for Jobs (alpha) {#pod-replacement-policy}
 
-This enables a new field for the Job API that allows for users to specify if they want replacement Pods as soon as the previous Pods are terminating (existing behavior) or only once the existing pods are fully terminated (new behavior).
+Kubernetes 1.28 adds a new field for the Job API that allows you to specify if you want the control
+plane to make new Pods as soon as the previous Pods begin termination (existing behavior),
+ or only once the existing pods are fully terminated (new, optional behavior).
     
-Many common machine learning frameworks, such as Tensorflow and JAX, require unique pods per Index. Currently, if a pod enters a terminating state (due to preemption, eviction or other external factors), a replacement pod is created and immediately fails to start.
+Many common machine learning frameworks, such as Tensorflow and JAX, require unique pods per index.
+With the older behaviour, if a pod that belongs to an `Indexed` Job enters a terminating state (due to preemption, eviction or other external factors), a replacement pod is created but then immediately fails to start due
+to the clash with the old pod that has not yet shut down.
 
-Having a replacement Pod before the previous one fully terminates can also cause problems in clusters with scarce resources or with tight budgets. These resources can be difficult to obtain so pods can take a long time to find resources and they may only be able to find nodes once the existing pods have been terminated. If cluster autoscaler is enabled, the replacement Pods might produce undesired scale-ups.
+Having a replacement Pod appear before the previous one fully terminates can also cause problems
+in clusters with scarce resources or with tight budgets. These resources can be difficult to obtain so 
+can take a long time to find resources and they may only be able to find nodes once the existing pods
+have been terminated. If cluster autoscaler is enabled, early creation of replacement Pods might produce undesired scale-ups.
 
-On the other hand, if a replacement Pod is not immediately created, the Job status would show that the number of active pods doesn't match the desired parallelism. To provide better visibility, the job status can have a new field to track the number of Pods currently terminating.
-
-This new field can also be used by queueing controllers, such as Kueue, to track the number of terminating pods to calculate quotas.
+To learn more, read [Delayed creation of replacement pods](/docs/concepts/workloads/controllers/job/#delayed-creation-of-replacement-pods)
+in the Job documentation.
   
-## Backoff Limit Per Index
+## Job retry backoff limit, per index (alpha) {#job-per-index-retry-backoff}
     
 This extends the Job API to support indexed jobs where the backoff limit is per index, and the Job can continue execution despite some of its indexes failing.
     
 Currently, the indexes of an indexed job share a single backoff limit. When the job reaches this shared backoff limit, the job controller marks the entire job as failed, and the resources are cleaned up, including indexes that have yet to run to completion.
 
-As a result, the current implementation does not cover the situation where the workload is truly embarrassingly parallel and each index is independent of other indexes.
+As a result, the existing implementation did not cover the situation where the workload is truly
+[embarrassingly parallel](https://en.wikipedia.org/wiki/Embarrassingly_parallel): each index is
+fully independent of other indexes.
 
 For instance, if indexed jobs were used as the basis for a suite of long-running integration tests, then each test run would only be able to find a single test failure.
 
-Other popular batch services like AWS Batch use a separate backoff limit for each index, showing that this is a common use case that should be supported by Kubernetes.
     
-We propose a new policy for running Indexed Jobs in which the backoff limit controls the number of retries per index. When the new policy is used all indexes execute until their success or failure. We also propose a new API field to control the number of failed indexes.
-
-Additionally, we propose a new action in PodFailurePolicy, called FailIndex, to short-circuit the failing of the index before the backoff limit per index is reached.
+For more information, read [Handling Pod and container failures](/docs/concepts/workloads/controllers/job/#handling-pod-and-container-failures) in the Kubernetes documentation.
    
-## cAdvisor-less, CRI-full Container And Pod Stats
+## CRI container and pod statistics without cAdvisor
 
-This encompasses two related pieces of work (summary API and /metrics/cadvisor), and will require changes in three different components (CRI implementation, Kubelet, cAdvisor).
+This encompasses two related pieces of work (changes to the kubelet's `/metrics/cadvisor` endpoint, and improvements to the replacement _summary_ API).
 
 There are two main APIs that consumers use to gather stats about running containers and pods: summary API and /metrics/cadvisor. The Kubelet is responsible for implementing the summary API, and cadvisor is responsible for fulfilling /metrics/cadvisor.
 
@@ -218,7 +233,7 @@ This aims to enhance CRI implementations to be able to fulfill all the stats nee
 
 This release includes a total of 12 enhancements promoted to Stable:
 
-* [Kubectl Events](https://github.com/kubernetes/enhancements/issues/1440)
+* [`kubectl events`](https://github.com/kubernetes/enhancements/issues/1440)
 * [Retroactive default StorageClass assignment](https://github.com/kubernetes/enhancements/issues/3333)
 * [Non-graceful node shutdown](https://github.com/kubernetes/enhancements/issues/2268)
 * [Support 3rd party device monitoring plugins](https://github.com/kubernetes/enhancements/issues/606)

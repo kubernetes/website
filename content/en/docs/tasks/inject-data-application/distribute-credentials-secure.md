@@ -112,12 +112,14 @@ Here is a configuration file you can use to create a Pod:
    ```
 
    Output:
+
    ```
    NAME              READY     STATUS    RESTARTS   AGE
    secret-test-pod   1/1       Running   0          42m
    ```
 
 1. Get a shell into the Container that is running in your Pod:
+
    ```shell
    kubectl exec -i -t secret-test-pod -- /bin/bash
    ```
@@ -126,22 +128,28 @@ Here is a configuration file you can use to create a Pod:
    `/etc/secret-volume`.
 
    In your shell, list the files in the `/etc/secret-volume` directory:
+
    ```shell
    # Run this in the shell inside the container
    ls /etc/secret-volume
    ```
+
    The output shows two files, one for each piece of secret data:
+
    ```
    password username
    ```
 
 1. In your shell, display the contents of the `username` and `password` files:
+
    ```shell
    # Run this in the shell inside the container
    echo "$( cat /etc/secret-volume/username )"
    echo "$( cat /etc/secret-volume/password )"
    ```
+
    The output is your username and password:
+
    ```
    my-app
    39528$vdg7Jb
@@ -153,8 +161,8 @@ in this directory.
 
 ### Project Secret keys to specific file paths
 
-You can also control the paths within the volume where Secret keys are projected. Use the `.spec.volumes[].secret.items` field to change the target
-path of each key:
+You can also control the paths within the volume where Secret keys are projected. Use the
+`.spec.volumes[].secret.items` field to change the target path of each key:
 
 ```yaml
 apiVersion: v1
@@ -260,13 +268,14 @@ secrets change.
   kubectl create -f https://k8s.io/examples/pods/inject/pod-single-secret-env-variable.yaml
   ```
 
-- In your shell, display the content of `SECRET_USERNAME` container environment variable
+- In your shell, display the content of `SECRET_USERNAME` container environment variable.
 
   ```shell
   kubectl exec -i -t env-single-secret -- /bin/sh -c 'echo $SECRET_USERNAME'
   ```
 
-  The output is
+  The output is similar to:
+
   ```
   backend-admin
   ```
@@ -290,12 +299,14 @@ secrets change.
   kubectl create -f https://k8s.io/examples/pods/inject/pod-multiple-secret-env-variable.yaml
   ```
 
-- In your shell, display the container environment variables
+- In your shell, display the container environment variables.
 
   ```shell
   kubectl exec -i -t envvars-multiple-secrets -- /bin/sh -c 'env | grep _USERNAME'
   ```
-  The output is
+
+  The output is similar to:
+
   ```
   DB_USERNAME=db-admin
   BACKEND_USERNAME=backend-admin
@@ -313,7 +324,8 @@ This functionality is available in Kubernetes v1.6 and later.
   kubectl create secret generic test-secret --from-literal=username='my-app' --from-literal=password='39528$vdg7Jb'
   ```
 
-- Use envFrom to define all of the Secret's data as container environment variables. The key from the Secret becomes the environment variable name in the Pod.
+- Use envFrom to define all of the Secret's data as container environment variables.
+  The key from the Secret becomes the environment variable name in the Pod.
 
   {{% code file="pods/inject/pod-secret-envFrom.yaml" %}}
 
@@ -323,17 +335,147 @@ This functionality is available in Kubernetes v1.6 and later.
   kubectl create -f https://k8s.io/examples/pods/inject/pod-secret-envFrom.yaml
   ```
 
-- In your shell, display `username` and `password` container environment variables
+- In your shell, display `username` and `password` container environment variables.
 
   ```shell
   kubectl exec -i -t envfrom-secret -- /bin/sh -c 'echo "username: $username\npassword: $password\n"'
   ```
 
-  The output is
+  The output is similar to:
+
   ```
   username: my-app
   password: 39528$vdg7Jb
   ```
+
+## Example: Provide prod/test credentials to Pods using Secrets {#provide-prod-test-creds}
+
+This example illustrates a Pod which consumes a secret containing production credentials and
+another Pod which consumes a secret with test environment credentials.
+
+1. Create a secret for prod environment credentials:
+
+   ```shell
+   kubectl create secret generic prod-db-secret --from-literal=username=produser --from-literal=password=Y4nys7f11
+   ```
+
+   The output is similar to:
+
+   ```
+   secret "prod-db-secret" created
+   ```
+
+1. Create a secret for test environment credentials.
+
+   ```shell
+   kubectl create secret generic test-db-secret --from-literal=username=testuser --from-literal=password=iluvtests
+   ```
+
+   The output is similar to:
+
+   ```
+   secret "test-db-secret" created
+   ```
+
+   {{< note >}}
+   Special characters such as `$`, `\`, `*`, `=`, and `!` will be interpreted by your
+   [shell](https://en.wikipedia.org/wiki/Shell_(computing)) and require escaping.
+
+   In most shells, the easiest way to escape the password is to surround it with single quotes (`'`).
+   For example, if your actual password is `S!B\*d$zDsb=`, you should execute the command as follows:
+
+   ```shell
+   kubectl create secret generic dev-db-secret --from-literal=username=devuser --from-literal=password='S!B\*d$zDsb='
+   ```
+
+   You do not need to escape special characters in passwords from files (`--from-file`).
+   {{< /note >}}
+
+1. Create the Pod manifests:
+
+   ```shell
+   cat <<EOF > pod.yaml
+   apiVersion: v1
+   kind: List
+   items:
+   - kind: Pod
+     apiVersion: v1
+     metadata:
+       name: prod-db-client-pod
+       labels:
+         name: prod-db-client
+     spec:
+       volumes:
+       - name: secret-volume
+         secret:
+           secretName: prod-db-secret
+       containers:
+       - name: db-client-container
+         image: myClientImage
+         volumeMounts:
+         - name: secret-volume
+           readOnly: true
+           mountPath: "/etc/secret-volume"
+   - kind: Pod
+     apiVersion: v1
+     metadata:
+       name: test-db-client-pod
+       labels:
+         name: test-db-client
+     spec:
+       volumes:
+       - name: secret-volume
+         secret:
+           secretName: test-db-secret
+       containers:
+       - name: db-client-container
+         image: myClientImage
+         volumeMounts:
+         - name: secret-volume
+           readOnly: true
+           mountPath: "/etc/secret-volume"
+   EOF
+   ```
+
+   {{< note >}}
+   How the specs for the two Pods differ only in one field; this facilitates creating Pods
+   with different capabilities from a common Pod template.
+   {{< /note >}}
+
+1. Apply all those objects on the API server by running:
+
+   ```shell
+   kubectl create -f pod.yaml
+   ```
+
+Both containers will have the following files present on their filesystems with the values
+for each container's environment:
+
+```
+/etc/secret-volume/username
+/etc/secret-volume/password
+```
+
+You could further simplify the base Pod specification by using two service accounts:
+
+1. `prod-user` with the `prod-db-secret`
+1. `test-user` with the `test-db-secret`
+
+The Pod specification is shortened to:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: prod-db-client-pod
+  labels:
+    name: prod-db-client
+spec:
+  serviceAccount: prod-db-client
+  containers:
+  - name: db-client-container
+    image: myClientImage
+```
 
 ### References
 
