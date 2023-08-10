@@ -187,25 +187,25 @@ url = "https://kubernetes.io"
 
 [[params.versions]]
 version = "v1.27"
-githubbranch = "v1.27.0"
+githubbranch = "v1.27.4"
 docsbranch = "release-1.27"
 url = "https://v1-27.docs.kubernetes.io"
 
 [[params.versions]]
 version = "v1.26"
-githubbranch = "v1.26.3"
+githubbranch = "v1.26.7"
 docsbranch = "release-1.26"
 url = "https://v1-26.docs.kubernetes.io"
 
 [[params.versions]]
 version = "v1.25"
-githubbranch = "v1.25.8"
+githubbranch = "v1.25.12"
 docsbranch = "release-1.25"
 url = "https://v1-25.docs.kubernetes.io"
 
 [[params.versions]]
 version = "v1.24"
-githubbranch = "v1.24.12"
+githubbranch = "v1.24.16"
 docsbranch = "release-1.24"
 url = "https://v1-24.docs.kubernetes.io"
 
