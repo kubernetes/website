@@ -166,22 +166,6 @@ Readiness probes of sidecars will contribute to determining the whole Pod readin
 This feature makes it easier to change the default StorageClass by allowing the default storage class assignment to be retroactive for existing unbound persistent volume claims without any storage class assigned.
     
 This changes the behavior of default storage class assignment to be retroactive for existing unbound persistent volume claims without any storage class assigned. This changes the existing Kubernetes behavior slightly, which is further described in the sections below.
-    
-When a user needs to provision storage they create a PVC to request a volume. A control loop looks for any new PVCs and based on the current state of the cluster the volume will be provided using one of the following methods:
-
-Static provisioning - PVC did not specify any storage class and there is already an existing PV that can be bound to it.
-Dynamic provisioning - there is no existing PV that could be bound but PVC did specify a storage class or there is exactly one storage class in the cluster marked as default.
-Considering the "normal" operation described above there are additional cases that can be problematic:
-
-It’s hard to mark a different SC as the default one. Cluster admin can choose between two bad solutions:
-
-Option 1: Cluster has two default SCs for a short time, i.e. admin marks the new default SC as default and then marks the old default SC as non-default. When there are two default SCs in a cluster, the PVC admission plugin refuses to accept new PVCs with pvc.spec.storageClassName = nil. Hence, cluster users may get errors when creating PVCs at the wrong time. They must know it’s a transient error and manually retry later.
-
-Option 2: Cluster has no default SC for a short time, i.e. admin marks the old default SC as non-default and then marks the new default SC as default. Since there is no default SC for some time, PVCs with pvc.spec.storageClassName = nil created during this time will not get any SC and are Pending forever. Users must be smart enough to delete the PVC and re-create it.
-
-When users want to change the default SC parameters, they must delete the SC and re-create it, Kubernetes API does not allow change in the SC. So there is no default SC for some time and the second case above applies here too. Re-creating the storage class to change parameters can be useful in cases where there is a quota set for the SC, and since the quota is coupled with the SC name users can not use Option 1 because the second SC would have a different name and so the existing quota would not apply to it.
-
-Defined ordering during cluster installation. Kubernetes cluster installation tools must be currently smart enough to create a default SC before starting anything that may create PVCs that need it. If such a tool supports multiple cloud providers, storage backends, and add-ons that require storage (such as an image registry), it may be quite complicated to do the ordering right.
              
 ## Pod replacement policy for Jobs (alpha) {#pod-replacement-policy}
 
