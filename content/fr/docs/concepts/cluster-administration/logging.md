@@ -50,7 +50,7 @@ d'évènements avec le flux de sortie standard. Cette démonstration utilise un
 manifeste pour un Pod avec un seul conteneur qui écrit du texte sur le flux
 de sortie standard toutes les secondes.
 
-{{< codenew file="debug/counter-pod.yaml" >}}
+{{% codenew file="debug/counter-pod.yaml" %}}
 
 Pour lancer ce Pod, utilisez la commande suivante :
 
@@ -243,7 +243,7 @@ Un Pod exécute un unique conteneur et ce conteneur écrit dans deux fichiers de
 journaux différents en utilisant deux format différents. Voici le manifeste du
 Pod :
 
-{{< codenew file="admin/logging/two-files-counter-pod.yaml" >}}
+{{% codenew file="admin/logging/two-files-counter-pod.yaml" %}}
 
 Il serait très désordonné d'avoir des évènements avec des formats différents
 dans le même journal en redirigeant les évènements dans le flux de sortie
@@ -253,8 +253,7 @@ suit un des fichiers et renvoie les évènements sur son propre `stdout`.
 
 Ci-dessous se trouve le manifeste pour un Pod avec deux conteneurs side-car.
 
-{{< codenew file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml"
->}}
+{{% codenew file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" %}}
 
 Quand ce Pod s'exécute, chaque journal peut être diffusé séparément en
 utilisant les commandes suivantes :
@@ -323,7 +322,7 @@ Le premier fichier contient un
 [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/) pour
 configurer fluentd.
 
-{{< codenew file="admin/logging/fluentd-sidecar-config.yaml" >}}
+{{% codenew file="admin/logging/fluentd-sidecar-config.yaml" %}}
 
 {{< note >}}
 La configuration de fluentd est hors du cadre de cet article. Vous trouverez
@@ -335,7 +334,7 @@ Le second fichier est un manifeste pour un Pod avec un conteneur side-car qui
 exécute fluentd. Le Pod monte un volume où fluentd peut récupérer sa
 configuration.
 
-{{< codenew file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" >}}
+{{% codenew file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" %}}
 
 Apres quelques minutes, les évènements apparaîtront dans l'interface de
 Stackdriver.

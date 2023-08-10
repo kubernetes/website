@@ -25,7 +25,7 @@ Pour définir une variable d'environnement dépendante, vous pouvez utiliser le 
 
 Dans cette exercice, vous allez créer un Pod qui exécute un container. Le fichier de configuration de ce Pod définit des variables d'environnement interdépendantes avec une ré-utilisation entre les différentes variables. Voici le fichier de configuration de ce Pod:
 
-{{< codenew file="pods/inject/dependent-envars.yaml" >}}
+{{% codenew file="pods/inject/dependent-envars.yaml" %}}
 
 1. Créez un Pod en utilisant ce fichier de configuration:
 
