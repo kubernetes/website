@@ -931,7 +931,7 @@ is disabled, `.spec.completions` is immutable.
 Use cases for elastic Indexed Jobs include batch workloads which require 
 scaling an indexed Job, such as MPI, Horovord, Ray, and PyTorch training jobs.
 
-### Delayed creation of replacement pods
+### Delayed creation of replacement pods {#pod-replacement-policy}
 
 {{< feature-state for_k8s_version="v1.28" state="alpha" >}}
 
