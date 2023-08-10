@@ -352,7 +352,7 @@ after their announced deprecation for no less than:**
 **Rule #5c: Command line interface (CLI) elements cannot be deprecated in favor of
 less stable CLI elements**
 
-Similar to the Rule #3 for APIs, if CLI element is being replaced with the
+Similar to the Rule #3 for APIs, if an element of a command line interface is being replaced with an
 alternative implementation, such as by renaming an existing element, or by switching to
 use configuration sourced from a file 
 instead of a command line argument, that recommended alternative must be of
