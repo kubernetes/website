@@ -380,8 +380,8 @@ implementation that is less stable**
 
 For example, a generally available feature cannot be deprecated in favor of a Beta
 replacement.
-We should, however, encourage the transition to the alternative implementation
-even before it reached the same maturity level. This is particularly important
+The Kubernetes project does, however, encourage users to adopt and transitions to alternative
+implementations even before they reach the same maturity level. This is particularly important
 for exploring new use cases of a feature or getting an early feedback on the replacement.
 
 Alternative implementations may sometimes be external tools or products,
