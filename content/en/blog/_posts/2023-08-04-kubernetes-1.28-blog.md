@@ -172,7 +172,7 @@ Node upgrades: v1.42 → v1.43
     
 Node upgrades are inherently more disruptive than control plane upgrades to workloads, for several reasons:
 
-Workloads can be designed to have no dependencies on the Kubernetes control plane, so Kubernetes control plane availability does not directly impact running pods
+Workloads can be designed to have no dependencies on the Kubernetes control plane, so Kubernetes control plane availability does not directly impact running pods.
 There can be many more nodes (hundreds to thousands) than control plane members (typically 1 or 3).
     
 Every time nodes are upgraded to a new minor version, every pod running on those nodes must be drained/rescheduled. This is true for immutable nodes and mutable/bare-metal nodes. If all nodes are being upgraded, this means every pod in the cluster will be replaced at least once. Patch updates of kubelet / kube-proxy components can be done in place, so it is possible to pick up security fixes and patch updates less disruptively.
