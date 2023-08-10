@@ -1940,7 +1940,7 @@ A single application container that you want to run within a pod.
 
     如果为 true，则以只读方式挂载，否则（false 或未设置）以读写方式挂载。默认为 false。
 
-  - **volumeMounts.subPath** (boolean)
+  - **volumeMounts.subPath** (string)
 
     卷中的路径，容器中的卷应该这一路径安装。默认为 ""（卷的根）。
 

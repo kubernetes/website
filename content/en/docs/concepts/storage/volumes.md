@@ -1061,7 +1061,7 @@ persistent volume:
   `ControllerPublishVolume` and `ControllerUnpublishVolume` calls. This field is
   optional, and may be empty if no secret is required. If the Secret
   contains more than one secret, all secrets are passed.
-`nodeExpandSecretRef`: A reference to the secret containing sensitive
+* `nodeExpandSecretRef`: A reference to the secret containing sensitive
   information to pass to the CSI driver to complete the CSI
   `NodeExpandVolume` call. This field is optional, and may be empty if no
   secret is required. If the object contains more than one secret, all
@@ -1116,8 +1116,8 @@ For more information on how to develop a CSI driver, refer to the
 
 CSI node plugins need to perform various privileged
 operations like scanning of disk devices and mounting of file systems. These operations
-differ for each host operating system. For Linux worker nodes, containerized CSI node
-node plugins are typically deployed as privileged containers. For Windows worker nodes,
+differ for each host operating system. For Linux worker nodes, containerized CSI node 
+plugins are typically deployed as privileged containers. For Windows worker nodes,
 privileged operations for containerized CSI node plugins is supported using
 [csi-proxy](https://github.com/kubernetes-csi/csi-proxy), a community-managed,
 stand-alone binary that needs to be pre-installed on each Windows node.

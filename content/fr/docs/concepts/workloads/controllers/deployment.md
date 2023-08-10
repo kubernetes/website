@@ -49,7 +49,7 @@ Voici des cas d'utilisation typiques pour les déploiements:
 Voici un exemple de déploiement.
 Il crée un ReplicaSet pour faire apparaître trois pods `nginx`:
 
-{{< codenew file="controllers/nginx-deployment.yaml" >}}
+{{% codenew file="controllers/nginx-deployment.yaml" %}}
 
 Dans cet exemple:
 

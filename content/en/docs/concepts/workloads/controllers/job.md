@@ -831,31 +831,11 @@ mismatch.
 
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
-{{< note >}}
-The control plane doesn't track Jobs using finalizers, if the Jobs were created
-when the feature gate `JobTrackingWithFinalizers` was disabled, even after you
-upgrade the control plane to 1.26.
-{{< /note >}}
-
 The control plane keeps track of the Pods that belong to any Job and notices if
 any such Pod is removed from the API server. To do that, the Job controller
 creates Pods with the finalizer `batch.kubernetes.io/job-tracking`. The
 controller removes the finalizer only after the Pod has been accounted for in
 the Job status, allowing the Pod to be removed by other controllers or users.
-
-Jobs created before upgrading to Kubernetes 1.26 or before the feature gate
-`JobTrackingWithFinalizers` is enabled are tracked without the use of Pod
-finalizers.
-The Job {{< glossary_tooltip term_id="controller" text="controller" >}} updates
-the status counters for `succeeded` and `failed` Pods based only on the Pods
-that exist in the cluster. The contol plane can lose track of the progress of
-the Job if Pods are deleted from the cluster.
-
-You can determine if the control plane is tracking a Job using Pod finalizers by
-checking if the Job has the annotation
-`batch.kubernetes.io/job-tracking`. You should **not** manually add or remove
-this annotation from Jobs. Instead, you can recreate the Jobs to ensure they
-are tracked using Pod finalizers.
 
 ### Elastic Indexed Jobs
 
