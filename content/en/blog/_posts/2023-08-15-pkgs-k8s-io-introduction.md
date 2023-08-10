@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: "pkgs.k8s.io: Introducing Kubernetes community-owned package repositories"
+title: "pkgs.k8s.io: Introducing Kubernetes Community-Owned Package Repositories"
 date: 2023-08-15
 slug: pkgs-k8s-io-introduction
 ---
