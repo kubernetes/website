@@ -59,10 +59,4 @@ runtime could be used instead.
 
 * Create a Kubernetes ConfigMap and Secret
 * Inject microservice configuration using MicroProfile Config
-  
-<!-- lessoncontent -->
-
-## Example: Externalizing config using MicroProfile, ConfigMaps and Secrets
-
-[Start Interactive Tutorial](/docs/tutorials/configuration/configure-java-microservice/configure-java-microservice-interactive/) 
 
