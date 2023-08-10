@@ -33,6 +33,7 @@ Ingressリソースが動作するためには、クラスターでIngressコン
 * [EnRoute](https://getenroute.io/)はIngressコントローラーのように実行できる[Envoy](https://www.envoyproxy.io)ベースのAPI gatewayです。
 * [Easegress IngressController](https://github.com/megaease/easegress/blob/main/doc/reference/ingresscontroller.md)はIngressコントローラーのように実行できる[Easegress](https://megaease.com/easegress/)ベースのAPI gatewayです。
 * F5 BIG-IPの[Container Ingress Services for Kubernetes](https://clouddocs.f5.com/containers/latest/userguide/kubernetes/)はF5 BIG-IPの仮想サーバー上でIngressの設定を可能にします。
+* [FortiADC Ingress Controller](https://docs.fortinet.com/document/fortiadc/7.0.0/fortiadc-ingress-controller/742835/fortiadc-ingress-controller-overview)は、Kubernetes Ingressリソースをサポートし、FortiADCオブジェクトをKubernetesから管理することができます。
 * [Gloo](https://gloo.solo.io)は[Envoy](https://www.envoyproxy.io)をベースにしたオープンソースのIngressコントローラーで、API Gateway機能を提供しています。
 * [HAProxy Ingress](https://haproxy-ingress.github.io/)は、[HAProxy](https://www.haproxy.org/#desc)用のIngressコントローラーです。
 * [HAProxy Ingress Controller for Kubernetes](https://github.com/haproxytech/kubernetes-ingress#readme)も、[HAProxy](https://www.haproxy.org/#desc)用のIngressコントローラーです。
@@ -40,6 +41,8 @@ Ingressリソースが動作するためには、クラスターでIngressコン
 * [Kong Ingress Controller for Kubernetes](https://github.com/Kong/kubernetes-ingress-controller#readme)は、[Kong Gateway](https://konghq.com/kong/)向けのIngressコントローラーです。
 * [Kusk Gateway](https://kusk.kubeshop.io/)は[Envoy](https://www.envoyproxy.io)をベースにしたOpenAPIドリブンのIngressコントローラーです。 
 * [NGINX Ingress Controller for Kubernetes](https://www.nginx.com/products/nginx-ingress-controller/)は、[NGINX](https://www.nginx.com/resources/glossary/nginx/)ウェブサーバーで(プロキシーとして)動作します。
+* [ngrok Kubernetes Ingress Controller](https://github.com/ngrok/kubernetes-ingress-controller)は、[ngrok platform](https://ngrok.com)を使用するK8sサービスに安全な公開アクセスを追加するためのオープンソースコントローラーです。 
+* [OCI Native Ingress Controller](https://github.com/oracle/oci-native-ingress-controller#readme)は、Oracle Cloud Infrastructure用のIngressコントローラーであり、[OCI Load Balancer](https://docs.oracle.com/ja-jp/iaas/Content/Balance/home.htm)を管理することができます。
 * [Pomerium Ingress Controller](https://www.pomerium.com/docs/k8s/ingress.html)は[Pomerium](https://pomerium.com/)ベースのものであり、コンテキストを考慮したアクセスポリシーを提供します。
 * [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/)は、カスタムプロキシーを構築するためのライブラリーとして設計された、Kubernetes Ingressなどのユースケースを含む、サービス構成用のHTTPルーターとリバースプロキシーです。
 * [Traefik Kubernetes Ingress provider](https://doc.traefik.io/traefik/providers/kubernetes-ingress/)は、[Traefik](https://traefik.io/traefik/) proxy向けのIngressコントローラーです。
