@@ -1,29 +1,41 @@
 ---
 layout: blog
-title: "Kubernetes v1.28: <name-here>"
-date: 2023-08-02
+title: "Kubernetes v1.28: Planternetes"
+date: 2023-08-15
 slug: kubernetes-v1-28-release
 ---
 
 **Authors**: [Kubernetes v1.28 Release Team](https://github.com/kubernetes/sig-release/blob/master/releases/release-1.28/release-team.md)
 
-Announcing the release of Kubernetes v1.28 <name-here>, the second release of 2023!
+Announcing the release of Kubernetes v1.28 Planternetes, the second release of 2023!
 
 This release consists of 46 enhancements. 20 of those enhancements are entering Alpha, 14 are graduating to Beta, and 12 are graduating to Stable.
 
 ## Release Theme And Logo
 
-**Kubernetes v1.28: *<name-here>*
+**Kubernetes v1.28: *Planternetes*
 
-The theme for Kubernetes v1.28 is *<name-here>*.
+The theme for Kubernetes v1.28 is *Planternetes*.
 
-{{< figure src="/images/blog/2023-07-02-kubernetes-1.28-blog/kubernetes-1.28.png" alt="Kubernetes 1.28 <name-here> logo" class="release-logo" >}}
+{{< figure src="/images/blog/2023-08-15-kubernetes-1.28-blog/kubernetes-1.28.png" alt="Kubernetes 1.28 Planternetes logo" class="release-logo" >}}
 
-Talk about release <here> - waiting for the theme
+Each Kubernetes release is the culmination of the hard work of thousands of individuals from our community. The people behind this release are industry veterans, parents, others are students new to the ecosystem, contributing our unique experience to create a collective artifact with global impact.
 
-Special thanks to [someone](https://www.some-link) for creating the logo.
+Much like a garden, our release has ever-changing growth, challenges and opportunities. This theme celebrates the meticulous care, intention and efforts to get the release to where we are today. Harmoniously together, we grow better.
 
 # What's New (Major Themes)
+
+## Add Support To Handle Non-graceful Node Shutdown
+    
+This feature allows stateful workloads to restart on a different node if the original node is shut down unexpectedly or ends up in a non-recoverable state perhaps due to hardware failure or unresponsive OS.
+
+This allows stateful workloads to failover to a different node successfully after the original node is shut down or in a non-recoverable state such as the hardware failure or broken OS.
+    
+The Graceful Node Shutdown introduces a way to detect a node shutdown and handle it gracefully. However, a node shutdown action may not be detected by Kubelet's Node Shutdown Manager, either because the command does not trigger the inhibitor locks mechanism used by Kubelet or because of a user error, i.e., the ShutdownGracePeriod and ShutdownGracePeriodCriticalPods are not configured properly.
+
+When a node is shutdown but not detected by Kubelet's Node Shutdown Manager, the pods that are part of a StatefulSet will be stuck in terminating status on the shutdown node and cannot move to a new running node. This is because Kubelet on the shutdown node is not available to delete the pods so the StatefulSet cannot create a new pod with the same name. If there are volumes used by the pods, the VolumeAttachments will not be deleted from the original shutdown node so the volumes used by these pods cannot be attached to a new running node. As a result, the application running on the StatefulSet cannot function properly. If the original shutdown node comes up, the pods will be deleted by Kubelet and new pods will be created on a different running node. If the original shutdown node does not come up, these pods will be stuck in terminating status on the shutdown node forever.
+
+This handles node shutdown cases that are not detected by Kubelet's Node Shutdown Manager. The pods will be forcefully deleted in this case, triggering the deletion of the VolumeAttachments, and new pods will be created on a new running node so that application can continue to function.
     
 ## Improvements to CustomResourceDefinition validation expressions 
 
@@ -53,6 +65,44 @@ is a CEL expression that must evaluate to true for the admission request to be s
 In Kubernetes v1.28, that field moved to beta, and it's enabled by default.
     
 To learn more, see [`matchConditions`](/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchconditions) in the Kubernetes documentation.
+
+## Changes to supported skew between control plane and node versions
+    
+This enables testing and expanding the supported skew between core node and control plane components by one version from n-2 to n-3, so that node components (kubelet and kube-proxy) for the oldest supported minor version work with control plane components (kube-apiserver, kube-scheduler, kube-controller-manager, cloud-controller-manager) for the newest supported minor version.
+    
+The Kubernetes yearly support period already makes annual upgrades possible. Users can upgrade to the latest patch versions to pick up security fixes and do 3 sequential minor version upgrades once a year to "catch up" to the latest supported minor version.
+
+However, since the tested/supported skew between nodes and control planes is currently limited to 2 versions, a 3-version upgrade would have to update nodes twice to stay within the supported skew. For example, to upgrade from v1.40 to v1.43:
+
+Begin: control plane and nodes on v1.40
+Control plane upgrade: v1.40 → v1.41 → v1.42
+Node upgrades: v1.40 → v1.42
+Control plane upgrade: v1.42 → v1.43
+Node upgrades: v1.42 → v1.43
+    
+Node upgrades are inherently more disruptive than control plane upgrades to workloads, for several reasons:
+
+Workloads can be designed to have no dependencies on the Kubernetes control plane, so Kubernetes control plane availability does not directly impact running pods.
+There can be many more nodes (hundreds to thousands) than control plane members (typically 1 or 3).
+    
+Every time nodes are upgraded to a new minor version, every pod running on those nodes must be drained/rescheduled. This is true for immutable nodes and mutable/bare-metal nodes. If all nodes are being upgraded, this means every pod in the cluster will be replaced at least once. Patch updates of kubelet / kube-proxy components can be done in place, so it is possible to pick up security fixes and patch updates less disruptively.
+    
+Replacing or moving pods that are slow to stop or start or have significant data gravity takes significant time, so it is desirable to minimize how frequently that must be done.
+If node/control plane skew support was expanded so the oldest node components work with the newest control plane components, the example upgrade path from v1.40 to v1.43 above could improve this:
+
+Begin: control plane and nodes on v1.40
+Control plane upgrade: v1.40 → v1.41 → v1.42 → v1.43
+Node upgrades: v1.40 → v1.43
+
+## Beta support for enabling swap space on Linux
+    
+This adds swap support to nodes in a controlled, predictable manner so that Kubernetes users can perform testing and provide data to continue building cluster capabilities on top of swap.
+
+There are two distinct types of users for swap, who may overlap:
+
+- Node administrators, who may want swap available for node-level performance tuning and stability/reducing noisy neighbor issues.
+    
+- Application developers, who have written applications that would benefit from using swap memory. There are hence a number of possible ways that one could envision swap use on a node.
     
 ## Mixed version proxy (alpha) {#mixed-version-proxy}
 
@@ -110,28 +160,6 @@ This also enables sidecar containers (those will not be allowed for other init c
 - All probes (startup, readiness, liveness)
     
 Readiness probes of sidecars will contribute to determining the whole Pod readiness.
-    
-## Beta support for enabling swap space on Linux
-    
-This adds swap support to nodes in a controlled, predictable manner so that Kubernetes users can perform testing and provide data to continue building cluster capabilities on top of swap.
-
-There are two distinct types of users for swap, who may overlap:
-
-- Node administrators, who may want swap available for node-level performance tuning and stability/reducing noisy neighbor issues.
-    
-- Application developers, who have written applications that would benefit from using swap memory. There are hence a number of possible ways that one could envision swap use on a node.
-   
-## Add Support To Handle Non-graceful Node Shutdown
-    
-This feature allows stateful workloads to restart on a different node if the original node is shut down unexpectedly or ends up in a non-recoverable state perhaps due to hardware failure or unresponsive OS.
-
-This allows stateful workloads to failover to a different node successfully after the original node is shut down or in a non-recoverable state such as the hardware failure or broken OS.
-    
-The Graceful Node Shutdown introduces a way to detect a node shutdown and handle it gracefully. However, a node shutdown action may not be detected by Kubelet's Node Shutdown Manager, either because the command does not trigger the inhibitor locks mechanism used by Kubelet or because of a user error, i.e., the ShutdownGracePeriod and ShutdownGracePeriodCriticalPods are not configured properly.
-
-When a node is shutdown but not detected by Kubelet's Node Shutdown Manager, the pods that are part of a StatefulSet will be stuck in terminating status on the shutdown node and cannot move to a new running node. This is because Kubelet on the shutdown node is not available to delete the pods so the StatefulSet cannot create a new pod with the same name. If there are volumes used by the pods, the VolumeAttachments will not be deleted from the original shutdown node so the volumes used by these pods cannot be attached to a new running node. As a result, the application running on the StatefulSet cannot function properly. If the original shutdown node comes up, the pods will be deleted by Kubelet and new pods will be created on a different running node. If the original shutdown node does not come up, these pods will be stuck in terminating status on the shutdown node forever.
-
-This handles node shutdown cases that are not detected by Kubelet's Node Shutdown Manager. The pods will be forcefully deleted in this case, triggering the deletion of the VolumeAttachments, and new pods will be created on a new running node so that application can continue to function.
 
 ## Automatic, retroactive assignment of a default StorageClass
     
@@ -154,35 +182,7 @@ Option 2: Cluster has no default SC for a short time, i.e. admin marks the old d
 When users want to change the default SC parameters, they must delete the SC and re-create it, Kubernetes API does not allow change in the SC. So there is no default SC for some time and the second case above applies here too. Re-creating the storage class to change parameters can be useful in cases where there is a quota set for the SC, and since the quota is coupled with the SC name users can not use Option 1 because the second SC would have a different name and so the existing quota would not apply to it.
 
 Defined ordering during cluster installation. Kubernetes cluster installation tools must be currently smart enough to create a default SC before starting anything that may create PVCs that need it. If such a tool supports multiple cloud providers, storage backends, and add-ons that require storage (such as an image registry), it may be quite complicated to do the ordering right.
-          
-## Changes to supported skew between control plane and node versions
-    
-This enables testing and expanding the supported skew between core node and control plane components by one version from n-2 to n-3, so that node components (kubelet and kube-proxy) for the oldest supported minor version work with control plane components (kube-apiserver, kube-scheduler, kube-controller-manager, cloud-controller-manager) for the newest supported minor version.
-    
-The Kubernetes yearly support period already makes annual upgrades possible. Users can upgrade to the latest patch versions to pick up security fixes and do 3 sequential minor version upgrades once a year to "catch up" to the latest supported minor version.
-
-However, since the tested/supported skew between nodes and control planes is currently limited to 2 versions, a 3-version upgrade would have to update nodes twice to stay within the supported skew. For example, to upgrade from v1.40 to v1.43:
-
-Begin: control plane and nodes on v1.40
-Control plane upgrade: v1.40 → v1.41 → v1.42
-Node upgrades: v1.40 → v1.42
-Control plane upgrade: v1.42 → v1.43
-Node upgrades: v1.42 → v1.43
-    
-Node upgrades are inherently more disruptive than control plane upgrades to workloads, for several reasons:
-
-Workloads can be designed to have no dependencies on the Kubernetes control plane, so Kubernetes control plane availability does not directly impact running pods.
-There can be many more nodes (hundreds to thousands) than control plane members (typically 1 or 3).
-    
-Every time nodes are upgraded to a new minor version, every pod running on those nodes must be drained/rescheduled. This is true for immutable nodes and mutable/bare-metal nodes. If all nodes are being upgraded, this means every pod in the cluster will be replaced at least once. Patch updates of kubelet / kube-proxy components can be done in place, so it is possible to pick up security fixes and patch updates less disruptively.
-    
-Replacing or moving pods that are slow to stop or start or have significant data gravity takes significant time, so it is desirable to minimize how frequently that must be done.
-If node/control plane skew support was expanded so the oldest node components work with the newest control plane components, the example upgrade path from v1.40 to v1.43 above could improve this:
-
-Begin: control plane and nodes on v1.40
-Control plane upgrade: v1.40 → v1.41 → v1.42 → v1.43
-Node upgrades: v1.40 → v1.43
-   
+             
 ## Pod replacement policy for Jobs (alpha) {#pod-replacement-policy}
 
 Kubernetes 1.28 adds a new field for the Job API that allows you to specify if you want the control
@@ -248,7 +248,7 @@ This release includes a total of 12 enhancements promoted to Stable:
 
 ### Deprecations And Removals
 
-This release saw several removals:
+This release saw one removal:
 
 * [Removal of CSI Migration for GCE PD](https://github.com/kubernetes/enhancements/issues/1488)
 
