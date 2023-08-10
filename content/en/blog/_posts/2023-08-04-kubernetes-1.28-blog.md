@@ -72,27 +72,7 @@ This enables testing and expanding the supported skew between core node and cont
     
 The Kubernetes yearly support period already makes annual upgrades possible. Users can upgrade to the latest patch versions to pick up security fixes and do 3 sequential minor version upgrades once a year to "catch up" to the latest supported minor version.
 
-However, since the tested/supported skew between nodes and control planes is currently limited to 2 versions, a 3-version upgrade would have to update nodes twice to stay within the supported skew. For example, to upgrade from v1.40 to v1.43:
-
-Begin: control plane and nodes on v1.40
-Control plane upgrade: v1.40 → v1.41 → v1.42
-Node upgrades: v1.40 → v1.42
-Control plane upgrade: v1.42 → v1.43
-Node upgrades: v1.42 → v1.43
-    
-Node upgrades are inherently more disruptive than control plane upgrades to workloads, for several reasons:
-
-Workloads can be designed to have no dependencies on the Kubernetes control plane, so Kubernetes control plane availability does not directly impact running pods.
-There can be many more nodes (hundreds to thousands) than control plane members (typically 1 or 3).
-    
-Every time nodes are upgraded to a new minor version, every pod running on those nodes must be drained/rescheduled. This is true for immutable nodes and mutable/bare-metal nodes. If all nodes are being upgraded, this means every pod in the cluster will be replaced at least once. Patch updates of kubelet / kube-proxy components can be done in place, so it is possible to pick up security fixes and patch updates less disruptively.
-    
-Replacing or moving pods that are slow to stop or start or have significant data gravity takes significant time, so it is desirable to minimize how frequently that must be done.
-If node/control plane skew support was expanded so the oldest node components work with the newest control plane components, the example upgrade path from v1.40 to v1.43 above could improve this:
-
-Begin: control plane and nodes on v1.40
-Control plane upgrade: v1.40 → v1.41 → v1.42 → v1.43
-Node upgrades: v1.40 → v1.43
+However, since the tested/supported skew between nodes and control planes is currently limited to 2 versions, a 3-version upgrade would have to update nodes twice to stay within the supported skew.
 
 ## Beta support for enabling swap space on Linux
     
