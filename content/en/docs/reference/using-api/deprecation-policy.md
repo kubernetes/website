@@ -385,7 +385,7 @@ implementations even before they reach the same maturity level. This is particul
 for exploring new use cases of a feature or getting an early feedback on the replacement.
 
 Alternative implementations may sometimes be external tools or products,
-for example the feature may move from the kubelet to container runtime
+for example a feature may move from the kubelet to container runtime
 that is not under Kubernetes project control. In such cases, the rule cannot be
 applied, but there must be an effort to ensure that there is a transition path
 that does not compromise on components' maturity levels. In the example with
