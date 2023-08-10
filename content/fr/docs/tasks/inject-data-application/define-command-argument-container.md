@@ -38,7 +38,7 @@ Le champ `command` correspond à `entrypoint` dans certains runtimes de containe
 
 Dans cet exercice, vous allez créer un Pod qui exécute un container.
 Le fichier de configuration pour le Pod défini une commande ainsi que deux arguments:
-{{< codenew file="pods/commands.yaml" >}}
+{{% codenew file="pods/commands.yaml" %}}
 
 1. Créez un Pod en utilisant le fichier YAML de configuration suivant:
 
