@@ -267,6 +267,9 @@ spec:
     image: busybox:1.28
     command: [ "sh", "-c", "echo 'Hello AppArmor!' && sleep 1h" ]
 EOF
+```
+``` shell
+
 pod/hello-apparmor-2 created
 ```
 
