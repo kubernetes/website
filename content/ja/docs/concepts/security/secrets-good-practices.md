@@ -37,7 +37,7 @@ Kubernetesの{{<glossary_tooltip term_id="rbac" text="ロールベースアク�
 - **ユーザー**: Secretsへの`get`、`watch`、`list`アクセスを制限してください。`etcd`へのアクセスはクラスタ管理者にのみ許可し、読み取り専用アクセスも許可してください。特定の注釈を持つSecretへのアクセスを制限するなど、より複雑なアクセス制御については、サードパーティの認証メカニズムを検討してください。
 
 {{< caution >}}
-Secretsへの`list`アクセスを許可すると、サブジェクトがSecretの内容を取得できるようになります。
+Secretへの`list`アクセスを許可すると、サブジェクトがSecretの内容を取得できるようになります。
 {{< /caution >}}
 
 Pod内でSecretを使用することができるユーザーは、そのSecretの値も見ることができます。
