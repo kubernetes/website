@@ -355,7 +355,7 @@ CLI elements**
 Similar to the Rule #3 for APIs, if CLI element is being replaced with the
 alternative implementation, such as by renaming an existing element, or by switching to
 use configuration sourced from a file 
-instead of command line argument, that recommended alternative must be of
+instead of a command line argument, that recommended alternative must be of
 the same or higher stability level.
 
 **Rule #6: Deprecated CLI elements must emit warnings (optionally disable)
