@@ -378,7 +378,8 @@ Kubernetes organization control, the following rules apply:
 **Rule #8: The feature of behavior must not be deprecated in favor of an alternative
 implementation that is less stable**
 
-For example, GA feature cannot be deprecated in favor of a Beta replacement.
+For example, a generally available feature cannot be deprecated in favor of a Beta
+replacement.
 We should, however, encourage the transition to the alternative implementation
 even before it reached the same maturity level. This is particularly important
 for exploring new use cases of a feature or getting an early feedback on the replacement.
