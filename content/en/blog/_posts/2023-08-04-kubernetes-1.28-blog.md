@@ -217,7 +217,7 @@ For instance, if indexed jobs were used as the basis for a suite of long-running
     
 For more information, read [Handling Pod and container failures](/docs/concepts/workloads/controllers/job/#handling-pod-and-container-failures) in the Kubernetes documentation.
    
-## cAdvisor-less, CRI-full Container And Pod Stats
+## CRI container and pod statistics without cAdvisor
 
 This encompasses two related pieces of work (changes to the kubelet's `/metrics/cadvisor` endpoint, and improvements to the replacement _summary_ API).
 
