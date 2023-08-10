@@ -2,6 +2,9 @@
 title: ReplicationController
 content_type: concept
 weight: 90
+description: >-
+  用于管理可水平扩展的工作负载的旧版 API。
+  被 Deployment 和 ReplicaSet API 取代。
 ---
 
 <!--
@@ -11,6 +14,9 @@ reviewers:
 title: ReplicationController
 content_type: concept
 weight: 90
+description: >-
+  Legacy API for managing workloads that can scale horizontally.
+  Superseded by the Deployment and ReplicaSet APIs.
 -->
 
 <!-- overview -->
@@ -34,7 +40,7 @@ always up and available.
 <!-- body -->
 
 <!--
-## How a ReplicationController Works
+## How a ReplicationController works
 
 If there are too many pods, the ReplicationController terminates the extra pods. If there are too few, the
 ReplicationController starts more pods. Unlike manually created pods, the pods maintained by a
@@ -75,7 +81,7 @@ This example ReplicationController config runs three copies of the nginx web ser
 
 这个示例 ReplicationController 配置运行 nginx Web 服务器的三个副本。
 
-{{< codenew file="controllers/replication.yaml" >}}
+{{% code file="controllers/replication.yaml" %}}
 
 <!--
 Run the example job by downloading the example file and then running this command:
@@ -608,4 +614,3 @@ ReplicationController。
 - 了解 [Depolyment](/zh-cn/docs/concepts/workloads/controllers/deployment/)，ReplicationController 的替代品。
 - `ReplicationController` 是 Kubernetes REST API 的一部分，阅读 {{< api-reference page="workload-resources/replication-controller-v1" >}}
   对象定义以了解 replication controllers 的 API。
-
