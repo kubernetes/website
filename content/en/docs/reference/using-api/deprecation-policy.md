@@ -349,8 +349,8 @@ after their announced deprecation for no less than:**
    * **Beta: 3 months or 1 release (whichever is longer)**
    * **Alpha: 0 releases**
 
-**Rule #5c: CLI elements cannot be deprecated in favor of less stable
-CLI elements**
+**Rule #5c: Command line interface (CLI) elements cannot be deprecated in favor of
+less stable CLI elements**
 
 Similar to the Rule #3 for APIs, if CLI element is being replaced with the
 alternative implementation, such as by renaming an existing element, or by switching to
