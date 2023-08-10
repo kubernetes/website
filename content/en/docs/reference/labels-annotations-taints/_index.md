@@ -466,13 +466,11 @@ See [topology.kubernetes.io/zone](#topologykubernetesiozone) for more informatio
 
 Type: Annotation
 
-Example: `kubernetes.io/change-cause: "kubectl edit --record deployment foo"`
+Example: `kubernetes.io/change-cause: "Updated image tag for deployment foo"`
 
 Used on: All Objects
 
 This annotation is a best guess at why something was changed.
-
-It is populated when adding `--record` to a `kubectl` command that may change an object.
 
 ### kubernetes.io/description {#description}
 
