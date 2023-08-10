@@ -216,8 +216,6 @@ data has the following advantages:
 - improves performance of your cluster by significantly reducing load on kube-apiserver, by
   closing watches for ConfigMaps marked as immutable.
 
-This feature is controlled by the `ImmutableEphemeralVolumes`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 You can create an immutable ConfigMap by setting the `immutable` field to `true`.
 For example:
 

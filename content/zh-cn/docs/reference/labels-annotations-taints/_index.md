@@ -83,7 +83,7 @@ Starting from v1.9, this label is deprecated.
 <!--
 ### app.kubernetes.io/instance
 
-Type: Label 
+Type: Label
 
 Example: `app.kubernetes.io/instance: "mysql-abcxzy"`
 
@@ -765,7 +765,7 @@ This label can have one of three values: `Reconcile`, `EnsureExists`, or `Ignore
 - `Ignore`: Addon resources will be ignored. This mode is useful for add-ons that are not
   compatible with the add-on manager or that are managed by another controller.
 
-For more details, see [Addon-manager](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md)
+For more details, see [Addon-manager](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md).
 -->
 ### addonmanager.kubernetes.io/mode
 
@@ -785,7 +785,7 @@ For more details, see [Addon-manager](https://github.com/kubernetes/kubernetes/b
 - `Ignore`：插件资源将被忽略。此模式对于与外接插件管理器不兼容或由其他控制器管理的插件程序非常有用。
 
 有关详细信息，请参见
-[Addon-manager](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md)
+[Addon-manager](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md)。
 
 <!--
 ### beta.kubernetes.io/arch (deprecated)
@@ -1469,7 +1469,7 @@ Kubernetes makes a few assumptions about the structure of zones and regions:
 
 1. regions and zones are hierarchical: zones are strict subsets of regions and
    no zone can be in 2 regions
-2) zone names are unique across regions; for example region "africa-east-1" might be comprised
+2. zone names are unique across regions; for example region "africa-east-1" might be comprised
    of zones "africa-east-1a" and "africa-east-1b"
 -->
 Kubernetes 对 Zone 和 Region 的结构做了一些假设：
@@ -1540,7 +1540,7 @@ Example: `volume.beta.kubernetes.io/storage-provisioner: "k8s.io/minikube-hostpa
 Used on: PersistentVolumeClaim
 
 This annotation has been deprecated since v1.23.
-See [volume.kubernetes.io/storage-provisioner](#volume-kubernetes-io-storage-provisioner)
+See [volume.kubernetes.io/storage-provisioner](#volume-kubernetes-io-storage-provisioner).
 -->
 ### volume.beta.kubernetes.io/storage-provisioner (已弃用) {#volume-beta-kubernetes-io-storage-provisioner}
 
@@ -1581,7 +1581,7 @@ This annotation has been deprecated. Instead, set the
 [`storageClassName` field](/docs/concepts/storage/persistent-volumes/#class)
 for the PersistentVolumeClaim or PersistentVolume.
 -->
-此注解可以为 PersistentVolume (PV) 或 PersistentVolumeClaim (PVC) 指定
+此注解可以为 PersistentVolume（PV）或 PersistentVolumeClaim（PVC）指定
 [StorageClass](/zh-cn/docs/concepts/storage/storage-classes/)。
 当 `storageClassName` 属性和 `volume.beta.kubernetes.io/storage-class` 注解均被指定时，
 注解 `volume.beta.kubernetes.io/storage-class` 将优先于 `storageClassName` 属性。
@@ -1997,7 +1997,7 @@ resource without a class specified will be assigned this default class.
 资源将被设置为此默认类。
 
 <!--
-### alpha.kubernetes.io/provided-node-ip
+### alpha.kubernetes.io/provided-node-ip (alpha) {#alpha-kubernetes-io-provided-node-ip}
 
 Type: Annotation
 
@@ -2012,7 +2012,7 @@ and legacy in-tree cloud providers), it sets this annotation on the Node to deno
 set from the command line flag (`--node-ip`). This IP is verified with the cloud provider as valid
 by the cloud-controller-manager.
 -->
-### alpha.kubernetes.io/provided-node-ip {#alpha-kubernetes-io-provided-node-ip}
+### alpha.kubernetes.io/provided-node-ip (alpha) {#alpha-kubernetes-io-provided-node-ip}
 
 类别：注解
 
@@ -2094,8 +2094,7 @@ container.
 <!--
 This annotation is deprecated. You should use the
 [`kubectl.kubernetes.io/default-container`](#kubectl-kubernetes-io-default-container)
-annotation instead.
-Kubernetes versions 1.25 and newer ignore this annotation.
+annotation instead. Kubernetes versions 1.25 and newer ignore this annotation.
 -->
 此注解已被弃用。取而代之的是使用
 [`kubectl.kubernetes.io/default-container`](#kubectl-kubernetes-io-default-container) 注解。
@@ -2143,11 +2142,8 @@ Example: `batch.kubernetes.io/job-tracking: ""`
 
 Used on: Jobs
 
-The presence of this annotation on a Job indicates that the control plane is
+The presence of this annotation on a Job used to indicate that the control plane is
 [tracking the Job status using finalizers](/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers).
-The control plane uses this annotation to safely transition to tracking Jobs
-using finalizers, while the feature is in development.
-You should **not** manually add or remove this annotation.
 -->
 ### batch.kubernetes.io/job-tracking (已弃用) {#batch-kubernetes-io-job-tracking}
 
@@ -2158,18 +2154,13 @@ You should **not** manually add or remove this annotation.
 用于：Job
 
 Job 上存在此注解表明控制平面正在[使用 Finalizer 追踪 Job](/zh-cn/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers)。
-控制平面使用此注解来安全地转换为使用 Finalizer 追踪 Job，而此特性正在开发中。
-你 **不** 可以手动添加或删除此注解。
 
-{{< note >}}
 <!--
-Starting from Kubernetes 1.26, this annotation is deprecated.
-Kubernetes 1.27 and newer will ignore this annotation and always track Jobs
-using finalizers.
+Adding or removing this annotation no longer has an effect (Kubernetes v1.27 and later)
+All Jobs are tracked with finalizers.
 -->
-从 Kubernetes 1.26 开始，该注解被弃用。
-Kubernetes 1.27 及以上版本将忽略此注解，并始终使用 Finalizer 追踪 Job。
-{{< /note >}}
+添加或删除此注解不再有效（Kubernetes v1.27 及更高版本），
+所有 Job 均通过 Finalizer 进行追踪。
 
 <!--
 ### job-name (deprecated) {#job-name}
@@ -2605,7 +2596,7 @@ Type: Label
 
 Example: `feature.node.kubernetes.io/network-sriov.capable: "true"`
 
-Used on: Node 
+Used on: Node
 
 These labels are used by the Node Feature Discovery (NFD) component to advertise
 features on a node. All built-in labels use the `feature.node.kubernetes.io` label
@@ -3975,7 +3966,7 @@ ignores that node while calculating Topology Aware Hints.
 
 类别：标签
 
-用于： 节点
+用于：节点
 
 用来指示该节点用于运行控制平面组件的标记标签。Kubeadm 工具将此标签应用于其管理的控制平面节点。
 其他集群管理工具通常也会设置此污点。
