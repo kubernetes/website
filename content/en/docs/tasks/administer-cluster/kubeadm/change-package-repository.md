@@ -11,15 +11,11 @@ when upgrading Kubernetes minor releases. Unlike deprecated Google-hosted
 repositories, the Kubernetes package repositories are structured in a way that
 there's a dedicated package repository for each Kubernetes minor version.
 
-For more information about the Kubernetes community-owned package repositories,
-see ["pkgs.k8s.io: Introducing Kubernetes community-owned package repositories"](/blog/2023/08/15/pkgs-k8s-io-introduction/).
-
 ## {{% heading "prerequisites" %}}
 
 This document assumes that you're already using the Kubernetes community-owned
 package repositories. If that's not the case, it's strongly recommend to migrate
-to the Kubernetes package repositories as described in
-["pkgs.k8s.io: Introducing Kubernetes community-owned package repositories"](/blog/2023/08/15/pkgs-k8s-io-introduction/).
+to the Kubernetes package repositories.
 
 ### Verifying if the Kubernetes package repositories are used
 
@@ -43,8 +39,7 @@ deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io
 ```
 
 **You're using the Kubernetes package repositories and this guide applies to you.**
-Otherwise, it's strongly recommend to migrate to the Kubernetes package repositories
-as described in ["pkgs.k8s.io: Introducing Kubernetes community-owned package repositories"](/blog/2023/08/15/pkgs-k8s-io-introduction/).
+Otherwise, it's strongly recommend to migrate to the Kubernetes package repositories.
 
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
@@ -69,8 +64,7 @@ exclude=kubelet kubeadm kubectl
 ```
 
 **You're using the Kubernetes package repositories and this guide applies to you.**
-Otherwise, it's strongly recommend to migrate to the Kubernetes package repositories
-as described in ["pkgs.k8s.io: Introducing Kubernetes community-owned package repositories"](/blog/2023/08/15/pkgs-k8s-io-introduction/).
+Otherwise, it's strongly recommend to migrate to the Kubernetes package repositories.
 
 {{% /tab %}}
 {{< /tabs >}}
