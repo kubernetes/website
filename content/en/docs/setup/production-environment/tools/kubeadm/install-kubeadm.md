@@ -161,8 +161,6 @@ There are some important considerations for the Kubernetes package repositories:
   When upgrading to to a different minor release, you must bear in mind that
   the package repository details also change.
 
-To learn more, you can read the official announcement ["pkgs.k8s.io: Introducing
-Kubernetes community-owned package repositories"](/blog/2023/08/15/pkgs-k8s-io-introduction/).
 {{< /note >}}
 
 {{< tabs name="k8s_install" >}}
