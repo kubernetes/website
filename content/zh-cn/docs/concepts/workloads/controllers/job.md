@@ -73,7 +73,7 @@ It takes around 10s to complete.
 下面是一个 Job 配置示例。它负责计算 π 到小数点后 2000 位，并将结果打印出来。
 此计算大约需要 10 秒钟完成。
 
-{{< codenew file="controllers/job.yaml" >}}
+{{% code file="controllers/job.yaml" %}}
 
 <!--
 You can run the example with this command:
@@ -692,7 +692,7 @@ Here is a manifest for a Job that defines a `podFailurePolicy`:
 -->
 下面是一个定义了 `podFailurePolicy` 的 Job 的清单：
 
-{{< codenew file="/controllers/job-pod-failure-policy-example.yaml" >}}
+{{% code file="/controllers/job-pod-failure-policy-example.yaml" %}}
 
 <!--
 In the example above, the first rule of the Pod failure policy specifies that
@@ -1443,51 +1443,16 @@ mismatch.
 
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
-{{< note >}}
-<!--
-The control plane doesn't track Jobs using finalizers, if the Jobs were created
-when the feature gate `JobTrackingWithFinalizers` was disabled, even after you
-upgrade the control plane to 1.26.
--->
-如果 Job 是在特性门控 `JobTrackingWithFinalizers` 被禁用时创建的，即使你将控制面升级到 1.26，
-控制面也不会使用 Finalizer 跟踪 Job。
-{{< /note >}}
-
 <!--
 The control plane keeps track of the Pods that belong to any Job and notices if
 any such Pod is removed from the API server. To do that, the Job controller
 creates Pods with the finalizer `batch.kubernetes.io/job-tracking`. The
 controller removes the finalizer only after the Pod has been accounted for in
 the Job status, allowing the Pod to be removed by other controllers or users.
-
-Jobs created before upgrading to Kubernetes 1.26 or before the feature gate
-`JobTrackingWithFinalizers` is enabled are tracked without the use of Pod
-finalizers.
-The Job {{< glossary_tooltip term_id="controller" text="controller" >}} updates
-the status counters for `succeeded` and `failed` Pods based only on the Pods
-that exist in the cluster. The contol plane can lose track of the progress of
-the Job if Pods are deleted from the cluster.
 -->
 控制面会跟踪属于任何 Job 的 Pod，并通知是否有任何这样的 Pod 被从 API 服务器中移除。
 为了实现这一点，Job 控制器创建的 Pod 带有 Finalizer `batch.kubernetes.io/job-tracking`。
 控制器只有在 Pod 被记入 Job 状态后才会移除 Finalizer，允许 Pod 可以被其他控制器或用户移除。
-
-在升级到 Kubernetes 1.26 之前或在启用特性门控 `JobTrackingWithFinalizers`
-之前创建的 Job 被跟踪时不使用 Pod Finalizer。
-Job {{< glossary_tooltip term_id="controller" text="控制器" >}}仅根据集群中存在的 Pod
-更新 `succeeded` 和 `failed` Pod 的状态计数器。如果 Pod 被从集群中删除，控制面可能无法跟踪 Job 的进度。
-
-<!--
-You can determine if the control plane is tracking a Job using Pod finalizers by
-checking if the Job has the annotation
-`batch.kubernetes.io/job-tracking`. You should **not** manually add or remove
-this annotation from Jobs. Instead, you can recreate the Jobs to ensure they
-are tracked using Pod finalizers.
--->
-你可以根据检查 Job 是否含有 `batch.kubernetes.io/job-tracking` 注解，
-来确定控制面是否正在使用 Pod Finalizer 追踪 Job。
-你**不**应该给 Job 手动添加或删除该注解。
-取而代之的是你可以重新创建 Job 以确保使用 Pod Finalizer 跟踪这些 Job。
 
 <!--
 ### Elastic Indexed Jobs
