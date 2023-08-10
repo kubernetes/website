@@ -184,13 +184,13 @@ For more information, read [Handling Pod and container failures](/docs/concepts/
 
 This encompasses two related pieces of work (changes to the kubelet's `/metrics/cadvisor` endpoint, and improvements to the replacement _summary_ API).
 
-There are two main APIs that consumers use to gather stats about running containers and pods: summary API and /metrics/cadvisor. The Kubelet is responsible for implementing the summary API, and cadvisor is responsible for fulfilling /metrics/cadvisor.
+There are two main APIs that consumers use to gather stats about running containers and pods: summary API and `/metrics/cadvisor`. The Kubelet is responsible for implementing the summary API, and cadvisor is responsible for fulfilling `/metrics/cadvisor`.
 
-This aims to enhance CRI implementations to be able to fulfill all the stats needs of Kubernetes. At a high level, there are two pieces of this:
+This enhances CRI implementations to be able to fulfill all the stats needs of Kubernetes. At a high level, there are two pieces of this:
 
-- Enhance the CRI API with enough metrics to be able to supplement the pod and container fields in the summary API directly from CRI.
+- It Enhances the CRI API with enough metrics to be able to supplement the pod and container fields in the summary API directly from CRI.
     
-- Enhance the CRI implementations to broadcast the required metrics to fulfill the pod and container fields in the /metrics/cadvisor endpoint.
+- It Enhances the CRI implementations to broadcast the required metrics to fulfill the pod and container fields in the `/metrics/cadvisor` endpoint.
 
 ## Feature Graduations And Deprecations In Kubernetes v1.28
 ### Graduations to stable
