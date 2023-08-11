@@ -188,7 +188,7 @@ There are two main APIs that consumers use to gather stats about running contain
 
 This enhances CRI implementations to be able to fulfill all the stats needs of Kubernetes. At a high level, there are two pieces of this:
 
-- It Enhances the CRI API with enough metrics to be able to supplement the pod and container fields in the summary API directly from CRI.
+- It enhances the CRI API with enough metrics to supplement the pod and container fields in the summary API directly from CRI.
     
 - It Enhances the CRI implementations to broadcast the required metrics to fulfill the pod and container fields in the `/metrics/cadvisor` endpoint.
 
