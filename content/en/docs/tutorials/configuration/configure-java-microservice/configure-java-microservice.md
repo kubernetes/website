@@ -35,7 +35,6 @@ Before starting, make sure you have the following prerequisites:
 
    - **Mac**:
 
-
      ```bash
      brew install openjdk@11
      ```
