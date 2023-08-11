@@ -17,6 +17,13 @@ upgrade the control plane nodes before upgrading your Linux Worker nodes.
 
 <!-- steps -->
 
+## Changing the package repository
+
+If you're using the Kubernetes community-owned repositories, you need to change
+the package repository to one that contains packages for your desired Kubernetes
+minor version. This is explained in [Changing the Kubernetes package repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/)
+document.
+
 ## Upgrading worker nodes
 
 ### Upgrade kubeadm
@@ -26,16 +33,16 @@ Upgrade kubeadm:
 {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
 {{% tab name="Ubuntu, Debian or HypriotOS" %}}
 ```shell
-# replace x in {{< skew currentVersion >}}.x-00 with the latest patch version
+# replace x in {{< skew currentVersion >}}.x-* with the latest patch version
 apt-mark unhold kubeadm && \
-apt-get update && apt-get install -y kubeadm={{< skew currentVersion >}}.x-00 && \
+apt-get update && apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' && \
 apt-mark hold kubeadm
 ```
 {{% /tab %}}
 {{% tab name="CentOS, RHEL or Fedora" %}}
 ```shell
-# replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
-yum install -y kubeadm-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
+# replace x in {{< skew currentVersion >}}.x- with the latest patch version
+yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -64,16 +71,16 @@ kubectl drain <node-to-drain> --ignore-daemonsets
    {{< tabs name="k8s_kubelet_and_kubectl" >}}
    {{% tab name="Ubuntu, Debian or HypriotOS" %}}
    ```shell
-   # replace x in {{< skew currentVersion >}}.x-00 with the latest patch version
+   # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
    apt-mark unhold kubelet kubectl && \
-   apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
+   apt-get update && apt-get install -y kubelet='{{< skew currentVersion >}}.x-*' kubectl='{{< skew currentVersion >}}.x-*' && \
    apt-mark hold kubelet kubectl
    ```
    {{% /tab %}}
    {{% tab name="CentOS, RHEL or Fedora" %}}
    ```shell
-   # replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
-   yum install -y kubelet-{{< skew currentVersion >}}.x-0 kubectl-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
+   # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+   yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
    ```
    {{% /tab %}}
    {{< /tabs >}}
