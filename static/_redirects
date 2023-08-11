@@ -23,6 +23,7 @@
 /zh-cn/docs/     /zh-cn/docs/home/ 301!
 /blog/2018/03/kubernetes-1.10-stabilizing-storage-security-networking/     /blog/2018/03/26/kubernetes-1.10-stabilizing-storage-security-networking/     301!
 /blog/2020/08/25/kubernetes-release-1.19-accentuate-the-paw-sitive/     /blog/2020/08/26/kubernetes-release-1.19-accentuate-the-paw-sitive/     301!
+/blog/2023/01/20/security-bahavior-analysis/     /blog/2023/01/20/security-behavior-analysis/
 
 /docs/api/     /docs/concepts/overview/kubernetes-api/ 301
 
@@ -433,3 +434,4 @@
 
 /docs/concepts/overview/what-is-kubernetes/      /docs/concepts/overview/ 301
 /docs/tasks/administer-cluster/verify-signed-images/     /docs/tasks/administer-cluster/verify-signed-artifacts/   301
+
