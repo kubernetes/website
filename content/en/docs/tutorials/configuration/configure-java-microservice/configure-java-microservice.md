@@ -17,7 +17,7 @@ Before starting, make sure you have the following prerequisites:
 
 1. **Basic understanding of Kubernetes concepts**
 
-   If you're new to Kubernetes, it's essential to familiarize yourself with its core concepts. You can get started by exploring the [Kubernetes Basics](https://kubernetes.io/docs/tutorials/kubernetes-basics/) tutorial.
+   If you're new to Kubernetes, it's essential to familiarize yourself with its core concepts. You can get started by exploring the [Kubernetes Basics](/docs/tutorials/kubernetes-basics/) tutorial.
 
 2. **A running Kubernetes cluster**
 
