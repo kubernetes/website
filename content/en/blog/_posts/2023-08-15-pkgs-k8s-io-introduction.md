@@ -1,13 +1,14 @@
 ---
 layout: blog
 title: "pkgs.k8s.io: Introducing Kubernetes Community-Owned Package Repositories"
-date: 2023-08-15
+date: 2023-08-15T15:00:00+0000
 slug: pkgs-k8s-io-introduction
 ---
 
 **Author**: Marko Mudrinić (Kubermatic)
 
-We're very excited to introduce the Kubernetes community-owned package
+On behalf of Kubernetes SIG Release, I am very excited to introduce the
+Kubernetes community-owned software
 repositories for Debian and RPM packages: `pkgs.k8s.io`! The new package
 repositories are replacement for the Google-hosted package repositories
 (`apt.kubernetes.io` and `yum.kubernetes.io`) that we've been using since
@@ -19,9 +20,10 @@ repositories.
 
 ## What you need to know about the new package repositories?
 
-- This is an **opt-in change**, you're required to manually migrate from the
+- This is an **opt-in change**; you're required to manually migrate from the
   Google-hosted repository to the Kubernetes community-owned repositories.
-  See below for migration information and instructions.
+  See [how to migrate](#how-to-migrate) later in this announcement for migration information
+  and instructions.
 - Access to the Google-hosted repository will remain intact for the foreseeable
   future. However, the Kubernetes project plans to stop publishing packages to
   the Google-hosted repository in the future. The project strongly recommends
@@ -132,9 +134,9 @@ are only affecting packages publish to the community-owned repositories.
 However, as mentioned at the beginning of this blog post, we plan to stop
 publishing packages to the Google-hosted repository in the future.
 
-## How to migrate to the Kubernetes community-owned repositories?
+## How to migrate to the Kubernetes community-owned repositories? {#how-to-migrate}
 
-### Debian, Ubuntu, and operating systems using `apt`/`apt-get`
+### Debian, Ubuntu, and operating systems using `apt`/`apt-get` {#how-to-migrate-deb}
 
 1. Replace the `apt` repository definition so that `apt` points to the new
    repository instead of the Google-hosted repository. Make sure to replace the
@@ -159,7 +161,7 @@ publishing packages to the Google-hosted repository in the future.
   sudo apt-get update
   ```
 
-### CentOS, Fedora, RHEL, and operating systems using `rpm`/`dnf`
+### CentOS, Fedora, RHEL, and operating systems using `rpm`/`dnf` {#how-to-migrate-rpm}
 
 1. Replace the `yum` repository definition so that `yum` points to the new 
    repository instead of the Google-hosted repository. Make sure to replace the
