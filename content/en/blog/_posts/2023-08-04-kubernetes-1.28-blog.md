@@ -192,7 +192,7 @@ This enhances CRI implementations to be able to fulfill all the stats needs of K
     
 - It enhances the CRI implementations to broadcast the required metrics to fulfill the pod and container fields in the `/metrics/cadvisor` endpoint.
 
-## Feature Graduations And Deprecations In Kubernetes v1.28
+## Feature graduations and deprecations in Kubernetes v1.28
 ### Graduations to stable
 
 This release includes a total of 12 enhancements promoted to Stable:
