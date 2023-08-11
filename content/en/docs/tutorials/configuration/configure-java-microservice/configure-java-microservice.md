@@ -46,6 +46,7 @@ Before starting, make sure you have the following prerequisites:
    - **Linux**:
      Use your package manager to install OpenJDK 11. For example, on Ubuntu:
 
+
      ```bash
      sudo apt-get update
      sudo apt-get install openjdk-11-jdk
