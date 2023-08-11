@@ -11,7 +11,8 @@ tags:
 - fundamental
 - workload
 ---
- The container runtime is the software that is responsible for running containers.
+ Kubernetes doesn’t know how to run containers it relies on the container runtime component. 
+ The container runtime is a fundamental component that is responsible for managing the execution and lifecycle of containers.
 
 <!--more-->
 
