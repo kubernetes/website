@@ -34,6 +34,7 @@ Before starting, make sure you have the following prerequisites:
    Ensure you have Java installed. You can check by running `java -version` in your terminal. If not installed, follow these steps:
 
    - **Mac**:
+
      ```bash
      brew install openjdk@11
      ```
