@@ -46,7 +46,6 @@ Before starting, make sure you have the following prerequisites:
    - **Linux**:
      Use your package manager to install OpenJDK 11. For example, on Ubuntu:
 
-
      ```bash
      sudo apt-get update
      sudo apt-get install openjdk-11-jdk
@@ -180,8 +179,7 @@ Here's how to proceed:
 CDI provides a standard dependency injection capability enabling an application to be assembled
 from collaborating, loosely-coupled beans. This promotes modularity and flexibility in your application's architecture.
 
-MicroProfile Config offers a standardized way for applications and microservices to access configuration properties from various sources, including the application itself, the runtime environment, and external configurations like Kubernetes ConfigMaps and Secrets.
-Based on the source's defined priority, the properties are automatically
+MicroProfile Config offers a standardized way for applications and microservices to access configuration properties from various sources, including the application itself, the runtime environment, and external configurations like Kubernetes ConfigMaps and Secrets.Based on the source's defined priority, the properties are automatically
 combined into a single set of properties that the application can access via an API. 
 
 The integration of CDI and MicroProfile Config empowers your microservice to seamlessly access its configuration data, enabling dynamic adaptation to diverse environments.
