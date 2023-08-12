@@ -748,27 +748,34 @@ API reference has more details on this field.
 
 ### Phase
 
-A volume will be in one of the following phases:
+A PersistentVolume will be in one of the following phases:
 
-* Available -- a free resource that is not yet bound to a claim
-* Bound -- the volume is bound to a claim
-* Released -- the claim has been deleted, but the resource is not yet reclaimed by the cluster
-* Failed -- the volume has failed its automatic reclamation
+`Available`
+: a free resource that is not yet bound to a claim
 
-The CLI will show the name of the PVC bound to the PV.
+`Bound`
+: the volume is bound to a claim
+
+`Released`
+: the claim has been deleted, but the associated storage resource is not yet reclaimed by the cluster
+
+`Failed`
+: the volume has failed its (automated) reclamation
+
+You can see the name of the PVC bound to the PV using `kubectl describe persistentvolume <name>`.
 
 #### Phase transition timestamp
 
 {{< feature-state for_k8s_version="v1.28" state="alpha" >}}
 
-Persistent volume status contains `lastPhaseTransitionTime` field which holds
-a timestamp of when the volume last transitioned its phase. For newly created
-volumes the phase is set to "Pending" and `lastPhaseTransitionTime` is set to
-current time.
+The `.status` field for a PersistentVolume can include an alpha `lastPhaseTransitionTime` field. This field records
+the timestamp of when the volume last transitioned its phase. For newly created
+volumes the phase is set to `Pending` and `lastPhaseTransitionTime` is set to
+the current time.
 
 {{< note >}}
 You need to enable the `PersistentVolumeLastPhaseTransitionTime` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-to see `lastPhaseTransitionTime` field.
+to use or see the `lastPhaseTransitionTime` field.
 {{< /note >}}
 
 ## PersistentVolumeClaims
