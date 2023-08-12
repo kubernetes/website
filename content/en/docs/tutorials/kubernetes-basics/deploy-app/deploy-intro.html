@@ -37,7 +37,7 @@ description: |-
 
                 <p>Once the application instances are created, a Kubernetes Deployment controller continuously monitors those instances. If the Node hosting an instance goes down or is deleted, the Deployment controller replaces the instance with an instance on another Node in the cluster. <b>This provides a self-healing mechanism to address machine failure or maintenance.</b></p>
 
-                <p>In a pre-orchestration world, installation scripts would often be used to start applications, but they did not allow recovery from machine failure.  By both creating your application instances and keeping them running across Nodes, Kubernetes Deployments provide a fundamentally different approach to application management. </p>
+                <p>In a pre-orchestration world, installation scripts would often be used to start applications, but they did not allow recovery from machine failure. By both creating your application instances and keeping them running across Nodes, Kubernetes Deployments provide a fundamentally different approach to application management.</p>
 
             </div>
 
@@ -74,7 +74,7 @@ description: |-
         <div class="row">
             <div class="col-md-8">
 
-                <p>You can create and manage a Deployment by using the Kubernetes command line interface, <b>kubectl</b>. Kubectl uses the Kubernetes API to interact with the cluster. In this module, you'll learn the most common Kubectl commands needed to create Deployments that run your applications on a Kubernetes cluster.</p>
+                <p>You can create and manage a Deployment by using the Kubernetes command line interface, <b>kubectl</b>. Kubectl uses the Kubernetes API to interact with the cluster. In this module, you'll learn the most common kubectl commands needed to create Deployments that run your applications on a Kubernetes cluster.</p>
 
                 <p>When you create a Deployment, you'll need to specify the container image for your application and the number of replicas that you want to run. You can change that information later by updating your Deployment; Modules <a href="/docs/tutorials/kubernetes-basics/scale/scale-intro/">5</a> and <a href="/docs/tutorials/kubernetes-basics/update/update-intro/">6</a> of the bootcamp discuss how you can scale and update your Deployments.</p>
 
@@ -103,7 +103,7 @@ description: |-
             <div class="col-md-8">
                 <h3>kubectl basics</h3>
                 <p>The common format of a kubectl command is: <code>kubectl <i>action resource</i></code></p>
-                <p>This performs the specified <em>action</em> (like create, describe or delete) on the specified <em>resource</em> (like <tt>node</tt> or <tt>deployment</tt>). You can use <code>-<span />-help</code> after the subcommand to get additional info about possible parameters (for example: <code>kubectl get nodes --help</code>).</p>
+                <p>This performs the specified <em>action</em> (like <tt>create</tt>, <tt>describe</tt> or <tt>delete</tt>) on the specified <em>resource</em> (like <tt>node</tt> or <tt>deployment</tt>). You can use <code>-<span />-help</code> after the subcommand to get additional info about possible parameters (for example: <code>kubectl get nodes --help</code>).</p>
                 <p>Check that kubectl is configured to talk to your cluster, by running the <b><code>kubectl version</code></b> command.</p>
                 <p>Check that kubectl is installed and you can see both the client and the server versions.</p>
                 <p>To view the nodes in the cluster, run the <b><code>kubectl get nodes</code></b> command.</p>
@@ -114,7 +114,7 @@ description: |-
             <div class="col-md-12">
                 <a id="deploy-an-app"></a>
                 <h3>Deploy an app</h3>
-                <p>Let’s deploy our first app on Kubernetes with the <code>kubectl create deployment</code> command. We need to provide the deployment name and app image location (include the full repository url for images hosted outside Docker hub).</p>
+                <p>Let’s deploy our first app on Kubernetes with the <code>kubectl create deployment</code> command. We need to provide the deployment name and app image location (include the full repository url for images hosted outside Docker Hub).</p>
                 <p><b><code>kubectl create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1</code></b></p>
                 <p>Great! You just deployed your first application by creating a deployment. This performed a few things for you:</p>
                 <ul>
@@ -131,23 +131,23 @@ description: |-
             <div class="col-md-12">
                 <h3>View the app</h3>
                 <p>Pods that are running inside Kubernetes are running on a private, isolated network.
-                By default they are visible from other pods and services within the same kubernetes cluster, but not outside that network.
+                By default they are visible from other pods and services within the same Kubernetes cluster, but not outside that network.
                 When we use <code>kubectl</code>, we're interacting through an API endpoint to communicate with our application.</p>
-                <p>We will cover other options on how to expose your application outside the kubernetes cluster in Module 4.</p>
-                <p>The <code>kubectl</code> command can create a proxy that will forward communications into the cluster-wide, private network. The proxy can be terminated by pressing control-C and won't show any output while its running. </p>
+                <p>We will cover other options on how to expose your application outside the Kubernetes cluster later, in <a href="/docs/tutorials/kubernetes-basics/expose/">Module 4</a>.</p>
+                <p>The <code>kubectl proxy</code> command can create a proxy that will forward communications into the cluster-wide, private network. The proxy can be terminated by pressing control-C and won't show any output while its running.</p>
                 <p><strong>You need to open a second terminal window to run the proxy.</strong></p>
                 <p><b><code>kubectl proxy</b></code>
-                <p>We now have a connection between our host (the online terminal) and the Kubernetes cluster. The  proxy enables direct access to the API from these terminals.</p>
+                <p>We now have a connection between our host (the terminal) and the Kubernetes cluster. The proxy enables direct access to the API from these terminals.</p>
                 <p>You can see all those APIs hosted through the proxy endpoint. For example, we can query the version directly through the API using the <code>curl</code> command:</p>
                 <p><b><code>curl http://localhost:8001/version</code></b></p>
-                <div class="alert alert-info note callout" role="alert"><strong>Note:</strong> If Port 8001 is not accessible, ensure that the <code>kubectl proxy</code> that you started above is running in the second terminal.</div>
+                <div class="alert alert-info note callout" role="alert"><strong>Note:</strong> If port 8001 is not accessible, ensure that the <code>kubectl proxy</code> that you started above is running in the second terminal.</div>
                 <p>The API server will automatically create an endpoint for each pod, based on the pod name, that is also accessible through the proxy.</p>
                 <p>First we need to get the Pod name, and we'll store in the environment variable <tt>POD_NAME</tt>:</p>
                 <p><b><code>export POD_NAME=$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')</code></b><br />
                    <b><code>echo Name of the Pod: $POD_NAME</code></b></p>
                 <p>You can access the Pod through the proxied API, by running:</p>
                 <p><b><code>curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/</code></b></p>
-                <p>In order for the new Deployment to be accessible without using the proxy, a Service is required which will be explained in the next modules.</p>
+                <p>In order for the new Deployment to be accessible without using the proxy, a Service is required which will be explained in <a href="/docs/tutorials/kubernetes-basics/expose/">Module 4</a>.</p>
             </div>
 
       </div>
