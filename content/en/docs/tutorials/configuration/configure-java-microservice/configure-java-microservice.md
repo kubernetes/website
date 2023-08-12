@@ -122,6 +122,7 @@ Secrets, you can find the documentation [here](/docs/concepts/configuration/secr
 ### Externalizing Config from Code
 
 Externalized configuration is essential as settings often vary with different environments. To achieve this, we leverage Java's CDI and MicroProfile Config. The latter is a MicroProfile feature, offering open Java tools for building cloud-native microservices.
+
 **Step 3: Add MicroProfile Config Dependency**
 
 To integrate MicroProfile Config into your microservice project, you'll need to include the necessary dependency in your Maven `pom.xml` file. This dependency empowers your code to seamlessly utilize the capabilities of MicroProfile Config.
