@@ -184,7 +184,7 @@ combined into a single set of properties that the application can access via an 
 
 The integration of CDI and MicroProfile Config empowers your microservice to seamlessly access its configuration data, enabling dynamic adaptation to diverse environments.
 
-## **Conclusion**
+### **Conclusion**
 
 Congratulations! By following the steps in this tutorial, you've successfully externalized your microservice's configuration using MicroProfile Config, Kubernetes ConfigMaps, and Secrets. Your microservice is now capable of accessing its configuration data seamlessly, enhancing its adaptability across different environments.
 
