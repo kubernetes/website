@@ -53,7 +53,7 @@ Here is the configuration file for a ResourceQuota object:
 
 下面是一个 ResourceQuota 对象的配置文件：
 
-{{< codenew file="admin/resource/quota-objects.yaml" >}}
+{{% code file="admin/resource/quota-objects.yaml" %}}
 
 <!--
 Create the ResourceQuota:
@@ -102,7 +102,7 @@ Here is the configuration file for a PersistentVolumeClaim object:
 
 下面是一个 PersistentVolumeClaim 对象的配置文件：
 
-{{< codenew file="admin/resource/quota-objects-pvc.yaml" >}}
+{{% code file="admin/resource/quota-objects-pvc.yaml" %}}
 
 <!--
 Create the PersistentVolumeClaim:
@@ -251,4 +251,3 @@ kubectl delete namespace quota-object-example
 * [为容器和 Pod 分配内存资源](/zh-cn/docs/tasks/configure-pod-container/assign-memory-resource/)
 * [为容器和 Pod 分配 CPU 资源](/zh-cn/docs/tasks/configure-pod-container/assign-cpu-resource/)
 * [为 Pod 配置服务质量](/zh-cn/docs/tasks/configure-pod-container/quality-service-pod/)
-
