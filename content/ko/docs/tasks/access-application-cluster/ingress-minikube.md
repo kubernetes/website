@@ -152,7 +152,7 @@ storage-provisioner                         1/1       Running   0          2m
 
 1. 다음 파일을 통해 `example-ingress.yaml`을 만든다.
 
-  {{< codenew file="service/networking/example-ingress.yaml" >}}
+   {{% codenew file="service/networking/example-ingress.yaml" %}}
 
 1. 다음 명령어를 실행하여 인그레스 오브젝트를 생성한다.
 

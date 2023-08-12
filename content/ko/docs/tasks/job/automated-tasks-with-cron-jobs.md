@@ -33,7 +33,7 @@ weight: 10
 크론 잡은 구성 파일이 필요하다.
 다음은 1분마다 간단한 데모 작업을 실행하는 크론잡 매니페스트다.
 
-{{< codenew file="application/job/cronjob.yaml" >}}
+{{% codenew file="application/job/cronjob.yaml" %}}
 
 다음 명령을 사용하여 크론잡 예제를 실행한다.
 

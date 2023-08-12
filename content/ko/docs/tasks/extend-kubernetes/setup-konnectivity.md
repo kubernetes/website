@@ -23,7 +23,7 @@ Konnectivity 서비스는 컨트롤 플레인에 클러스터 통신을 위한 T
 
 다음 단계에는 송신(egress) 설정이 필요하다. 예를 들면 다음과 같다.
 
-{{< codenew file="admin/konnectivity/egress-selector-configuration.yaml" >}}
+{{% codenew file="admin/konnectivity/egress-selector-configuration.yaml" %}}
 
 Konnectivity 서비스를 사용하고 네트워크 트래픽을 클러스터 노드로 보내도록 
 API 서버를 구성해야 한다.
@@ -74,12 +74,12 @@ rm -f konnectivity.crt konnectivity.key konnectivity.csr
 term_id="static-pod" >}}로 배포되었다고 가정한다. 그렇지 않은 경우에는 Konnectivity 
 서버를 데몬셋(DaemonSet)으로 배포할 수 있다.
 
-{{< codenew file="admin/konnectivity/konnectivity-server.yaml" >}}
+{{% codenew file="admin/konnectivity/konnectivity-server.yaml" %}}
 
 그런 다음 클러스터에 Konnectivity 에이전트를 배포한다.
 
-{{< codenew file="admin/konnectivity/konnectivity-agent.yaml" >}}
+{{% codenew file="admin/konnectivity/konnectivity-agent.yaml" %}}
 
 마지막으로 클러스터에서 RBAC가 활성화된 경우 관련 RBAC 규칙을 생성한다.
 
-{{< codenew file="admin/konnectivity/konnectivity-rbac.yaml" >}}
+{{% codenew file="admin/konnectivity/konnectivity-rbac.yaml" %}}

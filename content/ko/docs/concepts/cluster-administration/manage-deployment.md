@@ -16,7 +16,7 @@ weight: 40
 
 많은 애플리케이션들은 디플로이먼트 및 서비스와 같은 여러 리소스를 필요로 한다. 여러 리소스의 관리는 동일한 파일에 그룹화하여 단순화할 수 있다(YAML에서 `---` 로 구분). 예를 들면 다음과 같다.
 
-{{< codenew file="application/nginx-app.yaml" >}}
+{{% codenew file="application/nginx-app.yaml" %}}
 
 단일 리소스와 동일한 방식으로 여러 리소스를 생성할 수 있다.
 

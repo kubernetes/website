@@ -55,7 +55,7 @@ kube-controller-manager 컨테이너에 설정된 시간대는
 
 이 크론잡 매니페스트 예제는 현재 시간과 hello 메시지를 1분마다 출력한다.
 
-{{< codenew file="application/job/cronjob.yaml" >}}
+{{% codenew file="application/job/cronjob.yaml" %}}
 
 ([크론잡으로 자동화된 작업 실행하기](/ko/docs/tasks/job/automated-tasks-with-cron-jobs/)는
 이 예시를 더 자세히 설명한다.)

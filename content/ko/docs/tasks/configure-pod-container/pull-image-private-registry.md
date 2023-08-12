@@ -186,7 +186,7 @@ janedoe:xxxxxxxxxxx
 
 다음은 `regcred` 에 있는 도커 자격 증명에 접근해야 하는 예제 파드의 매니페스트이다.
 
-{{< codenew file="pods/private-reg-pod.yaml" >}}
+{{% codenew file="pods/private-reg-pod.yaml" %}}
 
 위 파일을 컴퓨터에 다운로드한다.
 

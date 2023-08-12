@@ -30,11 +30,11 @@ weight: 21 # just after persistent volumes
 
 ### 시크릿, downwardAPI, 컨피그맵 구성 예시 {#example-configuration-secret-downwardapi-configmap}
 
-{{< codenew file="pods/storage/projected-secret-downwardapi-configmap.yaml" >}}
+{{% codenew file="pods/storage/projected-secret-downwardapi-configmap.yaml" %}}
 
 ### 기본 권한이 아닌 모드 설정의 시크릿 구성 예시 {#example-configuration-secrets-nondefault-permission-mode}
 
-{{< codenew file="pods/storage/projected-secrets-nondefault-permission-mode.yaml" >}}
+{{% codenew file="pods/storage/projected-secrets-nondefault-permission-mode.yaml" %}}
 
 각 프로젝티드 볼륨 소스는 `sources` 아래의 스펙에 나열된다.
 파라미터는 두 가지 예외를 제외하고 동일하다.
@@ -49,7 +49,7 @@ weight: 21 # just after persistent volumes
 파드의 지정된 경로에 [서비스어카운트토큰](/docs/reference/access-authn-authz/authentication/#service-account-tokens)을
 주입할 수 있다. 
 
-{{< codenew file="pods/storage/projected-service-account-token.yaml" >}}
+{{% codenew file="pods/storage/projected-service-account-token.yaml" %}}
 
 위 예시에는 파드에 주입된 서비스어카운트토큰이 포함된 프로젝티드 볼륨이 있다. 
 이 파드의 컨테이너는 서비스어카운트토큰을 사용하여 쿠버네티스 API 서버에 접근하고,

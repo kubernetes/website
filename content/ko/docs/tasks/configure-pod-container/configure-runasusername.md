@@ -29,7 +29,7 @@ weight: 20
 
 다음은 `runAsUserName` 필드가 설정된 윈도우 파드의 구성 파일이다.
 
-{{< codenew file="windows/run-as-username-pod.yaml" >}}
+{{% codenew file="windows/run-as-username-pod.yaml" %}}
 
 파드를 생성한다.
 
@@ -69,7 +69,7 @@ ContainerUser
 
 다음은 한 개의 컨테이너에 `runAsUserName` 필드가 파드 수준 및 컨테이너 수준에서 설정되는 파드의 구성 파일이다.
 
-{{< codenew file="windows/run-as-username-container.yaml" >}}
+{{% codenew file="windows/run-as-username-container.yaml" %}}
 
 파드를 생성한다.
 

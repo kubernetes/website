@@ -86,7 +86,7 @@ remote file exists
 
 `access: true` 레이블을 가지고 있는 파드만 `nginx` 서비스에 접근할 수 있도록 하기 위하여, 다음과 같은 네트워크폴리시 오브젝트를 생성한다.
 
-{{< codenew file="service/networking/nginx-policy.yaml" >}}
+{{% codenew file="service/networking/nginx-policy.yaml" %}}
 
 네트워크폴리시 오브젝트의 이름은 유효한
 [DNS 서브도메인 이름](/ko/docs/concepts/overview/working-with-objects/names/#dns-서브도메인-이름)이어야 한다.

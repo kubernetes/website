@@ -75,7 +75,7 @@ kubectl apply -f <디렉터리>/
 
 다음은 오브젝트 구성 파일에 대한 예시이다.
 
-{{< codenew file="application/simple_deployment.yaml" >}}
+{{% codenew file="application/simple_deployment.yaml" %}}
 
 생성될 오브젝트를 출력하려면 `kubectl diff`를 실행한다. 
 
@@ -167,7 +167,7 @@ kubectl apply -f <디렉터리>/
 
 다음은 구성 파일의 예시이다.
 
-{{< codenew file="application/simple_deployment.yaml" >}}
+{{% codenew file="application/simple_deployment.yaml" %}}
 
 `kubectl apply`를 사용하여 오브젝트를 생성한다.
 
@@ -285,7 +285,7 @@ spec:
 `nginx:1.14.2`에서 `nginx:1.16.1`로 이미지를 변경하기 위해 `simple_deployment.yaml`
 구성 파일을 업데이트 하고, `minReadySeconds` 필드를 삭제한다.
 
-{{< codenew file="application/update_deployment.yaml" >}}
+{{% codenew file="application/update_deployment.yaml" %}}
 
 구성 파일에 이루어진 변경사항을 적용한다.
 
@@ -445,7 +445,7 @@ API 서버에 패치 요청을 보냄으로써 그것을 수행한다.
 
 다음은 예시이다. 디플로이먼트 오브젝트에 대한 구성 파일이라고 가정한다.
 
-{{< codenew file="application/update_deployment.yaml" >}}
+{{% codenew file="application/update_deployment.yaml" %}}
 
 또한, 이것은 동일한 디플로이먼트 오브젝트에 대한 활성 구성이라고 가정한다.
 
@@ -741,7 +741,7 @@ is lost.
 
 다음은 디플로이먼트에 대한 구성 파일이다. 파일에는 `strategy`가 지정되지 않았다.
 
-{{< codenew file="application/simple_deployment.yaml" >}}
+{{% codenew file="application/simple_deployment.yaml" %}}
 
 `kubectl apply`를 사용하여 오브젝트를 생성한다.
 

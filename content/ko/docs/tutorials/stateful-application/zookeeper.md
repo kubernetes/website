@@ -73,7 +73,7 @@ ZooKeeper는 전체 상태 머신을 메모리에 보존하고 모든 돌연변�
 [PodDisruptionBudget](/ko/docs/concepts/workloads/pods/disruptions/#파드-disruption-budgets),
 [스테이트풀셋](/ko/docs/concepts/workloads/controllers/statefulset/)을 포함한다.
 
-{{< codenew file="application/zookeeper/zookeeper.yaml" >}}
+{{% codenew file="application/zookeeper/zookeeper.yaml" %}}
 
 터미널을 열고
 [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands/#apply) 명령어로
