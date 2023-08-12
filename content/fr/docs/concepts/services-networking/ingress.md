@@ -330,7 +330,7 @@ type: kubernetes.io/tls
 
 Référencer ce secret dans un Ingress indiquera au contrôleur d'Ingress de sécuriser le canal du client au load-balancer à l'aide de TLS. Vous devez vous assurer que le secret TLS que vous avez créé provenait d'un certificat contenant un Common Name (CN), aussi appelé nom de domaine pleinement qualifié (FQDN), pour `https-example.foo.com`.
 
-{{< codenew file="service/networking/tls-example-ingress.yaml" >}}
+{{% codenew file="service/networking/tls-example-ingress.yaml" %}}
 
 
 {{< note >}}

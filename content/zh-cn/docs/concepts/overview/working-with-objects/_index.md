@@ -157,7 +157,7 @@ Here's an example `.yaml` file that shows the required fields and object spec fo
 -->
 这里有一个 `.yaml` 示例文件，展示了 Kubernetes Deployment 的必需字段和对象 `spec`：
 
-{{< codenew file="application/deployment.yaml" >}}
+{{< code file="application/deployment.yaml" >}}
 
 <!--
 One way to create a Deployment using a `.yaml` file like the one above is to use the

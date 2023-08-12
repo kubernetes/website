@@ -81,7 +81,7 @@ request and a default memory limit.
 以下为 {{< glossary_tooltip text="LimitRange" term_id="limitrange" >}} 的示例清单。
 清单中声明了默认的内存请求和默认的内存限制。
 
-{{% codenew file="admin/resource/memory-defaults.yaml" %}}
+{{% code file="admin/resource/memory-defaults.yaml" %}}
 
 <!--
 Create the LimitRange in the default-mem-example namespace:
@@ -108,7 +108,7 @@ does not specify a memory request and limit.
 
 以下为只包含一个容器的 Pod 的清单。该容器没有声明内存请求和限制。
 
-{{% codenew file="admin/resource/memory-defaults-pod.yaml" %}}
+{{% code file="admin/resource/memory-defaults-pod.yaml" %}}
 
 <!--
 Create the Pod.
@@ -166,7 +166,7 @@ specifies a memory limit, but not a request:
 
 以下为只包含一个容器的 Pod 的清单。该容器声明了内存限制，而没有声明内存请求。
 
-{{% codenew file="admin/resource/memory-defaults-pod-2.yaml" %}}
+{{% code file="admin/resource/memory-defaults-pod-2.yaml" %}}
 
 <!--
 Create the Pod:
@@ -211,7 +211,7 @@ specifies a memory request, but not a limit:
 -->
 以下为只包含一个容器的 Pod 的清单。该容器声明了内存请求，但没有内存限制：
 
-{{% codenew file="admin/resource/memory-defaults-pod-3.yaml" %}}
+{{% code file="admin/resource/memory-defaults-pod-3.yaml" %}}
 
 <!--
 Create the Pod:
