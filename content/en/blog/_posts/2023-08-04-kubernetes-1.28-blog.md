@@ -219,7 +219,7 @@ Removals:
 Deprecations:
 
 * [Ceph RBD in-tree plugin](https://github.com/kubernetes/kubernetes/pull/118303)
-* [Ceph FS in-tree plugin](https://github.com/kubernetes/enhancements/pull/4035)
+* [Ceph FS in-tree plugin](https://github.com/kubernetes/kubernetes/pull/118143)
 
 ## Release Notes
 
