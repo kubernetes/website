@@ -65,7 +65,7 @@ file for the backend Deployment:
 
 后端是一个简单的 hello 欢迎微服务应用。这是后端应用的 Deployment 配置文件：
 
-{{< codenew file="service/access/backend-deployment.yaml" >}}
+{{% code file="service/access/backend-deployment.yaml" %}}
 
 <!-- 
 Create the backend Deployment:
@@ -145,7 +145,7 @@ First, explore the Service configuration file:
 
 首先，浏览 Service 的配置文件：
 
-{{< codenew file="service/access/backend-service.yaml" >}}
+{{% code file="service/access/backend-service.yaml" %}}
 
 <!--
 In the configuration file, you can see that the Service, named `hello` routes
@@ -197,7 +197,7 @@ to proxy requests to the `hello` backend Service. Here is the nginx configuratio
 前端 Deployment 中的 Pods 运行一个 nginx 镜像，这个已经配置好的镜像会将请求转发
 给后端的 `hello` Service。下面是  nginx 的配置文件：
 
-{{< codenew file="service/access/frontend-nginx.conf" >}}
+{{% code file="service/access/frontend-nginx.conf" %}}
 
 <!--
 Similar to the backend, the frontend has a Deployment and a Service. An important
@@ -210,9 +210,9 @@ accessible from outside the cluster.
 重要区别是前端 Service 的配置文件包含了 `type: LoadBalancer`，也就是说，Service
 会使用你的云服务商的默认负载均衡设备，从而实现从集群外访问的目的。
 
-{{< codenew file="service/access/frontend-service.yaml" >}}
+{{% code file="service/access/frontend-service.yaml" %}}
 
-{{< codenew file="service/access/frontend-deployment.yaml" >}}
+{{% code file="service/access/frontend-deployment.yaml" %}}
 
 
 <!--
