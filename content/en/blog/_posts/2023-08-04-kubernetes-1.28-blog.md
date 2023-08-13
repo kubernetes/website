@@ -54,7 +54,11 @@ Common Expression language for admission control is customizable, in-process val
 This builds on the capabilities of the CRD Validation Rules feature that graduated to beta in 1.25 but with a focus on the policy enforcement capabilities of validating admission control.
     
 This will lower the infrastructure barrier to enforcing customizable policies as well as providing primitives that help the community establish and adhere to the best practices of both K8s and its extensions.
-        
+
+## CRD validation ratcheting
+    
+This Allows custom resources to fail validation if the patch did not alter any of the invalid fields.  The ability to shift left validation logic from controllers to the front end is a long-term goal for improving the useability of the Kubernetes project.
+  
 ## Match conditions for admission webhooks
     
 Kubernetes v1.27 lets you specify _match conditions_ for admission webhooks,
@@ -97,11 +101,7 @@ When an upgrade or downgrade is performed on a cluster, for some period of time 
 within the control plane may be at differing versions; when that happens, different subsets of the
 API servers are able to serve different sets of built-in resources (different groups, versions, and resources
 are all possible). This new alpha mechanism lets you hide that skew from clients.
-
-## CRD validation ratcheting
-    
-This Allows CRs to fail validation if the patch did not alter any of the invalid fields.  The ability to shift left validation logic from controllers to the front end is a long-term goal for improving the useability of the Kubernetes project.
-    
+  
 ## Source code reorganization for control plane components
 
 Kubernetes contributors have begun to reorganize the code for the kube-apiserver to build on a new staging repository that consumes [k/apiserver](https://github.com/kubernetes/apiserver) but has a bigger, carefully chosen subset of the functionality of kube-apiserver such that it is reusable.
@@ -212,9 +212,14 @@ This release includes a total of 12 enhancements promoted to Stable:
 
 ### Deprecations And Removals
 
-This release saw one removal:
+Removals:
 
 * [Removal of CSI Migration for GCE PD](https://github.com/kubernetes/enhancements/issues/1488)
+
+Deprecations:
+
+* [Ceph RBD in-tree plugin](https://github.com/kubernetes/kubernetes/pull/118303)
+* [Ceph FS in-tree plugin](https://github.com/kubernetes/enhancements/pull/4035)
 
 ## Release Notes
 
