@@ -23,7 +23,7 @@ from the upgrade process.
 This mechanism is called the _Mixed Version Proxy_. 
 
 ## Enabling the Mixed Version Proxy
-Ensure that `UnknownVersionInteroperabilityProxy` [feature gate](https://kubernetes.io/docs/reference/command-line-tools-reference/feature-gates/) 
+Ensure that `UnknownVersionInteroperabilityProxy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) 
 is enabled when you start the {{< glossary_tooltip text="API Server" term_id="kube-apiserver" >}}:
 
 ```shell
