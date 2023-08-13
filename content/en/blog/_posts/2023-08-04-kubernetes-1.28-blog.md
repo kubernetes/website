@@ -141,7 +141,7 @@ This also enables sidecar containers (those will not be allowed for other init c
     
 Readiness probes of sidecars will contribute to determining the whole Pod readiness.
 
-## Automatic, retroactive assignment of a default StorageClass
+## Automatic, retroactive assignment of a default StorageClass graduates to stable
     
 This feature makes it easier to change the default StorageClass by allowing the default storage class assignment to be retroactive for existing unbound persistent volume claims without any storage class assigned.
     
