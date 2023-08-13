@@ -131,7 +131,7 @@ You can run the `dashboard` command again to create another proxy to access the 
 
 <!--
 If you don't want minikube to open a web browser for you, run the dashboard command with the
-`--url` flag. `minikube` outputs a URL that you can open in the browser you prefer.
+`--url` flag. `minikube` outputs a URL that you can open in the browser you prefer:
 
 Open a **new** terminal, and run:
 -->
@@ -139,6 +139,7 @@ Open a **new** terminal, and run:
 `minikube` 会输出一个 URL，你可以在你喜欢的浏览器中打开该 URL。
 
 打开一个**新的**终端，然后运行：
+
 ```shell
 # 启动一个新的终端，并保持此命令运行。
 minikube dashboard --url

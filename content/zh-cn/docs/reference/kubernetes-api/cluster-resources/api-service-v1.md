@@ -376,6 +376,10 @@ GET /apis/apiregistration.k8s.io/v1/apiservices
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
 
+- **sendInitialEvents** <!--(*in query*):-->（**查询参数**）: boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
+
 - **timeoutSeconds** <!--(*in query*):-->（**查询参数**）：integer
 
   <a href="{{< ref "../common-parameters/common-parameters#timeoutSeconds" >}}">timeoutSeconds</a>
@@ -770,6 +774,10 @@ DELETE /apis/apiregistration.k8s.io/v1/apiservices
 - **resourceVersionMatch** <!--(*in query*):-->（**查询参数**）：string
 
   <a href="{{< ref "../common-parameters/common-parameters#resourceVersionMatch" >}}">resourceVersionMatch</a>
+
+- **sendInitialEvents** <!--(*in query*):-->（**查询参数**）: boolean
+
+  <a href="{{< ref "../common-parameters/common-parameters#sendInitialEvents" >}}">sendInitialEvents</a>
 
 - **timeoutSeconds** <!--(*in query*):-->（**查询参数**）：integer
 

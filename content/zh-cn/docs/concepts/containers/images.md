@@ -38,7 +38,7 @@ This page provides an outline of the container image concept.
 <!-- 
 If you are looking for the container images for a Kubernetes
 release (such as v{{< skew latestVersion >}}, the latest minor release),
-visit [Download Kubernetes](https://kubernetes.io/releases/download/). 
+visit [Download Kubernetes](https://kubernetes.io/releases/download/).
 -->
 如果你正在寻找 Kubernetes 某个发行版本（如最新次要版本 v{{< skew latestVersion >}}）
 的容器镜像，请访问[下载 Kubernetes](/zh-cn/releases/download/)。
@@ -55,8 +55,8 @@ and possibly a port number as well; for example: `fictional.registry.example:104
 
 If you don't specify a registry hostname, Kubernetes assumes that you mean the Docker public registry.
 
-After the image name part you can add a _tag_ (in the same way you would when using with commands like `docker` or `podman`).
-Tags let you identify different versions of the same series of images.
+After the image name part you can add a _tag_ (in the same way you would when using with commands
+like `docker` or `podman`).  Tags let you identify different versions of the same series of images.
 -->
 ## 镜像名称    {#image-names}
 
@@ -71,9 +71,9 @@ Tags let you identify different versions of the same series of images.
 
 <!--
 Image tags consist of lowercase and uppercase letters, digits, underscores (`_`),
-periods (`.`), and dashes (`-`).  
+periods (`.`), and dashes (`-`).
 There are additional rules about where you can place the separator
-characters (`_`, `-`, and `.`) inside an image tag.  
+characters (`_`, `-`, and `.`) inside an image tag.
 If you don't specify a tag, Kubernetes assumes you mean the tag `latest`.
 -->
 镜像标签可以包含小写字母、大写字母、数字、下划线（`_`）、句点（`.`）和连字符（`-`）。
@@ -162,11 +162,11 @@ You should avoid using the `:latest` tag when deploying containers in production
 it is harder to track which version of the image is running and more difficult to
 roll back properly.
 
-Instead, specify a meaningful tag such as `v1.42.0`.
+Instead, specify a meaningful tag such as `v1.42.0` and/or a digest.
 -->
 在生产环境中部署容器时，你应该避免使用 `:latest` 标签，因为这使得正在运行的镜像的版本难以追踪，并且难以正确地回滚。
 
-相反，应指定一个有意义的标签，如 `v1.42.0`。
+相反，应指定一个有意义的标签，如 `v1.42.0`，和/或者一个摘要。
 {{< /note >}}
 
 <!--
@@ -199,15 +199,21 @@ running the same code no matter what tag changes happen at the registry.
 在创建 Pod（和 Pod 模板）时产生变更，这样运行的工作负载就是根据镜像摘要，而不是标签来定义的。
 无论镜像仓库上的标签发生什么变化，你都想确保你所有的工作负载都运行相同的代码，那么指定镜像摘要会很有用。
 
-<!-- 
+<!--
 #### Default image pull policy {#imagepullpolicy-defaulting}
 
 When you (or a controller) submit a new Pod to the API server, your cluster sets the
 `imagePullPolicy` field when specific conditions are met:
+
+- if you omit the `imagePullPolicy` field, and you specify the digest for the
+  container image, the `imagePullPolicy` is automatically set to `IfNotPresent`.
 -->
 #### 默认镜像拉取策略    {#imagepullpolicy-defaulting}
 
 当你（或控制器）向 API 服务器提交一个新的 Pod 时，你的集群会在满足特定条件时设置 `imagePullPolicy` 字段：
+
+- 如果你省略了 `imagePullPolicy` 字段，并且你为容器镜像指定了摘要，
+  那么 `imagePullPolicy` 会自动设置为 `IfNotPresent`。
 
 <!--
 - if you omit the `imagePullPolicy` field, and the tag for the container image is
@@ -228,14 +234,15 @@ When you (or a controller) submit a new Pod to the API server, your cluster sets
 {{< note >}}
 <!--
 The value of `imagePullPolicy` of the container is always set when the object is
-first _created_, and is not updated if the image's tag later changes.
+first _created_, and is not updated if the image's tag or digest later changes.
 
 For example, if you create a Deployment with an image whose tag is _not_
 `:latest`, and later update that Deployment's image to a `:latest` tag, the
 `imagePullPolicy` field will _not_ change to `Always`. You must manually change
 the pull policy of any object after its initial creation.
 -->
-容器的 `imagePullPolicy` 的值总是在对象初次 _创建_ 时设置的，如果后来镜像的标签发生变化，则不会更新。
+容器的 `imagePullPolicy` 的值总是在对象初次 _创建_ 时设置的，
+如果后来镜像的标签或摘要发生变化，则不会更新。
 
 例如，如果你用一个 **非** `:latest` 的镜像标签创建一个 Deployment，
 并在随后更新该 Deployment 的镜像标签为 `:latest`，则 `imagePullPolicy` 字段 **不会** 变成 `Always`。
@@ -294,6 +301,91 @@ which is 300 seconds (5 minutes).
 Kubernetes 会增加每次尝试之间的延迟，直到达到编译限制，即 300 秒（5 分钟）。
 
 <!--
+## Serial and parallel image pulls
+-->
+## 串行和并行镜像拉取  {#serial-and-parallel-image-pulls}
+
+<!--
+By default, kubelet pulls images serially. In other words, kubelet sends only
+one image pull request to the image service at a time. Other image pull requests
+have to wait until the one being processed is complete.
+-->
+默认情况下，kubelet 以串行方式拉取镜像。
+也就是说，kubelet 一次只向镜像服务发送一个镜像拉取请求。
+其他镜像拉取请求必须等待，直到正在处理的那个请求完成。
+
+<!--
+Nodes make image pull decisions in isolation. Even when you use serialized image
+pulls, two different nodes can pull the same image in parallel.
+-->
+节点独立地做出镜像拉取的决策。即使你使用串行的镜像拉取，两个不同的节点也可以并行拉取相同的镜像。
+
+<!--
+If you would like to enable parallel image pulls, you can set the field
+`serializeImagePulls` to false in the [kubelet configuration](/docs/reference/config-api/kubelet-config.v1beta1/).
+With `serializeImagePulls` set to false, image pull requests will be sent to the image service immediately,
+and multiple images will be pulled at the same time.
+-->
+如果你想启用并行镜像拉取，可以在 [kubelet 配置](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
+中将字段 `serializeImagePulls` 设置为 false。
+
+当`serializeImagePulls` 设置为 false 时，kubelet 会立即向镜像服务发送镜像拉取请求，多个镜像将同时被拉动。
+
+<!--
+When enabling parallel image pulls, please make sure the image service of your
+container runtime can handle parallel image pulls.
+-->
+启用并行镜像拉取时，请确保你的容器运行时的镜像服务可以处理并行镜像拉取。
+
+<!--
+The kubelet never pulls multiple images in parallel on behalf of one Pod. For example,
+if you have a Pod that has an init container and an application container, the image
+pulls for the two containers will not be parallelized. However, if you have two
+Pods that use different images, the kubelet pulls the images in parallel on
+behalf of the two different Pods, when parallel image pulls is enabled.
+-->
+kubelet 从不代表一个 Pod 并行地拉取多个镜像。
+
+例如，如果你有一个 Pod，它有一个初始容器和一个应用容器，那么这两个容器的镜像拉取将不会并行。
+但是，如果你有两个使用不同镜像的 Pod，当启用并行镜像拉取时，kubelet 会代表两个不同的 Pod 并行拉取镜像。
+
+<!--
+### Maximum parallel image pulls
+-->
+### 最大并行镜像拉取数量  {#maximum-parallel-image-pulls}
+
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+
+<!--
+When `serializeImagePulls` is set to false, the kubelet defaults to no limit on the
+maximum number of images being pulled at the same time. If you would like to
+limit the number of parallel image pulls, you can set the field `maxParallelImagePulls`
+in kubelet configuration. With `maxParallelImagePulls` set to _n_, only _n_ images
+can be pulled at the same time, and any image pull beyond _n_ will have to wait
+until at least one ongoing image pull is complete.
+-->
+当 `serializeImagePulls` 被设置为 false 时，kubelet 默认对同时拉取的最大镜像数量没有限制。
+如果你想限制并行镜像拉取的数量，可以在 kubelet 配置中设置字段 `maxParallelImagePulls`。
+当 `maxParallelImagePulls` 设置为 _n_ 时，只能同时拉取 _n_ 个镜像，
+超过 _n_ 的任何镜像都必须等到至少一个正在进行拉取的镜像拉取完成后，才能拉取。
+
+<!--
+Limiting the number parallel image pulls would prevent image pulling from consuming
+too much network bandwidth or disk I/O, when parallel image pulling is enabled.
+-->
+当启用并行镜像拉取时，限制并行镜像拉取的数量可以防止镜像拉取消耗过多的网络带宽或磁盘 I/O。
+
+<!--
+You can set `maxParallelImagePulls` to a positive number that is greater than or
+equal to 1. If you set `maxParallelImagePulls` to be greater than or equal to 2, you
+must set the `serializeImagePulls` to false. The kubelet will fail to start with invalid
+`maxParallelImagePulls` settings.
+-->
+你可以将 `maxParallelImagePulls` 设置为大于或等于 1 的正数。
+如果将 `maxParallelImagePulls` 设置为大于等于 2，则必须将 `serializeImagePulls` 设置为 false。
+kubelet 在无效的 `maxParallelImagePulls` 设置下会启动失败。
+
+<!--
 ## Multi-architecture images with image indexes
 
 As well as providing binary images, a container registry can also serve a
@@ -327,7 +419,7 @@ YAML 文件也能兼容。
 <!--
 ## Using a private registry
 
-Private registries may require keys to read images from them.  
+Private registries may require keys to read images from them.
 Credentials can be provided in several ways:
 -->
 ## 使用私有仓库   {#using-a-private-registry}
@@ -340,7 +432,7 @@ Credentials can be provided in several ways:
   - all pods can read any configured private registries
   - requires node configuration by cluster administrator
 - Kubelet Credential Provider to dynamically fetch credentials for private registries
-  - kubelet can be configured to use credential provider exec plugin 
+  - kubelet can be configured to use credential provider exec plugin
     for the respective private registry.
 - Pre-pulled Images
   - all pods can use any images cached on a node
@@ -376,7 +468,7 @@ These options are explained in more detail below.
 Specific instructions for setting credentials depends on the container runtime and registry you
 chose to use. You should refer to your solution's documentation for the most accurate information.
 -->
-### 配置 Node 对私有仓库认证 {#configuring-nodes-to-authenticate-to-a-private-registry}
+### 配置 Node 对私有仓库认证  {#configuring-nodes-to-authenticate-to-a-private-registry}
 
 设置凭据的具体说明取决于你选择使用的容器运行时和仓库。
 你应该参考解决方案的文档来获取最准确的信息。
@@ -389,6 +481,11 @@ task. That example uses a private registry in Docker Hub.
 有关配置私有容器镜像仓库的示例，
 请参阅任务[从私有镜像库中拉取镜像](/zh-cn/docs/tasks/configure-pod-container/pull-image-private-registry)。
 该示例使用 Docker Hub 中的私有镜像仓库。
+
+<!--
+### Kubelet credential provider for authenticated image pulls {#kubelet-credential-provider}
+-->
+### 用于认证镜像拉取的 kubelet 凭据提供程序  {#kubelet-credential-provider}
 
 {{< note >}}
 <!--
@@ -470,7 +567,7 @@ term:
     c           匹配字符 c （c 不为 '*', '?', '\\', '['）
     '\\' c      匹配字符 c
 
-字符范围: 
+字符范围:
     c           匹配字符 c （c 不为 '\\', '?', '-', ']'）
     '\\' c      匹配字符 c
     lo '-' hi   匹配字符范围在 lo 到 hi 之间字符
@@ -600,7 +697,7 @@ kubectl create secret docker-registry <name> \
 <!--
 If you already have a Docker credentials file then, rather than using the above
 command, you can import the credentials file as a Kubernetes
-{{< glossary_tooltip text="Secrets" term_id="secret" >}}.  
+{{< glossary_tooltip text="Secrets" term_id="secret" >}}.
 [Create a Secret based on existing Docker credentials](/docs/tasks/configure-pod-container/pull-image-private-registry/#registry-secret-existing-credentials)
 explains how to set this up.
 -->
@@ -755,6 +852,37 @@ common use cases and suggested solutions.
 If you need access to multiple registries, you can create one secret for each registry.
 -->
 如果你需要访问多个仓库，可以为每个仓库创建一个 Secret。
+
+<!--
+## Legacy built-in kubelet credential provider
+
+In older versions of Kubernetes, the kubelet had a direct integration with cloud provider credentials.
+This gave it the ability to dynamically fetch credentials for image registries.
+-->
+## 旧版的内置 kubelet 凭据提供程序
+
+在旧版本的 Kubernetes 中，kubelet 与云提供商凭据直接集成。
+这使它能够动态获取镜像仓库的凭据。
+
+<!--
+There were three built-in implementations of the kubelet credential provider integration:
+ACR (Azure Container Registry), ECR (Elastic Container Registry), and GCR (Google Container Registry).
+-->
+kubelet 凭据提供程序集成存在三个内置实现：
+ACR（Azure 容器仓库）、ECR（Elastic 容器仓库）和 GCR（Google 容器仓库）
+
+<!--
+For more information on the legacy mechanism, read the documentation for the version of Kubernetes that you
+are using. Kubernetes v1.26 through to v{{< skew latestVersion >}} do not include the legacy mechanism, so
+you would need to either:
+- configure a kubelet image credential provider on each node
+- specify image pull credentials using `imagePullSecrets` and at least one Secret
+-->
+有关该旧版机制的更多信息，请阅读你正在使用的 Kubernetes 版本的文档。
+从 Kubernetes v1.26 到 v{{< skew latestVersion >}} 不再包含该旧版机制，因此你需要：
+
+- 在每个节点上配置一个 kubelet 镜像凭据提供程序
+- 使用 `imagePullSecrets` 和至少一个 Secret 指定镜像拉取凭据
 
 ## {{% heading "whatsnext" %}}
 

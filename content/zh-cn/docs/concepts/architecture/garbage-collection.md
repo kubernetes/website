@@ -46,7 +46,7 @@ allows the clean up of resources like the following:
 <!--
 ## Owners and dependents {#owners-dependents}
 
-Many objects in Kubernetes link to each other through [*owner references*](/docs/concepts/overview/working-with-objects/owners-dependents/). 
+Many objects in Kubernetes link to each other through [*owner references*](/docs/concepts/overview/working-with-objects/owners-dependents/).
 Owner references tell the control plane which objects are dependent on others.
 Kubernetes uses owner references to give the control plane, and other API
 clients, the opportunity to clean up related resources before deleting an
@@ -98,7 +98,7 @@ it is treated as having an unresolvable owner reference, and is not able to be g
 
 <!--
 In v1.20+, if the garbage collector detects an invalid cross-namespace `ownerReference`,
-or a cluster-scoped dependent with an `ownerReference` referencing a namespaced kind, a warning Event 
+or a cluster-scoped dependent with an `ownerReference` referencing a namespaced kind, a warning Event
 with a reason of `OwnerRefInvalidNamespace` and an `involvedObject` of the invalid dependent is reported.
 You can check for that kind of Event by running
 `kubectl get events -A --field-selector=reason=OwnerRefInvalidNamespace`.
@@ -118,7 +118,7 @@ Kubernetes checks for and deletes objects that no longer have owner
 references, like the pods left behind when you delete a ReplicaSet. When you
 delete an object, you can control whether Kubernetes deletes the object's
 dependents automatically, in a process called *cascading deletion*. There are
-two types of cascading deletion, as follows: 
+two types of cascading deletion, as follows:
 
 * Foreground cascading deletion
 * Background cascading deletion
@@ -127,7 +127,7 @@ two types of cascading deletion, as follows:
 
 Kubernetes 会检查并删除那些不再拥有属主引用的对象，例如在你删除了 ReplicaSet
 之后留下来的 Pod。当你删除某个对象时，你可以控制 Kubernetes 是否去自动删除该对象的依赖对象，
-这个过程称为 **级联删除（Cascading Deletion）**。
+这个过程称为**级联删除（Cascading Deletion）**。
 级联删除有两种类型，分别如下：
 
 * 前台级联删除
@@ -135,7 +135,7 @@ Kubernetes 会检查并删除那些不再拥有属主引用的对象，例如在
 
 <!--
 You can also control how and when garbage collection deletes resources that have
-owner references using Kubernetes {{<glossary_tooltip text="finalizers" term_id="finalizer">}}. 
+owner references using Kubernetes {{<glossary_tooltip text="finalizers" term_id="finalizer">}}.
 -->
 你也可以使用 Kubernetes {{<glossary_tooltip text="Finalizers" term_id="finalizer">}}
 来控制垃圾收集机制如何以及何时删除包含属主引用的资源。
@@ -145,7 +145,7 @@ owner references using Kubernetes {{<glossary_tooltip text="finalizers" term_id=
 
 In foreground cascading deletion, the owner object you're deleting first enters
 a *deletion in progress* state. In this state, the following happens to the
-owner object: 
+owner object:
 -->
 ### 前台级联删除 {#foreground-deletion}
 
@@ -169,7 +169,7 @@ owner object:
 After the owner object enters the deletion in progress state, the controller
 deletes the dependents. After deleting all the dependent objects, the controller
 deletes the owner object. At this point, the object is no longer visible in the
-Kubernetes API. 
+Kubernetes API.
 
 During foreground cascading deletion, the only dependents that block owner
 deletion are those that have the `ownerReference.blockOwnerDeletion=true` field.
@@ -223,7 +223,7 @@ to override this behaviour, see [Delete owner objects and orphan dependents](/do
 The {{<glossary_tooltip text="kubelet" term_id="kubelet">}} performs garbage
 collection on unused images every five minutes and on unused containers every
 minute. You should avoid using external garbage collection tools, as these can
-break the kubelet behavior and remove containers that should exist. 
+break the kubelet behavior and remove containers that should exist.
 -->
 ## 未使用容器和镜像的垃圾收集     {#containers-images}
 
@@ -236,19 +236,19 @@ break the kubelet behavior and remove containers that should exist.
 To configure options for unused container and image garbage collection, tune the
 kubelet using a [configuration file](/docs/tasks/administer-cluster/kubelet-config-file/)
 and change the parameters related to garbage collection using the
-[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+[`KubeletConfiguration`](/docs/reference/config-api/kubelet-config.v1beta1/)
 resource type.
 -->
 要配置对未使用容器和镜像的垃圾收集选项，可以使用一个
 [配置文件](/zh-cn/docs/tasks/administer-cluster/kubelet-config-file/)，基于
-[`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+[`KubeletConfiguration`](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
 资源类型来调整与垃圾收集相关的 kubelet 行为。
 
 <!--
 ### Container image lifecycle
 
 Kubernetes manages the lifecycle of all images through its *image manager*,
-which is part of the kubelet, with the cooperation of 
+which is part of the kubelet, with the cooperation of
 {{< glossary_tooltip text="cadvisor" term_id="cadvisor" >}}. The kubelet
 considers the following disk usage limits when making garbage collection
 decisions:
@@ -277,7 +277,7 @@ kubelet 会持续删除镜像，直到磁盘用量到达 `LowThresholdPercent` �
 ### Container garbage collection {#container-image-garbage-collection}
 
 The kubelet garbage collects unused containers based on the following variables,
-which you can define: 
+which you can define:
 -->
 ### 容器垃圾收集    {#container-image-garbage-collection}
 
@@ -300,7 +300,7 @@ kubelet 会基于如下变量对所有未使用的容器执行垃圾收集操作
 
 <!--
 In addition to these variables, the kubelet garbage collects unidentified and
-deleted containers, typically starting with the oldest first. 
+deleted containers, typically starting with the oldest first.
 
 `MaxPerPodContainer` and `MaxContainers` may potentially conflict with each other
 in situations where retaining the maximum number of containers per Pod
@@ -333,8 +333,8 @@ You can tune garbage collection of resources by configuring options specific to
 the controllers managing those resources. The following pages show you how to
 configure garbage collection:
 
-  * [Configuring cascading deletion of Kubernetes objects](/docs/tasks/administer-cluster/use-cascading-deletion/)
-  * [Configuring cleanup of finished Jobs](/docs/concepts/workloads/controllers/ttlafterfinished/)
+* [Configuring cascading deletion of Kubernetes objects](/docs/tasks/administer-cluster/use-cascading-deletion/)
+* [Configuring cleanup of finished Jobs](/docs/concepts/workloads/controllers/ttlafterfinished/)
 -->
 ## 配置垃圾收集     {#configuring-gc}
 
@@ -343,8 +343,6 @@ configure garbage collection:
 
 * [配置 Kubernetes 对象的级联删除](/zh-cn/docs/tasks/administer-cluster/use-cascading-deletion/)
 * [配置已完成 Job 的清理](/zh-cn/docs/concepts/workloads/controllers/ttlafterfinished/)
-
-<!-- * [Configuring unused container and image garbage collection](/docs/tasks/administer-cluster/reconfigure-kubelet/) -->
 
 ## {{% heading "whatsnext" %}}
 

@@ -1,11 +1,15 @@
 ---
 title: Utilizando um serviço para expor seu aplicativo
 weight: 10
+description: |-
+    Aprenda sobre Services no Kubernetes.
+    Entenda como rótulos (<i>labels</i>) e seletores (<i>selectors</i>) relacionam-se aos Services.
+    Exponha uma aplicação externamente ao cluster Kubernetes.
 ---
 
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="pt-BR">
 
 <body>
 
@@ -19,40 +23,103 @@ weight: 10
 			<div class="col-md-8">
     		<h3>Objetivos</h3>
 				<ul>
-					<li>Aprenda sobre um Serviço no Kubernetes</li>
-					<li>Entenda como os objetos <code>labels</code> e <code>LabelSelector</code> se relacionam a um Serviço</li>
-					<li>Exponha uma aplicação externamente ao cluster Kubernetes usando um Serviço</li>
+					<li>Aprenda sobre Services no Kubernetes</li>
+					<li>Entenda como rótulos (<i>labels</i>) e seletores (<i>selectors</i>) relacionam-se aos Services</li>
+					<li>Exponha uma aplicação externamente ao cluster Kubernetes usando um Service</li>
 				</ul>
 			</div>
 
 			<div class="col-md-8">
-			<h3>Visão Geral de Serviços Kubernetes</h3>
+			<h3>Visão Geral dos Services no Kubernetes</h3>
 
-			<p><a href="/docs/concepts/workloads/pods/">Pods</a> Kubernetes são efêmeros. Na verdade, Pods possuem um <a href="/docs/concepts/workloads/pods/pod-lifecycle/">ciclo de vida</a>. Quando um nó de processamento morre, os Pods executados no nó também são perdidos. A partir disso, o <a href="/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a> pode dinamicamente retornar o cluster ao estado desejado através da criação de novos Pods para manter sua aplicação em execução. Como outro exemplo, considere um backend de processamento de imagens com 3 réplicas. Estas réplicas são intercambiáveis; o sistema front-end não deveria se importar com as réplicas backend ou ainda se um Pod é perdido ou recriado. Dito isso, cada Pod em um cluster Kubernetes tem um único endereço IP, mesmo Pods no mesmo nó, então há necessidade de ter uma forma de reconciliar automaticamente mudanças entre Pods de modo que sua aplicação continue funcionando.</p>
+			<p>
+        <a href="/docs/concepts/workloads/pods/">Pods</a> do Kubernetes são efêmeros.
+        Na verdade, Pods possuem um <a href="/docs/concepts/workloads/pods/pod-lifecycle/">ciclo de vida</a>.
+        Quando um nó de processamento morre, os Pods executados no nó também são
+        perdidos. A partir disso, o <a href="/pt-br/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a>
+        pode dinamicamente retornar o cluster ao estado desejado através da criação
+        de novos Pods para manter sua aplicação em execução. Como outro exemplo,
+        considere um backend de processamento de imagens com 3 réplicas. Estas
+        réplicas são permutáveis; o sistema front-end não deveria se importar
+        com as réplicas backend ou ainda se um Pod foi perdido ou recriado. Dito
+        isso, cada Pod em um cluster Kubernetes tem um endereço IP único, incluindo
+        Pods que estejam rodando no mesmo nó, então há necessidade de ter uma
+        forma de reconciliar automaticamente mudanças entre Pods de modo que sua
+        aplicação continue funcionando.
+      </p>
 
-			<p>Um serviço no Kubernetes é uma abstração que define um conjunto lógico de Pods e uma política pela qual acessá-los. Serviços permitem um baixo acoplamento entre os Pods dependentes. Um serviço é definido usando YAML <a href="/docs/concepts/configuration/overview/#general-configuration-tips">(preferencialmente)</a> ou JSON, como todos objetos Kubernetes. O conjunto de Pods selecionados por um Serviço é geralmente determinado por um seletor de rótulos <i>LabelSelector</i> (veja abaixo o motivo pelo qual você pode querer um Serviço sem incluir um seletor <code>selector</code> na especificação <code>spec</code>).</p>
+			<p>
+        Um objeto Service no Kubernetes é uma abstração que define um conjunto
+        lógico de Pods e uma política pela qual acessá-los. Serviços permitem um
+        baixo acoplamento entre os Pods dependentes. Um serviço é definido usando
+        YAML ou JSON, como todos os manifestos de objetos Kubernetes. O conjunto
+        de Pods selecionados por um Service é geralmente determinado por um
+        <i>seletor de rótulos</i> (veja abaixo o motivo pelo qual você poderia
+        desejar um Service que não inclui um seletor (<code>selector</code>) na
+        especificação (<code>spec</code>)).
+      </p>
 
-			<p>Embora cada Pod tenha um endereço IP único, estes IPs não são expostos externamente ao cluster sem um Serviço. Serviços permitem que suas aplicações recebam tráfego. Serviços podem ser expostos de formas diferentes especificando um tipo <code>type</code> na especificação do serviço <code>ServiceSpec</code>:</p>
+			<p>
+        Embora cada Pod tenha um endereço IP único, estes IPs não são expostos
+        externamente ao cluster sem um objeto Service. Objetos Service permitem
+        que suas aplicações recebam tráfego. Services podem ser expostos de
+        formas diferentes especificando um tipo (campo <code>type</code>) na
+        especificação do serviço (campo <tt>spec</tt>):</p>
 			<ul>
-				<li><i>ClusterIP</i> (padrão) - Expõe o serviço sob um endereço IP interno no cluster. Este tipo faz do serviço somente alcançável de dentro do cluster.</li>
-				<li><i>NodePort</i> - Expõe o serviço sob a mesma porta em cada nó selecionado no cluster usando NAT. Faz o serviço acessível externamente ao cluster usando <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code>. Superconjunto de ClusterIP.</li>
-				<li><i>LoadBalancer</i> - Cria um balanceador de carga externo no provedor de nuvem atual (se suportado) e assinala um endereço IP fixo e externo para o serviço. Superconjunto de NodePort.</li>
-				<li><i>ExternalName</i> - Expõe o serviço usando um nome arbitrário (especificado através de <code>externalName</code> na especificação <code>spec</code>) retornando um registro de CNAME com o nome. Nenhum proxy é utilizado. Este tipo requer v1.7 ou mais recente de <code>kube-dns</code>.</li>
+				<li>
+          <i>ClusterIP</i> (padrão) - Expõe o serviço sob um endereço IP interno
+          no cluster. Este tipo de serviço é acessível somente dentro do cluster.
+        </li>
+				<li>
+          <i>NodePort</i> - Expõe o serviço sob a mesma porta em cada nó
+          selecionado no cluster usando NAT. Torna o serviço acessível externamente
+          ao cluster usando o endereço <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code>.
+          É um superconjunto do tipo ClusterIP.
+        </li>
+				<li>
+          <i>LoadBalancer</i> - Cria um balanceador de carga externo no provedor
+          de nuvem atual (se suportado) e atribui um endereço IP fixo e externo
+          para o serviço. É um superconjunto do tipo NodePort.
+        </li>
+				<li>
+          <i>ExternalName</i> - Mapeia o Service para o conteúdo do campo
+          <code>externalName</code> (por exemplo, <code>foo.bar.example.com</code>),
+          retornando um registro DNS do tipo <code>CNAME</code> com o seu valor.
+          Nenhum tipo de proxy é configurado. Este tipo requer a versão 1.7 ou
+          mais recente do <code>kube-dns</code>, ou o CoreDNS versão 0.0.8 ou
+          superior.
+        </li>
 			</ul>
-			<p>Mais informações sobre diferentes tipos de Serviços podem ser encontradas no tutorial <a href="/docs/tutorials/services/source-ip/">Utilizando IP de origem</a>. Também confira <a href="/docs/concepts/services-networking/connect-applications-service">Conectando aplicações com serviços</a>.</p>
-			<p>Adicionalmente, note que existem alguns casos de uso com serviços que envolvem a não definição de <code>selector</code> em <code>spec</code>. Serviços criados sem <code>selector</code> também não criarão objetos Endpoints correspondentes. Isto permite usuários mapear manualmente um serviço a endpoints específicos. Outra possibilidade na qual pode não haver seletores é ao se utilizar estritamente <code>type: ExternalName</code>.</p>
+			<p>
+        Mais informações sobre diferentes tipos de Services podem ser encontradas
+        no tutorial <a href="/docs/tutorials/services/source-ip/">Utilizando IP de origem</a>.
+        Veja também <a href="/docs/tutorials/services/connect-applications-service">Conectando aplicações com serviços</a>.
+      </p>
+			<p>
+        Adicionalmente, note que existem alguns casos de uso com serviços que
+        envolvem a ausência de um <code>selector</code> no campo <code>spec</code>.
+        Services criados sem <code>selector</code> também não criarão objetos
+        Endpoints correspondentes. Isto permite que usuários mapeiem manualmente
+        um serviço a <i>endpoints</i> específicos. Outro motivo pelo qual seletores
+        podem estar ausentes é que você esteja utilizando estritamente
+        <code>type: ExternalName</code>.
+      </p>
 			</div>
 			<div class="col-md-4">
 				<div class="content__box content__box_lined">
 					<h3>Resumo</h3>
 					<ul>
-						<li>Expõe Pods ao tráfego externo</li>
-						<li>Tráfego de balanceamento de carga entre múltiplos Pods</li>
-						<li>Uso de rótulos <code>labels</code></li>
+						<li>Exposição de Pods ao tráfego externo</li>
+						<li>Balanceamento de carga de tráfego entre múltiplos Pods</li>
+						<li>Utilização de rótulos (<i>labels</i>)</li>
 					</ul>
 				</div>
 				<div class="content__box content__box_fill">
-						<p><i>Um serviço Kubernetes é uma camada de abstração que define um conjunto lógico de Pods e habilita a exposição ao tráfego externo, balanceamento de carga e descoberta de serviço para esses Pods.</i></p>
+						<p><i>
+              Um objeto Service do Kubernetes é uma camada de abstração que define
+              um conjunto lógico de Pods e habilita a exposição ao tráfego externo,
+              balanceamento de carga e descoberta de serviço para esses Pods.
+            </i></p>
 				</div>
 			</div>
 		</div>
@@ -66,8 +133,20 @@ weight: 10
 
 		<div class="row">
 			<div class="col-md-8">
-				<p>Um serviço roteia tráfego entre um conjunto de Pods. Serviço é a abstração que permite pods morrerem e se replicarem no Kubernetes sem impactar sua aplicação. A descoberta e o roteamento entre Pods dependentes (tal como componentes frontend e backend dentro de uma aplicação) são controlados por serviços Kubernetes.</p>
-				<p>Serviços relacionam um conjunto de Pods usando <a href="/docs/concepts/overview/working-with-objects/labels">Rótulos e seletores</a>, um agrupamento primitivo que permite operações lógicas sobre objetos Kubernetes. Rótulos são pares de chave/valor anexados à objetos e podem ser usados de inúmeras formas:</p>
+				<p>
+          Um Service roteia tráfego entre um conjunto de Pods. Service é a
+          abstração que permite Pods morrerem e se replicarem no Kubernetes sem
+          impactar sua aplicação. A descoberta e o roteamento entre Pods
+          dependentes (tal como componentes frontend e backend dentro de uma
+          aplicação) são controlados por Services do Kubernetes.
+        </p>
+				<p>
+          Services relacionam um conjunto de Pods usando
+          <a href="/docs/concepts/overview/working-with-objects/labels">rótulos e seletores</a>,
+          uma primitiva de agrupamento que permite operações lógicas sobre objetos
+          do Kubernetes. Rótulos são pares chave/valor anexados à objetos e
+          podem ser usados de diversas formas:
+        </p>
 				<ul>
 					<li>Designar objetos para desenvolvimento, teste e produção</li>
 					<li>Adicionar tags de versão</li>
@@ -87,15 +166,154 @@ weight: 10
 		<br>
 		<div class="row">
 			<div class="col-md-8">
-				<p>Rótulos podem ser anexados à objetos no momento de sua criação ou posteriormente. Eles podem ser modificados a qualquer tempo. Vamos agora expor sua aplicação usando um serviço e aplicar alguns rótulos.</p>
+				<p>
+          Rótulos podem ser anexados aos objetos no momento de sua criação ou
+          posteriormente. Eles podem ser modificados a qualquer momento. Vamos
+          expor nossa aplicação usando um Service e aplicar alguns rótulos.
+        </p>
 			</div>
 		</div>
 		<br>
 		<div class="row">
 			<div class="col-md-12">
-				<a class="btn btn-lg btn-success" href="/pt/docs/tutorials/kubernetes-basics/expose/expose-interactive/" role="button">Iniciar tutorial interativo<span class="btn__next">›</span></a>
+        <h3>Crie um novo Service</h3>
+        <p>
+          Vamos verificar que nossa aplicação está rodando. Utilizaremos o comando
+          <code>kubectl get</code> e procuraremos por Pods existentes:
+        </p>
+        <p><code><b>kubectl get pods</b></code></p>
+        <p>
+          Se não houver Pods rodando, isso significa que o ambiente interativo
+          ainda está recarregando o estado anterior. Por favor, aguarde alguns
+          instantes e liste os Pods novamente. Você poderá prosseguir assim que
+          vir um Pod rodando.
+        </p>
+        <p>A seguir, vamos listar os Services existentes no momento no nosso cluster:</p>
+        <p><code><b>kubectl get services</b></code></p>
+        <p>
+          Temos um Service chamado <tt>kubernetes</tt> que é criado por padrão
+          quando o minikube inicializa o cluster.
+          Para criar um novo Service e expô-lo para tráfego externo utilizaremos
+          o comando <tt>expose</tt> com o tipo NodePort.
+        </p>
+        <p><code><b>kubectl expose deployment/kubernetes-bootcamp --type=NodePort --port 8080</b></code></p>
+        <p>
+          Vamos rodar novamente o subcomando <code>get services</code>:
+        </p>
+        <p><code><b>kubectl get services</b></code></p>
+        <p>
+          Temos agora um Service chamado kubernetes-bootcamp rodando. Aqui vemos
+          que o Service recebeu um ClusterIP único, uma porta interna e um IP
+          externo (o IP do nó).
+        </p>
+        <p>
+          Para descobrir qual porta foi aberta externamente (para o Service com
+          tipo <tt>NodePort</tt>) iremos rodar o subcomando <code>describe service</code>:
+        </p>
+        <p><code><b>kubectl describe services/kubernetes-bootcamp</b></code></p>
+        <p>
+          Crie uma variável de ambiente chamada <tt>NODE_PORT</tt> que armazena
+          o número da porta do nó:
+        </p>
+        <p>
+          <code><b>export NODE_PORT="$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')"</b></code><br />
+          <code><b>echo "NODE_PORT=$NODE_PORT"</b></code>
+        </p>
+        <p>
+          Agora podemos verificar que a aplicação está exposta externamente ao
+          cluster utilizando <code>curl</code>, o endereço IP do nó e a porta
+          exposta externamente:
+        </p>
+        <p><code><b>curl http://"$(minikube ip):$NODE_PORT"</b></code></p>
+        <p>E receberemos uma resposta do servidor. O Service está exposto.</p>
 			</div>
 		</div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Passo 2: Utilizando rótulos (<i>labels</i>)</h3>
+        <div class="content">
+          <p>
+            O Deployment criou automaticamente um rótulo para o nosso Pod. Com o
+            subcomando <code>describe deployment</code> você pode ver o nome
+            (a <em>chave</em>) deste rótulo:
+          </p>
+          <p><code><b>kubectl describe deployment</b></code></p>
+          <p>
+            Vamos utilizar este rótulo para filtrar nossa lista de Pods.
+            Utilizaremos o comando <code>kubectl get pods</code> com o parâmetro
+            <tt>-l</tt>, seguido dos valores dos rótulos:
+          </p>
+          <p><code><b>kubectl get pods -l app=kubernetes-bootcamp</b></code></p>
+          <p>Você pode fazer o mesmo para listar os Services existentes:</p>
+          <p><code><b>kubectl get services -l app=kubernetes-bootcamp</b></code></p>
+          <p>
+            Obtenha o nome do Pod e armazene-o na variável de ambiente <tt>POD_NAME</tt>:
+          </p>
+          <p>
+            <code><b>export POD_NAME="$(kubectl get pods -o go-template --template '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')"</b></code><br />
+            <code><b>echo "Name of the Pod: $POD_NAME"</b></code>
+          </p>
+          <p>
+            Para aplicar um novo rótulo podemos utilizar o subcomando <code>label</code>,
+            seguido pelo tipo de objeto, nome do objeto e o novo rótulo:
+          </p>
+          <p><code><b>kubectl label pods "$POD_NAME" version=v1</b></code></p>
+          <p>
+            Este comando aplicará um novo rótulo no Pod (nós fixamos a versão
+            da aplicação ao Pod) e podemos verificar com o comando
+            <code>describe pod</code>:
+          </p>
+          <p><code><b>kubectl describe pods "$POD_NAME"</b></code></p>
+          <p>
+            Vemos aqui que o rótulo está agora vinculado ao nosso Pod. E agora
+            podemos pesquisar a lista de Pods utilizando o novo label:
+          </p>
+          <p><code><b>kubectl get pods -l version=v1</b></code></p>
+          <p>E vemos o Pod.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Removendo um Service</h3>
+        <p>
+          Para remover um Service você pode utilizar o subcomando <code>delete service</code>.
+          Rótulos também podem ser utilizados aqui:
+        </p>
+        <p><code><b>kubectl delete service -l app=kubernetes-bootcamp</b></code></p>
+        <p>
+          Confirme que o Service foi removido com sucesso:
+        </p>
+        <p><code><b>kubectl get services</b></code></p>
+        <p>
+          Isto confirma que nosso Service foi removido. Para confirmar que a rota
+          não está mais exposta, você pode disparar uma requisição para o endereço
+          IP e porta previamente expostos através do comando <tt>curl</tt>:
+        </p>
+        <p><code><b>curl http://"$(minikube ip):$NODE_PORT"</b></code></p>
+        <p>
+          Isto prova que a aplicação não está mais acessível de fora do cluster.
+          Você pode confirmar que a aplicação ainda está rodando com um <tt>curl</tt>
+          de dentro do Pod:
+        </p>
+        <p><code><b>kubectl exec -ti $POD_NAME -- curl http://localhost:8080</b></code></p>
+        <p>
+          Vemos aqui que a aplicação ainda está rodando. Isto se deve ao fato de
+          que o Deployment está gerenciando a aplicação. Para encerrar a aplicação,
+          você precisaria remover o Deployment também.
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <p>
+        Assim que você finalizar este tutorial, vá para
+        <a href="/pt-br/docs/tutorials/kubernetes-basics/scale/scale-intro/" title="Executando Múltiplas Instâncias do seu Aplicativo">
+          Executando Múltiplas Instâncias do seu Aplicativo</a>.
+      </p>
+    </div>
 	</main>
 </div>
 

@@ -642,7 +642,7 @@ contexts:
 current-context: my-cluster
 ```
 
-相対的なコマンドパスは、設定ファイルのディレクトリーからの相対的なものとして解釈されます。KUBECONFIGが`/home/jane/kubeconfig`に設定されていて、execコマンドが`./bin/example-client-go-exec-plugin`の場合、バイナリー`/home/jane/bin/example-client-go-exec-plugin`が実行されます。
+相対的なコマンドパスは、設定ファイルのディレクトリーからの相対的なものとして解釈されます。KUBECONFIGが`/home/jane/kubeconfig`に設定されていて、execコマンドが`./bin/example-client-go-exec-plugin`の場合、バイナリ`/home/jane/bin/example-client-go-exec-plugin`が実行されます。
 
 ```yaml
 - name: my-user

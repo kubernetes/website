@@ -33,24 +33,20 @@ scheduler decisions).
 <!--
 klog is the Kubernetes logging library. [klog](https://github.com/kubernetes/klog)
 generates log messages for the Kubernetes system components.
-
-For more information about klog configuration, see the [Command line tool reference](/docs/reference/command-line-tools-reference/).
 -->
 klog 是 Kubernetes 的日志库。
 [klog](https://github.com/kubernetes/klog)
 为 Kubernetes 系统组件生成日志消息。
 
-有关 klog 配置的更多信息，请参见[命令行工具参考](/zh-cn/docs/reference/command-line-tools-reference/)。
-
 <!--
 Kubernetes is in the process of simplifying logging in its components.
 The following klog command line flags
 [are deprecated](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)
-starting with Kubernetes 1.23 and will be removed in a future release:
+starting with Kubernetes v1.23 and removed in Kubernetes v1.26:
 -->
-Kubernetes 正在进行简化其组件日志的努力。下面的 klog 命令行参数从 Kubernetes 1.23
+Kubernetes 正在进行简化其组件日志的努力。下面的 klog 命令行参数从 Kubernetes v1.23
 开始[已被废弃](https://github.com/kubernetes/enhancements/tree/master/keps/sig-instrumentation/2845-deprecate-klog-specific-flags-in-k8s-components)，
-会在未来版本中移除：
+在 Kubernetes v1.26 中被移除：
 
 - `--add-dir-header`
 - `--alsologtostderr`
@@ -168,7 +164,7 @@ compatible with traditional klog:
 -->
 默认的结构化日志消息是以文本形式呈现的，其格式与传统的 klog 保持向后兼容：
 
-```ini
+```
 <klog header> "<message>" <key1>="<value1>" <key2>="<value2>" ...
 ```
 
@@ -177,7 +173,7 @@ Example:
 -->
 示例：
 
-```ini
+```
 I1025 00:15:15.525108       1 controller_utils.go:116] "Pod status updated" pod="kube-system/kubedns" status="ready"
 ```
 
@@ -386,6 +382,108 @@ The `logrotate` tool rotates logs daily, or once the log size is greater than 10
 与容器日志类似，你应该轮转 `/var/log` 目录下系统组件日志。
 在 `kube-up.sh` 脚本创建的 Kubernetes 集群中，日志轮转由 `logrotate` 工具配置。
 `logrotate` 工具，每天或者当日志大于 100MB 时，轮转日志。
+
+<!--
+## Log query
+-->
+## 日志查询   {#log-query}
+
+{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+
+<!--
+To help with debugging issues on nodes, Kubernetes v1.27 introduced a feature that allows viewing logs of services
+running on the node. To use the feature, ensure that the `NodeLogQuery`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled for that node, and that the
+kubelet configuration options `enableSystemLogHandler` and `enableSystemLogQuery` are both set to true. On Linux
+we assume that service logs are available via journald. On Windows we assume that service logs are available
+in the application log provider. On both operating systems, logs are also available by reading files within
+`/var/log/`.
+-->
+为了帮助在节点上调试问题，Kubernetes v1.27 引入了一个特性来查看节点上当前运行服务的日志。
+要使用此特性，请确保已为节点启用了 `NodeLogQuery`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+且 kubelet 配置选项 `enableSystemLogHandler` 和 `enableSystemLogQuery` 均被设置为 true。
+在 Linux 上，我们假设可以通过 journald 查看服务日志。
+在 Windows 上，我们假设可以在应用日志提供程序中查看服务日志。
+在两种操作系统上，都可以通过读取 `/var/log/` 内的文件查看日志。
+
+<!--
+Provided you are authorized to interact with node objects, you can try out this alpha feature on all your nodes or
+just a subset. Here is an example to retrieve the kubelet service logs from a node:
+
+```shell
+# Fetch kubelet logs from a node named node-1.example
+kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet"
+```
+-->
+假如你被授权与节点对象交互，你可以在所有节点或只是某个子集上试用此 Alpha 特性。
+这里有一个从节点中检索 kubelet 服务日志的例子：
+
+```shell
+# 从名为 node-1.example 的节点中获取 kubelet 日志
+kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet"
+```
+
+<!--
+You can also fetch files, provided that the files are in a directory that the kubelet allows for log
+fetches. For example, you can fetch a log from `/var/log` on a Linux node:
+-->
+你也可以获取文件，前提是日志文件位于 kubelet 允许进行日志获取的目录中。
+例如你可以从 Linux 节点上的 `/var/log` 中获取日志。
+
+```shell
+kubectl get --raw "/api/v1/nodes/<insert-node-name-here>/proxy/logs/?query=/<insert-log-file-name-here>"
+```
+
+<!--
+The kubelet uses heuristics to retrieve logs. This helps if you are not aware whether a given system service is
+writing logs to the operating system's native logger like journald or to a log file in `/var/log/`. The heuristics
+first checks the native logger and if that is not available attempts to retrieve the first logs from
+`/var/log/<servicename>` or `/var/log/<servicename>.log` or `/var/log/<servicename>/<servicename>.log`.
+
+The complete list of options that can be used are:
+-->
+kubelet 使用启发方式来检索日志。
+如果你还未意识到给定的系统服务正将日志写入到操作系统的原生日志记录程序（例如 journald）
+或 `/var/log/` 中的日志文件，这会很有帮助。这种启发方式先检查原生的日志记录程序，
+如果不可用，则尝试从 `/var/log/<servicename>`、`/var/log/<servicename>.log`
+或 `/var/log/<servicename>/<servicename>.log` 中检索第一批日志。
+
+可用选项的完整列表如下：
+
+<!--
+Option | Description
+------ | -----------
+`boot` | boot show messages from a specific system boot
+`pattern` | pattern filters log entries by the provided PERL-compatible regular expression
+`query` | query specifies services(s) or files from which to return logs (required)
+`sinceTime` | an [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) timestamp from which to show logs (inclusive)
+`untilTime` | an [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) timestamp until which to show logs (inclusive)
+`tailLines` | specify how many lines from the end of the log to retrieve; the default is to fetch the whole log
+-->
+选项 | 描述
+------ | -----------
+`boot` | `boot` 显示来自特定系统引导的消息
+`pattern` | `pattern` 通过提供的兼容 PERL 的正则表达式来过滤日志条目
+`query` | `query` 是必需的，指定返回日志的服务或文件
+`sinceTime` | 显示日志的 [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) 起始时间戳（包含）
+`untilTime` | 显示日志的 [RFC3339](https://www.rfc-editor.org/rfc/rfc3339) 结束时间戳（包含）
+`tailLines` | 指定要从日志的末尾检索的行数；默认为获取全部日志
+
+<!--
+Example of a more complex query:
+
+```shell
+# Fetch kubelet logs from a node named node-1.example that have the word "error"
+kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet&pattern=error"
+```
+-->
+更复杂的查询示例：
+
+```shell
+# 从名为 node-1.example 且带有单词 "error" 的节点中获取 kubelet 日志
+kubectl get --raw "/api/v1/nodes/node-1.example/proxy/logs/?query=kubelet&pattern=error"
+```
 
 ## {{% heading "whatsnext" %}}
 

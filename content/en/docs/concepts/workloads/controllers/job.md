@@ -5,11 +5,14 @@ reviewers:
 - soltysh
 title: Jobs
 content_type: concept
+description: >-
+  Jobs represent one-off tasks that run to completion and then stop.
 feature:
   title: Batch execution
   description: >
     In addition to services, Kubernetes can manage your batch and CI workloads, replacing containers that fail, if desired.
 weight: 50
+hide_summary: true # Listed separately in section index
 ---
 
 <!-- overview -->
@@ -36,7 +39,7 @@ see [CronJob](/docs/concepts/workloads/controllers/cron-jobs/).
 Here is an example Job config.  It computes π to 2000 places and prints it out.
 It takes around 10s to complete.
 
-{{< codenew file="controllers/job.yaml" >}}
+{{% code file="controllers/job.yaml" %}}
 
 You can run the example with this command:
 
@@ -290,8 +293,13 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
   The Job is considered complete when there is one successfully completed Pod
   for each index. For more information about how to use this mode, see
   [Indexed Job for Parallel Processing with Static Work Assignment](/docs/tasks/job/indexed-parallel-processing-static/).
-  Note that, although rare, more than one Pod could be started for the same
-  index, but only one of them will count towards the completion count.
+
+{{< note >}}
+Although rare, more than one Pod could be started for the same index (due to various reasons such as node failures,
+kubelet restarts, or Pod evictions). In this case, only the first Pod that completes successfully will
+count towards the completion count and update the status of the Job. The other Pods that are running
+or completed for the same index will be deleted by the Job controller once they are detected.
+{{< /note >}}
 
 
 ## Handling Pod and container failures
@@ -356,6 +364,100 @@ If your job has `restartPolicy = "OnFailure"`, keep in mind that your Pod runnin
 will be terminated once the job backoff limit has been reached. This can make debugging the Job's executable more difficult. We suggest setting
 `restartPolicy = "Never"` when debugging the Job or using a logging system to ensure output
 from failed Jobs is not lost inadvertently.
+{{< /note >}}
+
+### Pod failure policy {#pod-failure-policy}
+
+{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+
+{{< note >}}
+You can only configure a Pod failure policy for a Job if you have the
+`JobPodFailurePolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled in your cluster. Additionally, it is recommended
+to enable the `PodDisruptionConditions` feature gate in order to be able to detect and handle
+Pod disruption conditions in the Pod failure policy (see also:
+[Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)). Both feature gates are
+available in Kubernetes {{< skew currentVersion >}}.
+{{< /note >}}
+
+A Pod failure policy, defined with the `.spec.podFailurePolicy` field, enables
+your cluster to handle Pod failures based on the container exit codes and the
+Pod conditions.
+
+In some situations, you  may want to have a better control when handling Pod
+failures than the control provided by the [Pod backoff failure policy](#pod-backoff-failure-policy),
+which is based on the Job's `.spec.backoffLimit`. These are some examples of use cases:
+* To optimize costs of running workloads by avoiding unnecessary Pod restarts,
+  you can terminate a Job as soon as one of its Pods fails with an exit code
+  indicating a software bug.
+* To guarantee that your Job finishes even if there are disruptions, you can
+  ignore Pod failures caused by disruptions  (such {{< glossary_tooltip text="preemption" term_id="preemption" >}},
+  {{< glossary_tooltip text="API-initiated eviction" term_id="api-eviction" >}}
+  or {{< glossary_tooltip text="taint" term_id="taint" >}}-based eviction) so
+  that they don't count towards the `.spec.backoffLimit` limit of retries.
+
+You can configure a Pod failure policy, in the `.spec.podFailurePolicy` field,
+to meet the above use cases. This policy can handle Pod failures based on the
+container exit codes and the Pod conditions.
+
+Here is a manifest for a Job that defines a `podFailurePolicy`:
+
+{{% code file="/controllers/job-pod-failure-policy-example.yaml" %}}
+
+In the example above, the first rule of the Pod failure policy specifies that
+the Job should be marked failed if the `main` container fails with the 42 exit
+code. The following are the rules for the `main` container specifically:
+
+- an exit code of 0 means that the container succeeded
+- an exit code of 42 means that the **entire Job** failed
+- any other exit code represents that the container failed, and hence the entire
+  Pod. The Pod will be re-created if the total number of restarts is
+  below `backoffLimit`. If the `backoffLimit` is reached the **entire Job** failed.
+
+{{< note >}}
+Because the Pod template specifies a `restartPolicy: Never`,
+the kubelet does not restart the `main` container in that particular Pod.
+{{< /note >}}
+
+The second rule of the Pod failure policy, specifying the `Ignore` action for
+failed Pods with condition `DisruptionTarget` excludes Pod disruptions from
+being counted towards the `.spec.backoffLimit` limit of retries.
+
+{{< note >}}
+If the Job failed, either by the Pod failure policy or Pod backoff
+failure policy, and the Job is running multiple Pods, Kubernetes terminates all
+the Pods in that Job that are still Pending or Running.
+{{< /note >}}
+
+These are some requirements and semantics of the API:
+- if you want to use a `.spec.podFailurePolicy` field for a Job, you must
+  also define that Job's pod template with `.spec.restartPolicy` set to `Never`.
+- the Pod failure policy rules you specify under `spec.podFailurePolicy.rules`
+  are evaluated in order. Once a rule matches a Pod failure, the remaining rules
+  are ignored. When no rule matches the Pod failure, the default
+  handling applies.
+- you may want to restrict a rule to a specific container by specifying its name
+  in`spec.podFailurePolicy.rules[*].containerName`. When not specified the rule
+  applies to all containers. When specified, it should match one the container
+  or `initContainer` names in the Pod template.
+- you may specify the action taken when a Pod failure policy is matched by
+  `spec.podFailurePolicy.rules[*].action`. Possible values are:
+  - `FailJob`: use to indicate that the Pod's job should be marked as Failed and
+     all running Pods should be terminated.
+  - `Ignore`: use to indicate that the counter towards the `.spec.backoffLimit`
+     should not be incremented and a replacement Pod should be created.
+  - `Count`: use to indicate that the Pod should be handled in the default way.
+     The counter towards the `.spec.backoffLimit` should be incremented.
+
+{{< note >}}
+When you use a `podFailurePolicy`, the job controller only matches Pods in the
+`Failed` phase. Pods with a deletion timestamp that are not in a terminal phase
+(`Failed` or `Succeeded`) are considered still terminating. This implies that
+terminating pods retain a [tracking finalizer](#job-tracking-with-finalizers)
+until they reach a terminal phase.
+Since Kubernetes 1.27, Kubelet transitions deleted pods to a terminal phase
+(see: [Pod Phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)). This
+ensures that deleted pods have their finalizers removed by the Job controller.
 {{< /note >}}
 
 ## Job termination and cleanup
@@ -725,129 +827,15 @@ The new Job itself will have a different uid from `a8f3d00d-c6d2-11e5-9f87-42010
 `manualSelector: true` tells the system that you know what you are doing and to allow this
 mismatch.
 
-### Pod failure policy {#pod-failure-policy}
-
-{{< feature-state for_k8s_version="v1.26" state="beta" >}}
-
-{{< note >}}
-You can only configure a Pod failure policy for a Job if you have the
-`JobPodFailurePolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-enabled in your cluster. Additionally, it is recommended
-to enable the `PodDisruptionConditions` feature gate in order to be able to detect and handle
-Pod disruption conditions in the Pod failure policy (see also:
-[Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)). Both feature gates are
-available in Kubernetes {{< skew currentVersion >}}.
-{{< /note >}}
-
-A Pod failure policy, defined with the `.spec.podFailurePolicy` field, enables
-your cluster to handle Pod failures based on the container exit codes and the
-Pod conditions.
-
-In some situations, you  may want to have a better control when handling Pod
-failures than the control provided by the [Pod backoff failure policy](#pod-backoff-failure-policy),
-which is based on the Job's `.spec.backoffLimit`. These are some examples of use cases:
-* To optimize costs of running workloads by avoiding unnecessary Pod restarts,
-  you can terminate a Job as soon as one of its Pods fails with an exit code
-  indicating a software bug.
-* To guarantee that your Job finishes even if there are disruptions, you can
-  ignore Pod failures caused by disruptions  (such {{< glossary_tooltip text="preemption" term_id="preemption" >}},
-  {{< glossary_tooltip text="API-initiated eviction" term_id="api-eviction" >}}
-  or {{< glossary_tooltip text="taint" term_id="taint" >}}-based eviction) so
-  that they don't count towards the `.spec.backoffLimit` limit of retries.
-
-You can configure a Pod failure policy, in the `.spec.podFailurePolicy` field,
-to meet the above use cases. This policy can handle Pod failures based on the
-container exit codes and the Pod conditions.
-
-Here is a manifest for a Job that defines a `podFailurePolicy`:
-
-{{< codenew file="/controllers/job-pod-failure-policy-example.yaml" >}}
-
-In the example above, the first rule of the Pod failure policy specifies that
-the Job should be marked failed if the `main` container fails with the 42 exit
-code. The following are the rules for the `main` container specifically:
-
-- an exit code of 0 means that the container succeeded
-- an exit code of 42 means that the **entire Job** failed
-- any other exit code represents that the container failed, and hence the entire
-  Pod. The Pod will be re-created if the total number of restarts is
-  below `backoffLimit`. If the `backoffLimit` is reached the **entire Job** failed.
-
-{{< note >}}
-Because the Pod template specifies a `restartPolicy: Never`,
-the kubelet does not restart the `main` container in that particular Pod.
-{{< /note >}}
-
-The second rule of the Pod failure policy, specifying the `Ignore` action for
-failed Pods with condition `DisruptionTarget` excludes Pod disruptions from
-being counted towards the `.spec.backoffLimit` limit of retries.
-
-{{< note >}}
-If the Job failed, either by the Pod failure policy or Pod backoff
-failure policy, and the Job is running multiple Pods, Kubernetes terminates all
-the Pods in that Job that are still Pending or Running.
-{{< /note >}}
-
-These are some requirements and semantics of the API:
-- if you want to use a `.spec.podFailurePolicy` field for a Job, you must
-  also define that Job's pod template with `.spec.restartPolicy` set to `Never`.
-- the Pod failure policy rules you specify under `spec.podFailurePolicy.rules`
-  are evaluated in order. Once a rule matches a Pod failure, the remaining rules
-  are ignored. When no rule matches the Pod failure, the default
-  handling applies.
-- you may want to restrict a rule to a specific container by specifying its name
-  in`spec.podFailurePolicy.rules[*].containerName`. When not specified the rule
-  applies to all containers. When specified, it should match one the container
-  or `initContainer` names in the Pod template.
-- you may specify the action taken when a Pod failure policy is matched by
-  `spec.podFailurePolicy.rules[*].action`. Possible values are:
-  - `FailJob`: use to indicate that the Pod's job should be marked as Failed and
-     all running Pods should be terminated.
-  - `Ignore`: use to indicate that the counter towards the `.spec.backoffLimit`
-     should not be incremented and a replacement Pod should be created.
-  - `Count`: use to indicate that the Pod should be handled in the default way.
-     The counter towards the `.spec.backoffLimit` should be incremented.
-
-{{< note >}}
-When you use a `podFailurePolicy`, the job controller only matches Pods in the
-`Failed` phase. Pods with a deletion timestamp that are not in a terminal phase
-(`Failed` or `Succeeded`) are considered still terminating. This implies that
-terminating pods retain a [tracking finalizer](#job-tracking-with-finalizers)
-until they reach a terminal phase.
-Since Kubernetes 1.27, Kubelet transitions deleted pods to a terminal phase
-(see: [Pod Phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)). This
-ensures that deleted pods have their finalizers removed by the Job controller.
-{{< /note >}}
-
 ### Job tracking with finalizers
 
 {{< feature-state for_k8s_version="v1.26" state="stable" >}}
-
-{{< note >}}
-The control plane doesn't track Jobs using finalizers, if the Jobs were created
-when the feature gate `JobTrackingWithFinalizers` was disabled, even after you
-upgrade the control plane to 1.26.
-{{< /note >}}
 
 The control plane keeps track of the Pods that belong to any Job and notices if
 any such Pod is removed from the API server. To do that, the Job controller
 creates Pods with the finalizer `batch.kubernetes.io/job-tracking`. The
 controller removes the finalizer only after the Pod has been accounted for in
 the Job status, allowing the Pod to be removed by other controllers or users.
-
-Jobs created before upgrading to Kubernetes 1.26 or before the feature gate
-`JobTrackingWithFinalizers` is enabled are tracked without the use of Pod
-finalizers.
-The Job {{< glossary_tooltip term_id="controller" text="controller" >}} updates
-the status counters for `succeeded` and `failed` Pods based only on the Pods
-that exist in the cluster. The contol plane can lose track of the progress of
-the Job if Pods are deleted from the cluster.
-
-You can determine if the control plane is tracking a Job using Pod finalizers by
-checking if the Job has the annotation
-`batch.kubernetes.io/job-tracking`. You should **not** manually add or remove
-this annotation from Jobs. Instead, you can recreate the Jobs to ensure they
-are tracked using Pod finalizers.
 
 ### Elastic Indexed Jobs
 

@@ -67,90 +67,89 @@ yum install -y kubeadm-{{< skew currentVersion >}}.x-0 --disableexcludes=kuberne
 <!--
 ### Call "kubeadm upgrade"
 
-- For worker nodes this upgrades the local kubelet configuration:
+For worker nodes this upgrades the local kubelet configuration:
 -->
 ### 执行 "kubeadm upgrade"    {#call-kubeadm-upgrade}
 
-- 对于工作节点，下面的命令会升级本地的 kubelet 配置：
+对于工作节点，下面的命令会升级本地的 kubelet 配置：
 
-  ```shell
-  sudo kubeadm upgrade node
-  ```
+```shell
+sudo kubeadm upgrade node
+```
 
 <!--
 ### Drain the node
 
-- Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
+Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
 -->
 ### 腾空节点   {#drain-node}
 
-- 将节点标记为不可调度并驱逐所有负载，准备节点的维护：
+将节点标记为不可调度并驱逐所有负载，准备节点的维护：
 
-  <!--
-  # replace <node-to-drain> with the name of your node you are draining
-  -->
-  ```shell
-  # 将 <node-to-drain> 替换为你正腾空的节点的名称
-  kubectl drain <node-to-drain> --ignore-daemonsets
-  ```
+<!--
+# replace <node-to-drain> with the name of your node you are draining
+-->
+```shell
+# 将 <node-to-drain> 替换为你正腾空的节点的名称
+kubectl drain <node-to-drain> --ignore-daemonsets
+```
 
 <!--
 ### Upgrade kubelet and kubectl
 
-- Upgrade the kubelet and kubectl:
+1. Upgrade the kubelet and kubectl:
 -->
 ### 升级 kubelet 和 kubectl   {#upgrade-kubelet-and-kubectl}
 
-- 升级 kubelet 和 kubectl:
+1. 升级 kubelet 和 kubectl:
 
-  <!--
-  # replace x in {{< skew currentVersion >}}.x-00 with the latest patch version
-  # replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
-  -->
-  {{< tabs name="k8s_kubelet_and_kubectl" >}}
-  {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
-  ```shell
-  # 将 {{< skew currentVersion >}}.x-00 中的 x 替换为最新的补丁版本
-  apt-mark unhold kubelet kubectl && \
-  apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
-  apt-mark hold kubelet kubectl
-  ```
-  {{% /tab %}}
-  {{% tab name="CentOS、RHEL 或 Fedora" %}}
-  ```shell
-  # 将 {{< skew currentVersion >}}.x-0 中的 x 替换为最新的补丁版本
-  yum install -y kubelet-{{< skew currentVersion >}}.x-0 kubectl-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
-  ```
-  {{% /tab %}}
-  {{< /tabs >}}
-  <br />
+   <!--
+   # replace x in {{< skew currentVersion >}}.x-00 with the latest patch version
+   # replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
+   -->
+   {{< tabs name="k8s_kubelet_and_kubectl" >}}
+   {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
+   ```shell
+   # 将 {{< skew currentVersion >}}.x-00 中的 x 替换为最新的补丁版本
+   apt-mark unhold kubelet kubectl && \
+   apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
+   apt-mark hold kubelet kubectl
+   ```
+   {{% /tab %}}
+   {{% tab name="CentOS、RHEL 或 Fedora" %}}
+   ```shell
+   # 将 {{< skew currentVersion >}}.x-0 中的 x 替换为最新的补丁版本
+   yum install -y kubelet-{{< skew currentVersion >}}.x-0 kubectl-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
+   ```
+   {{% /tab %}}
+   {{< /tabs >}}
 
 <!--
-- Restart the kubelet:
+1. Restart the kubelet:
 -->
-- 重启 kubelet：
+2. 重启 kubelet：
 
-  ```shell
-  sudo systemctl daemon-reload
-  sudo systemctl restart kubelet
-  ```
+   ```shell
+   sudo systemctl daemon-reload
+   sudo systemctl restart kubelet
+   ```
 
 <!--
 ### Uncordon the node
 
-- Bring the node back online by marking it schedulable:
+Bring the node back online by marking it schedulable:
 -->
 ### 取消对节点的保护   {#uncordon-node}
 
-- 通过将节点标记为可调度，让节点重新上线：
+通过将节点标记为可调度，让节点重新上线：
 
-  <!--
-  # replace <node-to-uncordon> with the name of your node
-  -->
-  ```shell
-  # 将 <node-to-uncordon> 替换为你的节点名称
-  kubectl uncordon <node-to-uncordon>
-  ```
+<!--
+# replace <node-to-uncordon> with the name of your node
+-->
+```shell
+# 将 <node-to-uncordon> 替换为你的节点名称
+kubectl uncordon <node-to-uncordon>
+```
 
 ## {{% heading "whatsnext" %}}
 

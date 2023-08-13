@@ -9,6 +9,14 @@ weight: 80
 {{<glossary_definition term_id="finalizer" length="long">}}
 
 <!--
+You can use finalizers to control {{<glossary_tooltip text="garbage collection" term_id="garbage-collection">}}
+of {{< glossary_tooltip text="objects" term_id="object" >}} by alerting {{<glossary_tooltip text="controllers" term_id="controller">}}
+to perform specific cleanup tasks before deleting the target resource.
+-->
+你可以使用 Finalizers 来控制{{< glossary_tooltip text="对象" term_id="object" >}}的{{<glossary_tooltip text="垃圾回收" term_id="garbage-collection">}}，
+方法是在删除目标资源之前提醒{{<glossary_tooltip text="控制器" term_id="controller">}}执行特定的清理任务。
+
+<!--
 Finalizers don't usually specify the code to execute. Instead, they are
 typically lists of keys on a specific resource similar to annotations.
 Kubernetes specifies some finalizers automatically, but you can also specify

@@ -6,9 +6,11 @@ feature:
   title: Automated rollouts and rollbacks
   description: >
     Kubernetes progressively rolls out changes to your application or its configuration, while monitoring application health to ensure it doesn't kill all your instances at the same time. If something goes wrong, Kubernetes will rollback the change for you. Take advantage of a growing ecosystem of deployment solutions.
-
+description: >-
+  A Deployment manages a set of Pods to run an application workload, usually one that doesn't maintain state.
 content_type: concept
 weight: 10
+hide_summary: true # Listed separately in section index
 ---
 
 <!-- overview -->
@@ -40,7 +42,7 @@ The following are typical use cases for Deployments:
 
 The following is an example of a Deployment. It creates a ReplicaSet to bring up three `nginx` Pods:
 
-{{< codenew file="controllers/nginx-deployment.yaml" >}}
+{{% code file="controllers/nginx-deployment.yaml" %}}
 
 In this example:
 
@@ -132,9 +134,9 @@ Follow the steps given below to create the above Deployment:
    The output is similar to:
    ```
    NAME                                READY     STATUS    RESTARTS   AGE       LABELS
-   nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-   nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
-   nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=3123191453
+   nginx-deployment-75675f5897-7ci7o   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
+   nginx-deployment-75675f5897-kzszj   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
+   nginx-deployment-75675f5897-qqcnn   1/1       Running   0          18s       app=nginx,pod-template-hash=75675f5897
    ```
    The created ReplicaSet ensures that there are three `nginx` Pods.
 
@@ -176,6 +178,10 @@ Follow the steps given below to update your Deployment:
    ```shell
    kubectl set image deployment/nginx-deployment nginx=nginx:1.16.1
    ```
+   where `deployment/nginx-deployment` indicates the Deployment,
+   `nginx` indicates the Container the update will take place and
+   `nginx:1.16.1` indicates the new image and its tag.
+
 
    The output is similar to:
 
@@ -1226,10 +1232,9 @@ it is created.
 
 ## {{% heading "whatsnext" %}}
 
-* Learn about [Pods](/docs/concepts/workloads/pods).
-* [Run a Stateless Application Using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
-* `Deployment` is a top-level resource in the Kubernetes REST API.
-  Read the {{< api-reference page="workload-resources/deployment-v1" >}}
-  object definition to understand the API for deployments.
+* Learn more about [Pods](/docs/concepts/workloads/pods).
+* [Run a stateless application using a Deployment](/docs/tasks/run-application/run-stateless-application-deployment/).
+* Read the {{< api-reference page="workload-resources/deployment-v1" >}} to understand the Deployment API.
 * Read about [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) and how
   you can use it to manage application availability during disruptions.
+* Use kubectl to [create a Deployment](/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/).

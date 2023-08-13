@@ -83,7 +83,7 @@ reference for a full definition of the resource.
 
 An example NetworkPolicy might look like this:
 
-{{< codenew file="service/networking/networkpolicy.yaml" >}}
+{{% code file="service/networking/networkpolicy.yaml" %}}
 
 {{< note >}}
 POSTing this to the API server for your cluster will have no effect unless your chosen networking
@@ -212,7 +212,7 @@ in that namespace.
 You can create a "default" ingress isolation policy for a namespace by creating a NetworkPolicy
 that selects all pods but does not allow any ingress traffic to those pods.
 
-{{< codenew file="service/networking/network-policy-default-deny-ingress.yaml" >}}
+{{% code file="service/networking/network-policy-default-deny-ingress.yaml" %}}
 
 This ensures that even pods that aren't selected by any other NetworkPolicy will still be isolated
 for ingress. This policy does not affect isolation for egress from any pod.
@@ -222,7 +222,7 @@ for ingress. This policy does not affect isolation for egress from any pod.
 If you want to allow all incoming connections to all pods in a namespace, you can create a policy
 that explicitly allows that.
 
-{{< codenew file="service/networking/network-policy-allow-all-ingress.yaml" >}}
+{{% code file="service/networking/network-policy-allow-all-ingress.yaml" %}}
 
 With this policy in place, no additional policy or policies can cause any incoming connection to
 those pods to be denied.  This policy has no effect on isolation for egress from any pod.
@@ -232,7 +232,7 @@ those pods to be denied.  This policy has no effect on isolation for egress from
 You can create a "default" egress isolation policy for a namespace by creating a NetworkPolicy
 that selects all pods but does not allow any egress traffic from those pods.
 
-{{< codenew file="service/networking/network-policy-default-deny-egress.yaml" >}}
+{{% code file="service/networking/network-policy-default-deny-egress.yaml" %}}
 
 This ensures that even pods that aren't selected by any other NetworkPolicy will not be allowed
 egress traffic. This policy does not change the ingress isolation behavior of any pod.
@@ -242,7 +242,7 @@ egress traffic. This policy does not change the ingress isolation behavior of an
 If you want to allow all connections from all pods in a namespace, you can create a policy that
 explicitly allows all outgoing connections from pods in that namespace.
 
-{{< codenew file="service/networking/network-policy-allow-all-egress.yaml" >}}
+{{% code file="service/networking/network-policy-allow-all-egress.yaml" %}}
 
 With this policy in place, no additional policy or policies can cause any outgoing connection from
 those pods to be denied.  This policy has no effect on isolation for ingress to any pod.
@@ -252,7 +252,7 @@ those pods to be denied.  This policy has no effect on isolation for ingress to 
 You can create a "default" policy for a namespace which prevents all ingress AND egress traffic by
 creating the following NetworkPolicy in that namespace.
 
-{{< codenew file="service/networking/network-policy-default-deny-all.yaml" >}}
+{{% code file="service/networking/network-policy-default-deny-all.yaml" %}}
 
 This ensures that even pods that aren't selected by any other NetworkPolicy will not be allowed
 ingress or egress traffic.
@@ -280,7 +280,7 @@ When writing a NetworkPolicy, you can target a range of ports instead of a singl
 
 This is achievable with the usage of the `endPort` field, as the following example:
 
-{{< codenew file="service/networking/networkpolicy-multiport-egress.yaml" >}}
+{{% code file="service/networking/networkpolicy-multiport-egress.yaml" %}}
 
 The above rule allows any Pod with label `role=db` on the namespace `default` to communicate 
 with any IP within the range `10.0.0.0/24` over TCP, provided that the target 
@@ -300,14 +300,48 @@ does not support the `endPort` field and you specify a NetworkPolicy with that,
 the policy will be applied only for the single `port` field.
 {{< /note >}}
 
+## Targeting multiple namespaces by label
+
+In this scenario, your `Egress` NetworkPolicy targets more than one namespace using their
+label names. For this to work, you need to label the target namespaces. For example:
+
+```shell
+ kubectl label namespace frontend namespace=frontend
+ kubectl label namespace backend namespace=backend
+```
+
+Add the labels under `namespaceSelector` in your NetworkPolicy document. For example:
+
+```yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: egress-namespaces
+spec:
+  podSelector:
+    matchLabels:
+      app: myapp
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchExpressions:
+        - key: namespace
+          operator: In
+          values: ["frontend", "backend"]
+```
+
+{{< note >}}
+It is not possible to directly specify the name of the namespaces in a NetworkPolicy.
+You must use a `namespaceSelector` with `matchLabels` or `matchExpressions` to select the
+namespaces based on their labels.
+{{< /note >}}
+
 ## Targeting a Namespace by its name
 
-{{< feature-state for_k8s_version="1.22" state="stable" >}}
-
 The Kubernetes control plane sets an immutable label `kubernetes.io/metadata.name` on all
-namespaces, provided that the `NamespaceDefaultLabelName`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
-The value of the label is the namespace name.
+namespaces, the value of the label is the namespace name.
 
 While NetworkPolicy cannot target a namespace by its name with some object field, you can use the
 standardized label to target a specific namespace.
@@ -344,4 +378,3 @@ implemented using the NetworkPolicy API.
   walkthrough for further examples.
 - See more [recipes](https://github.com/ahmetb/kubernetes-network-policy-recipes) for common
   scenarios enabled by the NetworkPolicy resource.
-

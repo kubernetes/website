@@ -54,7 +54,7 @@ In order to use this feature, the kubelet expects two flags to be set:
 
 The configuration file passed into `--image-credential-provider-config` is read by the kubelet to determine which exec plugins
 should be invoked for which container images. Here's an example configuration file you may end up using if you are using the
-[ECR](https://aws.amazon.com/ecr/)-based plugin:
+[ECR-based plugin](https://github.com/kubernetes/cloud-provider-aws/tree/master/cmd/ecr-credential-provider):
 
 ```yaml
 apiVersion: kubelet.config.k8s.io/v1
@@ -68,7 +68,7 @@ providers:
   # name is the required name of the credential provider. It must match the name of the
   # provider executable as seen by the kubelet. The executable must be in the kubelet's
   # bin directory (set by the --image-credential-provider-bin-dir flag).
-  - name: ecr
+  - name: ecr-credential-provider
     # matchImages is a required list of strings used to match against images in order to
     # determine if this provider should be invoked. If one of the strings matches the
     # requested image from the kubelet, the plugin will be invoked and given a chance
@@ -94,7 +94,7 @@ providers:
     # - registry.io:8080/path
     matchImages:
       - "*.dkr.ecr.*.amazonaws.com"
-      - "*.dkr.ecr.*.amazonaws.cn"
+      - "*.dkr.ecr.*.amazonaws.com.cn"
       - "*.dkr.ecr-fips.*.amazonaws.com"
       - "*.dkr.ecr.us-iso-east-1.c2s.ic.gov"
       - "*.dkr.ecr.us-isob-east-1.sc2s.sgov.gov"
@@ -107,8 +107,8 @@ providers:
     apiVersion: credentialprovider.kubelet.k8s.io/v1
     # Arguments to pass to the command when executing it.
     # +optional
-    args:
-      - get-credentials
+    # args:
+    #   - --example-argument
     # Env defines additional environment variables to expose to the process. These
     # are unioned with the host's environment, as well as variables client-go uses
     # to pass argument to the plugin.

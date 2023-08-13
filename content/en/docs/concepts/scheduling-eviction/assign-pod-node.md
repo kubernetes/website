@@ -36,8 +36,7 @@ specific Pods:
 
 Like many other Kubernetes objects, nodes have
 [labels](/docs/concepts/overview/working-with-objects/labels/). You can [attach labels manually](/docs/tasks/configure-pod-container/assign-pods-nodes/#add-a-label-to-a-node).
-Kubernetes also populates a standard set of labels on all nodes in a cluster. See [Well-Known Labels, Annotations and Taints](/docs/reference/labels-annotations-taints/)
-for a list of common node labels.
+Kubernetes also populates a [standard set of labels](/docs/reference/node/node-labels/) on all nodes in a cluster.
 
 {{<note>}}
 The value of these labels is cloud provider specific and is not guaranteed to be reliable.
@@ -122,7 +121,7 @@ your Pod spec.
 
 For example, consider the following Pod spec:
 
-{{< codenew file="pods/pod-with-node-affinity.yaml" >}}
+{{% code file="pods/pod-with-node-affinity.yaml" %}}
 
 In this example, the following rules apply:
 
@@ -134,6 +133,9 @@ In this example, the following rules apply:
 You can use the `operator` field to specify a logical operator for Kubernetes to use when
 interpreting the rules. You can use `In`, `NotIn`, `Exists`, `DoesNotExist`,
 `Gt` and `Lt`.
+
+Read [Operators](#operators)
+to learn more about how these work.
 
 `NotIn` and `DoesNotExist` allow you to define node anti-affinity behavior.
 Alternatively, you can use [node taints](/docs/concepts/scheduling-eviction/taint-and-toleration/)
@@ -169,7 +171,7 @@ scheduling decision for the Pod.
 
 For example, consider the following Pod spec:
 
-{{< codenew file="pods/pod-with-affinity-anti-affinity.yaml" >}}
+{{% code file="pods/pod-with-affinity-anti-affinity.yaml" %}}
 
 If there are two possible nodes that match the
 `preferredDuringSchedulingIgnoredDuringExecution` rule, one with the
@@ -285,7 +287,7 @@ spec.
 
 Consider the following Pod spec:
 
-{{< codenew file="pods/pod-with-pod-affinity.yaml" >}}
+{{% code file="pods/pod-with-pod-affinity.yaml" %}}
 
 This example defines one Pod affinity rule and one Pod anti-affinity rule. The
 Pod affinity rule uses the "hard"
@@ -309,6 +311,9 @@ refer to the [design proposal](https://git.k8s.io/design-proposals-archive/sched
 
 You can use the `In`, `NotIn`, `Exists` and `DoesNotExist` values in the
 `operator` field for Pod affinity and anti-affinity.
+
+Read [Operators](#operators)
+to learn more about how these work.
 
 In principle, the `topologyKey` can be any allowed label key with the following
 exceptions for performance and security reasons:
@@ -491,6 +496,31 @@ overall utilization.
 
 Read [Pod topology spread constraints](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 to learn more about how these work.
+
+## Operators
+
+The following are all the logical operators that you can use in the `operator` field for `nodeAffinity` and `podAffinity` mentioned above.
+
+|    Operator    |    Behavior     |
+| :------------: | :-------------: |
+| `In` | The label value is present in the supplied set of strings |
+|   `NotIn`   | The label value is not contained in the supplied set of strings |
+| `Exists` | A label with this key exists on the object |
+| `DoesNotExist` | No label with this key exists on the object |
+
+The following operators can only be used with `nodeAffinity`.
+
+|    Operator    |    Behaviour    |
+| :------------: | :-------------: |
+| `Gt` | The supplied value will be parsed as an integer, and that integer is less than the integer that results from parsing the value of a label named by this selector | 
+| `Lt` | The supplied value will be parsed as an integer, and that integer is greater than the integer that results from parsing the value of a label named by this selector | 
+
+
+{{<note>}}
+`Gt` and `Lt` operators will not work with non-integer values. If the given value 
+doesn't parse as an integer, the pod will fail to get scheduled. Also, `Gt` and `Lt` 
+are not available for `podAffinity`.
+{{</note>}}
 
 ## {{% heading "whatsnext" %}}
 

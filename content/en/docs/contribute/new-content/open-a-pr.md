@@ -167,7 +167,7 @@ Figure 2. Working from a local fork to make your changes.
 1. In a terminal window, clone your fork and update the [Docsy Hugo theme](https://github.com/google/docsy#readme):
 
    ```shell
-   git clone git@github.com/<github_username>/website
+   git clone git@github.com:<github_username>/website
    cd website
    git submodule update --init --recursive --depth 1
    ```

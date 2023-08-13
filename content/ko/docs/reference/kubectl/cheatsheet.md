@@ -39,7 +39,7 @@ complete -o default -F __start_kubectl k
 source <(kubectl completion zsh)  # 현재 셸에 zsh의 자동 완성 설정
 echo '[[ $commands[kubectl] ]] && source <(kubectl completion zsh)' >> ~/.zshrc # 자동 완성을 zsh 셸에 영구적으로 추가한다.
 ```
-### --all-namespaces 에 대한 노트
+### `--all-namespaces` 에 대한 노트
 
 `--all-namespaces`를 붙여야 하는 상황이 자주 발생하므로, `--all-namespaces`의 축약형을 알아 두는 것이 좋다.
 
@@ -225,6 +225,9 @@ kubectl get pods --all-namespaces -o jsonpath='{range .items[*].status.initConta
 # 타임스탬프로 정렬된 이벤트 목록 조회
 kubectl get events --sort-by=.metadata.creationTimestamp
 
+# 모든 Warning 타입 이벤트 조회
+kubectl events --types=Warning
+
 # 매니페스트가 적용된 경우 클러스터의 현재 상태와 클러스터의 상태를 비교한다.
 kubectl diff -f ./my-manifest.yaml
 
@@ -266,6 +269,7 @@ kubectl expose rc nginx --port=80 --target-port=8000
 kubectl get pod mypod -o yaml | sed 's/\(image: myimage\):.*$/\1:v4/' | kubectl replace -f -
 
 kubectl label pods my-pod new-label=awesome                      # 레이블 추가
+kubectl label pods my-pod new-label-                             # 레이블 제거
 kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq       # 어노테이션 추가
 kubectl autoscale deployment foo --min=2 --max=10                # 디플로이먼트 "foo" 오토스케일
 ```
@@ -336,9 +340,8 @@ kubectl logs -f my-pod -c my-container              # 실시간 스트림 파드
 kubectl logs -f -l name=myLabel --all-containers    # name이 myLabel인 모든 파드의 로그 스트리밍 (stdout)
 kubectl run -i --tty busybox --image=busybox:1.28 -- sh  # 대화형 셸로 파드를 실행
 kubectl run nginx --image=nginx -n mynamespace      # mynamespace 네임스페이스에서 nginx 파드 1개 실행
-kubectl run nginx --image=nginx                     # nginx 파드를 실행하고 해당 스펙을 pod.yaml 파일에 기록
---dry-run=client -o yaml > pod.yaml
-
+kubectl run nginx --image=nginx --dry-run=client -o yaml > pod.yaml
+                                                    # nginx 파드에 대한 spec을 생성하고, pod.yaml이라는 파일에 해당 내용을 기록한다.
 kubectl attach my-pod -i                            # 실행 중인 컨테이너에 연결
 kubectl port-forward my-pod 5000:6000               # 로컬 머신의 5000번 포트를 리스닝하고, my-pod의 6000번 포트로 전달
 kubectl exec my-pod -- ls /                         # 기존 파드에서 명령 실행(한 개 컨테이너 경우)
@@ -390,7 +393,7 @@ kubectl cluster-info dump                                             # 현재 �
 kubectl cluster-info dump --output-directory=/path/to/cluster-state   # 현재 클러스터 상태를 /path/to/cluster-state으로 덤프
 
 # 현재 노드에 존재하고 있는 테인트(taint)들을 확인
-kubectl get nodes -o=custom-columns=NodeName:.metadata.name,TaintKey:.spec.taints[*].key,TaintValue:.spec.taints[*].value,TaintEffect:.spec.taints[*].effect
+kubectl get nodes -o='custom-columns=NodeName:.metadata.name,TaintKey:.spec.taints[*].key,TaintValue:.spec.taints[*].value,TaintEffect:.spec.taints[*].effect'
 
 # 이미 존재하고 있는 key와 effect를 갖는 테인트의 경우, 지정한 값으로 대체
 kubectl taint nodes foo dedicated=special-user:NoSchedule

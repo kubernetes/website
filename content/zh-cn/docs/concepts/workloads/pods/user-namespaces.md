@@ -50,34 +50,69 @@ mitigate some future vulnerabilities too.
 
 {{% thirdparty-content %}}
 
-<!-- When merging this with the dev-1.27 branch conflicts will arise. The text
-as it is in the dev-1.27 branch should be used. -->
 <!--
-This is a Linux only feature. In addition, support is needed in the
+This is a Linux-only feature and support is needed in Linux for idmap mounts on
+the filesystems used. This means:
+
+* On the node, the filesystem you use for `/var/lib/kubelet/pods/`, or the
+  custom directory you configure for this, needs idmap mount support.
+* All the filesystems used in the pod's volumes must support idmap mounts.
+
+In practice this means you need at least Linux 6.3, as tmpfs started supporting
+idmap mounts in that version. This is usually needed as several Kubernetes
+features use tmpfs (the service account token that is mounted by default uses a
+tmpfs, Secrets use a tmpfs, etc.)
+
+Some popular filesystems that support idmap mounts in Linux 6.3 are: btrfs,
+ext4, xfs, fat, tmpfs, overlayfs.
+-->
+这是一个只对 Linux 有效的功能特性，且需要 Linux 支持在所用文件系统上挂载 idmap。
+这意味着：
+
+* 在节点上，你用于 `/var/lib/kubelet/pods/` 的文件系统，或你为此配置的自定义目录，
+  需要支持 idmap 挂载。
+* Pod 卷中使用的所有文件系统都必须支持 idmap 挂载。
+
+在实践中，这意味着你最低需要 Linux 6.3，因为 tmpfs 在该版本中开始支持 idmap 挂载。
+这通常是需要的，因为有几个 Kubernetes 功能特性使用 tmpfs
+（默认情况下挂载的服务账号令牌使用 tmpfs、Secret 使用 tmpfs 等等）。
+
+Linux 6.3 中支持 idmap 挂载的一些比较流行的文件系统是：btrfs、ext4、xfs、fat、
+tmpfs、overlayfs。
+
+<!--
+In addition, support is needed in the
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
 to use this feature with Kubernetes stateless pods:
 
 * CRI-O: version 1.25 (and later) supports user namespaces for containers.
-
-* containerd: version 1.7 supports user namespaces for containers, compatible
-  with Kubernetes v1.25 and v1.26, but not with later releases. If you are
-  running a different version of Kubernetes, check the documentation for that
-  Kubernetes release.
-
-Support for this in [cri-dockerd is not planned][CRI-dockerd-issue] yet.
 -->
 
-这是一个只对 Linux 有效的功能特性。此外，需要在{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}提供支持，
+此外，需要在{{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}提供支持，
 才能在 Kubernetes 无状态 Pod 中使用这一功能：
 
 * CRI-O：1.25（及更高）版本支持配置容器的用户命名空间。
-* containerd：1.7 版本支持配置容器的用户命名空间，兼容 Kubernetes v1.25 和 v1.26，但不兼容更高版本。
-  如果你运行的是不同版本的 Kubernetes，请查看该 Kubernetes 版本的文档。
 
-目前 [cri-dockerd 没有计划][CRI-dockerd-issue]支持此功能。
+<!--
+containerd v1.7 is not compatible with the userns support in Kubernetes v{{< skew currentVersion >}}.
+Kubernetes v1.25 and v1.26 used an earlier implementation that **is** compatible with containerd v1.7,
+in terms of userns support.
+If you are using a version of Kubernetes other than {{< skew currentVersion >}},
+check the documentation for that version of Kubernetes for the most relevant information.
+If there is a newer release of containerd than v1.7 available for use, also check the containerd
+documentation for compatibility information.
 
-[CRI-dockerd-issue]: https://github.com/Mirantis/cri-dockerd/issues/74
-[containerd-userns-issue]: https://github.com/containerd/containerd/issues/7063
+You can see the status of user namespaces support in cri-dockerd tracked in an [issue][CRI-dockerd-issue]
+on GitHub.
+-->
+containerd v1.7 与 Kubernetes v{{< skew currentVersion >}} 中的用户命名空间不兼容。
+Kubernetes v1.25 和 v1.26 使用了早期的实现，在用户命名空间方面与 containerd v1.7 兼容。
+如果你使用的 Kubernetes 版本不是 {{< skew currentVersion >}}，请查看该版本 Kubernetes
+的文档以获取更准确的信息。
+如果有比 v1.7 更新的 containerd 版本可供使用，请检查 containerd 文档以获取兼容性信息。
+
+你可以在 GitHub 上的 [issue][CRI-dockerd-issue] 中查看 cri-dockerd
+中用户命名空间支持的状态。
 
 <!--
 ## Introduction
@@ -283,21 +318,9 @@ Pod 完全不使用卷是被允许的；如果使用卷，只允许使用以下�
 * downwardAPI
 * emptyDir
 
+## {{% heading "whatsnext" %}}
+
 <!--
-To guarantee that the pod can read the files of such volumes, volumes are
-created as if you specified `.spec.securityContext.fsGroup` as `0` for the Pod.
-If it is specified to a different value, this other value will of course be
-honored instead.
-
-As a by-product of this, folders and files for these volumes will have
-permissions for the group, even if `defaultMode` or `mode` to specific items of
-the volumes were specified without permissions to groups. For example, it is not
-possible to mount these volumes in a way that its files have permissions only
-for the owner.
+* Take a look at [Use a User Namespace With a Pod](/docs/tasks/configure-pod-container/user-namespaces/)
 -->
-为了保证 Pod 可以读取这些卷中的文件，卷的创建操作就像你为 Pod 指定了 `.spec.securityContext.fsGroup` 为 `0` 一样。
-如果该属性被设定为不同值，那么这个不同值当然也会被使用。
-
-作为一个副产品，这些卷的文件夹和文件将具有所给组的权限，
-即使 `defaultMode` 或 volumes 的特定项目的 `mode` 被指定为没有组的权限。
-例如，不可以在挂载这些卷时使其文件只允许所有者访问。
+* 查阅[为 Pod 配置用户命名空间](/zh-cn/docs/tasks/configure-pod-container/user-namespaces/)

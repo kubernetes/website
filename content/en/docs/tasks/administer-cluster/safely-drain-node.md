@@ -6,7 +6,6 @@ reviewers:
 - kow3ns
 title: Safely Drain a Node
 content_type: task
-min-kubernetes-server-version: 1.5
 weight: 310
 ---
 
@@ -16,8 +15,7 @@ optionally respecting the PodDisruptionBudget you have defined.
 
 ## {{% heading "prerequisites" %}}
 
-{{% version-check %}}
-This task also assumes that you have met the following prerequisites:
+This task assumes that you have met the following prerequisites:
   1. You do not require your applications to be highly available during the
      node drain, or
   1. You have read about the [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) concept,
@@ -61,6 +59,16 @@ have been safely evicted (respecting the desired graceful termination period,
 and respecting the PodDisruptionBudget you have defined). It is then safe to
 bring down the node by powering down its physical machine or, if running on a
 cloud platform, deleting its virtual machine.
+
+{{< note >}}
+If any new Pods tolerate the `node.kubernetes.io/unschedulable` taint, then those Pods
+might be scheduled to the node you have drained. Avoid tolerating that taint other than
+for DaemonSets.
+
+If you or another API user directly set the [`nodeName`](/docs/concepts/scheduling-eviction/assign-pod-node/#nodename)
+field for a Pod (bypassing the scheduler), then the Pod is bound to the specified node
+and will run there, even though you have drained that node and marked it unschedulable.
+{{< /note >}}
 
 First, identify the name of the node you wish to drain. You can list all of the nodes in your cluster with
 

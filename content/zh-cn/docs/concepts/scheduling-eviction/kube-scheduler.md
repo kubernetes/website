@@ -183,7 +183,7 @@ of the scheduler:
   * [Node-specific Volume Limits](/docs/concepts/storage/storage-limits/)
 -->
 * 阅读关于[调度器性能调优](/zh-cn/docs/concepts/scheduling-eviction/scheduler-perf-tuning/)
-* 阅读关于 [Pod 拓扑分布约束](/docs/concepts/scheduling-eviction/topology-spread-constraints/)
+* 阅读关于 [Pod 拓扑分布约束](/zh-cn/docs/concepts/scheduling-eviction/topology-spread-constraints/)
 * 阅读关于 kube-scheduler 的[参考文档](/zh-cn/docs/reference/command-line-tools-reference/kube-scheduler/)
 * 阅读 [kube-scheduler 配置参考 (v1beta3)](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)
 * 了解关于[配置多个调度器](/zh-cn/docs/tasks/extend-kubernetes/configure-multiple-schedulers/) 的方式

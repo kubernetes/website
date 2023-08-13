@@ -52,17 +52,24 @@ nor should they need to keep track of the set of backends themselves.
 
 ## Proxy modes
 
-Note that the kube-proxy starts up in different modes, which are determined by its configuration.
+The kube-proxy starts up in different modes, which are determined by its configuration.
 
-- The kube-proxy's configuration is done via a ConfigMap, and the ConfigMap for
-  kube-proxy effectively deprecates the behavior for almost all of the flags for
-  the kube-proxy.
-- The ConfigMap for the kube-proxy does not support live reloading of configuration.
-- The ConfigMap parameters for the kube-proxy cannot all be validated and verified on startup.
-  For example, if your operating system doesn't allow you to run iptables commands,
-  the standard kernel kube-proxy implementation will not work.
+On Linux nodes, the available modes for kube-proxy are:
+
+[`iptables`](#proxy-mode-iptables)
+: A mode where the kube-proxy configures packet forwarding rules using iptables, on Linux.
+
+[`ipvs`](#proxy-mode-ipvs)
+: a mode where the kube-proxy configures packet forwarding rules using ipvs.
+
+There is only one mode available for kube-proxy on Windows:
+
+[`kernelspace`](#proxy-mode-kernelspace)
+: a mode where the kube-proxy configures packet forwarding rules in the Windows kernel
 
 ### `iptables` proxy mode {#proxy-mode-iptables}
+
+_This proxy mode is only available on Linux nodes._
 
 In this mode, kube-proxy watches the Kubernetes
 {{< glossary_tooltip term_id="control-plane" text="control plane" >}} for the addition and
@@ -199,6 +206,8 @@ and is likely to hurt functionality more than it improves performance.
 
 ### IPVS proxy mode {#proxy-mode-ipvs}
 
+_This proxy mode is only available on Linux nodes._
+
 In `ipvs` mode, kube-proxy watches Kubernetes Services and EndpointSlices,
 calls `netlink` interface to create IPVS rules accordingly and synchronizes
 IPVS rules with Kubernetes Services and EndpointSlices periodically.
@@ -234,6 +243,37 @@ falls back to running in iptables proxy mode.
 {{< /note >}}
 
 {{< figure src="/images/docs/services-ipvs-overview.svg" title="Virtual IP address mechanism for Services, using IPVS mode" class="diagram-medium" >}}
+
+### `kernelspace` proxy mode {#proxy-mode-kernelspace}
+
+_This proxy mode is only available on Windows nodes._
+
+The kube-proxy configures packet filtering rules in the Windows _Virtual Filtering Platform_ (VFP),
+an extension to Windows vSwitch. These rules process encapsulated packets within the node-level
+virtual networks, and rewrite packets so that the destination IP address (and layer 2 information)
+is correct for getting the packet routed to the correct destination.
+The Windows VFP is analogous to tools such as Linux `nftables` or `iptables`. The Windows VFP extends
+the _Hyper-V Switch_, which was initially implemented to support virtual machine networking.
+
+When a Pod on a node sends traffic to a virtual IP address, and the kube-proxy selects a Pod on
+a different node as the load balancing target, the `kernelspace` proxy mode rewrites that packet
+to be destined to the target backend Pod. The Windows _Host Networking Service_ (HNS) ensures that
+packet rewriting rules are configured so that the return traffic appears to come from the virtual
+IP address and not the specific backend Pod.
+
+#### Direct server return for `kernelspace` mode {#windows-direct-server-return}
+
+{{< feature-state for_k8s_version="v1.14" state="alpha" >}}
+
+As an alternative to the basic operation, a node that hosts the backend Pod for a Service can
+apply the packet rewriting directly, rather than placing this burden on the node where the client
+Pod is running. This is called _direct server return_.
+
+To use this, you must run kube-proxy with the `--enable-dsr` command line argument **and**
+enable the `WinDSR` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+
+Direct server return also optimizes the case for Pod return traffic even when both Pods
+are running on the same node.
 
 ## Session affinity
 
@@ -332,7 +372,7 @@ NAME              PARENTREF
 
 #### IP address ranges for Service virtual IP addresses {#service-ip-static-sub-range}
 
-{{< feature-state for_k8s_version="v1.25" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 Kubernetes divides the `ClusterIP` range into two bands, based on
 the size of the configured `service-cluster-ip-range` by using the following formula
@@ -356,7 +396,7 @@ to control how Kubernetes routes traffic to healthy (“ready”) backends.
 
 ### Internal traffic policy
 
-{{< feature-state for_k8s_version="v1.22" state="beta" >}}
+{{< feature-state for_k8s_version="v1.26" state="stable" >}}
 
 You can set the `.spec.internalTrafficPolicy` field to control how traffic from
 internal sources is routed. Valid values are `Cluster` and `Local`. Set the field to

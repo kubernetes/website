@@ -29,9 +29,9 @@ kube-apiserver --authorization-mode=Example,RBAC --other-options --more-options
 ## API objects {#api-overview}
 
 The RBAC API declares four kinds of Kubernetes object: _Role_, _ClusterRole_,
-_RoleBinding_ and _ClusterRoleBinding_. You can
-[describe objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/#understanding-kubernetes-objects),
-or amend them, using tools such as `kubectl`, just like any other Kubernetes object.
+_RoleBinding_ and _ClusterRoleBinding_. You can describe or amend the RBAC
+{{< glossary_tooltip text="objects" term_id="object" >}}
+using tools such as `kubectl`, just like any other Kubernetes object.
 
 {{< caution >}}
 These objects, by design, impose access restrictions. If you are making changes
@@ -284,7 +284,7 @@ If you restrict `list` or `watch` by resourceName, clients must include a `metad
 For example, `kubectl get configmaps --field-selector=metadata.name=my-configmap`
 {{< /note >}}
 
-Rather than referring to individual `resources`、`apiGroups`, and `verbs`,
+Rather than referring to individual `resources`, `apiGroups`, and `verbs`,
 you can use the wildcard `*` symbol to refer to all such objects.
 For `nonResourceURLs`, you can use the wildcard `*` as a suffix glob match.
 For `resourceNames`, an empty set means that everything is allowed.
@@ -1240,7 +1240,7 @@ guidance for restricting this access in existing clusters.
 If you want new clusters to retain this level of access in the aggregated roles,
 you can create the following ClusterRole:
 
-{{< codenew file="access/endpoints-aggregated.yaml" >}}
+{{% code file="access/endpoints-aggregated.yaml" %}}
 
 ## Upgrading from ABAC
 

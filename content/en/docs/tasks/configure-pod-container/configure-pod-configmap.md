@@ -68,7 +68,7 @@ symlinks, devices, pipes, and more).
 
 {{< note >}}
 Each filename being used for ConfigMap creation must consist of only acceptable characters,
-which are: letters (`A` to `Z` and `a` to z`), digits (`0` to `9`), '-', '_', or '.'.
+which are: letters (`A` to `Z` and `a` to `z`), digits (`0` to `9`), '-', '_', or '.'.
 If you use `kubectl create configmap` with a directory where any of the file names contains
 an unacceptable character, the `kubectl` command may fail.
 
@@ -411,8 +411,9 @@ For example, to generate a ConfigMap from files `configure-pod-container/configm
 cat <<EOF >./kustomization.yaml
 configMapGenerator:
 - name: game-config-4
-  labels:
-    game-config: config-4
+  options:
+    labels:
+      game-config: config-4
   files:
   - configure-pod-container/configmap/game.properties
 EOF
@@ -477,8 +478,9 @@ with the key `game-special-key`
 cat <<EOF >./kustomization.yaml
 configMapGenerator:
 - name: game-config-5
-  labels:
-    game-config: config-5
+  options:
+    labels:
+      game-config: config-5
   files:
   - game-special-key=configure-pod-container/configmap/game.properties
 EOF
@@ -545,7 +547,7 @@ section, and learn how to use these objects with Pods.
 2. Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY`
    environment variable in the Pod specification.
 
-   {{< codenew file="pods/pod-single-configmap-env-variable.yaml" >}}
+   {{% code file="pods/pod-single-configmap-env-variable.yaml" %}}
 
    Create the Pod:
 
@@ -560,7 +562,7 @@ section, and learn how to use these objects with Pods.
 As with the previous example, create the ConfigMaps first.
 Here is the manifest you will use:
 
-{{< codenew file="configmap/configmaps.yaml" >}}
+{{% code file="configmap/configmaps.yaml" %}}
 
 * Create the ConfigMap:
 
@@ -570,7 +572,7 @@ Here is the manifest you will use:
 
 * Define the environment variables in the Pod specification.
 
-  {{< codenew file="pods/pod-multiple-configmap-env-variable.yaml" >}}
+  {{% code file="pods/pod-multiple-configmap-env-variable.yaml" %}}
 
   Create the Pod:
 
@@ -589,7 +591,7 @@ Here is the manifest you will use:
 
 * Create a ConfigMap containing multiple key-value pairs.
 
-  {{< codenew file="configmap/configmap-multikeys.yaml" >}}
+  {{% code file="configmap/configmap-multikeys.yaml" %}}
 
   Create the ConfigMap:
 
@@ -600,7 +602,7 @@ Here is the manifest you will use:
 * Use `envFrom` to define all of the ConfigMap's data as container environment variables. The
   key from the ConfigMap becomes the environment variable name in the Pod.
 
-  {{< codenew file="pods/pod-configmap-envFrom.yaml" >}}
+  {{% code file="pods/pod-configmap-envFrom.yaml" %}}
 
   Create the Pod:
 
@@ -622,7 +624,7 @@ using the `$(VAR_NAME)` Kubernetes substitution syntax.
 
 For example, the following Pod manifest:
 
-{{< codenew file="pods/pod-configmap-env-var-valueFrom.yaml" >}}
+{{% code file="pods/pod-configmap-env-var-valueFrom.yaml" %}}
 
 Create that Pod, by running:
 
@@ -649,7 +651,7 @@ the ConfigMap. The file contents become the key's value.
 
 The examples in this section refer to a ConfigMap named `special-config`:
 
-{{< codenew file="configmap/configmap-multikeys.yaml" >}}
+{{% code file="configmap/configmap-multikeys.yaml" %}}
 
 Create the ConfigMap:
 
@@ -664,7 +666,7 @@ This adds the ConfigMap data to the directory specified as `volumeMounts.mountPa
 case, `/etc/config`). The `command` section lists directory files with names that match the
 keys in ConfigMap.
 
-{{< codenew file="pods/pod-configmap-volume.yaml" >}}
+{{% code file="pods/pod-configmap-volume.yaml" %}}
 
 Create the Pod:
 
@@ -698,7 +700,7 @@ kubectl delete pod dapi-test-pod --now
 Use the `path` field to specify the desired file path for specific ConfigMap items.
 In this case, the `SPECIAL_LEVEL` item will be mounted in the `config-volume` volume at `/etc/config/keys`.
 
-{{< codenew file="pods/pod-configmap-volume-specific-key.yaml" >}}
+{{% code file="pods/pod-configmap-volume-specific-key.yaml" %}}
 
 Create the Pod:
 
