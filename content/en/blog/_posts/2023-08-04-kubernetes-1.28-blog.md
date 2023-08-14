@@ -255,7 +255,7 @@ Kubernetes v1.28 is available for download on [GitHub](https://github.com/kubern
  
 ## Release Team
 
-Kubernetes is only possible with the support, commitment, and hard work of its community. Each release team is made up of dedicated community volunteers who work together to build the many pieces that make up the Kubernetes releases you rely on. This requires the specialized skills of people from all corners of our community, from the code itself to its documentation and project management.
+Kubernetes is only possible with the support, commitment, and hard work of its community. Each release team is comprised of dedicated community volunteers who work together to build the many pieces that make up the Kubernetes releases you rely on. This requires the specialized skills of people from all corners of our community, from the code itself to its documentation and project management.
 
 We would like to thank the entire release team for the hours spent hard at work to ensure we deliver a solid Kubernetes v1.28 release for our community.
 
