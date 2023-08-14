@@ -52,7 +52,7 @@ There's also a problem with storage. If there are volumes used by the pods, exis
 not be disassociated from the original - and now shut down - node so the PersistentVolumes used by these
 pods cannot be attached to a different, healthy node. As a result, an application running on an
 affected StatefulSet may not be able to function properly. If the original, shut down node does come up, then
-there pods will be deleted by its kubelet and new pods can be created on a different running node.
+their pods will be deleted by its kubelet and new pods can be created on a different running node.
 If the original node does not come up (common with an [immutable infrastructure](https://glossary.cncf.io/immutable-infrastructure/) design),
 those pods would be stuck in a `Terminating` status on the shut-down node forever.
 
