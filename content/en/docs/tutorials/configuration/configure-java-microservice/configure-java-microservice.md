@@ -7,8 +7,7 @@ weight: 10
 <!-- overview -->
 
 In this tutorial you will learn how and why to externalize your microservice’s configuration.
-Specifically, you will learn how to use Kubernetes ConfigMaps and Secrets to set environment
-variables and then consume them using MicroProfile Config.
+Specifically, you will learn how to use Kubernetes ConfigMaps and Secrets to set environment variables and then consume them using MicroProfile Config.
 
 
 ## {{% heading "prerequisites" %}}
@@ -54,16 +53,15 @@ Now that you have the prerequisites in place, let's proceed with the tutorial.
 
 ## Creating Kubernetes ConfigMaps & Secrets
 
-There are several ways to set environment variables for a Docker container in Kubernetes,
-including: Dockerfile, kubernetes.yml, Kubernetes ConfigMaps, and Kubernetes Secrets.  In this section, we'll explore how to use ConfigMaps and Secrets to manage your microservice's environment variables.
+There are several ways to set environment variables for a Docker container in Kubernetes, including Dockerfile, kubernetes.yml, Kubernetes ConfigMaps, and Kubernetes Secrets. In this section, we'll explore how to use ConfigMaps and Secrets to manage your microservice's environment variables.
 
 ### ConfigMaps: Storing Non-Sensitive Data
 
-ConfigMaps are perfect for storing non-sensitive configuration data that can be shared across multiple containers.
+ConfigMaps are perfect for storing non-sensitive configuration data that can be shared across multiple containers. They are Kubernetes API Objects that store non-confidential key-value pairs.
 
 **Step 1: Create a ConfigMap**
 
-To get started, follow these steps:
+To get started, let's create a ConfigMap to store your microservice's application name. Follow these steps:
 
 1. Open a text editor of your choice.
 
@@ -71,18 +69,31 @@ To get started, follow these steps:
 
 3. Copy and paste the following content into the `myapp-configmap.yaml` file:
 
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: myapp-config
-data:
-  app.name: MyApp
-  api.endpoint: https://api.example.com
-```    
-ConfigMaps are API Objects that store non-confidential key-value pairs.  For more
-information regarding ConfigMaps, you can find the documentation
-[here](/docs/tasks/configure-pod-container/configure-pod-configmap/).
+    ```yaml
+    apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: myapp-config
+      annotations:
+        description: "ConfigMap to store application name and API endpoint"
+      labels:
+        app: myapp
+        environment: production
+      namespace: my-namespace
+    data:
+      app.name: MyApp
+      api.endpoint: https://api.example.com
+    ```  
+
+  In this YAML definition:
+   - `apiVersion` specifies the Kubernetes API version to use for the resource.
+   - `kind` indicates the type of resource, which in this case is a ConfigMap.
+   - `metadata` contains metadata about the ConfigMap, including its name, annotations, labels, and namespace.
+   - `data` is where you define the key-value pairs that make up the content of the ConfigMap.
+
+   The `annotations` section is used to attach non-identifying metadata to the resource. Labels are key-value pairs used for identifying and grouping resources, and the `namespace` field specifies the Kubernetes namespace where the ConfigMap will be created.
+
+Here, we're creating a ConfigMap named `myapp-config` with a key-value pair: `app.name: MyApp`. This ConfigMap will serve as a centralized storage for your microservice's configuration data, making it easily accessible to your application. For more information regarding ConfigMaps, you can refer to official documentation [here](/docs/tasks/configure-pod-container/configure-pod-configmap/).
 
 ### Secrets: Safeguarding Sensitive Information
 
@@ -100,23 +111,56 @@ Here's how you can proceed:
 
 3. Copy and paste the following content into the `myapp-secret.yaml` file:
 
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: myapp-secret
-type: Opaque
-data:
-  db.password: <base64-encoded-password>
-  api.key: <base64-encoded-api-key>
-```
+    ```yaml
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: myapp-secret
+    type: Opaque
+    data:
+      db.password: <base64-encoded-password>
+      api.key: <base64-encoded-api-key>
+    ```
+
 Replace `<base64-encoded-password>` and `<base64-encoded-api-key>` with the actual base64-encoded values of your sensitive information. Please note that base64 encoding is used as an added security measure to protect the data.
 
+Kubernetes allows you to use Secrets to store sensitive information in a secure and reusable manner. The `type` field specifies the type of the Secret, while the `data` field is where you define key-value pairs of your sensitive information. By creating Secrets, you ensure that sensitive data remains safe and accessible only to authorized users and services.
 
-ConfigMaps and Secrets offer the advantage of reusability across multiple containers, allowing them to be shared among various parts of your application.
 
-However, it's important to note the distinction: while both store key-value pairs, Secrets focus on safeguarding sensitive data and use Base64 encoding for added security. For more information on
-Secrets, you can find the documentation [here](/docs/concepts/configuration/secret/).
+
+### ConfigMaps and Secrets: Comparison
+
+In Kubernetes, both ConfigMaps and Secrets are used to manage configuration data and sensitive information, respectively. While they share some similarities, they serve different purposes and have distinct characteristics.
+
+#### Similarities:
+
+- **Reusability:** Both ConfigMaps and Secrets are designed to promote reusability across multiple containers within a Kubernetes environment. This allows you to centralize configuration and sensitive data management.
+
+- **Key-Value Storage:** Both ConfigMaps and Secrets store data as key-value pairs. This structure simplifies data retrieval and usage within application code.
+
+#### Differences
+
+Here are the main differences between ConfigMaps and Secrets:
+
+#### Purpose
+
+- **ConfigMaps:** ConfigMaps are used to store non-sensitive configuration data that can be shared among containers. They are suitable for data like environment variables, application settings, and configuration files.
+
+- **Secrets:** Secrets are specifically designed to store sensitive information, such as passwords, API keys, and authentication tokens. They focus on ensuring data security and protection.
+
+#### Use Cases
+
+- **ConfigMaps:** Ideal for storing data that is non-confidential and can be safely exposed to containers. Examples include application configuration settings and URLs.
+
+- **Secrets:** Suited for storing confidential data that should not be exposed in plaintext. Examples include database passwords, API keys, and SSL certificates.
+
+#### Access Control
+
+- **ConfigMaps:** ConfigMaps are less secure compared to Secrets and may not be suitable for highly sensitive information.
+
+- **Secrets:** Secrets provide a higher level of security through encryption and base64 encoding. They are recommended for sensitive data storage.
+
+For more detailed information on working with Secrets in Kubernetes, you can refer to the official Kubernetes documentation [here](/docs/concepts/configuration/secret/).
 
 
 ### Externalizing Config from Code
@@ -135,13 +179,17 @@ Here's how you can achieve this:
 
 3. Add the following lines within the `<dependencies>` section:
 
-```xml
-<dependency>
-    <groupId>org.eclipse.microprofile.config</groupId>
-    <artifactId>microprofile-config-api</artifactId>
-    <version>3.1</version>
-</dependency>
-```
+    ```xml
+    <dependency>
+        <groupId>org.eclipse.microprofile.config</groupId>
+        <artifactId>microprofile-config-api</artifactId>
+        <version>3.1</version>
+    </dependency>
+    ```
+    This addition includes the MicroProfile Config API library into your project. The MicroProfile Config API provides the necessary tools and annotations to access and manage configuration properties seamlessly.
+
+With the MicroProfile Config dependency in place, your microservice is now equipped to dynamically access its configuration data based on the property names defined in your ConfigMaps and Secrets. The integration of Contexts and Dependency Injection (CDI) and MicroProfile Config enables your microservice to adapt to different environments effortlessly.
+
 
 **Step 4: Inject Configuration Properties**
 
@@ -174,13 +222,11 @@ Here's how to proceed:
     }
     ```
 
-   By using the `@ConfigProperty` annotation, you're signaling to MicroProfile Config to inject the corresponding configuration values into these fields. This enables your microservice to dynamically access its configuration data based on the specified property names.
+   By using the `@ConfigProperty` annotation, you're signaling to MicroProfile Config to inject the corresponding configuration values into these fields. This enables your microservice to dynamically access its configuration data based on the specified property names, eliminating the necessity of hardcoding configuration values directly into your code. 
 
-CDI provides a standard dependency injection capability enabling an application to be assembled
-from collaborating, loosely-coupled beans. This promotes modularity and flexibility in your application's architecture.
+CDI provides a standard dependency injection capability enabling an application to be assembled from collaborating, loosely-coupled beans. This promotes modularity and flexibility in your application's architecture.
 
-MicroProfile Config offers a standardized way for applications and microservices to access configuration properties from various sources, including the application itself, the runtime environment, and external configurations like Kubernetes ConfigMaps and Secrets.Based on the source's defined priority, the properties are automatically
-combined into a single set of properties that the application can access via an API. 
+MicroProfile Config offers a standardized way for applications and microservices to access configuration properties from various sources, including the application itself, the runtime environment, and external configurations like Kubernetes ConfigMaps and Secrets.Based on the source's defined priority, the properties are automatically combined into a single set of properties that the application can access via an API. 
 
 The integration of CDI and MicroProfile Config empowers your microservice to seamlessly access its configuration data, enabling dynamic adaptation to diverse environments.
 
