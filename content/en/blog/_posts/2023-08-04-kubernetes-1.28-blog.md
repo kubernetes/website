@@ -31,7 +31,15 @@ If a node is shut down unexpectedly or ends up in a non-recoverable state (perha
 
 This allows stateful workloads to failover to a different node successfully after the original node is shut down or in a non-recoverable state such as the hardware failure or broken OS.
     
-The Graceful Node Shutdown introduces a way to detect a node shutdown and handle it gracefully. However, a node shutdown action may not be detected by Kubelet's Node Shutdown Manager, either because the command does not trigger the inhibitor locks mechanism used by Kubelet or because of a user error, i.e., the ShutdownGracePeriod and ShutdownGracePeriodCriticalPods are not configured properly.
+Kubernetes before 1.20 lacked handling for node shutdown; on Linux, the kubelet integrates with systemd
+and implements _graceful node shutdown_ (beta, and enabled by default). However, even an intentional
+shutdown might not get handled well; that could be because:
+
+- the node runs Windows
+- the node runs Linux, but uses a different `init` (not systemd)
+- the shutdown does not trigger the system inhibitor locks mechanism
+- because of a node-level configuration error
+  (such as not setting appropriate values for `shutdownGracePeriod` and `shutdownGracePeriodCriticalPods`).
 
 When a node is shutdown but not detected by Kubelet's Node Shutdown Manager, the pods that are part of a StatefulSet will be stuck in terminating status on the shutdown node and cannot move to a new running node. This is because Kubelet on the shutdown node is not available to delete the pods so the StatefulSet cannot create a new pod with the same name. If there are volumes used by the pods, the VolumeAttachments will not be deleted from the original shutdown node so the volumes used by these pods cannot be attached to a new running node. As a result, the application running on the StatefulSet cannot function properly. If the original shutdown node comes up, the pods will be deleted by Kubelet and new pods will be created on a different running node. If the original shutdown node does not come up, these pods will be stuck in terminating status on the shutdown node forever.
 
