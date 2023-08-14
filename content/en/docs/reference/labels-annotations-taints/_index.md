@@ -15,6 +15,15 @@ This document serves both as a reference to the values and as a coordination poi
 
 ## Labels, annotations and taints used on API objects
 
+
+### apf.kubernetes.io/autoupdate-spec
+
+Type: annotation
+Example: `apf.kubernetes.io/autoupdate-spec: true`
+Used on: [All APF configuration objects](/concepts/cluster-administration/flow-control/#defaults)
+
+
+
 ### app.kubernetes.io/component
 
 Type: Label
