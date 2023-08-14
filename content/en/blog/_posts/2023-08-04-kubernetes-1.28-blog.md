@@ -157,7 +157,11 @@ For sidecar containers, the restart behavior is more complex than for init conta
 and the whole Pod is treated as having failed. If the Pod's `restartPolicy` is `Always` or `OnFailure`,
 a sidecar that fails to start will be retried.
 
-Once the sidecar container is started (postStart completed and startup probe succeeded), these containers will be restarted even when the Pod restartPolicy is Never or OnFailure. Furthermore, sidecar containers will be restarted even during Pod termination.
+Once the sidecar container has started (process running, `postStart` was successful, and
+any configured startup probe is passing), and then there's a failure, that sidecar container will be
+restarted even when the Pod's overall `restartPolicy` is `Never` or `OnFailure`.
+Furthermore, sidecar containers will be restarted (on failure or on normal exit)
+_even during Pod termination_.
 
 To learn more, read [API for sidecar containers](/docs/concepts/workloads/pods/init-containers/#api-for-sidecar-containers).
 
