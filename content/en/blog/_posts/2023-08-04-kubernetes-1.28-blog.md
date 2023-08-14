@@ -27,7 +27,7 @@ Much like a garden, our release has ever-changing growth, challenges and opportu
 
 ## Generally available: recovery from non-graceful node shutdown
     
-If a node is shut down unexpectedly or ends up in a non-recoverable state (perhaps due to hardware failure or unresponsive OS), Kubernetes allows you to clean up afterards and allow stateful workloads to restart on a different node. For Kubernetes v1.28, that's now a stable feature.
+If a node is shut down unexpectedly or ends up in a non-recoverable state (perhaps due to hardware failure or unresponsive OS), Kubernetes allows you to clean up afterwards and allow stateful workloads to restart on a different node. For Kubernetes v1.28, that's now a stable feature.
 
 This allows stateful workloads to failover to a different node successfully after the original node is shut down or in a non-recoverable state such as the hardware failure or broken OS.
     
