@@ -156,14 +156,7 @@ During the sidecar startup stage, the restart behavior will be similar to init c
 
 Once the sidecar container is started (postStart completed and startup probe succeeded), these containers will be restarted even when the Pod restartPolicy is Never or OnFailure. Furthermore, sidecar containers will be restarted even during Pod termination.
 
-In order to minimize OOM kills of sidecar containers, the OOM adjustment for these containers will match or exceed the OOM score adjustment of regular containers in the Pod.
-
-This also enables sidecar containers (those will not be allowed for other init containers):
-
-- PostStart and PreStop lifecycle handlers for sidecar containers
-- All probes (startup, readiness, liveness)
-    
-Readiness probes of sidecars will contribute to determining the whole Pod readiness.
+To learn more, read [API for sidecar containers](/docs/concepts/workloads/pods/init-containers/#api-for-sidecar-containers).
 
 ## Automatic, retroactive assignment of a default StorageClass graduates to stable
     
