@@ -29,7 +29,7 @@ Much like a garden, our release has ever-changing growth, challenges and opportu
     
 If a node is shut down unexpectedly or ends up in a non-recoverable state (perhaps due to hardware failure or unresponsive OS), Kubernetes allows you to clean up afterwards and allow stateful workloads to restart on a different node. For Kubernetes v1.28, that's now a stable feature.
 
-This allows stateful workloads to failover to a different node successfully after the original node is shut down or in a non-recoverable state such as the hardware failure or broken OS.
+This allows stateful workloads to failover to a different node successfully after the original node is shut down or in a non-recoverable state, such as the hardware failure or broken OS.
     
 Kubernetes before 1.20 lacked handling for node shutdown; on Linux, the kubelet integrates with systemd
 and implements _graceful node shutdown_ (beta, and enabled by default). However, even an intentional
