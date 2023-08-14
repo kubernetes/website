@@ -60,7 +60,10 @@ This handles node shutdown cases that are not detected by Kubelet's Node Shutdow
     
 ## Improvements to CustomResourceDefinition validation expressions 
 
-This [Common Expression Language (CEL)](https://github.com/google/cel-go) can be used to validate custom resources. The primary goal is to allow the majority of the validation use cases that currently must be handled by a webhook, to instead be handled by adding inline validation expressions directly into the schema of a CRD.
+The [Common Expression Language (CEL)](https://github.com/google/cel-go) can be used to validate
+[custom resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/). The primary goal is to allow the majority of the validation use cases that might once have needed you, as a
+CustomResourceDefinition (CRD) author, to design and implement a webhook.
+Instead, and as a beta feature, you can add _validation expressions_ directly into the schema of a CRD.
     
 CRDs need direct support for non-trivial validation. While admission webhooks do support CRDs validation, they significantly complicate the development and operability of CRDs.
 
