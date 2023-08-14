@@ -26,7 +26,7 @@ and does the following:
 
   * Modifies the object to add a `metadata.deletionTimestamp` field with the
     time you started the deletion.
-  * Prevents the object from being removed until its `metadata.finalizers` field is removed as `finalizers` can not be added or changed.
+  * Prevents the object from being removed until all items are removed from its `metadata.finalizers` field
   * Returns a `202` status code (HTTP "Accepted")
 
 The controller managing that finalizer notices the update to the object setting the
@@ -46,8 +46,11 @@ using the `PersistentVolume`, Kubernetes clears the `pv-protection` finalizer,
 and the controller deletes the volume.
 
 {{<note>}}
-* When you `DELETE` an object, Kubernetes makes that object almost read-only with exception that the 
-`metadata.deletionTimestamp` field gets set and the `finalizers` can be removed. Thus `deletionTimestamp` is immutable.
+* When you `DELETE` an object, Kubernetes adds the deletion timestamp for that object and then
+immediately starts to restrict changes to the `.metadata.finalizers` field for the object that is
+now pending deletion. You can remove existing finalizers (deleting an entry from the `finalizers`
+list) but you cannot add a new finalizer. You also cannot modify the `deletionTimestamp` for an
+object once it is set.
 
 * After the deletion is requested, you can not resurrect this object. The only way is to delete it and make a new similar object.
 {{</note>}}
