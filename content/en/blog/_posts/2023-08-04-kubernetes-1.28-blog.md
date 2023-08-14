@@ -41,7 +41,7 @@ shutdown might not get handled well; that could be because:
 - because of a node-level configuration error
   (such as not setting appropriate values for `shutdownGracePeriod` and `shutdownGracePeriodCriticalPods`).
 
-When a node is shutdown or fails, and that shutdown was not detected by the kubelet, the pods that are part
+When a node shutdowns or fails, and that shutdown was not detected by the kubelet, the pods that are part
 of a StatefulSet will be stuck in terminating status on the shutdown node. If the stopped node restarts, the
 kubelet on that node can clean up (`DELETE`) the Pods that the Kubernetes API still sees as bound to that node.
 However, if the node stays stopped - or if the kubelet isn't able to start after a reboot - then Kubernetes may
