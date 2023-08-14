@@ -9,7 +9,7 @@ slug: kubernetes-v1-28-release
 
 Announcing the release of Kubernetes v1.28 Planternetes, the second release of 2023!
 
-This release consists of 46 enhancements. 20 of those enhancements are entering Alpha, 14 have graduated to Beta, and 12 have graduated to Stable.
+This release consists of 46 enhancements. Of those enhancements, 20 are entering Alpha, 14 have graduated to Beta, and 12 have graduated to Stable.
 
 ## Release Theme And Logo
 
