@@ -152,7 +152,10 @@ means that you want a true init container that runs to completion before applica
 Sidecar containers do not block Pod completion: if all regular containers are complete, sidecar
 containers in that Pod will be terminated.
 
-During the sidecar startup stage, the restart behavior will be similar to init containers. If the Pod restartPolicy is Never, the sidecar container that failed during startup will NOT be restarted and the whole Pod will fail. If the Pod restartPolicy is Always or OnFailure, it will be restarted.
+For sidecar containers, the restart behavior is more complex than for init containers. In a Pod with
+`restartPolicy` set to `Never`, a sidecar container that fails during Pod startup will **not** be restarted
+and the whole Pod is treated as having failed. If the Pod's `restartPolicy` is `Always` or `OnFailure`,
+a sidecar that fails to start will be retried.
 
 Once the sidecar container is started (postStart completed and startup probe succeeded), these containers will be restarted even when the Pod restartPolicy is Never or OnFailure. Furthermore, sidecar containers will be restarted even during Pod termination.
 
