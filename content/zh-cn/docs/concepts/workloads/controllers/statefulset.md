@@ -1,7 +1,11 @@
 ---
 title: StatefulSet
 content_type: concept
+description: >-
+  StatefulSet 运行一组 Pod，并为每个 Pod 保留一个稳定的标识。
+  这可用于管理需要持久化存储或稳定、唯一网络标识的应用。
 weight: 30
+hide_summary: true # 在章节索引中单独列出
 ---
 <!--
 reviewers:
@@ -13,7 +17,11 @@ reviewers:
 - smarterclayton
 title: StatefulSets
 content_type: concept
+description: >-
+  A StatefulSet runs a group of Pods, and maintains a sticky identity for each of those Pods. This is useful for managing
+  applications that need persistent storage or a stable, unique network identity.
 weight: 30
+hide_summary: true # Listed separately in section index
 -->
 
 <!-- overview -->
@@ -258,7 +266,7 @@ pods will be assigned ordinals from 0 up through N-1.
 -->
 ### 起始序号   {#start-ordinal}
 
-{{< feature-state for_k8s_version="v1.26" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 <!--
 `.spec.ordinals` is an optional field that allows you to configure the integer
@@ -648,7 +656,7 @@ StatefulSet 才会开始使用被还原的模板来重新创建 Pod。
 -->
 ## PersistentVolumeClaim 保留  {#persistentvolumeclaim-retention}
 
-{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.27" state="beta" >}}
 
 <!--
 The optional `.spec.persistentVolumeClaimRetentionPolicy` field controls if

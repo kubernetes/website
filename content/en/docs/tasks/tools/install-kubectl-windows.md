@@ -27,12 +27,13 @@ The following methods exist for installing kubectl on Windows:
 
 ### Install kubectl binary with curl on Windows
 
-1. Download the [latest release {{< param "fullversion" >}}](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe).
+1. Download the latest {{< skew currentVersion >}} patch release:
+   [kubectl {{< skew currentPatchVersion >}}](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe).
 
    Or if you have `curl` installed, use this command:
 
    ```powershell
-   curl.exe -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe"
+   curl.exe -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe"
    ```
 
    {{< note >}}
@@ -45,7 +46,7 @@ The following methods exist for installing kubectl on Windows:
    Download the `kubectl` checksum file:
 
    ```powershell
-   curl.exe -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256"
+   curl.exe -LO "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe.sha256"
    ```
 
    Validate the `kubectl` binary against the checksum file:
@@ -89,11 +90,7 @@ The following methods exist for installing kubectl on Windows:
    kubectl version --client --output=yaml
    ```
 
-1. After installing the plugin, clean up the installation files:
 
-   ```powershell
-   del kubectl.exe kubectl.exe.sha256
-   ```
 
 {{< note >}}
 [Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/#kubernetes)
@@ -183,7 +180,7 @@ Below are the procedures to set up autocompletion for PowerShell.
 1. Download the latest release with the command:
 
    ```powershell
-   curl.exe -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe"
+   curl.exe -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl-convert.exe"
    ```
 
 1. Validate the binary (optional).
@@ -191,7 +188,7 @@ Below are the procedures to set up autocompletion for PowerShell.
    Download the `kubectl-convert` checksum file:
 
    ```powershell
-   curl.exe -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
+   curl.exe -LO "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
    ```
 
    Validate the `kubectl-convert` binary against the checksum file:

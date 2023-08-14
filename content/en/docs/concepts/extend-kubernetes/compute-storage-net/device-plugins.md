@@ -224,7 +224,7 @@ id of exclusively allocated CPUs, device id as it was reported by device plugins
 the NUMA node where these devices are allocated. Also, for NUMA-based machines, it contains the
 information about memory and hugepages reserved for a container.
 
-Starting from Kubernetes v1.27, the `List` enpoint can provide information on resources
+Starting from Kubernetes v1.27, the `List` endpoint can provide information on resources
 of running pods allocated in `ResourceClaims` by the `DynamicResourceAllocation` API. To enable
 this feature `kubelet` must be started with the following flags:
 
@@ -361,9 +361,27 @@ DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 {{< glossary_tooltip term_id="volume" >}} in the device monitoring agent's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
 
+{{< note >}}
+
+When accessing the `/var/lib/kubelet/pod-resources/kubelet.sock` from DaemonSet
+or any other app deployed as a container on the host, which is mounting socket as
+a volume, it is a good practice to mount directory `/var/lib/kubelet/pod-resources/`
+instead of the `/var/lib/kubelet/pod-resources/kubelet.sock`. This will ensure
+that after kubelet restart, container will be able to re-connect to this socket.
+
+Container mounts are managed by inode referencing the socket or directory,
+depending on what was mounted. When kubelet restarts, socket is deleted
+and a new socket is created, while directory stays untouched.
+So the original inode for the socket become unusable. Inode to directory
+will continue working.
+
+{{< /note >}}
+
 Support for the `PodResourcesLister service` requires `KubeletPodResources`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
 It is enabled by default starting with Kubernetes 1.15 and is v1 since Kubernetes 1.20.
+
+
 
 ### `Get` gRPC endpoint {#grpc-endpoint-get}
 
@@ -397,7 +415,7 @@ ensure your kubelet services are started with the following flags:
 
 ## Device plugin integration with the Topology Manager
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
 The Topology Manager is a Kubelet component that allows resources to be co-ordinated in a Topology
 aligned manner. In order to do this, the Device Plugin API was extended to include a

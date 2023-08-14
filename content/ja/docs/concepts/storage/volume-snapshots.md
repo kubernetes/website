@@ -151,7 +151,7 @@ spec:
 $ kubectl get crd volumesnapshotcontent -o yaml
 ```
 
-ユーザーが既存の`VolumeSnapshot`から`PersistentVolumeClaim`を作成できるようにしたいが、ソースとは異なるボリュームモードを使用する場合は、`VolumeSnapshot`に対応する`VolumeSnapshotContent`にアノテーション`snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"`を追加する必要があります。
+ユーザーが既存の`VolumeSnapshot`から`PersistentVolumeClaim`を作成できるようにしたいが、ソースとは異なるボリュームモードを使用する場合は、`VolumeSnapshot`に対応する`VolumeSnapshotContent`にアノテーション`snapshot.storage.kubernetes.io/allow-volume-mode-change: "true"`を追加する必要があります。
 
 事前プロビジョニングされたスナップショットの場合、クラスター管理者が`spec.sourceVolumeMode`を入力する必要があります。
 
@@ -163,7 +163,7 @@ kind: VolumeSnapshotContent
 metadata:
   name: new-snapshot-content-test
   annotations:
-    - snapshot.storage.kubernetes.io/allowVolumeModeChange: "true"
+    - snapshot.storage.kubernetes.io/allow-volume-mode-change: "true"
 spec:
   deletionPolicy: Delete
   driver: hostpath.csi.k8s.io

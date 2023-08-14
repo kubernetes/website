@@ -7,7 +7,7 @@
 # - pohly
 title: 스토리지 용량
 content_type: concept
-weight: 70
+weight: 80
 ---
 
 <!-- overview -->

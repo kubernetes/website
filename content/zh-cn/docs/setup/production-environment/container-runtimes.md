@@ -21,7 +21,7 @@ You need to install a
 {{< glossary_tooltip text="container runtime" term_id="container-runtime" >}}
 into each node in the cluster so that Pods can run there. This page outlines
 what is involved and describes related tasks for setting up nodes.
- -->
+-->
 你需要在集群内每个节点上安装一个
 {{< glossary_tooltip text="容器运行时" term_id="container-runtime" >}}
 以使 Pod 可以运行在上面。本文概述了所涉及的内容并描述了与节点设置相关的任务。
@@ -145,7 +145,7 @@ sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables ne
 ```
 
 <!--
-## Cgroup drivers
+## cgroup drivers
 
 On Linux, {{< glossary_tooltip text="control groups" term_id="cgroup" >}}
 are used to constrain resources that are allocated to processes.
@@ -155,12 +155,12 @@ are used to constrain resources that are allocated to processes.
 在 Linux 上，{{<glossary_tooltip text="控制组（CGroup）" term_id="cgroup" >}}用于限制分配给进程的资源。
 
 <!--
-Both {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} and the
+Both the {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} and the
 underlying container runtime need to interface with control groups to enforce
-[resource management for pods and containers](/docs/concepts/configuration/manage-resources-containers/) and set
-resources such as cpu/memory requests and limits. To interface with control
+[resource management for pods and containers](/docs/concepts/configuration/manage-resources-containers/)
+and set resources such as cpu/memory requests and limits. To interface with control
 groups, the kubelet and the container runtime need to use a *cgroup driver*.
-It's critical that the kubelet and the container runtime uses the same cgroup
+It's critical that the kubelet and the container runtime use the same cgroup
 driver and are configured the same.
 -->
 {{< glossary_tooltip text="kubelet" term_id="kubelet" >}} 和底层容器运行时都需要对接控制组来强制执行
@@ -182,21 +182,20 @@ There are two cgroup drivers available:
 <!--
 ### cgroupfs driver {#cgroupfs-cgroup-driver}
 
-The `cgroupfs` driver is the default cgroup driver in the kubelet. When the `cgroupfs`
-driver is used, the kubelet and the container runtime directly interface with
+The `cgroupfs` driver is the [default cgroup driver in the kubelet](/docs/reference/config-api/kubelet-config.v1beta1).
+When the `cgroupfs` driver is used, the kubelet and the container runtime directly interface with
 the cgroup filesystem to configure cgroups.
 
 The `cgroupfs` driver is **not** recommended when
 [systemd](https://www.freedesktop.org/wiki/Software/systemd/) is the
 init system because systemd expects a single cgroup manager on
-the system. Additionally, if you use [cgroup v2](/docs/concepts/architecture/cgroups)
-, use the `systemd` cgroup driver instead of
-`cgroupfs`.
+the system. Additionally, if you use [cgroup v2](/docs/concepts/architecture/cgroups), use the `systemd`
+cgroup driver instead of `cgroupfs`.
 -->
 ### cgroupfs 驱动 {#cgroupfs-cgroup-driver}
 
-`cgroupfs` 驱动是 kubelet 中默认的 cgroup 驱动。当使用 `cgroupfs` 驱动时，
-kubelet 和容器运行时将直接对接 cgroup 文件系统来配置 cgroup。
+`cgroupfs` 驱动是 [kubelet 中默认的 cgroup 驱动](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1)。
+当使用 `cgroupfs` 驱动时， kubelet 和容器运行时将直接对接 cgroup 文件系统来配置 cgroup。
 
 当 [systemd](https://www.freedesktop.org/wiki/Software/systemd/) 是初始化系统时，
 **不** 推荐使用 `cgroupfs` 驱动，因为 systemd 期望系统上只有一个 cgroup 管理器。
@@ -237,6 +236,7 @@ the kubelet and the container runtime when systemd is the selected init system.
 
 当 systemd 是选定的初始化系统时，缓解这个不稳定问题的方法是针对 kubelet 和容器运行时将
 `systemd` 用作 cgroup 驱动。
+
 <!--
 To set `systemd` as the cgroup driver, edit the
 [`KubeletConfiguration`](/docs/tasks/administer-cluster/kubelet-config-file/)
@@ -252,13 +252,22 @@ kind: KubeletConfiguration
 cgroupDriver: systemd
 ```
 
+{{< note >}}
+<!--
+Starting with v1.22 and later, when creating a cluster with kubeadm, if the user does not set
+the `cgroupDriver` field under `KubeletConfiguration`, kubeadm defaults it to `systemd`.
+-->
+从 v1.22 开始，在使用 kubeadm 创建集群时，如果用户没有在
+`KubeletConfiguration` 下设置 `cgroupDriver` 字段，kubeadm 默认使用 `systemd`。
+{{< /note >}}
+
 <!--
 If you configure `systemd` as the cgroup driver for the kubelet, you must also
 configure `systemd` as the cgroup driver for the container runtime. Refer to
 the documentation for your container runtime for instructions. For example:
 -->
-如果你将 `systemd` 配置为 kubelet 的 cgroup 驱动，你也必须将 `systemd` 配置为容器运行时的 cgroup 驱动。
-参阅容器运行时文档，了解指示说明。例如：
+如果你将 `systemd` 配置为 kubelet 的 cgroup 驱动，你也必须将 `systemd`
+配置为容器运行时的 cgroup 驱动。参阅容器运行时文档，了解指示说明。例如：
 
 *  [containerd](#containerd-systemd)
 *  [CRI-O](#cri-o)
@@ -311,14 +320,14 @@ using the (deprecated) v1alpha2 API instead.
 
 你的容器运行时必须至少支持 v1alpha2 版本的容器运行时接口。
 
-Kubernetes [从 1.26 版本开始](/blog/2022/11/18/upcoming-changes-in-kubernetes-1-26/#cri-api-removal)**仅适用于** 
+Kubernetes [从 1.26 版本开始](/blog/2022/11/18/upcoming-changes-in-kubernetes-1-26/#cri-api-removal)**仅适用于**
 v1 版本的容器运行时（CRI）API。早期版本默认为 v1 版本，
 但是如果容器运行时不支持 v1 版本的 API，
 则 kubelet 会回退到使用（已弃用的）v1alpha2 版本的 API。
 
 <!-- 
 ## Container runtimes
- -->
+-->
 ## 容器运行时
 
 {{% thirdparty-content %}}
@@ -331,9 +340,9 @@ This section outlines the necessary steps to use containerd as CRI runtime.
 本节概述了使用 containerd 作为 CRI 运行时的必要步骤。
 
 <!-- 
-Follow the instructions for [getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md). Return to this step once you've created a valid configuration file, `config.toml`. 
-
-To install containerd on your system, follow the instructions on [getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md).Return to this step once you've created a valid `config.toml` configuration file.
+To install containerd on your system, follow the instructions on
+[getting started with containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md).
+Return to this step once you've created a valid `config.toml` configuration file.
 -->
 要在系统上安装 containerd，请按照[开始使用 containerd](https://github.com/containerd/containerd/blob/main/docs/getting-started.md)
 的说明进行操作。创建有效的 `config.toml` 配置文件后返回此步骤。
@@ -606,4 +615,3 @@ As well as a container runtime, your cluster will need a working
 [network plugin](/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model).
 -->
 除了容器运行时，你的集群还需要有效的[网络插件](/zh-cn/docs/concepts/cluster-administration/networking/#how-to-implement-the-kubernetes-networking-model)。
-

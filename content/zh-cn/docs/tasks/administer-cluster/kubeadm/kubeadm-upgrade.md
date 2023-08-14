@@ -77,10 +77,10 @@ The upgrade workflow at high level is the following:
 
 <!--
 - The instructions below outline when to drain each node during the upgrade process.
-If you are performing a **minor** version upgrade for any kubelet, you **must**
-first drain the node (or nodes) that you are upgrading. In the case of control plane nodes,
-they could be running CoreDNS Pods or other critical workloads. For more information see
-[Draining nodes](/docs/tasks/administer-cluster/safely-drain-node/).
+  If you are performing a **minor** version upgrade for any kubelet, you **must**
+  first drain the node (or nodes) that you are upgrading. In the case of control plane nodes,
+  they could be running CoreDNS Pods or other critical workloads. For more information see
+  [Draining nodes](/docs/tasks/administer-cluster/safely-drain-node/).
 - All containers are restarted after upgrade, because the container spec hash value is changed.
 -->
 - 下述说明了在升级过程中何时腾空每个节点。如果你正在对任何 kubelet 进行小版本升级，
@@ -90,11 +90,11 @@ they could be running CoreDNS Pods or other critical workloads. For more informa
 
 <!--
 - To verify that the kubelet service has successfully restarted after the kubelet has been upgraded,
-you can execute `systemctl status kubelet` or view the service logs with `journalctl -xeu kubelet`.
+  you can execute `systemctl status kubelet` or view the service logs with `journalctl -xeu kubelet`.
 - Usage of the `--config` flag of `kubeadm upgrade` with
-[kubeadm configuration API types](/docs/reference/config-api/kubeadm-config.v1beta3)
-with the purpose of reconfiguring the cluster is not recommended and can have unexpected results. Follow the steps in
-[Reconfiguring a kubeadm cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure) instead.
+  [kubeadm configuration API types](/docs/reference/config-api/kubeadm-config.v1beta3)
+  with the purpose of reconfiguring the cluster is not recommended and can have unexpected results. Follow the steps in
+  [Reconfiguring a kubeadm cluster](/docs/tasks/administer-cluster/kubeadm/kubeadm-reconfigure) instead.
 -->
 - 要验证 kubelet 服务在升级后是否成功重启，可以执行 `systemctl status kubelet`
   或 `journalctl -xeu kubelet` 查看服务日志。
@@ -116,20 +116,30 @@ Find the latest patch release for Kubernetes {{< skew currentVersion >}} using t
 使用操作系统的包管理器找到最新的补丁版本 Kubernetes {{< skew currentVersion >}}：
 
 {{< tabs name="k8s_install_versions" >}}
-{{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
+{{% tab name="Ubuntu, Debian or HypriotOS" %}}
+<!--
+# Find the latest {{< skew currentVersion >}} version in the list.
+# It should look like {{< skew currentVersion >}}.x-00, where x is the latest patch.
+-->
 ```shell
-apt update
-apt-cache madison kubeadm
 # 在列表中查找最新的 {{< skew currentVersion >}} 版本
 # 它看起来应该是 {{< skew currentVersion >}}.x-00，其中 x 是最新的补丁版本
+apt update
+apt-cache madison kubeadm
 ```
+
 {{% /tab %}}
-{{% tab name="CentOS、RHEL 或 Fedora" %}}
+{{% tab name="CentOS, RHEL or Fedora" %}}
+<!--
+# Find the latest {{< skew currentVersion >}} version in the list.
+# It should look like {{< skew currentVersion >}}.x-0, where x is the latest patch.
+-->
 ```shell
-yum list --showduplicates kubeadm --disableexcludes=kubernetes
 # 在列表中查找最新的 {{< skew currentVersion >}} 版本
 # 它看起来应该是 {{< skew currentVersion >}}.x-0，其中 x 是最新的补丁版本
+yum list --showduplicates kubeadm --disableexcludes=kubernetes
 ```
+
 {{% /tab %}}
 {{< /tabs >}}
 
@@ -157,120 +167,129 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
 **对于第一个控制面节点**
 
 <!--
-- Upgrade kubeadm:
+1. Upgrade kubeadm:
 -->
-- 升级 kubeadm：
+1. 升级 kubeadm：
 
-  {{< tabs name="k8s_install_kubeadm_first_cp" >}}
-  {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
-  ```shell
-  # 用最新的补丁版本号替换 {{< skew currentVersion >}}.x-00 中的 x
-  apt-mark unhold kubeadm && \
-  apt-get update && apt-get install -y kubeadm={{< skew currentVersion >}}.x-00 && \
-  apt-mark hold kubeadm
-  ```
-  {{% /tab %}}
-  {{% tab name="CentOS、RHEL 或 Fedora" %}}
-  ```shell
-  # 用最新的补丁版本号替换 {{< skew currentVersion >}}.x-0 中的 x
-  yum install -y kubeadm-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
-  ```
-  {{% /tab %}}
-  {{< /tabs >}}
-  <br />
+   {{< tabs name="k8s_install_kubeadm_first_cp" >}}
+   {{% tab name="Ubuntu, Debian or HypriotOS" %}}
+
+   <!--
+   # replace x in {{< skew currentVersion >}}.x-00 with the latest patch version
+   -->
+   ```shell
+   # 用最新的补丁版本号替换 {{< skew currentVersion >}}.x-00 中的 x
+   apt-mark unhold kubeadm && \
+   apt-get update && apt-get install -y kubeadm={{< skew currentVersion >}}.x-00 && \
+   apt-mark hold kubeadm
+   ```
+
+   {{% /tab %}}
+   {{% tab name="CentOS, RHEL or Fedora" %}}
+
+   <!--
+   # replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
+   -->
+   ```shell
+   # 用最新的补丁版本号替换 {{< skew currentVersion >}}.x-0 中的 x
+   yum install -y kubeadm-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
+   ```
+
+   {{% /tab %}}
+   {{< /tabs >}}
 
 <!--
-- Verify that the download works and has the expected version:
+1. Verify that the download works and has the expected version:
 -->
-- 验证下载操作正常，并且 kubeadm 版本正确：
+2. 验证下载操作正常，并且 kubeadm 版本正确：
 
-  ```shell
-  kubeadm version
-  ```
+   ```shell
+   kubeadm version
+   ```
 
 <!--
-- Verify the upgrade plan:
+1. Verify the upgrade plan:
 -->
-- 验证升级计划：
+3. 验证升级计划：
 
-  ```shell
-  kubeadm upgrade plan
-  ```
+   ```shell
+   kubeadm upgrade plan
+   ```
 
-  <!--
-  This command checks that your cluster can be upgraded, and fetches the versions you can upgrade to.
-  It also shows a table with the component config version states.
-  -->
-  此命令检查你的集群是否可被升级，并取回你要升级的目标版本。
-  命令也会显示一个包含组件配置版本状态的表格。
+   <!--
+   This command checks that your cluster can be upgraded, and fetches the versions you can upgrade to.
+   It also shows a table with the component config version states.
+   -->
+   此命令检查你的集群是否可被升级，并取回你要升级的目标版本。
+   命令也会显示一个包含组件配置版本状态的表格。
 
-  {{< note >}}
-  <!--
-  `kubeadm upgrade` also automatically renews the certificates that it manages on this node.
-  To opt-out of certificate renewal the flag `--certificate-renewal=false` can be used.
-  For more information see the [certificate management guide](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
-  -->
-  `kubeadm upgrade` 也会自动对 kubeadm 在节点上所管理的证书执行续约操作。
-  如果需要略过证书续约操作，可以使用标志 `--certificate-renewal=false`。
-  更多的信息，可参阅[证书管理指南](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)。
-  {{</ note >}}
+   {{< note >}}
+   <!--
+   `kubeadm upgrade` also automatically renews the certificates that it manages on this node.
+   To opt-out of certificate renewal the flag `--certificate-renewal=false` can be used.
+   For more information see the [certificate management guide](/docs/tasks/administer-cluster/kubeadm/kubeadm-certs).
+   -->
+   `kubeadm upgrade` 也会自动对 kubeadm 在节点上所管理的证书执行续约操作。
+   如果需要略过证书续约操作，可以使用标志 `--certificate-renewal=false`。
+   更多的信息，可参阅[证书管理指南](/zh-cn/docs/tasks/administer-cluster/kubeadm/kubeadm-certs)。
+   {{</ note >}}
 
-  {{< note >}}
-  <!--
-  If `kubeadm upgrade plan` shows any component configs that require manual upgrade, users must provide
-  a config file with replacement configs to `kubeadm upgrade apply` via the `--config` command line flag.
-  Failing to do so will cause `kubeadm upgrade apply` to exit with an error and not perform an upgrade.
-  -->
-  如果 `kubeadm upgrade plan` 给出任何需要手动升级的组件配置，
-  用户必须通过 `--config` 命令行标志向 `kubeadm upgrade apply` 命令提供替代的配置文件。
-  如果不这样做，`kubeadm upgrade apply` 会出错并退出，不再执行升级操作。
-  {{</ note >}}
+   {{< note >}}
+   <!--
+   If `kubeadm upgrade plan` shows any component configs that require manual upgrade, users must provide
+   a config file with replacement configs to `kubeadm upgrade apply` via the `--config` command line flag.
+   Failing to do so will cause `kubeadm upgrade apply` to exit with an error and not perform an upgrade.
+   -->
+   如果 `kubeadm upgrade plan` 给出任何需要手动升级的组件配置，
+   用户必须通过 `--config` 命令行标志向 `kubeadm upgrade apply` 命令提供替代的配置文件。
+   如果不这样做，`kubeadm upgrade apply` 会出错并退出，不再执行升级操作。
+   {{</ note >}}
 
 <!--
-- Choose a version to upgrade to, and run the appropriate command. For example:
+1. Choose a version to upgrade to, and run the appropriate command. For example:
 -->
-- 选择要升级到的目标版本，运行合适的命令。例如：
+4. 选择要升级到的目标版本，运行合适的命令。例如：
 
-  <!--
-  ```shell
-  # replace x with the patch version you picked for this upgrade
-  sudo kubeadm upgrade apply v{{< skew currentVersion >}}.x
-  ```
-  -->
-  ```shell
-  # 将 x 替换为你为此次升级所选择的补丁版本号
-  sudo kubeadm upgrade apply v{{< skew currentVersion >}}.x
-  ```
+   <!--
+   ```shell
+   # replace x with the patch version you picked for this upgrade
+   sudo kubeadm upgrade apply v{{< skew currentVersion >}}.x
+   ```
+   -->
+   ```shell
+   # 将 x 替换为你为此次升级所选择的补丁版本号
+   sudo kubeadm upgrade apply v{{< skew currentVersion >}}.x
+   ```
 
-  <!--
-  Once the command finishes you should see:
-  -->
-  一旦该命令结束，你应该会看到：
+   <!--
+   Once the command finishes you should see:
+   -->
+   一旦该命令结束，你应该会看到：
 
-  ```console
-  [upgrade/successful] SUCCESS! Your cluster was upgraded to "v{{< skew currentVersion >}}.x". Enjoy!
+   ```console
+   [upgrade/successful] SUCCESS! Your cluster was upgraded to "v{{< skew currentVersion >}}.x". Enjoy!
 
-  [upgrade/kubelet] Now that your control plane is upgraded, please proceed with upgrading your kubelets if you haven't already done so.
-  ```
+   [upgrade/kubelet] Now that your control plane is upgraded, please proceed with upgrading your kubelets if you haven't already done so.
+   ```
 
 <!--
-- Manually upgrade your CNI provider plugin.
+1. Manually upgrade your CNI provider plugin.
 -->
-- 手动升级你的 CNI 驱动插件。
+5. 手动升级你的 CNI 驱动插件。
 
-  <!--
-  Your Container Network Interface (CNI) provider may have its own upgrade instructions to follow.
-  Check the [addons](/docs/concepts/cluster-administration/addons/) page to
-  find your CNI provider and see whether additional upgrade steps are required.
-  -->
-  你的容器网络接口（CNI）驱动应该提供了程序自身的升级说明。
-  参阅[插件](/zh-cn/docs/concepts/cluster-administration/addons/)页面查找你的 CNI 驱动，
-  并查看是否需要其他升级步骤。
+   <!--
+   Your Container Network Interface (CNI) provider may have its own upgrade instructions to follow.
+   Check the [addons](/docs/concepts/cluster-administration/addons/) page to
+   find your CNI provider and see whether additional upgrade steps are required.
+   -->
+   你的容器网络接口（CNI）驱动应该提供了程序自身的升级说明。
+   参阅[插件](/zh-cn/docs/concepts/cluster-administration/addons/)页面查找你的 CNI 驱动，
+   并查看是否需要其他升级步骤。
 
-  <!--
-  This step is not required on additional control plane nodes if the CNI provider runs as a DaemonSet.
-  -->
-  如果 CNI 驱动作为 DaemonSet 运行，则在其他控制平面节点上不需要此步骤。
+   <!--
+   This step is not required on additional control plane nodes if the CNI provider runs as a DaemonSet.
+   -->
+   如果 CNI 驱动作为 DaemonSet 运行，则在其他控制平面节点上不需要此步骤。
 
 <!--
 **For the other control plane nodes**
@@ -306,20 +325,20 @@ Also calling `kubeadm upgrade plan` and upgrading the CNI provider plugin is no 
 ### 腾空节点   {#drain-the-node}
 
 <!--
-- Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
+Prepare the node for maintenance by marking it unschedulable and evicting the workloads:
 -->
-- 将节点标记为不可调度并驱逐所有负载，准备节点的维护：
+将节点标记为不可调度并驱逐所有负载，准备节点的维护：
 
-  <!--
-  ```shell
-  # replace <node-to-drain> with the name of your node you are draining
-  kubectl drain <node-to-drain> --ignore-daemonsets
-  ```
-  -->
-  ```shell
-  # 将 <node-to-drain> 替换为你要腾空的控制面节点名称
-  kubectl drain <node-to-drain> --ignore-daemonsets
-  ```
+<!--
+```shell
+# replace <node-to-drain> with the name of your node you are draining
+kubectl drain <node-to-drain> --ignore-daemonsets
+```
+-->
+```shell
+# 将 <node-to-drain> 替换为你要腾空的控制面节点名称
+kubectl drain <node-to-drain> --ignore-daemonsets
+```
 
 <!--
 ### Upgrade kubelet and kubectl
@@ -327,37 +346,46 @@ Also calling `kubeadm upgrade plan` and upgrading the CNI provider plugin is no 
 ### 升级 kubelet 和 kubectl   {#upgrade-kubelet-and-kubectl}
 
 <!--
-- Upgrade the kubelet and kubectl:
+1. Upgrade the kubelet and kubectl:
 -->
-- 升级 kubelet 和 kubectl：
+1. 升级 kubelet 和 kubectl：
 
-  {{< tabs name="k8s_install_kubelet" >}}
-  {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
-  ```shell
-  # 用最新的补丁版本替换 {{< skew currentVersion >}}.x-00 中的 x
-  apt-mark unhold kubelet kubectl && \
-  apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
-  apt-mark hold kubelet kubectl
-  ```
-  {{% /tab %}}
-  {{% tab name="CentOS、RHEL 或 Fedora" %}}
-  ```shell
-  # 用最新的补丁版本号替换 {{< skew currentVersion >}}.x-00 中的 x
-  yum install -y kubelet-{{< skew currentVersion >}}.x-0 kubectl-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
-  ```
-  {{% /tab %}}
-  {{< /tabs >}}
-  <br />
+   {{< tabs name="k8s_install_kubelet" >}}
+   {{% tab name="Ubuntu, Debian or HypriotOS" %}}
+
+   <!--
+   # replace x in {{< skew currentVersion >}}.x-00 with the latest patch version
+   -->
+   ```shell
+   # 用最新的补丁版本替换 {{< skew currentVersion >}}.x-00 中的 x
+   apt-mark unhold kubelet kubectl && \
+   apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
+   apt-mark hold kubelet kubectl
+   ```
+
+   {{% /tab %}}
+   {{% tab name="CentOS, RHEL or Fedora" %}}
+
+   <!--
+   # replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
+   -->
+   ```shell
+   # 用最新的补丁版本号替换 {{< skew currentVersion >}}.x-00 中的 x
+   yum install -y kubelet-{{< skew currentVersion >}}.x-0 kubectl-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
+   ```
+
+   {{% /tab %}}
+   {{< /tabs >}}
 
 <!--
-- Restart the kubelet:
+1. Restart the kubelet:
 -->
-- 重启 kubelet：
+2. 重启 kubelet：
 
-  ```shell
-  sudo systemctl daemon-reload
-  sudo systemctl restart kubelet
-  ```
+   ```shell
+   sudo systemctl daemon-reload
+   sudo systemctl restart kubelet
+   ```
 
 <!--
 ### Uncordon the node
@@ -365,20 +393,20 @@ Also calling `kubeadm upgrade plan` and upgrading the CNI provider plugin is no 
 ### 解除节点的保护   {#uncordon-the-node}
 
 <!--
-- Bring the node back online by marking it schedulable:
+Bring the node back online by marking it schedulable:
 -->
-- 通过将节点标记为可调度，让其重新上线：
+通过将节点标记为可调度，让其重新上线：
 
-  <!--
-  ```shell
-  # replace <node-to-uncordon> with the name of your node
-  kubectl uncordon <node-to-uncordon>
-  ```
-  -->
-  ```shell
-  # 将 <node-to-uncordon> 替换为你的节点名称
-  kubectl uncordon <node-to-uncordon>
-  ```
+<!--
+```shell
+# replace <node-to-uncordon> with the name of your node
+kubectl uncordon <node-to-uncordon>
+```
+-->
+```shell
+# 将 <node-to-uncordon> 替换为你的节点名称
+kubectl uncordon <node-to-uncordon>
+```
 
 <!--
 ## Upgrade worker nodes
@@ -393,10 +421,10 @@ without compromising the minimum required capacity for running your workloads.
 以不影响运行工作负载所需的最小容量。
 
 <!--
-The following pages show how to  Upgrade Linux and Windows worker nodes:
+The following pages show how to upgrade Linux and Windows worker nodes:
 
-  * [Upgrade Linux nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes/)
-  * [Upgrade Windows nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes/)
+* [Upgrade Linux nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-linux-nodes/)
+* [Upgrade Windows nodes](/docs/tasks/administer-cluster/kubeadm/upgrading-windows-nodes/)
 -->
 以下内容演示如何升级 Linux 和 Windows 工作节点：
 

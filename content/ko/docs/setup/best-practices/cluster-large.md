@@ -3,7 +3,7 @@
 # - davidopp
 # - lavalamp
 title: 대형 클러스터에 대한 고려 사항
-weight: 20
+weight: 10
 ---
 
 클러스터는 {{< glossary_tooltip text="컨트롤 플레인" term_id="control-plane" >}}에서 관리하는

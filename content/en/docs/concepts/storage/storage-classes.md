@@ -57,6 +57,17 @@ mountOptions:
 volumeBindingMode: Immediate
 ```
 
+### Default StorageClass
+
+When a PVC does not specify a `storageClassName`, the default StorageClass is
+used. The cluster can only have one default StorageClass. If more than one
+default StorageClass is accidentally set, the newest default is used when the
+PVC is dynamically provisioned.
+
+For instructions on setting the default StorageClass, see
+[Change the default StorageClass](/docs/tasks/administer-cluster/change-default-storage-class/).
+Note that certain cloud providers may already define a default StorageClass.
+
 ### Provisioner
 
 Each StorageClass has a provisioner that determines what volume plugin is used
@@ -64,11 +75,8 @@ for provisioning PVs. This field must be specified.
 
 | Volume Plugin        | Internal Provisioner |            Config Example             |
 | :------------------- | :------------------: | :-----------------------------------: |
-| AWSElasticBlockStore |       &#x2713;       |          [AWS EBS](#aws-ebs)          |
 | AzureFile            |       &#x2713;       |       [Azure File](#azure-file)       |
-| AzureDisk            |       &#x2713;       |       [Azure Disk](#azure-disk)       |
 | CephFS               |          -           |                   -                   |
-| Cinder               |       &#x2713;       | [OpenStack Cinder](#openstack-cinder) |
 | FC                   |          -           |                   -                   |
 | FlexVolume           |          -           |                   -                   |
 | GCEPersistentDisk    |       &#x2713;       |           [GCE PD](#gce-pd)           |
@@ -98,7 +106,8 @@ vendors provide their own external provisioner.
 ### Reclaim Policy
 
 PersistentVolumes that are dynamically created by a StorageClass will have the
-reclaim policy specified in the `reclaimPolicy` field of the class, which can be
+[reclaim policy](/docs/concepts/storage/persistent-volumes/#reclaiming)
+specified in the `reclaimPolicy` field of the class, which can be
 either `Delete` or `Retain`. If no `reclaimPolicy` is specified when a
 StorageClass object is created, it will default to `Delete`.
 
@@ -106,8 +115,6 @@ PersistentVolumes that are created manually and managed via a StorageClass will 
 whatever reclaim policy they were assigned at creation.
 
 ### Allow Volume Expansion
-
-{{< feature-state for_k8s_version="v1.11" state="beta" >}}
 
 PersistentVolumes can be configured to be expandable. This feature when set to `true`,
 allows the users to resize the volume by editing the corresponding PVC object.
@@ -120,11 +127,8 @@ StorageClass has the field `allowVolumeExpansion` set to true.
 | Volume type          | Required Kubernetes version |
 | :------------------- | :-------------------------- |
 | gcePersistentDisk    | 1.11                        |
-| awsElasticBlockStore | 1.11                        |
-| Cinder               | 1.11                        |
 | rbd                  | 1.11                        |
 | Azure File           | 1.11                        |
-| Azure Disk           | 1.11                        |
 | Portworx             | 1.11                        |
 | FlexVolume           | 1.13                        |
 | CSI                  | 1.14 (alpha), 1.16 (beta)   |
@@ -146,8 +150,9 @@ the class or PV. If a mount option is invalid, the PV mount fails.
 
 ### Volume Binding Mode
 
-The `volumeBindingMode` field controls when [volume binding and dynamic
-provisioning](/docs/concepts/storage/persistent-volumes/#provisioning) should occur. When unset, "Immediate" mode is used by default.
+The `volumeBindingMode` field controls when
+[volume binding and dynamic provisioning](/docs/concepts/storage/persistent-volumes/#provisioning)
+should occur. When unset, "Immediate" mode is used by default.
 
 The `Immediate` mode indicates that volume binding and dynamic
 provisioning occurs once the PersistentVolumeClaim is created. For storage
@@ -167,23 +172,21 @@ and [taints and tolerations](/docs/concepts/scheduling-eviction/taint-and-tolera
 
 The following plugins support `WaitForFirstConsumer` with dynamic provisioning:
 
-- [AWSElasticBlockStore](#aws-ebs)
 - [GCEPersistentDisk](#gce-pd)
-- [AzureDisk](#azure-disk)
 
 The following plugins support `WaitForFirstConsumer` with pre-created PersistentVolume binding:
 
 - All of the above
 - [Local](#local)
 
-{{< feature-state state="stable" for_k8s_version="v1.17" >}}
 [CSI volumes](/docs/concepts/storage/volumes/#csi) are also supported with dynamic provisioning
 and pre-created PVs, but you'll need to look at the documentation for a specific CSI driver
 to see its supported topology keys and examples.
 
 {{< note >}}
 If you choose to use `WaitForFirstConsumer`, do not use `nodeName` in the Pod spec
-to specify node affinity. If `nodeName` is used in this case, the scheduler will be bypassed and PVC will remain in `pending` state.
+to specify node affinity.
+If `nodeName` is used in this case, the scheduler will be bypassed and PVC will remain in `pending` state.
 
 Instead, you can use node selector for hostname in this case as shown below.
 {{< /note >}}
@@ -332,7 +335,13 @@ using `allowedTopologies`.
 
 {{< note >}}
 `zone` and `zones` parameters are deprecated and replaced with
-[allowedTopologies](#allowed-topologies)
+[allowedTopologies](#allowed-topologies). When
+[GCE CSI Migration](/docs/concepts/storage/volumes/#gce-csi-migration) is
+enabled, a GCE PD volume can be provisioned in a topology that does not match
+any nodes, but any pod trying to use that volume will fail to schedule. With
+legacy pre-migration GCE PD, in this case an error will be produced
+instead at provisioning time. GCE CSI Migration is enabled by default beginning
+from the Kubernetes 1.23 release.
 {{< /note >}}
 
 ### NFS
@@ -353,31 +362,12 @@ parameters:
 - `path`: Path that is exported by the NFS server.
 - `readOnly`: A flag indicating whether the storage will be mounted as read only (default false).
 
-Kubernetes doesn't include an internal NFS provisioner. You need to use an external provisioner to create a StorageClass for NFS.
+Kubernetes doesn't include an internal NFS provisioner.
+You need to use an external provisioner to create a StorageClass for NFS.
 Here are some examples:
 
 - [NFS Ganesha server and external provisioner](https://github.com/kubernetes-sigs/nfs-ganesha-server-and-external-provisioner)
 - [NFS subdir external provisioner](https://github.com/kubernetes-sigs/nfs-subdir-external-provisioner)
-
-### OpenStack Cinder
-
-```yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: gold
-provisioner: kubernetes.io/cinder
-parameters:
-  availability: nova
-```
-
-- `availability`: Availability Zone. If not specified, volumes are generally
-  round-robin-ed across all active zones where Kubernetes cluster has a node.
-
-{{< note >}}
-{{< feature-state state="deprecated" for_k8s_version="v1.11" >}}
-This internal provisioner of OpenStack is deprecated. Please use [the external cloud provider for OpenStack](https://github.com/kubernetes/cloud-provider-openstack).
-{{< /note >}}
 
 ### vSphere
 
@@ -386,11 +376,15 @@ There are two types of provisioners for vSphere storage classes:
 - [CSI provisioner](#vsphere-provisioner-csi): `csi.vsphere.vmware.com`
 - [vCP provisioner](#vcp-provisioner): `kubernetes.io/vsphere-volume`
 
-In-tree provisioners are [deprecated](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi). For more information on the CSI provisioner, see [Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) and [vSphereVolume CSI migration](/docs/concepts/storage/volumes/#vsphere-csi-migration).
+In-tree provisioners are [deprecated](/blog/2019/12/09/kubernetes-1-17-feature-csi-migration-beta/#why-are-we-migrating-in-tree-plugins-to-csi).
+For more information on the CSI provisioner, see
+[Kubernetes vSphere CSI Driver](https://vsphere-csi-driver.sigs.k8s.io/) and
+[vSphereVolume CSI migration](/docs/concepts/storage/volumes/#vsphere-csi-migration).
 
 #### CSI Provisioner {#vsphere-provisioner-csi}
 
-The vSphere CSI StorageClass provisioner works with Tanzu Kubernetes clusters. For an example, refer to the [vSphere CSI repository](https://github.com/kubernetes-sigs/vsphere-csi-driver/blob/master/example/vanilla-k8s-RWM-filesystem-volumes/example-sc.yaml).
+The vSphere CSI StorageClass provisioner works with Tanzu Kubernetes clusters.
+For an example, refer to the [vSphere CSI repository](https://github.com/kubernetes-sigs/vsphere-csi-driver/blob/master/example/vanilla-k8s-RWM-filesystem-volumes/example-sc.yaml).
 
 #### vCP Provisioner
 
@@ -641,8 +635,6 @@ parameters:
   `"true"` and not `true`.
 
 ### Local
-
-{{< feature-state for_k8s_version="v1.14" state="stable" >}}
 
 ```yaml
 apiVersion: storage.k8s.io/v1

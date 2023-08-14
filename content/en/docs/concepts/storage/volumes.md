@@ -12,10 +12,13 @@ weight: 10
 <!-- overview -->
 
 On-disk files in a container are ephemeral, which presents some problems for
-non-trivial applications when running in containers. One problem
-is the loss of files when a container crashes. The kubelet restarts the container
-but with a clean state. A second problem occurs when sharing files
-between containers running together in a `Pod`.
+non-trivial applications when running in containers. One problem occurs when 
+a container crashes or is stopped. Container state is not saved so all of the 
+files that were created or modified during the lifetime of the container are lost. 
+During a crash, kubelet restarts the container with a clean state. 
+Another problem occurs when multiple containers are running in a `Pod` and 
+need to share files. It can be challenging to setup 
+and access a shared filesystem across all of the containers.
 The Kubernetes {{< glossary_tooltip text="volume" term_id="volume" >}} abstraction
 solves both of these problems.
 Familiarity with [Pods](/docs/concepts/workloads/pods/) is suggested.
@@ -24,15 +27,10 @@ Familiarity with [Pods](/docs/concepts/workloads/pods/) is suggested.
 
 ## Background
 
-Docker has a concept of
-[volumes](https://docs.docker.com/storage/), though it is
-somewhat looser and less managed. A Docker volume is a directory on
-disk or in another container. Docker provides volume
-drivers, but the functionality is somewhat limited.
-
 Kubernetes supports many types of volumes. A {{< glossary_tooltip term_id="pod" text="Pod" >}}
 can use any number of volume types simultaneously.
-Ephemeral volume types have a lifetime of a pod, but persistent volumes exist beyond
+[Ephemeral volume](/docs/concepts/storage/ephemeral-volumes/) types have a lifetime of a pod, 
+but [persistent volumes](/docs/concepts/storage/persistent-volumes/) exist beyond
 the lifetime of a pod. When a pod ceases to exist, Kubernetes destroys ephemeral volumes;
 however, Kubernetes does not destroy persistent volumes.
 For any kind of volume in a given pod, data is preserved across container restarts.
@@ -64,102 +62,31 @@ a different volume.
 
 Kubernetes supports several types of volumes.
 
-### awsElasticBlockStore (deprecated) {#awselasticblockstore}
+### awsElasticBlockStore (removed) {#awselasticblockstore}
 
-{{< feature-state for_k8s_version="v1.17" state="deprecated" >}}
+<!-- maintenance note: OK to remove all mention of awsElasticBlockStore once the v1.27 release of
+Kubernetes has gone out of support -->
 
-An `awsElasticBlockStore` volume mounts an Amazon Web Services (AWS)
-[EBS volume](https://aws.amazon.com/ebs/) into your pod. Unlike
-`emptyDir`, which is erased when a pod is removed, the contents of an EBS
-volume are persisted and the volume is unmounted. This means that an
-EBS volume can be pre-populated with data, and that data can be shared between pods.
+Kubernetes {{< skew currentVersion >}} does not include a `awsElasticBlockStore` volume type.
 
-{{< note >}}
-You must create an EBS volume by using `aws ec2 create-volume` or the AWS API before you can use it.
-{{< /note >}}
+The AWSElasticBlockStore in-tree storage driver was deprecated in the Kubernetes v1.19 release
+and then removed entirely in the v1.27 release.
 
-There are some restrictions when using an `awsElasticBlockStore` volume:
+The Kubernetes project suggests that you use the [AWS EBS](https://github.com/kubernetes-sigs/aws-ebs-csi-driver) third party
+storage driver instead.
 
-* the nodes on which pods are running must be AWS EC2 instances
-* those instances need to be in the same region and availability zone as the EBS volume
-* EBS only supports a single EC2 instance mounting a volume
+### azureDisk (removed) {#azuredisk}
 
-#### Creating an AWS EBS volume
+<!-- maintenance note: OK to remove all mention of azureDisk once the v1.27 release of
+Kubernetes has gone out of support -->
 
-Before you can use an EBS volume with a pod, you need to create it.
+Kubernetes {{< skew currentVersion >}} does not include a `azureDisk` volume type.
 
-```shell
-aws ec2 create-volume --availability-zone=eu-west-1a --size=10 --volume-type=gp2
-```
+The AzureDisk in-tree storage driver was deprecated in the Kubernetes v1.19 release
+and then removed entirely in the v1.27 release.
 
-Make sure the zone matches the zone you brought up your cluster in. Check that the size and EBS volume
-type are suitable for your use.
-
-#### AWS EBS configuration example
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: test-ebs
-spec:
-  containers:
-  - image: registry.k8s.io/test-webserver
-    name: test-container
-    volumeMounts:
-    - mountPath: /test-ebs
-      name: test-volume
-  volumes:
-  - name: test-volume
-    # This AWS EBS volume must already exist.
-    awsElasticBlockStore:
-      volumeID: "<volume id>"
-      fsType: ext4
-```
-
-If the EBS volume is partitioned, you can supply the optional field `partition: "<partition number>"` to specify which partition to mount on.
-
-#### AWS EBS CSI migration
-
-{{< feature-state for_k8s_version="v1.25" state="stable" >}}
-
-The `CSIMigration` feature for `awsElasticBlockStore`, when enabled, redirects
-all plugin operations from the existing in-tree plugin to the `ebs.csi.aws.com` Container
-Storage Interface (CSI) driver. In order to use this feature, the [AWS EBS CSI
-driver](https://github.com/kubernetes-sigs/aws-ebs-csi-driver)
-must be installed on the cluster.
-
-#### AWS EBS CSI migration complete
-
-{{< feature-state for_k8s_version="v1.17" state="alpha" >}}
-
-To disable the `awsElasticBlockStore` storage plugin from being loaded by the controller manager
-and the kubelet, set the `InTreePluginAWSUnregister` flag to `true`.
-
-### azureDisk (deprecated) {#azuredisk}
-
-{{< feature-state for_k8s_version="v1.19" state="deprecated" >}}
-
-The `azureDisk` volume type mounts a Microsoft Azure [Data Disk](https://docs.microsoft.com/en-us/azure/aks/csi-storage-drivers) into a pod.
-
-For more details, see the [`azureDisk` volume plugin](https://github.com/kubernetes/examples/tree/master/staging/volumes/azure_disk/README.md).
-
-#### azureDisk CSI migration
-
-{{< feature-state for_k8s_version="v1.24" state="stable" >}}
-
-The `CSIMigration` feature for `azureDisk`, when enabled, redirects all plugin operations
-from the existing in-tree plugin to the `disk.csi.azure.com` Container
-Storage Interface (CSI) Driver. In order to use this feature, the
-[Azure Disk CSI Driver](https://github.com/kubernetes-sigs/azuredisk-csi-driver)
-must be installed on the cluster.
-
-#### azureDisk CSI migration complete
-
-{{< feature-state for_k8s_version="v1.21" state="alpha" >}}
-
-To disable the `azureDisk` storage plugin from being loaded by the controller manager
-and the kubelet, set the `InTreePluginAzureDiskUnregister` flag to `true`.
+The Kubernetes project suggests that you use the [Azure Disk](https://github.com/kubernetes-sigs/azuredisk-csi-driver) third party
+storage driver instead.
 
 ### azureFile (deprecated) {#azurefile}
 
@@ -206,51 +133,19 @@ You must have your own Ceph server running with the share exported before you ca
 
 See the [CephFS example](https://github.com/kubernetes/examples/tree/master/volumes/cephfs/) for more details.
 
-### cinder (deprecated) {#cinder}
+### cinder (removed) {#cinder}
 
-{{< feature-state for_k8s_version="v1.18" state="deprecated" >}}
+<!-- maintenance note: OK to remove all mention of cinder once the v1.26 release of
+Kubernetes has gone out of support -->
 
-{{< note >}}
-Kubernetes must be configured with the OpenStack cloud provider.
-{{< /note >}}
+Kubernetes {{< skew currentVersion >}} does not include a `cinder` volume type.
 
-The `cinder` volume type is used to mount the OpenStack Cinder volume into your pod.
+The OpenStack Cinder in-tree storage driver was deprecated in the Kubernetes v1.11 release
+and then removed entirely in the v1.26 release.
 
-#### Cinder volume configuration example
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: test-cinder
-spec:
-  containers:
-  - image: registry.k8s.io/test-webserver
-    name: test-cinder-container
-    volumeMounts:
-    - mountPath: /test-cinder
-      name: test-volume
-  volumes:
-  - name: test-volume
-    # This OpenStack volume must already exist.
-    cinder:
-      volumeID: "<volume id>"
-      fsType: ext4
-```
-
-#### OpenStack CSI migration
-
-{{< feature-state for_k8s_version="v1.24" state="stable" >}}
-
-The `CSIMigration` feature for Cinder is enabled by default since Kubernetes 1.21.
-It redirects all plugin operations from the existing in-tree plugin to the
-`cinder.csi.openstack.org` Container Storage Interface (CSI) Driver.
-[OpenStack Cinder CSI Driver](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)
-must be installed on the cluster.
-
-To disable the in-tree Cinder plugin from being loaded by the controller manager
-and the kubelet, you can enable the `InTreePluginOpenStackUnregister`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+The Kubernetes project suggests that you use the 
+[OpenStack Cinder](https://github.com/kubernetes/cloud-provider-openstack/blob/master/docs/cinder-csi-plugin/using-cinder-csi-plugin.md)
+third party storage driver instead.
 
 ### configMap
 
@@ -291,13 +186,17 @@ Note that this path is derived from the volume's `mountPath` and the `path`
 keyed with `log_level`.
 
 {{< note >}}
+
 * You must create a [ConfigMap](/docs/tasks/configure-pod-container/configure-pod-configmap/)
   before you can use it.
 
+* A ConfigMap is always mounted as `readOnly`.
+
 * A container using a ConfigMap as a [`subPath`](#using-subpath) volume mount will not
   receive ConfigMap updates.
-
+  
 * Text data is exposed as files using the UTF-8 character encoding. For other character encodings, use `binaryData`.
+
 {{< /note >}}
 
 ### downwardAPI {#downwardapi}
@@ -926,12 +825,14 @@ backed by tmpfs (a RAM-backed filesystem) so they are never written to
 non-volatile storage.
 
 {{< note >}}
-You must create a Secret in the Kubernetes API before you can use it.
-{{< /note >}}
 
-{{< note >}}
-A container using a Secret as a [`subPath`](#using-subpath) volume mount will not
+* You must create a Secret in the Kubernetes API before you can use it.
+
+* A Secret is always mounted as `readOnly`.
+
+* A container using a Secret as a [`subPath`](#using-subpath) volume mount will not
 receive Secret updates.
+
 {{< /note >}}
 
 For more details, see [Configuring Secrets](/docs/concepts/configuration/secret/).
@@ -1139,9 +1040,8 @@ persistent volume:
   The value is passed as `volume_id` on all calls to the CSI volume driver when
   referencing the volume.
 * `readOnly`: An optional boolean value indicating whether the volume is to be
-  "ControllerPublished" (attached) as read only. Default is false. This value is
-  passed to the CSI driver via the `readonly` field in the
-  `ControllerPublishVolumeRequest`.
+  "ControllerPublished" (attached) as read only. Default is false. This value is passed
+  to the CSI driver via the `readonly` field in the `ControllerPublishVolumeRequest`.
 * `fsType`: If the PV's `VolumeMode` is `Filesystem` then this field may be used
   to specify the filesystem that should be used to mount the volume. If the
   volume has not been formatted and formatting is supported, this value will be
@@ -1161,7 +1061,7 @@ persistent volume:
   `ControllerPublishVolume` and `ControllerUnpublishVolume` calls. This field is
   optional, and may be empty if no secret is required. If the Secret
   contains more than one secret, all secrets are passed.
-`nodeExpandSecretRef`: A reference to the secret containing sensitive
+* `nodeExpandSecretRef`: A reference to the secret containing sensitive
   information to pass to the CSI driver to complete the CSI
   `NodeExpandVolume` call. This field is optional, and may be empty if no
   secret is required. If the object contains more than one secret, all
@@ -1216,8 +1116,8 @@ For more information on how to develop a CSI driver, refer to the
 
 CSI node plugins need to perform various privileged
 operations like scanning of disk devices and mounting of file systems. These operations
-differ for each host operating system. For Linux worker nodes, containerized CSI node
-node plugins are typically deployed as privileged containers. For Windows worker nodes,
+differ for each host operating system. For Linux worker nodes, containerized CSI node 
+plugins are typically deployed as privileged containers. For Windows worker nodes,
 privileged operations for containerized CSI node plugins is supported using
 [csi-proxy](https://github.com/kubernetes-csi/csi-proxy), a community-managed,
 stand-alone binary that needs to be pre-installed on each Windows node.
@@ -1242,8 +1142,6 @@ are listed in [Types of Volumes](#volume-types).
 
 The following in-tree plugins support persistent storage on Windows nodes:
 
-* [`awsElasticBlockStore`](#awselasticblockstore)
-* [`azureDisk`](#azuredisk)
 * [`azureFile`](#azurefile)
 * [`gcePersistentDisk`](#gcepersistentdisk)
 * [`vsphereVolume`](#vspherevolume)

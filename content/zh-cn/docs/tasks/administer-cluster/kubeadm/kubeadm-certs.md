@@ -39,7 +39,7 @@ By default, kubeadm generates all the certificates needed for a cluster to run.
 You can override this behavior by providing your own certificates.
 -->
 
-## 使用自定义的证书 {#custom-certificates}
+## 使用自定义的证书   {#custom-certificates}
 
 默认情况下，kubeadm 会生成运行一个集群所需的全部证书。
 你可以通过提供你自己的证书来改变这个行为策略。
@@ -72,7 +72,7 @@ this condition and activates the "External CA" mode. kubeadm will proceed withou
 CA key on disk.
 -->
 
-## 外部 CA 模式 {#external-ca-mode}
+## 外部 CA 模式   {#external-ca-mode}
 
 只提供了 `ca.crt` 文件但是不提供 `ca.key` 文件也是可以的
 （这只对 CA 根证书可用，其它证书不可用）。
@@ -90,14 +90,15 @@ point to the CA certificate and key.
 [PKI certificates and requirements](/docs/setup/best-practices/certificates/) includes guidance on
 setting up a cluster to use an external CA.
 -->
-[PKI 证书和要求](/zh-cn/docs/setup/best-practices/certificates/)包括集群使用外部 CA 的设置指南。
+[PKI 证书和要求](/zh-cn/docs/setup/best-practices/certificates/)包括集群使用外部
+CA 的设置指南。
 
 <!--
 ## Check certificate expiration
 
 You can use the `check-expiration` subcommand to check when certificates expire:
 -->
-## 检查证书是否过期 {#check-certificate-expiration}
+## 检查证书是否过期  {#check-certificate-expiration}
 
 你可以使用 `check-expiration` 子命令来检查证书何时过期
 
@@ -110,7 +111,7 @@ The output is similar to this:
 -->
 输出类似于以下内容：
 
-```
+```console
 CERTIFICATE                EXPIRES                  RESIDUAL TIME   CERTIFICATE AUTHORITY   EXTERNALLY MANAGED
 admin.conf                 Dec 30, 2020 23:36 UTC   364d                                    no
 apiserver                  Dec 30, 2020 23:36 UTC   364d            ca                      no
@@ -237,11 +238,11 @@ kubeadm 在 1.17 版本之前有一个[缺陷](https://github.com/kubernetes/kub
 <!--
 ## Manual certificate renewal
 
-You can renew your certificates manually at any time with the `kubeadm certs renew` command.
+You can renew your certificates manually at any time with the `kubeadm certs renew` command, with the appropriate command line options.
 -->
 ## 手动更新证书 {#manual-certificate-renewal}
 
-你能随时通过 `kubeadm certs renew` 命令手动更新你的证书。
+你能随时通过 `kubeadm certs renew` 命令手动更新你的证书，只需带上合适的命令行选项。
 
 <!--
 This command performs the renewal using CA (or front-proxy-CA) certificate and key stored in `/etc/kubernetes/pki`.
@@ -258,13 +259,14 @@ the Pod and the certificate renewal for the component can complete.
 -->
 此命令用 CA（或者 front-proxy-CA ）证书和存储在 `/etc/kubernetes/pki` 中的密钥执行更新。
 
-执行完此命令之后你需要重启控制面 Pods。因为动态证书重载目前还不被所有组件和证书支持，所有这项操作是必须的。
-[静态 Pods](/zh-cn/docs/tasks/configure-pod-container/static-pod/) 是被本地 kubelet 而不是 API Server 管理，
-所以 kubectl 不能用来删除或重启他们。
+执行完此命令之后你需要重启控制面 Pod。因为动态证书重载目前还不被所有组件和证书支持，所有这项操作是必须的。
+[静态 Pod](/zh-cn/docs/tasks/configure-pod-container/static-pod/) 是被本地 kubelet
+而不是 API 服务器管理，所以 kubectl 不能用来删除或重启他们。
 要重启静态 Pod 你可以临时将清单文件从 `/etc/kubernetes/manifests/` 移除并等待 20 秒
-（参考 [KubeletConfiguration 结构](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/) 中的`fileCheckFrequency` 值）。
-如果 Pod 不在清单目录里，kubelet 将会终止它。
-在另一个 `fileCheckFrequency` 周期之后你可以将文件移回去，为了组件可以完成 kubelet 将重新创建 Pod 和证书更新。
+（参考 [KubeletConfiguration 结构](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)中的
+`fileCheckFrequency` 值）。如果 Pod 不在清单目录里，kubelet 将会终止它。
+在另一个 `fileCheckFrequency` 周期之后你可以将文件移回去，kubelet 可以完成 Pod
+的重建，而组件的证书更新操作也得以完成。
 
 {{< warning >}}
 <!--
@@ -284,26 +286,29 @@ to keep them both in sync.
 {{< /note >}}
 
 <!--
-`kubeadm certs renew` provides the following options:
+`kubeadm certs renew` can renew any specific certificate or, with the subcommand `all`, it can renew all of them, as shown below:
 -->
-`kubeadm certs renew` 提供以下选项：
+`kubeadm certs renew` 可以更新任何特定的证书，或者使用子命令 `all`
+更新所有的证书，如下所示：
 
+```shell
+kubeadm certs renew all
+```
+
+{{< note >}}
 <!--
-- The Kubernetes certificates normally reach their expiration date after one year.
+Clusters built with kubeadm often copy the `admin.conf` certificate into `$HOME/.kube/config`, as instructed in [Creating a cluster with kubeadm](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/). On such a system, to update the contents of `$HOME/.kube/config` after renewing the `admin.conf` you must run the following commands:
 -->
-- Kubernetes 证书通常在一年后到期。
+使用 kubeadm 构建的集群通常会将 `admin.conf` 证书复制到 `$HOME/.kube/config` 中，
+如[使用 kubeadm 创建集群](/zh-cn/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)中所指示的那样。
+在这样的系统中，为了在更新 `admin.conf` 后更新 `$HOME/.kube/config` 的内容，
+你必须运行以下命令：
 
-<!--
-- `--csr-only` can be used to renew certificates with an external CA by generating certificate
-  signing requests (without actually renewing certificates in place); see next paragraph for more
-  information.
-
-- It's also possible to renew a single certificate instead of all.
--->
-- `--csr-only` 可用于经过一个外部 CA 生成的证书签名请求来更新证书（无需实际替换更新证书）；
-  更多信息请参见下节。
-
-- 可以更新单个证书而不是全部证书。
+```shell
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+{{< /note >}}
 
 <!--
 ## Renew certificates with the Kubernetes certificates API
@@ -494,7 +499,7 @@ serverTLSBootstrap: true
 If you have already created the cluster you must adapt it by doing the following:
  - Find and edit the `kubelet-config-{{< skew currentVersion >}}` ConfigMap in the `kube-system` namespace.
 In that ConfigMap, the `kubelet` key has a
-[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+[KubeletConfiguration](/docs/reference/config-api/kubelet-config.v1beta1/)
 document as its value. Edit the KubeletConfiguration document to set `serverTLSBootstrap: true`.
 - On each node, add the `serverTLSBootstrap: true` field in `/var/lib/kubelet/config.yaml`
 and restart the kubelet with `systemctl restart kubelet`
@@ -504,7 +509,7 @@ and restart the kubelet with `systemctl restart kubelet`
 - 找到 `kube-system` 名字空间中名为 `kubelet-config-{{< skew currentVersion >}}`
   的 ConfigMap 并编辑之。
   在该 ConfigMap 中，`kubelet` 键下面有一个
-  [KubeletConfiguration](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/#kubelet-config-k8s-io-v1beta1-KubeletConfiguration)
+  [KubeletConfiguration](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/)
   文档作为其取值。编辑该 KubeletConfiguration 文档以设置
   `serverTLSBootstrap: true`。
 - 在每个节点上，在 `/var/lib/kubelet/config.yaml` 文件中添加
@@ -533,7 +538,7 @@ CSR（证书签名请求）不能被 kube-controller-manager 中默认的签名�
 kubectl get csr
 ```
 
-```none
+```console
 NAME        AGE     SIGNERNAME                        REQUESTOR                      CONDITION
 csr-9wvgt   112s    kubernetes.io/kubelet-serving     system:node:worker-1           Pending
 csr-lz97v   1m58s   kubernetes.io/kubelet-serving     system:node:control-plane-1    Pending

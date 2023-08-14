@@ -136,9 +136,15 @@ The following sysctls are supported in the _safe_ set:
 
 {{< note >}}
 <!--
-The example `net.ipv4.tcp_syncookies` is not namespaced on Linux kernel version 4.4 or lower.
+There are some exceptions to the set of safe sysctls:
+
+- The `net.*` sysctls are not allowed with host networking enabled.
+- The `net.ipv4.tcp_syncookies` sysctl is not namespaced on Linux kernel version 4.4 or lower.
 -->
-示例中的 `net.ipv4.tcp_syncookies` 在 Linux 内核 4.4 或更低的版本中是无命名空间的。
+安全 sysctl 参数有一些例外：
+
+- `net.*` sysctl 参数不允许在启用主机网络的情况下使用。
+- `net.ipv4.tcp_syncookies` sysctl 参数在 Linux 内核 4.4 或更低的版本中是无命名空间的。
 {{< /note >}}
 
 <!--
@@ -217,14 +223,14 @@ in future versions of the Linux kernel.
 - `kernel.sem`,
 - `fs.mqueue.*`,
 <!--
-- The parameters under `net.*` that can be set in container networking
-  namespace. However, there are exceptions (e.g., before Linux 5.12.2,
-  `net.netfilter.nf_conntrack_max` and `net.netfilter.nf_conntrack_expect_max`
-  can be set in container networking namespace but they are unnamespaced).
+- Those `net.*` that can be set in container networking namespace. However,
+  there are exceptions (e.g., `net.netfilter.nf_conntrack_max` and
+  `net.netfilter.nf_conntrack_expect_max` can be set in container networking
+  namespace but are unnamespaced before Linux 5.12.2).
 -->
-- `net.*`（内核中可以在容器命名空间里被更改的网络配置项相关参数）。然而也有一些特例
-  （例如，在 Linux 5.12.2 前，`net.netfilter.nf_conntrack_max` 和 `net.netfilter.nf_conntrack_expect_max`
-  可以在容器命名空间里被更改，但它们是非命名空间的）。
+- 那些可以在容器网络命名空间中设置的 `net.*`。但是，也有例外（例如
+  `net.netfilter.nf_conntrack_max` 和 `net.netfilter.nf_conntrack_expect_max`
+  可以在容器网络命名空间中设置，但在 Linux 5.12.2 之前它们是无命名空间的）。
 
 <!--
 Sysctls with no namespace are called _node-level_ sysctls. If you need to set

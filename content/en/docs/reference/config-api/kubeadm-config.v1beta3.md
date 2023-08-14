@@ -30,6 +30,7 @@ the user to configure a directory from which to take patches for components depl
 <ul>
 <li>kubeadm v1.15.x and newer can be used to migrate from v1beta1 to v1beta2.</li>
 <li>kubeadm v1.22.x and newer no longer support v1beta1 and older APIs, but can be used to migrate v1beta2 to v1beta3.</li>
+<li>kubeadm v1.27.x and newer no longer support v1beta2 and older APIs,</li>
 </ul>
 <h2>Basics</h2>
 <p>The preferred way to configure kubeadm is to pass an YAML configuration file with the <code>--config</code> option. Some of the
@@ -217,7 +218,7 @@ configuration types to be used during a <code>kubeadm init</code> run.</p>
 </span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">pathType</span>:<span style="color:#bbb"> </span>File<span style="color:#bbb">
 </span><span style="color:#bbb"></span><span style="color:#000;font-weight:bold">scheduler</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraArgs</span>:<span style="color:#bbb">
-</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">address</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;10.100.0.1&#34;</span><span style="color:#bbb">
+</span><span style="color:#bbb">    </span><span style="color:#000;font-weight:bold">bind-address</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;10.100.0.1&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">  </span><span style="color:#000;font-weight:bold">extraVolumes</span>:<span style="color:#bbb">
 </span><span style="color:#bbb">    </span>- <span style="color:#000;font-weight:bold">name</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;some-volume&#34;</span><span style="color:#bbb">
 </span><span style="color:#bbb">      </span><span style="color:#000;font-weight:bold">hostPath</span>:<span style="color:#bbb"> </span><span style="color:#d14">&#34;/etc/some-path&#34;</span><span style="color:#bbb">
@@ -261,109 +262,6 @@ node only (e.g. the node ip).</p>
 - [ClusterConfiguration](#kubeadm-k8s-io-v1beta3-ClusterConfiguration)
 - [InitConfiguration](#kubeadm-k8s-io-v1beta3-InitConfiguration)
 - [JoinConfiguration](#kubeadm-k8s-io-v1beta3-JoinConfiguration)
-  
-    
-
-## `BootstrapToken`     {#BootstrapToken}
-    
-
-**Appears in:**
-
-- [InitConfiguration](#kubeadm-k8s-io-v1beta3-InitConfiguration)
-
-
-<p>BootstrapToken describes one bootstrap token, stored as a Secret in the cluster</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>token</code> <B>[Required]</B><br/>
-<a href="#BootstrapTokenString"><code>BootstrapTokenString</code></a>
-</td>
-<td>
-   <p><code>token</code> is used for establishing bidirectional trust between nodes and control-planes.
-Used for joining nodes in the cluster.</p>
-</td>
-</tr>
-<tr><td><code>description</code><br/>
-<code>string</code>
-</td>
-<td>
-   <p><code>description</code> sets a human-friendly message why this token exists and what it's used
-for, so other administrators can know its purpose.</p>
-</td>
-</tr>
-<tr><td><code>ttl</code><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <p><code>ttl</code> defines the time to live for this token. Defaults to <code>24h</code>.
-<code>expires</code> and <code>ttl</code> are mutually exclusive.</p>
-</td>
-</tr>
-<tr><td><code>expires</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#time-v1-meta"><code>meta/v1.Time</code></a>
-</td>
-<td>
-   <p><code>expires</code> specifies the timestamp when this token expires. Defaults to being set
-dynamically at runtime based on the <code>ttl</code>. <code>expires</code> and <code>ttl</code> are mutually exclusive.</p>
-</td>
-</tr>
-<tr><td><code>usages</code><br/>
-<code>[]string</code>
-</td>
-<td>
-   <p><code>usages</code> describes the ways in which this token can be used. Can by default be used
-for establishing bidirectional trust, but that can be changed here.</p>
-</td>
-</tr>
-<tr><td><code>groups</code><br/>
-<code>[]string</code>
-</td>
-<td>
-   <p><code>groups</code> specifies the extra groups that this token will authenticate as when/if
-used for authentication</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `BootstrapTokenString`     {#BootstrapTokenString}
-    
-
-**Appears in:**
-
-- [BootstrapToken](#BootstrapToken)
-
-
-<p>BootstrapTokenString is a token of the format <code>abcdef.abcdef0123456789</code> that is used
-for both validation of the practically of the API server from a joining node's point
-of view and as an authentication method for the node in the bootstrap phase of
-&quot;kubeadm join&quot;. This token is and should be short-lived.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>-</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <span class="text-muted">No description provided.</span></td>
-</tr>
-<tr><td><code>-</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <span class="text-muted">No description provided.</span></td>
-</tr>
-</tbody>
-</table>
   
     
 
@@ -1036,7 +934,7 @@ file from which to load cluster information.</p>
 </td>
 </tr>
 <tr><td><code>pathType</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#hostpathtype-v1-core"><code>core/v1.HostPathType</code></a>
 </td>
 <td>
    <p><code>pathType</code> is the type of the <code>hostPath</code>.</p>
@@ -1259,7 +1157,7 @@ This information will be annotated to the Node API object, for later re-use</p>
 </td>
 </tr>
 <tr><td><code>taints</code> <B>[Required]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#taint-v1-core"><code>[]core/v1.Taint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#taint-v1-core"><code>[]core/v1.Taint</code></a>
 </td>
 <td>
    <p><code>taints</code> specifies the taints the Node API object should be registered with.
@@ -1290,7 +1188,7 @@ the current node is registered.</p>
 </td>
 </tr>
 <tr><td><code>imagePullPolicy</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#pullpolicy-v1-core"><code>core/v1.PullPolicy</code></a>
 </td>
 <td>
    <p><code>imagePullPolicy</code> specifies the policy for image pulling during kubeadm &quot;init&quot; and
@@ -1339,3 +1237,106 @@ first alpha-numerically.</p>
 </tbody>
 </table>
   
+  
+    
+
+## `BootstrapToken`     {#BootstrapToken}
+    
+
+**Appears in:**
+
+- [InitConfiguration](#kubeadm-k8s-io-v1beta3-InitConfiguration)
+
+
+<p>BootstrapToken describes one bootstrap token, stored as a Secret in the cluster</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>token</code> <B>[Required]</B><br/>
+<a href="#BootstrapTokenString"><code>BootstrapTokenString</code></a>
+</td>
+<td>
+   <p><code>token</code> is used for establishing bidirectional trust between nodes and control-planes.
+Used for joining nodes in the cluster.</p>
+</td>
+</tr>
+<tr><td><code>description</code><br/>
+<code>string</code>
+</td>
+<td>
+   <p><code>description</code> sets a human-friendly message why this token exists and what it's used
+for, so other administrators can know its purpose.</p>
+</td>
+</tr>
+<tr><td><code>ttl</code><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p><code>ttl</code> defines the time to live for this token. Defaults to <code>24h</code>.
+<code>expires</code> and <code>ttl</code> are mutually exclusive.</p>
+</td>
+</tr>
+<tr><td><code>expires</code><br/>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#time-v1-meta"><code>meta/v1.Time</code></a>
+</td>
+<td>
+   <p><code>expires</code> specifies the timestamp when this token expires. Defaults to being set
+dynamically at runtime based on the <code>ttl</code>. <code>expires</code> and <code>ttl</code> are mutually exclusive.</p>
+</td>
+</tr>
+<tr><td><code>usages</code><br/>
+<code>[]string</code>
+</td>
+<td>
+   <p><code>usages</code> describes the ways in which this token can be used. Can by default be used
+for establishing bidirectional trust, but that can be changed here.</p>
+</td>
+</tr>
+<tr><td><code>groups</code><br/>
+<code>[]string</code>
+</td>
+<td>
+   <p><code>groups</code> specifies the extra groups that this token will authenticate as when/if
+used for authentication</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `BootstrapTokenString`     {#BootstrapTokenString}
+    
+
+**Appears in:**
+
+- [BootstrapToken](#BootstrapToken)
+
+
+<p>BootstrapTokenString is a token of the format <code>abcdef.abcdef0123456789</code> that is used
+for both validation of the practically of the API server from a joining node's point
+of view and as an authentication method for the node in the bootstrap phase of
+&quot;kubeadm join&quot;. This token is and should be short-lived.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>-</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <span class="text-muted">No description provided.</span></td>
+</tr>
+<tr><td><code>-</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <span class="text-muted">No description provided.</span></td>
+</tr>
+</tbody>
+</table>

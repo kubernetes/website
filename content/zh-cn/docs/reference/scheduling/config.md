@@ -31,13 +31,12 @@ by implementing one or more of these extension points.
 <!--
 You can specify scheduling profiles by running `kube-scheduler --config <filename>`,
 using the
-KubeSchedulerConfiguration ([v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
-or [v1](/docs/reference/config-api/kube-scheduler-config.v1/))
+KubeSchedulerConfiguration [v1](/docs/reference/config-api/kube-scheduler-config.v1/)
 struct.
 -->
 你可以通过运行 `kube-scheduler --config <filename>` 来设置调度模板，
-使用 KubeSchedulerConfiguration（[v1beta3](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)
-或 [v1](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)）结构体。
+使用 KubeSchedulerConfiguration [v1](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)
+结构体。
 
 <!--
 A minimal configuration looks as follows:
@@ -54,13 +53,18 @@ clientConnection:
 {{< note >}}
 <!--
 KubeSchedulerConfiguration [v1beta2](/docs/reference/config-api/kube-scheduler-config.v1beta2/)
-is deprecated in v1.25 and will be removed in v1.26. Please migrate KubeSchedulerConfiguration to
-[v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/) or [v1](/docs/reference/config-api/kube-scheduler-config.v1/)
-before upgrading Kubernetes to v1.25.
+is deprecated in v1.25 and will be removed in v1.28. 
+KubeSchedulerConfiguration [v1beta3](/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+is deprecated in v1.26 and will be removed in v1.29.
+
+Please migrate KubeSchedulerConfiguration to [v1](/docs/reference/config-api/kube-scheduler-config.v1/).
 -->
 KubeSchedulerConfiguration [v1beta2](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta2/)
-在 v1.25 中已弃用，并将在 v1.26 中移除。在将 Kubernetes 升级到 v1.25 之前，请将 KubeSchedulerConfiguration 迁移到
-[v1beta3](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/) 或 [v1](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)。
+在 v1.25 中已弃用，并将在 v1.28 中移除。
+KubeSchedulerConfiguration [v1beta3](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1beta3/)
+在 v1.26 中已弃用，并将在 v1.29 中移除。
+
+请将 KubeSchedulerConfiguration 迁移到 [v1](/zh-cn/docs/reference/config-api/kube-scheduler-config.v1/)。
 {{< /note >}}
 
 <!--

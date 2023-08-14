@@ -124,21 +124,15 @@ one of the `<LANG>/examples/` subdirectories where `<LANG>` is the language for
 the topic. In your topic file, use the `codenew` shortcode:
 
 ```none
-{{</* codenew file="<RELPATH>/my-example-yaml>" */>}}
+{{%/* codenew file="<RELPATH>/my-example-yaml>" */%}}
 ```
 where `<RELPATH>` is the path to the file to include, relative to the
 `examples` directory. The following Hugo shortcode references a YAML
 file located at `/content/en/examples/pods/storage/gce-volume.yaml`.
 
 ```none
-{{</* codenew file="pods/storage/gce-volume.yaml" */>}}
+{{%/* codenew file="pods/storage/gce-volume.yaml" */%}}
 ```
-
-{{< note >}}
-To show raw Hugo shortcodes as in the above example and prevent Hugo
-from interpreting them, use C-style comments directly after the `<` and before
-the `>` characters. View the code for this page for an example.
-{{< /note >}}
 
 ## Showing how to create an API object from a configuration file
 

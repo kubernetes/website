@@ -44,7 +44,7 @@ field).
 ### Differences from regular containers
 
 Init containers support all the fields and features of app containers,
-including resource limits, volumes, and security settings. However, the
+including resource limits, [volumes](/docs/concepts/storage/volumes/), and security settings. However, the
 resource requests and limits for an init container are handled differently,
 as documented in [Resources](#resources).
 
@@ -83,7 +83,7 @@ Here are some ideas for how to use init containers:
 * Wait for a {{< glossary_tooltip text="Service" term_id="service">}} to
   be created, using a shell one-line command like:
   ```shell
-  for i in {1..100}; do sleep 1; if dig myservice; then exit 0; fi; done; exit 1
+  for i in {1..100}; do sleep 1; if nslookup myservice; then exit 0; fi; done; exit 1
   ```
 
 * Register this Pod with a remote server from the downward API with a command like:
@@ -196,7 +196,7 @@ kubectl logs myapp-pod -c init-myservice # Inspect the first init container
 kubectl logs myapp-pod -c init-mydb      # Inspect the second init container
 ```
 
-At this point, those init containers will be waiting to discover Services named
+At this point, those init containers will be waiting to discover {{< glossary_tooltip text="Services" term_id="service" >}} named
 `mydb` and `myservice`.
 
 Here's a configuration you can use to make those Services appear:
@@ -322,7 +322,7 @@ reasons:
   have to be done by someone with root access to nodes.
 * All containers in a Pod are terminated while `restartPolicy` is set to Always,
   forcing a restart, and the init container completion record has been lost due
-  to garbage collection.
+  to {{< glossary_tooltip text="garbage collection" term_id="garbage-collection" >}}.
 
 The Pod will not be restarted when the init container image is changed, or the
 init container completion record has been lost due to garbage collection. This
@@ -333,4 +333,5 @@ Kubernetes, consult the documentation for the version you are using.
 
 * Read about [creating a Pod that has an init container](/docs/tasks/configure-pod-container/configure-pod-initialization/#create-a-pod-that-has-an-init-container)
 * Learn how to [debug init containers](/docs/tasks/debug/debug-application/debug-init-containers/)
-
+* Read about an overview of [kubelet](/docs/reference/command-line-tools-reference/kubelet/) and [kubectl](/docs/reference/kubectl/)
+* Learn about the [types of probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe): liveness, readiness, startup probe.

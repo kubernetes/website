@@ -88,7 +88,7 @@ You should avoid using the `:latest` tag when deploying containers in production
 it is harder to track which version of the image is running and more difficult to
 roll back properly.
 
-Instead, specify a meaningful tag such as `v1.42.0`.
+Instead, specify a meaningful tag such as `v1.42.0` and/or a digest.
 {{< /note >}}
 
 To make sure the Pod always uses the same version of a container image, you can specify
@@ -113,6 +113,8 @@ running the same code no matter what tag changes happen at the registry.
 When you (or a controller) submit a new Pod to the API server, your cluster sets the
 `imagePullPolicy` field when specific conditions are met:
 
+- if you omit the `imagePullPolicy` field, and you specify the digest for the
+  container image, the `imagePullPolicy` is automatically set to `IfNotPresent`.
 - if you omit the `imagePullPolicy` field, and the tag for the container image is
   `:latest`, `imagePullPolicy` is automatically set to `Always`;
 - if you omit the `imagePullPolicy` field, and you don't specify the tag for the
@@ -123,7 +125,7 @@ When you (or a controller) submit a new Pod to the API server, your cluster sets
 
 {{< note >}}
 The value of `imagePullPolicy` of the container is always set when the object is
-first _created_, and is not updated if the image's tag later changes.
+first _created_, and is not updated if the image's tag or digest later changes.
 
 For example, if you create a Deployment with an image whose tag is _not_
 `:latest`, and later update that Deployment's image to a `:latest` tag, the
@@ -458,9 +460,22 @@ common use cases and suggested solutions.
 
 If you need access to multiple registries, you can create one secret for each registry.
 
+## Legacy built-in kubelet credential provider
+
+In older versions of Kubernetes, the kubelet had a direct integration with cloud provider credentials.
+This gave it the ability to dynamically fetch credentials for image registries.
+
+There were three built-in implementations of the kubelet credential provider integration:
+ACR (Azure Container Registry), ECR (Elastic Container Registry), and GCR (Google Container Registry).
+
+For more information on the legacy mechanism, read the documentation for the version of Kubernetes that you
+are using. Kubernetes v1.26 through to v{{< skew latestVersion >}} do not include the legacy mechanism, so
+you would need to either:
+- configure a kubelet image credential provider on each node
+- specify image pull credentials using `imagePullSecrets` and at least one Secret
+
 ## {{% heading "whatsnext" %}}
 
 * Read the [OCI Image Manifest Specification](https://github.com/opencontainers/image-spec/blob/master/manifest.md).
 * Learn about [container image garbage collection](/docs/concepts/architecture/garbage-collection/#container-image-garbage-collection).
 * Learn more about [pulling an Image from a Private Registry](/docs/tasks/configure-pod-container/pull-image-private-registry).
-

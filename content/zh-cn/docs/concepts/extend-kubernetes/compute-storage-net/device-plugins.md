@@ -230,8 +230,8 @@ The general workflow of a device plugin includes the following steps:
 1. The plugin registers itself with the kubelet through the Unix socket at host
    path `/var/lib/kubelet/device-plugins/kubelet.sock`.
 -->
-3. 插件通过位于主机路径 `/var/lib/kubelet/device-plugins/kubelet.sock` 下的 UNIX 套接字
-   向 kubelet 注册自身。
+3. 插件通过位于主机路径 `/var/lib/kubelet/device-plugins/kubelet.sock` 下的 UNIX
+   套接字向 kubelet 注册自身。
 
    {{< note >}}
    <!--
@@ -371,6 +371,16 @@ identifying containers using `pod`, `namespace`, and `container` prometheus labe
 <!--
 The kubelet provides a gRPC service to enable discovery of in-use devices, and to provide metadata
 for these devices:
+
+```gRPC
+// PodResourcesLister is a service provided by the kubelet that provides information about the
+// node resources consumed by pods and containers on the node
+service PodResourcesLister {
+    rpc List(ListPodResourcesRequest) returns (ListPodResourcesResponse) {}
+    rpc GetAllocatableResources(AllocatableResourcesRequest) returns (AllocatableResourcesResponse) {}
+    rpc Get(GetPodResourcesRequest) returns (GetPodResourcesResponse) {}
+}
+```
 -->
 kubelet 提供了 gRPC 服务来使得正在使用中的设备被发现，并且还为这些设备提供了元数据：
 
@@ -380,6 +390,7 @@ kubelet 提供了 gRPC 服务来使得正在使用中的设备被发现，并且
 service PodResourcesLister {
     rpc List(ListPodResourcesRequest) returns (ListPodResourcesResponse) {}
     rpc GetAllocatableResources(AllocatableResourcesRequest) returns (AllocatableResourcesResponse) {}
+    rpc Get(GetPodResourcesRequest) returns (GetPodResourcesResponse) {}
 }
 ```
 
@@ -398,6 +409,89 @@ information about memory and hugepages reserved for a container.
 CPU ID、设备插件所报告的设备 ID 以及这些设备分配所处的 NUMA 节点 ID。
 此外，对于基于 NUMA 的机器，它还会包含为容器保留的内存和大页的信息。
 
+<!--
+Starting from Kubernetes v1.27, the `List` endpoint can provide information on resources
+of running pods allocated in `ResourceClaims` by the `DynamicResourceAllocation` API. To enable
+this feature `kubelet` must be started with the following flags:
+-->
+从 Kubernetes v1.27 开始，`List` 端点可以通过 `DynamicResourceAllocation` API 提供在
+`ResourceClaims` 中分配的当前运行 Pod 的资源信息。
+要启用此特性，必须使用以下标志启动 `kubelet`：
+
+```
+--feature-gates=DynamicResourceAllocation=true,KubeletPodResourcesDynamiceResources=true
+```
+
+<!--
+```gRPC
+// ListPodResourcesResponse is the response returned by List function
+message ListPodResourcesResponse {
+    repeated PodResources pod_resources = 1;
+}
+
+// PodResources contains information about the node resources assigned to a pod
+message PodResources {
+    string name = 1;
+    string namespace = 2;
+    repeated ContainerResources containers = 3;
+}
+
+// ContainerResources contains information about the resources assigned to a container
+message ContainerResources {
+    string name = 1;
+    repeated ContainerDevices devices = 2;
+    repeated int64 cpu_ids = 3;
+    repeated ContainerMemory memory = 4;
+    repeated DynamicResource dynamic_resources = 5;
+}
+
+// ContainerMemory contains information about memory and hugepages assigned to a container
+message ContainerMemory {
+    string memory_type = 1;
+    uint64 size = 2;
+    TopologyInfo topology = 3;
+}
+
+// Topology describes hardware topology of the resource
+message TopologyInfo {
+        repeated NUMANode nodes = 1;
+}
+
+// NUMA representation of NUMA node
+message NUMANode {
+        int64 ID = 1;
+}
+
+// ContainerDevices contains information about the devices assigned to a container
+message ContainerDevices {
+    string resource_name = 1;
+    repeated string device_ids = 2;
+    TopologyInfo topology = 3;
+}
+
+// DynamicResource contains information about the devices assigned to a container by Dynamic Resource Allocation
+message DynamicResource {
+    string class_name = 1;
+    string claim_name = 2;
+    string claim_namespace = 3;
+    repeated ClaimResource claim_resources = 4;
+}
+
+// ClaimResource contains per-plugin resource information
+message ClaimResource {
+    repeated CDIDevice cdi_devices = 1 [(gogoproto.customname) = "CDIDevices"];
+}
+
+// CDIDevice specifies a CDI device information
+message CDIDevice {
+    // Fully qualified CDI device name
+    // for example: vendor.com/gpu=gpudevice1
+    // see more details in the CDI specification:
+    // https://github.com/container-orchestrated-devices/container-device-interface/blob/main/SPEC.md
+    string name = 1;
+}
+```
+-->
 ```gRPC
 // ListPodResourcesResponse 是 List 函数的响应
 message ListPodResourcesResponse {
@@ -417,6 +511,7 @@ message ContainerResources {
     repeated ContainerDevices devices = 2;
     repeated int64 cpu_ids = 3;
     repeated ContainerMemory memory = 4;
+    repeated DynamicResource dynamic_resources = 5;
 }
 
 // ContainerMemory 包含分配给容器的内存和大页信息
@@ -441,6 +536,28 @@ message ContainerDevices {
     string resource_name = 1;
     repeated string device_ids = 2;
     TopologyInfo topology = 3;
+}
+
+// DynamicResource 包含通过 Dynamic Resource Allocation 分配到容器的设备信息
+message DynamicResource {
+    string class_name = 1;
+    string claim_name = 2;
+    string claim_namespace = 3;
+    repeated ClaimResource claim_resources = 4;
+}
+
+// ClaimResource 包含每个插件的资源信息
+message ClaimResource {
+    repeated CDIDevice cdi_devices = 1 [(gogoproto.customname) = "CDIDevices"];
+}
+
+// CDIDevice 指定 CDI 设备信息
+message CDIDevice {
+    // 完全合格的 CDI 设备名称
+    // 例如：vendor.com/gpu=gpudevice1
+    // 参阅 CDI 规范中的更多细节：
+    // https://github.com/container-orchestrated-devices/container-device-interface/blob/main/SPEC.md
+    string name = 1;
 }
 ```
 
@@ -542,10 +659,6 @@ agents must run in a privileged security context. If a device monitoring agent i
 DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 {{< glossary_tooltip term_id="volume" >}} in the device monitoring agent's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
-
-Support for the `PodResourcesLister service` requires `KubeletPodResources`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
-It is enabled by default starting with Kubernetes 1.15 and is v1 since Kubernetes 1.20.
 -->
 gRPC 服务通过 `/var/lib/kubelet/pod-resources/kubelet.sock` 的 UNIX 套接字来提供服务。
 设备插件资源的监控代理程序可以部署为守护进程或者 DaemonSet。
@@ -556,16 +669,102 @@ gRPC 服务通过 `/var/lib/kubelet/pod-resources/kubelet.sock` 的 UNIX 套接�
 中声明将 `/var/lib/kubelet/pod-resources`
 目录以{{< glossary_tooltip text="卷" term_id="volume" >}}的形式被挂载到设备监控代理中。
 
+{{< note >}}
+
+<!--
+When accessing the `/var/lib/kubelet/pod-resources/kubelet.sock` from DaemonSet
+or any other app deployed as a container on the host, which is mounting socket as
+a volume, it is a good practice to mount directory `/var/lib/kubelet/pod-resources/`
+instead of the `/var/lib/kubelet/pod-resources/kubelet.sock`. This will ensure
+that after kubelet restart, container will be able to re-connect to this socket.
+-->
+在从 DaemonSet 或以容器形式部署在主机上的任何其他应用中访问
+`/var/lib/kubelet/pod-resources/kubelet.sock` 时，
+如果将套接字作为卷挂载，最好的做法是挂载目录 `/var/lib/kubelet/pod-resources/`
+而不是 `/var/lib/kubelet/pod-resources/kubelet.sock`。
+这样可以确保在 kubelet 重新启动后，容器将能够重新连接到此套接字。
+
+<!--
+Container mounts are managed by inode referencing the socket or directory,
+depending on what was mounted. When kubelet restarts, socket is deleted
+and a new socket is created, while directory stays untouched.
+So the original inode for the socket become unusable. Inode to directory
+will continue working.
+-->
+容器挂载是通过引用套接字或目录的 inode 进行管理的，具体取决于挂载的内容。
+当 kubelet 重新启动时，套接字会被删除并创建一个新的套接字，而目录则保持不变。
+因此，针对原始套接字的 inode 将变得无法使用，而到目录的 inode 将继续正常工作。
+
+{{< /note >}}
+
+<!--
+Support for the `PodResourcesLister service` requires `KubeletPodResources`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
+It is enabled by default starting with Kubernetes 1.15 and is v1 since Kubernetes 1.20.
+-->
 对 “PodResourcesLister 服务”的支持要求启用 `KubeletPodResources`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 从 Kubernetes 1.15 开始默认启用，自从 Kubernetes 1.20 开始为 v1。
+
+<!--
+### `Get` gRPC endpoint {#grpc-endpoint-get}
+-->
+### `Get` gRPC 端点   {#grpc-endpoint-get}
+
+{{< feature-state state="alpha" for_k8s_version="v1.27" >}}
+
+<!--
+The `Get` endpoint provides information on resources of a running Pod. It exposes information
+similar to those described in the `List` endpoint. The `Get` endpoint requires `PodName`
+and `PodNamespace` of the running Pod.
+-->
+`Get` 端点提供了当前运行 Pod 的资源信息。它会暴露与 `List` 端点中所述类似的信息。
+`Get` 端点需要当前运行 Pod 的 `PodName` 和 `PodNamespace`。
+
+<!--
+```gRPC
+// GetPodResourcesRequest contains information about the pod
+message GetPodResourcesRequest {
+    string pod_name = 1;
+    string pod_namespace = 2;
+}
+```
+-->
+```gRPC
+// GetPodResourcesRequest 包含 Pod 相关信息
+message GetPodResourcesRequest {
+    string pod_name = 1;
+    string pod_namespace = 2;
+}
+```
+
+<!--
+To enable this feature, you must start your kubelet services with the following flag:
+-->
+要启用此特性，你必须使用以下标志启动 kubelet 服务：
+
+```
+--feature-gates=KubeletPodResourcesGet=true
+```
+
+<!--
+The `Get` endpoint can provide Pod information related to dynamic resources
+allocated by the dynamic resource allocation API. To enable this feature, you must
+ensure your kubelet services are started with the following flags:
+-->
+`Get` 端点可以提供与动态资源分配 API 所分配的动态资源相关的 Pod 信息。
+要启用此特性，你必须确保使用以下标志启动 kubelet 服务：
+
+```
+--feature-gates=KubeletPodResourcesGet=true,DynamicResourceAllocation=true,KubeletPodResourcesDynamiceResources=true
+```
 
 <!--
 ## Device plugin integration with the Topology Manager
 -->
 ## 设备插件与拓扑管理器的集成   {#device-plugin-integration-with-the-topology-manager}
 
-{{< feature-state for_k8s_version="v1.18" state="beta" >}}
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
 <!--
 The Topology Manager is a Kubelet component that allows resources to be co-ordinated in a Topology
@@ -639,7 +838,8 @@ Here are some examples of device plugin implementations:
 下面是一些设备插件实现的示例：
 
 * [AMD GPU 设备插件](https://github.com/RadeonOpenCompute/k8s-device-plugin)
-* [Intel 设备插件](https://github.com/intel/intel-device-plugins-for-kubernetes)支持 Intel GPU、FPGA、QAT、VPU、SGX、DSA、DLB 和 IAA 设备
+* [Intel 设备插件](https://github.com/intel/intel-device-plugins-for-kubernetes)支持
+  Intel GPU、FPGA、QAT、VPU、SGX、DSA、DLB 和 IAA 设备
 * [KubeVirt 设备插件](https://github.com/kubevirt/kubernetes-device-plugins) 用于硬件辅助的虚拟化
 * [为 Container-Optimized OS 所提供的 NVIDIA GPU 设备插件](https://github.com/GoogleCloudPlatform/container-engine-accelerators/tree/master/cmd/nvidia_gpu)
 * [RDMA 设备插件](https://github.com/hustcat/k8s-rdma-device-plugin)

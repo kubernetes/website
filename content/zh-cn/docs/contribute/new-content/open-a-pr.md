@@ -276,7 +276,7 @@ Figure 2. Working from a local fork to make your changes.
 1. 打开终端窗口，克隆你所派生的副本，并更新 [Docsy Hugo 主题](https://github.com/google/docsy#readme)：
 
    ```shell
-   git clone git@github.com/<github_username>/website
+   git clone git@github.com:<github_username>/website
    cd website
    git submodule update --init --recursive --depth 1
    ```

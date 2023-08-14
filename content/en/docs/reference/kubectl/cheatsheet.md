@@ -15,6 +15,9 @@ card:
 
 This page contains a list of commonly used `kubectl` commands and flags.
 
+{{< note >}}
+These instructions are for Kubernetes v{{< skew currentVersion >}}. To check the version, use the `kubectl version` command.
+{{< /note >}}
 <!-- body -->
 
 ## Kubectl autocomplete
@@ -85,7 +88,7 @@ kubectl config set-context gce --user=cluster-admin --namespace=foo \
 
 kubectl config unset users.foo                       # delete user foo
 
-# short alias to set/show context/namespace (only works for bash and bash-compatible shells, current context to be set before using kn to set namespace) 
+# short alias to set/show context/namespace (only works for bash and bash-compatible shells, current context to be set before using kn to set namespace)
 alias kx='f() { [ "$1" ] && kubectl config use-context $1 || kubectl config current-context ; } ; f'
 alias kn='f() { [ "$1" ] && kubectl config set-context --current --namespace $1 || kubectl config view --minify | grep namespace | cut -d" " -f6 ; } ; f'
 ```
@@ -270,7 +273,9 @@ kubectl get pod mypod -o yaml | sed 's/\(image: myimage\):.*$/\1:v4/' | kubectl 
 
 kubectl label pods my-pod new-label=awesome                      # Add a Label
 kubectl label pods my-pod new-label-                             # Remove a label
+kubectl label pods my-pod new-label=new-value --overwrite        # Overwrite an existing value
 kubectl annotate pods my-pod icon-url=http://goo.gl/XXBTWq       # Add an annotation
+kubectl annotate pods my-pod icon-                               # Remove annotation
 kubectl autoscale deployment foo --min=2 --max=10                # Auto scale a deployment "foo"
 ```
 
@@ -401,7 +406,7 @@ kubectl taint nodes foo dedicated=special-user:NoSchedule
 
 ### Resource types
 
-List all supported resource types along with their shortnames, [API group](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning), whether they are [namespaced](/docs/concepts/overview/working-with-objects/namespaces), and [Kind](/docs/concepts/overview/working-with-objects/kubernetes-objects):
+List all supported resource types along with their shortnames, [API group](/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning), whether they are [namespaced](/docs/concepts/overview/working-with-objects/namespaces), and [kind](/docs/concepts/overview/working-with-objects/):
 
 ```bash
 kubectl api-resources

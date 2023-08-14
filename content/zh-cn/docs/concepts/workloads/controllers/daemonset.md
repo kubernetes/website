@@ -1,7 +1,10 @@
 ---
 title: DaemonSet
+description: >-
+  DaemonSet 定义了提供节点本地设施的 Pod。这些设施可能对于集群的运行至关重要，例如网络辅助工具，或者作为 add-on 的一部分。
 content_type: concept
 weight: 40
+hide_summary: true # 在章节索引中单独列出
 ---
 
 <!--
@@ -12,8 +15,11 @@ reviewers:
 - janetkuo
 - kow3ns
 title: DaemonSet
+description: >-
+ A DaemonSet defines Pods that provide node-local facilities. These might be fundamental to the operation of your cluster, such as a networking helper tool, or be part of an add-on.
 content_type: concept
 weight: 40
+hide_summary: true # Listed separately in section index
 --->
 
 <!-- overview -->
@@ -67,7 +73,7 @@ describes a DaemonSet that runs the fluentd-elasticsearch Docker image:
 你可以在 YAML 文件中描述 DaemonSet。
 例如，下面的 daemonset.yaml 文件描述了一个运行 fluentd-elasticsearch Docker 镜像的 DaemonSet：
 
-{{< codenew file="controllers/daemonset.yaml" >}}
+{{% code file="controllers/daemonset.yaml" %}}
 
 <!--
 Create a DaemonSet based on the YAML file:
@@ -233,7 +239,7 @@ consideration by the DaemonSet controller when evaluating the eligible nodes,
 but is replaced on the created Pod with the node affinity that matches the name
 of the eligible node.
 -->
-用户通过设置 DaemonSet 的 `.spec.template.spec.schedulerName` 字段，可以为 DamonSet
+用户通过设置 DaemonSet 的 `.spec.template.spec.schedulerName` 字段，可以为 DaemonSet
 的 Pod 指定不同的调度程序。
 
 当评估符合条件的节点时，原本在 `.spec.template.spec.affinity.nodeAffinity` 字段上指定的节点亲和性将由

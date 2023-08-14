@@ -1,7 +1,6 @@
 ---
 title: 安全地清空一个节点
 content_type: task
-min-kubernetes-server-version: 1.5
 weight: 310
 ---
 <!--
@@ -12,7 +11,6 @@ reviewers:
 - kow3ns
 title: Safely Drain a Node
 content_type: task
-min-kubernetes-server-version: 1.5
 weight: 310
 -->
 
@@ -25,25 +23,20 @@ This page shows how to safely drain a node, respecting the PodDisruptionBudget y
 
 ## {{% heading "prerequisites" %}}
 
-{{% version-check %}}
 <!-- 
 This task assumes that you have met the following prerequisites:
 
-* You are using Kubernetes release >= 1.5.
-* Either:
-  1. You do not require your applications to be highly available during the
-     node drain, or
-  2. You have read about the [PodDisruptionBudget concept](/docs/concepts/workloads/pods/disruptions/)
-     and [Configured PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/) for
-     applications that need them.
+1. You do not require your applications to be highly available during the
+   node drain, or
+1. You have read about the [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/) concept,
+   and have [configured PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/) for
+   applications that need them.
 -->
 此任务假定你已经满足了以下先决条件：
 
-* 使用的 Kubernetes 版本 >= 1.5。
-* 以下两项，具备其一：
-  1. 在节点清空期间，不要求应用程序具有高可用性
-  2. 你已经了解了 [PodDisruptionBudget 的概念](/zh-cn/docs/concepts/workloads/pods/disruptions/)，
-     并为需要它的应用程序[配置了 PodDisruptionBudget](/zh-cn/docs/tasks/run-application/configure-pdb/)。
+1. 在节点清空期间，不要求应用具有高可用性
+2. 你已经了解了 [PodDisruptionBudget 的概念](/zh-cn/docs/concepts/workloads/pods/disruptions/)，
+   并为需要它的应用[配置了 PodDisruptionBudget](/zh-cn/docs/tasks/run-application/configure-pdb/)。
 
 <!-- steps -->
 
@@ -56,6 +49,11 @@ configure a [PodDisruptionBudget](/docs/concepts/workloads/pods/disruptions/).
 If availability is important for any applications that run or could run on the node(s)
 that you are draining, [configure a PodDisruptionBudgets](/docs/tasks/run-application/configure-pdb/)
 first and then continue following this guide.
+
+It is recommended to set `AlwaysAllow` [Unhealthy Pod Eviction Policy](/docs/tasks/run-application/configure-pdb/#unhealthy-pod-eviction-policy)
+to your PodDisruptionBudgets to support eviction of misbehaving applications during a node drain.
+The default behavior is to wait for the application pods to become [healthy](/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)
+before the drain can proceed.
 -->
 ## （可选）配置干扰预算 {#configure-poddisruptionbudget}
 
@@ -63,6 +61,12 @@ first and then continue following this guide.
 [PodDisruptionBudget](/zh-cn/docs/concepts/workloads/pods/disruptions/)。
 如果可用性对于正在清空的该节点上运行或可能在该节点上运行的任何应用程序很重要，
 首先 [配置一个 PodDisruptionBudgets](/zh-cn/docs/tasks/run-application/configure-pdb/) 并继续遵循本指南。
+
+建议为你的 PodDisruptionBudgets 设置 `AlwaysAllow` 
+[不健康 Pod 驱逐策略](/zh-cn/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)，
+以在节点清空期间支持驱逐异常的应用程序。 
+默认行为是等待应用程序的 Pod 变为 [健康](/zh-cn/docs/tasks/run-application/configure-pdb/#healthiness-of-a-pod)后，
+才能进行清空操作。
 
 <!-- 
 ## Use `kubectl drain` to remove a node from service
@@ -99,14 +103,35 @@ have been safely evicted (respecting the desired graceful termination period,
 and respecting the PodDisruptionBudget you have defined). It is then safe to
 bring down the node by powering down its physical machine or, if running on a
 cloud platform, deleting its virtual machine.
-
-First, identify the name of the node you wish to drain. You can list all of the nodes in your cluster with
 -->
 `kubectl drain` 的成功返回，表明所有的 Pod（除了上一段中描述的被排除的那些），
 已经被安全地逐出（考虑到期望的终止宽限期和你定义的 PodDisruptionBudget）。
 然后就可以安全地关闭节点，
 比如关闭物理机器的电源，如果它运行在云平台上，则删除它的虚拟机。
 
+{{< note >}}
+<!--
+If any new Pods tolerate the `node.kubernetes.io/unschedulable` taint, then those Pods
+might be scheduled to the node you have drained. Avoid tolerating that taint other than
+for DaemonSets.
+-->
+如果存在新的、能够容忍 `node.kubernetes.io/unschedulable` 污点的 Pod，
+那么这些 Pod 可能会被调度到你已经清空的节点上。
+除了 DaemonSet 之外，请避免容忍此污点。
+
+<!--
+If you or another API user directly set the [`nodeName`](/docs/concepts/scheduling-eviction/assign-pod-node/#nodename)
+field for a Pod (bypassing the scheduler), then the Pod is bound to the specified node
+and will run there, even though you have drained that node and marked it unschedulable.
+-->
+如果你或另一个 API 用户（绕过调度器）直接为 Pod 设置了
+[`nodeName`](/zh-cn/docs/concepts/scheduling-eviction/assign-pod-node/#nodename)字段，
+则即使你已将该节点清空并标记为不可调度，Pod 仍将被绑定到这个指定的节点并在该节点上运行。
+{{< /note >}}
+
+<!--
+First, identify the name of the node you wish to drain. You can list all of the nodes in your cluster with
+-->
 首先，确定想要清空的节点的名称。可以用以下命令列出集群中的所有节点:
 
 ```shell
@@ -163,9 +188,9 @@ respect the `PodDisruptionBudget` you specify.
 -->
 ## 并行清空多个节点  {#draining-multiple-nodes-in-parallel}
 
- `kubectl drain` 命令一次只能发送给一个节点。
- 但是，你可以在不同的终端或后台为不同的节点并行地运行多个 `kubectl drain` 命令。
- 同时运行的多个 drain 命令仍然遵循你指定的 `PodDisruptionBudget`。
+`kubectl drain` 命令一次只能发送给一个节点。
+但是，你可以在不同的终端或后台为不同的节点并行地运行多个 `kubectl drain` 命令。
+同时运行的多个 drain 命令仍然遵循你指定的 `PodDisruptionBudget`。
 
 <!-- 
 For example, if you have a StatefulSet with three replicas and have

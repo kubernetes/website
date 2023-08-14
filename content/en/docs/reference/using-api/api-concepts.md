@@ -39,7 +39,7 @@ API concepts:
 * For some resource types, the API includes one or more *sub-resources*, which are represented as URI paths below the resource
 
 Most Kubernetes API resource types are
-[objects](/docs/concepts/overview/working-with-objects/kubernetes-objects/#kubernetes-objects):
+{{< glossary_tooltip text="objects" term_id="object" >}} –
 they represent a concrete instance of a concept on the cluster, like a
 pod or namespace. A smaller number of API resource types are *virtual* in
 that they often represent operations on objects, rather than objects, such
@@ -283,6 +283,36 @@ Content-Type: application/json
 ...
 <followed by regular watch stream starting from resourceVersion="10245">
 ```
+
+## Response compression
+
+{{< feature-state for_k8s_version="v1.16" state="beta" >}}
+
+`APIResponseCompression` is an option that allows the API server to compress the responses for **get**
+and **list** requests, reducing the network bandwidth and improving the performance of large-scale clusters.
+It is enabled by default since Kubernetes 1.16 and it can be disabled by including
+`APIResponseCompression=false` in the `--feature-gates` flag on the API server.
+
+API response compression can significantly reduce the size of the response, especially for large resources or
+[collections](/docs/reference/using-api/api-concepts/#collections).
+For example, a **list** request for pods can return hundreds of kilobytes or even megabytes of data,
+depending on the number of pods and their attributes. By compressing the response, the network bandwidth
+can be saved and the latency can be reduced.
+
+To verify if `APIResponseCompression` is working, you can send a **get** or **list** request to the
+API server with an `Accept-Encoding` header, and check the response size and headers. For example:
+
+```console
+GET /api/v1/pods
+Accept-Encoding: gzip
+---
+200 OK
+Content-Type: application/json
+content-encoding: gzip
+...
+```
+
+The `content-encoding` header indicates that the response is compressed with `gzip`.
 
 ## Retrieving large results sets in chunks
 
@@ -1036,8 +1066,9 @@ Continue Token, Exact
 
 {{< note >}}
 When you **list** resources and receive a collection response, the response includes the
-[metadata](/docs/reference/generated/kubernetes-api/v1.21/#listmeta-v1-meta) of the collection as
-well as [object metadata](/docs/reference/generated/kubernetes-api/v1.21/#listmeta-v1-meta)
+[list metadata](/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#listmeta-v1-meta)
+of the collection as well as
+[object metadata](/docs/reference/generated/kubernetes-api/v{{<skew currentVersion >}}/#objectmeta-v1-meta)
 for each item in that collection. For individual objects found within a collection response,
 `.metadata.resourceVersion` tracks when that object was last updated, and not how up-to-date
 the object is when served.

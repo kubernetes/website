@@ -81,7 +81,12 @@ the cluster configuration (including root CA) and validates it using the token
 as well as validating that the root CA public key matches the provided hash and
 that the API server certificate is valid under the root CA.
 
-The CA key hash has the format `sha256:<hex_encoded_hash>`. By default, the hash value is returned in the `kubeadm join` command printed at the end of `kubeadm init` or in the output of `kubeadm token create --print-join-command`. It is in a standard format (see [RFC7469](https://tools.ietf.org/html/rfc7469#section-2.4)) and can also be calculated by 3rd party tools or provisioning systems. For example, using the OpenSSL CLI:
+The CA key hash has the format `sha256:<hex_encoded_hash>`.
+By default, the hash value is printed at the end of the `kubeadm init` command or
+in the output from the `kubeadm token create --print-join-command` command.
+It is in a standard format (see [RFC7469](https://tools.ietf.org/html/rfc7469#section-2.4))
+and can also be calculated by 3rd party tools or provisioning systems.
+For example, using the OpenSSL CLI:
 
 ```shell
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'
@@ -174,6 +179,24 @@ In case the discovery file does not contain credentials, the TLS discovery token
   the control-plane node to the bootstrapping nodes. If the discovery file contains credentials
   you must keep it secret and transfer it over a secure channel. This might be possible with your
   cloud provider or provisioning tool.
+
+#### Use of custom kubelet credentials with `kubeadm join`
+
+To allow `kubeadm join` to use predefined kubelet credentials and skip client TLS bootstrap 
+and CSR approval for a new node:
+
+1. From a working control plane node in the cluster that has `/etc/kubernetes/pki/ca.key`
+   execute `kubeadm kubeconfig user --org system:nodes --client-name system:node:$NODE > kubelet.conf`.
+   `$NODE` must be set to the name of the new node.
+2. Modify the resulted `kubelet.conf` manually to adjust the cluster name and the server endpoint,
+   or run `kubeadm kubeconfig user --config` (it accepts `InitConfiguration`).
+
+If your cluster does not have the `ca.key` file, you must sign the embedded certificates in 
+the `kubelet.conf` externally.
+
+1. Copy the resulting `kubelet.conf` to `/etc/kubernetes/kubelet.conf` on the new node.
+2. Execute `kubeadm join` with the flag
+   `--ignore-preflight-errors=FileAvailable--etc-kubernetes-kubelet.conf` on the new node.
 
 ### Securing your installation even more {#securing-more}
 

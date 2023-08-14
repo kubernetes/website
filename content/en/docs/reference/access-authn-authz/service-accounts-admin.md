@@ -53,7 +53,7 @@ for a number of reasons:
   tied to complex business processes. By contrast, service account creation is
   intended to be more lightweight, allowing cluster users to create service accounts
   for specific tasks on demand. Separating ServiceAccount creation from the steps to
-  onboard human users makes it easier for workloads to following the principle of
+  onboard human users makes it easier for workloads to follow the principle of
   least privilege.
 - Auditing considerations for humans and service accounts may differ; the separation
   makes that easier to achieve.
@@ -99,6 +99,7 @@ each source also represents a single path within that volume. The three sources 
 1. A `serviceAccountToken` source, that contains a token that the kubelet acquires from kube-apiserver.
    The kubelet fetches time-bound tokens using the TokenRequest API. A token served for a TokenRequest expires
    either when the pod is deleted or after a defined lifespan (by default, that is 1 hour).
+   The kubelet also refreshes that token before the token expires.
    The token is bound to the specific Pod and has the kube-apiserver as its audience.
    This mechanism superseded an earlier mechanism that added a volume based on a Secret,
    where the Secret represented the ServiceAccount for the Pod, but did not expire.
@@ -264,7 +265,7 @@ updates that Secret with that generated token data.
 
 Here is a sample manifest for such a Secret:
 
-{{< codenew file="secret/serviceaccount/mysecretname.yaml" >}}
+{{% code file="secret/serviceaccount/mysecretname.yaml" %}}
 
 To create a Secret based on this example, run:
 

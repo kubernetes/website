@@ -32,7 +32,7 @@ weight: 10
 
 ## 적용할 알맞은 파드 시큐리티 스탠다드 선택하기
 
-[파드 시큐리티 어드미션](/docs/concepts/security/pod-security-admission/)을 이용하여 
+[파드 시큐리티 어드미션](/ko/docs/concepts/security/pod-security-admission/)을 이용하여 
 `enforce`, `audit`, 또는 `warn` 모드 중 하나로 
 내장 [파드 시큐리티 스탠다드](/ko/docs/concepts/security/pod-security-standards/)를 적용할 수 있다.
 
@@ -187,7 +187,7 @@ weight: 10
     plugins:
     - name: PodSecurity
       configuration:
-        apiVersion: pod-security.admission.config.k8s.io/v1beta1
+        apiVersion: pod-security.admission.config.k8s.io/v1
         kind: PodSecurityConfiguration
         defaults:
           enforce: "baseline"
@@ -202,6 +202,13 @@ weight: 10
           namespaces: [kube-system]
     EOF
     ```
+
+    {{< note >}}
+    `pod-security.admission.config.k8s.io/v1` 설정은 쿠버네티스 v1.25 이상을 필요로 한다.
+    쿠버네티스 v1.23 과 v1.24의 경우, [v1beta1](https://v1-24.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)을 사용한다.
+    쿠버네티스 v1.22의 경우, [v1alpha1](https://v1-22.docs.kubernetes.io/docs/tasks/configure-pod-container/enforce-standards-admission-controller/)을 사용한다.
+    {{< /note >}}
+
 
 1. API 서버가 클러스터 생성 과정에서 이 파일을 처리할 수 있도록 구성한다.
 
@@ -323,6 +330,6 @@ weight: 10
   4. kubectl context를 새로 생성한 클러스터에 설정
   5. 최소한의 파드 구성을 위한 yaml 파일을 생성
   6. 해당 파일을 적용하여 새 클러스터에 파드를 생성
-- [파드 시큐리티 어드미션](/docs/concepts/security/pod-security-admission/)
+- [파드 시큐리티 어드미션](/ko/docs/concepts/security/pod-security-admission/)
 - [파드 시큐리티 스탠다드](/ko/docs/concepts/security/pod-security-standards/)
 - [파드 시큐리티 스탠다드를 네임스페이스 수준에 적용하기](/ko/docs/tutorials/security/ns-level-pss/)

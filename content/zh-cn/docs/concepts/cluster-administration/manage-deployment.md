@@ -41,7 +41,7 @@ Management of multiple resources can be simplified by grouping them together in 
 可以通过将多个资源组合在同一个文件中（在 YAML 中以 `---` 分隔）
 来简化对它们的管理。例如：
 
-{{< codenew file="application/nginx-app.yaml" >}}
+{{% code file="application/nginx-app.yaml" %}}
 
 <!--
 Multiple resources can be created the same way as a single resource:
