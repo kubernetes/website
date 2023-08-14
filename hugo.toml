@@ -180,7 +180,6 @@ js = [
 ]
 
 [[params.versions]]
-fullversion = "v1.28.0"
 version = "v1.28"
 githubbranch = "v1.28.0"
 docsbranch = "main"
