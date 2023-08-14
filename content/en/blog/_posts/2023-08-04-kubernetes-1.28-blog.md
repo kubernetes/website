@@ -25,7 +25,7 @@ Much like a garden, our release has ever-changing growth, challenges and opportu
 
 # What's New (Major Themes)
 
-## generally available: non-graceful node shutdown
+## Generally available: recovery from non-graceful node shutdown
     
 This feature allows stateful workloads to restart on a different node if the original node is shut down unexpectedly or ends up in a non-recoverable state perhaps due to hardware failure or unresponsive OS.
 
