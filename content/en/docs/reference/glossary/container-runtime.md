@@ -12,7 +12,7 @@ tags:
 - workload
 ---
  A fundamental component that empowers Kubernetes to run containers effectively.
- Its responsibility lies in managing the execution and lifecycle of containers within the Kubernetes environment.
+ It is responsible for managing the execution and lifecycle of containers within the Kubernetes environment.
 
 <!--more-->
 
