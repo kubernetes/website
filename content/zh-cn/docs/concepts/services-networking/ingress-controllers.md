@@ -122,6 +122,7 @@ Kubernetes 作为一个项目，目前支持和维护
 * The [NGINX Ingress Controller for Kubernetes](https://www.nginx.com/products/nginx-ingress-controller/)
   works with the [NGINX](https://www.nginx.com/resources/glossary/nginx/) webserver (as a proxy).
 * The [ngrok Kubernetes Ingress Controller](https://github.com/ngrok/kubernetes-ingress-controller) is an open source controller for adding secure public access to your K8s services using the [ngrok platform](https://ngrok.com).
+* The [OCI Native Ingress Controller](https://github.com/oracle/oci-native-ingress-controller#readme) is an Ingress controller for Oracle Cloud Infrastructure which allows you to manage the [OCI Load Balancer](https://docs.oracle.com/en-us/iaas/Content/Balance/home.htm).
 * The [Pomerium Ingress Controller](https://www.pomerium.com/docs/k8s/ingress.html) is based on [Pomerium](https://pomerium.com/), which offers context-aware access policy.
 * [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/) HTTP router and reverse proxy for service composition, including use cases like Kubernetes Ingress, designed as a library to build your custom proxy.
 -->
@@ -134,6 +135,9 @@ Kubernetes 作为一个项目，目前支持和维护
   网页服务器（作为代理）一起使用。
 * [ngrok Kubernetes Ingress 控制器](https://github.com/ngrok/kubernetes-ingress-controller)
   是一个开源控制器，通过使用 [ngrok 平台](https://ngrok.com)为你的 K8s 服务添加安全的公开访问权限。
+* [OCI Native Ingress Controller](https://github.com/oracle/oci-native-ingress-controller#readme)
+  是一个适用于 Oracle Cloud Infrastructure 的 Ingress 控制器，可帮助你管理
+  [OCI 负载均衡](https://docs.oracle.com/en-us/iaas/Content/Balance/home.htm)。
 * [Pomerium Ingress 控制器](https://www.pomerium.com/docs/k8s/ingress.html)
   基于 [Pomerium](https://pomerium.com/)，能提供上下文感知的准入策略。
 * [Skipper](https://opensource.zalando.com/skipper/kubernetes/ingress-controller/) HTTP
