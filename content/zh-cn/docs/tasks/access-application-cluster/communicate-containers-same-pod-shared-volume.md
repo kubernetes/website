@@ -38,7 +38,7 @@ for the Pod:
 在这个练习中，你会创建一个包含两个容器的 Pod。两个容器共享一个卷用于他们之间的通信。
 Pod 的配置文件如下：
 
-{{< codenew file="pods/two-container-pod.yaml" >}}
+{{% code file="pods/two-container-pod.yaml" %}}
 
 <!--
 In the configuration file, you can see that the Pod has a Volume named
