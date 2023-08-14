@@ -110,7 +110,7 @@ There are two distinct types of users for swap, who may overlap:
 
 - Node administrators, who may want swap available for node-level performance tuning and stability/reducing noisy neighbor issues.
     
-- Application developers, who have written applications that would benefit from using swap memory. There are hence a number of possible ways that one could envision swap use on a node.
+- Application developers, who have written applications that would benefit from using swap memory.
     
 ## Mixed version proxy (alpha) {#mixed-version-proxy}
 
