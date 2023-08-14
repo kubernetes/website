@@ -13,7 +13,7 @@ This release consists of 46 enhancements. 20 of those enhancements are entering 
 
 ## Release Theme And Logo
 
-**Kubernetes v1.28: *Planternetes*
+**Kubernetes v1.28: _Planternetes_**
 
 The theme for Kubernetes v1.28 is *Planternetes*.
 
