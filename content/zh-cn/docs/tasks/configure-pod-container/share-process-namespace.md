@@ -50,7 +50,7 @@ Process namespace sharing is enabled using the `shareProcessNamespace` field of
 -->
 使用 Pod `.spec` 中的 `shareProcessNamespace` 字段可以启用进程命名空间共享。例如：
 
-{{< codenew file="pods/share-process-namespace.yaml" >}}
+{{% code file="pods/share-process-namespace.yaml" %}}
 
 <!--
 1. Create the pod `nginx` on your cluster:
