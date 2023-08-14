@@ -81,7 +81,7 @@ This will lower the infrastructure barrier to enforcing customizable policies as
 
 ## CRD validation ratcheting
     
-This Allows custom resources to fail validation if the patch did not alter any of the invalid fields.  The ability to shift left validation logic from controllers to the front end is a long-term goal for improving the useability of the Kubernetes project.
+This allows custom resources to fail validation if the patch did not alter any of the invalid fields.  The ability to shift left validation logic from controllers to the front end is a long-term goal for improving the useability of the Kubernetes project.
   
 ## Match conditions for admission webhooks
     
