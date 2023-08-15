@@ -26,10 +26,10 @@ Much like a garden, our release has ever-changing growth, challenges and opportu
 # What's New (Major Themes)
 
 ## Changes to supported skew between control plane and node versions
+This enables testing and expanding the supported skew between core node and control plane components by one version from n-2 to n-3, so that node components (kubelet and kube-proxy) for the oldest supported minor version work with control plane components (kube-apiserver, kube-scheduler, kube-controller-manager, cloud-controller-manager) for the newest supported minor version.
+
 This is valuable for end users as control plane upgrade will be a little faster than node upgrade, which are almost always going to be the longer thing with running workloads.
 
-This enables testing and expanding the supported skew between core node and control plane components by one version from n-2 to n-3, so that node components (kubelet and kube-proxy) for the oldest supported minor version work with control plane components (kube-apiserver, kube-scheduler, kube-controller-manager, cloud-controller-manager) for the newest supported minor version.
-    
 The Kubernetes yearly support period already makes annual upgrades possible. Users can upgrade to the latest patch versions to pick up security fixes and do 3 sequential minor version upgrades once a year to "catch up" to the latest supported minor version.
 
 However, since the tested/supported skew between nodes and control planes is currently limited to 2 versions, a 3-version upgrade would have to update nodes twice to stay within the supported skew.
@@ -62,8 +62,7 @@ not be disassociated from the original - and now shut down - node so the Persist
 pods cannot be attached to a different, healthy node. As a result, an application running on an
 affected StatefulSet may not be able to function properly. If the original, shut down node does come up, then
 their pods will be deleted by its kubelet and new pods can be created on a different running node.
-If the original node does not come up (common with an [immutable infrastructure](https://glossary.cncf.io/immutable-infrastructure/) design),
-those pods would be stuck in a `Terminating` status on the shut-down node forever.
+If the original node does not come up (common with an [immutable infrastructure](https://glossary.cncf.io/immutable-infrastructure/) design),  those pods would be stuck in a `Terminating` status on the shut-down node forever.
 
 For more information on how to trigger cleanup after a non-graceful node shutdown,
 read [non-graceful node shutdown](/docs/concepts/architecture/nodes/#non-graceful-node-shutdown).
