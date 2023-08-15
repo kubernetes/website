@@ -77,7 +77,7 @@ Instead, and as a beta feature, you can add _validation expressions_ directly in
 CRDs need direct support for non-trivial validation. While admission webhooks do support CRDs validation, they significantly complicate the development and operability of CRDs.
 
 
-It is sufficiently lightweight and safe to be run directly in the kube-apiserver (since CRD creation is a privileged operation), has a straight-forward and unsurprising grammar, and supports pre-parsing and type checking of expressions, allowing syntax and type errors to be caught at CRD registration time.
+For more information, read [validation rules](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules) in the CRD documentation.
 
 ## ValidatingAdmissionPolicies graduate to beta
     
