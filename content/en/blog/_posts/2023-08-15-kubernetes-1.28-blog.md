@@ -250,7 +250,7 @@ Kubernetes is only possible with the support, commitment, and hard work of its c
 
 We would like to thank the entire release team for the hours spent hard at work to ensure we deliver a solid Kubernetes v1.28 release for our community.
 
-Special thanks to our release lead, Grace Nguyen, for guiding us through a smooth and successful release cycle and facilitating the communication and collaboration between the different release teams taking advantage of her experience as a shadow and lead in these teams.
+Special thanks to our release lead, Grace Nguyen, for guiding us through a smooth and successful release cycle and facilitating the communication and collaboration between the different release teams taking advantage of her experience as a shadow and lead in these teams. If you would like to learn more about Grace's journey and this release, listen to the [Kubernetes v1.28 release interview podcast](https://craigbox.substack.com/p/the-kubernetes-128-release-interview).
 
 ## Ecosystem Updates
 
