@@ -19,7 +19,7 @@ The theme for Kubernetes v1.28 is *Planternetes*.
 
 {{< figure src="/images/blog/2023-08-15-kubernetes-1.28-blog/kubernetes-1.28.png" alt="Kubernetes 1.28 Planternetes logo" class="release-logo" >}}
 
-Each Kubernetes release is the culmination of the hard work of thousands of individuals from our community. The people behind this release are industry veterans, parents, others are students new to the ecosystem, contributing our unique experience to create a collective artifact with global impact.
+Each Kubernetes release is the culmination of the hard work of thousands of individuals from our community. The people behind this release are industry veterans, parents, others are students, and other folks of diverse experience, contributing our unique experience to create a collective artifact with global impact.
 
 Much like a garden, our release has ever-changing growth, challenges and opportunities. This theme celebrates the meticulous care, intention and efforts to get the release to where we are today. Harmoniously together, we grow better.
 
@@ -86,10 +86,6 @@ Common Expression language for admission control is customizable, in-process val
 This builds on the capabilities of the CRD Validation Rules feature that graduated to beta in 1.25 but with a focus on the policy enforcement capabilities of validating admission control.
     
 This will lower the infrastructure barrier to enforcing customizable policies as well as providing primitives that help the community establish and adhere to the best practices of both K8s and its extensions.
-
-## CRD validation ratcheting
-    
-This allows custom resources to fail validation if the patch did not alter any of the invalid fields.  The ability to shift left validation logic from controllers to the front end is a long-term goal for improving the useability of the Kubernetes project.
 
 ## Match conditions for admission webhooks
     
