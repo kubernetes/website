@@ -130,9 +130,7 @@ are all possible). This new alpha mechanism lets you hide that skew from clients
 
 Kubernetes contributors have begun to reorganize the code for the kube-apiserver to build on a new staging repository that consumes [k/apiserver](https://github.com/kubernetes/apiserver) but has a bigger, carefully chosen subset of the functionality of kube-apiserver such that it is reusable.
 
-This is a gradual reorganization; eventually there will be a new
-[k/generic-controlplane](https://github.com/kubernetes/generic-controlplane) Git repository
-with generic functionality abstracted from Kubernetes' API server.
+This is a gradual reorganization; eventually there will be a new git repository with generic functionality abstracted from Kubernetes' API server.
   
 ## Support for CDI injection into containers (alpha) {#cdi-device-plugin}
 
