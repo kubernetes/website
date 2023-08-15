@@ -157,9 +157,9 @@ publishing packages to the Google-hosted repository in the future.
 
 3. Update the `apt` package index:
 
-  ```shell
-  sudo apt-get update
-  ```
+   ```shell
+   sudo apt-get update
+   ```
 
 ### CentOS, Fedora, RHEL, and operating systems using `rpm`/`dnf` {#how-to-migrate-rpm}
 
@@ -168,17 +168,17 @@ publishing packages to the Google-hosted repository in the future.
    Kubernetes minor version in the command below with the minor version
    that you're currently using:
 
-```shell
-cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
-[kubernetes]
-name=Kubernetes
-baseurl=https://pkgs.k8s.io/core:/stable:/v1.28/rpm/
-enabled=1
-gpgcheck=1
-gpgkey=https://pkgs.k8s.io/core:/stable:/v1.28/rpm/repodata/repomd.xml.key
-exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
-EOF
-```
+   ```shell
+   cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+   [kubernetes]
+   name=Kubernetes
+   baseurl=https://pkgs.k8s.io/core:/stable:/v1.28/rpm/
+   enabled=1
+   gpgcheck=1
+   gpgkey=https://pkgs.k8s.io/core:/stable:/v1.28/rpm/repodata/repomd.xml.key
+   exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
+   EOF
+   ```
 
 ## Can I rollback to the Google-hosted repository after migrating to the Kubernetes repositories?
 
