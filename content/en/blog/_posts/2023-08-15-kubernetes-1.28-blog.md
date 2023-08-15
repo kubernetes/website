@@ -74,6 +74,8 @@ The [Common Expression Language (CEL)](https://github.com/google/cel-go) can be 
     
 CRDs need direct support for non-trivial validation. While admission webhooks do support CRDs validation, they significantly complicate the development and operability of CRDs.
 
+In 1.28, two optional fields `reason` and `fieldPath` were added to allow user to specify the failure reason and fieldPath when validation failed.
+
 For more information, read [validation rules](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules) in the CRD documentation.
 
 ## ValidatingAdmissionPolicies graduate to beta
@@ -84,7 +86,7 @@ This builds on the capabilities of the CRD Validation Rules feature that graduat
     
 This will lower the infrastructure barrier to enforcing customizable policies as well as providing primitives that help the community establish and adhere to the best practices of both K8s and its extensions.
 
-To use [ValidatingAdmissionPolicies](/docs/reference/access-authn-authz/validating-admission-policy/), you need to enable the `admissionregistration.k8s.io/v1beta1` API group in your cluster's control plane.
+To use [ValidatingAdmissionPolicies](/docs/reference/access-authn-authz/validating-admission-policy/), you need to enable both the `admissionregistration.k8s.io/v1beta1` API group and the `ValidatingAdmissionPolicy` feature gate in your cluster's control plane.
 
 ## Match conditions for admission webhooks
     
