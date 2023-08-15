@@ -36,7 +36,7 @@ and implements _graceful node shutdown_ (beta, and enabled by default). However,
 shutdown might not get handled well; that could be because:
 
 - the node runs Windows
-- the node runs Linux, but uses a different `init` (not systemd)
+- the node runs Linux, but uses a different `init` (not `systemd`)
 - the shutdown does not trigger the system inhibitor locks mechanism
 - because of a node-level configuration error
   (such as not setting appropriate values for `shutdownGracePeriod` and `shutdownGracePeriodCriticalPods`).
