@@ -14,7 +14,7 @@ Meeting](https://www.youtube.com/watch?v=DpFTcTnBxbM&feature=youtu.be&t=1642)
 and in a post on the [Kubernetes
 Blog](https://kubernetes.io/blog/2018/05/17/gardener/). At SAP, we have been
 running Gardener for more than two years, and are successfully managing
-thousands of [conformant](https://k8s-testgrid.appspot.com/conformance-gardener)
+thousands of [conformant](https://testgrid.k8s.io/conformance-gardener)
 clusters in various versions on all major hyperscalers as well as in numerous
 infrastructures and private clouds that typically join an enterprise via
 acquisitions.

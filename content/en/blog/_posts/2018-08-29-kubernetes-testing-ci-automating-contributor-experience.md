@@ -69,7 +69,7 @@ With workflow automation addressed, we turned our attention to project health. W
 * [Kettle](https://github.com/kubernetes/test-infra/tree/master/kettle): transfer data from GCS to a publicly accessible bigquery dataset
 * [PR dashboard](https://k8s-gubernator.appspot.com/pr): a workflow-aware dashboard that allows contributors to understand which PRs require attention and why
 * [Triage](https://storage.googleapis.com/k8s-gubernator/triage/index.html): identify common failures that happen across all jobs and tests
-* [Testgrid](https://k8s-testgrid.appspot.com/): display test results for a given job across all runs, summarize test results across groups of jobs
+* [Testgrid](https://testgrid.k8s.io/): display test results for a given job across all runs, summarize test results across groups of jobs
 
 We approached the Cloud Native Computing Foundation (CNCF) to develop DevStats to glean insights from our GitHub events such as:
 

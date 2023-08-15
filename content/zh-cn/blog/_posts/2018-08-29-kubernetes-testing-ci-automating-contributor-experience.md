@@ -176,14 +176,14 @@ With workflow automation addressed, we turned our attention to project health. W
 * [Kettle](https://github.com/kubernetes/test-infra/tree/master/kettle): transfer data from GCS to a publicly accessible bigquery dataset
 * [PR dashboard](https://k8s-gubernator.appspot.com/pr): a workflow-aware dashboard that allows contributors to understand which PRs require attention and why
 * [Triage](https://storage.googleapis.com/k8s-gubernator/triage/index.html): identify common failures that happen across all jobs and tests
-* [Testgrid](https://k8s-testgrid.appspot.com/): display test results for a given job across all runs, summarize test results across groups of jobs
+* [Testgrid](https://testgrid.k8s.io/): display test results for a given job across all runs, summarize test results across groups of jobs
 -->
 
 * [Gubernator](https://github.com/kubernetes/test-infra/tree/master/gubernator): 显示给定 Pull Request 的结果和测试历史
 * [Kettle](https://github.com/kubernetes/test-infra/tree/master/kettle): 将数据从 GCS 传输到可公开访问的 bigquery 数据集
 * [PR dashboard](https://k8s-gubernator.appspot.com/pr): 一个工作流程识别仪表板，允许参与者了解哪些 Pull Request 需要注意以及为什么
 * [Triage](https://storage.googleapis.com/k8s-gubernator/triage/index.html): 识别所有作业和测试中发生的常见故障
-* [Testgrid](https://k8s-testgrid.appspot.com/): 显示所有运行中给定作业的测试结果，汇总各组作业的测试结果
+* [Testgrid](https://testgrid.k8s.io/): 显示所有运行中给定作业的测试结果，汇总各组作业的测试结果
 
 <!--
 We approached the Cloud Native Computing Foundation (CNCF) to develop DevStats to glean insights from our GitHub events such as:

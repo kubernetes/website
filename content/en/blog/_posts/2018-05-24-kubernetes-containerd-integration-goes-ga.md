@@ -8,7 +8,7 @@ date: 2018-05-24
 
 In a previous blog - [Containerd Brings More Container Runtime Options for Kubernetes](https://kubernetes.io/blog/2017/11/containerd-container-runtime-options-kubernetes), we introduced the alpha version of the Kubernetes containerd integration. With another 6 months of development, the integration with containerd is now generally available! You can now use [containerd 1.1](https://github.com/containerd/containerd/releases/tag/v1.1.0) as the container runtime for production Kubernetes clusters!
 
-Containerd 1.1 works with Kubernetes 1.10 and above, and supports all Kubernetes features. The test coverage of containerd integration on [Google Cloud Platform](https://cloud.google.com/) in Kubernetes test infrastructure is now equivalent to the Docker integration (See: [test dashboard)](https://k8s-testgrid.appspot.com/sig-node-containerd).
+Containerd 1.1 works with Kubernetes 1.10 and above, and supports all Kubernetes features. The test coverage of containerd integration on [Google Cloud Platform](https://cloud.google.com/) in Kubernetes test infrastructure is now equivalent to the Docker integration (See: [test dashboard)](https://testgrid.k8s.io/sig-node-containerd).
 
 _We're very glad to see containerd rapidly grow to this big milestone. Alibaba Cloud started to use containerd actively since its first day, and thanks to the simplicity and robustness emphasise, make it a perfect container engine running in our Serverless Kubernetes product, which has high qualification on performance and stability. No doubt, containerd will be a core engine of container era, and continue to driving innovation forward._
 
