@@ -76,7 +76,6 @@ Instead, and as a beta feature, you can add _validation expressions_ directly in
     
 CRDs need direct support for non-trivial validation. While admission webhooks do support CRDs validation, they significantly complicate the development and operability of CRDs.
 
-This KEP proposes that an inline expression language be integrated directly into CRDs such that a much larger portion of validation use cases can be solved without the use of webhooks. When selecting an expression language, we want to be sure that it can support defaulting and CRD conversion in the future.
 
 It is sufficiently lightweight and safe to be run directly in the kube-apiserver (since CRD creation is a privileged operation), has a straight-forward and unsurprising grammar, and supports pre-parsing and type checking of expressions, allowing syntax and type errors to be caught at CRD registration time.
 
