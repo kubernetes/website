@@ -22,9 +22,9 @@ Type: Annotation
 
 Example: `apf.kubernetes.io/autoupdate-spec: "true"`
 
-Used on: [All APF configuration objects](/concepts/cluster-administration/flow-control/#defaults)
+Used on: [Mandatory and suggested APF configuration objects](/concepts/cluster-administration/flow-control/#defaults)
 
-Depending on whether this annotation is set to true or false, the object is controlled by the kube-apiservers or the user.
+If the annotation is set to true, the object is controller by the kube-apiserver.  The object is controlled by the user if the annotation is set to false. For more details, read  [Maintenance of the Mandatory and Suggested Configuration Objects](/docs/concepts/cluster-administration/flow-control/#maintenance-of-the-mandatory-and-suggested-configuration-objects)
 
 ### app.kubernetes.io/component
 
