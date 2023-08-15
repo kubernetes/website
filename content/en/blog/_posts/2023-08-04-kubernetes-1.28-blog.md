@@ -28,7 +28,7 @@ Much like a garden, our release has ever-changing growth, challenges and opportu
 ## Changes to supported skew between control plane and node versions
 This enables testing and expanding the supported skew between core node and control plane components by one version from n-2 to n-3, so that node components (kubelet and kube-proxy) for the oldest supported minor version work with control plane components (kube-apiserver, kube-scheduler, kube-controller-manager, cloud-controller-manager) for the newest supported minor version.
 
-This is valuable for end users as control plane upgrade will be a little faster than node upgrade, which are almost always going to be the longer thing with running workloads.
+This is valuable for end users as control plane upgrade will be a little faster than node upgrade, which are almost always going to be the longer with running workloads.
 
 The Kubernetes yearly support period already makes annual upgrades possible. Users can upgrade to the latest patch versions to pick up security fixes and do 3 sequential minor version upgrades once a year to "catch up" to the latest supported minor version.
 
