@@ -31,9 +31,9 @@ If a node shuts down down unexpectedly or ends up in a non-recoverable state (pe
 
 This allows stateful workloads to failover to a different node successfully after the original node is shut down or in a non-recoverable state, such as the hardware failure or broken OS.
     
-Versions of Kubernetes earlier than v1.20 lacked handling for node shutdown; on Linux, the kubelet integrates with systemd
-and implements _graceful node shutdown_ (beta, and enabled by default). However, even an intentional
-shutdown might not get handled well; that could be because:
+Versions of Kubernetes earlier than v1.20 lacked handling for node shutdown on Linux, the kubelet integrates with systemd
+and implements graceful node shutdown (beta, and enabled by default). However, even an intentional
+shutdown might not get handled well that could be because:
 
 - the node runs Windows
 - the node runs Linux, but uses a different `init` (not `systemd`)
