@@ -82,7 +82,7 @@ This will lower the infrastructure barrier to enforcing customizable policies as
 ## CRD validation ratcheting
     
 This allows custom resources to fail validation if the patch did not alter any of the invalid fields.  The ability to shift left validation logic from controllers to the front end is a long-term goal for improving the useability of the Kubernetes project.
-  
+
 ## Match conditions for admission webhooks
     
 Kubernetes v1.27 lets you specify _match conditions_ for admission webhooks,
@@ -257,7 +257,7 @@ Kubernetes is only possible with the support, commitment, and hard work of its c
 
 We would like to thank the entire release team for the hours spent hard at work to ensure we deliver a solid Kubernetes v1.28 release for our community.
 
-Special thanks to our Release Lead, Grace Nguyen, for guiding us through a smooth and successful release cycle and facilitating the communication and collaboration between the different Release Teams taking advantage of her experience as a Shadow and Lead in these teams.
+Special thanks to our release lead, Grace Nguyen, for guiding us through a smooth and successful release cycle and facilitating the communication and collaboration between the different release teams taking advantage of her experience as a shadow and lead in these teams.
 
 ## Ecosystem Updates
 
