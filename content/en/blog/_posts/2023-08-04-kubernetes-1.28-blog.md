@@ -176,9 +176,7 @@ With the older behaviour, if a pod that belongs to an `Indexed` Job enters a ter
 to the clash with the old pod that has not yet shut down.
 
 Having a replacement Pod appear before the previous one fully terminates can also cause problems
-in clusters with scarce resources or with tight budgets. These resources can be difficult to obtain so 
-can take a long time to find resources and they may only be able to find nodes once the existing pods
-have been terminated. If cluster autoscaler is enabled, early creation of replacement Pods might produce undesired scale-ups.
+in clusters with scarce resources or with tight budgets. These resources can be difficult to obtain so pods may only be able to find nodes once the existing pods have been terminated. If cluster autoscaler is enabled, early creation of replacement Pods might produce undesired scale-ups.
 
 To learn more, read [Delayed creation of replacement pods](/docs/concepts/workloads/controllers/job/#delayed-creation-of-replacement-pods)
 in the Job documentation.
