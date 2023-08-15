@@ -232,7 +232,7 @@ This release includes a total of 12 enhancements promoted to Stable:
 * [Extend podresources API to report allocatable resources](https://github.com/kubernetes/enhancements/issues/2403)
 * [Move EndpointSlice Reconciler into Staging](https://github.com/kubernetes/enhancements/issues/3685)
 
-### Deprecations And Removals
+### Deprecations and removals
 
 Removals:
 
