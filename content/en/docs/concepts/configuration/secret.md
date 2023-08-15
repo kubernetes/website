@@ -6,8 +6,8 @@ content_type: concept
 feature:
   title: Secret and configuration management
   description: >
-    Deploy and update secrets and application configuration without rebuilding your image
-    and without exposing secrets in your stack configuration.
+    Deploy and update Secrets and application configuration without rebuilding your image
+    and without exposing Secrets in your stack configuration.
 weight: 30
 ---
 
@@ -68,7 +68,7 @@ help automate node registration.
 ### Use case: dotfiles in a secret volume
 
 You can make your data "hidden" by defining a key that begins with a dot.
-This key represents a dotfile or "hidden" file. For example, when the following secret
+This key represents a dotfile or "hidden" file. For example, when the following Secret
 is mounted into a volume, `secret-volume`, the volume will contain a single file,
 called `.secret-file`, and the `dotfile-test-container` will have this file
 present at the path `/etc/secret-volume/.secret-file`.
@@ -135,8 +135,8 @@ Here are some of your options:
   [ServiceAccount](/docs/reference/access-authn-authz/authentication/#service-account-tokens)
   and its tokens to identify your client.
 - There are third-party tools that you can run, either within or outside your cluster,
-  that provide secrets management. For example, a service that Pods access over HTTPS,
-  that reveals a secret if the client correctly authenticates (for example, with a ServiceAccount
+  that provide Secrets management. For example, a service that Pods access over HTTPS,
+  that reveals a Secret if the client correctly authenticates (for example, with a ServiceAccount
   token).
 - For authentication, you can implement a custom signer for X.509 certificates, and use
   [CertificateSigningRequests](/docs/reference/access-authn-authz/certificate-signing-requests/)
@@ -505,7 +505,7 @@ data:
 A bootstrap token Secret has the following keys specified under `data`:
 
 - `token-id`: A random 6 character string as the token identifier. Required.
-- `token-secret`: A random 16 character string as the actual token secret. Required.
+- `token-secret`: A random 16 character string as the actual token Secret. Required.
 - `description`: A human-readable string that describes what the token is
   used for. Optional.
 - `expiration`: An absolute UTC time using [RFC3339](https://datatracker.ietf.org/doc/html/rfc3339) specifying when the token
@@ -568,9 +568,9 @@ precedence.
 
 #### Size limit {#restriction-data-size}
 
-Individual secrets are limited to 1MiB in size. This is to discourage creation
-of very large secrets that could exhaust the API server and kubelet memory.
-However, creation of many smaller secrets could also exhaust memory. You can
+Individual Secrets are limited to 1MiB in size. This is to discourage creation
+of very large Secrets that could exhaust the API server and kubelet memory.
+However, creation of many smaller Secrets could also exhaust memory. You can
 use a [resource quota](/docs/concepts/policy/resource-quotas/) to limit the
 number of Secrets (or other resources) in a namespace.
 
@@ -708,17 +708,17 @@ LASTSEEN   FIRSTSEEN   COUNT     NAME            KIND      SUBOBJECT            
 0s         0s          1         dapi-test-pod   Pod                                         Warning   InvalidEnvironmentVariableNames   kubelet, 127.0.0.1      Keys [1badkey, 2alsobad] from the EnvFrom secret default/mysecret were skipped since they are considered invalid environment variable names.
 ```
 
-### Container image pull secrets {#using-imagepullsecrets}
+### Container image pull Secrets {#using-imagepullsecrets}
 
 If you want to fetch container images from a private repository, you need a way for
 the kubelet on each node to authenticate to that repository. You can configure
-_image pull secrets_ to make this possible. These secrets are configured at the Pod
+_image pull Secrets_ to make this possible. These Secrets are configured at the Pod
 level.
 
 #### Using imagePullSecrets
 
-The `imagePullSecrets` field is a list of references to secrets in the same namespace.
-You can use an `imagePullSecrets` to pass a secret that contains a Docker (or other) image registry
+The `imagePullSecrets` field is a list of references to Secrets in the same namespace.
+You can use an `imagePullSecrets` to pass a Secret that contains a Docker (or other) image registry
 password to the kubelet. The kubelet uses this information to pull a private image on behalf of your Pod.
 See the [PodSpec API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core)
 for more information about the `imagePullSecrets` field.
@@ -787,7 +787,7 @@ Secrets it expects to interact with, other apps within the same namespace can
 render those assumptions invalid.
 
 A Secret is only sent to a node if a Pod on that node requires it.
-For mounting secrets into Pods, the kubelet stores a copy of the data into a `tmpfs`
+For mounting Secrets into Pods, the kubelet stores a copy of the data into a `tmpfs`
 so that the confidential data is not written to durable storage.
 Once the Pod that depends on the Secret is deleted, the kubelet deletes its local copy
 of the confidential data from the Secret.
