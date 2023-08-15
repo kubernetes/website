@@ -204,7 +204,7 @@ For more information, read [Handling Pod and container failures](/docs/concepts/
    
 ## CRI container and pod statistics without cAdvisor
 
-This encompasses two related pieces of work (changes to the kubelet's `/metrics/cadvisor` endpoint, and improvements to the replacement _summary_ API).
+This encompasses two related pieces of work (changes to the kubelet's `/metrics/cadvisor` endpoint and improvements to the replacement _summary_ API).
 
 There are two main APIs that consumers use to gather stats about running containers and pods: summary API and `/metrics/cadvisor`. The Kubelet is responsible for implementing the summary API, and cadvisor is responsible for fulfilling `/metrics/cadvisor`.
 
