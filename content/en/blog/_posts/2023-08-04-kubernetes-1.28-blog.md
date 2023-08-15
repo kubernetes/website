@@ -70,12 +70,9 @@ read [non-graceful node shutdown](/docs/concepts/architecture/nodes/#non-gracefu
 ## Improvements to CustomResourceDefinition validation rules 
 
 The [Common Expression Language (CEL)](https://github.com/google/cel-go) can be used to validate
-[custom resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/). The primary goal is to allow the majority of the validation use cases that might once have needed you, as a
-CustomResourceDefinition (CRD) author, to design and implement a webhook.
-Instead, and as a beta feature, you can add _validation expressions_ directly into the schema of a CRD.
+[custom resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/). The primary goal is to allow the majority of the validation use cases that might once have needed you, as a CustomResourceDefinition (CRD) author, to design and implement a webhook. Instead, and as a beta feature, you can add _validation expressions_ directly into the schema of a CRD.
     
 CRDs need direct support for non-trivial validation. While admission webhooks do support CRDs validation, they significantly complicate the development and operability of CRDs.
-
 
 For more information, read [validation rules](/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/#validation-rules) in the CRD documentation.
 
@@ -86,6 +83,8 @@ Common Expression language for admission control is customizable, in-process val
 This builds on the capabilities of the CRD Validation Rules feature that graduated to beta in 1.25 but with a focus on the policy enforcement capabilities of validating admission control.
     
 This will lower the infrastructure barrier to enforcing customizable policies as well as providing primitives that help the community establish and adhere to the best practices of both K8s and its extensions.
+
+To use [ValidatingAdmissionPolicies](/docs/reference/access-authn-authz/validating-admission-policy/), you need to enable the `admissionregistration.k8s.io/v1beta1` API group in your cluster's control plane.
 
 ## Match conditions for admission webhooks
     
