@@ -27,7 +27,7 @@ Much like a garden, our release has ever-changing growth, challenges and opportu
 
 ## Generally available: recovery from non-graceful node shutdown
     
-If a node is shut down unexpectedly or ends up in a non-recoverable state (perhaps due to hardware failure or unresponsive OS), Kubernetes allows you to clean up afterwards and allow stateful workloads to restart on a different node. For Kubernetes v1.28, that's now a stable feature.
+If a node shuts down down unexpectedly or ends up in a non-recoverable state (perhaps due to hardware failure or unresponsive OS), Kubernetes allows you to clean up afterwards and allow stateful workloads to restart on a different node. For Kubernetes v1.28, that's now a stable feature.
 
 This allows stateful workloads to failover to a different node successfully after the original node is shut down or in a non-recoverable state, such as the hardware failure or broken OS.
     
@@ -131,7 +131,7 @@ are all possible). This new alpha mechanism lets you hide that skew from clients
 Kubernetes contributors have begun to reorganize the code for the kube-apiserver to build on a new staging repository that consumes [k/apiserver](https://github.com/kubernetes/apiserver) but has a bigger, carefully chosen subset of the functionality of kube-apiserver such that it is reusable.
 
 This is a gradual reorganization; eventually there will be a new git repository with generic functionality abstracted from Kubernetes' API server.
-  
+
 ## Support for CDI injection into containers (alpha) {#cdi-device-plugin}
 
 CDI provides a standardized way of injecting complex devices into a container (i.e. devices that logically require more than just a single /dev node to be injected for them to work). This new feature enables plugin developers to utilize the CDIDevices field added to the CRI in 1.27 to pass CDI devices directly to CDI enabled runtimes (of which containerd and crio-o are in recent releases).
