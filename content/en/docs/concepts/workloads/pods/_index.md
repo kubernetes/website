@@ -110,7 +110,18 @@ that updates those files from a remote source, as in the following diagram:
 
 {{< figure src="/images/docs/pod.svg" alt="Pod creation diagram" class="diagram-medium" >}}
 
-Some Pods have {{< glossary_tooltip text="init containers" term_id="init-container" >}} as well as {{< glossary_tooltip text="app containers" term_id="app-container" >}}. Init containers run and complete before the app containers are started.
+Some Pods have {{< glossary_tooltip text="init containers" term_id="init-container" >}}
+as well as {{< glossary_tooltip text="app containers" term_id="app-container" >}}.
+By default, init containers run and complete before the app containers are started.
+
+{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+
+Enabling the `SidecarContainers` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+allows you to specify `restartPolicy: Always` for init containers.
+Setting the `Always` restart policy ensures that the init containers where you set it are
+kept running during the entire lifetime of the Pod.
+See [Sidecar containers and restartPolicy](/docs/concepts/workloads/pods/init-containers/#sidecar-containers-and-restartpolicy)
+for more details.
 
 Pods natively provide two kinds of shared resources for their constituent containers:
 [networking](#pod-networking) and [storage](#pod-storage).

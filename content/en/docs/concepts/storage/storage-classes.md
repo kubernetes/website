@@ -459,6 +459,11 @@ There are few
 which you try out for persistent volume management inside Kubernetes for vSphere.
 
 ### Ceph RBD
+{{< note >}}
+{{< feature-state state="deprecated" for_k8s_version="v1.28" >}}
+This internal provisioner of Ceph RBD is deprecated. Please use
+[CephFS RBD CSI driver](https://github.com/ceph/ceph-csi).
+{{< /note >}}
 
 ```yaml
 apiVersion: storage.k8s.io/v1

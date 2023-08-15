@@ -1,11 +1,11 @@
 ---
 api_metadata:
-  apiVersion: "admissionregistration.k8s.io/v1alpha1"
-  import: "k8s.io/api/admissionregistration/v1alpha1"
+  apiVersion: "admissionregistration.k8s.io/v1beta1"
+  import: "k8s.io/api/admissionregistration/v1beta1"
   kind: "ValidatingAdmissionPolicyBindingList"
 content_type: "api_reference"
 description: ""
-title: "ValidatingAdmissionPolicyBindingList v1alpha1"
+title: "ValidatingAdmissionPolicyBindingList v1beta1"
 weight: 1
 auto_generated: true
 ---
@@ -21,8 +21,8 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: admissionregistration.k8s.io/v1alpha1`
+`apiVersion: admissionregistration.k8s.io/v1beta1`
 
-`import "k8s.io/api/admissionregistration/v1alpha1"`
+`import "k8s.io/api/admissionregistration/v1beta1"`
 
 

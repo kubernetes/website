@@ -138,26 +138,6 @@ iptables:
 ...
 ```
 
-##### Performance optimization for `iptables` mode {#minimize-iptables-restore}
-
-{{< feature-state for_k8s_version="v1.27" state="beta" >}}
-
-In Kubernetes {{< skew currentVersion >}} the kube-proxy defaults to a minimal approach
-to `iptables-restore` operations, only making updates where Services or EndpointSlices have
-actually changed. This is a performance optimization.
-The original implementation updated all the rules for all Services on every sync; this
-sometimes led to performance issues (update lag) in large clusters.
-
-If you are not running kube-proxy from Kubernetes {{< skew currentVersion >}}, check
-the behavior and associated advice for the version that you are actually running.
-
-If you were previously overriding `minSyncPeriod`, you should try
-removing that override and letting kube-proxy use the default value
-(`1s`) or at least a smaller value than you were using before upgrading.
-You can select the legacy behavior by disabling the `MinimizeIPTablesRestore`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-(you should not need to).
-
 ##### `minSyncPeriod`
 
 The `minSyncPeriod` parameter sets the minimum duration between
@@ -188,6 +168,22 @@ large clusters it may be necessary to set it to a larger value.
 Especially, if kube-proxy's `sync_proxy_rules_duration_seconds` metric
 indicates an average time much larger than 1 second, then bumping up
 `minSyncPeriod` may make updates more efficient.
+
+##### Updating legacy `minSyncPeriod` configuration {#minimize-iptables-restore}
+
+Older versions of kube-proxy updated all the rules for all Services on
+every sync; this led to performance issues (update lag) in large
+clusters, and the recommended solution was to set a larger
+`minSyncPeriod`. Since Kubernetes v1.28, the iptables mode of
+kube-proxy uses a more minimal approach, only making updates where
+Services or EndpointSlices have actually changed.
+
+If you were previously overriding `minSyncPeriod`, you should try
+removing that override and letting kube-proxy use the default value
+(`1s`) or at least a smaller value than you were using before upgrading.
+
+If you are not running kube-proxy from Kubernetes {{< skew currentVersion >}}, check
+the behavior and associated advice for the version that you are actually running.
 
 ##### `syncPeriod`
 
@@ -415,7 +411,7 @@ relevant Service.
 
 ### Traffic to terminating endpoints
 
-{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 If the `ProxyTerminatingEndpoints`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)

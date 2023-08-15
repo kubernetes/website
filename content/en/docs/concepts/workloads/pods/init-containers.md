@@ -289,7 +289,49 @@ The Pod which is already running correctly would be killed by `activeDeadlineSec
 The name of each app and init container in a Pod must be unique; a
 validation error is thrown for any container sharing a name with another.
 
-### Resources
+#### API for sidecar containers
+
+{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+
+Starting with Kubernetes 1.28 in alpha, a feature gate named `SidecarContainers`
+allows you to specify a `restartPolicy` for init containers which is independent of
+the Pod and other init containers. Container [probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe)
+can also be added to control their lifecycle.
+
+If an init container is created with its `restartPolicy` set to `Always`, it will
+start and remain running during the entire life of the Pod, which is useful for
+running supporting services separated from the main application containers.
+
+If a `readinessProbe` is specified for this init container, its result will be used
+to determine the `ready` state of the Pod.
+
+Since these containers are defined as init containers, they benefit from the same
+ordering and sequential guarantees as other init containers, allowing them to
+be mixed with other init containers into complex Pod initialization flows.
+
+Compared to regular init containers, sidecar-style init containers continue to
+run and the next init container can begin starting once the kubelet has set
+the `started` container status for the sidecar-style init container to true.
+That status either becomes true because there is a process running in the
+container and no startup probe defined, or
+as a result of its `startupProbe` succeeding.
+
+This feature can be used to implement the sidecar container pattern in a more
+robust way, as the kubelet always restarts a sidecar container if it fails.
+
+Here's an example of a Deployment with two containers, one of which is a sidecar:
+
+{{% codenew language="yaml" file="application/deployment-sidecar.yaml" %}}
+
+This feature is also useful for running Jobs with sidecars, as the sidecar
+container will not prevent the Job from completing after the main container
+has finished.
+
+Here's an example of a Job with two containers, one of which is a sidecar:
+
+{{% codenew language="yaml" file="application/job/job-sidecar.yaml" %}}
+
+#### Resource sharing within containers
 
 Given the ordering and execution for init containers, the following rules
 for resource usage apply:
@@ -335,3 +377,4 @@ Kubernetes, consult the documentation for the version you are using.
 * Learn how to [debug init containers](/docs/tasks/debug/debug-application/debug-init-containers/)
 * Read about an overview of [kubelet](/docs/reference/command-line-tools-reference/kubelet/) and [kubectl](/docs/reference/kubectl/)
 * Learn about the [types of probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe): liveness, readiness, startup probe.
+* 
