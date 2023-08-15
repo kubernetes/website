@@ -64,7 +64,8 @@ their pods will be deleted by its kubelet and new pods can be created on a diffe
 If the original node does not come up (common with an [immutable infrastructure](https://glossary.cncf.io/immutable-infrastructure/) design),
 those pods would be stuck in a `Terminating` status on the shut-down node forever.
 
-This handles node shutdown cases that are not detected by Kubelet's Node Shutdown Manager. The pods will be forcefully deleted in this case, triggering the deletion of the VolumeAttachments, and new pods will be created on a new running node so that application can continue to function.
+For more information on how to trigger cleanup after a non-graceful node shutdown,
+read [non-graceful node shutdown](/docs/concepts/architecture/nodes/#non-graceful-node-shutdown).
     
 ## Improvements to CustomResourceDefinition validation expressions 
 
