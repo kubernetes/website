@@ -67,7 +67,7 @@ those pods would be stuck in a `Terminating` status on the shut-down node foreve
 For more information on how to trigger cleanup after a non-graceful node shutdown,
 read [non-graceful node shutdown](/docs/concepts/architecture/nodes/#non-graceful-node-shutdown).
     
-## Improvements to CustomResourceDefinition validation expressions 
+## Improvements to CustomResourceDefinition validation rules 
 
 The [Common Expression Language (CEL)](https://github.com/google/cel-go) can be used to validate
 [custom resources](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/). The primary goal is to allow the majority of the validation use cases that might once have needed you, as a
