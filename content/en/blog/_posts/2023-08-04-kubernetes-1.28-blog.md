@@ -25,6 +25,14 @@ Much like a garden, our release has ever-changing growth, challenges and opportu
 
 # What's New (Major Themes)
 
+## Changes to supported skew between control plane and node versions
+    
+This enables testing and expanding the supported skew between core node and control plane components by one version from n-2 to n-3, so that node components (kubelet and kube-proxy) for the oldest supported minor version work with control plane components (kube-apiserver, kube-scheduler, kube-controller-manager, cloud-controller-manager) for the newest supported minor version.
+    
+The Kubernetes yearly support period already makes annual upgrades possible. Users can upgrade to the latest patch versions to pick up security fixes and do 3 sequential minor version upgrades once a year to "catch up" to the latest supported minor version.
+
+However, since the tested/supported skew between nodes and control planes is currently limited to 2 versions, a 3-version upgrade would have to update nodes twice to stay within the supported skew.
+
 ## Generally available: recovery from non-graceful node shutdown
     
 If a node shuts down down unexpectedly or ends up in a non-recoverable state (perhaps due to hardware failure or unresponsive OS), Kubernetes allows you to clean up afterwards and allow stateful workloads to restart on a different node. For Kubernetes v1.28, that's now a stable feature.
@@ -93,14 +101,6 @@ is a CEL expression that must evaluate to true for the admission request to be s
 In Kubernetes v1.28, that field moved to beta, and it's enabled by default.
     
 To learn more, see [`matchConditions`](/docs/reference/access-authn-authz/extensible-admission-controllers/#matching-requests-matchconditions) in the Kubernetes documentation.
-
-## Changes to supported skew between control plane and node versions
-    
-This enables testing and expanding the supported skew between core node and control plane components by one version from n-2 to n-3, so that node components (kubelet and kube-proxy) for the oldest supported minor version work with control plane components (kube-apiserver, kube-scheduler, kube-controller-manager, cloud-controller-manager) for the newest supported minor version.
-    
-The Kubernetes yearly support period already makes annual upgrades possible. Users can upgrade to the latest patch versions to pick up security fixes and do 3 sequential minor version upgrades once a year to "catch up" to the latest supported minor version.
-
-However, since the tested/supported skew between nodes and control planes is currently limited to 2 versions, a 3-version upgrade would have to update nodes twice to stay within the supported skew.
 
 ## Beta support for enabling swap space on Linux
     
