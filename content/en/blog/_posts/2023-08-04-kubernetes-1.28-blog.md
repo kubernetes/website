@@ -138,7 +138,7 @@ CDI provides a standardized way of injecting complex devices into a container (i
     
 ## API awareness of sidecar containers (alpha) {#sidecar-init-containers}
 
-Kubernetes 1.28 introduces an alpha `restartPolicy` field for [init containers](/docs/concepts/workloads/pods/init-containers/),
+Kubernetes 1.28 introduces an alpha `restartPolicy` field for [init containers](https://github.com/kubernetes/website/blob/main/content/en/docs/concepts/workloads/pods/init-containers.md),
 and uses that to indicate when an init container is also a _sidecar container_. The will start init containers with `restartPolicy: Always` in the order they are defined, along with other init containers. Instead of waiting for that sidecar container to complete before starting the main container(s) for the Pod, the kubelet only waits for
 the sidecar init container to have started.
 
