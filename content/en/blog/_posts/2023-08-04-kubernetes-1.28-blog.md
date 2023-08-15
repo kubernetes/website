@@ -19,7 +19,7 @@ The theme for Kubernetes v1.28 is *Planternetes*.
 
 {{< figure src="/images/blog/2023-08-15-kubernetes-1.28-blog/kubernetes-1.28.png" alt="Kubernetes 1.28 Planternetes logo" class="release-logo" >}}
 
-Each Kubernetes release is the culmination of the hard work of thousands of individuals from our community. The people behind this release are industry veterans, parents, others are students, and other folks of diverse experience, contributing our unique experience to create a collective artifact with global impact.
+Each Kubernetes release is the culmination of the hard work of thousands of individuals from our community. The people behind this release come from a wide range of backgrounds, some of us industry veterans, parents, others students and newcomers to open-source. We combine our unique experience to create a collective artifact with global impact.
 
 Much like a garden, our release has ever-changing growth, challenges and opportunities. This theme celebrates the meticulous care, intention and efforts to get the release to where we are today. Harmoniously together, we grow better.
 
