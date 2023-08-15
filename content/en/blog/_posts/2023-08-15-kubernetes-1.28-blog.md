@@ -26,13 +26,26 @@ Much like a garden, our release has ever-changing growth, challenges and opportu
 # What's New (Major Themes)
 
 ## Changes to supported skew between control plane and node versions
-This enables testing and expanding the supported skew between core node and control plane components by one version from n-2 to n-3, so that node components (kubelet and kube-proxy) for the oldest supported minor version work with control plane components (kube-apiserver, kube-scheduler, kube-controller-manager, cloud-controller-manager) for the newest supported minor version.
+
+Kubernetes v1.28 expands the supported skew between core node and control plane
+components by one minor version, from _n-2_ to _n-3_, so that node components
+(kubelet and kube-proxy) for the oldest supported minor version work with
+control plane components (kube-apiserver, kube-scheduler, kube-controller-manager,
+cloud-controller-manager) for the newest supported minor version.
 
 This is valuable for end users as control plane upgrade will be a little faster than node upgrade, which are almost always going to be the longer with running workloads.
 
-The Kubernetes yearly support period already makes annual upgrades possible. Users can upgrade to the latest patch versions to pick up security fixes and do 3 sequential minor version upgrades once a year to "catch up" to the latest supported minor version.
+The Kubernetes yearly support period already made annual upgrades possible. Users can
+upgrade to the latest patch versions to pick up security fixes and do 3 sequential
+minor version upgrades once a year to "catch up" to the latest supported minor version.
 
-However, since the tested/supported skew between nodes and control planes is currently limited to 2 versions, a 3-version upgrade would have to update nodes twice to stay within the supported skew.
+Previously, to stay within the supported skew, a cluster operator planning an annual
+upgrade would have needed to upgrade their nodes twice (perhaps only hours apart). Now,
+with Kubernetes v1.28, you have the option of making a minor version upgrade to
+nodes just once in each calendar year and still staying within upstream support.
+
+If you'd like to stay current and upgrade your clusters more often, that's
+fine and is still completely supported.
 
 ## Generally available: recovery from non-graceful node shutdown
     
