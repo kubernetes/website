@@ -184,23 +184,6 @@ Or use this for detailed view of version:
    kubectl version --client
    ```
 
-   {{< note >}}
-   <!--
-   The above command will generate a warning:
-   -->
-   上面的命令会产生一个警告：
-
-   ```
-   WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
-   ```
-
-   <!--
-   You can ignore this warning. You are only checking the version of `kubectl` that you
-   have installed.
-   -->
-   你可以忽略这个警告。你只检查你所安装的 `kubectl` 的版本。
-   {{< /note >}}
-
    <!--
    Or use this for detailed view of version:
    -->
@@ -223,45 +206,61 @@ Or use this for detailed view of version:
 -->
 1. 更新 `apt` 包索引，并安装使用 Kubernetes `apt` 仓库所需要的包：
 
+   <!--
    ```shell
    sudo apt-get update
-   sudo apt-get install -y ca-certificates curl
+   # apt-transport-https may be a dummy package; if so, you can skip that package
+   sudo apt-get install -y apt-transport-https ca-certificates curl
    ```
+   -->
+   ```shell
+   sudo apt-get update
+   # apt-transport-https 可以是一个虚拟包；如果是这样，你可以跳过这个包
+   sudo apt-get install -y apt-transport-https ca-certificates curl
+   ```
+
+<!--
+2. Download the public signing key for the Kubernetes package repositories. The same signing key is used for all repositories so you can disregard the version in the URL:
+-->
+2. 下载 Kubernetes 软件包仓库的公共签名密钥。
+   同一个签名密钥适用于所有仓库，因此你可以忽略 URL 中的版本信息：
+
+   ```shell
+   curl -fsSL https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+   ```
+
+<!--
+3. Add the appropriate Kubernetes `apt` repository. If you want to use Kubernetes version different than {{< param "version" >}},
+   replace {{< param "version" >}} with the desired minor version in the command below:
+-->
+3. 添加合适的 Kubernetes `apt` 仓库。如果你想用 {{< param "version" >}} 之外的 Kubernetes 版本，
+   请将下面命令中的 {{< param "version" >}} 替换为所需的次要版本：
 
    <!--
-   If you use Debian 9 (stretch) or earlier you would also need to install `apt-transport-https`:
+   ```shell
+   # This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list
+   echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+   ```
    -->
-   如果你使用 Debian 9（stretch）或更早版本，则你还需要安装 `apt-transport-https`：
-
    ```shell
-   sudo apt-get install -y apt-transport-https
+   # 这会覆盖 /etc/apt/sources.list.d/kubernetes.list 中的所有现存配置
+   echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
-<!--
-2. Download the Google Cloud public signing key:
--->
-
-2. 下载 Google Cloud 公开签名秘钥：
-
-   ```shell
-   curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-archive-keyring.gpg
-   ```
-
-<!--
-3. Add the Kubernetes `apt` repository:
--->
-
-3. 添加 Kubernetes `apt` 仓库：
-
-   ```shell
-   echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-   ```
+   {{< note >}}
+   <!--
+   To upgrade kubectl to another minor release, you'll need to bump the version in `/etc/apt/sources.list.d/kubernetes.list` before running `apt-get update` and `apt-get upgrade`. This procedure is described in more detail in [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
+   -->
+   要升级 kubectl 到别的次要版本，你需要先升级 `/etc/apt/sources.list.d/kubernetes.list` 中的版本，
+   再运行 `apt-get update` 和 `apt-get upgrade`。
+   更详细的步骤可以在[更改 Kubernetes 软件包仓库](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)中找到。
+   {{< /note >}}
 
 <!--
-4. Update `apt` package index with the new repository and install kubectl:
+4. Update `apt` package index, then install kubectl:
 -->
 
-4. 更新 `apt` 包索引，使之包含新的仓库并安装 kubectl：
+4. 更新 `apt` 包索引，然后安装 kubectl：
 
    ```shell
    sudo apt-get update
@@ -280,15 +279,54 @@ In releases older than Debian 12 and Ubuntu 22.04, `/etc/apt/keyrings` does not 
 
 {{% tab name="基于 Red Hat 的发行版" %}}
 
+<!--
+1. Add the Kubernetes `yum` repository. If you want to use Kubernetes version
+   different than {{< param "version" >}}, replace {{< param "version" >}} with
+   the desired minor version in the command below.
+-->
+1. 添加 Kubernetes 的 `yum` 仓库。如果你想使用 {{< param "version" >}} 之外的 Kubernetes 版本，
+   将下面命令中的 {{< param "version" >}} 替换为所需的次要版本。
+
+<!--
 ```bash
+# This overwrites any existing configuration in /etc/yum.repos.d/kubernetes.repo
 cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
-baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
+baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
 enabled=1
 gpgcheck=1
-gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
 EOF
+```
+-->
+```bash
+# 这会覆盖 /etc/yum.repos.d/kubernetes.repo 中现存的所有配置
+cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/
+enabled=1
+gpgcheck=1
+gpgkey=https://pkgs.k8s.io/core:/stable:/{{< param "version" >}}/rpm/repodata/repomd.xml.key
+EOF
+```
+
+{{< note >}}
+<!--
+To upgrade kubectl to another minor release, you'll need to bump the version in `/etc/yum.repos.d/kubernetes.repo` before running `yum update`. This procedure is described in more detail in [Changing The Kubernetes Package Repository](/docs/tasks/administer-cluster/kubeadm/change-package-repository/).
+-->
+要将 kubectl 升级到别的次要版本，你需要先升级 `/etc/yum.repos.d/kubernetes.repo`
+中的版本，再运行 `yum update` 命令。
+更详细的步骤可以在[更改 Kubernetes 软件包存储库](/zh-cn/docs/tasks/administer-cluster/kubeadm/change-package-repository/)中找到。
+{{< /note >}}
+
+<!--
+1. Install kubectl using `yum`:
+-->
+1. 使用 `yum` 安装 kubectl：
+
+```bash
 sudo yum install -y kubectl
 ```
 
