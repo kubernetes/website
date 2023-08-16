@@ -165,7 +165,7 @@ To learn more, read [API for sidecar containers](/docs/concepts/workloads/pods/i
 Kubernetes automatically sets a `storageClassName` for a PersistentVolumeClaim (PVC) if you don't provide
 a value. The control plane also sets a StorageClass for any existing PVC that doesn't have a `storageClassName`
 defined.
-Previous versions of Kubernetes also had this behavior; for Kubernetes v1.28 is is automatic and always
+Previous versions of Kubernetes also had this behavior; for Kubernetes v1.28 it is automatic and always
 active; the feature has graduated to stable (general availability).
 
 To learn more, read about [StorageClass](/docs/concepts/storage/storage-classes/) in the Kubernetes 
