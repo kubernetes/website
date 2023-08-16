@@ -6,6 +6,9 @@ reviewers:
 - erictune
 - thockin
 content_type: concept
+card:
+  name: concepts
+  weight: 50
 ---
 
 <!-- overview -->

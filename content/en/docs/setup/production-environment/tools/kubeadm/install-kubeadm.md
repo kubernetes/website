@@ -4,7 +4,7 @@ content_type: task
 weight: 10
 card:
   name: setup
-  weight: 20
+  weight: 40
   title: Install the kubeadm setup tool
 ---
 
