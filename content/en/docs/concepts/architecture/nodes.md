@@ -9,7 +9,8 @@ weight: 10
 
 <!-- overview -->
 
-Kubernetes runs your {{< glossary_tooltip text="workload" term_id="workload" >}} by placing containers into Pods to run on _Nodes_.
+Kubernetes runs your {{< glossary_tooltip text="workload" term_id="workload" >}}
+by placing containers into Pods to run on _Nodes_.
 A node may be a virtual or physical machine, depending on the cluster. Each node
 is managed by the
 {{< glossary_tooltip text="control plane" term_id="control-plane" >}}
@@ -28,14 +29,15 @@ The [components](/docs/concepts/overview/components/#node-components) on a node 
 
 ## Management
 
-There are two main ways to have Nodes added to the {{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}:
+There are two main ways to have Nodes added to the
+{{< glossary_tooltip text="API server" term_id="kube-apiserver" >}}:
 
 1. The kubelet on a node self-registers to the control plane
 2. You (or another human user) manually add a Node object
 
 After you create a Node {{< glossary_tooltip text="object" term_id="object" >}},
-or the kubelet on a node self-registers, the control plane checks whether the new Node object is
-valid. For example, if you try to create a Node from the following JSON manifest:
+or the kubelet on a node self-registers, the control plane checks whether the new Node object
+is valid. For example, if you try to create a Node from the following JSON manifest:
 
 ```json
 {
@@ -72,11 +74,10 @@ The name of a Node object must be a valid
 The [name](/docs/concepts/overview/working-with-objects/names#names) identifies a Node. Two Nodes
 cannot have the same name at the same time. Kubernetes also assumes that a resource with the same
 name is the same object. In case of a Node, it is implicitly assumed that an instance using the
-same name will have the same state (e.g. network settings, root disk contents)
-and attributes like node labels. This may lead to
-inconsistencies if an instance was modified without changing its name. If the Node needs to be
-replaced or updated significantly, the existing Node object needs to be removed from API server
-first and re-added after the update.
+same name will have the same state (e.g. network settings, root disk contents) and attributes like
+node labels. This may lead to inconsistencies if an instance was modified without changing its name.
+If the Node needs to be replaced or updated significantly, the existing Node object needs to be
+removed from API server first and re-added after the update.
 
 ### Self-registration of Nodes
 
@@ -174,7 +175,7 @@ You can use `kubectl` to view a Node's status and other details:
 kubectl describe node <insert-node-name-here>
 ```
 
-See [Node Status](/docs/concepts/node/node-status) for more details
+See [Node Status](/docs/concepts/node/node-status) for more details.
 
 ## Node heartbeats
 
@@ -227,8 +228,7 @@ from more than 1 node per 10 seconds.
 
 The node eviction behavior changes when a node in a given availability zone
 becomes unhealthy. The node controller checks what percentage of nodes in the zone
-are unhealthy (the `Ready` condition is `Unknown` or `False`) at
-the same time:
+are unhealthy (the `Ready` condition is `Unknown` or `False`) at the same time:
 
 - If the fraction of unhealthy nodes is at least `--unhealthy-zone-threshold`
   (default 0.55), then the eviction rate is reduced.
@@ -324,8 +324,8 @@ node shutdown has been detected, so that even Pods with a
 {{< glossary_tooltip text="toleration" term_id="toleration" >}} for
 `node.kubernetes.io/not-ready:NoSchedule` do not start there.
 
-At the same time when kubelet is setting that condition on its Node via the API, the kubelet also begins
-terminating any Pods that are running locally.
+At the same time when kubelet is setting that condition on its Node via the API,
+the kubelet also begins terminating any Pods that are running locally.
 
 During a graceful shutdown, kubelet terminates pods in two phases:
 
@@ -348,10 +348,9 @@ Graceful node shutdown feature is configured with two
 {{< note >}}
 
 There are cases when Node termination was cancelled by the system (or perhaps manually
-by an administrator). In either of those situations the
-Node will return to the `Ready` state. However Pods which already started the process
-of termination
-will not be restored by kubelet and will need to be re-scheduled.
+by an administrator). In either of those situations the Node will return to the `Ready` state.
+However, Pods which already started the process of termination will not be restored by kubelet
+and will need to be re-scheduled.
 
 {{< /note >}}
 
@@ -444,7 +443,6 @@ example, you could instead use these settings:
 | 1000                   |120 seconds    |
 | 0                      |60 seconds     |
 
-
 In the above case, the pods with `custom-class-b` will go into the same bucket
 as `custom-class-c` for shutdown.
 
@@ -456,8 +454,8 @@ If this feature is enabled and no configuration is provided, then no ordering
 action will be taken.
 
 Using this feature requires enabling the `GracefulNodeShutdownBasedOnPodPriority`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-, and setting `ShutdownGracePeriodByPodPriority` in the
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/),
+and setting `ShutdownGracePeriodByPodPriority` in the
 [kubelet config](/docs/reference/config-api/kubelet-config.v1beta1/)
 to the desired configuration containing the pod priority class values and
 their respective shutdown periods.
@@ -482,24 +480,25 @@ ShutdownGracePeriodCriticalPods are not configured properly. Please refer to abo
 section [Graceful Node Shutdown](#graceful-node-shutdown) for more details.
 
 When a node is shutdown but not detected by kubelet's Node Shutdown Manager, the pods
-that are part of a {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}} will be stuck in terminating status on
-the shutdown node and cannot move to a new running node. This is because kubelet on
-the shutdown node is not available to delete the pods so the StatefulSet cannot
-create a new pod with the same name. If there are volumes used by the pods, the
-VolumeAttachments will not be deleted from the original shutdown node so the volumes
+that are part of a {{< glossary_tooltip text="StatefulSet" term_id="statefulset" >}}
+will be stuck in terminating status on the shutdown node and cannot move to a new running node.
+This is because kubelet on the shutdown node is not available to delete the pods so
+the StatefulSet cannot create a new pod with the same name. If there are volumes used by the pods,
+the VolumeAttachments will not be deleted from the original shutdown node so the volumes
 used by these pods cannot be attached to a new running node. As a result, the
 application running on the StatefulSet cannot function properly. If the original
 shutdown node comes up, the pods will be deleted by kubelet and new pods will be
 created on a different running node. If the original shutdown node does not come up,
 these pods will be stuck in terminating status on the shutdown node forever.
 
-To mitigate the above situation, a user can manually add the taint `node.kubernetes.io/out-of-service` with either `NoExecute`
-or `NoSchedule` effect to a Node marking it out-of-service.
+To mitigate the above situation, a user can manually add the taint `node.kubernetes.io/out-of-service`
+with either `NoExecute` or `NoSchedule` effect to a Node marking it out-of-service.
 If the `NodeOutOfServiceVolumeDetach`[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-is enabled on {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}}, and a Node is marked out-of-service with this taint, the
-pods on the node will be forcefully deleted if there are no matching tolerations on it and volume
-detach operations for the pods terminating on the node will happen immediately. This allows the
-Pods on the out-of-service node to recover quickly on a different node.
+is enabled on {{< glossary_tooltip text="kube-controller-manager" term_id="kube-controller-manager" >}},
+and a Node is marked out-of-service with this taint, the pods on the node will be forcefully deleted
+if there are no matching tolerations on it and volume detach operations for the pods terminating on
+the node will happen immediately. This allows the Pods on the out-of-service node to recover quickly
+on a different node.
 
 During a non-graceful shutdown, Pods are terminated in the two phases:
 
@@ -507,9 +506,8 @@ During a non-graceful shutdown, Pods are terminated in the two phases:
 2. Immediately perform detach volume operation for such pods.
 
 {{< note >}}
-- Before adding the taint `node.kubernetes.io/out-of-service` , it should be verified
-  that the node is already in shutdown or power off state (not in the middle of
-  restarting).
+- Before adding the taint `node.kubernetes.io/out-of-service`, it should be verified
+  that the node is already in shutdown or power off state (not in the middle of restarting).
 - The user is required to manually remove the out-of-service taint after the pods are
   moved to a new node and the user has checked that the shutdown node has been
   recovered since the user was the one who originally added the taint.
@@ -539,7 +537,8 @@ memorySwap:
 
 - `UnlimitedSwap` (default): Kubernetes workloads can use as much swap memory as they
   request, up to the system limit.
-- `LimitedSwap`: The utilization of swap memory by Kubernetes workloads is subject to limitations. Only Pods of Burstable QoS are permitted to employ swap.
+- `LimitedSwap`: The utilization of swap memory by Kubernetes workloads is subject to limitations.
+  Only Pods of Burstable QoS are permitted to employ swap.
 
 If configuration for `memorySwap` is not specified and the feature gate is
 enabled, by default the kubelet will apply the same behaviour as the
@@ -547,13 +546,14 @@ enabled, by default the kubelet will apply the same behaviour as the
 
 With `LimitedSwap`, Pods that do not fall under the Burstable QoS classification (i.e.
 `BestEffort`/`Guaranteed` Qos Pods) are prohibited from utilizing swap memory.
-To maintain the aforementioned security and node
-health guarantees, these Pods are not permitted to use swap memory when `LimitedSwap` is
-in effect. 
+To maintain the aforementioned security and node health guarantees, these Pods
+are not permitted to use swap memory when `LimitedSwap` is in effect. 
 
 Prior to detailing the calculation of the swap limit, it is necessary to define the following terms:
+
 * `nodeTotalMemory`: The total amount of physical memory available on the node.
-* `totalPodsSwapAvailable`: The total amount of swap memory on the node that is available for use by Pods (some swap memory may be reserved for system use).
+* `totalPodsSwapAvailable`: The total amount of swap memory on the node that is available for use by Pods
+  (some swap memory may be reserved for system use).
 * `containerMemoryRequest`: The container's memory request.
 
 Swap limitation is configured as:
@@ -563,7 +563,7 @@ It is important to note that, for containers within Burstable QoS Pods, it is po
 opt-out of swap usage by specifying memory requests that are equal to memory limits.
 Containers configured in this manner will not have access to swap memory.
 
-Swap is supported only with **cgroup v2**, cgroup v1 is not supported. 
+Swap is supported only with **cgroup v2**, cgroup v1 is not supported.
 
 For more information, and to assist with testing and provide feedback, please
 see the blog-post about [Kubernetes 1.28: NodeSwap graduates to Beta1](/blog/2023/07/18/swap-beta1-1.28-2023/),
@@ -573,9 +573,11 @@ see the blog-post about [Kubernetes 1.28: NodeSwap graduates to Beta1](/blog/202
 ## {{% heading "whatsnext" %}}
 
 Learn more about the following:
+
 * [Components](/docs/concepts/overview/components/#node-components) that make up a node.
 * [API definition for Node](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#node-v1-core).
-* [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node) section of the architecture design document.
+* [Node](https://git.k8s.io/design-proposals-archive/architecture/architecture.md#the-kubernetes-node)
+  section of the architecture design document.
 * [Taints and Tolerations](/docs/concepts/scheduling-eviction/taint-and-toleration/).
 * [Node Resource Managers](/docs/concepts/policy/node-resource-managers/).
 * [Resource Management for Windows nodes](/docs/concepts/configuration/windows-resource-management/).
