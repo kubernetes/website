@@ -377,4 +377,3 @@ Kubernetes, consult the documentation for the version you are using.
 * Learn how to [debug init containers](/docs/tasks/debug/debug-application/debug-init-containers/)
 * Read about an overview of [kubelet](/docs/reference/command-line-tools-reference/kubelet/) and [kubectl](/docs/reference/kubectl/)
 * Learn about the [types of probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe): liveness, readiness, startup probe.
-* 
