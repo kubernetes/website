@@ -88,6 +88,8 @@ This will lower the infrastructure barrier to enforcing customizable policies as
 
 To use [ValidatingAdmissionPolicies](/docs/reference/access-authn-authz/validating-admission-policy/), you need to enable both the `admissionregistration.k8s.io/v1beta1` API group and the `ValidatingAdmissionPolicy` feature gate in your cluster's control plane.
 
+For this, you need to enable both the `admissionregistration.k8s.io/v1beta1` API group and `ValidatingAdmissionPolicy` feature gate in your cluster's control plane.
+
 ## Match conditions for admission webhooks
     
 Kubernetes v1.27 lets you specify _match conditions_ for admission webhooks,
@@ -269,10 +271,6 @@ Special thanks to our release lead, Grace Nguyen, for guiding us through a smoot
 The [CNCF K8s DevStats](https://k8s.devstats.cncf.io/d/12/dashboards?orgId=1&refresh=15m) project aggregates a number of interesting data points related to the velocity of Kubernetes and various sub-projects. This includes everything from individual contributions to the number of companies that are contributing and is an illustration of the depth and breadth of effort that goes into evolving this ecosystem.
 
 In the v1.28 release cycle, which [ran for 14 weeks](https://github.com/kubernetes/sig-release/tree/master/releases/release-1.28) (May 15 to August 15), we saw contributions from [911 companies](https://k8s.devstats.cncf.io/d/9/companies-table?orgId=1&var-period_name=v1.27.0%20-%20now&var-metric=contributions) and [1440 individuals](https://k8s.devstats.cncf.io/d/66/developer-activity-counts-by-companies?orgId=1&var-period_name=v1.27.0%20-%20now&var-metric=contributions&var-repogroup_name=Kubernetes&var-repo_name=kubernetes%2Fkubernetes&var-country_name=All&var-companies=All).
-
-## Upcoming Release Webinar
-
-Join members of the Kubernetes v1.28 release team on Friday, September 14, 2023, at 10 a.m. PDT to learn about the major features of this release, as well as deprecations and removals to help plan for upgrades. For more information and registration, visit the [event page](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-v128-release/) on the CNCF Online Programs site.
 
 ## Get Involved
 
