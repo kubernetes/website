@@ -118,18 +118,6 @@ The following methods exist for installing kubectl on Linux:
    kubectl version --client
    ```
 
-   {{< note >}}
-   The above command will generate a warning:
-
-   ```
-   WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
-   ```
-
-   You can ignore this warning. You are only checking the version of `kubectl` that you
-   have installed.
-
-   {{< /note >}}
-
    Or use this for detailed view of version:
 
    ```cmd
