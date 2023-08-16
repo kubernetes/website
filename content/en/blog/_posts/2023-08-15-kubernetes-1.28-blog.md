@@ -88,8 +88,6 @@ This will lower the infrastructure barrier to enforcing customizable policies as
 
 To use [ValidatingAdmissionPolicies](/docs/reference/access-authn-authz/validating-admission-policy/), you need to enable both the `admissionregistration.k8s.io/v1beta1` API group and the `ValidatingAdmissionPolicy` feature gate in your cluster's control plane.
 
-For this, you need to enable both the `admissionregistration.k8s.io/v1beta1` API group and `ValidatingAdmissionPolicy` feature gate in your cluster's control plane.
-
 ## Match conditions for admission webhooks
     
 Kubernetes v1.27 lets you specify _match conditions_ for admission webhooks,
