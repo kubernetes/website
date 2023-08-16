@@ -256,6 +256,38 @@ The general workflow of a device plugin includes the following steps:
    如果操作成功，则设备插件将返回 `AllocateResponse`，其中包含用于访问被分配的设备容器运行时的配置。
    kubelet 将此信息传递到容器运行时。
 
+   <!--
+   An `AllocateResponse` contains zero or more `ContainerAllocateResponse` objects. In these, the
+   device plugin defines modifications that must be made to a container's definition to provide
+   access to the device. These modifications include:
+   -->
+   `AllocateResponse` 包含零个或多个 `ContainerAllocateResponse` 对象。
+   设备插件在这些对象中给出为了访问设备而必须对容器定义所进行的修改。
+   这些修改包括：
+
+   <!--
+   * annotations
+   * device nodes
+   * environment variables
+   * mounts
+   * fully-qualified CDI device names
+   -->
+   * 注解
+   * 设备节点
+   * 环境变量
+   * 挂载点
+   * 完全限定的 CDI 设备名称
+
+   {{< note >}}
+   <!--
+   The processing of the fully-qualified CDI device names by the Device Manager requires
+   the `DevicePluginCDIDevices` feature gate to be enabled. This was added as an alpha feature in
+   v1.28.
+   -->
+   设备管理器处理完全限定的 CDI 设备名称时需要启用 `DevicePluginCDIDevices` 特性门控。
+   这是在 v1.28 版本中作为 Alpha 特性添加的。
+   {{< /note >}}
+
 <!--
 ### Handling kubelet restarts
 
@@ -352,7 +384,7 @@ of the device allocations during the upgrade.
 -->
 ## 监控设备插件资源   {#monitoring-device-plugin-resources}
 
-{{< feature-state for_k8s_version="v1.15" state="beta" >}}
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 <!--
 In order to monitor resources provided by device plugins, monitoring agents need to be able to
@@ -584,7 +616,7 @@ below:
 -->
 ### `GetAllocatableResources` gRPC 端点 {#grpc-endpoint-getallocatableresources}
 
-{{< feature-state state="beta" for_k8s_version="v1.23" >}}
+{{< feature-state state="stable" for_k8s_version="v1.28" >}}
 
 <!--
 GetAllocatableResources provides information on resources initially available on the worker node.
@@ -621,23 +653,6 @@ message AllocatableResourcesResponse {
     repeated int64 cpu_ids = 2;
     repeated ContainerMemory memory = 3;
 }
-```
-
-<!--
-Starting from Kubernetes v1.23, the `GetAllocatableResources` is enabled by default.
-You can disable it by turning off the `KubeletPodResourcesGetAllocatable`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
-
-Preceding Kubernetes v1.23, to enable this feature `kubelet` must be started with the following flag:
--->
-从 Kubernetes v1.23 开始，`GetAllocatableResources` 被默认启用。
-你可以通过关闭 `KubeletPodResourcesGetAllocatable`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用。
-
-在 Kubernetes v1.23 之前，要启用这一功能，`kubelet` 必须用以下标志启动：
-
-```
---feature-gates=KubeletPodResourcesGetAllocatable=true
 ```
 
 <!--
