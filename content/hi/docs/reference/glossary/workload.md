@@ -1,22 +1,19 @@
 ---
-title: Workload
+title: काम का बोझ
 id: workloads
 date: 2019-02-13
 full_link: /docs/concepts/workloads/
 short_description: >
-   A workload is an application running on Kubernetes.
+   काम का बोझ एक ऐप्लिकेशन है जो Kubernetes पर चल रहा है।
 
 aka: 
 tags:
-- fundamental
+- मौलिक
 ---
-   A workload is an application running on Kubernetes.
+   काम का बोझ एक ऐप्लिकेशन है जो Kubernetes पर चल रहा है।
 
 <!--more--> 
 
-Various core objects that represent different types or parts of a workload
-include the DaemonSet, Deployment, Job, ReplicaSet, and StatefulSet objects.
+विभिन्न मूल वस्तुएँ जो विभिन्न प्रकार के या भागों को प्रतिनिधित करती हैं, उनमें DaemonSet, Deployment, Job, ReplicaSet और StatefulSet वस्तुएँ शामिल हैं।
 
-For example, a workload that has a web server and a database might run the
-database in one {{< glossary_tooltip term_id="StatefulSet" >}} and the web server
-in a {{< glossary_tooltip term_id="Deployment" >}}.
+उदाहरण के लिए, एक ऐप्लिकेशन जिसमें वेब सर्वर और डेटाबेस हो सकता है, डेटाबेस को एक {{< glossary_tooltip term_id="StatefulSet" >}} में और वेब सर्वर को एक {{< glossary_tooltip term_id="Deployment" >}} में चलाया जा सकता है।
