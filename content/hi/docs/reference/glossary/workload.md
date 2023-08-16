@@ -8,7 +8,7 @@ short_description: >
 
 aka: 
 tags:
-- मौलिक
+- fundamental
 ---
    कार्यभार एक ऐप्लिकेशन है जो कुबेरनेट्स पर चल रहा है।
 
