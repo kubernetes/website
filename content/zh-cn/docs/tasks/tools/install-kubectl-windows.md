@@ -2,10 +2,6 @@
 title: 在 Windows 上安装 kubectl
 content_type: task
 weight: 10
-card:
-  name: tasks
-  weight: 20
-  title: Windows 安装 kubectl
 ---
 <!--
 reviewers:
@@ -13,10 +9,6 @@ reviewers:
 title: Install and Set Up kubectl on Windows
 content_type: task
 weight: 10
-card:
-  name: tasks
-  weight: 20
-  title: Install kubectl on Windows
 -->
 
 ## {{% heading "prerequisites" %}}
@@ -130,23 +122,6 @@ The following methods exist for installing kubectl on Windows:
    ```cmd
    kubectl version --client
    ```
-
-   {{< note >}}
-   <!--
-   The above command will generate a warning:
-   -->
-   上面的命令会产生一个警告：
-
-   ```
-   WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
-   ```
-
-   <!--
-   You can ignore this warning. You are only checking the version of `kubectl` that you
-   have installed.
-   -->
-   你可以忽略这个警告。你只检查你所安装的 `kubectl` 的版本。
-   {{< /note >}}
 
    <!--
    Or use this for detailed view of version:
