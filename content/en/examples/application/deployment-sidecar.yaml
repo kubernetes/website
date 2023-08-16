@@ -17,7 +17,7 @@ spec:
       containers:
         - name: myapp
           image: alpine:latest
-          command: ['sh', '-c', 'while true; do echo "logging" > /opt/logs.txt; sleep 1; done']
+          command: ['sh', '-c', 'while true; do echo "logging" >> /opt/logs.txt; sleep 1; done']
           volumeMounts:
             - name: data
               mountPath: /opt
