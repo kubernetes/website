@@ -33,7 +33,12 @@ components by one minor version, from _n-2_ to _n-3_, so that node components
 control plane components (kube-apiserver, kube-scheduler, kube-controller-manager,
 cloud-controller-manager) for the newest supported minor version.
 
-This is valuable for end users as control plane upgrade will be a little faster than node upgrade, which are almost always going to be the longer with running workloads.
+Some cluster operators avoid node maintenance and especially changes to node
+behavior, because nodes are where the workloads run. For minor version upgrades
+to a kubelet, the supported process includes draining that node, and hence
+disruption to any Pods that had been executing there. For Kubernetes end users
+with very long running workloads, and where Pods should stay running wherever
+possible, reducing the time lost to node maintenance is a benefit.
 
 The Kubernetes yearly support period already made annual upgrades possible. Users can
 upgrade to the latest patch versions to pick up security fixes and do 3 sequential
