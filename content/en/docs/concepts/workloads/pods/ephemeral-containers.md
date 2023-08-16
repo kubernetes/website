@@ -79,29 +79,23 @@ you can view processes in other containers.
 ### Kubernetes Ephemeral Container Security
 Attempting to debug a Pod and realizing that you can't install curl due to 
 security settings has to be a meme at this point. Good security practices 
-are always nice but it often comes at the cost of usability. To the point 
-where some may even solve this problem by installing debug tools into their
-production images. Shudders.
+are always nice but it often comes at the cost of usability. 
 
-Kubernetes has introduced a new concept called ephemeral containers to deal
+Kubernetes has introduced a  concept called ephemeral containers to deal
 with this problem. Ephemeral containers are temporary containers that can be
-attached after a Pod has been created. Rejoice! We can now attach a temporary
+attached after a Pod has been created. you can now attach a temporary
 container with all the tools which we desire. While the applications container 
 may have "annoying security features" like a read only file system the ephemeral 
-container can enjoy all the freedom which writing files entails. I love this feature
-so I need to upgrade my cluster immediately
+container can enjoy all the freedom which writing files entails.
 
-
-## Digging Deeper
-
-Now that we have the new feature we can start a ephemeral container in any Pod we like  
+Now that you have the  feature you can start a ephemeral container in any Pod you like  
 
 ```shell
 kubectl run ephemeral-demo --image=k8s.gcr.io/pause:3.1 --restart=Never
 kubectl debug -it ephemeral-demo --image=busybox:1.28
 ```
 
-Once we gain access to a shell, managing tasks becomes easier. However, let's take a moment to clarify the purpose of this post. It doesn't aim to explain how to use ephemeral containers, as that information is readily available. Instead, the main focus is on discussing the security implications that arise when enabling ephemeral containers. Now, let's go ahead and take a closer look at the YAML representation of the Pod where we created the ephemeral container. 
+Once you gain access to a shell, managing tasks becomes easier. However,  Now, let's go ahead and take a closer look at the YAML representation of the Pod where you created the ephemeral container. 
 
 ```yaml
 apiVersion: v1
@@ -118,7 +112,7 @@ spec:
     tty: true
 ```
                             
-In the latest Pod definition, a new field called `ephemeralContainers` has been introduced. Similar to `initContainers` and `containers`, this field contains a list of containers. However, it is important to note that `ephemeralContainers` has certain options not available in the other fields. For more details, please refer to the API documentation.
+In the latest Pod definition, a field called `ephemeralContainers` has been introduced. Similar to `initContainers` and `containers`, this field contains a list of containers. However, it is important to note that `ephemeralContainers` has certain options not available in the other fields. For more details, please refer to the API documentation.
 
 One notable feature of `ephemeralContainers` is its ability to configure the container security context. This means that in theory, a malicious actor could potentially escalate the container's privileges. However, the impact of this depends on the policy enforcement tool being used. If you are using a robust policy enforcement tool, it should be able to mitigate such risks.
 
