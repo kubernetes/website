@@ -25,7 +25,15 @@ at the same time. In API terms, a pod is considered terminating when it has a
 The scenario when two Pods are running at a given time is problematic for
 some popular machine learning frameworks, such as
 TensorFlow and [JAX](https://jax.readthedocs.io/en/latest/), which require at most one Pod running at the same time,
-for a given index (see more details in the [issue](https://github.com/kubernetes/kubernetes/issues/115844)).
+for a given index. 
+Tensorflow gives the following error if two pods are running for a given index.
+
+```
+ /job:worker/task:4: Duplicate task registration with task_name=/job:worker/replica:0/task:4
+```
+
+See more details in the ([issue](https://github.com/kubernetes/kubernetes/issues/115844)).
+
 
 Creating the replacement Pod before the previous one fully terminates can also
 cause problems in clusters with scarce resources or with tight budgets, such as:
@@ -61,14 +69,11 @@ Additionally, you can inspect the `.status.terminating` field of a Job. The valu
 of the field is the number of Pods owned by the Job that are currently terminating.
 
 ```shell
-kubectl get jobs/myjob -o yaml
+kubectl get jobs/myjob -o=jsonpath='{.items[*].status.terminating}'
 ```
 
-```yaml
-apiVersion: batch/v1
-kind: Job
-status:
-  terminating: 3 # three Pods are terminating and have not yet reached the Failed phase
+```
+3 # three Pods are terminating and have not yet reached the Failed phase
 ```
 
 This can be particularly useful for external queueing controllers, such as
@@ -130,7 +135,9 @@ spec:
     spec:
       restartPolicy: Never
       containers:
-      - name: example
+      - name: example # this example container returns an error, and fails,
+                      # when it is run as the second or third index in any Job
+                      # (even after a retry)        
         image: python
         command:
         - python3
