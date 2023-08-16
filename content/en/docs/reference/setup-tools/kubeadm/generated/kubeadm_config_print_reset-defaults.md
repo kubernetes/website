@@ -10,24 +10,20 @@ guide. You can file document formatting bugs against the
 -->
 
 
-Read a file containing the kubeadm configuration API and report any validation problems
+Print default reset configuration, that can be used for 'kubeadm reset'
 
 ### Synopsis
 
 
 
-This command lets you validate a kubeadm configuration API file and report any warnings and errors.
-If there are no errors the exit status will be zero, otherwise it will be non-zero.
-Any unmarshaling problems such as unknown API fields will trigger errors. Unknown API versions and
-fields with invalid values will also trigger errors. Any other errors or warnings may be reported
-depending on contents of the input file.
+This command prints objects such as the default reset configuration that is used for 'kubeadm reset'.
 
-In this version of kubeadm, the following API versions are supported:
-- kubeadm.k8s.io/v1beta3
+Note that sensitive values like the Bootstrap Token fields are replaced with placeholder values like "abcdef.0123456789abcdef" in order to pass validation but
+not perform the real computation for creating a token.
 
 
 ```
-kubeadm config validate [flags]
+kubeadm config print reset-defaults [flags]
 ```
 
 ### Options
@@ -40,24 +36,17 @@ kubeadm config validate [flags]
 <tbody>
 
 <tr>
-<td colspan="2">--allow-experimental-api</td>
+<td colspan="2">--component-configs strings</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Allow validation of experimental, unreleased APIs.</p></td>
-</tr>
-
-<tr>
-<td colspan="2">--config string</td>
-</tr>
-<tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Path to a kubeadm configuration file.</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A comma-separated list for component config API objects to print the default values for. Available values: [KubeProxyConfiguration KubeletConfiguration]. If this flag is not set, no component configs will be printed.</p></td>
 </tr>
 
 <tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for validate</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>help for reset-defaults</p></td>
 </tr>
 
 </tbody>

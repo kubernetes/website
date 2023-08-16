@@ -44,6 +44,13 @@ kubeadm config migrate [flags]
 <tbody>
 
 <tr>
+<td colspan="2">--allow-experimental-api</td>
+</tr>
+<tr>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>Allow migration to experimental, unreleased APIs.</p></td>
+</tr>
+
+<tr>
 <td colspan="2">-h, --help</td>
 </tr>
 <tr>
