@@ -4,6 +4,10 @@ weight: 55
 description: >
   Understand Pods, the smallest deployable compute object in Kubernetes, and the higher-level abstractions that help you to run them.
 no_list: true
+card:
+  title: Workloads and Pods
+  name: concepts
+  weight: 60
 ---
 
 {{< glossary_definition term_id="workload" length="short" >}}

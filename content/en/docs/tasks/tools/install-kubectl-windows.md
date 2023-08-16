@@ -4,10 +4,6 @@ reviewers:
 title: Install and Set Up kubectl on Windows
 content_type: task
 weight: 10
-card:
-  name: tasks
-  weight: 20
-  title: Install kubectl on Windows
 ---
 
 ## {{% heading "prerequisites" %}}
