@@ -1,0 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-backoff-limit-per-index-example
+spec:
+  completions: 10
+  parallelism: 3
+  completionMode: Indexed  # 该特性所需的参数
+  backoffLimitPerIndex: 1  # 每个索引的最大失败数
+  maxFailedIndexes: 5      # 终止 Job 执行之前失败索引的最大数量
+  template:
+    spec:
+      restartPolicy: Never # 该特性所需的参数
+      containers:
+      - name: example
+        image: python
+        command:           # Job 执行失败，因为至少有一个失败的索引
+                           #（甚至所有索引都失败），但所有索引都会在 maxFailedIndexes 未超过时执行。
+        - python3
+        - -c
+        - |
+          import os, sys
+          print("Hello world")
+          if int(os.environ.get("JOB_COMPLETION_INDEX")) % 2 == 0:
+            sys.exit(1)
