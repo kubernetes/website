@@ -3,7 +3,7 @@
 # - bboreham
 title: 네트워크 폴리시로 위브넷(Weave Net) 사용하기
 content_type: task
-weight: 50
+weight: 60
 ---
 
 <!-- overview -->
