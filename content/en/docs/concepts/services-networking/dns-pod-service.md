@@ -292,7 +292,7 @@ Below are the properties a user can specify in the `dnsConfig` field:
   This property is optional. When specified, the provided list will be merged
   into the base search domain names generated from the chosen DNS policy.
   Duplicate domain names are removed.
-  Kubernetes allows for at most 6 search domains.
+  Kubernetes allows up to 32 search domains.
 - `options`: an optional list of objects where each object may have a `name`
   property (required) and a `value` property (optional). The contents in this
   property will be merged to the options generated from the specified DNS policy.
@@ -325,7 +325,7 @@ options ndots:5
 
 ## DNS search domain list limits
 
-{{< feature-state for_k8s_version="1.26" state="beta" >}}
+{{< feature-state for_k8s_version="1.28" state="stable" >}}
 
 Kubernetes itself does not limit the DNS Config until the length of the search
 domain list exceeds 32 or the total length of all search domains exceeds 2048.

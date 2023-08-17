@@ -176,7 +176,7 @@ manager as a Daemonset in your cluster, use the following as a guideline:
 -->
 对于已经存在于 Kubernetes 内核中的提供商，你可以在集群中将 in-tree 云管理控制器作为守护进程运行。请使用如下指南：
 
-{{< codenew file="admin/cloud/ccm-example.yaml" >}}
+{{% code file="admin/cloud/ccm-example.yaml" %}}
 
 <!--
 ## Limitations
@@ -264,4 +264,3 @@ the [Developing Cloud Controller Manager](/docs/tasks/administer-cluster/develop
 要构建和开发你自己的云管理控制器，请阅读
 [开发云管理控制器](/zh-cn/docs/tasks/administer-cluster/developing-cloud-controller-manager/)
 文档。
-

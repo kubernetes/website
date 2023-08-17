@@ -717,6 +717,57 @@ And create it:
 kubectl apply -f my-crontab.yaml
 crontab "my-new-cron-object" created
 ```
+### Validation ratcheting
+
+{{< feature-state state="alpha" for_k8s_version="v1.28" >}}
+
+You need to enable the `CRDValidationRatcheting`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to
+use this behavior, which then applies to all CustomResourceDefinitions in your
+cluster.
+
+Provided you enabled the feature gate, Kubernetes implements _validation racheting_
+for CustomResourceDefinitions. The API server is willing accept updates to resources that
+are not valid after the update, provided that each part of the resource that failed to validate
+was not changed by the update operation. In other words, any invalid part of the resource
+that remains invalid must have already been wrong.
+You cannot use this mechanism to update a valid resource so that it becomes invalid.
+
+This feature allows authors of CRDs to confidently add new validations to the
+OpenAPIV3 schema under certain conditions. Users can update to the new schema
+safely without bumping the version of the object or breaking workflows.
+
+While most validations placed in the OpenAPIV3 schema of a CRD are support
+ratcheting, there are a few exceptions. The following OpenAPIV3 schema 
+validations are not supported by ratcheting under the implementation in Kubernetes
+{{< skew currentVersion >}} and if violated will continue to throw an error as normally:
+
+- Quantors
+  - `allOf`
+  - `oneOf`
+  - `anyOf`
+  - `not`
+  -  any validations in a descendent of one of these fields
+- `x-kubernetes-validations`
+  For Kubernetes {{< skew currentVersion >}}, CRD validation rules](#validation-rules) are ignored by
+  ratcheting. This may change in later Kubernetes releases.
+- `x-kubernetes-list-type`
+  Errors arising from changing the list type of a subschema will not be 
+  ratcheted. For example adding `set` onto a list with duplicates will always 
+  result in an error.
+- `x-kubernetes-map-keys`
+  Errors arising from changing the map keys of a list schema will not be 
+  ratcheted.
+- `required`
+  Errors arising from changing the list of required fields will not be ratcheted.
+- `properties`
+  Adding/removing/modifying the names of properties is not ratcheted, but 
+  changes to validations in each properties' schemas and subschemas may be ratcheted
+  if the name of the property stays the same.
+- `additionalProperties`
+  To remove a previously specified `additionalProperties` validation will not be
+  ratcheted.
+
 
 ## Validation rules
 
@@ -1065,6 +1116,62 @@ message will be used instead.
 
 `messageExpression` is a CEL expression, so the restrictions listed in [Resource use by validation functions](#resource-use-by-validation-functions) apply. If evaluation halts due to resource constraints 
 during `messageExpression` execution, then no further validation rules will be executed.
+
+Setting `messageExpression` is optional.
+
+#### The `message` field {#field-message}
+
+If you want to set a static message, you can supply `message` rather than `messageExpression`.
+The value of `message` is used as an opaque error string if validation fails.
+
+Setting `message` is optional.
+
+#### The `reason` field {#field-reason}
+
+You can add a machine-readable validation failure reason within a `validation`, to be returned
+whenever a request fails this validation rule.
+
+For example:
+
+```yaml
+x-kubernetes-validations:
+- rule: "self.x <= self.maxLimit"
+  reason: "FieldValueInvalid"
+```
+
+The HTTP status code returned to the caller will match the reason of the first failed validation rule.
+The currently supported reasons are: "FieldValueInvalid", "FieldValueForbidden", "FieldValueRequired", "FieldValueDuplicate".
+If not set or unknown reasons, default to use "FieldValueInvalid".
+
+Setting `reason` is optional.
+
+#### The `fieldPath` field {#field-field-path}
+
+You can specify the field path returned when the validation fails.
+
+For example:
+
+```yaml
+x-kubernetes-validations:
+- rule: "self.foo.test.x <= self.maxLimit"
+  fieldPath: ".foo.test.x"
+```
+
+In the example above, the validation checks the value of field `x` should be less than the value of `maxLimit`.
+If no `fieldPath` specified, when validation fails, the fieldPath would be default to wherever `self` scoped.
+With `fieldPath` specified, the returned error will have `fieldPath` properly refer to the location of field `x`.
+
+The `fieldPath` value must be a relative JSON path that is scoped to the location of this x-kubernetes-validations extension in the schema. 
+Additionally, it should refer to an existing field within the schema.
+For example when validation checks if a specific attribute `foo` under a map `testMap`, you could set
+`fieldPath` to `".testMap.foo"` or `.testMap['foo']'`.
+If the validation requires checking for unique attributes in two lists, the fieldPath can be set to either of the lists. 
+For example, it can be set to `.testList1` or `.testList2`.
+It supports child operation to refer to an existing field currently. 
+Refer to [JSONPath support in Kubernetes](/docs/reference/kubectl/jsonpath/) for more info.
+The `fieldPath` field does not support indexing arrays numerically.
+
+Setting `fieldPath` is optional.
 
 #### Validation functions {#available-validation-functions}
 

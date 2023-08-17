@@ -1,11 +1,11 @@
 ---
 api_metadata:
-  apiVersion: "authentication.k8s.io/v1beta1"
-  import: "k8s.io/api/authentication/v1beta1"
+  apiVersion: "authentication.k8s.io/v1"
+  import: "k8s.io/api/authentication/v1"
   kind: "SelfSubjectReview"
 content_type: "api_reference"
 description: "SelfSubjectReview contains the user information that the kube-apiserver has about the user making this request."
-title: "SelfSubjectReview v1beta1"
+title: "SelfSubjectReview"
 weight: 6
 auto_generated: true
 ---
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: authentication.k8s.io/v1beta1`
+`apiVersion: authentication.k8s.io/v1`
 
-`import "k8s.io/api/authentication/v1beta1"`
+`import "k8s.io/api/authentication/v1"`
 
 
 ## SelfSubjectReview {#SelfSubjectReview}
@@ -32,7 +32,7 @@ SelfSubjectReview contains the user information that the kube-apiserver has abou
 
 <hr>
 
-- **apiVersion**: authentication.k8s.io/v1beta1
+- **apiVersion**: authentication.k8s.io/v1
 
 
 - **kind**: SelfSubjectReview
@@ -42,7 +42,7 @@ SelfSubjectReview contains the user information that the kube-apiserver has abou
 
   Standard object's metadata. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#metadata
 
-- **status** (<a href="{{< ref "../authentication-resources/self-subject-review-v1beta1#SelfSubjectReviewStatus" >}}">SelfSubjectReviewStatus</a>)
+- **status** (<a href="{{< ref "../authentication-resources/self-subject-review-v1#SelfSubjectReviewStatus" >}}">SelfSubjectReviewStatus</a>)
 
   Status is filled in by the server with the user attributes.
 
@@ -98,12 +98,12 @@ SelfSubjectReviewStatus is filled by the kube-apiserver and sent back to a user.
 
 #### HTTP Request
 
-POST /apis/authentication.k8s.io/v1beta1/selfsubjectreviews
+POST /apis/authentication.k8s.io/v1/selfsubjectreviews
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../authentication-resources/self-subject-review-v1beta1#SelfSubjectReview" >}}">SelfSubjectReview</a>, required
+- **body**: <a href="{{< ref "../authentication-resources/self-subject-review-v1#SelfSubjectReview" >}}">SelfSubjectReview</a>, required
 
   
 
@@ -132,11 +132,11 @@ POST /apis/authentication.k8s.io/v1beta1/selfsubjectreviews
 #### Response
 
 
-200 (<a href="{{< ref "../authentication-resources/self-subject-review-v1beta1#SelfSubjectReview" >}}">SelfSubjectReview</a>): OK
+200 (<a href="{{< ref "../authentication-resources/self-subject-review-v1#SelfSubjectReview" >}}">SelfSubjectReview</a>): OK
 
-201 (<a href="{{< ref "../authentication-resources/self-subject-review-v1beta1#SelfSubjectReview" >}}">SelfSubjectReview</a>): Created
+201 (<a href="{{< ref "../authentication-resources/self-subject-review-v1#SelfSubjectReview" >}}">SelfSubjectReview</a>): Created
 
-202 (<a href="{{< ref "../authentication-resources/self-subject-review-v1beta1#SelfSubjectReview" >}}">SelfSubjectReview</a>): Accepted
+202 (<a href="{{< ref "../authentication-resources/self-subject-review-v1#SelfSubjectReview" >}}">SelfSubjectReview</a>): Accepted
 
 401: Unauthorized
 

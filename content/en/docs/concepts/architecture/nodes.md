@@ -571,9 +571,9 @@ the feature is Beta and is enabled by default.
 Metrics `graceful_shutdown_start_time_seconds` and `graceful_shutdown_end_time_seconds`
 are emitted under the kubelet subsystem to monitor node shutdowns.
 
-## Non Graceful node shutdown {#non-graceful-node-shutdown}
+## Non-graceful node shutdown handling {#non-graceful-node-shutdown}
 
-{{< feature-state state="beta" for_k8s_version="v1.26" >}}
+{{< feature-state state="stable" for_k8s_version="v1.28" >}}
 
 A node shutdown action may not be detected by kubelet's Node Shutdown Manager,
 either because the command does not trigger the inhibitor locks mechanism used by
@@ -617,11 +617,7 @@ During a non-graceful shutdown, Pods are terminated in the two phases:
 
 ## Swap memory management {#swap-memory}
 
-{{< feature-state state="alpha" for_k8s_version="v1.22" >}}
-
-Prior to Kubernetes 1.22, nodes did not support the use of swap memory, and a
-kubelet would by default fail to start if swap was detected on a node. In 1.22
-onwards, swap memory support can be enabled on a per-node basis.
+{{< feature-state state="beta" for_k8s_version="v1.28" >}}
 
 To enable swap on a node, the `NodeSwap` feature gate must be enabled on
 the kubelet, and the `--fail-swap-on` command line flag or `failSwapOn`
@@ -638,29 +634,40 @@ specify how a node will use swap memory. For example,
 
 ```yaml
 memorySwap:
-  swapBehavior: LimitedSwap
+  swapBehavior: UnlimitedSwap
 ```
 
-The available configuration options for `swapBehavior` are:
-
-- `LimitedSwap`: Kubernetes workloads are limited in how much swap they can
-  use. Workloads on the node not managed by Kubernetes can still swap.
-- `UnlimitedSwap`: Kubernetes workloads can use as much swap memory as they
+- `UnlimitedSwap` (default): Kubernetes workloads can use as much swap memory as they
   request, up to the system limit.
+- `LimitedSwap`: The utilization of swap memory by Kubernetes workloads is subject to limitations. Only Pods of Burstable QoS are permitted to employ swap.
 
 If configuration for `memorySwap` is not specified and the feature gate is
 enabled, by default the kubelet will apply the same behaviour as the
-`LimitedSwap` setting.
+`UnlimitedSwap` setting.
 
-The behaviour of the `LimitedSwap` setting depends if the node is running with
-v1 or v2 of control groups (also known as "cgroups"):
+With `LimitedSwap`, Pods that do not fall under the Burstable QoS classification (i.e.
+`BestEffort`/`Guaranteed` Qos Pods) are prohibited from utilizing swap memory.
+To maintain the aforementioned security and node
+health guarantees, these Pods are not permitted to use swap memory when `LimitedSwap` is
+in effect. 
 
-- **cgroupsv1:** Kubernetes workloads can use any combination of memory and
-  swap, up to the pod's memory limit, if set.
-- **cgroupsv2:** Kubernetes workloads cannot use swap memory.
+Prior to detailing the calculation of the swap limit, it is necessary to define the following terms:
+* `nodeTotalMemory`: The total amount of physical memory available on the node.
+* `totalPodsSwapAvailable`: The total amount of swap memory on the node that is available for use by Pods (some swap memory may be reserved for system use).
+* `containerMemoryRequest`: The container's memory request.
+
+Swap limitation is configured as:
+`(containerMemoryRequest / nodeTotalMemory) * totalPodsSwapAvailable`.
+
+It is important to note that, for containers within Burstable QoS Pods, it is possible to
+opt-out of swap usage by specifying memory requests that are equal to memory limits.
+Containers configured in this manner will not have access to swap memory.
+
+Swap is supported only with **cgroup v2**, cgroup v1 is not supported. 
 
 For more information, and to assist with testing and provide feedback, please
-see [KEP-2400](https://github.com/kubernetes/enhancements/issues/2400) and its
+see the blog-post about [Kubernetes 1.28: NodeSwap graduates to Beta1](/blog/2023/07/18/swap-beta1-1.28-2023/),
+[KEP-2400](https://github.com/kubernetes/enhancements/issues/4128) and its
 [design proposal](https://github.com/kubernetes/enhancements/blob/master/keps/sig-node/2400-node-swap/README.md).
 
 ## {{% heading "whatsnext" %}}

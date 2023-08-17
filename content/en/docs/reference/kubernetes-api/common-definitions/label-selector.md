@@ -39,8 +39,6 @@ A label selector is a label query over a set of resources. The result of matchLa
 
   - **matchExpressions.key** (string), required
 
-    *Patch strategy: merge on key `key`*
-    
     key is the label key that the selector applies to.
 
   - **matchExpressions.operator** (string), required

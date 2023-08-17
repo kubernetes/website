@@ -46,10 +46,6 @@ NetworkPolicy describes what network traffic is allowed for a set of Pods
 
   spec represents the specification of the desired behavior for this NetworkPolicy.
 
-- **status** (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicyStatus" >}}">NetworkPolicyStatus</a>)
-
-  status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-
 
 
 
@@ -198,54 +194,6 @@ NetworkPolicySpec provides the specification of a NetworkPolicy
 
 
 
-## NetworkPolicyStatus {#NetworkPolicyStatus}
-
-NetworkPolicyStatus describes the current state of the NetworkPolicy.
-
-<hr>
-
-- **conditions** ([]Condition)
-
-  *Patch strategy: merge on key `type`*
-  
-  *Map: unique values on key type will be kept during a merge*
-  
-  conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
-
-  <a name="Condition"></a>
-  *Condition contains details for one aspect of the current state of this API Resource.*
-
-  - **conditions.lastTransitionTime** (Time), required
-
-    lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-
-    <a name="Time"></a>
-    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-
-  - **conditions.message** (string), required
-
-    message is a human readable message indicating details about the transition. This may be an empty string.
-
-  - **conditions.reason** (string), required
-
-    reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty.
-
-  - **conditions.status** (string), required
-
-    status of the condition, one of True, False, Unknown.
-
-  - **conditions.type** (string), required
-
-    type of condition in CamelCase or in foo.example.com/CamelCase.
-
-  - **conditions.observedGeneration** (int64)
-
-    observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
-
-
-
-
-
 ## NetworkPolicyList {#NetworkPolicyList}
 
 NetworkPolicyList is a list of NetworkPolicy objects.
@@ -286,39 +234,6 @@ NetworkPolicyList is a list of NetworkPolicy objects.
 #### HTTP Request
 
 GET /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
-
-#### Parameters
-
-
-- **name** (*in path*): string, required
-
-  name of the NetworkPolicy
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-
-#### Response
-
-
-200 (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): OK
-
-401: Unauthorized
-
-
-### `get` read status of the specified NetworkPolicy
-
-#### HTTP Request
-
-GET /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}/status
 
 #### Parameters
 
@@ -605,126 +520,11 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 401: Unauthorized
 
 
-### `update` replace status of the specified NetworkPolicy
-
-#### HTTP Request
-
-PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}/status
-
-#### Parameters
-
-
-- **name** (*in path*): string, required
-
-  name of the NetworkPolicy
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **body**: <a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>, required
-
-  
-
-
-- **dryRun** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
-- **fieldValidation** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-
-#### Response
-
-
-200 (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): OK
-
-201 (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): Created
-
-401: Unauthorized
-
-
 ### `patch` partially update the specified NetworkPolicy
 
 #### HTTP Request
 
 PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
-
-#### Parameters
-
-
-- **name** (*in path*): string, required
-
-  name of the NetworkPolicy
-
-
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
-
-  
-
-
-- **dryRun** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-
-- **fieldValidation** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-
-
-#### Response
-
-
-200 (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): OK
-
-201 (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): Created
-
-401: Unauthorized
-
-
-### `patch` partially update status of the specified NetworkPolicy
-
-#### HTTP Request
-
-PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}/status
 
 #### Parameters
 

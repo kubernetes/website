@@ -721,14 +721,9 @@ The `matchPolicy` for an admission webhooks defaults to `Equivalent`.
 
 ### Matching requests: `matchConditions`
 
-{{< feature-state state="alpha" for_k8s_version="v1.27" >}}
+{{< feature-state state="beta" for_k8s_version="v1.28" >}}
 
-{{< note >}}
-Use of `matchConditions` requires the [featuregate](/docs/reference/command-line-tools-reference/feature-gates/)
-`AdmissionWebhookMatchConditions` to be explicitly enabled on the kube-apiserver before this feature can be used.
-{{< /note >}}
-
-You can define _match conditions_for webhooks if you need fine-grained request filtering. These
+You can define _match conditions_ for webhooks if you need fine-grained request filtering. These
 conditions are useful if you find that match rules, `objectSelectors` and `namespaceSelectors` still
 doesn't provide the filtering you want over when to call out over HTTP. Match conditions are
 [CEL expressions](/docs/reference/using-api/cel/). All match conditions must evaluate to true for the
@@ -736,55 +731,11 @@ webhook to be called.
 
 Here is an example illustrating a few different uses for match conditions:
 
-```yaml
-apiVersion: admissionregistration.k8s.io/v1
-kind: ValidatingWebhookConfiguration
-webhooks:
-  - name: my-webhook.example.com
-    matchPolicy: Equivalent
-    rules:
-      - operations: ['CREATE','UPDATE']
-        apiGroups: ['*']
-        apiVersions: ['*']
-        resources: ['*']
-    failurePolicy: 'Ignore' # Fail-open (optional)
-    sideEffects: None
-    clientConfig:
-      service:
-        namespace: my-namespace
-        name: my-webhook
-      caBundle: '<omitted>'
-    matchConditions:
-      - name: 'exclude-leases' # Each match condition must have a unique name
-        expression: '!(request.resource.group == "coordination.k8s.io" && request.resource.resource == "leases")' # Match non-lease resources.
-      - name: 'exclude-kubelet-requests'
-        expression: '!("system:nodes" in request.userInfo.groups)' # Match requests made by non-node users.
-      - name: 'rbac' # Skip RBAC requests, which are handled by the second webhook.
-        expression: 'request.resource.group != "rbac.authorization.k8s.io"'
-  
-  # This example illustrates the use of the 'authorizer'. The authorization check is more expensive
-  # than a simple expression, so in this example it is scoped to only RBAC requests by using a second
-  # webhook. Both webhooks can be served by the same endpoint.
-  - name: rbac.my-webhook.example.com
-    matchPolicy: Equivalent
-    rules:
-      - operations: ['CREATE','UPDATE']
-        apiGroups: ['rbac.authorization.k8s.io']
-        apiVersions: ['*']
-        resources: ['*']
-    failurePolicy: 'Fail' # Fail-closed (the default)
-    sideEffects: None
-    clientConfig:
-      service:
-        namespace: my-namespace
-        name: my-webhook
-      caBundle: '<omitted>'
-    matchConditions:
-      - name: 'breakglass'
-        # Skip requests made by users authorized to 'breakglass' on this webhook.
-        # The 'breakglass' API verb does not need to exist outside this check.
-        expression: '!authorizer.group("admissionregistration.k8s.io").resource("validatingwebhookconfigurations").name("my-webhook.example.com").check("breakglass").allowed()'
-```
+{{< codenew file="access/validating-webhook-configuration-match-conditions.yaml" >}}
+
+{{< note >}}
+You can define up to 64 elements in the `matchConditions` field per webhook.
+{{< /note >}}
 
 Match conditions have access to the following CEL variables:
 

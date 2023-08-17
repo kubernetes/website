@@ -32,6 +32,9 @@ In the following table:
 |---------|---------|-------|-------|-------|
 | `Accelerators` | `false` | Alpha | 1.6 | 1.10 |
 | `Accelerators` | - | Deprecated | 1.11 | 1.11 |
+| `AdvancedAuditing` | `false` | Alpha | 1.7 | 1.7 |
+| `AdvancedAuditing` | `true` | Beta | 1.8 | 1.11 |
+| `AdvancedAuditing` | `true` | GA | 1.12 | 1.27 |
 | `AffinityInAnnotations` | `false` | Alpha | 1.6 | 1.7 |
 | `AffinityInAnnotations` | - | Deprecated | 1.8 | 1.8 |
 | `AllowExtTrafficLocalEndpoints` | `false` | Beta | 1.4 | 1.6 |
@@ -134,6 +137,12 @@ In the following table:
 | `DefaultPodTopologySpread` | `false` | Alpha | 1.19 | 1.19 |
 | `DefaultPodTopologySpread` | `true` | Beta | 1.20 | 1.23 |
 | `DefaultPodTopologySpread` | `true` | GA | 1.24 | 1.25 |
+| `DelegateFSGroupToCSIDriver` | `false` | Alpha | 1.22 | 1.22 |
+| `DelegateFSGroupToCSIDriver` | `true` | Beta | 1.23 | 1.25 |
+| `DelegateFSGroupToCSIDriver` | `true` | GA | 1.26 | 1.27 |
+| `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
+| `DevicePlugins` | `true` | Beta | 1.10 | 1.25 |
+| `DevicePlugins` | `true` | GA | 1.26 | 1.27 |
 | `DynamicAuditing` | `false` | Alpha | 1.13 | 1.18 |
 | `DynamicAuditing` | - | Deprecated | 1.19 | 1.19 |
 | `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
@@ -244,6 +253,7 @@ In the following table:
 | `PodDisruptionBudget` | `false` | Alpha | 1.3 | 1.4 |
 | `PodDisruptionBudget` | `true` | Beta | 1.5 | 1.20 |
 | `PodDisruptionBudget` | `true` | GA | 1.21 | 1.25 |
+| `PodHasNetworkCondition` | `false` | Alpha | 1.25 | 1.27 |
 | `PodOverhead` | `false` | Alpha | 1.16 | 1.17 |
 | `PodOverhead` | `true` | Beta | 1.18 | 1.23 |
 | `PodOverhead` | `true` | GA | 1.24 | 1.25 |
@@ -388,6 +398,8 @@ In the following table:
 
 - `AffinityInAnnotations`: Enable setting
   [Pod affinity or anti-affinity](/docs/concepts/scheduling-eviction/assign-pod-node/#affinity-and-anti-affinity).
+
+- `AdvancedAuditing`: Enable [advanced auditing](/docs/tasks/debug/debug-cluster/audit/#advanced-audit)
 
 - `AllowExtTrafficLocalEndpoints`: Enable a service to route external requests to node local endpoints.
 
@@ -564,6 +576,13 @@ In the following table:
 - `DefaultPodTopologySpread`: Enables the use of `PodTopologySpread` scheduling plugin to do
   [default spreading](/docs/concepts/scheduling-eviction/topology-spread-constraints/#internal-default-constraints).
 
+- `DelegateFSGroupToCSIDriver`: If supported by the CSI driver, delegates the
+  role of applying `fsGroup` from a Pod's `securityContext` to the driver by
+  passing `fsGroup` through the NodeStageVolume and NodePublishVolume CSI calls.
+
+- `DevicePlugins`: Enable the [device-plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
+  based resource provisioning on nodes.
+
 - `DynamicAuditing`: Used to enable dynamic auditing before v1.19.
 
 - `DynamicKubeletConfig`: Enable the dynamic configuration of kubelet. The
@@ -699,6 +718,8 @@ In the following table:
 
 - `PodDisruptionBudget`: Enable the [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) feature.
 
+- `PodHasNetwork`: Enable the kubelet to mark the [PodHasNetwork](/docs/concepts/workloads/pods/pod-lifecycle/#pod-has-network)
+  condition on pods. This was renamed to `PodReadyToStartContainersCondition` in 1.28.
 - `PodOverhead`: Enable the [PodOverhead](/docs/concepts/scheduling-eviction/pod-overhead/)
   feature to account for pod overheads.
 

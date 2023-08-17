@@ -1,11 +1,11 @@
 ---
 api_metadata:
-  apiVersion: "admissionregistration.k8s.io/v1alpha1"
-  import: "k8s.io/api/admissionregistration/v1alpha1"
+  apiVersion: "admissionregistration.k8s.io/v1beta1"
+  import: "k8s.io/api/admissionregistration/v1beta1"
   kind: "ValidatingAdmissionPolicy"
 content_type: "api_reference"
 description: "ValidatingAdmissionPolicy describes the definition of an admission validation policy that accepts or rejects an object without changing it."
-title: "ValidatingAdmissionPolicy v1alpha1"
+title: "ValidatingAdmissionPolicy v1beta1"
 weight: 4
 auto_generated: true
 ---
@@ -21,9 +21,9 @@ guide. You can file document formatting bugs against the
 [reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
 -->
 
-`apiVersion: admissionregistration.k8s.io/v1alpha1`
+`apiVersion: admissionregistration.k8s.io/v1beta1`
 
-`import "k8s.io/api/admissionregistration/v1alpha1"`
+`import "k8s.io/api/admissionregistration/v1beta1"`
 
 
 ## ValidatingAdmissionPolicy {#ValidatingAdmissionPolicy}
@@ -32,7 +32,7 @@ ValidatingAdmissionPolicy describes the definition of an admission validation po
 
 <hr>
 
-- **apiVersion**: admissionregistration.k8s.io/v1alpha1
+- **apiVersion**: admissionregistration.k8s.io/v1beta1
 
 
 - **kind**: ValidatingAdmissionPolicy
@@ -106,7 +106,7 @@ ValidatingAdmissionPolicy describes the definition of an admission validation po
          - If failurePolicy=Ignore, the policy is skipped
 
     <a name="MatchCondition"></a>
-    **
+    *MatchCondition represents a condition which must be fulfilled for a request to be sent to a webhook.*
 
     - **spec.matchConditions.expression** (string), required
 
@@ -307,7 +307,9 @@ ValidatingAdmissionPolicy describes the definition of an admission validation po
 
       Expression represents the expression which will be evaluated by CEL. ref: https://github.com/google/cel-spec CEL expressions have access to the contents of the API request/response, organized into CEL variables as well as some other useful variables:
       
-      - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
+      - 'object' - The object from the incoming request. The value is null for DELETE requests. - 'oldObject' - The existing object. The value is null for CREATE requests. - 'request' - Attributes of the API request([ref](/pkg/apis/admission/types.go#AdmissionRequest)). - 'params' - Parameter resource referred to by the policy binding being evaluated. Only populated if the policy has a ParamKind. - 'namespaceObject' - The namespace object that the incoming object belongs to. The value is null for cluster-scoped resources. - 'variables' - Map of composited variables, from its name to its lazily evaluated value.
+        For example, a variable named 'foo' can be accessed as 'variables.foo'.
+      - 'authorizer' - A CEL Authorizer. May be used to perform authorization checks for the principal (user or service account) of the request.
         See https://pkg.go.dev/k8s.io/apiserver/pkg/cel/library#Authz
       - 'authorizer.requestResource' - A CEL ResourceCheck constructed from the 'authorizer' and configured with the
         request resource.
@@ -342,12 +344,33 @@ ValidatingAdmissionPolicy describes the definition of an admission validation po
 
       Reason represents a machine-readable description of why this validation failed. If this is the first validation in the list to fail, this reason, as well as the corresponding HTTP response code, are used in the HTTP response to the client. The currently supported reasons are: "Unauthorized", "Forbidden", "Invalid", "RequestEntityTooLarge". If not set, StatusReasonInvalid is used in the response to the client.
 
+  - **spec.variables** ([]Variable)
+
+    *Patch strategy: merge on key `name`*
+    
+    *Map: unique values on key name will be kept during a merge*
+    
+    Variables contain definitions of variables that can be used in composition of other expressions. Each variable is defined as a named CEL expression. The variables defined here will be available under `variables` in other expressions of the policy except MatchConditions because MatchConditions are evaluated before the rest of the policy.
+    
+    The expression of a variable can refer to other variables defined earlier in the list but not those after. Thus, Variables must be sorted by the order of first appearance and acyclic.
+
+    <a name="Variable"></a>
+    *Variable is the definition of a variable that is used for composition. A variable is defined as a named expression.*
+
+    - **spec.variables.expression** (string), required
+
+      Expression is the expression that will be evaluated as the value of the variable. The CEL expression has access to the same identifiers as the CEL expressions in Validation.
+
+    - **spec.variables.name** (string), required
+
+      Name is the name of the variable. The name must be a valid CEL identifier and unique among all variables. The variable can be accessed in other expressions through `variables` For example, if name is "foo", the variable will be available as `variables.foo`
+
 - **status** (ValidatingAdmissionPolicyStatus)
 
   The status of the ValidatingAdmissionPolicy, including warnings that are useful to determine if the policy behaves in the expected way. Populated by the system. Read-only.
 
   <a name="ValidatingAdmissionPolicyStatus"></a>
-  *ValidatingAdmissionPolicyStatus represents the status of a ValidatingAdmissionPolicy.*
+  *ValidatingAdmissionPolicyStatus represents the status of an admission validation policy.*
 
   - **status.conditions** ([]Condition)
 
@@ -427,7 +450,7 @@ ValidatingAdmissionPolicyList is a list of ValidatingAdmissionPolicy.
 
   APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources
 
-- **items** ([]<a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>)
+- **items** ([]<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>)
 
   List of ValidatingAdmissionPolicy.
 
@@ -446,6 +469,10 @@ ValidatingAdmissionPolicyList is a list of ValidatingAdmissionPolicy.
 ## ValidatingAdmissionPolicyBinding {#ValidatingAdmissionPolicyBinding}
 
 ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with paramerized resources. ValidatingAdmissionPolicyBinding and parameter CRDs together define how cluster administrators configure policies for clusters.
+
+For a given admission request, each binding will cause its policy to be evaluated N times, where N is 1 for policies/bindings that don't use params, otherwise N is the number of parameters selected by the binding.
+
+The CEL expressions of a policy must have a computed CEL cost below the maximum CEL budget. Each evaluation of the policy is given an independent CEL cost budget. Adding/removing policies, bindings, or params can not affect whether a given (policy, binding, param) combination is within its own CEL budget.
 
 <hr>
 
@@ -623,18 +650,44 @@ ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with parame
 
   - **spec.paramRef** (ParamRef)
 
-    ParamRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied.
+    paramRef specifies the parameter resource used to configure the admission control policy. It should point to a resource of the type specified in ParamKind of the bound ValidatingAdmissionPolicy. If the policy specifies a ParamKind and the resource referred to by ParamRef does not exist, this binding is considered mis-configured and the FailurePolicy of the ValidatingAdmissionPolicy applied. If the policy does not specify a ParamKind then this field is ignored, and the rules are evaluated without a param.
 
     <a name="ParamRef"></a>
-    *ParamRef references a parameter resource*
+    *ParamRef describes how to locate the params to be used as input to expressions of rules applied by a policy binding.*
 
     - **spec.paramRef.name** (string)
 
-      Name of the resource being referenced.
+      name is the name of the resource being referenced.
+      
+      One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
+      
+      A single parameter used for all admission requests can be configured by setting the `name` field, leaving `selector` blank, and setting namespace if `paramKind` is namespace-scoped.
 
     - **spec.paramRef.namespace** (string)
 
-      Namespace of the referenced resource. Should be empty for the cluster-scoped resources
+      namespace is the namespace of the referenced resource. Allows limiting the search for params to a specific namespace. Applies to both `name` and `selector` fields.
+      
+      A per-namespace parameter may be used by specifying a namespace-scoped `paramKind` in the policy and leaving this field empty.
+      
+      - If `paramKind` is cluster-scoped, this field MUST be unset. Setting this field results in a configuration error.
+      
+      - If `paramKind` is namespace-scoped, the namespace of the object being evaluated for admission will be used when this field is left unset. Take care that if this is left empty the binding must not match any cluster-scoped resources, which will result in an error.
+
+    - **spec.paramRef.parameterNotFoundAction** (string)
+
+      `parameterNotFoundAction` controls the behavior of the binding when the resource exists, and name or selector is valid, but there are no parameters matched by the binding. If the value is set to `Allow`, then no matched parameters will be treated as successful validation by the binding. If set to `Deny`, then no matched parameters will be subject to the `failurePolicy` of the policy.
+      
+      Allowed values are `Allow` or `Deny`
+      
+      Required
+
+    - **spec.paramRef.selector** (<a href="{{< ref "../common-definitions/label-selector#LabelSelector" >}}">LabelSelector</a>)
+
+      selector can be used to match multiple param objects based on their labels. Supply selector: {} to match all resources of the ParamKind.
+      
+      If multiple params are found, they are all evaluated with the policy expressions and the results are ANDed together.
+      
+      One of `name` or `selector` must be set, but `name` and `selector` are mutually exclusive properties. If one is set, the other must be unset.
 
   - **spec.policyName** (string)
 
@@ -683,7 +736,7 @@ ValidatingAdmissionPolicyBinding binds the ValidatingAdmissionPolicy with parame
 
 #### HTTP Request
 
-GET /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{name}
+GET /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name}
 
 #### Parameters
 
@@ -702,7 +755,7 @@ GET /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{nam
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
+200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
 
 401: Unauthorized
 
@@ -711,7 +764,7 @@ GET /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{nam
 
 #### HTTP Request
 
-GET /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{name}/status
+GET /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name}/status
 
 #### Parameters
 
@@ -730,7 +783,7 @@ GET /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{nam
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
+200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
 
 401: Unauthorized
 
@@ -739,7 +792,7 @@ GET /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{nam
 
 #### HTTP Request
 
-GET /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies
+GET /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies
 
 #### Parameters
 
@@ -803,7 +856,7 @@ GET /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicyList" >}}">ValidatingAdmissionPolicyList</a>): OK
+200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicyList" >}}">ValidatingAdmissionPolicyList</a>): OK
 
 401: Unauthorized
 
@@ -812,12 +865,12 @@ GET /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies
 
 #### HTTP Request
 
-POST /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies
+POST /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies
 
 #### Parameters
 
 
-- **body**: <a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>, required
+- **body**: <a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>, required
 
   
 
@@ -846,11 +899,11 @@ POST /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
+200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
 
-201 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Created
+201 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Created
 
-202 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Accepted
+202 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Accepted
 
 401: Unauthorized
 
@@ -859,7 +912,7 @@ POST /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies
 
 #### HTTP Request
 
-PUT /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{name}
+PUT /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name}
 
 #### Parameters
 
@@ -869,7 +922,7 @@ PUT /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{nam
   name of the ValidatingAdmissionPolicy
 
 
-- **body**: <a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>, required
+- **body**: <a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>, required
 
   
 
@@ -898,9 +951,9 @@ PUT /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{nam
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
+200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
 
-201 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Created
+201 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Created
 
 401: Unauthorized
 
@@ -909,7 +962,7 @@ PUT /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{nam
 
 #### HTTP Request
 
-PUT /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{name}/status
+PUT /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name}/status
 
 #### Parameters
 
@@ -919,7 +972,7 @@ PUT /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{nam
   name of the ValidatingAdmissionPolicy
 
 
-- **body**: <a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>, required
+- **body**: <a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>, required
 
   
 
@@ -948,9 +1001,9 @@ PUT /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{nam
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
+200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
 
-201 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Created
+201 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Created
 
 401: Unauthorized
 
@@ -959,7 +1012,7 @@ PUT /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{nam
 
 #### HTTP Request
 
-PATCH /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{name}
+PATCH /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name}
 
 #### Parameters
 
@@ -1003,9 +1056,9 @@ PATCH /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{n
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
+200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
 
-201 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Created
+201 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Created
 
 401: Unauthorized
 
@@ -1014,7 +1067,7 @@ PATCH /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{n
 
 #### HTTP Request
 
-PATCH /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{name}/status
+PATCH /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name}/status
 
 #### Parameters
 
@@ -1058,9 +1111,9 @@ PATCH /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{n
 #### Response
 
 
-200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
+200 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): OK
 
-201 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1alpha1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Created
+201 (<a href="{{< ref "../extend-resources/validating-admission-policy-v1beta1#ValidatingAdmissionPolicy" >}}">ValidatingAdmissionPolicy</a>): Created
 
 401: Unauthorized
 
@@ -1069,7 +1122,7 @@ PATCH /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{n
 
 #### HTTP Request
 
-DELETE /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{name}
+DELETE /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies/{name}
 
 #### Parameters
 
@@ -1119,7 +1172,7 @@ DELETE /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies/{
 
 #### HTTP Request
 
-DELETE /apis/admissionregistration.k8s.io/v1alpha1/validatingadmissionpolicies
+DELETE /apis/admissionregistration.k8s.io/v1beta1/validatingadmissionpolicies
 
 #### Parameters
 
