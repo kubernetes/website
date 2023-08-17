@@ -21,7 +21,7 @@ e [labels](/docs/concepts/overview/working-with-objects/labels/).
 
 Molte applicazioni richiedono la creazione di più risorse, ad esempio una distribuzione e un servizio. La gestione di più risorse può essere semplificata raggruppandole nello stesso file (separate da `---` in YAML). Per esempio:
 
-{{< codenew file="application/nginx-app.yaml" >}}
+{{% codenew file="application/nginx-app.yaml" %}}
 
 Multiple resources can be created the same way as a single resource:
 
