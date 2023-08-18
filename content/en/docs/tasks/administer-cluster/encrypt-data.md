@@ -321,7 +321,7 @@ resources:
               # See the following text for more details about the secret value
               secret: <BASE 64 ENCODED SECRET>
       - identity: {} # this fallback allows reading unencrypted secrets;
-                     # for example, during initial migratoin
+                     # for example, during initial migration
 ```
 
 To create a new Secret, perform the following steps:

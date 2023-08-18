@@ -67,12 +67,23 @@ this is true when user namespaces are used.
 * The node OS needs to be Linux
 * You need to exec commands in the host
 * You need to be able to exec into pods
-* Feature gate `UserNamespacesStatelessPodsSupport` need to be enabled.
+* You need to enable the `UserNamespacesSupport`
+  [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
 -->
 * 节点上的操作系统必须为 Linux
 * 你需要在宿主机上执行命令
 * 你需要能够通过 exec 操作进入 Pod
-* 特性 `UserNamespacesStatelessPodsSupport` 需要被启用。
+* 你需要启用 `UserNamespacesSupport` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
+
+{{< note >}}
+<!--
+The feature gate to enable user namespaces was previously named
+`UserNamespacesStatelessPodsSupport`, when only stateless pods were supported.
+Only Kubernetes v1.25 through to v1.27 recognise `UserNamespacesStatelessPodsSupport`.
+-->
+在用户名字空间原来仅支持无状态的 Pod 时，启用用户名字空间的特性门控先前被命名为 `UserNamespacesStatelessPodsSupport`。
+只有 Kubernetes v1.25 到 v1.27 才能识别 `UserNamespacesStatelessPodsSupport`。
+{{</ note >}}
 
 <!--
 The cluster that you're using **must** include at least one node that meets the
@@ -110,11 +121,10 @@ created without user namespaces.**
 ## 运行一个使用用户名字空间的 Pod {#create-pod}
 
 <!--
-A user namespace for a stateless pod is enabled setting the `hostUsers` field of
-`.spec` to `false`. For example:
+A user namespace for a pod is enabled setting the `hostUsers` field of `.spec`
+to `false`. For example:
 -->
-为一个无状态的 Pod 启用用户名字空间需要设置 `.spec` 的 `hostUsers` 字段
-为 `false`. 例如:
+为一个 Pod 启用用户名字空间需要设置 `.spec` 的 `hostUsers` 字段为 `false`. 例如:
 
 {{% code file="pods/user-namespaces-stateless.yaml" %}}
 

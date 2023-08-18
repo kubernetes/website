@@ -20,6 +20,188 @@ auto_generated: true
   
     
 
+## `ClientConnectionConfiguration`     {#ClientConnectionConfiguration}
+    
+
+**Appears in:**
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
+
+
+<p>ClientConnectionConfiguration contains details for constructing a client.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>kubeconfig</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>kubeconfig is the path to a KubeConfig file.</p>
+</td>
+</tr>
+<tr><td><code>acceptContentTypes</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>acceptContentTypes defines the Accept header sent by clients when connecting to a server, overriding the
+default value of 'application/json'. This field will control all connections to the server used by a particular
+client.</p>
+</td>
+</tr>
+<tr><td><code>contentType</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>contentType is the content type used when sending data to the server from this client.</p>
+</td>
+</tr>
+<tr><td><code>qps</code> <B>[Required]</B><br/>
+<code>float32</code>
+</td>
+<td>
+   <p>qps controls the number of queries per second allowed for this connection.</p>
+</td>
+</tr>
+<tr><td><code>burst</code> <B>[Required]</B><br/>
+<code>int32</code>
+</td>
+<td>
+   <p>burst allows extra queries to accumulate when a client is exceeding its rate.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `DebuggingConfiguration`     {#DebuggingConfiguration}
+    
+
+**Appears in:**
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
+
+
+<p>DebuggingConfiguration holds configuration for Debugging related features.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>enableProfiling</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>enableProfiling enables profiling via web interface host:port/debug/pprof/</p>
+</td>
+</tr>
+<tr><td><code>enableContentionProfiling</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>enableContentionProfiling enables block profiling, if
+enableProfiling is true.</p>
+</td>
+</tr>
+</tbody>
+</table>
+
+## `LeaderElectionConfiguration`     {#LeaderElectionConfiguration}
+    
+
+**Appears in:**
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
+
+- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
+
+
+<p>LeaderElectionConfiguration defines the configuration of leader election
+clients for components that can run with leader election enabled.</p>
+
+
+<table class="table">
+<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
+<tbody>
+    
+  
+<tr><td><code>leaderElect</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>leaderElect enables a leader election client to gain leadership
+before executing the main loop. Enable this when running replicated
+components for high availability.</p>
+</td>
+</tr>
+<tr><td><code>leaseDuration</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p>leaseDuration is the duration that non-leader candidates will wait
+after observing a leadership renewal until attempting to acquire
+leadership of a led but unrenewed leader slot. This is effectively the
+maximum duration that a leader can be stopped before it is replaced
+by another candidate. This is only applicable if leader election is
+enabled.</p>
+</td>
+</tr>
+<tr><td><code>renewDeadline</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p>renewDeadline is the interval between attempts by the acting master to
+renew a leadership slot before it stops leading. This must be less
+than or equal to the lease duration. This is only applicable if leader
+election is enabled.</p>
+</td>
+</tr>
+<tr><td><code>retryPeriod</code> <B>[Required]</B><br/>
+<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
+</td>
+<td>
+   <p>retryPeriod is the duration the clients should wait between attempting
+acquisition and renewal of a leadership. This is only applicable if
+leader election is enabled.</p>
+</td>
+</tr>
+<tr><td><code>resourceLock</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>resourceLock indicates the resource object type that will be used to lock
+during leader election cycles.</p>
+</td>
+</tr>
+<tr><td><code>resourceName</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>resourceName indicates the name of resource object that will be used to lock
+during leader election cycles.</p>
+</td>
+</tr>
+<tr><td><code>resourceNamespace</code> <B>[Required]</B><br/>
+<code>string</code>
+</td>
+<td>
+   <p>resourceName indicates the namespace of resource object that will be used to lock
+during leader election cycles.</p>
+</td>
+</tr>
+</tbody>
+</table>
+  
+    
+
 ## `DefaultPreemptionArgs`     {#kubescheduler-config-k8s-io-v1-DefaultPreemptionArgs}
     
 
@@ -191,6 +373,16 @@ with the &quot;default-scheduler&quot; profile, if present here.</p>
 with the extender. These extenders are shared by all scheduler profiles.</p>
 </td>
 </tr>
+<tr><td><code>delayCacheUntilActive</code> <B>[Required]</B><br/>
+<code>bool</code>
+</td>
+<td>
+   <p>DelayCacheUntilActive specifies when to start caching. If this is true and leader election is enabled,
+the scheduler will wait to fill informer caches until it is the leader. Doing so will have slower
+failover with the benefit of lower memory overhead while waiting to become leader.
+Defaults to false.</p>
+</td>
+</tr>
 </tbody>
 </table>
 
@@ -210,7 +402,7 @@ with the extender. These extenders are shared by all scheduler profiles.</p>
     
   
 <tr><td><code>addedAffinity</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
 </td>
 <td>
    <p>AddedAffinity is applied to all Pods additionally to the NodeAffinity
@@ -309,7 +501,7 @@ The default strategy is LeastAllocated with an equal &quot;cpu&quot; and &quot;m
     
   
 <tr><td><code>defaultConstraints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
 </td>
 <td>
    <p>DefaultConstraints defines topology spread constraints to be applied to
@@ -1090,191 +1282,3 @@ Weight defaults to 1 if not specified or explicitly set to 0.</p>
 </tbody>
 </table>
   
-  
-    
-
-## `ClientConnectionConfiguration`     {#ClientConnectionConfiguration}
-    
-
-**Appears in:**
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
-
-
-<p>ClientConnectionConfiguration contains details for constructing a client.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>kubeconfig</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>kubeconfig is the path to a KubeConfig file.</p>
-</td>
-</tr>
-<tr><td><code>acceptContentTypes</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>acceptContentTypes defines the Accept header sent by clients when connecting to a server, overriding the
-default value of 'application/json'. This field will control all connections to the server used by a particular
-client.</p>
-</td>
-</tr>
-<tr><td><code>contentType</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>contentType is the content type used when sending data to the server from this client.</p>
-</td>
-</tr>
-<tr><td><code>qps</code> <B>[Required]</B><br/>
-<code>float32</code>
-</td>
-<td>
-   <p>qps controls the number of queries per second allowed for this connection.</p>
-</td>
-</tr>
-<tr><td><code>burst</code> <B>[Required]</B><br/>
-<code>int32</code>
-</td>
-<td>
-   <p>burst allows extra queries to accumulate when a client is exceeding its rate.</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `DebuggingConfiguration`     {#DebuggingConfiguration}
-    
-
-**Appears in:**
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
-
-
-<p>DebuggingConfiguration holds configuration for Debugging related features.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>enableProfiling</code> <B>[Required]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <p>enableProfiling enables profiling via web interface host:port/debug/pprof/</p>
-</td>
-</tr>
-<tr><td><code>enableContentionProfiling</code> <B>[Required]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <p>enableContentionProfiling enables block profiling, if
-enableProfiling is true.</p>
-</td>
-</tr>
-</tbody>
-</table>
-
-## `LeaderElectionConfiguration`     {#LeaderElectionConfiguration}
-    
-
-**Appears in:**
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1-KubeSchedulerConfiguration)
-
-
-<p>LeaderElectionConfiguration defines the configuration of leader election
-clients for components that can run with leader election enabled.</p>
-
-
-<table class="table">
-<thead><tr><th width="30%">Field</th><th>Description</th></tr></thead>
-<tbody>
-    
-  
-<tr><td><code>leaderElect</code> <B>[Required]</B><br/>
-<code>bool</code>
-</td>
-<td>
-   <p>leaderElect enables a leader election client to gain leadership
-before executing the main loop. Enable this when running replicated
-components for high availability.</p>
-</td>
-</tr>
-<tr><td><code>leaseDuration</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <p>leaseDuration is the duration that non-leader candidates will wait
-after observing a leadership renewal until attempting to acquire
-leadership of a led but unrenewed leader slot. This is effectively the
-maximum duration that a leader can be stopped before it is replaced
-by another candidate. This is only applicable if leader election is
-enabled.</p>
-</td>
-</tr>
-<tr><td><code>renewDeadline</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <p>renewDeadline is the interval between attempts by the acting master to
-renew a leadership slot before it stops leading. This must be less
-than or equal to the lease duration. This is only applicable if leader
-election is enabled.</p>
-</td>
-</tr>
-<tr><td><code>retryPeriod</code> <B>[Required]</B><br/>
-<a href="https://pkg.go.dev/k8s.io/apimachinery/pkg/apis/meta/v1#Duration"><code>meta/v1.Duration</code></a>
-</td>
-<td>
-   <p>retryPeriod is the duration the clients should wait between attempting
-acquisition and renewal of a leadership. This is only applicable if
-leader election is enabled.</p>
-</td>
-</tr>
-<tr><td><code>resourceLock</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>resourceLock indicates the resource object type that will be used to lock
-during leader election cycles.</p>
-</td>
-</tr>
-<tr><td><code>resourceName</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>resourceName indicates the name of resource object that will be used to lock
-during leader election cycles.</p>
-</td>
-</tr>
-<tr><td><code>resourceNamespace</code> <B>[Required]</B><br/>
-<code>string</code>
-</td>
-<td>
-   <p>resourceName indicates the namespace of resource object that will be used to lock
-during leader election cycles.</p>
-</td>
-</tr>
-</tbody>
-</table>
