@@ -632,7 +632,10 @@ Create that Pod, by running:
 kubectl create -f https://kubernetes.io/examples/pods/pod-configmap-env-var-valueFrom.yaml
 ```
 
-That pod produces the following output from the `test-container` container (run `kubectl logs dapi-test-pod`):
+That pod produces the following output from the `test-container` container:
+```shell
+kubectl logs dapi-test-pod
+```
 
 ```
 very charm
