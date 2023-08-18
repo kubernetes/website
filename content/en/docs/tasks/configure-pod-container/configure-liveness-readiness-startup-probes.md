@@ -274,16 +274,11 @@ After 15 seconds, view Pod events to verify that the liveness check has not fail
 kubectl describe pod etcd-with-grpc
 ```
 
-Before Kubernetes 1.23, gRPC health probes were often implemented using
-[grpc-health-probe](https://github.com/grpc-ecosystem/grpc-health-probe/),
-as described in the blog post
-[Health checking gRPC servers on Kubernetes](/blog/2018/10/01/health-checking-grpc-servers-on-kubernetes/).
-The built-in gRPC probe's behavior is similar to the one implemented by grpc-health-probe.
-When migrating from grpc-health-probe to built-in probes, remember the following differences:
+When using a gRPC probe, there are some technical details to be aware of:
 
-- Built-in probes run against the pod IP address, unlike grpc-health-probe that often runs against
-  `127.0.0.1`. Be sure to configure your gRPC endpoint to listen on the Pod's IP address.
-- Built-in probes do not support any authentication parameters (like `-tls`).
+- The probes run against the pod IP address or its hostname.
+  Be sure to configure your gRPC endpoint to listen on the Pod's IP address.
+- The probes do not support any authentication parameters (like `-tls`).
 - There are no error codes for built-in probes. All errors are considered as probe failures.
 - If `ExecProbeTimeout` feature gate is set to `false`, grpc-health-probe does **not**
   respect the `timeoutSeconds` setting (which defaults to 1s), while built-in probe would fail on timeout.
@@ -425,23 +420,6 @@ liveness and readiness checks:
   See [probe-level `terminationGracePeriodSeconds`](#probe-level-terminationgraceperiodseconds)
   for more detail.
 
-{{< note >}}
-Before Kubernetes 1.20, the field `timeoutSeconds` was not respected for exec probes:
-probes continued running indefinitely, even past their configured deadline,
-until a result was returned.
-
-This defect was corrected in Kubernetes v1.20. You may have been relying on the previous behavior,
-even without realizing it, as the default timeout is 1 second.
-As a cluster administrator, you can disable the [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-`ExecProbeTimeout` (set it to `false`) on each kubelet to restore the behavior from older versions,
-then remove that override once all the exec probes in the cluster have a `timeoutSeconds` value set.
-If you have pods that are impacted from the default 1 second timeout, you should update their
-probe timeout so that you're ready for the eventual removal of that feature gate.
-
-With the fix of the defect, for exec probes, on Kubernetes `1.20+` with the `dockershim` container runtime,
-the process inside the container may keep running even after probe returned failure because of the timeout.
-{{< /note >}}
-
 {{< caution >}}
 Incorrect implementation of readiness probes may result in an ever growing number
 of processes in the container, and resource starvation if this is left unchecked.
@@ -518,33 +496,18 @@ to resolve it.
 
 {{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
-Prior to release 1.21, the Pod-level `terminationGracePeriodSeconds` was used
-for terminating a container that failed its liveness or startup probe. This
-coupling was unintended and may have resulted in failed containers taking an
-unusually long time to restart when a Pod-level `terminationGracePeriodSeconds`
-was set.
-
 In 1.25 and above, users can specify a probe-level `terminationGracePeriodSeconds`
 as part of the probe specification. When both a pod- and probe-level
 `terminationGracePeriodSeconds` are set, the kubelet will use the probe-level value.
 
-{{< note >}}
-Beginning in Kubernetes 1.25, the `ProbeTerminationGracePeriod` feature is enabled
-by default. For users choosing to disable this feature, please note the following:
+When setting the `terminationGracePeriodSeconds`, please note the following:
 
-* The `ProbeTerminationGracePeriod` feature gate is only available on the API Server.
-  The kubelet always honors the probe-level `terminationGracePeriodSeconds` field if
+* The kubelet always honors the probe-level `terminationGracePeriodSeconds` field if 
   it is present on a Pod.
 
 * If you have existing Pods where the `terminationGracePeriodSeconds` field is set and
   you no longer wish to use per-probe termination grace periods, you must delete
   those existing Pods.
-
-* When you or the control plane, or some other components create replacement
-  Pods, and the feature gate `ProbeTerminationGracePeriod` is disabled, then the
-  API server ignores the Probe-level `terminationGracePeriodSeconds` field, even if
-  a Pod or pod template specifies it.
-{{< /note >}}
 
 For example:
 
