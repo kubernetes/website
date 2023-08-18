@@ -3,9 +3,7 @@ title: 持久卷
 feature:
   title: 存储编排
   description: >
-    自动挂载所选存储系统，包括本地存储、诸如 <a href="https://aws.amazon.com/products/storage/">AWS</a>
-    或 <a href="https://cloud.google.com/storage/">GCP</a>
-    之类公有云提供商所提供的存储或者诸如 NFS、iSCSI、Ceph、Cinder 这类网络存储系统。
+    自动挂载所选存储系统，包括本地存储、公有云提供商所提供的存储或者诸如 iSCSI 或 NFS 这类网络存储系统。
 content_type: concept
 weight: 20
 ---
@@ -20,7 +18,7 @@ title: Persistent Volumes
 feature:
   title: Storage orchestration
   description: >
-    Automatically mount the storage system of your choice, whether from local storage, a public cloud provider such as <a href="https://aws.amazon.com/products/storage/">AWS</a> or <a href="https://cloud.google.com/storage/">GCP</a>, or a network storage system such as NFS, iSCSI, Ceph, Cinder.
+    Automatically mount the storage system of your choice, whether from local storage, a public cloud provider, or a network storage system such as iSCSI or NFS.
 content_type: concept
 weight: 20
 -->
@@ -121,7 +119,7 @@ Kubernetes API and are available for consumption.
 #### 静态制备  {#static}
 
 集群管理员创建若干 PV 卷。这些卷对象带有真实存储的细节信息，
-并且对集群用户可用（可见）。PV 卷对象存在于 Kubernetes  API 中，可供用户消费（使用）。
+并且对集群用户可用（可见）。PV 卷对象存在于 Kubernetes API 中，可供用户消费（使用）。
 
 <!--
 #### Dynamic
@@ -814,7 +812,7 @@ enabled for this feature to work. Refer to the
 documentation for more information.
 -->
 Kubernetes 从 1.23 版本开始将允许用户恢复失败的 PVC 扩展这一能力作为
-alpha 特性支持。`RecoverVolumeExpansionFailure` 必须被启用以允许使用此特性。
+Alpha 特性支持。`RecoverVolumeExpansionFailure` 必须被启用以允许使用此特性。
 可参考[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
 文档了解更多信息。
 {{< /note >}}
@@ -828,7 +826,7 @@ value you previously tried.
 This is useful if expansion to a higher value did not succeed because of capacity constraint.
 If that has happened, or you suspect that it might have, you can retry expansion by specifying a
 size that is within the capacity limits of underlying storage provider. You can monitor status of
-resize operation by watching `.status.resizeStatus` and events on the PVC.
+resize operation by watching `.status.allocatedResourceStatuses` and events on the PVC.
 -->
 如果集群中的特性门控 `RecoverVolumeExpansionFailure`
 已启用，在 PVC 的扩展发生失败时，你可以使用比先前请求的值更小的尺寸来重试扩展。
@@ -837,7 +835,7 @@ resize operation by watching `.status.resizeStatus` and events on the PVC.
 如果由于容量限制而无法成功扩展至更高的值，这将很有用。
 如果发生了这种情况，或者你怀疑可能发生了这种情况，
 你可以通过指定一个在底层存储制备容量限制内的尺寸来重试扩展。
-你可以通过查看 `.status.resizeStatus` 以及 PVC 上的事件来监控调整大小操作的状态。
+你可以通过查看 `.status.allocatedResourceStatuses` 以及 PVC 上的事件来监控调整大小操作的状态。
 
 <!--
 Note that,
@@ -863,7 +861,6 @@ PersistentVolume types are implemented as plugins. Kubernetes currently supports
 PV 持久卷是用插件的形式来实现的。Kubernetes 目前支持以下插件：
 
 <!--
-* [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - CephFS volume
 * [`csi`](/docs/concepts/storage/volumes/#csi) - Container Storage Interface (CSI)
 * [`fc`](/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) storage
 * [`hostPath`](/docs/concepts/storage/volumes/#hostpath) - HostPath volume
@@ -873,9 +870,7 @@ PV 持久卷是用插件的形式来实现的。Kubernetes 目前支持以下插
 * [`local`](/docs/concepts/storage/volumes/#local) - local storage devices
   mounted on nodes.
 * [`nfs`](/docs/concepts/storage/volumes/#nfs) - Network File System (NFS) storage
-* [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume
 -->
-* [`cephfs`](/zh-cn/docs/concepts/storage/volumes/#cephfs) - CephFS volume
 * [`csi`](/zh-cn/docs/concepts/storage/volumes/#csi) - 容器存储接口 (CSI)
 * [`fc`](/zh-cn/docs/concepts/storage/volumes/#fc) - Fibre Channel (FC) 存储
 * [`hostPath`](/zh-cn/docs/concepts/storage/volumes/#hostpath) - HostPath 卷
@@ -883,7 +878,6 @@ PV 持久卷是用插件的形式来实现的。Kubernetes 目前支持以下插
 * [`iscsi`](/zh-cn/docs/concepts/storage/volumes/#iscsi) - iSCSI (SCSI over IP) 存储
 * [`local`](/zh-cn/docs/concepts/storage/volumes/#local) - 节点上挂载的本地存储设备
 * [`nfs`](/zh-cn/docs/concepts/storage/volumes/#nfs) - 网络文件系统 (NFS) 存储
-* [`rbd`](/zh-cn/docs/concepts/storage/volumes/#rbd) - Rados 块设备 (RBD) 卷
 
 <!-- 
 The following types of PersistentVolume are deprecated.
@@ -899,6 +893,10 @@ This means that support is still available but will be removed in a future Kuber
   (**deprecated** in v1.25)
 * [`vsphereVolume`](/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK volume
   (**deprecated** in v1.19)
+* [`cephfs`](/docs/concepts/storage/volumes/#cephfs) - CephFS volume
+  (**deprecated** in v1.28)
+* [`rbd`](/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) volume
+  (**deprecated** in v1.28)
 -->
 以下的持久卷已被弃用。这意味着当前仍是支持的，但是 Kubernetes 将来的发行版会将其移除。
 
@@ -911,6 +909,10 @@ This means that support is still available but will be removed in a future Kuber
   （于 v1.25 **弃用**）
 * [`vsphereVolume`](/zh-cn/docs/concepts/storage/volumes/#vspherevolume) - vSphere VMDK 卷
   （于 v1.19 **弃用**）
+* [`cephfs`](/zh-cn/docs/concepts/storage/volumes/#cephfs) - CephFS 卷
+  （于 v1.28 **弃用**）
+* [`rbd`](/zh-cn/docs/concepts/storage/volumes/#rbd) - Rados Block Device (RBD) 卷
+  （于 v1.28 **弃用**）
 
 <!-- 
 Older versions of Kubernetes also supported the following in-tree PersistentVolume types:
@@ -932,7 +934,6 @@ Older versions of Kubernetes also supported the following in-tree PersistentVolu
 * [`storageos`](/docs/concepts/storage/volumes/#storageos) - StorageOS volume
   (**not available** starting v1.25)
 -->
-
 旧版本的 Kubernetes 仍支持这些“树内（In-Tree）”持久卷类型：
 
 * [`awsElasticBlockStore`](/zh-cn/docs/concepts/storage/volumes/#awselasticblockstore) - AWS Elastic Block Store (EBS)
@@ -1179,7 +1180,6 @@ Kubernetes 使用卷访问模式来匹配 PersistentVolumeClaim 和 PersistentVo
 | VsphereVolume        | &#x2713;               | -                     | - (works when Pods are collocated) | - |
 | PortworxVolume       | &#x2713;               | -                     | &#x2713;      | -                  | - |
 -->
-
 | 卷插件               | ReadWriteOnce          | ReadOnlyMany          | ReadWriteMany | ReadWriteOncePod       |
 | :---                 | :---:                  | :---:                 | :---:         | -                      |
 | AzureFile            | &#x2713;               | &#x2713;              | &#x2713;      | -                      |
@@ -1263,15 +1263,25 @@ Not all Persistent Volume types support mount options.
 
 <!--
 The following volume types support mount options:
+
+* `azureFile`
+* `cephfs` (**deprecated** in v1.28)
+* `cinder` (**deprecated** in v1.18)
+* `gcePersistentDisk` (**deprecated** in v1.28)
+* `iscsi`
+* `nfs`
+* `rbd` (**deprecated** in v1.28)
+* `vsphereVolume`
 -->
 以下卷类型支持挂载选项：
 
 * `azureFile`
-* `cephfs`
-* `gcePersistentDisk`
+* `cephfs`（于 v1.28 中**弃用**）
+* `cinder`（于 v1.18 中**弃用**）
+* `gcePersistentDisk`（于 v1.28 中**弃用**）
 * `iscsi`
 * `nfs`
-* `rbd`
+* `rbd`（于 v1.28 中**弃用**）
 * `vsphereVolume`
 
 <!--
@@ -1321,25 +1331,67 @@ API 参考关于该字段的更多细节。
 <!--
 ### Phase
 
-A volume will be in one of the following phases:
+A PersistentVolume will be in one of the following phases:
 
-* Available -- a free resource that is not yet bound to a claim
-* Bound -- the volume is bound to a claim
-* Released -- the claim has been deleted, but the resource is not yet reclaimed by the cluster
-* Failed -- the volume has failed its automatic reclamation
+`Available`
+: a free resource that is not yet bound to a claim
 
-The CLI will show the name of the PVC bound to the PV.
+`Bound`
+: the volume is bound to a claim
+
+`Released`
+: the claim has been deleted, but the associated storage resource is not yet reclaimed by the cluster
+
+`Failed`
+: the volume has failed its (automated) reclamation
 -->
 ### 阶段   {#phase}
 
-每个卷会处于以下阶段（Phase）之一：
+每个持久卷会处于以下阶段（Phase）之一：
 
-* Available（可用）-- 卷是一个空闲资源，尚未绑定到任何申领；
-* Bound（已绑定）-- 该卷已经绑定到某申领；
-* Released（已释放）-- 所绑定的申领已被删除，但是资源尚未被集群回收；
-* Failed（失败）-- 卷的自动回收操作失败。
+`Available`
+: 卷是一个空闲资源，尚未绑定到任何申领
 
-命令行接口能够显示绑定到某 PV 卷的 PVC 对象。
+`Bound`
+: 该卷已经绑定到某申领
+
+`Released`
+: 所绑定的申领已被删除，但是关联存储资源尚未被集群回收
+
+`Failed`
+: 卷的自动回收操作失败
+
+<!--
+You can see the name of the PVC bound to the PV using `kubectl describe persistentvolume <name>`.
+-->
+你可以使用 `kubectl describe persistentvolume <name>` 查看已绑定到 PV 的 PVC 的名称。
+
+<!--
+#### Phase transition timestamp
+-->
+#### 阶段转换时间戳
+
+{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+
+<!--
+The `.status` field for a PersistentVolume can include an alpha `lastPhaseTransitionTime` field. This field records
+the timestamp of when the volume last transitioned its phase. For newly created
+volumes the phase is set to `Pending` and `lastPhaseTransitionTime` is set to
+the current time.
+-->
+持久卷的 `.status` 字段可以包含 Alpha 状态的 `lastPhaseTransitionTime` 字段。
+该字段保存的是卷上次转换阶段的时间戳。
+对于新创建的卷，阶段被设置为 `Pending`，`lastPhaseTransitionTime` 被设置为当前时间。
+
+{{< note >}}
+<!--
+You need to enable the `PersistentVolumeLastPhaseTransitionTime` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+to use or see the `lastPhaseTransitionTime` field.
+-->
+你需要启用 `PersistentVolumeLastPhaseTransitionTime`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)以使用或查看
+`lastPhaseTransitionTime` 字段。
+{{< /note >}}
 
 ## PersistentVolumeClaims
 
@@ -1403,8 +1455,7 @@ applies to both volumes and claims.
 ### 资源    {#resources}
 
 申领和 Pod 一样，也可以请求特定数量的资源。在这个上下文中，请求的资源是存储。
-卷和申领都使用相同的
-[资源模型](https://git.k8s.io/design-proposals-archive/scheduling/resources.md)。
+卷和申领都使用相同的[资源模型](https://git.k8s.io/design-proposals-archive/scheduling/resources.md)。
 
 <!--
 ### Selector
@@ -1475,9 +1526,9 @@ PV 卷（未设置注解或者注解值为 `""` 的 PersistentVolume（PV）对�
   PVs of that default. Specifying a default StorageClass is done by setting the
   annotation `storageclass.kubernetes.io/is-default-class` equal to `true` in
   a StorageClass object. If the administrator does not specify a default, the
-  cluster responds to PVC creation as if the admission plugin were turned off. If
-  more than one default is specified, the admission plugin forbids the creation of
-  all PVCs.
+  cluster responds to PVC creation as if the admission plugin were turned off. If more than one
+  default StorageClass is specified, the newest default is used when the
+  PVC is dynamically provisioned.
 * If the admission plugin is turned off, there is no notion of a default
   StorageClass. All PVCs that have `storageClassName` set to `""` can be
   bound only to PVs that have `storageClassName` also set to `""`.
@@ -1490,7 +1541,7 @@ PV 卷（未设置注解或者注解值为 `""` 的 PersistentVolume（PV）对�
   设置默认 StorageClass 的工作是通过将对应 StorageClass 对象的注解
   `storageclass.kubernetes.io/is-default-class` 赋值为 `true` 来完成的。
   如果管理员未设置默认存储类，集群对 PVC 创建的处理方式与未启用准入控制器插件时相同。
-  如果设定的默认存储类不止一个，准入控制插件会禁止所有创建 PVC 操作。
+  如果设定的默认存储类不止一个，当 PVC 被动态制备时将使用最新的默认存储类。
 * 如果准入控制器插件被关闭，则不存在默认 StorageClass 的说法。
   所有将 `storageClassName` 设为 `""` 的 PVC 只能被绑定到也将 `storageClassName` 设为 `""` 的 PV。
   不过，只要默认的 StorageClass 可用，就可以稍后更新缺少 `storageClassName` 的 PVC。
@@ -1536,7 +1587,7 @@ it won't be supported in a future Kubernetes release.
 -->
 #### 可追溯的默认 StorageClass 赋值 {#retroactive-default-storageclass-assignment}
 
-{{< feature-state for_k8s_version="v1.26" state="beta" >}}
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 <!--
 You can create a PersistentVolumeClaim without specifying a `storageClassName`
@@ -1654,18 +1705,22 @@ applicable:
 <!--
 * CSI
 * FC (Fibre Channel)
-* GCEPersistentDisk
+* GCEPersistentDisk (deprecated)
 * iSCSI
 * Local volume
-* RBD (Ceph Block Device)
+* OpenStack Cinder
+* RBD (deprecated)
+* RBD (Ceph Block Device; deprecated)
 * VsphereVolume
 -->
 * CSI
 * FC（光纤通道）
-* GCEPersistentDisk
+* GCEPersistentDisk（已弃用）
 * iSCSI
 * Local 卷
-* RBD（Ceph 块设备）
+* OpenStack Cinder
+* RBD（已弃用）
+* RBD（Ceph 块设备，已弃用）
 * VsphereVolume
 
 <!--
