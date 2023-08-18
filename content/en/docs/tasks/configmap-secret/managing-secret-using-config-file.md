@@ -109,6 +109,10 @@ stringData:
     password: <password>
 ```
 
+{{< note >}}
+`stringData` for a Secret does not work well with server-side apply
+{{< /note >}}
+
 When you retrieve the Secret data, the command returns the encoded values,
 and not the plaintext values you provided in `stringData`.
 
@@ -151,6 +155,10 @@ data:
 stringData:
   username: administrator
 ```
+
+{{< note >}}
+`stringData` for a Secret does not work well with server-side apply
+{{< /note >}}
 
 The `Secret` object is created as follows:
 
