@@ -26,19 +26,37 @@ Much like a garden, our release has ever-changing growth, challenges and opportu
 # What's New (Major Themes)
 
 ## Changes to supported skew between control plane and node versions
-This enables testing and expanding the supported skew between core node and control plane components by one version from n-2 to n-3, so that node components (kubelet and kube-proxy) for the oldest supported minor version work with control plane components (kube-apiserver, kube-scheduler, kube-controller-manager, cloud-controller-manager) for the newest supported minor version.
 
-This is valuable for end users as control plane upgrade will be a little faster than node upgrade, which are almost always going to be the longer with running workloads.
+Kubernetes v1.28 expands the supported skew between core node and control plane
+components by one minor version, from _n-2_ to _n-3_, so that node components
+(kubelet and kube-proxy) for the oldest supported minor version work with
+control plane components (kube-apiserver, kube-scheduler, kube-controller-manager,
+cloud-controller-manager) for the newest supported minor version.
 
-The Kubernetes yearly support period already makes annual upgrades possible. Users can upgrade to the latest patch versions to pick up security fixes and do 3 sequential minor version upgrades once a year to "catch up" to the latest supported minor version.
+Some cluster operators avoid node maintenance and especially changes to node
+behavior, because nodes are where the workloads run. For minor version upgrades
+to a kubelet, the supported process includes draining that node, and hence
+disruption to any Pods that had been executing there. For Kubernetes end users
+with very long running workloads, and where Pods should stay running wherever
+possible, reducing the time lost to node maintenance is a benefit.
 
-However, since the tested/supported skew between nodes and control planes is currently limited to 2 versions, a 3-version upgrade would have to update nodes twice to stay within the supported skew.
+The Kubernetes yearly support period already made annual upgrades possible. Users can
+upgrade to the latest patch versions to pick up security fixes and do 3 sequential
+minor version upgrades once a year to "catch up" to the latest supported minor version.
+
+Previously, to stay within the supported skew, a cluster operator planning an annual
+upgrade would have needed to upgrade their nodes twice (perhaps only hours apart). Now,
+with Kubernetes v1.28, you have the option of making a minor version upgrade to
+nodes just once in each calendar year and still staying within upstream support.
+
+If you'd like to stay current and upgrade your clusters more often, that's
+fine and is still completely supported.
 
 ## Generally available: recovery from non-graceful node shutdown
     
-If a node shuts down down unexpectedly or ends up in a non-recoverable state (perhaps due to hardware failure or unresponsive OS), Kubernetes allows you to clean up afterwards and allow stateful workloads to restart on a different node. For Kubernetes v1.28, that's now a stable feature.
+If a node shuts down unexpectedly or ends up in a non-recoverable state (perhaps due to hardware failure or unresponsive OS), Kubernetes allows you to clean up afterward and allow stateful workloads to restart on a different node. For Kubernetes v1.28, that's now a stable feature.
 
-This allows stateful workloads to failover to a different node successfully after the original node is shut down or in a non-recoverable state, such as the hardware failure or broken OS.
+This allows stateful workloads to fail over to a different node successfully after the original node is shut down or in a non-recoverable state, such as the hardware failure or broken OS.
     
 Versions of Kubernetes earlier than v1.20 lacked handling for node shutdown on Linux, the kubelet integrates with systemd
 and implements graceful node shutdown (beta, and enabled by default). However, even an intentional
@@ -136,21 +154,23 @@ CDI provides a standardized way of injecting complex devices into a container (i
 ## API awareness of sidecar containers (alpha) {#sidecar-init-containers}
 
 Kubernetes 1.28 introduces an alpha `restartPolicy` field for [init containers](https://github.com/kubernetes/website/blob/main/content/en/docs/concepts/workloads/pods/init-containers.md),
-and uses that to indicate when an init container is also a _sidecar container_. The will start init containers with `restartPolicy: Always` in the order they are defined, along with other init containers. Instead of waiting for that sidecar container to complete before starting the main container(s) for the Pod, the kubelet only waits for
-the sidecar init container to have started.
+and uses that to indicate when an init container is also a _sidecar container_.
+The kubelet will start init containers with `restartPolicy: Always` in the order
+they are defined, along with other init containers.
+Instead of waiting for that sidecar container to complete before starting the main
+container(s) for the Pod, the kubelet only waits for the sidecar init container to have started.
 
-The condition for startup completion will be that the startup probe succeeded (or if no startup probe is defined) and postStart handler is completed. This condition is represented with the field Started of ContainerStatus type. See the section "Pod startup completed condition" for considerations on picking this signal.
+The kubelet will consider the startup for the sidecar container as being completed
+if the startup probe succeeds and the postStart handler is completed.
+This condition is represented with the field Started of ContainerStatus type.
+If you do not define a startup probe, the kubelet will consider the container
+startup to be completed immediately after the postStart handler completion.
 
 For init containers, you can either omit the `restartPolicy` field, or set it to `Always`. Omitting the field
 means that you want a true init container that runs to completion before application startup.
 
 Sidecar containers do not block Pod completion: if all regular containers are complete, sidecar
 containers in that Pod will be terminated.
-
-For sidecar containers, the restart behavior is more complex than for init containers. In a Pod with
-`restartPolicy` set to `Never`, a sidecar container that fails during Pod startup will **not** be restarted
-and the whole Pod is treated as having failed. If the Pod's `restartPolicy` is `Always` or `OnFailure`,
-a sidecar that fails to start will be retried.
 
 Once the sidecar container has started (process running, `postStart` was successful, and
 any configured startup probe is passing), and then there's a failure, that sidecar container will be
@@ -165,7 +185,7 @@ To learn more, read [API for sidecar containers](/docs/concepts/workloads/pods/i
 Kubernetes automatically sets a `storageClassName` for a PersistentVolumeClaim (PVC) if you don't provide
 a value. The control plane also sets a StorageClass for any existing PVC that doesn't have a `storageClassName`
 defined.
-Previous versions of Kubernetes also had this behavior; for Kubernetes v1.28 is is automatic and always
+Previous versions of Kubernetes also had this behavior; for Kubernetes v1.28 it is automatic and always
 active; the feature has graduated to stable (general availability).
 
 To learn more, read about [StorageClass](/docs/concepts/storage/storage-classes/) in the Kubernetes 

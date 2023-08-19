@@ -81,6 +81,10 @@ In the following table:
 | `CSIMigrationAzureDiskComplete` | - | Deprecated | 1.21 | 1.21 |
 | `CSIMigrationAzureFileComplete` | `false` | Alpha | 1.17 | 1.20 |
 | `CSIMigrationAzureFileComplete` | - | Deprecated |  1.21 | 1.21 |
+| `CSIMigrationGCE` | `false` | Alpha | 1.14 | 1.16 |
+| `CSIMigrationGCE` | `false` | Beta | 1.17 | 1.22 |
+| `CSIMigrationGCE` | `true` | Beta | 1.23 | 1.24 |
+| `CSIMigrationGCE` | `true` | GA | 1.25 | 1.27 |
 | `CSIMigrationGCEComplete` | `false` | Alpha | 1.17 | 1.20 |
 | `CSIMigrationGCEComplete` | - | Deprecated | 1.21 | 1.21 |
 | `CSIMigrationOpenStack` | `false` | Alpha | 1.14 | 1.17 |
@@ -99,6 +103,9 @@ In the following table:
 | `CSIServiceAccountToken` | `false` | Alpha | 1.20 | 1.20 |
 | `CSIServiceAccountToken` | `true` | Beta | 1.21 | 1.21 |
 | `CSIServiceAccountToken` | `true` | GA | 1.22 | 1.24 |
+| `CSIStorageCapacity` | `false` | Alpha | 1.19 | 1.20 |
+| `CSIStorageCapacity` | `true` | Beta | 1.21 | 1.23 |
+| `CSIStorageCapacity` | `true` | GA | 1.24 | 1.27 |
 | `CSIVolumeFSGroupPolicy` | `false` | Alpha | 1.19 | 1.19 |
 | `CSIVolumeFSGroupPolicy` | `true` | Beta | 1.20 | 1.22 |
 | `CSIVolumeFSGroupPolicy` | `true` | GA | 1.23 | 1.25 |
@@ -143,6 +150,12 @@ In the following table:
 | `DevicePlugins` | `false` | Alpha | 1.8 | 1.9 |
 | `DevicePlugins` | `true` | Beta | 1.10 | 1.25 |
 | `DevicePlugins` | `true` | GA | 1.26 | 1.27 |
+| `DisableAcceleratorUsageMetrics` | `false` | Alpha | 1.19 | 1.19 |
+| `DisableAcceleratorUsageMetrics` | `true` | Beta | 1.20 | 1.24 |
+| `DisableAcceleratorUsageMetrics` | `true` | GA | 1.25 | 1.27 |
+| `DryRun` | `false` | Alpha | 1.12 | 1.12 |
+| `DryRun` | `true` | Beta | 1.13 | 1.18 |
+| `DryRun` | `true` | GA | 1.19 | 1.27 |
 | `DynamicAuditing` | `false` | Alpha | 1.13 | 1.18 |
 | `DynamicAuditing` | - | Deprecated | 1.19 | 1.19 |
 | `DynamicKubeletConfig` | `false` | Alpha | 1.4 | 1.10 |
@@ -164,6 +177,9 @@ In the following table:
 | `EndpointSliceProxying` | `false` | Alpha | 1.18 | 1.18 |
 | `EndpointSliceProxying` | `true` | Beta | 1.19 | 1.21 |
 | `EndpointSliceProxying` | `true` | GA | 1.22 | 1.24 |
+| `EndpointSliceTerminatingCondition` | `false` | Alpha | 1.20 | 1.21 |
+| `EndpointSliceTerminatingCondition` | `true` | Beta | 1.22 | 1.25 |
+| `EndpointSliceTerminatingCondition` | `true` | GA | 1.26 | 1.27 |
 | `EphemeralContainers` | `false` | Alpha | 1.16 | 1.22 |
 | `EphemeralContainers` | `true` | Beta | 1.23 | 1.24 |
 | `EphemeralContainers` | `true` | GA | 1.25 | 1.26 |
@@ -212,8 +228,12 @@ In the following table:
 | `IngressClassNamespacedParams` | `true` | GA | 1.23 | 1.24 |
 | `Initializers` | `false` | Alpha | 1.7 | 1.13 |
 | `Initializers` | - | Deprecated | 1.14 | 1.14 |
+| `KMSv1` | `true` | Deprecated | 1.28 | |
 | `KubeletConfigFile` | `false` | Alpha | 1.8 | 1.9 |
 | `KubeletConfigFile` | - | Deprecated | 1.10 | 1.10 |
+| `KubeletCredentialProviders` | `false` | Alpha | 1.20 | 1.23 |
+| `KubeletCredentialProviders` | `true` | Beta | 1.24 | 1.25 |
+| `KubeletCredentialProviders` | `true` | GA | 1.26 | 1.28 |
 | `KubeletPluginsWatcher` | `false` | Alpha | 1.11 | 1.11 |
 | `KubeletPluginsWatcher` | `true` | Beta | 1.12 | 1.12 |
 | `KubeletPluginsWatcher` | `true` | GA | 1.13 | 1.16 |
@@ -223,6 +243,9 @@ In the following table:
 | `LocalStorageCapacityIsolation` | `false` | Alpha | 1.7 | 1.9 |
 | `LocalStorageCapacityIsolation` | `true` | Beta | 1.10 | 1.24 |
 | `LocalStorageCapacityIsolation` | `true` | GA | 1.25 | 1.26 |
+| `MixedProtocolLBService` | `false` | Alpha | 1.20 | 1.23 |
+| `MixedProtocolLBService` | `true` | Beta | 1.24 | 1.25 |
+| `MixedProtocolLBService` | `true` | GA | 1.26 | 1.27 |
 | `MountContainers` | `false` | Alpha | 1.9 | 1.16 |
 | `MountContainers` | `false` | Deprecated | 1.17 | 1.17 |
 | `MountPropagation` | `false` | Alpha | 1.8 | 1.9 |
@@ -233,6 +256,7 @@ In the following table:
 | `NetworkPolicyEndPort` | `false` | Alpha | 1.21 | 1.21 |
 | `NetworkPolicyEndPort` | `true` | Beta | 1.22 | 1.24 |
 | `NetworkPolicyEndPort` | `true` | GA | 1.25 | 1.26 |
+| `NetworkPolicyStatus` | `false` | Alpha | 1.24 | 1.27 |
 | `NodeDisruptionExclusion` | `false` | Alpha | 1.16 | 1.18 |
 | `NodeDisruptionExclusion` | `true` | Beta | 1.19 | 1.20 |
 | `NodeDisruptionExclusion` | `true` | GA | 1.21 | 1.22 |
@@ -263,6 +287,9 @@ In the following table:
 | `PodReadinessGates` | `false` | Alpha | 1.11 | 1.11 |
 | `PodReadinessGates` | `true` | Beta | 1.12 | 1.13 |
 | `PodReadinessGates` | `true` | GA | 1.14 | 1.16 |
+| `PodSecurity` | `false` | Alpha | 1.22 | 1.22 |
+| `PodSecurity` | `true` | Beta | 1.23 | 1.24 |
+| `PodSecurity` | `true` | GA | 1.25 | 1.27 |
 | `PodShareProcessNamespace` | `false` | Alpha | 1.10 | 1.11 |
 | `PodShareProcessNamespace` | `true` | Beta | 1.12 | 1.16 |
 | `PodShareProcessNamespace` | `true` | GA | 1.17 | 1.19 |
@@ -301,6 +328,12 @@ In the following table:
 | `ServiceAppProtocol` | `false` | Alpha | 1.18 | 1.18 |
 | `ServiceAppProtocol` | `true` | Beta | 1.19 | 1.19 |
 | `ServiceAppProtocol` | `true` | GA | 1.20 | 1.22 |
+| `ServiceIPStaticSubrange` | `false` | Alpha | 1.24 | 1.24 |
+| `ServiceIPStaticSubrange` | `true` | Beta | 1.25 | 1.25 |
+| `ServiceIPStaticSubrange` | `true` | GA | 1.26 | 1.27 |
+| `ServiceInternalTrafficPolicy` | `false` | Alpha | 1.21 | 1.21 |
+| `ServiceInternalTrafficPolicy` | `true` | Beta | 1.22 | 1.25 |
+| `ServiceInternalTrafficPolicy` | `true` | GA | 1.26 | 1.27 |
 | `ServiceLBNodePortControl` | `false` | Alpha | 1.20 | 1.21 |
 | `ServiceLBNodePortControl` | `true` | Beta | 1.22 | 1.23 |
 | `ServiceLBNodePortControl` | `true` | GA | 1.24 | 1.25 |
@@ -360,6 +393,7 @@ In the following table:
 | `TokenRequestProjection` | `false` | Alpha | 1.11 | 1.11 |
 | `TokenRequestProjection` | `true` | Beta | 1.12 | 1.19 |
 | `TokenRequestProjection` | `true` | GA | 1.20 | 1.21 |
+| `UserNamespacesStatelessPodsSupport` | `false` | Alpha | 1.25 | 1.27 |
 | `ValidateProxyRedirects` | `false` | Alpha | 1.12 | 1.13 |
 | `ValidateProxyRedirects` | `true` | Beta | 1.14 | 1.21 |
 | `ValidateProxyRedirects` | `true` | Deprecated | 1.22 | 1.24 |
@@ -384,6 +418,9 @@ In the following table:
 | `WindowsGMSA` | `false` | Alpha | 1.14 | 1.15 |
 | `WindowsGMSA` | `true` | Beta | 1.16 | 1.17 |
 | `WindowsGMSA` | `true` | GA | 1.18 | 1.20 |
+| `WindowsHostProcessContainers` | `false` | Alpha | 1.22 | 1.22 |
+| `WindowsHostProcessContainers` | `true` | Beta | 1.23 | 1.25 |
+| `WindowsHostProcessContainers` | `true` | GA | 1.26 | 1.27 |
 | `WindowsRunAsUserName` | `false` | Alpha | 1.16 | 1.16 |
 | `WindowsRunAsUserName` | `true` | Beta | 1.17 | 1.17 |
 | `WindowsRunAsUserName` | `true` | GA | 1.18 | 1.20 |
@@ -487,6 +524,14 @@ In the following table:
   `InTreePluginAzureFileUnregister` feature flag which prevents the registration
    of in-tree AzureFile plugin.
 
+- `CSIMigrationGCE`: Enables shims and translation logic to route volume
+  operations from the GCE-PD in-tree plugin to PD CSI plugin. Supports falling
+  back to in-tree GCE plugin for mount operations to nodes that have the
+  feature disabled or that do not have PD CSI plugin installed and configured.
+  Does not support falling back for provision operations, for those the CSI
+  plugin must be installed and configured. Requires CSIMigration feature flag
+  enabled.
+
 - `CSIMigrationGCEComplete`: Stops registering the GCE-PD in-tree plugin in
   kubelet and volume controllers and enables shims and translation logic to
   route volume operations from the GCE-PD in-tree plugin to PD CSI plugin.
@@ -528,6 +573,11 @@ In the following table:
 - `CSIServiceAccountToken`: Enable CSI drivers to receive the pods' service account token
   that they mount volumes for. See
   [Token Requests](https://kubernetes-csi.github.io/docs/token-requests.html).
+
+- `CSIStorageCapacity`: Enables CSI drivers to publish storage capacity information
+  and the Kubernetes scheduler to use that information when scheduling pods. See
+  [Storage Capacity](/docs/concepts/storage/storage-capacity/).
+  Check the [`csi` volume type](/docs/concepts/storage/volumes/#csi) documentation for more details.
 
 - `CSIVolumeFSGroupPolicy`: Allows CSIDrivers to use the `fsGroupPolicy` field.
   This field controls whether volumes created by a CSIDriver support volume ownership
@@ -583,6 +633,12 @@ In the following table:
 - `DevicePlugins`: Enable the [device-plugins](/docs/concepts/extend-kubernetes/compute-storage-net/device-plugins/)
   based resource provisioning on nodes.
 
+- `DisableAcceleratorUsageMetrics`:
+  [Disable accelerator metrics collected by the kubelet](/docs/concepts/cluster-administration/system-metrics/#disable-accelerator-metrics).
+
+- `DryRun`: Enable server-side [dry run](/docs/reference/using-api/api-concepts/#dry-run) requests
+  so that validation, merging, and mutation can be tested without committing.
+
 - `DynamicAuditing`: Used to enable dynamic auditing before v1.19.
 
 - `DynamicKubeletConfig`: Enable the dynamic configuration of kubelet. The
@@ -611,6 +667,9 @@ In the following table:
    on Linux will use EndpointSlices as the primary data source instead of
    Endpoints, enabling scalability and performance improvements. See
    [Enabling Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/).
+
+- `EndpointSliceTerminatingCondition`: Enables EndpointSlice `terminating` and `serving`
+   condition fields.
 
 - `EphemeralContainers`: Enable the ability to add
   {{< glossary_tooltip text="ephemeral containers" term_id="ephemeral-container" >}}
@@ -677,6 +736,9 @@ In the following table:
   See [setting kubelet parameters via a config file](/docs/tasks/administer-cluster/kubelet-config-file/)
   for more details.
 
+- `KubeletCredentialProviders`: Enable kubelet exec credential providers for
+  image pull credentials.
+
 - `KubeletPluginsWatcher`: Enable probe-based plugin watcher utility to enable kubelet
   to discover plugins such as [CSI volume drivers](/docs/concepts/storage/volumes/#csi).
 
@@ -689,6 +751,9 @@ In the following table:
   and also the `sizeLimit` property of an
   [emptyDir volume](/docs/concepts/storage/volumes/#emptydir).
 
+- `MixedProtocolLBService`: Enable using different protocols in the same `LoadBalancer` type
+  Service instance.
+
 - `MountContainers`: Enable using utility containers on host as the volume mounter.
 
 - `MountPropagation`: Enable sharing volume mounted by one container to other containers or pods.
@@ -697,6 +762,8 @@ In the following table:
 - `NamespaceDefaultLabelName`: Configure the API Server to set an immutable
   {{< glossary_tooltip text="label" term_id="label" >}} `kubernetes.io/metadata.name`
   on all namespaces, containing the namespace name.
+
+- `NetworkPolicyStatus`: Enable the `status` subresource for NetworkPolicy objects.
 
 - `NodeDisruptionExclusion`: Enable use of the Node label `node.kubernetes.io/exclude-disruption`
   which prevents nodes from being evacuated during zone failures.
@@ -718,8 +785,9 @@ In the following table:
 
 - `PodDisruptionBudget`: Enable the [PodDisruptionBudget](/docs/tasks/run-application/configure-pdb/) feature.
 
-- `PodHasNetwork`: Enable the kubelet to mark the [PodHasNetwork](/docs/concepts/workloads/pods/pod-lifecycle/#pod-has-network)
+- `PodHasNetworkCondition`: Enable the kubelet to mark the [PodHasNetwork](/docs/concepts/workloads/pods/pod-lifecycle/#pod-has-network)
   condition on pods. This was renamed to `PodReadyToStartContainersCondition` in 1.28.
+
 - `PodOverhead`: Enable the [PodOverhead](/docs/concepts/scheduling-eviction/pod-overhead/)
   feature to account for pod overheads.
 
@@ -729,6 +797,8 @@ In the following table:
 - `PodReadinessGates`: Enable the setting of `PodReadinessGate` field for extending
   Pod readiness evaluation. See [Pod readiness gate](/docs/concepts/workloads/pods/pod-lifecycle/#pod-readiness-gate)
   for more details.
+
+- `PodSecurity`: Enables the `PodSecurity` admission plugin.
 
 - `PodShareProcessNamespace`: Enable the setting of `shareProcessNamespace` in a Pod for sharing
   a single process namespace between containers running in a pod.  More details can be found in
@@ -779,6 +849,15 @@ In the following table:
   for more details.
 
 - `ServiceAppProtocol`: Enables the `appProtocol` field on Services and Endpoints.
+
+- `ServiceIPStaticSubrange`: Enables a strategy for Services ClusterIP allocations, whereby the
+  ClusterIP range is subdivided. Dynamic allocated ClusterIP addresses will be allocated preferently
+  from the upper range allowing users to assign static ClusterIPs from the lower range with a low
+  risk of collision. See
+  [Avoiding collisions](/docs/reference/networking/virtual-ips/#avoiding-collisions)
+  for more details.
+
+- `ServiceInternalTrafficPolicy`: Enables the `internalTrafficPolicy` field on Services.
 
 - `ServiceLoadBalancerClass`: Enables the `loadBalancerClass` field on Services. See
   [Specifying class of load balancer implementation](/docs/concepts/services-networking/service/#load-balancer-class)
@@ -841,6 +920,8 @@ In the following table:
 - `TokenRequestProjection`: Enable the injection of service account tokens into a Pod through a
   [`projected` volume](/docs/concepts/storage/volumes/#projected).
 
+- `UserNamespacesStatelessPodsSupport`: Enable user namespace support for stateless Pods. This flag was renamed on newer releases to `UserNamespacesSupport`.
+
 - `ValidateProxyRedirects`: This flag controls whether the API server should validate that redirects
   are only followed to the same host. Only used if the `StreamingProxyRedirects` flag is enabled.
 
@@ -866,6 +947,8 @@ In the following table:
   [Enabling Endpoint Slices](/docs/concepts/services-networking/endpoint-slices/).
 
 - `WindowsGMSA`: Enables passing of GMSA credential specs from pods to container runtimes.
+
+- `WindowsHostProcessContainers`: Enables support for Windows HostProcess containers.
 
 - `WindowsRunAsUserName` : Enable support for running applications in Windows containers with as a
   non-default user. See [Configuring RunAsUserName](/docs/tasks/configure-pod-container/configure-runasusername)

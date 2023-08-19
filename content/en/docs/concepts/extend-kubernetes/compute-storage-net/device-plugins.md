@@ -151,7 +151,7 @@ The general workflow of a device plugin includes the following steps:
    device plugin defines modifications that must be made to a container's definition to provide
    access to the device. These modifications include:
 
-   * annotations
+   * [Annotations](/docs/concepts/overview/working-with-objects/annotations/)
    * device nodes
    * environment variables
    * mounts
@@ -159,7 +159,8 @@ The general workflow of a device plugin includes the following steps:
 
    {{< note >}}
    The processing of the fully-qualified CDI device names by the Device Manager requires
-   the `DevicePluginCDIDevices` feature gate to be enabled. This was added as an alpha feature in
+   that the `DevicePluginCDIDevices` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+   is enabled for the kubelet and the kube-apiserver. This was added as an alpha feature in Kubernetes
    v1.28.
    {{< /note >}}
 

@@ -87,7 +87,6 @@ operator to use or manage a cluster.
 * [kubelet credential providers (v1alpha1)](/docs/reference/config-api/kubelet-credentialprovider.v1alpha1/),
   [kubelet credential providers (v1beta1)](/docs/reference/config-api/kubelet-credentialprovider.v1beta1/) and
   [kubelet credential providers (v1)](/docs/reference/config-api/kubelet-credentialprovider.v1/)
-* [kube-scheduler configuration (v1beta2)](/docs/reference/config-api/kube-scheduler-config.v1beta2/),
   [kube-scheduler configuration (v1beta3)](/docs/reference/config-api/kube-scheduler-config.v1beta3/) and
   [kube-scheduler configuration (v1)](/docs/reference/config-api/kube-scheduler-config.v1/)
 * [kube-controller-manager configuration (v1alpha1)](/docs/reference/config-api/kube-controller-manager-config.v1alpha1/)
@@ -101,6 +100,7 @@ operator to use or manage a cluster.
 ## Config API for kubeadm
 
 * [v1beta3](/docs/reference/config-api/kubeadm-config.v1beta3/)
+* [v1beta4](/docs/reference/config-api/kubeadm-config.v1beta4/)
 
 ## Design Docs
 
