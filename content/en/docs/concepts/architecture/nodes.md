@@ -163,10 +163,10 @@ that should run on the Node even if it is being drained of workload applications
 
 A Node's status contains the following information:
 
-* [Addresses](/docs/concepts/node/node-status/#addresses)
-* [Conditions](/docs/concepts/node/node-status/#condition)
-* [Capacity and Allocatable](/docs/concepts/node/node-status/#capacity)
-* [Info](/docs/concepts/node/node-status/#info)
+* [Addresses](https://kubernetes.io/docs/reference/node/node-status/#addresses)
+* [Conditions](https://kubernetes.io/docs/reference/node/node-status/#condition)
+* [Capacity and Allocatable](https://kubernetes.io/docs/reference/node/node-status/#capacity)
+* [Info](https://kubernetes.io/docs/reference/node/node-status/#info)
 
 You can use `kubectl` to view a Node's status and other details:
 
@@ -174,7 +174,7 @@ You can use `kubectl` to view a Node's status and other details:
 kubectl describe node <insert-node-name-here>
 ```
 
-See [Node Status](/docs/concepts/node/node-status) for more details
+See [Node Status](https://kubernetes.io/docs/reference/node/node-status/) for more details
 
 ## Node heartbeats
 
@@ -183,7 +183,7 @@ availability of each node, and to take action when failures are detected.
 
 For nodes there are two forms of heartbeats:
 
-* Updates to the [`.status`](/docs/concepts/node/node-status/) of a Node
+* Updates to the [`.status`](https://kubernetes.io/docs/reference/node/node-status/) of a Node
 * [Lease](/docs/concepts/architecture/leases/) objects
   within the `kube-node-lease`
   {{< glossary_tooltip term_id="namespace" text="namespace">}}.
