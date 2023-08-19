@@ -292,7 +292,7 @@ In the v1.28 release cycle, which [ran for 14 weeks](https://github.com/kubernet
 
 ## Upcoming Release Webinar
 
-Join members of the Kubernetes v1.28 release team on Friday, September 14, 2023, at 10 A.M. PDT to learn about the major features of this release, as well as deprecations and removals to help plan for upgrades. For more information and registration, visit the [event page](https://community.cncf.io/events/) on the CNCF Online Programs site.
+Join members of the Kubernetes v1.28 release team on Wednesday, September 6th, 2023, at 9 A.M. PDT to learn about the major features of this release, as well as deprecations and removals to help plan for upgrades. For more information and registration, visit the [event page](https://community.cncf.io/events/details/cncf-cncf-online-programs-presents-cncf-live-webinar-kubernetes-128-release/) on the CNCF Online Programs site.
 
 ## Get Involved
 
