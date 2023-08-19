@@ -146,11 +146,11 @@ Refer to [Logging Architecture](/docs/concepts/cluster-administration/logging/) 
 
 ## Object Count Quota
 
-You can set quota for the total number of certain resources of all standard,
-namespaced resource types using the following syntax:
+You can set quotas for the total number of certain resources using the count/* syntax. 
+This syntax applies to various standard, namespaced resource types:
 
-* `count/<resource>.<group>` for resources from non-core groups
-* `count/<resource>` for resources from the core group
+* `count/<resource>.<group>` syntax is used for resources from non-core groups.
+* `count/<resource>` syntax is used for resources from the core group.
 
 Here is an example set of resources users may want to put under object count quota:
 
