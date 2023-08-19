@@ -97,7 +97,7 @@ to users in a secure manner can be challenging.
 When using TokenRequest tokens for service authentication, it is recommended to implement a short 
 lifespan to reduce the impact of compromised tokens.
 
-## OpenID connect token authentication {#openid-connect-token-authentication}
+## OpenID Connect token authentication {#openid-connect-token-authentication}
 
 Kubernetes supports integrating external authentication services with the Kubernetes API using 
 [OpenID Connect (OIDC)](/docs/reference/access-authn-authz/authentication/#openid-connect-tokens). 
