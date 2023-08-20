@@ -46,10 +46,10 @@ also follow the other guidelines in
   more complex access control, such as restricting access to Secrets with
   specific annotations, consider using third-party authorization mechanisms.
 
-{{<caution>}}
+{{< caution >}}
 Granting `list` access to Secrets implicitly lets the subject fetch the
 contents of the Secrets.
-{{</caution>}}
+{{< /caution >}}
 
 A user who can create a Pod that uses a Secret can also see the value of that
 Secret. Even if cluster policies do not allow a user to read the Secret
@@ -110,7 +110,7 @@ If you configure a Secret through a
 data encoded as base64, sharing this file or checking it in to a source
 repository means the secret is available to everyone who can read the manifest.
 
-{{<caution>}}
-Base64 encoding is _not_ an encryption method, it provides no additional
+{{< caution >}}
+Base64 encoding is _not_ an encryption method, it provides no additiona
 confidentiality over plain text.
-{{</caution>}}
+{{< /caution >}}
