@@ -184,7 +184,7 @@ availability of each node, and to take action when failures are detected.
 
 For nodes there are two forms of heartbeats:
 
-* Updates to the [`.status`](/docs/reference/node/node-status/) of a Node,
+* Updates to the [`.status`](/docs/reference/node/node-status/) of a Node.
 * [Lease](/docs/concepts/architecture/leases/) objects
   within the `kube-node-lease`
   {{< glossary_tooltip term_id="namespace" text="namespace">}}.
