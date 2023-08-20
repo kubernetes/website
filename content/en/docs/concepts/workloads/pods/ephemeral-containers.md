@@ -83,8 +83,8 @@ are always nice but it often comes at the cost of usability.
 
 Kubernetes has introduced a  concept called ephemeral containers to deal
 with this problem. Ephemeral containers are temporary containers that can be
-attached after a Pod has been created. you can now attach a temporary
-container with all the tools which we desire. While the applications container 
+attached after a Pod has been created. You can attach one or more temporary
+container with all the tools you need. While the applications container 
 may have "annoying security features" like a read only file system the ephemeral 
 container can enjoy all the freedom which writing files entails.
 
