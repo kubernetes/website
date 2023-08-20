@@ -114,7 +114,10 @@ spec:
     tty: true
 ```
                             
-In the latest Pod definition, a field called `ephemeralContainers` has been introduced. Similar to `initContainers` and `containers`, this field contains a list of containers. However, it is important to note that `ephemeralContainers` has certain options not available in the other fields. For more details, please refer to the API documentation.
+The `ephemeralContainers` field is imilar to `initContainers` and `containers` in that
+it contains a list of containers. However, the `ephemeralContainers` field has certain
+options not available in the other fields. For more details, please refer to the API
+documentation.
 
 One notable feature of `ephemeralContainers` is its ability to configure the container security context. This means that in theory, a malicious actor could potentially escalate the container's privileges. However, the impact of this depends on the policy enforcement tool being used. If you are using a robust policy enforcement tool, it should be able to mitigate such risks.
 
