@@ -5,7 +5,9 @@ weight: 80
 ---
 <!-- overview -->
 
-The status of a [node](/docs/concepts/architecture/nodes/)  in Kubernetes a critical aspect of managing a Kubernetes cluster. In this article, we'll cover the basics of monitoring and maintaining node status to ensure a healthy and stable cluster
+The status of a [node](/docs/concepts/architecture/nodes/) in Kubernetes is a critical
+aspect of managing a Kubernetes cluster. In this article, we'll cover the basics of
+monitoring and maintaining node status to ensure a healthy and stable cluster.
 
 ## Node status fields
 
@@ -33,7 +35,6 @@ The usage of these fields varies depending on your cloud provider or bare metal 
 * ExternalIP: Typically the IP address of the node that is externally routable (available from
   outside the cluster).
 * InternalIP: Typically the IP address of the node that is routable only within the cluster.
-
 
 ## Conditions {#condition}
 
