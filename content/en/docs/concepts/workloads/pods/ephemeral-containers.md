@@ -119,7 +119,9 @@ it contains a list of containers. However, the `ephemeralContainers` field has c
 options not available in the other fields. For more details, please refer to the API
 documentation.
 
-One notable feature of `ephemeralContainers` is its ability to configure the container security context. This means that in theory, a malicious actor could potentially escalate the container's privileges. However, the impact of this depends on the policy enforcement tool being used. If you are using a robust policy enforcement tool, it should be able to mitigate such risks.
+One notable feature of `ephemeralContainers` is its ability to configure the security context.
+In theory, a malicious actor could escalate the container's privileges. This risk can
+be effectively mitigated by a robust policy enforcement tool.
 
 The answer to whether it affects users of policy enforcement tools varies. It depends on the specific tool and its version, as well as whether you are using policies from the project's library or custom policies developed in-house. To ensure security, it is advisable to review the policies and keep the policy enforcement tool up-to-date with the latest security measures.
 
