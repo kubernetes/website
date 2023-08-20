@@ -85,7 +85,7 @@ Kubernetes has introduced a  concept called ephemeral containers to deal
 with this problem. Ephemeral containers are temporary containers that can be
 attached after a Pod has been created. You can attach one or more temporary
 container with all the tools you need. While the applications container 
-may have "annoying security features" like a read only file system the ephemeral 
+may have "annoying security features" like a read only file system, an ephemeral 
 container can enjoy all the freedom which writing files entails.
 
 Now that you have the  feature you can start a ephemeral container in any Pod you like  
