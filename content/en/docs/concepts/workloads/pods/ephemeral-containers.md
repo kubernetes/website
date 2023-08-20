@@ -95,7 +95,9 @@ kubectl run ephemeral-demo --image=k8s.gcr.io/pause:3.1 --restart=Never
 kubectl debug -it ephemeral-demo --image=busybox:1.28
 ```
 
-Once you gain access to a shell, managing tasks becomes easier. However,  Now, let's go ahead and take a closer look at the YAML representation of the Pod where you created the ephemeral container. 
+Once you gain access to a Shell, you can perform management operations in it.
+The following example manifest contains a Pod where an ephemeral container
+for debugging is included.
 
 ```yaml
 apiVersion: v1
