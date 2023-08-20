@@ -50,13 +50,6 @@ NetworkPolicy 描述针对一组 Pod 所允许的网络流量。
   -->
   spec 表示 NetworkPolicy 预期行为的规约。
 
-- **status** (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicyStatus" >}}">NetworkPolicyStatus</a>)
-  <!--
-  status represents the current state of the NetworkPolicy. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-  -->
-  status 表示 NetworkPolicy 的当前状态。更多信息：
-  https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status
-
 ## NetworkPolicySpec {#NetworkPolicySpec}
 
 <!--
@@ -421,111 +414,6 @@ NetworkPolicySpec 定义特定 NetworkPolicy 所需的所有信息.
 
       protocol 表示流量必须匹配的网络协议（TCP、UDP 或 SCTP）。如果未指定，此字段默认为 TCP。
 
-## NetworkPolicyStatus {#NetworkPolicyStatus}
-
-<!--
-NetworkPolicyStatus describes the current state of the NetworkPolicy.
--->
-NetworkPolicyStatus 描述有关此 NetworkPolicy 的当前状态。
-
-<hr>
-
-<!--
-- **conditions** ([]Condition)
-
-  *Patch strategy: merge on key `type`*
-
-  *Map: unique values on key type will be kept during a merge*
-
-  conditions holds an array of metav1.Condition that describe the state of the NetworkPolicy. Current service state
-
-  <a name="Condition"></a>
-  *Condition contains details for one aspect of the current state of this API Resource.*
--->
-
-- **conditions** ([]Condition)
-
-  **补丁策略：根据 `type` 键执行合并操作**
-
-  **Map：键 type 的唯一值将在合并期间被保留**
-
-  conditions 包含描述此 NetworkPolicy 状态的 metav1.Condition 数组，即当前服务状态。
-
-  <a name="Condition"></a>
-  **Condition 包含此 API 资源当前状态的一个方面的详细信息。**
-
-  <!--
-  - **conditions.lastTransitionTime** (Time), required
-
-    lastTransitionTime is the last time the condition transitioned from one status to another. This should be when the underlying condition changed.  If that is not known, then using the time when the API field changed is acceptable.
-
-    <a name="Time"></a>
-    *Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.*
-  -->
-
-  - **conditions.lastTransitionTime** (Time)，必需
-
-    lastTransitionTime 是状况最近一次从一种状态转换到另一种状态的时间。
-    这种变化通常出现在下层状况发生变化的时候。如果无法了解下层状况变化，使用 API 字段更改的时间也是可以接受的。
-
-    <a name="Time"></a>
-    **Time 是 time.Time 的包装器，它支持对 YAML 和 JSON 的正确编组。
-    time 包的许多工厂方法提供了包装器。**
-
-  <!--
-  - **conditions.message** (string), required
-
-    message is a human readable message indicating details about the transition. This may be an empty string.
-  -->
-
-  - **conditions.message** (string)，必需
-
-    message 是一条人类可读的消息，指示有关转换的详细信息。它可能是一个空字符串。
-
-  <!--
-  - **conditions.reason** (string), required
-
-    reason contains a programmatic identifier indicating the reason for the condition's last transition. Producers of specific condition types may define expected values and meanings for this field, and whether the values are considered a guaranteed API. The value should be a CamelCase string. This field may not be empty.
-  -->
-
-  - **conditions.reason** (string)，必需
-
-    reason 包含一个程序标识符，指示状况最后一次转换的原因。
-    特定状况类型的生产者可以定义该字段的预期值和含义，以及这些值是否可被视为有保证的 API。
-    该值应该是 CamelCase 字符串。此字段不能为空。
-
-  <!--
-  - **conditions.status** (string), required
-
-    status of the condition, one of True, False, Unknown.
-  -->
-
-  - **conditions.status** (string)，必需
-
-    状况的状态为 True、False、Unknown 之一。
-
-  <!--
-  - **conditions.type** (string), required
-
-    type of condition in CamelCase or in foo.example.com/CamelCase.
-  -->
-
-  - **conditions.type** (string)，必需
-
-    CamelCase 或 foo.example.com/CamelCase 形式的状况类型。
-
-  <!--
-  - **conditions.observedGeneration** (int64)
-
-    observedGeneration represents the .metadata.generation that the condition was set based upon. For instance, if .metadata.generation is currently 12, but the .status.conditions[x].observedGeneration is 9, the condition is out of date with respect to the current state of the instance.
-  -->
-
-  - **conditions.observedGeneration** (int64)
-
-    observedGeneration 表示设置状况时所基于的 `.metadata.generation`。
-    例如，如果 `.metadata.generation` 当前为 12，但 `.status.conditions[x].observedGeneration` 为 9，
-    则状况相对于实例的当前状态已过期。
-
 ## NetworkPolicyList {#NetworkPolicyList}
 
 <!--
@@ -576,57 +464,6 @@ NetworkPolicyList 是 NetworkPolicy 的集合。
 #### HTTP 请求
 
 GET /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
-
-<!--
-#### Parameters
--->
-#### 参数
-
-<!--
-- **name** (*in path*): string, required
-
-  name of the NetworkPolicy
--->
-- **name** (**路径参数**): string，必需
-
-  NetworkPolicy 的名称。
-
-<!--
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
--->
-- **namespace** (**路径参数**): string，必需
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-<!--
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
--->
-- **pretty** (**查询参数**): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-<!--
-#### Response
--->
-#### 响应
-
-200 (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): OK
-
-401: Unauthorized
-
-<!--
-### `get` read status of the specified NetworkPolicy
-
-#### HTTP Request
--->
-
-### `get` 读取指定的 NetworkPolicy 的状态
-
-GET /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}/status
 
 <!--
 #### Parameters
@@ -1029,96 +866,16 @@ PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 - **namespace** (*in path*): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **body**: <a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>, required
 -->
 - **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-<!--
 - **body**: <a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>，必需
 
-- **dryRun** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-- **fieldValidation** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
--->
-- **body**: <a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>，必需
-
-- **dryRun** (**查询参数**): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-- **fieldManager** (**查询参数**): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-- **fieldValidation** (**查询参数**): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-- **pretty** (**查询参数**): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
 <!--
-#### Response
--->
-#### 响应
-
-200 (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): OK
-
-201 (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): Created
-
-401: Unauthorized
-
-<!--
-### `update` replace status of the specified NetworkPolicy
-
-#### HTTP Request
--->
-### `update` 替换指定的 NetworkPolicy 的状态
-
-#### HTTP 请求
-
-PUT /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}/status
-
-<!--
-#### Parameters
--->
-#### 参数
-
-<!--
-- **name** (*in path*): string, required
-
-  name of the NetworkPolicy
--->
-- **name** (**路径参数**): string，必需
-
-  NetworkPolicy 的名称。
-
-<!--
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
--->
-- **namespace** (**路径参数**): string，必需
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-<!--
-- **body**: <a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>，必需
-
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
@@ -1193,14 +950,16 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 - **namespace** (*in path*): string, required
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
+
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
 -->
 - **namespace** (**路径参数**): string，必需
 
   <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
 
-<!--
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
+- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
 
+<!--
 - **dryRun** (*in query*): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
@@ -1221,98 +980,6 @@ PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}
 
   <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
 -->
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
-
-- **dryRun** (**查询参数**): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-- **fieldManager** (**查询参数**): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-- **fieldValidation** (**查询参数**): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-- **force** (_in query_): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-- **pretty** (**查询参数**): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
-
-<!--
-#### Response
--->
-#### 响应
-
-200 (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): OK
-
-201 (<a href="{{< ref "../policy-resources/network-policy-v1#NetworkPolicy" >}}">NetworkPolicy</a>): Created
-
-401: Unauthorized
-
-<!--
-### `patch` partially update status of the specified NetworkPolicy
-
-#### HTTP Request
--->
-### `patch` 部分更新指定的 NetworkPolicy 的状态
-
-#### HTTP 请求
-
-PATCH /apis/networking.k8s.io/v1/namespaces/{namespace}/networkpolicies/{name}/status
-
-<!--
-#### Parameters
--->
-#### 参数
-
-<!--
-- **name** (*in path*): string, required
-
-  name of the NetworkPolicy
--->
-- **name** (**路径参数**): string，必需
-
-  NetworkPolicy 的名称。
-
-<!--
-- **namespace** (*in path*): string, required
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
--->
-- **namespace** (**路径参数**): string，必需
-
-  <a href="{{< ref "../common-parameters/common-parameters#namespace" >}}">namespace</a>
-
-<!--
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>, required
-
-- **dryRun** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
-
-- **fieldManager** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldManager" >}}">fieldManager</a>
-
-- **fieldValidation** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#fieldValidation" >}}">fieldValidation</a>
-
-- **force** (*in query*): boolean
-
-  <a href="{{< ref "../common-parameters/common-parameters#force" >}}">force</a>
-
-- **pretty** (*in query*): string
-
-  <a href="{{< ref "../common-parameters/common-parameters#pretty" >}}">pretty</a>
--->
-- **body**: <a href="{{< ref "../common-definitions/patch#Patch" >}}">Patch</a>，必需
-
 - **dryRun** (**查询参数**): string
 
   <a href="{{< ref "../common-parameters/common-parameters#dryRun" >}}">dryRun</a>
