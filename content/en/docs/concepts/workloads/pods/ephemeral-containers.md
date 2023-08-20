@@ -123,7 +123,9 @@ One notable feature of `ephemeralContainers` is its ability to configure the sec
 In theory, a malicious actor could escalate the container's privileges. This risk can
 be effectively mitigated by a robust policy enforcement tool.
 
-The answer to whether it affects users of policy enforcement tools varies. It depends on the specific tool and its version, as well as whether you are using policies from the project's library or custom policies developed in-house. To ensure security, it is advisable to review the policies and keep the policy enforcement tool up-to-date with the latest security measures.
+Other factors to consider include the tool version, as well as the policies enforced.
+It is recommended to carefully review the policies and keep the tool up-to-date
+with the latest security measures.
 
 
 ## OPA Gatekeeper
