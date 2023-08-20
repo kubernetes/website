@@ -64,7 +64,8 @@ To set the network location of a kube-apiserver that peers will use to proxy req
 `--peer-advertise-ip` and `--peer-advertise-port` command line arguments to kube-apiserver or specify
 these fields in the API server configuration file.
 If these flags are unspecified, peers will use the value from either `--advertise-address` or
-`--bind-address` command line argument to the kube-apiserver. If those too, are unset, the host's default interface is used.
+`--bind-address` command line argument to the kube-apiserver.
+If those too, are unset, the host's default interface is used.
 
 ## Mixed version proxying
 
@@ -81,7 +82,8 @@ loads a special filter that does the following:
 ### How it works under the hood
 
 When an API Server receives a resource request, it first checks which API servers can
-serve the requested resource. This check happens using the internal `StorageVersion` API.
+serve the requested resource. This check happens using the internal
+[`StorageVersion` API](/docs/reference/generated/kubernetes-api/v{{< skew currentVersion >}}/#storageversioncondition-v1alpha1-internal-apiserver-k8s-io).
 
 * If the resource is known to the API server that received the request
   (for example, `GET /api/v1/pods/some-pod`), the request is handled locally.
@@ -98,9 +100,11 @@ serve the requested resource. This check happens using the internal `StorageVers
   (`api/v1/batch` in this case) using the information in the fetched `StorageVersion` object.
   The _handling API server_ then proxies the request to one of the matching peer kube-apiservers
   that are aware of the requested resource.
+
   * If there is no peer known for that API group / version / resource, the handling API server
     passes the request to its own handler chain which should eventually return a 404 ("Not Found") response.
+
   * If the handling API server has identified and selected a peer API server, but that peer fails
     to respond (for reasons such as network connectivity issues, or a data race between the request
     being received and a controller registering the peer's info into the control plane), then the handling
-    API server responds with a 503 (“Service Unavailable”) error.
+    API server responds with a 503 ("Service Unavailable") error.
