@@ -39,6 +39,11 @@ You can use the `=`, `==`, and `!=` operators with field selectors (`=` and `==`
 ```shell
 kubectl get services  --all-namespaces --field-selector metadata.namespace!=default
 ```
+{{< note >}}
+[Set based operators (`in`, `notin`,`exists`)](/docs/concepts/overview/working-with-objects/labels/#set-based-requirement) are not supported for field selectors. 
+{{< /note >}}
+
+
 
 ## Chained selectors
 
