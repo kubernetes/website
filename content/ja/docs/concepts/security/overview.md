@@ -42,7 +42,7 @@ IaaSプロバイダー        | リンク |
 Alibaba Cloud | https://www.alibabacloud.com/trust-center |
 Amazon Web Services | https://aws.amazon.com/security/ |
 Google Cloud Platform | https://cloud.google.com/security/ |
-Huawei Cloud | https://www.huaweicloud.com/securecenter/overallsafety.html |
+Huawei Cloud | https://www.huaweicloud.com/intl/ja-jp/securecenter/overallsafety.html |
 IBM Cloud | https://www.ibm.com/cloud/security |
 Microsoft Azure | https://docs.microsoft.com/en-us/azure/security/azure-security |
 Oracle Cloud Infrastructure | https://www.oracle.com/security/ |
