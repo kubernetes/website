@@ -207,7 +207,7 @@ The following manifest defines an Ingress that sends traffic to your Service via
 
 1. 根据下面的 YAML 创建文件 `example-ingress.yaml`：
 
-   {{< codenew file="service/networking/example-ingress.yaml" >}}
+   {{% code file="service/networking/example-ingress.yaml" %}}
 
 <!--
 1. Create the Ingress object by running the following command:

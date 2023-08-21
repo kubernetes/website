@@ -214,13 +214,13 @@ JobSpec 描述了任务执行的情况。
   https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/#specifying-your-own-pod-selector
 
 <!--
-### Alpha level
+### Beta level
 
 - **podFailurePolicy** (PodFailurePolicy)
 
   Specifies the policy of handling failed pods. In particular, it allows to specify the set of actions and conditions which need to be satisfied to take the associated action. If empty, the default behaviour applies - the counter of failed pods, represented by the jobs's .status.failed field, is incremented and it is checked against the backoffLimit. This field cannot be used in combination with restartPolicy=OnFailure.
 -->
-### Alpha 级别   {#alpha-level}
+### Beta 级别   {#beta-level}
 
 - **podFailurePolicy** (PodFailurePolicy)
 
@@ -229,13 +229,13 @@ JobSpec 描述了任务执行的情况。
   并针对 backoffLimit 进行检查。此字段不能与 restartPolicy=OnFailure 结合使用。
 
   <!--
-  This field is alpha-level. To use this field, you must enable the `JobPodFailurePolicy` feature gate (disabled by default).
+  This field is beta-level. It can be used when the `JobPodFailurePolicy` feature gate is enabled (enabled by default).
 
   <a name="PodFailurePolicy"></a>
   *PodFailurePolicy describes how failed pods influence the backoffLimit.*
   -->
 
-  此字段是 Alpha 级别。要使用此字段，你必须启用 `JobPodFailurePolicy` 特性门控（默认被禁用）。
+  此字段是 Beta 级别。当 `JobPodFailurePolicy` 特性门控被启用时（默认被启用），可以使用此字段。
 
   <a name="PodFailurePolicy"></a>
   **PodFailurePolicy 描述失效的 Pod 如何影响 backoffLimit。**
@@ -269,8 +269,13 @@ JobSpec 描述了任务执行的情况。
     - **podFailurePolicy.rules.action** (string), required
 
       Specifies the action taken on a pod failure when the requirements are satisfied. Possible values are:
+      
       - FailJob: indicates that the pod's job is marked as Failed and all
         running pods are terminated.
+      - FailIndex: indicates that the pod's index is marked as Failed and will
+        not be restarted.
+        This value is alpha-level. It can be used when the
+        `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
     -->
 
     - **podFailurePolicy.rules.action** (string)，必需
@@ -278,6 +283,8 @@ JobSpec 描述了任务执行的情况。
       指定当要求满足时对 Pod 失效采取的操作。可能的值是：
 
       - FailJob：表示 Pod 的任务被标记为 Failed 且所有正在运行的 Pod 都被终止。
+      - FailIndex：表示 Pod 对应的索引被标记为 Failed 且 Pod 不会被重新启动。
+        此值是 Alpha 级别的。当 `JobBackoffLimitPerIndex` 特性门控被启用时（默认被禁用），可以使用此值。
 
       <!--
       - Ignore: indicates that the counter towards the .backoffLimit is not
@@ -403,6 +410,60 @@ JobSpec 描述了任务执行的情况。
 
         将退出码的检查限制为具有指定名称的容器。当为 null 时，该规则适用于所有容器。
         当被指定时，它应与 Pod 模板中的容器名称或 initContainer 名称之一匹配。
+
+<!--
+### Alpha level
+-->
+### Alpha 级别   {#alpha-level}
+
+<!--
+- **backoffLimitPerIndex** (int32)
+
+  Specifies the limit for the number of retries within an index before marking this index as failed. When enabled the number of failures per index is kept in the pod's batch.kubernetes.io/job-index-failure-count annotation. It can only be set when Job's completionMode=Indexed, and the Pod's restart policy is Never. The field is immutable. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+-->
+- **backoffLimitPerIndex**（int32）
+
+  指定在将特定索引的 Pod 标记为失败之前在对该 Pod 重试次数的限制。
+  启用后，各索引的失败次数将保存在 Pod 的 `batch.kubernetes.io/job-index-failure-count` 注解中。
+  仅当 Job 的 completionMode=Indexed 且 Pod 的重启策略为 Never 时才能设置此字段。
+  此字段是不可变更的。此字段是 Alpha 级别的。
+  当 `JobBackoffLimitPerIndex` 特性门控被启用时（默认被禁用），可以使用此字段。
+
+<!--
+- **maxFailedIndexes** (int32)
+
+  Specifies the maximal number of failed indexes before marking the Job as failed, when backoffLimitPerIndex is set. Once the number of failed indexes exceeds this number the entire Job is marked as Failed and its execution is terminated. When left as null the job continues execution of all of its indexes and is marked with the `Complete` Job condition. It can only be specified when backoffLimitPerIndex is set. It can be null or up to completions. It is required and must be less than or equal to 10^4 when is completions greater than 10^5. This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+-->
+- **maxFailedIndexes**（int32）
+
+  指定在 backoffLimitPerIndex 被设置时、标记 Job 为失败之前所允许的最大失败索引数。
+  一旦失败的索引数超过此数值，整个 Job 将被标记为 Failed 并终止执行。
+  如果不设置此字段（对应为 null），则作业继续执行其所有索引，且 Job 会被标记 `Complete` 状况。
+  此字段只能在设置 backoffLimitPerIndex 时指定。此字段值可以是 null 或完成次数之内的值。
+  当完成次数大于 10^5 时，此字段是必需的且必须小于等于 10^4。
+  此字段是 Alpha 级别的。当 `JobBackoffLimitPerIndex` 特性门控被启用时（默认禁用），可以使用此字段。
+
+<!--
+- **podReplacementPolicy** (string)
+
+  podReplacementPolicy specifies when to create replacement Pods. Possible values are: - TerminatingOrFailed means that we recreate pods
+    when they are terminating (has a metadata.deletionTimestamp) or failed.
+  - Failed means to wait until a previously created Pod is fully terminated (has phase
+    Failed or Succeeded) before creating a replacement Pod.
+-->
+- **podReplacementPolicy**（string）
+
+  podReplacementPolicy 指定何时创建替代的 Pod。可能的值包括：
+  
+  - TerminatingOrFailed：表示当 Pod 处于终止中（具有 metadata.deletionTimestamp）或失败时，重新创建 Pod。
+  - Failed：表示在创建替代的 Pod 之前，等待先前创建的 Pod 完全终止（处于 Failed 或 Succeeded 阶段）。
+
+  <!--
+  When using podFailurePolicy, Failed is the the only allowed value. TerminatingOrFailed and Failed are allowed values when podFailurePolicy is not in use. This is an alpha field. Enable JobPodReplacementPolicy to be able to use this field.
+  -->
+  当使用 podFailurePolicy 时，Failed 是唯一允许值。
+  当不使用 podFailurePolicy 时，允许使用 TerminatingOrFailed 和 Failed。
+  这是一个 Alpha 级别的字段。启用 JobPodReplacementPolicy 特性门控才能使用此字段。
 
 ## JobStatus {#JobStatus}
 
@@ -652,6 +713,38 @@ JobStatus 表示 Job 的当前状态。
   状况为 Ready 的 Pod 数量。
 
   此字段为 Beta 级别。当特性门控 JobReadyPods 启用（默认启用）时，任务控制器会填充该字段。
+
+<!--
+### Alpha level
+-->
+### Alpha 级别
+
+<!--
+- **failedIndexes** (string)
+
+  FailedIndexes holds the failed indexes when backoffLimitPerIndex=true. The indexes are represented in the text format analogous as for the `completedIndexes` field, ie. they are kept as decimal integers separated by commas. The numbers are listed in increasing order. Three or more consecutive numbers are compressed and represented by the first and last element of the series, separated by a hyphen. For example, if the failed indexes are 1, 3, 4, 5 and 7, they are represented as "1,3-5,7". This field is alpha-level. It can be used when the `JobBackoffLimitPerIndex` feature gate is enabled (disabled by default).
+-->
+- **failedIndexes** (string)
+
+  当 backoffLimitPerIndex=true 时，failedIndexes 保存失败的索引。
+  索引以文本格式表示，类似于 `completedIndexes` 字段，即这些索引是使用逗号分隔的十进制整数。
+  这些数字按升序列出。三个或更多连续的数字会被压缩，整个序列表示为第一个数字、连字符和最后一个数字。
+  例如，如果失败的索引是 1、3、4、5 和 7，则表示为 "1,3-5,7"。
+  该字段是 Alpha 级别的。当 `JobBackoffLimitPerIndex` 特性门控被启用时（默认被禁用），可以使用此字段。
+
+<!--
+- **terminating** (int32)
+
+  The number of pods which are terminating (in phase Pending or Running and have a deletionTimestamp).
+  
+  This field is alpha-level. The job controller populates the field when the feature gate JobPodReplacementPolicy is enabled (disabled by default).
+-->
+- **terminating**（int32）
+
+  正在终止的 Pod 数量（处于 Pending 或 Running 阶段且具有 deletionTimestamp）。
+  
+  此字段是 Alpha 级别的。当特性门控 JobPodReplacementPolicy 被启用时（默认被禁用），
+  Job 控制器会填充该字段。
 
 ## JobList {#JobList}
 

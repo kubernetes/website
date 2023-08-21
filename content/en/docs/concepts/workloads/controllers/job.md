@@ -281,8 +281,11 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
   completion is homologous to each other. Note that Jobs that have null
   `.spec.completions` are implicitly `NonIndexed`.
 - `Indexed`: the Pods of a Job get an associated completion index from 0 to
-  `.spec.completions-1`. The index is available through three mechanisms:
+  `.spec.completions-1`. The index is available through four mechanisms:
   - The Pod annotation `batch.kubernetes.io/job-completion-index`.
+  - The Pod label `batch.kubernetes.io/job-completion-index` (for v1.28 and later). Note
+  the feature gate `PodIndexLabel` must be enabled to use this label, and it is enabled
+  by default.
   - As part of the Pod hostname, following the pattern `$(job-name)-$(index)`.
     When you use an Indexed Job in combination with a
     {{< glossary_tooltip term_id="Service" >}}, Pods within the Job can use
@@ -321,6 +324,10 @@ caused by previous runs.
 By default, each pod failure is counted towards the `.spec.backoffLimit` limit,
 see [pod backoff failure policy](#pod-backoff-failure-policy). However, you can
 customize handling of pod failures by setting the Job's [pod failure policy](#pod-failure-policy).
+
+Additionally, you can choose to count the pod failures independently for each
+index of an [Indexed](#completion-mode) Job by setting the `.spec.backoffLimitPerIndex` field
+(for more information, see [backoff limit per index](#backoff-limit-per-index)).
 
 Note that even if you specify `.spec.parallelism = 1` and `.spec.completions = 1` and
 `.spec.template.spec.restartPolicy = "Never"`, the same program may
@@ -365,6 +372,72 @@ will be terminated once the job backoff limit has been reached. This can make de
 `restartPolicy = "Never"` when debugging the Job or using a logging system to ensure output
 from failed Jobs is not lost inadvertently.
 {{< /note >}}
+
+### Backoff limit per index {#backoff-limit-per-index}
+
+{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+
+{{< note >}}
+You can only configure the backoff limit per index for an [Indexed](#completion-mode) Job, if you
+have the `JobBackoffLimitPerIndex` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled in your cluster.
+{{< /note >}}
+
+When you run an [indexed](#completion-mode) Job, you can choose to handle retries
+for pod failures independently for each index. To do so, set the
+`.spec.backoffLimitPerIndex` to specify the the maximal number of pod failures
+per index.
+
+When the per-index backoff limit is exceeded for an index, Kuberentes considers the index as failed and adds it to the
+`.status.failedIndexes` field. The succeeded indexes, those with a successfully
+executed pods, are recorded in the `.status.completedIndexes` field, regardless of whether you set
+the `backoffLimitPerIndex` field.
+
+Note that a failing index does not interrupt execution of other indexes.
+Once all indexes finish for a Job where you specified a backoff limit per index,
+if at least one of those indexes did fail, the Job controller marks the overall
+Job as failed, by setting the Failed condition in the status. The Job gets
+marked as failed even if some, potentially nearly all, of the indexes were
+processed successfully.
+
+You can additionally limit the maximal number of indexes marked failed by
+setting the `.spec.maxFailedIndexes` field.
+When the number of failed indexes exceeds the `maxFailedIndexes` field, the
+Job controller triggers termination of all remaining running Pods for that Job.
+Once all pods are terminated, the entire Job is marked failed by the Job
+controller, by setting the Failed condition in the Job status.
+
+Here is an example manifest for a Job that defines a `backoffLimitPerIndex`:
+
+{{< codenew file="/controllers/job-backoff-limit-per-index-example.yaml" >}}
+
+In the example above, the Job controller allows for one restart for each
+of the indexes. When the total number of failed indexes exceeds 5, then
+the entire Job is terminated.
+
+Once the job is finished, the the Job status looks as follows:
+
+```sh
+kubectl get -o yaml job job-backoff-limit-per-index-example
+```
+
+```yaml
+  status:
+    completedIndexes: 1,3,5,7,9
+    failedIndexes: 0,2,4,6,8
+    succeeded: 5          # 1 succeeded pod for each of 5 succeeded indexes
+    failed: 10            # 2 failed pods (1 retry) for each of 5 failed indexes
+    conditions:
+    - message: Job has failed indexes
+      reason: FailedIndexes
+      status: "True"
+      type: Failed
+```
+
+Additionally, you may want to use the per-index backoff along with a
+[pod failure policy](#pod-failure-policy). When using
+per-index backoff, there is a new `FailIndex` action available which allows you to
+avoid unnecessary retries within an index.
 
 ### Pod failure policy {#pod-failure-policy}
 
@@ -448,6 +521,8 @@ These are some requirements and semantics of the API:
      should not be incremented and a replacement Pod should be created.
   - `Count`: use to indicate that the Pod should be handled in the default way.
      The counter towards the `.spec.backoffLimit` should be incremented.
+  - `FailIndex`: use this action along with [backoff limit per index](#backoff-limit-per-index)
+     to avoid unnecessary retries within the index of a failed pod.
 
 {{< note >}}
 When you use a `podFailurePolicy`, the job controller only matches Pods in the
@@ -458,6 +533,12 @@ until they reach a terminal phase.
 Since Kubernetes 1.27, Kubelet transitions deleted pods to a terminal phase
 (see: [Pod Phase](/docs/concepts/workloads/pods/pod-lifecycle/#pod-phase)). This
 ensures that deleted pods have their finalizers removed by the Job controller.
+{{< /note >}}
+
+{{< note >}}
+Starting with Kubernetes v1.28, when Pod failure policy is used, the Job controller recreates
+terminating Pods only once these Pods reach the terminal `Failed` phase. This behavior is similar
+to `podReplacementPolicy: Failed`. For more information, see [Pod replacement policy](#pod-replacement-policy).
 {{< /note >}}
 
 ## Job termination and cleanup
@@ -849,6 +930,53 @@ is disabled, `.spec.completions` is immutable.
 
 Use cases for elastic Indexed Jobs include batch workloads which require 
 scaling an indexed Job, such as MPI, Horovord, Ray, and PyTorch training jobs.
+
+### Delayed creation of replacement pods {#pod-replacement-policy}
+
+{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+
+{{< note >}}
+You can only set `podReplacementPolicy` on Jobs if you enable the `JobPodReplacementPolicy` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+{{< /note >}}
+
+By default, the Job controller recreates Pods as soon they either fail or are terminating (have a deletion timestamp).
+This means that, at a given time, when some of the Pods are terminating, the number of running Pods for the Jobs can be greater than `parallelism` or greater than one Pod per index (if using Indexed Jobs).
+
+You may choose to create replacement Pods only when the terminating Pod is fully terminal (has `status.phase: Failed`). To do this, set the `.spec.podReplacementPolicy: Failed`.
+This will only recreate Pods once they are terminated.  
+The default replacement policy depends on whether the Job has a `podFailurePolicy` set.
+With no Pod failure policy defined for a Job, omitting the `podReplacementPolicy` field selects the
+`TerminatingOrFailed` replacement policy:
+the control plane creates replacement Pods immediately upon Pod deletion
+(as soon as the control plane sees that a Pod for this Job has `deletionTimestamp` set).
+For Jobs with a Pod failure policy set, the default  `podReplacementPolicy` is `Failed`, and no other
+value is permitted.
+See [Pod failure policy](#pod-failure-policy) to learn more about Pod failure policies for Jobs.
+
+```yaml
+kind: Job
+metadata:
+  name: new
+  ...
+spec:
+  podReplacementPolicy: Failed
+  ...
+```
+
+Provided your cluster has the feature gate enabled, you can inspect the `.status.terminating` field of a Job.
+The value of the field is the number of Pods owned by the Job that are currently terminating.
+
+```shell
+kubectl get jobs/myjob -o yaml
+```
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+# .metadata and .spec omitted
+status:
+  terminating: 3 # three Pods are terminating and have not yet reached the Failed phase
+```
 
 ## Alternatives
 
