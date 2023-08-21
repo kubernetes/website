@@ -7,7 +7,7 @@ schedules:
   next:
    release: 1.28.1
   cherryPickDeadline: 2023-09-08
-  maintenanceModeStartDate: 2023-08-28
+  maintenanceModeStartDate: 2024-08-28
   targetDate: 2023-09-13
   endOfLifeDate: 2024-10-28
   previousPatches:
