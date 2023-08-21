@@ -492,12 +492,87 @@ Init 容器一直重复失败。
 与任何其它容器共享同一个名称，会在校验时抛出错误。
 
 <!--
-### Resources
+#### API for sidecar containers
+-->
+#### 边车容器 API   {#api-for-sidecar-containers}
+
+{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+
+<!--
+Starting with Kubernetes 1.28 in alpha, a feature gate named `SidecarContainers`
+allows you to specify a `restartPolicy` for init containers which is independent of
+the Pod and other init containers. Container [probes](/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe)
+can also be added to control their lifecycle.
+-->
+Kubernetes 自 1.28 版本起引入了一个名为 `SidecarContainers` 的 Alpha 特性门控，
+允许你为 Init 容器指定独立于 Pod 和其他 Init 容器的 `restartPolicy`。
+你还可以添加容器[探针](/zh-cn/docs/concepts/workloads/pods/pod-lifecycle/#types-of-probe)来控制
+Init 容器的生命周期。
+
+<!--
+If an init container is created with its `restartPolicy` set to `Always`, it will
+start and remain running during the entire life of the Pod, which is useful for
+running supporting services separated from the main application containers.
+
+If a `readinessProbe` is specified for this init container, its result will be used
+to determine the `ready` state of the Pod.
+-->
+如果 Init 容器被创建时 `restartPolicy` 设置为 `Always`，则 Init 容器将启动并在整个 Pod
+的生命期内保持运行，这对于运行与主应用容器分离的支持服务非常有用。
+
+如果为该 Init 容器指定了 `readinessProbe`，则其结果将用于确定 Pod 的 `ready` 状态。
+
+<!--
+Since these containers are defined as init containers, they benefit from the same
+ordering and sequential guarantees as other init containers, allowing them to
+be mixed with other init containers into complex Pod initialization flows.
+
+Compared to regular init containers, sidecar-style init containers continue to
+run and the next init container can begin starting once the kubelet has set
+the `started` container status for the sidecar-style init container to true.
+That status either becomes true because there is a process running in the
+container and no startup probe defined, or
+as a result of its `startupProbe` succeeding.
+-->
+由于这些容器以 Init 容器的形式定义，所以它们具有与其他 Init 容器相同的按序执行和顺序保证优势，
+从而允许使用这些容器与其他 Init 容器混合在一起构造复杂的 Pod 初始化流程。
+
+与常规的 Init 容器相比，只要 kubelet 将边车风格的 Init 容器的 `started` 容器状态设置为 true，
+边车风格的 Init 容器会继续运行，下一个 Init 容器可以开始启动。
+到达该状态的前提是，要么需要容器中有进程正在运行且未定义启动探针，要么其 `startupProbe` 的结果是成功的。
+
+<!--
+This feature can be used to implement the sidecar container pattern in a more
+robust way, as the kubelet always restarts a sidecar container if it fails.
+
+Here's an example of a Deployment with two containers, one of which is a sidecar:
+-->
+此特性可用于以更稳健的方式实现边车容器模式，这是因为如果某个边车容器失败，kubelet 总会重新启动它。
+
+以下是一个具有两个容器的 Deployment 示例，其中一个是边车：
+
+{{% codenew language="yaml" file="application/deployment-sidecar.yaml" %}}
+
+<!--
+This feature is also useful for running Jobs with sidecars, as the sidecar
+container will not prevent the Job from completing after the main container
+has finished.
+
+Here's an example of a Job with two containers, one of which is a sidecar:
+-->
+此特性也可用于运行带有边车的 Job，因为在主容器完成后，边车容器不会阻止 Job 完成。
+
+以下是一个具有两个容器的 Job 示例，其中一个是边车：
+
+{{% codenew language="yaml" file="application/job/job-sidecar.yaml" %}}
+
+<!--
+#### Resource sharing within containers
 
 Given the ordering and execution for init containers, the following rules
 for resource usage apply:
 -->
-### 资源 {#resources}
+#### 容器内的资源共享   {#resource-sharing-within-containers}
 
 在给定的 Init 容器执行顺序下，资源使用适用于如下规则：
 
