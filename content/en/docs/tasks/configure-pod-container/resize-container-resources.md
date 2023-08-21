@@ -66,7 +66,7 @@ set to `NotRequired` for all Containers in the Pod.
 {{< /note >}}
 
 Below example shows a Pod whose Container's CPU can be resized without restart, but
-memory resize memory requires the container to be restarted.
+resizing memory requires the container to be restarted.
 
 ```yaml
 apiVersion: v1
