@@ -24,7 +24,11 @@ Example: `apf.kubernetes.io/autoupdate-spec: "true"`
 
 Used on: [Mandatory and suggested APF configuration objects](/concepts/cluster-administration/flow-control/#defaults)
 
-If the annotation is set to true, the object is controller by the kube-apiserver.  The object is controlled by the user if the annotation is set to false. For more details, read  [Maintenance of the Mandatory and Suggested Configuration Objects](/docs/concepts/cluster-administration/flow-control/#maintenance-of-the-mandatory-and-suggested-configuration-objects)
+If this annotation is set to true on a FlowSchema or PriorityLevelConfiguration, the `spec` for that object
+is managed by the kube-apiserver. If the API server does not recognize an APF object, and you annotate it
+for automatic update, the API server deletes the entire object. Otherwise, the API server does not manage the
+object spec.
+For more details, read  [Maintenance of the Mandatory and Suggested Configuration Objects](/docs/concepts/cluster-administration/flow-control/#maintenance-of-the-mandatory-and-suggested-configuration-objects).
 
 ### app.kubernetes.io/component
 
