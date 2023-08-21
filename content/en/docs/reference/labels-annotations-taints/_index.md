@@ -22,7 +22,7 @@ Type: Annotation
 
 Example: `apf.kubernetes.io/autoupdate-spec: "true"`
 
-Used on: [Mandatory and suggested APF configuration objects](/concepts/cluster-administration/flow-control/#defaults)
+Used on: [`FlowSchema` and `PriorityLevelConfiguration` Objects](/concepts/cluster-administration/flow-control/#defaults)
 
 If this annotation is set to true on a FlowSchema or PriorityLevelConfiguration, the `spec` for that object
 is managed by the kube-apiserver. If the API server does not recognize an APF object, and you annotate it
