@@ -22,8 +22,8 @@ This page is an overview of Kubernetes.
 
 <!-- body -->
 
-Kubernetes is a portable, extensible, open source platform for managing containerized
-workloads and services, that facilitates both declarative configuration and automation.
+Kubernetes is an open-source container orchestration platform for automating distributed
+workloads and services deployment, scaling, load balancing and failover management by declarative configuration.
 It has a large, rapidly growing ecosystem. Kubernetes services, support, and tools are widely available.
 
 The name Kubernetes originates from Greek, meaning helmsman or pilot. K8s as an abbreviation
