@@ -111,6 +111,6 @@ data encoded as base64, sharing this file or checking it in to a source
 repository means the secret is available to everyone who can read the manifest.
 
 {{< caution >}}
-Base64 encoding is _not_ an encryption method, it provides no additiona
+Base64 encoding is _not_ an encryption method, it provides no additional
 confidentiality over plain text.
 {{< /caution >}}
