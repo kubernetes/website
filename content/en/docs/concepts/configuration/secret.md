@@ -684,8 +684,8 @@ for information on referencing service account credentials from within Pods.
 
 ### Docker config Secrets
 
-You **MUST** use one of the following `type` values to create a Secret to
-store the credentials for accessing a container image registry:
+If you are creating a Secret to store credentials for accessing a container image registry,
+you must use one of the following `type` values for that Secret:
 
 - `kubernetes.io/dockercfg`
 - `kubernetes.io/dockerconfigjson`
@@ -761,10 +761,12 @@ Docker configuration file):
 }
 ```
 
-{{< note >}}
+{{< caution >}}
 The `auth` value there is base64 encoded; it is obscured but not secret.
 Anyone who can read that Secret can learn the registry access bearer token.
-{{< /note >}}
+
+It is suggested to use [credential providers](/docs/tasks/administer-cluster/kubelet-credential-provider/) to dynamically and securely provide pull secrets on-demand.
+{{< /caution >}}
 
 ### Basic authentication Secret
 
