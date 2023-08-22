@@ -222,6 +222,9 @@ For instance, if indexed jobs were used as the basis for a suite of long-running
     
 For more information, read [Handling Pod and container failures](/docs/concepts/workloads/controllers/job/#handling-pod-and-container-failures) in the Kubernetes documentation.
 
+<hr />
+<a id="cri-container-and-pod-statistics-without-cadvisor" />
+
 **Correction**: the feature CRI container and pod statistics without cAdvisor has been removed as it did not make the release.
 The original release announcement stated that Kubernetes 1.28 included the new feature.
 
