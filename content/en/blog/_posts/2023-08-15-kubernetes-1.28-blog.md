@@ -221,18 +221,12 @@ For instance, if indexed jobs were used as the basis for a suite of long-running
 
     
 For more information, read [Handling Pod and container failures](/docs/concepts/workloads/controllers/job/#handling-pod-and-container-failures) in the Kubernetes documentation.
-   
-## CRI container and pod statistics without cAdvisor
 
-This encompasses two related pieces of work (changes to the kubelet's `/metrics/cadvisor` endpoint and improvements to the replacement _summary_ API).
+<hr />
+<a id="cri-container-and-pod-statistics-without-cadvisor" />
 
-There are two main APIs that consumers use to gather stats about running containers and pods: summary API and `/metrics/cadvisor`. The Kubelet is responsible for implementing the summary API, and cadvisor is responsible for fulfilling `/metrics/cadvisor`.
-
-This enhances CRI implementations to be able to fulfill all the stats needs of Kubernetes. At a high level, there are two pieces of this:
-
-- It enhances the CRI API with enough metrics to supplement the pod and container fields in the summary API directly from CRI.
-    
-- It enhances the CRI implementations to broadcast the required metrics to fulfill the pod and container fields in the `/metrics/cadvisor` endpoint.
+**Correction**: the feature CRI container and pod statistics without cAdvisor has been removed as it did not make the release.
+The original release announcement stated that Kubernetes 1.28 included the new feature.
 
 ## Feature graduations and deprecations in Kubernetes v1.28
 ### Graduations to stable
