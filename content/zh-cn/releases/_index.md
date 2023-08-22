@@ -2,11 +2,13 @@
 linktitle: 发行版本历史
 title: 发行版本
 type: docs
+layout: release-info
 ---
 <!-- 
 linktitle: Release History
 title: Releases
 type: docs
+layout: release-info
 -->
 
 

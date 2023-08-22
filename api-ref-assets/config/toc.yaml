@@ -153,7 +153,7 @@ parts:
     version: v1alpha1
   - name: SelfSubjectReview
     group: authentication.k8s.io
-    version: v1beta1
+    version: v1
 - name: Authorization Resources
   chapters:
   - name: LocalSubjectAccessReview
@@ -168,9 +168,6 @@ parts:
   - name: SubjectAccessReview
     group: authorization.k8s.io
     version: v1
-  - name: SelfSubjectReview
-    group: authentication.k8s.io
-    version: v1alpha1
   - name: ClusterRole
     group: rbac.authorization.k8s.io
     version: v1
@@ -218,7 +215,7 @@ parts:
     version: v1
   - name: ValidatingAdmissionPolicy
     group: admissionregistration.k8s.io
-    version: v1alpha1
+    version: v1beta1
     otherDefinitions:
     - ValidatingAdmissionPolicyList
     - ValidatingAdmissionPolicyBinding

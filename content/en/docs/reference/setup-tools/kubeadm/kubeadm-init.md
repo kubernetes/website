@@ -189,6 +189,30 @@ or `kubeadm upgrade apply`), kubeadm respects the value of `UnversionedKubeletCo
 (during `kubeadm join`, `kubeadm reset`, `kubeadm upgrade ...`), kubeadm attempts to use unversioned ConfigMap name first;
 if that does not succeed, kubeadm falls back to using the legacy (versioned) name for that ConfigMap.
 
+List of deprecated feature gates:
+
+{{< table caption="kubeadm deprecated feature gates" >}}
+Feature | Default 
+:-------|:--------
+`UpgradeAddonsBeforeControlPlane` | `false`
+{{< /table >}}
+
+Feature gate descriptions:
+
+`UpgradeAddonsBeforeControlPlane`
+: This is as a **disabled** feature gate that was introduced for Kubernetes v1.28, in order to allow reactivating a legacy
+and deprecated behavior during cluster upgrade. For kubeadm versions prior to v1.28, kubeadm upgrades cluster addons (including
+CoreDNS and kube-proxy) immediately during `kubeadm upgrade apply`, regardless of whether there are other control plane
+instances that have not been upgraded. This may cause compatibility problems. Since v1.28, kubeadm defaults to a mode that
+always checks whether all the control plane instances have been upgraded before starting to upgrade the addons. This behavior
+is applied to both `kubeadm upgrade apply` and `kubeadm upgrade node`. kubeadm determines whether a control plane instance
+has been upgraded by checking whether the image of the kube-apiserver Pod has been upgraded. You must perform control plane
+instances upgrade sequentially or at least ensure that the last control plane instance upgrade is not started until all the
+other control plane instances have been upgraded completely, and the addons upgrade will be performed after the last control plane
+instance is upgraded. The deprecated `UpgradeAddonsBeforeControlPlane` feature gate gives you a chance to keep the old upgrade
+behavior. You should not need this old behavior; if you do, you should consider changing your cluster or upgrade processes, as this
+feature gate will be removed in a future release.
+
 ### Adding kube-proxy parameters {#kube-proxy}
 
 For information about kube-proxy parameters in the kubeadm configuration see:
