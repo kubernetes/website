@@ -224,7 +224,7 @@ volume.
 ### PersistentVolumeClaim naming
 
 Naming of the automatically created PVCs is deterministic: the name is
-a combination of Pod name and volume name, with a hyphen (`-`) in the
+a combination of the Pod name and volume name, with a hyphen (`-`) in the
 middle. In the example above, the PVC name will be
 `my-app-scratch-volume`.  This deterministic naming makes it easier to
 interact with the PVC because one does not have to search for it once
