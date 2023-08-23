@@ -168,7 +168,8 @@ Here is an example set of resources users may want to put under object count quo
 The same syntax can be used for custom resources.
 For example, to create a quota on a `widgets` custom resource in the `example.com` API group, use `count/widgets.example.com`.
 
-When using `count/*` resource quota for certain resources type, an object is charged against the quota if it exists in server storage.
+When using `count/*` resource quota (only available for some object kinds), an object is charged
+against the quota if the control plane has a stored copy.
 These types of quotas are useful to protect against exhaustion of storage resources.  For example, you may
 want to limit the number of Secrets in a server given their large size. Too many Secrets in a cluster can
 actually prevent servers and controllers from starting. You can set a quota for Jobs to protect against
