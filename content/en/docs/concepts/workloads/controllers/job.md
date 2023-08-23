@@ -668,11 +668,9 @@ consume.
 
 ## Job patterns
 
-The Job object can be used to support reliable parallel execution of Pods. The Job object is not
-designed to support closely-communicating parallel processes, as commonly found in scientific
-computing. It does support parallel processing of a set of independent but related *work items*.
-These might be emails to be sent, frames to be rendered, files to be transcoded, ranges of keys in a
-NoSQL database to scan, and so on.
+The Job object can be used to process a set of independent but related *work items*.
+These might be emails to be sent, frames to be rendered, files to be transcoded,
+ranges of keys in a NoSQL database to scan, and so on.
 
 In a complex system, there may be multiple different sets of work items. Here we are just
 considering one set of work items that the user wants to manage together &mdash; a *batch job*.
@@ -680,15 +678,21 @@ considering one set of work items that the user wants to manage together &mdash;
 There are several different patterns for parallel computation, each with strengths and weaknesses.
 The tradeoffs are:
 
-- One Job object for each work item, vs. a single Job object for all work items. The latter is
-  better for large numbers of work items. The former creates some overhead for the user and for the
-  system to manage large numbers of Job objects.
-- Number of pods created equals number of work items, vs. each Pod can process multiple work items.
-  The former typically requires less modification to existing code and containers. The latter
-  is better for large numbers of work items, for similar reasons to the previous bullet.
+- One Job object for each work item, versus a single Job object for all work items.
+  One Job per work item creates some overhead for the user and for the system to manage
+  large numbers of Job objects.
+  A single Job for all work items is better for large numbers of items. 
+- Number of Pods created equals number of work items, versus each Pod can process multiple work items.
+  When the number of Pods equals the number of work items, the Pods typically
+  requires less modification to existing code and containers. Having each Pod
+  process multiple work items is better for large numbers of items.
 - Several approaches use a work queue. This requires running a queue service,
   and modifications to the existing program or container to make it use the work queue.
   Other approaches are easier to adapt to an existing containerised application.
+- When the Job is associated with a
+  [headless Service](/docs/concepts/services-networking/service/#headless-services),
+  you can enable the Pods within a Job to communicate with each other to
+  collaborate in a computation.
 
 The tradeoffs are summarized here, with columns 2 to 4 corresponding to the above tradeoffs.
 The pattern names are also links to examples and more detailed description.
@@ -698,8 +702,8 @@ The pattern names are also links to examples and more detailed description.
 | [Queue with Pod Per Work Item]                  |         ✓         |                             |      sometimes      |
 | [Queue with Variable Pod Count]                 |         ✓         |             ✓               |                     |
 | [Indexed Job with Static Work Assignment]       |         ✓         |                             |          ✓          |
-| [Job Template Expansion]                        |                   |                             |          ✓          |
 | [Job with Pod-to-Pod Communication]             |         ✓         |         sometimes           |      sometimes      |
+| [Job Template Expansion]                        |                   |                             |          ✓          |
 
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
 has an identical [`spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
@@ -715,14 +719,14 @@ Here, `W` is the number of work items.
 | [Queue with Pod Per Work Item]                  |          W          |        any           |
 | [Queue with Variable Pod Count]                 |         null        |        any           |
 | [Indexed Job with Static Work Assignment]       |          W          |        any           |
-| [Job Template Expansion]                        |          1          |     should be 1      |
 | [Job with Pod-to-Pod Communication]             |          W          |         W            |
+| [Job Template Expansion]                        |          1          |     should be 1      |
 
 [Queue with Pod Per Work Item]: /docs/tasks/job/coarse-parallel-processing-work-queue/
 [Queue with Variable Pod Count]: /docs/tasks/job/fine-parallel-processing-work-queue/
 [Indexed Job with Static Work Assignment]: /docs/tasks/job/indexed-parallel-processing-static/
-[Job Template Expansion]: /docs/tasks/job/parallel-processing-expansion/
 [Job with Pod-to-Pod Communication]: /docs/tasks/job/job-with-pod-to-pod-communication/
+[Job Template Expansion]: /docs/tasks/job/parallel-processing-expansion/
 
 ## Advanced usage
 
