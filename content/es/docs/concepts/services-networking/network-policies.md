@@ -49,7 +49,7 @@ Un ejemplo de NetworkPolicy podría ser este:
 
 {{% codenew file="service/networking/networkpolicy.yaml" %}}
 
-{{<note>}}
+{{< note >}}
 Enviar esto al API Server de tu clúster no tendrá ningún efecto a menos que tu solución de red soporte políticas de red.
 {{</note>}}
 
@@ -134,8 +134,8 @@ después del procesamiento de NetworkPolicy, y el comportamiento puede ser difer
 combinaciones de plugin de red, proveedor de nube, implementación de `Service`, etc.
 
 En el caso de la entrada, esto significa que en algunos casos se pueden filtrar paquetes 
-entrantes basándose en la IP de origen real, mientras que en otros casos, la "IP de origen" sobre la que actúa la
-NetworkPolicy puede ser la IP de un `LoadBalancer` o la IP del Nodo donde está el Pod involucrado, etc.
+entrantes basándose en la IP de origen real, mientras que en otros casos, la "IP de origen" sobre la que actúa la NetworkPolicy 
+puede ser la IP de un `LoadBalancer` o la IP del Nodo donde está el Pod involucrado, etc.
 
 Para la salida, esto significa que las conexiones de los Pods a las IPs de `Service` que se reescriben a
 IPs externas al clúster pueden o no estar sujetas a políticas basadas en `ipBlock`.
@@ -267,10 +267,10 @@ Aunque NetworkPolicy no puede apuntar a un Namespace por su nombre con algún ca
 
 ## Qué no puedes hacer con políticas de red (al menos, aún no)
 
-Actualmente, en Kubernetes {{< skew currentVersion >}}, la siguiente funcionalidad no existe en la API de NetworkPolicy, pero es posible que se puedan implementar soluciones mediante componentes del sistema operativo (como SELinux, OpenVSwitch, IPTables, etc.) o tecnologías de capa 7 (Ingress controllers, implementaciones de Service Mesh) o controladores de admisión. En caso de que seas nuevo en la seguridad de la red en Kubernetes, vale la pena señalar que las siguientes historias de usuario no pueden (todavía) ser implementadas usando la API NetworkPolicy.
+Actualmente, en Kubernetes {{< skew currentVersion >}}, la siguiente funcionalidad no existe en la API de NetworkPolicy, pero es posible que se puedan implementar soluciones mediante componentes del sistema operativo (como SELinux, OpenVSwitch, IPTables, etc.) o tecnologías de capa 7 (controladores Ingress, implementaciones de Service Mesh) o controladores de admisión. En caso de que seas nuevo en la seguridad de la red en Kubernetes, vale la pena señalar que las siguientes historias de usuario no pueden (todavía) ser implementadas usando la API NetworkPolicy.
 
 - Forzar que el tráfico interno del clúster pase por una puerta de enlace común (esto se puede implementar con una malla de servicios u otro proxy).
-- Cualquier cosa relacionada con TLS (se puede implementar con una malla de servicios o un Ingress controllers para esto).
+- Cualquier cosa relacionada con TLS (se puede implementar con una malla de servicios o un controlador Ingress para esto).
 - Políticas específicas de los nodos (se puede utilizar la notación CIDR para esto, pero no se puede apuntar a los nodos por sus identidades Kubernetes específicamente).
 - Apuntar Services por nombre (sin embargo, se pueden orientar los Pods o los Namespaces por sus {{< glossary_tooltip text="labels" term_id="label" >}}, lo que suele ser una solución viable).
 - Creación o gestión de "solicitudes de políticas" que son atendidas por un tercero.
