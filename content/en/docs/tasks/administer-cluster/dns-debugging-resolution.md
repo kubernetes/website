@@ -341,10 +341,10 @@ be lost. To work around this limit, the node can run `dnsmasq`, which will
 provide more `nameserver` entries. You can also use kubelet's `--resolv-conf`
 flag.
 
-If you are using Alpine version 3.3 or earlier as your base image, DNS may not
-work properly due to a known issue with Alpine.
-Kubernetes [issue 30215](https://github.com/kubernetes/kubernetes/issues/30215)
-details more information on this.
+If you are using Alpine version 3.17 or earlier as your base image, DNS may not
+work properly due to a design issue with Alpine. 
+Until musl version 1.24 didn't include TCP fallback to the DNS stub resolver meaning any DNS call above 512 bytes would fail.
+Please upgrade your images to Alpine version 3.18 or above.
 
 ## {{% heading "whatsnext" %}}
 
