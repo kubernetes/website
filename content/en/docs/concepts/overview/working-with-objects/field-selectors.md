@@ -44,8 +44,6 @@ kubectl get services  --all-namespaces --field-selector metadata.namespace!=defa
 (`in`, `notin`,`exists`) are not supported for field selectors. 
 {{< /note >}}
 
-
-
 ## Chained selectors
 
 As with [label](/docs/concepts/overview/working-with-objects/labels) and other selectors, field selectors can be chained together as a comma-separated list. This `kubectl` command selects all Pods for which the `status.phase` does not equal `Running` and the `spec.restartPolicy` field equals `Always`:
