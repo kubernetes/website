@@ -416,7 +416,7 @@ controller, by setting the Failed condition in the Job status.
 
 Here is an example manifest for a Job that defines a `backoffLimitPerIndex`:
 
-{{< codenew file="/controllers/job-backoff-limit-per-index-example.yaml" >}}
+{{% code file="/controllers/job-backoff-limit-per-index-example.yaml" %}}
 
 In the example above, the Job controller allows for one restart for each
 of the indexes. When the total number of failed indexes exceeds 5, then
