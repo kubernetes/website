@@ -3,6 +3,13 @@ layout: blog
 title: "Moving Forward From Beta"
 date: 2020-08-21
 slug: moving-forward-from-beta
+
+# note to localizers: including this means you are marking
+# the article as maintained. That should be fine, but if
+# there is ever an update, you're committing to also updating
+# the localized version.
+# If unsure: omit this next field.
+evergreen: true
 ---
 
 **Author**: Tim Bannister, The Scale Factory
