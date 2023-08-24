@@ -113,7 +113,7 @@ set to `NotRequired` for all Containers in the Pod.
 
 <!--
 Below example shows a Pod whose Container's CPU can be resized without restart, but
-memory resize memory requires the container to be restarted.
+resizing memory requires the container to be restarted.
 -->
 下面的示例显示了一个 Pod，其中 CPU 可以在不重启容器的情况下进行调整，但是内存调整需要重启容器。
 
