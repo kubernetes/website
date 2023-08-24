@@ -470,7 +470,7 @@ traffic, you can configure rules to block any health check requests
 that originate from outside your cluster.
 {{< /caution >}}
 
-{{% code file="priority-and-fairness/health-for-strangers.yaml" %}}
+{{% code_sample file="priority-and-fairness/health-for-strangers.yaml" %}}
 
 ## Diagnostics
 
@@ -885,7 +885,7 @@ from other requests.
 
 Example FlowSchema object to isolate list event requests:
 
-{{% code file="priority-and-fairness/list-events-default-service-account.yaml" %}}
+{{% code_sample file="priority-and-fairness/list-events-default-service-account.yaml" %}}
 
 - This FlowSchema captures all list event calls made by the default service
   account in the default namespace. The matching precedence 8000 is lower than the
