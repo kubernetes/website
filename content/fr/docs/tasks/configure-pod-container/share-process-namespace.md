@@ -23,7 +23,7 @@ Vous pouvez utiliser cette fonctionnalité pour configurer les conteneurs coopé
 
 Le partage de l'espace de nommage du processus est activé en utilisant le champ `shareProcessNamespace` de `v1.PodSpec`. Par exemple:
 
-{{< codenew file="pods/share-process-namespace.yaml" >}}
+{{% codenew file="pods/share-process-namespace.yaml" %}}
 
 1. Créez le pod `nginx` sur votre cluster :
 

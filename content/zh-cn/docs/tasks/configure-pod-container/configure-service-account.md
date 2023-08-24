@@ -616,7 +616,7 @@ command line arguments to `kube-apiserver`:
   command line argument but you don't set `--api-audiences`, the control plane defaults to
   a single element audience list that contains only the issuer URL.
 -->
-`--api-audiences` (可以省略)
+`--api-audiences`（可以省略）
 : 为 ServiceAccount 令牌定义其受众（Audiences）。
   服务账号令牌身份检查组件会检查针对 API 访问所使用的令牌，
   确认令牌至少是被绑定到这里所给的受众之一。
@@ -657,7 +657,7 @@ of two hours, you could define a Pod manifest that is similar to:
 要为某 Pod 提供一个受众为 `vault` 并且有效期限为 2 小时的令牌，你可以定义一个与下面类似的
 Pod 清单：
 
-{{< codenew file="pods/pod-projected-svc-token.yaml" >}}
+{{% code file="pods/pod-projected-svc-token.yaml" %}}
 
 <!--
 Create the Pod:
@@ -813,7 +813,7 @@ See also:
 - 阅读 [Secret](/zh-cn/docs/concepts/configuration/secret/) 的概念
   - 或者学习[使用 Secret 来安全地分发凭据](/zh-cn/docs/tasks/inject-data-application/distribute-credentials-secure/)
   - 不过也要注意，使用 Secret 来完成 ServiceAccount 身份验证的做法已经过时。
-    建议的替代做法是执行 [ServiceAccount 令牌卷投射](#service-account-token-volume-projection).
+    建议的替代做法是执行 [ServiceAccount 令牌卷投射](#service-account-token-volume-projection)。
 <!--
 - Read about [projected volumes](/docs/tasks/configure-pod-container/configure-projected-volume-storage/).
 - For background on OIDC discovery, read the

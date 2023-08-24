@@ -43,7 +43,7 @@ FOO_SERVICE_HOST=<サービスが実行されているホスト>
 FOO_SERVICE_PORT=<サービスが実行されているポート>
 ```
 
-サービスは専用のIPアドレスを持ち、[DNSアドオン](http://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/)が有効の場合、DNSを介してコンテナで利用可能です。
+サービスは専用のIPアドレスを持ち、[DNSアドオン](http://releases.k8s.io/v{{< skew currentPatchVersion >}}/cluster/addons/dns/)が有効の場合、DNSを介してコンテナで利用可能です。
 
 
 

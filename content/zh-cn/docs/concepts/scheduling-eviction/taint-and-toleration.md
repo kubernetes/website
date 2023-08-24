@@ -177,7 +177,7 @@ scheduled onto the node (if it is not yet running on the node).
   则 Kubernetes 会 **尝试** 不将 Pod 调度到该节点。
 * 如果未被忽略的污点中存在至少一个 effect 值为 `NoExecute` 的污点，
   则 Kubernetes 不会将 Pod 调度到该节点（如果 Pod 还未在节点上运行），
-  或者将 Pod 从该节点驱逐（如果 Pod 已经在节点上运行）。
+  并且会将 Pod 从该节点驱逐（如果 Pod 已经在节点上运行）。
 
 <!--
 For example, imagine you taint a node like this
@@ -388,11 +388,11 @@ are true. The following taints are built in:
   的一个控制器初始化这个节点后，kubelet 将删除这个污点。
 
 <!--
-In case a node is to be evicted, the node controller or the kubelet adds relevant taints
+In case a node is to be drained, the node controller or the kubelet adds relevant taints
 with `NoExecute` effect. If the fault condition returns to normal the kubelet or node
 controller can remove the relevant taint(s).
 -->
-在节点被驱逐时，节点控制器或者 kubelet 会添加带有 `NoExecute` 效果的相关污点。
+在节点被排空时，节点控制器或者 kubelet 会添加带有 `NoExecute` 效果的相关污点。
 如果异常状态恢复正常，kubelet 或节点控制器能够移除相关的污点。
 
 <!--
@@ -407,7 +407,7 @@ the pods that are scheduled for deletion may continue to run on the partitioned 
 
 {{< note >}}
 <!--
-The control plane limits the rate of adding node new taints to nodes. This rate limiting
+The control plane limits the rate of adding new taints to nodes. This rate limiting
 manages the number of evictions that are triggered when many nodes become unreachable at
 once (for example: if there is a network disruption).
 -->

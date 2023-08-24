@@ -46,6 +46,6 @@ and {{< glossary_tooltip term_id="selector" text="selectors">}} specified in {{<
 and they can be either required or preferred, depending on how strictly you want the scheduler to enforce them.
 -->
 这些规则是使用 Kubernetes {{< glossary_tooltip term_id="label" text="标签">}}（label）
-和 {{< glossary_tooltip term_id="pod" text="Pod" >}} 中指定的
-{{< glossary_tooltip term_id="selector" text="选择算符">}}定义的，
+和 {{< glossary_tooltip term_id="pod" text="Pod" >}}
+中指定的{{< glossary_tooltip term_id="selector" text="选择算符">}}定义的，
 这些规则可以是必需的或首选的，这取决于你希望调度程序执行它们的严格程度。

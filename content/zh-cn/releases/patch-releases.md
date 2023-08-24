@@ -149,15 +149,27 @@ releases may also occur in between these.
 <!--
 | Monthly Patch Release | Cherry Pick Deadline | Target date |
 | --------------------- | -------------------- | ----------- |
-| July 2023             | 2023-07-07           | 2023-07-12  |
 | August 2023           | 2023-08-04           | 2023-08-09  |
 | September 2023        | 2023-09-08           | 2023-09-13  |
+| October 2023          | 2023-10-13           | 2023-10-18  |
+| November 2023         | N/A                  | N/A         |
+| December 2023         | 2023-12-01           | 2023-12-06  |
 -->
-| 月度补丁发布     | Cherry Pick 截止日期 | 目标日期       |
-|------------|------------------|------------|
-| 2023 年 7 月 | 2023-07-07       | 2023-07-12 |
-| 2023 年 8 月 | 2023-08-04       | 2023-08-09 |
-| 2023 年 9 月 | 2023-09-08       | 2023-09-13 |
+| 月度补丁发布   | Cherry Pick 截止日期 | 目标日期     |
+|--------------|---------------------|------------|
+| 2023 年 8 月  | 2023-08-04         | 2023-08-09  |
+| 2023 年 9 月  | 2023-09-08         | 2023-09-13  |
+| 2023 年 10 月 | 2023-10-13         | 2023-10-18  |
+| 2023 年 11 月 | N/A                | N/A         |
+| 2023 年 12 月 | 2023-12-01         | 2023-12-06  |
+
+<!--
+**Note:** Due to overlap with KubeCon NA 2023 and lack of availability of
+Release Managers and Google Build Admins, it has been decided to skip patch
+releases in November. Instead, we'll have patch releases early in December.
+-->
+**注意：**由于与 KubeCon NA 2023 时间冲突以及缺少可用的 Release Manager 和
+Google Build Admin，我们决定在 11 月跳过补丁版本发布。而是在 12 月初发布补丁版本。
 
 <!--
 ## Detailed Release History for Active Branches

@@ -43,23 +43,25 @@ Upgrade kubeadm:
 
 升级 kubeadm：
 
-<!--
-# replace x in {{< skew currentVersion >}}.x-00 with the latest patch version
-# replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
--->
 {{< tabs name="k8s_install_kubeadm_worker_nodes" >}}
 {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
+<!--
+# replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+-->
 ```shell
-# 将 {{< skew currentVersion >}}.x-00 中的 x 替换为最新的补丁版本
+# 将 {{< skew currentVersion >}}.x-* 中的 x 替换为最新的补丁版本
 apt-mark unhold kubeadm && \
-apt-get update && apt-get install -y kubeadm={{< skew currentVersion >}}.x-00 && \
+apt-get update && apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' && \
 apt-mark hold kubeadm
 ```
 {{% /tab %}}
 {{% tab name="CentOS、RHEL 或 Fedora" %}}
+<!--
+# replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+-->
 ```shell
-# 将 {{< skew currentVersion >}}.x-0 中的 x 替换为最新的补丁版本
-yum install -y kubeadm-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
+# 将 {{< skew currentVersion >}}.x-* 中的 x 替换为最新的补丁版本
+yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -103,23 +105,25 @@ kubectl drain <node-to-drain> --ignore-daemonsets
 
 1. 升级 kubelet 和 kubectl:
 
-   <!--
-   # replace x in {{< skew currentVersion >}}.x-00 with the latest patch version
-   # replace x in {{< skew currentVersion >}}.x-0 with the latest patch version
-   -->
    {{< tabs name="k8s_kubelet_and_kubectl" >}}
    {{% tab name="Ubuntu、Debian 或 HypriotOS" %}}
+   <!--
+   # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+   -->
    ```shell
-   # 将 {{< skew currentVersion >}}.x-00 中的 x 替换为最新的补丁版本
+   # 将 {{< skew currentVersion >}}.x-* 中的 x 替换为最新的补丁版本
    apt-mark unhold kubelet kubectl && \
-   apt-get update && apt-get install -y kubelet={{< skew currentVersion >}}.x-00 kubectl={{< skew currentVersion >}}.x-00 && \
+   apt-get update && apt-get install -y kubelet='{{< skew currentVersion >}}.x-*' kubectl='{{< skew currentVersion >}}.x-*' && \
    apt-mark hold kubelet kubectl
    ```
    {{% /tab %}}
    {{% tab name="CentOS、RHEL 或 Fedora" %}}
+   <!--
+   # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
+   -->
    ```shell
-   # 将 {{< skew currentVersion >}}.x-0 中的 x 替换为最新的补丁版本
-   yum install -y kubelet-{{< skew currentVersion >}}.x-0 kubectl-{{< skew currentVersion >}}.x-0 --disableexcludes=kubernetes
+   # 将 {{< skew currentVersion >}}.x-* 中的 x 替换为最新的补丁版本
+   yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
    ```
    {{% /tab %}}
    {{< /tabs >}}

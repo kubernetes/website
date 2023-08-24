@@ -651,6 +651,12 @@ You can remove ... | You can easily remove ...
 These steps ... | These simple steps ...
 {{< /table >}}
 
+### EditorConfig file
+The Kubernetes project maintains an EditorConfig file that sets common style preferences in text editors
+such as VS Code. You can use this file if you want to ensure that your contributions are consistent with
+the rest of the project. To view the file, refer to
+[`.editorconfig`](https://github.com/kubernetes/website/blob/main/.editorconfig) in the repository root.
+
 ## {{% heading "whatsnext" %}}
 
 * Learn about [writing a new topic](/docs/contribute/style/write-new-topic/).

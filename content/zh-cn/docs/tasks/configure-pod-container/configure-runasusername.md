@@ -54,7 +54,7 @@ Here is a configuration file for a Windows Pod that has the `runAsUserName` fiel
 
 这儿有一个已经设置了 `runAsUserName` 字段的 Windows Pod 的配置文件：
 
-{{< codenew file="windows/run-as-username-pod.yaml" >}}
+{{% code file="windows/run-as-username-pod.yaml" %}}
 
 <!--
 Create the Pod:
@@ -134,7 +134,7 @@ Here is the configuration file for a Pod that has one Container, and the `runAsU
 
 这里有一个 Pod 的配置文件，其中只有一个容器，并且在 Pod 级别和容器级别都设置了 `runAsUserName`：
 
-{{< codenew file="windows/run-as-username-container.yaml" >}}
+{{% code file="windows/run-as-username-container.yaml" %}}
 
 <!--
 Create the Pod:

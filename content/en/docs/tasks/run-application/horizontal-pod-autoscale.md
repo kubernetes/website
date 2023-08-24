@@ -400,6 +400,7 @@ behavior:
 ```
 
 `periodSeconds` indicates the length of time in the past for which the policy must hold true.
+The maximum value that you can set for `periodSeconds` is 1800 (half an hour).
 The first policy _(Pods)_ allows at most 4 replicas to be scaled down in one minute. The second policy
 _(Percent)_ allows at most 10% of the current replicas to be scaled down in one minute.
 
@@ -470,7 +471,7 @@ for scaling down which allows a 100% of the currently running replicas to be rem
 means the scaling target can be scaled down to the minimum allowed replicas.
 For scaling up there is no stabilization window. When the metrics indicate that the target should be
 scaled up the target is scaled up immediately. There are 2 policies where 4 pods or a 100% of the currently
-running replicas will be added every 15 seconds till the HPA reaches its steady state.
+running replicas may at most be added every 15 seconds till the HPA reaches its steady state.
 
 ### Example: change downscale stabilization window
 

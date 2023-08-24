@@ -2,4 +2,4 @@ Debes tener un cluster Kubernetes a tu dispocición, y la herramienta de línea 
 o puedes utilizar una de las siguientes herramientas en línea:
 
 * [Killercoda](https://killercoda.com/playgrounds/scenario/kubernetes)
-* [Play with Kubernetes](http://labs.play-with-k8s.com/)
+* [Play with Kubernetes](https://labs.play-with-k8s.com/)

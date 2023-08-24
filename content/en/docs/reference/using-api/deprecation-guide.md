@@ -379,14 +379,26 @@ to locate use of deprecated APIs.
 * Update custom integrations and controllers to call the non-deprecated APIs
 * Change YAML files to reference the non-deprecated APIs
 
-  You can use the `kubectl-convert` command (`kubectl convert` prior to v1.20)
-  to automatically convert an existing object:
+  You can use the `kubectl convert` command to automatically convert an existing object:
 
-  `kubectl-convert -f <file> --output-version <group>/<version>`.
+  `kubectl convert -f <file> --output-version <group>/<version>`.
 
   For example, to convert an older Deployment to `apps/v1`, you can run:
 
-  `kubectl-convert -f ./my-deployment.yaml --output-version apps/v1`
+  `kubectl convert -f ./my-deployment.yaml --output-version apps/v1`
 
-  Note that this may use non-ideal default values. To learn more about a specific
+  This conversion may use non-ideal default values. To learn more about a specific
   resource, check the Kubernetes [API reference](/docs/reference/kubernetes-api/).
+  
+  {{< note >}}
+  The `kubectl convert` tool is not installed by default, although
+  in fact it once was part of `kubectl` itself. For more details, you can read the
+  [deprecation and removal issue](https://github.com/kubernetes/kubectl/issues/725)
+  for the built-in subcommand.
+  
+  To learn how to set up `kubectl convert` on your computer, visit the page that is right for your 
+  operating system:
+  [Linux](/docs/tasks/tools/install-kubectl-linux/#install-kubectl-convert-plugin),
+  [macOS](/docs/tasks/tools/install-kubectl-macos/#install-kubectl-convert-plugin), or
+  [Windows](/docs/tasks/tools/install-kubectl-windows/#install-kubectl-convert-plugin).
+  {{< /note >}}

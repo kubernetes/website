@@ -4,7 +4,6 @@ linkTitle: 准入控制器
 content_type: concept
 weight: 30
 ---
-
 <!--
 reviewers:
 - lavalamp
@@ -206,6 +205,11 @@ the `admissionregistration.k8s.io/v1alpha1` API.
 {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
 <!--
+**Type**: Validating.
+-->
+**类别**：验证。
+
+<!--
 This admission controller allows all pods into the cluster. It is **deprecated** because
 its behavior is the same as if there were no admission controller at all.
 -->
@@ -214,6 +218,11 @@ its behavior is the same as if there were no admission controller at all.
 ### AlwaysDeny {#alwaysdeny}
 
 {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
+
+<!--
+**Type**: Validating.
+-->
+**类别**：验证。
 
 <!--
 Rejects all requests. AlwaysDeny is **deprecated** as it has no real meaning.
@@ -240,6 +249,11 @@ required.
 ### CertificateApproval {#certificateapproval}
 
 <!--
+**Type**: Validating.
+-->
+**类别**：验证。
+
+<!--
 This admission controller observes requests to approve CertificateSigningRequest resources and performs additional
 authorization checks to ensure the approving user has permission to **approve** certificate requests with the
 `spec.signerName` requested on the CertificateSigningRequest resource.
@@ -256,6 +270,11 @@ information on the permissions required to perform different actions on Certific
 请参阅[证书签名请求](/zh-cn/docs/reference/access-authn-authz/certificate-signing-requests/)。
 
 ### CertificateSigning  {#certificatesigning}
+
+<!--
+**Type**: Validating.
+-->
+**类别**：验证。
 
 <!--
 This admission controller observes updates to the `status.certificate` field of CertificateSigningRequest resources
@@ -276,6 +295,11 @@ information on the permissions required to perform different actions on Certific
 ### CertificateSubjectRestriction {#certificatesubjectrestriction}
 
 <!--
+**Type**: Validating.
+-->
+**类别**：验证。
+
+<!--
 This admission controller observes creation of CertificateSigningRequest resources that have a `spec.signerName`
 of `kubernetes.io/kube-apiserver-client`. It rejects any request that specifies a 'group' (or 'organization attribute')
 of `system:masters`.
@@ -285,6 +309,11 @@ CertificateSigningRequest 资源创建请求，并拒绝所有将 “group”（
 设置为 `system:masters` 的请求。
 
 ### DefaultIngressClass {#defaultingressclass}
+
+<!--
+**Type**: Mutating.
+-->
+**类别**：变更。
 
 <!--
 This admission controller observes creation of `Ingress` objects that do not request any specific
@@ -318,6 +347,11 @@ classes and how to mark one as default.
 ### DefaultStorageClass {#defaultstorageclass}
 
 <!--
+**Type**: Mutating.
+-->
+**类别**：变更。
+
+<!--
 This admission controller observes creation of `PersistentVolumeClaim` objects that do not request any specific storage class
 and automatically adds a default storage class to them.
 This way, users that do not request any special storage class do not need to care about them at all and they
@@ -342,9 +376,15 @@ This admission controller ignores any `PersistentVolumeClaim` updates; it acts o
 See [persistent volume](/docs/concepts/storage/persistent-volumes/) documentation about persistent volume claims and
 storage classes and how to mark a storage class as default.
 -->
-关于持久卷申领和存储类，以及如何将存储类标记为默认，请参见[持久卷](/zh-cn/docs/concepts/storage/persistent-volumes/)页面。
+关于持久卷申领和存储类，以及如何将存储类标记为默认，
+请参见[持久卷](/zh-cn/docs/concepts/storage/persistent-volumes/)页面。
 
 ### DefaultTolerationSeconds {#defaulttolerationseconds}
+
+<!--
+**Type**: Mutating.
+-->
+**类别**：变更。
 
 <!--
 This admission controller sets the default forgiveness toleration for pods to tolerate
@@ -363,6 +403,11 @@ The default value for `default-not-ready-toleration-seconds` and `default-unreac
 的默认值是 5 分钟。
 
 ### DenyServiceExternalIPs   {#denyserviceexternalips}
+
+<!--
+**Type**: Validating.
+-->
+**类别**：验证。
 
 <!--
 This admission controller rejects all net-new usage of the `Service` field `externalIPs`.  This
@@ -392,6 +437,11 @@ This admission controller is disabled by default.
 ### EventRateLimit {#eventratelimit}
 
 {{< feature-state for_k8s_version="v1.13" state="alpha" >}}
+
+<!--
+**Type**: Validating.
+-->
+**类别**：验证。
 
 <!--
 This admission controller mitigates the problem where the API server gets flooded by
@@ -466,6 +516,11 @@ This admission controller is disabled by default.
 ### ExtendedResourceToleration {#extendedresourcetoleration}
 
 <!--
+**Type**: Mutating.
+-->
+**类别**：变更。
+
+<!--
 This plug-in facilitates creation of dedicated nodes with extended resources.
 If operators want to create dedicated nodes with extended resources (like GPUs, FPGAs etc.), they are expected to
 [taint the node](/docs/concepts/scheduling-eviction/taint-and-toleration/#example-use-cases) with the extended resource
@@ -484,6 +539,11 @@ This admission controller is disabled by default.
 此准入控制器默认被禁用。
 
 ### ImagePolicyWebhook {#imagepolicywebhook}
+
+<!--
+**Type**: Validating.
+-->
+**类别**：验证。
 
 <!--
 The ImagePolicyWebhook admission controller allows a backend webhook to make admission decisions.
@@ -505,6 +565,20 @@ This file may be json or yaml and has the following format:
 ImagePolicyWebhook 使用配置文件来为后端行为设置选项。该文件可以是 JSON 或 YAML，
 并具有以下格式:
 
+<!--
+```yaml
+imagePolicy:
+  kubeConfigFile: /path/to/kubeconfig/for/backend
+  # time in s to cache approval
+  allowTTL: 50
+  # time in s to cache denial
+  denyTTL: 50
+  # time in ms to wait between retries
+  retryBackoff: 500
+  # determines behavior if the webhook backend fails
+  defaultAllow: true
+```
+-->
 ```yaml
 imagePolicy:
   kubeConfigFile: /path/to/kubeconfig/for/backend
@@ -635,15 +709,14 @@ group (`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`).
 -->
 注意，Webhook API 对象与其他 Kubernetes API 对象一样受制于相同的版本控制兼容性规则。
 实现者应该知道对 alpha 对象兼容性是相对宽松的，并检查请求的 "apiVersion" 字段，
-以确保正确的反序列化。
-此外，API 服务器必须启用 `imagepolicy.k8s.io/v1alpha1` API 扩展组
+以确保正确的反序列化。此外，API 服务器必须启用 `imagepolicy.k8s.io/v1alpha1` API 扩展组
 （`--runtime-config=imagepolicy.k8s.io/v1alpha1=true`）。
 {{< /note >}}
 
 <!--
 An example request body:
 -->
-请求载荷示例：
+请求体示例：
 
 ```json
 {
@@ -741,6 +814,11 @@ In any case, the annotations are provided by the user and are not validated by K
 ### LimitPodHardAntiAffinityTopology   {#limitpodhardantiaffinitytopology}
 
 <!--
+**Type**: Validating.
+-->
+**类别**：验证。
+
+<!--
 This admission controller denies any pod that defines `AntiAffinity` topology key other than
 `kubernetes.io/hostname` in `requiredDuringSchedulingRequiredDuringExecution`.
 
@@ -752,6 +830,11 @@ This admission controller is disabled by default.
 此准入控制器默认被禁用。
 
 ### LimitRanger {#limitranger}
+
+<!--
+**Type**: Mutating and Validating.
+-->
+**类别**：变更和验证。
 
 <!--
 This admission controller will observe the incoming request and ensure that it does not violate
@@ -776,6 +859,11 @@ for more details.
 [LimitRange 例子](/zh-cn/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)以了解更多细节。
 
 ### MutatingAdmissionWebhook {#mutatingadmissionwebhook}
+
+<!--
+**Type**: Mutating.
+-->
+**类别**：变更。
 
 <!--
 This admission controller calls any mutating webhooks which match the request. Matching
@@ -808,7 +896,7 @@ group/version via the `--runtime-config` flag, both are on by default.
 <!--
 #### Use caution when authoring and installing mutating webhooks
 -->
-#### 谨慎编写和安装变更 webhook  {#use-caution-when-authoring-and-installing-mutating-webhooks}
+#### 谨慎编写和安装变更 Webhook  {#use-caution-when-authoring-and-installing-mutating-webhooks}
 
 <!--
 * Users may be confused when the objects they try to create are different from
@@ -832,6 +920,11 @@ group/version via the `--runtime-config` flag, both are on by default.
 ### NamespaceAutoProvision {#namespaceautoprovision}
 
 <!--
+**Type**: Mutating.
+-->
+**类别**：变更。
+
+<!--
 This admission controller examines all incoming requests on namespaced resources and checks
 if the referenced namespace does exist.
 It creates a namespace if it cannot be found.
@@ -845,6 +938,11 @@ a namespace prior to its usage.
 ### NamespaceExists {#namespaceexists}
 
 <!--
+**Type**: Validating.
+-->
+**类别**：验证。
+
+<!--
 This admission controller checks all requests on namespaced resources other than `Namespace` itself.
 If the namespace referenced from a request doesn't exist, the request is rejected.
 -->
@@ -854,14 +952,18 @@ If the namespace referenced from a request doesn't exist, the request is rejecte
 ### NamespaceLifecycle {#namespacelifecycle}
 
 <!--
+**Type**: Validating.
+-->
+**类别**：验证。
+
+<!--
 This admission controller enforces that a `Namespace` that is undergoing termination cannot have
 new objects created in it, and ensures that requests in a non-existent `Namespace` are rejected.
 This admission controller also prevents deletion of three system reserved namespaces `default`,
 `kube-system`, `kube-public`.
 -->
 该准入控制器禁止在一个正在被终止的 `Namespace` 中创建新对象，并确保针对不存在的
-`Namespace` 的请求被拒绝。
-该准入控制器还会禁止删除三个系统保留的名字空间，即 `default`、
+`Namespace` 的请求被拒绝。该准入控制器还会禁止删除三个系统保留的名字空间，即 `default`、
 `kube-system` 和 `kube-public`。
 
 <!--
@@ -873,6 +975,11 @@ running this admission controller.
 为了确保这个过程的完整性，我们强烈建议启用这个准入控制器。
 
 ### NodeRestriction {#noderestriction}
+
+<!--
+**Type**: Validating.
+-->
+**类别**：验证。
 
 <!--
 This admission controller limits the `Node` and `Pod` objects a kubelet can modify. In order to be limited by this admission controller,
@@ -932,6 +1039,11 @@ permissions required to operate correctly.
 ### OwnerReferencesPermissionEnforcement {#ownerreferencespermissionenforcement}
 
 <!--
+**Type**: Validating.
+-->
+**类别**：验证。
+
+<!--
 This admission controller protects the access to the `metadata.ownerReferences` of an object
 so that only users with **delete** permission to the object can change it.
 This admission controller also protects the access to `metadata.ownerReferences[x].blockOwnerDeletion`
@@ -947,6 +1059,11 @@ subresource of the referenced *owner* can change it.
 ### PersistentVolumeClaimResize {#persistentvolumeclaimresize}
 
 {{< feature-state for_k8s_version="v1.24" state="stable" >}}
+
+<!--
+**Type**: Validating.
+-->
+**类别**：验证。
 
 <!--
 This admission controller implements additional validations for checking incoming
@@ -992,6 +1109,11 @@ For more information about persistent volume claims, see [PersistentVolumeClaims
 {{< feature-state for_k8s_version="v1.13" state="deprecated" >}}
 
 <!--
+**Type**: Mutating.
+-->
+**类别**：变更。
+
+<!--
 This admission controller automatically attaches region or zone labels to PersistentVolumes
 as defined by the cloud provider (for example, Azure or GCP).
 It helps ensure the Pods and the PersistentVolumes mounted are in the same
@@ -1006,8 +1128,7 @@ This admission controller is disabled by default.
 此准入控制器会自动将由云提供商（如 Azure 或 GCP）定义的区（region）或区域（zone）
 标签附加到 PersistentVolume 上。这有助于确保 Pod 和 PersistentVolume 位于相同的区或区域。
 如果准入控制器不支持为 PersistentVolumes 自动添加标签，那你可能需要手动添加标签，
-以防止 Pod 挂载其他区域的卷。
-PersistentVolumeLabel **已被弃用**，
+以防止 Pod 挂载其他区域的卷。PersistentVolumeLabel **已被弃用**，
 为持久卷添加标签的操作已由{{< glossary_tooltip text="云管理控制器" term_id="cloud-controller-manager" >}}接管。
 
 此准入控制器默认被禁用。
@@ -1015,6 +1136,11 @@ PersistentVolumeLabel **已被弃用**，
 ### PodNodeSelector {#podnodeselector}
 
 {{< feature-state for_k8s_version="v1.5" state="alpha" >}}
+
+<!--
+**Type**: Validating.
+-->
+**类别**：验证。
 
 <!--
 This admission controller defaults and limits what node selectors may be used within a namespace
@@ -1123,13 +1249,18 @@ PodNodeSelector 允许 Pod 强制在特定标签的节点上运行。
 {{< feature-state for_k8s_version="v1.25" state="stable" >}}
 
 <!--
+**Type**: Validating.
+-->
+**类别**：验证。
+
+<!--
 The PodSecurity admission controller checks new Pods before they are
 admitted, determines if it should be admitted based on the requested security context and the restrictions on permitted
 [Pod Security Standards](/docs/concepts/security/pod-security-standards/)
 for the namespace that the Pod would be in.
 -->
 PodSecurity 准入控制器在新 Pod 被准入之前对其进行检查，
-根据请求的安全上下文和 Pod 所在命名空间允许的
+根据请求的安全上下文和 Pod 所在名字空间允许的
 [Pod 安全性标准](/zh/docs/concepts/security/pod-security-standards/)的限制来确定新 Pod
 是否应该被准入。
 
@@ -1147,6 +1278,11 @@ PodSecurity 取代了一个名为 PodSecurityPolicy 的旧准入控制器。
 ### PodTolerationRestriction {#podtolerationrestriction}
 
 {{< feature-state for_k8s_version="v1.7" state="alpha" >}}
+
+<!--
+**Type**: Mutating and Validating.
+-->
+**类别**：变更和验证。
 
 <!--
 The PodTolerationRestriction admission controller verifies any conflict between tolerations of a
@@ -1200,16 +1336,25 @@ This admission controller is disabled by default.
 <!--
 ### Priority {#priority}
 
+**Type**: Mutating and Validating.
+
 The priority admission controller uses the `priorityClassName` field and populates the integer
 value of the priority.
 If the priority class is not found, the Pod is rejected.
 -->
 ### 优先级 {#priority}
 
+**类别**：变更和验证。
+
 优先级准入控制器使用 `priorityClassName` 字段并用整型值填充优先级。
 如果找不到优先级，则拒绝 Pod。
 
 ### ResourceQuota {#resourcequota}
+
+<!--
+**Type**: Validating.
+-->
+**类别**：验证。
 
 <!--
 This admission controller will observe the incoming request and ensure that it does not violate
@@ -1230,6 +1375,11 @@ and the [example of Resource Quota](/docs/concepts/policy/resource-quotas/) for 
 和 [Resource Quota 例子](/zh-cn/docs/concepts/policy/resource-quotas/)了解更多细节。
 
 ### RuntimeClass {#runtimeclass}
+
+<!--
+**Type**: Mutating and Validating.
+-->
+**类别**：变更和验证。
 
 <!--
 If you define a RuntimeClass with [Pod overhead](/docs/concepts/scheduling-eviction/pod-overhead/)
@@ -1253,21 +1403,39 @@ for more information.
 
 ### SecurityContextDeny {#securitycontextdeny}
 
-{{< feature-state for_k8s_version="v1.0" state="alpha" >}}
+<!--
+**Type**: Validating.
+-->
+**类别**：验证。
+
+{{< feature-state for_k8s_version="v1.27" state="deprecated" >}}
 
 {{< caution >}}
 <!--
-This admission controller plugin is **outdated** and **incomplete**, it may be
-unusable or not do what you would expect. It was originally designed to prevent
-the use of some, but not all, security-sensitive fields. Indeed, fields like
-`privileged`, were not filtered at creation and the plugin was not updated with
-the most recent fields, and new APIs like the `ephemeralContainers` field for a
-Pod.
+The Kubernetes project recommends that you **do not use** the
+`SecurityContextDeny` admission controller.
+
+The `SecurityContextDeny` admission controller plugin is deprecated and disabled
+by default. It will be removed in a future version. If you choose to enable the
+`SecurityContextDeny` admission controller plugin, you must enable the
+`SecurityContextDeny` feature gate as well.
 -->
-这个准入控制器插件是**过时的**且**不完整的**，它可能无法使用或无法达到你的预期。
-它最初旨在防止使用某些（但不是全部）安全敏感字段。
-事实上，像 `privileged` 这样的字段在创建时并没有被过滤，
-而且该插件没有根据最新的字段和新的 API（例如 Pod 的 `ephemeralContainers` 字段）来更新。
+Kubernetes 项目建议你**不要使用** `SecurityContextDeny` 准入控制器。
+
+`SecurityContextDeny` 准入控制器插件已被弃用，并且默认处于禁用状态。
+此插件将在后续的版本中被移除。如果你选择启用 `SecurityContextDeny` 准入控制器插件，
+也必须同时启用 `SecurityContextDeny` 特性门控。
+
+<!--
+The `SecurityContextDeny` admission plugin is deprecated because it is outdated
+and incomplete; it may be unusable or not do what you would expect. As
+implemented, this plugin is unable to restrict all security-sensitive attributes
+of the Pod API. For example, the `privileged` and `ephemeralContainers` fields
+were never restricted by this plugin.
+-->
+`SecurityContextDeny` 准入插件已被弃用，因为它已经过时且不完整；
+它可能无法使用或无法达到你的预期。该插件实现之时，就无法限制 Pod API 的所有与安全相关的属性。
+例如，`privileged` 和 `ephemeralContainers` 字段就从未受过此插件的限制。
 
 <!--
 The [Pod Security Admission](/docs/concepts/security/pod-security-admission/)
@@ -1310,6 +1478,11 @@ article details the PodSecurityPolicy historical context and the birth of the
 ### ServiceAccount {#serviceaccount}
 
 <!--
+**Type**: Mutating and Validating.
+-->
+**类别**：变更和验证。
+
+<!--
 This admission controller implements automation for
 [serviceAccounts](/docs/tasks/configure-pod-container/configure-service-account/).
 The Kubernetes project strongly recommends enabling this admission controller.
@@ -1324,6 +1497,11 @@ You should enable this admission controller if you intend to make any use of Kub
 ### StorageObjectInUseProtection   {#storageobjectinuseprotection}
 
 <!--
+**Type**: Mutating.
+-->
+**类别**：变更。
+
+<!--
 The `StorageObjectInUseProtection` plugin adds the `kubernetes.io/pvc-protection` or `kubernetes.io/pv-protection`
 finalizers to newly created Persistent Volume Claims (PVCs) or Persistent Volumes (PV).
 In case a user deletes a PVC or PV the PVC or PV is not removed until the finalizer is removed
@@ -1333,12 +1511,17 @@ Refer to the
 for more detailed information.
 -->
 `StorageObjectInUseProtection` 插件将 `kubernetes.io/pvc-protection` 或
-`kubernetes.io/pv-protection` finalizers 添加到新创建的持久卷申领（PVC）
-或持久卷（PV）中。如果用户尝试删除 PVC/PV，除非 PVC/PV 的保护控制器移除终结器（finalizers），
+`kubernetes.io/pv-protection` 终结器（finalizers）添加到新创建的持久卷申领（PVC）
+或持久卷（PV）中。如果用户尝试删除 PVC/PV，除非 PVC/PV 的保护控制器移除终结器，
 否则 PVC/PV 不会被删除。有关更多详细信息，
 请参考[保护使用中的存储对象](/zh-cn/docs/concepts/storage/persistent-volumes/#storage-object-in-use-protection)。
 
 ### TaintNodesByCondition {#taintnodesbycondition}
+
+<!--
+**Type**: Mutating.
+-->
+**类别**：变更。
 
 <!--
 This admission controller {{< glossary_tooltip text="taints" term_id="taint" >}} newly created
@@ -1354,6 +1537,11 @@ conditions.
 ### ValidatingAdmissionPolicy {#validatingadmissionpolicy}
 
 <!--
+**Type**: Validating.
+-->
+**类别**：验证。
+
+<!--
 [This admission controller](/docs/reference/access-authn-authz/validating-admission-policy/) implements the CEL validation for incoming matched requests.
 It is enabled when both feature gate `validatingadmissionpolicy` and `admissionregistration.k8s.io/v1alpha1` group/version are enabled.
 If any of the ValidatingAdmissionPolicy fails, the request fails.
@@ -1363,6 +1551,11 @@ CEL 校验。当 `validatingadmissionpolicy` 和 `admissionregistration.k8s.io/v
 此特性被启用。如果任意 ValidatingAdmissionPolicy 失败，则请求失败。
 
 ### ValidatingAdmissionWebhook {#validatingadmissionwebhook}
+
+<!--
+**Type**: Validating.
+-->
+**类别**：验证。
 
 <!--
 This admission controller calls any validating webhooks which match the request. Matching
@@ -1406,4 +1599,3 @@ You can enable additional admission controllers beyond the default set using the
 （请查看[这里](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/#options)）。
 因此，你无需显式指定它们。
 你可以使用 `--enable-admission-plugins` 标志（ **顺序不重要** ）来启用默认设置以外的其他准入控制器。
-

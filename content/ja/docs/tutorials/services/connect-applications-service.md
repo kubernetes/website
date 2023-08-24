@@ -134,7 +134,7 @@ my-nginx-7vzhx   IPv4          80      10.244.2.5,10.244.3.4   21s
 ## Serviceへのアクセス
 
 KubernetesはServiceを探す2つの主要なモードとして、環境変数とDNSをサポートしています。
-前者はすぐに動かせるのに対し、後者は[CoreDNSクラスターアドオン](https://releases.k8s.io/{{< param "fullversion" >}}/cluster/addons/dns/coredns)が必要です。
+前者はすぐに動かせるのに対し、後者は[CoreDNSクラスターアドオン](https://releases.k8s.io/v{{< skew currentPatchVersion >}}/cluster/addons/dns/coredns)が必要です。
 
 {{< note >}}
 もしServiceの環境変数が望ましくないなら(想定しているプログラムの環境変数と競合する可能性がある、処理する変数が多すぎる、DNSだけ使いたい、など)、[pod spec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#pod-v1-core)で`enableServiceLinks`のフラグを`false`にすることで、このモードを無効化できます。

@@ -25,8 +25,8 @@ and report them as events on {{< glossary_tooltip text="PVCs" term_id="persisten
 or {{< glossary_tooltip text="Pods" term_id="pod" >}}.
 -->
 {{< glossary_tooltip text="CSI" term_id="csi" >}} 卷健康监测支持 CSI 驱动从底层的存储系统着手，
-探测异常的卷状态，并以事件的形式上报到 {{< glossary_tooltip text="PVCs" term_id="persistent-volume-claim" >}}
-或 {{< glossary_tooltip text="Pods" term_id="pod" >}}.
+探测异常的卷状态，并以事件的形式上报到 {{< glossary_tooltip text="PVC" term_id="persistent-volume-claim" >}}
+或 {{< glossary_tooltip text="Pod" term_id="pod" >}}.
 
 <!-- body -->
 
@@ -46,7 +46,7 @@ an event will be reported on the related
 {{< glossary_tooltip text="PersistentVolumeClaim" term_id="persistent-volume-claim" >}} (PVC)
 when an abnormal volume condition is detected on a CSI volume.
 -->
-Kubernetes _卷健康监测_ 是 Kubernetes 容器存储接口（CSI）实现的一部分。
+Kubernetes **卷健康监测**是 Kubernetes 容器存储接口（CSI）实现的一部分。
 卷健康监测特性由两个组件实现：外部健康监测控制器和 {{< glossary_tooltip term_id="kubelet" text="kubelet" >}}。
 
 如果 CSI 驱动器通过控制器的方式支持卷健康监测特性，那么只要在 CSI 卷上监测到异常卷状态，就会在
@@ -79,7 +79,8 @@ is healthy. For more information, please check
 此外，卷运行状况信息作为 Kubelet VolumeStats 指标公开。
 添加了一个新的指标 kubelet_volume_stats_health_status_abnormal。
 该指标包括两个标签：`namespace` 和 `persistentvolumeclaim`。
-计数为 1 或 0。1 表示卷不正常，0 表示卷正常。更多信息请访问[KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/1432-volume-health-monitor#kubelet-metrics-changes)。
+计数为 1 或 0。1 表示卷不正常，0 表示卷正常。更多信息请访问
+[KEP](https://github.com/kubernetes/enhancements/tree/master/keps/sig-storage/1432-volume-health-monitor#kubelet-metrics-changes)。
 
 <!--
 You need to enable the `CSIVolumeHealth` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)

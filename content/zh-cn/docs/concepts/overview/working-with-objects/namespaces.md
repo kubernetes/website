@@ -273,13 +273,11 @@ kubectl api-resources --namespaced=false
 
 <!--
 The Kubernetes control plane sets an immutable {{< glossary_tooltip text="label" term_id="label" >}}
-`kubernetes.io/metadata.name` on all namespaces, provided that the `NamespaceDefaultLabelName`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
+`kubernetes.io/metadata.name` on all namespaces.
 The value of the label is the namespace name.
 -->
 Kubernetes 控制面会为所有名字空间设置一个不可变更的{{< glossary_tooltip text="标签" term_id="label" >}}
-`kubernetes.io/metadata.name`，只要 `NamespaceDefaultLabelName`
-这一[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)被启用。
+`kubernetes.io/metadata.name`。
 标签的值是名字空间的名称。
 
 ## {{% heading "whatsnext" %}}

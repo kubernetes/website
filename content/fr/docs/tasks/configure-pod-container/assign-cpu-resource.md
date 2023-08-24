@@ -64,7 +64,7 @@ dans le manifeste des ressources du conteneur. Pour spécifier une limite de CPU
 
 Dans cet exercice, vous allez créer un Pod qui a un seul conteneur. Le conteneur a une demande de 0.5 CPU et une limite de 1 CPU. Voici le fichier de configuration du Pod :
 
-{{< codenew file="pods/resource/cpu-request-limit.yaml" >}}
+{{% codenew file="pods/resource/cpu-request-limit.yaml" %}}
 
 La section `args` du fichier de configuration fournit des arguments pour le conteneur lorsqu'il démarre. L'argument `-cpus "2"` demande au conteneur d'utiliser 2 CPUs.
 
@@ -147,7 +147,7 @@ L'ordonnancement des pods est basé sur les demandes. Un Pod est prévu pour se 
 Dans cet exercice, vous allez créer un Pod qui a une demande de CPU si importante qu'elle dépassera la capacité de n'importe quel nœud de votre cluster. Voici le fichier de configuration d'un Pod
 qui a un seul conteneur. Le conteneur nécessite 100 CPU, ce qui est susceptible de dépasser la capacité de tous les nœuds de votre cluster.
 
-{{< codenew file="pods/resource/cpu-request-limit-2.yaml" >}}
+{{% codenew file="pods/resource/cpu-request-limit-2.yaml" %}}
 
 Créez le Pod :
 
