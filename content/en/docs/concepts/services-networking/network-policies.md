@@ -262,26 +262,17 @@ ingress or egress traffic.
 NetworkPolicy is defined for [layer 4](https://en.wikipedia.org/wiki/OSI_model#Layer_4:_Transport_layer) 
 connections (TCP, UDP, and optionally SCTP). For all the other protocols, the behaviour may vary 
 across network plugins.
-When a `deny all` network policy is defined, it is only guaranteed to deny TCP, UDP and SCTP
-connections. For other protocols, such as ARP or ICMP, the behaviour is undefined.
-The same applies to allow rules: when a specific pod is allowed as ingress source or egress destination,
-it is undefined what happens with (for example) ICMP packets. Protocols such as ICMP may be allowed by some 
-network plugins and denied by others.
-
-### SCTP support
-
-{{< feature-state for_k8s_version="v1.20" state="stable" >}}
-
-As a stable feature, this is enabled by default. To disable SCTP at a cluster level, you (or your
-cluster administrator) will need to disable the `SCTPSupport`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-for the API server with `--feature-gates=SCTPSupport=false,…`.
-When the feature gate is enabled, you can set the `protocol` field of a NetworkPolicy to `SCTP`.
 
 {{< note >}}
 You must be using a {{< glossary_tooltip text="CNI" term_id="cni" >}} plugin that supports SCTP
 protocol NetworkPolicies.
 {{< /note >}}
+
+When a `deny all` network policy is defined, it is only guaranteed to deny TCP, UDP and SCTP
+connections. For other protocols, such as ARP or ICMP, the behaviour is undefined.
+The same applies to allow rules: when a specific pod is allowed as ingress source or egress destination,
+it is undefined what happens with (for example) ICMP packets. Protocols such as ICMP may be allowed by some 
+network plugins and denied by others.
 
 ## Targeting a range of ports
 
