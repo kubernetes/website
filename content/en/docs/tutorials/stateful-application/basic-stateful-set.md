@@ -63,7 +63,7 @@ example presented in the
 It creates a [headless Service](/docs/concepts/services-networking/service/#headless-services),
 `nginx`, to publish the IP addresses of Pods in the StatefulSet, `web`.
 
-{{% code file="application/web/web.yaml" %}}
+{{% code_sample file="application/web/web.yaml" %}}
 
 Download the example above, and save it to a file named `web.yaml`
 
@@ -1090,7 +1090,7 @@ terminate all Pods in parallel, and not to wait for Pods to become Running
 and Ready or completely terminated prior to launching or terminating another
 Pod. This option only affects the behavior for scaling operations. Updates are not affected.
 
-{{% code file="application/web/web-parallel.yaml" %}}
+{{% code_sample file="application/web/web-parallel.yaml" %}}
 
 Download the example above, and save it to a file named `web-parallel.yaml`
 

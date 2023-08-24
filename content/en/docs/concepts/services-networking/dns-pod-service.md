@@ -300,7 +300,7 @@ Below are the properties a user can specify in the `dnsConfig` field:
 
 The following is an example Pod with custom DNS settings:
 
-{{% code file="service/networking/custom-dns.yaml" %}}
+{{% code_sample file="service/networking/custom-dns.yaml" %}}
 
 When the Pod above is created, the container `test` gets the following contents
 in its `/etc/resolv.conf` file:

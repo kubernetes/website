@@ -185,7 +185,7 @@ You have successfully set your Docker credentials as a Secret called `regcred` i
 
 Here is a manifest for an example Pod that needs access to your Docker credentials in `regcred`:
 
-{{% code file="pods/private-reg-pod.yaml" %}}
+{{% code_sample file="pods/private-reg-pod.yaml" %}}
 
 Download the above file onto your computer:
 

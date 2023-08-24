@@ -29,7 +29,7 @@ running container.
 In this exercise, you create a Pod that has one container. The container
 runs the nginx image. Here is the configuration file for the Pod:
 
-{{% code file="application/shell-demo.yaml" %}}
+{{% code_sample file="application/shell-demo.yaml" %}}
 
 Create the Pod:
 

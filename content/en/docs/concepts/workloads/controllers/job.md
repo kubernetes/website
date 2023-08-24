@@ -39,7 +39,7 @@ see [CronJob](/docs/concepts/workloads/controllers/cron-jobs/).
 Here is an example Job config. It computes π to 2000 places and prints it out.
 It takes around 10s to complete.
 
-{{% code file="controllers/job.yaml" %}}
+{{% code_sample file="controllers/job.yaml" %}}
 
 You can run the example with this command:
 
@@ -416,7 +416,7 @@ controller, by setting the Failed condition in the Job status.
 
 Here is an example manifest for a Job that defines a `backoffLimitPerIndex`:
 
-{{< codenew file="/controllers/job-backoff-limit-per-index-example.yaml" >}}
+{{< code_sample file="/controllers/job-backoff-limit-per-index-example.yaml" >}}
 
 In the example above, the Job controller allows for one restart for each
 of the indexes. When the total number of failed indexes exceeds 5, then
@@ -483,7 +483,7 @@ container exit codes and the Pod conditions.
 
 Here is a manifest for a Job that defines a `podFailurePolicy`:
 
-{{% code file="/controllers/job-pod-failure-policy-example.yaml" %}}
+{{% code_sample file="/controllers/job-pod-failure-policy-example.yaml" %}}
 
 In the example above, the first rule of the Pod failure policy specifies that
 the Job should be marked failed if the `main` container fails with the 42 exit

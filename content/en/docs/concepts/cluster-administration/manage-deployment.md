@@ -22,7 +22,7 @@ Many applications require multiple resources to be created, such as a Deployment
 Management of multiple resources can be simplified by grouping them together in the same file
 (separated by `---` in YAML). For example:
 
-{{% code file="application/nginx-app.yaml" %}}
+{{% code_sample file="application/nginx-app.yaml" %}}
 
 Multiple resources can be created the same way as a single resource:
 

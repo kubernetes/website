@@ -547,7 +547,7 @@ section, and learn how to use these objects with Pods.
 2. Assign the `special.how` value defined in the ConfigMap to the `SPECIAL_LEVEL_KEY`
    environment variable in the Pod specification.
 
-   {{% code file="pods/pod-single-configmap-env-variable.yaml" %}}
+   {{% code_sample file="pods/pod-single-configmap-env-variable.yaml" %}}
 
    Create the Pod:
 
@@ -562,7 +562,7 @@ section, and learn how to use these objects with Pods.
 As with the previous example, create the ConfigMaps first.
 Here is the manifest you will use:
 
-{{% code file="configmap/configmaps.yaml" %}}
+{{% code_sample file="configmap/configmaps.yaml" %}}
 
 * Create the ConfigMap:
 
@@ -572,7 +572,7 @@ Here is the manifest you will use:
 
 * Define the environment variables in the Pod specification.
 
-  {{% code file="pods/pod-multiple-configmap-env-variable.yaml" %}}
+  {{% code_sample file="pods/pod-multiple-configmap-env-variable.yaml" %}}
 
   Create the Pod:
 
@@ -591,7 +591,7 @@ Here is the manifest you will use:
 
 * Create a ConfigMap containing multiple key-value pairs.
 
-  {{% code file="configmap/configmap-multikeys.yaml" %}}
+  {{% code_sample file="configmap/configmap-multikeys.yaml" %}}
 
   Create the ConfigMap:
 
@@ -602,7 +602,7 @@ Here is the manifest you will use:
 * Use `envFrom` to define all of the ConfigMap's data as container environment variables. The
   key from the ConfigMap becomes the environment variable name in the Pod.
 
-  {{% code file="pods/pod-configmap-envFrom.yaml" %}}
+  {{% code_sample file="pods/pod-configmap-envFrom.yaml" %}}
 
   Create the Pod:
 
@@ -624,7 +624,7 @@ using the `$(VAR_NAME)` Kubernetes substitution syntax.
 
 For example, the following Pod manifest:
 
-{{% code file="pods/pod-configmap-env-var-valueFrom.yaml" %}}
+{{% code_sample file="pods/pod-configmap-env-var-valueFrom.yaml" %}}
 
 Create that Pod, by running:
 
@@ -654,7 +654,7 @@ the ConfigMap. The file contents become the key's value.
 
 The examples in this section refer to a ConfigMap named `special-config`:
 
-{{% code file="configmap/configmap-multikeys.yaml" %}}
+{{% code_sample file="configmap/configmap-multikeys.yaml" %}}
 
 Create the ConfigMap:
 
@@ -669,7 +669,7 @@ This adds the ConfigMap data to the directory specified as `volumeMounts.mountPa
 case, `/etc/config`). The `command` section lists directory files with names that match the
 keys in ConfigMap.
 
-{{% code file="pods/pod-configmap-volume.yaml" %}}
+{{% code_sample file="pods/pod-configmap-volume.yaml" %}}
 
 Create the Pod:
 
@@ -703,7 +703,7 @@ kubectl delete pod dapi-test-pod --now
 Use the `path` field to specify the desired file path for specific ConfigMap items.
 In this case, the `SPECIAL_LEVEL` item will be mounted in the `config-volume` volume at `/etc/config/keys`.
 
-{{% code file="pods/pod-configmap-volume-specific-key.yaml" %}}
+{{% code_sample file="pods/pod-configmap-volume-specific-key.yaml" %}}
 
 Create the Pod:
 

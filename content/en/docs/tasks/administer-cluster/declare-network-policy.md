@@ -87,7 +87,7 @@ remote file exists
 
 To limit the access to the `nginx` service so that only Pods with the label `access: true` can query it, create a NetworkPolicy object as follows:
 
-{{% code file="service/networking/nginx-policy.yaml" %}}
+{{% code_sample file="service/networking/nginx-policy.yaml" %}}
 
 The name of a NetworkPolicy object must be a valid
 [DNS subdomain name](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names).

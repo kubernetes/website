@@ -32,7 +32,7 @@ In this part of exercise, you create a Pod that has one container, and you
 project Pod-level fields into the running container as files.
 Here is the manifest for the Pod:
 
-{{% code file="pods/inject/dapi-volume.yaml" %}}
+{{% code_sample file="pods/inject/dapi-volume.yaml" %}}
 
 In the manifest, you can see that the Pod has a `downwardAPI` Volume,
 and the container mounts the volume at `/etc/podinfo`.
@@ -155,7 +155,7 @@ definition, but taken from the specific
 rather than from the Pod overall. Here is a manifest for a Pod that again has
 just one container:
 
-{{% code file="pods/inject/dapi-volume-resources.yaml" %}}
+{{% code_sample file="pods/inject/dapi-volume-resources.yaml" %}}
 
 In the manifest, you can see that the Pod has a
 [`downwardAPI` volume](/docs/concepts/storage/volumes/#downwardapi),
