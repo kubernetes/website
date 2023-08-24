@@ -160,7 +160,7 @@ An example NetworkPolicy might look like this:
 
 下面是一个 NetworkPolicy 的示例:
 
-{{< codenew file="service/networking/networkpolicy.yaml" >}}
+{{% codenew file="service/networking/networkpolicy.yaml" %}}
 
 {{< note >}}
 <!--
@@ -391,7 +391,7 @@ that selects all pods but does not allow any ingress traffic to those pods.
 你可以通过创建选择所有 Pod 但不允许任何进入这些 Pod 的入站流量的 NetworkPolicy
 来为名字空间创建 “default” 隔离策略。
 
-{{< codenew file="service/networking/network-policy-default-deny-ingress.yaml" >}}
+{{% code file="service/networking/network-policy-default-deny-ingress.yaml" %}}
 
 <!--
 This ensures that even pods that aren't selected by any other NetworkPolicy will still be isolated
@@ -411,7 +411,7 @@ that explicitly allows that.
 -->
 如果你想允许一个名字空间中所有 Pod 的所有入站连接，你可以创建一个明确允许的策略。
 
-{{< codenew file="service/networking/network-policy-allow-all-ingress.yaml" >}}
+{{% code file="service/networking/network-policy-allow-all-ingress.yaml" %}}
 
 <!--
 With this policy in place, no additional policy or policies can cause any incoming connection to
@@ -431,7 +431,7 @@ that selects all pods but does not allow any egress traffic from those pods.
 你可以通过创建选择所有容器但不允许来自这些容器的任何出站流量的 NetworkPolicy
 来为名字空间创建 “default” 隔离策略。
 
-{{< codenew file="service/networking/network-policy-default-deny-egress.yaml" >}}
+{{% code file="service/networking/network-policy-default-deny-egress.yaml" %}}
 
 <!--
 This ensures that even pods that aren't selected by any other NetworkPolicy will not be allowed
@@ -452,7 +452,7 @@ explicitly allows all outgoing connections from pods in that namespace.
 如果要允许来自名字空间中所有 Pod 的所有连接，
 则可以创建一个明确允许来自该名字空间中 Pod 的所有出站连接的策略。
 
-{{< codenew file="service/networking/network-policy-allow-all-egress.yaml" >}}
+{{% code file="service/networking/network-policy-allow-all-egress.yaml" %}}
 
 <!--
 With this policy in place, no additional policy or policies can cause any outgoing connection from
@@ -472,7 +472,7 @@ creating the following NetworkPolicy in that namespace.
 你可以为名字空间创建“默认”策略，以通过在该名字空间中创建以下 NetworkPolicy
 来阻止所有入站和出站流量。
 
-{{< codenew file="service/networking/network-policy-default-deny-all.yaml" >}}
+{{% code file="service/networking/network-policy-default-deny-all.yaml" %}}
 
 <!--
 This ensures that even pods that aren't selected by any other NetworkPolicy will not be allowed
@@ -524,7 +524,7 @@ This is achievable with the usage of the `endPort` field, as the following examp
 
 这一目的可以通过使用 `endPort` 字段来实现，如下例所示：
 
-{{< codenew file="service/networking/networkpolicy-multiport-egress.yaml" >}}
+{{% code file="service/networking/networkpolicy-multiport-egress.yaml" %}}
 
 <!--
 The above rule allows any Pod with label `role=db` on the namespace `default` to communicate 
@@ -568,7 +568,7 @@ NetworkPolicy 规约中使用 `endPort` 字段。
 In this scenario, your `Egress` NetworkPolicy targets more than one namespace using their
 label names. For this to work, you need to label the target namespaces. For example:
 -->
-## 按标签选择多个命名空间   {#targeting-multiple-namespaces-by-label}
+## 按标签选择多个名字空间   {#targeting-multiple-namespaces-by-label}
 
 在这种情况下，你的 `Egress` NetworkPolicy 使用名字空间的标签名称来将多个名字空间作为其目标。
 为此，你需要为目标名字空间设置标签。例如：
@@ -609,9 +609,9 @@ It is not possible to directly specify the name of the namespaces in a NetworkPo
 You must use a `namespaceSelector` with `matchLabels` or `matchExpressions` to select the
 namespaces based on their labels.
 -->
-你不可以在 NetworkPolicy 中直接指定命名空间的名称。
+你不可以在 NetworkPolicy 中直接指定名字空间的名称。
 你必须使用带有 `matchLabels` 或 `matchExpressions` 的 `namespaceSelector`
-来根据标签选择命名空间。
+来根据标签选择名字空间。
 {{< /note >}}
 
 <!--
@@ -619,21 +619,15 @@ namespaces based on their labels.
 -->
 ## 基于名字指向某名字空间   {#targeting-a-namespace-by-its-name}
 
-{{< feature-state for_k8s_version="1.22" state="stable" >}}
-
 <!--
 The Kubernetes control plane sets an immutable label `kubernetes.io/metadata.name` on all
-namespaces, provided that the `NamespaceDefaultLabelName`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
-The value of the label is the namespace name.
+namespaces, the value of the label is the namespace name.
 
 While NetworkPolicy cannot target a namespace by its name with some object field, you can use the
 standardized label to target a specific namespace.
 -->
-只要 `NamespaceDefaultLabelName`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)被启用，
 Kubernetes 控制面会在所有名字空间上设置一个不可变更的标签
-`kubernetes.io/metadata.name`。该标签的值是名字空间的名称。
+`kubernetes.io/metadata.name`，该标签的值是名字空间的名称。
 
 如果 NetworkPolicy 无法在某些对象字段中指向某名字空间，
 你可以使用标准的标签方式来指向特定名字空间。
