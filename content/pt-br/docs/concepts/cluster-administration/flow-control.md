@@ -394,7 +394,7 @@ você pode configurar regras para bloquear qualquer solicitação de verificaç�
 que se originam de fora do seu cluster.
 {{< /caution >}}
 
-{{< codenew file="priority-and-fairness/health-for-strangers.yaml" >}}
+{{% codenew file="priority-and-fairness/health-for-strangers.yaml" %}}
 
 ## Diagnóstico
 

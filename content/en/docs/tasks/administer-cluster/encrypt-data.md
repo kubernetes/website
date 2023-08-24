@@ -8,7 +8,28 @@ weight: 210
 ---
 
 <!-- overview -->
-This page shows how to enable and configure encryption of secret data at rest.
+
+All of the APIs in Kubernetes that let you write persistent API resource data support
+at-rest encryption. For example, you can enable at-rest encryption for
+{{< glossary_tooltip text="Secrets" term_id="secret" >}}.
+This at-rest encryption is additional to any system-level encryption for the
+etcd cluster or for the filesystem(s) on hosts where you are running the
+kube-apiserver.
+
+This page shows how to enable and configure encryption of API data at rest.
+
+{{< note >}}
+This task covers encryption for resource data stored using the
+{{< glossary_tooltip text="Kubernetes API" term_id="kubernetes-api" >}}. For example, you can
+encrypt Secret objects, including the key-value data they contain.
+
+If you want to encrypt data in filesystems that are mounted into containers, you instead need
+to either:
+
+- use a storage integration that provides encrypted
+  {{< glossary_tooltip text="volumes" term_id="volume" >}}
+- encrypt the data within your own application
+{{< /note >}}
 
 ## {{% heading "prerequisites" %}}
 
@@ -204,7 +225,7 @@ The following table describes each available provider:
   <td colspan="4">Not recommended for use except when an automated key rotation scheme is implemented. Key material accessible from control plane host.</td>
   </tr>
   <tr>
-  <th rowspan="2" scope="row"><tt>kms</tt> v1</th>
+  <th rowspan="2" scope="row"><tt>kms</tt> v1 <em>(deprecated since Kubernetes v1.28)</em></th>
   <td>Uses envelope encryption scheme with DEK per resource.</td>
   <td>Strongest</td>
   <td>Slow (<em>compared to <tt>kms</tt> version 2</em>)</td>
@@ -233,8 +254,12 @@ The following table describes each available provider:
     Data is encrypted by data encryption keys (DEKs) using AES-GCM; DEKs
     are encrypted by key encryption keys (KEKs) according to configuration
     in Key Management Service (KMS).
-    A new DEK is generated at API server startup, and is then reused for
-    encryption. The DEK is rotated whenever the KEK is rotated.
+    Kubernetes defaults to generating a new DEK at API server startup, which is then
+    reused for object encryption.
+    If you enable the <tt>KMSv2KDF</tt>
+    <a href="/docs/reference/command-line-tools-reference/feature-gates/">feature gate</a>,
+    Kubernetes instead generates a new DEK per encryption from a secret seed.
+    Whichever approach you configure, the DEK or seed is also rotated whenever the KEK is rotated.<br/>
     A good choice if using a third party tool for key management.
     Available in beta from Kubernetes v1.27.
     <br />
@@ -296,7 +321,7 @@ resources:
               # See the following text for more details about the secret value
               secret: <BASE 64 ENCODED SECRET>
       - identity: {} # this fallback allows reading unencrypted secrets;
-                     # for example, during initial migratoin
+                     # for example, during initial migration
 ```
 
 To create a new Secret, perform the following steps:

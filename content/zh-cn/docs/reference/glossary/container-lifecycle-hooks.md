@@ -26,7 +26,8 @@ tags:
   <!--
   The lifecycle hooks expose events in the {{< glossary_tooltip text="Container" term_id="container" >}} management lifecycle and let the user run code when the events occur.
   -->
-  生命周期钩子（Lifecycle Hooks）暴露{{< glossary_tooltip text="容器" term_id="container" >}}管理生命周期中的事件，允许用户在事件发生时运行代码。
+  生命周期钩子（Lifecycle Hooks）暴露{{< glossary_tooltip text="容器" term_id="container" >}}管理生命周期中的事件，
+  允许用户在事件发生时运行代码。
 
 <!--more--> 
 

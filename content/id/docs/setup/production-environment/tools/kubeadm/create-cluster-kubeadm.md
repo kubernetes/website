@@ -492,7 +492,7 @@ dan `scp` menggunakan pengguna lain tersebut.
 Berkas `admin.conf` memberikan penggunanya privilese (_privilege_) _superuser_ terhadap klaster.
 Berkas ini harus digunakan seperlunya. Untuk pengguna biasa, direkomendasikan
 untuk membuat kredensial unik dengan privilese _whitelist_. Kamu dapat melakukan
-ini dengan perintah `kubeadm alpha kubeconfig user --client-name <CN>`. 
+ini dengan perintah `kubeadm kubeconfig user --client-name <CN>`. 
 Perintah tersebut akan mencetak berkas KubeConfig ke STDOUT yang harus kamu simpan
 ke dalam sebuah berkas dan mendistribusikannya pada para pengguna. Setelah itu, whitelist
 privilese menggunakan `kubectl create (cluster)rolebinding`.

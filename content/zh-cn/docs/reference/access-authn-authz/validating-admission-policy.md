@@ -580,11 +580,12 @@ Examples on escaping:
 <!--
 Equality on arrays with list type of 'set' or 'map' ignores element order, i.e. [1, 2] == [2, 1].
 Concatenation on arrays with x-kubernetes-list-type use the semantics of the list type:
-    - 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
-      non-intersecting elements in `Y` are appended, retaining their partial order.
-    - 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
-      are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
-      non-intersecting keys are appended, retaining their partial order.
+
+- 'set': `X + Y` performs a union where the array positions of all elements in `X` are preserved and
+  non-intersecting elements in `Y` are appended, retaining their partial order.
+- 'map': `X + Y` performs a merge where the array positions of all keys in `X` are preserved but the values
+  are overwritten by values in `Y` when the key sets of `X` and `Y` intersect. Elements in `Y` with
+  non-intersecting keys are appended, retaining their partial order.
 -->
 列表类型为 "set" 或 "map" 的数组上的等价关系比较会忽略元素顺序，即 [1, 2] == [2, 1]。
 使用 x-kubernetes-list-type 连接数组时使用列表类型的语义：
@@ -654,7 +655,7 @@ Here is an example illustrating a few different uses for match conditions:
 -->
 以下示例说明了匹配条件的几个不同用法：
 
-{{< codenew file="access/validating-admission-policy-match-conditions.yaml" >}}
+{{% codenew file="access/validating-admission-policy-match-conditions.yaml" %}}
 
 <!--
 Match conditions have access to the same CEL variables as validation expressions.
@@ -664,8 +665,8 @@ the request is determined as follows:
 
 1. If **any** match condition evaluated to `false` (regardless of other errors), the API server skips the policy.
 2. Otherwise:
-  - for [`failurePolicy: Fail`](#failure-policy), reject the request (without evaluating the policy).
-  - for [`failurePolicy: Ignore`](#failure-policy), proceed with the request but skip the policy.
+   - for [`failurePolicy: Fail`](#failure-policy), reject the request (without evaluating the policy).
+   - for [`failurePolicy: Ignore`](#failure-policy), proceed with the request but skip the policy.
 -->
 这些匹配条件可以访问与验证表达式相同的 CEL 变量。
 
@@ -690,13 +691,14 @@ For example, here is an admission policy with an audit annotation:
 
 例如，以下是带有审计注解的准入策略：
 
-{{< codenew file="access/validating-admission-policy-audit-annotation.yaml" >}}
+{{% codenew file="access/validating-admission-policy-audit-annotation.yaml" %}}
 
 <!--
 When an API request is validated with this admission policy, the resulting audit event will look like:
 -->
 当使用此准入策略验证 API 请求时，生成的审计事件将如下所示：
 
+<!--
 ```
 # the audit event recorded
 {
@@ -708,6 +710,21 @@ When an API request is validated with this admission policy, the resulting audit
         ...
     }
     # other fields
+    ...
+}
+```
+-->
+```
+# 记录的审计事件
+{
+    "kind": "Event",
+    "apiVersion": "audit.k8s.io/v1",
+    "annotations": {
+        "demo-policy.example.com/high-replica-count": "Deployment spec.replicas set to 128"
+        # 其他注解
+        ...
+    }
+    # 其他字段
     ...
 }
 ```
@@ -748,7 +765,7 @@ we can have the following validation:
 
 例如，为了在策略引用参数时更好地告知用户拒绝原因，我们可以有以下验证：
 
-{{< codenew file="access/deployment-replicas-policy.yaml" >}}
+{{% codenew file="access/deployment-replicas-policy.yaml" %}}
 
 <!--
 After creating a params object that limits the replicas to 3 and setting up the binding,
@@ -801,6 +818,9 @@ For example, given the following policy definition:
 
 例如，给定以下策略定义：
 
+<!--
+# should be "object.spec.replicas > 1"
+-->
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1alpha1
 kind: ValidatingAdmissionPolicy
@@ -842,6 +862,9 @@ For example, the following policy definition
 如果在 `spec.matchConstraints` 中匹配了多个资源，则所有匹配的资源都将进行检查。
 例如，以下策略定义：
 
+<!--
+# should be "object.spec.replicas > 1"
+-->
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1alpha1
 kind: ValidatingAdmissionPolicy
@@ -892,7 +915,7 @@ Type Checking has the following limitation:
 类型检查具有以下限制：
 
 - 没有通配符匹配。
-  如果 `spec.matchConstraints.resourceRules` 中的任何一个 `apiGroups``、apiVersions`
+  如果 `spec.matchConstraints.resourceRules` 中的任何一个 `apiGroups`、`apiVersions`
   或 `resources` 包含 "\*"，则不会检查与 "\*" 匹配的类型。
 - 匹配的类型数量最多为 10 种。这是为了防止手动指定过多类型的策略消耗过多计算资源。
   按升序处理组、版本，然后是资源，忽略第 11 个及其之后的组合。

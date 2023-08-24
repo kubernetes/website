@@ -3,6 +3,12 @@ title: Well-Known Labels, Annotations and Taints
 content_type: concept
 weight: 40
 no_list: true
+card:
+  name: reference
+  weight: 30
+  anchors:
+  - anchor: "#labels-annotations-and-taints-used-on-api-objects"
+    title: Labels, annotations and taints
 ---
 
 <!-- overview -->
@@ -14,6 +20,21 @@ This document serves both as a reference to the values and as a coordination poi
 <!-- body -->
 
 ## Labels, annotations and taints used on API objects
+
+
+### apf.kubernetes.io/autoupdate-spec
+
+Type: Annotation
+
+Example: `apf.kubernetes.io/autoupdate-spec: "true"`
+
+Used on: [`FlowSchema` and `PriorityLevelConfiguration` Objects](/concepts/cluster-administration/flow-control/#defaults)
+
+If this annotation is set to true on a FlowSchema or PriorityLevelConfiguration, the `spec` for that object
+is managed by the kube-apiserver. If the API server does not recognize an APF object, and you annotate it
+for automatic update, the API server deletes the entire object. Otherwise, the API server does not manage the
+object spec.
+For more details, read  [Maintenance of the Mandatory and Suggested Configuration Objects](/docs/concepts/cluster-administration/flow-control/#maintenance-of-the-mandatory-and-suggested-configuration-objects).
 
 ### app.kubernetes.io/component
 
@@ -43,7 +64,7 @@ Starting from v1.9, this label is deprecated.
 
 ### app.kubernetes.io/instance
 
-Type: Label 
+Type: Label
 
 Example: `app.kubernetes.io/instance: "mysql-abcxzy"`
 
@@ -180,6 +201,7 @@ There is no relation between the value of this label and object UID.
 ### applyset.kubernetes.io/is-parent-type (alpha) {#applyset-kubernetes-io-is-parent-type}
 
 Type: Label
+
 Example: `applyset.kubernetes.io/is-parent-type: "true"`
 
 Used on: Custom Resource Definition (CRD)
@@ -225,6 +247,21 @@ Part of the specification used to implement
 This annotation is applied to the parent object used to track an ApplySet to indicate which
 tooling manages that ApplySet. Tooling should refuse to mutate ApplySets belonging to other tools.
 The value must be in the format `<toolname>/<semver>`.
+
+### apps.kubernetes.io/pod-index (beta) {#apps-kubernetes.io-pod-index}
+
+Type: Label
+
+Example: `apps.kubernetes.io/pod-index: "0"`
+
+Used on: Pod
+
+When a StatefulSet controller creates a Pod for the StatefulSet, it sets this label on that Pod. 
+The value of the label is the ordinal index of the pod being created.
+
+See [Pod Index Label](/docs/concepts/workloads/controllers/statefulset/#pod-index-label)
+in the StatefulSet topic for more details. Note the [PodIndexLabel](content/en/docs/reference/command-line-tools-reference/feature-gates.md) feature gate must be enabled
+for this label to be added to pods.
 
 ### cluster-autoscaler.kubernetes.io/safe-to-evict
 
@@ -399,7 +436,7 @@ This label can have one of three values: `Reconcile`, `EnsureExists`, or `Ignore
 - `Ignore`: Addon resources will be ignored. This mode is useful for add-ons that are not
   compatible with the add-on manager or that are managed by another controller.
 
-For more details, see [Addon-manager](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md)
+For more details, see [Addon-manager](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/addon-manager/README.md).
 
 ### beta.kubernetes.io/arch (deprecated)
 
@@ -758,7 +795,7 @@ Kubernetes makes a few assumptions about the structure of zones and regions:
 
 1. regions and zones are hierarchical: zones are strict subsets of regions and
    no zone can be in 2 regions
-2) zone names are unique across regions; for example region "africa-east-1" might be comprised
+2. zone names are unique across regions; for example region "africa-east-1" might be comprised
    of zones "africa-east-1a" and "africa-east-1b"
 
 It should be safe to assume that topology labels do not change.
@@ -796,7 +833,7 @@ Example: `volume.beta.kubernetes.io/storage-provisioner: "k8s.io/minikube-hostpa
 Used on: PersistentVolumeClaim
 
 This annotation has been deprecated since v1.23.
-See [volume.kubernetes.io/storage-provisioner](#volume-kubernetes-io-storage-provisioner)
+See [volume.kubernetes.io/storage-provisioner](#volume-kubernetes-io-storage-provisioner).
 
 ### volume.beta.kubernetes.io/storage-class (deprecated)
 
@@ -881,6 +918,26 @@ Example: `service.kubernetes.io/headless: ""`
 Used on: Service
 
 The control plane adds this label to an Endpoints object when the owning Service is headless.
+
+### service.kubernetes.io/topology-aware-hints (deprecated) {#servicekubernetesiotopology-aware-hints}
+
+Example: `service.kubernetes.io/topology-aware-hints: "Auto"`
+
+Used on: Service
+
+This annotation was used for enabling _topology aware hints_ on Services. Topology aware
+hints have since been renamed: the concept is now called
+[topology aware routing](/docs/concepts/services-networking/topology-aware-routing/).
+Setting the annotation to `Auto`, on a Service, configured the Kubernetes control plane to
+add topology hints on EndpointSlices associated with that Service. You can also explicitly
+set the annotation to `Disabled`.
+
+If you are running a version of Kubernetes older than {{< skew currentVersion >}},
+check the documentation for that Kubernetes version to see how topology aware routing
+works in that release.
+
+There are no other valid values for this annotation. If you don't want topology aware hints
+for a Service, don't add this annotation.
 
 ### kubernetes.io/service-name {#kubernetesioservice-name}
 
@@ -1009,6 +1066,7 @@ Starting in v1.18, this annotation is deprecated in favor of `spec.ingressClassN
 ### storageclass.kubernetes.io/is-default-class
 
 Type: Annotation
+
 Example: `storageclass.kubernetes.io/is-default-class: "true"`
 
 Used on: StorageClass
@@ -1016,7 +1074,7 @@ Used on: StorageClass
 When a single StorageClass resource has this annotation set to `"true"`, new PersistentVolumeClaim
 resource without a class specified will be assigned this default class.
 
-### alpha.kubernetes.io/provided-node-ip
+### alpha.kubernetes.io/provided-node-ip (alpha) {#alpha-kubernetes-io-provided-node-ip}
 
 Type: Annotation
 
@@ -1033,14 +1091,30 @@ by the cloud-controller-manager.
 
 ### batch.kubernetes.io/job-completion-index
 
-Type: Annotation
+Type: Annotation, Label
 
 Example: `batch.kubernetes.io/job-completion-index: "3"`
 
 Used on: Pod
 
-The Job controller in the kube-controller-manager sets this annotation for Pods
+The Job controller in the kube-controller-manager sets this as a label and annotation for Pods
 created with Indexed [completion mode](/docs/concepts/workloads/controllers/job/#completion-mode).
+
+Note the [PodIndexLabel](content/en/docs/reference/command-line-tools-reference/feature-gates.md) feature gate must be enabled
+for this to be added as a pod **label**, otherwise it will just be an annotation.
+
+### batch.kubernetes.io/cronjob-scheduled-timestamp
+
+Type: Annotation
+
+Example: `batch.kubernetes.io/cronjob-scheduled-timestamp: "2016-05-19T03:00:00-07:00"`
+
+Used on: Jobs and Pods controlled by CronJobs
+
+This annotation is used to record the original (expected) creation timestamp for a Job,
+when that Job is part of a CronJob.
+The control plane sets the value to that timestamp in RFC3339 format. If the Job belongs to a CronJob
+with a timezone specified, then the timestamp is in that timezone. Otherwise, the timestamp is in controller-manager's local time.
 
 ### kubectl.kubernetes.io/default-container
 
@@ -1065,9 +1139,24 @@ container.
 {{< note >}}
 This annotation is deprecated. You should use the
 [`kubectl.kubernetes.io/default-container`](#kubectl-kubernetes-io-default-container)
-annotation instead.
-Kubernetes versions 1.25 and newer ignore this annotation.
+annotation instead. Kubernetes versions 1.25 and newer ignore this annotation.
 {{< /note >}}
+
+### kubectl.kubernetes.io/last-applied-configuration
+
+Type: Annotation
+
+Example: _see following snippet_
+```yaml
+    kubectl.kubernetes.io/last-applied-configuration: >
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"example","namespace":"default"},"spec":{"selector":{"matchLabels":{"app.kubernetes.io/name":foo}},"template":{"metadata":{"labels":{"app.kubernetes.io/name":"foo"}},"spec":{"containers":[{"image":"container-registry.example/foo-bar:1.42","name":"foo-bar","ports":[{"containerPort":42}]}]}}}}
+```
+
+Used on: all objects
+
+The kubectl command line tool uses this annotation as a legacy mechanism
+to track changes. That mechanism has been superseded by
+[Server-side apply](/docs/reference/using-api/server-side-apply/).
 
 ### endpoints.kubernetes.io/over-capacity
 
@@ -1093,17 +1182,10 @@ Example: `batch.kubernetes.io/job-tracking: ""`
 
 Used on: Jobs
 
-The presence of this annotation on a Job indicates that the control plane is
+The presence of this annotation on a Job used to indicate that the control plane is
 [tracking the Job status using finalizers](/docs/concepts/workloads/controllers/job/#job-tracking-with-finalizers).
-The control plane uses this annotation to safely transition to tracking Jobs
-using finalizers, while the feature is in development.
-You should **not** manually add or remove this annotation.
-
-{{< note >}}
-Starting from Kubernetes 1.26, this annotation is deprecated.
-Kubernetes 1.27 and newer will ignore this annotation and always track Jobs
-using finalizers.
-{{< /note >}}
+Adding or removing this annotation no longer has an effect (Kubernetes v1.27 and later)
+All Jobs are tracked with finalizers.
 
 ### job-name (deprecated) {#job-name}
 
@@ -1324,7 +1406,7 @@ Type: Label
 
 Example: `feature.node.kubernetes.io/network-sriov.capable: "true"`
 
-Used on: Node 
+Used on: Node
 
 These labels are used by the Node Feature Discovery (NFD) component to advertise
 features on a node. All built-in labels use the `feature.node.kubernetes.io` label
@@ -1636,7 +1718,7 @@ the integration configures an internal load balancer.
 If you use the [AWS load balancer controller](https://kubernetes-sigs.github.io/aws-load-balancer-controller/),
 see [`service.beta.kubernetes.io/aws-load-balancer-scheme`](#service-beta-kubernetes-io-aws-load-balancer-scheme).
 
-### service.beta.kubernetes.io/aws-load-balancer-manage-backend-security-group-rules (beta) {#service-beta-kubernetes-io-aws-load-balancer-manage-backend-security-group-rules)
+### service.beta.kubernetes.io/aws-load-balancer-manage-backend-security-group-rules (beta) {#service-beta-kubernetes-io-aws-load-balancer-manage-backend-security-group-rules}
 
 Example: `service.beta.kubernetes.io/aws-load-balancer-manage-backend-security-group-rules: "true"`
 
@@ -1662,7 +1744,7 @@ balancer to the value you set for _this_ annotation.
 See [annotations](https://kubernetes-sigs.github.io/aws-load-balancer-controller/latest/guide/service/annotations/)
 in the AWS load balancer controller documentation.
 
-### service.beta.kubernetes.io/aws-load-balancer-nlb-target-type (beta) {#service-beta-kubernetes-io-aws-load-balancer-nlb-target-type)
+### service.beta.kubernetes.io/aws-load-balancer-nlb-target-type (beta) {#service-beta-kubernetes-io-aws-load-balancer-nlb-target-type}
 
 Example: `service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "true"`
 
@@ -2044,9 +2126,9 @@ of the exposed advertise address/port endpoint for that API server instance.
 
 Type: Annotation
 
-Used on: ConfigMap
-
 Example: `kubeadm.kubernetes.io/component-config.hash: 2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae`
+
+Used on: ConfigMap
 
 Annotation that kubeadm places on ConfigMaps that it manages for configuring components.
 It contains a hash (SHA-256) used to determine if the user has applied settings different
@@ -2098,4 +2180,3 @@ Taint that kubeadm previously applied on control plane nodes to allow only criti
 workloads to schedule on them. Replaced by the
 [`node-role.kubernetes.io/control-plane`](#node-role-kubernetes-io-control-plane-taint)
 taint. kubeadm no longer sets or uses this deprecated taint.
-

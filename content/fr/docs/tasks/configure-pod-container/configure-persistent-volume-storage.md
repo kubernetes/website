@@ -75,7 +75,7 @@ pour paramétrer du
 [provisioning dynamique](/docs/concepts/storage/dynamic-provisioning/).
 
 Voici le fichier de configuration pour le PersistentVolume de type hostPath:
-{{< codenew file="pods/storage/pv-volume.yaml" >}}
+{{% codenew file="pods/storage/pv-volume.yaml" %}}
 
 Le fichier de configuration spécifie que le chemin du volume sur le noeud est `/mnt/data`. Il spécifie aussi une taille de 10 gibibytes, ainsi qu'un mode d'accès de type `ReadWriteOnce`, impliquant que le volume ne peut être monté en lecture et écriture que par un seul noeud. Le fichier définit un [nom de StorageClass](/docs/concepts/storage/persistent-volumes/#class) à `manual`, ce qui sera utilisé pour attacher un PersistentVolumeClaim à ce PersistentVolume
 
@@ -103,7 +103,7 @@ La prochaine étape est de créer un PersistentVolumeClaim (demande de stockage)
 Dans cet exercice, vous créez un PersistentVolumeClaim qui demande un volume d'au moins 3 GB, et qui peut être monté en lecture et écriture sur au moins un noeud. 
 
 Voici le fichier de configuration du PersistentVolumeClaim:
-{{< codenew file="pods/storage/pv-claim.yaml" >}}
+{{% codenew file="pods/storage/pv-claim.yaml" %}}
 
 Créez le PersistentVolumeClaim:
 
@@ -137,7 +137,7 @@ La prochaine étape est de créer un Pod qui utilise le PersistentVolumeClaim co
 
 Voici le fichier de configuration du Pod:
 
-{{< codenew file="pods/storage/pv-pod.yaml" >}}
+{{% codenew file="pods/storage/pv-pod.yaml" %}}
 
 Notez que le fichier de configuration du Pod spécifie un PersistentVolumeClaim et non un PersistentVolume. Du point de vue du Pod, la demande est un volume de stockage.
 
@@ -200,7 +200,7 @@ Vous pouvez maintenant arrêter la session shell vers votre noeud.
 Vous pouvez monter plusieurs fois un même PersistentVolume
 à plusieurs endroits différents dans votre container nginx:
 
-{{< codenew file="pods/storage/pv-duplicate.yaml" >}}
+{{% codenew file="pods/storage/pv-duplicate.yaml" %}}
 
 - `/usr/share/nginx/html` pour le site statique
 - `/etc/nginx/nginx.conf` pour la configuration par défaut

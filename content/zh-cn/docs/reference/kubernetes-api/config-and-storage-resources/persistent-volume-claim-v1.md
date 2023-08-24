@@ -119,6 +119,7 @@ PersistentVolumeClaimSpec 描述存储设备的常用参数，并支持通过 so
 
     This field is immutable. It can only be set for containers.
     -->
+
     **集合：键 name 的唯一值将在合并期间被保留**
 
     claims 列出了此容器使用的、在 spec.resourceClaims 中定义的资源的名称。
@@ -240,7 +241,6 @@ dataSourceRef specifies the object from which to populate the volume with data, 
   (Alpha) 使用 dataSourceRef 的名字空间字段需要启用 CrossNamespaceVolumeDataSource 特性门控。
 
   <a name="TypedObjectReference"></a>
-  **
 
   <!--
   - **dataSourceRef.kind** (string), required
@@ -299,18 +299,107 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
   https://kubernetes.io/zh-cn/docs/concepts/storage/persistent-volumes#access-modes-1
 
 <!--
-- **allocatedResources** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
+- **allocatedResourceStatuses** (map[string]string)
 
-  allocatedResources is the storage resource within AllocatedResources tracks the capacity allocated to a PVC. It may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+  allocatedResourceStatuses stores status of resource being resized for the given PVC. Key names follow standard Kubernetes label syntax. Valid values are either:
+  	* Un-prefixed keys:
+  		- storage - the capacity of the volume.
+  	* Custom resources must use implementation-defined prefixed names such as "example.com/my-custom-resource"
+  Apart from above values - keys that are unprefixed or have kubernetes.io prefix are considered reserved and hence may not be used.
 -->
+- **allocatedResourceStatuses** (map[string]string)
+
+  allocatedResourceStatuses 存储为给定 PVC 而调整大小的资源的状态。键名遵循标准的 Kubernetes 标签语法。
+  有效值为：
+  * 未加前缀的键：
+    - storage - 卷的容量。
+  * 自定义资源必须使用实现定义的带前缀的名称，如 "example.com/my-custom-resource"。
+  除上述值之外，未加前缀或具有 `kubernetes.io` 前缀的键被视为保留键，因此不能使用。
+
+  <!--
+  ClaimResourceStatus can be in any of following states:
+  	- ControllerResizeInProgress:
+  		State set when resize controller starts resizing the volume in control-plane.
+  	- ControllerResizeFailed:
+  		State set when resize has failed in resize controller with a terminal error.
+  	- NodeResizePending:
+  		State set when resize controller has finished resizing the volume but further resizing of
+  		volume is needed on the node.
+  	- NodeResizeInProgress:
+  		State set when kubelet starts resizing the volume.
+  	- NodeResizeFailed:
+  		State set when resizing has failed in kubelet with a terminal error. Transient errors don't set
+  		NodeResizeFailed.
+  -->
+  ClaimResourceStatus 可以处于以下任一状态：
+  - ControllerResizeInProgress：大小调整控制器开始在控制平面中调整卷大小时所设置的状态。
+  - ControllerResizeFailed：大小调整控制器出现致命错误导致大小调整失败时所设置的状态。
+  - NodeResizePending：大小调整控制器已完成对卷大小的调整但需要在节点上进一步调整卷大小时的状态。
+  - NodeResizeInProgress：kubelet 开始调整卷大小时所设置的状态。
+  - NodeResizeFailed：kubelet 在出现致命错误而导致大小调整失败时所设置的状态。
+    临时错误不会设置 NodeResizeFailed。
+
+  <!--
+  For example: if expanding a PVC for more capacity - this field can be one of the following states:
+  	- pvc.status.allocatedResourceStatus['storage'] = "ControllerResizeInProgress"
+       - pvc.status.allocatedResourceStatus['storage'] = "ControllerResizeFailed"
+       - pvc.status.allocatedResourceStatus['storage'] = "NodeResizePending"
+       - pvc.status.allocatedResourceStatus['storage'] = "NodeResizeInProgress"
+       - pvc.status.allocatedResourceStatus['storage'] = "NodeResizeFailed"
+  When this field is not set, it means that no resize operation is in progress for the given PVC.
+  -->
+  例如：如果扩展 PVC 以获取更多的容量，则此字段可以是以下状态之一：
+  - pvc.status.allocatedResourceStatus['storage'] = "ControllerResizeInProgress"
+    - pvc.status.allocatedResourceStatus['storage'] = "ControllerResizeFailed"
+    - pvc.status.allocatedResourceStatus['storage'] = "NodeResizePending"
+    - pvc.status.allocatedResourceStatus['storage'] = "NodeResizeInProgress"
+    - pvc.status.allocatedResourceStatus['storage'] = "NodeResizeFailed"
+  当未设置此字段时，表示没有针对给定 PVC 执行大小调整操作。
+
+  <!--
+  A controller that receives PVC update with previously unknown resourceName or ClaimResourceStatus should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
+  
+  This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+  -->
+  如果控制器收到具有先前未知的 resourceName 或 ClaimResourceStatus 的 PVC 更新，
+  则该控制器应忽略此项更新才能按预期工作。例如，仅负责调整卷容量大小的控制器应忽略更改与
+  PVC 关联的其他合法资源的 PVC 更新。
+
+  这是一个 Alpha 字段，需要启用 RecoverVolumeExpansionFailure 功能特性。
+
 - **allocatedResources** (map[string]<a href="{{< ref "../common-definitions/quantity#Quantity" >}}">Quantity</a>)
 
-  allocatedResources 跟踪分配给 PVC 的容量。
+  <!--
+  allocatedResources tracks the resources allocated to a PVC including its capacity. Key names follow standard Kubernetes label syntax. Valid values are either:
+  	* Un-prefixed keys:
+  		- storage - the capacity of the volume.
+  	* Custom resources must use implementation-defined prefixed names such as "example.com/my-custom-resource"
+  Apart from above values - keys that are unprefixed or have kubernetes.io prefix are considered reserved and hence may not be used.
+  -->
+  allocatedResources 跟踪分配给 PVC 的资源，包括其容量。键名遵循标准的 Kubernetes 标签语法。
+  有效值为：
+  * 未加前缀的键：
+    - storage - 卷的容量。
+  * 自定义资源必须使用实现定义的带前缀的名称，如 "example.com/my-custom-resource"。
+  除上述值之外，未加前缀或具有 `kubernetes.io` 前缀的键被视为保留键，因此不能使用。
+  
+  <!--
+  Capacity reported here may be larger than the actual capacity when a volume expansion operation is requested. For storage quota, the larger value from allocatedResources and PVC.spec.resources is used. If allocatedResources is not set, PVC.spec.resources alone is used for quota calculation. If a volume expansion capacity request is lowered, allocatedResources is only lowered if there are no expansion operations in progress and if the actual volume capacity is equal or lower than the requested capacity.
+  -->
   当出现卷扩充操作请求时，此字段可能大于实际的容量。
   就存储配额而言，将使用 allocatedResources 和 PVC.spec.resources 二者中的更大值。
   如果未设置 allocatedResources，则 PVC.spec.resources 单独用于配额计算。
   如果减小一个卷扩充容量请求，则仅当没有正在进行的扩充操作且实际卷容量等于或小于请求的容量时，
   才会减小 allocatedResources。
+  
+  <!--
+  A controller that receives PVC update with previously unknown resourceName should ignore the update for the purpose it was designed. For example - a controller that only is responsible for resizing capacity of the volume, should ignore PVC updates that change other valid resources associated with PVC.
+
+  This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
+  -->
+  如果控制器收到具有先前未知的 resourceName 的 PVC 更新，则该控制器应忽略此项更新才能按预期工作。
+  例如，仅负责调整卷容量大小的控制器应忽略更改与 PVC 关联的其他合法资源的 PVC 更新。
+
   这是一个 Alpha 字段，需要启用 RecoverVolumeExpansionFailure 功能特性。
 
 <!--
@@ -397,19 +486,10 @@ PersistentVolumeClaimStatus 是持久卷申领的当前状态。
 <!--
 - **phase** (string)
   phase represents the current phase of PersistentVolumeClaim.
-
-- **resizeStatus** (string)
-  resizeStatus stores status of resize operation. ResizeStatus is not set by default but when expansion is complete resizeStatus is set to empty string by resize controller or kubelet. This is an alpha field and requires enabling RecoverVolumeExpansionFailure feature.
 -->
 - **phase** (string)
 
   phase 表示 PersistentVolumeClaim 的当前阶段。
-
-- **resizeStatus** (string)
-
-  resizeStatus 存储大小调整操作的状态。默认不设置 resizeStatus，但在扩充完成时，
-  resizeStatus 将由大小调整控制器或 kubelet 设为空。
-  这是一个 Alpha 字段，需要启用 RecoverVolumeExpansionFailure 功能特性。
 
 ## PersistentVolumeClaimList {#PersistentVolumeClaimList}
 <!--

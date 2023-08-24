@@ -102,7 +102,7 @@ Kubernetes 提供了存活探针来发现并处理这种情况。
 在本练习中，你会创建一个 Pod，其中运行一个基于 `registry.k8s.io/busybox` 镜像的容器。
 下面是这个 Pod 的配置文件。
 
-{{< codenew file="pods/probe/exec-liveness.yaml" >}}
+{{% code file="pods/probe/exec-liveness.yaml" %}}
 
 <!--
 In the configuration file, you can see that the Pod has a single `Container`.
@@ -229,7 +229,7 @@ file for a Pod that runs a container based on the `registry.k8s.io/liveness` ima
 另外一种类型的存活探测方式是使用 HTTP GET 请求。
 下面是一个 Pod 的配置文件，其中运行一个基于 `registry.k8s.io/liveness` 镜像的容器。
 
-{{< codenew file="pods/probe/http-liveness.yaml" >}}
+{{% code file="pods/probe/http-liveness.yaml" %}}
 
 <!--
 In the configuration file, you can see that the Pod has a single container.
@@ -325,7 +325,7 @@ can't it is considered a failure.
 使用这种配置时，kubelet 会尝试在指定端口和容器建立套接字链接。
 如果能建立连接，这个容器就被看作是健康的，如果不能则这个容器就被看作是有问题的。
 
-{{< codenew file="pods/probe/tcp-liveness-readiness.yaml" >}}
+{{% code file="pods/probe/tcp-liveness-readiness.yaml" %}}
 
 <!--
 As you can see, configuration for a TCP check is quite similar to an HTTP check.
@@ -393,7 +393,7 @@ kubelet 可以配置为使用该协议来执行应用存活性检查。
 
 下面是一个示例清单：
 
-{{< codenew file="pods/probe/grpc-liveness.yaml" >}}
+{{% code file="pods/probe/grpc-liveness.yaml" %}}
 
 <!--
 To use a gRPC probe, `port` must be configured. If you want to distinguish probes of different types
@@ -797,7 +797,7 @@ You can override the default headers by defining `httpHeaders` for the probe.
 For example
 -->
 针对 HTTP 探针，kubelet 除了必需的 `Host` 头部之外还发送两个请求头部字段：
-- `User-Agent`：默认值是 `kube-probe/{{ skew currentVersion >}}`，其中 `{{< skew currentVersion >}}` 是 kubelet 的版本号。
+- `User-Agent`：默认值是 `kube-probe/{{< skew currentVersion >}}`，其中 `{{< skew currentVersion >}}` 是 kubelet 的版本号。
 - `Accept`：默认值 `*/*`。
 
 你可以通过为探测设置 `httpHeaders` 来重载默认的头部字段值。例如：

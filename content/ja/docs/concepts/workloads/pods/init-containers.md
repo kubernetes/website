@@ -52,7 +52,7 @@ Initコンテナを活用する方法について、いくつかのアイデア�
 
 * シェルコマンドを使って単一の{{< glossary_tooltip text="Service" term_id="service">}}が作成されるのを待機する。
   ```shell
-  for i in {1..100}; do sleep 1; if dig myservice; then exit 0; fi; done; exit 1
+  for i in {1..100}; do sleep 1; if nslookup myservice; then exit 0; fi; done; exit 1
   ```
 
 * 以下のようなコマンドを使って下位のAPIからPodの情報をリモートサーバに登録する。

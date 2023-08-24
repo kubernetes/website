@@ -673,18 +673,19 @@ section#cncf {
   width: 100%;
   overflow: hidden;
   clear: both;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 
   h4 {
     line-height: normal;
     margin-bottom: 15px;
   }
 
-  & > div:first-child {
-    float: left;
-  }
-
-  & > div:last-child {
-    float: right;
+  & > div {
+    background-color: #daeaf9;
+    border-radius: 20px;
+    padding: 25px;
   }
 }
 

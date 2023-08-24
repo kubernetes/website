@@ -113,7 +113,7 @@ Deployment 管理一个 [ReplicaSet](/zh-cn/docs/concepts/workloads/controllers/
 ReplicaSet 再管理 Pod，从而使调度器能够免受一些故障的影响。
 以下是 Deployment 配置，将其保存为 `my-scheduler.yaml`：
 
-{{< codenew file="admin/sched/my-scheduler.yaml" >}}
+{{% code file="admin/sched/my-scheduler.yaml" %}}
 
 <!--
 In the above manifest, you use a [KubeSchedulerConfiguration](/docs/reference/scheduling/config/)
@@ -236,7 +236,7 @@ Add your scheduler name to the resourceNames of the rule applied for `endpoints`
 kubectl edit clusterrole system:kube-scheduler
 ```
 
-{{< codenew file="admin/sched/clusterrole.yaml" >}}
+{{% code file="admin/sched/clusterrole.yaml" %}}
 
 <!--
 ## Specify schedulers for pods
@@ -257,7 +257,7 @@ scheduler in that pod spec. Let's look at three examples.
 -->
 - Pod spec 没有任何调度器名称
 
-  {{< codenew file="admin/sched/pod1.yaml" >}}
+  {{% code file="admin/sched/pod1.yaml" %}}
 
   <!--
   When no scheduler name is supplied, the pod is automatically scheduled using the
@@ -279,7 +279,7 @@ scheduler in that pod spec. Let's look at three examples.
 -->
 - Pod spec 设置为 `default-scheduler`
 
-  {{< codenew file="admin/sched/pod2.yaml" >}}
+  {{% code file="admin/sched/pod2.yaml" %}}
 
   <!--
   A scheduler is specified by supplying the scheduler name as a value to `spec.schedulerName`. In this case, we supply the name of the
@@ -302,7 +302,7 @@ scheduler in that pod spec. Let's look at three examples.
 -->
 - Pod spec 设置为 `my-scheduler`
 
-  {{< codenew file="admin/sched/pod3.yaml" >}}
+  {{% code file="admin/sched/pod3.yaml" %}}
 
   <!--
   In this case, we specify that this pod should be scheduled using the scheduler that we

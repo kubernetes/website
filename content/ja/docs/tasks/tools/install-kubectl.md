@@ -31,10 +31,10 @@ kubectlのバージョンは、クラスターのマイナーバージョンと�
 
     特定のバージョンをダウンロードする場合、コマンドの`$(curl -LS https://dl.k8s.io/release/stable.txt)`の部分を特定のバージョンに書き換えてください。
 
-    たとえば、Linuxへ{{< param "fullversion" >}}のバージョンをダウンロードするには、次のコマンドを入力します:
+    たとえば、Linuxへ{{< skew currentPatchVersion >}}のバージョンをダウンロードするには、次のコマンドを入力します:
 
     ```
-    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/linux/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/linux/amd64/kubectl
     ```
 
 2. kubectlバイナリを実行可能にしてください。
@@ -113,10 +113,10 @@ kubectl version --client
 
    特定のバージョンをダウンロードする場合、コマンドの`$(curl -LS https://dl.k8s.io/release/stable.txt)`の部分を特定のバージョンに書き換えてください。
 
-   たとえば、macOSへ{{< param "fullversion" >}}のバージョンをダウンロードするには、次のコマンドを入力します:
+   たとえば、macOSへ{{< skew currentPatchVersion >}}のバージョンをダウンロードするには、次のコマンドを入力します:
 
    ```bash
-    curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/darwin/amd64/kubectl
+    curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/darwin/amd64/kubectl
    ```
 
 2. kubectlバイナリを実行可能にしてください。
@@ -178,12 +178,12 @@ macOSで[MacPorts](https://macports.org/)パッケージマネージャーを使
 
 ### curlを使用してWindowsへkubectlのバイナリをインストールする
 
-1. [こちらのリンク](https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe)から、最新リリースである{{< param "fullversion" >}}をダウンロードしてください。
+1. [こちらのリンク](https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe)から、最新リリースである{{< skew currentPatchVersion >}}をダウンロードしてください。
 
    または、`curl`をインストールされていれば、次のコマンドも使用できます:
 
     ```bash
-   curl -LO https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe
+   curl -LO https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe
    ```
 
    最新の安定版を入手する際は(たとえばスクリプトで使用する場合)、[https://dl.k8s.io/release/stable.txt](https://dl.k8s.io/release/stable.txt)を参照してください。

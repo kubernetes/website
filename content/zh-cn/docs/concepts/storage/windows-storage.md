@@ -95,10 +95,10 @@ persist data.
 
 <!--
 Volume management components are shipped as Kubernetes volume
-[plugin](/docs/concepts/storage/volumes/#types-of-volumes).
+[plugin](/docs/concepts/storage/volumes/#volume-types).
 The following broad classes of Kubernetes volume plugins are supported on Windows:
 -->
-卷管理组件作为 Kubernetes 卷[插件](/zh-cn/docs/concepts/storage/volumes/#types-of-volumes)发布。
+卷管理组件作为 Kubernetes 卷[插件](/zh-cn/docs/concepts/storage/volumes/#volume-types)发布。
 Windows 支持以下类型的 Kubernetes 卷插件：
 
 <!--

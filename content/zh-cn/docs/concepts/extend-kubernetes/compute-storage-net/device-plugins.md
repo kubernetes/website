@@ -230,8 +230,8 @@ The general workflow of a device plugin includes the following steps:
 1. The plugin registers itself with the kubelet through the Unix socket at host
    path `/var/lib/kubelet/device-plugins/kubelet.sock`.
 -->
-3. 插件通过位于主机路径 `/var/lib/kubelet/device-plugins/kubelet.sock` 下的 UNIX 套接字
-   向 kubelet 注册自身。
+3. 插件通过位于主机路径 `/var/lib/kubelet/device-plugins/kubelet.sock` 下的 UNIX
+   套接字向 kubelet 注册自身。
 
    {{< note >}}
    <!--
@@ -255,6 +255,38 @@ The general workflow of a device plugin includes the following steps:
    在 `Allocate` 期间，设备插件可能还会做一些特定于设备的准备；例如 GPU 清理或 QRNG 初始化。
    如果操作成功，则设备插件将返回 `AllocateResponse`，其中包含用于访问被分配的设备容器运行时的配置。
    kubelet 将此信息传递到容器运行时。
+
+   <!--
+   An `AllocateResponse` contains zero or more `ContainerAllocateResponse` objects. In these, the
+   device plugin defines modifications that must be made to a container's definition to provide
+   access to the device. These modifications include:
+   -->
+   `AllocateResponse` 包含零个或多个 `ContainerAllocateResponse` 对象。
+   设备插件在这些对象中给出为了访问设备而必须对容器定义所进行的修改。
+   这些修改包括：
+
+   <!--
+   * annotations
+   * device nodes
+   * environment variables
+   * mounts
+   * fully-qualified CDI device names
+   -->
+   * 注解
+   * 设备节点
+   * 环境变量
+   * 挂载点
+   * 完全限定的 CDI 设备名称
+
+   {{< note >}}
+   <!--
+   The processing of the fully-qualified CDI device names by the Device Manager requires
+   the `DevicePluginCDIDevices` feature gate to be enabled. This was added as an alpha feature in
+   v1.28.
+   -->
+   设备管理器处理完全限定的 CDI 设备名称时需要启用 `DevicePluginCDIDevices` 特性门控。
+   这是在 v1.28 版本中作为 Alpha 特性添加的。
+   {{< /note >}}
 
 <!--
 ### Handling kubelet restarts
@@ -352,7 +384,7 @@ of the device allocations during the upgrade.
 -->
 ## 监控设备插件资源   {#monitoring-device-plugin-resources}
 
-{{< feature-state for_k8s_version="v1.15" state="beta" >}}
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 <!--
 In order to monitor resources provided by device plugins, monitoring agents need to be able to
@@ -584,7 +616,7 @@ below:
 -->
 ### `GetAllocatableResources` gRPC 端点 {#grpc-endpoint-getallocatableresources}
 
-{{< feature-state state="beta" for_k8s_version="v1.23" >}}
+{{< feature-state state="stable" for_k8s_version="v1.28" >}}
 
 <!--
 GetAllocatableResources provides information on resources initially available on the worker node.
@@ -624,23 +656,6 @@ message AllocatableResourcesResponse {
 ```
 
 <!--
-Starting from Kubernetes v1.23, the `GetAllocatableResources` is enabled by default.
-You can disable it by turning off the `KubeletPodResourcesGetAllocatable`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
-
-Preceding Kubernetes v1.23, to enable this feature `kubelet` must be started with the following flag:
--->
-从 Kubernetes v1.23 开始，`GetAllocatableResources` 被默认启用。
-你可以通过关闭 `KubeletPodResourcesGetAllocatable`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来禁用。
-
-在 Kubernetes v1.23 之前，要启用这一功能，`kubelet` 必须用以下标志启动：
-
-```
---feature-gates=KubeletPodResourcesGetAllocatable=true
-```
-
-<!--
 `ContainerDevices` do expose the topology information declaring to which NUMA cells the device is
 affine. The NUMA cells are identified using a opaque integer ID, which value is consistent to
 what device plugins report
@@ -659,10 +674,6 @@ agents must run in a privileged security context. If a device monitoring agent i
 DaemonSet, `/var/lib/kubelet/pod-resources` must be mounted as a
 {{< glossary_tooltip term_id="volume" >}} in the device monitoring agent's
 [PodSpec](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#podspec-v1-core).
-
-Support for the `PodResourcesLister service` requires `KubeletPodResources`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
-It is enabled by default starting with Kubernetes 1.15 and is v1 since Kubernetes 1.20.
 -->
 gRPC 服务通过 `/var/lib/kubelet/pod-resources/kubelet.sock` 的 UNIX 套接字来提供服务。
 设备插件资源的监控代理程序可以部署为守护进程或者 DaemonSet。
@@ -673,6 +684,39 @@ gRPC 服务通过 `/var/lib/kubelet/pod-resources/kubelet.sock` 的 UNIX 套接�
 中声明将 `/var/lib/kubelet/pod-resources`
 目录以{{< glossary_tooltip text="卷" term_id="volume" >}}的形式被挂载到设备监控代理中。
 
+{{< note >}}
+
+<!--
+When accessing the `/var/lib/kubelet/pod-resources/kubelet.sock` from DaemonSet
+or any other app deployed as a container on the host, which is mounting socket as
+a volume, it is a good practice to mount directory `/var/lib/kubelet/pod-resources/`
+instead of the `/var/lib/kubelet/pod-resources/kubelet.sock`. This will ensure
+that after kubelet restart, container will be able to re-connect to this socket.
+-->
+在从 DaemonSet 或以容器形式部署在主机上的任何其他应用中访问
+`/var/lib/kubelet/pod-resources/kubelet.sock` 时，
+如果将套接字作为卷挂载，最好的做法是挂载目录 `/var/lib/kubelet/pod-resources/`
+而不是 `/var/lib/kubelet/pod-resources/kubelet.sock`。
+这样可以确保在 kubelet 重新启动后，容器将能够重新连接到此套接字。
+
+<!--
+Container mounts are managed by inode referencing the socket or directory,
+depending on what was mounted. When kubelet restarts, socket is deleted
+and a new socket is created, while directory stays untouched.
+So the original inode for the socket become unusable. Inode to directory
+will continue working.
+-->
+容器挂载是通过引用套接字或目录的 inode 进行管理的，具体取决于挂载的内容。
+当 kubelet 重新启动时，套接字会被删除并创建一个新的套接字，而目录则保持不变。
+因此，针对原始套接字的 inode 将变得无法使用，而到目录的 inode 将继续正常工作。
+
+{{< /note >}}
+
+<!--
+Support for the `PodResourcesLister service` requires `KubeletPodResources`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
+It is enabled by default starting with Kubernetes 1.15 and is v1 since Kubernetes 1.20.
+-->
 对 “PodResourcesLister 服务”的支持要求启用 `KubeletPodResources`
 [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
 从 Kubernetes 1.15 开始默认启用，自从 Kubernetes 1.20 开始为 v1。
