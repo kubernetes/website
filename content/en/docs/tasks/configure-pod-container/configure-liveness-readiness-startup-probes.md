@@ -8,11 +8,11 @@ weight: 140
 
 This page shows how to configure liveness, readiness and startup probes for containers.
 
-The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) uses liveness probes to know when to
-restart a container. For example, liveness probes could catch a deadlock,
-where an application is running, but unable to make progress. Restarting a
-container in such a state can help to make the application more available
-despite bugs.
+The [kubelet](/docs/reference/command-line-tools-reference/kubelet/) uses
+liveness probes to know when to restart a container. For example, liveness
+probes could catch a deadlock, where an application is running, but unable to
+make progress. Restarting a container in such a state can help to make the
+application more available despite bugs.
 
 A common pattern for liveness probes is to use the same low-cost HTTP endpoint
 as for readiness probes, but with a higher failureThreshold. This ensures that the pod
@@ -24,7 +24,7 @@ One use of this signal is to control which Pods are used as backends for Service
 When a Pod is not ready, it is removed from Service load balancers.
 
 The kubelet uses startup probes to know when a container application has started.
-If such a probe is configured, it disables liveness and readiness checks until
+If such a probe is configured, liveness and readiness probes do not start until
 it succeeds, making sure those probes don't interfere with the application startup.
 This can be used to adopt liveness checks on slow starting containers, avoiding them
 getting killed by the kubelet before they are up and running.
@@ -57,7 +57,7 @@ liveness probes to detect and remedy such situations.
 In this exercise, you create a Pod that runs a container based on the
 `registry.k8s.io/busybox` image. Here is the configuration file for the Pod:
 
-{{< codenew file="pods/probe/exec-liveness.yaml" >}}
+{{% code file="pods/probe/exec-liveness.yaml" %}}
 
 In the configuration file, you can see that the Pod has a single `Container`.
 The `periodSeconds` field specifies that the kubelet should perform a liveness
@@ -142,7 +142,7 @@ liveness-exec   1/1       Running   1          1m
 Another kind of liveness probe uses an HTTP GET request. Here is the configuration
 file for a Pod that runs a container based on the `registry.k8s.io/liveness` image.
 
-{{< codenew file="pods/probe/http-liveness.yaml" >}}
+{{% code file="pods/probe/http-liveness.yaml" %}}
 
 In the configuration file, you can see that the Pod has a single container.
 The `periodSeconds` field specifies that the kubelet should perform a liveness
@@ -203,7 +203,7 @@ kubelet will attempt to open a socket to your container on the specified port.
 If it can establish a connection, the container is considered healthy, if it
 can't it is considered a failure.
 
-{{< codenew file="pods/probe/tcp-liveness-readiness.yaml" >}}
+{{% code file="pods/probe/tcp-liveness-readiness.yaml" %}}
 
 As you can see, configuration for a TCP check is quite similar to an HTTP check.
 This example uses both readiness and liveness probes. The kubelet will send the
@@ -241,7 +241,7 @@ Similarly you can configure readiness and startup probes.
 
 Here is an example manifest:
 
-{{< codenew file="pods/probe/grpc-liveness.yaml" >}}
+{{% code file="pods/probe/grpc-liveness.yaml" %}}
 
 To use a gRPC probe, `port` must be configured. If you want to distinguish probes of different types
 and probes for different features you can use the `service` field.
@@ -397,7 +397,9 @@ have a number of fields that you can use to more precisely control the behavior 
 liveness and readiness checks:
 
 * `initialDelaySeconds`: Number of seconds after the container has started before startup,
-  liveness or readiness probes are initiated. Defaults to 0 seconds. Minimum value is 0.
+  liveness or readiness probes are initiated. If a startup  probe is defined, liveness and
+  readiness probe delays do not begin until the startup probe has succeeded.
+  Defaults to 0 seconds. Minimum value is 0.
 * `periodSeconds`: How often (in seconds) to perform the probe. Default to 10 seconds.
   The minimum value is 1.
 * `timeoutSeconds`: Number of seconds after which the probe times out.
@@ -514,7 +516,7 @@ to resolve it.
 
 ### Probe-level `terminationGracePeriodSeconds`
 
-{{< feature-state for_k8s_version="v1.27" state="stable" >}}
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 Prior to release 1.21, the Pod-level `terminationGracePeriodSeconds` was used
 for terminating a container that failed its liveness or startup probe. This

@@ -47,7 +47,7 @@ the Pod IP behind the VM's own IP address - generally known as "masquerade". By 
 agent is configured to treat the three private IP ranges specified by
 [RFC 1918](https://tools.ietf.org/html/rfc1918) as non-masquerade
 [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
-These ranges are `10.0.0.0/8`, `172.16.0.0/12`, and `192.168.0.0 16`.
+These ranges are `10.0.0.0/8`, `172.16.0.0/12`, and `192.168.0.0/16`.
 The agent will also treat link-local (169.254.0.0/16) as a non-masquerade CIDR by default.
 The agent is configured to reload its configuration from the location
 */etc/config/ip-masq-agent* every 60 seconds, which is also configurable.

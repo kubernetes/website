@@ -42,11 +42,7 @@ card:
    `kubectl` 체크섬 파일을 다운로드한다.
 
    ```powershell
-<<<<<<< HEAD
-   curl -LO "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe.sha256"
-=======
-   curl.exe -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl.exe.sha256"
->>>>>>> e54c13c4a4 ([ko] Update outdated files in dev-1.26-ko.1 (M165-M173,M189-M196))
+   curl.exe -LO "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl.exe.sha256"
    ```
 
    `kubectl` 바이너리를 체크섬 파일을 통해 검증한다.
@@ -160,11 +156,7 @@ kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제
 1. 다음 명령으로 최신 릴리스를 다운로드한다.
 
    ```powershell
-<<<<<<< HEAD
-   curl -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl-convert.exe"
-=======
-   curl.exe -LO "https://dl.k8s.io/release/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe"
->>>>>>> e54c13c4a4 ([ko] Update outdated files in dev-1.26-ko.1 (M165-M173,M189-M196))
+   curl.exe -LO "https://dl.k8s.io/release/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl-convert.exe"
    ```
 
 1. 바이너리를 검증한다. (선택 사항)
@@ -172,11 +164,7 @@ kubectl은 Bash, Zsh, Fish, 및 PowerShell에 대한 자동 완성 지원을 제
    `kubectl-convert` 체크섬(checksum) 파일을 다운로드한다.
 
    ```powershell
-<<<<<<< HEAD
-   curl -LO "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
-=======
-   curl.exe -LO "https://dl.k8s.io/{{< param "fullversion" >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
->>>>>>> e54c13c4a4 ([ko] Update outdated files in dev-1.26-ko.1 (M165-M173,M189-M196))
+   curl.exe -LO "https://dl.k8s.io/v{{< skew currentPatchVersion >}}/bin/windows/amd64/kubectl-convert.exe.sha256"
    ```
 
    `kubectl-convert` 바이너리를 체크섬 파일을 통해 검증한다.

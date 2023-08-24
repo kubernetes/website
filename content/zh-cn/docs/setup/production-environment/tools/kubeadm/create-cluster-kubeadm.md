@@ -746,7 +746,7 @@ and `scp` using that other user instead.
 The `admin.conf` file gives the user _superuser_ privileges over the cluster.
 This file should be used sparingly. For normal users, it's recommended to
 generate an unique credential to which you grant privileges. You can do
-this with the `kubeadm alpha kubeconfig user --client-name <CN>`
+this with the `kubeadm kubeconfig user --client-name <CN>`
 command. That command will print out a KubeConfig file to STDOUT which you
 should save to a file and distribute to your user. After that, grant
 privileges by using `kubectl create (cluster)rolebinding`.
@@ -756,7 +756,7 @@ privileges by using `kubectl create (cluster)rolebinding`.
 
 admin.conf 文件为用户提供了对集群的超级用户特权。
 该文件应谨慎使用。对于普通用户，建议生成一个你为其授予特权的唯一证书。
-你可以使用 `kubeadm alpha kubeconfig user --client-name <CN>` 命令执行此操作。
+你可以使用 `kubeadm kubeconfig user --client-name <CN>` 命令执行此操作。
 该命令会将 KubeConfig 文件打印到 STDOUT，你应该将其保存到文件并分发给用户。
 之后，使用 `kubectl create (cluster)rolebinding` 授予特权。
 {{< /note >}}

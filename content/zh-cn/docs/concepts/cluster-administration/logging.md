@@ -69,7 +69,7 @@ Kubernetes 从正在运行的 Pod 中捕捉每个容器的日志。
 
 此示例使用带有一个容器的 `Pod` 的清单，该容器每秒将文本写入标准输出一次。
 
-{{< codenew file="debug/counter-pod.yaml" >}}
+{{% code file="debug/counter-pod.yaml" %}}
 
 <!--
 To run this pod, use the following command:
@@ -118,12 +118,13 @@ appending a container name to the command, with a `-c` flag, like so:
 如果你的 Pod 有多个容器，请如下通过将容器名称追加到该命令并使用 `-c`
 标志来指定要访问哪个容器的日志：
 
-```console
+```shell
 kubectl logs counter -c count
 ```
 
 <!--
-See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands#logs) for more details.
+See the [`kubectl logs` documentation](/docs/reference/generated/kubectl/kubectl-commands#logs)
+for more details.
 -->
 详见 [`kubectl logs` 文档](/docs/reference/generated/kubectl/kubectl-commands#logs)。
 
@@ -167,7 +168,8 @@ kubelet 通过 Kubernetes API 的特殊功能将日志提供给客户端访问�
 <!--
 You can configure the kubelet to rotate logs automatically.
 
-If you configure rotation, the kubelet is responsible for rotating container logs and managing the logging directory structure.
+If you configure rotation, the kubelet is responsible for rotating container logs and managing the
+logging directory structure.
 The kubelet sends this information to the container runtime (using CRI),
 and the runtime writes the container logs to the given location.
 -->
@@ -180,7 +182,8 @@ kubelet（使用 CRI）将此信息发送到容器运行时，而运行时则将
 You can configure two kubelet [configuration settings](/docs/reference/config-api/kubelet-config.v1beta1/),
 `containerLogMaxSize` and `containerLogMaxFiles`,
 using the [kubelet configuration file](/docs/tasks/administer-cluster/kubelet-config-file/).
-These settings let you configure the maximum size for each log file and the maximum number of files allowed for each container respectively.
+These settings let you configure the maximum size for each log file and the maximum number of
+files allowed for each container respectively.
 
 When you run [`kubectl logs`](/docs/reference/generated/kubectl/kubectl-commands#logs) as in
 the basic logging example, the kubelet on the node handles the request and
@@ -196,8 +199,7 @@ kubelet [配置选项](/zh-cn/docs/reference/config-api/kubelet-config.v1beta1/#
 
 {{< note >}}
 <!--
-Only the contents of the latest log file are available through
-`kubectl logs`.
+Only the contents of the latest log file are available through `kubectl logs`.
 
 For example, if a Pod writes 40 MiB of logs and the kubelet rotates logs
 after 10 MiB, running `kubectl logs` returns at most 10MiB of data.
@@ -264,14 +266,12 @@ kubelet logs to a directory that you choose.
 并使用该工具将 kubelet 日志重定向到你所选择的目录。
 
 <!--
-You can also set a logging directory using the deprecated kubelet command line
-argument `--log-dir`. However, the kubelet always directs your container runtime to
-write logs into directories within `/var/log/pods`.
+The kubelet always directs your container runtime to write logs into directories within
+`/var/log/pods`.
 
 For more information on `kube-log-runner`, read [System Logs](/docs/concepts/cluster-administration/system-logs/#klog).
 -->
-你还可以使用已弃用的 kubelet 命令行参数 `--log-dir` 设置日志目录。
-但是，kubelet 始终指示你的容器运行时将日志写入 `/var/log/pods` 中的目录。
+kubelet 始终指示你的容器运行时将日志写入 `/var/log/pods` 中的目录。
 
 有关 `kube-log-runner` 的更多信息，请阅读[系统日志](/zh-cn/docs/concepts/cluster-administration/system-logs/#klog)。
 
@@ -393,7 +393,8 @@ application containers on that node.
 Because the logging agent must run on every node, it is recommended to run the agent
 as a `DaemonSet`.
 
-Node-level logging creates only one agent per node and doesn't require any changes to the applications running on the node. 
+Node-level logging creates only one agent per node and doesn't require any changes to the
+applications running on the node.
 -->
 由于日志记录代理必须在每个节点上运行，推荐以 `DaemonSet` 的形式运行该代理。
 
@@ -417,7 +418,8 @@ You can use a sidecar container in one of the following ways:
 
 <!--
 * The sidecar container streams application logs to its own `stdout`.
-* The sidecar container runs a logging agent, which is configured to pick up logs from an application container.
+* The sidecar container runs a logging agent, which is configured to pick up logs
+  from an application container.
 -->
 * 边车容器将应用程序日志传送到自己的标准输出。
 * 边车容器运行一个日志代理，配置该日志代理以便从应用容器收集日志。
@@ -461,7 +463,7 @@ manifest for the Pod:
 例如，某 Pod 中运行一个容器，且该容器使用两个不同的格式写入到两个不同的日志文件。
 下面是这个 Pod 的清单：
 
-{{< codenew file="admin/logging/two-files-counter-pod.yaml" >}}
+{{% code file="admin/logging/two-files-counter-pod.yaml" %}}
 
 <!--
 It is not recommended to write log entries with different formats to the same log
@@ -479,7 +481,7 @@ Here's a manifest for a pod that has two sidecar containers:
 -->
 下面是运行两个边车容器的 Pod 的清单：
 
-{{< codenew file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" >}}
+{{% code file="admin/logging/two-files-counter-pod-streaming-sidecar.yaml" %}}
 
 <!--
 Now when you run this pod, you can access each log stream separately by
@@ -617,7 +619,7 @@ to configure fluentd.
 第一个文件包含用来配置 fluentd 的
 [ConfigMap](/zh-cn/docs/tasks/configure-pod-container/configure-pod-configmap/)。
 
-{{< codenew file="admin/logging/fluentd-sidecar-config.yaml" >}}
+{{% code file="admin/logging/fluentd-sidecar-config.yaml" %}}
 
 {{< note >}}
 <!--
@@ -634,7 +636,7 @@ The pod mounts a volume where fluentd can pick up its configuration data.
 第二个清单描述了一个运行 fluentd 边车容器的 Pod。
 该 Pod 挂载一个卷，flutend 可以从这个卷上拣选其配置数据。
 
-{{< codenew file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" >}}
+{{% code file="admin/logging/two-files-counter-pod-agent-sidecar.yaml" %}}
 
 <!--
 ### Exposing logs directly from the application
@@ -646,7 +648,8 @@ The pod mounts a volume where fluentd can pick up its configuration data.
 ![直接从应用程序暴露日志](/images/docs/user-guide/logging/logging-from-application.png)
 
 <!--
-Cluster-logging that exposes or pushes logs directly from every application is outside the scope of Kubernetes.
+Cluster-logging that exposes or pushes logs directly from every application is outside the scope
+of Kubernetes.
 -->
 从各个应用中直接暴露和推送日志数据的集群日志机制已超出 Kubernetes 的范围。
 
@@ -655,7 +658,8 @@ Cluster-logging that exposes or pushes logs directly from every application is o
 <!--
 * Read about [Kubernetes system logs](/docs/concepts/cluster-administration/system-logs/)
 * Learn about [Traces For Kubernetes System Components](/docs/concepts/cluster-administration/system-traces/)
-* Learn how to [customise the termination message](/docs/tasks/debug/debug-application/determine-reason-pod-failure/#customizing-the-termination-message) that Kubernetes records when a Pod fails
+* Learn how to [customise the termination message](/docs/tasks/debug/debug-application/determine-reason-pod-failure/#customizing-the-termination-message)
+  that Kubernetes records when a Pod fails
 -->
 * 阅读有关 [Kubernetes 系统日志](/zh-cn/docs/concepts/cluster-administration/system-logs/)的信息
 * 进一步了解[追踪 Kubernetes 系统组件](/zh-cn/docs/concepts/cluster-administration/system-traces/)

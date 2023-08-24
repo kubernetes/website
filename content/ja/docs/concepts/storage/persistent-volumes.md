@@ -50,7 +50,7 @@ PVは静的か動的どちらかでプロビジョニングされます。
 
 ストレージクラスに基づいたストレージの動的プロビジョニングを有効化するには、クラスター管理者が`DefaultStorageClass`[アドミッションコントローラー](/docs/reference/access-authn-authz/admission-controllers/#defaultstorageclass)をAPIサーバーで有効化する必要があります。
 これは例えば、`DefaultStorageClass`がAPIサーバーコンポーネントの`--enable-admission-plugins`フラグのコンマ区切りの順序付きリストの中に含まれているかで確認できます。
-APIサーバーのコマンドラインフラグの詳細については[kube-apiserver](/docs/admin/kube-apiserver/)のドキュメントを参照してください。
+APIサーバーのコマンドラインフラグの詳細については[kube-apiserver](/docs/reference/command-line-tools-reference/kube-apiserver/)のドキュメントを参照してください。
 
 ### バインディング
 

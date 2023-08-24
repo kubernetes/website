@@ -85,7 +85,7 @@ The manifest file, included below, specifies a Deployment controller that runs a
 -->
 下面包含的清单文件指定了一个 Deployment 控制器，该控制器运行一个 Redis Pod 副本。
 
-{{< codenew file="application/guestbook/redis-leader-deployment.yaml" >}}
+{{< code file="application/guestbook/redis-leader-deployment.yaml" >}}
 
 <!--
 1. Launch a terminal window in the directory you downloaded the manifest files.
@@ -146,7 +146,7 @@ Pods.
 [Service](/zh-cn/docs/concepts/services-networking/service/) 来转发 Redis Pod
 的流量。Service 定义了访问 Pod 的策略。
 
-{{< codenew file="application/guestbook/redis-leader-service.yaml" >}}
+{{< code file="application/guestbook/redis-leader-service.yaml" >}}
 
 <!--
 1. Apply the Redis Service from the following `redis-leader-service.yaml` file:
@@ -203,7 +203,7 @@ and meet traffic demands by adding a few Redis followers, or replicas.
 尽管 Redis 领导者只有一个 Pod，你可以通过添加若干 Redis 跟随者来将其配置为高可用状态，
 以满足流量需求。
 
-{{< codenew file="application/guestbook/redis-follower-deployment.yaml" >}}
+{{< code file="application/guestbook/redis-follower-deployment.yaml" >}}
 
 <!--
 1. Apply the Redis Deployment from the following `redis-follower-deployment.yaml` file:
@@ -253,7 +253,7 @@ Guestbook 应用需要与 Redis 跟随者通信以读取数据。
 为了让 Redis 跟随者可被发现，你必须创建另一个
 [Service](/zh-cn/docs/concepts/services-networking/service/)。
 
-{{< codenew file="application/guestbook/redis-follower-service.yaml" >}}
+{{< code file="application/guestbook/redis-follower-service.yaml" >}}
 
 <!--
 1. Apply the Redis Service from the following `redis-follower-service.yaml` file:
@@ -330,7 +330,7 @@ Guestbook 应用使用 PHP 前端。该前端被配置成与后端的 Redis 跟�
 -->
 ### 创建 Guestbook 前端 Deployment   {#creating-the-guestbook-frontend-deployment}
 
-{{< codenew file="application/guestbook/frontend-deployment.yaml" >}}
+{{< code file="application/guestbook/frontend-deployment.yaml" >}}
 
 <!--
 1. Apply the frontend Deployment from the `frontend-deployment.yaml` file:
@@ -406,7 +406,7 @@ balancers and you want to use it, uncomment `type: LoadBalancer`.
 只需取消注释 `type: LoadBalancer`。
 {{< /note >}}
 
-{{< codenew file="application/guestbook/frontend-service.yaml" >}}
+{{< code file="application/guestbook/frontend-service.yaml" >}}
 
 <!--
 1. Apply the frontend Service from the `frontend-service.yaml` file:

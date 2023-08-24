@@ -18,6 +18,7 @@ aliases:
     - onlydole
     - reylejano
     - sftim
+    - seokho-son
     - tengqm
   sig-docs-de-owners: # Admins for German content
     - bene2k1
@@ -36,11 +37,11 @@ aliases:
     - nate-double-u
     - onlydole
     - reylejano
-    - Rishit-dagli # 1.28 Release Team Docs Lead
     - sftim
     - tengqm
   sig-docs-en-reviews: # PR reviews for English content
     - bradtopol
+    - dipesh-rawat    
     - divya-mohan0209
     - kbhawkey
     - mehabhalodiya
@@ -84,8 +85,6 @@ aliases:
     - Babapool
     - bishal7679
     - divya-mohan0209
-    - Garima-Negi
-    - verma-kunal
   sig-docs-id-owners: # Admins for Indonesian content
     - ariscahyadi
     - danninov
@@ -147,6 +146,7 @@ aliases:
     - tengqm
     - windsonsea
     - xichengliudui
+    - ydFu
   sig-docs-zh-reviews: # PR reviews for Chinese content
     - asa3311
     - chenrui333
@@ -238,3 +238,17 @@ aliases:
     - jimangel # Release Manager Associate
     - jrsapi # Release Manager Associate
     - salaxander # Release Manager Associate
+# authoritative source: https://github.com/kubernetes/committee-security-response/blob/main/OWNERS_ALIASES
+  committee-security-response:
+    - cjcullen
+    - cji
+    - enj
+    - joelsmith
+    - micahhausler
+    - ritazh
+    - SaranBalaji90
+    - tabbysable
+# authoritative source: https://github.com/kubernetes/sig-security/blob/main/OWNERS_ALIASES
+  sig-security-leads:
+    - IanColdwater
+    - tabbysable

@@ -65,7 +65,7 @@ description: |-
 				<h3>Services and Labels</h3>
 			</div>
 		</div>
-		
+
 		<div class="row">
 			<div class="col-md-8">
 				<p>A Service routes traffic across a set of Pods. Services are the abstraction that allows pods to die and replicate in Kubernetes without impacting your application. Discovery and routing among dependent Pods (such as the frontend and backend components in an application) are handled by Kubernetes Services.</p>
@@ -76,7 +76,7 @@ description: |-
 					<li>Classify an object using tags</li>
 				</ul>
 			</div>
-			
+
 		</div>
 
 		<br>
@@ -97,7 +97,8 @@ description: |-
 				<h3>Create a new Service</h3>
 				<p>Let’s verify that our application is running. We’ll use the <code>kubectl get</code> command and look for existing Pods:</p>
 				<p><code><b>kubectl get pods</b></code></p>
-				<p>If no pods are running then it means the interactive environment is still reloading its previous state. Please wait a couple of seconds and list the Pods again. You can continue once you see the one Pod running.</p>
+				<p>If no Pods are running then it means the objects from the previous tutorials were cleaned up. In this case, go back and recreate the deployment from the <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro#deploy-an-app">Using kubectl to create a Deployment</a> tutorial.
+          Please wait a couple of seconds and list the Pods again. You can continue once you see the one Pod running.</p>
 				<p>Next, let’s list the current Services from our cluster:</p>
 				<p><code><b>kubectl get services</b></code></p>
 				<p>We have a Service called <tt>kubernetes</tt> that is created by default when minikube starts the cluster.

@@ -42,10 +42,10 @@ and
 Mutating admission webhooks are invoked first, and can modify objects sent to the API server to enforce custom defaults.
 -->
 准入 Webhook 是一种用于接收准入请求并对其进行处理的 HTTP 回调机制。
-可以定义两种类型的准入 webhook，即
-[验证性质的准入 Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook) 和
-[修改性质的准入 Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)。
-修改性质的准入 Webhook 会先被调用。它们可以更改发送到 API
+可以定义两种类型的准入 Webhook，
+即[验证性质的准入 Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#validatingadmissionwebhook)
+和[变更性质的准入 Webhook](/zh-cn/docs/reference/access-authn-authz/admission-controllers/#mutatingadmissionwebhook)。
+变更性质的准入 Webhook 会先被调用。它们可以修改发送到 API
 服务器的对象以执行自定义的设置默认值操作。
 
 <!--
@@ -76,7 +76,8 @@ In the following, we describe how to quickly experiment with admission webhooks.
 ## 尝试准入 Webhook {#experimenting-with-admission-webhooks}
 
 准入 Webhook 本质上是集群控制平面的一部分。你应该非常谨慎地编写和部署它们。
-如果你打算编写或者部署生产级准入 webhook，请阅读[用户指南](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#write-an-admission-webhook-server)以获取相关说明。
+如果你打算编写或者部署生产级准入 Webhook，
+请阅读[用户指南](/zh-cn/docs/reference/access-authn-authz/extensible-admission-controllers/#write-an-admission-webhook-server)以获取相关说明。
 在下文中，我们将介绍如何快速试验准入 Webhook。
 
 <!--
@@ -110,8 +111,8 @@ as an `AdmissionReview` object in the same version it received.
 -->
 请参阅 Kubernetes e2e 测试中的
 [Admission Webhook 服务器](https://github.com/kubernetes/kubernetes/blob/release-1.21/test/images/agnhost/webhook/main.go)
-的实现。webhook 处理由 API 服务器发送的 `AdmissionReview` 请求，并且将其决定
-作为 `AdmissionReview` 对象以相同版本发送回去。
+的实现。Webhook 处理由 API 服务器发送的 `AdmissionReview` 请求，并且将其决定作为
+`AdmissionReview` 对象以相同版本发送回去。
 
 <!--
 See the [webhook request](#request) section for details on the data sent to webhooks.
@@ -131,11 +132,11 @@ authenticate the identity of the clients, supposedly API servers. If you need
 mutual TLS or other ways to authenticate the clients, see
 how to [authenticate API servers](#authenticate-apiservers).
 -->
-示例准入 Webhook 服务器置 `ClientAuth` 字段为
-[空](https://github.com/kubernetes/kubernetes/blob/v1.22.0/test/images/agnhost/webhook/config.go#L38-L39)，
-默认为 `NoClientCert` 。这意味着 Webhook 服务器不会验证客户端的身份，认为其是 apiservers。
-如果你需要双向 TLS 或其他方式来验证客户端，请参阅
-如何[对 apiservers 进行身份认证](#authenticate-apiservers)。
+示例准入 Webhook 服务器置 `ClientAuth`
+字段为[空](https://github.com/kubernetes/kubernetes/blob/v1.22.0/test/images/agnhost/webhook/config.go#L38-L39)，
+默认为 `NoClientCert` 。这意味着 Webhook 服务器不会验证客户端的身份，认为其是 API 服务器。
+如果你需要双向 TLS 或其他方式来验证客户端，
+请参阅如何[对 API 服务器进行身份认证](#authenticate-apiservers)。
 
 <!--
 ### Deploy the admission webhook service
@@ -152,9 +153,9 @@ as the front-end of the webhook server. See
 e2e 测试中的 Webhook 服务器通过
 [deployment API](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#deployment-v1-apps)
 部署在 Kubernetes 集群中。该测试还将创建一个
-[service](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)
-作为 Webhook 服务器的前端。参见
-[相关代码](https://github.com/kubernetes/kubernetes/blob/v1.22.0/test/e2e/apimachinery/webhook.go#L748)。
+[Service](/docs/reference/generated/kubernetes-api/{{< param "version" >}}/#service-v1-core)
+作为 Webhook 服务器的前端。
+参见[相关代码](https://github.com/kubernetes/kubernetes/blob/v1.22.0/test/e2e/apimachinery/webhook.go#L748)。
 
 <!--
 You may also deploy your webhooks outside of the cluster. You will need to update
@@ -183,7 +184,8 @@ or
 The following is an example `ValidatingWebhookConfiguration`, a mutating webhook configuration is similar.
 See the [webhook configuration](#webhook-configuration) section for details about each config field.
 -->
-以下是一个 `ValidatingWebhookConfiguration` 示例，Mutating Webhook 配置与此类似。有关每个配置字段的详细信息，请参阅 [Webhook 配置](#webhook-configuration) 部分。
+以下是一个 `ValidatingWebhookConfiguration` 示例，Mutating Webhook 配置与此类似。
+有关每个配置字段的详细信息，请参阅 [Webhook 配置](#webhook-configuration)部分。
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -304,7 +306,26 @@ plugins:
 ```
 {{% /tab %}}
 {{% tab name="apiserver.k8s.io/v1alpha1" %}}
-
+<!--
+```yaml
+# Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1
+apiVersion: apiserver.k8s.io/v1alpha1
+kind: AdmissionConfiguration
+plugins:
+- name: ValidatingAdmissionWebhook
+  configuration:
+    # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
+    apiVersion: apiserver.config.k8s.io/v1alpha1
+    kind: WebhookAdmission
+    kubeConfigFile: "<path-to-kubeconfig-file>"
+- name: MutatingAdmissionWebhook
+  configuration:
+    # Deprecated in v1.17 in favor of apiserver.config.k8s.io/v1, kind=WebhookAdmissionConfiguration
+    apiVersion: apiserver.config.k8s.io/v1alpha1
+    kind: WebhookAdmission
+    kubeConfigFile: "<path-to-kubeconfig-file>"
+```
+-->
 ```yaml
 # 1.17 中被淘汰，推荐使用 apiserver.config.k8s.io/v1
 apiVersion: apiserver.k8s.io/v1alpha1
@@ -340,6 +361,53 @@ In the kubeConfig file, provide the credentials:
 
 在 kubeConfig 文件中，提供证书凭据：
 
+<!--
+```yaml
+apiVersion: v1
+kind: Config
+users:
+# name should be set to the DNS name of the service or the host (including port) of the URL the webhook is configured to speak to.
+# If a non-443 port is used for services, it must be included in the name when configuring 1.16+ API servers.
+#
+# For a webhook configured to speak to a service on the default port (443), specify the DNS name of the service:
+# - name: webhook1.ns1.svc
+#   user: ...
+#
+# For a webhook configured to speak to a service on non-default port (e.g. 8443), specify the DNS name and port of the service in 1.16+:
+# - name: webhook1.ns1.svc:8443
+#   user: ...
+# and optionally create a second stanza using only the DNS name of the service for compatibility with 1.15 API servers:
+# - name: webhook1.ns1.svc
+#   user: ...
+#
+# For webhooks configured to speak to a URL, match the host (and port) specified in the webhook's URL. Examples:
+# A webhook with `url: https://www.example.com`:
+# - name: www.example.com
+#   user: ...
+#
+# A webhook with `url: https://www.example.com:443`:
+# - name: www.example.com:443
+#   user: ...
+#
+# A webhook with `url: https://www.example.com:8443`:
+# - name: www.example.com:8443
+#   user: ...
+#
+- name: 'webhook1.ns1.svc'
+  user:
+    client-certificate-data: "<pem encoded certificate>"
+    client-key-data: "<pem encoded key>"
+# The `name` supports using * to wildcard-match prefixing segments.
+- name: '*.webhook-company.org'
+  user:
+    password: "<password>"
+    username: "<name>"
+# '*' is the default match.
+- name: '*'
+  user:
+    token: "<token>"
+```
+-->
 ```yaml
 apiVersion: v1
 kind: Config
@@ -939,7 +1007,7 @@ If the object is a cluster scoped resource other than a Namespace, `namespaceSel
 This example shows a mutating webhook that matches a `CREATE` of any namespaced resource inside a namespace
 that does not have a "runlevel" label of "0" or "1":
 -->
-本例给出的修改性质的 Webhook 将匹配到对名字空间中具名字空间的资源的 `CREATE` 请求，
+本例给出的变更性质的 Webhook 将匹配到对名字空间中具名字空间的资源的 `CREATE` 请求，
 前提是这些资源不含值为 "0" 或 "1" 的 "runlevel" 标签：
 
 ```yaml
@@ -1093,20 +1161,10 @@ The `matchPolicy` for an admission webhooks defaults to `Equivalent`.
 -->
 ### 匹配请求：`matchConditions`  {#matching-requests-matchConditions}
 
-{{< feature-state state="alpha" for_k8s_version="v1.27" >}}
-
-{{< note >}}
-<!--
-Use of `matchConditions` requires the [featuregate](/docs/reference/command-line-tools-reference/feature-gates/)
-`AdmissionWebhookMatchConditions` to be explicitly enabled on the kube-apiserver before this feature can be used.
--->
-使用 `matchConditions` 需要先在 kube-apiserver
-上明确启用[功能门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)
-`AdmissionWebhookMatchConditions`，然后才能使用此功能。
-{{< /note >}}
+{{< feature-state state="beta" for_k8s_version="v1.28" >}}
 
 <!--
-You can define _match conditions_for webhooks if you need fine-grained request filtering. These
+You can define _match conditions_ for webhooks if you need fine-grained request filtering. These
 conditions are useful if you find that match rules, `objectSelectors` and `namespaceSelectors` still
 doesn't provide the filtering you want over when to call out over HTTP. Match conditions are
 [CEL expressions](/docs/reference/using-api/cel/). All match conditions must evaluate to true for the
@@ -1123,6 +1181,59 @@ Here is an example illustrating a few different uses for match conditions:
 -->
 以下是一个例子，说明了匹配条件的几种不同用法：
 
+<!--
+```yaml
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+webhooks:
+  - name: my-webhook.example.com
+    matchPolicy: Equivalent
+    rules:
+      - operations: ['CREATE','UPDATE']
+        apiGroups: ['*']
+        apiVersions: ['*']
+        resources: ['*']
+    failurePolicy: 'Ignore' # Fail-open (optional)
+    sideEffects: None
+    clientConfig:
+      service:
+        namespace: my-namespace
+        name: my-webhook
+      caBundle: '<omitted>'
+    # You can have up to 64 matchConditions per webhook
+    matchConditions:
+      - name: 'exclude-leases' # Each match condition must have a unique name
+        expression: '!(request.resource.group == "coordination.k8s.io" && request.resource.resource == "leases")' # Match non-lease resources.
+      - name: 'exclude-kubelet-requests'
+        expression: '!("system:nodes" in request.userInfo.groups)' # Match requests made by non-node users.
+      - name: 'rbac' # Skip RBAC requests, which are handled by the second webhook.
+        expression: 'request.resource.group != "rbac.authorization.k8s.io"'
+  
+  # This example illustrates the use of the 'authorizer'. The authorization check is more expensive
+  # than a simple expression, so in this example it is scoped to only RBAC requests by using a second
+  # webhook. Both webhooks can be served by the same endpoint.
+  - name: rbac.my-webhook.example.com
+    matchPolicy: Equivalent
+    rules:
+      - operations: ['CREATE','UPDATE']
+        apiGroups: ['rbac.authorization.k8s.io']
+        apiVersions: ['*']
+        resources: ['*']
+    failurePolicy: 'Fail' # Fail-closed (the default)
+    sideEffects: None
+    clientConfig:
+      service:
+        namespace: my-namespace
+        name: my-webhook
+      caBundle: '<omitted>'
+    # You can have up to 64 matchConditions per webhook
+    matchConditions:
+      - name: 'breakglass'
+        # Skip requests made by users authorized to 'breakglass' on this webhook.
+        # The 'breakglass' API verb does not need to exist outside this check.
+        expression: '!authorizer.group("admissionregistration.k8s.io").resource("validatingwebhookconfigurations").name("my-webhook.example.com").check("breakglass").allowed()'
+```
+-->
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
@@ -1141,6 +1252,7 @@ webhooks:
         namespace: my-namespace
         name: my-webhook
       caBundle: '<omitted>'
+    # 你可以为每个 Webhook 配置最多 64 个 matchConditions
     matchConditions:
       - name: 'exclude-leases' # 每个匹配条件必须有唯一的名称
         expression: '!(request.resource.group == "coordination.k8s.io" && request.resource.resource == "leases")' # 匹配非租约资源
@@ -1166,12 +1278,20 @@ webhooks:
         namespace: my-namespace
         name: my-webhook
       caBundle: '<omitted>'
+    # 你可以为每个 Webhook 配置最多 64 个 matchConditions
     matchConditions:
       - name: 'breakglass'
         # 跳过由授权给 “breakglass” 的用户在这个 Webhook 上发起的请求。
         # “breakglass” API 不需要在这个检查之外存在。
         expression: '!authorizer.group("admissionregistration.k8s.io").resource("validatingwebhookconfigurations").name("my-webhook.example.com").check("breakglass").allowed()'
 ```
+
+{{< note >}}
+<!--
+You can define up to 64 elements in the `matchConditions` field per webhook.
+-->
+你可以为每个 Webhook 在 `matchConditions` 字段中定义最多 64 个匹配条件。
+{{< /note >}}
 
 <!--
 Match conditions have access to the following CEL variables:
@@ -1300,7 +1420,7 @@ Fragments (`#...`) and query parameters (`?...`) are also not allowed.
 Here is an example of a mutating webhook configured to call a URL
 (and expects the TLS certificate to be verified using system trust roots, so does not specify a caBundle):
 -->
-这是配置为调用 URL 的修改性质的 Webhook 的示例
+这是配置为调用 URL 的变更性质的 Webhook 的示例
 （并且期望使用系统信任根证书来验证 TLS 证书，因此不指定 caBundle）：
 
 ```yaml
@@ -1383,8 +1503,8 @@ or the server could power off before persisting the object.
 进行带外更改的（产生“副作用”的） Webhook 必须具有协调机制（如控制器），
 该机制定期确定事物的实际状态，并调整由准入 Webhook 修改的带外数据以反映现实情况。
 这是因为对准入 Webhook 的调用不能保证所准入的对象将原样保留，或根本不保留。
-以后，webhook 可以修改对象的内容，在写入存储时可能会发生冲突，或者
-服务器可以在持久保存对象之前关闭电源。
+以后，Webhook 可以修改对象的内容，在写入存储时可能会发生冲突，
+或者服务器可以在持久保存对象之前关闭电源。
 
 <!--
 Additionally, webhooks with side effects must skip those side-effects when `dryRun: true` admission requests are handled.
@@ -1474,9 +1594,9 @@ A single ordering of mutating admissions plugins (including webhooks) does not w
 to the object (like adding a `container` to a `pod`), and other mutating plugins which have already
 run may have opinions on those new structures (like setting an `imagePullPolicy` on all containers).
 -->
-修改性质的准入插件（包括 Webhook）的任何一种排序方式都不会适用于所有情况。
+变更性质的准入插件（包括 Webhook）的任何一种排序方式都不会适用于所有情况。
 (参见 https://issue.k8s.io/64333 示例)。
-修改性质的 Webhook 可以向对象中添加新的子结构（例如向 `pod` 中添加 `container`），
+变更性质的 Webhook 可以向对象中添加新的子结构（例如向 `pod` 中添加 `container`），
 已经运行的其他修改插件可能会对这些新结构有影响
 （就像在所有容器上设置 `imagePullPolicy` 一样）。
 
@@ -1485,9 +1605,9 @@ To allow mutating admission plugins to observe changes made by other plugins,
 built-in mutating admission plugins are re-run if a mutating webhook modifies an object,
 and mutating webhooks can specify a `reinvocationPolicy` to control whether they are reinvoked as well.
 -->
-要允许修改性质的准入插件感应到其他插件所做的更改，
-如果修改性质的 Webhook 修改了一个对象，则会重新运行内置的修改性质的准入插件，
-并且修改性质的 Webhook 可以指定 `reinvocationPolicy` 来控制是否也重新调用它们。
+要允许变更性质的准入插件感应到其他插件所做的更改，
+如果变更性质的 Webhook 修改了一个对象，则会重新运行内置的变更性质的准入插件，
+并且变更性质的 Webhook 可以指定 `reinvocationPolicy` 来控制是否也重新调用它们。
 
 <!--
 `reinvocationPolicy` may be set to `Never` or `IfNeeded`. It defaults to `Never`.
@@ -1526,7 +1646,7 @@ The important elements to note are:
 Here is an example of a mutating webhook opting into being re-invoked if later admission plugins
 modify the object:
 -->
-这是一个修改性质的 Webhook 的示例，该 Webhook 在以后的准入插件修改对象时被重新调用：
+这是一个变更性质的 Webhook 的示例，该 Webhook 在以后的准入插件修改对象时被重新调用：
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -1541,10 +1661,10 @@ Mutating webhooks must be [idempotent](#idempotence), able to successfully proce
 and potentially modified. This is true for all mutating admission webhooks, since any change they can make
 in an object could already exist in the user-provided object, but it is essential for webhooks that opt into reinvocation.
 -->
-修改性质的 Webhook 必须具有[幂等](#idempotence)性，并且能够成功处理
-已被接纳并可能被修改的对象的修改性质的 Webhook。
-对于所有修改性质的准入 Webhook 都是如此，因为它们可以在对象中进行的
-任何更改可能已经存在于用户提供的对象中，但是对于选择重新调用的 Webhook
+变更性质的 Webhook 必须具有[幂等](#idempotence)性，
+并且能够成功处理已被接纳并可能被修改的对象的变更性质的 Webhook。
+对于所有变更性质的准入 Webhook 都是如此，
+因为它们可以在对象中进行的任何更改可能已经存在于用户提供的对象中，但是对于选择重新调用的 Webhook
 来说是必不可少的。
 
 <!--
@@ -1566,7 +1686,7 @@ Here is a mutating webhook configured to reject an API request if errors are enc
 * `Ignore` 表示调用 Webhook 的错误将被忽略并且允许 API 请求继续。
 * `Fail` 表示调用 Webhook 的错误导致准入失败并且 API 请求被拒绝。
 
-这是一个修改性质的 webhook，配置为在调用准入 Webhook 遇到错误时拒绝 API 请求：
+这是一个变更性质的 webhook，配置为在调用准入 Webhook 遇到错误时拒绝 API 请求：
 
 ```yaml
 apiVersion: admissionregistration.k8s.io/v1
@@ -1598,8 +1718,8 @@ monitoring mechanisms help cluster admins to answer questions like:
 -->
 API 服务器提供了监视准入 Webhook 行为的方法。这些监视机制可帮助集群管理员回答以下问题：
 
-1. 哪个修改性质的 Webhook 改变了 API 请求中的对象？
-2. 修改性质的 Webhook 对对象做了哪些更改？
+1. 哪个变更性质的 Webhook 改变了 API 请求中的对象？
+2. 变更性质的 Webhook 对对象做了哪些更改？
 3. 哪些 Webhook 经常拒绝 API 请求？是什么原因拒绝？
 
 <!--
@@ -1611,7 +1731,7 @@ API 服务器提供了监视准入 Webhook 行为的方法。这些监视机制�
 Sometimes it's useful to know which mutating webhook mutated the object in a API request, and what change did the
 webhook apply.
 -->
-有时，了解 API 请求中的哪个修改性质的 Webhook 使对象改变以及该 Webhook 应用了哪些更改很有用。
+有时，了解 API 请求中的哪个变更性质的 Webhook 使对象改变以及该 Webhook 应用了哪些更改很有用。
 
 <!--
 The Kubernetes API server performs [auditing](/docs/tasks/debug/debug-cluster/audit/) on each
@@ -1621,7 +1741,7 @@ capturing the applied patch from the webhook admission response. The annotations
 audit event for given request on given stage of its execution, which is then pre-processed
 according to a certain policy and written to a backend.
 -->
-Kubernetes API 服务器针对每个修改性质的 Webhook 调用执行[审计](/zh-cn/docs/tasks/debug/debug-cluster/audit/)操作。
+Kubernetes API 服务器针对每个变更性质的 Webhook 调用执行[审计](/zh-cn/docs/tasks/debug/debug-cluster/audit/)操作。
 每个调用都会生成一个审计注解，记述请求对象是否发生改变，
 可选地还可以根据 Webhook 的准入响应生成一个注解，记述所应用的修补。
 针对给定请求的给定执行阶段，注解被添加到审计事件中，
@@ -1720,7 +1840,7 @@ The audit level of a event determines which annotations get recorded:
   mutating webhook chain, and responded with a JSON patch which got applied to the request object.
   -->
   例如，以下是针对正在被重新调用的某 Webhook 所记录的注解。
-  Webhook 在修改性质的 Webhook 链中排在第四，并在其响应中包含一个 JSON 补丁，
+  Webhook 在变更性质的 Webhook 链中排在第四，并在其响应中包含一个 JSON 补丁，
   该补丁已被应用于请求对象。
 
   ```yaml
@@ -1839,7 +1959,7 @@ An idempotent mutating admission webhook is able to successfully process an obje
 and potentially modified. The admission can be applied multiple times without changing the result beyond
 the initial application.
 -->
-幂等的修改性质的准入 Webhook 能够成功处理已经被它接纳甚或修改的对象。
+幂等的变更性质的准入 Webhook 能够成功处理已经被它接纳甚或修改的对象。
 即使多次执行该准入测试，也不会产生与初次执行结果相异的结果。
 
 <!--
@@ -1964,8 +2084,8 @@ object.
 则应该使用一个验证性质的 webhook，
 因为可以通过 mutating Webhook 看到对象后对其进行修改。
 
-例如，一个修改性质的准入 Webhook 被配置为在每个 `CREATE` Pod 请求中
-注入一个名称为 "foo-sidecar" 的 sidecar 容器。
+例如，一个变更性质的准入 Webhook 被配置为在每个 `CREATE` Pod
+请求中注入一个名称为 "foo-sidecar" 的 sidecar 容器。
 
 如果*必须*存在边车容器，则还应配置一个验证性质的准入 Webhook 以拦截
 `CREATE` Pod 请求，并验证要创建的对象中是否存在具有预期配置的名称为
@@ -1991,7 +2111,7 @@ It is recommended to exclude the namespace where your webhook is running with a
 如果集群内的 Webhook 配置能够拦截启动其自己的 Pod 所需的资源，
 则该 Webhook 可能导致其自身部署时发生死锁。
 
-例如，某修改性质的准入 Webhook 配置为仅当 Pod 中设置了某个标签
+例如，某变更性质的准入 Webhook 配置为仅当 Pod 中设置了某个标签
 （例如 `"env": "prod"`）时，才接受 `CREATE` Pod 请求。
 Webhook 服务器在未设置 `"env"` 标签的 Deployment 中运行。当运行 Webhook 服务器的
 容器的节点运行不正常时，Webhook 部署尝试将容器重新调度到另一个节点。

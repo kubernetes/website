@@ -17,9 +17,10 @@ weight: 80
 <!-- overview -->
 
 <!--
-Attribute-based access control (ABAC) defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together.
+Attribute-based access control (ABAC) defines an access control paradigm whereby access rights are granted
+to users through the use of policies which combine attributes together.
 -->
-基于属性的访问控制（Attribute-based access control - ABAC）定义了访问控制范例，
+基于属性的访问控制（Attribute-based access control，ABAC）定义了访问控制范例，
 ABAC 通过使用将属性组合在一起的策略来向用户授予访问权限。
 
 <!-- body -->
@@ -27,9 +28,10 @@ ABAC 通过使用将属性组合在一起的策略来向用户授予访问权限
 <!--
 ## Policy File Format
 
-To enable `ABAC` mode, specify `--authorization-policy-file=SOME_FILENAME` and `--authorization-mode=ABAC` on startup.
+To enable `ABAC` mode, specify `--authorization-policy-file=SOME_FILENAME` and `--authorization-mode=ABAC`
+on startup.
 
-The file format is [one JSON object per line](https://jsonlines.org/).  There
+The file format is [one JSON object per line](https://jsonlines.org/). There
 should be no enclosing list or map, only one map per line.
 
 Each line is a "policy object", where each such object is a map with the following
@@ -45,7 +47,8 @@ properties:
 
 <!--
 - Versioning properties:
-  - `apiVersion`, type string; valid values are "abac.authorization.kubernetes.io/v1beta1". Allows versioning and conversion of the policy format.
+  - `apiVersion`, type string; valid values are "abac.authorization.kubernetes.io/v1beta1". Allows versioning
+    and conversion of the policy format.
   - `kind`, type string: valid values are "Policy". Allows versioning and conversion of the policy format.
 -->
 - 版本控制属性：
@@ -54,8 +57,11 @@ properties:
 <!--
 - `spec` property set to a map with the following properties:
   - Subject-matching properties:
-    - `user`, type string; the user-string from `--token-auth-file`. If you specify `user`, it must match the username of the authenticated user.
-    - `group`, type string; if you specify `group`, it must match one of the groups of the authenticated user. `system:authenticated` matches all authenticated requests. `system:unauthenticated` matches all unauthenticated requests.
+    - `user`, type string; the user-string from `--token-auth-file`. If you specify `user`, it must match the
+      username of the authenticated user.
+    - `group`, type string; if you specify `group`, it must match one of the groups of the authenticated user.
+      `system:authenticated` matches all authenticated requests. `system:unauthenticated` matches all
+      unauthenticated requests.
 -->
 - `spec` 配置为具有以下映射的属性：
   - 主体匹配属性：
@@ -89,10 +95,11 @@ properties:
   - Non-resource-matching properties:
     - `nonResourcePath`, type string; non-resource request paths.
       - Ex: `/version` or `/apis`
-      - Wildcard: 
+      - Wildcard:
         - `*` matches all non-resource requests.
         - `/foo/*` matches all subpaths of `/foo/`.
-  - `readonly`, type boolean, when true, means that the Resource-matching policy only applies to get, list, and watch operations, Non-resource-matching policy only applies to get operation.
+  - `readonly`, type boolean, when true, means that the Resource-matching policy only applies to get, list,
+    and watch operations, Non-resource-matching policy only applies to get operation.
   -->
   - 非资源匹配属性：
     - `nonResourcePath`，字符串类型；非资源请求路径。
@@ -104,6 +111,7 @@ properties:
     非资源匹配属性仅适用于 get 操作。
 
 {{< note >}}
+
 <!--
 An unset property is the same as a property set to the zero value for its type
 (e.g. empty string, 0, false). However, unset should be preferred for
@@ -123,7 +131,7 @@ REST interface.
 
 A request has attributes which correspond to the properties of a policy object.
 
-When a request is received, the attributes are determined.  Unknown attributes
+When a request is received, the attributes are determined. Unknown attributes
 are set to the zero value of its type (e.g. empty string, 0, false).
 
 A property set to `"*"` will match any value of the corresponding attribute.
@@ -253,7 +261,8 @@ kubectl --v=8 version
 
 ## A quick note on service accounts
 
-Every service account has a corresponding ABAC username, and that service account's username is generated according to the naming convention:
+Every service account has a corresponding ABAC username, and that service account's username is generated
+according to the naming convention:
 -->
 [完整文件示例](https://releases.k8s.io/v{{< skew currentPatchVersion >}}/pkg/auth/authorizer/abac/example_policy_file.jsonl)
 
@@ -275,7 +284,7 @@ system:serviceaccount:<namespace>:default
 ```
 
 <!--
-For example, if you wanted to grant the default service account (in the `kube-system` namespace) full 
+For example, if you wanted to grant the default service account (in the `kube-system` namespace) full
 privilege to the API using ABAC, you would add this line to your policy file:
 -->
 例如，如果你要使用 ABAC 将（`kube-system` 命名空间中）的默认服务账号完整权限授予 API，

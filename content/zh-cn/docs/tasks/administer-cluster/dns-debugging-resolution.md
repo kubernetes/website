@@ -40,7 +40,7 @@ kube-dns.
 <!--
 ### Create a simple Pod to use as a test environment
 
-{{< codenew file="admin/dns/dnsutils.yaml" >}}
+{{% code file="admin/dns/dnsutils.yaml" %}}
 
 {{< note >}}
 This example creates a pod in the `default` namespace. DNS name resolution for 
@@ -558,4 +558,3 @@ details more information on this.
 -->
 - 参阅[自动扩缩集群中的 DNS 服务](/zh-cn/docs/tasks/administer-cluster/dns-horizontal-autoscaling/).
 - 阅读 [Pod 与 Service 的 DNS](/zh-cn/docs/concepts/services-networking/dns-pod-service/)
-

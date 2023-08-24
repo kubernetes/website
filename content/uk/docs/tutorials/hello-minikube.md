@@ -58,9 +58,9 @@ You can also follow this tutorial if you've installed [Minikube locally](/docs/t
 -->
 У цьому навчальному матеріалі ми використовуємо образ контейнера, зібраний із наступних файлів:
 
-{{< codenew language="js" file="minikube/server.js" >}}
+{{% codenew language="js" file="minikube/server.js" %}}
 
-{{< codenew language="conf" file="minikube/Dockerfile" >}}
+{{% codenew language="conf" file="minikube/Dockerfile" %}}
 
 <!--For more information on the `docker build` command, read the [Docker documentation](https://docs.docker.com/engine/reference/commandline/build/).
 -->

@@ -159,7 +159,6 @@ func validateObject(obj runtime.Object) (errors field.ErrorList) {
 	podValidationOptions := validation.PodValidationOptions{
 		AllowInvalidPodDeletionCost:     false,
 		AllowIndivisibleHugePagesValues: true,
-		AllowExpandedDNSConfig:          true,
 	}
 	netValidationOptions := networking_validation.NetworkPolicyValidationOptions{
 		AllowInvalidLabelValueInSelector: false,
@@ -400,6 +399,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		"access": {
 			"deployment-replicas-policy":                   {&admissionregistration.ValidatingAdmissionPolicy{}},
 			"endpoints-aggregated":                         {&rbac.ClusterRole{}},
+			"image-matches-namespace-environment.policy":   {&admissionregistration.ValidatingAdmissionPolicy{}},
 			"validating-admission-policy-audit-annotation": {&admissionregistration.ValidatingAdmissionPolicy{}},
 			"validating-admission-policy-match-conditions": {&admissionregistration.ValidatingAdmissionPolicy{}},
 		},
@@ -477,6 +477,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"deployment-patch":      {&apps.Deployment{}},
 			"deployment-retainkeys": {&apps.Deployment{}},
 			"deployment-scale":      {&apps.Deployment{}},
+			"deployment-sidecar":    {&apps.Deployment{}},
 			"deployment-update":     {&apps.Deployment{}},
 			"nginx-app":             {&api.Service{}, &apps.Deployment{}},
 			"nginx-with-request":    {&apps.Deployment{}},
@@ -502,6 +503,7 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"application/job": {
 			"cronjob":         {&batch.CronJob{}},
+			"job-sidecar":     {&batch.Job{}},
 			"job-tmpl":        {&batch.Job{}},
 			"indexed-job":     {&batch.Job{}},
 			"indexed-job-vol": {&batch.Job{}},
@@ -556,11 +558,13 @@ func TestExampleObjectSchemas(t *testing.T) {
 		},
 		"controllers": {
 			"daemonset":                           {&apps.DaemonSet{}},
+			"daemonset-label-selector":            {&apps.DaemonSet{}},
 			"fluentd-daemonset":                   {&apps.DaemonSet{}},
 			"fluentd-daemonset-update":            {&apps.DaemonSet{}},
 			"frontend":                            {&apps.ReplicaSet{}},
 			"hpa-rs":                              {&autoscaling.HorizontalPodAutoscaler{}},
 			"job":                                 {&batch.Job{}},
+			"job-backoff-limit-per-index-example": {&batch.Job{}},
 			"job-pod-failure-policy-config-issue": {&batch.Job{}},
 			"job-pod-failure-policy-example":      {&batch.Job{}},
 			"job-pod-failure-policy-failjob":      {&batch.Job{}},
@@ -697,9 +701,10 @@ func TestExampleObjectSchemas(t *testing.T) {
 			"podsecurity-restricted": {&api.Namespace{}},
 		},
 		"service": {
-			"nginx-service":                 {&api.Service{}},
-			"load-balancer-example":         {&apps.Deployment{}},
-			"pod-with-graceful-termination": {&apps.Deployment{}},
+			"nginx-service":                      {&api.Service{}},
+			"load-balancer-example":              {&apps.Deployment{}},
+			"pod-with-graceful-termination":      {&apps.Deployment{}},
+			"explore-graceful-termination-nginx": {&api.Service{}},
 		},
 		"service/access": {
 			"backend-deployment":  {&apps.Deployment{}},

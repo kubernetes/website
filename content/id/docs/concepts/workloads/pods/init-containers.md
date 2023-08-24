@@ -49,7 +49,7 @@ Berikut beberapa contoh kasus penggunaan Init Container:
 
 * Menunggu sebuah Service untuk dibuat dengan perintah _shell_ seperti:
 
-      for i in {1..100}; do sleep 1; if dig myservice; then exit 0; fi; done; exit 1
+      for i in {1..100}; do sleep 1; if nslookup myservice; then exit 0; fi; done; exit 1
 
 * Mendaftarkan suatu Pod ke sebuah peladen terpisah dari _downward API_ dengan perintah seperti:
 

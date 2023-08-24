@@ -31,7 +31,7 @@ This tutorial uses a simple nginx web server to demonstrate the concept.
 We did this in a previous example, but let's do it once again and focus on the networking perspective.
 Create an nginx Pod, and note that it has a container port specification:
 
-{{< codenew file="service/networking/run-my-nginx.yaml" >}}
+{{% code file="service/networking/run-my-nginx.yaml" %}}
 
 This makes it accessible from any node in your cluster. Check the nodes the Pod is running on:
 
@@ -92,7 +92,7 @@ service/my-nginx exposed
 
 This is equivalent to `kubectl apply -f` the following yaml:
 
-{{< codenew file="service/networking/nginx-svc.yaml" >}}
+{{% code file="service/networking/nginx-svc.yaml" %}}
 
 This specification will create a Service which targets TCP port 80 on any Pod
 with the `run: my-nginx` label, and expose it on an abstracted Service port
@@ -154,7 +154,7 @@ my-nginx-7vzhx   IPv4          80      10.244.2.5,10.244.3.4   21s
 You should now be able to curl the nginx Service on `<CLUSTER-IP>:<PORT>` from
 any node in your cluster. Note that the Service IP is completely virtual, it
 never hits the wire. If you're curious about how this works you can read more
-about the [service proxy](/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies).
+about the [service proxy](/docs/reference/networking/virtual-ips/).
 
 ## Accessing the Service
 
@@ -241,7 +241,7 @@ or [Installing CoreDNS](/docs/tasks/administer-cluster/coredns/#installing-cored
 Let's run another curl application to test this:
 
 ```shell
-kubectl run curl --image=radial/busyboxplus:curl -i --tty
+kubectl run curl --image=radial/busyboxplus:curl -i --tty --rm
 ```
 ```
 Waiting for pod default/curl-131556218-9fnch to be running, status is Pending, pod ready: false
@@ -340,7 +340,7 @@ nginxsecret           kubernetes.io/tls                     2         1m
 Now modify your nginx replicas to start an https server using the certificate
 in the secret, and the Service, to expose both ports (80 and 443):
 
-{{< codenew file="service/networking/nginx-secure-app.yaml" >}}
+{{% code file="service/networking/nginx-secure-app.yaml" %}}
 
 Noteworthy points about the nginx-secure-app manifest:
 
@@ -376,7 +376,7 @@ linked the CName used in the certificate with the actual DNS name used by pods
 during Service lookup. Let's test this from a pod (the same secret is being reused
 for simplicity, the pod only needs nginx.crt to access the Service):
 
-{{< codenew file="service/networking/curlpod.yaml" >}}
+{{% code file="service/networking/curlpod.yaml" %}}
 
 ```shell
 kubectl apply -f ./curlpod.yaml

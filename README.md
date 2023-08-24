@@ -56,7 +56,7 @@ Open up your browser to <http://localhost:1313> to view the website. As you make
 
 ## Running the website locally using Hugo
 
-Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L10) file.
+Make sure to install the Hugo extended version specified by the `HUGO_VERSION` environment variable in the [`netlify.toml`](netlify.toml#L11) file.
 
 To build and test the site locally, run:
 

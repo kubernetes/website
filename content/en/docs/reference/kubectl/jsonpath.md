@@ -108,6 +108,6 @@ JSONPath regular expressions are not supported. If you want to match using regul
 kubectl get pods -o jsonpath='{.items[?(@.metadata.name=~/^test$/)].metadata.name}'
 
 # The following command achieves the desired result
-kubectl get pods -o json | jq -r '.items[] | select(.metadata.name | test("test-")).spec.containers[].image'
+kubectl get pods -o json | jq -r '.items[] | select(.metadata.name | test("test-")).metadata.name'
 ```
 {{< /note >}}

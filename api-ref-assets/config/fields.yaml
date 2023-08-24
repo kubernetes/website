@@ -88,6 +88,7 @@
   - fields:
     - nominatedNodeName
     - hostIP
+    - hostIPs
     - startTime
     - phase
     - message
@@ -99,6 +100,7 @@
     - initContainerStatuses
     - containerStatuses
     - ephemeralContainerStatuses
+    - resourceClaimStatuses
     - resize
 
 - definition: io.k8s.api.core.v1.Container
@@ -137,6 +139,7 @@
     - livenessProbe
     - readinessProbe
     - startupProbe
+    - restartPolicy
   - name: Security Context
     fields:
     - securityContext
@@ -228,6 +231,7 @@
     fields:
     - terminationMessagePath
     - terminationMessagePolicy
+    - restartPolicy
   - name: Debugging
     fields:
     - stdin
@@ -393,9 +397,14 @@
     fields:
     - selector
     - manualSelector
-  - name: Alpha level
+  - name: Beta level
     fields:
     - podFailurePolicy
+  - name: Alpha level
+    fields:
+    - backoffLimitPerIndex
+    - maxFailedIndexes
+    - podReplacementPolicy
 
 - definition: io.k8s.api.batch.v1.JobStatus
   field_categories:
@@ -411,6 +420,10 @@
   - name: Beta level
     fields:
     - ready
+  - name: Alpha level
+    fields:
+    - failedIndexes
+    - terminating
 
 - definition: io.k8s.api.batch.v1.CronJobSpec
   field_categories:

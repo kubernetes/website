@@ -38,7 +38,7 @@ Quando se cria um objeto do Kubernetes, deve-se fornecer a especificação do ob
 
 Aqui está um exemplo de arquivo `.yaml` que mostra os campos necessários e as especificações de objeto para uma implatação Kubernetes:
 
-{{< codenew file="application/deployment.yaml" >}}
+{{% codenew file="application/deployment.yaml" %}}
 
 Uma maneira de criar um Deployment usando um arquivo `.yaml` como o representado acima é usar o comando [`kubectl apply`](/docs/reference/generated/kubectl/kubectl-commands#apply
 ) na interface de linha de comando `kubectl`, passando o arquivo `.yaml` como argumento. Aqui está um exemplo:
