@@ -2,10 +2,6 @@
 title: 在 macOS 系统上安装和设置 kubectl
 content_type: task
 weight: 10
-card:
-  name: tasks
-  weight: 20
-  title: 在 macOS 系统上安装 kubectl
 ---
 <!-- 
 reviewers:
@@ -13,10 +9,6 @@ reviewers:
 title: Install and Set Up kubectl on macOS
 content_type: task
 weight: 10
-card:
-  name: tasks
-  weight: 20
-  title: Install kubectl on macOS
 -->
 
 ## {{% heading "prerequisites" %}}
@@ -146,7 +138,7 @@ The following methods exist for installing kubectl on macOS:
    -->
    验证失败时，`shasum` 将以非零值退出，并打印如下输出：
 
-   ```
+   ```console
    kubectl: FAILED
    shasum: WARNING: 1 computed checksum did NOT match
    ```
@@ -192,23 +184,6 @@ The following methods exist for installing kubectl on macOS:
    ```bash
    kubectl version --client
    ```
-
-   {{< note >}}
-   <!--
-   The above command will generate a warning:
-   -->
-   上面的命令会产生一个警告：
-
-   ```
-   WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
-   ```
-   
-   <!--
-   You can ignore this warning. You are only checking the version of `kubectl` that you
-   have installed.
-   -->
-   你可以忽略这个警告。你只检查你所安装的 `kubectl` 的版本。
-   {{< /note >}}
 
    <!--
    Or use this for detailed view of version:
@@ -388,7 +363,7 @@ kubectl 为 Bash、Zsh、Fish 和 PowerShell 提供自动补全功能，可以�
    -->
    验证失败时，`sha256` 将以非零值退出，并打印输出类似于：
 
-   ```bash
+   ```console
    kubectl-convert: FAILED
    shasum: WARNING: 1 computed checksum did NOT match
    ```

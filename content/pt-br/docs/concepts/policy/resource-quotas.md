@@ -623,7 +623,7 @@ plugins:
 
 Em seguida, crie um objeto de cota de recurso no _namespace_ `kube-system`:
 
-{{< codenew file="policy/priority-class-resourcequota.yaml" >}}
+{{% codenew file="policy/priority-class-resourcequota.yaml" %}}
 
 ```shell
 kubectl apply -f https://k8s.io/examples/policy/priority-class-resourcequota.yaml -n kube-system

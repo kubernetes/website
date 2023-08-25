@@ -41,7 +41,7 @@ utilisez plutôt un déploiement et définissez votre application dans la sectio
 
 ## Exemple
 
-{{< codenew file="controllers/frontend.yaml" >}}
+{{% codenew file="controllers/frontend.yaml" %}}
 
 Enregistrer ce manifeste dans `frontend.yaml` et le soumettre à un cluster Kubernetes va créer le ReplicaSet défini et les pods qu’il gère.
 
@@ -145,7 +145,7 @@ labels correspondant au sélecteur de l’un de vos ReplicaSets. Car un ReplicaS
 
 Prenez l'exemple précédent de ReplicaSet, ainsi que les pods spécifiés dans le manifeste suivant :
 
-{{< codenew file="pods/pod-rs.yaml" >}}
+{{% codenew file="pods/pod-rs.yaml" %}}
 
 Ces pods n’ayant pas de contrôleur (ni d’objet) en tant que référence propriétaire, ils correspondent au sélecteur de du ReplicaSet frontend, ils seront donc immédiatement acquis par ce ReplicaSet.
 
@@ -291,7 +291,7 @@ Un ReplicaSet peut également être une cible pour
 Un ReplicaSet peut être mis à l'échelle automatiquement par un HPA. Voici un exemple HPA qui cible
 le ReplicaSet que nous avons créé dans l'exemple précédent.
 
-{{< codenew file="controllers/hpa-rs.yaml" >}}
+{{% codenew file="controllers/hpa-rs.yaml" %}}
 
 Enregistrer ce manifeste dans `hpa-rs.yaml` et le soumettre à un cluster Kubernetes devrait
 créer le HPA défini qui scale automatiquement le ReplicaSet cible en fonction de l'utilisation du processeur

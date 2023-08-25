@@ -110,7 +110,7 @@ FlowSchema 和 PriorityLevelConfiguration。
 * 迁移清单和 API 客户端使用 **flowcontrol.apiserver.k8s.io/v1beta3** API 版本，
   此 API 从 v1.26 版本开始可用；
 * 所有的已保存的对象都可以通过新的 API 来访问；
-* 没有需要额外注意的变更
+* 没有需要额外注意的变更。
 
 #### HorizontalPodAutoscaler {#horizontalpodautoscaler-v126}
 
@@ -125,7 +125,7 @@ HorizontalPodAutoscaler。
 
 * 迁移清单和 API 客户端使用 **autoscaling/v2** API 版本，
   此 API 从 v1.23 版本开始可用；
-* 所有的已保存的对象都可以通过新的 API 来访问；
+* 所有的已保存的对象都可以通过新的 API 来访问。
 
 ### v1.25
 
@@ -786,7 +786,7 @@ to locate use of deprecated APIs.
 -->
 ### 定位何处使用了已弃用的 API
 
-使用 [client warnings, metrics, and audit information available in 1.19+](/blog/2020/09/03/warnings/#deprecation-warnings)
+使用 [1.19 及更高版本中可用的客户端警告、指标和审计信息](/zh-cn/blog/2020/09/03/warnings/#deprecation-warnings)
 来定位在何处使用了已弃用的 API。
 
 <!--
@@ -801,25 +801,50 @@ to locate use of deprecated APIs.
 * 更新自定义的集成组件和控制器，调用未被弃用的 API
 * 更改 YAML 文件引用未被弃用的 API
 
-<!--
-You can use the `kubectl-convert` command (`kubectl convert` prior to v1.20)
-to automatically convert an existing object:
--->
-你可以用 `kubectl-convert` 命令（在 v1.20 之前是 `kubectl convert`）
-来自动转换现有对象：
+  <!--
+  You can use the `kubectl convert` command to automatically convert an existing object:
+  -->
+  你可以用 `kubectl-convert` 命令自动转换现有对象：
 
-`kubectl-convert -f <file> --output-version <group>/<version>`.
+  ```shell
+  kubectl convert -f <file> --output-version <group>/<version>
+  ```
 
-<!--
-For example, to convert an older Deployment to `apps/v1`, you can run:
--->
-例如，要将较老的 Deployment 版本转换为 `apps/v1` 版本，你可以运行：
+  <!--
+  For example, to convert an older Deployment to `apps/v1`, you can run:
+  -->
+  例如，要将较老的 Deployment 版本转换为 `apps/v1` 版本，你可以运行：
 
-`kubectl-convert -f ./my-deployment.yaml --output-version apps/v1`
+  ```shell
+  kubectl convert -f ./my-deployment.yaml --output-version apps/v1
+  ```
 
-<!--
-Note that this may use non-ideal default values. To learn more about a specific
-resource, check the Kubernetes [API reference](/docs/reference/kubernetes-api/).
--->
-需要注意的是这种操作使用的默认值可能并不理想。
-要进一步了解某个特定资源，可查阅 Kubernetes [API 参考](/zh-cn/docs/reference/kubernetes-api/)。
+  <!--
+  This conversion may use non-ideal default values. To learn more about a specific
+  resource, check the Kubernetes [API reference](/docs/reference/kubernetes-api/).
+  -->
+  这个转换可能使用了非理想的默认值。要了解更多关于特定资源的信息，
+  请查阅 Kubernetes [API 参考文档](/zh-cn/docs/reference/kubernetes-api/)。
+
+  {{< note >}}
+  <!--
+  The `kubectl convert` tool is not installed by default, although
+  in fact it once was part of `kubectl` itself. For more details, you can read the
+  [deprecation and removal issue](https://github.com/kubernetes/kubectl/issues/725)
+  for the built-in subcommand.
+  -->
+  尽管实际上 `kubectl convert` 工具曾经是 `kubectl` 自身的一部分，但此工具不是默认安装的。
+  如果想了解更多详情，可以阅读内置子命令的[弃用和移除问题](https://github.com/kubernetes/kubectl/issues/725)。
+  
+  <!--
+  To learn how to set up `kubectl convert` on your computer, visit the page that is right for your 
+  operating system:
+  [Linux](/docs/tasks/tools/install-kubectl-linux/#install-kubectl-convert-plugin),
+  [macOS](/docs/tasks/tools/install-kubectl-macos/#install-kubectl-convert-plugin), or
+  [Windows](/docs/tasks/tools/install-kubectl-windows/#install-kubectl-convert-plugin).
+  -->
+  要了解如何在你的计算机上设置 `kubectl convert`，查阅适合你操作系统的页面：
+  [Linux](/zh-cn/docs/tasks/tools/install-kubectl-linux/#install-kubectl-convert-plugin)、
+  [macOS](/zh-cn/docs/tasks/tools/install-kubectl-macos/#install-kubectl-convert-plugin) 或
+  [Windows](/zh-cn/docs/tasks/tools/install-kubectl-windows/#install-kubectl-convert-plugin)。
+  {{< /note >}}

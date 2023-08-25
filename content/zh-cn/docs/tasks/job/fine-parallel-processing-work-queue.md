@@ -194,7 +194,7 @@ client library to get work.  Here it is:
 -->
 Job 中每个 Pod 内的 “工作程序” 使用工作队列客户端库获取工作。具体如下：
 
-{{< codenew language="python" file="application/job/redis/worker.py" >}}
+{{% code language="python" file="application/job/redis/worker.py" %}}
 
 <!--
 You could also download [`worker.py`](/examples/application/job/redis/worker.py),
@@ -257,7 +257,7 @@ Here is the job definition:
 
 这是 Job 定义：
 
-{{< codenew file="application/job/redis/job.yaml" >}}
+{{% code file="application/job/redis/job.yaml" %}}
 
 <!--
 Be sure to edit the job template to

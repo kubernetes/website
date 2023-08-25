@@ -80,7 +80,7 @@ In order to manage the Kubernetes cluster, we need to install [kubectl](https://
 The recommended way to install it on Linux is to download the pre-built binary and move it to a directory under the `$PATH`.
 
 ```shell
-curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl \
+curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl \
     && sudo install kubectl /usr/local/bin && rm kubectl
 ```
 

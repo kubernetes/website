@@ -3,7 +3,6 @@ title: 使用 kOps 安装 Kubernetes
 content_type: task
 weight: 20
 ---
-
 <!--
 title: Installing Kubernetes with kOps
 content_type: task
@@ -28,17 +27,22 @@ It uses a tool called [`kOps`](https://github.com/kubernetes/kops).
 * Fully automated installation
 * Uses DNS to identify clusters
 * Self-healing: everything runs in Auto-Scaling Groups
-* Multiple OS support (Amazon Linux, Debian, Flatcar, RHEL, Rocky and Ubuntu) - see the [images.md](https://github.com/kubernetes/kops/blob/master/docs/operations/images.md)
-* High-Availability support - see the [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/operations/high_availability.md)
-* Can directly provision, or generate terraform manifests - see the [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)
+* Multiple OS support (Amazon Linux, Debian, Flatcar, RHEL, Rocky and Ubuntu) - see the
+  [images.md](https://github.com/kubernetes/kops/blob/master/docs/operations/images.md)
+* High-Availability support - see the
+  [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/operations/high_availability.md)
+* Can directly provision, or generate terraform manifests - see the
+  [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)
 -->
 * 全自动安装流程
 * 使用 DNS 识别集群
 * 自我修复：一切都在自动扩缩组中运行
 * 支持多种操作系统（Amazon Linux、Debian、Flatcar、RHEL、Rocky 和 Ubuntu），
   参考 [images.md](https://github.com/kubernetes/kops/blob/master/docs/operations/images.md)。
-* 支持高可用，参考 [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/operations/high_availability.md)。
-* 可以直接提供或者生成 terraform 清单，参考 [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)。
+* 支持高可用，参考
+  [high_availability.md](https://github.com/kubernetes/kops/blob/master/docs/operations/high_availability.md)。
+* 可以直接提供或者生成 terraform 清单，参考
+  [terraform.md](https://github.com/kubernetes/kops/blob/master/docs/terraform.md)。
 
 ## {{% heading "prerequisites" %}}
 
@@ -47,7 +51,10 @@ It uses a tool called [`kOps`](https://github.com/kubernetes/kops).
 
 * You must [install](https://github.com/kubernetes/kops#installing) `kops` on a 64-bit (AMD64 and Intel 64) device architecture.
 
-* You must have an [AWS account](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html), generate [IAM keys](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys) and [configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration) them. The IAM user will need [adequate permissions](https://github.com/kubernetes/kops/blob/master/docs/getting_started/aws.md#setup-iam-user).
+* You must have an [AWS account](https://docs.aws.amazon.com/polly/latest/dg/setting-up.html),
+  generate [IAM keys](https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys)
+  and [configure](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html#cli-quick-configuration) them.
+  The IAM user will need [adequate permissions](https://github.com/kubernetes/kops/blob/master/docs/getting_started/aws.md#setup-iam-user).
 -->
 * 你必须安装 [kubectl](/zh-cn/docs/tasks/tools/)。
 * 你必须安装[安装](https://github.com/kubernetes/kops#installing) `kops`
@@ -66,7 +73,8 @@ It uses a tool called [`kOps`](https://github.com/kubernetes/kops).
 
 #### Installation
 
-Download kops from the [releases page](https://github.com/kubernetes/kops/releases) (it is also convenient to build from source):
+Download kops from the [releases page](https://github.com/kubernetes/kops/releases)
+(it is also convenient to build from source):
 -->
 ## 创建集群 {#creating-a-cluster}
 
@@ -202,7 +210,7 @@ from clients.
 ### (2/5) 为你的集群创建一个 route53 域名
 
 kops 在集群内部和外部都使用 DNS 进行发现操作，这样你可以从客户端访问
-kubernetes API 服务器。
+Kubernetes API 服务器。
 
 <!--
 kops has a strong opinion on the cluster name: it should be a valid DNS name.  By doing so you will
@@ -225,7 +233,8 @@ but also `dev.example.com` or even `example.com`.  kops works with any of these,
 you choose for organization reasons (e.g. you are allowed to create records under `dev.example.com`,
 but not under `example.com`).
 -->
-Route53 托管区域可以服务子域名。你的托管区域可能是 `useast1.dev.example.com`，还有 `dev.example.com` 甚至 `example.com`。
+Route53 托管区域可以服务子域名。你的托管区域可能是 `useast1.dev.example.com`，
+还有 `dev.example.com` 甚至 `example.com`。
 kops 可以与以上任何一种配合使用，因此通常你出于组织原因选择不同的托管区域。
 例如，允许你在 `dev.example.com` 下创建记录，但不能在 `example.com` 下创建记录。
 
@@ -393,7 +402,8 @@ for production clusters!
 <!--
 ### Explore other add-ons
 
-See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to explore other add-ons, including tools for logging, monitoring, network policy, visualization, and control of your Kubernetes cluster.
+See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to explore other add-ons,
+including tools for logging, monitoring, network policy, visualization, and control of your Kubernetes cluster.
 -->
 ### 探索其他附加组件
 
@@ -413,8 +423,10 @@ See the [list of add-ons](/docs/concepts/cluster-administration/addons/) to expl
 
 <!--
 * Learn more about Kubernetes [concepts](/docs/concepts/) and [`kubectl`](/docs/reference/kubectl/).
-* Learn more about `kOps` [advanced usage](https://kops.sigs.k8s.io/) for tutorials, best practices and advanced configuration options.
-* Follow `kOps` community discussions on Slack: [community discussions](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors).
+* Learn more about `kOps` [advanced usage](https://kops.sigs.k8s.io/) for tutorials,
+  best practices and advanced configuration options.
+* Follow `kOps` community discussions on Slack:
+  [community discussions](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors).
 * Contribute to `kOps` by addressing or raising an issue [GitHub Issues](https://github.com/kubernetes/kops/issues).
 -->
 * 了解有关 Kubernetes 的[概念](/zh-cn/docs/concepts/)和

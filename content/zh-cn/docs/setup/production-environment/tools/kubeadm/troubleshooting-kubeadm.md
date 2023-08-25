@@ -3,7 +3,6 @@ title: 对 kubeadm 进行故障排查
 content_type: concept
 weight: 20
 ---
-
 <!--
 title: Troubleshooting kubeadm
 content_type: concept
@@ -376,10 +375,10 @@ in kube-apiserver logs. To fix the issue you must follow these steps:
 -->
 5. 手动编辑 `kubelet.conf` 指向轮换的 kubelet 客户端证书，方法是将 `client-certificate-data` 和 `client-key-data` 替换为：
 
-    ```yaml
-    client-certificate: /var/lib/kubelet/pki/kubelet-client-current.pem
-    client-key: /var/lib/kubelet/pki/kubelet-client-current.pem
-    ```
+   ```yaml
+   client-certificate: /var/lib/kubelet/pki/kubelet-client-current.pem
+   client-key: /var/lib/kubelet/pki/kubelet-client-current.pem
+   ```
 
 <!--
 1. Restart the kubelet.
@@ -457,8 +456,8 @@ Error from server: Get https://10.19.0.41:10250/containerLogs/default/mysql-ddc6
 
   Then restart `kubelet`:
   -->
-  解决方法是通知 `kubelet` 使用哪个 `--node-ip`。当使用 DigitalOcean 时，可以是公网IP（分配给 `eth0` 的），
-  或者是私网IP（分配给 `eth1` 的）。私网 IP 是可选的。
+  解决方法是通知 `kubelet` 使用哪个 `--node-ip`。当使用 DigitalOcean 时，可以是（分配给 `eth0` 的）公网 IP，
+  或者是（分配给 `eth1` 的）私网 IP。私网 IP 是可选的。
   [kubadm `NodeRegistrationOptions` 结构](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/#kubeadm-k8s-io-v1beta3-NodeRegistrationOptions)
   的 `KubeletExtraArgs` 部分被用来处理这种情况。
 
@@ -487,7 +486,7 @@ where the `coredns` pods are not starting. To solve that you can try one of the 
 
 - 升级到 [Docker 的较新版本](/zh-cn/docs/setup/production-environment/container-runtimes/#docker)。
 
-- [禁用 SELinux](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/sect-security-enhanced_linux-enabling_and_disabling_selinux-disabling_selinux).
+- [禁用 SELinux](https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/sect-security-enhanced_linux-enabling_and_disabling_selinux-disabling_selinux)。
 
 - 修改 `coredns` 部署以设置 `allowPrivilegeEscalation` 为 `true`：
 
@@ -548,7 +547,7 @@ To work around the issue, choose one of these options:
 <!--
 - Install one of the more recent recommended versions, such as 18.06:
 -->
-- 安装较新的推荐版本之一，例如 18.06:
+- 安装较新的推荐版本之一，例如 18.06：
 
   ```shell
   sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
@@ -645,7 +644,7 @@ for the feature to work.
 
 在类似 Fedora CoreOS 或者 Flatcar Container Linux 这类 Linux 发行版本中，
 目录 `/usr` 是以只读文件系统的形式挂载的。
-在支持 [FlexVolume](https://github.com/kubernetes/community/blob/ab55d85/contributors/devel/sig-storage/flexvolume.md)时，
+在支持 [FlexVolume](https://github.com/kubernetes/community/blob/ab55d85/contributors/devel/sig-storage/flexvolume.md) 时，
 类似 kubelet 和 kube-controller-manager 这类 Kubernetes 组件使用默认路径
 `/usr/libexec/kubernetes/kubelet-plugins/volume/exec/`，
 而 FlexVolume 的目录 **必须是可写入的**，该功能特性才能正常工作。
@@ -658,7 +657,8 @@ To workaround this issue you can configure the flex-volume directory using the k
 On the primary control-plane Node (created using `kubeadm init`) pass the following
 file using `--config`:
 -->
-为了解决这个问题，你可以使用 kubeadm 的[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/) 来配置 FlexVolume 的目录。
+为了解决这个问题，你可以使用 kubeadm 的[配置文件](/zh-cn/docs/reference/config-api/kubeadm-config.v1beta3/)来配置
+FlexVolume 的目录。
 
 在（使用 `kubeadm init` 创建的）主控制节点上，使用 `--config`
 参数传入如下文件：
@@ -694,7 +694,7 @@ nodeRegistration:
 Alternatively, you can modify `/etc/fstab` to make the `/usr` mount writeable, but please
 be advised that this is modifying a design principle of the Linux distribution.
 -->
-或者，你要可以更改 `/etc/fstab` 使得 `/usr` 目录能够以可写入的方式挂载，
+或者，你可以更改 `/etc/fstab` 使得 `/usr` 目录能够以可写入的方式挂载，
 不过请注意这样做本质上是在更改 Linux 发行版的某种设计原则。
 
 <!--

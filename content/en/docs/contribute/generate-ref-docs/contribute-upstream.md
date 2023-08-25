@@ -133,9 +133,8 @@ you will do a second commit. It is important to keep your changes separated into
 Go to `<k8s-base>` and run these scripts:
 
 ```shell
-hack/update-generated-swagger-docs.sh
-hack/update-openapi-spec.sh
-hack/update-generated-protobuf.sh
+./hack/update-codegen.sh
+./hack/update-openapi-spec.sh
 ```
 
 Run `git status` to see what was generated.
@@ -206,10 +205,8 @@ release-{{< skew prevMinorVersion >}} branch, the next step is to run these scri
 release-{{< skew prevMinorVersion >}} branch of your local environment.
 
 ```shell
-hack/update-generated-swagger-docs.sh
-hack/update-openapi-spec.sh
-hack/update-generated-protobuf.sh
-hack/update-api-reference-docs.sh
+./hack/update-codegen.sh
+./hack/update-openapi-spec.sh
 ```
 
 Now add a commit to your cherry-pick pull request that has the recently generated OpenAPI spec
