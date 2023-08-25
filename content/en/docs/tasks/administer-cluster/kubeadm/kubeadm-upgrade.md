@@ -101,7 +101,7 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
 
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   export KUBEVER="{{< skew currentVersion >}}.x-*"
+   export KUBEVER="{{< skew currentPatchVersion >}}-*"
    sudo apt-mark unhold kubeadm && \
    sudo apt-get update && apt-get install -y kubeadm=${KUBEVER} && \
    sudo apt-mark hold kubeadm
