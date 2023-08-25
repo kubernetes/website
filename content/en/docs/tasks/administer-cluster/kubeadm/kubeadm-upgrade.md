@@ -101,9 +101,8 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
 
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   export KUBEVER="{{< skew currentPatchVersion >}}-*"
    sudo apt-mark unhold kubeadm && \
-   sudo apt-get update && apt-get install -y kubeadm=${KUBEVER} && \
+   sudo apt-get update && apt-get install -y kubeadm={{< skew currentPatchVersion >}} && \
    sudo apt-mark hold kubeadm
    ```
 
@@ -112,8 +111,7 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
 
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   export KUBEVER="{{< skew currentPatchVersion >}}-*"
-   sudo yum install -y kubeadm-${KUBEVER} --disableexcludes=kubernetes
+   sudo yum install -y kubeadm-{{< skew currentPatchVersion >}} --disableexcludes=kubernetes
    ```
 
    {{% /tab %}}
@@ -217,7 +215,7 @@ kubectl drain <node-to-drain> --ignore-daemonsets
 
    ```shell
    sudo apt-mark unhold kubelet kubectl && \
-   sudo apt-get update && apt-get install -y kubelet=${KUBEVER} kubectl=${KUBEVER} && \
+   sudo apt-get update && apt-get install -y kubelet={{< skew currentPatchVersion >}} kubectl={{< skew currentPatchVersion >}} && \
    sudo apt-mark hold kubelet kubectl
    ```
 
@@ -225,7 +223,7 @@ kubectl drain <node-to-drain> --ignore-daemonsets
    {{% tab name="CentOS, RHEL or Fedora" %}}
 
    ```shell
-   sudo yum install -y kubelet-${KUBEVER} kubectl-${KUBEVER} --disableexcludes=kubernetes
+   sudo yum install -y kubelet-{{< skew currentPatchVersion >}} kubectl-{{< skew currentPatchVersion >}} --disableexcludes=kubernetes
    ```
 
    {{% /tab %}}
