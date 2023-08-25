@@ -34,7 +34,7 @@ Les noms de ressources supplémentaires valides ont la forme `example.com/foo` o
 
 Voici le fichier de configuration d'un Pod qui a un seul conteneur :
 
-{{< codenew file="pods/resource/extended-resource-pod.yaml" >}}
+{{% codenew file="pods/resource/extended-resource-pod.yaml" %}}
 
 Dans le fichier de configuration, vous pouvez constater que le conteneur demande 3 dongles.
 
@@ -70,7 +70,7 @@ Requests:
 Voici le fichier de configuration d'un Pod qui a un seul conteneur. Le conteneur demande
 deux dongles.
 
-{{< codenew file="pods/resource/extended-resource-pod-2.yaml" >}}
+{{% codenew file="pods/resource/extended-resource-pod-2.yaml" %}}
 
 Kubernetes ne pourra pas satisfaire la demande de deux dongles, parce que le premier Pod
 a utilisé trois des quatre dongles disponibles.

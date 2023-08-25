@@ -37,13 +37,13 @@ kubeconfig                   Generate all kubeconfig files necessary to establis
   /kubelet                     Generate a kubeconfig file for the kubelet to use *only* for cluster bootstrapping purposes
   /controller-manager          Generate a kubeconfig file for the controller manager to use
   /scheduler                   Generate a kubeconfig file for the scheduler to use
-kubelet-start                Write kubelet settings and (re)start the kubelet
+etcd                         Generate static Pod manifest file for local etcd
+  /local                       Generate the static Pod manifest file for a local, single-node local etcd instance
 control-plane                Generate all static Pod manifest files necessary to establish the control plane
   /apiserver                   Generates the kube-apiserver static Pod manifest
   /controller-manager          Generates the kube-controller-manager static Pod manifest
   /scheduler                   Generates the kube-scheduler static Pod manifest
-etcd                         Generate static Pod manifest file for local etcd
-  /local                       Generate the static Pod manifest file for a local, single-node local etcd instance
+kubelet-start                Write kubelet settings and (re)start the kubelet
 upload-config                Upload the kubeadm and kubelet configuration to a ConfigMap
   /kubeadm                     Upload the kubeadm ClusterConfiguration to a ConfigMap
   /kubelet                     Upload the kubelet component config to a ConfigMap
@@ -139,7 +139,7 @@ kubeadm init [flags]
 <td colspan="2">--feature-gates string</td>
 </tr>
 <tr>
-<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of key=value pairs that describe feature gates for various features. Options are:<br/>EtcdLearnerMode=true|false (ALPHA - default=false)<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)</p></td>
+<td></td><td style="line-height: 130%; word-wrap: break-word;"><p>A set of key=value pairs that describe feature gates for various features. Options are:<br/>EtcdLearnerMode=true|false (ALPHA - default=false)<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)</p></td>
 </tr>
 
 <tr>

@@ -4,10 +4,6 @@ reviewers:
 title: Install and Set Up kubectl on macOS
 content_type: task
 weight: 10
-card:
-  name: tasks
-  weight: 20
-  title: Install kubectl on macOS
 ---
 
 ## {{% heading "prerequisites" %}}
@@ -120,18 +116,6 @@ The following methods exist for installing kubectl on macOS:
    ```bash
    kubectl version --client
    ```
-   
-   {{< note >}}
-   The above command will generate a warning:
-
-   ```
-   WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.
-   ```
-
-   You can ignore this warning. You are only checking the version of `kubectl` that you
-   have installed.
-   
-   {{< /note >}}
    
    Or use this for detailed view of version:
 

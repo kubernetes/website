@@ -4,7 +4,8 @@ content_type: task
 weight: 30
 card:
   name: tasks
-  weight: 40
+  weight: 25
+  title: 配置对集群的访问
 ---
 <!--
 title: Configure Access to Multiple Clusters
@@ -12,7 +13,8 @@ content_type: task
 weight: 30
 card:
   name: tasks
-  weight: 40
+  weight: 25
+  title: Configure access to clusters
 -->
 
 <!-- overview -->

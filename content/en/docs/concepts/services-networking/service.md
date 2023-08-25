@@ -517,7 +517,7 @@ spec:
 
 #### Reserve Nodeport Ranges to avoid collisions when port assigning 
 
-{{< feature-state for_k8s_version="v1.27" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.28" state="beta" >}}
 
 The policy for assigning ports to NodePort services applies to both the auto-assignment and
 the manual assignment scenarios. When a user wants to create a NodePort service that

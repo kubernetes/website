@@ -65,7 +65,7 @@ Here is a manifest for an example ResourceQuota:
 
 下面是 ResourceQuota 的示例清单：
 
-{{% codenew file="admin/resource/quota-mem-cpu.yaml" %}}
+{{% code file="admin/resource/quota-mem-cpu.yaml" %}}
 
 <!--
 Create the ResourceQuota:
@@ -116,7 +116,7 @@ Here is a manifest for an example Pod:
 
 以下是 Pod 的示例清单：
 
-{{% codenew file="admin/resource/quota-mem-cpu-pod.yaml" %}}
+{{% code file="admin/resource/quota-mem-cpu-pod.yaml" %}}
 
 <!--
 Create the Pod:
@@ -186,7 +186,7 @@ Here is a manifest for a second Pod:
 
 以下为第二个 Pod 的清单：
 
-{{% codenew file="admin/resource/quota-mem-cpu-pod-2.yaml" %}}
+{{% code file="admin/resource/quota-mem-cpu-pod-2.yaml" %}}
 
 <!--
 In the manifest, you can see that the Pod has a memory request of 700 MiB.

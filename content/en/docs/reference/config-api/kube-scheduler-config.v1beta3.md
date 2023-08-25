@@ -210,7 +210,7 @@ with the extender. These extenders are shared by all scheduler profiles.</p>
     
   
 <tr><td><code>addedAffinity</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#nodeaffinity-v1-core"><code>core/v1.NodeAffinity</code></a>
 </td>
 <td>
    <p>AddedAffinity is applied to all Pods additionally to the NodeAffinity
@@ -309,7 +309,7 @@ The default strategy is LeastAllocated with an equal &quot;cpu&quot; and &quot;m
     
   
 <tr><td><code>defaultConstraints</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#topologyspreadconstraint-v1-core"><code>[]core/v1.TopologySpreadConstraint</code></a>
 </td>
 <td>
    <p>DefaultConstraints defines topology spread constraints to be applied to
@@ -1083,8 +1083,6 @@ Weight defaults to 1 if not specified or explicitly set to 0.</p>
 
 **Appears in:**
 
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
-
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
 
 
@@ -1141,8 +1139,6 @@ client.</p>
 
 **Appears in:**
 
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
-
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
 
 
@@ -1176,8 +1172,6 @@ enableProfiling is true.</p>
     
 
 **Appears in:**
-
-- [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta2-KubeSchedulerConfiguration)
 
 - [KubeSchedulerConfiguration](#kubescheduler-config-k8s-io-v1beta3-KubeSchedulerConfiguration)
 

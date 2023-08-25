@@ -2,7 +2,7 @@
 title: 使用源 IP
 content_type: tutorial
 min-kubernetes-server-version: v1.5
-weight: 10
+weight: 40
 ---
 <!--  
 title: Using Source IP
@@ -154,6 +154,7 @@ Get the proxy mode on one of the nodes (kube-proxy listens on port 10249):
 # 在要查询的节点上的 Shell 中运行
 curl http://localhost:10249/proxyMode
 ```
+
 <!-- 
 The output is: 
 -->
@@ -222,6 +223,7 @@ You can then run a command inside that Pod:
 # 从 “kubectl run” 的终端中运行
 ip addr
 ```
+
 ```
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
@@ -303,6 +305,7 @@ port allocated above.
 ```shell
 for node in $NODES; do curl -s $node:$NODEPORT | grep -i client_address; done
 ```
+
 <!-- 
 The output is similar to:
 -->
@@ -386,6 +389,7 @@ for node in $NODES; do curl --connect-timeout 1 -s $node:$NODEPORT | grep -i cli
 The output is similar to:
 -->
 输出类似于：
+
 ```
 client_address=198.51.100.79
 ```
@@ -447,6 +451,7 @@ kubectl expose deployment source-ip-app --name=loadbalancer --port=80 --target-p
 The output is:
 -->
 输出为：
+
 ```
 service/loadbalancer exposed
 ```
@@ -455,13 +460,16 @@ service/loadbalancer exposed
 Print out the IP addresses of the Service:
 -->
 打印 Service 的 IP 地址：
+
 ```console
 kubectl get svc loadbalancer
 ```
+
 <!--
 The output is similar to this:
 -->
 输出类似于：
+
 ```
 NAME           TYPE           CLUSTER-IP    EXTERNAL-IP       PORT(S)   AGE
 loadbalancer   LoadBalancer   10.0.65.118   203.0.113.140     80/TCP    5m
@@ -471,13 +479,16 @@ loadbalancer   LoadBalancer   10.0.65.118   203.0.113.140     80/TCP    5m
 Next, send a request to this Service's external-ip:
 -->
 接下来，发送请求到 Service 的 的外部 IP（External-IP）：
+
 ```shell
 curl 203.0.113.140
 ```
+
 <!--
 The output is similar to this:
 -->
 输出类似于：
+
 ```
 CLIENT VALUES:
 client_address=10.240.0.5
@@ -524,6 +535,7 @@ kubectl get svc loadbalancer -o yaml | grep -i healthCheckNodePort
 The output is similar to this:
 -->
 输出类似于：
+
 ```yaml
   healthCheckNodePort: 32122
 ```
@@ -542,6 +554,7 @@ kubectl get pod -o wide -l app=source-ip-app
 The output is similar to this:
 -->
 输出类似于：
+
 ```
 NAME                            READY     STATUS    RESTARTS   AGE       IP             NODE
 source-ip-app-826191075-qehz4   1/1       Running   0          20h       10.180.1.136   kubernetes-node-6jst
@@ -551,10 +564,15 @@ source-ip-app-826191075-qehz4   1/1       Running   0          20h       10.180.
 Use `curl` to fetch the `/healthz` endpoint on various nodes:
 -->
 使用 `curl` 获取各个节点上的 `/healthz` 端点：
+
+<!--
+# Run this locally on a node you choose
+-->
 ```shell
 # 在你选择的节点上本地运行
 curl localhost:32122/healthz
 ```
+
 ```
 1 Service Endpoints found
 ```
@@ -563,10 +581,15 @@ curl localhost:32122/healthz
 On a different node you might get a different result:
 -->
 在不同的节点上，你可能会得到不同的结果：
+
+<!--
+# Run this locally on a node you choose
+-->
 ```shell
 # 在你选择的节点上本地运行
 curl localhost:32122/healthz
 ```
+
 ```
 No Service Endpoints Found
 ```
@@ -586,10 +609,12 @@ then use `curl` to query the IPv4 address of the load balancer:
 ```shell
 curl 203.0.113.140
 ```
+
 <!-- 
 The output is similar to this:
 -->
 输出类似于：
+
 ```
 CLIENT VALUES:
 client_address=198.51.100.79

@@ -157,6 +157,12 @@ Starting with v1.22 and later, when creating a cluster with kubeadm, if the user
 the `cgroupDriver` field under `KubeletConfiguration`, kubeadm defaults it to `systemd`.
 {{< /note >}}
 
+In Kubernetes v1.28, with the `KubeletCgroupDriverFromCRI`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled and a container runtime that supports the `RuntimeConfig` CRI RPC,
+the kubelet automatically detects the appropriate cgroup driver from the runtime,
+and ignores the `cgroupDriver` setting within the kubelet configuration.
+
 If you configure `systemd` as the cgroup driver for the kubelet, you must also
 configure `systemd` as the cgroup driver for the container runtime. Refer to
 the documentation for your container runtime for instructions. For example:
@@ -251,6 +257,10 @@ sudo systemctl restart containerd
 When using kubeadm, manually configure the
 [cgroup driver for kubelet](/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver).
 
+In Kubernetes v1.28, you can enable automatic detection of the
+cgroup driver as an alpha feature. See [systemd cgroup driver](#systemd-cgroup-driver)
+for more details.
+
 #### Overriding the sandbox (pause) image {#override-pause-image-containerd}
 
 In your [containerd config](https://github.com/containerd/containerd/blob/main/docs/cri/config.md) you can overwrite the
@@ -291,6 +301,10 @@ You should also note the changed `conmon_cgroup`, which has to be set to the val
 `pod` when using CRI-O with `cgroupfs`. It is generally necessary to keep the
 cgroup driver configuration of the kubelet (usually done via kubeadm) and CRI-O
 in sync.
+
+In Kubernetes v1.28, you can enable automatic detection of the
+cgroup driver as an alpha feature. See [systemd cgroup driver](#systemd-cgroup-driver)
+for more details.
 
 For CRI-O, the CRI socket is `/var/run/crio/crio.sock` by default.
 

@@ -38,53 +38,13 @@ Let's say you have a Deployment containing of a single `nginx` replica
 
 {{% code file="service/pod-with-graceful-termination.yaml" %}}
 
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nginx-deployment
-  labels:
-    app: nginx
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: nginx
-  template:
-    metadata:
-      labels:
-        app: nginx
-    spec:
-      terminationGracePeriodSeconds: 120 # extra long grace period
-      containers:
-      - name: nginx
-        image: nginx:latest
-        ports:
-        - containerPort: 80
-        lifecycle:
-          preStop:
-            exec:
-              # Real life termination may take any time up to terminationGracePeriodSeconds.
-              # In this example - just hang around for at least the duration of terminationGracePeriodSeconds,
-              # at 120 seconds container will be forcibly terminated.
-              # Note, all this time nginx will keep processing requests.
-              command: [
-                "/bin/sh", "-c", "sleep 180"
-              ]
+{{% code file="service/explore-graceful-termination-nginx.yaml" %}}
 
----
+Now create the Deployment Pod and Service using the above files:
 
-apiVersion: v1
-kind: Service
-metadata:
-  name: nginx-service
-spec:
-  selector:
-    app: nginx
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 80
+```shell
+kubectl apply -f pod-with-graceful-termination.yaml
+kubectl apply -f explore-graceful-termination-nginx.yaml
 ```
 
 Once the Pod and Service are running, you can get the name of any associated EndpointSlices:
