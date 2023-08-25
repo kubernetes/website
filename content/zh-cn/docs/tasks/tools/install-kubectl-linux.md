@@ -2,10 +2,6 @@
 title: 在 Linux 系统中安装并设置 kubectl
 content_type: task
 weight: 10
-card:
-  name: tasks
-  weight: 20
-  title: 在 Linux 系统中安装 kubectl
 ---
 <!-- 
 reviewers:
@@ -13,10 +9,6 @@ reviewers:
 title: Install and Set Up kubectl on Linux
 content_type: task
 weight: 10
-card:
-  name: tasks
-  weight: 20
-  title: Install kubectl on Linux
 -->
 
 ## {{% heading "prerequisites" %}}
