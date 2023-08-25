@@ -170,7 +170,7 @@ Vous avez réussi à définir vos identifiants de Docker comme un Secret appelé
 
 Voici un fichier de configuration pour un Pod qui a besoin d'accéder à vos identifiants Docker dans `regcred` :
 
-{{< codenew file="pods/private-reg-pod.yaml" >}}
+{{% codenew file="pods/private-reg-pod.yaml" %}}
 
 Téléchargez le fichier ci-dessus :
 

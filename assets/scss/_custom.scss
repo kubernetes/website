@@ -354,12 +354,48 @@ main {
     word-break: break-word;
   }
 
+/* SCSS Related to the Metrics Table */
+
+    @media (max-width: 767px) { // for mobile devices, Display the names, Stability levels & types
+
+     table.metrics { 
+      th:nth-child(n + 4),
+      td:nth-child(n + 4) {
+        display: none;
+      }
+
+      td.metric_type{
+        min-width: 7em;
+      }
+      td.metric_stability_level{
+        min-width: 6em;
+      }
+    }
+    }
+
+    table.metrics tbody{ // Tested dimensions to improve overall aesthetic of the table
+      tr {
+        td {
+          font-size: smaller;
+        }
+        td.metric_labels_varying{
+          min-width: 9em;
+        }
+        td.metric_type{
+          min-width: 9em;
+        }
+        td.metric_description{
+          min-width: 10em;
+        }
+    
+      }
+    }
+
   table.no-word-break td,
   table.no-word-break code {
     word-break: normal;
-  }
 }
-
+}
 
 // blockquotes and callouts
 

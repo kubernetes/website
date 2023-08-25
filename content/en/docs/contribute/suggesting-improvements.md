@@ -4,7 +4,10 @@ content_type: concept
 weight: 10
 card:
   name: contribute
-  weight: 20
+  weight: 15
+  anchors:
+  - anchor: "#opening-an-issue"
+    title: Suggest content improvements
 ---
 
 <!-- overview -->

@@ -189,7 +189,7 @@ Here's an example Pod that uses values from `game-demo` to configure a Pod:
 
 下面是一个 Pod 的示例，它通过使用 `game-demo` 中的值来配置一个 Pod：
 
-{{< codenew file="configmap/configure-pod.yaml" >}}
+{{% code file="configmap/configure-pod.yaml" %}}
 
 <!--
 A ConfigMap doesn't differentiate between single line property values and
@@ -388,13 +388,9 @@ ConfigMap 的数据有以下好处：
   这是因为系统会关闭对已标记为不可变更的 ConfigMap 的监视操作。
 
 <!--
-This feature is controlled by the `ImmutableEphemeralVolumes`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
 You can create an immutable ConfigMap by setting the `immutable` field to `true`.
 For example:
 -->
-此功能特性由 `ImmutableEphemeralVolumes`
-[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)来控制。
 你可以通过将 `immutable` 字段设置为 `true` 创建不可变更的 ConfigMap。
 例如：
 

@@ -340,12 +340,8 @@ namespaces based on their labels.
 
 ## Targeting a Namespace by its name
 
-{{< feature-state for_k8s_version="1.22" state="stable" >}}
-
 The Kubernetes control plane sets an immutable label `kubernetes.io/metadata.name` on all
-namespaces, provided that the `NamespaceDefaultLabelName`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled.
-The value of the label is the namespace name.
+namespaces, the value of the label is the namespace name.
 
 While NetworkPolicy cannot target a namespace by its name with some object field, you can use the
 standardized label to target a specific namespace.

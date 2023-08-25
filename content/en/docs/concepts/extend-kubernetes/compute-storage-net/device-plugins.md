@@ -147,6 +147,23 @@ The general workflow of a device plugin includes the following steps:
    runtime configurations for accessing the allocated devices. The kubelet passes this information
    to the container runtime.
 
+   An `AllocateResponse` contains zero or more `ContainerAllocateResponse` objects. In these, the
+   device plugin defines modifications that must be made to a container's definition to provide
+   access to the device. These modifications include:
+
+   * [Annotations](/docs/concepts/overview/working-with-objects/annotations/)
+   * device nodes
+   * environment variables
+   * mounts
+   * fully-qualified CDI device names
+
+   {{< note >}}
+   The processing of the fully-qualified CDI device names by the Device Manager requires
+   that the `DevicePluginCDIDevices` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+   is enabled for the kubelet and the kube-apiserver. This was added as an alpha feature in Kubernetes
+   v1.28.
+   {{< /note >}}
+
 ### Handling kubelet restarts
 
 A device plugin is expected to detect kubelet restarts and re-register itself with the new
@@ -195,7 +212,7 @@ of the device allocations during the upgrade.
 
 ## Monitoring device plugin resources
 
-{{< feature-state for_k8s_version="v1.15" state="beta" >}}
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 In order to monitor resources provided by device plugins, monitoring agents need to be able to
 discover the set of devices that are in-use on the node and obtain metadata to describe which
@@ -312,7 +329,7 @@ below:
 
 ### `GetAllocatableResources` gRPC endpoint {#grpc-endpoint-getallocatableresources}
 
-{{< feature-state state="beta" for_k8s_version="v1.23" >}}
+{{< feature-state state="stable" for_k8s_version="v1.28" >}}
 
 GetAllocatableResources provides information on resources initially available on the worker node.
 It provides more information than kubelet exports to APIServer.
@@ -336,16 +353,6 @@ message AllocatableResourcesResponse {
     repeated int64 cpu_ids = 2;
     repeated ContainerMemory memory = 3;
 }
-```
-
-Starting from Kubernetes v1.23, the `GetAllocatableResources` is enabled by default.
-You can disable it by turning off the `KubeletPodResourcesGetAllocatable`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
-
-Preceding Kubernetes v1.23, to enable this feature `kubelet` must be started with the following flag:
-
-```
---feature-gates=KubeletPodResourcesGetAllocatable=true
 ```
 
 `ContainerDevices` do expose the topology information declaring to which NUMA cells the device is
@@ -380,8 +387,6 @@ will continue working.
 Support for the `PodResourcesLister service` requires `KubeletPodResources`
 [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) to be enabled.
 It is enabled by default starting with Kubernetes 1.15 and is v1 since Kubernetes 1.20.
-
-
 
 ### `Get` gRPC endpoint {#grpc-endpoint-get}
 

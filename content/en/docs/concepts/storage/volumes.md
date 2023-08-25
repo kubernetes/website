@@ -119,6 +119,12 @@ To disable the `azureFile` storage plugin from being loaded by the controller ma
 and the kubelet, set the `InTreePluginAzureFileUnregister` flag to `true`.
 
 ### cephfs
+{{< feature-state for_k8s_version="v1.28" state="deprecated" >}}
+
+{{< note >}}
+The Kubernetes project suggests that you use the [CephFS CSI](https://github.com/ceph/ceph-csi) third party
+storage driver instead.
+{{< /note >}}
 
 A `cephfs` volume allows an existing CephFS volume to be
 mounted into your Pod. Unlike `emptyDir`, which is erased when a pod is
@@ -762,6 +768,12 @@ A projected volume maps several existing volume sources into the same
 directory. For more details, see [projected volumes](/docs/concepts/storage/projected-volumes/).
 
 ### rbd
+{{< feature-state for_k8s_version="v1.28" state="deprecated" >}}
+
+{{< note >}}
+The Kubernetes project suggests that you use the [Ceph CSI](https://github.com/ceph/ceph-csi)
+third party storage driver instead, in RBD mode.
+{{< /note >}}
 
 An `rbd` volume allows a
 [Rados Block Device](https://docs.ceph.com/en/latest/rbd/) (RBD) volume to mount
@@ -785,7 +797,7 @@ for more details.
 
 #### RBD CSI migration {#rbd-csi-migration}
 
-{{< feature-state for_k8s_version="v1.23" state="alpha" >}}
+{{< feature-state for_k8s_version="v1.28" state="deprecated" >}}
 
 The `CSIMigration` feature for `RBD`, when enabled, redirects all plugin
 operations from the existing in-tree plugin to the `rbd.csi.ceph.com` {{<
@@ -840,7 +852,8 @@ For more details, see [Configuring Secrets](/docs/concepts/configuration/secret/
 ### vsphereVolume (deprecated) {#vspherevolume}
 
 {{< note >}}
-We recommend to use vSphere CSI out-of-tree driver instead.
+The Kubernetes project recommends using the [vSphere CSI](https://github.com/kubernetes-sigs/vsphere-csi-driver)
+out-of-tree storage driver instead.
 {{< /note >}}
 
 A `vsphereVolume` is used to mount a vSphere VMDK volume into your Pod.  The contents
@@ -1061,7 +1074,7 @@ persistent volume:
   `ControllerPublishVolume` and `ControllerUnpublishVolume` calls. This field is
   optional, and may be empty if no secret is required. If the Secret
   contains more than one secret, all secrets are passed.
-`nodeExpandSecretRef`: A reference to the secret containing sensitive
+* `nodeExpandSecretRef`: A reference to the secret containing sensitive
   information to pass to the CSI driver to complete the CSI
   `NodeExpandVolume` call. This field is optional, and may be empty if no
   secret is required. If the object contains more than one secret, all
@@ -1116,8 +1129,8 @@ For more information on how to develop a CSI driver, refer to the
 
 CSI node plugins need to perform various privileged
 operations like scanning of disk devices and mounting of file systems. These operations
-differ for each host operating system. For Linux worker nodes, containerized CSI node
-node plugins are typically deployed as privileged containers. For Windows worker nodes,
+differ for each host operating system. For Linux worker nodes, containerized CSI node 
+plugins are typically deployed as privileged containers. For Windows worker nodes,
 privileged operations for containerized CSI node plugins is supported using
 [csi-proxy](https://github.com/kubernetes-csi/csi-proxy), a community-managed,
 stand-alone binary that needs to be pre-installed on each Windows node.

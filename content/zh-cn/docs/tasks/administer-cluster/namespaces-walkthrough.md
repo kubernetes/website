@@ -133,7 +133,7 @@ Use the file [`namespace-dev.yaml`](/examples/admin/namespace-dev.yaml) which de
 -->
 文件 [`namespace-dev.yaml`](/examples/admin/namespace-dev.yaml) 描述了 `development` 名字空间:
 
-{{< codenew language="yaml" file="admin/namespace-dev.yaml" >}}
+{{% code language="yaml" file="admin/namespace-dev.yaml" %}}
 
 <!--
 Create the `development` namespace using kubectl.
@@ -151,7 +151,7 @@ Save the following contents into file [`namespace-prod.yaml`](/examples/admin/na
 将下列的内容保存到文件 [`namespace-prod.yaml`](/examples/admin/namespace-prod.yaml) 中，
 这些内容是对 `production` 名字空间的描述：
 
-{{< codenew language="yaml" file="admin/namespace-prod.yaml" >}}
+{{% code language="yaml" file="admin/namespace-prod.yaml" %}}
 
 <!--
 And then let's create the `production` namespace using kubectl.
@@ -339,7 +339,7 @@ Let's create some contents.
 -->
 让我们创建一些内容。
 
-{{< codenew file="admin/snowflake-deployment.yaml" >}}
+{{% code file="admin/snowflake-deployment.yaml" %}}
 
 <!--
 Apply the manifest to create a Deployment 
@@ -434,4 +434,3 @@ As the policy support in Kubernetes evolves, we will extend this scenario to sho
 authorization rules for each namespace.
 -->
 随着 Kubernetes 中的策略支持的发展，我们将扩展此场景，以展示如何为每个名字空间提供不同的授权规则。
-
