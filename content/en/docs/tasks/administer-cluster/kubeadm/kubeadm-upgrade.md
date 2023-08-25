@@ -69,7 +69,7 @@ Find the latest patch release for Kubernetes {{< skew currentVersion >}} using t
 ```shell
 # Find the latest {{< skew currentVersion >}} version in the list.
 # It should look like {{< skew currentVersion >}}.x-*, where x is the latest patch.
-apt update
+sudo apt update
 apt-cache madison kubeadm
 ```
 
@@ -79,7 +79,7 @@ apt-cache madison kubeadm
 ```shell
 # Find the latest {{< skew currentVersion >}} version in the list.
 # It should look like {{< skew currentVersion >}}.x-*, where x is the latest patch.
-yum list --showduplicates kubeadm --disableexcludes=kubernetes
+sudo yum list --showduplicates kubeadm --disableexcludes=kubernetes
 ```
 
 {{% /tab %}}
@@ -101,9 +101,10 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
 
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   apt-mark unhold kubeadm && \
-   apt-get update && apt-get install -y kubeadm='{{< skew currentVersion >}}.x-*' && \
-   apt-mark hold kubeadm
+   export KUBEVER="{{< skew currentVersion >}}.x-*"
+   sudo apt-mark unhold kubeadm && \
+   sudo apt-get update && apt-get install -y kubeadm=${KUBEVER} && \
+   sudo apt-mark hold kubeadm
    ```
 
    {{% /tab %}}
@@ -111,7 +112,8 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
 
    ```shell
    # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   yum install -y kubeadm-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   export KUBEVER="{{< skew currentVersion >}}.x-*"
+   sudo yum install -y kubeadm-${KUBEVER} --disableexcludes=kubernetes
    ```
 
    {{% /tab %}}
@@ -126,7 +128,7 @@ Pick a control plane node that you wish to upgrade first. It must have the `/etc
 1. Verify the upgrade plan:
 
    ```shell
-   kubeadm upgrade plan
+   sudo kubeadm upgrade plan
    ```
 
    This command checks that your cluster can be upgraded, and fetches the versions you can upgrade to.
@@ -214,18 +216,16 @@ kubectl drain <node-to-drain> --ignore-daemonsets
    {{% tab name="Ubuntu, Debian or HypriotOS" %}}
 
    ```shell
-   # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   apt-mark unhold kubelet kubectl && \
-   apt-get update && apt-get install -y kubelet='{{< skew currentVersion >}}.x-*' kubectl='{{< skew currentVersion >}}.x-*' && \
-   apt-mark hold kubelet kubectl
+   sudo apt-mark unhold kubelet kubectl && \
+   sudo apt-get update && apt-get install -y kubelet=${KUBEVER} kubectl=${KUBEVER} && \
+   sudo apt-mark hold kubelet kubectl
    ```
 
    {{% /tab %}}
    {{% tab name="CentOS, RHEL or Fedora" %}}
 
    ```shell
-   # replace x in {{< skew currentVersion >}}.x-* with the latest patch version
-   yum install -y kubelet-'{{< skew currentVersion >}}.x-*' kubectl-'{{< skew currentVersion >}}.x-*' --disableexcludes=kubernetes
+   sudo yum install -y kubelet-${KUBEVER} kubectl-${KUBEVER} --disableexcludes=kubernetes
    ```
 
    {{% /tab %}}
