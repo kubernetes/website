@@ -99,12 +99,10 @@ See [Information security for Secrets](#information-security-for-secrets) for mo
 <!--
 ## Uses for Secrets
 
-There are three main ways for a Pod to use a Secret:
-- As [files](#using-secrets-as-files-from-a-pod) in a
-  {{< glossary_tooltip text="volume" term_id="volume" >}} mounted on one or more of
-  its containers.
-- As [container environment variable](#using-secrets-as-environment-variables).
-- By the [kubelet when pulling images](#using-imagepullsecrets) for the Pod.
+You can use Secrets for purposes such as the following:
+- [Set environment variables for a container](/docs/tasks/inject-data-application/distribute-credentials-secure/#define-container-environment-variables-using-secret-data).
+- [Provide credentials such as SSH keys or passwords to Pods](/docs/tasks/inject-data-application/distribute-credentials-secure/#provide-prod-test-creds).
+- [Allow the kubelet to pull container images from private registries](/docs/tasks/configure-pod-container/pull-image-private-registry/).
 
 The Kubernetes control plane also uses Secrets; for example,
 [bootstrap token Secrets](#bootstrap-token-secrets) are a mechanism to
@@ -112,16 +110,104 @@ help automate node registration.
 -->
 ## Secret 的使用 {#uses-for-secrets}
 
-Pod 可以用三种方式之一来使用 Secret：
+你可以将 Secret 用于以下场景：
 
-- 作为挂载到一个或多个容器上的{{< glossary_tooltip text="卷" term_id="volume" >}}
-  中的[文件](#using-secrets-as-files-from-a-pod)。
-- 作为[容器的环境变量](#using-secrets-as-environment-variables)。
-- 由 [kubelet 在为 Pod 拉取镜像时使用](#using-imagepullsecrets)。
+- [设置容器的环境变量](/zh-cn/docs/tasks/inject-data-application/distribute-credentials-secure/#define-container-environment-variables-using-secret-data)。
+- [向 Pod 提供 SSH 密钥或密码等凭据](/zh-cn/docs/tasks/inject-data-application/distribute-credentials-secure/#provide-prod-test-creds)。
+- [允许 kubelet 从私有镜像仓库中拉取镜像](/zh-cn/docs/tasks/configure-pod-container/pull-image-private-registry/)。
 
 Kubernetes 控制面也使用 Secret；
 例如，[引导令牌 Secret](#bootstrap-token-secrets)
 是一种帮助自动化节点注册的机制。
+
+<!--
+### Use case: dotfiles in a secret volume
+
+You can make your data "hidden" by defining a key that begins with a dot.
+This key represents a dotfile or "hidden" file. For example, when the following secret
+is mounted into a volume, `secret-volume`, the volume will contain a single file,
+called `.secret-file`, and the `dotfile-test-container` will have this file
+present at the path `/etc/secret-volume/.secret-file`.
+-->
+### 使用场景：在 Secret 卷中带句点的文件 {#use-case-dotfiles-in-a-secret-volume}
+
+通过定义以句点（`.`）开头的主键，你可以“隐藏”你的数据。
+这些主键代表的是以句点开头的文件或“隐藏”文件。
+例如，当以下 Secret 被挂载到 `secret-volume` 卷上时，该卷中会包含一个名为
+`.secret-file` 的文件，并且容器 `dotfile-test-container`
+中此文件位于路径 `/etc/secret-volume/.secret-file` 处。
+
+{{< note >}}
+<!--
+Files beginning with dot characters are hidden from the output of  `ls -l`;
+you must use `ls -la` to see them when listing directory contents.
+-->
+以句点开头的文件会在 `ls -l` 的输出中被隐藏起来；
+列举目录内容时你必须使用 `ls -la` 才能看到它们。
+{{< /note >}}
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dotfile-secret
+data:
+  .secret-file: dmFsdWUtMg0KDQo=
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: secret-dotfiles-pod
+spec:
+  volumes:
+  - name: secret-volume
+    secret:
+      secretName: dotfile-secret
+  containers:
+  - name: dotfile-test-container
+    image: registry.k8s.io/busybox
+    command:
+    - ls
+    - "-l"
+    - "/etc/secret-volume"
+    volumeMounts:
+    - name: secret-volume
+      readOnly: true
+      mountPath: "/etc/secret-volume"
+```
+
+<!--
+### Use case: Secret visible to one container in a Pod
+
+Consider a program that needs to handle HTTP requests, do some complex business
+logic, and then sign some messages with an HMAC. Because it has complex
+application logic, there might be an unnoticed remote file reading exploit in
+the server, which could expose the private key to an attacker.
+-->
+### 使用场景：仅对 Pod 中一个容器可见的 Secret {#use-case-secret-visible-to-one-container-in-a-pod}
+
+考虑一个需要处理 HTTP 请求，执行某些复杂的业务逻辑，之后使用 HMAC
+来对某些消息进行签名的程序。因为这一程序的应用逻辑很复杂，
+其中可能包含未被注意到的远程服务器文件读取漏洞，
+这种漏洞可能会把私钥暴露给攻击者。
+
+<!--
+This could be divided into two processes in two containers: a frontend container
+which handles user interaction and business logic, but which cannot see the
+private key; and a signer container that can see the private key, and responds
+to simple signing requests from the frontend (for example, over localhost networking).
+-->
+这一程序可以分隔成两个容器中的两个进程：前端容器要处理用户交互和业务逻辑，
+但无法看到私钥；签名容器可以看到私钥，并对来自前端的简单签名请求作出响应
+（例如，通过本地主机网络）。
+
+<!--
+With this partitioned approach, an attacker now has to trick the application
+server into doing something rather arbitrary, which may be harder than getting
+it to read a file.
+-->
+采用这种划分的方法，攻击者现在必须欺骗应用服务器来做一些其他操作，
+而这些操作可能要比读取一个文件要复杂很多。
 
 <!--
 ### Alternatives to Secrets
@@ -423,12 +509,13 @@ for information on referencing service account credentials from within Pods.
 <!--
 ### Docker config Secrets
 
-You can use one of the following `type` values to create a Secret to
-store the credentials for accessing a container image registry:
+If you are creating a Secret to store credentials for accessing a container image registry,
+you must use one of the following `type` values for that Secret:
 -->
 ### Docker 配置 Secret  {#docker-config-secrets}
 
-你可以使用下面两种 `type` 值之一来创建 Secret，用以存放用于访问容器镜像仓库的凭据：
+如果你要创建 Secret 用来存放用于访问容器镜像仓库的凭据，则必须选用以下 `type`
+值之一来创建 Secret：
 
 - `kubernetes.io/dockercfg`
 - `kubernetes.io/dockerconfigjson`
@@ -537,14 +624,19 @@ Docker configuration file):
 }
 ```
 
-{{< note >}}
+{{< caution >}}
 <!--
 The `auth` value there is base64 encoded; it is obscured but not secret.
 Anyone who can read that Secret can learn the registry access bearer token.
+
+It is suggested to use [credential providers](/docs/tasks/administer-cluster/kubelet-credential-provider/) to dynamically and securely provide pull secrets on-demand.
 -->
 `auths` 值是 base64 编码的，其内容被屏蔽但未被加密。
 任何能够读取该 Secret 的人都可以了解镜像库的访问令牌。
-{{< /note >}}
+
+建议使用[凭据提供程序](/zh-cn/docs/tasks/administer-cluster/kubelet-credential-provider/)来动态、
+安全地按需提供拉取 Secret。
+{{< /caution >}}
 
 <!--
 ### Basic authentication Secret
@@ -669,6 +761,8 @@ When using this type of Secret, the `tls.key` and the `tls.crt` key must be prov
 in the `data` (or `stringData`) field of the Secret configuration, although the API
 server doesn't actually validate the values for each key.
 
+As an alternative to using `stringData`, you can use the `data` field to provide the base64 encoded certificate and private key. Refer to [Constraints on Secret names and data](#restriction-names-data) for more on this.
+
 The following YAML contains an example config for a TLS Secret:
 -->
 ### TLS Secret
@@ -680,6 +774,9 @@ TLS Secret 的一种典型用法是为 [Ingress](/zh-cn/docs/concepts/services-n
 当使用此类型的 Secret 时，Secret 配置中的 `data` （或 `stringData`）字段必须包含
 `tls.key` 和 `tls.crt` 主键，尽管 API 服务器实际上并不会对每个键的取值作进一步的合法性检查。
 
+作为使用 `stringData` 的替代方法，你可以使用 `data` 字段来指定 base64 编码的证书和私钥。
+有关详细信息，请参阅 [Secret 名称和数据的限制](#restriction-names-data)。
+
 下面的 YAML 包含一个 TLS Secret 的配置示例：
 
 ```yaml
@@ -688,11 +785,13 @@ kind: Secret
 metadata:
   name: secret-tls
 type: kubernetes.io/tls
-data:
+stringData:
   # 此例中的数据被截断
   tls.crt: |
+    --------BEGIN CERTIFICATE-----
     MIIC2DCCAcCgAwIBAgIBATANBgkqh ...
   tls.key: |
+    -----BEGIN RSA PRIVATE KEY-----
     MIIEpgIBAAKCAQEA7yn3bRHQ5FHMQ ...
 ```
 
@@ -720,36 +819,11 @@ kubectl create secret tls my-tls-secret \
 ```
 
 <!--
-The public/private key pair must exist before hand. The public key certificate
-for `--cert` must be DER format as per
-[Section 5.1 of RFC 7468](https://datatracker.ietf.org/doc/html/rfc7468#section-5.1),
-and must match the given private key for `--key` (PKCS #8 in DER format;
-[Section 11 of RFC 7468](https://datatracker.ietf.org/doc/html/rfc7468#section-11)).
+The public/private key pair must exist before hand. The public key certificate for `--cert` must be .PEM encoded
+and must match the given private key for `--key`.
 -->
-这里的公钥/私钥对都必须事先已存在。用于 `--cert` 的公钥证书必须是
-[RFC 7468 中 5.1 节](https://datatracker.ietf.org/doc/html/rfc7468#section-5.1)
-中所规定的 DER 格式，且与 `--key` 所给定的私钥匹配。
-私钥必须是 DER 格式的 PKCS #8
-（参见 [RFC 7468 第 11节](https://datatracker.ietf.org/doc/html/rfc7468#section-11)）。
-
-{{< note >}}
-<!--
-A kubernetes.io/tls Secret stores the Base64-encoded DER data for keys and
-certificates. If you're familiar with PEM format for private keys and for certificates,
-the base64 data are the same as that format except that you omit
-the initial and the last lines that are used in PEM.
--->
-类型为 `kubernetes.io/tls` 的 Secret 中包含密钥和证书的 DER 数据，以 Base64 格式编码。
-如果你熟悉私钥和证书的 PEM 格式，base64 与该格式相同，只是你需要略过 PEM
-数据中所包含的第一行和最后一行。
-
-<!--
-For example, for a certificate, you do **not** include `--------BEGIN CERTIFICATE-----`
-and `-------END CERTIFICATE----`.
--->
-例如，对于证书而言，你 **不要** 包含 `--------BEGIN CERTIFICATE-----`
-和 `-------END CERTIFICATE----` 这两行。
-{{< /note >}}
+公钥/私钥对必须事先存在，`--cert` 的公钥证书必须采用 .PEM 编码，
+并且必须与 `--key` 的给定私钥匹配。
 
 <!--
 ### Bootstrap token Secrets
@@ -1030,7 +1104,6 @@ spec:
   - name: mypod
     image: redis
     volumeMounts:
-    - name: foo
       mountPath: "/etc/foo"
       readOnly: true
   volumes:
@@ -1548,99 +1621,6 @@ spec:
   - name: db-client-container
     image: myClientImage
 ```
-
-<!--
-### Use case: dotfiles in a secret volume
-
-You can make your data "hidden" by defining a key that begins with a dot.
-This key represents a dotfile or "hidden" file. For example, when the following secret
-is mounted into a volume, `secret-volume`:
--->
-### 使用场景：在 Secret 卷中带句点的文件 {#use-case-dotfiles-in-a-secret-volume}
-
-通过定义以句点（`.`）开头的主键，你可以“隐藏”你的数据。
-这些主键代表的是以句点开头的文件或“隐藏”文件。
-例如，当下面的 Secret 被挂载到 `secret-volume` 卷中时：
-
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: dotfile-secret
-data:
-  .secret-file: dmFsdWUtMg0KDQo=
----
-apiVersion: v1
-kind: Pod
-metadata:
-  name: secret-dotfiles-pod
-spec:
-  volumes:
-  - name: secret-volume
-    secret:
-      secretName: dotfile-secret
-  containers:
-  - name: dotfile-test-container
-    image: registry.k8s.io/busybox
-    command:
-    - ls
-    - "-l"
-    - "/etc/secret-volume"
-    volumeMounts:
-    - name: secret-volume
-      readOnly: true
-      mountPath: "/etc/secret-volume"
-```
-
-<!--
-The volume will contain a single file, called `.secret-file`, and
-the `dotfile-test-container` will have this file present at the path
-`/etc/secret-volume/.secret-file`.
--->
-卷中会包含一个名为 `.secret-file` 的文件，并且容器 `dotfile-test-container`
-中此文件位于路径 `/etc/secret-volume/.secret-file` 处。
-
-{{< note >}}
-<!--
-Files beginning with dot characters are hidden from the output of  `ls -l`;
-you must use `ls -la` to see them when listing directory contents.
--->
-以句点开头的文件会在 `ls -l` 的输出中被隐藏起来；
-列举目录内容时你必须使用 `ls -la` 才能看到它们。
-{{< /note >}}
-
-<!--
-### Use case: Secret visible to one container in a Pod
-
-Consider a program that needs to handle HTTP requests, do some complex business
-logic, and then sign some messages with an HMAC. Because it has complex
-application logic, there might be an unnoticed remote file reading exploit in
-the server, which could expose the private key to an attacker.
--->
-### 使用场景：仅对 Pod 中一个容器可见的 Secret {#use-case-secret-visible-to-one-container-in-a-pod}
-
-考虑一个需要处理 HTTP 请求，执行某些复杂的业务逻辑，之后使用 HMAC
-来对某些消息进行签名的程序。因为这一程序的应用逻辑很复杂，
-其中可能包含未被注意到的远程服务器文件读取漏洞，
-这种漏洞可能会把私钥暴露给攻击者。
-
-<!--
-This could be divided into two processes in two containers: a frontend container
-which handles user interaction and business logic, but which cannot see the
-private key; and a signer container that can see the private key, and responds
-to simple signing requests from the frontend (for example, over localhost networking).
--->
-这一程序可以分隔成两个容器中的两个进程：前端容器要处理用户交互和业务逻辑，
-但无法看到私钥；签名容器可以看到私钥，并对来自前端的简单签名请求作出响应
-（例如，通过本地主机网络）。
-
-<!--
-With this partitioned approach, an attacker now has to trick the application
-server into doing something rather arbitrary, which may be harder than getting
-it to read a file.
--->
-采用这种划分的方法，攻击者现在必须欺骗应用服务器来做一些其他操作，
-而这些操作可能要比读取一个文件要复杂很多。
 
 <!--
 ## Immutable Secrets {#secret-immutable}
