@@ -852,7 +852,7 @@ to resolve it.
 -->
 ### 探针层面的 `terminationGracePeriodSeconds`
 
-{{< feature-state for_k8s_version="v1.27" state="stable" >}}
+{{< feature-state for_k8s_version="v1.28" state="stable" >}}
 
 <!--
 Prior to release 1.21, the Pod-level `terminationGracePeriodSeconds` was used
