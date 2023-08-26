@@ -426,12 +426,13 @@ including tools for logging, monitoring, network policy, visualization, and cont
 * Learn more about `kOps` [advanced usage](https://kops.sigs.k8s.io/) for tutorials,
   best practices and advanced configuration options.
 * Follow `kOps` community discussions on Slack:
-  [community discussions](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors).
+  [community discussions](https://kops.sigs.k8s.io/contributing/#other-ways-to-communicate-with-the-contributors).
+  (visit https://slack.k8s.io/ for an invitation to this Slack workspace).
 * Contribute to `kOps` by addressing or raising an issue [GitHub Issues](https://github.com/kubernetes/kops/issues).
 -->
 * 了解有关 Kubernetes 的[概念](/zh-cn/docs/concepts/)和
   [`kubectl`](/zh-cn/docs/reference/kubectl/) 的更多信息。
 * 参阅 `kOps` [进阶用法](https://kops.sigs.k8s.io/) 获取教程、最佳实践和进阶配置选项。
-* 通过 Slack：[社区讨论](https://github.com/kubernetes/kops#other-ways-to-communicate-with-the-contributors)
-  参与 `kOps` 社区讨论。
+* 通过 Slack：[社区讨论](https://kops.sigs.k8s.io/contributing/#other-ways-to-communicate-with-the-contributors)
+  参与 `kOps` 社区讨论。（访问 https://slack.k8s.io/ 获取此 Slack 工作空间的邀请）
 * 通过解决或提出一个 [GitHub Issue](https://github.com/kubernetes/kops/issues) 来为 `kOps` 做贡献。
