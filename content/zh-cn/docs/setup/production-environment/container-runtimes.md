@@ -262,6 +262,18 @@ the `cgroupDriver` field under `KubeletConfiguration`, kubeadm defaults it to `s
 {{< /note >}}
 
 <!--
+In Kubernetes v1.28, with the `KubeletCgroupDriverFromCRI`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled and a container runtime that supports the `RuntimeConfig` CRI RPC,
+the kubelet automatically detects the appropriate cgroup driver from the runtime,
+and ignores the `cgroupDriver` setting within the kubelet configuration.
+-->
+在 Kubernetes v1.28 中，启用 `KubeletCgroupDriverFromCRI`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)结合支持
+`RuntimeConfig` CRI RPC 的容器运行时，kubelet 会自动从运行时检测适当的 Cgroup
+驱动程序，并忽略 kubelet 配置中的 `cgroupDriver` 设置。
+
+<!--
 If you configure `systemd` as the cgroup driver for the kubelet, you must also
 configure `systemd` as the cgroup driver for the container runtime. Refer to
 the documentation for your container runtime for instructions. For example:
@@ -438,6 +450,14 @@ When using kubeadm, manually configure the
 [kubelet 的 cgroup 驱动](/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/#configuring-the-kubelet-cgroup-driver)。
 
 <!--
+In Kubernetes v1.28, you can enable automatic detection of the
+cgroup driver as an alpha feature. See [systemd cgroup driver](#systemd-cgroup-driver)
+for more details.
+-->
+在 Kubernetes v1.28 中，你可以启用 Cgroup 驱动程序的自动检测的 Alpha 级别特性。
+详情参阅 [systemd cgroup 驱动](#systemd-cgroup-driver)。
+
+<!--
 #### Overriding the sandbox (pause) image {#override-pause-image-containerd}
 
 In your [containerd config](https://github.com/containerd/containerd/blob/main/docs/cri/config.md) you can overwrite the
@@ -508,6 +528,14 @@ in sync.
 -->
 你还应该注意当使用 CRI-O 时，并且 CRI-O 的 cgroup 设置为 `cgroupfs` 时，必须将 `conmon_cgroup` 设置为值 `pod`。
 通常需要保持 kubelet 的 cgroup 驱动配置（通常通过 kubeadm 完成）和 CRI-O 同步。
+
+<!--
+In Kubernetes v1.28, you can enable automatic detection of the
+cgroup driver as an alpha feature. See [systemd cgroup driver](#systemd-cgroup-driver)
+for more details.
+-->
+在 Kubernetes v1.28 中，你可以启用 Cgroup 驱动程序的自动检测的 Alpha 级别特性。
+详情参阅 [systemd cgroup 驱动](#systemd-cgroup-driver)。
 
 <!-- 
 For CRI-O, the CRI socket is `/var/run/crio/crio.sock` by default.
