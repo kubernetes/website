@@ -845,6 +845,10 @@ The Kubernetes project strongly recommends enabling this admission controller.
 You should enable this admission controller if you intend to make any use of Kubernetes
 `ServiceAccount` objects.
 
+Regarding the annotation `kubernetes.io/enforce-mountable-secrets`: While the annotation's name suggests it only concerns the mounting of Secrets,
+its enforcement also extends to other ways Secrets are used in the context of a Pod.
+Therefore, it is crucial to ensure that all the referenced secrets are correctly specified in the ServiceAccount.
+
 ### StorageObjectInUseProtection
 
 **Type**: Mutating.
