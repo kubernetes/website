@@ -35,8 +35,8 @@ While this mechanism can also be used for user authentication, it might not be s
 production use due to several restrictions:
 
 - Client certificates cannot be individually revoked. Once compromised, a certificate can be used 
-by an attacker until it expires. To mitigate this risk, it is recommended to configure short 
-lifetimes for user authentication credentials created using client certificates.
+  by an attacker until it expires. To mitigate this risk, it is recommended to configure short 
+  lifetimes for user authentication credentials created using client certificates.
 - If a certificate needs to be invalidated, the certificate authority must be re-keyed, which 
 can introduce availability risks to the cluster.
 - There is no permanent record of client certificates created in the cluster. Therefore, all 
