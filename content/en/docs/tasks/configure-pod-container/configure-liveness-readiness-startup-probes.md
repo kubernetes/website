@@ -232,7 +232,7 @@ kubectl describe pod goproxy
 
 ## Define a gRPC liveness probe
 
-{{< feature-state for_k8s_version="v1.24" state="beta" >}}
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
 If your application implements the
 [gRPC Health Checking Protocol](https://github.com/grpc/grpc/blob/master/doc/health-checking.md),
@@ -285,7 +285,7 @@ When migrating from grpc-health-probe to built-in probes, remember the following
   `127.0.0.1`. Be sure to configure your gRPC endpoint to listen on the Pod's IP address.
 - Built-in probes do not support any authentication parameters (like `-tls`).
 - There are no error codes for built-in probes. All errors are considered as probe failures.
-- If `ExecProbeTimeout` feature gate is set to `false`, grpc-health-probe does **not** 
+- If `ExecProbeTimeout` feature gate is set to `false`, grpc-health-probe does **not**
   respect the `timeoutSeconds` setting (which defaults to 1s), while built-in probe would fail on timeout.
 
 ## Use a named port
@@ -525,15 +525,15 @@ unusually long time to restart when a Pod-level `terminationGracePeriodSeconds`
 was set.
 
 In 1.25 and above, users can specify a probe-level `terminationGracePeriodSeconds`
-as part of the probe specification. When both a pod- and probe-level 
+as part of the probe specification. When both a pod- and probe-level
 `terminationGracePeriodSeconds` are set, the kubelet will use the probe-level value.
 
 {{< note >}}
 Beginning in Kubernetes 1.25, the `ProbeTerminationGracePeriod` feature is enabled
 by default. For users choosing to disable this feature, please note the following:
 
-* The `ProbeTerminationGracePeriod` feature gate is only available on the API Server. 
-  The kubelet always honors the probe-level `terminationGracePeriodSeconds` field if 
+* The `ProbeTerminationGracePeriod` feature gate is only available on the API Server.
+  The kubelet always honors the probe-level `terminationGracePeriodSeconds` field if
   it is present on a Pod.
 
 * If you have existing Pods where the `terminationGracePeriodSeconds` field is set and
