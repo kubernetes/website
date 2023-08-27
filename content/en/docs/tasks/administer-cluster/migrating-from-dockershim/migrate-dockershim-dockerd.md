@@ -77,7 +77,7 @@ instructions for that tool.
 1.  Modify the `--container-runtime-endpoint` flag to
     `unix:///var/run/cri-dockerd.sock`.
 1.  Modify the `--container-runtime` flag to `remote`
-    in Kubernetes 1.27 and earlier.
+    (available in Kubernetes 1.26 and earlier).
 
 The kubeadm tool stores the node's socket as an annotation on the `Node` object
 in the control plane. To modify this socket for each affected node:  
