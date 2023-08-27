@@ -74,7 +74,7 @@ which can be a security risk.
 - There is no lockout mechanism available to prevent brute-force attacks, making it easier for 
 attackers to guess or crack the token.
 
-## Service account secret tokens {#service-account-secret-tokens}
+## ServiceAccount secret tokens {#serviceaccount-secret-tokens}
 
 [Service account secrets](/docs/reference/access-authn-authz/service-accounts-admin/#manual-secret-management-for-serviceaccounts) 
 are available as an option to allow workloads running in the cluster to authenticate to the 
