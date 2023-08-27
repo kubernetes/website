@@ -371,7 +371,7 @@ kubectl describe pod goproxy
 -->
 ## 定义 gRPC 存活探针
 
-{{< feature-state for_k8s_version="v1.24" state="beta" >}}
+{{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
 <!--
 If your application implements the
@@ -868,7 +868,7 @@ was set.
 
 <!--
 In 1.25 and above, users can specify a probe-level `terminationGracePeriodSeconds`
-as part of the probe specification. When both a pod- and probe-level 
+as part of the probe specification. When both a pod- and probe-level
 `terminationGracePeriodSeconds` are set, the kubelet will use the probe-level value.
 -->
 在 1.25 及以上版本中，用户可以指定一个探针层面的 `terminationGracePeriodSeconds`
@@ -880,13 +880,13 @@ as part of the probe specification. When both a pod- and probe-level
 Beginning in Kubernetes 1.25, the `ProbeTerminationGracePeriod` feature is enabled
 by default. For users choosing to disable this feature, please note the following:
 
-* The `ProbeTerminationGracePeriod` feature gate is only available on the API Server. 
+* The `ProbeTerminationGracePeriod` feature gate is only available on the API Server.
   The kubelet always honors the probe-level `terminationGracePeriodSeconds` field if
   it is present on a Pod.
 -->
 {{< note >}}
 从 Kubernetes 1.25 开始，默认启用 `ProbeTerminationGracePeriod` 特性。
-选择禁用此特性的用户，请注意以下事项:
+选择禁用此特性的用户，请注意以下事项：
 
 * `ProbeTerminationGracePeriod` 特性门控只能用在 API 服务器上。
   kubelet 始终优先选用探针级别 `terminationGracePeriodSeconds` 字段
@@ -914,7 +914,7 @@ by default. For users choosing to disable this feature, please note the followin
 <!--
 For example:
 -->
-例如:
+例如：
 
 ```yaml
 spec:
