@@ -158,7 +158,7 @@ There are some important considerations for the Kubernetes package repositories:
   over the package builds. This means that anything before v1.24.0 will only be
   available in the Google-hosted repository.
 - There's a dedicated package repository for each Kubernetes minor version.
-  When upgrading to to a different minor release, you must bear in mind that
+  When upgrading to a different minor release, you must bear in mind that
   the package repository details also change.
 
 {{< /note >}}

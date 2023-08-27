@@ -298,19 +298,19 @@ DaemonSet 通常提供节点本地的服务，即使节点上的负载应用已�
 
 A Node's status contains the following information:
 
-* [Addresses](/docs/concepts/node/node-status/#addresses)
-* [Conditions](/docs/concepts/node/node-status/#condition)
-* [Capacity and Allocatable](/docs/concepts/node/node-status/#capacity)
-* [Info](/docs/concepts/node/node-status/#info)
+* [Addresses](/docs/reference/node/node-status/#addresses)
+* [Conditions](/docs/reference/node/node-status/#condition)
+* [Capacity and Allocatable](/docs/reference/node/node-status/#capacity)
+* [Info](/docs/reference/node/node-status/#info)
 -->
 ## 节点状态   {#node-status}
 
 一个节点的状态包含以下信息:
 
-* [地址（Addresses）](/zh-cn/docs/concepts/node/node-status/#addresses)
-* [状况（Condition）](/zh-cn/docs/concepts/node/node-status/#condition)
-* [容量与可分配（Capacity）](/zh-cn/docs/concepts/node/node-status/#capacity)
-* [信息（Info）](/zh-cn/docs/concepts/node/node-status/#info)
+* [地址（Addresses）](/zh-cn/docs/reference/node/node-status/#addresses)
+* [状况（Condition）](/zh-cn/docs/reference/node/node-status/#condition)
+* [容量与可分配（Capacity）](/zh-cn/docs/reference/node/node-status/#capacity)
+* [信息（Info）](/zh-cn/docs/reference/node/node-status/#info)
 
 <!--
 You can use `kubectl` to view a Node's status and other details:
@@ -326,9 +326,9 @@ kubectl describe node <节点名称>
 ```
 
 <!-- 
-See [Node Status](/docs/concepts/node/node-status) for more details.
+See [Node Status](/docs/reference/node/node-status/) for more details.
 -->
-更多细节参见 [Node Status](/zh-cn/docs/concepts/node/node-status)。
+更多细节参见 [Node Status](/zh-cn/docs/reference/node/node-status)。
 
 <!--
 ## Node heartbeats
@@ -345,13 +345,13 @@ Kubernetes 节点发送的心跳帮助你的集群确定每个节点的可用性
 对于节点，有两种形式的心跳:
 
 <!--
-* Updates to the [`.status`](/docs/concepts/node/node-status/) of a Node
+* Updates to the [`.status`](/docs/reference/node/node-status/) of a Node.
 * [Lease](/docs/concepts/architecture/leases/) objects
   within the `kube-node-lease`
   {{< glossary_tooltip term_id="namespace" text="namespace">}}.
   Each Node has an associated Lease object.
 -->
-* 更新节点的 [`.status`](/zh-cn/docs/concepts/node/node-status/)
+* 更新节点的 [`.status`](/zh-cn/docs/reference/node/node-status/)
 * `kube-node-lease` {{<glossary_tooltip term_id="namespace" text="名字空间">}}中的
   [Lease（租约）](/zh-cn/docs/concepts/architecture/leases/)对象。
   每个节点都有一个关联的 Lease 对象。

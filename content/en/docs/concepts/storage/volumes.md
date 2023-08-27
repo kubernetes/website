@@ -258,7 +258,7 @@ overlays), the `emptyDir` may run out of capacity before this limit.
 {{< note >}}
 If the `SizeMemoryBackedVolumes` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/) is enabled,
 you can specify a size for memory backed volumes.  If no size is specified, memory
-backed volumes are sized to 50% of the memory on a Linux host.
+backed volumes are sized to node allocatable memory.
 {{< /note>}}
 
 #### emptyDir configuration example
