@@ -405,4 +405,3 @@ Examples of published tool reference pages are:
 - 了解[样式指南](/zh-cn/docs/contribute/style/style-guide/)
 - 了解[内容指南](/zh-cn/docs/contribute/style/content-guide/)
 - 了解[内容组织](/zh-cn/docs/contribute/style/content-organization/)
-
