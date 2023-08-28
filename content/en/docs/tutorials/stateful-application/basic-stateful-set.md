@@ -205,8 +205,14 @@ Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
 
 Name:      web-0.nginx
 Address 1: 10.244.1.6
-
+```
+Next, run:
+```shell
+# And run this in the dns-test container shell as well
 nslookup web-1.nginx
+```
+The output is similar to:
+```
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
 
@@ -282,13 +288,13 @@ Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
 Name:      web-0.nginx
 Address 1: 10.244.1.7
 ```
+Next, run:
 ```shell
-#  And run this in the dns-test container shell
+# And run this in the dns-test container shell as well
 nslookup web-1.nginx
 ```
 The output is similar to:
 ```
-nslookup web-1.nginx
 Server:    10.0.0.10
 Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local
 
