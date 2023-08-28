@@ -47,6 +47,7 @@ debug the exact same code locally if needed.
 
 这让你可以获取在云中运行的容器镜像，并且如果有需要的话，在本地调试完全相同的代码。
 
+{{< note >}}
 <!--
 A ConfigMap is not designed to hold large chunks of data. The data stored in a
 ConfigMap cannot exceed 1 MiB. If you need to store settings that are
@@ -56,7 +57,7 @@ separate database or file service.
 ConfigMap 在设计上不是用来保存大量数据的。在 ConfigMap 中保存的数据不可超过
 1 MiB。如果你需要保存超出此尺寸限制的数据，你可能希望考虑挂载存储卷
 或者使用独立的数据库或者文件服务。
-
+{{< /note >}}
 <!--
 ## ConfigMap object
 
