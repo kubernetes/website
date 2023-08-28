@@ -1,21 +1,4 @@
 <!--
-The file is auto-generated from the Go source code of the component using a generic
-[generator](https://github.com/kubernetes-sigs/reference-docs/). To learn how
-to generate the reference documentation, please read
-[Contributing to the reference documentation](/docs/contribute/generate-ref-docs/).
-To update the reference content, please follow the 
-[Contributing upstream](/docs/contribute/generate-ref-docs/contribute-upstream/)
-guide. You can file document formatting bugs against the
-[reference-docs](https://github.com/kubernetes-sigs/reference-docs/) project.
--->
-<!--
-该文件是使用通用[生成器](https://github.com/kubernetes-sigs/reference-docs/) 从组件的 Go 源代码自动生成的。
-要了解如何生成参考文档，请阅读[参与参考文档](/docs/contribute/generate-ref-docs/)。
-要更新参考内容，请按照[贡献上游](/docs/contribute/generate-ref-docs/contribute-upstream/) 指导。
-你可以针对[参考文献](https://github.com/kubernetes-sigs/reference-docs/) 项目归档文档格式错误。
--->
-
-<!--
 Pull images used by kubeadm
 -->
 拉取 kubeadm 使用的镜像。
@@ -23,13 +6,11 @@ Pull images used by kubeadm
 <!--
 ### Synopsis
 -->
-
 ### 概要
 
 <!--
 Pull images used by kubeadm.
 -->
-
 拉取 kubeadm 使用的镜像。
 
 ```
@@ -39,7 +20,6 @@ kubeadm config images pull [flags]
 <!--
 ### Options
 -->
-
 ### 选项
 
    <table style="width: 100%; table-layout: fixed;">
@@ -83,12 +63,13 @@ Path to the CRI socket to connect. If empty kubeadm will try to auto-detect this
 <tr>
 <td></td><td style="line-height: 130%; word-wrap: break-word;">
 <!--
-A set of key=value pairs that describe feature gates for various features. Options are:<br/>EtcdLearnerMode=true|false (ALPHA - default=false)<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)
+A set of key=value pairs that describe feature gates for various features. Options are:<br/>EtcdLearnerMode=true|false (ALPHA - default=false)<br/>PublicKeysECDSA=true|false (ALPHA - default=false)<br/>RootlessControlPlane=true|false (ALPHA - default=false)<br/>UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - default=false)
 -->
-一系列键值对（key=value），用于描述各种特征。可选项是：
-<br/>EtcdLearnerMode=true|false (ALPHA - 默认值=false)
-<br/>PublicKeysECDSA=true|false (ALPHA - 默认值=false)
-<br/>RootlessControlPlane=true|false (ALPHA - 默认值=false)
+一系列键值对（key=value），用于描述各种特性。可选项是：<br/>
+EtcdLearnerMode=true|false (ALPHA - 默认值=false)<br/>
+PublicKeysECDSA=true|false (ALPHA - 默认值=false)<br/>
+RootlessControlPlane=true|false (ALPHA - 默认值=false)<br/>
+UpgradeAddonsBeforeControlPlane=true|false (DEPRECATED - 默认值=false)
 </td>
 </tr>
 
@@ -101,7 +82,7 @@ A set of key=value pairs that describe feature gates for various features. Optio
 help for pull
 -->
 <p>
-pull 操作的帮助命令
+pull 操作的帮助命令。
 </p>
 </td>
 </tr>
@@ -120,7 +101,7 @@ pull 操作的帮助命令
 Choose a container registry to pull control plane images from
 -->
 <p>
-选择用于拉取控制平面镜像的容器仓库
+选择用于拉取控制平面镜像的容器仓库。
 </p>
 </td>
 </tr>
@@ -150,7 +131,6 @@ Choose a specific Kubernetes version for the control plane.
 <!--
 ### Options inherited from parent commands
 -->
-
 ### 从父命令继承的选项
 
    <table style="width: 100%; table-layout: fixed;">
