@@ -103,7 +103,7 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
 </tr>
     
 <tr><td><code>user</code> <B><!--[Required]-->[必需]</B><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#userinfo-v1-authentication"><code>authentication/v1.UserInfo</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
 </td>
 <td>
    <p>
@@ -114,7 +114,7 @@ Event 结构包含可出现在 API 审计日志中的所有信息。
 </tr>
 
 <tr><td><code>impersonatedUser</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#userinfo-v1-authentication"><code>authentication/v1.UserInfo</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#userinfo-v1-authentication-k8s-io"><code>authentication/v1.UserInfo</code></a>
 </td>
 <td>
    <p>
@@ -189,7 +189,7 @@ Note: All but the last IP can be arbitrarily set by the client.
 </tr>
 
 <tr><td><code>responseStatus</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#status-v1-meta"><code>meta/v1.Status</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#status-v1-meta"><code>meta/v1.Status</code></a>
 </td>
 <td>
    <p>
@@ -243,7 +243,7 @@ Note: All but the last IP can be arbitrarily set by the client.
 </tr>
 
 <tr><td><code>requestReceivedTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
 </td>
 <td>
    <!--Time the request reached the apiserver.-->
@@ -254,7 +254,7 @@ Note: All but the last IP can be arbitrarily set by the client.
 </tr>
 
 <tr><td><code>stageTimestamp</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#microtime-v1-meta"><code>meta/v1.MicroTime</code></a>
 </td>
 <td>
    <p>
@@ -309,7 +309,7 @@ EventList 是审计事件（Event）的列表。
 <tr><td><code>kind</code><br/>string</td><td><code>EventList</code></td></tr>
 
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
 </td>
 <td>
    <span class="text-muted"><!--No description provided.-->列表结构元数据</span>
@@ -351,7 +351,7 @@ Policy 定义的是审计日志的配置以及不同类型请求的日志记录�
 <tr><td><code>kind</code><br/>string</td><td><code>Policy</code></td></tr>
   
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#objectmeta-v1-meta"><code>meta/v1.ObjectMeta</code></a>
 </td>
 <td>
    <p>
@@ -440,7 +440,7 @@ PolicyList 是由审计策略（Policy）组成的列表。
 <tr><td><code>kind</code><br/>string</td><td><code>PolicyList</code></td></tr>
 
 <tr><td><code>metadata</code><br/>
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.27/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.28/#listmeta-v1-meta"><code>meta/v1.ListMeta</code></a>
 </td>
 <td>
    <span class="text-muted"><!--No description provided.-->列表结构元数据。</span>
@@ -494,19 +494,13 @@ GroupResources 代表的是某 API 组中的资源类别。
 <td>
 <!--
 Resources is a list of resources this rule applies to.
-<p>For example:</p>
-<ul>
-<li><code>pods</code> matches pods.</li>
-<li><code>pods/log</code> matches the log subresource of pods.</li>
-<li><code>&ast;<code> matches all resources and their subresources.</li>
-<li><code>pods/&ast;</code> matches all subresources of pods.</li>
-<li><code>&ast;/scale</code> matches all scale subresources.</li>
-</ul>
+<p>For example:
+'pods' matches pods.
+'pods/log' matches the log subresource of pods.
+'<em>' matches all resources and their subresources.
+'pods/</em>' matches all subresources of pods.
+'*/scale' matches all scale subresources.</p>
 -->
-   <p>
-   字段 resources 是此规则所适用的资源的列表。
-   </p>
-   <br/>
   <p>例如：</p>
   <ul>
   <li><code>pods</code> 匹配 Pod；</li>
@@ -773,12 +767,10 @@ PolicyRule 包含一个映射，基于元数据将请求映射到某审计级别
 <td>
    <!--
    NonResourceURLs is a set of URL paths that should be audited.
-   <code>&ast;<code>s are allowed, but only as the full, final step in the path.
-   Examples:</p>
-   <ul>
-   <li>&quot;/metrics&quot; - Log requests for apiserver metrics</li>
-   <li>&quot;/healthz&ast;&quot; - Log all health checks</li>
-   </ul>
+   <em>s are allowed, but only as the full, final step in the path.
+   Examples:
+   &quot;/metrics&quot; - Log requests for apiserver metrics
+   &quot;/healthz</em>&quot; - Log all health checks</p>
    -->
 
    <p>
@@ -864,4 +856,3 @@ Stage defines the stages in request handling that audit events may be generated.
 -->
 Stage 定义在请求处理过程中可以生成审计事件的阶段。
 </p>
-

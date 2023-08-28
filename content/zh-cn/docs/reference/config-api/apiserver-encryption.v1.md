@@ -29,10 +29,8 @@ Package v1 is the v1 version of the API.
 ## `EncryptionConfiguration`     {#apiserver-config-k8s-io-v1-EncryptionConfiguration}
 
 <!--
-EncryptionConfiguration stores the complete configuration for encryption providers.
-It also allows the use of wildcards to specify the resources that should be encrypted.
-Use <code>&ast;.&lt;group&gt;</code> to encrypt all resources within a group or <code>&ast;.&ast;</code> to encrypt all resources.
-<code>&ast;.</code> can be used to encrypt all resource in the core group. <code>&ast;.&ast;</code> will encrypt all
+Use '<em>.<!!-- raw HTML omitted -->' to encrypt all resources within a group or '</em>.<em>' to encrypt all resources.
+'</em>.' can be used to encrypt all resource in the core group.  '<em>.</em>' will encrypt all
 resources, even custom resources that are added after API server start.
 Use of wildcards that overlap within the same resource list or across multiple
 entries are not allowed since part of the configuration would be ineffective.
@@ -399,10 +397,10 @@ ResourceConfiguration 中保存资源配置。
    <p>
    <!--
    resources is a list of kubernetes resources which have to be encrypted. The resource names are derived from <code>resource</code> or <code>resource.group</code> of the group/version/resource.
-   eg: <code>pandas.awesome.bears.example</code> is a custom resource with 'group': <code>awesome.bears.example</code>, 'resource': <code>pandas</code>.
-   Use <code>&ast;.&ast;</code> to encrypt all resources and <code>&ast;.&lt;group&gt;</code>' to encrypt all resources in a specific group.
-   eg: <code>&ast;.awesome.bears.example</code> will encrypt all resources in the group <code>awesome.bears.example</code>.
-   eg: <code>&ast;.</code> will encrypt all resources in the core group (such as pods, configmaps, etc).
+   eg: pandas.awesome.bears.example is a custom resource with 'group': awesome.bears.example, 'resource': pandas.
+   Use '<em>.</em>' to encrypt all resources and '<em>.< raw HTML omitted >' to encrypt all resources in a specific group.
+   eg: '</em>.awesome.bears.example' will encrypt all resources in the group 'awesome.bears.example'.
+   eg: '*.' will encrypt all resources in the core group (such as pods, configmaps, etc).</p>
    -->
    <code>resources</code> 是必须要加密的 Kubernetes 资源的列表。
    资源名称来自于组/版本/资源的 <code>resource</code> 或 <code>resource.group</code>。
