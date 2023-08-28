@@ -1,0 +1,53 @@
+{{ if not .Params.hide_feedback }}
+<div id="pre-footer">
+  <h2>{{ T "feedback_heading" }}</h2>
+    <p class="feedback--prompt">{{ T "feedback_question" }} </p>
+    <button class="btn btn-primary mb-4 feedback--yes">{{ T "feedback_yes" }}</button>
+    <button class="btn btn-primary mb-4 feedback--no">{{ T "feedback_no" }}</button>
+    <p class="feedback--response feedback--response__hidden">
+      {{ T "layouts_docs_partials_feedback_thanks" }}
+      <a target="_blank" rel="noopener"
+        href="https://stackoverflow.com/questions/tagged/kubernetes">
+        Stack Overflow</a>.
+      {{ T "layouts_docs_partials_feedback_issue" }}
+      <a class="feedback--link" target="_blank" rel="noopener"
+        href="https://github.com/kubernetes/website/issues/new?title=Issue%20with%20k8s.io">
+        {{ T "layouts_docs_partials_feedback_problem" }}</a>
+      {{ T "layouts_docs_partials_feedback_or" }}
+      <a class="feedback--link" target="_blank" rel="noopener"
+        href="https://github.com/kubernetes/website/issues/new?title=Improvement%20for%20k8s.io">
+        {{ T "layouts_docs_partials_feedback_improvement" }}</a>.
+    </p>
+  </div>  
+  <script>
+    const yes = document.querySelector('.feedback--yes');
+    const no = document.querySelector('.feedback--no');
+    document.querySelectorAll('.feedback--link').forEach(link => {
+      link.href = link.href + window.location.pathname;
+    });
+    const sendFeedback = (value) => {
+      if (!gtag) { console.log('!gtag'); }
+      gtag('event', 'click', {
+        'event_category': 'Helpful',
+        'event_label': window.location.pathname,
+        value
+      });
+    };
+    const disableButtons = () => {
+      yes.disabled = true;
+      yes.classList.add('feedback--button__disabled');
+      no.disabled = true;
+      no.classList.add('feedback--button__disabled');
+    };
+    yes.addEventListener('click', () => {
+      sendFeedback(1);
+      disableButtons();
+      document.querySelector('.feedback--response').classList.remove('feedback--response__hidden');
+    });
+    no.addEventListener('click', () => {
+      sendFeedback(0);
+      disableButtons();
+      document.querySelector('.feedback--response').classList.remove('feedback--response__hidden');
+    });
+  </script>
+{{ end }}

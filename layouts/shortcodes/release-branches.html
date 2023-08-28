@@ -1,0 +1,57 @@
+{{ range $releaseInfo := .Site.Data.releases.schedule.schedules }}
+{{- $version := printf "%.2f" $releaseInfo.release -}}
+{{- $dataIdVersion := replace ( printf "%.2f" $releaseInfo.release ) "." "-" | anchorize -}}
+
+<h3 id="{{ $dataIdVersion }}">{{ $version }}</h3>
+<p>
+    {{ printf (T "release_info_next_patch") $releaseInfo.next.release | markdownify }}
+</p>
+<p>
+    {{ $releaseInfo.next.note | markdownify }}
+</p>
+<p>
+    {{ printf (T "release_info_eol")
+        $version
+        ( printf "<time datetime=%s>%s</time>"
+            (time.Format "2006-01-02" $releaseInfo.maintenanceModeStartDate)
+            (time.Format ( T "release_date_format") $releaseInfo.maintenanceModeStartDate)
+        )
+        ( printf "<time datetime=%s>%s</time>"
+            (time.Format "2006-01-02" $releaseInfo.endOfLifeDate)
+            (time.Format ( T "release_date_format") $releaseInfo.endOfLifeDate)
+        )
+        | safeHTML | markdownify }}
+</p>
+{{ if $releaseInfo.previousPatches }}
+<div>
+    <table class="release-maintained-version table table-striped col-md-8">
+        <thead class="thead">
+            <tr>
+                <th class="col-md-2">{{ T "patch_release" }}</th>
+                <th class="col-md-2">{{ T "release_cherry_pick_deadline" }}</th>
+                <th class="col-md-2">{{ T "release_target_date" }}</th>
+                <th class="col-md-4">{{ T "release_note" }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ range $patchReleaseInfo := $releaseInfo.previousPatches }}
+            <tr>
+                <td>
+                    {{ $patchReleaseInfo.release }}
+                </td>
+                <td>
+                    {{ $patchReleaseInfo.cherryPickDeadline }}
+                </td>
+                <td>
+                    {{ $patchReleaseInfo.targetDate }}
+                </td>
+                <td lang="en-US">
+                    {{ $patchReleaseInfo.note | markdownify }}
+                </td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+</div>
+{{ end }}
+{{ end }}

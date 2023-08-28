@@ -1,0 +1,32 @@
+# 스테이트풀셋 멤버의 안정적인 DNS 엔트리를 위한 헤드리스 서비스.
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+    app.kubernetes.io/name: mysql
+spec:
+  ports:
+  - name: mysql
+    port: 3306
+  clusterIP: None
+  selector:
+    app: mysql
+---
+# 읽기용 MySQL 인스턴스에 연결하기 위한 클라이언트 서비스.
+# 쓰기용은 Primary인 mysql-0.mysql에 대신 연결해야 한다.
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-read
+  labels:
+    app: mysql
+    app.kubernetes.io/name: mysql
+    readonly: "true"
+spec:
+  ports:
+  - name: mysql
+    port: 3306
+  selector:
+    app: mysql

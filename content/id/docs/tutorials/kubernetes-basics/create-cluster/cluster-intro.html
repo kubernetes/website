@@ -1,0 +1,107 @@
+---
+title: Menggunakan Minikube Untuk Membuat Klaster
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="id">
+
+<body>
+
+    <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+      <div class="col-md-8">
+          <h3>Objectives</h3>
+                <ul>
+                    <li>Belajar apa itu klaster Kubernetes.</li>
+                    <li>Belajar apa itu Minikube.</li>
+                    <li>Memulai klaster Kubernetes menggunakan terminal _online_.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <h3>Klaster Kubernetes</h3>
+                <p>
+                <b>Kubernetes mengoordinasikan klaster komputer ketersediaan tinggi (_highly available_) yang saling terhubung sebagai unit tunggal.</b> Abstraksi pada Kubernetes mengizinkan kamu untuk men-_deploy_ aplikasi terkemas (_containerized_) ke sebuah klaster tanpa perlu membalutnya secara spesifik pada setiap mesin. Untuk menggunakan model baru _deployment_ ini, aplikasi perlu dikemas dengan cara memisahkan mereka dari hos individu: mereka perlu dikemas. Aplikasi terkemas lebih fleksibel dan tersedia dibanding model _deployment_ lama, dimana aplikasi dipasang secara langsung didalam mesin spesifik sebagai paket yang sangat terintegrasi dengan hos. <b>Kubernetes mengotomasisasikan distribusi dan penjadwalan kontainer aplikasi sebuah klaster secara menyeluruh dengan cara yang lebih efisien.</b> Kubernetes merupakan platform _open-source_ dan siap produksi.
+                </p>
+                <p>Klaster Kubernetes terdiri dari 2 tipe sumber daya:
+                    <ul>
+                        <li><b>Master</b> mengoordinasikan klaster</li>
+                        <li><b>Node</b> adalah pekerja (_worker_) yang menjalankan aplikasi</li>
+                    </ul>
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <div class="content_box content_box_lined">
+                    <h3>Summary:</h3>
+                    <ul>
+                        <li>Klaster Kubernetes</li>
+                        <li>Minikube</li>
+                    </ul>
+                </div>
+                <div class="content_box content_box_fill">
+                    <p><i>
+                        Kubernetes merupakan platform _open-source_ tingkat produksi yang mengatur penjadwalan dan eksekusi kontainer aplikasi didalam dan keseluruhan klaster komputer.
+                    </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Diagram Klaster</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_01_cluster.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><b>Master mempunyai kewajiban untuk mengelola klaster.</b> Master mengoordinasikan semua aktifitas di klaster kamu, seperti penjadwalan aplikasi, pemeliharaan keadaan (_state_) aplikasi yang diinginkan, _scaling_ aplikasi, dan _roll-out_ pembaharuan.</p>
+                <p><b>Node merupakan VM atau komputer fisik yang berfungsi sebagai mesin pekerja dalam klaster Kubernetes.</b> Setiap node mempunyai Kubelet, sebuah agen untuk mengatur Node dan komunikasi dengan Kubernetes master. Node juga harus mempunyai alat untuk menangani operasi kontainer, seperti Docker atau rkt. Sebuah klaster Kubernetes yang menangani trafik produksi harus mempunyai minimal 3 Node.</p>
+            </div>
+            <div class="col-md-4">
+                <div class="content_box content_box_fill">
+                    <p><i>Master mengatur klaster dan Node yang digunakan sebagai hos dari aplikasi yang berjalan.</i></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p>Ketika kamu men-_deploy_ aplikasi pada Kubernetes, kamu memberitahu master untuk memulai kontainer aplikasi. Master melakukan penjadwalan kontainer untuk berjalan diatas klaster Node. <b>Node berkomunikasi dengan master menggunakan <a href="/docs/concepts/overview/kubernetes-api/">Kubernetes API</a></b>, yang disediakan oleh master. Pengguna akhir juga dapat menggunakan Kubernetes API secara langsung untuk berinteraksi dengan klaster.</p>
+
+                <p>Klaster Kubernetes dapat di-_deploy_ ke mesik fisik maupun virtual. Untuk memulai pengembangan Kubernetes, kamu dapat menggunakan Minikube.  Minikube merupakan implementasi Kubernetes ringan yang membuat VM padi mesin lokal kamu dan men-_deploy_ klaster sederhanya yang terdiri atas 1 Node. Minikube tersedia untuk Linux, macOS, dan sistem Windows. Minikube CLI menyediakan operasi _bootstraping_ dasar untuk bekerja dengan klaster kamu. Namun untuk tutorial ini, kamu akan menggunakan online terminal yang sudah disediakan dengan Minikube yang sudah diinstall sebelumnya.</p>
+
+                <p>Sekarang kamu telah mengetahui apa itu Kubernetes, mari kita pergi ke tutorial online dan memulai klaster pertama kita!</p>
+
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-interactive/" role="button">Mulai Tutorial Interaktif<span class="btn_next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

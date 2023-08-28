@@ -1,0 +1,52 @@
+{{ $links := .Site.Params.links }}
+<footer class="d-print-none">
+  <div class="footer__links">
+    <nav>
+      {{ with site.GetPage "page" "docs/tutorials/stateless-application/hello-minikube" }}<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+      {{ $sections := slice "docs/home" "blog" "training" "partners" "community" "case-studies" }}
+      {{ range $sections }}
+      {{ with site.GetPage "section" . }}<a class="text-white" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>{{ end }}
+      {{ end }}
+    </nav>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-6 col-sm-2 text-xs-center order-sm-2">
+        {{ with $links }}
+        {{ with index . "user"}}
+        {{ template "footer-links-block"  . }}
+        {{ end }}
+        {{ end }}
+      </div>
+      <div class="col-6 col-sm-2 text-right text-xs-center order-sm-3">
+        {{ with $links }}
+        {{ with index . "developer"}}
+        {{ template "footer-links-block"  . }}
+        {{ end }}
+        {{ end }}
+      </div>
+      <div class="col-12 col-sm-8 text-center order-sm-2">
+        {{ with .Site.Params.copyright_k8s }}<small class="text-white">&copy; {{ now.Year}} {{ T "main_documentation_license" | safeHTML }}</small>{{ end }}
+        <br/>
+        {{ with .Site.Params.copyright_linux }}<small class="text-white">Copyright &copy; {{ now.Year }} {{ T "main_copyright_notice" | safeHTML }}</small>{{ end }}
+        <br/>
+        <small class="text-white">ICP license: 京ICP备17074266号-3</small>
+        {{ with .Site.Params.privacy_policy }}<small class="ml-1"><a href="{{ . }}" target="_blank">{{ T "footer_privacy_policy" }}</a></small>{{ end }}
+        {{ if not .Site.Params.ui.footer_about_disable }}
+          {{ with .Site.GetPage "about" }}<p class="mt-2"><a href="{{ .RelPermalink }}">{{ .Title }}</a></p>{{ end }}
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</footer>
+{{ define "footer-links-block" }}
+<ul class="list-inline mb-0">
+  {{ range . }}
+  <li class="list-inline-item mx-2 h3" data-toggle="tooltip" data-placement="top" title="{{ .name }}" aria-label="{{ .name }}">
+    <a class="text-white" target="_blank" href="{{ .url }}">
+      <i class="{{ .icon }}"></i>
+    </a>
+  </li>
+  {{ end }}
+</ul>
+{{ end }}

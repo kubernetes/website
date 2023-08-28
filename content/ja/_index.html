@@ -1,0 +1,61 @@
+---
+title: "プロダクショングレードのコンテナ管理基盤"
+abstract: "自動化されたコンテナのデプロイ・スケール・管理"
+cid: home
+---
+
+{{< blocks/section id="oceanNodes" >}}
+{{% blocks/feature image="flower" %}}
+### [Kubernetes (K8s)]({{< relref "/docs/concepts/overview/" >}})は、デプロイやスケーリングを自動化したり、コンテナ化されたアプリケーションを管理したりするための、オープンソースのシステムです。
+
+管理や検出を容易にするため、アプリケーションを論理的な単位に分割し、コンテナをグルーピングします。Kubernetesは[Googleでの15年にわたる経験](http://queue.acm.org/detail.cfm?id=2898444)を基に構築されており、コミュニティのアイディアや慣習との最善の組み合わせを取っています。
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="scalable" %}}
+#### 惑星規模のスケーリング
+
+Googleが週に何十億ものコンテナを実行することを可能としているのと同じ原則に沿ってデザインされているため、Kubernetesは運用チームの人数を増やさずに規模を拡大することができます。
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="blocks" %}}
+#### いつまでも使える
+
+ローカルのテストであろうとグローバル企業での開発であろうと、Kubernetesの柔軟性はあなたの要求がどれだけ複雑になろうとも問題なく、矛盾無く、簡単にアプリケーションを提供できます。
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="suitcase" %}}
+#### どこでも実行できる
+
+Kubernetesはオープンソースなので、オンプレミスやパブリッククラウド、それらのハイブリッドなどの利点を自由に得ることができ、簡単に移行することができます。
+
+Kubernetesをダウンロードするには、[ダウンロード](/releases/download/)セクションを訪れてください。
+
+{{% /blocks/feature %}}
+
+{{< /blocks/section >}}
+
+{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
+<div class="light-text">
+<h2>150以上のマイクロサービスアプリケーションをKubernetes上に移行する挑戦</h2>
+        <p>By Sarah Wells, Technical Director for Operations and Reliability, Financial Times</p>
+        <button id="desktopShowVideoButton" onclick="kub.showVideo()">ビデオを見る</button>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/" button id="desktopKCButton">2023年4月18日〜21日のKubeCon + CloudNativeCon Europeに参加する</a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/" button id="desktopKCButton">2023年11月6日〜9日のKubeCon + CloudNativeCon North Americaに参加する</a>
+</div>
+<div id="videoPlayer">
+    <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <button id="closeButton"></button>
+</div>
+{{< /blocks/section >}}
+
+{{< blocks/kubernetes-features >}}
+
+{{< blocks/case-studies >}}

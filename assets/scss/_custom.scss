@@ -1,0 +1,954 @@
+$announcement-size-adjustment: 8px;
+
+/* GLOBAL */
+.td-main {
+  .row {
+    margin: 0;
+  }
+
+  main {
+    *:not(figure) > img {
+      max-width: 100%;
+    }
+
+    @media only screen and (min-width: 768px) {
+      padding-top: 2rem !important;
+    }
+  }
+
+  .ui-widget {
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  .ui-widget-content a {
+    color: $blue;
+  }
+}
+
+.header-hero #quickstartButton.button {
+  margin-top: 1em;
+}
+
+section {
+  .main-section {
+    @media only screen and (min-width: 1024px) {
+      max-width: 1200px;
+    }
+  }
+}
+
+body {
+  header + .td-outer {
+    min-height: 50vh;
+    height: auto;
+  }
+}
+
+/* Complex table layout support */
+
+.td-content, body.td-content {
+  table.complex-layout {
+    tbody tr,
+    tbody tr:nth-of-type(2n+1) {
+      /* Avoid stripes */
+      background-color: initial;
+    }
+    tbody tr:not(:last-child) > td[colspan] {
+      /* provide a visual break between rows */
+      padding-bottom: 1.5em;
+    }
+    tbody > tr > th[scope="row"]:first-child {
+      min-width: 9em;
+    }
+    tbody > tr > th[rowspan] {
+      vertical-align: middle;
+    }
+    border-collapse: separate;
+    border-spacing: 0 0;
+    max-width: calc(max(min(100vw, 110%), 40vw));
+  }
+}
+
+/* Emphasize first paragraph of running text on site front page */
+body.td-home main[role="main"] > section:first-of-type .content p:first-child {
+  line-height: 1.3em;
+  font-size: 1.4em;
+  margin-bottom: 1.5em;
+}
+
+#desktopShowVideoButton {
+  border: none
+}
+
+#videoPlayer {
+  #closeButton {
+    background: transparent;
+  }
+}
+
+body.td-404 main .error-details {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 4em;
+  margin-bottom: 0;
+}
+
+/* Global - Mermaid.js diagrams */
+
+.mermaid {
+  overflow-x: auto;
+  max-width: 80%;
+  border: 1px solid rgb(222, 226, 230);
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+
+  // mermaid diagram - sequence diagram
+  .actor {
+    fill: #326ce5 !important;
+  }
+  text.actor {
+    font-size: 18px !important;
+    stroke: white !important;
+    fill: white !important;
+  }
+  .activation0 {
+    fill: #c9e9ec !important;
+  }
+}
+
+/* HEADER */
+
+.td-navbar {
+  position: fixed !important;
+  width: 100%;
+  padding-bottom: 1rem !important;
+  background: transparent !important;
+  transition: 0.3s;
+
+  .navbar-brand {
+    position: absolute;
+    width: 45px;
+    height: 44px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url("/images/favicon.png");
+  }
+
+  #hamburger {
+    &:focus {
+      outline: none;
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+    .navbar-brand {
+      background-image: url("/images/nav_logo.svg");
+      top: 1.5rem;
+      width: 180px;
+      margin-left: 1rem;
+    }
+  }
+}
+
+.td-navbar-nav-scroll {
+  overflow: visible !important;
+  display: none;
+
+  .navbar-nav {
+    overflow: visible !important;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    .nav-item {
+      position: relative;
+      height: 10%;
+
+      .active::after {
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        content: "";
+        bottom: -4px;
+        left: 0;
+        background: #fff;
+      }
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+    display: block;
+    margin-top: 3.5rem !important;
+  }
+
+  @media only screen and (min-width: 1170px) {
+    margin-top: 1rem !important;
+  }
+}
+
+// Flip-Nav
+.flip-nav .td-navbar {
+  background-color: white !important;
+  box-shadow: 0 1px 2px $medium-grey;
+
+  .navbar-nav {
+    .nav-item {
+      &.show .nav-link,
+      .nav-link {
+        color: $dark-grey;
+
+        &:hover {
+          color: $medium-grey;
+        }
+      }
+
+      .dropdown {
+        &:hover {
+          color: $medium-grey;
+        }
+      }
+    }
+  }
+
+  .navbar-nav .nav-item .active {
+    color: $dark-grey;
+
+    &::after {
+      background: $dark-grey;
+    }
+  }
+
+  #hamburger:hover {
+    div,
+    &:before,
+    &:after {
+      background-color: $dark-grey;
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+    .navbar-brand {
+      background-image: url("/images/nav_logo2.svg");
+    }
+  }
+}
+
+/* FOOTER */
+footer {
+  background-color: #303030;
+  background-image: url("/images/texture.png");
+  padding: 1rem !important;
+  min-height: initial !important;
+
+  > div, > p {
+    max-width: 95%;
+    @media only screen and (min-width: 768px) {
+      max-width: calc(min(80rem,90vw)); // avoid spreading too wide
+    }
+  }
+
+  > .footer__links {
+    margin: auto;
+    padding-bottom: 1rem;
+
+    nav a {
+      display: block;
+      text-align: center;
+    }
+
+    @media only screen and (min-width: 768px) {
+      max-width: calc(min(60rem,90vw)); // avoid spreading too wide
+
+      nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+      }
+    }
+  }
+
+  small {
+    color: $light-grey;
+    font-size: 0.64rem;
+
+    a {
+      text-decoration: inherit;
+      color: inherit;
+
+      &:hover {
+        color: inherit;
+      }
+    }
+  }
+}
+
+/* SIDE-DRAWER MENU */
+
+.pi-pushmenu .sled {
+  .content ul {
+    padding: 0;
+
+    li {
+      &:first-child {
+        display: none;
+      }
+
+      a.nav-link {
+        padding: 0;
+      }
+    }
+  }
+  .push-menu-close-button {
+    background: transparent;
+    border: none;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+/* DOCS */
+
+.launch-cards {
+  button {
+    cursor: pointer;
+    box-sizing: border-box;
+    background: none;
+    margin: 0;
+    border: 0;
+  }
+
+  ul,
+  li {
+    list-style: none;
+    padding-left: 0;
+  }
+}
+
+// table of contents
+.td-toc {
+  padding-top: 1.5rem !important;
+  top: 5rem !important;
+
+  @supports (position: sticky) {
+    position: sticky !important;
+    height: calc(100vh - 10rem);
+    overflow-y: auto;
+  }
+
+  #TableOfContents {
+    padding-top: 1rem;
+  }
+}
+
+main {
+  .td-content table code,
+  .td-content>table td {
+    word-break: break-word;
+  }
+
+/* SCSS Related to the Metrics Table */
+
+    @media (max-width: 767px) { // for mobile devices, Display the names, Stability levels & types
+
+     table.metrics { 
+      th:nth-child(n + 4),
+      td:nth-child(n + 4) {
+        display: none;
+      }
+
+      td.metric_type{
+        min-width: 7em;
+      }
+      td.metric_stability_level{
+        min-width: 6em;
+      }
+    }
+    }
+
+    table.metrics tbody{ // Tested dimensions to improve overall aesthetic of the table
+      tr {
+        td {
+          font-size: smaller;
+        }
+        td.metric_labels_varying{
+          min-width: 9em;
+        }
+        td.metric_type{
+          min-width: 9em;
+        }
+        td.metric_description{
+          min-width: 10em;
+        }
+    
+      }
+    }
+
+  table.no-word-break td,
+  table.no-word-break code {
+    word-break: normal;
+}
+}
+
+// blockquotes and callouts
+
+body {
+  .alert {
+    // Override Docsy styles
+    padding: 0.4rem 0.4rem 0.4rem 1rem;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    border-right: 1px solid #eee;
+    border-radius: 0.25em;
+    border-left-width: 0.5em; // fallback in case calc() is missing
+    background: #fff;
+    color: #000;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+  // Set minimum width and radius for alert color
+  .alert {
+      border-left-width: calc(max(0.5em, 4px));
+      border-top-left-radius: calc(max(0.5em, 4px));
+      border-bottom-left-radius: calc(max(0.5em, 4px));
+  }
+  .alert.callout.caution {
+    border-left-color: #f0ad4e;
+  }
+  .alert.callout.note {
+    border-left-color: #428bca;
+  }
+  .alert.callout.warning {
+    border-left-color: #d9534f;
+  }
+  .alert.third-party-content {
+    border-left-color: #444;
+  }
+
+  h1:first-of-type + .alert.callout {
+    margin-top: 1.5em;
+  }
+}
+
+// Special color for third party content disclaimers
+.alert.third-party-content { border-left-color: #222 };
+
+// Highlight disclaimer when targeted as a fragment
+
+#third-party-content-disclaimer {
+  color: #000;
+  background: #f8f9fa;
+  transition: all 0.5s ease;
+}
+
+@keyframes disclaimer-highlight {
+  from { background: #f8f922; color: #000; }
+  50% { background: #f8f944; color: #000; }
+  to { background: #f8f9cb; color: #000; }
+}
+
+#third-party-content-disclaimer:target {
+  color: #000;
+  animation: disclaimer-highlight 1.25s ease;
+  background: #f8f9cb;
+}
+
+.deprecation-warning, .pageinfo.deprecation-warning {
+    padding: clamp(10px, 2vmin, 20px);
+    margin: clamp(10px, 1vh, 20px) 0;
+    background-color: #faf5b6;
+    color: #000;
+}
+
+.deprecation-warning.outdated-blog, .pageinfo.deprecation-warning.outdated-blog {
+    background-color: $blue;
+    color: $white;
+}
+
+body.td-home .deprecation-warning, body.td-blog .deprecation-warning, body.td-documentation .deprecation-warning {
+    border-radius: 3px;
+}
+
+.deprecation-warning p:only-child {
+  margin-bottom: 0;
+}
+
+.td-documentation .td-content > .highlight {
+  max-width: initial;
+  width: 100%;
+}
+
+body.td-home #deprecation-warning {
+    max-width: 1000px;
+    margin-top: 2.5rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#caseStudies body > #deprecation-warning, body.cid-casestudies > #deprecation-warning, body.cid-community > #deprecation-warning {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    background-color: #326ce5; // Kubernetes blue
+    color: #fff;
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+}
+#caseStudies body > #deprecation-warning, body.cid-casestudies > #deprecation-warning {
+    padding-top: 32px;
+}
+body.cid-partners > #deprecation-warning {
+    padding: 0;
+    margin-right: 0;
+    margin-left: 0;
+    margin-top: 0;
+    width: 100vw;
+}
+body.cid-partners > #deprecation-warning > .content {
+    width: 100%;
+    max-width: initial;
+    margin-right: 0;
+    margin-left: 0;
+    margin-top: 0;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+body.cid-community > #deprecation-warning > .deprecation-warning {
+    margin-left: 20px;
+    margin-right: 20px;
+    color: #faf5b6;
+    background-color: inherit;
+}
+body.cid-community > #deprecation-warning > .deprecation-warning > * {
+    color: inherit;
+    background-color: inherit;
+}
+
+#caseStudies body > #deprecation-warning > .deprecation-warning, body.cid-casestudies > #deprecation-warning > .deprecation-warning {
+    color: inherit;
+    background: inherit;
+    width: 80%;
+    margin: 0;
+    margin-top: 120px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: initial;
+}
+#deprecation-warning > .deprecation-warning a {
+    background: transparent;
+    color: inherit;
+    text-decoration: underline;
+}
+
+// search & sidebar
+.td-sidebar {
+  @media only screen and (min-width: 768px) {
+    padding-top: 1.5rem !important;
+
+    .td-sidebar__inner {
+      top: 8.5rem;
+
+      @media only screen and (min-width: 1075px) {
+        top: 6.5rem;
+      }
+    }
+  }
+}
+
+.td-sidebar-nav {
+  & > .td-sidebar-nav__section {
+    padding-top: .5rem;
+    padding-left: 1.5rem;
+  }
+}
+
+.td-sidebar__inner {
+  form.td-sidebar__search {
+
+    .td-sidebar__toggle {
+      &:hover {
+        color: #000000;
+      }
+
+      color: $blue;
+      margin: 1rem;
+    }
+  }
+}
+
+.no-underline {
+  text-decoration: none !important;
+}
+
+.hide {
+  display: none !important;
+}
+
+.td-sidebar-link__page {
+  &#m-docs-search {
+    display: none;
+  }
+
+  &#m-docs-test {
+    display: none;
+  }
+}
+
+//Tutorials
+main.content {
+  position: inherit;
+}
+
+/* BLOG */
+
+.td-blog {
+
+  .widget-link {
+    margin-bottom: 1rem;
+
+    .svg-inline--fa {
+      width: 25px;
+    }
+
+    span {
+      margin-left: 0.5rem;
+    }
+  }
+}
+
+/* COMMUNITY legacy styles */
+/* Leave these in place until localizations are caught up */
+
+.newcommunitywrapper {
+  .news {
+    margin-left: 0;
+
+    @media screen and (min-width: 768px) {
+      margin-left: 10%;
+    }
+  }
+}
+
+/* CASE-STUDIES */
+
+// Many of the case studies have small variations in markup and styles;
+// some issues cannot be addressed due to inlined !important rules.
+#caseStudies {
+  section .cols {
+    margin-left: 11%;
+
+    div {
+      width: initial !important;
+      h2 {
+        margin-top: 1rem;
+      }
+    }
+  }
+}
+
+/* DOCUMENTATION */
+
+/* Don't show lead text */
+body.td-documentation {
+  main {
+    @media only screen {
+       > * {
+         > .lead:first-of-type {
+         display: none;
+        }
+      }
+    }
+  }
+}
+
+/* glossary tooltip */
+.glossary-tooltip {
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+  color: black;
+  text-decoration: none !important;
+}
+
+@media print {
+  /* Do not print announcements */
+  #announcement {
+    display: none;
+  }
+}
+
+#announcement {
+  > * {
+    color: inherit;
+    background: transparent;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  a:hover {
+    color: inherit;
+    text-decoration: initial;
+  }
+}
+
+.header-hero {
+  padding-top: 40px;
+}
+
+#announcement {
+  // default background is blue; overrides are possible
+  color: #fff;
+
+  .announcement-main {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0px;
+
+    // for padding-top see _size.scss
+    padding-bottom: calc(max(2em, 2rem));
+
+    max-width: calc(min(1200px - 8em, 80vw));
+  }
+
+
+  h1, h2, h3, h4, h5, h6, p * {
+    color: inherit; /* defaults to white */
+    background: transparent;
+
+    img.event-logo {
+      display: inline-block;
+      max-height: calc(min(80px, 8em));
+      max-width: calc(min(240px, 33vw));
+      float: right;
+    }
+  }
+}
+
+#announcement + .header-hero {
+  padding-top: 2em;
+}
+
+// Extra padding for anything except wide viewports
+@media (min-width: 992px) {
+  #announcement aside { // more specific
+    .announcement-main {
+      padding-top: calc(max(8em, 8rem));
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  #announcement {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+    .announcement-main, aside .announcement-main {
+      padding-top: calc(min(2rem,2em));
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  #announcement {
+    padding-bottom: 0.5em;
+  }
+  #announcement aside {
+    h1, h2, h3, h4, h5, h6 {
+      img.event-logo {
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 0.75em;
+        display: block;
+        max-height: initial;
+        max-width: calc(min(calc(100vw - 2em), 240px));
+        float: initial;
+      }
+    }
+  }
+}
+
+#announcement + .header-hero.filler {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  #announcement + .header-hero {
+    display: none;
+  }
+}
+
+figure {
+  > figcaption {
+    padding-top: 1em;
+    margin-bottom: 3em;
+  }
+}
+
+// Clamp size for release logos
+figure.release-logo {
+  > figcaption {
+    font-size: 1.8em;
+  }
+  > img {
+    max-width: 100%;
+    max-height: calc(max(40em,min(80vh,70em)));
+    height: auto;
+    width: auto;
+  }
+}
+
+
+// Match Docsy-imposed max width on text body
+@media (min-width: 1200px) {
+  body.td-blog main .td-content > figure {
+    max-width: 80%;
+  }
+}
+
+.td-content {
+  table code {
+    background-color: inherit !important;
+    color: inherit !important;
+    font-size: inherit !important;
+  }
+}
+
+/* Force size constraints on figures */
+figure {
+  &.diagram-small img {
+    max-height: clamp(20mm,12em,80vh);
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+  &.diagram-medium img {
+    max-height: clamp(25mm,20em,80vh);
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+  &.diagram-large img {
+    max-width: clamp(0vw, 95vw, 100%);
+    max-height: calc(80vh - 8rem);
+  }
+
+  figure + noscript > *{
+    max-width: calc(max(100%, 100vw));
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  figure {
+    &.diagram-small, &.diagram-medium {
+      max-width: 80%;
+    }
+    &.diagram-large {
+      max-width: 100%;
+      width: 100%;
+    }
+    &.diagram-small img {
+      max-width: clamp(30rem, 45ch, 100mm);
+    }
+    &.diagram-medium img {
+      max-width: clamp(50rem, 20ch, 160mm);
+    }
+    &.diagram-large img {
+      max-width: clamp(25vw, 95vw, 100%);
+      max-height: calc(100vh - 10rem);
+    }
+  }
+  figure + noscript > * {
+    max-width: 80%;
+  }
+}
+
+// Indent definition lists
+dl {
+  padding-left: 1.5em;
+
+  // Add vertical space before definitions
+  > *:not(dt) + dt, dt:first-child {
+    margin-top: 1.5em;
+  }
+}
+
+.release-details {
+  padding-left: 2em;
+
+  > :not(p) {
+    font-size: 1.125em;
+  }
+
+  .release-inline-heading, .release-inline-value {
+    display: inline-block
+  }
+
+  .release-inline-value {
+    padding-left: 0.25em;
+  }
+
+  p {
+     margin-top: 1em;
+     margin-bottom: 1em;
+  }
+}
+
+.release-highlighted-date {
+  font-weight: bold;
+}
+
+
+.no-js .mermaid {
+  display: none;
+}
+
+div.alert > em.javascript-required {
+  display: inline-block;
+  min-height: 1.5em;
+  margin: calc(max(4em, ( 8vh + 4em ) / 2)) 0 0.25em 0;
+}
+
+// Consistent spacing for yaml code
+.language-yaml > span {
+  height: 1.6em;
+}
+
+.content__box
+{
+    margin: 0 0 20px;
+    padding: 20px;
+}
+.content__box_lined
+{
+    box-shadow: inset 0 0 0 1px #326de6;
+}
+.content__box_fill
+{
+    color: #fff;
+    background: #326de6;
+}
+
+// Adjust Bing search result page
+#bing-results-container {
+    padding: 1em;
+}
+#bing-pagination-container {
+    padding: 1em;
+    margin-bottom: 1em;
+
+    a.bing-page-anchor {
+        padding: 0.5em;
+        margin: 0.25em;
+    }
+}

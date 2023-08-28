@@ -1,0 +1,197 @@
+# i18n strings for the Vietnamese (main) site.
+
+[caution]
+other = "Chú ý:"
+
+[cleanup_heading]
+other = "Cleaning up"
+
+[community_events_calendar]
+other = "Lịch sự kiện"
+
+[community_forum_name]
+other = "Diễn đàn"
+
+[community_github_name]
+other = "GitHub"
+
+[community_slack_name]
+other = "Slack"
+
+[community_stack_overflow_name]
+other = "Stack Overflow"
+
+[community_twitter_name]
+other = "Twitter"
+
+[community_youtube_name]
+other = "YouTube"
+
+[deprecation_warning]
+other = " tài liệu này không còn được duy trì. Phiên bản đang xem hiện tại là một snapshot tĩnh. Để rõ hơn về tài liệu bản cập nhật, xem "
+
+[deprecation_file_warning]
+other = "Không dùng nữa"
+
+[docs_label_browse]
+other = "Duyệt tài liệu"
+
+[docs_label_contributors]
+other = "Người đóng góp"
+
+[docs_label_i_am]
+other = "TÔI LÀ..."
+
+[docs_label_users]
+other = "Users"
+
+[feedback_heading]
+other = "Phản hồi"
+
+[feedback_no]
+other = "Không"
+
+[feedback_question]
+other = "Trang này có hữu ích?"
+
+[feedback_yes]
+other = "Có"
+
+[input_placeholder_email_address]
+other = "địa chỉ email"
+
+[latest_version]
+other = "phiên bản mới nhất."
+
+[layouts_blog_pager_prev]
+other = "<< Trước"
+
+[layouts_blog_pager_next]
+other = "Sau >>"
+
+[layouts_case_studies_list_tell]
+other = "Kể câu chuyện của bạn"
+
+[layouts_docs_glossary_aka]
+other = "Cũng được biết đến như là"
+
+[layouts_docs_glossary_description]
+other = "Bảng chú giải này được kì vọng là một danh sách hoàn thiện, được chuẩn hóa về thuật ngữ Kubernetes. Nó bao gồm các thuật ngữ kỹ thuật dành riêng cho Kubernetes, cũng như các thuật ngữ chung hơn cung cấp ngữ cảnh hữu ích"
+
+[layouts_docs_glossary_deselect_all]
+other = "Bỏ chọn tất cả"
+
+[layouts_docs_glossary_click_details_after]
+other = "danh mục dưới đây để giải thích rõ hơn cho các thuật ngữ cụ thể"
+
+[layouts_docs_glossary_click_details_before]
+other = "Click vào"
+
+[layouts_docs_glossary_filter]
+other = "Lọc các thuật ngữ theo tags"
+
+[layouts_docs_glossary_select_all]
+other = "Chọn tất cả"
+
+[layouts_docs_partials_feedback_improvement]
+other = "đề xuất cải tiến"
+
+[layouts_docs_partials_feedback_issue]
+other = "Tạo một issue trên Github repo nến bạn muốn "
+
+[layouts_docs_partials_feedback_or]
+other = "hoặc"
+
+[layouts_docs_partials_feedback_problem]
+other = "báo cáo một vấn đề"
+
+[layouts_docs_partials_feedback_thanks]
+other = "Cảm ơn vì đã phản hồi. Nếu bạn có một câu hỏi cụ thể, có thể trả lời về cách sử dụng Kubernetes, hãy hỏi nó trên"
+
+[layouts_docs_search_fetching]
+other = "Đang lấy kết quả..."
+
+[main_by]
+other = "bởi"
+
+[main_cncf_project]
+other = """Chúng tôi là một dự án <a href="https://cncf.io/">CNCF</a></p>"""
+
+[main_community_explore]
+other = "Khám phá cộng đồng"
+
+[main_contribute]
+other = "Đóng góp"
+
+[main_copyright_notice]
+other = """The Linux Foundation &reg;. Đã đăng ký Bản quyền. The Linux Foundation đã đăng ký và sử dụng nhãn hiệu. Để biết danh sách các nhãn hiệu của The Linux Foundation, xem <a href="https://www.linuxfoundation.org/trademark-usage" class="light-text">Trademark Usage page</a>"""
+
+[main_documentation_license]
+other = """Các tác giả Kubernetes | Tài liệu được phân phối theo <a href="https://git.k8s.io/website/LICENSE" class="light-text">CC BY 4.0</a>"""
+
+[main_edit_this_page]
+other = "Sửa trang này"
+
+[main_github_create_an_issue]
+other = "Tạo một Issue"
+
+[main_github_invite]
+other = "Quan tâm đến việc hacking mã nguồn Kubernetes?"
+
+[main_github_view_on]
+other = "Xem trên GitHub"
+
+[main_kubernetes_features]
+other = "Các tính năng của Kubernetes"
+
+[main_kubeweekly_baseline]
+other = "Muốn nhận những tin tức Kubernetes mới nhất? Đăng kí KubeWeekly."
+
+[main_kubernetes_past_link]
+other = "Xem các bản tin trước đây"
+
+[main_kubeweekly_signup]
+other = "Đăng kí"
+
+[main_page_history]
+other ="Lịch sử trang"
+
+[main_page_last_modified_on]
+other = "Trang được sửa lần cuồi vào"
+
+[main_read_about]
+other = "Đọc về"
+
+[main_read_more]
+other = "Đọc thêm"
+
+[note]
+other = "Ghi chú:"
+
+[objectives_heading]
+other = "Mục tiêu"
+
+[prerequisites_heading]
+other = "Trước khi bắt đầu"
+
+[subscribe_button]
+other = "Đăng ký"
+
+[ui_search_placeholder]
+other = "Tìm kiếm"
+
+[version_check_mustbe]
+other = "Server Kubernetes của bạn phải ở phiên bản "
+
+[version_check_mustbeorlater]
+other = "Server Kubernetes của bạn ở phiên bản mới hơn hoặc tại phiên bản "
+
+[version_check_tocheck]
+other = "Để kiểm tra phiên bản, nhập "
+
+[warning]
+other = "Cảnh báo:"
+
+[whatsnext_heading]
+other = "Có gì tiếp theo"
+

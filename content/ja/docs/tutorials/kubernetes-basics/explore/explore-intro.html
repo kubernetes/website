@@ -1,0 +1,141 @@
+---
+title: Podとノードについて
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <h3>目標</h3>
+                <ul>
+                    <li>KubernetesのPodについて学ぶ</li>
+                    <li>Kubernetesのノードについて学ぶ</li>
+                    <li>デプロイされたアプリケーションのトラブルシューティング</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <h2>Kubernetes Pod</h2>
+                <p>モジュール<a href="/ja/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>でDeploymentを作成したときに、KubernetesはアプリケーションインスタンスをホストするためのPodを作成しました。Podは、1つ以上のアプリケーションコンテナ(Dockerなど)のグループとそれらのコンテナの共有リソースを表すKubernetesの抽象概念です。 Podには以下のものが含まれます:</p>
+                <ul>
+                    <li>共有ストレージ(ボリューム)</li>
+                    <li>ネットワーキング(クラスターに固有のIPアドレス)</li>
+                    <li>コンテナのイメージバージョンや使用するポートなどの、各コンテナをどう動かすかに関する情報</li>
+                </ul>
+                <p>Podは、アプリケーション固有の「論理ホスト」をモデル化し、比較的密接に結合されたさまざまなアプリケーションコンテナを含むことができます。 たとえば、Podには、Node.jsアプリケーションを含むコンテナと、Node.js Webサーバによって公開されるデータを供給する別のコンテナの両方を含めることができます。Pod内のコンテナはIPアドレスとポートスペースを共有し、常に同じ場所に配置され、同じスケジュールに入れられ、同じノード上の共有コンテキストで実行されます。</p>
+                <p>Podは、Kubernetesプラットフォームの原子単位です。 Kubernetes上にDeploymentを作成すると、そのDeploymentはその中にコンテナを持つPodを作成します(コンテナを直接作成するのではなく)。 各Podは、スケジュールされているノードに関連付けられており、終了(再起動ポリシーに従って)または削除されるまでそこに残ります。 ノードに障害が発生した場合、同じPodがクラスター内の他の使用可能なノードにスケジュールされます。</p>
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>まとめ:</h3>
+                    <ul>
+                        <li>Pod</li>
+                        <li>ノード</li>
+                        <li>kubectlの主要なコマンド</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                        <p><i>
+                            Podは1つ以上のアプリケーションコンテナ(Dockerなど)のグループであり、共有ストレージ(ボリューム)、IPアドレス、それらの実行方法に関する情報が含まれています。
+                        </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Podの概要</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_pods.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2>ノード</h2>
+                <p>Podは常に<b>ノード</b>上で動作します。ノードはKubernetesではワーカーマシンであり、クラスターによって仮想、物理マシンのどちらであってもかまいません。各ノードはマスターによって管理されます。ノードは複数のPodを持つことができ、Kubernetesマスターはクラスター内のノード間でPodのスケジュールを自動的に処理します。マスターの自動スケジューリングは各ノードで利用可能なリソースを考慮に入れます。</p>
+
+                <p>すべてのKubernetesノードでは少なくとも以下のものが動作します。</p>
+                <ul>
+                    <li>Kubelet: Kubernetesマスターとノード間の通信を担当するプロセス。マシン上で実行されているPodとコンテナを管理します。</li>
+                    <li>レジストリからコンテナイメージを取得し、コンテナを解凍し、アプリケーションを実行することを担当する、Dockerのようなコンテナランタイム。</li>
+                </ul>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i> コンテナ同士が密接に結合され、ディスクなどのリソースを共有する必要がある場合は、コンテナを1つのPodにまとめてスケジュールする必要があります。 </i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">ノードの概要</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_nodes.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2>kubectlを使ったトラブルシューティング</h2>
+                <p>モジュール<a href="/ja/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>では、kubectlのコマンドラインインターフェースを使用しました。モジュール3でもこれを使用して、デプロイされたアプリケーションとその環境に関する情報を入手します。最も一般的な操作は、次のkubectlコマンドで実行できます。</p>
+                <ul>
+                    <li><b>kubectl get</b> - リソースの一覧を表示</li>
+                    <li><b>kubectl describe</b> - 単一リソースに関する詳細情報を表示</li>
+                    <li><b>kubectl logs</b> - 単一Pod上の単一コンテナ内のログを表示</li>
+                    <li><b>kubectl exec</b> - 単一Pod上の単一コンテナ内でコマンドを実行</li>
+                </ul>
+
+                <p>これらのコマンドを使用して、アプリケーションがいつデプロイされたか、それらの現在の状況、実行中の場所、および構成を確認することができます。</p>
+
+                <p>クラスターのコンポーネントとコマンドラインの詳細についてわかったので、次にデプロイしたアプリケーションを探索してみましょう。</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i> ノードはKubernetesではワーカーマシンであり、クラスターに応じてVMまたは物理マシンになります。 複数のPodを1つのノードで実行できます。 </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/ja/docs/tutorials/kubernetes-basics/explore/explore-interactive/" role="button">対話型のチュートリアルを始める <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

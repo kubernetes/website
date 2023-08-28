@@ -1,0 +1,121 @@
+---
+title: アプリケーションの複数インスタンスを実行
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <h3>目標</h3>
+                <ul>
+                    <li>kubectlを使用してアプリケーションをスケールする</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+       <h3>アプリケーションのスケーリング</h3>
+
+            <p>前回のモジュールでは、<a href="/ja/docs/concepts/workloads/controllers/deployment/">Deployment</a>を作成し、それを<a href="/ja/docs/concepts/services-networking/service/">Service</a>経由で公開しました。該当のDeploymentでは、アプリケーションを実行するためのPodを1つだけ作成しました。トラフィックが増加した場合、ユーザーの需要に対応するためにアプリケーションをスケールする必要があります。</p>
+
+            <p><b>スケーリング</b>は、Deploymentのレプリカの数を変更することによって実現可能です。</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>まとめ</h3>
+                    <ul>
+                        <li>Deploymentのスケーリング</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>kubectl create deploymentコマンドの--replicasパラメーターを使用することで、最初から複数のインスタンスを含むDeploymentを作成できます。</i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">スケーリングの概要</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                    </ol>
+                      <div class="carousel-inner" role="listbox">
+                        <div class="item carousel-item active">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling1.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling2.svg">
+                        </div>
+                      </div>
+
+                      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="sr-only ">前</span>
+                      </a>
+                      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="sr-only">次</span>
+                      </a>
+
+                    </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>Deploymentをスケールアウトすると、新しいPodが作成され、使用可能なリソースを持つノードにスケジュールされます。スケールすると、Podの数が増えて新たな望ましい状態になります。KubernetesはPodの<a href="/docs/user-guide/horizontal-pod-autoscaling/">オートスケーリング</a>もサポートしていますが、このチュートリアルでは範囲外です。スケーリングを0に設定することも可能で、指定された配置のすべてのPodを終了させます。</p>
+
+                <p>アプリケーションの複数インスタンスを実行するには、それらすべてにトラフィックを分散する方法が必要になります。Serviceには、公開されたDeploymentのすべてのPodにネットワークトラフィックを分散する統合ロードバランサがあります。Serviceは、エンドポイントを使用して実行中のPodを継続的に監視し、トラフィックが使用可能なPodにのみ送信されるようにします。</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>スケーリングは、Deploymentのレプリカの数を変更することによって実現可能です。</i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p>アプリケーションの複数のインスタンスを実行すると、ダウンタイムなしでローリングアップデートを実行できます。それについては、次のモジュールで学習します。それでは、オンラインのターミナルを使って、アプリケーションをデプロイしてみましょう。</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/ja/docs/tutorials/kubernetes-basics/scale/scale-interactive/" role="button">対話型のチュートリアルを始める <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

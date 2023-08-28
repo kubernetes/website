@@ -1,0 +1,349 @@
+#caseStudyTitle {
+    margin-top: 1em !important;
+}
+
+.gridPage .launch-content {
+    position: relative;
+    margin: 20px auto 50px;
+}
+
+.launch-cards {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.launch-card {
+    position: relative;
+    width: 33%;
+    padding: 0 30px 0 0;
+    margin-bottom: 50px;
+    min-height: 152px;
+  
+}
+/* 
+ * Remove the height of the H2 element pseudo-class and set the appropriate spacing 
+ * to avoid mistakenly overriding the styles of other elements 
+ */
+.launch-card h2::before {
+    margin-top: 1rem ;
+    height: 0 ;
+}
+
+.gridPage p:not(.announcement-main > p) {
+    color: rgb(26,26,26);
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    font-weight: 300 !important;
+}
+
+.gridPage #mainContent {
+    padding: 0;
+}
+
+.gridPage #mainContent .content {
+    padding-top: 0;
+}
+
+.gridPage .main-section {
+    max-width: 1100px !important;
+}
+
+.gridPage .content {
+    position: relative;
+    margin: 0 auto 50px;
+    max-width: 90%;
+}
+
+.gridPage .content p {
+    line-height: 24px !important;
+}
+
+.gridPage .content h3 {
+    padding: 0 !important;
+}
+
+.gridPage #hero h5 {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.case-studies {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+
+.case-study {
+    position: relative;
+    width: 50%;
+    padding: 0 40px 0 242px;
+    margin-bottom: 60px;
+    min-height: 152px;
+}
+
+.case-study:nth-child(9), .case-study:nth-child(10) {
+    margin-bottom: 0px;
+}
+
+.case-study img {
+    position: absolute;
+    top: 0;
+    width:215px;
+    left: 0;
+}
+
+.gridPage #mainContent .content .case-study p {
+    font-size: 16px;
+    padding: 0;
+}
+
+p.attrib {
+    font-style: italic;
+}
+
+.gridPage #video {
+    background: #f9f9f9;
+    height: auto;
+    /*height: 340px;*/
+}
+
+.gridPage #video .main-section {
+    position: relative;
+    max-width: 900px !important;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+}
+
+.gridPage #video .main-section > div {
+    width: 50%;
+}
+
+.gridPage #video .main-section #zulilyLogo {
+    width: 100px;
+}
+
+.gridPage #video .main-section img {
+    max-width: 100%;
+}
+
+.gridPage #video h3 {
+    font-size: 32px;
+    font-weight: 300;
+    line-height: 38px;
+    max-width: 80%;
+    margin: 0 0 1em 0;
+}
+
+.gridPage #video p {
+    margin: 0;
+}
+
+.gridPage #video p.attrib {
+    margin-bottom: 20px;
+}
+
+.gridPage #video button > h6 {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 1em 0;
+    color: #326de6;
+}
+
+.gridPage #users {
+    padding: 50px;
+}
+
+.gridPage #users .main-section {
+    max-width: 1150px !important;
+}
+
+.gridPage #users .main-section h3 {
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+.gridPage #usersGrid {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.gridPage #usersGrid a {
+    display: inline-block;
+    margin: 5px;
+}
+
+.gridPage #usersGrid a img {
+    box-shadow: 1px 1px 2px transparent;
+    transition: box-shadow 0.25s;
+}
+
+.gridPage #usersGrid a img:hover {
+    box-shadow: 1px 1px 2px #cccccc;
+}
+
+.gridPage #usersGrid a:last-child img,
+.gridPage #usersGrid a:last-child img:hover {
+    box-shadow: 1px 1px 2px transparent;
+}
+
+.tell-your-story {
+    border: 1px solid #dddddd;
+    border-radius: 6px;
+    box-shadow: 1px 2px 2px #dddddd;
+}
+
+.gridPage .feature {
+    position: relative;
+    padding: 20px 0 20px 242px;
+}
+
+.gridPage .feature img {
+    position: absolute;
+    top: 20px;
+    left: 0;
+}
+
+section.bullets {
+    background-color: #eeeeee;
+    margin-bottom: 50px;
+}
+
+section.bullets .main-section {
+    position: relative;
+    max-width: 1100px;
+    padding: 50px 0;
+}
+
+section.bullets .content {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 0 !important;
+}
+
+.bullet {
+    position: relative;
+    width: 50%;
+    padding: 15px 30px;
+}
+
+.bullet h4 {
+    margin-bottom: 0.5em;
+}
+
+.bullet li {
+    margin-left: 1.25em;
+    list-style: disc;
+    font-weight: 300;
+    color: rgb(26,26,26);
+    line-height: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.details h4, p {
+    margin-bottom: 0.5em;
+}
+
+.gridPage .feature p.quote {
+    font-size: 20px;
+    line-height: 28px !important;
+}
+
+@media screen and (max-width: 1024px){
+    .case-study {
+        padding: 0 10%;
+        margin-bottom: 50px;
+    }
+
+    .case-study img {
+        position: relative;
+    }
+
+    .case-study p.quote {
+        margin-top: 20px !important;
+    }
+
+    .case-study p.attrib {
+        font-style: italic;
+    }
+}
+
+@media screen and (max-width: 900px){
+    .gridPage #video .main-section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .gridPage #video .main-section > div {
+        width: 400px;
+    }
+
+    .gridPage #video .main-section > div + div {
+        margin-top: 30px;
+    }
+
+    .gridPage #video h3 {
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width: 768px){
+  .launch-card {
+    width: 100%;
+    margin-bottom: 30px;
+    padding: 0;
+    min-height: auto;
+  }
+}
+
+@media screen and (max-width: 640px){
+    .case-study {
+        width: 100%;
+    }
+
+    .case-study:nth-child(3) {
+        margin-bottom: 60px;
+    }
+
+    .case-study img {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .gridPage .feature {
+        margin-top: 50px;
+        padding: 180px 0 0;
+    }
+
+    .gridPage .feature img {
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+@media screen and (max-width: 480px){
+    .gridPage #hero {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .gridPage #video .main-section > div {
+        width: 80%;
+        min-width: 280px;
+    }
+
+    .bullet {
+        width: 100%;
+    }
+}

@@ -1,0 +1,40 @@
+{{- $id := .Get "term_id" -}}
+{{- $length := .Get "length" -}}
+{{- $prepend := .Get "prepend" -}}
+{{- $glossaryBundle := site.GetPage "page" "docs/reference/glossary" -}}
+{{- $glossaryItems :=  $glossaryBundle.Resources.ByType "page" -}}
+{{- $term_info := $glossaryItems.GetMatch (printf "%s.md" $id ) -}}
+{{- $showFullDefinition := false -}}
+{{- if not $term_info -}}
+  {{- errorf "[%s] %q: %q is not a valid glossary term_id, see ./docs/reference/glossary/* for a full list" site.Language.Lang .Page.Path $id -}}
+{{- end -}}
+{{- if or (eq "long" $length) (eq "all" $length) -}}
+  {{- $showFullDefinition = true -}}
+{{- else if (eq "short" $length) -}}
+  {{- $showFullDefinition = false -}}
+{{- else -}}
+  {{- errorf "[%s] %q: invalid glossary definition length %q" site.Language.Lang .Page.Path $length -}}
+{{- end -}}
+{{- with $term_info.Content -}}
+  {{- if not $showFullDefinition -}}
+    {{- $firstPara := index (findRE "(?s)<p>.*?</p>" . 1) 0 -}}
+    {{- $firstPara := $firstPara | strings.TrimSuffix "</p>" | strings.TrimPrefix "<p>" -}}
+    {{- $first := slicestr $firstPara 0 1 | lower -}}
+    {{- if $prepend -}}
+      {{- $prepended := printf "<p>%s %s%s</p>"  $prepend $first (slicestr $firstPara 1) -}}
+      {{- $prepended | safeHTML -}}
+    {{- else -}}
+      {{- $firstPara | safeHTML -}}
+    {{- end -}}
+  {{- else -}}
+    {{- if $prepend -}}
+      {{- $firstPara := index (findRE "(?s)<p>.*?</p>" . 1) 0 -}}
+      {{- $firstPara := $firstPara | strings.TrimSuffix "</p>" | strings.TrimPrefix "<p>" -}}
+      {{- $first := slicestr $firstPara 0 1 | lower -}}
+      {{- $prepended := printf "<p>%s %s%s</p>"  $prepend $first (slicestr $firstPara 1) -}}
+      {{- replace . $firstPara $prepended | safeHTML -}}
+    {{- else -}}
+      {{- . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}

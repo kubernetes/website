@@ -1,0 +1,28 @@
+section,
+#vendorStrip {
+  padding-left: $full-width-paddingX;
+  padding-right: $full-width-paddingX;
+}
+
+#hamburger {
+  width: $hamburger-size;
+  height: $hamburger-size;
+}
+
+.header-hero {
+  padding-top: $hero-padding-top;
+}
+
+#vendorStrip {
+  height: $vendor-strip-height;
+  line-height: $vendor-strip-height;
+  font-size: $vendor-strip-font-size;
+}
+
+#announcement {
+  min-height: $hero-padding-top;
+
+  .announcement-main {
+    padding-top: calc(max(8em, 8rem, #{$hero-padding-top} / 3));
+  }
+}

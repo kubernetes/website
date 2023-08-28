@@ -1,0 +1,109 @@
+---
+title: Serviceを使ったアプリケーションの公開
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+	<main class="content">
+
+		<div class="row">
+			<div class="col-md-8">
+    		<h3>目標</h3>
+				<ul>
+					<li>KubernetesにおけるServiceについて理解する</li>
+					<li>ラベルとLabelSelectorオブジェクトがServiceにどう関係しているかを理解する</li>
+					<li>Serviceを使って、Kubernetesクラスターの外にアプリケーションを公開する</li>
+				</ul>
+			</div>
+
+			<div class="col-md-8">
+			<h3>Kubernetes Serviceの概要</h3>
+
+			<p>Kubernetes Podの寿命は永続的ではありません。実際、<a href="/ja/docs/concepts/workloads/pods/">Pod</a>には<a href="/ja/docs/concepts/workloads/pods/pod-lifecycle/">ライフサイクル</a>があります。ワーカーのノードが停止すると、そのノードで実行されているPodも失われます。そうなると、<a href="/ja/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a>は、新しいPodを作成してアプリケーションを実行し続けるために、クラスターを動的に目的の状態に戻すことができます。別の例として、3つのレプリカを持つ画像処理バックエンドを考えます。それらのレプリカは交換可能です。フロントエンドシステムはバックエンドのレプリカを気にしたり、Podが失われて再作成されたとしても配慮すべきではありません。ただし、Kubernetesクラスター内の各Podは、同じノード上のPodであっても一意のIPアドレスを持っているため、アプリケーションが機能し続けるように、Pod間の変更を自動的に調整する方法が必要です。</p>
+
+			<p>KubernetesのServiceは、Podの論理セットと、それらにアクセスするためのポリシーを定義する抽象概念です。Serviceによって、依存Pod間の疎結合が可能になります。Serviceは、すべてのKubernetesオブジェクトのように、YAML<a href="/ja/docs/concepts/configuration/overview/#general-configuration-tips">(推奨)</a>またはJSONを使って定義されます。Serviceが対象とするPodのセットは通常、<i>LabelSelector</i>によって決定されます(なぜ仕様に<code>セレクタ</code>を含めずにServiceが必要になるのかについては下記を参照してください)。</p>
+
+			<p>各Podには固有のIPアドレスがありますが、それらのIPは、Serviceなしではクラスターの外部に公開されません。Serviceによって、アプリケーションはトラフィックを受信できるようになります。ServiceSpecで<code>type</code>を指定することで、Serviceをさまざまな方法で公開することができます。</p>
+			<ul>
+				<li><i>ClusterIP</i> (既定値) - クラスター内の内部IPでServiceを公開します。この型では、Serviceはクラスター内からのみ到達可能になります。</li>
+				<li><i>NodePort</i> - NATを使用して、クラスター内の選択された各ノードの同じポートにServiceを公開します。<code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code>を使用してクラスターの外部からServiceにアクセスできるようにします。これはClusterIPのスーパーセットです。</li>
+				<li><i>LoadBalancer</i> - 現在のクラウドに外部ロードバランサを作成し(サポートされている場合)、Serviceに固定の外部IPを割り当てます。これはNodePortのスーパーセットです。</li>
+				<li><i>ExternalName</i> - 仕様の<code>externalName</code>で指定した名前のCNAMEレコードを返すことによって、任意の名前を使ってServiceを公開します。プロキシは使用されません。このタイプはv1.7以上の<code>kube-dns</code>を必要とします。</li>
+			</ul>
+			<p>さまざまな種類のServiceに関する詳細情報は<a href="/docs/tutorials/services/source-ip/">Using Source IP</a> tutorialにあります。<a href="/docs/concepts/services-networking/connect-applications-service">アプリケーションとServiceの接続</a>も参照してください。</p>
+			<p>加えて、Serviceには、仕様に<code>selector</code>を定義しないというユースケースがいくつかあります。<code>selector</code>を指定せずに作成したServiceについて、対応するEndpointsオブジェクトは作成されません。これによって、ユーザーは手動でServiceを特定のエンドポイントにマッピングできます。セレクタがない可能性があるもう1つの可能性は、<code>type：ExternalName</code>を厳密に使用していることです。</p>
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_lined">
+					<h3>まとめ</h3>
+					<ul>
+						<li>Podを外部トラフィックに公開する</li>
+						<li>複数のPod間でトラフィックを負荷分散する</li>
+						<li>ラベルを使う</li>
+					</ul>
+				</div>
+				<div class="content__box content__box_fill">
+						<p><i>Kubernetes Serviceは、Podの論理セットを定義し、それらのPodに対する外部トラフィックの公開、負荷分散、およびサービス検出を可能にする抽象化層です。</i></p>
+				</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<h3>Serviceとラベル</h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_services.svg" width="150%" height="150%"></p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p>Serviceは、一連のPodにトラフィックをルーティングします。Serviceは、アプリケーションに影響を与えることなく、KubernetesでPodが死んだり複製したりすることを可能にする抽象概念です。(アプリケーションのフロントエンドおよびバックエンドコンポーネントなどの)依存Pod間の検出とルーティングは、Kubernetes Serviceによって処理されます。</p>
+				<p>Serviceは、ラベルとセレクタを使用して一連のPodを照合します。これは、Kubernetes内のオブジェクトに対する論理操作を可能にするグループ化のプリミティブです。ラベルはオブジェクトに付けられたkey/valueのペアであり、さまざまな方法で使用できます。</p>
+				<ul>
+					<li>開発、テスト、および本番用のオブジェクトを指定する</li>
+					<li>バージョンタグを埋め込む</li>
+					<li>タグを使用してオブジェクトを分類する</li>
+				</ul>
+			</div>
+
+		</div>
+
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_labels.svg"></p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-8">
+				<p>ラベルは、作成時またはそれ以降にオブジェクトにアタッチでき、いつでも変更可能です。Serviceを使用してアプリケーションを公開し、いくつかのラベルを適用してみましょう。</p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-12">
+				<a class="btn btn-lg btn-success" href="/ja/docs/tutorials/kubernetes-basics/expose/expose-interactive/" role="button">対話型のチュートリアルを始める<span class="btn__next">›</span></a>
+			</div>
+		</div>
+	</main>
+</div>
+
+</body>
+</html>

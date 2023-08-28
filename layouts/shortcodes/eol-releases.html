@@ -1,0 +1,30 @@
+<div>
+    <table class="release-eol-versions table table-striped col-md-8">
+        <thead class="thead">
+            <tr>
+                <th class="col-md-2">{{ T "release_minor_version" }}</th>
+                <th class="col-md-2">{{ T "final_patch_release" }}</th>
+                <th class="col-md-2">{{ T "release_end_of_life_date" }}</th>
+                <th class="col-md-4">{{ T "release_note" }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ range $eolRelease := .Site.Data.releases.eol.branches }}
+            <tr>
+                <td>
+                    {{ $eolRelease.release }}
+                </td>
+                <td>
+                    {{ $eolRelease.finalPatchRelease }}
+                </td>
+                <td>
+                    {{ $eolRelease.endOfLifeDate }}
+                </td>
+                <td lang="en-US">
+                    {{ $eolRelease.note | markdownify }}
+                </td>
+            </tr>
+            {{ end }}
+        </tbody>
+    </table>
+</div>

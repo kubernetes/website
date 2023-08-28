@@ -1,0 +1,169 @@
+---
+#title: Using a Service to Expose Your App
+title: Використання Cервісу для відкриття доступу до застосунку за межами кластера
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+	<main class="content">
+
+		<div class="row">
+			<div class="col-md-8">
+            <!--<h3>Objectives</h3>
+            -->
+            <h3>Цілі</h3>
+				<ul>
+                    <!--<li>Learn about a Service in Kubernetes</li>
+                    -->
+                    <li>Дізнатись, що таке Cервіс у Kubernetes</li>
+                    <!--<li>Understand how labels and LabelSelector objects relate to a Service</li>
+                    -->
+                    <li>Зрозуміти, яке відношення до Cервісу мають мітки та LabelSelector</li>
+                    <!--<li>Expose an application outside a Kubernetes cluster using a Service</li>
+                    -->
+                    <li>Відкрити доступ до застосунку за межами Kubernetes кластера, використовуючи Cервіс</li>
+				</ul>
+			</div>
+
+			<div class="col-md-8">
+            <!--<h3>Overview of Kubernetes Services</h3>
+            -->
+            <h3>Загальна інформація про Kubernetes Cервіси</h3>
+
+            <!--<p>Kubernetes <a href="/docs/concepts/workloads/pods/pod-overview/">Pods</a> are mortal. Pods in fact have a <a href="/docs/concepts/workloads/pods/pod-lifecycle/">lifecycle</a>. When a worker node dies, the Pods running on the Node are also lost. A <a href="/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a> might then dynamically drive the cluster back to desired state via creation of new Pods to keep your application running. As another example, consider an image-processing backend with 3 replicas. Those replicas are exchangeable; the front-end system should not care about backend replicas or even if a Pod is lost and recreated. That said, each Pod in a Kubernetes cluster has a unique IP address, even Pods on the same Node, so there needs to be a way of automatically reconciling changes among Pods so that your applications continue to function.</p>
+            -->
+            <p><a href="/docs/concepts/workloads/pods/pod-overview/">Pod'и</a> Kubernetes "смертні" і мають власний <a href="/docs/concepts/workloads/pods/pod-lifecycle/">життєвий цикл</a>. Коли робочий вузол припиняє роботу, ми також втрачаємо всі Pod'и, запущені на ньому. <a href="/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a> здатна динамічно повернути кластер до бажаного стану шляхом створення нових Pod'ів, забезпечуючи безперебійність роботи вашого застосунку. Як інший приклад, візьмемо бекенд застосунку для обробки зображень із трьома репліками. Ці репліки взаємозамінні; система фронтенду не повинна зважати на репліки бекенду чи на втрату та перестворення Pod'а. Водночас, кожний Pod у Kubernetes кластері має унікальну IP-адресу, навіть Pod'и на одному вузлі. Відповідно, має бути спосіб автоматично синхронізувати зміни між Pod'ами для того, щоб ваші застосунки продовжували працювати.</p>
+
+            <!--<p>A Service in Kubernetes is an abstraction which defines a logical set of Pods and a policy by which to access them. Services enable a loose coupling between dependent Pods. A Service is defined using YAML <a href="/docs/concepts/configuration/overview/#general-configuration-tips">(preferred)</a> or JSON, like all Kubernetes objects. The set of Pods targeted by a Service is usually determined by a <i>LabelSelector</i> (see below for why you might want a Service without including <code>selector</code> in the spec).</p>
+            -->
+            <p>Service у Kubernetes - це абстракція, що визначає логічний набір Pod'ів і політику доступу до них. Services уможливлюють слабку зв'язаність між залежними Pod'ами. Для визначення Service використовують YAML-файл <a href="/docs/concepts/configuration/overview/#general-configuration-tips">(рекомендовано)</a> або JSON, як для решти об'єктів Kubernetes. Набір Pod'ів, призначених для Service, зазвичай визначається через <i>LabelSelector</i> (нижче пояснюється, чому параметр <code>selector</code> іноді не включають у специфікацію Service).</p>
+
+            <!--<p>Although each Pod has a unique IP address, those IPs are not exposed outside the cluster without a Service. Services allow your applications to receive traffic. Services can be exposed in different ways by specifying a <code>type</code> in the ServiceSpec:</p>
+            -->
+            <p>Попри те, що кожен Pod має унікальний IP, ці IP-адреси не видні за межами кластера без Service. Services уможливлюють надходження трафіка до ваших застосунків. Відкрити Service можна по-різному, вказавши потрібний <code>type</code> у ServiceSpec:</p>
+			<ul>
+                <!--<li><i>ClusterIP</i> (default) - Exposes the Service on an internal IP in the cluster. This type makes the Service only reachable from within the cluster.</li>
+                -->
+                <li><i>ClusterIP</i> (типове налаштування) - відкриває доступ до Service у кластері за внутрішнім IP. Цей тип робить Service доступним лише у межах кластера.</li>
+                <!--<li><i>NodePort</i> - Exposes the Service on the same port of each selected Node in the cluster using NAT. Makes a Service accessible from outside the cluster using <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code>. Superset of ClusterIP.</li>
+                -->
+                <li><i>NodePort</i> - відкриває доступ до Service на однаковому порту кожного обраного вузла в кластері, використовуючи NAT. Робить Service доступним поза межами кластера, використовуючи <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code>. Є надмножиною відносно ClusterIP.</li>
+                <!--<li><i>LoadBalancer</i> - Creates an external load balancer in the current cloud (if supported) and assigns a fixed, external IP to the Service. Superset of NodePort.</li>
+                -->
+                <li><i>LoadBalancer</i> - створює зовнішній балансувальник навантаження у хмарі (за умови хмарної інфраструктури) і призначає Service статичну зовнішню IP-адресу. Є надмножиною відносно NodePort.</li>
+                <!--<li><i>ExternalName</i> - Exposes the Service using an arbitrary name (specified by <code>externalName</code> in the spec) by returning a CNAME record with the name. No proxy is used. This type requires v1.7 or higher of <code>kube-dns</code>.</li>
+                -->
+                <li><i>ExternalName</i> - відкриває доступ до Service, використовуючи довільне ім'я (визначається параметром <code>externalName</code> у специфікації), повертає запис CNAME. Проксі не використовується. Цей тип потребує версії <code>kube-dns</code> 1.7 і вище.</li>
+			</ul>
+            <!--<p>More information about the different types of Services can be found in the <a href="/docs/tutorials/services/source-ip/">Using Source IP</a> tutorial. Also see <a href="/docs/concepts/services-networking/connect-applications-service">Connecting Applications with Services</a>.</p>
+            -->
+            <p>Більше інформації про різні типи Services ви знайдете у навчальному матеріалі <a href="/docs/tutorials/services/source-ip/">Використання вихідної IP-адреси</a>. Дивіться також <a href="/docs/concepts/services-networking/connect-applications-service">Поєднання застосунків з Services</a>.</p>
+            <!--<p>Additionally, note that there are some use cases with Services that involve not defining <code>selector</code> in the spec. A Service created without <code>selector</code> will also not create the corresponding Endpoints object. This allows users to manually map a Service to specific endpoints. Another possibility why there may be no selector is you are strictly using <code>type: ExternalName</code>.</p>
+            -->
+            <p>Також зауважте, що для деяких сценаріїв використання Services параметр <code>selector</code> не задається у специфікації Service. Service, створений без визначення параметра <code>selector</code>, також не створюватиме відповідного Endpoint об'єкта. Це дозволяє користувачам вручну спроектувати Service на конкретні кінцеві точки (endpoints). Інший випадок, коли Селектор може бути не потрібний - використання строго заданого параметра <code>type: ExternalName</code>.</p>
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_lined">
+                    <!--<h3>Summary</h3>
+                    -->
+                    <h3>Зміст</h3>
+					<ul>
+                        <!--<li>Exposing Pods to external traffic</li>
+                        -->
+                        <li>Відкриття Pod'ів для зовнішнього трафіка</li>
+                        <!--<li>Load balancing traffic across multiple Pods</li>
+                        -->
+                        <li>Балансування навантаження трафіка між Pod'ами</li>
+                        <!--<li>Using labels</li>
+                        -->
+                        <li>Використання міток</li>
+					</ul>
+				</div>
+				<div class="content__box content__box_fill">
+                        <!--<p><i>A Kubernetes Service is an abstraction layer which defines a logical set of Pods and enables external traffic exposure, load balancing and service discovery for those Pods.</i></p>
+                        -->
+                        <p><i>Service Kubernetes - це шар абстракції, який визначає логічний набір Pod'ів і відкриває їх для зовнішнього трафіка, балансує навантаження і здійснює виявлення цих Pod'ів.</i></p>
+				</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+                <!--<h3>Services and Labels</h3>
+                -->
+                <h3>Services і мітки</h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_services.svg" width="150%" height="150%"></p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+                <!--<p>A Service routes traffic across a set of Pods. Services are the abstraction that allows pods to die and replicate in Kubernetes without impacting your application. Discovery and routing among dependent Pods (such as the frontend and backend components in an application) is handled by Kubernetes Services.</p>
+                -->
+                <p>Service маршрутизує трафік між Pod'ами, що входять до його складу. Service - це абстракція, завдяки якій Pod'и в Kubernetes "вмирають" і відтворюються, не впливаючи на роботу вашого застосунку. Services в Kubernetes здійснюють виявлення і маршрутизацію між залежними Pod'ами (як наприклад, фронтенд- і бекенд-компоненти  застосунку).</p>
+                <!--<p>Services match a set of Pods using <a href="/docs/concepts/overview/working-with-objects/labels">labels and selectors</a>, a grouping primitive that allows logical operation on objects in Kubernetes. Labels are key/value pairs attached to objects and can be used in any number of ways:</p>
+                -->
+                <p>Services співвідносяться з набором Pod'ів за допомогою <a href="/docs/concepts/overview/working-with-objects/labels">міток і Селекторів</a> -- примітивів групування, що роблять можливими логічні операції з об'єктами у Kubernetes. Мітки являють собою пари ключ/значення, що прикріплені до об'єктів і можуть використовуватися для різних цілей:</p>
+				<ul>
+                    <!--<li>Designate objects for development, test, and production</li>
+                    -->
+                    <li>Позначення об'єктів для дев, тест і прод оточень</li>
+                    <!--<li>Embed version tags</li>
+                    -->
+                    <li>Прикріплення тегу версії</li>
+                    <!--<li>Classify an object using tags</li>
+                    -->
+                    <li>Класифікування об'єктів за допомогою тегів</li>
+				</ul>
+
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_fill">
+                    <!--<p><i>You can create a Service at the same time you create a Deployment by using<br><code>--expose</code> in kubectl.</i></p>
+                    -->
+                    <p><i>Ви можете створити Service одночасно із Deployment, виконавши команду <br><code>--expose</code> в kubectl.</i></p>
+				</div>
+			</div>
+		</div>
+
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_labels.svg"></p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-8">
+                <!--<p>Labels can be attached to objects at creation time or later on. They can be modified at any time. Let's expose our application now using a Service and apply some labels.</p>
+                -->
+                <p>Мітки можна прикріпити до об'єктів під час створення або пізніше. Їх можна змінити у будь-який час. А зараз давайте відкриємо наш застосунок за допомогою Service і прикріпимо мітки.</p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-12">
+				<a class="btn btn-lg btn-success" href="/uk/docs/tutorials/kubernetes-basics/expose/expose-interactive/" role="button">Почати інтерактивний урок<span class="btn__next">›</span></a>
+			</div>
+		</div>
+	</main>
+</div>
+
+</body>
+</html>

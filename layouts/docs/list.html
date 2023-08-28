@@ -1,0 +1,43 @@
+{{ define "main" }}
+{{- $child_of_first_section := false -}}
+{{- with .Parent -}}
+{{- if eq .CurrentSection .FirstSection -}}
+{{- $child_of_first_section = true -}}
+{{- end -}}
+{{- end -}}
+    <div class="td-content">
+        {{ $hasContent := false }}
+        {{ with .File }}
+            {{ if ne .Filename "" }}
+                {{ $hasContent =  (ge (len $.RawContent) 100) }}
+            {{ end }}
+        {{ end }}
+        {{ if $hasContent }}
+            {{- if $child_of_first_section -}}
+            {{ partial "docs/top-section-page" (dict "ctx" $ "page" $ ) }}
+            {{- else -}}
+            {{ partial "docs/content-page" (dict "ctx" $ "page" $ ) }}
+            {{- end -}}
+        {{ else }}
+            <h1>{{ .Title }}</h1>
+            {{ with .Params.description }}<div class="lead">{{ . | markdownify }}</div>{{ end }}
+        {{ end }}
+        {{ partial "section-index.html" . }}
+    </div>
+{{ end }}
+{{ define "hero" }}
+{{- $child_of_first_section := false -}}
+{{- with .Parent -}}
+{{- if eq .CurrentSection .FirstSection -}}
+{{- $child_of_first_section = true -}}
+{{- end -}}
+{{- end -}}
+{{- if $child_of_first_section -}}
+        <section class="header-hero text-white pb-4 light-text ">
+           <h1>{{ .Title }}</h1>
+        </section>
+{{- else -}}
+        <section class="header-hero filler">
+        </section>
+{{- end -}}
+{{ end }}

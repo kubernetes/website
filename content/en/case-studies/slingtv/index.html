@@ -1,0 +1,79 @@
+---
+title: SlingTV Case Study
+linkTitle: Sling TV
+case_study_styles: true
+cid: caseStudies
+featured: true
+weight: 49
+quote: >
+  I would almost be so bold as to say that most of these applications that we are building now would not have been possible without the cloud native patterns and the flexibility that Kubernetes enables.
+
+new_case_study_styles: true
+heading_background: /images/case-studies/slingtv/banner1.jpg
+heading_title_logo: /images/slingtv_logo.png
+subheading: >
+  Sling TV: Marrying Kubernetes and AI to Enable Proper Web Scale
+case_study_details:
+  - Company: Sling TV
+  - Location: Englewood, Colorado
+  - Industry: Streaming television
+---
+
+<h2>Challenge</h2>
+
+<p>Launched by DISH Network in 2015, Sling TV experienced great customer growth from the beginning. After just a year, "we were going through some growing pains of some of the legacy systems and trying to find the right architecture to enable our future," says Brad Linder, Sling TV's Cloud Native & Big Data Evangelist. The company has particular challenges: "We take live TV and distribute it over the internet out to a user's device that we do not control," says Linder. "In a lot of ways, we are working in the Wild West: The internet is what it is going to be, and if a customer's service does not work for whatever reason, they do not care why. They just want things to work. Those are the variables of the equation that we have to try to solve. We really have to try to enable optionality and good customer experience at web scale."</p>
+
+<h2>Solution</h2>
+
+<p>Led by the belief that "the cloud native architectures and patterns really give us a lot of flexibility in meeting the needs of that sort of customer base," Linder partnered with <a href="http://rancher.com">Rancher Labs</a> to build Sling TV's next-generation platform around Kubernetes. "We are going to need to enable a hybrid cloud strategy including multiple public clouds and an on-premise VMWare multi data center environment to meet the needs of the business at some point, so getting that sort of abstraction was a real goal," he says. "That is one of the biggest reasons why we picked Kubernetes." The team launched its first applications on Kubernetes in Sling TV's two internal data centers. The push to enable AWS as a data center option is underway and should be available by the end of 2018. The team has added <a href="https://prometheus.io/">Prometheus</a> for monitoring and <a href="https://github.com/jaegertracing/jaeger">Jaeger</a> for tracing, to work alongside the company's existing tool sets: Zenoss, New Relic and ELK.</p>
+
+<h2>Impact</h2>
+
+<p>"We are getting to the place where we can one-click deploy an entire data center – the compute, network, Kubernetes, logging, monitoring and all the apps," says Linder. "We have really enabled a platform thinking based approach to allowing applications to consume common tools.  A new application can be onboarded in about an hour using common tooling and CI/CD processes. The gains on that side have been huge. Before, it took at least a few days to get things sorted for a new application to deploy.  That does not consider the training of our operations staff to manage this new application.  It is two or three orders of magnitude of savings in time and cost, and operationally it has given us the opportunity to let a core team of talented operations engineers manage common infrastructure and tooling to make our applications available at web scale."</p>
+
+{{< case-studies/quote author="Brad Linder, Cloud Native & Big Data Evangelist for Sling TV" >}}
+"I would almost be so bold as to say that most of these applications that we are building now would not have been possible without the cloud native patterns and the flexibility that Kubernetes enables."
+{{< /case-studies/quote >}}
+
+{{< case-studies/lead >}}
+The beauty of streaming television, like the service offered by <a href="https://www.sling.com/">Sling TV</a>, is that you can watch it from any device you want, wherever you want.
+{{< /case-studies/lead >}}
+
+
+<p>Of course, from the provider side of things, that creates a particular set of challenges "We take live TV and distribute it over the internet out to a user's device that we do not control," says Brad Linder, Sling TV's Cloud Native & Big Data Evangelist. "In a lot of ways, we are working in the Wild West: The internet is what it is going to be, and if a customer's service does not work for whatever reason, they do not care why. They just want things to work. Those are the variables of the equation that we have to try to solve. We really have to try to enable optionality and we have to do it at web scale."</p>
+
+<p>Indeed, Sling TV experienced great customer growth from the beginning of its launch by <a href="https://www.dish.com/">DISH Network</a> in 2015. After just a year, "we were going through some growing pains of some of the legacy systems and trying to find the right architecture to enable our future," says Linder. Tasked with building a next-generation web scale platform for the "personalized customer experience," Linder has spent the past year bringing Kubernetes to Sling TV.</p>
+
+<p>Led by the belief that "the cloud native architectures and patterns really give us a lot of flexibility in meeting the needs of our customers," Linder partnered with <a href="http://rancher.com">Rancher Labs</a> to build the platform around Kubernetes. "They have really helped us get our head around how to use Kubernetes," he says. "We needed the flexibility to enable our use case versus just a simple orchestrater.  Enabling our future in a way that did not give us vendor lock-in was also a key part of our strategy. I think that is part of the Rancher value proposition."</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/slingtv/banner3.jpg"
+  author="Brad Linder, Cloud Native & Big Data Evangelist for Sling TV"
+>}}
+"We needed the flexibility to enable our use case versus just a simple orchestrater. Enabling our future in a way that did not give us vendor lock-in was also a key part of our strategy. I think that is part of the Rancher value proposition."
+{{< /case-studies/quote >}}
+
+<p>One big reason he chose Kubernetes was getting a level of abstraction that would enable the company to "enable a hybrid cloud strategy including multiple public clouds and an on-premise VMWare multi data center environment to meet the needs of the business," he says. Another factor was how much the Kubernetes ecosystem has matured over the past couple of years. "We have spent a lot of time and energy around making logging, monitoring and alerting production ready to give us insights into applications' well-being," says Linder. The team has added <a href="https://prometheus.io/">Prometheus</a> for monitoring and <a href="https://github.com/jaegertracing/jaeger">Jaeger</a> for tracing, to work alongside the company's existing tool sets: Zenoss, New Relic and ELK.</p>
+
+<p>With the emphasis on common tooling, "We are getting to the place where we can one-click deploy an entire data center – the compute, network, Kubernetes, logging, monitoring and all the apps," says Linder. "We have really enabled a platform thinking based approach to allowing applications to consume common tools and services.  A new application can be onboarded in about an hour using common tooling and CI/CD processes. The gains on that side have been huge. Before, it took at least a few days to get things sorted for a new application to deploy.  That does not consider the training of our operations staff to manage this new application.  It is two or three orders of magnitude of savings in time and cost, and operationally it has given us the opportunity to let a core team of talented operations engineers manage common infrastructure and tooling to make our applications available at web scale."</p>
+
+{{< case-studies/quote
+  image="/images/case-studies/slingtv/banner4.jpg"
+  author="Brad Linder, Cloud Native & Big Data Evangelist for Sling TV"
+>}}
+"We have to be able to react to changes and hiccups in the matrix. It is the foundation for our ability to deliver a high-quality service for our customers."
+{{< /case-studies/quote >}}
+
+<p>The team launched its first applications on Kubernetes in Sling TV's two internal data centers in the early part of Q1 2018 and began to enable AWS as a data center option. The company plans to expand into other public clouds in the future.</p>
+
+<p>The first application that went into production is a web socket-based back-end notification service. "It allows back-end changes to trigger messages to our clients in the field without the polling," says Linder. "We are talking about very high volumes of messages with this application. Without something like Kubernetes to be able to scale up and down, as well as just support that overall workload, that is pretty hard to do. I would almost be so bold as to say that most of these applications that we are building now would not have been possible without the cloud native patterns and the flexibility that Kubernetes enables."</p>
+
+<p>Linder oversees three teams working together on building the next-generation platform: a platform engineering team; an enterprise middleware services team; and a big data and analytics team. "We have really tried to bring everything together to be able to have a client application interact with a cloud native middleware layer.  That middleware layer must run on a platform, consume platform services and then have logs and events monitored by an artificial agent to keep things running smoothly," says Linder.</p>
+
+{{< case-studies/quote author="BRAD LINDER, CLOUD NATIVE & BIG DATA EVANGELIST FOR SLING TV">}}
+This undertaking is about "trying to marry Kubernetes with AI to enable web scale that just works".
+{{< /case-studies/quote >}}
+
+<p>Ultimately, this undertaking is about "trying to marry Kubernetes with AI to enable web scale that just works," he adds. "We want the artificial agents and the big data platform using the actual logs and events coming out of the applications, Kubernetes, the infrastructure, backing services and changes to the environment to make decisions like, 'Hey we need more capacity for this service so please add more nodes.' From a platform perspective, if you are truly doing web scale stuff and you are not using AI and big data, in my opinion, you are going to implode under your own weight. It is not a question of if, it is when. If you are in a 'millions of users' sort of environment, that implosion is going to be catastrophic.  We are on our way to this goal and have learned a lot along the way."</p>
+
+<p>For Sling TV, moving to cloud native has been exactly what they needed. "We have to be able to react to changes and hiccups in the matrix," says Linder. "It is the foundation for our ability to deliver a high-quality service for our customers. Building intelligent platforms, tools and clients in the field consuming those services has got to be part of all of this. In my eyes that is a big part of what cloud native is all about. It is taking these distributed, potentially unreliable entities and enabling a robust customer experience they expect."</p>

@@ -1,0 +1,28 @@
+{{ if .HasShortcode "kat-button" }}
+<div id="katacoda-environment" data-katacoda-ondemand="true" data-katacoda-port="30000" data-katacoda-env="minikube:1.20" data-katacoda-command="start.sh" data-katacoda-ui="panel"></div>
+{{ end }}
+{{ with .Site.Params.algolia_docsearch }}
+<!-- scripts for algolia docsearch -->
+{{ end }}
+{{/* copy-and-paste helper for codenew shortcode */}}
+{{- if or (.HasShortcode "code") (.HasShortcode "codenew") -}}
+<script async src="{{ "js/sweetalert-2.1.2.min.js" | relURL }}"></script>
+<script type="text/javascript">
+function copyCode(elem){
+  if (document.getElementById(elem)) {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(document.getElementById(elem).textContent).then(
+        function () {
+          swal("Copied to clipboard: ",elem);
+        },
+        function () {
+          swal("Oh, no…","Failed to copy to clipboard: ",elem);
+        },
+      );
+    } else {
+      swal("Oh, no…","Sorry, your browser doesn't support copying this example to your clipboard.");
+    }
+  }
+}
+</script>
+{{- end -}}

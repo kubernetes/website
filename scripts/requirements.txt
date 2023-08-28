@@ -1,0 +1,3 @@
+requests==2.20.1
+click==6.7
+jinja2==2.10.1

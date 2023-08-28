@@ -1,0 +1,61 @@
+---
+title: "운영 수준의 컨테이너 오케스트레이션"
+abstract: "자동화된 컨테이너 배포, 스케일링과 관리"
+cid: home
+sitemap:
+  priority: 1.0
+---
+
+{{< blocks/section id="oceanNodes" >}}
+{{% blocks/feature image="flower" %}}
+K8s라고도 알려진 [쿠버네티스]({{< relref "/docs/concepts/overview/" >}})는 컨테이너화된 애플리케이션을 자동으로 배포, 스케일링 및 관리해주는 오픈소스 시스템입니다.
+
+애플리케이션을 구성하는 컨테이너들의 쉬운 관리 및 발견을 위해서 컨테이너들을 논리적인 단위로 그룹화합니다. 쿠버네티스는 [Google에서 15년간 프로덕션 워크로드 운영한 경험](https://queue.acm.org/detail.cfm?id=2898444)을 토대로 구축되었으며, 커뮤니티에서 제공한 최상의 아이디어와 방법들이 결합되어 있습니다.
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="scalable" %}}
+#### 행성 규모 확장성
+
+Google이 일주일에 수십억 개의 컨테이너들을 운영하게 해준 원칙들에 따라 디자인되었기 때문에, 쿠버네티스는 운영팀의 규모를 늘리지 않고도 확장될 수 있습니다.
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="blocks" %}}
+#### 무한한 유연성
+
+지역적인 테스트든지 글로벌 기업 운영이든지 상관없이, 쿠버네티스의 유연성은 사용자의 복잡한 니즈를 모두 수용하기 때문에 사용자의 애플리케이션들을 끊임없고 쉽게 전달할 수 있습니다.
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="suitcase" %}}
+#### K8s를 어디서나 실행
+
+쿠버네티스는 오픈소스로서 온-프레미스, 하이브리드, 또는 퍼블릭 클라우드 인프라스트럭처를 활용하는 데 자유를 제공하며, 워크로드를 사용자에게 관건이 되는 곳으로 손쉽게 이동시켜 줄 수 있습니다.
+
+{{% /blocks/feature %}}
+
+{{< /blocks/section >}}
+
+{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
+<div class="light-text">
+<h2>150+ 마이크로서비스를 쿠버네티스로 마이그레이션하는 도전</h2>
+        <p>Sarah Wells, Financial Times 운영 및 안정성 기술 담당 이사</p>
+        <button id="desktopShowVideoButton" onclick="kub.showVideo()">비디오 보기</button>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america" button id="desktopKCButton">KubeCon North America (2022년 10월 24~28일) 참가하기</a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe" button id="desktopKCButton">KubeCon Europe (2023년 4월 17~21일) 참가하기</a>
+</div>
+<div id="videoPlayer">
+    <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <button id="closeButton"></button>
+</div>
+{{< /blocks/section >}}
+
+{{< blocks/kubernetes-features >}}
+
+{{< blocks/case-studies >}}

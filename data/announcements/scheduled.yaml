@@ -1,0 +1,176 @@
+---
+# For an example of the format, see commented structure below.
+#
+# Changes require approval from @kubernetes/steering-committee
+
+# The order matters: if two schedules overlap, the announcement
+# that comes FIRST in the following list takes precedence.
+#
+#announcements:
+#  - startTime: 2020-01-01T00:00:00
+#    # startTime is optional
+#    endTime: 2021-04-01T00:00:00
+#    # endTime is required
+#    style: >-
+#      color: #fff; background: #000;
+#    # style is optional; if using, set both color and background
+#    # choose a dark color for the background
+#    title: "Sample 1 announcement"
+#    # title is optional
+#    message: |
+#      Message *one*.
+#      [Hyperlink](https://en.wikipedia.org/wiki/Hyperlink).
+#    # message is required. You can use Markdown.
+#  - name: Sample 2
+#    startTime: 2020-01-01T00:00:00
+#    endTime: 2021-04-01T00:00:00
+#    message: |
+#      Message *two*.
+
+# leave the "announcements" key in place
+announcements:
+
+- name: Dockershim removal
+  startTime: 2022-04-07T00:00:00 # Added in PR: https://github.com/kubernetes/website/pull/32805
+  endTime: 2022-05-09T00:00:00 
+  style: "background: #326ce5"
+  title: "Dockershim removed from Kubernetes"
+  message: |
+    As of Kubernetes 1.24, Dockershim is no longer included in Kubernetes.
+    Read the [Dockershim Removal FAQ](/dockershim) to see what this means to you.
+
+- name: Kubecon 2020 NA
+  startTime: 2020-10-26T00:00:00 # Added in https://github.com/kubernetes/website/pull/24714
+  endTime: 2020-11-23T00:00:00 # Removed in https://github.com/kubernetes/website/pull/25173
+  style: "background: #3d4cb7"
+  title: |
+    <img src="images/kccnc-na-virtual-2020-white.svg" style="float: right; height: 80px;" />
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/?utm_source=kubernetes.io&utm_medium=search&utm_campaign=KC_CNC_Virtual">KubeCon + CloudNativeCon NA 2020</a> <em>virtual</em>.
+  message: |
+    4 days of incredible opportunities to collaborate, learn, and share with the entire community!<br />
+    November 17 – 20, 2020
+
+- name: Kubecon 2020 EU
+  startTime: 2020-08-16T00:00:00 # Added in https://github.com/kubernetes/website/pull/23183
+  endTime: 2020-08-20T00:00:00 # Removed in https://github.com/kubernetes/website/pull/23272
+  style: "background: #3f0374"
+  title: |
+    <img src="images/kubecon_ad_eu_2020.png" style="float: right; height: 80px;" />
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/?utm_source=kubernetes.io&utm_medium=search&utm_campaign=KC_CNC_Virtual">KubeCon + CloudNativeCon EU 2020</a> <em>virtual</em>.
+  message: |
+    4 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
+    August 17 – 20, 2020.
+
+- name: Black Lives Matter
+  startTime: 2020-06-04T00:00:00 # Added in https://github.com/kubernetes/website/pull/21505
+  endTime: 2021-01-07T00:00:00 # Expired 2020-12-31, removed in https://github.com/kubernetes/website/pull/25769
+  style: "background: #000"
+  title: "Black lives matter."
+  message: |
+    We stand in solidarity with the Black community.<br/>
+    Racism is unacceptable.<br/>
+    It conflicts with the [core values of the Kubernetes project](https://git.k8s.io/community/values.md) and our community does not tolerate it.
+
+- name: Kubecon 2021 EU
+  startTime: 2021-04-30T00:00:00
+  endTime: 2021-05-07T00:00:00
+  style: "background-image: linear-gradient(90deg, rgb(249, 145, 6) 0%, rgb(252, 29, 68) 100%)"
+  title: |
+    <img src="/images/announcements/kubecon-eu-2021-white.svg" style="float: right; height: 80px;" />
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/">KubeCon + CloudNativeCon EU 2021</a> <em>virtual</em>.
+  message: |
+    4 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
+    May 4 - May 7, 2021.
+
+- name: Kubecon 2021 NA
+  startTime: 2021-10-01T00:00:00
+  endTime: 2021-10-16T01:00:00
+  style: "background: linear-gradient(90deg, rgb(7, 132, 111) 0%, rgb(54, 214, 183) 100%)" 
+  title: |
+    <img src="/images/announcements/kubecon-NA-2021-white.svg" style="float: right; height: 80px;" />
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/"> KubeCon + CloudNativeCon North America 2021</a> <em>Los Angeles, California + Virtual</em>.
+  message: |
+    5 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
+    October 11 - 15, 2021.
+
+- name: Kubecon 2021 China
+  startTime: 2021-11-30T00:00:00
+  endTime: 2021-12-10T14:00:00
+  style: "background: linear-gradient(90deg, rgb(253, 133, 1) 0%, rgb(128, 34, 196) 100%)"
+  title: |
+    <img src="/images/announcements/kubecon-China-2021-white.svg" style="float: right; height: 80px;" /> 
+    <a href="https://www.lfasiallc.com/kubecon-cloudnativecon-open-source-summit-china/"> KubeCon + CloudNativeCon + Open Source Summit China 2021</a> <em>Virtual</em>.
+  message: |
+    2 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
+    December 9 + 10, 2021.
+
+- name: Kubecon 2022 EU
+  startTime: 2022-05-10T00:00:00  #Added in https://github.com/kubernetes/website/pull/33578
+  endTime: 2022-05-20T18:00:00
+  style: >-
+    background: linear-gradient(90deg, rgb(253, 225, 203) 0%, rgb(236, 107, 67) 75%, rgb(236, 107, 67) 100%);
+    color: #000;
+  title: |
+    <img src ="/images/announcements/kccnc-eu-2022-black.svg" style="float: right; height: 80px;" />
+    <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/">KubeCon + CloudNativeCon EU 2022</a> <em> Valencia, Spain + Virtual</em>.
+  message: |
+    5 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
+    May 16 - 20, 2022.
+
+- name: Kubecon 2022 NA
+  startTime: 2022-09-23T00:00:00 # Added in https://github.com/kubernetes/website/pull/36107
+                                 # Date amended in https://github.com/kubernetes/website/pull/36927
+  endTime: 2022-10-29T00:00:00
+  style: >-
+    background: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(114,114,255) 100%);
+    color: #fff;
+  title: |
+    <img src="/images/announcements/kccnc-na-2022-white.svg" style="float: right; height: 80px;" />
+    <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/">KubeCon + CloudNativeCon NA 2022</a> <em>Detroit, Michigan + Virtual</em>.
+  message: |
+    5 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
+    October 24 - 28, 2022.
+
+- name: Freezing k8s.gcr.io - Before
+  startTime: 2023-02-20T00:00:00 # Added in https://github.com/kubernetes/website/pull/39575
+                                 # This should run before and after Kubecon EU 2023
+  endTime: 2023-03-10T00:00:00
+  style: "background: #c70202"
+  title: "Legacy k8s.gcr.io container image registry will be frozen in early April 2023"
+  message: |
+    k8s.gcr.io image registry will be frozen from the 3rd of April 2023.<br/>
+    Images for Kubernetes 1.27 will not be available in the k8s.gcr.io image registry.<br/>
+    Please read our [announcement](/blog/2023/02/06/k8s-gcr-io-freeze-announcement/) for more details.
+
+- name: Redirecting k8s.gcr.io - Before
+  startTime: 2023-03-10T00:00:00 # This should run before the redirect
+  endTime: 2023-03-26T00:00:00
+  style: "background: #c70202"
+  title: Legacy k8s.gcr.io container image registry will be redirected to registry.k8s.io
+  message: |
+    k8s.gcr.io image registry will be redirected to registry.k8s.io on Monday March 20th.<br>
+    All images available in k8s.gcr.io are available at registry.k8s.io.</br>
+    Please read our [announcement](/blog/2023/03/10/image-registry-redirect/) for more details.
+
+- name: Kubecon 2023 EU
+  startTime: 2023-04-15T00:00:00  #Added in https://github.com/kubernetes/website/pull/40691
+  endTime: 2023-04-22T18:00:00
+  style: >-
+    background: linear-gradient(90deg, rgba(174,28,40,1) 0%, rgba(50,79,133,1) 65%, rgba(33,70,139,1) 100%);
+    color: #fffff;
+  title: |
+    <img src ="/images/announcements/kccnc-eu-2023-white.svg" style="float: right; height: 80px;" />
+    <a href= "https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/">KubeCon + CloudNativeCon EU 2023</a> <em> Amsterdam, Netherlands + Virtual</em>.
+  message: |
+    4 days of incredible opportunities to collaborate, learn + share with the entire community!<br />
+    April 18 - April 21, 2023.
+    
+- name: Redirecting k8s.gcr.io - After
+  startTime: 2023-03-27T00:00:00 # This should run after the redirect begins
+  endTime: 2023-05-31T00:00:00
+  style: "background: #c70202"
+  title: Legacy k8s.gcr.io container image registry is being redirected to registry.k8s.io
+  message: |
+    k8s.gcr.io image registry is gradually being redirected to registry.k8s.io (since Monday March 20th).<br>
+    All images available in k8s.gcr.io are available at registry.k8s.io.</br>
+    Please read our [announcement](/blog/2023/03/10/image-registry-redirect/) for more details.

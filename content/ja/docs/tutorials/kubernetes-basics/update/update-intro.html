@@ -1,0 +1,135 @@
+---
+title: ローリングアップデートの実行
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<body>
+
+    <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <h3>目標</h3>
+                <ul>
+                    <li>kubectlを使ってローリングアップデートを実行する</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+            <h3>アプリケーションのアップデート</h3>
+
+            <p>ユーザーはアプリケーションが常に利用可能であることを期待し、開発者はそれらの新しいバージョンを1日に数回デプロイすることが期待されます。Kubernetesでは、アプリケーションのアップデートをローリングアップデートで行います。<b>ローリングアップデート</b>では、Podインスタンスを新しいインスタンスで段階的にアップデートすることで、ダウンタイムなしでDeploymentをアップデートできます。新しいPodは、利用可能なリソースを持つノードにスケジュールされます。</p>
+
+            <p>前回のモジュールでは、複数のインスタンスを実行するようにアプリケーションをデプロイしました。これは、アプリケーションの可用性に影響を与えずにアップデートを行うための要件です。デフォルトでは、アップデート中に使用できなくなる可能性があるPodの最大数と作成できる新しいPodの最大数は1です。どちらのオプションも、Podの数または全体数に対する割合(%)のいずれかに設定できます。Kubernetesでは、アップデートはバージョン管理されており、Deploymentにおけるアップデートは以前の(stable)バージョンに戻すことができます。</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>まとめ</h3>
+                    <ul>
+                        <li>アプリケーションのアップデート</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>ローリングアップデートでは、Podを新しいインスタンスで段階的にアップデートすることで、ダウンタイムなしDeploymentをアップデートできます。</i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">ローリングアップデートの概要</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                        <li data-target="#myCarousel" data-slide-to="3"></li>
+                    </ol>
+                      <div class="carousel-inner" role="listbox">
+                        <div class="item carousel-item active">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates1.svg" >
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates2.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates3.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates4.svg">
+                        </div>
+                      </div>
+
+                      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="sr-only ">Previous</span>
+                      </a>
+                      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="sr-only">Next</span>
+                      </a>
+
+                    </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>アプリケーションのスケーリングと同様に、Deploymentがパブリックに公開されている場合、Serviceはアップデート中に利用可能なPodのみにトラフィックを負荷分散します。 利用可能なPodは、アプリケーションのユーザーが利用できるインスタンスです。</p>
+
+                <p>ローリングアップデートでは、次の操作が可能です。</p>
+                <ul>
+                    <li>コンテナイメージのアップデートを介した、ある環境から別の環境へのアプリケーションの昇格</li>
+                    <li>以前のバージョンへのロールバック</li>
+                    <li>ダウンタイムなしでのアプリケーションのCI/CD</li>
+
+                </ul>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>Deploymentがパブリックに公開されている場合、Serviceはアップデート中に利用可能なPodにのみトラフィックを負荷分散します。 </i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p>次の対話型チュートリアルでは、アプリケーションを新しいバージョンにアップデートし、ロールバックも実行します。</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/ja/docs/tutorials/kubernetes-basics/update/update-interactive/" role="button">対話型のチュートリアルを始める <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

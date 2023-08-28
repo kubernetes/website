@@ -1,0 +1,135 @@
+---
+title: Melakukan Pembaruan Bertahap
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="id">
+
+<body>
+
+    <link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <h3>Tujuan</h3>
+                <ul>
+                    <li>Melakukan pembaruan bertahap (<i>rolling update</i>) menggunakan kubectl.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+            <h3>Memperbarui suatu aplikasi</h3>
+
+            <p>Pengguna mengharapkan aplikasi tersedia sepanjang waktu dan pengembang bisa jadi diharapkan untuk men-<i>deploy</i> versi terbaru dari aplikasi tersebut beberapa kali dalam suatu waktu. Di Kubernetes hal ini dilakukan melalui pembaruan bertahap. <b>Pembaruan bertahap</b> memungkinkan pembaruan Deployment terjadi tanpa berhenti dengan memperbarui instans Pod secara bertahap dengan versi yang baru. Pod yang baru akan dijadwalkan pada Node dengan sumber daya yang tersedia.</p>
+
+            <p>Dalam modul sebelumnya kita telah melakukan penyekalaan aplikasi kita untuk menjalankan beberapa instans. Hal ini dibutuhkan untuk menjalankan pembaruan tanpa mempengaruhi ketersediaan aplikasi. Secara bawaan, jumlah maksimum dari Pod lama yang akan digantikan (menjadi tidak tersedia) selama pembaruan dan jumlah maksimum Pod baru yang dapat dibuat adalah satu. Kedua opsi ini dapat dikonfigurasi dengan angka atau persentase (dari Pod). Di Kubernetes, setiap pembaruan diberi versi masing-masing dan suatu pembaruan Deployment dapat dikembalikan ke versi sebelumnya (yang stabil).</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Ringkasan:</h3>
+                    <ul>
+                        <li>Memperbarui aplikasi</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>Pembaruan bertahap memungkinkan pembaruan Deployment terjadi tanpa berhenti dengan memperbarui instans Pod secara bertahap dengan versi yang baru.</i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Gambaran pembaruan bertahap</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                        <li data-target="#myCarousel" data-slide-to="3"></li>
+                    </ol>
+                      <div class="carousel-inner" role="listbox">
+                        <div class="item carousel-item active">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates1.svg" >
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates2.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates3.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates4.svg">
+                        </div>
+                      </div>
+
+                      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="sr-only ">Sebelumnya</span>
+                      </a>
+                      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="sr-only">Selanjutnya</span>
+                      </a>
+
+                    </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>Seperti penyekalaan aplikasi, jika suatu Deployment terekspos secara publik, maka Service akan menyeimbangkan beban trafik hanya ke Pod yang tersedia saat pembaruan berlangsung. Pod yang tersedia adalah instans yang dapat diakses oleh pengguna aplikasi.</p>
+
+                <p>Pembaruan bertahap memungkinan dilakukannya aktivitas-aktivitas berikut:</p>
+                <ul>
+                    <li>Mempromosikan suatu aplikasi dari satu <i>environment</i> yang ke <i>environment</i> yang lain (via pembaruan kontainer <i>image</i>)</li>
+                    <li>Kembali (<i>rollback</i>) ke versi-versi sebelumnya</li>
+                    <li>Continuous Integration dan Continuous Delivery (CI/CD) dari aplikasi tanpa henti</li>
+                </ul>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>Jika suatu Deployment terekspos secara publik, maka Service akan menyeimbangkan beban trafik hanya ke Pod yang tersedia saat pembaruan berlangsung.</i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p>Pada tutorial interaktif berikut ini, kita akan mencoba untuk memperbarui aplikasi kita ke versi terbaru dan kemudian melakukan <i>rollback</i>.</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/id/docs/tutorials/kubernetes-basics/update/update-interactive/" role="button">Mulai Tutorial Interaktif <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

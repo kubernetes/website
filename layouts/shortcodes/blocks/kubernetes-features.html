@@ -1,0 +1,36 @@
+{{/* 
+
+This shortcode lists pages that have a "feature" section configured in front matter. 
+
+This creates a set of feature boxes as seen on the home page.
+
+See /content/en/docs/concepts/services-networking/service.md for an example:
+
+feature:
+  title: Service discovery and load balancing
+  description: >
+    No need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives containers their own IP addresses and a single DNS name for a set of containers, and can load-balance across them.
+
+Note that markdown can be used in the description.
+
+ */}}
+<section id="features">
+    <div class="main-section">
+        <h3 class="center">{{ T "main_kubernetes_features" }}</h3>
+        {{ $pages := where site.Pages ".Params.feature" "!=" nil }}
+        {{range $i, $p := $pages }}
+        {{ if and (gt $i 0) (modBool $i 2) }}</div>{{ end }}
+        {{ if modBool $i 2 }}
+        <div class="feature-box">
+            {{ end }}
+            <div>
+                {{ with .Params.feature }}
+                <h4><a href="{{ $p.RelPermalink}}{{ with .anchor }}#{{ . | anchorize }}{{ end }}">{{ .title }}</a></h4>
+                {{ $description := .description | default $p.Params.description }}
+                {{ $description | markdownify }}
+                {{ end }}
+            </div>
+     
+        {{ end }}
+    </div>
+</section>

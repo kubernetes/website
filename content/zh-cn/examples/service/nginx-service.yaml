@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  ports:
+  - port: 8000 # 在每个 Pod 的容器上要使用的端口；
+    # 服务将在此端口上运行，接受连接。
+    # 端口可以是一个名称（例如：“www”）或一个数字（例如：80）
+    targetPort: 80
+    protocol: TCP
+  # 就像 Deployment 中的选择算符，
+  # 但这里用于识别要对流量进行负载均衡的 Pod 集合。
+  selector:
+    app: nginx

@@ -1,0 +1,411 @@
+#caseStudyTitle {
+  margin-top: 1em !important;
+}
+
+p {
+  padding:5%;
+}
+
+.header_logo {
+  width:32%;
+  margin-bottom: -0.3%;
+  margin-left:10px;
+}
+
+a {
+  text-decoration:none;
+  color:#3366ff;
+}
+
+body {
+  margin:0;
+}
+
+h1 {
+  font-weight:bold;
+  letter-spacing:0.025em;
+  font-size:42px;
+  padding-bottom:0px;
+}
+
+.subhead {
+  font-size:26px;
+  font-weight:100;
+  line-height:40px;
+  padding-bottom:1%;
+  padding-top:0.5%;
+}
+
+.banner1 {
+  font-weight:300;
+  color:#ffffff;
+  padding-top:12%;
+  padding-bottom:0.5%;
+  padding-left:10%;
+  font-size:32px;
+  background: url('/images/case-studies/haufegroup/banner1.jpg');
+  background-size:100% auto;
+  background-repeat:no-repeat;
+}
+
+.banner2 {
+  font-weight:300;
+  color:#ffffff;
+  padding-top:4%;
+  padding-bottom:4%;
+  width:100%;
+  font-size:24px;
+  letter-spacing:0.03em;
+  line-height:34px;
+  background-size:100% auto;
+  background-color:#666666;
+  background-repeat:repeat;
+}
+
+.banner3 {
+  font-weight:300;
+  color:#ffffff;
+  padding-left:5%;
+  padding-right:5%;
+  padding-top:4%;
+  padding-bottom:4%;
+  font-size:24px;
+  letter-spacing:0.03em;
+  line-height:34px;
+  background: url('/images/case-studies/haufegroup/banner3.jpg');
+  background-size:100% auto;
+}
+
+.banner4 {
+  font-weight:300;
+  color:#ffffff;
+  padding-top:5%;
+  padding-bottom:5%;
+  font-size:24px;
+  letter-spacing:0.03em;
+  line-height:34px;
+  background: url('/images/case-studies/haufegroup/banner4.jpg');
+  background-size:100% auto;
+}
+
+.banner5 {
+  font-weight:300;
+  color:#ffffff;
+  padding-top:3%;
+  padding-bottom:3%;
+  font-size:24px;
+  letter-spacing:0.03em;
+  line-height:34px;
+  background-size:100% auto;
+  background-color:#666666;
+  background-repeat:no-repeat;
+}
+
+.banner2text {
+  font-weight:300;
+  color:#ffffff;
+  width:60%;
+  text-align:center;
+  margin:0 auto;
+}
+
+.banner3text {
+  font-weight:300;
+  color:#ffffff;
+  width:70%;
+  text-align:center;
+  margin:0 auto;
+}
+
+.banner4text {
+  font-weight:300;
+  color:#ffffff;
+  width:65%;
+  text-align:center;
+  margin:0 auto;
+}
+
+.banner5text {
+  font-weight:300;
+  color:#ffffff;
+  width:68%;
+  text-align:center;
+  margin:0 auto;
+}
+
+h2 {
+  font-weight:300;
+  font-size:24px;
+  line-height:34px;
+  color:#3366ff;
+}
+
+.quote {
+  font-weight:300;
+  font-size:22px;
+  line-height:32px;
+  color:#3366ff;
+}
+
+.details {
+  font-weight:300;
+  font-size:18px;
+  color:#3366ff;
+  letter-spacing:0.03em;
+  padding-bottom:1.5%;
+  padding-top:2%;
+  padding-left:10%;
+}
+
+hr {
+  border-bottom:0px solid;
+  width:100%;
+  opacity:0.5;
+  background-color:#999999;
+  height:1px;
+}
+
+.col1 {
+  font-weight:100;
+  color:#606060;
+  line-height:20px;
+  letter-spacing:0.03em;
+  font-size:14px;
+}
+
+.col2 {
+  font-weight:300;
+  line-height:20px;
+  color:#606060;
+  letter-spacing:0.03em;
+  font-size:14px;
+}
+
+.fullcol {
+  width:77%;
+  margin-left:11%;
+  margin-right:10%;
+  margin-top:4%;
+  margin-bottom:4%;
+  font-weight:300;
+  line-height:22px;
+  color:#606060;
+  letter-spacing:0.03em;
+  font-size:14px;
+}
+
+.cols {
+  width:80%;
+  margin-left:10%;
+  margin-top:1%;
+  margin-bottom:4%;
+  font-weight:300;
+}
+
+h4 {
+  font-weight:400;
+  letter-spacing:0.9;
+  font-size:20px;
+  padding-bottom:0px;
+}
+
+@media screen and (max-width: 910px){
+
+  h1 {
+    font-weight:bold;
+    line-height:36px;
+    letter-spacing:0.03em;
+    font-size:30px !important;
+    padding-bottom:0px;
+    width:80%;
+  }
+
+  .header_logo {
+    width:35%;
+    margin-bottom:-.5%;
+    margin-left:10px;
+  }
+
+  .subhead {
+    font-size:18px;
+    font-weight:100;
+    line-height:27px;
+  }
+
+  .details {
+    font-weight:300;
+    font-size:16px;
+    color:#3366ff;
+    letter-spacing:0.03em;
+    padding-bottom:2%;
+    line-height:28px;
+    padding-top:4%;
+    padding-left:10%;
+  }
+
+  .logo {
+    width:8%;
+  }
+
+  .col1 {
+    width: 95%;
+    padding-right:8%;
+    float:left;
+    font-weight:300;
+    color:#606060;
+    line-height:20px;
+    letter-spacing:0.03em;
+    font-size:14px;
+  }
+
+  .col2 {
+    width: 95%;
+    padding-top:2%;
+    padding-bottom:5%;
+    font-weight:300;
+    float:left;
+    line-height:20px;
+    color:#606060;
+    letter-spacing:0.03em;
+    font-size:14px;
+  }
+
+  .banner1 {
+    font-weight:300;
+    color:#ffffff;
+    padding-top:15%;
+    padding-bottom:2%;
+    padding-left:10%;
+    font-size:18px;
+    background: url('/images/case-studies/haufegroup/banner1.jpg');
+    background-size:100% auto;
+  }
+
+  .banner2 {
+    font-weight:300;
+    color:#ffffff;
+    padding-top:4%;
+    padding-bottom:4%;
+    font-size:18px;
+    letter-spacing:0.03em;
+    line-height:24px;
+    width:100%;
+    float:left;
+    background:none;
+    background-color:#666666;
+  }
+
+  .banner3 {
+    font-weight:300;
+    color:#ffffff;
+    padding-top:5%;
+    padding-bottom:5%;
+    font-size:16px;
+    letter-spacing:0.03em;
+    line-height:23px;
+    width:90%;
+    float:left;
+    background: url('/images/case-studies/haufegroup/banner3.jpg');
+  }
+
+  .banner4 {
+    font-weight:300;
+    color:#ffffff;
+    padding-top:4%;
+    padding-bottom:4%;
+    font-size:18px;
+    letter-spacing:0.03em;
+    line-height:24px;
+    width:100%;
+    float:left;
+    background: url('/images/case-studies/haufegroup/banner4.jpg');
+  }
+
+  .banner5 {
+    font-weight:300;
+    color:#ffffff;
+    padding-top:4%;
+    padding-bottom:4%;
+    font-size:16px;
+    letter-spacing:0.03em;
+    line-height:23px;
+    width:100%;
+    float:left;
+    background:none;
+    background-color:#666666;
+  }
+
+  .banner2text {
+    font-weight:300;
+    color:#ffffff;
+    width:90%;
+    padding-left:5%;
+    padding-bottom:1%;
+    padding-top:1%;
+    float:left;
+    text-align:center;
+    color:#ffffff;
+  }
+
+  .banner3text {
+    font-weight:300;
+    color:#ffffff;
+    width:90%;
+    padding-left:5%;
+    padding-top:5%;
+    padding-bottom:5%;
+    text-align:center;
+  }
+
+  .banner4text {
+    font-weight:300;
+    color:#ffffff;
+    width:90%;
+    padding-left:5%;
+    padding-top:3%;
+    padding-bottom:3%;
+    text-align:center;
+  }
+
+  .banner5text {
+    font-weight:300;
+    color:#ffffff;
+    width:90%;
+    padding-left:5%;
+    padding-top:3%;
+    padding-bottom:3%;
+    text-align:center;
+  }
+
+  .fullcol {
+    margin-top:6%;
+    margin-bottom:8%;
+  }
+
+  h2 {
+    line-height:26px;
+    font-size:18px;
+  }
+
+  .quote {
+    font-size:18px;
+    line-height:24px;
+  }
+
+  .logo {
+    width:35%;
+  }
+} /* End Media 910px */
+
+@media screen and (max-width: 580px){
+
+  .header_logo {
+    width:60%;
+    margin-bottom:1%;
+    margin-top:2%;
+  }
+
+  .banner1 {
+    background: url('/images/case-studies/haufegroup/banner1.jpg');
+  }
+}

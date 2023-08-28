@@ -1,0 +1,4 @@
+Cette fonctionnalité est *stable*, ce qui signifie :
+
+* Le nom de version est vX où X est un entier.
+* Les versions stables des fonctionnalités seront maintenues pour de nombreuses versions ultérieures.

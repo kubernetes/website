@@ -1,0 +1,24 @@
+{{- $id := .Get "term_id" -}}
+{{- $text := .Get "text" -}}
+{{- partial "docs/glossary-terms.html" $.Page -}}
+{{- $glossary_items := $.Page.Scratch.Get "glossary_items" -}}
+{{- if not $glossary_items -}}
+{{- errorf "[%s] No glossary items found" site.Language.Lang -}}
+{{- else -}}
+{{- $term_info := $glossary_items.GetMatch (printf "%s.md" $id ) -}}
+{{- if not $term_info -}}
+{{- errorf "[%s] %q: %q is not a valid glossary term_id, see ./docs/reference/glossary/* for a full list" site.Language.Lang .Page.Path $id -}}
+{{- end }}
+{{- with $term_info -}}
+{{- $text := $text | default $term_info.Title -}}
+{{- $glossary_home := "docs/reference/glossary/?all=true" | relLangURL -}}
+{{- $external_link := $term_info.Params.full_link | default (printf "%s#term-%s" $glossary_home $id | safeURL  ) -}}
+{{- $tooltip :=  $term_info.Params.short_description | markdownify -}}
+
+{{- $tooltip := $tooltip | replaceRE "(?s)<a class='glossary-tooltip'.*?>(.*?).*</a>" "$1" | plainify -}}
+{{- $tooltip := trim $tooltip " \n" -}}
+<a class='glossary-tooltip' title='{{- $tooltip | safeHTML -}}' data-toggle='tooltip' data-placement='top' href='{{ $external_link }}' target='_blank' aria-label='{{ $text }}'>
+{{- $text -}}
+</a>
+{{- end -}}
+{{- end -}}

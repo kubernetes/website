@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="{{ .Site.Language.Lang }}" class="{{.Params.class}} no-js">
+{{- if eq hugo.Environment "preview" -}}
+  <!-- deploy preview -->
+{{- end -}}
+  <head{{- if hugo.IsProduction}} class="live-site"{{- end -}}>
+    {{ partial "head.html" . }}
+  </head>
+  <body class="td-{{ .Kind }}{{- if ne (lower .Params.cid) "" -}}{{- printf " cid-%s" (lower .Params.cid) -}}{{- end -}}">
+    <header>
+      {{ partial "navbar.html" . }}
+      {{ block "announcement" . }}
+        {{ partial "announcement.html" . }}
+      {{ end }}
+		{{ block "hero" . }}
+		<!--  HERO  -->
+		<section class="header-hero text-white pb-4 light-text">
+			<div class="main-section">
+				<div id="headlineWrapper">
+					<h1>{{ block "hero-title" . }}{{ .Params.bigheader | default .Title }}{{ end }}</h1>
+				</div>
+				{{ block "hero-more" . }}{{ end }}
+			</div>
+		</section>
+		{{ block "post-hero" . }}
+    </header>
+      {{ block "deprecated" . }}
+        {{ if or .IsHome ( eq .Params.cid "partners" ) ( eq .Params.cid "community" ) }}
+          {{ partial "deprecation-warning.html" . }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+		{{ end }}
+    <div class="td-outer">
+      <main role="main" class="td-main">
+        {{ block "main" . }}{{ end }}
+      </main>
+    </div>
+    {{ partialCached "footer.html" . }}
+    {{ partialCached "scripts.html" . }}
+  </body>
+</html>

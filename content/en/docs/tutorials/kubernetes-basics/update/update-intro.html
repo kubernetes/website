@@ -1,0 +1,196 @@
+---
+title: Performing a Rolling Update
+weight: 10
+description: |-
+  Perform a rolling update using kubectl.
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <h3>Objectives</h3>
+                <ul>
+                    <li>Perform a rolling update using kubectl.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+            <h3>Updating an application</h3>
+
+            <p>Users expect applications to be available all the time and developers are expected to deploy new versions of them several times a day. In Kubernetes this is done with rolling updates. <b>Rolling updates</b> allow Deployments' update to take place with zero downtime by incrementally updating Pods instances with new ones. The new Pods will be scheduled on Nodes with available resources.</p>
+
+            <p>In the previous module we scaled our application to run multiple instances. This is a requirement for performing updates without affecting application availability. By default, the maximum number of Pods that can be unavailable during the update and the maximum number of new Pods that can be created, is one. Both options can be configured to either numbers or percentages (of Pods).
+            In Kubernetes, updates are versioned and any Deployment update can be reverted to a previous (stable) version.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Summary:</h3>
+                    <ul>
+                        <li>Updating an app</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i>Rolling updates allow Deployments' update to take place with zero downtime by incrementally updating Pods instances with new ones. </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Rolling updates overview</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                        <li data-target="#myCarousel" data-slide-to="3"></li>
+                    </ol>
+                      <div class="carousel-inner" role="listbox">
+                        <div class="item carousel-item active">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates1.svg" >
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates2.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates3.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_06_rollingupdates4.svg">
+                        </div>
+                      </div>
+
+                      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="sr-only ">Previous</span>
+                      </a>
+                      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="sr-only">Next</span>
+                      </a>
+
+                    </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>Similar to application Scaling, if a Deployment is exposed publicly, the Service will load-balance the traffic only to available Pods during the update. An available Pod is an instance that is available to the users of the application.</p>
+
+                <p>Rolling updates allow the following actions:</p>
+                <ul>
+                    <li>Promote an application from one environment to another (via container image updates)</li>
+                    <li>Rollback to previous versions</li>
+                    <li>Continuous Integration and Continuous Delivery of applications with zero downtime</li>
+
+                </ul>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>If a Deployment is exposed publicly, the Service will load-balance the traffic only to available Pods during the update. </i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p> In the following interactive tutorial, we'll update our application to a new version, and also perform a rollback.</p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+               <h3>Update the version of the app</h3>
+               <p>To list your Deployments, run the <code>get deployments</code> subcommand:
+               <code><b>kubectl get deployments</b></code></p>
+               <p>To list the running Pods, run the <code>get pods</code> subcommand:</p>
+               <p><code><b>kubectl get pods</b></code></p>
+               <p>To view the current image version of the app, run the <code>describe pods</code> subcommand
+               and look for the <code>Image</code> field:</p>
+               <p><code><b>kubectl describe pods</b></code></p>
+               <p>To update the image of the application to version 2, use the <code>set image</code> subcommand, followed by the deployment name and the new image version:</p>
+               <p><code><b>kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v2</b></code></p>
+               <p>The command notified the Deployment to use a different image for your app and initiated a rolling update. Check the status of the new Pods, and view the old one terminating with the <code>get pods</code> subcommand:</p>
+               <p><code><b>kubectl get pods</b></code></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+               <h3>Step 2: Verify an update</h3>
+               <p>First, check that the app is running. To find the exposed IP address and port, run the <code>describe service</code> command:</p>
+               <p><code><b>kubectl describe services/kubernetes-bootcamp</b></code></p>
+               <p>Create an environment variable called <tt>NODE_PORT</tt> that has the value of the Node port assigned:</p>
+               <p><code><b>export NODE_PORT="$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')"</b></code><br />
+                  <code><b>echo "NODE_PORT=$NODE_PORT"</b></code></p>
+               <p>Next, do a <code>curl</code> to the exposed IP and port:</p>
+               <p><code><b>curl http://"$(minikube ip):$NODE_PORT"</b></code></p>
+               <p>Every time you run the <code>curl</code> command, you will hit a different Pod. Notice that all Pods are now running the latest version (v2).</p>
+               <p>You can also confirm the update by running the <code>rollout status</code> subcommand:</p>
+               <p><code><b>kubectl rollout status deployments/kubernetes-bootcamp</b></code></p>
+               <p>To view the current image version of the app, run the <code>describe pods</code> subcommand:</p>
+               <p><code><b>kubectl describe pods</b></code></p>
+               <p>In the <code>Image</code> field of the output, verify that you are running the latest image version (v2).</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+               <h3>Roll back an update</h3>
+               <p>Let’s perform another update, and try to deploy an image tagged with <code>v10</code>:</p>
+               <p><code><b>kubectl set image deployments/kubernetes-bootcamp kubernetes-bootcamp=gcr.io/google-samples/kubernetes-bootcamp:v10</b></code></p>
+               <p>Use <code>get deployments</code> to see the status of the deployment:</p>
+               <p><code><b>kubectl get deployments</b></code></p>
+               <p>Notice that the output doesn't list the desired number of available Pods. Run the <code>get pods</code> subcommand to list all Pods:</p>
+               <p><code><b>kubectl get pods</b></code></p>
+               <p>Notice that some of the Pods have a status of <tt>ImagePullBackOff</tt>.</p>
+               <p>To get more insight into the problem, run the <code>describe pods</code> subcommand:</p>
+               <p><code><b>kubectl describe pods</b></code></p>
+               <p>In the <code>Events</code> section of the output for the affected Pods, notice that the <code>v10</code> image version did not exist in the repository.</p>
+               <p>To roll back the deployment to your last working version, use the <code>rollout undo</code> subcommand:</p>
+               <p><code><b>kubectl rollout undo deployments/kubernetes-bootcamp</b></code></p>
+               <p>The <code>rollout undo</code> command reverts the deployment to the previous known state (v2 of the image). Updates are versioned and you can revert to any previously known state of a Deployment.</p>
+               <p>Use the <code>get pods</code> subcommand to list the Pods again:</p>
+               <p><code><b>kubectl get pods</b></code></p>
+               <p>Four Pods are running. To check the image deployed on these Pods, use the <code>describe pods</code> subcommand:</p>
+               <p><code><b>kubectl describe pods</b></code></p>
+               <p>The Deployment is once again using a stable version of the app (v2). The rollback was successful.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p>Remember to clean up your local cluster</p>
+                <p><code><b>kubectl delete deployments/kubernetes-bootcamp services/kubernetes-bootcamp</b></code></p>
+            </div>
+        </div>
+
+
+    </main>
+
+</div>
+
+</body>
+</html>

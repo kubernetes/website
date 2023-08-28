@@ -1,0 +1,103 @@
+---
+title: Jak używać Service do udostępniania aplikacji
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="pl">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+	<main class="content">
+
+		<div class="row">
+			<div class="col-md-8">
+    		<h3>Cele</h3>
+				<ul>
+					<li>Poznać Serwis w Kubernetesie</li>
+					<li>Zrozumieć, jak obiekty Label i LabelSelector są powiązane z Serwisem</li>
+					<li>Udostępnić aplikację na zewnątrz klastra Kubernetes korzystając z Serwisu</li>
+				</ul>
+			</div>
+
+			<div class="col-md-8">
+			<h3>Kubernetes Services - przegląd</h3>
+
+			<p><a href="/docs/concepts/workloads/pods/">Pody</a> Kubernetes są nietrwałe. Pody mają swój <a href="/docs/concepts/workloads/pods/pod-lifecycle/">cykl życia</a>. Jeśli węzeł roboczy ulegnie awarii, tracone są wszystkie pody działające na węźle. <a href="/docs/concepts/workloads/controllers/replicaset/">ReplicaSet</a> będzie próbował automatycznie doprowadzić klaster z powrotem do pożądanego stanu tworząc nowe pody i w ten sposób zapewnić działanie aplikacji. Innym przykładem może być system na back-endzie przetwarzania obrazów posiadający 3 repliki. Każda z tych replik jest wymienna - system front-endu nie powinien musieć pilnować replik back-endu ani tego, czy któryś z podów przestał działać i został odtworzony na nowo. Nie należy jednak zapominać o tym, że każdy Pod w klastrze Kubernetes ma swój unikatowy adres IP, nawet pody w obrębie tego samego węzła, zatem powinna istnieć metoda automatycznego uzgadniania zmian pomiędzy podami, aby aplikacja mogła dalej funkcjonować.</p>
+
+			<p>Serwis w Kubernetes jest abstrakcyjnym obiektem, która definiuje logiczny zbiór podów oraz politykę dostępu do nich. Serwisy pozwalają na swobodne łączenie zależnych podów. Serwis jest zdefiniowany w YAMLu <a href="/docs/concepts/configuration/overview/#general-configuration-tips">(zalecane)</a> lub w JSONie - tak, jak wszystkie obiekty Kubernetes. Zbiór podów, które obsługuje Serwis, jest zazwyczaj określany przez <i>LabelSelector</i> (poniżej opisane jest, w jakich przypadkach możesz potrzebować zdefiniować Serwis bez specyfikowania <code>selektora</code>).</p>
+
+			<p>Mimo, że każdy pod ma swój unikatowy adres IP, te adresy nie są dostępne poza klastrem, o ile nie zostaną wystawione za pomocą Serwisu. Serwis umożliwia aplikacji przyjmować ruch przychodzący. Serwisy mogą być wystawiane na zewnątrz na kilka różnych sposobów, poprzez określenie <code>typu</code> w ServiceSpec:</p>
+			<ul>
+				<li><i>ClusterIP</i> (domyślnie) - Wystawia serwis poprzez wewnętrzny adres IP w klastrze. W ten sposób serwis jest dostępny tylko wewnątrz klastra.</li>
+				<li><i>NodePort</i> - Wystawia serwis na tym samym porcie na każdym z wybranych węzłów klastra przy pomocy NAT. W ten sposób serwis jest dostępny z zewnątrz klastra poprzez <code>&lt;NodeIP&gt;:&lt;NodePort&gt;</code>. Nadzbiór ClusterIP.</li>
+				<li><i>LoadBalancer</i> - Tworzy zewnętrzny load balancer u bieżącego dostawcy usług chmurowych (o ile jest taka możliwość) i przypisuje serwisowi stały, zewnętrzny adres IP. Nadzbiór NodePort.</li>
+				<li><i>ExternalName</i> - Przypisuje Service do <code>externalName</code> (np. <code>foo.bar.example.com</code>), zwracając rekord <code>CNAME</code> wraz z zawartością. W tym przypadku nie jest wykorzystywany proces przekierowania ruchu metodą proxy. Ta metoda wymaga <code>kube-dns</code> w wersji v1.7 lub wyższej lub CoreDNS w wersji 0.0.8 lub wyższej.</li>
+			</ul>
+			<p>Więcej informacji na temat różnych typów serwisów znajduje się w  samouczku <a href="/docs/tutorials/services/source-ip/">Używanie adresu źródłowego (Source IP)</a>. Warto też zapoznać się z <a href="/docs/concepts/services-networking/connect-applications-service">Łączeniem Aplikacji z Serwisami</a>.</p>
+			<p>W pewnych przypadkach w serwisie nie specyfikuje się <code>selector</code>. Serwis, który został stworzony bez pola <code>selector</code>, nie utworzy odpowiedniego obiektu Endpoints. W ten sposób użytkownik ma możliwość ręcznego przyporządkowania serwisu do konkretnych endpoints. Inny przypadek, kiedy nie używa się selektora, ma miejsce, kiedy stosujemy <code>type: ExternalName</code>.</p>
+			</div>
+			<div class="col-md-4">
+				<div class="content__box content__box_lined">
+					<h3>Podsumowanie</h3>
+					<ul>
+						<li>Otwarcie Poda na ruch z zewnątrz</li>
+						<li>Rozkładanie ruchu pomiędzy poszczególne Pody</li>
+						<li>Używanie etykiet</li>
+					</ul>
+				</div>
+				<div class="content__box content__box_fill">
+						<p><i>Serwis Kubernetesa to warstwa abstrakcji, która definiuje logiczny zbiór Podów i umożliwia kierowanie ruchu przychodzącego do Podów, jego równoważenie oraz service discovery.</i></p>
+				</div>
+			</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<h3>Sewisy i Etykiety <em>(Labels)</em></h3>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p>Serwis kieruje przychodzący ruch do grupy Podów. Serwisy są obiektami abstrakcyjnymi, dzięki czemu Pody, które z jakichś powodów przestały działać i zostały zastąpione przez Kubernetesa nowymi instancjami, nie wpłyną ujemnie na działanie twoich aplikacji. Detekcją nowych podów i kierowaniem ruchu pomiędzy zależnymi podami (takimi, jak składowe front-end i back-end w aplikacji) zajmują się Serwisy Kubernetes.</p>
+				<p>Serwis znajduje zestaw odpowiednich Podów przy pomocy <a href="/docs/concepts/overview/working-with-objects/labels">etykiet i selektorów</a>, podstawowych jednostek grupujących, które umożliwiają operacje logiczne na obiektach Kubernetes. Etykiety to pary klucz/wartość przypisane do obiektów. Mogą być używane na różne sposoby:</p>
+				<ul>
+					<li>Dzielić obiekty na deweloperskie, testowe i produkcyjne</li>
+					<li>Osadzać znaczniki <em>(tags)</em>określające wersje</li>
+					<li>Klasyfikować obiekty przy użyciu znaczników</li>
+				</ul>
+
+			</div>
+		</div>
+
+		<br>
+
+		<div class="row">
+			<div class="col-md-8">
+				<p><img src="/docs/tutorials/kubernetes-basics/public/images/module_04_labels.svg"></p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-8">
+				<p>Obiekty mogą być oznaczane etykietami w momencie tworzenia lub później. Etykiety mogą być zmienianie w dowolnej chwili. Udostępnijmy teraz naszą aplikację przy użyciu Serwisu i oznaczmy ją odpowiednimi etykietami.</p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-12">
+				<a class="btn btn-lg btn-success" href="/pl/docs/tutorials/kubernetes-basics/expose/expose-interactive/" role="button">Rozpocznij interaktywny samouczek<span class="btn__next">›</span></a>
+			</div>
+		</div>
+	</main>
+</div>
+
+</body>
+</html>

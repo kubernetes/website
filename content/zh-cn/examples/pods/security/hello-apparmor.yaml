@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-apparmor
+  annotations:
+    # 告知 Kubernetes 去应用 AppArmor 配置 "k8s-apparmor-example-deny-write"。
+    # 请注意，如果节点上运行的 Kubernetes 不是 1.4 或更高版本，此注解将被忽略。
+    container.apparmor.security.beta.kubernetes.io/hello: localhost/k8s-apparmor-example-deny-write
+spec:
+  containers:
+  - name: hello
+    image: busybox:1.28
+    command: [ "sh", "-c", "echo 'Hello AppArmor!' && sleep 1h" ]

@@ -1,0 +1,30 @@
+{{ $cover := .HasShortcode "blocks/cover" }}
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark {{ if $cover}} td-navbar-cover {{ end }} flex-column flex-md-row td-navbar" data-auto-burger="primary">
+        <a class="navbar-brand img-fluid" href="{{ .Site.Home.RelPermalink }}"></a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			{{ $p := . }}
+			{{ $sections := slice "docs" "blog" "training" "partners" "community" "case-studies" }}
+			{{ range $sections }}
+			{{ with site.GetPage "section" . }}
+			<li class="nav-item mr-2 mb-lg-0">
+				{{ $active := eq .Section $.Section }}
+				<a class="nav-link{{if $active }} active{{end}}" href="{{ .RelPermalink }}" >{{ .Title }}</a>
+			</li>
+			{{ end }}
+			{{ end }}
+			{{ if  .Site.Params.versions }}
+			<li class="nav-item mr-n3 mr-lg-0 dropdown">
+				{{ partial "navbar-version-selector.html" . }}
+			</li>
+			{{ end }}
+			{{ if  (gt (len .Site.Home.Translations) 0) }}
+			<li class="nav-item mr-n4 mr-lg-0  dropdown">
+				{{ partial "navbar-lang-selector.html" . }}
+			</li>
+			{{ end }}
+		</ul>
+	</div>
+	<button id="hamburger" onclick="kub.toggleMenu()" data-auto-burger-exclude><div></div></button>
+</nav>

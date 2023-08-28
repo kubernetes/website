@@ -1,0 +1,34 @@
+{{ define "main" }}
+{{ with .Params.content_url }}
+<meta http-equiv="refresh" content="0; URL='{{ . }}'" />
+{{ else }}
+	{{ if .Params.new_case_study_styles }}
+		<!-- Heading -->
+		<div class="banner {{ if .Params.use_gradient_overlay }}overlay{{ end }}" {{ if isset .Params "heading_background" }}style="background-image: url({{ .Params.heading_background }})"{{ end }}>
+			<h1>
+				<span class="heading">{{ .Params.title_prefix | default "CASE STUDY:" }}</span>
+				{{- if isset .Params "heading_title_logo" -}}
+					<img class="heading-logo" src="{{ .Params.heading_title_logo}}" />
+				{{- else if isset .Params "heading_title_text" -}}
+					{{- .Params.heading_title_text -}}
+				{{- end -}}
+				<span class="subheading">{{ .Params.subheading }}</span>
+			</h1>
+		</div>
+		<!-- Details -->
+		<div class="details">
+			{{ range $detail := .Params.case_study_details }}
+				{{ range $key, $value := $detail }}
+					<span class="item">{{ $key }} <strong>{{ $value }}</strong></span>
+				{{ end }}
+			{{ end }}
+		</div>
+		<!-- Content -->
+		<div class="content">
+			{{ .Content }}
+		</div>
+	{{ else }}
+		{{ .Content }}
+	{{ end }}
+{{ end }}
+{{ end }}

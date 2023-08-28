@@ -1,0 +1,224 @@
+body.cid-training body.cid-training #hero {
+  text-align: left;
+  padding-bottom: 20px;
+}
+
+body.cid-training body.cid-training .section {
+  clear: both;
+  padding: 0px;
+  margin-bottom: 2em;
+  width: 100%;
+}
+
+body.cid-training section.call-to-action {
+  color: #ffffff;
+  background-color: #3371e3;
+}
+
+body.cid-training section.call-to-action .main-section {
+    max-width: initial;
+}
+
+body.cid-training section.call-to-action .main-section > div.call-to-action {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: initial;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+body.cid-training section.call-to-action .main-section > div.call-to-action > div {
+  padding: 20px;
+}
+
+body.cid-training section.call-to-action .main-section .cta-text {
+  width: 100%;
+  flex-basis: 100%;
+}
+
+body.cid-training section.call-to-action .main-section .cta-text > * {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  /* if max() and min() are available, use them */
+  min-width: min(20em, 50vw);
+  max-width: min(1000px, 50vw);
+}
+
+body.cid-training section.call-to-action .main-section .cta-image {
+  max-width: max(20vw,150px);
+  flex-basis: auto;
+}
+body.cid-training section.call-to-action .main-section .cta-image > img {
+  display: block;
+  width: 150px;
+  margin: auto;
+}
+
+body.cid-training #logo-cks {
+  order: 2; /* central */
+}
+
+
+
+body.cid-training .col {
+  display: flex;
+  flex-direction: row;
+  float: left;
+  margin: 1% 0 1% 1.6%;
+}
+
+body.cid-training .col:first-child { margin-left: 0; }
+
+body.cid-training .col-container {
+  display: flex; /* Make the container element behave like a table */
+  flex-direction: row;
+  width: 100%; /* Set full-width to expand the whole page */
+  padding-bottom: 30px;
+}
+
+body.cid-training .col-nav {
+  display: flex;
+  flex-grow: 1;
+  width: 18%;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border: 5px solid white;
+}
+
+body.cid-training #get-certified .col-nav {
+  flex-flow: column nowrap;
+  justify-content: space-between;
+}
+
+body.cid-training #get-certified .col-nav > * {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: auto;
+}
+
+body.cid-training #get-certified .col-nav > br {
+  flex-grow: 1;
+  display: block;
+  min-height: 2em;
+}
+
+body.cid-training #get-certified .col-nav a.button {
+  flex: initial;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+@media only screen and (max-width: 840px) {
+  body.cid-training   section.call-to-action .main-section .cta-image > img {
+    margin: 0;
+  }
+  body.cid-training   section.call-to-action .main-section .cta-image > img {
+    width: 7rem;
+  }
+  body.cid-training section.call-to-action .main-section > div.call-to-action > div {
+    padding: 0 2rem 0 2rem;
+  }
+  body.cid-training section.call-to-action .main-section > div.call-to-action div.cta-image {
+    padding: 0 2rem 0 2rem;
+    /* Change display to CSS Grid layout with 2 columns that autofill */
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
+  }
+  /* Make the CTA text fill 100% of the viewport */
+  body.cid-training section.call-to-action .main-section > div.call-to-action > div.cta-text {
+    width: 100%;
+  }
+
+  /* Resize the div that contains the images so that the images wrap 2 at a time
+ and have no margin issues */
+
+  body.cid-training section.call-to-action .main-section > div.call-to-action {
+    width: 60%;
+    margin: auto;
+    padding-top: 20px;
+  }
+}
+
+
+
+/*  GO FULL WIDTH AT LESS THAN 480 PIXELS */
+
+@media only screen and (max-width: 480px) {
+  body.cid-training .col { margin: 1% 0 1% 0%;}
+  body.cid-training .col-container { flex-direction: column; }
+  body.cid-training #logo-cks { order: initial; }
+}
+
+@media only screen and (max-width: 650px) {
+  body.cid-training .col-nav {
+    display: block;
+    width: 100%;
+  }
+  body.cid-training .col-container { flex-direction: column; }
+}
+
+body.cid-training .button {
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 1em 0;
+  display: inline-block;
+  border-radius: 6px;
+  padding: 0 20px;
+  line-height: 40px;
+  color: #ffffff;
+  font-size: 16px;
+  background-color: #3371e3;
+  text-decoration: none;
+  text-align: center;
+}
+
+body.cid-training h5 {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5em;
+  margin-bottom: 2em;
+}
+
+body.cid-training .white-text {
+  color: #fff;
+}
+
+body.cid-training .padded {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+body.cid-training .blue-bg {
+  background-color: #3371e3;
+}
+
+body.cid-training .lighter-gray-bg {
+  background-color: #f4f4f4;
+}
+
+body.cid-training .two-thirds-centered {
+  width: 66%;
+  max-width: 950px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.cid-training .landscape-section {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1200px;
+  width: 100%;
+}
+
+body.cid-training #landscape {
+  opacity: 1;
+  visibility: visible;
+  overflow: hidden;
+  width: 100%;
+}

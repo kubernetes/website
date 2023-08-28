@@ -1,0 +1,186 @@
+---
+title: Running Multiple Instances of Your App
+weight: 10
+description: |-
+  Scale an existing app manually using kubectl.
+---
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<body>
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <h3>Objectives</h3>
+                <ul>
+                    <li>Scale an app using kubectl.</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+       <h3>Scaling an application</h3>
+
+            <p>Previously we created a <a href="/docs/concepts/workloads/controllers/deployment/"> Deployment</a>, and then exposed it publicly via a <a href="/docs/concepts/services-networking/service/">Service</a>. The Deployment created only one Pod for running our application.  When traffic increases, we will need to scale the application to keep up with user demand.</p>
+            <p>If you haven't worked through the earlier sections, start from <a href="/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">Using minikube to create a cluster</a>.</p>
+
+            <p><em>Scaling</em> is accomplished by changing the number of replicas in a Deployment</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Summary:</h3>
+                    <ul>
+                        <li>Scaling a Deployment</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                    <p><i> You can create from the start a Deployment with multiple instances using the --replicas parameter for the kubectl create deployment command </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Scaling overview</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-8">
+                <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="3000">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                    </ol>
+                      <div class="carousel-inner" role="listbox">
+                        <div class="item carousel-item active">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling1.svg">
+                        </div>
+
+                        <div class="item carousel-item">
+                          <img src="/docs/tutorials/kubernetes-basics/public/images/module_05_scaling2.svg">
+                        </div>
+                      </div>
+
+                      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="sr-only ">Previous</span>
+                      </a>
+                      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="sr-only">Next</span>
+                      </a>
+
+                    </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+
+                <p>Scaling out a Deployment will ensure new Pods are created and scheduled to Nodes with available resources. Scaling will increase the number of Pods to the new desired state. Kubernetes also supports <a href="/docs/tasks/run-application/horizontal-pod-autoscale/">autoscaling</a> of Pods, but it is outside of the scope of this tutorial. Scaling to zero is also possible, and it will terminate all Pods of the specified Deployment.</p>
+
+                <p>Running multiple instances of an application will require a way to distribute the traffic to all of them. Services have an integrated load-balancer that will distribute network traffic to all Pods of an exposed Deployment. Services will monitor continuously the running Pods using endpoints, to ensure the traffic is sent only to available Pods.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i>Scaling is accomplished by changing the number of replicas in a Deployment.</i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p> Once you have multiple instances of an application running, you would be able to do Rolling updates without downtime. We'll cover that in the next section of the tutorial. Now, let's go to the terminal and scale our application.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+               <h3>Scaling a Deployment</h3>
+               <p>To list your Deployments use the <code>get deployments</code> subcommand:
+               <code><b>kubectl get deployments</b></code></p>
+               <p>The output should be similar to:</p>
+               <pre>
+               NAME                  READY   UP-TO-DATE   AVAILABLE   AGE
+               kubernetes-bootcamp   1/1     1            1           11m
+               </pre>
+               <p>We should have 1 Pod. If not, run the command again. This shows:</p>
+               <ul>
+               <li><em>NAME</em> lists the names of the Deployments in the cluster.</li>
+               <li><em>READY</em> shows the ratio of CURRENT/DESIRED replicas</li>
+               <li><em>UP-TO-DATE</em> displays the number of replicas that have been updated to achieve the desired state.</li>
+               <li><em>AVAILABLE</em> displays how many replicas of the application are available to your users.</li>
+               <li><em>AGE</em> displays the amount of time that the application has been running.</li>
+               </ul>
+               <p>To see the ReplicaSet created by the Deployment, run
+               <code><b>kubectl get rs</b></code></p>
+               <p>Notice that the name of the ReplicaSet is always formatted as <tt>[DEPLOYMENT-NAME]-[RANDOM-STRING]</tt>. The random string is randomly generated and uses the <em>pod-template-hash</em> as a seed.</p>
+               <p>Two important columns of this output are:</p>
+               <ul>
+               <li><em>DESIRED</em> displays the desired number of replicas of the application, which you define when you create the Deployment. This is the desired state.</li>
+               <li><em>CURRENT</em> displays how many replicas are currently running.</li>
+               </ul>
+               <p>Next, let’s scale the Deployment to 4 replicas. We’ll use the <code>kubectl scale</code> command, followed by the Deployment type, name and desired number of instances:</p>
+               <p><code><b>kubectl scale deployments/kubernetes-bootcamp --replicas=4</b></code></p>
+               <p>To list your Deployments once again, use <code>get deployments</code>:</p>
+               <p><code><b>kubectl get deployments</b></code></p>
+               <p>The change was applied, and we have 4 instances of the application available. Next, let’s check if the number of Pods changed:</p>
+               <p><code><b>kubectl get pods -o wide</b></code></p>
+               <p>There are 4 Pods now, with different IP addresses. The change was registered in the Deployment events log. To check that, use the describe subcommand:</p>
+               <p><code><b>kubectl describe deployments/kubernetes-bootcamp</b></code></p>
+               <p>You can also view in the output of this command that there are 4 replicas now.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+               <h3>Load Balancing</h3>
+               <p>Let's check that the Service is load-balancing the traffic. To find out the exposed IP and Port we can use the describe service as we learned in the previous part of the tutorial:</p>
+               <p><code><b>kubectl describe services/kubernetes-bootcamp</b></code></p>
+               <p>Create an environment variable called <tt>NODE_PORT</tt> that has a value as the Node port:</p>
+               <p><code><b>export NODE_PORT="$(kubectl get services/kubernetes-bootcamp -o go-template='{{(index .spec.ports 0).nodePort}}')"</b></code><br />
+               <p><code><b>echo NODE_PORT=$NODE_PORT</b></code></p>
+               <p>Next, we’ll do a <code>curl</code> to the exposed IP address and port. Execute the command multiple times:</p>
+               <p><code><b>curl http://"$(minikube ip):$NODE_PORT"</b></b></b></code></p>
+               <p>We hit a different Pod with every request. This demonstrates that the load-balancing is working.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+               <h3>Scale Down</h3>
+               <p>To scale down the Deployment to 2 replicas, run again the <code>scale</code> subcommand:</p>
+               <p><code><b>kubectl scale deployments/kubernetes-bootcamp --replicas=2</b></code></p>
+               <p>List the Deployments to check if the change was applied with the <code>get deployments</code> subcommand:</p>
+               <p><code><b>kubectl get deployments</b></code></p>
+               <p>The number of replicas decreased to 2. List the number of Pods, with <code>get pods</code>:</p>
+               <p><code><b>kubectl get pods -o wide</b></code></p>
+               <p>This confirms that 2 Pods were terminated.</p>
+            </div>
+        </div>
+
+      <div class="row">
+          <p>
+            Once you're ready, move on to <a href="/docs/tutorials/kubernetes-basics/update/update-intro/" title="Performing a Rolling Update">Performing a Rolling Update</a>.</p>
+          </p>
+      </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

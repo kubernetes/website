@@ -1,0 +1,299 @@
+---
+title: Usando kubectl para criar um Deployment
+weight: 10
+description: |-
+  Aprenda sobre objetos Deployment do Kubernetes.
+  Implante seu primeiro aplicativo no Kubernetes utilizando o kubectl.
+---
+
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+  <main class="content">
+
+    <div class="row">
+
+      <div class="col-md-8">
+        <h3>Objetivos</h3>
+        <ul>
+          <li> Saiba mais sobre implantações de aplicativos.</li>
+          <li> Implante seu primeiro aplicativo no Kubernetes com o kubectl.
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-md-8">
+        <h3>Deployments do Kubernetes</h3>
+        <p>
+          Assim que o seu <a href="/pt-br/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/">cluster
+          Kubernetes estiver em execução</a> você pode implantar seu aplicativo
+          contêinerizado nele.
+          Para fazer isso, você precisa criar um objeto <b>Deployment</b> do Kubernetes.
+          O Deployment instrui o Kubernetes sobre como criar e atualizar instâncias
+          do seu aplicativo. Depois de criar um Deployment, a camada de gerenciamento
+          do Kubernetes aloca as instâncias do aplicativo incluídas nesse Deployment
+          para serem executadas em nós individuais do cluster.
+        </p>
+
+        <p>
+          Depois que as instâncias do aplicativo são criadas, o controlador de
+          Deployment do Kubernetes monitora continuamente essas instâncias.
+          Se o nó em que uma instância está alocada ficar indisponível ou for
+          excluído, o controlador de Deployment substituirá a instância por uma
+          instância em outro nó no cluster.
+          <b>Isso fornece um mecanismo de autocorreção para lidar com falhas ou
+            manutenção da máquina.</b>
+        </p>
+
+        <p>
+          Em um mundo de pré-orquestração, os scripts de instalação eram utilizados
+          para iniciar aplicativos, mas não permitiam a recuperação de falha da máquina.
+          Ao criar suas instâncias de aplicativo e mantê-las em execução entre nós,
+          os Deployments do Kubernetes fornecem uma abordagem fundamentalmente
+          diferente para o gerenciamento de aplicativos.
+        </p>
+      </div>
+
+      <div class="col-md-4">
+        <div class="content__box content__box_lined">
+          <h3>Resumo:</h3>
+          <ul>
+            <li>Deployments</li>
+            <li>Kubectl</li>
+          </ul>
+        </div>
+        <div class="content__box content__box_fill">
+          <p><i>
+            O objeto Deployment é responsável por criar e atualizar instâncias
+            de seu aplicativo
+          </i></p>
+        </div>
+      </div>
+
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-md-8">
+        <h2 style="color: #3771e3;">Implante seu primeiro aplicativo no
+          Kubernetes</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <p><img
+          src="/docs/tutorials/kubernetes-basics/public/images/module_02_first_app.svg">
+        </p>
+      </div>
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col-md-8">
+        <p>
+          Você pode criar e gerenciar uma implantação usando a interface
+          de linha de comando do Kubernetes, o <b>kubectl</b>.
+          O kubectl usa a API do Kubernetes para interagir com o cluster.
+          Neste módulo, você aprenderá os comandos Kubectl mais comuns
+          necessários para criar Deployments que executam seus aplicativos
+          em um cluster Kubernetes.
+        </p>
+
+        <p>
+          Quando você cria um Deployment, você precisa especificar a imagem
+          de contêiner para seu aplicativo e o número de réplicas que deseja executar.
+          Você pode alterar essas informações posteriormente, atualizando seu Deployment;
+          os Módulos <a href="/pt-br/docs/tutorials/kubernetes-basics/scale/scale-intro/">5</a>
+          e <a href="/docs/tutorials/kubernetes-basics/update/update-intro/">6</a>
+          do bootcamp explicam como você pode dimensionar e atualizar seus Deployments.
+        </p>
+      </div>
+      <div class="col-md-4">
+        <div class="content__box content__box_fill">
+          <p><i> Os aplicativos precisam ser empacotados em um dos formatos de
+            contêiner suportados para serem implantados no Kubernetes </i></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <p>
+          Para criar seu primeiro Deployment, você usará o aplicativo hello-node
+          empacotado em um contêiner que utiliza o NGINX para repetir todas as requisições.
+          (Se você ainda não tentou criar o aplicativo hello-node e implantá-lo
+          usando um contêiner, você pode fazer isso primeiro seguindo as
+          instruções do <a href="/pt/docs/tutorials/hello-minikube/">tutorial Olá, Minikube!</a>).
+        </p>
+
+        <p>
+          Você precisará ter o kubectl instalado também. Se você precisar de
+          instruções de instalação, veja
+          <a href="/pt-br/docs/tasks/tools/#kubectl">instalando ferramentas</a>.
+        </p>
+
+        <p>
+          Agora que você já sabe o que são Deployments, vamos implantar
+          nosso primeiro aplicativo!
+        </p>
+      </div>
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col-md-8">
+        <h3>Noções básicas do kubectl</h3>
+        <p>O formato comum de um comando kubectl é: <code>kubectl <i>ação recurso</i></code></p>
+        <p>
+          Isto executa a <em>ação</em> especificada (como por exemplo <i>create</i>,
+          <i>describe</i> ou <i>delete</i>) no <em>recurso</em>
+          especificado (por exemplo, <tt>node</tt> ou <tt>deployment</tt>).
+          Você pode utilizar <code>--help</code> após o subcomando
+          para obter informações adicionais sobre parâmetros permitidos
+          (por exemplo, <code>kubectl get nodes --help</code>).
+        </p>
+        <p>Verifique que o kubectl está configurado para comunicar-se com seu
+          cluster rodando o comando <b><code>kubectl version</code></b>.</p>
+        <p>Certifique-se de que o kubectl está instalado e que você consegue ver
+          as versões do cliente e do servidor.</p>
+        <p>Para visualizar os nós do cluster, execute o comando <b><code>kubectl
+          get nodes</code></b>.</p>
+        <p>
+          Você verá os nós disponíveis. Posteriormente, o Kubernetes irá escolher
+          onde implantar nossa aplicação baseado nos recursos disponíveis nos nós.
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Implante uma aplicação</h3>
+        <p>
+          Vamos implantar nossa primeira aplicação no Kubernetes utilizando
+          o comando <code>kubectl create deployment</code>. Precisaremos
+          fornecer o nome do Deployment e a localização da imagem de contêiner
+          do aplicativo (inclua a URL completa do repositório para images
+          hospedadas fora do Docker Hub).
+        </p>
+
+        <p><b><code>kubectl create deployment kubernetes-bootcamp
+          --image=gcr.io/google-samples/kubernetes-bootcamp:v1</code></b></p>
+
+        <p>
+          Excelente! Você acabou de implantar sua primeira aplicação através
+          da criação de um Deployment. Este comando efetuou algumas ações
+          para você:
+        </p>
+        <ul>
+          <li>
+            buscou um nó utilizável onde a instância da aplicação pode ser executada
+            (temos somente um nó disponível)
+          </li>
+          <li>alocou a aplicação para rodar naquele nó</li>
+          <li>
+            configurou o cluster para realocar a instância em um novo nó sempre
+            que necessário
+          </li>
+        </ul>
+        <p>
+          Para listar seus Deployments existentes, utilize o comando
+          <code>kubectl get deployments</code>:
+        </p>
+        <p><b><code>kubectl get deployments</code></b></p>
+        <p>
+          Podemos observar que há um Deployment rodando uma única instância
+          da sua aplicação. A instância está executando dentro de um contêiner
+          no seu nó.
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Visualize o aplicativo</h3>
+        <p>
+          Pods que rodam dentro do Kubernetes estão rodando em uma rede privada e isolada.
+          Por padrão, eles são visíveis a outros Pods e Services dentro do mesmo
+          cluster do Kubernetes, mas não de fora daquela rede.
+          Ao usarmos <code>kubectl</code>, estamos interagindo através de um
+          <i>endpoint</i> de API para comunicar-nos com a nossa aplicação.
+        </p>
+        <p>
+          Iremos discutir outras opções de como expor sua aplicação fora do
+          cluster do Kubernetes no Módulo 4.
+        </p>
+        <p>
+          O comando <code>kubectl</code> pode criar um proxy que encaminha
+          comunicações para dentro da rede privada que engloba todo o cluster. O
+          proxy pode ser encerrado utilizando a sequência control-C e não irá
+          imprimir nenhum tipo de saída enquanto estiver rodando.
+        </p>
+        <p>
+          <strong>Você precisa abrir uma segunda janela do terminal para executar
+          o proxy.</strong>
+        </p>
+        <p>
+          <b><code>kubectl proxy</code></b>
+        </p>
+        <p>
+          Agora temos uma conexão entre nosso <i>host</i> (o terminal online) e o
+          cluster do Kubernetes. O proxy habilita acesso direto à API através
+          destes terminais.
+        </p>
+        <p>
+          Você pode ver todas as APIs hospedadas através do <i>endpoint</i> do
+          proxy. Por exemplo, podemos obter a versão diretamente através da API
+          utilizando o comando <code>curl</code>:
+        </p>
+        <p>
+          <b><code>curl http://localhost:8001/version</code></b>
+        </p>
+        <div class="alert alert-info note callout" role="alert">
+          <strong>Nota:</strong> se a porta 8001 não estiver acessível, certifique-se
+          de que o comando <code>kubectl proxy</code> que você iniciou acima está
+          rodando no segundo terminal.
+        </div>
+        <p>
+          O servidor da API irá automaticamente criar um <i>endpoint</i> para cada
+          Pod, baseado no nome do Pod, que também estará acessível através do proxy.
+        </p>
+        <p>
+          Primeiro, precisaremos obter o nome do Pod. Iremos armazená-lo na
+          variável de ambiente <tt>POD_NAME</tt>:
+        </p>
+        <p><b><code>export POD_NAME=$(kubectl get pods -o go-template --template
+          '{{range .items}}{{.metadata.name}}{{"\n"}}{{end}}')</code></b><br/>
+          <b><code>echo Nome do Pod: $POD_NAME</code></b></p>
+        <p>Você pode acessar o Pod através da API encaminhada, rodando o comando:</p>
+        <p><b><code>curl
+          http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/</code></b>
+        </p>
+        <p>
+          Para que o novo Deployment esteja acessível sem utilizar o proxy, um
+          Service é requerido. Isto será explicado nos próximos módulos.
+        </p>
+      </div>
+
+    </div>
+    <div class="row">
+      <p>
+        Assim que você finalizar este tutorial, vá para <a
+        href="/pt-br/docs/tutorials/kubernetes-basics/explore/explore-intro/"
+        title="Visualizando Pods e Nós">Visualizando Pods e Nós</a>.
+      </p>
+    </div>
+  </main>
+
+</div>
+
+</body>
+</html>

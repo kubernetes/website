@@ -1,0 +1,143 @@
+---
+title: Khám Phá Pods Và Nodes
+weight: 10
+---
+
+<!DOCTYPE html>
+
+<html lang="vi">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+
+<div class="layout" id="top">
+
+    <main class="content">
+
+        <div class="row">
+
+     <div class="col-md-8">
+          <h3>Mục tiêu</h3>
+                <ul>
+                    <li>Tìm hiểu Kubernetes Pods là gì?</li>
+                    <li>Tìm hiểu Kubernetes Nodes là gì?</li>
+                    <li>Khắc phục sự cố ứng dụng đã triển khai</li>
+                </ul>
+            </div>
+
+            <div class="col-md-8">
+                <h2>Kubernetes Pods</h2>
+                <p>Khi bạn triển khai ứng dụng thông qua Module <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>, Kubernetes tạo ra <b>Pod</b> để lưu trữ phiên bản chạy của ứng dụng của bạn. Một Pod là một khái niệm trừu tượng của Kubernetes, đại diện cho một nhóm gồm một hoặc nhiều ứng dụng containers (ví dụ như Docker hoặc rkt) và một số tài nguyên được chia sẻ cho các containers đó. Những tài nguyên đó bao gồm:</p>
+                <ul>
+                    <li>Lưu trữ được chia sẻ, dưới dạng Volumes</li>
+                    <li>Kết nối mạng, như một cluster IP duy nhất</li>
+                    <li>Thông tin về cách chạy từng container, chẳng hạn như phiên bản container image hoặc các ports cụ thể để sử dụng</li>
+                </ul>
+                <p>Một Pod mô phỏng một "máy chủ logic" dành riêng cho ứng dụng và có thể chứa các ứng dụng containers khác nhau được liên kết tương đối chặt chẽ. Ví dụ, một Pod có thể bao gồm cả container với ứng dụng Node.js của bạn cũng như một container khác cung cấp dữ liệu hiển thị bởi webserver của Node.js. Các containers trong một Pod chia sẻ một địa chỉ IP và port space, chúng luôn được đặt cùng vị trí, cùng lên lịch trình, và chạy trong ngữ cảnh được chia sẻ trên cùng một Node.</p>
+            
+            <p>Pods là các đơn vị nguyên tử trên nền tảng Kubernetes. Khi chúng tôi tạo một kịch bản triển khai (Deployment) trên Kubernetes, kịch bản triển khai đó tạo ra các Pods với các containers bên trong chúng (trái ngược với việc tạo các containers trực tiếp). Mỗi Pod được gắn với Node nơi nó được lên lịch trình, và tiếp tục ở đó cho đến khi chấm dứt (theo chính sách khởi động lại). Trong trường hợp có lỗi ở Node, các Pods giống nhau được lên lịch trình trên các Nodes có sẵn khác trong cluster.</p> 
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_lined">
+                    <h3>Tổng Kết:</h3>
+                    <ul>
+                        <li>Pods</li>
+                        <li>Nodes</li>
+                        <li>Những lệnh chính của Kubectl</li>
+                    </ul>
+                </div>
+                <div class="content__box content__box_fill">
+                        <p><i>
+                            Một Pod là một nhóm gồm một hoặc nhiều ứng dụng containers (như Docker hoặc rkt) và bao gồm lưu trữ được chia sẻ (dưới dạng volumes), địa chỉ IP và thông tin về cách chạy chúng.
+                        </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Tổng quan về Pods</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_pods.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Nodes</h2>
+                <p>Một Pod luôn chạy trên một <b>Node</b>. Một Node là một máy worker trong Kubernetes và có thể là máy ảo hoặc máy vật lý, tuỳ thuộc vào cluster. Mỗi Node được quản lí bởi Master. Một Node có thể chứa nhiều Pods và Kubernetes master tự động xử lí việc lên lịch trình các Pods thuộc các Nodes ở trong cluster. Việc lên lịch trình tự động của Master sẽ tính đến các tài nguyên có sẵn trên mỗi Node.</p>
+
+                <p>Mỗi Node ở Kubernetes chạy ít nhất:</p>
+                <ul>
+                    <li>Kubelet, một quy trình chịu trách nhiệm liên lạc giữa Kubernetes Master và Node; quản lí các Pods và các containers đang chạy trên cùng một máy.</li>
+                    <li>Một container runtime (như Docker, rkt) chịu trách nhiệm lấy container image từ registry, giải nén container và chạy ứng dụng. Các containers chỉ nên được lên lịch trình cùng nhau trong một Pod duy nhất nếu chúng được liên kết chặt chẽ.</li>
+                </ul>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i> Các containers chỉ nên được lên lịch trình cùng nhau trong một Pod duy nhất nếu chúng được liên kết chặt chẽ và cần chia sẻ tài nguyên như disk. </i></p>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2 style="color: #3771e3;">Tổng quan về Node</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p><img src="/docs/tutorials/kubernetes-basics/public/images/module_03_nodes.svg"></p>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Khắc phục sự cố với kubectl</h2>
+                <p>Ở Module <a href="/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/">2</a>, bạn đã sử dụng giao diện dòng lệnh Kubectl. Bạn sẽ tiếp tục sử dụng nó trong Module 3 để nhận thông tin về các ứng dụng đã triển khai và môi trường của chúng. Các hoạt động phổ biến nhất có thể được thực hiện với các lệnh kubectl sau:</p>
+                <ul>
+                    <li><b>kubectl get</b> - liệt kê các tài nguyên</li>
+                    <li><b>kubectl describe</b> - hiển thị thông tin chi tiết về một tài nguyên</li>
+                    <li><b>kubectl logs</b> - in các bản ghi (logs) từ một container trong một pod</li>
+                    <li><b>kubectl exec</b> - thực hiện một lệnh trên một container trong một pod</li>
+                </ul>
+
+                <p>Bạn có thể sử dụng các lệnh này để xem khi nào các ứng dụng được triển khai, trạng thái hiện tại của chúng là gì, nơi chúng đang chạy và cấu hình của chúng là gì.</p>
+
+                <p>Bây giờ chúng ta đã biết thêm về các thành phần cluster và dòng lệnh, hãy khám phá ứng dụng của chúng tôi.</p>
+
+            </div>
+            <div class="col-md-4">
+                <div class="content__box content__box_fill">
+                    <p><i> Một Node là một máy worker trong Kubernetes và có thể là máy ảo hoặc máy vật lý, tuỳ thuộc vào cluster. Nhiều Pods có thể chạy trên cùng một Node. </i></p>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-lg btn-success" href="/docs/tutorials/kubernetes-basics/explore/explore-interactive/" role="button">Bắt đầu hướng dẫn tương tác <span class="btn__next">›</span></a>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

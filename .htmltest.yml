@@ -1,0 +1,16 @@
+DirectoryPath: public/docs
+IgnoreDirectoryMissingTrailingSlash: true
+CheckExternal: false
+IgnoreAltMissing: true
+CheckImages: false
+CheckScripts: false
+CheckMeta: false
+CheckMetaRefresh: false
+CheckLinks: false
+EnforceHTML5: false
+EnforceHTTPS: false
+IgnoreDirectoryMissingTrailingSlash: false
+IgnoreInternalEmptyHash: true
+IgnoreEmptyHref: true
+IgnoreDirs:
+  - "reference/generated/kubernetes-api"

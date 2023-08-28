@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hostpath-volume-pod
+spec:
+  containers:
+  - name: my-hostpath-volume-pod
+    image: microsoft/windowsservercore:1709
+    volumeMounts:
+    - name: foo
+      mountPath: "C:\\etc\\foo"
+      readOnly: true
+  nodeSelector:
+    kubernetes.io/os: windows
+  volumes:
+  - name: foo
+    hostPath:
+     path: "C:\\etc\\foo"

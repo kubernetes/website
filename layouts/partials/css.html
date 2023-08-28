@@ -1,0 +1,36 @@
+<!-- All former base stylesheet links commented out as we are using Docsy for styles. -->
+
+{{ $inServerMode := site.IsServer }}
+
+{{- if .Params.case_study_styles }}
+  {{ $cssOutput := "css/case-studies.css" }}
+  {{ $caseStudiesCSS := resources.Get "scss/_case-studies.scss" | resources.ToCSS }}
+  {{ if $inServerMode }}
+    <link rel="stylesheet" href="{{ $caseStudiesCSS.RelPermalink }}">
+  {{ else }}
+    {{ $prodCaseStudiesCSS := $caseStudiesCSS | fingerprint }}
+    <link rel="stylesheet" href="{{ $prodCaseStudiesCSS.RelPermalink }}" integrity="{{ $prodCaseStudiesCSS.Data.Integrity }}">
+  {{ end }}
+{{- end }}
+
+<link rel="stylesheet" href="{{ "css/feature-states.css" | relURL }}">
+
+{{- if or (eq .Params.class "gridPage") (eq .Params.class "gridPage gridPageHome") }}
+  <link rel="stylesheet" href="{{ "css/gridpage.css" | relURL }}">
+{{- end }}
+
+{{- if eq .Params.class "training" }}
+  <link rel="stylesheet" href="{{ "css/training.css" | relURL }}">
+{{- end }}
+
+{{- if .Params.new_case_study_styles }}
+  <link rel="stylesheet" href="{{ "css/new-case-studies.css" | relURL }}">
+{{- end}}
+
+{{- with .Params.css }}
+  {{- $extraCss := split . "," }}
+  {{- range $extraCss }}
+    {{- $url := trim . " " | relURL }}
+    <link rel="stylesheet" href="{{ $url }}"><!-- custom css added -->
+  {{- end }}
+{{- end }}

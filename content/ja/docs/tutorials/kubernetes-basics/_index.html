@@ -1,0 +1,120 @@
+---
+title: Kubernetesの基本を学ぶ
+linkTitle: Kubernetesの基本を学ぶ
+weight: 10
+card:
+  name: tutorials
+  weight: 20
+  title: 基本のチュートリアル
+---
+
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<body>
+
+<link href="/docs/tutorials/kubernetes-basics/public/css/styles.css" rel="stylesheet">
+
+<div class="layout" id="top">
+
+  <main class="content">
+
+    <div class="row">
+      <div class="col-md-9">
+        <h2>Kubernetesの基本</h2>
+        <p>このチュートリアルでは、Kubernetesクラスターオーケストレーションシステムの基本について学びます。各モジュールには、Kubernetesの主な機能と概念に関する背景情報と、インタラクティブなオンラインチュートリアルが含まれています。これらの対話型チュートリアルでは、簡単なクラスターとそのコンテナ化されたアプリケーションを自分で管理できます。</p>
+        <p>この対話型のチュートリアルでは、以下のことを学ぶことができます:</p>
+        <ul>
+        <li>コンテナ化されたアプリケーションをクラスターにデプロイ</li>
+        <li>Deploymentのスケーリング</li>
+        <li>新しいソフトウェアのバージョンでコンテナ化されたアプリケーションをアップデート</li>
+        <li>コンテナ化されたアプリケーションのデバッグ</li>
+        </ul>
+        <p>このチュートリアルでは、Katacodaを使用して、Webブラウザ上の仮想ターミナルでMinikubeを実行します。Minikubeは、どこでも実行できるKubernetesの小規模なローカル環境です。ソフトウェアをインストールしたり、何かを設定したりする必要はありません。各対話型チュートリアルは、Webブラウザ自体の上で直接実行されます</p>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-md-9">
+        <h2>Kubernetesはどんなことができるの？</h2>
+        <p>モダンなWebサービスでは、ユーザはアプリケーションが24時間365日利用可能であることを期待しており、開発者はそれらのアプリケーションの新しいバージョンを1日に数回デプロイすることを期待しています。コンテナ化は、パッケージソフトウェアがこれらの目標を達成するのを助け、アプリケーションをダウンタイムなしで簡単かつ迅速にリリース、アップデートできるようにします。Kubernetesを使用すると、コンテナ化されたアプリケーションをいつでもどこでも好きなときに実行できるようになり、それらが機能するために必要なリソースとツールを見つけやすくなります。Kubernetesは、コンテナオーケストレーションにおけるGoogleのこれまでの経験と、コミュニティから得られた最善のアイデアを組み合わせて設計された、プロダクションレディなオープンソースプラットフォームです。</p>
+      </div>
+    </div>
+
+    <div id="basics-modules" class="content__modules">
+      <h2>Kubernetesの基本モジュール</h2>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/ja/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_01.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/ja/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/"><h5>1. Kubernetesクラスターの作成</h5></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/ja/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_02.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/ja/docs/tutorials/kubernetes-basics/deploy-app/deploy-intro/"><h5>2. アプリケーションのデプロイ</h5></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/ja/docs/tutorials/kubernetes-basics/explore/explore-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_03.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/ja/docs/tutorials/kubernetes-basics/explore/explore-intro/"><h5>3. デプロイしたアプリケーションの探索</h5></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/ja/docs/tutorials/kubernetes-basics/expose/expose-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_04.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/ja/docs/tutorials/kubernetes-basics/expose/expose-intro/"><h5>4. アプリケーションの公開</h5></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/ja/docs/tutorials/kubernetes-basics/scale/scale-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_05.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/ja/docs/tutorials/kubernetes-basics/scale/scale-intro/"><h5>5. アプリケーションのスケールアップ</h5></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="thumbnail">
+                <a href="/ja/docs/tutorials/kubernetes-basics/update/update-intro/"><img src="/docs/tutorials/kubernetes-basics/public/images/module_06.svg?v=1469803628347" alt=""></a>
+                <div class="caption">
+                  <a href="/ja/docs/tutorials/kubernetes-basics/update/update-intro/"><h5>6. アプリケーションのアップデート</h5></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <a class="btn btn-lg btn-success" href="/ja/docs/tutorials/kubernetes-basics/create-cluster/cluster-intro/" role="button">チュートリアルを始める<span class="btn__next">›</span></a>
+      </div>
+    </div>
+
+  </main>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+{{ $caseStudiesSection := site.GetPage "case-studies" }}
+{{ if not $caseStudiesSection }}
+{{ errorf "[%s] No case-studies section found. Create content/%s/case-studies/_index.md"  $.Page.Lang $.Page.Lang }}
+{{ else }}
+{{ $caseStudiesPages := where $caseStudiesSection.Pages "Params.featured" true | first 4 }}
+<section id="talkToUs">
+  <div class="main-section">
+    <h3>{{ $caseStudiesSection.Title }}</h3>
+    <div id="caseStudiesWrapper">
+      {{ range $caseStudiesPages }}
+			{{ $logo := .Resources.GetMatch "**{feature,logo}*.svg" }}
+			{{ if not $logo }}
+				{{ $logo = .Resources.GetMatch "**logo*.png" }}
+			{{ end }}
+      <div>
+        {{ with $logo }}<img src="{{ .RelPermalink }}" alt="{{ .Title }}">{{ end }}
+        <p>"{{ .Params.quote | truncate 100 }}"</p>
+        <a href="{{ .RelPermalink }}">{{ T "main_read_more" }}</a>
+      </div>
+      {{ end }}  
+    </div>
+    <h5 style="text-align: center"><a href="/case-studies/" style="color: #3371E3; font-weight: 400">{{ $caseStudiesSection.LinkTitle }}</a></h5>
+  </div>
+</section>
+{{ end }}

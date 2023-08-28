@@ -1,0 +1,59 @@
+---
+title: "Giải pháp điều phối container trong môi trường production"
+abstract: "Triển khai tự động, nhân rộng và quản lý container"
+cid: home
+---
+
+{{< blocks/section id="oceanNodes" >}}
+{{% blocks/feature image="flower" %}}
+### [Kubernetes (K8s)]({{< relref "/docs/concepts/overview/what-is-kubernetes" >}}) là một hệ thống mã nguồn mở giúp tự động hóa việc triển khai, nhân rộng và quản lý các ứng dụng container.
+
+Nó nhóm các container cấu thành lên một ứng dụng thành các đơn vị logic để dễ dàng quản lý và khám phá. Kubernetes xây dựng dựa trên [15 năm kinh nghiệm vận hành các hệ thống trong môi trường production tại Google](http://queue.acm.org/detail.cfm?id=2898444), kết hợp với các ý tưởng và thực tiễn tốt nhất từ cộng đồng.
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="scalable" %}}
+#### Quy mô toàn hành tinh
+
+Được thiết kế trên cùng các nguyên tắc cho phép Google chạy hàng tỷ container mỗi tuần, Kubernetes có thể nhân rộng quy mô mà không cần gia tăng nhóm vận hành của bạn.
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="blocks" %}}
+#### Không bao giờ quá giới hạn
+
+Cho dù là thử nghiệm nội bộ hoặc vận hành một doanh nghiệp toàn cầu, tính linh hoạt của Kubernetes sẽ phát triển cùng với bạn để mang đến cho ứng dụng của bạn sự nhất quán và dễ dàng dù cho nhu cầu của bạn phức tạp đến mức nào.
+
+{{% /blocks/feature %}}
+
+{{% blocks/feature image="suitcase" %}}
+#### Chạy được ở mọi nơi
+
+Kubernetes là dự án mã nguồn mở cho phép bạn tự do tận dụng cơ sở hạ tầng tại chỗ (on-premises), lai (hybrid), hoặc public cloud, giúp bạn dễ dàng di chuyển workloads đến nơi phù hợp.
+
+{{% /blocks/feature %}}
+
+{{< /blocks/section >}}
+
+{{< blocks/section id="video" background-image="kub_video_banner_homepage" >}}
+<div class="light-text">
+<h2>Những thách thức của việc di chuyển hơn 150 Microservices lên Kubernetes</h2>
+        <p>Bởi Sarah Wells, Giám đốc kỹ thuật mảng Operations và Reliability, Financial Times</p>
+        <button id="desktopShowVideoButton" onclick="kub.showVideo()">Xem Video</button>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america" button id="desktopKCButton">Tham gia KubeCon Bắc Mỹ 06-09/11/2023</a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <a href="https://events.linuxfoundation.org/kubecon-cloudnativecon-europe/" button id="desktopKCButton">Tham gia KubeCon Châu Âu 18-21/04/2023</a>
+</div>
+<div id="videoPlayer">
+    <iframe data-url="https://www.youtube.com/embed/H06qrNmGqyE?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    <button id="closeButton"></button>
+</div>
+{{< /blocks/section >}}
+
+{{< blocks/kubernetes-features >}}
+
+{{< blocks/case-studies >}}
