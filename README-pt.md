@@ -2,11 +2,11 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/be93b718-a6df-402a-b4a4-855ba186c97d/deploy-status)](https://app.netlify.com/sites/kubernetes-io-main-staging/deploys) [![GitHub release](https://img.shields.io/github/release/kubernetes/website.svg)](https://github.com/kubernetes/website/releases/latest)
 
-Bem-vindos! Este repositório contém todos os recursos necessários para criar o [website e documentação do Kubernetes](https://kubernetes.io/). Ficamos felizes por você querer contribuir!
+Este repositório contém todos os recursos necessários para criar o [website e documentação do Kubernetes](https://kubernetes.io/). Ficamos felizes por você querer contribuir!
 
 ## Utilizando este repositório
 
-Você pode executar o website localmente utilizando o [Hugo (versão Extended)](https://gohugo.io/), ou você pode executa-ló em um container runtime. É altamente recomendável utilizar um container runtime, pois garante a consistência na implantação do website real.
+Você pode executar o website localmente utilizando o [Hugo (versão Extended)](https://gohugo.io/), ou você pode executá-lo em um agente de execução de contêiner. É altamente recomendável utilizar um agente de execução de contêiner, pois este fornece consistência de implantação em relação ao website real.
 
 ## Pré-requisitos
 
@@ -24,32 +24,32 @@ git clone https://github.com/kubernetes/website.git
 cd website
 ```
 
-O website do Kubernetes utiliza o [tema Docsy Hugo](https://github.com/google/docsy#readme). Mesmo se você planeje executar o website em um container, é altamente recomendado baixar os submódulos e outras dependências executando o seguinte comando:
+O website do Kubernetes utiliza o [tema Docsy Hugo](https://github.com/google/docsy#readme). Mesmo que você planeje executar o website em um contêiner, é altamente recomendado baixar os submódulos e outras dependências executando o seguinte comando:
 
 ## Windows
 
-```
+```powershell
 # Obter dependências e outros submódulos
 git submodule update --init --recursive --depth 1
 ```
 
 ## Linux / outros Unix
 
-```
+```bash
 # Obter dependências e outros submódulos
 make module-init
 ```
 
 ## Executando o website usando um container
 
-Para executar o build do website em um container, execute o comando abaixo:
+Para executar o build do website em um contêiner, execute o comando abaixo:
 
-```
-# Você pode setar a variável $CONTAINER_ENGINE com o nome de container engine utilizado. 
+```bash
+# Você pode definir a variável $CONTAINER_ENGINE com o nome do agente de execução de contêiner utilizado. 
 make container-serve
 ```
 
-Caso ocorra erros, é provável que o container que está executando o Hugo não tenha recursos suficientes. A solução é aumentar a quantidade de cpu e memória disponível para o Docker ([MacOSX](https://docs.docker.com/docker-for-mac/#resources) e [Windows](https://docs.docker.com/docker-for-windows/#resources)).
+Caso ocorram erros, é provável que o contêiner que está executando o Hugo não tenha recursos suficientes. A solução é aumentar a quantidade de CPU e memória disponível para o Docker ([MacOSX](https://docs.docker.com/docker-for-mac/#resources) e [Windows](https://docs.docker.com/docker-for-windows/#resources)).
 
 Abra seu navegador em http://localhost:1313 para visualizar o website. Conforme você faz alterações nos arquivos fontes, o Hugo atualiza o website e força a atualização do navegador.
 
@@ -79,9 +79,9 @@ Siga os passos abaixo para atualizar a página de referência para uma nova vers
 git submodule update --init --recursive --depth 1
 ```
 
-2. Atualizar à especificação do Swagger:
+2. Atualizar a especificação do Swagger:
 
-```
+```bash
 curl 'https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json' > api-ref-generator/
 ```
 
@@ -158,13 +158,13 @@ Verifique a quantidade de memória disponível para o agente de execução de co
 
 Saiba mais sobre a comunidade Kubernetes SIG Docs e reuniões na [página da comunidade](http://kubernetes.io/community/).
 
-Você também pode entrar em contato com os mantenedores deste projeto utlizando:
+Você também pode entrar em contato com os mantenedores deste projeto utilizando:
 
 - [Slack](https://kubernetes.slack.com/messages/sig-docs)
     - [Obter o convide para este slack](https://slack.k8s.io/)
 - [Mailing List](https://groups.google.com/forum/#!forum/kubernetes-sig-docs)
 
-## Contribuindo com os documentos
+## Contribuindo com a documentação
 
 Você pode clicar no botão **Fork** na área superior direita da tela para criar uma cópia desse repositório na sua conta do GitHub. Esta cópia é chamada de *fork*. Faça as alterações desejadas no seu fork e, quando estiver pronto para enviar as alterações para nós, vá até o fork e crie um novo **pull request** para nos informar sobre isso.
 
@@ -183,7 +183,7 @@ Para mais informações sobre como contribuir com a documentação do Kubernetes
 
 ### Embaixadores para novos colaboradores
 
-Caso você precise de ajuda em algum momento ao contribuir, os [Embaixadores para novos colaboradores](https://kubernetes.io/docs/contribute/advanced/#serve-as-a-new-contributor-ambassador) é uma via para contato. São aprovadores do SIG Docs cujas responsabilidades incluem orientar e ajudar novos colaboradores em seus primeiros pull requests. O melhor lugar para entrar em contato seria no [Slack do Kubernetes](https://slack.k8s.io/). Atuais Embaixadores do SIG Docs:
+Caso você precise de ajuda em algum momento ao contribuir, os [Embaixadores para novos colaboradores](https://kubernetes.io/docs/contribute/advanced/#serve-as-a-new-contributor-ambassador) são pontos de contato. São aprovadores do SIG Docs cujas responsabilidades incluem orientar e ajudar novos colaboradores em seus primeiros pull requests. O melhor canal para contato com embaixadores é o [Slack do Kubernetes](https://slack.k8s.io/). Atuais Embaixadores do SIG Docs:
 
 | Nome                       | Slack                      | GitHub                     |                   
 | -------------------------- | -------------------------- | -------------------------- |
@@ -197,11 +197,11 @@ Caso você precise de ajuda em algum momento ao contribuir, os [Embaixadores par
 | [Chinês](README-zh.md)    | [Japonês](README-ja.md)    |
 | [Coreano](README-ko.md)   | [Polonês](README-pl.md)    |
 | [Espanhol](README-es.md)  | [Português](README-pt.md)  |
-| [Françês](README-fr.md)   | [Russo](README-ru.md)      |
+| [Francês](README-fr.md)   | [Russo](README-ru.md)      |
 | [Hindi](README-hi.md)     | [Ucraniano](README-uk.md)  |
 | [Indonésio](README-id.md) | [Vietnamita](README-vi.md) |
 
-Você pode contatar os mantenedores da localização em Português no canal do Slack [#kubernetes-docs-pt]((https://kubernetes.slack.com/messages/kubernetes-docs-pt)).
+Você pode contatar os mantenedores da localização em Português no canal do Slack [#kubernetes-docs-pt](https://kubernetes.slack.com/messages/kubernetes-docs-pt).
 
 # Código de conduta
 
