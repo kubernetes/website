@@ -31,8 +31,8 @@ hide_summary: true # Listed separately in section index
 
 <!--
 A Job creates one or more Pods and will continue to retry execution of the Pods until a specified number of them successfully terminate.
-As pods successfully complete, the Job tracks the successful completions.  When a specified number
-of successful completions is reached, the task (ie, Job) is complete.  Deleting a Job will clean up
+As pods successfully complete, the Job tracks the successful completions. When a specified number
+of successful completions is reached, the task (ie, Job) is complete. Deleting a Job will clean up
 the Pods it created. Suspending a Job will delete its active Pods until the Job
 is resumed again.
 
@@ -65,7 +65,7 @@ Job 会创建一个或者多个 Pod，并将继续重试 Pod 的执行，直到�
 <!--
 ## Running an example Job
 
-Here is an example Job config.  It computes π to 2000 places and prints it out.
+Here is an example Job config. It computes π to 2000 places and prints it out.
 It takes around 10s to complete.
 -->
 ## 运行示例 Job     {#running-an-example-job}
@@ -215,7 +215,7 @@ pi-5rwd7
 ```
 
 <!--
-Here, the selector is the same as the selector for the Job.  The `--output=jsonpath` option specifies an expression
+Here, the selector is the same as the selector for the Job. The `--output=jsonpath` option specifies an expression
 with the name from each Pod in the returned list.
 
 View the standard output of one of the pods:
@@ -253,9 +253,9 @@ The output is similar to this:
 As with all other Kubernetes config, a Job needs `apiVersion`, `kind`, and `metadata` fields.
 
 When the control plane creates new Pods for a Job, the `.metadata.name` of the
-Job is part of the basis for naming those Pods.  The name of a Job must be a valid
+Job is part of the basis for naming those Pods. The name of a Job must be a valid
 [DNS subdomain](/docs/concepts/overview/working-with-objects/names#dns-subdomain-names)
-value, but this can produce unexpected results for the Pod hostnames.  For best compatibility,
+value, but this can produce unexpected results for the Pod hostnames. For best compatibility,
 the name should follow the more restrictive rules for a
 [DNS label](/docs/concepts/overview/working-with-objects/names#dns-label-names).
 Even when the name is a DNS subdomain, the name must be no longer than 63
@@ -284,17 +284,21 @@ Job 配置还需要一个 [`.spec` 节](https://git.k8s.io/community/contributor
 Job labels will have `batch.kubernetes.io/` prefix for `job-name` and `controller-uid`.
 -->
 Job 标签将为 `job-name` 和 `controller-uid` 加上 `batch.kubernetes.io/` 前缀。
+
 <!--
 ### Pod Template
 
 The `.spec.template` is the only required field of the `.spec`.
 
-The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/#pod-templates). It has exactly the same schema as a {{< glossary_tooltip text="Pod" term_id="pod" >}}, except it is nested and does not have an `apiVersion` or `kind`.
+The `.spec.template` is a [pod template](/docs/concepts/workloads/pods/#pod-templates).
+It has exactly the same schema as a {{< glossary_tooltip text="Pod" term_id="pod" >}},
+except it is nested and does not have an `apiVersion` or `kind`.
 
 In addition to required fields for a Pod, a pod template in a Job must specify appropriate
 labels (see [pod selector](#pod-selector)) and an appropriate restart policy.
 
-Only a [`RestartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy) equal to `Never` or `OnFailure` is allowed.
+Only a [`RestartPolicy`](/docs/concepts/workloads/pods/pod-lifecycle/#restart-policy)
+equal to `Never` or `OnFailure` is allowed.
 -->
 ### Pod 模板    {#pod-template}
 
@@ -313,13 +317,13 @@ Job 中 Pod 的 [`RestartPolicy`](/zh-cn/docs/concepts/workloads/pods/pod-lifecy
 <!--
 ### Pod selector
 
-The `.spec.selector` field is optional.  In almost all cases you should not specify it.
+The `.spec.selector` field is optional. In almost all cases you should not specify it.
 See section [specifying your own pod selector](#specifying-your-own-pod-selector).
 -->
 ### Pod 选择算符   {#pod-selector}
 
 字段 `.spec.selector` 是可选的。在绝大多数场合，你都不需要为其赋值。
-参阅[设置自己的 Pod 选择算符](#specifying-your-own-pod-selector).
+参阅[设置自己的 Pod 选择算符](#specifying-your-own-pod-selector)。
 
 <!--
 ### Parallel execution for Jobs {#parallel-jobs}
@@ -340,11 +344,15 @@ There are three main types of task suitable to run as a Job:
    - when using `.spec.completionMode="Indexed"`, each Pod gets a different index in the range 0 to `.spec.completions-1`.
 1. Parallel Jobs with a *work queue*:
    - do not specify `.spec.completions`, default to `.spec.parallelism`.
-   - the Pods must coordinate amongst themselves or an external service to determine what each should work on. For example, a Pod might fetch a batch of up to N items from the work queue.
-   - each Pod is independently capable of determining whether or not all its peers are done, and thus that the entire Job is done.
+   - the Pods must coordinate amongst themselves or an external service to determine
+     what each should work on. For example, a Pod might fetch a batch of up to N items from the work queue.
+   - each Pod is independently capable of determining whether or not all its peers are done,
+     and thus that the entire Job is done.
    - when _any_ Pod from the Job terminates with success, no new Pods are created.
-   - once at least one Pod has terminated with success and all Pods are terminated, then the Job is completed with success.
-   - once any Pod has exited with success, no other Pod should still be doing any work for this task or writing any output.  They should all be in the process of exiting.
+   - once at least one Pod has terminated with success and all Pods are terminated,
+     then the Job is completed with success.
+   - once any Pod has exited with success, no other Pod should still be doing any work
+     for this task or writing any output. They should all be in the process of exiting.
 -->
 1. 非并行 Job：
    - 通常只启动一个 Pod，除非该 Pod 失败。
@@ -365,8 +373,8 @@ There are three main types of task suitable to run as a Job:
      所有 Pod 都应启动退出过程。
 
 <!--
-For a _non-parallel_ Job, you can leave both `.spec.completions` and `.spec.parallelism` unset.  When both are
-unset, both are defaulted to 1.
+For a _non-parallel_ Job, you can leave both `.spec.completions` and `.spec.parallelism` unset.
+When both are unset, both are defaulted to 1.
 
 For a _fixed completion count_ Job, you should set `.spec.completions` to the number of completions needed.
 You can set `.spec.parallelism`, or leave it unset and it will default to 1.
@@ -374,7 +382,8 @@ You can set `.spec.parallelism`, or leave it unset and it will default to 1.
 For a _work queue_ Job, you must leave `.spec.completions` unset, and set `.spec.parallelism` to
 a non-negative integer.
 
-For more information about how to make use of the different types of job, see the [job patterns](#job-patterns) section.
+For more information about how to make use of the different types of job,
+see the [job patterns](#job-patterns) section.
 -->
 对于**非并行**的 Job，你可以不设置 `spec.completions` 和 `spec.parallelism`。
 这两个属性都不设置时，均取默认值 1。
@@ -408,7 +417,7 @@ parallelism, for a variety of reasons:
 
 <!--
 - For _fixed completion count_ Jobs, the actual number of pods running in parallel will not exceed the number of
-  remaining completions.   Higher values of `.spec.parallelism` are effectively ignored.
+  remaining completions. Higher values of `.spec.parallelism` are effectively ignored.
 - For _work queue_ Jobs, no new Pods are started after any Pod has succeeded -- remaining Pods are allowed to complete, however.
 - If the Job {{< glossary_tooltip term_id="controller" >}} has not had time to react.
 - If the Job controller failed to create Pods for any reason (lack of `ResourceQuota`, lack of permission, etc.),
@@ -446,8 +455,11 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
   completion is homologous to each other. Note that Jobs that have null
   `.spec.completions` are implicitly `NonIndexed`.
 - `Indexed`: the Pods of a Job get an associated completion index from 0 to
-  `.spec.completions-1`. The index is available through three mechanisms:
+  `.spec.completions-1`. The index is available through four mechanisms:
   - The Pod annotation `batch.kubernetes.io/job-completion-index`.
+  - The Pod label `batch.kubernetes.io/job-completion-index` (for v1.28 and later). Note
+    the feature gate `PodIndexLabel` must be enabled to use this label, and it is enabled
+    by default.
   - As part of the Pod hostname, following the pattern `$(job-name)-$(index)`.
     When you use an Indexed Job in combination with a
     {{< glossary_tooltip term_id="Service" >}}, Pods within the Job can use
@@ -459,19 +471,21 @@ Jobs with _fixed completion count_ - that is, jobs that have non null
   设值时认为 Job 已经完成。换言之，每个 Job 完成事件都是独立无关且同质的。
   要注意的是，当 `.spec.completions` 取值为 null 时，Job 被隐式处理为 `NonIndexed`。
 - `Indexed`：Job 的 Pod 会获得对应的完成索引，取值为 0 到 `.spec.completions-1`。
-  该索引可以通过三种方式获取：
+  该索引可以通过四种方式获取：
   - Pod 注解 `batch.kubernetes.io/job-completion-index`。
+  - Pod 标签 `batch.kubernetes.io/job-completion-index`（适用于 v1.28 及更高版本）。
+    请注意，必须启用 `PodIndexLabel` 特性门控才能使用此标签，默认被启用。
   - 作为 Pod 主机名的一部分，遵循模式 `$(job-name)-$(index)`。
     当你同时使用带索引的 Job（Indexed Job）与 {{< glossary_tooltip term_id="Service" >}}，
     Job 中的 Pod 可以通过 DNS 使用确切的主机名互相寻址。
     有关如何配置的更多信息，请参阅[带 Pod 间通信的 Job](/zh-cn/docs/tasks/job/job-with-pod-to-pod-communication/)。
   - 对于容器化的任务，在环境变量 `JOB_COMPLETION_INDEX` 中。
 
-<!--
+  <!--
   The Job is considered complete when there is one successfully completed Pod
   for each index. For more information about how to use this mode, see
   [Indexed Job for Parallel Processing with Static Work Assignment](/docs/tasks/job/indexed-parallel-processing-static/).
--->
+  -->
   当每个索引都对应一个成功完成的 Pod 时，Job 被认为是已完成的。
   关于如何使用这种模式的更多信息，可参阅
   [用带索引的 Job 执行基于静态任务分配的并行处理](/zh-cn/docs/tasks/job/indexed-parallel-processing-static/)。
@@ -493,9 +507,9 @@ or completed for the same index will be deleted by the Job controller once they 
 ## Handling Pod and container failures
 
 A container in a Pod may fail for a number of reasons, such as because the process in it exited with
-a non-zero exit code, or the container was killed for exceeding a memory limit, etc.  If this
+a non-zero exit code, or the container was killed for exceeding a memory limit, etc. If this
 happens, and the `.spec.template.spec.restartPolicy = "OnFailure"`, then the Pod stays
-on the node, but the container is re-run.  Therefore, your program needs to handle the case when it is
+on the node, but the container is re-run. Therefore, your program needs to handle the case when it is
 restarted locally, or else specify `.spec.template.spec.restartPolicy = "Never"`.
 See [pod lifecycle](/docs/concepts/workloads/pods/pod-lifecycle/#example-states) for more information on `restartPolicy`.
 -->
@@ -513,9 +527,9 @@ Pod 则继续留在当前节点，但容器会被重新运行。
 <!--
 An entire Pod can also fail, for a number of reasons, such as when the pod is kicked off the node
 (node is upgraded, rebooted, deleted, etc.), or if a container of the Pod fails and the
-`.spec.template.spec.restartPolicy = "Never"`.  When a Pod fails, then the Job controller
-starts a new Pod.  This means that your application needs to handle the case when it is restarted in a new
-pod.  In particular, it needs to handle temporary files, locks, incomplete output and the like
+`.spec.template.spec.restartPolicy = "Never"`. When a Pod fails, then the Job controller
+starts a new Pod. This means that your application needs to handle the case when it is restarted in a new
+pod. In particular, it needs to handle temporary files, locks, incomplete output and the like
 caused by previous runs.
 -->
 整个 Pod 也可能会失败，且原因各不相同。
@@ -535,12 +549,21 @@ customize handling of pod failures by setting the Job's [pod failure policy](#po
 但你可以通过设置 Job 的 [Pod 失效策略](#pod-failure-policy)自定义对 Pod 失效的处理方式。
 
 <!--
+Additionally, you can choose to count the pod failures independently for each
+index of an [Indexed](#completion-mode) Job by setting the `.spec.backoffLimitPerIndex` field
+(for more information, see [backoff limit per index](#backoff-limit-per-index)).
+-->
+此外，你可以通过设置 `.spec.backoffLimitPerIndex` 字段，
+选择为 [Indexed](#completion-mode) Job 的每个索引独立计算 Pod 失败次数
+（细节参阅[逐索引的回退限制](#backoff-limit-per-index)）。
+
+<!--
 Note that even if you specify `.spec.parallelism = 1` and `.spec.completions = 1` and
 `.spec.template.spec.restartPolicy = "Never"`, the same program may
 sometimes be started twice.
 
 If you do specify `.spec.parallelism` and `.spec.completions` both greater than 1, then there may be
-multiple pods running at once.  Therefore, your pods must also be tolerant of concurrency.
+multiple pods running at once. Therefore, your pods must also be tolerant of concurrency.
 -->
 注意，即使你将 `.spec.parallelism` 设置为 1，且将 `.spec.completions` 设置为
 1，并且 `.spec.template.spec.restartPolicy` 设置为 "Never"，同一程序仍然有可能被启动两次。
@@ -583,6 +606,7 @@ Pods associated with the Job are recreated by the Job controller with an
 exponential back-off delay (10s, 20s, 40s ...) capped at six minutes.
 
 The number of retries is calculated in two ways:
+
 - The number of Pods with `.status.phase = "Failed"`.
 - When using `restartPolicy = "OnFailure"`, the number of retries in all the
   containers of Pods with `.status.phase` equal to `Pending` or `Running`.
@@ -609,7 +633,8 @@ considered failed.
 {{< note >}}
 <!--
 If your job has `restartPolicy = "OnFailure"`, keep in mind that your Pod running the Job
-will be terminated once the job backoff limit has been reached. This can make debugging the Job's executable more difficult. We suggest setting
+will be terminated once the job backoff limit has been reached. This can make debugging
+the Job's executable more difficult. We suggest setting
 `restartPolicy = "Never"` when debugging the Job or using a logging system to ensure output
 from failed Jobs is not lost inadvertently.
 -->
@@ -619,6 +644,117 @@ from failed Jobs is not lost inadvertently.
 我们建议在调试 Job 时将 `restartPolicy` 设置为 "Never"，
 或者使用日志系统来确保失效 Job 的输出不会意外遗失。
 {{< /note >}}
+
+<!--
+### Backoff limit per index {#backoff-limit-per-index}
+-->
+### 逐索引的回退限制    {#backoff-limit-per-index}
+
+{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+
+{{< note >}}
+<!--
+You can only configure the backoff limit per index for an [Indexed](#completion-mode) Job, if you
+have the `JobBackoffLimitPerIndex` [feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
+enabled in your cluster.
+-->
+只有在集群中启用了 `JobBackoffLimitPerIndex`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
+才能为 [Indexed](#completion-mode) Job 配置逐索引的回退限制。
+{{< /note >}}
+
+<!--
+When you run an [indexed](#completion-mode) Job, you can choose to handle retries
+for pod failures independently for each index. To do so, set the
+`.spec.backoffLimitPerIndex` to specify the maximal number of pod failures
+per index.
+-->
+运行 [Indexed](#completion-mode) Job 时，你可以选择对每个索引独立处理 Pod 失败的重试。
+为此，可以设置 `.spec.backoffLimitPerIndex` 来指定每个索引的最大 Pod 失败次数。
+
+<!--
+When the per-index backoff limit is exceeded for an index, Kuberentes considers the index as failed and adds it to the
+`.status.failedIndexes` field. The succeeded indexes, those with a successfully
+executed pods, are recorded in the `.status.completedIndexes` field, regardless of whether you set
+the `backoffLimitPerIndex` field.
+-->
+当某个索引超过逐索引的回退限制后，Kubernetes 将视该索引为已失败，并将其添加到 `.status.failedIndexes` 字段中。
+无论你是否设置了 `backoffLimitPerIndex` 字段，已成功执行的索引（具有成功执行的 Pod）将被记录在
+`.status.completedIndexes` 字段中。
+
+<!--
+Note that a failing index does not interrupt execution of other indexes.
+Once all indexes finish for a Job where you specified a backoff limit per index,
+if at least one of those indexes did fail, the Job controller marks the overall
+Job as failed, by setting the Failed condition in the status. The Job gets
+marked as failed even if some, potentially nearly all, of the indexes were
+processed successfully.
+-->
+请注意，失败的索引不会中断其他索引的执行。一旦在指定了逐索引回退限制的 Job 中的所有索引完成，
+如果其中至少有一个索引失败，Job 控制器会通过在状态中设置 Failed 状况将整个 Job 标记为失败。
+即使其中一些（可能几乎全部）索引已被成功处理，该 Job 也会被标记为失败。
+
+<!--
+You can additionally limit the maximal number of indexes marked failed by
+setting the `.spec.maxFailedIndexes` field.
+When the number of failed indexes exceeds the `maxFailedIndexes` field, the
+Job controller triggers termination of all remaining running Pods for that Job.
+Once all pods are terminated, the entire Job is marked failed by the Job
+controller, by setting the Failed condition in the Job status.
+-->
+你还可以通过设置 `.spec.maxFailedIndexes` 字段来限制标记为失败的最大索引数。
+当失败的索引数量超过 `maxFailedIndexes` 字段时，Job 控制器会对该 Job
+的运行中的所有余下 Pod 触发终止操作。一旦所有 Pod 被终止，Job 控制器将通过设置 Job
+状态中的 Failed 状况将整个 Job 标记为失败。
+
+<!--
+Here is an example manifest for a Job that defines a `backoffLimitPerIndex`:
+-->
+以下是定义 `backoffLimitPerIndex` 的 Job 示例清单：
+
+{{< codenew file="/controllers/job-backoff-limit-per-index-example.yaml" >}}
+
+<!--
+In the example above, the Job controller allows for one restart for each
+of the indexes. When the total number of failed indexes exceeds 5, then
+the entire Job is terminated.
+
+Once the job is finished, the Job status looks as follows:
+-->
+在上面的示例中，Job 控制器允许每个索引重新启动一次。
+当失败的索引总数超过 5 个时，整个 Job 将被终止。
+
+Job 完成后，该 Job 的状态如下所示：
+
+```sh
+kubectl get -o yaml job job-backoff-limit-per-index-example
+```
+
+<!--
+# 1 succeeded pod for each of 5 succeeded indexes
+# 2 failed pods (1 retry) for each of 5 failed indexes
+-->
+```yaml
+  status:
+    completedIndexes: 1,3,5,7,9
+    failedIndexes: 0,2,4,6,8
+    succeeded: 5          # 每 5 个成功的索引有 1 个成功的 Pod
+    failed: 10            # 每 5 个失败的索引有 2 个失败的 Pod（1 次重试）
+    conditions:
+    - message: Job has failed indexes
+      reason: FailedIndexes
+      status: "True"
+      type: Failed
+```
+
+<!--
+Additionally, you may want to use the per-index backoff along with a
+[pod failure policy](#pod-failure-policy). When using
+per-index backoff, there is a new `FailIndex` action available which allows you to
+avoid unnecessary retries within an index.
+-->
+此外，你可能想要结合使用逐索引回退与 [Pod 失败策略](#pod-failure-policy)。
+在使用逐索引回退时，有一个新的 `FailIndex` 操作可用，它让你避免就某个索引进行不必要的重试。
 
 <!-- 
 ### Pod failure policy {#pod-failure-policy}
@@ -634,8 +770,8 @@ You can only configure a Pod failure policy for a Job if you have the
 enabled in your cluster. Additionally, it is recommended
 to enable the `PodDisruptionConditions` feature gate in order to be able to detect and handle
 Pod disruption conditions in the Pod failure policy (see also:
-[Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)). Both feature gates are
-available in Kubernetes {{< skew currentVersion >}}.
+[Pod disruption conditions](/docs/concepts/workloads/pods/disruptions#pod-disruption-conditions)).
+Both feature gates are available in Kubernetes {{< skew currentVersion >}}.
 -->
 只有你在集群中启用了
 `JobPodFailurePolicy` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)，
@@ -661,12 +797,13 @@ which is based on the Job's `.spec.backoffLimit`. These are some examples of use
 在某些情况下，你可能希望更好地控制 Pod 失效的处理方式，
 而不是仅限于 [Pod 回退失效策略](#pod-backoff-failure-policy)所提供的控制能力，
 后者是基于 Job 的 `.spec.backoffLimit` 实现的。以下是一些使用场景：
+
 <!--
 * To optimize costs of running workloads by avoiding unnecessary Pod restarts,
   you can terminate a Job as soon as one of its Pods fails with an exit code
   indicating a software bug.
 * To guarantee that your Job finishes even if there are disruptions, you can
-  ignore Pod failures caused by disruptions  (such {{< glossary_tooltip text="preemption" term_id="preemption" >}},
+  ignore Pod failures caused by disruptions (such as {{< glossary_tooltip text="preemption" term_id="preemption" >}},
   {{< glossary_tooltip text="API-initiated eviction" term_id="api-eviction" >}}
   or {{< glossary_tooltip text="taint" term_id="taint" >}}-based eviction) so
   that they don't count towards the `.spec.backoffLimit` limit of retries.
@@ -745,6 +882,7 @@ the Pods in that Job that are still Pending or Running.
 
 <!--
 These are some requirements and semantics of the API:
+
 - if you want to use a `.spec.podFailurePolicy` field for a Job, you must
   also define that Job's pod template with `.spec.restartPolicy` set to `Never`.
 - the Pod failure policy rules you specify under `spec.podFailurePolicy.rules`
@@ -763,6 +901,8 @@ These are some requirements and semantics of the API:
      should not be incremented and a replacement Pod should be created.
   - `Count`: use to indicate that the Pod should be handled in the default way.
      The counter towards the `.spec.backoffLimit` should be incremented.
+  - `FailIndex`: use this action along with [backoff limit per index](#backoff-limit-per-index)
+     to avoid unnecessary retries within the index of a failed pod.
 -->
 下面是此 API 的一些要求和语义：
 - 如果你想在 Job 中使用 `.spec.podFailurePolicy` 字段，
@@ -779,6 +919,8 @@ These are some requirements and semantics of the API:
   - `FailJob`：表示 Pod 的任务应标记为 Failed，并且所有正在运行的 Pod 应被终止。
   - `Ignore`：表示 `.spec.backoffLimit` 的计数器不应该增加，应该创建一个替换的 Pod。
   - `Count`：表示 Pod 应该以默认方式处理。`.spec.backoffLimit` 的计数器应该增加。
+  - `FailIndex`：表示使用此操作以及[逐索引回退限制](#backoff-limit-per-index)来避免就失败的 Pod
+    的索引进行不必要的重试。
 
 {{< note >}}
 <!--
@@ -800,14 +942,25 @@ ensures that deleted pods have their finalizers removed by the Job controller.
 这确保已删除的 Pod 的 Finalizer 被 Job 控制器移除。
 {{< /note >}}
 
+{{< note >}}
+<!--
+Starting with Kubernetes v1.28, when Pod failure policy is used, the Job controller recreates
+terminating Pods only once these Pods reach the terminal `Failed` phase. This behavior is similar
+to `podReplacementPolicy: Failed`. For more information, see [Pod replacement policy](#pod-replacement-policy).
+-->
+自 Kubernetes v1.28 开始，当使用 Pod 失败策略时，Job 控制器仅在这些 Pod 达到终止的
+`Failed` 阶段时才会重新创建终止中的 Pod。这种行为类似于 `podReplacementPolicy: Failed`。
+细节参阅 [Pod 替换策略](#pod-replacement-policy)。
+{{< /note >}}
+
 <!--
 ## Job termination and cleanup
 
 When a Job completes, no more Pods are created, but the Pods are [usually](#pod-backoff-failure-policy) not deleted either.
-Keeping them around
-allows you to still view the logs of completed pods to check for errors, warnings, or other diagnostic output.
-The job object also remains after it is completed so that you can view its status.  It is up to the user to delete
-old jobs after noting their status.  Delete the job with `kubectl` (e.g. `kubectl delete jobs/pi` or `kubectl delete -f ./job.yaml`). When you delete the job using `kubectl`, all the pods it created are deleted too.
+Keeping them around allows you to still view the logs of completed pods to check for errors, warnings, or other diagnostic output.
+The job object also remains after it is completed so that you can view its status. It is up to the user to delete
+old jobs after noting their status. Delete the job with `kubectl` (e.g. `kubectl delete jobs/pi` or `kubectl delete -f ./job.yaml`).
+When you delete the job using `kubectl`, all the pods it created are deleted too.
 -->
 ## Job 终止与清理    {#job-termination-and-cleanup}
 
@@ -820,13 +973,16 @@ Job 完成时 Job 对象也一样被保留下来，这样你就可以查看它�
 当使用 `kubectl` 来删除 Job 时，该 Job 所创建的 Pod 也会被删除。
 
 <!--
-By default, a Job will run uninterrupted unless a Pod fails (`restartPolicy=Never`) or a Container exits in error (`restartPolicy=OnFailure`), at which point the Job defers to the
-`.spec.backoffLimit` described above. Once `.spec.backoffLimit` has been reached the Job will be marked as failed and any running Pods will be terminated.
+By default, a Job will run uninterrupted unless a Pod fails (`restartPolicy=Never`)
+or a Container exits in error (`restartPolicy=OnFailure`), at which point the Job defers to the
+`.spec.backoffLimit` described above. Once `.spec.backoffLimit` has been reached the Job will
+be marked as failed and any running Pods will be terminated.
 
 Another way to terminate a Job is by setting an active deadline.
 Do this by setting the `.spec.activeDeadlineSeconds` field of the Job to a number of seconds.
 The `activeDeadlineSeconds` applies to the duration of the job, no matter how many Pods are created.
-Once a Job reaches `activeDeadlineSeconds`, all of its running Pods are terminated and the Job status will become `type: Failed` with `reason: DeadlineExceeded`.
+Once a Job reaches `activeDeadlineSeconds`, all of its running Pods are terminated and the Job status
+will become `type: Failed` with `reason: DeadlineExceeded`.
 -->
 默认情况下，Job 会持续运行，除非某个 Pod 失败（`restartPolicy=Never`）
 或者某个容器出错退出（`restartPolicy=OnFailure`）。
@@ -841,7 +997,9 @@ Once a Job reaches `activeDeadlineSeconds`, all of its running Pods are terminat
 并且 Job 的状态更新为 `type: Failed` 及 `reason: DeadlineExceeded`。
 
 <!--
-Note that a Job's `.spec.activeDeadlineSeconds` takes precedence over its `.spec.backoffLimit`. Therefore, a Job that is retrying one or more failed Pods will not deploy additional Pods once it reaches the time limit specified by `activeDeadlineSeconds`, even if the `backoffLimit` is not yet reached.
+Note that a Job's `.spec.activeDeadlineSeconds` takes precedence over its `.spec.backoffLimit`.
+Therefore, a Job that is retrying one or more failed Pods will not deploy additional Pods once
+it reaches the time limit specified by `activeDeadlineSeconds`, even if the `backoffLimit` is not yet reached.
 
 Example:
 -->
@@ -865,14 +1023,18 @@ spec:
       containers:
       - name: pi
         image: perl:5.34.0
-        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+        command: ["perl", "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
 ```
-<!--
-Note that both the Job spec and the [Pod template spec](/docs/concepts/workloads/pods/init-containers/#detailed-behavior) within the Job have an `activeDeadlineSeconds` field. Ensure that you set this field at the proper level.
 
-Keep in mind that the `restartPolicy` applies to the Pod, and not to the Job itself: there is no automatic Job restart once the Job status is `type: Failed`.
-That is, the Job termination mechanisms activated with `.spec.activeDeadlineSeconds` and `.spec.backoffLimit` result in a permanent Job failure that requires manual intervention to resolve.
+<!--
+Note that both the Job spec and the [Pod template spec](/docs/concepts/workloads/pods/init-containers/#detailed-behavior)
+within the Job have an `activeDeadlineSeconds` field. Ensure that you set this field at the proper level.
+
+Keep in mind that the `restartPolicy` applies to the Pod, and not to the Job itself:
+there is no automatic Job restart once the Job status is `type: Failed`.
+That is, the Job termination mechanisms activated with `.spec.activeDeadlineSeconds`
+and `.spec.backoffLimit` result in a permanent Job failure that requires manual intervention to resolve.
 -->
 注意 Job 规约和 Job 中的
 [Pod 模板规约](/zh-cn/docs/concepts/workloads/pods/init-containers/#detailed-behavior)
@@ -942,7 +1104,7 @@ spec:
       containers:
       - name: pi
         image: perl:5.34.0
-        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+        command: ["perl", "-Mbignum=bpi", "-wle", "print bpi(2000)"]
       restartPolicy: Never
 ```
 
@@ -993,9 +1155,9 @@ consume.
 <!--
 ## Job patterns
 
-The Job object can be used to support reliable parallel execution of Pods.  The Job object is not
+The Job object can be used to support reliable parallel execution of Pods. The Job object is not
 designed to support closely-communicating parallel processes, as commonly found in scientific
-computing.  It does support parallel processing of a set of independent but related *work items*.
+computing. It does support parallel processing of a set of independent but related *work items*.
 These might be emails to be sent, frames to be rendered, files to be transcoded, ranges of keys in a
 NoSQL database to scan, and so on.
 -->
@@ -1008,7 +1170,7 @@ Job 的确能够支持对一组相互独立而又有所关联的**工作条目**
 数据库中要扫描的主键范围等等。
 
 <!--
-In a complex system, there may be multiple different sets of work items.  Here we are just
+In a complex system, there may be multiple different sets of work items. Here we are just
 considering one set of work items that the user wants to manage together &mdash; a *batch job*.
 
 There are several different patterns for parallel computation, each with strengths and weaknesses.
@@ -1020,13 +1182,13 @@ The tradeoffs are:
 并行计算的模式有好多种，每种都有自己的强项和弱点。这里要权衡的因素有：
 
 <!--
-- One Job object for each work item, vs. a single Job object for all work items.  The latter is
-  better for large numbers of work items.  The former creates some overhead for the user and for the
+- One Job object for each work item, vs. a single Job object for all work items. The latter is
+  better for large numbers of work items. The former creates some overhead for the user and for the
   system to manage large numbers of Job objects.
 - Number of pods created equals number of work items, vs. each Pod can process multiple work items.
-  The former typically requires less modification to existing code and containers.  The latter
+  The former typically requires less modification to existing code and containers. The latter
   is better for large numbers of work items, for similar reasons to the previous bullet.
-- Several approaches use a work queue.  This requires running a queue service,
+- Several approaches use a work queue. This requires running a queue service,
   and modifications to the existing program or container to make it use the work queue.
   Other approaches are easier to adapt to an existing containerised application.
 -->
@@ -1050,7 +1212,7 @@ The pattern names are also links to examples and more detailed description.
 | [Queue with Variable Pod Count]                 |         ✓         |             ✓               |                     |
 | [Indexed Job with Static Work Assignment]       |         ✓         |                             |          ✓          |
 | [Job Template Expansion]                        |                   |                             |          ✓          |
-| [Job with Pod-to-Pod Communication]             |         ✓         |         sometimes           |      sometimes      | 
+| [Job with Pod-to-Pod Communication]             |         ✓         |         sometimes           |      sometimes      |
 -->
 下面是对这些权衡的汇总，第 2 到 4 列对应上面的权衡比较。
 模式的名称对应了相关示例和更详细描述的链接。
@@ -1065,9 +1227,9 @@ The pattern names are also links to examples and more detailed description.
 
 <!--
 When you specify completions with `.spec.completions`, each Pod created by the Job controller
-has an identical [`spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).  This means that
-all pods for a task will have the same command line and the same
-image, the same volumes, and (almost) the same environment variables.  These patterns
+has an identical [`spec`](https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status).
+This means that all pods for a task will have the same command line and the same
+image, the same volumes, and (almost) the same environment variables. These patterns
 are different ways to arrange for pods to work on different things.
 
 This table shows the required settings for `.spec.parallelism` and `.spec.completions` for each of the patterns.
@@ -1142,7 +1304,8 @@ timer will be stopped and reset when a Job is suspended and resumed.
 并在 Job 恢复执行时复位。
 
 <!--
-When you suspend a Job, any running Pods that don't have a status of `Completed` will be [terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
+When you suspend a Job, any running Pods that don't have a status of `Completed`
+will be [terminated](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
 with a SIGTERM signal. The Pod's graceful termination period will be honored and
 your Pod must handle this signal in this period. This may involve saving
 progress for later or undoing changes. Pods terminated this way will not count
@@ -1272,27 +1435,15 @@ Job 被恢复执行时，Pod 创建操作立即被重启执行。
 
 {{< feature-state for_k8s_version="v1.27" state="stable" >}}
 
-{{< note >}}
 <!--
-In order to use this behavior, you must enable the `JobMutableNodeSchedulingDirectives`
-[feature gate](/docs/reference/command-line-tools-reference/feature-gates/)
-on the [API server](/docs/reference/command-line-tools-reference/kube-apiserver/).
-It is enabled by default.
--->
-为了使用此功能，你必须在 [API 服务器](/zh-cn/docs/reference/command-line-tools-reference/kube-apiserver/)上启用
-`JobMutableNodeSchedulingDirectives` [特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)。
-默认情况下启用。
-{{< /note >}}
-
-<!--
-In most cases a parallel job will want the pods to run with constraints, 
+In most cases, a parallel job will want the pods to run with constraints,
 like all in the same zone, or all either on GPU model x or y but not a mix of both.
 -->
 在大多数情况下，并行作业会希望 Pod 在一定约束条件下运行，
 比如所有的 Pod 都在同一个区域，或者所有的 Pod 都在 GPU 型号 x 或 y 上，而不是两者的混合。
 
 <!--
-The [suspend](#suspending-a-job) field is the first step towards achieving those semantics. Suspend allows a 
+The [suspend](#suspending-a-job) field is the first step towards achieving those semantics. Suspend allows a
 custom queue controller to decide when a job should start; However, once a job is unsuspended,
 a custom queue controller has no influence on where the pods of a job will actually land.
 -->
@@ -1302,8 +1453,8 @@ suspend 允许自定义队列控制器，以决定工作何时开始；然而，
 
 <!--
 This feature allows updating a Job's scheduling directives before it starts, which gives custom queue
-controllers the ability to influence pod placement while at the same time offloading actual 
-pod-to-node assignment to kube-scheduler. This is allowed only for suspended Jobs that have never 
+controllers the ability to influence pod placement while at the same time offloading actual
+pod-to-node assignment to kube-scheduler. This is allowed only for suspended Jobs that have never
 been unsuspended before.
 -->
 此特性允许在 Job 开始之前更新调度指令，从而为定制队列提供影响 Pod
@@ -1313,7 +1464,7 @@ been unsuspended before.
 这仅适用于从未暂停的 Job。
 
 <!--
-The fields in a Job's pod template that can be updated are node affinity, node selector, 
+The fields in a Job's pod template that can be updated are node affinity, node selector,
 tolerations, labels, annotations and [scheduling gates](/docs/concepts/scheduling-eviction/pod-scheduling-readiness/).
 -->
 Job 的 Pod 模板中可以更新的字段是节点亲和性、节点选择器、容忍、标签、注解和
@@ -1339,12 +1490,12 @@ To do this, you can specify the `.spec.selector` of the Job.
 为了实现这点，你可以手动设置 Job 的 `spec.selector` 字段。
 
 <!--
-Be very careful when doing this.  If you specify a label selector which is not
+Be very careful when doing this. If you specify a label selector which is not
 unique to the pods of that Job, and which matches unrelated Pods, then pods of the unrelated
 job may be deleted, or this Job may count other Pods as completing it, or one or both
-Jobs may refuse to create Pods or run to completion.  If a non-unique selector is
+Jobs may refuse to create Pods or run to completion. If a non-unique selector is
 chosen, then other controllers (e.g. ReplicationController) and their Pods may behave
-in unpredictable ways too.  Kubernetes will not stop you from making a mistake when
+in unpredictable ways too. Kubernetes will not stop you from making a mistake when
 specifying `.spec.selector`.
 -->
 做这个操作时请务必小心。
@@ -1359,7 +1510,7 @@ Kubernetes 不会在你设置 `.spec.selector` 时尝试阻止你犯这类错误
 <!--
 Here is an example of a case when you might want to use this feature.
 
-Say Job `old` is already running.  You want existing Pods
+Say Job `old` is already running. You want existing Pods
 to keep running, but you want the rest of the Pods it creates
 to use a different pod template and for the Job to have a new name.
 You cannot update the Job because these fields are not updatable.
@@ -1428,7 +1579,7 @@ spec:
 ```
 
 <!--
-The new Job itself will have a different uid from `a8f3d00d-c6d2-11e5-9f87-42010af00002`.  Setting
+The new Job itself will have a different uid from `a8f3d00d-c6d2-11e5-9f87-42010af00002`. Setting
 `manualSelector: true` tells the system that you know what you are doing and to allow this
 mismatch.
 -->
@@ -1479,12 +1630,91 @@ scaling an indexed Job, such as MPI, Horovord, Ray, and PyTorch training jobs.
 和 PyTorch 训练作业。
 
 <!--
+### Delayed creation of replacement pods {#pod-replacement-policy}
+-->
+### 延迟创建替换 Pod   {#pod-replacement-policy}
+
+{{< feature-state for_k8s_version="v1.28" state="alpha" >}}
+
+{{< note >}}
+<!--
+You can only set `podReplacementPolicy` on Jobs if you enable the `JobPodReplacementPolicy`
+[feature gate](/docs/reference/command-line-tools-reference/feature-gates/).
+-->
+你只有在启用了 `JobPodReplacementPolicy`
+[特性门控](/zh-cn/docs/reference/command-line-tools-reference/feature-gates/)后，
+才能为 Job 设置 `podReplacementPolicy`。
+{{< /note >}}
+
+<!--
+By default, the Job controller recreates Pods as soon they either fail or are terminating (have a deletion timestamp).
+This means that, at a given time, when some of the Pods are terminating, the number of running Pods for a Job
+can be greater than `parallelism` or greater than one Pod per index (if you are using an Indexed Job).
+-->
+默认情况下，当 Pod 失败或正在终止（具有删除时间戳）时，Job 控制器会立即重新创建 Pod。
+这意味着，在某个时间点上，当一些 Pod 正在终止时，为 Job 正运行中的 Pod 数量可以大于 `parallelism`
+或超出每个索引一个 Pod（如果使用 Indexed Job）。
+
+<!--
+You may choose to create replacement Pods only when the terminating Pod is fully terminal (has `status.phase: Failed`).
+To do this, set the `.spec.podReplacementPolicy: Failed`.
+The default replacement policy depends on whether the Job has a `podFailurePolicy` set.
+With no Pod failure policy defined for a Job, omitting the `podReplacementPolicy` field selects the
+`TerminatingOrFailed` replacement policy:
+the control plane creates replacement Pods immediately upon Pod deletion
+(as soon as the control plane sees that a Pod for this Job has `deletionTimestamp` set).
+For Jobs with a Pod failure policy set, the default  `podReplacementPolicy` is `Failed`, and no other
+value is permitted.
+See [Pod failure policy](#pod-failure-policy) to learn more about Pod failure policies for Jobs.
+-->
+你可以选择仅在终止过程中的 Pod 完全终止（具有 `status.phase: Failed`）时才创建替换 Pod。
+为此，可以设置 `.spec.podReplacementPolicy: Failed`。
+默认的替换策略取决于 Job 是否设置了 `podFailurePolicy`。对于没有定义 Pod 失败策略的 Job，
+省略 `podReplacementPolicy` 字段相当于选择 `TerminatingOrFailed` 替换策略：
+控制平面在 Pod 删除时立即创建替换 Pod（只要控制平面发现该 Job 的某个 Pod 被设置了 `deletionTimestamp`）。
+对于设置了 Pod 失败策略的 Job，默认的 `podReplacementPolicy` 是 `Failed`，不允许其他值。
+请参阅 [Pod 失败策略](#pod-failure-policy)以了解更多关于 Job 的 Pod 失败策略的信息。
+
+```yaml
+kind: Job
+metadata:
+  name: new
+  ...
+spec:
+  podReplacementPolicy: Failed
+  ...
+```
+
+<!--
+Provided your cluster has the feature gate enabled, you can inspect the `.status.terminating` field of a Job.
+The value of the field is the number of Pods owned by the Job that are currently terminating.
+-->
+如果你的集群启用了此特性门控，你可以检查 Job 的 `.status.terminating` 字段。
+该字段值是当前处于终止过程中的、由该 Job 拥有的 Pod 的数量。
+
+```shell
+kubectl get jobs/myjob -o yaml
+```
+
+<!--
+# .metadata and .spec omitted
+# three Pods are terminating and have not yet reached the Failed phase
+-->
+```yaml
+apiVersion: batch/v1
+kind: Job
+# .metadata 和 .spec 被省略
+status:
+  terminating: 3 # 三个 Pod 正在终止且还未达到 Failed 阶段
+```
+
+<!--
 ## Alternatives
 
 ### Bare Pods
 
 When the node that a Pod is running on reboots or fails, the pod is terminated
-and will not be restarted.  However, a Job will create new Pods to replace terminated ones.
+and will not be restarted. However, a Job will create new Pods to replace terminated ones.
 For this reason, we recommend that you use a Job rather than a bare Pod, even if your application
 requires only a single Pod.
 -->
@@ -1522,7 +1752,7 @@ Job 管理的是那些希望被终止的 Pod（例如，批处理作业）。
 ### Single Job starts controller Pod
 
 Another pattern is for a single Job to create a Pod which then creates other Pods, acting as a sort
-of custom controller for those Pods.  This allows the most flexibility, but may be somewhat
+of custom controller for those Pods. This allows the most flexibility, but may be somewhat
 complicated to get started with and offers less integration with Kubernetes.
 -->
 ### 单个 Job 启动控制器 Pod    {#single-job-starts-controller-pod}
@@ -1534,8 +1764,8 @@ complicated to get started with and offers less integration with Kubernetes.
 
 <!--
 One example of this pattern would be a Job which starts a Pod which runs a script that in turn
-starts a Spark master controller (see [spark example](https://github.com/kubernetes/examples/tree/master/staging/spark/README.md)), runs a spark
-driver, and then cleans up.
+starts a Spark master controller (see [spark example](https://github.com/kubernetes/examples/tree/master/staging/spark/README.md)),
+runs a spark driver, and then cleans up.
 
 An advantage of this approach is that the overall process gets the completion guarantee of a Job
 object, but maintains complete control over what Pods are created and how work is assigned to them.
@@ -1552,10 +1782,10 @@ object, but maintains complete control over what Pods are created and how work i
 <!--
 * Learn about [Pods](/docs/concepts/workloads/pods).
 * Read about different ways of running Jobs:
-   * [Coarse Parallel Processing Using a Work Queue](/docs/tasks/job/coarse-parallel-processing-work-queue/)
-   * [Fine Parallel Processing Using a Work Queue](/docs/tasks/job/fine-parallel-processing-work-queue/)
-   * Use an [indexed Job for parallel processing with static work assignment](/docs/tasks/job/indexed-parallel-processing-static/)
-   * Create multiple Jobs based on a template: [Parallel Processing using Expansions](/docs/tasks/job/parallel-processing-expansion/)
+  * [Coarse Parallel Processing Using a Work Queue](/docs/tasks/job/coarse-parallel-processing-work-queue/)
+  * [Fine Parallel Processing Using a Work Queue](/docs/tasks/job/fine-parallel-processing-work-queue/)
+  * Use an [indexed Job for parallel processing with static work assignment](/docs/tasks/job/indexed-parallel-processing-static/)
+  * Create multiple Jobs based on a template: [Parallel Processing using Expansions](/docs/tasks/job/parallel-processing-expansion/)
 * Follow the links within [Clean up finished jobs automatically](#clean-up-finished-jobs-automatically)
   to learn more about how your cluster can clean up completed and / or failed tasks.
 * `Job` is part of the Kubernetes REST API.
