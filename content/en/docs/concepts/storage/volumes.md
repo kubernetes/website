@@ -244,7 +244,7 @@ The `emptyDir.medium` field controls where `emptyDir` volumes are stored. By
 default `emptyDir` volumes are stored on whatever medium that backs the node
 such as disk, SSD, or network storage, depending on your environment. If you set
 the `emptyDir.medium` field to `"Memory"`, Kubernetes mounts a tmpfs (RAM-backed
-filesystem) for you instead.  While tmpfs is very fast, be aware that, unlike
+filesystem) for you instead.  While tmpfs is very fast be aware that, unlike
 disks, files you write count against your container's memory limit.
 
 
